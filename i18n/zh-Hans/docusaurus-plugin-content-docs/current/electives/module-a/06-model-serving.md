@@ -1,7 +1,7 @@
 ---
 title: "E.A.6 模型服务化"
 sidebar_position: 6
-description: "从请求队列、批处理、版本路由、健康检查到服务指标，理解模型服务化为什么是一套完整的工程系统。"
+description: "用请求队列、批处理、版本路由和指标，搭建一个最小模型服务流程。"
 keywords: [model serving, batching, request queue, version routing, health check, deployment]
 ---
 
@@ -11,261 +11,102 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 ![模型服务指标与版本路由图](/img/course/elective-serving-metrics-version-routing-map.png)
 
-:::tip 读图提示
-模型服务上线后最该看的不是单次推理时间，而是队列等待、batch 效率、P95/P99 延迟、错误率、版本路由和回滚能力。读图时把它当成一个长期运行的系统。
-:::
+把模型服务化，和在脚本里调用一次模型不是一回事。服务要接很多请求，把它们排队、批处理、发到正确的模型版本、记录指标，并在某个版本失败时可以恢复。
 
-:::tip 本节定位
-“把模型跑起来”和“把模型服务化”是两件不同的事。
+## 准备内容
 
-前者更像：
+- Python 3.10+
+- 不需要第三方包
+- 理解字典和列表即可
 
-- 在脚本里调用一次模型
+## 关键术语
 
-后者更像：
+- **Queue（队列）**：请求临时等待的地方。
+- **Batch（批）**：多个请求一起处理。
+- **Version routing（版本路由）**：把流量发到 `v1`、`v2` 或灰度模型。
+- **P95 latency（P95 延迟）**：95% 的请求能在这个时间内完成。
+- **Rollback（回滚）**：把流量切回更稳定的旧版本。
 
-- 接请求
-- 排队
-- 调度
-- 返回结果
-- 监控与升级
+## 运行一个微型 Serving 循环
 
-这节课要解决的，就是从“能调用模型”走到“能提供模型服务”这一步。
-:::
-
-## 学习目标
-
-- 理解模型服务化的核心组成部分
-- 理解请求队列、批处理和版本路由在服务里的作用
-- 通过可运行示例搭建一个最小 serving 流程
-- 建立模型服务上线前该关注哪些指标的意识
-
----
-
-## 一、为什么模型服务化不是“包个 API”就结束？
-
-### 因为真实请求不是一条一条均匀到来的
-
-服务会遇到：
-
-- 突发高峰
-- 大小不一的请求
-- 慢请求和快请求混杂
-
-这意味着你需要：
-
-- 队列
-- 调度
-- 超时
-- 指标
-
-### 因为模型会升级
-
-上线后你还会遇到：
-
-- 新版本灰度
-- 模型回滚
-- 多版本共存
-
-所以服务化不只是“把当前模型暴露出去”，
-还包括未来如何维护。
-
-### 一个类比
-
-单次推理像你自己在厨房做一顿饭。
-模型服务化更像开餐厅：
-
-- 客人会排队
-- 厨房要调度
-- 菜要稳定出品
-
----
-
-## 二、服务化最核心的几个组件
-
-### 请求入口
-
-负责：
-
-- 接收请求
-- 参数校验
-- 身份认证
-
-### 队列
-
-负责：
-
-- 缓冲请求
-- 平滑流量
-
-### 批处理器
-
-负责把多个小请求合并，提升吞吐。
-
-### 模型执行器
-
-真正完成：
-
-- 预处理
-- 推理
-- 后处理
-
-### 版本路由与健康检查
-
-负责：
-
-- 哪个请求去哪个模型版本
-- 某个实例是否可接流量
-
----
-
-## 三、先跑一个最小 serving 流程
-
-这个示例会模拟：
-
-1. 请求进入队列
-2. 批处理器按批次出队
-3. 模型执行器统一处理
-4. 按模型版本返回结果
+创建 `serving_loop.py`：
 
 ```python
-from collections import deque
+requests = [
+    {"id": 1, "version": "v1", "text": "refund"},
+    {"id": 2, "version": "v1", "text": "invoice"},
+    {"id": 3, "version": "v2", "text": "change address"},
+    {"id": 4, "version": "v2", "text": "shipping"},
+    {"id": 5, "version": "v1", "text": "certificate"},
+]
 
+batches = {}
+for request in requests:
+    batches.setdefault(request["version"], []).append(request)
 
-request_queue = deque(
-    [
-        {"id": "req1", "text": "退款规则", "model_version": "v1"},
-        {"id": "req2", "text": "发票规则", "model_version": "v1"},
-        {"id": "req3", "text": "地址修改", "model_version": "v2"},
-        {"id": "req4", "text": "证书说明", "model_version": "v2"},
-    ]
-)
+for version, items in batches.items():
+    print(version, "batch_size=", len(items), "ids=", [item["id"] for item in items])
 
+    for item in items:
+        item["answer"] = f"{version}:{item['text']}:ok"
 
-def batch_pop(queue, batch_size):
-    batch = []
-    while queue and len(batch) < batch_size:
-        batch.append(queue.popleft())
-    return batch
-
-
-def model_executor(batch):
-    outputs = []
-    for item in batch:
-        outputs.append(
-            {
-                "id": item["id"],
-                "model_version": item["model_version"],
-                "answer": f"[{item['model_version']}] processed:{item['text']}",
-            }
-        )
-    return outputs
-
-
-all_outputs = []
-while request_queue:
-    batch = batch_pop(request_queue, batch_size=2)
-    print("batch:", batch)
-    outputs = model_executor(batch)
-    all_outputs.extend(outputs)
-
-print("\noutputs:")
-for item in all_outputs:
-    print(item)
+print("answers:")
+for request in requests:
+    print(request["id"], request["answer"])
 ```
 
-### 这段代码最值得学什么？
+运行：
 
-它说明模型服务化最基础的运行模式：
+```bash
+python serving_loop.py
+```
 
-- 请求不是直接一个个立刻跑
-- 而是先进队列，再按策略调度
+预期输出：
 
-### 为什么批处理对服务很重要？
+```text
+v1 batch_size= 3 ids= [1, 2, 5]
+v2 batch_size= 2 ids= [3, 4]
+answers:
+1 v1:refund:ok
+2 v1:invoice:ok
+3 v2:change address:ok
+4 v2:shipping:ok
+5 v1:certificate:ok
+```
 
-因为很多模型在批量处理时吞吐更高。
-如果每条请求都单独跑：
+这个小脚本展示了服务化的核心循环：请求进入、按版本分组、批处理，然后返回可追踪的答案。
 
-- 资源利用率可能很差
+## 加一条安全规则
 
-### 为什么这里显式保留 `model_version`？
+在批处理循环前加入：
 
-因为真实服务里，多版本共存很常见。
-没有版本字段，灰度和回滚会非常麻烦。
+```python
+healthy_versions = {"v1": True, "v2": False}
+requests = [
+    request if healthy_versions[request["version"]] else {**request, "version": "v1"}
+    for request in requests
+]
+```
 
----
+再次运行。原本请求 `v2` 的流量会回到 `v1`。这就是健康检查和回滚的基本思路。
 
-## 四、服务上线后最该看哪些指标？
+## 上线前先看这些指标
 
-### 延迟
+优先记录：
 
-至少看：
+1. 队列等待时间
+2. 平均延迟和 P95 延迟
+3. 错误率
+4. 平均 batch 大小
+5. 每个模型版本的流量占比
 
-- 平均延迟
-- P95 延迟
+## 常见错误
 
-### 吞吐
-
-例如：
-
-- 每秒请求数
-- 每秒批次数
-
-### 错误率
-
-包括：
-
-- 请求失败
-- 超时
-- 模型内部异常
-
-### 批处理效率
-
-例如：
-
-- 平均 batch size
-
-如果长期偏小，
-说明批处理策略可能没有真正发挥作用。
-
----
-
-## 五、模型服务化最容易踩的坑
-
-### 误区一：只看模型推理时间
-
-真实延迟通常还包括：
-
-- 排队
-- 预处理
-- 后处理
-- 网络开销
-
-### 误区二：批处理越大越好
-
-batch 太大可能提升吞吐，
-但也可能把单请求延迟拉高。
-
-### 误区三：没有版本路由就直接替换线上模型
-
-这样一旦出问题，回滚会非常痛苦。
-
----
-
-## 小结
-
-这节最重要的是建立一个服务视角：
-
-> **模型服务化不是“写一个 API 调模型”，而是围绕队列、批处理、版本、健康检查和指标，把模型做成可持续运维的服务。**
-
-只要这层理解清楚了，
-后面你做边缘部署和综合项目时就更容易串起来。
-
----
+- 只汇报模型推理时间，忽略队列、预处理和网络时间。
+- batch 做得太大，反而伤害用户侧延迟。
+- 没有版本路由就直接替换生产模型。
+- 没有请求 ID，出问题后几乎无法排查。
 
 ## 练习
 
-1. 把示例里的 `batch_size` 改成 `1` 和 `3`，观察输出组织方式怎么变。
-2. 想一想：为什么模型服务里一定要显式带上版本信息？
-3. 如果你更看重单请求延迟，而不是总吞吐，批处理策略该怎么调？
-4. 你会在模型服务上线后优先看哪三个指标？为什么？
+给每个请求加 `latency_ms` 字段，计算每个版本的平均延迟。如果 `v2` 比 `v1` 慢超过 20 ms，就把后续请求全部切回 `v1`。

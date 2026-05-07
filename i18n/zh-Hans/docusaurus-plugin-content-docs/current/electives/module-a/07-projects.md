@@ -1,267 +1,103 @@
 ---
 title: "E.A.7 部署综合项目"
 sidebar_position: 7
-description: "把 C++、优化、推理引擎、服务化和边缘部署串成一个完整作品，做一个可展示的轻量模型部署项目。"
+description: "把 C++、优化、推理引擎、边缘约束、服务化和指标组装成一个小型部署作品。"
 keywords: [deployment project, edge inference, model serving, optimization, portfolio project]
 ---
 
 # E.A.7 部署综合项目
 
-:::tip 本节定位
-前面这一组选修课讲了不少零件：
-
-- C++ 基础
-- 资源管理
-- 模型优化
-- 推理引擎
-- 边缘部署
-- 模型服务化
-
-这一节要做的就是把这些零件装起来，形成一个能讲得清楚、也能展示得出来的项目。
-:::
-
 ![部署综合项目交付闭环图](/img/course/elective-deployment-project-delivery-loop.png)
 
-## 学习目标
+这个项目不是训练最大模型，而是证明你能把一个模型变成小型、可衡量、可部署的系统。
 
-- 学会把“模型部署能力”组织成一个可展示项目
-- 理解部署类项目和训练类项目在展示重点上的差异
-- 通过一个可运行示例建立项目骨架
-- 知道该如何展示性能、资源占用和稳定性
+先构造一个简单项目故事：
 
----
+> 轻量图像分类服务：支持本地推理、批处理、指标记录和边缘设备就绪检查。
 
-## 一、部署类项目最该展示什么？
+## 准备内容
 
-### 不是“模型多强”，而是“系统多稳”
+- Python 3.10+
+- 不需要第三方包
+- 一个小模型想法，可以是真模型，也可以先模拟
+- 一个目标设备，例如笔记本 CPU、Raspberry Pi、Jetson 或云端 CPU 实例
 
-部署项目最有说服力的通常不是：
+## 交付清单
 
-- 单次样例多惊艳
+最终项目应展示：
 
-而是：
+1. 目标设备和推理引擎选择
+2. 输入与输出示例
+3. 优化前后的指标对比
+4. 服务化或批处理流程
+5. 已知失败案例
+6. 复现命令
 
-- 延迟如何
-- 吞吐如何
-- 内存占用如何
-- 部署环境如何
-- 回滚和监控是否考虑到
+## 运行项目就绪评分
 
-### 一个适合新手的项目题目
-
-很适合做成作品集的题目例如：
-
-> **轻量图像分类服务：支持本地推理、批量处理和边缘设备适配。**
-
-这个题目好在：
-
-- 输入明确
-- 输出明确
-- 可以比较不同部署方案
-- 可以展示优化与服务化
-
-### 为什么这个题目比“做个超大通用系统”更好？
-
-因为部署类项目最怕范围太大。
-清晰、可测、可展示，比功能铺得太散更重要。
-
----
-
-## 二、一个部署综合项目最小应包含哪些模块？
-
-建议至少包含：
-
-1. 模型准备
-   例如导出、量化或格式转换
-2. 推理执行
-   例如选定一个推理引擎
-3. 服务接口
-   例如 HTTP 或本地批处理接口
-4. 指标统计
-   延迟、吞吐、内存
-5. 部署说明
-   环境、硬件、启动方式
-
-如果时间允许，再补：
-
-- 边缘设备版本
-- 灰度或版本切换
-- 更完整监控
-
----
-
-## 三、先跑一个项目骨架示例
-
-这个示例不会真的起服务，
-但会把一个部署项目最关键的规划结构直接表达出来：
+创建 `deployment_project_check.py`：
 
 ```python
-from dataclasses import dataclass, field
+project = {
+    "name": "lightweight-image-classifier",
+    "target_device": "edge-c",
+    "engine": "ONNX Runtime",
+    "baseline": {"latency_ms": 120, "memory_mb": 820, "accuracy": 0.904},
+    "optimized": {"latency_ms": 68, "memory_mb": 430, "accuracy": 0.899},
+    "evidence": ["README.md", "metrics.csv", "failure_cases.md"],
+}
 
+checks = {
+    "latency_under_80": project["optimized"]["latency_ms"] < 80,
+    "memory_under_512": project["optimized"]["memory_mb"] < 512,
+    "accuracy_drop_ok": project["baseline"]["accuracy"] - project["optimized"]["accuracy"] <= 0.01,
+    "has_failure_cases": "failure_cases.md" in project["evidence"],
+}
 
-@dataclass
-class DeploymentProject:
-    name: str
-    model_name: str
-    target_device: str
-    engine: str
-    modules: list
-    metrics: dict
-    risks: list = field(default_factory=list)
+for name, passed in checks.items():
+    print(name, passed)
 
-
-project = DeploymentProject(
-    name="lightweight-image-classifier-serving",
-    model_name="tiny_classifier.onnx",
-    target_device="raspberry_pi_5",
-    engine="onnxruntime",
-    modules=[
-        "preprocess",
-        "inference_engine",
-        "postprocess",
-        "batch_scheduler",
-        "http_api",
-        "metrics_exporter",
-    ],
-    metrics={
-        "p95_latency_ms": 85,
-        "throughput_qps": 18,
-        "peak_memory_mb": 620,
-    },
-    risks=[
-        "batch size too large increases latency",
-        "edge device thermal throttling",
-        "version rollback not automated yet",
-    ],
-)
-
-print(project)
+release_candidate = all(checks.values())
+print("release_candidate:", release_candidate)
+print("evidence_files:", project["evidence"])
 ```
 
-### 这个示例为什么有用？
+运行：
 
-因为部署项目最怕只剩：
+```bash
+python deployment_project_check.py
+```
 
-- “我做了很多优化”
+预期输出：
 
-却说不清：
+```text
+latency_under_80 True
+memory_under_512 True
+accuracy_drop_ok True
+has_failure_cases True
+release_candidate: True
+evidence_files: ['README.md', 'metrics.csv', 'failure_cases.md']
+```
 
-- 部署对象是什么
-- 跑在什么设备上
-- 核心模块有哪些
-- 用什么指标证明成果
+这就是可展示部署项目的形状：不只是代码，还要有证据。
 
-这个结构化骨架恰好逼你把这些说清楚。
+## 如何讲这个项目
 
-### 为什么部署项目一定要带指标？
+建议按这个顺序：
 
-因为没有指标，
-别人很难判断你的优化是否真的有价值。
+1. 问题：要运行什么、运行在哪里、为什么要这样做。
+2. 约束：内存、延迟、硬件、离线要求。
+3. 设计：模型格式、推理引擎、服务链路。
+4. 证据：优化前后指标和失败案例。
+5. 取舍：哪些还没优化，为什么暂时不做。
 
-至少建议明确：
+## 常见错误
 
-- 延迟
-- 吞吐
-- 内存或显存
-
----
-
-## 四、部署项目推荐的展示方式
-
-### 先讲问题和目标
-
-例如：
-
-- 想把一个轻量分类模型部署到边缘设备上
-- 要求离线推理
-- 目标延迟小于 100ms
-
-### 再讲系统结构
-
-例如：
-
-- 模型格式
-- 推理引擎
-- 服务架构
-- 目标硬件
-
-### 最后讲结果和取舍
-
-例如：
-
-- 为什么选 ONNX Runtime 而不是 TensorRT
-- 为什么 batch 没有继续调大
-- 为什么暂时没有做更激进量化
-
-这部分往往最能体现工程判断。
-
----
-
-## 五、项目里最容易忽略的三件事
-
-### 环境复现
-
-如果别人无法快速重现：
-
-- 依赖版本
-- 启动命令
-- 输入样例
-
-项目说服力会下降很多。
-
-### 基线对比
-
-最好说明：
-
-- 优化前是什么样
-- 优化后改善了什么
-
-### 失败案例
-
-例如：
-
-- 某些设备上功耗太高
-- 大 batch 导致尾延迟太差
-
-把这些写出来，往往更说明你真的做过工程权衡。
-
----
-
-## 六、常见误区
-
-### 误区一：部署项目只要能跑通就行
-
-部署项目更该强调：
-
-- 性能
-- 稳定性
-- 可复现
-
-### 误区二：只展示界面，不展示指标
-
-对这类项目来说，指标比界面更重要。
-
-### 误区三：一上来就想覆盖云端、边缘、移动端全部场景
-
-更好的做法通常是：
-
-- 先选一个目标设备做透
-
----
-
-## 小结
-
-这节最重要的是建立一个部署项目观：
-
-> **部署综合项目最有价值的地方，不是模型本身多复杂，而是你能否把目标设备、引擎选择、服务结构、性能指标和工程取舍讲成一个完整闭环。**
-
-只要这个闭环清楚，这类项目就很适合作为作品集展示。
-
----
+- 只展示界面，不展示指标。
+- 优化了延迟，却不说明准确率下降。
+- 没有内存测试或长时间运行测试，就宣称边缘设备可用。
+- 项目范围太大，一次想覆盖云端、移动端和边缘端。
 
 ## 练习
 
-1. 把示例里的目标设备从 `raspberry_pi_5` 改成别的设备，重新思考引擎和指标目标。
-2. 为你的项目再补一组“优化前 vs 优化后”的对比字段。
-3. 想一想：如果只能展示 3 个指标，你会优先展示哪 3 个？为什么？
-4. 你会如何把这个项目讲给面试官听，重点放在哪三部分？
+增加第二个目标设备，重新运行就绪检查。然后写三行 README，说明为什么选择这个设备和推理引擎。

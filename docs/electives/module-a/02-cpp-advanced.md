@@ -1,304 +1,94 @@
 ---
 title: "E.A.2 Advanced C++"
 sidebar_position: 2
-description: "From RAII, smart pointers, abstract interfaces, and move semantics to simple concurrency, understand the most common advanced C++ capabilities in deployment engineering."
+description: "Learn the advanced C++ ideas most visible in deployment code: ownership, RAII, smart pointers, and interfaces."
 keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deployment]
 ---
 
 # E.A.2 Advanced C++
 
-:::tip Section Overview
-If the basic course solves “how to read and write simple C++,”
-this section solves:
+![C++ RAII and ownership map](/img/course/elective-cpp-raii-ownership-map-en.png)
 
-- Why deployment code always has `unique_ptr`
-- Why there are abstract classes and virtual functions
-- Why people care so much about resource cleanup and object ownership
+Advanced C++ in deployment is mostly about one question: who owns the resource, and when is it released?
 
-These are exactly the most common and most likely pain points for students with a Python background in deployment engineering.
-:::
+## Run an ownership and interface example
 
-![C++ RAII and Ownership Map](/img/course/elective-cpp-raii-ownership-map-en.png)
-
-## Learning Objectives
-
-- Understand why RAII and smart pointers are high-frequency concepts in deployment code
-- Understand the role of abstract interfaces and polymorphism in inference backends
-- Build an initial intuition for move semantics
-- Learn a more engineering-style code organization pattern through compilable examples
-
----
-
-## Why are advanced C++ concepts so common in deployment?
-
-### Because deployment scenarios often manage external resources
-
-For example:
-
-- Model handles
-- File handles
-- GPU / device contexts
-- Network connections
-
-Once these resources leak, the problem is often more serious than in a regular script.
-
-### Because deployment systems care a lot about “who owns this object”
-
-For example:
-
-- Who creates this runner?
-- Who is responsible for freeing it?
-- Can it be shared?
-
-This is an ownership problem.
-
-### An analogy
-
-Basic syntax is like learning how to open a toolbox.
-The advanced part is more like learning:
-
-- Who takes the tools
-- Who keeps the tools
-- Who returns them after use
-
-In engineering, this is often more important than writing a piece of algorithm code.
-
----
-
-## RAII: Why does C++ like “automatically releasing resources when an object is destroyed”?
-
-### A one-sentence understanding
-
-RAII can be roughly understood as:
-
-> **Binding a resource’s lifetime to an object’s lifetime.**
-
-When the object is created, it acquires the resource,
-and when the object is destroyed, it automatically releases the resource.
-
-### Why is this so suitable for deployment code?
-
-Because exceptions and early returns are very common in deployment.
-If you rely entirely on manual:
-
-- `open`
-- `close`
-
-it is very easy to forget cleanup.
-
-### A simple example
-
-```cpp
-#include <iostream>
-#include <string>
-
-class ResourceGuard {
-public:
-    explicit ResourceGuard(const std::string& name) : name_(name) {
-        std::cout << "acquire " << name_ << std::endl;
-    }
-
-    ~ResourceGuard() {
-        std::cout << "release " << name_ << std::endl;
-    }
-
-private:
-    std::string name_;
-};
-
-int main() {
-    ResourceGuard guard("model_session");
-    std::cout << "running inference..." << std::endl;
-    return 0;
-}
-```
-
-Although this example is simple, it captures the key feeling of RAII very well:
-
-- No need to manually call release
-- Cleanup happens automatically when the object leaves scope
-
----
-
-## Smart pointers: Why do we always see `unique_ptr` in deployment code?
-
-### `unique_ptr`: exclusive ownership
-
-The most common and most important smart pointer to learn first is:
-
-- `std::unique_ptr`
-
-It means:
-
-- One object has one clearly defined owner
-
-### Why is this especially common in deployment?
-
-Because many resources should not be copied casually.
-For example:
-
-- Model runners
-- Inference sessions
-- External device handles
-
-### A very common combination: abstract interface + `unique_ptr`
+Create `advanced.cpp`:
 
 ```cpp
 #include <iostream>
 #include <memory>
 
-class Runner {
-public:
-    virtual void run() = 0;
-    virtual ~Runner() = default;
+struct Engine {
+    virtual ~Engine() = default;
+    virtual float run(float input) = 0;
 };
 
-class CpuRunner : public Runner {
-public:
-    void run() override {
-        std::cout << "running on CPU" << std::endl;
+struct CpuEngine : Engine {
+    float run(float input) override {
+        return input * 0.84f;
     }
 };
 
-std::unique_ptr<Runner> build_runner() {
-    return std::make_unique<CpuRunner>();
-}
+class Session {
+public:
+    explicit Session(std::unique_ptr<Engine> engine)
+        : engine_(std::move(engine)) {}
+
+    void predict() {
+        std::cout << "cpu_score=" << engine_->run(1.0f) << "\n";
+        std::cout << "session_done\n";
+    }
+
+private:
+    std::unique_ptr<Engine> engine_;
+};
 
 int main() {
-    std::unique_ptr<Runner> runner = build_runner();
-    runner->run();
+    Session session(std::make_unique<CpuEngine>());
+    session.predict();
     return 0;
 }
 ```
 
-### Why does this example look very much like real deployment code?
+Run it:
 
-Because it shows three things that are very common in deployment:
+```bash
+c++ -std=c++17 advanced.cpp -o advanced
+./advanced
+```
 
-1. Use an abstract interface to unify different backends
-2. Use a factory function to create the concrete implementation
-3. Use `unique_ptr` to manage the lifecycle
+Expected output:
 
----
+```text
+cpu_score=0.84
+session_done
+```
 
-## Why is move semantics mentioned so often?
+## What to notice
 
-### Because copying large objects is expensive
+| C++ idea | Deployment meaning |
+|---|---|
+| `Engine` interface | Business code can switch CPU/GPU/runtime backends |
+| `std::unique_ptr` | Only one owner controls the engine resource |
+| `std::move` | Ownership is transferred into `Session` |
+| destructor through `virtual ~Engine()` | Cleanup is safe through the interface |
+| RAII | Resource lifetime follows object lifetime |
 
-If an object is large, for example:
+## Practice change
 
-- A large buffer
-- A large vector
-- A model wrapper object
-
-then the cost of copying becomes very noticeable.
-
-### What is move semantics trying to do?
-
-In one sentence:
-
-> **If something can be moved, don’t copy the whole thing.**
-
-This makes resource transfer more efficient.
-
-### A simple intuitive example
+Add a second engine:
 
 ```cpp
-#include <iostream>
-#include <vector>
-
-std::vector<int> build_buffer() {
-    std::vector<int> data = {1, 2, 3, 4, 5};
-    return data;
-}
-
-int main() {
-    std::vector<int> buffer = build_buffer();
-    std::cout << "buffer size = " << buffer.size() << std::endl;
-    return 0;
-}
+struct FastEngine : Engine {
+    float run(float input) override {
+        return input * 0.91f;
+    }
+};
 ```
 
-You can remember this first:
+Then replace `CpuEngine` with `FastEngine`. The rest of `Session` should not change.
 
-- Modern C++ tries to avoid unnecessary deep copies as much as possible
+## Pass check
 
-This intuition is enough for now.
-
----
-
-## Why are abstract interfaces especially important in inference backends?
-
-### Because the same business logic may need multiple backends
-
-For example:
-
-- CPU version
-- GPU version
-- ONNX Runtime
-- TensorRT
-
-### What happens if there is no unified interface?
-
-The business layer ends up writing all over the place:
-
-- if / else
-- special-case branches
-- backend-specific logic
-
-It quickly becomes hard to maintain.
-
-### The value of an abstract interface
-
-It pushes differences down into the implementation layer,
-so the business layer can program against a unified capability.
-
----
-
-## The most common pitfalls
-
-### Mistake 1: Being afraid of every pointer
-
-Modern C++ often does not encourage you to manually manage resources with raw pointers,
-and instead prefers:
-
-- Smart pointers
-- Value objects
-- RAII
-
-### Mistake 2: Thinking you must learn a lot of template metaprogramming before you can be “advanced”
-
-For deployment engineering, what you should learn first is:
-
-- Resource management
-- Interface abstraction
-- Ownership
-
-### Mistake 3: Thinking `unique_ptr` is just a syntax trick
-
-It is not.
-It explicitly expresses:
-
-- Who is responsible for this object
-
-That is very important for engineering stability.
-
----
-
-## Summary
-
-The most important thing in this section is not to turn advanced C++ into a language theory course,
-but to first understand the three most common things in deployment engineering:
-
-> **Resources should be released automatically, object ownership should be explicit, and backend differences should be isolated through abstract interfaces.**
-
-Once these three things are clear, you will feel much more comfortable when reading more complex deployment code later.
-
----
-
-## Exercises
-
-1. Extend `CpuRunner` in the example into a `MockGpuRunner` to experience the value of abstract interfaces.
-2. Why is `unique_ptr` well-suited for managing objects like inference runners?
-3. Explain in your own words: what is the essential difference between RAII and “remembering to release resources manually”?
-4. Think about this: if business code keeps checking backend types everywhere, why will it become harder and harder to maintain?
+You pass this lesson when you can explain why `Session` owns the engine, why `unique_ptr` is safer than a raw pointer here, and how an interface lets one deployment path swap runtime backends.

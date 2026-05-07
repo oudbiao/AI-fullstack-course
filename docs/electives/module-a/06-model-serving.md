@@ -1,7 +1,7 @@
 ---
 title: "E.A.6 Model Serving"
 sidebar_position: 6
-description: "From request queues, batching, version routing, and health checks to service metrics, understand why model serving is a complete engineering system."
+description: "Build a minimal model-serving flow with request queues, batching, version routing, and metrics."
 keywords: [model serving, batching, request queue, version routing, health check, deployment]
 ---
 
@@ -11,261 +11,102 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 ![Model serving metrics and version routing diagram](/img/course/elective-serving-metrics-version-routing-map-en.png)
 
-:::tip Reading guide
-After a model goes live, the most important things to watch are not just single inference time, but queue wait time, batch efficiency, P95/P99 latency, error rate, version routing, and rollback capability. When you read the diagram, think of it as a system that runs continuously over time.
-:::
+Serving a model is different from calling a model once. A service receives many requests, queues them, batches them, sends them to the right model version, records metrics, and stays recoverable when a version fails.
 
-:::tip Where this section fits
-“Getting a model to run” and “serving a model” are two different things.
+## What You Need
 
-The former is more like:
+- Python 3.10+
+- No external packages
+- Basic understanding of dictionaries and lists
 
-- Calling a model once in a script
+## Key Terms
 
-The latter is more like:
+- **Queue**: temporary waiting area for requests.
+- **Batch**: multiple requests processed together.
+- **Version routing**: sending traffic to `v1`, `v2`, or a canary model.
+- **P95 latency**: 95% of requests finish within this time.
+- **Rollback**: switching traffic back to a safer version.
 
-- Receiving requests
-- Queuing them
-- Scheduling them
-- Returning results
-- Monitoring and upgrading
+## Run A Tiny Serving Loop
 
-What this lesson solves is the step from “able to call a model” to “able to provide a model service.”
-:::
-
-## Learning Objectives
-
-- Understand the core components of model serving
-- Understand the role of request queues, batching, and version routing in a service
-- Build a minimal serving flow with a runnable example
-- Develop an awareness of the metrics you should care about before a model service goes live
-
----
-
-## Why is model serving not finished just by “wrapping it in an API”?
-
-### Because real requests do not arrive one by one at a steady pace
-
-A service will face:
-
-- Sudden traffic spikes
-- Requests of different sizes
-- A mix of slow and fast requests
-
-That means you need:
-
-- A queue
-- Scheduling
-- Timeouts
-- Metrics
-
-### Because models will be upgraded
-
-After launch, you will still face:
-
-- Canary releases for new versions
-- Model rollbacks
-- Multiple versions running at the same time
-
-So serving is not just about “exposing the current model,”
-it also includes how to maintain it in the future.
-
-### An analogy
-
-Single inference is like cooking one meal by yourself in a kitchen.
-Model serving is more like running a restaurant:
-
-- Guests line up
-- The kitchen must be scheduled
-- Dishes must come out consistently
-
----
-
-## The most core components of serving
-
-### Request entry point
-
-Responsible for:
-
-- Receiving requests
-- Validating parameters
-- Authenticating identity
-
-### Queue
-
-Responsible for:
-
-- Buffering requests
-- Smoothing traffic
-
-### Batch processor
-
-Responsible for combining multiple small requests to improve throughput.
-
-### Model executor
-
-Actually performs:
-
-- Preprocessing
-- Inference
-- Postprocessing
-
-### Version routing and health checks
-
-Responsible for:
-
-- Which request goes to which model version
-- Whether a given instance can receive traffic
-
----
-
-## First, run a minimal serving flow
-
-This example simulates:
-
-1. Requests entering the queue
-2. The batch processor dequeuing them in batches
-3. The model executor handling them together
-4. Returning results by model version
+Create `serving_loop.py`:
 
 ```python
-from collections import deque
+requests = [
+    {"id": 1, "version": "v1", "text": "refund"},
+    {"id": 2, "version": "v1", "text": "invoice"},
+    {"id": 3, "version": "v2", "text": "change address"},
+    {"id": 4, "version": "v2", "text": "shipping"},
+    {"id": 5, "version": "v1", "text": "certificate"},
+]
 
+batches = {}
+for request in requests:
+    batches.setdefault(request["version"], []).append(request)
 
-request_queue = deque(
-    [
-        {"id": "req1", "text": "refund policy", "model_version": "v1"},
-        {"id": "req2", "text": "invoice policy", "model_version": "v1"},
-        {"id": "req3", "text": "change address", "model_version": "v2"},
-        {"id": "req4", "text": "certificate instructions", "model_version": "v2"},
-    ]
-)
+for version, items in batches.items():
+    print(version, "batch_size=", len(items), "ids=", [item["id"] for item in items])
 
+    for item in items:
+        item["answer"] = f"{version}:{item['text']}:ok"
 
-def batch_pop(queue, batch_size):
-    batch = []
-    while queue and len(batch) < batch_size:
-        batch.append(queue.popleft())
-    return batch
-
-
-def model_executor(batch):
-    outputs = []
-    for item in batch:
-        outputs.append(
-            {
-                "id": item["id"],
-                "model_version": item["model_version"],
-                "answer": f"[{item['model_version']}] processed:{item['text']}",
-            }
-        )
-    return outputs
-
-
-all_outputs = []
-while request_queue:
-    batch = batch_pop(request_queue, batch_size=2)
-    print("batch:", batch)
-    outputs = model_executor(batch)
-    all_outputs.extend(outputs)
-
-print("\noutputs:")
-for item in all_outputs:
-    print(item)
+print("answers:")
+for request in requests:
+    print(request["id"], request["answer"])
 ```
 
-### What is the most important thing to learn from this code?
+Run it:
 
-It shows the most basic operating pattern of model serving:
+```bash
+python serving_loop.py
+```
 
-- Requests do not run immediately one by one
-- Instead, they first enter a queue and are then scheduled by policy
+Expected output:
 
-### Why is batching important for serving?
+```text
+v1 batch_size= 3 ids= [1, 2, 5]
+v2 batch_size= 2 ids= [3, 4]
+answers:
+1 v1:refund:ok
+2 v1:invoice:ok
+3 v2:change address:ok
+4 v2:shipping:ok
+5 v1:certificate:ok
+```
 
-Because many models achieve higher throughput when processing in batches.
-If each request runs separately:
+This small script shows the core loop: requests arrive, are grouped by version, processed in batches, and returned with traceable answers.
 
-- Resource utilization may be very poor
+## Add A Safety Rule
 
-### Why do we explicitly keep `model_version` here?
+Add this before the batching loop:
 
-Because in real services, multiple versions often coexist.
-Without a version field, gradual rollout and rollback become very difficult.
+```python
+healthy_versions = {"v1": True, "v2": False}
+requests = [
+    request if healthy_versions[request["version"]] else {**request, "version": "v1"}
+    for request in requests
+]
+```
 
----
+Run again. Requests that asked for unhealthy `v2` now route back to `v1`. That is the basic idea behind health checks and rollback.
 
-## What metrics should you watch most closely after launch?
+## Metrics To Watch First
 
-### Latency
+Track these before launch:
 
-At minimum, look at:
+1. Queue wait time
+2. Average and P95 latency
+3. Error rate
+4. Average batch size
+5. Traffic split by model version
 
-- Average latency
-- P95 latency
+## Common Mistakes
 
-### Throughput
+- Reporting only model inference time and ignoring queue, preprocessing, and network time.
+- Making batches too large and hurting user-facing latency.
+- Replacing the production model without version routing.
+- Keeping no request IDs, which makes debugging almost impossible.
 
-For example:
+## Practice
 
-- Requests per second
-- Batches per second
-
-### Error rate
-
-Including:
-
-- Request failures
-- Timeouts
-- Internal model exceptions
-
-### Batching efficiency
-
-For example:
-
-- Average batch size
-
-If it stays too small for a long time,
-it may mean the batching strategy is not really working.
-
----
-
-## The easiest mistakes to make in model serving
-
-### Mistake 1: Only looking at model inference time
-
-Real latency usually also includes:
-
-- Queueing
-- Preprocessing
-- Postprocessing
-- Network overhead
-
-### Mistake 2: Thinking bigger batches are always better
-
-A larger batch may improve throughput,
-but it may also increase single-request latency.
-
-### Mistake 3: Replacing the production model directly without version routing
-
-If something goes wrong, rollback becomes very painful.
-
----
-
-## Summary
-
-The most important thing in this lesson is to develop a service-oriented view:
-
-> **Model serving is not “write an API to call the model.” It is about turning the model into a service that can be maintained sustainably, around queues, batching, versions, health checks, and metrics.**
-
-Once you understand this layer clearly,
-it will be much easier to connect the dots later when you do edge deployment and comprehensive projects.
-
----
-
-## Exercises
-
-1. Change `batch_size` in the example to `1` and `3`, and observe how the output organization changes.
-2. Think about why model services must explicitly carry version information.
-3. If you care more about single-request latency than total throughput, how should you tune the batching strategy?
-4. Which three metrics would you prioritize after a model service goes live? Why?
+Add a `latency_ms` field to each request, then compute average latency per version. If `v2` is slower than `v1` by more than 20 ms, route all future requests back to `v1`.

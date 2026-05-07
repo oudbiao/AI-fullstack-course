@@ -1,304 +1,94 @@
 ---
-title: "E.A.2 C++ 上級編"
+title: "E.A.2 C++ 応用"
 sidebar_position: 2
-description: "RAII、スマートポインタ、抽象インターフェース、ムーブセマンティクスから簡単な並行処理まで、デプロイ工程でよく出てくる C++ 上級スキルを理解します。"
+description: "デプロイコードでよく見る C++ 応用概念、所有権、RAII、スマートポインタ、インターフェースを学びます。"
 keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deployment]
 ---
 
-# E.A.2 C++ 上級編
-
-:::tip この節の位置づけ
-基礎編が「簡単な C++ を読めて書ける」ことを目指すなら、  
-この節が解決するのは次のような内容です。
-
-- なぜデプロイコードには `unique_ptr` がよく出てくるのか
-- なぜ抽象クラスや仮想関数があるのか
-- なぜみんな資源の解放やオブジェクトの所有権をそんなに気にするのか
-
-ここは、デプロイ工程で最もよく出てきて、しかも Python 出身の人がつまずきやすいポイントです。
-:::
+# E.A.2 C++ 応用
 
 ![C++ RAII と所有権マップ](/img/course/elective-cpp-raii-ownership-map-ja.png)
 
-## 学習目標
+デプロイで出てくる C++ 応用の中心は、ほとんどこの問いです。誰がリソースを所有し、いつ解放するのか。
 
-- RAII とスマートポインタが、なぜデプロイコードでよく出てくるのかを理解する
-- 抽象インターフェースと多態性が推論バックエンドで果たす役割を理解する
-- ムーブセマンティクスについて、最初の直感を身につける
-- コンパイル可能な例を通して、より実務に近いコードの組み立て方を身につける
+## 所有権とインターフェースの例を動かす
 
----
-
-## 一、なぜ C++ の上級知識はデプロイでこんなに頻繁に出てくるのか？
-
-### デプロイ場面では外部リソースを扱うことが多いから
-
-たとえば：
-
-- モデルハンドル
-- ファイルハンドル
-- GPU / デバイスコンテキスト
-- ネットワーク接続
-
-これらのリソースは、一度リークすると普通のスクリプトより深刻な問題になります。
-
-### デプロイシステムでは「このオブジェクトの所有者は誰か」がとても重要だから
-
-たとえば：
-
-- この runner は誰が作るのか？
-- 誰が解放を担当するのか？
-- 共有できるのか？
-
-これは所有権の問題です。
-
-### たとえ話
-
-基本文法は、工具箱の使い方を覚えるようなものです。  
-上級編は、次のことを覚えるようなものです。
-
-- 誰が工具を受け取るのか
-- 誰が工具を保管するのか
-- 使い終わったら誰が返すのか
-
-実務では、これはアルゴリズムを 1 つ書くことより大事なことも多いです。
-
----
-
-## 二、RAII：なぜ C++ は「オブジェクトの破棄時に資源を自動解放する」のが好きなのか？
-
-### 一言でいうと
-
-RAII は、まずざっくり次のように理解すれば十分です。
-
-> **資源のライフサイクルをオブジェクトのライフサイクルに結びつける。**
-
-オブジェクトを作るときに資源を取り、  
-オブジェクトが破棄されるときに自動で解放します。
-
-### これはなぜデプロイコードに向いているのか？
-
-デプロイでは、例外や途中 return がよく起こるからです。  
-もし全部手書きで
-
-- `open`
-- `close`
-
-を管理すると、後始末を忘れやすくなります。
-
-### 簡単な例
-
-```cpp
-#include <iostream>
-#include <string>
-
-class ResourceGuard {
-public:
-    explicit ResourceGuard(const std::string& name) : name_(name) {
-        std::cout << "acquire " << name_ << std::endl;
-    }
-
-    ~ResourceGuard() {
-        std::cout << "release " << name_ << std::endl;
-    }
-
-private:
-    std::string name_;
-};
-
-int main() {
-    ResourceGuard guard("model_session");
-    std::cout << "running inference..." << std::endl;
-    return 0;
-}
-```
-
-この例はシンプルですが、RAII の重要な感覚をよく表しています。
-
-- release 呼び出しを手動で書かなくてよい
-- オブジェクトがスコープを抜けると自動で片付く
-
----
-
-## 三、スマートポインタ：なぜデプロイコードでは `unique_ptr` をよく見るのか？
-
-### `unique_ptr`：独占的な所有権
-
-まず押さえておきたいのは：
-
-- `std::unique_ptr`
-
-これは次を意味します。
-
-- 1 つのオブジェクトには、明確な所有者が 1 人だけいる
-
-### なぜデプロイで特に多いのか？
-
-多くのリソースは、むやみにコピーするのに向いていないからです。  
-たとえば：
-
-- モデル runner
-- 推論 session
-- 外部デバイスハンドル
-
-### もっともよくある「抽象インターフェース + `unique_ptr`」の組み合わせ
+`advanced.cpp` を作成します。
 
 ```cpp
 #include <iostream>
 #include <memory>
 
-class Runner {
-public:
-    virtual void run() = 0;
-    virtual ~Runner() = default;
+struct Engine {
+    virtual ~Engine() = default;
+    virtual float run(float input) = 0;
 };
 
-class CpuRunner : public Runner {
-public:
-    void run() override {
-        std::cout << "running on CPU" << std::endl;
+struct CpuEngine : Engine {
+    float run(float input) override {
+        return input * 0.84f;
     }
 };
 
-std::unique_ptr<Runner> build_runner() {
-    return std::make_unique<CpuRunner>();
-}
+class Session {
+public:
+    explicit Session(std::unique_ptr<Engine> engine)
+        : engine_(std::move(engine)) {}
+
+    void predict() {
+        std::cout << "cpu_score=" << engine_->run(1.0f) << "\n";
+        std::cout << "session_done\n";
+    }
+
+private:
+    std::unique_ptr<Engine> engine_;
+};
 
 int main() {
-    std::unique_ptr<Runner> runner = build_runner();
-    runner->run();
+    Session session(std::make_unique<CpuEngine>());
+    session.predict();
     return 0;
 }
 ```
 
-### この例が実際のデプロイコードにとても近い理由
+実行します。
 
-デプロイでよくある 3 つのことを示しているからです。
+```bash
+c++ -std=c++17 advanced.cpp -o advanced
+./advanced
+```
 
-1. 抽象インターフェースで異なるバックエンドを統一する
-2. ファクトリ関数で具体実装を作る
-3. `unique_ptr` でライフサイクルを管理する
+期待される出力:
 
----
+```text
+cpu_score=0.84
+session_done
+```
 
-## 四、なぜムーブセマンティクスは何度も出てくるのか？
+## 注目するところ
 
-### 大きなオブジェクトのコピーは高コストだから
+| C++ の要素 | デプロイでの意味 |
+|---|---|
+| `Engine` インターフェース | ビジネスコードが CPU/GPU/runtime backend を切り替えられる |
+| `std::unique_ptr` | 1 つの所有者だけが engine リソースを管理する |
+| `std::move` | 所有権を `Session` に移す |
+| `virtual ~Engine()` | インターフェース経由でも安全に片付けられる |
+| RAII | リソース寿命がオブジェクト寿命に従う |
 
-オブジェクトが大きいと、たとえば：
+## 少し変えてみる
 
-- 大きな buffer
-- 大きなベクター
-- モデルを包むオブジェクト
-
-コピーのコストがはっきり目立ちます。
-
-### ムーブセマンティクスは何をしたいのか？
-
-一言でいうと：
-
-> **運べるなら、丸ごとコピーしない。**
-
-これにより、資源の受け渡しをより効率的にできます。
-
-### 簡単な直感の例
+2 つ目の engine を追加します。
 
 ```cpp
-#include <iostream>
-#include <vector>
-
-std::vector<int> build_buffer() {
-    std::vector<int> data = {1, 2, 3, 4, 5};
-    return data;
-}
-
-int main() {
-    std::vector<int> buffer = build_buffer();
-    std::cout << "buffer size = " << buffer.size() << std::endl;
-    return 0;
-}
+struct FastEngine : Engine {
+    float run(float input) override {
+        return input * 0.91f;
+    }
+};
 ```
 
-まずは次のことを覚えておけば十分です。
+それから `CpuEngine` を `FastEngine` に置き換えます。`Session` の他のコードは変えないでください。
 
-- 現代 C++ は、不要な深いコピーをできるだけ避けようとする
+## 合格チェック
 
-この直感があれば十分です。
-
----
-
-## 五、なぜ抽象インターフェースは推論バックエンドでとても重要なのか？
-
-### 1 つの業務で複数のバックエンドを扱うことがあるから
-
-たとえば：
-
-- CPU 版
-- GPU 版
-- ONNX Runtime
-- TensorRT
-
-### 統一インターフェースがないとどうなるか？
-
-ビジネス層で次のような分岐があちこちに出てきます。
-
-- if / else
-- 特殊分岐
-- バックエンド差分の処理
-
-そうなると、すぐに保守しにくくなります。
-
-### 抽象インターフェースの価値
-
-違いを実装層に閉じ込め、  
-ビジネス層は共通の能力だけを見てプログラムできるようにします。
-
----
-
-## 六、いちばんつまずきやすいポイント
-
-### 誤解 1：ポインタを見ると全部こわい
-
-現代 C++ では、資源管理を裸ポインタで手書きすることは、あまり推奨されません。  
-代わりに優先するのは：
-
-- スマートポインタ
-- 値オブジェクト
-- RAII
-
-### 誤解 2：まずテンプレートメタプログラミングを大量に学ばないと上級者ではない
-
-デプロイ工程で先に身につけるべきなのは、むしろ次です。
-
-- 資源管理
-- インターフェースの抽象化
-- 所有権
-
-### 誤解 3：`unique_ptr` はただの文法上の飾り
-
-違います。  
-これは次を明示しています。
-
-- 誰がこのオブジェクトを担当するのか
-
-これは工程の安定性にとても重要です。
-
----
-
-## 小結
-
-この節で大事なのは、C++ 上級編を言語研究として学ぶことではなく、  
-まずデプロイ工程で最もよく出てくる 3 つを理解することです。
-
-> **資源は自動で解放し、オブジェクトには明確な所有権を持たせ、バックエンドの違いは抽象インターフェースで分離する。**
-
-この 3 つが身につけば、あとでより複雑なデプロイコードを読んでも、かなり楽になります。
-
----
-
-## 練習
-
-1. 例の `CpuRunner` を `MockGpuRunner` に拡張して、抽象インターフェースの価値を体験してみましょう。
-2. `unique_ptr` が推論 runner のようなオブジェクトの管理に向いているのはなぜですか？
-3. 自分の言葉で説明してみましょう。RAII と「手動で資源解放を忘れずに書く」ことの本質的な違いは何ですか？
-4. 考えてみましょう。ビジネスコードのあちこちでバックエンドの種類を判定していると、なぜだんだん保守しにくくなるのでしょうか？
+`Session` が engine を所有する理由、ここで `unique_ptr` が raw pointer より安全な理由、インターフェースで runtime backend を差し替えられる理由を説明できれば合格です。

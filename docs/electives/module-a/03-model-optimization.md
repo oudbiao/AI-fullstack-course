@@ -1,7 +1,7 @@
 ---
 title: "E.A.3 Model Optimization Techniques"
 sidebar_position: 3
-description: "Starting from quantization, pruning, distillation, operator fusion, and batching, understand what model optimization is really trading off in deployment."
+description: "Practice model optimization as a measurable trade-off among latency, memory, accuracy, and operations risk."
 keywords: [model optimization, quantization, pruning, distillation, fusion, batching, deployment]
 ---
 
@@ -11,242 +11,46 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 ![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard-en.png)
 
-:::tip Reading guide
-Before optimizing, first identify where the bottleneck is: memory, latency, throughput, accuracy, hardware compatibility, and maintenance cost often constrain one another. When reading this diagram, do not only ask “Can it be faster?”, but ask “What cost am I paying to improve which metric?”
-:::
+Optimization does not mean “make the model as small as possible.” It means improving one constraint while checking what you lose.
 
-:::tip Where this section fits
-Model optimization is easiest to turn into a pile of jargon:
-
-- Quantization
-- Pruning
-- Distillation
-- Fusion
-
-But in real deployment, the question is much simpler:
-
-> **What exactly are you trying to save: memory, latency, throughput, or hardware adaptation cost?**
-
-Only after you make this clear can optimization stop becoming “optimization for optimization’s sake.”
-:::
-
-## Learning Objectives
-
-- Understand what problems several mainstream model optimization methods are trying to solve
-- Understand that optimization usually trades accuracy for performance rather than giving it away for free
-- See a runnable example to understand quantization and cost trade-offs
-- Build a deployment-oriented priority framework for choosing optimization methods
-
----
-
-## Model Optimization Is Not a Single Goal
-
-### What people usually want to optimize are actually four things
-
-- Model size
-- Inference latency
-- Throughput
-- Device compatibility
-
-### Why doesn’t “faster” always mean “better”?
-
-Because many optimizations involve trade-offs:
-
-- Smaller, but lower accuracy
-- Faster, but harder to debug
-- Less memory usage, but more difficult post-processing
-
-### An analogy
-
-Model optimization is more like packing a suitcase.
-You are not stuffing everything in blindly; instead, you are making trade-offs among:
-
-- Size
-- Weight
-- Practicality
-
----
-
-## Five of the Most Common Optimization Paths
-
-### Quantization
-
-Compress high-precision weights into lower precision.
-The usual goals are:
-
-- Reduce memory usage
-- Improve throughput
-- Better fit edge devices
-
-### Pruning
-
-Remove unimportant weights, channels, or layers.
-The usual goal is:
-
-- Reduce computation
-
-### Distillation
-
-Let a smaller model learn from a larger model’s outputs.
-The usual goals are:
-
-- Retain as much capability as possible
-- Lower deployment cost
-
-### Operator Fusion
-
-Merge multiple computation steps in the execution graph.
-The usual goals are:
-
-- Reduce memory reads and writes
-- Improve execution efficiency
-
-### Batching and Scheduling Optimization
-
-This does not change the model itself,
-but changes how it runs.
-The usual goal is:
-
-- Increase throughput
-
----
-
-## First Run a Quantization Error Example
-
-This example does one very direct thing:
-
-- Quantize floating-point weights to a coarser scale
-- Compute the error before and after quantization
+## Run a tiny quantization-error check
 
 ```python
-import numpy as np
+values = [0.1234, 0.5678, 0.9012]
+quantized = [round(value * 255) / 255 for value in values]
+errors = [abs(original - compressed) for original, compressed in zip(values, quantized)]
 
-weights = np.array([0.12, -1.87, 3.44, -0.03], dtype=np.float32)
-
-
-def fake_quantize(values, scale):
-    return np.round(values * scale) / scale
-
-
-q8_like = fake_quantize(weights, scale=16)
-q4_like = fake_quantize(weights, scale=4)
-
-print("original :", weights)
-print("q8_like  :", q8_like)
-print("q4_like  :", q4_like)
-print("q8 mae   :", np.mean(np.abs(weights - q8_like)))
-print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
+print([round(value, 4) for value in quantized])
+print(f"max_error={max(errors):.4f}")
 ```
 
-### What is the most important takeaway from this code?
+Expected output:
 
-Quantization is not “free compression.”
-It introduces error.
+```text
+[0.1216, 0.5686, 0.902]
+max_error=0.0018
+```
 
-So when you see:
+This is the smallest optimization habit: compress, measure the error, and decide whether the error is acceptable.
 
-- `int8`
-- `int4`
+## Choose the right optimization path
 
-your first reaction should not only be “this saves more,”
-but also:
+| Technique | Best when | Check before shipping |
+|---|---|---|
+| Quantization | Latency and memory are too high | Accuracy drop on real validation cases |
+| Pruning | Many weights or channels are not useful | Whether the runtime actually speeds up |
+| Distillation | A smaller model can imitate a larger one | Whether the student fails on edge cases |
+| Operator fusion | Runtime overhead is high | Whether your engine supports the fused graph |
+| Batching / scheduling | Many requests arrive together | Latency tail and queue delay |
 
-- How much accuracy is lost?
+## Practical order
 
-### Why is lower bit width usually harder?
+1. Measure baseline latency, memory, and accuracy.
+2. Try one optimization at a time.
+3. Record before/after metrics.
+4. Keep failure examples.
+5. Only ship when the trade-off is visible.
 
-Because the representation space is coarser.
-The more aggressively you compress, the more original detail may be lost.
+## Pass check
 
----
-
-## Why Is Distillation Often Considered a “Deployment-Friendly” Approach?
-
-### Because it does not just compress the model, it replaces the model
-
-The essence of distillation is not to directly modify the original model,
-but to train a smaller student model.
-
-### What scenarios is it best suited for?
-
-It is suitable for:
-
-- Stable request patterns
-- Clear task boundaries
-- Cases where you are willing to trade training effort for deployment gains
-
-### How is it different from quantization?
-
-- Quantization: keep the same model, but at lower precision
-- Distillation: switch to a new, smaller model
-
----
-
-## How Is the Optimization Order Usually Arranged?
-
-### Check the pipeline first, not the trick first
-
-First ask:
-
-- Where is it slow?
-- Where is it expensive?
-- Where does memory blow up?
-
-### A very practical order
-
-1. Start with runtime-level optimization
-   For example: batching, caching, scheduling
-2. Then apply lower-risk model optimization
-   For example: int8 quantization
-3. Finally consider more aggressive approaches
-   For example: heavy pruning, distillation, structural changes
-
-### Why is this order more stable?
-
-Because many problems are not in the model itself.
-If the runtime is not tuned well,
-changing the model first often brings limited benefit.
-
----
-
-## The Most Common Misunderstandings
-
-### Misunderstanding 1: Optimization means making it as small as possible
-
-No.
-The key is:
-
-- Save as much as possible while staying within acceptable business accuracy
-
-### Misunderstanding 2: If you quantize it, it will definitely be faster
-
-Not necessarily.
-It also depends on:
-
-- Whether the hardware supports it
-- Whether the inference engine is well optimized
-
-### Misunderstanding 3: All models should use the same optimization methods
-
-Different models, different hardware, and different business needs
-often require different best paths.
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing optimization methods as a glossary,
-but building a deployment mindset:
-
-> **The essence of model optimization is making trade-offs around size, latency, throughput, and hardware compatibility, rather than simply pursuing “more aggressive compression.”**
-
-Once you are clear on this, it becomes much easier to choose the right method in actual deployment work.
-
----
-
-## Exercises
-
-1. Change the `scale` in the example to a larger or smaller value and observe how the error changes.
-2. Why is quantization more like “compressing the original model,” while distillation is more like “switching to a smaller model”?
-3. Think about this: if your main problem is insufficient throughput rather than running out of memory, which type of optimization should you look at first?
-4. How would you determine whether a given optimization is “worth shipping”?
+You pass this lesson when you can explain one optimization’s benefit, its possible cost, and the metric you would inspect before using it in a real deployment.

@@ -1,234 +1,99 @@
 ---
 title: "E.A.5 边缘设备部署"
 sidebar_position: 5
-description: "从内存、电源、延迟、离线能力和模型体积出发，理解边缘部署为什么和云端部署是两套完全不同的工程约束。"
+description: "通过内存、功耗、延迟和离线要求，判断模型能不能可靠地跑在边缘设备上。"
 keywords: [edge deployment, Jetson, Raspberry Pi, memory budget, latency, offline inference]
 ---
 
 # E.A.5 边缘设备部署
 
-:::tip 本节定位
-边缘设备部署最容易被低估的地方是：
-
-- 它不是“把云端服务搬到小机器上”
-
-边缘环境常见约束包括：
-
-- 内存更小
-- 功耗更敏感
-- 网络不稳定
-- 升级和排障更困难
-
-所以真正要学会的是：
-
-> **在受限设备上做出“足够可用”的系统，而不是追求桌面机上的完美形态。**
-:::
-
 ![边缘部署约束决策图](/img/course/elective-edge-deployment-constraint-map.png)
 
-## 学习目标
+边缘部署指模型运行在用户、摄像头、机器或传感器附近。第一问题通常不是模型准不准，而是设备能不能长期稳定运行这套系统。
 
-- 理解边缘部署和云端部署的核心差异
-- 学会从内存、功耗、延迟和离线能力四个维度评估方案
-- 通过可运行示例理解设备筛选和模型适配思路
-- 建立做边缘部署时的优先级判断
+## 准备内容
 
----
+- Python 3.10+
+- 不需要第三方包
+- 一个目标场景，例如摄像头分类、工厂检测、离线表单识别
 
-## 一、边缘部署到底难在哪？
+## 四个检查点
 
-### 设备资源通常远小于服务器
+- **内存**：模型、运行时、输入缓存和服务本身都要占 RAM。
+- **功耗**：能跑一次不代表能长时间不降频、不过热。
+- **延迟**：有些任务要即时响应，有些可以等待。
+- **离线模式**：网络不稳定时，设备仍要有本地兜底能力。
 
-常见限制包括：
+## 运行兼容性筛选器
 
-- 可用内存小
-- CPU / GPU 算力有限
-- 电源预算有限
-
-这意味着很多在云端“默认可以”的方案，到了边缘端会直接不现实。
-
-### 网络不一定可靠
-
-边缘设备常常位于：
-
-- 工厂
-- 门店
-- 摄像头节点
-- 车载或移动场景
-
-一旦网络抖动，系统仍要有基本能力。
-这就是为什么边缘部署很重视：
-
-- 本地推理
-- 缓存
-- 离线 fallback
-
-### 运维成本往往更高
-
-服务器挂了还可以远程重启、灰度、扩容。
-边缘设备一旦出问题，排障成本往往更高。
-
-所以边缘系统常常更看重：
-
-- 稳定
-- 可预测
-- 少折腾
-
----
-
-## 二、边缘设备选型时先看什么？
-
-### 内存预算
-
-这是第一道门槛。
-模型、运行时、输入缓存、服务本身都会吃内存。
-
-### 功耗预算
-
-边缘设备不只是“能跑”，还要看：
-
-- 能不能长期稳定运行
-- 散热能不能扛住
-
-### 目标延迟
-
-不同任务对延迟要求完全不同：
-
-- 门禁识别：可能要求更实时
-- 批量统计：可以慢一点
-
-### 是否必须离线
-
-如果场景要求：
-
-- 断网仍可工作
-
-那模型和依赖设计都会变得更不同。
-
----
-
-## 三、先跑一个设备与模型适配示例
-
-下面这个例子会模拟：
-
-1. 一组设备资源约束
-2. 一组模型部署需求
-3. 自动筛出能跑得动的组合
+创建 `edge_fit.py`：
 
 ```python
 devices = [
-    {"name": "jetson_nano", "memory_gb": 4, "power_w": 10, "offline_required": True},
-    {"name": "raspberry_pi_5", "memory_gb": 8, "power_w": 8, "offline_required": True},
-    {"name": "industrial_box", "memory_gb": 16, "power_w": 35, "offline_required": True},
+    {"name": "edge-a", "memory_mb": 512, "power_w": 8, "offline": True},
+    {"name": "edge-b", "memory_mb": 2048, "power_w": 15, "offline": False},
+    {"name": "edge-c", "memory_mb": 4096, "power_w": 25, "offline": True},
 ]
 
-models = [
-    {"name": "tiny_classifier", "memory_need_gb": 1.2, "power_need_w": 4, "latency_ms": 25},
-    {"name": "medium_detector", "memory_need_gb": 6.0, "power_need_w": 12, "latency_ms": 90},
-    {"name": "large_vlm", "memory_need_gb": 18.0, "power_need_w": 40, "latency_ms": 250},
-]
-
-
-def can_deploy(device, model, latency_target_ms=120):
-    return (
-        device["memory_gb"] >= model["memory_need_gb"]
-        and device["power_w"] >= model["power_need_w"]
-        and model["latency_ms"] <= latency_target_ms
-    )
-
+model = {
+    "name": "int8-small-classifier",
+    "memory_mb": 700,
+    "power_w": 10,
+    "latency_ms": 65,
+    "requires_offline": True,
+}
 
 for device in devices:
-    candidates = [model["name"] for model in models if can_deploy(device, model)]
-    print(device["name"], "->", candidates)
+    reasons = []
+
+    if device["memory_mb"] < model["memory_mb"]:
+        reasons.append("memory")
+    if device["power_w"] < model["power_w"]:
+        reasons.append("power")
+    if model["requires_offline"] and not device["offline"]:
+        reasons.append("offline")
+
+    status = "FIT" if not reasons else "CHECK " + ",".join(reasons)
+    print(device["name"], status)
 ```
 
-### 这段代码最重要的地方是什么？
+运行：
 
-不是公式本身，
-而是它帮你建立了一种筛选顺序：
+```bash
+python edge_fit.py
+```
 
-1. 先看资源能不能装下
-2. 再看功耗扛不扛得住
-3. 最后看延迟达不达标
+预期输出：
 
-### 为什么“能放进去”不等于“适合部署”？
+```text
+edge-a CHECK memory,power
+edge-b CHECK offline
+edge-c FIT
+```
 
-比如模型勉强能加载，
-但：
+从左到右读结果：`edge-c` 不一定最快或最便宜，但它是唯一满足部署约束的设备。
 
-- 延迟太高
-- 功耗太高
-- 长时间运行不稳定
+## 让它更接近真实
 
-那它仍然不是好方案。
+把 `model["memory_mb"]` 从 `700` 改成 `350`，再运行一次。`edge-a` 仍然会失败，因为功耗不够。这说明边缘部署是多约束问题。
 
----
+## 边缘部署检查清单
 
-## 四、边缘部署时最常见的优化方向
+在说设备“可以上线”前，至少验证：
 
-### 模型缩小
+1. 能从冷启动正常运行。
+2. 连续跑 30 分钟以上没有明显内存增长。
+3. 网络断开时仍有可用兜底。
+4. 保留足够日志，方便远程排障。
+5. 有简单的回滚或替换方案。
 
-常见方式：
+## 常见错误
 
-- 量化
-- 小模型蒸馏
-- 更轻架构
-
-### 运行时优化
-
-例如：
-
-- 选合适推理引擎
-- 减少不必要预处理
-- 限制输入分辨率
-
-### 系统级优化
-
-例如：
-
-- 本地缓存结果
-- 断网时只保留关键功能
-- 降低后台日志和调试开销
-
----
-
-## 五、边缘部署最容易踩的坑
-
-### 误区一：先选模型，再想设备
-
-更稳的顺序通常是：
-
-- 先看设备约束
-- 再选模型和引擎
-
-### 误区二：只测单次推理，不测长时间运行
-
-很多系统是：
-
-- 跑一次没事
-- 连续跑半小时开始变慢或过热
-
-### 误区三：默认边缘设备总能联网
-
-很多真实场景里，
-离线能力不是可选项，而是基础要求。
-
----
-
-## 小结
-
-这节最重要的是建立一个边缘视角：
-
-> **边缘部署首先是资源和稳定性问题，其次才是模型效果问题。**
-
-只有先把内存、功耗、延迟和离线能力一起看，
-方案才会靠谱。
-
----
+- 先选模型，再硬塞到小设备上。
+- 只测一次推理，不测长时间运行。
+- 默认设备一直在线。
+- 忘记日志、缓存、输入图片也会占内存。
 
 ## 练习
 
-1. 调整示例里的 `latency_target_ms`，看哪些模型组合会被淘汰。
-2. 如果设备只有 4GB 内存，你会优先改模型、改输入分辨率，还是改引擎？为什么？
-3. 想一想：为什么边缘部署里“长时间稳定运行”比“单次 benchmark 很亮眼”更重要？
-4. 如果网络经常中断，你会优先给系统补哪两项能力？
+给每个设备加 `price_usd`，选出通过全部检查且最便宜的设备。再加第二个模型，对比哪个设备能同时支持两个模型。

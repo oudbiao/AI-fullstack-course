@@ -1,7 +1,7 @@
 ---
 title: "E.A.4 Inference Engines"
 sidebar_position: 4
-description: "Starting from the roles and differences of inference engines such as ONNX Runtime, TensorRT, and OpenVINO, understand why deployment is not as simple as just “exporting the model.”"
+description: "Choose an inference engine by matching model format, hardware, latency, throughput, and maintenance cost."
 keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, deployment]
 ---
 
@@ -11,278 +11,129 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 ![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix-en.png)
 
-:::tip Reading guide
-Inference engines are not about being as fast as possible in isolation; they need to match the model format, target hardware, latency/throughput requirements, deployment environment, and the team’s maintenance capability. When reading the diagram, think of ONNX Runtime, TensorRT, and OpenVINO as toolboxes under different constraints.
-:::
+An inference engine is the runtime layer between a trained model and real hardware. The model says what to compute; the engine decides how to execute that graph efficiently on CPU, GPU, NPU, or edge hardware.
 
-:::tip Section overview
-A trained model does not automatically become a high-performance online service.
-There is usually a very important system component in between:
+Use this lesson as a first selection drill. Do not memorize one engine as always best. Match the engine to the deployment constraint.
 
-- Inference engine
+## What You Need
 
-It is responsible for running the model graph efficiently on a specific kind of hardware.
+- Python 3.10+
+- No external packages
+- Five minutes to run and edit the scoring script
 
-So the question this lesson answers is:
+## Key Terms
 
-> **Why in deployment do we often not “just load the model weights and infer,” but instead go through an inference engine first?**
-:::
+- **Latency**: how long one request waits for a result.
+- **Throughput**: how many requests the system can finish per second.
+- **Backend**: the hardware-specific execution path, such as CPU, CUDA, TensorRT, or OpenVINO.
+- **ONNX**: a common model exchange format.
+- **Operator**: one model graph operation, such as matrix multiplication, convolution, or normalization.
 
-## Learning objectives
+## Run The Engine Selector
 
-- Understand the role of an inference engine in the deployment pipeline
-- Distinguish what different inference engines are generally suitable for in terms of hardware and scenarios
-- Use runnable examples to understand the three metrics of latency, throughput, and adaptability
-- Build a first-level judgment for choosing an engine
-
----
-
-## What exactly does an inference engine do?
-
-### It is not the model itself
-
-The model answers:
-
-- What are the network structure and parameters?
-
-The inference engine answers:
-
-- How can this structure be executed more efficiently on the target device?
-
-### What does it usually do?
-
-Common tasks include:
-
-- Graph optimization
-- Operator fusion
-- Memory planning
-- Backend kernel selection
-
-### An analogy
-
-A model is like a recipe.
-An inference engine is like a kitchen scheduling system.
-
-With the same recipe,
-using different workflows in different kitchens will lead to different speed and quality.
-
----
-
-## Why are there so many inference engines?
-
-### Because the hardware is different
-
-Common target environments include:
-
-- General-purpose CPU
-- NVIDIA GPU
-- Intel CPU / NPU
-- Edge devices
-
-### Because the optimization goals are different
-
-Some care more about:
-
-- Ease of use
-
-Others care more about:
-
-- Extreme performance
-
-### So there is no “absolutely best engine”
-
-A more reasonable question is:
-
-- Under this kind of model, this kind of hardware, and this kind of goal, which engine is more suitable?
-
----
-
-## Understand “engine selection” with a small example first
-
-This example does not actually run ONNX Runtime or TensorRT,
-but it very directly simulates:
-
-- Latency, throughput, and adaptability scores of different engines in different scenarios
+Create `engine_selector.py`:
 
 ```python
 engines = [
-    {"name": "onnxruntime", "latency_ms": 32, "throughput_qps": 31, "hardware_fit": 8},
-    {"name": "tensorrt", "latency_ms": 14, "throughput_qps": 70, "hardware_fit": 10},
-    {"name": "openvino", "latency_ms": 26, "throughput_qps": 38, "hardware_fit": 9},
+    {
+        "name": "ONNX Runtime",
+        "hardware": ["cpu", "nvidia"],
+        "formats": ["onnx"],
+        "latency": "medium",
+        "ops": "easy",
+    },
+    {
+        "name": "TensorRT",
+        "hardware": ["nvidia"],
+        "formats": ["onnx", "engine"],
+        "latency": "low",
+        "ops": "hard",
+    },
+    {
+        "name": "OpenVINO",
+        "hardware": ["cpu", "intel"],
+        "formats": ["onnx", "ir"],
+        "latency": "low",
+        "ops": "medium",
+    },
 ]
 
+need = {"hardware": "nvidia", "format": "onnx", "latency": "low"}
 
-def score(engine, prefer_low_latency=True):
-    latency_score = 100 / engine["latency_ms"]
-    throughput_score = engine["throughput_qps"] / 10
-    hardware_score = engine["hardware_fit"]
+for engine in engines:
+    score = 0
+    score += 2 if need["hardware"] in engine["hardware"] else -3
+    score += 2 if need["format"] in engine["formats"] else -2
+    score += 1 if need["latency"] == engine["latency"] else 0
+    score -= 1 if engine["ops"] == "hard" else 0
+    engine["score"] = score
 
-    if prefer_low_latency:
-        return round(latency_score * 0.5 + throughput_score * 0.2 + hardware_score * 0.3, 2)
-    return round(latency_score * 0.2 + throughput_score * 0.5 + hardware_score * 0.3, 2)
+best = max(engines, key=lambda item: item["score"])
 
+for engine in engines:
+    print(engine["name"], engine["score"])
 
-latency_first = sorted(
-    [{**e, "score": score(e, True)} for e in engines],
-    key=lambda x: x["score"],
-    reverse=True,
-)
-
-throughput_first = sorted(
-    [{**e, "score": score(e, False)} for e in engines],
-    key=lambda x: x["score"],
-    reverse=True,
-)
-
-print("latency_first:")
-for item in latency_first:
-    print(item)
-
-print("\nthroughput_first:")
-for item in throughput_first:
-    print(item)
+print("selected:", best["name"])
 ```
 
-### What does this code teach?
+Run it:
 
-It reminds you that:
+```bash
+python engine_selector.py
+```
 
-- Engine selection is not about sorting by a single metric
+Expected output:
 
-If you care more about:
+```text
+ONNX Runtime 4
+TensorRT 4
+OpenVINO 0
+selected: ONNX Runtime
+```
 
-- Low latency
+The script gives ONNX Runtime and TensorRT the same score, then selects the first one. That is intentional: in real deployment, if a faster path adds extra operational cost, the simpler path can be the better first release.
 
-and you care more about:
+## Change One Constraint
 
-- High throughput
+Now change:
 
-the final ranking may be different.
+```python
+need = {"hardware": "nvidia", "format": "onnx", "latency": "low"}
+```
 
-### Why is this more useful than just remembering “TensorRT is faster”?
+to:
 
-Because real decisions are never only about:
+```python
+need = {"hardware": "intel", "format": "onnx", "latency": "low"}
+```
 
-- Who is theoretically the fastest
+Run again. Expected result:
 
-They also include:
+```text
+ONNX Runtime -1
+TensorRT -2
+OpenVINO 5
+selected: OpenVINO
+```
 
-- Can it be integrated into the current pipeline?
-- Does it support the target model?
-- Is it worth adding complexity for this amount of performance gain?
+This is the core idea: engine choice changes when hardware changes.
 
----
+## Practical Selection Rule
 
-## Broad differences among several common engines
+Use this order before trying advanced tuning:
 
-### ONNX Runtime
+1. Confirm the target hardware.
+2. Confirm the model format the engine can load.
+3. Check whether unsupported operators exist.
+4. Compare latency and throughput with the same input size.
+5. Choose the simplest engine that meets the target.
 
-It is more like a general-purpose player.
-Its strengths are usually:
+## Common Mistakes
 
-- Broad ecosystem
-- Strong compatibility
-- Relatively balanced ease of use
+- Choosing TensorRT only because it is fast, even when the team cannot maintain the engine build pipeline.
+- Testing with a tiny input, then discovering production input is much slower.
+- Forgetting unsupported operators until the final deployment week.
 
-### TensorRT
+## Practice
 
-It is more like a high-performance path in the NVIDIA ecosystem.
-Common characteristics:
-
-- Strong in GPU scenarios
-- Large optimization potential
-- Relatively higher engineering barrier
-
-### OpenVINO
-
-It is more focused on the Intel ecosystem and adaptation to specific hardware.
-Common characteristics:
-
-- Good performance on certain CPUs / Intel devices
-- Suitable for specific deployment environments
-
-### How should you choose among these three?
-
-Do not ask first, “Which one is the most popular?”
-Instead ask:
-
-- What hardware do I have?
-- What is my model format?
-- Do I care more about latency or maintainability?
-
----
-
-## What deployment outcomes can inference engines directly affect?
-
-### Latency
-
-What users notice first is:
-
-- Is it fast or not?
-
-### Throughput
-
-The service side cares more about:
-
-- How many requests can it handle at the same time?
-
-### Resource utilization
-
-For example:
-
-- Is it more memory-efficient?
-- Is CPU usage more reasonable?
-
-### Maintenance complexity
-
-A route with higher performance
-sometimes also means:
-
-- More complex export
-- Harder debugging
-- Stronger platform lock-in
-
----
-
-## The most common misconceptions
-
-### Misconception 1: An inference engine is just “running the model with a different library”
-
-Not really.
-It often changes:
-
-- The graph execution method
-- Optimization strategy
-- Hardware utilization
-
-### Misconception 2: The fastest engine is the best engine
-
-If compatibility is poor, debugging is complicated, or deployment is too difficult,
-“fastest” may not be the best choice.
-
-### Misconception 3: Choose the engine first, then look at the hardware
-
-A more reasonable order is usually the opposite:
-
-- First look at the hardware and target constraints
-- Then choose the engine
-
----
-
-## Summary
-
-The most important thing in this lesson is not memorizing a few engine names,
-but building a deployment judgment:
-
-> **An inference engine is a system layer that adapts efficient execution between the model and the hardware. Its value is not only “making it run,” but “making it faster, leaner, and more compatible.”**
-
-Once you understand this layer clearly, learning service deployment and edge deployment later will feel much more natural.
-
----
-
-## Exercises
-
-1. Adjust the scoring weights in the example and see how the ranking changes when you “care more about hardware fit.”
-2. Why is choosing an inference engine essentially a joint decision of “hardware + model + goal”?
-3. If you deploy on an NVIDIA GPU, why is TensorRT often worth considering first?
-4. Think about this: if the team’s maintenance capability is average, but the project needs to go online quickly, would you prefer a general-purpose engine or an extreme-optimization engine?
+Add a `memory` field to each engine and subtract one point if it uses more memory than your device allows. Then rerun the selector for CPU-only, NVIDIA GPU, and Intel device scenarios.
