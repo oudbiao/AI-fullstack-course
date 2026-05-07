@@ -187,6 +187,8 @@ If you can do these four things, you have already learned the most important par
 
 ### Common Pitfalls for Beginners on Kaggle
 
+![Kaggle validation and leaderboard loop](/img/course/ch05-kaggle-validation-leaderboard-loop-en.svg)
+
 - Repeatedly trying things on the public leaderboard and overfitting to it
 - Having no local cross-validation and only watching the online score
 - Changing too many things at once, so you cannot tell what caused the improvement

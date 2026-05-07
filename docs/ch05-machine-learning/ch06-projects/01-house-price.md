@@ -298,6 +298,8 @@ print(f"Best parameters: {rs.best_params_}")
 
 ## Step 5: Result Analysis
 
+![House price residual review map](/img/course/ch05-house-price-residual-review-map-en.svg)
+
 ```python
 # Prediction vs actual
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))

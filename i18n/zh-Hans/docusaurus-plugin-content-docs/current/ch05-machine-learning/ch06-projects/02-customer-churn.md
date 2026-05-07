@@ -161,6 +161,8 @@ print(f"流失客户: {df['流失'].sum()}, 留存客户: {(1-df['流失']).sum(
 
 ## Step 2：不平衡数据处理
 
+![客户流失不平衡与阈值图](/img/course/ch05-churn-imbalance-threshold-map.svg)
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier

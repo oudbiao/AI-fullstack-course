@@ -300,6 +300,8 @@ print(f"最適パラメータ: {rs.best_params_}")
 
 ## Step 5：結果の分析
 
+![住宅価格の残差レビュー図](/img/course/ch05-house-price-residual-review-map-ja.svg)
+
 ```python
 # 予測値 vs 実測値
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))

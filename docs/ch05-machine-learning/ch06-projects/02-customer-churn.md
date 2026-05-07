@@ -161,6 +161,8 @@ print(f"Churn customers: {df['Churn'].sum()}, Retained customers: {(1-df['Churn'
 
 ## Step 2: Handle imbalanced data
 
+![Churn imbalance and threshold map](/img/course/ch05-churn-imbalance-threshold-map-en.svg)
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier

@@ -163,6 +163,8 @@ print(f"離脱顧客: {df['離脱'].sum()}, 継続顧客: {(1-df['離脱']).sum(
 
 ## Step 2：不均衡データの処理
 
+![顧客離脱の不均衡としきい値図](/img/course/ch05-churn-imbalance-threshold-map-ja.svg)
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier

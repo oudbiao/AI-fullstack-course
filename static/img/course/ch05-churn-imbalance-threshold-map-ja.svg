@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">解約予測の不均衡としきい値マップ</title>
+  <desc id="desc">解約予測で class_weight、SMOTE、しきい値調整を比較する図。</desc>
+  <rect width="1200" height="675" fill="#f8fafc"/>
+  <text x="80" y="78" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">解約予測：不均衡はモデルだけの問題ではない</text>
+  <text x="80" y="116" font-family="Inter, Arial, sans-serif" font-size="18" fill="#4b5563">コードを読む前に、3つの調整ポイントを分ける。</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="90" y="185" width="280" height="150" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+    <text x="230" y="232" text-anchor="middle" font-size="24" font-weight="700" fill="#7f1d1d">クラス分布</text>
+    <text x="230" y="270" text-anchor="middle" font-size="17" fill="#991b1b">85% 継続</text>
+    <text x="230" y="300" text-anchor="middle" font-size="17" fill="#991b1b">15% 解約</text>
+    <path d="M390 260h80" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="500" y="185" width="280" height="150" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+    <text x="640" y="232" text-anchor="middle" font-size="24" font-weight="700" fill="#0c4a6e">学習側の調整</text>
+    <text x="640" y="270" text-anchor="middle" font-size="17" fill="#075985">class_weight または SMOTE</text>
+    <text x="640" y="300" text-anchor="middle" font-size="17" fill="#075985">学習データ内だけで使う</text>
+    <path d="M800 260h80" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="910" y="185" width="220" height="150" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="1020" y="232" text-anchor="middle" font-size="24" font-weight="700" fill="#14532d">判断側の調整</text>
+    <text x="1020" y="270" text-anchor="middle" font-size="17" fill="#166534">しきい値</text>
+    <text x="1020" y="300" text-anchor="middle" font-size="17" fill="#166534">適合率 vs 再現率</text>
+  </g>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="145" y="425" width="910" height="115" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="190" y="470" font-size="22" font-weight="700" fill="#111827">初心者向けガードレール</text>
+    <text x="190" y="508" font-size="18" fill="#374151">accuracy だけで比べない。解約を見逃す方が悪いか、誤って連絡する方が悪いかを先に考える。</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2l8 4-8 4z" fill="#64748b"/>
+    </marker>
+  </defs>
+</svg>

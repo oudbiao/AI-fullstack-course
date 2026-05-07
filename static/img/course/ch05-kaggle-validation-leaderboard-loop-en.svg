@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Kaggle validation and leaderboard loop</title>
+  <desc id="desc">A beginner guardrail map for comparing local validation with Kaggle public leaderboard scores.</desc>
+  <rect width="1200" height="675" fill="#f8fafc"/>
+  <text x="80" y="78" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">Kaggle: Trust Local Validation Before the Leaderboard</text>
+  <text x="80" y="116" font-family="Inter, Arial, sans-serif" font-size="18" fill="#4b5563">A submission is an experiment record, not just a score.</text>
+  <g font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">
+    <rect x="100" y="210" width="185" height="105" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="192" y="270" text-anchor="middle" fill="#1e3a8a">Local CV</text>
+    <path d="M310 263h75" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="410" y="210" width="185" height="105" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+    <text x="502" y="270" text-anchor="middle" fill="#0c4a6e">One Change</text>
+    <path d="M620 263h75" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="720" y="210" width="185" height="105" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="812" y="270" text-anchor="middle" fill="#14532d">Submission</text>
+    <path d="M930 263h75" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="1020" y="210" width="125" height="105" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+    <text x="1082" y="270" text-anchor="middle" fill="#78350f">Score</text>
+  </g>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="160" y="410" width="880" height="125" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="210" y="456" font-size="22" font-weight="700" fill="#111827">If scores disagree</text>
+    <text x="230" y="497" font-size="18" fill="#374151">Local CV high, public score low: check split, leakage, and distribution shift.</text>
+    <text x="230" y="527" font-size="18" fill="#374151">Public score high, local CV unstable: avoid tuning blindly to the public leaderboard.</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2l8 4-8 4z" fill="#64748b"/>
+    </marker>
+  </defs>
+</svg>

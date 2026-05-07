@@ -298,6 +298,8 @@ print(f"最佳参数: {rs.best_params_}")
 
 ## Step 5：结果分析
 
+![房价残差复盘图](/img/course/ch05-house-price-residual-review-map.svg)
+
 ```python
 # 预测 vs 实际
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
