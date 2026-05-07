@@ -1,176 +1,97 @@
 ---
-title: "6.5.3 Transformer Architecture 🔧"
+title: "6.5.3 Transformer Architecture"
 sidebar_position: 2
-description: "Starting from the components of a Transformer Block, understand how residual connections, LayerNorm, feed-forward networks, and the encoder and decoder combine into a complete architecture."
-keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding]
+description: "Build a Transformer block step by step with attention, residual connections, LayerNorm, FFN, position information, encoder/decoder paths, and modern LLM decoder changes."
+keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding, RMSNorm, RoPE, GQA]
 ---
 
 # 6.5.3 Transformer Architecture
 
-![Transformer Block architecture diagram](/img/course/transformer-block-architecture-en.png)
-
-:::tip Where this section fits
-In the previous section, you learned that the attention mechanism is the heart of the Transformer.
-In this section, we are going to put the heart together with the other organs and look at the full system:
-
-> **What exactly does a Transformer Block consist of, and why are the components arranged this way?**
-
-Once you understand this section, you will no longer see GPT, BERT, and T5 as just names.
+:::tip Section Overview
+Attention is the heart, but a Transformer block works because several engineering pieces cooperate: residual paths preserve information, normalization stabilizes values, FFN layers transform each token, and position signals restore order.
 :::
 
 ## Learning Objectives
 
-- Understand the standard structure of a Transformer Block
-- Understand the roles of residual connections, LayerNorm, and feed-forward networks
-- Distinguish the three main paths: encoder-only, decoder-only, and encoder-decoder
-- Understand why positional encoding is essential
-- Read a minimal Transformer encoder example
+- Read a Transformer block as an executable data flow.
+- Explain residual connections, LayerNorm, and FFN without memorizing layer names.
+- Run PyTorch examples that show the main shapes.
+- Distinguish encoder-only, decoder-only, and encoder-decoder models.
+- Understand why modern LLM decoders use pre-norm, RMSNorm, RoPE, GQA/MQA, and SwiGLU.
 
 ---
 
-## First, Build a Map
+## Start with the Block Picture
 
-It is easier to understand the Transformer architecture by asking: “Who does what in a single block?”
+![Transformer Block architecture diagram](/img/course/transformer-block-architecture-en.png)
 
-```mermaid
-flowchart LR
-    A["Input representation"] --> B["Self-Attention: look at relationships"]
-    B --> C["Add & Norm: keep things stable"]
-    C --> D["FFN: further process the representation"]
-    D --> E["Add & Norm: stabilize again"]
+A Transformer block usually keeps the outer shape:
+
+```text
+[batch, seq_len, d_model] -> [batch, seq_len, d_model]
 ```
 
-So the real questions this section answers are:
+The shape often stays the same, but the representation becomes more context-aware.
 
-- Besides attention, what do the remaining Transformer modules actually do?
-- Why do GPT, BERT, and T5 look different on the surface, but still share such a similar backbone?
+| Part | What it does | Why it matters |
+|---|---|---|
+| Multi-head attention | mixes information across token positions | builds context |
+| Residual connection | adds the input back | protects information and gradients |
+| LayerNorm / RMSNorm | stabilizes feature scale | makes deep training easier |
+| FFN | transforms each position independently | adds nonlinear processing power |
+| Position information | tells the model token order | attention alone is order-light |
 
----
+## Lab 1: Inspect a PyTorch Transformer Block
 
-## A Transformer Is More Than Just “Attention”
+```python
+import torch
+from torch import nn
 
-### A Common Misunderstanding
+torch.manual_seed(42)
 
-When many people hear “Transformer,” they only remember:
+layer = nn.TransformerEncoderLayer(
+    d_model=16,
+    nhead=4,
+    dim_feedforward=32,
+    batch_first=True,
+    norm_first=True,
+    dropout=0.0,
+)
 
-- self-attention
-- Q/K/V
-- multi-head
+print("block_parts")
+print(type(layer.self_attn).__name__)
+print("linear1:", tuple(layer.linear1.weight.shape))
+print("linear2:", tuple(layer.linear2.weight.shape))
+print("norm_first:", layer.norm_first)
+print("norm:", type(layer.norm1).__name__)
+```
 
-But a real Transformer Block is not “just an attention layer.”
+Expected output:
 
-A typical block also includes at least:
+```text
+block_parts
+MultiheadAttention
+linear1: (32, 16)
+linear2: (16, 32)
+norm_first: True
+norm: LayerNorm
+```
 
-- Residual connections
-- Layer normalization (LayerNorm)
-- Feed-forward network (FFN)
+Read the parameters:
 
-### Why Add So Many Things?
+- `d_model=16`: every token representation has 16 features.
+- `nhead=4`: attention is split into 4 heads.
+- `dim_feedforward=32`: the FFN expands from 16 to 32, then projects back.
+- `batch_first=True`: tensors use `[batch, seq_len, d_model]`.
+- `norm_first=True`: use pre-norm, a common stable pattern for deep stacks.
 
-Because although the attention layer is good at “building relationships,” a stable and trainable large model also needs:
-
-- smoother gradient flow
-- more stable numerical distributions
-- stronger nonlinear transformation ability
-
-So you can roughly remember it this way:
-
-> Attention decides “where to look,” FFN decides “how to further process,” and residual connections plus normalization keep the whole system stable.
-
-### A Beginner-Friendly Analogy
-
-You can think of a Transformer Block as:
-
-- a work group that first holds a meeting, then organizes notes, then does deeper processing, and finally organizes things again
-
-In this analogy:
-
-- Attention is like everyone exchanging information with each other first
-- FFN is like each person independently processing the information they received
-- Residual connections and normalization keep the whole process from becoming messy
-
-With this mental model, it no longer feels like:
-
-- a pile of mysterious layers stacked together
+## Residual and Normalization
 
 ![Transformer Block component responsibility diagram](/img/course/ch06-transformer-block-role-map-en.png)
 
-:::tip Reading the Diagram
-It is helpful to read this diagram by responsibility: Attention mixes context, Residual preserves the original information, LayerNorm stabilizes the values, and FFN further processes each position. A Transformer is not just attention; it is an engineering structure that makes attention deep and trainable.
-:::
+Residual connections and normalization are not decoration. They are what let the block become deep without losing the original signal or exploding into unstable values.
 
----
-
-## What Does an Encoder Block Look Like?
-
-### Structure Diagram
-
-```mermaid
-flowchart LR
-    A["Input representation"] --> B["Multi-Head Self-Attention"]
-    B --> C["Add & Norm"]
-    C --> D["Feed Forward Network"]
-    D --> E["Add & Norm"]
-    E --> F["Output representation"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style D fill:#fffde7,stroke:#f9a825,color:#333
-    style E fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style F fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### In Plain English
-
-For each block:
-
-1. First use self-attention to look at global relationships
-2. Then add the input back and normalize
-3. Then pass through a position-wise feed-forward network
-4. Then add the intermediate result back and normalize again
-
-That is the main flow of a Transformer encoder block.
-
-### A Beginner-Friendly Module Summary Table
-
-| Module | The Most Important Thing to Remember |
-|---|---|
-| Self-Attention | See which tokens are related in the sequence |
-| Residual | Don’t lose the original information |
-| LayerNorm | Keep the representation stable |
-| FFN | Do another nonlinear transformation at each position |
-
-This table is useful for beginners because it compresses a block from a structural diagram into a few memorable sentences.
-
----
-
-## What Does the Residual Connection Actually Help With?
-
-### The Most Intuitive Understanding
-
-A residual connection is simply:
-
-> Add a shortcut that brings the input directly back to the output.
-
-In formula form, it is very simple:
-
-> `y = f(x) + x`
-
-### Why Is This Helpful?
-
-Because deep networks often suffer from:
-
-- information becoming weaker as it flows through layers
-- gradients becoming harder to propagate
-
-A residual connection is like saying:
-
-> “Even if the new things learned by this layer are not great yet, at least do not completely lose the original information.”
-
-This makes the network easier to train and easier to deepen.
-
-### A Minimal Example
+## Lab 2: Residual Connection
 
 ```python
 import torch
@@ -180,140 +101,56 @@ f_x = torch.tensor([[0.1, -0.2, 0.3]])
 
 y = x + f_x
 
-print("x   =", x)
-print("f(x)=", f_x)
-print("y   =", y)
+print("residual_lab")
+print(y)
 ```
 
----
+Expected output:
 
-## What Does LayerNorm Do?
+```text
+residual_lab
+tensor([[1.1000, 1.8000, 3.3000]])
+```
 
-### Why Do We Need Normalization?
+The layer only needs to learn a useful update `f(x)`. The old representation `x` is still available through the shortcut.
 
-In deep networks, the value distribution of each layer’s output can drift a lot.
-This makes training unstable.
-
-The role of LayerNorm is:
-
-> On the feature dimension, pull the representation of each position back to a more stable scale.
-
-### A Simple Analogy
-
-You can think of LayerNorm as:
-
-> After each layer finishes processing, first “straighten the posture” of the values so the next layer does not receive input that is too extreme.
-
-### Minimal Example
+## Lab 3: LayerNorm
 
 ```python
 import torch
 from torch import nn
 
-x = torch.tensor([
-    [1.0, 2.0, 3.0, 10.0],
-    [2.0, 2.5, 3.5, 9.0]
-])
+x = torch.tensor(
+    [
+        [1.0, 2.0, 3.0, 10.0],
+        [2.0, 2.5, 3.5, 9.0],
+    ]
+)
 
 ln = nn.LayerNorm(4)
 y = ln(x)
 
-print("before =\n", x)
-print("after  =\n", y)
-print("row means:", y.mean(dim=1))
+print("layernorm_lab")
+print(torch.round(y.detach(), decimals=3))
+print("row_means:", torch.round(y.mean(dim=1).detach(), decimals=4))
+print("row_stds:", torch.round(y.std(dim=1, unbiased=False).detach(), decimals=4))
 ```
 
-You will see that each row is pulled toward a more stable distribution.
+Expected output:
 
----
-
-## Why Is the Feed-Forward Network (FFN) Also Important?
-
-### Attention Does Not End the Story
-
-It is easy to think:
-
-- since attention has already captured the relationships
-- then maybe the layers after it are not that important?
-
-That is not true.
-
-Attention is better at “mixing information from different positions,”
-while the FFN is better at “doing another nonlinear transformation on the representation at the current position.”
-
-### A Standard FFN
-
-It is usually written roughly as:
-
-> `Linear -> Activation -> Linear`
-
-```python
-import torch
-from torch import nn
-
-x = torch.randn(2, 5, 8)
-
-ffn = nn.Sequential(
-    nn.Linear(8, 32),
-    nn.ReLU(),
-    nn.Linear(32, 8)
-)
-
-y = ffn(x)
-
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+```text
+layernorm_lab
+tensor([[-0.8490, -0.5660, -0.2830,  1.6970],
+        [-0.8050, -0.6260, -0.2680,  1.6990]])
+row_means: tensor([0., 0.])
+row_stds: tensor([1., 1.])
 ```
 
-Note:
+LayerNorm normalizes across the feature dimension for each token. It does not normalize across the batch.
 
-- The sequence length does not change
-- Each position passes through the same feed-forward network independently
+## FFN: Same Position, Stronger Transformation
 
----
-
-## Why Is Positional Encoding Essential?
-
-### Attention Itself Does Not Carry Order
-
-Self-attention is very good at figuring out “who is related to whom,”
-but if you only give it token embeddings and do not tell it the positions:
-
-- “cat chases dog”
-- “dog chases cat”
-
-In some cases, it may be hard to directly distinguish the difference in order.
-
-### So We Add Positional Encoding
-
-Positional encoding tells the model:
-
-- which position this token is at
-- what its relative position is compared to other tokens
-
-### A Simple Sinusoidal Positional Encoding Example
-
-```python
-import numpy as np
-
-positions = np.arange(5)
-encoding = np.stack([
-    np.sin(positions),
-    np.cos(positions)
-], axis=1)
-
-print(np.round(encoding, 4))
-```
-
-Real positional encodings are higher-dimensional and more complex, but for intuition, you can think of them as:
-
-> giving each position a unique coordinate label.
-
----
-
-## A Minimal Transformer Encoder Example
-
-### Runnable Code
+Attention mixes information across positions. The feed-forward network processes each position independently after that mixing.
 
 ```python
 import torch
@@ -321,238 +158,205 @@ from torch import nn
 
 torch.manual_seed(42)
 
-# batch=2, seq_len=6, d_model=16
-x = torch.randn(2, 6, 16)
+x = torch.randn(2, 5, 8)
 
-layer = nn.TransformerEncoderLayer(
+ffn = nn.Sequential(
+    nn.Linear(8, 32),
+    nn.GELU(),
+    nn.Linear(32, 8),
+)
+
+y = ffn(x)
+
+print("ffn_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
+```
+
+Expected output:
+
+```text
+ffn_lab
+input: (2, 5, 8)
+output: (2, 5, 8)
+```
+
+The FFN expands the hidden size internally, then projects back. Sequence length does not change.
+
+## Position Information
+
+Self-attention can compare tokens, but it does not naturally know whether a token is first, second, or last. Position information fixes that.
+
+```python
+import torch
+
+positions = torch.arange(5).float().unsqueeze(1)
+dims = torch.arange(0, 8, 2).float()
+angle_rates = 1 / (10000 ** (dims / 8))
+angles = positions * angle_rates
+
+pe = torch.zeros(5, 8)
+pe[:, 0::2] = torch.sin(angles)
+pe[:, 1::2] = torch.cos(angles)
+
+print("positional_lab")
+print(torch.round(pe[:3], decimals=4))
+```
+
+Expected output:
+
+```text
+positional_lab
+tensor([[ 0.0000,  1.0000,  0.0000,  1.0000,  0.0000,  1.0000,  0.0000,  1.0000],
+        [ 0.8415,  0.5403,  0.0998,  0.9950,  0.0100,  1.0000,  0.0010,  1.0000],
+        [ 0.9093, -0.4161,  0.1987,  0.9801,  0.0200,  0.9998,  0.0020,  1.0000]])
+```
+
+Modern LLMs often use RoPE instead of this classic sinusoidal style. The practical goal is the same: give attention a usable sense of order and relative distance.
+
+## Lab 4: Run One Encoder Block
+
+```python
+import torch
+from torch import nn
+
+torch.manual_seed(42)
+
+encoder_layer = nn.TransformerEncoderLayer(
     d_model=16,
     nhead=4,
     dim_feedforward=32,
-    batch_first=True
+    batch_first=True,
+    norm_first=True,
+    dropout=0.0,
 )
 
-y = layer(x)
+tokens = torch.randn(2, 6, 16)
+out = encoder_layer(tokens)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("encoder_shape_lab")
+print("input:", tuple(tokens.shape))
+print("output:", tuple(out.shape))
+print("changed:", bool(torch.not_equal(tokens, out).any()))
 ```
 
-### What Does This Code Teach?
+Expected output:
 
-It teaches you two very important facts:
+```text
+encoder_shape_lab
+input: (2, 6, 16)
+output: (2, 6, 16)
+changed: True
+```
 
-1. After a block processes the input, the shape usually does not change
-2. What changes is the quality of the representation, not the appearance of the tensor
-
-In other words, even though many Transformer layers do not visibly change the shape,
-what really changes is:
-
-- how each position incorporates global context
-- how rich the semantic information in the representation becomes
+The shape stays the same, but every token has been rewritten with context from other tokens.
 
 ![Progressive refinement of representations across Transformer layers](/img/course/ch06-transformer-representation-refinement-map-en.png)
 
-:::tip Reading the Diagram
-When reading this diagram, do not focus only on shape: `[batch, seq_len, d_model]` may stay the same across layers, but each token representation has already absorbed more context. In a Transformer, the real “improvement” often happens inside the representation content, not in the outer dimensions.
-:::
+## Encoder, Decoder, and Encoder-Decoder
 
----
+| Family | Typical model | Main use | Attention pattern |
+|---|---|---|---|
+| Encoder-only | BERT | understanding and classification | bidirectional self-attention |
+| Decoder-only | GPT-style LLMs | generation | causal self-attention |
+| Encoder-decoder | T5, original Transformer | read one sequence, generate another | encoder self-attention plus decoder cross-attention |
 
-## What Does a Decoder Block Add?
+## Lab 5: Decoder Shape and Cross-Attention
 
-### The Key Difference Between Decoder and Encoder
+```python
+import torch
+from torch import nn
 
-A Decoder Block usually adds one more module:
+torch.manual_seed(42)
 
-- **Cross-Attention**
+decoder_layer = nn.TransformerDecoderLayer(
+    d_model=16,
+    nhead=4,
+    dim_feedforward=32,
+    batch_first=True,
+    norm_first=True,
+    dropout=0.0,
+)
 
-So a typical decoder structure is:
+target = torch.randn(2, 3, 16)
+memory = torch.randn(2, 5, 16)
+causal_mask = nn.Transformer.generate_square_subsequent_mask(target.size(1))
 
-1. Masked Self-Attention
-2. Cross-Attention
-3. Feed Forward
+out = decoder_layer(target, memory, tgt_mask=causal_mask)
 
-### Why Add Cross-Attention?
+print("decoder_shape_lab")
+print("target:", tuple(target.shape))
+print("memory:", tuple(memory.shape))
+print("mask:", tuple(causal_mask.shape))
+print("output:", tuple(out.shape))
+```
 
-Because the decoder does not only need to look at the history of what it has already generated, but also at the input information passed from the encoder.
+Expected output:
 
-This is very common in:
+```text
+decoder_shape_lab
+target: (2, 3, 16)
+memory: (2, 5, 16)
+mask: (3, 3)
+output: (2, 3, 16)
+```
 
-- machine translation
-- summarization
-- question answering generation
+Read it this way:
 
-### The Easiest Way to Distinguish Encoder-only / Decoder-only / Encoder-Decoder
-
-When you first learn these three paths, the safest distinction is usually:
-
-1. Encoder-only: more focused on understanding
-2. Decoder-only: more focused on generation
-3. Encoder-decoder: more like “read one piece, then generate another”
-
-Remember this main line first, and then when you look at:
-
-- BERT
-- GPT
-- T5
-
-you will not be left with only the model names.
-
----
-
-## Three Main Transformer Families
-
-### Encoder-only
-
-Representative model:
-
-- BERT
-
-Features:
-
-- More focused on understanding tasks
-
-### Decoder-only
-
-Representative model:
-
-- GPT
-
-Features:
-
-- More focused on generation tasks
-
-### Encoder-Decoder
-
-Representative model:
-
-- T5
-
-Features:
-
-- Flexible input and output
-
----
+- `target` is what the decoder has generated so far.
+- `memory` is the encoder output.
+- `causal_mask` prevents future peeking inside the decoder.
+- Cross-attention lets the decoder look at the encoded input.
 
 ## Early Transformer vs Modern LLM Decoder
 
-The original Transformer paper mainly introduced an encoder-decoder stack for sequence-to-sequence tasks such as machine translation. Modern large language models usually use a decoder-only stack optimized for next-token prediction and large-scale pretraining. The backbone is still Transformer, but the design choices are different.
-
 ![Early Transformer vs modern LLM decoder visual comparison](/img/course/ch06-transformer-early-modern-decoder-en.png)
-
-:::tip How to read this diagram
-Read it from top to bottom. The left side shows the original post-norm encoder-decoder design; the right side shows the modern pre-norm decoder-only pattern. The names changed because large models need more stable training, lower inference cost, and better long-context behavior.
-:::
-
-```mermaid
-flowchart TD
-    A["Early Transformer<br/>Attention -> Add & Norm -> FFN -> Add & Norm"] --> B["LayerNorm"]
-    B --> C["Absolute / sinusoidal positional encoding"]
-    C --> D["Standard Multi-Head Attention"]
-    D --> E["Often encoder-decoder"]
-    F["Modern LLM decoder<br/>RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add"] --> G["Pre-norm style"]
-    G --> H["RoPE"]
-    H --> I["GQA / MQA"]
-    I --> J["SwiGLU FFN"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style F fill:#fff3e0,stroke:#e65100,color:#333
-```
-
-### What beginners should remember first
 
 | Part | Early Transformer | Modern LLM decoder | Why it changed |
 |---|---|---|---|
-| Normalization | LayerNorm | RMSNorm (Root Mean Square Normalization) | Simpler normalization often works well in large decoder stacks |
-| Block order | Attention -> Add & Norm -> FFN -> Add & Norm | RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add | Pre-norm makes deep training more stable |
-| Position information | Absolute / sinusoidal positional encoding | RoPE (Rotary Positional Embedding) | Better relative-position behavior and longer-context use |
-| Attention heads | Standard Multi-Head Attention | GQA / MQA (Grouped-Query / Multi-Query Attention) | Lower KV-cache cost and faster inference |
-| FFN | Standard FFN, often ReLU/GELU | SwiGLU FFN | Stronger gating and better scaling behavior |
-| Common architecture | Encoder-decoder | Decoder-only | Next-token prediction is easier to scale for LLMs |
+| Normalization | LayerNorm after attention/FFN | pre-norm, often RMSNorm | deep stacks train more stably |
+| Position signal | absolute or sinusoidal position | RoPE | better relative-position behavior |
+| Attention heads | full multi-head attention | GQA or MQA in many models | lower KV-cache memory during inference |
+| FFN | ReLU/GELU FFN | often SwiGLU-style gated FFN | stronger scaling behavior |
+| Architecture | often encoder-decoder | often decoder-only | next-token prediction scales well |
 
-### Plain-language explanations of the acronyms
+Plain-language terms:
 
-- **RMSNorm**: normalize by the root mean square of the features, without subtracting the mean
-- **RoPE**: rotate position information into the attention space so the model feels order more naturally
-- **GQA**: let multiple query groups share key/value heads
-- **MQA**: let many query heads share a single key/value set
-- **SwiGLU**: a gated feed-forward block that uses a Swish-style gate to control information flow
+- **RMSNorm**: normalize feature scale with root mean square, often cheaper than full LayerNorm.
+- **RoPE**: rotate position information into attention so relative distance is easier to use.
+- **GQA**: grouped-query attention, where groups of query heads share key/value heads.
+- **MQA**: multi-query attention, where many query heads share one key/value set.
+- **SwiGLU**: a gated FFN that controls how much transformed information passes through.
 
-### Why modern LLM decoders changed the block design
+The key idea:
 
-These changes are not cosmetic. They solve practical scaling problems:
+```text
+Original Transformer proved the block pattern.
+Modern LLM decoders changed the block so very deep generation models train and infer efficiently.
+```
 
-- Deep models need more stable gradients, so pre-norm is attractive
-- Long contexts need better position handling, so RoPE is often preferred
-- Inference cost matters, so GQA/MQA reduce KV-cache pressure
-- Large-scale generation needs stronger nonlinear blocks, so SwiGLU often replaces a simpler FFN
+## Common Mistakes
 
-If you remember only one sentence, remember this:
-
-> Early Transformer showed how to build a strong sequence-to-sequence block, while modern LLM decoders show how to scale that block to very large language models.
-
-## If You Turn This Into Notes or a Project, What Is Most Worth Showing?
-
-What is usually most worth showing is not:
-
-- one very complex overall architecture diagram
-
-But rather:
-
-1. What each module in a block is responsible for
-2. The difference between the encoder and the decoder
-3. What each of the three main families is more suited for
-4. Why combining these modules makes training more stable
-
-This helps others see more clearly that:
-
-- you understand the skeleton of the Transformer
-- you are not just memorizing QKV
-
-So when you study models later, do not only look at the name. First ask:
-
-> Is it encoder-only, decoder-only, or encoder-decoder?
-
-That question almost directly determines what it is good at.
-
----
-
-## Common Beginner Pitfalls
-
-### Mistaking Transformer for “Just Attention”
-
-Attention is important, but it is not everything.
-Residual connections, normalization, and FFN are all key to making the architecture work reliably.
-
-### Focusing Only on Shape and Ignoring Information Flow
-
-Many times the shape does not change, but the semantic representation is being rebuilt layer by layer.
-
-### Not Knowing the Difference Between Encoder and Decoder
-
-This will keep you confused when you later look at BERT, GPT, and T5.
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing the diagram, but grasping this main idea:
-
-> **A Transformer Block = attention builds relationships + residual connections preserve information + normalization stabilizes training + FFN performs nonlinear processing.**
-
-With this main idea in mind, when you later study specific models like BERT, GPT, and T5, you can immediately see how they are trimmed and extended within this larger framework.
-
-If you go one step further, you should also be able to separate the original Transformer block from the modern LLM decoder block:
-
-> **Early Transformer = LayerNorm + absolute position + standard multi-head attention + encoder-decoder structure.**
->
-> **Modern LLM decoder = pre-norm + RMSNorm + RoPE + GQA/MQA + SwiGLU + decoder-only structure.**
-
----
+| Mistake | Fix |
+|---|---|
+| thinking Transformer is only attention | include residual, normalization, FFN, and position information |
+| reading only tensor shape | remember the representation content changes even when shape stays the same |
+| confusing encoder and decoder | check whether future tokens are visible and whether cross-attention exists |
+| ignoring `batch_first` | always confirm whether tensors are `[batch, seq, dim]` or `[seq, batch, dim]` |
+| treating modern LLM blocks as identical to the 2017 block | learn pre-norm, RMSNorm, RoPE, GQA/MQA, and gated FFNs |
 
 ## Exercises
 
-1. Change `d_model` to 32 in the minimal Transformer example, then check the output shape.
-2. Explain in your own words: why do we say attention solves “where to look,” while the FFN solves “how to further process”?
-3. Try drawing the extra layer that appears in the decoder block compared with the encoder block.
-4. Think about this: why can a Transformer still process sequences even though it does not use convolution or recurrence?
+1. Change `d_model` to `32` in Lab 4. Which other parameters must change?
+2. In Lab 1, set `norm_first=False`. What architectural pattern does this represent?
+3. Explain why the FFN output shape matches the input shape even though it expands internally.
+4. In Lab 5, change `target` length from `3` to `4`. What must happen to `causal_mask`?
+5. Describe why GQA/MQA helps inference memory in one paragraph.
+
+## Key Takeaways
+
+- A Transformer block is attention plus stability and transformation machinery.
+- Residual connections preserve old information while layers learn updates.
+- Normalization keeps deep stacks trainable.
+- FFN transforms each token after attention has mixed context.
+- Modern LLM decoders keep the Transformer idea but optimize it for scale and inference.

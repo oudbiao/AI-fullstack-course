@@ -1,181 +1,97 @@
 ---
-title: "6.5.3 Transformer アーキテクチャ 🔧"
+title: "6.5.3 Transformer アーキテクチャ"
 sidebar_position: 2
-description: "1つの Transformer Block の構成から始めて、残差、LayerNorm、フィードフォワードネットワーク、エンコーダーとデコーダーがどう組み合わさって全体のアーキテクチャになるのかを理解します。"
-keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding]
+description: "Attention、残差接続、LayerNorm、FFN、位置情報、encoder/decoder の流れ、現代 LLM decoder の変化を、実行できる形で学びます。"
+keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding, RMSNorm, RoPE, GQA]
 ---
 
 # 6.5.3 Transformer アーキテクチャ
 
-![Transformer Block アーキテクチャ図](/img/course/transformer-block-architecture-ja.png)
-
 :::tip この節の位置づけ
-前の節で、注意機構が Transformer の中心だと学びました。  
-この節では、その中心とほかの要素をつなぎ合わせて、全体の仕組みを見ていきます。
-
-> **1つの Transformer Block は、いったいどんな部品でできていて、なぜその順番で並んでいるのでしょうか？**
-
-この節を理解すると、GPT、BERT、T5 などのモデルを見たときに、ただ名前を覚えるだけで終わらなくなります。
+Attention は心臓ですが、Transformer block が安定して動くのは複数の部品が協力しているからです。残差は情報を守り、正規化は値を安定させ、FFN は各 token を加工し、位置情報は順序を補います。
 :::
 
 ## 学習目標
 
-- Transformer Block の標準的な構造を理解する
-- 残差接続、LayerNorm、フィードフォワードネットワークの役割を理解する
-- encoder-only、decoder-only、encoder-decoder の3つの主な系統を区別する
-- 位置エンコーディングがなぜ必要かを理解する
-- 最小限の Transformer エンコーダーの例を読めるようになる
+- Transformer block を実行できるデータフローとして読める。
+- 残差接続、LayerNorm、FFN を層名の暗記ではなく役割で説明できる。
+- PyTorch の例を動かして主要な shape を読める。
+- encoder-only、decoder-only、encoder-decoder を区別できる。
+- 現代 LLM decoder が pre-norm、RMSNorm、RoPE、GQA/MQA、SwiGLU を使う理由を理解する。
 
 ---
 
-## まずは全体の地図を作ろう
+## まず Block 図を見る
 
-Transformer のアーキテクチャは、「1つの block の中で誰が何を担当しているか」で考えると理解しやすくなります。
+![Transformer Block アーキテクチャ図](/img/course/transformer-block-architecture-ja.png)
 
-```mermaid
-flowchart LR
-    A["入力表現"] --> B["Self-Attention: 関係を見る"]
-    B --> C["Add & Norm: 安定させる"]
-    C --> D["FFN: 表現を再加工する"]
-    D --> E["Add & Norm: もう一度安定させる"]
+Transformer block は、多くの場合、外側の shape を保ちます。
+
+```text
+[batch, seq_len, d_model] -> [batch, seq_len, d_model]
 ```
 
-この節で本当に理解したいのは次の点です。
+shape は同じでも、表現はより文脈を含んだものになります。
 
-- 注意機構以外に、Transformer の残りのモジュールは何を補っているのか
-- なぜ GPT、BERT、T5 は見た目が完全に同じではないのに、骨組みはよく似ているのか
+| 部品 | 何をするか | なぜ重要か |
+|---|---|---|
+| Multi-head attention | token 位置の間で情報を混ぜる | 文脈を作る |
+| 残差接続 | 入力を足し戻す | 情報と勾配を守る |
+| LayerNorm / RMSNorm | 特徴量のスケールを安定させる | 深い学習をしやすくする |
+| FFN | 各位置を独立に変換する | 非線形な加工能力を足す |
+| 位置情報 | token の順序を伝える | Attention だけでは順序が弱い |
 
----
+## 実験 1：PyTorch の Transformer Block を調べる
 
-## 一、Transformer は「注意機構」だけではない
+```python
+import torch
+from torch import nn
 
-### よくある誤解
+torch.manual_seed(42)
 
-Transformer と聞くと、多くの人は次のものだけを思い浮かべます。
+layer = nn.TransformerEncoderLayer(
+    d_model=16,
+    nhead=4,
+    dim_feedforward=32,
+    batch_first=True,
+    norm_first=True,
+    dropout=0.0,
+)
 
-- self-attention
-- Q/K/V
-- multi-head
+print("block_parts")
+print(type(layer.self_attn).__name__)
+print("linear1:", tuple(layer.linear1.weight.shape))
+print("linear2:", tuple(layer.linear2.weight.shape))
+print("norm_first:", layer.norm_first)
+print("norm:", type(layer.norm1).__name__)
+```
 
-でも、実際の Transformer Block は「注意機構だけ」でできているわけではありません。
+期待される出力：
 
-典型的な block には、少なくとも次の要素も含まれます。
+```text
+block_parts
+MultiheadAttention
+linear1: (32, 16)
+linear2: (16, 32)
+norm_first: True
+norm: LayerNorm
+```
 
-- 残差接続（Residual）
-- 層正規化（LayerNorm）
-- フィードフォワードネットワーク（Feed Forward Network, FFN）
+パラメータの読み方：
 
-### なぜこんなに多くの要素が必要なのか？
+- `d_model=16`：各 token 表現が 16 個の特徴量を持つ。
+- `nhead=4`：attention を 4 つの head に分ける。
+- `dim_feedforward=32`：FFN は 16 から 32 に広げ、また 16 に戻す。
+- `batch_first=True`：tensor は `[batch, seq_len, d_model]` を使う。
+- `norm_first=True`：pre-norm を使う。深い stack でよく使われる安定した形です。
 
-注意機構は「関係を作る」のが得意ですが、安定して学習できる大規模モデルにするには、次のような性質も必要です。
-
-- 勾配が流れやすいこと
-- 数値分布が安定していること
-- より強い非線形変換ができること
-
-そこで、ざっくり言うと次のように覚えるとよいです。
-
-> 注意機構は「どこを見るか」を担当し、FFN は「どうさらに加工するか」を担当し、残差と正規化は「全体を安定させる」役割を持ちます。
-
-### 初学者向けのたとえ
-
-1つの Transformer Block は、次のような仕事チームだと考えるとわかりやすいです。
-
-- まず会議して情報を共有し
-- 次にメモを整理し
-- さらに深く加工して
-- 最後にもう一度整える
-
-この中で：
-
-- Attention は、みんなで情報をやり取りする部分
-- FFN は、受け取った情報を各自で加工する部分
-- 残差と正規化は、流れが崩れすぎないようにする部分
-
-こう考えると、Transformer は
-
-- ただ神秘的な層が積み重なったもの
-
-ではなくなります。
+## 残差と正規化
 
 ![Transformer Block コンポーネントの役割図](/img/course/ch06-transformer-block-role-map-ja.png)
 
-:::tip 図の読み方
-この図は、役割で読むのがおすすめです。Attention は文脈を混ぜる役割、Residual は元の情報を保つ役割、LayerNorm は数値を安定させる役割、FFN は各位置を再加工する役割です。Transformer は注意機構だけでなく、それを深く積めて学習しやすくするための仕組み全体です。
-:::
+残差接続と正規化は飾りではありません。block を深く積んでも元の信号を失いにくくし、値が不安定になりすぎるのを防ぎます。
 
----
-
-## 二、Encoder Block はどんな形をしているのか？
-
-### 構造図
-
-```mermaid
-flowchart LR
-    A["入力表現"] --> B["Multi-Head Self-Attention"]
-    B --> C["Add & Norm"]
-    C --> D["Feed Forward Network"]
-    D --> E["Add & Norm"]
-    E --> F["出力表現"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style D fill:#fffde7,stroke:#f9a825,color:#333
-    style E fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style F fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### わかりやすく言うと
-
-各 block では、次の順番で処理が進みます。
-
-1. self-attention で全体の関係を見る
-2. 入力を足し戻して正規化する
-3. 位置ごとの FFN に通す
-4. その結果をまた足し戻して正規化する
-
-これが Transformer エンコーダー block の基本的な流れです。
-
-### 初学者がまず覚えるとよい役割表
-
-| モジュール | まず覚えるべき役割 |
-|---|---|
-| Self-Attention | シーケンスの中で、どれとどれが関連しているかを見る |
-| Residual | 元の情報を失わないようにする |
-| LayerNorm | 表現を安定させる |
-| FFN | 各位置をもう一度非線形に加工する |
-
-この表は、1つの block を「図」ではなく「役割の言葉」に圧縮して覚えるのに役立ちます。
-
----
-
-## 三、残差接続は何を助けているのか？
-
-### 直感的な理解
-
-残差接続とは、簡単に言うと：
-
-> 入力をそのまま近道で出力に足し戻す仕組み
-
-数式では次のように書けます。
-
-> `y = f(x) + x`
-
-### なぜ役立つのか？
-
-深いネットワークでは、次のような問題が起こりやすくなります。
-
-- 情報が伝わるうちに弱くなる
-- 勾配が流れにくくなる
-
-残差接続は、次のように言っているのと同じです。
-
-> 「この層で新しく学んだものがまだ十分でなくても、元の情報は消さないでおこう。」
-
-その結果、ネットワークは学習しやすくなり、深く積みやすくなります。
-
-### 最小例
+## 実験 2：残差接続
 
 ```python
 import torch
@@ -185,146 +101,56 @@ f_x = torch.tensor([[0.1, -0.2, 0.3]])
 
 y = x + f_x
 
-print("x   =", x)
-print("f(x)=", f_x)
-print("y   =", y)
+print("residual_lab")
+print(y)
 ```
 
----
+期待される出力：
 
-## 四、LayerNorm は何をしているのか？
+```text
+residual_lab
+tensor([[1.1000, 1.8000, 3.3000]])
+```
 
-### なぜ正規化が必要なのか？
+この層は、有用な更新量 `f(x)` を学べばよいです。元の表現 `x` は shortcut によって残ります。
 
-深いネットワークでは、各層の出力の数値分布が大きくずれることがあります。  
-それが学習の不安定さにつながります。
-
-LayerNorm の役割は次の通りです。
-
-> 特徴次元に対して、各位置の表現をより安定したスケールに整える
-
-### 直感的なたとえ
-
-LayerNorm は次のように考えるとわかりやすいです。
-
-> 1層処理が終わるたびに、数値の姿勢を整えて、次の層が極端な値を受け取らないようにする
-
-### 最小例
+## 実験 3：LayerNorm
 
 ```python
 import torch
 from torch import nn
 
-x = torch.tensor([
-    [1.0, 2.0, 3.0, 10.0],
-    [2.0, 2.5, 3.5, 9.0]
-])
+x = torch.tensor(
+    [
+        [1.0, 2.0, 3.0, 10.0],
+        [2.0, 2.5, 3.5, 9.0],
+    ]
+)
 
 ln = nn.LayerNorm(4)
 y = ln(x)
 
-print("before =\n", x)
-print("after  =\n", y)
-print("row means:", y.mean(dim=1))
+print("layernorm_lab")
+print(torch.round(y.detach(), decimals=3))
+print("row_means:", torch.round(y.mean(dim=1).detach(), decimals=4))
+print("row_stds:", torch.round(y.std(dim=1, unbiased=False).detach(), decimals=4))
 ```
 
-各行が、より安定した分布の近くに整えられるのがわかります。
+期待される出力：
 
----
-
-## 五、フィードフォワードネットワーク（FFN）が重要な理由
-
-### 注意機構のあとで終わりではない
-
-よくある誤解として、
-
-- 注意機構ですでに関係を見られるなら
-- その後はあまり重要ではないのでは？
-
-と思われがちです。
-
-でも実際はそうではありません。
-
-注意機構は「異なる位置の情報を混ぜる」のが得意で、  
-FFN は「その位置の表現をさらに非線形に加工する」のが得意です。
-
-### 標準的な FFN
-
-一般には、次のような形です。
-
-> `Linear -> Activation -> Linear`
-
-```python
-import torch
-from torch import nn
-
-x = torch.randn(2, 5, 8)
-
-ffn = nn.Sequential(
-    nn.Linear(8, 32),
-    nn.ReLU(),
-    nn.Linear(32, 8)
-)
-
-y = ffn(x)
-
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+```text
+layernorm_lab
+tensor([[-0.8490, -0.5660, -0.2830,  1.6970],
+        [-0.8050, -0.6260, -0.2680,  1.6990]])
+row_means: tensor([0., 0.])
+row_stds: tensor([1., 1.])
 ```
 
-ここで大事なのは：
+LayerNorm は各 token の特徴次元に対して正規化します。batch をまたいで正規化するわけではありません。
 
-- シーケンス長は変わらない
-- 各位置が同じ FFN を独立に通る
+## FFN：同じ位置を、より強く変換する
 
-という点です。
-
----
-
-## 六、位置エンコーディングがなぜ必要なのか？
-
-### 注意機構だけでは順序がわからない
-
-self-attention は「どれとどれが関連しているか」を見るのは得意ですが、  
-token の位置情報を与えないと、順序の違いを直接は区別しにくいです。
-
-たとえば：
-
-- 「猫が犬を追う」
-- 「犬が猫を追う」
-
-は、順序が違うだけで意味が変わります。
-
-### だから位置情報を加える
-
-位置エンコーディングは、モデルに次のことを教えます。
-
-- この token は何番目か
-- 他の token と比べてどんな位置関係にあるか
-
-### 単純な正弦位置エンコーディングの例
-
-```python
-import numpy as np
-
-positions = np.arange(5)
-encoding = np.stack([
-    np.sin(positions),
-    np.cos(positions)
-], axis=1)
-
-print(np.round(encoding, 4))
-```
-
-実際の位置エンコーディングはもっと高次元で複雑ですが、まずは次のように理解してよいです。
-
-> 各位置に、重ならない「座標ラベル」を付ける
-
----
-
-## 七、最小限の Transformer エンコーダー例
-
-### 実行できるコード
+Attention は位置をまたいで情報を混ぜます。その後、フィードフォワードネットワークが各位置を独立に加工します。
 
 ```python
 import torch
@@ -332,229 +158,205 @@ from torch import nn
 
 torch.manual_seed(42)
 
-# batch=2, seq_len=6, d_model=16
-x = torch.randn(2, 6, 16)
+x = torch.randn(2, 5, 8)
 
-layer = nn.TransformerEncoderLayer(
+ffn = nn.Sequential(
+    nn.Linear(8, 32),
+    nn.GELU(),
+    nn.Linear(32, 8),
+)
+
+y = ffn(x)
+
+print("ffn_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
+```
+
+期待される出力：
+
+```text
+ffn_lab
+input: (2, 5, 8)
+output: (2, 5, 8)
+```
+
+FFN は内部では hidden size を広げますが、最後に元の次元へ戻します。系列長は変わりません。
+
+## 位置情報
+
+Self-attention は token 同士を比較できますが、token が最初なのか、2 番目なのか、最後なのかを自然には知りません。位置情報はその順序を補います。
+
+```python
+import torch
+
+positions = torch.arange(5).float().unsqueeze(1)
+dims = torch.arange(0, 8, 2).float()
+angle_rates = 1 / (10000 ** (dims / 8))
+angles = positions * angle_rates
+
+pe = torch.zeros(5, 8)
+pe[:, 0::2] = torch.sin(angles)
+pe[:, 1::2] = torch.cos(angles)
+
+print("positional_lab")
+print(torch.round(pe[:3], decimals=4))
+```
+
+期待される出力：
+
+```text
+positional_lab
+tensor([[ 0.0000,  1.0000,  0.0000,  1.0000,  0.0000,  1.0000,  0.0000,  1.0000],
+        [ 0.8415,  0.5403,  0.0998,  0.9950,  0.0100,  1.0000,  0.0010,  1.0000],
+        [ 0.9093, -0.4161,  0.1987,  0.9801,  0.0200,  0.9998,  0.0020,  1.0000]])
+```
+
+現代 LLM では、この古典的な sinusoidal 方式ではなく RoPE がよく使われます。実務上の目的は同じで、attention に順序と相対距離の手がかりを与えることです。
+
+## 実験 4：Encoder Block を 1 つ動かす
+
+```python
+import torch
+from torch import nn
+
+torch.manual_seed(42)
+
+encoder_layer = nn.TransformerEncoderLayer(
     d_model=16,
     nhead=4,
     dim_feedforward=32,
-    batch_first=True
+    batch_first=True,
+    norm_first=True,
+    dropout=0.0,
 )
 
-y = layer(x)
+tokens = torch.randn(2, 6, 16)
+out = encoder_layer(tokens)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("encoder_shape_lab")
+print("input:", tuple(tokens.shape))
+print("output:", tuple(out.shape))
+print("changed:", bool(torch.not_equal(tokens, out).any()))
 ```
 
-### このコードが教えていること
+期待される出力：
 
-このコードから、次の2つの大事なことがわかります。
+```text
+encoder_shape_lab
+input: (2, 6, 16)
+output: (2, 6, 16)
+changed: True
+```
 
-1. 1つの block を通っても、shape はたいてい変わらない
-2. 変わるのはテンソルの見た目ではなく、表現の質
-
-つまり Transformer では、見た目の shape があまり変わらなくても、  
-中身では次のようなことが進んでいます。
-
-- 各位置が全体の文脈を取り込む
-- 表現に含まれる意味情報が豊かになる
+shape は変わりませんが、各 token は他の token の文脈を使って書き換えられています。
 
 ![Transformer 層ごとの表現精錬図](/img/course/ch06-transformer-representation-refinement-map-ja.png)
 
-:::tip 図の読み方
-この図では shape だけを見ないようにしましょう。`[batch, seq_len, d_model]` は各層で同じでも、各 token の表現にはより多くの文脈が混ざっています。Transformer の「強さ」は、サイズの変化ではなく、表現の中身の変化に現れます。
-:::
+## Encoder、Decoder、Encoder-Decoder
 
----
+| 系統 | 代表モデル | 主な用途 | Attention のパターン |
+|---|---|---|---|
+| Encoder-only | BERT | 理解、分類 | 双方向 self-attention |
+| Decoder-only | GPT 系 LLM | 生成 | causal self-attention |
+| Encoder-decoder | T5、元の Transformer | ある系列を読み、別の系列を生成する | encoder self-attention と decoder cross-attention |
 
-## 八、Decoder Block には何が追加されるのか？
+## 実験 5：Decoder Shape と Cross-Attention
 
-### Decoder と Encoder の大きな違い
+```python
+import torch
+from torch import nn
 
-Decoder Block には、通常もう1つ次のモジュールが加わります。
+torch.manual_seed(42)
 
-- **Cross-Attention**
+decoder_layer = nn.TransformerDecoderLayer(
+    d_model=16,
+    nhead=4,
+    dim_feedforward=32,
+    batch_first=True,
+    norm_first=True,
+    dropout=0.0,
+)
 
-そのため、典型的な decoder の流れは次のようになります。
+target = torch.randn(2, 3, 16)
+memory = torch.randn(2, 5, 16)
+causal_mask = nn.Transformer.generate_square_subsequent_mask(target.size(1))
 
-1. Masked Self-Attention
-2. Cross-Attention
-3. Feed Forward
+out = decoder_layer(target, memory, tgt_mask=causal_mask)
 
-### なぜ Cross-Attention が必要なのか？
+print("decoder_shape_lab")
+print("target:", tuple(target.shape))
+print("memory:", tuple(memory.shape))
+print("mask:", tuple(causal_mask.shape))
+print("output:", tuple(out.shape))
+```
 
-Decoder は、自分がすでに生成した履歴だけでなく、encoder から来る入力情報も見る必要があるからです。
+期待される出力：
 
-これは次のようなタスクでよく使われます。
+```text
+decoder_shape_lab
+target: (2, 3, 16)
+memory: (2, 5, 16)
+mask: (3, 3)
+output: (2, 3, 16)
+```
 
-- 機械翻訳
-- 要約生成
-- 質問応答生成
+こう読みます。
 
-### encoder-only / decoder-only / encoder-decoder のわかりやすい区別
+- `target` は decoder がここまで生成している側です。
+- `memory` は encoder の出力です。
+- `causal_mask` は decoder 内で未来を見ないようにします。
+- Cross-attention によって decoder はエンコード済み入力を見られます。
 
-この3つを最初に学ぶときは、次のように分けると覚えやすいです。
-
-1. encoder-only：理解寄り
-2. decoder-only：生成寄り
-3. encoder-decoder：1つを読んで、別のものを生成する
-
-まずこの主線を覚えてから、BERT、GPT、T5 を見ると、モデル名だけで迷いにくくなります。
-
----
-
-## 九、3つの主な Transformer 系統
-
-### Encoder-only
-
-代表例：
-
-- BERT
-
-特徴：
-
-- 理解タスクに強い
-
-### Decoder-only
-
-代表例：
-
-- GPT
-
-特徴：
-
-- 生成タスクに強い
-
-### Encoder-Decoder
-
-代表例：
-
-- T5
-
-特徴：
-
-- 入力と出力の両方を柔軟に扱える
-
----
-
-## 十、初期 Transformer と現代 LLM decoder の比較
-
-最初の Transformer 論文は、主に系列変換タスクの encoder-decoder として使うことを想定していました。たとえば機械翻訳です。現代の大規模言語モデルは、decoder-only 構造を使い、「次の token を予測する」ことと、大規模事前学習を最適化しています。骨格は Transformer のままですが、設計の選び方が違います。
+## 初期 Transformer と現代 LLM Decoder
 
 ![初期 Transformer と現代 LLM decoder の視覚比較図](/img/course/ch06-transformer-early-modern-decoder-ja.png)
 
-:::tip 図の読み方
-上から下へ読みます。左側は元の post-norm encoder-decoder 設計、右側は現代的な pre-norm decoder-only 設計です。名前が増えたのは飾りではなく、深いモデルの安定した学習、推論コスト、長い文脈への対応を改善するためです。
-:::
+| 部分 | 初期 Transformer | 現代 LLM decoder | なぜ変わったか |
+|---|---|---|---|
+| 正規化 | attention/FFN の後に LayerNorm | pre-norm、よく RMSNorm | 深い stack が安定しやすい |
+| 位置情報 | absolute または sinusoidal position | RoPE | 相対位置を扱いやすい |
+| attention head | 通常の multi-head attention | 多くのモデルで GQA または MQA | 推論時の KV-cache メモリを減らす |
+| FFN | ReLU/GELU FFN | SwiGLU 系のゲート付き FFN | スケーリングしやすい |
+| アーキテクチャ | encoder-decoder が多い | decoder-only が多い | next-token prediction が大規模化しやすい |
 
-```mermaid
-flowchart TD
-    A["初期 Transformer<br/>Attention -> Add & Norm -> FFN -> Add & Norm"] --> B["LayerNorm"]
-    B --> C["絶対位置エンコーディング / 正弦位置エンコーディング"]
-    C --> D["通常の Multi-Head Attention"]
-    D --> E["encoder-decoder でよく使う"]
-    F["現代 LLM decoder<br/>RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add"] --> G["pre-norm スタイル"]
-    G --> H["RoPE"]
-    H --> I["GQA / MQA"]
-    I --> J["SwiGLU FFN"]
+用語をやさしく読むと：
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style F fill:#fff3e0,stroke:#e65100,color:#333
+- **RMSNorm**：特徴量の root mean square でスケールを整える、比較的軽い正規化。
+- **RoPE**：位置情報を attention 空間に回転として入れ、相対距離を使いやすくする方法。
+- **GQA**：grouped-query attention。複数の query head が key/value head を共有する。
+- **MQA**：multi-query attention。多くの query head が 1 組の key/value を共有する。
+- **SwiGLU**：ゲート付き FFN。変換された情報をどれだけ通すかを調整する。
+
+重要な理解：
+
+```text
+元の Transformer は block の型を示した。
+現代 LLM decoder は、その block を超深い生成モデル向けに訓練しやすく、推論しやすくした。
 ```
 
-### 初学者がまず覚えるべき早見表
+## よくある間違い
 
-| 部分 | 初期 Transformer | 現代 LLM decoder | なぜ進化したのか |
-|---|---|---|---|
-| 正規化 | LayerNorm | RMSNorm（Root Mean Square Normalization） | よりシンプルな正規化で、大きな decoder スタックに合いやすい |
-| Block 順序 | Attention -> Add & Norm -> FFN -> Add & Norm | RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add | pre-norm だと非常に深い学習が安定しやすい |
-| 位置情報 | 絶対位置エンコーディング / 正弦位置エンコーディング | RoPE（Rotary Positional Embedding） | 相対位置や長いコンテキストにより強い |
-| Attention 方式 | 通常の Multi-Head Attention | GQA / MQA（Grouped-Query / Multi-Query Attention） | KV cache のコストを下げて推論を速くする |
-| FFN | 通常の FFN、よく ReLU/GELU | SwiGLU FFN | ゲートが強く、スケーリングしやすい |
-| よくある構造 | encoder-decoder | decoder-only | 次 token 予測は大規模事前学習に向いている |
-
-### これらの略語をやさしく言うと
-
-- **RMSNorm**: 特徴量の二乗平均平方根だけで正規化し、平均は明示的に引かない
-- **RoPE**: 位置情報を注意機構の空間に回転として埋め込む
-- **GQA**: 複数の query グループが key/value を共有する
-- **MQA**: 多くの query head が 1 組の key/value を共有する
-- **SwiGLU**: Swish 系のゲートで情報の流れを調整する FFN
-
-### なぜ現代 LLM decoder はこう変わったのか
-
-これらの変更は、単なる名前の違いではありません。拡大時の現実的な問題に対応するためです。
-
-- モデルが深くなったので、勾配が安定しやすい pre-norm が好まれる
-- コンテキストが長くなったので、位置の扱いが強い RoPE が使われやすい
-- 推論コストが重要なので、GQA/MQA で KV cache の負担を下げる
-- 生成タスクの規模が大きくなったので、SwiGLU のような強い非線形ブロックが使われやすい
-
-一言でまとめるなら次の通りです。
-
-> 初期 Transformer は強い系列変換ブロックの作り方を示し、現代 LLM decoder はそのブロックを超大規模言語モデルへ拡張する方法を示している。
-
-## これをノートやプロジェクトにするなら、何を見せるべきか
-
-見せる価値が高いのは、たいてい次のようなものです。
-
-- とても複雑な全体図
-- 各 block の役割
-- Encoder と Decoder の違い
-- 3つの主な系統が、それぞれどんなタスクに向いているか
-- なぜこれらのモジュールを組み合わせると学習が安定するのか
-
-こうすると、見る人は次のことを理解しやすくなります。
-
-- あなたが Transformer の骨組みを理解していること
-- QKV を暗記しただけではないこと
-
-そのため、モデルを見るときは名前だけで判断せず、まず次を確認しましょう。
-
-> これは encoder-only、decoder-only、それとも encoder-decoder なのか？
-
-この問いで、そのモデルが何に強いかがほぼ決まります。
-
----
-
-## 十一、初学者がよくハマる落とし穴
-
-### Transformer を「注意機構だけ」と思ってしまう
-
-注意機構は大切ですが、全てではありません。  
-残差、正規化、FFN も、安定して動くための重要な要素です。
-
-### shape だけを見て、情報の流れを見ない
-
-多くの場合、shape は変わらなくても、意味表現は層ごとに作り直されています。
-
-### encoder / decoder の違いがわからない
-
-これがわからないと、BERT、GPT、T5 を見るときにずっと混乱しやすくなります。
-
----
-
-## まとめ
-
-この節で最も大事なのは、構造図を暗記することではなく、次の主線をつかむことです。
-
-> **Transformer Block = 注意機構で関係を作り、残差で情報を保ち、正規化で学習を安定させ、FFN で非線形に加工する。**
-
-この主線がわかると、今後 BERT、GPT、T5 のような具体的なモデルを学ぶときに、それぞれがこの大きな枠組みをどう切り詰め、どう拡張しているのかをすぐに見分けられるようになります。
-
-さらに一歩進めるなら、元の Transformer Block と現代 LLM decoder Block を分けて見られるようにしましょう。
-
-> **初期 Transformer = LayerNorm + 絶対位置 + 通常の多頭注意力 + encoder-decoder。**
->
-> **現代 LLM decoder = pre-norm + RMSNorm + RoPE + GQA/MQA + SwiGLU + decoder-only。**
-
----
+| 間違い | 直し方 |
+|---|---|
+| Transformer は attention だけだと思う | 残差、正規化、FFN、位置情報も一緒に見る |
+| tensor shape だけを見る | shape が同じでも表現の中身は変わる |
+| encoder と decoder を混同する | 未来 token が見えるか、cross-attention があるかを見る |
+| `batch_first` を無視する | `[batch, seq, dim]` か `[seq, batch, dim]` かを必ず確認する |
+| 現代 LLM block を 2017 年版と同じだと思う | pre-norm、RMSNorm、RoPE、GQA/MQA、ゲート付き FFN を学ぶ |
 
 ## 練習
 
-1. 最小 Transformer の例で `d_model` を 32 に変更して、出力 shape を確認してみましょう。
-2. 自分の言葉で説明してみましょう。なぜ注意機構は「どこを見るか」を解決し、FFN は「どうさらに加工するか」を解決するのでしょうか？
-3. decoder block に、encoder block にはない層を1つ追加した図を描いてみましょう。
-4. 考えてみましょう。Transformer は畳み込みも再帰もないのに、なぜシーケンスを扱えるのでしょうか？
+1. 実験 4 で `d_model` を `32` に変えてください。他にどのパラメータを変える必要がありますか。
+2. 実験 1 で `norm_first=False` にしてください。これはどのアーキテクチャパターンを表しますか。
+3. FFN は内部で次元を広げるのに、なぜ出力 shape が入力と同じなのか説明してください。
+4. 実験 5 で `target` の長さを `3` から `4` に変えてください。`causal_mask` はどう変わる必要がありますか。
+5. GQA/MQA が推論メモリに効く理由を 1 段落で説明してください。
+
+## まとめ
+
+- Transformer block は attention に加えて、安定化と変換の仕組みを持つ。
+- 残差接続は古い情報を残し、各層が更新量を学べるようにする。
+- 正規化は深い stack を訓練しやすくする。
+- FFN は attention が文脈を混ぜたあと、各 token をさらに加工する。
+- 現代 LLM decoder は Transformer の考え方を保ちつつ、規模と推論効率に合わせて最適化されている。
