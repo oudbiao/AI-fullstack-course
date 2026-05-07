@@ -1,374 +1,181 @@
 ---
 title: "6.4.3 LSTM and GRU"
 sidebar_position: 2
-description: "From why RNNs forget to how gated mechanisms control information flow, understand the role of LSTM and GRU in sequence modeling."
+description: "Learn gated sequence models by running scalar gate demos, PyTorch LSTM/GRU shape checks, and a memory task."
 keywords: [LSTM, GRU, gated mechanism, cell state, update gate, forget gate]
 ---
 
 # 6.4.3 LSTM and GRU
 
-![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.png)
-
 :::tip Section Overview
-In the previous section, you saw that an RNN can “read while remembering.”
-This section solves a more realistic problem:
-
-> **What if a plain RNN cannot remember for very long?**
-
-LSTM and GRU were designed to solve this “it can read, but it forgets easily” problem.
+A plain RNN has memory, but that memory is easy to overwrite. LSTM and GRU add gates so the model can learn what to keep, what to forget, and what to expose as output.
 :::
 
 ## Learning Objectives
 
-- Understand why a plain RNN easily forgets distant information
-- Build an intuition for what a gated mechanism does
-- Master LSTM cell state and its three gates
-- Master the update gate and reset gate in GRU
-- Understand the input and output of `nn.LSTM` and `nn.GRU` in PyTorch
-- Know when LSTM is a better choice and when GRU is already enough
-
-## Historical Background: Why Did the Field Eventually Move to LSTM?
-
-The most important historical milestones in this section are:
-
-| Year | Milestone | Key Authors | What It Most Importantly Solved |
-|---|---|---|---|
-| 1994 | Learning Long-Term Dependencies is Difficult | Bengio, Simard, Frasconi | Systematically revealed the gradient vanishing problem in training plain RNNs on long dependencies |
-| 1997 | LSTM | Hochreiter, Schmidhuber | Used gated memory to ease long-term dependency and gradient problems |
-
-For beginners, the most important thing to remember first is:
-
-> **LSTM is not “just a more complicated RNN.” It was designed to solve the core problem that plain RNNs struggle to reliably remember long-range information.**
-
-So the real main thread of this lesson is not:
-
-- memorizing a few gate names
-
-but:
-
-- understanding why these gates were invented
-
-### Why Did Many People at the Time See LSTM as a “Rescue Move”?
-
-Because before that, RNNs were not unpopular.
-Quite the opposite—they looked very appealing:
-
-- Text is a sequence
-- Speech is a sequence
-- Time series are also sequences
-
-Intuitively, RNNs seemed like the natural choice for these tasks.
-
-But once people actually trained them, they kept running into the same wall:
-
-- Early information could not be preserved
-- Gradients became weaker as they were propagated backward
-- On long sequences, the model could “read but forget”
-
-So what excited people about LSTM was not just that “the gates are clever,”
-but that it clearly said for the first time:
-
-> **The problem is not that the RNN direction is wrong, but that it needs a structure that manages memory more carefully.**
-
-### Why Did “Gradient Vanishing” Make So Many People Worry About the RNN Path?
-
-Because on paper, RNNs looked like they could handle almost any sequence:
-
-- Text
-- Speech
-- Time series
-
-But once people trained them on long sequences, they discovered:
-
-- Earlier information was much harder to keep
-- Gradients became weaker and weaker as they propagated backward
-
-It is like thinking at first that you can retell a long story accurately,
-but by the time you reach the end, the details from the beginning have already become blurry.
-
-So what really impressed people about LSTM was not simply “it has a few more gates,”
-but that it seemed to say:
-
-> **If a plain RNN cannot remember through natural propagation alone, then we should add a management mechanism to memory itself.**
-
-That is why many people later saw LSTM as:
-
-- not a small tweak
-- but a real response to the long-dependency problem
+- Explain why plain RNNs struggle with long dependencies.
+- Understand LSTM cell state `c_t` and hidden state `h_t`.
+- Interpret forget, input, output, update, and reset gates.
+- Run PyTorch `nn.LSTM` and `nn.GRU` shape checks.
+- Train a tiny gated recurrent model on a memory task.
 
 ---
 
-## Why Is a Plain RNN Not Enough?
+## See the Gate Idea First
 
-### A Classic Problem: Long-Range Dependencies
+![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.png)
 
-Look at this sentence:
+Read the picture like this:
 
-> “When I was young, I lived in Shanghai for many years, so although I moved away now, the city I know best is still Shanghai.”
-
-If the model needs to know which city is being referred to when it reaches “Shanghai” at the end,
-it must keep track of information from a long time ago.
-
-A plain RNN can theoretically do this, but in practice it often faces these issues:
-
-- Earlier information becomes diluted over time
-- Gradients tend to vanish during training
-- On long sequences, memory becomes unstable
-
-### An Intuitive Analogy
-
-A plain RNN is like repeatedly rewriting a short summary on a piece of paper:
-
-- Every time a new sentence comes in, you revise the old summary
-
-The problem is:
-
-- The summary space is too small
-- Old information is easily overwritten
-
-So a smarter idea appeared later:
-
-> **Instead of relying only on a changing “summary,” let the model learn what should be forgotten, what should be kept, and what should be output.**
-
-That is the gated mechanism.
-
----
-
-## LSTM’s Core Intuition: Adding “Gates” to Memory
-
-### What Does LSTM Add?
-
-Compared with a plain RNN, the key enhancements in LSTM are:
-
-- A more stable memory pathway: `cell state`
-- Several gates that control information flow
-
-You can first understand it as:
-
-> **A plain RNN is like having only a small notebook, while LSTM is like a more refined memory management system.**
-
-### The Three Gates in LSTM
-
-| Gate | Function |
-|---|---|
-| Forget Gate | Decides how much of the old memory to keep |
-| Input Gate | Decides how much new information to write |
-| Output Gate | Decides how much to expose as output |
-
-These gates are not hand-written rules; they are learned by the model itself.
-
----
-
-## Build Intuition First with a “Scalar LSTM”
-
-### Why Look at the Scalar Version First?
-
-Because a real LSTM is full of matrices and vectors at the beginning, which can overwhelm beginners.
-Starting with a smaller version makes it easier to grasp the essence.
-
-```python
-import numpy as np
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-# Assume this is the memory from the previous time step
-c_prev = 0.8
-
-# Current input and previous hidden state
-x_t = 1.2
-h_prev = 0.5
-
-# We manually set some gate values here; in a real model, the network learns them
-forget_gate = sigmoid(1.0)   # about 0.73
-input_gate = sigmoid(0.2)    # about 0.55
-output_gate = sigmoid(0.7)   # about 0.67
-
-# New candidate information
-c_tilde = np.tanh(0.9)
-
-# Update cell state
-c_t = forget_gate * c_prev + input_gate * c_tilde
-
-# Update hidden state
-h_t = output_gate * np.tanh(c_t)
-
-print("forget_gate =", round(float(forget_gate), 4))
-print("input_gate  =", round(float(input_gate), 4))
-print("output_gate =", round(float(output_gate), 4))
-print("c_t         =", round(float(c_t), 4))
-print("h_t         =", round(float(h_t), 4))
+```text
+old memory -> gate decides what stays -> new information enters -> output exposes part of memory
 ```
 
-### What Is This Code Teaching?
+A gate is a learned value between `0` and `1`.
 
-It teaches you that:
+| Gate value | Meaning |
+|---|---|
+| close to `0` | mostly block the information |
+| close to `1` | mostly let the information pass |
 
-- `forget_gate` decides how much old memory to discard
-- `input_gate` decides how much new information to write
-- `output_gate` decides how much to reveal outward
+This is the practical difference from a plain RNN: memory is no longer just overwritten at every step.
 
-In other words, what makes LSTM powerful is not that it is “more complicated,” but that:
+## Why Plain RNN Is Not Enough
 
-> **It has learned to control information flow.**
+Plain RNNs summarize the past into one hidden state. That works for short sequences, but long sequences create two problems:
+
+| Problem | Intuition |
+|---|---|
+| early information gets washed out | the hidden state is rewritten many times |
+| gradients vanish | training signal becomes weak when backpropagated far back in time |
+
+LSTM and GRU are not “deeper RNNs.” They are memory-control designs.
+
+## LSTM: Cell State Plus Three Gates
 
 ![LSTM gated information flow control diagram](/img/course/ch06-lstm-gates-information-control-map-en.png)
 
-:::tip Reading Tip
-When reading this diagram, focus on just three things first: the Forget Gate decides how much old memory to keep, the Input Gate decides how much new information to write, and the Output Gate decides how much to output externally. The key point of LSTM is not the gate names, but that it finally starts “managing memory.”
-:::
+An LSTM keeps two states:
 
----
-
-## The Two States in LSTM: `c_t` and `h_t`
-
-### Why Are There Two States?
-
-An LSTM usually has:
-
-- `c_t`: cell state, more like the main long-term memory path
-- `h_t`: hidden state, more like the current output at this time step
-
-### An Easy-to-Remember Analogy
-
-You can think of it as:
-
-- `c_t`: your long-term draft notebook
-- `h_t`: what you currently say out loud
-
-You do not necessarily say everything in the draft notebook, but it determines what you can still remember later.
-
----
-
-## GRU: A Lighter Gated Version
-
-### Why Did GRU Appear?
-
-LSTM is powerful, but it is also more complex.
-Later, people proposed GRU (Gated Recurrent Unit) as a version that is:
-
-- simpler
-- has fewer parameters
-- performs similarly well in many cases
-
-### The Two Core Gates in GRU
-
-| Gate | Function |
+| State | Role |
 |---|---|
-| Update Gate | Decides how much old state to keep and how much new state to mix in |
-| Reset Gate | Decides how much old information to forget when computing the new state |
+| `c_t` | cell state, the longer-term memory path |
+| `h_t` | hidden state, the output exposed at the current step |
 
-### A Minimal GRU Intuition Example
+The three main gates:
+
+| Gate | Question it answers |
+|---|---|
+| forget gate | how much old memory should stay? |
+| input gate | how much new information should be written? |
+| output gate | how much memory should be exposed now? |
+
+## Lab 1: Scalar LSTM Gate Demo
+
+This small scalar version keeps the idea visible without matrix notation.
 
 ```python
 import numpy as np
 
+
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
+
+c_prev = 0.8
+forget_gate = sigmoid(1.0)
+input_gate = sigmoid(0.2)
+output_gate = sigmoid(0.7)
+c_tilde = np.tanh(0.9)
+
+c_t = forget_gate * c_prev + input_gate * c_tilde
+h_t = output_gate * np.tanh(c_t)
+
+print("scalar_lstm_lab")
+for name, value in [
+    ("forget_gate", forget_gate),
+    ("input_gate", input_gate),
+    ("output_gate", output_gate),
+    ("c_t", c_t),
+    ("h_t", h_t),
+]:
+    print(f"{name:<12} {float(value):.4f}")
+```
+
+Expected output:
+
+```text
+scalar_lstm_lab
+forget_gate  0.7311
+input_gate   0.5498
+output_gate  0.6682
+c_t          0.9787
+h_t          0.5028
+```
+
+Read the update as:
+
+```text
+new cell memory = keep part of old memory + write part of new candidate
+```
+
+That is the core of LSTM.
+
+## GRU: A Lighter Gated Model
+
+GRU has fewer moving parts than LSTM. It does not keep a separate cell state. The hidden state carries the memory.
+
+| Gate | Role |
+|---|---|
+| update gate | controls how much old state and new candidate are mixed |
+| reset gate | controls how much old state is used when making the candidate |
+
+## Lab 2: Scalar GRU Gate Demo
+
+```python
+import numpy as np
+
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
 h_prev = 0.7
 x_t = 1.1
-
 update_gate = sigmoid(0.8)
 reset_gate = sigmoid(-0.3)
 
 h_candidate = np.tanh(x_t + reset_gate * h_prev)
 h_t = (1 - update_gate) * h_prev + update_gate * h_candidate
 
-print("update_gate =", round(float(update_gate), 4))
-print("reset_gate  =", round(float(reset_gate), 4))
-print("h_candidate =", round(float(h_candidate), 4))
-print("h_t         =", round(float(h_t), 4))
+print("scalar_gru_lab")
+for name, value in [
+    ("update_gate", update_gate),
+    ("reset_gate", reset_gate),
+    ("h_candidate", h_candidate),
+    ("h_t", h_t),
+]:
+    print(f"{name:<12} {float(value):.4f}")
 ```
 
-### Intuitive Difference from LSTM
+Expected output:
 
-- LSTM: more like a detailed memory management system
-- GRU: more like a compressed memory management system
-
-So it is often convenient to remember it this way:
-
-> **GRU = a lighter version of LSTM.**
-
----
-
-## How Should You Choose Between LSTM and GRU?
-
-### General Rule of Thumb
-
-If you just want a baseline sequence model:
-
-- Trying GRU first is often easier
-
-If the task is especially sensitive to long-range dependencies:
-
-- LSTM is often worth trying
-
-### But Do Not Overhype Them
-
-In the age of large models, many long-text tasks are handled more often by Transformers.
-Still, LSTM and GRU remain very common in these scenarios:
-
-- Shorter sequence modeling
-- Small-data settings
-- Time-series baselines
-- Teaching and understanding the essence of sequence modeling
-
----
-
-## How Do You Use LSTM and GRU in PyTorch?
-
-### Minimal Runnable Example
-
-```python
-import torch
-
-torch.manual_seed(42)
-
-# batch=4, seq_len=6, input_size=8
-x = torch.randn(4, 6, 8)
-
-lstm = torch.nn.LSTM(input_size=8, hidden_size=16, batch_first=True)
-gru = torch.nn.GRU(input_size=8, hidden_size=16, batch_first=True)
-
-lstm_out, (lstm_h, lstm_c) = lstm(x)
-gru_out, gru_h = gru(x)
-
-print("lstm_out shape:", lstm_out.shape)
-print("lstm_h shape  :", lstm_h.shape)
-print("lstm_c shape  :", lstm_c.shape)
-print("gru_out shape :", gru_out.shape)
-print("gru_h shape   :", gru_h.shape)
+```text
+scalar_gru_lab
+update_gate  0.6900
+reset_gate   0.4256
+h_candidate  0.8849
+h_t          0.8276
 ```
 
-### What Are the Outputs?
+Quick memory aid:
 
-For LSTM:
+```text
+LSTM = more explicit memory management
+GRU  = lighter gated memory management
+```
 
-- `lstm_out`: output at each time step
-- `lstm_h`: final hidden state
-- `lstm_c`: final cell state
-
-For GRU:
-
-- `gru_out`: output at each time step
-- `gru_h`: final hidden state
-
-Here you can also see one difference at a glance:
-
-> **LSTM maintains one extra `c` state compared with GRU.**
-
----
-
-## A Small Task: Let the Model Remember Information from the Beginning of a Sequence
-
-Next, we construct a very small task:
-
-- The first position of the input sequence may be `+1` or `-1`
-- The label depends on this first value
-- Noise is added in the middle
-
-In other words, the model must remember information from “far earlier.”
+## Lab 3: PyTorch LSTM and GRU Shapes
 
 ```python
 import torch
@@ -376,17 +183,61 @@ from torch import nn
 
 torch.manual_seed(42)
 
-def build_dataset(n=100):
+x = torch.randn(4, 6, 8)
+lstm = nn.LSTM(input_size=8, hidden_size=16, batch_first=True)
+gru = nn.GRU(input_size=8, hidden_size=16, batch_first=True)
+
+lstm_out, (lstm_h, lstm_c) = lstm(x)
+gru_out, gru_h = gru(x)
+
+print("shape_lab")
+print("lstm_out:", tuple(lstm_out.shape))
+print("lstm_h  :", tuple(lstm_h.shape))
+print("lstm_c  :", tuple(lstm_c.shape))
+print("gru_out :", tuple(gru_out.shape))
+print("gru_h   :", tuple(gru_h.shape))
+```
+
+Expected output:
+
+```text
+shape_lab
+lstm_out: (4, 6, 16)
+lstm_h  : (1, 4, 16)
+lstm_c  : (1, 4, 16)
+gru_out : (4, 6, 16)
+gru_h   : (1, 4, 16)
+```
+
+The visible API difference:
+
+- LSTM returns `(h, c)`;
+- GRU returns only `h`.
+
+## Lab 4: Train a Memory Task
+
+The label depends on the first value in the sequence. The middle values are noisy, so the model must keep early information.
+
+```python
+import torch
+from torch import nn
+
+torch.manual_seed(42)
+
+
+def build_dataset(n=160, seq_len=10):
     X, y = [], []
     for _ in range(n):
         first = 1.0 if torch.rand(1).item() > 0.5 else -1.0
-        seq = torch.randn(8, 1) * 0.2
+        seq = torch.randn(seq_len, 1) * 0.25
         seq[0, 0] = first
         X.append(seq)
         y.append(1 if first > 0 else 0)
     return torch.stack(X), torch.tensor(y)
 
-X, y = build_dataset(120)
+
+X, y = build_dataset()
+
 
 class GRUClassifier(nn.Module):
     def __init__(self):
@@ -398,66 +249,76 @@ class GRUClassifier(nn.Module):
         out, h = self.gru(x)
         return self.fc(h[-1])
 
+
 model = GRUClassifier()
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-for epoch in range(80):
-    pred = model(X)
-    loss = loss_fn(pred, y)
+for epoch in range(1, 81):
+    logits = model(X)
+    loss = loss_fn(logits, y)
+
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
-    if epoch % 20 == 0:
-        acc = (pred.argmax(dim=1) == y).float().mean().item()
-        print(f"epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
+    if epoch == 1 or epoch % 20 == 0:
+        acc = (logits.argmax(1) == y).float().mean().item()
+        print(f"memory epoch={epoch:02d} loss={loss.item():.4f} acc={acc:.3f}")
 
 with torch.no_grad():
-    final_acc = (model(X).argmax(dim=1) == y).float().mean().item()
-    print("final acc =", round(final_acc, 3))
+    final_acc = (model(X).argmax(1) == y).float().mean().item()
+
+print("final_acc", round(final_acc, 3))
 ```
 
-This task is very small, but it does teach you something important:
+Expected output:
 
-> Gated recurrent networks are better than plain RNNs at preserving important early information.
+```text
+memory epoch=01 loss=0.7465 acc=0.431
+memory epoch=20 loss=0.6691 acc=0.569
+memory epoch=40 loss=0.0023 acc=1.000
+memory epoch=60 loss=0.0001 acc=1.000
+memory epoch=80 loss=0.0001 acc=1.000
+final_acc 1.0
+```
 
----
+This toy task is small, but it captures the reason gated recurrent models exist: the model needs to preserve useful early information through noisy later steps.
 
-## Common Pitfalls for Beginners
+## LSTM or GRU?
 
-### Thinking of LSTM / GRU as “deeper than RNN”
+| Situation | Good starting point |
+|---|---|
+| quick baseline | GRU |
+| small model budget | GRU |
+| long dependency is central | LSTM and GRU both worth trying |
+| you need explicit cell state intuition | LSTM |
+| modern long text tasks | often Transformer instead |
 
-It is not “deeper,” but “smarter about memory management.”
+In practice, compare validation results. Architecture names are less important than whether the model fits the data and deployment constraints.
 
-### Confusing `out`, `h`, and `c`
+## Common Mistakes
 
-Remember:
-
-- `out`: output at each step
-- `h`: final hidden state
-- `c`: LSTM’s long-term memory state
-
-### Thinking LSTM Automatically Never Forgets
-
-Not true.
-It is just better than a plain RNN at controlling what to forget and what to keep; that does not mean it can handle infinitely long dependencies with ease.
-
----
-
-## Summary
-
-The key idea in this section is not to memorize gate formulas, but to understand this:
-
-> **The essence of LSTM and GRU is using gated mechanisms to learn “what to forget, what to keep, and what to output now.”**
-
-They are an important upgrade over plain RNNs, and they are also a great stepping stone toward understanding attention mechanisms and Transformers later on.
-
----
+| Mistake | Fix |
+|---|---|
+| thinking LSTM/GRU are just deeper RNNs | think “memory control,” not depth |
+| confusing `out`, `h`, and `c` | `out` per step, `h` final hidden, `c` LSTM cell state |
+| assuming gates never forget important info | gates are learned and can still fail |
+| using high learning rate on unstable sequences | lower LR, clip gradients if needed |
+| using only training accuracy | validate on held-out sequences |
 
 ## Exercises
 
-1. Change the gate values in the scalar LSTM example and observe how `c_t` and `h_t` change.
-2. Modify the GRU classification task so that the label depends on the last value, and see whether the model learns more easily.
-3. Replace the same task with LSTM and GRU separately, and compare training speed and code complexity.
-4. Explain in your own words: why is the key idea of LSTM / GRU not “more complexity,” but “more fine-grained control over information flow”?
+1. Change `forget_gate` in Lab 1 by replacing `sigmoid(1.0)` with `sigmoid(-1.0)`. How does `c_t` change?
+2. Change the memory task so the label depends on the last value. Is it easier?
+3. Replace `GRUClassifier` with an `LSTMClassifier` and compare the output API.
+4. Increase `seq_len` from `10` to `30`. Does training become harder?
+5. Explain why GRU has fewer states than LSTM but can still work well.
+
+## Key Takeaways
+
+- LSTM and GRU add gates to control memory flow.
+- LSTM has both `c_t` and `h_t`; GRU uses a lighter hidden-state design.
+- Gates are learned soft switches between `0` and `1`.
+- Use validation results to choose between LSTM and GRU.
+- Gated recurrent models are an important bridge from plain RNNs to attention-based sequence modeling.

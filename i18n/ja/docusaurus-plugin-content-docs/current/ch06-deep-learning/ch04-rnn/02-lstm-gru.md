@@ -1,374 +1,181 @@
 ---
 title: "6.4.3 LSTM と GRU"
 sidebar_position: 2
-description: "RNN がなぜ忘れてしまうのか、ゲート機構がどのように情報の流れを制御するのかを通して、LSTM と GRU が系列モデリングで果たす役割を理解します。"
+description: "スカラー gate のデモ、PyTorch LSTM/GRU の shape 確認、記憶タスクを通して、ゲート付き系列モデルを学びます。"
 keywords: [LSTM, GRU, ゲート機構, cell state, update gate, forget gate]
 ---
 
 # 6.4.3 LSTM と GRU
 
-![LSTM ゲート記憶フロー図](/img/course/lstm-gate-memory-flow-ja.png)
-
 :::tip この節の位置づけ
-前の節で、RNN が「読みながら覚える」ことを見ました。  
-この節で解決したいのは、もっと現実的な問題です。
-
-> **普通の RNN が長く覚えていられないなら、どうすればいいのか？**
-
-LSTM と GRU は、この「読めるけれど、忘れやすい」という問題を解決するために生まれました。
+普通の RNN には記憶がありますが、その記憶は上書きされやすいです。LSTM と GRU は gate を追加し、何を残し、何を忘れ、何を出力として見せるかをモデルに学ばせます。
 :::
 
 ## 学習目標
 
-- 普通の RNN が遠い情報を忘れやすい理由を理解する
-- ゲート機構が何をしているのかを直感的に理解する
-- LSTM の cell state と 3 つのゲートを理解する
-- GRU の update gate と reset gate を理解する
-- PyTorch の `nn.LSTM` と `nn.GRU` の入出力を読めるようになる
-- どんなときに LSTM が向いていて、どんなときに GRU で十分かを理解する
-
-## 歴史的背景：なぜ最終的に LSTM にたどり着いたのか？
-
-この節で最も重要な歴史的ポイントは次の 2 つです。
-
-| 年 | できごと | 主な研究者 | 最も重要だった解決内容 |
-|---|---|---|---|
-| 1994 | Learning Long-Term Dependencies is Difficult | Bengio, Simard, Frasconi | 普通の RNN における長期依存学習での勾配消失問題を体系的に示した |
-| 1997 | LSTM | Hochreiter, Schmidhuber | ゲート付き記憶機構で長期依存と勾配問題を緩和した |
-
-初学者の方がまず覚えておくとよいのは、次の点です。
-
-> **LSTM は「RNN を少し複雑にしたもの」ではなく、普通の RNN が長距離情報を安定して覚えるのが難しいという根本問題を解くための仕組みです。**
-
-つまり、この節で本当に大事なのは：
-
-- いくつかのゲート名を覚えること
-
-ではなく、
-
-- なぜそれらのゲートが必要だったのかを理解すること
-
-### なぜ当時、多くの人が LSTM を「正面から助けに来た仕組み」だと見たのか？
-
-それは、当時の RNN の流れが誰にも支持されていなかったわけではないからです。  
-むしろ、とても魅力的に見えました。
-
-- テキストは系列
-- 音声も系列
-- 時系列データも系列
-
-直感的には、RNN はこうしたタスクにぴったりのように見えます。
-
-しかし、実際に学習させると、多くの人が同じ壁にぶつかりました。
-
-- 早い時点の情報を保てない
-- 勾配を過去へ伝えるほど弱くなる
-- 系列が長くなると「読めるけれど忘れる」ようになる
-
-そのため、LSTM が当時大きな注目を集めたのは、「ゲートが賢いから」だけではありません。  
-それ以前に、次のことをはっきり示したからです。
-
-> **RNN の方向性が間違っていたのではなく、記憶をもっと丁寧に管理する仕組みが必要だった。**
-
-### なぜ「勾配消失」は、RNN を主役にしたい人たちを不安にさせたのか？
-
-紙の上では、RNN はほとんどどんな系列にも使えそうに見えます。
-
-- テキスト
-- 音声
-- 時系列
-
-でも、実際に長い系列を学習させると、次のことが起こります。
-
-- 早い情報ほど残りにくい
-- 勾配が時間をさかのぼるほど小さくなる
-
-これは、長い物語を最初から最後まで完璧に言い直せると思っていたのに、  
-話が進むほど最初の細部があいまいになっていく感じに似ています。
-
-だからこそ、LSTM の登場は「ゲートが増えた」こと以上に意味がありました。  
-それは、次のメッセージを伝えていたからです。
-
-> **普通の RNN だけで記憶させるのが難しいなら、記憶そのものを管理する仕組みを加えよう。**
-
-これが、LSTM が後に大きな転換点として見られる理由です。
+- 普通の RNN が長期依存を苦手とする理由を説明できる。
+- LSTM の cell state `c_t` と hidden state `h_t` を理解できる。
+- forget、input、output、update、reset gate を説明できる。
+- PyTorch の `nn.LSTM` と `nn.GRU` の shape を確認できる。
+- 小さな記憶タスクで gated recurrent model を学習できる。
 
 ---
 
-## 一、なぜ普通の RNN では足りないのか？
+## まず gate の考え方を見る
 
-### 典型的な問題：長距離依存
+![LSTM ゲート記憶フロー図](/img/course/lstm-gate-memory-flow-ja.png)
 
-次の文を見てください。
+図は次のように読みます。
 
-> 「私は子どものころ、上海に長年住んでいたので、今はもう引っ越したけれど、一番よく知っている都市はやはり上海です。」
-
-モデルが最後に「上海」を読んだとき、前半でどの都市の話をしていたかを知るには、かなり前の情報を覚えておく必要があります。
-
-普通の RNN は理論上は可能ですが、実際には次の問題がよく起こります。
-
-- 後ろに行くほど、最初の情報が薄れる
-- 学習中に勾配が消えやすい
-- 系列が長いと、記憶が不安定になる
-
-### 直感的なたとえ
-
-普通の RNN は、紙に書いた短い要約を何度も書き換えているようなものです。
-
-- 新しい文が来るたびに、古い要約を更新する
-
-問題は、
-
-- 要約できるスペースが小さい
-- 古い情報が上書きされやすい
-
-ということです。
-
-そこで登場したのが、もっと賢い考え方です。
-
-> **単なる「変わる要約」に頼るのではなく、モデルに「何を忘れ、何を残し、何を出力するか」を学ばせる。**
-
-これがゲート機構です。
-
----
-
-## 二、LSTM の核心となる直感：記憶に「門」をつける
-
-### LSTM は何が増えたのか？
-
-LSTM は普通の RNN に比べて、主に次の点が強化されています。
-
-- より安定した記憶の通り道: `cell state`
-- 情報の流れを制御する複数のゲート
-
-まずは次のように理解するとよいです。
-
-> **普通の RNN が小さなノート 1 冊だけを持っているとしたら、LSTM はもっと細かく記憶を管理する仕組みを持っています。**
-
-### LSTM の 3 つのゲート
-
-| ゲート | 役割 |
-|---|---|
-| Forget Gate | 古い記憶をどれだけ残すかを決める |
-| Input Gate | 新しい情報をどれだけ書き込むかを決める |
-| Output Gate | 現在どれだけ外に出力するかを決める |
-
-これらのゲートは、人が手でルールを書くのではなく、モデルが学習して得るものです。
-
----
-
-## 三、まずは「スカラー版」LSTM で直感をつかむ
-
-### なぜスカラー版から見るのか？
-
-実際の LSTM は最初から行列とベクトルだらけで、初心者には少し見づらいからです。  
-小さくした形で見ると、本質がつかみやすくなります。
-
-```python
-import numpy as np
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-# これは前の時刻の記憶だとする
-c_prev = 0.8
-
-# 現在の入力と前の隠れ状態
-x_t = 1.2
-h_prev = 0.5
-
-# ここではゲート値を手で決める。実際のモデルではネットワークがこれを学習する
-forget_gate = sigmoid(1.0)   # 約 0.73
-input_gate = sigmoid(0.2)    # 約 0.55
-output_gate = sigmoid(0.7)   # 約 0.67
-
-# 新しい候補情報
-c_tilde = np.tanh(0.9)
-
-# cell state を更新
-c_t = forget_gate * c_prev + input_gate * c_tilde
-
-# hidden state を更新
-h_t = output_gate * np.tanh(c_t)
-
-print("forget_gate =", round(float(forget_gate), 4))
-print("input_gate  =", round(float(input_gate), 4))
-print("output_gate =", round(float(output_gate), 4))
-print("c_t         =", round(float(c_t), 4))
-print("h_t         =", round(float(h_t), 4))
+```text
+古い記憶 -> gate が残すものを決める -> 新情報を書く -> 出力が記憶の一部を見せる
 ```
 
-### このコードは何を教えているのか？
+Gate は、モデルが学習する `0` から `1` までの値です。
 
-このコードが教えているのは、次のことです。
+| gate 値 | 意味 |
+|---|---|
+| `0` に近い | 情報をほぼ止める |
+| `1` に近い | 情報をほぼ通す |
 
-- `forget_gate` は古い記憶をどれだけ捨てるかを決める
-- `input_gate` は新しい情報をどれだけ書くかを決める
-- `output_gate` は外にどれだけ見せるかを決める
+これが普通の RNN との実践的な違いです。記憶が毎ステップ単純に上書きされるだけではなくなります。
 
-つまり、LSTM が本当に強いのは「複雑だから」ではなく、
+## なぜ普通の RNN では足りないのか
 
-> **情報の流れを制御できるようになったこと**
+普通の RNN は、過去を 1 つの hidden state に圧縮します。短い系列なら機能しますが、長い系列では 2 つの問題が出ます。
 
-にあります。
+| 問題 | 直感 |
+|---|---|
+| 早い情報が薄まる | hidden state が何度も書き換えられる |
+| 勾配消失 | 学習信号が時間を遠くさかのぼるほど弱くなる |
+
+LSTM と GRU は「より深い RNN」ではありません。記憶を制御する設計です。
+
+## LSTM：Cell State と 3 つの Gate
 
 ![LSTM ゲートによる情報流制御図](/img/course/ch06-lstm-gates-information-control-map-ja.png)
 
-:::tip 図の見方
-この図では、まず 3 つだけ注目してください。Forget Gate は古い記憶をどれだけ残すか、Input Gate は新しい情報をどれだけ書くか、Output Gate は外にどれだけ出すかを決めます。LSTM の本質はゲート名ではなく、「記憶を管理する」ことです。
-:::
+LSTM は 2 つの状態を持ちます。
 
----
-
-## 四、LSTM の 2 つの状態: `c_t` と `h_t`
-
-### なぜ 2 つの状態があるのか？
-
-LSTM には通常、次の 2 つがあります。
-
-- `c_t`：cell state。より長期記憶の主な通り道
-- `h_t`：hidden state。現在時刻の外向きの出力に近い
-
-### 覚えやすい比喩
-
-次のように考えると覚えやすいです。
-
-- `c_t`：長期用の下書きノート
-- `h_t`：今、外に向かって話している内容
-
-下書きノートの内容は全部口に出すわけではありませんが、これが後の記憶の土台になります。
-
----
-
-## 五、GRU：より軽量なゲート付きモデル
-
-### なぜ GRU が登場したのか？
-
-LSTM は強力ですが、構造は少し複雑です。  
-その後、人々は GRU（Gated Recurrent Unit）を提案しました。目的は次のような、よりシンプルな仕組みを作ることでした。
-
-- より簡単
-- パラメータが少ない
-- それでも性能は大きく落ちない
-
-### GRU の 2 つの主要ゲート
-
-| ゲート | 役割 |
+| 状態 | 役割 |
 |---|---|
-| Update Gate | 古い状態をどれだけ残し、新しい状態をどれだけ混ぜるかを決める |
-| Reset Gate | 新しい状態を計算するときに、どれだけ古い情報を忘れるかを決める |
+| `c_t` | cell state。より長期的な記憶の通り道 |
+| `h_t` | hidden state。現在のステップで外に見せる出力 |
 
-### 最小限の GRU の直感例
+主な 3 つの gate：
+
+| Gate | 答える問い |
+|---|---|
+| forget gate | 古い記憶をどれだけ残すか |
+| input gate | 新しい情報をどれだけ書くか |
+| output gate | 今どれだけ記憶を外に見せるか |
+
+## 実験 1：スカラー LSTM Gate デモ
+
+このスカラー版では、行列記法なしで考え方が見えます。
 
 ```python
 import numpy as np
 
+
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
+
+c_prev = 0.8
+forget_gate = sigmoid(1.0)
+input_gate = sigmoid(0.2)
+output_gate = sigmoid(0.7)
+c_tilde = np.tanh(0.9)
+
+c_t = forget_gate * c_prev + input_gate * c_tilde
+h_t = output_gate * np.tanh(c_t)
+
+print("scalar_lstm_lab")
+for name, value in [
+    ("forget_gate", forget_gate),
+    ("input_gate", input_gate),
+    ("output_gate", output_gate),
+    ("c_t", c_t),
+    ("h_t", h_t),
+]:
+    print(f"{name:<12} {float(value):.4f}")
+```
+
+期待される出力：
+
+```text
+scalar_lstm_lab
+forget_gate  0.7311
+input_gate   0.5498
+output_gate  0.6682
+c_t          0.9787
+h_t          0.5028
+```
+
+更新はこう読みます。
+
+```text
+新しい cell memory = 古い記憶の一部を保持 + 新しい候補情報の一部を書き込み
+```
+
+これが LSTM の中心です。
+
+## GRU：より軽い Gate 付きモデル
+
+GRU は LSTM より構成が軽いです。別の cell state は持たず、hidden state が記憶を担います。
+
+| Gate | 役割 |
+|---|---|
+| update gate | 古い状態と新しい候補をどれだけ混ぜるかを制御 |
+| reset gate | 候補を作るとき、古い状態をどれだけ使うかを制御 |
+
+## 実験 2：スカラー GRU Gate デモ
+
+```python
+import numpy as np
+
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
 h_prev = 0.7
 x_t = 1.1
-
 update_gate = sigmoid(0.8)
 reset_gate = sigmoid(-0.3)
 
 h_candidate = np.tanh(x_t + reset_gate * h_prev)
 h_t = (1 - update_gate) * h_prev + update_gate * h_candidate
 
-print("update_gate =", round(float(update_gate), 4))
-print("reset_gate  =", round(float(reset_gate), 4))
-print("h_candidate =", round(float(h_candidate), 4))
-print("h_t         =", round(float(h_t), 4))
+print("scalar_gru_lab")
+for name, value in [
+    ("update_gate", update_gate),
+    ("reset_gate", reset_gate),
+    ("h_candidate", h_candidate),
+    ("h_t", h_t),
+]:
+    print(f"{name:<12} {float(value):.4f}")
 ```
 
-### LSTM との直感的な違い
+期待される出力：
 
-- LSTM：より細かく記憶を管理する仕組み
-- GRU：それを少し簡略化した仕組み
-
-なので、よく次のように覚えられます。
-
-> **GRU = 少し軽い LSTM**
-
----
-
-## 六、LSTM と GRU はどう選ぶ？
-
-### 一般的な目安
-
-系列モデルのベースラインを作るだけなら、
-
-- まず GRU を試すと手早いことが多いです
-
-長距離依存が特に重要なタスクなら、
-
-- LSTM を試す価値が高いことがあります
-
-### ただし、過剰に神格化しない
-
-今の大規模モデルの時代では、多くの長文タスクは Transformer に任されることが増えています。  
-それでも、LSTM / GRU は次のような場面で今でもよく使われます。
-
-- 比較的短い系列のモデリング
-- 小規模データ
-- 時系列タスクのベースライン
-- 系列モデリングの本質を学ぶための教材
-
----
-
-## 七、PyTorch で LSTM と GRU をどう使うか？
-
-### 最小の実行例
-
-```python
-import torch
-
-torch.manual_seed(42)
-
-# batch=4, seq_len=6, input_size=8
-x = torch.randn(4, 6, 8)
-
-lstm = torch.nn.LSTM(input_size=8, hidden_size=16, batch_first=True)
-gru = torch.nn.GRU(input_size=8, hidden_size=16, batch_first=True)
-
-lstm_out, (lstm_h, lstm_c) = lstm(x)
-gru_out, gru_h = gru(x)
-
-print("lstm_out shape:", lstm_out.shape)
-print("lstm_h shape  :", lstm_h.shape)
-print("lstm_c shape  :", lstm_c.shape)
-print("gru_out shape :", gru_out.shape)
-print("gru_h shape   :", gru_h.shape)
+```text
+scalar_gru_lab
+update_gate  0.6900
+reset_gate   0.4256
+h_candidate  0.8849
+h_t          0.8276
 ```
 
-### 出力はそれぞれ何か？
+覚え方：
 
-LSTM では、次の値が返ります。
+```text
+LSTM = より明示的な記憶管理
+GRU  = より軽量な gate 付き記憶管理
+```
 
-- `lstm_out`：各時刻の出力
-- `lstm_h`：最後の hidden state
-- `lstm_c`：最後の cell state
-
-GRU では、次の値が返ります。
-
-- `gru_out`：各時刻の出力
-- `gru_h`：最後の hidden state
-
-ここからも違いがすぐ分かります。
-
-> **LSTM は GRU より 1 つ多く `c` 状態を持っています。**
-
----
-
-## 八、小さなタスク: 系列の先頭情報を覚えさせる
-
-次のような小さなタスクを作ってみます。
-
-- 入力系列の 1 番目の位置が `+1` または `-1`
-- ラベルはその 1 番目の値で決まる
-- 途中にはたくさんノイズを入れる
-
-つまり、モデルは「かなり前の情報」を覚えていないといけません。
+## 実験 3：PyTorch LSTM と GRU の Shape
 
 ```python
 import torch
@@ -376,17 +183,61 @@ from torch import nn
 
 torch.manual_seed(42)
 
-def build_dataset(n=100):
+x = torch.randn(4, 6, 8)
+lstm = nn.LSTM(input_size=8, hidden_size=16, batch_first=True)
+gru = nn.GRU(input_size=8, hidden_size=16, batch_first=True)
+
+lstm_out, (lstm_h, lstm_c) = lstm(x)
+gru_out, gru_h = gru(x)
+
+print("shape_lab")
+print("lstm_out:", tuple(lstm_out.shape))
+print("lstm_h  :", tuple(lstm_h.shape))
+print("lstm_c  :", tuple(lstm_c.shape))
+print("gru_out :", tuple(gru_out.shape))
+print("gru_h   :", tuple(gru_h.shape))
+```
+
+期待される出力：
+
+```text
+shape_lab
+lstm_out: (4, 6, 16)
+lstm_h  : (1, 4, 16)
+lstm_c  : (1, 4, 16)
+gru_out : (4, 6, 16)
+gru_h   : (1, 4, 16)
+```
+
+目に見える API の違い：
+
+- LSTM は `(h, c)` を返す。
+- GRU は `h` だけを返す。
+
+## 実験 4：記憶タスクを学習する
+
+ラベルは系列の最初の値で決まります。途中の値はノイズなので、モデルは初期情報を保つ必要があります。
+
+```python
+import torch
+from torch import nn
+
+torch.manual_seed(42)
+
+
+def build_dataset(n=160, seq_len=10):
     X, y = [], []
     for _ in range(n):
         first = 1.0 if torch.rand(1).item() > 0.5 else -1.0
-        seq = torch.randn(8, 1) * 0.2
+        seq = torch.randn(seq_len, 1) * 0.25
         seq[0, 0] = first
         X.append(seq)
         y.append(1 if first > 0 else 0)
     return torch.stack(X), torch.tensor(y)
 
-X, y = build_dataset(120)
+
+X, y = build_dataset()
+
 
 class GRUClassifier(nn.Module):
     def __init__(self):
@@ -398,67 +249,76 @@ class GRUClassifier(nn.Module):
         out, h = self.gru(x)
         return self.fc(h[-1])
 
+
 model = GRUClassifier()
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-for epoch in range(80):
-    pred = model(X)
-    loss = loss_fn(pred, y)
+for epoch in range(1, 81):
+    logits = model(X)
+    loss = loss_fn(logits, y)
+
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
-    if epoch % 20 == 0:
-        acc = (pred.argmax(dim=1) == y).float().mean().item()
-        print(f"epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
+    if epoch == 1 or epoch % 20 == 0:
+        acc = (logits.argmax(1) == y).float().mean().item()
+        print(f"memory epoch={epoch:02d} loss={loss.item():.4f} acc={acc:.3f}")
 
 with torch.no_grad():
-    final_acc = (model(X).argmax(dim=1) == y).float().mean().item()
-    print("final acc =", round(final_acc, 3))
+    final_acc = (model(X).argmax(1) == y).float().mean().item()
+
+print("final_acc", round(final_acc, 3))
 ```
 
-この小さなタスクは、とても単純ですが、次のことを教えてくれます。
+期待される出力：
 
-> ゲート付きの循環ネットワークは、普通の RNN よりも早い時点の重要な情報を保つのが得意です。
+```text
+memory epoch=01 loss=0.7465 acc=0.431
+memory epoch=20 loss=0.6691 acc=0.569
+memory epoch=40 loss=0.0023 acc=1.000
+memory epoch=60 loss=0.0001 acc=1.000
+memory epoch=80 loss=0.0001 acc=1.000
+final_acc 1.0
+```
 
----
+この task は小さいですが、gate 付き recurrent model が存在する理由をよく表しています。後ろにノイズが続いても、有用な初期情報を保つ必要があるからです。
 
-## 九、初学者がよくつまずく点
+## LSTM か GRU か
 
-### LSTM / GRU を「RNN より深いもの」と考える
+| 状況 | 最初の候補 |
+|---|---|
+| 素早い baseline | GRU |
+| モデル予算が小さい | GRU |
+| 長期依存が中心 | LSTM と GRU の両方を試す価値がある |
+| cell state の直感を明示的に扱いたい | LSTM |
+| 現代的な長文タスク | Transformer が優先されることが多い |
 
-そうではありません。  
-本質は「より深い」ではなく、「記憶の管理が賢い」ことです。
+実務では検証結果で比較します。アーキテクチャ名より、データとデプロイ制約に合うかどうかが重要です。
 
-### `out`、`h`、`c` を混同する
+## よくあるミス
 
-覚え方は次の通りです。
-
-- `out`：各ステップの出力
-- `h`：最後の hidden state
-- `c`：LSTM の長期記憶状態
-
-### LSTM を使えば自動的に忘れなくなると思う
-
-そうではありません。  
-普通の RNN より忘れにくいだけで、無限に長い依存関係を簡単に解けるわけではありません。
-
----
-
-## まとめ
-
-この節で一番大事なのは、数式を丸暗記することではなく、次の考え方を理解することです。
-
-> **LSTM と GRU の本質は、ゲート機構で「何を忘れるか、何を残すか、何を出力するか」を学習できるようにしたことです。**
-
-これは普通の RNN に対する重要な改良であり、後の注意機構や Transformer を理解するための良い土台にもなります。
-
----
+| ミス | 修正 |
+|---|---|
+| LSTM/GRU を単に深い RNN だと思う | 深さではなく「記憶制御」と考える |
+| `out`、`h`、`c` を混同する | `out` は各ステップ、`h` は最終 hidden、`c` は LSTM cell state |
+| gate が重要情報を絶対に忘れないと思う | gate は学習されるので失敗することもある |
+| 不安定な系列に高い学習率を使う | LR を下げ、必要なら gradient clipping |
+| training accuracy だけを見る | 保留した系列で検証する |
 
 ## 練習
 
-1. LSTM のスカラー例でゲートの値を変えて、`c_t` と `h_t` がどう変わるか見てみましょう。
-2. GRU の分類タスクを「ラベルが最後の値で決まる」ように変更して、学習しやすさを比べてみましょう。
-3. 同じタスクを LSTM と GRU の両方で試し、学習速度とコードの複雑さを比較してみましょう。
-4. 自分の言葉で説明してみましょう。なぜ LSTM / GRU の重要な点は「複雑さ」ではなく、「情報の流れをより細かく制御できること」なのか？
+1. 実験 1 で `sigmoid(1.0)` を `sigmoid(-1.0)` に変える。`c_t` はどう変わるか。
+2. 記憶タスクを、ラベルが最後の値に依存するように変える。より簡単になるか。
+3. `GRUClassifier` を `LSTMClassifier` に置き換え、出力 API を比較する。
+4. `seq_len` を `10` から `30` に増やす。学習は難しくなるか。
+5. GRU は状態が少ないのに、多くのタスクでうまく動く理由を説明する。
+
+## まとめ
+
+- LSTM と GRU は gate で記憶の流れを制御する。
+- LSTM には `c_t` と `h_t` があり、GRU はより軽い hidden-state 設計を使う。
+- Gate は `0` から `1` の間で学習される soft switch。
+- LSTM と GRU の選択は検証結果で判断する。
+- Gate 付き recurrent model は、普通の RNN から attention ベースの系列モデルへ進む重要な橋渡しです。
