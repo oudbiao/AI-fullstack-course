@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Vision task granularity ladder</title>
+  <desc id="desc">A ladder showing image classification, object detection, segmentation, and OCR or visual understanding by output granularity.</desc>
+  <style>.title{font:700 30px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.label{font:700 21px Arial,sans-serif;fill:#111827}.text{font:400 16px Arial,sans-serif;fill:#374151}.out{font:700 15px Arial,sans-serif;fill:#0f766e}</style>
+  <rect width="720" height="900" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">Same Image, More Detailed Outputs</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">Computer vision tasks differ by what the model must output.</text>
+  <g transform="translate(85 132)"><rect width="550" height="120" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="28" y="38" class="label">1. Classification</text><text x="28" y="68" class="text">Question: what is the main category?</text><text x="28" y="96" class="out">Output: label + confidence</text></g>
+  <g transform="translate(85 284)"><rect width="550" height="120" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="28" y="38" class="label">2. Detection</text><text x="28" y="68" class="text">Question: where is each object?</text><text x="28" y="96" class="out">Output: boxes + labels + scores</text></g>
+  <g transform="translate(85 436)"><rect width="550" height="120" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="28" y="38" class="label">3. Segmentation</text><text x="28" y="68" class="text">Question: which pixels belong together?</text><text x="28" y="96" class="out">Output: masks or pixel classes</text></g>
+  <g transform="translate(85 588)"><rect width="550" height="120" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="28" y="38" class="label">4. OCR / Visual Understanding</text><text x="28" y="68" class="text">Question: what text, table, or meaning can be read?</text><text x="28" y="96" class="out">Output: text, structure, answer, or description</text></g>
+  <rect x="85" y="748" width="550" height="72" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="360" y="792" text-anchor="middle" class="label">More detailed output means more demanding labels and metrics.</text>
+</svg>
