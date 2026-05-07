@@ -9,7 +9,7 @@ keywords: [Python study guide, Python task sheet, programming fundamentals, JSON
 
 Use this page as the control panel for Chapter 2. Your goal is not to memorize every syntax rule. Your goal is to write a small Python program that runs, saves data, handles errors, and can be explained.
 
-## 2.0.1 Study This Stage in Order
+## 2.0.1 Recommended Learning Order
 
 ![Python learning guide minimal closed loop](/img/course/ch02-study-guide-program-loop-en.png)
 
@@ -37,7 +37,7 @@ Do not start by chasing advanced syntax. First make the program run, save someth
 
 Read abbreviations as capabilities: interface, storage, request, response, or workflow.
 
-## 2.0.3 Minimum Task Sheet
+## 2.0.3 Tasks You Must Complete in This Stage
 
 | Task | Deliverable | Pass criteria |
 |---|---|---|
@@ -71,7 +71,7 @@ This pattern is enough for the task manager, scraper, Web API, and AI API demo.
 | `debug_notes.md` | You can learn from errors instead of hiding them. |
 | `ch02_output/` | You completed the follow-along workshop evidence pack. |
 
-## 2.0.6 Stage Checkpoint
+## 2.0.6 Stage Completion Questions
 
 Before moving to Chapter 3, check that you can answer these questions:
 

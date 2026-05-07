@@ -69,7 +69,21 @@ required_project_sections = [
 
 def has_any_section(text, section_options):
     lower_text = text.lower()
-    return any(section.lower() in lower_text for section in section_options)
+    if any(section.lower() in lower_text for section in section_options):
+        return True
+
+    normalized_headings = []
+    for line in text.splitlines():
+        if line.lstrip().startswith('##'):
+            heading = line.strip().lower()
+            heading = re.sub(r'^(#+)\s*(?:[0-9]+(?:\.[0-9]+)*\.?\s*)?', r'\1 ', heading)
+            normalized_headings.append(heading)
+
+    normalized_options = [
+        re.sub(r'^(#+)\s*(?:[0-9]+(?:\.[0-9]+)*\.?\s*)?', r'\1 ', section.lower())
+        for section in section_options
+    ]
+    return any(option in normalized_headings for option in normalized_options)
 
 
 def section_label(section_options):
@@ -78,6 +92,7 @@ def section_label(section_options):
 for chapter in sorted(chapter_dirs):
     index_path = os.path.join(docs, chapter, 'index.md')
     task_path = os.path.join(docs, chapter, 'task-list.md')
+    study_guide_path = os.path.join(docs, chapter, 'study-guide.md')
 
     if not os.path.exists(index_path):
         errors.append(f'{chapter}/index.md missing')
@@ -90,6 +105,8 @@ for chapter in sorted(chapter_dirs):
     task_text = ''
     if os.path.exists(task_path):
         task_text += open(task_path, encoding='utf-8').read()
+    if os.path.exists(study_guide_path):
+        task_text += '\n' + open(study_guide_path, encoding='utf-8').read()
     if os.path.exists(index_path):
         task_text += '\n' + open(index_path, encoding='utf-8').read()
 
