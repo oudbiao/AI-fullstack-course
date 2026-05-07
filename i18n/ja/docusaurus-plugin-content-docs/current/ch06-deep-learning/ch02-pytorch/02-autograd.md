@@ -1,149 +1,76 @@
 ---
-title: "6.2.4 自動微分"
+title: "6.2.4 Autograd 自動微分"
 sidebar_position: 2
-description: "requires_grad、backward、勾配の累積と no_grad を理解して、学習時にパラメータがなぜ更新されるのかを本当に理解する。"
-keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
+description: "連鎖律、勾配の累積、no_grad、detach、手動パラメータ更新の実験を通して PyTorch autograd を学びます。"
+keywords: [autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch]
 ---
 
-# 6.2.4 自動微分
+# 6.2.4 Autograd 自動微分
 
-![PyTorch Autograd 計算グラフ](/img/course/pytorch-autograd-graph-ja.png)
+:::tip この節の位置づけ
+`autograd` は、順伝播の計算を勾配へ変えるエンジンです。大事なのは `backward()` を暗記することではなく、**どの計算グラフが記録され、勾配がどこに保存され、いつ累積し、いつ追跡を止めるべきか**を理解することです。
+:::
 
 ## 学習目標
 
-- 勾配とは何かを理解する
-- `requires_grad=True` の役割を理解する
-- `loss.backward()` が何をしているのかを理解する
-- 勾配の累積、クリア、`torch.no_grad()` を理解する
+- `requires_grad=True` が何を変えるのか説明できる。
+- `loss.backward()` を実行し、`.grad` を確認できる。
+- `backward()` は勾配を計算するだけで、パラメータを更新しないと理解する。
+- `zero_grad()` で勾配累積のバグを避ける。
+- 適切な場所で `torch.no_grad()` と `detach()` を使う。
 
 ---
 
-## まずは全体像をつかもう
+## まず計算グラフを見る
 
-この節は、初心者がいちばん「ただ `backward()` が書けるかどうか」の話だと勘違いしやすい部分です。  
-でも本当に大事なのは、学習の流れの中でどこに位置するかを先に見ることです。
+![PyTorch Autograd 計算グラフ](/img/course/pytorch-autograd-graph-ja.png)
 
-```mermaid
-flowchart LR
-    A["順伝播で loss を計算"] --> B["autograd が計算グラフを記録"]
-    B --> C["backward() でグラフを逆向きにたどって勾配を求める"]
-    C --> D["パラメータが grad を受け取る"]
-    D --> E["最適化器がパラメータを更新する"]
+この順番で読みます。
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+パラメータ -> 順伝播の演算 -> loss -> backward() -> parameter.grad -> optimizer step
 ```
 
-つまり、この節で本当に理解したいのは単なる API ではなく、次の点です。
+Autograd は loss を作る演算を記録します。`backward()` を呼ぶと、PyTorch はその記録されたグラフを逆向きにたどり、連鎖律を適用します。
 
-- 勾配がどうやって loss からパラメータへ伝わるのか
+## 実験 1: 1 つのパラメータ、1 つの勾配
 
-## この節は前の節・次の節とどうつながるのか
-
-- 前の節の `Tensor` では「データの形」を学びました
-- この節の `autograd` では「勾配がどう生まれるか」を学びます
-- 次の節の `nn.Module` では「モデルをどう整理するか」を学びます
-
-つまり、この節はちょうど真ん中の梁です。  
-これがないと、学習は前向き計算だけで終わってしまい、「学ぶ」ことができません。
-
-## 一、なぜ自動微分が必要なのか？
-
-モデル学習の核心は、たった一文で言えます。
-
-> **モデルのパラメータを「損失が小さくなる方向」に動かすこと。**
-
-では、どうやってどの方向に動かせばいいのでしょうか。
-
-答えが**勾配（gradient）**です。
-
-勾配は、山の斜面の傾きのようなものだと考えると分かりやすいです。
-
-- 勾配が大きい場所は、斜面が急です
-- 勾配の向きは、損失が最も増える方向を表します
-- 私たちは損失を下げたいので、**負の勾配方向**にパラメータを更新します
-
-毎回手計算で勾配を導くのは、とても大変です。  
-PyTorch の `autograd` は、自動で記録してくれる帳簿係のようなものです。
-
-- あなたは「loss をどう計算するか」だけ書けばよい
-- あとは勾配のつながりを記録してくれる
-- `backward()` を呼ぶと、自動で勾配を計算してくれる
-
-### なぜ複雑になると、手計算では無理なのか？
-
-パラメータが 1 つだけなら、手で計算できるかもしれません。  
-でもモデルの中に次のようなものが入ると、一気に大変になります。
-
-- 何千、何万ものパラメータ
-- 多層構造
-- さまざまな中間 Tensor
-
-手計算ではすぐに破綻します。  
-だから自動微分の本当の価値は「少し楽になる」ことではなく、
-
-- 大きなモデルを実際に学習できるようにすること
-
-にあります。
-
----
-
-## 二、最小の例を見てみよう
+まず 1 つの数から始めると、仕組みが見えやすいです。
 
 ```python
 import torch
 
-# 学習したいパラメータ
 w = torch.tensor(2.0, requires_grad=True)
-
-# 簡単な関数を定義: loss = (w * 3 - 10)^2
 loss = (w * 3 - 10) ** 2
 
 print("loss:", loss.item())
-
-# 自動微分
 loss.backward()
-
-print("w の勾配:", w.grad.item())
+print("w.grad:", w.grad.item())
 ```
 
-### ここでは何が起きているのか？
-
-PyTorch はこの計算の流れを記録しています。
+期待される出力：
 
 ```text
-w -> w*3 -> w*3-10 -> (w*3-10)^2
+loss: 16.0
+w.grad: -24.0
 ```
 
-次のコードを実行すると、
+何が起きたか：
 
-```python
-loss.backward()
+- `w` は `requires_grad=True` なので、学習対象の値です。
+- `loss` は `w` から作られるため、PyTorch は `w` から `loss` までの経路を記録します。
+- `loss.backward()` は、`w` が変わると loss がどう変わるかを計算します。
+- 結果は `w.grad` に保存されます。
+
+計算の流れは次のとおりです。
+
+```text
+w -> w * 3 -> w * 3 - 10 -> square -> loss
 ```
 
-このつながりを逆向きにたどって、連鎖律に従って勾配を順番に計算し、最後に次の値を得ます。
+## 実験 2: 勾配は更新ではない
 
-```python
-w.grad
-```
-
-これは、「今の `w` を少し動かしたら loss がどう変わるか」という情報です。
-
-### この例で最初に押さえるべきことは？
-
-まず押さえるべきなのは次の 3 つです。
-
-- `loss` は最終結果である
-- `backward()` は、その最終結果が `w` に与える影響を逆向きに計算する
-- `w.grad` には「どう修正すべきか」の情報が入る
-
-この 3 つが分かれば、もっと複雑なネットワークでも、あとはこの鎖が長くなるだけです。
-
----
-
-## 三、勾配からパラメータ更新へ
-
-勾配があれば、最も基本的な勾配降下法ができます。
+`backward()` は勾配を計算するだけです。更新ステップは別に必要です。
 
 ```python
 import torch
@@ -151,37 +78,46 @@ import torch
 w = torch.tensor(2.0, requires_grad=True)
 lr = 0.1
 
-for step in range(5):
+print("single_parameter_training")
+for step in range(1, 6):
     loss = (w * 3 - 10) ** 2
     loss.backward()
 
     with torch.no_grad():
         w -= lr * w.grad
 
-    print(f"step={step}, w={w.item():.4f}, loss={loss.item():.4f}")
+    print(
+        f"step={step} "
+        f"w={w.item():.4f} "
+        f"loss={loss.item():.4f} "
+        f"grad={w.grad.item():.4f}"
+    )
 
     w.grad.zero_()
 ```
 
-### このコードは毎回何をしているのか？
+期待される出力：
 
-| コード | 役割 |
-|---|---|
-| `loss = ...` | 現在の損失を計算する |
-| `loss.backward()` | 現在の損失の `w` に対する勾配を求める |
-| `w -= lr * w.grad` | 勾配を使ってパラメータを更新する |
-| `w.grad.zero_()` | 古い勾配を消して、次の計算に備える |
+```text
+single_parameter_training
+step=1 w=4.4000 loss=16.0000 grad=-24.0000
+step=2 w=2.4800 loss=10.2400 grad=19.2000
+step=3 w=4.0160 loss=6.5536 grad=-15.3600
+step=4 w=2.7872 loss=4.1943 grad=12.2880
+step=5 w=3.7702 loss=2.6844 grad=-9.8304
+```
 
----
+値が行ったり来たりするのは、この toy 関数では `lr=0.1` が少し大きいからです。これは大事な観察です。勾配は方向とスケールを教えますが、学習率が一歩の大きさを決めます。
 
-## 四、なぜ勾配をクリアする必要があるのか？
+`torch.no_grad()` が必要な理由：
 
-これは PyTorch 初心者が最もつまずきやすいポイントの 1 つです。
+- `w` の更新そのものは、次の順伝播グラフの一部ではない。
+- autograd に更新操作まで記録してほしくない。
+- メモリを節約し、グラフ関連のエラーを避けられる。
 
-PyTorch はデフォルトで勾配を**累積**します。  
-自動で上書きはしません。
+## 実験 3: 勾配累積を見る
 
-次の例を見てみましょう。
+PyTorch はデフォルトで勾配を累積します。`.grad` を自動で上書きしません。
 
 ```python
 import torch
@@ -190,147 +126,51 @@ x = torch.tensor(3.0, requires_grad=True)
 
 y1 = x ** 2
 y1.backward()
-print("1回目の backward 後の勾配:", x.grad.item())
+print("after first backward:", x.grad.item())
 
 y2 = 2 * x
 y2.backward()
-print("2回目の backward 後の勾配:", x.grad.item())
+print("after second backward:", x.grad.item())
+
+x.grad.zero_()
+y3 = 2 * x
+y3.backward()
+print("after zero and third backward:", x.grad.item())
 ```
 
-すると、2 回目の勾配は新しい値ではなく、「1 回目 + 2 回目」の合計になっていることが分かります。
+期待される出力：
 
-だから学習ループでは、普通は次のように書きます。
+```text
+after first backward: 6.0
+after second backward: 8.0
+after zero and third backward: 2.0
+```
+
+理由：
+
+- `x=3` のとき、`x ** 2` の勾配は `6`。
+- `2 * x` の勾配は `2`。
+- 2 回目の backward 後、`.grad` は `6 + 2 = 8` になる。
+- `zero_()` の後は、次の勾配がきれいな状態から始まる。
+
+![PyTorch autograd 勾配ライフサイクル図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.png)
+
+通常の学習コードで次の順番を使うのはこのためです。
 
 ```python
 optimizer.zero_grad()
+loss.backward()
+optimizer.step()
 ```
 
-または、
+## 実験 4: 2 つのパラメータを手で学習する
 
-```python
-tensor.grad.zero_()
-```
-
-### なぜ PyTorch は最初から「累積」にしているのか？
-
-それは、あえてそう使う高度な学習手法があるからです。たとえば、
-
-- 勾配累積
-- 複数の loss をまとめて逆伝播する
-
-などです。
-
-なので設計としては正しいです。  
-ただし初心者のうちは、まず次の動作を習慣にするとよいです。
-
-- 各更新の前に、必ず勾配をクリアする
-
-![PyTorch 自動微分の勾配ライフサイクル図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.png)
-
-:::tip 図の読み方
-この図は 1 回の学習ステップとして読みます。まず順伝播で loss を計算し、`backward()` が勾配を `.grad` に書き込み、`optimizer.step()` がその勾配でパラメータを更新します。最後に必ず `zero_grad()` で古い勾配を消します。PyTorch はデフォルトで勾配を累積するので、「消し忘れ」は初心者に最も多い見えにくいバグです。
-:::
-
----
-
-## 五、`requires_grad=True` は何を制御しているのか？
-
-`requires_grad=True` とマークされた Tensor だけが、PyTorch に勾配追跡されます。
+今度は `nn.Linear` も optimizer も使わず、小さな線形モデルを手で学習します。学習ループ全体が見えるようになります。
 
 ```python
 import torch
 
-a = torch.tensor(2.0, requires_grad=True)
-b = torch.tensor(3.0, requires_grad=False)
-
-y = a * b + 1
-y.backward()
-
-print("a.grad:", a.grad.item())
-print("b.grad:", b.grad)
-```
-
-出力では次のようになります。
-
-- `a.grad` には値が入る
-- `b.grad` は `None`
-
-これは直感的にも自然です。  
-もしある値が「学習したいパラメータ」ではないなら、その値の勾配を求める必要はありません。
-
----
-
-## 六、`torch.no_grad()` は何をするのか？
-
-学習時には勾配を記録します。  
-でも推論、評価、パラメータの手動更新では、たいてい**勾配は必要ありません**。
-
-そんなときに使うのが次のコードです。
-
-```text
-with torch.no_grad():
-    # inference or parameter update code goes here
-```
-
-これには次の効果があります。
-
-- 勾配追跡をオフにする
-- メモリを節約する
-- 推論を速くする
-
-### 初心者が最初に見落としやすい点: パラメータ更新時にも勾配を切ることが多い
-
-手書きの更新コードを見ると、次のように包まれていることがよくあります。
-
-```text
-with torch.no_grad():
-    # inference or parameter update code goes here
-```
-
-理由は次のとおりです。
-
-- パラメータ更新そのものは、学習グラフの中で次に微分したい対象ではない
-- なので普通は autograd に追跡させる必要がない
-
-```python
-import torch
-
-w = torch.tensor(5.0, requires_grad=True)
-
-with torch.no_grad():
-    y = w * 2
-
-print("y.requires_grad:", y.requires_grad)
-```
-
----
-
-## 七、これを「モデル学習」の文脈に戻してみよう
-
-実際の学習では、1 つの数字 `w` だけを更新するのではなく、たくさんのパラメータをまとめて更新します。
-
-たとえば線形モデルなら、
-
-> `y = wx + b`
-
-ここで `w` と `b` はどちらもパラメータで、学習対象です。  
-学習時に起きることは、実はずっと同じです。
-
-1. 現在のパラメータで予測する
-2. 予測と正解の差から損失を計算する
-3. 各パラメータの勾配を自動で求める
-4. 最適化器が勾配の方向に沿ってパラメータを更新する
-
-つまり、自動微分は「追加機能」ではなく、深層学習の学習エンジンです。
-
----
-
-## 八、2 つのパラメータを使った実行可能な例
-
-```python
-import torch
-
-# モデルに y = 2x + 1 を学習させたい
+# 目標ルール: y = 2x + 1
 x = torch.tensor([1.0, 2.0, 3.0, 4.0])
 y_true = torch.tensor([3.0, 5.0, 7.0, 9.0])
 
@@ -338,7 +178,8 @@ w = torch.tensor(0.0, requires_grad=True)
 b = torch.tensor(0.0, requires_grad=True)
 lr = 0.05
 
-for epoch in range(200):
+print("two_parameter_fit")
+for epoch in range(201):
     y_pred = w * x + b
     loss = ((y_pred - y_true) ** 2).mean()
 
@@ -348,66 +189,121 @@ for epoch in range(200):
         w -= lr * w.grad
         b -= lr * b.grad
 
+    if epoch % 50 == 0:
+        print(
+            f"epoch={epoch:3d} "
+            f"loss={loss.item():.4f} "
+            f"w={w.item():.4f} "
+            f"b={b.item():.4f}"
+        )
+
     w.grad.zero_()
     b.grad.zero_()
-
-    if epoch % 40 == 0:
-        print(
-            f"epoch={epoch:3d}, loss={loss.item():.4f}, "
-            f"w={w.item():.4f}, b={b.item():.4f}"
-        )
 ```
 
-うまくいけば、`w` は `2` に近づき、`b` は `1` に近づきます。
+期待される出力：
 
----
+```text
+two_parameter_fit
+epoch=  0 loss=41.0000 w=1.7500 b=0.6000
+epoch= 50 loss=0.0030 w=2.0452 b=0.8672
+epoch=100 loss=0.0007 w=2.0212 b=0.9375
+epoch=150 loss=0.0001 w=2.0100 b=0.9706
+epoch=200 loss=0.0000 w=2.0047 b=0.9862
+```
 
-## 九、よくある誤解
+パラメータは `w=2` と `b=1` に近づきます。ニューラルネットワークも同じループを使います。ただし、パラメータが 2 個ではなく、何百万個以上になるだけです。
 
-### `backward()` が自動でパラメータを更新してくれる
+## `requires_grad`、`no_grad`、`detach`
 
-いいえ。  
-`backward()` は**勾配を求めるだけ**です。実際にパラメータを更新するのは、あなたが書く更新処理か、最適化器の `step()` です。
+この 3 つは関連していますが、同じものではありません。
 
-### 毎回勾配を消さなくても大丈夫
+| 道具 | 使う場面 | 効果 |
+|---|---|---|
+| `requires_grad=True` | テンソルがパラメータ、または勾配が必要 | 以後の演算が追跡される |
+| `torch.no_grad()` | 推論または手動パラメータ更新 | 一時的に計算グラフの記録を止める |
+| `tensor.detach()` | グラフ履歴なしでテンソル値を使いたい | autograd から切り離されたテンソルを返す |
 
-ダメです。  
-クリアしないと勾配がどんどん足し合わされてしまい、学習結果がおかしくなることが多いです。
+実行して確認します。
 
-### 推論でもそのまま勾配を有効にしておく
+```python
+import torch
 
-動きはしますが、無駄が多いです。  
-評価やデプロイ時には、できるだけ `torch.no_grad()` を使いましょう。
+w = torch.tensor(5.0, requires_grad=True)
 
----
+tracked = w * 2
+detached = tracked.detach()
 
-## まとめ
+with torch.no_grad():
+    untracked = w * 3
 
-この節でいちばん大事な結論は、次の 3 つです。
+print("tracked.requires_grad:", tracked.requires_grad)
+print("detached.requires_grad:", detached.requires_grad)
+print("untracked.requires_grad:", untracked.requires_grad)
+```
 
-1. 勾配は「パラメータをどちらに動かすべきか」を教えてくれる
-2. `backward()` は勾配を求めるだけで、更新はしない
-3. PyTorch はデフォルトで勾配を累積するので、学習ループでは必ずクリアする
+期待される出力：
 
-自動微分を理解できると、ようやく「モデルを学習する」ということの本質に入れます。
+```text
+tracked.requires_grad: True
+detached.requires_grad: False
+untracked.requires_grad: False
+```
 
-## この節で何を持ち帰るべきか
+実用例：
 
-もっと短く言うなら、次の一文です。
+- 検証や予測では `no_grad()` を使います。
+- ログ記録、NumPy 変換、グラフ全体を保持したくない値の保存には `detach()` を使います。
+- loss に勾配を返す必要があるテンソルを detach してはいけません。
 
-> **autograd の本質は、`loss` がパラメータに与える影響を、計算グラフを使って自動で逆向きに計算すること。**
+## よくあるエラーパターン
 
-だから本当に押さえるべきなのは次の点です。
+| 症状 | ありがちな原因 | 直し方 |
+|---|---|---|
+| `.grad` が `None` | テンソルが勾配を必要としていない、または leaf tensor ではない | `requires_grad` を確認し、モデルパラメータを調べる |
+| 学習が不安定になる | 勾配を消していない | `backward()` の前に `optimizer.zero_grad()` を呼ぶ |
+| `RuntimeError: Trying to backward through the graph a second time` | backward 後に同じグラフを再利用した | 順伝播をやり直す。理由が明確な場合だけ `retain_graph=True` を使う |
+| メモリが増え続ける | 計算グラフにつながった tensor をリストに保存している | `loss.item()` または `tensor.detach()` を保存する |
+| 検証が遅く、メモリを使いすぎる | 評価中も勾配を追跡している | 検証を `with torch.no_grad():` で囲む |
 
-- どの値が勾配を必要とするのか
-- 勾配はいつ計算されるのか
-- 勾配はいつ累積されるのか
-- どの場面で勾配をオフにすべきか
+:::warning `retain_graph=True` は慎重に
+初心者向けの多くのコードでは `retain_graph=True` は不要です。使いたくなったら、まず「同じ forward 結果に対して `backward()` を 2 回呼んでいないか？」を確認してください。
+:::
 
----
+## クイックデバッグチェックリスト
+
+`backward()` の前：
+
+```python
+print("loss requires_grad:", loss.requires_grad)
+print("w requires_grad:", w.requires_grad)
+```
+
+`backward()` の後：
+
+```python
+print("w.grad:", w.grad)
+print("b.grad:", b.grad)
+```
+
+通常の学習ループの順番は次です。
+
+```text
+forward -> loss -> zero_grad -> backward -> step
+```
+
+一部のコードでは `zero_grad` を forward の前に置きますが、核心は同じです。次の更新前に古い勾配を消します。
 
 ## 練習
 
-1. 上の `y = 2x + 1` の例を `y = 3x - 2` に変えて、もう一度学習してみましょう。
-2. `w.grad.zero_()` と `b.grad.zero_()` を削除して、学習がどうなるか観察してみましょう。
-3. 学習率 `lr` を `0.5` と `0.005` に変えて、収束速度と安定性を比較してみましょう。
+1. 実験 4 を `y = 3x - 2` を学ぶように変えてください。`w` と `b` は何に近づくべきですか？
+2. 実験 4 の `w.grad.zero_()` と `b.grad.zero_()` を削除して、何が起きるか観察してください。
+3. `lr` を `0.5` と `0.005` に変えてください。どちらが不安定で、どちらが遅いですか？
+4. 200 epoch のあいだ `loss` 自体をリストに保存し、次に `loss.item()` を保存してください。なぜ後者のほうが安全ですか？
+
+## まとめ
+
+- Autograd は、パラメータから loss までの計算グラフを記録します。
+- `backward()` は勾配を計算しますが、パラメータは更新しません。
+- 勾配はデフォルトで累積するので、次の更新前に消します。
+- 推論と手動更新には `no_grad()`、グラフ履歴なしの値が必要なときは `detach()` を使います。

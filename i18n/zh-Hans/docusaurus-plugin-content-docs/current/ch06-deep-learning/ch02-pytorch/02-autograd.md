@@ -1,147 +1,76 @@
 ---
-title: "6.2.4 自动求导"
+title: "6.2.4 Autograd 自动求导"
 sidebar_position: 2
-description: "理解 requires_grad、backward、梯度累计和 no_grad，真正明白训练时参数为什么会更新。"
-keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
+description: "通过链式求导、梯度累积、no_grad、detach 和手写参数更新实验学习 PyTorch autograd。"
+keywords: [autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch]
 ---
 
-# 6.2.4 自动求导
+# 6.2.4 Autograd 自动求导
 
-![PyTorch Autograd 计算图](/img/course/pytorch-autograd-graph.png)
+:::tip 本节定位
+`autograd` 是把前向计算变成梯度的引擎。重点不是背 `backward()`，而是知道：**记录了什么计算图，梯度存在哪里，什么时候会累积，什么时候要关闭追踪。**
+:::
 
 ## 学习目标
 
-- 理解梯度到底是什么
-- 掌握 `requires_grad=True` 的作用
-- 明白 `loss.backward()` 做了什么
-- 理解梯度累计、清零和 `torch.no_grad()`
+- 解释 `requires_grad=True` 改变了什么。
+- 运行 `loss.backward()` 并检查 `.grad`。
+- 理解 `backward()` 只计算梯度，不更新参数。
+- 用 `zero_grad()` 避免梯度累积 bug。
+- 在正确位置使用 `torch.no_grad()` 和 `detach()`。
 
 ---
 
-## 先建立一张地图
+## 先看计算图
 
-这一节最容易让新人误会成“只是会不会写 `backward()`”。
-但更重要的是先看清它在训练闭环里的位置：
+![PyTorch Autograd 计算图](/img/course/pytorch-autograd-graph.png)
 
-```mermaid
-flowchart LR
-    A["前向算出 loss"] --> B["autograd 记录计算图"]
-    B --> C["backward() 沿图反向求梯度"]
-    C --> D["参数拿到 grad"]
-    D --> E["优化器更新参数"]
+按这个顺序读图：
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+参数 -> 前向运算 -> loss -> backward() -> parameter.grad -> optimizer step
 ```
 
-所以这节真正要看懂的不是单个 API，而是：
+Autograd 会记录产生 loss 的运算。当你调用 `backward()` 时，PyTorch 会沿着记录下来的图反向走，并应用链式法则。
 
-- 梯度是怎么从 loss 一路传回参数的
+## 实验 1：一个参数，一个梯度
 
-## 这节和上一节、下一节是怎么接上的
-
-- 上一节 `Tensor` 解决的是“数据长什么样”
-- 这一节 `autograd` 解决的是“梯度怎么来”
-- 下一节 `nn.Module` 会解决“模型怎么组织起来”
-
-所以这一节刚好是中间那根梁：
-没有它，训练流程就只有前向，没有“学”。
-
-## 一、为什么要有自动求导？
-
-训练模型的核心目标只有一句话：
-
-> **让模型参数朝“损失更小”的方向移动。**
-
-问题是：怎么知道该往哪个方向移动？
-
-答案就是**梯度（gradient）**。
-
-你可以把梯度想成“山坡的坡度”：
-
-- 梯度大，说明这里很陡
-- 梯度方向告诉你损失增长最快的方向
-- 我们想要让损失下降，所以要沿着**负梯度方向**更新参数
-
-如果每次都手工推导梯度，会非常痛苦。
-PyTorch 的 `autograd` 就像一个自动记账员：
-
-- 你只管写“怎么算出 loss”
-- 它会帮你把梯度链路记录下来
-- 你调用 `backward()`，它就自动把梯度算出来
-
-### 为什么这件事一旦变复杂，就不能再手推？
-
-一个参数时你还能手算。
-但一旦模型里有：
-
-- 上千上万个参数
-- 多层结构
-- 各种中间张量
-
-手推就会迅速失控。
-所以自动求导最核心的价值不是“省一点事”，而是：
-
-- 让训练大模型在工程上变得可行
-
----
-
-## 二、一个最小例子
+先从一个数字开始，机制最清楚。
 
 ```python
 import torch
 
-# 一个需要学习的参数
 w = torch.tensor(2.0, requires_grad=True)
-
-# 定义一个简单函数：loss = (w * 3 - 10)^2
 loss = (w * 3 - 10) ** 2
 
 print("loss:", loss.item())
-
-# 自动求导
 loss.backward()
-
-print("w 的梯度:", w.grad.item())
+print("w.grad:", w.grad.item())
 ```
 
-### 这里发生了什么？
-
-PyTorch 记录了这条计算链：
+预期输出：
 
 ```text
-w -> w*3 -> w*3-10 -> (w*3-10)^2
+loss: 16.0
+w.grad: -24.0
 ```
 
-当你执行：
+发生了什么：
 
-```python
-loss.backward()
+- `w` 因为 `requires_grad=True`，所以是可学习值。
+- `loss` 由 `w` 计算得到，PyTorch 会记录从 `w` 到 `loss` 的路径。
+- `loss.backward()` 会计算 `w` 改变时 loss 怎么变。
+- 结果存进 `w.grad`。
+
+计算链是：
+
+```text
+w -> w * 3 -> w * 3 - 10 -> square -> loss
 ```
 
-它会沿着这条链，按链式法则把梯度一路传回来，最后得到：
+## 实验 2：梯度不是更新
 
-```python
-w.grad
-```
-
-这就是“当前 `w` 再往前走一点点，loss 会怎么变”的信息。
-
-### 第一次看这个例子，最该先抓住什么？
-
-最该先抓住的是：
-
-- `loss` 是一个最终结果
-- `backward()` 会把这个最终结果对 `w` 的影响一路算回来
-- `w.grad` 里装的就是“该怎么改”的信息
-
-只要这三件事稳住了，后面更复杂网络也只是把这条链拉长。
-
----
-
-## 三、从梯度到参数更新
-
-有了梯度，就能做一次最简单的梯度下降：
+`backward()` 只计算梯度。你仍然需要更新步骤。
 
 ```python
 import torch
@@ -149,36 +78,46 @@ import torch
 w = torch.tensor(2.0, requires_grad=True)
 lr = 0.1
 
-for step in range(5):
+print("single_parameter_training")
+for step in range(1, 6):
     loss = (w * 3 - 10) ** 2
     loss.backward()
 
     with torch.no_grad():
         w -= lr * w.grad
 
-    print(f"step={step}, w={w.item():.4f}, loss={loss.item():.4f}")
+    print(
+        f"step={step} "
+        f"w={w.item():.4f} "
+        f"loss={loss.item():.4f} "
+        f"grad={w.grad.item():.4f}"
+    )
 
     w.grad.zero_()
 ```
 
-### 这一段每步在干什么？
+预期输出：
 
-| 代码 | 作用 |
-|---|---|
-| `loss = ...` | 计算当前损失 |
-| `loss.backward()` | 求当前损失对 `w` 的梯度 |
-| `w -= lr * w.grad` | 用梯度更新参数 |
-| `w.grad.zero_()` | 把旧梯度清掉，准备下轮计算 |
+```text
+single_parameter_training
+step=1 w=4.4000 loss=16.0000 grad=-24.0000
+step=2 w=2.4800 loss=10.2400 grad=19.2000
+step=3 w=4.0160 loss=6.5536 grad=-15.3600
+step=4 w=2.7872 loss=4.1943 grad=12.2880
+step=5 w=3.7702 loss=2.6844 grad=-9.8304
+```
 
----
+数值来回跳，是因为这个小函数里 `lr=0.1` 稍微激进。这个现象很有用：梯度告诉你方向和尺度，但学习率决定每次走多远。
 
-## 四、为什么要清零梯度？
+为什么需要 `torch.no_grad()`：
 
-这是 PyTorch 初学者最容易踩坑的点之一。
+- 更新 `w` 不是下一次前向计算图的一部分；
+- 不希望 autograd 继续记录更新动作本身；
+- 可以省内存，也能避免图相关错误。
 
-PyTorch 默认会**累计梯度**，而不是自动覆盖。
+## 实验 3：看见梯度累积
 
-看下面的例子：
+PyTorch 默认会累积梯度，不会自动覆盖 `.grad`。
 
 ```python
 import torch
@@ -187,145 +126,51 @@ x = torch.tensor(3.0, requires_grad=True)
 
 y1 = x ** 2
 y1.backward()
-print("第一次 backward 后的梯度:", x.grad.item())
+print("after first backward:", x.grad.item())
 
 y2 = 2 * x
 y2.backward()
-print("第二次 backward 后的梯度:", x.grad.item())
+print("after second backward:", x.grad.item())
+
+x.grad.zero_()
+y3 = 2 * x
+y3.backward()
+print("after zero and third backward:", x.grad.item())
 ```
 
-你会发现第二次梯度不是新的结果，而是“第一次 + 第二次”的和。
+预期输出：
 
-这就是为什么训练循环里通常都会写：
+```text
+after first backward: 6.0
+after second backward: 8.0
+after zero and third backward: 2.0
+```
+
+原因：
+
+- `x=3` 时，`x ** 2` 的梯度是 `6`；
+- `2 * x` 的梯度是 `2`；
+- 第二次 backward 后，`.grad` 变成 `6 + 2 = 8`；
+- 调用 `zero_()` 后，下一个梯度会从干净状态开始。
+
+![PyTorch autograd 梯度生命周期图](/img/course/ch06-autograd-gradient-lifecycle-map.png)
+
+正常训练代码因此会使用：
 
 ```python
 optimizer.zero_grad()
+loss.backward()
+optimizer.step()
 ```
 
-或者：
+## 实验 4：手写拟合两个参数
 
-```python
-tensor.grad.zero_()
-```
-
-### 为什么 PyTorch 要默认“累计梯度”？
-
-因为有些更高级的训练技巧会故意这么做，比如：
-
-- 梯度累积
-- 多个 loss 一起反传
-
-所以这个设计本身没错。
-只是对初学者来说，你要先养成一个稳定默认动作：
-
-- 每轮更新前，先清零梯度
-
-![PyTorch 自动求导梯度生命周期图](/img/course/ch06-autograd-gradient-lifecycle-map.png)
-
-:::tip 读图提示
-这张图按一轮训练读：先前向计算 loss，`backward()` 把梯度写进 `.grad`，`optimizer.step()` 用梯度更新参数，最后必须 `zero_grad()` 清空旧梯度。PyTorch 默认累计梯度，所以“忘记清零”是新人最常见的隐形 bug。
-:::
-
----
-
-## 五、`requires_grad=True` 到底控制了什么？
-
-只有被标记为 `requires_grad=True` 的张量，PyTorch 才会为它追踪梯度。
+现在不用 `nn.Linear`，也不用 optimizer，手写训练一个小线性模型。这样训练闭环会完全可见。
 
 ```python
 import torch
 
-a = torch.tensor(2.0, requires_grad=True)
-b = torch.tensor(3.0, requires_grad=False)
-
-y = a * b + 1
-y.backward()
-
-print("a.grad:", a.grad.item())
-print("b.grad:", b.grad)
-```
-
-输出里你会看到：
-
-- `a.grad` 有值
-- `b.grad` 是 `None`
-
-这很符合直觉：
-如果某个值不是“需要学习的参数”，就没必要对它求梯度。
-
----
-
-## 六、`torch.no_grad()` 是干什么的？
-
-训练时我们要记录梯度。
-但推理、评估、参数手动更新时，我们往往**不需要**梯度。
-
-这时就可以用：
-
-```text
-with torch.no_grad():
-    # inference or parameter update code goes here
-```
-
-它的作用是：
-
-- 关闭梯度追踪
-- 节省内存
-- 加快推理
-
-### 新人第一次最容易忽略的是：更新参数时也常常要关梯度
-
-你会发现很多手写更新代码里都包着：
-
-```text
-with torch.no_grad():
-    # inference or parameter update code goes here
-```
-
-原因是：
-
-- 参数更新本身不是训练图里下一步要继续求导的对象
-- 所以通常不需要再被 autograd 跟踪
-
-```python
-import torch
-
-w = torch.tensor(5.0, requires_grad=True)
-
-with torch.no_grad():
-    y = w * 2
-
-print("y.requires_grad:", y.requires_grad)
-```
-
----
-
-## 七、把它放回“模型训练”的语境里
-
-真实训练时，我们通常不是只更新一个数字 `w`，而是更新一整组参数。
-
-比如一个线性模型：
-
-> `y = wx + b`
-
-这里的 `w` 和 `b` 都是参数，都要学习。
-训练时发生的事其实还是一样：
-
-1. 用当前参数做预测
-2. 计算预测和真实值之间的损失
-3. 自动求出每个参数的梯度
-4. 用优化器按梯度方向更新参数
-
-所以自动求导不是“额外功能”，而是深度学习训练的发动机。
-
----
-
-## 八、一个带两个参数的可运行例子
-
-```python
-import torch
-
-# 我们希望模型学到：y = 2x + 1
+# 目标规则：y = 2x + 1
 x = torch.tensor([1.0, 2.0, 3.0, 4.0])
 y_true = torch.tensor([3.0, 5.0, 7.0, 9.0])
 
@@ -333,7 +178,8 @@ w = torch.tensor(0.0, requires_grad=True)
 b = torch.tensor(0.0, requires_grad=True)
 lr = 0.05
 
-for epoch in range(200):
+print("two_parameter_fit")
+for epoch in range(201):
     y_pred = w * x + b
     loss = ((y_pred - y_true) ** 2).mean()
 
@@ -343,66 +189,121 @@ for epoch in range(200):
         w -= lr * w.grad
         b -= lr * b.grad
 
+    if epoch % 50 == 0:
+        print(
+            f"epoch={epoch:3d} "
+            f"loss={loss.item():.4f} "
+            f"w={w.item():.4f} "
+            f"b={b.item():.4f}"
+        )
+
     w.grad.zero_()
     b.grad.zero_()
-
-    if epoch % 40 == 0:
-        print(
-            f"epoch={epoch:3d}, loss={loss.item():.4f}, "
-            f"w={w.item():.4f}, b={b.item():.4f}"
-        )
 ```
 
-如果一切正常，`w` 会逼近 `2`，`b` 会逼近 `1`。
+预期输出：
 
----
+```text
+two_parameter_fit
+epoch=  0 loss=41.0000 w=1.7500 b=0.6000
+epoch= 50 loss=0.0030 w=2.0452 b=0.8672
+epoch=100 loss=0.0007 w=2.0212 b=0.9375
+epoch=150 loss=0.0001 w=2.0100 b=0.9706
+epoch=200 loss=0.0000 w=2.0047 b=0.9862
+```
 
-## 九、常见误区
+参数会靠近 `w=2` 和 `b=1`。神经网络使用的也是同一个循环，只是参数从两个变成了几百万甚至更多。
 
-### `backward()` 会自动更新参数
+## `requires_grad`、`no_grad` 和 `detach`
 
-不会。
-`backward()` 只负责**算梯度**，真正更新参数的是你自己写的更新逻辑，或优化器的 `step()`。
+这三个概念相关，但不能互换。
 
-### 每轮不清梯度也没关系
+| 工具 | 什么时候用 | 效果 |
+|---|---|---|
+| `requires_grad=True` | 这个张量是参数，或你需要它的梯度 | 未来运算会被追踪 |
+| `torch.no_grad()` | 推理或手写参数更新 | 临时停止记录计算图 |
+| `tensor.detach()` | 想拿到不带历史图的张量值 | 返回一个和 autograd 断开的张量 |
 
-不行。
-如果你不清零，梯度会一直累加，训练结果通常会错掉。
+运行检查：
 
-### 推理也照样开着梯度
+```python
+import torch
 
-能跑，但浪费。
-评估或部署时，应该尽量包上 `torch.no_grad()`。
+w = torch.tensor(5.0, requires_grad=True)
 
----
+tracked = w * 2
+detached = tracked.detach()
 
-## 小结
+with torch.no_grad():
+    untracked = w * 3
 
-这一节最关键的结论只有三句：
+print("tracked.requires_grad:", tracked.requires_grad)
+print("detached.requires_grad:", detached.requires_grad)
+print("untracked.requires_grad:", untracked.requires_grad)
+```
 
-1. 梯度告诉我们“参数该往哪改”
-2. `backward()` 负责求梯度，不负责更新参数
-3. PyTorch 默认累计梯度，所以训练循环里必须清零
+预期输出：
 
-理解了自动求导，你就真正踏进了“模型训练”这件事本身。
+```text
+tracked.requires_grad: True
+detached.requires_grad: False
+untracked.requires_grad: False
+```
 
-## 这节最该带走什么
+实用场景：
 
-如果再压成一句话，那就是：
+- 验证和预测时用 `no_grad()`。
+- 记录日志、转 NumPy、保存不该保留整张图的值时，用 `detach()`。
+- 如果某个张量还需要通过 loss 传回梯度，不要 detach 它。
 
-> **autograd 的本质，是把“loss 对参数的影响”自动沿计算图反向算回来。**
+## 常见错误模式
 
-所以真正要稳住的是：
+| 现象 | 可能原因 | 修复 |
+|---|---|---|
+| `.grad` 是 `None` | 张量不需要梯度，或它不是叶子张量 | 检查 `requires_grad`，查看模型参数 |
+| 训练变得不稳定 | 梯度没有清空 | 在 `backward()` 前调用 `optimizer.zero_grad()` |
+| `RuntimeError: Trying to backward through the graph a second time` | backward 后重复使用同一张图 | 重新前向计算；只有明确原因时才用 `retain_graph=True` |
+| 内存一直涨 | 把连着计算图的 tensor 存进列表 | 存 `loss.item()` 或 `tensor.detach()` |
+| 验证很慢、占内存 | 评估时还在追踪梯度 | 用 `with torch.no_grad():` 包住验证 |
 
-- 谁需要梯度
-- 梯度什么时候被算出来
-- 梯度什么时候会累计
-- 哪些阶段应该关掉梯度
+:::warning 谨慎使用 `retain_graph=True`
+大多数新手代码不需要 `retain_graph=True`。如果你想用它，先问自己：我是不是在同一个 forward 结果上重复调用 `backward()`，而不是重新做一次 forward？
+:::
 
----
+## 快速排错清单
+
+`backward()` 前：
+
+```python
+print("loss requires_grad:", loss.requires_grad)
+print("w requires_grad:", w.requires_grad)
+```
+
+`backward()` 后：
+
+```python
+print("w.grad:", w.grad)
+print("b.grad:", b.grad)
+```
+
+普通训练循环的顺序是：
+
+```text
+forward -> loss -> zero_grad -> backward -> step
+```
+
+有些代码会把 `zero_grad` 放在 forward 之前，但核心规则一样：下一次更新前清掉旧梯度。
 
 ## 练习
 
-1. 把上面 `y = 2x + 1` 的例子改成 `y = 3x - 2`，重新训练一次。
-2. 删除 `w.grad.zero_()` 和 `b.grad.zero_()`，观察训练会发生什么。
-3. 试着把学习率 `lr` 改成 `0.5` 和 `0.005`，比较收敛速度和稳定性。
+1. 把实验 4 改成学习 `y = 3x - 2`。`w` 和 `b` 应该接近什么？
+2. 删除实验 4 里的 `w.grad.zero_()` 和 `b.grad.zero_()`，观察会发生什么。
+3. 把 `lr` 改成 `0.5` 和 `0.005`。哪个不稳定，哪个太慢？
+4. 连续 200 个 epoch 把 `loss` 本身存进列表，再改成存 `loss.item()`。为什么第二种更安全？
+
+## 小结
+
+- Autograd 会记录从参数到 loss 的计算图。
+- `backward()` 计算梯度，但不更新参数。
+- 梯度默认会累积，下一次更新前要清空。
+- 推理和手写更新用 `no_grad()`；只要数值、不保留图时用 `detach()`。

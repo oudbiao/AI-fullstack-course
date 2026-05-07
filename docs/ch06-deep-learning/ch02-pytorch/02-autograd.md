@@ -1,147 +1,76 @@
 ---
 title: "6.2.4 Autograd"
 sidebar_position: 2
-description: "Understand requires_grad, backward, gradient accumulation, and no_grad, and truly see why parameters update during training."
-keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
+description: "Learn PyTorch autograd by running chain-rule, gradient accumulation, no_grad, detach, and manual parameter-update labs."
+keywords: [autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch]
 ---
 
 # 6.2.4 Autograd
 
-![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.png)
+:::tip Section Overview
+`autograd` is the engine that turns a forward computation into gradients. The important part is not memorizing `backward()`, but knowing **what graph is recorded, where gradients are stored, when they accumulate, and when tracking should be disabled.**
+:::
 
 ## Learning Objectives
 
-- Understand what gradients actually are
-- Master the role of `requires_grad=True`
-- Understand what `loss.backward()` does
-- Understand gradient accumulation, clearing gradients, and `torch.no_grad()`
+- Explain what `requires_grad=True` changes.
+- Run `loss.backward()` and inspect `.grad`.
+- Understand that `backward()` computes gradients but does not update parameters.
+- Avoid gradient accumulation bugs with `zero_grad()`.
+- Use `torch.no_grad()` and `detach()` in the right places.
 
 ---
 
-## First, build a map
+## Look at the Computation Graph First
 
-This section is most likely to be misunderstood by beginners as “it’s just about whether you can write `backward()`.”
-But more importantly, we should first see where it sits in the training loop:
+![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.png)
 
-```mermaid
-flowchart LR
-    A["Forward pass computes loss"] --> B["autograd records the computation graph"]
-    B --> C["backward() traces the graph backward to compute gradients"]
-    C --> D["parameters receive grad"]
-    D --> E["optimizer updates parameters"]
+Read the graph like this:
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+parameter -> forward operations -> loss -> backward() -> parameter.grad -> optimizer step
 ```
 
-So what you really need to understand in this section is not a single API, but:
+Autograd records the operations that produce the loss. When you call `backward()`, PyTorch walks that recorded graph backward and applies the chain rule.
 
-- How gradients are passed back from the loss all the way to the parameters
+## Lab 1: One Parameter, One Gradient
 
-## How this section connects to the previous and next ones
-
-- The previous section on `Tensor` answered “what does the data look like?”
-- This section on `autograd` answers “where do gradients come from?”
-- The next section on `nn.Module` will answer “how do we organize the model?”
-
-So this section is the beam in the middle:
-without it, the training process only has a forward pass, but no “learning.”
-
-## Why do we need autograd?
-
-The core goal of training a model is just one sentence:
-
-> **Make the model parameters move toward the direction that reduces the loss.**
-
-The problem is: how do we know which direction to move in?
-
-The answer is **gradient**.
-
-You can think of a gradient as the “slope” of a hill:
-
-- A large gradient means the slope is steep
-- The gradient direction tells you the direction in which the loss increases fastest
-- We want the loss to go down, so we update parameters in the **negative gradient direction**
-
-If we manually derive gradients every time, it becomes extremely painful.
-PyTorch’s `autograd` is like an automatic bookkeeper:
-
-- You just write how to compute the loss
-- It records the gradient path for you
-- When you call `backward()`, it computes the gradients automatically
-
-### Why does this become impossible to do by hand once things get complicated?
-
-With one parameter, you can still compute it by hand.
-But once a model has:
-
-- Tens of thousands or millions of parameters
-- Many layers
-- Various intermediate tensors
-
-manual derivation quickly becomes unmanageable.
-So the most important value of automatic differentiation is not “saving a bit of effort,” but:
-
-- Making large-model training feasible in practice
-
----
-
-## A minimal example
+Start with one number so the mechanism is visible.
 
 ```python
 import torch
 
-# A parameter that needs to be learned
 w = torch.tensor(2.0, requires_grad=True)
-
-# Define a simple function: loss = (w * 3 - 10)^2
 loss = (w * 3 - 10) ** 2
 
 print("loss:", loss.item())
-
-# Automatic differentiation
 loss.backward()
-
-print("Gradient of w:", w.grad.item())
+print("w.grad:", w.grad.item())
 ```
 
-### What is happening here?
-
-PyTorch records this computation chain:
+Expected output:
 
 ```text
-w -> w*3 -> w*3-10 -> (w*3-10)^2
+loss: 16.0
+w.grad: -24.0
 ```
 
-When you run:
+What happened:
 
-```python
-loss.backward()
+- `w` is a learnable value because `requires_grad=True`.
+- `loss` is built from `w`, so PyTorch records the path from `w` to `loss`.
+- `loss.backward()` computes how the loss changes if `w` changes.
+- The result is stored in `w.grad`.
+
+The chain is:
+
+```text
+w -> w * 3 -> w * 3 - 10 -> square -> loss
 ```
 
-it walks backward along this chain using the chain rule, and finally gets:
+## Lab 2: Gradient Is Not the Update
 
-```python
-w.grad
-```
-
-This is the information that tells you “if `w` moves a little bit further, how will the loss change?”
-
-### When you see this example for the first time, what should you focus on?
-
-What you should focus on first is:
-
-- `loss` is a final result
-- `backward()` computes the effect of this final result on `w`
-- `w.grad` stores the information about how to change `w`
-
-As long as these three things are clear, more complex networks are just a longer version of the same chain.
-
----
-
-## From gradients to parameter updates
-
-Once you have gradients, you can do the simplest form of gradient descent:
+`backward()` only computes gradients. You still need an update step.
 
 ```python
 import torch
@@ -149,36 +78,46 @@ import torch
 w = torch.tensor(2.0, requires_grad=True)
 lr = 0.1
 
-for step in range(5):
+print("single_parameter_training")
+for step in range(1, 6):
     loss = (w * 3 - 10) ** 2
     loss.backward()
 
     with torch.no_grad():
         w -= lr * w.grad
 
-    print(f"step={step}, w={w.item():.4f}, loss={loss.item():.4f}")
+    print(
+        f"step={step} "
+        f"w={w.item():.4f} "
+        f"loss={loss.item():.4f} "
+        f"grad={w.grad.item():.4f}"
+    )
 
     w.grad.zero_()
 ```
 
-### What does each step do?
+Expected output:
 
-| Code | Purpose |
-|---|---|
-| `loss = ...` | Compute the current loss |
-| `loss.backward()` | Compute the gradient of the current loss with respect to `w` |
-| `w -= lr * w.grad` | Update the parameter using the gradient |
-| `w.grad.zero_()` | Clear the old gradient and prepare for the next round |
+```text
+single_parameter_training
+step=1 w=4.4000 loss=16.0000 grad=-24.0000
+step=2 w=2.4800 loss=10.2400 grad=19.2000
+step=3 w=4.0160 loss=6.5536 grad=-15.3600
+step=4 w=2.7872 loss=4.1943 grad=12.2880
+step=5 w=3.7702 loss=2.6844 grad=-9.8304
+```
 
----
+The value jumps around because `lr=0.1` is a little aggressive for this toy function. That is useful: gradients tell direction and scale, but the learning rate decides how far to move.
 
-## Why do we need to clear gradients?
+Why `torch.no_grad()` is needed:
 
-This is one of the easiest traps for beginners in PyTorch.
+- updating `w` is not part of the next forward graph;
+- you do not want autograd to record the update itself;
+- it saves memory and avoids graph-related errors.
 
-By default, PyTorch **accumulates gradients** instead of overwriting them automatically.
+## Lab 3: See Gradient Accumulation
 
-See the example below:
+PyTorch accumulates gradients by default. It does not overwrite `.grad` automatically.
 
 ```python
 import torch
@@ -187,145 +126,51 @@ x = torch.tensor(3.0, requires_grad=True)
 
 y1 = x ** 2
 y1.backward()
-print("Gradient after the first backward:", x.grad.item())
+print("after first backward:", x.grad.item())
 
 y2 = 2 * x
 y2.backward()
-print("Gradient after the second backward:", x.grad.item())
+print("after second backward:", x.grad.item())
+
+x.grad.zero_()
+y3 = 2 * x
+y3.backward()
+print("after zero and third backward:", x.grad.item())
 ```
 
-You will find that the second gradient is not a new result, but the sum of “first + second.”
+Expected output:
 
-That is why training loops usually include:
-
-```python
-optimizer.zero_grad()
+```text
+after first backward: 6.0
+after second backward: 8.0
+after zero and third backward: 2.0
 ```
 
-or:
+Why:
 
-```python
-tensor.grad.zero_()
-```
-
-### Why does PyTorch default to “accumulate gradients”?
-
-Because some advanced training techniques intentionally do this, such as:
-
-- Gradient accumulation
-- Backpropagating multiple losses together
-
-So the design itself is not wrong.
-But as a beginner, you should first form a stable default habit:
-
-- Before each update step, clear the gradients
+- gradient of `x ** 2` at `x=3` is `6`;
+- gradient of `2 * x` is `2`;
+- after the second backward, `.grad` becomes `6 + 2 = 8`;
+- after `zero_()`, the next gradient starts cleanly.
 
 ![PyTorch autograd gradient lifecycle diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.png)
 
-:::tip Reading tip
-Read this diagram as one training cycle: first the forward pass computes the loss, then `backward()` writes gradients into `.grad`, `optimizer.step()` updates the parameters using those gradients, and finally you must call `zero_grad()` to clear old gradients. PyTorch accumulates gradients by default, so “forgetting to clear them” is one of the most common invisible bugs for beginners.
-:::
+In normal training code, this is why each iteration uses:
 
----
+```python
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+```
 
-## What exactly does `requires_grad=True` control?
+## Lab 4: Fit Two Parameters by Hand
 
-Only tensors marked with `requires_grad=True` will have their gradients tracked by PyTorch.
+Now train a tiny linear model without `nn.Linear` or an optimizer. This makes the learning loop completely visible.
 
 ```python
 import torch
 
-a = torch.tensor(2.0, requires_grad=True)
-b = torch.tensor(3.0, requires_grad=False)
-
-y = a * b + 1
-y.backward()
-
-print("a.grad:", a.grad.item())
-print("b.grad:", b.grad)
-```
-
-In the output, you will see:
-
-- `a.grad` has a value
-- `b.grad` is `None`
-
-This makes perfect sense:
-if a value is not a “learnable parameter,” then there is no need to compute gradients for it.
-
----
-
-## What is `torch.no_grad()` for?
-
-During training, we need to record gradients.
-But during inference, evaluation, or manual parameter updates, we often **do not need** gradients.
-
-In that case, we can use:
-
-```text
-with torch.no_grad():
-    # inference or parameter update code goes here
-```
-
-Its effects are:
-
-- Turn off gradient tracking
-- Save memory
-- Speed up inference
-
-### The easiest thing for beginners to miss: parameter updates often also need gradient tracking turned off
-
-You will find that many hand-written update snippets are wrapped in:
-
-```text
-with torch.no_grad():
-    # inference or parameter update code goes here
-```
-
-The reason is:
-
-- The parameter update itself is not something we want autograd to keep tracking for the next step
-- So it usually does not need to be tracked by autograd
-
-```python
-import torch
-
-w = torch.tensor(5.0, requires_grad=True)
-
-with torch.no_grad():
-    y = w * 2
-
-print("y.requires_grad:", y.requires_grad)
-```
-
----
-
-## Putting it back into the context of “model training”
-
-In real training, we usually do not update just one number `w`, but a whole set of parameters.
-
-For example, in a linear model:
-
-> `y = wx + b`
-
-Here, both `w` and `b` are parameters, and both need to be learned.
-What happens during training is actually still the same:
-
-1. Make predictions with the current parameters
-2. Compute the loss between predictions and true values
-3. Automatically compute the gradient for each parameter
-4. Update the parameters along the gradient direction using an optimizer
-
-So autograd is not an “extra feature”; it is the engine of deep learning training.
-
----
-
-## A runnable example with two parameters
-
-```python
-import torch
-
-# We want the model to learn: y = 2x + 1
+# Target rule: y = 2x + 1
 x = torch.tensor([1.0, 2.0, 3.0, 4.0])
 y_true = torch.tensor([3.0, 5.0, 7.0, 9.0])
 
@@ -333,7 +178,8 @@ w = torch.tensor(0.0, requires_grad=True)
 b = torch.tensor(0.0, requires_grad=True)
 lr = 0.05
 
-for epoch in range(200):
+print("two_parameter_fit")
+for epoch in range(201):
     y_pred = w * x + b
     loss = ((y_pred - y_true) ** 2).mean()
 
@@ -343,66 +189,121 @@ for epoch in range(200):
         w -= lr * w.grad
         b -= lr * b.grad
 
+    if epoch % 50 == 0:
+        print(
+            f"epoch={epoch:3d} "
+            f"loss={loss.item():.4f} "
+            f"w={w.item():.4f} "
+            f"b={b.item():.4f}"
+        )
+
     w.grad.zero_()
     b.grad.zero_()
-
-    if epoch % 40 == 0:
-        print(
-            f"epoch={epoch:3d}, loss={loss.item():.4f}, "
-            f"w={w.item():.4f}, b={b.item():.4f}"
-        )
 ```
 
-If everything works normally, `w` will approach `2` and `b` will approach `1`.
+Expected output:
 
----
+```text
+two_parameter_fit
+epoch=  0 loss=41.0000 w=1.7500 b=0.6000
+epoch= 50 loss=0.0030 w=2.0452 b=0.8672
+epoch=100 loss=0.0007 w=2.0212 b=0.9375
+epoch=150 loss=0.0001 w=2.0100 b=0.9706
+epoch=200 loss=0.0000 w=2.0047 b=0.9862
+```
 
-## Common misconceptions
+The parameters move toward `w=2` and `b=1`. This is the same loop a neural network uses, only with millions of parameters instead of two.
 
-### `backward()` automatically updates parameters
+## `requires_grad`, `no_grad`, and `detach`
 
-No.
-`backward()` only **computes gradients**. The actual parameter update is done by your own update logic, or by the optimizer’s `step()`.
+These three are related but not interchangeable.
 
-### It does not matter if we don’t clear gradients every round
+| Tool | Use it when | Effect |
+|---|---|---|
+| `requires_grad=True` | a tensor is a parameter or you need gradients for it | future operations are tracked |
+| `torch.no_grad()` | inference or manual parameter update | temporarily stops graph recording |
+| `tensor.detach()` | you want a tensor value without its graph history | returns a tensor disconnected from autograd |
 
-That is not okay.
-If you do not clear them, gradients will keep accumulating, and the training result will usually go wrong.
+Runnable check:
 
-### We can keep gradients on during inference too
+```python
+import torch
 
-It will run, but it wastes resources.
-During evaluation or deployment, you should wrap code with `torch.no_grad()` whenever possible.
+w = torch.tensor(5.0, requires_grad=True)
 
----
+tracked = w * 2
+detached = tracked.detach()
 
-## Summary
+with torch.no_grad():
+    untracked = w * 3
 
-There are only three key takeaways in this section:
+print("tracked.requires_grad:", tracked.requires_grad)
+print("detached.requires_grad:", detached.requires_grad)
+print("untracked.requires_grad:", untracked.requires_grad)
+```
 
-1. Gradients tell us which direction parameters should change
-2. `backward()` computes gradients, but does not update parameters
-3. PyTorch accumulates gradients by default, so you must clear them in the training loop
+Expected output:
 
-Once you understand autograd, you have truly stepped into the actual process of “training a model.”
+```text
+tracked.requires_grad: True
+detached.requires_grad: False
+untracked.requires_grad: False
+```
 
-## What should you take away most from this section
+Practical examples:
 
-If we compress it into one sentence, it would be:
+- Use `no_grad()` during validation and prediction.
+- Use `detach()` before logging tensors, converting to NumPy, or storing values that should not keep the whole graph alive.
+- Do not detach tensors that still need to contribute gradients to the loss.
 
-> **The essence of autograd is to automatically trace back the effect of the loss on the parameters through the computation graph.**
+## Common Error Patterns
 
-So what you really need to keep straight is:
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `.grad` is `None` | tensor does not require gradients, or it is not a leaf tensor | check `requires_grad`, inspect model parameters |
+| training becomes unstable | gradients were not cleared | call `optimizer.zero_grad()` before `backward()` |
+| `RuntimeError: Trying to backward through the graph a second time` | reused a graph after backward | recompute the forward pass, or use `retain_graph=True` only when you know why |
+| memory keeps growing | storing graph-connected tensors in a list | store `loss.item()` or `tensor.detach()` |
+| validation is slow and memory-heavy | gradients are tracked during evaluation | wrap validation in `with torch.no_grad():` |
 
-- Which tensors need gradients
-- When gradients are computed
-- When gradients are accumulated
-- Which stages should turn gradients off
+:::warning Use `retain_graph=True` Carefully
+Most beginner code should not need `retain_graph=True`. If you reach for it, first ask: “Am I accidentally calling `backward()` twice on the same forward result instead of recomputing the forward pass?”
+:::
 
----
+## Quick Debug Checklist
+
+Before `backward()`:
+
+```python
+print("loss requires_grad:", loss.requires_grad)
+print("w requires_grad:", w.requires_grad)
+```
+
+After `backward()`:
+
+```python
+print("w.grad:", w.grad)
+print("b.grad:", b.grad)
+```
+
+In a normal training loop, the order is:
+
+```text
+forward -> loss -> zero_grad -> backward -> step
+```
+
+Some code uses `zero_grad` before forward, but the key rule is the same: clear old gradients before the next update.
 
 ## Exercises
 
-1. Change the `y = 2x + 1` example above to `y = 3x - 2`, and train it again.
-2. Remove `w.grad.zero_()` and `b.grad.zero_()`, and observe what happens during training.
-3. Try changing the learning rate `lr` to `0.5` and `0.005`, and compare convergence speed and stability.
+1. Change Lab 4 to learn `y = 3x - 2`. What should `w` and `b` approach?
+2. Remove `w.grad.zero_()` and `b.grad.zero_()` in Lab 4. What happens?
+3. Change `lr` to `0.5` and `0.005`. Which one is unstable, and which one is slow?
+4. Store `loss` itself in a list for 200 epochs, then store `loss.item()` instead. Why is the second safer?
+
+## Key Takeaways
+
+- Autograd records the computation graph from parameters to loss.
+- `backward()` computes gradients; it does not update parameters.
+- Gradients accumulate by default, so clear them before the next update.
+- Use `no_grad()` for inference and manual updates; use `detach()` when you need a value without graph history.
