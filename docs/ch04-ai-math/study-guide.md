@@ -11,7 +11,7 @@ keywords: [AI math study guide, AI math task sheet, linear algebra, probability 
 
 Use this page as the control panel for Chapter 4. The goal is not to learn every proof. The goal is to build enough math intuition to understand model inputs, uncertainty, loss, and parameter updates.
 
-## 4.0.1 Study This Stage in Order
+## 4.0.1 Recommended Learning Order
 
 ![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop-en.png)
 
@@ -38,7 +38,7 @@ If you only have one day, read the roadmap page in each theory section, run one 
 
 You do not need to master these engineering topics now. They are here so each math idea has a future place to land.
 
-## 4.0.3 Minimum Task Sheet
+## 4.0.3 Tasks You Must Complete in This Stage
 
 | Task | Deliverable | Pass criteria |
 |---|---|---|
@@ -65,7 +65,19 @@ When a formula looks intimidating, translate it into model language before tryin
 
 If you can explain the right column aloud, you have already learned the useful first-pass version.
 
-## 4.0.5 Stage Checkpoint
+## 4.0.5 Stage Portfolio Deliverables
+
+Keep these files from the workshop as your proof that the math is not just memorized.
+
+| Deliverable | What it proves |
+|---|---|
+| `vector_similarity.csv` | You can compare examples with vectors and cosine similarity. |
+| `probability_simulation.csv` | You can simulate uncertainty and explain distributions. |
+| `gradient_descent.csv` | You can trace parameter updates step by step. |
+| SVG charts | You can turn formulas into visible evidence. |
+| `math_cards.md` and README | You can explain each concept in model language. |
+
+## 4.0.6 Stage Completion Questions
 
 Before moving to Chapter 5, check that you can do these five things:
 
