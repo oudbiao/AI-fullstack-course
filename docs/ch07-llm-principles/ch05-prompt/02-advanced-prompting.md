@@ -107,6 +107,13 @@ for ex in few_shot_examples:
     print(ex)
 ```
 
+Expected output:
+
+```text
+{'input': 'Beijing is the capital of China.', 'output': 'fact'}
+{'input': 'This course is very interesting.', 'output': 'opinion'}
+```
+
 ### What does it really do?
 
 It is not just “writing a few more lines,” but:
@@ -181,6 +188,13 @@ better_prompt = "You are a course assistant. Please summarize the text below int
 
 print("bad_prompt   =", bad_prompt)
 print("better_prompt=", better_prompt)
+```
+
+Expected output:
+
+```text
+bad_prompt   = You are the world's top expert. Please help me handle this content.
+better_prompt= You are a course assistant. Please summarize the text below into 3 Chinese key points, each no more than 20 characters.
 ```
 
 This example is very suitable for beginners because it reminds you that:

@@ -133,6 +133,12 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
+期待される出力：
+
+```text
+{'task': 'sentiment_classification', 'allowed_labels': ['positive', 'negative'], 'output_format': 'single_label', 'constraints': ['説明を出さない', 'ラベルだけを出力する']}
+```
+
 この例はシンプルに見えますが、とても大事なことを教えてくれます。
 
 > 良い prompt の背後には、たいていより明確なタスク仕様があります。
@@ -196,6 +202,13 @@ few_shot_examples = [
 
 for ex in few_shot_examples:
     print(ex)
+```
+
+期待される出力：
+
+```text
+{'input': '北京は中国の首都です。', 'output': 'fact'}
+{'input': 'この授業はとても面白いです。', 'output': 'opinion'}
 ```
 
 few-shot の役割は、単に「文章を増やすこと」ではありません。
@@ -279,6 +292,13 @@ test_cases = [
 
 for case in test_cases:
     print(case)
+```
+
+期待される出力：
+
+```text
+{'input': 'この授業はとても分かりやすいです。', 'expected': 'positive'}
+{'input': '内容が少しごちゃごちゃしています。', 'expected': 'negative'}
 ```
 
 ### なぜこの手順が重要なのか？

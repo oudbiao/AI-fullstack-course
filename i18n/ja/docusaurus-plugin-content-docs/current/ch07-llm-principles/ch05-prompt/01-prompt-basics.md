@@ -264,6 +264,12 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
+期待される出力：
+
+```text
+{'task': 'summary', 'output_format': '3 つの日本語の要点', 'constraints': ['各要点は 20 文字以内', '原文にない情報は追加しない']}
+```
+
 ### この例は何を教えているのか？
 
 この例が伝えているのは次のことです。
@@ -294,6 +300,12 @@ def next_fix(checklist):
 
 
 print(next_fix(prompt_checklist))
+```
+
+期待される出力：
+
+```text
+まず境界と制約条件を追加してください。
 ```
 
 この例は初学者に向いています。Prompt を「一文を書くこと」ではなく、次のようなものとして捉え直しているからです。

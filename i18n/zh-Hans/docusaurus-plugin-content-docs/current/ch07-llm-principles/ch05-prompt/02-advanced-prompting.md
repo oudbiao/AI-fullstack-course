@@ -107,6 +107,13 @@ for ex in few_shot_examples:
     print(ex)
 ```
 
+预期输出：
+
+```text
+{'input': '北京是中国的首都。', 'output': 'fact'}
+{'input': '这门课非常有趣。', 'output': 'opinion'}
+```
+
 ### 它真正的作用是什么？
 
 不是“多写几行字”，而是：
@@ -183,6 +190,13 @@ better_prompt = "你是一位课程助教。请把下面文本总结成 3 条中
 
 print("bad_prompt   =", bad_prompt)
 print("better_prompt=", better_prompt)
+```
+
+预期输出：
+
+```text
+bad_prompt   = 你是世界顶级专家，请帮我处理一下这段内容。
+better_prompt= 你是一位课程助教。请把下面文本总结成 3 条中文要点，每条不超过 20 个字。
 ```
 
 这个例子很适合初学者，因为它会提醒你：

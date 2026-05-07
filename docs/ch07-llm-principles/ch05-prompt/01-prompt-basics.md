@@ -257,6 +257,12 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
+Expected output:
+
+```text
+{'task': 'summary', 'output_format': '3 English bullet points', 'constraints': ['No more than 20 characters per point', 'Do not add information beyond the original text']}
+```
+
 ### What Is This Example Teaching?
 
 It is reminding you:
@@ -286,6 +292,12 @@ def next_fix(checklist):
 
 
 print(next_fix(prompt_checklist))
+```
+
+Expected output:
+
+```text
+First add boundaries and constraints.
 ```
 
 This example is especially suitable for beginners because it turns Prompt from “writing one sentence” into:

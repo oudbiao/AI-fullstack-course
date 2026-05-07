@@ -165,6 +165,14 @@ print("intent =", data["intent"])
 print("confidence =", data["confidence"])
 ```
 
+预期输出：
+
+```text
+{'intent': 'refund_policy', 'confidence': 0.92}
+intent = refund_policy
+confidence = 0.92
+```
+
 ### 这段代码虽然简单，但意义很大
 
 它在教你：
@@ -211,6 +219,13 @@ else:
     print("转人工或进入其他流程")
 
 print(data)
+```
+
+预期输出：
+
+```text
+进入退款政策自动处理流程
+{'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92}
 ```
 
 这就已经是结构化输出在真实工作流里的典型使用方式了。
@@ -298,6 +313,13 @@ bad = '{"intent":"refund_policy","confidence":"high"}'
 
 print(validate_output(good))
 print(validate_output(bad))
+```
+
+预期输出：
+
+```text
+(True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})
+(False, 'missing_needs_human')
 ```
 
 这一步特别重要，因为它让你的系统从：

@@ -132,6 +132,12 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
+预期输出：
+
+```text
+{'task': 'sentiment_classification', 'allowed_labels': ['positive', 'negative'], 'output_format': 'single_label', 'constraints': ['不要输出解释', '只输出标签']}
+```
+
 这个示例看起来简单，但它在教你一件很重要的事：
 
 > 一个好 prompt 背后，通常有一套更明确的任务规格。
@@ -195,6 +201,13 @@ few_shot_examples = [
 
 for ex in few_shot_examples:
     print(ex)
+```
+
+预期输出：
+
+```text
+{'input': '北京是中国的首都。', 'output': 'fact'}
+{'input': '这门课非常有趣。', 'output': 'opinion'}
 ```
 
 few-shot 的作用不是“多写点字”，而是：
@@ -278,6 +291,13 @@ test_cases = [
 
 for case in test_cases:
     print(case)
+```
+
+预期输出：
+
+```text
+{'input': '这门课讲得很清楚。', 'expected': 'positive'}
+{'input': '内容有点乱。', 'expected': 'negative'}
 ```
 
 ### 为什么这一步重要？

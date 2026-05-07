@@ -163,6 +163,14 @@ print("intent =", data["intent"])
 print("confidence =", data["confidence"])
 ```
 
+期待される出力：
+
+```text
+{'intent': 'refund_policy', 'confidence': 0.92}
+intent = refund_policy
+confidence = 0.92
+```
+
 ### このコードはシンプルですが、意味は大きいです
 
 このコードが教えてくれるのは次の2点です。
@@ -211,6 +219,13 @@ else:
     print("人手対応、または別のフローに回します")
 
 print(data)
+```
+
+期待される出力：
+
+```text
+返金ポリシーの自動処理フローに入ります
+{'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92}
 ```
 
 これが、実際のワークフローにおける構造化出力の典型的な使い方です。
@@ -300,6 +315,13 @@ bad = '{"intent":"refund_policy","confidence":"high"}'
 
 print(validate_output(good))
 print(validate_output(bad))
+```
+
+期待される出力：
+
+```text
+(True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})
+(False, 'missing_needs_human')
 ```
 
 このステップはとても重要です。なぜなら、システムは次の状態から：

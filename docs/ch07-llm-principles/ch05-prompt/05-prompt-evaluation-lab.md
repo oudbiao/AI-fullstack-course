@@ -162,17 +162,18 @@ for row in run_eval():
     print("failures :", row["failures"])
 ```
 
-Expected output shape:
+Expected output:
 
 ```text
+------------------------------------------------------------
 version  : v1_goal_only
 pass_rate: 0%
-failures : [...]
-
+failures : [{'case_id': 'case_001', 'output': 'positive', 'reason': 'Output is not parseable JSON-like data.'}, {'case_id': 'case_002', 'output': 'negative', 'reason': 'Output is not parseable JSON-like data.'}, {'case_id': 'case_003', 'output': 'negative', 'reason': 'Output is not parseable JSON-like data.'}]
+------------------------------------------------------------
 version  : v2_json_format
 pass_rate: 100%
 failures : []
-
+------------------------------------------------------------
 version  : v3_with_examples
 pass_rate: 100%
 failures : []

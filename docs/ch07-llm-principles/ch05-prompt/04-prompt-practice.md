@@ -132,6 +132,12 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
+Expected output:
+
+```text
+{'task': 'sentiment_classification', 'allowed_labels': ['positive', 'negative'], 'output_format': 'single_label', 'constraints': ['Do not output explanations', 'Only output the label']}
+```
+
 This example looks simple, but it teaches you something very important:
 
 > Behind a good Prompt, there is usually a clearer task specification.
@@ -195,6 +201,13 @@ few_shot_examples = [
 
 for ex in few_shot_examples:
     print(ex)
+```
+
+Expected output:
+
+```text
+{'input': 'Beijing is the capital of China.', 'output': 'fact'}
+{'input': 'This course is very interesting.', 'output': 'opinion'}
 ```
 
 The role of few-shot is not “writing more words,” but:
@@ -278,6 +291,13 @@ test_cases = [
 
 for case in test_cases:
     print(case)
+```
+
+Expected output:
+
+```text
+{'input': 'This course is explained very clearly.', 'expected': 'positive'}
+{'input': 'The content is a bit messy.', 'expected': 'negative'}
 ```
 
 ### Why is this step important?

@@ -165,6 +165,14 @@ print("intent =", data["intent"])
 print("confidence =", data["confidence"])
 ```
 
+Expected output:
+
+```text
+{'intent': 'refund_policy', 'confidence': 0.92}
+intent = refund_policy
+confidence = 0.92
+```
+
 ### This Code Is Simple, but Very Meaningful
 
 It teaches you:
@@ -211,6 +219,13 @@ else:
     print("Route to a human or another flow")
 
 print(data)
+```
+
+Expected output:
+
+```text
+Enter the automatic refund policy processing flow
+{'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92}
 ```
 
 This is already a typical use case of structured output in a real workflow.
@@ -298,6 +313,13 @@ bad = '{"intent":"refund_policy","confidence":"high"}'
 
 print(validate_output(good))
 print(validate_output(bad))
+```
+
+Expected output:
+
+```text
+(True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})
+(False, 'missing_needs_human')
 ```
 
 This step is especially important because it changes your system from:

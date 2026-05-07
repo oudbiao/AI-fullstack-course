@@ -257,6 +257,12 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
+预期输出：
+
+```text
+{'task': 'summary', 'output_format': '3 个中文要点', 'constraints': ['每条不超过 20 个字', '不要补充原文之外的信息']}
+```
+
 ### 这个例子在教什么？
 
 它在提醒你：
@@ -286,6 +292,12 @@ def next_fix(checklist):
 
 
 print(next_fix(prompt_checklist))
+```
+
+预期输出：
+
+```text
+先补上边界和限制条件。
 ```
 
 这个示例很适合初学者，因为它把 Prompt 从“写一句话”变成了：
