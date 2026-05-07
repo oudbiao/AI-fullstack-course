@@ -49,7 +49,7 @@ Docker は、まず名詞を分けると怖さが減ります。
 
 ---
 
-## 一、なぜコンテナ化が必要なのか？
+## なぜコンテナ化が必要なのか？
 
 ### ローカルスクリプトの最大の落とし穴は何か？
 
@@ -84,7 +84,7 @@ Docker は、まず名詞を分けると怖さが減ります。
 
 ---
 
-## 二、イメージとコンテナとは何か？
+## イメージとコンテナとは何か？
 
 ### とても実用的なたとえ
 
@@ -113,12 +113,12 @@ Docker は、まず名詞を分けると怖さが減ります。
 
 ---
 
-## 三、最小限の Dockerfile はどんな形なのか？
+## 最小限の Dockerfile はどんな形なのか？
 
 ### まずは完全な例を見る
 
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
@@ -157,9 +157,13 @@ CMD ["python", "app.py"]
 
 これが Dockerfile の最も基本的な骨組みです。
 
+:::tip バージョンについて
+この節では、本コース更新時点の安定版 Python 系列である `python:3.14-slim` を使います。依存ライブラリがまだ完全に対応していない場合は、検証済みの `python:3.13-slim` や `python:3.11-slim` に固定し、その理由をデプロイメモに残してください。
+:::
+
 ---
 
-## 四、まずは本当に動く小さなアプリを用意する
+## まずは本当に動く小さなアプリを用意する
 
 ### 最小の Python サービス
 
@@ -189,6 +193,26 @@ print("8000 で起動中")
 server.serve_forever()
 ```
 
+まずローカルで実行します。
+
+```bash
+python app.py
+```
+
+別のターミナルでサービスを確認します。
+
+```bash
+curl http://localhost:8000/
+curl http://localhost:8000/health
+```
+
+想定出力：
+
+```text
+{"message": "hello from llm app"}
+{"status": "ok"}
+```
+
 ### なぜ先にこれを書くのか？
 
 それは、コンテナ化は Dockerfile だけを眺める話ではなく、  
@@ -196,7 +220,7 @@ server.serve_forever()
 
 ---
 
-## 五、それをコンテナ化する
+## それをコンテナ化する
 
 ### 対応する requirements.txt
 
@@ -210,7 +234,7 @@ server.serve_forever()
 ### 対応する Dockerfile
 
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
@@ -238,11 +262,25 @@ docker run -p 8000:8000 mini-llm-app
 
 すると、返り値を確認できます。
 
+コマンドラインでも確認できます。
+
+```bash
+curl http://localhost:8000/
+curl http://localhost:8000/health
+```
+
+想定出力：
+
+```text
+{"message": "hello from llm app"}
+{"status": "ok"}
+```
+
 これで、最小限のコンテナ化の流れが完成です。
 
 ---
 
-## 六、なぜ環境変数が重要なのか？
+## なぜ環境変数が重要なのか？
 
 LLM アプリでは、次のような設定がよく登場します。
 
@@ -265,6 +303,13 @@ print("MODEL_NAME =", model_name)
 print("PORT =", port)
 ```
 
+追加の環境変数を渡さない場合の想定出力：
+
+```text
+MODEL_NAME = demo-model
+PORT = 8000
+```
+
 ### Docker ではどう渡すのか？
 
 ```bash
@@ -273,9 +318,11 @@ docker run -p 8000:8000 -e MODEL_NAME=qwen-demo mini-llm-app
 
 このステップはとても重要です。実際のデプロイでは、ほぼ必ず設定の注入が必要になるからです。
 
+サービスから設定を返したい場合は、`app.py` で `MODEL_NAME` を読み、ルートエンドポイントから返すこともできます。重要なのは、コードは安定させ、設定はイメージの外から変えるという考え方です。
+
 ---
 
-## 七、なぜ Compose がよく使われるのか？
+## なぜ Compose がよく使われるのか？
 
 ### 実際のプロジェクトは 1 つのサービスだけではないから
 
@@ -312,7 +359,7 @@ docker compose up --build
 
 ---
 
-## 八、コンテナ化はデプロイ完了を意味しない
+## コンテナ化はデプロイ完了を意味しない
 
 これはとてもよくある誤解です。
 
@@ -340,7 +387,7 @@ docker compose up --build
 
 ---
 
-## 九、初心者がよくハマる落とし穴
+## 初心者がよくハマる落とし穴
 
 ### すべてを巨大なイメージに詰め込む
 
@@ -358,6 +405,17 @@ docker compose up --build
 
 そうではありません。  
 コンテナ化は最初の一歩で、その後にオーケストレーション、監視、運用が続きます。
+
+### ローカル Docker のディスク使用量を見ない
+
+build 中に `no space left on device` が出たら、まず Docker の使用量を確認します。
+
+```bash
+docker system df
+docker builder prune
+```
+
+不要だと分かっているものだけを削除してください。チームのマシンや CI 環境では、いきなり image や volume を消すより、まず build cache を掃除する方が安全です。
 
 ---
 

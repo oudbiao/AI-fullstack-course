@@ -118,7 +118,7 @@ An image is a reproducible runtime template, a container is a running instance, 
 ### First, look at the complete example
 
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
@@ -157,6 +157,10 @@ CMD ["python", "app.py"]
 
 This is the core skeleton of a Dockerfile.
 
+:::tip Version note
+This section uses `python:3.14-slim`, the current stable Python line at the time of this course update. If your project depends on libraries that have not yet caught up, pin a tested image such as `python:3.13-slim` or `python:3.11-slim` and write down the reason in your deployment notes.
+:::
+
 ---
 
 ## First prepare a small app that can actually run
@@ -189,6 +193,26 @@ print("serving on 8000")
 server.serve_forever()
 ```
 
+Run it locally first:
+
+```bash
+python app.py
+```
+
+In another terminal, test the service:
+
+```bash
+curl http://localhost:8000/
+curl http://localhost:8000/health
+```
+
+Expected output:
+
+```text
+{"message": "hello from llm app"}
+{"status": "ok"}
+```
+
 ### Why start with this?
 
 Because containerization is not about talking about Dockerfiles in the abstract,
@@ -210,7 +234,7 @@ But to stay close to a real project, we will keep the structure.
 ### Corresponding Dockerfile
 
 ```dockerfile
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
@@ -237,6 +261,20 @@ Then visit:
 - `http://localhost:8000/health`
 
 and you will see the returned results.
+
+You can also verify it from the command line:
+
+```bash
+curl http://localhost:8000/
+curl http://localhost:8000/health
+```
+
+Expected output:
+
+```text
+{"message": "hello from llm app"}
+{"status": "ok"}
+```
 
 This is the smallest containerization loop.
 
@@ -265,6 +303,13 @@ print("MODEL_NAME =", model_name)
 print("PORT =", port)
 ```
 
+Expected output without extra environment variables:
+
+```text
+MODEL_NAME = demo-model
+PORT = 8000
+```
+
 ### How do you pass environment variables in Docker?
 
 ```bash
@@ -272,6 +317,8 @@ docker run -p 8000:8000 -e MODEL_NAME=qwen-demo mini-llm-app
 ```
 
 This step is very important, because real deployment almost always relies on configuration injection.
+
+To make the running service show configuration, you can read `MODEL_NAME` in `app.py` and return it from the root endpoint. The key idea is the same: code stays stable, configuration changes outside the image.
 
 ---
 
@@ -358,6 +405,17 @@ Things break easily when you switch environments.
 
 It does not.
 Containerization is only the first step; orchestration, monitoring, and operations come next.
+
+### Ignoring local Docker disk usage
+
+If a build fails with `no space left on device`, first inspect Docker storage:
+
+```bash
+docker system df
+docker builder prune
+```
+
+Only prune what you no longer need. In team or CI environments, it is safer to clean build cache first before deleting images or volumes.
 
 ---
 
