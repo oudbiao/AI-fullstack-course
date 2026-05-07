@@ -1,382 +1,190 @@
 ---
 title: "6.7.3 训练监控与诊断"
 sidebar_position: 2
-description: "从 loss 曲线、过拟合、梯度异常和数据问题出发，建立训练诊断的基础方法。"
+description: "从曲线、预测分布、梯度、数据检查和下一步动作中诊断训练问题。"
 keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, debugging]
 ---
 
 # 6.7.3 训练监控与诊断
 
-![训练曲线诊断图](/img/course/training-curve-diagnosis.png)
-
 :::tip 本节定位
-很多训练失败并不是“模型不够强”，而是：
-
-- 数据有问题
-- 学习率不对
-- 训练过程在悄悄崩
-
-所以训练时最关键的能力之一不是“会开训”，而是：
-
-> **看得懂训练过程到底出了什么问题。**
+训练诊断的核心是把“现象”和“根因”分开。不要第一时间换模型。先读曲线，再看预测和梯度，回到数据检查，最后选择一个有针对性的修复动作。
 :::
 
 ## 学习目标
 
-- 理解训练监控应该看哪些关键信号
-- 学会区分过拟合、欠拟合、学习率异常等常见问题
-- 通过可运行示例建立训练曲线诊断直觉
-- 学会把问题定位到数据、优化器或模型结构层
+- 从曲线判断欠拟合、过拟合和训练不稳定。
+- 检查 prediction distribution 和 gradient norm。
+- 使用可重复的排查顺序。
+- 根据证据决定下一组实验。
+- 知道每次训练应该保存什么。
 
 ---
 
-## 先建立一张地图
+## 先看曲线
 
-如果你已经学过训练循环和调参，这一节最自然的续接就是：
+![训练曲线诊断图](/img/course/training-curve-diagnosis.png)
 
-- 训练循环告诉你“怎么训”
-- 调参告诉你“先调什么”
-- 这一节开始回答“训坏了时到底先查什么”
+第一个问题不是“我要换成哪个模型”，而是：
 
-所以训练诊断不是补充阅读，而是训练工程里最核心的排障能力之一。
-
-训练诊断最适合新人的方式不是“靠经验猜”，而是先把问题拆成几层：
-
-```mermaid
-flowchart LR
-    A["训练现象"] --> B["先看曲线"]
-    B --> C["再看预测和梯度"]
-    C --> D["再回到数据和标签"]
-    D --> E["最后再怀疑模型结构"]
+```text
+训练证据里出现了什么现象？
 ```
 
-这个顺序会让你少走很多弯路。
-
-### 一个更适合新人的总类比
-
-你可以把训练诊断理解成：
-
-- 医生先看体征，再判断病因
-
-如果你一看到 loss 不对就立刻换模型，
-就很像：
-
-- 还没量体温就先换整套治疗方案
-
-更稳的方式通常是：
-
-- 先看现象
-- 再做初步归类
-- 最后再定位真正根因
-
-## 一、为什么训练诊断这么重要？
-
-### 因为训练失败很少会直接报“真正原因”
-
-你更常看到的是：
-
-- loss 不降
-- 验证集突然变差
-- 准确率卡住
-
-但这些只是现象，不是根因。
-
-### 真正的诊断要回答
-
-- 是学习率问题？
-- 是数据问题？
-- 是过拟合？
-- 还是模型容量不够？
-
-### 这节最值得先记的，不是故障名称，而是什么？
-
-最值得先记的是：
-
-> **训练现象和根因不是同一个东西。**
-
-比如：
-
-- `loss 不降` 只是现象
-- 真正根因可能是学习率、标签、梯度、数据分布、模型容量
-
-一旦你把“现象”和“根因”分开，排障会理性很多。
-
----
-
-## 二、先看一个最常见的诊断入口：训练曲线
-
-```python
-history = [
-    {"epoch": 1, "train_loss": 0.95, "val_loss": 0.98},
-    {"epoch": 2, "train_loss": 0.72, "val_loss": 0.81},
-    {"epoch": 3, "train_loss": 0.51, "val_loss": 0.79},
-    {"epoch": 4, "train_loss": 0.35, "val_loss": 0.92},
-]
-
-for row in history:
-    print(row)
-```
-
-### 这个例子里最明显的信号是什么？
-
-- `train_loss` 一直下降
-- `val_loss` 先降后升
-
-这通常非常像：
-
-- 过拟合
-
-### 为什么训练曲线是第一入口？
-
-因为它是最早暴露问题的地方，
-而且很多问题都能先从曲线形状看出端倪。
-
-### 第一次看曲线时，最值得先盯哪三件事？
-
-1. 训练集有没有在学
-2. 验证集有没有同步变好
-3. 两条曲线是不是开始明显分叉
-
-只要先盯这三件事，很多问题都能先做第一轮归类。
-
-### 一个很适合初学者先记的故障定位表
-
-| 现象 | 更可能先查什么 |
-|------|------|
-| train / val 都很差 | 欠拟合、模型容量、特征不足 |
-| train 很好，val 变差 | 过拟合、数据量不足、正则化不够 |
-| loss 大幅震荡 | 学习率过大、batch 太小、梯度不稳 |
-| 模型总预测同一类 | 标签问题、类别不平衡、实现 bug |
-
-这个表很适合新人，因为它能把“看到曲线后完全不知道怎么办”，先变成一组可执行的排查起点。
+| 现象 | 可能方向 | 第一检查项 |
+|---|---|---|
+| train 和 val 都差 | 欠拟合 | learning rate、模型容量、数据质量 |
+| train 变好但 val 变差 | 过拟合 | 正则、数据划分、augmentation |
+| loss 上下跳 | 不稳定 | learning rate、batch size、梯度 |
+| 预测几乎都是同一类 | collapse 或数据问题 | 标签、类别平衡、输出层 |
+| 指标突然变化 | pipeline bug 或分布变化 | data loader、预处理、验证集划分 |
 
 ![训练诊断仪表盘排查路线图](/img/course/ch06-training-diagnosis-dashboard-map.png)
 
-:::tip 读图提示
-这张图建议按从上到下排查：先看 train/val 曲线，再看学习率和 batch，再看预测分布和梯度，最后回到数据与标签。不要一看到 loss 不对就换大模型，很多问题根因在训练流程或数据。
-:::
-
----
-
-## 三、几种常见问题长什么样？
-
-### 欠拟合
-
-典型表现：
-
-- train_loss 高
-- val_loss 也高
-- 两边都下不去
-
-### 过拟合
-
-典型表现：
-
-- train_loss 继续下降
-- val_loss 开始变差
-
-### 学习率太大
-
-典型表现：
-
-- loss 抖动
-- 甚至突然爆炸
-
-### 学习率太小
-
-典型表现：
-
-- loss 在降，但极慢
-- 很久没有明显进展
-
----
-
-## 四、除了 loss，还该看什么？
-
-### 梯度是否异常
-
-例如：
-
-- 梯度爆炸
-- 梯度消失
-
-### 预测分布是否异常
-
-例如：
-
-- 模型总预测同一类
-- 置信度极端偏斜
-
-### 数据本身是否有问题
-
-例如：
-
-- 标签错误
-- 类别不平衡
-- 训练/验证分布差异大
-
-### 一个新人可直接照抄的排查顺序
-
-当训练出问题时，可以优先按这个顺序看：
-
-1. 训练和验证曲线
-2. 学习率设置
-3. 输入和标签是否对齐
-4. 模型预测是不是塌到同一类
-5. 梯度和参数更新是否异常
-
-这样通常比一上来换模型更有效。
-
-### 为什么这套顺序比“先换模型”更稳？
-
-因为很多训练问题的根因并不在模型结构，而在更前面：
-
-- 数据
-- 标签
-- 学习率
-- 训练流程
-
-如果这些没先排清，就算换更复杂模型，问题常常还在。
-
----
-
-## 五、一个最小诊断规则示例
+## 实验 1：分类曲线模式
 
 ```python
-def diagnose(train_losses, val_losses):
-    if train_losses[-1] > 0.8 and val_losses[-1] > 0.8:
-        return "可能欠拟合"
-    if train_losses[-1] < train_losses[0] and val_losses[-1] > min(val_losses):
-        return "可能过拟合"
-    if max(train_losses) - min(train_losses) > 1.5:
-        return "可能学习率过大或训练不稳定"
-    return "需要结合更多信号判断"
-
-
-train_losses = [0.95, 0.72, 0.51, 0.35]
-val_losses = [0.98, 0.81, 0.79, 0.92]
-
-print(diagnose(train_losses, val_losses))
-```
-
-### 这个例子不是要替代人工判断
-
-它主要是在帮你建立一种很重要的诊断习惯：
-
-- 先从现象归类
-- 再去找可能原因
-
-### 再看一个最小“训练日志检查表”示例
-
-```python
-training_log = {
-    "train_loss": [1.2, 0.8, 0.5, 0.3],
-    "val_loss": [1.1, 0.9, 0.95, 1.1],
-    "prediction_pattern": "mostly_one_class",
+histories = {
+    "underfit_case": ([1.20, 1.08, 0.99, 0.94], [1.25, 1.13, 1.04, 1.02]),
+    "overfit_case": ([0.90, 0.55, 0.31, 0.18], [0.92, 0.63, 0.68, 0.82]),
+    "unstable_case": ([0.80, 1.65, 0.72, 1.48], [0.85, 1.70, 0.79, 1.55]),
 }
 
 
-def first_check(log):
-    if log["prediction_pattern"] == "mostly_one_class":
-        return "先检查标签分布、类别不平衡和输出层实现。"
-    if log["val_loss"][-1] > min(log["val_loss"]):
-        return "先按过拟合方向排查。"
-    return "先继续看学习率和梯度。"
+def diagnose(train, val):
+    train_drop = train[0] - train[-1]
+    val_best = min(val)
+
+    if max(train) - min(train) > 0.8:
+        return "possible_lr_too_high_or_unstable_batches"
+    if train[-1] > 0.8 and val[-1] > 0.8:
+        return "possible_underfitting"
+    if train_drop > 0.3 and val[-1] > val_best + 0.1:
+        return "possible_overfitting"
+    return "need_more_signals"
 
 
-print(first_check(training_log))
+print("curve_diagnosis")
+for name, (train, val) in histories.items():
+    print(name, "->", diagnose(train, val))
 ```
 
-这个示例很适合新人，因为它会帮助你把训练诊断从：
+预期输出：
 
-- 模糊感觉
+```text
+curve_diagnosis
+underfit_case -> possible_underfitting
+overfit_case -> possible_overfitting
+unstable_case -> possible_lr_too_high_or_unstable_batches
+```
 
-变成：
+这段代码不是为了替代人的判断。它训练的是第一步习惯：先按可见现象归类，再改系统。
 
-- 有顺序的排查动作
+## 实验 2：检查梯度和预测分布
 
----
+只看 loss 不够。模型可能 loss 看起来还行，却对所有样本预测同一类。
 
-## 六、最容易踩的坑
+```python
+import torch
+from torch import nn
 
-### 误区一：只看最终准确率
+torch.manual_seed(5)
 
-这样你很难理解训练过程中发生了什么。
+X = torch.randn(12, 3)
+y = torch.tensor([0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0])
 
-### 误区二：一看 loss 不降就立刻换模型
+model = nn.Sequential(nn.Linear(3, 4), nn.ReLU(), nn.Linear(4, 2))
+loss_fn = nn.CrossEntropyLoss()
 
-很多时候问题根本不在模型结构。
+logits = model(X)
+loss = loss_fn(logits, y)
+loss.backward()
 
-### 误区三：觉得训练问题只能靠经验猜
+grad_norm = 0.0
+for p in model.parameters():
+    if p.grad is not None:
+        grad_norm += p.grad.pow(2).sum().item()
+grad_norm = grad_norm**0.5
 
-其实很多问题都能通过：
+preds = logits.argmax(dim=1)
+counts = torch.bincount(preds, minlength=2)
+confidence = torch.softmax(logits, dim=1).max(dim=1).values.mean().item()
 
-- 曲线
-- 统计
-- 样本检查
+print("training_signals")
+print("loss:", round(loss.item(), 3))
+print("grad_norm:", round(grad_norm, 3))
+print("pred_counts:", counts.tolist())
+print("avg_confidence:", round(confidence, 3))
+```
 
-有系统地定位。
+预期输出：
 
-## 七、训练时最值得固定保存哪些东西
+```text
+training_signals
+loss: 0.687
+grad_norm: 0.445
+pred_counts: [0, 12]
+avg_confidence: 0.69
+```
 
-- 每个 epoch 的 train / val loss
-- 关键指标
-- 最好和最坏的样本预测
-- 一份当前超参数配置
+最重要的信号是 `pred_counts: [0, 12]`。这个初始模型把所有样本都预测成 class `1`。真实训练中如果这个模式持续存在，就要检查类别不平衡、标签、输出层 shape 和 loss 设置。
 
-## 如果把它做成项目或实验记录，最值得展示什么
+## 排查顺序
 
-最值得展示的通常不是：
+改模型结构前，先按这个顺序查：
 
-- 最后一个准确率
+1. 曲线：train/val loss 和指标。
+2. 预测：类别计数、置信度、最好和最坏样本。
+3. 梯度：norm、NaN/Inf、爆炸或接近 0 的更新。
+4. 数据：标签、泄漏、划分、预处理、augmentation。
+5. 超参数：learning rate、batch size、正则。
+6. 模型：容量、架构、初始化。
 
-而是：
+这个顺序故意很朴素，也正因为朴素，所以可靠。
 
-1. train / val 曲线
-2. 你对问题的第一轮诊断
-3. 你先改了什么
-4. 改完后曲线和指标怎么变
+## 训练时要保存什么
 
-这样别人会更容易看出：
+| 产物 | 为什么保存 |
+|---|---|
+| train/val 曲线 | 诊断趋势和过拟合 |
+| config 和 seed | 复现训练 |
+| best checkpoint | 不重训也能比较 |
+| 预测样本 | 直接观察失败 |
+| 梯度统计 | 早发现不稳定 |
+| 数据划分版本 | 查泄漏或漂移 |
 
-- 你理解的是训练排障
-- 不只是会按下开始训练按钮
+## 从诊断到动作
 
-这些记录会让你后面复盘时非常轻松。
+| 诊断 | 第一动作 |
+|---|---|
+| 可能欠拟合 | 合理提高 LR，训练更久，增大容量，检查标签 |
+| 可能过拟合 | early stopping，更强正则，更多数据，augmentation |
+| 训练不稳定 | 降低 LR，增大 batch，加 gradient clipping |
+| 预测塌缩 | 检查类别平衡、target encoding、输出 shape、loss function |
+| 数据 pipeline 问题 | 打印 sample batch，验证预处理和划分 |
 
-### 为什么“最坏样本”常常比平均分更有价值？
+## 常见错误
 
-因为平均分只能告诉你“整体大概怎样”，
-但最坏样本更能暴露：
-
-- 模型最怕哪类输入
-- 标签是不是有问题
-- 数据分布是否存在边角案例
-
-所以很多真正有效的改进，往往不是从总指标里看出来的，而是从最差样本里看出来的。
-
----
-
-## 小结
-
-这节最重要的是建立一个训练诊断直觉：
-
-> **先从 loss 曲线和验证表现识别问题类型，再把根因逐步定位到学习率、数据、泛化或模型容量。**
-
-只要这个习惯建立起来，训练就不会再只是“开盲盒”。
-
-## 这节最该带走什么
-
-- 曲线是入口，不是结论
-- 现象和根因要分开看
-- 先排数据和训练流程，再大改模型
-- 训练诊断能力本身就是深度学习工程能力
-
----
+| 错误 | 修复 |
+|---|---|
+| 只看最终准确率 | 保存完整曲线和 best epoch |
+| 查数据前就换模型 | 先检查 sample batch 和标签 |
+| 忽略预测分布 | 打印类别计数或输出摘要 |
+| 以为 train loss 低就成功 | 对比 validation 和失败样本 |
+| 一次修很多东西 | 选一个动作并验证结果 |
 
 ## 练习
 
-1. 自己构造一组“欠拟合”曲线，看看 `diagnose` 会不会变化。
-2. 为什么说训练集和验证集的差距，是诊断里非常关键的信号？
-3. 如果模型总预测同一类，你会优先怀疑哪些问题？
-4. 想一想：为什么训练诊断能力本身就是工程能力？
+1. 增加一个 train 和 val 都改善的 `good_case` history。
+2. 把实验 2 改成 3 个类别。`torch.bincount` 要怎么变？
+3. 增加一个 `has_nan_grad` 检查。
+4. 为实验 1 的每种诊断写一个下一步动作。
+5. 保存一个 CSV 风格日志：`epoch,train_loss,val_loss,val_acc`。
+
+## 小结
+
+- 现象不是根因。
+- 曲线是第一诊断界面。
+- 预测和梯度能暴露 loss 隐藏的问题。
+- 查数据要早于改架构。
+- 好诊断最后应该落到一个有针对性的下一组实验。

@@ -1,385 +1,190 @@
 ---
 title: "6.7.3 訓練モニタリングと診断"
 sidebar_position: 2
-description: "loss カーブ、過学習、勾配の異常、データの問題から、訓練診断の基本的な方法を身につけます。"
+description: "カーブ、予測分布、勾配、データ確認、次の action から訓練問題を診断します。"
 keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, debugging]
 ---
 
 # 6.7.3 訓練モニタリングと診断
 
-![訓練カーブ診断図](/img/course/training-curve-diagnosis-ja.png)
-
 :::tip この節の位置づけ
-多くの訓練失敗は「モデルの力が足りない」からではなく、次のような理由で起こります。
-
-- データに問題がある
-- 学習率が合っていない
-- 訓練プロセスが静かに崩れている
-
-そのため、訓練時に最も大事な力の1つは「訓練を始められること」ではなく、
-
-> **訓練の途中で何が起きているのかを読み取れることです。**
+訓練診断とは、症状と根本原因を分けることです。最初からモデルを変えないでください。まずカーブを読み、予測と勾配を見て、データを確認し、最後に 1 つの targeted fix を選びます。
 :::
 
 ## 学習目標
 
-- 訓練モニタリングで何を確認すべきかを理解する
-- 過学習、学習不足、学習率の異常などのよくある問題を見分けられるようになる
-- 実行できる例を通して、訓練カーブ診断の感覚を身につける
-- 問題をデータ、オプティマイザ、モデル構造のどこに切り分けるかを学ぶ
+- カーブから underfitting、overfitting、不安定な訓練を分類できる。
+- prediction distribution と gradient norm を確認できる。
+- 繰り返し使える troubleshooting order を使える。
+- evidence から次の実験を 1 つ決められる。
+- 各 training run で何を保存すべきか分かる。
 
 ---
 
-## まずは全体像をつかもう
+## まずカーブを見る
 
-すでに訓練ループやチューニングを学んでいるなら、この節はその自然な続きです。
+![訓練カーブ診断図](/img/course/training-curve-diagnosis-ja.png)
 
-- 訓練ループは「どう訓練するか」を教えてくれる
-- チューニングは「まず何を調整するか」を教えてくれる
-- この節では「うまくいかなかったとき、最初に何を見るべきか」に答えます
+最初の質問は「どのモデルに変えるか」ではありません。
 
-つまり、訓練診断は補足知識ではなく、訓練エンジニアリングの中核になるトラブルシューティング能力の1つです。
-
-訓練診断で初心者にいちばん合っているやり方は、「経験で当てる」ことではなく、問題を段階ごとに分けることです。
-
-```mermaid
-flowchart LR
-    A["訓練の現象"] --> B["まずカーブを見る"]
-    B --> C["次に予測と勾配を見る"]
-    C --> D["それからデータとラベルに戻る"]
-    D --> E["最後にモデル構造を疑う"]
+```text
+訓練 evidence には、どんな症状が見えているか？
 ```
 
-この順番を守ると、遠回りをかなり減らせます。
-
-### 初心者向けの、よりわかりやすいたとえ
-
-訓練診断は、次のように考えると理解しやすいです。
-
-- お医者さんがまず体の状態を見て、そこから原因を考える
-
-もし `loss` が変だと思った瞬間にすぐモデルを変えるなら、  
-それはまるで、
-
-- 体温も測らずに治療法を全部変える
-
-ようなものです。
-
-より安定した方法は、たいてい次の流れです。
-
-- 現象を見る
-- ざっくり分類する
-- 最後に本当の原因を突き止める
-
-## 一、なぜ訓練診断はそんなに大事なのか？
-
-### 訓練失敗は、ほとんどの場合すぐには「本当の原因」を教えてくれない
-
-よく見るのは次のようなものです。
-
-- loss が下がらない
-- 検証集が急に悪くなる
-- 精度が頭打ちになる
-
-でも、これらはあくまで現象であって、根本原因ではありません。
-
-### 本当の診断では何を答えるべきか
-
-- 学習率の問題か？
-- データの問題か？
-- 過学習か？
-- それともモデルの容量不足か？
-
-### この節で最初に覚えるべきこと
-
-最初に覚えるべきなのはこれです。
-
-> **訓練の現象と根本原因は同じではない。**
-
-例えば、
-
-- `loss が下がらない` は現象にすぎない
-- 本当の原因は学習率、ラベル、勾配、データ分布、モデル容量かもしれない
-
-この2つを分けて考えられるようになると、トラブルシューティングがかなり論理的になります。
-
----
-
-## 二、まず見るべき最も基本的な入口：訓練カーブ
-
-```python
-history = [
-    {"epoch": 1, "train_loss": 0.95, "val_loss": 0.98},
-    {"epoch": 2, "train_loss": 0.72, "val_loss": 0.81},
-    {"epoch": 3, "train_loss": 0.51, "val_loss": 0.79},
-    {"epoch": 4, "train_loss": 0.35, "val_loss": 0.92},
-]
-
-for row in history:
-    print(row)
-```
-
-### この例でいちばん目立つサインは何か？
-
-- `train_loss` はずっと下がっている
-- `val_loss` はいったん下がってから上がっている
-
-これはかなり典型的に、
-
-- 過学習
-
-を示しています。
-
-### なぜ訓練カーブが最初の入口なのか？
-
-それは、問題が最初に表れやすい場所だからです。  
-しかも、多くの問題はカーブの形を見るだけで、ある程度見当がつきます。
-
-### 初めてカーブを見るとき、まず注目すべき3つは？
-
-1. 訓練データでちゃんと学べているか
-2. 検証データも一緒によくなっているか
-3. 2本のカーブがはっきり分かれ始めていないか
-
-この3つを先に見るだけで、多くの問題をまず1回分類できます。
-
-### 初心者がそのまま使える、故障切り分け表
-
-| 現象 | まず疑うもの |
-|------|------|
-| train / val の両方が悪い | 学習不足、モデル容量、特徴不足 |
-| train は良いのに val が悪化する | 過学習、データ量不足、正則化不足 |
-| loss が大きく揺れる | 学習率が大きすぎる、batch が小さすぎる、勾配が不安定 |
-| モデルがいつも同じクラスを予測する | ラベルの問題、クラス不均衡、実装バグ |
-
-この表は、初心者にとても役立ちます。  
-「カーブを見ても何をすればいいかわからない」という状態を、実行しやすいチェックの入口に変えてくれるからです。
+| 症状 | ありそうな方向 | 最初に見るもの |
+|---|---|---|
+| train も val も悪い | underfitting | learning rate、model capacity、data quality |
+| train は良いが val が悪化する | overfitting | regularization、data split、augmentation |
+| loss が上下に跳ねる | instability | learning rate、batch size、gradients |
+| prediction がほぼ 1 class | collapse または data issue | labels、class balance、output layer |
+| metric が急に変わる | pipeline bug または distribution shift | data loader、preprocessing、validation split |
 
 ![訓練診断ダッシュボードの切り分け図](/img/course/ch06-training-diagnosis-dashboard-map-ja.png)
 
-:::tip 図の読み方
-この図は、上から下へ順番に確認するのがおすすめです。まず train / val のカーブを見て、次に学習率と batch を見て、それから予測分布と勾配を見て、最後にデータとラベルに戻ります。`loss` が変だからといって、すぐ大きなモデルに変えないようにしましょう。原因は訓練フローやデータ側にあることが多いです。
-:::
-
----
-
-## 三、よくある問題はどんな見え方をするのか？
-
-### 学習不足
-
-典型的な見え方：
-
-- train_loss が高い
-- val_loss も高い
-- どちらも下がらない
-
-### 過学習
-
-典型的な見え方：
-
-- train_loss は下がり続ける
-- val_loss は悪くなり始める
-
-### 学習率が大きすぎる
-
-典型的な見え方：
-
-- loss が大きく上下する
-- ひどいときは急に発散する
-
-### 学習率が小さすぎる
-
-典型的な見え方：
-
-- loss は下がるが、とても遅い
-- ずっと大きな進展がない
-
----
-
-## 四、loss 以外に何を見るべきか？
-
-### 勾配が異常ではないか
-
-例えば、
-
-- 勾配爆発
-- 勾配消失
-
-### 予測分布が異常ではないか
-
-例えば、
-
-- モデルがいつも同じクラスを予測する
-- 確率の偏りが極端である
-
-### データ自体に問題はないか
-
-例えば、
-
-- ラベル間違い
-- クラス不均衡
-- 訓練/検証の分布差が大きい
-
-### 初心者がそのまま使える切り分け順
-
-訓練に問題が起きたら、次の順番で見るとよいです。
-
-1. 訓練と検証のカーブ
-2. 学習率の設定
-3. 入力とラベルが合っているか
-4. モデルの予測が同じクラスに潰れていないか
-5. 勾配とパラメータ更新が異常ではないか
-
-この順番は、最初からモデルを変えるよりずっと効果的なことが多いです。
-
-### なぜこの順番は「まずモデルを変える」より安定なのか？
-
-なぜなら、多くの訓練問題の根本原因はモデル構造ではなく、もっと手前にあるからです。
-
-- データ
-- ラベル
-- 学習率
-- 訓練フロー
-
-これらを先に整理しないと、より複雑なモデルに変えても、問題は残ったままになりがちです。
-
----
-
-## 五、最小の診断ルール例
+## 実験 1：カーブパターンを分類する
 
 ```python
-def diagnose(train_losses, val_losses):
-    if train_losses[-1] > 0.8 and val_losses[-1] > 0.8:
-        return "学習不足の可能性があります"
-    if train_losses[-1] < train_losses[0] and val_losses[-1] > min(val_losses):
-        return "過学習の可能性があります"
-    if max(train_losses) - min(train_losses) > 1.5:
-        return "学習率が大きすぎる、または訓練が不安定な可能性があります"
-    return "もっと多くのサインを合わせて判断する必要があります"
-
-
-train_losses = [0.95, 0.72, 0.51, 0.35]
-val_losses = [0.98, 0.81, 0.79, 0.92]
-
-print(diagnose(train_losses, val_losses))
-```
-
-### この例は、人の判断の代わりではない
-
-これは主に、次の診断習慣を身につけるためのものです。
-
-- まず現象で分類する
-- その後で原因候補を探す
-
-### さらに、最小の「訓練ログ確認表」の例
-
-```python
-training_log = {
-    "train_loss": [1.2, 0.8, 0.5, 0.3],
-    "val_loss": [1.1, 0.9, 0.95, 1.1],
-    "prediction_pattern": "mostly_one_class",
+histories = {
+    "underfit_case": ([1.20, 1.08, 0.99, 0.94], [1.25, 1.13, 1.04, 1.02]),
+    "overfit_case": ([0.90, 0.55, 0.31, 0.18], [0.92, 0.63, 0.68, 0.82]),
+    "unstable_case": ([0.80, 1.65, 0.72, 1.48], [0.85, 1.70, 0.79, 1.55]),
 }
 
 
-def first_check(log):
-    if log["prediction_pattern"] == "mostly_one_class":
-        return "まずラベル分布、クラス不均衡、出力層の実装を確認してください。"
-    if log["val_loss"][-1] > min(log["val_loss"]):
-        return "まず過学習の方向で確認してください。"
-    return "まず学習率と勾配を引き続き見てください。"
+def diagnose(train, val):
+    train_drop = train[0] - train[-1]
+    val_best = min(val)
+
+    if max(train) - min(train) > 0.8:
+        return "possible_lr_too_high_or_unstable_batches"
+    if train[-1] > 0.8 and val[-1] > 0.8:
+        return "possible_underfitting"
+    if train_drop > 0.3 and val[-1] > val_best + 0.1:
+        return "possible_overfitting"
+    return "need_more_signals"
 
 
-print(first_check(training_log))
+print("curve_diagnosis")
+for name, (train, val) in histories.items():
+    print(name, "->", diagnose(train, val))
 ```
 
-この例は初心者に特に向いています。  
-訓練診断を次のものから、
+期待される出力：
 
-- ぼんやりした感覚
+```text
+curve_diagnosis
+underfit_case -> possible_underfitting
+overfit_case -> possible_overfitting
+unstable_case -> possible_lr_too_high_or_unstable_batches
+```
 
-ではなく、
+この code は人の判断を置き換えるためのものではありません。最初に、見えている症状を分類してから system を変える、という習慣を作るためのものです。
 
-- 順番のあるチェック作業
+## 実験 2：勾配と予測分布を確認する
 
-に変えてくれるからです。
+loss だけでは不十分です。loss がそこそこに見えても、すべての sample を同じ class と予測していることがあります。
 
----
+```python
+import torch
+from torch import nn
 
-## 六、いちばんハマりやすい落とし穴
+torch.manual_seed(5)
 
-### 罠1：最終的な精度だけを見る
+X = torch.randn(12, 3)
+y = torch.tensor([0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0])
 
-これだと、訓練中に何が起きたのかがわかりません。
+model = nn.Sequential(nn.Linear(3, 4), nn.ReLU(), nn.Linear(4, 2))
+loss_fn = nn.CrossEntropyLoss()
 
-### 罠2：`loss` が下がらないとすぐモデルを変える
+logits = model(X)
+loss = loss_fn(logits, y)
+loss.backward()
 
-多くの場合、問題はモデル構造にありません。
+grad_norm = 0.0
+for p in model.parameters():
+    if p.grad is not None:
+        grad_norm += p.grad.pow(2).sum().item()
+grad_norm = grad_norm**0.5
 
-### 罠3：訓練の問題は経験でしか見つけられないと思う
+preds = logits.argmax(dim=1)
+counts = torch.bincount(preds, minlength=2)
+confidence = torch.softmax(logits, dim=1).max(dim=1).values.mean().item()
 
-実際には、多くの問題を次のような方法で体系的に見つけられます。
+print("training_signals")
+print("loss:", round(loss.item(), 3))
+print("grad_norm:", round(grad_norm, 3))
+print("pred_counts:", counts.tolist())
+print("avg_confidence:", round(confidence, 3))
+```
 
-- カーブ
-- 統計
-- サンプル確認
+期待される出力：
 
-## 七、訓練時に保存しておくとよいもの
+```text
+training_signals
+loss: 0.687
+grad_norm: 0.445
+pred_counts: [0, 12]
+avg_confidence: 0.69
+```
 
-- 各 epoch の train / val loss
-- 重要な指標
-- 最良・最悪のサンプル予測
-- 現在のハイパーパラメータ設定
+重要な signal は `pred_counts: [0, 12]` です。この初期 model はすべての sample を class `1` と予測しています。実際の訓練でこの pattern が続く場合、class imbalance、labels、output layer shape、loss setup を確認してください。
 
-## これをプロジェクトや実験記録にするとき、何を見せるとよいか
+## Troubleshooting Order
 
-見せるべきなのは、たいてい最後の1つの精度ではありません。  
-むしろ次の内容が大事です。
+architecture を変える前に、この順番で確認します。
 
-1. train / val のカーブ
-2. 問題に対する最初の診断
-3. まず何を変えたか
-4. 変えたあと、カーブと指標がどう変わったか
+1. Curves：train/val loss と metrics。
+2. Predictions：class counts、confidence、best/worst examples。
+3. Gradients：norm、NaN/Inf、exploding または near-zero updates。
+4. Data：labels、leakage、split、preprocessing、augmentation。
+5. Hyperparameters：learning rate、batch size、regularization。
+6. Model：capacity、architecture、initialization。
 
-こうすると、見る人に次のことが伝わりやすくなります。
+この順番は地味です。だからこそ効きます。
 
-- あなたは訓練のトラブルシューティングを理解している
-- 単に「開始ボタンを押せる」だけではない
+## 訓練中に保存するもの
 
-こうした記録は、あとで振り返るときにもとても役立ちます。
+| Artifact | 保存する理由 |
+|---|---|
+| train/val curves | trend と overfitting を診断する |
+| config and seed | run を再現する |
+| best checkpoint | retrain なしで比較する |
+| prediction samples | failure を直接見る |
+| gradient statistics | instability を早く見つける |
+| data split version | leakage や drift を検出する |
 
-### なぜ「最悪のサンプル」は平均点より価値があることが多いのか？
+## 診断から Action へ
 
-平均点は「全体としてだいたいどうか」しか教えてくれません。  
-でも最悪のサンプルは、次のようなことをよりはっきり見せてくれます。
+| Diagnosis | 最初の action |
+|---|---|
+| possible underfitting | LR を適度に上げる、長く訓練する、capacity を増やす、labels を確認する |
+| possible overfitting | early stopping、強めの regularization、data 追加、augmentation |
+| unstable training | LR を下げる、batch を増やす、gradient clipping |
+| prediction collapse | class balance、target encoding、output shape、loss function を確認する |
+| data pipeline issue | sample batch を表示し、preprocessing と split を確認する |
 
-- モデルがどの種類の入力を苦手にしているか
-- ラベルに問題があるか
-- データ分布に境界的なケースがあるか
+## よくある間違い
 
-だから、本当に効く改善は、総合指標ではなく、最も悪いサンプルから見つかることが多いのです。
+| 間違い | 直し方 |
+|---|---|
+| 最終 accuracy だけを見る | full curves と best epoch を保存する |
+| data 確認前に model を変える | sample batch と labels を先に見る |
+| prediction distribution を無視する | class counts や output summary を表示する |
+| train loss が低ければ成功だと思う | validation と failure cases を比較する |
+| 複数の修正を同時に入れる | 1 つの action を選び、結果を検証する |
 
----
+## 練習
+
+1. train と val が両方改善する `good_case` history を追加してください。
+2. 実験 2 を 3 class にしてください。`torch.bincount` はどう変わりますか。
+3. `has_nan_grad` を報告する check を追加してください。
+4. 実験 1 の各 diagnosis について、次の action を 1 つ書いてください。
+5. `epoch,train_loss,val_loss,val_acc` 形式の CSV 風 log を保存してください。
 
 ## まとめ
 
-この節で最も大事なのは、訓練診断の感覚を作ることです。
-
-> **まず loss カーブと検証結果から問題の種類を見分け、次に学習率、データ、汎化、モデル容量へ順番に原因を絞り込む。**
-
-この習慣が身につけば、訓練はもう「開けてみるまでわからない箱」ではなくなります。
-
-## この節でいちばん持ち帰ってほしいこと
-
-- カーブは入口であって、結論ではない
-- 現象と根本原因は分けて見る
-- まずデータと訓練フローを確認してから、モデルを大きく変える
-- 訓練診断の力そのものが、深層学習エンジニアリングの力である
-
----
-
-## 練習問題
-
-1. 自分で「学習不足」のカーブを作って、`diagnose` の結果がどう変わるか確認してみましょう。
-2. 訓練集と検証集の差が、診断でとても重要なサインだと言えるのはなぜですか？
-3. モデルがいつも同じクラスを予測する場合、まず何を疑いますか？
-4. 考えてみましょう：なぜ訓練診断の力そのものがエンジニアリング能力なのでしょうか？
+- 症状は根本原因ではありません。
+- カーブは最初の診断画面です。
+- 予測と勾配は、loss が隠す失敗を見せてくれます。
+- data check は architecture change より先です。
+- 良い診断は、最後に 1 つの targeted next experiment へ落ちます。
