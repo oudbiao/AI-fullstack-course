@@ -149,6 +149,12 @@ def build_courseware(topic):
 print(build_courseware("Discount word problems"))
 ```
 
+Expected output:
+
+```text
+{'title': 'Discount word problems', 'concepts': ['Discount = original price × discount rate'], 'examples': ['A product originally costs 100 yuan. What is the price after a 20% discount?'], 'exercises': ['A coat originally costs 80 yuan. What is the price after a 30% discount?'], 'notes': ['External supplement: common teaching pitfalls for Discount word problems.']}
+```
+
 ### What Is the Most Important Value of This Example?
 
 It shows that the real value of this system is not just that it can:
@@ -158,6 +164,28 @@ It shows that the real value of this system is not just that it can:
 But that it can reorganize what it retrieved into:
 
 - The section structure needed by courseware
+
+## Add a Quick Structure Check
+
+Before exporting Word, check whether each required slot has content. This prevents a template renderer from producing a beautiful but empty document.
+
+```python
+courseware = build_courseware("Discount word problems")
+required_slots = ["concepts", "examples", "exercises", "notes"]
+
+for slot in required_slots:
+    count = len(courseware[slot])
+    print(f"{slot}: {count} item(s)", "OK" if count else "CHECK")
+```
+
+Expected output:
+
+```text
+concepts: 1 item(s) OK
+examples: 1 item(s) OK
+exercises: 1 item(s) OK
+notes: 1 item(s) OK
+```
 
 ## A System Layering Diagram That Looks More Like a Real Project
 

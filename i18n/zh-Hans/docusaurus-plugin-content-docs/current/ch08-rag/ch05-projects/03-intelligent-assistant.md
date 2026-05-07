@@ -27,7 +27,7 @@ keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calli
 
 ---
 
-## 一、一个智能问答助手到底比普通问答多了什么？
+## 一个智能问答助手到底比普通问答多了什么？
 
 ### 不只是“你问一句，我答一句”
 
@@ -51,7 +51,7 @@ keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calli
 
 ---
 
-## 二、作品级项目的最小闭环长什么样？
+## 作品级项目的最小闭环长什么样？
 
 1. 维护会话历史
 2. 识别当前主题
@@ -84,7 +84,7 @@ flowchart LR
 一条多轮助手 trace 至少要看四件事：session 里记住了什么、检索命中了什么、工具有没有被调用、回答后状态怎样更新。这样才能证明它不是普通 FAQ。
 :::
 
-## 三、推荐推进顺序
+## 推荐推进顺序
 
 对新人来说，更稳的顺序通常是：
 
@@ -111,7 +111,7 @@ flowchart LR
 
 ---
 
-## 四、先跑一个更完整的最小助手
+## 先跑一个更完整的最小助手
 
 下面这个示例会做：
 
@@ -149,6 +149,7 @@ def new_session():
         "topic": None,
         "user_id": None,
         "last_retrieved_doc": None,
+        "last_tool_call": None,
     }
 
 
@@ -158,19 +159,8 @@ def assistant_reply(session, user_message, user_id=None):
 
     session["history"].append({"role": "user", "content": user_message})
 
-    if "退款" in user_message:
-        session["topic"] = "退款"
-        doc, score = retrieve("退款")
-        session["last_retrieved_doc"] = doc
-        answer = f"{doc['text']} 如果你告诉我学习进度，我可以继续帮你判断是否符合资格。"
-
-    elif "证书" in user_message:
-        session["topic"] = "证书"
-        doc, score = retrieve("证书")
-        session["last_retrieved_doc"] = doc
-        answer = doc["text"]
-
-    elif "还能退吗" in user_message and session["topic"] == "退款" and session["user_id"] is not None:
+    if "还能退" in user_message and session["topic"] == "退款" and session["user_id"] is not None:
+        session["last_tool_call"] = {"name": "get_user_progress", "user_id": session["user_id"]}
         progress = get_user_progress(session["user_id"])
         if progress is None:
             answer = "当前查不到你的学习进度信息，请确认账号状态。"
@@ -179,7 +169,23 @@ def assistant_reply(session, user_message, user_id=None):
                 f"系统查到你的学习进度约为 {int(progress * 100)}%。"
                 + (" 当前仍可退款。" if progress < 0.2 else " 当前不满足退款条件。")
             )
+
+    elif "退款" in user_message:
+        session["topic"] = "退款"
+        doc, score = retrieve("退款")
+        session["last_retrieved_doc"] = doc
+        session["last_tool_call"] = None
+        answer = f"{doc['text']} 如果你告诉我学习进度，我可以继续帮你判断是否符合资格。"
+
+    elif "证书" in user_message:
+        session["topic"] = "证书"
+        doc, score = retrieve("证书")
+        session["last_retrieved_doc"] = doc
+        session["last_tool_call"] = None
+        answer = doc["text"]
+
     else:
+        session["last_tool_call"] = None
         answer = "我目前可以帮助你处理退款、证书和学习进度类问题。"
 
     session["history"].append({"role": "assistant", "content": answer})
@@ -189,7 +195,17 @@ def assistant_reply(session, user_message, user_id=None):
 session = new_session()
 print(assistant_reply(session, "退款政策是什么？", user_id=2))
 print(assistant_reply(session, "那我还能退吗？"))
-print(session)
+print("last_tool_call:", session["last_tool_call"])
+print("topic:", session["topic"])
+```
+
+预期输出：
+
+```text
+退款政策：购买后 7 天内且学习进度低于 20% 可退款。 如果你告诉我学习进度，我可以继续帮你判断是否符合资格。
+系统查到你的学习进度约为 30%。 当前不满足退款条件。
+last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
+topic: 退款
 ```
 
 ### 这个例子最关键的价值是什么？
@@ -214,9 +230,16 @@ snapshot = {
     "topic": session["topic"],
     "user_id": session["user_id"],
     "last_retrieved_doc": session["last_retrieved_doc"],
+    "last_tool_call": session["last_tool_call"],
 }
 
 print(snapshot)
+```
+
+预期输出：
+
+```text
+{'topic': '退款', 'user_id': 2, 'last_retrieved_doc': {'key': '退款', 'text': '退款政策：购买后 7 天内且学习进度低于 20% 可退款。'}, 'last_tool_call': {'name': 'get_user_progress', 'user_id': 2}}
 ```
 
 这个示例很适合初学者，因为它会帮助你先看到：
@@ -226,7 +249,7 @@ print(snapshot)
 
 ---
 
-## 五、这个项目最该怎么评估？
+## 这个项目最该怎么评估？
 
 ### 单轮正确率不够
 
@@ -248,7 +271,7 @@ eval_cases = [
     {
         "turns": ["证书怎么拿？"],
         "user_id": None,
-        "expected_keywords": ["结课测试", "证书"],
+        "expected_keywords": ["通过测试", "证书"],
     },
 ]
 
@@ -262,6 +285,13 @@ for case in eval_cases:
         "last_answer": last_answer,
         "expected_hit": all(keyword in last_answer for keyword in case["expected_keywords"]),
     })
+```
+
+预期输出：
+
+```text
+{'turns': ['退款政策是什么？', '那我还能退吗？'], 'last_answer': '系统查到你的学习进度约为 15%。 当前仍可退款。', 'expected_hit': True}
+{'turns': ['证书怎么拿？'], 'last_answer': '证书政策：完成所有项目并通过测试后可获得证书。', 'expected_hit': True}
 ```
 
 ### 为什么多轮评估特别重要？
@@ -284,7 +314,7 @@ for case in eval_cases:
 
 ---
 
-## 六、怎么把这个项目做成作品级页面？
+## 怎么把这个项目做成作品级页面？
 
 ### 展示一条完整对话 trace
 
@@ -313,7 +343,7 @@ for case in eval_cases:
 
 ---
 
-## 七、最容易踩的坑
+## 最容易踩的坑
 
 ### 只做单轮问答
 

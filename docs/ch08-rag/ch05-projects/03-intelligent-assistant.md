@@ -149,6 +149,7 @@ def new_session():
         "topic": None,
         "user_id": None,
         "last_retrieved_doc": None,
+        "last_tool_call": None,
     }
 
 
@@ -157,20 +158,10 @@ def assistant_reply(session, user_message, user_id=None):
         session["user_id"] = user_id
 
     session["history"].append({"role": "user", "content": user_message})
+    message = user_message.lower()
 
-    if "refund" in user_message:
-        session["topic"] = "refund"
-        doc, score = retrieve("refund")
-        session["last_retrieved_doc"] = doc
-        answer = f"{doc['text']} If you tell me your learning progress, I can help you check whether you qualify."
-
-    elif "certificate" in user_message:
-        session["topic"] = "certificate"
-        doc, score = retrieve("certificate")
-        session["last_retrieved_doc"] = doc
-        answer = doc["text"]
-
-    elif "can I still get a refund" in user_message and session["topic"] == "refund" and session["user_id"] is not None:
+    if "still get a refund" in message and session["topic"] == "refund" and session["user_id"] is not None:
+        session["last_tool_call"] = {"name": "get_user_progress", "user_id": session["user_id"]}
         progress = get_user_progress(session["user_id"])
         if progress is None:
             answer = "I can't find your learning progress right now. Please confirm your account status."
@@ -179,7 +170,23 @@ def assistant_reply(session, user_message, user_id=None):
                 f"The system shows your learning progress is about {int(progress * 100)}%."
                 + (" You are still eligible for a refund." if progress < 0.2 else " You do not currently meet the refund conditions.")
             )
+
+    elif "refund" in message:
+        session["topic"] = "refund"
+        doc, score = retrieve("refund")
+        session["last_retrieved_doc"] = doc
+        session["last_tool_call"] = None
+        answer = f"{doc['text']} If you tell me your learning progress, I can help you check whether you qualify."
+
+    elif "certificate" in message:
+        session["topic"] = "certificate"
+        doc, score = retrieve("certificate")
+        session["last_retrieved_doc"] = doc
+        session["last_tool_call"] = None
+        answer = doc["text"]
+
     else:
+        session["last_tool_call"] = None
         answer = "I can currently help with refund, certificate, and learning progress questions."
 
     session["history"].append({"role": "assistant", "content": answer})
@@ -189,7 +196,17 @@ def assistant_reply(session, user_message, user_id=None):
 session = new_session()
 print(assistant_reply(session, "What is the refund policy?", user_id=2))
 print(assistant_reply(session, "Can I still get a refund?"))
-print(session)
+print("last_tool_call:", session["last_tool_call"])
+print("topic:", session["topic"])
+```
+
+Expected output:
+
+```text
+Refund policy: You can get a refund within 7 days of purchase if your learning progress is below 20%. If you tell me your learning progress, I can help you check whether you qualify.
+The system shows your learning progress is about 30%. You do not currently meet the refund conditions.
+last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
+topic: refund
 ```
 
 ### What is the most important value of this example?
@@ -214,9 +231,16 @@ snapshot = {
     "topic": session["topic"],
     "user_id": session["user_id"],
     "last_retrieved_doc": session["last_retrieved_doc"],
+    "last_tool_call": session["last_tool_call"],
 }
 
 print(snapshot)
+```
+
+Expected output:
+
+```text
+{'topic': 'refund', 'user_id': 2, 'last_retrieved_doc': {'key': 'refund', 'text': 'Refund policy: You can get a refund within 7 days of purchase if your learning progress is below 20%.'}, 'last_tool_call': {'name': 'get_user_progress', 'user_id': 2}}
 ```
 
 This example is great for beginners because it helps you first see:
@@ -248,7 +272,7 @@ eval_cases = [
     {
         "turns": ["How do I get a certificate?"],
         "user_id": None,
-        "expected_keywords": ["final test", "certificate"],
+        "expected_keywords": ["passing the test", "certificate"],
     },
 ]
 
@@ -262,6 +286,13 @@ for case in eval_cases:
         "last_answer": last_answer,
         "expected_hit": all(keyword in last_answer for keyword in case["expected_keywords"]),
     })
+```
+
+Expected output:
+
+```text
+{'turns': ['What is the refund policy?', 'Can I still get a refund?'], 'last_answer': 'The system shows your learning progress is about 15%. You are still eligible for a refund.', 'expected_hit': True}
+{'turns': ['How do I get a certificate?'], 'last_answer': 'Certificate policy: You can receive a certificate after completing all projects and passing the test.', 'expected_hit': True}
 ```
 
 ### Why is multi-turn evaluation especially important?

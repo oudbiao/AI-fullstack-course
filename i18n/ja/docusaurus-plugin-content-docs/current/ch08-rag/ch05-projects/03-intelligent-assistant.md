@@ -27,7 +27,7 @@ keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calli
 
 ---
 
-## 一、スマートQ&Aアシスタントは普通のQ&Aより何が多いのか？
+## スマートQ&Aアシスタントは普通のQ&Aより何が多いのか？
 
 ### 「1回聞いて、1回答える」だけではない
 
@@ -51,7 +51,7 @@ keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calli
 
 ---
 
-## 二、作品レベルのプロジェクトの最小閉ループはどんな形か？
+## 作品レベルのプロジェクトの最小閉ループはどんな形か？
 
 1. 会話履歴を管理する
 2. 今の話題を判定する
@@ -84,7 +84,7 @@ flowchart LR
 マルチターンアシスタントの trace では、少なくとも4つを見るとよいです。session に何が残っているか、検索で何がヒットしたか、ツールが呼ばれたか、回答後に状態がどう更新されたか、です。これで、ただの FAQ ではないことを示せます。
 :::
 
-## 三、おすすめの進め方
+## おすすめの進め方
 
 初心者なら、次の順番がいちばん安定しています。
 
@@ -111,7 +111,7 @@ FAQページとの大きな違いは、次の点です。
 
 ---
 
-## 四、まずはより完成度の高い最小アシスタントを動かしてみよう
+## まずはより完成度の高い最小アシスタントを動かしてみよう
 
 次の例では、以下を行います。
 
@@ -122,15 +122,15 @@ FAQページとの大きな違いは、次の点です。
 
 ```python
 kb = [
-    {"key": "refund", "text": "返金ポリシー：購入後 7 日以内で、学習進捗が 20% 未満なら返金できます。"},
-    {"key": "certificate", "text": "証明書ポリシー：すべてのプロジェクトを完了し、テストに合格すると証明書を受け取れます。"},
+    {"key": "返金", "text": "返金ポリシー：購入後 7 日以内で、学習進捗が 20% 未満なら返金できます。"},
+    {"key": "証明書", "text": "証明書ポリシー：すべてのプロジェクトを完了し、テストに合格すると証明書を受け取れます。"},
 ]
 
 
 def retrieve(query):
-    if "refund" in query:
+    if "返金" in query:
         return kb[0], 0.92
-    if "certificate" in query:
+    if "証明書" in query:
         return kb[1], 0.88
     return None, 0.0
 
@@ -149,6 +149,7 @@ def new_session():
         "topic": None,
         "user_id": None,
         "last_retrieved_doc": None,
+        "last_tool_call": None,
     }
 
 
@@ -158,19 +159,8 @@ def assistant_reply(session, user_message, user_id=None):
 
     session["history"].append({"role": "user", "content": user_message})
 
-    if "refund" in user_message:
-        session["topic"] = "refund"
-        doc, score = retrieve("refund")
-        session["last_retrieved_doc"] = doc
-        answer = f"{doc['text']} 学習進捗を教えてくれれば、条件を満たしているかどうかを続けて確認できます。"
-
-    elif "certificate" in user_message:
-        session["topic"] = "certificate"
-        doc, score = retrieve("certificate")
-        session["last_retrieved_doc"] = doc
-        answer = doc["text"]
-
-    elif "still get a refund" in user_message and session["topic"] == "refund" and session["user_id"] is not None:
+    if "返金できます" in user_message and session["topic"] == "返金" and session["user_id"] is not None:
+        session["last_tool_call"] = {"name": "get_user_progress", "user_id": session["user_id"]}
         progress = get_user_progress(session["user_id"])
         if progress is None:
             answer = "現在、あなたの学習進捗情報が見つかりません。アカウントの状態を確認してください。"
@@ -179,7 +169,23 @@ def assistant_reply(session, user_message, user_id=None):
                 f"システムでは、あなたの学習進捗は約 {int(progress * 100)}% です。"
                 + (" 現在は返金可能です。" if progress < 0.2 else " 現在は返金条件を満たしていません。")
             )
+
+    elif "返金" in user_message:
+        session["topic"] = "返金"
+        doc, score = retrieve("返金")
+        session["last_retrieved_doc"] = doc
+        session["last_tool_call"] = None
+        answer = f"{doc['text']} 学習進捗を教えてくれれば、条件を満たしているかどうかを続けて確認できます。"
+
+    elif "証明書" in user_message:
+        session["topic"] = "証明書"
+        doc, score = retrieve("証明書")
+        session["last_retrieved_doc"] = doc
+        session["last_tool_call"] = None
+        answer = doc["text"]
+
     else:
+        session["last_tool_call"] = None
         answer = "今は、返金、証明書、学習進捗に関する問題をお手伝いできます。"
 
     session["history"].append({"role": "assistant", "content": answer})
@@ -189,7 +195,17 @@ def assistant_reply(session, user_message, user_id=None):
 session = new_session()
 print(assistant_reply(session, "返金ポリシーは何ですか？", user_id=2))
 print(assistant_reply(session, "では、まだ返金できますか？"))
-print(session)
+print("last_tool_call:", session["last_tool_call"])
+print("topic:", session["topic"])
+```
+
+期待される出力：
+
+```text
+返金ポリシー：購入後 7 日以内で、学習進捗が 20% 未満なら返金できます。 学習進捗を教えてくれれば、条件を満たしているかどうかを続けて確認できます。
+システムでは、あなたの学習進捗は約 30% です。 現在は返金条件を満たしていません。
+last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
+topic: 返金
 ```
 
 ### この例のいちばん大きな価値は何か？
@@ -214,16 +230,23 @@ snapshot = {
     "topic": session["topic"],
     "user_id": session["user_id"],
     "last_retrieved_doc": session["last_retrieved_doc"],
+    "last_tool_call": session["last_tool_call"],
 }
 
 print(snapshot)
+```
+
+期待される出力：
+
+```text
+{'topic': '返金', 'user_id': 2, 'last_retrieved_doc': {'key': '返金', 'text': '返金ポリシー：購入後 7 日以内で、学習進捗が 20% 未満なら返金できます。'}, 'last_tool_call': {'name': 'get_user_progress', 'user_id': 2}}
 ```
 
 この例は初心者にとても向いています。なぜなら、アシスタントシステムが本当に持つべきものは、「会話の全文そのもの」ではなく、いくつかの重要な状態だと分かるからです。
 
 ---
 
-## 五、このプロジェクトはどう評価すべきか？
+## このプロジェクトはどう評価すべきか？
 
 ### 単発の正答率だけでは不十分
 
@@ -245,7 +268,7 @@ eval_cases = [
     {
         "turns": ["証明書はどうやって取れますか？"],
         "user_id": None,
-        "expected_keywords": ["修了テスト", "証明書"],
+        "expected_keywords": ["テストに合格", "証明書"],
     },
 ]
 
@@ -259,6 +282,13 @@ for case in eval_cases:
         "last_answer": last_answer,
         "expected_hit": all(keyword in last_answer for keyword in case["expected_keywords"]),
     })
+```
+
+期待される出力：
+
+```text
+{'turns': ['返金ポリシーは何ですか？', 'では、まだ返金できますか？'], 'last_answer': 'システムでは、あなたの学習進捗は約 15% です。 現在は返金可能です。', 'expected_hit': True}
+{'turns': ['証明書はどうやって取れますか？'], 'last_answer': '証明書ポリシー：すべてのプロジェクトを完了し、テストに合格すると証明書を受け取れます。', 'expected_hit': True}
 ```
 
 ### なぜマルチターン評価が特に重要なのか？
@@ -281,7 +311,7 @@ for case in eval_cases:
 
 ---
 
-## 六、どうやってこのプロジェクトを作品レベルのページにするか？
+## どうやってこのプロジェクトを作品レベルのページにするか？
 
 ### 1つの完全な対話 trace を見せる
 
@@ -308,7 +338,7 @@ for case in eval_cases:
 
 ---
 
-## 七、よくある落とし穴
+## よくある落とし穴
 
 ### 単発Q&Aだけで終わる
 
