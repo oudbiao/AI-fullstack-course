@@ -1,867 +1,250 @@
 ---
 title: "5.3.2 クラスタリングアルゴリズム"
 sidebar_position: 7
-description: "K-Means、K-Means++、階層クラスタリング、DBSCAN などのクラスタリングアルゴリズムを理解し、K 値の選び方とクラスタリング評価を身につける"
-keywords: [クラスタリング, K-Means, DBSCAN, 階層クラスタリング, エルボー法, シルエット係数, 教師なし学習]
+description: "手を動かして学ぶクラスタリング：K-Means、K の選び方、シルエットスコア、DBSCAN、階層的クラスタリング、アルゴリズム選択"
+keywords: [クラスタリング, K-Means, DBSCAN, 階層的クラスタリング, エルボー法, シルエットスコア, 教師なし学習]
 ---
 
 # 5.3.2 クラスタリングアルゴリズム
 
 ![K-Means クラスタ中心の反復図](/img/course/clustering-kmeans-centroids-ja.png)
 
-:::tip この節の位置づけ
-クラスタリングは、教師なし学習で最もよく使われるタスクのひとつです。**ラベルがない状態で、似ているデータを自動的に同じグループに分ける**ことが目的です。顧客セグメンテーション、文書分類、画像分割など、さまざまな場面で使われます。
+:::tip この節の概要
+クラスタリングは、**ラベルがない**状態で似たサンプルをまとめる方法です。結果は唯一の正解ではなく、データ構造に関する仮説です。指標、図、ドメイン上の意味で確認する必要があります。
 :::
 
-## 学習目標
+## 作るもの
 
-- K-Means クラスタリングの原理と実装を理解する
-- K-Means++ の初期化戦略を理解する
-- 階層クラスタリング（凝集型と分割型）を理解する
-- DBSCAN の密度ベースのクラスタリングを理解する
-- K 値の選び方とクラスタリング評価指標を理解する
+この節では、実用的なクラスタリング実験を 1 つ完成させます。
 
-## まず最初に、大事な学習イメージを持とう
+- inertia と silhouette score で K-Means の `K` を選ぶ；
+- K-Means のクラスタ中心を確認する；
+- 曲がったデータで K-Means と DBSCAN を比較する；
+- DBSCAN の `eps` を調整する；
+- 階層的クラスタリングを、構造を見やすい別案として実行する。
 
-この節は、初心者が最初に少し戸惑いやすい内容です。前の教師あり学習とは違って、
-
-- ラベルがない
-- 正解がない
-- 「分かれた」ように見えても、それが良い分け方かはすぐには分からない
-
-という特徴があります。
-
-最初の段階で覚えておきたいのは、すべてのクラスタリングアルゴリズムを暗記することではなく、まずこの考え方を受け入れることです。
-
-> **クラスタリングは、ラベルがないときにデータ構造について検証可能な仮説を立てることです。**
-
-この理解ができると、クラスタリングを「自動で唯一の正解を出すもの」と誤解しなくなります。
-
----
-
-## まず全体像をつかもう
-
-クラスタリングで初心者がつまずきやすいポイントは、次の3つです。
-
-- ラベルがないので、何を学んだのか分かりにくい
-- アルゴリズムが多くて、どれから学べばよいか迷う
-- 図ではグループに見えても、良い結果かどうか判断しにくい
-
-理解の順番としては、次の流れが安定です。
+まず図を見てください。クラスタリングの要点は、アルゴリズム名を暗記することではなく、アルゴリズムの仮定をデータ形状に合わせることです。
 
 ![クラスタリングアルゴリズム選択フロー図](/img/course/ch05-clustering-decision-flow-ja.png)
 
-つまり、クラスタリングは単に「機械にグループ分けさせる」ことではなく、  
-**ラベルがないときに、データの構造をどう見つけるか**を考える作業です。
-
 ![クラスタリングは仮説であることを説明するマンガ](/img/course/ch05-clustering-hypothesis-comic-ja.png)
-
-このマンガは上から順に読んでください。クラスタリングは、まずラベルのないデータを見て、ひとつの分け方を仮説として作り、その分け方が「クラスタ内でまとまり、クラスタ間で離れているか」を確認し、最後に実務上の意味があるかを考えます。見た目がきれいな図でも、行動につながらなければ良いクラスタリングとは言えません。
-
-### 始める前のキーワード解説
-
-| 用語 | 初心者向けの意味 | この節での役割 |
-|---|---|---|
-| `cluster` | 選んだ特徴量の上で似ているデータ点のグループ | この節のアルゴリズムは、すべてこのグループを作り、説明するために使う |
-| `centroid` | クラスタの中心点。多くの場合、そのクラスタ内データの平均 | K-Means は重心を何度も動かし、分け方が安定するまで繰り返す |
-| `inertia_` / SSE | クラスタ内のばらつきの合計。誤差平方和 | 小さいほどまとまりやすいが、K を増やすと自然に下がる |
-| `silhouette_score` | クラスタ内のまとまりとクラスタ間の離れ具合を同時に見る指標 | 候補となる K を比較する助けになるが、唯一の正解を証明するものではない |
-| `eps` | DBSCAN の近傍半径 | 小さすぎると細かく分かれ、大きすぎると全部まとまってしまう |
-| `min_samples` | 密な中心点になるために必要な近傍点の最小数 | DBSCAN が「ここは十分に密か」を判断する厳しさを決める |
-| `dendrogram` | クラスタが段階的に統合される様子を表す木構造の図 | 階層クラスタリングの過程を視覚的に確認できる |
-| `baseline` | 比較用に最初に作るシンプルな基準モデル | K-Means は、より複雑なクラスタリングを試す前の基準としてよく使われる |
-
----
-
-## 一、クラスタリングの直感
-
-### クラスタリングとは？
-
-**クラスタリング = 「似ているもの」をまとめて、「異なるもの」を分けること。**
-
-```mermaid
-flowchart LR
-    D["ラベルのないデータがたくさんある"] --> C["クラスタリングアルゴリズム"]
-    C --> G1["グループ 1"]
-    C --> G2["グループ 2"]
-    C --> G3["グループ 3"]
-
-    style D fill:#e3f2fd,stroke:#1565c0,color:#333
-    style G1 fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style G2 fill:#fff3e0,stroke:#e65100,color:#333
-    style G3 fill:#fce4ec,stroke:#c62828,color:#333
-```
-
-| 応用シーン | データ | クラスタリングの目的 |
-|---------|------|---------|
-| 顧客セグメンテーション | 消費行動データ | 高価値/低頻度/離脱顧客群を見つける |
-| 文書分類 | テキストベクトル | テーマごとに自動分類する |
-| 画像分割 | ピクセルの色値 | 画像を前景/背景に分ける |
-| 遺伝子解析 | 遺伝子発現データ | 機能が似た遺伝子群を見つける |
-
-### クラスタリングと分類は何が違うの？
-
-似た言葉ですが、解く問題はまったく違います。
-
-- **分類**：ラベルが分かっている。どう判定するかを学ぶ
-- **クラスタリング**：ラベルが分かっていない。どんなグループがありそうかを見つける
-
-だから、クラスタリングを学ぶときは次の点を受け入れることが大事です。
-
-- 結果は唯一の正解ではない
-- ひとつの「データ構造の仮説」と考える
-- 指標や業務上の説明で、その仮説が役立つか確認する
-
-### 初心者向けのたとえ
-
-クラスタリングは、次のように考えると分かりやすいです。
-
-- ラベルのないたくさんの荷物を、初めて整理する
-
-そのときは、なんとなく「似ていそう」という感覚で分けます。
-
-- よく使うものをひとまとめ
-- あまり使わないものをひとまとめ
-- 特にごちゃごちゃしたものは別に置く
-
-ここで探しているのは「唯一の正解」ではなく、
-
-- 分かりやすい
-- 次の行動につなげやすい
-- 本当に役立つか確認できる
-
-ような分け方です。
 
 ![クラスタリングのデータ形状とアルゴリズム選択図](/img/course/ch05-clustering-shape-selection-map-ja.png)
 
-この図は、よくある誤解を避けるためのものです。すべてのセグメント化に K-Means が向いているわけではありません。丸い塊で大きさがだいたい同じクラスタには K-Means が向いています。曲がった形やノイズがあるデータには DBSCAN を先に試すとよいです。階層関係を見たいなら階層クラスタリングを考えます。まずデータの形を見て、それからアルゴリズムを選びましょう。
+## 用語早見表
 
-### デモ用データを作る
+| 用語 | 実用上の意味 |
+|---|---|
+| `cluster` | 選んだ特徴量のもとで似て見える点のグループ |
+| `centroid` | K-Means のクラスタ中心 |
+| `inertia_` | クラスタ内の二乗距離。低いほどまとまるが、`K` を増やすと必ず下がる |
+| `silhouette_score` | まとまりと分離の両方を見る指標。通常は高いほど良い |
+| `eps` | DBSCAN の近傍半径 |
+| `min_samples` | DBSCAN のコア点になるために必要な近傍点数 |
+| `noise` | DBSCAN のラベル `-1`。密なクラスタに入らなかった点 |
+| `linkage` | 階層的クラスタリングでグループを結合する規則 |
+
+## セットアップ
+
+```bash
+python -m pip install -U scikit-learn numpy
+```
+
+すべての例で特徴量をスケーリングします。クラスタリングは距離に依存することが多く、特徴量の尺度が「似ている」の意味を変えてしまうからです。
+
+## 完全な実験を実行する
+
+`clustering_lab.py` を作成します。
 
 ```python
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import make_blobs
-
-# 3 つのクラスタを持つデータを生成
-X, y_true = make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)
-
-print(f"X shape: {X.shape}")
-print(f"Hidden true groups: {np.unique(y_true)}")
-
-plt.figure(figsize=(8, 6))
-plt.scatter(X[:, 0], X[:, 1], s=30, alpha=0.7, color='gray')
-plt.title('ラベルのないデータ——いくつのグループに見える？')
-plt.xlabel('特徴量 1')
-plt.ylabel('特徴量 2')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-期待される出力：
-
-```text
-X shape: (300, 2)
-Hidden true groups: [0 1 2]
-```
-
-ここで `y_true` を使えるのは、人工的に作った学習用データだからです。実際のクラスタリングではラベルがないことが多いため、指標、可視化、業務上の解釈を組み合わせて結果を判断します。
-
----
-
-## 二、K-Means クラスタリング
-
-### アルゴリズムの原理
-
-K-Means は最も代表的なクラスタリングアルゴリズムで、手順はとてもシンプルです。
-
-```mermaid
-flowchart TD
-    A["1. 最初の重心として K 個の点をランダムに選ぶ"] --> B["2. 各データを最も近い重心に割り当てる"]
-    B --> C["3. 各クラスタの重心（平均）を再計算する"]
-    C --> D{"重心はまだ変化している？"}
-    D -->|"はい"| B
-    D -->|"いいえ"| E["クラスタリング完了"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### K-Means をゼロから実装する
-
-```python
-def kmeans_simple(X, k, max_iters=100, seed=42):
-    """簡易版 K-Means の実装"""
-    rng = np.random.default_rng(seed)
-    # 1. 重心をランダムに初期化
-    idx = rng.choice(len(X), k, replace=False)
-    centroids = X[idx].copy()
-
-    for iteration in range(max_iters):
-        # 2. 各点を最も近い重心に割り当てる
-        distances = np.sqrt(((X[:, np.newaxis] - centroids) ** 2).sum(axis=2))
-        labels = distances.argmin(axis=1)
-
-        # 3. 重心を更新する
-        new_centroids = np.array([X[labels == i].mean(axis=0) for i in range(k)])
-
-        # 収束チェック
-        if np.allclose(centroids, new_centroids):
-            print(f"{iteration+1} 回目で収束しました")
-            break
-        centroids = new_centroids
-
-    return labels, centroids
-
-# 実行
-labels, centroids = kmeans_simple(X, k=3, seed=2)
-print("Centroids rounded:")
-print(np.round(centroids, 2))
-
-# 可視化
-plt.figure(figsize=(8, 6))
-plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', s=30, alpha=0.7)
-plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='X', s=200,
-            edgecolors='black', linewidth=2, label='重心')
-plt.title('K-Means のクラスタリング結果（手動実装）')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-期待される出力：
-
-```text
-2 回目で収束しました
-Centroids rounded:
-[[-2.61  9.04]
- [-6.88 -6.96]
- [ 4.73  2.  ]]
-```
-
-クラスタ番号そのものには固定の意味はありません。同じグループが `0` と呼ばれることも、`1` と呼ばれることもあります。大事なのは、近い点が安定して同じグループに入ることです。
-
-### sklearn で実装する
-
-```python
-from sklearn.cluster import KMeans
-
-kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
-kmeans.fit(X)
-
-print(f"クラスタラベル: {np.unique(kmeans.labels_)}")
-print(f"丸めた重心:\n{np.round(kmeans.cluster_centers_, 2)}")
-print(f"総慣性（SSE）: {kmeans.inertia_:.2f}")
-
-# 可視化
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# クラスタリング結果
-axes[0].scatter(X[:, 0], X[:, 1], c=kmeans.labels_, cmap='viridis', s=30, alpha=0.7)
-axes[0].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
-                c='red', marker='X', s=200, edgecolors='black', linewidth=2)
-axes[0].set_title('K-Means のクラスタリング結果')
-
-# 真のラベルと比較
-axes[1].scatter(X[:, 0], X[:, 1], c=y_true, cmap='viridis', s=30, alpha=0.7)
-axes[1].set_title('真のラベル（比較用）')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-クラスタラベル: [0 1 2]
-丸めた重心:
-[[-2.61  9.04]
- [-6.88 -6.96]
- [ 4.73  2.  ]]
-総慣性（SSE）: 362.79
-```
-
-`fit()` は「データから重心を学習する」という意味です。`labels_` には各行がどのクラスタに属するかが入り、`cluster_centers_` には学習された重心座標が入ります。
-
-### K-Means の反復過程を可視化する
-
-```python
-fig, axes = plt.subplots(2, 3, figsize=(15, 9))
-
-rng = np.random.default_rng(seed=42)
-idx = rng.choice(len(X), 3, replace=False)
-centroids = X[idx].copy()
-
-for i, ax in enumerate(axes.ravel()):
-    # 割り当て
-    distances = np.sqrt(((X[:, np.newaxis] - centroids) ** 2).sum(axis=2))
-    labels = distances.argmin(axis=1)
-
-    ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', s=20, alpha=0.6)
-    ax.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='X', s=200,
-               edgecolors='black', linewidth=2)
-    ax.set_title(f'{i+1} 回目の反復')
-    ax.grid(True, alpha=0.3)
-
-    # 重心を更新
-    centroids = np.array([X[labels == j].mean(axis=0) for j in range(3)])
-
-plt.suptitle('K-Means の反復過程', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## 三、K-Means++ の初期化
-
-### なぜより良い初期化が必要なの？
-
-通常の K-Means は、最初の重心をランダムに選びます。そのため、次のような問題が起こることがあります。
-
-- 収束が遅い
-- 結果が安定しない
-- 局所最適に陥りやすい
-
-### K-Means++ の戦略
-
-**考え方の中心**は、初期重心をできるだけ散らすことです。
-
-1. 最初の重心を 1 つランダムに選ぶ
-2. 2 つ目以降は、**すでにある重心から遠い点**を選びやすくする（距離の 2 乗に比例）
-3. K 個そろうまで繰り返す
-
-```python
-# sklearn のデフォルトは K-Means++
-kmeans_pp = KMeans(n_clusters=3, init='k-means++', random_state=42, n_init=10)
-kmeans_random = KMeans(n_clusters=3, init='random', random_state=0, n_init=1)
-
-kmeans_pp.fit(X)
-kmeans_random.fit(X)
-
-print(f"K-Means++ の慣性: {kmeans_pp.inertia_:.2f}")
-print(f"ランダム初期化の慣性: {kmeans_random.inertia_:.2f}")
-```
-
-期待される出力：
-
-```text
-K-Means++ の慣性: 362.79
-ランダム初期化の慣性: 5482.74
-```
-
-ランダム初期化では、運悪く悪い位置から始まることがあります。その場合、最終的な慣性がかなり大きくなります。だから現在の `sklearn` は K-Means++ をデフォルトにしています。
-
-:::info sklearn のデフォルト
-sklearn の `KMeans` は、デフォルトで `init='k-means++'` を使います。そのため、ふつうは自分で設定しなくても大丈夫です。`n_init=10` は 10 回実行して、最も良い結果を採用するという意味です。
-:::
-
----
-
-## 四、K 値をどう選ぶか？
-
-K-Means の大きな課題は、**事前に K を決める必要がある**ことです。よく使う方法は 2 つあります。
-
-### エルボー法（Elbow Method）
-
-異なる K に対する SSE（Sum of Squared Errors、つまり `inertia_`）を計算し、「曲がり角」を探します。
-
-```python
-sse = []
-K_range = range(1, 11)
-
-for k in K_range:
-    km = KMeans(n_clusters=k, random_state=42, n_init=10)
-    km.fit(X)
-    sse.append(km.inertia_)
-
-print("SSE by K:", [round(value, 2) for value in sse])
-
-plt.figure(figsize=(8, 5))
-plt.plot(K_range, sse, 'bo-', markersize=8)
-plt.xlabel('K（クラスタ数）')
-plt.ylabel('SSE（慣性）')
-plt.title('エルボー法——最適な K を選ぶ')
-plt.xticks(K_range)
-plt.grid(True, alpha=0.3)
-
-# 肘を示す
-plt.annotate('肘 → K=3', xy=(3, sse[2]), xytext=(5, sse[2] + 200),
-             arrowprops=dict(arrowstyle='->', color='red'),
-             fontsize=12, color='red')
-plt.show()
-```
-
-期待される出力：
-
-```text
-SSE by K: [20120.54, 5526.51, 362.79, 318.07, 273.36, 233.6, 200.97, 172.85, 149.96, 139.27]
-```
-
-### エルボー法でよくある誤用
-
-エルボー法は分かりやすいですが、現実にははっきりした「肘」が見えないことも多いです。  
-そのときは、無理にひとつの正解を決めず、次のように使うのがよいです。
-
-- 候補範囲を絞るためのツールとして使う
-
-より安定した進め方は、
-
-- まずエルボー法で `K` の候補を 2〜4 個くらいに絞る
-- 次にシルエット係数と業務上の説明しやすさで再評価する
-
-### シルエット係数（Silhouette Score）
-
-シルエット係数は、各サンプルのクラスタリング品質を表し、値の範囲は [-1, 1] です。
-
-- **1 に近い**：同じクラスタ内でまとまっており、他クラスタからも十分離れている（良い）
-- **0 に近い**：2 つのクラスタの境目にある
-- **-1 に近い**：誤って分類されている可能性が高い
-
-```python
-from sklearn.metrics import silhouette_score, silhouette_samples
-
-sil_scores = []
-for k in range(2, 11):
-    km = KMeans(n_clusters=k, random_state=42, n_init=10)
-    labels = km.fit_predict(X)
-    score = silhouette_score(X, labels)
-    sil_scores.append(score)
-    print(f"K={k}: シルエット係数 = {score:.4f}")
-
-plt.figure(figsize=(8, 5))
-plt.plot(range(2, 11), sil_scores, 'bo-', markersize=8)
-plt.xlabel('K（クラスタ数）')
-plt.ylabel('シルエット係数')
-plt.title('シルエット係数——最適な K を選ぶ')
-plt.xticks(range(2, 11))
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-### シルエット図の可視化
-
-```python
-from sklearn.metrics import silhouette_samples
-
-fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-
-for ax, k in zip(axes, [2, 3, 4]):
-    km = KMeans(n_clusters=k, random_state=42, n_init=10)
-    labels = km.fit_predict(X)
-    sil_vals = silhouette_samples(X, labels)
-    avg_score = silhouette_score(X, labels)
-
-    y_lower = 10
-    for i in range(k):
-        cluster_sil = np.sort(sil_vals[labels == i])
-        y_upper = y_lower + len(cluster_sil)
-        ax.fill_betweenx(np.arange(y_lower, y_upper), 0, cluster_sil, alpha=0.7)
-        ax.text(-0.05, y_lower + 0.5 * len(cluster_sil), str(i), fontsize=12)
-        y_lower = y_upper + 10
-
-    ax.axvline(x=avg_score, color='red', linestyle='--', label=f'平均={avg_score:.3f}')
-    ax.set_title(f'K={k}')
-    ax.set_xlabel('シルエット係数')
-    ax.set_ylabel('サンプル')
-    ax.legend()
-
-plt.suptitle('異なる K 値のシルエット図', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-あるクラスタのシルエット図に 0 に近い値や 0 未満の値が多い場合、そのクラスタは他のクラスタと重なっている可能性があります。多くのバーが長く、正の方向に伸びているほど、分け方はより明確です。
-
-### 初めてクラスタリングを使うとき、より安定した順番は？
-
-実際のプロジェクトで初めてクラスタリングを使うなら、次の順番がおすすめです。
-
-1. まず特徴量の標準化を行う
-2. 2 次元投影や基本統計で、データにグループらしさがあるか見る
-3. まず `K-Means` を baseline として動かす
-4. 次にエルボー法とシルエット係数で `K` を絞る
-5. クラスタ形状が明らかに不規則、またはノイズが多いなら `DBSCAN` を試す
-6. 最後に必ず業務の説明に戻る：各クラスタは何を意味するのか
-
-ここがとても重要です。クラスタリングプロジェクトは、「分かれたけれど、その意味が分からない」という状態に陥りやすいからです。
-
----
-
-## 五、階層クラスタリング
-
-### 原理
-
-階層クラスタリングは、K を最初に決める必要がなく、**デンドログラム（Dendrogram）** という木構造を作ります。
-
-**凝集型（下から上へ）**：
-1. 各点を 1 つのクラスタとして始める
-2. 最も近い 2 つのクラスタを統合する
-3. 1 つのクラスタになるまで繰り返す
-
-```python
-from sklearn.cluster import AgglomerativeClustering
-from scipy.cluster.hierarchy import dendrogram, linkage
-
-# 少量データでデンドログラムを表示
-X_small = X[:50]
-
-# 階層構造を計算
-linkage_matrix = linkage(X_small, method='ward')
-
-fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-
-# デンドログラム
-dendrogram(linkage_matrix, ax=axes[0], truncate_mode='level', p=5)
-axes[0].set_title('デンドログラム')
-axes[0].set_xlabel('サンプル')
-axes[0].set_ylabel('距離')
-
-# クラスタリング結果
-agg = AgglomerativeClustering(n_clusters=3)
-labels_agg = agg.fit_predict(X)
-print(f"Linkage matrix shape: {linkage_matrix.shape}")
-print(f"Hierarchical cluster labels: {np.unique(labels_agg)}")
-axes[1].scatter(X[:, 0], X[:, 1], c=labels_agg, cmap='viridis', s=30, alpha=0.7)
-axes[1].set_title('階層クラスタリング結果 (K=3)')
-axes[1].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-Linkage matrix shape: (49, 4)
-Hierarchical cluster labels: [0 1 2]
-```
-
-`linkage_matrix` が 49 行なのは、50 個の小さなサンプルを 1 本の木にまとめるために 49 回の統合が必要だからです。これが「階層的」という意味です。木をどの高さで切るかによって、クラスタ数を変えられます。
-
-### リンク方法
-
-| 方法 | 2 つのクラスタ間の距離の定義 | 特徴 |
-|------|-------------------|------|
-| `ward` | 統合後の SSE 増加量が最小 | 最もよく使われる。サイズがそろったクラスタになりやすい |
-| `complete` | 最も遠い点どうしの距離 | 外れ値の影響を受けやすい |
-| `average` | すべての点対の平均距離 | バランスのよい方法 |
-| `single` | 最も近い点どうしの距離 | チェーン状に伸びやすい |
-
----
-
-## 六、DBSCAN の密度クラスタリング
-
-### K-Means の限界
-
-K-Means は、クラスタが**球状**であると仮定するため、非球状データではうまくいきません。
-
-```python
-from sklearn.datasets import make_moons, make_circles
-
-fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-
-# 半月形データ + K-Means
-X_moons, y_moons = make_moons(n_samples=300, noise=0.1, random_state=42)
-km_moons = KMeans(n_clusters=2, random_state=42, n_init=10)
-labels_km = km_moons.fit_predict(X_moons)
-print(f"K-Means half-moon labels: {np.unique(labels_km)}")
-axes[0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
-axes[0].set_title('K-Means を半月形データに適用（失敗）')
-
-# 同心円データ + K-Means
-X_circles, y_circles = make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)
-km_circles = KMeans(n_clusters=2, random_state=42, n_init=10)
-labels_km2 = km_circles.fit_predict(X_circles)
-print(f"K-Means circle labels: {np.unique(labels_km2)}")
-axes[1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_km2, cmap='coolwarm', s=20)
-axes[1].set_title('K-Means を同心円データに適用（失敗）')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-    ax.set_aspect('equal')
-
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-K-Means half-moon labels: [0 1]
-K-Means circle labels: [0 1]
-```
-
-この出力は少し注意が必要です。K-Means は確かに 2 つのラベルを出しますが、図を見ると曲がった形をうまく分けられていません。コードが動くことと、良いクラスタリングであることは同じではありません。
-
-### DBSCAN の原理
-
-DBSCAN（Density-Based Spatial Clustering of Applications with Noise）は、**密度**に基づいてクラスタを作るアルゴリズムです。
-
-| 用語 | 説明 |
-|------|------|
-| **eps** | 近傍の半径 |
-| **min_samples** | コア点に必要な最小近傍数 |
-| **コア点** | 近傍内に min_samples 個以上の点がある点 |
-| **境界点** | コア点の近傍にあるが、自分はコア点ではない点 |
-| **ノイズ点** | コア点でもなく、どのコア点の近傍にもない点 |
-
-```mermaid
-flowchart TD
-    A["まだ訪問していない点を順番に見る"] --> B{"近傍内の点数<br/>≥ min_samples?"}
-    B -->|"はい → コア点"| C["新しいクラスタを作り、再帰的に広げる"]
-    B -->|"いいえ"| D{"どこかのコア点の<br/>近傍内にある？"}
-    D -->|"はい"| E["境界点としてそのクラスタに追加"]
-    D -->|"いいえ"| F["ノイズ点"]
-
-    style C fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style E fill:#fff3e0,stroke:#e65100,color:#333
-    style F fill:#ffebee,stroke:#c62828,color:#333
-```
-
-### DBSCAN の実践
-
-```python
-from sklearn.cluster import DBSCAN
-
-fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-
-def cluster_noise_summary(labels):
-    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-    n_noise = int((labels == -1).sum())
-    return n_clusters, n_noise
-
-# 半月形データ
-db_moons = DBSCAN(eps=0.2, min_samples=5)
-labels_db_moons = db_moons.fit_predict(X_moons)
-axes[0][0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_db_moons, cmap='viridis', s=20)
-n_clusters, n_noise = cluster_noise_summary(labels_db_moons)
-axes[0][0].set_title(f'DBSCAN 半月形（ノイズ点: {n_noise}）')
-print(f"DBSCAN half-moon: clusters={n_clusters}, noise={n_noise}")
-
-# 同心円データ
-db_circles = DBSCAN(eps=0.15, min_samples=5)
-labels_db_circles = db_circles.fit_predict(X_circles)
-axes[0][1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_db_circles, cmap='viridis', s=20)
-n_clusters, n_noise = cluster_noise_summary(labels_db_circles)
-axes[0][1].set_title(f'DBSCAN 同心円（ノイズ点: {n_noise}）')
-print(f"DBSCAN circles: clusters={n_clusters}, noise={n_noise}")
-
-# 通常のデータ
-db_blobs = DBSCAN(eps=0.8, min_samples=5)
-labels_db_blobs = db_blobs.fit_predict(X)
-axes[1][0].scatter(X[:, 0], X[:, 1], c=labels_db_blobs, cmap='viridis', s=20)
-n_clusters, n_noise = cluster_noise_summary(labels_db_blobs)
-axes[1][0].set_title(f'DBSCAN 球状データ（{n_clusters} 個のクラスタを発見）')
-print(f"DBSCAN spherical: clusters={n_clusters}, noise={n_noise}")
-
-# K-Means と DBSCAN の比較
-axes[1][1].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
-axes[1][1].set_title('K-Means 半月形（比較用）')
-
-for ax in axes.ravel():
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-DBSCAN half-moon: clusters=2, noise=0
-DBSCAN circles: clusters=5, noise=0
-DBSCAN spherical: clusters=3, noise=5
-```
-
-ここから分かるのは、DBSCAN がこの半月形データにはよく合う一方で、同じパラメータがどんな形にも自動で合うわけではないということです。同心円の例では `eps=0.15` が厳しすぎて、円が複数の小さなクラスタに分かれています。
-
-### DBSCAN のパラメータ調整
-
-```python
-# eps の影響
-fig, axes = plt.subplots(1, 4, figsize=(18, 4))
-eps_values = [0.1, 0.2, 0.5, 1.0]
-
-for ax, eps in zip(axes, eps_values):
+from sklearn.cluster import AgglomerativeClustering, DBSCAN, KMeans
+from sklearn.datasets import make_blobs, make_moons
+from sklearn.metrics import adjusted_rand_score, silhouette_score
+from sklearn.preprocessing import StandardScaler
+
+
+# Round blob clusters: good K-Means demo.
+X_blob, y_blob = make_blobs(n_samples=360, centers=3, cluster_std=0.85, random_state=42)
+X_blob = StandardScaler().fit_transform(X_blob)
+
+print("kmeans_k_selection")
+for k in [2, 3, 4, 5]:
+    model = KMeans(n_clusters=k, n_init="auto", random_state=42)
+    labels = model.fit_predict(X_blob)
+    print(
+        f"k={k} inertia={model.inertia_:6.1f} "
+        f"silhouette={silhouette_score(X_blob, labels):.3f}"
+    )
+
+best = KMeans(n_clusters=3, n_init="auto", random_state=42)
+labels = best.fit_predict(X_blob)
+print("kmeans_centers")
+print(np.round(best.cluster_centers_, 2))
+print("kmeans_ari=", round(adjusted_rand_score(y_blob, labels), 3))
+
+# Curved clusters: DBSCAN is a better fit than K-Means.
+X_moon, y_moon = make_moons(n_samples=400, noise=0.08, random_state=42)
+X_moon = StandardScaler().fit_transform(X_moon)
+
+print("shape_mismatch_lab")
+kmeans = KMeans(n_clusters=2, n_init="auto", random_state=42)
+km_labels = kmeans.fit_predict(X_moon)
+print("kmeans_moon_ari=", round(adjusted_rand_score(y_moon, km_labels), 3))
+
+for eps in [0.15, 0.25, 0.35]:
     db = DBSCAN(eps=eps, min_samples=5)
-    labels = db.fit_predict(X_moons)
-    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-    n_noise = (labels == -1).sum()
-    print(f"eps={eps}: clusters={n_clusters}, noise={n_noise}")
-    ax.scatter(X_moons[:, 0], X_moons[:, 1], c=labels, cmap='viridis', s=20)
-    ax.set_title(f'eps={eps}\nクラスタ数: {n_clusters}, ノイズ: {n_noise}')
-    ax.grid(True, alpha=0.3)
+    db_labels = db.fit_predict(X_moon)
+    clusters = len(set(db_labels)) - (1 if -1 in db_labels else 0)
+    noise = int(np.sum(db_labels == -1))
+    print(
+        f"dbscan eps={eps:.2f} clusters={clusters} noise={noise} "
+        f"ari={adjusted_rand_score(y_moon, db_labels):.3f}"
+    )
 
-plt.suptitle('DBSCAN の eps パラメータの影響', fontsize=13)
-plt.tight_layout()
-plt.show()
+print("hierarchical_lab")
+agg = AgglomerativeClustering(n_clusters=3, linkage="ward")
+agg_labels = agg.fit_predict(X_blob)
+print("agglomerative_ari=", round(adjusted_rand_score(y_blob, agg_labels), 3))
+```
+
+実行します。
+
+```bash
+python clustering_lab.py
 ```
 
 期待される出力：
 
 ```text
-eps=0.1: clusters=20, noise=86
-eps=0.2: clusters=2, noise=0
-eps=0.5: clusters=1, noise=0
-eps=1.0: clusters=1, noise=0
+kmeans_k_selection
+k=2 inertia= 417.4 silhouette=0.527
+k=3 inertia=  16.4 silhouette=0.869
+k=4 inertia=  14.6 silhouette=0.690
+k=5 inertia=  11.9 silhouette=0.532
+kmeans_centers
+[[-0.2   1.17]
+ [-1.09 -1.25]
+ [ 1.29  0.08]]
+kmeans_ari= 1.0
+shape_mismatch_lab
+kmeans_moon_ari= 0.475
+dbscan eps=0.15 clusters=12 noise=37 ari=0.312
+dbscan eps=0.25 clusters=2 noise=1 ari=0.995
+dbscan eps=0.35 clusters=2 noise=1 ari=0.995
+hierarchical_lab
+agglomerative_ari= 1.0
 ```
 
-`eps` は懐中電灯で照らす半径のように考えると分かりやすいです。半径が小さすぎると密な場所が細かく切れ、半径が大きすぎると別々のグループまでひとつに飲み込まれます。
+`adjusted_rand_score` は、この合成データに隠れたラベルがあるから使っています。実際のクラスタリングでは普通ラベルがないため、指標、可視化、業務上の解釈で判断します。
 
-### DBSCAN の長所と短所
+## K-Means：`K` を選ぶ
 
-| 長所 | 短所 |
-|------|------|
-| K を事前に決めなくてよい | eps と min_samples の調整が必要 |
-| 任意の形のクラスタを見つけられる | 高次元データでは弱い |
-| ノイズ点を自動で識別できる | 密度の異なるクラスタの扱いが難しい |
-| 外れ値に比較的強い | パラメータに敏感 |
+K-Means は 3 ステップを繰り返します。
 
-### 初めてクラスタリングアルゴリズムを選ぶとき、どう判断する？
+1. `K` 個のクラスタ中心を置く。
+2. 各点を最も近い中心に割り当てる。
+3. 各中心を、そのクラスタに属する点の平均へ動かす。
 
-まずは次の簡単な表で考えるとよいです。
+実験では複数の `K` を比較しています。
 
-| データの特徴 | まず試しやすいもの |
-|---|---|
-| だいたい球状、サンプル数が多い | `K-Means` |
-| 階層構造を見たい、データ量は多くない | 階層クラスタリング |
-| 形が不規則、ノイズが目立つ | `DBSCAN` |
-
-迷ったら、まずは `K-Means` から始めて大丈夫です。  
-理由は、必ずしも一番良いからではなく、
-
-- 説明しやすい
-- baseline として使いやすい
-- 特徴量と `K` の見直しを促してくれる
-
-からです。
-
----
-
-## 七、クラスタリングアルゴリズムの比較
-
-```python
-from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
-from sklearn.datasets import make_blobs, make_moons, make_circles
-
-datasets = [
-    ("球状クラスタ", make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)),
-    ("半月形", make_moons(n_samples=300, noise=0.1, random_state=42)),
-    ("同心円", make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)),
-]
-
-algorithms = [
-    ("K-Means", lambda n_clusters: KMeans(n_clusters=n_clusters, random_state=42, n_init=10)),
-    ("階層クラスタリング", lambda n_clusters: AgglomerativeClustering(n_clusters=n_clusters)),
-    ("DBSCAN", lambda _: None),
-]
-
-fig, axes = plt.subplots(3, 3, figsize=(15, 14))
-
-for row, (data_name, (X_d, y_d)) in enumerate(datasets):
-    n_real = len(set(y_d))
-    for col, (algo_name, make_algo) in enumerate(algorithms):
-        ax = axes[row][col]
-
-        if algo_name in ['K-Means', '階層クラスタリング']:
-            algo = make_algo(n_real)
-            labels = algo.fit_predict(X_d)
-        else:
-            # DBSCAN の eps を調整
-            eps_map = {0: 0.8, 1: 0.2, 2: 0.15}
-            algo = DBSCAN(eps=eps_map[row], min_samples=5)
-            labels = algo.fit_predict(X_d)
-
-        ax.scatter(X_d[:, 0], X_d[:, 1], c=labels, cmap='viridis', s=15, alpha=0.7)
-        if row == 0:
-            ax.set_title(algo_name, fontsize=12)
-        if col == 0:
-            ax.set_ylabel(data_name, fontsize=12)
-        ax.grid(True, alpha=0.3)
-
-plt.suptitle('3 種類のクラスタリングアルゴリズムの異なるデータでの表現', fontsize=14)
-plt.tight_layout()
-plt.show()
+```text
+k=2 inertia= 417.4 silhouette=0.527
+k=3 inertia=  16.4 silhouette=0.869
+k=4 inertia=  14.6 silhouette=0.690
 ```
 
-| | K-Means | 階層クラスタリング | DBSCAN |
-|---|---------|---------|--------|
-| K を指定する必要がある | はい | はい | いいえ |
-| クラスタ形状 | 球状 | 球状/連鎖状 | 任意の形 |
-| ノイズ処理 | 苦手 | 苦手 | 得意 |
-| 大規模データ | 速い | 遅い | 中程度 |
-| 向いている場面 | 球状、大規模データ | 階層構造が必要 | 不規則な形、ノイズあり |
+ここでは `K=3` が実用的に最も良い選択です。
 
----
+- inertia は `K=2` から `K=3` で大きく下がる；
+- silhouette は `K=3` が最も高い；
+- さらにクラスタ数を増やすと inertia は下がるが、分離は悪くなる。
 
-## 八、初めてクラスタリングをプロジェクトに入れるときの、最も安定した順番
+inertia だけで `K` を選ばないでください。`K` が増えるほど小さなグループを作れるので、inertia は必ず改善します。
 
-実際のプロジェクトでクラスタリングを使うときは、次の順番が安定です。
+## K-Means の仮定
 
-1. まず、なぜグループ分けしたいのかを明確にする
-2. 標準化を行う
-3. まず `K-Means` で baseline を作る
-4. シルエット係数と可視化で確認する
-5. クラスタ形状が明らかに不規則なら `DBSCAN` を検討する
-6. 最後に業務の説明へ戻る：これらのグループは何を意味するのか
+K-Means が得意なのは次のような場合です。
 
-こうすると、最初に作るのは
+- だいたい丸いクラスタ；
+- 似た大きさのクラスタ；
+- 距離で分けやすいクラスタ；
+- 特徴量の尺度がそろっているデータ。
 
-- 目的
-- baseline
-- 指標
-- 説明
+曲がった形、入れ子構造、ノイズが多いデータ、密度が大きく違うデータでは苦戦します。
 
-という流れになり、「何となく分けたけれど意味が分からない」という状態を避けやすくなります。
+## DBSCAN：密な領域を探す
 
-:::info 次の内容へつなぐ
-- **次の節**：次元削減アルゴリズム——PCA、t-SNE、UMAP
-- **第 4 章の復習**：固有値と PCA（1.3 節）
-:::
+DBSCAN は先に `K` を求めません。代わりにこう問いかけます。
 
----
+> 半径 `eps` の中に十分な近傍点を持つ点はどれか？
 
-## まとめ
+そのため、曲がった形やノイズのあるデータに向いています。実験では形状のミスマッチが見えます。
 
-| 要点 | 説明 |
-|------|------|
-| K-Means | 最も代表的。最も近い重心に割り当て、反復更新する |
-| K-Means++ | より良い初期化。sklearn のデフォルト |
-| K 値の選び方 | エルボー法（SSE の曲がり角）+ シルエット係数（大きいほど良い） |
-| 階層クラスタリング | K を事前に決めなくてよい。デンドログラムを確認できる |
-| DBSCAN | 密度ベース。任意の形のクラスタを見つけられ、ノイズも自動で扱える |
+```text
+kmeans_moon_ari= 0.475
+dbscan eps=0.25 clusters=2 noise=1 ari=0.995
+```
 
-## この節で一番大事なこと
+K-Means は月形データを距離ベースの領域として無理に切ります。DBSCAN は密な曲線をたどるため、2 つの月形構造を復元できます。
 
-ひとことで言うなら、ぜひこれを覚えてください。
+重要なパラメータは `eps` です。
 
-> **クラスタリングは「真実を自動で出すもの」ではなく、ラベルがないときにデータ構造について検証可能な仮説を立てるものです。**
+```text
+dbscan eps=0.15 clusters=12 noise=37
+dbscan eps=0.25 clusters=2 noise=1
+```
 
-だから本当に大事なのは、アルゴリズム名をたくさん覚えることではなく、次の流れを身につけることです。
+`eps` が小さすぎると、本来 1 つのクラスタが細かく割れます。大きすぎると、複数のクラスタが結合されます。
 
-- まずデータの形を見る
-- 次にアルゴリズムを選ぶ
-- 次に指標を見る
-- 最後に業務の説明へ戻る
+## 階層的クラスタリング
 
-## 手を動かして練習しよう
+階層的クラスタリングは、近いグループを繰り返し結合します。入れ子構造を見たいとき、またはこの最小スクリプトの外で dendrogram を描きたいときに便利です。
 
-### 練習 1：K 値の選択
+実験では：
 
-`make_blobs(centers=5)` で 5 クラスタのデータを作り、あえて K=5 を知らないものとして扱います。エルボー法とシルエット係数で最適な K を探してください。
+```text
+agglomerative_ari= 1.0
+```
 
-### 練習 2：DBSCAN のパラメータ調整
+`linkage="ward"` はコンパクトなクラスタを好むため、丸い blob データではうまく動きます。非円形構造では、それだけでは不十分な場合があります。
 
-`make_moons(noise=0.15)` のデータを使い、異なる `eps`（0.05〜1.0）と `min_samples`（3〜15）の組み合わせを試し、3×3 のサブプロットを作って最適なパラメータを見つけてください。
+## アルゴリズム選択
 
-### 練習 3：実データのクラスタリング
+| データ形状 / 目的 | 最初に試すもの | 理由 |
+|---|---|---|
+| 丸くてコンパクトなグループ | K-Means | 高速、単純、強いベースライン |
+| `K` が不明で、ノイズや曲線がある | DBSCAN | ノイズを分け、密な領域をたどれる |
+| 階層関係を見たい | Agglomerative clustering | 結合構造を見られる |
+| 高次元 embedding | K-Means または HDBSCAN 系 | 可視化と検索チェックを合わせて見る |
+| ビジネスセグメント | K-Means 基線 + ドメインレビュー | 見た目ではなく、行動に結びつく必要がある |
 
-sklearn の `load_iris()` データセットを使い、ラベルを除いた上で K-Means、階層クラスタリング、DBSCAN を比較してください。真のラベルを使って調整ランド指数（`adjusted_rand_score`）を計算し、品質を評価してください。
+経験者向け：クラスタリングはアルゴリズム単体の点数ではなく、ワークフローとして評価します。再サンプリング、特徴量変更、スケーリング、乱数シードに対する安定性も確認してください。
 
-### 練習 4：顧客セグメンテーション
+## よくあるトラブル
 
-模擬顧客データ（購入金額、購入頻度、最終購入からの日数）を作り、標準化したあとで K-Means クラスタリングを行います。そして、各グループの特徴を分析してください（Pandas の groupby を使う）。
+| 症状 | よくある原因 | 修正 |
+|---|---|---|
+| K-Means の結果が大きく変わる | 初期化が不安定 | `n_init="auto"` を使い、複数 seed で確認する |
+| inertia では K が大きいほど良く見える | inertia は K が増えると必ず下がる | silhouette と業務解釈も見る |
+| DBSCAN がほぼ noise になる | `eps` が小さい、または未スケーリング | 特徴量をスケーリングし、`eps` を上げる |
+| DBSCAN が巨大な 1 クラスタだけ返す | `eps` が大きい | `eps` を下げる |
+| クラスタ図はきれいだが使えない | 特徴量が行動につながらない | 各クラスタがプロダクト上何を変えるか先に決める |
+
+## 練習
+
+1. `make_blobs()` の `cluster_std` を `0.85` から `1.5` に変えてください。silhouette はどう変わりますか？
+2. K-Means のループに `K=6` を追加してください。inertia は良くなりますか？silhouette はどうですか？
+3. DBSCAN の `min_samples` を `10` に変えてください。noise の数はどう変わりますか？
+4. 顧客データに置き換えてください。数値特徴量をスケーリングし、各クラスタを自然な言葉で説明してください。
+5. 異なる乱数 seed で同じクラスタリングを繰り返してください。信頼できるほど安定していますか？
+
+## 合格チェック
+
+次を説明できれば、この節はクリアです。
+
+- クラスタリングは仮説を作るのであって、保証された真実ではない；
+- K-Means は丸くコンパクトなグループの強いベースライン；
+- inertia だけで `K` を決めてはいけない；
+- DBSCAN は密な曲線形状とノイズに強い；
+- 最終的なクラスタ名は、現実の意味で検証される必要がある。
