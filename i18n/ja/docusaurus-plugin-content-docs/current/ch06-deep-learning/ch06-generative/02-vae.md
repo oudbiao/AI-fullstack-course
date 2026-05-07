@@ -1,312 +1,212 @@
 ---
-title: "6.6.3 VAE 基礎【選択】"
+title: "6.6.3 VAE 基礎 [任意]"
 sidebar_position: 2
-description: "エンコード、サンプリング、デコードの3ステップから、VAE がなぜ連続的でサンプリング可能な潜在空間を学べるのかを理解します。"
-keywords: [VAE, latent space, encoder, decoder, reparameterization, generation]
+description: "データを分布へ encode し、reparameterization で sampling し、decode しながら reconstruction と KL regularization のバランスを学びます。"
+keywords: [VAE, latent space, encoder, decoder, reparameterization, KL divergence, generation]
 ---
 
-# 6.6.3 VAE 基礎【選択】
-
-![VAE 潜在空間生成フローチャート](/img/course/vae-latent-space-flow-ja.png)
+# 6.6.3 VAE 基礎 [任意]
 
 :::tip この節の位置づけ
-GAN が「本物か偽物かの対戦」で分布を学ぶのだとすると、  
-VAE はもう一つの考え方に近いです。
-
-> **まずデータを連続的な潜在空間に圧縮し、その潜在空間からサンプリングして、もう一度復元する。**
-
-GAN のような強い対戦感はありませんが、VAE は「潜在空間」についてよりはっきり説明してくれます。生成モデルの構造的な直感を身につけるのにも向いています。
+VAE は生成型の autoencoder です。各入力を 1 つの固定点に圧縮するのではなく、latent space 内の小さな分布を学び、そこから sample して decode します。
 :::
 
 ## 学習目標
 
-- エンコーダー、潜在変数、デコーダーの関係を理解する
-- なぜ VAE は単一点のコードではなく「分布」を学ぶのかを理解する
-- 実行可能なサンプルを通して、潜在空間サンプリングの感覚をつかむ
-- VAE と普通のオートエンコーダーの違いを理解する
+- encoder、`mu`、`logvar`、latent sample `z`、decoder を説明できる。
+- VAE が reparameterization を使う理由を理解する。
+- 2D point で小さな PyTorch VAE を動かせる。
+- reconstruction loss と KL regularization を読める。
+- VAE、通常の autoencoder、GAN を比較できる。
 
 ---
 
-## まずは地図を作ろう
+## まず流れを見る
 
-前のエンコード表現、分類、またはオートエンコーダーの考え方から来たなら、まずはこう理解するとよいです。
+![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-ja.png)
 
-- 普通のエンコードモデルは、「どう圧縮して表現するか」を学ぶものに近い
-- VAE はさらに進んで、「この表現空間はサンプリング、補間、生成に使えるのか」を問いかける
+| 手順 | 何が起こるか | 実践的な意味 |
+|---|---|---|
+| Encode | `x -> mu, logvar` | latent の領域を表す |
+| Sample | `z = mu + eps * std` | sampling を微分可能にする |
+| Decode | `z -> reconstructed x` | latent code をデータに戻す |
+| Regularize | KL 項 | latent space を滑らかで sample しやすくする |
 
-つまり VAE でいちばん大きい変化は「少しランダムさを足す」ことではなく、次の点です。
+通常の autoencoder との違い：
 
-- 潜在表現を固定点ではなく、サンプリング可能な分布領域に変える
-
-VAE を学ぶとき、新人にとっていちばんわかりやすいのは、いきなり ELBO を暗記することではなく、まず構造をはっきりさせることです。
-
-```mermaid
-flowchart LR
-    A["入力サンプル x"] --> B["エンコーダー"]
-    B --> C["潜在変数の分布パラメータ<br/>mu, sigma"]
-    C --> D["z をサンプリング"]
-    D --> E["デコーダー"]
-    E --> F["復元または生成されたサンプル"]
+```text
+Autoencoder: x -> 1 つの latent 点 -> reconstruction
+VAE: x -> latent distribution -> sample z -> reconstruction または generation
 ```
 
-この節でいちばん大事なのは、次の 3 つの感覚をつかむことです。
+![VAE continuous latent space と sampling region 図](/img/course/ch06-vae-latent-continuity-sampling-map-ja.png)
 
-- エンコーダーは 1 点を出すだけではなく、ある領域を表している
-- 潜在空間が連続的かどうかは、なめらかにサンプリングできるかに影響する
-- VAE は「生成」と「表現学習」のつながりを理解する助けになる
+## Reparameterization が必要な理由
 
-## 一、VAE は何をしているのか？
+sampling にはランダム性があります。ランダム sampling をそのまま使うと、通常の backpropagation が通りにくくなります。VAE は sampling を次の形に書き換えます。
 
-### 普通のオートエンコーダーは圧縮と復元に近い
+```text
+std = exp(0.5 * logvar)
+eps ~ N(0, 1)
+z = mu + eps * std
+```
 
-流れは次の通りです。
+これで勾配は `mu` と `std` を通って戻れます。`eps` はランダム性を与える役目です。
 
-- 入力 -> 圧縮表現 -> 復元出力
+## VAE Loss
 
-### VAE はさらに一歩進む
+VAE の訓練では、ふつう 2 つの目標を合わせます。
 
-VAE は固定された潜在ベクトルを学ぶだけではなく、  
-次のものを学びます。
+```text
+loss = reconstruction_loss + beta * KL(q(z|x) || p(z))
+```
 
-- 潜在分布
+自然な言葉で読むと：
 
-たとえば：
+- reconstruction loss：decoder は入力を再構成できるか。
+- KL 項：latent space は N(0, 1) のような滑らかな prior に近いか。
+- `beta`：latent space をどれくらい強く整えるか。
 
-- 平均 `mu`
-- 分散 `sigma`
+KL の圧力が弱すぎると latent space が乱れやすくなります。強すぎると reconstruction が悪くなったり、latent variable がほとんど情報を持たなくなったりします。
 
-こうすることで、モデルは「復元のやり方を覚える」だけでなく、  
-次のようなこともできるようになります。
+## 実験：2D Point で小さな VAE を訓練する
 
-- 潜在空間でサンプリングする
-- そこから新しいサンプルを生成する
+これは画像 VAE ではありません。VAE の仕組み全体を見える形で動かすための小さな実験です。
 
-### たとえで考えると
-
-普通のオートエンコーダーは、各画像に固定の引き出しを割り当てるようなものです。  
-VAE は、その周りに「少し揺れる小さな領域」を割り当てるイメージです。そうすると、その近くでサンプリングしても、もっともらしいサンプルを作れます。
-
-### VAE を初めて学ぶとき、まず何をつかむべき？
-
-まず押さえるべきなのは ELBO ではなく、この一文です。
-
-> **VAE が学びたいのは、「各サンプルがどの 1 点に入っているか」ではなく、「この種類のサンプルは潜在空間のどのあたりに分布しているか」**
-
-この感覚がつかめると、次のことがわかりやすくなります。
-
-- なぜ `mu` と `sigma` が必要なのか
-- なぜ潜在空間は整っている必要があるのか
-- なぜ VAE は「潜在空間の直感」をつかむのに向いているのか
-
----
-
-## 二、なぜ VAE は潜在空間を強く意識するのか？
-
-### 生成の鍵は「空間からサンプリングできるかどうか」
-
-潜在表現が完全に離散的で、ばらばらで、連続していないと、  
-その中からなめらかにサンプリングして妥当な結果を得るのは難しくなります。
-
-### VAE は潜在空間をより整った形にしたい
-
-そのため VAE は、潜在変数の分布が規則的な事前分布に近づくように促します。  
-通常は次のような分布です。
-
-- 標準正規分布
-
-だからこそ、VAE の潜在空間は次の用途に向いています。
-
-- 補間
-- サンプリング
-- 生成
-
-### 潜在空間でまず覚えるべきなのは、次元ではなく「連続性」
-
-初心者が潜在空間を学ぶとき、つい次のことに意識が向きがちです。
-
-- ベクトルの長さ
-- 次元数
-
-でも、実はもっと大切なのは次の点です。
-
-- この空間は連続しているか
-- 近くに少し動かしたとき、生成結果も自然に変化するか
-
-これが、VAE と普通のエンコーダーの大きな違いです。
-
-![VAE の連続潜在空間とサンプリング領域の図](/img/course/ch06-vae-latent-continuity-sampling-map-ja.png)
-
-:::tip 図の見方
-この図では「点」より「領域」を見てください。普通のオートエンコーダーはサンプルを固定位置に圧縮するイメージですが、VAE は `mu` と `sigma` を学ぶことで、各サンプルにサンプリング可能な小さな領域を対応させます。潜在空間がより連続的であるほど、補間や生成は自然になります。
-:::
-
----
-
-## 三、最小限の潜在空間サンプリング例を動かしてみよう
-
-この例では、最小構成で次を示します。
-
-1. エンコーダーが `mu` と `sigma` を出す
-2. そこから `z` をサンプリングする
-3. デコーダーが `z` に基づいて出力を生成する
+`tiny_vae_2d.py` を作成します。
 
 ```python
-import math
-import random
+import torch
+from torch import nn
 
-random.seed(42)
+torch.manual_seed(4)
 
-
-def encoder(x):
-    # 極簡な例: 入力 x に対応する平均と標準偏差
-    mu = x * 0.5
-    sigma = 0.3 + x * 0.1
-    return mu, sigma
+cluster_a = torch.randn(128, 2) * 0.15 + torch.tensor([1.0, 0.0])
+cluster_b = torch.randn(128, 2) * 0.15 + torch.tensor([-1.0, 0.0])
+x = torch.cat([cluster_a, cluster_b], dim=0)
 
 
-def sample_z(mu, sigma):
-    epsilon = random.gauss(0, 1)
-    return mu + sigma * epsilon
+class TinyVAE(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.encoder = nn.Sequential(nn.Linear(2, 16), nn.ReLU())
+        self.mu = nn.Linear(16, 2)
+        self.logvar = nn.Linear(16, 2)
+        self.decoder = nn.Sequential(nn.Linear(2, 16), nn.ReLU(), nn.Linear(16, 2))
+
+    def reparameterize(self, mu, logvar):
+        std = torch.exp(0.5 * logvar)
+        eps = torch.randn_like(std)
+        return mu + eps * std
+
+    def forward(self, x):
+        h = self.encoder(x)
+        mu = self.mu(h)
+        logvar = self.logvar(h)
+        z = self.reparameterize(mu, logvar)
+        recon = self.decoder(z)
+        return recon, mu, logvar
 
 
-def decoder(z):
-    # 極簡な例: 潜在変数を「生成値」に戻す
-    return round(z * 2, 3)
+model = TinyVAE()
+opt = torch.optim.Adam(model.parameters(), lr=0.02)
 
+for epoch in range(1, 201):
+    recon, mu, logvar = model(x)
+    recon_loss = ((recon - x) ** 2).mean()
+    kl = -0.5 * torch.mean(1 + logvar - mu.pow(2) - logvar.exp())
+    loss = recon_loss + 0.05 * kl
 
-x = 1.2
-mu, sigma = encoder(x)
-samples = [decoder(sample_z(mu, sigma)) for _ in range(5)]
+    opt.zero_grad()
+    loss.backward()
+    opt.step()
 
-print("mu:", round(mu, 3))
-print("sigma:", round(sigma, 3))
-print("generated samples:", samples)
+    if epoch in [1, 50, 100, 200]:
+        print(
+            f"epoch={epoch:03d} "
+            f"recon={recon_loss.item():.4f} "
+            f"kl={kl.item():.4f} "
+            f"loss={loss.item():.4f}"
+        )
+
+with torch.no_grad():
+    z = torch.randn(5, 2)
+    samples = model.decoder(z)
+    rounded = [[round(v, 3) for v in row.tolist()] for row in samples]
+    print("generated_points")
+    print(rounded)
 ```
 
-### この例でいちばん大事な点は？
+実行します。
 
-VAE の重要な特徴がはっきり見えます。
+```bash
+python tiny_vae_2d.py
+```
 
-- 同じ入力が 1 つの固定点だけに対応するわけではない
-- 代わりに、サンプリング可能な分布に対応する
+期待される出力：
 
-### なぜ普通のオートエンコーダーより生成っぽいのか？
+```text
+epoch=001 recon=0.5903 kl=0.0293 loss=0.5917
+epoch=050 recon=0.0335 kl=0.9007 loss=0.0785
+epoch=100 recon=0.0261 kl=0.8229 loss=0.0673
+epoch=200 recon=0.0244 kl=0.7138 loss=0.0601
+generated_points
+[[1.075, -0.014], [-0.997, -0.001], [-1.118, -0.054], [0.553, 0.041], [0.74, 0.021]]
+```
 
-潜在空間の近くから、少しずつ違うけれど関係のある結果をいくつもサンプリングできるからです。  
-これにより、モデルは復元だけでなく、変種も生成できるようになります。
+出力の読み方：
 
----
+- `recon` が下がるのは、decoder が 2D point を再構成できるようになっているからです。
+- `kl` は 0 になる必要はありません。latent space を滑らかな prior に近づける圧力です。
+- `generated_points` はランダムな `z` から decode したもので、訓練データを直接コピーしたものではありません。
 
-## 四、VAE と GAN の直感的な違いは？
+## VAE、Autoencoder、GAN
 
-### VAE
+| モデル | 何を学ぶか | 強み | よくある弱点 |
+|---|---|---|---|
+| Autoencoder | compact representation | reconstruction | latent space が sample しやすいとは限らない |
+| VAE | distribution-shaped latent space | 滑らかな sampling と interpolation | 画像ではぼやけやすいことがある |
+| GAN | adversarial realism | sharp な sample を作りやすい | 訓練が不安定で mode collapse しやすい |
 
-より重視するのは次の点です。
+## 実践診断
 
-- 潜在空間の構造
-- 分布のモデリング
-- なめらかなサンプリング
+| 信号 | 健康な方向 | 警告サイン |
+|---|---|---|
+| reconstruction loss | 下がって安定する | 高いまま |
+| KL 項 | 0 ではなく、制御されている | 0 に潰れる、または loss を支配する |
+| generated samples | もっともらしく多様 | すべて似ている、または意味がない |
+| interpolation | 滑らかに変化する | 急に飛ぶ、data-like な領域から外れる |
 
-### GAN
+よくある深層学習の tradeoff：
 
-より重視するのは次の点です。
+```text
+より良い reconstruction <-> より規則的な latent space
+```
 
-- 対戦学習
-- サンプルが本物か偽物かの判定
-- 生成サンプルのリアルさ
+この balance は KL weight で調整します。beta-VAE ではよく `beta` と呼ばれます。
 
-### なので、学ぶときに見るべきポイントが違う
+## よくある間違い
 
-- 潜在空間と確率的な生成の直感を学ぶなら、VAE がよい
-- 対戦的な生成と学習の不安定さを学ぶなら、GAN がよい
-
-### 初心者はまずどちらを安定して学ぶべき？
-
-次のことを理解したいなら、VAE のほうが GAN より最初の直感をつかみやすいことが多いです。
-
-- なぜ潜在空間で補間できるのか
-- なぜ生成モデルは分布を重視するのか
-- なぜ「サンプリングできる」ことが大事なのか
-
-### GAN と VAE を並べたとき、まず押さえるべき違いは？
-
-覚えやすい言い方をすると、次のようになります。
-
-- GAN は「どうやって本物と見分けがつかないようにするか」を学ぶ感じ
-- VAE は「どうやってサンプルをサンプリング可能な潜在空間に置くか」を学ぶ感じ
-
-つまり、
-
-- 対戦的な生成を理解したいなら GAN が典型
-- 潜在空間と表現生成を理解したいなら VAE のほうがわかりやすい
-
-### VAE を生成モデル学習の順番に入れるなら、どこに置く？
-
-一般的には、次の順番がわかりやすいです。
-
-1. まず普通のオートエンコーダーで圧縮と復元を理解する
-2. 次に VAE の「分布化された潜在空間」を理解する
-3. そのあとで GAN と比べる
-
-こうすると、次の 3 つがどうつながるかが見えやすくなります。
-
-- 復元
-- サンプリング
-- 潜在空間の構造
-
----
-
-## 五、VAE でつまずきやすいポイント
-
-### 誤解その1：VAE は普通のオートエンコーダーに少しランダム性を足しただけ
-
-違います。  
-いちばん重要な変化は次の点です。
-
-- 分布を学ぶ
-- 潜在空間をサンプリング可能にする
-
-### 誤解その2：復元がきれいなら、潜在空間も必ずよい
-
-そうとは限りません。  
-潜在空間が整っているか、なめらかかどうかも大事です。
-
-### 誤解その3：VAE は画像だけに使うもの
-
-そんなことはありません。  
-次のような用途にも使えます。
-
-- テキストの潜在表現
-- 表形式データの生成
-- 表現学習
-
----
-
-## この先の学習でおすすめの順番
-
-1. まず普通のオートエンコーダーと VAE の違いをはっきりさせる
-2. 次に VAE と GAN の違いをはっきりさせる
-3. 最後に潜在空間の補間、生成品質、より現代的な生成手法を見る
-
-## まとめ
-
-この節で最も大事なのは、次の理解です。
-
-> **VAE の核心は、連続的でサンプリング可能な潜在空間を学び、入力の復元だけでなく、潜在空間での生成や補間もできるようにすること。**
-
-この直感ができれば、後で出てくる生成モデルの構造もかなり読みやすくなります。
-
-## この節で持ち帰るべきこと
-
-- VAE の本質は「生成できる」ことより、「サンプリング可能な潜在空間を学ぶ」こと
-- それは表現学習と生成モデルをつなぐ橋になる
-- まず生成モデルの構造的な直感をつかみたいなら、VAE は GAN よりやさしい入口になりやすい
-
----
+| 間違い | 直し方 |
+|---|---|
+| VAE は autoencoder に noise を足しただけだと思う | `mu`、`logvar`、KL、sample 可能な latent space に注目する |
+| reparameterization を無視する | `z = mu + eps * std` が勾配を通すと覚える |
+| KL を早すぎる段階で強くしすぎる | 小さな beta や KL warmup を試す |
+| reconstruction だけで判断する | generated samples と interpolation も見る |
+| VAE と GAN を画像の sharpness だけで比べる | 安定性、latent structure、task fit も比べる |
 
 ## 練習
 
-1. サンプル中の `x` をいろいろな値に変えて、生成サンプルの分布がどう変わるか見てみましょう。
-2. なぜ VAE は「復元の正確さ」だけでなく、「潜在空間の構造」を重視するのでしょうか？
-3. 自分の言葉で、VAE と普通のオートエンコーダーの最大の違いを説明してみましょう。
-4. 考えてみましょう: 「サンプルが潜在空間でどのようになめらかに変化するか」を調べたいとき、なぜ VAE はよい入口になるのでしょうか？
+1. KL weight を `0.05` から `0.0` に変えてください。`kl` と generated samples はどう変わりますか。
+2. KL weight を `0.5` に変えてください。reconstruction は悪くなりますか。
+3. `[-2, 0]` から `[2, 0]` までの線上の点を decode してください。出力は滑らかに変わりますか。
+4. decoder の `ReLU` を `Tanh` に変えてください。訓練はまだ収束しますか。
+5. GAN や diffusion の画像がより sharp に見えても、VAE が latent-space intuition に役立つ理由を説明してください。
+
+## まとめ
+
+- VAE は固定 code ではなく latent distribution を学びます。
+- Reparameterization によって sampling と backpropagation を両立します。
+- KL 項は latent space をより滑らかで sample しやすくします。
+- VAE は GAN より訓練しやすいことが多い一方、構造と引き換えに sharpness を失う場合があります。
+- VAE を理解すると、後の diffusion や representation learning が学びやすくなります。
