@@ -7,33 +7,28 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 # AI フルスタック学習コース
 
-![AI フルスタック学習コースのメインビジュアル](/img/course/ai-fullstack-hero.png)
+![ここから始める4ステップ図](/img/course/intro-start-here-four-step-map-ja.png)
 
-このコースでは、ツール、Python、データ、モデル、大規模言語モデル、RAG、Agent、プロジェクト提出までを、実用的な地図として学びます。
+まず小さく始めます。AI例を1つ体験し、最小環境を準備し、能力マップを見て、第1章へ進みます。
 
-最初からすべての用語を理解する必要はありません。まず AI で何ができるかを体験し、最小環境を準備し、小さな動くプロジェクトを作りながら進めます。
-
-## 4ステップで始める
-
-| 手順 | 開くページ | 目標 |
-|---|---|---|
-| 1 | [30分 AI クイック体験](/intro/quick-experience) | 小さな AI 例を動かし、流れを感じる |
-| 2 | [環境準備](/intro/environment-setup) | Python、Git、プロジェクトフォルダを準備する |
-| 3 | [AIフルスタック能力マップ](/intro/ai-fullstack-map) | 全体像を1枚の図で見る |
-| 4 | [おすすめ学習ルート](/intro/learning-path) | ルートを1つ選び、第1章へ進む |
-
-## 最終的に作るもの
+## 画像に沿って進む
 
 ![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.png)
 
-| ステージ | 成果 |
-|---|---|
-| 基礎 | 再現できるコード作業環境 |
-| データとモデル | 小さなレポート、baseline、指標、エラー例 |
-| LLMアプリ | Promptツール、RAG Q&A、評価ケース |
-| Agentシステム | ツール呼び出し、trace、権限境界、デモ |
-| 卒業制作 | 他の人が実行し、確認し、議論できるプロジェクト |
+[クイック体験を動かす](/intro/quick-experience)：用語を覚える前に、入力 -> モデル -> 出力を見ます。
 
-## シンプルなルール
+![AIコース最小セットアップキット](/img/course/intro-minimal-setup-kit-ja.png)
 
-短く読み、動かし、証拠を残して、次へ進みます。初めてなら、今すぐクイック体験から始めましょう。
+[最小環境を準備する](/intro/environment-setup)：最初の週は Python、Git、プロジェクトフォルダで十分です。
+
+![AI フルスタック能力マップ](/img/course/intro-ai-fullstack-capability-map-ja.png)
+
+[能力マップを見る](/intro/ai-fullstack-map)：ツール、データ、モデル、LLM、RAG、Agent、提出は1つの道です。
+
+![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.png)
+
+[学習ルートを選ぶ](/intro/learning-path)：ルートを1つ選び、[第1章](/ch01-tools)へ進みます。
+
+## 1つのルール
+
+短く読み、動かし、証拠を残す。

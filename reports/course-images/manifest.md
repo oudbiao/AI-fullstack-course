@@ -41,6 +41,9 @@
 | `intro-portfolio-acceptance-ladder-en.png` | Portfolio acceptance ladder | `docs/intro/badges-achievements.md` | Portfolio acceptance ladder from exercise level to project level, portfolio level, and interview level, with evidence: runs, reproducible, evaluable demo, and explain tradeoffs and boundaries. |
 | `intro-portfolio-acceptance-ladder.png` | 作品集验收阶梯图 | `docs/intro/badges-achievements.md` | 作品集验收阶梯图：练习级、项目级、作品集级、面试级逐级上升，对应证据是能跑、可复现、可评估演示、能解释取舍边界。 |
 | `intro-portfolio-acceptance-ladder-ja.png` | ポートフォリオ受け入れ基準の階段図 | `docs/intro/badges-achievements.md` | ポートフォリオ受け入れ基準の階段図：練習レベル、プロジェクトレベル、ポートフォリオレベル、面接レベルへ進み、動く、再現できる、評価できるデモ、取捨選択と境界を説明できる証拠を示す。 |
+| `intro-start-here-four-step-map-en.png` | Start Here four-step entrance map | `docs/intro/course-page-guide.md` | Start Here four-step map for new AI full-stack learners: Quick Experience, Environment Setup, Capability Map, and Learning Path into Chapter 1. |
+| `intro-start-here-four-step-map.png` | 先从这里开始四步入口图 | `docs/intro/course-page-guide.md` | 新人从零开始 AI 全栈课程的四步入口图：快速体验、环境准备、能力地图、学习路线，然后进入第 1 章。 |
+| `intro-start-here-four-step-map-ja.png` | ここから始める四ステップ入口図 | `docs/intro/course-page-guide.md` | AI フルスタック講座をゼロから始めるための四ステップ入口図：クイック体験、環境準備、能力マップ、学習ルートから第1章へ進む。 |
 | `intro-stage-checkpoint-cards.png` | 课程阶段验收卡图 | `docs/intro/boss-challenge-map.md` | 课程阶段验收卡图：每个阶段只保留一个最小可运行成果、一份证据和一次复盘，替代冗长挑战地图。 |
 | `debug-detective-missions.png` | Debug 侦探任务集 | `docs/intro/debug-detective-missions.md` | Debug 侦探任务集：学习者像侦探一样收集线索、定位错误并写下修复记录。 |
 | `ch01-tools-foundation.png` | 开发者工具基础主视觉 | `docs/ch01-tools/index.md` | 开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。 |

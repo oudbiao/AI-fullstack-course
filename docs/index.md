@@ -7,33 +7,28 @@ keywords: [AI full-stack course, AI learning, beginner AI course, LLM, RAG, AI A
 
 # AI Full-Stack Learning Course
 
-![AI full-stack learning course hero](/img/course/ai-fullstack-hero.png)
+![Start here four-step map](/img/course/intro-start-here-four-step-map-en.png)
 
-This course helps beginners build a practical map of AI: tools, Python, data, models, large language models, RAG, Agents, and project delivery.
+Start simple: experience one AI example, prepare the smallest environment, look at the map, then enter Chapter 1.
 
-You do not need to understand every term before starting. First get a feeling for what AI can do, prepare a tiny working environment, then learn by building small runnable projects.
-
-## Start in 4 Steps
-
-| Step | Open | Goal |
-|---|---|---|
-| 1 | [30-Minute AI Quick Experience](/intro/quick-experience) | Run one small AI example and feel the loop |
-| 2 | [Environment Setup](/intro/environment-setup) | Prepare Python, Git, and a project folder |
-| 3 | [AI Full-Stack Capability Map](/intro/ai-fullstack-map) | See the big picture as one image |
-| 4 | [Recommended Learning Path](/intro/learning-path) | Pick one route and enter Chapter 1 |
-
-## What You Will Build Toward
+## Follow the Pictures
 
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.png)
 
-| Stage | Output |
-|---|---|
-| Foundations | A reproducible coding workspace |
-| Data and models | Small reports, baselines, metrics, and error samples |
-| LLM applications | Prompt tools, RAG Q&A, and evaluation cases |
-| Agent systems | Tool calls, traces, permission boundaries, and demos |
-| Capstone | A project others can run, inspect, and discuss |
+[Run the quick experience](/intro/quick-experience): see input -> model -> output before learning terms.
 
-## Simple Rule
+![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.png)
 
-Read briefly, run something, keep evidence, then continue. If you are new, start with the quick experience now.
+[Set up the minimum environment](/intro/environment-setup): Python, Git, and one project folder are enough for week one.
+
+![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
+
+[Look at the capability map](/intro/ai-fullstack-map): tools, data, models, LLM, RAG, Agent, and delivery are one path.
+
+![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.png)
+
+[Choose a learning path](/intro/learning-path): pick one route, then start [Chapter 1](/ch01-tools).
+
+## One Rule
+
+Read briefly, run something, keep evidence.

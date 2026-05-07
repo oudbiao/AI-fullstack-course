@@ -7,33 +7,28 @@ keywords: [AI 全栈课程, AI 学习, AI 新手课程, LLM, RAG, AI Agent]
 
 # AI 全栈学习教程
 
-![AI 全栈学习教程主视觉](/img/course/ai-fullstack-hero.png)
+![先从这里开始四步图](/img/course/intro-start-here-four-step-map.png)
 
-这套课程帮助新人建立一张实用 AI 地图：工具、Python、数据、模型、大语言模型、RAG、Agent 和项目交付。
+先简单开始：体验一个 AI 示例，准备最小环境，看懂能力地图，然后进入第 1 章。
 
-开始前不需要理解所有术语。先感受 AI 能做什么，再准备一个最小可运行环境，然后通过小项目边做边学。
-
-## 4 步开始
-
-| 步骤 | 打开 | 目标 |
-|---|---|---|
-| 1 | [30 分钟 AI 快速体验](/intro/quick-experience) | 跑一个小 AI 示例，先感受闭环 |
-| 2 | [环境准备](/intro/environment-setup) | 准备 Python、Git 和项目文件夹 |
-| 3 | [AI 全栈能力地图](/intro/ai-fullstack-map) | 用一张图看懂全局 |
-| 4 | [推荐学习路线](/intro/learning-path) | 选一条路线，进入第 1 章 |
-
-## 最终会做出什么
+## 跟着图片走
 
 ![30 分钟 AI 快速体验闭环](/img/course/intro-quick-experience-loop.png)
 
-| 阶段 | 产出 |
-|---|---|
-| 基础 | 可复现的代码工作区 |
-| 数据与模型 | 小报告、baseline、指标和错误样本 |
-| 大模型应用 | Prompt 工具、RAG 问答和评估案例 |
-| Agent 系统 | 工具调用、trace、权限边界和演示 |
-| 毕业项目 | 别人能运行、检查和讨论的项目 |
+[先跑快速体验](/intro/quick-experience)：在记术语前，先看见输入 -> 模型 -> 输出。
 
-## 简单规则
+![AI 课程最小环境工具包](/img/course/intro-minimal-setup-kit.png)
 
-短读，跑起来，留证据，再继续。如果你是新手，现在就从快速体验开始。
+[准备最小环境](/intro/environment-setup)：第一周只需要 Python、Git 和一个项目文件夹。
+
+![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.png)
+
+[看能力地图](/intro/ai-fullstack-map)：工具、数据、模型、LLM、RAG、Agent 和交付是一条路线。
+
+![推荐学习路线选择图](/img/course/intro-learning-path-selection.png)
+
+[选择学习路线](/intro/learning-path)：选一条路线，然后进入[第 1 章](/ch01-tools)。
+
+## 一个规则
+
+短读，跑起来，留证据。

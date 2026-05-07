@@ -1,7 +1,7 @@
 ---
 sidebar_position: 0
 title: "30-Minute AI Quick Experience"
-description: "A short first-run AI experience: image recognition, text generation, and image generation before starting the full course."
+description: "A short first-run AI experience for beginners: see input, model, output, then continue to setup."
 keywords: [AI quick experience, Google Colab, image recognition, text generation, image generation, AI introduction]
 ---
 
@@ -9,93 +9,46 @@ keywords: [AI quick experience, Google Colab, image recognition, text generation
 
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.png)
 
-**Goal:** run three tiny AI examples before learning the theory.
+**Just feel the loop:** input -> model -> output. Do not memorize terms yet.
 
-**Need:** Google Colab and a browser. No local setup.
+## Fastest No-Code Try
 
-## 1. What You Will See
+Open any AI chat or image tool you can access and try:
 
-| Try | You do | Later chapter |
-|---|---|---|
-| Image recognition | Give a picture, get labels | Deep learning and vision |
-| Text generation | Give a sentence start, get continuation | Transformer and LLM |
-| Image generation | Give a prompt, get an image | AIGC and multimodal AI |
+```text
+Explain RAG to a beginner with one analogy.
+```
 
-## 2. Image Recognition
+Then change one word, such as `beginner` to `developer`, and compare the result.
 
-Open [Google Colab](https://colab.research.google.com), create a notebook, and run two cells.
+## Optional Colab Try
 
-Cell 1:
+Open [Google Colab](https://colab.research.google.com), create a notebook, and run:
 
 ```python
 !pip install transformers torch pillow requests -q
-```
 
-Cell 2:
-
-```python
 from transformers import pipeline
 from PIL import Image
 import io
 import requests
 
 classifier = pipeline("image-classification", model="google/vit-base-patch16-224")
-
 url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/1200px-YellowLabradorLooking_new.jpg"
-resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
-resp.raise_for_status()
-image = Image.open(io.BytesIO(resp.content))
+image = Image.open(io.BytesIO(requests.get(url, headers={"User-Agent": "Mozilla/5.0"}).content))
 
 for row in classifier(image)[:3]:
-    print(f"{row['label']:30s} confidence: {row['score']:.1%}")
+    print(f"{row['label']:30s} {row['score']:.1%}")
 ```
 
 Expected shape:
 
 ```text
-Labrador retriever              confidence: 95.6%
-golden retriever                confidence: 1.0%
-kuvasz                          confidence: 0.5%
+Labrador retriever              95.6%
+golden retriever                1.0%
+kuvasz                          0.5%
 ```
 
-Your numbers may differ. The important idea: a trained model can label an image it has never seen from you.
+## Keep One Note
 
-## 3. Text Generation
-
-Add one more cell:
-
-```python
-from transformers import pipeline
-
-generator = pipeline("text-generation", model="gpt2")
-result = generator(
-    "The future of artificial intelligence is",
-    max_length=60,
-    num_return_sequences=1,
-)
-print(result[0]["generated_text"])
-```
-
-GPT-2 is old and small; it is used here because it runs quickly in a free notebook. The idea is still current: a language model predicts likely next tokens.
-
-## 4. Image Generation
-
-Open any image generation tool you can access and try:
-
-```text
-a small robot reading a book in a warm library, digital art
-```
-
-Change `library` to `spaceship` and generate again. You just tested prompt control.
-
-## Finish
-
-Keep only three notes:
-
-| Signal | Meaning |
-|---|---|
-| Recognition | AI maps input to labels |
-| Generation | AI continues or creates content |
-| Prompt control | Wording changes the result |
-
-Next, open the capability map and read it as a picture first.
+AI is not magic here: you give input, a trained model processes it, and you inspect the output. Next, set up the minimum environment.

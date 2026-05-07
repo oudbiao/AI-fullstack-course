@@ -747,6 +747,66 @@ Style: professional beginner-friendly technical course illustration, vertical 9:
 """.strip(),
     },
     {
+        "filename": "intro-start-here-four-step-map-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Start Here four-step entrance map",
+        "suggested_page": "docs/intro/course-page-guide.md",
+        "alt": "Start Here four-step map for new AI full-stack learners: Quick Experience, Environment Setup, Capability Map, and Learning Path into Chapter 1.",
+        "prompt": """
+A vertical English course infographic, comic panels plus workflow arrows, mobile-readable, theme: "Start Here: four steps into the AI full-stack course".
+Use four stacked step panels with large short labels and clear icons:
+1. Quick Experience: run a tiny AI example and feel input -> model -> output.
+2. Environment Setup: prepare Python, Git, and a project folder; do not install advanced tools first.
+3. Capability Map: understand tools, data, models, LLM, RAG, Agent, delivery in one map.
+4. Learning Path: choose one route, then enter Chapter 1.
+Make each step a simple mini scene, not a decorative background. Use arrows connecting the four panels downward.
+Bottom rule in a large clear strip: "Read briefly, run something, keep evidence".
+Text must be sparse, large, and clean. Avoid tiny text, dense paragraphs, gibberish, watermarks, and real brand logos.
+Style: professional beginner-friendly technical course illustration, vertical 9:16, comic workflow, clear icons, calm colors, enough whitespace.
+""".strip(),
+    },
+    {
+        "filename": "intro-start-here-four-step-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "先从这里开始四步入口图",
+        "suggested_page": "docs/intro/course-page-guide.md",
+        "alt": "新人从零开始 AI 全栈课程的四步入口图：快速体验、环境准备、能力地图、学习路线，然后进入第 1 章。",
+        "prompt": """
+一张竖版中文课程图解，漫画式小分镜 + 流程箭头，移动端可读，主题是“先从这里开始：新人进入 AI 全栈课程的 4 步入口”。
+从上到下 4 个步骤面板，每步用大字短标签和清晰图标：
+1. 快速体验：先跑一个小 AI 示例，感受 输入 -> 模型 -> 输出。
+2. 环境准备：准备 Python、Git、项目文件夹，不要先装一堆高级工具。
+3. 能力地图：看一张图理解 tools、data、models、LLM、RAG、Agent、delivery。
+4. 学习路线：选一条路线，然后进入第 1 章。
+每一步是简单小场景，不要装饰性背景。用向下箭头连接四个面板。
+底部大字短规则：“短读，跑起来，留证据”。
+文字要少、字号大、清晰。术语 Python、Git、tools、data、models、LLM、RAG、Agent、delivery 可保留英文。不要小字乱码、不要真实品牌 logo、不要水印、不要密集段落。
+风格专业、温和、新手友好，竖版 9:16，流程漫画感，图标清楚，留白充足。
+""".strip(),
+    },
+    {
+        "filename": "intro-start-here-four-step-map-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "ここから始める四ステップ入口図",
+        "suggested_page": "docs/intro/course-page-guide.md",
+        "alt": "AI フルスタック講座をゼロから始めるための四ステップ入口図：クイック体験、環境準備、能力マップ、学習ルートから第1章へ進む。",
+        "prompt": """
+日本語の縦長コース図解。漫画風の小パネル + フロー矢印で、モバイルでも読める構成。テーマは「ここから始める：AI フルスタック講座への 4 ステップ入口」。
+上から下へ 4 つのステップパネルを配置し、大きな短いラベルと明快なアイコンを使う：
+1. クイック体験：小さな AI 例を動かし、入力 -> モデル -> 出力を体感。
+2. 環境準備：Python、Git、プロジェクトフォルダを準備。高度なツールを先に大量導入しない。
+3. 能力マップ：tools、data、models、LLM、RAG、Agent、delivery を一枚で理解。
+4. 学習ルート：ひとつのルートを選び、第1章へ進む。
+各ステップはシンプルな小場面にし、装飾背景にしない。4 パネルを下向き矢印でつなぐ。
+下部の大きな短いルール：「短く読み、動かし、証拠を残す」。
+文字は少なく、大きく、読みやすく。Python、Git、tools、data、models、LLM、RAG、Agent、delivery などの標準用語は英語でよい。細かい文字、文字化け、実在ブランドロゴ、透かし、長い段落は禁止。
+スタイルはプロフェッショナルでやさしい初心者向け教材図解、縦 9:16、フロー漫画、明快なアイコン、十分な余白。
+""".strip(),
+    },
+    {
         "filename": "intro-stage-checkpoint-cards.png",
         "size": "1024x1792",
         "quality": "high",
