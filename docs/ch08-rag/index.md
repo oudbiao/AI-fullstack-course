@@ -15,7 +15,7 @@ Think of RAG as "read before answering." The model should not guess from memory 
 
 ## See the RAG Application Loop
 
-![RAG application loop](/img/course/ch08-rag-app-loop-en.svg)
+![RAG application loop](/img/course/ch08-rag-app-loop-en.png)
 
 Use this loop as the chapter map.
 
@@ -111,7 +111,7 @@ Operation tip: add one new document, ask one new question, and print the top-k c
 
 ## Debug Bad RAG Answers
 
-![RAG debugging ladder](/img/course/ch08-rag-debug-ladder-en.svg)
+![RAG debugging ladder](/img/course/ch08-rag-debug-ladder-en.png)
 
 When the answer is bad, locate the failing layer before changing the model.
 
