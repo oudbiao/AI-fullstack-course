@@ -78,6 +78,8 @@ embedding_table = {
     9: [0.42, 0.45, 0.38],
 }
 
+special_token_ids = {vocab["[PAD]"], vocab["[CLS]"], vocab["[SEP]"]}
+
 
 def tokenize(text):
     return text.lower().split()
@@ -103,7 +105,7 @@ def average_embedding(input_ids, attention_mask):
     vectors = [
         embedding_table[token_id]
         for token_id, keep in zip(input_ids, attention_mask)
-        if keep == 1
+        if keep == 1 and token_id not in special_token_ids
     ]
     dim = len(vectors[0])
     return [sum(vector[i] for vector in vectors) / len(vectors) for i in range(dim)]
@@ -138,6 +140,32 @@ for text in texts:
 print("-" * 60)
 print("similarity(text 1, text 2):", round(cosine(sentence_vectors[0], sentence_vectors[1]), 3))
 print("similarity(text 1, text 3):", round(cosine(sentence_vectors[0], sentence_vectors[2]), 3))
+```
+
+预期输出：
+
+```text
+------------------------------------------------------------
+text          : please help reset password
+tokens        : ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]']
+input_ids     : [2, 8, 9, 4, 5, 3]
+attention_mask: [1, 1, 1, 1, 1, 1]
+sentence_vec  : [0.26, 0.307, 0.662]
+------------------------------------------------------------
+text          : reset password
+tokens        : ['[CLS]', 'reset', 'password', '[SEP]', '[PAD]', '[PAD]']
+input_ids     : [2, 4, 5, 3, 0, 0]
+attention_mask: [1, 1, 1, 1, 0, 0]
+sentence_vec  : [0.11, 0.19, 0.935]
+------------------------------------------------------------
+text          : refund order
+tokens        : ['[CLS]', 'refund', 'order', '[SEP]', '[PAD]', '[PAD]']
+input_ids     : [2, 6, 7, 3, 0, 0]
+attention_mask: [1, 1, 1, 1, 0, 0]
+sentence_vec  : [0.825, 0.75, 0.125]
+------------------------------------------------------------
+similarity(text 1, text 2): 0.949
+similarity(text 1, text 3): 0.607
 ```
 
 ## 怎样读输出
@@ -176,6 +204,7 @@ embedding table 会把每个 ID 变成向量。
 
 - token ID 告诉模型“这是哪个符号”
 - embedding vector 告诉模型“这个符号怎样被表示”
+- 本实验在简单平均时排除了 special tokens，让句向量更集中在内容词上
 
 ## 为什么示例里的相似度有效
 
