@@ -1,349 +1,186 @@
 ---
 title: "6.6.2 GAN Basics [Optional]"
 sidebar_position: 1
-description: "Starting from the adversarial game between the generator and the discriminator, understand why GAN can learn realistic samples and why it is often hard to train stably."
-keywords: [GAN, generator, discriminator, adversarial training, mode collapse]
+description: "Learn GANs by running a tiny adversarial game, reading generator/discriminator signals, and diagnosing instability and mode collapse."
+keywords: [GAN, generator, discriminator, adversarial training, mode collapse, PyTorch]
 ---
 
 # 6.6.2 GAN Basics [Optional]
 
-![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.png)
-
-:::tip Section overview
-What makes GAN especially appealing is:
-
-- It does not learn “labels”
-- It learns “whether something looks real”
-
-That is what makes it so attractive for generation tasks.
-But it can also make beginners feel uneasy, because the training process does not look like ordinary supervised learning.
-
-The goal of this section is not to mystify GAN, but to reduce it to a very concrete game:
-
-> **The generator tries to fool the discriminator, and the discriminator tries to catch the generator.**
+:::tip Section Overview
+A GAN is a two-player training loop: the generator tries to create fake samples that look real, while the discriminator tries to tell real and fake apart. The power and the instability come from the same place: both players keep changing.
 :::
 
-## Learning objectives
+## Learning Objectives
 
-- Understand what the generator and discriminator are each responsible for
-- Understand why “adversarial training” can improve generation quality
-- Build a minimal intuition for GAN training through a runnable example
-- Understand why mode collapse and unstable training happen so often
+- Explain the roles of the generator and discriminator.
+- Run a minimal PyTorch GAN on 1D data.
+- Read `loss_d`, `loss_g`, `fake_mean`, and `fake_std` as training signals.
+- Recognize mode collapse and discriminator/generator imbalance.
+- Know when GAN is useful, and when diffusion or other generative methods may be a better default.
 
 ---
 
-## First, build a map
+## See the Game First
 
-If you just came from earlier classification or regression tasks, you can think about it like this:
+![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.png)
 
-- Previously, the model mainly learned “what class should this input be assigned to?”
-- GAN starts learning “how can we create a sample that looks like it came from the real distribution?”
+| Part | Input | Output | Goal |
+|---|---|---|---|
+| Generator `G` | random noise `z` | fake sample | make fake look real |
+| Discriminator `D` | real or fake sample | real/fake score | separate real from fake |
+| Training loop | `G` and `D` updates | changing game | keep both sides learning |
 
-So the biggest change in GAN is not “there is also a network,” but:
-
-- The objective function and training relationship become much more dynamic
-- The model no longer only pursues classification accuracy, but generation quality in a real-vs-fake game
-
-The best way for beginners to understand GAN is not to start from formulas, but to first see it as a dynamic game:
-
-```mermaid
-flowchart LR
-    A["Random noise z"] --> B["Generator G"]
-    B --> C["Fake sample"]
-    C --> D["Discriminator D"]
-    E["Real sample"] --> D
-    D --> F["Real-vs-fake feedback"]
-    F --> B
-```
-
-So the most important thing in this section is not to memorize the loss function first, but to clearly see:
-
-- What the generator wants to do
-- What the discriminator wants to do
-- Why training both together makes the system harder
-
-## What exactly does GAN do?
-
-### Generator
-
-Input:
-
-- Random noise
-
-Output:
-
-- A fake sample
-
-Its goal is to:
-
-- Make the sample look like it came from the real data distribution
-
-### Discriminator
-
-Input:
-
-- A sample
-
-Output:
-
-- Whether the sample looks real
-
-Its goal is to:
-
-- Distinguish real samples from fake ones
-
-### An analogy
-
-GAN is like a battle between a counterfeit money factory and a bill detector:
-
-- The counterfeit factory keeps making better fakes
-- The detector keeps getting better at spotting them
-
-Through this ongoing game, the quality of fake samples improves.
-
-### When learning GAN for the first time, what should you focus on?
-
-What you should focus on first is not a pile of adversarial loss formulas, but this sentence:
-
-> **GAN is not directly taught the “correct answer”; instead, it learns bit by bit to look more like the real distribution through a real-vs-fake game.**
-
-Once this idea is stable in your mind, many later phenomena become easier to understand:
-
-- Why training can be unstable
-- Why the discriminator should not become too strong
-- Why generated samples may look realistic but still collapse
+GAN is not trained with one fixed label target like ordinary classification. The discriminator changes what “hard to fool” means, and the generator changes what fake samples look like.
 
 ![GAN adversarial training balance and mode collapse diagram](/img/course/ch06-gan-adversarial-balance-map-en.png)
 
-:::tip Reading hint
-When reading this diagram, think of GAN as two people learning at the same time: the generator is learning to become “more real,” and the discriminator is learning to “spot the fake.” If the discriminator is too strong, the generator cannot get useful feedback; if the generator only knows one trick, mode collapse becomes likely.
-:::
+## The Practical Loop
 
----
+Read one GAN step as two updates:
 
-## Why is GAN more interesting than “direct pixel fitting”?
-
-Because it does not ask the model to copy an image pixel by pixel,
-but instead lets the model learn:
-
-- What kind of samples look more like the real distribution overall
-
-So GAN is more like learning:
-
-- The “real-vs-fake boundary” of the data distribution
-
-This is one of the reasons it became so influential in image generation.
-
----
-
-## Run a minimal GAN game example first
-
-This example will not generate images,
-but instead uses 1D numbers to simulate the real distribution and the generated distribution.
-
-Assume the real data is concentrated around:
-
-- `2.0`
-
-The generator starts off badly,
-then keeps moving closer to the real distribution.
-
-```python
-real_samples = [1.8, 2.0, 2.2, 1.9, 2.1]
-
-
-def discriminator_score(x):
-    # The closer x is to the real center 2.0, the more real it looks
-    return max(0.0, 1.0 - abs(x - 2.0))
-
-
-generator_output = -1.0
-
-for step in range(8):
-    score = discriminator_score(generator_output)
-    print(
-        f"step={step} generated={generator_output:.2f} "
-        f"disc_score={score:.2f}"
-    )
-
-    # Extremely simplified "update": move toward the direction the discriminator thinks is more real
-    if generator_output < 2.0:
-        generator_output += 0.5
-    else:
-        generator_output -= 0.2
+```text
+1. Train D: real -> real, G(z).detach() -> fake
+2. Train G: G(z) should make D say real
 ```
 
-### What should you take away from this example?
+The `.detach()` in the discriminator step matters. It prevents the discriminator update from accidentally changing the generator.
 
-It shows that the key to GAN is not a fixed answer,
-but rather:
+## Lab: Train a Tiny 1D GAN
 
-- The generator keeps adjusting based on “real-vs-fake” feedback
+This example does not generate images. It teaches the training mechanics with a real distribution centered near `2.0`.
 
-### Why does this feel different from ordinary classification training?
+Create `tiny_gan_1d.py`:
 
-Because the goal itself is moving.
-The discriminator changes, and the generator changes too.
-That is one of the root causes of instability in adversarial training.
+```python
+import torch
+from torch import nn
 
----
+torch.manual_seed(7)
 
-## Why is GAN often unstable to train?
 
-### Imbalance between the two sides
+def real_batch(n):
+    return torch.randn(n, 1) * 0.2 + 2.0
 
-If the discriminator is too strong:
 
-- The generator cannot learn useful gradients
+G = nn.Sequential(nn.Linear(2, 16), nn.ReLU(), nn.Linear(16, 1))
+D = nn.Sequential(nn.Linear(1, 16), nn.ReLU(), nn.Linear(16, 1))
 
-If the generator is too strong:
+loss_fn = nn.BCEWithLogitsLoss()
+opt_g = torch.optim.Adam(G.parameters(), lr=0.01)
+opt_d = torch.optim.Adam(D.parameters(), lr=0.01)
 
-- The discriminator cannot tell real from fake
+for step in range(1, 301):
+    real = real_batch(64)
+    z = torch.randn(64, 2)
+    fake = G(z).detach()
 
-### The objective itself changes
+    d_real = D(real)
+    d_fake = D(fake)
+    loss_d = loss_fn(d_real, torch.ones_like(d_real)) + loss_fn(
+        d_fake, torch.zeros_like(d_fake)
+    )
 
-In ordinary supervised learning, the labels do not move.
-In GAN, the generator and discriminator keep changing each other’s learning environment.
+    opt_d.zero_grad()
+    loss_d.backward()
+    opt_d.step()
 
-### What is mode collapse?
+    z = torch.randn(64, 2)
+    fake = G(z)
+    d_fake = D(fake)
+    loss_g = loss_fn(d_fake, torch.ones_like(d_fake))
 
-One of the most common failure cases is:
+    opt_g.zero_grad()
+    loss_g.backward()
+    opt_g.step()
 
-- The generator finds one kind of sample that easily fools the discriminator
-- Then it keeps generating only that small category over and over
+    if step in [1, 100, 200, 300]:
+        with torch.no_grad():
+            sample = G(torch.randn(256, 2))
+            print(
+                f"step={step:03d} "
+                f"loss_d={loss_d.item():.3f} "
+                f"loss_g={loss_g.item():.3f} "
+                f"fake_mean={sample.mean().item():.3f} "
+                f"fake_std={sample.std().item():.3f}"
+            )
+```
 
-This is called:
+Run it:
 
-- mode collapse
+```bash
+python tiny_gan_1d.py
+```
 
-In other words:
+Expected output:
 
-- It may look “realistic”
-- But diversity is lost
+```text
+step=001 loss_d=1.579 loss_g=0.844 fake_mean=0.025 fake_std=0.117
+step=100 loss_d=1.287 loss_g=0.654 fake_mean=1.093 fake_std=0.204
+step=200 loss_d=1.460 loss_g=0.835 fake_mean=2.988 fake_std=0.291
+step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
+```
 
-### What should beginners pay attention to first when training?
+Do not read this as “the final line is best.” Read it as a diagnostic exercise:
 
-If you actually start running GAN, the most important things to observe first are:
+- real samples are centered near `2.0`;
+- `fake_mean` moves around because `G` and `D` chase each other;
+- `fake_std` becoming very small is a warning sign for low diversity;
+- GAN loss curves can be hard to interpret without sample inspection.
 
-- Whether the generated samples are becoming more realistic
-- Whether the discriminator becomes so strong that it overwhelms the generator too quickly
-- Whether the samples are increasingly becoming the same kind of thing
+## What Is Mode Collapse?
 
-In other words, with GAN, do not look only at a single loss number; also pay attention to:
+Mode collapse means the generator finds one narrow trick that fools the discriminator, then keeps producing very similar samples.
 
-- Visualized samples
-- Diversity
-- Whether the two sides are becoming imbalanced
+In images, you may see many generated faces with nearly the same pose. In the 1D lab, a very small `fake_std` can be a simple collapse signal.
 
-### What is the biggest difference between GAN training and ordinary supervised learning?
+```text
+looks plausible but lacks diversity -> suspect mode collapse
+```
 
-One very important difference is:
+## Why GAN Training Is Hard
 
-- Your learning environment is also moving
+| Problem | Symptom | First response |
+|---|---|---|
+| Discriminator too strong | `G` receives weak feedback | reduce `D` updates or capacity |
+| Generator too weak | fake samples do not improve | tune learning rate, architecture, normalization |
+| Mode collapse | samples become repetitive | monitor diversity, use stronger losses or regularization |
+| Loss is misleading | loss changes but samples worsen | save sample grids and compare versions |
+| Evaluation is fuzzy | “looks good” is subjective | combine visual checks with diversity and task metrics |
 
-In ordinary supervised learning:
+## When GAN Is Worth Learning
 
-- The labels do not move
-- The reference frame for the loss is relatively stable
+GAN is still worth learning because it teaches adversarial learning, distribution matching, and failure diagnostics very clearly.
 
-In GAN:
+For modern image generation projects, diffusion models are often more stable and easier to control. GAN remains especially useful when you want:
 
-- The discriminator changes
-- The generator changes too
-- Both sides change the difficulty of training for the other side
+- fast sampling after training;
+- adversarial realism signals;
+- intuition about generated sample diversity;
+- a concrete example of unstable multi-objective training.
 
-So GAN instability is not an accidental bug; it is a natural challenge brought by this kind of training objective.
+## Common Mistakes
 
----
-
-## When is GAN worth learning?
-
-### Good for building the idea that generative models are not only about reconstruction and likelihood
-
-It can help you understand:
-
-- There is another path for learning distributions, starting from adversarial signals
-
-### Also good for seeing why generative model training is hard
-
-GAN is a very good example for counterintuitive cases:
-
-- You can very clearly see problems like unstable training and mode collapse
-
-### But it is not recommended as the default starting point for all generation projects
-
-Today, in many tasks,
-diffusion models are often more stable and more mainstream.
-
-### Then why learn GAN in this chapter?
-
-Because GAN is one of the best entry points for understanding why generative models are hard to train.
-
-The value of learning GAN is not just to know one model, but to build these three judgments:
-
-- Generation is not just about fitting labels
-- The training objective for generation may change dynamically
-- Sample quality and diversity often need to be considered together
-
----
-
-## Most common misconceptions
-
-### Misconception 1: GAN is just “a model that can generate images”
-
-More fundamentally, it is a:
-
-- Adversarial generative learning method
-
-### Misconception 2: The stronger the discriminator, the better
-
-Not true.
-If it becomes too strong, the generator cannot learn anything.
-
-### Misconception 3: It is enough to only look at whether the generated samples look real
-
-You also need to look at:
-
-- Diversity
-- Training stability
-
-## If you continue learning, the recommended order is
-
-1. First, make the intuitive differences between GAN and VAE clear
-2. Then go back to your project and ask: “Do I care more about latent space, realism, or stability?”
-3. Finally, look at newer generative model approaches
-
-The most important thing in this section is to establish one judgment:
-
-> **The core of GAN is to approximate the real data distribution through the adversarial game between the generator and the discriminator. It is powerful, but it also naturally brings the risk of unstable training and reduced diversity.**
-
-Once you understand this clearly, it will be much easier to compare the strengths and weaknesses of VAE, diffusion models, and more modern generative approaches later on.
-
----
-
-## Summary
-
-The most important thing in this section is not that you can train a high-quality image model today, but that you build one judgment:
-
-> **The core of GAN is adversarial game play. It helps you understand why generative learning is fascinating, and also why it is often unstable to train.**
-
-## What should you take away from this section?
-
-If you only take away one sentence, I hope you remember this:
-
-> **The most important teaching value of GAN is not just that it can “generate,” but that it lets you truly see for the first time why generative model training is naturally more dynamic and more fragile.**
-
-So what you really need to keep in mind in this section is:
-
-- The division of roles between the generator and the discriminator
-- Why adversarial training can improve generation quality
-- Why unstable training and mode collapse happen so often
-
----
+| Mistake | Fix |
+|---|---|
+| judging only by `loss_g` and `loss_d` | inspect generated samples and diversity |
+| updating `G` during the `D` step | use `G(z).detach()` |
+| letting `D` become perfect too early | tune capacity, update ratio, and learning rates |
+| ignoring repeated outputs | track diversity and mode collapse |
+| using GAN as the default for every generation task | compare with VAE, diffusion, or autoregressive methods |
 
 ## Exercises
 
-1. Change the real center in the example from `2.0` to `5.0`, and observe how the generator trajectory changes.
-2. Explain in your own words: why is the training objective of GAN more likely to become unstable than ordinary supervised learning?
-3. Why does mode collapse make a model that “looks like it generates well” still not very useful?
-4. If you were building a generation project that requires stable training, would you choose GAN first or a more modern method? Why?
+1. Change the real data center from `2.0` to `-1.0`. Does `fake_mean` move?
+2. Reduce `lr` from `0.01` to `0.001`. Is training smoother or slower?
+3. Increase the hidden size from `16` to `64`. Does the game become more stable?
+4. Print `fake_std` every 25 steps and mark possible collapse points.
+5. Explain why GAN output quality cannot be judged from one loss number.
+
+## Key Takeaways
+
+- GAN training is a moving two-player game.
+- `G` learns to create samples, `D` learns to judge real vs fake.
+- Instability is part of the training setup, not just a coding accident.
+- Mode collapse means realism without diversity.
+- GANs are valuable to understand, even when another generative family is the better production choice.
