@@ -170,6 +170,59 @@ Linear -> activation -> Linear
 
 > **SwiGLU 让 FFN 不只是生成特征，还能控制哪些特征更重要。**
 
+## 跑一个很小的 decoder block 检查
+
+这段脚本不是实现完整 LLM。
+它的目标更窄：把几个架构名词和可观察的行为连起来。
+
+```python
+from math import sqrt
+
+activation = [2.0, -1.0, 0.5, 3.0]
+
+
+def layer_norm(xs, eps=1e-6):
+    mean = sum(xs) / len(xs)
+    variance = sum((x - mean) ** 2 for x in xs) / len(xs)
+    return [(x - mean) / sqrt(variance + eps) for x in xs]
+
+
+def rms_norm(xs, eps=1e-6):
+    rms = sqrt(sum(x * x for x in xs) / len(xs) + eps)
+    return [x / rms for x in xs]
+
+
+decoder_config = {
+    "norm": "RMSNorm",
+    "position": "RoPE",
+    "query_heads": 32,
+    "kv_heads": 8,
+    "ffn": "SwiGLU",
+}
+
+print("LayerNorm:", [round(x, 3) for x in layer_norm(activation)])
+print("RMSNorm  :", [round(x, 3) for x in rms_norm(activation)])
+print("position :", decoder_config["position"])
+print("kv share :", decoder_config["query_heads"] // decoder_config["kv_heads"], "query heads per KV group")
+print("ffn style:", decoder_config["ffn"])
+```
+
+预期输出：
+
+```text
+LayerNorm: [0.577, -1.402, -0.412, 1.237]
+RMSNorm  : [1.06, -0.53, 0.265, 1.589]
+position : RoPE
+kv share : 4 query heads per KV group
+ffn style: SwiGLU
+```
+
+### 怎么读这个输出？
+
+- `LayerNorm` 会围绕均值重新居中；`RMSNorm` 更像是在缩放整体幅度。
+- `kv share` 说明这是 GQA：每 4 个 query heads 共享一组 K/V。
+- `RoPE` 和 `SwiGLU` 不是装饰词。它们分别说明位置信息在哪里进入、FFN 如何用门控控制特征。
+
 ## 一张紧凑对比表
 
 | 部分 | 早期 Transformer 直觉 | 现代 LLM decoder 直觉 |

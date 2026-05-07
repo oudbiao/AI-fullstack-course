@@ -211,6 +211,17 @@ print("full outputs :", [round(x, 3) for x in full_outputs])
 print("local outputs:", [round(x, 3) for x in local_outputs])
 ```
 
+期待される出力：
+
+```text
+full pairs : 64
+local pairs: 34
+token 4 full neighbors : [0, 1, 2, 3, 4, 5, 6, 7]
+token 4 local neighbors: [2, 3, 4, 5, 6]
+full outputs : [0.376, 0.363, 0.35, 0.457, 0.47, 0.443, 0.363, 0.35]
+local outputs: [0.101, 0.285, 0.4, 0.604, 0.615, 0.592, 0.44, 0.267]
+```
+
 ### このコードは、どんな直感に対応しているのか？
 
 このコードが教えてくれる重要な点は2つです。
@@ -293,6 +304,14 @@ head_dim = 128
 print("MHA units =", kv_units(32, 32, head_dim, seq_len))
 print("GQA units =", kv_units(32, 8, head_dim, seq_len))
 print("MQA units =", kv_units(32, 1, head_dim, seq_len))
+```
+
+期待される出力：
+
+```text
+MHA units = 67108864
+GQA units = 16777216
+MQA units = 2097152
 ```
 
 この数字は完全な VRAM 公式ではありません。  

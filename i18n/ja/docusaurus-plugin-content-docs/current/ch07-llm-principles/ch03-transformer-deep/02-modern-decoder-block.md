@@ -168,6 +168,59 @@ Linear -> activation -> Linear
 
 > **SwiGLU は FFN に特徴を作らせるだけでなく、どの特徴を強調するかも制御させる。**
 
+## 小さな decoder block 検査を実行する
+
+このスクリプトは完全な LLM を実装するものではありません。
+目的はもっと狭く、いくつかのアーキテクチャ用語を観察できる挙動につなげることです。
+
+```python
+from math import sqrt
+
+activation = [2.0, -1.0, 0.5, 3.0]
+
+
+def layer_norm(xs, eps=1e-6):
+    mean = sum(xs) / len(xs)
+    variance = sum((x - mean) ** 2 for x in xs) / len(xs)
+    return [(x - mean) / sqrt(variance + eps) for x in xs]
+
+
+def rms_norm(xs, eps=1e-6):
+    rms = sqrt(sum(x * x for x in xs) / len(xs) + eps)
+    return [x / rms for x in xs]
+
+
+decoder_config = {
+    "norm": "RMSNorm",
+    "position": "RoPE",
+    "query_heads": 32,
+    "kv_heads": 8,
+    "ffn": "SwiGLU",
+}
+
+print("LayerNorm:", [round(x, 3) for x in layer_norm(activation)])
+print("RMSNorm  :", [round(x, 3) for x in rms_norm(activation)])
+print("position :", decoder_config["position"])
+print("kv share :", decoder_config["query_heads"] // decoder_config["kv_heads"], "query heads per KV group")
+print("ffn style:", decoder_config["ffn"])
+```
+
+期待される出力：
+
+```text
+LayerNorm: [0.577, -1.402, -0.412, 1.237]
+RMSNorm  : [1.06, -0.53, 0.265, 1.589]
+position : RoPE
+kv share : 4 query heads per KV group
+ffn style: SwiGLU
+```
+
+### 出力の読み方
+
+- `LayerNorm` は平均を中心に値を整えます。`RMSNorm` は主に全体の大きさをそろえます。
+- `kv share` は GQA を示します。4 個の query heads が 1 つの K/V group を共有します。
+- `RoPE` と `SwiGLU` は飾りではありません。位置情報がどこで入るか、FFN が特徴をどう gate するかを表します。
+
 ## コンパクトな比較表
 
 | 部分 | 初期 Transformer の直感 | 現代 LLM decoder の直感 |

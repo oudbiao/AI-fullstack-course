@@ -169,6 +169,59 @@ You can remember it like this:
 
 > **SwiGLU lets the FFN not only create features, but also control which features are emphasized.**
 
+## Run a tiny decoder-block inspection
+
+This script does not implement a full LLM.
+Its purpose is narrower: connect several architecture words to measurable behavior.
+
+```python
+from math import sqrt
+
+activation = [2.0, -1.0, 0.5, 3.0]
+
+
+def layer_norm(xs, eps=1e-6):
+    mean = sum(xs) / len(xs)
+    variance = sum((x - mean) ** 2 for x in xs) / len(xs)
+    return [(x - mean) / sqrt(variance + eps) for x in xs]
+
+
+def rms_norm(xs, eps=1e-6):
+    rms = sqrt(sum(x * x for x in xs) / len(xs) + eps)
+    return [x / rms for x in xs]
+
+
+decoder_config = {
+    "norm": "RMSNorm",
+    "position": "RoPE",
+    "query_heads": 32,
+    "kv_heads": 8,
+    "ffn": "SwiGLU",
+}
+
+print("LayerNorm:", [round(x, 3) for x in layer_norm(activation)])
+print("RMSNorm  :", [round(x, 3) for x in rms_norm(activation)])
+print("position :", decoder_config["position"])
+print("kv share :", decoder_config["query_heads"] // decoder_config["kv_heads"], "query heads per KV group")
+print("ffn style:", decoder_config["ffn"])
+```
+
+Expected output:
+
+```text
+LayerNorm: [0.577, -1.402, -0.412, 1.237]
+RMSNorm  : [1.06, -0.53, 0.265, 1.589]
+position : RoPE
+kv share : 4 query heads per KV group
+ffn style: SwiGLU
+```
+
+### How to read the output
+
+- `LayerNorm` recenters values around their mean; `RMSNorm` mostly rescales their magnitude.
+- `kv share` tells you this is GQA: every 4 query heads share one K/V group.
+- `RoPE` and `SwiGLU` are not decorations. They tell you where position information enters and how the FFN gates features.
+
 ## A compact comparison table
 
 | Part | Early Transformer intuition | Modern LLM decoder intuition |

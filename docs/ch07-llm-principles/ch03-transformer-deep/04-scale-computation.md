@@ -185,6 +185,19 @@ for cfg in configs:
     print("kv cache    :", human_readable(kv_bytes))
 ```
 
+Expected output:
+
+```text
+------------------------------------------------------------
+model       : small
+rough params: 1.31B
+kv cache    : 768.00 MB
+------------------------------------------------------------
+model       : large
+rough params: 9.87B
+kv cache    : 1.50 GB
+```
+
 ### What is the most important takeaway from this code?
 
 First:
