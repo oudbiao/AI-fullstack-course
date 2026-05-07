@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">RAG 调试阶梯</title>
+  <desc id="desc">按文档、切块、检索、生成、引用和评估逐层定位 RAG 坏答案的阶梯图。</desc>
+  <style>
+    .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+    .sub{font:400 17px Arial,sans-serif;fill:#475569}
+    .label{font:700 19px Arial,sans-serif;fill:#111827}
+    .text{font:400 15px Arial,sans-serif;fill:#374151}
+    .num{font:700 22px Arial,sans-serif;fill:#ffffff}
+  </style>
+  <rect width="720" height="900" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">答案不好？按阶梯排查</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">先修最低层的问题，再考虑换模型。</text>
+
+  <g transform="translate(88 132)">
+    <rect width="544" height="84" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#dc2626"/><text x="38" y="50" text-anchor="middle" class="num">1</text>
+    <text x="76" y="34" class="label">原始文档</text>
+    <text x="76" y="61" class="text">答案是否真的存在于来源资料中？</text>
+  </g>
+  <g transform="translate(88 248)">
+    <rect width="544" height="84" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#d97706"/><text x="38" y="50" text-anchor="middle" class="num">2</text>
+    <text x="76" y="34" class="label">切块与 metadata</text>
+    <text x="76" y="61" class="text">关键上下文是否被切散，来源信息是否丢失？</text>
+  </g>
+  <g transform="translate(88 364)">
+    <rect width="544" height="84" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#16a34a"/><text x="38" y="50" text-anchor="middle" class="num">3</text>
+    <text x="76" y="34" class="label">检索与排序</text>
+    <text x="76" y="61" class="text">top-k 是否包含正确片段，排序是否合理？</text>
+  </g>
+  <g transform="translate(88 480)">
+    <rect width="544" height="84" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#2563eb"/><text x="38" y="50" text-anchor="middle" class="num">4</text>
+    <text x="76" y="34" class="label">Prompt 与生成</text>
+    <text x="76" y="61" class="text">Prompt 是否强制基于来源回答，并处理无答案？</text>
+  </g>
+  <g transform="translate(88 596)">
+    <rect width="544" height="84" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#7c3aed"/><text x="38" y="50" text-anchor="middle" class="num">5</text>
+    <text x="76" y="34" class="label">引用与响应</text>
+    <text x="76" y="61" class="text">用户能否检查答案背后的准确来源？</text>
+  </g>
+  <g transform="translate(88 712)">
+    <rect width="544" height="84" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#0f766e"/><text x="38" y="50" text-anchor="middle" class="num">6</text>
+    <text x="76" y="34" class="label">评估与日志</text>
+    <text x="76" y="61" class="text">同一组问题能否证明优化前后变化？</text>
+  </g>
+</svg>

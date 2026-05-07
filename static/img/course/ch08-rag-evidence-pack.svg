@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="860" viewBox="0 0 720 860" role="img" aria-labelledby="title desc">
+  <title id="title">RAG 作品集证据包</title>
+  <desc id="desc">检查清单式图解，展示让 RAG 作品集项目可复查的关键文件。</desc>
+  <style>
+    .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+    .sub{font:400 17px Arial,sans-serif;fill:#475569}
+    .file{font:700 18px Arial,sans-serif;fill:#111827}
+    .text{font:400 15px Arial,sans-serif;fill:#374151}
+  </style>
+  <rect width="720" height="860" fill="#f0fdfa"/>
+  <text x="360" y="58" text-anchor="middle" class="title">RAG 证据包</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">Demo 变可信，是因为别人能检查这些文件。</text>
+  <g transform="translate(85 130)">
+    <rect width="550" height="88" rx="18" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
+    <text x="28" y="35" class="file">chunks.jsonl</text>
+    <text x="28" y="63" class="text">chunk 文本、来源、章节、页码、版本。</text>
+  </g>
+  <g transform="translate(85 240)">
+    <rect width="550" height="88" rx="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="28" y="35" class="file">retrieval_logs.jsonl</text>
+    <text x="28" y="63" class="text">问题、top-k 片段、分数、来源 ID。</text>
+  </g>
+  <g transform="translate(85 350)">
+    <rect width="550" height="88" rx="18" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+    <text x="28" y="35" class="file">eval_questions.csv</text>
+    <text x="28" y="63" class="text">固定问题、期望来源、答案要点。</text>
+  </g>
+  <g transform="translate(85 460)">
+    <rect width="550" height="88" rx="18" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+    <text x="28" y="35" class="file">failure_cases.md</text>
+    <text x="28" y="63" class="text">检索、生成、引用、部署失败样本。</text>
+  </g>
+  <g transform="translate(85 570)">
+    <rect width="550" height="88" rx="18" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="28" y="35" class="file">rag_config.md</text>
+    <text x="28" y="63" class="text">chunk 大小、overlap、top-k、rerank、Prompt 版本。</text>
+  </g>
+  <g transform="translate(85 680)">
+    <rect width="550" height="88" rx="18" fill="#ffffff" stroke="#db2777" stroke-width="2"/>
+    <text x="28" y="35" class="file">README.md</text>
+    <text x="28" y="63" class="text">运行命令、示例答案、评估结果、下一步修复。</text>
+  </g>
+</svg>

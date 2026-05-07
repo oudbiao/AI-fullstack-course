@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">RAG debugging ladder</title>
+  <desc id="desc">A ladder diagram for debugging bad RAG answers by checking documents, chunking, retrieval, generation, citations, and evaluation.</desc>
+  <style>
+    .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+    .sub{font:400 17px Arial,sans-serif;fill:#475569}
+    .label{font:700 19px Arial,sans-serif;fill:#111827}
+    .text{font:400 15px Arial,sans-serif;fill:#374151}
+    .num{font:700 22px Arial,sans-serif;fill:#ffffff}
+  </style>
+  <rect width="720" height="900" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">Bad Answer? Climb the Ladder</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">Fix the lowest broken layer before changing the model.</text>
+
+  <g transform="translate(88 132)">
+    <rect width="544" height="84" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#dc2626"/><text x="38" y="50" text-anchor="middle" class="num">1</text>
+    <text x="76" y="34" class="label">Original documents</text>
+    <text x="76" y="61" class="text">Does the answer exist in the source material?</text>
+  </g>
+  <g transform="translate(88 248)">
+    <rect width="544" height="84" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#d97706"/><text x="38" y="50" text-anchor="middle" class="num">2</text>
+    <text x="76" y="34" class="label">Chunking and metadata</text>
+    <text x="76" y="61" class="text">Was key context split apart or source information lost?</text>
+  </g>
+  <g transform="translate(88 364)">
+    <rect width="544" height="84" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#16a34a"/><text x="38" y="50" text-anchor="middle" class="num">3</text>
+    <text x="76" y="34" class="label">Retrieval and ranking</text>
+    <text x="76" y="61" class="text">Did top-k include the right chunks and rank them well?</text>
+  </g>
+  <g transform="translate(88 480)">
+    <rect width="544" height="84" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#2563eb"/><text x="38" y="50" text-anchor="middle" class="num">4</text>
+    <text x="76" y="34" class="label">Prompt and generation</text>
+    <text x="76" y="61" class="text">Did the prompt force source-based answers and no-answer cases?</text>
+  </g>
+  <g transform="translate(88 596)">
+    <rect width="544" height="84" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#7c3aed"/><text x="38" y="50" text-anchor="middle" class="num">5</text>
+    <text x="76" y="34" class="label">Citations and response</text>
+    <text x="76" y="61" class="text">Can users inspect the exact source behind the answer?</text>
+  </g>
+  <g transform="translate(88 712)">
+    <rect width="544" height="84" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <circle cx="38" cy="42" r="22" fill="#0f766e"/><text x="38" y="50" text-anchor="middle" class="num">6</text>
+    <text x="76" y="34" class="label">Evaluation and logs</text>
+    <text x="76" y="61" class="text">Can the same question set prove before/after improvement?</text>
+  </g>
+</svg>

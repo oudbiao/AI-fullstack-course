@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="980" viewBox="0 0 720 980" role="img" aria-labelledby="title desc">
+  <title id="title">RAG 应用闭环</title>
+  <desc id="desc">竖向 RAG 应用闭环图：文档、切块、索引、检索、Prompt、带引用回答和评估日志。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+      .sub{font:400 17px Arial,sans-serif;fill:#475569}
+      .step{font:700 19px Arial,sans-serif;fill:#111827}
+      .text{font:400 15px Arial,sans-serif;fill:#374151}
+    </style>
+  </defs>
+  <rect width="720" height="980" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">RAG：回答前先读资料</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">每个答案都应该能追溯到检索证据。</text>
+
+  <g transform="translate(90 130)">
+    <rect width="540" height="74" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="28" y="31" class="step">1. 文档</text>
+    <text x="28" y="56" class="text">Markdown、PDF、手册、笔记、客服日志。</text>
+  </g>
+  <path d="M360 206 V246" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 258)">
+    <rect width="540" height="74" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="28" y="31" class="step">2. Chunk + metadata</text>
+    <text x="28" y="56" class="text">切分文本，并保留来源、页码、章节、版本。</text>
+  </g>
+  <path d="M360 334 V374" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 386)">
+    <rect width="540" height="74" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="28" y="31" class="step">3. 索引</text>
+    <text x="28" y="56" class="text">关键词、向量、混合检索或图索引。</text>
+  </g>
+  <path d="M360 462 V502" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 514)">
+    <rect width="540" height="74" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="28" y="31" class="step">4. 检索 top-k 证据</text>
+    <text x="28" y="56" class="text">打印 query、分数、来源 ID 和命中文本。</text>
+  </g>
+  <path d="M360 590 V630" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 642)">
+    <rect width="540" height="74" rx="18" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+    <text x="28" y="31" class="step">5. Prompt + LLM 回答</text>
+    <text x="28" y="56" class="text">只基于上下文回答；证据为空时说无法回答。</text>
+  </g>
+  <path d="M360 718 V758" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 770)">
+    <rect width="540" height="74" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <text x="28" y="31" class="step">6. 引用 + 响应</text>
+    <text x="28" y="56" class="text">展示来源，让用户能检查答案依据。</text>
+  </g>
+  <path d="M360 846 V886" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 898)">
+    <rect width="540" height="58" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="28" y="36" class="step">7. 评估日志：固定问题、失败、成本、延迟</text>
+  </g>
+</svg>

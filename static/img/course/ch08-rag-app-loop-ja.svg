@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="980" viewBox="0 0 720 980" role="img" aria-labelledby="title desc">
+  <title id="title">RAG アプリループ</title>
+  <desc id="desc">文書、チャンク、インデックス、検索、Prompt、引用付き回答、評価ログへ進む縦型 RAG アプリループ。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+      .sub{font:400 17px Arial,sans-serif;fill:#475569}
+      .step{font:700 19px Arial,sans-serif;fill:#111827}
+      .text{font:400 15px Arial,sans-serif;fill:#374151}
+    </style>
+  </defs>
+  <rect width="720" height="980" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">RAG：答える前に読む</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">すべての回答は検索証拠へ戻れるべきです。</text>
+
+  <g transform="translate(90 130)">
+    <rect width="540" height="74" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="28" y="31" class="step">1. 文書</text>
+    <text x="28" y="56" class="text">Markdown、PDF、マニュアル、ノート、サポートログ。</text>
+  </g>
+  <path d="M360 206 V246" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 258)">
+    <rect width="540" height="74" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="28" y="31" class="step">2. Chunk + metadata</text>
+    <text x="28" y="56" class="text">文章を分け、出典、ページ、章、版を残します。</text>
+  </g>
+  <path d="M360 334 V374" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 386)">
+    <rect width="540" height="74" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="28" y="31" class="step">3. インデックス</text>
+    <text x="28" y="56" class="text">キーワード、ベクトル、ハイブリッド検索、グラフ索引。</text>
+  </g>
+  <path d="M360 462 V502" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 514)">
+    <rect width="540" height="74" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="28" y="31" class="step">4. top-k 証拠を検索</text>
+    <text x="28" y="56" class="text">query、スコア、source ID、該当本文を表示。</text>
+  </g>
+  <path d="M360 590 V630" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 642)">
+    <rect width="540" height="74" rx="18" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+    <text x="28" y="31" class="step">5. Prompt + LLM 回答</text>
+    <text x="28" y="56" class="text">文脈だけで答え、証拠が空なら答えない。</text>
+  </g>
+  <path d="M360 718 V758" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 770)">
+    <rect width="540" height="74" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+    <text x="28" y="31" class="step">6. 引用 + 応答</text>
+    <text x="28" y="56" class="text">出典を示し、ユーザーが根拠を確認できるようにします。</text>
+  </g>
+  <path d="M360 846 V886" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 898)">
+    <rect width="540" height="58" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="28" y="36" class="step">7. 評価ログ：固定質問、失敗、コスト、遅延</text>
+  </g>
+</svg>
