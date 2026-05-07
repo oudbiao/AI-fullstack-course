@@ -1,11 +1,11 @@
 ---
-title: "Study Guide: How to Learn AI Agents and Agent Systems Without Getting Confused"
+title: "Study Guide and Task Sheet: How to Learn AI Agents and Agent Systems Without Getting Confused"
 sidebar_position: 1
 description: "A learning guide for AI full-stack beginners on Agents: task planning, tool calling, memory, MCP, multi-Agent, evaluation, deployment, project roadmap, and acceptance criteria."
 keywords: [Agent Learning Guide, How to learn AI Agent, How to learn ReAct, How to learn MCP, Multi-Agent]
 ---
 
-# Study Guide: How to Learn AI Agents and Agent Systems Without Getting Confused
+# Study Guide and Task Sheet: How to Learn AI Agents and Agent Systems Without Getting Confused
 
 If you reach `Chapter 9: AI Agents and Agent Systems` and feel that tools, memory, frameworks, multi-Agent, and MCP are all mixed together, first go back to the smallest Agent loop: goal, plan, action, observation, refinement.
 
@@ -14,6 +14,19 @@ If you reach `Chapter 9: AI Agents and Agent Systems` and feel that tools, memor
 For your first Agent, do not rush into multi-Agent, and do not pile on frameworks right away. First make a single Agent solid: it can understand the goal, decide the next step, call tools, observe the result, and then decide whether to continue.
 
 ![Minimal Agent learning loop diagram](/img/course/ch09-study-guide-minimal-agent-loop-en.png)
+
+## Tasks You Must Complete in This Stage
+
+Use these tasks to keep Agent learning observable. An Agent project is not complete when it calls a tool once; it is complete when you can replay the trace, explain the stop condition, and show where human confirmation is required.
+
+| Task | Deliverable | Passing Criteria |
+|---|---|---|
+| Understand the basic Agent structure | An architecture diagram or notes | Can explain the relationship between the model, tools, memory, planner, and executor |
+| Get tool calling working end to end | A minimal tool-calling example | Can define tool parameters, handle return values, and handle errors |
+| Complete the planning and execution flow | A multi-step task demo | Can record the input, output, state, and failure reason for each step |
+| Add evaluation and safety | An Agent testing record | Can evaluate task success rate, tool accuracy, permission risks, and stop conditions |
+| Run the guided single-Agent workshop | `agent_workshop.py` output and trace logs | Can explain `logs/agent_traces.jsonl`, mini evaluation output, and permission checks |
+| Complete one stage project | A traceable Agent project | Has trace, logs, replay examples, and human confirmation boundaries |
 
 ## Recommended learning order
 
@@ -79,8 +92,33 @@ The second sticking point is only demonstrating the success path. A real Agent m
 
 The third sticking point is learning more about frameworks than about the system itself. You should first understand the Agent architecture, then choose LangGraph, CrewAI, AutoGen, or another framework.
 
-## Passing criteria
+## Stage Portfolio Deliverables
+
+![Agent trace replay map](/img/course/ch09-workshop-trace-jsonl-replay-map-en.png)
+
+If you want this stage to become portfolio material, keep at least these files or equivalent evidence.
+
+| Deliverable | Description |
+|---|---|
+| `tools_schema.md` | The name, purpose, parameters, return values, and usage boundaries of each tool |
+| `agent_traces.jsonl` | The goal, step, action, arguments, observation, and next decision for each run |
+| `safety_boundary.md` | Tool risk levels, human confirmation rules, maximum steps, and permission limits |
+| `human_approval_examples.md` | Confirmation text for high-risk actions, including the action, object, risk, and rollback method |
+| `failure_cases.md` | Wrong tool selection, parameter errors, looping calls, unsupported references, and safety blocks |
+| `README.md` | Project goals, tool list, how to run, trace examples, evaluation results, and limitations |
+
+These materials upgrade an Agent project from “can call tools” to a system that is traceable, controllable, and reviewable.
+
+## Stage Completion Questions
 
 After finishing this stage, you should be able to explain an Agent’s goal, state, tools, memory, planning, and evaluation methods.
+
+Before moving on, check that you can answer these questions:
+
+- What is the difference between an Agent and a regular LLM application?
+- Why are tool descriptions important?
+- What tasks are suitable for Agents?
+- How can you avoid looping calls?
+- Why do you need trace, replay, and human confirmation?
 
 If you can build a single-Agent project and record each tool call, observed result, failure handling step, and final output, then you can move on to multi-Agent, deployment, or multimodal directions.

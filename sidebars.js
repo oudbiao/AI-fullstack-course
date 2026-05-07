@@ -550,7 +550,6 @@ const sidebars = {
           link: { type: "doc", id: "ch09-agent/index" },
           items: [
             "ch09-agent/study-guide",
-            "ch09-agent/task-list",
             {
               type: "category",
               label: "9.1-9.2 Agent Basics, Reasoning, and Planning",
