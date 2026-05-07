@@ -81,9 +81,10 @@ tech_docs = [
 ]
 
 def route_query(query):
-    if "退款" in query or "证书" in query:
+    query_lower = query.lower()
+    if "退款" in query_lower or "证书" in query_lower:
         return "policy"
-    if "登录" in query or "API" in query or "401" in query:
+    if "登录" in query_lower or "api" in query_lower or "401" in query_lower:
         return "tech"
     return "default"
 
@@ -95,8 +96,8 @@ def retrieve_simple(query, docs):
         keywords.extend(["退款", "退款政策"])
     if "证书" in query_lower:
         keywords.extend(["证书", "证书政策"])
-    if "登录" in query_lower or "401" in query_lower or "API" in query_lower:
-        keywords.extend(["登录", "401", "API"])
+    if "登录" in query_lower or "401" in query_lower or "api" in query_lower:
+        keywords.extend(["登录", "401", "api"])
     if not keywords:
         keywords = query_lower.split()
 
@@ -115,7 +116,15 @@ for q in queries:
     print(q, "-> 路由到", route, "->", hits)
 ```
 
+预期输出：
+
+```text
+怎么退款 -> 路由到 policy -> ['退款政策：课程购买后 7 天内可申请退款。']
+401 报错怎么处理 -> 路由到 tech -> ['API 调用报 401 通常表示鉴权失败。']
+```
+
 这就是最简版的“Router RAG”。
+它本身不等于“更聪明的检索”。它的价值是先缩小搜索范围，让 retriever 少和无关材料打架。
 
 ---
 

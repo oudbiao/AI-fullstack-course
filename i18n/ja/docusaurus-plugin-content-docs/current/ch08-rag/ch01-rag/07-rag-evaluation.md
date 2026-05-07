@@ -131,6 +131,15 @@ print(dataset)
 print(predictions)
 ```
 
+期待される出力：
+
+```text
+[{'question': 'いつまで返金できますか？', 'gold_doc': '返金ポリシー', 'gold_answer': 'コース購入後 7 日以内に返金を申請できます'}, {'question': 'どうやって証明書を取得しますか？', 'gold_doc': '証明書の説明', 'gold_answer': 'プロジェクトを完了し、テストに合格すると証明書を取得できます'}]
+[{'retrieved_docs': ['返金ポリシー', '学習順序'], 'answer': 'コース購入後 7 日以内に返金を申請できます'}, {'retrieved_docs': ['学習順序', '証明書の説明'], 'answer': 'プロジェクトを完了し、テストに合格すると証明書を取得できます'}]
+```
+
+このデータは「正解」と「予測」に分けて読みます。`gold_doc` / `gold_answer` は参照基準で、`retrieved_docs` / `answer` は RAG システムが出した結果です。
+
 ---
 
 ## 五、簡単な Hit@k を計算する
@@ -165,6 +174,12 @@ for item, pred in zip(dataset, predictions):
 
 hit_at_2 = hits / len(dataset)
 print("Hit@2 =", round(hit_at_2, 4))
+```
+
+期待される出力：
+
+```text
+Hit@2 = 1.0
 ```
 
 正しい文書がすべて上位 2 件に入っていれば、この値は `1.0` になります。
@@ -215,6 +230,12 @@ exact_match = correct / len(dataset)
 print("Exact Match =", round(exact_match, 4))
 ```
 
+期待される出力：
+
+```text
+Exact Match = 1.0
+```
+
 ### でも実際の場面はそんなに単純ではない
 
 同じ正解でも、言い方はいろいろあります。  
@@ -242,6 +263,12 @@ answer = "コース購入後 7 日以内に返金を申請できます"
 
 faithful = answer in evidence or evidence in answer
 print("証拠に支えられているか:", faithful)
+```
+
+期待される出力：
+
+```text
+証拠に支えられているか: True
 ```
 
 実際のシステムでは、もちろんこんな文字列比較だけではありません。  
@@ -341,6 +368,13 @@ prediction = {
 
 print(dataset[0])
 print(prediction)
+```
+
+期待される出力：
+
+```text
+{'topic': '割引の応用問題', 'gold_concepts': ['割引 = 元の価格 × 割引率'], 'gold_examples': ['商品は元値 100 円、8 割引後の価格はいくらですか？']}
+{'concepts': ['割引 = 元の価格 × 割引率'], 'examples': ['商品は元値 100 円、8 割引後の価格はいくらですか？'], 'source_refs': [{'doc_id': 'word_001', 'page_or_slide': 3}]}
 ```
 
 この例は小さいですが、初学者が評価の感覚をつかむのに役立ちます。

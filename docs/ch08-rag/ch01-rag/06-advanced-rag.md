@@ -81,9 +81,10 @@ tech_docs = [
 ]
 
 def route_query(query):
-    if "refund" in query or "certificate" in query:
+    query_lower = query.lower()
+    if "refund" in query_lower or "certificate" in query_lower:
         return "policy"
-    if "login" in query or "API" in query or "401" in query:
+    if "login" in query_lower or "api" in query_lower or "401" in query_lower:
         return "tech"
     return "default"
 
@@ -115,7 +116,15 @@ for q in queries:
     print(q, "-> routed to", route, "->", hits)
 ```
 
+Expected output:
+
+```text
+how to get a refund -> routed to policy -> ['Refund policy: You can apply for a refund within 7 days after purchasing the course.']
+how to handle a 401 error -> routed to tech -> ['A 401 error from API calls usually indicates authentication failure.']
+```
+
 This is the simplest version of “Router RAG.”
+It is not “smarter retrieval” by itself. Its value is that it reduces the search space before retrieval, so the retriever has less irrelevant material to fight through.
 
 ---
 

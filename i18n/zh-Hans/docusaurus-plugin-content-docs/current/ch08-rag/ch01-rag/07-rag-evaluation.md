@@ -131,6 +131,15 @@ print(dataset)
 print(predictions)
 ```
 
+预期输出：
+
+```text
+[{'question': '多久内可以退款？', 'gold_doc': '退款政策', 'gold_answer': '课程购买后 7 天内可申请退款'}, {'question': '怎么获得证书？', 'gold_doc': '证书说明', 'gold_answer': '完成项目并通过测试后可获得证书'}]
+[{'retrieved_docs': ['退款政策', '学习顺序'], 'answer': '课程购买后 7 天内可申请退款'}, {'retrieved_docs': ['学习顺序', '证书说明'], 'answer': '完成项目并通过测试后可获得证书'}]
+```
+
+读这份数据时，把它分成“标准答案”和“系统预测”两列：`gold_doc` / `gold_answer` 是参考标准，`retrieved_docs` / `answer` 是 RAG 系统产出的结果。
+
 ---
 
 ## 五、计算一个简单的 Hit@k
@@ -165,6 +174,12 @@ for item, pred in zip(dataset, predictions):
 
 hit_at_2 = hits / len(dataset)
 print("Hit@2 =", round(hit_at_2, 4))
+```
+
+预期输出：
+
+```text
+Hit@2 = 1.0
 ```
 
 如果正确文档都在前 2 个结果里，这个值就是 `1.0`。
@@ -214,6 +229,12 @@ exact_match = correct / len(dataset)
 print("Exact Match =", round(exact_match, 4))
 ```
 
+预期输出：
+
+```text
+Exact Match = 1.0
+```
+
 ### 但真实场景往往没这么简单
 
 因为同一个正确答案可能有很多不同表述方式。
@@ -241,6 +262,12 @@ answer = "课程购买后 7 天内可申请退款"
 
 faithful = answer in evidence or evidence in answer
 print("是否被证据支持:", faithful)
+```
+
+预期输出：
+
+```text
+是否被证据支持: True
 ```
 
 真实系统里当然不会只用这种字符串判断，但思路是对的：
@@ -339,6 +366,13 @@ prediction = {
 
 print(dataset[0])
 print(prediction)
+```
+
+预期输出：
+
+```text
+{'topic': '折扣应用题', 'gold_concepts': ['折扣 = 原价 × 折扣率'], 'gold_examples': ['商品原价 100 元，打 8 折后价格是多少？']}
+{'concepts': ['折扣 = 原价 × 折扣率'], 'examples': ['商品原价 100 元，打 8 折后价格是多少？'], 'source_refs': [{'doc_id': 'word_001', 'page_or_slide': 3}]}
 ```
 
 这个例子虽然很小，但会帮助新人先建立一个评估直觉：

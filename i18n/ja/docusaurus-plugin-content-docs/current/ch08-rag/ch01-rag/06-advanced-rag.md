@@ -81,9 +81,10 @@ tech_docs = [
 ]
 
 def route_query(query):
-    if "返金" in query or "証明書" in query:
+    query_lower = query.lower()
+    if "返金" in query_lower or "証明書" in query_lower:
         return "policy"
-    if "ログイン" in query or "API" in query or "401" in query:
+    if "ログイン" in query_lower or "api" in query_lower or "401" in query_lower:
         return "tech"
     return "default"
 
@@ -115,7 +116,15 @@ for q in queries:
     print(q, "-> ルーティング先", route, "->", hits)
 ```
 
+期待される出力：
+
+```text
+どうやって返金しますか -> ルーティング先 policy -> ['返金ポリシー：コース購入後 7 日以内なら返金申請できます。']
+401 エラーはどう対処しますか -> ルーティング先 tech -> ['API 呼び出しで 401 エラーが出る場合は、通常、認証失敗を意味します。']
+```
+
 これは、最もシンプルな「Router RAG」です。
+Router RAG は、それだけで検索が賢くなる魔法ではありません。先に検索範囲を狭め、retriever が余計な資料と戦わなくてよい状態を作るのが価値です。
 
 ---
 

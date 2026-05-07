@@ -131,6 +131,15 @@ print(dataset)
 print(predictions)
 ```
 
+Expected output:
+
+```text
+[{'question': 'How long after purchase can I request a refund?', 'gold_doc': 'Refund Policy', 'gold_answer': 'A refund can be requested within 7 days after course purchase'}, {'question': 'How do I get a certificate?', 'gold_doc': 'Certificate Guide', 'gold_answer': 'You can get a certificate after completing the project and passing the test'}]
+[{'retrieved_docs': ['Refund Policy', 'Learning Order'], 'answer': 'A refund can be requested within 7 days after course purchase'}, {'retrieved_docs': ['Learning Order', 'Certificate Guide'], 'answer': 'You can get a certificate after completing the project and passing the test'}]
+```
+
+Read this dataset as two columns of truth and prediction: `gold_doc` / `gold_answer` are the reference, while `retrieved_docs` / `answer` are what your RAG system produced.
+
 ---
 
 ## Computing a simple Hit@k
@@ -165,6 +174,12 @@ for item, pred in zip(dataset, predictions):
 
 hit_at_2 = hits / len(dataset)
 print("Hit@2 =", round(hit_at_2, 4))
+```
+
+Expected output:
+
+```text
+Hit@2 = 1.0
 ```
 
 If the correct document appears in the top 2 results for every item, the value is `1.0`.
@@ -214,6 +229,12 @@ exact_match = correct / len(dataset)
 print("Exact Match =", round(exact_match, 4))
 ```
 
+Expected output:
+
+```text
+Exact Match = 1.0
+```
+
 ### But real-world scenarios are often not that simple
 
 The same correct answer can have many different phrasings.
@@ -241,6 +262,12 @@ answer = "A refund can be requested within 7 days after course purchase"
 
 faithful = answer in evidence or evidence in answer
 print("Supported by evidence:", faithful)
+```
+
+Expected output:
+
+```text
+Supported by evidence: True
 ```
 
 Real systems of course do not rely only on string matching, but the idea is correct:
@@ -339,6 +366,13 @@ prediction = {
 
 print(dataset[0])
 print(prediction)
+```
+
+Expected output:
+
+```text
+{'topic': 'Discount word problems', 'gold_concepts': ['Discount = original price × discount rate'], 'gold_examples': ['If a product costs 100 yuan and is discounted to 80%, what is the final price?']}
+{'concepts': ['Discount = original price × discount rate'], 'examples': ['If a product costs 100 yuan and is discounted to 80%, what is the final price?'], 'source_refs': [{'doc_id': 'word_001', 'page_or_slide': 3}]}
 ```
 
 This example is very small, but it helps beginners build the right evaluation intuition:
