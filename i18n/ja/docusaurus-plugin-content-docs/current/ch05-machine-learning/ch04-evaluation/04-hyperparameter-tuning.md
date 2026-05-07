@@ -1,585 +1,256 @@
 ---
 title: "5.4.5 ハイパーパラメータチューニング"
-sidebar_position: 13
-description: "グリッドサーチ、ランダムサーチ、ベイズ最適化（Optuna）などのハイパーパラメータチューニング手法を身につける"
-keywords: [ハイパーパラメータチューニング, GridSearchCV, RandomizedSearchCV, Optuna, ベイズ最適化, 調整]
+sidebar_position: 5
+description: "手を動かして学ぶハイパーパラメータ調整：GridSearchCV、RandomizedSearchCV、探索空間、検証フロー、final holdout、過剰調整のリスク"
+keywords: [ハイパーパラメータ調整, GridSearchCV, RandomizedSearchCV, 探索空間, holdout, クロスバリデーション, ランダムフォレスト]
 ---
 
 # 5.4.5 ハイパーパラメータチューニング
 
 ![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search-ja.png)
 
-:::tip この節の位置づけ
-モデルの**ハイパーパラメータ**（たとえば木の深さ、学習率、正則化の強さ）は手動で設定する必要があり、モデル性能に大きな影響を与えます。この節では、感覚で試すのではなく、**体系的に**最適なハイパーパラメータを探す方法を学びます。
+:::tip この節の概要
+ハイパーパラメータ調整は、「テストスコアが良く見えるまで設定を試すこと」ではありません。安全な流れは、訓練 fold で探索し、クロスバリデーションで選び、最後に final holdout で 1 回だけ確認することです。
 :::
 
-## 学習目標
+## 作るもの
 
-- パラメータとハイパーパラメータを区別する
-- グリッドサーチ（GridSearchCV）を理解する
-- ランダムサーチ（RandomizedSearchCV）を理解する
-- ベイズ最適化（Optuna）を理解する
-- ハイパーパラメータチューニングのベストプラクティスを身につける
+この節では次を確認します。
 
-## まず、とても大事な学習の前提
-
-この節で新人がつまずきやすいのは、ツールの使い方ではなく、調整を次のように考えてしまうことです。
-
-- 「モデルがよくないなら、もっとたくさんのパラメータを探せばいい」
-
-でも、最初の段階で持っておきたい理解としては、こちらのほうが適切です。
-
-> **調整は、baseline、評価方法、探索空間がすでに適切であるときに初めて意味を持つ改善行動です。**
-
-そのため、この節でまず大事なのは、どの検索ツールをたくさん覚えるかではなく、先に次を学ぶことです。
-
-- いつ調整すべきか
-- いつは急いで調整しなくてよいか
-
----
-
-## まずは全体の地図を作ろう
-
-ハイパーパラメータチューニングを学ぶとき、新人にとって理解しやすい順番は「検索ツールをいくつか覚える」ことではなく、機械学習ワークフローの中でどこにあるかを把握することです。
+- parameters と hyperparameters の違い；
+- `GridSearchCV` の使い方；
+- 探索空間が大きいときの `RandomizedSearchCV`；
+- final holdout を調整に使わず残す方法；
+- 過剰調整を避ける方法。
 
 ![ハイパーパラメータチューニングの検証フロー図](/img/course/ch05-hyperparameter-tuning-workflow-ja.png)
 
-この節で本当に解決したいのは、次のような疑問です。
-
-- なぜ調整は評価と切り離して考えられないのか
-- なぜテストセットを何度も試行に使ってはいけないのか
-- なぜ探索空間そのものが設計の問題なのか
-
-### 新人に合うたとえ
-
-まず、調整はこんなイメージで考えられます。
-
-- 実験中にツマミを調整する
-
-でも、本当に大事なのはツマミをどれだけ頻繁に回すかではなく、次の点です。
-
-- 先に実験台をしっかり組み立てたか
-- 何を最適化したいのか
-- 変更のたびに何がどう変わったかを記録しているか
-
-つまり、調整は単なるパラメータ探索ではなく、実験設計に近いものです。
-
 ![ハイパーパラメータ探索空間と予算の図](/img/course/ch05-search-space-budget-map-ja.png)
 
-この図を見るときは、まず「予算」の線に注目してください。パラメータが多く、範囲が広いほど、組み合わせは爆発的に増えます。新人が最初に調整するときは、すべてのツマミを一度に回さないで、まずは複雑さに最も影響するパラメータから始めましょう。たとえば木モデルなら `max_depth`、`min_samples_leaf` です。その後で、少しずつ探索空間を広げていきます。
+## 用語早見表
 
-## 一、パラメータ vs ハイパーパラメータ
+| 用語 | 実用上の意味 |
+|---|---|
+| parameter | モデルが `fit()` 中にデータから学ぶ値 |
+| hyperparameter | 学習前に人が選ぶ設定。たとえば木の深さ |
+| search space | 探索に試させる候補値 |
+| CV score | 設定を選ぶためのクロスバリデーションスコア |
+| final holdout | 調整後に 1 回だけ使う、触っていないデータ |
+| budget | 試せる組み合わせ数や trial 数 |
 
-| | パラメータ（Parameter） | ハイパーパラメータ（Hyperparameter） |
-|---|-------------------|------------------------|
-| 誰が決めるか | モデルがデータから自動で学習する | 人が手動で設定する |
-| いつ決まるか | 学習中 | 学習前 |
-| 例 | 線形回帰の w, b | 木の max_depth、学習率 |
-| 保存場所 | `model.coef_` | `model.get_params()` |
-
-```python
-from sklearn.tree import DecisionTreeClassifier
-
-model = DecisionTreeClassifier(max_depth=5, min_samples_split=10)
-print("ハイパーパラメータ（学習前に設定）:")
-print(model.get_params())
-```
-
----
-
-## 二、グリッドサーチ（Grid Search）
-
-### 原理
-
-すべてのハイパーパラメータの組み合わせを総当たりし、それぞれを交差検証で評価して、最もよいものを選びます。
-
-```mermaid
-flowchart TD
-    P["パラメータグリッドを定義"] --> CV["各組み合わせで K-fold CV を実行"]
-    CV --> S["すべての組み合わせのスコアを記録"]
-    S --> B["最もスコアの高い組み合わせを選ぶ"]
-
-    style P fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### GridSearchCV の実践
-
-```python
-from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import load_wine
-from sklearn.model_selection import train_test_split
-import numpy as np
-
-wine = load_wine()
-X_train, X_test, y_train, y_test = train_test_split(
-    wine.data, wine.target, test_size=0.2, random_state=42
-)
-
-# パラメータグリッドを定義
-param_grid = {
-    'n_estimators': [50, 100, 200],
-    'max_depth': [3, 5, 10, None],
-    'min_samples_split': [2, 5, 10],
-}
-
-# 合計 3 × 4 × 3 = 36 通り × 5-fold = 180 回の学習
-print(f"総組み合わせ数: {3*4*3}")
-
-# グリッドサーチ
-grid = GridSearchCV(
-    RandomForestClassifier(random_state=42),
-    param_grid,
-    cv=5,
-    scoring='accuracy',
-    n_jobs=-1,
-    verbose=1
-)
-
-grid.fit(X_train, y_train)
-
-print(f"\n最適なパラメータ: {grid.best_params_}")
-print(f"最適な CV スコア: {grid.best_score_:.4f}")
-print(f"テストセットのスコア: {grid.best_estimator_.score(X_test, y_test):.4f}")
-```
-
-### すべての結果を見る
-
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# 結果を DataFrame に変換
-results = pd.DataFrame(grid.cv_results_)
-print(results[['params', 'mean_test_score', 'rank_test_score']].head(10))
-
-# 可視化：異なる n_estimators と max_depth の効果
-fig, ax = plt.subplots(figsize=(8, 5))
-
-for depth in [3, 5, 10, None]:
-    mask = results['param_max_depth'] == depth
-    subset = results[mask & (results['param_min_samples_split'] == 2)]
-    label = f'depth={depth}' if depth else 'depth=None'
-    ax.plot(subset['param_n_estimators'], subset['mean_test_score'], 'o-', label=label)
-
-ax.set_xlabel('n_estimators')
-ax.set_ylabel('CV 正解率')
-ax.set_title('GridSearch の結果の可視化')
-ax.legend()
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-### グリッドサーチの長所と短所
-
-| 長所 | 短所 |
-|------|------|
-| グリッド内の最適解を見つけられる | 組み合わせ爆発（次元が増えると非常に遅い） |
-| 実装が簡単 | グリッドの刻みが粗いと最適値を逃す |
-| 結果を再現しやすい | 悪い領域にも計算を使ってしまう |
-
-### どんなときにグリッドサーチはまだ有効？
-
-より安定した判断基準は次のとおりです。
-
-- パラメータ数が少ない
-- 範囲の見当がすでについている
-- わかりやすく、再現可能な実験がほしい
-
-この場合、Grid Search はとても相性がよいです。透明性が高いからです。
-
----
-
-## 三、ランダムサーチ（Random Search）
-
-### 原理
-
-すべてを総当たりせず、**ランダムにサンプルした** N 通りの組み合わせを試します。同じ計算予算なら、ランダムサーチのほうが効率的なことが多いです。
-
-### RandomizedSearchCV の実践
-
-```python
-from sklearn.model_selection import RandomizedSearchCV
-from scipy.stats import randint, uniform
-
-# パラメータ分布を定義（固定値ではなく範囲）
-param_dist = {
-    'n_estimators': randint(50, 500),
-    'max_depth': [3, 5, 10, 15, 20, None],
-    'min_samples_split': randint(2, 20),
-    'min_samples_leaf': randint(1, 10),
-    'max_features': ['sqrt', 'log2', None],
-}
-
-# 50 通りをランダムに試す
-random_search = RandomizedSearchCV(
-    RandomForestClassifier(random_state=42),
-    param_dist,
-    n_iter=50,       # 50 通りだけ試す
-    cv=5,
-    scoring='accuracy',
-    random_state=42,
-    n_jobs=-1,
-    verbose=1
-)
-
-random_search.fit(X_train, y_train)
-
-print(f"\n最適なパラメータ: {random_search.best_params_}")
-print(f"最適な CV スコア: {random_search.best_score_:.4f}")
-print(f"テストセットのスコア: {random_search.best_estimator_.score(X_test, y_test):.4f}")
-```
-
-### Grid vs Random の比較
-
-```python
-# 可視化で比較
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# Grid Search の探索空間
-grid_n = [50, 100, 200]
-grid_d = [3, 5, 10]
-grid_points = [(n, d) for n in grid_n for d in grid_d]
-axes[0].scatter([p[0] for p in grid_points], [p[1] for p in grid_points],
-                s=100, color='steelblue', zorder=5)
-axes[0].set_xlabel('n_estimators')
-axes[0].set_ylabel('max_depth')
-axes[0].set_title(f'Grid Search（{len(grid_points)} 点）\nグリッドの交点だけを探索')
-axes[0].grid(True, alpha=0.3)
-
-# Random Search の探索空間
-rng = np.random.default_rng(seed=42)
-rand_n = rng.integers(50, 500, 20)
-rand_d = rng.choice([3, 5, 10, 15, 20], 20)
-axes[1].scatter(rand_n, rand_d, s=100, color='coral', zorder=5)
-axes[1].set_xlabel('n_estimators')
-axes[1].set_ylabel('max_depth')
-axes[1].set_title(f'Random Search（20 点）\nより広い探索空間をカバー')
-axes[1].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-| | Grid Search | Random Search |
-|---|------------|---------------|
-| 探索方法 | すべての組み合わせを総当たり | ランダムサンプリング |
-| 計算量 | 組み合わせ数 × K-fold | n_iter × K-fold |
-| カバー範囲 | グリッドの交点 | より広い |
-| 向いている場面 | パラメータが少ない、範囲がわかっている | パラメータが多い、範囲が不明確 |
-| 推奨 | 3 個未満のパラメータ | 3 個より多いパラメータ |
-
-### なぜ「ランダムに探す」ほうが「細かいグリッド探索」より理にかなっていることが多いのか？
-
-本当に時間を浪費しがちなのは、モデルの性能不足そのものではなく、  
-次のようなことです。
-
-- 間違ったパラメータ空間に計算資源を使いすぎること
-
-だから、調整で最も大事なのは検索方法だけではなく、  
-次の点です。
-
-- まず適切な探索範囲を定義する
-- まず本当に最適化したいものを知る
-
----
-
-## 四、ベイズ最適化（Optuna）
-
-### 原理
-
-ベイズ最適化はランダムサーチよりも“賢く”探します。**これまでの試行結果をもとに、次に探す場所を決める**からです。
-
-```mermaid
-flowchart LR
-    A["1 組のパラメータを試す"] --> B["スコアを得る"]
-    B --> C["代理モデルを作る<br/>（どのパラメータが良さそうか予測する）"]
-    C --> D["最も良さそうなパラメータを選ぶ"]
-    D --> A
-
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### Optuna の実践
+## セットアップ
 
 ```bash
-pip install optuna
+python -m pip install -U scikit-learn
 ```
+
+## 完全な実験を実行する
+
+`tuning_lab.py` を作成します。
 
 ```python
-try:
-    import optuna
-    from sklearn.model_selection import cross_val_score
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, f1_score, recall_score
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, StratifiedKFold, train_test_split
 
-    # 最適化の目的関数を定義
-    def objective(trial):
-        params = {
-            'n_estimators': trial.suggest_int('n_estimators', 50, 500),
-            'max_depth': trial.suggest_int('max_depth', 3, 20),
-            'min_samples_split': trial.suggest_int('min_samples_split', 2, 20),
-            'min_samples_leaf': trial.suggest_int('min_samples_leaf', 1, 10),
-            'max_features': trial.suggest_categorical('max_features', ['sqrt', 'log2', None]),
-        }
 
-        model = RandomForestClassifier(**params, random_state=42)
-        score = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy').mean()
-        return score
+X, y = load_breast_cancer(return_X_y=True)
+X_train, X_final, y_train, y_final = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-    # 最適化を実行
-    study = optuna.create_study(direction='maximize')
-    study.optimize(objective, n_trials=50, show_progress_bar=True)
-
-    print(f"\n最適なパラメータ: {study.best_params}")
-    print(f"最適な CV スコア: {study.best_value:.4f}")
-
-    # 最適パラメータで学習
-    best_model = RandomForestClassifier(**study.best_params, random_state=42)
-    best_model.fit(X_train, y_train)
-    print(f"テストセットのスコア: {best_model.score(X_test, y_test):.4f}")
-
-except ImportError:
-    print("先に optuna をインストールしてください: pip install optuna")
-```
-
-### ベイズ最適化はどんなときにより有効？
-
-典型的には、次のようなときです。
-
-- パラメータ空間が大きくなってきた
-- 1 回の学習コストが高い
-- 明らかに悪い組み合わせに予算を使いたくない
-
-このような場面では、「より賢く試す」ことがだんだん重要になります。
-
-### Optuna の可視化
-
-```python
-try:
-    import optuna
-    from optuna.visualization import plot_optimization_history, plot_param_importances
-
-    # 最適化履歴（上のコードを先に実行しておく必要があります）
-    fig = optuna.visualization.plot_optimization_history(study)
-    fig.show()
-
-    # パラメータ重要度
-    fig = optuna.visualization.plot_param_importances(study)
-    fig.show()
-
-except (ImportError, NameError):
-    print("先に optuna をインストールして最適化を実行する必要があります")
-```
-
-### 3つの方法の比較
-
-| | Grid Search | Random Search | ベイズ最適化 |
-|---|------------|--------------|-----------|
-| 賢さ | なし（総当たり） | 低い（ランダム） | 高い（履歴から学ぶ） |
-| 効率 | 低い | 中 | 高い |
-| 実装 | `GridSearchCV` | `RandomizedSearchCV` | `optuna` |
-| 向いている場面 | パラメータが少ない、範囲が狭い | 汎用的 | パラメータが多い、計算コストが高い |
-
----
-
-## 五、ハイパーパラメータチューニングのベストプラクティス
-
-### 調整の進め方
-
-```mermaid
-flowchart TD
-    A["1. まずデフォルトパラメータで baseline を作る"] --> B["2. 粗く調整：Random Search<br/>広い範囲、少ない回数"]
-    B --> C["3. 細かく調整：Grid Search<br/>範囲を狭めて丁寧に探索"]
-    C --> D["4. 最終確認<br/>テストセットで評価"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### よくあるモデルの調整優先順位
-
-**ランダムフォレスト / GBDT**：
-
-| 優先順位 | パラメータ | 探索範囲 |
-|--------|------|---------|
-| 1 | `n_estimators` | 100~1000 |
-| 2 | `max_depth` | 3~20 |
-| 3 | `learning_rate`（GBDT） | 0.01~0.3 |
-| 4 | `min_samples_split` | 2~20 |
-| 5 | `subsample`（GBDT） | 0.6~1.0 |
-
-**XGBoost / LightGBM**：
-
-| 優先順位 | パラメータ | 探索範囲 |
-|--------|------|---------|
-| 1 | `n_estimators` + `learning_rate` | まとめて調整 |
-| 2 | `max_depth` | 3~10 |
-| 3 | `subsample` / `colsample_bytree` | 0.6~1.0 |
-| 4 | `reg_alpha` / `reg_lambda` | 0~5 |
-
-### 注意点
-
-:::warning 調整の落とし穴
-1. **テストセットで調整しない**——テストセットは最終評価のために 1 回だけ使う
-2. **交差検証を使う**——1 回の分割ではなく、CV スコアでパラメータを選ぶ
-3. **random_state を固定する**——結果を再現できるようにする
-4. **まず粗く、あとで細かく**——最初から細かいグリッドにしない
-5. **重要なパラメータに注目する**——すべてのパラメータを調整する必要はない
-:::
-
-### Pipeline + GridSearch
-
-```python
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import GridSearchCV
-from sklearn.svm import SVC
-
-# Pipeline の中で調整する
-pipe = Pipeline([
-    ('scaler', StandardScaler()),
-    ('svm', SVC(random_state=42)),
-])
-
-# パラメータ名の形式：ステップ名__パラメータ名
-param_grid = {
-    'svm__C': [0.1, 1, 10, 100],
-    'svm__kernel': ['rbf', 'poly'],
-    'svm__gamma': ['scale', 'auto', 0.01, 0.1],
-}
-
-grid = GridSearchCV(pipe, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+print("grid_search_lab")
+grid = GridSearchCV(
+    RandomForestClassifier(random_state=42),
+    param_grid={
+        "n_estimators": [80, 160],
+        "max_depth": [3, 5, None],
+        "min_samples_leaf": [1, 3],
+    },
+    scoring="f1",
+    cv=cv,
+    n_jobs=-1,
+)
 grid.fit(X_train, y_train)
-
-print(f"最適なパラメータ: {grid.best_params_}")
-print(f"最適な CV スコア: {grid.best_score_:.4f}")
-print(f"テストセットのスコア: {grid.score(X_test, y_test):.4f}")
-```
-
----
-
-## 六、完全なチューニング実践
-
-```python
-from sklearn.datasets import load_digits
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.ensemble import GradientBoostingClassifier
-from scipy.stats import randint, uniform
-import time
-
-digits = load_digits()
-X_train, X_test, y_train, y_test = train_test_split(
-    digits.data, digits.target, test_size=0.2, random_state=42
+print("best_params=", grid.best_params_)
+print(f"best_cv_f1={grid.best_score_:.3f}")
+final_pred = grid.best_estimator_.predict(X_final)
+print(
+    f"final accuracy={accuracy_score(y_final, final_pred):.3f} "
+    f"recall={recall_score(y_final, final_pred):.3f} "
+    f"f1={f1_score(y_final, final_pred):.3f}"
 )
 
-# Step 1: baseline
-baseline = GradientBoostingClassifier(random_state=42)
-baseline.fit(X_train, y_train)
-print(f"Baseline テスト精度: {baseline.score(X_test, y_test):.4f}")
-
-# Step 2: ランダムサーチ
-param_dist = {
-    'n_estimators': randint(50, 300),
-    'max_depth': randint(2, 10),
-    'learning_rate': uniform(0.01, 0.3),
-    'subsample': uniform(0.6, 0.4),
-    'min_samples_split': randint(2, 15),
-}
-
-start = time.time()
-rs = RandomizedSearchCV(
-    GradientBoostingClassifier(random_state=42),
-    param_dist,
-    n_iter=30,
-    cv=5,
-    scoring='accuracy',
+print("random_search_lab")
+random_search = RandomizedSearchCV(
+    RandomForestClassifier(random_state=42),
+    param_distributions={
+        "n_estimators": [60, 100, 160, 220],
+        "max_depth": [3, 5, 8, None],
+        "min_samples_leaf": [1, 2, 3, 5],
+        "max_features": ["sqrt", "log2", None],
+    },
+    n_iter=8,
+    scoring="f1",
+    cv=cv,
     random_state=42,
     n_jobs=-1,
 )
-rs.fit(X_train, y_train)
-elapsed = time.time() - start
+random_search.fit(X_train, y_train)
+print("best_params=", random_search.best_params_)
+print(f"best_cv_f1={random_search.best_score_:.3f}")
 
-print(f"\nRandomSearch 最適なパラメータ: {rs.best_params_}")
-print(f"RandomSearch CV スコア: {rs.best_score_:.4f}")
-print(f"RandomSearch テストスコア: {rs.score(X_test, y_test):.4f}")
-print(f"所要時間: {elapsed:.1f}s")
-
-# Step 3: 比較
-print(f"\n改善: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4f}")
+print("top_3_grid_results")
+rows = sorted(
+    zip(grid.cv_results_["mean_test_score"], grid.cv_results_["params"]),
+    key=lambda item: item[0],
+    reverse=True,
+)[:3]
+for score, params in rows:
+    print(f"score={score:.3f} params={params}")
 ```
 
----
+実行します。
 
-## 初めて調整実験をするとき、見落としやすいことは？
+```bash
+python tuning_lab.py
+```
 
-もっとも見落とされやすいのは次の点です。
+期待される出力：
 
-- **テストセットを見ながらパラメータを変更しないこと**
+```text
+grid_search_lab
+best_params= {'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 80}
+best_cv_f1=0.968
+final accuracy=0.956 recall=0.972 f1=0.966
+random_search_lab
+best_params= {'n_estimators': 100, 'min_samples_leaf': 1, 'max_features': 'log2', 'max_depth': 8}
+best_cv_f1=0.972
+top_3_grid_results
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 80}
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
+score=0.968 params={'max_depth': None, 'min_samples_leaf': 3, 'n_estimators': 160}
+```
 
-テストセットを使って調整を始めると、  
-テストセットはもう「最終的に未知のデータ」ではなくなります。  
-その結果、評価に楽観バイアスが入ってしまいます。
+## パラメータとハイパーパラメータ
 
-## 初めての調整実験で最も安定した順番
+ランダムフォレストは、データから分岐ルールを学びます。学習された分岐ルールは parameters です。
 
-本当に初めて調整をするなら、次の順番がおすすめです。
+人が事前に選ぶ設定には次があります。
 
-1. まず baseline を固定する
-2. まず主な評価指標を固定する
-3. まず 1〜2 個の重要なパラメータだけを調整する
-4. まずは粗い範囲で試す
-5. 方向性が見えてから、範囲を絞って細かく調整する
+- `n_estimators`；
+- `max_depth`；
+- `min_samples_leaf`；
+- `max_features`。
 
-この順番は、最初から大きな探索空間を広げるより安定していて、改善がどこから来たのかもわかりやすくなります。
+これらが hyperparameters です。学習の進み方を形作ります。
 
-## この節を学んでもまだ混乱しやすいなら、何を先に押さえるべき？
+## Grid Search
 
-もし今でも調整が難しく感じるなら、まず大事なのはすべてのツールの違いではなく、次の 3 つです。
+Grid search は、列挙したすべての組み合わせを試します。
 
-1. baseline がないなら、急いで調整しない
-2. 安定した評価がないなら、調整結果を信用しすぎない
-3. 適切な探索範囲がないなら、どんな高度な探索方法でもあまり助けにならない
+```python
+param_grid={
+    "n_estimators": [80, 160],
+    "max_depth": [3, 5, None],
+    "min_samples_leaf": [1, 3],
+}
+```
 
-この 3 つがしっかりしてくると、この節は本当の意味で役に立ちます。
+この grid は `2 x 3 x 2 = 12` 通りです。5-fold CV なら、`60` 回モデルを fit します。
 
----
+Grid search が向いている場面：
 
-## まとめ
+- 探索空間が小さい；
+- 妥当な候補値がある程度わかっている；
+- 単純で再現しやすい基線がほしい。
 
-| 方法 | 説明 | おすすめの場面 |
-|------|------|---------|
-| **Grid Search** | すべての組み合わせを総当たり | パラメータが少ない（≤3）、範囲がわかっている |
-| **Random Search** | 組み合わせをランダムにサンプリング | パラメータが多い、最初の探索 |
-| **Optuna** | ベイズ最適化 | 計算コストが高い、パラメータが多い |
-| **Pipeline + Search** | 前処理とモデルをまとめて調整 | 本番環境 |
+## Random Search
 
-:::info 次につながる内容
-- **第 5 章**：特徴量エンジニアリング——より良い特徴量でモデルを向上させる（調整より効果が大きいこともある）
-- **第 6 章**：実践プロジェクト——これまでの調整テクニックを総合的に使う
-:::
+Random search は、大きな空間から限られた回数だけ組み合わせを抽出します。
 
-## この節で最も持ち帰ってほしいこと
+```python
+n_iter=8
+```
 
-- 調整は「いくつかのパラメータを試すこと」ではなく、モデル選択プロセスの一部である
-- 探索方法、探索空間、評価プロトコルはまとめて設計する必要がある
-- 本当に成熟した調整では、「より高いスコアを見つけること」だけでなく、「そのスコアがなぜ信頼できるのかを理解すること」が重要
+実験では、8 通りだけ試しながらより広い空間を探索し、少し高い CV F1 を見つけました。
 
-## 手を動かす練習
+```text
+best_cv_f1=0.972
+```
 
-### 練習 1：Grid vs Random
+Random search が向いている場面：
 
-Wine データセットで、同じ時間内に GridSearchCV と RandomizedSearchCV が見つける最適スコアを比較しましょう。どちらが効率的ですか？
+- ハイパーパラメータが多い；
+- 学習コストが高い；
+- 狭い grid を作る前に広く探索したい。
 
-### 練習 2：XGBoost の調整
+## Final Holdout
 
-`load_digits()` 上で XGBoost を調整しましょう。まず RandomizedSearchCV でおおよその範囲を見つけ、そのあと GridSearchCV で細かく調整します。各ステップの改善を記録してください。
+final holdout は、CV 探索に使っていない部分です。
 
-### 練習 3：Optuna の実践
+```python
+X_train, X_final, y_train, y_final = train_test_split(...)
+```
 
-Optuna を使って LightGBM の分類器を最適化しましょう。`optuna.visualization` を使って、最適化履歴とパラメータ重要度の図を描いてください。
+探索が最良設定を選んだ後、1 回だけ評価します。
 
-### 練習 4：Pipeline の調整
+```text
+final accuracy=0.956 recall=0.972 f1=0.966
+```
 
-`StandardScaler → PCA → RandomForest` の Pipeline を作成し、GridSearchCV を使って PCA の `n_components` と RandomForest のパラメータを同時に最適化しましょう。
+final holdout を見たあとに grid を変え続けないでください。そうすると final holdout ではなく、調整の一部になります。
+
+## 探索結果を読む
+
+Grid の上位結果はかなり近いです。
+
+```text
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 80}
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
+```
+
+スコアが同じくらいなら、より単純または安いモデルを選びます。木が多い、深い、というだけでは良いモデルとは限りません。
+
+## 実用的な調整戦略
+
+| 段階 | 行動 |
+|---|---|
+| 開始 | まず既定設定で簡単な基線を作る |
+| 診断 | bias/variance と指標選択を確認する |
+| 最初の探索 | 重要パラメータの小さな grid を試す |
+| 広い探索 | 組み合わせが爆発したら random search |
+| 最終確認 | untouched holdout で 1 回だけ評価 |
+| 本番 | ドリフトと再学習方針を監視する |
+
+経験者向け：Optuna などのベイズ最適化ツールは、1 回の trial が高価なときや探索空間が大きいときに便利です。ただし、きれいな検証設計の代わりにはなりません。
+
+## よくあるトラブル
+
+| 症状 | よくある原因 | 修正 |
+|---|---|---|
+| 探索が遅すぎる | grid が大きすぎる | 候補値を減らし、random search を使う |
+| CV スコアは上がるが final holdout が下がる | 過剰調整 | 探索を単純にし、新しい holdout を残す |
+| 最良モデルがかなり複雑 | 指標差が小さい | 安い/単純なモデルを選ぶ |
+| 実行ごとに違う params が選ばれる | データが不安定、fold が小さい | repeated CV や分散確認を行う |
+| 調整しても改善しない | モデルクラスや特徴量が制限 | 先に特徴量やモデルファミリーを改善する |
+
+## 練習
+
+1. scoring を `"f1"` から `"recall"` に変えてください。最良パラメータは変わりますか？
+2. grid に `max_depth=10` を追加してください。CV スコアは改善しますか？
+3. `n_iter` を `8` から `16` に増やしてください。追加コストに見合う改善がありますか？
+4. `cv_results_` から `mean_fit_time` を表示し、スコアが近いときは安いモデルを選んでください。
+5. 以前の CV だけの実験に、最後まで触らない test set を追加してください。
+
+## 合格チェック
+
+次を説明できれば、この節はクリアです。
+
+- ハイパーパラメータは学習前に選ぶ；
+- grid search は小さな候補空間を全探索する；
+- random search は大きな探索空間に向いている；
+- final holdout は繰り返し調整に使ってはいけない；
+- 調整では、悪い特徴量や誤った検証設計は救えない。

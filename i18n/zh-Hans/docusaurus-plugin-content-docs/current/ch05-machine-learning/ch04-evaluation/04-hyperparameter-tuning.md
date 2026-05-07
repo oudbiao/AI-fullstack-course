@@ -1,585 +1,256 @@
 ---
 title: "5.4.5 超参数调优"
-sidebar_position: 13
-description: "掌握网格搜索、随机搜索和贝叶斯优化（Optuna）等超参数调优方法"
-keywords: [超参数调优, GridSearchCV, RandomizedSearchCV, Optuna, 贝叶斯优化, 调参]
+sidebar_position: 5
+description: "一节跟着操作的超参数调优课程：GridSearchCV、RandomizedSearchCV、搜索空间、验证流程、最终 holdout 和过度调参风险"
+keywords: [超参数调优, GridSearchCV, RandomizedSearchCV, 搜索空间, holdout, 交叉验证, 随机森林]
 ---
 
 # 5.4.5 超参数调优
 
 ![超参数搜索方法对比图](/img/course/hyperparameter-tuning-search.png)
 
-:::tip 本节定位
-模型的**超参数**（如树的深度、学习率、正则化强度）需要手动设定，它们对模型性能影响巨大。本节教你**系统化**地搜索最优超参数，而不是靠感觉瞎试。
+:::tip 本节概览
+超参数调优不是“不断试设置，直到测试集分数好看”。安全流程是在训练折上搜索，用交叉验证选择参数，最后只在 final holdout 上检查一次。
 :::
 
-## 学习目标
+## 你会做出什么
 
-- 区分参数和超参数
-- 掌握网格搜索（GridSearchCV）
-- 掌握随机搜索（RandomizedSearchCV）
-- 了解贝叶斯优化（Optuna）
-- 掌握超参数调优的最佳实践
+本节会演示：
 
-## 先说一个很重要的学习预期
-
-这一节最容易让新人走偏的地方，不是工具不会用，而是太容易把调参理解成：
-
-- “模型不够好，就继续搜更多参数”
-
-但更适合第一遍先建立的认知是：
-
-> **调参是在 baseline、评估方式和搜索空间都已经合理之后，才有意义的优化动作。**
-
-所以这节最重要的第一层，不是先会多少搜索工具，而是先学会：
-
-- 什么情况下该调
-- 什么情况下其实不该急着调
-
----
-
-## 先建立一张地图
-
-超参数调优这节最适合新人的理解顺序不是“先学几个搜索工具”，而是先看清它在机器学习工作流里的位置：
+- parameters 和 hyperparameters 的区别；
+- 如何使用 `GridSearchCV`；
+- 搜索空间变大时如何使用 `RandomizedSearchCV`；
+- 如何保留最终 holdout 不参与调参；
+- 如何避免过度调参。
 
 ![超参数调优验证流程图](/img/course/ch05-hyperparameter-tuning-workflow.png)
 
-这节真正想解决的是：
-
-- 调参为什么不能脱离评估来谈
-- 为什么测试集不能被拿来反复试参数
-- 为什么搜索空间本身就是设计问题
-
-### 一个更适合新人的类比
-
-你可以先把调参想成：
-
-- 做实验时在调旋钮
-
-但真正重要的不是旋钮拧得多勤，而是：
-
-- 你有没有先把实验台搭稳
-- 你到底在优化哪个目标
-- 你有没有记录每次改动带来的变化
-
-所以调参更像实验设计，不只是参数搜索。
-
 ![超参数搜索空间与预算图](/img/course/ch05-search-space-budget-map.png)
 
-读这张图时，先看“预算”这条线：参数越多、范围越大，组合数会爆炸。新人第一次调参不要把所有旋钮一起拧，先从最影响复杂度的参数开始，比如树模型的 `max_depth`、`min_samples_leaf`，再逐步扩大搜索空间。
+## 术语速查
 
-## 一、参数 vs 超参数
+| 术语 | 实用含义 |
+|---|---|
+| parameter | 模型在 `fit()` 时从数据中学到的值 |
+| hyperparameter | 训练前由你选择的设置，例如树深 |
+| search space | 允许搜索尝试的候选值 |
+| CV score | 用来选择设置的交叉验证分数 |
+| final holdout | 调参后只用一次的未触碰数据 |
+| budget | 你能承受的组合数或试验次数 |
 
-| | 参数（Parameter） | 超参数（Hyperparameter） |
-|---|-------------------|------------------------|
-| 由谁决定 | 模型自动从数据中学习 | 人为手动设定 |
-| 什么时候确定 | 训练过程中 | 训练之前 |
-| 例子 | 线性回归的 w, b | 树的 max_depth, 学习率 |
-| 存储位置 | `model.coef_` | `model.get_params()` |
-
-```python
-from sklearn.tree import DecisionTreeClassifier
-
-model = DecisionTreeClassifier(max_depth=5, min_samples_split=10)
-print("超参数（训练前设定）:")
-print(model.get_params())
-```
-
----
-
-## 二、网格搜索（Grid Search）
-
-### 原理
-
-穷举所有超参数组合，用交叉验证评估每一种，选最好的。
-
-```mermaid
-flowchart TD
-    P["定义参数网格"] --> CV["对每种组合做 K 折 CV"]
-    CV --> S["记录所有组合的分数"]
-    S --> B["选分数最高的组合"]
-
-    style P fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### GridSearchCV 实战
-
-```python
-from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import load_wine
-from sklearn.model_selection import train_test_split
-import numpy as np
-
-wine = load_wine()
-X_train, X_test, y_train, y_test = train_test_split(
-    wine.data, wine.target, test_size=0.2, random_state=42
-)
-
-# 定义参数网格
-param_grid = {
-    'n_estimators': [50, 100, 200],
-    'max_depth': [3, 5, 10, None],
-    'min_samples_split': [2, 5, 10],
-}
-
-# 总共 3 × 4 × 3 = 36 种组合 × 5 折 = 180 次训练
-print(f"总组合数: {3*4*3}")
-
-# 网格搜索
-grid = GridSearchCV(
-    RandomForestClassifier(random_state=42),
-    param_grid,
-    cv=5,
-    scoring='accuracy',
-    n_jobs=-1,
-    verbose=1
-)
-
-grid.fit(X_train, y_train)
-
-print(f"\n最佳参数: {grid.best_params_}")
-print(f"最佳 CV 分数: {grid.best_score_:.4f}")
-print(f"测试集分数: {grid.best_estimator_.score(X_test, y_test):.4f}")
-```
-
-### 查看所有结果
-
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# 结果转为 DataFrame
-results = pd.DataFrame(grid.cv_results_)
-print(results[['params', 'mean_test_score', 'rank_test_score']].head(10))
-
-# 可视化：不同 n_estimators 和 max_depth 的效果
-fig, ax = plt.subplots(figsize=(8, 5))
-
-for depth in [3, 5, 10, None]:
-    mask = results['param_max_depth'] == depth
-    subset = results[mask & (results['param_min_samples_split'] == 2)]
-    label = f'depth={depth}' if depth else 'depth=None'
-    ax.plot(subset['param_n_estimators'], subset['mean_test_score'], 'o-', label=label)
-
-ax.set_xlabel('n_estimators')
-ax.set_ylabel('CV 准确率')
-ax.set_title('GridSearch 结果可视化')
-ax.legend()
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-### 网格搜索的优缺点
-
-| 优点 | 缺点 |
-|------|------|
-| 保证找到网格中的最优 | 组合爆炸（维度多时极慢） |
-| 实现简单 | 网格粒度粗会错过最优值 |
-| 结果可复现 | 浪费计算在差的区域 |
-
-### 什么时候网格搜索仍然很值得用？
-
-一个更稳的判断是：
-
-- 参数少
-- 范围你已经大致知道
-- 你就是想要一个清楚、可复现实验
-
-这时 Grid Search 反而很好，因为它非常透明。
-
----
-
-## 三、随机搜索（Random Search）
-
-### 原理
-
-不穷举所有组合，而是**随机采样** N 种组合。在相同计算预算下，随机搜索往往更高效。
-
-### RandomizedSearchCV 实战
-
-```python
-from sklearn.model_selection import RandomizedSearchCV
-from scipy.stats import randint, uniform
-
-# 定义参数分布（不是固定值，而是范围）
-param_dist = {
-    'n_estimators': randint(50, 500),
-    'max_depth': [3, 5, 10, 15, 20, None],
-    'min_samples_split': randint(2, 20),
-    'min_samples_leaf': randint(1, 10),
-    'max_features': ['sqrt', 'log2', None],
-}
-
-# 随机搜索 50 种组合
-random_search = RandomizedSearchCV(
-    RandomForestClassifier(random_state=42),
-    param_dist,
-    n_iter=50,       # 只尝试 50 种组合
-    cv=5,
-    scoring='accuracy',
-    random_state=42,
-    n_jobs=-1,
-    verbose=1
-)
-
-random_search.fit(X_train, y_train)
-
-print(f"\n最佳参数: {random_search.best_params_}")
-print(f"最佳 CV 分数: {random_search.best_score_:.4f}")
-print(f"测试集分数: {random_search.best_estimator_.score(X_test, y_test):.4f}")
-```
-
-### Grid vs Random 对比
-
-```python
-# 可视化对比
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# Grid Search 搜索空间
-grid_n = [50, 100, 200]
-grid_d = [3, 5, 10]
-grid_points = [(n, d) for n in grid_n for d in grid_d]
-axes[0].scatter([p[0] for p in grid_points], [p[1] for p in grid_points],
-                s=100, color='steelblue', zorder=5)
-axes[0].set_xlabel('n_estimators')
-axes[0].set_ylabel('max_depth')
-axes[0].set_title(f'Grid Search（{len(grid_points)} 个点）\n只搜索网格交叉点')
-axes[0].grid(True, alpha=0.3)
-
-# Random Search 搜索空间
-rng = np.random.default_rng(seed=42)
-rand_n = rng.integers(50, 500, 20)
-rand_d = rng.choice([3, 5, 10, 15, 20], 20)
-axes[1].scatter(rand_n, rand_d, s=100, color='coral', zorder=5)
-axes[1].set_xlabel('n_estimators')
-axes[1].set_ylabel('max_depth')
-axes[1].set_title(f'Random Search（20 个点）\n覆盖更广的搜索空间')
-axes[1].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-| | Grid Search | Random Search |
-|---|------------|---------------|
-| 搜索方式 | 穷举所有组合 | 随机采样 |
-| 计算量 | 组合数 × K 折 | n_iter × K 折 |
-| 覆盖范围 | 网格交叉点 | 更广 |
-| 适用 | 少量参数，范围已知 | 参数多，范围不确定 |
-| 推荐 | 参数少于 3 个 | 参数多于 3 个 |
-
-### 为什么“随机搜”很多时候已经比“细网格搜”更合理？
-
-因为真正浪费时间的，往往不是模型不够强，
-而是：
-
-- 你在错误的参数空间里花了太多算力
-
-所以调参最关键的不只是搜索方法，
-而是：
-
-- 先定义合理搜索范围
-- 先知道自己真正想优化什么
-
----
-
-## 四、贝叶斯优化（Optuna）
-
-### 原理
-
-贝叶斯优化比随机搜索更"聪明"——它**根据之前的试验结果来指导下一次搜索**。
-
-```mermaid
-flowchart LR
-    A["尝试一组参数"] --> B["得到分数"]
-    B --> C["建立代理模型<br/>（预测哪些参数可能更好）"]
-    C --> D["选择最有可能好的参数"]
-    D --> A
-
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### Optuna 实战
+## 环境准备
 
 ```bash
-pip install optuna
+python -m pip install -U scikit-learn
 ```
+
+## 运行完整实验
+
+新建 `tuning_lab.py`：
 
 ```python
-try:
-    import optuna
-    from sklearn.model_selection import cross_val_score
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, f1_score, recall_score
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, StratifiedKFold, train_test_split
 
-    # 定义优化目标
-    def objective(trial):
-        params = {
-            'n_estimators': trial.suggest_int('n_estimators', 50, 500),
-            'max_depth': trial.suggest_int('max_depth', 3, 20),
-            'min_samples_split': trial.suggest_int('min_samples_split', 2, 20),
-            'min_samples_leaf': trial.suggest_int('min_samples_leaf', 1, 10),
-            'max_features': trial.suggest_categorical('max_features', ['sqrt', 'log2', None]),
-        }
 
-        model = RandomForestClassifier(**params, random_state=42)
-        score = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy').mean()
-        return score
+X, y = load_breast_cancer(return_X_y=True)
+X_train, X_final, y_train, y_final = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-    # 运行优化
-    study = optuna.create_study(direction='maximize')
-    study.optimize(objective, n_trials=50, show_progress_bar=True)
-
-    print(f"\n最佳参数: {study.best_params}")
-    print(f"最佳 CV 分数: {study.best_value:.4f}")
-
-    # 用最佳参数训练
-    best_model = RandomForestClassifier(**study.best_params, random_state=42)
-    best_model.fit(X_train, y_train)
-    print(f"测试集分数: {best_model.score(X_test, y_test):.4f}")
-
-except ImportError:
-    print("请先安装 optuna: pip install optuna")
-```
-
-### 贝叶斯优化什么时候更值得上？
-
-比较典型的是：
-
-- 参数空间已经开始变大
-- 训练一次成本不低
-- 你不想把预算浪费在大量明显差的组合上
-
-这时“更聪明地试”就会越来越重要。
-
-### Optuna 可视化
-
-```python
-try:
-    import optuna
-    from optuna.visualization import plot_optimization_history, plot_param_importances
-
-    # 优化历史（需要先运行上面的代码）
-    fig = optuna.visualization.plot_optimization_history(study)
-    fig.show()
-
-    # 参数重要性
-    fig = optuna.visualization.plot_param_importances(study)
-    fig.show()
-
-except (ImportError, NameError):
-    print("需要先安装 optuna 并运行优化")
-```
-
-### 三种方法对比
-
-| | Grid Search | Random Search | 贝叶斯优化 |
-|---|------------|--------------|-----------|
-| 智能程度 | 无（穷举） | 低（随机） | 高（学习历史） |
-| 效率 | 低 | 中 | 高 |
-| 实现 | `GridSearchCV` | `RandomizedSearchCV` | `optuna` |
-| 适用 | 参数少，范围小 | 通用 | 参数多，计算贵 |
-
----
-
-## 五、超参数调优最佳实践
-
-### 调参策略
-
-```mermaid
-flowchart TD
-    A["1. 先用默认参数建 baseline"] --> B["2. 粗调：Random Search<br/>大范围，少次数"]
-    B --> C["3. 细调：Grid Search<br/>缩小范围，精细搜索"]
-    C --> D["4. 最终验证<br/>用测试集评估"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### 常见模型调参优先级
-
-**随机森林 / GBDT**：
-
-| 优先级 | 参数 | 搜索范围 |
-|--------|------|---------|
-| 1 | `n_estimators` | 100~1000 |
-| 2 | `max_depth` | 3~20 |
-| 3 | `learning_rate`（GBDT） | 0.01~0.3 |
-| 4 | `min_samples_split` | 2~20 |
-| 5 | `subsample`（GBDT） | 0.6~1.0 |
-
-**XGBoost / LightGBM**：
-
-| 优先级 | 参数 | 搜索范围 |
-|--------|------|---------|
-| 1 | `n_estimators` + `learning_rate` | 联合调 |
-| 2 | `max_depth` | 3~10 |
-| 3 | `subsample` / `colsample_bytree` | 0.6~1.0 |
-| 4 | `reg_alpha` / `reg_lambda` | 0~5 |
-
-### 注意事项
-
-:::warning 调参陷阱
-1. **不要在测试集上调参**——测试集只用一次，做最终评估
-2. **使用交叉验证**——用 CV 分数选参数，而不是单次划分
-3. **固定 random_state**——保证结果可复现
-4. **先粗后细**——别一开始就用细粒度网格
-5. **关注重要参数**——不是所有参数都值得调
-:::
-
-### Pipeline + GridSearch
-
-```python
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import GridSearchCV
-from sklearn.svm import SVC
-
-# 在 Pipeline 中调参
-pipe = Pipeline([
-    ('scaler', StandardScaler()),
-    ('svm', SVC(random_state=42)),
-])
-
-# 参数名格式：步骤名__参数名
-param_grid = {
-    'svm__C': [0.1, 1, 10, 100],
-    'svm__kernel': ['rbf', 'poly'],
-    'svm__gamma': ['scale', 'auto', 0.01, 0.1],
-}
-
-grid = GridSearchCV(pipe, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+print("grid_search_lab")
+grid = GridSearchCV(
+    RandomForestClassifier(random_state=42),
+    param_grid={
+        "n_estimators": [80, 160],
+        "max_depth": [3, 5, None],
+        "min_samples_leaf": [1, 3],
+    },
+    scoring="f1",
+    cv=cv,
+    n_jobs=-1,
+)
 grid.fit(X_train, y_train)
-
-print(f"最佳参数: {grid.best_params_}")
-print(f"最佳 CV 分数: {grid.best_score_:.4f}")
-print(f"测试集分数: {grid.score(X_test, y_test):.4f}")
-```
-
----
-
-## 六、完整调参实战
-
-```python
-from sklearn.datasets import load_digits
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.ensemble import GradientBoostingClassifier
-from scipy.stats import randint, uniform
-import time
-
-digits = load_digits()
-X_train, X_test, y_train, y_test = train_test_split(
-    digits.data, digits.target, test_size=0.2, random_state=42
+print("best_params=", grid.best_params_)
+print(f"best_cv_f1={grid.best_score_:.3f}")
+final_pred = grid.best_estimator_.predict(X_final)
+print(
+    f"final accuracy={accuracy_score(y_final, final_pred):.3f} "
+    f"recall={recall_score(y_final, final_pred):.3f} "
+    f"f1={f1_score(y_final, final_pred):.3f}"
 )
 
-# Step 1: Baseline
-baseline = GradientBoostingClassifier(random_state=42)
-baseline.fit(X_train, y_train)
-print(f"Baseline 测试准确率: {baseline.score(X_test, y_test):.4f}")
-
-# Step 2: 随机搜索
-param_dist = {
-    'n_estimators': randint(50, 300),
-    'max_depth': randint(2, 10),
-    'learning_rate': uniform(0.01, 0.3),
-    'subsample': uniform(0.6, 0.4),
-    'min_samples_split': randint(2, 15),
-}
-
-start = time.time()
-rs = RandomizedSearchCV(
-    GradientBoostingClassifier(random_state=42),
-    param_dist,
-    n_iter=30,
-    cv=5,
-    scoring='accuracy',
+print("random_search_lab")
+random_search = RandomizedSearchCV(
+    RandomForestClassifier(random_state=42),
+    param_distributions={
+        "n_estimators": [60, 100, 160, 220],
+        "max_depth": [3, 5, 8, None],
+        "min_samples_leaf": [1, 2, 3, 5],
+        "max_features": ["sqrt", "log2", None],
+    },
+    n_iter=8,
+    scoring="f1",
+    cv=cv,
     random_state=42,
     n_jobs=-1,
 )
-rs.fit(X_train, y_train)
-elapsed = time.time() - start
+random_search.fit(X_train, y_train)
+print("best_params=", random_search.best_params_)
+print(f"best_cv_f1={random_search.best_score_:.3f}")
 
-print(f"\nRandomSearch 最佳参数: {rs.best_params_}")
-print(f"RandomSearch CV 分数: {rs.best_score_:.4f}")
-print(f"RandomSearch 测试分数: {rs.score(X_test, y_test):.4f}")
-print(f"耗时: {elapsed:.1f}s")
-
-# Step 3: 对比
-print(f"\n提升: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4f}")
+print("top_3_grid_results")
+rows = sorted(
+    zip(grid.cv_results_["mean_test_score"], grid.cv_results_["params"]),
+    key=lambda item: item[0],
+    reverse=True,
+)[:3]
+for score, params in rows:
+    print(f"score={score:.3f} params={params}")
 ```
 
----
+运行：
 
-## 第一次做调参实验，最容易忽略什么？
+```bash
+python tuning_lab.py
+```
 
-最常被忽略的通常是：
+预期输出：
 
-- **不要一边看测试集，一边改参数**
+```text
+grid_search_lab
+best_params= {'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 80}
+best_cv_f1=0.968
+final accuracy=0.956 recall=0.972 f1=0.966
+random_search_lab
+best_params= {'n_estimators': 100, 'min_samples_leaf': 1, 'max_features': 'log2', 'max_depth': 8}
+best_cv_f1=0.972
+top_3_grid_results
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 80}
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
+score=0.968 params={'max_depth': None, 'min_samples_leaf': 3, 'n_estimators': 160}
+```
 
-因为一旦你开始用测试集指导调参，
-测试集就不再是“最终未知数据”了，
-你的评估也会开始乐观偏差。
+## 参数与超参数
 
-## 第一次做调参实验时，最稳的默认顺序
+随机森林会从数据中学习划分规则，这些学到的规则是 parameters。
 
-如果你第一次真的开始调参，建议先按这个顺序：
+你提前选择的设置包括：
 
-1. 先把 baseline 固定住
-2. 先把主指标固定住
-3. 先只调 1~2 个最关键参数
-4. 先用比较粗的范围
-5. 有方向以后，再缩小范围细调
+- `n_estimators`；
+- `max_depth`；
+- `min_samples_leaf`；
+- `max_features`。
 
-这个顺序会比一上来就铺很大的搜索空间更稳，也更容易知道提升到底从哪里来。
+这些是 hyperparameters。它们决定模型如何学习。
 
-## 如果你学完这节还容易乱，最该先抓什么
+## Grid Search
 
-如果你现在还是觉得调参很容易学乱，最值得先抓住的不是所有工具差异，而是这三句：
+Grid search 会尝试你列出的每一种组合：
 
-1. 没有 baseline，就不要急着调参
-2. 没有稳定评估，就不要相信调参结果
-3. 没有合理搜索范围，再高级的搜索方法也帮不了你太多
+```python
+param_grid={
+    "n_estimators": [80, 160],
+    "max_depth": [3, 5, None],
+    "min_samples_leaf": [1, 3],
+}
+```
 
-只要这三句开始立住，这一节就已经真正帮到你了。
+这个 grid 有 `2 x 3 x 2 = 12` 个组合。配合 5 折 CV，就是 `60` 次模型训练。
 
----
+适合使用 grid search 的情况：
 
-## 小结
+- 搜索空间较小；
+- 你知道哪些取值大致合理；
+- 想要简单、可复现的基线。
 
-| 方法 | 说明 | 推荐场景 |
-|------|------|---------|
-| **Grid Search** | 穷举所有组合 | 参数少（≤3），范围已知 |
-| **Random Search** | 随机采样组合 | 参数多，首选探索 |
-| **Optuna** | 贝叶斯优化 | 计算昂贵，参数多 |
-| **Pipeline + Search** | 预处理和模型一起调 | 生产环境 |
+## Random Search
 
-:::info 连接后续
-- **第 5 章**：特征工程——用更好的特征提升模型（比调参更有效）
-- **第 6 章**：实战项目——综合应用所有调参技巧
-:::
+Random search 会从更大的空间里抽取有限次数组合：
 
-## 这节最该带走什么
+```python
+n_iter=8
+```
 
-- 调参不是“把几个参数试一遍”，而是模型选择流程的一部分
-- 搜索方法、搜索空间、评估协议必须一起设计
-- 真正成熟的调参，重点不只是“找到更高分”，而是“知道这个分为什么可信”
+实验中，它只尝试了 8 个组合，却搜索了更大的空间，并找到略高的 CV F1：
 
-## 动手练习
+```text
+best_cv_f1=0.972
+```
 
-### 练习 1：Grid vs Random
+适合使用 random search 的情况：
 
-在 Wine 数据集上，对比 GridSearchCV 和 RandomizedSearchCV 在相同时间内找到的最优分数。谁更高效？
+- 超参数很多；
+- 训练成本高；
+- 想先探索，再设计更窄的 grid。
 
-### 练习 2：XGBoost 调参
+## Final Holdout
 
-用 XGBoost 在 `load_digits()` 上调参。先用 RandomizedSearchCV 找到大致范围，再用 GridSearchCV 精调。记录每步的提升。
+final holdout 是没有参与 CV 搜索的数据：
 
-### 练习 3：Optuna 实战
+```python
+X_train, X_final, y_train, y_final = train_test_split(...)
+```
 
-用 Optuna 优化一个 LightGBM 分类器。用 `optuna.visualization` 画出优化历史和参数重要性图。
+搜索选出最佳设置后，只评估一次：
 
-### 练习 4：Pipeline 调参
+```text
+final accuracy=0.956 recall=0.972 f1=0.966
+```
 
-创建 `StandardScaler → PCA → RandomForest` 的 Pipeline，用 GridSearchCV 同时调优 PCA 的 `n_components` 和 RandomForest 的参数。
+看完 final holdout 后，不要继续改 grid。如果继续改，它就不再是最终 holdout，而变成调参的一部分。
+
+## 读取搜索结果
+
+grid 前几名非常接近：
+
+```text
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 80}
+score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
+```
+
+分数几乎一样时，优先选择更简单或更便宜的模型。更多树、更深树并不自动更好。
+
+## 实用调参策略
+
+| 阶段 | 行动 |
+|---|---|
+| 起步 | 先用默认设置建立简单基线 |
+| 诊断 | 检查偏差/方差和指标选择 |
+| 第一次搜索 | 围绕重要参数做小 grid |
+| 扩大搜索 | 组合爆炸时用 random search |
+| 最终检查 | 在 untouched holdout 上评估一次 |
+| 生产 | 监控漂移和重训策略 |
+
+给有经验的读者：Optuna 这类贝叶斯优化工具适合单次试验很贵或搜索空间很大时使用，但它不能替代干净的验证设计。
+
+## 常见排查清单
+
+| 现象 | 可能原因 | 修复方式 |
+|---|---|---|
+| 搜索太慢 | grid 太大 | 减少候选值，改用 random search |
+| CV 分数提升但 final holdout 下降 | 过度调参 | 简化搜索，保留新的 holdout |
+| 最佳模型复杂很多 | 指标差异很小 | 选择更便宜/更简单模型 |
+| 不同运行选出不同参数 | 数据不稳定或 fold 太小 | 使用 repeated CV 或检查方差 |
+| 调参没帮助 | 模型类别或特征受限 | 先改进特征或模型家族 |
+
+## 练习
+
+1. 把 scoring 从 `"f1"` 改成 `"recall"`。最佳参数会变吗？
+2. 给 grid 加入 `max_depth=10`。CV 分数是否提升？
+3. 把 `n_iter` 从 `8` 改成 `16`。提升是否值得额外成本？
+4. 从 `cv_results_` 打印 `mean_fit_time`，分数接近时选择更便宜模型。
+5. 给前面某一节只使用 CV 的实验增加最终 untouched test set。
+
+## 过关检查
+
+你能解释下面几点，就完成本节：
+
+- 超参数是在训练前选择的；
+- grid search 会穷举小范围候选空间；
+- random search 适合更大的搜索空间；
+- final holdout 不能被反复用于调参；
+- 调参救不了坏特征或错误验证设计。
