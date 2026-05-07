@@ -1,63 +1,71 @@
 ---
 title: "E.D AI 安全与红队测试"
 sidebar_position: 4
-description: "AI 红队测试的简明实操指南：建模资产、攻击面、失败类别、修复和回归检查。"
-keywords: [AI 安全, 红队测试, 威胁建模, eval, jailbreak, prompt injection, guardrails]
+description: "跑一个最小 AI 红队闭环：定义攻击面、记录失败、加防护、保留回归用例。"
+keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails]
 ---
 
 # E.D AI 安全与红队测试
 
-红队测试不是“随便试一个吓人的 Prompt”。它是一个循环：建模威胁，运行样例，记录失败，修复系统，再把失败样例保留为回归测试。
+红队测试是可重复流程，不是随便试一个吓人的 prompt。你要定义攻击面、跑用例、记录失败、修复系统，再用同一批用例回归。
 
-## 先看循环
+## 先看闭环
 
-![AI 安全红队循环图](/img/course/elective-ai-security-red-team-loop.png)
+![AI 安全红队闭环图](/img/course/elective-ai-security-red-team-loop.png)
 
 ![AI 安全威胁建模与回归集图](/img/course/elective-ai-security-threat-regression-map.png)
 
-先看攻击面，不要先背攻击名：Prompt、检索、工具、记忆和外部动作。
+先从攻击面开始，而不是从攻击名字开始：prompt、检索、工具、记忆和外部动作。
 
-## 跑一个最小红队评估器
+## 准备内容
+
+- 一个要测试的 AI 功能
+- 功能涉及的攻击面列表
+- 一个保存失败用例作为回归测试的地方
+
+## 运行修复前后评估器
 
 ```python
 cases = [
-    {"surface": "prompt", "expected": "refuse", "observed": "refuse"},
-    {"surface": "retrieval", "expected": "ignore_untrusted_instruction", "observed": "ignore_untrusted_instruction"},
-    {"surface": "tool", "expected": "ask_confirmation", "observed": "executed"},
+    {"id": "prompt-basic", "surface": "prompt", "expected": "refuse", "before": "refuse", "after": "refuse"},
+    {"id": "rag-injection", "surface": "retrieval", "expected": "ignore_untrusted_instruction", "before": "ignore_untrusted_instruction", "after": "ignore_untrusted_instruction"},
+    {"id": "tool-confirmation", "surface": "tool", "expected": "ask_confirmation", "before": "executed", "after": "ask_confirmation"},
 ]
 
-failures = []
-for case in cases:
-    passed = case["expected"] == case["observed"]
-    print(case["surface"], "PASS" if passed else "FAIL")
-    if not passed:
-        failures.append(case["surface"])
-
-print("failure_count:", len(failures))
-print("regression_cases:", failures)
+for phase in ["before", "after"]:
+    failures = []
+    for case in cases:
+        passed = case[phase] == case["expected"]
+        print(phase, case["id"], "PASS" if passed else "FAIL")
+        if not passed:
+            failures.append(case["id"])
+    print(phase, "failure_count:", len(failures))
 ```
 
 预期输出：
 
 ```text
-prompt PASS
-retrieval PASS
-tool FAIL
-failure_count: 1
-regression_cases: ['tool']
+before prompt-basic PASS
+before rag-injection PASS
+before tool-confirmation FAIL
+before failure_count: 1
+after prompt-basic PASS
+after rag-injection PASS
+after tool-confirmation PASS
+after failure_count: 0
 ```
 
-重点不是隐藏失败，而是保留它、修复它、再运行它。
+工具调用失败不是丢脸的结果；它现在变成了保护未来版本的回归测试。
 
-## 实操检查表
+## 实用清单
 
 | 步骤 | 动作 | 证据 |
 |---|---|---|
-| 1 | 定义资产 | 用户数据、工具、记忆、系统指令 |
+| 1 | 定义资产 | 用户数据、工具、记忆、系统提示 |
 | 2 | 定义攻击面 | Prompt、文档、检索、工具调用、记忆 |
-| 3 | 运行样例 | PASS / FAIL 表 |
+| 3 | 运行用例 | PASS / FAIL 表 |
 | 4 | 修复并重跑 | 回归报告 |
 
 ## 通过标准
 
-你能维护一份红队样例文件，解释一个失败攻击面，提出一个 guardrail，并在修复后重跑样例，就算通过本选修。
+能保存一份红队用例文件，解释一个失败攻击面，提出一个防护方案，并在修复后重跑用例，就算通过本选修。

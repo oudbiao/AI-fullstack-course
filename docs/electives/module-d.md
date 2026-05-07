@@ -1,13 +1,13 @@
 ---
 title: "E.D AI Safety and Red Team Testing"
 sidebar_position: 4
-description: "A concise hands-on guide to AI red teaming: model assets, attack surfaces, failure categories, fixes, and regression checks."
+description: "Run a tiny AI red-team loop: define surfaces, record failures, apply a guardrail, and keep regression cases."
 keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails]
 ---
 
 # E.D AI Safety and Red Team Testing
 
-Red teaming is not “try a scary prompt once.” It is a loop: model the threat, run cases, record failures, fix the system, and keep the failure as a regression test.
+Red teaming is a repeatable loop, not one scary prompt. You define attack surfaces, run cases, record failures, fix the system, and rerun the same cases.
 
 ## See the Loop First
 
@@ -15,49 +15,57 @@ Red teaming is not “try a scary prompt once.” It is a loop: model the threat
 
 ![AI Security Threat Modeling and Regression Set Diagram](/img/course/elective-ai-security-threat-regression-map-en.png)
 
-Start with surfaces, not attack names: prompt, retrieval, tools, memory, and external actions.
+Start with surfaces: prompt, retrieval, tools, memory, and external actions.
 
-## Run a Minimal Red-Team Evaluator
+## What You Need
+
+- One AI feature to test
+- A list of surfaces the feature touches
+- A place to keep failed cases as regression tests
+
+## Run A Before And After Evaluator
 
 ```python
 cases = [
-    {"surface": "prompt", "expected": "refuse", "observed": "refuse"},
-    {"surface": "retrieval", "expected": "ignore_untrusted_instruction", "observed": "ignore_untrusted_instruction"},
-    {"surface": "tool", "expected": "ask_confirmation", "observed": "executed"},
+    {"id": "prompt-basic", "surface": "prompt", "expected": "refuse", "before": "refuse", "after": "refuse"},
+    {"id": "rag-injection", "surface": "retrieval", "expected": "ignore_untrusted_instruction", "before": "ignore_untrusted_instruction", "after": "ignore_untrusted_instruction"},
+    {"id": "tool-confirmation", "surface": "tool", "expected": "ask_confirmation", "before": "executed", "after": "ask_confirmation"},
 ]
 
-failures = []
-for case in cases:
-    passed = case["expected"] == case["observed"]
-    print(case["surface"], "PASS" if passed else "FAIL")
-    if not passed:
-        failures.append(case["surface"])
-
-print("failure_count:", len(failures))
-print("regression_cases:", failures)
+for phase in ["before", "after"]:
+    failures = []
+    for case in cases:
+        passed = case[phase] == case["expected"]
+        print(phase, case["id"], "PASS" if passed else "FAIL")
+        if not passed:
+            failures.append(case["id"])
+    print(phase, "failure_count:", len(failures))
 ```
 
 Expected output:
 
 ```text
-prompt PASS
-retrieval PASS
-tool FAIL
-failure_count: 1
-regression_cases: ['tool']
+before prompt-basic PASS
+before rag-injection PASS
+before tool-confirmation FAIL
+before failure_count: 1
+after prompt-basic PASS
+after rag-injection PASS
+after tool-confirmation PASS
+after failure_count: 0
 ```
 
-The point is not to hide the failure. The point is to keep it, fix it, and rerun it.
+The failed tool case is not embarrassing; it is now a regression test that protects future releases.
 
 ## Practical Checklist
 
 | Step | Action | Evidence |
 |---|---|---|
-| 1 | Define assets | User data, tools, memory, system instructions |
-| 2 | Define attack surfaces | Prompt, documents, retrieval, tool calls, memory |
+| 1 | Define assets | User data, tools, memory, system prompts |
+| 2 | Define surfaces | Prompt, documents, retrieval, tool calls, memory |
 | 3 | Run cases | PASS / FAIL table |
 | 4 | Fix and rerun | Regression report |
 
 ## Pass Check
 
-You pass this elective when you can keep a red-team case file, explain one failed surface, propose a guardrail, and rerun the case after the fix.
+You pass this elective when you can keep a red-team case file, explain one failed surface, propose one guardrail, and rerun the case after the fix.

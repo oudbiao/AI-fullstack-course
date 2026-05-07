@@ -1,13 +1,13 @@
 ---
 title: "E.E Web Front-End Basics in Fast Track"
 sidebar_position: 5
-description: "A concise hands-on guide to the minimum front-end loop needed for AI products: input, loading, result, error, and retry states."
+description: "Build the smallest AI front-end loop: input, loading, success, empty input, error, and retry."
 keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 ---
 
 # E.E Web Front-End Basics in Fast Track
 
-An AI feature needs a surface users can operate. The smallest useful front end shows input, loading, success, error, and retry states clearly.
+An AI feature needs a surface users can operate. The smallest useful front end shows input, loading, success, empty input, error, and retry states clearly.
 
 ## See the Interaction Stack First
 
@@ -15,7 +15,7 @@ An AI feature needs a surface users can operate. The smallest useful front end s
 
 ![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map-en.png)
 
-Think of every model call as an uncertain request: it may be slow, fail, stream partial output, or need retry.
+Treat every model call as uncertain: it may be slow, fail, return partial output, or need a retry.
 
 ## Run the Smallest Static AI Page
 
@@ -44,17 +44,36 @@ Save this as `ai-demo.html` and open it in a browser:
   const resultEl = document.querySelector("#result");
 
   document.querySelector("#run").addEventListener("click", async () => {
-    statusEl.textContent = "loading";
-    resultEl.textContent = "Please wait...";
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    statusEl.textContent = "success";
-    resultEl.textContent = "Simulated answer: " + promptEl.value.trim();
+    const text = promptEl.value.trim();
+    if (!text) {
+      statusEl.textContent = "empty";
+      resultEl.textContent = "Please enter a prompt first.";
+      return;
+    }
+
+    try {
+      statusEl.textContent = "loading";
+      resultEl.textContent = "Please wait...";
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (text.toLowerCase().includes("fail")) {
+        throw new Error("simulated backend error");
+      }
+      statusEl.textContent = "success";
+      resultEl.textContent = "Simulated answer: " + text;
+    } catch (error) {
+      statusEl.textContent = "error";
+      resultEl.textContent = error.message + ". Try again.";
+    }
   });
 </script>
 </html>
 ```
 
-Expected browser behavior: after you type a question and click `Run`, the status changes from `idle` to `loading` to `success`, and the result area updates.
+Expected browser behavior:
+
+- Empty prompt: status becomes `empty`.
+- Normal prompt: status goes `loading` then `success`.
+- Prompt containing `fail`: status becomes `error`.
 
 ## Replace the Fake Call Later
 
@@ -64,7 +83,7 @@ When your backend exists, replace the simulated wait with `fetch`:
 const response = await fetch("/api/chat", {
   method: "POST",
   headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({prompt: promptEl.value}),
+  body: JSON.stringify({prompt: text}),
 });
 const data = await response.json();
 resultEl.textContent = data.answer;
@@ -72,4 +91,4 @@ resultEl.textContent = data.answer;
 
 ## Pass Check
 
-You pass this elective when your page clearly handles input, loading, success, empty input, and error states for one AI feature.
+You pass this elective when one AI page handles input, loading, success, empty input, error, and retry states without confusing the user.

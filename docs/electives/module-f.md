@@ -1,7 +1,7 @@
 ---
 title: "E.F AI Product Design Thinking"
 sidebar_position: 6
-description: "A concise hands-on guide to AI product judgment: define the user problem, score value, cost, risk, and UX before building."
+description: "Score AI product ideas by value, cost, risk, UX, and launch blockers before building."
 keywords: [AI product design, product thinking, evaluation, cost, UX, product strategy]
 ---
 
@@ -24,26 +24,42 @@ ideas = [
     {"name": "AI Tutor", "value": 9, "cost": 6, "risk": 4, "ux": 8},
     {"name": "AI Customer Service", "value": 8, "cost": 5, "risk": 5, "ux": 7},
     {"name": "AI Code Review", "value": 7, "cost": 4, "risk": 6, "ux": 6},
+    {"name": "AI Medical Diagnosis", "value": 9, "cost": 8, "risk": 9, "ux": 5},
 ]
 
+
 def score(item):
-    return round(item["value"] * 0.45 + (10 - item["cost"]) * 0.2 + (10 - item["risk"]) * 0.2 + item["ux"] * 0.15, 2)
+    return round(
+        item["value"] * 0.45
+        + (10 - item["cost"]) * 0.2
+        + (10 - item["risk"]) * 0.2
+        + item["ux"] * 0.15,
+        2,
+    )
+
+
+def decision(item):
+    if item["risk"] >= 8:
+        return "do_not_launch"
+    return "pilot" if item["score"] >= 6 else "wait"
+
 
 ranked = sorted(({**item, "score": score(item)} for item in ideas), key=lambda item: item["score"], reverse=True)
 
 for item in ranked:
-    print(item["name"], item["score"])
+    print(item["name"], "score=", item["score"], "decision=", decision(item))
 ```
 
 Expected output:
 
 ```text
-AI Tutor 7.25
-AI Customer Service 6.65
-AI Code Review 6.05
+AI Tutor score= 7.25 decision= pilot
+AI Customer Service score= 6.65 decision= pilot
+AI Code Review score= 6.05 decision= pilot
+AI Medical Diagnosis score= 5.4 decision= do_not_launch
 ```
 
-The numbers are not final truth. They force you to say what you are optimizing for.
+The numbers are not final truth. They force you to say what you are optimizing for and where launch should be blocked.
 
 ## Product Checklist
 

@@ -1,59 +1,75 @@
 ---
-title: "E.F AI プロダクトデザイン思考"
+title: "E.F AI プロダクト設計思考"
 sidebar_position: 6
-description: "AI プロダクト判断の短い実践ガイド。作る前に、ユーザー課題、価値、コスト、リスク、UX を採点します。"
+description: "作り始める前に、価値、コスト、リスク、UX、ローンチ阻止条件で AI プロダクト案を評価する。"
 keywords: [AI product design, product thinking, evaluation, cost, UX, product strategy]
 ---
 
-# E.F AI プロダクトデザイン思考
+# E.F AI プロダクト設計思考
 
-AI プロダクト設計は、モデルの能力ではなくユーザーの課題から始まります。価値、コスト、リスク、ユーザー体験を説明できて初めて、作る意味があります。
+AI プロダクト設計は、モデルの能力ではなくユーザーの問題から始めます。機能を作る価値があるのは、価値、コスト、リスク、ユーザー体験を説明できるときです。
 
 ## まず意思決定ループを見る
 
 ![AI プロダクト意思決定マトリクス](/img/course/elective-ai-product-decision-matrix-ja.png)
 
-![AI プロダクト実験とメトリクスのループ](/img/course/elective-ai-product-experiment-metrics-loop-ja.png)
+![AI プロダクト実験と指標ループ](/img/course/elective-ai-product-experiment-metrics-loop-ja.png)
 
-最初のプロダクト習慣は、実装前にトレードオフを見える形にすることです。
+最初のプロダクト習慣は、実装前にトレードオフを明確にすることです。
 
-## 小さな優先順位スコアを動かす
+## 小さな優先度スコアを動かす
 
 ```python
 ideas = [
     {"name": "AI Tutor", "value": 9, "cost": 6, "risk": 4, "ux": 8},
     {"name": "AI Customer Service", "value": 8, "cost": 5, "risk": 5, "ux": 7},
     {"name": "AI Code Review", "value": 7, "cost": 4, "risk": 6, "ux": 6},
+    {"name": "AI Medical Diagnosis", "value": 9, "cost": 8, "risk": 9, "ux": 5},
 ]
 
+
 def score(item):
-    return round(item["value"] * 0.45 + (10 - item["cost"]) * 0.2 + (10 - item["risk"]) * 0.2 + item["ux"] * 0.15, 2)
+    return round(
+        item["value"] * 0.45
+        + (10 - item["cost"]) * 0.2
+        + (10 - item["risk"]) * 0.2
+        + item["ux"] * 0.15,
+        2,
+    )
+
+
+def decision(item):
+    if item["risk"] >= 8:
+        return "do_not_launch"
+    return "pilot" if item["score"] >= 6 else "wait"
+
 
 ranked = sorted(({**item, "score": score(item)} for item in ideas), key=lambda item: item["score"], reverse=True)
 
 for item in ranked:
-    print(item["name"], item["score"])
+    print(item["name"], "score=", item["score"], "decision=", decision(item))
 ```
 
-期待される出力:
+期待される出力：
 
 ```text
-AI Tutor 7.25
-AI Customer Service 6.65
-AI Code Review 6.05
+AI Tutor score= 7.25 decision= pilot
+AI Customer Service score= 6.65 decision= pilot
+AI Code Review score= 6.05 decision= pilot
+AI Medical Diagnosis score= 5.4 decision= do_not_launch
 ```
 
-数字は最終的な真実ではありません。何を最適化しているのかを言葉にするための道具です。
+数値は最終的な真実ではありません。何を最適化しているのか、どこでローンチを止めるべきかを明確にするための道具です。
 
 ## プロダクトチェックリスト
 
-| Question | Good Answer |
+| 質問 | 良い答え |
 |---|---|
-| 誰が困っているか | 具体的なユーザー層と作業 |
-| 何が改善するか | 完了率、短縮時間、品質、コスト |
-| 何が起こると危ないか | リスク境界と人間への引き継ぎ |
-| 進歩を何で証明するか | メトリクスまたはユーザーテスト結果 |
+| 誰が困っているか？ | 具体的なユーザー群とタスク |
+| 何が改善するか？ | 完了率、時間短縮、品質、コスト |
+| 何が失敗しうるか？ | リスク境界と人間のフォールバック |
+| 進展をどう証明するか？ | 指標またはユーザーテスト結果 |
 
 ## 合格チェック
 
-AI 機能案を 1 つ採点し、トレードオフを説明し、成功指標を定義し、リリースすべきでない条件を 1 つ言えれば合格です。
+AI 機能案を1つスコア化し、トレードオフを説明し、成功指標を定義し、ローンチすべきでない条件を1つ言えれば合格です。
