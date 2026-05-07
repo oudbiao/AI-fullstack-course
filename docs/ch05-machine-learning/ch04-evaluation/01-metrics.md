@@ -1,592 +1,281 @@
 ---
 title: "5.4.2 Evaluation Metrics"
-sidebar_position: 10
-description: "Master classification metrics (accuracy, precision, recall, F1, ROC/AUC) and regression metrics (MSE, RMSE, MAE, R²), and understand multi-class evaluation"
-keywords: [evaluation metrics, accuracy, precision, recall, F1, ROC, AUC, confusion matrix, MSE, R²]
+sidebar_position: 2
+description: "A hands-on metrics lesson: confusion matrix, accuracy trap, precision, recall, F1, ROC AUC, average precision, and regression metrics"
+keywords: [evaluation metrics, confusion matrix, precision, recall, F1, ROC AUC, average precision, MAE, RMSE, R2]
 ---
 
 # 5.4.2 Evaluation Metrics
 
 ![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.png)
 
-:::tip Where this section fits
-After training a model, **how do you know whether it is good or not**? Is 95% accuracy always good? Not necessarily! If you choose the wrong metric, you may make a completely wrong decision. This section helps you understand which metrics to focus on in different scenarios.
+:::tip Section Overview
+Metrics are not report-card decorations. They decide which model you trust, which threshold you ship, and which mistake your product is willing to pay for.
 :::
 
-## Learning Objectives
+## What You Will Build
 
-- Master classification metrics: accuracy, precision, recall, F1-score, confusion matrix
-- Understand the ROC curve and AUC
-- Master regression metrics: MSE, RMSE, MAE, R²
-- Understand multi-class evaluation (macro, micro, weighted)
+This lesson gives you one evaluation lab:
 
-## First, a very important learning expectation
+- expose the accuracy trap on imbalanced classification;
+- tune thresholds and read false positives/false negatives;
+- compare ROC AUC and average precision;
+- evaluate regression with MAE, RMSE, and R2;
+- choose metrics from product cost, not from habit.
 
-The easiest part of this section to get confused by is not the formulas themselves, but:
-
-- There are many metrics
-- Each one seems to make sense
-- But the first time you work on a project, you have no idea which one to check first
-
-So for beginners, the first goal here is not to “memorize every metric,” but to build a decision framework:
-
-> **First ask what type of task it is, then ask how costly the errors are, then choose the main metric.**
-
-Once this line is clear, Accuracy, Recall, AUC, and RMSE will no longer feel like a pile of unrelated terms.
-
----
-
-## Build a map first
-
-When beginners learn evaluation metrics for the first time, the most common problem is not “I don’t know the formula,” but:
-
-- They know many metric names, but don’t know when to use which one
-- They know whether the model score is high or low, but don’t know what that means for business risk
-
-A more stable learning order should be:
+Start with the map:
 
 ![Evaluation metric selection flowchart](/img/course/ch05-metrics-selection-flow-en.png)
 
-In other words, metrics are not “scores you casually check after training”; they are part of model design.
+## Keyword Decoder
 
----
+| Term | Practical meaning |
+|---|---|
+| `TP` | true positive: real positive and predicted positive |
+| `FP` | false positive: real negative but predicted positive |
+| `FN` | false negative: real positive but missed |
+| `precision` | among predicted positives, how many were really positive |
+| `recall` | among real positives, how many were found |
+| `F1` | harmonic mean of precision and recall |
+| `ROC AUC` | ranking quality over many thresholds; can look optimistic on rare positives |
+| `average_precision` | precision-recall area; often better for imbalanced positive classes |
+| `MAE` | average absolute regression error |
+| `RMSE` | square-root mean squared error; punishes large misses more |
 
-## Why isn’t accuracy enough?
+## Setup
 
-### The trap of imbalanced data
-
-```python
-import numpy as np
-
-# Suppose: among 1000 emails, 10 are spam
-y_true = np.array([0] * 990 + [1] * 10)
-
-# "Smart" model: predict everything as normal
-y_pred = np.zeros(1000)
-
-accuracy = np.mean(y_true == y_pred)
-print(f"Accuracy: {accuracy:.1%}")
-# 99% accuracy! But it fails to catch a single spam email!
+```bash
+python -m pip install -U scikit-learn
 ```
 
-:::warning The trap of accuracy
-With imbalanced data, **always predicting the majority class** can still give you very high accuracy. But such a model is useless. We need more detailed metrics.
-:::
+## Run the Complete Lab
 
-### Don’t rush to memorize metrics—first ask about error cost
-
-One of the most valuable ideas from Andrew Ng–style machine learning courses is:
-**First ask what consequences errors will cause, then decide how to evaluate the model.**
-
-For example:
-
-- In cancer screening, missing a patient is usually more dangerous than a false alarm, so you should look at recall first
-- In spam filtering, wrongly marking normal email as spam is annoying, so precision matters more
-- In fraud detection, both kinds of errors are costly, so you should look at recall, precision, and threshold curves together
-
-So evaluation metrics are not abstract math exercises. They help you answer:
-
-- What exactly is the model getting wrong?
-- Can I accept this kind of mistake?
-
----
-
-## Confusion matrix — the foundation of all classification metrics
-
-### Four basic quantities
-
-| | Predicted Positive | Predicted Negative |
-|---|---------------------|---------------------|
-| **Actually Positive** | TP (True Positive) | FN (False Negative / Miss) |
-| **Actually Negative** | FP (False Positive / False Alarm) | TN (True Negative) |
+Create `metrics_lab.py`:
 
 ```python
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_diabetes, make_classification
+from sklearn.dummy import DummyClassifier, DummyRegressor
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import (
+    accuracy_score,
+    average_precision_score,
+    confusion_matrix,
+    f1_score,
+    mean_absolute_error,
+    mean_squared_error,
+    precision_score,
+    r2_score,
+    recall_score,
+    roc_auc_score,
+)
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-import matplotlib.pyplot as plt
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
-# Breast cancer dataset
-cancer = load_breast_cancer()
+
+X, y = make_classification(
+    n_samples=1200,
+    n_features=12,
+    n_informative=5,
+    n_redundant=2,
+    weights=[0.92, 0.08],
+    class_sep=1.2,
+    random_state=42,
+)
 X_train, X_test, y_train, y_test = train_test_split(
-    cancer.data, cancer.target, test_size=0.2, random_state=42
+    X, y, test_size=0.25, random_state=42, stratify=y
 )
 
-model = LogisticRegression(max_iter=10000, random_state=42)
+baseline = DummyClassifier(strategy="most_frequent")
+baseline.fit(X_train, y_train)
+base_pred = baseline.predict(X_test)
+print("classification_baseline")
+print(f"accuracy={accuracy_score(y_test, base_pred):.3f}")
+print(f"precision={precision_score(y_test, base_pred, zero_division=0):.3f}")
+print(f"recall={recall_score(y_test, base_pred):.3f}")
+
+model = Pipeline([
+    ("scale", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+])
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+prob = model.predict_proba(X_test)[:, 1]
 
-# Confusion matrix
-cm = confusion_matrix(y_test, y_pred)
-print("Confusion matrix:")
-print(cm)
+print("threshold_lab")
+for threshold in [0.2, 0.5, 0.8]:
+    pred = (prob >= threshold).astype(int)
+    tn, fp, fn, tp = confusion_matrix(y_test, pred).ravel()
+    print(
+        f"threshold={threshold:.1f} "
+        f"accuracy={accuracy_score(y_test, pred):.3f} "
+        f"precision={precision_score(y_test, pred, zero_division=0):.3f} "
+        f"recall={recall_score(y_test, pred):.3f} "
+        f"f1={f1_score(y_test, pred):.3f} "
+        f"fp={fp} fn={fn}"
+    )
+print(f"roc_auc={roc_auc_score(y_test, prob):.3f}")
+print(f"average_precision={average_precision_score(y_test, prob):.3f}")
 
-fig, ax = plt.subplots(figsize=(6, 5))
-disp = ConfusionMatrixDisplay(cm, display_labels=['Malignant', 'Benign'])
-disp.plot(ax=ax, cmap='Blues')
-ax.set_title('Confusion Matrix for Breast Cancer Classification')
-plt.tight_layout()
-plt.show()
+print("regression_lab")
+X, y = load_diabetes(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42
+)
+for name, reg in [
+    ("mean_baseline", DummyRegressor(strategy="mean")),
+    ("linear", LinearRegression()),
+]:
+    reg.fit(X_train, y_train)
+    pred = reg.predict(X_test)
+    rmse = mean_squared_error(y_test, pred) ** 0.5
+    print(
+        f"{name:<13} "
+        f"mae={mean_absolute_error(y_test, pred):.1f} "
+        f"rmse={rmse:.1f} "
+        f"r2={r2_score(y_test, pred):.3f}"
+    )
 ```
 
-### Deriving metrics from the confusion matrix
+Run it:
 
-```mermaid
-flowchart TD
-    CM["Confusion Matrix<br/>TP, FP, FN, TN"] --> ACC["Accuracy<br/>(TP+TN) / Total"]
-    CM --> PRE["Precision<br/>TP / (TP+FP)"]
-    CM --> REC["Recall<br/>TP / (TP+FN)"]
-    PRE --> F1["F1-Score<br/>2×P×R / (P+R)"]
-    REC --> F1
-
-    style CM fill:#e3f2fd,stroke:#1565c0,color:#333
-    style F1 fill:#e8f5e9,stroke:#2e7d32,color:#333
+```bash
+python metrics_lab.py
 ```
 
-### A more beginner-friendly way to read it
+Expected output:
 
-Many people see a confusion matrix for the first time and treat it as a table they must memorize.
-In fact, there is a simpler way to read it:
-
-- First look only at the row or column for “actually positive”
-- Then ask how many the model missed
-- Next look at the row or column for “predicted positive”
-- Then ask how many of those positives are false alarms
-
-This naturally leads you to the two most important questions:
-
-- How many did it miss? That corresponds to recall
-- Among the ones it caught, how many are truly positive? That corresponds to precision
-
----
-
-## Classification metrics in detail
-
-### Precision
-
-> **Precision = TP / (TP + FP)**
->
-> “Among the examples the model says are positive, how many are actually positive?”
-
-**Use when**: **false positives are costly** — for example, recommendation systems (bad suggestions hurt user experience), spam detection (marking normal mail as spam is annoying).
-
-### Recall
-
-> **Recall = TP / (TP + FN)**
->
-> “Among the actual positives, how many did the model catch?”
-
-**Use when**: **false negatives are costly** — for example, disease screening (missing a disease is dangerous), fraud detection (missing fraud causes loss).
-
-### F1-Score
-
-> **F1 = 2 × Precision × Recall / (Precision + Recall)**
->
-> The harmonic mean of precision and recall.
-
-```python
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-
-print(f"Accuracy:   {accuracy_score(y_test, y_pred):.4f}")
-print(f"Precision:  {precision_score(y_test, y_pred):.4f}")
-print(f"Recall:     {recall_score(y_test, y_pred):.4f}")
-print(f"F1-Score:   {f1_score(y_test, y_pred):.4f}")
+```text
+classification_baseline
+accuracy=0.917
+precision=0.000
+recall=0.000
+threshold_lab
+threshold=0.2 accuracy=0.907 precision=0.462 recall=0.720 f1=0.562 fp=21 fn=7
+threshold=0.5 accuracy=0.943 precision=0.833 recall=0.400 f1=0.541 fp=2 fn=15
+threshold=0.8 accuracy=0.923 precision=1.000 recall=0.080 f1=0.148 fp=0 fn=23
+roc_auc=0.889
+average_precision=0.660
+regression_lab
+mean_baseline mae=65.5 rmse=74.9 r2=-0.014
+linear        mae=41.5 rmse=53.4 r2=0.485
 ```
 
-### Precision vs. recall trade-off
+## The Accuracy Trap
 
-```python
-from sklearn.metrics import precision_recall_curve
+The baseline predicts the majority class every time:
 
-# Get precision and recall at different thresholds
-y_proba = model.predict_proba(X_test)[:, 1]
-precisions, recalls, thresholds = precision_recall_curve(y_test, y_proba)
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# PR curve
-axes[0].plot(recalls, precisions, 'b-', linewidth=2)
-axes[0].set_xlabel('Recall')
-axes[0].set_ylabel('Precision')
-axes[0].set_title('Precision-Recall Curve')
-axes[0].grid(True, alpha=0.3)
-
-# Effect of threshold
-axes[1].plot(thresholds, precisions[:-1], 'b-', label='Precision')
-axes[1].plot(thresholds, recalls[:-1], 'r-', label='Recall')
-axes[1].set_xlabel('Classification threshold')
-axes[1].set_ylabel('Score')
-axes[1].set_title('How threshold affects precision/recall')
-axes[1].legend()
-axes[1].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
+```text
+accuracy=0.917
+precision=0.000
+recall=0.000
 ```
 
-:::info How to choose?
-- **Prefer false alarms over misses** (for example, disease screening) → prioritize **recall**, lower the threshold
-- **Prefer misses over false alarms** (for example, spam filtering) → prioritize **precision**, raise the threshold
-- **Both matter** → look at **F1-Score**
-:::
+That looks like a high accuracy score, but it finds **zero** positive cases. For imbalanced classification, accuracy alone can be actively misleading.
+
+## Confusion Matrix First
+
+Every classification metric comes from four counts:
+
+| Count | Meaning |
+|---|---|
+| `TP` | positive case correctly found |
+| `FP` | normal case incorrectly flagged |
+| `FN` | positive case missed |
+| `TN` | normal case correctly ignored |
+
+Before choosing a metric, ask:
+
+- Is `FP` more expensive, or is `FN` more expensive?
+- Is the model used for screening, ranking, blocking, or final decision?
+- How many cases can humans review?
+
+## Thresholds Change the Story
 
 ![Guide to reading thresholds, ROC, and PR curves](/img/course/ch05-threshold-roc-pr-curve-map-en.png)
 
-You can use this diagram as a reading order for classification evaluation: first use the confusion matrix to see where the errors are, then use the threshold curve to see how precision and recall trade off, and finally look at the ROC or PR curve. The more imbalanced the classes are, the more important the PR curve usually becomes.
+The same model gives different behavior at different thresholds:
 
-### When you build your first classification project, how should you choose metrics?
-
-If you are still a beginner, use this default order:
-
-1. First look at the confusion matrix
-2. If the classes are balanced, look at Accuracy + F1
-3. If the classes are imbalanced, focus on Precision / Recall / F1
-4. If the model outputs probabilities, also check ROC-AUC or PR-AUC
-5. Finally decide whether threshold tuning is needed
-
-This is more stable than piling on many metrics from the beginning, because it first helps you see where the model is wrong.
-
-### A beginner-friendly mnemonic
-
-If you haven’t formed a habit for choosing metrics yet, you can remember this:
-
-> **First see what kind of errors there are, then see how costly they are, and finally choose the main metric.**
-
-This sentence matters more than memorizing many definitions, because it forces you to think about the problem first.
-
----
-
-## ROC curve and AUC
-
-### ROC curve
-
-The ROC (Receiver Operating Characteristic) curve shows **True Positive Rate vs False Positive Rate** under different thresholds.
-
-- **TPR (Recall) = TP / (TP + FN)**
-- **FPR = FP / (FP + TN)**
-
-```python
-from sklearn.metrics import roc_curve, roc_auc_score
-
-fpr, tpr, thresholds_roc = roc_curve(y_test, y_proba)
-auc = roc_auc_score(y_test, y_proba)
-
-plt.figure(figsize=(7, 6))
-plt.plot(fpr, tpr, 'b-', linewidth=2, label=f'Logistic Regression (AUC = {auc:.4f})')
-plt.plot([0, 1], [0, 1], 'k--', alpha=0.5, label='Random guess (AUC = 0.5)')
-plt.fill_between(fpr, tpr, alpha=0.1, color='blue')
-plt.xlabel('False Positive Rate (FPR)')
-plt.ylabel('True Positive Rate (TPR)')
-plt.title('ROC Curve')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+```text
+threshold=0.2 precision=0.462 recall=0.720 fp=21 fn=7
+threshold=0.8 precision=1.000 recall=0.080 fp=0 fn=23
 ```
 
-### What AUC means
+Lowering the threshold catches more positives but creates more false alarms. Raising it creates fewer false alarms but misses more positives.
 
-**AUC (Area Under Curve) = the area under the ROC curve.**
+Use this guide:
 
-| AUC value | Meaning |
-|--------|------|
-| 1.0 | Perfect classification |
-| 0.9~1.0 | Excellent |
-| 0.8~0.9 | Good |
-| 0.7~0.8 | Fair |
-| 0.5 | Same as random guessing |
-| < 0.5 | Worse than random (there is a problem with the model) |
+| Product goal | Primary metric |
+|---|---|
+| catch as many positives as possible | recall |
+| keep alerts trustworthy | precision |
+| balance precision and recall | F1 |
+| rank candidates across thresholds | ROC AUC |
+| rare positive class | average precision / PR curve |
 
-### ROC comparison across multiple models
+## ROC AUC vs Average Precision
 
-```python
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+`roc_auc=0.889` says the model ranks positives above negatives fairly well across thresholds.
 
-models = {
-    'Logistic Regression': LogisticRegression(max_iter=10000, random_state=42),
-    'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
-    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
-}
+`average_precision=0.660` is more strict for rare positives because it focuses on precision-recall behavior. In fraud, medical screening, security alerts, and churn rescue, always inspect precision-recall metrics, not only ROC AUC.
 
-plt.figure(figsize=(8, 6))
-for name, m in models.items():
-    m.fit(X_train, y_train)
-    if hasattr(m, 'predict_proba'):
-        proba = m.predict_proba(X_test)[:, 1]
-    else:
-        proba = m.decision_function(X_test)
-    fpr, tpr, _ = roc_curve(y_test, proba)
-    auc = roc_auc_score(y_test, proba)
-    plt.plot(fpr, tpr, linewidth=2, label=f'{name} (AUC={auc:.4f})')
-
-plt.plot([0, 1], [0, 1], 'k--', alpha=0.5)
-plt.xlabel('FPR')
-plt.ylabel('TPR')
-plt.title('ROC Curve Comparison Across Multiple Models')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
----
-
-## Regression metrics
-
-### Common metrics
-
-| Metric | Formula | Description |
-|------|------|------|
-| **MSE** | `mean((y - ŷ)²)` | Mean squared error, penalizes large errors |
-| **RMSE** | `sqrt(MSE)` | Same unit as y, more intuitive |
-| **MAE** | `mean(\|y - ŷ\|)` | Mean absolute error, more robust to outliers |
-| **R²** | `1 - SS_res/SS_tot` | Explained variance ratio, closer to 1 is better |
-
-```python
-from sklearn.datasets import load_diabetes
-from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-import numpy as np
-
-# Load data
-diabetes = load_diabetes()
-X_train, X_test, y_train, y_test = train_test_split(
-    diabetes.data, diabetes.target, test_size=0.2, random_state=42
-)
-
-# Train model
-model = LinearRegression()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-
-# Calculate metrics
-mse = mean_squared_error(y_test, y_pred)
-rmse = np.sqrt(mse)
-mae = mean_absolute_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-
-print(f"MSE:  {mse:.2f}")
-print(f"RMSE: {rmse:.2f}")
-print(f"MAE:  {mae:.2f}")
-print(f"R²:   {r2:.4f}")
-```
-
-### Why shouldn’t you rely only on R² in regression?
-
-`R²` is very common, but it is not a universal score.
-When you do a regression project for the first time, a more stable approach is to check it together with error-based metrics:
-
-- `RMSE` tells you how far off you are on average, in the same unit as the target, so it feels more intuitive
-- `MAE` is more robust to outliers
-- `R²` tells you how much better the model is compared with “always predict the mean”
-
-So in regression, a more mature habit is:
-
-- Don’t only ask “how high is R²?”
-- Also ask “how much does it miss on average?”
-- Then ask “is there any systematic bias in the errors?”
+## Regression Metrics
 
 ![Regression metrics and residual diagnosis comic](/img/course/ch05-regression-error-residual-comic-en.png)
 
-This diagram turns the regression side of evaluation into a picture: MAE tells you the average miss, MSE exaggerates large mistakes, RMSE keeps the same unit as the target, and the residual plot tells you whether the model still has an obvious pattern to learn.
+The regression lab compares a mean baseline with a linear model:
 
-### Visualization: residual analysis
-
-```python
-residuals = y_test - y_pred
-
-fig, axes = plt.subplots(1, 3, figsize=(16, 4))
-
-# Predicted vs actual
-axes[0].scatter(y_test, y_pred, alpha=0.6, s=20, color='steelblue')
-axes[0].plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', linewidth=2)
-axes[0].set_xlabel('Actual value')
-axes[0].set_ylabel('Predicted value')
-axes[0].set_title(f'Predicted vs Actual (R²={r2:.3f})')
-
-# Residual distribution
-axes[1].hist(residuals, bins=20, color='steelblue', edgecolor='white', alpha=0.7)
-axes[1].axvline(x=0, color='red', linestyle='--')
-axes[1].set_xlabel('Residual')
-axes[1].set_ylabel('Frequency')
-axes[1].set_title('Residual Distribution (should be close to normal)')
-
-# Residuals vs predictions
-axes[2].scatter(y_pred, residuals, alpha=0.6, s=20, color='steelblue')
-axes[2].axhline(y=0, color='red', linestyle='--')
-axes[2].set_xlabel('Predicted value')
-axes[2].set_ylabel('Residual')
-axes[2].set_title('Residuals vs Predicted Values (should be randomly distributed)')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
+```text
+mean_baseline mae=65.5 rmse=74.9 r2=-0.014
+linear        mae=41.5 rmse=53.4 r2=0.485
 ```
 
----
+Read them like this:
 
-## Multi-class evaluation
+| Metric | Use it when |
+|---|---|
+| `MAE` | you want average error in the original unit |
+| `RMSE` | large errors are especially painful |
+| `R2` | you want to know how much better the model is than a mean baseline |
 
-### Three averaging methods
+Do not rely only on `R2`. A model can have a decent `R2` while still making unacceptable errors for important cases.
 
-For multi-class problems, precision/recall/F1 can be calculated in three ways:
+## Practical Metric Selection
 
-| Method | Description | Use case |
-|------|------|---------|
-| **macro** | Compute for each class, then average | All classes are equally important |
-| **micro** | Compute once using global TP/FP/FN | Focus on overall performance |
-| **weighted** | Weighted average by class sample count | For imbalanced classes |
+| Task | Start with | Then check |
+|---|---|---|
+| Balanced classification | accuracy, F1 | confusion matrix |
+| Imbalanced classification | precision, recall, F1 | PR curve, threshold table |
+| Screening / detection | recall | alert volume and false positives |
+| Final approval / blocking | precision | missed positives and manual review policy |
+| Ranking | ROC AUC, average precision | top-k precision |
+| Regression | MAE, RMSE | residual plots and segment errors |
 
-```python
-from sklearn.datasets import load_iris
-from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+For experienced readers: evaluate by segment. A global metric can hide failures on a region, customer group, language, device type, or rare class.
 
-iris = load_iris()
-X_train, X_test, y_train, y_test = train_test_split(
-    iris.data, iris.target, test_size=0.2, random_state=42
-)
+## Practical Debugging Checklist
 
-model = LogisticRegression(max_iter=200, random_state=42)
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| High accuracy, zero recall | class imbalance | use confusion matrix and recall |
+| Good ROC AUC, poor alerts | threshold too high or rare positives | inspect PR curve and alert volume |
+| F1 improves but product worsens | metric does not match business cost | define FP/FN cost explicitly |
+| Regression average looks fine | large errors hidden in a segment | inspect residuals by segment |
+| Offline metric drops in production | distribution shift | monitor data and metric drift |
 
-print(classification_report(y_test, y_pred, target_names=iris.target_names))
-```
+## Practice
 
-### Multi-class confusion matrix
+1. Change class weights to `[0.98, 0.02]`. What happens to accuracy and recall?
+2. Add thresholds `[0.1, 0.3, 0.7, 0.9]`. Which threshold would you ship for screening?
+3. Print `tp`, `fp`, `fn`, `tn` for every threshold.
+4. Add a tree model and compare ROC AUC and average precision.
+5. For regression, print the five largest absolute errors and inspect the inputs.
 
-```python
-from sklearn.metrics import confusion_matrix
+## Pass Check
 
-cm = confusion_matrix(y_test, y_pred)
+You are done when you can explain:
 
-fig, ax = plt.subplots(figsize=(6, 5))
-im = ax.imshow(cm, cmap='Blues')
-ax.set_xticks(range(3))
-ax.set_yticks(range(3))
-ax.set_xticklabels(iris.target_names, rotation=45)
-ax.set_yticklabels(iris.target_names)
-ax.set_xlabel('Prediction')
-ax.set_ylabel('Ground Truth')
-ax.set_title('Multi-class Confusion Matrix (Iris)')
-
-for i in range(3):
-    for j in range(3):
-        color = 'white' if cm[i, j] > cm.max() / 2 else 'black'
-        ax.text(j, i, str(cm[i, j]), ha='center', va='center', color=color, fontsize=16)
-
-plt.colorbar(im)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Metric selection guide
-
-```mermaid
-flowchart TD
-    Q["Choose evaluation metric"] --> T{"Task type?"}
-    T -->|"Classification"| C{"Is the data balanced?"}
-    T -->|"Regression"| R["MSE / RMSE / R²"]
-    C -->|"Balanced"| ACC["Accuracy + F1"]
-    C -->|"Imbalanced"| IM{"What matters most?"}
-    IM -->|"False negatives are costly"| REC["Recall"]
-    IM -->|"False positives are costly"| PRE["Precision"]
-    IM -->|"Overall balance"| AUC["AUC + F1"]
-
-    style ACC fill:#e3f2fd,stroke:#1565c0,color:#333
-    style REC fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style PRE fill:#fff3e0,stroke:#e65100,color:#333
-    style AUC fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-| Scenario | Recommended metrics |
-|------|---------|
-| Balanced classification | Accuracy, F1 |
-| Imbalanced classification | F1, AUC, PR-AUC |
-| Disease screening | Recall (do not miss cases) |
-| Spam filtering | Precision (do not misclassify) |
-| Regression | RMSE, R² |
-| Model comparison | AUC (threshold-independent) |
-
-### A metric selection order that feels more like a real project
-
-When you actually apply this section to a project, you can follow this order:
-
-1. Clearly identify whether the task is classification or regression
-2. Clearly identify the error you can least afford
-3. Choose one main metric first
-4. Add 1–2 auxiliary metrics
-5. If it is classification, decide whether threshold tuning is needed
-6. If it is regression, check the residual plot to understand the error pattern
-
-This order is more useful than “calculate all the metrics,” because it forces you to define the problem clearly first.
-
----
-
-## If this is your first time evaluating a model, use this default order
-
-When you evaluate a model for the first time, it is recommended to do this:
-
-1. First decide whether the task is classification or regression
-2. First choose one main metric
-3. Then add 1–2 auxiliary metrics
-4. For classification, first check the confusion matrix, then the threshold issue
-5. For regression, first check the error magnitude, then the residual plot
-
-This is much closer to how evaluation works in real projects than “calculate every metric.”
-
-:::info Coming up next
-- **Next section**: Cross-validation — estimating model performance more reliably
-- **Section 4.3**: Bias-variance tradeoff — understanding the essence of overfitting and underfitting
-:::
-
----
-
-## Summary
-
-| Key point | Description |
-|------|------|
-| Confusion matrix | TP/FP/FN/TN, the foundation of all classification metrics |
-| Precision | Among predicted positives, the proportion that are truly positive |
-| Recall | Among actual positives, the proportion predicted as positive |
-| F1-Score | Harmonic mean of precision and recall |
-| ROC/AUC | A comprehensive metric not affected by the threshold |
-| Regression metrics | MSE, RMSE, MAE, R² |
-
-## What should you take away from this section?
-
-If you only remember one sentence, I hope you remember this:
-
-> **Evaluation metrics are not for grading the model; they are for deciding how you interpret the model’s errors.**
-
-So what really matters is not memorizing as many formulas as possible, but forming these three habits:
-
-- First ask about the task and the cost of errors
-- Then choose the main metric
-- Finally explain the metric in the context of the business and project
-
-## Hands-on exercises
-
-### Exercise 1: Imbalanced data experiment
-
-Use `make_classification(weights=[0.95, 0.05])` to generate imbalanced data, then train logistic regression. Compare accuracy and F1 to see which one reflects real performance better.
-
-### Exercise 2: ROC curve comparison
-
-Use the Wine dataset (binary classification: take the first two classes), and compare the ROC curves and AUC of logistic regression, decision tree, random forest, and SVM.
-
-### Exercise 3: Threshold tuning
-
-Train logistic regression on the breast cancer dataset, manually adjust the classification threshold (0.1~0.9), plot the “threshold vs precision/recall/F1” curves, and find the threshold that maximizes F1.
-
-### Exercise 4: Regression metric comparison
-
-Use `load_diabetes()` to compare the MSE, RMSE, MAE, and R² of linear regression and Ridge, and plot a residual distribution comparison.
+- accuracy can be misleading on imbalanced data;
+- precision and recall describe different error costs;
+- threshold choice is part of product design;
+- ROC AUC and PR metrics answer different questions;
+- regression metrics need residual and segment checks.
