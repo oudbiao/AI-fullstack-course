@@ -1,8 +1,8 @@
 ---
 title: "5.2.6 SVM：最大间隔与核方法"
 sidebar_position: 7
-description: "用新手能理解的方式学习支持向量机：最大间隔、支持向量、核方法、C、gamma、特征缩放，以及它为什么是经典机器学习的重要里程碑。"
-keywords: [SVM, 支持向量机, 最大间隔, 支持向量, 核技巧, RBF核, C, gamma, 监督学习]
+description: "一节跟着操作的 SVM 课程：最大间隔、支持向量、特征缩放、线性/RBF 核、C、gamma 和模型选择"
+keywords: [SVM, 支持向量机, 最大间隔, 支持向量, 核方法, RBF, C, gamma, StandardScaler, SVC]
 ---
 
 # 5.2.6 SVM：最大间隔与核方法
@@ -12,355 +12,226 @@ keywords: [SVM, 支持向量机, 最大间隔, 支持向量, 核技巧, RBF核, 
 ![SVM 间隔与核方法漫画](/img/course/ch05-svm-margin-kernel-comic.png)
 
 :::tip 本节定位
-SVM 今天不一定是每个项目的首选模型，但它是经典机器学习里非常重要的一站。
-
-它最值得新人记住的一句话是：
-
-> **分类不只是要分对，还要让边界离两边样本都尽量远。**
+SVM 今天不一定是所有生产项目的首选模型，但它仍然是理解**间隔、核方法、距离敏感模型**的很好入口。
 :::
 
-## 学习目标
+## 你会做出什么
 
-- 理解 SVM 为什么追求最大间隔边界
-- 知道支持向量是什么，以及它为什么关键
-- 不陷入公式，也能理解核方法的直觉
-- 能安全使用 `StandardScaler`、`SVC`、`C` 和 `gamma`
-- 知道什么时候值得尝试 SVM，什么时候树集成更实用
+这一节把 SVM 变成一个小实验。你会：
 
-## 术语解码
+- 在弯曲数据集上比较 `linear` 与 `rbf` 核；
+- 用实验验证为什么 SVM 必须重视 `StandardScaler`；
+- 调整 `C` 和 `gamma`，并观察支持向量数量；
+- 判断什么时候值得尝试 SVM，什么时候集成模型更省心。
 
-| 术语 | 在这里是什么意思 | 实际作用 |
-|------|------|------|
-| `SVM` | Support Vector Machine，寻找最大间隔边界的模型 | 适合小中型数据，尤其适合理解边界稳定性 |
-| `margin` | 决策边界到两边最近样本的距离 | 间隔越大，边界通常越稳 |
-| `support vector` | 离边界最近的训练样本 | 这些点决定边界能放在哪里 |
-| `kernel` | 在变换后的特征空间中计算相似度的函数 | 不手动造所有特征，也能得到非线性边界 |
-| `RBF` | Radial Basis Function，常见非线性核 | 当关系是弯曲而非直线时，是常用默认选择 |
-| `C` | 对分类错误的惩罚强度 | `C` 越大越努力拟合训练样本，`C` 越小间隔更宽 |
-| `gamma` | RBF 核里每个样本的影响半径 | `gamma` 越大，边界越局部、越弯曲 |
-| `StandardScaler` | 让不同特征处在相近尺度的预处理步骤 | SVM 基于距离，特征缩放通常必不可少 |
-| `SVC` | sklearn 的支持向量分类器类 | 分类 SVM 示例中最常用的类 |
+最重要的一句话：
 
----
+> SVM 不只是问“有没有分对”，还会问“边界离最近的样本是否有足够空间”。
 
-## 一、SVM 为什么会出现？
+## 术语速查
 
-前面你已经学过逻辑回归。逻辑回归会学习一条分界线，把样本分成两类。
-
-但这里会出现一个问题：
-
-> 如果有很多条线都能把训练样本分开，哪一条更好？
-
-SVM 的回答非常有意思：
-
-> **选那条离两边最近样本都最远的线。**
-
-这就是最大间隔思想。
-
-可以先把三类模型这样区分：
-
-| 模型 | 核心问题 |
+| 术语 | 实用含义 |
 |---|---|
-| 逻辑回归 | “这个样本属于正类的概率是多少？” |
-| 决策树 | “用哪一串规则能把数据分开？” |
-| SVM | “哪条边界最安全，因为它留下了最宽的间隔？” |
+| `SVM` | Support Vector Machine，支持向量机，寻找大间隔边界的分类器 |
+| `margin` | 决策边界到最近样本的距离 |
+| `support vector` | 足够靠近边界、会影响边界位置的训练样本 |
+| `kernel` | 相似度函数，让 SVM 能形成非线性边界 |
+| `RBF` | Radial Basis Function，常用非线性核 |
+| `C` | 错误惩罚强度；越大越努力贴合训练点 |
+| `gamma` | RBF 样本影响范围；越大边界越局部、越容易弯曲 |
+| `SVC` | sklearn 的支持向量分类器 |
 
----
+## 环境准备
 
-## 二、先用生活类比理解最大间隔
-
-想象你要在两个班级的队伍中间画一条安全线：
-
-- 只要能分开两边，当然可以
-- 但如果线贴着某个同学画，就很危险
-- 稍微有人移动一点，就可能越界
-
-更稳的画法是：
-
-> **让安全线尽量站在两边之间最宽的位置。**
-
-SVM 就是在做类似的事。
-
-| 概念 | 类比 |
-|---|---|
-| 决策边界 | 两类样本之间的安全线 |
-| 间隔 margin | 安全线到两边最近样本的距离 |
-| 支持向量 | 离安全线最近、最关键的样本 |
-
-微妙但重要的一点是：SVM 不只是问“训练样本有没有分对”，还会问“边界有没有足够的呼吸空间”。
-
----
-
-## 三、支持向量到底是什么？
-
-SVM 这个名字里的“支持向量”，指的是最靠近分界线的那些样本。
-
-它们很关键，因为：
-
-- 离边界很远的点，通常不会改变分界线
-- 离边界最近的点，决定了边界能放在哪里
-
-你可以把支持向量理解成“边界的支撑点”。边界不是被所有样本平均决定的，而是被最关键、最危险的样本撑起来的。
-
-所以它不叫“所有向量机”，而叫“支持向量机”：真正支撑最终边界的是那些最靠近边界的关键样本。
-
----
-
-## 四、核方法：直线分不开时，换一个空间看
-
-SVM 更有历史意义的地方在于核方法。
-
-有些数据在原始平面上分不开，例如同心圆：
-
-```text
-原始空间：看起来怎么画直线都分不开
-高维视角：换个角度后，可能可以用一个平面分开
+```bash
+python -m pip install -U scikit-learn
 ```
 
-核方法的直觉是：
+SVM 对特征尺度很敏感，所以示例使用 `Pipeline(StandardScaler(), SVC(...))`。这不是装饰，而是模型流程的一部分。
 
-> **不一定真的把数据搬到高维空间里算，而是用核函数高效计算“高维空间里的相似度”。**
+## 运行完整实验
 
-这让 SVM 可以处理一些非线性边界。
-
-对新人来说，可以先这样记：
-
-- `linear` 核：尝试用直线或超平面分开
-- `rbf` 核：通过局部相似度允许弯曲边界
-- `poly` 核：允许多项式风格的弯曲关系
-
-不要一开始就背核函数。先问自己：“这件事用直线边界是不是太简单了？”
-
----
-
-## 五、一个最小可运行示例
+新建 `svm_lab.py`：
 
 ```python
+from itertools import product
 from sklearn.datasets import make_moons
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-X, y = make_moons(n_samples=300, noise=0.25, random_state=42)
+
+X, y = make_moons(n_samples=400, noise=0.25, random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42
+    X, y, test_size=0.25, random_state=42, stratify=y
 )
 
-model = make_pipeline(
-    StandardScaler(),
-    SVC(kernel="rbf", C=1.0, gamma="scale")
-)
-
-model.fit(X_train, y_train)
-svc = model.named_steps["svc"]
-
-print(f"accuracy: {model.score(X_test, y_test):.3f}")
-print(f"support vectors by class: {svc.n_support_.tolist()}")
-print(f"total support vectors: {int(svc.n_support_.sum())}")
-```
-
-预期输出：
-
-```text
-accuracy: 0.907
-support vectors by class: [40, 39]
-total support vectors: 79
-```
-
-这里有两个点特别值得注意：
-
-- `StandardScaler()` 很重要，因为 SVM 对特征尺度比较敏感
-- `kernel="rbf"` 表示使用常见的非线性核
-
----
-
-## 六、为什么特征缩放特别重要？
-
-![SVM 特征缩放漫画](/img/course/ch05-svm-feature-scaling.png)
-
-SVM 依赖距离和相似度。如果一个特征单位很小，另一个特征单位特别大，大尺度特征就可能主导边界。
-
-读这张图时，把它当成一个实操提醒：如果一个特征范围是 `0` 到 `1000`，另一个特征范围是 `0` 到 `10`，模型可能只是因为数值大，就把前者看得更重要。`StandardScaler` 不会改变每一行样本的业务含义，而是改变坐标系，让基于距离的模型更公平地比较不同特征。
-
-```python
-X_scaled = X.copy()
-X_scaled[:, 1] *= 100  # 人为把第二个特征放大
-
-X_train2, X_test2, y_train2, y_test2 = train_test_split(
-    X_scaled, y, test_size=0.25, random_state=42
-)
-
-raw_model = SVC(kernel="rbf", C=1.0, gamma="scale")
-raw_model.fit(X_train2, y_train2)
-
-scaled_model = make_pipeline(
-    StandardScaler(),
-    SVC(kernel="rbf", C=1.0, gamma="scale")
-)
-scaled_model.fit(X_train2, y_train2)
-
-print(f"without scaling: {raw_model.score(X_test2, y_test2):.1%}")
-print(f"with scaling:    {scaled_model.score(X_test2, y_test2):.1%}")
-```
-
-预期输出：
-
-```text
-without scaling: 81.3%
-with scaling:    90.7%
-```
-
-这是最实用的 SVM 经验之一：对 SVM 来说，预处理不是装饰。它会改变模型眼里的“近”和“远”。
-
----
-
-## 七、线性核 vs RBF 核
-
-```python
+print("kernel_comparison")
 for kernel in ["linear", "rbf"]:
-    clf = make_pipeline(
-        StandardScaler(),
-        SVC(kernel=kernel, C=1.0, gamma="scale")
-    )
-    clf.fit(X_train, y_train)
-    svc = clf.named_steps["svc"]
+    model = make_pipeline(StandardScaler(), SVC(kernel=kernel, C=1.0, gamma="scale"))
+    model.fit(X_train, y_train)
+    svc = model.named_steps["svc"]
     print(
-        f"kernel={kernel:6s}: "
-        f"train={clf.score(X_train, y_train):.1%}, "
-        f"test={clf.score(X_test, y_test):.1%}, "
+        f"kernel={kernel:<6} "
+        f"accuracy={accuracy_score(y_test, model.predict(X_test)):.3f} "
+        f"support_vectors={int(svc.n_support_.sum())}"
+    )
+
+print("scaling_check")
+X_bad_scale = X.copy()
+X_bad_scale[:, 1] *= 100
+X_train2, X_test2, y_train2, y_test2 = train_test_split(
+    X_bad_scale, y, test_size=0.25, random_state=42, stratify=y
+)
+raw = SVC(kernel="rbf", C=1.0, gamma="scale")
+raw.fit(X_train2, y_train2)
+scaled = make_pipeline(StandardScaler(), SVC(kernel="rbf", C=1.0, gamma="scale"))
+scaled.fit(X_train2, y_train2)
+print(f"without_scaling={accuracy_score(y_test2, raw.predict(X_test2)):.3f}")
+print(f"with_scaling={accuracy_score(y_test2, scaled.predict(X_test2)):.3f}")
+
+print("c_gamma_lab")
+for C, gamma in product([0.1, 1.0, 10.0], [0.1, 1.0]):
+    model = make_pipeline(StandardScaler(), SVC(kernel="rbf", C=C, gamma=gamma))
+    model.fit(X_train, y_train)
+    svc = model.named_steps["svc"]
+    print(
+        f"C={C:<4} gamma={gamma:<3} "
+        f"accuracy={accuracy_score(y_test, model.predict(X_test)):.3f} "
         f"support_vectors={int(svc.n_support_.sum())}"
     )
 ```
 
+运行：
+
+```bash
+python svm_lab.py
+```
+
 预期输出：
 
 ```text
-kernel=linear: train=84.9%, test=90.7%, support_vectors=80
-kernel=rbf   : train=90.7%, test=90.7%, support_vectors=79
+kernel_comparison
+kernel=linear accuracy=0.920 support_vectors=125
+kernel=rbf    accuracy=0.950 support_vectors=98
+scaling_check
+without_scaling=0.880
+with_scaling=0.950
+c_gamma_lab
+C=0.1  gamma=0.1 accuracy=0.940 support_vectors=187
+C=0.1  gamma=1.0 accuracy=0.960 support_vectors=173
+C=1.0  gamma=0.1 accuracy=0.950 support_vectors=134
+C=1.0  gamma=1.0 accuracy=0.930 support_vectors=87
+C=10.0 gamma=0.1 accuracy=0.960 support_vectors=111
+C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 ```
 
-在这个小数据集上，测试分数很接近，但含义不同：
+## 读懂核函数结果
 
-- 线性 SVM 尽量保持边界是直的
-- RBF SVM 可以让边界围绕非线性结构弯曲
+`make_moons` 是一个弯曲数据集，故意让直线边界吃点亏：
 
-真实项目里，不要只靠一次训练/测试划分决定，而要使用交叉验证。
+```text
+kernel=linear accuracy=0.920 support_vectors=125
+kernel=rbf    accuracy=0.950 support_vectors=98
+```
 
----
+`linear` 核尝试用直线分开两类。`rbf` 核比较局部相似度，因此能形成弯曲边界。先按这个规则选择：
 
-## 八、如何理解 `C` 和 `gamma`
+| 情况 | SVM 的第一选择 |
+|---|---|
+| 边界大致像直线 | `kernel="linear"` |
+| 边界弯曲，数据量不大 | `kernel="rbf"` |
+| 行数或特征很多 | 先试逻辑回归、线性 SVM 或树集成 |
 
-对新人来说，最容易看不懂的是 `C` 和 `gamma` 两个参数。可以先这样记：
+## 为什么缩放不是可选项
+
+![SVM 特征缩放漫画](/img/course/ch05-svm-feature-scaling.png)
+
+SVM 依赖距离和相似度。如果一个特征范围是 `0-1`，另一个特征范围是 `0-1000`，后者即使不更重要，也可能主导边界。
+
+实验直接暴露了这个问题：
+
+```text
+without_scaling=0.880
+with_scaling=0.950
+```
+
+所以 `StandardScaler` 应该放在 `Pipeline` 里：只在训练折上 fit，再安全地应用到验证/测试数据。
+
+## 理解 `C` 和 `gamma`
 
 ![SVM 的 C 和 gamma 边界控制漫画](/img/course/ch05-svm-c-gamma-boundary.png)
 
-| 参数 | 新人直觉 | 太小时 | 太大时 |
-|---|---|---|---|
-| `C` | 模型对分类错误有多严格 | 边界更宽，但可能欠拟合 | 会努力分对每个训练点，更容易过拟合 |
-| `gamma` | RBF 核里每个样本的影响范围有多远 | 边界更平滑、更宽 | 边界会围着样本变得很弯曲 |
+`C` 和 `gamma` 控制边界的不同方面：
 
-```python
-from sklearn.model_selection import cross_val_score
+| 参数 | 太小时 | 太大时 |
+|---|---|---|
+| `C` | 容忍更多错误，间隔更宽、更平滑 | 更努力追训练点 |
+| `gamma` | 影响范围宽，边界可能过于平滑 | 影响范围局部，边界可能很弯 |
 
-settings = [
-    (0.1, "scale"),
-    (1.0, "scale"),
-    (100.0, "scale"),
-    (1.0, 0.1),
-    (1.0, 10.0),
-]
-
-for C, gamma in settings:
-    clf = make_pipeline(
-        StandardScaler(),
-        SVC(kernel="rbf", C=C, gamma=gamma)
-    )
-    cv_scores = cross_val_score(clf, X_train, y_train, cv=5, scoring="accuracy")
-    clf.fit(X_train, y_train)
-    print(
-        f"C={C:<5}, gamma={str(gamma):<5}: "
-        f"cv={cv_scores.mean():.1%} ± {cv_scores.std():.1%}, "
-        f"test={clf.score(X_test, y_test):.1%}"
-    )
-```
-
-预期输出：
+看输出时同时看两个信号：
 
 ```text
-C=0.1  , gamma=scale: cv=87.1% ± 4.5%, test=90.7%
-C=1.0  , gamma=scale: cv=89.3% ± 3.8%, test=90.7%
-C=100.0, gamma=scale: cv=90.7% ± 2.6%, test=92.0%
-C=1.0  , gamma=0.1  : cv=84.4% ± 5.3%, test=92.0%
-C=1.0  , gamma=10.0 : cv=90.7% ± 2.2%, test=94.7%
+C=0.1  gamma=1.0 accuracy=0.960 support_vectors=173
+C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 ```
 
-不要过度解读这个小数据集。真正重要的是习惯：用交叉验证调 `C` 和 `gamma`，再用保留测试集确认结果。
+第二个模型支持向量更少，但测试准确率更差。支持向量少不一定更好，可能表示边界过尖、泛化变差。
 
----
+给有经验的读者：`C` 和 `gamma` 应该用交叉验证一起调，并和逻辑回归、集成模型基线对比，不要只凭一次 train-test split 决定。
 
-## 九、SVM、逻辑回归和树模型怎么选？
+## 支持向量在实战中的意义
 
-| 模型 | 更像在做什么 | 适合新人怎么理解 |
+支持向量是离边界足够近、会影响边界的样本。它们适合用来做诊断：
+
+- 支持向量很多，可能说明边界不确定或间隔较软；
+- 支持向量很少但测试分数差，可能说明边界过尖；
+- 支持向量数量只是诊断线索，不是最终指标。
+
+如果你需要校准后的概率，要注意 `SVC(probability=True)` 会额外训练校准步骤，训练会更慢。概率质量很重要时，通常用 `CalibratedClassifierCV` 更清晰。
+
+## 什么时候用 SVM
+
+值得尝试 SVM 的情况：
+
+- 数据集是小到中等规模；
+- 特征以数值为主，并且可以稳定缩放；
+- 需要强一点的非线性分类器，但还不想上神经网络；
+- 想理解基于间隔的分类思想。
+
+更适合其他模型的情况：
+
+- 数据量很大，需要快速训练；
+- 类别特征很多，预处理很重；
+- 产品核心依赖可靠概率；
+- 树集成模型已经更准、更稳、调参更少。
+
+## 常见排查清单
+
+| 现象 | 可能原因 | 修复方式 |
 |---|---|---|
-| 逻辑回归 | 学一条概率化的线性边界 | 最基础的分类 baseline |
-| SVM | 学一条最大间隔边界 | 分类边界要稳，不要贴样本太近 |
-| 决策树 | 按规则一步步切分数据 | 更像人读得懂的规则树 |
-| 随机森林 / Boosting | 组合很多树 | 表格数据强 baseline |
+| SVM 效果明显低于预期 | 特征没有缩放 | 在 `Pipeline` 中使用 `StandardScaler` |
+| 训练很慢 | RBF SVM 不适合特别大的数据 | 尝试线性模型、`LinearSVC` 或集成模型 |
+| 边界太弯 | `gamma` 或 `C` 太大 | 降低 `gamma`，降低 `C`，用交叉验证 |
+| 线性模型抓不住弯曲模式 | 非线性关系却用了 `linear` | 对比 `kernel="rbf"` |
+| 需要可靠概率 | 原始 SVM 分数不是校准概率 | 使用校准并检查概率指标 |
 
-SVM 的优势是边界思想非常漂亮，小中型数据上常有不错效果。它的限制是大数据训练可能慢，参数和核函数选择也需要经验。
+## 练习
 
-一个实用的起手顺序是：
+1. 把 `make_moons()` 里的 `noise` 从 `0.25` 改成 `0.1` 和 `0.4`。哪些设置让 SVM 更容易或更难？
+2. 在网格中加入 `gamma=5.0`。accuracy 和支持向量数量怎么变？
+3. 在线性核场景里把 `SVC` 换成 `LinearSVC`。可用属性有什么变化？
+4. 在同一数据集上运行逻辑回归，和 RBF SVM 对比。
+5. 用交叉验证选择 `C` 和 `gamma`，不要只相信一次切分。
 
-1. 先用逻辑回归建立简单 baseline
-2. 如果数据是小中型，并且边界可能受益于间隔或核方法，再试 SVM
-3. 如果是表格数据并想要更强的实用 baseline，再试随机森林或 Boosting
+## 过关检查
 
----
+你能解释下面几点，就完成本节：
 
-## 十、把 SVM 放回历史主线
-
-1995 年，Corinna Cortes 和 Vladimir Vapnik 的论文《Support-Vector Networks》让最大间隔分类器成为经典机器学习的重要节点。
-
-它在历史上重要，不是因为它永远最强，而是因为它把两个问题讲得非常清楚：
-
-- 泛化不是只看训练集分对没有
-- 决策边界离样本远一点，模型通常更稳
-
-这也是为什么即使今天很多表格任务会优先尝试 XGBoost、LightGBM 或随机森林，SVM 仍然值得学。
-
----
-
-## 小结
-
-| 要点 | 记住什么 |
-|------|------|
-| 最大间隔 | 选择最安全的边界，而不只是任意一条能分开的边界 |
-| 支持向量 | 最近的样本决定边界 |
-| 核技巧 | 像在更丰富的空间里看数据一样计算相似度 |
-| 特征缩放 | SVM 基于距离，所以特征尺度很重要 |
-| `C` 和 `gamma` | 用交叉验证调参，不要只看训练分数 |
-
-## 这节最该带走什么
-
-你不需要第一遍就推完整的 SVM 优化公式。更重要的是先形成三层直觉：
-
-1. SVM 追求最大间隔，不只是训练集分对
-2. 支持向量是决定边界的关键样本
-3. 核方法让线性模型获得处理非线性的能力
-
-如果你能解释“为什么 SVM 经常需要特征缩放”，说明你已经把它从算法名真正理解到工程使用了。
-
-## 动手练习
-
-### 练习 1：调 `C`
-
-使用 `make_moons`，保持 `gamma="scale"`，尝试 `C=[0.01, 0.1, 1, 10, 100]`，比较交叉验证准确率。
-
-### 练习 2：调 `gamma`
-
-保持 `C=1`，尝试 `gamma=[0.01, 0.1, 1, 10]`，画出每种设置下的决策边界。
-
-### 练习 3：缩放实验
-
-把某个特征乘以 100 或 1000，然后比较有无 `StandardScaler` 时 SVM 的效果。
+- SVM 寻找大间隔边界；
+- 支持向量是影响边界的关键训练点；
+- RBF 核可以建模弯曲边界；
+- SVM 使用距离，所以缩放很重要；
+- `C` 和 `gamma` 要一起调，最好配合交叉验证。
