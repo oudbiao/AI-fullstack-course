@@ -118,7 +118,12 @@ train_dataset, val_dataset = random_split(
     generator=torch.Generator().manual_seed(42)
 )
 
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=64,
+    shuffle=True,
+    generator=torch.Generator().manual_seed(7)
+)
 val_loader = DataLoader(val_dataset, batch_size=128, shuffle=False)
 
 batch_x, batch_y = next(iter(train_loader))
@@ -220,7 +225,18 @@ for epoch in range(1, 101):
         )
 ```
 
-正常に学習できれば、検証 accuracy はランダム予測よりかなり高くなるはずです。
+期待される出力：
+
+```text
+epoch=  1, train_loss=0.5568, val_loss=0.3786, val_acc=84.2%
+epoch= 20, train_loss=0.0755, val_loss=0.1064, val_acc=98.3%
+epoch= 40, train_loss=0.0719, val_loss=0.1260, val_acc=98.3%
+epoch= 60, train_loss=0.0657, val_loss=0.1290, val_acc=98.3%
+epoch= 80, train_loss=0.0655, val_loss=0.1415, val_acc=98.3%
+epoch=100, train_loss=0.0687, val_loss=0.1370, val_acc=98.3%
+```
+
+数値が少し違っても問題ありません。大事なのは、検証 accuracy がランダム予測より明らかに高くなることです。
 
 ## 損失曲線を描く
 

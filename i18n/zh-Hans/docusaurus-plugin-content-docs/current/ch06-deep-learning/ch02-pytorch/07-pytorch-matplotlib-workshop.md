@@ -118,7 +118,12 @@ train_dataset, val_dataset = random_split(
     generator=torch.Generator().manual_seed(42)
 )
 
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=64,
+    shuffle=True,
+    generator=torch.Generator().manual_seed(7)
+)
 val_loader = DataLoader(val_dataset, batch_size=128, shuffle=False)
 
 batch_x, batch_y = next(iter(train_loader))
@@ -220,7 +225,18 @@ for epoch in range(1, 101):
         )
 ```
 
-如果训练正常，验证准确率通常会明显高于随机猜测。
+预期输出：
+
+```text
+epoch=  1, train_loss=0.5568, val_loss=0.3786, val_acc=84.2%
+epoch= 20, train_loss=0.0755, val_loss=0.1064, val_acc=98.3%
+epoch= 40, train_loss=0.0719, val_loss=0.1260, val_acc=98.3%
+epoch= 60, train_loss=0.0657, val_loss=0.1290, val_acc=98.3%
+epoch= 80, train_loss=0.0655, val_loss=0.1415, val_acc=98.3%
+epoch=100, train_loss=0.0687, val_loss=0.1370, val_acc=98.3%
+```
+
+如果你的数字有轻微差异也没关系。关键是验证准确率要明显高于随机猜测。
 
 ## 绘制损失曲线
 
