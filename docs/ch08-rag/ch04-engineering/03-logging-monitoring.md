@@ -139,6 +139,12 @@ log = {
 print(log)
 ```
 
+Expected output:
+
+```text
+{'trace_id': 'trace_001', 'stage': 'retrieval', 'query': 'What is the refund policy?', 'latency_ms': 120, 'top_k': 3}
+```
+
 The biggest advantage of this kind of log is:
 
 > Later, you can query and aggregate by field instead of reading text manually.
@@ -175,6 +181,14 @@ avg_tokens = sum(r["tokens"] for r in requests) / len(requests)
 print("avg_latency_ms =", avg_latency)
 print("error_rate     =", error_rate)
 print("avg_tokens     =", avg_tokens)
+```
+
+Expected output:
+
+```text
+avg_latency_ms = 1666.6666666666667
+error_rate     = 0.3333333333333333
+avg_tokens     = 750.0
 ```
 
 This is the smallest possible prototype of a monitoring dashboard.
@@ -232,6 +246,15 @@ for item in trace:
     print(item)
 ```
 
+Expected output:
+
+```text
+{'trace_id': 'trace_001', 'stage': 'api_in', 'latency_ms': 20}
+{'trace_id': 'trace_001', 'stage': 'retrieval', 'latency_ms': 120}
+{'trace_id': 'trace_001', 'stage': 'llm_generate', 'latency_ms': 850}
+{'trace_id': 'trace_001', 'stage': 'response_out', 'latency_ms': 15}
+```
+
 The core value of trace is:
 
 > It lets you see the complete journey of the same request.
@@ -276,6 +299,14 @@ def fake_llm(docs):
 docs = timed_stage("retrieval", fake_retrieve, "What is the refund policy?")
 answer = timed_stage("llm_generate", fake_llm, docs)
 print(answer)
+```
+
+Example output; the exact latency values may vary slightly:
+
+```text
+{'trace_id': 'trace_demo_001', 'stage': 'retrieval', 'latency_ms': 100}
+{'trace_id': 'trace_demo_001', 'stage': 'llm_generate', 'latency_ms': 200}
+Generate an answer based on ['refund policy']
 ```
 
 Although this example is small, it already includes these core fields:
@@ -388,6 +419,12 @@ log = {
 }
 
 print(log)
+```
+
+Expected output:
+
+```text
+{'trace_id': 'trace_001', 'topic': 'discount word problems', 'retrieved_count': 5, 'example_count': 2, 'schema_valid': True, 'export_success': True}
 ```
 
 This example is especially good for beginners because it helps you understand:

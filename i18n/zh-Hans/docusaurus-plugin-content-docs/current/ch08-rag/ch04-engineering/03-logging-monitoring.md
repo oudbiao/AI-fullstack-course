@@ -60,7 +60,7 @@ flowchart LR
 
 ---
 
-## 一、为什么这件事特别重要？
+## 为什么这件事特别重要？
 
 ### LLM 系统的故障比普通接口更隐蔽
 
@@ -107,7 +107,7 @@ flowchart LR
 
 ---
 
-## 二、先看日志：最基础也最常被写坏
+## 先看日志：最基础也最常被写坏
 
 ### 什么叫“结构化日志”？
 
@@ -139,13 +139,19 @@ log = {
 print(log)
 ```
 
+预期输出：
+
+```text
+{'trace_id': 'trace_001', 'stage': 'retrieval', 'query': '退款政策是什么', 'latency_ms': 120, 'top_k': 3}
+```
+
 这种日志最大的好处是：
 
 > 后面你可以按字段查、按字段聚合，而不只是人工看文本。
 
 ---
 
-## 三、指标：系统整体表现的体温计
+## 指标：系统整体表现的体温计
 
 ### 最值得监控的几类指标
 
@@ -177,6 +183,14 @@ print("error_rate     =", error_rate)
 print("avg_tokens     =", avg_tokens)
 ```
 
+预期输出：
+
+```text
+avg_latency_ms = 1666.6666666666667
+error_rate     = 0.3333333333333333
+avg_tokens     = 750.0
+```
+
 这就是监控面板最小的雏形。
 
 ### 一个很适合初学者先记的指标表
@@ -200,7 +214,7 @@ print("avg_tokens     =", avg_tokens)
 
 ---
 
-## 四、追踪（trace）：一条请求到底经历了什么？
+## 追踪（trace）：一条请求到底经历了什么？
 
 ### 为什么 LLM 系统特别需要 trace？
 
@@ -232,6 +246,15 @@ for item in trace:
     print(item)
 ```
 
+预期输出：
+
+```text
+{'trace_id': 'trace_001', 'stage': 'api_in', 'latency_ms': 20}
+{'trace_id': 'trace_001', 'stage': 'retrieval', 'latency_ms': 120}
+{'trace_id': 'trace_001', 'stage': 'llm_generate', 'latency_ms': 850}
+{'trace_id': 'trace_001', 'stage': 'response_out', 'latency_ms': 15}
+```
+
 trace 的核心价值是：
 
 > 让你看到“同一个请求的完整旅程”。
@@ -248,7 +271,7 @@ trace 的核心价值是：
 
 ---
 
-## 五、一个更贴近真实的最小观测闭环
+## 一个更贴近真实的最小观测闭环
 
 ```python
 import time
@@ -278,6 +301,14 @@ answer = timed_stage("llm_generate", fake_llm, docs)
 print(answer)
 ```
 
+示例输出；实际 `latency_ms` 可能有轻微差异：
+
+```text
+{'trace_id': 'trace_demo_001', 'stage': 'retrieval', 'latency_ms': 100}
+{'trace_id': 'trace_demo_001', 'stage': 'llm_generate', 'latency_ms': 200}
+根据 ['退款政策'] 生成回答
+```
+
 这个例子虽然小，但已经把：
 
 - trace_id
@@ -288,7 +319,7 @@ print(answer)
 
 ---
 
-## 六、LLM 系统最值得额外监控的东西
+## LLM 系统最值得额外监控的东西
 
 相比传统 API，LLM 系统通常还值得多监控这些：
 
@@ -326,7 +357,7 @@ print(answer)
 
 ---
 
-## 七、告警为什么不能只看“服务挂没挂”？
+## 告警为什么不能只看“服务挂没挂”？
 
 ### LLM 系统很多问题不会直接 500
 
@@ -363,7 +394,7 @@ print(answer)
 
 ---
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，最值得先监控什么？
+## 如果你的目标是“知识库驱动的课件生成助手”，最值得先监控什么？
 
 这类系统比普通问答更容易出现“看起来还行，但其实已经歪了”的问题。
 
@@ -392,6 +423,12 @@ log = {
 print(log)
 ```
 
+预期输出：
+
+```text
+{'trace_id': 'trace_001', 'topic': '折扣应用题', 'retrieved_count': 5, 'example_count': 2, 'schema_valid': True, 'export_success': True}
+```
+
 这个例子特别适合新人，因为它会帮助你先明白：
 
 - 这类项目的监控重点，不只是模型快不快
@@ -399,7 +436,7 @@ print(log)
 
 ---
 
-## 九、一个很实用的日志字段清单
+## 一个很实用的日志字段清单
 
 如果你在做 LLM 服务，最实用的一组字段通常包括：
 
@@ -419,7 +456,7 @@ print(log)
 
 ---
 
-## 十、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 只打字符串，不打字段
 
