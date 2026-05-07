@@ -1,342 +1,306 @@
 ---
-title: "6.2.5 nn 模块"
+title: "6.2.5 nn.Module"
 sidebar_position: 3
-description: "学会用 nn.Module、nn.Linear、nn.Sequential 组织模型，理解 forward 和参数管理。"
-keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
+description: "用 nn.Module 构建可复用 PyTorch 模型，检查参数和 state_dict，并理解 train/eval 模式。"
+keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict, PyTorch]
 ---
 
-# 6.2.5 nn 模块
+# 6.2.5 nn.Module
+
+:::tip 本节定位
+`nn.Module` 是 PyTorch 把层、参数、前向逻辑、训练/评估模式打包成一个模型对象的方式。本节会把 autograd 里手写的参数升级成可复用的模型类。
+:::
 
 ## 学习目标
 
-- 理解为什么 PyTorch 要用 `nn.Module` 组织模型
-- 掌握 `nn.Linear`、`nn.ReLU`、`nn.Sequential`
-- 能自己写一个最简单的自定义网络
-- 明白 `forward()`、`parameters()`、`train()`、`eval()` 的作用
+- 使用 `nn.Linear` 并读懂它的参数 shape。
+- 用 `nn.Sequential` 搭建简单模型。
+- 用 `__init__()` 和 `forward()` 写自定义 `nn.Module`。
+- 检查 `named_parameters()` 和 `state_dict()`。
+- 理解 `model.train()` 和 `model.eval()` 真正切换的是什么。
 
 ---
 
-## 先建立一张地图
-
-这节最重要的不是记住多少类名，而是看清：
+## 先看模型容器
 
 ![nn.Module 参数组织流程图](/img/course/ch06-nn-module-parameter-flow.png)
 
-所以这一节真正解决的是：
+可以把 `nn.Module` 理解成模型容器：
 
-- 模型结构怎么被组织成一个“可训练对象”
+```text
+层 + 参数 + 前向逻辑 + 模式状态 -> 一个模型对象
+```
 
-## 这节和前后内容是怎么接上的
+之后 optimizer 只需要拿到 `model.parameters()`，不用知道你写了多少层。
 
-- 前一节 `autograd` 已经解决“梯度怎么来”
-- 这一节开始解决“这些参数到底被装在哪、怎么统一管理”
-- 下一节 `DataLoader` 会解决“数据怎么一批批送进来”
+## 从手写权重到 `nn.Linear`
 
-所以这一节其实是在给训练循环准备“模型这一半”。
+前面几节你见过这个运算：
 
-## 一、为什么需要 `nn.Module`？
+```text
+logits = X @ W + b
+```
 
-如果说张量是“数据盒子”，那 `nn.Module` 就是“模型盒子”。
-
-它帮你把一堆东西组织起来：
-
-- 网络层
-- 参数
-- 前向计算逻辑
-- 训练 / 评估模式切换
-
-类比一下：
-
-| 组件 | 类比 |
-|---|---|
-| `Tensor` | 一块砖 |
-| `nn.Linear` | 一个标准零件 |
-| `nn.Module` | 一个可组合的机器 |
-
-如果没有 `nn.Module`，你也可以手写网络，但会非常乱。
-有了它，模型就像乐高积木，可以一层层拼起来。
-
-### 一个更适合新人的直觉：`nn.Module` 就是“模型容器”
-
-你可以先把它理解成一个统一的模型盒子，里面会装：
-
-- 网络层
-- 参数
-- 前向逻辑
-- 训练 / 评估模式
-
-这就是为什么后面很多地方都只传一个 `model` 对象，就能完成：
-
-- 前向计算
-- 参数更新
-- 保存和加载
-
----
-
-## 二、最常见的层：`nn.Linear`
-
-线性层做的事情就是：
-
-> `y = xW + b`
+`nn.Linear(in_features, out_features)` 会把同样的想法包装成一个可训练层。
 
 ```python
 import torch
 from torch import nn
 
-layer = nn.Linear(in_features=3, out_features=2)
+layer = nn.Linear(3, 2)
+
+with torch.no_grad():
+    layer.weight.copy_(
+        torch.tensor(
+            [
+                [0.1, 0.2, 0.3],
+                [-0.1, 0.4, 0.2],
+            ]
+        )
+    )
+    layer.bias.copy_(torch.tensor([0.01, -0.02]))
 
 x = torch.tensor([[1.0, 2.0, 3.0]])
 y = layer(x)
 
-print("输出:", y)
-print("weight shape:", layer.weight.shape)
-print("bias shape:", layer.bias.shape)
+print("linear_lab")
+print("input shape:", tuple(x.shape))
+print("weight shape:", tuple(layer.weight.shape))
+print("bias shape:", tuple(layer.bias.shape))
+print("output:", torch.round(y * 100) / 100)
 ```
 
-这里的形状要读懂：
+预期输出：
 
-- 输入是 `[1, 3]`，表示 1 个样本、每个样本 3 个特征
-- 输出是 `[1, 2]`，表示映射到 2 个输出值
+```text
+linear_lab
+input shape: (1, 3)
+weight shape: (2, 3)
+bias shape: (2,)
+output: tensor([[1.4100, 1.2800]], grad_fn=<DivBackward0>)
+```
 
-### 看到 `nn.Linear(in, out)` 时，脑子里最该立刻跳出什么？
+重要 shape 规则：
 
-最值得先跳出来的是：
+- 输入：`[batch, in_features]`
+- 权重：`[out_features, in_features]`
+- 输出：`[batch, out_features]`
 
-- 这不是在“神秘变换”
-- 而是在把每个样本从 `in` 维表示映射到 `out` 维表示
+输出里的 `grad_fn` 表示它连在 autograd 计算图上。
 
-所以一个线性层最实用的理解方式通常是：
+## 用 `nn.Sequential` 快速搭网络
 
-- 输入空间被重新编码成了新的特征空间
-
----
-
-## 三、用 `nn.Sequential` 快速搭网络
-
-如果模型比较简单，可以直接把层按顺序串起来：
+当数据只是按顺序经过一串层时，可以用 `nn.Sequential`。
 
 ```python
 import torch
 from torch import nn
+
+torch.manual_seed(11)
 
 model = nn.Sequential(
-    nn.Linear(2, 4),
+    nn.Linear(3, 4),
     nn.ReLU(),
-    nn.Linear(4, 1)
+    nn.Linear(4, 2),
 )
 
-x = torch.tensor([[1.0, 2.0]])
-pred = model(x)
+batch = torch.randn(5, 3)
+logits = model(batch)
 
-print(pred)
+print("logits shape:", tuple(logits.shape))
 ```
 
-这段代码表示：
+预期输出：
 
-1. 输入 2 个特征
-2. 先映射到 4 维隐藏层
-3. 经过 `ReLU` 激活
-4. 再输出 1 个值
+```text
+logits shape: (5, 2)
+```
 
-这就已经是一个最小版多层感知机了。
+读模型结构：
 
----
+```text
+[batch, 3] -> Linear(3, 4) -> ReLU -> Linear(4, 2) -> [batch, 2]
+```
 
-## 四、自己定义一个模型类
+这已经是一个小型多层感知机。
 
-当模型稍微复杂一点，推荐继承 `nn.Module`。
+## 写自定义 `nn.Module`
+
+真实项目通常会写自定义模块，因为它能容纳具名子模块、分支逻辑、可复用辅助方法和更清楚的调试入口。
 
 ```python
 import torch
 from torch import nn
 
-class ScorePredictor(nn.Module):
-    def __init__(self):
+
+class TinyClassifier(nn.Module):
+    def __init__(self, in_features=3, hidden=4, classes=2):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(2, 8),
+            nn.Linear(in_features, hidden),
             nn.ReLU(),
-            nn.Linear(8, 1)
+            nn.Linear(hidden, classes),
         )
 
     def forward(self, x):
         return self.net(x)
 
-model = ScorePredictor()
 
-x = torch.tensor([
-    [3.0, 4.0],   # 学习时长、作业完成数
-    [5.0, 8.0]
-])
+torch.manual_seed(11)
+model = TinyClassifier()
+batch = torch.randn(5, 3)
+logits = model(batch)
 
-print(model(x))
+print("module_lab")
+print("logits shape:", tuple(logits.shape))
+for name, param in model.named_parameters():
+    print(name, tuple(param.shape))
+print("state keys:", list(model.state_dict().keys()))
 ```
 
-### `__init__()` 和 `forward()` 分别做什么？
+预期输出：
 
-| 方法 | 职责 |
+```text
+module_lab
+logits shape: (5, 2)
+net.0.weight (4, 3)
+net.0.bias (4,)
+net.2.weight (2, 4)
+net.2.bias (2,)
+state keys: ['net.0.weight', 'net.0.bias', 'net.2.weight', 'net.2.bias']
+```
+
+职责分工：
+
+| 方法或 API | 职责 |
 |---|---|
-| `__init__()` | 定义层和子模块 |
-| `forward()` | 定义“数据怎么流过去” |
+| `__init__()` | 创建层和子模块 |
+| `forward()` | 描述输入如何变成输出 |
+| `parameters()` | 把可学习参数交给 optimizer |
+| `named_parameters()` | 暴露参数名和 shape，方便调试 |
+| `state_dict()` | 暴露可保存和加载的张量 |
 
-一句话记忆：
+不要把训练逻辑写进 `forward()`。Loss、`backward()`、`optimizer.step()` 属于训练循环，不属于模型定义。
 
-- `__init__` 负责“搭机器”
-- `forward` 负责“机器怎么工作”
+## `train()` 和 `eval()` 是模式开关
 
-### 为什么 `forward()` 里只写数据流，不写训练逻辑？
+`model.train()` 不会自动跑训练循环，`model.eval()` 也不会自动跑验证。它们切换的是 Dropout、BatchNorm 等层的行为。
 
-因为训练逻辑属于另一个层面。
-`forward()` 的职责非常纯粹：
-
-- 给定输入
-- 返回输出
-
-而像这些东西：
-
-- loss
-- backward
-- optimizer.step
-
-都不属于 `forward()`。
-把这层职责分清，对后面读大模型代码非常重要。
-
----
-
-## 五、模型参数是怎么被管理起来的？
-
-`nn.Module` 的一个大好处是：
-你定义的层会自动被框架登记，参数也会自动出现在 `model.parameters()` 里。
+运行这个例子：
 
 ```python
 import torch
 from torch import nn
 
-class TinyNet(nn.Module):
+
+class DropoutProbe(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(3, 4)
-        self.fc2 = nn.Linear(4, 1)
+        self.dropout = nn.Dropout(p=0.5)
 
     def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        return self.fc2(x)
+        return self.dropout(x)
 
-model = TinyNet()
 
-for name, param in model.named_parameters():
-    print(name, param.shape)
+probe = DropoutProbe()
+sample = torch.ones(6)
+
+torch.manual_seed(3)
+probe.train()
+train_a = probe(sample)
+train_b = probe(sample)
+
+probe.eval()
+eval_a = probe(sample)
+eval_b = probe(sample)
+
+print("mode_lab")
+print("train outputs equal:", torch.equal(train_a, train_b))
+print("eval outputs equal:", torch.equal(eval_a, eval_b))
+print("eval output:", eval_a)
 ```
 
-这正是为什么优化器能直接写：
+预期输出：
+
+```text
+mode_lab
+train outputs equal: False
+eval outputs equal: True
+eval output: tensor([1., 1., 1., 1., 1., 1.])
+```
+
+实用习惯：
 
 ```python
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+model.train()  # 训练 batch 前
+model.eval()   # 验证或预测前
 ```
 
-### 为什么 `model.parameters()` 这么关键？
-
-因为它把“模型是很多参数的集合”这件事统一起来了。
-
-也就是说，优化器其实根本不关心你写了几层、用了什么结构，它最关心的是：
-
-- 我到底要更新哪些参数
-
-而 `nn.Module` 就是在自动替你把这件事整理好。
-
-因为模型已经把所有需要学习的参数打包好了。
-
----
-
-## 六、`train()` 和 `eval()` 是什么？
-
-很多初学者以为：
-
-- `model.train()` 是开始训练
-- `model.eval()` 是开始评估
-
-其实不完全对。
-它们真正的作用是：**切换模型内部某些层的行为模式**。
-
-最典型的两种层是：
-
-- `Dropout`
-- `BatchNorm`
-
-虽然我们现在还没重点讲它们，但你要先记住这个习惯：
+验证时和 `torch.no_grad()` 搭配：
 
 ```python
-model.train()   # 训练前
-model.eval()    # 验证 / 测试前
+model.eval()
+with torch.no_grad():
+    logits = model(batch)
 ```
 
-### 初学阶段先把这一点记死，非常值
+## 小项目：训练分数预测器
 
-你现在甚至可以先不完全理解：
+这个例子使用两个特征和一个回归目标：
 
-- Dropout
-- BatchNorm
+- 每周学习小时；
+- 每周完成的练习题数量；
+- 预测分数。
 
-但这两个动作最好先养成条件反射：
-
-- 训练前 `model.train()`
-- 验证前 `model.eval()`
-
-后面网络越复杂，这个习惯越能救你。
-
----
-
-## 七、一个完整的小例子：预测成绩
-
-下面是一个可以直接运行的小网络。
-输入两个特征：
-
-- 每周学习时长
-- 每周完成练习数
-
-输出预测分数。
+目标值除以 `100`，这样这个小数据集训练会更稳定。
 
 ```python
 import torch
 from torch import nn
+
+
+class ScorePredictor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
 
 torch.manual_seed(42)
 
-X = torch.tensor([
-    [2.0, 1.0],
-    [3.0, 2.0],
-    [4.0, 3.0],
-    [5.0, 5.0],
-    [6.0, 6.0],
-    [7.0, 8.0]
-])
-
-y = torch.tensor([
-    [55.0],
-    [60.0],
-    [68.0],
-    [78.0],
-    [85.0],
-    [92.0]
-])
-
-class ScorePredictor(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(2, 8),
-            nn.ReLU(),
-            nn.Linear(8, 1)
-        )
-
-    def forward(self, x):
-        return self.net(x)
+X = torch.tensor(
+    [
+        [2.0, 1.0],
+        [3.0, 2.0],
+        [4.0, 3.0],
+        [5.0, 5.0],
+        [6.0, 6.0],
+        [7.0, 8.0],
+    ]
+)
+y = torch.tensor(
+    [
+        [55.0],
+        [60.0],
+        [68.0],
+        [78.0],
+        [85.0],
+        [92.0],
+    ]
+) / 100.0
 
 model = ScorePredictor()
 loss_fn = nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-for epoch in range(500):
+print("training_lab")
+for epoch in range(401):
     pred = model(X)
     loss = loss_fn(pred, y)
 
@@ -345,74 +309,67 @@ for epoch in range(500):
     optimizer.step()
 
     if epoch % 100 == 0:
-        print(f"epoch={epoch:3d}, loss={loss.item():.4f}")
+        print(f"epoch={epoch:3d} loss={loss.item():.4f}")
 
-test = torch.tensor([[6.5, 7.0]])
-print("预测分数:", round(model(test).item(), 2))
+model.eval()
+with torch.no_grad():
+    test = torch.tensor([[6.5, 7.0]])
+    pred_score = model(test).item() * 100
+
+print("predicted score:", round(pred_score, 2))
 ```
 
----
+预期输出：
 
-## 八、什么时候用 `Sequential`，什么时候自定义 `Module`？
+```text
+training_lab
+epoch=  0 loss=0.4672
+epoch=100 loss=0.0003
+epoch=200 loss=0.0001
+epoch=300 loss=0.0001
+epoch=400 loss=0.0001
+predicted score: 89.31
+```
 
-### 用 `nn.Sequential`
+现在它已经是完整的微型 PyTorch 模型：
 
-适合：
+```text
+data -> model -> loss -> zero_grad -> backward -> optimizer.step -> eval prediction
+```
 
-- 层是严格顺序堆叠的
-- 没有分支结构
-- 没有特殊控制逻辑
+## 什么时候用 Sequential，什么时候用自定义 Module？
 
-### 用自定义 `nn.Module`
+| 场景 | 推荐选择 |
+|---|---|
+| 简单直线堆叠 | `nn.Sequential` |
+| 多输入或多输出 | 自定义 `nn.Module` |
+| 跳连或分支结构 | 自定义 `nn.Module` |
+| 可复用组件 | 自定义 `nn.Module` |
+| 需要更清楚的参数名 | 自定义 `nn.Module` |
 
-适合：
+真实深度学习项目里，自定义模块更常见，因为架构很快就会超过“直线堆叠”。
 
-- 有多路输入 / 输出
-- 有跳连、分支、条件逻辑
-- 你想让结构更清晰、更可维护
+## 常见错误
 
-工程上，自定义 `Module` 更常见。
-
----
-
-## 九、初学者常见误区
-
-### 在 `forward()` 里临时创建新层
-
-不推荐。
-层最好在 `__init__()` 里定义，这样参数才能被正确注册。
-
-### 只会写 `Sequential`，不会写类
-
-`Sequential` 很方便，但你迟早要会写自定义 `Module`。
-后面的 CNN、Transformer 都离不开它。
-
-### 不知道模型里有哪些参数
-
-养成使用 `named_parameters()` 的习惯，调试时非常有用。
-
----
-
-## 小结
-
-这一节你要带走的核心是：
-
-1. `nn.Module` 是组织模型的标准方式
-2. `forward()` 描述的是数据流，不是训练流程
-3. 模型参数会被自动收集，优化器才能统一更新
-
-有了模型盒子，下一步就是把数据一批一批喂进去。
-
-## 这节最该带走什么
-
-如果再压成一句话，那就是：
-
-> **`nn.Module` 的核心价值，不是让代码更像面向对象，而是让“层、参数、前向逻辑、训练模式”都能被统一管理。**
-
----
+| 错误 | 为什么有问题 | 修复 |
+|---|---|---|
+| 在 `forward()` 里临时创建层 | 每次调用都会创建新参数，可能无法被正确优化 | 在 `__init__()` 里定义层 |
+| 把 loss 和 optimizer 逻辑写进 `forward()` | 混淆模型定义和训练控制 | 让 `forward()` 只负责输入到输出 |
+| 忘记 `super().__init__()` | 子模块可能无法正确注册 | 在 `__init__()` 开头调用 |
+| 不检查参数名 | 很难排查冻结层或缺失层 | 打印 `named_parameters()` |
+| 验证前忘记 `eval()` | Dropout/BatchNorm 还像训练时一样工作 | 验证前调用 `model.eval()` |
 
 ## 练习
 
-1. 把 `ScorePredictor` 的隐藏层从 `8` 改成 `16`，观察损失变化。
-2. 把 `ReLU()` 去掉，看看模型还能不能学到规律。
-3. 用 `named_parameters()` 打印每层参数名称和形状，确认你读懂了每一层。
+1. 把 `ScorePredictor` 的隐藏层大小从 `16` 改成 `4` 和 `32`。loss 有什么变化？
+2. 删除 `ReLU()`。这个小回归任务还能不能学？为什么更深的非线性任务可能需要它？
+3. 打印 `model.state_dict()` 的 key 和 shape。checkpoint 会保存哪些张量？
+4. 在 ReLU 后加入 `nn.Dropout(p=0.2)`，比较 `train()` 和 `eval()` 模式下的预测。
+
+## 小结
+
+- `nn.Module` 把层、参数、前向逻辑和模式状态统一管理。
+- `forward()` 应该描述数据流，不应该写训练循环。
+- `model.parameters()` 把模型和 optimizer 连接起来。
+- `state_dict()` 是标准 checkpoint 接口。
+- `train()` 和 `eval()` 切换层行为，它们本身不运行训练或验证循环。

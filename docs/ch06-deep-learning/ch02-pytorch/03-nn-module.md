@@ -1,342 +1,306 @@
 ---
-title: "6.2.5 nn Module"
+title: "6.2.5 nn.Module"
 sidebar_position: 3
-description: "Learn to organize models with nn.Module, nn.Linear, and nn.Sequential, and understand forward and parameter management."
-keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
+description: "Build reusable PyTorch models with nn.Module, inspect parameters and state_dict, and understand train/eval mode."
+keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict, PyTorch]
 ---
 
-# 6.2.5 nn Module
+# 6.2.5 nn.Module
+
+:::tip Section Overview
+`nn.Module` is how PyTorch packages layers, parameters, forward logic, and training/evaluation mode into one model object. This section upgrades the hand-written parameters from autograd into reusable model classes.
+:::
 
 ## Learning Objectives
 
-- Understand why PyTorch uses `nn.Module` to organize models
-- Master `nn.Linear`, `nn.ReLU`, and `nn.Sequential`
-- Be able to write the simplest custom network yourself
-- Understand the roles of `forward()`, `parameters()`, `train()`, and `eval()`
+- Use `nn.Linear` and read its parameter shapes.
+- Build simple models with `nn.Sequential`.
+- Write a custom `nn.Module` with `__init__()` and `forward()`.
+- Inspect `named_parameters()` and `state_dict()`.
+- Understand what `model.train()` and `model.eval()` actually switch.
 
 ---
 
-## First, Build a Map
-
-The most important thing in this section is not memorizing class names, but seeing clearly:
+## Look at the Model Container
 
 ![nn.Module parameter organization flowchart](/img/course/ch06-nn-module-parameter-flow-en.png)
 
-So what this section really solves is:
+Think of `nn.Module` as a model container:
 
-- How a model structure is organized into a "trainable object"
+```text
+layers + parameters + forward logic + mode state -> one model object
+```
 
-## How This Section Connects to the Previous and Next Ones
+The optimizer can then receive `model.parameters()` without needing to know how many layers you wrote.
 
-- The previous section, `autograd`, already solved "where gradients come from"
-- This section starts solving "where these parameters are stored and how they are managed together"
-- The next section, `DataLoader`, will solve "how data is fed in batch by batch"
+## From Manual Weights to `nn.Linear`
 
-So this section is really preparing the "model half" of the training loop.
+In the previous sections, you saw the operation:
 
-## Why Do We Need `nn.Module`?
+```text
+logits = X @ W + b
+```
 
-If a tensor is a "data box," then `nn.Module` is a "model box."
-
-It helps you organize a bunch of things:
-
-- Network layers
-- Parameters
-- Forward computation logic
-- Train / evaluation mode switching
-
-As an analogy:
-
-| Component | Analogy |
-|---|---|
-| `Tensor` | A brick |
-| `nn.Linear` | A standard part |
-| `nn.Module` | A composable machine |
-
-Without `nn.Module`, you could still write networks by hand, but it would be very messy.
-With it, a model is like LEGO blocks that can be stacked layer by layer.
-
-### A More Beginner-Friendly Intuition: `nn.Module` Is a "Model Container"
-
-You can first think of it as a unified model box that holds:
-
-- Network layers
-- Parameters
-- Forward logic
-- Train / evaluation mode
-
-This is why many later places only need to pass in a `model` object to complete:
-
-- Forward computation
-- Parameter updates
-- Saving and loading
-
----
-
-## The Most Common Layer: `nn.Linear`
-
-A linear layer does this:
-
-> `y = xW + b`
+`nn.Linear(in_features, out_features)` packages the same idea as a trainable layer.
 
 ```python
 import torch
 from torch import nn
 
-layer = nn.Linear(in_features=3, out_features=2)
+layer = nn.Linear(3, 2)
+
+with torch.no_grad():
+    layer.weight.copy_(
+        torch.tensor(
+            [
+                [0.1, 0.2, 0.3],
+                [-0.1, 0.4, 0.2],
+            ]
+        )
+    )
+    layer.bias.copy_(torch.tensor([0.01, -0.02]))
 
 x = torch.tensor([[1.0, 2.0, 3.0]])
 y = layer(x)
 
-print("Output:", y)
-print("weight shape:", layer.weight.shape)
-print("bias shape:", layer.bias.shape)
+print("linear_lab")
+print("input shape:", tuple(x.shape))
+print("weight shape:", tuple(layer.weight.shape))
+print("bias shape:", tuple(layer.bias.shape))
+print("output:", torch.round(y * 100) / 100)
 ```
 
-You need to understand the shapes here:
+Expected output:
 
-- The input is `[1, 3]`, meaning 1 sample, and each sample has 3 features
-- The output is `[1, 2]`, meaning it is mapped to 2 output values
+```text
+linear_lab
+input shape: (1, 3)
+weight shape: (2, 3)
+bias shape: (2,)
+output: tensor([[1.4100, 1.2800]], grad_fn=<DivBackward0>)
+```
 
-### When You See `nn.Linear(in, out)`, What Should Immediately Come to Mind?
+Important shape rule:
 
-The most important thing to think is:
+- input: `[batch, in_features]`
+- weight: `[out_features, in_features]`
+- output: `[batch, out_features]`
 
-- This is not some "mysterious transformation"
-- It maps each sample from an `in`-dimensional representation to an `out`-dimensional representation
+The printed `grad_fn` means the output is connected to an autograd graph.
 
-So the most practical way to understand a linear layer is usually:
+## Build a Simple Network with `nn.Sequential`
 
-- The input space is re-encoded into a new feature space
-
----
-
-## Build a Network Quickly with `nn.Sequential`
-
-If the model is relatively simple, you can connect layers in order directly:
+Use `nn.Sequential` when data flows through layers in a straight line.
 
 ```python
 import torch
 from torch import nn
+
+torch.manual_seed(11)
 
 model = nn.Sequential(
-    nn.Linear(2, 4),
+    nn.Linear(3, 4),
     nn.ReLU(),
-    nn.Linear(4, 1)
+    nn.Linear(4, 2),
 )
 
-x = torch.tensor([[1.0, 2.0]])
-pred = model(x)
+batch = torch.randn(5, 3)
+logits = model(batch)
 
-print(pred)
+print("logits shape:", tuple(logits.shape))
 ```
 
-This code means:
+Expected output:
 
-1. Input 2 features
-2. First map them to a 4-dimensional hidden layer
-3. Pass through `ReLU` activation
-4. Then output 1 value
+```text
+logits shape: (5, 2)
+```
 
-This is already a minimal multilayer perceptron.
+Read the model:
 
----
+```text
+[batch, 3] -> Linear(3, 4) -> ReLU -> Linear(4, 2) -> [batch, 2]
+```
 
-## Define a Model Class Yourself
+That is already a small multilayer perceptron.
 
-When the model gets a little more complex, it is recommended to inherit from `nn.Module`.
+## Write a Custom `nn.Module`
+
+Custom modules are the normal style for real projects because they can hold named submodules, branching logic, reusable helper methods, and clearer debugging hooks.
 
 ```python
 import torch
 from torch import nn
 
-class ScorePredictor(nn.Module):
-    def __init__(self):
+
+class TinyClassifier(nn.Module):
+    def __init__(self, in_features=3, hidden=4, classes=2):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(2, 8),
+            nn.Linear(in_features, hidden),
             nn.ReLU(),
-            nn.Linear(8, 1)
+            nn.Linear(hidden, classes),
         )
 
     def forward(self, x):
         return self.net(x)
 
-model = ScorePredictor()
 
-x = torch.tensor([
-    [3.0, 4.0],   # Study time, number of assignments completed
-    [5.0, 8.0]
-])
+torch.manual_seed(11)
+model = TinyClassifier()
+batch = torch.randn(5, 3)
+logits = model(batch)
 
-print(model(x))
+print("module_lab")
+print("logits shape:", tuple(logits.shape))
+for name, param in model.named_parameters():
+    print(name, tuple(param.shape))
+print("state keys:", list(model.state_dict().keys()))
 ```
 
-### What Do `__init__()` and `forward()` Do Respectively?
+Expected output:
 
-| Method | Responsibility |
+```text
+module_lab
+logits shape: (5, 2)
+net.0.weight (4, 3)
+net.0.bias (4,)
+net.2.weight (2, 4)
+net.2.bias (2,)
+state keys: ['net.0.weight', 'net.0.bias', 'net.2.weight', 'net.2.bias']
+```
+
+Responsibilities:
+
+| Method or API | Responsibility |
 |---|---|
-| `__init__()` | Define layers and submodules |
-| `forward()` | Define how data flows through the model |
+| `__init__()` | create layers and submodules |
+| `forward()` | describe how input becomes output |
+| `parameters()` | return learnable parameters for the optimizer |
+| `named_parameters()` | expose parameter names and shapes for debugging |
+| `state_dict()` | expose tensors that can be saved and loaded |
 
-A simple way to remember it:
+Keep training logic out of `forward()`. Loss, `backward()`, and `optimizer.step()` belong to the training loop, not to the model definition.
 
-- `__init__` is responsible for "building the machine"
-- `forward` is responsible for "how the machine works"
+## `train()` and `eval()` Are Mode Switches
 
-### Why Does `forward()` Only Contain Data Flow and Not Training Logic?
+`model.train()` does not run the training loop, and `model.eval()` does not run validation. They switch the behavior of layers such as Dropout and BatchNorm.
 
-Because training logic belongs to another level.
-The responsibility of `forward()` is very pure:
-
-- Given an input
-- Return an output
-
-And things like:
-
-- loss
-- backward
-- optimizer.step
-
-do not belong in `forward()`.
-Being clear about this separation is very important when you read large model code later.
-
----
-
-## How Are Model Parameters Managed?
-
-One big advantage of `nn.Module` is that:
-the layers you define are automatically registered by the framework, and the parameters also automatically appear in `model.parameters()`.
+Run this example:
 
 ```python
 import torch
 from torch import nn
 
-class TinyNet(nn.Module):
+
+class DropoutProbe(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(3, 4)
-        self.fc2 = nn.Linear(4, 1)
+        self.dropout = nn.Dropout(p=0.5)
 
     def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        return self.fc2(x)
+        return self.dropout(x)
 
-model = TinyNet()
 
-for name, param in model.named_parameters():
-    print(name, param.shape)
+probe = DropoutProbe()
+sample = torch.ones(6)
+
+torch.manual_seed(3)
+probe.train()
+train_a = probe(sample)
+train_b = probe(sample)
+
+probe.eval()
+eval_a = probe(sample)
+eval_b = probe(sample)
+
+print("mode_lab")
+print("train outputs equal:", torch.equal(train_a, train_b))
+print("eval outputs equal:", torch.equal(eval_a, eval_b))
+print("eval output:", eval_a)
 ```
 
-This is why an optimizer can be written directly as:
+Expected output:
+
+```text
+mode_lab
+train outputs equal: False
+eval outputs equal: True
+eval output: tensor([1., 1., 1., 1., 1., 1.])
+```
+
+Practical habit:
 
 ```python
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+model.train()  # before training batches
+model.eval()   # before validation or prediction
 ```
 
-### Why Is `model.parameters()` So Important?
-
-Because it unifies the idea that "a model is a collection of many parameters."
-
-In other words, the optimizer does not really care how many layers you wrote or what structure you used. What it cares about most is:
-
-- Which parameters do I need to update?
-
-And `nn.Module` is automatically organizing this for you.
-
-Because the model has already packaged all the parameters that need to be learned.
-
----
-
-## What Are `train()` and `eval()`?
-
-Many beginners think:
-
-- `model.train()` starts training
-- `model.eval()` starts evaluation
-
-That is not completely correct.
-Their real role is to **switch the behavior mode of certain internal layers**.
-
-The two most typical layers are:
-
-- `Dropout`
-- `BatchNorm`
-
-Although we have not focused on them yet, you should first remember this habit:
+For validation, combine it with `torch.no_grad()`:
 
 ```python
-model.train()   # Before training
-model.eval()    # Before validation / testing
+model.eval()
+with torch.no_grad():
+    logits = model(batch)
 ```
 
-### At the Beginner Stage, Fix This in Your Memory — It Is Very Worth It
+## Mini Project: Train a Score Predictor
 
-You may not fully understand:
+This example uses two features and one regression target:
 
-- Dropout
-- BatchNorm
+- study hours per week;
+- practice problems completed per week;
+- predicted score.
 
-right now, but you should still build this reflex:
-
-- `model.train()` before training
-- `model.eval()` before validation
-
-The more complex the network becomes later, the more this habit will save you.
-
----
-
-## A Complete Small Example: Predicting Scores
-
-Below is a small network that you can run directly.
-It takes two features as input:
-
-- Study hours per week
-- Number of practice problems completed per week
-
-It outputs a predicted score.
+The target is divided by `100` so the optimization is stable on this tiny dataset.
 
 ```python
 import torch
 from torch import nn
+
+
+class ScorePredictor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
 
 torch.manual_seed(42)
 
-X = torch.tensor([
-    [2.0, 1.0],
-    [3.0, 2.0],
-    [4.0, 3.0],
-    [5.0, 5.0],
-    [6.0, 6.0],
-    [7.0, 8.0]
-])
-
-y = torch.tensor([
-    [55.0],
-    [60.0],
-    [68.0],
-    [78.0],
-    [85.0],
-    [92.0]
-])
-
-class ScorePredictor(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(2, 8),
-            nn.ReLU(),
-            nn.Linear(8, 1)
-        )
-
-    def forward(self, x):
-        return self.net(x)
+X = torch.tensor(
+    [
+        [2.0, 1.0],
+        [3.0, 2.0],
+        [4.0, 3.0],
+        [5.0, 5.0],
+        [6.0, 6.0],
+        [7.0, 8.0],
+    ]
+)
+y = torch.tensor(
+    [
+        [55.0],
+        [60.0],
+        [68.0],
+        [78.0],
+        [85.0],
+        [92.0],
+    ]
+) / 100.0
 
 model = ScorePredictor()
 loss_fn = nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-for epoch in range(500):
+print("training_lab")
+for epoch in range(401):
     pred = model(X)
     loss = loss_fn(pred, y)
 
@@ -345,74 +309,67 @@ for epoch in range(500):
     optimizer.step()
 
     if epoch % 100 == 0:
-        print(f"epoch={epoch:3d}, loss={loss.item():.4f}")
+        print(f"epoch={epoch:3d} loss={loss.item():.4f}")
 
-test = torch.tensor([[6.5, 7.0]])
-print("Predicted score:", round(model(test).item(), 2))
+model.eval()
+with torch.no_grad():
+    test = torch.tensor([[6.5, 7.0]])
+    pred_score = model(test).item() * 100
+
+print("predicted score:", round(pred_score, 2))
 ```
 
----
+Expected output:
 
-## When Should You Use `Sequential`, and When Should You Define a Custom `Module`?
+```text
+training_lab
+epoch=  0 loss=0.4672
+epoch=100 loss=0.0003
+epoch=200 loss=0.0001
+epoch=300 loss=0.0001
+epoch=400 loss=0.0001
+predicted score: 89.31
+```
 
-### Use `nn.Sequential`
+This is now a complete miniature PyTorch model:
 
-Suitable when:
+```text
+data -> model -> loss -> zero_grad -> backward -> optimizer.step -> eval prediction
+```
 
-- Layers are stacked in a strict order
-- There is no branching structure
-- There is no special control logic
+## Sequential or Custom Module?
 
-### Use a Custom `nn.Module`
+| Situation | Good choice |
+|---|---|
+| simple straight-line stack | `nn.Sequential` |
+| multiple inputs or outputs | custom `nn.Module` |
+| skip connections or branches | custom `nn.Module` |
+| reusable components | custom `nn.Module` |
+| you need clearer parameter names | custom `nn.Module` |
 
-Suitable when:
+In real deep learning projects, custom modules are more common because architectures quickly become more than a straight line.
 
-- There are multiple inputs / outputs
-- There are skip connections, branches, or conditional logic
-- You want the structure to be clearer and easier to maintain
+## Common Mistakes
 
-In practice, custom `Module`s are more common.
-
----
-
-## Common Beginner Mistakes
-
-### Creating New Layers Temporarily Inside `forward()`
-
-Not recommended.
-Layers should be defined in `__init__()` so that parameters can be registered correctly.
-
-### Only Knowing How to Write `Sequential`, but Not a Class
-
-`Sequential` is convenient, but you will eventually need to know how to write a custom `Module`.
-The CNNs and Transformer later on both depend on it.
-
-### Not Knowing What Parameters Exist in the Model
-
-Develop the habit of using `named_parameters()`. It is very useful for debugging.
-
----
-
-## Summary
-
-The core ideas you should take away from this section are:
-
-1. `nn.Module` is the standard way to organize models
-2. `forward()` describes data flow, not the training process
-3. Model parameters are automatically collected so the optimizer can update them together
-
-Once you have the model container, the next step is to feed data in batch by batch.
-
-## What Should You Take Away Most from This Section?
-
-If we compress it into one sentence, it is:
-
-> **The core value of `nn.Module` is not making code look more object-oriented, but allowing layers, parameters, forward logic, and training mode to be managed together.**
-
----
+| Mistake | Why it hurts | Fix |
+|---|---|---|
+| creating layers inside `forward()` | new parameters are created on every call and may not be optimized correctly | define layers in `__init__()` |
+| putting loss and optimizer logic inside `forward()` | mixes model definition with training control | keep `forward()` as input-to-output only |
+| forgetting `super().__init__()` | submodules may not register correctly | call it first in `__init__()` |
+| not checking parameter names | hard to debug frozen or missing layers | print `named_parameters()` |
+| forgetting `eval()` for validation | Dropout/BatchNorm behave like training | call `model.eval()` before validation |
 
 ## Exercises
 
-1. Change the hidden layer in `ScorePredictor` from `8` to `16`, and observe how the loss changes.
-2. Remove `ReLU()`, and see whether the model can still learn the pattern.
-3. Use `named_parameters()` to print each layer’s parameter names and shapes, and make sure you understand every layer.
+1. Change the hidden size in `ScorePredictor` from `16` to `4` and `32`. How does the loss change?
+2. Remove `ReLU()`. Does the model still learn this tiny regression task? Why might deeper nonlinear tasks need it?
+3. Print `model.state_dict()` keys and shapes. Which tensors would be saved in a checkpoint?
+4. Add `nn.Dropout(p=0.2)` after ReLU, then compare predictions in `train()` and `eval()` modes.
+
+## Key Takeaways
+
+- `nn.Module` manages layers, parameters, forward logic, and mode state together.
+- `forward()` should describe data flow, not the training loop.
+- `model.parameters()` is what connects the model to the optimizer.
+- `state_dict()` is the standard checkpoint interface.
+- `train()` and `eval()` switch layer behavior; they do not run loops by themselves.
