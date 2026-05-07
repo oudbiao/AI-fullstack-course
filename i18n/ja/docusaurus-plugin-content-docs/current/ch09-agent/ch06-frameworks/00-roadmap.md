@@ -1,58 +1,68 @@
 ---
-title: "9.6.1 学習ガイド：Agent フレームワークのこの章で何を学ぶのか"
+title: "9.6.1 Frameworks ロードマップ：必要なときだけ選ぶ"
 sidebar_position: 0
-description: "まず Agent フレームワーク章の学習マップを作ります。フレームワーク全体の見取り図、さまざまなフレームワークのスタイル、そして選定ロジックが、実際の開発判断をどう支えるのかを整理します。"
-keywords: [Agentフレームワーク入門, LangGraph, LlamaIndex, CrewAI, AutoGen]
+description: "Agent frameworks の短い実践ロードマップ：LangGraph、LlamaIndex、CrewAI、AutoGen を比較し、state、data、roles、risk に基づいて選ぶ。"
+keywords: [Agent Framework Guide, LangGraph, LlamaIndex, CrewAI, AutoGen]
 ---
 
-# 9.6.1 学習ガイド：Agent フレームワークのこの章で何を学ぶのか
+# 9.6.1 Frameworks ロードマップ：必要なときだけ選ぶ
 
-## 本章の位置づけ
+Framework は Agent を自動的に賢くしません。task が十分に複雑になったとき、state、tools、workflows、memory、logs、collaboration を整理するための abstraction です。
 
-この章で解決したいのは、世の中にたくさんある Agent フレームワークが、それぞれ何を抽象化していて、どう選べばよいのか、という点です。前の章までで、Agent の目標、計画、ツール、記憶、MCP、そして安全境界について学んできました。ここからいきなりフレームワークに入ると、「いちばん流行っているものを学べばいい」という落とし穴に入りやすくなります。
+## 9.6.1.1 まず selection map を見る
 
-フレームワークは魔法ではありません。あくまで、繰り返し出てくるエンジニアリング上の処理を抽象化したものです。LangGraph は制御しやすい状態グラフとワークフローをより重視し、LlamaIndex はデータとナレッジベースの活用をより重視し、CrewAI は役割分担による協働をより重視し、AutoGen は複数 Agent の対話的な協働をより重視します。フレームワークを選ぶ前に、まず自分の課題が固定フローなのか、RAG アプリなのか、自由度の高い探索なのか、それとも複数役割の協働なのかを見極める必要があります。
+![Agent framework position map](/img/course/ch09-frameworks-position-map-ja.png)
 
-## 本章が Agent 学習ロードマップのどこにあるか
+![Agent framework selection map](/img/course/ch09-framework-selection-map-ja.png)
 
-![Agent フレームワークの位置マップ](/img/course/ch09-frameworks-position-map-ja.png)
+![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-ja.png)
 
-もしまだ、ツール schema、実行トレース、停止条件、そして人による確認を説明できないなら、いきなり複雑なフレームワークを使うのは急がないほうがよいです。フレームワークは設計をそのまま増幅します。境界がはっきりしていれば効率を上げてくれますが、境界が曖昧だと、問題の切り分けがむしろ難しくなります。
+task が 3 つの固定 steps だけなら、plain Python functions のほうが良いことがあります。state、branching、recovery、data connection、role collaboration が管理しづらくなったら framework を入れます。
 
-## 各フレームワークが何を抽象化しているか
+## 9.6.1.2 Framework route check を動かす
 
-| フレームワーク/方向性 | より適したタスク | 重点的に見るべきポイント |
+人気だからという理由で framework を選ぶ前に、このチェックを使います。
+
+```python
+task = {
+    "needs_state": True,
+    "needs_rag": False,
+    "needs_roles": False,
+    "needs_resume": True,
+}
+
+if task["needs_state"] or task["needs_resume"]:
+    route = "LangGraph-style state graph"
+elif task["needs_rag"]:
+    route = "LlamaIndex-style data app"
+elif task["needs_roles"]:
+    route = "CrewAI or AutoGen-style collaboration"
+else:
+    route = "plain functions first"
+
+print("route:", route)
+print("reason:", "choose the smallest abstraction that exposes state")
+```
+
+出力：
+
+```text
+route: LangGraph-style state graph
+reason: choose the smallest abstraction that exposes state
+```
+
+Framework choice は README に trade-off として書きます。dependencies の中に隠さないでください。
+
+## 9.6.1.3 この順番で学ぶ
+
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| LangGraph | 状態を持ち、複数ステップがあり、制御可能な分岐や巻き戻しが必要な Agent ワークフロー | 状態をどう定義するか、ノードはどう遷移するか、失敗後にどう復旧するか |
-| LlamaIndex | 文書、ナレッジベース、RAG、データ接続型アプリケーション | データをどう取り込むか、インデックスをどう構築するか、検索と生成をどう評価するか |
-| CrewAI | 複数役割の協働、コンテンツ制作、調査分析、業務分担 | 役割が明確か、タスク引き継ぎが制御できるか、最終責任者は誰か |
-| AutoGen | 複数 Agent の対話、コード協働、実験的な自動化 | いつ対話を止めるか、ツール権限をどう制限するか、ループをどう防ぐか |
-| ローコード/プラットフォーム系ツール | 迅速なプロトタイプ、業務フローのデモ、エンジニア以外のチームとの協働 | 可観測性、移植性、バージョン管理、本番導入の境界 |
+| 1 | Framework overview | framework が何を抽象化するか説明する |
+| 2 | LangChain / LangGraph | state、nodes、edges、branches、recovery を model 化する |
+| 3 | LlamaIndex | documents、indexes、retrieval、evaluation を接続する |
+| 4 | CrewAI / AutoGen | role collaboration と multi-Agent conversation を比較する |
+| 5 | Framework selection | decision table と no-framework baseline を書く |
 
-この表は順位表ではなく、選定マップです。実際のプロジェクトでは組み合わせて使うこともできます。たとえば、LlamaIndex でナレッジベースを管理し、LangGraph でフローを組み立て、MCP でツールを接続し、自前のログシステムで評価と追跡を行う、といった形です。
+## 9.6.1.4 合格ライン
 
-## 本章の学習順序
-
-まず最初にフレームワークの全体像を読み、なぜフレームワークが生まれたのかを理解します。目的は Agent をより「賢く」することではなく、状態、ツール、フロー、記憶、ログを整理しやすくすることです。次に LangChain/LangGraph を学び、状態グラフ、ノード、エッジ、条件分岐、そして再開可能な実行に注目します。続いて LlamaIndex を見て、なぜこれが「データアプリケーション向けのフレームワーク」に近いのかを理解します。その後で CrewAI と AutoGen を取り上げ、役割分担による協働と複数 Agent の対話の違いを比較します。最後にフレームワーク選定を読み、自分なりの判断表を作れるようにします。
-
-![Agent フレームワーク選定マップ](/img/course/ch09-framework-selection-map-ja.png)
-
-## どんなときにフレームワークを使うべきではないか
-
-もしタスクが固定の 3 ステップだけなら、普通の関数やワークフローのほうが Agent フレームワークより安定することがあります。単なるコース Q&A なら、基本的な RAG と評価セットのほうが、多数の Agent を使うより本番投入しやすい場合があります。削除操作、メッセージ送信、データベース更新、支払いなどが含まれるなら、まず考えるべきなのは権限、確認、ロールバックです。先にフレームワークを選ぶのではありません。
-
-フレームワークは、複雑さがすでに現れているときに導入するのが向いています。状態が増えてきた、ツールが増えてきた、フローに分岐が必要になった、失敗から復旧したい、実行トレースを保存したい、複数役割の協働に制約が必要になった、こうした場面です。フレームワークを使うために、わざわざ複雑さを作り出さないようにしましょう。
-
-## 本章の小プロジェクトの出口
-
-「同じタスクを 2 通りで実装する」小さな実験をおすすめします。タスクは「コース資料から 1 週間の復習計画を作る」で十分です。基本版は、通常の Python 関数で固定フローを実装します。つまり、目標を読み、資料を調べ、計画を作り、一覧を出力するだけです。標準版は、LangGraph あるいは同等のフレームワークで同じフローを実装し、状態、ノード、実行トレースを記録します。チャレンジ版では、さらにナレッジベース検索ノードか、人による確認ノードを追加します。
-
-README では次の点に答えられるようにしてください。このタスクにフレームワークが必要、または不要なのはなぜか。状態には何を保存しているか。ツールにはどんな権限があるか。失敗したときにどう停止するか。フレームワークを使わない版と比べて、複雑さが増えた価値はあるか。
-
-## フレームワーク選定のセルフチェックリスト
-
-フレームワークを選ぶ前に、次の 5 つの質問を自分に投げかけてください。タスクは本当に複数ステップの状態を必要とするか。外部データやナレッジベースへのアクセスが必要か。複数役割の協働が必要か。再開可能な実行とログが必要か。人の確認が必要な高リスク操作があるか。答えが「はい」に近いほど、フレームワークを導入する価値があります。逆に「いいえ」が多いほど、できるだけシンプルに保つべきです。
-
-## 到達基準
-
-この章を学び終えたら、LangGraph、LlamaIndex、CrewAI、AutoGen の重点の違いを説明できること、あるタスクにフレームワークを入れるべきか判断できること、最小限で制御可能な Agent ワークフローを作れること、そして README にフレームワークによるメリット、コスト、リスク境界を明確に書けることが目標です。
+同じ小さな task を plain functions と 1 つの framework で実装し、どちらが debug しやすいか、なぜかを説明できれば、この章は合格です。

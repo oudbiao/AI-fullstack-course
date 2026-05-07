@@ -1,58 +1,68 @@
 ---
-title: "9.6.1 学前导读：Agent 框架这一章到底在学什么"
+title: "9.6.1 框架路线图：只在需要时选择"
 sidebar_position: 0
-description: "先建立 Agent 框架章的学习地图：框架总览、不同框架风格和选型逻辑怎样共同支撑实际开发判断。"
-keywords: [Agent框架导读, LangGraph, LlamaIndex, CrewAI, AutoGen]
+description: "Agent 框架的简短实操路线：比较 LangGraph、LlamaIndex、CrewAI、AutoGen，并根据状态、数据、角色和风险选择。"
+keywords: [Agent 框架指南, LangGraph, LlamaIndex, CrewAI, AutoGen]
 ---
 
-# 9.6.1 学前导读：Agent 框架这一章到底在学什么
+# 9.6.1 框架路线图：只在需要时选择
 
-## 本章定位
+框架不会让 Agent 自动变聪明。它们是在任务复杂度足够高时，帮助你组织状态、工具、工作流、记忆、日志和协作。
 
-这一章解决的是：市面上那么多 Agent 框架，到底分别在抽象什么，应该怎么选。前面你已经学过 Agent 的目标、计划、工具、记忆、MCP 和安全边界；如果直接跳到框架，很容易陷入“哪个最火就学哪个”的误区。
+## 9.6.1.1 先看选择地图
 
-框架不是魔法，它只是把某些重复工程抽象出来。LangGraph 更强调可控状态图和工作流，LlamaIndex 更强调数据和知识库应用，CrewAI 更强调角色协作，AutoGen 更强调多 Agent 对话式协作。选框架之前，先要知道自己的任务到底是固定流程、RAG 应用、开放探索，还是多角色协作。
+![Agent 框架位置图](/img/course/ch09-frameworks-position-map.png)
 
-## 本章在 Agent 学习路线中的位置
+![Agent 框架选择图](/img/course/ch09-framework-selection-map.png)
 
-![Agent 框架位置地图](/img/course/ch09-frameworks-position-map.png)
+![Agent 框架选择决策图](/img/course/ch09-framework-selection-decision-map.png)
 
-如果你还不能解释工具 schema、执行轨迹、停止条件和人工确认，建议先不要急着使用复杂框架。框架会放大你的设计：边界清晰时它能提高效率，边界不清时它会让问题更难排查。
+如果任务只有三个固定步骤，普通 Python 函数可能更好。只有当状态、分支、恢复、数据连接或角色协作开始难以管理时，再加入框架。
 
-## 不同框架在抽象什么
+## 9.6.1.2 跑一个框架路线检查
 
-| 框架/方向 | 更适合的任务 | 你应该重点观察什么 |
+不要因为框架热门就选择它，先跑这个检查。
+
+```python
+task = {
+    "needs_state": True,
+    "needs_rag": False,
+    "needs_roles": False,
+    "needs_resume": True,
+}
+
+if task["needs_state"] or task["needs_resume"]:
+    route = "LangGraph-style state graph"
+elif task["needs_rag"]:
+    route = "LlamaIndex-style data app"
+elif task["needs_roles"]:
+    route = "CrewAI or AutoGen-style collaboration"
+else:
+    route = "plain functions first"
+
+print("route:", route)
+print("reason:", "choose the smallest abstraction that exposes state")
+```
+
+预期输出：
+
+```text
+route: LangGraph-style state graph
+reason: choose the smallest abstraction that exposes state
+```
+
+框架选择应该写进 README，作为取舍说明，而不是藏在依赖里。
+
+## 9.6.1.3 按这个顺序学
+
+| 步骤 | 阅读 | 实操产出 |
 |---|---|---|
-| LangGraph | 有状态、多步骤、需要可控分支和回退的 Agent 工作流 | 状态如何定义，节点如何转移，失败后如何恢复 |
-| LlamaIndex | 文档、知识库、RAG、数据连接型应用 | 数据如何接入，索引如何构建，检索和生成如何评估 |
-| CrewAI | 多角色协作、内容生产、研究分析、流程分工 | 角色是否清晰，任务交接是否可控，最终负责人是谁 |
-| AutoGen | 多 Agent 对话、代码协作、实验型自动化 | 对话何时停止，工具权限如何限制，循环如何避免 |
-| 低代码/平台化工具 | 快速原型、业务流程演示、非工程团队协作 | 可观测性、可移植性、版本管理和上线边界 |
+| 1 | 框架概览 | 解释框架抽象了什么 |
+| 2 | LangChain / LangGraph | 建模状态、节点、边、分支、恢复 |
+| 3 | LlamaIndex | 连接文档、索引、检索、评估 |
+| 4 | CrewAI / AutoGen | 比较角色协作和多 Agent 对话 |
+| 5 | 框架选择 | 写出决策表和无框架基线 |
 
-这张表不是排名，而是选型地图。真实项目里也可以混合使用，例如用 LlamaIndex 管知识库，用 LangGraph 编排流程，用 MCP 接工具，用自己的日志系统做评估和追踪。
+## 9.6.1.4 通过标准
 
-## 本章学习顺序
-
-第一步先读框架总览，理解框架为什么出现：不是为了让 Agent 更“聪明”，而是为了让状态、工具、流程、记忆和日志更容易组织。第二步学习 LangChain/LangGraph，重点看状态图、节点、边、条件分支和可恢复执行。第三步看 LlamaIndex，理解它为什么更接近“数据应用框架”。第四步看 CrewAI 和 AutoGen，比较角色协作和多 Agent 对话的优缺点。最后再读框架选型，形成自己的决策表。
-
-![Agent 框架选型地图](/img/course/ch09-framework-selection-map.png)
-
-## 什么时候不该用框架
-
-如果任务只有固定三步，普通函数和工作流可能比 Agent 框架更稳。如果只是课程问答，基础 RAG 加评估集可能比多 Agent 更容易上线。如果任务涉及删除文件、发消息、改数据库或付款，应该先设计权限、确认和回滚，而不是先选框架。
-
-框架适合在复杂度已经出现时引入：状态越来越多、工具越来越多、流程需要分支、失败需要恢复、执行轨迹需要保存、多角色协作需要约束。不要为了使用框架而制造复杂度。
-
-## 本章小项目出口
-
-建议做一个“同一任务两种实现”的小实验。任务可以是“根据课程资料生成一周复习计划”。基础版用普通 Python 函数实现固定流程：读取目标、查资料、生成计划、输出清单。标准版用 LangGraph 或类似框架实现同样流程，并记录状态、节点和执行轨迹。挑战版再加入一个知识库检索节点或人工确认节点。
-
-项目 README 要回答：为什么这个任务需要或不需要框架，状态里保存了什么，工具有哪些权限，失败时如何停止，和不用框架的版本相比，复杂度增加是否值得。
-
-## 框架选型自查清单
-
-选框架前先问五个问题：任务是否真的需要多步骤状态；是否需要访问外部数据或知识库；是否需要多角色协作；是否需要可恢复执行和日志；是否有高风险动作需要人工确认。答案越多为“是”，越值得引入框架；答案越多为“否”，越应该保持简单。
-
-## 过关标准
-
-学完这一章后，你应该能解释 LangGraph、LlamaIndex、CrewAI、AutoGen 的侧重点，能判断一个任务是否值得引入框架，能做出一个最小可控 Agent 工作流，并能在 README 里写清楚框架带来的收益、代价和风险边界。
+如果你能用普通函数和一个框架实现同一个小任务，并解释哪一版更容易调试、为什么，就通过了本章。

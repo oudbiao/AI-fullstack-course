@@ -1,101 +1,70 @@
 ---
-title: "9.8.1 Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter"
+title: "9.8.1 Evaluation and Safety Roadmap: Score, Guard, Trace"
 sidebar_position: 0
-description: "Build a learning map for the Agent Evaluation and Safety chapter: how task evaluation, process evaluation, guardrails, observability, and risk governance work together to determine whether a system is controllable."
+description: "A concise hands-on roadmap for Agent evaluation and safety: evaluate outcomes and process, add guardrails, record traces, and review risks."
 keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk]
 ---
 
-# 9.8.1 Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter
+# 9.8.1 Evaluation and Safety Roadmap: Score, Guard, Trace
 
-This chapter is about this: an Agent should not only be able to run, but also let you know whether it is running well, whether it is safe, and whether problems can be seen when they happen.
+An Agent should not only run. You must know whether it succeeded, whether the process was safe, and where the failure happened.
 
-Many Agent demos only show the success path: give the system a goal, it calls tools, and then it outputs something that looks good. But in real systems, the more important questions are: Why did it do that? Was the process reliable? Did it exceed tool permissions? Can the answer be verified? Can failures be traced? Is the cost under control? Can users understand and intervene?
-
-## Where This Chapter Fits in the Course
-
-You have already learned about Agent goals, planning, tools, memory, MCP, and multi-Agent systems. In the evaluation and safety chapter, the course starts shifting from “can be built” to “can be trusted.”
-
-The risks of an Agent are higher than those of a normal chat system because it not only generates content, but may also call tools, read data, modify files, execute code, or trigger external workflows. That is why evaluation and safety should not be added at the end as an afterthought; they must be part of the Agent system design.
+## 9.8.1.1 See the Guardrail Stack First
 
 ![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-en.png)
 
-The first half of the chapter identifies task risks, failure modes, and evaluation dimensions. The second half designs test sets, safety boundaries, human handoff, and launch checks.
-
-## The Real Problems This Chapter Solves
-
-This chapter answers five questions: How do we tell whether an Agent completed the task? Besides the final answer, how should we evaluate planning, tool calls, and intermediate observations? What are benchmarks good for, and what are custom evaluation sets good for? How do Guardrails, access control, input/output validation, and human confirmation reduce risk? And how do logs, traces, costs, and error messages help with debugging and operations?
-
-What beginners most often miss is this: an Agent’s mistake may not appear in the final answer. It may go off track when understanding the task, choose the wrong tool, pass the wrong parameters, miss key facts when summarizing observations, and still produce something that looks smooth. That is why Agent evaluation must look at the process.
-
-## Recommended Learning Order for Beginners
-
-It is recommended to start with evaluation methods and distinguish result evaluation, process evaluation, human evaluation, and automated evaluation. Then look at benchmarks to understand that public benchmarks can provide references, but real projects still need their own task sets. Next, learn safety and alignment to understand the risks of privilege escalation, prompt injection, tool misuse, data leakage, and hallucination. Then learn Guardrails to master input filtering, output validation, permission boundaries, and human confirmation. Finally, learn observability to record logs, call traces, errors, latency, and cost.
-
 ![Agent evaluation and safety chapter learning flow](/img/course/ch09-eval-safety-chapter-flow-en.png)
-
-## The Main Thread to Focus on in This Chapter
-
-The main thread of this chapter can be summarized as: evaluation tells you whether the system is effective, safety tells you what the system is allowed to do, and observability tells you where problems happen.
 
 ![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-en.png)
 
-The first half of the chapter identifies task risks, failure modes, and evaluation dimensions. The second half designs test sets, safety boundaries, human handoff, and launch checks.
+Evaluation tells you whether the system works. Safety tells you what it may do. Observability tells you where it broke.
 
-Once you understand this thread, you will know that evaluation is not a one-time score before launch, but a continuous iteration mechanism. Every failure should be traceable to a cause: was it a misunderstanding by the model, a planning mistake, a tool error, a permission issue, a data issue, or a problem in the final response?
+## 9.8.1.2 Run a Launch Scorecard Check
 
-## Relationship to Later Chapters
+Evaluate both final output and execution process.
 
-Evaluation and safety are prerequisites for deployment and operations. Without evaluation, you do not know whether the system is worth launching. Without safety boundaries, Agent tool calls can create uncontrollable risks. Without observability, you cannot locate problems after launch. The later deployment chapters will further turn these requirements into architecture, logs, recovery, cost, and production practices.
+```python
+run = {
+    "task_success": True,
+    "tool_error": False,
+    "permission_confirmed": True,
+    "trace_saved": True,
+    "cost_usd": 0.08,
+}
 
-If this chapter is not learned well, common problems later will be: demos that look successful but have no reproducible evaluation; overly broad tool permissions; user input that can trick the system into leaking information or making mistakes; only the final answer being visible when something goes wrong, with no way to find the intermediate failure point; and cost and latency getting out of control with no records.
+launch_ok = (
+    run["task_success"]
+    and not run["tool_error"]
+    and run["permission_confirmed"]
+    and run["trace_saved"]
+    and run["cost_usd"] < 0.10
+)
 
-## How Beginners and Advanced Learners Should Read It
+print("launch_ok:", launch_ok)
+print("scorecard:", "task, tools, safety, trace, cost")
+```
 
-When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
+Expected output:
 
-Experienced learners can treat this chapter as a chance to fill gaps and practice engineering: focus on edge cases, failure cases, evaluation methods, code reproducibility, and the connection between the earlier and later stages. After reading it, it is best to turn the chapter content into your own project README or experiment notes.
+```text
+launch_ok: True
+scorecard: task, tools, safety, trace, cost
+```
 
-## Suggested Study Time and Difficulty
+One smooth final answer is not enough evidence. Keep replayable tasks and process traces.
 
-| Study Mode | Suggested Time | Goal |
+## 9.8.1.3 Learn in This Order
+
+| Step | Read | Practice Output |
 |---|---|---|
-| Quick read | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
-| Minimum completion | 1–2 hours | Run a minimal example and finish the chapter’s small project exit |
-| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
+| 1 | Evaluation methods | Separate result evaluation from process evaluation |
+| 2 | Benchmarks | Use public benchmarks as reference, not a product replacement |
+| 3 | Safety and alignment | Identify prompt injection, over-permission, leakage, hallucination |
+| 4 | Guardrails | Add input filter, output validation, permissions, human confirmation |
+| 5 | Observability | Save logs, traces, errors, latency, cost, and failure reason |
 
-## Self-Check Questions for This Chapter
+## 9.8.1.4 Pass Check
 
-| Self-check question | Passing standard |
-|---|---|
-| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
-| What are the minimum input and output? | You can clearly state what the example needs as input and what result it produces |
-| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
-| What can be retained after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
+You pass this chapter when every Agent run can be reviewed through goal, plan, tool calls, observations, final answer, safety rule, cost, and failure reason.
 
-## Chapter Project Exit
-
-After finishing this chapter, it is recommended that you add an evaluation and safety layer to the research assistant or learning assistant Agent you built earlier. Prepare 10 to 20 test tasks, record the plan, tool calls, observations, final output, and human score for each run, and add at least three safety rules, such as requiring confirmation for sensitive actions, validating tool parameters, and refusing to answer strongly without source information.
-
-The key goal of the project is to make the Agent’s behavior traceable, evaluable, and reviewable, not just to see whether one output looks nice.
-
-
-
-## Agent Evaluation Metrics Overview
-
-Agent evaluation must look at both task outcomes and execution process. A response that looks correct does not mean the execution path was safe, cost-controlled, or reproducible.
-
-| Dimension | Metric | Question It Helps Answer |
-|---|---|---|
-| Task effectiveness | Task success rate, human score, completion level | Was the user’s goal achieved? |
-| Tool usage | Tool selection accuracy, parameter error rate, tool failure rate | Did the Agent correctly call external capabilities? |
-| Process quality | Number of steps, retry count, loop rate, human takeover rate | Was execution stable and controllable? |
-| Safety boundaries | Over-permission action rate, confirmation coverage, refusal accuracy | Were high-risk actions constrained? |
-| Cost and performance | Token cost, latency, concurrency stability | Can the system run long term? |
-
-When doing Agent projects later, keep at least 10 to 20 replayable task samples. Each sample should show the user goal, plan, tool calls, results, failure reasons, and improvement suggestions.
-
-## Passing Standard
-
-By the end of this chapter, you should be able to distinguish result evaluation from process evaluation, design a small Agent test set, explain the role of Guardrails, access control, input/output validation, and observability, and locate which step caused an Agent failure based on the call trace.
-
-If you can turn an Agent demo into a system with logs, evaluation samples, safety rules, and failure postmortems, then you have met the basic requirement for entering the deployment and operations stage.
+The exit mini project is a 10 to 20 task evaluation set plus at least 3 safety rules.
