@@ -1,7 +1,7 @@
 ---
 title: "7 LLM Principles, Prompt, and Fine-tuning"
 sidebar_position: 0
-description: "Understand the development history of large language models (LLMs), Token, Embedding, Transformer, pretraining, Prompt, fine-tuning, and alignment, laying the foundation for LLM applications and Agents."
+description: "Understand tokens, embeddings, Transformer, pretraining, Prompt, fine-tuning, and alignment through a runnable LLM practice loop."
 keywords: [large language models, LLM, Transformer, Prompt Engineering, LoRA, fine-tuning, RLHF]
 ---
 
@@ -9,143 +9,138 @@ keywords: [large language models, LLM, Transformer, Prompt Engineering, LoRA, fi
 
 ![Main visual for LLM principles](/img/course/ch07-llm-principles-en.png)
 
-This stage is about answering: “Where do LLM capabilities come from, and how are they controlled and adapted?” You are not just learning a few model names; you are understanding the relationships among Token, Embedding, Transformer, pretraining, Prompt, fine-tuning, and alignment.
+This chapter answers one practical question: **when a user sends text to an LLM, what path does that text take, and how can you make the result stable enough for an application?**
 
-## Story-driven introduction: Opening the magic box of chatbots
+Do not start by memorizing model names. Start with the loop you can operate: text becomes tokens, tokens become vectors, the Transformer predicts the next token from context, and you control the result with Prompt, structured output, RAG, fine-tuning, or tools.
 
-An LLM looks like magic: you type a sentence, and it can write code, summarize documents, play roles, and plan tasks. What this stage does is open that magic box: text is first split into Tokens, Tokens become vectors, the Transformer computes relationships in context, pretraining gives the model language ability, and Prompt and fine-tuning then guide that ability toward specific tasks.
+## 7.0.1 See the Whole Loop First
 
-## Interactive exercise: Write Prompts like doing experiments
+![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.svg)
 
-Don’t just ask, “Is this Prompt good?” Instead, change only one variable each time: whether you add a role, provide examples, require step-by-step reasoning, constrain the output format, or include grading criteria. Save different versions of inputs and outputs, and you will gradually build your own Prompt experiment handbook.
+Use this picture as the map for the whole chapter.
 
-## Project bonus content
-
-The bonus project for this stage is a “Prompt Experiment Atlas”: choose the same task, design at least five prompting methods, and compare output quality, stability, format controllability, and cost. When you later work on RAG, Agents, structured outputs, and tool calling, this atlas will become your starting point for prompt engineering.
-
-## Stage overview
-
-| Information | Description |
-|---|---|
-| Suitable for | Learners who have completed the basics of deep learning and Transformer and want to move into LLM applications, RAG, or Agent learning |
-| Estimated study time | 90–120 hours |
-| Prerequisites | Complete Stage 6: Deep Learning and Transformer Basics; if your NLP foundation is weak, you can pair this with Chapter 11 Natural Language Processing (elective track) or the NLP crash course in this stage |
-| Stage deliverables | Prompt experiments, structured output tasks, domain fine-tuning, or fine-tuning plan design |
-
-## Minimal path for beginners
-
-Beginners should first understand the relationships among Token, Embedding, Attention, Transformer, pretraining, Prompt, fine-tuning, and alignment. You do not need to train your own large model at the beginning. As long as you can design stable Prompts, make the model output structured results, and judge whether a task is better suited to Prompt, RAG, or fine-tuning, you have completed the minimal path.
-
-## Advanced path
-
-Experienced learners can go deeper into Transformer variants, pretraining data, LoRA/QLoRA, instruction fine-tuning, RLHF, and model evaluation. You can further try designing a fine-tuning plan for a domain task, clearly defining the data format, training cost, evaluation metrics, and risk boundaries.
-
-## Where LLMs fit in AI history
-
-LLMs did not appear out of nowhere; they build on deep learning, NLP, Transformer, and the pretraining paradigm. The real change is this: model scale, data scale, and instruction alignment turned language models from “solving a single NLP task” into “using a language interface to complete many tasks.”
-
-![Main backbone of LLM capability sources](/img/course/ch07-llm-capability-backbone-en.png)
-
-## What beginners should do first, and what advanced learners should do later
-
-When beginners study this stage for the first time, they should first think of LLMs as “interfaces that complete tasks based on context.” Practice stable Prompting, structured output, and simple evaluation first, then understand why pretraining, fine-tuning, and alignment work the way they do.
-
-Experienced learners can focus on solution selection: when is Prompt enough, when is RAG needed, when should you consider fine-tuning, and how should you design an evaluation set to verify the results? Your goal is not to chase model names, but to choose the right LLM solution for a real problem.
-
-## Learning path for this stage
-
-Section 7.1 starts with a fast NLP crash course, including tokenizer, embedding, pretrained models, and a quick hands-on with HuggingFace.
-
-Section 7.2 covers the LLM overview to understand the development history, core concepts, and industry landscape of LLMs.
-
-Section 7.3 goes deep into Transformer, focusing on architecture, variants, efficient attention, and scaled computation.
-
-Section 7.4 covers pretraining techniques, including data, training methods, and engineering challenges.
-
-Section 7.5 covers Prompt Engineering, helping you understand how to shape model behavior through input design.
-
-Section 7.6 covers fine-tuning, focusing on LoRA, QLoRA, PEFT, and data labeling.
-
-Section 7.7 covers RLHF and alignment, explaining why a model being powerful does not mean it is reliable, controllable, or safe.
-
-## What you should be able to do after finishing
-
-- Explain the basic meaning of Token, Embedding, Attention, and context window
-- Clearly describe the differences among pretraining, instruction fine-tuning, Prompt, and fine-tuning
-- Design basic Prompts and require the model to output structured results
-- Judge whether a task is better suited to Prompt, RAG, or fine-tuning
-- Understand the purpose of LoRA/QLoRA and their applicable boundaries
-- Build intuition about model behavior for later LLM applications, RAG, and Agent systems
-
-## Common misconceptions
-
-Do not think of an LLM as “a bigger search engine” or “a database with knowledge.” An LLM is still fundamentally a model that generates tokens based on context. It may produce incorrect content, and it may behave unstably because the Prompt, context, or task definition is unclear.
-
-Also, do not rush into fine-tuning. Many application problems should first be solved with Prompting, structured output, RAG, or system design. Fine-tuning is usually not the first step.
-
-## LLM error theater: what to check first when answers are unstable
-
-If the model output goes off track, first check whether the task description is clear, whether the output format includes examples, and whether the context contains conflicting information. If structured output often fails, first reduce the number of fields, add examples, and add parsing validation. If the result is still unstable, compare Prompt, RAG, or fine-tuning approaches using a fixed question set instead of judging based on a single experience.
-
-## How to read it the first time: must-read, project reference, and elective deep dives
-
-| Reading label | Suggested sections | Learning goal |
+| Term | Plain meaning | What you check in practice |
 |---|---|---|
-| Must-read | NLP crash course, LLM core concepts, Prompt basics, structured output | First understand model input/output, context, and task expression |
-| Project reference | Prompt practice, fine-tuning overview, data labeling, stage project | Focus on this when doing Prompt comparison or domain adaptation projects |
-| Elective deep dive | Transformer deep dive, pretraining engineering, LoRA/QLoRA, RLHF and alignment | Go deeper only if you want to focus on model understanding, fine-tuning, or evaluation |
+| Token | A small text unit after splitting input | Does the prompt fit the context window? |
+| Embedding | A vector representation of a token or text chunk | Are similar meanings close enough to compare or retrieve? |
+| Transformer | The architecture that mixes token context with attention | Which earlier words or examples affect the answer? |
+| Pretraining | Learning general language patterns from large data | What general capability already exists before your task? |
+| Prompt | The task instructions and context you send now | Can a clearer instruction solve the problem first? |
+| Fine-tuning | Updating model behavior with training examples | Is this a repeated behavior pattern, not just missing knowledge? |
+| Alignment | Making outputs safer and closer to human intent | What can still fail even when the answer sounds fluent? |
 
-On your first pass, don’t treat all Transformer and pretraining details as memorization material. More importantly, you should be able to judge whether a task should use Prompt, RAG, fine-tuning, or Agent.
+## 7.0.2 Learning Order And Task List
 
-## Stage review card: from model principles to task adaptation
+The workshop belongs at the end. First build the mental model, then run the full experiment.
 
-After finishing this stage, you can use the table below to check whether you truly understand “where LLMs come from, how to use them, and how to adapt them.”
+| Step | Read | Do | Evidence to keep |
+|---|---|---|---|
+| 7.1 | NLP crash course | Run tokenizer and embedding examples | Notes that explain token, vector, and context |
+| 7.2 | LLM overview and history | Mark where scale, data, instruction tuning, and alignment changed model behavior | One timeline or capability map |
+| 7.3-7.4 | Transformer and pretraining | Read for intuition, not memorization | A diagram that explains attention, context, and training objective |
+| 7.5 | Prompt engineering | Compare prompt versions with fixed inputs | Prompt versions, outputs, scores, failures |
+| 7.6 | Fine-tuning | Decide whether a task needs Prompt, RAG, or fine-tuning | A short decision table |
+| 7.7 | Alignment | Check failure modes and safety boundaries | A safety/evaluation checklist |
+| 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) | Terminal output, pass rate, README notes |
 
-| Review question | What you should be able to answer |
-|---|---|
-| Token and Embedding | Why must text be split into tokens first, then converted into vectors? |
-| Transformer | Why can the attention mechanism handle contextual relationships? |
-| Pretraining | What does the model mainly learn from data and training objectives? |
-| Prompt | Which problems can be solved first by making the task description clearer? |
-| Fine-tuning | Which problems belong to long-term behavior adaptation rather than knowledge updates? |
-| Alignment | Why does “the model can answer” not mean “the model is reliable, safe, and aligned with intent”? |
+## 7.0.3 First Runnable Loop: Prompt Testing Without an API
 
-The real exit point of this stage is not being able to recite many model names, but being able to judge: should a task be solved with Prompt, structured output, RAG, fine-tuning, or a later Agent system?
+![Prompt experiment loop](/img/course/ch07-prompt-experiment-loop-en.svg)
 
-## Stage project
+Prompt work should feel like testing software: keep the input cases fixed, change one prompt variable at a time, validate the output, and save failures.
 
-The basic version is to complete a Prompt comparison experiment and record the differences in performance between plain prompts, role prompts, step-by-step prompts, and structured output. The standard version requires building a Prompt Experiment Atlas around the same task and comparing stability, format control, cost, and error types. The challenge version can design a domain fine-tuning plan or a minimal fine-tuning experiment, explaining the data source, labeling rules, training method, evaluation approach, and safety risks.
+Create `ch07_prompt_test.py` and run it with Python 3.10 or later. This offline toy runner does not call a real model; it teaches the evaluation loop. When you connect a real LLM SDK later, replace only `toy_model()`.
 
-If you want one guided route before choosing a project, start with [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). It gives you a runnable offline workflow that connects tokens, prompt versions, structured output validation, solution choice, and failure evidence in one place.
+```python
+import json
 
-If you want a more detailed learning rhythm, you can read [7.0 Learning Guide: How to Learn LLM Principles Without Getting Confused](./study-guide.md).
+cases = [
+    {"topic": "gradient descent", "level": "beginner"},
+    {"topic": "RAG", "level": "intermediate"},
+]
+
+prompts = {
+    "plain": "Explain the topic.",
+    "teacher": "You are a patient AI teacher. Explain the topic in 3 short bullets.",
+    "json": "Return JSON with keys: topic, level, summary, next_step.",
+}
 
 
+def toy_model(prompt: str, case: dict) -> str:
+    topic = case["topic"]
+    level = case["level"]
+    if "Return JSON" in prompt:
+        return json.dumps(
+            {
+                "topic": topic,
+                "level": level,
+                "summary": f"{topic} explained for {level} learners",
+                "next_step": "Run one small example and record the result",
+            },
+            ensure_ascii=False,
+        )
+    if "patient AI teacher" in prompt:
+        return f"- Define {topic}\n- Show one example\n- Ask the learner to retry"
+    return f"{topic} is an AI concept."
 
 
+def validate_json(raw: str) -> bool:
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return False
+    return {"topic", "level", "summary", "next_step"} <= data.keys()
 
-## Stage deliverables
 
-| Deliverable | Minimum version | Portfolio version |
+for prompt_name, prompt in prompts.items():
+    passed = 0
+    for case in cases:
+        output = toy_model(prompt, case)
+        ok = validate_json(output) if prompt_name == "json" else bool(output.strip())
+        passed += int(ok)
+    print(f"{prompt_name}: {passed}/{len(cases)} cases passed")
+```
+
+Expected output:
+
+```text
+plain: 2/2 cases passed
+teacher: 2/2 cases passed
+json: 2/2 cases passed
+```
+
+Operation tip: add one bad case, one longer case, and one output field requirement. If the score changes, write down which prompt change caused it. That habit matters more than a single good-looking answer.
+
+## 7.0.4 Choose Prompt, RAG, Fine-tuning, Or Tools
+
+![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.svg)
+
+When an LLM result is weak, do not jump straight to fine-tuning.
+
+| Symptom | Try first | Move on when |
 |---|---|---|
-| Prompt comparison experiment | Compare plain prompts, role prompts, and step-by-step prompts | Include fixed inputs, output comparisons, version records, and failure samples |
-| Structured output sample | Make the model output JSON or a table | Include schema, parsing validation, error retries, and regression samples |
-| Task adaptation decision | Explain when to use Prompt, RAG, or fine-tuning | Include a decision table, cost estimate, and applicable boundaries |
-| Full chapter hands-on workflow | Run the offline workshop and save the output | Include prompt version pass rates, failure reasons, and solution-route notes |
-| Fine-tuning plan | Write down the data source and labeling ideas | Include training method, evaluation set, safety risks, and alternatives |
-| README/report | Show the experimental inputs and outputs | Explain Prompt versions, metrics, failure types, and next steps |
+| The answer style is vague | Improve the Prompt and add examples | Fixed cases still fail after clear instructions |
+| The app needs JSON or table output | Add a schema and parser validation | The model repeatedly misses fields or types |
+| The answer lacks private or fresh facts | Use RAG with retrieved documents | Retrieval is accurate but the model still applies the wrong behavior |
+| The model must follow a repeated domain behavior | Consider fine-tuning or LoRA | You have enough high-quality examples and evaluation cases |
+| The task needs external action | Use tools or an Agent workflow | The model must call APIs, search files, or execute steps |
 
-## Relationship to the AI learning assistant capstone project
+## 7.0.5 Common Failures
 
-This stage can map to AI Learning Assistant v0.7: connect to the LLM API to generate study plans, review cards, Prompt templates, and structured summaries. If you are following the capstone project path, it is recommended that by the end of this stage you submit at least one version record: what new capability was added in this stage, how to run it, what the sample input/output looks like, what problems you encountered, and what you plan to change next.
+- Treating an LLM as a database: fluent text is not proof of truth.
+- Changing the prompt, input cases, and model all at once: you cannot tell what improved the result.
+- Asking for structured output without validating it: a JSON-looking answer can still be invalid.
+- Fine-tuning too early: many problems should start with Prompt, RAG, tools, or product logic.
+- Reading Transformer details before seeing any output loop: the theory becomes hard to anchor.
 
+## 7.0.6 Pass Check
 
-## Stage completion criteria
+Before entering Chapter 8, you should be able to:
 
-| Completion level | What you need to achieve |
-|---|---|
-| Minimum completion | Be able to explain the boundaries of Transformer, pretraining, Prompt, fine-tuning, and alignment |
-| Recommended completion | Complete at least one runnable mini project for this stage and record the run method, sample input/output, and problems encountered in the README |
-| Portfolio completion | Integrate the output of this stage into the “AI Learning Assistant” capstone project, leaving screenshots, logs, evaluation samples, and next-step plans |
+- explain token, embedding, attention, context window, pretraining, Prompt, fine-tuning, and alignment in plain language;
+- run the prompt testing loop above and change one prompt variable at a time;
+- save prompt versions, fixed input cases, outputs, scores, and failure samples;
+- decide whether a task should start with Prompt, structured output, RAG, fine-tuning, tools, or an Agent;
+- run the full chapter workshop and record the result in a short README.
 
-After finishing this stage, you do not need to memorize every detail. More importantly, you should be able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. The next stage will connect LLMs to RAG and application systems.
+For a printable checklist, use [7.0 Learning Checklist](./study-guide.md). For the guided project, start with [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md).

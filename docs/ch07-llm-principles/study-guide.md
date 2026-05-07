@@ -1,102 +1,43 @@
 ---
-title: "7.0 Study Guide and Task Sheet: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused"
+title: "7.0 Learning Checklist: LLM Principles, Prompt, and Fine-tuning"
 sidebar_position: 1
-description: "A learning guide for AI full-stack beginners: LLM history, Transformer, pretraining, Prompt, fine-tuning, alignment, project roadmap, and evaluation criteria."
-keywords: [LLM study guide, how to learn Transformer, how to learn Prompt, how to learn fine-tuning, how to learn RLHF]
+description: "A compact checklist for Chapter 7: LLM principles, Prompt experiments, structured output, RAG/fine-tuning decisions, and portfolio evidence."
+keywords: [LLM study checklist, Prompt evaluation, Transformer, fine-tuning, RLHF]
 ---
 
-# 7.0 Study Guide and Task Sheet: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused
+# 7.0 Learning Checklist: LLM Principles, Prompt, and Fine-tuning
 
-If you arrive at `7 LLM Principles, Prompt, and Fine-Tuning` and feel overwhelmed by the terminology, don’t rush to model leaderboards. First, you need to understand where LLM capabilities come from and how those capabilities are controlled and adapted.
-
-## Core principle for this stage
-
-On the first pass, focus on one evolution path: text is split into tokens, tokens become embeddings, Transformer models context, pretraining gives general capabilities, and Prompt, fine-tuning, and alignment make those capabilities more usable.
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 7 entry page](./index.md).
 
 ![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.png)
 
-## Tasks You Must Complete in This Stage
+## 7.0.1 Two-Hour First Pass
 
-Treat Prompt work as engineering work: version it, test it with fixed inputs, validate structured output, and keep failure samples.
-
-| Task | Deliverable | Pass Criteria |
+| Time box | Do this | Stop when you can say |
 |---|---|---|
-| Understand the basic principles of LLMs | An LLM workflow diagram or notes | Can explain the relationship between token, context, probability-based generation, and Transformer |
-| Complete Prompt fundamentals practice | A set of prompt comparison samples | Can compare how role, context, examples, and constraints affect outputs |
-| Complete structured output | A JSON output demo | Can define fields, validate types, and handle parsing failures |
-| Understand the boundary between RAG and fine-tuning | A technical decision table | Can explain when to use Prompt, RAG, fine-tuning, tools, or rules |
-| Run the full Chapter 7 hands-on workshop | Terminal output from `llm_stage_workshop.py` | Can explain tokens, prompt versions, validation failures, and solution routes from one run |
-| Complete one stage project | A Prompt assistant or review-card generator | Has prompt versions, fixed inputs, output comparisons, and failure samples |
+| 20 min | Read the token-to-answer picture on the entry page | "Text becomes tokens, vectors, context, then next-token prediction." |
+| 25 min | Skim 7.1 and run one tokenizer example | "Token count affects cost and context limits." |
+| 25 min | Skim 7.2 and the LLM history page | "Scale, data, Transformer, and alignment changed what models can do." |
+| 30 min | Run the prompt testing script from the entry page | "I can compare prompt versions with fixed cases." |
+| 20 min | Read the solution-choice table | "I should not fine-tune before checking Prompt, RAG, tools, and validation." |
 
-## Recommended learning order
+## 7.0.2 Required Evidence
 
-In the first round, quickly fill in the core NLP basics. At minimum, you should understand tokenizer, embedding, language models, and basic HuggingFace usage.
-
-In the second round, study the LLM overview and development history. The key is not to memorize model names, but to understand how scale, data, architecture, and alignment work together to drive capability changes.
-
-In the third round, study Transformer and pretraining. You need to know why Attention, context windows, training data, and compute matter.
-
-In the fourth round, study Prompt. Prompt is the lightest-weight way to control behavior, and it is also the foundation for structured output, RAG, and Agent workflows.
-
-In the fifth round, study fine-tuning and alignment. Focus on when fine-tuning is needed, what problems LoRA/QLoRA solve, and why RLHF is related to model behavior.
-
-In the sixth round, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). At this point the workshop becomes a review lab: you connect tokens, prompt evaluation, structured validation, and solution choice in one run.
-
-## Suggested learning pace
-
-| Content type | Suggested time | Learning goal |
-|---|---|---|
-| NLP crash course | 4–8 hours | Understand token, embedding, and language models |
-| LLM overview | 3–5 hours | Build an understanding of development history and capability boundaries |
-| Transformer / pretraining | 8–16 hours | Understand where capabilities come from |
-| Prompt | 4–8 hours | Be able to design structured task prompts |
-| Fine-tuning / alignment | 8–16 hours | Be able to judge whether fine-tuning is needed and what risks exist |
-
-## Stage project roadmap
-
-For the first project, it is recommended to do a Prompt comparison experiment. Choose one task and compare a basic prompt, role prompt, step-by-step prompt, few-shot prompt, and structured output.
-
-If you do not know where to start, use the full Chapter 7 workshop as your starter project. Save its output, explain why each prompt version passes or fails, then extend the sample set to your own learning assistant task.
-
-For the second project, it is recommended to do a structured output task, such as converting natural language into JSON, tables, or function arguments.
-
-For the third project, you can design a domain fine-tuning plan. You do not have to train a large model right away, but you should explain the data format, annotation method, training approach, evaluation metrics, and risks.
-
-## Common sticking points
-
-The most common sticking point is mixing up Prompt, RAG, and fine-tuning. Prompt changes how inputs are organized, RAG adds external knowledge, and fine-tuning changes the model’s behavioral tendencies. They solve different problems.
-
-The second sticking point is treating an LLM like a database. LLMs can hallucinate, knowledge can become outdated, and an answer is not the same as a fact.
-
-The third sticking point is fine-tuning too early. Many problems should first be solved with Prompt, RAG, tool calling, or product logic.
-
-## Stage Portfolio Deliverables
-
-![Chapter 7 portfolio evidence pack](/img/course/ch07-hands-on-portfolio-evidence-pack-en.png)
-
-If you want to preserve the results of this stage in your portfolio, keep at least these files or equivalent evidence.
-
-| Deliverable | Description |
+| Evidence | Minimum version |
 |---|---|
-| `prompts/` | Prompt templates, version numbers, applicable tasks, and change notes |
-| `prompt_eval_cases.csv` | Fixed inputs, expected output points, actual outputs, and scores |
-| `structured_output_schema.json` | Structured output fields, types, required items, and enum values |
-| `failure_cases.md` | JSON parsing failures, missing fields, hallucinations, and style drift samples |
-| `llm_stage_workshop_output.txt` | Output from the full Chapter 7 hands-on workshop, including pass rates and failure reasons |
-| `README.md` | Project goals, how to run it, prompt versions, evaluation results, and limitations |
+| `prompts/` | Three prompt versions for one task |
+| `prompt_eval_cases.csv` | At least five fixed inputs and a simple score column |
+| `structured_output_schema.json` | Required fields and allowed value types |
+| `failure_cases.md` | At least three failed outputs and the likely cause |
+| `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) |
+| `README.md` | How to run, what passed, what failed, what to try next |
 
-These materials turn a Prompt project from “I can write prompts” into “I can make model output a stable, testable, maintainable application interface.”
+## 7.0.3 Exit Questions
 
-## Stage Completion Questions
+- Can you explain token, embedding, attention, context window, pretraining, Prompt, fine-tuning, and alignment without copying definitions?
+- Can you change one prompt variable at a time and compare results with the same input cases?
+- Can you validate JSON output instead of trusting text that only looks like JSON?
+- Can you explain when missing information calls for RAG instead of a longer Prompt?
+- Can you explain when repeated behavior adaptation might justify fine-tuning?
 
-After completing this stage, you should be able to explain the relationship between Token, Embedding, Attention, pretraining, Prompt, fine-tuning, and alignment.
-
-Before moving to Chapter 8, check that you can answer these questions:
-
-- Why do token and context limits matter?
-- Why do examples inside a Prompt affect outputs?
-- Why does structured output need schema validation?
-- When should you use RAG instead of adding more Prompt text?
-- When is fine-tuning worth considering?
-
-If you can judge whether a requirement should use Prompt, RAG, fine-tuning, tools, or rules, and you can design a structured output Prompt, then you are ready to move on to the LLM application and RAG stage.
+If the answer is yes, move to Chapter 8. Chapter 8 will connect these ideas to real LLM applications and RAG systems.

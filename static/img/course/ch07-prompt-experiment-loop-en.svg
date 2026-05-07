@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Prompt experiment loop</title>
+  <desc id="desc">A vertical loop for prompt engineering: fixed cases, one prompt change, run, validate, record failures, repeat.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+      .sub{font:400 17px Arial,sans-serif;fill:#475569}
+      .step{font:700 20px Arial,sans-serif;fill:#111827}
+      .text{font:400 16px Arial,sans-serif;fill:#374151}
+      .tag{font:700 15px Arial,sans-serif;fill:#b45309}
+    </style>
+  </defs>
+  <rect width="720" height="900" fill="#fff7ed"/>
+  <text x="360" y="58" text-anchor="middle" class="title">Prompt Work = Small Experiments</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">Keep cases fixed. Change one variable. Validate every run.</text>
+
+  <g transform="translate(110 135)">
+    <rect width="500" height="90" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="26" y="34" class="step">1. Fixed input cases</text>
+    <text x="26" y="63" class="text">Use the same questions, edge cases, and expected points.</text>
+  </g>
+  <path d="M360 228 V278" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(110 290)">
+    <rect width="500" height="90" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="26" y="34" class="step">2. One prompt version</text>
+    <text x="26" y="63" class="text">Change role, examples, format, or criteria, not all at once.</text>
+  </g>
+  <path d="M360 383 V433" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(110 445)">
+    <rect width="500" height="90" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="26" y="34" class="step">3. Run the model</text>
+    <text x="26" y="63" class="text">Offline toy runner first, real LLM SDK later.</text>
+  </g>
+  <path d="M360 538 V588" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(110 600)">
+    <rect width="500" height="90" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="26" y="34" class="step">4. Validate output</text>
+    <text x="26" y="63" class="text">Parse JSON, check fields, score against expected points.</text>
+  </g>
+  <path d="M360 693 V743" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(110 755)">
+    <rect width="500" height="90" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="26" y="34" class="step">5. Record failures</text>
+    <text x="26" y="63" class="text">Save bad outputs, likely cause, and the next prompt change.</text>
+  </g>
+
+  <path d="M610 800 C675 730 675 215 610 178" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="642" y="500" class="tag" transform="rotate(90 642 500)">repeat with one change</text>
+</svg>

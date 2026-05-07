@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="920" viewBox="0 0 720 920" role="img" aria-labelledby="title desc">
+  <title id="title">大模型方案选择图</title>
+  <desc id="desc">当大模型输出较弱时，如何选择 Prompt、schema 校验、RAG、微调或工具的决策图。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+      .sub{font:400 17px Arial,sans-serif;fill:#475569}
+      .q{font:700 21px Arial,sans-serif;fill:#111827}
+      .small{font:400 15px Arial,sans-serif;fill:#374151}
+      .label{font:700 18px Arial,sans-serif;fill:#111827}
+    </style>
+  </defs>
+  <rect width="720" height="920" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">大模型效果不好时</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">按失败类型选择最小可用修复。</text>
+
+  <g transform="translate(120 128)">
+    <rect width="480" height="74" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="240" y="45" text-anchor="middle" class="q">它到底失败在哪里？</text>
+  </g>
+  <path d="M360 204 V244" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(80 256)">
+    <rect width="560" height="88" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="26" y="34" class="label">任务或风格不清楚</text>
+    <text x="26" y="62" class="small">先改 Prompt：角色、示例、约束、评分标准。</text>
+  </g>
+  <path d="M360 346 V386" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(80 398)">
+    <rect width="560" height="88" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="26" y="34" class="label">需要机器可读输出</text>
+    <text x="26" y="62" class="small">加 schema、解析校验、重试规则和回归样本。</text>
+  </g>
+  <path d="M360 488 V528" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(80 540)">
+    <rect width="560" height="88" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="26" y="34" class="label">缺少私有或新知识</text>
+    <text x="26" y="62" class="small">用 RAG：先检索可信文档，再让模型回答。</text>
+  </g>
+  <path d="M360 630 V670" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(80 682)">
+    <rect width="560" height="88" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="26" y="34" class="label">需要长期遵守领域行为</text>
+    <text x="26" y="62" class="small">有好数据、评估集和风险检查后，再考虑微调。</text>
+  </g>
+  <path d="M360 772 V812" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(80 824)">
+    <rect width="560" height="68" rx="18" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+    <text x="26" y="32" class="label">需要外部动作</text>
+    <text x="26" y="56" class="small">用工具或 Agent 调 API、搜文件、执行步骤。</text>
+  </g>
+</svg>

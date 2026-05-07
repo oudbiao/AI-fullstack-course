@@ -1,7 +1,7 @@
 ---
 title: "7 大模型原理、Prompt 与微调"
 sidebar_position: 0
-description: "理解大语言模型 LLM 的发展历史、Token、Embedding、Transformer、预训练、Prompt、微调与对齐，为 LLM 应用和 Agent 打基础。"
+description: "通过可运行的大模型实操循环，理解 token、embedding、Transformer、预训练、Prompt、微调和对齐。"
 keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, RLHF]
 ---
 
@@ -9,143 +9,138 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 ![大模型原理主视觉](/img/course/ch07-llm-principles.png)
 
-这一阶段解决的是“大模型能力从哪里来，怎样被控制和适配”。你不只是学习几个模型名字，而是理解 Token、Embedding、Transformer、预训练、Prompt、微调和对齐之间的关系。
+本章只回答一个实用问题：**用户把文字发给大模型后，这段文字经历了什么路径，我们又怎样让输出稳定到可以放进应用里？**
 
-## 故事化导入：拆开聊天机器人的魔法盒
+不要从背模型名字开始。先掌握你能操作的循环：文本变成 token，token 变成向量，Transformer 根据上下文预测下一个 token，然后你用 Prompt、结构化输出、RAG、微调或工具来控制结果。
 
-大模型看起来像魔法：输入一句话，它就能写代码、总结文档、扮演角色、规划任务。但这一阶段要做的是把魔法盒拆开：文本先被切成 Token，Token 变成向量，Transformer 在上下文里计算关系，预训练让模型获得语言能力，Prompt 和微调再把能力引导到具体任务上。
+## 7.0.1 先看完整流程
 
-## 互动练习：像做实验一样写 Prompt
+![Token 到答案的完整流程](/img/course/ch07-token-to-answer-lifecycle.svg)
 
-不要只问“这个 Prompt 好不好”，而是每次只改一个变量：是否加角色、是否给示例、是否要求分步骤、是否限制输出格式、是否提供评分标准。把不同版本的输入和输出保存下来，你会慢慢形成自己的 Prompt 实验手册。
+整章学习都可以围绕这张图走。
 
-## 项目彩蛋
-
-本阶段的彩蛋作品是一份“Prompt 实验图谱”：选择同一个任务，设计至少五种提示方式，比较输出质量、稳定性、格式可控性和成本。后面做 RAG、Agent、结构化输出和工具调用时，这份图谱会成为你的提示工程起点。
-
-## 阶段定位
-
-| 信息 | 说明 |
-|---|---|
-| 适合对象 | 已完成深度学习与 Transformer 基础，希望进入 LLM 应用、RAG 或 Agent 的学习者 |
-| 预估学时 | 90～120 小时 |
-| 前置要求 | 完成 6 深度学习与 Transformer 基础；如果 NLP 基础较弱，可配合 11 自然语言处理（方向选修）或本阶段 NLP 速成内容 |
-| 阶段产出 | Prompt 实验、结构化输出任务、领域微调或微调方案设计 |
-
-## 新手最小通关路线
-
-新手先理解 Token、Embedding、Attention、Transformer、预训练、Prompt、微调和对齐之间的关系，不需要一开始训练自己的大模型。只要能设计稳定 Prompt、让模型输出结构化结果，并判断任务适合 Prompt、RAG 还是微调，就算完成最小通关。
-
-## 进阶深入路线
-
-有经验的学习者可以深入 Transformer 变体、预训练数据、LoRA/QLoRA、指令微调、RLHF 和模型评估。进一步尝试为一个领域任务设计微调方案，明确数据格式、训练成本、评估指标和风险边界。
-
-## 大模型在 AI 历史中的位置
-
-大模型不是凭空出现的，它继承了深度学习、NLP、Transformer 和预训练范式。真正的变化在于：模型规模、数据规模和指令对齐让语言模型从“完成单个 NLP 任务”变成“通过语言接口完成大量任务”。
-
-![大模型能力来源主线图](/img/course/ch07-llm-capability-backbone.png)
-
-## 新人先做什么，进阶再做什么
-
-新人第一次学这一阶段时，先把大模型看成“会根据上下文完成任务的接口”。先练稳定 Prompt、结构化输出和简单评估，再理解预训练、微调和对齐背后的原因。
-
-有经验的学习者可以把重点放在方案选择上：什么时候 Prompt 足够，什么时候需要 RAG，什么时候才考虑微调，如何设计评估集验证效果。你的目标不是追模型名，而是能为真实问题选择合适的大模型方案。
-
-## 本阶段学习路径
-
-7.1 节先补 NLP 核心速成，包括 tokenizer、embedding、预训练模型和 HuggingFace 快速体验。
-
-7.2 节学习大语言模型概览，理解 LLM 发展历史、核心概念和行业格局。
-
-7.3 节深入 Transformer，重点理解架构、变体、高效注意力和规模化计算。
-
-7.4 节学习预训练技术，包括数据、训练方法和工程问题。
-
-7.5 节学习 Prompt Engineering，让你知道如何通过输入组织模型行为。
-
-7.6 节学习微调，重点理解 LoRA、QLoRA、PEFT 和数据标注。
-
-7.7 节学习 RLHF 与对齐，理解为什么模型能力强还不等于可靠、可控、安全。
-
-## 学完后你应该能做到
-
-- 能解释 Token、Embedding、Attention 和上下文窗口的基本含义
-- 能说清楚预训练、指令微调、Prompt 和微调之间的区别
-- 能设计基本 Prompt，并要求模型输出结构化结果
-- 能判断一个任务更适合 Prompt、RAG 还是微调
-- 能理解 LoRA/QLoRA 的用途和适用边界
-- 能为后续 LLM 应用、RAG 和 Agent 系统建立模型行为直觉
-
-## 常见误区
-
-不要把大模型理解成“更大的搜索引擎”或“带知识的数据库”。大模型本质上仍然是基于上下文生成 token 的模型，它可能生成错误内容，也可能因为提示、上下文或任务定义不清而表现不稳定。
-
-也不要一上来就追求微调。很多应用问题优先应该用 Prompt、结构化输出、RAG 或系统设计解决，微调通常不是第一步。
-
-## 大模型错误剧场：回答不稳定时先定位什么
-
-如果模型输出跑偏，先检查任务说明是否清楚、输出格式是否给例子、上下文是否包含冲突信息；如果结构化输出经常失败，先减少字段、增加示例并做解析校验；如果效果仍不稳定，要用固定问题集比较 Prompt、RAG 或微调方案，而不是凭单次体验判断。
-
-## 第一遍怎么读：必读、项目查阅和选修深入
-
-| 阅读标签 | 建议章节 | 学习目标 |
+| 术语 | 通俗含义 | 实操时检查什么 |
 |---|---|---|
-| 必读 | NLP 速成、LLM 核心概念、Prompt 基础、结构化输出 | 先理解模型输入输出、上下文和任务表达 |
-| 项目查阅 | Prompt 实践、微调概览、数据标注、阶段项目 | 做 Prompt 对比或领域适配项目时重点查看 |
-| 选修深入 | Transformer 深入、预训练工程、LoRA/QLoRA、RLHF 和对齐 | 想走模型理解、微调或评估方向时再深入 |
+| Token | 文本切分后的较小单位 | Prompt 是否放得进上下文窗口？ |
+| Embedding | token 或文本片段对应的向量 | 相似含义是否足够接近，能否用于比较或检索？ |
+| Transformer | 用 attention 混合上下文的模型架构 | 前面的哪些词、例子或规则影响了回答？ |
+| 预训练 | 从大量数据中学习通用语言规律 | 任务开始前，模型已经具备了什么通用能力？ |
+| Prompt | 当前发送给模型的任务说明和上下文 | 能否先用更清楚的说明解决问题？ |
+| 微调 | 用训练样本改变模型的长期行为 | 这是反复出现的行为问题，还是只是缺少知识？ |
+| 对齐 | 让输出更安全、更接近人的意图 | 即使回答流畅，还可能在哪些地方失败？ |
 
-第一遍不要把所有 Transformer 和预训练细节都当成必背内容。更重要的是能判断一个任务该用 Prompt、RAG、微调还是 Agent。
+## 7.0.2 学习顺序与任务表
 
-## 阶段复盘卡：从模型原理到任务适配
+完整工作坊应该放在最后。先建立心智模型，再跑全流程实验。
 
-学完这个阶段后，可以用下面这张表检查自己是否真正理解了“大模型怎么来、怎么用、怎么适配”。
+| 步骤 | 阅读内容 | 要动手做什么 | 留下什么证据 |
+|---|---|---|---|
+| 7.1 | NLP 速成 | 运行 tokenizer 和 embedding 示例 | 能解释 token、向量和上下文的笔记 |
+| 7.2 | LLM 概览与发展史 | 标出规模、数据、指令微调、对齐如何改变模型行为 | 一张时间线或能力来源图 |
+| 7.3-7.4 | Transformer 与预训练 | 读懂直觉，不死背细节 | 一张解释 attention、上下文和训练目标的图 |
+| 7.5 | Prompt 工程 | 用固定输入比较多个 Prompt 版本 | Prompt 版本、输出、分数和失败样本 |
+| 7.6 | 微调 | 判断任务该用 Prompt、RAG 还是微调 | 一张简短方案判断表 |
+| 7.7 | 对齐 | 检查失败模式和安全边界 | 一份安全/评估清单 |
+| 7.8 | 阶段项目 | 运行 [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) | 终端输出、通过率、README 记录 |
 
-| 复盘问题 | 你应该能回答什么 |
-|---|---|
-| Token 与 Embedding | 文本为什么要先切成 token，再变成向量？ |
-| Transformer | 注意力机制为什么能处理上下文关系？ |
-| 预训练 | 模型能力主要从数据和训练目标中学到了什么？ |
-| Prompt | 哪些问题可以先通过更清楚的任务说明解决？ |
-| 微调 | 哪些问题属于长期行为适配，而不是知识更新？ |
-| 对齐 | 为什么“模型会回答”不等于“模型可靠、安全、符合意图”？ |
+## 7.0.3 第一个可运行循环：不用 API 测 Prompt
 
-这一阶段真正的出口，不是能背出很多模型名字，而是能判断：一个任务到底该用 Prompt、结构化输出、RAG、微调，还是后面的 Agent 系统来解决。
+![Prompt 实验循环](/img/course/ch07-prompt-experiment-loop.svg)
 
-## 阶段项目
+Prompt 工作应该像软件测试：固定输入样本，每次只改一个 Prompt 变量，校验输出，并保存失败样本。
 
-基础版是完成一个 Prompt 对比实验，记录普通提示、角色提示、分步骤提示和结构化输出的效果差异。标准版需要围绕同一任务建立 Prompt 实验图谱，比较稳定性、格式控制、成本和错误类型。挑战版可以设计一个领域微调方案或最小微调实验，说明数据来源、标注规范、训练方式、评估方法和安全风险。
+新建 `ch07_prompt_test.py`，用 Python 3.10 或更新版本运行。这个离线示例不会调用真实模型，它只是帮你练会评估循环。后面接入真实 LLM SDK 时，只需要替换 `toy_model()`。
 
-如果你想先跟着一条完整路线做一遍，可以从 [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) 开始。它用一个离线可运行流程，把 token、Prompt 版本、结构化输出校验、方案选择和失败证据串在一起。
+```python
+import json
 
-如果你想看更细的学习节奏，可以阅读 [7.0 学习指南：大模型原理怎么学最不容易学乱](./study-guide.md)。
+cases = [
+    {"topic": "gradient descent", "level": "beginner"},
+    {"topic": "RAG", "level": "intermediate"},
+]
+
+prompts = {
+    "plain": "Explain the topic.",
+    "teacher": "You are a patient AI teacher. Explain the topic in 3 short bullets.",
+    "json": "Return JSON with keys: topic, level, summary, next_step.",
+}
 
 
+def toy_model(prompt: str, case: dict) -> str:
+    topic = case["topic"]
+    level = case["level"]
+    if "Return JSON" in prompt:
+        return json.dumps(
+            {
+                "topic": topic,
+                "level": level,
+                "summary": f"{topic} explained for {level} learners",
+                "next_step": "Run one small example and record the result",
+            },
+            ensure_ascii=False,
+        )
+    if "patient AI teacher" in prompt:
+        return f"- Define {topic}\n- Show one example\n- Ask the learner to retry"
+    return f"{topic} is an AI concept."
 
 
+def validate_json(raw: str) -> bool:
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return False
+    return {"topic", "level", "summary", "next_step"} <= data.keys()
 
-## 阶段交付物
 
-| 交付物 | 最小版 | 作品集版 |
+for prompt_name, prompt in prompts.items():
+    passed = 0
+    for case in cases:
+        output = toy_model(prompt, case)
+        ok = validate_json(output) if prompt_name == "json" else bool(output.strip())
+        passed += int(ok)
+    print(f"{prompt_name}: {passed}/{len(cases)} cases passed")
+```
+
+预期输出：
+
+```text
+plain: 2/2 cases passed
+teacher: 2/2 cases passed
+json: 2/2 cases passed
+```
+
+操作提示：再加一个坏样本、一个更长样本、一个新的输出字段要求。如果分数变化了，就记录是哪一次 Prompt 改动导致的。这个习惯比单次“看起来不错”的回答更重要。
+
+## 7.0.4 选择 Prompt、RAG、微调还是工具
+
+![Prompt、RAG、微调和工具选择图](/img/course/ch07-solution-choice-map.svg)
+
+大模型效果不好时，不要直接跳到微调。
+
+| 现象 | 先尝试什么 | 什么时候升级方案 |
 |---|---|---|
-| Prompt 对比实验 | 比较普通提示、角色提示和分步骤提示 | 有固定输入、输出对比、版本记录和失败样本 |
-| 结构化输出样例 | 能让模型输出 JSON 或表格 | 有 schema、解析校验、错误重试和回归样本 |
-| 任务适配判断 | 能说明何时用 Prompt、RAG 或微调 | 有决策表、成本估算和适用边界说明 |
-| 全章实操流程 | 跑通离线工作坊并保存输出 | 有 Prompt 版本通过率、失败原因和方案选择记录 |
-| 微调方案 | 写出数据来源和标注思路 | 包含训练方式、评估集、安全风险和替代方案 |
-| README/报告 | 展示实验输入输出 | 说明 Prompt 版本、指标、失败类型和下一步 |
+| 回答风格含糊 | 改 Prompt，并加入示例 | 明确说明后，固定样本仍然失败 |
+| 应用需要 JSON 或表格 | 加 schema，并做解析校验 | 模型反复漏字段或类型错误 |
+| 回答缺少私有或新知识 | 用 RAG 检索文档 | 检索准确，但模型仍按错行为执行 |
+| 模型需要长期遵守领域行为 | 考虑微调或 LoRA | 已有足够高质量样本和评估集 |
+| 任务需要外部动作 | 使用工具或 Agent 工作流 | 模型必须调用 API、搜索文件或执行步骤 |
 
-## 和 AI 学习助手贯穿项目的关系
+## 7.0.5 常见错误
 
-本阶段可以对应 AI 学习助手 v0.7：接入 LLM API，生成学习计划、复盘卡、Prompt 模板和结构化摘要。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+- 把大模型当数据库：文字流畅不等于事实正确。
+- 同时改 Prompt、输入样本和模型：你无法判断到底是谁改善了结果。
+- 要求结构化输出却不校验：看起来像 JSON 的文本也可能无效。
+- 过早微调：很多问题应该先用 Prompt、RAG、工具或产品逻辑解决。
+- 还没看过输出循环就钻 Transformer 细节：理论会很难落地。
 
+## 7.0.6 通关检查
 
-## 阶段通关标准
+进入第 8 章前，你应该能做到：
 
-| 通关层级 | 你需要做到什么 |
-|---|---|
-| 最低通关 | 能解释 Transformer、预训练、Prompt、微调和对齐的边界。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+- 用自己的话解释 token、embedding、attention、上下文窗口、预训练、Prompt、微调和对齐；
+- 运行上面的 Prompt 测试循环，并做到每次只改一个变量；
+- 保存 Prompt 版本、固定输入样本、输出、分数和失败样本；
+- 判断一个任务该先用 Prompt、结构化输出、RAG、微调、工具还是 Agent；
+- 跑通完整章节工作坊，并在简短 README 中记录结果。
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会把大模型接入 RAG 和应用系统。
+可打印清单见 [7.0 学习检查表](./study-guide.md)。如果想直接做项目，从 [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) 开始。
