@@ -65,6 +65,74 @@ python demo.py
 
 If the project does not have tests yet, you can first ask the model to add minimal tests. Tests should cover normal inputs, boundary inputs, and error inputs.
 
+## Hands-on: Verify an AI-Generated Markdown Chunker
+
+The following script is a small runnable example of the whole workflow: give the model constraints, get a draft, then verify the draft with tests. Save it as `ai_chunker_demo.py` and run `python ai_chunker_demo.py`.
+
+```python
+import unittest
+
+
+def split_markdown_by_heading(markdown, max_chars=800):
+    chunks = []
+    current = []
+
+    def flush():
+        if not current:
+            return
+        text = "\n".join(current).strip()
+        if not text:
+            return
+        if len(text) > max_chars:
+            raise ValueError("chunk_too_large")
+        chunks.append(text)
+
+    for line in markdown.splitlines():
+        if line.startswith("#") and current:
+            flush()
+            current = [line]
+        else:
+            current.append(line)
+
+    flush()
+    return chunks
+
+
+class SplitMarkdownTests(unittest.TestCase):
+    def test_raises_when_chunk_too_large(self):
+        with self.assertRaises(ValueError):
+            split_markdown_by_heading("# Title\n" + "a" * 20, max_chars=10)
+
+    def test_preserves_headings(self):
+        chunks = split_markdown_by_heading("# Refund\nPolicy text")
+        self.assertEqual(chunks[0], "# Refund\nPolicy text")
+
+    def test_splits_by_headings(self):
+        text = "# Refund\nPolicy text\n## Detail\nMore text"
+        chunks = split_markdown_by_heading(text)
+        self.assertEqual(len(chunks), 2)
+        self.assertTrue(chunks[1].startswith("## Detail"))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+Expected output:
+
+```text
+test_preserves_headings (__main__.SplitMarkdownTests.test_preserves_headings) ... ok
+test_raises_when_chunk_too_large (__main__.SplitMarkdownTests.test_raises_when_chunk_too_large) ... ok
+test_splits_by_headings (__main__.SplitMarkdownTests.test_splits_by_headings) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in ...
+
+OK
+```
+
+This is the habit you want to build: the model can draft the function, but the tests define whether the draft is acceptable. For a real project, add one more test whenever you find a bug or a missed requirement.
+
 ## Provide Full Context When Debugging
 
 A good debugging Prompt should include: the error log, related code, the behavior you expect, the actual behavior, and what you have already tried. If you only paste a single error message, the model can usually only guess.

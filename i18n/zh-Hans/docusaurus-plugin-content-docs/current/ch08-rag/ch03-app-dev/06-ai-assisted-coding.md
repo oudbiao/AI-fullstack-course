@@ -39,7 +39,7 @@ flowchart LR
 把模型当“草稿生成器”，不是当“最终合并者”。一段 AI 代码至少要经过需求约束、diff、测试、真实样例和人工审查这几关，才适合进入项目。
 :::
 
-## 一、写代码前先让模型复述约束
+## 写代码前先让模型复述约束
 
 比起直接说“帮我写一个 RAG 系统”，更好的方式是给出输入、输出、依赖、边界和验收标准。
 
@@ -54,7 +54,7 @@ flowchart LR
 
 这种 Prompt 会比模糊需求稳定得多，因为模型知道什么算完成。
 
-## 二、生成代码后必须验证
+## 生成代码后必须验证
 
 AI 生成代码后，至少做三件事：读 diff、跑测试、跑一个真实样例。不要因为代码看起来像对的就直接合并。
 
@@ -65,7 +65,75 @@ python demo.py
 
 如果项目没有测试，可以先让模型补最小测试。测试应该覆盖正常输入、边界输入和错误输入。
 
-## 三、调试时提供完整上下文
+## 动手做：验证 AI 生成的 Markdown 切分器
+
+下面这个脚本是一个完整可运行的小流程：先给模型约束，让它生成草稿，再用测试验证草稿。把它保存成 `ai_chunker_demo.py`，然后运行 `python ai_chunker_demo.py`。
+
+```python
+import unittest
+
+
+def split_markdown_by_heading(markdown, max_chars=800):
+    chunks = []
+    current = []
+
+    def flush():
+        if not current:
+            return
+        text = "\n".join(current).strip()
+        if not text:
+            return
+        if len(text) > max_chars:
+            raise ValueError("chunk_too_large")
+        chunks.append(text)
+
+    for line in markdown.splitlines():
+        if line.startswith("#") and current:
+            flush()
+            current = [line]
+        else:
+            current.append(line)
+
+    flush()
+    return chunks
+
+
+class SplitMarkdownTests(unittest.TestCase):
+    def test_raises_when_chunk_too_large(self):
+        with self.assertRaises(ValueError):
+            split_markdown_by_heading("# 标题\n" + "a" * 20, max_chars=10)
+
+    def test_preserves_headings(self):
+        chunks = split_markdown_by_heading("# 退款\n政策正文")
+        self.assertEqual(chunks[0], "# 退款\n政策正文")
+
+    def test_splits_by_headings(self):
+        text = "# 退款\n政策正文\n## 细节\n更多内容"
+        chunks = split_markdown_by_heading(text)
+        self.assertEqual(len(chunks), 2)
+        self.assertTrue(chunks[1].startswith("## 细节"))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+预期输出：
+
+```text
+test_preserves_headings (__main__.SplitMarkdownTests.test_preserves_headings) ... ok
+test_raises_when_chunk_too_large (__main__.SplitMarkdownTests.test_raises_when_chunk_too_large) ... ok
+test_splits_by_headings (__main__.SplitMarkdownTests.test_splits_by_headings) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in ...
+
+OK
+```
+
+你要建立的是这个习惯：模型可以生成函数草稿，但测试负责定义草稿是否合格。真实项目里，每发现一个 bug 或漏掉的需求，就补一个测试。
+
+## 调试时提供完整上下文
 
 调试 Prompt 最好包含：错误日志、相关代码、你期望的行为、实际行为、你已经尝试过什么。只贴一句报错，模型往往只能猜。
 
@@ -75,7 +143,7 @@ python demo.py
 
 要求“最小修改”很重要，它能避免模型把原本清晰的代码改成另一套风格。
 
-## 四、AI 代码审查清单
+## AI 代码审查清单
 
 | 检查项 | 问题 |
 |---|---|
@@ -85,7 +153,7 @@ python demo.py
 | 依赖 | 是否引入不必要的新库 |
 | 测试 | 是否有可运行测试证明行为 |
 
-## 五、适合记录进作品集的内容
+## 适合记录进作品集的内容
 
 如果你在项目中使用 AI 辅助编程，可以记录：你给模型的关键 Prompt、模型第一次输出的问题、你如何测试和修正、最终代码和初版有什么差异。这比只说“我用了 AI”更能体现工程能力。
 
