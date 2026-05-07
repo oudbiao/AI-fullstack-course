@@ -268,6 +268,20 @@ for row in block_output:
     print([round(x, 3) for x in row])
 ```
 
+Expected output:
+
+```text
+attention weights:
+[1.0, 0.0, 0.0]
+[0.413, 0.587, 0.0]
+[0.456, 0.225, 0.32]
+
+block output:
+[3.75, 3.5, 1.5]
+[3.897, 4.294, 2.566]
+[4.366, 4.752, 1.153]
+```
+
 ### When reading this code, focus on four places first
 
 There are only four key parts:
