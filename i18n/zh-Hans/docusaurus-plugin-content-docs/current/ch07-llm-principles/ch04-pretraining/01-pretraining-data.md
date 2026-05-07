@@ -281,6 +281,17 @@ for doc in clean_docs:
 print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 ```
 
+预期输出：
+
+```text
+kept docs:
+{'source': 'web', 'text': 'python is a programming language. python is widely used.'}
+{'source': 'book', 'text': 'the transformer architecture uses self-attention to model token interactions.'}
+{'source': 'forum', 'text': '我忘记密码了，客服说可以通过短信重置。'}
+
+source mix: Counter({'web': 1, 'book': 1, 'forum': 1})
+```
+
 ### 这段代码在真实工程里对应哪几步？
 
 它虽然很小，但对应的是预训练管道里最常见的动作：
@@ -363,6 +374,7 @@ print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 
 ```python
 import random
+from pprint import pprint
 
 random.seed(42)
 
@@ -391,7 +403,32 @@ for _ in range(20):
     item = random.choice(datasets[source])
     draws.append((source, item))
 
-print(draws)
+pprint(draws)
+```
+
+预期输出：
+
+```text
+[('book', 'book_1'),
+ ('code', 'code_1'),
+ ('web', 'web_3'),
+ ('web', 'web_3'),
+ ('code', 'code_1'),
+ ('book', 'book_1'),
+ ('web', 'web_1'),
+ ('web', 'web_3'),
+ ('web', 'web_1'),
+ ('code', 'code_2'),
+ ('web', 'web_3'),
+ ('web', 'web_1'),
+ ('code', 'code_1'),
+ ('book', 'book_2'),
+ ('web', 'web_1'),
+ ('code', 'code_2'),
+ ('web', 'web_2'),
+ ('web', 'web_2'),
+ ('book', 'book_1'),
+ ('code', 'code_1')]
 ```
 
 这段代码在提醒你：

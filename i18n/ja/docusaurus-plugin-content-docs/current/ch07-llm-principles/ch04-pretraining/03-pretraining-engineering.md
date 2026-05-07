@@ -185,6 +185,21 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
     print(f"step={state['global_step']:02d} shard={shard_name} batch={batch}")
 ```
 
+期待される出力：
+
+```text
+最初の実行:
+step=01 shard=shard_00 batch=['doc_0', 'doc_1']
+step=02 shard=shard_00 batch=['doc_2']
+step=03 shard=shard_01 batch=['doc_3', 'doc_4']
+クラッシュをシミュレートします。state を保存 = {'shard_index': 1, 'sample_index': 2, 'global_step': 3}
+
+再開:
+step=04 shard=shard_01 batch=['doc_5']
+step=05 shard=shard_02 batch=['doc_6', 'doc_7']
+step=06 shard=shard_02 batch=['doc_8']
+```
+
 ### なぜこのコードは「shard 名を並べるだけ」より学習価値があるのか？
 
 これは事前学習でいちばん現実的な問題に対応しているからです。
@@ -333,6 +348,14 @@ step_logs = [
 for log in step_logs:
     tps = log["tokens"] / log["seconds"]
     print(f"step={log['step']} tokens/s={tps:.0f}")
+```
+
+期待される出力：
+
+```text
+step=1 tokens/s=20480
+step=2 tokens/s=21005
+step=3 tokens/s=10503
 ```
 
 第3ステップだけ明らかに落ちているなら、  

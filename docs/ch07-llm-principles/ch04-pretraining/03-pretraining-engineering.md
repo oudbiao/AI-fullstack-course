@@ -185,6 +185,21 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
     print(f"step={state['global_step']:02d} shard={shard_name} batch={batch}")
 ```
 
+Expected output:
+
+```text
+first run:
+step=01 shard=shard_00 batch=['doc_0', 'doc_1']
+step=02 shard=shard_00 batch=['doc_2']
+step=03 shard=shard_01 batch=['doc_3', 'doc_4']
+simulate crash, save state = {'shard_index': 1, 'sample_index': 2, 'global_step': 3}
+
+resume:
+step=04 shard=shard_01 batch=['doc_5']
+step=05 shard=shard_02 batch=['doc_6', 'doc_7']
+step=06 shard=shard_02 batch=['doc_8']
+```
+
 ### Why is this code more educational than just listing a few shard names?
 
 Because it corresponds to one of the most realistic problems in pretraining:
@@ -337,6 +352,14 @@ step_logs = [
 for log in step_logs:
     tps = log["tokens"] / log["seconds"]
     print(f"step={log['step']} tokens/s={tps:.0f}")
+```
+
+Expected output:
+
+```text
+step=1 tokens/s=20480
+step=2 tokens/s=21005
+step=3 tokens/s=10503
 ```
 
 If you see step 3 drop significantly,

@@ -282,6 +282,17 @@ for doc in clean_docs:
 print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 ```
 
+Expected output:
+
+```text
+kept docs:
+{'source': 'web', 'text': 'python is a programming language. python is widely used.'}
+{'source': 'book', 'text': 'the transformer architecture uses self-attention to model token interactions.'}
+{'source': 'forum', 'text': 'i forgot my password, and customer service said i could reset it by sms.'}
+
+source mix: Counter({'web': 1, 'book': 1, 'forum': 1})
+```
+
 ### What steps in real engineering does this code correspond to?
 
 Although it is very small, it corresponds to the most common actions in a pretraining pipeline:
@@ -364,6 +375,7 @@ That is also why before training, people often need to design:
 
 ```python
 import random
+from pprint import pprint
 
 random.seed(42)
 
@@ -392,7 +404,32 @@ for _ in range(20):
     item = random.choice(datasets[source])
     draws.append((source, item))
 
-print(draws)
+pprint(draws)
+```
+
+Expected output:
+
+```text
+[('book', 'book_1'),
+ ('code', 'code_1'),
+ ('web', 'web_3'),
+ ('web', 'web_3'),
+ ('code', 'code_1'),
+ ('book', 'book_1'),
+ ('web', 'web_1'),
+ ('web', 'web_3'),
+ ('web', 'web_1'),
+ ('code', 'code_2'),
+ ('web', 'web_3'),
+ ('web', 'web_1'),
+ ('code', 'code_1'),
+ ('book', 'book_2'),
+ ('web', 'web_1'),
+ ('code', 'code_2'),
+ ('web', 'web_2'),
+ ('web', 'web_2'),
+ ('book', 'book_1'),
+ ('code', 'code_1')]
 ```
 
 This code is reminding you that:

@@ -281,6 +281,17 @@ for doc in clean_docs:
 print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 ```
 
+期待される出力：
+
+```text
+kept docs:
+{'source': 'web', 'text': 'python is a programming language. python is widely used.'}
+{'source': 'book', 'text': 'the transformer architecture uses self-attention to model token interactions.'}
+{'source': 'forum', 'text': 'パスワードを忘れました。サポートに聞いたらsmsでリセットできるそうです。'}
+
+source mix: Counter({'web': 1, 'book': 1, 'forum': 1})
+```
+
 ### このコードは、実際の現場ではどの工程に対応するのか？
 
 とても小さいですが、事前学習パイプラインでよくある次の処理に対応しています。
@@ -363,6 +374,7 @@ print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 
 ```python
 import random
+from pprint import pprint
 
 random.seed(42)
 
@@ -391,7 +403,32 @@ for _ in range(20):
     item = random.choice(datasets[source])
     draws.append((source, item))
 
-print(draws)
+pprint(draws)
+```
+
+期待される出力：
+
+```text
+[('book', 'book_1'),
+ ('code', 'code_1'),
+ ('web', 'web_3'),
+ ('web', 'web_3'),
+ ('code', 'code_1'),
+ ('book', 'book_1'),
+ ('web', 'web_1'),
+ ('web', 'web_3'),
+ ('web', 'web_1'),
+ ('code', 'code_2'),
+ ('web', 'web_3'),
+ ('web', 'web_1'),
+ ('code', 'code_1'),
+ ('book', 'book_2'),
+ ('web', 'web_1'),
+ ('code', 'code_2'),
+ ('web', 'web_2'),
+ ('web', 'web_2'),
+ ('book', 'book_1'),
+ ('code', 'code_1')]
 ```
 
 このコードが伝えているのは、次のことです。

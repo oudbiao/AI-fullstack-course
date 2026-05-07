@@ -222,6 +222,19 @@ print("span inputs   :", span_inputs)
 print("span target   :", span_target)
 ```
 
+期待される出力：
+
+```text
+causal inputs : ['transformer', 'models', 'learn', 'patterns', 'from', 'large', 'text']
+causal labels : ['models', 'learn', 'patterns', 'from', 'large', 'text', 'corpora']
+
+masked inputs : ['transformer', 'models', '[MASK]', 'patterns', 'from', '[MASK]', 'text', 'corpora']
+masked labels : {2: 'learn', 5: 'large'}
+
+span inputs   : ['transformer', 'models', '<extra_id_0>', 'large', 'text', 'corpora']
+span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
+```
+
 ### このコードで最も注目すべき点は？
 
 まず、次の3つを見てください。

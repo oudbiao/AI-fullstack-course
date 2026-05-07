@@ -214,6 +214,19 @@ print("span inputs   :", span_inputs)
 print("span target   :", span_target)
 ```
 
+Expected output:
+
+```text
+causal inputs : ['transformer', 'models', 'learn', 'patterns', 'from', 'large', 'text']
+causal labels : ['models', 'learn', 'patterns', 'from', 'large', 'text', 'corpora']
+
+masked inputs : ['transformer', 'models', '[MASK]', 'patterns', 'from', '[MASK]', 'text', 'corpora']
+masked labels : {2: 'learn', 5: 'large'}
+
+span inputs   : ['transformer', 'models', '<extra_id_0>', 'large', 'text', 'corpora']
+span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
+```
+
 ### What should you look at most in this code?
 
 Focus on these three things first:
