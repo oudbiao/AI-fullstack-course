@@ -1,255 +1,145 @@
 ---
 title: "6.8.3 プロジェクト：テキスト感情分析"
 sidebar_position: 2
-description: "本当に見せられる感情分析プロジェクトを題材に、ラベルの境界、baseline、エラー分析から提供方法まで、ひとつの流れとして完成させます。"
+description: "label boundaries、keyword baseline、negation handling、error buckets、deliverable packaging を含む sentiment analysis project loop を作ります。"
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
 # 6.8.3 プロジェクト：テキスト感情分析
 
 :::tip この節の位置づけ
-感情分析のプロジェクトはポートフォリオにとても向いています。すごく派手だからではなく、「プロジェクトの見極め力」を鍛えるのにぴったりだからです。
-
-- ラベルをどう決めるか
-- baseline をどう作るか
-- エラーをどう説明するか
-- 結果をどう見せるか
-
-この節の目標は、複雑なモデルを積み上げることではなく、小さなプロジェクトをきちんと最後まで完成させることです。
+Sentiment analysis は、最初の NLP project として向いています。難しい部分が見えやすいからです。label boundaries、tokenization、negation、sarcasm、mixed sentiment、error analysis がすべて表に出ます。
 :::
 
 ## 学習目標
 
-- 感情分析タスクの安定したラベル境界を設計できるようになる
-- 説明しやすい baseline を作って、結果を読めるようになる
-- エラー分析を、後付けではなくプロジェクトの見どころにできるようになる
-- 小さな NLP プロジェクトを、提出できる形にまとめられるようになる
+- model を選ぶ前に sentiment labels を定義できる。
+- explainable な keyword baseline を作れる。
+- simple negation rule で 1 つの既知 error type を改善できる。
+- wrong predictions を error buckets に整理できる。
+- 小さな NLP project を reproducible deliverable としてまとめられる。
 
 ---
 
-## 一、まずは題材を絞る
+## まず Project Loop を見る
 
-### いちばん安定した出発点は二分類
+![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-ja.png)
 
-まずは次のようにします。
+```text
+label boundary -> baseline -> predictions -> error buckets -> targeted upgrade
+```
 
-- positive
-- negative
+まずは binary labels から始めます。
 
-最初から次のようにはしません。
+- `positive`：明確に推薦、称賛、満足を表す。
+- `negative`：明確に不満、拒否、苦情を表す。
 
-- positive / neutral / negative / irony / mixed
+basic loop が安定する前に、`neutral`、`mixed`、`irony`、`unclear` などを増やしすぎないでください。
 
-### なぜ二分類が練習に向いているの？
+## 実験：Keyword Baseline と Negation Fix
 
-理由は次の通りです。
-
-- ラベルがわかりやすい
-- データを準備しやすい
-- エラーを分析しやすい
-
-### ポートフォリオ向きの題材例
-
-たとえば、
-
-> **「授業レビュー感情分析器」を作り、コメントがポジティブかネガティブかを判定する。**
-
-という題材です。
-
-この題材は、ユーザーの文章、ラベルの境界、業務的な意味が比較的はっきりしているので、とても向いています。
-
----
-
-## 二、プロジェクトの最小閉ループはどんな形？
-
-1. ラベル境界を定義する
-2. 小さなアノテーションデータを用意する
-3. baseline を作る
-4. エラー分析をする
-5. 最小の推論APIか表示ページを用意する
-
-この 5 ステップがはっきりしていれば、あなたのプロジェクトは「ただモデルを学習しただけ」より、かなり作品らしくなります。
-
-![感情分析プロジェクトの閉ループ](/img/course/ch06-project-sentiment-analysis-loop-ja.png)
-
-:::tip 図の読み方
-これは「エラーから改善する」ループとして読みます。まずラベル境界を決め、小さな baseline を作り、予測を実行し、誤りを種類ごとに分けてから、ルール追加・データ追加・より強いモデルのどれを選ぶか判断します。
-:::
-
-## 三、進め方のおすすめ順序
-
-初心者にとって、より安定しやすい順序は次の通りです。
-
-1. まずラベル定義を書く
-2. 次にいちばん簡単な baseline を作る
-3. その後、伝統的な ML baseline を追加する
-4. 最後に、より強い深層学習モデルを考える
-
-こうすると、最初からモデルの複雑さに振り回されにくくなります。
-
----
-
-## 四、まずは最小 baseline を動かす
-
-ロジックをわかりやすくするため、ここではキーワード集計型の baseline を使います。  
-もちろん強くはありませんが、プロジェクトの閉ループを説明するにはとても向いています。
+`sentiment_project_baseline.py` を作成します。
 
 ```python
 from collections import Counter
 
 
 def tokenize(text):
-    # 外部の形態素解析器に依存しないため、この最小例では文字単位で分割します。
-    return list(text)
+    text = text.lower()
+    for ch in ",.!?":
+        text = text.replace(ch, "")
+    return text.split()
 
 
-train_data = [
-    ("この授業はとてもわかりやすい", "positive"),
-    ("事例が多くて学びやすい", "positive"),
-    ("内容がごちゃごちゃしている", "negative"),
-    ("説明が速すぎてわからない", "negative"),
+train = [
+    ("clear examples and practical pace", "positive"),
+    ("recommended and systematic course", "positive"),
+    ("messy confusing and too fast", "negative"),
+    ("unclear examples and weak structure", "negative"),
 ]
 
-test_data = [
-    ("この授業は本当にわかりやすい", "positive"),
-    ("内容が少しごちゃごちゃしている", "negative"),
-    ("事例は多いけれど説明が速すぎる", "negative"),
+val = [
+    ("clear and practical course", "positive"),
+    ("messy and confusing pace", "negative"),
+    ("not recommended", "negative"),
 ]
-
 
 positive_words = Counter()
 negative_words = Counter()
 
-for text, label in train_data:
-    tokens = tokenize(text)
+for text, label in train:
     if label == "positive":
-        positive_words.update(tokens)
+        positive_words.update(tokenize(text))
     else:
-        negative_words.update(tokens)
+        negative_words.update(tokenize(text))
+
+positive_words.update(["recommended"] * 2)
+negative_words.update(["messy"] * 2)
 
 
 def predict(text):
-    score = 0
-    for token in tokenize(text):
-        score += positive_words[token]
-        score -= negative_words[token]
-    return "positive" if score >= 0 else "negative", score
-
-
-results = []
-for text, gold in test_data:
-    pred, score = predict(text)
-    results.append({"text": text, "gold": gold, "pred": pred, "score": score})
-    print(results[-1])
-```
-
-### この baseline にどんな教育的価値があるの？
-
-とても説明しやすいからです。
-
-- なぜポジティブと判定されたのか
-- なぜネガティブと判定されたのか
-- `tokenize` が何をしているか：生のテキストを baseline が数えられる単位に分ける
-
-これによって、本当の意味で「エラー分析」ができます。  
-ただ数字を眺めるだけではありません。
-
-### さらに「否定詞で反転する」最小アップデートを足す
-
-感情分析で典型的なエラーは、次のようなものです。
-
-- たしかにポジティブな語がある
-- でも前に否定詞があって意味が反転している
-
-たとえば、
-
-- 「おすすめしない」
-- 「わかりにくい」
-- 「価値がない」
-
-以下のとても小さい版は、実務向けの完成形ではありません。  
-ただ、初学者が最初に次を実感するのに向いています。
-
-- **ルールの補修で、どのタイプのエラー分布が変わるのか**
-
-```python
-negative_phrase_penalties = {
-    "おすすめしない": 4,
-    "わかりにくい": 4,
-    "ではない": 3,
-    "ない": 2,
-}
+    score = sum(positive_words[t] - negative_words[t] for t in tokenize(text))
+    return ("positive" if score >= 0 else "negative"), score
 
 
 def predict_with_negation(text):
-    _, score = predict(text)
+    score = 0
+    flip = False
 
-    # 日本語では「ない」が前後の語とまとまって意味を作ることが多いので、
-    # ここでは依存ライブラリなしで理解しやすい phrase rule にします。
-    for phrase, penalty in negative_phrase_penalties.items():
-        if phrase in text:
-            score -= penalty
+    for token in tokenize(text):
+        if token in {"not", "no", "never"}:
+            flip = True
+            continue
 
-    return "positive" if score >= 0 else "negative", score
+        token_score = positive_words[token] - negative_words[token]
+        if flip and token_score != 0:
+            token_score *= -1
+            flip = False
+
+        score += token_score
+
+    return ("positive" if score >= 0 else "negative"), score
 
 
-extra_cases = [
-    ("この授業はおすすめしない", "negative"),
-    ("説明がわかりにくい", "negative"),
-    ("事例は多いが、体系的ではない", "negative"),
-]
+print("sentiment_baseline")
+for text, gold in val:
+    pred, score = predict(text)
+    print({"gold": gold, "pred": pred, "score": score, "text": text})
 
-for text, gold in extra_cases:
+print("with_negation")
+for text, gold in val:
     pred, score = predict_with_negation(text)
-    print({"text": text, "gold": gold, "pred": pred, "score": score})
+    print({"gold": gold, "pred": pred, "score": score, "text": text})
 ```
 
-このコードの価値は「ルールが十分強いこと」ではなく、  
-次のことをはっきり見せてくれる点にあります。
+実行します。
 
-- baseline がなぜ間違えるのか
-- 具体的な補修で、どの種類のミスが減るのか
-- エラー分析が、どうやって次の改善につながるのか
-
-ここで大事なのは、ルールの粒度と分割方法をそろえることです。文字単位で数えているのに、語レベルの否定ルールだけを書くと、ルールが静かに効かなくなります。実務では形態素解析器や tokenizer を使い、同じ単位で特徴量とルールを設計します。
-
----
-
-## 五、プロジェクトを本当に強くするのはエラー分析
-
-### まずは誤った例を取り出す
-
-```python
-errors = [row for row in results if row["gold"] != row["pred"]]
-print(errors)
+```bash
+python sentiment_project_baseline.py
 ```
 
-### よくあるエラーの種類
+期待される出力：
 
-感情分析で特に見ておきたいのは次のものです。
+```text
+sentiment_baseline
+{'gold': 'positive', 'pred': 'positive', 'score': 3, 'text': 'clear and practical course'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'messy and confusing pace'}
+{'gold': 'negative', 'pred': 'positive', 'score': 3, 'text': 'not recommended'}
+with_negation
+{'gold': 'positive', 'pred': 'positive', 'score': 3, 'text': 'clear and practical course'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'messy and confusing pace'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'not recommended'}
+```
 
-- 否定詞  
-  例：「悪くない」「おすすめしない」
-- 皮肉  
-  例：「本当にすごい、また落ちた」
-- 混合評価  
-  例：「内容はいいけど、難しすぎる」
+この code で学ぶこと：
 
-### どうしてエラー分析はそんなに重要なの？
+- baseline は、各 token が score を変えるので説明しやすい。
+- `not recommended` は negation rule の前では失敗する。
+- targeted rule は 1 つの error type を直せるが、言語理解全体を解いたわけではない。
 
-それは、次に何をすべきかを直接教えてくれるからです。
+## Error Buckets
 
-- データを増やす
-- ラベル基準を直す
-- モデルをアップグレードする
-
-### 最小のエラーバケット表を作る
-
-初心者が感情分析プロジェクトを作るとき、よく次のように言って終わりがちです。
-
-- 「モデルは何件か間違えた」
-
-でも、もっと価値があるのは、先に分類して見ることです。
+wrong cases は隠さず、type ごとにまとめます。
 
 ```python
 error_buckets = {
@@ -260,136 +150,70 @@ error_buckets = {
 }
 
 examples = [
-    ("この授業はおすすめしない", "negative", "positive"),
-    ("本当にすごい、また止まった", "negative", "positive"),
-    ("内容はいいけど、テンポが速すぎる", "negative", "positive"),
+    ("Not recommended for this course", "negative", "positive"),
+    ("Great, it got stuck again", "negative", "positive"),
+    ("The content is great, but the pace is too fast", "negative", "positive"),
 ]
 
 for text, gold, pred in examples:
-    if "ない" in text:
+    lower = text.lower()
+    if "not" in lower:
         error_buckets["negation"].append(text)
-    elif "本当にすごい" in text and "また" in text:
+    elif "great" in lower and "again" in lower:
         error_buckets["sarcasm"].append(text)
-    elif "けど" in text:
+    elif "but" in lower:
         error_buckets["mixed_sentiment"].append(text)
     else:
         error_buckets["other"].append(text)
 
-for k, v in error_buckets.items():
-    print(k, len(v), v)
+for name, rows in error_buckets.items():
+    print(name, len(rows), rows)
 ```
 
-この表はプロジェクトでとても見せやすいです。  
-見る人がすぐに次のことを理解できるからです。
+これは project evidence です。model がどこで失敗し、次に何を改善すべきかを示します。
 
-- あなたはスコアだけを見ているわけではない
-- エラーには種類があるとわかっている
-- 次にどう改善するかの根拠を持っている
+## Upgrade Path
 
-## 六、このプロジェクトを作品級に一段上げるには？
-
-### 伝統的な強い baseline を追加する
-
-たとえば、
-
-- TF-IDF + LogisticRegression
-
-このくらいは入れておくと、少なくとも次の比較ができます。
-
-- ルール baseline
-- 伝統的 ML baseline
-
-### さらに深層学習 baseline を追加する
-
-たとえば、
-
-- embedding + pooling
-- BERT 分類
-
-### 発表時は総合スコアだけを見せない
-
-次のような内容を出すのがおすすめです。
-
-- ラベル定義
-- baseline の比較
-- 典型的な誤答
-- 難しい負例
-
-こうすると、プロジェクト全体がとてもまとまって見えます。
-
-### より実際のプロジェクトらしい見せ方
-
-これをポートフォリオページにするなら、次の順番が見やすいです。
-
-1. タスク定義とラベル境界
-2. baseline の方法
-3. baseline の比較表
-4. エラーバケット
-5. どの種類のエラーに対して何を改善したか
-6. 最終的に残した方式と、その理由
-
-こうすると、見る人に伝わるのは単なる「感情分類器を作りました」ではなく、
-
-- 小さな NLP プロジェクトを、baseline から作品級までどう育てるかを理解している
-
-ということになります。
-
----
-
-## 七、いちばんハマりやすい落とし穴
-
-### ラベル基準がそろっていない
-
-感情分析プロジェクトで、これがいちばん大きな落とし穴です。
-
-### 正解率だけを見る
-
-どこで間違えたかを見ないと、本当の改善は難しくなります。
-
-### 最初から複雑なモデルを追いかける
-
-baseline がないと、複雑なモデルの改善点も説明しづらくなります。
-
----
-
-## プロジェクト提出時に、ぜひ補いたい内容
-
-- ラベル定義表
-- baseline 比較表
-- 典型的な誤答例
-- 次にどう改善するかの見通し
-
----
-
-## 小まとめ
-
-この節でいちばん大事なのは、プロジェクトの習慣を作ることです。
-
-> **感情分析プロジェクトで本当に価値があるのは、モデルの複雑さではなく、ラベル境界、baseline、エラー分析、改善方針をひとつの閉ループとして語れることです。**
-
-ここまでできれば、題材が小さくても、かなり作品級の授業プロジェクトに見えます。
-
-## この節でいちばん持ち帰ってほしいこと
-
-- 感情分析で本当に価値があるのは、複雑なモデルより、明確なラベル境界とエラー分析
-- たとえ simple な baseline でも、説明しやすければ教育的価値は高い
-- プロジェクトの質の差は、誤答を次の改善行動に変えられるかで大きく変わる
-
-
-
-## バージョン進行のおすすめ
-
-| バージョン | 目的 | 重点的に出すもの |
+| Version | 追加するもの | 理由 |
 |---|---|---|
-| ベーシック版 | 最小閉ループを通す | 入力できる、処理できる、出力できる、サンプルを残す |
-| スタンダード版 | 見せられるプロジェクトにする | 設定、ログ、エラー処理、README、スクリーンショットを追加する |
-| チャレンジ版 | ポートフォリオ品質に近づける | 評価、比較実験、失敗サンプル分析、今後の方針を追加する |
+| rule baseline | keyword counts と negation rule | explainable starting point |
+| traditional ML | TF-IDF + LogisticRegression | 低コストで強い baseline |
+| neural baseline | embedding + pooling または小さな Transformer | representation features を学ぶ |
+| portfolio version | error buckets、comparison table、demo command | engineering judgment を示す |
 
-まずはベーシック版を完成させるのがおすすめです。最初から何でも入れようとしないでください。バージョンをひとつ上げるたびに、「何が増えたか」「どう検証したか」「まだ何が課題か」を README に書くようにしましょう。
+## README に見せるもの
+
+README は具体的にします。
+
+- label definitions。
+- dataset source と split。
+- run command。
+- baseline comparison table。
+- error buckets。
+- model が正解した例と間違えた例。
+- next-step plan。
+
+## よくある間違い
+
+| 間違い | 直し方 |
+|---|---|
+| labels が曖昧 | training 前に label rules を書く |
+| accuracy だけ報告する | error buckets と examples を含める |
+| negation を無視する | `not`、`never`、`no` cases を test する |
+| deep model を早く入れすぎる | rule または TF-IDF baseline を残す |
+| sarcasm/mixed sentiment errors を隠す | known limitations として記録する |
 
 ## 練習
 
-1. 授業レビューを 12 件自分で作り、positive / negative を付けてみましょう。
-2. baseline に「否定詞で反転するルール」を手で追加し、どの種類のエラーが直るか確認してみましょう。
-3. なぜ感情分析は、エラー分析の見せ場として特に向いているのか考えてみましょう。
-4. もしこのプロジェクトを三分類に広げるなら、先にラベル基準を直しますか、それとも先にモデルを変えますか？ その理由も考えてみましょう。
+1. `"not clear"` と `"never useful"` を validation examples に追加してください。
+2. rule では分類できない `other` bucket example を追加してください。
+3. project plan で keyword counts を TF-IDF に置き換えてください。
+4. `neutral` の label rule を書いてください。ただし model にはまだ追加しないでください。
+5. この project の README outline を作ってください。
+
+## まとめ
+
+- Sentiment project は label boundaries と error analysis で決まります。
+- Simple baseline は explainable なので有用です。
+- Negation は古典的な最初の failure type です。
+- Error buckets は単一の accuracy score より project value を見せられます。

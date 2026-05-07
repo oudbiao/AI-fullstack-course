@@ -1,263 +1,145 @@
 ---
 title: "6.8.3 项目：文本情感分析"
 sidebar_position: 2
-description: "围绕一个真正可展示的情感分析项目，从标签边界、baseline、错误分析到交付方式，走完完整闭环。"
+description: "构建情感分析项目闭环：标签边界、关键词 baseline、否定词处理、错误分桶和交付包装。"
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
 # 6.8.3 项目：文本情感分析
 
 :::tip 本节定位
-情感分析项目很适合做作品集，不是因为它最炫，而是因为它很适合训练“项目判断力”：
-
-- 标签怎么定
-- baseline 怎么建
-- 错误怎么解释
-- 结果怎么展示
-
-这一节的目标不是堆复杂模型，而是把一个小项目真正做完整。
+情感分析是很适合入门的 NLP 项目，因为难点都看得见：标签边界、tokenization、否定词、讽刺、混合情绪和错误分析。
 :::
 
 ## 学习目标
 
-- 学会给情感分析任务设计稳定的标签边界
-- 学会搭一个可解释 baseline 并读懂结果
-- 学会把错误分析做成项目亮点，而不是事后补丁
-- 学会把一个小 NLP 项目包装成可交付作品
+- 先定义情感标签，再选择模型。
+- 构建可解释的关键词 baseline。
+- 用简单否定词规则修复一个已知错误类型。
+- 把错误预测整理成 error buckets。
+- 把一个小 NLP 项目包装成可复现交付物。
 
 ---
 
-## 一、项目题目先要收窄
+## 先看项目闭环
 
-### 最稳的起点是二分类
+![情感分析项目闭环图](/img/course/ch06-project-sentiment-analysis-loop.png)
 
-先做：
+```text
+label boundary -> baseline -> predictions -> error buckets -> targeted upgrade
+```
 
-- positive
-- negative
+先从二分类开始：
 
-而不是一开始就做：
+- `positive`：明确推荐、赞扬或表达满意。
+- `negative`：明确抱怨、拒绝或表达不满。
 
-- positive / neutral / negative / irony / mixed
+不要一开始就加太多标签，比如 `neutral`、`mixed`、`irony`、`unclear`。等基础闭环稳定后再扩展。
 
-### 为什么二分类适合练手？
+## 实验：关键词 Baseline 与否定词修复
 
-因为：
-
-- 标签更清楚
-- 数据更容易准备
-- 错误更容易分析
-
-### 一个适合作品集的题目
-
-例如：
-
-> **做一个“课程评价情感分析器”，判断评论是正向还是负向。**
-
-这个题目非常适合，因为用户语料、标签边界和业务意义都比较清楚。
-
----
-
-## 二、项目最小闭环长什么样？
-
-1. 定义标签边界
-2. 准备小型标注数据
-3. 做 baseline
-4. 做错误分析
-5. 设计一个最小推理接口或展示页
-
-如果这 5 步都清楚，你的项目通常就已经比“只训个模型”更像作品级了。
-
-![情感分析项目闭环](/img/course/ch06-project-sentiment-analysis-loop.png)
-
-:::tip 读图方式
-把它看成“错误驱动”的项目循环：先定义标签边界，再做小 baseline，跑预测，把错例按类型归桶，最后再决定是加规则、补数据，还是换更强模型。
-:::
-
-## 三、推荐推进顺序
-
-对新人来说，更稳的顺序通常是：
-
-1. 先把标签定义写出来
-2. 再做最简单 baseline
-3. 再补一个传统 ML baseline
-4. 最后再考虑更强的深度模型
-
-这样你不会在一开始就被模型复杂度带跑。
-
----
-
-## 四、先跑一个最小 baseline 项目
-
-为了让逻辑足够清楚，这里先用一个关键词统计型 baseline。
-它当然不够强，但非常适合解释项目闭环。
+创建 `sentiment_project_baseline.py`：
 
 ```python
 from collections import Counter
 
 
 def tokenize(text):
-    # 为了不引入中文分词依赖，这个最小示例先按字切分。
-    return list(text)
+    text = text.lower()
+    for ch in ",.!?":
+        text = text.replace(ch, "")
+    return text.split()
 
 
-train_data = [
-    ("这门课讲得很清楚", "positive"),
-    ("案例很多，学起来很顺", "positive"),
-    ("内容太乱了", "negative"),
-    ("讲得太快，听不懂", "negative"),
+train = [
+    ("clear examples and practical pace", "positive"),
+    ("recommended and systematic course", "positive"),
+    ("messy confusing and too fast", "negative"),
+    ("unclear examples and weak structure", "negative"),
 ]
 
-test_data = [
-    ("这门课真的很清楚", "positive"),
-    ("内容有点乱", "negative"),
-    ("案例很多但是讲太快", "negative"),
+val = [
+    ("clear and practical course", "positive"),
+    ("messy and confusing pace", "negative"),
+    ("not recommended", "negative"),
 ]
-
 
 positive_words = Counter()
 negative_words = Counter()
 
-for text, label in train_data:
-    tokens = tokenize(text)
+for text, label in train:
     if label == "positive":
-        positive_words.update(tokens)
+        positive_words.update(tokenize(text))
     else:
-        negative_words.update(tokens)
+        negative_words.update(tokenize(text))
 
-# 补一点透明的小词典种子，保证否定词示例里有可翻转的情感词。
-positive_words.update(list("清楚推荐系统值得") * 2)
-negative_words.update(list("乱快差糟") * 2)
+positive_words.update(["recommended"] * 2)
+negative_words.update(["messy"] * 2)
 
 
 def predict(text):
-    score = 0
-    for token in tokenize(text):
-        score += positive_words[token]
-        score -= negative_words[token]
-    return "positive" if score >= 0 else "negative", score
-
-
-results = []
-for text, gold in test_data:
-    pred, score = predict(text)
-    results.append({"text": text, "gold": gold, "pred": pred, "score": score})
-    print(results[-1])
-```
-
-### 这个 baseline 为什么有教学价值？
-
-因为它很容易解释：
-
-- 为什么判成正面
-- 为什么判成负面
-- `tokenize` 做了什么：它把原始文本切成 baseline 能统计的最小单位
-- 为什么补一点小词典：它让示例保持简单，同时让否定规则有明确的情感词可以翻转
-
-这让你能真正做“错误分析”，而不是只盯一个数字。
-
-### 再补一个“否定词翻转”的最小升级版
-
-情感分析里最典型的一类错误就是：
-
-- 明明有正向词
-- 但前面被一个否定词翻掉了
-
-比如：
-
-- “不推荐”
-- “不清楚”
-- “不值得”
-
-下面这个极小版本不是工业方案，
-但很适合初学者第一次体会：
-
-- **规则补丁为什么会直接改变错例分布**
-
-```python
-negation_words = {"不", "没", "无"}
+    score = sum(positive_words[t] - negative_words[t] for t in tokenize(text))
+    return ("positive" if score >= 0 else "negative"), score
 
 
 def predict_with_negation(text):
     score = 0
-    negate_window = 0
+    flip = False
 
     for token in tokenize(text):
-        if token in negation_words:
-            # 简化处理：否定词后面 2 个字内，遇到第一个有情感分的字就翻转。
-            negate_window = 2
+        if token in {"not", "no", "never"}:
+            flip = True
             continue
 
         token_score = positive_words[token] - negative_words[token]
-
-        if negate_window > 0 and token_score != 0:
+        if flip and token_score != 0:
             token_score *= -1
-            negate_window -= 1
-        elif negate_window > 0:
-            negate_window -= 1
+            flip = False
 
         score += token_score
 
-    return "positive" if score >= 0 else "negative", score
+    return ("positive" if score >= 0 else "negative"), score
 
 
-extra_cases = [
-    ("不推荐这门课", "negative"),
-    ("讲得不清楚", "negative"),
-    ("案例不少，但不系统", "negative"),
-]
+print("sentiment_baseline")
+for text, gold in val:
+    pred, score = predict(text)
+    print({"gold": gold, "pred": pred, "score": score, "text": text})
 
-for text, gold in extra_cases:
+print("with_negation")
+for text, gold in val:
     pred, score = predict_with_negation(text)
-    print({"text": text, "gold": gold, "pred": pred, "score": score})
+    print({"gold": gold, "pred": pred, "score": score, "text": text})
 ```
 
-这段代码的教学价值不在“规则够强”，
-而在于它会让你第一次很清楚地看到：
+运行：
 
-- baseline 为什么会错
-- 一种具体补丁会修掉哪类错误
-- 错误分析怎样真正反过来推动方案升级
-
-这里最重要的工程细节是：规则粒度必须和切分粒度一致。如果 baseline 按字统计，否定规则也要围绕“字”或短窗口来写；如果 baseline 按词统计，就应该先接入分词器，再按词写规则。
-
----
-
-## 五、真正让项目变强的是错误分析
-
-### 先把错例挑出来
-
-```python
-errors = [row for row in results if row["gold"] != row["pred"]]
-print(errors)
+```bash
+python sentiment_project_baseline.py
 ```
 
-### 常见错误类型
+预期输出：
 
-对情感分析来说，最值得单独看的是：
+```text
+sentiment_baseline
+{'gold': 'positive', 'pred': 'positive', 'score': 3, 'text': 'clear and practical course'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'messy and confusing pace'}
+{'gold': 'negative', 'pred': 'positive', 'score': 3, 'text': 'not recommended'}
+with_negation
+{'gold': 'positive', 'pred': 'positive', 'score': 3, 'text': 'clear and practical course'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'messy and confusing pace'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'not recommended'}
+```
 
-- 否定词
-  例如“不差”“不推荐”
-- 反讽
-  例如“真棒，又崩了”
-- 混合评价
-  例如“内容很好，但太难了”
+这段代码教你：
 
-### 为什么错误分析这么值钱？
+- baseline 可解释，因为每个 token 都会改变分数；
+- `not recommended` 在否定词规则前会失败；
+- 针对性规则能修复一种错误，但不要假装它解决了全部语言理解问题。
 
-因为它能直接告诉你下一步该怎么做：
+## 错误分桶
 
-- 补数据
-- 改标签标准
-- 升级模型
-
-### 给自己做一张最小错误分桶表
-
-初学者做情感分析项目时，很容易只说：
-
-- “模型错了几条”
-
-但更有价值的是先分桶：
+错误样本要按类型整理，而不是藏起来。
 
 ```python
 error_buckets = {
@@ -268,138 +150,70 @@ error_buckets = {
 }
 
 examples = [
-    ("不推荐这门课", "negative", "positive"),
-    ("真棒，又卡住了", "negative", "positive"),
-    ("内容很好，但节奏太快", "negative", "positive"),
+    ("Not recommended for this course", "negative", "positive"),
+    ("Great, it got stuck again", "negative", "positive"),
+    ("The content is great, but the pace is too fast", "negative", "positive"),
 ]
 
 for text, gold, pred in examples:
-    if "不" in text:
+    lower = text.lower()
+    if "not" in lower:
         error_buckets["negation"].append(text)
-    elif "真棒" in text and "又" in text:
+    elif "great" in lower and "again" in lower:
         error_buckets["sarcasm"].append(text)
-    elif "但" in text:
+    elif "but" in lower:
         error_buckets["mixed_sentiment"].append(text)
     else:
         error_buckets["other"].append(text)
 
-for k, v in error_buckets.items():
-    print(k, len(v), v)
+for name, rows in error_buckets.items():
+    print(name, len(rows), rows)
 ```
 
-这张表非常适合展示在项目里，
-因为它会让别人立刻看出：
+这是项目证据。它说明模型失败在哪里，也说明你下一步想改什么。
 
-- 你不是只会报分数
-- 你知道错误是有类型的
-- 你下一步怎么改是有依据的
+## 升级路线
 
----
-
-## 六、这个项目怎么往作品级再推一步？
-
-### 补一个传统强基线
-
-例如：
-
-- TF-IDF + LogisticRegression
-
-让你的项目至少有：
-
-- 规则基线
-- 传统 ML 基线
-
-### 再补一个深度 baseline
-
-例如：
-
-- embedding + pooling
-- BERT 分类
-
-### 展示时不要只放总分
-
-很推荐展示：
-
-- 标签定义
-- baseline 对比
-- 典型错例
-- 负样本 hardest cases
-
-这样项目会非常完整。
-
-### 一个更像真实项目的展示顺序
-
-如果你把这题做成作品集页面，
-比较推荐按这个顺序展示：
-
-1. 任务定义和标签边界
-2. baseline 方法
-3. baseline 对比表
-4. 错误分桶
-5. 你针对哪类错误做了什么升级
-6. 最终保留下来的方案和原因
-
-这样别人看到的就不是“做了一个情感分类器”，
-而是：
-
-- 你真的知道一个 NLP 小项目该怎么从 baseline 走到作品级
-
----
-
-## 七、最容易踩的坑
-
-### 标签标准不一致
-
-这是很多情感项目的第一大坑。
-
-### 只看准确率
-
-不看具体错在哪，你很难真正优化。
-
-### 一开始就追求最复杂模型
-
-没有 baseline，复杂模型的提升就很难讲清。
-
----
-
-## 项目交付时最好补上的内容
-
-- 一张标签定义表
-- 一张 baseline 对比表
-- 一组典型错例
-- 一段你对下一步升级路线的判断
-
----
-
-## 小结
-
-这节最重要的是建立一个项目习惯：
-
-> **情感分析项目最有价值的地方，不是模型多复杂，而是你能否把标签边界、baseline、错误分析和升级路线讲成一个完整闭环。**
-
-只要这一点做到位，即使题目不大，也会非常像作品级课程。
-
-## 这节最该带走什么
-
-- 情感分析最值钱的不是复杂模型，而是清楚的标签边界和错误分析
-- 一个简单 baseline 只要够可解释，就非常有教学价值
-- 真正能拉开项目质量差距的，往往是你有没有把错例变成下一步动作
-
-
-
-## 版本路线建议
-
-| 版本 | 目标 | 交付重点 |
+| 版本 | 增加什么 | 为什么 |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| rule baseline | keyword counts 和 negation rule | 可解释起点 |
+| traditional ML | TF-IDF + LogisticRegression | 低成本强 baseline |
+| neural baseline | embedding + pooling 或小 Transformer | 学习表示特征 |
+| portfolio version | error buckets、comparison table、demo command | 展示工程判断 |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+## README 要展示什么
+
+README 要具体：
+
+- 标签定义；
+- 数据来源和划分；
+- 运行命令；
+- baseline 对比表；
+- error buckets；
+- 模型做对和做错的例子；
+- 下一步计划。
+
+## 常见错误
+
+| 错误 | 修复 |
+|---|---|
+| 标签含糊 | 训练前写清标签规则 |
+| 只报告 accuracy | 加入 error buckets 和例子 |
+| 忽略否定词 | 测试 `not`、`never`、`no` |
+| 太早加深度模型 | 保留 rule 或 TF-IDF baseline |
+| 隐藏讽刺/混合情绪错误 | 作为已知限制记录下来 |
 
 ## 练习
 
-1. 自己设计 12 条课程评价，并给出正负标签。
-2. 在 baseline 上再手工加入一个“否定词翻转规则”，看看能否修掉某类错误。
-3. 想一想：为什么情感分析特别适合做错误分析展示？
-4. 如果你要把这个项目扩成三分类，你会先改标签标准还是先换模型？为什么？
+1. 把 `"not clear"` 和 `"never useful"` 加入验证样本。
+2. 增加一个规则无法分类的 `other` bucket 示例。
+3. 在项目计划中用 TF-IDF 替换关键词计数。
+4. 为 `neutral` 写一条标签规则，但暂时不要加入模型。
+5. 为这个项目写一个 README 大纲。
+
+## 小结
+
+- 情感分析项目的关键在标签边界和错误分析。
+- 简单 baseline 很有用，因为它可解释。
+- 否定词是经典的第一类错误。
+- Error buckets 比单个 accuracy 分数更能体现项目价值。

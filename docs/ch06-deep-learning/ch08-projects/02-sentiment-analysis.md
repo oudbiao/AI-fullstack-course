@@ -1,263 +1,145 @@
 ---
 title: "6.8.3 Project: Text Sentiment Analysis"
 sidebar_position: 2
-description: "Walk through a complete closed loop around a real, showcaseable sentiment analysis project, from label boundaries and baseline to error analysis and delivery format."
+description: "Build a sentiment analysis project loop with label boundaries, a keyword baseline, negation handling, error buckets, and deliverable packaging."
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
 # 6.8.3 Project: Text Sentiment Analysis
 
-:::tip Section focus
-A sentiment analysis project is great for a portfolio not because it is the fanciest, but because it is very good for training “project judgment”:
-
-- How should labels be defined?
-- How should the baseline be built?
-- How should errors be explained?
-- How should results be presented?
-
-The goal of this section is not to pile on complex models, but to truly complete a small project end to end.
+:::tip Section Overview
+Sentiment analysis is a good first NLP project because the hard parts are visible: label boundaries, tokenization, negation, sarcasm, mixed sentiment, and error analysis.
 :::
 
 ## Learning Objectives
 
-- Learn how to design stable label boundaries for sentiment analysis tasks
-- Learn how to build an interpretable baseline and understand its results
-- Learn how to turn error analysis into a project highlight, not an after-the-fact patch
-- Learn how to package a small NLP project as a deliverable
+- Define sentiment labels before choosing a model.
+- Build an interpretable keyword baseline.
+- Improve one known error type with a simple negation rule.
+- Turn wrong predictions into error buckets.
+- Package a small NLP project as a reproducible deliverable.
 
 ---
 
-## First, Narrow the Project Topic
-
-### The safest starting point is binary classification
-
-Start with:
-
-- positive
-- negative
-
-Instead of beginning with:
-
-- positive / neutral / negative / irony / mixed
-
-### Why is binary classification good for practice?
-
-Because:
-
-- The labels are clearer
-- The data is easier to prepare
-- The errors are easier to analyze
-
-### A portfolio-friendly topic
-
-For example:
-
-> **Build a “course review sentiment analyzer” that determines whether a comment is positive or negative.**
-
-This topic is especially suitable because the user text, label boundaries, and business meaning are all relatively clear.
-
----
-
-## What Does the Minimum Closed Loop Look Like?
-
-1. Define label boundaries
-2. Prepare a small labeled dataset
-3. Build a baseline
-4. Perform error analysis
-5. Design a minimal inference API or demo page
-
-If these 5 steps are all clear, your project is usually already much closer to a portfolio-grade project than “just training a model.”
+## See the Project Loop First
 
 ![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-en.png)
 
-:::tip How to read this diagram
-Read it as an error-driven loop: define the label boundary first, build a small baseline, run predictions, group wrong cases by error type, and only then decide whether to add rules, data, or a stronger model.
-:::
+```text
+label boundary -> baseline -> predictions -> error buckets -> targeted upgrade
+```
 
-## Recommended Progression Order
+Start with binary labels:
 
-For beginners, the safer order is usually:
+- `positive`: clearly recommends, praises, or expresses satisfaction.
+- `negative`: clearly complains, rejects, or expresses dissatisfaction.
 
-1. Write down the label definitions first
-2. Then build the simplest baseline
-3. Then add a traditional ML baseline
-4. Finally, consider a stronger deep learning model
+Do not begin with too many labels such as `neutral`, `mixed`, `irony`, and `unclear` until the basic loop is stable.
 
-This way, you won’t get pulled away by model complexity at the very beginning.
+## Lab: Keyword Baseline and Negation Fix
 
----
-
-## Start with a Minimal Baseline Project
-
-To keep the logic very clear, we’ll start with a keyword-counting baseline.
-It is certainly not strong, but it is very suitable for explaining the project loop.
+Create `sentiment_project_baseline.py`:
 
 ```python
 from collections import Counter
 
 
 def tokenize(text):
-    cleaned = text.lower()
-    for char in ",.!?":
-        cleaned = cleaned.replace(char, "")
-    return cleaned.split()
+    text = text.lower()
+    for ch in ",.!?":
+        text = text.replace(ch, "")
+    return text.split()
 
 
-train_data = [
-    ("This course explains things very clearly", "positive"),
-    ("There are lots of examples, so it is easy to learn", "positive"),
-    ("The content is too messy", "negative"),
-    ("It is explained too quickly, I can't understand it", "negative"),
+train = [
+    ("clear examples and practical pace", "positive"),
+    ("recommended and systematic course", "positive"),
+    ("messy confusing and too fast", "negative"),
+    ("unclear examples and weak structure", "negative"),
 ]
 
-test_data = [
-    ("This course is really clear", "positive"),
-    ("The content is a bit messy", "negative"),
-    ("Lots of examples but explained too quickly", "negative"),
+val = [
+    ("clear and practical course", "positive"),
+    ("messy and confusing pace", "negative"),
+    ("not recommended", "negative"),
 ]
-
 
 positive_words = Counter()
 negative_words = Counter()
 
-for text, label in train_data:
-    tokens = tokenize(text)
+for text, label in train:
     if label == "positive":
-        positive_words.update(tokens)
+        positive_words.update(tokenize(text))
     else:
-        negative_words.update(tokens)
+        negative_words.update(tokenize(text))
 
-# Add a few transparent seed words so the negation examples have sentiment words to flip.
-positive_words.update(["clear"] * 3 + ["recommended"] * 4 + ["systematic"] * 6)
-negative_words.update(["messy"] * 2 + ["confusing"] * 2)
+positive_words.update(["recommended"] * 2)
+negative_words.update(["messy"] * 2)
 
 
 def predict(text):
-    score = 0
-    for token in tokenize(text):
-        score += positive_words[token]
-        score -= negative_words[token]
-    return "positive" if score >= 0 else "negative", score
-
-
-results = []
-for text, gold in test_data:
-    pred, score = predict(text)
-    results.append({"text": text, "gold": gold, "pred": pred, "score": score})
-    print(results[-1])
-```
-
-### Why is this baseline educationally valuable?
-
-Because it is easy to explain:
-
-- Why it was judged positive
-- Why it was judged negative
-- What `tokenize` does: it turns raw text into word units that the baseline can count
-- Why a tiny seed lexicon is useful: it keeps the demo small while giving the rule clear sentiment words to operate on
-
-This lets you do real error analysis, instead of staring at just one number.
-
-### Add a minimal “negation flip” upgrade
-
-One of the most typical error patterns in sentiment analysis is:
-
-- There is a positive word
-- But a negation word in front flips it
-
-For example:
-
-- “not recommended”
-- “not clear”
-- “not worth it”
-
-The tiny version below is not an industrial solution,
-but it is very good for beginners to experience for the first time:
-
-- **Why a rule-based patch can directly change the distribution of errors**
-
-```python
-negation_words = {"not", "no", "never"}
+    score = sum(positive_words[t] - negative_words[t] for t in tokenize(text))
+    return ("positive" if score >= 0 else "negative"), score
 
 
 def predict_with_negation(text):
     score = 0
-    negate_next_sentiment_word = False
+    flip = False
 
     for token in tokenize(text):
-        if token in negation_words:
-            negate_next_sentiment_word = True
+        if token in {"not", "no", "never"}:
+            flip = True
             continue
 
         token_score = positive_words[token] - negative_words[token]
-
-        # If a negation word appeared, flip the next sentiment-bearing token.
-        if negate_next_sentiment_word and token_score != 0:
+        if flip and token_score != 0:
             token_score *= -1
-            negate_next_sentiment_word = False
+            flip = False
 
         score += token_score
 
-    return "positive" if score >= 0 else "negative", score
+    return ("positive" if score >= 0 else "negative"), score
 
 
-extra_cases = [
-    ("Not recommended for this course", "negative"),
-    ("It is not clear", "negative"),
-    ("There are quite a few examples, but it is not systematic", "negative"),
-]
+print("sentiment_baseline")
+for text, gold in val:
+    pred, score = predict(text)
+    print({"gold": gold, "pred": pred, "score": score, "text": text})
 
-for text, gold in extra_cases:
+print("with_negation")
+for text, gold in val:
     pred, score = predict_with_negation(text)
-    print({"text": text, "gold": gold, "pred": pred, "score": score})
+    print({"gold": gold, "pred": pred, "score": score, "text": text})
 ```
 
-The teaching value of this code is not that the rule is strong,
-but that it helps you clearly see for the first time:
+Run it:
 
-- Why the baseline makes mistakes
-- What kind of mistakes a specific patch can fix
-- How error analysis can genuinely drive the solution upgrade
-
-The important engineering detail is that the rule and the tokenizer must use the same granularity. If the baseline counts words, then `not` should also be detected as a word. If the baseline counts characters, a word-level negation rule will silently stop working.
-
----
-
-## What Really Makes the Project Stronger Is Error Analysis
-
-### First, pull out the wrong cases
-
-```python
-errors = [row for row in results if row["gold"] != row["pred"]]
-print(errors)
+```bash
+python sentiment_project_baseline.py
 ```
 
-### Common error types
+Expected output:
 
-For sentiment analysis, the ones most worth looking at separately are:
+```text
+sentiment_baseline
+{'gold': 'positive', 'pred': 'positive', 'score': 3, 'text': 'clear and practical course'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'messy and confusing pace'}
+{'gold': 'negative', 'pred': 'positive', 'score': 3, 'text': 'not recommended'}
+with_negation
+{'gold': 'positive', 'pred': 'positive', 'score': 3, 'text': 'clear and practical course'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'messy and confusing pace'}
+{'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'not recommended'}
+```
 
-- Negation
-  For example, “not bad” and “not recommended”
-- Sarcasm
-  For example, “Great, it broke again”
-- Mixed sentiment
-  For example, “The content is great, but it is too difficult”
+What this teaches:
 
-### Why is error analysis so valuable?
+- the baseline is explainable because every token changes the score;
+- `not recommended` fails before the negation rule;
+- a targeted rule fixes one error type without pretending to solve all language understanding.
 
-Because it can directly tell you what to do next:
+## Error Buckets
 
-- Add more data
-- Adjust the label standard
-- Upgrade the model
-
-### Create a minimal error bucket table for yourself
-
-When beginners do sentiment analysis projects, it is easy to only say:
-
-- “The model got a few examples wrong”
-
-But it is more valuable to bucket them first:
+Wrong cases should be grouped by type, not hidden.
 
 ```python
 error_buckets = {
@@ -274,132 +156,64 @@ examples = [
 ]
 
 for text, gold, pred in examples:
-    if "not" in text.lower():
+    lower = text.lower()
+    if "not" in lower:
         error_buckets["negation"].append(text)
-    elif "great" in text.lower() and "again" in text.lower():
+    elif "great" in lower and "again" in lower:
         error_buckets["sarcasm"].append(text)
-    elif "but" in text.lower():
+    elif "but" in lower:
         error_buckets["mixed_sentiment"].append(text)
     else:
         error_buckets["other"].append(text)
 
-for k, v in error_buckets.items():
-    print(k, len(v), v)
+for name, rows in error_buckets.items():
+    print(name, len(rows), rows)
 ```
 
-This table is excellent for showing in a project,
-because it immediately tells others:
+This is project evidence. It shows what the model fails at and what you would improve next.
 
-- You are not just reporting scores
-- You understand that errors have types
-- Your next step is based on evidence
+## Upgrade Path
 
----
-
-## How Can This Project Be Pushed One Step Further Toward Portfolio Quality?
-
-### Add a traditional strong baseline
-
-For example:
-
-- TF-IDF + LogisticRegression
-
-Then your project will have at least:
-
-- A rule-based baseline
-- A traditional ML baseline
-
-### Add a deep learning baseline
-
-For example:
-
-- embedding + pooling
-- BERT classification
-
-### Don’t show only the final score
-
-It is highly recommended to show:
-
-- Label definitions
-- Baseline comparison
-- Typical error cases
-- Hardest negative examples
-
-This will make the project feel much more complete.
-
-### A presentation order that feels more like a real project
-
-If you turn this into a portfolio page,
-the following order is recommended:
-
-1. Task definition and label boundaries
-2. Baseline methods
-3. Baseline comparison table
-4. Error buckets
-5. What you upgraded for which type of error
-6. The final retained solution and why
-
-Then what others see is not just “I built a sentiment classifier,”
-but rather:
-
-- You really know how a small NLP project should move from baseline to portfolio quality
-
----
-
-## The Most Common Pitfalls
-
-### Inconsistent label standards
-
-This is the first major pitfall in many sentiment projects.
-
-### Only looking at accuracy
-
-Without looking at where the errors are, it is hard to truly improve.
-
-### Chasing the most complex model from the start
-
-Without a baseline, it is hard to explain what the complex model improved.
-
----
-
-## What Should Be Added at Delivery Time
-
-- A label definition table
-- A baseline comparison table
-- A set of typical error cases
-- A short judgment on the next upgrade path
-
----
-
-## Summary
-
-The most important thing in this section is to build a project habit:
-
-> **The most valuable part of a sentiment analysis project is not how complex the model is, but whether you can explain the label boundaries, baseline, error analysis, and upgrade path as a complete closed loop.**
-
-As long as you do that well, even if the topic is small, it will feel very much like a portfolio-grade course project.
-
-## What You Should Take Away from This Section
-
-- What matters most in sentiment analysis is not a complex model, but clear label boundaries and error analysis
-- A simple baseline is very educational as long as it is interpretable enough
-- What really separates project quality is often whether you can turn error cases into next actions
-
-
-
-## Suggested Version Roadmap
-
-| Version | Goal | Delivery Focus |
+| Version | What to add | Why |
 |---|---|---|
-| Basic | Run through the minimal closed loop | Can accept input, process it, and output results, while keeping a set of examples |
-| Standard | Form a project that can be shown | Add configuration, logging, error handling, README, and screenshots |
-| Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure-case analysis, and a next-step roadmap |
+| rule baseline | keyword counts and negation rule | explainable starting point |
+| traditional ML | TF-IDF + LogisticRegression | stronger baseline with low cost |
+| neural baseline | embedding + pooling or small Transformer | learn representation features |
+| portfolio version | error buckets, comparison table, demo command | shows engineering judgment |
 
-It is recommended to finish the basic version first. Do not try to make everything big and complete from the start. Each time you improve a version, write into the README “what capability was added, how it was verified, and what problems remain.”
+## What to Show in the README
+
+Keep the README concrete:
+
+- label definitions;
+- dataset source and split;
+- run command;
+- baseline comparison table;
+- error buckets;
+- examples the model gets right and wrong;
+- next-step plan.
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---|---|
+| labels are vague | write label rules before training |
+| only reporting accuracy | include error buckets and examples |
+| ignoring negation | test `not`, `never`, and `no` cases |
+| adding a deep model too early | keep a rule or TF-IDF baseline |
+| hiding sarcasm/mixed sentiment errors | document them as known limitations |
 
 ## Exercises
 
-1. Design 12 course reviews on your own and assign positive/negative labels.
-2. On the baseline, manually add a “negation flip rule” and see whether it can fix a certain type of error.
-3. Think about why sentiment analysis is especially suitable for showing error analysis.
-4. If you wanted to expand this project into a three-class task, would you change the label standard first or switch the model first? Why?
+1. Add `"not clear"` and `"never useful"` to validation examples.
+2. Add an `other` bucket example that your rules cannot classify.
+3. Replace keyword counts with TF-IDF in your project plan.
+4. Write a label rule for `neutral`, but do not add it to the model yet.
+5. Create a README outline for this project.
+
+## Key Takeaways
+
+- Sentiment projects live or die by label boundaries and error analysis.
+- Simple baselines are useful because they are explainable.
+- Negation is a classic first failure type.
+- Error buckets make the project stronger than a single accuracy score.
