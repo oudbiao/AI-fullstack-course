@@ -200,8 +200,13 @@ documents = [
     }
 ]
 
+STOPWORDS = {"a", "an", "the", "is", "are", "can", "i", "you", "your", "how", "do", "does", "after", "get", "should"}
+
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return [token for token in words + cjk_bigrams if token not in STOPWORDS]
 
 def overlap_score(query, doc_text):
     query_tokens = tokenize(query)
@@ -219,7 +224,7 @@ def retrieve(query, documents, top_k=2):
     return [doc for score, doc in scored[:top_k] if score > 0]
 
 def answer_with_rag(query):
-    hits = retrieve(query, documents, top_k=2)
+    hits = retrieve(query, documents, top_k=1)
     if not hits:
         return "No sufficiently relevant information was found in the knowledge base."
 
@@ -230,7 +235,20 @@ query = "How long after purchase can I get a refund?"
 print(answer_with_rag(query))
 ```
 
+Expected output:
+
+```text
+Based on the retrieval results from the knowledge base:
+- Refund Policy: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
+
+Answer: Please prioritize the policy above.
+```
+
 Although simplified, this example already fully shows the structure of RAG.
+
+:::tip Why the tokenizer is slightly longer than expected
+The `tokenize()` function handles English words and simple CJK bigrams. This keeps the demo runnable in all three course languages and also hints at a real RAG detail: tokenization quality affects retrieval quality.
+:::
 
 ### Another minimal example of "retrieval logs"
 
@@ -240,6 +258,12 @@ hits = retrieve(query, documents, top_k=2)
 
 for doc in hits:
     print({"query": query, "hit_title": doc["title"], "content": doc["content"]})
+```
+
+Expected output:
+
+```text
+{'query': 'How long after purchase can I get a refund?', 'hit_title': 'Refund Policy', 'content': 'Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.'}
 ```
 
 This log is very useful for beginners because it helps answer one key question first:
@@ -353,7 +377,7 @@ You can package the mini RAG above a little as a "course assistant":
 ```python
 questions = [
     "How do I get a completion certificate?",
-    "How should I arrange the learning order?",
+    "Which fundamentals should I complete first?",
     "Can I get a refund?"
 ]
 
@@ -361,6 +385,29 @@ for q in questions:
     print("=" * 50)
     print("User question:", q)
     print(answer_with_rag(q))
+```
+
+Expected output:
+
+```text
+==================================================
+User question: How do I get a completion certificate?
+Based on the retrieval results from the knowledge base:
+- Certificate Info: After completing all required items and passing the course completion test, you can receive a course completion certificate.
+
+Answer: Please prioritize the policy above.
+==================================================
+User question: Which fundamentals should I complete first?
+Based on the retrieval results from the knowledge base:
+- Learning Approach: The course supports stage-by-stage learning. It is recommended to first complete Python, data analysis, and machine learning fundamentals.
+
+Answer: Please prioritize the policy above.
+==================================================
+User question: Can I get a refund?
+Based on the retrieval results from the knowledge base:
+- Refund Policy: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
+
+Answer: Please prioritize the policy above.
 ```
 
 This is the smallest prototype of many AI Q&A products.
@@ -393,6 +440,12 @@ courseware_chunk = {
 }
 
 print(courseware_chunk)
+```
+
+Expected output:
+
+```text
+{'topic': 'discount word problem', 'content_type': 'example', 'source_type': 'docx', 'page_or_slide': 3, 'text': 'A product costs 100 yuan originally. What is the price after a 20% discount?'}
 ```
 
 This directly affects whether later you can:
@@ -539,6 +592,16 @@ def debug_rag(query):
     print("Answer: Please organize your answer based on the retrieved documents above and keep the sources.")
 
 debug_rag("How long after purchase can I get a refund?")
+```
+
+Expected output:
+
+```text
+User question: How long after purchase can I get a refund?
+Retrieved documents:
+1. Refund Policy -> Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
+Final context: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
+Answer: Please organize your answer based on the retrieved documents above and keep the sources.
 ```
 
 This function is not final product code; it is a debugging tool. In a real project, you should at least keep these fields in the logs: `query`, `retrieved_chunks`, `scores`, `context_length`, `answer`, `source_refs`.

@@ -198,8 +198,13 @@ documents = [
     }
 ]
 
+STOPWORDS = {"吗", "呢", "的", "了", "我", "你", "怎么", "哪些", "可以", "能"}
+
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return [token for token in words + cjk_bigrams if token not in STOPWORDS]
 
 def overlap_score(query, doc_text):
     query_tokens = tokenize(query)
@@ -217,7 +222,7 @@ def retrieve(query, documents, top_k=2):
     return [doc for score, doc in scored[:top_k] if score > 0]
 
 def answer_with_rag(query):
-    hits = retrieve(query, documents, top_k=2)
+    hits = retrieve(query, documents, top_k=1)
     if not hits:
         return "知识库里没有找到足够相关的信息。"
 
@@ -228,7 +233,20 @@ query = "课程多久内可以退款？"
 print(answer_with_rag(query))
 ```
 
+预期输出：
+
+```text
+根据知识库检索结果：
+- 退款政策：课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。
+
+回答：优先参考上面的条款。
+```
+
 这个例子虽然简化了，但已经完整体现了 RAG 的结构。
+
+:::tip 为什么这里的 tokenizer 稍微多写了几行？
+这个 `tokenize()` 同时处理英文单词和中日文相邻字符 bigram。这样三语代码都能直接跑，也顺手提醒一个真实 RAG 细节：分词质量会影响检索质量。
+:::
 
 ### 再看一个最小“检索日志”示例
 
@@ -239,6 +257,15 @@ hits = retrieve(query, documents, top_k=2)
 for doc in hits:
     print({"query": query, "hit_title": doc["title"], "content": doc["content"]})
 ```
+
+预期输出：
+
+```text
+{'query': '课程多久内可以退款？', 'hit_title': '退款政策', 'content': '课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。'}
+{'query': '课程多久内可以退款？', 'hit_title': '证书说明', 'content': '完成所有必修项目并通过结课测试后，可以获得课程结业证书。'}
+```
+
+第二条命中偏弱，这正好说明了后面为什么还要学习分数阈值、重排和人工相关性标注。初版 RAG 先把日志打印出来，才知道该优化哪里。
 
 这个日志非常适合初学者，因为它能帮你先回答一个关键问题：
 
@@ -351,7 +378,7 @@ RAG 虽然能降低幻觉，但不能彻底消灭。
 ```python
 questions = [
     "结业证书怎么拿？",
-    "学习顺序怎么安排？",
+    "应该先完成哪些基础？",
     "我能退款吗？"
 ]
 
@@ -359,6 +386,29 @@ for q in questions:
     print("=" * 50)
     print("用户问题:", q)
     print(answer_with_rag(q))
+```
+
+预期输出：
+
+```text
+==================================================
+用户问题: 结业证书怎么拿？
+根据知识库检索结果：
+- 证书说明：完成所有必修项目并通过结课测试后，可以获得课程结业证书。
+
+回答：优先参考上面的条款。
+==================================================
+用户问题: 应该先完成哪些基础？
+根据知识库检索结果：
+- 学习方式：课程支持按阶段学习，建议先完成 Python、数据分析和机器学习基础。
+
+回答：优先参考上面的条款。
+==================================================
+用户问题: 我能退款吗？
+根据知识库检索结果：
+- 退款政策：课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。
+
+回答：优先参考上面的条款。
 ```
 
 这就是很多 AI 问答产品的最小原型。
@@ -391,6 +441,12 @@ courseware_chunk = {
 }
 
 print(courseware_chunk)
+```
+
+预期输出：
+
+```text
+{'topic': '折扣应用题', 'content_type': 'example', 'source_type': 'docx', 'page_or_slide': 3, 'text': '商品原价 100 元，打 8 折后价格是多少？'}
 ```
 
 这会直接影响后面能不能：
@@ -537,6 +593,18 @@ def debug_rag(query):
     print("回答: 请根据上面的命中文档组织答案，并保留来源。")
 
 debug_rag("课程多久内可以退款？")
+```
+
+预期输出：
+
+```text
+用户问题: 课程多久内可以退款？
+命中文档:
+1. 退款政策 -> 课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。
+2. 证书说明 -> 完成所有必修项目并通过结课测试后，可以获得课程结业证书。
+最终上下文: 课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。
+完成所有必修项目并通过结课测试后，可以获得课程结业证书。
+回答: 请根据上面的命中文档组织答案，并保留来源。
 ```
 
 这个函数不是最终产品代码，而是调试工具。真实项目里，你至少应该在日志中保留这些字段：`query`、`retrieved_chunks`、`scores`、`context_length`、`answer`、`source_refs`。
