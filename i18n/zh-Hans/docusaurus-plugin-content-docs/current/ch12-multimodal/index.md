@@ -15,7 +15,7 @@ keywords: [AIGC, 多模态, Stable Diffusion, 图像生成, 视频生成, 语音
 
 ## 先看多模态工作流
 
-![多模态工作流闭环](/img/course/ch12-multimodal-workflow-loop.svg)
+![多模态工作流闭环](/img/course/ch12-multimodal-workflow-loop.png)
 
 整章围绕这条工作流学习。
 
@@ -78,7 +78,7 @@ rag_ready: True
 
 ## 把多模态接到 RAG、Agent 和创意工作流
 
-![多模态 RAG、Agent 与收官项目图](/img/course/ch12-multimodal-rag-agent-capstone-map.svg)
+![多模态 RAG、Agent 与收官项目图](/img/course/ch12-multimodal-rag-agent-capstone-map.png)
 
 多模态不是主线之外的孤岛。
 

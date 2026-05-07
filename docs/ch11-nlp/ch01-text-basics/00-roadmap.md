@@ -13,9 +13,9 @@ Text is not naturally computable. Before classification, extraction, summarizati
 
 ![Text basics chapter learning flowchart](/img/course/ch11-text-basics-chapter-flow-en.png)
 
-![Text to task pipeline diagram](/img/course/ch11-text-to-task-pipeline-en.svg)
+![Text to task pipeline diagram](/img/course/ch11-text-to-task-pipeline-en.png)
 
-![NLP task output map](/img/course/ch11-nlp-task-output-map-en.svg)
+![NLP task output map](/img/course/ch11-nlp-task-output-map-en.png)
 
 The first habit is to ask: what is the input text, what is the task, and what output shape should the system produce?
 

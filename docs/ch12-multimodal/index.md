@@ -15,7 +15,7 @@ Do not chase every new demo. First learn how to turn non-text inputs into struct
 
 ## See the Multimodal Workflow
 
-![Multimodal workflow loop](/img/course/ch12-multimodal-workflow-loop-en.svg)
+![Multimodal workflow loop](/img/course/ch12-multimodal-workflow-loop-en.png)
 
 Use this workflow as the chapter map.
 
@@ -78,7 +78,7 @@ Operation tip: add `page`, `region`, or `timestamp` fields. If the record can be
 
 ## Connect Multimodal To RAG, Agent, And Creative Work
 
-![Multimodal RAG Agent capstone map](/img/course/ch12-multimodal-rag-agent-capstone-map-en.svg)
+![Multimodal RAG Agent capstone map](/img/course/ch12-multimodal-rag-agent-capstone-map-en.png)
 
 Multimodal is not separate from the main track.
 

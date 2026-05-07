@@ -13,7 +13,7 @@ keywords: [NLP, 自然语言处理, Transformer, BERT, 词向量, 文本分类, 
 
 ## 先看文本到任务的流水线
 
-![文本到 NLP 任务流水线](/img/course/ch11-text-to-task-pipeline.svg)
+![文本到 NLP 任务流水线](/img/course/ch11-text-to-task-pipeline.png)
 
 整章围绕这张图学习。
 
@@ -92,7 +92,7 @@ accuracy=3/3
 
 ## 按输出选择 NLP 任务
 
-![NLP 任务输出图](/img/course/ch11-nlp-task-output-map.svg)
+![NLP 任务输出图](/img/course/ch11-nlp-task-output-map.png)
 
 先确定输出，再选择模型。
 

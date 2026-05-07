@@ -13,7 +13,7 @@ This elective chapter answers: **how does raw text become something a model can 
 
 ## See the Text-To-Task Pipeline
 
-![Text to NLP task pipeline](/img/course/ch11-text-to-task-pipeline-en.svg)
+![Text to NLP task pipeline](/img/course/ch11-text-to-task-pipeline-en.png)
 
 Use this as the chapter map.
 
@@ -92,7 +92,7 @@ Operation tip: add a confusing sample such as "the document source field is miss
 
 ## Choose The NLP Task By Output
 
-![NLP task output map](/img/course/ch11-nlp-task-output-map-en.svg)
+![NLP task output map](/img/course/ch11-nlp-task-output-map-en.png)
 
 Do not choose a model before you know the output.
 
