@@ -1,11 +1,11 @@
 ---
-title: "5.1.5 Scikit-learn 与 Matplotlib 实操工作坊"
+title: "5.1.6 Scikit-learn 与 Matplotlib 实操工作坊"
 sidebar_position: 4
 description: "一步步完成机器学习实操：准备数据、用 Matplotlib 可视化、训练 sklearn Pipeline、评估结果、安全调参、保存模型，并避开新手常见错误。"
 keywords: [Scikit-learn 实操, sklearn 教程, Matplotlib 基础, Pipeline, train_test_split, 混淆矩阵, 交叉验证, joblib]
 ---
 
-# 5.1.5 Scikit-learn 与 Matplotlib 实操工作坊
+# 5.1.6 Scikit-learn 与 Matplotlib 实操工作坊
 
 ![Scikit-learn 实操流程](/img/course/ch05-sklearn-hands-on-loop.png)
 

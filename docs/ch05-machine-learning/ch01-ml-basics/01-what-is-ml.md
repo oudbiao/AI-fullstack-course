@@ -1,11 +1,11 @@
 ---
-title: "5.1.3 What Is Machine Learning"
+title: "5.1.2 What Is Machine Learning"
 sidebar_position: 2
 description: "Understand the definition and categories of machine learning, distinguish supervised learning, unsupervised learning, and reinforcement learning, and master the ML workflow"
 keywords: [machine learning, supervised learning, unsupervised learning, reinforcement learning, AI, workflow]
 ---
 
-# 5.1.3 What Is Machine Learning
+# 5.1.2 What Is Machine Learning
 
 ![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.png)
 

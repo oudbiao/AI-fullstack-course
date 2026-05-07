@@ -1,11 +1,11 @@
 ---
-title: "5.1.4 Scikit-learn フレームワーク入門"
+title: "5.1.3 Scikit-learn フレームワーク入門"
 sidebar_position: 3
 description: "Scikit-learn の設計思想とコア API パターン（Estimator、Transformer、Pipeline）を理解し、データセットの読み込み、モデル学習、保存と復元を学ぶ"
 keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, 機械学習フレームワーク]
 ---
 
-# 5.1.4 Scikit-learn フレームワーク入門
+# 5.1.3 Scikit-learn フレームワーク入門
 
 ![Scikit-learn Estimator と Pipeline 図](/img/course/sklearn-estimator-pipeline-ja.png)
 

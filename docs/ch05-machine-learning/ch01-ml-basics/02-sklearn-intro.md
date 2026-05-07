@@ -1,11 +1,11 @@
 ---
-title: "5.1.4 Introduction to the Scikit-learn Framework"
+title: "5.1.3 Introduction to the Scikit-learn Framework"
 sidebar_position: 3
 description: "Master Scikit-learn’s design philosophy and core API patterns (Estimator, Transformer, Pipeline), and learn dataset loading, model training, and persistence"
 keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, machine learning framework]
 ---
 
-# 5.1.4 Introduction to the Scikit-learn Framework
+# 5.1.3 Introduction to the Scikit-learn Framework
 
 ![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline-en.png)
 

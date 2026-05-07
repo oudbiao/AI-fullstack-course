@@ -55,13 +55,13 @@ This is the mindset shift: from "I ran a model" to "I can compare versions and e
 
 | Order | Read | What to deliver |
 |---|---|---|
-| 1 | [5.6.6 Hands-on ML Workshop](./05-hands-on-ml-workshop.md) | one complete evidence pack rehearsal |
-| 2 | [5.6.2 House Price Prediction](./01-house-price.md) | regression baseline and improvement |
-| 3 | [5.6.3 Customer Churn Prediction](./02-customer-churn.md) | classification metric and threshold thinking |
-| 4 | [5.6.4 User Segmentation](./03-user-segmentation.md) | cluster interpretation and business labels |
-| 5 | [5.6.5 Kaggle Practice](./04-kaggle.md) | real submission workflow |
+| 1 | [5.6.2 House Price Prediction](./01-house-price.md) | regression baseline and improvement |
+| 2 | [5.6.3 Customer Churn Prediction](./02-customer-churn.md) | classification metric and threshold thinking |
+| 3 | [5.6.4 User Segmentation](./03-user-segmentation.md) | cluster interpretation and business labels |
+| 4 | [5.6.5 Kaggle Practice](./04-kaggle.md) | real submission workflow |
+| 5 | [5.6.6 Hands-on ML Workshop](./05-hands-on-ml-workshop.md) | one complete evidence pack rehearsal |
 
-The workshop comes first because it teaches the evidence pack. The larger projects are easier after that pattern is visible.
+The workshop comes last because it packages the project habits into one reproducible evidence pack.
 
 ## 5.6.1.4 Project Deliverable Standards
 

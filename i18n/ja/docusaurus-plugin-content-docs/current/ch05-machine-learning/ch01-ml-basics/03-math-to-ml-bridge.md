@@ -1,11 +1,11 @@
 ---
-title: "5.1.6 数学はいかにして機械学習へつながるのか"
+title: "5.1.4 数学はいかにして機械学習へつながるのか"
 sidebar_position: 5
 description: "第 4 章で学んだ線形代数、確率統計、微積分を、第 5 章の機械学習へ本当につなげる：行列、損失、確率から勾配降下法まで。"
 keywords: [数学から機械学習, 線形代数, 確率統計, 微積分, 勾配降下法, 機械学習の橋渡し]
 ---
 
-# 5.1.6 数学はいかにして機械学習へつながるのか
+# 5.1.4 数学はいかにして機械学習へつながるのか
 
 ![数学から機械学習への橋渡し図](/img/course/math-to-ml-bridge-ja.png)
 
@@ -413,7 +413,7 @@ flowchart LR
 :::info 次にどう学ぶとスムーズか
 このページを読み終えたら、次に続けて学ぶのがおすすめです。
 
-1. [5.1.4 Scikit-learn フレームワーク入門](./02-sklearn-intro.md)
+1. [5.1.3 Scikit-learn フレームワーク入門](./02-sklearn-intro.md)
 2. [5.2.2 線形回帰](../ch02-supervised/01-linear-regression.md)
 3. [5.4.2 評価指標](../ch04-evaluation/01-metrics.md)
 

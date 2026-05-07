@@ -243,11 +243,11 @@ const sidebars = {
               label: "5.1 Core Machine Learning Concepts",
               items: [
                 "ch05-machine-learning/ch01-ml-basics/roadmap",
-                "ch05-machine-learning/ch01-ml-basics/history-breakthroughs",
                 "ch05-machine-learning/ch01-ml-basics/what-is-ml",
                 "ch05-machine-learning/ch01-ml-basics/sklearn-intro",
-                "ch05-machine-learning/ch01-ml-basics/sklearn-matplotlib-workshop",
                 "ch05-machine-learning/ch01-ml-basics/math-to-ml-bridge",
+                "ch05-machine-learning/ch01-ml-basics/history-breakthroughs",
+                "ch05-machine-learning/ch01-ml-basics/sklearn-matplotlib-workshop",
               ],
             },
             {

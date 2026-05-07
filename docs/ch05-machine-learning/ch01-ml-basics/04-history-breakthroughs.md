@@ -1,11 +1,11 @@
 ---
-title: "5.1.2 Main Thread of Major Breakthroughs in Machine Learning History"
+title: "5.1.5 Main Thread of Major Breakthroughs in Machine Learning History"
 sidebar_position: 5
 description: "Understand the major breakthroughs in machine learning through historical development: what Bayes, maximum likelihood, EM, decision trees, SVM, random forests, Boosting, XGBoost, and sklearn engineering each solved."
 keywords: [machine learning history, ML breakthroughs, Bayes, maximum likelihood, EM, decision trees, SVM, random forest, XGBoost]
 ---
 
-# 5.1.2 Main Thread of Major Breakthroughs in Machine Learning History
+# 5.1.5 Main Thread of Major Breakthroughs in Machine Learning History
 
 ![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map-en.png)
 

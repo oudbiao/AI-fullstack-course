@@ -1,11 +1,11 @@
 ---
-title: "5.1.5 Scikit-learn と Matplotlib 実践ワークショップ"
+title: "5.1.6 Scikit-learn と Matplotlib 実践ワークショップ"
 sidebar_position: 4
 description: "データ準備、Matplotlib による可視化、sklearn Pipeline の学習、評価、安全な調整、モデル保存、初心者がつまずきやすい点までを一歩ずつ実践します。"
 keywords: [Scikit-learn 実践, sklearn チュートリアル, Matplotlib 基礎, Pipeline, train_test_split, 混同行列, 交差検証, joblib]
 ---
 
-# 5.1.5 Scikit-learn と Matplotlib 実践ワークショップ
+# 5.1.6 Scikit-learn と Matplotlib 実践ワークショップ
 
 ![Scikit-learn 実践ワークフロー](/img/course/ch05-sklearn-hands-on-loop-ja.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "5.1.6 How Mathematics Really Flows into Machine Learning"
+title: "5.1.4 How Mathematics Really Flows into Machine Learning"
 sidebar_position: 5
 description: "Connect the linear algebra, probability and statistics, and calculus from Station 4 to machine learning at Station 5: from matrices, loss, and probability to gradient descent."
 keywords: [math to machine learning, linear algebra, probability and statistics, calculus, gradient descent, machine learning bridge]
 ---
 
-# 5.1.6 How Mathematics Really Flows into Machine Learning
+# 5.1.4 How Mathematics Really Flows into Machine Learning
 
 ![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge-en.png)
 
@@ -406,7 +406,7 @@ So the most important gains from this section should be:
 :::info The smoothest way to learn next
 After reading this page, the best next steps are:
 
-1. [5.1.4 Introduction to the Scikit-learn Framework](./02-sklearn-intro.md)
+1. [5.1.3 Introduction to the Scikit-learn Framework](./02-sklearn-intro.md)
 2. [5.2.2 Linear Regression](../ch02-supervised/01-linear-regression.md)
 3. [5.4.2 Evaluation Metrics](../ch04-evaluation/01-metrics.md)
 

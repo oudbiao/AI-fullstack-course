@@ -1,11 +1,11 @@
 ---
-title: "5.1.6 数学如何真正流到机器学习"
+title: "5.1.4 数学如何真正流到机器学习"
 sidebar_position: 5
 description: "把第 4 站的线性代数、概率统计、微积分真正接到第 5 站机器学习：从矩阵、损失、概率到梯度下降。"
 keywords: [数学到机器学习, 线性代数, 概率统计, 微积分, 梯度下降, 机器学习桥接]
 ---
 
-# 5.1.6 数学如何真正流到机器学习
+# 5.1.4 数学如何真正流到机器学习
 
 ![数学到机器学习桥梁图](/img/course/math-to-ml-bridge.png)
 
@@ -406,7 +406,7 @@ flowchart LR
 :::info 下一步怎么学最顺
 看完这页后，最推荐直接接着学：
 
-1. [5.1.4 Scikit-learn 框架入门](./02-sklearn-intro.md)
+1. [5.1.3 Scikit-learn 框架入门](./02-sklearn-intro.md)
 2. [5.2.2 线性回归](../ch02-supervised/01-linear-regression.md)
 3. [5.4.2 评估指标](../ch04-evaluation/01-metrics.md)
 

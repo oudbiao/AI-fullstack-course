@@ -1,11 +1,11 @@
 ---
-title: "5.1.4 Scikit-learn 框架入门"
+title: "5.1.3 Scikit-learn 框架入门"
 sidebar_position: 3
 description: "掌握 Scikit-learn 的设计哲学与核心 API 模式（Estimator、Transformer、Pipeline），学会数据集加载、模型训练与持久化"
 keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, 机器学习框架]
 ---
 
-# 5.1.4 Scikit-learn 框架入门
+# 5.1.3 Scikit-learn 框架入门
 
 ![Scikit-learn Estimator 与 Pipeline 图](/img/course/sklearn-estimator-pipeline.png)
 

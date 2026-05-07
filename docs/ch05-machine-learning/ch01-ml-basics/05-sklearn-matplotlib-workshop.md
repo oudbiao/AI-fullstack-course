@@ -1,11 +1,11 @@
 ---
-title: "5.1.5 Scikit-learn and Matplotlib Hands-on Workshop"
+title: "5.1.6 Scikit-learn and Matplotlib Hands-on Workshop"
 sidebar_position: 4
 description: "Follow a complete hands-on machine learning workflow: prepare data, visualize with Matplotlib, train sklearn Pipeline models, evaluate results, tune safely, save models, and avoid common beginner mistakes."
 keywords: [Scikit-learn practice, sklearn tutorial, Matplotlib basics, Pipeline, train_test_split, confusion matrix, cross-validation, joblib]
 ---
 
-# 5.1.5 Scikit-learn and Matplotlib Hands-on Workshop
+# 5.1.6 Scikit-learn and Matplotlib Hands-on Workshop
 
 ![Scikit-learn hands-on workflow](/img/course/ch05-sklearn-hands-on-loop-en.png)
 

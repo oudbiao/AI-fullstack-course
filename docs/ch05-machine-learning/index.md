@@ -30,7 +30,7 @@ Use this table as both the chapter guide and the task sheet.
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
 | [5.1 ML Basics](ch01-ml-basics/00-roadmap.md) | Identify classification, regression, clustering, anomaly detection, features, labels, train/test split, and sklearn flow | A problem-definition note |
-| [5.1.2 ML History](ch01-ml-basics/04-history-breakthroughs.md) | Optional background: skim how classic algorithms appeared | A short “why this algorithm exists” note |
+| [5.1.5 ML History](ch01-ml-basics/04-history-breakthroughs.md) | Optional background: skim how classic algorithms appeared | A short “why this algorithm exists” note |
 | [5.2 Supervised Learning](ch02-supervised/00-roadmap.md) | Run regression and classification examples before comparing many models | One baseline score and one improved score |
 | [5.3 Unsupervised Learning](ch03-unsupervised/00-roadmap.md) | Try clustering, dimensionality reduction, and anomaly detection when labels are missing | One chart or cluster interpretation |
 | [5.4 Evaluation](ch04-evaluation/00-roadmap.md) | Choose metrics, use cross-validation, diagnose bias/variance, tune carefully | Metric choice and error samples |
