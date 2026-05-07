@@ -9,111 +9,45 @@ sidebar_position: 1
 
 ![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map-en.png)
 
-:::tip Reading Guide
-More resources are not always better. What matters is whether they solve your current bottleneck. First figure out whether you are stuck on concepts, code, math, engineering, projects, or communication. Then choose one resource to fill that gap, and finally return to a project to verify what you learned.
-:::
+Use outside resources only when they solve a current bottleneck. Do not collect links as a substitute for building projects.
 
-This page is not about “the more resources, the better.” Instead, it helps you know what to supplement, why to supplement it, and how far is enough at different stages of learning.
+## Choose by bottleneck
 
-## The right way to use this page
-
-A better approach is:
-
-1. Prioritize the main course path
-2. When you hit a specific bottleneck, supplement it with the corresponding external resource
-3. After filling the gap, return to the course or project
-
-External resources are best used for three things:
-
-- A different explanation
-- Visual intuition
-- A more systematic overview
-
-## Math and intuition resources
-
-| Resource | When to look at it | Main help |
+| If you are stuck on | Add this first | Return to |
 |---|---|---|
-| 3Blue1Brown linear algebra / calculus | When math feels too abstract | Helps you build visual intuition |
-| Related math supplements from Andrew Ng / Li Hongyi | When you want to know how formulas are used in models | Connects tasks and math |
-| *Statistical Learning Methods* | After finishing the basics of traditional machine learning | Builds a systematic understanding of classic methods |
+| Concept intuition | 3Blue1Brown, visual explainers, course diagrams | The same chapter exercise |
+| Python basics | Python official tutorial, Real Python | Chapter 2 code practice |
+| Data work | Pandas, NumPy, Matplotlib, SQL docs | Chapter 3 mini projects |
+| Math and ML theory | Andrew Ng ML, Zhou Zhihua, scikit-learn docs | Chapters 4-5 |
+| Deep learning code | PyTorch docs, *Dive into Deep Learning*, Fast.ai | Chapter 6 notebooks |
+| LLM usage | Hugging Face docs, model provider docs | Chapters 7-8 |
+| RAG / Agent engineering | LangChain, LangGraph, LlamaIndex, MCP docs | Chapters 8-9 projects |
+| CV / NLP / multimodal | CS231n, CS224n, OpenCV, diffusion and multimodal docs | Chapters 10-12 |
 
-## Python and engineering resources
+## One-resource rule
 
-| Resource | When to look at it | Main help |
-|---|---|---|
-| Python official tutorial | When syntax and basic concepts feel shaky | The most authoritative foundational material |
-| Real Python | When you are stuck on a specific topic | Very convenient for checking problems |
-| *Fluent Python* | After you have written Python for a while | Deepens your understanding of the language |
+For each bottleneck, choose one resource and finish one small output:
 
-If your biggest pain point right now is the environment, debugging, functions, classes, or package management, then prioritize this category first.
-
-## Machine learning and deep learning resources
-
-| Resource | When to look at it | Main help |
-|---|---|---|
-| Andrew Ng ML / DL series | When building your learning map | A classic main learning path |
-| Zhou Zhihua's *Machine Learning* | When you want a more systematic theory supplement | A more complete conceptual framework |
-| *Dive into Deep Learning* | When you want to learn while running code | Combines theory and code very well |
-| Fast.ai | When you want to build practical intuition quickly | More focused on hands-on progress |
-
-## CV, NLP, and large model resources
-
-| Area | Resource | Better for supplementing |
-|---|---|---|
-| CV | CS231n, OpenCV documentation | Image tasks, convolution, detection, segmentation |
-| NLP | CS224n | Text tasks, representation learning, sequence modeling |
-| Transformer / LLM | Hugging Face documentation, engineering blogs | Model usage, ecosystem, and hands-on practice |
-
-## RAG, Agent, and application engineering resources
-
-| Resource | When to look at it | Main help |
-|---|---|---|
-| LangChain / LangGraph documentation | When you want to understand framework abstractions | Shows chain-style and graph-style design |
-| LlamaIndex documentation | When building a knowledge base system | Shows indexing, retrieval, and query pipelines |
-| Common backend and deployment documentation | When building APIs, logs, and deployment workflows | Shows real engineering implementation |
-
-## Quick resource selection by learning stage
-
-If you do not want to re-evaluate every time, you can follow this simple route:
-
-| Your current learning stage | Resource type worth prioritizing |
+| Resource session | Minimum output |
 |---|---|
-| 1 Developer tools basics, 2 Python programming basics | Python official tutorial, Real Python, Git / VS Code official docs |
-| 3 Data analysis and visualization | Pandas, NumPy, Matplotlib / Seaborn, basic database docs |
-| 4 Minimum necessary AI math foundation, 5 Machine learning from beginner to practice | 3Blue1Brown, Andrew Ng ML, Zhou Zhihua's *Machine Learning*, Scikit-learn docs |
-| 6 Deep learning and Transformer basics | *Dive into Deep Learning*, Fast.ai, PyTorch docs |
-| 7 Large model principles, Prompt and fine-tuning, 8 LLM application development and RAG | Hugging Face docs, Transformer / LLM engineering blogs, RAG framework docs |
-| 9 AI Agent and intelligent agent systems | LangChain / LangGraph, LlamaIndex, MCP and engineering docs |
-| 10 Computer vision, 11 Natural language processing, 12 AIGC and multimodal | CS231n, CS224n, OpenCV, diffusion models, multimodal and AIGC engineering materials |
+| Watched a concept video | Rewrite the idea in 3 sentences |
+| Read documentation | Run one official example |
+| Read a blog/tutorial | Apply one idea to your course project |
+| Read a paper or survey | Write “old problem -> new method -> project impact” |
 
-## Common mistakes when supplementing resources
+## Common mistakes
 
-- Adding too many resources at once and interrupting the main learning path
-- Saving a lot of links but rarely finishing or reviewing them
-- Only reading conceptual articles without returning to code and projects to verify understanding
+- Saving many links but not running code.
+- Switching resources whenever one paragraph feels hard.
+- Reading theory without returning to a project.
+- Trying to learn a whole framework before building the smallest demo.
 
-So a more stable approach is usually:
+## Quick decision
 
-1. Only supplement the type of material directly related to the current problem
-2. After supplementing, return to the course or project
-3. Write down one sentence: “What exactly did this resource help me solve?”
+Ask three questions before opening another resource:
 
-## What is most worth noting when reading resources
+1. What exact problem am I stuck on?
+2. Will this resource give a different explanation, an official API answer, or a runnable example?
+3. Which course task will I return to after reading it?
 
-Do not just record “what you read.” It is better to note:
-
-- What problem this resource is best at solving
-- The most useful takeaway you got from it
-- Which chapter of the current course it complements
-
-That way, when you look things up later, you will be much more efficient than simply saving links.
-
-## The most practical usage advice
-
-If you are unsure whether you should supplement materials right now, ask yourself three questions first:
-
-1. Am I stuck on a concept, code, or project judgment?
-2. Do I need a different explanation, or a more systematic resource?
-3. After I finish supplementing, which chapter or project will I return to?
-
-As long as you can answer these three questions clearly, supplementing resources is more likely to move you forward instead of distracting you.
+If you cannot answer those three, stay with the main course path.

@@ -9,183 +9,61 @@ sidebar_position: 4
 
 ![Paper, project, knowledge base review loop diagram](/img/course/appendix-learning-paper-project-notes-loop-en.png)
 
-:::tip Reading the diagram
-The biggest trap in continuous learning is collecting without consolidating. When reading the diagram, connect papers, code experiments, project retrospectives, and knowledge base cards into a loop: every time you see something new, ask yourself, “Which project or decision can this improve?”
-:::
+Continuous learning is not daily news chasing. It is a loop: fundamentals, projects, frontier signals, review.
 
-The AI field changes quickly, but “continuous learning” does not mean following the news every day. The truly effective approach is to handle fundamentals, projects, and frontier updates in separate layers.
+## Three learning layers
 
-## First distinguish three types of learning
+| Layer | What it protects | Typical output |
+|---|---|---|
+| Foundations | Skills that do not expire quickly | Python, data, math, debugging, ML basics |
+| Projects | Ability to turn knowledge into systems | Runnable demos, reports, evaluation logs |
+| Frontier tracking | Awareness of where the field is moving | Short notes, selected papers, small experiments |
 
-### Foundational learning
+Do not let frontier tracking replace foundations and projects.
 
-This layer solves the problem of “skills that won’t go out of date anytime soon,” such as:
-
-- Python
-- Data processing
-- Math fundamentals
-- Core concepts of machine learning and deep learning
-- Engineering debugging and troubleshooting
-
-This kind of content does not change very quickly, but it determines whether you can keep up with later changes.
-
-### Project learning
-
-This layer develops the ability to “turn knowledge into systems,” such as:
-
-- Building a classification project
-- Building a RAG system
-- Building an Agent workflow
-
-Project learning forces you to face real-world issues:
-
-- Input/output design
-- Evaluation
-- Error handling
-- Cost and stability
-
-### Frontier tracking
-
-This layer helps you understand “where the industry is heading.” It matters, but it should not replace the first two layers.
-
-Many people end up learning in a messy way because they treat “following trends” as “learning.”
-
-## A steadier learning rhythm
-
-The following rhythm is friendly for most people:
+## Weekly rhythm
 
 | Period | Focus | Output |
 |---|---|---|
-| Every day | Course or project progress | Code, notes, problem logs |
-| Every week | One review session | What you learned this week, where you got stuck |
-| Every two weeks | One small closed loop | A runnable experiment or small project |
-| Every month | One summary | Knowledge map, project review, next month’s plan |
+| Daily or every session | Course/project progress | Code, notes, error log |
+| Weekly | Review | What changed, what is still stuck |
+| Every 2 weeks | Small closed loop | Runnable experiment or project slice |
+| Monthly | Consolidation | Knowledge map and next plan |
 
-If you only have fragmented time, it is better to shrink your goals than to stop altogether.
+## Read papers lightly first
 
-## How to read papers without getting discouraged
+1. Title and abstract: what problem is it solving?
+2. Figures and tables: what changed?
+3. Method overview: what is the workflow?
+4. Details: only after you know why the paper matters.
 
-The most common mistake beginners make is forcing themselves to read an entire paper from top to bottom in order.
-
-A more practical order is usually:
-
-1. Read the title and abstract first
-   Get a sense of what problem the paper is trying to solve.
-
-2. Then look at the figures, tables, and experimental results
-   See what the authors claim they achieved.
-
-3. Then read the overview diagram of the method
-   Build a high-level sense of the workflow first.
-
-4. Finally go back to the method details
-   At this point, the meaning of each module is easier to understand.
-
-### What is worth taking notes on when reading a paper
-
-Do not copy the entire paper. Instead, record:
-
-- What problem the paper solves
-- Why previous methods were not enough
-- What the key change is
-- How the experiments prove it works
-- How this relates to your current project
-
-You can use the following template directly:
+Use this note template:
 
 ```text
 Paper title:
 Task:
 Core change:
-Most important figure or experiment:
-What I can use right now:
-What I still don’t understand:
+Most useful figure or experiment:
+What I can use now:
+What I still do not understand:
 ```
 
-## How to follow the frontier without feeling anxious
+## Turn “I saw it” into “I can use it”
 
-A “low-frequency but consistent” approach is better than scrolling through a flood of updates every day.
+1. Learn one concept.
+2. Run the smallest example.
+3. Change one input or parameter.
+4. Put it into a project module.
+5. Write one sentence in your own words.
 
-For example:
+If it never enters a project, it usually disappears from memory.
 
-- Spend 30 minutes once a week reading paper abstracts or technical blogs
-- Each month, choose 1–2 truly relevant topics to explore more deeply
-- When you see something interesting, save it first into your own topic list
+## Review signals
 
-You do not need to follow everything. What is truly worth following is:
+Review when:
 
-- Directly related to your current project
-- Directly related to your target role
-- Likely to affect your learning path over the next three months
+- You can run code but cannot explain it.
+- You can copy examples but cannot modify them.
+- You remember terms but cannot connect them to tasks.
 
-## How to turn “I have seen it” into “I can use it”
-
-A concept is more likely to stick only after it enters a project.
-
-A better approach is:
-
-1. Learn one concept
-2. Run a minimal example
-3. Change one parameter or input
-4. Put it into a small module in your own project
-5. Write one sentence of your own understanding
-
-If you stop at step 1 or step 2, the memory usually fades quickly.
-
-## When should you go back and review
-
-The following signals mean it is time to review:
-
-- You can run the code, but cannot explain the principle clearly
-- You can copy examples, but cannot modify them yourself
-- When doing a project, you often cannot remember what you learned earlier
-- You can only remember terms, but cannot connect them to tasks
-
-When reviewing, do not reread the whole chapter. Prioritize these three things:
-
-1. Redraw the task workflow
-2. Rerun the minimal example
-3. Summarize the most common mistakes
-
-## How to build your own knowledge base
-
-It is recommended to divide your notes into three layers:
-
-### Concept layer
-
-Record what a concept is and what it is easy to confuse with.
-
-### Code layer
-
-Record minimal examples, common pitfalls, and key parameters.
-
-### Project layer
-
-Record how you used it in a real project, how it performed, and where you ran into problems.
-
-These notes will be much more useful than simply copying tutorials, because they become “your own reusable knowledge.”
-
-## How to avoid “I learned a lot, but have no results”
-
-The most effective method is to set visible outputs for each stage.
-
-For example:
-
-- After learning data analysis: complete an analysis report
-- After learning machine learning: complete a classification project
-- After learning deep learning: complete a training loop experiment
-- After learning RAG: build a knowledge base assistant that can answer questions
-- After learning Agent: build a workflow system that can call tools
-
-With outputs, learning is easier to consolidate.
-
-## A realistic and executable long-term strategy
-
-If you do not want the pace to wear you down, you can follow this main line:
-
-- Focus mainly on courses and projects in daily learning
-- Track the frontier in small amounts on a regular basis
-- Read papers deeply only when needed
-- Do a fixed review once a month
-
-The benefit of this approach is that you will not completely drift away from industry changes, and you also will not get swept away by the speed of updates.
+When reviewing, do not reread everything. Redraw the workflow, rerun the smallest example, and list the common mistakes.

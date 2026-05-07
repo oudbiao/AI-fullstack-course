@@ -54,6 +54,8 @@ For nested lessons, use a three-level display number so readers always know wher
 
 Do not use local-only numbers such as `1.2` inside Chapter 4, because learners who open that page directly cannot tell whether it belongs to `4.1`, `5.1`, or another chapter.
 
+Inside an article, body headings should stay natural and short. Use numbers in the page title, sidebar label, and navigation context, but avoid deep body headings like `5.1.1.1 See the map first`.
+
 When referring to file paths, code scripts, image filenames, or internal links, use source directory names like `ch05-machine-learning`.
 
 Do not add old-style stage directories or stage directories with letter suffixes. When adding new chapters, images, or script configurations, prioritize the numbering system from `ch01-*` to `ch12-*`.
