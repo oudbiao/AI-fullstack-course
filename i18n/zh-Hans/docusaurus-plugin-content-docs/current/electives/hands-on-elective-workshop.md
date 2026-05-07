@@ -1,11 +1,11 @@
 ---
-title: "选修模块实操工作坊"
+title: "E.0 选修模块实操工作坊"
 sidebar_position: 0
 description: "把选修模块 A-F 串成一个可运行证据包的跟做式实操课。"
 keywords: [选修模块, 实操工作坊, 部署, Python 进阶, 经典机器学习, AI 安全, 前端, 产品设计]
 ---
 
-# 选修模块实操工作坊
+# E.0 选修模块实操工作坊
 
 ![选修模块实操路线图](/img/course/elective-workshop-route-map.png)
 
@@ -23,7 +23,7 @@ keywords: [选修模块, 实操工作坊, 部署, Python 进阶, 经典机器学
 
 ---
 
-## 1. 选修模块到底用来做什么？
+## 选修模块到底用来做什么？
 
 选修模块不是“学完主线之后随便看看”的额外内容。它们更像专题工具箱：当项目里出现具体痛点时，你回来补对应能力。
 
@@ -45,7 +45,7 @@ keywords: [选修模块, 实操工作坊, 部署, Python 进阶, 经典机器学
 
 ---
 
-## 2. 证据包流程
+## 证据包流程
 
 ![选修实操证据包流水线图](/img/course/elective-workshop-evidence-pipeline.png)
 
@@ -83,18 +83,18 @@ elective_workshop_run/
 
 ---
 
-## 3. 跟着跑完整工作坊
+## 跟着跑完整工作坊
 
 ![选修实操代码执行顺序图](/img/course/elective-workshop-code-execution-sequence.png)
 
-### 3.1 创建一个干净目录
+### 创建一个干净目录
 
 ```bash
 mkdir elective-workshop
 cd elective-workshop
 ```
 
-### 3.2 创建 `elective_workshop.py`
+### 创建 `elective_workshop.py`
 
 把下面代码保存为 `elective_workshop.py`。
 
@@ -451,7 +451,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 3.3 运行
+### 运行
 
 ```bash
 python3 elective_workshop.py
@@ -477,9 +477,9 @@ elective_workshop_run/outputs/module_e_dashboard.html
 
 ---
 
-## 4. 像工程师一样读结果
+## 像工程师一样读结果
 
-### 4.1 Module A：部署是取舍题
+### Module A：部署是取舍题
 
 打开 `elective_workshop_run/outputs/module_a_deployment_score.csv`。
 
@@ -487,13 +487,13 @@ elective_workshop_run/outputs/module_e_dashboard.html
 
 操作提示：如果你的真实项目不能接受准确率下降，就提高 `accuracy_floor` 再跑一次，最佳方案可能会改变。
 
-### 4.2 Module B：Python 进阶要让流程更可追踪
+### Module B：Python 进阶要让流程更可追踪
 
 打开 `elective_workshop_run/outputs/module_b_python_trace.json`。
 
 装饰器记录耗时，生成器一条条清洗数据。Python 进阶的价值不在炫技，而在让管道更容易观察、复用和维护。
 
-### 4.3 Module C：经典 ML 给你 baseline
+### Module C：经典 ML 给你 baseline
 
 打开 `elective_workshop_run/outputs/module_c_knn_predictions.csv`。
 
@@ -503,19 +503,19 @@ KNN 示例使用距离投票。在真实项目里，这个 baseline 能帮你回
 - 更重的模型是否真的带来提升？
 - 哪些样本最先被分错？
 
-### 4.4 Module D：安全工作必须保留失败案例
+### Module D：安全工作必须保留失败案例
 
 打开 `elective_workshop_run/reports/failure_cases.md`。
 
 其中有一个工具调用相关案例被故意设置为失败。这不是坏事，训练目的就是：记录失败、决定护栏、以后把它作为回归案例反复检查。
 
-### 4.5 Module E：前端证据让结果更容易被检查
+### Module E：前端证据让结果更容易被检查
 
 用浏览器打开 `elective_workshop_run/outputs/module_e_dashboard.html`。
 
 这个页面是静态的，但它证明了一个关键点：产品用户需要能读懂的界面，而不只是后端日志。
 
-### 4.6 Module F：产品思维决定下一步做什么
+### Module F：产品思维决定下一步做什么
 
 打开 `elective_workshop_run/outputs/module_f_product_canvas.md`。
 
@@ -523,7 +523,7 @@ RICE 分数把优先级判断显式化。你可以不同意这些数字，但接
 
 ---
 
-## 5. 常见错误与排查
+## 常见错误与排查
 
 ![选修实操常见错误排查闭环图](/img/course/elective-workshop-debug-loop.png)
 
@@ -537,7 +537,7 @@ RICE 分数把优先级判断显式化。你可以不同意这些数字，但接
 
 ---
 
-## 6. 把它改成你的选修项目
+## 把它改成你的选修项目
 
 ![选修实操作品集证据包图](/img/course/elective-workshop-portfolio-pack.png)
 

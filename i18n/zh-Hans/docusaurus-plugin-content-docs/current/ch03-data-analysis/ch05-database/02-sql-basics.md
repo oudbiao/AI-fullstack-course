@@ -1,10 +1,10 @@
 ---
-title: "5.2 SQL 基础"
+title: "3.5.3 SQL 基础"
 sidebar_position: 22
 description: "掌握数据库的通用语言 SQL，学会增删改查"
 ---
 
-# SQL 基础
+# 3.5.3 SQL 基础
 
 ![SQL 表连接关系图](/img/course/sql-table-join-map.png)
 

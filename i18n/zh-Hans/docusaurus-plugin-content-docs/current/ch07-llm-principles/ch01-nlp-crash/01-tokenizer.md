@@ -1,11 +1,11 @@
 ---
-title: "1.2 分词与 Tokenizer"
+title: "7.1.2 分词与 Tokenizer"
 sidebar_position: 1
 description: "从“模型为什么不能直接读文字”讲起，理解词级、字级、子词级分词的取舍，以及 padding、truncation、special tokens 在工程里为什么重要。"
 keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]
 ---
 
-# 分词与 Tokenizer
+# 7.1.2 分词与 Tokenizer
 
 ![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.png)
 
@@ -40,7 +40,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 ## 一、为什么模型不能直接读文字？
 
-### 1.1 模型最终处理的是数字，不是字符本身
+### 模型最终处理的是数字，不是字符本身
 
 神经网络本质上只能处理数值张量。
 而人类输入给模型的，通常是：
@@ -61,7 +61,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 > **把人类语言变成模型可处理离散符号序列的第一层接口。**
 
-### 1.2 一个类比：把文章翻译成机器能编号的积木
+### 一个类比：把文章翻译成机器能编号的积木
 
 你可以把 tokenizer 想成仓库管理员。
 
@@ -82,7 +82,7 @@ tokenizer 要先决定：
 
 ## 二、最常见的三种切法
 
-### 2.1 字级 / 字符级：最稳，但序列会变长
+### 字级 / 字符级：最稳，但序列会变长
 
 最简单的思路是：
 
@@ -103,7 +103,7 @@ tokenizer 要先决定：
 
 - “退款规则” -> `退 / 款 / 规 / 则`
 
-### 2.2 词级：语义直观，但 OOV 会严重
+### 词级：语义直观，但 OOV 会严重
 
 另一种思路是：
 
@@ -124,7 +124,7 @@ tokenizer 要先决定：
 - `refund` 很常见
 - 但 `refundability`、`refund-processing` 可能就很容易变成未知词
 
-### 2.3 子词级：现实里最常见的折中
+### 子词级：现实里最常见的折中
 
 现代大模型里最常见的是：
 
@@ -242,7 +242,7 @@ for text in examples:
     print("attention_mask:", attention_mask)
 ```
 
-### 3.1 这段代码最该看哪几行？
+### 这段代码最该看哪几行？
 
 重点看三处：
 
@@ -253,7 +253,7 @@ for text in examples:
 3. `encode`
    说明 special tokens、padding、truncation 是怎么加进去的
 
-### 3.2 为什么 `Transformers` 会被拆成多个子词？
+### 为什么 `Transformers` 会被拆成多个子词？
 
 因为词表里没有完整的 `transformers`，
 但有：
@@ -268,7 +268,7 @@ for text in examples:
 
 - 新词不一定要整个都在词表里
 
-### 3.3 `attention_mask` 是干什么的？
+### `attention_mask` 是干什么的？
 
 因为 batch 里的句子长度通常不同。
 为了凑成统一张量，我们会在短句后面补 `[PAD]`。
@@ -289,7 +289,7 @@ for text in examples:
 
 ## 四、为什么 tokenizer 会直接影响成本和效果？
 
-### 4.1 同一句话切得越碎，token 数就越多
+### 同一句话切得越碎，token 数就越多
 
 token 越多意味着：
 
@@ -300,7 +300,7 @@ token 越多意味着：
 所以 tokenizer 不是纯理论问题，
 它也会直接影响工程成本。
 
-### 4.2 词表太小和太大都不好
+### 词表太小和太大都不好
 
 如果词表太小：
 
@@ -314,7 +314,7 @@ token 越多意味着：
 
 现实中 tokenizer 设计就是在这些因素之间找平衡。
 
-### 4.3 不同语言会带来不同挑战
+### 不同语言会带来不同挑战
 
 例如：
 
@@ -328,7 +328,7 @@ token 越多意味着：
 
 ## 五、special tokens 为什么总在出现？
 
-### 5.1 `[CLS]`、`[SEP]`、`[PAD]` 不只是装饰
+### `[CLS]`、`[SEP]`、`[PAD]` 不只是装饰
 
 这些特殊 token 一般承担明确功能：
 
@@ -339,7 +339,7 @@ token 越多意味着：
 不同模型的具体符号可能不同，
 但思想很接近。
 
-### 5.2 Chat 模型里的 system / user / assistant 其实也是类似思路
+### Chat 模型里的 system / user / assistant 其实也是类似思路
 
 到了聊天模型时代，你会看到更多特殊标记，例如：
 
@@ -358,7 +358,7 @@ token 越多意味着：
 
 ## 六、最容易踩的坑
 
-### 6.1 误区一：tokenizer 只是预处理细节
+### 误区一：tokenizer 只是预处理细节
 
 不是。
 它直接影响：
@@ -368,7 +368,7 @@ token 越多意味着：
 - OOV 处理
 - 下游模板格式
 
-### 6.2 误区二：只要能切开就行
+### 误区二：只要能切开就行
 
 真正重要的是：
 
@@ -376,7 +376,7 @@ token 越多意味着：
 - 是否适配语料
 - 是否兼顾长度和语义粒度
 
-### 6.3 误区三：中文就一定按“词”切最好
+### 误区三：中文就一定按“词”切最好
 
 不一定。
 很多现代模型仍然采用：

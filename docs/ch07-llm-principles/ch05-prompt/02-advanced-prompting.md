@@ -1,11 +1,11 @@
 ---
-title: "5.3 Advanced Prompt Techniques"
+title: "7.5.3 Advanced Prompt Techniques"
 sidebar_position: 16
 description: "From few-shot, role setting, and step-by-step constraints to self-checking, understand which Prompt techniques really improve stability and which only look fancier."
 keywords: [few-shot, role prompting, constraints, self-check, advanced prompting]
 ---
 
-# Advanced Prompt Techniques
+# 7.5.3 Advanced Prompt Techniques
 
 :::tip Section focus
 Once you already understand the basics of Prompt, the next natural question is:
@@ -64,7 +64,7 @@ So “advanced” does not mean mysterious; it means:
 
 - Better suited for tasks that are more likely to go off track
 
-## 1. Why do we need “advanced” Prompts?
+## Why do we need “advanced” Prompts?
 
 Because for some tasks, a simple one-line instruction is not stable enough.
 
@@ -83,9 +83,9 @@ But the most important principle is still:
 
 ---
 
-## 2. Few-shot: Why is “giving examples” so useful?
+## Few-shot: Why is “giving examples” so useful?
 
-### 2.1 What problems is it best for?
+### What problems is it best for?
 
 When a task is hard to explain clearly with just one definition, few-shot is especially valuable.
 
@@ -95,7 +95,7 @@ For example:
 - The format of information extraction fields
 - A fixed reply style
 
-### 2.2 A minimal few-shot example
+### A minimal few-shot example
 
 ```python
 few_shot_examples = [
@@ -107,7 +107,7 @@ for ex in few_shot_examples:
     print(ex)
 ```
 
-### 2.3 What does it really do?
+### What does it really do?
 
 It is not just “writing a few more lines,” but:
 
@@ -115,7 +115,7 @@ It is not just “writing a few more lines,” but:
 
 For many fuzzy boundary tasks, this is more stable than a plain definition.
 
-### 2.4 A simple table for beginners to remember
+### A simple table for beginners to remember
 
 | Task phenomenon | Technique to try first |
 |---|---|
@@ -134,7 +134,7 @@ This table is very beginner-friendly because it turns a “list of techniques”
 When you read this diagram, do not stack techniques blindly. First identify the problem type: if the label boundary is blurry, add few-shot; if the format is unstable, add structural constraints; if the steps are complex, split them explicitly; if conditions are often missed, add self-check. The core of advanced Prompting is matching the problem, not making the Prompt look fancier.
 :::
 
-### 2.5 Four terms that are easy to confuse
+### Four terms that are easy to confuse
 
 | Term | What it means | When to use it |
 |---|---|---|
@@ -145,7 +145,7 @@ When you read this diagram, do not stack techniques blindly. First identify the 
 
 ---
 
-## 3. When is role setting helpful?
+## When is role setting helpful?
 
 Many Prompts say things like:
 
@@ -153,7 +153,7 @@ Many Prompts say things like:
 - You are a legal assistant
 - You are a code reviewer
 
-### 3.1 When does it really help?
+### When does it really help?
 
 Role setting is useful when you want the model to:
 
@@ -161,7 +161,7 @@ Role setting is useful when you want the model to:
 - Enter a certain working mode
 - Maintain certain role boundaries
 
-### 3.2 But role setting is not magic
+### But role setting is not magic
 
 If the task itself is unclear, just saying:
 
@@ -173,7 +173,7 @@ So an important judgment is:
 
 > Role setting is an auxiliary layer, not a replacement for task definition.
 
-### 3.3 A minimal contrast example showing that role setting cannot replace task definition
+### A minimal contrast example showing that role setting cannot replace task definition
 
 ```python
 bad_prompt = "You are the world's top expert. Please help me handle this content."
@@ -190,9 +190,9 @@ This example is very suitable for beginners because it reminds you that:
 
 ---
 
-## 4. Why are step-by-step constraints often more stable?
+## Why are step-by-step constraints often more stable?
 
-### 4.1 Because many tasks are naturally multi-stage
+### Because many tasks are naturally multi-stage
 
 For example:
 
@@ -202,7 +202,7 @@ For example:
 
 If you squeeze all these steps into one sentence, the model is more likely to get confused.
 
-### 4.2 A quick illustration
+### A quick illustration
 
 ```text
 Please complete the task according to the following steps:
@@ -217,9 +217,9 @@ The core value of this kind of writing is:
 
 ---
 
-## 5. Why does self-check appear?
+## Why does self-check appear?
 
-### 5.1 When is it especially meaningful?
+### When is it especially meaningful?
 
 When you are most worried that the model will:
 
@@ -229,7 +229,7 @@ When you are most worried that the model will:
 
 you can ask it to perform one more round of self-check before outputting the final answer.
 
-### 5.2 A minimal example
+### A minimal example
 
 ```text
 Before outputting the final answer, please check:
@@ -238,7 +238,7 @@ Before outputting the final answer, please check:
 3. Whether any facts not present in the original text have been included
 ```
 
-### 5.3 The boundaries of this technique
+### The boundaries of this technique
 
 It may help, but it is not a cure-all.
 It is more suitable for scenarios that are:
@@ -248,7 +248,7 @@ It is more suitable for scenarios that are:
 
 ---
 
-## 6. Why can’t advanced techniques be stacked randomly?
+## Why can’t advanced techniques be stacked randomly?
 
 Because every extra technique also increases:
 
@@ -266,7 +266,7 @@ but rather:
 
 This is a very important Prompt engineering habit.
 
-### 6.1 Another minimal “layered technique” experiment table
+### Another minimal “layered technique” experiment table
 
 | Version | What changed | What you should observe most |
 |---|---|---|
@@ -281,7 +281,7 @@ This table is very beginner-friendly because it can turn Prompt tuning back into
 
 ---
 
-## 7. A more stable Prompt tuning order
+## A more stable Prompt tuning order
 
 Rather than “stacking every technique you see,” a better approach is:
 
@@ -306,19 +306,19 @@ Do not stack role setting, examples, self-check, and format all at once, or it w
 
 ---
 
-## 8. The most common misconceptions
+## The most common misconceptions
 
-### 8.1 Thinking the longer the Prompt, the more advanced it is
+### Thinking the longer the Prompt, the more advanced it is
 
 A long but messy Prompt is often worse.
 
-### 8.2 Stacking every technique
+### Stacking every technique
 
 This makes it very hard to know which layer is doing the work.
 
-### 8.3 Tuning only by feeling, without small experiments
+### Tuning only by feeling, without small experiments
 
-## 9. Key reminders
+## Key reminders
 
 - Advanced Prompt is not about being “fancier,” but about being “better matched to the problem”
 - Few-shot, role setting, step-by-step constraints, and self-check all have their own boundaries

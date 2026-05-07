@@ -1,11 +1,11 @@
 ---
-title: "可视化导读：先学会选图，再学会美化"
+title: "3.4.1 可视化导读：先学会选图，再学会美化"
 sidebar_position: 16
 description: "给第一次学数据可视化的新人一张总地图：趋势、对比、分布、关系如何选图，Matplotlib、Seaborn、Plotly 和最佳实践如何配合。"
 keywords: [数据可视化, 图表选择, matplotlib, seaborn, plotly, visualization roadmap]
 ---
 
-# 可视化导读：先学会选图，再学会美化
+# 3.4.1 可视化导读：先学会选图，再学会美化
 
 这一章解决的是：怎样把数据里的趋势、对比、分布和关系，用别人一眼能看懂的图表表达出来。
 
@@ -63,10 +63,10 @@ flowchart LR
 
 | 章节 | 它最该帮你解决什么问题 |
 |---|---|
-| [4.1 Matplotlib 基础](./01-matplotlib.md) | 先学会最基本的画图动作和 Figure/Axes 模型 |
-| [4.2 Seaborn 统计可视化](./02-seaborn.md) | 用更少代码更快做探索性分析和统计图 |
-| [4.3 交互式可视化（选修）](./03-plotly.md) | 当你需要交互、演示、网页图表时该怎么做 |
-| [4.4 可视化最佳实践](./04-best-practices.md) | 选图、配色、避免误导，让图真正“能看” |
+| [3.4.2 Matplotlib 基础](./01-matplotlib.md) | 先学会最基本的画图动作和 Figure/Axes 模型 |
+| [3.4.3 Seaborn 统计可视化](./02-seaborn.md) | 用更少代码更快做探索性分析和统计图 |
+| [3.4.4 交互式可视化（选修）](./03-plotly.md) | 当你需要交互、演示、网页图表时该怎么做 |
+| [3.4.5 可视化最佳实践](./04-best-practices.md) | 选图、配色、避免误导，让图真正“能看” |
 
 ## 这一章和后面阶段的关系
 

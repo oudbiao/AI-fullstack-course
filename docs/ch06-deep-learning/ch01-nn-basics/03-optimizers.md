@@ -1,11 +1,11 @@
 ---
-title: "1.6 Gradient Descent and Optimizers"
+title: "6.1.6 Gradient Descent and Optimizers"
 sidebar_position: 5
 description: "Master optimizers and learning rate scheduling strategies such as SGD, Mini-batch, Momentum, Adam, and AdamW"
 keywords: [optimizer, SGD, Adam, AdamW, Momentum, learning rate, learning rate scheduling, CosineAnnealing]
 ---
 
-# Gradient Descent and Optimizers
+# 6.1.6 Gradient Descent and Optimizers
 
 ![Optimizer path comparison](/img/course/optimizer-comparison-en.png)
 
@@ -87,9 +87,9 @@ flowchart LR
 The reading is simple: gradients only tell you “which way is steepest,” and the optimizer turns that into a concrete way to move. SGD moves only according to the current slope, Momentum adds some inertia, and Adam automatically adjusts the step size in each direction based on historical gradients.
 :::
 
-## 1. Three Types of Gradient Descent
+## Three Types of Gradient Descent
 
-### 1.1 Comparison
+### Comparison
 
 | Method | How much data each update uses | Pros | Cons |
 |------|-------------|------|------|
@@ -97,7 +97,7 @@ The reading is simple: gradients only tell you “which way is steepest,” and 
 | **Stochastic Gradient Descent (SGD)** | 1 sample | Fast, can escape local minima | Noisy, unstable |
 | **Mini-batch Gradient Descent** | A batch (32/64/128) | **Balances speed and stability** | Need to choose `batch_size` |
 
-### 1.1 What should you remember first when seeing these three methods?
+### What should you remember first when seeing these three methods?
 
 Don’t start by memorizing the definitions. First, hold on to this sentence:
 
@@ -109,7 +109,7 @@ Once that idea is clear, many other behaviors make sense:
 - Why BGD is more stable but slower
 - Why mini-batch is the most common choice in deep learning
 
-### 1.2 A Simple Memory Table for Beginners
+### A Simple Memory Table for Beginners
 
 | Method | The most important feeling to remember |
 |------|------|
@@ -162,9 +162,9 @@ plt.show()
 
 ---
 
-## 2. Momentum — Descent with Inertia
+## Momentum — Descent with Inertia
 
-### 2.1 Intuition
+### Intuition
 
 Imagine a ball rolling down a slope. Ordinary SGD only looks at the gradient direction at the current step. Momentum gives the ball **inertia**—even if it hits a small bump, it can keep sliding through.
 
@@ -172,7 +172,7 @@ Imagine a ball rolling down a slope. Ordinary SGD only looks at the gradient dir
 >
 > **w = w - lr × v**
 
-### 2.1.1 What shortcoming of SGD does Momentum fix?
+### What shortcoming of SGD does Momentum fix?
 
 The most important thing to remember is not the formula, but the practical problem it solves:
 
@@ -226,15 +226,15 @@ plt.show()
 
 ---
 
-## 3. Adam — The Most Common Optimizer
+## Adam — The Most Common Optimizer
 
-### 3.1 Core Idea
+### Core Idea
 
 Adam combines Momentum (first-order momentum) and RMSProp (second-order momentum):
 - **First-order momentum m**: moving average of gradients (direction)
 - **Second-order momentum v**: moving average of squared gradients (adaptive learning rate)
 
-### 3.2 Using It in PyTorch
+### Using It in PyTorch
 
 ```python
 import torch
@@ -282,7 +282,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 3.3 Optimizer Selection Guide
+### Optimizer Selection Guide
 
 | Optimizer | Features | Use cases |
 |--------|------|---------|
@@ -296,7 +296,7 @@ plt.show()
 Adam mixes L2 regularization into the gradient. AdamW handles weight decay separately, which works better. **In most cases today, use AdamW.**
 :::
 
-### 3.4 How should beginners choose an optimizer for their first project?
+### How should beginners choose an optimizer for their first project?
 
 If you’re still new, a very safe way to start is usually:
 
@@ -310,7 +310,7 @@ At first, don’t overthink optimizer choice. In the first round, the most impor
 2. The loss decreases normally
 3. The validation set performance does not collapse
 
-### 3.5 Why is the learning rate often more important than the optimizer name?
+### Why is the learning rate often more important than the optimizer name?
 
 Many beginners think about it like this:
 
@@ -327,7 +327,7 @@ So when you first debug unstable training, a more reliable order is usually:
 2. Then check batch size
 3. Then check the optimizer
 
-### 3.6 A Default Optimizer Order Worth Remembering for Beginners
+### A Default Optimizer Order Worth Remembering for Beginners
 
 For your first project, a safer default order is usually:
 
@@ -339,13 +339,13 @@ This is usually much easier than getting stuck comparing a bunch of optimizer na
 
 ---
 
-## 4. Learning Rate Scheduling
+## Learning Rate Scheduling
 
-### 4.1 Why Do We Need It?
+### Why Do We Need It?
 
 A fixed learning rate has problems: too large → does not converge; too small → too slow. **Learning rate scheduling** adjusts the learning rate dynamically during training.
 
-### 4.2 Common Strategies
+### Common Strategies
 
 ```python
 import torch.optim.lr_scheduler as lr_scheduler
@@ -382,7 +382,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 4.3 Warmup
+### Warmup
 
 First warm up with a small learning rate for a few steps, then gradually increase to the normal value, and finally decay slowly. **This is standard practice for Transformer training.**
 
@@ -393,7 +393,7 @@ First warm up with a small learning rate for a few steps, then gradually increas
 | **Warmup + Cosine** | Increase first, then decrease | **Transformer** |
 | **ReduceLROnPlateau** | Reduce when validation stops improving | Adaptive |
 
-### 4.4 A Practical Optimizer Selection Order for Beginners
+### A Practical Optimizer Selection Order for Beginners
 
 When training a new task for the first time, you can try this:
 

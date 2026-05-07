@@ -1,10 +1,10 @@
 ---
-title: "Elective Module: Advanced Python Topics"
+title: "E.B Elective Module: Advanced Python Topics"
 sidebar_position: 0
 description: "An overview of the Advanced Python module to help you understand the learning order, use cases, and how each lesson connects."
 ---
 
-# Elective Module: Advanced Python Topics
+# E.B Elective Module: Advanced Python Topics
 
 :::tip Module Positioning
 These topics are not here to show off. They are here to help your future engineering code become more stable, faster, and easier to maintain.
@@ -25,9 +25,9 @@ If you want to see how this module can become a portfolio artifact, run the [Ele
 
 ---
 
-## 1. What Problems Does This Module Solve?
+## What Problems Does This Module Solve?
 
-### 1.1 Module Positioning
+### Module Positioning
 
 Advanced Python is not about “learning a little more.” It is about filling in certain capabilities that often determine the upper limit of engineering work.
 
@@ -37,7 +37,7 @@ You can think of it as a set of topic-based toolboxes:
 - You do not need to learn everything at once
 - But once you enter the matching scenario, they become very valuable
 
-### 1.2 Recommended Learning Order
+### Recommended Learning Order
 
 A more stable learning approach is usually:
 
@@ -47,9 +47,9 @@ A more stable learning approach is usually:
 
 ---
 
-## 2. What Topics Are Included in This Module?
+## What Topics Are Included in This Module?
 
-### 2.1 Chapter List
+### Chapter List
 
 | Chapter | Topic |
 |---|---|
@@ -58,7 +58,7 @@ A more stable learning approach is usually:
 | Lesson 3 | Concurrent Programming (including asyncio) |
 | Lesson 4 | Metaprogramming |
 
-### 2.2 How Should You Use This Module?
+### How Should You Use This Module?
 
 A very practical strategy is:
 
@@ -69,7 +69,7 @@ This way, you will not lose the rhythm of the main learning path because there a
 
 ---
 
-## 3. A Minimal Runnable Example
+## A Minimal Runnable Example
 
 :::info Run Tip
 ```bash
@@ -94,7 +94,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.2 What Should You Learn from This Example?
+### What Should You Learn from This Example?
 
 This small piece of code is not meant to cover the whole module. It is meant to help you quickly build a sense of what this module is really about.
 
@@ -106,13 +106,13 @@ When reading it, focus on three things first:
 
 ---
 
-## 4. Learning Suggestions
+## Learning Suggestions
 
-### 4.1 If You Have Limited Time, What Should You Learn First?
+### If You Have Limited Time, What Should You Learn First?
 
 Prioritize topics that will appear frequently in later projects and can immediately help you reduce cost or improve efficiency.
 
-### 4.2 Common Mistakes
+### Common Mistakes
 
 - Seeing it as an elective and not learning it at all
 - Trying to finish every elective topic all at once
@@ -120,7 +120,7 @@ Prioritize topics that will appear frequently in later projects and can immediat
 
 ---
 
-## 5. When Is the Best Time to Come Back and Study This Module?
+## When Is the Best Time to Come Back and Study This Module?
 
 If you see any of the following signs, it means you are a good candidate to revisit this set of topics:
 
@@ -129,7 +129,7 @@ If you see any of the following signs, it means you are a good candidate to revi
 - You often cannot understand decorators and generators when reading other people’s Python projects
 - You want to make tool registration, plugin mechanisms, and dynamic extension more robust
 
-## 6. What Can You Do After Finishing This Module?
+## What Can You Do After Finishing This Module?
 
 - Understand more advanced Python styles in real engineering code
 - Write async, streaming, and extensible code more reliably

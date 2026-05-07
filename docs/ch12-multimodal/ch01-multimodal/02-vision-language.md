@@ -1,11 +1,11 @@
 ---
-title: "1.3 Vision-Language Models"
+title: "12.1.3 Vision-Language Models"
 sidebar_position: 2
 description: "Understand how vision-language models put images and text into the same system, and use toy examples to grasp the core ideas behind image-text retrieval and visual question answering."
 keywords: [vision-language model, VLM, image-text retrieval, visual question answering, image-text]
 ---
 
-# Vision-Language Models
+# 12.1.3 Vision-Language Models
 
 ![Vision-Language Model Architecture](/img/course/vision-language-model-architecture-en.png)
 
@@ -54,7 +54,7 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. What is a vision-language model?
+## What is a vision-language model?
 
 A vision-language model (VLM) can be understood as:
 
@@ -74,7 +74,7 @@ This makes them especially suitable for:
 - UI understanding
 - Document screenshot question answering
 
-### 1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of a VLM as:
 
@@ -96,7 +96,7 @@ So what makes a VLM special is:
 
 ---
 
-## 2. The intuitive structure of a VLM
+## The intuitive structure of a VLM
 
 No need to be scared by complicated architectures first. Just grasp the rough skeleton:
 
@@ -126,7 +126,7 @@ flowchart LR
 
 ---
 
-## 3. A minimal image-text retrieval example
+## A minimal image-text retrieval example
 
 To make sure the code can run directly, we use manually defined image features and text features to simulate the VLM idea of “alignment in the same space.”
 
@@ -160,7 +160,7 @@ for text, text_vec in text_embeddings.items():
 
 If a model learns good cross-modal alignment, related images and text will be closer to each other.
 
-### 3.1 A beginner-friendly table to remember first
+### A beginner-friendly table to remember first
 
 | Task | What VLMs are best at adding |
 |---|---|
@@ -176,7 +176,7 @@ This table is useful for beginners because it helps you separate:
 
 ---
 
-## 4. What does visual question answering (VQA) feel like?
+## What does visual question answering (VQA) feel like?
 
 The goal of visual question answering is:
 
@@ -229,7 +229,7 @@ Of course, real VLMs do not rely on hand-written rules, but this example can hel
 - The question also needs to be understood
 - The final answer depends on joint reasoning over “image + question”
 
-### 4.1 Another minimal example: first identify the task type
+### Another minimal example: first identify the task type
 
 ```python
 def vlm_task_type(question):
@@ -252,7 +252,7 @@ This example is great for beginners because it reminds you:
 
 ---
 
-## 5. What is the relationship between VLM and OCR?
+## What is the relationship between VLM and OCR?
 
 Many people mix them up.
 
@@ -275,7 +275,7 @@ For example, in an error screenshot:
 
 ---
 
-## 6. What tasks are VLMs best suited for?
+## What tasks are VLMs best suited for?
 
 ### Very suitable
 
@@ -295,7 +295,7 @@ In those cases, you may still need specialized vision models to work together wi
 
 ---
 
-## 7. Why do VLMs so easily “misread” or “answer off track”?
+## Why do VLMs so easily “misread” or “answer off track”?
 
 Because they have to cross two levels of difficulty at the same time:
 
@@ -313,7 +313,7 @@ So when building VLM products, evaluation and guardrails are equally important.
 
 ---
 
-## 8. Why are so many products inseparable from VLMs today?
+## Why are so many products inseparable from VLMs today?
 
 Because real user inputs are often not “pure text.”
 
@@ -327,17 +327,17 @@ If you only give these tasks to a text model, the information is incomplete.
 
 ---
 
-## 9. Common beginner mistakes
+## Common beginner mistakes
 
-### 1. Thinking VLM just means “feed images to GPT”
+### Thinking VLM just means “feed images to GPT”
 
 More accurately, it means “image information goes through encoding and alignment, then enters the language system.”
 
-### 2. Thinking VLMs naturally do OCR, localization, reasoning, and everything perfectly
+### Thinking VLMs naturally do OCR, localization, reasoning, and everything perfectly
 
 Real performance depends on model capability, prompts, image quality, and task difficulty.
 
-### 3. Thinking that being able to see images is always better than a pure text model
+### Thinking that being able to see images is always better than a pure text model
 
 Multimodal only has an advantage when the image information is truly valuable.
 

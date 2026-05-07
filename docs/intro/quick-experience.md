@@ -1,11 +1,11 @@
 ---
 sidebar_position: 0
-title: "30-Minute AI Quick Experience"
+title: "0.1 30-Minute AI Quick Experience"
 description: "A short first-run AI experience for beginners: see input, model, output, then continue to setup."
 keywords: [AI quick experience, Google Colab, image recognition, text generation, image generation, AI introduction]
 ---
 
-# 30-Minute AI Quick Experience
+# 0.1 30-Minute AI Quick Experience
 
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.png)
 

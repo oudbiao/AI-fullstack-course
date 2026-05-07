@@ -1,11 +1,11 @@
 ---
-title: "7.5 Multi-Agent Practical Patterns"
+title: "9.7.5 Multi-Agent Practical Patterns"
 sidebar_position: 41
 description: "From research-oriented, writing-oriented, and development-oriented collaboration to review-oriented collaboration, understand several common ways Multi-Agent systems are combined in real tasks."
 keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration]
 ---
 
-# Multi-Agent Practical Patterns
+# 9.7.5 Multi-Agent Practical Patterns
 
 :::tip Section Overview
 We have already covered:
@@ -28,9 +28,9 @@ In this section, we will apply these ideas to scenarios that feel more like “r
 
 ---
 
-## 1. Why talk about “practical patterns”?
+## Why talk about “practical patterns”?
 
-### 1.1 Because real systems are usually not pure theoretical architectures
+### Because real systems are usually not pure theoretical architectures
 
 Many projects do not say:
 
@@ -44,7 +44,7 @@ They are more likely to say:
 
 In other words, real projects are more like “task organization forms” than abstract architecture names.
 
-### 1.2 So what is the point of learning practical patterns?
+### So what is the point of learning practical patterns?
 
 It helps you move from:
 
@@ -56,21 +56,21 @@ to:
 
 ---
 
-## 2. Pattern 1: Research Collaboration
+## Pattern 1: Research Collaboration
 
-### 2.1 Typical division of work
+### Typical division of work
 
 - Planner: breaks down the problem
 - Researcher: retrieves information
 - Synthesizer: integrates the results
 
-### 2.2 What tasks is it good for?
+### What tasks is it good for?
 
 - Background research
 - Collecting materials
 - Producing structured reports
 
-### 2.3 A minimal example
+### A minimal example
 
 ```python
 def planner(query):
@@ -101,9 +101,9 @@ The key idea of this pattern is:
 
 ---
 
-## 3. Pattern 2: Writing + Review
+## Pattern 2: Writing + Review
 
-### 3.1 One of the most classic and practical patterns
+### One of the most classic and practical patterns
 
 The usual division of work is:
 
@@ -111,7 +111,7 @@ The usual division of work is:
 - Reviewer: checks for issues
 - Reviser: revises based on feedback
 
-### 3.2 Why is this pattern so common?
+### Why is this pattern so common?
 
 Because many tasks are naturally suited to:
 
@@ -125,7 +125,7 @@ For example:
 - answer generation
 - code documentation
 
-### 3.3 A minimal example
+### A minimal example
 
 ```python
 def writer(topic):
@@ -154,9 +154,9 @@ The biggest advantage of this pattern is:
 
 ---
 
-## 4. Pattern 3: Development Team Mode
+## Pattern 3: Development Team Mode
 
-### 4.1 A common abstraction for an AI development team
+### A common abstraction for an AI development team
 
 For example:
 
@@ -165,12 +165,12 @@ For example:
 - Reviewer: checks the code
 - Tester: verifies whether the result meets expectations
 
-### 4.2 Why is this pattern so common in AI coding scenarios?
+### Why is this pattern so common in AI coding scenarios?
 
 Because software development already has this kind of role division.
 Multi-Agent simply makes it programmatic and automated.
 
-### 4.3 A minimal example
+### A minimal example
 
 ```python
 workflow = [
@@ -190,9 +190,9 @@ The key point of this pattern is not that the roles sound impressive, but that:
 
 ---
 
-## 5. Pattern 4: Double Verification / High-Risk Review
+## Pattern 4: Double Verification / High-Risk Review
 
-### 5.1 When is it needed?
+### When is it needed?
 
 If the task is high risk, such as:
 
@@ -202,7 +202,7 @@ If the task is high risk, such as:
 
 then in many cases, you should not let just one Agent produce the conclusion by itself.
 
-### 5.2 Common approach
+### Common approach
 
 - One Agent generates the answer
 - Another Agent performs fact-checking
@@ -212,7 +212,7 @@ This kind of pattern is slower, but more stable.
 
 ---
 
-## 6. A Small Multi-Agent Workflow Example
+## A Small Multi-Agent Workflow Example
 
 ```python
 def planner(query):
@@ -248,27 +248,27 @@ Although this code is small, it already shows the core feel of practical pattern
 
 ---
 
-## 7. How do you choose the right practical pattern?
+## How do you choose the right practical pattern?
 
-### 7.1 If the task mainly involves finding information
+### If the task mainly involves finding information
 
 Prefer:
 
 - research collaboration
 
-### 7.2 If the task mainly involves content quality
+### If the task mainly involves content quality
 
 Prefer:
 
 - writing + review
 
-### 7.3 If the task mainly involves engineering delivery
+### If the task mainly involves engineering delivery
 
 Prefer:
 
 - development team mode
 
-### 7.4 If the task is high risk
+### If the task is high risk
 
 Prefer:
 
@@ -284,18 +284,18 @@ but:
 
 ---
 
-## 8. Common Beginner Pitfalls
+## Common Beginner Pitfalls
 
-### 8.1 Tying patterns to a fixed number of roles
+### Tying patterns to a fixed number of roles
 
 It is not “3 Agents must mean one specific pattern.”
 The key is the responsibility relationship, not the number.
 
-### 8.2 Adding patterns just to look complex
+### Adding patterns just to look complex
 
 For many tasks, a single Agent or two Agents is already enough.
 
-### 8.3 Not having clear evaluation criteria
+### Not having clear evaluation criteria
 
 If you do not know why one pattern is better than another, system iteration will be hard to move forward.
 

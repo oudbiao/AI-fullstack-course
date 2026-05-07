@@ -1,11 +1,11 @@
 ---
-title: "4.5 Containerization and Deployment"
+title: "8.4.5 Containerization and Deployment"
 sidebar_position: 20
 description: "From why containerization matters, to the core structure of a Dockerfile, to how Compose starts services, understand how an LLM application evolves from a local script into a deployable service."
 keywords: [Docker, containerization, deployment, Dockerfile, Compose, service deployment]
 ---
 
-# Containerization and Deployment
+# 8.4.5 Containerization and Deployment
 
 :::tip Where This Section Fits
 Many projects get stuck here:
@@ -49,9 +49,9 @@ The core idea is not “learn Docker commands by heart,” but “make the runti
 
 ---
 
-## 1. Why containerize?
+## Why containerize?
 
-### 1.1 What is the biggest hidden risk of a local script?
+### What is the biggest hidden risk of a local script?
 
 When you can run a project locally, it often depends on many implicit conditions:
 
@@ -63,7 +63,7 @@ When you can run a project locally, it often depends on many implicit conditions
 
 Once you change the person, the machine, or the server, these conditions can easily cause problems.
 
-### 1.2 What does containerization actually solve?
+### What does containerization actually solve?
 
 The core value of containerization is:
 
@@ -84,9 +84,9 @@ This is especially important for LLM applications, because they often depend on:
 
 ---
 
-## 2. What are images and containers?
+## What are images and containers?
 
-### 2.1 A very practical analogy
+### A very practical analogy
 
 - **Image**: like a recipe + ingredient kit
 - **Container**: the actual dish made from that recipe
@@ -96,7 +96,7 @@ In other words:
 - An image is a static template
 - A container is a running instance
 
-### 2.2 Why is this distinction important?
+### Why is this distinction important?
 
 Because during deployment, you usually:
 
@@ -113,9 +113,9 @@ An image is a reproducible runtime template, a container is a running instance, 
 
 ---
 
-## 3. What does a minimal Dockerfile look like?
+## What does a minimal Dockerfile look like?
 
-### 3.1 First, look at the complete example
+### First, look at the complete example
 
 ```dockerfile
 FROM python:3.11-slim
@@ -132,7 +132,7 @@ EXPOSE 8000
 CMD ["python", "app.py"]
 ```
 
-### 3.2 What does each line do?
+### What does each line do?
 
 - `FROM`
   - Choose the base image
@@ -159,9 +159,9 @@ This is the core skeleton of a Dockerfile.
 
 ---
 
-## 4. First prepare a small app that can actually run
+## First prepare a small app that can actually run
 
-### 4.1 Minimal Python service
+### Minimal Python service
 
 To make the Docker deployment example more concrete, let's first write a very simple `app.py`.
 
@@ -189,16 +189,16 @@ print("serving on 8000")
 server.serve_forever()
 ```
 
-### 4.2 Why start with this?
+### Why start with this?
 
 Because containerization is not about talking about Dockerfiles in the abstract,
 but about understanding them around a real running application.
 
 ---
 
-## 5. Then containerize it
+## Then containerize it
 
-### 5.1 Matching `requirements.txt`
+### Matching `requirements.txt`
 
 This minimal service does not depend on any third-party packages, so `requirements.txt` can be empty, or you may even not need it.
 But to stay close to a real project, we will keep the structure.
@@ -207,7 +207,7 @@ But to stay close to a real project, we will keep the structure.
 # requirements.txt
 ```
 
-### 5.2 Corresponding Dockerfile
+### Corresponding Dockerfile
 
 ```dockerfile
 FROM python:3.11-slim
@@ -224,7 +224,7 @@ EXPOSE 8000
 CMD ["python", "app.py"]
 ```
 
-### 5.3 Run commands
+### Run commands
 
 ```bash
 docker build -t mini-llm-app .
@@ -242,7 +242,7 @@ This is the smallest containerization loop.
 
 ---
 
-## 6. Why are environment variables important?
+## Why are environment variables important?
 
 LLM applications often have configurations like these:
 
@@ -253,7 +253,7 @@ LLM applications often have configurations like these:
 
 These are usually not hardcoded in the code; environment variables are a better fit.
 
-### 6.1 A minimal example
+### A minimal example
 
 ```python
 import os
@@ -265,7 +265,7 @@ print("MODEL_NAME =", model_name)
 print("PORT =", port)
 ```
 
-### 6.2 How do you pass environment variables in Docker?
+### How do you pass environment variables in Docker?
 
 ```bash
 docker run -p 8000:8000 -e MODEL_NAME=qwen-demo mini-llm-app
@@ -275,9 +275,9 @@ This step is very important, because real deployment almost always relies on con
 
 ---
 
-## 7. Why is Compose so commonly used?
+## Why is Compose so commonly used?
 
-### 7.1 Because real projects usually have more than one service
+### Because real projects usually have more than one service
 
 An LLM application may also need to work with:
 
@@ -288,7 +288,7 @@ An LLM application may also need to work with:
 
 If you write `docker run` by hand for each one, things quickly become messy.
 
-### 7.2 A minimal Compose example
+### A minimal Compose example
 
 ```yaml
 version: "3.9"
@@ -312,11 +312,11 @@ This is why Compose is very useful for local development and small-scale deploym
 
 ---
 
-## 8. Containerization does not mean deployment is finished
+## Containerization does not mean deployment is finished
 
 This is a very common misunderstanding.
 
-### 8.1 Containerization solves packaging and the runtime environment
+### Containerization solves packaging and the runtime environment
 
 But going live still requires considering:
 
@@ -327,7 +327,7 @@ But going live still requires considering:
 - Canary releases
 - Reverse proxies
 
-### 8.2 A very important health check idea
+### A very important health check idea
 
 An endpoint like:
 
@@ -340,21 +340,21 @@ Because deployment systems usually need to know:
 
 ---
 
-## 9. Common mistakes beginners often make
+## Common mistakes beginners often make
 
-### 9.1 Putting everything into one huge image
+### Putting everything into one huge image
 
 The image becomes bloated.
 
-### 9.2 No health check
+### No health check
 
 You do not know when the service is broken.
 
-### 9.3 Hardcoding configuration in the code
+### Hardcoding configuration in the code
 
 Things break easily when you switch environments.
 
-### 9.4 Thinking containerization automatically makes things scalable
+### Thinking containerization automatically makes things scalable
 
 It does not.
 Containerization is only the first step; orchestration, monitoring, and operations come next.

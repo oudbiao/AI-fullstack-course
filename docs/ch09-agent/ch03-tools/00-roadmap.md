@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-Class Guide: What Exactly Are We Learning in the Tools Chapter?"
+title: "9.3.1 Pre-Class Guide: What Exactly Are We Learning in the Tools Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the Agent tools chapter: how Function Calling, tool descriptions, parameter schemas, scheduling strategies, safety boundaries, and multi-tool practice form the Agent’s action layer."
 keywords: [Tools overview, Function Calling, Tool Use, Code Agent, Agent tools]
 ---
 
-# Pre-Class Guide: What Exactly Are We Learning in the Tools Chapter?
+# 9.3.1 Pre-Class Guide: What Exactly Are We Learning in the Tools Chapter?
 
 This chapter answers a simple question: an Agent should not only be able to talk, but also be able to act.
 

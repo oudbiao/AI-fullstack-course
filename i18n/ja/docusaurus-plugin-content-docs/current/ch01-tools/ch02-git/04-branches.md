@@ -1,10 +1,10 @@
 ---
-title: "ブランチと協働"
+title: "1.2.4 ブランチと協働"
 sidebar_position: 4
 description: "ブランチを使って新機能を安全に開発し、Pull Request の流れを理解する"
 ---
 
-# ブランチと協働
+# 1.2.4 ブランチと協働
 
 ![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration-ja.png)
 

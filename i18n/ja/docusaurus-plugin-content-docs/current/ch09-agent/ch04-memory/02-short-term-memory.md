@@ -1,11 +1,11 @@
 ---
-title: "4.3 短期記憶"
+title: "9.4.3 短期記憶"
 sidebar_position: 20
 description: "コンテキストウィンドウ、会話ウィンドウ、実行時状態から要約圧縮まで、Agent の短期記憶が何か、どう設計すべきかを理解します。"
 keywords: [short-term memory, context window, conversation memory, state, summary memory, Agent]
 ---
 
-# 短期記憶
+# 9.4.3 短期記憶
 
 ![短期記憶のコンテキストウィンドウと実行状態図](/img/course/ch09-short-term-memory-window-map-ja.png)
 
@@ -30,7 +30,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 一、短期記憶とは何か？
 
-### 1.1 一言でいうと
+### 一言でいうと
 
 短期記憶は、まず次のように理解できます。
 
@@ -43,7 +43,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 - 実行済みの手順
 - 一時的な中間結果
 
-### 1.2 長期記憶との違いは？
+### 長期記憶との違いは？
 
 | 種類 | 何を重視するか |
 |---|---|
@@ -59,7 +59,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 二、なぜ履歴を全部ずっとモデルに入れられないのか？
 
-### 2.1 コンテキストウィンドウは無限ではないから
+### コンテキストウィンドウは無限ではないから
 
 モデルが見られるコンテキストの長さには限りがあります。  
 会話履歴をどんどん全部入れていくと、次の問題が起きます。
@@ -68,7 +68,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 - 応答がどんどん遅くなる
 - 重要な情報が埋もれる
 
-### 2.2 情報が多いほど良いとは限らない
+### 情報が多いほど良いとは限らない
 
 初心者の多くは、こう思いがちです。
 
@@ -90,7 +90,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 三、短期記憶の代表的な3つの形
 
-### 3.1 会話ウィンドウ（sliding window）
+### 会話ウィンドウ（sliding window）
 
 もっともシンプルな方法です。
 
@@ -105,7 +105,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 - 少し前の重要情報が押し出されて消える
 
-### 3.2 実行時状態（task state）
+### 実行時状態（task state）
 
 チャット文だけを覚えるのではなく、次のような情報を明示的に持ちます。
 
@@ -115,7 +115,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 この種の状態は、Agent にとって特に重要です。
 
-### 3.3 要約記憶（summary memory）
+### 要約記憶（summary memory）
 
 履歴が長くなったら、すべて捨てるのではなく、まず要約に圧縮します。
 
@@ -130,7 +130,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 四、もっとも簡単な短期記憶：スライディングウィンドウ
 
-### 4.1 実行可能な例
+### 実行可能な例
 
 ```python
 messages = [
@@ -148,7 +148,7 @@ for msg in short_term_memory:
     print(msg)
 ```
 
-### 4.2 このコードはシンプルですが、すでにとても重要です
+### このコードはシンプルですが、すでにとても重要です
 
 ここで学べる本質は次のことです。
 
@@ -160,7 +160,7 @@ for msg in short_term_memory:
 
 ## 五、でも、メッセージウィンドウだけでは足りない
 
-### 5.1 なぜ足りないのか？
+### なぜ足りないのか？
 
 次のような会話を考えてみましょう。
 
@@ -172,7 +172,7 @@ for msg in short_term_memory:
 
 - もともとのタスクはずっと「返金」に関することだった
 
-### 5.2 だから Agent には構造化された状態も必要
+### だから Agent には構造化された状態も必要
 
 例えば：
 
@@ -228,7 +228,7 @@ memory.update_state(goal="返金資格の判断", topic="返金ポリシー")
 print(memory.snapshot())
 ```
 
-### 6.2 この例が「履歴を保存するだけ」より強いのはなぜ？
+### この例が「履歴を保存するだけ」より強いのはなぜ？
 
 短期記憶を2層に分けているからです。
 
@@ -241,14 +241,14 @@ print(memory.snapshot())
 
 ## 七、要約記憶：メッセージが長くなってきたらどうする？
 
-### 7.1 よくある戦略
+### よくある戦略
 
 実際のシステムでは、次のような方法がよく使われます。
 
 - 直近の数ターンはそのまま保持する
 - それ以前の履歴は要約に圧縮する
 
-### 7.2 簡略化した例
+### 簡略化した例
 
 ```python
 old_messages = [
@@ -279,11 +279,11 @@ print(memory_package)
 
 主に次の3つを解決します。
 
-### 8.1 現在のタスクの一貫性を保つ
+### 現在のタスクの一貫性を保つ
 
 システムは、毎回ユーザーに初めて会ったかのようにやり直してはいけません。
 
-### 8.2 複数ステップの実行で状態を失わない
+### 複数ステップの実行で状態を失わない
 
 例えば：
 
@@ -291,7 +291,7 @@ print(memory_package)
 - 何がわかったか
 - あと何が足りないか
 
-### 8.3 コンテキストコストを抑える
+### コンテキストコストを抑える
 
 短期記憶は「覚えるため」だけのものではなく、次のためにもあります。
 
@@ -303,13 +303,13 @@ print(memory_package)
 
 ## 九、短期記憶でよくある失敗パターン
 
-### 9.1 少なすぎる
+### 少なすぎる
 
 症状：
 
 - システムが、ついさっき何を話していたかを突然忘れる
 
-### 9.2 多すぎる
+### 多すぎる
 
 症状：
 
@@ -317,14 +317,14 @@ print(memory_package)
 - 回答がそれる
 - コストが上がる
 
-### 9.3 メッセージだけ保存して、状態を保存しない
+### メッセージだけ保存して、状態を保存しない
 
 症状：
 
 - 複数ステップのタスクで失敗しやすい
 - ツール呼び出しの前後でつながりが悪い
 
-### 9.4 状態だけ保存して、会話の原文を保存しない
+### 状態だけ保存して、会話の原文を保存しない
 
 症状：
 
@@ -337,15 +337,15 @@ print(memory_package)
 
 ## 十、初心者がよくハマる落とし穴
 
-### 10.1 短期記憶と長期記憶を混同する
+### 短期記憶と長期記憶を混同する
 
 短期記憶が解決するのは、今のタスクです。ユーザープロフィール全体ではありません。
 
-### 10.2 メッセージウィンドウは大きいほど安定すると考える
+### メッセージウィンドウは大きいほど安定すると考える
 
 ウィンドウが大きすぎると、ノイズとコストも増えます。
 
-### 10.3 構造化状態を無視する
+### 構造化状態を無視する
 
 これを無視すると、Agent は複数ステップのタスクで一気に不安定になります。
 

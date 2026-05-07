@@ -1,11 +1,11 @@
 ---
-title: "1.8 RAG Evaluation"
+title: "8.1.8 RAG Evaluation"
 sidebar_position: 7
 description: "Understand why RAG evaluation must consider both retrieval and answers, and compute simple metrics on a toy dataset."
 keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluation]
 ---
 
-# RAG Evaluation
+# 8.1.8 RAG Evaluation
 
 ![RAG evaluation triangle diagram](/img/course/rag-evaluation-triangle-en.png)
 
@@ -20,9 +20,9 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. Why does RAG especially need evaluation?
+## Why does RAG especially need evaluation?
 
-### 1.1 Because it is not a single module
+### Because it is not a single module
 
 RAG is not one model. It usually includes at least:
 
@@ -33,7 +33,7 @@ RAG is not one model. It usually includes at least:
 
 If any step goes wrong, the final answer can get worse.
 
-### 1.2 So you cannot just ask, “Was the answer correct?”
+### So you cannot just ask, “Was the answer correct?”
 
 You also need to ask:
 
@@ -45,9 +45,9 @@ That is why RAG evaluation must be viewed in layers.
 
 ---
 
-## 2. The first layer: retrieval evaluation
+## The first layer: retrieval evaluation
 
-### 2.1 The most common intuitive metric: Hit@k
+### The most common intuitive metric: Hit@k
 
 Hit@k is very simple:
 
@@ -55,7 +55,7 @@ Hit@k is very simple:
 
 If the correct evidence for the user’s question is in the top 3, that counts as a hit.
 
-### 2.2 Why is this metric important?
+### Why is this metric important?
 
 Because if the correct material is not retrieved at all, the generation step is almost impossible to get right consistently.
 
@@ -65,9 +65,9 @@ So:
 
 ---
 
-## 3. The second layer: answer evaluation
+## The second layer: answer evaluation
 
-### 3.1 Looking only at whether the response sounds fluent is far from enough
+### Looking only at whether the response sounds fluent is far from enough
 
 Answer evaluation should at least consider:
 
@@ -75,7 +75,7 @@ Answer evaluation should at least consider:
 - Whether it has evidence behind it
 - Whether it is hallucinated
 
-### 3.2 Common dimensions
+### Common dimensions
 
 | Dimension | What it focuses on |
 |---|---|
@@ -98,7 +98,7 @@ Do not look only at the final answer score. First check whether the retrieval la
 
 ---
 
-## 4. A minimal evaluation dataset
+## A minimal evaluation dataset
 
 Below we manually construct a tiny evaluation set.
 
@@ -133,9 +133,9 @@ print(predictions)
 
 ---
 
-## 5. Computing a simple Hit@k
+## Computing a simple Hit@k
 
-### 5.1 Runnable example
+### Runnable example
 
 ```python
 dataset = [
@@ -169,7 +169,7 @@ print("Hit@2 =", round(hit_at_2, 4))
 
 If the correct document appears in the top 2 results for every item, the value is `1.0`.
 
-### 5.2 The limitation of this metric
+### The limitation of this metric
 
 It can only tell you whether the right document was retrieved. It cannot tell you:
 
@@ -180,9 +180,9 @@ So it is only the first step.
 
 ---
 
-## 6. Computing a simple answer accuracy score
+## Computing a simple answer accuracy score
 
-### 6.1 The simplest Exact Match idea
+### The simplest Exact Match idea
 
 In structured short-answer scenarios, you can start with the most straightforward method:
 
@@ -214,7 +214,7 @@ exact_match = correct / len(dataset)
 print("Exact Match =", round(exact_match, 4))
 ```
 
-### 6.2 But real-world scenarios are often not that simple
+### But real-world scenarios are often not that simple
 
 The same correct answer can have many different phrasings.
 So online systems often also introduce:
@@ -225,13 +225,13 @@ So online systems often also introduce:
 
 ---
 
-## 7. Faithfulness: is the answer supported by evidence?
+## Faithfulness: is the answer supported by evidence?
 
-### 7.1 This is more important than “does it sound plausible?”
+### This is more important than “does it sound plausible?”
 
 An answer may read very fluently, but if it was not derived from the retrieved materials, the risk is high.
 
-### 7.2 A simplified checking idea
+### A simplified checking idea
 
 The example below is very rough, but it helps you understand the concept of whether an answer is supported by evidence.
 
@@ -255,9 +255,9 @@ Split the answer into a few key conclusions, then link each one back to the evid
 
 ---
 
-## 8. How should the evaluation set be built?
+## How should the evaluation set be built?
 
-### 8.1 Minimal usable evaluation set
+### Minimal usable evaluation set
 
 It should include at least:
 
@@ -265,7 +265,7 @@ It should include at least:
 - The reference answer
 - The correct evidence document or evidence snippet
 
-### 8.2 The evaluation set should cover different difficulty levels
+### The evaluation set should cover different difficulty levels
 
 For example:
 
@@ -278,13 +278,13 @@ If the evaluation set is too narrow, optimization results can be misleading.
 
 ---
 
-## 9. Online evaluation is also important
+## Online evaluation is also important
 
-### 9.1 Offline evaluation cannot represent everything
+### Offline evaluation cannot represent everything
 
 No matter how good the offline dataset is, it cannot fully cover real user questions.
 
-### 9.2 Common online signals
+### Common online signals
 
 For example:
 
@@ -297,7 +297,7 @@ A mature RAG system is usually evaluated with both offline evaluation and online
 
 ---
 
-## 10. If your goal is a “knowledge-base-driven courseware generation assistant,” what should the evaluation set focus on?
+## If your goal is a “knowledge-base-driven courseware generation assistant,” what should the evaluation set focus on?
 
 This kind of project is not quite the same as a normal Q&A system.
 You are not only concerned with whether the answer sounds right. You also need to care about:
@@ -320,7 +320,7 @@ You can think of it like this:
 
 > **Evaluation for a courseware generation project is not just “answering correctly,” but “finding correctly, placing correctly, and citing correctly.”**
 
-## 11. A minimal evaluation example that looks more like a courseware generation project
+## A minimal evaluation example that looks more like a courseware generation project
 
 ```python
 dataset = [
@@ -348,17 +348,17 @@ This example is very small, but it helps beginners build the right evaluation in
 
 ---
 
-## 12. Common beginner mistakes
+## Common beginner mistakes
 
-### 12.1 Only looking at one or two successful cases
+### Only looking at one or two successful cases
 
 A demo can be encouraging, but it cannot replace evaluation.
 
-### 12.2 Evaluating only the answer, not the retrieval
+### Evaluating only the answer, not the retrieval
 
 Then it becomes hard to locate which layer caused the problem.
 
-### 12.3 Changing the system without a fixed evaluation set
+### Changing the system without a fixed evaluation set
 
 Without a fixed evaluation set, it is hard to tell whether you improved the system or just saw random fluctuation.
 

@@ -1,11 +1,11 @@
 ---
-title: "2.5 Ensemble Learning"
+title: "5.2.5 Ensemble Learning"
 sidebar_position: 6
 description: "Understand the principles of Bagging and Boosting, and master ensemble methods such as Random Forest, GBDT, XGBoost, and LightGBM"
 keywords: [Ensemble Learning, Random Forest, Bagging, Boosting, GBDT, XGBoost, LightGBM, CatBoost, Stacking]
 ---
 
-# Ensemble Learning
+# 5.2.5 Ensemble Learning
 
 ![Ensemble Learning Voting and Forest Diagram](/img/course/ensemble-learning-voting-forest-en.png)
 
@@ -76,9 +76,9 @@ As long as you first separate the two main lines—“parallel voting” and “
 
 ---
 
-## 1. The Core Idea of Ensemble Learning
+## The Core Idea of Ensemble Learning
 
-### 1.1 Understand Ensemble Learning with a Diagram
+### Understand Ensemble Learning with a Diagram
 
 ```mermaid
 flowchart TD
@@ -97,7 +97,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.2 Why does it work?
+### Why does it work?
 
 Every model makes mistakes, but **different models often make different mistakes**. Multiple models “vote” and can correct one another.
 
@@ -139,7 +139,7 @@ Ensemble voting accuracy: 77.7%
 
 This toy simulation shows the core promise of ensembles: if the models make partly independent mistakes, voting can be more accurate than any single voter.
 
-### 1.3 Two major schools
+### Two major schools
 
 | | Bagging | Boosting |
 |---|---------|---------|
@@ -171,7 +171,7 @@ flowchart LR
     style V2 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 1.4 Don’t rush to memorize model names yet—first remember two things
+### Don’t rush to memorize model names yet—first remember two things
 
 What you should remember first in this section is not the library names, but these two sentences:
 
@@ -180,7 +180,7 @@ What you should remember first in this section is not the library names, but the
 
 These two sentences can explain the family relationships of most later models.
 
-### 1.5 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 If you want to remember these two main paths more firmly, you can use this analogy directly:
 
@@ -195,9 +195,9 @@ When reading this diagram, first distinguish the two ways of “getting stronger
 
 ---
 
-## 2. Bagging and Random Forest
+## Bagging and Random Forest
 
-### 2.1 The Principle of Bagging
+### The Principle of Bagging
 
 **Bootstrap Aggregating = bootstrap sampling + aggregation**
 
@@ -228,13 +228,13 @@ Bootstrap sample 3: [2, 4, 5, 5, 6, 6, 7, 8, 9, 10]
 
 The important detail is “with replacement”: one row can appear multiple times, and another row may not appear at all. That is how Random Forest makes trees different from each other.
 
-### 2.2 Random Forest
+### Random Forest
 
 Random Forest = Bagging + **random feature selection**
 
 At each split, the tree only chooses the best split from a **random subset of features**. This increases diversity among trees.
 
-### 2.2.1 Why is Random Forest usually more stable than a single tree?
+### Why is Random Forest usually more stable than a single tree?
 
 Because it does two things that a single tree cannot do:
 
@@ -295,7 +295,7 @@ Random Forest        | Train: 100.0% | Test: 88.0%
 
 Both models can memorize the training set, but Random Forest usually produces a smoother, less fragile boundary because many trees vote together.
 
-### 2.3 Key hyperparameters of Random Forest
+### Key hyperparameters of Random Forest
 
 | Parameter | Description | Recommendation |
 |------|------|------|
@@ -305,7 +305,7 @@ Both models can memorize the training set, but Random Forest usually produces a 
 | `min_samples_split` | Minimum samples required to split a node | 2~10 |
 | `min_samples_leaf` | Minimum samples required at a leaf node | 1~5 |
 
-### 2.4 What is the more stable order for tuning Random Forest for the first time?
+### What is the more stable order for tuning Random Forest for the first time?
 
 It is recommended to follow this order:
 
@@ -320,7 +320,7 @@ The reason is:
 - `max_depth` and `min_samples_leaf` directly affect whether the model overfits
 - `max_features` is more for fine-tuning
 
-### 2.5 What is the most important thing to remember when using Random Forest for the first time?
+### What is the most important thing to remember when using Random Forest for the first time?
 
 The most important thing to remember is not:
 
@@ -375,9 +375,9 @@ After enough trees, performance often stabilizes. Adding more trees may make the
 
 ---
 
-## 3. Boosting Methods
+## Boosting Methods
 
-### 3.1 AdaBoost
+### AdaBoost
 
 **Idea**: Each round focuses on the **samples misclassified in the previous round**, giving them higher weights.
 
@@ -415,7 +415,7 @@ Expected output:
 AdaBoost | Train: 93.5% | Test: 89.0%
 ```
 
-### 3.2 GBDT (Gradient Boosting Decision Tree)
+### GBDT (Gradient Boosting Decision Tree)
 
 **Idea**: Each new tree fits not the original labels, but the **residuals** (prediction errors) of all previous trees.
 
@@ -434,7 +434,7 @@ Term notes for beginners:
 - **Learning rate** controls how much of the new tree’s correction is added each round. A smaller value is slower but often more stable.
 - **`n_estimators`** is the number of trees added to the ensemble.
 
-### 3.2.1 The most important intuition to remember about GBDT
+### The most important intuition to remember about GBDT
 
 If you want to explain GBDT in just one sentence, remember this:
 
@@ -462,7 +462,7 @@ Expected output:
 GBDT | Train: 98.0% | Test: 90.0%
 ```
 
-### 3.3 GBDT Regression — intuitive understanding
+### GBDT Regression — intuitive understanding
 
 ```python
 from sklearn.ensemble import GradientBoostingRegressor
@@ -521,9 +521,9 @@ This is the “error correction” story made visible: each new tree does not re
 
 ---
 
-## 4. XGBoost
+## XGBoost
 
-### 4.1 Improvements in XGBoost
+### Improvements in XGBoost
 
 XGBoost (eXtreme Gradient Boosting) is the **engineering-optimized version** of GBDT:
 
@@ -535,7 +535,7 @@ XGBoost (eXtreme Gradient Boosting) is the **engineering-optimized version** of 
 | Column sampling | None | Supported (similar to Random Forest) |
 | Early stopping | None | Supports `early_stopping_rounds` |
 
-### 4.2 Installation and usage
+### Installation and usage
 
 ```bash
 pip install xgboost
@@ -569,7 +569,7 @@ print(f"XGBoost | Train: {xgb_model.score(X_train, y_train):.1%} | Test: {xgb_mo
 `xgboost`, `lightgbm`, and `catboost` are optional packages, so they are not included in the minimal course runtime. Install them only when you reach this section. Recent XGBoost versions no longer need the old `use_label_encoder=False` parameter that appears in many older tutorials.
 :::
 
-### 4.3 Key hyperparameters of XGBoost
+### Key hyperparameters of XGBoost
 
 | Parameter | Description | Recommended range |
 |------|------|---------|
@@ -581,7 +581,7 @@ print(f"XGBoost | Train: {xgb_model.score(X_train, y_train):.1%} | Test: {xgb_mo
 | `reg_alpha` | L1 regularization coefficient | 0~1 |
 | `reg_lambda` | L2 regularization coefficient | 1~5 |
 
-### 4.3.1 When tuning XGBoost for the first time, which parameters should you change first?
+### When tuning XGBoost for the first time, which parameters should you change first?
 
 Don’t turn on a dozen parameters all at once. A more stable order is:
 
@@ -595,7 +595,7 @@ A very practical rule of thumb is:
 - A smaller learning rate with more trees is usually more stable than taking big steps
 - If the depth is too large, Boosting methods can easily start memorizing the training set
 
-### 4.4 Early Stopping
+### Early Stopping
 
 ```python
 # Early stopping: stop if validation performance does not improve for N consecutive rounds
@@ -618,7 +618,7 @@ print(f"Best iteration: {xgb_model.best_iteration}")
 print(f"Test accuracy: {xgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 4.5 Feature importance
+### Feature importance
 
 ```python
 # Feature importance in XGBoost
@@ -637,9 +637,9 @@ plt.show()
 
 ---
 
-## 5. LightGBM and CatBoost
+## LightGBM and CatBoost
 
-### 5.1 LightGBM
+### LightGBM
 
 LightGBM is an efficient gradient boosting framework developed by Microsoft, and it is **faster** than XGBoost:
 
@@ -668,7 +668,7 @@ lgb_model.fit(X_train, y_train)
 print(f"LightGBM | Train: {lgb_model.score(X_train, y_train):.1%} | Test: {lgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.2 CatBoost
+### CatBoost
 
 CatBoost (Categorical Boosting) is a framework developed by Yandex, and it is especially good at handling **categorical features**:
 
@@ -696,7 +696,7 @@ cat_model.fit(X_train, y_train)
 print(f"CatBoost | Train: {cat_model.score(X_train, y_train):.1%} | Test: {cat_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.3 Comparison of the three major Boosting frameworks
+### Comparison of the three major Boosting frameworks
 
 ![Boosting toolkit model choice comic](/img/course/ch05-ensemble-boosting-toolkit-en.png)
 
@@ -715,7 +715,7 @@ Do not read this comparison as “one model is always better.” A safer reading
 - **LightGBM** is often attractive when the table is large and training speed matters.
 - **CatBoost** is often attractive when the data has many categorical columns such as city, device type, user plan, or product category.
 
-### 5.4 When you do your first tabular-data project, which model is the safest choice?
+### When you do your first tabular-data project, which model is the safest choice?
 
 If this is your first structured tabular-data task, you can choose like this:
 
@@ -725,7 +725,7 @@ If this is your first structured tabular-data task, you can choose like this:
 
 This order is more stable than “pick whatever is hottest first,” because it helps you build a baseline first and then improve the ceiling step by step.
 
-### 5.5 The safest reading order when learning ensemble methods for the first time
+### The safest reading order when learning ensemble methods for the first time
 
 If this is your first time studying this section, it is recommended to understand it in this order:
 
@@ -739,9 +739,9 @@ This way, you won’t turn this section into a flat list of many model names.
 
 ---
 
-## 6. Stacking — Model Stacking
+## Stacking — Model Stacking
 
-### 6.1 Principle
+### Principle
 
 Use the prediction results of multiple different models as **new features**, and then train another model to make the final prediction.
 
@@ -772,7 +772,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 6.2 sklearn implementation
+### sklearn implementation
 
 ```python
 from sklearn.ensemble import StackingClassifier, RandomForestClassifier, GradientBoostingClassifier
@@ -803,7 +803,7 @@ Expected output:
 Stacking | Train: 95.0% | Test: 89.0%
 ```
 
-### 6.3 Why isn’t Stacking the first step for beginners?
+### Why isn’t Stacking the first step for beginners?
 
 Because although Stacking can be stronger, it has higher requirements for experimental design:
 
@@ -819,7 +819,7 @@ So a safer learning path is usually:
 
 ---
 
-## 7. Comprehensive Comparison in Practice
+## Comprehensive Comparison in Practice
 
 ```python
 from sklearn.ensemble import (
@@ -912,7 +912,7 @@ Treat this table as a comparison pattern, not a universal ranking. On a differen
 
 ---
 
-## 8. How to choose an algorithm?
+## How to choose an algorithm?
 
 ```mermaid
 flowchart TD
@@ -945,7 +945,7 @@ flowchart TD
 
 ---
 
-## 9. The Safest Default Order for Bringing Ensemble Learning into a Project for the First Time
+## The Safest Default Order for Bringing Ensemble Learning into a Project for the First Time
 
 When you introduce ensemble learning into a project for the first time, you can follow this order:
 

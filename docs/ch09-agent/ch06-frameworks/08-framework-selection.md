@@ -1,11 +1,11 @@
 ---
-title: "6.9 Framework Selection Guide"
+title: "9.6.9 Framework Selection Guide"
 sidebar_position: 37
 description: "Build a more practical method for choosing an Agent framework by considering task structure, knowledge focus, state complexity, team capability, and long-term maintenance cost."
 keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework]
 ---
 
-# Framework Selection Guide
+# 9.6.9 Framework Selection Guide
 
 :::tip Section Overview
 After exploring a full set of frameworks, the truly important question finally arrives:
@@ -25,7 +25,7 @@ What this lesson will do is make that judgment process clear.
 
 ---
 
-## 1. Why is framework selection essentially an architecture decision?
+## Why is framework selection essentially an architecture decision?
 
 Because once a framework is chosen, many things follow from it:
 
@@ -43,9 +43,9 @@ That is also why “which one is hottest” is usually not the most important qu
 
 ---
 
-## 2. First, look at the five most important selection dimensions
+## First, look at the five most important selection dimensions
 
-### 2.1 Is the task a complex state flow?
+### Is the task a complex state flow?
 
 If your system has:
 
@@ -56,7 +56,7 @@ If your system has:
 
 Then graph/workflow-style abstractions are more valuable.
 
-### 2.2 Is the system knowledge / retrieval driven?
+### Is the system knowledge / retrieval driven?
 
 If the core challenges are:
 
@@ -67,7 +67,7 @@ If the core challenges are:
 
 Then a knowledge-oriented framework will feel more natural.
 
-### 2.3 Does the task naturally look like role collaboration?
+### Does the task naturally look like role collaboration?
 
 If the task is something like:
 
@@ -77,7 +77,7 @@ If the task is something like:
 
 Then team-role division makes a role-based framework a better fit.
 
-### 2.4 What does the team care about more?
+### What does the team care about more?
 
 For example:
 
@@ -86,7 +86,7 @@ For example:
 - Faster prototyping
 - More stable long-term maintenance
 
-### 2.5 Is the project a demo or a long-term system?
+### Is the project a demo or a long-term system?
 
 This difference is very important.
 
@@ -95,7 +95,7 @@ This difference is very important.
 
 ---
 
-## 3. A minimal selection scoring example
+## A minimal selection scoring example
 
 This example is not meant to give you a “standard answer.” It is here to teach you:
 
@@ -128,7 +128,7 @@ for name, info in frameworks.items():
     print(name, "->", round(score(info, weights), 3))
 ```
 
-### 3.2 What really matters in this code is not the score
+### What really matters in this code is not the score
 
 What really matters is that you start asking:
 
@@ -139,9 +139,9 @@ That is the framework-selection mindset itself.
 
 ---
 
-## 4. Intuitive choices for several typical tasks
+## Intuitive choices for several typical tasks
 
-### 4.1 If you are building a complex state-flow Agent
+### If you are building a complex state-flow Agent
 
 Prioritize:
 
@@ -153,7 +153,7 @@ Because you need more of:
 - Conditional edges
 - Rollback and retry
 
-### 4.2 If you are building around a knowledge base / RAG main line
+### If you are building around a knowledge base / RAG main line
 
 Prioritize:
 
@@ -164,7 +164,7 @@ Because your key problems are:
 - How documents enter the system
 - How retrieval is organized
 
-### 4.3 If you are building a role-based multi-Agent prototype
+### If you are building a role-based multi-Agent prototype
 
 Prioritize:
 
@@ -177,9 +177,9 @@ Because what matters most here is:
 
 ---
 
-## 5. When should you avoid rushing into a complex framework?
+## When should you avoid rushing into a complex framework?
 
-### 5.1 A very common but easily overlooked case
+### A very common but easily overlooked case
 
 If your project is just:
 
@@ -194,7 +194,7 @@ Then in many cases:
 
 Is already enough.
 
-### 5.2 Why might that actually be better?
+### Why might that actually be better?
 
 Because frameworks bring:
 
@@ -210,7 +210,7 @@ So remember this first:
 
 ---
 
-## 6. Why can’t team factors be ignored?
+## Why can’t team factors be ignored?
 
 A framework does not only serve an individual developer; it also affects the whole team:
 
@@ -225,21 +225,21 @@ So “team fit” is a very practical dimension in framework selection.
 
 ---
 
-## 7. Several of the most common wrong ways to choose
+## Several of the most common wrong ways to choose
 
-### 7.1 Choosing what is most popular
+### Choosing what is most popular
 
 This is almost the most common misunderstanding.
 
-### 7.2 Choosing what looks coolest in a demo
+### Choosing what looks coolest in a demo
 
 A good-looking demo does not mean it is suitable for a long-term system.
 
-### 7.3 Choosing a framework before understanding the task structure
+### Choosing a framework before understanding the task structure
 
 This can turn into “forcing a framework onto the problem” instead of “choosing abstractions based on the problem.”
 
-### 7.4 Expecting one framework to solve every problem
+### Expecting one framework to solve every problem
 
 In reality, many systems are naturally mixed:
 
@@ -248,7 +248,7 @@ In reality, many systems are naturally mixed:
 
 ---
 
-## 8. A more practical selection order
+## A more practical selection order
 
 Instead of “listing frameworks first,” it is better to follow this path:
 

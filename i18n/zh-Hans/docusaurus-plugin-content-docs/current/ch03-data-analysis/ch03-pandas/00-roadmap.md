@@ -1,11 +1,11 @@
 ---
-title: "Pandas 导读：这一章到底在学什么"
+title: "3.3.1 Pandas 导读：这一章到底在学什么"
 sidebar_position: 8
 description: "给第一次学 Pandas 的新人一张总地图：DataFrame、读写、筛选、清洗、转换、聚合、合并和时间序列如何串成数据分析工作流。"
 keywords: [Pandas导读, DataFrame, 数据处理, 数据清洗, groupby, Pandas怎么学]
 ---
 
-# Pandas 导读：这一章到底在学什么
+# 3.3.1 Pandas 导读：这一章到底在学什么
 
 这一章解决的是：拿到一张真实数据表后，怎样用代码把它读进来、看清楚、整理干净、筛选出来、统计汇总，并交给后面的可视化、机器学习或业务分析。
 
@@ -61,14 +61,14 @@ flowchart LR
 
 | 章节 | 它最该帮你解决什么问题 |
 |---|---|
-| [3.1 Pandas 核心数据结构](./01-core-structures.md) | 先搞懂 `Series / DataFrame / Index` 到底是什么 |
-| [3.2 数据读写](./02-read-write.md) | 把 CSV / Excel / JSON 读进来、导出去 |
-| [3.3 数据选择与过滤](./03-selection-filter.md) | 真正开始“挑出我想要的那部分数据” |
-| [3.4 数据清洗](./04-data-cleaning.md) | 处理缺失值、重复值、异常值和格式问题 |
-| [3.5 数据转换](./05-data-transform.md) | 在列和列之间做变换、映射和派生 |
-| [3.6 分组与聚合](./06-groupby.md) | 做“按部门 / 按月份 / 按类别”的统计分析 |
-| [3.7 数据合并](./07-merge.md) | 把多张表拼起来 |
-| [3.8 时间序列](./08-time-series.md) | 让表格开始按时间维度工作 |
+| [3.3.2 Pandas 核心数据结构](./01-core-structures.md) | 先搞懂 `Series / DataFrame / Index` 到底是什么 |
+| [3.3.3 数据读写](./02-read-write.md) | 把 CSV / Excel / JSON 读进来、导出去 |
+| [3.3.4 数据选择与过滤](./03-selection-filter.md) | 真正开始“挑出我想要的那部分数据” |
+| [3.3.5 数据清洗](./04-data-cleaning.md) | 处理缺失值、重复值、异常值和格式问题 |
+| [3.3.6 数据转换](./05-data-transform.md) | 在列和列之间做变换、映射和派生 |
+| [3.3.7 分组与聚合](./06-groupby.md) | 做“按部门 / 按月份 / 按类别”的统计分析 |
+| [3.3.8 数据合并](./07-merge.md) | 把多张表拼起来 |
+| [3.3.9 时间序列](./08-time-series.md) | 让表格开始按时间维度工作 |
 
 ## 这一章和后面阶段的关系
 

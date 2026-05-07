@@ -1,10 +1,10 @@
 ---
-title: "1.5 Flow Control"
+title: "2.1.5 Flow Control"
 sidebar_position: 5
 description: "Master conditional logic and loop structures"
 ---
 
-# Flow Control
+# 2.1.5 Flow Control
 
 ![Python flow control execution path diagram](/img/course/ch02-control-flow-paths-en.png)
 

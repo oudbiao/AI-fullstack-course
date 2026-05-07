@@ -1,11 +1,11 @@
 ---
-title: "1.4 Introduction to the Scikit-learn Framework"
+title: "5.1.4 Introduction to the Scikit-learn Framework"
 sidebar_position: 3
 description: "Master Scikit-learn’s design philosophy and core API patterns (Estimator, Transformer, Pipeline), and learn dataset loading, model training, and persistence"
 keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, machine learning framework]
 ---
 
-# Introduction to the Scikit-learn Framework
+# 5.1.4 Introduction to the Scikit-learn Framework
 
 ![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline-en.png)
 
@@ -48,9 +48,9 @@ If you keep this line in your head, you won’t feel especially lost later when 
 
 ---
 
-## 1. Why Scikit-learn?
+## Why Scikit-learn?
 
-### 1.1 sklearn’s place in the ML ecosystem
+### sklearn’s place in the ML ecosystem
 
 ```mermaid
 flowchart TD
@@ -71,7 +71,7 @@ flowchart TD
 | **Active community** | One of the most popular ML libraries in the world |
 | **Production-ready** | Can be used directly in real projects |
 
-### 1.1.1 What is sklearn’s most important value for beginners?
+### What is sklearn’s most important value for beginners?
 
 The most important thing is not “having many algorithms,” but:
 
@@ -79,7 +79,7 @@ The most important thing is not “having many algorithms,” but:
 - You can focus on comparing models instead of being interrupted by library differences
 - It becomes easier to understand that “training, prediction, evaluation” is actually one unified workflow
 
-### 1.2 Installation
+### Installation
 
 ```bash
 python -m pip install --upgrade scikit-learn
@@ -100,9 +100,9 @@ Expected output will be a version number, for example:
 
 ---
 
-## 2. Scikit-learn’s design philosophy
+## Scikit-learn’s design philosophy
 
-### 2.1 Unified API — one trick that works everywhere
+### Unified API — one trick that works everywhere
 
 The strongest part of Scikit-learn is this: **all algorithms follow the same API pattern**. Whether it is linear regression, a decision tree, or SVM, the usage style is the same.
 
@@ -144,7 +144,7 @@ for name, model in models.items():
 You only need to learn `fit` / `predict` / `score` once, and then you can use all algorithms in sklearn. Switching models becomes as easy as swapping parts.
 :::
 
-### 2.1.1 What are the first three actions a beginner should remember?
+### What are the first three actions a beginner should remember?
 
 If you only remember three actions for now, remember these:
 
@@ -154,7 +154,7 @@ If you only remember three actions for now, remember these:
 
 These three actions are the smallest closed loop you will see most often in Chapter 5.
 
-### 2.1.2 Decode the API terms before they become scary
+### Decode the API terms before they become scary
 
 | Term | What it is | Why it matters here |
 |---|---|---|
@@ -166,7 +166,7 @@ These three actions are the smallest closed loop you will see most often in Chap
 | `parameter` | A value learned during `fit` | Examples: tree split rules, scaler mean and standard deviation, linear weights |
 | `attribute_` | A learned sklearn attribute whose name ends with `_` | Examples: `classes_`, `mean_`, `feature_importances_`; it exists only after `fit` |
 
-### 2.2 Three core roles
+### Three core roles
 
 ```mermaid
 flowchart LR
@@ -192,7 +192,7 @@ flowchart LR
 
 You can treat this diagram as sklearn’s “parts manual”: the Transformer organizes the data, the Estimator learns the pattern, and the Pipeline makes sure training and prediction follow the same path. Once beginners separate these three roles clearly, they won’t get confused later when they switch models or preprocessing steps.
 
-### 2.3 How can you remember these three roles in one sentence?
+### How can you remember these three roles in one sentence?
 
 You can remember them like this:
 
@@ -202,9 +202,9 @@ You can remember them like this:
 
 ---
 
-## 3. Estimator — learning and prediction
+## Estimator — learning and prediction
 
-### 3.1 Core methods
+### Core methods
 
 ```python
 # An Estimator is the base class for all objects that can "learn"
@@ -229,7 +229,7 @@ Expected output:
 gini 3 42
 ```
 
-### 3.2 Complete example
+### Complete example
 
 ```python
 from sklearn.datasets import load_iris
@@ -288,7 +288,7 @@ Feature importances: [0.     0.     0.9346 0.0654]
 In sklearn, attributes ending with `_` (such as `feature_importances_`) are **only available after training**. Accessing them before calling `fit()` will raise an error. This is sklearn’s naming convention.
 :::
 
-### 3.2.1 What exactly does `fit` “learn”?
+### What exactly does `fit` “learn”?
 
 This is a very important question to think through first.
 
@@ -302,7 +302,7 @@ So the essence of `fit` is not “just run a function,” but:
 
 > **Extract a set of parameters or rules from the training data that will be reused later.**
 
-### 3.3 Predicting probabilities
+### Predicting probabilities
 
 For classification tasks, many models also support `predict_proba()`:
 
@@ -337,9 +337,9 @@ Prediction probabilities:
 
 ---
 
-## 4. Transformer — data transformation
+## Transformer — data transformation
 
-### 4.1 Why do we need data transformation?
+### Why do we need data transformation?
 
 Many ML algorithms are **sensitive to scale**. For example, if one feature is in the range [0, 1] and another is in [0, 1,000,000], the latter will “dominate” the former.
 
@@ -362,7 +362,7 @@ Salary mean: 83333, standard deviation: 28674
 Age mean: 35, standard deviation: 8
 ```
 
-### 4.2 StandardScaler standardization
+### StandardScaler standardization
 
 ```python
 from sklearn.preprocessing import StandardScaler
@@ -417,7 +417,7 @@ Mean after standardization: [-0. -0.]
 Standard deviation after standardization: [1. 1.]
 ```
 
-### 4.2.1 Why do we need to `fit` before `transform` for standardization too?
+### Why do we need to `fit` before `transform` for standardization too?
 
 ![StandardScaler fit versus transform comic](/img/course/ch05-standard-scaler-fit-transform-en.png)
 
@@ -430,7 +430,7 @@ That is also why many preprocessing steps are, in essence, a process of “learn
 
 The most important beginner rule is: `fit` is allowed to look at training data because it learns parameters; `transform` only applies those learned parameters. If the test set also participates in `fit`, your evaluation is no longer a fair simulation of new data.
 
-### 4.3 The `fit_transform` shortcut
+### The `fit_transform` shortcut
 
 ```python
 # fit + transform combined into one step (commonly used on the training set)
@@ -446,7 +446,7 @@ X_scaled = scaler.fit_transform(X)
 - **Wrong approach**: using `fit_transform()` on the test set too → data leakage!
 :::
 
-### 4.4 Common Transformers
+### Common Transformers
 
 | Transformer | What it does | Formula / description |
 |------------|--------|----------|
@@ -483,9 +483,9 @@ Maximum values: [1. 1.]
 
 ---
 
-## 5. Datasets — loading and generating
+## Datasets — loading and generating
 
-### 5.1 Built-in real datasets
+### Built-in real datasets
 
 sklearn includes several classic datasets, which are great for learning and experimentation:
 
@@ -507,7 +507,7 @@ print(f"  Class names: {iris.target_names}")
 print(f"  Description: {iris.DESCR[:200]}...")
 ```
 
-### 5.2 Generating synthetic data
+### Generating synthetic data
 
 Sometimes you need “custom” data to understand algorithm behavior:
 
@@ -546,7 +546,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 5.3 Common data generation functions
+### Common data generation functions
 
 | Function | Purpose | Key parameters |
 |------|------|---------|
@@ -579,9 +579,9 @@ plt.show()
 
 ---
 
-## 6. Pipeline — connect everything together
+## Pipeline — connect everything together
 
-### 6.1 Why do we need Pipeline?
+### Why do we need Pipeline?
 
 In real projects, data processing and model training usually involve multiple steps:
 
@@ -598,7 +598,7 @@ score = model.score(X_test_scaled, y_test)
 
 The problem is that too many steps make it easy to **miss something or mix things up**. Pipeline packages all steps together:
 
-### 6.2 Creating a Pipeline
+### Creating a Pipeline
 
 ```python
 from sklearn.pipeline import Pipeline
@@ -644,7 +644,7 @@ flowchart LR
     style C fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 6.3 The `make_pipeline` shortcut
+### The `make_pipeline` shortcut
 
 ```python
 from sklearn.pipeline import make_pipeline
@@ -669,7 +669,7 @@ Accuracy: 100.0%
 Steps: ['standardscaler', 'decisiontreeclassifier']
 ```
 
-### 6.4 Benefits of Pipeline
+### Benefits of Pipeline
 
 | Benefit | Description |
 |------|------|
@@ -680,7 +680,7 @@ Steps: ['standardscaler', 'decisiontreeclassifier']
 
 ---
 
-## 7. Model persistence — saving and loading
+## Model persistence — saving and loading
 
 A trained model should be **saved** so it can be used later directly, without retraining.
 
@@ -688,7 +688,7 @@ A trained model should be **saved** so it can be used later directly, without re
 
 In sklearn projects, the safest habit is to save the whole `Pipeline` whenever preprocessing is part of the workflow. That way, new data will pass through the same scaler, encoder, feature selector, and model in the same order.
 
-### 7.1 Using joblib (recommended)
+### Using joblib (recommended)
 
 ```python
 import joblib
@@ -727,7 +727,7 @@ This code creates a local file named `iris_model.joblib`. In a real project, kee
 
 `joblib` is not just “a file format.” It is a Python serialization tool often used with sklearn because many sklearn objects contain NumPy arrays. Serialization means turning an in-memory Python object into bytes that can be saved to disk and loaded later.
 
-### 7.2 Using pickle
+### Using pickle
 
 ```python
 import pickle
@@ -758,7 +758,7 @@ Accuracy after loading with pickle: 100.0%
 
 ---
 
-## 8. Comprehensive practice: comparing multiple models
+## Comprehensive practice: comparing multiple models
 
 Let’s combine what we’ve learned and compare multiple models on the same dataset:
 
@@ -839,7 +839,7 @@ Do not blindly choose the model with the highest training score. In this example
 
 ---
 
-## 9. sklearn API quick reference
+## sklearn API quick reference
 
 ### Core methods
 
@@ -873,7 +873,7 @@ Do not blindly choose the model with the highest training score. In this example
 
 ---
 
-## 10. A common mistake: preprocessing on the full dataset first
+## A common mistake: preprocessing on the full dataset first
 
 Many beginners, when using sklearn for the first time, standardize the full dataset first and then split it into training and test sets. This looks convenient, but it leaks information from the test set into the training workflow too early.
 
@@ -894,7 +894,7 @@ flowchart LR
 
 A safer default is: split the data first, then let Pipeline `fit` on the training set, and finally evaluate on the test set. That way, preprocessing parameters come only from the training set, and the test set really behaves like unseen data.
 
-## 11. Learning loop for this section
+## Learning loop for this section
 
 | Level | What you should be able to do |
 |---|---|

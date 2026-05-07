@@ -1,10 +1,10 @@
 ---
-title: "2.1 NumPy 概述"
+title: "3.2.1 NumPy 概述"
 sidebar_position: 2
 description: "认识 NumPy——Python 科学计算的基石"
 ---
 
-# NumPy 概述
+# 3.2.1 NumPy 概述
 
 ## 学习目标
 

@@ -1,11 +1,11 @@
 ---
-title: "1.1 Web Front-End Basics in Fast Track"
+title: "E.E Web Front-End Basics in Fast Track"
 sidebar_position: 5
 description: "Quickly build the core front-end intuition needed for AI product scenarios: page structure, state updates, form interaction, asynchronous requests, and a minimally usable interface."
 keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 ---
 
-# Web Front-End Basics in Fast Track
+# E.E Web Front-End Basics in Fast Track
 
 ![AI front-end interaction stack diagram](/img/course/elective-ai-frontend-stack-en.png)
 
@@ -42,9 +42,9 @@ So this lesson is not meant to turn front-end development into a full discipline
 
 ---
 
-## 1. Why AI products can’t do without the front end?
+## Why AI products can’t do without the front end?
 
-### 1.1 Because “model capability” must be made visible through interaction
+### Because “model capability” must be made visible through interaction
 
 No matter how good the model is, if there is no clear interface to present it,
 users will still feel that:
@@ -53,7 +53,7 @@ users will still feel that:
 - they don’t know what the system is doing
 - they don’t know whether the result is trustworthy
 
-### 1.2 The core value of the front end
+### The core value of the front end
 
 It is not to make the page flashy,
 but to express these states clearly:
@@ -63,16 +63,16 @@ but to express these states clearly:
 - whether the system is loading or has failed
 - how the output should be read
 
-### 1.3 An analogy
+### An analogy
 
 The model is like the engine, and the front end is like the dashboard and cockpit.
 Without the cockpit, even a very powerful engine is hard for users to operate smoothly.
 
 ---
 
-## 2. First build a minimal front-end mental model
+## First build a minimal front-end mental model
 
-### 2.1 HTML handles structure
+### HTML handles structure
 
 For example:
 
@@ -80,7 +80,7 @@ For example:
 - button
 - result area
 
-### 2.2 CSS handles appearance
+### CSS handles appearance
 
 For example:
 
@@ -88,7 +88,7 @@ For example:
 - layout
 - state styles
 
-### 2.3 JavaScript handles behavior
+### JavaScript handles behavior
 
 For example:
 
@@ -101,7 +101,7 @@ you can start making sense of most beginner-friendly AI pages.
 
 ---
 
-## 3. Run a minimal AI page first
+## Run a minimal AI page first
 
 The example below does one very typical thing:
 
@@ -224,7 +224,7 @@ It uses pure front-end simulation, so it can be opened directly in the browser w
 </html>
 ```
 
-### 3.1 What is the most valuable thing to learn from this example?
+### What is the most valuable thing to learn from this example?
 
 It expresses the smallest front-end loop very clearly:
 
@@ -233,7 +233,7 @@ It expresses the smallest front-end loop very clearly:
 3. show loading state
 4. update the result area
 
-### 3.2 Why is “loading” so important?
+### Why is “loading” so important?
 
 Many AI requests do not return instantly.
 If the front end gives no feedback at all, users may wonder:
@@ -243,16 +243,16 @@ If the front end gives no feedback at all, users may wonder:
 
 So state feedback itself is part of the experience.
 
-### 3.3 Why use `fakeAiResponse` here first?
+### Why use `fakeAiResponse` here first?
 
 Because it helps you understand the front-end flow first.
 When you later have a real back-end API, you only need to replace this part with `fetch`.
 
 ---
 
-## 4. How do you usually move from local simulation to a real API?
+## How do you usually move from local simulation to a real API?
 
-### 4.1 Use `fetch` to send requests
+### Use `fetch` to send requests
 
 The most common next step is:
 
@@ -265,14 +265,14 @@ const response = await fetch("/api/chat", {
 const data = await response.json();
 ```
 
-### 4.2 What should the front end pay more attention to at this point?
+### What should the front end pay more attention to at this point?
 
 - whether the request succeeds
 - whether the response is empty
 - how errors should be displayed
 - whether the user can continue operating the page
 
-### 4.3 The front end is not just for “showing results”
+### The front end is not just for “showing results”
 
 It also takes care of:
 
@@ -282,21 +282,21 @@ It also takes care of:
 
 ---
 
-## 5. The most common pitfalls in AI front ends
+## The most common pitfalls in AI front ends
 
-### 5.1 Mistake 1: Building a very complex UI before connecting the back end
+### Mistake 1: Building a very complex UI before connecting the back end
 
 A more stable order is usually:
 
 - start with the minimum usable version
 - then improve it step by step
 
-### 5.2 Mistake 2: No loading state or error state
+### Mistake 2: No loading state or error state
 
 This makes the experience poor,
 and makes problems harder to locate.
 
-### 5.3 Mistake 3: Treating the front end as a “decorative layer”
+### Mistake 3: Treating the front end as a “decorative layer”
 
 For AI products, the front end actually carries very important responsibilities:
 

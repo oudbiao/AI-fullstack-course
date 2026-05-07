@@ -1,10 +1,10 @@
 ---
-title: "3.2 Data Read and Write"
+title: "3.3.3 Data Read and Write"
 sidebar_position: 10
 description: "Master reading and writing data in formats such as CSV, Excel, and JSON"
 ---
 
-# Data Read and Write
+# 3.3.3 Data Read and Write
 
 :::tip Where this section fits
 When many beginners first learn `read_csv()`, they may think:

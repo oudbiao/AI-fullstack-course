@@ -1,11 +1,11 @@
 ---
-title: "3.2 大モデル API 呼び出し実践"
+title: "8.3.2 大モデル API 呼び出し実践"
 sidebar_position: 11
 description: "最小のチャットリクエスト、パラメータ設計、エラー処理からクライアントのラップまで、大モデル API をアプリにどうつなぐかを本当に理解する。"
 keywords: [LLM API, chat completion, API client, prompt, response parsing, error handling]
 ---
 
-# 大モデル API 呼び出し実践
+# 8.3.2 大モデル API 呼び出し実践
 
 :::tip この節の位置づけ
 多くの人は、最初に LLM アプリを作るとき、「とりあえず API を呼べる」ところで止まりがちです。  
@@ -27,7 +27,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 ## 一、なぜ API 呼び出しが LLM アプリ開発の第一歩なのか？
 
-### 1.1 モデルが本当にシステムに入ってくる入口だから
+### モデルが本当にシステムに入ってくる入口だから
 
 前に学んだ概念は、どれだけ強力でも、最終的にアプリの中では次の 1 つに落ち着きます。
 
@@ -39,7 +39,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 > **大モデルの能力が製品に入るためのインターフェース層。**
 
-### 1.2 よく見落とされるポイント
+### よく見落とされるポイント
 
 多くの人が気にするのは次です。
 
@@ -75,7 +75,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 この図は「1 行の呼び出し」ではなく、実行時の閉ループとして読んでください。`API` はアプリケーション用のインターフェース、`endpoint` はサービスの住所、`JSON` はネットワークで送る構造化データ形式、`usage` は token 使用量を記録して後からコストや性能を分析するための情報です。
 :::
 
-### 2.1 最小リクエストのイメージ
+### 最小リクエストのイメージ
 
 ```python
 request = {
@@ -90,7 +90,7 @@ request = {
 print(request)
 ```
 
-### 2.2 なぜ `messages` はリストなのか？
+### なぜ `messages` はリストなのか？
 
 チャットモデルは通常、1 つの文字列だけを見るのではなく、次のものを見ます。
 
@@ -137,7 +137,7 @@ response = client.chat([
 print(response)
 ```
 
-### 3.2 なぜ先に mock 版を作るのか？
+### なぜ先に mock 版を作るのか？
 
 それは、次のことを先に理解できるからです。
 
@@ -151,7 +151,7 @@ print(response)
 
 ## 四、「呼べる」から「使える」へ進む
 
-### 4.1 なぜ業務コードのあちこちに直接 API 呼び出しを書いてはいけないのか？
+### なぜ業務コードのあちこちに直接 API 呼び出しを書いてはいけないのか？
 
 もし毎回あちこちで次のように書くとします。
 
@@ -166,7 +166,7 @@ client.chat(...)
 - エラー処理がバラバラになる
 - 後でモデルや provider を切り替えにくい
 
-### 4.2 プロジェクトコードらしいラップ
+### プロジェクトコードらしいラップ
 
 ```python
 class CourseAssistant:
@@ -186,7 +186,7 @@ assistant = CourseAssistant(MockLLMClient())
 print(assistant.ask("証明書はどうやって取得しますか？"))
 ```
 
-### 4.3 このラップから何を学ぶのか？
+### このラップから何を学ぶのか？
 
 ここで学ぶのは次です。
 
@@ -235,7 +235,7 @@ print("usage =", response["usage"])
 - ネットワーク異常
 - サーバー側エラー
 
-### 6.1 最小のエラー処理例
+### 最小のエラー処理例
 
 ```python
 class UnstableMockLLMClient:
@@ -265,7 +265,7 @@ print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
-### 6.2 なぜこの層を丁寧に作る必要があるのか？
+### なぜこの層を丁寧に作る必要があるのか？
 
 モデル呼び出しがシステムの中間に入ると、エラーは単に「ユーザーに返事が来ない」だけでは済みません。次のような影響があります。
 
@@ -320,15 +320,15 @@ mock から本物の API に進むとき、普通は次も追加します。
 
 ## 九、よくある誤解
 
-### 9.1 「`content` が取れれば十分」と思ってしまう
+### 「`content` が取れれば十分」と思ってしまう
 
 実際には、usage、エラー構造、trace 情報もとても大切です。
 
-### 9.2 業務コードのあちこちに `client.chat(...)` が散らばる
+### 業務コードのあちこちに `client.chat(...)` が散らばる
 
 こうなると、後で保守するのがとても大変になります。
 
-### 9.3 統一したエラー処理がない
+### 統一したエラー処理がない
 
 本番で問題が起きたとき、すぐに表面化しやすくなります。
 

@@ -1,11 +1,11 @@
 ---
-title: "1.7 Deployment Integrated Project"
+title: "E.A.7 Deployment Integrated Project"
 sidebar_position: 7
 description: "Combine C++, optimization, inference engines, service deployment, and edge deployment into one complete project, and build a lightweight model deployment project that can be shown in a portfolio."
 keywords: [deployment project, edge inference, model serving, optimization, portfolio project]
 ---
 
-# Deployment Integrated Project
+# E.A.7 Deployment Integrated Project
 
 :::tip Section Positioning
 This earlier set of elective lessons covered quite a few building blocks:
@@ -31,9 +31,9 @@ What we want to do in this section is assemble these pieces into a project that 
 
 ---
 
-## 1. What should a deployment project highlight most?
+## What should a deployment project highlight most?
 
-### 1.1 Not “how strong the model is,” but “how stable the system is”
+### Not “how strong the model is,” but “how stable the system is”
 
 The most convincing things in a deployment project are usually not:
 
@@ -47,7 +47,7 @@ Instead, they are:
 - What does the deployment environment look like?
 - Are rollback and monitoring considered?
 
-### 1.2 A project topic suitable for beginners
+### A project topic suitable for beginners
 
 A good portfolio project topic could be:
 
@@ -60,14 +60,14 @@ This topic is good because:
 - different deployment solutions can be compared
 - optimization and service deployment can be shown
 
-### 1.3 Why is this topic better than “building a huge general-purpose system”?
+### Why is this topic better than “building a huge general-purpose system”?
 
 Because deployment projects are most afraid of being too broad.
 Clear, testable, and presentable is more important than spreading features too thin.
 
 ---
 
-## 2. What modules should a deployment integrated project minimally include?
+## What modules should a deployment integrated project minimally include?
 
 At minimum, it should include:
 
@@ -90,7 +90,7 @@ If time allows, add:
 
 ---
 
-## 3. First run a project skeleton example
+## First run a project skeleton example
 
 This example will not actually start a service,
 but it directly expresses the most important planning structure of a deployment project:
@@ -138,7 +138,7 @@ project = DeploymentProject(
 print(project)
 ```
 
-### 3.1 Why is this example useful?
+### Why is this example useful?
 
 Because in a deployment project, the biggest risk is ending up with only:
 
@@ -153,7 +153,7 @@ but not being able to explain clearly:
 
 This structured skeleton forces you to make those points clear.
 
-### 3.2 Why must a deployment project include metrics?
+### Why must a deployment project include metrics?
 
 Because without metrics,
 it is hard for others to judge whether your optimization is truly valuable.
@@ -166,9 +166,9 @@ At a minimum, it is recommended to clearly state:
 
 ---
 
-## 4. Recommended presentation style for deployment projects
+## Recommended presentation style for deployment projects
 
-### 4.1 Start with the problem and goals
+### Start with the problem and goals
 
 For example:
 
@@ -176,7 +176,7 @@ For example:
 - offline inference is required
 - target latency is under 100ms
 
-### 4.2 Then explain the system architecture
+### Then explain the system architecture
 
 For example:
 
@@ -185,7 +185,7 @@ For example:
 - service architecture
 - target hardware
 
-### 4.3 Finally, present the results and trade-offs
+### Finally, present the results and trade-offs
 
 For example:
 
@@ -197,9 +197,9 @@ This part often shows engineering judgment best.
 
 ---
 
-## 5. Three things that are easiest to overlook in a project
+## Three things that are easiest to overlook in a project
 
-### 5.1 Environment reproducibility
+### Environment reproducibility
 
 If others cannot quickly reproduce:
 
@@ -209,14 +209,14 @@ If others cannot quickly reproduce:
 
 the project’s credibility will drop a lot.
 
-### 5.2 Baseline comparison
+### Baseline comparison
 
 It is best to explain:
 
 - what it looked like before optimization
 - what improved after optimization
 
-### 5.3 Failure cases
+### Failure cases
 
 For example:
 
@@ -227,9 +227,9 @@ Writing these down often better proves that you really made engineering trade-of
 
 ---
 
-## 6. Common misunderstandings
+## Common misunderstandings
 
-### 6.1 Misunderstanding 1: A deployment project only needs to run
+### Misunderstanding 1: A deployment project only needs to run
 
 Deployment projects should emphasize more:
 
@@ -237,11 +237,11 @@ Deployment projects should emphasize more:
 - stability
 - reproducibility
 
-### 6.2 Misunderstanding 2: Only show the interface, not the metrics
+### Misunderstanding 2: Only show the interface, not the metrics
 
 For this kind of project, metrics matter more than the UI.
 
-### 6.3 Misunderstanding 3: Trying to cover cloud, edge, and mobile scenarios all at once
+### Misunderstanding 3: Trying to cover cloud, edge, and mobile scenarios all at once
 
 A better approach is usually:
 

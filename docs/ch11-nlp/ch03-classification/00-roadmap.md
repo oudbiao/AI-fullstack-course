@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-class Guide: What Is This Chapter on Text Classification Really About?"
+title: "11.3.1 Pre-class Guide: What Is This Chapter on Text Classification Really About?"
 sidebar_position: 0
 description: "First build a learning map for the text classification chapter: how traditional methods, deep learning methods, and classification project practice connect."
 keywords: [text classification guide, sentiment analysis, TF-IDF, text classification project]
 ---
 
-# Pre-class Guide: What Is This Chapter on Text Classification Really About?
+# 11.3.1 Pre-class Guide: What Is This Chapter on Text Classification Really About?
 
 This chapter on text classification solves this problem:
 

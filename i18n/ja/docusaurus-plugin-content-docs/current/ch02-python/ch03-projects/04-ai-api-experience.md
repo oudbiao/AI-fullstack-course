@@ -1,10 +1,10 @@
 ---
-title: "1.4 プロジェクト：AI API クイック体験"
+title: "2.3.4 プロジェクト：AI API クイック体験"
 sidebar_position: 4
 description: "AI API を呼び出して人工知能の力を体験する"
 ---
 
-# プロジェクト：AI API クイック体験
+# 2.3.4 プロジェクト：AI API クイック体験
 
 ![AI API リクエスト・レスポンスの流れ図](/img/course/ch02-ai-api-request-response-ja.png)
 

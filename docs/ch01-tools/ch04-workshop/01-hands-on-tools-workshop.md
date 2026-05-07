@@ -1,11 +1,11 @@
 ---
-title: "1.4 Follow-Along Workshop: Build a Reproducible AI Learning Lab"
+title: "1.4.1 Follow-Along Workshop: Build a Reproducible AI Learning Lab"
 sidebar_position: 1
 description: "A step-by-step Chapter 1 workshop that connects the terminal, Python environment checks, VS Code, Jupyter, Git, and portfolio evidence into one runnable learning repository."
 keywords: [developer tools workshop, terminal, Git, Python environment, VS Code, Jupyter, reproducible project]
 ---
 
-# Follow-Along Workshop: Build a Reproducible AI Learning Lab
+# 1.4.1 Follow-Along Workshop: Build a Reproducible AI Learning Lab
 
 ![Chapter 1 hands-on workstation route](/img/course/ch01-hands-on-workstation-route-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "3.3 Deep Learning Text Classification"
+title: "11.3.3 Deep Learning Text Classification"
 sidebar_position: 8
 description: "Starting from embedding + pooling, understand why deep learning text classification handles semantics and context better than traditional methods."
 keywords: [deep text classification, embedding, pooling, neural classifier, NLP]
 ---
 
-# Deep Learning Text Classification
+# 11.3.3 Deep Learning Text Classification
 
 ![Neural text classification structure](/img/course/ch11-neural-classification-embedding-pooling-map-en.png)
 
@@ -56,9 +56,9 @@ So the real questions this section wants to answer are:
 
 ---
 
-## 1. What does deep learning text classification add beyond traditional methods?
+## What does deep learning text classification add beyond traditional methods?
 
-### 1.1 It no longer relies entirely on hand-crafted features
+### It no longer relies entirely on hand-crafted features
 
 Traditional methods are more like:
 
@@ -69,7 +69,7 @@ Deep methods are more like:
 
 - learn the representation and the classification at the same time
 
-### 1.2 The most basic pipeline is actually not complicated
+### The most basic pipeline is actually not complicated
 
 The smallest deep text classifier can usually be broken into:
 
@@ -77,12 +77,12 @@ The smallest deep text classifier can usually be broken into:
 2. aggregate a sequence of token representations
 3. connect a linear classification head
 
-### 1.3 An analogy
+### An analogy
 
 Traditional methods are like first turning a sentence into a table of keywords, then making a judgment.
 Deep methods are more like first encoding the sentence into a continuous semantic representation, then making a judgment.
 
-### 1.4 A more beginner-friendly overall analogy
+### A more beginner-friendly overall analogy
 
 You can also think of the two methods like this:
 
@@ -99,20 +99,20 @@ The latter emphasizes more:
 
 ---
 
-## 2. What does the most common minimal neural text classifier look like?
+## What does the most common minimal neural text classifier look like?
 
-### 2.1 Embedding layer
+### Embedding layer
 
 Convert token ids into vectors.
 
-### 2.2 Pooling
+### Pooling
 
 Combine a sequence of token representations into one sentence representation.
 The simplest one is:
 
 - average pooling
 
-### 2.3 Classification head
+### Classification head
 
 Use a linear layer to map the sentence representation to class scores.
 
@@ -121,7 +121,7 @@ it already uses continuous representations better than a pure bag-of-words model
 
 ---
 
-## 3. Run a pure Python forward-pass example of a neural text classifier
+## Run a pure Python forward-pass example of a neural text classifier
 
 This code does not train any parameters,
 but it fully demonstrates:
@@ -189,7 +189,7 @@ print("scores:", scores)
 print("prediction:", prediction)
 ```
 
-### 3.1 Why is this example more useful than directly using `nn.Sequential`?
+### Why is this example more useful than directly using `nn.Sequential`?
 
 Because it separates the three key steps:
 
@@ -199,12 +199,12 @@ Because it separates the three key steps:
 
 This helps you understand the structure first, and then move on to more complex framework implementations.
 
-### 3.2 Why is pooling so important?
+### Why is pooling so important?
 
 Because classification usually needs a sentence-level representation.
 Without pooling, you only have a sequence of token vectors, and it is still hard to connect that directly to a classification head.
 
-### 3.3 Let’s look at another minimal example where “similar expressions are easier to bring closer”
+### Let’s look at another minimal example where “similar expressions are easier to bring closer”
 
 ```python
 sentences = {
@@ -229,18 +229,18 @@ This example is very suitable for beginners because it helps you feel more intui
 
 ---
 
-## 4. Why can deep methods often outperform traditional methods?
+## Why can deep methods often outperform traditional methods?
 
-### 4.1 They can use continuous semantic relationships
+### They can use continuous semantic relationships
 
 If “refund request” and “refund processing” have different surface forms but similar meanings,
 embedding is more likely to pull them closer together.
 
-### 4.2 They can handle context more naturally
+### They can handle context more naturally
 
 Even simple models are already closer to a “representation learning” approach than pure bag-of-words methods.
 
-### 4.3 They can also be extended with stronger structures
+### They can also be extended with stronger structures
 
 Later, you can keep building on top of this with:
 
@@ -252,19 +252,19 @@ That is the difference in extensibility between deep classification and traditio
 
 ---
 
-## 5. When is deep text classification especially worth using?
+## When is deep text classification especially worth using?
 
-### 5.1 There are many ways to express the same thing
+### There are many ways to express the same thing
 
 When the same intent can be phrased in many different ways,
 deep methods often have an advantage.
 
-### 5.2 Semantics matter more than explicit keywords
+### Semantics matter more than explicit keywords
 
 If keywords alone are not enough to separate classes,
 deep representations are usually worth trying.
 
-### 5.3 You are willing to accept higher training cost
+### You are willing to accept higher training cost
 
 Compared with traditional methods,
 deep methods usually mean:
@@ -272,7 +272,7 @@ deep methods usually mean:
 - more training resources
 - more complex debugging
 
-### 5.4 The most stable default order when building your first text classification project
+### The most stable default order when building your first text classification project
 
 A more stable order is usually:
 
@@ -285,19 +285,19 @@ This makes it much easier to see where the gains are coming from than starting w
 
 ---
 
-## 6. Common misconceptions
+## Common misconceptions
 
-### 6.1 Misconception 1: Deep methods are always better than traditional methods
+### Misconception 1: Deep methods are always better than traditional methods
 
 Not necessarily.
 For small data, short texts, or tasks with strong rules, traditional methods may already work very well.
 
-### 6.2 Misconception 2: Having embedding automatically means understanding context
+### Misconception 2: Having embedding automatically means understanding context
 
 The minimal embedding + pooling structure is already stronger than bag-of-words,
 but it is not the same as the strongest form of contextual understanding.
 
-### 6.3 Misconception 3: Only look at the model structure, not the data
+### Misconception 3: Only look at the model structure, not the data
 
 Data quality and label definitions are still extremely important.
 

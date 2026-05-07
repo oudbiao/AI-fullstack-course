@@ -1,11 +1,11 @@
 ---
-title: "3.3 Basic CNN Architecture"
+title: "6.3.3 Basic CNN Architecture"
 sidebar_position: 2
 description: "From convolution blocks, activation, and pooling to the classification head, systematically understand how a CNN turns an image into a category decision layer by layer."
 keywords: [CNN, convolution block, pooling, feature map, classification head, fully connected layer, Global Average Pooling]
 ---
 
-# Basic CNN Architecture
+# 6.3.3 Basic CNN Architecture
 
 ![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline-en.png)
 
@@ -28,9 +28,9 @@ You will see that a CNN is not just made of convolution layers. It is a chain of
 
 ---
 
-## 1. First, get the whole map clear
+## First, get the whole map clear
 
-### 1.1 What does a typical CNN look like?
+### What does a typical CNN look like?
 
 The classic CNN can be roughly drawn like this:
 
@@ -66,7 +66,7 @@ If we put that into plain language:
 4. Repeat several rounds to get more and more abstract features
 5. Finally, hand those features to the classification head for decision-making
 
-### 1.2 A memory aid
+### A memory aid
 
 You can think of a CNN as a “multi-stage security screening system”:
 
@@ -80,9 +80,9 @@ It first understands things like “fur edge, ear contour, eye region, body shap
 
 ---
 
-## 2. Why does the number of channels in a CNN keep increasing?
+## Why does the number of channels in a CNN keep increasing?
 
-### 2.1 Channel count can be understood as “number of feature types”
+### Channel count can be understood as “number of feature types”
 
 In the input layer:
 
@@ -111,16 +111,16 @@ it means:
 - There are 3 input channels
 - There are 16 output feature maps
 
-### 2.2 Why do we often see 32, 64, 128 later?
+### Why do we often see 32, 64, 128 later?
 
 Because deeper layers are expected to learn more and more abstract patterns.
 Early layers only need to detect basic textures, while later layers need to combine them into more complex structures, so the channel count is usually increased gradually.
 
 ---
 
-## 3. Why does the spatial size keep shrinking?
+## Why does the spatial size keep shrinking?
 
-### 3.1 Because the model is moving from “details” to “abstraction”
+### Because the model is moving from “details” to “abstraction”
 
 Early layers focus more on local details:
 
@@ -148,7 +148,7 @@ You can think of it like this:
 This figure helps you understand a common shape change in CNNs: as you go deeper, height and width usually get smaller because the model no longer needs to preserve every pixel detail; channels usually get larger because the model needs to store more and more abstract kinds of features.
 :::
 
-### 3.2 What does a pooling layer do?
+### What does a pooling layer do?
 
 The most common pooling operation is `MaxPool`, which takes the maximum value within a small window.
 
@@ -175,7 +175,7 @@ print("pooled =\n", pooled)
 
 The output will compress `4x4` into `2x2`.
 
-### 3.3 Doesn’t MaxPool “lose information”?
+### Doesn’t MaxPool “lose information”?
 
 Yes, it does discard some details.
 But it keeps the most prominent response in each local region, which is often very helpful for classification tasks.
@@ -186,9 +186,9 @@ You can think of it like this:
 
 ---
 
-## 4. A convolution block is the basic building unit of a CNN
+## A convolution block is the basic building unit of a CNN
 
-### 4.1 What is a convolution block?
+### What is a convolution block?
 
 In modern deep learning, people usually do not look at a convolution layer alone. Instead, they often treat the following combination as one basic block:
 
@@ -202,7 +202,7 @@ or:
 convolution -> BN -> ReLU
 ```
 
-### 4.2 A minimal convolution block example
+### A minimal convolution block example
 
 ```python
 import torch
@@ -229,9 +229,9 @@ This block does three things:
 
 ---
 
-## 5. Forward pass of a complete small CNN
+## Forward pass of a complete small CNN
 
-### 5.1 Runnable example
+### Runnable example
 
 ```python
 import torch
@@ -270,7 +270,7 @@ y = model(x)
 print("output shape:", y.shape)
 ```
 
-### 5.2 Why is the final output `[4, 10]` here?
+### Why is the final output `[4, 10]` here?
 
 Because:
 
@@ -281,9 +281,9 @@ In other words, this model is already a complete skeleton for an image classifie
 
 ---
 
-## 6. Truly understanding this network structure
+## Truly understanding this network structure
 
-### 6.1 The earlier part: `features`
+### The earlier part: `features`
 
 This part is responsible for:
 
@@ -291,7 +291,7 @@ This part is responsible for:
 - Compressing spatial size
 - Gradually obtaining more abstract features
 
-### 6.2 The later part: `classifier`
+### The later part: `classifier`
 
 This part is responsible for:
 
@@ -303,9 +303,9 @@ Remember this in one sentence:
 
 ---
 
-## 7. What is the difference between Flatten and Global Average Pooling?
+## What is the difference between Flatten and Global Average Pooling?
 
-### 7.1 Flatten: directly unroll the tensor
+### Flatten: directly unroll the tensor
 
 Using the example above:
 
@@ -320,7 +320,7 @@ Disadvantages:
 
 - The number of parameters may become large
 
-### 7.2 Global Average Pooling: keep only one average value per channel
+### Global Average Pooling: keep only one average value per channel
 
 For example:
 
@@ -329,7 +329,7 @@ For example:
 
 This greatly reduces the number of parameters.
 
-### 7.3 A runnable mini example
+### A runnable mini example
 
 ```python
 import torch
@@ -351,7 +351,7 @@ So in modern CNNs, we often prefer:
 
 ---
 
-## 8. Why can CNNs gradually understand images from low-level to high-level features?
+## Why can CNNs gradually understand images from low-level to high-level features?
 
 You can think of it like this:
 
@@ -370,7 +370,7 @@ The hierarchical structure of a CNN is essentially simulating this recognition p
 
 ---
 
-## 9. How do you print intermediate shapes in PyTorch?
+## How do you print intermediate shapes in PyTorch?
 
 This is a very practical debugging skill.
 
@@ -409,17 +409,17 @@ Most CNN errors are not really because “convolution does not work,” but beca
 
 ---
 
-## 10. Common beginner mistakes
+## Common beginner mistakes
 
-### 10.1 Knowing only that “convolution is important,” but not that a CNN is actually a combination of many layers
+### Knowing only that “convolution is important,” but not that a CNN is actually a combination of many layers
 
 The real power of CNNs comes from the structure, not from one convolution layer by itself.
 
-### 10.2 Not tracking shapes
+### Not tracking shapes
 
 This is one of the most common bug sources in image models.
 
-### 10.3 Thinking pooling just “shrinks things a bit”
+### Thinking pooling just “shrinks things a bit”
 
 Pooling is actually balancing feature retention and spatial compression.
 

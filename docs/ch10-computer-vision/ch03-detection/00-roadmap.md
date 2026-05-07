@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-study guide: What exactly are we learning in this object detection chapter?"
+title: "10.3.1 Pre-study guide: What exactly are we learning in this object detection chapter?"
 sidebar_position: 0
 description: "First build a learning map for the object detection chapter: how detection tasks, classic detectors, the YOLO series, and hands-on detection practice connect with each other."
 keywords: [object detection guide, YOLO, IoU, mAP]
 ---
 
-# Pre-study guide: What exactly are we learning in this object detection chapter?
+# 10.3.1 Pre-study guide: What exactly are we learning in this object detection chapter?
 
 This object detection chapter is about solving this problem:
 

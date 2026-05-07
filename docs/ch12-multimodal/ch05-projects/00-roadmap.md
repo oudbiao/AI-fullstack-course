@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-reading Guide: How Should You Actually Learn This Chapter on Integrated Projects?"
+title: "12.5.1 Pre-reading Guide: How Should You Actually Learn This Chapter on Integrated Projects?"
 sidebar_position: 0
 description: "First build a learning map for the AIGC integrated projects chapter: how a creative content platform organizes topic input, copywriting, images, voice, video scripts, review, and export into a complete product workflow."
 keywords: [AIGC project guide, creative platform, multimodal project, content generation workflow]
 ---
 
-# Pre-reading Guide: How Should You Actually Learn This Chapter on Integrated Projects?
+# 12.5.1 Pre-reading Guide: How Should You Actually Learn This Chapter on Integrated Projects?
 
 This chapter is not about continuing with single-step generation. Instead, it is about truly organizing multimodal and AIGC capabilities into a product workflow.
 
@@ -49,7 +49,7 @@ If this chapter is not solidly learned, common project problems are: many featur
 
 When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can move on.
 
-The recommended first runnable example is [Hands-on: Build a Reproducible Multimodal Creative Package](./02-hands-on-multimodal-workshop.md). Run it before the larger creative platform page if you want a concrete baseline for brief intake, prompt records, asset versions, storyboard export, safety review, and failure analysis.
+The recommended first runnable example is [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./02-hands-on-multimodal-workshop.md). Run it before the larger creative platform page if you want a concrete baseline for brief intake, prompt records, asset versions, storyboard export, safety review, and failure analysis.
 
 Experienced learners can use this chapter for gap-filling and engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to add the chapter’s content to your own project README or experiment notes.
 

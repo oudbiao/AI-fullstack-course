@@ -1,10 +1,10 @@
 ---
-title: "1.6 数据结构"
+title: "2.1.6 数据结构"
 sidebar_position: 6
 description: "掌握 Python 中的四大数据结构：列表、元组、字典、集合"
 ---
 
-# 数据结构
+# 2.1.6 数据结构
 
 ![Python 数据结构对比图](/img/course/ch02-data-structures-comparison.png)
 

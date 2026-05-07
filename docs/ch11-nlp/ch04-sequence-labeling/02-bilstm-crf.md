@@ -1,11 +1,11 @@
 ---
-title: "4.4 BiLSTM + CRF"
+title: "11.4.4 BiLSTM + CRF"
 sidebar_position: 3
 description: "Understand why sequence labeling tasks often use BiLSTM + CRF, and how it uses both contextual representations and label transition constraints."
 keywords: [BiLSTM, CRF, sequence labeling, NER, named entity recognition]
 ---
 
-# BiLSTM + CRF
+# 11.4.4 BiLSTM + CRF
 
 ![BiLSTM CRF label path decoding diagram](/img/course/ch11-bilstm-crf-label-path-map-en.png)
 
@@ -39,7 +39,7 @@ flowchart LR
 
 BiLSTM is responsible for understanding context, and CRF is responsible for selecting the most reasonable overall label path. Combined, the model does not just ask, “Does this token look like an entity?” It also asks, “Is this entire sequence of labels reasonable when connected together?”
 
-## 1. Why ordinary token classification is not enough
+## Why ordinary token classification is not enough
 
 Suppose we use the BIO labeling scheme: `B-PER` means the beginning of a person name, `I-PER` means the inside of a person name, and `O` means non-entity. If the model predicts each token independently, it may output labels like this:
 
@@ -50,13 +50,13 @@ O   I-LOC  B-LOC
 
 Here, `I-LOC` appears at the beginning of an entity, which is usually unreasonable. An ordinary classifier has difficulty explicitly constraining this kind of label transition, while CRF can learn transition scores between labels.
 
-## 2. BiLSTM is responsible for contextual representations
+## BiLSTM is responsible for contextual representations
 
 An LSTM reads text sequentially, while a BiLSTM reads it from left to right and from right to left at the same time. In this way, the representation of each token includes information from both the left and right context.
 
 For example, “apple” may refer to a fruit in one sentence and a company in another. The role of BiLSTM is to let the current token see the surrounding words, thereby reducing ambiguity.
 
-## 3. CRF is responsible for global decoding
+## CRF is responsible for global decoding
 
 CRF considers two kinds of scores at the same time: the emission score for how likely each position is to have a certain label, and the transition score between labels. During final prediction, it does not greedily choose labels one position at a time, but instead searches for the label path with the highest total score for the whole sequence.
 
@@ -69,7 +69,7 @@ flowchart TD
 
 This is why CRF is especially suitable for tasks with structural constraints between labels, such as NER, part-of-speech tagging, and word segmentation.
 
-## 4. A minimal intuition example
+## A minimal intuition example
 
 ```python
 labels = ["B-PER", "I-PER", "O", "B-LOC", "I-LOC"]
@@ -91,7 +91,7 @@ for a, b in zip(path, path[1:]):
 
 In a real CRF, these are not hand-written rules. Instead, it learns from training data which label transitions are more reasonable. This example is only meant to help you build the intuition that labels are related to each other.
 
-## 5. Relationship with BERT token classification
+## Relationship with BERT token classification
 
 Modern NER often uses BERT with a linear classification layer, and CRF can also be added after BERT. BERT’s contextual representation ability is usually stronger than BiLSTM’s, but CRF is still valuable for label constraints, especially in tasks with small amounts of data, strict label formats, and entity boundary errors.
 

@@ -1,10 +1,10 @@
 ---
-title: "Basic Terminal Operations"
+title: "1.1.2 Basic Terminal Operations"
 sidebar_position: 2
 description: "Master core commands, path concepts, pipes, and environment variables"
 ---
 
-# Basic Terminal Operations
+# 1.1.2 Basic Terminal Operations
 
 ![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map-en.png)
 

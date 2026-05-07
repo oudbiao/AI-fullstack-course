@@ -1,11 +1,11 @@
 ---
-title: "3.5 よく使うツールの統合"
+title: "9.3.5 よく使うツールの統合"
 sidebar_position: 14
 description: "検索、計算機、データベース、ファイルシステム、ブラウザまで、Agent で最もよく使うツールの種類と、それらをシステムにどう接続するかを理解します。"
 keywords: [tool integration, search, calculator, database, filesystem, browser, Agent]
 ---
 
-# よく使うツールの統合
+# 9.3.5 よく使うツールの統合
 
 :::tip この節の位置づけ
 ツール層を説明するとき、抽象的な schema だけにとどまると、どうしても実感がわきにくいです。  
@@ -27,7 +27,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ## 一、なぜツールを種類ごとに見るのか？
 
-### 1.1 「ツール」という言葉の範囲が広すぎるから
+### 「ツール」という言葉の範囲が広すぎるから
 
 検索もツール、計算機もツール、データベース検索もツール、ファイルの読み書きもツールです。  
 これらを全部まとめて「1つの関数」と考えると、すぐに混乱します。
@@ -40,7 +40,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 4. ファイル / 環境操作系
 5. 外部サービス呼び出し系
 
-### 1.2 なぜ分類が役立つのか？
+### なぜ分類が役立つのか？
 
 種類ごとに注目点が違うからです。
 
@@ -60,7 +60,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ## 二、よくある5種類のツール
 
-### 2.1 検索 / 検索取得系
+### 検索 / 検索取得系
 
 向いている用途:
 
@@ -73,7 +73,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - 入力は通常 query
 - 出力は通常、候補の一覧
 
-### 2.2 計算系
+### 計算系
 
 向いている用途:
 
@@ -86,7 +86,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - 出力は安定して正確である必要がある
 - 安全性に特に注意する必要がある
 
-### 2.3 データアクセス系
+### データアクセス系
 
 向いている用途:
 
@@ -99,7 +99,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - パラメータと権限が最重要
 - 多くの業務ロジックがこの層で決まる
 
-### 2.4 ファイル / 環境操作系
+### ファイル / 環境操作系
 
 向いている用途:
 
@@ -113,7 +113,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - リスクが高い
 - 境界管理が非常に重要
 
-### 2.5 外部サービス呼び出し系
+### 外部サービス呼び出し系
 
 向いている用途:
 
@@ -131,7 +131,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 実際のシステムでは、ツールをあちこちに散らすのではなく、まとめて登録することがよくあります。
 
-### 3.1 最小実行例
+### 最小実行例
 
 ```python
 import ast
@@ -186,7 +186,7 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
-### 3.2 なぜ統一登録が重要なのか？
+### なぜ統一登録が重要なのか？
 
 後で次のようなことが必要になるからです。
 
@@ -201,7 +201,7 @@ print(TOOLS.keys())
 
 ## 四、統一ディスパッチャ
 
-### 4.1 最小ディスパッチャ例
+### 最小ディスパッチャ例
 
 ```python
 def dispatch(call):
@@ -227,7 +227,7 @@ for call in calls:
     print(call, "->", dispatch(call))
 ```
 
-### 4.2 このコードで分かること
+### このコードで分かること
 
 このコードが教えてくれるのは、次の点です。
 
@@ -239,7 +239,7 @@ for call in calls:
 
 ## 五、種類ごとに何へ注意すべきか？
 
-### 5.1 検索系ツール
+### 検索系ツール
 
 重点ポイント:
 
@@ -247,7 +247,7 @@ for call in calls:
 - 何件返すか
 - 結果を rerank する必要があるか
 
-### 5.2 計算系ツール
+### 計算系ツール
 
 重点ポイント:
 
@@ -294,7 +294,7 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
-### 5.3 データベース系ツール
+### データベース系ツール
 
 重点ポイント:
 
@@ -304,7 +304,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 
 たとえば、モデルに任意の SQL を自由に生成させて、そのまま実行するのは避けるべきです。
 
-### 5.4 ファイル系ツール
+### ファイル系ツール
 
 重点ポイント:
 
@@ -312,7 +312,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 - 書き込み権限
 - 人の確認が必要かどうか
 
-### 5.5 外部サービス系ツール
+### 外部サービス系ツール
 
 重点ポイント:
 
@@ -324,7 +324,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 
 ## 六、Agent らしいツール組み合わせの例
 
-### 6.1 シナリオ：ユーザーが返金できるか判断する
+### シナリオ：ユーザーが返金できるか判断する
 
 この処理には、次の 2 つのツールが必要かもしれません。
 
@@ -352,7 +352,7 @@ print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
 ```
 
-### 6.2 このコードが本当に示していること
+### このコードが本当に示していること
 
 このコードが示しているのは、
 
@@ -366,23 +366,23 @@ print(refund_eligibility_agent(2))
 
 ## 七、ツール統合でよくある失敗点
 
-### 7.1 schema が一致しない
+### schema が一致しない
 
 たとえば:
 
 - ツールは `user_id` を必要とする
 - でもモデルは `id` を送ってしまう
 
-### 7.2 戻り値の形式が統一されていない
+### 戻り値の形式が統一されていない
 
 あるツールは文字列、別のツールは dict、さらに別のツールは list を返すと、システムはだんだん接続しづらくなります。
 
-### 7.3 エラー処理が統一されていない
+### エラー処理が統一されていない
 
 あるツールは `None` を返し、別のツールは例外を投げ、さらに別のツールは `"failed"` を返す。  
 これでは後続の処理がすぐに崩れます。
 
-### 7.4 ログと再現手段がない
+### ログと再現手段がない
 
 本番で問題が起きたとき、どの種類のツールに問題があったのか分かりません。
 
@@ -427,7 +427,7 @@ print(wrapped_search("返金"))
 
 ## 九、初心者がよくつまずくポイント
 
-### 9.1 とりあえず全部のツールをつなぐ
+### とりあえず全部のツールをつなぐ
 
 ツールが増えるほど、システムは複雑になります。  
 より安定したやり方は、
@@ -436,11 +436,11 @@ print(wrapped_search("返金"))
 
 ことです。
 
-### 9.2 高リスクなツールと低リスクなツールを区別しない
+### 高リスクなツールと低リスクなツールを区別しない
 
 ファイル削除、支払い操作、データベース書き込みは、ドキュメント検索とは危険度がまったく違います。
 
-### 9.3 ツール API の約束事が統一されていない
+### ツール API の約束事が統一されていない
 
 これは、Agent システムがだんだん混乱していく大きな原因の1つです。
 

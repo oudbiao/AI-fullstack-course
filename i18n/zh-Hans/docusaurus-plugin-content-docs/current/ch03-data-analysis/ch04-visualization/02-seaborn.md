@@ -1,10 +1,10 @@
 ---
-title: "4.2 Seaborn 统计可视化"
+title: "3.4.3 Seaborn 统计可视化"
 sidebar_position: 18
 description: "用更少的代码画出更美观的统计图表"
 ---
 
-# Seaborn 统计可视化
+# 3.4.3 Seaborn 统计可视化
 
 ![Seaborn 统计图选择图](/img/course/seaborn-statistical-plots.png)
 

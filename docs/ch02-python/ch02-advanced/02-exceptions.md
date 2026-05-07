@@ -1,10 +1,10 @@
 ---
-title: "1.2 Exception Handling"
+title: "2.2.2 Exception Handling"
 sidebar_position: 2
 description: "Master Python's exception handling mechanism to make your programs more robust"
 ---
 
-# Exception Handling
+# 2.2.2 Exception Handling
 
 ![Exception handling flowchart](/img/course/ch02-exception-flow-en.png)
 

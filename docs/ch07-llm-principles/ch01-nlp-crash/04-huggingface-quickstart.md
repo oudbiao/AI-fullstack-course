@@ -1,11 +1,11 @@
 ---
-title: "1.5 HuggingFace Quick Start"
+title: "7.1.5 HuggingFace Quick Start"
 sidebar_position: 4
 description: "From tokenizer, config, model, batch, to forward outputs, understand HuggingFace’s most common workflow, and get a runnable beginner example that does not rely on network downloads."
 keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 ---
 
-# HuggingFace Quick Start
+# 7.1.5 HuggingFace Quick Start
 
 :::tip Section Overview
 When many beginners first encounter HuggingFace, they get confused by these names:
@@ -33,9 +33,9 @@ The goal of this lesson is to make this chain clear.
 
 ---
 
-## 1. What Exactly Does HuggingFace Help Us Do?
+## What Exactly Does HuggingFace Help Us Do?
 
-### 1.1 It is not a “model,” but an entire ecosystem
+### It is not a “model,” but an entire ecosystem
 
 Many people misunderstand HuggingFace as:
 
@@ -54,7 +54,7 @@ What you will encounter most often are:
 - model
 - config
 
-### 1.2 The most common workflow only has a few steps
+### The most common workflow only has a few steps
 
 Whether you are doing classification, generation, or feature extraction,
 the most important call path usually looks like this:
@@ -73,7 +73,7 @@ When reading this diagram, think of HuggingFace as a standard lab bench: `tokeni
 Once this chain becomes clear in your mind,
 many examples will no longer feel messy.
 
-### 1.3 An analogy: like assembling a standardized lab setup
+### An analogy: like assembling a standardized lab setup
 
 You can think of HuggingFace as standardized lab components:
 
@@ -90,9 +90,9 @@ Its value lies in:
 
 ---
 
-## 2. First, Separate the Most Common Objects
+## First, Separate the Most Common Objects
 
-### 2.1 Tokenizer: turns text into model input
+### Tokenizer: turns text into model input
 
 It usually handles:
 
@@ -106,7 +106,7 @@ The most common fields in its output are:
 - `input_ids`
 - `attention_mask`
 
-### 2.2 Config: the model structure blueprint
+### Config: the model structure blueprint
 
 config mainly describes:
 
@@ -117,7 +117,7 @@ config mainly describes:
 
 You can think of it as the instruction manual for “what the model looks like.”
 
-### 2.3 Model: the part that actually performs forward
+### Model: the part that actually performs forward
 
 The model builds the neural network according to config,
 then accepts tensor inputs and outputs:
@@ -129,7 +129,7 @@ then accepts tensor inputs and outputs:
 Outputs differ a bit across tasks,
 but the core idea is the same.
 
-### 2.4 Batch: why padding is always needed
+### Batch: why padding is always needed
 
 Because a batch contains texts of different lengths.
 Models usually require input tensors to have a unified shape,
@@ -140,7 +140,7 @@ so you need to:
 
 ---
 
-## 3. First Look at a Zero-Download, Runnable `transformers` Example
+## First Look at a Zero-Download, Runnable `transformers` Example
 
 This code has a few very important characteristics:
 
@@ -218,7 +218,7 @@ print("last_hidden_state shape:", tuple(outputs.last_hidden_state.shape))
 print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 ```
 
-### 3.1 In what order should you read this code?
+### In what order should you read this code?
 
 The best order is:
 
@@ -234,7 +234,7 @@ This way, you will quickly connect:
 
 These three things together.
 
-### 3.2 Why not use `from_pretrained` here?
+### Why not use `from_pretrained` here?
 
 Because `from_pretrained` often requires downloading weights from the internet.
 To make sure this example can run offline, we intentionally use:
@@ -249,7 +249,7 @@ That means:
 It cannot be used for real task prediction,
 but it is very suitable for understanding HuggingFace’s basic calling workflow.
 
-### 3.3 What is the easiest detail to overlook here?
+### What is the easiest detail to overlook here?
 
 The easiest thing to overlook is:
 
@@ -261,7 +261,7 @@ it will be much easier to read wrappers such as `DataCollator` and `Trainer` lat
 
 ---
 
-## 4. What Does a Real-World `from_pretrained` Usually Look Like?
+## What Does a Real-World `from_pretrained` Usually Look Like?
 
 If you have an internet connection,
 a more common pattern would be:
@@ -298,9 +298,9 @@ And think of this `from_pretrained` version as:
 
 ---
 
-## 5. Why Is HuggingFace So Good for Beginners and Experiments?
+## Why Is HuggingFace So Good for Beginners and Experiments?
 
-### 5.1 Because the interfaces are unified
+### Because the interfaces are unified
 
 Even though many models differ internally,
 they usually follow a similar interface in HuggingFace:
@@ -310,7 +310,7 @@ they usually follow a similar interface in HuggingFace:
 
 This makes switching models much easier.
 
-### 5.2 Because the ecosystem is rich
+### Because the ecosystem is rich
 
 Later, you will also encounter:
 
@@ -327,7 +327,7 @@ They are all built on top of this most basic chain.
 Read the core chain first: text becomes `input_ids` and `attention_mask`, a batch is sent into the model, `forward` runs the computation, and outputs such as hidden states or logits come back. Tools like `pipeline`, `Trainer`, and `DataCollator` are convenience layers around that chain, not a different magic system.
 :::
 
-### 5.3 A Quick Glossary for Common HuggingFace Terms
+### A Quick Glossary for Common HuggingFace Terms
 
 | Term | What it is | Why it matters here |
 |---|---|---|
@@ -341,7 +341,7 @@ If a name starts with `Auto`, you can read it as:
 
 - “Choose the matching class automatically based on the model configuration.”
 
-### 5.4 Because it fits the pattern of “experiment first, then go deeper”
+### Because it fits the pattern of “experiment first, then go deeper”
 
 Often, you do not implement everything from scratch first,
 but instead run a standard interface to get things working,
@@ -356,9 +356,9 @@ This is also why HuggingFace is such a valuable learning entry point.
 
 ---
 
-## 6. Common Pitfalls
+## Common Pitfalls
 
-### 6.1 Mistake 1: Thinking that making `from_pretrained` work means you truly understand the model
+### Mistake 1: Thinking that making `from_pretrained` work means you truly understand the model
 
 Getting it to run is only the beginning.
 Real understanding also requires knowing:
@@ -367,12 +367,12 @@ Real understanding also requires knowing:
 - what each output field means
 - whether the tokenizer and model match
 
-### 6.2 Mistake 2: Ignoring `attention_mask`
+### Mistake 2: Ignoring `attention_mask`
 
 If there is padding but no mask,
 the model may treat padded positions as real content.
 
-### 6.3 Mistake 3: Mixing up randomly initialized models with pretrained models
+### Mistake 3: Mixing up randomly initialized models with pretrained models
 
 The offline example in this lesson is only for understanding the interface.
 Models with real task ability are usually:

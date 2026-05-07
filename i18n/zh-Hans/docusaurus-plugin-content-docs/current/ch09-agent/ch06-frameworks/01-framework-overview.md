@@ -1,11 +1,11 @@
 ---
-title: "6.2 Agent 框架全景"
+title: "9.6.2 Agent 框架全景"
 sidebar_position: 30
 description: "从为什么需要框架，到不同 Agent 框架在抽象层、控制力和适用场景上的区别，建立一张框架选择地图。"
 keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview]
 ---
 
-# Agent 框架全景
+# 9.6.2 Agent 框架全景
 
 :::tip 本节定位
 到了 Agent 阶段，很多人很快就会掉进另一个坑：
@@ -28,7 +28,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ## 一、为什么需要 Agent 框架？
 
-### 1.1 没有框架时，自己写会遇到什么？
+### 没有框架时，自己写会遇到什么？
 
 一个稍微复杂一点的 Agent 系统，通常要自己处理：
 
@@ -45,7 +45,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 每个项目结构都不一致
 - 调试和扩展越来越难
 
-### 1.2 框架真正解决什么？
+### 框架真正解决什么？
 
 可以先用一句话记住：
 
@@ -62,7 +62,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ## 二、框架最大的差别通常不在“能不能做”，而在“怎么做”
 
-### 2.1 一个很重要的视角：抽象层
+### 一个很重要的视角：抽象层
 
 很多框架都能：
 
@@ -76,7 +76,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 有的更接近“高层角色编排”
 - 有的更偏检索与数据组织
 
-### 2.2 一个类比
+### 一个类比
 
 你可以把不同框架想成不同类型的厨房：
 
@@ -109,7 +109,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ## 四、框架一般帮你省掉哪些工作？
 
-### 4.1 状态流和节点管理
+### 状态流和节点管理
 
 例如：
 
@@ -117,7 +117,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 下一步流向哪里
 - 出错如何回退
 
-### 4.2 工具接入和消息结构
+### 工具接入和消息结构
 
 例如：
 
@@ -125,7 +125,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 调用结果包装
 - 错误处理
 
-### 4.3 运行和观察
+### 运行和观察
 
 例如：
 
@@ -141,7 +141,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ## 五、框架也会带来代价
 
-### 5.1 抽象越高，越容易失去底层控制
+### 抽象越高，越容易失去底层控制
 
 框架帮你省事，但也会带来：
 
@@ -149,7 +149,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 框架约束
 - 调试时必须理解它的内部抽象
 
-### 5.2 一个很常见的问题
+### 一个很常见的问题
 
 很多新人不是不会做 Agent，而是：
 
@@ -197,7 +197,7 @@ wf.add_step("answer", answer)
 wf.run({"query": "退款政策是什么"})
 ```
 
-### 6.2 这段代码为什么有“框架感”？
+### 这段代码为什么有“框架感”？
 
 因为它已经在抽象：
 
@@ -245,15 +245,15 @@ wf.run({"query": "退款政策是什么"})
 
 ## 九、初学者最常踩的坑
 
-### 9.1 先学框架，再学系统
+### 先学框架，再学系统
 
 这样最容易“会调用 API，但不会做架构判断”。
 
-### 9.2 因为框架火就直接选
+### 因为框架火就直接选
 
 框架流行不代表适合你当前项目。
 
-### 9.3 把框架当能力本身
+### 把框架当能力本身
 
 框架只是组织方式，不是系统质量保证。
 

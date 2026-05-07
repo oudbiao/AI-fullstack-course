@@ -1,11 +1,11 @@
 ---
-title: "5.4 OCR Text Recognition [Optional]"
+title: "10.5.4 OCR Text Recognition [Optional]"
 sidebar_position: 16
 description: "From text detection and text recognition to layout understanding, learn why OCR is usually a multi-stage pipeline rather than a single model."
 keywords: [OCR, text detection, text recognition, document AI, layout analysis]
 ---
 
-# OCR Text Recognition [Optional]
+# 10.5.4 OCR Text Recognition [Optional]
 
 ![OCR layout analysis and text recognition pipeline](/img/course/ocr-layout-recognition-pipeline-en.png)
 
@@ -49,17 +49,17 @@ So what this section really wants to solve is:
 - Why OCR is not a single model
 - Why detection, recognition, and layout understanding should be separated
 
-## 1. What Are the Usual Steps in OCR?
+## What Are the Usual Steps in OCR?
 
-### 1. Text Detection
+### Text Detection
 
 First, find where the text regions are.
 
-### 2. Text Recognition
+### Text Recognition
 
 Then, convert each text region into a character sequence.
 
-### 3. Layout and Structure Understanding
+### Layout and Structure Understanding
 
 In complex document scenarios, you also need to answer:
 
@@ -67,7 +67,7 @@ In complex document scenarios, you also need to answer:
 - Which part is a title?
 - Which part belongs to a table or the main text?
 
-### 1.4 A More Beginner-Friendly Overall Analogy
+### A More Beginner-Friendly Overall Analogy
 
 You can think of OCR as a three-person team handling an invoice:
 
@@ -85,7 +85,7 @@ but more like:
 
 ---
 
-## 2. Let’s Look at a Minimal OCR Pipeline Example
+## Let’s Look at a Minimal OCR Pipeline Example
 
 ```python
 image_blocks = [
@@ -109,7 +109,7 @@ print("regions:", regions)
 print("texts:", texts)
 ```
 
-### 2.1 What Is the Most Important Part of This Example?
+### What Is the Most Important Part of This Example?
 
 It clearly separates:
 
@@ -118,7 +118,7 @@ It clearly separates:
 
 This is the most basic two-stage structure of OCR.
 
-### 2.2 Why Do Many OCR Errors Not Come from the Recognition Model Itself?
+### Why Do Many OCR Errors Not Come from the Recognition Model Itself?
 
 Because if the detection stage cuts the text regions incorrectly:
 
@@ -127,7 +127,7 @@ Because if the detection stage cuts the text regions incorrectly:
 
 Even a strong recognition model cannot fully recover from that.
 
-### 2.3 What Should Beginners Remember First When Learning OCR?
+### What Should Beginners Remember First When Learning OCR?
 
 The most important things to remember are:
 
@@ -137,9 +137,9 @@ The most important things to remember are:
 
 ---
 
-## 3. Why Is OCR Often Harder Than It Seems?
+## Why Is OCR Often Harder Than It Seems?
 
-### 3.1 Text Is Not Always in a Regular Layout
+### Text Is Not Always in a Regular Layout
 
 You may encounter:
 
@@ -148,7 +148,7 @@ You may encounter:
 - blur
 - occlusion
 
-### 3.2 Documents Are Not Always Single-Column or Single-Line
+### Documents Are Not Always Single-Column or Single-Line
 
 For example:
 
@@ -159,12 +159,12 @@ For example:
 At this point, “recognizing text” is only the first step.
 The real challenge is structure understanding.
 
-### 3.3 Character-Level Errors Can Affect Downstream Business Logic
+### Character-Level Errors Can Affect Downstream Business Logic
 
 Fields like numbers, amounts, and dates
 can directly impact business results if even one character is wrong.
 
-### 3.4 Look at Another Minimal Example for “Reading Order Restoration”
+### Look at Another Minimal Example for “Reading Order Restoration”
 
 ```python
 lines = [
@@ -192,7 +192,7 @@ This example is very small, but it helps beginners build an important intuition:
 OCR projects should be debugged in three layers: whether text detection boxes are correct, whether text recognition is correct, and whether the layout structure and order are restored correctly. Receipts, tables, and two-column documents often fail at the third layer.
 :::
 
-## 4. A Project Progression Order Beginners Can Copy Directly
+## A Project Progression Order Beginners Can Copy Directly
 
 A more stable order is usually:
 
@@ -203,7 +203,7 @@ A more stable order is usually:
 
 This is usually easier than starting with a complex receipt system right away.
 
-### 4.1 If You Want to Turn OCR into a Project, What Kind of Task Should You Choose First?
+### If You Want to Turn OCR into a Project, What Kind of Task Should You Choose First?
 
 A more stable starting point is usually:
 
@@ -217,7 +217,7 @@ The advantages of these tasks are:
 - business fields are easier to evaluate
 - failure cases are easier to analyze
 
-### 4.2 If You Turn OCR into a Project, What Should You Show First?
+### If You Turn OCR into a Project, What Should You Show First?
 
 A presentation order that feels closer to a real project is usually:
 
@@ -234,13 +234,13 @@ In this way, readers can immediately see:
 
 ---
 
-## 5. The Most Common Pitfalls
+## The Most Common Pitfalls
 
-### 5.1 Only Looking at Recognition Accuracy and Ignoring Detection Quality
+### Only Looking at Recognition Accuracy and Ignoring Detection Quality
 
 OCR is a multi-stage pipeline, and mistakes from one stage are passed to the next.
 
-### 5.2 Only Doing Character Recognition and Not Restoring Structure
+### Only Doing Character Recognition and Not Restoring Structure
 
 What many document projects really need is:
 
@@ -248,7 +248,7 @@ What many document projects really need is:
 - table structure
 - reading order
 
-### 5.3 Ignoring Image Preprocessing
+### Ignoring Image Preprocessing
 
 For example:
 
@@ -258,7 +258,7 @@ For example:
 
 These are very important in many scenarios.
 
-### 5.4 A Minimal Error Bucketing Table That Feels More Like a Real Project
+### A Minimal Error Bucketing Table That Feels More Like a Real Project
 
 ```python
 errors = [
@@ -282,7 +282,7 @@ If you do not separate them like this, it is easy to:
 
 ---
 
-## 6. If You Turn This into a Portfolio Project, What Is Most Worth Showing?
+## If You Turn This into a Portfolio Project, What Is Most Worth Showing?
 
 - Original image
 - Detection box results

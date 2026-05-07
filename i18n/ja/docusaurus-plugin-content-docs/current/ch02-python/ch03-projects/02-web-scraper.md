@@ -1,10 +1,10 @@
 ---
-title: "1.2 プロジェクト：Webスクレイパー"
+title: "2.3.2 プロジェクト：Webスクレイパー"
 sidebar_position: 2
 description: "Python を使って Web ページのデータを取得し、解析する方法を学ぶ"
 ---
 
-# プロジェクト：Webスクレイパー
+# 2.3.2 プロジェクト：Webスクレイパー
 
 ![Webスクレイパーのデータ収集フロー図](/img/course/ch02-web-scraper-pipeline-ja.png)
 

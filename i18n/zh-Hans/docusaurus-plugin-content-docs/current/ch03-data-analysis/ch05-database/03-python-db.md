@@ -1,10 +1,10 @@
 ---
-title: "5.3 Python 数据库操作"
+title: "3.5.4 Python 数据库操作"
 sidebar_position: 23
 description: "用 Python 连接数据库，实现增删改查和与 Pandas 协作"
 ---
 
-# Python 数据库操作
+# 3.5.4 Python 数据库操作
 
 ![Python 与数据库协作桥梁图](/img/course/ch03-python-database-bridge.png)
 

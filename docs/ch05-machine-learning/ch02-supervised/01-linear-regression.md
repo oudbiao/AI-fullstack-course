@@ -1,11 +1,11 @@
 ---
-title: "2.2 Linear Regression"
+title: "5.2.2 Linear Regression"
 sidebar_position: 3
 description: "From simple linear regression to multivariate linear regression, understand the least squares method, gradient descent solution, polynomial regression, and regularization (Ridge / Lasso / Elastic Net)"
 keywords: [linear regression, least squares, gradient descent, regularization, Ridge, Lasso, Elastic Net, polynomial regression]
 ---
 
-# Linear Regression
+# 5.2.2 Linear Regression
 
 ![Linear regression fitting and loss landscape](/img/course/linear-regression-loss-landscape-en.png)
 
@@ -63,9 +63,9 @@ This section uses `numpy`, `matplotlib`, `pandas`, and `scikit-learn`. If your e
 
 ---
 
-## 1. Simple Linear Regression
+## Simple Linear Regression
 
-### 1.1 Intuition: Find the "best fit line"
+### Intuition: Find the "best fit line"
 
 **Problem**: Given data about house area and price, can we predict the price for a new area?
 
@@ -92,7 +92,7 @@ plt.show()
 - **w** (weight) = slope = how much the price increases when area increases by 1 square meter
 - **b** (bias) = intercept = the base price when area is 0
 
-### 1.1.1 What exactly do these two parameters control?
+### What exactly do these two parameters control?
 
 You can think of the line as a stick that can be rotated and moved up and down:
 
@@ -101,7 +101,7 @@ You can think of the line as a stick that can be rotated and moved up and down:
 
 So the essence of linear regression training is to keep adjusting these two values until the line fits the data points as well as possible.
 
-### 1.1.2 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of linear regression like this:
 
@@ -118,7 +118,7 @@ The most important thing to remember first is not the formula, but this:
 Linear regression is not about “memorizing formulas”; it is doing something very simple: **finding a rule that can describe, as stably as possible, how the input changes relate to how the output changes.**
 :::
 
-### 1.2 What is "best"? — The loss function
+### What is "best"? — The loss function
 
 "Fits closely" needs a mathematical definition. We use **Mean Squared Error (MSE)**:
 
@@ -128,7 +128,7 @@ where `ŷi = w×xi + b` is the model prediction.
 
 **Intuition**: Square each prediction error, then take the average. The smaller the MSE, the better the fit.
 
-### 1.3 Why do we usually square the error first?
+### Why do we usually square the error first?
 
 This step is very important because it determines what we are actually penalizing.
 
@@ -145,7 +145,7 @@ So when beginners do regression projects for the first time, it is good to remem
 - Use `MSE / RMSE` by default
 - If you suspect many outliers, then consider `MAE`
 
-### 1.3.1 Keyword decoder for regression metrics
+### Keyword decoder for regression metrics
 
 | Term | What it means | Why it matters |
 |---|---|---|
@@ -190,9 +190,9 @@ Slope too large: MSE ≈ 14502
 
 ---
 
-## 2. Solution Method 1: Normal Equation (Analytical Solution)
+## Solution Method 1: Normal Equation (Analytical Solution)
 
-### 2.1 Formula
+### Formula
 
 For linear regression, MSE has a **closed-form solution**:
 
@@ -200,7 +200,7 @@ For linear regression, MSE has a **closed-form solution**:
 
 This is the **Normal Equation**.
 
-### 2.2 Manual implementation
+### Manual implementation
 
 ```python
 # Prepare the data (add an intercept column)
@@ -235,7 +235,7 @@ Intercept b = 57.36
 Slope w = 2.47
 ```
 
-### 2.3 Pros and cons of the normal equation
+### Pros and cons of the normal equation
 
 | Pros | Cons |
 |------|------|
@@ -243,7 +243,7 @@ Slope w = 2.47
 | No need to tune a learning rate | Very slow when the number of features is large |
 | Always finds the global optimum | Cannot be used when features > samples |
 
-### 2.4 When should you think of the normal equation first?
+### When should you think of the normal equation first?
 
 You can think of the normal equation as the “compute the answer directly” approach. It is best when:
 
@@ -261,13 +261,13 @@ But if you move into these scenarios, it becomes more natural to switch to gradi
 
 ---
 
-## 3. Solution Method 2: Gradient Descent
+## Solution Method 2: Gradient Descent
 
 ![Normal equation versus gradient descent solver choice](/img/course/ch05-linear-regression-solver-choice-en.png)
 
 The normal equation and gradient descent are not solving two different problems. They are two roads toward the same MSE minimum. The normal equation computes the answer directly when the feature count is small; gradient descent walks toward the answer step by step and becomes more natural when data, features, or later neural-network training get larger. Feature scaling makes that iterative road much safer.
 
-### 3.1 Connection to Station 4
+### Connection to Station 4
 
 In the calculus chapter of Station 4, you already learned the principle of gradient descent. Now apply it to linear regression:
 
@@ -285,7 +285,7 @@ flowchart LR
     style G fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.1.1 Don’t rush to memorize the gradient formulas; first see what they mean
+### Don’t rush to memorize the gradient formulas; first see what they mean
 
 The core meaning of gradient descent is not “there are many formulas,” but this:
 
@@ -300,7 +300,7 @@ If you understand these five steps, then `dw` and `db` are no longer just symbol
 - `dw` tells us which direction the slope should move
 - `db` tells us whether the whole line should move up or down
 
-### 3.2 Gradient derivation
+### Gradient derivation
 
 The gradients of MSE with respect to w and b are:
 
@@ -308,7 +308,7 @@ The gradients of MSE with respect to w and b are:
 >
 > **∂MSE/∂b = -(2/n) × Σ (yi - ŷi)**
 
-### 3.3 Implement from scratch
+### Implement from scratch
 
 ```python
 # Solve linear regression with gradient descent
@@ -379,7 +379,7 @@ Normal equation result: w = 2.47, b = 57.36
 
 Notice that this simple gradient-descent demo does not fully match the normal equation yet because `X` is large and the learning rate is deliberately tiny. This is a teaching choice: it lets you see the update loop without numerical explosion. In real projects, standardize features before gradient descent so the update steps are easier to tune.
 
-### 3.4 Safer version: standardize first, then run gradient descent
+### Safer version: standardize first, then run gradient descent
 
 The code below uses the same data but standardizes `X` first. After converting the learned parameters back to the original scale, the result matches the normal equation:
 
@@ -420,15 +420,15 @@ This is a very important lesson: when gradient descent looks unstable or painful
 
 ---
 
-## 4. Multivariate Linear Regression
+## Multivariate Linear Regression
 
-### 4.1 From one feature to multiple features
+### From one feature to multiple features
 
 In real problems, house price depends not only on area, but also on number of rooms, floor, distance to the subway, and so on.
 
 > **ŷ = w₁x₁ + w₂x₂ + ... + wpxp + b = wᵀx + b**
 
-### 4.1.1 What is the real upgrade in multivariate linear regression?
+### What is the real upgrade in multivariate linear regression?
 
 When beginners first see multivariate linear regression, they often think the model suddenly became much more complex.
 In fact, the core problem has not changed. We just moved from:
@@ -446,7 +446,7 @@ The real upgrade is only two things:
 
 So multivariate linear regression is not a different algorithm; it is the natural form of linear regression in real data scenarios.
 
-### 4.2 Implement with Scikit-learn
+### Implement with Scikit-learn
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -512,7 +512,7 @@ MSE: 860.36
 R² Score: 0.9328
 ```
 
-### 4.3 R² score
+### R² score
 
 R² is one of the most commonly used evaluation metrics for regression models:
 
@@ -544,9 +544,9 @@ plt.show()
 
 ---
 
-## 5. Polynomial Regression — When the Data Is Not a Straight Line
+## Polynomial Regression — When the Data Is Not a Straight Line
 
-### 5.1 Problem: a straight line is not enough
+### Problem: a straight line is not enough
 
 ```python
 # Generate nonlinear data
@@ -568,7 +568,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 5.2 Polynomial regression
+### Polynomial regression
 
 **Idea**: Expand the original feature `x` into `[x, x², x³, ...]`, then still use linear regression.
 
@@ -606,7 +606,7 @@ Polynomial features:
  [-2.75510204  7.59058726]]
 ```
 
-### 5.3 Polynomial degree and overfitting
+### Polynomial degree and overfitting
 
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
@@ -642,7 +642,7 @@ plt.show()
 The higher the degree, the closer the training-set R² may get to 1, but the model may perform very poorly on new data. This is **overfitting**. Solution: regularization.
 :::
 
-### 5.4 The easiest place to get confused when learning polynomial regression
+### The easiest place to get confused when learning polynomial regression
 
 When beginners first reach this part, they often mistakenly think:
 
@@ -665,9 +665,9 @@ Read the image from top to bottom before jumping into formulas: polynomial featu
 
 ---
 
-## 6. Regularization — Preventing Overfitting
+## Regularization — Preventing Overfitting
 
-### 6.1 The idea behind regularization
+### The idea behind regularization
 
 Regularization = add a **penalty term** to the loss function to penalize overly large parameter values.
 
@@ -686,7 +686,7 @@ flowchart LR
 
 For regularized linear models, feature scale matters. If one feature has much larger numeric values than another, the penalty will not treat them fairly. That is why the code below uses `Pipeline(PolynomialFeatures -> StandardScaler -> Ridge/Lasso/ElasticNet)`.
 
-### 6.2 Three types of regularization
+### Three types of regularization
 
 | Method | Penalty term | Effect |
 |------|--------|------|
@@ -694,7 +694,7 @@ For regularized linear models, feature scale matters. If one feature has much la
 | **Lasso (L1)** | `α × Σ|wi|` | Some parameters become zero (feature selection) |
 | **Elastic Net** | A mix of L1 and L2 | Combines the strengths of both |
 
-### 6.3 Ridge regression (L2 regularization)
+### Ridge regression (L2 regularization)
 
 ```python
 from sklearn.pipeline import make_pipeline
@@ -737,7 +737,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 6.4 Lasso regression (L1 regularization) — automatic feature selection
+### Lasso regression (L1 regularization) — automatic feature selection
 
 ```python
 from sklearn.linear_model import Lasso
@@ -791,7 +791,7 @@ Lasso coefficients: [-1.5605  1.1533 -0.      0.1151 -0.      0.     -0.      0.
 Number of non-zero coefficients: 3 / 10
 ```
 
-### 6.5 Elastic Net
+### Elastic Net
 
 ```python
 from sklearn.linear_model import ElasticNet
@@ -817,7 +817,7 @@ Elastic Net coefficients: [-1.3582  0.8776 -0.2011  0.3548 -0.      0.0579 -0.  
 Number of non-zero coefficients: 5 / 10
 ```
 
-### 6.6 Summary of regularization comparison
+### Summary of regularization comparison
 
 | | Ridge (L2) | Lasso (L1) | Elastic Net |
 |---|-----------|-----------|-------------|
@@ -828,7 +828,7 @@ Number of non-zero coefficients: 5 / 10
 
 ---
 
-## 7. Full Practice: Diabetes Dataset
+## Full Practice: Diabetes Dataset
 
 ```python
 from sklearn.datasets import load_diabetes
@@ -898,7 +898,7 @@ Lasso α=0.1    | MSE: 2884.6 | R²: 0.4555
 Lasso α=1      | MSE: 2824.6 | R²: 0.4669
 ```
 
-### 7.1 After finishing this section, what should you do next?
+### After finishing this section, what should you do next?
 
 If you have just learned linear regression, the most stable next step is not to rush into more complex models, but to first practice this minimal modeling chain:
 
@@ -915,7 +915,7 @@ This chain is actually the prototype of the entire machine learning project work
 
 When reading this chart, do not stare only at `R²`. First check whether the residuals are randomly scattered; if the residuals show a curved pattern, the model may be underfitting; if a few points have very large errors, check for outliers first; if the error grows as the prediction grows, you may need to transform the target or use a different metric.
 
-### 7.2 If this is your first regression problem, what is the safest default order?
+### If this is your first regression problem, what is the safest default order?
 
 When solving a regression problem for the first time, do not rush to compare many models.
 A more stable order is usually:

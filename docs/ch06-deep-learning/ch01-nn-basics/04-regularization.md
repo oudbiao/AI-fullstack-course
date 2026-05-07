@@ -1,11 +1,11 @@
 ---
-title: "1.7 Regularization in Deep Learning"
+title: "6.1.7 Regularization in Deep Learning"
 sidebar_position: 6
 description: "Master Dropout, Batch Normalization, Layer Normalization, data augmentation, and Early Stopping"
 keywords: [regularization, Dropout, Batch Normalization, Layer Normalization, data augmentation, Early Stopping]
 ---
 
-# Regularization in Deep Learning
+# 6.1.7 Regularization in Deep Learning
 
 ![Regularization controls overfitting](/img/course/regularization-overfitting-controls-en.png)
 
@@ -69,7 +69,7 @@ model = nn.Linear(10, 1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 
-### 1.1 Why do we still need to remember `weight_decay` first in deep learning?
+### Why do we still need to remember `weight_decay` first in deep learning?
 
 Because it is often the simplest, most stable, and first regularization method you should try.
 
@@ -82,7 +82,7 @@ In other words, regularization in deep learning is not about “replacing everyt
 
 ## II. Dropout — random dropping
 
-### 2.1 Principle
+### Principle
 
 During training, **randomly disable some neurons** by setting their outputs to 0. This forces the network not to rely on any single neuron and improves robustness.
 
@@ -105,7 +105,7 @@ flowchart LR
     style TEST fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 PyTorch usage
+### PyTorch usage
 
 ```python
 import torch
@@ -181,7 +181,7 @@ plt.show()
 - **Always call `model.eval()` during inference!**
 :::
 
-### 2.3 Is Dropout suitable for every model?
+### Is Dropout suitable for every model?
 
 No.
 
@@ -193,7 +193,7 @@ A more practical way to remember it is:
 
 So do not treat Dropout as a universal switch that you must turn on whenever overfitting happens.
 
-### 2.4 When you see overfitting for the first time, why shouldn’t Dropout be the only thing you think of?
+### When you see overfitting for the first time, why shouldn’t Dropout be the only thing you think of?
 
 Because overfitting does not come from just one cause.
 It may come from:
@@ -218,7 +218,7 @@ This diagram is meant to help you build an order of operations: first check the 
 
 ## III. Batch Normalization (BN)
 
-### 3.1 Principle
+### Principle
 
 Normalize the output of each layer so that it has **mean 0 and standard deviation 1**, then use learnable parameters to scale and shift it.
 
@@ -227,7 +227,7 @@ Normalize the output of each layer so that it has **mean 0 and standard deviatio
 - Less sensitivity to initialization
 - Mild regularization effect
 
-### 3.2 PyTorch usage
+### PyTorch usage
 
 ```python
 class MLP_BN(nn.Module):
@@ -291,7 +291,7 @@ print(f"LN output shape: {ln(x).shape}")
 Remember: **CNNs use BN, Transformers use LN.** This is the standard choice in real-world engineering.
 :::
 
-### 4.1 Why do beginners so often confuse BN and LN?
+### Why do beginners so often confuse BN and LN?
 
 Because they both look like “normalization,” but they focus on different dimensions:
 
@@ -303,7 +303,7 @@ You do not need to memorize every detail at first. Just remember:
 - In image CNNs, think of BN first
 - In Transformers, think of LN first
 
-### 4.2 What is most worth remembering about BN / LN is not the formula, but “where to place them”
+### What is most worth remembering about BN / LN is not the formula, but “where to place them”
 
 A more helpful memory rule for beginners is usually:
 
@@ -316,7 +316,7 @@ Remembering the right application scenario is more important than chasing the no
 
 ## V. Data augmentation
 
-### 5.1 Image data augmentation
+### Image data augmentation
 
 ```python
 from torchvision import transforms
@@ -344,7 +344,7 @@ test_transform = transforms.Compose([
 
 ## VI. Early Stopping
 
-### 6.1 Principle
+### Principle
 
 Monitor the **validation loss** and stop training if it does not improve for N consecutive epochs.
 
@@ -377,7 +377,7 @@ early_stop = EarlyStopping(patience=10)
 #         break
 ```
 
-### 6.2 Why is Early Stopping especially good for beginners to learn first?
+### Why is Early Stopping especially good for beginners to learn first?
 
 Because it is one of the easiest techniques to apply, the least likely to break, and often gives very direct benefits.
 

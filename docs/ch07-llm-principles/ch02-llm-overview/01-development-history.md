@@ -1,11 +1,11 @@
 ---
-title: "2.2 Development History of Large Models"
+title: "7.2.2 Development History of Large Models"
 sidebar_position: 5
 description: "Trace the main evolution of language models from rule-based systems, statistical language models, and RNNs to Transformer and large language models."
 keywords: [LLM history, language model, n-gram, RNN, Transformer, GPT]
 ---
 
-# Development History of Large Models
+# 7.2.2 Development History of Large Models
 
 ![Large Model Development Timeline](/img/course/llm-history-timeline-en.png)
 
@@ -20,7 +20,7 @@ After completing this section, you will be able to:
 
 ---
 
-## 1. First, Remember the Big Picture
+## First, Remember the Big Picture
 
 The development of language models can be roughly divided into these 5 stages:
 
@@ -38,7 +38,7 @@ You can think of it as an “autocomplete” path that keeps upgrading:
 - Then, Transformer learned long-range context
 - Finally, large-scale training and alignment techniques made it more practical
 
-### 1.1 If You Want to Be Drawn Into This History First, Remember Three Scenes
+### If You Want to Be Drawn Into This History First, Remember Three Scenes
 
 For beginners, the most memorable parts of this history are usually not the concepts, but these three scenes:
 
@@ -58,7 +58,7 @@ So the most fascinating part of this history is:
 
 ---
 
-## 2. Rule-Based Systems: The Earliest “Artificial Language Intelligence”
+## Rule-Based Systems: The Earliest “Artificial Language Intelligence”
 
 In early NLP, people often wrote rules by hand:
 
@@ -80,7 +80,7 @@ The disadvantages are:
 It is like training a new customer service agent using only a thick “conversation rules manual.”
 It works, but the ceiling is not high.
 
-### 2.1 Why Did Many People Later Feel This Path Was “Doomed to Be Exhausting”?
+### Why Did Many People Later Feel This Path Was “Doomed to Be Exhausting”?
 
 Because it depends too much on humans first breaking the world down for the machine.
 Once the scenario becomes complex, the maintenance cost rises quickly:
@@ -95,7 +95,7 @@ So the most typical feeling around early rule-based systems was:
 
 ---
 
-## 3. Statistical Language Models: Starting to Predict the Next Word by “Frequency of Occurrence”
+## Statistical Language Models: Starting to Predict the Next Word by “Frequency of Occurrence”
 
 The core idea of statistical language models is:
 
@@ -145,7 +145,7 @@ But its limitations are also obvious:
 - As word combinations increase, the statistics become sparse
 - It cannot truly understand semantics
 
-### 3.1 Why Is This Generation of Methods Still Very Important?
+### Why Is This Generation of Methods Still Very Important?
 
 Because it was the first time NLP truly moved from:
 
@@ -162,7 +162,7 @@ it was very much a stepping stone:
 
 ---
 
-## 4. Neural Network Language Models: Starting to Learn Representations
+## Neural Network Language Models: Starting to Learn Representations
 
 Later, people were no longer satisfied with “just counting word frequencies,” and began letting neural networks learn representations of words and context.
 
@@ -191,7 +191,7 @@ But the problems were still there:
 - Training efficiency was not high
 - Long-range dependencies remained difficult
 
-### 4.1 Why Did This Generation Make Many People Excited Again?
+### Why Did This Generation Make Many People Excited Again?
 
 Because starting from here, language models were no longer just:
 
@@ -208,7 +208,7 @@ So the appeal of this generation was:
 
 ---
 
-## 5. Transformer: The Key Turning Point That Truly Changed the Game
+## Transformer: The Key Turning Point That Truly Changed the Game
 
 The core breakthrough of Transformer is the attention mechanism.
 
@@ -229,7 +229,7 @@ Its advantages are crucial:
 
 This is exactly why models like GPT and BERT were able to rise so quickly later on.
 
-### 5.1.1 Why Did This Paper Stick in People’s Minds So Quickly?
+### Why Did This Paper Stick in People’s Minds So Quickly?
 
 Part of the reason is, of course, the technique itself,
 but another part is that the title really gives off a strong “era shift” feeling:
@@ -246,7 +246,7 @@ but something that genuinely rewrote the foundation of the large model era that 
 
 ---
 
-## 6. The Pretraining Model Era: First Read Massive Amounts of Text, Then Do Specific Tasks
+## The Pretraining Model Era: First Read Massive Amounts of Text, Then Do Specific Tasks
 
 The core idea of this stage is:
 
@@ -267,7 +267,7 @@ This brought a very important change:
 
 ---
 
-## 7. The Large Language Model Era: Scale Brings a Leap in Capability
+## The Large Language Model Era: Scale Brings a Leap in Capability
 
 When model parameters, data volume, and compute resources increase greatly, we get what we now call large language models (LLMs).
 
@@ -288,7 +288,7 @@ In this stage, the model is no longer just “a classifier,” but more and more
 - Reason
 - Call tools
 
-### 7.1 Why Did GPT-3 Become a “Turning Point in the Atmosphere” for Many People?
+### Why Did GPT-3 Become a “Turning Point in the Atmosphere” for Many People?
 
 Because GPT-3 made many people feel not just that:
 
@@ -309,7 +309,7 @@ but more like:
 
 ---
 
-## 8. Why “Bigger” Alone Is Not Enough
+## Why “Bigger” Alone Is Not Enough
 
 After models became larger, they were stronger, but problems also appeared:
 
@@ -328,7 +328,7 @@ It is like this:
 
 > The model first becomes smarter by reading massive amounts of text, then learns to be more like a cooperative assistant through human feedback.
 
-### 8.1 Why Did This Step Make Many People Suddenly Realize That “Training Objectives Are Not the Same as Product Objectives”?
+### Why Did This Step Make Many People Suddenly Realize That “Training Objectives Are Not the Same as Product Objectives”?
 
 Because after GPT-3, everyone had already seen that:
 
@@ -348,7 +348,7 @@ but a very important industry consensus:
 
 ---
 
-## 9. Why Do Today’s Large Models Belong to More Than Just NLP?
+## Why Do Today’s Large Models Belong to More Than Just NLP?
 
 Because Transformer and large model methods later expanded to more modalities:
 
@@ -368,7 +368,7 @@ So the “development history of large models” is not just a small branch of N
 
 ---
 
-## 10. A Quick Timeline Table
+## A Quick Timeline Table
 
 | Stage | Core Idea | Limitation |
 |---|---|---|

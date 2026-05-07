@@ -1,10 +1,10 @@
 ---
-title: "Git 基础概念"
+title: "1.2.1 Git 基础概念"
 sidebar_position: 1
 description: "理解版本管理的必要性和 Git 的核心概念"
 ---
 
-# Git 基础概念
+# 1.2.1 Git 基础概念
 
 ![Git 四区工作流图](/img/course/git-four-areas.png)
 

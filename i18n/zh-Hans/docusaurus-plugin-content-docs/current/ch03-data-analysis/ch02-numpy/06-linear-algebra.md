@@ -1,10 +1,10 @@
 ---
-title: "2.6 线性代数基础操作"
+title: "3.2.6 线性代数基础操作"
 sidebar_position: 7
 description: "用 NumPy 进行矩阵乘法、求逆、求特征值等线性代数运算"
 ---
 
-# 线性代数基础操作
+# 3.2.6 线性代数基础操作
 
 ![NumPy 线性代数工具箱](/img/course/ch03-numpy-linear-algebra-toolkit.png)
 

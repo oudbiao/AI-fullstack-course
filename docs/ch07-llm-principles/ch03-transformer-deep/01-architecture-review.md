@@ -1,11 +1,11 @@
 ---
-title: "3.2 Transformer Architecture Review and Deep Dive"
+title: "7.3.2 Transformer Architecture Review and Deep Dive"
 sidebar_position: 8
 description: "Starting from the data flow of a Transformer block, revisit how token embedding, positional encoding, self-attention, residual connections, and feed-forward networks work together."
 keywords: [Transformer, self-attention, residual, layer norm, feed forward, decoder]
 ---
 
-# Transformer Architecture Review and Deep Dive
+# 7.3.2 Transformer Architecture Review and Deep Dive
 
 :::tip Section Overview
 If you have studied attention mechanisms, you may already know terms like `Q / K / V`.
@@ -27,9 +27,9 @@ The goal of this lesson is not to memorize the structure diagram again, but to b
 
 ---
 
-## 1. Why Did Transformer Become the Backbone of Large Models?
+## Why Did Transformer Become the Backbone of Large Models?
 
-### 1.1 It solves the problem of “who should look at whom” in a sequence
+### It solves the problem of “who should look at whom” in a sequence
 
 Language is naturally a sequence.
 When a model processes a sentence, it needs to know:
@@ -46,7 +46,7 @@ and the Transformer idea is:
 
 That is the core of self-attention.
 
-### 1.2 The real strength of Transformer is not just attention
+### The real strength of Transformer is not just attention
 
 Many people simplify Transformer as:
 
@@ -64,7 +64,7 @@ But what really makes it suitable for large-scale training is a whole set of com
 
 This combination allows it to model sequence relationships, scale deep, scale large, and parallelize well.
 
-### 1.3 An analogy: each block is like one round of “discussion + organization”
+### An analogy: each block is like one round of “discussion + organization”
 
 You can think of a Transformer block as a meeting:
 
@@ -77,9 +77,9 @@ and many blocks stacked together are like a group repeatedly discussing and orga
 
 ---
 
-## 2. What Is Inside a Transformer Block?
+## What Is Inside a Transformer Block?
 
-### 2.1 The input is first turned into vectors
+### The input is first turned into vectors
 
 What the model sees is not text itself, but token ids.
 These token ids are looked up in the embedding table and turned into vectors.
@@ -93,7 +93,7 @@ This step does:
 
 > **Convert discrete symbols into representations in a continuous space.**
 
-### 2.2 Then positional information is added
+### Then positional information is added
 
 Attention itself only cares about relationships inside a set,
 and it does not know which position a token originally occupied.
@@ -110,7 +110,7 @@ This positional information can be injected through:
 - learnable position vectors
 - relative position methods such as RoPE
 
-### 2.3 Self-attention handles “cross-token communication”
+### Self-attention handles “cross-token communication”
 
 In self-attention, each token generates three representations:
 
@@ -127,7 +127,7 @@ The result is:
 
 - a new representation that combines context
 
-### 2.4 The feed-forward network handles “per-token deep processing”
+### The feed-forward network handles “per-token deep processing”
 
 When beginners learn Transformer, they often treat attention as the only core part.
 But in fact, FFN is also very important.
@@ -142,7 +142,7 @@ You can understand it as:
 
 > Attention exchanges information, FFN digests information.
 
-### 2.5 Why do residuals and normalization keep appearing?
+### Why do residuals and normalization keep appearing?
 
 Because deep networks are easy to train unstably.
 The role of residual connections and LayerNorm can be roughly remembered as:
@@ -161,7 +161,7 @@ It is recommended to read this diagram according to the data flow of one block: 
 
 ---
 
-## 3. Let’s Run a Real Minimal Transformer Block First
+## Let’s Run a Real Minimal Transformer Block First
 
 The code below uses pure Python to do one thing:
 
@@ -268,7 +268,7 @@ for row in block_output:
     print([round(x, 3) for x in row])
 ```
 
-### 3.1 When reading this code, focus on four places first
+### When reading this code, focus on four places first
 
 There are only four key parts:
 
@@ -280,7 +280,7 @@ There are only four key parts:
 If you understand these four parts,
 your understanding of the Transformer block has already moved beyond “just memorizing the diagram.”
 
-### 3.2 Why do we add a causal mask here?
+### Why do we add a causal mask here?
 
 You will see this line:
 
@@ -298,7 +298,7 @@ This is exactly the key constraint during training for decoder-only models like 
 If you remove `j <= i`,
 it becomes more like bidirectional attention in an encoder.
 
-### 3.3 Why does attention still need an FFN afterward?
+### Why does attention still need an FFN afterward?
 
 Because attention is only for “aggregating context.”
 It tells the current token:
@@ -314,9 +314,9 @@ So they have different responsibilities, and both are necessary.
 
 ---
 
-## 4. Putting the Block Back Into the Whole Architecture
+## Putting the Block Back Into the Whole Architecture
 
-### 4.1 Stacking multiple layers means abstraction layer by layer
+### Stacking multiple layers means abstraction layer by layer
 
 The first layer of attention may mostly see:
 
@@ -333,7 +333,7 @@ Higher layers may gradually form:
 That is why Transformer is not just “one layer of attention,”
 but many block layers stacked together.
 
-### 4.2 The main difference between Encoder and Decoder lies in mask and interaction style
+### The main difference between Encoder and Decoder lies in mask and interaction style
 
 If you only look at the block, they are essentially very similar.
 The main differences are:
@@ -346,7 +346,7 @@ So many architectural differences can eventually be traced back to:
 
 - who can see whom
 
-### 4.3 Why did GPT keep only the decoder?
+### Why did GPT keep only the decoder?
 
 Because the most important structural constraint for generation tasks is:
 
@@ -357,9 +357,9 @@ This is one of the reasons why the GPT series could keep scaling up.
 
 ---
 
-## 5. Engineering Details That Are Easy to Overlook
+## Engineering Details That Are Easy to Overlook
 
-### 5.1 Attention is not free
+### Attention is not free
 
 Each token has to compare with all other tokens,
 and as the sequence gets longer, the cost rises quickly.
@@ -373,7 +373,7 @@ That is why later on people introduced:
 
 and other improvements.
 
-### 5.2 The block structure looks repetitive, but training is not easy
+### The block structure looks repetitive, but training is not easy
 
 When the number of layers and hidden size increases, you will quickly run into:
 
@@ -384,7 +384,7 @@ When the number of layers and hidden size increases, you will quickly run into:
 So the reason Transformer became the backbone of large models is not only because the structure is elegant,
 but also because many engineering details gradually matured.
 
-### 5.3 Once you understand the block, many later chapters become much easier
+### Once you understand the block, many later chapters become much easier
 
 Later when you learn:
 
@@ -397,19 +397,19 @@ they are all essentially modifications or applications built around this block.
 
 ---
 
-## 6. Common Misunderstandings
+## Common Misunderstandings
 
-### 6.1 Misunderstanding 1: Transformer = attention
+### Misunderstanding 1: Transformer = attention
 
 Not complete.
 Transformer is a block design, not an isolated formula.
 
-### 6.2 Misunderstanding 2: FFN is just a supporting role
+### Misunderstanding 2: FFN is just a supporting role
 
 Wrong.
 It handles very important nonlinear feature transformation.
 
-### 6.3 Misunderstanding 3: Knowing QKV means you understand Transformer
+### Misunderstanding 3: Knowing QKV means you understand Transformer
 
 True understanding also includes:
 

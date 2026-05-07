@@ -1,11 +1,11 @@
 ---
-title: "5.2 MCP Protocol Overview"
+title: "9.5.2 MCP Protocol Overview"
 sidebar_position: 25
 description: "From why tool integration always feels messy to how MCP standardizes interaction between clients and tool servers, building an initial intuition for MCP."
 keywords: [MCP, Model Context Protocol, tool protocol, client-server, JSON-RPC]
 ---
 
-# MCP Protocol Overview
+# 9.5.2 MCP Protocol Overview
 
 ![MCP client-server message flow](/img/course/ch09-mcp-client-server-message-flow-map-en.png)
 
@@ -35,9 +35,9 @@ The value of MCP is that it pushes this one step further:
 
 ---
 
-## 1. Why do we need MCP?
+## Why do we need MCP?
 
-### 1.1 First, what happens when there is "no protocol"?
+### First, what happens when there is "no protocol"?
 
 If you connect 3 tools to an Agent system:
 
@@ -56,7 +56,7 @@ At first, this may still feel manageable, but as tools increase, the system quic
 
 > **Every time you add a tool, you also add a pile of glue code.**
 
-### 1.2 What is the purpose of a protocol?
+### What is the purpose of a protocol?
 
 The purpose of a protocol is not to “make the name sound more advanced,” but to:
 
@@ -74,7 +74,7 @@ What MCP wants to do is:
 
 ---
 
-## 2. What problem is MCP answering?
+## What problem is MCP answering?
 
 You can boil it down to three questions:
 
@@ -88,9 +88,9 @@ In other words, MCP is not about one specific tool. It is about:
 
 ---
 
-## 3. The most important MCP roles
+## The most important MCP roles
 
-### 3.1 Client
+### Client
 
 The client is the initiator.
 It is usually responsible for:
@@ -106,7 +106,7 @@ In real systems, the client is often:
 - A chat client
 - An IDE plugin
 
-### 3.2 Server
+### Server
 
 The server is the capability provider.
 It is usually responsible for:
@@ -116,7 +116,7 @@ It is usually responsible for:
 - Executing tool logic
 - Returning results
 
-### 3.3 Tool
+### Tool
 
 A tool is a concrete capability exposed by the server, such as:
 
@@ -124,7 +124,7 @@ A tool is a concrete capability exposed by the server, such as:
 - `read_file`
 - `run_sql`
 
-### 3.4 Transport
+### Transport
 
 The transport layer determines how the client and server send messages back and forth.
 For example:
@@ -139,7 +139,7 @@ Remember this sentence first:
 
 ---
 
-## 4. First, look at a minimal MCP-style message
+## First, look at a minimal MCP-style message
 
 MCP-style interaction usually has a very clear structure.
 Here, we will use a simplified JSON-RPC-style message to build intuition.
@@ -167,7 +167,7 @@ print(request)
 print(response)
 ```
 
-### 4.2 The most important thing in this example is not the field names, but the structure
+### The most important thing in this example is not the field names, but the structure
 
 It teaches you that:
 
@@ -179,7 +179,7 @@ This is the stability that a protocol brings.
 
 ---
 
-## 5. Why is “tool discovery” such a big deal?
+## Why is “tool discovery” such a big deal?
 
 Without a protocol, the client usually has to hard-code in advance:
 
@@ -205,11 +205,11 @@ This makes the tool ecosystem more flexible.
 
 ---
 
-## 6. What is the relationship between MCP and Function Calling?
+## What is the relationship between MCP and Function Calling?
 
 These two concepts are easy to mix up.
 
-### 6.1 Function Calling is more like a “structured calling ability at the model layer”
+### Function Calling is more like a “structured calling ability at the model layer”
 
 It focuses on:
 
@@ -224,7 +224,7 @@ For example:
 }
 ```
 
-### 6.2 MCP is more like a “tool integration protocol at the system layer”
+### MCP is more like a “tool integration protocol at the system layer”
 
 It focuses on:
 
@@ -241,9 +241,9 @@ They can be used together, but they are not the same thing.
 
 ---
 
-## 7. What scenarios is MCP good for?
+## What scenarios is MCP good for?
 
-### 7.1 Especially suitable for
+### Especially suitable for
 
 - Lots of tool types
 - Lots of client types
@@ -256,7 +256,7 @@ For example:
 - Desktop Agents
 - Internal enterprise tool platforms
 
-### 7.2 Cases where you may not need MCP right away
+### Cases where you may not need MCP right away
 
 If you only have:
 
@@ -272,7 +272,7 @@ So do not think of MCP as something you “must” use. Instead, understand it a
 
 ---
 
-## 8. A more down-to-earth analogy: MCP is like a “tool power strip”
+## A more down-to-earth analogy: MCP is like a “tool power strip”
 
 You can think of it this way:
 
@@ -294,19 +294,19 @@ That is the engineering value of a protocol.
 
 ---
 
-## 9. Common beginner mistakes
+## Common beginner mistakes
 
-### 9.1 Thinking MCP is a specific tool library
+### Thinking MCP is a specific tool library
 
 It is not.
 It is first and foremost a protocol and an interaction convention.
 
-### 9.2 Thinking that once you have MCP, tools will automatically work
+### Thinking that once you have MCP, tools will automatically work
 
 They will not.
 The protocol solves the integration layer. You still need to handle calling strategy, permissions, and evaluation yourself.
 
-### 9.3 Mixing up MCP and Function Calling as if they were the same thing
+### Mixing up MCP and Function Calling as if they were the same thing
 
 They are related, but they are at different levels.
 

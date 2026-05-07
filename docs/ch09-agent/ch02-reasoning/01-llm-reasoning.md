@@ -1,11 +1,11 @@
 ---
-title: "2.2 LLM Reasoning Capability"
+title: "9.2.2 LLM Reasoning Capability"
 sidebar_position: 5
 description: "Starting from the difference between “knowing the answer” and “deriving the answer,” understand the strengths and limitations of LLMs in multi-step reasoning, constraint satisfaction, and intermediate state maintenance."
 keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, agent]
 ---
 
-# LLM Reasoning Capability
+# 9.2.2 LLM Reasoning Capability
 
 ![LLM reasoning and intermediate state checkpoints](/img/course/ch09-reasoning-state-checkpoint-map-en.png)
 
@@ -43,9 +43,9 @@ So what matters most in this section is not “reasoning sounds advanced,” but
 
 - What exactly does the reasoning layer do in an Agent system?
 
-## 1. What Is “Reasoning,” and How Is It Different from “Remembering Answers”?
+## What Is “Reasoning,” and How Is It Different from “Remembering Answers”?
 
-### 1.1 Remembering answers: like looking up an internal dictionary
+### Remembering answers: like looking up an internal dictionary
 
 If I ask:
 
@@ -58,7 +58,7 @@ This kind of question is closer to:
 - retrieval
 - pattern matching
 
-### 1.2 Reasoning: the answer is not directly written in the question
+### Reasoning: the answer is not directly written in the question
 
 If I ask:
 
@@ -75,7 +75,7 @@ In other words:
 
 > **The key to a reasoning problem is not whether the model has seen the exact question before, but whether it can maintain a correct chain of intermediate states.**
 
-### 1.3 When learning reasoning for the first time, what should you focus on most?
+### When learning reasoning for the first time, what should you focus on most?
 
 What you should focus on first is not terminology, but this sentence:
 
@@ -89,7 +89,7 @@ Once this idea is solid, later when you see:
 
 you can naturally understand them as ways of helping the model preserve the chain of intermediate states.
 
-### 1.4 An analogy: reasoning is like cooking, not just naming a dish
+### An analogy: reasoning is like cooking, not just naming a dish
 
 “Knowing what Kung Pao Chicken is” is more like knowledge.
 “Marinate the chicken, then stir-fry the aromatics, then add the sauce, then reduce it” is more like reasoning.
@@ -102,9 +102,9 @@ It requires the system to:
 
 ---
 
-## 2. What Three Types of Problems Do LLM Reasoning Commonly Face?
+## What Three Types of Problems Do LLM Reasoning Commonly Face?
 
-### 2.1 Arithmetic and symbolic reasoning
+### Arithmetic and symbolic reasoning
 
 For example:
 
@@ -117,7 +117,7 @@ The characteristics of these problems are:
 - the conclusion depends on the steps
 - if one step is wrong, everything that follows is wrong
 
-### 2.2 Constraint satisfaction and comparative decision-making
+### Constraint satisfaction and comparative decision-making
 
 For example:
 
@@ -131,7 +131,7 @@ They emphasize:
 - multiple conditions must hold at the same time
 - intermediate judgments must not contradict each other
 
-### 2.3 State integration before and after tool use
+### State integration before and after tool use
 
 This is the most common type in Agent scenarios.
 
@@ -144,7 +144,7 @@ For example:
 The tool gives you external information,
 but turning that information into a conclusion still requires reasoning.
 
-### 2.4 Why are these three types especially suitable as an entry point for learning Agents?
+### Why are these three types especially suitable as an entry point for learning Agents?
 
 Because they are not “look it up and you’re done” problems. Instead, they require:
 
@@ -156,7 +156,7 @@ That is exactly the core work of the reasoning layer in an Agent.
 
 ---
 
-## 3. Let’s First Run a Real Example That Clearly Shows “Intermediate State”
+## Let’s First Run a Real Example That Clearly Shows “Intermediate State”
 
 The code below parses an expression into an abstract syntax tree,
 then evaluates it recursively while recording each step of the calculation.
@@ -206,7 +206,7 @@ for step in steps:
 print("answer:", answer)
 ```
 
-### 3.1 What is most worth learning from this code is not `ast`
+### What is most worth learning from this code is not `ast`
 
 What is truly worth taking away is:
 
@@ -216,7 +216,7 @@ What is truly worth taking away is:
 
 This is very similar to how LLMs handle complex reasoning.
 
-### 3.2 Why is intermediate state more important than the “final answer”?
+### Why is intermediate state more important than the “final answer”?
 
 Because if one intermediate step is wrong,
 even if you happen to get the final answer right, it is hard to reproduce the result reliably.
@@ -228,7 +228,7 @@ What a reasoning system should really pursue is:
 
 not accidentally hitting the right answer once.
 
-### 3.3 Why do Agents especially depend on this ability?
+### Why do Agents especially depend on this ability?
 
 Because the problems Agents handle are usually not completed in one step.
 They may need to:
@@ -240,7 +240,7 @@ They may need to:
 
 This is essentially maintaining a longer chain of intermediate states.
 
-### 3.4 Why is this code more educational than just “getting the final answer right”?
+### Why is this code more educational than just “getting the final answer right”?
 
 Because it clearly shows you:
 
@@ -256,9 +256,9 @@ And that is precisely what an Agent system needs most:
 
 ---
 
-## 4. Why Is LLM Reasoning Sometimes Strong, but Sometimes Suddenly Unstable?
+## Why Is LLM Reasoning Sometimes Strong, but Sometimes Suddenly Unstable?
 
-### 4.1 It is good at patterned step-by-step structure
+### It is good at patterned step-by-step structure
 
 If the task can be organized into fairly clear steps,
 LLMs often perform well, for example:
@@ -267,7 +267,7 @@ LLMs often perform well, for example:
 - explaining reasons
 - generating candidate solutions
 
-### 4.2 It can drift on long chains
+### It can drift on long chains
 
 Common issues include:
 
@@ -282,7 +282,7 @@ but more like:
 
 - a language-based reasoner that is good at drafting steps
 
-### 4.3 That is why many complex tasks need external tools
+### That is why many complex tasks need external tools
 
 For example:
 
@@ -293,7 +293,7 @@ For example:
 In an Agent, the reasoning layer often does not work alone,
 but cooperates with tools.
 
-### 4.4 Why are “can reason” and “can chat” completely different things?
+### Why are “can reason” and “can chat” completely different things?
 
 Because chatting is more like:
 
@@ -310,9 +310,9 @@ This is why a model that seems “very good at talking” can still fail in comp
 
 ---
 
-## 5. When Should You Turn on a “Stronger Reasoning Mode”?
+## When Should You Turn on a “Stronger Reasoning Mode”?
 
-### 5.1 When the answer requires multiple steps of derivation
+### When the answer requires multiple steps of derivation
 
 If the problem clearly requires:
 
@@ -322,7 +322,7 @@ If the problem clearly requires:
 
 then it is worth using a more explicit reasoning strategy.
 
-### 5.2 When the cost of errors is high
+### When the cost of errors is high
 
 For example:
 
@@ -336,7 +336,7 @@ What is needed more is:
 
 - a process that can be verified
 
-### 5.3 When the problem depends on external observations
+### When the problem depends on external observations
 
 For example:
 
@@ -347,14 +347,14 @@ At this point, reasoning must be combined with tool-based observations.
 
 ---
 
-## 6. The Most Common Misconceptions
+## The Most Common Misconceptions
 
-### 6.1 Misconception 1: If the model is big enough, it will naturally reason well
+### Misconception 1: If the model is big enough, it will naturally reason well
 
 Larger models usually bring a higher ceiling,
 but that does not mean all complex reasoning will be stable.
 
-### 6.2 Misconception 2: Reasoning just means writing out more steps
+### Misconception 2: Reasoning just means writing out more steps
 
 No.
 Truly effective reasoning means:
@@ -363,7 +363,7 @@ Truly effective reasoning means:
 - intermediate states can be reused
 - the final answer is supported by the process
 
-### 6.3 Misconception 3: If you have tools, you do not need reasoning
+### Misconception 3: If you have tools, you do not need reasoning
 
 Tools only provide external capabilities.
 Deciding:

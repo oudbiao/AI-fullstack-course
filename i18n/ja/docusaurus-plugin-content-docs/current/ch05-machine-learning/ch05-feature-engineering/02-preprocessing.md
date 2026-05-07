@@ -1,11 +1,11 @@
 ---
-title: "5.3 特徴量の前処理"
+title: "5.5.3 特徴量の前処理"
 sidebar_position: 15
 description: "欠損値、外れ値、標準化、エンコード、データリークなど、機械学習の実務でよくある特徴量前処理の判断を学びます。"
 keywords: [特徴量前処理, 欠損値, 標準化, one-hot, データリーク, preprocessing]
 ---
 
-# 特徴量の前処理
+# 5.5.3 特徴量の前処理
 
 ![特徴量前処理のパイプライン図](/img/course/feature-preprocessing-pipeline-ja.png)
 

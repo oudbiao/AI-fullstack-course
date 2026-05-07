@@ -1,9 +1,9 @@
 ---
-title: "Frequently Asked Questions"
+title: "A.6 Frequently Asked Questions"
 sidebar_position: 3
 ---
 
-# Frequently Asked Questions
+# A.6 Frequently Asked Questions
 
 ![FAQ Newcomer Question Decision Tree](/img/course/appendix-faq-decision-tree-en.png)
 
@@ -15,7 +15,7 @@ The goal of the FAQ is not to give you one “single correct answer,” but to h
 
 This page does not explain concepts. Instead, it focuses on the practical questions that beginners ask most often. You can think of it as an appendix to consult first when you are feeling stuck.
 
-## 1. Can I learn AI if I’m not good at math?
+## Can I learn AI if I’m not good at math?
 
 Yes. In fact, most people learn math as they go rather than finishing math first and then starting.
 
@@ -35,7 +35,7 @@ A steadier approach is:
 
 Your goal is not to “prove things” first. It is to first understand what role this math tool plays in the model.
 
-## 2. Do I need to buy a GPU?
+## Do I need to buy a GPU?
 
 Most beginners do not need one at the start.
 
@@ -55,7 +55,7 @@ If this is your first systematic study, the usual priority is:
 3. A learning pace you can keep up for the long term
 4. Only after that, buying a graphics card
 
-## 3. Do I have to study every stage?
+## Do I have to study every stage?
 
 Not necessarily, but it is recommended that you keep the main path going as much as possible.
 
@@ -73,7 +73,7 @@ If your goal is to build a stronger foundation in model principles, you can foll
 
 `1–6 Core Foundations -> 7 LLM Principles, Prompt, and Fine-Tuning -> 8 LLM Application Development and RAG -> 9 AI Agent and Agent Systems`
 
-## 4. How many hours per week is reasonable?
+## How many hours per week is reasonable?
 
 Compared with “how many hours a day,” what matters more is whether you can keep making steady progress for more than 12 weeks.
 
@@ -89,7 +89,7 @@ A common beginner mistake is to go hard in the first week and then stop in the t
 - 1 review session and 1 coding practice session on weekends
 - One small project or experiment summary every 2–3 weeks
 
-## 5. When is the best time to start doing projects?
+## When is the best time to start doing projects?
 
 The earlier, the better, but the project difficulty should match your stage.
 
@@ -108,7 +108,7 @@ Do not think of “projects” as necessarily large systems. For beginners, what
 - You can run a minimal closed loop
 - You can explain why you did it that way
 
-## 6. What should I do if my code keeps failing to run?
+## What should I do if my code keeps failing to run?
 
 First, do not rush to doubt yourself. Most problems come from the environment, paths, dependency versions, and input data.
 
@@ -131,9 +131,9 @@ pwd
 ls
 ```
 
-If you have not yet built troubleshooting habits, you can also check the appendix [Learning Roadblock Rescue](./troubleshooting.md).
+If you have not yet built troubleshooting habits, you can also check the appendix [A.8 Learning Roadblock Rescue](./troubleshooting.md).
 
-## 7. If I don’t understand papers, does that mean I can’t learn AI well?
+## If I don’t understand papers, does that mean I can’t learn AI well?
 
 No.
 
@@ -150,7 +150,7 @@ If you start by forcing yourself to read papers, two problems often happen:
 - You only remember terminology and do not develop task intuition
 - You feel like you know nothing, and then become even less willing to try
 
-## 8. How far do I need to learn before I can start looking for a job or taking projects?
+## How far do I need to learn before I can start looking for a job or taking projects?
 
 A realistic standard is not “Have I learned everything?” but whether you have these four abilities:
 
@@ -161,7 +161,7 @@ A realistic standard is not “Have I learned everything?” but whether you hav
 
 If you already have 2–3 projects that you can explain clearly, you can actually start preparing your resume and interview practice instead of waiting until “everything is learned.”
 
-## 9. I always feel like I’m learning too slowly. What should I do?
+## I always feel like I’m learning too slowly. What should I do?
 
 This is almost a stage every self-learner goes through.
 
@@ -173,7 +173,7 @@ The real comparison should not be “How much did others learn in a day?” but:
 
 If the answers to these questions are increasingly “yes,” then you are making progress.
 
-## 10. When I get stuck, what are the three most useful things to strengthen first?
+## When I get stuck, what are the three most useful things to strengthen first?
 
 If things already feel a bit messy, the most valuable areas to strengthen first are:
 

@@ -1,9 +1,9 @@
 ---
-title: "Hardware and Cloud Resource Guide"
+title: "A.5 Hardware and Cloud Resource Guide"
 sidebar_position: 2
 ---
 
-# Hardware and Cloud Resource Guide
+# A.5 Hardware and Cloud Resource Guide
 
 ![Hardware and Cloud Resource Decision Tree](/img/course/appendix-hardware-cloud-decision-tree-en.png)
 
@@ -22,7 +22,7 @@ This page is not about helping you “pile on specs.” It is here to help you d
 - 8 LLM Application Development and RAG, and 9 AI Agent and intelligent agent systems, involve many projects that actually rely more on engineering skills than on a powerful local GPU.
 - For beginners, the usual spending priority is: memory > storage > stable environment > GPU.
 
-## 1. Hardware needs by stage
+## Hardware needs by stage
 
 | Learning station | Common tasks | Minimum local recommendation | More comfortable setup | Cloud alternative |
 |---|---|---|---|---|
@@ -34,9 +34,9 @@ This page is not about helping you “pile on specs.” It is here to help you d
 | 10 Computer Vision, 11 Natural Language Processing | CV, NLP experiments | 16GB RAM | 16GB+ / external monitor is more comfortable | Colab / AutoDL / cloud server |
 | 12 AIGC and Multimodal | Multimodal trials, project assembly | 16GB RAM | 32GB RAM is smoother | Image and video generation is more suitable for the cloud |
 
-## 2. Three hardware tiers
+## Three hardware tiers
 
-### 2.1 Enough-to-get-by tier
+### Enough-to-get-by tier
 
 Suitable for:
 
@@ -51,7 +51,7 @@ Recommendations:
 - A regular CPU laptop or desktop
 - Use cloud resources temporarily when a GPU is needed
 
-### 2.2 Comfortable tier
+### Comfortable tier
 
 Suitable for:
 
@@ -66,7 +66,7 @@ Recommendations:
 - Multi-core CPU
 - Add a mid-range discrete GPU if needed, or keep cloud GPU as the main option
 
-### 2.3 Heavy experimentation tier
+### Heavy experimentation tier
 
 Suitable for:
 
@@ -81,7 +81,7 @@ Recommendations:
 - A newer graphics card
 - But first ask yourself: is this really for learning, or just “device anxiety”?
 
-## 3. For beginners, the most valuable specs are not necessarily the GPU
+## For beginners, the most valuable specs are not necessarily the GPU
 
 Many people initially overestimate the value of the GPU and underestimate the importance of memory and storage.
 
@@ -99,9 +99,9 @@ What usually affects the experience more is:
 4. Comfortable display and input devices
    When you spend long hours reading code and docs, an external monitor, keyboard, and mouse make a real difference.
 
-## 4. How to choose cloud resources more reasonably
+## How to choose cloud resources more reasonably
 
-### 4.1 Free or low-cost trial use
+### Free or low-cost trial use
 
 Suitable for:
 
@@ -115,7 +115,7 @@ Features:
 - Low cost
 - Not suitable for long-term stable training
 
-### 4.2 Hourly cloud GPU rental
+### Hourly cloud GPU rental
 
 Suitable for:
 
@@ -129,7 +129,7 @@ Suggestions:
 - Prepare your code, data, and experiment plan before starting the machine
 - After training, export results promptly and shut down to stop the cost
 
-### 4.3 API-first application route
+### API-first application route
 
 Suitable for:
 
@@ -143,7 +143,7 @@ This route usually does not require a local GPU. The focus is on:
 - Retrieval and tool calling
 - User experience and cost control
 
-## 5. When is it worth buying a local GPU?
+## When is it worth buying a local GPU?
 
 Only when at least two of the following are true does buying a local GPU make more sense:
 
@@ -154,21 +154,21 @@ Only when at least two of the following are true does buying a local GPU make mo
 
 If you are still at the stage of “maybe I’ll need it later,” don’t rush to buy one.
 
-## 6. Common misconceptions
+## Common misconceptions
 
-### 6.1 Misconception 1: You can’t learn AI without a graphics card
+### Misconception 1: You can’t learn AI without a graphics card
 
 This is the most common misunderstanding. Many abilities in the early stages have nothing to do with a graphics card, and many application engineering projects in later stages can also be completed with APIs and cloud resources.
 
-### 6.2 Misconception 2: Buy all the gear first, then start learning
+### Misconception 2: Buy all the gear first, then start learning
 
 What hurts learning most is not ordinary hardware; it is delaying the start. It is usually more reasonable to move forward with the hardware you already have and upgrade only when you hit a real bottleneck.
 
-### 6.3 Misconception 3: Sacrificing overall stability for a graphics card
+### Misconception 3: Sacrificing overall stability for a graphics card
 
 If you buy a high-end GPU but the RAM, storage, cooling, and system stability can’t keep up, the actual experience may still be poor.
 
-## 7. A realistic buying recommendation
+## A realistic buying recommendation
 
 If you are getting ready to start now, the most stable plan is usually:
 

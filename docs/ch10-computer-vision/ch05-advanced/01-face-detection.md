@@ -1,11 +1,11 @@
 ---
-title: "5.2 Face Detection and Recognition [Elective]"
+title: "10.5.2 Face Detection and Recognition [Elective]"
 sidebar_position: 14
 description: "From detection and alignment to recognition, understand why a face system is not just one model, but a complete pipeline."
 keywords: [face detection, face recognition, alignment, embeddings, computer vision]
 ---
 
-# Face Detection and Recognition [Elective]
+# 10.5.2 Face Detection and Recognition [Elective]
 
 :::tip Section Overview
 Face tasks may look like “just detecting a special object,”
@@ -60,14 +60,14 @@ and instead feels more like:
 
 - a pipeline that first organizes the input and then compares it
 
-## 1. What Steps Does a Face Recognition System Usually Have?
+## What Steps Does a Face Recognition System Usually Have?
 
 1. Detection: first find where the face is
 2. Alignment: standardize the angle and pose as much as possible
 3. Representation: extract a face vector
 4. Matching: compare vector similarity
 
-### 1.1 Why Is the “Alignment” Step Often Underestimated?
+### Why Is the “Alignment” Step Often Underestimated?
 
 Because many beginners naturally think:
 
@@ -82,7 +82,7 @@ So the role of alignment is more like:
 
 ---
 
-## 2. First, Look at a Minimal Similarity Matching Example
+## First, Look at a Minimal Similarity Matching Example
 
 ```python
 from math import sqrt
@@ -103,14 +103,14 @@ print("a vs b:", round(cosine(face_a, face_b), 4))
 print("a vs c:", round(cosine(face_a, face_c), 4))
 ```
 
-### 2.1 The Most Important Intuition from This Example
+### The Most Important Intuition from This Example
 
 Face recognition is often not directly classifying a name,
 but rather:
 
 - checking whether the representations of two faces are close enough
 
-### 2.2 What Should Beginners Remember First in This Section?
+### What Should Beginners Remember First in This Section?
 
 The most important things to remember are:
 
@@ -118,7 +118,7 @@ The most important things to remember are:
 - Alignment is responsible for “bringing the pose back to a more comparable state”
 - Recognition is often about comparing embeddings, not directly outputting a name
 
-### 2.3 Why Does the Threshold Directly Affect the User Experience?
+### Why Does the Threshold Directly Affect the User Experience?
 
 Because the threshold is essentially deciding:
 
@@ -134,7 +134,7 @@ If the threshold is too strict:
 
 This kind of issue is often not just a model problem, but a system configuration problem.
 
-### 2.4 Another Minimal Example: How a Threshold Changes the Result
+### Another Minimal Example: How a Threshold Changes the Result
 
 ```python
 similarities = [0.93, 0.81, 0.68]
@@ -161,22 +161,22 @@ A face system is not one model: detection finds the face first, alignment makes 
 
 ---
 
-## 3. Most Common Misconceptions
+## Most Common Misconceptions
 
-### 3.1 Only Looking at Detection, Not Alignment
+### Only Looking at Detection, Not Alignment
 
 Alignment often directly affects the stability of later recognition.
 
-### 3.2 Only Looking at Similarity, Not Threshold Risk
+### Only Looking at Similarity, Not Threshold Risk
 
 A threshold that is too loose makes misidentification more likely,
 while a threshold that is too strict makes missed recognition more likely.
 
-### 3.3 Ignoring Privacy and Compliance
+### Ignoring Privacy and Compliance
 
 Face tasks almost inherently come with higher compliance requirements.
 
-### 3.4 Only Showing Successful Recognition, Not Misidentification or Rejection
+### Only Showing Successful Recognition, Not Misidentification or Rejection
 
 If you only show:
 
@@ -190,7 +190,7 @@ A display that is closer to a real project should include:
 - examples that should have been rejected but were accepted because the threshold was too loose
 - examples that should have been recognized but were rejected by the threshold
 
-## 4. Why Is This Section Especially Good for Training “System Thinking”?
+## Why Is This Section Especially Good for Training “System Thinking”?
 
 Because it forces you to realize that:
 
@@ -199,7 +199,7 @@ Because it forces you to realize that:
 
 This is very similar to many real-world CV systems.
 
-### 4.1 A Learning Order Beginners Can Copy Directly
+### A Learning Order Beginners Can Copy Directly
 
 A safer order is usually:
 
@@ -210,7 +210,7 @@ A safer order is usually:
 
 If you start by focusing only on the recognition model, it is actually easier to lose sight of the whole chain.
 
-### 4.2 If You Turn It into a Project, What Is Most Worth Showing First
+### If You Turn It into a Project, What Is Most Worth Showing First
 
 A display that is closer to a real project usually follows this order:
 

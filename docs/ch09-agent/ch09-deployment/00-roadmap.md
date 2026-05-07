@@ -1,11 +1,11 @@
 ---
-title: "9.1 Pre-study Guide: What Is This Chapter on Deployment and Operations Really About?"
+title: "9.9.1 Pre-study Guide: What Is This Chapter on Deployment and Operations Really About?"
 sidebar_position: 0
 description: "First build the learning map for the Agent deployment and operations chapter: how service architecture, runtime management, persistence and recovery, cost optimization, monitoring and alerting, and production practices support long-term operation."
 keywords: [Agent deployment guide, Agent operations, cost optimization, runtime, observability]
 ---
 
-# Pre-study Guide: What Is This Chapter on Deployment and Operations Really About?
+# 9.9.1 Pre-study Guide: What Is This Chapter on Deployment and Operations Really About?
 
 This chapter is about one thing: how an Agent prototype can truly become a system that can run for a long time, recover from failures, control costs, and be maintained.
 

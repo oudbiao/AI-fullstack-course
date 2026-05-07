@@ -1,11 +1,11 @@
 ---
-title: "3.4 主流大模型架构变体"
+title: "7.3.4 主流大模型架构变体"
 sidebar_position: 10
 description: "从 Encoder-only、Decoder-only、Encoder-Decoder 到 MoE，理解不同大模型架构为什么会针对不同任务走出不同分支。"
 keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 ---
 
-# 主流大模型架构变体
+# 7.3.4 主流大模型架构变体
 
 :::tip 本节定位
 很多人第一次接触大模型家族时，会觉得它们只是名字不同：
@@ -33,7 +33,7 @@ keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 
 ## 一、为什么同样是 Transformer，会长出这么多分支？
 
-### 1.1 因为任务不一样，信息流约束也不一样
+### 因为任务不一样，信息流约束也不一样
 
 不同 NLP 任务的本质需求不同：
 
@@ -44,7 +44,7 @@ keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 所以哪怕底层积木都是 Transformer block，
 最后也会长成不同结构。
 
-### 1.2 一个简单类比
+### 一个简单类比
 
 你可以把三种经典架构理解成三种阅读方式：
 
@@ -59,7 +59,7 @@ keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 
 ## 二、三种经典结构分别在做什么？
 
-### 2.1 Encoder-only：适合理解，不擅长开放式续写
+### Encoder-only：适合理解，不擅长开放式续写
 
 Encoder-only 的典型代表是：
 
@@ -74,7 +74,7 @@ Encoder-only 的典型代表是：
 但它不天然适合做自由生成，
 因为训练时并没有严格遵守“只能看过去”的约束。
 
-### 2.2 Decoder-only：生成路线最直接
+### Decoder-only：生成路线最直接
 
 Decoder-only 的典型代表是：
 
@@ -94,7 +94,7 @@ Decoder-only 的典型代表是：
 - 生成流程自然
 - 很适合大规模自回归建模
 
-### 2.3 Encoder-Decoder：输入输出职责分开
+### Encoder-Decoder：输入输出职责分开
 
 Encoder-Decoder 的典型代表是：
 
@@ -118,7 +118,7 @@ Encoder-Decoder 的典型代表是：
 - 输入一段东西
 - 输出另一段东西
 
-### 2.4 MoE：不是改信息流，而是改“谁来算”
+### MoE：不是改信息流，而是改“谁来算”
 
 当模型变得越来越大后，
 另一条重要分支出现了：
@@ -142,7 +142,7 @@ Encoder-Decoder 的典型代表是：
 从 token 的视角读 MoE：每个 token 先进入路由器，路由器给多个专家 FFN 打分，然后只激活得分最高的 top-k 专家。正因为这样，MoE 可以拥有更多总参数，但每个 token 实际激活的计算量仍然较小。
 :::
 
-### 2.5 新人不要跳过的 MoE 术语
+### 新人不要跳过的 MoE 术语
 
 | 术语 | 通俗含义 | 为什么重要 |
 |---|---|---|
@@ -189,7 +189,7 @@ pretty_print("decoder-only self-attention", causal_mask(length))
 pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 ```
 
-### 3.1 这段代码到底在教什么？
+### 这段代码到底在教什么？
 
 它在教三件最根本的事：
 
@@ -202,7 +202,7 @@ pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 
 - 信息流限制不同
 
-### 3.2 为什么 mask 这么重要？
+### 为什么 mask 这么重要？
 
 因为 mask 决定了模型训练时到底允许自己知道什么。
 
@@ -210,7 +210,7 @@ pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 模型训练时就会偷看未来 token，
 到真正生成时又看不到未来，训练-推理就不一致了。
 
-### 3.3 为什么这能决定任务适配？
+### 为什么这能决定任务适配？
 
 因为任务本身就对应不同信息流：
 
@@ -230,7 +230,7 @@ pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 
 ## 四、把三条路线和典型任务连起来
 
-### 4.1 文本理解任务为什么常用 Encoder-only？
+### 文本理解任务为什么常用 Encoder-only？
 
 因为这类任务更关注：
 
@@ -246,7 +246,7 @@ pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 
 这些任务更像“读完整段再判断”。
 
-### 4.2 为什么现在大模型主流几乎都走 Decoder-only？
+### 为什么现在大模型主流几乎都走 Decoder-only？
 
 因为当目标变成：
 
@@ -265,7 +265,7 @@ decoder-only 结构最顺手。
 
 于是它成了大语言模型时代的主流路线。
 
-### 4.3 Encoder-Decoder 为什么没有消失？
+### Encoder-Decoder 为什么没有消失？
 
 因为很多任务仍然非常适合它：
 
@@ -277,7 +277,7 @@ decoder-only 结构最顺手。
 如果任务天然是“给定输入，生成另一段输出”，
 encoder-decoder 依然很有优势。
 
-### 4.4 MoE 适合什么情况？
+### MoE 适合什么情况？
 
 当团队在追求：
 
@@ -296,7 +296,7 @@ encoder-decoder 依然很有优势。
 
 ## 五、结构差异不只是“谁更强”，而是“谁更合适”
 
-### 5.1 不存在永远最强的通用结构
+### 不存在永远最强的通用结构
 
 很多新人会问：
 
@@ -311,7 +311,7 @@ encoder-decoder 依然很有优势。
 结构不是排行榜，
 而是任务匹配问题。
 
-### 5.2 很多“效果差距”其实来自训练规模和数据，不只是结构
+### 很多“效果差距”其实来自训练规模和数据，不只是结构
 
 例如 GPT 系列强，不只是因为 decoder-only，
 还因为：
@@ -322,7 +322,7 @@ encoder-decoder 依然很有优势。
 
 所以不要把结构本身神化成唯一因素。
 
-### 5.3 结构和目标函数是绑在一起看的
+### 结构和目标函数是绑在一起看的
 
 通常你会看到这样的耦合：
 
@@ -337,18 +337,18 @@ encoder-decoder 依然很有优势。
 
 ## 六、常见误区
 
-### 6.1 误区一：BERT 只是“老模型”，所以没必要学
+### 误区一：BERT 只是“老模型”，所以没必要学
 
 不对。
 它仍然是理解任务和表示学习的重要基线。
 
-### 6.2 误区二：Decoder-only 什么都能做，所以一定是最优解
+### 误区二：Decoder-only 什么都能做，所以一定是最优解
 
 它确实很通用，
 但对某些输入输出明确分离的任务，
 encoder-decoder 仍然可能更自然。
 
-### 6.3 误区三：MoE 只是“更大的普通模型”
+### 误区三：MoE 只是“更大的普通模型”
 
 不完全对。
 MoE 的核心变化在于：

@@ -1,11 +1,11 @@
 ---
-title: "3.3 元の Transformer vs 現代 LLM Decoder"
+title: "7.3.3 元の Transformer vs 現代 LLM Decoder"
 sidebar_position: 9
 description: "元の Transformer block と現代 LLM decoder block を比較し、pre-norm、RMSNorm、RoPE、GQA/MQA、SwiGLU を理解します。"
 keywords: [現代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
 ---
 
-# 元の Transformer vs 現代 LLM Decoder
+# 7.3.3 元の Transformer vs 現代 LLM Decoder
 
 2017 年の Transformer 論文は基礎を作りました。しかし、多くの現代 LLM decoder block は、元の図をそのまま写したものではありません。
 
@@ -21,7 +21,7 @@ keywords: [現代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
 最初から名前を暗記しないでください。左右の流れを物語として読みます。元の block は Transformer を成立させ、現代 decoder block は同じ考えを保ちながら、LLM 規模のために normalization、位置表現、K/V 共有、FFN 設計を変えています。
 :::
 
-## 1. 初期 Transformer block
+## 初期 Transformer block
 
 単純化した初期 Transformer block は、よく次のように説明されます。
 
@@ -45,7 +45,7 @@ Attention -> Add & Norm -> FeedForward -> Add & Norm
 - 推論時の KV cache コストが高い
 - FFN により強い表現力が必要になる
 
-## 2. よくある現代 LLM decoder block
+## よくある現代 LLM decoder block
 
 単純化すると、現代 decoder block は次のような形によくなります。
 
@@ -65,7 +65,7 @@ RMSNorm -> Attention -> Add -> RMSNorm -> FeedForward -> Add
 モデルごとに選ぶ細部は違います。
 それでも、このパターンは十分よく出てくるので、モデルコードを読むときに認識できるようにしておきましょう。
 
-## 3. Pre-norm：先に正規化してから sublayer へ入る
+## Pre-norm：先に正規化してから sublayer へ入る
 
 post-norm block では、正規化はよく次の後にあります。
 
@@ -90,7 +90,7 @@ x = x + attention(norm1(x))
 x = x + ffn(norm2(x))
 ```
 
-## 4. RMSNorm：より軽い正規化
+## RMSNorm：より軽い正規化
 
 LayerNorm は平均と分散を使って正規化します。
 RMSNorm は root mean square、つまり二乗平均平方根の大きさを使い、平均を引く部分を省きます。
@@ -106,7 +106,7 @@ RMSNorm がよく使われるのは、より単純で効率的でありながら
 
 > **RMSNorm は、より軽い正規化で activation の数値を安定させる。**
 
-## 5. RoPE：位置を attention に回転として入れる
+## RoPE：位置を attention に回転として入れる
 
 初期 Transformer の例では、位置ベクトルを token embedding に足すことがよくあります。
 現代 LLM では次をよく使います。
@@ -125,7 +125,7 @@ RMSNorm がよく使われるのは、より単純で効率的でありながら
 
 モデルコードでは、RoPE は通常 attention 計算の近く、`QK^T` の前に出てきます。
 
-## 6. GQA / MQA：KV cache の圧力を下げる
+## GQA / MQA：KV cache の圧力を下げる
 
 推論時、decoder-only モデルは過去 token の `K` と `V` をキャッシュします。
 これが次のものです。
@@ -146,7 +146,7 @@ RMSNorm がよく使われるのは、より単純で効率的でありながら
 
 > **GQA/MQA は主にモデルを賢くするためではなく、長文脈推論を安くするための工夫です。**
 
-## 7. SwiGLU FFN：より強い feed-forward block
+## SwiGLU FFN：より強い feed-forward block
 
 元の Transformer FFN は、よく次のように説明されます。
 
@@ -168,7 +168,7 @@ Linear -> activation -> Linear
 
 > **SwiGLU は FFN に特徴を作らせるだけでなく、どの特徴を強調するかも制御させる。**
 
-## 8. コンパクトな比較表
+## コンパクトな比較表
 
 | 部分 | 初期 Transformer の直感 | 現代 LLM decoder の直感 |
 |---|---|---|
@@ -179,7 +179,7 @@ Linear -> activation -> Linear
 | FFN | 基本 MLP / ReLU 系 | SwiGLU gated FFN がよく使われる |
 | 主な圧力 | attention ベースの系列モデリングを成立させる | 深さ、文脈長、推論コストに耐える |
 
-## 9. モデルコードを読むときの助け
+## モデルコードを読むときの助け
 
 現代モデルのコードを開いたら、`Transformer` という単語だけを探さないでください。
 

@@ -1,11 +1,11 @@
 ---
-title: "2.5 Plan-and-Execute"
+title: "9.2.5 Plan-and-Execute"
 sidebar_position: 8
 description: "Explain “plan first, execute later” clearly, and understand why long-horizon and complex tasks are often not a good fit for fully improvised ReAct, but instead need a more stable planning layer."
 keywords: [plan and execute, planner, executor, workflow, long horizon tasks, agent planning]
 ---
 
-# Plan-and-Execute
+# 9.2.5 Plan-and-Execute
 
 :::tip Section overview
 ReAct is great for learning as you go.
@@ -48,9 +48,9 @@ So what this section really aims to solve is:
 
 ---
 
-## 1. Why do longer tasks need “planning first” more?
+## Why do longer tasks need “planning first” more?
 
-### 1.1 Thinking while moving can easily lose the big picture
+### Thinking while moving can easily lose the big picture
 
 If a task only has one or two steps,
 ReAct’s on-the-fly decision-making is usually enough.
@@ -71,7 +71,7 @@ common problems are:
 - wrong order
 - repeated work
 
-### 1.2 The role of the planner: turn a big task into smaller tasks first
+### The role of the planner: turn a big task into smaller tasks first
 
 The most important value of the planner is not “being smarter,”
 but:
@@ -84,7 +84,7 @@ It answers questions like:
 - What is the order of the steps?
 - Which results need to be passed to later steps?
 
-### 1.3 The role of the executor: focus on doing the current step well
+### The role of the executor: focus on doing the current step well
 
 Once the plan is separated out,
 the executor can spend less time on “strategy”
@@ -96,7 +96,7 @@ and more time on:
 
 This makes the system more stable and easier to debug.
 
-### 1.4 A beginner-friendly overall analogy
+### A beginner-friendly overall analogy
 
 You can think of Plan-and-Execute as:
 
@@ -113,16 +113,16 @@ This analogy is especially good for beginners, because it brings “planner / ex
 
 ---
 
-## 2. What is the real difference between Plan-and-Execute and ReAct?
+## What is the real difference between Plan-and-Execute and ReAct?
 
-### 2.1 ReAct is more like investigating while moving
+### ReAct is more like investigating while moving
 
 It works well when:
 
 - there is a lot of unknown information
 - the next step depends on the previous observation
 
-### 2.2 Plan-and-Execute is more like making a construction checklist first
+### Plan-and-Execute is more like making a construction checklist first
 
 It works well when:
 
@@ -130,7 +130,7 @@ It works well when:
 - steps can be broken down in advance
 - you want to reduce improvisational drift
 
-### 2.3 They are not opposing approaches
+### They are not opposing approaches
 
 Many real systems actually combine them:
 
@@ -142,7 +142,7 @@ In other words:
 - planning handles the global picture
 - ReAct handles local exploration
 
-### 2.4 A selection table that is easy for beginners to remember
+### A selection table that is easy for beginners to remember
 
 | Task characteristics | Safer first choice |
 |---|---|
@@ -160,7 +160,7 @@ When reading the diagram, pay attention to the two layers of responsibility: the
 
 ---
 
-## 3. Let’s run a real minimal Plan-and-Execute example first
+## Let’s run a real minimal Plan-and-Execute example first
 
 The example below simulates a “customer support weekly report Agent.”
 The user task is to:
@@ -248,7 +248,7 @@ print("\nfinal report:")
 print(context["report"])
 ```
 
-### 3.1 What is the most important value of this code?
+### What is the most important value of this code?
 
 It clearly separates two things:
 
@@ -259,7 +259,7 @@ It clearly separates two things:
 
 That is the most essential structure of Plan-and-Execute.
 
-### 3.2 What role does `context` play here?
+### What role does `context` play here?
 
 It is the shared state during execution.
 
@@ -276,7 +276,7 @@ but also:
 
 - how intermediate results are safely passed along
 
-### 3.3 Why is this more worth learning than just `for step in plan`?
+### Why is this more worth learning than just `for step in plan`?
 
 Because this is not just demonstrating a loop,
 but demonstrating:
@@ -285,7 +285,7 @@ but demonstrating:
 - how dependencies are passed
 - how the final result is aggregated step by step
 
-### 3.4 Let’s look at one more minimal “plan checklist” example
+### Let’s look at one more minimal “plan checklist” example
 
 ```python
 plan_quality = {
@@ -315,9 +315,9 @@ This example is especially good for beginners, because it reminds you:
 
 ---
 
-## 4. When is Plan-and-Execute especially valuable?
+## When is Plan-and-Execute especially valuable?
 
-### 4.1 Long tasks
+### Long tasks
 
 For example:
 
@@ -326,12 +326,12 @@ For example:
 - organizing a knowledge base
 - building multi-step business workflows
 
-### 4.2 Processes that need stable repeatability
+### Processes that need stable repeatability
 
 If you want similar tasks to be executed with a similar structure every time,
 then an explicit plan is more stable than pure improvisation.
 
-### 4.3 Scenarios where a human should review the plan
+### Scenarios where a human should review the plan
 
 In some tasks,
 you may even show the plan to a person first and then decide whether to execute it.
@@ -344,21 +344,21 @@ For example:
 
 ---
 
-## 5. What problems does it most easily run into?
+## What problems does it most easily run into?
 
-### 5.1 The plan is wrong from the start
+### The plan is wrong from the start
 
 If the planner misunderstands the task,
 then even a careful executor cannot fix it.
 
-### 5.2 The plan is too rigid and does not adapt to new observations
+### The plan is too rigid and does not adapt to new observations
 
 This is the classic weakness of Plan-and-Execute.
 
 If the external world changes quickly,
 a plan that is too fixed may feel rigid.
 
-### 5.3 The executor is disconnected from the plan description
+### The executor is disconnected from the plan description
 
 Common situations:
 
@@ -373,9 +373,9 @@ So plan steps are best when they are:
 
 ---
 
-## 6. How do we make Plan-and-Execute more stable in engineering practice?
+## How do we make Plan-and-Execute more stable in engineering practice?
 
-### 6.1 Make the plan structured
+### Make the plan structured
 
 Do not generate only a string of natural language.
 A better format is usually:
@@ -385,7 +385,7 @@ A better format is usually:
 - input
 - output
 
-### 6.2 Write back to `context` after each step
+### Write back to `context` after each step
 
 This is more helpful for:
 
@@ -393,7 +393,7 @@ This is more helpful for:
 - replay
 - retrying
 
-### 6.3 Allow replanning when necessary
+### Allow replanning when necessary
 
 The most stable version of Plan-and-Execute is often not:
 
@@ -424,19 +424,19 @@ That way, others can more easily see:
 
 ---
 
-## 7. Common misconceptions
+## Common misconceptions
 
-### 7.1 Misconception 1: having a plan always makes the system smarter
+### Misconception 1: having a plan always makes the system smarter
 
 A plan can improve stability,
 but only if the plan itself is good enough.
 
-### 7.2 Misconception 2: every task should use planner first and executor second
+### Misconception 2: every task should use planner first and executor second
 
 Not necessarily.
 For short tasks or highly interactive tasks, ReAct is often more natural.
 
-### 7.3 Misconception 3: it is enough to just list step names in the plan
+### Misconception 3: it is enough to just list step names in the plan
 
 A truly executable plan also needs:
 

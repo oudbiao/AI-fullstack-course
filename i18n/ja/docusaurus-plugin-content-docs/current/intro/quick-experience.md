@@ -1,11 +1,11 @@
 ---
 sidebar_position: 0
-title: "30分 AI クイック体験"
+title: "0.1 30分 AI クイック体験"
 description: "初心者向けの短いAI初回体験です。入力、モデル、出力を見てから環境準備へ進みます。"
 keywords: [AIクイック体験, Google Colab, 画像認識, テキスト生成, 画像生成, AI入門]
 ---
 
-# 30分 AI クイック体験
+# 0.1 30分 AI クイック体験
 
 ![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.png)
 

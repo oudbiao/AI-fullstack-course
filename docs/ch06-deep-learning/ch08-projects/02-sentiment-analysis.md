@@ -1,11 +1,11 @@
 ---
-title: "8.3 Project: Text Sentiment Analysis"
+title: "6.8.3 Project: Text Sentiment Analysis"
 sidebar_position: 2
 description: "Walk through a complete closed loop around a real, showcaseable sentiment analysis project, from label boundaries and baseline to error analysis and delivery format."
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
-# Project: Text Sentiment Analysis
+# 6.8.3 Project: Text Sentiment Analysis
 
 :::tip Section focus
 A sentiment analysis project is great for a portfolio not because it is the fanciest, but because it is very good for training “project judgment”:
@@ -27,9 +27,9 @@ The goal of this section is not to pile on complex models, but to truly complete
 
 ---
 
-## 1. First, Narrow the Project Topic
+## First, Narrow the Project Topic
 
-### 1.1 The safest starting point is binary classification
+### The safest starting point is binary classification
 
 Start with:
 
@@ -40,7 +40,7 @@ Instead of beginning with:
 
 - positive / neutral / negative / irony / mixed
 
-### 1.2 Why is binary classification good for practice?
+### Why is binary classification good for practice?
 
 Because:
 
@@ -48,7 +48,7 @@ Because:
 - The data is easier to prepare
 - The errors are easier to analyze
 
-### 1.3 A portfolio-friendly topic
+### A portfolio-friendly topic
 
 For example:
 
@@ -58,7 +58,7 @@ This topic is especially suitable because the user text, label boundaries, and b
 
 ---
 
-## 2. What Does the Minimum Closed Loop Look Like?
+## What Does the Minimum Closed Loop Look Like?
 
 1. Define label boundaries
 2. Prepare a small labeled dataset
@@ -74,7 +74,7 @@ If these 5 steps are all clear, your project is usually already much closer to a
 Read it as an error-driven loop: define the label boundary first, build a small baseline, run predictions, group wrong cases by error type, and only then decide whether to add rules, data, or a stronger model.
 :::
 
-## 3. Recommended Progression Order
+## Recommended Progression Order
 
 For beginners, the safer order is usually:
 
@@ -87,7 +87,7 @@ This way, you won’t get pulled away by model complexity at the very beginning.
 
 ---
 
-## 4. Start with a Minimal Baseline Project
+## Start with a Minimal Baseline Project
 
 To keep the logic very clear, we’ll start with a keyword-counting baseline.
 It is certainly not strong, but it is very suitable for explaining the project loop.
@@ -147,7 +147,7 @@ for text, gold in test_data:
     print(results[-1])
 ```
 
-### 4.1 Why is this baseline educationally valuable?
+### Why is this baseline educationally valuable?
 
 Because it is easy to explain:
 
@@ -158,7 +158,7 @@ Because it is easy to explain:
 
 This lets you do real error analysis, instead of staring at just one number.
 
-### 4.2 Add a minimal “negation flip” upgrade
+### Add a minimal “negation flip” upgrade
 
 One of the most typical error patterns in sentiment analysis is:
 
@@ -223,16 +223,16 @@ The important engineering detail is that the rule and the tokenizer must use the
 
 ---
 
-## 5. What Really Makes the Project Stronger Is Error Analysis
+## What Really Makes the Project Stronger Is Error Analysis
 
-### 5.1 First, pull out the wrong cases
+### First, pull out the wrong cases
 
 ```python
 errors = [row for row in results if row["gold"] != row["pred"]]
 print(errors)
 ```
 
-### 5.2 Common error types
+### Common error types
 
 For sentiment analysis, the ones most worth looking at separately are:
 
@@ -243,7 +243,7 @@ For sentiment analysis, the ones most worth looking at separately are:
 - Mixed sentiment
   For example, “The content is great, but it is too difficult”
 
-### 5.3 Why is error analysis so valuable?
+### Why is error analysis so valuable?
 
 Because it can directly tell you what to do next:
 
@@ -251,7 +251,7 @@ Because it can directly tell you what to do next:
 - Adjust the label standard
 - Upgrade the model
 
-### 5.4 Create a minimal error bucket table for yourself
+### Create a minimal error bucket table for yourself
 
 When beginners do sentiment analysis projects, it is easy to only say:
 
@@ -296,9 +296,9 @@ because it immediately tells others:
 
 ---
 
-## 6. How Can This Project Be Pushed One Step Further Toward Portfolio Quality?
+## How Can This Project Be Pushed One Step Further Toward Portfolio Quality?
 
-### 6.1 Add a traditional strong baseline
+### Add a traditional strong baseline
 
 For example:
 
@@ -309,14 +309,14 @@ Then your project will have at least:
 - A rule-based baseline
 - A traditional ML baseline
 
-### 6.2 Add a deep learning baseline
+### Add a deep learning baseline
 
 For example:
 
 - embedding + pooling
 - BERT classification
 
-### 6.3 Don’t show only the final score
+### Don’t show only the final score
 
 It is highly recommended to show:
 
@@ -327,7 +327,7 @@ It is highly recommended to show:
 
 This will make the project feel much more complete.
 
-### 6.4 A presentation order that feels more like a real project
+### A presentation order that feels more like a real project
 
 If you turn this into a portfolio page,
 the following order is recommended:
@@ -346,17 +346,17 @@ but rather:
 
 ---
 
-## 7. The Most Common Pitfalls
+## The Most Common Pitfalls
 
-### 7.1 Inconsistent label standards
+### Inconsistent label standards
 
 This is the first major pitfall in many sentiment projects.
 
-### 7.2 Only looking at accuracy
+### Only looking at accuracy
 
 Without looking at where the errors are, it is hard to truly improve.
 
-### 7.3 Chasing the most complex model from the start
+### Chasing the most complex model from the start
 
 Without a baseline, it is hard to explain what the complex model improved.
 

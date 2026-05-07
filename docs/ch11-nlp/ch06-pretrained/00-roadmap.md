@@ -1,11 +1,11 @@
 ---
-title: "6.1 Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?"
+title: "11.6.1 Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?"
 sidebar_position: 0
 description: "First build a learning map for the pretrained models chapter: how the pretraining paradigm, BERT, GPT, T5, and transformers practice connect into the main line of modern NLP."
 keywords: [pretraining guide, BERT, GPT, T5, transformers]
 ---
 
-# Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?
+# 11.6.1 Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?
 
 ![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison-en.png)
 

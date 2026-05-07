@@ -1,11 +1,11 @@
 ---
-title: "8.1 Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?"
+title: "7.8.1 Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?"
 sidebar_position: 0
 description: "First, build the learning map for the Stage 7 project chapter: how domain tasks choose between Prompt, RAG, and fine-tuning, and how data, training, evaluation, and presentation form a complete LLM project loop."
 keywords: [LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation]
 ---
 
-# Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?
+# 7.8.1 Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?
 
 This chapter is not about piling on more terminology. Instead, it takes the overview of LLMs, pre-training, Prompt, fine-tuning, alignment, and evaluation that you learned earlier and places them into a concrete project.
 
@@ -76,7 +76,7 @@ More experienced learners can treat this chapter as a chance to fill gaps and pr
 
 After finishing this chapter, it is recommended to complete a “domain task LLM solution comparison project.” The project should include at least task definition, sample data, Prompt baseline, failure analysis, improvement plan, evaluation results, and a conclusion.
 
-If you need a guided starter before designing your own domain project, run [Hands-on: Full Chapter 7 Workshop](./03-stage-hands-on-workshop.md) first. It gives you a complete offline practice loop with fixed cases, prompt-version pass rates, structured-output failures, and solution-route notes.
+If you need a guided starter before designing your own domain project, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./03-stage-hands-on-workshop.md) first. It gives you a complete offline practice loop with fixed cases, prompt-version pass rates, structured-output failures, and solution-route notes.
 
 The minimum version can compare just two Prompt versions; the advanced version can compare Prompt, RAG, and a small-scale fine-tuning run; the portfolio version should clearly explain method trade-offs, evaluation metrics, failure cases, and next steps.
 

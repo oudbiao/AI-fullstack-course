@@ -1,11 +1,11 @@
 ---
-title: "10.2 Project: Intelligent Research Assistant"
+title: "9.10.2 Project: Intelligent Research Assistant"
 sidebar_position: 54
 description: "Build a portfolio-quality research assistant Agent loop around retrieval, reading, citation, and structured summarization."
 keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 ---
 
-# Project: Intelligent Research Assistant
+# 9.10.2 Project: Intelligent Research Assistant
 
 :::tip Section Focus
 The research assistant project is a great fit for an Agent portfolio, not because it looks advanced, but because it naturally requires the system to do all of the following well at the same time:
@@ -28,7 +28,7 @@ That makes it an excellent project for practicing the core theme of “trustwort
 
 ---
 
-## 1. First, narrow the project scope
+## First, narrow the project scope
 
 A research assistant project that is good for practice should start as:
 
@@ -48,7 +48,7 @@ Because for a research assistant, “trustworthy” matters more than “flashy.
 
 ---
 
-## 2. What does the minimal closed loop of a portfolio-grade research assistant look like?
+## What does the minimal closed loop of a portfolio-grade research assistant look like?
 
 1. Input a topic or question
 2. Retrieve candidate materials
@@ -65,7 +65,7 @@ As long as these 6 steps are clear, the project already has strong portfolio val
 The most important thing in a research assistant is not “the summary reads smoothly,” but whether each claim can be traced back to a source. When reading the diagram, check each conclusion along the chain of retrieve, select, summarize, cite, and verify to see whether it has evidence.
 :::
 
-## 3. Recommended progression order
+## Recommended progression order
 
 For beginners, a more stable sequence is usually:
 
@@ -78,7 +78,7 @@ This makes it easier to turn a “trustworthy research assistant” into a clear
 
 ---
 
-## 4. Let’s first look at a minimal research assistant example
+## Let’s first look at a minimal research assistant example
 
 This example does three things:
 
@@ -139,14 +139,14 @@ for item in result:
     print(item)
 ```
 
-### 4.1 Why is this example more valuable than a “project skeleton dataclass”?
+### Why is this example more valuable than a “project skeleton dataclass”?
 
 Because it already reflects the most important product characteristic of a research assistant:
 
 - The result is not a black-box summary
 - Every conclusion can be traced back to a source
 
-### 4.2 Why is citation the make-or-break issue for this kind of project?
+### Why is citation the make-or-break issue for this kind of project?
 
 Because without sources, users have a hard time telling whether:
 
@@ -155,28 +155,28 @@ Because without sources, users have a hard time telling whether:
 
 ---
 
-## 5. How should this project be evaluated?
+## How should this project be evaluated?
 
-### 5.1 Retrieval quality
+### Retrieval quality
 
 For example:
 
 - Are the retrieved documents actually relevant?
 
-### 5.2 Summary quality
+### Summary quality
 
 For example:
 
 - Does it cover the key points?
 - Does it over-generalize?
 
-### 5.3 Citation accuracy
+### Citation accuracy
 
 This is a particularly important layer for a research assistant:
 
 - Does each claim really have support in the cited source?
 
-### 5.4 A minimal evaluation data structure
+### A minimal evaluation data structure
 
 ```python
 eval_cases = [
@@ -201,13 +201,13 @@ for case in eval_cases:
 
 ---
 
-## 6. The easiest pitfalls to fall into
+## The easiest pitfalls to fall into
 
-### 6.1 Retrieval is correct, but the summary loses key points
+### Retrieval is correct, but the summary loses key points
 
-### 6.2 The summary sounds smooth, but the sources do not match
+### The summary sounds smooth, but the sources do not match
 
-### 6.3 The project only shows one answer that “looks smart”
+### The project only shows one answer that “looks smart”
 
 What is actually most worth showing in a research assistant is:
 
@@ -220,16 +220,16 @@ That complete trace.
 
 ---
 
-## 7. How do you polish it into a portfolio-grade project?
+## How do you polish it into a portfolio-grade project?
 
-### 7.1 Show four columns on the page
+### Show four columns on the page
 
 - Query
 - Retrieved sources
 - Structured summary
 - Citations
 
-### 7.2 Prepare 5–10 fixed evaluation questions
+### Prepare 5–10 fixed evaluation questions
 
 This lets you consistently show:
 
@@ -237,7 +237,7 @@ This lets you consistently show:
 - retrieval strategy changes
 - summary strategy improvements
 
-### 7.3 List failure cases separately
+### List failure cases separately
 
 For example:
 

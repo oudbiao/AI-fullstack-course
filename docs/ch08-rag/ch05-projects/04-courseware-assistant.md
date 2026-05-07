@@ -1,11 +1,11 @@
 ---
-title: "5.5 Project: Knowledge Base-Driven Courseware Generation Assistant"
+title: "8.5.5 Project: Knowledge Base-Driven Courseware Generation Assistant"
 sidebar_position: 24
 description: "Build a truly product-like courseware assistant project loop around PDF/Word/PPT document libraries, RAG retrieval, external material supplementation, example extraction, and template-based Word generation."
 keywords: [courseware assistant, knowledge base, word generation, ppt parsing, document parsing, rag project]
 ---
 
-# Project: Knowledge Base-Driven Courseware Generation Assistant
+# 8.5.5 Project: Knowledge Base-Driven Courseware Generation Assistant
 
 ![Courseware generation assistant workflow diagram](/img/course/courseware-assistant-workflow-en.png)
 
@@ -65,7 +65,7 @@ So what this project really wants to solve is:
 
 - When the user only provides a topic, how does the system automatically find materials, extract examples, and then write them out according to a template?
 
-## 1. How Should We Narrow the Project Scope?
+## How Should We Narrow the Project Scope?
 
 A very solid starting point is usually:
 
@@ -85,7 +85,7 @@ It is not recommended to start with:
 
 That will easily distract from the main project line.
 
-## 2. A Better Analogy for Beginners
+## A Better Analogy for Beginners
 
 You can think of this system as:
 
@@ -102,7 +102,7 @@ This analogy matters, because it helps beginners avoid thinking of the project a
 
 - “Just ask the model to write a Word document directly”
 
-## 3. What Does the Minimum System Loop Look Like?
+## What Does the Minimum System Loop Look Like?
 
 1. Ingest documents
 2. Parse body text, headings, and examples
@@ -114,7 +114,7 @@ This analogy matters, because it helps beginners avoid thinking of the project a
 
 As long as these 7 steps run smoothly, the project already feels very close to a real product.
 
-## 4. Let’s First Run a Minimal Workflow Example
+## Let’s First Run a Minimal Workflow Example
 
 ```python
 knowledge_base = [
@@ -149,7 +149,7 @@ def build_courseware(topic):
 print(build_courseware("Discount word problems"))
 ```
 
-### 4.1 What Is the Most Important Value of This Example?
+### What Is the Most Important Value of This Example?
 
 It shows that the real value of this system is not just that it can:
 
@@ -159,7 +159,7 @@ But that it can reorganize what it retrieved into:
 
 - The section structure needed by courseware
 
-## 5. A System Layering Diagram That Looks More Like a Real Project
+## A System Layering Diagram That Looks More Like a Real Project
 
 When beginners build this kind of project, the easiest mistake is mixing “knowledge base, retrieval, generation, and export” together.
 
@@ -181,22 +181,22 @@ You can simply understand it as:
 - Generation layer: reorganize materials into a courseware structure
 - Export layer: turn the structure into Word
 
-## 6. What Capabilities Does This Project Need Most?
+## What Capabilities Does This Project Need Most?
 
 Viewed by system layers, the core capabilities are:
 
-### 6.1 Document Parsing
+### Document Parsing
 
 - PDF / DOCX / PPTX reading
 - OCR for scanned documents
 - Heading hierarchy and example recognition
 
 Related courses:
-- [Document Parsing and Knowledge Extraction](../ch03-app-dev/07-document-parsing.md)
-- [Document Processing](../ch01-rag/02-document-processing.md)
-- [OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [8.3.8 Document Parsing and Knowledge Extraction](../ch03-app-dev/07-document-parsing.md)
+- [8.1.3 Document Processing](../ch01-rag/02-document-processing.md)
+- [10.5.4 OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-### 6.2 Knowledge Base and Retrieval
+### Knowledge Base and Retrieval
 
 - Chunking
 - Metadata
@@ -204,22 +204,22 @@ Related courses:
 - Example recall
 
 Related courses:
-- [RAG Basics](../ch01-rag/01-rag-basics.md)
-- [Vector Databases](../ch01-rag/03-vector-databases.md)
-- [Retrieval Strategies](../ch01-rag/04-retrieval-strategies.md)
+- [8.1.2 RAG Basics](../ch01-rag/01-rag-basics.md)
+- [8.1.4 Vector Databases](../ch01-rag/03-vector-databases.md)
+- [8.1.5 Retrieval Strategies](../ch01-rag/04-retrieval-strategies.md)
 
-### 6.3 Structured Output and Template Generation
+### Structured Output and Template Generation
 
 - Generate an outline first
 - Then generate key concepts / examples / exercises
 - Then export Word using a template
 
 Related courses:
-- [Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [Template-Based Document Generation (Word / PPT)](../ch03-app-dev/08-template-doc-generation.md)
+- [7.5.2 Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [7.5.4 Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [8.3.9 Template-Based Document Generation (Word / PPT)](../ch03-app-dev/08-template-doc-generation.md)
 
-### 6.4 Tool Calling and Workflows
+### Tool Calling and Workflows
 
 - Internal knowledge base retrieval
 - External material supplementation
@@ -227,11 +227,11 @@ Related courses:
 - File export
 
 Related courses:
-- [Function Calling Practice](../ch03-app-dev/03-function-calling.md)
-- [Dialogue Systems and Multi-Turn Management](../ch03-app-dev/05-dialog-system.md)
-- [Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
+- [8.3.4 Function Calling Practice](../ch03-app-dev/03-function-calling.md)
+- [8.3.6 Dialogue Systems and Multi-Turn Management](../ch03-app-dev/05-dialog-system.md)
+- [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
 
-## 7. What Should the Minimal Fixed-Format Courseware Schema Look Like?
+## What Should the Minimal Fixed-Format Courseware Schema Look Like?
 
 For this project, what is most worth defining first is not the model name,
 but rather “what the courseware should look like.”
@@ -262,7 +262,7 @@ This schema is especially important because it binds:
 
 To the same stable object across all three layers.
 
-## 8. Which Comes First: Internal Materials or External Materials?
+## Which Comes First: Internal Materials or External Materials?
 
 Your project has a very important real-world question:
 
@@ -282,7 +282,7 @@ You can remember this rule as one sentence:
 
 > **Internal materials determine the main skeleton, and external materials fill in the blanks.**
 
-## 9. A Workflow Skeleton That Looks More Like a Real Product
+## A Workflow Skeleton That Looks More Like a Real Product
 
 ```python
 def generate_courseware(topic):
@@ -309,7 +309,7 @@ but that it helps you keep these 5 actions in mind:
 Read this diagram like a production line: materials are ingested, parsed into knowledge chunks, retrieved by topic and content type, converted into a courseware schema, and then rendered into Word. If any layer has no intermediate output, debugging the next layer becomes very difficult.
 :::
 
-## 10. How Should This Project Be Evaluated?
+## How Should This Project Be Evaluated?
 
 What is worth checking first is not “does it look nice when written,” but rather:
 
@@ -327,7 +327,7 @@ You can first break evaluation into:
 | Source traceability | Whether each piece of content can be traced back to its document source |
 | Template compliance | Whether the final Word document matches the formatting rules |
 
-## 11. A Beginner-Friendly Progression Order You Can Copy Directly
+## A Beginner-Friendly Progression Order You Can Copy Directly
 
 When building this project for the first time, a safer order is usually:
 
@@ -339,7 +339,7 @@ When building this project for the first time, a safer order is usually:
 
 This is easier than trying to build a “fully automated lesson-prep Agent” from the start.
 
-## 12. The Most Common Pitfalls on the First Attempt
+## The Most Common Pitfalls on the First Attempt
 
 The most common mistakes when building this kind of project for the first time are:
 
@@ -355,7 +355,7 @@ So the more stable development approach is:
 - Validate each layer independently
 - Then connect them together
 
-## 13. If You Turn It Into a Portfolio Project, What Is Most Worth Showing?
+## If You Turn It Into a Portfolio Project, What Is Most Worth Showing?
 
 What is most worth showing is usually not:
 

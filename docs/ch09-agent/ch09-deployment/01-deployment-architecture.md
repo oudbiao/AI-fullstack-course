@@ -1,11 +1,11 @@
 ---
-title: "9.2 Agent Deployment Architecture"
+title: "9.9.2 Agent Deployment Architecture"
 sidebar_position: 49
 description: "From API gateways, task orchestration, tool layers, state storage, to observability systems, understand what modules a production-ready Agent service usually consists of."
 keywords: [deployment architecture, agent architecture, api gateway, orchestrator, queue, storage, observability]
 ---
 
-# Agent Deployment Architecture
+# 9.9.2 Agent Deployment Architecture
 
 :::tip Section overview
 Many Agent projects start as just a script:
@@ -55,16 +55,16 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. What layers does a production-ready Agent system usually include?
+## What layers does a production-ready Agent system usually include?
 
-### 1.1 Access layer
+### Access layer
 
 Responsible for:
 
 - Receiving HTTP / WebSocket / internal RPC requests
 - Authentication, rate limiting, and routing
 
-### 1.2 Orchestration layer
+### Orchestration layer
 
 Responsible for:
 
@@ -75,7 +75,7 @@ Responsible for:
 
 This layer is often the “outer brain” of the Agent.
 
-### 1.3 Execution layer
+### Execution layer
 
 Responsible for:
 
@@ -84,7 +84,7 @@ Responsible for:
 - Retrieval services
 - External API calls
 
-### 1.4 State and storage layer
+### State and storage layer
 
 Responsible for:
 
@@ -93,7 +93,7 @@ Responsible for:
 - Task checkpoints
 - Logs and auditing
 
-### 1.5 Observability layer
+### Observability layer
 
 Responsible for:
 
@@ -101,7 +101,7 @@ Responsible for:
 - Traces
 - Error alerts
 
-### 1.6 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of an Agent deployment architecture like this:
 
@@ -118,9 +118,9 @@ This analogy is especially useful for beginners because it helps you first under
 
 ---
 
-## 2. Why isn’t “model API + a few tools” enough to be called an architecture?
+## Why isn’t “model API + a few tools” enough to be called an architecture?
 
-### 2.1 Because there is no state boundary
+### Because there is no state boundary
 
 Once a task becomes longer, the system must clearly answer:
 
@@ -128,7 +128,7 @@ Once a task becomes longer, the system must clearly answer:
 - What was the result of the previous step?
 - How do we recover after a failure?
 
-### 2.2 Because there is no execution boundary
+### Because there is no execution boundary
 
 The model should not directly take on:
 
@@ -138,7 +138,7 @@ The model should not directly take on:
 
 These are more suitable for the architecture layer to handle.
 
-### 2.3 Because there is no observability boundary
+### Because there is no observability boundary
 
 If something goes wrong in production but you cannot answer:
 
@@ -150,7 +150,7 @@ then the system will be very hard to maintain over time.
 
 ---
 
-## 3. First, let’s look at a minimal architecture flow example
+## First, let’s look at a minimal architecture flow example
 
 This example does not actually start a service,
 but it very clearly shows how a request flows through the architecture:
@@ -212,7 +212,7 @@ for item in trace:
     print(item)
 ```
 
-### 3.1 What is this code really teaching?
+### What is this code really teaching?
 
 Not “how to write a few functions,”
 but to help you form a clear mental layering:
@@ -225,7 +225,7 @@ but to help you form a clear mental layering:
 
 Once these layers are clearly separated, the architecture starts to stabilize.
 
-### 3.2 Why should the orchestration layer and execution layer be separated?
+### Why should the orchestration layer and execution layer be separated?
 
 Because:
 
@@ -238,7 +238,7 @@ If the two are mixed together, it becomes difficult later to do:
 - Independent scaling
 - Debugging
 
-### 3.3 Why can’t state storage be just logs?
+### Why can’t state storage be just logs?
 
 Because logs are more like “what happened.”
 True state also includes:
@@ -249,7 +249,7 @@ True state also includes:
 
 It is more about “can continue execution” than just “has happened.”
 
-### 3.4 A beginner-friendly layer table to remember first
+### A beginner-friendly layer table to remember first
 
 | Layer | Most important responsibility to remember |
 |---|---|
@@ -269,7 +269,7 @@ This diagram is best read as a request flow: the access layer receives the reque
 
 ---
 
-## 4. What does a more common production architecture look like?
+## What does a more common production architecture look like?
 
 It can usually be abstracted into the following chain:
 
@@ -293,9 +293,9 @@ The key points in this diagram are:
 
 ---
 
-## 5. When do you need queues and asynchronous workers?
+## When do you need queues and asynchronous workers?
 
-### 5.1 Long-running tasks
+### Long-running tasks
 
 For example:
 
@@ -303,7 +303,7 @@ For example:
 - Multi-stage data organization
 - Multi-tool asynchronous workflows
 
-### 5.2 Tasks that should not block the user request
+### Tasks that should not block the user request
 
 For example:
 
@@ -311,7 +311,7 @@ For example:
 - Weekly report generation
 - Long-chain analysis
 
-### 5.3 Why are queues helpful?
+### Why are queues helpful?
 
 They can provide:
 
@@ -324,7 +324,7 @@ But the tradeoff is:
 - The system becomes more complex
 - State management becomes harder
 
-### 5.4 The safest default order when designing deployment for the first time
+### The safest default order when designing deployment for the first time
 
 A safer order is usually:
 
@@ -337,9 +337,9 @@ This makes it easier to establish the main architecture path than introducing lo
 
 ---
 
-## 6. The most common architecture mistakes
+## The most common architecture mistakes
 
-### 6.1 Mistake 1: Put all logic into one service
+### Mistake 1: Put all logic into one service
 
 It may be simple at the beginning, but later it becomes:
 
@@ -347,7 +347,7 @@ It may be simple at the beginning, but later it becomes:
 - Hard to scale
 - Hard to observe
 
-### 6.2 Mistake 2: Having a database means you have a stateful architecture
+### Mistake 2: Having a database means you have a stateful architecture
 
 A database is only a storage method.
 What really matters is whether you have thought through:
@@ -356,7 +356,7 @@ What really matters is whether you have thought through:
 - When to write
 - Who will recover it
 
-### 6.3 Mistake 3: Adding trace and metrics only after launch
+### Mistake 3: Adding trace and metrics only after launch
 
 Without observability, when something goes wrong, you can almost only guess.
 

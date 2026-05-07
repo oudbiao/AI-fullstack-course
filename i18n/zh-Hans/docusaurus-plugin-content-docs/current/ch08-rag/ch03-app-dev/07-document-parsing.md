@@ -1,11 +1,11 @@
 ---
-title: "3.8 文档解析与知识抽取"
+title: "8.3.8 文档解析与知识抽取"
 sidebar_position: 17
 description: "从 PDF、Word、PPT 到扫描件 OCR，理解知识库型应用为什么必须先把文档解析成结构化知识，而不是只抽出纯文本。"
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---
 
-# 文档解析与知识抽取
+# 8.3.8 文档解析与知识抽取
 
 :::tip 本节定位
 很多知识库项目一开始最容易犯的错是：
@@ -314,7 +314,7 @@ for sample in samples:
 如果你后面要处理很多扫描教案、截图或拍照资料，这一步会非常关键。
 
 对应课程可以回看：
-- [OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [10.5.4 OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
 ## 十、第一次做这个模块时，最稳的范围控制
 

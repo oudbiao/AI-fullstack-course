@@ -1,11 +1,11 @@
 ---
-title: "2.7 训练流程 🔧"
+title: "6.2.7 训练流程 🔧"
 sidebar_position: 5
 description: "把模型、损失函数、优化器和 DataLoader 串起来，写出一个完整可运行的 PyTorch 训练循环。"
 keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 ---
 
-# 训练流程
+# 6.2.7 训练流程
 
 ![PyTorch 训练循环图](/img/course/pytorch-training-loop.png)
 
@@ -77,7 +77,7 @@ flowchart LR
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.1 训练循环为什么比背网络结构更值得先练？
+### 训练循环为什么比背网络结构更值得先练？
 
 因为网络结构会变：
 
@@ -110,7 +110,7 @@ for batch_x, batch_y in train_loader:
 2. 算误差
 3. 按误差更新参数
 
-### 2.1 一个新人最该先背下来的口令
+### 一个新人最该先背下来的口令
 
 如果你每次写训练循环都会乱，可以先记这个最短口令：
 
@@ -118,7 +118,7 @@ for batch_x, batch_y in train_loader:
 
 只要这一条顺了，后面再加验证、日志、早停都不难。
 
-### 2.2 为什么这个顺序不能乱？
+### 为什么这个顺序不能乱？
 
 因为每一步都依赖前一步的结果：
 
@@ -229,35 +229,35 @@ for x_row, y_row in zip(test_x, test_pred):
 
 ## 四、逐行拆解这段代码
 
-### 1. `model.train()`
+### `model.train()`
 
 告诉模型进入训练模式。
 如果模型里有 `Dropout`、`BatchNorm` 这样的层，它们会切换到训练行为。
 
-### 2. `pred = model(batch_x)`
+### `pred = model(batch_x)`
 
 前向传播。
 也就是“拿当前参数做一次预测”。
 
-### 3. `loss = loss_fn(pred, batch_y)`
+### `loss = loss_fn(pred, batch_y)`
 
 告诉模型：“你这次和真实答案差多少。”
 
-### 4. `optimizer.zero_grad()`
+### `optimizer.zero_grad()`
 
 清空旧梯度。
 因为 PyTorch 默认会累计梯度。
 
-### 5. `loss.backward()`
+### `loss.backward()`
 
 反向传播。
 把损失对各参数的梯度算出来。
 
-### 6. `optimizer.step()`
+### `optimizer.step()`
 
 根据梯度真正更新参数。
 
-### 4.1 新人第一次自己写时，最容易漏哪一步？
+### 新人第一次自己写时，最容易漏哪一步？
 
 最常见的是这两处：
 
@@ -266,7 +266,7 @@ for x_row, y_row in zip(test_x, test_pred):
 
 这两个问题都会让训练结果看起来“怪怪的”，但又不一定立刻报错。
 
-### 4.2 一个更适合新人的“每轮训练检查表”
+### 一个更适合新人的“每轮训练检查表”
 
 你可以在脑子里每轮都过一遍这张小表：
 
@@ -299,7 +299,7 @@ with torch.no_grad():
 - `eval()`：让某些层切换成推理模式
 - `no_grad()`：不记录梯度，省内存、省时间
 
-### 5.1 初学阶段先把训练态和验证态分清，有多重要？
+### 初学阶段先把训练态和验证态分清，有多重要？
 
 这一步特别容易被忽略，因为很多最小例子里没明显问题。
 但从这一节开始，你最好养成一个稳定习惯：
@@ -336,7 +336,7 @@ with torch.no_grad():
 
 ## 七、常见变体
 
-### 1. 分类任务
+### 分类任务
 
 回归常用 `MSELoss()`，分类更常见：
 
@@ -344,7 +344,7 @@ with torch.no_grad():
 loss_fn = nn.CrossEntropyLoss()
 ```
 
-### 2. 不同优化器
+### 不同优化器
 
 最常见的两个：
 
@@ -353,7 +353,7 @@ loss_fn = nn.CrossEntropyLoss()
 
 初学阶段，`Adam` 往往更省心一些。
 
-### 3. 统计指标
+### 统计指标
 
 训练时除了 loss，还常常统计：
 
@@ -366,24 +366,24 @@ loss_fn = nn.CrossEntropyLoss()
 
 ## 八、最容易写错的地方
 
-### 1. 忘记 `zero_grad()`
+### 忘记 `zero_grad()`
 
 后果：梯度不断累加，训练结果不可信。
 
-### 2. 验证时忘记 `model.eval()`
+### 验证时忘记 `model.eval()`
 
 有些模型层在训练 / 验证模式下行为不同，会影响结果。
 
-### 3. 验证时也在算梯度
+### 验证时也在算梯度
 
 虽然可能能跑，但浪费内存与算力。
 
-### 4. `loss.item()` 和 `loss` 混着用
+### `loss.item()` 和 `loss` 混着用
 
 - `loss` 是张量，能参与反向传播
 - `loss.item()` 是普通 Python 数字，适合打印和统计
 
-### 5. 只看 loss，不看训练和验证的关系
+### 只看 loss，不看训练和验证的关系
 
 新人最常见的另一个问题是：
 

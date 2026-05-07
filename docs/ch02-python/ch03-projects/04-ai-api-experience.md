@@ -1,10 +1,10 @@
 ---
-title: "1.4 Project: Quick AI API Experience"
+title: "2.3.4 Project: Quick AI API Experience"
 sidebar_position: 4
 description: "Experience the power of AI by calling AI APIs"
 ---
 
-# Project: Quick AI API Experience
+# 2.3.4 Project: Quick AI API Experience
 
 ![AI API Request-Response Flow Diagram](/img/course/ch02-ai-api-request-response-en.png)
 

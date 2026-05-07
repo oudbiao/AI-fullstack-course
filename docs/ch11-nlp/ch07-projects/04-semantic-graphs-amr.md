@@ -1,11 +1,11 @@
 ---
-title: "7.5 Semantic Graphs and AMR: Turning Sentences into Structured Meaning"
+title: "11.7.5 Semantic Graphs and AMR: Turning Sentences into Structured Meaning"
 sidebar_position: 4
 description: "Understand why semantic graphs, AMR, and syntactic-semantic parsing matter, and how they connect to information extraction, knowledge graphs, and RAG."
 keywords: [AMR, semantic graph, semantic parsing, information extraction, knowledge graph]
 ---
 
-# Semantic Graphs and AMR: Turning Sentences into Structured Meaning
+# 11.7.5 Semantic Graphs and AMR: Turning Sentences into Structured Meaning
 
 ![AMR semantic graph understanding map](/img/course/ch11-amr-semantic-graph-map-en.png)
 
@@ -17,7 +17,7 @@ The semantic-graph approach represented by AMR tries to answer this question:
 > **Can we turn a sentence into a structural graph of “who did what to whom, and under what conditions”?**
 :::
 
-## 1. Why do we need semantic graphs?
+## Why do we need semantic graphs?
 
 Plain text representation often looks like this:
 
@@ -40,7 +40,7 @@ The goal of semantic graphs is:
 
 > **To turn meaning in natural language into a graph structure that machines can operate on more easily.**
 
-## 2. What is AMR?
+## What is AMR?
 
 AMR stands for Abstract Meaning Representation. You can first think of it as a kind of abstract semantic graph representation.
 
@@ -77,7 +77,7 @@ flowchart LR
 
 This small shift is important: semantic graphs care less about word order and more about meaning.
 
-## 3. What is the relationship between semantic graphs and information extraction?
+## What is the relationship between semantic graphs and information extraction?
 
 Information extraction usually starts with more specific tasks:
 
@@ -95,7 +95,7 @@ Semantic graphs are more like a way to organize these results into a more comple
 | Event extraction | Who did what at what time |
 | AMR / semantic graph | The roles and semantic structure behind the whole sentence |
 
-## 4. Why is this useful for RAG and knowledge-base projects?
+## Why is this useful for RAG and knowledge-base projects?
 
 The “automatically write Word course materials from a knowledge base” project you mentioned earlier can benefit a lot from semantic-graph ideas.
 
@@ -117,7 +117,7 @@ Knowledge point -> Definition -> Example -> Solution steps -> Common mistakes ->
 
 This is the value of semantic graphs and information extraction for knowledge-base systems.
 
-## 5. Relationship to syntactic parsing and recurrent neural networks
+## Relationship to syntactic parsing and recurrent neural networks
 
 Before Transformer became mainstream, NLP spent a long time studying syntactic structure and semantic structure.
 
@@ -134,7 +134,7 @@ Together, these works show one thing:
 
 Today, many large models can implicitly handle a lot of structure, but in serious knowledge bases, law, medicine, and educational content generation, explicit structure is still very valuable.
 
-## 6. A minimal example of structured extraction
+## A minimal example of structured extraction
 
 The following is not a full AMR example. It is just a simulation of the feeling of “rewriting a sentence into structure”:
 
@@ -157,7 +157,7 @@ The main point is for you to first understand:
 - Roles can be connected into a graph
 - Graph structures can support later generation and retrieval
 
-## 7. From a sentence to courseware structure
+## From a sentence to courseware structure
 
 If your goal is to generate teaching materials from a knowledge base, a semantic graph can become an intermediate layer between “retrieved paragraph” and “final Word document.”
 
@@ -201,7 +201,7 @@ This is why AMR is useful even if you do not implement a full AMR parser right a
 - Who or what participates in that relation?
 - What condition, cause, or result is attached?
 
-## 8. Assigning historical milestones to course chapters
+## Assigning historical milestones to course chapters
 
 | Historical milestone | Problem it solved | Corresponding course chapter |
 |---|---|---|
@@ -210,7 +210,7 @@ This is why AMR is useful even if you do not implement a full AMR parser right a
 | Semantic role labeling | Who did what to whom | Section 7.4 information extraction, knowledge graph extensions |
 | Knowledge Graph | Organizing extracted results into queryable knowledge | Chapter 8 RAG, knowledge-base systems |
 
-## 9. The intuition you should have after learning this section
+## The intuition you should have after learning this section
 
 Vector retrieval tells you “which text is similar,” while semantic graphs care more about “what roles and relationships exist in this text.”
 

@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?"
+title: "10.5.1 Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the Advanced Vision chapter: why face recognition, video, OCR, and 3D vision can all be seen as specialized extensions of the main vision line."
 keywords: [Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Vision]
 ---
 
-# Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?
+# 10.5.1 Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?
 
 ## What This Chapter Is About
 

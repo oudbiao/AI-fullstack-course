@@ -1,11 +1,11 @@
 ---
-title: "4.3 Pretraining Methods"
+title: "7.4.3 Pretraining Methods"
 sidebar_position: 13
 description: "Put Causal LM, Masked LM, Span Corruption, and other objectives into one diagram, and understand what different pretraining methods actually teach the model."
 keywords: [causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5]
 ---
 
-# Pretraining Methods
+# 7.4.3 Pretraining Methods
 
 :::tip Section Overview
 Pretraining methods are essentially answering one very fundamental question:
@@ -51,9 +51,9 @@ So what this lesson is really trying to answer is:
 
 ---
 
-## 1. Why Does the Pretraining Objective Decide the Model’s Path?
+## Why Does the Pretraining Objective Decide the Model’s Path?
 
-### 1.1 Because the model will preferentially learn what it is repeatedly asked to do in training
+### Because the model will preferentially learn what it is repeatedly asked to do in training
 
 If training keeps asking the model to:
 
@@ -76,7 +76,7 @@ then it will more easily learn:
 So the pretraining objective is not just a surface-level task;
 it is the steering wheel for the model’s abilities.
 
-### 1.2 An analogy: Exam question types shape how you study
+### An analogy: Exam question types shape how you study
 
 Think of the model as a student.
 
@@ -86,7 +86,7 @@ Think of the model as a student.
 
 Models are the same.
 
-### 1.3 A more beginner-friendly overall analogy
+### A more beginner-friendly overall analogy
 
 You can think of the pretraining objective as:
 
@@ -110,9 +110,9 @@ it will more easily learn the mapping from input to output.
 
 ---
 
-## 2. The Three Most Important Pretraining Routes
+## The Three Most Important Pretraining Routes
 
-### 2.1 Causal Language Modeling: Predict the Future from the Past
+### Causal Language Modeling: Predict the Future from the Past
 
 This is the classic objective in the GPT family.
 
@@ -129,7 +129,7 @@ In other words, during training the model cannot see the future,
 and during inference the model also cannot see the future,
 so there is no mismatch.
 
-### 2.2 Masked Language Modeling: Fill in the Blanks from Context
+### Masked Language Modeling: Fill in the Blanks from Context
 
 This is the classic objective in the BERT family.
 
@@ -147,7 +147,7 @@ so it is especially good at:
 
 But it is not as naturally suited to free-form generation as Causal LM.
 
-### 2.3 Span Corruption / Denoising: Not Masking One Word, but an Entire Span
+### Span Corruption / Denoising: Not Masking One Word, but an Entire Span
 
 T5 / BART-style models often use a more general denoising objective:
 
@@ -164,7 +164,7 @@ This is closer to:
 
 ---
 
-## 3. First, Construct Three Training Samples from the Same Text
+## First, Construct Three Training Samples from the Same Text
 
 The goal of this code is very direct:
 
@@ -214,7 +214,7 @@ print("span inputs   :", span_inputs)
 print("span target   :", span_target)
 ```
 
-### 3.1 What should you look at most in this code?
+### What should you look at most in this code?
 
 Focus on these three things first:
 
@@ -233,7 +233,7 @@ you will understand why:
 When reading this figure, compare how the same sentence is turned into three different training tasks: Causal LM trains “predict the next token,” Masked LM trains “fill in blanks from both sides,” and Span Corruption trains “recover missing spans.” What the model practices every day is what it will gradually become good at.
 :::
 
-### 3.2 Why Are Causal LM Labels Shifted by One Position?
+### Why Are Causal LM Labels Shifted by One Position?
 
 Because what it is doing is:
 
@@ -244,7 +244,7 @@ So the most natural way to organize the training data is:
 - input: `x_1 ... x_{t-1}`
 - labels: `x_2 ... x_t`
 
-### 3.3 Why Is Span Corruption Often Considered More “General”?
+### Why Is Span Corruption Often Considered More “General”?
 
 Because it is closer to real text transformation than single-token masking.
 The model is not just recovering one word,
@@ -256,7 +256,7 @@ This makes it naturally move toward:
 
 That is also a very important reason behind the T5 route.
 
-### 3.4 A Minimal Comparison Table for the Same Sentence and Three Training Objectives
+### A Minimal Comparison Table for the Same Sentence and Three Training Objectives
 
 | Method | What the input looks like | What the labels look like | What beginners should remember first |
 |---|---|---|---|
@@ -275,9 +275,9 @@ into one view.
 
 ---
 
-## 4. What Is Each Objective Better At?
+## What Is Each Objective Better At?
 
-### 4.1 Causal LM: Generation, Continuation, Dialogue
+### Causal LM: Generation, Continuation, Dialogue
 
 This type of objective is highly aligned with downstream generation tasks,
 so it is especially suitable for:
@@ -287,7 +287,7 @@ so it is especially suitable for:
 - code completion
 - long-text continuation
 
-### 4.2 Masked LM: Representation Learning and Understanding
+### Masked LM: Representation Learning and Understanding
 
 Because the model can see both left and right context,
 it is very suitable for:
@@ -297,7 +297,7 @@ it is very suitable for:
 - semantic matching
 - extraction tasks
 
-### 4.3 Span Corruption: Input-to-Output Mapping
+### Span Corruption: Input-to-Output Mapping
 
 If you want the model to naturally do:
 
@@ -308,7 +308,7 @@ If you want the model to naturally do:
 
 then this kind of denoising and seq2seq objective will feel much more natural.
 
-### 4.4 A Safe Default Sequence for First-Time Learners
+### A Safe Default Sequence for First-Time Learners
 
 A good order is usually:
 
@@ -327,9 +327,9 @@ right away.
 
 ---
 
-## 5. Pretraining Objectives Do Not Exist Alone; They Are Bound to the Architecture
+## Pretraining Objectives Do Not Exist Alone; They Are Bound to the Architecture
 
-### 5.1 Why Do Decoder-only Models Usually Use Causal LM?
+### Why Do Decoder-only Models Usually Use Causal LM?
 
 Because the two are perfectly aligned:
 
@@ -338,14 +338,14 @@ Because the two are perfectly aligned:
 
 Training and generation form a very natural loop.
 
-### 5.2 Why Do Encoder-only Models Usually Use Masked LM?
+### Why Do Encoder-only Models Usually Use Masked LM?
 
 Because encoders are good at bidirectional modeling.
 Since they can see the whole sentence, they are well suited for:
 
 - recovering masked positions
 
-### 5.3 Why Do Encoder-Decoder Models Usually Use Denoising Objectives?
+### Why Do Encoder-Decoder Models Usually Use Denoising Objectives?
 
 Because this structure is naturally suited to:
 
@@ -356,9 +356,9 @@ So span corruption, denoising, and text-to-text training all fit very well.
 
 ---
 
-## 6. What Other Variants Are There Besides the Classic Objectives?
+## What Other Variants Are There Besides the Classic Objectives?
 
-### 6.1 Prefix LM: Partly Bidirectional, Partly Causal
+### Prefix LM: Partly Bidirectional, Partly Causal
 
 Some methods let the first part of the input be read bidirectionally,
 while the generated part still follows a causal constraint.
@@ -368,7 +368,7 @@ This kind of objective is suitable when you want both:
 - understanding of context
 - continuation generation
 
-### 6.2 Multimodal Pretraining: The Input Is Not Just a String of Text
+### Multimodal Pretraining: The Input Is Not Just a String of Text
 
 If the input also includes:
 
@@ -386,7 +386,7 @@ Even though the form is more complex, the core idea is the same:
 
 - the training objective decides what the model will prioritize learning
 
-### 6.3 Self-Supervised Does Not Mean Completely “Bias-Free”
+### Self-Supervised Does Not Mean Completely “Bias-Free”
 
 Even if the labels are automatically constructed,
 the objective function still imposes preferences on the model.
@@ -401,19 +401,19 @@ That is why the pretraining objective itself is a design choice.
 
 ---
 
-## 7. The Most Common Mistakes
+## The Most Common Mistakes
 
-### 7.1 Mistake 1: The pretraining objective is just an early-stage detail, and fine-tuning will solve everything later
+### Mistake 1: The pretraining objective is just an early-stage detail, and fine-tuning will solve everything later
 
 Not true.
 The pretraining objective gives the model a long-term ability bias.
 
-### 7.2 Mistake 2: Masked LM is more advanced than Causal LM, or vice versa
+### Mistake 2: Masked LM is more advanced than Causal LM, or vice versa
 
 There is no ranking relationship between them,
 only design choices for different paths.
 
-### 7.3 Mistake 3: Remembering only the name without looking at what the labels look like
+### Mistake 3: Remembering only the name without looking at what the labels look like
 
 True understanding means:
 

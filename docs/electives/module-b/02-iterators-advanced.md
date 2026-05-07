@@ -1,11 +1,11 @@
 ---
-title: "1.2 Advanced Iterators and Generators"
+title: "E.B.2 Advanced Iterators and Generators"
 sidebar_position: 9
 description: "From lazy evaluation and streaming processing to generator pipelines and `yield from`, understand why iterators and generators are especially well-suited for data and service code."
 keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 ---
 
-# Advanced Iterators and Generators
+# E.B.2 Advanced Iterators and Generators
 
 :::tip Section Overview
 Iterators and generators are often misunderstood as just “syntax tricks.”
@@ -27,9 +27,9 @@ This is very common in data processing, log streams, batch jobs, and server-side
 
 ---
 
-## 1. Why do engineering teams like generators so much?
+## Why do engineering teams like generators so much?
 
-### 1.1 Because much data is a “stream,” not a “chunk”
+### Because much data is a “stream,” not a “chunk”
 
 For example:
 
@@ -44,7 +44,7 @@ it can easily lead to:
 - Memory waste
 - Increased latency
 
-### 1.2 The core value of generators
+### The core value of generators
 
 They let you:
 
@@ -52,7 +52,7 @@ They let you:
 
 This is lazy evaluation.
 
-### 1.3 An analogy
+### An analogy
 
 A list is like preparing a large table of dishes all at once.
 A generator is like serving dishes one by one to each table.
@@ -61,7 +61,7 @@ If there are many guests and many dishes, the second approach usually uses fewer
 
 ---
 
-## 2. First, look at a sliding-window generator
+## First, look at a sliding-window generator
 
 ```python
 def sliding_window(nums, size):
@@ -73,14 +73,14 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
     print(window)
 ```
 
-### 2.1 Why is this code valuable?
+### Why is this code valuable?
 
 Because it already shows the essence of a generator:
 
 - It does not return all windows at once
 - It produces them one by one
 
-### 2.2 Where is this kind of pattern common?
+### Where is this kind of pattern common?
 
 For example:
 
@@ -90,7 +90,7 @@ For example:
 
 ---
 
-## 3. Generator pipelines: chaining multiple steps together
+## Generator pipelines: chaining multiple steps together
 
 In engineering, what is more common is not a single generator,
 but a pipeline made of multiple generators.
@@ -124,7 +124,7 @@ for item in pipeline:
     print(item)
 ```
 
-### 3.1 What is this example mainly trying to teach?
+### What is this example mainly trying to teach?
 
 A lot of data processing in engineering can be broken into:
 
@@ -136,7 +136,7 @@ If each step generates a full list,
 the pipeline becomes heavier;
 using a generator pipeline is more natural.
 
-### 3.2 Why is this useful for AI engineering too?
+### Why is this useful for AI engineering too?
 
 Because you often work with:
 
@@ -148,9 +148,9 @@ These scenarios are naturally suited to generator pipelines.
 
 ---
 
-## 4. Why is `yield from` worth learning?
+## Why is `yield from` worth learning?
 
-### 4.1 What problem does it solve?
+### What problem does it solve?
 
 When a generator simply wants to forward another iterable outward,
 `yield from` makes the code clearer.
@@ -169,7 +169,7 @@ def flatten():
 print(list(flatten()))
 ```
 
-### 4.2 Why is it more worth learning than a nested loop?
+### Why is it more worth learning than a nested loop?
 
 Because it expresses intent more clearly:
 
@@ -177,19 +177,19 @@ Because it expresses intent more clearly:
 
 ---
 
-## 5. The easiest pitfalls to fall into
+## The easiest pitfalls to fall into
 
-### 5.1 Misconception 1: Generators are always faster
+### Misconception 1: Generators are always faster
 
 They usually save memory,
 but that does not mean they are absolutely faster in every scenario.
 
-### 5.2 Misconception 2: Generators can only be iterated once
+### Misconception 2: Generators can only be iterated once
 
 In many cases, this is a design feature, not a bug.
 If you need to consume it repeatedly, you must create it again.
 
-### 5.3 Misconception 3: Using generators just for the sake of using generators
+### Misconception 3: Using generators just for the sake of using generators
 
 If the data size is small and the logic is simple,
 a plain list may actually be easier to read.

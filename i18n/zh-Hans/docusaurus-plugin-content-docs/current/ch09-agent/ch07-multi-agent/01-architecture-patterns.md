@@ -1,11 +1,11 @@
 ---
-title: "7.2 多 Agent 架构模式"
+title: "9.7.2 多 Agent 架构模式"
 sidebar_position: 38
 description: "从监督者模式、流水线模式、群体协作模式到评审模式，理解多 Agent 系统为什么要这样分工。"
 keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architecture, collaboration]
 ---
 
-# 多 Agent 架构模式
+# 9.7.2 多 Agent 架构模式
 
 ![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.png)
 
@@ -32,7 +32,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ## 一、为什么不是所有任务都需要多 Agent？
 
-### 1.1 多 Agent 不是默认升级路线
+### 多 Agent 不是默认升级路线
 
 如果一个任务本来就能由单 Agent 稳定完成，多 Agent 往往只会增加：
 
@@ -44,7 +44,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 > **先把单 Agent 做稳，再考虑是否真的需要拆成多 Agent。**
 
-### 1.2 那什么时候值得上多 Agent？
+### 那什么时候值得上多 Agent？
 
 通常是这些情况：
 
@@ -59,7 +59,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ## 二、先看最常见的几种模式
 
-### 2.1 Supervisor-Worker 模式
+### Supervisor-Worker 模式
 
 一个监督者（supervisor）负责：
 
@@ -71,7 +71,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 这是最常见也最好理解的模式之一。
 
-### 2.2 Pipeline 模式
+### Pipeline 模式
 
 每个 Agent 只负责固定阶段：
 
@@ -81,13 +81,13 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 它更像流水线。
 
-### 2.3 Reviewer 模式
+### Reviewer 模式
 
 一个 Agent 负责生成，另一个专门负责检查或评审。
 
 这在代码、文档、报告生成里特别常见。
 
-### 2.4 Group / Peer 模式
+### Group / Peer 模式
 
 多个 Agent 相对平等地协商。
 
@@ -97,14 +97,14 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ## 三、Supervisor-Worker：最值得先学的模式
 
-### 3.1 为什么它很常见？
+### 为什么它很常见？
 
 因为它最符合很多现实团队结构：
 
 - 项目经理 / 组长负责拆任务
 - 执行同学负责具体工作
 
-### 3.2 一个最小可运行示例
+### 一个最小可运行示例
 
 ```python
 tasks = ["检索资料", "整理要点", "撰写总结"]
@@ -125,7 +125,7 @@ for task in tasks:
     print(f"{worker} <- {task} ({workers[worker]})")
 ```
 
-### 3.3 它的优点和缺点
+### 它的优点和缺点
 
 优点：
 
@@ -142,7 +142,7 @@ for task in tasks:
 
 ## 四、Pipeline 模式：像工厂流水线一样协作
 
-### 4.1 它和 supervisor 模式的区别
+### 它和 supervisor 模式的区别
 
 supervisor 模式强调“一个中心调度”。
 pipeline 模式更强调“任务按固定阶段流动”。
@@ -153,7 +153,7 @@ pipeline 模式更强调“任务按固定阶段流动”。
 2. Filter Agent 过滤噪声
 3. Writer Agent 生成答案
 
-### 4.2 一个最小示例
+### 一个最小示例
 
 ```python
 def retriever(query):
@@ -177,7 +177,7 @@ print(step2)
 print(step3)
 ```
 
-### 4.3 它适合什么？
+### 它适合什么？
 
 适合：
 
@@ -194,7 +194,7 @@ print(step3)
 
 ## 五、Reviewer 模式：生成和检查分离
 
-### 5.1 为什么这个模式很实用？
+### 为什么这个模式很实用？
 
 很多任务里，“生成”和“评审”天然就是两种不同能力。
 
@@ -204,7 +204,7 @@ print(step3)
 - 报告撰写 vs 事实核查
 - 答案生成 vs 风险审查
 
-### 5.2 一个可运行示例
+### 一个可运行示例
 
 ```python
 def writer_agent(topic):
@@ -222,7 +222,7 @@ print("draft :", draft)
 print("review:", review)
 ```
 
-### 5.3 为什么这个模式好用？
+### 为什么这个模式好用？
 
 因为它可以把“生成质量”和“检查质量”拆开管理。
 
@@ -232,7 +232,7 @@ print("review:", review)
 
 ## 六、Peer / Group 模式：多个 Agent 平等协作
 
-### 6.1 看起来很自由，但也更难控
+### 看起来很自由，但也更难控
 
 在这种模式里，多个 Agent 都能提议、争论、补充。
 
@@ -253,7 +253,7 @@ print("review:", review)
 读这张图时，先看任务有没有天然分工：需要中心调度就选 supervisor-worker，阶段固定就选 pipeline，需要质量检查就加 reviewer，需要多视角讨论才考虑 peer/group。
 :::
 
-### 6.2 什么时候考虑它？
+### 什么时候考虑它？
 
 比较适合：
 
@@ -283,25 +283,25 @@ print("review:", review)
 
 ## 八、多 Agent 架构的选择逻辑
 
-### 8.1 如果任务阶段固定
+### 如果任务阶段固定
 
 优先考虑：
 
 - Pipeline 模式
 
-### 8.2 如果任务需要中心拆分和调度
+### 如果任务需要中心拆分和调度
 
 优先考虑：
 
 - Supervisor-Worker 模式
 
-### 8.3 如果任务需要强评审和复核
+### 如果任务需要强评审和复核
 
 优先考虑：
 
 - Writer-Reviewer 模式
 
-### 8.4 如果任务本身就是多视角讨论
+### 如果任务本身就是多视角讨论
 
 才考虑：
 
@@ -315,15 +315,15 @@ print("review:", review)
 
 ## 九、初学者最常踩的坑
 
-### 9.1 把多 Agent 当成“多开几个模型就行”
+### 把多 Agent 当成“多开几个模型就行”
 
 真正难的是架构，不是数量。
 
-### 9.2 一上来就选最自由的协作模式
+### 一上来就选最自由的协作模式
 
 自由越高，调试和收敛难度通常也越高。
 
-### 9.3 没有明确的结束条件
+### 没有明确的结束条件
 
 这是很多多 Agent demo 看起来聪明，但实际跑起来容易死循环的根源。
 

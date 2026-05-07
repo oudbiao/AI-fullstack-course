@@ -1,11 +1,11 @@
 ---
-title: "2.3 Stable Diffusion 架构"
+title: "12.2.3 Stable Diffusion 架构"
 sidebar_position: 5
 description: "从 latent diffusion、VAE、文本编码器、U-Net 和 cross-attention 出发，理解 Stable Diffusion 为什么能把文生图真正做实用。"
 keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-attention]
 ---
 
-# Stable Diffusion 架构
+# 12.2.3 Stable Diffusion 架构
 
 ![Stable Diffusion 组件架构图](/img/course/stable-diffusion-components.png)
 
@@ -39,7 +39,7 @@ keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-a
 
 ## 一、为什么原始扩散思路还不够“实用”？
 
-### 1.1 一个最直观的问题：像素空间太大
+### 一个最直观的问题：像素空间太大
 
 如果你直接在原始图像像素空间做扩散：
 
@@ -52,7 +52,7 @@ keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-a
 
 本身就已经是非常大的表示空间。
 
-### 1.2 Stable Diffusion 的关键转向
+### Stable Diffusion 的关键转向
 
 它最重要的一步，就是：
 
@@ -100,7 +100,7 @@ flowchart LR
 
 ## 三、VAE 在这里的角色到底是什么？
 
-### 3.1 它在这里更像压缩器，而不是主生成器
+### 它在这里更像压缩器，而不是主生成器
 
 在 Stable Diffusion 里，VAE 的核心作用是：
 
@@ -111,7 +111,7 @@ flowchart LR
 
 > 图像空间和 latent 空间之间的桥接。
 
-### 3.2 为什么这一步如此关键？
+### 为什么这一步如此关键？
 
 因为扩散如果直接在原图空间里做，成本太高。
 而 VAE 提供了一个更小、更抽象的中间空间。
@@ -120,7 +120,7 @@ flowchart LR
 
 > 不在巨大的高清画布上直接雕刻，而先压成一张小很多的“语义草图板”。
 
-### 3.3 一个最小“压缩 / 展开”直觉示例
+### 一个最小“压缩 / 展开”直觉示例
 
 ```python
 import numpy as np
@@ -147,7 +147,7 @@ print("reconstructed shape:", reconstructed.shape)
 
 ## 四、文本编码器为什么不可少？
 
-### 4.1 prompt 不能直接被 U-Net 理解
+### prompt 不能直接被 U-Net 理解
 
 U-Net 处理的是数值张量，不会直接理解：
 
@@ -155,7 +155,7 @@ U-Net 处理的是数值张量，不会直接理解：
 
 这种自然语言。
 
-### 4.2 所以要先有文本编码器
+### 所以要先有文本编码器
 
 文本编码器负责把 prompt 变成：
 
@@ -165,7 +165,7 @@ U-Net 处理的是数值张量，不会直接理解：
 
 > **把语言条件翻译成图像生成流程能消费的数值条件。**
 
-### 4.3 一个简单示意
+### 一个简单示意
 
 ```python
 text_condition = {
@@ -185,7 +185,7 @@ print(text_condition)
 
 ## 五、U-Net 为什么会成为扩散主干？
 
-### 5.1 U-Net 本来就擅长“多尺度信息处理”
+### U-Net 本来就擅长“多尺度信息处理”
 
 U-Net 的典型特征包括：
 
@@ -193,7 +193,7 @@ U-Net 的典型特征包括：
 - 解码路径：逐步恢复空间细节
 - 跳连：让细节信息别完全丢掉
 
-### 5.2 为什么这很适合去噪？
+### 为什么这很适合去噪？
 
 因为去噪本身就需要：
 
@@ -210,7 +210,7 @@ U-Net 的典型特征包括：
 
 ## 六、cross-attention 为什么这么关键？
 
-### 6.1 文字和图像不是天然就接上的
+### 文字和图像不是天然就接上的
 
 如果你只有：
 
@@ -219,7 +219,7 @@ U-Net 的典型特征包括：
 
 但没有明确机制让图像去“看”文本，那 prompt 的控制效果就会很弱。
 
-### 6.2 cross-attention 的直觉
+### cross-attention 的直觉
 
 它的核心就是：
 
@@ -229,7 +229,7 @@ U-Net 的典型特征包括：
 
 - prompt 提供的语义信号
 
-### 6.3 一个极简示意
+### 一个极简示意
 
 ```python
 latent_feature = "当前图像 latent 特征"
@@ -275,14 +275,14 @@ for step in workflow:
 
 ## 八、为什么它会成为文生图时代的重要架构？
 
-### 8.1 因为它兼顾了效果和工程可行性
+### 因为它兼顾了效果和工程可行性
 
 相比直接像素扩散：
 
 - latent diffusion 更轻
 - 训练和推理更现实
 
-### 8.2 因为它很适合条件控制
+### 因为它很适合条件控制
 
 Stable Diffusion 天然很适合做：
 
@@ -291,7 +291,7 @@ Stable Diffusion 天然很适合做：
 - 局部修复
 - 风格控制
 
-### 8.3 因为模块边界很清楚
+### 因为模块边界很清楚
 
 这一点很重要：
 
@@ -305,7 +305,7 @@ Stable Diffusion 天然很适合做：
 
 ## 九、最常见的误区
 
-### 9.1 以为 Stable Diffusion 就是“一个大黑盒”
+### 以为 Stable Diffusion 就是“一个大黑盒”
 
 其实它是多个模块协作：
 
@@ -314,11 +314,11 @@ Stable Diffusion 天然很适合做：
 - VAE
 - 条件注入机制
 
-### 9.2 不理解 latent diffusion 的工程意义
+### 不理解 latent diffusion 的工程意义
 
 这是它之所以“能用起来”的关键之一。
 
-### 9.3 只记模块名，不理解模块职责
+### 只记模块名，不理解模块职责
 
 这样后面学微调和应用时会很虚。
 

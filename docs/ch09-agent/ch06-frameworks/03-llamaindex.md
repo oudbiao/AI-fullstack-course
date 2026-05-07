@@ -1,11 +1,11 @@
 ---
-title: "6.4 LlamaIndex"
+title: "9.6.4 LlamaIndex"
 sidebar_position: 32
 description: "From document ingestion, node splitting, indexing, retrieval, to query engines, understand why LlamaIndex is closer to a knowledge system framework."
 keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 ---
 
-# LlamaIndex
+# 9.6.4 LlamaIndex
 
 :::tip Section positioning
 If LangGraph is more like a “state flow and workflow orchestration framework,” then LlamaIndex is more like:
@@ -30,9 +30,9 @@ It is especially well suited not for “multi-role collaboration” itself, but 
 
 ---
 
-## 1. Why are many LLM projects actually “knowledge system projects” first?
+## Why are many LLM projects actually “knowledge system projects” first?
 
-### 1.1 Not all systems are solving conversation problems
+### Not all systems are solving conversation problems
 
 The core of many real-world LLM applications is not chatting, but:
 
@@ -45,7 +45,7 @@ What these tasks have in common is:
 
 > **The way knowledge is organized directly determines system quality.**
 
-### 1.2 This is exactly where LlamaIndex is most valuable
+### This is exactly where LlamaIndex is most valuable
 
 It does not just ask, “How do we tune the model?” Instead, it asks:
 
@@ -60,9 +60,9 @@ So a very practical way to think about it is:
 
 ---
 
-## 2. First, distinguish the most important concepts
+## First, distinguish the most important concepts
 
-### 2.1 Document
+### Document
 
 The most original unit of knowledge.
 For example:
@@ -71,20 +71,20 @@ For example:
 - a PDF
 - a piece of webpage content
 
-### 2.2 Node
+### Node
 
 A smaller unit after a Document has been split.
 In many knowledge systems, what is actually used for retrieval is often not the whole document, but a finer-grained node.
 
-### 2.3 Index
+### Index
 
 The way these nodes are organized into a queryable structure.
 
-### 2.4 Retriever
+### Retriever
 
 Responsible for finding the relevant nodes based on the user query.
 
-### 2.5 Query Engine
+### Query Engine
 
 A higher-level layer that combines “query -> retrieval -> result organization” into a more complete unit.
 
@@ -94,9 +94,9 @@ Remember this one sentence first:
 
 ---
 
-## 3. First, go through this chain with pure Python
+## First, go through this chain with pure Python
 
-### 3.1 Document -> Node
+### Document -> Node
 
 ```python
 documents = [
@@ -120,9 +120,9 @@ Although this example is simple, it already expresses a core idea:
 
 ---
 
-## 4. Why is “document ingestion” the first step in a knowledge system?
+## Why is “document ingestion” the first step in a knowledge system?
 
-### 4.1 Raw documents are usually messy
+### Raw documents are usually messy
 
 Real documents may contain:
 
@@ -133,7 +133,7 @@ Real documents may contain:
 
 If you do not handle these well first, retrieval later often gets worse too.
 
-### 4.2 So the most common first step in a knowledge system is not “tune the model”
+### So the most common first step in a knowledge system is not “tune the model”
 
 It is:
 
@@ -146,9 +146,9 @@ That is why frameworks like LlamaIndex emphasize ingest so much.
 
 ---
 
-## 5. Why are indexing and retrieval at its center?
+## Why are indexing and retrieval at its center?
 
-### 5.1 Because knowledge applications fear one thing most: “the documents are there, but the system can’t find them”
+### Because knowledge applications fear one thing most: “the documents are there, but the system can’t find them”
 
 If:
 
@@ -158,7 +158,7 @@ If:
 
 then without a good indexing and retrieval layer, even a very strong model will be dragged down.
 
-### 5.2 A minimal retrieval example
+### A minimal retrieval example
 
 If you want to run this snippet locally, install `scikit-learn` first.
 
@@ -179,7 +179,7 @@ def retrieve(query):
 print(retrieve("What is the refund policy?"))
 ```
 
-### 5.3 What abstract ideas does this code really correspond to?
+### What abstract ideas does this code really correspond to?
 
 It already corresponds to:
 
@@ -191,9 +191,9 @@ In other words, much of LlamaIndex’s value is essentially about organizing thi
 
 ---
 
-## 6. Why is it worth separating out the Query Engine?
+## Why is it worth separating out the Query Engine?
 
-### 6.1 Because Q&A is not just “return the most similar paragraph”
+### Because Q&A is not just “return the most similar paragraph”
 
 In a real system, you often still need to decide:
 
@@ -204,7 +204,7 @@ In a real system, you often still need to decide:
 
 At that point, a “query engine” looks more like a system-level abstraction than a single retriever.
 
-### 6.2 A very simple Query Engine example
+### A very simple Query Engine example
 
 ```python
 def query_engine(query):
@@ -223,7 +223,7 @@ This example is teaching you:
 
 ---
 
-## 7. What is the most important difference between LlamaIndex and LangGraph?
+## What is the most important difference between LlamaIndex and LangGraph?
 
 If we summarize it very roughly, remember this:
 
@@ -242,7 +242,7 @@ then abstractions like LlamaIndex will usually feel more natural.
 
 ---
 
-## 8. When is LlamaIndex not necessarily the main focus?
+## When is LlamaIndex not necessarily the main focus?
 
 If your system is more about:
 
@@ -258,17 +258,17 @@ So do not think of it as a “universal Agent framework.” Instead, think of it
 
 ---
 
-## 9. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 9.1 Looking only at the model and ignoring document ingestion
+### Looking only at the model and ignoring document ingestion
 
 Many knowledge system problems actually come from the document entry point.
 
-### 9.2 Thinking that once indexing is done, the Q&A system is complete
+### Thinking that once indexing is done, the Q&A system is complete
 
 An index is only the middle layer, not the end product.
 
-### 9.3 Not understanding its boundary with workflow-oriented frameworks
+### Not understanding its boundary with workflow-oriented frameworks
 
 This makes it easy to expect it to solve problems that are not its strongest area.
 

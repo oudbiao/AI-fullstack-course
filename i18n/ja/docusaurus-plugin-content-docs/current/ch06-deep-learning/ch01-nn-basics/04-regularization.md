@@ -1,11 +1,11 @@
 ---
-title: "1.7 深層学習における正則化"
+title: "6.1.7 深層学習における正則化"
 sidebar_position: 6
 description: "Dropout、Batch Normalization、Layer Normalization、データ拡張、早期終了法をマスターする"
 keywords: [正則化, Dropout, Batch Normalization, Layer Normalization, データ拡張, Early Stopping]
 ---
 
-# 深層学習における正則化
+# 6.1.7 深層学習における正則化
 
 ![正則化で過学習を抑える図](/img/course/regularization-overfitting-controls-ja.png)
 
@@ -56,7 +56,7 @@ flowchart LR
 - データ拡張
 - Early Stopping
 
-## 1. L1/L2 正則化の復習
+## L1/L2 正則化の復習
 
 第 5 ステージで学んだように、L2 正則化（weight decay）は、深層学習では最適化器の `weight_decay` パラメータでそのまま使えます。
 
@@ -69,7 +69,7 @@ model = nn.Linear(10, 1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 
-### 1.1 なぜ深層学習でも、まず `weight_decay` を覚えるのか？
+### なぜ深層学習でも、まず `weight_decay` を覚えるのか？
 
 なぜなら、これは最もシンプルで、安定していて、最初に試すべきことが多い正則化手段だからです。
 
@@ -80,9 +80,9 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 
 ---
 
-## 2. Dropout ーーランダムに一部を落とす
+## Dropout ーーランダムに一部を落とす
 
-### 2.1 原理
+### 原理
 
 学習時に、**一部のニューロンをランダムに働かせない**ようにします（出力を 0 にする）。これにより、ネットワークが特定のニューロンに依存しにくくなり、ロバスト性が高まります。
 
@@ -105,7 +105,7 @@ flowchart LR
     style TEST fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 PyTorch での使い方
+### PyTorch での使い方
 
 ```python
 import torch
@@ -181,7 +181,7 @@ plt.show()
 - **推論時は必ず `model.eval()` にすること！**
 :::
 
-### 2.3 Dropout は、どんなモデルにも向いている？
+### Dropout は、どんなモデルにも向いている？
 
 いいえ、そうではありません。
 
@@ -193,7 +193,7 @@ plt.show()
 
 つまり、Dropout を「過学習したら必ず入れる万能スイッチ」と考えないことが大切です。
 
-### 2.4 初めて過学習に出会ったとき、なぜ Dropout だけを思い浮かべないほうがいいのか？
+### 初めて過学習に出会ったとき、なぜ Dropout だけを思い浮かべないほうがいいのか？
 
 過学習の原因は 1 つではないからです。  
 たとえば、次のような原因があります。
@@ -216,9 +216,9 @@ plt.show()
 
 ---
 
-## 3. Batch Normalization（BN）
+## Batch Normalization（BN）
 
-### 3.1 原理
+### 原理
 
 各層の出力を**正規化**し、平均を 0、標準偏差を 1 にそろえます。その後、学習可能なパラメータでスケールと平行移動を行います。
 
@@ -227,7 +227,7 @@ plt.show()
 - 初期値への敏感さを下げる
 - 軽い正則化効果がある
 
-### 3.2 PyTorch での使い方
+### PyTorch での使い方
 
 ```python
 class MLP_BN(nn.Module):
@@ -267,7 +267,7 @@ for name, ModelClass in [('BNなし', MLP), ('BNあり', MLP_BN)]:
 
 ---
 
-## 4. Layer Normalization（LN）
+## Layer Normalization（LN）
 
 ### BN と LN の違い
 
@@ -291,7 +291,7 @@ print(f"LN の出力形状: {ln(x).shape}")
 覚えておきたいのは、**CNN では BN、Transformer では LN** ということです。実務でもよく使われる標準的な選び方です。
 :::
 
-### 4.1 どうして BN と LN を混同しやすいのか？
+### どうして BN と LN を混同しやすいのか？
 
 どちらも「正規化」なので似ていますが、見ている次元が違います。
 
@@ -303,7 +303,7 @@ print(f"LN の出力形状: {ln(x).shape}")
 - 画像の CNN では、まず BN を考える
 - Transformer では、まず LN を考える
 
-### 4.2 BN / LN で最初に覚えるべきなのは、数式より「どこに置くか」
+### BN / LN で最初に覚えるべきなのは、数式より「どこに置くか」
 
 初心者にとっては、次のように覚えるほうが役立ちます。
 
@@ -314,9 +314,9 @@ print(f"LN の出力形状: {ln(x).shape}")
 
 ---
 
-## 5. データ拡張
+## データ拡張
 
-### 5.1 画像データの拡張
+### 画像データの拡張
 
 ```python
 from torchvision import transforms
@@ -342,9 +342,9 @@ test_transform = transforms.Compose([
 
 ---
 
-## 6. 早期終了法（Early Stopping）
+## 早期終了法（Early Stopping）
 
-### 6.1 原理
+### 原理
 
 **検証集の損失**を監視し、N 回連続で改善しなければ学習を止めます。
 
@@ -377,7 +377,7 @@ early_stop = EarlyStopping(patience=10)
 #         break
 ```
 
-### 6.2 なぜ Early Stopping は、初心者がまず覚えるのに向いているのか？
+### なぜ Early Stopping は、初心者がまず覚えるのに向いているのか？
 
 理由は、実装しやすく、壊しにくく、効果もわかりやすいからです。
 

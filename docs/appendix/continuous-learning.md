@@ -1,9 +1,9 @@
 ---
-title: "Continuous Learning Methodology"
+title: "A.7 Continuous Learning Methodology"
 sidebar_position: 4
 ---
 
-# Continuous Learning Methodology in AI
+# A.7 Continuous Learning Methodology in AI
 
 ![Three-layer continuous learning flywheel diagram](/img/course/appendix-continuous-learning-flywheel-en.png)
 
@@ -15,9 +15,9 @@ The biggest trap in continuous learning is collecting without consolidating. Whe
 
 The AI field changes quickly, but “continuous learning” does not mean following the news every day. The truly effective approach is to handle fundamentals, projects, and frontier updates in separate layers.
 
-## 1. First distinguish three types of learning
+## First distinguish three types of learning
 
-### 1.1 Foundational learning
+### Foundational learning
 
 This layer solves the problem of “skills that won’t go out of date anytime soon,” such as:
 
@@ -29,7 +29,7 @@ This layer solves the problem of “skills that won’t go out of date anytime s
 
 This kind of content does not change very quickly, but it determines whether you can keep up with later changes.
 
-### 1.2 Project learning
+### Project learning
 
 This layer develops the ability to “turn knowledge into systems,” such as:
 
@@ -44,13 +44,13 @@ Project learning forces you to face real-world issues:
 - Error handling
 - Cost and stability
 
-### 1.3 Frontier tracking
+### Frontier tracking
 
 This layer helps you understand “where the industry is heading.” It matters, but it should not replace the first two layers.
 
 Many people end up learning in a messy way because they treat “following trends” as “learning.”
 
-## 2. A steadier learning rhythm
+## A steadier learning rhythm
 
 The following rhythm is friendly for most people:
 
@@ -63,7 +63,7 @@ The following rhythm is friendly for most people:
 
 If you only have fragmented time, it is better to shrink your goals than to stop altogether.
 
-## 3. How to read papers without getting discouraged
+## How to read papers without getting discouraged
 
 The most common mistake beginners make is forcing themselves to read an entire paper from top to bottom in order.
 
@@ -81,7 +81,7 @@ A more practical order is usually:
 4. Finally go back to the method details
    At this point, the meaning of each module is easier to understand.
 
-### 3.1 What is worth taking notes on when reading a paper
+### What is worth taking notes on when reading a paper
 
 Do not copy the entire paper. Instead, record:
 
@@ -102,7 +102,7 @@ What I can use right now:
 What I still don’t understand:
 ```
 
-## 4. How to follow the frontier without feeling anxious
+## How to follow the frontier without feeling anxious
 
 A “low-frequency but consistent” approach is better than scrolling through a flood of updates every day.
 
@@ -118,7 +118,7 @@ You do not need to follow everything. What is truly worth following is:
 - Directly related to your target role
 - Likely to affect your learning path over the next three months
 
-## 5. How to turn “I have seen it” into “I can use it”
+## How to turn “I have seen it” into “I can use it”
 
 A concept is more likely to stick only after it enters a project.
 
@@ -132,7 +132,7 @@ A better approach is:
 
 If you stop at step 1 or step 2, the memory usually fades quickly.
 
-## 6. When should you go back and review
+## When should you go back and review
 
 The following signals mean it is time to review:
 
@@ -147,25 +147,25 @@ When reviewing, do not reread the whole chapter. Prioritize these three things:
 2. Rerun the minimal example
 3. Summarize the most common mistakes
 
-## 7. How to build your own knowledge base
+## How to build your own knowledge base
 
 It is recommended to divide your notes into three layers:
 
-### 7.1 Concept layer
+### Concept layer
 
 Record what a concept is and what it is easy to confuse with.
 
-### 7.2 Code layer
+### Code layer
 
 Record minimal examples, common pitfalls, and key parameters.
 
-### 7.3 Project layer
+### Project layer
 
 Record how you used it in a real project, how it performed, and where you ran into problems.
 
 These notes will be much more useful than simply copying tutorials, because they become “your own reusable knowledge.”
 
-## 8. How to avoid “I learned a lot, but have no results”
+## How to avoid “I learned a lot, but have no results”
 
 The most effective method is to set visible outputs for each stage.
 
@@ -179,7 +179,7 @@ For example:
 
 With outputs, learning is easier to consolidate.
 
-## 9. A realistic and executable long-term strategy
+## A realistic and executable long-term strategy
 
 If you do not want the pace to wear you down, you can follow this main line:
 

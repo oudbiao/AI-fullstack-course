@@ -1,10 +1,10 @@
 ---
-title: "Elective Module: Supplementary Classic ML Algorithms"
+title: "E.C Elective Module: Supplementary Classic ML Algorithms"
 sidebar_position: 0
 description: "Overview of the supplementary classic machine learning module, helping you understand the learning order, applicable scenarios, and the relationships between lessons."
 ---
 
-# Elective Module: Supplementary Classic ML Algorithms
+# E.C Elective Module: Supplementary Classic ML Algorithms
 
 :::tip Module Positioning
 These algorithms are still very valuable in many small- to medium-sized data tasks. Studying them helps complete your toolbox for making judgments.
@@ -25,9 +25,9 @@ If you want to see how this module can become a portfolio artifact, run the [Ele
 
 ---
 
-## 1. What problem does this module solve?
+## What problem does this module solve?
 
-### 1.1 Module Positioning
+### Module Positioning
 
 The purpose of the supplementary classic machine learning module is not to “learn a little more,” but to fill in capabilities that often determine the upper limit of engineering performance.
 
@@ -37,7 +37,7 @@ You can first think of it as a set of topic-based toolboxes:
 - No need to finish everything at once
 - But once you enter the corresponding scenario, they become very valuable
 
-### 1.2 Recommended learning order
+### Recommended learning order
 
 A relatively safe learning approach is usually:
 
@@ -47,9 +47,9 @@ A relatively safe learning approach is usually:
 
 ---
 
-## 2. What topics are included in this module?
+## What topics are included in this module?
 
-### 2.1 Chapter list
+### Chapter list
 
 | Chapter | Topic |
 |---|---|
@@ -58,7 +58,7 @@ A relatively safe learning approach is usually:
 | Lesson 3 | Naive Bayes |
 | Lesson 4 | Linear Discriminant Analysis |
 
-### 2.2 How should you use this module?
+### How should you use this module?
 
 A very practical strategy is:
 
@@ -69,7 +69,7 @@ This way, you won’t lose the rhythm of the main learning path because there ar
 
 ---
 
-## 3. A minimal runnable example
+## A minimal runnable example
 
 :::info Run Tip
 ```bash
@@ -89,7 +89,7 @@ clf.fit(X, y)
 print(clf.predict([[0.8, 0.9]]))
 ```
 
-### 3.2 What should you take away from this example?
+### What should you take away from this example?
 
 This small piece of code is not meant to cover the whole module. Instead, it is meant to help you quickly build a sense of “what exactly does this module do?”
 
@@ -101,13 +101,13 @@ When reading it, focus on these three things first:
 
 ---
 
-## 4. Learning recommendations
+## Learning recommendations
 
-### 4.1 If time is limited, what should you learn first?
+### If time is limited, what should you learn first?
 
 Prioritize topics that will appear frequently in later projects and can immediately help you reduce cost or improve efficiency.
 
-### 4.2 Common mistakes
+### Common mistakes
 
 - Seeing it as elective and skipping it completely
 - Trying to finish all elective topics at once
@@ -115,7 +115,7 @@ Prioritize topics that will appear frequently in later projects and can immediat
 
 ---
 
-## 5. When is the best time to come back and study this module?
+## When is the best time to come back and study this module?
 
 When the following signs appear, it means you are a good fit to return and fill in this set of topics:
 
@@ -124,7 +124,7 @@ When the following signs appear, it means you are a good fit to return and fill 
 - You want to improve your judgment about “why choose this model”
 - You want to complete your classic ML toolbox instead of only knowing tree models and linear models
 
-## 6. What can you do after finishing this module?
+## What can you do after finishing this module?
 
 - Select models more flexibly in small- to medium-sized data tasks
 - Understand the applicable boundaries of SVM, KNN, Naive Bayes, and LDA

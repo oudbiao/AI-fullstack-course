@@ -1,11 +1,11 @@
 ---
-title: "3.8 代码生成与执行 Agent"
+title: "9.3.8 代码生成与执行 Agent"
 sidebar_position: 17
 description: "从读代码、做计划、改代码、跑验证到错误恢复，理解代码 Agent 为什么本质上是一个带执行回路的工程系统，而不只是“会写代码”。"
 keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests]
 ---
 
-# 代码生成与执行 Agent
+# 9.3.8 代码生成与执行 Agent
 
 :::tip 本节定位
 很多人提到代码 Agent，第一反应是：
@@ -33,7 +33,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ## 一、代码 Agent 和“让模型写代码”到底差在哪？
 
-### 1.1 普通代码生成更像一次性输出
+### 普通代码生成更像一次性输出
 
 例如：
 
@@ -42,7 +42,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 模型输出一段代码后，
 任务通常就结束了。
 
-### 1.2 代码 Agent 更像在一个真实仓库里工作
+### 代码 Agent 更像在一个真实仓库里工作
 
 它面对的任务更可能是：
 
@@ -58,7 +58,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 - 运行反馈
 - 错误恢复
 
-### 1.3 一个类比：写样例答案 vs 真进项目修问题
+### 一个类比：写样例答案 vs 真进项目修问题
 
 “生成代码”像面试时白板写题。
 “代码 Agent”更像你真的进一个仓库里：
@@ -76,7 +76,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ## 二、代码 Agent 的最小闭环是什么？
 
-### 2.1 Read：先读上下文
+### Read：先读上下文
 
 它通常需要知道：
 
@@ -84,7 +84,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 - 函数现在怎么写
 - 测试怎么组织
 
-### 2.2 Plan：形成修改方案
+### Plan：形成修改方案
 
 例如：
 
@@ -92,11 +92,11 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 - 补测试
 - 调配置
 
-### 2.3 Act：真正做改动
+### Act：真正做改动
 
 这一步才是大家最容易想到的“写代码”。
 
-### 2.4 Verify：执行验证
+### Verify：执行验证
 
 例如：
 
@@ -104,7 +104,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 - 跑脚本
 - 看输出
 
-### 2.5 Repair：根据反馈继续修
+### Repair：根据反馈继续修
 
 这也是代码 Agent 和普通生成器最大的差别之一：
 
@@ -169,7 +169,7 @@ if failures:
         print("patch accepted")
 ```
 
-### 3.1 这段代码在真实世界里对应什么？
+### 这段代码在真实世界里对应什么？
 
 它对应的是代码 Agent 最核心的一条闭环：
 
@@ -182,7 +182,7 @@ if failures:
 - 写了看似合理的代码
 - 但根本不能跑
 
-### 3.2 为什么 `run_tests` 比 `generate_patch` 更值得重视？
+### 为什么 `run_tests` 比 `generate_patch` 更值得重视？
 
 因为真正把系统拉回现实的，
 往往不是生成能力，而是验证能力。
@@ -191,7 +191,7 @@ if failures:
 
 - 看起来像对
 
-### 3.3 为什么这就是 Agent 而不只是“函数替换”？
+### 为什么这就是 Agent 而不只是“函数替换”？
 
 因为它有：
 
@@ -212,7 +212,7 @@ if failures:
 
 ## 四、真实代码 Agent 还会多出哪些关键环节？
 
-### 4.1 文件定位与读取
+### 文件定位与读取
 
 真实仓库里首先要解决的是：
 
@@ -220,7 +220,7 @@ if failures:
 - 看哪段实现
 - 哪些测试相关
 
-### 4.2 Patch 形式而不是整文件重写
+### Patch 形式而不是整文件重写
 
 更稳的做法通常是：
 
@@ -233,7 +233,7 @@ if failures:
 - 更容易 review
 - 更容易回滚
 
-### 4.3 执行环境隔离
+### 执行环境隔离
 
 代码 Agent 很多时候需要：
 
@@ -247,7 +247,7 @@ if failures:
 - 权限边界
 - 超时
 
-### 4.4 回滚和重试
+### 回滚和重试
 
 如果候选补丁跑挂了，
 系统最好能：
@@ -260,7 +260,7 @@ if failures:
 
 ## 五、为什么代码 Agent 特别依赖验证？
 
-### 5.1 因为代码任务往往有客观反馈
+### 因为代码任务往往有客观反馈
 
 相比纯文本任务，代码任务的一个巨大优势是：
 
@@ -272,7 +272,7 @@ if failures:
 - 程序是否报错
 - 输出是否符合预期
 
-### 5.2 这让代码 Agent 非常适合“试错式迭代”
+### 这让代码 Agent 非常适合“试错式迭代”
 
 它可以：
 
@@ -282,7 +282,7 @@ if failures:
 
 这也是为什么代码 Agent 往往是 Agent 系统里最容易形成强闭环的一类。
 
-### 5.3 但也不能过度乐观
+### 但也不能过度乐观
 
 因为“测试通过”不一定等于：
 
@@ -296,7 +296,7 @@ if failures:
 
 ## 六、代码 Agent 最常见的失败点
 
-### 6.1 没读懂上下文就改
+### 没读懂上下文就改
 
 这会导致：
 
@@ -304,7 +304,7 @@ if failures:
 - 改坏接口约定
 - 和现有风格冲突
 
-### 6.2 只修表面报错，不理解根因
+### 只修表面报错，不理解根因
 
 典型表现是：
 
@@ -314,7 +314,7 @@ if failures:
 
 但真正问题还在。
 
-### 6.3 验证不充分
+### 验证不充分
 
 例如只跑单个 happy path，
 没有覆盖：
@@ -327,13 +327,13 @@ if failures:
 
 ## 七、代码 Agent 在工程上最该守住什么？
 
-### 7.1 可回滚
+### 可回滚
 
 任何自动改动都应该：
 
 - 能撤销
 
-### 7.2 小步提交
+### 小步提交
 
 越小的 patch 越容易：
 
@@ -341,7 +341,7 @@ if failures:
 - 定位问题
 - 做下一轮修复
 
-### 7.3 明确边界
+### 明确边界
 
 例如：
 

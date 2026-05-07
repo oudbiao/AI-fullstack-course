@@ -1,11 +1,11 @@
 ---
-title: "7.4 プロジェクト：情報抽出"
+title: "11.7.4 プロジェクト：情報抽出"
 sidebar_position: 3
 description: "NER、関係抽出、構造化出力をつなげた小さな情報抽出プロジェクトを通して、テキストから構造化データへ変換する流れを理解します。"
 keywords: [情報抽出, NER, 関係抽出, 構造化出力, NLPプロジェクト]
 ---
 
-# プロジェクト：情報抽出
+# 11.7.4 プロジェクト：情報抽出
 
 ![情報抽出 schema フローチャート](/img/course/ch11-information-extraction-schema-pipeline-map-ja.png)
 

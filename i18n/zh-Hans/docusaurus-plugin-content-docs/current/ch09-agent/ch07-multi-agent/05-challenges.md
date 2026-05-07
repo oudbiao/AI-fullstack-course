@@ -1,11 +1,11 @@
 ---
-title: "7.6 多 Agent 挑战与解决"
+title: "9.7.6 多 Agent 挑战与解决"
 sidebar_position: 42
 description: "从重复劳动、通信失真、冲突收敛、成本爆炸到可观测性，系统理解多 Agent 真实落地最常见的难点。"
 keywords: [multi-agent, failure modes, coordination, observability, cost, conflict resolution]
 ---
 
-# 多 Agent 挑战与解决
+# 9.7.6 多 Agent 挑战与解决
 
 :::tip 本节定位
 前面几节你已经看到，多 Agent 可以分工、通信、协调。
@@ -27,7 +27,7 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 
 ## 一、为什么多 Agent 系统更容易出问题？
 
-### 1.1 单 Agent 最常见的问题
+### 单 Agent 最常见的问题
 
 单 Agent 常见问题通常是：
 
@@ -35,7 +35,7 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 - 工具选错了
 - 输出不稳定
 
-### 1.2 多 Agent 会额外多出一层系统复杂度
+### 多 Agent 会额外多出一层系统复杂度
 
 除了个体 Agent 自己会犯错，多 Agent 还会新增这些问题：
 
@@ -54,7 +54,7 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 
 ## 二、最常见挑战一：重复劳动
 
-### 2.1 为什么容易重复？
+### 为什么容易重复？
 
 只要任务边界不够清楚，就容易出现：
 
@@ -62,7 +62,7 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 - worker 又自己再检索一次
 - reviewer 还重复做了同样的检查
 
-### 2.2 一个最小示例
+### 一个最小示例
 
 ```python
 tasks_done = []
@@ -80,7 +80,7 @@ print(tasks_done)
 
 > 如果没有去重机制，多 Agent 很容易“表面很忙，实际在浪费”。
 
-### 2.3 一个最小修复思路
+### 一个最小修复思路
 
 ```python
 assigned = set()
@@ -102,7 +102,7 @@ print(tasks_done)
 
 ## 三、最常见挑战二：消息失真和状态不同步
 
-### 3.1 为什么会失真？
+### 为什么会失真？
 
 因为 Agent 间传递的不是“真实世界”，而是：
 
@@ -115,7 +115,7 @@ print(tasks_done)
 - 我以为你说的是 A
 - 你其实表达的是 B
 
-### 3.2 一个例子
+### 一个例子
 
 ```python
 message_a = {"task": "查退款", "detail": "只看对外政策"}
@@ -128,7 +128,7 @@ print(message_b)
 这两个消息只差一点，但对结果影响很大。
 如果系统不约束消息协议，后面很容易走偏。
 
-### 3.3 一个工程经验
+### 一个工程经验
 
 只要系统里开始出现：
 
@@ -143,7 +143,7 @@ print(message_b)
 
 ## 四、最常见挑战三：冲突结论怎么收敛？
 
-### 4.1 多 Agent 很容易得出不同结论
+### 多 Agent 很容易得出不同结论
 
 例如：
 
@@ -152,7 +152,7 @@ print(message_b)
 
 这不是异常，而是常态。
 
-### 4.2 一个最小冲突示例
+### 一个最小冲突示例
 
 ```python
 results = {
@@ -163,7 +163,7 @@ results = {
 print(results)
 ```
 
-### 4.3 冲突解决至少要明确一个规则
+### 冲突解决至少要明确一个规则
 
 最简单也最常见的规则有：
 
@@ -192,7 +192,7 @@ print(resolve_with_safe_bias(results))
 
 ## 五、最常见挑战四：成本和时延指数上升
 
-### 5.1 为什么多 Agent 容易更贵？
+### 为什么多 Agent 容易更贵？
 
 因为每多一个 Agent，通常就多一层：
 
@@ -201,7 +201,7 @@ print(resolve_with_safe_bias(results))
 - 状态传递
 - 工具调用
 
-### 5.2 一个很直观的例子
+### 一个很直观的例子
 
 ```python
 agents = [
@@ -220,7 +220,7 @@ print("total_latency_ms =", total_latency)
 
 如果这些步骤还是串行执行，整体时延会更明显。
 
-### 5.3 一个非常重要的工程判断
+### 一个非常重要的工程判断
 
 很多时候，多 Agent 最大的问题不是质量不够，而是：
 
@@ -236,7 +236,7 @@ print("total_latency_ms =", total_latency)
 
 ## 六、最常见挑战五：系统不可观测
 
-### 6.1 为什么这是大坑？
+### 为什么这是大坑？
 
 多 Agent 一旦出错，如果你只看到最终答案，大概率根本不知道：
 
@@ -244,7 +244,7 @@ print("total_latency_ms =", total_latency)
 - 错在通信、分配还是工具层
 - 是谁第一次把系统带偏的
 
-### 6.2 最低限度也要记录这些信息
+### 最低限度也要记录这些信息
 
 - task_id
 - agent_name
@@ -272,7 +272,7 @@ for item in trace:
 
 ## 七、最常见挑战六：角色边界漂移
 
-### 7.1 什么叫角色边界漂移？
+### 什么叫角色边界漂移？
 
 本来：
 
@@ -286,7 +286,7 @@ for item in trace:
 
 最后每个角色都越来越像“全能 Agent”。
 
-### 7.2 为什么这很危险？
+### 为什么这很危险？
 
 因为这会让：
 

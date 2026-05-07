@@ -1,11 +1,11 @@
 ---
-title: "1.4 From Neurons to Multilayer Perceptrons"
+title: "6.1.4 From Neurons to Multilayer Perceptrons"
 sidebar_position: 3
 description: "Understand artificial neurons, the perceptron model, and common activation functions, and build your first multilayer perceptron (MLP)"
 keywords: [neuron, perceptron, activation function, ReLU, Sigmoid, Tanh, MLP, multilayer perceptron]
 ---
 
-# From Neurons to Multilayer Perceptrons
+# 6.1.4 From Neurons to Multilayer Perceptrons
 
 ![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.png)
 
@@ -130,7 +130,7 @@ So the real core ideas added in this section are only two things:
 When reading this diagram, first split the neuron into two steps: the first step is the linear score `z = x·w + b`, and the second step is how the activation function decides whether the signal passes through. Once you do that, you will see that a neuron is not mysterious at all — it is just a “linear model + nonlinear gate.”
 :::
 
-## 1. From biology to artificial neurons
+## From biology to artificial neurons
 
 ```mermaid
 flowchart LR
@@ -163,7 +163,7 @@ Core correspondences:
 | Activation/inhibition | Activation function f(z) |
 | Axon (output) | Output a = f(z) |
 
-### 1.1 A minimal artificial neuron example
+### A minimal artificial neuron example
 
 The easiest place for beginners to feel stuck is this: you know the formula, but you do not have a clear mental picture of what is actually being computed.
 
@@ -194,7 +194,7 @@ You can think of this step as:
 - The bias expresses “which way to shift the overall threshold”
 - The activation function decides “whether this neuron should actually fire”
 
-### 1.1.1 If we do not talk about deep learning yet, how can we think about a neuron?
+### If we do not talk about deep learning yet, how can we think about a neuron?
 
 A very beginner-friendly way to understand it is:
 
@@ -213,9 +213,9 @@ So a neuron is not a mysterious new species — it is a linear score plus an ext
 
 ---
 
-## 2. The perceptron — the simplest artificial neuron
+## The perceptron — the simplest artificial neuron
 
-### 2.1 Model
+### Model
 
 A perceptron is a simple model for **binary classification**:
 
@@ -263,7 +263,7 @@ for xi, yi in zip(X, y):
     print(f"  Input {xi} → Predicted {p.predict(xi)}, True {yi}")
 ```
 
-### 2.2 Limitations of the perceptron
+### Limitations of the perceptron
 
 A perceptron can only solve **linearly separable** problems. The XOR problem cannot be solved — this is exactly why multilayer networks were introduced.
 
@@ -280,7 +280,7 @@ for xi, yi in zip(X_xor, y_xor):
     print(f"  Input {xi} → Predicted {p_xor.predict(xi)}, True {yi}")
 ```
 
-### 2.3 What should you really take away from the perceptron section?
+### What should you really take away from the perceptron section?
 
 Not that “the perceptron is still worth using or not,” but that it helps you see a very important fact:
 
@@ -301,13 +301,13 @@ The most important thing to notice in the XOR diagram is that the four points ca
 
 ---
 
-## 3. Activation functions
+## Activation functions
 
-### 3.1 Why do we need activation functions?
+### Why do we need activation functions?
 
 Without activation functions, a multilayer network collapses into a linear model — no matter how many layers you stack, the result is equivalent to a single layer. Activation functions introduce **nonlinearity**, allowing the network to fit arbitrarily complex functions.
 
-### 3.1.1 Why is this sentence so important?
+### Why is this sentence so important?
 
 Because it explains why “depth” is not just about stacking more layers.
 
@@ -320,7 +320,7 @@ So remember this key rule first:
 
 - Without nonlinearity, deep networks cannot learn complex shapes
 
-### 3.2 Common activation functions
+### Common activation functions
 
 ```python
 import numpy as np
@@ -352,7 +352,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 3.3 Comparison and selection
+### Comparison and selection
 
 | Activation function | Output range | Advantages | Disadvantages | Use case |
 |---------|---------|------|------|---------|
@@ -367,7 +367,7 @@ plt.show()
 When the input is always negative, ReLU always outputs 0, and the gradient is also 0, so the parameters stop updating. Leaky ReLU alleviates this by giving negative values a small slope (0.01).
 :::
 
-### 3.4 Which activation function should beginners choose first?
+### Which activation function should beginners choose first?
 
 A stable rule of thumb is:
 
@@ -378,7 +378,7 @@ A stable rule of thumb is:
 
 If you remember just these four points first, that is already enough to support most of the later chapters.
 
-### 3.5 When you look at activation function plots for the first time, what should you focus on?
+### When you look at activation function plots for the first time, what should you focus on?
 
 Do not worry about the exact formula of each curve at first. Just look at these three things:
 
@@ -394,9 +394,9 @@ These three things directly affect:
 
 ---
 
-## 4. Multilayer Perceptron (MLP)
+## Multilayer Perceptron (MLP)
 
-### 4.1 Structure
+### Structure
 
 Arrange multiple neurons **by layers**, where the output of the previous layer becomes the input of the next layer:
 
@@ -431,7 +431,7 @@ flowchart LR
     style OUTPUT fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.1.1 What makes multilayer networks so powerful?
+### What makes multilayer networks so powerful?
 
 A more beginner-friendly way to understand this is:
 
@@ -446,7 +446,7 @@ Even in the simplest MLP, you can roughly think of it as:
 
 This is where “automatic feature learning” begins to happen.
 
-### 4.2 Using NumPy to implement an MLP for XOR
+### Using NumPy to implement an MLP for XOR
 
 ```python
 np.random.seed(42)

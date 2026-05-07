@@ -1,11 +1,11 @@
 ---
-title: "3.3 LangChain Basics"
+title: "8.3.3 LangChain Basics"
 sidebar_position: 12
 description: "From why chain abstractions are needed, to how Prompt, models, retrievers, and parsers are connected, build your first application-level intuition for LangChain."
 keywords: [LangChain, chain, prompt template, output parser, retriever, LLM application]
 ---
 
-# LangChain Basics
+# 8.3.3 LangChain Basics
 
 :::tip Section Focus
 When many people first look at LangChain, they think it is just “tuning the model.”
@@ -41,9 +41,9 @@ So what this section is really trying to explain is:
 - Why chain abstractions naturally appear
 - What they are actually organizing for you
 
-## 1. Why Do We Need a “Chain” Abstraction?
+## Why Do We Need a “Chain” Abstraction?
 
-### 1.1 Because real applications usually need more than one model call
+### Because real applications usually need more than one model call
 
 For example, if you want to build a small question-answering system, you may already need these steps:
 
@@ -59,7 +59,7 @@ If you write everything by hand in one function, it can still work, but it quick
 - hard to reuse
 - hard to debug
 
-### 1.2 What does a chain abstraction actually do?
+### What does a chain abstraction actually do?
 
 It says:
 
@@ -69,7 +69,7 @@ That is the core LangChain feeling.
 
 ---
 
-## 2. A Minimal Chain Example
+## A Minimal Chain Example
 
 ```python
 class SimpleChain:
@@ -103,7 +103,7 @@ chain = SimpleChain([
 print(chain.run("  What is the refund policy? "))
 ```
 
-### 2.2 What is this code teaching?
+### What is this code teaching?
 
 It is already teaching you the most important thing in LangChain:
 
@@ -113,16 +113,16 @@ That is the core value of chain-based applications.
 
 ---
 
-## 3. What Role Does Prompt Play in the Chain?
+## What Role Does Prompt Play in the Chain?
 
-### 3.1 Prompt is not “extra copy”; it is a component
+### Prompt is not “extra copy”; it is a component
 
 In many pipelines, Prompt itself is one of the intermediate steps:
 
 - take the query
 - generate a clearer prompt template
 
-### 3.2 A simple example
+### A simple example
 
 ```python
 def build_prompt(payload):
@@ -140,7 +140,7 @@ This example is reminding you that:
 
 ---
 
-## 4. Add a “Model” Step
+## Add a “Model” Step
 
 To keep the example runnable offline, we will continue using a mock model.
 
@@ -158,7 +158,7 @@ chain = SimpleChain([
 print(chain.run("What is the refund policy?"))
 ```
 
-### 4.2 The key takeaway from this step
+### The key takeaway from this step
 
 You will start to see that:
 
@@ -178,7 +178,7 @@ LangChain is not trying to make your code look fancy. It is about making the inp
 
 ---
 
-## 5. Why Does the Output Parser Also Matter?
+## Why Does the Output Parser Also Matter?
 
 Many people only focus on the input prompt and the model output, while ignoring this:
 
@@ -216,7 +216,7 @@ This step helps you more clearly realize that:
 
 ---
 
-## 6. Why Is It Especially Good for Prototyping?
+## Why Is It Especially Good for Prototyping?
 
 Because many early-stage LLM applications are very similar:
 
@@ -235,7 +235,7 @@ This is exactly the kind of scenario where a chain abstraction feels most natura
 
 ---
 
-## 7. When Does It Start to Strain?
+## When Does It Start to Strain?
 
 If your workflow starts to become:
 
@@ -253,7 +253,7 @@ That is also why frameworks like LangGraph are needed later on.
 
 ---
 
-## 8. A Very Important Engineering Reminder
+## A Very Important Engineering Reminder
 
 The most common mistake people make when learning LangChain is:
 

@@ -1,11 +1,11 @@
 ---
-title: "6.1 Pre-Class Guide: What Exactly Will We Learn in the Agent Frameworks Chapter?"
+title: "9.6.1 Pre-Class Guide: What Exactly Will We Learn in the Agent Frameworks Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the Agent frameworks chapter: how the framework overview, different framework styles, and selection logic work together to support real development decisions."
 keywords: [Agent Framework Guide, LangGraph, LlamaIndex, CrewAI, AutoGen]
 ---
 
-# Pre-Class Guide: What Exactly Will We Learn in the Agent Frameworks Chapter?
+# 9.6.1 Pre-Class Guide: What Exactly Will We Learn in the Agent Frameworks Chapter?
 
 ## Chapter Focus
 

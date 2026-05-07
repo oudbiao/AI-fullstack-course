@@ -1,10 +1,10 @@
 ---
-title: "1.3 プロジェクト：Web API 開発"
+title: "2.3.3 プロジェクト：Web API 開発"
 sidebar_position: 3
 description: "FastAPI を使って、最初の Web API を構築しよう"
 ---
 
-# プロジェクト：Web API 開発
+# 2.3.3 プロジェクト：Web API 開発
 
 ![Web API リクエスト・レスポンスのアーキテクチャ図](/img/course/ch02-web-api-request-response-ja.png)
 

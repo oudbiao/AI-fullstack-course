@@ -1,10 +1,10 @@
 ---
-title: "1.1 项目：命令行任务管理器"
+title: "2.3.1 项目：命令行任务管理器"
 sidebar_position: 1
 description: "综合运用 Python 基础知识，构建一个命令行任务管理工具"
 ---
 
-# 项目：命令行任务管理器
+# 2.3.1 项目：命令行任务管理器
 
 ![命令行任务管理器架构图](/img/course/ch02-todo-cli-architecture.png)
 

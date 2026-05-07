@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?"
+title: "7.3.1 Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?"
 sidebar_position: 0
 description: "Build the learning map for the Transformer deep dive: how attention, architectural variants, efficient computation, and scaling work together to support modern large models."
 keywords: [Transformer overview, attention mechanism, large model architecture, efficient attention]
 ---
 
-# Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?
+# 7.3.1 Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?
 
 ## What this chapter is about
 

@@ -1,11 +1,11 @@
 ---
-title: "8.6 Agent の可観測性"
+title: "9.8.6 Agent の可観測性"
 sidebar_position: 48
 description: "ログ、trace、指標、リプレイから始めて、可観測性がないと Agent システムを安定して改善し続けるのがほぼ不可能だと理解する。"
 keywords: [observability, trace, metrics, logs, replay, agent]
 ---
 
-# Agent の可観測性
+# 9.8.6 Agent の可観測性
 
 :::tip この節の位置づけ
 Agent システムに可観測性がないと、多くの問題は「なんとなく変だけど、どの段階がおかしいのかわからない」状態になります。この節の核心は、システム内部の流れを見えるようにし、特定でき、再現できるようにすることです。

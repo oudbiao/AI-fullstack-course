@@ -1,11 +1,11 @@
 ---
-title: "4.5 情景与程序记忆【选修】"
+title: "9.4.5 情景与程序记忆【选修】"
 sidebar_position: 22
 description: "从“记住发生过什么”和“记住应该怎么做”这两条线，理解情景记忆与程序记忆为何对复杂 Agent 特别重要。"
 keywords: [episodic memory, procedural memory, workflow memory, agent experience, skill memory]
 ---
 
-# 情景与程序记忆【选修】
+# 9.4.5 情景与程序记忆【选修】
 
 :::tip 本节定位
 长期记忆更像“稳定档案”。
@@ -32,7 +32,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ## 一、情景记忆到底是什么？
 
-### 1.1 它更像单次经历
+### 它更像单次经历
 
 例如：
 
@@ -45,7 +45,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 - 有具体事件经过
 - 不一定总能直接复用
 
-### 1.2 为什么 Agent 需要情景记忆？
+### 为什么 Agent 需要情景记忆？
 
 因为复杂系统经常要参考过去发生过的事：
 
@@ -59,7 +59,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ## 二、程序记忆又是什么？
 
-### 2.1 它更像技能和流程
+### 它更像技能和流程
 
 例如：
 
@@ -69,7 +69,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 这类记忆的重点不在“过去具体哪次”，
 而在“以后遇到类似任务时可以沿用这套做法”。
 
-### 2.2 为什么程序记忆很重要？
+### 为什么程序记忆很重要？
 
 因为它能让 Agent 避免每次都从零规划。
 很多任务其实不是完全新问题，而是：
@@ -82,19 +82,19 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ## 三、两者最大的区别是什么？
 
-### 3.1 情景记忆回答“发生过什么”
+### 情景记忆回答“发生过什么”
 
 例子：
 
 - “上次生成周报时，因为日志太多导致摘要质量下降”
 
-### 3.2 程序记忆回答“类似问题通常怎么处理”
+### 程序记忆回答“类似问题通常怎么处理”
 
 例子：
 
 - “生成周报的一般步骤是拉数据 -> 聚类 -> 生成摘要 -> 审核”
 
-### 3.3 一个类比
+### 一个类比
 
 情景记忆像项目复盘。
 程序记忆像 SOP 手册。
@@ -161,7 +161,7 @@ procedural_memory = build_procedural_memory(episodes)
 print("procedural_memory:", procedural_memory)
 ```
 
-### 4.1 这段代码到底说明了什么？
+### 这段代码到底说明了什么？
 
 它说明：
 
@@ -171,7 +171,7 @@ print("procedural_memory:", procedural_memory)
 也就是说，程序记忆往往不是凭空写出来的，
 而是从反复成功的 episode 中沉淀出来。
 
-### 4.2 为什么 `weekly_report` 没有进入程序记忆？
+### 为什么 `weekly_report` 没有进入程序记忆？
 
 因为它只出现了一次，
 还没有足够支持度。
@@ -180,7 +180,7 @@ print("procedural_memory:", procedural_memory)
 
 - 一次偶然成功或失败，不一定值得立刻写成标准流程
 
-### 4.3 为什么这比直接手写 workflow 更有启发？
+### 为什么这比直接手写 workflow 更有启发？
 
 因为它展示了一个非常真实的知识沉淀过程：
 
@@ -194,7 +194,7 @@ print("procedural_memory:", procedural_memory)
 
 ## 五、情景记忆在系统里通常怎么用？
 
-### 5.1 检索相似案例
+### 检索相似案例
 
 当遇到当前问题时，可以先查：
 
@@ -202,7 +202,7 @@ print("procedural_memory:", procedural_memory)
 - 当时是怎么处理的
 - 最后结果如何
 
-### 5.2 做失败复盘
+### 做失败复盘
 
 如果某类任务经常失败，
 情景记忆会非常适合回答：
@@ -210,7 +210,7 @@ print("procedural_memory:", procedural_memory)
 - 是在哪一步容易出错
 - 哪类上下文容易触发失败
 
-### 5.3 作为程序记忆的训练素材
+### 作为程序记忆的训练素材
 
 它本身也可以成为后续流程抽象的原始数据。
 
@@ -218,13 +218,13 @@ print("procedural_memory:", procedural_memory)
 
 ## 六、程序记忆在系统里通常怎么用？
 
-### 6.1 作为 planner 的默认模板
+### 作为 planner 的默认模板
 
 当任务类型被识别后，系统可直接加载：
 
 - 默认工作流
 
-### 6.2 作为技能库
+### 作为技能库
 
 很多程序记忆本质上就像：
 
@@ -232,7 +232,7 @@ print("procedural_memory:", procedural_memory)
 - 标准处理流程
 - 任务模板
 
-### 6.3 作为安全边界
+### 作为安全边界
 
 程序记忆还能起到“别乱来”的作用。
 例如对高风险任务，只允许系统沿用已经审核过的流程。
@@ -241,7 +241,7 @@ print("procedural_memory:", procedural_memory)
 
 ## 七、最容易踩的坑
 
-### 7.1 误区一：把所有历史都叫情景记忆
+### 误区一：把所有历史都叫情景记忆
 
 不是所有历史都值得保留为 episode。
 episode 更适合：
@@ -252,7 +252,7 @@ episode 更适合：
 
 的记录。
 
-### 7.2 误区二：一有 episode 就自动变成程序记忆
+### 误区二：一有 episode 就自动变成程序记忆
 
 程序记忆需要：
 
@@ -260,7 +260,7 @@ episode 更适合：
 - 稳定性
 - 可迁移性
 
-### 7.3 误区三：程序记忆写死后永远不更新
+### 误区三：程序记忆写死后永远不更新
 
 如果流程变化了，程序记忆也 باید更新。
 否则它会从“经验”变成“过期经验”。

@@ -1,11 +1,11 @@
 ---
-title: "5.6 Pipeline とワークフロー"
+title: "5.5.6 Pipeline とワークフロー"
 sidebar_position: 18
 description: "sklearn Pipeline、ColumnTransformer を使って混合型データを扱う方法と、自作 Transformer をマスターする"
 keywords: [Pipeline, ColumnTransformer, Transformer, 特徴量エンジニアリングのパイプライン, sklearn]
 ---
 
-# Pipeline とワークフロー
+# 5.5.6 Pipeline とワークフロー
 
 ![ColumnTransformer と Pipeline のワークフロー図](/img/course/column-transformer-pipeline-ja.png)
 
@@ -118,7 +118,7 @@ X_transformed = preprocessor.fit_transform(X)
 print(f"元の形: {X.shape} → 処理後: {X_transformed.shape}")
 ```
 
-### 1.1 この例でまず押さえるべきポイントは？
+### この例でまず押さえるべきポイントは？
 
 まず一番大事なのは、
 
@@ -152,7 +152,7 @@ scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='accuracy')
 print(f"5分割CVの正解率: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.1 なぜ Pipeline と交差検証は相性がいいのか？
+### なぜ Pipeline と交差検証は相性がいいのか？
 
 交差検証の本質は、
 
@@ -207,7 +207,7 @@ scores = cross_val_score(pipe, df[num_features + cat_features + custom_features]
 print(f"自作特徴量あり: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 3.1 自作 Transformer はどんなときに使う？
+### 自作 Transformer はどんなときに使う？
 
 こういうときに特に向いています。
 

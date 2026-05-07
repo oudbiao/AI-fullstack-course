@@ -1,11 +1,11 @@
 ---
-title: "1.5 Vector Spaces and Linear Transformations [Elective]"
+title: "4.1.5 Vector Spaces and Linear Transformations [Elective]"
 sidebar_position: 4
 description: "Understand the intuitive meaning of linear independence, basis, dimension, linear transformations, and SVD decomposition"
 keywords: [vector spaces, linear independence, basis, dimension, SVD, singular value decomposition, linear transformation]
 ---
 
-# Vector Spaces and Linear Transformations [Elective]
+# 4.1.5 Vector Spaces and Linear Transformations [Elective]
 
 ![Schematic of vector space basis vectors spanning a space](/img/course/vector-space-basis-span-en.png)
 
@@ -68,13 +68,13 @@ import matplotlib.pyplot as plt
 
 `np` is the standard short alias for **NumPy**, the Python library for arrays and linear algebra. `plt` is the common alias for **Matplotlib pyplot**, the plotting tool used for diagrams.
 
-## 1. Linear Independence — Vectors with "No Redundancy"
+## Linear Independence — Vectors with "No Redundancy"
 
-### 1.1 What is linear independence?
+### What is linear independence?
 
 **Intuition**: A set of vectors is “linearly independent” if **each vector contributes unique information, and none of them is unnecessary**.
 
-### 1.1.1 A beginner-friendly analogy
+### A beginner-friendly analogy
 
 You can think of “linear independence” like team roles:
 
@@ -134,7 +134,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 1.2 Why this matters in AI
+### Why this matters in AI
 
 | Scenario | Why linear independence matters |
 |------|--------------|
@@ -142,7 +142,7 @@ plt.show()
 | PCA dimensionality reduction | Principal components are orthogonal to each other (linearly independent), and each one provides unique information |
 | Neural networks | If the columns of a weight matrix are linearly dependent, it means some neurons are redundant |
 
-### 1.3 Using matrix rank to judge it
+### Using matrix rank to judge it
 
 **Matrix rank** = the maximum number of linearly independent rows (or columns) in a matrix.
 
@@ -171,13 +171,13 @@ Here, “full rank” means no column is wasted. Matrix `B` has three columns, b
 
 ---
 
-## 2. Basis and Dimension — the "Coordinate System" of a Space
+## Basis and Dimension — the "Coordinate System" of a Space
 
-### 2.1 Basis
+### Basis
 
 A **basis** = a set of linearly independent vectors that can “span” the entire space (that is, any vector can be expressed as a combination of them).
 
-### 2.1.1 The most important thing to remember about a basis is not the term, but its role
+### The most important thing to remember about a basis is not the term, but its role
 
 You can think of a basis as:
 
@@ -234,11 +234,11 @@ Coordinates in the new basis: [ 4. -1.]
 
 This is the key idea: the vector did not move, but its coordinates changed because we described it using a different coordinate system. This is why “representation” is such a big word in AI.
 
-### 2.2 Dimension
+### Dimension
 
 **Dimension** = the number of basis vectors = the minimum number of coordinates needed to describe a space.
 
-### 2.2.1 Why does “dimension” become such a frequent term in AI?
+### Why does “dimension” become such a frequent term in AI?
 
 Because in AI, you often care about two things:
 
@@ -266,13 +266,13 @@ In AI, people often say “high-dimensional space” — a 28×28 handwritten di
 
 ---
 
-## 3. Matrix Representation of Linear Transformations
+## Matrix Representation of Linear Transformations
 
-### 3.1 A linear transformation = a matrix
+### A linear transformation = a matrix
 
 A very deep result: **any linear transformation can be represented by a matrix**.
 
-### 3.1.1 Why is this especially important for AI?
+### Why is this especially important for AI?
 
 Because it unifies many things that seem different into the same form of expression:
 
@@ -315,7 +315,7 @@ Expected output:
 
 The matrix is fully determined by where it sends the basis vectors. That is why a matrix is not just a table of numbers; it is a compact description of a transformation.
 
-### 3.2 Composition of transformations = matrix multiplication
+### Composition of transformations = matrix multiplication
 
 Rotate by 45° first, then scale by 2? Just multiply the two matrices.
 
@@ -356,13 +356,13 @@ Read `S2 @ R45 @ v` from right to left: the vector is rotated first, then scaled
 
 ---
 
-## 4. SVD — the "Swiss Army Knife" of Matrix Decomposition
+## SVD — the "Swiss Army Knife" of Matrix Decomposition
 
-### 4.1 What is SVD?
+### What is SVD?
 
 **Singular Value Decomposition (SVD)** is a generalization of eigenvalue decomposition — it applies to **matrices of any shape** (not limited to square matrices).
 
-### 4.1.1 A beginner-friendly analogy
+### A beginner-friendly analogy
 
 You can think of SVD as:
 
@@ -428,7 +428,7 @@ Reconstruction error: 0.0000000000
 
 The first singular value is much larger than the second one, so the matrix has one very strong direction and one weaker correction direction. This “strong structure first, details later” idea is exactly why SVD is useful for compression and dimensionality reduction.
 
-### 4.2 The intuition behind SVD
+### The intuition behind SVD
 
 **SVD decomposes any transformation into three steps**:
 
@@ -444,7 +444,7 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.3 An SVD application: image compression
+### An SVD application: image compression
 
 The most intuitive application of SVD is using less data to approximate an image:
 
@@ -503,7 +503,7 @@ k=100, stored values ≈ 167.3% of the original
 
 **Interpretation**: Using only the first 20 singular values can already restore the main structure of the image while using far fewer stored numbers. When `k=100`, you keep every singular value, so reconstruction is best, but storing `U`, `S`, and `Vt` separately can be larger than storing the original image directly. Compression only makes sense when `k` is much smaller than the original rank.
 
-### 4.4 Applications of SVD in AI
+### Applications of SVD in AI
 
 | Application | Explanation |
 |------|------|
@@ -519,7 +519,7 @@ In real projects, the practical question is usually not “Can SVD reconstruct p
 
 This question appears again in model compression, embedding compression, recommendation systems, and search systems.
 
-### 4.5 A beginner-friendly reference table
+### A beginner-friendly reference table
 
 | When you see this term | Think of it first as |
 |------|------|
@@ -531,7 +531,7 @@ This question appears again in model compression, embedding compression, recomme
 
 This table is especially useful for beginners because it compresses a series of intimidating terms into a few usable intuitions.
 
-### 4.6 Another minimal example of "low-rank approximation"
+### Another minimal example of "low-rank approximation"
 
 ```python
 M = np.array([
@@ -591,8 +591,8 @@ If you have read this fourth stop to the end, the most valuable thing to carry i
 
 The best follow-up readings are usually:
 
-- [Chapter 5 Home](../../ch05-machine-learning/index.md)
-- [How Math Really Flows into Machine Learning](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
+- [5 Chapter 5 Home](../../ch05-machine-learning/index.md)
+- [5.1.6 How Math Really Flows into Machine Learning](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
 
 ## If this section still feels abstract, what is the most useful thing to hold onto?
 

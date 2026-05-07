@@ -1,11 +1,11 @@
 ---
-title: "2.6 確率統計の歴史的な流れ: Bayes、MLE、EM と情報理論"
+title: "4.2.6 確率統計の歴史的な流れ: Bayes、MLE、EM と情報理論"
 sidebar_position: 9
 description: "ベイズの法則、最尤推定、EM アルゴリズム、シャノンの情報理論を1本の AI 数学の流れとしてつなげ、それぞれが何を解決するのかを理解する。"
 keywords: [ベイズの法則, 最尤推定, EMアルゴリズム, シャノン情報理論, AI数学の歴史]
 ---
 
-# 確率統計の歴史的な流れ：Bayes、MLE、EM と情報理論
+# 4.2.6 確率統計の歴史的な流れ：Bayes、MLE、EM と情報理論
 
 ![確率統計の歴史の基礎マップ](/img/course/ch04-probability-history-foundations-map-ja.png)
 

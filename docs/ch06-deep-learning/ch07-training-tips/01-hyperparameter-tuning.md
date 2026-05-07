@@ -1,11 +1,11 @@
 ---
-title: "7.2 Hyperparameter Tuning Strategy"
+title: "6.7.2 Hyperparameter Tuning Strategy"
 sidebar_position: 1
 description: "Starting from learning rate, batch size, regularization, and search order, understand why hyperparameter tuning is more like experiment design than blind luck."
 keywords: [hyperparameter tuning, learning rate, batch size, regularization, search strategy]
 ---
 
-# Hyperparameter Tuning Strategy
+# 6.7.2 Hyperparameter Tuning Strategy
 
 :::tip Section overview
 Many training problems eventually come back to one sentence:
@@ -61,16 +61,16 @@ What this section really wants to help you build is:
 - What to tune later
 - How to avoid losing control of experiments
 
-## 1. Why can’t tuning rely on random trial and error?
+## Why can’t tuning rely on random trial and error?
 
-### 1.1 Because parameters often interact with each other
+### Because parameters often interact with each other
 
 For example:
 
 - Learning rate and batch size together affect stability
 - Dropout and weight decay together affect generalization
 
-### 1.2 Without an order, experiments quickly get out of control
+### Without an order, experiments quickly get out of control
 
 You may run into situations where:
 
@@ -78,7 +78,7 @@ You may run into situations where:
 - You do not know which change actually helped
 - The results cannot be reproduced
 
-### 1.3 An analogy
+### An analogy
 
 Tuning is like baking.
 If you change all of these at once:
@@ -90,7 +90,7 @@ If you change all of these at once:
 
 it becomes very hard to know what caused the final success or failure.
 
-### 1.4 What is the most important thing to remember about tuning, besides parameter names?
+### What is the most important thing to remember about tuning, besides parameter names?
 
 The most important thing to remember is:
 
@@ -106,14 +106,14 @@ Once you ask the right experimental question, tuning no longer feels like luck.
 
 ---
 
-## 2. Which hyperparameters are worth looking at first?
+## Which hyperparameters are worth looking at first?
 
-### 2.1 Learning rate
+### Learning rate
 
 Usually the top priority.
 If it is too large, training may oscillate; if it is too small, learning may stall.
 
-### 2.2 Batch size
+### Batch size
 
 It affects:
 
@@ -121,7 +121,7 @@ It affects:
 - GPU memory usage
 - Training speed
 
-### 2.3 Regularization
+### Regularization
 
 For example:
 
@@ -130,13 +130,13 @@ For example:
 
 These mainly help control generalization.
 
-### 2.4 Number of training epochs / early stopping
+### Number of training epochs / early stopping
 
 These are closely related to whether overfitting happens.
 
 ---
 
-## 3. Start with a minimal tuning log example
+## Start with a minimal tuning log example
 
 ```python
 experiments = [
@@ -160,7 +160,7 @@ for item in ranked:
     print(item)
 ```
 
-### 3.1 What is this example trying to show?
+### What is this example trying to show?
 
 Tuning is not just about one final accuracy number.
 You usually also need to look at:
@@ -169,7 +169,7 @@ You usually also need to look at:
 - Resource cost
 - Whether it is stable
 
-### 3.2 Why is experiment logging so important?
+### Why is experiment logging so important?
 
 Because without logs, it becomes hard to answer:
 
@@ -178,27 +178,27 @@ Because without logs, it becomes hard to answer:
 
 ---
 
-## 4. A more stable tuning order
+## A more stable tuning order
 
-### 4.1 First fix most settings, and tune only one or two key parameters
+### First fix most settings, and tune only one or two key parameters
 
 A good starting point is usually:
 
 - Learning rate
 - Batch size
 
-### 4.2 After confirming stable training, look at generalization control
+### After confirming stable training, look at generalization control
 
 For example:
 
 - dropout
 - weight decay
 
-### 4.3 Finally, do more detailed local search
+### Finally, do more detailed local search
 
 This makes the experiments easier to interpret.
 
-### 4.4 A sequence beginners can directly follow
+### A sequence beginners can directly follow
 
 When tuning a deep learning model for the first time, the safest order is usually:
 
@@ -210,7 +210,7 @@ When tuning a deep learning model for the first time, the safest order is usuall
 
 The benefit of this order is that you first solve “Can it learn stably?” and then solve “Is the generalization good enough?”
 
-### 4.5 Why is this order especially important for beginners?
+### Why is this order especially important for beginners?
 
 Because in the early learning stage, the most common problems are not “the upper limit is too low,” but:
 
@@ -225,25 +225,25 @@ So this order is essentially helping you protect two things first:
 
 ---
 
-## 5. The most common mistakes
+## The most common mistakes
 
-### 5.1 Mistake 1: Changing too many parameters at once
+### Mistake 1: Changing too many parameters at once
 
 This makes the results hard to explain.
 
-### 5.2 Mistake 2: Looking only at training set performance
+### Mistake 2: Looking only at training set performance
 
 Tuning should pay more attention to:
 
 - Validation set
 - Generalization
 
-### 5.3 Mistake 3: Thinking tuning is black magic
+### Mistake 3: Thinking tuning is black magic
 
 As long as the experiment design is clear,
 it is actually a very engineering-oriented task.
 
-## 6. What should you record in each experiment?
+## What should you record in each experiment?
 
 At minimum, it is recommended to record these items:
 

@@ -1,10 +1,10 @@
 ---
-title: "Learning Resources Quick Reference"
+title: "A.9 Learning Resources Quick Reference"
 sidebar_position: 6
 description: "A quick reference page for common environment commands, model approaches, evaluation metrics, and key points for RAG and Agent design."
 ---
 
-# Learning Resources Quick Reference
+# A.9 Learning Resources Quick Reference
 
 ![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map-en.png)
 
@@ -16,9 +16,9 @@ This quick reference is best for “locating things quickly while working on a p
 
 This page is not a complete tutorial. It is a “look it up quickly when needed” tool page. It’s a good idea to keep it in your browser bookmarks or nearby your project for quick access.
 
-## 1. Quick Reference for Environment and Repository Commands
+## Quick Reference for Environment and Repository Commands
 
-### 1.1 Python Environment
+### Python Environment
 
 ```bash
 conda create -n ai-course python=3.11 -y
@@ -32,7 +32,7 @@ If you want to run the AI examples in the later sections, also install:
 pip install -r requirements-course-ai.txt
 ```
 
-### 1.2 First Confirm Which Environment You Are In
+### First Confirm Which Environment You Are In
 
 ```bash
 python --version
@@ -41,7 +41,7 @@ pip --version
 pip list
 ```
 
-### 1.3 Documentation Site Commands
+### Documentation Site Commands
 
 ```bash
 npm install
@@ -49,7 +49,7 @@ npm run start
 npm run build
 ```
 
-## 2. First Set of Troubleshooting Commands
+## First Set of Troubleshooting Commands
 
 For most environment issues, run the following first:
 
@@ -68,7 +68,7 @@ If you are using a GPU:
 nvidia-smi
 ```
 
-## 3. Which Baseline to Choose First for Common Tasks
+## Which Baseline to Choose First for Common Tasks
 
 | Task | Recommended baseline to try first | Why |
 |---|---|---|
@@ -82,9 +82,9 @@ nvidia-smi
 
 Many projects get stuck not because the model is too weak, but because the baseline was never established.
 
-## 4. Quick Reference for Common Evaluation Metrics
+## Quick Reference for Common Evaluation Metrics
 
-### 4.1 Classification Tasks
+### Classification Tasks
 
 | Metric | When to use | Reminder |
 |---|---|---|
@@ -93,7 +93,7 @@ Many projects get stuck not because the model is too weak, but because the basel
 | Recall | When false negatives are costly | Very important in medical and safety-related tasks |
 | F1 | When you need to balance Precision / Recall | A commonly used overall metric |
 
-### 4.2 Regression Tasks
+### Regression Tasks
 
 | Metric | When to use | Reminder |
 |---|---|---|
@@ -101,7 +101,7 @@ Many projects get stuck not because the model is too weak, but because the basel
 | MSE / RMSE | When large errors should be penalized more | More sensitive to outliers |
 | R² | When you want to see overall fit/explained variance | Do not use it alone |
 
-### 4.3 Retrieval and Question Answering
+### Retrieval and Question Answering
 
 | Metric | Purpose |
 |---|---|
@@ -110,7 +110,7 @@ Many projects get stuck not because the model is too weak, but because the basel
 | Citation accuracy | Whether the answer is truly based on the retrieved content |
 | Human evaluation | Whether the final usability meets the bar |
 
-## 5. Signals to Watch During Training
+## Signals to Watch During Training
 
 | Phenomenon | What you should suspect first |
 |---|---|
@@ -120,16 +120,16 @@ Many projects get stuck not because the model is too weak, but because the basel
 | Out of memory on GPU | Batch too large, inputs too long, model too big |
 | Results are extremely unstable | Dataset too small, too much randomness, experiments without fixed seeds |
 
-## 6. What to Check First When Doing RAG
+## What to Check First When Doing RAG
 
-### 6.1 Minimal Closed Loop
+### Minimal Closed Loop
 
 1. Can the documents be split correctly?
 2. Can retrieval bring back the right chunks?
 3. Is the source included during generation?
 4. Does the answer truly use the retrieved content?
 
-### 6.2 Common Pitfalls
+### Common Pitfalls
 
 | Problem | First thing to check |
 |---|---|
@@ -139,9 +139,9 @@ Many projects get stuck not because the model is too weak, but because the basel
 | It is too slow | Measure the retrieval layer, model layer, and network calls separately |
 | Cost is too high | Cache, shorten context, reduce unnecessary calls |
 
-## 7. What to Check First When Doing Agent Work
+## What to Check First When Doing Agent Work
 
-### 7.1 Start with a Simple Structure
+### Start with a Simple Structure
 
 A more stable progression is usually:
 
@@ -151,7 +151,7 @@ A more stable progression is usually:
 4. Stateful workflow
 5. Multi-Agent collaboration
 
-### 7.2 Five Things to Check in the Tool Layer
+### Five Things to Check in the Tool Layer
 
 1. Are the tool descriptions clear?
 2. Is the parameter schema strict?
@@ -159,7 +159,7 @@ A more stable progression is usually:
 4. Are high-risk operations restricted?
 5. Are there logs for tracing?
 
-## 8. Quick Reference for Prompt Design
+## Quick Reference for Prompt Design
 
 A more stable Prompt usually includes at least:
 
@@ -179,9 +179,9 @@ Please output in the following format ____.
 If the information is insufficient, clearly say so. Do not make things up.
 ```
 
-## 9. Common Python Debugging Actions
+## Common Python Debugging Actions
 
-### 9.1 Inspect the Input
+### Inspect the Input
 
 ```python
 print(type(x))
@@ -189,7 +189,7 @@ print(len(data))
 print(data[:2])
 ```
 
-### 9.2 Inspect Intermediate Results
+### Inspect Intermediate Results
 
 ```python
 print("shape:", tensor.shape)
@@ -197,14 +197,14 @@ print("mean:", tensor.mean().item())
 print("min/max:", tensor.min().item(), tensor.max().item())
 ```
 
-### 9.3 Inspect Predictions
+### Inspect Predictions
 
 ```python
 for text, pred in list(zip(texts, preds))[:5]:
     print(text, "->", pred)
 ```
 
-## 10. A Minimal Training Loop Skeleton
+## A Minimal Training Loop Skeleton
 
 ```python
 for epoch in range(num_epochs):
@@ -225,7 +225,7 @@ The 6 lines most worth understanding here are:
 - How gradients are backpropagated
 - When parameters are updated
 
-## 11. When the Project Gets Stuck, Come Back to This Map
+## When the Project Gets Stuck, Come Back to This Map
 
 | Your current problem | What to add first |
 |---|---|
@@ -235,7 +235,7 @@ The 6 lines most worth understanding here are:
 | You can’t build a complete system | Minimal closed loop, interface, and state design |
 | You’ve learned a lot but still can’t remember it | Small projects, review, and output |
 
-## 12. When to Check This Quick Reference and When to Go Back to the Main Text
+## When to Check This Quick Reference and When to Go Back to the Main Text
 
 Good times to check the quick reference:
 

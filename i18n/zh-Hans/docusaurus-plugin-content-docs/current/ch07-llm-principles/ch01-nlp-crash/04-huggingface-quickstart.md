@@ -1,11 +1,11 @@
 ---
-title: "1.5 HuggingFace 快速上手"
+title: "7.1.5 HuggingFace 快速上手"
 sidebar_position: 4
 description: "从 tokenizer、config、model、batch 到 forward 输出，理解 HuggingFace 最常见的工作流，并给出一个不依赖网络下载的可运行入门示例。"
 keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 ---
 
-# HuggingFace 快速上手
+# 7.1.5 HuggingFace 快速上手
 
 :::tip 本节定位
 很多新人第一次接触 HuggingFace 时，会被这些名字绕晕：
@@ -35,7 +35,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 
 ## 一、HuggingFace 到底在帮我们做什么？
 
-### 1.1 它不是一个“模型”，而是一整套生态
+### 它不是一个“模型”，而是一整套生态
 
 很多人会把 HuggingFace 误解成：
 
@@ -54,7 +54,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 - model
 - config
 
-### 1.2 最常见的工作流只有几步
+### 最常见的工作流只有几步
 
 无论是做分类、生成还是抽特征，
 最核心的调用路径通常都长这样：
@@ -73,7 +73,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 如果这条链在脑子里顺了，
 很多例子就不会再显得乱。
 
-### 1.3 一个类比：像组装标准化实验台
+### 一个类比：像组装标准化实验台
 
 你可以把 HuggingFace 想成实验台标准件：
 
@@ -92,7 +92,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 
 ## 二、先把几个最常见对象分清楚
 
-### 2.1 Tokenizer：把文本变成模型输入
+### Tokenizer：把文本变成模型输入
 
 它通常负责：
 
@@ -106,7 +106,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 - `input_ids`
 - `attention_mask`
 
-### 2.2 Config：模型结构蓝图
+### Config：模型结构蓝图
 
 config 主要描述：
 
@@ -117,7 +117,7 @@ config 主要描述：
 
 你可以把它理解成“模型长什么样”的说明书。
 
-### 2.3 Model：真正执行 forward 的部分
+### Model：真正执行 forward 的部分
 
 model 会根据 config 建出神经网络，
 然后接受张量输入，输出：
@@ -129,7 +129,7 @@ model 会根据 config 建出神经网络，
 不同任务模型输出会不太一样，
 但核心思路一致。
 
-### 2.4 Batch：为什么总要做 padding
+### Batch：为什么总要做 padding
 
 因为一批文本长度不同。
 模型通常要求输入张量形状统一，
@@ -218,7 +218,7 @@ print("last_hidden_state shape:", tuple(outputs.last_hidden_state.shape))
 print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 ```
 
-### 3.1 这段代码最该按什么顺序读？
+### 这段代码最该按什么顺序读？
 
 最推荐的顺序是：
 
@@ -234,7 +234,7 @@ print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 
 这三件事串起来。
 
-### 3.2 为什么这里不用 `from_pretrained`？
+### 为什么这里不用 `from_pretrained`？
 
 因为 `from_pretrained` 常常需要联网下载权重。
 为了保证示例可以离线直接跑，这里故意采用：
@@ -249,7 +249,7 @@ print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 它不能拿来做真实任务预测，
 但非常适合拿来理解 HuggingFace 的基础调用流程。
 
-### 3.3 这个例子里最容易忽略的点是什么？
+### 这个例子里最容易忽略的点是什么？
 
 最容易忽略的是：
 
@@ -300,7 +300,7 @@ print(outputs.last_hidden_state.shape)
 
 ## 五、为什么 HuggingFace 这么适合入门和实验？
 
-### 5.1 因为接口统一
+### 因为接口统一
 
 很多模型虽然内部结构不同，
 但在 HuggingFace 里通常都遵循类似接口：
@@ -310,7 +310,7 @@ print(outputs.last_hidden_state.shape)
 
 这让你切换模型时负担小很多。
 
-### 5.2 因为生态丰富
+### 因为生态丰富
 
 你后面会继续碰到：
 
@@ -327,7 +327,7 @@ print(outputs.last_hidden_state.shape)
 先看主链路：文本变成 `input_ids` 和 `attention_mask`，再组成 batch 喂给 model，`forward` 执行计算，最后得到 hidden states 或 logits。`pipeline`、`Trainer`、`DataCollator` 都是围绕这条链路的便利封装，不是另一套神秘系统。
 :::
 
-### 5.3 常见 HuggingFace 术语速查
+### 常见 HuggingFace 术语速查
 
 | 术语 | 它是什么 | 这里为什么重要 |
 |---|---|---|
@@ -341,7 +341,7 @@ print(outputs.last_hidden_state.shape)
 
 - “根据模型配置，自动选择匹配的类。”
 
-### 5.4 因为它非常贴合“先实验，再深入”
+### 因为它非常贴合“先实验，再深入”
 
 很多时候你不是先自己从零实现一切，
 而是先跑通一个标准接口，
@@ -358,7 +358,7 @@ print(outputs.last_hidden_state.shape)
 
 ## 六、最容易踩的坑
 
-### 6.1 误区一：跑通 `from_pretrained` 就等于真的理解了模型
+### 误区一：跑通 `from_pretrained` 就等于真的理解了模型
 
 跑通只是开始。
 真正理解还要继续知道：
@@ -367,12 +367,12 @@ print(outputs.last_hidden_state.shape)
 - 输出字段代表什么
 - tokenizer 和模型是否匹配
 
-### 6.2 误区二：忽略 `attention_mask`
+### 误区二：忽略 `attention_mask`
 
 如果有 padding 却不带 mask，
 模型可能会把补齐位置当成真实内容处理。
 
-### 6.3 误区三：把随机初始化模型和预训练模型混为一谈
+### 误区三：把随机初始化模型和预训练模型混为一谈
 
 这节课的离线示例只是为了理解接口。
 真正有任务能力的，通常是：

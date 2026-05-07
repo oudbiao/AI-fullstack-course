@@ -1,10 +1,10 @@
 ---
-title: "Elective Module: C++ and Model Deployment"
+title: "E.A Elective Module: C++ and Model Deployment"
 sidebar_position: 0
 description: "Overview of the C++ and Model Deployment module, helping you understand the learning sequence, applicable scenarios, and the relationship between lessons."
 ---
 
-# Elective Module: C++ and Model Deployment
+# E.A Elective Module: C++ and Model Deployment
 
 :::tip Module Positioning
 To truly move a trained model into inference and deployment environments, you need a systematic understanding of performance, inference, and serviceization.
@@ -25,9 +25,9 @@ If you want to see how this module can become a portfolio artifact, run the [Ele
 
 ---
 
-## 1. What problem is this module solving?
+## What problem is this module solving?
 
-### 1.1 Module Positioning
+### Module Positioning
 
 C++ and model deployment are not here to “learn a bit more content,” but to fill in a kind of capability that often determines how far an engineering solution can go.
 
@@ -37,7 +37,7 @@ You can first think of it as a toolbox of specialized topics:
 - You do not have to learn it all at once
 - But once you enter the corresponding scenario, it becomes very valuable
 
-### 1.2 Recommended Learning Order
+### Recommended Learning Order
 
 A more reliable way to learn is usually:
 
@@ -47,9 +47,9 @@ A more reliable way to learn is usually:
 
 ---
 
-## 2. What topics are included in this module?
+## What topics are included in this module?
 
-### 2.1 Chapter List
+### Chapter List
 
 | Chapter | Topic |
 |---|---|
@@ -61,7 +61,7 @@ A more reliable way to learn is usually:
 | Lesson 6 | Model Serviceization |
 | Lesson 7 | Comprehensive Deployment Project |
 
-### 2.2 How should you use this module?
+### How should you use this module?
 
 A very practical strategy is:
 
@@ -72,7 +72,7 @@ This way, you avoid losing the rhythm of the main learning path because there ar
 
 ---
 
-## 3. A minimal runnable example
+## A minimal runnable example
 
 :::info Run Tip
 ```bash
@@ -100,7 +100,7 @@ return 0;
 }
 ```
 
-### 3.2 What should you take away from this example?
+### What should you take away from this example?
 
 This small piece of code is not meant to cover the whole module. Instead, it helps you quickly build a sense of “what exactly this module is doing.”
 
@@ -112,13 +112,13 @@ When reading it, focus on these three things first:
 
 ---
 
-## 4. Learning advice
+## Learning advice
 
-### 4.1 If time is limited, what should you learn first?
+### If time is limited, what should you learn first?
 
 Prioritize the topics that will appear frequently in later projects and can immediately help reduce cost or improve efficiency.
 
-### 4.2 Common mistakes
+### Common mistakes
 
 - Seeing it as elective and not learning it at all
 - Trying to finish all electives at once from the start
@@ -126,7 +126,7 @@ Prioritize the topics that will appear frequently in later projects and can imme
 
 ---
 
-## 5. When is the best time to come back and study this module?
+## When is the best time to come back and study this module?
 
 When you see the following signals, it means you are a good fit to come back and fill in this set of topics:
 
@@ -135,7 +135,7 @@ When you see the following signals, it means you are a good fit to come back and
 - You need to put the model on edge devices or in a service-based environment
 - You find that the Python prototype works, but it is still far from production
 
-## 6. What can you do after finishing this module?
+## What can you do after finishing this module?
 
 - Understand that training and inference are two different problems
 - Read and understand common optimization and serviceization concepts in deployment pipelines

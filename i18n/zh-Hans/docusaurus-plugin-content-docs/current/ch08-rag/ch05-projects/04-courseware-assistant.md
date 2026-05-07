@@ -1,11 +1,11 @@
 ---
-title: "5.5 项目：知识库驱动的课件生成助手"
+title: "8.5.5 项目：知识库驱动的课件生成助手"
 sidebar_position: 24
 description: "围绕 PDF/Word/PPT 资料库、RAG 检索、外部资料补充、例题抽取和模板化 Word 生成，建立一个真正像产品的课件助手项目闭环。"
 keywords: [courseware assistant, knowledge base, word generation, ppt parsing, document parsing, rag project]
 ---
 
-# 项目：知识库驱动的课件生成助手
+# 8.5.5 项目：知识库驱动的课件生成助手
 
 ![课件生成助手工作流图](/img/course/courseware-assistant-workflow.png)
 
@@ -149,7 +149,7 @@ def build_courseware(topic):
 print(build_courseware("折扣应用题"))
 ```
 
-### 4.1 这个例子最关键的价值是什么？
+### 这个例子最关键的价值是什么？
 
 它说明这个系统真正有价值的地方，不是只会：
 
@@ -185,18 +185,18 @@ flowchart TD
 
 按系统分层看，核心能力是：
 
-### 6.1 文档解析
+### 文档解析
 
 - PDF / DOCX / PPTX 读取
 - 扫描件 OCR
 - 标题层级和例题识别
 
 对应课程：
-- [文档解析与知识抽取](../ch03-app-dev/07-document-parsing.md)
-- [文档处理](../ch01-rag/02-document-processing.md)
-- [OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [8.3.8 文档解析与知识抽取](../ch03-app-dev/07-document-parsing.md)
+- [8.1.3 文档处理](../ch01-rag/02-document-processing.md)
+- [10.5.4 OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-### 6.2 知识库与检索
+### 知识库与检索
 
 - 切块
 - 元数据
@@ -204,22 +204,22 @@ flowchart TD
 - 例题召回
 
 对应课程：
-- [RAG 基础](../ch01-rag/01-rag-basics.md)
-- [向量数据库](../ch01-rag/03-vector-databases.md)
-- [检索策略](../ch01-rag/04-retrieval-strategies.md)
+- [8.1.2 RAG 基础](../ch01-rag/01-rag-basics.md)
+- [8.1.4 向量数据库](../ch01-rag/03-vector-databases.md)
+- [8.1.5 检索策略](../ch01-rag/04-retrieval-strategies.md)
 
-### 6.3 结构化输出与模板生成
+### 结构化输出与模板生成
 
 - 先生成大纲
 - 再生成知识点 / 例题 / 练习
 - 再套模板导出 Word
 
 对应课程：
-- [Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [模板化文档生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
+- [7.5.2 Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [7.5.4 结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [8.3.9 模板化文档生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
 
-### 6.4 工具调用与工作流
+### 工具调用与工作流
 
 - 内部知识库检索
 - 外部资料补充
@@ -227,9 +227,9 @@ flowchart TD
 - 导出文件
 
 对应课程：
-- [函数调用实践](../ch03-app-dev/03-function-calling.md)
-- [对话系统与多轮管理](../ch03-app-dev/05-dialog-system.md)
-- [Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
+- [8.3.4 函数调用实践](../ch03-app-dev/03-function-calling.md)
+- [8.3.6 对话系统与多轮管理](../ch03-app-dev/05-dialog-system.md)
+- [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
 
 ## 七、固定格式课件最小 schema 应该长什么样？
 

@@ -1,10 +1,10 @@
 ---
-title: "2.5 配列の変形と操作"
+title: "3.2.5 配列の変形と操作"
 sidebar_position: 6
 description: "配列の reshape、結合、分割、転置の操作を身につける"
 ---
 
-# 配列の変形と操作
+# 3.2.5 配列の変形と操作
 
 ![NumPy 変形と軸操作の図](/img/course/ch03-numpy-reshape-axis-flow-ja.png)
 

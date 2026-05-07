@@ -1,11 +1,11 @@
 ---
-title: "3.3 Original Transformer vs Modern LLM Decoder"
+title: "7.3.3 Original Transformer vs Modern LLM Decoder"
 sidebar_position: 9
 description: "Compare the original Transformer block with modern LLM decoder blocks, and understand pre-norm, RMSNorm, RoPE, GQA/MQA, and SwiGLU."
 keywords: [modern LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
 ---
 
-# Original Transformer vs Modern LLM Decoder
+# 7.3.3 Original Transformer vs Modern LLM Decoder
 
 The 2017 Transformer paper gave us the foundation, but most modern LLM decoder blocks are not a line-by-line copy of the original diagram.
 
@@ -21,7 +21,7 @@ But the details have evolved for deeper models, longer contexts, faster inferenc
 Do not memorize the names first. Read the two pipelines as a story: the original block made Transformer work; modern decoder blocks keep the idea but change normalization, position handling, K/V sharing, and FFN design to survive at LLM scale.
 :::
 
-## 1. The early Transformer block
+## The early Transformer block
 
 A simplified early Transformer block is often described as:
 
@@ -45,7 +45,7 @@ But when models become much deeper and serve long conversations, several problem
 - KV cache becomes expensive during inference
 - the FFN needs stronger expressiveness under large-scale training
 
-## 2. A common modern LLM decoder block
+## A common modern LLM decoder block
 
 A simplified modern decoder block often looks more like:
 
@@ -65,7 +65,7 @@ This does not mean every modern model is identical.
 Different models choose different details.
 But this pattern is common enough that you should recognize it when reading model code.
 
-## 3. Pre-norm: normalize before the sublayer
+## Pre-norm: normalize before the sublayer
 
 In a post-norm block, the normalization often appears after:
 
@@ -90,7 +90,7 @@ x = x + attention(norm1(x))
 x = x + ffn(norm2(x))
 ```
 
-## 4. RMSNorm: a simpler normalization for scale
+## RMSNorm: a simpler normalization for scale
 
 LayerNorm normalizes using mean and variance.
 RMSNorm uses root mean square magnitude and removes the mean-subtraction part.
@@ -107,7 +107,7 @@ Remember the role:
 
 > **RMSNorm keeps activations numerically stable with a lighter normalization step.**
 
-## 5. RoPE: position enters attention by rotation
+## RoPE: position enters attention by rotation
 
 Early Transformer examples often add positional vectors to token embeddings.
 Modern LLMs often use:
@@ -126,7 +126,7 @@ Why is it useful?
 
 When you read model code, RoPE usually appears near the attention calculation, before `QK^T`.
 
-## 6. GQA / MQA: reduce KV cache pressure
+## GQA / MQA: reduce KV cache pressure
 
 During inference, decoder-only models cache previous tokens' `K` and `V`.
 This is called:
@@ -147,7 +147,7 @@ Practical intuition:
 
 > **GQA/MQA do not mainly make the model “smarter.” They make long-context inference cheaper.**
 
-## 7. SwiGLU FFN: a stronger feed-forward block
+## SwiGLU FFN: a stronger feed-forward block
 
 The original Transformer FFN is often taught as:
 
@@ -169,7 +169,7 @@ You can remember it like this:
 
 > **SwiGLU lets the FFN not only create features, but also control which features are emphasized.**
 
-## 8. A compact comparison table
+## A compact comparison table
 
 | Part | Early Transformer intuition | Modern LLM decoder intuition |
 |---|---|---|
@@ -180,7 +180,7 @@ You can remember it like this:
 | FFN | Basic MLP / ReLU-style | Often SwiGLU gated FFN |
 | Main pressure | Make attention-based sequence modeling work | Scale depth, context, and inference efficiently |
 
-## 9. How this helps when reading model code
+## How this helps when reading model code
 
 When you open modern model code, do not search only for the word `Transformer`.
 

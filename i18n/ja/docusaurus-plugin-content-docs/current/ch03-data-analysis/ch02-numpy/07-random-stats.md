@@ -1,10 +1,10 @@
 ---
-title: "2.7 ランダム数と統計"
+title: "3.2.7 ランダム数と統計"
 sidebar_position: 8
 description: "NumPy の乱数生成、確率分布、統計演算を身につける"
 ---
 
-# ランダム数と統計
+# 3.2.7 ランダム数と統計
 
 ![NumPy ランダム数と統計マップ](/img/course/ch03-numpy-random-statistics-map-ja.png)
 

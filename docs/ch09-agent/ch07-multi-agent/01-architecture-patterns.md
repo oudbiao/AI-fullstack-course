@@ -1,11 +1,11 @@
 ---
-title: "7.2 Multi-Agent Architecture Patterns"
+title: "9.7.2 Multi-Agent Architecture Patterns"
 sidebar_position: 38
 description: "From supervisor patterns and pipeline patterns to collaboration and reviewer patterns, understand why multi-Agent systems need different roles and division of labor."
 keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architecture, collaboration]
 ---
 
-# Multi-Agent Architecture Patterns
+# 9.7.2 Multi-Agent Architecture Patterns
 
 ![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
 
@@ -30,9 +30,9 @@ That is the core problem multi-Agent architecture patterns are designed to solve
 
 ---
 
-## 1. Why doesn’t every task need multiple Agents?
+## Why doesn’t every task need multiple Agents?
 
-### 1.1 Multi-Agent is not the default upgrade path
+### Multi-Agent is not the default upgrade path
 
 If a task can already be completed stably by a single Agent, multi-Agent often only adds:
 
@@ -44,7 +44,7 @@ So a safer rule is usually:
 
 > **First make the single-Agent version solid, then consider whether it is really necessary to split into multiple Agents.**
 
-### 1.2 When is it worth using multiple Agents?
+### When is it worth using multiple Agents?
 
 Usually in these cases:
 
@@ -57,9 +57,9 @@ Only then does multi-Agent really make sense.
 
 ---
 
-## 2. First look at the most common patterns
+## First look at the most common patterns
 
-### 2.1 Supervisor-Worker pattern
+### Supervisor-Worker pattern
 
 A supervisor is responsible for:
 
@@ -71,7 +71,7 @@ Other workers are responsible for the actual execution.
 
 This is one of the most common and easiest patterns to understand.
 
-### 2.2 Pipeline pattern
+### Pipeline pattern
 
 Each Agent is responsible for a fixed stage:
 
@@ -81,13 +81,13 @@ Each Agent is responsible for a fixed stage:
 
 It is more like an assembly line.
 
-### 2.3 Reviewer pattern
+### Reviewer pattern
 
 One Agent generates output, and another is dedicated to checking or reviewing it.
 
 This is especially common in code, documentation, and report generation.
 
-### 2.4 Group / Peer pattern
+### Group / Peer pattern
 
 Multiple Agents collaborate as peers and negotiate with each other.
 
@@ -95,16 +95,16 @@ This pattern is more flexible, but also harder to control.
 
 ---
 
-## 3. Supervisor-Worker: the first pattern worth learning
+## Supervisor-Worker: the first pattern worth learning
 
-### 3.1 Why is it so common?
+### Why is it so common?
 
 Because it matches many real-world team structures:
 
 - A project manager or team lead breaks down the work
 - Team members handle the actual tasks
 
-### 3.2 A minimal runnable example
+### A minimal runnable example
 
 ```python
 tasks = ["retrieve materials", "organize key points", "write summary"]
@@ -125,7 +125,7 @@ for task in tasks:
     print(f"{worker} <- {task} ({workers[worker]})")
 ```
 
-### 3.3 Its strengths and weaknesses
+### Its strengths and weaknesses
 
 Strengths:
 
@@ -140,9 +140,9 @@ Weaknesses:
 
 ---
 
-## 4. Pipeline pattern: collaboration like a factory assembly line
+## Pipeline pattern: collaboration like a factory assembly line
 
-### 4.1 How is it different from the supervisor pattern?
+### How is it different from the supervisor pattern?
 
 The supervisor pattern emphasizes “one central controller.”
 The pipeline pattern emphasizes “tasks flowing through fixed stages.”
@@ -153,7 +153,7 @@ For example:
 2. Filter Agent removes noise
 3. Writer Agent generates the answer
 
-### 4.2 A minimal example
+### A minimal example
 
 ```python
 def retriever(query):
@@ -177,7 +177,7 @@ print(step2)
 print(step3)
 ```
 
-### 4.3 What is it suitable for?
+### What is it suitable for?
 
 Suitable for:
 
@@ -192,9 +192,9 @@ Not very suitable for:
 
 ---
 
-## 5. Reviewer pattern: separating generation and checking
+## Reviewer pattern: separating generation and checking
 
-### 5.1 Why is this pattern so practical?
+### Why is this pattern so practical?
 
 In many tasks, “generation” and “review” are naturally two different abilities.
 
@@ -204,7 +204,7 @@ For example:
 - Report writing vs. fact checking
 - Answer generation vs. risk review
 
-### 5.2 A runnable example
+### A runnable example
 
 ```python
 def writer_agent(topic):
@@ -222,7 +222,7 @@ print("draft :", draft)
 print("review:", review)
 ```
 
-### 5.3 Why is this pattern useful?
+### Why is this pattern useful?
 
 Because it separates “generation quality” from “checking quality” so they can be managed independently.
 
@@ -230,9 +230,9 @@ This is especially valuable in high-risk tasks.
 
 ---
 
-## 6. Peer / Group pattern: multiple Agents collaborate as equals
+## Peer / Group pattern: multiple Agents collaborate as equals
 
-### 6.1 It looks very free, but it is also harder to control
+### It looks very free, but it is also harder to control
 
 In this pattern, multiple Agents can propose ideas, debate, and add details.
 
@@ -253,7 +253,7 @@ Weaknesses:
 When reading this diagram, first check whether the task has a natural division of labor: choose supervisor-worker if you need central scheduling, choose pipeline if the stages are fixed, add a reviewer if you need quality checks, and only consider peer/group when you truly need multi-perspective discussion.
 :::
 
-### 6.2 When should you consider it?
+### When should you consider it?
 
 It is a better fit for:
 
@@ -265,7 +265,7 @@ But for many engineering systems, it may not be the most stable starting point.
 
 ---
 
-## 7. A very important question: who closes the loop?
+## A very important question: who closes the loop?
 
 No matter which pattern you use, you must answer this question:
 
@@ -281,27 +281,27 @@ That is also why many multi-Agent systems still end up with a “final decision 
 
 ---
 
-## 8. How to choose a multi-Agent architecture
+## How to choose a multi-Agent architecture
 
-### 8.1 If the task stages are fixed
+### If the task stages are fixed
 
 Prefer:
 
 - Pipeline pattern
 
-### 8.2 If the task needs central decomposition and scheduling
+### If the task needs central decomposition and scheduling
 
 Prefer:
 
 - Supervisor-Worker pattern
 
-### 8.3 If the task needs strong review and verification
+### If the task needs strong review and verification
 
 Prefer:
 
 - Writer-Reviewer pattern
 
-### 8.4 If the task itself is multi-perspective discussion
+### If the task itself is multi-perspective discussion
 
 Only then consider:
 
@@ -313,17 +313,17 @@ So the most important question is not “which pattern is more advanced,” but:
 
 ---
 
-## 9. Common mistakes beginners often make
+## Common mistakes beginners often make
 
-### 9.1 Treating multi-Agent as “just run a few more models”
+### Treating multi-Agent as “just run a few more models”
 
 What is really hard is the architecture, not the number.
 
-### 9.2 Choosing the most flexible collaboration pattern right away
+### Choosing the most flexible collaboration pattern right away
 
 The higher the flexibility, the harder debugging and convergence usually become.
 
-### 9.3 Not defining an end condition
+### Not defining an end condition
 
 This is the root cause of many multi-Agent demos looking smart but getting stuck in infinite loops when actually run.
 

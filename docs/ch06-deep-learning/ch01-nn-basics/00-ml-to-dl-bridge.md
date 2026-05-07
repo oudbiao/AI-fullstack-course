@@ -1,11 +1,11 @@
 ---
-title: "1.3 Transition: From Classical Machine Learning to Deep Learning"
+title: "6.1.3 Transition: From Classical Machine Learning to Deep Learning"
 sidebar_position: 2
 description: "Naturally bridge the linear models, tree models, evaluation, and feature engineering from Station 5 to the neural networks, PyTorch, and training loops of Station 6."
 keywords: [machine learning to deep learning, neural network bridge, from ML to DL, PyTorch bridge]
 ---
 
-# Transition: From Classical Machine Learning to Deep Learning
+# 6.1.3 Transition: From Classical Machine Learning to Deep Learning
 
 :::tip Section focus
 This is not a new algorithms lesson, but a “transition map.” It has only one job: when you move from Station 5 into Station 6, it should not feel like you suddenly switched to a different course.
@@ -35,7 +35,7 @@ So Station 6 is not overthrowing Station 5; it is continuing forward based on th
 
 ---
 
-## 1. What exactly have you already learned in Station 5?
+## What exactly have you already learned in Station 5?
 
 What Station 5 really taught you was not just a few model names, but the following modeling workflow:
 
@@ -47,7 +47,7 @@ What Station 5 really taught you was not just a few model names, but the followi
 
 None of these disappear in Station 6.
 
-### 1.1 What Station 6 truly adds is not “whether there is evaluation”
+### What Station 6 truly adds is not “whether there is evaluation”
 
 Many people mistakenly think deep learning uses a completely different logic.
 That is not the case. In Station 6, you still do the following:
@@ -61,11 +61,11 @@ What is truly new is the model’s representational power and the training metho
 
 ---
 
-## 2. Why we still need to learn neural networks after traditional ML
+## Why we still need to learn neural networks after traditional ML
 
 Classical machine learning is powerful, but it also has some very natural limits.
 
-### 2.1 Traditional ML relies more on “manual representation”
+### Traditional ML relies more on “manual representation”
 
 In Station 5, you repeatedly did things like these:
 
@@ -77,7 +77,7 @@ This is very important, but it also brings a limitation:
 
 - The upper bound of the model is often constrained by your feature engineering ability
 
-### 2.2 Deep learning emphasizes “learning representations automatically”
+### Deep learning emphasizes “learning representations automatically”
 
 The strongest point of deep learning can be understood simply as:
 
@@ -91,7 +91,7 @@ For example:
 
 This is the capability that Station 6 really adds.
 
-### 2.3 A simple comparison
+### A simple comparison
 
 | Problem | More common approach in Station 5 | More common approach in Station 6 |
 |---|---|---|
@@ -106,7 +106,7 @@ This does not mean Station 6 will definitely “replace” Station 5. Rather:
 
 ---
 
-## 3. The shared skeleton of Station 5 and Station 6 has not really changed
+## The shared skeleton of Station 5 and Station 6 has not really changed
 
 Although Station 6 introduces many new terms, the skeleton of training one model is still the same line as in Station 5:
 
@@ -136,7 +136,7 @@ So the biggest change in Station 6 is not “whether there is training,” but:
 
 ---
 
-## 4. Why Station 6 suddenly emphasizes gradients and backpropagation
+## Why Station 6 suddenly emphasizes gradients and backpropagation
 
 In Station 5, many training details are hidden inside libraries.
 In Station 6, you will start facing more directly:
@@ -151,7 +151,7 @@ At this point, you must truly understand:
 - What gradients represent
 - Why parameters get updated
 
-### 4.1 You can first understand backpropagation in plain language
+### You can first understand backpropagation in plain language
 
 Don’t rush to memorize the derivation first. Remember this sentence first:
 
@@ -159,7 +159,7 @@ Don’t rush to memorize the derivation first. Remember this sentence first:
 
 This sentence is the core of the entire Station 6 chapter.
 
-### 4.2 The optimization thinking from Station 5 has already laid the groundwork
+### The optimization thinking from Station 5 has already laid the groundwork
 
 In Station 5, you have already seen:
 
@@ -176,7 +176,7 @@ So Station 6 does not start from zero; it makes these things more explicit:
 
 ---
 
-## 5. Why Station 6 introduces PyTorch
+## Why Station 6 introduces PyTorch
 
 In Station 5, `scikit-learn` is very suitable for beginners because it wraps the workflow in a unified way.
 But in deep learning, you need more:
@@ -188,7 +188,7 @@ But in deep learning, you need more:
 
 That is why `PyTorch` enters the stage.
 
-### 5.1 First, distinguish the roles of sklearn and PyTorch
+### First, distinguish the roles of sklearn and PyTorch
 
 | Tool | What it is better at |
 |---|---|
@@ -200,7 +200,7 @@ So do not think of them as “one replacing the other.” Instead, understand th
 - Station 5 uses `sklearn` first to establish a machine learning workflow
 - Station 6 then uses `PyTorch` to open up the deep learning training process
 
-### 5.2 The most important bridging understanding
+### The most important bridging understanding
 
 If you already understand the following in Station 5:
 
@@ -215,7 +215,7 @@ Then in Station 6, you are only learning one more thing:
 
 ---
 
-## 6. What is most recommended to remember before entering Station 6
+## What is most recommended to remember before entering Station 6
 
 1. Station 6 does not overturn Station 5; it is built on top of Station 5
 2. The biggest new capability of deep learning is learning representations automatically
@@ -224,17 +224,17 @@ Then in Station 6, you are only learning one more thing:
 
 ---
 
-## 7. The most stable learning order after entering Station 6
+## The most stable learning order after entering Station 6
 
 If you are just coming from Station 5, it is recommended to follow this order:
 
-1. First read [1.1 Pre-course guide: what is this chapter on neural network basics really about](./00-roadmap.md)
+1. First read [6.1.1 Pre-course guide: what is this chapter on neural network basics really about](./00-roadmap.md)
    First place the terms neuron, forward pass, backward pass, and optimizer in the right positions.
 
-2. Then read [1.4 From neurons to multilayer perceptrons](./01-neurons-activation.md)
+2. Then read [6.1.4 From neurons to multilayer perceptrons](./01-neurons-activation.md)
    First understand what “one neuron” is actually doing.
 
-3. Then move on to [2.1 Pre-course guide: what is this chapter on PyTorch really about](../ch02-pytorch/00-roadmap.md)
+3. Then move on to [6.2.1 Pre-course guide: what is this chapter on PyTorch really about](../ch02-pytorch/00-roadmap.md)
    Then connect the training process using `Tensor / Autograd / Module / DataLoader / Training Loop`.
 
 This will be much more stable than jumping straight into complex network structures.

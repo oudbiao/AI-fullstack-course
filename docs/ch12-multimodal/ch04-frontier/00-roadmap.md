@@ -1,11 +1,11 @@
 ---
-title: "4.1 Preface: What Is This Chapter on Frontier Trends and Ethics Really About?"
+title: "12.4.1 Preface: What Is This Chapter on Frontier Trends and Ethics Really About?"
 sidebar_position: 0
 description: "Build a learning map for the AIGC frontier trends and ethics chapter: how technical trends, copyright and portrait rights, content safety, misinformation, regulations, and product responsibility together define real-world boundaries."
 keywords: [AIGC frontier overview, AI ethics overview, AI regulations overview, content safety, copyright compliance]
 ---
 
-# Preface: What Is This Chapter on Frontier Trends and Ethics Really About?
+# 12.4.1 Preface: What Is This Chapter on Frontier Trends and Ethics Really About?
 
 This chapter answers a key question: AIGC is not just a technical roadmap issue; it also involves product decisions, ethical boundaries, and compliance requirements.
 

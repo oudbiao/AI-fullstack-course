@@ -1,10 +1,10 @@
 ---
-title: "5.4 データベース設計"
+title: "3.5.5 データベース設計"
 sidebar_position: 24
 description: "適切なデータベース構造の設計方法を学び、正規化、インデックス、実践原則を身につける"
 ---
 
-# データベース設計
+# 3.5.5 データベース設計
 
 ![データベース設計と正規形の図](/img/course/ch03-database-design-erd-normalization-ja.png)
 

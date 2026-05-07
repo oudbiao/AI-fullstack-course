@@ -1,11 +1,11 @@
 ---
-title: "3.2 Clustering Algorithms"
+title: "5.3.2 Clustering Algorithms"
 sidebar_position: 7
 description: "Master clustering algorithms such as K-Means, K-Means++, hierarchical clustering, and DBSCAN, and understand how to choose K and evaluate clustering"
 keywords: [clustering, K-Means, DBSCAN, hierarchical clustering, elbow method, silhouette coefficient, unsupervised learning]
 ---
 
-# Clustering Algorithms
+# 5.3.2 Clustering Algorithms
 
 ![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids-en.png)
 
@@ -72,9 +72,9 @@ Read this comic from top to bottom: clustering starts from an unlabeled pile of 
 
 ---
 
-## 1. Intuition for Clustering
+## Intuition for Clustering
 
-### 1.1 What Is Clustering?
+### What Is Clustering?
 
 **Clustering = put “similar” things together and separate “different” things.**
 
@@ -98,7 +98,7 @@ flowchart LR
 | Image segmentation | Pixel color values | Split an image into foreground/background |
 | Gene analysis | Gene expression data | Find gene groups with similar functions |
 
-### 1.2 How Is Clustering Really Different from Classification?
+### How Is Clustering Really Different from Classification?
 
 These two words look similar, but they solve two completely different problems:
 
@@ -111,7 +111,7 @@ So when you first learn clustering, you must accept one thing:
 - It is more like a “hypothesis about data structure”
 - You need metrics and business interpretation to judge whether the hypothesis is useful
 
-### 1.2.1 A Better Analogy for Beginners
+### A Better Analogy for Beginners
 
 You can think of clustering as:
 
@@ -134,7 +134,7 @@ but for a grouping method that is:
 
 This diagram helps you avoid a common mistake: not every segmentation task is suited to K-Means. Round, similarly sized clusters are better for K-Means; curved shapes or noisy data are better candidates for DBSCAN; if you want to inspect hierarchical relationships, consider hierarchical clustering. First look at the data shape, then choose the algorithm.
 
-### 1.3 Generate Demo Data
+### Generate Demo Data
 
 ```python
 import numpy as np
@@ -167,9 +167,9 @@ Hidden true groups: [0 1 2]
 
 ---
 
-## 2. K-Means Clustering
+## K-Means Clustering
 
-### 2.1 Algorithm Principle
+### Algorithm Principle
 
 K-Means is the most classic clustering algorithm, and its steps are very simple:
 
@@ -185,7 +185,7 @@ flowchart TD
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 Implement K-Means from Scratch
+### Implement K-Means from Scratch
 
 ```python
 def kmeans_simple(X, k, max_iters=100, seed=42):
@@ -239,7 +239,7 @@ Centroids rounded:
 
 The exact cluster numbers may change because cluster IDs are arbitrary. What matters is not whether a group is called `0` or `1`, but whether nearby points are grouped consistently.
 
-### 2.3 Implement with sklearn
+### Implement with sklearn
 
 ```python
 from sklearn.cluster import KMeans
@@ -284,7 +284,7 @@ Total inertia (SSE): 362.79
 
 `fit()` means “learn the centroids from data.” `labels_` stores the final group assignment for every row, and `cluster_centers_` stores the learned centroids.
 
-### 2.4 Visualizing the K-Means Iteration Process
+### Visualizing the K-Means Iteration Process
 
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
@@ -314,16 +314,16 @@ plt.show()
 
 ---
 
-## 3. K-Means++ Initialization
+## K-Means++ Initialization
 
-### 3.1 Why Do We Need Better Initialization?
+### Why Do We Need Better Initialization?
 
 Plain K-Means randomly chooses initial centroids, which may pick poor starting positions and lead to:
 - Slower convergence
 - Unstable results
 - Local optima
 
-### 3.2 K-Means++ Strategy
+### K-Means++ Strategy
 
 **Core idea**: make the initial centroids as spread out as possible.
 
@@ -358,11 +358,11 @@ The random run can start from unlucky centroids and end with a much larger inert
 
 ---
 
-## 4. How Do You Choose K?
+## How Do You Choose K?
 
 The biggest issue with K-Means is that **you must specify K in advance**. Two common methods are used to determine the best K.
 
-### 4.1 Elbow Method
+### Elbow Method
 
 Compute SSE (Sum of Squared Errors, i.e. `inertia_`) for different K values and look for the “elbow point.”
 
@@ -398,7 +398,7 @@ Expected output:
 SSE by K: [20120.54, 5526.51, 362.79, 318.07, 273.36, 233.6, 200.97, 172.85, 149.96, 139.27]
 ```
 
-### 4.1.1 The Most Common Mistake with the Elbow Method
+### The Most Common Mistake with the Elbow Method
 
 The elbow method is intuitive, but in real-world data there is often no clearly visible “elbow.”
 In that case, do not force a single answer. Treat it as:
@@ -410,7 +410,7 @@ A more reliable approach is:
 - First use the elbow method to narrow K down to 2–4 candidate values
 - Then use the silhouette coefficient and business interpretability for a second round of judgment
 
-### 4.2 Silhouette Score
+### Silhouette Score
 
 The silhouette coefficient measures clustering quality for each sample, with values in [-1, 1]:
 - **Close to 1**: the sample is very close to its own cluster and far from other clusters (good)
@@ -438,7 +438,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.3 Silhouette Plot Visualization
+### Silhouette Plot Visualization
 
 ```python
 from sklearn.metrics import silhouette_samples
@@ -472,7 +472,7 @@ plt.show()
 
 If the silhouette plot for a cluster contains many values near 0 or below 0, that cluster probably overlaps with another cluster. If most bars are long and positive, the grouping is cleaner.
 
-### 4.4 What Is the Safer Order for Your First Clustering Project?
+### What Is the Safer Order for Your First Clustering Project?
 
 If this is your first time applying clustering in a real project, you can follow this order:
 
@@ -487,9 +487,9 @@ This step is very important, because clustering projects most easily get stuck i
 
 ---
 
-## 5. Hierarchical Clustering
+## Hierarchical Clustering
 
-### 5.1 Principle
+### Principle
 
 Hierarchical clustering does not require you to predefine K. It builds a **dendrogram**:
 
@@ -538,7 +538,7 @@ Hierarchical cluster labels: [0 1 2]
 
 The linkage matrix has 49 rows because 50 small samples require 49 merge steps to become one tree. This is the meaning of “hierarchical”: you can cut the tree at different heights and get different numbers of clusters.
 
-### 5.2 Linkage Methods
+### Linkage Methods
 
 | Method | How distance between two clusters is defined | Characteristics |
 |------|-------------------|------|
@@ -549,9 +549,9 @@ The linkage matrix has 49 rows because 50 small samples require 49 merge steps t
 
 ---
 
-## 6. DBSCAN Density-Based Clustering
+## DBSCAN Density-Based Clustering
 
-### 6.1 The Limitation of K-Means
+### The Limitation of K-Means
 
 K-Means assumes clusters are **spherical**, so it performs poorly on non-spherical data:
 
@@ -593,7 +593,7 @@ K-Means circle labels: [0 1]
 
 This output is intentionally misleading: K-Means does produce two labels, but the plot shows those labels cut through the curved shapes. A runnable result is not automatically a good clustering result.
 
-### 6.2 DBSCAN Principle
+### DBSCAN Principle
 
 DBSCAN (Density-Based Spatial Clustering of Applications with Noise) clusters based on **density**:
 
@@ -618,7 +618,7 @@ flowchart TD
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 6.3 DBSCAN in Practice
+### DBSCAN in Practice
 
 ```python
 from sklearn.cluster import DBSCAN
@@ -675,7 +675,7 @@ DBSCAN spherical: clusters=3, noise=5
 
 This is also a useful warning: DBSCAN handles the half-moon shape well here, but the same parameters do not automatically solve every shape. For the concentric circles, `eps=0.15` is too strict and splits the rings into more groups.
 
-### 6.4 Tuning DBSCAN Parameters
+### Tuning DBSCAN Parameters
 
 ```python
 # Effect of eps
@@ -708,7 +708,7 @@ eps=1.0: clusters=1, noise=0
 
 Think of `eps` like the radius of a flashlight. If the light circle is too small, every dense area breaks apart; if it is too large, separate groups are swallowed into one.
 
-### 6.5 Advantages and Disadvantages of DBSCAN
+### Advantages and Disadvantages of DBSCAN
 
 | Advantages | Disadvantages |
 |------|------|
@@ -717,7 +717,7 @@ Think of `eps` like the radius of a flashlight. If the light circle is too small
 | Automatically identifies noise points | Hard to handle clusters with different densities |
 | Robust to outliers | Sensitive to parameters |
 
-### 6.6 When Choosing a Clustering Algorithm for the First Time, What Is the Safest Way to Judge?
+### When Choosing a Clustering Algorithm for the First Time, What Is the Safest Way to Judge?
 
 You can start with this simple decision table:
 
@@ -736,7 +736,7 @@ The reason is not that it is always the best, but that:
 
 ---
 
-## 7. Comparison of Clustering Algorithms
+## Comparison of Clustering Algorithms
 
 ```python
 from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
@@ -792,7 +792,7 @@ plt.show()
 
 ---
 
-## 8. Safest Default Order for Putting Clustering into a Project
+## Safest Default Order for Putting Clustering into a Project
 
 When you first put clustering into a real project, you can follow this order:
 

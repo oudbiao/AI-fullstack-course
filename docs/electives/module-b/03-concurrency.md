@@ -1,11 +1,11 @@
 ---
-title: "1.3 Concurrent Programming (Including asyncio)"
+title: "E.B.3 Concurrent Programming (Including asyncio)"
 sidebar_position: 10
 description: "Start with I/O-bound tasks, understand the boundaries of threads, coroutines, and asyncio in service code, and learn a minimal concurrency controller."
 keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 ---
 
-# Concurrent Programming (Including asyncio)
+# E.B.3 Concurrent Programming (Including asyncio)
 
 ![asyncio concurrency control flowchart](/img/course/elective-asyncio-concurrency-control-en.png)
 
@@ -33,9 +33,9 @@ Especially in AI applications and service-side code, many tasks are fundamentall
 
 ---
 
-## 1. Why do so many Python projects end up using asyncio?
+## Why do so many Python projects end up using asyncio?
 
-### 1.1 Because many tasks are just “waiting”
+### Because many tasks are just “waiting”
 
 For example:
 
@@ -46,7 +46,7 @@ For example:
 For these tasks, the real time cost is not CPU computation,
 but waiting for external I/O.
 
-### 1.2 The core value of asyncio
+### The core value of asyncio
 
 It lets you move on to other tasks
 while one task is waiting.
@@ -58,14 +58,14 @@ This is especially suitable for:
 - multi-tool services
 - batch requests
 
-### 1.3 An analogy
+### An analogy
 
 Synchronous code is like one counter serving one person at a time.
 Asynchronous code is more like taking a ticket and waiting in line: while the counter is waiting for one person’s documents, it can handle someone else’s request first.
 
 ---
 
-## 2. Let’s first look at a minimal asynchronous concurrency example
+## Let’s first look at a minimal asynchronous concurrency example
 
 ```python
 import asyncio
@@ -87,7 +87,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 2.1 What is this code really trying to show?
+### What is this code really trying to show?
 
 It shows that:
 
@@ -102,7 +102,7 @@ instead of:
 
 - `max(0.2, 0.1)`
 
-### 2.2 Why is this so common in AI applications?
+### Why is this so common in AI applications?
 
 Because many applications do all of these at the same time:
 
@@ -114,9 +114,9 @@ These tasks are not CPU-heavy; they are waiting-heavy.
 
 ---
 
-## 3. Why is more concurrency not always better?
+## Why is more concurrency not always better?
 
-### 3.1 Too much concurrency can overwhelm upstream services
+### Too much concurrency can overwhelm upstream services
 
 If you send 1000 requests at once,
 it may not be faster; instead, you may get:
@@ -125,7 +125,7 @@ it may not be faster; instead, you may get:
 - more timeouts
 - upstream cascading failures
 
-### 3.2 So you often need a concurrency limit
+### So you often need a concurrency limit
 
 One of the simplest tools is:
 
@@ -157,7 +157,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.3 What is the most important thing to learn from this code?
+### What is the most important thing to learn from this code?
 
 Concurrency is not only about “can they run together,”
 but also about:
@@ -168,9 +168,9 @@ This is exactly one of the key control points in many production services.
 
 ---
 
-## 4. Why are timeout and cancellation also important?
+## Why are timeout and cancellation also important?
 
-### 4.1 Without a timeout, slow tasks can hang forever
+### Without a timeout, slow tasks can hang forever
 
 This is very dangerous when you depend on many external systems.
 A common approach is:
@@ -197,7 +197,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 4.2 Why is this especially important for Agent systems?
+### Why is this especially important for Agent systems?
 
 Because Agents often depend on:
 
@@ -209,9 +209,9 @@ Without timeouts, the whole chain can easily get stuck.
 
 ---
 
-## 5. When should you not prioritize asyncio?
+## When should you not prioritize asyncio?
 
-### 5.1 Pure CPU-bound tasks
+### Pure CPU-bound tasks
 
 For example:
 
@@ -223,7 +223,7 @@ These tasks are better suited for:
 - multiprocessing
 - native high-performance libraries
 
-### 5.2 Your team is not ready for asynchronous complexity yet
+### Your team is not ready for asynchronous complexity yet
 
 Async code introduces:
 
@@ -232,25 +232,25 @@ Async code introduces:
 
 If the scenario does not need it, there is no need to force it.
 
-### 5.3 Synchronous code is already simple enough and stable enough
+### Synchronous code is already simple enough and stable enough
 
 For small scripts and small tasks,
 synchronous code can actually be clearer.
 
 ---
 
-## 6. The most common misconceptions
+## The most common misconceptions
 
-### 6.1 Misconception 1: concurrency always means faster
+### Misconception 1: concurrency always means faster
 
 Not necessarily.
 The key is whether the task is I/O-bound.
 
-### 6.2 Misconception 2: `async` should be added everywhere
+### Misconception 2: `async` should be added everywhere
 
 Async is a technique, not a style badge.
 
-### 6.3 Misconception 3: knowing `gather` means you know asyncio
+### Misconception 3: knowing `gather` means you know asyncio
 
 In real projects, what often matters more is:
 

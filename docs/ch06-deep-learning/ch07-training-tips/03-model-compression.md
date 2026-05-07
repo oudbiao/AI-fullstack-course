@@ -1,11 +1,11 @@
 ---
-title: "7.4 Model Compression [Elective]"
+title: "6.7.4 Model Compression [Elective]"
 sidebar_position: 3
 description: "Starting from quantization, pruning, and distillation, understand why model compression is essentially a trade-off between deployment and accuracy."
 keywords: [model compression, quantization, pruning, distillation, deployment]
 ---
 
-# Model Compression [Elective]
+# 6.7.4 Model Compression [Elective]
 
 :::tip Section Overview
 Model compression is not about pursuing the single goal of “making the model smaller.”
@@ -48,22 +48,22 @@ flowchart LR
 
 The most important thing in this section is to build the habit of “identify the pain point first, then choose the path.”
 
-## 1. What exactly are we trading with model compression?
+## What exactly are we trading with model compression?
 
-### 1.1 Common benefits
+### Common benefits
 
 - Smaller memory footprint
 - Lower latency
 - Higher throughput
 - Better fit for edge devices
 
-### 1.2 Common costs
+### Common costs
 
 - Lower accuracy
 - Increased engineering complexity
 - Harder debugging
 
-### 1.3 An analogy
+### An analogy
 
 Model compression is like packing for a business trip.
 Of course you want the suitcase to be as light as possible,
@@ -71,21 +71,21 @@ but you cannot throw away everything important.
 
 ---
 
-## 2. Three of the most common compression paths
+## Three of the most common compression paths
 
-### 2.1 Quantization
+### Quantization
 
 Convert high-precision values into lower-precision representations.
 
-### 2.2 Pruning
+### Pruning
 
 Remove weights, channels, or structures that are not very important.
 
-### 2.3 Distillation
+### Distillation
 
 Train a smaller model to imitate the behavior of a larger model.
 
-### 2.4 A more beginner-friendly way to think about them
+### A more beginner-friendly way to think about them
 
 If these three approaches feel easy to mix up, you can remember them like this first:
 
@@ -101,7 +101,7 @@ They are all called “compression,” but the place where you actually work is 
 
 ---
 
-## 3. First, look at a minimal quantization error example
+## First, look at a minimal quantization error example
 
 ```python
 weights = [0.12, -1.87, 3.44, -0.03]
@@ -125,7 +125,7 @@ print("q8 mae  :", round(mae(weights, q8_like), 4))
 print("q4 mae  :", round(mae(weights, q4_like), 4))
 ```
 
-### 3.1 What is the most important insight from this example?
+### What is the most important insight from this example?
 
 The more aggressively you compress, the larger the error usually becomes.
 So the core question in quantization is not:
@@ -136,7 +136,7 @@ But rather:
 
 - After compression, can the business still accept the result?
 
-### 3.2 Why is this highly related to real deployment?
+### Why is this highly related to real deployment?
 
 Because one of the most common deployment questions is:
 
@@ -144,7 +144,7 @@ Because one of the most common deployment questions is:
 
 Quantization is often the first solution people think of.
 
-### 3.3 Another minimal example: estimating “model size”
+### Another minimal example: estimating “model size”
 
 When many beginners first do compression experiments, the biggest problem is not that they cannot quantize,
 but that they have no idea at all:
@@ -185,21 +185,21 @@ That is also why quantization is often the first choice.
 
 ---
 
-## 4. When should you think about quantization, pruning, or distillation?
+## When should you think about quantization, pruning, or distillation?
 
-### 4.1 Quantization
+### Quantization
 
 Better when you want to quickly reduce memory usage and speed up inference.
 
-### 4.2 Pruning
+### Pruning
 
 Better when you clearly know there is a lot of redundant structure.
 
-### 4.3 Distillation
+### Distillation
 
 Better when you are willing to retrain a smaller model.
 
-### 4.4 A decision table beginners can use directly
+### A decision table beginners can use directly
 
 | Scenario | Higher priority |
 |---|---|
@@ -209,7 +209,7 @@ Better when you are willing to retrain a smaller model.
 
 This table is not always perfect, but it is enough for the first round of decisions.
 
-### 4.5 A flowchart that feels closer to real engineering
+### A flowchart that feels closer to real engineering
 
 ```mermaid
 flowchart TD
@@ -233,9 +233,9 @@ What this diagram most wants to help you build is a habit:
 
 ---
 
-## 5. The most common pitfalls
+## The most common pitfalls
 
-### 5.1 Misconception 1: Compression always makes things faster
+### Misconception 1: Compression always makes things faster
 
 Not necessarily.
 You also need to consider:
@@ -243,11 +243,11 @@ You also need to consider:
 - Hardware support
 - Inference engine support
 
-### 5.2 Misconception 2: Only look at model size, not task metrics
+### Misconception 2: Only look at model size, not task metrics
 
 Deployment benefits only matter if the model is still usable for the task.
 
-### 5.3 Misconception 3: Compress first and think later
+### Misconception 3: Compress first and think later
 
 A more reliable order is usually:
 

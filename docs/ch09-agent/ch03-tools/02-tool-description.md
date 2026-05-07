@@ -1,11 +1,11 @@
 ---
-title: "3.3 Tool Description and Discovery"
+title: "9.3.3 Tool Description and Discovery"
 sidebar_position: 12
 description: "Starting from tool schema, tags, permissions, and return structure, understand why an Agent must first “make sense of the tools” before it can reliably choose the right one."
 keywords: [tool description, tool discovery, schema, registry, metadata, agent tools]
 ---
 
-# Tool Description and Discovery
+# 9.3.3 Tool Description and Discovery
 
 :::tip Section overview
 When many people build Agents, they first connect the tool functions and then let the model choose by itself.
@@ -50,9 +50,9 @@ So the purpose of tool description is not “to add more fields,” but to:
 
 ---
 
-## 1. Why can’t tools exist based on function names alone?
+## Why can’t tools exist based on function names alone?
 
-### 1.1 Clear enough for programmers, not necessarily for models
+### Clear enough for programmers, not necessarily for models
 
 For example, these two function names:
 
@@ -68,7 +68,7 @@ but the model does not know:
 
 Without descriptions, the model only sees two names that look similar.
 
-### 1.2 Tool description is essentially about reducing ambiguity
+### Tool description is essentially about reducing ambiguity
 
 A good tool description should answer at least:
 
@@ -81,7 +81,7 @@ A good tool description should answer at least:
 The clearer this information is,
 the easier it is for the model to make a stable choice.
 
-### 1.3 An analogy: a shopping mall guide is more important than shelf numbers
+### An analogy: a shopping mall guide is more important than shelf numbers
 
 A tool registry is a bit like a shopping mall guidebook.
 
@@ -93,9 +93,9 @@ both users and models can easily find the wrong thing.
 
 ---
 
-## 2. What should a tool description include at minimum?
+## What should a tool description include at minimum?
 
-### 2.1 The name should reflect the purpose, not just implementation details
+### The name should reflect the purpose, not just implementation details
 
 For example:
 
@@ -105,7 +105,7 @@ For example:
 Because when the model chooses tools,
 it depends more on semantics than on implementation details.
 
-### 2.2 The description should clearly say “when to use it”
+### The description should clearly say “when to use it”
 
 Don’t just write:
 
@@ -117,7 +117,7 @@ A better version is:
 
 This directly reduces incorrect calls.
 
-### 2.3 Parameter descriptions should answer “how to fill them in”
+### Parameter descriptions should answer “how to fill them in”
 
 For example:
 
@@ -126,7 +126,7 @@ For example:
 - What is an example value?
 - Is it required?
 
-### 2.4 The return structure should also be defined
+### The return structure should also be defined
 
 If the tool’s return structure is completely arbitrary,
 it becomes hard for the model and the scheduler to handle it reliably later.
@@ -137,7 +137,7 @@ So it is better to clearly define:
 - Fields on failure
 - Error codes or error types
 
-### 2.5 A tool description card that is very useful for beginners to remember first
+### A tool description card that is very useful for beginners to remember first
 
 | Field | What it should answer at minimum |
 |---|---|
@@ -157,7 +157,7 @@ Think of tool descriptions as “instructions written for the model.” Every fi
 
 ---
 
-## 3. First run a more realistic tool registry example
+## First run a more realistic tool registry example
 
 The code below does three things:
 
@@ -223,14 +223,14 @@ for query in queries:
     print(query, "->", discover_tools(query, TOOL_REGISTRY))
 ```
 
-### 3.1 What is this code really teaching?
+### What is this code really teaching?
 
 It teaches two especially important things:
 
 1. Tools are not “bare functions,” but objects with metadata
 2. Tool discovery is essentially matching between “needs” and “tool descriptions”
 
-### 3.2 Why are `tags` useful?
+### Why are `tags` useful?
 
 Because users do not always use exactly the same words as the tool name.
 For example:
@@ -240,7 +240,7 @@ For example:
 
 Without tags, the discovery stage may easily miss candidate tools.
 
-### 3.3 Why does this only return candidates instead of executing directly?
+### Why does this only return candidates instead of executing directly?
 
 Because “discovery” is only the first step.
 It solves:
@@ -253,7 +253,7 @@ Usually, the system still needs to continue with:
 - Tool selection
 - Execution and validation
 
-### 3.4 Another minimal “candidate tool filtering table” example
+### Another minimal “candidate tool filtering table” example
 
 ```python
 query = "What is the refund policy"
@@ -270,9 +270,9 @@ This example is very suitable for beginners, because it helps you see first that
 
 ---
 
-## 4. In real systems, discovery usually involves more than one method
+## In real systems, discovery usually involves more than one method
 
-### 4.1 Keyword / tag matching
+### Keyword / tag matching
 
 This is the most intuitive layer, and its advantages are:
 
@@ -283,7 +283,7 @@ Its drawback is:
 
 - Weak semantic generalization
 
-### 4.2 Vector-retrieval-based tool discovery
+### Vector-retrieval-based tool discovery
 
 When there are many tools,
 a common approach becomes:
@@ -296,7 +296,7 @@ This is more suitable for:
 - A large number of tools
 - Longer tool descriptions
 
-### 4.3 Explicit routing rules
+### Explicit routing rules
 
 In some high-risk systems,
 tool discovery is not left entirely to the model,
@@ -308,7 +308,7 @@ and rules are added first:
 This shows that tool discovery is not just a recall problem,
 but also a policy problem.
 
-### 4.4 The safest default order when building a tool system for the first time
+### The safest default order when building a tool system for the first time
 
 A more stable sequence is usually:
 
@@ -321,9 +321,9 @@ This is more stable than focusing from the start on whether the model can “aut
 
 ---
 
-## 5. Why is the return structure also part of “tool description”?
+## Why is the return structure also part of “tool description”?
 
-### 5.1 Because discovery is not only about “finding a tool,” but also about whether it can connect to later steps
+### Because discovery is not only about “finding a tool,” but also about whether it can connect to later steps
 
 For example:
 
@@ -333,7 +333,7 @@ For example:
 If the downstream system needs to merge them into the same reply,
 the clearer the returned fields are, the more stable the whole flow will be.
 
-### 5.2 A simple unified return convention
+### A simple unified return convention
 
 ```python
 def normalize_tool_result(ok, data=None, error=None):
@@ -356,14 +356,14 @@ The benefits of a unified return structure are:
 
 ---
 
-## 6. Common pitfalls in tool descriptions
+## Common pitfalls in tool descriptions
 
-### 6.1 Mistake 1: A clear function signature is enough
+### Mistake 1: A clear function signature is enough
 
 That may be enough for programmers,
 but it is usually not enough for models.
 
-### 6.2 Mistake 2: The shorter the tool description, the better
+### Mistake 2: The shorter the tool description, the better
 
 Too short will cause ambiguity.
 What really matters in a tool description is:
@@ -373,7 +373,7 @@ What really matters in a tool description is:
 
 Not just brevity.
 
-### 6.3 Mistake 3: Discovery only needs to retrieve one tool
+### Mistake 3: Discovery only needs to retrieve one tool
 
 If the candidate set is poor,
 the later selection and execution will also be poor.

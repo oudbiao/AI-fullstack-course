@@ -1,11 +1,11 @@
 ---
-title: "1.3 Matrices: Batch Transformations of Data"
+title: "4.1.3 Matrices: Batch Transformations of Data"
 sidebar_position: 2
 description: "Understand the intuitive meaning of matrices, master matrix multiplication, transpose, and inverse matrices, and understand the role of matrices in neural networks"
 keywords: [matrices, matrix multiplication, transpose, inverse matrix, NumPy, neural network, linear algebra]
 ---
 
-# Matrices: Batch Transformations of Data
+# 4.1.3 Matrices: Batch Transformations of Data
 
 ![Matrix linear transformation grid diagram](/img/course/matrix-linear-transform-grid-en.png)
 
@@ -53,13 +53,13 @@ So the most important thing in this section is not memorizing the matrix definit
 
 Unless a snippet explicitly says otherwise, assume it needs `import numpy as np`. Plotting examples also need `import matplotlib.pyplot as plt`.
 
-## 1. What is a matrix?
+## What is a matrix?
 
-### 1.1 Two ways to understand it
+### Two ways to understand it
 
 **Idea 1: A matrix is just a table**
 
-### 1.1.1 A better analogy for beginners
+### A better analogy for beginners
 
 If a vector is like “an information card for an object,”
 then a matrix can first be understood as:
@@ -101,7 +101,7 @@ flowchart LR
 
 This is the core idea of linear algebra: **a matrix = a transformation**.
 
-### 1.2 Basic matrix properties
+### Basic matrix properties
 
 ```python
 M = np.array([
@@ -118,7 +118,7 @@ print(f"Row 0: {M[0]}")                  # [1 2 3]
 print(f"Row 1, Column 2: {M[1, 2]}")     # 6
 ```
 
-### 1.3 From “one sample” to “a batch of samples”
+### From “one sample” to “a batch of samples”
 
 If you already learned vectors, you can think of a matrix as:
 
@@ -151,9 +151,9 @@ This is the most common way data is organized in machine learning and deep learn
 
 ---
 
-## 2. Basic matrix operations
+## Basic matrix operations
 
-### 2.1 Matrix addition and scalar multiplication
+### Matrix addition and scalar multiplication
 
 Just like vectors — **add/multiply corresponding positions**:
 
@@ -165,7 +165,7 @@ print("Addition:\n", A + B)     # [[6, 8], [10, 12]]
 print("Scalar multiplication:\n", 3 * A)     # [[3, 6], [9, 12]]
 ```
 
-### 2.2 Matrix multiplication — the most important operation
+### Matrix multiplication — the most important operation
 
 Matrix multiplication is **completely different** from normal number multiplication! The rule is:
 
@@ -194,7 +194,7 @@ print(C)
 - C[1,0] = 3×5 + 4×7 = 15 + 28 = 43
 - C[1,1] = 3×6 + 4×8 = 18 + 32 = 50
 
-### 2.3 Size rules for matrix multiplication
+### Size rules for matrix multiplication
 
 ```mermaid
 flowchart LR
@@ -236,7 +236,7 @@ print("B @ A =\n", B @ A)
 print("A@B == B@A?", np.array_equal(A @ B, B @ A))  # False
 ```
 
-### 2.4 Hand-calculate one “sample matrix × weight matrix”
+### Hand-calculate one “sample matrix × weight matrix”
 
 This is one of the most important steps for beginners to fully understand, because it directly connects to neural networks later.
 
@@ -274,7 +274,7 @@ The power of matrix multiplication is:
 
 > **It does not compute only one sample — it computes a whole batch at once.**
 
-### 2.5 The 4-step shape check beginners need most
+### The 4-step shape check beginners need most
 
 When your matrix multiplication keeps failing, do not panic. Check these four things first:
 
@@ -291,9 +291,9 @@ print("Z.shape =", (X @ W).shape)
 
 ---
 
-## 3. Matrices as “transformations” — intuitive visualization
+## Matrices as “transformations” — intuitive visualization
 
-### 3.1 Rotation transform
+### Rotation transform
 
 Matrices can perform **rotation, scaling, shearing**, and other transformations on vectors. Below, we use a matrix to rotate a set of 2D points.
 
@@ -350,7 +350,7 @@ plt.show()
 
 **Key insight**: multiplying a 2×2 matrix by a 2D vector completes a spatial transformation. This idea generalizes to any dimension.
 
-### 3.2 Different transformation effects
+### Different transformation effects
 
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
@@ -385,9 +385,9 @@ plt.show()
 
 ---
 
-## 4. Transpose and inverse matrices
+## Transpose and inverse matrices
 
-### 4.1 Transpose
+### Transpose
 
 **Transpose = swap rows and columns**. The original i-th row becomes the i-th column.
 
@@ -413,7 +413,7 @@ Transpose of A:
 - Data processing: converting “rows are samples, columns are features” into “rows are features, columns are samples”
 - Matrix operations: some formulas require transpose to make matrix dimensions match
 
-### 4.2 Special matrices
+### Special matrices
 
 ```python
 # Identity matrix (all 1s on the diagonal)
@@ -432,7 +432,7 @@ print("A @ I == A?", np.allclose(A @ np.eye(2), A))  # True
 In number operations, any number multiplied by 1 stays the same. In matrix operations, any matrix multiplied by the identity matrix also stays the same.
 :::
 
-### 4.3 Inverse matrix
+### Inverse matrix
 
 If matrix A is a “transformation,” then its inverse matrix A⁻¹ is the **“reverse transformation”** — it undoes A’s operation.
 
@@ -479,9 +479,9 @@ Intuition: such a matrix flattens 2D space into a line, information is lost, and
 
 ---
 
-## 5. Matrices and neural networks
+## Matrices and neural networks
 
-### 5.1 The essence of neural networks
+### The essence of neural networks
 
 This is the most important insight in the whole lesson: **each layer of a neural network is essentially a matrix multiplication + an activation function.**
 
@@ -497,7 +497,7 @@ flowchart LR
     style Y fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 5.2 From the single-neuron formula to the matrix formula
+### From the single-neuron formula to the matrix formula
 
 If you only look at a single sample, one neural network layer is actually:
 
@@ -531,7 +531,7 @@ Here:
 - `b` is the bias
 - `Z` is the linear output
 
-### 5.3 Simulating one neural network layer with code
+### Simulating one neural network layer with code
 
 ```python
 # Simulate the forward pass of one neural network layer
@@ -585,7 +585,7 @@ Final output:
 - Matrix multiplication processes all samples at once — this is the power of **batch computation**
 - The bias `b` has shape `(2,)`. NumPy automatically adds it to every row of `Z`; this is called broadcasting.
 
-### 5.4 Multi-layer network = chained matrix multiplications
+### Multi-layer network = chained matrix multiplications
 
 ```python
 # Simulate a 3-layer neural network
@@ -609,7 +609,7 @@ output = h2 @ W3  # output layers usually do not use ReLU
 print(f"Final output:   {output.shape}")  # (5, 2)
 ```
 
-### 5.5 The 3 matrix mistakes beginners make most easily
+### The 3 matrix mistakes beginners make most easily
 
 1. Mistaking element-wise multiplication `A * B` for matrix multiplication
    Real matrix multiplication uses `A @ B`.
@@ -630,7 +630,7 @@ The activation function introduces **nonlinearity**, allowing the network to lea
 
 ---
 
-## 6. Practical use case: solving linear equations
+## Practical use case: solving linear equations
 
 One classic application of matrices is solving systems of linear equations.
 
@@ -659,7 +659,7 @@ print(f"Check: A @ x = {A @ x}")  # [5. 7.] ✓
 
 ---
 
-## 7. NumPy matrix operations summary
+## NumPy matrix operations summary
 
 ```python
 import numpy as np
@@ -709,7 +709,7 @@ After reading about matrices, the most valuable questions to bring forward are:
 
 These questions will naturally lead you to:
 
-- [Eigenvalues and Eigenvectors](./03-eigenvalues.md)
+- [4.1.4 Eigenvalues and Eigenvectors](./03-eigenvalues.md)
 
 :::info Connecting to later topics
 - **Next section**: Eigenvalues and eigenvectors — special vectors that “do not change direction” under matrix transformation

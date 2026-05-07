@@ -81,7 +81,7 @@ The second chapter covers advanced Python topics, including object-oriented prog
 
 The third chapter moves into hands-on projects. You will combine the previous knowledge to complete a command-line task manager, a web scraper, a Web API, and a quick AI API demo.
 
-If you want one page that connects the whole stage into a follow-along flow, do [2.5 Follow-Along Workshop: Build a Local Learning Task Assistant](./ch03-projects/05-hands-on-python-workshop.md). It uses only the Python standard library to practice CLI commands, JSON saving, error handling, statistics, and report export.
+If you want one page that connects the whole stage into a follow-along flow, do [2.3.5 Follow-Along Workshop: Build a Local Learning Task Assistant](./ch03-projects/05-hands-on-python-workshop.md). It uses only the Python standard library to practice CLI commands, JSON saving, error handling, statistics, and report export.
 
 ## What You Should Be Able to Do After Learning This Stage
 
@@ -142,7 +142,7 @@ You do not need to build a complete CLI right away. First prove that the program
 
 The basic version is to complete a command-line task manager that can add, view, complete, and delete tasks, and save data to a JSON file. The standard version continues with a web scraper and a Web API, connecting “data collection, data storage, and external interfaces.” The challenge version integrates an AI API to build a small assistant with multi-turn conversation, exception handling, and token usage prompts, and then organizes the four projects into a portfolio.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Python Programming Without Getting Stuck Easily](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [2.0 Study Guide: How to Learn Python Programming Without Getting Stuck Easily](./study-guide.md).
 
 
 

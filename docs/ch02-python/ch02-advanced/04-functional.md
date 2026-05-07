@@ -1,10 +1,10 @@
 ---
-title: "1.4 Basics of Functional Programming"
+title: "2.2.4 Basics of Functional Programming"
 sidebar_position: 4
 description: "Master the core tools of Python functional programming"
 ---
 
-# Basics of Functional Programming
+# 2.2.4 Basics of Functional Programming
 
 ![Functional data pipeline diagram](/img/course/ch02-functional-pipeline-en.png)
 

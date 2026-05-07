@@ -15,19 +15,19 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 ![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.png)
 
-[クイック体験を動かす](/intro/quick-experience)：用語を覚える前に、入力 -> モデル -> 出力を見ます。
+[0.1 クイック体験を動かす](/intro/quick-experience)：用語を覚える前に、入力 -> モデル -> 出力を見ます。
 
 ![AIコース最小セットアップキット](/img/course/intro-minimal-setup-kit-ja.png)
 
-[最小環境を準備する](/intro/environment-setup)：最初の週は Python、Git、プロジェクトフォルダで十分です。
+[0.2 最小環境を準備する](/intro/environment-setup)：最初の週は Python、Git、プロジェクトフォルダで十分です。
 
 ![AI フルスタック能力マップ](/img/course/intro-ai-fullstack-capability-map-ja.png)
 
-[能力マップを見る](/intro/ai-fullstack-map)：ツール、データ、モデル、LLM、RAG、Agent、提出は1つの道です。
+[0.3 能力マップを見る](/intro/ai-fullstack-map)：ツール、データ、モデル、LLM、RAG、Agent、提出は1つの道です。
 
 ![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.png)
 
-[学習ルートを選ぶ](/intro/learning-path)：ルートを1つ選び、[第1章](/ch01-tools)へ進みます。
+[0.4 学習ルートを選ぶ](/intro/learning-path)：ルートを1つ選び、[第1章](/ch01-tools)へ進みます。
 
 ## 1つのルール
 

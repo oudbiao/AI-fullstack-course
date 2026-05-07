@@ -1,11 +1,11 @@
 ---
-title: "1.5 Scikit-learn 与 Matplotlib 实操工作坊"
+title: "5.1.5 Scikit-learn 与 Matplotlib 实操工作坊"
 sidebar_position: 4
 description: "一步步完成机器学习实操：准备数据、用 Matplotlib 可视化、训练 sklearn Pipeline、评估结果、安全调参、保存模型，并避开新手常见错误。"
 keywords: [Scikit-learn 实操, sklearn 教程, Matplotlib 基础, Pipeline, train_test_split, 混淆矩阵, 交叉验证, joblib]
 ---
 
-# Scikit-learn 与 Matplotlib 实操工作坊
+# 5.1.5 Scikit-learn 与 Matplotlib 实操工作坊
 
 ![Scikit-learn 实操流程](/img/course/ch05-sklearn-hands-on-loop.png)
 
@@ -22,7 +22,7 @@ keywords: [Scikit-learn 实操, sklearn 教程, Matplotlib 基础, Pipeline, tra
 - 用交叉验证一次只调一个关键设置
 - 用 `joblib` 保存和重新加载训练好的 Pipeline
 
-## 0. 准备一个可运行单元
+## 准备一个可运行单元
 
 新建一个 Notebook 或 Python 文件，先运行下面的准备代码。
 
@@ -50,7 +50,7 @@ python -m pip install --upgrade scikit-learn matplotlib joblib
 
 ---
 
-## 1. 读取数据：分清特征和标签
+## 读取数据：分清特征和标签
 
 在 sklearn 示例里，你会不断看到 `X` 和 `y`：
 
@@ -89,7 +89,7 @@ First sample label: 0 => class_0
 
 ---
 
-## 2. Matplotlib 基础：先读懂图，再判断模型
+## Matplotlib 基础：先读懂图，再判断模型
 
 ![Matplotlib 图表结构](/img/course/ch05-matplotlib-chart-anatomy.png)
 
@@ -151,7 +151,7 @@ plt.show()
 
 ---
 
-## 3. 划分数据：让测试集保持隐藏
+## 划分数据：让测试集保持隐藏
 
 `train_test_split` 会创建训练集和测试集。
 
@@ -186,7 +186,7 @@ X_test:  (36, 13) y_test:  (36,)
 
 ---
 
-## 4. 构建 Pipeline：预处理加模型
+## 构建 Pipeline：预处理加模型
 
 逻辑回归、SVM、KNN 等模型都比较依赖特征尺度。Wine 数据集的列单位差异很大，所以我们把 `StandardScaler` 放在模型前面。
 
@@ -221,7 +221,7 @@ Test accuracy:  100.0%
 
 ---
 
-## 5. 预测并查看具体样本
+## 预测并查看具体样本
 
 分数有用，但新人也应该看几个具体预测。
 
@@ -250,7 +250,7 @@ Sample 4: predicted=class_2, true=class_2, confidence=99.9%
 
 ---
 
-## 6. 用混淆矩阵和报告评估
+## 用混淆矩阵和报告评估
 
 准确率会隐藏“到底哪些类别混了”。混淆矩阵会把真实标签和预测标签放在两个轴上。
 
@@ -282,7 +282,7 @@ print(classification_report(y_test, y_pred, target_names=wine.target_names))
 
 ---
 
-## 7. 用同一套流程比较多个模型
+## 用同一套流程比较多个模型
 
 因为 sklearn 有统一 API，模型对比会很方便。
 
@@ -352,7 +352,7 @@ plt.show()
 
 ---
 
-## 8. 用交叉验证安全调参
+## 用交叉验证安全调参
 
 不要直接在测试集上调超参数。应该在训练集内部做交叉验证。
 
@@ -388,7 +388,7 @@ C=100.0  CV accuracy=97.9% ± 2.6%
 
 ---
 
-## 9. 保存并重新加载最终 Pipeline
+## 保存并重新加载最终 Pipeline
 
 ```python
 import joblib
@@ -424,7 +424,7 @@ Predictions are identical: True
 
 ---
 
-## 10. 常见错误与快速修复
+## 常见错误与快速修复
 
 | 错误 / 现象 | 可能原因 | 修复方式 |
 |---|---|---|

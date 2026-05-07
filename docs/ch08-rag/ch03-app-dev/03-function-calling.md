@@ -1,11 +1,11 @@
 ---
-title: "3.4 Introduction to Function Calling"
+title: "8.3.4 Introduction to Function Calling"
 sidebar_position: 13
 description: "From why plain text output is not enough, to schema, parameters, scheduling, and execution—see clearly how Function Calling connects the model to tools."
 keywords: [Function Calling, Tool Calling, schema, parameter validation, LLM tool calling]
 ---
 
-# Introduction to Function Calling
+# 8.3.4 Introduction to Function Calling
 
 ![Function Calling workflow diagram](/img/course/function-calling-workflow-en.png)
 
@@ -35,9 +35,9 @@ If you have already built LLM applications, you can go further and think about: 
 
 ---
 
-## 1. Why isn’t plain text output enough?
+## Why isn’t plain text output enough?
 
-### 1.1 A common fragile approach
+### A common fragile approach
 
 Suppose a user asks:
 
@@ -54,7 +54,7 @@ This may look usable, but it is actually fragile:
 - The city name may be written as “Beijing” or “Beijing”
 - It may even output a lot of extra explanation
 
-### 1.2 What is the real problem?
+### What is the real problem?
 
 The problem is not that the model cannot understand the task. The problem is:
 
@@ -70,9 +70,9 @@ That is exactly where Function Calling adds value.
 
 ---
 
-## 2. What exactly is Function Calling?
+## What exactly is Function Calling?
 
-### 2.1 A one-sentence understanding
+### A one-sentence understanding
 
 > **Function Calling = letting the model output a structured tool call instead of arbitrary text.**
 
@@ -92,7 +92,7 @@ For example:
 }
 ```
 
-### 2.2 Why is this stronger than free text?
+### Why is this stronger than free text?
 
 Because it is more like a program interface than a chat message.
 
@@ -107,9 +107,9 @@ In other words, Function Calling builds a bridge between the model and the progr
 
 ---
 
-## 3. Let’s start with the smallest closed loop
+## Let’s start with the smallest closed loop
 
-### 3.1 Define two tools
+### Define two tools
 
 ```python
 import ast
@@ -149,7 +149,7 @@ def calculate(expression):
     return {"result": safe_calculate(expression)}
 ```
 
-### 3.2 Define the call structure “output by the model”
+### Define the call structure “output by the model”
 
 ```python
 tool_call = {
@@ -162,7 +162,7 @@ tool_call = {
 print(tool_call)
 ```
 
-### 3.3 Actually execute the call
+### Actually execute the call
 
 ```python
 def dispatch(call):
@@ -190,9 +190,9 @@ This is the smallest version of a function-calling loop:
 
 ---
 
-## 4. What is a schema?
+## What is a schema?
 
-### 4.1 You can think of a schema as a “tool manual”
+### You can think of a schema as a “tool manual”
 
 To call a tool correctly, the model needs to know:
 
@@ -203,7 +203,7 @@ To call a tool correctly, the model needs to know:
 
 That is what a schema does.
 
-### 4.2 A simple schema example
+### A simple schema example
 
 ```python
 weather_schema = {
@@ -227,9 +227,9 @@ A schema is not “decorative text.” It tells the model and the program:
 
 ---
 
-## 5. Why is parameter validation important?
+## Why is parameter validation important?
 
-### 5.1 The model may not always produce the right parameters
+### The model may not always produce the right parameters
 
 Even if the model picks the right tool, it may still:
 
@@ -248,7 +248,7 @@ bad_call = {
 
 If your program does not validate, it will fail directly during execution.
 
-### 5.2 A minimal validation example
+### A minimal validation example
 
 ```python
 def validate_weather_call(call):
@@ -272,9 +272,9 @@ print(validate_weather_call(bad_call))
 
 ---
 
-## 6. A more complete teaching example: weather and calculator
+## A more complete teaching example: weather and calculator
 
-### 6.1 First simulate how the model decides which tool to call
+### First simulate how the model decides which tool to call
 
 Here we do not use a real LLM yet. Instead, we write a rule-based teaching function so you can clearly see the “tool-call structure.”
 
@@ -297,7 +297,7 @@ def mock_llm_tool_selector(user_query):
     return None
 ```
 
-### 6.2 Then connect the executor
+### Then connect the executor
 
 ```python
 import ast
@@ -361,9 +361,9 @@ This example is already very close to the skeleton of a real system.
 
 ---
 
-## 7. What tasks is Function Calling best for?
+## What tasks is Function Calling best for?
 
-### 7.1 Especially suitable for
+### Especially suitable for
 
 - Checking weather
 - Querying a knowledge base
@@ -376,7 +376,7 @@ In other words:
 
 > **The model decides “what to do,” and the program actually performs it.**
 
-### 7.2 Less suitable for
+### Less suitable for
 
 If the task is essentially just:
 
@@ -388,7 +388,7 @@ Then Function Calling may not be necessary.
 
 ---
 
-## 8. If your goal is to build a “knowledge-base-driven courseware generation assistant,” what should the minimal tool set look like?
+## If your goal is to build a “knowledge-base-driven courseware generation assistant,” what should the minimal tool set look like?
 
 When building this kind of project for the first time, you do not need dozens of tools right away.
 A more stable minimal tool set usually needs only four:
@@ -429,13 +429,13 @@ tools = [
 print(tools)
 ```
 
-## 9. The most common engineering problems
+## The most common engineering problems
 
-### 9.1 Choosing the wrong tool
+### Choosing the wrong tool
 
 For example, the task should have searched the knowledge base, but the model called the calculator instead.
 
-### 9.2 Unstable parameters
+### Unstable parameters
 
 For example:
 
@@ -445,7 +445,7 @@ For example:
 
 The model may mix these up.
 
-### 9.3 Tool execution failure
+### Tool execution failure
 
 Even if the tool-call structure is correct, the tool may still fail because:
 
@@ -459,18 +459,18 @@ This means:
 
 ---
 
-## 10. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 10.1 Treating Function Calling as “the model directly executes code”
+### Treating Function Calling as “the model directly executes code”
 
 No.
 The model only produces a structured call intent. Your program performs the actual execution.
 
-### 10.2 Writing tool schemas that are too vague
+### Writing tool schemas that are too vague
 
 If the tool description is unclear and the parameter definitions are unclear, the model is more likely to call the wrong tool.
 
-### 10.3 Not validating parameters
+### Not validating parameters
 
 Once this goes into production, this is a dangerous habit.
 

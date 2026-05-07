@@ -1,11 +1,11 @@
 ---
-title: "6.3 LangChain / LangGraph"
+title: "9.6.3 LangChain / LangGraph"
 sidebar_position: 31
 description: "从链式组件组合到显式状态图，真正理解 LangChain 和 LangGraph 各自在帮你抽象什么。"
 keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framework]
 ---
 
-# LangChain / LangGraph
+# 9.6.3 LangChain / LangGraph
 
 :::tip 本节定位
 很多人第一次接触 Agent 框架时，会把 LangChain 和 LangGraph 混在一起。
@@ -28,7 +28,7 @@ keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framewor
 
 ## 一、为什么会先有 LangChain，后来又有 LangGraph？
 
-### 1.1 早期需求通常是线性的
+### 早期需求通常是线性的
 
 很多 LLM 应用一开始都长这样：
 
@@ -43,7 +43,7 @@ keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framewor
 
 在这种情况下，“链（chain）”是一种很自然的抽象。
 
-### 1.2 但系统很快就会变复杂
+### 但系统很快就会变复杂
 
 一旦你开始有这些需求：
 
@@ -68,7 +68,7 @@ keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framewor
 
 ## 二、先理解 LangChain：它到底在抽象什么？
 
-### 2.1 它最适合的，是“组件管道”
+### 它最适合的，是“组件管道”
 
 LangChain 的典型长处在于把这些东西接起来：
 
@@ -84,7 +84,7 @@ LangChain 的典型长处在于把这些东西接起来：
 
 它很像把“提示词、模型、检索器、解析器”这些零件做成了更容易拼装的积木。
 
-### 2.2 一个最小链式思维示例
+### 一个最小链式思维示例
 
 下面这个例子虽然不用真实 LangChain，但它已经有 LangChain 风格。
 
@@ -120,7 +120,7 @@ chain = SimpleChain([
 print(chain.run("  退款政策是什么？ "))
 ```
 
-### 2.3 这个例子最该你记住什么？
+### 这个例子最该你记住什么？
 
 它在表达一个非常清楚的思想：
 
@@ -132,7 +132,7 @@ print(chain.run("  退款政策是什么？ "))
 
 ## 三、LangChain 什么时候会很好用？
 
-### 3.1 适合这些情况
+### 适合这些情况
 
 - 流程基本线性
 - 分支不多
@@ -146,13 +146,13 @@ print(chain.run("  退款政策是什么？ "))
 - 检索后生成
 - 单工具增强问答
 
-### 3.2 它的优点
+### 它的优点
 
 - 上手快
 - 组件生态丰富
 - 很适合把“小模块”先拼起来
 
-### 3.3 它容易在哪些地方开始吃力？
+### 它容易在哪些地方开始吃力？
 
 当你开始需要：
 
@@ -167,7 +167,7 @@ print(chain.run("  退款政策是什么？ "))
 
 ## 四、再理解 LangGraph：它为什么更像“状态机”？
 
-### 4.1 LangGraph 的重点不只是节点，而是状态
+### LangGraph 的重点不只是节点，而是状态
 
 LangGraph 最重要的视角不是：
 
@@ -183,7 +183,7 @@ LangGraph 最重要的视角不是：
 
 > **带状态的工作流图。**
 
-### 4.2 一个最小图式示例
+### 一个最小图式示例
 
 ```python
 def plan_node(state):
@@ -223,7 +223,7 @@ while state["next"] is not None:
     print(current, "->", state)
 ```
 
-### 4.3 这段代码和链式示例最大的差别在哪？
+### 这段代码和链式示例最大的差别在哪？
 
 在链式系统里：
 
@@ -245,7 +245,7 @@ while state["next"] is not None:
 
 ## 五、什么时候你应该从 LangChain 思维切到 LangGraph 思维？
 
-### 5.1 一个很实用的判断标准
+### 一个很实用的判断标准
 
 如果你画流程图时，发现它已经不是一条直线，而是：
 
@@ -256,7 +256,7 @@ while state["next"] is not None:
 
 那通常就该开始考虑图式抽象了。
 
-### 5.2 一个信号非常明显的坏味道
+### 一个信号非常明显的坏味道
 
 如果你的代码开始变成：
 
@@ -277,7 +277,7 @@ if ...
 
 因为现实系统往往并不是“二选一”。
 
-### 6.1 一个很常见的组合方式
+### 一个很常见的组合方式
 
 - LangChain 风格负责封装：
   - prompt
@@ -300,7 +300,7 @@ if ...
 
 ## 七、一个真实工程里的选择建议
 
-### 7.1 如果你现在要做的是：
+### 如果你现在要做的是：
 
 - 单轮 FAQ
 - 简单 RAG
@@ -308,7 +308,7 @@ if ...
 
 那先用链式思维通常很够。
 
-### 7.2 如果你现在要做的是：
+### 如果你现在要做的是：
 
 - 多步 Agent
 - 带工具回路
@@ -317,7 +317,7 @@ if ...
 
 那图式思维会更稳。
 
-### 7.3 不要一开始就为了“高级感”上图
+### 不要一开始就为了“高级感”上图
 
 这也是一个很重要的判断。
 图式抽象更强，但也会带来：
@@ -331,15 +331,15 @@ if ...
 
 ## 八、初学者最常踩的坑
 
-### 8.1 还没理解任务结构，就先学一堆框架 API
+### 还没理解任务结构，就先学一堆框架 API
 
 这会让你最后学会的只是“框架语法”，不是系统设计。
 
-### 8.2 用链去硬撑图
+### 用链去硬撑图
 
 系统越写越多 `if/else`，但还不愿意切到图式抽象。
 
-### 8.3 一上来就上图式框架
+### 一上来就上图式框架
 
 明明需求很简单，却先把系统做得很重。
 

@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-study Guide: How Should You Learn This Capstone Projects Chapter?"
+title: "8.5.1 Pre-study Guide: How Should You Learn This Capstone Projects Chapter?"
 sidebar_position: 0
 description: "First build a learning map for Chapter 8 on LLM application development and RAG projects: how enterprise knowledge bases, RAG + fine-tuning, intelligent assistants, and courseware generation assistants connect knowledge, models, applications, and engineering into one system."
 keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, courseware generation assistant]
 ---
 
-# Pre-study Guide: How Should You Learn This Capstone Projects Chapter?
+# 8.5.1 Pre-study Guide: How Should You Learn This Capstone Projects Chapter?
 
 This chapter is not about stacking more components. Instead, it is about turning the knowledge layer, model layer, application layer, and engineering layer you learned earlier into a real system.
 
@@ -80,7 +80,7 @@ Learners with more experience can treat this chapter as a chance to fill gaps an
 
 After finishing this chapter, it is recommended that you complete at least one “knowledge base assistant with source citations.” The project should include document import, chunking, vectorization, retrieval, context assembly, model response, source display, no-answer handling, and a simple evaluation set.
 
-If you do not yet have a runnable baseline, start with [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md). It gives you the smallest reproducible version of the chapter exit project before you add a real vector database or model API.
+If you do not yet have a runnable baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md). It gives you the smallest reproducible version of the chapter exit project before you add a real vector database or model API.
 
 An advanced version can add multi-turn dialogue, user feedback, Function Calling, document parsing, and template-based export. For a portfolio version, it is recommended to add an architecture diagram, key code explanations, evaluation examples, failure cases, and deployment instructions.
 

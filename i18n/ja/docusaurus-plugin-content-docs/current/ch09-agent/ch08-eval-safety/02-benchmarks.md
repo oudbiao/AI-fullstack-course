@@ -1,11 +1,11 @@
 ---
-title: "8.3 Agent 評価ベンチマーク"
+title: "9.8.3 Agent 評価ベンチマーク"
 sidebar_position: 45
 description: "汎用 benchmark と自作の業務評価セットの違いを理解し、自分の Agent プロジェクトにより役立つ評価ベンチマークを設計できるようになる。"
 keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 ---
 
-# Agent 評価ベンチマーク
+# 9.8.3 Agent 評価ベンチマーク
 
 ![Agent ベンチマークとカスタム評価セットの比較図](/img/course/ch09-agent-benchmark-custom-eval-map-ja.png)
 

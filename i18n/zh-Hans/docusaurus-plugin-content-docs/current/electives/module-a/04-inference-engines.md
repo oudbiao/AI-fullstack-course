@@ -1,11 +1,11 @@
 ---
-title: "1.4 推理引擎"
+title: "E.A.4 推理引擎"
 sidebar_position: 4
 description: "从 ONNX Runtime、TensorRT、OpenVINO 这类推理引擎的角色和差异讲起，理解为什么部署不只是“导出模型”这么简单。"
 keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, deployment]
 ---
 
-# 推理引擎
+# E.A.4 推理引擎
 
 ![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.png)
 
@@ -39,7 +39,7 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 ## 一、推理引擎到底在做什么？
 
-### 1.1 它不是模型本身
+### 它不是模型本身
 
 模型回答的是：
 
@@ -49,7 +49,7 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 - 这套结构怎样在目标设备上更高效地执行
 
-### 1.2 它通常会做哪些事？
+### 它通常会做哪些事？
 
 常见包括：
 
@@ -58,7 +58,7 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 - 内存规划
 - 后端 kernel 选择
 
-### 1.3 一个类比
+### 一个类比
 
 模型像菜谱。
 推理引擎像厨房调度系统。
@@ -70,7 +70,7 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 ## 二、为什么推理引擎会有那么多种？
 
-### 2.1 因为硬件不一样
+### 因为硬件不一样
 
 常见目标环境包括：
 
@@ -79,7 +79,7 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 - Intel CPU / NPU
 - 边缘设备
 
-### 2.2 因为优化目标不一样
+### 因为优化目标不一样
 
 有的更看重：
 
@@ -89,7 +89,7 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 - 极致性能
 
-### 2.3 所以没有“绝对最强引擎”
+### 所以没有“绝对最强引擎”
 
 更合理的问法是：
 
@@ -143,7 +143,7 @@ for item in throughput_first:
     print(item)
 ```
 
-### 3.1 这段代码在教什么？
+### 这段代码在教什么？
 
 它在提醒你：
 
@@ -159,7 +159,7 @@ for item in throughput_first:
 
 最后排名可能不同。
 
-### 3.2 为什么这比只记“TensorRT 更快”有用？
+### 为什么这比只记“TensorRT 更快”有用？
 
 因为真实决策从来不只是：
 
@@ -175,7 +175,7 @@ for item in throughput_first:
 
 ## 四、几个常见引擎的大方向区别
 
-### 4.1 ONNX Runtime
+### ONNX Runtime
 
 更像通用型选手。
 优点通常是：
@@ -184,7 +184,7 @@ for item in throughput_first:
 - 兼容性强
 - 上手相对平衡
 
-### 4.2 TensorRT
+### TensorRT
 
 更像 NVIDIA 生态下的高性能路线。
 常见特点：
@@ -193,7 +193,7 @@ for item in throughput_first:
 - 调优空间大
 - 工程门槛相对更高
 
-### 4.3 OpenVINO
+### OpenVINO
 
 更偏 Intel 生态和特定硬件适配。
 常见特点：
@@ -201,7 +201,7 @@ for item in throughput_first:
 - 某些 CPU / Intel 设备上表现不错
 - 适合特定部署环境
 
-### 4.4 这三者怎么选？
+### 这三者怎么选？
 
 不要先问“谁更火”，
 而要先问：
@@ -214,26 +214,26 @@ for item in throughput_first:
 
 ## 五、推理引擎会直接影响哪些部署结果？
 
-### 5.1 延迟
+### 延迟
 
 用户最先感知到的就是：
 
 - 快不快
 
-### 5.2 吞吐
+### 吞吐
 
 服务侧更关心：
 
 - 同一时间能扛多少请求
 
-### 5.3 资源利用率
+### 资源利用率
 
 例如：
 
 - 显存是不是更省
 - CPU 利用率是不是更合理
 
-### 5.4 维护复杂度
+### 维护复杂度
 
 性能更高的路线，
 有时也意味着：
@@ -246,7 +246,7 @@ for item in throughput_first:
 
 ## 六、最常见误区
 
-### 6.1 误区一：推理引擎只是“换个库跑”
+### 误区一：推理引擎只是“换个库跑”
 
 不是。
 它往往会改变：
@@ -255,12 +255,12 @@ for item in throughput_first:
 - 优化策略
 - 硬件利用率
 
-### 6.2 误区二：最快的引擎就是最好的引擎
+### 误区二：最快的引擎就是最好的引擎
 
 如果兼容性差、调试复杂、部署门槛太高，
 “最快”未必就是最优。
 
-### 6.3 误区三：先选引擎，再看硬件
+### 误区三：先选引擎，再看硬件
 
 更合理的顺序通常是反过来：
 

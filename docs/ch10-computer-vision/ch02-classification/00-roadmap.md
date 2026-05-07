@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-study guide: What exactly are we learning in the Image Classification chapter?"
+title: "10.2.1 Pre-study guide: What exactly are we learning in the Image Classification chapter?"
 sidebar_position: 0
 description: "First build a learning map for the image classification chapter: how data augmentation, modern architectures, and training techniques work together to determine classification model performance."
 keywords: [image classification guide, data augmentation, ResNet, training techniques]
 ---
 
-# Pre-study guide: What exactly are we learning in the Image Classification chapter?
+# 10.2.1 Pre-study guide: What exactly are we learning in the Image Classification chapter?
 
 This chapter on image classification solves this problem:
 

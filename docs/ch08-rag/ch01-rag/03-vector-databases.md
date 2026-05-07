@@ -1,11 +1,11 @@
 ---
-title: "1.4 Vector Databases"
+title: "8.1.4 Vector Databases"
 sidebar_position: 3
 description: "Understand why vector databases are the infrastructure behind RAG, and how they store vectors, metadata, and perform similarity search."
 keywords: [vector database, embedding, similarity search, metadata filter, RAG]
 ---
 
-# Vector Databases
+# 8.1.4 Vector Databases
 
 ![Vector database similarity search diagram](/img/course/vector-database-similarity-search-en.png)
 
@@ -20,9 +20,9 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. Why Aren’t Ordinary Databases Enough?
+## Why Aren’t Ordinary Databases Enough?
 
-### 1.1 In RAG, what we need is not “exactly the same”, but “semantically similar”
+### In RAG, what we need is not “exactly the same”, but “semantically similar”
 
 Traditional databases are good at:
 
@@ -45,7 +45,7 @@ The knowledge base may say:
 These two sentences are not exactly the same on the surface, but they are semantically related.
 This is the kind of scenario vector retrieval is good at handling.
 
-### 1.2 A vector database is essentially managing “semantic coordinates”
+### A vector database is essentially managing “semantic coordinates”
 
 You can think of the embedding for each text chunk as a set of coordinates.
 What a vector database does is:
@@ -56,9 +56,9 @@ What a vector database does is:
 
 ---
 
-## 2. What Does a Vector Database Usually Store?
+## What Does a Vector Database Usually Store?
 
-### 2.1 It stores not only vectors, but also text and metadata
+### It stores not only vectors, but also text and metadata
 
 A record usually contains at least:
 
@@ -80,7 +80,7 @@ record = {
 print(record)
 ```
 
-### 2.2 Why is metadata important?
+### Why is metadata important?
 
 Because in many cases, you do not just want “semantically close”; you also want to “meet business filtering conditions”.
 
@@ -100,7 +100,7 @@ Do not just look at the `vector` column. In real RAG systems, `text` gives the m
 
 ---
 
-## 3. A Minimal Working Vector Retriever
+## A Minimal Working Vector Retriever
 
 Below we will hand-write a tiny vector database with `numpy` so the principle is completely visible.
 
@@ -146,9 +146,9 @@ Here, `query_vector` can be understood as the embedding of the user’s question
 
 ---
 
-## 4. Adding Metadata Filtering
+## Adding Metadata Filtering
 
-### 4.1 Why is filtering so common?
+### Why is filtering so common?
 
 Because many enterprise knowledge bases are not a pool of random search results, but have boundaries.
 
@@ -158,7 +158,7 @@ For example:
 - Only search a specific product document
 - Only search versions after 2025
 
-### 4.2 Runnable example
+### Runnable example
 
 ```python
 import numpy as np
@@ -206,7 +206,7 @@ This is the minimal form of “similarity search + business filtering”.
 
 ---
 
-## 5. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant”, What Metadata Should You Include at Minimum?
+## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant”, What Metadata Should You Include at Minimum?
 
 In this kind of project, the vector database is not only used for “finding semantically similar content”;
 it also has to support:
@@ -248,9 +248,9 @@ The most important thing for beginners to notice here is:
 
 - The vector database layer is already quietly deciding whether the later courseware can be assembled reliably
 
-## 6. What Is the Difference Between Exact Search and Approximate Search?
+## What Is the Difference Between Exact Search and Approximate Search?
 
-### 6.1 Exact search
+### Exact search
 
 This means comparing the query vector with every vector.
 
@@ -262,7 +262,7 @@ Cons:
 
 - Slow when the data volume is large
 
-### 6.2 Approximate Nearest Neighbor (ANN)
+### Approximate Nearest Neighbor (ANN)
 
 Real vector databases often use approximate methods to speed up search.
 
@@ -286,9 +286,9 @@ Exact search is like comparing everyone in a class one by one, while ANN is like
 
 ---
 
-## 7. The Roles of Common Vector Databases / Tools
+## The Roles of Common Vector Databases / Tools
 
-### 7.1 Lightweight local solutions
+### Lightweight local solutions
 
 Suitable for:
 
@@ -302,7 +302,7 @@ Common options include:
 - Chroma
 - SQLite + vector extensions
 
-### 7.2 More complete service-based solutions
+### More complete service-based solutions
 
 Suitable for:
 
@@ -320,9 +320,9 @@ More focus is placed on:
 
 ---
 
-## 8. What Should You Look At When Choosing?
+## What Should You Look At When Choosing?
 
-### 8.1 First, look at business scale
+### First, look at business scale
 
 Key questions include:
 
@@ -331,7 +331,7 @@ Key questions include:
 - Is online incremental writing required?
 - Do you need strong metadata filtering?
 
-### 8.2 Then look at engineering constraints
+### Then look at engineering constraints
 
 For example:
 
@@ -344,19 +344,19 @@ Often, the best choice is not “the most powerful one”, but “the one that c
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 9.1 Thinking the vector database itself understands semantics
+### Thinking the vector database itself understands semantics
 
 It does not.
 What actually determines semantic quality first is the embedding model.
 
-### 9.2 Thinking that once vectors are stored, RAG will definitely work well
+### Thinking that once vectors are stored, RAG will definitely work well
 
 Not enough.
 You also need document cleaning and chunking in the front, and prompt and answer constraints in the back.
 
-### 9.3 Only looking at retrieval, and ignoring filtering and citations
+### Only looking at retrieval, and ignoring filtering and citations
 
 In many real projects, metadata filtering and source traceability are equally important.
 

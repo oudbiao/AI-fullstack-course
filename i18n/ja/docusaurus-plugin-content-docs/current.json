@@ -3,34 +3,6 @@
     "message": "最新版",
     "description": "The label for version current"
   },
-  "sidebar.courseSidebar.category.🚀 Start Here": {
-    "message": "🚀 ここから始める",
-    "description": "The label for category '🚀 Start Here' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Quick Start and Setup": {
-    "message": "クイックスタートと準備",
-    "description": "The label for category 'Quick Start and Setup' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Map, Concepts, and Route": {
-    "message": "マップ・概念・ルート",
-    "description": "The label for category 'Map, Concepts, and Route' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Project and Portfolio References": {
-    "message": "プロジェクトとポートフォリオ参照",
-    "description": "The label for category 'Project and Portfolio References' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Project Evidence": {
-    "message": "プロジェクト証拠",
-    "description": "The label for category 'Project Evidence' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Optional Reference": {
-    "message": "任意参照とトラブル対応",
-    "description": "The label for category 'Optional Reference' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Extra Help": {
-    "message": "補足ヘルプ",
-    "description": "The label for category 'Extra Help' in sidebar 'courseSidebar'"
-  },
   "sidebar.courseSidebar.category.Main Track 1: Foundations (1-3)": {
     "message": "メイントラック 1：基礎固め（1-3）",
     "description": "The label for category 'Main Track 1: Foundations (1-3)' in sidebar 'courseSidebar'"
@@ -159,17 +131,9 @@
     "message": "6.2 PyTorch フレームワーク",
     "description": "The label for category '6.2 PyTorch Framework' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.6.3-6.4 CNN, RNN, and Sequence Models": {
-    "message": "6.3-6.4 CNN、RNN、系列モデル",
-    "description": "The label for category '6.3-6.4 CNN, RNN, and Sequence Models' in sidebar 'courseSidebar'"
-  },
   "sidebar.courseSidebar.category.6.5 Attention and Transformer": {
     "message": "6.5 Attention と Transformer",
     "description": "The label for category '6.5 Attention and Transformer' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.6.6-6.7 Generative Models and Training Tips (Elective)": {
-    "message": "6.6-6.7 生成モデルと学習テクニック（選択）",
-    "description": "The label for category '6.6-6.7 Generative Models and Training Tips (Elective)' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.6.8 Stage Projects": {
     "message": "6.8 ステージプロジェクト",
@@ -182,18 +146,6 @@
   "sidebar.courseSidebar.category.7 LLM Principles, Prompting, and Fine-Tuning": {
     "message": "7 LLM 原理、プロンプト、微調整",
     "description": "The label for category '7 LLM Principles, Prompting, and Fine-Tuning' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.7.1-7.2 NLP and LLM Crash Course": {
-    "message": "7.1-7.2 NLP と LLM 速習",
-    "description": "The label for category '7.1-7.2 NLP and LLM Crash Course' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.7.3-7.4 Transformer and Pretraining": {
-    "message": "7.3-7.4 Transformer と事前学習",
-    "description": "The label for category '7.3-7.4 Transformer and Pretraining' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.7.5-7.7 Prompting, Fine-Tuning, and Alignment": {
-    "message": "7.5-7.7 プロンプト、微調整、アラインメント",
-    "description": "The label for category '7.5-7.7 Prompting, Fine-Tuning, and Alignment' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.7.8 Stage Project": {
     "message": "7.8 ステージプロジェクト",
@@ -215,25 +167,9 @@
     "message": "8.3 LLM アプリ開発",
     "description": "The label for category '8.3 LLM Application Development' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.8.4-8.5 Engineering and Stage Project": {
-    "message": "8.4-8.5 工程化とステージプロジェクト",
-    "description": "The label for category '8.4-8.5 Engineering and Stage Project' in sidebar 'courseSidebar'"
-  },
   "sidebar.courseSidebar.category.9 AI Agents and Agentic Systems": {
     "message": "9 AI Agent とエージェントシステム",
     "description": "The label for category '9 AI Agents and Agentic Systems' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.9.1-9.2 Agent Basics, Reasoning, and Planning": {
-    "message": "9.1-9.2 Agent 基礎、推論、計画",
-    "description": "The label for category '9.1-9.2 Agent Basics, Reasoning, and Planning' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.9.3-9.5 Tools, Memory, and MCP": {
-    "message": "9.3-9.5 ツール、記憶、MCP",
-    "description": "The label for category '9.3-9.5 Tools, Memory, and MCP' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.9.6-9.9 Frameworks, Multi-Agent, and Production": {
-    "message": "9.6-9.9 フレームワーク、マルチ Agent、本番化",
-    "description": "The label for category '9.6-9.9 Frameworks, Multi-Agent, and Production' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.9.10 Stage Project": {
     "message": "9.10 ステージプロジェクト",
@@ -247,21 +183,9 @@
     "message": "10 コンピュータビジョン（専門選択）",
     "description": "The label for category '10 Computer Vision (Specialization Elective)' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.10.1-10.2 CV Basics and Image Classification": {
-    "message": "10.1-10.2 CV 基礎と画像分類",
-    "description": "The label for category '10.1-10.2 CV Basics and Image Classification' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.10.3-10.6 Detection, Segmentation, and Advanced Projects": {
-    "message": "10.3-10.6 検出、セグメンテーション、応用プロジェクト",
-    "description": "The label for category '10.3-10.6 Detection, Segmentation, and Advanced Projects' in sidebar 'courseSidebar'"
-  },
   "sidebar.courseSidebar.category.11 Natural Language Processing (Specialization Elective)": {
     "message": "11 自然言語処理（専門選択）",
     "description": "The label for category '11 Natural Language Processing (Specialization Elective)' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.11.1-11.6 NLP Basics to Pretrained Models": {
-    "message": "11.1-11.6 NLP 基礎から事前学習モデルへ",
-    "description": "The label for category '11.1-11.6 NLP Basics to Pretrained Models' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.11.7 NLP Capstone Project": {
     "message": "11.7 NLP 総合プロジェクト",
@@ -271,32 +195,184 @@
     "message": "12 AIGC とマルチモーダル AI",
     "description": "The label for category '12 AIGC and Multimodal AI' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.12.1-12.3 Multimodal, Image, and Video Generation": {
-    "message": "12.1-12.3 マルチモーダル、画像・動画生成",
-    "description": "The label for category '12.1-12.3 Multimodal, Image, and Video Generation' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.0 Start Here": {
+    "message": "0 ここから始める",
+    "description": "The label for category '0 Start Here' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.12.4-12.5 Frontiers, Ethics, and Projects": {
-    "message": "12.4-12.5 最前線、倫理、プロジェクト",
-    "description": "The label for category '12.4-12.5 Frontiers, Ethics, and Projects' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.6.3 CNN for Images": {
+    "message": "6.3 画像向け CNN",
+    "description": "The label for category '6.3 CNN for Images' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.📦 Elective Modules": {
-    "message": "📦 選択モジュール",
-    "description": "The label for category '📦 Elective Modules' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.6.4 RNN and Sequence Models": {
+    "message": "6.4 RNN と系列モデル",
+    "description": "The label for category '6.4 RNN and Sequence Models' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Module A: C++ and Model Deployment": {
-    "message": "モジュール A：C++ とモデルデプロイ",
-    "description": "The label for category 'Module A: C++ and Model Deployment' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.6.6 Generative Models": {
+    "message": "6.6 生成モデル",
+    "description": "The label for category '6.6 Generative Models' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Module B: Advanced Python Topics": {
-    "message": "モジュール B：Python 応用トピック",
-    "description": "The label for category 'Module B: Advanced Python Topics' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.6.7 Training Tips (Elective)": {
+    "message": "6.7 学習のコツ（選択）",
+    "description": "The label for category '6.7 Training Tips (Elective)' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Module C: Classic ML Supplementary Algorithms": {
-    "message": "モジュール C：古典的 ML 補足アルゴリズム",
-    "description": "The label for category 'Module C: Classic ML Supplementary Algorithms' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.7.1 NLP Crash Course": {
+    "message": "7.1 NLP 速習",
+    "description": "The label for category '7.1 NLP Crash Course' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.📎 Appendix": {
-    "message": "📎 付録",
-    "description": "The label for category '📎 Appendix' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.7.2 LLM Overview": {
+    "message": "7.2 大規模モデル概観",
+    "description": "The label for category '7.2 LLM Overview' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.3 Transformer Internals": {
+    "message": "7.3 Transformer の内部構造",
+    "description": "The label for category '7.3 Transformer Internals' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.4 Pretraining": {
+    "message": "7.4 事前学習",
+    "description": "The label for category '7.4 Pretraining' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.5 Prompting": {
+    "message": "7.5 Prompt 設計",
+    "description": "The label for category '7.5 Prompting' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.6 Fine-Tuning": {
+    "message": "7.6 ファインチューニング",
+    "description": "The label for category '7.6 Fine-Tuning' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.7 Alignment and Safety": {
+    "message": "7.7 アラインメントと安全性",
+    "description": "The label for category '7.7 Alignment and Safety' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.4 Engineering Practices": {
+    "message": "8.4 エンジニアリング実践",
+    "description": "The label for category '8.4 Engineering Practices' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.5 Stage Project": {
+    "message": "8.5 ステージプロジェクト",
+    "description": "The label for category '8.5 Stage Project' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.1 Agent Basics": {
+    "message": "9.1 Agent 基礎",
+    "description": "The label for category '9.1 Agent Basics' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.2 Reasoning and Planning": {
+    "message": "9.2 推論と計画",
+    "description": "The label for category '9.2 Reasoning and Planning' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.3 Tools": {
+    "message": "9.3 ツール",
+    "description": "The label for category '9.3 Tools' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.4 Memory": {
+    "message": "9.4 メモリ",
+    "description": "The label for category '9.4 Memory' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.5 MCP": {
+    "message": "9.5 MCP",
+    "description": "The label for category '9.5 MCP' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.6 Agent Frameworks": {
+    "message": "9.6 Agent フレームワーク",
+    "description": "The label for category '9.6 Agent Frameworks' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.7 Multi-Agent Systems": {
+    "message": "9.7 マルチ Agent システム",
+    "description": "The label for category '9.7 Multi-Agent Systems' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.8 Evaluation and Safety": {
+    "message": "9.8 評価と安全性",
+    "description": "The label for category '9.8 Evaluation and Safety' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.9 Deployment and Operations": {
+    "message": "9.9 デプロイと運用",
+    "description": "The label for category '9.9 Deployment and Operations' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.10.1 Computer Vision Basics": {
+    "message": "10.1 コンピュータービジョン基礎",
+    "description": "The label for category '10.1 Computer Vision Basics' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.10.2 Image Classification": {
+    "message": "10.2 画像分類",
+    "description": "The label for category '10.2 Image Classification' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.10.3 Object Detection": {
+    "message": "10.3 物体検出",
+    "description": "The label for category '10.3 Object Detection' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.10.4 Image Segmentation": {
+    "message": "10.4 画像セグメンテーション",
+    "description": "The label for category '10.4 Image Segmentation' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.10.5 Advanced Vision Topics": {
+    "message": "10.5 ビジョン応用トピック",
+    "description": "The label for category '10.5 Advanced Vision Topics' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.10.6 Stage Projects": {
+    "message": "10.6 ステージプロジェクト",
+    "description": "The label for category '10.6 Stage Projects' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.11.1 Text Basics": {
+    "message": "11.1 テキスト基礎",
+    "description": "The label for category '11.1 Text Basics' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.11.2 Embeddings and Language Models": {
+    "message": "11.2 埋め込みと言語モデル",
+    "description": "The label for category '11.2 Embeddings and Language Models' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.11.3 Text Classification": {
+    "message": "11.3 テキスト分類",
+    "description": "The label for category '11.3 Text Classification' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.11.4 Sequence Labeling": {
+    "message": "11.4 系列ラベリング",
+    "description": "The label for category '11.4 Sequence Labeling' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.11.5 Seq2Seq and Attention": {
+    "message": "11.5 Seq2Seq と Attention",
+    "description": "The label for category '11.5 Seq2Seq and Attention' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.11.6 Pretrained Models": {
+    "message": "11.6 事前学習済みモデル",
+    "description": "The label for category '11.6 Pretrained Models' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.12.1 Multimodal Basics": {
+    "message": "12.1 マルチモーダル基礎",
+    "description": "The label for category '12.1 Multimodal Basics' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.12.2 Image Generation": {
+    "message": "12.2 画像生成",
+    "description": "The label for category '12.2 Image Generation' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.12.3 Video, Speech, and Digital Humans": {
+    "message": "12.3 動画・音声・デジタルヒューマン",
+    "description": "The label for category '12.3 Video, Speech, and Digital Humans' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.12.4 Frontiers, Ethics, and Regulation": {
+    "message": "12.4 フロンティア・倫理・規制",
+    "description": "The label for category '12.4 Frontiers, Ethics, and Regulation' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.12.5 Stage Projects": {
+    "message": "12.5 ステージプロジェクト",
+    "description": "The label for category '12.5 Stage Projects' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.E Elective Modules": {
+    "message": "E 選択モジュール",
+    "description": "The label for category 'E Elective Modules' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.E.A C++ and Model Deployment": {
+    "message": "E.A C++ とモデルデプロイ",
+    "description": "The label for category 'E.A C++ and Model Deployment' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.E.B Advanced Python Topics": {
+    "message": "E.B Python 上級トピック",
+    "description": "The label for category 'E.B Advanced Python Topics' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.E.C Classic ML Supplementary Algorithms": {
+    "message": "E.C 古典的 ML 補足アルゴリズム",
+    "description": "The label for category 'E.C Classic ML Supplementary Algorithms' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.A Appendix": {
+    "message": "A 付録",
+    "description": "The label for category 'A Appendix' in sidebar 'courseSidebar'"
   }
 }

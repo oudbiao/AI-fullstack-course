@@ -1,10 +1,10 @@
 ---
-title: "1.1 纯 Python 处理数据"
+title: "3.1.1 纯 Python 处理数据"
 sidebar_position: 1
 description: "用纯 Python 处理真实数据集，亲身体会为什么需要 NumPy 和 Pandas"
 ---
 
-# 预热：纯 Python 处理数据
+# 3.1.1 预热：纯 Python 处理数据
 
 ## 学习目标
 
@@ -678,7 +678,7 @@ flowchart TD
     A["✅ 第1章：纯 Python 预热（你在这里）"] --> B["第2章：NumPy 科学计算"]
     B --> C["第3章：Pandas 数据处理"]
     C --> D["第4章：数据可视化"]
-    D --> E["第6章：实战项目"]
+    D --> E["3.6 阶段项目"]
 
     B -- "解决痛点" --> B1["高效数组运算<br/>不用写循环<br/>向量化计算"]
     C -- "解决痛点" --> C1["1 行读取 CSV<br/>自动类型转换<br/>1 行分组统计"]

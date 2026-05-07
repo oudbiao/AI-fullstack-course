@@ -1,11 +1,11 @@
 ---
-title: "3.5 HuggingFace 生态深入"
+title: "8.3.5 HuggingFace 生态深入"
 sidebar_position: 14
 description: "从 models、datasets、tokenizers 到 pipelines 和 hub，理解 HuggingFace 为什么会成为大模型应用最重要的基础生态之一。"
 keywords: [HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem]
 ---
 
-# HuggingFace 生态深入
+# 8.3.5 HuggingFace 生态深入
 
 :::tip 本节定位
 很多人第一次接触 HuggingFace，会先看到：
@@ -27,7 +27,7 @@ keywords: [HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem
 
 ## 一、HuggingFace 为什么不只是一个模型库？
 
-### 1.1 很多人对它的第一印象
+### 很多人对它的第一印象
 
 通常是：
 
@@ -36,7 +36,7 @@ keywords: [HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem
 
 这当然对，但还不够完整。
 
-### 1.2 更准确的理解
+### 更准确的理解
 
 HuggingFace 更像一个围绕模型使用的完整生态：
 
@@ -54,23 +54,23 @@ HuggingFace 更像一个围绕模型使用的完整生态：
 
 ## 二、先把生态的几个关键层分清
 
-### 2.1 Tokenizers
+### Tokenizers
 
 负责把文本变成模型可吃的 token。
 
-### 2.2 Models
+### Models
 
 负责真正的前向计算。
 
-### 2.3 Datasets
+### Datasets
 
 负责组织和处理训练 / 评估数据。
 
-### 2.4 Pipelines
+### Pipelines
 
 负责把常见任务包装成一键调用接口。
 
-### 2.5 Hub
+### Hub
 
 负责：
 
@@ -121,7 +121,7 @@ print(tokenizer_layer)
 
 ## 四、为什么 pipeline 这么受欢迎？
 
-### 4.1 因为它特别适合快速验证
+### 因为它特别适合快速验证
 
 比如你只想快速试一下：
 
@@ -131,7 +131,7 @@ print(tokenizer_layer)
 
 pipeline 可以让你少写很多样板代码。
 
-### 4.2 一个最小示意
+### 一个最小示意
 
 ```python
 class MockPipeline:
@@ -227,15 +227,15 @@ print(pipe("这节课讲得很清楚"))
 
 ## 九、初学者最常踩的坑
 
-### 9.1 以为 HuggingFace 只是模型仓库
+### 以为 HuggingFace 只是模型仓库
 
 其实它更像完整生态。
 
-### 9.2 只会 pipeline，不懂底层链路
+### 只会 pipeline，不懂底层链路
 
 一到复杂工程就容易卡住。
 
-### 9.3 只看模型，不看 tokenizer 和数据
+### 只看模型，不看 tokenizer 和数据
 
 这样会让你对系统理解一直停留在表层。
 

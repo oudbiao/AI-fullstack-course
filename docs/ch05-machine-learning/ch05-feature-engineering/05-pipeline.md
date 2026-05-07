@@ -1,11 +1,11 @@
 ---
-title: "5.6 Pipeline and Workflows"
+title: "5.5.6 Pipeline and Workflows"
 sidebar_position: 18
 description: "Master sklearn Pipeline, ColumnTransformer for handling mixed-type data, and custom Transformer"
 keywords: [Pipeline, ColumnTransformer, Transformer, feature engineering pipeline, sklearn]
 ---
 
-# Pipeline and Workflows
+# 5.5.6 Pipeline and Workflows
 
 ![ColumnTransformer and Pipeline workflow diagram](/img/course/column-transformer-pipeline-en.png)
 
@@ -77,7 +77,7 @@ The most common mistake is:
 As a result, the model does not see the same kind of data at all.
 The most important role of Pipeline is to prevent this kind of “the workflow drifted, but you didn’t notice” problem.
 
-## 1. ColumnTransformer — process columns separately
+## ColumnTransformer — process columns separately
 
 ```python
 import pandas as pd
@@ -118,7 +118,7 @@ X_transformed = preprocessor.fit_transform(X)
 print(f"Raw: {X.shape} → After processing: {X_transformed.shape}")
 ```
 
-### 1.1 What is the most important thing to notice in this example?
+### What is the most important thing to notice in this example?
 
 The most important thing to notice is:
 
@@ -134,7 +134,7 @@ but that the column processing strategy is mixed up from the start.
 
 ---
 
-## 2. Complete Pipeline: preprocessing + model
+## Complete Pipeline: preprocessing + model
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -150,7 +150,7 @@ scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='accuracy')
 print(f"5-fold CV accuracy: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.1 Why do Pipeline and cross-validation work so well together?
+### Why do Pipeline and cross-validation work so well together?
 
 Because the essence of cross-validation is:
 
@@ -170,7 +170,7 @@ This diagram breaks a real tabular-data project into three paths: numeric column
 
 ---
 
-## 3. Custom Transformer
+## Custom Transformer
 
 ```python
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -203,7 +203,7 @@ scores = cross_val_score(pipe, df[num_features + cat_features + custom_features]
 print(f"With custom features: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 3.1 When is a custom Transformer most useful?
+### When is a custom Transformer most useful?
 
 It is most useful when:
 
@@ -220,7 +220,7 @@ In these cases, writing it as a Transformer is much more stable than copying cod
 
 ---
 
-## 4. Pipeline + GridSearch
+## Pipeline + GridSearch
 
 ```python
 from sklearn.model_selection import GridSearchCV

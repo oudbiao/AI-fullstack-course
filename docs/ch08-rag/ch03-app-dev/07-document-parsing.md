@@ -1,11 +1,11 @@
 ---
-title: "3.8 Document Parsing and Knowledge Extraction"
+title: "8.3.8 Document Parsing and Knowledge Extraction"
 sidebar_position: 17
 description: "From PDF, Word, and PPT to OCR for scanned files, understand why knowledge-base applications must first parse documents into structured knowledge rather than extracting plain text only."
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---
 
-# Document Parsing and Knowledge Extraction
+# 8.3.8 Document Parsing and Knowledge Extraction
 
 :::tip Section overview
 One of the most common mistakes in knowledge-base projects is:
@@ -46,7 +46,7 @@ So what this section really wants to solve is:
 - Why knowledge-base projects are not just “extract file content and you’re done”
 - Why heading levels, page numbers, chapters, and examples all affect retrieval quality later
 
-## 1. Why is document parsing often harder than expected?
+## Why is document parsing often harder than expected?
 
 Because the problems in different document formats are completely different:
 
@@ -62,7 +62,7 @@ This means a truly usable knowledge base usually has to answer first:
 3. Are headings, page numbers, and chapters preserved?
 4. Which parts are examples, definitions, body text, or notes?
 
-## 2. A beginner-friendly analogy
+## A beginner-friendly analogy
 
 You can think of document parsing like this:
 
@@ -80,7 +80,7 @@ The safer approach is to organize them into:
 
 Then when the system asks, “Find examples for this topic,” it has a real chance of finding the right ones.
 
-## 3. The most common problems by file type
+## The most common problems by file type
 
 | File type | Most common problems |
 |---|---|
@@ -99,7 +99,7 @@ This table is especially useful for beginners because it reminds you:
 After a file enters the system, it is routed first: text PDFs, scanned PDFs, DOCX, and PPTX have different problems. Before storing into the knowledge base, you need to restore body order, heading hierarchy, page numbers, and content types—not just extract one big block of plain text.
 :::
 
-## 4. A minimal document parsing workflow example
+## A minimal document parsing workflow example
 
 The following example does not depend on a real third-party library,
 but it helps explain the idea of using different parsing routes for different document types.
@@ -139,7 +139,7 @@ but first determine:
 - what kind of file it is
 - which parsing pipeline it should use
 
-## 5. What does a real knowledge chunk look like?
+## What does a real knowledge chunk look like?
 
 What goes into the knowledge base should not just be:
 
@@ -176,7 +176,7 @@ This example is especially helpful for beginners because it shows:
 - what matters is not just getting the words
 - but putting the words back into their source, chapter, page number, and content type
 
-## 6. A more realistic parsing result schema
+## A more realistic parsing result schema
 
 When building this kind of system for the first time, the easiest things to miss are:
 
@@ -238,7 +238,7 @@ The point of this schema is not that it is “beautifully designed,” but that:
 - courseware generation can tell concepts from examples
 - citation traceability knows where the content came from
 
-## 7. Why is “content type” so important?
+## Why is “content type” so important?
 
 Because your project is not ordinary Q&A,
 but something that needs to:
@@ -256,7 +256,7 @@ At that point, if the system can distinguish:
 
 then courseware generation will be much more stable.
 
-## 8. A minimal “example extraction” demo
+## A minimal “example extraction” demo
 
 For your project, just knowing which page a passage comes from is not enough.
 You also want to distinguish, as much as possible:
@@ -295,7 +295,7 @@ but it is very helpful for beginners to understand:
 - “example extraction” is not magic
 - it is essentially document content classification
 
-## 9. Why do scanned files bring OCR into the pipeline?
+## Why do scanned files bring OCR into the pipeline?
 
 Because scanned PDFs or image pages are not text files at their core, but rather:
 
@@ -314,9 +314,9 @@ and then continue with:
 If you later need to process many scanned lesson plans, screenshots, or photographed materials, this step becomes critical.
 
 For a related course section, see:
-- [OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [10.5.4 OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-## 10. The safest scope control for your first implementation
+## The safest scope control for your first implementation
 
 When you first develop this module, the most common reason for failure is not that the technology is too hard,
 but that the scope gets too large too quickly.
@@ -333,7 +333,7 @@ The benefit of this order is:
 - you can first make the structure and schema work smoothly
 - you will not get stuck on OCR recognition problems right away
 
-## 11. A parsing checklist beginners can copy directly
+## A parsing checklist beginners can copy directly
 
 When you parse documents for a knowledge base for the first time, the safest checklist is usually:
 
@@ -346,7 +346,7 @@ When you parse documents for a knowledge base for the first time, the safest che
 
 These 6 items are higher priority than “just use a vector database first.”
 
-## 12. If you turn this into a project, what is most worth showing?
+## If you turn this into a project, what is most worth showing?
 
 What is most worth showing is usually not:
 

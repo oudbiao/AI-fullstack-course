@@ -1,10 +1,10 @@
 ---
-title: "1.7 函数基础"
+title: "2.1.7 函数基础"
 sidebar_position: 7
 description: "掌握函数的定义、参数、返回值和作用域"
 ---
 
-# 函数基础
+# 2.1.7 函数基础
 
 ![函数调用、参数与作用域图](/img/course/ch02-function-call-scope.png)
 

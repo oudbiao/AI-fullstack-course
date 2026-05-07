@@ -1,11 +1,11 @@
 ---
-title: "3.2 Principles of Convolution Operations 🔧"
+title: "6.3.2 Principles of Convolution Operations 🔧"
 sidebar_position: 1
 description: "From local image patterns, convolution kernels, stride, and padding to receptive fields — the first real step toward understanding what CNNs actually do."
 keywords: [convolution, convolution kernel, CNN, stride, padding, receptive field, image features]
 ---
 
-# Principles of Convolution Operations
+# 6.3.2 Principles of Convolution Operations
 
 ![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.png)
 
@@ -42,9 +42,9 @@ In other words, this section is not overthrowing “linear layer + activation fu
 
 That is the most important structural change in vision tasks.
 
-## 1. Why do image tasks need convolution?
+## Why do image tasks need convolution?
 
-### 1.1 First, let’s look at the problem with “just flattening”
+### First, let’s look at the problem with “just flattening”
 
 Suppose you have a `32 x 32` grayscale image.
 
@@ -70,7 +70,7 @@ So:
 
 What matters most is not “how many numbers it has,” but “how those numbers sit next to each other in space.”
 
-### 1.2 What exactly does convolution solve?
+### What exactly does convolution solve?
 
 Convolution does two especially important things:
 
@@ -94,7 +94,7 @@ For example:
 - Corner points
 - Textures
 
-### 1.3 What you should focus on first in this section is not the kernel itself
+### What you should focus on first in this section is not the kernel itself
 
 Focus first on these two “whys”:
 
@@ -105,9 +105,9 @@ Once these two points are clear, concepts like convolution kernels, stride, and 
 
 ---
 
-## 2. What is a convolution kernel?
+## What is a convolution kernel?
 
-### 2.1 The easiest analogy to understand
+### The easiest analogy to understand
 
 A convolution kernel (kernel / filter) is like a tiny “transparent template.”
 
@@ -122,7 +122,7 @@ You can think of that score as:
 
 > How much this region matches the pattern the kernel is looking for.
 
-### 2.2 Minimal runnable example: doing a convolution by hand
+### Minimal runnable example: doing a convolution by hand
 
 ```python
 import numpy as np
@@ -153,7 +153,7 @@ print("kernel =\n", kernel)
 print("output =\n", out)
 ```
 
-### 2.3 How is the first output value computed?
+### How is the first output value computed?
 
 The top-left `2x2` patch is:
 
@@ -186,7 +186,7 @@ So the top-left output value is `-2`.
 
 That is the core computation of convolution.
 
-### 2.4 The most important thing to remember about convolution kernels is not “they slide,” but “they search for patterns”
+### The most important thing to remember about convolution kernels is not “they slide,” but “they search for patterns”
 
 A better beginner-friendly way to say it is:
 
@@ -205,9 +205,9 @@ So what a convolution layer really does is not “multiply the image around,” 
 
 ---
 
-## 3. Why can convolution detect edges?
+## Why can convolution detect edges?
 
-### 3.1 Because it is essentially comparing local differences
+### Because it is essentially comparing local differences
 
 If a convolution kernel is designed to do “left minus right” or “top minus bottom,” it becomes especially sensitive to boundaries.
 
@@ -223,7 +223,7 @@ responds to local structures like “bright in the upper-left, dark in the lower
 If a region of the image is smooth and the pixel values are similar, the convolution result is often close to 0.
 If the local change is sharp, the convolution result becomes larger.
 
-### 3.2 Let’s look at another edge kernel
+### Let’s look at another edge kernel
 
 ```python
 import numpy as np
@@ -253,9 +253,9 @@ You’ll see that the output is most obvious near the boundary where the values 
 
 ---
 
-## 4. What exactly are stride and padding?
+## What exactly are stride and padding?
 
-### 4.1 Stride: how far to move each time
+### Stride: how far to move each time
 
 `stride` can be understood as how many steps the convolution kernel moves each time.
 
@@ -268,7 +268,7 @@ The larger the stride:
 - The faster the computation
 - The more detail is lost
 
-### 4.2 Padding: add a border around the image first
+### Padding: add a border around the image first
 
 If you do not use padding, the convolution kernel stops when it reaches the edge, and the output size becomes smaller.
 
@@ -279,7 +279,7 @@ Padding is used to:
 
 The most common approach is to pad with 0, also called zero padding.
 
-### 4.3 When you first learn stride and padding, where do people usually get confused?
+### When you first learn stride and padding, where do people usually get confused?
 
 The most confusing part is usually not the formula itself, but:
 
@@ -301,7 +301,7 @@ So fundamentally, both affect two things:
 When reading this diagram, think of `stride` as the sliding step and `padding` as the border you add around the image. The larger the step, the smaller the output; the more padding, the more edge information is preserved. The output size formula is just the result of these two actions.
 :::
 
-### 4.4 Output size formula
+### Output size formula
 
 For 2D convolution:
 
@@ -318,7 +318,7 @@ Then the output size is:
 
 > `floor((6 + 2*1 - 3) / 2) + 1 = floor(5/2) + 1 = 2 + 1 = 3`
 
-### 4.5 Runnable example: verify the output size
+### Runnable example: verify the output size
 
 ```python
 import torch
@@ -344,9 +344,9 @@ In the output, you’ll see that both height and width become `3`.
 
 ---
 
-## 5. Multi-channel convolution: how do color images work?
+## Multi-channel convolution: how do color images work?
 
-### 5.1 The difference between grayscale and RGB images
+### The difference between grayscale and RGB images
 
 A grayscale image usually has the shape:
 
@@ -361,7 +361,7 @@ where:
 - `C = 3`
 - corresponding to the R/G/B channels
 
-### 5.2 A convolution kernel also “grows channels”
+### A convolution kernel also “grows channels”
 
 If the input is an RGB image, then a convolution kernel is no longer just `3 x 3`, but:
 
@@ -375,7 +375,7 @@ That means:
 
 Then add the results from the three channels together, plus a bias, to get one output value.
 
-### 5.3 Multiple convolution kernels = multiple output channels
+### Multiple convolution kernels = multiple output channels
 
 If you have 16 convolution kernels, you will get 16 feature maps.
 That is why `Conv2d` uses:
@@ -406,9 +406,9 @@ That means:
 
 ---
 
-## 6. Receptive field: why can deep networks see a larger area?
+## Receptive field: why can deep networks see a larger area?
 
-### 6.1 The intuition behind receptive field
+### The intuition behind receptive field
 
 The receptive field refers to:
 
@@ -423,7 +423,7 @@ But if you stack multiple layers:
 
 Then the second layer indirectly sees a larger area of the original image.
 
-### 6.2 Why is this important?
+### Why is this important?
 
 Because image understanding is usually hierarchical:
 
@@ -443,9 +443,9 @@ Read this diagram from shallow to deep: the first layer sees only small edges, t
 
 ---
 
-## 7. What exactly does a convolution layer do in PyTorch?
+## What exactly does a convolution layer do in PyTorch?
 
-### 7.1 The most basic `Conv2d`
+### The most basic `Conv2d`
 
 ```python
 import torch
@@ -477,7 +477,7 @@ Here:
   - each kernel looks at 1 input channel
   - kernel size `3x3`
 
-### 7.2 Why is an activation function often added after a convolution layer?
+### Why is an activation function often added after a convolution layer?
 
 Just like in MLPs:
 
@@ -493,9 +493,9 @@ nn.ReLU()
 
 ---
 
-## 8. Common beginner mistakes
+## Common beginner mistakes
 
-### 8.1 Treating convolution as a “magic feature extractor”
+### Treating convolution as a “magic feature extractor”
 
 Convolution is not magic. In essence, it is just:
 
@@ -504,7 +504,7 @@ Convolution is not magic. In essence, it is just:
 - Summation
 - Sliding
 
-### 8.2 Mixing up shapes
+### Mixing up shapes
 
 One of the most common mistakes is confusing:
 
@@ -515,7 +515,7 @@ In PyTorch, the usual format is:
 
 - `N x C x H x W`
 
-### 8.3 Not knowing how to calculate output size
+### Not knowing how to calculate output size
 
 Many errors are not because the model cannot learn, but because the dimensions do not match.
 So you must be able to calculate the sizes for `kernel_size / stride / padding`.

@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-study Guide: What Is This Transformer Chapter Really About?"
+title: "6.5.1 Pre-study Guide: What Is This Transformer Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the Transformer chapter: what is the relationship between the attention mechanism, Self-Attention, Encoder/Decoder, and the main line of large models?"
 keywords: [Transformer guide, attention mechanism, self-attention, Attention, large model basics]
 ---
 
-# Pre-study Guide: What Is This Transformer Chapter Really About?
+# 6.5.1 Pre-study Guide: What Is This Transformer Chapter Really About?
 
 This chapter addresses a very important question: why do modern NLP, large models, and many multimodal systems all rely on Transformer?
 

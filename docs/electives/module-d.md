@@ -1,11 +1,11 @@
 ---
-title: "1.1 AI Safety and Red Team Testing"
+title: "E.D AI Safety and Red Team Testing"
 sidebar_position: 4
 description: "From threat modeling, attack sample design, and automated evaluation to a repair loop, understand why AI system security must be continuously validated through red team testing."
 keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails]
 ---
 
-# AI Safety and Red Team Testing
+# E.D AI Safety and Red Team Testing
 
 ![AI Security Red Team Loop Diagram](/img/course/elective-ai-security-red-team-loop-en.png)
 
@@ -46,9 +46,9 @@ That is why red team testing exists.
 
 ---
 
-## 1. Why Can’t AI Security Rely on a One-Time Rule Check?
+## Why Can’t AI Security Rely on a One-Time Rule Check?
 
-### 1.1 Because attack methods change
+### Because attack methods change
 
 A system may be able to block:
 
@@ -60,7 +60,7 @@ But tomorrow it may be broken by:
 - role impersonation
 - toolchain bypasses
 
-### 1.2 Because risk is not only in model output
+### Because risk is not only in model output
 
 Common attack surfaces include:
 
@@ -72,7 +72,7 @@ Common attack surfaces include:
 
 In other words, AI security is not purely a model problem — it is a system problem.
 
-### 1.3 An analogy
+### An analogy
 
 Traditional QA is more like checking “does this feature work?”
 Red team testing is more like checking:
@@ -81,9 +81,9 @@ Red team testing is more like checking:
 
 ---
 
-## 2. First Learn Threat Modeling, Not Attack Names
+## First Learn Threat Modeling, Not Attack Names
 
-### 2.1 Step 1: What are the assets?
+### Step 1: What are the assets?
 
 First ask:
 
@@ -96,7 +96,7 @@ For example:
 - external tool permissions
 - paid API quota
 
-### 2.2 Step 2: Where are the attack surfaces?
+### Step 2: Where are the attack surfaces?
 
 For example:
 
@@ -105,7 +105,7 @@ For example:
 - tool return values
 - long-term memory
 
-### 2.3 Step 3: What are the consequences of failure?
+### Step 3: What are the consequences of failure?
 
 For example:
 
@@ -118,9 +118,9 @@ This step is very important because different consequences determine different p
 
 ---
 
-## 3. What Exactly Does Red Team Testing Measure?
+## What Exactly Does Red Team Testing Measure?
 
-### 3.1 It is not just about whether jailbreak is possible
+### It is not just about whether jailbreak is possible
 
 More completely, red team testing often checks whether the system can:
 
@@ -129,7 +129,7 @@ More completely, red team testing often checks whether the system can:
 - be manipulated into wrong tool usage
 - trigger dangerous behavior
 
-### 3.2 Red team samples are not simply “the worse, the better”
+### Red team samples are not simply “the worse, the better”
 
 High-quality red team samples usually have a few characteristics:
 
@@ -137,7 +137,7 @@ High-quality red team samples usually have a few characteristics:
 - cover different attack surfaces
 - help identify system weaknesses
 
-### 3.3 So the goal of red team testing is not to “prove the system is bad”
+### So the goal of red team testing is not to “prove the system is bad”
 
 Instead, it is to:
 
@@ -147,7 +147,7 @@ Instead, it is to:
 
 ---
 
-## 4. Run a Minimal Red Team Evaluator First
+## Run a Minimal Red Team Evaluator First
 
 The code below simulates a very simple evaluation flow:
 
@@ -210,7 +210,7 @@ print("\nsummary:")
 print(summary)
 ```
 
-### 4.1 What should you take away from this example?
+### What should you take away from this example?
 
 AI safety is not just about one overall score.
 It is more useful to bucket results by attack category:
@@ -218,7 +218,7 @@ It is more useful to bucket results by attack category:
 - which type of attack is easiest to break through
 - which guardrails are relatively more stable
 
-### 4.2 Why is “category statistics” more important than a single example?
+### Why is “category statistics” more important than a single example?
 
 Because a single failure only tells you:
 
@@ -228,7 +228,7 @@ Category statistics help you decide:
 
 - which kind of hole to fix first
 
-### 4.3 This code is simplified, but the idea is correct
+### This code is simplified, but the idea is correct
 
 In a real system, you obviously would not rely on such simple rules alone.
 But the basic red team testing framework is:
@@ -239,9 +239,9 @@ But the basic red team testing framework is:
 
 ---
 
-## 5. How Should Red Team Testing and Fixes Form a Closed Loop?
+## How Should Red Team Testing and Fixes Form a Closed Loop?
 
-### 5.1 First record failure patterns
+### First record failure patterns
 
 For example:
 
@@ -249,7 +249,7 @@ For example:
 - policy bypass
 - tool misuse
 
-### 5.2 Then apply targeted fixes
+### Then apply targeted fixes
 
 Common fixes include:
 
@@ -258,26 +258,26 @@ Common fixes include:
 - retrieval result cleaning
 - output review after generation
 
-### 5.3 Finally, keep failed samples in the regression set
+### Finally, keep failed samples in the regression set
 
 This is extremely important.
 Otherwise, after every fix, you will keep falling into the same pit next time.
 
 ---
 
-## 6. Most Common Misconceptions
+## Most Common Misconceptions
 
-### 6.1 Misconception 1: Red team testing is just about finding the most extreme examples
+### Misconception 1: Red team testing is just about finding the most extreme examples
 
 Extreme examples are valuable,
 but it is even more important to cover real, high-frequency attack methods.
 
-### 6.2 Misconception 2: Security only needs to be done once
+### Misconception 2: Security only needs to be done once
 
 When the model, tools, and prompts change,
 the risk surface changes too.
 
-### 6.3 Misconception 3: Only test the model, not the system pipeline
+### Misconception 3: Only test the model, not the system pipeline
 
 Many real incidents come from:
 

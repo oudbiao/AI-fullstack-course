@@ -1,11 +1,11 @@
 ---
-title: "1.5 Retrieval Strategies"
+title: "8.1.5 Retrieval Strategies"
 sidebar_position: 4
 description: "Understand common strategies such as keyword retrieval, vector retrieval, hybrid retrieval, reranking, and query rewriting, and learn how to make the “find the materials” step more accurate."
 keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, sparse retrieval]
 ---
 
-# Retrieval Strategies
+# 8.1.5 Retrieval Strategies
 
 ![Hybrid Search and Rerank Flowchart](/img/course/hybrid-search-rerank-flow-en.png)
 
@@ -20,9 +20,9 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. Retrieval Is Not “Only One top-k”
+## Retrieval Is Not “Only One top-k”
 
-### 1.1 Keyword Retrieval: Good for Finding Exact Terms
+### Keyword Retrieval: Good for Finding Exact Terms
 
 Keyword retrieval is more like “looking something up in a catalog.”
 
@@ -39,7 +39,7 @@ For example, when a user asks:
 
 In this scenario, keyword retrieval is often very strong.
 
-### 1.2 Vector Retrieval: Good for Finding Semantically Similar Content
+### Vector Retrieval: Good for Finding Semantically Similar Content
 
 Vector retrieval is more like “finding similar meaning.”
 
@@ -61,9 +61,9 @@ Although the words are different, vector retrieval has a chance to connect them.
 
 ---
 
-## 2. Why Do Many Projects Eventually Move Toward Hybrid Retrieval?
+## Why Do Many Projects Eventually Move Toward Hybrid Retrieval?
 
-### 2.1 Because Keywords and Semantics Each Have Blind Spots
+### Because Keywords and Semantics Each Have Blind Spots
 
 If you only use keyword retrieval:
 
@@ -77,7 +77,7 @@ So many systems do this:
 
 > **Keyword score + vector score = hybrid score**
 
-### 2.2 This Is Like Looking at Both the Literal Words and the Meaning
+### This Is Like Looking at Both the Literal Words and the Meaning
 
 Humans do the same thing when searching for materials:
 
@@ -98,7 +98,7 @@ The left side looks for “literal matches,” while the right side looks for �
 
 ---
 
-## 3. A Minimal Runnable Hybrid Retrieval Example
+## A Minimal Runnable Hybrid Retrieval Example
 
 In the example below:
 
@@ -159,9 +159,9 @@ Although simplified, this example is already very close to the core idea of a re
 
 ---
 
-## 4. Rerank: First Recall Roughly, Then Sort Precisely
+## Rerank: First Recall Roughly, Then Sort Precisely
 
-### 4.1 Why Do We Need Rerank?
+### Why Do We Need Rerank?
 
 Many systems do not try to “rank correctly on the first try.” Instead, they do this:
 
@@ -170,7 +170,7 @@ Many systems do not try to “rank correctly on the first try.” Instead, they 
 
 This is called rerank.
 
-### 4.2 An Intuitive Analogy
+### An Intuitive Analogy
 
 It is like screening resumes when hiring:
 
@@ -181,9 +181,9 @@ RAG works the same way.
 
 ---
 
-## 5. Query Rewrite: User Questions Are Often Not Good Retrieval Queries
+## Query Rewrite: User Questions Are Often Not Good Retrieval Queries
 
-### 5.1 User Questions Are Not Always Good Search Terms
+### User Questions Are Not Always Good Search Terms
 
 A user might say:
 
@@ -195,7 +195,7 @@ But the knowledge base says:
 
 At this point, the system often rewrites the question into something more suitable for retrieval.
 
-### 5.2 A Toy Query Rewrite Example
+### A Toy Query Rewrite Example
 
 ```python
 def rewrite_query(query):
@@ -226,29 +226,29 @@ Query Rewrite happens before retrieval and makes the user question easier to sea
 
 ---
 
-## 6. What Other Common Retrieval Enhancement Strategies Are There?
+## What Other Common Retrieval Enhancement Strategies Are There?
 
-### 6.1 Multi-query
+### Multi-query
 
 Rewrite one question into multiple equivalent questions, retrieve separately, and merge the results.
 
-### 6.2 Metadata Filter
+### Metadata Filter
 
 First narrow the scope by business conditions, then do semantic retrieval.
 
-### 6.3 Parent-child Retrieval
+### Parent-child Retrieval
 
 First retrieve small chunks, then go back to a larger section or the original passage.
 
-### 6.4 Self-query Retrieval
+### Self-query Retrieval
 
 Let the model automatically decide which filtering conditions and retrieval fields are needed.
 
 ---
 
-## 7. How Should You Choose a Retrieval Strategy?
+## How Should You Choose a Retrieval Strategy?
 
-### 7.1 If You Have Many Proper Nouns
+### If You Have Many Proper Nouns
 
 You should pay more attention to:
 
@@ -256,7 +256,7 @@ You should pay more attention to:
 - Hybrid retrieval
 - Metadata filtering
 
-### 7.2 If Users Speak Very Casually
+### If Users Speak Very Casually
 
 You should pay more attention to:
 
@@ -264,7 +264,7 @@ You should pay more attention to:
 - Query rewrite
 - Rerank
 
-### 7.3 If Your Knowledge Base Is Highly Structured
+### If Your Knowledge Base Is Highly Structured
 
 You can consider:
 
@@ -274,7 +274,7 @@ You can consider:
 
 ---
 
-## 8. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” How Should You Think About Retrieval Strategy?
+## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” How Should You Think About Retrieval Strategy?
 
 In this kind of project, retrieval is not just about “finding relevant content,”
 but more like making two layers of choices:
@@ -319,13 +319,13 @@ This example is especially suitable for beginners, because it lets you see first
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 9.1 Testing Only Vector Retrieval, Not Keyword Retrieval
+### Testing Only Vector Retrieval, Not Keyword Retrieval
 
 In many enterprise scenarios, keyword retrieval is not weak at all, and may even be the foundation.
 
-### 9.2 Making the Retrieval Strategy Too Complex at the Start
+### Making the Retrieval Strategy Too Complex at the Start
 
 It is recommended to start with:
 
@@ -333,7 +333,7 @@ It is recommended to start with:
 2. A clear evaluation set
 3. Changing only one strategy at a time
 
-### 9.3 Looking Only at Recall, Not at the Final Answer
+### Looking Only at Recall, Not at the Final Answer
 
 A high retrieval score does not mean the final answer will definitely be better.
 Because the generation stage also affects performance.

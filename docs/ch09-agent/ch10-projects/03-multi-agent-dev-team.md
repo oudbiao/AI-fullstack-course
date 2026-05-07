@@ -1,11 +1,11 @@
 ---
-title: "10.4 Project: Multi-Agent Development Team [Optional]"
+title: "9.10.4 Project: Multi-Agent Development Team [Optional]"
 sidebar_position: 56
 description: "Build a portfolio-level minimal closed loop for a multi-Agent development team project around four roles: planner, coder, reviewer, and tester."
 keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 ---
 
-# Project: Multi-Agent Development Team [Optional]
+# 9.10.4 Project: Multi-Agent Development Team [Optional]
 
 :::tip Section focus
 Multi-Agent development team projects can easily turn into a performance:
@@ -30,7 +30,7 @@ This lesson will walk through a “portfolio-level minimal closed loop.”
 
 ---
 
-## 1. Why is a minimal role set usually enough?
+## Why is a minimal role set usually enough?
 
 A very stable minimal closed loop usually only needs:
 
@@ -51,7 +51,7 @@ the system can easily look busy while actually spinning in place.
 
 ---
 
-## 2. First, run a role artifact handoff example
+## First, run a role artifact handoff example
 
 This example does not actually modify code,
 but it will show the structure of the most important “handoff artifacts.”
@@ -112,7 +112,7 @@ print(review)
 print(test_report)
 ```
 
-### 2.1 What is the most important part of this example?
+### What is the most important part of this example?
 
 It shows that what a multi-Agent project should really demonstrate is not plain chat logs,
 but:
@@ -121,14 +121,14 @@ but:
 - Task status
 - Result verification
 
-### 2.2 Why are artifacts more important than conversation?
+### Why are artifacts more important than conversation?
 
 Because artifacts are the inputs that later roles actually depend on.
 If you only look at conversation, it is hard to tell whether the system can collaborate reliably.
 
 ---
 
-## 3. A minimal workflow loop
+## A minimal workflow loop
 
 Now connect the four roles into a minimal flow:
 
@@ -172,7 +172,7 @@ print(review)
 print(test_report)
 ```
 
-### 3.1 Why does this loop already feel like a real project?
+### Why does this loop already feel like a real project?
 
 Because it captures the three most important things in a multi-Agent project:
 
@@ -180,7 +180,7 @@ Because it captures the three most important things in a multi-Agent project:
 2. Clear artifact handoffs
 3. A review-and-test feedback loop
 
-### 3.2 If reviewer does not approve, why should tester not continue?
+### If reviewer does not approve, why should tester not continue?
 
 This shows that a multi-Agent system is not “everyone works in parallel on their own,”
 but must respect:
@@ -196,9 +196,9 @@ This diagram emphasizes that “the number of roles is not the point; artifact h
 
 ---
 
-## 4. What should a portfolio-level project show?
+## What should a portfolio-level project show?
 
-### 4.1 A complete task trace
+### A complete task trace
 
 For example:
 
@@ -208,7 +208,7 @@ For example:
 - review issues
 - test report
 
-### 4.2 One failure rollback
+### One failure rollback
 
 This is very convincing.
 For example:
@@ -217,7 +217,7 @@ For example:
 - coder fixes it a second time
 - tester verifies again
 
-### 4.3 Clear role boundaries
+### Clear role boundaries
 
 Your portfolio should be able to answer:
 
@@ -226,18 +226,18 @@ Your portfolio should be able to answer:
 
 ---
 
-## 5. The most common pitfalls
+## The most common pitfalls
 
-### 5.1 Many roles, but unclear boundaries
+### Many roles, but unclear boundaries
 
 This makes the system look complex,
 but in reality it is just duplicate work.
 
-### 5.2 No shared state or unified artifact format
+### No shared state or unified artifact format
 
 This makes it hard for roles to hand off work reliably.
 
-### 5.3 Only showing the success path
+### Only showing the success path
 
 A good multi-Agent project should also show:
 

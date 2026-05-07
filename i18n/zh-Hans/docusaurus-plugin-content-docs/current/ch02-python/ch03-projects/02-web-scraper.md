@@ -1,10 +1,10 @@
 ---
-title: "1.2 项目：网络爬虫"
+title: "2.3.2 项目：网络爬虫"
 sidebar_position: 2
 description: "学习使用 Python 抓取和解析网页数据"
 ---
 
-# 项目：网络爬虫
+# 2.3.2 项目：网络爬虫
 
 ![网络爬虫数据采集流程图](/img/course/ch02-web-scraper-pipeline.png)
 

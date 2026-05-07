@@ -1,11 +1,11 @@
 ---
-title: "2.5 Follow-Along Workshop: Build a Local Learning Task Assistant"
+title: "2.3.5 Follow-Along Workshop: Build a Local Learning Task Assistant"
 sidebar_position: 24
 description: "A step-by-step Chapter 2 Python workshop that builds a runnable command-line learning task assistant with argparse, dataclasses, JSON persistence, error handling, and report export."
 keywords: [Python workshop, command-line app, argparse, JSON, dataclass, file I/O, Python project]
 ---
 
-# Follow-Along Workshop: Build a Local Learning Task Assistant
+# 2.3.5 Follow-Along Workshop: Build a Local Learning Task Assistant
 
 ![Follow-along Python workshop route](/img/course/ch02-hands-on-python-workshop-route-en.png)
 

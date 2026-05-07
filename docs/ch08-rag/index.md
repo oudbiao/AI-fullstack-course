@@ -42,7 +42,7 @@ A bonus project for this stage could be a “course materials Q&A assistant” o
 
 Beginners should first hand-code a minimal RAG: prepare documents, chunk text, generate embeddings, retrieve chunks, organize the Prompt, and generate answers with sources. As long as you can identify whether poor RAG performance comes from the documents, chunking, retrieval, prompting, or the model, you’ve completed the minimum path.
 
-For a guided first pass, complete [8.5 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It gives you one runnable script that covers chunks, metadata, retrieval, permissions, citations, no-answer handling, traces, and a small evaluation set.
+For a guided first pass, complete [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It gives you one runnable script that covers chunks, metadata, retrieval, permissions, citations, no-answer handling, traces, and a small evaluation set.
 
 ## Advanced learning path
 
@@ -86,17 +86,17 @@ Minimal RAGOps does not need to be complicated at the start, but it must have a 
 
 ## Learning path for this stage
 
-Chapter 1 teaches RAG. You will understand document parsing, chunking, Embedding, vector databases, retrieval strategies, RAG optimization, and evaluation.
+Section 8.1 teaches RAG. You will understand document parsing, chunking, Embedding, vector databases, retrieval strategies, RAG optimization, and evaluation.
 
-Chapter 2 teaches local LLM deployment and unified interfaces. You will understand local models, inference services, and the meaning of a unified API.
+Section 8.2 teaches local LLM deployment and unified interfaces. You will understand local models, inference services, and the meaning of a unified API.
 
-Chapter 3 teaches large model application development, including LLM API, LangChain basics, Function Calling, dialogue systems, document parsing, AI-assisted coding, and template document generation.
+Section 8.3 teaches large model application development, including LLM API, LangChain basics, Function Calling, dialogue systems, document parsing, AI-assisted coding, and template document generation.
 
-Chapter 4 teaches engineering practices, including asynchronous programming, API design, logging and monitoring, and Docker deployment.
+Section 8.4 teaches engineering practices, including asynchronous programming, API design, logging and monitoring, and Docker deployment.
 
-Chapter 5 moves into a comprehensive project, combining the knowledge base, model calls, application interfaces, and engineering practices.
+Section 8.5 moves into a comprehensive project, combining the knowledge base, model calls, application interfaces, and engineering practices.
 
-If you want to learn by doing before reading every project page in detail, run the hands-on workshop in Chapter 5. It acts as the practical spine of this stage: first reproduce the output, then return to the RAG, API, Function Calling, logging, and deployment sections to replace one simple component at a time.
+If you want to learn by doing before reading every project page in detail, run the hands-on workshop in Section 8.5. It acts as the practical spine of this stage: first reproduce the output, then return to the RAG, API, Function Calling, logging, and deployment sections to replace one simple component at a time.
 
 ## What you should be able to do after finishing
 
@@ -156,7 +156,7 @@ for hit in hits[:2]:
 
 The point of this experiment is not how powerful the algorithm is, but to let learners see for the first time that “retrieval results can be inspected.” Once the minimal chain is working, you can replace it with vector models, Hybrid Search, Reranking, Query Rewrite, and evaluation sets.
 
-The longer follow-along version of this experiment is in [8.5 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). Use it as the minimum runnable project before you build a portfolio RAG assistant.
+The longer follow-along version of this experiment is in [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). Use it as the minimum runnable project before you build a portfolio RAG assistant.
 
 ## RAG failure case library: locate problems by symptom
 
@@ -197,7 +197,7 @@ The real outcome of this stage is a knowledge base assistant with sources, logs,
 
 The basic version is to build a personal knowledge base Q&A assistant that supports answering questions from local documents and provides sources. The standard version needs document preprocessing, vector indexing, retrieval evaluation, logging, and a simple Web API. The challenge version can be an enterprise knowledge base demo with permissions, feedback, reranking, multi-turn dialogue, and online deployment notes.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn LLM Applications and Engineering Without Getting Lost](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [8.0 Study Guide: How to Learn LLM Applications and Engineering Without Getting Lost](./study-guide.md).
 
 ## Relationship with the AI Learning Assistant capstone project
 

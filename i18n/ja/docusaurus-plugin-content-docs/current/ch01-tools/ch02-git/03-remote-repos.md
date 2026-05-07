@@ -1,10 +1,10 @@
 ---
-title: "リモートリポジトリ"
+title: "1.2.3 リモートリポジトリ"
 sidebar_position: 3
 description: "コードを GitHub にプッシュして、リモートでの協力を学ぶ"
 ---
 
-# リモートリポジトリ
+# 1.2.3 リモートリポジトリ
 
 ![Git ローカル・リモート同期図](/img/course/ch01-git-remote-sync-ja.png)
 

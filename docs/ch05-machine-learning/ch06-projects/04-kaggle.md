@@ -1,11 +1,11 @@
 ---
-title: "6.5 Kaggle Competition Practice"
+title: "5.6.5 Kaggle Competition Practice"
 sidebar_position: 22
 description: "Kaggle platform basics, competition workflow and techniques, getting started with beginner competitions"
 keywords: [Kaggle, competition, Titanic, data science competition, Notebook, leaderboard]
 ---
 
-# Kaggle Competition Practice (Elective)
+# 5.6.5 Kaggle Competition Practice (Elective)
 
 ![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop-en.png)
 
@@ -55,9 +55,9 @@ What is most valuable for beginners on Kaggle is not really “what rank did I g
 - Learning to turn baseline, cross-validation, feature engineering, and submission records into a closed loop
 - Learning to tell whether “good local validation” and “good leaderboard score” are actually the same thing
 
-## 1. Kaggle Platform Basics
+## Kaggle Platform Basics
 
-### 1.1 Core Features
+### Core Features
 
 | Feature | Description |
 |------|------|
@@ -67,7 +67,7 @@ What is most valuable for beginners on Kaggle is not really “what rank did I g
 | **Discussion** | Forum (learn from others’ ideas) |
 | **Learn** | Official free courses |
 
-### 1.2 Competition Workflow
+### Competition Workflow
 
 ```mermaid
 flowchart LR
@@ -87,9 +87,9 @@ flowchart LR
 
 ---
 
-## 2. Beginner Competition: Titanic Survival Prediction
+## Beginner Competition: Titanic Survival Prediction
 
-### 2.1 Full Solution Workflow
+### Full Solution Workflow
 
 ```python
 import pandas as pd
@@ -144,7 +144,7 @@ for name, model in models.items():
     print(f"{name}: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.1.1 What Is the Safest Goal for Your First Kaggle Competition?
+### What Is the Safest Goal for Your First Kaggle Competition?
 
 When you play Kaggle for the first time, it is not recommended to set your goal as “ranking up.” A safer goal is:
 
@@ -155,7 +155,7 @@ When you play Kaggle for the first time, it is not recommended to set your goal 
 
 If you can do these four things, you have already learned the most important parts.
 
-### 2.2 Generate a Submission File
+### Generate a Submission File
 
 ```python
 # Standard submission format in Kaggle competitions
@@ -173,9 +173,9 @@ If you can do these four things, you have already learned the most important par
 
 ---
 
-## 3. Techniques for Improving Competition Scores
+## Techniques for Improving Competition Scores
 
-### 3.1 Score Improvement Path
+### Score Improvement Path
 
 | Stage | Focus | Expected Improvement |
 |------|------|---------|
@@ -185,7 +185,7 @@ If you can do these four things, you have already learned the most important par
 | Hyperparameter tuning | GridSearch / Optuna | Small |
 | Model ensembling | Stacking / Blending | Small but stable |
 
-### 3.2 Common Pitfalls for Beginners on Kaggle
+### Common Pitfalls for Beginners on Kaggle
 
 - Repeatedly trying things on the public leaderboard and overfitting to it
 - Having no local cross-validation and only watching the online score
@@ -198,7 +198,7 @@ So a safer approach is:
 - Change only one major factor at a time
 - Turn every submission into an experiment record
 
-### 3.3 Learn from High-Quality Notebooks
+### Learn from High-Quality Notebooks
 
 | What to Look At | Why |
 |--------|--------|
@@ -209,7 +209,7 @@ So a safer approach is:
 
 ---
 
-## 4. Recommended Beginner Competitions
+## Recommended Beginner Competitions
 
 | Competition | Type | Difficulty | Description |
 |------|------|------|------|

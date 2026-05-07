@@ -1,11 +1,11 @@
 ---
-title: "6.9 框架选型指南"
+title: "9.6.9 框架选型指南"
 sidebar_position: 37
 description: "从任务结构、知识侧重、状态复杂度、团队能力和长期维护成本出发，建立更实用的 Agent 框架选型方法。"
 keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework]
 ---
 
-# 框架选型指南
+# 9.6.9 框架选型指南
 
 :::tip 本节定位
 学完一圈框架以后，真正重要的问题终于来了：
@@ -45,7 +45,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ## 二、先看最关键的五个选型维度
 
-### 2.1 任务是不是复杂状态流？
+### 任务是不是复杂状态流？
 
 如果你的系统有：
 
@@ -56,7 +56,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 那图工作流型抽象更有价值。
 
-### 2.2 系统是不是知识 / 检索驱动？
+### 系统是不是知识 / 检索驱动？
 
 如果核心难点在：
 
@@ -67,7 +67,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 那知识导向框架会更自然。
 
-### 2.3 任务是不是天然像角色协作？
+### 任务是不是天然像角色协作？
 
 如果任务本来就像：
 
@@ -77,7 +77,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 这类团队分工，角色型框架更顺手。
 
-### 2.4 团队更在意什么？
+### 团队更在意什么？
 
 例如：
 
@@ -86,7 +86,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 - 更快原型速度
 - 更稳的长期维护
 
-### 2.5 项目现在是 demo 还是长期系统？
+### 项目现在是 demo 还是长期系统？
 
 这个区别非常关键。
 
@@ -128,7 +128,7 @@ for name, info in frameworks.items():
     print(name, "->", round(score(info, weights), 3))
 ```
 
-### 3.2 这段代码真正重要的不是分数
+### 这段代码真正重要的不是分数
 
 真正重要的是你开始会问：
 
@@ -141,7 +141,7 @@ for name, info in frameworks.items():
 
 ## 四、几个典型任务下的直觉选型
 
-### 4.1 如果你做的是复杂状态流 Agent
+### 如果你做的是复杂状态流 Agent
 
 更优先考虑：
 
@@ -153,7 +153,7 @@ for name, info in frameworks.items():
 - 条件边
 - 回退和重试
 
-### 4.2 如果你做的是知识库 / RAG 主线
+### 如果你做的是知识库 / RAG 主线
 
 更优先考虑：
 
@@ -164,7 +164,7 @@ for name, info in frameworks.items():
 - 文档怎么进系统
 - 检索怎么组织
 
-### 4.3 如果你做的是角色型多 Agent 原型
+### 如果你做的是角色型多 Agent 原型
 
 更优先考虑：
 
@@ -179,7 +179,7 @@ for name, info in frameworks.items():
 
 ## 五、什么时候不该着急上复杂框架？
 
-### 5.1 一个很常见但容易被忽略的情况
+### 一个很常见但容易被忽略的情况
 
 如果你的项目只是：
 
@@ -194,7 +194,7 @@ for name, info in frameworks.items():
 
 就已经很够了。
 
-### 5.2 为什么这反而可能更好？
+### 为什么这反而可能更好？
 
 因为框架会带来：
 
@@ -227,19 +227,19 @@ for name, info in frameworks.items():
 
 ## 七、几个最常见的错误选型方式
 
-### 7.1 看谁最火
+### 看谁最火
 
 这几乎是最常见的误区。
 
-### 7.2 看 demo 最炫
+### 看 demo 最炫
 
 demo 好看，不代表适合长期系统。
 
-### 7.3 还没想清任务结构，就先选框架
+### 还没想清任务结构，就先选框架
 
 这会让你后面变成“拿框架套问题”，而不是“按问题选抽象”。
 
-### 7.4 想让一个框架包办所有问题
+### 想让一个框架包办所有问题
 
 现实里很多系统本来就可能是混搭：
 

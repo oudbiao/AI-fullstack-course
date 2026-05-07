@@ -1,11 +1,11 @@
 ---
-title: "1.3 朴素贝叶斯"
+title: "E.C.3 朴素贝叶斯"
 sidebar_position: 14
 description: "从条件概率和词频统计讲起，理解朴素贝叶斯为什么在文本分类和小样本任务里常常是一个便宜但有用的基线。"
 keywords: [naive bayes, multinomial nb, text classification, probability, smoothing]
 ---
 
-# 朴素贝叶斯
+# E.C.3 朴素贝叶斯
 
 ![朴素贝叶斯证据累积图](/img/course/elective-naive-bayes-evidence.png)
 
@@ -35,7 +35,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 ## 一、朴素贝叶斯到底在做什么？
 
-### 1.1 它在比较“哪个类别更可能生成这条样本”
+### 它在比较“哪个类别更可能生成这条样本”
 
 比如给一句文本：
 
@@ -46,7 +46,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 - 这句更像退款类文本生成出来的吗？
 - 还是更像登录问题类文本生成出来的吗？
 
-### 1.2 为什么叫“朴素”？
+### 为什么叫“朴素”？
 
 因为它做了一个很强但很方便的假设：
 
@@ -59,7 +59,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 - 数据需求低
 - 实现简单
 
-### 1.3 一个类比
+### 一个类比
 
 你可以把朴素贝叶斯想成：
 
@@ -73,7 +73,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 ## 二、为什么它特别适合文本分类？
 
-### 2.1 因为词频本身就是很强信号
+### 因为词频本身就是很强信号
 
 例如出现这些词：
 
@@ -84,7 +84,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 很多时候已经能强烈暗示类别。
 
-### 2.2 Multinomial Naive Bayes 很贴词袋模型
+### Multinomial Naive Bayes 很贴词袋模型
 
 对文本来说，常见输入就是：
 
@@ -92,7 +92,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 这和 `MultinomialNB` 很搭。
 
-### 2.3 它经常是很好的便宜基线
+### 它经常是很好的便宜基线
 
 尤其在：
 
@@ -141,14 +141,14 @@ pred = clf.predict(["退款怎么处理", "电子发票什么时候开"])
 print(pred.tolist())
 ```
 
-### 3.1 这个例子最该看哪两层？
+### 这个例子最该看哪两层？
 
 1. `CountVectorizer()`
    文本先变成词频特征
 2. `MultinomialNB()`
    再根据各类下的词分布做判断
 
-### 3.2 为什么这个流程在文本任务里很经典？
+### 为什么这个流程在文本任务里很经典？
 
 因为它足够轻：
 
@@ -162,19 +162,19 @@ print(pred.tolist())
 
 ## 四、平滑为什么重要？
 
-### 4.1 如果训练里从没见过某个词会怎样？
+### 如果训练里从没见过某个词会怎样？
 
 假设某类文本里从来没出现过某个词，
 直接按概率乘法，可能会让整类概率被打到接近 0。
 
-### 4.2 这就是为什么要做 smoothing
+### 这就是为什么要做 smoothing
 
 例如 `alpha=1.0` 表示一种常见平滑。
 它的意义可以先粗略理解成：
 
 - 别因为“没见过一次”就把概率判死刑
 
-### 4.3 工程直觉
+### 工程直觉
 
 平滑不是数学细节而已，
 它直接影响模型面对新词时有多脆弱。
@@ -183,20 +183,20 @@ print(pred.tolist())
 
 ## 五、朴素贝叶斯的优点和局限
 
-### 5.1 优点
+### 优点
 
 - 训练非常快
 - 小数据也能起步
 - 文本分类常常够用
 - 比较容易解释
 
-### 5.2 局限
+### 局限
 
 - 特征独立假设过强
 - 很难建模复杂交互
 - 面对更复杂语义时通常不如更强模型
 
-### 5.3 一个很实用的判断
+### 一个很实用的判断
 
 如果你的目标是：
 
@@ -208,16 +208,16 @@ print(pred.tolist())
 
 ## 六、最常见误区
 
-### 6.1 误区一：假设不真实，所以没必要学
+### 误区一：假设不真实，所以没必要学
 
 很多算法的假设都不完全真实。
 关键是它在工程上值不值得。
 
-### 6.2 误区二：它只适合教材示例
+### 误区二：它只适合教材示例
 
 在中小文本分类任务里，它依然常是有用基线。
 
-### 6.3 误区三：只要上 Naive Bayes 就不用看特征
+### 误区三：只要上 Naive Bayes 就不用看特征
 
 特征表示仍然非常关键。
 词袋质量差，模型也会差。

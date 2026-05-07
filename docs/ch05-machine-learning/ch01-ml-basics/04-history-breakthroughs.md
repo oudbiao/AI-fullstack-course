@@ -1,11 +1,11 @@
 ---
-title: "1.2 Main Thread of Major Breakthroughs in Machine Learning History"
+title: "5.1.2 Main Thread of Major Breakthroughs in Machine Learning History"
 sidebar_position: 5
 description: "Understand the major breakthroughs in machine learning through historical development: what Bayes, maximum likelihood, EM, decision trees, SVM, random forests, Boosting, XGBoost, and sklearn engineering each solved."
 keywords: [machine learning history, ML breakthroughs, Bayes, maximum likelihood, EM, decision trees, SVM, random forest, XGBoost]
 ---
 
-# Main Thread of Major Breakthroughs in Machine Learning History
+# 5.1.2 Main Thread of Major Breakthroughs in Machine Learning History
 
 ![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map-en.png)
 
@@ -18,7 +18,7 @@ This section is not about memorizing years. Instead, it helps you understand:
 - What engineering capability this historical milestone becomes in real projects
 :::
 
-## 1. First, grasp the main thread of machine learning history in one sentence
+## First, grasp the main thread of machine learning history in one sentence
 
 You can first understand the history of machine learning as a path from “handwritten rules” to “learning patterns from data.”
 
@@ -41,7 +41,7 @@ The key shift in machine learning is: instead of writing rules directly, prepare
 | From a single model to model families | Compare baseline, tree models, and ensemble methods |
 | From handwritten workflows to engineering | Use sklearn, Pipeline, and reports to review projects |
 
-### 1.1 Keyword decoder for this history page
+### Keyword decoder for this history page
 
 | Keyword | Full name / meaning | Beginner-friendly explanation |
 |---|---|---|
@@ -58,7 +58,7 @@ The key shift in machine learning is: instead of writing rules directly, prepare
 | `baseline` | First reasonable comparison model | A simple model you beat before claiming progress |
 | `Pipeline` | Reproducible chain of steps | Keeps preprocessing, training, and prediction connected in the same order |
 
-## 2. Breakthrough 1: Bayes, maximum likelihood, and EM made “uncertainty” modelable
+## Breakthrough 1: Bayes, maximum likelihood, and EM made “uncertainty” modelable
 
 In many real-world problems, data is not absolutely certain. Users hesitate, sensors contain noise, samples may be missing, and labels may be imperfect.
 
@@ -86,7 +86,7 @@ Suggested study mapping:
 | Section 1.5 How mathematics truly flows into machine learning | How parameters, loss, and optimization connect to the training loop |
 | Optional module: classical ML | How traditional methods such as Naive Bayes and LDA use probabilistic thinking |
 
-## 3. Breakthrough 2: Linear models turned “prediction” into a trainable baseline
+## Breakthrough 2: Linear models turned “prediction” into a trainable baseline
 
 Linear regression and logistic regression look simple, but they are extremely important in machine learning because they let beginners see a complete training structure for the first time:
 
@@ -106,7 +106,7 @@ Suggested study mapping:
 | 2.3 Logistic Regression | Move from continuous prediction to classification probabilities and decision boundaries |
 | Chapter 6 Neural Networks | Understand why neurons are like “trainable linear models + activation functions” |
 
-## 4. Breakthrough 3: Decision trees made machine learning results look more like human-readable rules
+## Breakthrough 3: Decision trees made machine learning results look more like human-readable rules
 
 Linear models are stable, but they are often not intuitive enough and are not good at expressing complex nonlinear rules. The breakthrough of decision trees is:
 
@@ -124,7 +124,7 @@ Suggested study mapping:
 | 4.3 Bias-variance | Why deep trees overfit |
 | 5.5 Pipeline | How to place tree models into a complete modeling workflow |
 
-## 5. Breakthrough 4: SVM clearly explained the idea that the decision boundary should be stable
+## Breakthrough 4: SVM clearly explained the idea that the decision boundary should be stable
 
 The core story of SVM is very suitable for beginners to understand classification boundaries.
 
@@ -144,7 +144,7 @@ Suggested study mapping:
 | Model evaluation in this chapter | A high training score does not necessarily mean a stable boundary |
 | Feature engineering in this chapter | SVM is sensitive to feature scaling |
 
-## 6. Breakthrough 5: Random forests and Boosting combined weak models into strong models
+## Breakthrough 5: Random forests and Boosting combined weak models into strong models
 
 A single tree can easily overfit, but trees have one huge advantage: they can handle nonlinearity and feature interactions. So machine learning entered a very important stage:
 
@@ -162,7 +162,7 @@ Suggested study mapping:
 | 4.1 Metric selection | Even strong models must be compared under the right metric |
 | 6.4 Kaggle introduction | Why tabular data projects often start with XGBoost-like models |
 
-## 7. Breakthrough 6: sklearn turned classical machine learning into a unified engineering workflow
+## Breakthrough 6: sklearn turned classical machine learning into a unified engineering workflow
 
 Algorithmic breakthroughs are important, but engineering matters too. The value of `scikit-learn` is not only that it provides many models, but also that it unifies classical machine learning into a very stable interface:
 
@@ -182,7 +182,7 @@ Suggested study mapping:
 | 5.5 Pipeline | Prevent data leakage and messy workflows |
 | Stage 6 projects | Turn training, evaluation, and reporting into reproducible projects |
 
-## 8. Assign the historical breakthroughs to the Chapter 5 learning path
+## Assign the historical breakthroughs to the Chapter 5 learning path
 
 You can return to the specific sections according to the table below:
 
@@ -197,7 +197,7 @@ You can return to the specific sections according to the table below:
 | AdaBoost / GBDT / XGBoost | Sequential error correction to improve tabular baselines | 2.5 Ensemble Learning, 6.4 Kaggle |
 | sklearn / Pipeline | Organize algorithms into a reproducible engineering workflow | 1.4 sklearn, 5.5 Pipeline |
 
-## 9. The intuition you should form after finishing this section
+## The intuition you should form after finishing this section
 
 The history of machine learning is not just a list of “old algorithms,” but a process in which problems were gradually solved:
 

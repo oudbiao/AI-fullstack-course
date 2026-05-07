@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-class Guide: What Exactly Are We Learning in This PyTorch Chapter?"
+title: "6.2.1 Pre-class Guide: What Exactly Are We Learning in This PyTorch Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the PyTorch chapter: what tensor, autograd, nn.Module, DataLoader, and the training loop are each responsible for."
 keywords: [PyTorch guide, tensor, autograd, nn.Module, DataLoader, training loop]
 ---
 
-# Pre-class Guide: What Exactly Are We Learning in This PyTorch Chapter?
+# 6.2.1 Pre-class Guide: What Exactly Are We Learning in This PyTorch Chapter?
 
 This chapter is not teaching “a few APIs.” Instead, it helps you build the smallest complete engineering loop for deep learning training.
 

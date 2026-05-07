@@ -1,11 +1,11 @@
 ---
-title: "5.3 NLP 中的注意力机制"
+title: "11.5.3 NLP 中的注意力机制"
 sidebar_position: 2
 description: "从 encoder-decoder 的信息瓶颈讲起，理解注意力如何让生成端动态查看输入不同位置。"
 keywords: [attention, seq2seq, encoder decoder, alignment, NLP]
 ---
 
-# NLP 中的注意力机制
+# 11.5.3 NLP 中的注意力机制
 
 ![Seq2Seq 注意力对齐图](/img/course/seq2seq-attention-alignment.png)
 
@@ -61,7 +61,7 @@ flowchart LR
 
 ## 一、为什么 Seq2Seq 需要注意力？
 
-### 1.1 固定长度编码容易丢信息
+### 固定长度编码容易丢信息
 
 如果输入是：
 
@@ -71,7 +71,7 @@ flowchart LR
 只把它压成一个固定向量，
 解码器后面会很吃力。
 
-### 1.2 解码器在不同时间步关注点应该不同
+### 解码器在不同时间步关注点应该不同
 
 例如翻译时：
 
@@ -80,7 +80,7 @@ flowchart LR
 
 所以“整个输出过程只看同一个向量”并不自然。
 
-### 1.3 注意力的核心直觉
+### 注意力的核心直觉
 
 每次生成输出时，
 都根据当前解码状态去问：
@@ -127,7 +127,7 @@ print("weights:", weights)
 print("context:", [round(x, 4) for x in context])
 ```
 
-### 2.1 这段代码最该看什么？
+### 这段代码最该看什么？
 
 三步最关键：
 
@@ -135,7 +135,7 @@ print("context:", [round(x, 4) for x in context])
 2. `softmax` 得到注意力权重
 3. 用权重对 encoder states 做加权平均
 
-### 2.2 为什么这已经体现了注意力本质？
+### 为什么这已经体现了注意力本质？
 
 因为它回答了两个核心问题：
 
@@ -144,13 +144,13 @@ print("context:", [round(x, 4) for x in context])
 
 这就是注意力最重要的直觉。
 
-### 2.3 新人第一次学注意力，最该先记哪三件事？
+### 新人第一次学注意力，最该先记哪三件事？
 
 1. `query` 代表当前想找什么
 2. `score` 代表每个输入位置和当前需求有多相关
 3. `weights` 经过 softmax 后，决定“每个位置看多少”
 
-### 2.4 再看一个最小“输出词对输入词”的对齐示例
+### 再看一个最小“输出词对输入词”的对齐示例
 
 ```python
 source_tokens = ["i", "love", "nlp"]
@@ -172,21 +172,21 @@ for token, weight in zip(source_tokens, attention_weights):
 
 ## 三、注意力为什么会显著改善 Seq2Seq？
 
-### 3.1 它缓解了信息瓶颈
+### 它缓解了信息瓶颈
 
 输入不再只能通过一个固定向量传递给解码器。
 
-### 3.2 它让输入输出对齐更自然
+### 它让输入输出对齐更自然
 
 很多翻译任务本来就有“某个输出词大致对应输入哪些词”的结构。
 注意力让这种对齐更容易学到。
 
-### 3.3 这也是从经典 Seq2Seq 走向 Transformer 的桥梁
+### 这也是从经典 Seq2Seq 走向 Transformer 的桥梁
 
 后面 Transformer 把注意力推广得更彻底，
 但这节的直觉基础是一样的。
 
-### 3.4 第一次学这节时，最值得先看的不是公式，而是流程
+### 第一次学这节时，最值得先看的不是公式，而是流程
 
 更稳的理解顺序通常是：
 
@@ -201,17 +201,17 @@ for token, weight in zip(source_tokens, attention_weights):
 
 ## 四、最容易踩的坑
 
-### 4.1 误区一：注意力只是一个加权平均小技巧
+### 误区一：注意力只是一个加权平均小技巧
 
 不止。
 它改变了模型如何访问输入信息。
 
-### 4.2 误区二：有注意力就再也不会丢信息
+### 误区二：有注意力就再也不会丢信息
 
 不是。
 长序列仍然会有难题，只是瓶颈被显著缓解。
 
-### 4.3 误区三：注意力就是 Transformer
+### 误区三：注意力就是 Transformer
 
 注意力是更大的概念，Transformer 是在其上发展出的完整架构。
 

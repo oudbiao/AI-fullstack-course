@@ -1,11 +1,11 @@
 ---
-title: "9.4 Persistence and Recovery"
+title: "9.9.4 Persistence and Recovery"
 sidebar_position: 51
 description: "Starting from state snapshots, event logs, idempotent execution, and crash recovery, understand why Agent tasks must be recoverable."
 keywords: [persistence, recovery, checkpoint, event log, idempotency, resume, deployment]
 ---
 
-# Persistence and Recovery
+# 9.9.4 Persistence and Recovery
 
 :::tip Where this section fits
 Once an Agent starts handling long tasks, multi-step workflows, or background jobs, one problem quickly becomes critical:
@@ -32,9 +32,9 @@ So the core idea of this lesson is:
 
 ---
 
-## 1. Why do Agents especially need recoverability?
+## Why do Agents especially need recoverability?
 
-### 1.1 Because many tasks are not completed instantly
+### Because many tasks are not completed instantly
 
 For example:
 
@@ -48,22 +48,22 @@ These tasks often span:
 - Multiple steps
 - Longer time windows
 
-### 1.2 What happens without recovery capability?
+### What happens without recovery capability?
 
 - If the task is interrupted, everything starts over
 - Already executed actions may be repeated
 - Users cannot tell the current progress
 
-### 1.3 An analogy
+### An analogy
 
 An Agent without persistence is like a workstation that “forgets everything when the power goes out.”
 A production-ready system is more like an IDE with auto-save and restore points.
 
 ---
 
-## 2. What exactly is being persisted?
+## What exactly is being persisted?
 
-### 2.1 The most important thing is task state
+### The most important thing is task state
 
 For example:
 
@@ -71,7 +71,7 @@ For example:
 - Which steps have been completed
 - What the intermediate results are
 
-### 2.2 Next comes the event log
+### Next comes the event log
 
 The event log answers:
 
@@ -83,7 +83,7 @@ For example:
 - What response was received
 - Which step failed
 
-### 2.3 The difference between snapshots and logs
+### The difference between snapshots and logs
 
 You can remember it like this:
 
@@ -94,7 +94,7 @@ In real engineering, these two are often used together.
 
 ---
 
-## 3. First, run a minimal recovery workflow
+## First, run a minimal recovery workflow
 
 The example below simulates a three-step task:
 
@@ -172,7 +172,7 @@ for event in runner.event_log:
     print(event["type"], event["payload"])
 ```
 
-### 3.1 What is the most important thing to learn from this example?
+### What is the most important thing to learn from this example?
 
 It connects the three most important pieces in the recovery path:
 
@@ -180,7 +180,7 @@ It connects the three most important pieces in the recovery path:
 2. Keep an event log when errors happen
 3. After restart, continue from the last checkpoint
 
-### 3.2 Why not write the checkpoint only at the end of the task?
+### Why not write the checkpoint only at the end of the task?
 
 Because if the task crashes midway,
 you still cannot recover anything.
@@ -189,7 +189,7 @@ So for long tasks, a more practical choice is:
 
 - Step-level checkpoints
 
-### 3.3 Why is the event log important?
+### Why is the event log important?
 
 A checkpoint can only tell you “what the current state is,”
 but it cannot fully explain:
@@ -207,15 +207,15 @@ This diagram splits recovery into two paths: checkpoint handles “where to reco
 
 ---
 
-## 4. Why is idempotency the core of the recovery path?
+## Why is idempotency the core of the recovery path?
 
-### 4.1 What does idempotent mean?
+### What does idempotent mean?
 
 Idempotency can be roughly understood as:
 
 - Repeating the same action multiple times still produces the same result
 
-### 4.2 Why is it especially needed during recovery?
+### Why is it especially needed during recovery?
 
 If the system crashes before “writing the report,” after restarting you may not know:
 
@@ -227,7 +227,7 @@ If the action is not idempotent, it can lead to:
 - Duplicate charges
 - Duplicate messages
 
-### 4.3 A simplified example
+### A simplified example
 
 ```python
 processed = set()
@@ -248,9 +248,9 @@ This is the simplest idea behind idempotency protection.
 
 ---
 
-## 5. What do people most often forget when designing recovery?
+## What do people most often forget when designing recovery?
 
-### 5.1 Storing only the “result,” not the “progress”
+### Storing only the “result,” not the “progress”
 
 If you only store the summary and do not store:
 
@@ -258,20 +258,20 @@ If you only store the summary and do not store:
 
 then recovery still remains difficult.
 
-### 5.2 Storing only checkpoints, not logs
+### Storing only checkpoints, not logs
 
 This allows recovery, but makes it hard to investigate why the failure happened.
 
-### 5.3 External side effects have no idempotency key
+### External side effects have no idempotency key
 
 This makes recovery risky,
 because the system cannot tell whether replaying will create duplicate side effects.
 
 ---
 
-## 6. How is this usually done in real systems?
+## How is this usually done in real systems?
 
-### 6.1 State table
+### State table
 
 Store:
 
@@ -280,7 +280,7 @@ Store:
 - Current state snapshot
 - Update time
 
-### 6.2 Event table
+### Event table
 
 Store:
 
@@ -289,7 +289,7 @@ Store:
 - Input/output summary
 - Error information
 
-### 6.3 Recovery service
+### Recovery service
 
 Responsible for:
 
@@ -299,21 +299,21 @@ Responsible for:
 
 ---
 
-## 7. Most common misconceptions
+## Most common misconceptions
 
-### 7.1 Misconception 1: If there is a database, then it is “recoverable”
+### Misconception 1: If there is a database, then it is “recoverable”
 
 Not true.
 The key is whether you have stored:
 
 - Enough information to recover
 
-### 7.2 Misconception 2: Recovery just means “run it again”
+### Misconception 2: Recovery just means “run it again”
 
 Running it again often causes duplicate side effects.
 Recovery is not redoing; it is continuing statefully.
 
-### 7.3 Misconception 3: Only very long tasks need recovery
+### Misconception 3: Only very long tasks need recovery
 
 As long as a task includes external side effects or multi-step execution,
 recovery capability is important.

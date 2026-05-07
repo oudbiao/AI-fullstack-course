@@ -1,11 +1,11 @@
 ---
-title: "7.5 语义图与 AMR：把句子变成结构化含义"
+title: "11.7.5 语义图与 AMR：把句子变成结构化含义"
 sidebar_position: 4
 description: "理解语义图、AMR 和句法语义解析为什么重要，以及它们怎样连接到信息抽取、知识图谱和 RAG。"
 keywords: [AMR, 语义图, 语义解析, 信息抽取, 知识图谱]
 ---
 
-# 语义图与 AMR：把句子变成结构化含义
+# 11.7.5 语义图与 AMR：把句子变成结构化含义
 
 ![AMR 语义图理解地图](/img/course/ch11-amr-semantic-graph-map.png)
 

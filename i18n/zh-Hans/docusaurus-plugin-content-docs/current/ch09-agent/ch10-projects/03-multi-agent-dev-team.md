@@ -1,11 +1,11 @@
 ---
-title: "10.4 项目：多 Agent 开发团队【选修】"
+title: "9.10.4 项目：多 Agent 开发团队【选修】"
 sidebar_position: 56
 description: "围绕 planner、coder、reviewer 和 tester 四类角色，建立一个多 Agent 开发团队项目的作品级最小闭环。"
 keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 ---
 
-# 项目：多 Agent 开发团队【选修】
+# 9.10.4 项目：多 Agent 开发团队【选修】
 
 :::tip 本节定位
 多 Agent 开发团队项目很容易流于表演：
@@ -112,7 +112,7 @@ print(review)
 print(test_report)
 ```
 
-### 2.1 这个例子最关键的地方是什么？
+### 这个例子最关键的地方是什么？
 
 它说明多 Agent 项目真正应该展示的，不是纯聊天记录，
 而是：
@@ -121,7 +121,7 @@ print(test_report)
 - 任务状态
 - 结果验证
 
-### 2.2 为什么工件比对话更重要？
+### 为什么工件比对话更重要？
 
 因为工件才是后续角色真正依赖的输入。
 如果只看对话，很难判断系统是不是能稳定协作。
@@ -172,7 +172,7 @@ print(review)
 print(test_report)
 ```
 
-### 3.1 为什么这个闭环已经很像真实项目？
+### 为什么这个闭环已经很像真实项目？
 
 因为它体现了多 Agent 项目最关键的 3 个点：
 
@@ -180,7 +180,7 @@ print(test_report)
 2. 明确工件交接
 3. 基于评审与测试的回路
 
-### 3.2 如果 reviewer 不通过，为什么 tester 就不该继续？
+### 如果 reviewer 不通过，为什么 tester 就不该继续？
 
 这说明多 Agent 系统不是“人人都并行做自己的”，
 而是要尊重：
@@ -198,7 +198,7 @@ print(test_report)
 
 ## 四、作品级项目最该展示什么？
 
-### 4.1 一条完整任务 trace
+### 一条完整任务 trace
 
 例如：
 
@@ -208,7 +208,7 @@ print(test_report)
 - review issues
 - test report
 
-### 4.2 一次失败回退
+### 一次失败回退
 
 这会非常有说服力。
 例如：
@@ -217,7 +217,7 @@ print(test_report)
 - coder 二次修复
 - tester 重新验证
 
-### 4.3 清楚的角色边界
+### 清楚的角色边界
 
 作品集里要能回答：
 
@@ -228,16 +228,16 @@ print(test_report)
 
 ## 五、最容易踩的坑
 
-### 5.1 角色很多但边界不清
+### 角色很多但边界不清
 
 这会让系统看起来复杂，
 实际上只是重复劳动。
 
-### 5.2 没有共享状态或统一工件格式
+### 没有共享状态或统一工件格式
 
 这样角色之间很难稳定交接。
 
-### 5.3 只展示成功路径
+### 只展示成功路径
 
 一个好的多 Agent 项目更该展示：
 

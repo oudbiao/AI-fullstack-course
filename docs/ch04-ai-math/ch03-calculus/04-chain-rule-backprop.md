@@ -1,11 +1,11 @@
 ---
-title: "3.5 Chain Rule and Backpropagation Preview"
+title: "4.3.5 Chain Rule and Backpropagation Preview"
 sidebar_position: 12
 description: "Understand how the chain rule computes the derivative of composite functions, manually derive backpropagation for a simple two-layer network, and understand computation graphs"
 keywords: [chain rule, backpropagation, computation graph, automatic differentiation, PyTorch, AI math]
 ---
 
-# Chain Rule and Backpropagation Preview
+# 4.3.5 Chain Rule and Backpropagation Preview
 
 ![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph-en.png)
 
@@ -47,9 +47,9 @@ Then what this lesson adds is:
 
 - In a many-layer network, how the gradient is actually computed layer by layer
 
-## 1. The Chain Rule — the "Peel the Onion" Method
+## The Chain Rule — the "Peel the Onion" Method
 
-### 1.1 Intuition
+### Intuition
 
 If a function has a nested structure — one function wrapped inside another — then its derivative is **found by peeling it layer by layer and multiplying the derivatives at each layer**.
 
@@ -67,7 +67,7 @@ flowchart LR
 
 "The rate of change of y with respect to x = the rate of change of y with respect to u × the rate of change of u with respect to x"
 
-### 1.1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can first think of the chain rule as a row of gears:
 
@@ -82,7 +82,7 @@ That is why the core action of the chain rule is:
 - Break the function apart layer by layer
 - Multiply the rates of change layer by layer
 
-### 1.2 Everyday intuition
+### Everyday intuition
 
 If your salary increases by 10% and prices increase by 5%, how does your real purchasing power change?
 
@@ -91,7 +91,7 @@ If your salary increases by 10% and prices increase by 5%, how does your real pu
 
 Multiply the change rates of each step = the overall change rate.
 
-### 1.3 Calculation Example
+### Calculation Example
 
 ![Step-by-step chain rule calculation example](/img/course/ch04-chain-rule-calculation-example-en.png)
 
@@ -137,7 +137,7 @@ print(f"  Chain rule: dy/dx = {dy_dx_chain}")
 print(f"  Numerical check: dy/dx = {dy_dx_numerical:.4f}")
 ```
 
-### 1.4 Multi-layer chain rule
+### Multi-layer chain rule
 
 ![Multi-layer chain rule path for sin(exp(x squared))](/img/course/ch04-chain-rule-multilayer-en.png)
 
@@ -176,9 +176,9 @@ print(f"Numerical check: {dy_dx_num:.6f}")
 
 ---
 
-## 2. Backpropagation — a Systematic Use of the Chain Rule
+## Backpropagation — a Systematic Use of the Chain Rule
 
-### 2.1 A Two-Layer Neural Network
+### A Two-Layer Neural Network
 
 ```mermaid
 flowchart LR
@@ -192,7 +192,7 @@ flowchart LR
     style L fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 Forward Pass
+### Forward Pass
 
 ![Forward pass saves intermediate values for backpropagation](/img/course/ch04-chain-rule-forward-pass-en.png)
 
@@ -234,7 +234,7 @@ print(f"y  = w2*h + b2 = {w2}*{h} + {b2} = {y}")
 print(f"loss = (y - target)² = ({y} - {target})² = {loss:.4f}")
 ```
 
-### 2.2.1 Why must we always compute the forward pass before the backward pass?
+### Why must we always compute the forward pass before the backward pass?
 
 Because backpropagation does not happen out of thin air.
 It must be based on the intermediate values already computed during the forward pass:
@@ -249,7 +249,7 @@ So a very stable way to understand it is:
 - The forward pass lays out the path
 - The backward pass follows this path and sends gradients back layer by layer
 
-### 2.3 Backward Pass
+### Backward Pass
 
 ![Backward pass sends gradients from loss back to parameters](/img/course/ch04-chain-rule-backward-pass-en.png)
 
@@ -301,7 +301,7 @@ dL_db1 = dL_dz1 * 1
 print(f"dL/db1 = dL/dz1 × 1 = {dL_db1:.4f}")
 ```
 
-### 2.4 Update Parameters with the Gradients
+### Update Parameters with the Gradients
 
 ![Parameter update with gradients and learning rate](/img/course/ch04-chain-rule-parameter-update-en.png)
 
@@ -341,9 +341,9 @@ print(f"\nLoss change: {loss:.4f} → {loss_new:.4f} ({'↓ decreased!' if loss_
 
 ---
 
-## 3. Computation Graphs — the Data Structure Behind Backpropagation
+## Computation Graphs — the Data Structure Behind Backpropagation
 
-### 3.1 What Is a Computation Graph?
+### What Is a Computation Graph?
 
 **Computation graph = a directed graph that represents each operation as a node.**
 
@@ -370,7 +370,7 @@ flowchart LR
 
 **Backward pass**: go against the arrows, from the loss back to each parameter’s gradient.
 
-### 3.1.1 Why does a computation graph suddenly make everything clear?
+### Why does a computation graph suddenly make everything clear?
 
 Because it reduces a “complex network” into many small nodes:
 
@@ -384,7 +384,7 @@ backpropagation no longer feels like magic, but more like:
 
 - Sending gradients back along the graph layer by layer
 
-### 3.2 Why Does PyTorch Need a Computation Graph?
+### Why Does PyTorch Need a Computation Graph?
 
 ```python
 # In PyTorch (we will study this in detail in Station 6)
@@ -418,7 +418,7 @@ Manually computing the gradients of 4 parameters is already tedious. GPT-3 has 1
 
 ---
 
-## 4. Full Example: Training a Small Network
+## Full Example: Training a Small Network
 
 ![Full training loop for a small neural network](/img/course/ch04-chain-rule-full-training-loop-en.png)
 

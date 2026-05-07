@@ -1,10 +1,10 @@
 ---
-title: "2.4 Array Operations"
+title: "3.2.4 Array Operations"
 sidebar_position: 5
 description: "Master vectorized operations, broadcasting, and aggregation functions"
 ---
 
-# Array Operations
+# 3.2.4 Array Operations
 
 ![NumPy Broadcasting and Vectorization Diagram](/img/course/ch03-numpy-broadcasting-vectorization-en.png)
 

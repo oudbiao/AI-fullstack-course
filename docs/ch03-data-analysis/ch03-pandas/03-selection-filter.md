@@ -1,10 +1,10 @@
 ---
-title: "3.3 Data Selection and Filtering"
+title: "3.3.4 Data Selection and Filtering"
 sidebar_position: 11
 description: "Master data filtering methods such as loc, iloc, boolean indexing, and query"
 ---
 
-# Data Selection and Filtering
+# 3.3.4 Data Selection and Filtering
 
 :::tip Where this section fits
 When many beginners first learn `Pandas`, what usually blocks them is not cleaning, but:

@@ -1,11 +1,11 @@
 ---
-title: "5.4 Structured Output"
+title: "7.5.4 Structured Output"
 sidebar_position: 17
 description: "From why natural-language output is not stable enough, to JSON constraints, field design, and validation, truly understand the value of structured output in LLM engineering."
 keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 ---
 
-# Structured Output
+# 7.5.4 Structured Output
 
 :::tip Section Overview
 When many people use large models for the first time, they naturally let the model output a piece of natural language.
@@ -26,9 +26,9 @@ Structured output is about solving the problem of “making the model’s answer
 
 ---
 
-## 1. Why Isn’t Natural Language Enough?
+## Why Isn’t Natural Language Enough?
 
-### 1.1 A Very Common Fragile Scenario
+### A Very Common Fragile Scenario
 
 Suppose you want the model to identify user intent:
 
@@ -52,7 +52,7 @@ Because what the program really wants is:
 }
 ```
 
-### 1.2 What Is the Real Problem?
+### What Is the Real Problem?
 
 The problem is not that the model cannot answer, but that:
 
@@ -69,9 +69,9 @@ structured output almost becomes a must-have.
 
 ---
 
-## 2. What Exactly Is Structured Output?
+## What Exactly Is Structured Output?
 
-### 2.1 A Simple Definition
+### A Simple Definition
 
 > **Structured output = making the model output results according to pre-agreed fields and format.**
 
@@ -82,7 +82,7 @@ The most common formats include:
 - tables
 - fixed-field objects
 
-### 2.2 Why Is JSON the Most Common?
+### Why Is JSON the Most Common?
 
 Because it satisfies all of these at the same time:
 
@@ -92,7 +92,7 @@ Because it satisfies all of these at the same time:
 
 So in LLM applications, JSON is usually the first choice for structured output.
 
-### 2.3 Terms you should understand before writing schemas
+### Terms you should understand before writing schemas
 
 | Term | Plain meaning | Practical use |
 |---|---|---|
@@ -104,9 +104,9 @@ So in LLM applications, JSON is usually the first choice for structured output.
 
 ---
 
-## 3. What Is the Most Core Design Point of Structured Output?
+## What Is the Most Core Design Point of Structured Output?
 
-### 3.1 Keep Fields Few and Clear
+### Keep Fields Few and Clear
 
 A mistake beginners often make is:
 
@@ -128,7 +128,7 @@ For example, for intent recognition:
 
 is already enough.
 
-### 3.2 Field Names Must Be Stable
+### Field Names Must Be Stable
 
 If today it is called:
 
@@ -150,9 +150,9 @@ So one of the first principles of structured output is:
 
 ---
 
-## 4. A Minimal Runnable Example: From String JSON to Program Parsing
+## A Minimal Runnable Example: From String JSON to Program Parsing
 
-### 4.1 First Look at Minimal Parsing
+### First Look at Minimal Parsing
 
 ```python
 import json
@@ -165,7 +165,7 @@ print("intent =", data["intent"])
 print("confidence =", data["confidence"])
 ```
 
-### 4.2 This Code Is Simple, but Very Meaningful
+### This Code Is Simple, but Very Meaningful
 
 It teaches you:
 
@@ -178,9 +178,9 @@ In other words, the value of structured output is not “better looking,” but:
 
 ---
 
-## 5. A Smaller Example Closer to a Real Task: User Intent Recognition
+## A Smaller Example Closer to a Real Task: User Intent Recognition
 
-### 5.1 Suppose You Ask the Model to Output This Structure
+### Suppose You Ask the Model to Output This Structure
 
 ```json
 {
@@ -190,7 +190,7 @@ In other words, the value of structured output is not “better looking,” but:
 }
 ```
 
-### 5.2 Simulated Model Output + Program Parsing
+### Simulated Model Output + Program Parsing
 
 ```python
 import json
@@ -217,9 +217,9 @@ This is already a typical use case of structured output in a real workflow.
 
 ---
 
-## 6. How Should the Prompt Be Written So Structured Output Is More Stable?
+## How Should the Prompt Be Written So Structured Output Is More Stable?
 
-### 6.1 Don’t Just Say “Please Output JSON”
+### Don’t Just Say “Please Output JSON”
 
 A more stable way usually includes:
 
@@ -241,7 +241,7 @@ Field requirements:
 Do not output any extra explanation. Only output JSON.
 ```
 
-### 6.2 Why Is This More Stable?
+### Why Is This More Stable?
 
 Because you are not just “stating a request,” but:
 
@@ -251,9 +251,9 @@ The clearer the contract, the more stable the result.
 
 ---
 
-## 7. Why Do Structured Outputs Still Need Validation?
+## Why Do Structured Outputs Still Need Validation?
 
-### 7.1 Because the Model Is Not a Compiler
+### Because the Model Is Not a Compiler
 
 Even if your prompt is written very well, the model may still:
 
@@ -268,7 +268,7 @@ Even if your prompt is written very well, the model may still:
 It is best to read this diagram as an engineering loop: the Prompt first defines the JSON contract, the model outputs a structured result, the program parses and validates fields, types, and value ranges, and on failure it retries or routes to a human. Structured output is not “something that looks like JSON”; it is about the downstream program being able to reliably receive it.
 :::
 
-### 7.2 A Minimal Validation Example
+### A Minimal Validation Example
 
 ```python
 import json
@@ -310,15 +310,15 @@ to:
 
 ---
 
-## 8. What Is the Relationship Between Structured Output and Function Calling?
+## What Is the Relationship Between Structured Output and Function Calling?
 
-### 8.1 Similarity
+### Similarity
 
 They are both doing the same thing:
 
 > turning model output from free text into a format that programs can more easily receive.
 
-### 8.2 Difference
+### Difference
 
 Roughly speaking:
 
@@ -336,7 +336,7 @@ So you can understand it like this:
 
 ---
 
-## 9. If Your Goal Is to Generate Fixed-Format Word / PPT, How Should the Schema Be Designed?
+## If Your Goal Is to Generate Fixed-Format Word / PPT, How Should the Schema Be Designed?
 
 If your goal is to:
 
@@ -368,21 +368,21 @@ The most important thing for beginners to notice about this schema is:
 - More fields are not always better
 - Instead, the fields should be just enough to drive later template rendering and source tracing
 
-## 10. The Most Common Pitfalls in Real Projects
+## The Most Common Pitfalls in Real Projects
 
-### 10.1 Too Many Fields
+### Too Many Fields
 
 The more fields you have, the easier it is for the model to make mistakes, and the more complex post-processing becomes.
 
-### 10.2 Unstable Field Meaning
+### Unstable Field Meaning
 
 For example, if `confidence` sometimes means 0 to 1 and sometimes means a percentage, that design is very dangerous.
 
-### 10.3 No Parsing or Validation
+### No Parsing or Validation
 
 Many demos seem to work, but once connected to a program they break. The problem is usually here.
 
-### 10.4 The Output Structure Is Detached from the Business Flow
+### The Output Structure Is Detached from the Business Flow
 
 If the JSON is complete but cannot directly drive the downstream flow, then structured output is not really serving the business.
 

@@ -1,10 +1,10 @@
 ---
-title: "3.7 Data Merging"
+title: "3.3.8 Data Merging"
 sidebar_position: 15
 description: "Master data merging methods such as merge, join, and concat"
 ---
 
-# Data Merging
+# 3.3.8 Data Merging
 
 :::tip Section Focus
 When many beginners first learn data merging, this is the easiest place to get confused:

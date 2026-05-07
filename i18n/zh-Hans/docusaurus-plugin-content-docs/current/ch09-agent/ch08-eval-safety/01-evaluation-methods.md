@@ -1,11 +1,11 @@
 ---
-title: "8.2 Agent 评估方法"
+title: "9.8.2 Agent 评估方法"
 sidebar_position: 44
 description: "从任务成功率、过程评估、工具调用、人工评分和回放样本出发，建立可落地的 Agent 评估方法。"
 keywords: [agent evaluation, task success, tool evaluation, human review, replay]
 ---
 
-# Agent 评估方法
+# 9.8.2 Agent 评估方法
 
 :::tip 本节定位
 Agent 评估不能只看最终回答像不像。Agent 是一个会规划、调用工具、改变状态的系统，所以评估必须同时看结果、过程、安全和成本。

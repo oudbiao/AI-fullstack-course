@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-study Guide: What Is This CNN Chapter Really About?"
+title: "6.3.1 Pre-study Guide: What Is This CNN Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the CNN chapter: how convolution, network structure, classic architectures, transfer learning, and image classification practice fit together."
 keywords: [CNN guide, convolution, ResNet, transfer learning, image classification]
 ---
 
-# Pre-study Guide: What Is This CNN Chapter Really About?
+# 6.3.1 Pre-study Guide: What Is This CNN Chapter Really About?
 
 This chapter answers the question:
 

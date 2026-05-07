@@ -1,11 +1,11 @@
 ---
-title: "2.7 Training Workflow 🔧"
+title: "6.2.7 Training Workflow 🔧"
 sidebar_position: 5
 description: "Connect the model, loss function, optimizer, and DataLoader to write a complete, runnable PyTorch training loop."
 keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 ---
 
-# Training Workflow
+# 6.2.7 Training Workflow
 
 ![PyTorch training loop diagram](/img/course/pytorch-training-loop-en.png)
 
@@ -48,7 +48,7 @@ If you’re connecting this with the earlier PyTorch lessons, you can also think
 - `DataLoader` solves “how data is split into batches and fed in”
 - And this section is responsible for stitching all of that into a real training process that runs
 
-## 1. Why is the training loop important?
+## Why is the training loop important?
 
 In deep learning code, the most valuable thing to practice again and again is not one specific layer, but the **training loop**.
 
@@ -77,7 +77,7 @@ flowchart LR
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.1 Why is practicing the training loop more worthwhile than memorizing a network structure first?
+### Why is practicing the training loop more worthwhile than memorizing a network structure first?
 
 Because network structures change:
 
@@ -90,7 +90,7 @@ So this section is very valuable: it helps you grasp the part of deep learning t
 
 ---
 
-## 2. First, memorize the standard template
+## First, memorize the standard template
 
 Don’t rush to memorize it yet. Read it a few times first:
 
@@ -110,7 +110,7 @@ It actually does only three things:
 2. Compute error
 3. Update parameters based on the error
 
-### 2.1 The shortest chant a beginner should memorize first
+### The shortest chant a beginner should memorize first
 
 If your training loop gets messy every time you write it, remember this shortest chant:
 
@@ -118,7 +118,7 @@ If your training loop gets messy every time you write it, remember this shortest
 
 As long as this line flows smoothly, adding validation, logging, and early stopping later is not hard.
 
-### 2.2 Why can’t this order be changed?
+### Why can’t this order be changed?
 
 Because each step depends on the result of the previous one:
 
@@ -137,7 +137,7 @@ It’s a good idea to compare this diagram every time you write a training loop:
 
 ---
 
-## 3. A complete runnable example
+## A complete runnable example
 
 :::info Runtime environment
 The code below can run directly:
@@ -227,37 +227,37 @@ for x_row, y_row in zip(test_x, test_pred):
 
 ---
 
-## 4. Step-by-step breakdown of this code
+## Step-by-step breakdown of this code
 
-### 1. `model.train()`
+### `model.train()`
 
 Tells the model to enter training mode.
 If the model has layers like `Dropout` or `BatchNorm`, they switch to training behavior.
 
-### 2. `pred = model(batch_x)`
+### `pred = model(batch_x)`
 
 Forward pass.
 In other words, “make a prediction using the current parameters.”
 
-### 3. `loss = loss_fn(pred, batch_y)`
+### `loss = loss_fn(pred, batch_y)`
 
 Tell the model: “How far are you from the true answer this time?”
 
-### 4. `optimizer.zero_grad()`
+### `optimizer.zero_grad()`
 
 Clear old gradients.
 This is because PyTorch accumulates gradients by default.
 
-### 5. `loss.backward()`
+### `loss.backward()`
 
 Backpropagation.
 Computes the gradients of the loss with respect to each parameter.
 
-### 6. `optimizer.step()`
+### `optimizer.step()`
 
 Actually update the parameters based on the gradients.
 
-### 4.1 When beginners write this for the first time, what step is most likely to be missed?
+### When beginners write this for the first time, what step is most likely to be missed?
 
 The two most common omissions are:
 
@@ -266,7 +266,7 @@ The two most common omissions are:
 
 Both problems can make training look “weird,” but not necessarily fail immediately with an error.
 
-### 4.2 A more beginner-friendly “training checklist” for each epoch
+### A more beginner-friendly “training checklist” for each epoch
 
 You can mentally run through this small table each epoch:
 
@@ -282,7 +282,7 @@ This checklist is very helpful for debugging, because many training bugs happen 
 
 ---
 
-## 5. Why do validation use `eval()` and `no_grad()`?
+## Why do validation use `eval()` and `no_grad()`?
 
 The goal of validation is not learning, but checking model performance.
 
@@ -299,7 +299,7 @@ There are two reasons:
 - `eval()`: switch certain layers into inference mode
 - `no_grad()`: do not record gradients, saving memory and time
 
-### 5.1 In the early learning stage, how important is it to separate training mode from validation mode?
+### In the early learning stage, how important is it to separate training mode from validation mode?
 
 This is easy to overlook because many tiny examples show no obvious problem.
 But from this section on, you should develop a stable habit:
@@ -318,7 +318,7 @@ if training mode and validation mode are not clearly separated, things will beco
 
 ---
 
-## 6. A more memorable “kitchen-style analogy”
+## A more memorable “kitchen-style analogy”
 
 Thinking of training as running a restaurant is easy to remember:
 
@@ -334,9 +334,9 @@ Training is repeated service, repeated improvement.
 
 ---
 
-## 7. Common variations
+## Common variations
 
-### 1. Classification tasks
+### Classification tasks
 
 Regression often uses `MSELoss()`, while classification more commonly uses:
 
@@ -344,7 +344,7 @@ Regression often uses `MSELoss()`, while classification more commonly uses:
 loss_fn = nn.CrossEntropyLoss()
 ```
 
-### 2. Different optimizers
+### Different optimizers
 
 The two most common ones are:
 
@@ -353,7 +353,7 @@ The two most common ones are:
 
 For beginners, `Adam` is often a little easier to work with.
 
-### 3. Metrics
+### Metrics
 
 In addition to loss, training often also tracks:
 
@@ -364,26 +364,26 @@ In addition to loss, training often also tracks:
 
 ---
 
-## 8. The easiest places to make mistakes
+## The easiest places to make mistakes
 
-### 1. Forgetting `zero_grad()`
+### Forgetting `zero_grad()`
 
 Consequence: gradients keep accumulating, and the training result becomes unreliable.
 
-### 2. Forgetting `model.eval()` during validation
+### Forgetting `model.eval()` during validation
 
 Some layers behave differently in training and validation modes, which affects results.
 
-### 3. Computing gradients during validation too
+### Computing gradients during validation too
 
 Even if it runs, it wastes memory and compute.
 
-### 4. Mixing up `loss.item()` and `loss`
+### Mixing up `loss.item()` and `loss`
 
 - `loss` is a tensor and can participate in backpropagation
 - `loss.item()` is a normal Python number, suitable for printing and statistics
 
-### 5. Only watching loss and ignoring the relationship between training and validation
+### Only watching loss and ignoring the relationship between training and validation
 
 Another common beginner mistake is:
 
@@ -399,7 +399,7 @@ This is actually preparing you for diagnosing overfitting later.
 
 ---
 
-## 9. A general skeleton you can save
+## A general skeleton you can save
 
 ```python
 for epoch in range(num_epochs):

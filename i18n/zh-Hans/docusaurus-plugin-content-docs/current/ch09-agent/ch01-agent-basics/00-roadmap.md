@@ -1,11 +1,11 @@
 ---
-title: "1.1 学前导读：Agent 基础这一章到底在学什么"
+title: "9.1.1 学前导读：Agent 基础这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 Agent 基础章的学习地图：Agent 边界、目标、状态、工具、记忆、规划和系统闭环怎样拼成第一张智能体地图。"
 keywords: [Agent导读, 智能体导读, Agent系统结构, 工具调用, Agent闭环]
 ---
 
-# 学前导读：Agent 基础这一章到底在学什么
+# 9.1.1 学前导读：Agent 基础这一章到底在学什么
 
 这一章解决的是：先把 Agent 的边界、能力和系统结构说清楚。
 

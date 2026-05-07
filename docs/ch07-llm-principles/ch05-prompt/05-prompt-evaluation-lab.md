@@ -1,11 +1,11 @@
 ---
-title: "5.6 Hands-on: Prompt Evaluation Lab"
+title: "7.5.6 Hands-on: Prompt Evaluation Lab"
 sidebar_position: 19
 description: "Build a small Prompt evaluation lab with fixed test cases, prompt versions, scoring rules, pass-rate statistics, and failure notes."
 keywords: [prompt evaluation, prompt versioning, test cases, pass rate, prompt debugging]
 ---
 
-# Hands-on: Prompt Evaluation Lab
+# 7.5.6 Hands-on: Prompt Evaluation Lab
 
 At this point, you already know Prompt basics, advanced techniques, structured output, and prompt practice. The next step is to stop asking "does this prompt feel better?" and start asking a more engineering-oriented question:
 
@@ -17,7 +17,7 @@ At this point, you already know Prompt basics, advanced techniques, structured o
 Prompt engineering becomes much easier when you keep the test set fixed and change only one thing at a time. Otherwise, you cannot tell whether the improvement came from the new prompt, the new test input, or pure luck.
 :::
 
-## 1. What this lab adds to the earlier Prompt lessons
+## What this lab adds to the earlier Prompt lessons
 
 Earlier sections taught you how to write clearer prompts. This lab teaches you how to **evaluate** them.
 
@@ -31,7 +31,7 @@ The core workflow is:
 
 This is the smallest practical version of prompt regression testing.
 
-## 2. Terms worth clarifying first
+## Terms worth clarifying first
 
 | Term | Plain meaning | Why it matters |
 |---|---|---|
@@ -42,7 +42,7 @@ This is the smallest practical version of prompt regression testing.
 | Regression | A new prompt fixes one case but breaks an old case | This is why old test cases must stay in the set |
 | Failure note | A short record of what failed and why | Converts mistakes into the next improvement direction |
 
-## 3. Run a fully offline evaluation lab
+## Run a fully offline evaluation lab
 
 The following example does not call a real model. It uses a simulated model so you can focus on the evaluation loop itself. Save it as `prompt_eval_lab.py`, then run:
 
@@ -178,9 +178,9 @@ pass_rate: 100%
 failures : []
 ```
 
-## 4. How to read the result
+## How to read the result
 
-### 4.1 v1 may classify correctly but still fail the product requirement
+### v1 may classify correctly but still fail the product requirement
 
 `v1_goal_only` returns labels, but it does not return parseable JSON-like data. If the downstream program needs `label` and `reason`, this output still fails even when the label is semantically correct.
 
@@ -188,15 +188,15 @@ This is an important engineering lesson:
 
 > **A model answer can be human-readable but still program-unusable.**
 
-### 4.2 v2 fixes the format problem
+### v2 fixes the format problem
 
 `v2_json_format` adds output fields, so the program can read `label` and `reason`. This mirrors real prompt debugging: first make the task clear, then make the output contract clear.
 
-### 4.3 v3 adds examples for boundary cases
+### v3 adds examples for boundary cases
 
 `v3_with_examples` is useful when the boundary is fuzzy. In real projects, examples are especially valuable when labels have subtle differences, such as `bug_report` vs. `learning_confusion`, or `refund_policy` vs. `after_sales`.
 
-## 5. Add a failure note, not just a score
+## Add a failure note, not just a score
 
 A pass rate tells you which version is better, but a failure note tells you what to fix next.
 
@@ -210,7 +210,7 @@ Use a small table like this in your project README:
 
 This habit matters because prompt work can otherwise become a fog of impressions.
 
-## 6. How to turn this into a real model evaluation later
+## How to turn this into a real model evaluation later
 
 When you replace `fake_model()` with a real model call, keep the rest of the evaluation loop as stable as possible.
 
@@ -224,7 +224,7 @@ Do not change all of these at once:
 
 If too many variables change together, you cannot explain the result.
 
-## 7. Practice tasks
+## Practice tasks
 
 1. Add two more test cases: one very short input and one long mixed-review input.
 2. Add a new field called `confidence`, then update the scoring function to require it.

@@ -1,11 +1,11 @@
 ---
-title: "5.3 Video Analysis [Elective]"
+title: "10.5.3 Video Analysis [Elective]"
 sidebar_position: 15
 description: "From frame-by-frame processing to temporal modeling, understand why video analysis is harder than single images and why it naturally requires a time dimension."
 keywords: [video analysis, temporal modeling, frame sampling, tracking, action recognition]
 ---
 
-# Video Analysis [Elective]
+# 10.5.3 Video Analysis [Elective]
 
 :::tip Section overview
 Video analysis is most easily misunderstood as:
@@ -29,9 +29,9 @@ So this section focuses on making the “time dimension” clear.
 
 ---
 
-## 1. Why is video more complex than a single image?
+## Why is video more complex than a single image?
 
-### 1.1 Because the same target appears across frames
+### Because the same target appears across frames
 
 In a single image, you only need to answer what is in the current scene.
 In video, you also need to consider:
@@ -39,7 +39,7 @@ In video, you also need to consider:
 - Where it was just now
 - Where it will go next
 
-### 1.2 Because “change” itself is information
+### Because “change” itself is information
 
 In many video tasks, what matters most is not what a single frame looks like,
 but:
@@ -47,7 +47,7 @@ but:
 - How an action happens
 - How a trajectory moves
 
-### 1.3 An analogy
+### An analogy
 
 Single-image analysis is like looking at a photo.
 Video analysis is more like watching a security camera replay, where you naturally care about:
@@ -57,9 +57,9 @@ Video analysis is more like watching a security camera replay, where you natural
 
 ---
 
-## 2. The most common ways to process video
+## The most common ways to process video
 
-### 2.1 Frame sampling + single-frame model
+### Frame sampling + single-frame model
 
 The simplest method:
 
@@ -74,7 +74,7 @@ Disadvantages:
 
 - Easy to lose temporal information
 
-### 2.2 Detection + tracking
+### Detection + tracking
 
 Suitable for:
 
@@ -86,7 +86,7 @@ Its core idea is:
 - Detect objects in each frame first
 - Then associate the same object across time
 
-### 2.3 Temporal modeling
+### Temporal modeling
 
 For example:
 
@@ -97,7 +97,7 @@ These tasks depend more on:
 
 - Multiple frames jointly expressing one pattern
 
-### 2.4 The safest order when you first do video analysis
+### The safest order when you first do video analysis
 
 When beginners first work on video tasks,
 it is easy to immediately think, “Should I go straight to a temporal network?”
@@ -124,7 +124,7 @@ Video is not “many images stacked together.” When reading this diagram, firs
 
 ---
 
-## 3. First, run a minimal trajectory tracking example
+## First, run a minimal trajectory tracking example
 
 ```python
 frames = [
@@ -163,14 +163,14 @@ for frame in tracked:
     print(frame)
 ```
 
-### 3.1 What is this example mainly trying to show?
+### What is this example mainly trying to show?
 
 In video analysis, the first step in many systems is not a complex temporal network,
 but rather:
 
 - Linking the same target across frames
 
-### 3.2 Why is this important for business use cases?
+### Why is this important for business use cases?
 
 If you cannot associate the same target across different frames,
 many tasks simply cannot be done:
@@ -179,7 +179,7 @@ many tasks simply cannot be done:
 - Behavior analysis
 - Boundary-crossing alerts
 
-### 3.3 One more minimal example: using a sliding window to observe action
+### One more minimal example: using a sliding window to observe action
 
 Tracking solves the problem of whether the same target is still the same target,
 but many video tasks also care about:
@@ -213,9 +213,9 @@ The key point in this example is:
 
 ---
 
-## 4. The easiest pitfalls to fall into
+## The easiest pitfalls to fall into
 
-### 4.1 Treating video as a collection of independent images
+### Treating video as a collection of independent images
 
 This easily loses:
 
@@ -223,11 +223,11 @@ This easily loses:
 - Motion
 - Event order
 
-### 4.2 Sampling frames too coarsely
+### Sampling frames too coarsely
 
 If you sample too sparsely, you may miss critical moments.
 
-### 4.3 Only looking at single-frame accuracy, not temporal stability
+### Only looking at single-frame accuracy, not temporal stability
 
 Real video systems should care more about:
 
@@ -235,7 +235,7 @@ Real video systems should care more about:
 - Missed tracking
 - ID switches
 
-## 5. If you turn video analysis into a project, what is most worth showing?
+## If you turn video analysis into a project, what is most worth showing?
 
 If you want to turn this kind of topic into a portfolio page,
 what is most worth showing usually is not a list of model names,

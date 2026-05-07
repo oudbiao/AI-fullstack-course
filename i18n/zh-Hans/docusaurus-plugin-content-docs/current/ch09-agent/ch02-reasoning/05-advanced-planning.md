@@ -1,11 +1,11 @@
 ---
-title: "2.6 高级规划策略【选修】"
+title: "9.2.6 高级规划策略【选修】"
 sidebar_position: 9
 description: "从线性任务清单进一步走向 DAG、并行调度、关键路径和重规划，理解高级规划为什么更像任务图管理而不只是“多列几个步骤”。"
 keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critical path]
 ---
 
-# 高级规划策略【选修】
+# 9.2.6 高级规划策略【选修】
 
 :::tip 本节定位
 上一节的 Plan-and-Execute 已经把长任务拆成了顺序步骤。
@@ -31,7 +31,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ## 一、为什么线性计划有时不够？
 
-### 1.1 因为现实任务里很多步骤并不是“先 A 再 B 再 C”
+### 因为现实任务里很多步骤并不是“先 A 再 B 再 C”
 
 例如做一份调研报告时，
 你可能需要：
@@ -48,7 +48,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 - 低效
 - 难以表达真实依赖
 
-### 1.2 高级规划最核心的问题
+### 高级规划最核心的问题
 
 不是“列多少步骤”，
 而是：
@@ -61,7 +61,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 - 任务图
 
-### 1.3 一个类比：施工图而不是办事清单
+### 一个类比：施工图而不是办事清单
 
 普通计划像待办清单。
 高级规划更像施工图：
@@ -74,7 +74,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ## 二、高级规划里最常见的三个概念
 
-### 2.1 依赖关系
+### 依赖关系
 
 如果任务 B 必须等待任务 A 产出结果，
 那就有：
@@ -86,7 +86,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 - 先抓取数据，再清洗数据
 - 先完成统计，再写报告
 
-### 2.2 并行性
+### 并行性
 
 如果两个任务互不依赖，
 它们理论上可以同时做。
@@ -96,7 +96,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 - 总耗时可能缩短
 - 但调度会更复杂
 
-### 2.3 关键路径
+### 关键路径
 
 关键路径指的是：
 
@@ -180,7 +180,7 @@ for item in timeline:
     print(item)
 ```
 
-### 3.1 这段代码最该看什么？
+### 这段代码最该看什么？
 
 重点不是细节语法，
 而是这三件事：
@@ -192,7 +192,7 @@ for item in timeline:
 这三件事合在一起，
 就是高级规划最核心的现实约束。
 
-### 3.2 为什么 `draft_report` 一定要最后？
+### 为什么 `draft_report` 一定要最后？
 
 因为它依赖：
 
@@ -205,7 +205,7 @@ for item in timeline:
 这说明高级规划不是“任务越多越能并行”，
 而要看依赖图本身。
 
-### 3.3 如果 worker 从 2 改成 1，会发生什么？
+### 如果 worker 从 2 改成 1，会发生什么？
 
 你会看到计划明显更长。
 这能帮助你理解：
@@ -223,7 +223,7 @@ for item in timeline:
 
 ## 四、什么时候需要高级规划，而不是普通计划？
 
-### 4.1 当任务天然是图结构
+### 当任务天然是图结构
 
 例如：
 
@@ -232,7 +232,7 @@ for item in timeline:
 - 复杂代码改造
 - 多步骤业务审批
 
-### 4.2 当并行能明显带来收益
+### 当并行能明显带来收益
 
 如果任务里有很多独立前置步骤，
 高级规划能帮你看清：
@@ -240,7 +240,7 @@ for item in timeline:
 - 哪些任务该并行
 - 哪些等待是不可避免的
 
-### 4.3 当失败恢复和重规划变得重要
+### 当失败恢复和重规划变得重要
 
 复杂任务里经常会出现：
 
@@ -259,7 +259,7 @@ for item in timeline:
 
 ## 五、为什么说高级规划更像“图搜索”而不是“列清单”？
 
-### 5.1 因为路径不一定唯一
+### 因为路径不一定唯一
 
 很多复杂任务并没有唯一解法。
 你可能有：
@@ -268,7 +268,7 @@ for item in timeline:
 - 多种资源分配方式
 - 多种执行顺序
 
-### 5.2 因为要考虑代价函数
+### 因为要考虑代价函数
 
 有时你要优化的是：
 
@@ -278,7 +278,7 @@ for item in timeline:
 
 不同目标会选出不同的计划。
 
-### 5.3 因为“最佳计划”会随着环境变化
+### 因为“最佳计划”会随着环境变化
 
 如果某个工具慢了、某个资源不可用了，
 原先最优的图可能就不再最优。
@@ -292,7 +292,7 @@ for item in timeline:
 
 ## 六、工程上最容易踩的坑
 
-### 6.1 误区一：依赖图画出来就万事大吉
+### 误区一：依赖图画出来就万事大吉
 
 图只是开始。
 你还得定义：
@@ -301,7 +301,7 @@ for item in timeline:
 - 失败处理
 - 节点重试策略
 
-### 6.2 误区二：并行越多越好
+### 误区二：并行越多越好
 
 并行会带来：
 
@@ -311,7 +311,7 @@ for item in timeline:
 
 并不是无限开并发就更优。
 
-### 6.3 误区三：高级规划一定比简单计划更高级
+### 误区三：高级规划一定比简单计划更高级
 
 如果任务本身很短、很固定，
 上高级规划反而会显得过度设计。

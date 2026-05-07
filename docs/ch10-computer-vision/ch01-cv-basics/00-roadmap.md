@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-study Guide: What Is This Vision Basics Chapter Really About?"
+title: "10.1.1 Pre-study Guide: What Is This Vision Basics Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the vision basics chapter: how image representation, OpenCV, and basic processing lay the foundation for later classification, detection, and segmentation."
 keywords: [vision basics guide, OpenCV guide, image processing guide]
 ---
 
-# Pre-study Guide: What Is This Vision Basics Chapter Really About?
+# 10.1.1 Pre-study Guide: What Is This Vision Basics Chapter Really About?
 
 This chapter is not about learning “a few image APIs.” It is about helping you build the most basic intuition for inputs in vision tasks.
 

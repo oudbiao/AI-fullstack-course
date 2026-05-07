@@ -1,11 +1,11 @@
 ---
-title: "2.6 SVM: Maximum Margin and Kernel Methods"
+title: "5.2.6 SVM: Maximum Margin and Kernel Methods"
 sidebar_position: 7
 description: "Learn Support Vector Machines in a beginner-friendly way: maximum margin, support vectors, kernel methods, C, gamma, feature scaling, and why SVM is an important milestone in classic machine learning."
 keywords: [SVM, Support Vector Machine, maximum margin, support vectors, kernel trick, RBF kernel, C, gamma, supervised learning]
 ---
 
-# SVM: Maximum Margin and Kernel Methods
+# 5.2.6 SVM: Maximum Margin and Kernel Methods
 
 ![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map-en.png)
 
@@ -43,7 +43,7 @@ The most important sentence for beginners to remember is:
 
 ---
 
-## 1. Why did SVM appear?
+## Why did SVM appear?
 
 You have already learned logistic regression. Logistic regression learns a decision boundary that separates samples into two classes.
 
@@ -67,7 +67,7 @@ Think of three models like this:
 
 ---
 
-## 2. Understand maximum margin with a real-life analogy
+## Understand maximum margin with a real-life analogy
 
 Imagine you need to draw a safety line between the queues of two classes:
 
@@ -91,7 +91,7 @@ The subtle point is that SVM does not only ask "did I classify the training poin
 
 ---
 
-## 3. What exactly are support vectors?
+## What exactly are support vectors?
 
 The "support vectors" in SVM are the samples closest to the decision boundary.
 
@@ -106,7 +106,7 @@ This is why the algorithm name is not "all vector machine." It is a "support vec
 
 ---
 
-## 4. Kernel methods: when a straight line cannot separate the data, change the space
+## Kernel methods: when a straight line cannot separate the data, change the space
 
 One of the most historically important parts of SVM is kernel methods.
 
@@ -133,7 +133,7 @@ Do not memorize kernels first. First ask: "Does a straight boundary look too sim
 
 ---
 
-## 5. A minimal runnable example
+## A minimal runnable example
 
 ```python
 from sklearn.datasets import make_moons
@@ -175,7 +175,7 @@ There are two especially important points here:
 
 ---
 
-## 6. Why feature scaling matters so much
+## Why feature scaling matters so much
 
 ![SVM feature scaling comic](/img/course/ch05-svm-feature-scaling-en.png)
 
@@ -215,7 +215,7 @@ This is one of the most practical SVM lessons: for SVM, preprocessing is not dec
 
 ---
 
-## 7. Linear kernel vs RBF kernel
+## Linear kernel vs RBF kernel
 
 ```python
 for kernel in ["linear", "rbf"]:
@@ -249,7 +249,7 @@ In real projects, use cross-validation rather than one lucky train/test split to
 
 ---
 
-## 8. How to understand `C` and `gamma`
+## How to understand `C` and `gamma`
 
 For beginners, the two parameters that look most mysterious are `C` and `gamma`. You can first remember them like this:
 
@@ -299,7 +299,7 @@ Do not overread one tiny dataset. The habit matters more than the exact winner: 
 
 ---
 
-## 9. How do we choose between SVM, logistic regression, and tree models?
+## How do we choose between SVM, logistic regression, and tree models?
 
 | Model | What it is more like doing | How a beginner can understand it |
 |---|---|---|
@@ -318,7 +318,7 @@ A practical first order is:
 
 ---
 
-## 10. Putting SVM back into the historical timeline
+## Putting SVM back into the historical timeline
 
 In 1995, Corinna Cortes and Vladimir Vapnik's paper "Support-Vector Networks" made maximum-margin classifiers an important milestone in classic machine learning.
 

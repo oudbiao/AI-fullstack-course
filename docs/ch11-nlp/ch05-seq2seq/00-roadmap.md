@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-class Guide: What Is This Chapter on Seq2Seq and Attention Really About?"
+title: "11.5.1 Pre-class Guide: What Is This Chapter on Seq2Seq and Attention Really About?"
 sidebar_position: 0
 description: "First build a learning map for the Seq2Seq chapter: how Encoder-Decoder, Attention, and machine translation tasks fit together."
 keywords: [Seq2Seq guide, attention guide, machine translation]
 ---
 
-# Pre-class Guide: What Is This Chapter on Seq2Seq and Attention Really About?
+# 11.5.1 Pre-class Guide: What Is This Chapter on Seq2Seq and Attention Really About?
 
 ## Chapter Overview
 

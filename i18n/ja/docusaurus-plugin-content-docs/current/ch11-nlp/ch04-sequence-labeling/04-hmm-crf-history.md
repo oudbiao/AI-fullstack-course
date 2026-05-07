@@ -1,11 +1,11 @@
 ---
-title: "4.2 HMM、CRF と系列ラベリングの歴史の主線"
+title: "11.4.2 HMM、CRF と系列ラベリングの歴史の主線"
 sidebar_position: 1
 description: "HMM の品詞タグ付けから、CRF、BiLSTM-CRF、BERT の token classification まで、系列ラベリングがなぜこのように進化してきたのかを理解します。"
 keywords: [HMM, CRF, 品詞タグ付け, 系列ラベリング, NER, BiLSTM-CRF]
 ---
 
-# HMM、CRF と系列ラベリングの歴史の主線
+# 11.4.2 HMM、CRF と系列ラベリングの歴史の主線
 
 ![HMM CRF 系列ラベリング歴史マップ](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
 

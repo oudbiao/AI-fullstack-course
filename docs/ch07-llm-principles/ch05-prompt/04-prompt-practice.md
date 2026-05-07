@@ -1,11 +1,11 @@
 ---
-title: "5.5 Prompt Engineering Practice"
+title: "7.5.5 Prompt Engineering Practice"
 sidebar_position: 18
 description: "From bad prompts to good prompts, systematically practice rewriting, constraints, example design, and output control, and really use Prompt in tasks."
 keywords: [prompt engineering, few-shot, instruction design, prompt practice, output control]
 ---
 
-# Prompt Engineering Practice
+# 7.5.5 Prompt Engineering Practice
 
 :::tip Section Overview
 In the previous sections, we covered:
@@ -30,9 +30,9 @@ In other words, do not just ask, “Can this prompt run?” Ask, “Why is it mo
 
 ---
 
-## 1. The Most Common Misunderstandings About Prompt Engineering
+## The Most Common Misunderstandings About Prompt Engineering
 
-### 1.1 Misunderstanding: A prompt is just “writing more politely”
+### Misunderstanding: A prompt is just “writing more politely”
 
 In fact, Prompt Engineering really cares about:
 
@@ -43,7 +43,7 @@ In fact, Prompt Engineering really cares about:
 
 Politeness is usually not the key point.
 
-### 1.2 A more accurate sentence
+### A more accurate sentence
 
 > **A Prompt is the task interface documentation you write for the model.**
 
@@ -51,9 +51,9 @@ If the documentation is vague, the model’s output will naturally be unstable.
 
 ---
 
-## 2. First, Look at a “Bad Prompt”
+## First, Look at a “Bad Prompt”
 
-### 2.1 Task: Sentiment classification for user reviews
+### Task: Sentiment classification for user reviews
 
 A very poor prompt might look like this:
 
@@ -68,7 +68,7 @@ What is wrong with it?
 - It does not define the label set
 - It does not say whether an explanation is needed
 
-### 2.2 A clearer version
+### A clearer version
 
 ```text
 Please determine the sentiment of the review below. Only output positive or negative. Do not output anything else.
@@ -84,15 +84,15 @@ This version is much clearer because it defines:
 
 ---
 
-## 3. The Four Core Dimensions of Prompt Debugging
+## The Four Core Dimensions of Prompt Debugging
 
-### 3.1 Is the task goal clear enough?
+### Is the task goal clear enough?
 
 First ask:
 
 - Is the model supposed to classify, summarize, extract, or rewrite?
 
-### 3.2 Is the output format clear enough?
+### Is the output format clear enough?
 
 Then ask:
 
@@ -101,7 +101,7 @@ Then ask:
 - JSON?
 - A table?
 
-### 3.3 Are the constraints clear enough?
+### Are the constraints clear enough?
 
 For example:
 
@@ -109,7 +109,7 @@ For example:
 - Do not output extra explanations
 - Answer only based on the given text
 
-### 3.4 Are the examples guiding enough?
+### Are the examples guiding enough?
 
 For some tasks, instructions alone are not enough. It is better to add few-shot examples.
 
@@ -117,7 +117,7 @@ These four questions basically form the main thread of Prompt practice.
 
 ---
 
-## 4. A Runnable Prompt Practice Helper
+## A Runnable Prompt Practice Helper
 
 The example below does not call a real large model. Instead, it uses a “task specification object” to help you learn how to break down Prompt requirements.
 
@@ -138,9 +138,9 @@ This example looks simple, but it teaches you something very important:
 
 ---
 
-## 5. Prompt Iteration for a Typical Task
+## Prompt Iteration for a Typical Task
 
-### 5.1 Task: Text summarization
+### Task: Text summarization
 
 #### Version 1: Too vague
 
@@ -173,9 +173,9 @@ At this point, the prompt has moved from “able to respond” to “more stable
 
 ---
 
-## 6. When Is few-shot Especially Useful?
+## When Is few-shot Especially Useful?
 
-### 6.1 When the task definition is not clear enough from language alone
+### When the task definition is not clear enough from language alone
 
 For example, if you ask the model to decide whether a sentence is:
 
@@ -185,7 +185,7 @@ For example, if you ask the model to decide whether a sentence is:
 If you only provide definitions, the model may interpret them inconsistently.
 In this case, few-shot examples are very helpful.
 
-### 6.2 An example
+### An example
 
 ```python
 few_shot_examples = [
@@ -203,9 +203,9 @@ The role of few-shot is not “writing more words,” but:
 
 ---
 
-## 7. How Can You Write Prompts More Stably for Structured Tasks?
+## How Can You Write Prompts More Stably for Structured Tasks?
 
-### 7.1 A typical scenario: Information extraction
+### A typical scenario: Information extraction
 
 If you only say:
 
@@ -219,7 +219,7 @@ Then the model may:
 - Use inconsistent field names
 - Output extra explanations
 
-### 7.2 A better version
+### A better version
 
 ```text
 Please extract the information from the resume below and output JSON.
@@ -236,9 +236,9 @@ This clearly explains the task, structure, and boundaries.
 
 ---
 
-## 8. The “Minimal Experiment” Habit in Prompt Practice
+## The “Minimal Experiment” Habit in Prompt Practice
 
-### 8.1 Do not change too many things at once
+### Do not change too many things at once
 
 The biggest trap in Prompt debugging is this:
 
@@ -248,7 +248,7 @@ The biggest trap in Prompt debugging is this:
 
 Then you have no idea which change actually mattered.
 
-### 8.2 A better way
+### A better way
 
 Change only one variable at a time, for example:
 
@@ -266,9 +266,9 @@ Prompt debugging should feel like engineering, not guessing. Prepare test cases,
 
 ---
 
-## 9. A Small Prompt Evaluation Example
+## A Small Prompt Evaluation Example
 
-### 9.1 First define test samples
+### First define test samples
 
 ```python
 test_cases = [
@@ -280,7 +280,7 @@ for case in test_cases:
     print(case)
 ```
 
-### 9.2 Why is this step important?
+### Why is this step important?
 
 Because Prompt Engineering also needs evaluation.
 Without test samples, you can only judge whether a prompt is “good” based on feeling.
@@ -293,17 +293,17 @@ A more mature approach is:
 
 ---
 
-## 10. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 10.1 Not clearly defining the output when writing prompts
+### Not clearly defining the output when writing prompts
 
 This makes post-processing increasingly painful.
 
-### 10.2 Thinking prompt tuning can only rely on inspiration
+### Thinking prompt tuning can only rely on inspiration
 
 In fact, it is very similar to ordinary engineering debugging: run small experiments, look at the results, and improve step by step.
 
-### 10.3 Only looking at one successful case
+### Only looking at one successful case
 
 Getting one example right does not mean the prompt is stable.
 

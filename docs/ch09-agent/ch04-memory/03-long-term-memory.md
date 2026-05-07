@@ -1,11 +1,11 @@
 ---
-title: "4.4 Long-Term Memory"
+title: "9.4.4 Long-Term Memory"
 sidebar_position: 21
 description: "Starting from user preferences, stable background, and cross-session information, understand why long-term memory cannot be just 'store more,' and must instead focus on credibility, updates, and retrieval quality."
 keywords: [long-term memory, user profile, persistent memory, retrieval, confidence, update policy]
 ---
 
-# Long-Term Memory
+# 9.4.4 Long-Term Memory
 
 :::tip Section Focus
 Short-term memory solves:
@@ -53,9 +53,9 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. What Information Belongs in Long-Term Memory?
+## What Information Belongs in Long-Term Memory?
 
-### 1.1 Likely to Be Used Again in the Future
+### Likely to Be Used Again in the Future
 
 The most important criterion for long-term memory is not “looks important,”
 but:
@@ -70,7 +70,7 @@ For example:
 
 These pieces of information may keep being useful across many turns.
 
-### 1.2 Relatively Stable, Not Just Momentary Fluctuations
+### Relatively Stable, Not Just Momentary Fluctuations
 
 For example:
 
@@ -82,7 +82,7 @@ For example:
 If you write short-term fluctuations into long-term memory too,
 the system will quickly learn a lot of noise.
 
-### 1.3 An Analogy
+### An Analogy
 
 Long-term memory is more like a “user profile” and “project profile,”
 not a chat history backup box.
@@ -93,7 +93,7 @@ A profile emphasizes:
 - Reusability
 - A sense of versioning
 
-### 1.4 A Better Analogy for Beginners
+### A Better Analogy for Beginners
 
 You can think of long-term memory as:
 
@@ -112,9 +112,9 @@ This analogy matters, because it helps beginners avoid turning long-term memory 
 
 ---
 
-## 2. The Three Most Common Types of Long-Term Memory Content
+## The Three Most Common Types of Long-Term Memory Content
 
-### 2.1 User Preferences
+### User Preferences
 
 For example:
 
@@ -122,7 +122,7 @@ For example:
 - Likes Chinese
 - Prefer output with tables
 
-### 2.2 Stable Background Information
+### Stable Background Information
 
 For example:
 
@@ -130,7 +130,7 @@ For example:
 - The user is working on a RAG project
 - The team mainly uses Python
 
-### 2.3 Long-Term Task Context
+### Long-Term Task Context
 
 For example:
 
@@ -142,9 +142,9 @@ and it is not quite like episodic memory tied to a single event.
 
 ---
 
-## 3. The Hardest Part of Long-Term Memory Is Not “Storing,” but “Updating”
+## The Hardest Part of Long-Term Memory Is Not “Storing,” but “Updating”
 
-### 3.1 Because New Information May Overrule Old Information
+### Because New Information May Overrule Old Information
 
 For example, an earlier record says:
 
@@ -157,7 +157,7 @@ Later, the user repeatedly says:
 At this point, the system cannot simply keep both records forever,
 otherwise it will conflict when reading.
 
-### 3.2 So Long-Term Memory Usually Needs:
+### So Long-Term Memory Usually Needs:
 
 - Timestamps
 - Confidence
@@ -169,7 +169,7 @@ Common strategies include:
 - Old and new coexist, but higher confidence wins
 - Keep version history and choose the latest at read time
 
-### 3.3 Why Is “Confidence” So Important?
+### Why Is “Confidence” So Important?
 
 Because a user’s casual remark should not necessarily be written in stone forever.
 For example:
@@ -186,7 +186,7 @@ So long-term memory should ideally have:
 - Explicitness
 - Confidence level
 
-### 3.4 A Simple Write Decision Table for Beginners
+### A Simple Write Decision Table for Beginners
 
 | Information Type | More Suitable for Short-Term or Long-Term |
 |---|---|
@@ -207,7 +207,7 @@ Long-term memory is not “permanent chat history.” When reading the diagram, 
 
 ---
 
-## 4. Run a Minimal Long-Term Memory Store First
+## Run a Minimal Long-Term Memory Store First
 
 This example does four things:
 
@@ -276,7 +276,7 @@ print("u_001 profile:", store.get_profile("u_001"))
 print("u_002 profile:", store.get_profile("u_002"))
 ```
 
-### 4.1 What Is the Most Important Thing to Notice Here?
+### What Is the Most Important Thing to Notice Here?
 
 Not “can it be stored,”
 but:
@@ -287,7 +287,7 @@ but:
 
 This is already much closer to real long-term memory than “just append a string to a list.”
 
-### 4.2 Why Is `key-value` a Good Fit Here?
+### Why Is `key-value` a Good Fit Here?
 
 Because many pieces of information in long-term memory are naturally profile-like:
 
@@ -297,7 +297,7 @@ Because many pieces of information in long-term memory are naturally profile-lik
 
 For these kinds of data, a key-value structure is easier to control than a plain text paragraph.
 
-### 4.3 When Is This Form Not a Good Fit?
+### When Is This Form Not a Good Fit?
 
 If the information is more like a story or an experience,
 then it is better suited for:
@@ -306,7 +306,7 @@ then it is better suited for:
 
 rather than simple key-value storage.
 
-### 4.4 Another Minimal “Write Decision” Example
+### Another Minimal “Write Decision” Example
 
 ```python
 facts = [
@@ -324,9 +324,9 @@ Although this example is very small, it is great for helping beginners build one
 
 ---
 
-## 5. How Should Long-Term Memory Be Read Without Becoming “Too Much and Too Messy”?
+## How Should Long-Term Memory Be Read Without Becoming “Too Much and Too Messy”?
 
-### 5.1 Don’t Put Everything into the Context When Reading
+### Don’t Put Everything into the Context When Reading
 
 Even if long-term memory stores many records,
 not all of them are relevant when answering the current question.
@@ -337,7 +337,7 @@ A better approach is:
 - Then filter by key or topic
 - Finally retrieve only the few most relevant items
 
-### 5.2 A Minimal Topic-Based Filtering Example
+### A Minimal Topic-Based Filtering Example
 
 ```python
 def select_relevant_profile(profile, query):
@@ -358,7 +358,7 @@ print(select_relevant_profile(profile, "keep the response style consistent later
 This shows that long-term memory only becomes truly effective
 when the retrieval strategy is also good.
 
-### 5.3 The Most Stable Default Order for Your First Long-Term Memory System
+### The Most Stable Default Order for Your First Long-Term Memory System
 
 A safer default sequence is usually:
 
@@ -371,7 +371,7 @@ This is usually much easier to make stable than building a “big and complete m
 
 ---
 
-## 6. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” What Information Is Worth Storing Long Term?
+## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” What Information Is Worth Storing Long Term?
 
 The easiest mistake in this kind of project is:
 
@@ -394,7 +394,7 @@ You can compress this into one sentence:
 
 > **Long-term memory stores preferences and stable background, while short-term state stores current task details.**
 
-### 6.1 A More Realistic Long-Term Profile Example
+### A More Realistic Long-Term Profile Example
 
 ```python
 profile = {
@@ -415,13 +415,13 @@ What beginners should notice most here is:
 
 ---
 
-## 7. The Most Common Pitfalls in Long-Term Memory
+## The Most Common Pitfalls in Long-Term Memory
 
-### 7.1 Mistake 1: Writing It Permanently After Hearing It Once
+### Mistake 1: Writing It Permanently After Hearing It Once
 
 This causes many accidental preferences to become permanently fixed.
 
-### 7.2 Mistake 2: Not Separating Long-Term Memory from Short-Term Memory
+### Mistake 2: Not Separating Long-Term Memory from Short-Term Memory
 
 The result is:
 
@@ -429,7 +429,7 @@ The result is:
 
 The system becomes more and more disorganized.
 
-### 7.3 Mistake 3: Only Writing, But Never Updating or Handling Conflicts
+### Mistake 3: Only Writing, But Never Updating or Handling Conflicts
 
 If conflicts are not handled, long-term memory will eventually contradict itself.
 

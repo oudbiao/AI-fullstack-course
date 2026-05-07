@@ -1,11 +1,11 @@
 ---
-title: "4.4 预训练工程【选修】"
+title: "7.4.4 预训练工程【选修】"
 sidebar_position: 14
 description: "从数据分片、流式读取、checkpoint、恢复训练和吞吐稳定性出发，理解预训练为什么往往是一个系统工程问题。"
 keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training]
 ---
 
-# 预训练工程【选修】
+# 7.4.4 预训练工程【选修】
 
 :::tip 本节定位
 如果说前两节在回答：
@@ -37,7 +37,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 ## 一、为什么预训练很快会从“写模型”变成“做系统”？
 
-### 1.1 因为数据大、时间长、失败成本高
+### 因为数据大、时间长、失败成本高
 
 小实验时，你可能只训练：
 
@@ -59,7 +59,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 - 训练中断后能不能恢复
 - 每一步吞吐是否平稳
 
-### 1.2 一个类比：不是跑一次程序，而是运营一条生产线
+### 一个类比：不是跑一次程序，而是运营一条生产线
 
 预训练更像一条工厂产线：
 
@@ -81,7 +81,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 ## 二、预训练工程里最关键的三个问题
 
-### 2.1 数据怎么喂进去？
+### 数据怎么喂进去？
 
 当数据量非常大时，
 通常不会一次性全部读入内存，而会采用：
@@ -90,7 +90,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 - 流式读取
 - 边读边打包成 token block
 
-### 2.2 训练中断怎么办？
+### 训练中断怎么办？
 
 长时间训练几乎不可能保证永不出故障。
 因此 checkpoint 不只是“顺手保存一下”，
@@ -103,7 +103,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 只有这样，中断后才不会乱套。
 
-### 2.3 吞吐为什么重要？
+### 吞吐为什么重要？
 
 因为预训练非常吃时间。
 如果每秒 token 吞吐不稳定，
@@ -185,7 +185,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
     print(f"step={state['global_step']:02d} shard={shard_name} batch={batch}")
 ```
 
-### 3.1 这段代码为什么比“列几个 shard 名字”有教学价值？
+### 这段代码为什么比“列几个 shard 名字”有教学价值？
 
 因为它对应了预训练里最真实的一个问题：
 
@@ -199,7 +199,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 这两种都会影响训练稳定性。
 
-### 3.2 为什么 `state` 里要同时记录三个东西？
+### 为什么 `state` 里要同时记录三个东西？
 
 这里保存了：
 
@@ -215,7 +215,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 这就是最小可恢复状态。
 
-### 3.3 真实工程里还会多保存什么？
+### 真实工程里还会多保存什么？
 
 通常还包括：
 
@@ -229,7 +229,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 ## 四、为什么数据分片几乎是默认做法？
 
-### 4.1 因为数据不可能一次性全装进内存
+### 因为数据不可能一次性全装进内存
 
 当语料达到 TB 级别时，
 “全部读进来再训练”是根本不现实的。
@@ -240,7 +240,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 - 更方便故障恢复
 - 更方便版本管理
 
-### 4.2 分片还能帮助多 worker 并行
+### 分片还能帮助多 worker 并行
 
 多卡或多 worker 训练时，
 可以让不同 worker：
@@ -250,7 +250,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 这会让数据供给更稳定。
 
-### 4.3 一个很常见的坑：分片太不均匀
+### 一个很常见的坑：分片太不均匀
 
 如果某些 shard 特别大、某些特别小，
 就容易出现：
@@ -267,7 +267,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 ## 五、为什么流式读取比“先全 tokenize 完再读”更现实？
 
-### 5.1 因为预处理本身也可能很贵
+### 因为预处理本身也可能很贵
 
 大规模语料里，tokenization 也不是零成本。
 如果你想一次性把全部数据处理完，
@@ -282,7 +282,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 - 预先分片 + 流式读取
 - 或部分预处理、部分在线处理
 
-### 5.2 但流式读取也会带来新问题
+### 但流式读取也会带来新问题
 
 例如：
 
@@ -296,7 +296,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 ## 六、吞吐为什么会直接影响训练效果？
 
-### 6.1 吞吐不稳意味着很多资源被浪费
+### 吞吐不稳意味着很多资源被浪费
 
 如果每一步训练时间忽快忽慢，
 常见原因可能是：
@@ -308,7 +308,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 这会直接拖慢总训练时间。
 
-### 6.2 更隐蔽的问题：训练计划会失真
+### 更隐蔽的问题：训练计划会失真
 
 预训练常按：
 
@@ -327,7 +327,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 都可能跟着漂。
 
-### 6.3 一个极简吞吐日志示例
+### 一个极简吞吐日志示例
 
 ```python
 step_logs = [
@@ -351,7 +351,7 @@ for log in step_logs:
 
 ## 七、预训练工程最容易被忽视的两件事
 
-### 7.1 数据版本管理
+### 数据版本管理
 
 如果你说不清：
 
@@ -361,7 +361,7 @@ for log in step_logs:
 
 那后面效果变化几乎无法归因。
 
-### 7.2 可恢复性测试
+### 可恢复性测试
 
 很多团队会认真测：
 
@@ -378,17 +378,17 @@ for log in step_logs:
 
 ## 八、常见误区
 
-### 8.1 误区一：先把模型写对，工程以后再补
+### 误区一：先把模型写对，工程以后再补
 
 对预训练来说，工程不是后期装饰，
 而是能不能把实验真正跑起来的前提。
 
-### 8.2 误区二：checkpoint 只保存模型参数就够了
+### 误区二：checkpoint 只保存模型参数就够了
 
 不够。
 缺少数据位置和优化器状态，恢复后很可能不一致。
 
-### 8.3 误区三：吞吐只是成本问题，不影响训练质量
+### 误区三：吞吐只是成本问题，不影响训练质量
 
 吞吐本身不直接决定 loss，
 但它会影响训练计划、稳定性和资源利用，

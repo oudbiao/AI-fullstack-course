@@ -1,11 +1,11 @@
 ---
-title: "4.2 メモリシステムの概要"
+title: "9.4.2 メモリシステムの概要"
 sidebar_position: 19
 description: "なぜ Agent に記憶が必要なのかから、短期・長期・エピソード・手続き記憶の階層までを整理し、メモリシステム全体の地図を作ります。"
 keywords: [memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory]
 ---
 
-# メモリシステムの概要
+# 9.4.2 メモリシステムの概要
 
 ![Agent メモリシステムの階層図](/img/course/agent-memory-system-ja.png)
 
@@ -37,7 +37,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 一、なぜ Agent に記憶が必要なのか？
 
-### 1.1 記憶がないと、毎回再起動しているようなものになる
+### 記憶がないと、毎回再起動しているようなものになる
 
 ユーザーと Agent の会話が次のようになったとします。
 
@@ -51,7 +51,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 という発話だけでは、重要な前提がたくさん抜け落ちてしまいます。
 
-### 1.2 では、メモリシステムは何を解決するのか？
+### では、メモリシステムは何を解決するのか？
 
 解決したいのは次のようなことです。
 
@@ -67,7 +67,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 二、記憶は「履歴を全部入れること」ではない
 
-### 2.1 よくある誤解
+### よくある誤解
 
 記憶と聞くと、多くの人はまず次のように考えます。
 
@@ -81,7 +81,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 - ノイズの増加
 - 本当に重要な情報が埋もれる
 
-### 2.2 メモリシステムが本当にやるべきこと
+### メモリシステムが本当にやるべきこと
 
 メモリシステムは、単に「もっと多く保存する」ことではありません。むしろ、
 
@@ -98,7 +98,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 三、まずは全体の地図を作る
 
-### 3.1 代表的な記憶の階層
+### 代表的な記憶の階層
 
 | 記憶の種類 | たとえ | 主に解決すること |
 |---|---|---|
@@ -107,7 +107,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 | エピソード記憶 | タスクの経験 | 何が起きたか |
 | 手続き記憶 | 操作マニュアル | その種のタスクをどう進めるか |
 
-### 3.2 まずは一言で覚える
+### まずは一言で覚える
 
 - 短期記憶: 今回のタスクで何が起きているか
 - 長期記憶: このユーザー / このシステムが長期的にどういうものか
@@ -126,14 +126,14 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 四、短期記憶: 現在のタスクの作業領域
 
-### 4.1 ふつう何を保存するのか？
+### ふつう何を保存するのか？
 
 - 最近の数ターンの会話
 - 現在のタスク目標
 - 中間のツール結果
 - どこまで実行したか
 
-### 4.2 なぜ最初に重要なのか？
+### なぜ最初に重要なのか？
 
 ユーザーが最もすぐに失敗として感じるのは、短期記憶のミスです。
 
@@ -147,7 +147,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 五、長期記憶: 回をまたいでも価値がある情報
 
-### 5.1 ふつう何を保存するのか？
+### ふつう何を保存するのか？
 
 たとえば次のような情報です。
 
@@ -155,7 +155,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 - ユーザーの背景: Python 初学者
 - プロジェクトの背景: 今 RAG システムを作っている
 
-### 5.2 短期記憶との最大の違い
+### 短期記憶との最大の違い
 
 短期記憶は「今回のタスク」のため。  
 長期記憶は「次に似た状況が来たときにも使える」ためです。
@@ -166,7 +166,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 六、エピソード記憶と手続き記憶とは？
 
-### 6.1 エピソード記憶（episodic memory）
+### エピソード記憶（episodic memory）
 
 次のように理解できます。
 
@@ -180,7 +180,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 これは、時間や出来事の背景を持った 1 つの記録に近いものです。
 
-### 6.2 手続き記憶（procedural memory）
+### 手続き記憶（procedural memory）
 
 次のように理解できます。
 
@@ -194,7 +194,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 これは単発の出来事というより、経験から得た手順です。
 
-### 6.3 なぜこの 2 つを分けるのか？
+### なぜこの 2 つを分けるのか？
 
 なぜなら、
 
@@ -232,7 +232,7 @@ memory = {
 print(memory)
 ```
 
-### 7.2 このコードが本当に教えていること
+### このコードが本当に教えていること
 
 このコードが教えているのは、
 
@@ -246,17 +246,17 @@ print(memory)
 
 ## 八、メモリシステム設計でよくあるトレードオフ
 
-### 8.1 どれくらい保存するか？
+### どれくらい保存するか？
 
 - 少なすぎる: システムが忘れやすい
 - 多すぎる: システムが混乱しやすく、コストも上がる
 
-### 8.2 原文で残すか、要約するか？
+### 原文で残すか、要約するか？
 
 - 原文: 細部まで残せる
 - 要約: コンテキストを節約できる
 
-### 8.3 いつ書き込み、いつ読み出すか？
+### いつ書き込み、いつ読み出すか？
 
 すべての情報を長期記憶に書く必要はありません。  
 また、毎回の回答で長期記憶を全部読み出す必要もありません。
@@ -296,15 +296,15 @@ print(memory)
 
 ## 十、初学者がよくハマるポイント
 
-### 10.1 記憶を「会話ログの保存」と考えてしまう
+### 記憶を「会話ログの保存」と考えてしまう
 
 これは、とても浅い理解です。
 
-### 10.2 保存だけを気にして、読み出しと利用を考えない
+### 保存だけを気にして、読み出しと利用を考えない
 
 保存しても、正しいタイミングで取り出せなければ、記憶は本当に機能していません。
 
-### 10.3 短期と長期を区別しない
+### 短期と長期を区別しない
 
 その結果、次のような問題が起こります。
 

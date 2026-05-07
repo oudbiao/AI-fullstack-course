@@ -1,10 +1,10 @@
 ---
-title: "Git 核心操作"
+title: "1.2.2 Git 核心操作"
 sidebar_position: 2
 description: "掌握日常开发中最常用的 Git 操作"
 ---
 
-# Git 核心操作
+# 1.2.2 Git 核心操作
 
 ![Git 日常最小循环图](/img/course/ch01-git-daily-loop.png)
 

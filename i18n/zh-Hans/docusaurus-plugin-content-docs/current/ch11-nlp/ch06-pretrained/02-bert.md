@@ -1,11 +1,11 @@
 ---
-title: "6.3 BERT 系列"
+title: "11.6.3 BERT 系列"
 sidebar_position: 17
 description: "从双向上下文、Masked Language Model 到微调方式，真正理解 BERT 在现代 NLP 中解决了什么问题。"
 keywords: [BERT, MLM, 双向编码器, 预训练, Transformer Encoder, NLP]
 ---
 
-# BERT 系列
+# 11.6.3 BERT 系列
 
 ![BERT Masked Language Model 图](/img/course/bert-masked-language-model.png)
 
@@ -43,7 +43,7 @@ BERT 是现代 NLP 进入“预训练大一统时代”的关键节点之一。
 
 ## 一、BERT 到底解决了什么问题？
 
-### 1.1 先看老问题：词义依赖上下文
+### 先看老问题：词义依赖上下文
 
 单词不是总有固定意思。
 
@@ -59,7 +59,7 @@ BERT 是现代 NLP 进入“预训练大一统时代”的关键节点之一。
 
 如果模型只能给每个词一个固定向量，就会很吃力。
 
-### 1.2 BERT 的关键突破
+### BERT 的关键突破
 
 BERT 的核心贡献之一是：
 
@@ -69,7 +69,7 @@ BERT 的核心贡献之一是：
 
 这就是“上下文化表示（contextual representation）”。
 
-### 1.3 一个更适合新人的总类比
+### 一个更适合新人的总类比
 
 你可以把 BERT 理解成：
 
@@ -86,7 +86,7 @@ BERT 的核心贡献之一是：
 
 ## 二、为什么 BERT 会被称为“双向”模型？
 
-### 2.1 双向是什么意思？
+### 双向是什么意思？
 
 看一句话：
 
@@ -98,7 +98,7 @@ BERT 的重要特点就是：
 
 > 当前 token 的表示，同时利用左边和右边的上下文。
 
-### 2.2 和 GPT 的核心区别
+### 和 GPT 的核心区别
 
 粗略地说：
 
@@ -114,7 +114,7 @@ BERT 的重要特点就是：
 
 ## 三、BERT 的输入到底长什么样？
 
-### 3.1 三个特别常见的特殊 token
+### 三个特别常见的特殊 token
 
 | token | 作用 |
 |---|---|
@@ -122,7 +122,7 @@ BERT 的重要特点就是：
 | `[SEP]` | 句子分隔符 |
 | `[MASK]` | 预训练时被遮住的位置 |
 
-### 3.2 一个最小输入例子
+### 一个最小输入例子
 
 ```python
 tokens = ["[CLS]", "我", "爱", "自", "然", "语", "言", "处", "理", "[SEP]"]
@@ -140,7 +140,7 @@ tokens = [
 print(tokens)
 ```
 
-### 3.3 一个很适合初学者先记的输入结构表
+### 一个很适合初学者先记的输入结构表
 
 | 组件 | 最值得先记住的作用 |
 |---|---|
@@ -154,7 +154,7 @@ print(tokens)
 
 ## 四、BERT 预训练时在做什么？
 
-### 4.1 最经典任务：Masked Language Modeling
+### 最经典任务：Masked Language Modeling
 
 BERT 最经典的训练目标是 MLM，也就是：
 
@@ -166,7 +166,7 @@ BERT 最经典的训练目标是 MLM，也就是：
 
 模型要根据前后文猜 `[MASK]` 是什么。
 
-### 4.2 一个最小可运行示例
+### 一个最小可运行示例
 
 ```python
 tokens = ["[CLS]", "我", "爱", "[MASK]", "语", "言", "处", "理", "[SEP]"]
@@ -185,7 +185,7 @@ print("候选填空 =", candidates)
 - 模型的任务是恢复被遮住的信息
 - 当前词的预测依赖双向上下文
 
-### 4.3 为什么这件事很重要？
+### 为什么这件事很重要？
 
 因为它迫使模型真正去理解：
 
@@ -195,7 +195,7 @@ print("候选填空 =", candidates)
 
 这让 BERT 非常擅长“理解型任务”。
 
-### 4.4 第一次学 BERT 时，最稳的默认顺序
+### 第一次学 BERT 时，最稳的默认顺序
 
 更稳的顺序通常是：
 
@@ -210,15 +210,15 @@ print("候选填空 =", candidates)
 
 ## 五、BERT 的输入不只有 token
 
-### 5.1 Token Embedding
+### Token Embedding
 
 每个 token 会先变成向量。
 
-### 5.2 Position Embedding
+### Position Embedding
 
 模型还要知道顺序，所以要加位置编码。
 
-### 5.3 Segment Embedding
+### Segment Embedding
 
 在句对任务里，模型还要知道“哪些 token 属于句子 A，哪些属于句子 B”。
 
@@ -270,7 +270,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 6.2 输出怎么理解？
+### 输出怎么理解？
 
 - `last_hidden_state`
   - shape: `[batch, seq_len, hidden_size]`
@@ -289,7 +289,7 @@ print("pooler_output shape    :", outputs.pooler_output.shape)
 
 ## 七、BERT 怎么拿来做分类？
 
-### 7.1 典型套路
+### 典型套路
 
 最常见的做法是：
 
@@ -300,7 +300,7 @@ print("pooler_output shape    :", outputs.pooler_output.shape)
 
 这就是经典的 fine-tuning 方式。
 
-### 7.2 一个概念级的小例子
+### 一个概念级的小例子
 
 ```python
 import torch
@@ -320,7 +320,7 @@ print("logits shape:", logits.shape)
 
 > BERT 往往不是任务的终点，而是“强表示层”。
 
-### 7.3 如果把 BERT 放进项目里，最值得先展示什么
+### 如果把 BERT 放进项目里，最值得先展示什么
 
 最值得展示的通常不是：
 
@@ -342,14 +342,14 @@ print("logits shape:", logits.shape)
 
 ## 八、BERT 适合哪些任务？
 
-### 8.1 特别适合
+### 特别适合
 
 - 文本分类
 - 句对匹配
 - 命名实体识别
 - 抽取式问答
 
-### 8.2 不那么自然的地方
+### 不那么自然的地方
 
 BERT 本身不是为了长文本自由生成设计的。
 如果任务重点是：
@@ -364,7 +364,7 @@ BERT 本身不是为了长文本自由生成设计的。
 
 ## 九、BERT 为什么后来不再是唯一主角？
 
-### 9.1 原因不是它没用，而是生态继续往前走了
+### 原因不是它没用，而是生态继续往前走了
 
 后面 NLP 和 LLM 发展出了：
 
@@ -374,7 +374,7 @@ BERT 本身不是为了长文本自由生成设计的。
 
 所以今天很多应用更常讨论 GPT、T5、Llama 这类路线。
 
-### 9.2 但 BERT 仍然非常值得学
+### 但 BERT 仍然非常值得学
 
 因为它能帮你真正理解：
 
@@ -389,15 +389,15 @@ BERT 本身不是为了长文本自由生成设计的。
 
 ## 十、初学者最常踩的坑
 
-### 10.1 把 BERT 和 GPT 混成一个东西
+### 把 BERT 和 GPT 混成一个东西
 
 它们都很重要，但训练目标和擅长任务并不一样。
 
-### 10.2 以为 `[CLS]` 是“天然最佳句向量”
+### 以为 `[CLS]` 是“天然最佳句向量”
 
 在很多任务里它好用，但并不是放之四海皆准。
 
-### 10.3 只知道“用 BERT 做分类”，不知道它到底学了什么
+### 只知道“用 BERT 做分类”，不知道它到底学了什么
 
 真正要掌握的是：
 

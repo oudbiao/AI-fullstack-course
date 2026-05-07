@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-class Guide: What Exactly Will We Learn in the RNN and Sequence Models Chapter?"
+title: "6.4.1 Pre-class Guide: What Exactly Will We Learn in the RNN and Sequence Models Chapter?"
 sidebar_position: 0
 description: "Build the learning map for the sequence models chapter first: how RNN, LSTM/GRU, and sequence modeling practice connect with one another."
 keywords: [RNN guide, LSTM, GRU, sequence modeling]
 ---
 
-# Pre-class Guide: What Exactly Will We Learn in the RNN and Sequence Models Chapter?
+# 6.4.1 Pre-class Guide: What Exactly Will We Learn in the RNN and Sequence Models Chapter?
 
 This chapter answers the question:
 

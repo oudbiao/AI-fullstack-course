@@ -1,10 +1,10 @@
 ---
-title: "1.3 File Operations and Serialization"
+title: "2.2.3 File Operations and Serialization"
 sidebar_position: 3
 description: "Master file reading and writing, and data serialization"
 ---
 
-# File Operations and Serialization
+# 2.2.3 File Operations and Serialization
 
 ![File reading/writing and serialization flowchart](/img/course/ch02-file-io-serialization-flow-en.png)
 

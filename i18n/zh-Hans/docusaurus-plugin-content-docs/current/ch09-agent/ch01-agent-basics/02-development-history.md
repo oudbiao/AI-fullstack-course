@@ -1,11 +1,11 @@
 ---
-title: "1.3 Agent 发展历程"
+title: "9.1.3 Agent 发展历程"
 sidebar_position: 2
 description: "从规则机器人、工作流自动化到工具调用和现代智能体，梳理 Agent 概念是如何一步步演进出来的。"
 keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 ---
 
-# Agent 发展历程
+# 9.1.3 Agent 发展历程
 
 ## 学习目标
 
@@ -20,7 +20,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ## 一、Agent 之前，自动化早就存在了
 
-### 1.1 最早的自动化更像“固定脚本”
+### 最早的自动化更像“固定脚本”
 
 在没有大模型之前，很多自动化系统就已经在工作了：
 
@@ -33,7 +33,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 > 路线基本提前写死。
 
-### 1.2 规则机器人更像“严格照剧本演”
+### 规则机器人更像“严格照剧本演”
 
 比如一个客服规则机器人可能这样工作：
 
@@ -46,7 +46,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ## 二、工作流时代：比规则更强，但还是偏固定
 
-### 2.1 工作流是“可组合的固定流程”
+### 工作流是“可组合的固定流程”
 
 后来系统变得更复杂一些，开始出现：
 
@@ -62,7 +62,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 这已经比纯规则更强，但很多时候仍然是“预先设计好的路”。
 
-### 2.2 工作流为什么到今天仍然重要？
+### 工作流为什么到今天仍然重要？
 
 因为它：
 
@@ -72,7 +72,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 所以今天即使 Agent 很火，很多真实项目里依然大量使用工作流。
 
-### 2.3 为什么工作流这条线直到今天都没过时？
+### 为什么工作流这条线直到今天都没过时？
 
 因为它满足了工程里最现实的三件事：
 
@@ -94,7 +94,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ## 三、大模型出现前，为什么很难做通用 Agent？
 
-### 3.1 因为“理解任务”本身很难
+### 因为“理解任务”本身很难
 
 过去系统擅长：
 
@@ -106,7 +106,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 - 读懂开放式自然语言指令
 - 在不确定场景里决定下一步
 
-### 3.2 所以很多系统只能“自动化”，很难“智能体化”
+### 所以很多系统只能“自动化”，很难“智能体化”
 
 它们能做事，但做的通常是：
 
@@ -120,7 +120,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ## 四、大模型把哪件事改变了？
 
-### 4.1 它让“自然语言 -> 可执行动作”的桥接变强了
+### 它让“自然语言 -> 可执行动作”的桥接变强了
 
 大模型最关键的改变之一，不只是更会聊天，而是更会：
 
@@ -133,7 +133,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 > 不必每一步都人工写死，而是让模型辅助决定下一步。
 
-### 4.2 这就是现代 Agent 爆发的原因
+### 这就是现代 Agent 爆发的原因
 
 当大模型具备：
 
@@ -144,7 +144,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 Agent 才真正从概念走向可用。
 
-### 4.3 为什么很多人会把这一步看成真正的“门槛被迈过去”？
+### 为什么很多人会把这一步看成真正的“门槛被迈过去”？
 
 因为在大模型之前，自动化系统大多只能：
 
@@ -167,7 +167,7 @@ Agent 才真正从概念走向可用。
 
 下面我们用同一个任务，看三种不同阶段的实现味道。
 
-### 5.1 规则机器人
+### 规则机器人
 
 ```python
 def rule_bot(query):
@@ -181,7 +181,7 @@ print(rule_bot("怎么退款"))
 print(rule_bot("证书怎么拿"))
 ```
 
-### 5.2 工作流系统
+### 工作流系统
 
 ```python
 def workflow_bot(query):
@@ -196,7 +196,7 @@ def workflow_bot(query):
 print(workflow_bot("怎么退款"))
 ```
 
-### 5.3 简化版 Agent
+### 简化版 Agent
 
 ```python
 def tool_search_policy(keyword):
@@ -235,7 +235,7 @@ print(answer)
 
 ## 六、从 AutoGPT 热潮到今天
 
-### 6.1 早期热潮带来了什么？
+### 早期热潮带来了什么？
 
 早期大家看到大模型可以：
 
@@ -245,7 +245,7 @@ print(answer)
 
 于是出现了大量“全自动 Agent”尝试。
 
-### 6.2 后来大家更理性了
+### 后来大家更理性了
 
 实践下来发现：
 
@@ -261,7 +261,7 @@ print(answer)
 
 这是一种“从兴奋走向工程化”的过程。
 
-### 6.3 为什么这段历史对初学者特别有价值？
+### 为什么这段历史对初学者特别有价值？
 
 因为它会帮你避免一个很常见的误区：
 
@@ -284,7 +284,7 @@ print(answer)
 
 ## 七、今天的 Agent 更像什么？
 
-### 7.1 不再是“无限自主”，而是“有限自主”
+### 不再是“无限自主”，而是“有限自主”
 
 更成熟的 Agent 系统通常会：
 
@@ -293,7 +293,7 @@ print(answer)
 - 记录中间状态
 - 设置超时和安全护栏
 
-### 7.2 它更像“带流程约束的智能执行器”
+### 它更像“带流程约束的智能执行器”
 
 这也是为什么现在很多团队并不追求“最自由的 Agent”，而更重视：
 
@@ -305,16 +305,16 @@ print(answer)
 
 ## 八、初学者常见误区
 
-### 8.1 以为 Agent 历史就是从 ChatGPT 开始
+### 以为 Agent 历史就是从 ChatGPT 开始
 
 不是。
 ChatGPT 和 LLM 只是让 Agent 进入了新阶段。
 
-### 8.2 以为旧系统都落后了
+### 以为旧系统都落后了
 
 很多规则系统和工作流到今天依然是工业主力。
 
-### 8.3 以为越自主越先进
+### 以为越自主越先进
 
 真实工程里，可控往往比“听起来更聪明”更重要。
 

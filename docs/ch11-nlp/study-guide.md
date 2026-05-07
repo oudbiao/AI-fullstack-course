@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn Natural Language Processing Without Getting Confused"
+title: "11.0 Study Guide and Task Sheet: How to Learn Natural Language Processing Without Getting Confused"
 sidebar_position: 1
 description: "An NLP study guide for AI full-stack beginners: text representation, word embeddings, text classification, sequence labeling, pre-trained models, project roadmap, and acceptance criteria."
 keywords: [NLP Study Guide, how to learn natural language processing, text classification, how to learn BERT, how to learn GPT]
 ---
 
-# Study Guide and Task Sheet: How to Learn Natural Language Processing Without Getting Confused
+# 11.0 Study Guide and Task Sheet: How to Learn Natural Language Processing Without Getting Confused
 
 If you reach `Chapter 11 Natural Language Processing (elective track)` and feel that token, embedding, classification, extraction, generation, BERT, and GPT are all mixed together, first return to the main line of NLP: how text becomes a representation that a model can process.
 
@@ -58,7 +58,7 @@ For your second project, it is recommended to do information extraction, such as
 
 For your third project, you can build a question-answering system or text summarization project, combining traditional NLP thinking with pre-trained models.
 
-Before choosing a larger project, run the [reproducible NLP mini pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It is the baseline exercise for this stage: one script, local text data, tokenization, TF-IDF, classification, retrieval QA, summarization, extraction, metrics, and failure cases.
+Before choosing a larger project, run the [11.7.6 reproducible NLP mini pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It is the baseline exercise for this stage: one script, local text data, tokenization, TF-IDF, classification, retrieval QA, summarization, extraction, metrics, and failure cases.
 
 ## Common stumbling blocks
 

@@ -1,10 +1,10 @@
 ---
-title: "2.7 Random Numbers and Statistics"
+title: "3.2.7 Random Numbers and Statistics"
 sidebar_position: 8
 description: "Master NumPy random number generation, probability distributions, and statistical operations"
 ---
 
-# Random Numbers and Statistics
+# 3.2.7 Random Numbers and Statistics
 
 ![NumPy Random Numbers and Statistics Map](/img/course/ch03-numpy-random-statistics-map-en.png)
 

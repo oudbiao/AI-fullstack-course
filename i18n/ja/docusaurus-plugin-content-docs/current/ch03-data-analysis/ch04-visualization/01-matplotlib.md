@@ -1,10 +1,10 @@
 ---
-title: "4.1 Matplotlib 基礎"
+title: "3.4.2 Matplotlib 基礎"
 sidebar_position: 17
 description: "Python の最も重要な描画ライブラリを身につけ、コードで物語を伝えよう"
 ---
 
-# Matplotlib 基礎
+# 3.4.2 Matplotlib 基礎
 
 ![Matplotlib Figure と Axes の構造図](/img/course/matplotlib-figure-axes-ja.png)
 
@@ -187,7 +187,7 @@ plt.show()
 この表は初心者にとても大事です。  
 「関数名」を、もう一度「何を表現したいか」に戻してくれます。
 
-### 1. 折れ線グラフ（Line Plot）
+### 折れ線グラフ（Line Plot）
 
 **適した場面：** 時間や連続変数に沿った変化の傾向を示すとき
 
@@ -228,7 +228,7 @@ plt.show()
 | `label` | 凡例のラベル | `"2023年"` |
 | `alpha` | 透明度 | `0.7`（0 は完全透明、1 は不透明） |
 
-### 2. 棒グラフ（Bar Chart）
+### 棒グラフ（Bar Chart）
 
 **適した場面：** いくつかのカテゴリの大きさを比較するとき
 
@@ -284,7 +284,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 3. 散布図（Scatter Plot）
+### 散布図（Scatter Plot）
 
 **適した場面：** 2 つの変数の関係を観察するとき
 
@@ -318,7 +318,7 @@ plt.show()
 | `cmap` | カラーマップ | `"viridis"`, `"RdYlGn"`, `"Blues"` |
 | `alpha` | 透明度 | `0.7` |
 
-### 4. ヒストグラム（Histogram）
+### ヒストグラム（Histogram）
 
 **適した場面：** データの分布を確認するとき
 
@@ -345,7 +345,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 5. 円グラフ（Pie Chart）
+### 円グラフ（Pie Chart）
 
 **適した場面：** 全体に対する各部分の割合を示すとき（カテゴリは 5〜6 個以内）
 

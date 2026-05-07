@@ -1,11 +1,11 @@
 ---
-title: "8.2 项目：垂直领域微调"
+title: "7.8.2 项目：垂直领域微调"
 sidebar_position: 27
 description: "围绕一个可展示的领域助手项目，从任务边界、SFT 数据、baseline、评估和 before/after 对比，做成作品级微调课程。"
 keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, project]
 ---
 
-# 项目：垂直领域微调
+# 7.8.2 项目：垂直领域微调
 
 :::tip 本节定位
 垂直领域微调项目最容易流于一句空话：
@@ -30,7 +30,7 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 
 ## 一、项目选题为什么必须先收窄？
 
-### 1.1 大题目几乎都做不动
+### 大题目几乎都做不动
 
 例如：
 
@@ -43,7 +43,7 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 - 输出是什么
 - 什么叫答对
 
-### 1.2 更适合作品集的题目
+### 更适合作品集的题目
 
 例如：
 
@@ -85,7 +85,7 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 
 这样项目才更像“判断之后的微调”，而不是“为了微调而微调”。
 
-### 3.1 读代码前先看懂几个项目词
+### 读代码前先看懂几个项目词
 
 | 术语 | 新人友好解释 | 在本节里的作用 |
 |---|---|---|
@@ -207,7 +207,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 
 这段小代码的重点不是做一个生产级检索系统，而是让对比变得可见：通用回答听起来礼貌，但缺少必须覆盖的政策细节；领域相关回答则可以用固定政策点检查。
 
-### 4.1 这个例子为什么比纯“项目规划对象”更值钱？
+### 这个例子为什么比纯“项目规划对象”更值钱？
 
 因为它已经把项目里真正最重要的四件事放出来了：
 
@@ -224,7 +224,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 这张图建议按作品集视角读：任务边界先收窄，SFT 数据要能展示来源和格式，baseline 必须先跑，评估要有政策点覆盖、违规承诺、风格一致性和 before/after 对比。项目值钱的不是“我微调了”，而是你能证明为什么值得微调、提升在哪里。
 :::
 
-### 4.2 为什么要先做两个 baseline？
+### 为什么要先做两个 baseline？
 
 最少建议比较：
 
@@ -236,7 +236,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 
 - 微调到底提升了什么
 
-### 4.3 如果检索已经很好，什么时候还值得微调？
+### 如果检索已经很好，什么时候还值得微调？
 
 检索回答的是“模型应该看到哪些知识”，微调回答的是另一个问题：“模型看到输入后应该形成怎样的稳定行为”。如果检索已经能找到正确政策，微调仍然可能在这些场景里有价值：助手必须始终保持固定语气、稳定判断意图、输出严格 JSON schema，或反复执行某种固定推理模式。
 
@@ -252,7 +252,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 
 ## 五、微调项目最重要的评估不只是“看起来像专家”
 
-### 5.1 结构化评估点
+### 结构化评估点
 
 至少应包含：
 
@@ -261,7 +261,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 - 风格是否一致
 - 是否答非所问
 
-### 5.2 一个更像作品级的展示方式
+### 一个更像作品级的展示方式
 
 最推荐展示：
 
@@ -270,7 +270,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 - 微调后回答
 - 逐条说明差异
 
-### 5.3 失败样例非常重要
+### 失败样例非常重要
 
 例如：
 
@@ -284,7 +284,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 
 ## 六、怎么把这个项目做成作品级页面？
 
-### 6.1 页面结构建议
+### 页面结构建议
 
 1. 任务边界
 2. 数据构造方式
@@ -293,7 +293,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 5. before / after
 6. 失败案例
 
-### 6.2 一个很加分的点
+### 一个很加分的点
 
 把“政策点覆盖率”这种明确规则放出来。
 它会让项目显得非常扎实，而不是只靠主观评价。
@@ -302,15 +302,15 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 
 ## 七、最容易踩的坑
 
-### 7.1 一上来就做大范围题目
+### 一上来就做大范围题目
 
 这会让评估和数据一起发散。
 
-### 7.2 没有 baseline
+### 没有 baseline
 
 没有对比，微调项目几乎站不住。
 
-### 7.3 只展示模型训练，不展示任务判断
+### 只展示模型训练，不展示任务判断
 
 ## 项目交付时最好补上的内容
 

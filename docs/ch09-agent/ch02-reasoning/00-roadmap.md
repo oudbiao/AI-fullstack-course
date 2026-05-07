@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-Class Guide: What Is This Chapter on Reasoning and Planning Really About?"
+title: "9.2.1 Pre-Class Guide: What Is This Chapter on Reasoning and Planning Really About?"
 sidebar_position: 0
 description: "First build the learning map for the reasoning and planning chapter: how chain-of-thought reasoning, ReAct, Plan-and-Execute, and planning evaluation connect into the main thread of Agent thinking."
 keywords: [Agent reasoning guide, ReAct, Plan-and-Execute, planning]
 ---
 
-# Pre-Class Guide: What Is This Chapter on Reasoning and Planning Really About?
+# 9.2.1 Pre-Class Guide: What Is This Chapter on Reasoning and Planning Really About?
 
 This chapter answers:
 

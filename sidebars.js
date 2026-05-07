@@ -4,7 +4,7 @@ const sidebars = {
     "index",
     {
       type: "category",
-      label: "🚀 Start Here",
+      label: "0 Start Here",
       collapsed: false,
       items: [
         "intro/quick-experience",
@@ -347,7 +347,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.3-6.4 CNN, RNN, and Sequence Models",
+              label: "6.3 CNN for Images",
               items: [
                 "ch06-deep-learning/ch03-cnn/roadmap",
                 "ch06-deep-learning/ch03-cnn/convolution-basics",
@@ -355,6 +355,12 @@ const sidebars = {
                 "ch06-deep-learning/ch03-cnn/classic-architectures",
                 "ch06-deep-learning/ch03-cnn/transfer-learning",
                 "ch06-deep-learning/ch03-cnn/image-classification-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "6.4 RNN and Sequence Models",
+              items: [
                 "ch06-deep-learning/ch04-rnn/roadmap",
                 "ch06-deep-learning/ch04-rnn/rnn-basics",
                 "ch06-deep-learning/ch04-rnn/lstm-gru",
@@ -372,11 +378,17 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.6-6.7 Generative Models and Training Tips (Elective)",
+              label: "6.6 Generative Models",
               items: [
                 "ch06-deep-learning/ch06-generative/roadmap",
                 "ch06-deep-learning/ch06-generative/gan",
                 "ch06-deep-learning/ch06-generative/vae",
+              ],
+            },
+            {
+              type: "category",
+              label: "6.7 Training Tips (Elective)",
+              items: [
                 "ch06-deep-learning/ch07-training-tips/roadmap",
                 "ch06-deep-learning/ch07-training-tips/hyperparameter-tuning",
                 "ch06-deep-learning/ch07-training-tips/training-diagnosis",
@@ -412,7 +424,7 @@ const sidebars = {
             "ch07-llm-principles/study-guide",
             {
               type: "category",
-              label: "7.1-7.2 NLP and LLM Crash Course",
+              label: "7.1 NLP Crash Course",
               items: [
                 "ch07-llm-principles/ch01-nlp-crash/roadmap",
                 "ch07-llm-principles/ch01-nlp-crash/tokenizer",
@@ -420,6 +432,12 @@ const sidebars = {
                 "ch07-llm-principles/ch01-nlp-crash/pretrained-models",
                 "ch07-llm-principles/ch01-nlp-crash/huggingface-quickstart",
                 "ch07-llm-principles/ch01-nlp-crash/tokenizer-embedding-lab",
+              ],
+            },
+            {
+              type: "category",
+              label: "7.2 LLM Overview",
+              items: [
                 "ch07-llm-principles/ch02-llm-overview/roadmap",
                 "ch07-llm-principles/ch02-llm-overview/development-history",
                 "ch07-llm-principles/ch02-llm-overview/core-concepts",
@@ -429,7 +447,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.3-7.4 Transformer and Pretraining",
+              label: "7.3 Transformer Internals",
               items: [
                 "ch07-llm-principles/ch03-transformer-deep/roadmap",
                 "ch07-llm-principles/ch03-transformer-deep/architecture-review",
@@ -437,6 +455,12 @@ const sidebars = {
                 "ch07-llm-principles/ch03-transformer-deep/model-variants",
                 "ch07-llm-principles/ch03-transformer-deep/efficient-attention",
                 "ch07-llm-principles/ch03-transformer-deep/scale-computation",
+              ],
+            },
+            {
+              type: "category",
+              label: "7.4 Pretraining",
+              items: [
                 "ch07-llm-principles/ch04-pretraining/roadmap",
                 "ch07-llm-principles/ch04-pretraining/pretraining-data",
                 "ch07-llm-principles/ch04-pretraining/pretraining-methods",
@@ -445,7 +469,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.5-7.7 Prompting, Fine-Tuning, and Alignment",
+              label: "7.5 Prompting",
               items: [
                 "ch07-llm-principles/ch05-prompt/roadmap",
                 "ch07-llm-principles/ch05-prompt/prompt-basics",
@@ -453,12 +477,24 @@ const sidebars = {
                 "ch07-llm-principles/ch05-prompt/structured-output",
                 "ch07-llm-principles/ch05-prompt/prompt-practice",
                 "ch07-llm-principles/ch05-prompt/prompt-evaluation-lab",
+              ],
+            },
+            {
+              type: "category",
+              label: "7.6 Fine-Tuning",
+              items: [
                 "ch07-llm-principles/ch06-finetuning/roadmap",
                 "ch07-llm-principles/ch06-finetuning/finetuning-overview",
                 "ch07-llm-principles/ch06-finetuning/lora-qlora",
                 "ch07-llm-principles/ch06-finetuning/other-peft",
                 "ch07-llm-principles/ch06-finetuning/finetuning-practice",
                 "ch07-llm-principles/ch06-finetuning/data-labeling",
+              ],
+            },
+            {
+              type: "category",
+              label: "7.7 Alignment and Safety",
+              items: [
                 "ch07-llm-principles/ch07-alignment/roadmap",
                 "ch07-llm-principles/ch07-alignment/alignment-problem",
                 "ch07-llm-principles/ch07-alignment/rlhf",
@@ -526,13 +562,19 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.4-8.5 Engineering and Stage Project",
+              label: "8.4 Engineering Practices",
               items: [
                 "ch08-rag/ch04-engineering/roadmap",
                 "ch08-rag/ch04-engineering/async-programming",
                 "ch08-rag/ch04-engineering/api-design",
                 "ch08-rag/ch04-engineering/logging-monitoring",
                 "ch08-rag/ch04-engineering/docker-deployment",
+              ],
+            },
+            {
+              type: "category",
+              label: "8.5 Stage Project",
+              items: [
                 "ch08-rag/ch05-projects/roadmap",
                 "ch08-rag/ch05-projects/enterprise-kb",
                 "ch08-rag/ch05-projects/domain-rag-finetuning",
@@ -552,7 +594,7 @@ const sidebars = {
             "ch09-agent/study-guide",
             {
               type: "category",
-              label: "9.1-9.2 Agent Basics, Reasoning, and Planning",
+              label: "9.1 Agent Basics",
               items: [
                 "ch09-agent/ch01-agent-basics/roadmap",
                 "ch09-agent/ch01-agent-basics/what-is-agent",
@@ -560,6 +602,12 @@ const sidebars = {
                 "ch09-agent/ch01-agent-basics/capability-levels",
                 "ch09-agent/ch01-agent-basics/system-architecture",
                 "ch09-agent/ch01-agent-basics/rl-to-agent-breakthroughs",
+              ],
+            },
+            {
+              type: "category",
+              label: "9.2 Reasoning and Planning",
+              items: [
                 "ch09-agent/ch02-reasoning/roadmap",
                 "ch09-agent/ch02-reasoning/llm-reasoning",
                 "ch09-agent/ch02-reasoning/chain-reasoning",
@@ -571,7 +619,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.3-9.5 Tools, Memory, and MCP",
+              label: "9.3 Tools",
               items: [
                 "ch09-agent/ch03-tools/roadmap",
                 "ch09-agent/ch03-tools/function-calling-deep",
@@ -582,6 +630,12 @@ const sidebars = {
                 "ch09-agent/ch03-tools/advanced-patterns",
                 "ch09-agent/ch03-tools/code-agent",
                 "ch09-agent/ch03-tools/multi-tool-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "9.4 Memory",
+              items: [
                 "ch09-agent/ch04-memory/roadmap",
                 "ch09-agent/ch04-memory/memory-overview",
                 "ch09-agent/ch04-memory/short-term-memory",
@@ -589,6 +643,12 @@ const sidebars = {
                 "ch09-agent/ch04-memory/episodic-procedural",
                 "ch09-agent/ch04-memory/memory-engineering",
                 "ch09-agent/ch04-memory/memory-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "9.5 MCP",
+              items: [
                 "ch09-agent/ch05-mcp/roadmap",
                 "ch09-agent/ch05-mcp/mcp-overview",
                 "ch09-agent/ch05-mcp/mcp-architecture",
@@ -599,7 +659,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.6-9.9 Frameworks, Multi-Agent, and Production",
+              label: "9.6 Agent Frameworks",
               items: [
                 "ch09-agent/ch06-frameworks/roadmap",
                 "ch09-agent/ch06-frameworks/framework-overview",
@@ -610,6 +670,12 @@ const sidebars = {
                 "ch09-agent/ch06-frameworks/openai-agents-sdk",
                 "ch09-agent/ch06-frameworks/low-code-platforms",
                 "ch09-agent/ch06-frameworks/framework-selection",
+              ],
+            },
+            {
+              type: "category",
+              label: "9.7 Multi-Agent Systems",
+              items: [
                 "ch09-agent/ch07-multi-agent/roadmap",
                 "ch09-agent/ch07-multi-agent/architecture-patterns",
                 "ch09-agent/ch07-multi-agent/communication",
@@ -617,12 +683,24 @@ const sidebars = {
                 "ch09-agent/ch07-multi-agent/practice-patterns",
                 "ch09-agent/ch07-multi-agent/challenges",
                 "ch09-agent/ch07-multi-agent/multi-agent-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "9.8 Evaluation and Safety",
+              items: [
                 "ch09-agent/ch08-eval-safety/roadmap",
                 "ch09-agent/ch08-eval-safety/evaluation-methods",
                 "ch09-agent/ch08-eval-safety/benchmarks",
                 "ch09-agent/ch08-eval-safety/agent-security",
                 "ch09-agent/ch08-eval-safety/guardrails",
                 "ch09-agent/ch08-eval-safety/observability",
+              ],
+            },
+            {
+              type: "category",
+              label: "9.9 Deployment and Operations",
+              items: [
                 "ch09-agent/ch09-deployment/roadmap",
                 "ch09-agent/ch09-deployment/deployment-architecture",
                 "ch09-agent/ch09-deployment/runtime-management",
@@ -660,12 +738,18 @@ const sidebars = {
             "ch10-computer-vision/study-guide",
             {
               type: "category",
-              label: "10.1-10.2 CV Basics and Image Classification",
+              label: "10.1 Computer Vision Basics",
               items: [
                 "ch10-computer-vision/ch01-cv-basics/roadmap",
                 "ch10-computer-vision/ch01-cv-basics/image-fundamentals",
                 "ch10-computer-vision/ch01-cv-basics/opencv-basics",
                 "ch10-computer-vision/ch01-cv-basics/image-processing",
+              ],
+            },
+            {
+              type: "category",
+              label: "10.2 Image Classification",
+              items: [
                 "ch10-computer-vision/ch02-classification/roadmap",
                 "ch10-computer-vision/ch02-classification/data-augmentation",
                 "ch10-computer-vision/ch02-classification/modern-architectures",
@@ -674,22 +758,40 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "10.3-10.6 Detection, Segmentation, and Advanced Projects",
+              label: "10.3 Object Detection",
               items: [
                 "ch10-computer-vision/ch03-detection/roadmap",
                 "ch10-computer-vision/ch03-detection/detection-overview",
                 "ch10-computer-vision/ch03-detection/classic-detectors",
                 "ch10-computer-vision/ch03-detection/yolo-series",
                 "ch10-computer-vision/ch03-detection/detection-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "10.4 Image Segmentation",
+              items: [
                 "ch10-computer-vision/ch04-segmentation/roadmap",
                 "ch10-computer-vision/ch04-segmentation/semantic-segmentation",
                 "ch10-computer-vision/ch04-segmentation/instance-segmentation",
                 "ch10-computer-vision/ch04-segmentation/segmentation-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "10.5 Advanced Vision Topics",
+              items: [
                 "ch10-computer-vision/ch05-advanced/roadmap",
                 "ch10-computer-vision/ch05-advanced/face-detection",
                 "ch10-computer-vision/ch05-advanced/video-analysis",
                 "ch10-computer-vision/ch05-advanced/ocr",
                 "ch10-computer-vision/ch05-advanced/04-3d-vision",
+              ],
+            },
+            {
+              type: "category",
+              label: "10.6 Stage Projects",
+              items: [
                 "ch10-computer-vision/ch06-projects/roadmap",
                 "ch10-computer-vision/ch06-projects/security-detection",
                 "ch10-computer-vision/ch06-projects/medical-imaging",
@@ -707,30 +809,60 @@ const sidebars = {
             "ch11-nlp/study-guide",
             {
               type: "category",
-              label: "11.1-11.6 NLP Basics to Pretrained Models",
+              label: "11.1 Text Basics",
               items: [
                 "ch11-nlp/ch01-text-basics/roadmap",
                 "ch11-nlp/ch01-text-basics/nlp-overview",
                 "ch11-nlp/ch01-text-basics/text-preprocessing",
                 "ch11-nlp/ch01-text-basics/text-representation",
+              ],
+            },
+            {
+              type: "category",
+              label: "11.2 Embeddings and Language Models",
+              items: [
                 "ch11-nlp/ch02-embeddings/roadmap",
                 "ch11-nlp/ch02-embeddings/word-embedding",
                 "ch11-nlp/ch02-embeddings/contextual-embedding",
                 "ch11-nlp/ch02-embeddings/language-models",
+              ],
+            },
+            {
+              type: "category",
+              label: "11.3 Text Classification",
+              items: [
                 "ch11-nlp/ch03-classification/roadmap",
                 "ch11-nlp/ch03-classification/traditional-methods",
                 "ch11-nlp/ch03-classification/deep-learning-methods",
                 "ch11-nlp/ch03-classification/classification-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "11.4 Sequence Labeling",
+              items: [
                 "ch11-nlp/ch04-sequence-labeling/roadmap",
                 "ch11-nlp/ch04-sequence-labeling/hmm-crf-history",
                 "ch11-nlp/ch04-sequence-labeling/ner-overview",
                 "ch11-nlp/ch04-sequence-labeling/bilstm-crf",
                 "ch11-nlp/ch04-sequence-labeling/ner-practice",
+              ],
+            },
+            {
+              type: "category",
+              label: "11.5 Seq2Seq and Attention",
+              items: [
                 "ch11-nlp/ch05-seq2seq/roadmap",
                 "ch11-nlp/ch05-seq2seq/encoder-decoder",
                 "ch11-nlp/ch05-seq2seq/attention-in-nlp",
                 "ch11-nlp/ch05-seq2seq/machine-translation",
                 "ch11-nlp/ch05-seq2seq/ctc-deep-speech",
+              ],
+            },
+            {
+              type: "category",
+              label: "11.6 Pretrained Models",
+              items: [
                 "ch11-nlp/ch06-pretrained/roadmap",
                 "ch11-nlp/ch06-pretrained/pretrain-paradigm",
                 "ch11-nlp/ch06-pretrained/bert",
@@ -762,18 +894,30 @@ const sidebars = {
             "ch12-multimodal/study-guide",
             {
               type: "category",
-              label: "12.1-12.3 Multimodal, Image, and Video Generation",
+              label: "12.1 Multimodal Basics",
               items: [
                 "ch12-multimodal/ch01-multimodal/roadmap",
                 "ch12-multimodal/ch01-multimodal/multimodal-basics",
                 "ch12-multimodal/ch01-multimodal/vision-language",
                 "ch12-multimodal/ch01-multimodal/multimodal-apps",
+              ],
+            },
+            {
+              type: "category",
+              label: "12.2 Image Generation",
+              items: [
                 "ch12-multimodal/ch02-image-gen/roadmap",
                 "ch12-multimodal/ch02-image-gen/diffusion-models",
                 "ch12-multimodal/ch02-image-gen/stable-diffusion",
                 "ch12-multimodal/ch02-image-gen/sd-applications",
                 "ch12-multimodal/ch02-image-gen/sd-finetuning",
                 "ch12-multimodal/ch02-image-gen/latest-progress",
+              ],
+            },
+            {
+              type: "category",
+              label: "12.3 Video, Speech, and Digital Humans",
+              items: [
                 "ch12-multimodal/ch03-video-gen/roadmap",
                 "ch12-multimodal/ch03-video-gen/video-generation",
                 "ch12-multimodal/ch03-video-gen/tts",
@@ -782,12 +926,18 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "12.4-12.5 Frontiers, Ethics, and Projects",
+              label: "12.4 Frontiers, Ethics, and Regulation",
               items: [
                 "ch12-multimodal/ch04-frontier/roadmap",
                 "ch12-multimodal/ch04-frontier/frontier-trends",
                 "ch12-multimodal/ch04-frontier/ai-ethics",
                 "ch12-multimodal/ch04-frontier/ai-regulations",
+              ],
+            },
+            {
+              type: "category",
+              label: "12.5 Stage Projects",
+              items: [
                 "ch12-multimodal/ch05-projects/roadmap",
                 "ch12-multimodal/ch05-projects/creative-platform",
                 "ch12-multimodal/ch05-projects/hands-on-multimodal-workshop",
@@ -799,13 +949,13 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "📦 Elective Modules",
+      label: "E Elective Modules",
       collapsed: true,
       items: [
         "electives/hands-on-elective-workshop",
         {
           type: "category",
-          label: "Module A: C++ and Model Deployment",
+          label: "E.A C++ and Model Deployment",
           link: { type: "doc", id: "electives/module-a/index" },
           items: [
             "electives/module-a/cpp-basics",
@@ -819,7 +969,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "Module B: Advanced Python Topics",
+          label: "E.B Advanced Python Topics",
           link: { type: "doc", id: "electives/module-b/index" },
           items: [
             "electives/module-b/decorators-advanced",
@@ -830,7 +980,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "Module C: Classic ML Supplementary Algorithms",
+          label: "E.C Classic ML Supplementary Algorithms",
           link: { type: "doc", id: "electives/module-c/index" },
           items: [
             "electives/module-c/svm",
@@ -846,7 +996,7 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "📎 Appendix",
+      label: "A Appendix",
       collapsed: true,
       items: [
         "appendix/resources",

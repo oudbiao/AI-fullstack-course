@@ -1,11 +1,11 @@
 ---
-title: "1.2 迭代器与生成器进阶"
+title: "E.B.2 迭代器与生成器进阶"
 sidebar_position: 9
 description: "从惰性计算、流式处理、生成器管道到 `yield from`，理解迭代器和生成器为什么特别适合数据与服务代码。"
 keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 ---
 
-# 迭代器与生成器进阶
+# E.B.2 迭代器与生成器进阶
 
 :::tip 本节定位
 迭代器和生成器最容易被误解成“语法技巧”。
@@ -29,7 +29,7 @@ keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 
 ## 一、为什么工程代码很喜欢生成器？
 
-### 1.1 因为很多数据是“流”，不是“块”
+### 因为很多数据是“流”，不是“块”
 
 例如：
 
@@ -44,7 +44,7 @@ keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 - 内存浪费
 - 延迟增加
 
-### 1.2 生成器的核心价值
+### 生成器的核心价值
 
 它让你可以：
 
@@ -52,7 +52,7 @@ keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 
 这就是惰性计算。
 
-### 1.3 一个类比
+### 一个类比
 
 列表像一次性备好一大桌菜。
 生成器像按桌号一道一道上菜。
@@ -73,14 +73,14 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
     print(window)
 ```
 
-### 2.1 这段代码为什么有价值？
+### 这段代码为什么有价值？
 
 因为它已经展示了生成器的本质：
 
 - 不是一次性返回所有窗口
 - 而是一个一个产出
 
-### 2.2 这类写法在哪常见？
+### 这类写法在哪常见？
 
 例如：
 
@@ -124,7 +124,7 @@ for item in pipeline:
     print(item)
 ```
 
-### 3.1 这个例子最想教什么？
+### 这个例子最想教什么？
 
 工程里很多数据处理都可以拆成：
 
@@ -136,7 +136,7 @@ for item in pipeline:
 链路会更重；
 用生成器管道则更自然。
 
-### 3.2 为什么这对 AI 工程也有用？
+### 为什么这对 AI 工程也有用？
 
 因为你会经常处理：
 
@@ -150,7 +150,7 @@ for item in pipeline:
 
 ## 四、`yield from` 为什么值得学？
 
-### 4.1 它解决什么问题？
+### 它解决什么问题？
 
 当一个生成器只是想把另一个可迭代对象继续往外转发时，
 `yield from` 会让代码更清晰。
@@ -169,7 +169,7 @@ def flatten():
 print(list(flatten()))
 ```
 
-### 4.2 为什么它比双重循环更值得学？
+### 为什么它比双重循环更值得学？
 
 因为它表达意图更明确：
 
@@ -179,17 +179,17 @@ print(list(flatten()))
 
 ## 五、最容易踩的坑
 
-### 5.1 误区一：生成器一定更快
+### 误区一：生成器一定更快
 
 它通常更省内存，
 但不代表所有场景都绝对更快。
 
-### 5.2 误区二：生成器只能遍历一次
+### 误区二：生成器只能遍历一次
 
 很多时候这是设计特征，不是 bug。
 如果你需要重复消费，就要重新创建它。
 
-### 5.3 误区三：为了用生成器而用生成器
+### 误区三：为了用生成器而用生成器
 
 如果数据量很小、逻辑很简单，
 直接列表也许更好读。

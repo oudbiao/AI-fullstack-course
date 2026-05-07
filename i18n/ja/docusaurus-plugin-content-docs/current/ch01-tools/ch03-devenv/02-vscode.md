@@ -1,10 +1,10 @@
 ---
-title: "VS Code の設定"
+title: "1.3.2 VS Code の設定"
 sidebar_position: 2
 description: "VS Code を使いやすい AI 開発ツールに設定する"
 ---
 
-# VS Code の設定
+# 1.3.2 VS Code の設定
 
 ![VS Code プロジェクト作業フロー図](/img/course/ch01-vscode-workspace-flow-ja.png)
 

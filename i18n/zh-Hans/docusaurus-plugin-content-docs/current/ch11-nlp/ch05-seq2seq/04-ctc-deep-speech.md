@@ -1,11 +1,11 @@
 ---
-title: "5.5 CTC 与 Deep Speech：语音识别里的序列对齐"
+title: "11.5.5 CTC 与 Deep Speech：语音识别里的序列对齐"
 sidebar_position: 4
 description: "从 CTC 损失和 Deep Speech 理解自动语音识别为什么难，以及输入输出未对齐时模型怎样训练。"
 keywords: [CTC, Deep Speech, ASR, 语音识别, 序列对齐, NLP]
 ---
 
-# CTC 与 Deep Speech：语音识别里的序列对齐
+# 11.5.5 CTC 与 Deep Speech：语音识别里的序列对齐
 
 ![CTC Deep Speech 语音识别对齐图](/img/course/ch11-ctc-deep-speech-asr-map.png)
 

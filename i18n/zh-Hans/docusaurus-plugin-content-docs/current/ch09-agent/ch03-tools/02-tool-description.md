@@ -1,11 +1,11 @@
 ---
-title: "3.3 工具描述与发现"
+title: "9.3.3 工具描述与发现"
 sidebar_position: 12
 description: "从工具 schema、标签、权限和返回结构讲起，理解 Agent 为什么需要先“看懂工具”，才能稳定地选对工具。"
 keywords: [tool description, tool discovery, schema, registry, metadata, agent tools]
 ---
 
-# 工具描述与发现
+# 9.3.3 工具描述与发现
 
 :::tip 本节定位
 很多人做 Agent 时，会先把工具函数接好，然后让模型自己选。
@@ -52,7 +52,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 ## 一、为什么工具不能只靠函数名存在？
 
-### 1.1 对程序员来说够清楚，对模型不一定
+### 对程序员来说够清楚，对模型不一定
 
 比如下面两个函数名：
 
@@ -68,7 +68,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 如果缺少描述，模型看到的只是两个看起来相近的名字。
 
-### 1.2 工具描述本质上是在降低歧义
+### 工具描述本质上是在降低歧义
 
 一个好工具描述，至少应该回答：
 
@@ -81,7 +81,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 这些信息越清楚，
 模型就越容易做出稳定选择。
 
-### 1.3 一个类比：商场导购比货架编号更重要
+### 一个类比：商场导购比货架编号更重要
 
 工具注册表很像商场导购手册。
 
@@ -95,7 +95,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 ## 二、一个工具描述至少应包含什么？
 
-### 2.1 名字要体现用途，而不是只体现实现细节
+### 名字要体现用途，而不是只体现实现细节
 
 例如：
 
@@ -104,7 +104,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 因为模型在选择工具时，更依赖语义而不是实现细节。
 
-### 2.2 描述要写清“什么时候用”
+### 描述要写清“什么时候用”
 
 不要只写：
 
@@ -116,7 +116,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 这能直接降低误调用。
 
-### 2.3 参数说明要回答“如何填”
+### 参数说明要回答“如何填”
 
 例如：
 
@@ -125,7 +125,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 - 举例值是什么
 - 是否必须传
 
-### 2.4 返回结构最好也有约定
+### 返回结构最好也有约定
 
 如果工具返回结构完全随意，
 模型和调度器后面都很难稳定处理。
@@ -136,7 +136,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 - 失败时字段
 - 错误码或错误类型
 
-### 2.5 一个很适合初学者先记的工具说明卡
+### 一个很适合初学者先记的工具说明卡
 
 | 字段 | 它最少应该回答什么 |
 |---|---|
@@ -222,14 +222,14 @@ for query in queries:
     print(query, "->", discover_tools(query, TOOL_REGISTRY))
 ```
 
-### 3.1 这段代码到底在教什么？
+### 这段代码到底在教什么？
 
 它在教两件特别重要的事：
 
 1. 工具不是“裸函数”，而是带元数据的对象
 2. 工具发现本质上是在“需求”和“工具描述”之间做匹配
 
-### 3.2 为什么 `tags` 很有用？
+### 为什么 `tags` 很有用？
 
 因为用户不一定会用和工具名完全一样的词。
 例如：
@@ -239,7 +239,7 @@ for query in queries:
 
 如果没有 tags，发现阶段就容易漏掉候选工具。
 
-### 3.3 为什么这里只返回候选，而不是直接执行？
+### 为什么这里只返回候选，而不是直接执行？
 
 因为“发现”只是第一步。
 它解决的是：
@@ -252,7 +252,7 @@ for query in queries:
 - 工具选择
 - 执行和校验
 
-### 3.4 再看一个最小“候选工具筛选表”示例
+### 再看一个最小“候选工具筛选表”示例
 
 ```python
 query = "退款政策是什么"
@@ -271,7 +271,7 @@ for item in candidates:
 
 ## 四、真实系统里“发现”通常不止一种方式
 
-### 4.1 关键词 / 标签匹配
+### 关键词 / 标签匹配
 
 这是最直观的一层，优点是：
 
@@ -282,7 +282,7 @@ for item in candidates:
 
 - 语义泛化弱
 
-### 4.2 向量检索式工具发现
+### 向量检索式工具发现
 
 当工具很多时，
 常见做法会变成：
@@ -295,7 +295,7 @@ for item in candidates:
 - 工具数量大
 - 工具描述比较长
 
-### 4.3 显式路由规则
+### 显式路由规则
 
 在一些高风险系统里，
 甚至不会把工具发现完全交给模型，
@@ -307,7 +307,7 @@ for item in candidates:
 这说明工具发现不是纯召回问题，
 也是策略问题。
 
-### 4.4 第一次做工具系统时，最稳的默认顺序
+### 第一次做工具系统时，最稳的默认顺序
 
 更稳的顺序通常是：
 
@@ -322,7 +322,7 @@ for item in candidates:
 
 ## 五、返回结构为什么也属于“工具描述”的一部分？
 
-### 5.1 因为发现不只是“找到工具”，还要知道能不能接上后续流程
+### 因为发现不只是“找到工具”，还要知道能不能接上后续流程
 
 例如：
 
@@ -332,7 +332,7 @@ for item in candidates:
 如果后续系统需要把它们整合到同一个答复里，
 返回字段越清楚，后面越稳。
 
-### 5.2 一个简单的统一返回约定
+### 一个简单的统一返回约定
 
 ```python
 def normalize_tool_result(ok, data=None, error=None):
@@ -357,12 +357,12 @@ print(normalize_tool_result(False, error="missing_order_id"))
 
 ## 六、工具描述最容易踩的坑
 
-### 6.1 误区一：函数签名清楚就够了
+### 误区一：函数签名清楚就够了
 
 对程序员可能够，
 对模型通常不够。
 
-### 6.2 误区二：工具描述越短越好
+### 误区二：工具描述越短越好
 
 太短会导致歧义。
 描述真正重要的是：
@@ -372,7 +372,7 @@ print(normalize_tool_result(False, error="missing_order_id"))
 
 而不是一味短。
 
-### 6.3 误区三：发现只要能召回一个工具就行
+### 误区三：发现只要能召回一个工具就行
 
 如果候选集质量差，
 后面的选择和执行都会跟着差。

@@ -1,10 +1,10 @@
 ---
-title: "Python環境管理"
+title: "1.3.1 Python環境管理"
 sidebar_position: 1
 description: "Miniconda で Python のバージョンと仮想環境を管理し、パッケージの衝突を根本から防ぐ"
 ---
 
-# Python環境管理
+# 1.3.1 Python環境管理
 
 ![Python 環境と依存関係の図](/img/course/ch01-python-env-stack-ja.png)
 

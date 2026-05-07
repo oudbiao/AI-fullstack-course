@@ -1,11 +1,11 @@
 ---
-title: "3.8 ドキュメント解析と知識抽出"
+title: "8.3.8 ドキュメント解析と知識抽出"
 sidebar_position: 17
 description: "PDF、Word、PPT からスキャン画像の OCR まで、ナレッジベース型アプリがなぜまず文書を構造化された知識に解析する必要があるのかを理解します。単なるプレーンテキスト抽出だけでは足りません。"
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---
 
-# ドキュメント解析と知識抽出
+# 8.3.8 ドキュメント解析と知識抽出
 
 :::tip この節の位置づけ
 多くのナレッジベース系プロジェクトで、最初にやりがちなミスは次の2つです。
@@ -321,7 +321,7 @@ for sample in samples:
 スキャンされた教材、スクリーンショット、写真資料をたくさん扱うなら、このステップは非常に重要です。
 
 関連する内容は以下も参照してください。
-- [OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [10.5.4 OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
 ## 十、最初に作るときの、いちばん安全な範囲設定
 

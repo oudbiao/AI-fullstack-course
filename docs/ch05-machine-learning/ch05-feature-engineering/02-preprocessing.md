@@ -1,11 +1,11 @@
 ---
-title: "5.3 Feature Preprocessing"
+title: "5.5.3 Feature Preprocessing"
 sidebar_position: 15
 description: "Learn the most common feature preprocessing decisions before starting a machine learning project, including missing values, outliers, standardization, encoding, and data leakage."
 keywords: [feature preprocessing, missing values, standardization, one-hot, data leakage, preprocessing]
 ---
 
-# Feature Preprocessing
+# 5.5.3 Feature Preprocessing
 
 ![Feature preprocessing pipeline](/img/course/feature-preprocessing-pipeline-en.png)
 
@@ -60,7 +60,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 ```
 
-## 1. Missing Value Handling
+## Missing Value Handling
 
 Missing values are sometimes dirty data, and sometimes a signal in themselves. For example, “the user did not fill in company” may mean an ordinary individual user; “a health metric is missing” may just be a system entry issue. Before handling missing values, ask first: why is it missing?
 
@@ -73,7 +73,7 @@ print(missing_rate)
 
 Common strategies include dropping columns with too many missing values, filling numeric features with the mean or median, filling categorical features with the mode or “unknown,” and adding a flag column indicating whether a value is missing. Do not start by calling `dropna()` on everything, or you may easily lose a large number of samples.
 
-## 2. Outlier Handling
+## Outlier Handling
 
 Outliers are not always errors. Financial fraud, device failures, and extreme spending behavior may be exactly the kinds of samples the model cares about most. When handling outliers, you need to combine them with business context.
 
@@ -89,7 +89,7 @@ print(outliers.head())
 
 If an outlier comes from a data entry mistake, you can correct or remove it. If an outlier represents truly rare behavior, consider keeping it and using a robust model or binning to handle it.
 
-## 3. Numeric Scaling: When Standardization Is Needed
+## Numeric Scaling: When Standardization Is Needed
 
 Standardization solves the problem of large differences in feature scale. For example, age may be in the tens, while income may be in the tens of thousands. If a model relies on distance or gradients, scale differences can affect training.
 
@@ -112,7 +112,7 @@ print(X_train_scaled[:2])
 
 Note that you should only `fit` on the training set, then `transform` the test set. If you fit the scaler on all the data, you leak test-set information into the training process.
 
-## 4. Categorical Encoding
+## Categorical Encoding
 
 Categorical features cannot be fed directly into most traditional models and need to be encoded. The most common method is One-Hot Encoding, which is suitable for unordered categories such as city, color, and occupation.
 
@@ -129,7 +129,7 @@ Ordered categories can be encoded with Ordinal Encoding, such as education level
 
 Target Encoding is useful for high-cardinality categories, but it can easily cause leakage. For example, when encoding city using the “average conversion rate of each city,” you must calculate it only based on the training fold, not directly from the full labels.
 
-## 5. Use a Pipeline to Prevent Leakage
+## Use a Pipeline to Prevent Leakage
 
 The safest way is to put preprocessing and the model into the same Pipeline, so that during cross-validation each fold fits the preprocessors only on the training portion.
 

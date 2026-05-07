@@ -1,10 +1,10 @@
 ---
-title: "3.6 グループ化と集計"
+title: "3.3.7 グループ化と集計"
 sidebar_position: 14
 description: "groupby のグループ集計、ピボットテーブルなどの重要な操作を身につける"
 ---
 
-# グループ化と集計
+# 3.3.7 グループ化と集計
 
 ![Pandas GroupBy グループ集計フロー図](/img/course/ch03-pandas-groupby-split-apply-combine-ja.png)
 

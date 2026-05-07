@@ -1,10 +1,10 @@
 ---
-title: "5.1 Basics of Relational Databases"
+title: "3.5.2 Basics of Relational Databases"
 sidebar_position: 21
 description: "Understand what a database is and why AI engineers also need to learn databases"
 ---
 
-# Basics of Relational Databases
+# 3.5.2 Basics of Relational Databases
 
 ![Basics of Relational Databases](/img/course/ch03-relational-database-foundation-en.png)
 
@@ -95,7 +95,7 @@ These two tables are connected through `user_id`—this is where the name **rela
 
 ## Core concepts
 
-### 1. Primary Key
+### Primary Key
 
 A primary key is the **unique identifier** for each record, like an ID card number: it cannot be repeated and cannot be empty.
 
@@ -108,7 +108,7 @@ In the orders table: order_id is the primary key → each order has a unique ord
 Imagine there is no primary key: if two users are both named "Zhang San", how would you tell them apart? The primary key solves this problem—even if the names are the same, the ids must be different.
 :::
 
-### 2. Foreign Key
+### Foreign Key
 
 A foreign key is a field that **references the primary key of another table** and is used to build relationships between tables.
 
@@ -130,7 +130,7 @@ flowchart LR
 
 The `user_id` in the orders table is the foreign key—it points to the `id` in the users table and indicates "which user this order belongs to."
 
-### 3. Common data types
+### Common data types
 
 | Type | Explanation | Example |
 |------|------|------|
@@ -142,7 +142,7 @@ The `user_id` in the orders table is the foreign key—it points to the `id` in 
 | `BOOLEAN` | Boolean value | TRUE / FALSE |
 | `BLOB` | Binary data | Images, files (less commonly used) |
 
-### 4. Constraints
+### Constraints
 
 Constraints are **rules** for data that help ensure data quality:
 

@@ -1,11 +1,11 @@
 ---
-title: "1.5 Scikit-learn と Matplotlib 実践ワークショップ"
+title: "5.1.5 Scikit-learn と Matplotlib 実践ワークショップ"
 sidebar_position: 4
 description: "データ準備、Matplotlib による可視化、sklearn Pipeline の学習、評価、安全な調整、モデル保存、初心者がつまずきやすい点までを一歩ずつ実践します。"
 keywords: [Scikit-learn 実践, sklearn チュートリアル, Matplotlib 基礎, Pipeline, train_test_split, 混同行列, 交差検証, joblib]
 ---
 
-# Scikit-learn と Matplotlib 実践ワークショップ
+# 5.1.5 Scikit-learn と Matplotlib 実践ワークショップ
 
 ![Scikit-learn 実践ワークフロー](/img/course/ch05-sklearn-hands-on-loop-ja.png)
 
@@ -22,7 +22,7 @@ keywords: [Scikit-learn 実践, sklearn チュートリアル, Matplotlib 基礎
 - 交差検証を使い、1つずつ安全に調整する
 - `joblib` で学習済み Pipeline を保存・再読み込みする
 
-## 0. まず実行用セルを準備する
+## まず実行用セルを準備する
 
 新しい Notebook または Python ファイルを作り、最初に次を実行します。
 
@@ -50,7 +50,7 @@ python -m pip install --upgrade scikit-learn matplotlib joblib
 
 ---
 
-## 1. データを読む：特徴量とラベルを分ける
+## データを読む：特徴量とラベルを分ける
 
 sklearn の例では、`X` と `y` が何度も出てきます。
 
@@ -89,7 +89,7 @@ First sample label: 0 => class_0
 
 ---
 
-## 2. Matplotlib 基礎：図を読んでからモデルを見る
+## Matplotlib 基礎：図を読んでからモデルを見る
 
 ![Matplotlib の図表構造](/img/course/ch05-matplotlib-chart-anatomy-ja.png)
 
@@ -151,7 +151,7 @@ plt.show()
 
 ---
 
-## 3. データ分割：テストセットを隠しておく
+## データ分割：テストセットを隠しておく
 
 `train_test_split` は訓練セットとテストセットを作ります。
 
@@ -186,7 +186,7 @@ X_test:  (36, 13) y_test:  (36,)
 
 ---
 
-## 4. Pipeline を作る：前処理とモデルをまとめる
+## Pipeline を作る：前処理とモデルをまとめる
 
 ロジスティック回帰、SVM、KNN などは特徴量のスケールに敏感です。Wine データセットは列ごとの単位がかなり違うため、モデルの前に `StandardScaler` を置きます。
 
@@ -221,7 +221,7 @@ Test accuracy:  100.0%
 
 ---
 
-## 5. 予測し、具体例を見る
+## 予測し、具体例を見る
 
 スコアだけでなく、実際の予測例も少し確認しましょう。
 
@@ -250,7 +250,7 @@ Sample 4: predicted=class_2, true=class_2, confidence=99.9%
 
 ---
 
-## 6. 混同行列とレポートで評価する
+## 混同行列とレポートで評価する
 
 Accuracy だけでは、どのクラスを間違えたのかが見えません。混同行列は、実ラベルと予測ラベルを表にして見せます。
 
@@ -282,7 +282,7 @@ print(classification_report(y_test, y_pred, target_names=wine.target_names))
 
 ---
 
-## 7. 同じ流れで複数モデルを比べる
+## 同じ流れで複数モデルを比べる
 
 sklearn は API が統一されているため、モデル比較がしやすいです。
 
@@ -352,7 +352,7 @@ plt.show()
 
 ---
 
-## 8. 交差検証で安全に調整する
+## 交差検証で安全に調整する
 
 テストセットを直接使ってハイパーパラメータを調整してはいけません。訓練セット内で交差検証を使います。
 
@@ -388,7 +388,7 @@ C=100.0  CV accuracy=97.9% ± 2.6%
 
 ---
 
-## 9. 最終 Pipeline を保存して読み込む
+## 最終 Pipeline を保存して読み込む
 
 ```python
 import joblib
@@ -424,7 +424,7 @@ Predictions are identical: True
 
 ---
 
-## 10. よくあるエラーと直し方
+## よくあるエラーと直し方
 
 | エラー / 症状 | よくある原因 | 修正方法 |
 |---|---|---|

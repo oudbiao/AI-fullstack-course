@@ -1,11 +1,11 @@
 ---
-title: "1.4 Agent Capability Levels"
+title: "9.1.4 Agent Capability Levels"
 sidebar_position: 3
 description: "Understand the capability boundaries of different Agent systems from a layered perspective, and avoid calling a simple workflow an all-powerful intelligent agent."
 keywords: [agent capability, tool use, planning, workflow, autonomy]
 ---
 
-# Agent Capability Levels
+# 9.1.4 Agent Capability Levels
 
 ![Agent capability level ladder](/img/course/ch09-capability-level-ladder-map-en.png)
 
@@ -20,9 +20,9 @@ After completing this section, you will be able to:
 
 ---
 
-## 1. Why do we need to grade Agents?
+## Why do we need to grade Agents?
 
-### 1.1 Because the word “Agent” is too easy to overstate
+### Because the word “Agent” is too easy to overstate
 
 Some systems only:
 
@@ -36,7 +36,7 @@ Other systems can:
 
 If we call them all Agents, many concepts get mixed together.
 
-### 1.2 The value of grading is to describe system capability more honestly
+### The value of grading is to describe system capability more honestly
 
 It helps you answer:
 
@@ -46,9 +46,9 @@ It helps you answer:
 
 ---
 
-## 2. A practical capability grading framework
+## A practical capability grading framework
 
-### 2.1 L0: Pure response type
+### L0: Pure response type
 
 Features:
 
@@ -61,7 +61,7 @@ Examples:
 - General Q&A bot
 - Pure Prompt generator
 
-### 2.2 L1: Single-tool execution type
+### L1: Single-tool execution type
 
 Features:
 
@@ -76,9 +76,9 @@ Examples:
 
 ---
 
-## 3. One level higher
+## One level higher
 
-### 3.1 L2: Multi-step tool coordination type
+### L2: Multi-step tool coordination type
 
 Features:
 
@@ -90,7 +90,7 @@ Examples:
 - First check the order, then check the refund policy, then give a conclusion
 - First search for information, then summarize it into a report
 
-### 3.2 L3: Goal-driven type
+### L3: Goal-driven type
 
 Features:
 
@@ -106,9 +106,9 @@ Examples:
 
 ---
 
-## 4. Higher capability usually means higher risk
+## Higher capability usually means higher risk
 
-### 4.1 L4: Long-running / multi-Agent / high autonomy
+### L4: Long-running / multi-Agent / high autonomy
 
 Features:
 
@@ -118,7 +118,7 @@ Features:
 
 These systems sound the coolest, but they are also the hardest to engineer.
 
-### 4.2 Higher capability does not mean better suited for your task
+### Higher capability does not mean better suited for your task
 
 Because improved capability often comes with:
 
@@ -132,7 +132,7 @@ So the right mindset is usually not “the higher, the better,” but:
 
 ---
 
-## 5. A quick capability level reference table
+## A quick capability level reference table
 
 | Level | Core capability | Typical systems |
 |---|---|---|
@@ -144,9 +144,9 @@ So the right mindset is usually not “the higher, the better,” but:
 
 ---
 
-## 6. A small exercise: assign levels to tasks
+## A small exercise: assign levels to tasks
 
-### 6.1 Runnable example
+### Runnable example
 
 ```python
 tasks = [
@@ -175,9 +175,9 @@ Of course, this is a simplified version, but it helps you build a very practical
 
 ---
 
-## 7. How do you upgrade from a lower level?
+## How do you upgrade from a lower level?
 
-### 7.1 From L0 to L1
+### From L0 to L1
 
 The key is to add:
 
@@ -185,7 +185,7 @@ The key is to add:
 - Parameter generation
 - Filling tool results back into the response
 
-### 7.2 From L1 to L2
+### From L1 to L2
 
 The key is to add:
 
@@ -193,7 +193,7 @@ The key is to add:
 - Multi-step execution
 - Dependencies between actions
 
-### 7.3 From L2 to L3
+### From L2 to L3
 
 The key is to add:
 
@@ -205,9 +205,9 @@ The higher you go, the more it feels like building a “small operating system.�
 
 ---
 
-## 8. How do you avoid “overstating capability” in engineering?
+## How do you avoid “overstating capability” in engineering?
 
-### 8.1 Set boundaries for the system first
+### Set boundaries for the system first
 
 For example:
 
@@ -215,7 +215,7 @@ For example:
 - How many tools can it call at most?
 - Which tasks must be confirmed by a human?
 
-### 8.2 Launch with the minimum necessary capability first
+### Launch with the minimum necessary capability first
 
 Many systems actually only need:
 
@@ -229,17 +229,17 @@ If you jump straight to L4, you often end up with:
 
 ---
 
-## 9. Common beginner misconceptions
+## Common beginner misconceptions
 
-### 9.1 Thinking tool use automatically means an advanced Agent
+### Thinking tool use automatically means an advanced Agent
 
 Being able to call one tool is usually at most L1.
 
-### 9.2 Thinking more steps automatically means smarter
+### Thinking more steps automatically means smarter
 
 More steps sometimes just means more error paths.
 
-### 9.3 Piling up architecture without distinguishing task levels
+### Piling up architecture without distinguishing task levels
 
 This is one of the reasons many Agent projects are hard to ship.
 

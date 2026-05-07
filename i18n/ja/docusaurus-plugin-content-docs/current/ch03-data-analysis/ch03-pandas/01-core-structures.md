@@ -1,10 +1,10 @@
 ---
-title: "3.1 Pandas のコアデータ構造"
+title: "3.3.2 Pandas のコアデータ構造"
 sidebar_position: 9
 description: "Series と DataFrame を理解しよう——Pandas の2つの土台"
 ---
 
-# Pandas のコアデータ構造
+# 3.3.2 Pandas のコアデータ構造
 
 ![Pandas DataFrame 構造図](/img/course/pandas-dataframe-structure-ja.png)
 

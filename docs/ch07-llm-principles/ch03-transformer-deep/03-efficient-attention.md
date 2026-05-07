@@ -1,11 +1,11 @@
 ---
-title: "3.5 Efficient Attention Mechanisms"
+title: "7.3.5 Efficient Attention Mechanisms"
 sidebar_position: 11
 description: "Starting from the O(n^2) pressure brought by long contexts, understand how sliding windows, KV cache, MQA/GQA, and FlashAttention each optimize a different kind of bottleneck."
 keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context]
 ---
 
-# Efficient Attention Mechanisms
+# 7.3.5 Efficient Attention Mechanisms
 
 :::tip Section focus
 When the sequence length is still short, ordinary self-attention seems almost fine.
@@ -28,9 +28,9 @@ It is a broad class of modifications designed to help Transformer keep running w
 
 ---
 
-## 1. Where exactly is ordinary attention expensive?
+## Where exactly is ordinary attention expensive?
 
-### 1.1 Every token has to compare with many tokens
+### Every token has to compare with many tokens
 
 Suppose the sequence length is `n`.
 In ordinary self-attention, each position needs to compute similarity with other positions.
@@ -46,7 +46,7 @@ That is:
 When `n = 512`, this is not too surprising.
 But when `n = 32768`, things become completely different.
 
-### 1.2 Doubling the length does not just double the cost
+### Doubling the length does not just double the cost
 
 This is exactly where many beginners underestimate the problem.
 
@@ -62,7 +62,7 @@ but rather:
 
 > **How do we support more tokens without letting the cost explode?**
 
-### 1.3 Training and inference do not suffer in exactly the same way
+### Training and inference do not suffer in exactly the same way
 
 During training, the more common pressure comes from:
 
@@ -79,9 +79,9 @@ They are not all solving the same problem.
 
 ---
 
-## 2. First separate the main approaches
+## First separate the main approaches
 
-### 2.1 Sliding window / local attention: reduce “who looks at whom”
+### Sliding window / local attention: reduce “who looks at whom”
 
 The most intuitive approach is:
 
@@ -98,7 +98,7 @@ Typical ideas include:
 - sliding window attention
 - local attention
 
-### 2.2 MQA / GQA: reduce KV cache size
+### MQA / GQA: reduce KV cache size
 
 Another very important approach does not change the mask,
 but changes how `K / V` are organized in multi-head attention.
@@ -116,7 +116,7 @@ Their core benefit is more about:
 - lower inference memory usage
 - better throughput
 
-### 2.3 FlashAttention: not changing the formula, but changing how it is computed
+### FlashAttention: not changing the formula, but changing how it is computed
 
 FlashAttention is often misunderstood as:
 
@@ -138,7 +138,7 @@ It is not about making the model suddenly understand completely different relati
 You do not need to memorize the method names in this figure. First separate the bottlenecks: when the context is too long, look at sliding/local attention; when the KV cache is too large, look at MQA/GQA; when memory reads and writes are too expensive, look at FlashAttention. Efficient attention is a set of engineering trade-offs, not a universal formula.
 :::
 
-### 2.4 Linear attention: trying to reduce complexity at the formula level
+### Linear attention: trying to reduce complexity at the formula level
 
 There is also a more aggressive class of methods.
 It directly rewrites the attention computation and hopes to reduce complexity from quadratic to something lower.
@@ -151,7 +151,7 @@ These methods usually trade off among:
 
 ---
 
-## 3. First run a real example that shows the point
+## First run a real example that shows the point
 
 The example below compares two things:
 
@@ -209,7 +209,7 @@ print("full outputs :", [round(x, 3) for x in full_outputs])
 print("local outputs:", [round(x, 3) for x in local_outputs])
 ```
 
-### 3.1 What intuition does this code actually represent?
+### What intuition does this code actually represent?
 
 It tells you two especially important things:
 
@@ -220,14 +220,14 @@ This is the core reality of efficient attention:
 
 > **You are not getting speedup for free; you are trading off efficiency against visibility range.**
 
-### 3.2 Why are `full pairs` and `local pairs` so different?
+### Why are `full pairs` and `local pairs` so different?
 
 Because in global attention, each position looks at every position.
 In local attention, each position only looks at its nearby window.
 
 When the sequence becomes very long, this gap grows quickly.
 
-### 3.3 Why is local attention not necessarily worse?
+### Why is local attention not necessarily worse?
 
 Because a lot of information is inherently local.
 For example, in language:
@@ -243,9 +243,9 @@ That is why many long-context models use:
 
 ---
 
-## 4. Another major inference-time cost: KV cache
+## Another major inference-time cost: KV cache
 
-### 4.1 Why does a longer chat use more memory during inference?
+### Why does a longer chat use more memory during inference?
 
 Because in decoder-only models,
 the `K / V` from each previous step are cached for reuse by later tokens.
@@ -259,7 +259,7 @@ but the trade-off is:
 
 - the longer the conversation, the larger the cache
 
-### 4.2 What exactly do MQA / GQA save?
+### What exactly do MQA / GQA save?
 
 They do not save the attention matrix itself,
 but rather the amount of K/V that needs to be stored at each layer and each step.
@@ -276,7 +276,7 @@ So they are especially suitable for:
 - long conversations
 - high-throughput serving
 
-### 4.3 A simple estimate of “which one is cheaper”
+### A simple estimate of “which one is cheaper”
 
 ```python
 def kv_units(num_query_heads, num_kv_heads, head_dim, seq_len):
@@ -305,9 +305,9 @@ This figure is best understood from an inference perspective: in ordinary MHA, e
 
 ---
 
-## 5. Why is FlashAttention mentioned so often?
+## Why is FlashAttention mentioned so often?
 
-### 5.1 Because many bottlenecks are not about “can’t compute,” but about “moving data is too expensive”
+### Because many bottlenecks are not about “can’t compute,” but about “moving data is too expensive”
 
 A common issue in attention implementations is:
 
@@ -324,7 +324,7 @@ So it often brings:
 - higher throughput
 - lower memory usage
 
-### 5.2 It is not the same kind of thing as sliding window
+### It is not the same kind of thing as sliding window
 
 This point is very important.
 
@@ -336,9 +336,9 @@ They are not mutually exclusive.
 
 ---
 
-## 6. When should you think about which route first?
+## When should you think about which route first?
 
-### 6.1 If your main bottleneck is training memory for long contexts
+### If your main bottleneck is training memory for long contexts
 
 You will first think of:
 
@@ -346,7 +346,7 @@ You will first think of:
 - activation checkpointing
 - sequence parallelism
 
-### 6.2 If your main bottleneck is a too-large KV cache during inference
+### If your main bottleneck is a too-large KV cache during inference
 
 You will first think of:
 
@@ -354,7 +354,7 @@ You will first think of:
 - GQA
 - KV cache quantization
 
-### 6.3 If your main bottleneck is the quadratic complexity of ultra-long contexts
+### If your main bottleneck is the quadratic complexity of ultra-long contexts
 
 You will first think of:
 
@@ -369,9 +369,9 @@ In other words:
 
 ---
 
-## 7. Common misconceptions
+## Common misconceptions
 
-### 7.1 Misconception 1: Efficient attention = faster and definitely better
+### Misconception 1: Efficient attention = faster and definitely better
 
 Many methods are essentially trading off:
 
@@ -382,7 +382,7 @@ Many methods are essentially trading off:
 
 You cannot get all metrics for free.
 
-### 7.2 Misconception 2: As long as a model supports long context, it must be able to “use” long context
+### Misconception 2: As long as a model supports long context, it must be able to “use” long context
 
 Supporting a 128k context does not mean the model can truly and stably use the key information in those 128k tokens.
 
@@ -391,7 +391,7 @@ These are two different things:
 - engineering support for length
 - the model’s effective use of length
 
-### 7.3 Misconception 3: FlashAttention is a new model architecture
+### Misconception 3: FlashAttention is a new model architecture
 
 It is not.
 It is more like an efficient implementation technique.

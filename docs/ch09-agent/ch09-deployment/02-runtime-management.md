@@ -1,11 +1,11 @@
 ---
-title: "9.3 Runtime Management"
+title: "9.9.3 Runtime Management"
 sidebar_position: 50
 description: "Understand how an Agent stays stable after deployment through concurrency control, timeouts, retries, circuit breaking, and metrics observability."
 keywords: [runtime management, concurrency, timeout, retry, circuit breaker, metrics]
 ---
 
-# Runtime Management
+# 9.9.3 Runtime Management
 
 ![Agent runtime management protection map](/img/course/ch09-runtime-management-protection-map-en.png)
 
@@ -29,9 +29,9 @@ That is what runtime management is here to solve.
 
 ---
 
-## 1. Why are Agents especially prone to runtime problems?
+## Why are Agents especially prone to runtime problems?
 
-### 1.1 One request is often not one call
+### One request is often not one call
 
 A typical Agent workflow includes:
 
@@ -43,7 +43,7 @@ A typical Agent workflow includes:
 This means a single user request may contain several sub-calls.
 The longer the chain, the more runtime fluctuations are amplified.
 
-### 1.2 What shows up first after deployment is often not “wrong answers,” but “unstable execution”
+### What shows up first after deployment is often not “wrong answers,” but “unstable execution”
 
 Typical symptoms:
 
@@ -56,27 +56,27 @@ So runtime management is essentially about protecting system availability.
 
 ---
 
-## 2. The four most important runtime mechanisms
+## The four most important runtime mechanisms
 
-### 2.1 Concurrency control
+### Concurrency control
 
 Limit the number of tasks running at the same time so resources are not exhausted all at once.
 
-### 2.2 Timeouts
+### Timeouts
 
 Set a boundary for each step to prevent requests from hanging forever.
 
-### 2.3 Retries
+### Retries
 
 Retry only a limited number of times for temporary errors, instead of starting over for every error.
 
-### 2.4 Circuit breaking
+### Circuit breaking
 
 When a dependency keeps failing, stop calling it for a while to avoid amplifying the failure.
 
 ---
 
-## 3. First, run a minimal runtime manager
+## First, run a minimal runtime manager
 
 ```python
 import asyncio
@@ -188,14 +188,14 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.1 Which parts of this code should you pay the most attention to?
+### Which parts of this code should you pay the most attention to?
 
 - `Semaphore`: concurrency limiting
 - `wait_for`: timeout
 - `attempt > 0`: retry counting
 - `breaker_open`: circuit breaking
 
-### 3.2 Why is this already very close to real runtime problems?
+### Why is this already very close to real runtime problems?
 
 Because it covers three real production scenarios:
 
@@ -205,7 +205,7 @@ Because it covers three real production scenarios:
 
 ---
 
-## 4. How should runtime metrics be interpreted?
+## How should runtime metrics be interpreted?
 
 Start with these:
 
@@ -228,16 +228,16 @@ If the retry ratio is high, check first:
 
 ---
 
-## 5. The most common runtime optimization directions
+## The most common runtime optimization directions
 
-### 5.1 Rate limiting and backpressure
+### Rate limiting and backpressure
 
 When the system is close to saturation, you should actively:
 
 - Reject low-priority requests
 - Or cap the queue length
 
-### 5.2 Fallback and degradation
+### Fallback and degradation
 
 For example:
 
@@ -245,7 +245,7 @@ For example:
 - Switch to cached results
 - Return a lighter-weight safe response
 
-### 5.3 Use different policies for different dependencies
+### Use different policies for different dependencies
 
 Different tools should not share exactly the same:
 
@@ -257,17 +257,17 @@ Because their stability and cost are different.
 
 ---
 
-## 6. Most common misconceptions
+## Most common misconceptions
 
-### 6.1 Misconception 1: Higher concurrency is always better
+### Misconception 1: Higher concurrency is always better
 
 Too much concurrency can directly overwhelm both your system and the upstream service.
 
-### 6.2 Misconception 2: Retries always improve success rate
+### Misconception 2: Retries always improve success rate
 
 If error classification is wrong, retries will only amplify the failure.
 
-### 6.3 Misconception 3: Only look at average latency
+### Misconception 3: Only look at average latency
 
 High-percentile latency and timeout rate often reflect the real user experience much better.
 

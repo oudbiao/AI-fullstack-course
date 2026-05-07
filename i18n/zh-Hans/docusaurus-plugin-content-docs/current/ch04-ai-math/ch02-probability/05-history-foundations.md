@@ -1,11 +1,11 @@
 ---
-title: "2.6 概率统计历史主线：Bayes、MLE、EM 与信息论"
+title: "4.2.6 概率统计历史主线：Bayes、MLE、EM 与信息论"
 sidebar_position: 9
 description: "把贝叶斯法则、最大似然估计、EM 算法和香农信息论放进同一条 AI 数学主线，理解它们分别解决什么问题。"
 keywords: [贝叶斯法则, 最大似然估计, EM算法, 香农信息论, AI数学历史]
 ---
 
-# 概率统计历史主线：Bayes、MLE、EM 与信息论
+# 4.2.6 概率统计历史主线：Bayes、MLE、EM 与信息论
 
 ![概率统计历史基础地图](/img/course/ch04-probability-history-foundations-map.png)
 

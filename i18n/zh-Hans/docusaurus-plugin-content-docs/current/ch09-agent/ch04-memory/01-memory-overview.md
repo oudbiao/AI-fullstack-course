@@ -1,11 +1,11 @@
 ---
-title: "4.2 记忆系统概述"
+title: "9.4.2 记忆系统概述"
 sidebar_position: 19
 description: "从为什么 Agent 需要记忆，到短期、长期、情景与程序记忆的分层，建立完整的记忆系统地图。"
 keywords: [memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory]
 ---
 
-# 记忆系统概述
+# 9.4.2 记忆系统概述
 
 ![Agent 记忆系统分层图](/img/course/agent-memory-system.png)
 
@@ -37,7 +37,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 一、为什么 Agent 需要记忆？
 
-### 1.1 没有记忆，系统就像每次都重新开机
+### 没有记忆，系统就像每次都重新开机
 
 假设用户和 Agent 的对话是这样的：
 
@@ -51,7 +51,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 它其实缺了大量关键上下文。
 
-### 1.2 所以记忆系统在解决什么？
+### 所以记忆系统在解决什么？
 
 它在解决：
 
@@ -67,7 +67,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 二、记忆不等于“把所有历史全塞进去”
 
-### 2.1 一个常见误解
+### 一个常见误解
 
 很多人一说记忆，第一反应就是：
 
@@ -81,7 +81,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 - 噪声过多
 - 真正重要的信息反而被淹掉
 
-### 2.2 记忆系统真正要做的是筛选和组织
+### 记忆系统真正要做的是筛选和组织
 
 所以记忆系统不是简单的“多存点东西”，而是：
 
@@ -96,7 +96,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 三、先建立一张完整地图
 
-### 3.1 记忆系统常见分层
+### 记忆系统常见分层
 
 | 记忆类型 | 更像什么 | 主要解决什么 |
 |---|---|---|
@@ -105,7 +105,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 | 情景记忆 | 任务经历 | 过去发生过什么 |
 | 程序记忆 | 操作手册 | 某类任务该怎么做 |
 
-### 3.2 一句话先记住
+### 一句话先记住
 
 - 短期记忆：这次任务正在发生什么
 - 长期记忆：这个用户 / 这个系统长期是什么样
@@ -124,14 +124,14 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 四、短期记忆：当前任务的工作区
 
-### 4.1 它通常存什么？
+### 它通常存什么？
 
 - 最近几轮对话
 - 当前任务目标
 - 中间工具结果
 - 正在执行到哪一步
 
-### 4.2 为什么它最先重要？
+### 为什么它最先重要？
 
 因为用户最容易感知到的失败，往往来自短期记忆出错：
 
@@ -145,7 +145,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 五、长期记忆：跨回合依然有价值的信息
 
-### 5.1 它通常存什么？
+### 它通常存什么？
 
 例如：
 
@@ -153,7 +153,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 - 用户背景：是 Python 初学者
 - 项目背景：当前正在做 RAG 系统
 
-### 5.2 和短期记忆最大的区别
+### 和短期记忆最大的区别
 
 短期记忆服务“这一次任务”。
 长期记忆服务“以后遇到类似情况时还能继续用”。
@@ -164,7 +164,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ## 六、情景记忆和程序记忆是什么？
 
-### 6.1 情景记忆（episodic memory）
+### 情景记忆（episodic memory）
 
 可以理解成：
 
@@ -176,7 +176,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 它更像一条带时间和事件背景的记录。
 
-### 6.2 程序记忆（procedural memory）
+### 程序记忆（procedural memory）
 
 可以理解成：
 
@@ -188,7 +188,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 这更像经验流程，而不是单次事件。
 
-### 6.3 为什么要区分这两类？
+### 为什么要区分这两类？
 
 因为：
 
@@ -224,7 +224,7 @@ memory = {
 print(memory)
 ```
 
-### 7.2 这段代码真正教了什么？
+### 这段代码真正教了什么？
 
 它在教你：
 
@@ -236,17 +236,17 @@ print(memory)
 
 ## 八、记忆系统设计时最常见的权衡
 
-### 8.1 记多少？
+### 记多少？
 
 - 太少：系统容易失忆
 - 太多：系统容易混乱、成本升高
 
-### 8.2 记成原文还是摘要？
+### 记成原文还是摘要？
 
 - 原文：细节更完整
 - 摘要：更省上下文
 
-### 8.3 什么时候写入、什么时候读取？
+### 什么时候写入、什么时候读取？
 
 不是所有内容都值得写入长期记忆。
 也不是每次回答都要把所有长期记忆都读出来。
@@ -284,15 +284,15 @@ print(memory)
 
 ## 十、初学者最常踩的坑
 
-### 10.1 把记忆理解成“聊天记录归档”
+### 把记忆理解成“聊天记录归档”
 
 这只是很浅的一层。
 
-### 10.2 只关注存储，不关注读取与使用
+### 只关注存储，不关注读取与使用
 
 存了但不会在正确时机取出来，记忆就没有真正工作。
 
-### 10.3 不区分短期和长期
+### 不区分短期和长期
 
 最后会导致：
 

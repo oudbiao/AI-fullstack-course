@@ -1,11 +1,11 @@
 ---
-title: "2.6 Latest Progress"
+title: "12.2.6 Latest Progress"
 sidebar_position: 8
 description: "Understand the stable progress directions in image generation over the past few years from four main threads: faster sampling, stronger controllable generation, unified multimodality, and content production workflows."
 keywords: [image generation, latest progress, diffusion, controllable generation, multimodal, image editing]
 ---
 
-# Latest Progress
+# 12.2.6 Latest Progress
 
 ![Radar chart of frontier trends in image generation](/img/course/ch12-image-generation-trend-radar-map-en.png)
 
@@ -36,9 +36,9 @@ This lesson reads the evolution of image generation along these four threads.
 
 ---
 
-## 1. Why can’t “latest progress” rely only on memorizing model names?
+## Why can’t “latest progress” rely only on memorizing model names?
 
-### 1.1 Because names change fast, while underlying directions change more slowly
+### Because names change fast, while underlying directions change more slowly
 
 The image generation field changes quickly.
 If you only remember:
@@ -55,7 +55,7 @@ A more stable approach is to look at:
 - where the interaction style is heading
 - where workflow integration is heading
 
-### 1.2 An analogy
+### An analogy
 
 Reading “latest progress” is more like looking at city road planning, not just remembering which car is fastest today.
 
@@ -65,9 +65,9 @@ Reading “latest progress” is more like looking at city road planning, not ju
 
 ---
 
-## 2. Main thread 1: Generation is getting faster and faster
+## Main thread 1: Generation is getting faster and faster
 
-### 2.1 Early pain point: beautiful, but slow
+### Early pain point: beautiful, but slow
 
 What first amazed people about diffusion models was:
 
@@ -79,7 +79,7 @@ But the pain points were also obvious:
 - many sampling steps
 - long inference time
 
-### 2.2 Later evolution direction
+### Later evolution direction
 
 One obvious thread over the past few years is:
 
@@ -93,7 +93,7 @@ and is increasingly moving toward:
 - interactive generation
 - real-time editing
 
-### 2.3 Why is this thread especially important?
+### Why is this thread especially important?
 
 Because speed is not just a nice bonus; it directly determines:
 
@@ -103,9 +103,9 @@ Because speed is not just a nice bonus; it directly determines:
 
 ---
 
-## 3. Main thread 2: Controllable generation is getting stronger
+## Main thread 2: Controllable generation is getting stronger
 
-### 3.1 From “give a prompt” to “give more conditions”
+### From “give a prompt” to “give more conditions”
 
 Early text-to-image experiences often were:
 
@@ -121,7 +121,7 @@ A clear later direction has been to move toward more control conditions, such as
 - reference images
 - style references
 
-### 3.2 Image editing has become a focus
+### Image editing has become a focus
 
 A very stable trend now is:
 
@@ -135,7 +135,7 @@ Because in real content production scenarios, users more often need to:
 - fix local details
 - preserve character consistency
 
-### 3.3 Why does “controllable” feel more like a product capability than “draws better”?
+### Why does “controllable” feel more like a product capability than “draws better”?
 
 Because content production is not just about a single output sample.
 What really matters is:
@@ -148,9 +148,9 @@ This is also a sign that image generation technology is becoming more productize
 
 ---
 
-## 4. Main thread 3: From single modality to unified multimodality
+## Main thread 3: From single modality to unified multimodality
 
-### 4.1 Inputs are no longer only text
+### Inputs are no longer only text
 
 More and more systems now accept combined inputs:
 
@@ -162,7 +162,7 @@ More and more systems now accept combined inputs:
 
 In other words, generation models are becoming more like visual interaction systems, not just “text to image.”
 
-### 4.2 Outputs are no longer only a single image
+### Outputs are no longer only a single image
 
 The boundary of image generation is expanding outward:
 
@@ -174,7 +174,7 @@ The boundary of image generation is expanding outward:
 So image generation is gradually becoming less of an isolated track,
 and more of a convergence point for broader “multimodal content generation.”
 
-### 4.3 Why is this thread worth paying attention to?
+### Why is this thread worth paying attention to?
 
 Because it will affect how you learn later:
 
@@ -183,13 +183,13 @@ Because it will affect how you learn later:
 
 ---
 
-## 5. Main thread 4: From model demos to content workflows
+## Main thread 4: From model demos to content workflows
 
-### 5.1 The early common goal: generate one beautiful image
+### The early common goal: generate one beautiful image
 
 That is of course important, but it is not enough for production environments.
 
-### 5.2 The more realistic goal now
+### The more realistic goal now
 
 Common real-world needs are actually:
 
@@ -198,7 +198,7 @@ Common real-world needs are actually:
 - automatically adapt sizes
 - connect with review, asset libraries, and publishing systems
 
-### 5.3 What does this mean?
+### What does this mean?
 
 It means image generation systems are increasingly becoming workflow nodes, not standalone toys.
 
@@ -211,7 +211,7 @@ That is also why you see more and more focus on:
 
 ---
 
-## 6. First run a small “trend priority” example
+## First run a small “trend priority” example
 
 The example below is not meant to simulate a real paper benchmark,
 but to help you build a very practical habit:
@@ -242,7 +242,7 @@ for item in ranked:
     print(item)
 ```
 
-### 6.1 What is this code trying to convey?
+### What is this code trying to convey?
 
 When you truly read “latest progress,” don’t just ask whether a technique is flashy,
 also ask:
@@ -251,7 +251,7 @@ also ask:
 - is the engineering barrier high?
 - is the stability already good enough?
 
-### 6.2 Why is this more useful than simply listing items?
+### Why is this more useful than simply listing items?
 
 Because later you won’t just be reading papers,
 you’ll very likely need to make judgments:
@@ -261,9 +261,9 @@ you’ll very likely need to make judgments:
 
 ---
 
-## 7. How should you keep following this field?
+## How should you keep following this field?
 
-### 7.1 Follow “directions” first, not “names” first
+### Follow “directions” first, not “names” first
 
 Prioritize tracking:
 
@@ -272,14 +272,14 @@ Prioritize tracking:
 - multimodal unification
 - workflow integration
 
-### 7.2 When reading papers, it helps to ask four questions
+### When reading papers, it helps to ask four questions
 
 1. Does it solve a speed, quality, controllability, or workflow problem?
 2. Does it rely on a new training objective, a new architecture, or a new system design?
 3. Is it better suited to research demos, or is it already close to being product-ready?
 4. Will it noticeably change the production process?
 
-### 7.3 The most helpful reading order for beginners
+### The most helpful reading order for beginners
 
 It is recommended to first understand:
 
@@ -291,18 +291,18 @@ Once you understand these three clearly, then go after more frontier areas such 
 
 ---
 
-## 8. Common misunderstandings
+## Common misunderstandings
 
-### 8.1 Misunderstanding 1: Latest progress means the latest model name
+### Misunderstanding 1: Latest progress means the latest model name
 
 Model names change; the main threads are more worth following.
 
-### 8.2 Misunderstanding 2: The more frontier a direction is, the more suitable it is to learn right away
+### Misunderstanding 2: The more frontier a direction is, the more suitable it is to learn right away
 
 Not necessarily.
 Some directions are very frontier, but still quite far from product and engineering deployment.
 
-### 8.3 Misunderstanding 3: Image generation is only about image quality
+### Misunderstanding 3: Image generation is only about image quality
 
 What matters more and more now is:
 

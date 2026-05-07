@@ -1,10 +1,10 @@
 ---
-title: "1.3 Project: Web API Development"
+title: "2.3.3 Project: Web API Development"
 sidebar_position: 3
 description: "Build your first Web API with FastAPI"
 ---
 
-# Project: Web API Development
+# 2.3.3 Project: Web API Development
 
 ![Web API request-response architecture diagram](/img/course/ch02-web-api-request-response-en.png)
 

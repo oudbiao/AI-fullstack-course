@@ -1,11 +1,11 @@
 ---
-title: "8.4 Hands-on: Full Chapter 7 Workshop"
+title: "7.8.4 Hands-on: Full Chapter 7 Workshop"
 sidebar_position: 4
 description: "Run one practical Chapter 7 workflow from tokens and prompt versions to structured output validation, solution selection, and portfolio evidence."
 keywords: [LLM hands-on workshop, prompt evaluation, structured output, fine-tuning decision, chapter project]
 ---
 
-# Hands-on: Full Chapter 7 Workshop
+# 7.8.4 Hands-on: Full Chapter 7 Workshop
 
 This workshop is the practical thread for the whole chapter. If you feel the chapter has many concepts, run this page once from top to bottom. You will not train a large model here. Instead, you will build the smallest repeatable workflow that connects tokens, request payloads, prompt versions, structured output validation, evaluation, the Prompt/RAG/fine-tuning decision, and a small evidence pack you can review afterward.
 
@@ -13,7 +13,7 @@ This workshop is the practical thread for the whole chapter. If you feel the cha
 Follow this order on each step: look at the picture, run or read the code, then check the printed result. If a concept is still vague, come back to the picture and trace the data flow with your finger.
 :::
 
-## 1. What you will build
+## What you will build
 
 By the end, you will have one runnable Python file that can:
 
@@ -26,7 +26,7 @@ By the end, you will have one runnable Python file that can:
 
 The code intentionally uses only the Python standard library. That keeps the first run friendly for beginners and also makes the engineering idea clear before you connect a real model API.
 
-## 2. Visual checkpoint: the whole route
+## Visual checkpoint: the whole route
 
 Before touching code, place these chapter diagrams in order. They are not decoration; they are the map for the workshop.
 
@@ -76,7 +76,7 @@ Do not jump to fine-tuning. Look at the failure type first and choose the cheape
 
 The final folder is part of the lesson: it makes the run reproducible and reviewable.
 
-## 3. Create the project folder
+## Create the project folder
 
 Create a small local folder for this workshop:
 
@@ -89,7 +89,7 @@ Then create a file named `llm_stage_workshop.py`.
 
 After you run it, the script will also create a folder named `ch07_workshop_evidence`. If the folder already exists, the files inside it will be overwritten with the newest run.
 
-## 4. Paste and run the workshop code
+## Paste and run the workshop code
 
 Save the following code into `llm_stage_workshop.py`:
 
@@ -348,7 +348,7 @@ Run it:
 python llm_stage_workshop.py
 ```
 
-## 5. Expected output
+## Expected output
 
 You should see output close to this:
 
@@ -376,7 +376,7 @@ ch07_workshop_evidence/failure_cases.md
 ch07_workshop_evidence/README.md
 ```
 
-## 6. What each step means
+## What each step means
 
 | Output area | What to observe | Chapter concept |
 |---|---|---|
@@ -388,7 +388,7 @@ ch07_workshop_evidence/README.md
 | `solution_route` | Different problems need different first moves | Prompt, RAG, structured output, fine-tuning boundaries |
 | `ch07_workshop_evidence` | The run is saved as files that can be inspected, compared, and shared | Reproducible project evidence |
 
-## 7. Beginner troubleshooting
+## Beginner troubleshooting
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
@@ -399,7 +399,7 @@ ch07_workshop_evidence/README.md
 | Evidence files are not created | You ran the script in a read-only folder or stopped before `STEP 4` | Run it in a normal project folder and check that `STEP 4` printed file paths |
 | You want a real model call | The workshop is offline by design | First finish this page, then use the LLM Call Workbench optional API section |
 
-## 8. Optional: replace the fake model later
+## Optional: replace the fake model later
 
 After the offline workflow is clear, you can replace `fake_model()` with a real model call. For current OpenAI text-generation work, prefer the Responses API and structured outputs instead of copying old chat-completion examples.
 
@@ -453,7 +453,7 @@ export OPENAI_API_KEY="your_api_key_here"
 python real_route_call.py
 ```
 
-## 9. Read the evidence pack
+## Read the evidence pack
 
 The script now saves the minimum portfolio version automatically. Open the folder after the run:
 
@@ -473,7 +473,7 @@ You should see:
 
 Open `failure_cases.md` first. It tells you why `v1` is not machine-readable and why `v2` is still not strict enough. That is the habit this chapter is trying to build: never decide based on one impressive answer; decide from repeatable failures and saved evidence.
 
-## 10. Exit checklist
+## Exit checklist
 
 - [ ] I can run the workshop locally.
 - [ ] I can explain why natural-language output is not enough for product workflows.

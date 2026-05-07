@@ -54,19 +54,19 @@ Experienced learners can focus on task boundaries and evaluation: whether the la
 
 ## Learning path for this stage
 
-Chapter 1 covers the basics of text processing, including the NLP map, text preprocessing, and text representation.
+Section 11.1 covers the basics of text processing, including the NLP map, text preprocessing, and text representation.
 
-Chapter 2 covers word embeddings and language models, helping you understand the basic ideas behind word vectors, contextual representations, and language models.
+Section 11.2 covers word embeddings and language models, helping you understand the basic ideas behind word vectors, contextual representations, and language models.
 
-Chapter 3 covers text classification, which is an entry-level project for many business text tasks.
+Section 11.3 covers text classification, which is an entry-level project for many business text tasks.
 
-Chapter 4 covers sequence labeling, including named entity recognition and methods such as BiLSTM-CRF.
+Section 11.4 covers sequence labeling, including named entity recognition and methods such as BiLSTM-CRF.
 
-Chapter 5 covers Seq2Seq and attention, helping you understand the important historical path for machine translation and generation tasks.
+Section 11.5 covers Seq2Seq and attention, helping you understand the important historical path for machine translation and generation tasks.
 
-Chapter 6 covers pretrained language models, including BERT, GPT, T5, and the Transformers library.
+Section 11.6 covers pretrained language models, including BERT, GPT, T5, and the Transformers library.
 
-Chapter 7 completes a comprehensive NLP project.
+Section 11.7 completes a comprehensive NLP project.
 
 ## What you should be able to do after finishing
 
@@ -116,9 +116,9 @@ The key to an NLP project is not producing a fluent paragraph, but whether the t
 
 The basic version is to complete a text classification project, including text cleaning, feature representation, training, and evaluation. The standard version should add information extraction, summarization, or question answering tasks, and compare the effects of different models or prompting methods. The challenge version can be a review understanding assistant or a domain document extraction system that outputs sentiment, entities, topics, and representative sample analysis.
 
-If you want one guided baseline before choosing a larger project, start with [Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It gives you a local script that produces data files, TF-IDF classification, retrieval QA, extractive summaries, information extraction outputs, metrics, and a failure report.
+If you want one guided baseline before choosing a larger project, start with [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It gives you a local script that produces data files, TF-IDF classification, retrieval QA, extractive summaries, information extraction outputs, metrics, and a failure report.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: The Least Confusing Way to Learn Natural Language Processing](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [11.0 Study Guide: The Least Confusing Way to Learn Natural Language Processing](./study-guide.md).
 
 
 

@@ -1,11 +1,11 @@
 ---
-title: "6.7 OpenAI Agents SDK【Elective】"
+title: "9.6.7 OpenAI Agents SDK【Elective】"
 sidebar_position: 35
 description: "Starting from high-level abstractions such as Agent, Tool, and Runner, understand why the OpenAI Agents SDK feels more like a unified Agent programming model."
 keywords: [OpenAI Agents SDK, agent runtime, tools, runner, sdk, agent abstraction]
 ---
 
-# OpenAI Agents SDK【Elective】
+# 9.6.7 OpenAI Agents SDK【Elective】
 
 :::tip Section Overview
 Many frameworks are helping you organize:
@@ -30,9 +30,9 @@ Its focus is not necessarily on being “the most flexible,” but on providing 
 
 ---
 
-## 1. Why does a layer like “Agents SDK” appear?
+## Why does a layer like “Agents SDK” appear?
 
-### 1.1 Because writing an Agent by hand quickly leads to a lot of repeated boilerplate
+### Because writing an Agent by hand quickly leads to a lot of repeated boilerplate
 
 A reasonably complete Agent system usually involves:
 
@@ -49,7 +49,7 @@ If every project implements this by hand, you will quickly run into:
 - poor maintainability
 - an unaligned team style
 
-### 1.2 What does the SDK actually want to do?
+### What does the SDK actually want to do?
 
 It is not there to implement your product logic for you, but to standardize:
 
@@ -63,13 +63,13 @@ You can first remember this sentence:
 
 ---
 
-## 2. Several key abstraction objects
+## Several key abstraction objects
 
-### 2.1 Agent
+### Agent
 
 An intelligent unit with a goal and a set of tools.
 
-### 2.2 Tool
+### Tool
 
 An external capability that the Agent can call, such as:
 
@@ -77,7 +77,7 @@ An external capability that the Agent can call, such as:
 - computation
 - file access
 
-### 2.3 Runner / Runtime
+### Runner / Runtime
 
 This part is especially important.
 It is usually responsible for:
@@ -92,7 +92,7 @@ In many cases, the biggest engineering value of this kind of SDK is exactly this
 
 ---
 
-## 3. A minimal high-level abstraction example
+## A minimal high-level abstraction example
 
 Below, we use pure Python to simulate this SDK style.
 
@@ -124,7 +124,7 @@ runner = Runner()
 print(runner.run(assistant, "get_weather", city="Beijing"))
 ```
 
-### 3.2 Why does this code feel very “SDK-like”?
+### Why does this code feel very “SDK-like”?
 
 Because it clearly separates three things:
 
@@ -136,21 +136,21 @@ This is exactly the structure many high-level SDKs want to standardize.
 
 ---
 
-## 4. What does this abstraction actually save you?
+## What does this abstraction actually save you?
 
-### 4.1 A unified way to connect tools
+### A unified way to connect tools
 
 You do not need to redefine for every project:
 
 - how tools are attached
 - how tools are invoked
 
-### 4.2 A unified execution entry point
+### A unified execution entry point
 
 As systems become more complex, “who runs the Agent” becomes a very important question.
 Runner / Runtime makes this more standardized.
 
-### 4.3 Easier to form a consistent team style
+### Easier to form a consistent team style
 
 Because:
 
@@ -162,9 +162,9 @@ these parts will not be written randomly each time.
 
 ---
 
-## 5. Why are Runner / Runtime especially important?
+## Why are Runner / Runtime especially important?
 
-### 5.1 Because an Agent is not a normal function
+### Because an Agent is not a normal function
 
 An Agent is not just:
 
@@ -179,7 +179,7 @@ It may also include:
 
 So “how to run it” is itself an independent layer.
 
-### 5.2 An intuitive analogy
+### An intuitive analogy
 
 You can think of Runner as:
 
@@ -189,9 +189,9 @@ The Agent is the participant, and the Runner is the one responsible for actually
 
 ---
 
-## 6. When does this kind of high-level SDK feel especially convenient?
+## When does this kind of high-level SDK feel especially convenient?
 
-### 6.1 When what you want is a unified development experience
+### When what you want is a unified development experience
 
 For example:
 
@@ -199,7 +199,7 @@ For example:
 - the team wants to write less repeated runtime logic
 - you want a more unified expression for tools and agents
 
-### 6.2 Especially suitable for
+### Especially suitable for
 
 - small to medium Agent applications
 - the stage between prototype and product
@@ -209,9 +209,9 @@ In these scenarios, high-level abstractions often save a lot of effort.
 
 ---
 
-## 7. Its limitations must also be understood clearly
+## Its limitations must also be understood clearly
 
-### 7.1 High-level abstractions mean more constraints
+### High-level abstractions mean more constraints
 
 What you get is:
 
@@ -223,7 +223,7 @@ What you may lose is:
 
 - very fine-grained low-level control
 
-### 7.2 If your system is very special
+### If your system is very special
 
 For example:
 
@@ -238,9 +238,9 @@ So the key question is not “Is it powerful?”, but:
 
 ---
 
-## 8. How is it different from other frameworks?
+## How is it different from other frameworks?
 
-### 8.1 Compared with LangGraph
+### Compared with LangGraph
 
 LangGraph is more focused on:
 
@@ -254,7 +254,7 @@ Agents SDK is more focused on:
 - Tool
 - Runner
 
-### 8.2 Compared with CrewAI
+### Compared with CrewAI
 
 CrewAI is more focused on:
 
@@ -270,20 +270,20 @@ So it is not directly competing with all frameworks on the same layer, but is mo
 
 ---
 
-## 9. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 9.1 Only looking at the SDK name and not its abstraction boundaries
+### Only looking at the SDK name and not its abstraction boundaries
 
 The result is:
 
 - as you use it, it starts to feel “not smooth”
 
-### 9.2 Thinking “high-level abstraction = more advanced”
+### Thinking “high-level abstraction = more advanced”
 
 That is not true.
 High-level only means less boilerplate; it does not always mean more suitable.
 
-### 9.3 Memorizing SDK APIs before understanding the Agent itself
+### Memorizing SDK APIs before understanding the Agent itself
 
 This makes it easy to write calls, but hard to make architectural judgments.
 

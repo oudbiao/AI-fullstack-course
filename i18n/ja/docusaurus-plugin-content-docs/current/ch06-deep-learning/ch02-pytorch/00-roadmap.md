@@ -1,11 +1,11 @@
 ---
-title: "2.1 学習前ガイド：この PyTorch 章では何を学ぶのか"
+title: "6.2.1 学習前ガイド：この PyTorch 章では何を学ぶのか"
 sidebar_position: 0
 description: "まず PyTorch 章の学習マップを作ろう。tensor、autograd、nn.Module、DataLoader、学習ループがそれぞれ何を担当するのかを整理します。"
 keywords: [PyTorch入門, tensor, autograd, nn.Module, DataLoader, training loop]
 ---
 
-# 学習前ガイド：この PyTorch 章では何を学ぶのか
+# 6.2.1 学習前ガイド：この PyTorch 章では何を学ぶのか
 
 この章は「いくつかの API」を教える章ではありません。深層学習の学習に必要な、最小限の工程をつないだ流れを作れるようにする章です。
 

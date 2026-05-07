@@ -1,11 +1,11 @@
 ---
-title: "2.8 Practical Tips"
+title: "6.2.8 Practical Tips"
 sidebar_position: 6
 description: "From device switching, random seeds, and AMP to gradient clipping and checkpoints, master the most common and practical engineering techniques in PyTorch training."
 keywords: [PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device, reproducibility]
 ---
 
-# Practical Tips
+# 6.2.8 Practical Tips
 
 ## Learning Objectives
 
@@ -19,9 +19,9 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. Start by Solving the Most Common Engineering Problems
+## Start by Solving the Most Common Engineering Problems
 
-### 1.1 Device Switching: Don’t Assume You Always Have a GPU
+### Device Switching: Don’t Assume You Always Have a GPU
 
 Many beginners hard-code their code with `cuda()`, which immediately causes errors on machines without a GPU.
 
@@ -43,7 +43,7 @@ You can think of `device` as “which workbench the training happens on”:
 - CPU: a regular desk
 - GPU: a large workbench for parallel computation
 
-### 1.2 Fix the Random Seed: Make Experiments as Reproducible as Possible
+### Fix the Random Seed: Make Experiments as Reproducible as Possible
 
 When training is unstable, the first thing to do is often not to change the model, but to fix randomness first.
 
@@ -74,9 +74,9 @@ Some GPU operators and parallel execution details may still introduce tiny diffe
 
 ---
 
-## 2. Make the Training Process More Stable
+## Make the Training Process More Stable
 
-### 2.1 `train()`, `eval()`, and `no_grad()` Should Become Muscle Memory
+### `train()`, `eval()`, and `no_grad()` Should Become Muscle Memory
 
 The easiest place to get confused during training and validation is not the model structure, but mode switching.
 
@@ -96,7 +96,7 @@ You can think of it this way:
 - `eval()`: the model enters “exam mode”
 - `no_grad()`: no need to draft backpropagation during the exam, which saves memory
 
-### 2.2 Gradient Clipping: Prevent Gradients from Suddenly Exploding
+### Gradient Clipping: Prevent Gradients from Suddenly Exploding
 
 In RNNs, Transformers, or deeper networks, gradients can sometimes become very large, making training unstable.
 Gradient clipping is like “setting an upper limit for gradients.”
@@ -140,9 +140,9 @@ It is like adding a speed limiter to a bicycle going downhill to prevent it from
 
 ---
 
-## 3. Make Training Faster
+## Make Training Faster
 
-### 3.1 Mixed Precision Training (AMP): Less Memory, More Speed
+### Mixed Precision Training (AMP): Less Memory, More Speed
 
 The core idea of AMP is:
 
@@ -184,7 +184,7 @@ else:
     print("No GPU available; completed 3 training steps with standard precision")
 ```
 
-### 3.2 What If the Batch Is Too Large?
+### What If the Batch Is Too Large?
 
 If you often run out of memory:
 
@@ -198,9 +198,9 @@ The intuition behind gradient accumulation is:
 
 ---
 
-## 4. Save and Restore Training Progress
+## Save and Restore Training Progress
 
-### 4.1 Why Are Checkpoints So Important?
+### Why Are Checkpoints So Important?
 
 Training can be interrupted for many reasons:
 
@@ -211,7 +211,7 @@ Training can be interrupted for many reasons:
 
 A checkpoint is like a “game save file.”
 
-### 4.2 A Minimal Runnable Example
+### A Minimal Runnable Example
 
 ```python
 import torch
@@ -250,9 +250,9 @@ In real projects, you usually also save:
 
 ---
 
-## 5. Where Should You Look When Debugging?
+## Where Should You Look When Debugging?
 
-### 5.1 Shape Always Comes First
+### Shape Always Comes First
 
 In PyTorch, many bugs are not really because “the model is too hard,” but because:
 
@@ -269,7 +269,7 @@ print("x dtype:", x.dtype)
 print("x device:", x.device)
 ```
 
-### 5.2 What Is the Check Order When Training Does Not Decrease?
+### What Is the Check Order When Training Does Not Decrease?
 
 You can check in this order:
 
@@ -280,7 +280,7 @@ You can check in this order:
 5. Whether the order of `backward()` and `step()` is correct
 6. Whether the learning rate is too large or too small
 
-### 5.3 What Should You Do When You See `nan`?
+### What Should You Do When You See `nan`?
 
 Common causes include:
 
@@ -297,7 +297,7 @@ The most practical first response is:
 
 ---
 
-## 6. A Training Template Worth Saving
+## A Training Template Worth Saving
 
 ```python
 model.train()

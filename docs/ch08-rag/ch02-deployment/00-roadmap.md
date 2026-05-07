@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-Reading Guide: What Is This Chapter on Model Deployment Really About?"
+title: "8.2.1 Pre-Reading Guide: What Is This Chapter on Model Deployment Really About?"
 sidebar_position: 0
 description: "First build a learning map for the model deployment chapter: how local models, inference services, and a unified API entry point together determine how models are called."
 keywords: [model deployment guide, local models, inference services, unified API]
 ---
 
-# Pre-Reading Guide: What Is This Chapter on Model Deployment Really About?
+# 8.2.1 Pre-Reading Guide: What Is This Chapter on Model Deployment Really About?
 
 This chapter addresses:
 

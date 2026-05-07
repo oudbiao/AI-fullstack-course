@@ -1,11 +1,11 @@
 ---
-title: "6.6 Transformers ライブラリ実践"
+title: "11.6.6 Transformers ライブラリ実践"
 sidebar_position: 20
 description: "tokenizer、config、model から最小の pipeline まで、HuggingFace Transformers の核心インターフェースをオフラインでどう使うかをしっかり身につけます。"
 keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 ---
 
-# Transformers ライブラリ実践
+# 11.6.6 Transformers ライブラリ実践
 
 ![Transformers ライブラリの呼び出しチェーン図](/img/course/ch11-transformers-library-call-chain-map-ja.png)
 
@@ -33,11 +33,11 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ## 一、まずはライブラリの主役たちを整理しよう
 
-### 1.1 `Tokenizer`
+### `Tokenizer`
 
 テキストを、モデルが扱える数値列に変換する役割です。
 
-### 1.2 `Config`
+### `Config`
 
 モデルの構造パラメータを記述します。たとえば：
 
@@ -45,11 +45,11 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 - 層数
 - ヘッド数
 
-### 1.3 `Model`
+### `Model`
 
 実際に前向き計算を行う本体です。
 
-### 1.4 `Pipeline`
+### `Pipeline`
 
 より高レベルのラッパーで、次の処理をひとまとめにしてくれます。
 
@@ -69,14 +69,14 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 理由は、このライブラリに二つの見方があるからです。
 
-### 2.1 概念の世界
+### 概念の世界
 
 たとえば、あなたは次のようなことを知っています。
 
 - BERT は encoder-only
 - GPT は decoder-only
 
-### 2.2 ツールの世界
+### ツールの世界
 
 一方で、次のようなものにも出会います。
 
@@ -98,12 +98,12 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ## 三、まずはオフラインで最小の tokenizer を作る
 
-### 3.1 なぜ既製モデルをそのままダウンロードしないのか？
+### なぜ既製モデルをそのままダウンロードしないのか？
 
 教材では、外部ネットワークがなくても動くようにしておくことが大切だからです。  
 そこでここでは、手作業でとても小さな `vocab.txt` を用意して、tokenizer が何をしているのかを本当に理解できるようにします。
 
-### 3.2 実行可能なサンプル
+### 実行可能なサンプル
 
 ```python
 from pathlib import Path
@@ -125,7 +125,7 @@ print(encoded)
 print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
 
-### 3.3 このコードで学ぶこと
+### このコードで学ぶこと
 
 このコードが教えているのは、次のことです。
 
@@ -137,7 +137,7 @@ print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 
 ## 四、次に最小の BERT モデルをオフラインで作る
 
-### 4.1 なぜランダム初期化のモデルを使うのか？
+### なぜランダム初期化のモデルを使うのか？
 
 今の目的は精度を追うことではなく、
 
@@ -145,7 +145,7 @@ print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 
 だからです。 
 
-### 4.2 実行可能なサンプル
+### 実行可能なサンプル
 
 ```python
 import torch
@@ -170,7 +170,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 4.3 本当に理解すべきポイント
+### 本当に理解すべきポイント
 
 - `input_ids` は token の番号
 - `attention_mask` はどの位置が有効かをモデルに伝える
@@ -183,7 +183,7 @@ print("pooler_output shape    :", outputs.pooler_output.shape)
 
 ## 五、tokenizer と model をつないでみる
 
-### 5.1 実行可能なサンプル
+### 実行可能なサンプル
 
 ```python
 from pathlib import Path
@@ -217,7 +217,7 @@ print("attention_mask shape   :", batch["attention_mask"].shape)
 print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
 
-### 5.2 これが基本の本当の呼び出しチェーン
+### これが基本の本当の呼び出しチェーン
 
 実際のプロジェクトで最もよくある基本フローは、だいたい次の通りです。
 
@@ -232,7 +232,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 
 ## 六、`Auto*` 系インターフェースは何のためにあるのか？
 
-### 6.1 なぜライブラリには `AutoModel` がたくさんあるのか？
+### なぜライブラリには `AutoModel` がたくさんあるのか？
 
 `transformers` は、あなたがたくさんのモデル型を手書きで判定しなくて済むように設計されています。
 
@@ -249,7 +249,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 
 ということです。 
 
-### 6.2 オフラインの `AutoModel.from_config` の例
+### オフラインの `AutoModel.from_config` の例
 
 ```python
 from transformers import AutoModel, BertConfig
@@ -275,7 +275,7 @@ print(type(model))
 
 ## 七、`pipeline` は学ぶ価値があるのか？
 
-### 7.1 価値はある。ただし、使いどころを知ることが大事
+### 価値はある。ただし、使いどころを知ることが大事
 
 `pipeline` の良い点：
 
@@ -289,7 +289,7 @@ print(type(model))
 - すばやい検証
 - 小さな実験
 
-### 7.2 ただし、実務では pipeline だけに頼れない
+### ただし、実務では pipeline だけに頼れない
 
 実際のプロジェクトでは、次のような制御も必要になることが多いです。
 
@@ -328,18 +328,18 @@ print(type(model))
 
 ## 九、初学者がよくハマる落とし穴
 
-### 9.1 `pipeline` しか使えず、下層の呼び出しが分からない
+### `pipeline` しか使えず、下層の呼び出しが分からない
 
 これだと、実務の場面で止まりやすくなります。
 
-### 9.2 tokenizer の出力フィールドを理解していない
+### tokenizer の出力フィールドを理解していない
 
 最低でも次は読めるようにしておきましょう。
 
 - `input_ids`
 - `attention_mask`
 
-### 9.3 「モデルの概念」と「ライブラリのインターフェース」を混同する
+### 「モデルの概念」と「ライブラリのインターフェース」を混同する
 
 次の違いを分けて考えられるようにしましょう。
 

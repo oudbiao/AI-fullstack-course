@@ -1,11 +1,11 @@
 ---
-title: "3.5 Transfer Learning 🔧"
+title: "6.3.5 Transfer Learning 🔧"
 sidebar_position: 4
 description: "From why we don’t start training from scratch, to freezing the backbone, replacing the classification head, and progressively fine-tuning—truly understanding transfer learning in vision."
 keywords: [transfer learning, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]
 ---
 
-# Transfer Learning
+# 6.3.5 Transfer Learning
 
 :::tip Section Focus
 If you already know that CNNs extract features and how classic architectures evolve, then the next very natural engineering question is:
@@ -26,9 +26,9 @@ Transfer learning answers this question: how do we borrow visual knowledge learn
 
 ---
 
-## 1. Why has transfer learning become the default option for vision tasks?
+## Why has transfer learning become the default option for vision tasks?
 
-### 1.1 How expensive is training from scratch?
+### How expensive is training from scratch?
 
 If you want to train a decent vision model from scratch, you will usually run into these problems:
 
@@ -40,7 +40,7 @@ If you want to train a decent vision model from scratch, you will usually run in
 For example, suppose you only have 2,000 images and want to classify 5 classes.
 That is not especially small in a real project, but for training a deep CNN from scratch, it still may not be stable enough.
 
-### 1.2 What exactly has a pretrained model “pretrained”?
+### What exactly has a pretrained model “pretrained”?
 
 A model trained on large-scale image data has usually already learned many general visual features:
 
@@ -56,7 +56,7 @@ So the core intuition of transfer learning is:
 
 > **First reuse the low-level visual capabilities already learned, then adapt the last few layers to fit your own task.**
 
-### 1.3 A helpful analogy
+### A helpful analogy
 
 Transfer learning is like asking someone who already knows general drawing skills to help create professional illustrations:
 
@@ -67,9 +67,9 @@ That is why transfer learning is usually such a good deal in vision tasks.
 
 ---
 
-## 2. The two most common transfer learning approaches
+## The two most common transfer learning approaches
 
-### 2.1 Approach 1: Fixed feature extractor
+### Approach 1: Fixed feature extractor
 
 Method:
 
@@ -86,7 +86,7 @@ Disadvantages:
 
 - Limited ability to adapt to a new task
 
-### 2.2 Approach 2: Fine-tuning
+### Approach 2: Fine-tuning
 
 Method:
 
@@ -103,7 +103,7 @@ Disadvantages:
 - Slower training
 - Requires more careful learning rate choices
 
-### 2.3 One-line memory trick
+### One-line memory trick
 
 - Small dataset: prefer a fixed feature extractor first
 - Large dataset / big task difference: consider progressive fine-tuning
@@ -116,11 +116,11 @@ When reading this diagram, first ask two questions: how much data do you have, a
 
 ---
 
-## 3. A “directly runnable” toy transfer learning example
+## A “directly runnable” toy transfer learning example
 
 To make sure the code runs without downloading any external model, we will simulate a “pretrained backbone” ourselves.
 
-### 3.1 First define a small backbone
+### First define a small backbone
 
 ```python
 import torch
@@ -148,9 +148,9 @@ This is very similar to the “feature output from the backbone” in many real 
 
 ---
 
-## 4. First build the “fixed feature extractor” version
+## First build the “fixed feature extractor” version
 
-### 4.1 Replace the classification head and freeze the backbone
+### Replace the classification head and freeze the backbone
 
 ```python
 import torch
@@ -176,7 +176,7 @@ for name, param in model.named_parameters():
     print(name, "trainable =", param.requires_grad)
 ```
 
-### 4.2 What should you see in the output?
+### What should you see in the output?
 
 You will find that:
 
@@ -187,9 +187,9 @@ This is the standard “train only the head” form of transfer learning.
 
 ---
 
-## 5. Build a small image classification task that can actually be trained
+## Build a small image classification task that can actually be trained
 
-### 5.1 Use synthetic data to simulate a small task
+### Use synthetic data to simulate a small task
 
 We create 3 simple image classes:
 
@@ -231,7 +231,7 @@ print(X.shape, y.shape)
 
 ---
 
-## 6. Full training: train only the head
+## Full training: train only the head
 
 ```python
 import torch
@@ -286,7 +286,7 @@ for epoch in range(80):
         print(f"epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
 ```
 
-### 6.2 What is this code really teaching you?
+### What is this code really teaching you?
 
 Not the syntax of “freezing parameters” itself, but rather:
 
@@ -294,16 +294,16 @@ Not the syntax of “freezing parameters” itself, but rather:
 
 ---
 
-## 7. When should you fine-tune further?
+## When should you fine-tune further?
 
-### 7.1 A very common next step
+### A very common next step
 
 If training only the head is not good enough, you can consider:
 
 - Unfreezing the last convolution block
 - Continuing training with a smaller learning rate
 
-### 7.2 A minimal fine-tuning example
+### A minimal fine-tuning example
 
 ```python
 # Unfreeze the last convolution layer
@@ -328,7 +328,7 @@ for epoch in range(40):
         print(f"finetune epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
 ```
 
-### 7.3 Why do we usually use a smaller learning rate for fine-tuning?
+### Why do we usually use a smaller learning rate for fine-tuning?
 
 Because the backbone already has a set of features learned from before.
 If the learning rate is too large, it is easy to destroy those already good representations.
@@ -340,9 +340,9 @@ So a common rule of thumb is:
 
 ---
 
-## 8. How is transfer learning usually done in real projects?
+## How is transfer learning usually done in real projects?
 
-### 8.1 The most common workflow
+### The most common workflow
 
 1. Choose a pretrained backbone
 2. Replace the final classification head
@@ -350,7 +350,7 @@ So a common rule of thumb is:
 4. If results are not good enough, gradually unfreeze layers
 5. Keep watching validation performance
 
-### 8.2 Why is this workflow so popular?
+### Why is this workflow so popular?
 
 Because it balances:
 
@@ -362,9 +362,9 @@ It is usually much more reliable than “train everything from the beginning.”
 
 ---
 
-## 9. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 9.1 Thinking transfer learning just means “copy a big model”
+### Thinking transfer learning just means “copy a big model”
 
 What really matters is:
 
@@ -372,11 +372,11 @@ What really matters is:
 - Which layers are unfrozen
 - How the learning rates are set
 
-### 9.2 Fine-tuning everything right away
+### Fine-tuning everything right away
 
 This is often both slow and unstable, especially for small-data tasks.
 
-### 9.3 Forgetting to check which parameters are being trained
+### Forgetting to check which parameters are being trained
 
 This is a very common mistake.
 Before training, it is best to print the `requires_grad` status once.

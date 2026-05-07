@@ -1,10 +1,10 @@
 ---
-title: "Python Environment Management"
+title: "1.3.1 Python Environment Management"
 sidebar_position: 1
 description: "Use Miniconda to manage Python versions and virtual environments, avoiding package conflicts at the source"
 ---
 
-# Python Environment Management
+# 1.3.1 Python Environment Management
 
 ![Python Environment and Dependency Diagram](/img/course/ch01-python-env-stack-en.png)
 

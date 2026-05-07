@@ -1,11 +1,11 @@
 ---
-title: "4.4 AI Regulations and Compliance"
+title: "12.4.4 AI Regulations and Compliance"
 sidebar_position: 14
 description: "Build a more engineering-oriented understanding of AI regulations and compliance, from the idea that law is not a side note to technology, to compliance perspectives and product implementation requirements."
 keywords: [AI regulation, compliance, risk classification, governance, audit, legal requirements]
 ---
 
-# AI Regulations and Compliance
+# 12.4.4 AI Regulations and Compliance
 
 ![AI Compliance Engineering Translation Map](/img/course/ch12-ai-regulation-engineering-translation-map-en.png)
 
@@ -54,9 +54,9 @@ So what this section is really trying to solve is:
 
 ---
 
-## 1. Why Are Regulatory Issues Not Far From Engineers?
+## Why Are Regulatory Issues Not Far From Engineers?
 
-### 1.1 A Common Misunderstanding
+### A Common Misunderstanding
 
 Many technical learners instinctively think:
 
@@ -65,7 +65,7 @@ Many technical learners instinctively think:
 
 But in real projects, these two often meet directly.
 
-### 1.2 Why Do They Meet?
+### Why Do They Meet?
 
 Because many regulatory requirements eventually become questions like these:
 
@@ -80,7 +80,7 @@ In other words:
 
 So compliance is not a post-check; it is often an architecture input.
 
-### 1.3 A Better Analogy for Beginners
+### A Better Analogy for Beginners
 
 You can think of compliance as:
 
@@ -99,9 +99,9 @@ AI compliance is very similar:
 
 ---
 
-## 2. What Are the Most Common Compliance Concerns?
+## What Are the Most Common Compliance Concerns?
 
-### 2.1 Data and Privacy
+### Data and Privacy
 
 Does the system handle:
 
@@ -109,7 +109,7 @@ Does the system handle:
 - sensitive information
 - internal enterprise data
 
-### 2.2 Traceability
+### Traceability
 
 Can the system explain:
 
@@ -117,18 +117,18 @@ Can the system explain:
 - which data was used
 - what happened at each step
 
-### 2.3 Risk Classification
+### Risk Classification
 
 Different systems have different risk levels.
 Not all generative systems need the same level of control.
 
-### 2.4 Human Oversight and Appeal Mechanisms
+### Human Oversight and Appeal Mechanisms
 
 In high-risk scenarios, the system usually cannot be fully automated end to end.
 
 ---
 
-## 3. A Very Practical Way to Translate Requirements into Engineering
+## A Very Practical Way to Translate Requirements into Engineering
 
 When translating regulatory requirements into system requirements, you can usually think about them like this:
 
@@ -141,7 +141,7 @@ When translating regulatory requirements into system requirements, you can usual
 
 This table is very important because it turns “compliance” from an abstract term into an engineering problem you can act on.
 
-### 3.1 A Beginner-Friendly Table to Remember First
+### A Beginner-Friendly Table to Remember First
 
 | Compliance requirement | What engineering should think of first |
 |---|---|
@@ -154,7 +154,7 @@ This table is especially useful for beginners because it translates “regulator
 
 ---
 
-## 4. Why Has “Traceability” Become Such a Frequent Term in AI Compliance?
+## Why Has “Traceability” Become Such a Frequent Term in AI Compliance?
 
 Because many AI system problems are not just “the output is wrong,” but rather:
 
@@ -174,7 +174,7 @@ You can think of it like this:
 
 ---
 
-## 5. Why Is Risk Classification So Important for AI Systems?
+## Why Is Risk Classification So Important for AI Systems?
 
 Not all AI applications should be controlled with the same level of strictness.
 
@@ -197,7 +197,7 @@ This affects:
 
 ---
 
-## 6. A Minimal Illustration of “Compliance Requirements -> System Configuration”
+## A Minimal Illustration of “Compliance Requirements -> System Configuration”
 
 ```python
 compliance_config = {
@@ -216,16 +216,16 @@ Although this example is simple, it expresses a very important idea:
 
 ---
 
-## 7. In AIGC / Agent Scenarios, Where Are Compliance Problems Most Likely to Appear?
+## In AIGC / Agent Scenarios, Where Are Compliance Problems Most Likely to Appear?
 
-### 7.1 Retrieval and Knowledge Bases
+### Retrieval and Knowledge Bases
 
 If the system looks up internal documents, then it will definitely involve:
 
 - permission boundaries
 - source scope
 
-### 7.2 Tool Calls
+### Tool Calls
 
 If the system can:
 
@@ -235,7 +235,7 @@ If the system can:
 
 then the risk of automatic execution will appear quickly.
 
-### 7.3 Generated Content
+### Generated Content
 
 If the system can generate:
 
@@ -247,7 +247,7 @@ then content responsibility and misinformation risk will rise.
 
 ---
 
-## 8. Why Is “Human in the Loop” Becoming More and More Important?
+## Why Is “Human in the Loop” Becoming More and More Important?
 
 Because in many scenarios, what regulations and compliance care about most is not:
 
@@ -269,7 +269,7 @@ This means:
 
 This is both a compliance requirement and an engineering requirement.
 
-### 8.1 A Beginner-Friendly Tiering Idea
+### A Beginner-Friendly Tiering Idea
 
 You can first think of systems in three categories:
 
@@ -281,7 +281,7 @@ This tiering idea is important because it helps you avoid one-size-fits-all gove
 
 ---
 
-## 9. A Very Important Engineering Habit
+## A Very Important Engineering Habit
 
 If you are building a high-risk AI application, it is recommended that you develop this way of thinking:
 

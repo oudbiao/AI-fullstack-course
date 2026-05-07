@@ -1,11 +1,11 @@
 ---
-title: "3.4 Tool Calling Strategies"
+title: "9.3.4 Tool Calling Strategies"
 sidebar_position: 13
 description: "Systematically understand Agent tool-layer calling strategies: when to call, which tool to call, how many times to call, and what to do after failures."
 keywords: [tool strategy, Agent, routing, retry, fallback, verification, tool policy]
 ---
 
-# Tool Calling Strategies
+# 9.3.4 Tool Calling Strategies
 
 ![Tool calling strategy routing map](/img/course/ch09-tool-strategy-routing-map-en.png)
 
@@ -27,9 +27,9 @@ What really creates differences in system quality is often not “whether tools 
 
 ---
 
-## 1. Why does "having tools" not mean "knowing how to use tools"?
+## Why does "having tools" not mean "knowing how to use tools"?
 
-### 1.1 A common misunderstanding
+### A common misunderstanding
 
 Many people’s first step in building an Agent is:
 
@@ -54,7 +54,7 @@ but:
 
 > Does the system have a "tool usage strategy"?
 
-### 1.2 A real-life analogy
+### A real-life analogy
 
 Having a knife, pot, oven, and microwave in your kitchen does not mean you know how to cook.
 What matters is:
@@ -68,9 +68,9 @@ Tool calling strategy in an Agent works the same way.
 
 ---
 
-## 2. First, distinguish the common strategies
+## First, distinguish the common strategies
 
-### 2.1 Do not call a tool
+### Do not call a tool
 
 Suitable for:
 
@@ -84,7 +84,7 @@ For example:
 
 This kind of task usually does not need an external tool.
 
-### 2.2 Single call
+### Single call
 
 Suitable for:
 
@@ -94,7 +94,7 @@ Suitable for:
 
 This is the simplest and most stable calling pattern.
 
-### 2.3 Multi-step calls
+### Multi-step calls
 
 Suitable for:
 
@@ -103,7 +103,7 @@ Suitable for:
 
 At this point, the strategy is no longer just "which tool to call," but also "should I keep calling the next step?"
 
-### 2.4 Fallback and backup
+### Fallback and backup
 
 If:
 
@@ -122,9 +122,9 @@ This is also an important part of tool strategy.
 
 ---
 
-## 3. What should be judged before calling a tool?
+## What should be judged before calling a tool?
 
-### 3.1 Does this task really need a tool?
+### Does this task really need a tool?
 
 Not every problem is worth going through a tool chain.
 Every tool call adds:
@@ -137,7 +137,7 @@ So the first step is often:
 
 > **First decide whether a tool is needed.**
 
-### 3.2 If a tool is needed, which one should be chosen?
+### If a tool is needed, which one should be chosen?
 
 For example, if the user asks:
 
@@ -150,7 +150,7 @@ You may need to:
 
 So tool selection is not always a "single-choice question"; sometimes it is a "combination question with an order."
 
-### 3.3 Are the parameters sufficient?
+### Are the parameters sufficient?
 
 Sometimes you know which tool to call, but the parameters are still incomplete.
 
@@ -165,9 +165,9 @@ In that case, the most reasonable strategy is not to guess randomly, but to:
 
 ---
 
-## 4. What should be judged after calling a tool?
+## What should be judged after calling a tool?
 
-### 4.1 Is the result trustworthy?
+### Is the result trustworthy?
 
 A tool returned something, but that does not mean it can be used directly.
 
@@ -177,7 +177,7 @@ For example:
 - search results are not very relevant
 - the database returned no record
 
-### 4.2 Is another step needed?
+### Is another step needed?
 
 Some tasks cannot be solved in one call.
 
@@ -193,7 +193,7 @@ So tool strategy is often essentially:
 
 ---
 
-## 5. A minimal but educational strategy example
+## A minimal but educational strategy example
 
 The example below distinguishes three cases:
 
@@ -236,9 +236,9 @@ Although this example is simple, it already shows the level of "strategy":
 
 ---
 
-## 6. A more complete strategy loop
+## A more complete strategy loop
 
-### 6.1 Define a few tools
+### Define a few tools
 
 ```python
 import ast
@@ -274,7 +274,7 @@ def calculate(expression):
     return {"result": safe_calculate(expression)}
 ```
 
-### 6.2 Scheduling + validation + execution
+### Scheduling + validation + execution
 
 ```python
 def execute_strategy(query):
@@ -306,9 +306,9 @@ What this code really teaches is:
 
 ---
 
-## 7. Several common strategy patterns in real systems
+## Several common strategy patterns in real systems
 
-### 7.1 Router pattern
+### Router pattern
 
 First determine which tool or subsystem the question belongs to.
 
@@ -317,7 +317,7 @@ Suitable for:
 - many tools
 - clear task boundaries
 
-### 7.2 Verify pattern
+### Verify pattern
 
 After calling a tool, do not trust the result immediately; check it again.
 
@@ -326,7 +326,7 @@ Suitable for:
 - unstable external data
 - tools with a high failure rate
 
-### 7.3 Retry / Fallback pattern
+### Retry / Fallback pattern
 
 Retry first, then degrade, then fall back.
 
@@ -335,7 +335,7 @@ Suitable for:
 - fluctuating external APIs
 - unstable online services
 
-### 7.4 Plan-then-tool pattern
+### Plan-then-tool pattern
 
 First make a plan, then decide the order of tool use.
 
@@ -346,18 +346,18 @@ Suitable for:
 
 ---
 
-## 8. When should you "call tools less"?
+## When should you "call tools less"?
 
 This is also an important strategic ability.
 
-### 8.1 Typical scenarios where fewer tool calls are better
+### Typical scenarios where fewer tool calls are better
 
 - pure summarization
 - pure rewriting
 - style conversion
 - enough existing context
 
-### 8.2 Why is calling fewer tools sometimes better?
+### Why is calling fewer tools sometimes better?
 
 Because each additional tool call adds:
 
@@ -371,9 +371,9 @@ So a mature system is not one that says "call whenever possible," but one that s
 
 ---
 
-## 9. Common pitfalls for beginners
+## Common pitfalls for beginners
 
-### 9.1 Treating tool calling strategy as just "routing rules"
+### Treating tool calling strategy as just "routing rules"
 
 Routing is only one part of it.
 A real strategy also includes:
@@ -383,11 +383,11 @@ A real strategy also includes:
 - whether to continue to the next step
 - whether to fall back
 
-### 9.2 No next step after a call fails
+### No next step after a call fails
 
 No retry, no fallback, no clarification request — such systems are fragile in production.
 
-### 9.3 Always assuming the model should decide everything
+### Always assuming the model should decide everything
 
 In real engineering, many strategies should be explicitly constrained by the program framework, rather than being left entirely to the model.
 

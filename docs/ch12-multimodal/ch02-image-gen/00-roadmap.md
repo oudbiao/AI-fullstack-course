@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-class Guide: What Is This Image Generation Chapter Really About?"
+title: "12.2.1 Pre-class Guide: What Is This Image Generation Chapter Really About?"
 sidebar_position: 0
 description: "First build the learning map for the image generation chapter: how diffusion models, Stable Diffusion, prompts, control conditions, fine-tuning, and creative workflows fit together."
 keywords: [image generation guide, diffusion model, Stable Diffusion, ControlNet, LoRA]
 ---
 
-# Pre-class Guide: What Is This Image Generation Chapter Really About?
+# 12.2.1 Pre-class Guide: What Is This Image Generation Chapter Really About?
 
 This chapter addresses the idea that images are not only something models can classify, detect, and understand — they can also be generated, edited, and controlled step by step.
 

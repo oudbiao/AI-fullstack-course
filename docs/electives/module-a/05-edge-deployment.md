@@ -1,11 +1,11 @@
 ---
-title: "1.5 Edge Device Deployment"
+title: "E.A.5 Edge Device Deployment"
 sidebar_position: 5
 description: "Understand why edge deployment and cloud deployment are two completely different sets of engineering constraints from the perspectives of memory, power, latency, offline capability, and model size."
 keywords: [edge deployment, Jetson, Raspberry Pi, memory budget, latency, offline inference]
 ---
 
-# Edge Device Deployment
+# E.A.5 Edge Device Deployment
 
 :::tip Section Overview
 The easiest thing to underestimate in edge device deployment is:
@@ -35,9 +35,9 @@ So what you really need to learn is:
 
 ---
 
-## 1. What exactly makes edge deployment difficult?
+## What exactly makes edge deployment difficult?
 
-### 1.1 Device resources are usually much smaller than servers
+### Device resources are usually much smaller than servers
 
 Common limitations include:
 
@@ -47,7 +47,7 @@ Common limitations include:
 
 This means many solutions that are “default okay” in the cloud become unrealistic at the edge.
 
-### 1.2 The network is not always reliable
+### The network is not always reliable
 
 Edge devices are often located in:
 
@@ -63,7 +63,7 @@ That is why edge deployment pays close attention to:
 - Caching
 - Offline fallback
 
-### 1.3 Operations and maintenance cost is often higher
+### Operations and maintenance cost is often higher
 
 If a server goes down, you can usually restart it remotely, roll out gradually, or scale up.
 If an edge device has a problem, troubleshooting is often much more costly.
@@ -76,28 +76,28 @@ So edge systems usually care more about:
 
 ---
 
-## 2. What should you look at first when choosing edge devices?
+## What should you look at first when choosing edge devices?
 
-### 2.1 Memory budget
+### Memory budget
 
 This is the first threshold.
 The model, runtime, input cache, and the service itself all consume memory.
 
-### 2.2 Power budget
+### Power budget
 
 An edge device is not just about “can it run”; you also need to ask:
 
 - Can it run stably for a long time?
 - Can the cooling system handle it?
 
-### 2.3 Target latency
+### Target latency
 
 Different tasks have completely different latency requirements:
 
 - Access control recognition: may require more real-time performance
 - Batch statistics: can be a bit slower
 
-### 2.4 Whether offline operation is required
+### Whether offline operation is required
 
 If the scenario requires:
 
@@ -107,7 +107,7 @@ then the model and dependency design will be very different.
 
 ---
 
-## 3. First, run a device-model compatibility example
+## First, run a device-model compatibility example
 
 The following example simulates:
 
@@ -142,7 +142,7 @@ for device in devices:
     print(device["name"], "->", candidates)
 ```
 
-### 3.1 What is the most important thing about this code?
+### What is the most important thing about this code?
 
 It is not the formula itself.
 It is the way it helps you establish a screening order:
@@ -151,7 +151,7 @@ It is the way it helps you establish a screening order:
 2. Then, check whether the power budget can handle it
 3. Finally, check whether the latency meets the target
 
-### 3.2 Why does “can fit” not mean “good for deployment”?
+### Why does “can fit” not mean “good for deployment”?
 
 For example, a model may barely load, but:
 
@@ -163,9 +163,9 @@ In that case, it is still not a good solution.
 
 ---
 
-## 4. The most common optimization directions for edge deployment
+## The most common optimization directions for edge deployment
 
-### 4.1 Make the model smaller
+### Make the model smaller
 
 Common methods:
 
@@ -173,7 +173,7 @@ Common methods:
 - Model distillation
 - A lighter architecture
 
-### 4.2 Optimize the runtime
+### Optimize the runtime
 
 For example:
 
@@ -181,7 +181,7 @@ For example:
 - Reduce unnecessary preprocessing
 - Limit the input resolution
 
-### 4.3 Optimize at the system level
+### Optimize at the system level
 
 For example:
 
@@ -191,23 +191,23 @@ For example:
 
 ---
 
-## 5. Common pitfalls in edge deployment
+## Common pitfalls in edge deployment
 
-### 5.1 Mistake 1: Choose the model first, then think about the device
+### Mistake 1: Choose the model first, then think about the device
 
 A more stable order is usually:
 
 - First look at device constraints
 - Then choose the model and inference engine
 
-### 5.2 Mistake 2: Only test single inference, not long-term running
+### Mistake 2: Only test single inference, not long-term running
 
 Many systems are like this:
 
 - No problem when run once
 - Start slowing down or overheating after running continuously for half an hour
 
-### 5.3 Mistake 3: Assume edge devices are always online
+### Mistake 3: Assume edge devices are always online
 
 In many real-world scenarios,
 offline capability is not optional — it is a basic requirement.

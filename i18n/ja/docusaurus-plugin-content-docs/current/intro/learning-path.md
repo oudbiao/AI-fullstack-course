@@ -1,11 +1,11 @@
 ---
 sidebar_position: 2
-title: "おすすめ学習ルート"
+title: "0.4 おすすめ学習ルート"
 description: "まず実用的な学習ルートを1つ選び、第1章へ進みます。"
 keywords: [AI学習ルート, AIフルスタックルート, LLM学習, Agent学習, RAG学習]
 ---
 
-# おすすめ学習ルート
+# 0.4 おすすめ学習ルート
 
 ![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.png)
 

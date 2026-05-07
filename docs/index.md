@@ -15,19 +15,19 @@ Start simple: experience one AI example, prepare the smallest environment, look 
 
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.png)
 
-[Run the quick experience](/intro/quick-experience): see input -> model -> output before learning terms.
+[0.1 Run the quick experience](/intro/quick-experience): see input -> model -> output before learning terms.
 
 ![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.png)
 
-[Set up the minimum environment](/intro/environment-setup): Python, Git, and one project folder are enough for week one.
+[0.2 Set up the minimum environment](/intro/environment-setup): Python, Git, and one project folder are enough for week one.
 
 ![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
 
-[Look at the capability map](/intro/ai-fullstack-map): tools, data, models, LLM, RAG, Agent, and delivery are one path.
+[0.3 Look at the capability map](/intro/ai-fullstack-map): tools, data, models, LLM, RAG, Agent, and delivery are one path.
 
 ![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.png)
 
-[Choose a learning path](/intro/learning-path): pick one route, then start [Chapter 1](/ch01-tools).
+[0.4 Choose a learning path](/intro/learning-path): pick one route, then start [Chapter 1](/ch01-tools).
 
 ## One Rule
 

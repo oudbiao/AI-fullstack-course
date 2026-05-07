@@ -1,11 +1,11 @@
 ---
-title: "1.2 Tokenization and Tokenizer"
+title: "7.1.2 Tokenization and Tokenizer"
 sidebar_position: 1
 description: "Start with “why models can’t read text directly,” and understand the trade-offs between word-level, character-level, and subword-level tokenization, as well as why padding, truncation, and special tokens matter in practice."
 keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]
 ---
 
-# Tokenization and Tokenizer
+# 7.1.2 Tokenization and Tokenizer
 
 ![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.png)
 
@@ -36,9 +36,9 @@ The goal of this lesson is to bring the tokenizer back from a “black-box tool�
 
 ---
 
-## 1. Why Can’t a Model Read Text Directly?
+## Why Can’t a Model Read Text Directly?
 
-### 1.1 What a model ultimately processes is numbers, not characters themselves
+### What a model ultimately processes is numbers, not characters themselves
 
 Neural networks fundamentally can only process numerical tensors.
 But what humans feed into a model is usually:
@@ -59,7 +59,7 @@ it is:
 
 > **the first interface that turns human language into a discrete symbol sequence the model can process.**
 
-### 1.2 An analogy: translating an article into numbered building blocks for a machine
+### An analogy: translating an article into numbered building blocks for a machine
 
 You can think of a tokenizer as a warehouse manager.
 
@@ -78,9 +78,9 @@ if they are split too coarsely, many words will be unknown.
 
 ---
 
-## 2. The Three Most Common Splitting Methods
+## The Three Most Common Splitting Methods
 
-### 2.1 Character-level: safest, but sequences become long
+### Character-level: safest, but sequences become long
 
 The simplest idea is:
 
@@ -101,7 +101,7 @@ For example, in English:
 
 - “refund policy” -> `r / e / f / u / n / d / p / o / l / i / c / y`
 
-### 2.2 Word-level: intuitive meaning, but serious OOV issues
+### Word-level: intuitive meaning, but serious OOV issues
 
 Another approach is:
 
@@ -122,7 +122,7 @@ For example, in English:
 - `refund` is common
 - but `refundability` or `refund-processing` may easily become unknown words
 
-### 2.3 Subword-level: the most common practical compromise
+### Subword-level: the most common practical compromise
 
 What modern large models most commonly use is:
 
@@ -151,7 +151,7 @@ It is best to read this diagram from left to right: character-level is the safes
 
 ---
 
-## 3. Let’s Run a Real Tokenizer Example That Shows the Problem Clearly
+## Let’s Run a Real Tokenizer Example That Shows the Problem Clearly
 
 The code below does not reproduce a full industrial tokenizer,
 but it clearly demonstrates three things:
@@ -240,7 +240,7 @@ for text in examples:
     print("attention_mask:", attention_mask)
 ```
 
-### 3.1 Which lines in this code matter most?
+### Which lines in this code matter most?
 
 Focus on three parts:
 
@@ -251,7 +251,7 @@ Focus on three parts:
 3. `encode`
    Shows how special tokens, padding, and truncation are added
 
-### 3.2 Why is `Transformers` split into multiple subwords?
+### Why is `Transformers` split into multiple subwords?
 
 Because the vocabulary does not contain the full word `transformers`,
 but it does contain:
@@ -266,7 +266,7 @@ This is the key advantage of a subword tokenizer:
 
 - a new word does not have to be fully present in the vocabulary
 
-### 3.3 What is `attention_mask` for?
+### What is `attention_mask` for?
 
 Because sentences in a batch usually have different lengths.
 To make them into a single tensor, we pad shorter sentences with `[PAD]`.
@@ -285,9 +285,9 @@ When reading this diagram, break the process into four steps: the original text 
 
 ---
 
-## 4. Why Does a Tokenizer Directly Affect Cost and Performance?
+## Why Does a Tokenizer Directly Affect Cost and Performance?
 
-### 4.1 The more finely a sentence is split, the more tokens it has
+### The more finely a sentence is split, the more tokens it has
 
 More tokens means:
 
@@ -298,7 +298,7 @@ More tokens means:
 So a tokenizer is not just a theoretical issue;
 it also directly affects engineering cost.
 
-### 4.2 Neither a vocabulary that is too small nor too large is good
+### Neither a vocabulary that is too small nor too large is good
 
 If the vocabulary is too small:
 
@@ -312,7 +312,7 @@ If the vocabulary is too large:
 
 In practice, tokenizer design is about finding balance among these factors.
 
-### 4.3 Different languages bring different challenges
+### Different languages bring different challenges
 
 For example:
 
@@ -324,9 +324,9 @@ So tokenizers are often adapted to the language characteristics of the training 
 
 ---
 
-## 5. Why Do Special Tokens Keep Appearing?
+## Why Do Special Tokens Keep Appearing?
 
-### 5.1 `[CLS]`, `[SEP]`, and `[PAD]` are not just decoration
+### `[CLS]`, `[SEP]`, and `[PAD]` are not just decoration
 
 These special tokens usually serve clear functions:
 
@@ -337,7 +337,7 @@ These special tokens usually serve clear functions:
 Different models may use different exact symbols,
 but the idea is very similar.
 
-### 5.2 In chat models, system / user / assistant are also based on the same idea
+### In chat models, system / user / assistant are also based on the same idea
 
 In the era of chat models, you will see more special markers, such as:
 
@@ -354,9 +354,9 @@ So a chat template is actually part of the tokenizer ecosystem as well.
 
 ---
 
-## 6. The Easiest Pitfalls to Fall Into
+## The Easiest Pitfalls to Fall Into
 
-### 6.1 Mistake 1: Thinking the tokenizer is just a preprocessing detail
+### Mistake 1: Thinking the tokenizer is just a preprocessing detail
 
 It is not.
 It directly affects:
@@ -366,7 +366,7 @@ It directly affects:
 - OOV handling
 - downstream template format
 
-### 6.2 Mistake 2: Thinking that as long as it can be split, that is enough
+### Mistake 2: Thinking that as long as it can be split, that is enough
 
 What really matters is:
 
@@ -374,7 +374,7 @@ What really matters is:
 - whether it fits the corpus
 - whether it balances length and semantic granularity
 
-### 6.3 Mistake 3: Thinking Chinese should always be segmented by “words” for the best result
+### Mistake 3: Thinking Chinese should always be segmented by “words” for the best result
 
 Not necessarily.
 Many modern models still use:

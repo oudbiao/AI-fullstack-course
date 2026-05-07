@@ -1,10 +1,10 @@
 ---
-title: "2.2 Array Basics"
+title: "3.2.2 Array Basics"
 sidebar_position: 3
 description: "Master NumPy array creation methods, attributes, and data types"
 ---
 
-# Array Basics
+# 3.2.2 Array Basics
 
 ![NumPy Array Shape and Axis Diagram](/img/course/ch03-numpy-array-shape-axis-en.png)
 

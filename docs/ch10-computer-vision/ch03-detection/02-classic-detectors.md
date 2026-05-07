@@ -1,11 +1,11 @@
 ---
-title: "3.3 Classic Detection Architectures"
+title: "10.3.3 Classic Detection Architectures"
 sidebar_position: 8
 description: "From R-CNN and Fast R-CNN to Faster R-CNN, understand how classic detection architectures gradually made detection faster."
 keywords: [R-CNN, Fast R-CNN, Faster R-CNN, object detection, region proposal]
 ---
 
-# Classic Detection Architectures
+# 10.3.3 Classic Detection Architectures
 
 :::tip What this section is about
 What is most worth learning about classic detection architectures is not the model names themselves, but the fact that they all solve the same problem step by step:
@@ -50,30 +50,30 @@ You can think of classic detection architectures as shopping in a huge mall for 
 
 Once you understand it this way, the differences between these three generations of models are no longer just names.
 
-## 1. What is the R-CNN family doing?
+## What is the R-CNN family doing?
 
-### 1.1 The basic workflow
+### The basic workflow
 
 The typical idea behind two-stage detection is:
 
 1. First propose candidate regions
 2. Then perform classification and box regression on those candidate regions
 
-### 1.2 Why was it designed this way?
+### Why was it designed this way?
 
 Because directly finding all objects in the entire image at once is not easy.
 It feels more natural to first narrow things down to “regions that may contain objects.”
 
-### 1.3 An analogy
+### An analogy
 
 It is like first marking the blocks on a map where shops are likely to be,
 then judging one block at a time to see what kind of shop it is.
 
 ---
 
-## 2. What did each of the three classic architectures improve?
+## What did each of the three classic architectures improve?
 
-### 2.1 R-CNN
+### R-CNN
 
 Pros:
 
@@ -84,7 +84,7 @@ Cons:
 - Each candidate box must run feature extraction separately
 - Very slow
 
-### 2.2 Fast R-CNN
+### Fast R-CNN
 
 Improvement:
 
@@ -95,7 +95,7 @@ Benefit:
 
 - Speed improves significantly
 
-### 2.3 Faster R-CNN
+### Faster R-CNN
 
 Improvement:
 
@@ -105,7 +105,7 @@ Benefit:
 
 - Region proposal is also brought into end-to-end learning
 
-### 2.4 A comparison table that is easier for beginners
+### A comparison table that is easier for beginners
 
 | Architecture | Where candidate regions come from | How feature extraction is done | The most important improvement to remember |
 |---|---|---|---|
@@ -113,7 +113,7 @@ Benefit:
 | Fast R-CNN | External candidate boxes | Shared features for the whole image | Removes a lot of repeated convolution |
 | Faster R-CNN | Network learns proposals itself | Shared features for the whole image | Brings proposal into a learnable pipeline |
 
-### 2.5 Why was this path so important back then?
+### Why was this path so important back then?
 
 Because before single-stage methods like YOLO became popular, one of the biggest challenges in detection was:
 
@@ -135,7 +135,7 @@ What is most worth looking at in the R-CNN family is not the names, but how repe
 
 ---
 
-## 3. First look at a small example of “shared features vs repeated computation”
+## First look at a small example of “shared features vs repeated computation”
 
 ```python
 proposals = ["box1", "box2", "box3", "box4"]
@@ -161,14 +161,14 @@ for n in [1, 4, 16]:
     )
 ```
 
-### 3.1 What is this example trying to show?
+### What is this example trying to show?
 
 The core of improvements like Fast R-CNN is not that they are “more magical,”
 but that they:
 
 - share computation
 
-### 3.2 Why is this main idea still worth learning today?
+### Why is this main idea still worth learning today?
 
 Because it is very helpful for beginners to understand:
 
@@ -178,7 +178,7 @@ Because it is very helpful for beginners to understand:
 
 This is one of the main threads in the evolution of detection efficiency.
 
-### 3.3 Look at a minimal “proposal -> classification” example again
+### Look at a minimal “proposal -> classification” example again
 
 ```python
 proposals = [
@@ -202,7 +202,7 @@ Of course, this example is much simpler than a real detector, but it can help be
 
 ---
 
-## 4. Do two-stage detectors still have value today?
+## Do two-stage detectors still have value today?
 
 Absolutely.
 They are still often very competitive in:
@@ -214,25 +214,25 @@ They are still often very competitive in:
 But in many real-time scenarios,
 single-stage methods like YOLO are more common.
 
-### 4.1 So why not skip straight to YOLO in this section?
+### So why not skip straight to YOLO in this section?
 
 Because the classic two-stage path is especially good for building intuition about how a detection system is gradually decomposed and optimized.
 If you do not understand this path, then when you later study YOLO, it is easy to remember only that “it is faster.”
 
 ---
 
-## 5. Most common misconceptions
+## Most common misconceptions
 
-### 5.1 Misconception 1: Classic detection architectures are no longer worth learning
+### Misconception 1: Classic detection architectures are no longer worth learning
 
 That is not true.
 They are great for understanding how detection problems are systematically decomposed.
 
-### 5.2 Misconception 2: Two-stage methods are always slower and have no value
+### Misconception 2: Two-stage methods are always slower and have no value
 
 In many cases, they still have an advantage in quality.
 
-### 5.3 Misconception 3: Faster R-CNN is just a little faster
+### Misconception 3: Faster R-CNN is just a little faster
 
 What is more important is that it brought candidate region generation into a learnable system.
 

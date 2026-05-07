@@ -1,11 +1,11 @@
 ---
-title: "6.3 VAE Basics [Optional]"
+title: "6.6.3 VAE Basics [Optional]"
 sidebar_position: 2
 description: "Start with encoding, sampling, and decoding to understand why VAE can learn a continuous, samplable latent space."
 keywords: [VAE, latent space, encoder, decoder, reparameterization, generation]
 ---
 
-# VAE Basics [Optional]
+# 6.6.3 VAE Basics [Optional]
 
 ![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-en.png)
 
@@ -55,15 +55,15 @@ The three most important intuitions in this section are:
 - Whether the latent space is continuous affects whether you can sample smoothly
 - VAE is especially useful for building your intuition about the connection between “generation” and “representation learning”
 
-## 1. What is VAE actually doing?
+## What is VAE actually doing?
 
-### 1.1 A standard autoencoder is more like compression and reconstruction
+### A standard autoencoder is more like compression and reconstruction
 
 It does:
 
 - input -> compressed representation -> reconstructed output
 
-### 1.2 VAE goes further
+### VAE goes further
 
 VAE does not just learn a fixed latent vector,
 it learns:
@@ -81,12 +81,12 @@ but also more like it can:
 - sample in latent space
 - then generate new samples
 
-### 1.3 An analogy
+### An analogy
 
 A standard autoencoder is like assigning each image a fixed drawer.
 VAE is more like assigning it a “small fluctuating region,” so if you sample nearby, you can still generate reasonable samples.
 
-### 1.4 When learning VAE for the first time, what should you focus on first?
+### When learning VAE for the first time, what should you focus on first?
 
 What you should grasp first is not ELBO, but this sentence:
 
@@ -100,14 +100,14 @@ Once this idea is stable, the following questions become much easier:
 
 ---
 
-## 2. Why does VAE emphasize latent space so much?
+## Why does VAE emphasize latent space so much?
 
-### 2.1 Because the key to generation is whether you can sample from the space
+### Because the key to generation is whether you can sample from the space
 
 If the latent representation is completely discrete, scattered, or discontinuous,
 it is hard to sample smoothly and get reasonable results.
 
-### 2.2 VAE wants to make latent space more regular
+### VAE wants to make latent space more regular
 
 So it encourages the latent variable distribution to be closer to a standard prior,
 usually:
@@ -120,7 +120,7 @@ That is also why VAE latent spaces are usually better for:
 - sampling
 - generation
 
-### 2.3 What is most worth remembering about latent space is not the dimension, but “continuity”
+### What is most worth remembering about latent space is not the dimension, but “continuity”
 
 When beginners first learn latent space, it is easy to focus entirely on:
 
@@ -142,7 +142,7 @@ Read this image as “regions,” not “points”: a standard autoencoder is mo
 
 ---
 
-## 3. Let’s run a minimal latent space sampling example first
+## Let’s run a minimal latent space sampling example first
 
 This example will demonstrate the minimal form:
 
@@ -183,23 +183,23 @@ print("sigma:", round(sigma, 3))
 print("generated samples:", samples)
 ```
 
-### 3.1 What is the most important thing about this example?
+### What is the most important thing about this example?
 
 It clearly shows the key characteristic of VAE:
 
 - the same input does not correspond to just one fixed point
 - instead, it corresponds to a distribution that can be sampled
 
-### 3.2 Why is this more generation-like than a standard autoencoder?
+### Why is this more generation-like than a standard autoencoder?
 
 Because you can sample multiple different but related results from around the latent space.
 This allows the model not only to reconstruct, but also to generate variations.
 
 ---
 
-## 4. What is the intuitive difference between VAE and GAN?
+## What is the intuitive difference between VAE and GAN?
 
-### 4.1 VAE
+### VAE
 
 It emphasizes more:
 
@@ -207,7 +207,7 @@ It emphasizes more:
 - distribution modeling
 - smooth sampling
 
-### 4.2 GAN
+### GAN
 
 It emphasizes more:
 
@@ -215,12 +215,12 @@ It emphasizes more:
 - judging whether samples are real or fake
 - generation realism
 
-### 4.3 So the key learning focus is different
+### So the key learning focus is different
 
 - If you want to learn latent spaces and probabilistic generation intuition, VAE is great
 - If you want to learn adversarial generation and unstable training issues, GAN is great
 
-### 4.4 Which path should beginners study first?
+### Which path should beginners study first?
 
 If you want to understand:
 
@@ -230,7 +230,7 @@ If you want to understand:
 
 then VAE is often a better first stepping stone than GAN.
 
-### 4.6 If you put GAN and VAE side by side, what is the most important difference to grasp first?
+### If you put GAN and VAE side by side, what is the most important difference to grasp first?
 
 A more stable way to remember it is:
 
@@ -242,7 +242,7 @@ So:
 - If you want to understand adversarial generation, GAN is the classic choice
 - If you want to understand latent spaces and representation-based generation, VAE is clearer
 
-### 4.5 Where should VAE be placed in the generative model learning order?
+### Where should VAE be placed in the generative model learning order?
 
 A more stable order is usually:
 
@@ -260,9 +260,9 @@ and how these three things connect step by step.
 
 ---
 
-## 5. The easiest pitfalls when learning VAE
+## The easiest pitfalls when learning VAE
 
-### 5.1 Mistake 1: VAE is just a standard autoencoder with some randomness added
+### Mistake 1: VAE is just a standard autoencoder with some randomness added
 
 Not true.
 Its most important change is:
@@ -270,12 +270,12 @@ Its most important change is:
 - learning a distribution
 - making latent space samplable
 
-### 5.2 Mistake 2: If reconstruction is clear, the latent space must be good
+### Mistake 2: If reconstruction is clear, the latent space must be good
 
 Not necessarily.
 Whether the latent space is regular and smooth is equally important.
 
-### 5.3 Mistake 3: VAE is only for images
+### Mistake 3: VAE is only for images
 
 It can also be used for:
 

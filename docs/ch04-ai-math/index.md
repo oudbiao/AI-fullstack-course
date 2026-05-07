@@ -138,7 +138,7 @@ The basic version is to complete three minimum experiments: 2D vector similarity
 
 After the theory sections, run [4.4 Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md) and save the generated `ch04_math_workshop_evidence` folder as your first project artifact.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn AI Math Foundations Without Giving Up](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [4.0 Study Guide: How to Learn AI Math Foundations Without Giving Up](./study-guide.md).
 
 
 

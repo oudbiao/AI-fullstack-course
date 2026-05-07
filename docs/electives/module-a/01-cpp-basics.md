@@ -1,11 +1,11 @@
 ---
-title: "1.1 C++ Programming Basics"
+title: "E.A.1 C++ Programming Basics"
 sidebar_position: 1
 description: "Build C++ intuition for model deployment scenarios, starting from variables, functions, references, vector, and simple classes."
 keywords: [C++, basics, vector, reference, function, class, deployment]
 ---
 
-# C++ Programming Basics
+# E.A.1 C++ Programming Basics
 
 ![C++ runtime and memory model diagram](/img/course/elective-cpp-runtime-memory-en.png)
 
@@ -26,9 +26,9 @@ Instead, it starts from the perspective of “what you need for model deployment
 
 ---
 
-## 1. Why do we encounter C++ in model deployment?
+## Why do we encounter C++ in model deployment?
 
-### 1.1 Because it is closer to the underlying execution environment
+### Because it is closer to the underlying execution environment
 
 Common scenarios include:
 
@@ -37,7 +37,7 @@ Common scenarios include:
 - High-performance post-processing modules
 - Local inference on edge devices
 
-### 1.2 It is not “just for showing off”
+### It is not “just for showing off”
 
 Most of the time, C++ is not chosen because it is cooler.
 It is chosen because deployment scenarios care more about:
@@ -46,7 +46,7 @@ It is chosen because deployment scenarios care more about:
 - Memory control
 - Native library integration
 
-### 1.3 A realistic goal
+### A realistic goal
 
 For many AI engineers,
 the first goal is usually not “master every C++ syntax rule,”
@@ -56,9 +56,9 @@ but rather:
 
 ---
 
-## 2. First, build a few of the most common basic concepts
+## First, build a few of the most common basic concepts
 
-### 2.1 Variables and types
+### Variables and types
 
 C++ is a statically typed language.
 You usually need to write the variable type explicitly:
@@ -68,7 +68,7 @@ You usually need to write the variable type explicitly:
 - `bool`
 - `std::string`
 
-### 2.2 Functions
+### Functions
 
 A function needs to declare:
 
@@ -77,7 +77,7 @@ A function needs to declare:
 
 This makes interfaces clearer and also helps the compiler check your code.
 
-### 2.3 References
+### References
 
 References are very common because they help avoid unnecessary copies.
 They are especially important when dealing with large vectors or tensors.
@@ -91,7 +91,7 @@ means:
 - Read-only reference
 - Do not copy the entire dataset
 
-### 2.4 `std::vector`
+### `std::vector`
 
 You will see it very often in deployment code.
 A simple way to think about it is:
@@ -100,7 +100,7 @@ A simple way to think about it is:
 
 ---
 
-## 3. First, run a C++ example that is close to a deployment scenario
+## First, run a C++ example that is close to a deployment scenario
 
 The example below does something very typical:
 
@@ -144,7 +144,7 @@ c++ -std=c++17 demo.cpp -o demo
 ./demo
 ```
 
-### 3.1 What should you focus on first?
+### What should you focus on first?
 
 Look at these three parts first:
 
@@ -155,7 +155,7 @@ Look at these three parts first:
 3. `argmax`
    What the most common deployment post-processing function looks like
 
-### 3.2 Why emphasize references here?
+### Why emphasize references here?
 
 Because if you pass by value directly:
 
@@ -166,9 +166,9 @@ In deployment and inference paths, this kind of unnecessary copy is common, and 
 
 ---
 
-## 4. How do classes usually appear in deployment code?
+## How do classes usually appear in deployment code?
 
-### 4.1 Classes are not just for OOP exam questions
+### Classes are not just for OOP exam questions
 
 In deployment scenarios, classes are often used to represent:
 
@@ -176,7 +176,7 @@ In deployment scenarios, classes are often used to represent:
 - A tokenizer
 - A post-processor
 
-### 4.2 A simple class example
+### A simple class example
 
 ```cpp
 #include <iostream>
@@ -219,38 +219,38 @@ This is very common in deployment systems.
 
 ---
 
-## 5. The most common sticking points for students with a Python background
+## The most common sticking points for students with a Python background
 
-### 5.1 Compilation
+### Compilation
 
 Python runs by interpretation,
 while C++ is usually compiled before execution.
 
-### 5.2 Types need to be written clearly in advance
+### Types need to be written clearly in advance
 
 This may feel verbose at first,
 but it can also help you catch errors earlier.
 
-### 5.3 Memory and copying deserve more attention
+### Memory and copying deserve more attention
 
 In Python, many copy details are not as visible.
 But in C++ and deployment performance paths, they become very important.
 
 ---
 
-## 6. Common misunderstandings
+## Common misunderstandings
 
-### 6.1 Misunderstanding 1: If I can write Python, I should be able to understand C++ without effort
+### Misunderstanding 1: If I can write Python, I should be able to understand C++ without effort
 
 The logic can transfer,
 but concepts like types, references, and ownership still need separate adjustment.
 
-### 6.2 Misunderstanding 2: Basic syntax is useless; just go straight to the engine
+### Misunderstanding 2: Basic syntax is useless; just go straight to the engine
 
 Without the basics like variables, functions, classes, and references,
 many deployment SDKs will feel very difficult to read.
 
-### 6.3 Misunderstanding 3: A C++ basics course should be completely unrelated to AI
+### Misunderstanding 3: A C++ basics course should be completely unrelated to AI
 
 For this elective, a better approach is:
 

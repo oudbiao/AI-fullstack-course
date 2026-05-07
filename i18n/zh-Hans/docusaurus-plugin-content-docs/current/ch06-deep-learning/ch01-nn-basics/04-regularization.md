@@ -1,11 +1,11 @@
 ---
-title: "1.7 深度学习中的正则化"
+title: "6.1.7 深度学习中的正则化"
 sidebar_position: 6
 description: "掌握 Dropout、Batch Normalization、Layer Normalization、数据增强和早停法"
 keywords: [正则化, Dropout, Batch Normalization, Layer Normalization, 数据增强, Early Stopping]
 ---
 
-# 深度学习中的正则化
+# 6.1.7 深度学习中的正则化
 
 ![正则化控制过拟合图](/img/course/regularization-overfitting-controls.png)
 
@@ -69,7 +69,7 @@ model = nn.Linear(10, 1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 
-### 1.1 为什么深度学习里也仍然需要先记住 `weight_decay`？
+### 为什么深度学习里也仍然需要先记住 `weight_decay`？
 
 因为它往往是最简单、最稳、最先该试的一种正则化手段。
 
@@ -82,7 +82,7 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 
 ## 二、Dropout——随机丢弃
 
-### 2.1 原理
+### 原理
 
 训练时，**随机让一部分神经元不工作**（输出置为 0）。这迫使网络不依赖任何单个神经元，增强鲁棒性。
 
@@ -105,7 +105,7 @@ flowchart LR
     style TEST fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 PyTorch 使用
+### PyTorch 使用
 
 ```python
 import torch
@@ -181,7 +181,7 @@ plt.show()
 - **推理时一定要调 `model.eval()`！**
 :::
 
-### 2.3 Dropout 到底适不适合所有模型？
+### Dropout 到底适不适合所有模型？
 
 不是。
 
@@ -193,7 +193,7 @@ plt.show()
 
 所以不要把 Dropout 当成“只要过拟合就必开”的万能开关。
 
-### 2.4 第一次遇到过拟合时，为什么不要只会想到 Dropout？
+### 第一次遇到过拟合时，为什么不要只会想到 Dropout？
 
 因为过拟合并不只来自一种原因。
 它可能来自：
@@ -218,7 +218,7 @@ plt.show()
 
 ## 三、Batch Normalization（BN）
 
-### 3.1 原理
+### 原理
 
 对每一层的输出做**归一化**（均值为 0，标准差为 1），然后用可学习的参数缩放和平移。
 
@@ -227,7 +227,7 @@ plt.show()
 - 减少对初始化的敏感性
 - 有轻微正则化效果
 
-### 3.2 PyTorch 使用
+### PyTorch 使用
 
 ```python
 class MLP_BN(nn.Module):
@@ -291,7 +291,7 @@ print(f"LN 输出形状: {ln(x).shape}")
 记住：**CNN 用 BN，Transformer 用 LN。** 这是实际工程中的标准选择。
 :::
 
-### 4.1 BN 和 LN 为什么新人总容易混？
+### BN 和 LN 为什么新人总容易混？
 
 因为它们看起来都像“归一化”，但关注的维度不同：
 
@@ -303,7 +303,7 @@ print(f"LN 输出形状: {ln(x).shape}")
 - 图像 CNN 里，先优先想到 BN
 - Transformer 里，先优先想到 LN
 
-### 4.2 BN / LN 最值得先记的，不是公式，而是“放在哪”
+### BN / LN 最值得先记的，不是公式，而是“放在哪”
 
 对新人更有帮助的记忆方式通常是：
 
@@ -316,7 +316,7 @@ print(f"LN 输出形状: {ln(x).shape}")
 
 ## 五、数据增强
 
-### 5.1 图像数据增强
+### 图像数据增强
 
 ```python
 from torchvision import transforms
@@ -344,7 +344,7 @@ test_transform = transforms.Compose([
 
 ## 六、早停法（Early Stopping）
 
-### 6.1 原理
+### 原理
 
 监控**验证集损失**，连续 N 轮不下降就停止训练。
 
@@ -377,7 +377,7 @@ early_stop = EarlyStopping(patience=10)
 #         break
 ```
 
-### 6.2 Early Stopping 为什么特别适合新人先学会？
+### Early Stopping 为什么特别适合新人先学会？
 
 因为它是最容易落地、最不容易写坏、收益又常常很直接的一招。
 

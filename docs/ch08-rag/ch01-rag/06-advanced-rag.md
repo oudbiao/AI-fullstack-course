@@ -1,11 +1,11 @@
 ---
-title: "1.7 Advanced RAG Architectures"
+title: "8.1.7 Advanced RAG Architectures"
 sidebar_position: 6
 description: "Understand how systems keep evolving when basic RAG is no longer enough, from routing and multi-hop retrieval to Agentic RAG and structured retrieval."
 keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured retrieval]
 ---
 
-# Advanced RAG Architectures
+# 8.1.7 Advanced RAG Architectures
 
 ## Learning Objectives
 
@@ -18,9 +18,9 @@ After completing this section, you will be able to:
 
 ---
 
-## 1. Why Does Basic RAG Eventually Hit Its Limits?
+## Why Does Basic RAG Eventually Hit Its Limits?
 
-### 1.1 Basic RAG Is Suitable for “One Question -> One Retrieval -> One Answer”
+### Basic RAG Is Suitable for “One Question -> One Retrieval -> One Answer”
 
 This is already enough for many FAQs and simple Q&A tasks.
 But when the problem gets more complex, bottlenecks start to appear.
@@ -31,7 +31,7 @@ For example:
 - Need to check policies first, then product docs
 - Need to break the task into multiple sub-questions
 
-### 1.2 Common Complex Scenarios
+### Common Complex Scenarios
 
 For example, a user asks:
 
@@ -51,9 +51,9 @@ The main lesson in this map is simple: use the lightest architecture that actual
 
 ---
 
-## 2. Routing-Based RAG: Decide Where to Search First
+## Routing-Based RAG: Decide Where to Search First
 
-### 2.1 When One Knowledge Base Is Not Enough, Route First
+### When One Knowledge Base Is Not Enough, Route First
 
 Many systems do not have just one document store. They may have:
 
@@ -67,7 +67,7 @@ A better approach is:
 
 > First determine which knowledge base the question belongs to, then retrieve from there.
 
-### 2.2 A Runnable Multi-Store Routing Example
+### A Runnable Multi-Store Routing Example
 
 ```python
 policy_docs = [
@@ -119,9 +119,9 @@ This is the simplest version of “Router RAG.”
 
 ---
 
-## 3. Multi-hop RAG: Break the Problem into Multiple Steps
+## Multi-hop RAG: Break the Problem into Multiple Steps
 
-### 3.1 Some Questions Cannot Be Answered in One Step
+### Some Questions Cannot Be Answered in One Step
 
 For example:
 
@@ -133,7 +133,7 @@ This kind of question usually requires:
 2. Check the user’s completion status
 3. Compare the two
 
-### 3.2 Multi-hop RAG Is More Like Solving a Problem Step by Step
+### Multi-hop RAG Is More Like Solving a Problem Step by Step
 
 Instead of finding all the materials at once, it works like this:
 
@@ -144,9 +144,9 @@ This feels closer to an Agent.
 
 ---
 
-## 4. Agentic RAG: Retrieval Is No Longer a Fixed Pipeline
+## Agentic RAG: Retrieval Is No Longer a Fixed Pipeline
 
-### 4.1 What Is the Difference from Normal RAG?
+### What Is the Difference from Normal RAG?
 
 Normal RAG is more like a fixed flow:
 
@@ -161,7 +161,7 @@ Agentic RAG, on the other hand, may:
 3. Decide whether to rewrite the query or switch data sources
 4. Then decide whether to continue acting
 
-### 4.2 Advantages and Trade-offs
+### Advantages and Trade-offs
 
 Advantages:
 
@@ -178,9 +178,9 @@ So not every RAG system should be made agentic.
 
 ---
 
-## 5. Structured Retrieval: Not All Knowledge Should Go into a Pure Text Store
+## Structured Retrieval: Not All Knowledge Should Go into a Pure Text Store
 
-### 5.1 When the Data Itself Has Structure
+### When the Data Itself Has Structure
 
 For example:
 
@@ -197,7 +197,7 @@ These kinds of data are often better handled by:
 
 rather than forcing them into plain text and then retrieving from that.
 
-### 5.2 A Common Upgrade Path
+### A Common Upgrade Path
 
 Real systems may combine:
 
@@ -209,9 +209,9 @@ This is also why “advanced RAG” is often closely tied to Agents.
 
 ---
 
-## 6. Graph RAG and Knowledge Graph Thinking
+## Graph RAG and Knowledge Graph Thinking
 
-### 6.1 What Problem Does It Solve?
+### What Problem Does It Solve?
 
 When knowledge points have obvious relationships, plain text chunking may not be enough.
 
@@ -223,7 +223,7 @@ For example:
 
 In these cases, a graph structure makes it easier to express the connections between nodes.
 
-### 6.2 When Is It Worth Considering?
+### When Is It Worth Considering?
 
 When your questions often require:
 
@@ -241,9 +241,9 @@ Start by choosing an architecture based on the question type: if multiple knowle
 
 ---
 
-## 7. When Should You Upgrade to Advanced RAG?
+## When Should You Upgrade to Advanced RAG?
 
-### 7.1 Signs That It Is Worth Upgrading
+### Signs That It Is Worth Upgrading
 
 If you are already facing these problems:
 
@@ -254,7 +254,7 @@ If you are already facing these problems:
 
 then it may be time to upgrade the architecture.
 
-### 7.2 Signs That It Is Not Worth Upgrading
+### Signs That It Is Not Worth Upgrading
 
 If you have not even stabilized basic RAG yet:
 
@@ -266,17 +266,17 @@ then do not rush into advanced architectures.
 
 ---
 
-## 8. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 8.1 Wanting to Use Agentic RAG as Soon as a Task Looks Complex
+### Wanting to Use Agentic RAG as Soon as a Task Looks Complex
 
 In many cases, getting routing and retrieval strategies right already solves most of the problem.
 
-### 8.2 Thinking “More Components” Means “More Advanced”
+### Thinking “More Components” Means “More Advanced”
 
 More components do not necessarily mean a better system; they may just make maintenance harder.
 
-### 8.3 Upgrading Architectures Without Evaluation
+### Upgrading Architectures Without Evaluation
 
 Without evaluation, you cannot tell whether the upgrade is a real improvement or just “something that looks more complicated.”
 

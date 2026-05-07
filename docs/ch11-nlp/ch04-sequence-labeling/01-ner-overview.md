@@ -1,11 +1,11 @@
 ---
-title: "4.3 Sequence Labeling Tasks"
+title: "11.4.3 Sequence Labeling Tasks"
 sidebar_position: 2
 description: "Start from the difference between “one label for the whole sentence” and “one label for each token” to understand why sequence labeling is an important foundation for information extraction."
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# Sequence Labeling Tasks
+# 11.4.3 Sequence Labeling Tasks
 
 ![BIO label to entity recovery diagram](/img/course/bio-ner-recovery-en.png)
 
@@ -34,9 +34,9 @@ From here, it becomes much more natural to move toward tasks like named entity r
 
 ---
 
-## 1. What Problem Is Sequence Labeling Solving?
+## What Problem Is Sequence Labeling Solving?
 
-### 1.1 It is not just deciding “what kind of sentence this is,” but “which part of the sentence is what”
+### It is not just deciding “what kind of sentence this is,” but “which part of the sentence is what”
 
 For example, the sentence:
 
@@ -51,7 +51,7 @@ But sequence labeling cares more about:
 - `Zhang San` is a person name
 - `Peking University` is an organization name
 
-### 1.2 Why is this important?
+### Why is this important?
 
 Because many real-world applications are not satisfied with sentence-level understanding.
 They care more about:
@@ -64,16 +64,16 @@ They care more about:
 
 That is, the positions and boundaries of these specific spans.
 
-### 1.3 An analogy
+### An analogy
 
 Text classification is like putting a label on an entire article.
 Sequence labeling is like using a highlighter to circle important parts in the sentence.
 
 ---
 
-## 2. Why Is the Output Usually Token-Based?
+## Why Is the Output Usually Token-Based?
 
-### 2.1 Because entities are continuous spans
+### Because entities are continuous spans
 
 Many pieces of information we want to extract are not single words, but a continuous span.
 For example:
@@ -81,7 +81,7 @@ For example:
 - `Shanghai Jiao Tong University`
 - `June 1, 2025`
 
-### 2.2 Token-level labels can express boundaries
+### Token-level labels can express boundaries
 
 That is why common label schemes do not simply write:
 
@@ -94,7 +94,7 @@ Instead, they write:
 - `I-PER`
 - `O`
 
-### 2.3 The intuition behind BIO
+### The intuition behind BIO
 
 - `B-`: beginning of an entity
 - `I-`: inside an entity
@@ -107,7 +107,7 @@ This lets the system distinguish more clearly:
 
 ---
 
-## 3. First Run a Minimal BIO Labeling Example
+## First Run a Minimal BIO Labeling Example
 
 ```python
 tokens = ["Zhang San", "works at", "Peking", "University", "today"]
@@ -117,7 +117,7 @@ for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
-### 3.1 What is the most important thing in this example?
+### What is the most important thing in this example?
 
 It shows you:
 
@@ -128,7 +128,7 @@ This is the most essential form of sequence labeling:
 
 > **Input a sequence of tokens, output a sequence of labels of the same length.**
 
-### 3.2 Why are `Peking University` labeled as `B-ORG / I-ORG`?
+### Why are `Peking University` labeled as `B-ORG / I-ORG`?
 
 Because the goal here is to express:
 
@@ -138,7 +138,7 @@ not two separate entities.
 
 ---
 
-## 4. Recovering Entities from a Label Sequence
+## Recovering Entities from a Label Sequence
 
 The following example recovers entity spans from token + BIO labels.
 
@@ -185,7 +185,7 @@ def decode_entities(tokens, tags):
 print(decode_entities(tokens, tags))
 ```
 
-### 4.1 Why is this code important?
+### Why is this code important?
 
 Because it connects the “labeling task” with the “extraction result.”
 In real systems, what we usually care about is not the labels themselves, but:
@@ -195,15 +195,15 @@ In real systems, what we usually care about is not the labels themselves, but:
 
 ---
 
-## 5. What Is the Relationship Between Sequence Labeling and Information Extraction?
+## What Is the Relationship Between Sequence Labeling and Information Extraction?
 
-### 5.1 NER is a typical sequence labeling task
+### NER is a typical sequence labeling task
 
 The most classic example is:
 
 - named entity recognition
 
-### 5.2 But it is not only used for NER
+### But it is not only used for NER
 
 It can also be used for:
 
@@ -211,7 +211,7 @@ It can also be used for:
 - keyword extraction
 - event trigger identification
 
-### 5.3 So it is a “foundational skill” for information extraction
+### So it is a “foundational skill” for information extraction
 
 Many extraction systems become more complex later,
 but the most basic first step is often still:
@@ -220,20 +220,20 @@ but the most basic first step is often still:
 
 ---
 
-## 6. Common Pitfalls
+## Common Pitfalls
 
-### 6.1 Mistake 1: Treating sequence labeling like ordinary classification
+### Mistake 1: Treating sequence labeling like ordinary classification
 
 The biggest difference from sentence-level classification is:
 
 - the output is sequence-aligned
 
-### 6.2 Mistake 2: Only looking at labels and ignoring boundary recovery
+### Mistake 2: Only looking at labels and ignoring boundary recovery
 
 Real systems care more about the final extracted entity spans,
 not the label table itself.
 
-### 6.3 Mistake 3: Designing the label scheme casually
+### Mistake 3: Designing the label scheme casually
 
 If the label design is messy, both the model and the evaluation will become messy too.
 

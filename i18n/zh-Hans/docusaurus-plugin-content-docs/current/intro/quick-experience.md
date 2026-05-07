@@ -1,11 +1,11 @@
 ---
 sidebar_position: 0
-title: "30 分钟 AI 快速体验"
+title: "0.1 分钟 AI 快速体验"
 description: "给新人准备的极短 AI 初体验：先看见输入、模型、输出，再继续准备环境。"
 keywords: [AI 快速体验, Google Colab, 图像识别, 文本生成, 图像生成, AI 入门]
 ---
 
-# 30 分钟 AI 快速体验
+# 0.1 分钟 AI 快速体验
 
 ![30 分钟 AI 快速体验闭环](/img/course/intro-quick-experience-loop.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "6.6 AutoGen【选修】"
+title: "9.6.6 AutoGen【选修】"
 sidebar_position: 34
 description: "从多 Agent 对话、角色协作到代码执行回路，理解 AutoGen 风格框架为什么特别适合“会话式多 Agent”系统。"
 keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code execution, agent collaboration]
 ---
 
-# AutoGen【选修】
+# 9.6.6 AutoGen【选修】
 
 :::tip 本节定位
 如果说有些框架更像“工作流图”或“知识组织层”，那 AutoGen 给人的第一感觉通常是：
@@ -26,7 +26,7 @@ keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code executio
 
 ## 一、AutoGen 风格最核心的直觉是什么？
 
-### 1.1 它不是先把流程画成图，而是先让角色“说起来”
+### 它不是先把流程画成图，而是先让角色“说起来”
 
 很多框架会先问：
 
@@ -43,7 +43,7 @@ AutoGen 风格更像在问：
 
 > **一组会彼此发送消息的角色。**
 
-### 1.2 一个生活里的类比
+### 一个生活里的类比
 
 你可以把 AutoGen 风格系统想成一个群聊工作群：
 
@@ -99,7 +99,7 @@ for msg in messages:
     print(msg)
 ```
 
-### 3.2 这段代码虽然简单，但它在教什么？
+### 这段代码虽然简单，但它在教什么？
 
 它在教你：
 
@@ -113,7 +113,7 @@ for msg in messages:
 
 ## 四、为什么 AutoGen 经常和“代码执行”场景绑在一起？
 
-### 4.1 因为这类场景天然适合多轮反馈
+### 因为这类场景天然适合多轮反馈
 
 代码任务很少是一轮就结束的：
 
@@ -124,7 +124,7 @@ for msg in messages:
 
 这和 AutoGen 的消息往返模式非常贴合。
 
-### 4.2 一个最小“写代码 -> 运行 -> 反馈”示意
+### 一个最小“写代码 -> 运行 -> 反馈”示意
 
 ```python
 conversation = [
@@ -144,7 +144,7 @@ for turn in conversation:
 
 ## 五、AutoGen 的真正优势是什么？
 
-### 5.1 对“多角色来回协作”的表达很自然
+### 对“多角色来回协作”的表达很自然
 
 它特别擅长表达：
 
@@ -154,7 +154,7 @@ for turn in conversation:
 
 这种多轮反馈关系。
 
-### 5.2 对原型和实验非常友好
+### 对原型和实验非常友好
 
 因为你不一定要一开始就把状态图画得很完整。
 你可以先：
@@ -169,7 +169,7 @@ for turn in conversation:
 
 ## 六、但 AutoGen 风格的风险也要看清
 
-### 6.1 消息轮数很容易失控
+### 消息轮数很容易失控
 
 因为一旦系统主要靠消息往返推进，就容易出现：
 
@@ -177,7 +177,7 @@ for turn in conversation:
 - 重复讨论
 - 明明任务已经够信息了还在继续说
 
-### 6.2 角色边界容易漂
+### 角色边界容易漂
 
 如果你不给每个角色明确边界，就可能出现：
 
@@ -186,7 +186,7 @@ for turn in conversation:
 
 结果角色分工越来越乱。
 
-### 6.3 收敛条件必须非常明确
+### 收敛条件必须非常明确
 
 如果没有“什么时候结束”的规则，系统会非常容易越跑越长。
 
@@ -198,7 +198,7 @@ for turn in conversation:
 
 ## 七、它和 CrewAI、LangGraph 的差别到底在哪？
 
-### 7.1 和 CrewAI 的差别
+### 和 CrewAI 的差别
 
 CrewAI 更强调：
 
@@ -215,7 +215,7 @@ AutoGen 更强调：
 - CrewAI 更像“团队排班表”
 - AutoGen 更像“团队聊天协作”
 
-### 7.2 和 LangGraph 的差别
+### 和 LangGraph 的差别
 
 LangGraph 更强调：
 

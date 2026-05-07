@@ -1,11 +1,11 @@
 ---
-title: "5.5 CTC and Deep Speech: Sequence Alignment in Speech Recognition"
+title: "11.5.5 CTC and Deep Speech: Sequence Alignment in Speech Recognition"
 sidebar_position: 4
 description: "Understand why automatic speech recognition is hard from the CTC loss and Deep Speech, and how models are trained when inputs and outputs are not aligned."
 keywords: [CTC, Deep Speech, ASR, speech recognition, sequence alignment, NLP]
 ---
 
-# CTC and Deep Speech: Sequence Alignment in Speech Recognition
+# 11.5.5 CTC and Deep Speech: Sequence Alignment in Speech Recognition
 
 ![CTC Deep Speech speech recognition alignment diagram](/img/course/ch11-ctc-deep-speech-asr-map-en.png)
 
@@ -17,7 +17,7 @@ The key idea is:
 > **CTC solves the problem of training a model when the input is very long, the output is shorter, and the two are not precisely aligned in the labels.**
 :::
 
-## 1. Why is speech recognition more troublesome than text classification?
+## Why is speech recognition more troublesome than text classification?
 
 Text classification is usually:
 
@@ -60,7 +60,7 @@ flowchart LR
 
 The model sees many small time slices. The label only says the final sentence. CTC is the bridge between these two worlds.
 
-## 2. The core intuition of CTC: let the model first output paths with blanks and repeats
+## The core intuition of CTC: let the model first output paths with blanks and repeats
 
 CTC introduces a special symbol, blank.
 The model can first output a longer path, and then get the final text by “removing repeats and blanks.”
@@ -80,7 +80,7 @@ This means the model does not need to know in advance:
 
 It only needs to learn this: among all paths that collapse to the correct text, the overall probability should become larger.
 
-## 3. Why is Deep Speech an important milestone?
+## Why is Deep Speech an important milestone?
 
 Deep Speech represents an important route into end-to-end speech recognition in the deep learning era.
 
@@ -102,7 +102,7 @@ It is enough to understand why it matters:
 - CTC allows unaligned sequences to be trained
 - Later models like Whisper continue pushing speech recognition toward more general pretraining approaches
 
-## 4. A minimal collapse example
+## A minimal collapse example
 
 ```python
 def ctc_collapse(path, blank="_"):
@@ -130,7 +130,7 @@ This example cannot replace the CTC formula, but it can help you build intuition
 
 > **The model can first produce a long frame-level path, and then collapse it into the final short text.**
 
-## 5. A tiny alignment search you can run
+## A tiny alignment search you can run
 
 The key idea is not that there is only one correct frame-level path. Instead, many paths can collapse into the same text. CTC training sums the probability of all valid paths.
 
@@ -172,7 +172,7 @@ When beginners first see CTC, the most important realization is:
 
 So CTC is not asking humans to label every frame. It is asking the model to distribute probability over many possible alignments.
 
-## 6. The relationship between CTC, Seq2Seq, and Transformer ASR
+## The relationship between CTC, Seq2Seq, and Transformer ASR
 
 | Method | How to understand it first |
 |---|---|
@@ -183,7 +183,7 @@ So CTC is not asking humans to label every frame. It is asking the model to dist
 
 This shows that speech recognition is not an isolated topic; it is connected to Seq2Seq, attention, and Transformer in this chapter.
 
-## 7. Assigning historical milestones to course sections
+## Assigning historical milestones to course sections
 
 | Historical milestone | Problem it solves | Corresponding course section |
 |---|---|---|
@@ -192,7 +192,7 @@ This shows that speech recognition is not an isolated topic; it is connected to 
 | Seq2Seq Attention | Dynamically align input positions at each output step | Section 5.3 NLP attention mechanisms |
 | Transformer ASR / Whisper | Large-scale pretrained speech recognition | Section 12 AIGC and multimodal extensions |
 
-## 8. The intuition you should have after this section
+## The intuition you should have after this section
 
 The hardest part of speech recognition is not just “turning sound into text,” but:
 

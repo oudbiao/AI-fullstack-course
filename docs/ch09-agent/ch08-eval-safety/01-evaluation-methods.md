@@ -1,11 +1,11 @@
 ---
-title: "8.2 Agent Evaluation Methods"
+title: "9.8.2 Agent Evaluation Methods"
 sidebar_position: 44
 description: "Build practical Agent evaluation methods from task success rate, process evaluation, tool calling, human scoring, and replay samples."
 keywords: [agent evaluation, task success, tool evaluation, human review, replay]
 ---
 
-# Agent Evaluation Methods
+# 9.8.2 Agent Evaluation Methods
 
 :::tip Section Overview
 Agent evaluation cannot rely only on whether the final answer looks right. An Agent is a system that plans, calls tools, and changes state, so evaluation must consider results, process, safety, and cost at the same time.
@@ -20,7 +20,7 @@ Agent evaluation cannot rely only on whether the final answer looks right. An Ag
 
 ---
 
-## 1. Why Agent Evaluation Is More Complex
+## Why Agent Evaluation Is More Complex
 
 A normal question-answering system mainly checks whether the answer is correct. An Agent also needs to be judged by what it did to get there. An Agent may end up with the right answer, but if it called the wrong tool, skipped confirmation, or cost too much, it is still not a good system.
 
@@ -35,7 +35,7 @@ flowchart LR
   E --> H[Task Success]
 ```
 
-## 2. The Four-Layer Evaluation Framework
+## The Four-Layer Evaluation Framework
 
 | Level | Core Question | Example Metrics |
 |---|---|---|
@@ -52,7 +52,7 @@ In real projects, do not try to perfect every metric at once. Start with task su
 This diagram breaks Agent evaluation into four layers: result, process, tool, and safety. Beginners can use it to build a minimum scorecard first, instead of only checking whether the “final answer looks right.”
 :::
 
-## 3. Building an Evaluation Task Set
+## Building an Evaluation Task Set
 
 An Agent evaluation set should come from real tasks, not from a few idealized examples. Each sample should include: user request, expected result, allowed tools, forbidden actions, success criteria, and risk level.
 
@@ -67,7 +67,7 @@ An Agent evaluation set should come from real tasks, not from a few idealized ex
 }
 ```
 
-## 4. Human Scoring Rubric
+## Human Scoring Rubric
 
 The most practical method early on is human scoring. You can use a 1–5 scale to evaluate task completion, process reasonableness, tool usage, safety boundaries, and clarity of expression.
 
@@ -79,7 +79,7 @@ The most practical method early on is human scoring. You can use a 1–5 scale t
 | Safety boundary | Overreach or no confirmation | High-risk actions have confirmation and fallback |
 | Cost efficiency | Obvious waste | Reasonable number of steps and tokens |
 
-## 5. A Replayable Evaluation Record
+## A Replayable Evaluation Record
 
 For Agent systems, a score without a trace is hard to improve. A better evaluation record should keep both the final score and the execution path.
 
@@ -153,7 +153,7 @@ This is already enough to answer a practical question:
 
 > Did the new Prompt really improve the Agent, or did it only make the answer look nicer?
 
-## 6. Using Evaluation Results to Improve the System
+## Using Evaluation Results to Improve the System
 
 The purpose of evaluation is not scoring itself, but guiding improvement. If tool selection mistakes are common, improve tool descriptions and routing strategy first. If plans are often incomplete, improve the planning Prompt or state representation first. If costs are too high, check for repeated tool calls or overly long context. If safety issues are common, add permission checks, confirmation steps, and refusal policies.
 

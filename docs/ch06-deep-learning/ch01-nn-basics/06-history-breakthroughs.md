@@ -1,11 +1,11 @@
 ---
-title: "1.2 The Main Line of Breakthroughs in Deep Learning History"
+title: "6.1.2 The Main Line of Breakthroughs in Deep Learning History"
 sidebar_position: 1
 description: "Understand the major breakthroughs in deep learning through their historical progression: perceptron, the XOR setback, backpropagation, gradient vanishing, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer, and what problems each one solved."
 keywords: [deep learning history, three waves of neural networks, perceptron, XOR, backpropagation, LSTM, AlexNet, ResNet, Transformer]
 ---
 
-# The Main Line of Breakthroughs in Deep Learning History
+# 6.1.2 The Main Line of Breakthroughs in Deep Learning History
 
 ![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map-en.png)
 
@@ -17,7 +17,7 @@ You do not need to memorize every year, but you should understand what question 
 > **Why was the previous method not enough? What exactly did the new method add?**
 :::
 
-## 1. First, grasp the three major shifts in deep learning history
+## First, grasp the three major shifts in deep learning history
 
 Deep learning did not develop smoothly all the way through. It is more like several cycles of “hope rises, bottlenecks appear, conditions mature, and then it takes off again.”
 
@@ -39,7 +39,7 @@ This historical line closely matches the learning order in Chapter 6:
 | Why sequences need memory mechanisms | Chapter 4 RNN / LSTM |
 | How to handle long-range dependencies and parallel training | Chapter 5 Attention / Transformer |
 
-## 2. 1943–1958: From artificial neurons to the perceptron
+## 1943–1958: From artificial neurons to the perceptron
 
 In 1943, McCulloch and Pitts proposed an early abstraction of the artificial neuron: a neuron could receive inputs and produce an output after simple computation. This idea was very rough, but it translated “brain-like computation” into a computable model for the first time.
 
@@ -62,7 +62,7 @@ Recommended related learning:
 | 1.4 From Neurons to MLP | Neurons, weights, bias, activation functions |
 | Chapter 5 Logistic Regression | How linear scoring connects to class probabilities |
 
-## 3. 1969: The XOR problem cooled down the first neural network wave
+## 1969: The XOR problem cooled down the first neural network wave
 
 The limitations of the perceptron quickly became clear. Minsky and Papert pointed out that a single-layer perceptron cannot solve nonlinear separable problems like XOR.
 
@@ -87,7 +87,7 @@ Recommended related learning:
 | 1.4 From Neurons to MLP | Why multi-layer structures and activation functions matter |
 | Chapter 5 Task Types and Decision Boundaries | Why linear models are not universal |
 
-## 4. 1980: Neocognitron quietly planted the key ideas behind CNNs
+## 1980: Neocognitron quietly planted the key ideas behind CNNs
 
 Long before AlexNet, Fukushima’s Neocognitron, proposed in 1980, already contained the spirit of many core ideas in modern CNNs:
 
@@ -108,7 +108,7 @@ Recommended related learning:
 | 3.2 How Convolution Works | Local receptive fields, convolution kernels, feature maps |
 | 3.4 Classic CNN Architectures | How LeNet, AlexNet, and ResNet inherit and amplify CNN ideas |
 
-## 5. 1986: Backpropagation finally made multi-layer networks trainable
+## 1986: Backpropagation finally made multi-layer networks trainable
 
 If a network has only one layer, adjusting parameters is still relatively intuitive. But the problem with multi-layer networks is that the influence of early-layer parameters on the final loss is indirect and complicated.
 
@@ -135,7 +135,7 @@ Recommended related learning:
 | PyTorch automatic differentiation | What `loss.backward()` means |
 | Chapter 4 Chain Rule | Why backpropagation works mathematically |
 
-## 6. 1989–1997: Expressiveness, gradient vanishing, and LSTM
+## 1989–1997: Expressiveness, gradient vanishing, and LSTM
 
 In 1989, Cybenko’s universal approximation theorem theoretically showed that feedforward networks with nonlinearities have very strong function approximation ability. It sent an important signal for the neural network path: if the structure and training are appropriate, neural networks can indeed represent complex functions.
 
@@ -157,7 +157,7 @@ Recommended related learning:
 | 4.2 RNN Basics | Sequence modeling and hidden states |
 | 4.3 LSTM and GRU | How gating alleviates long-term dependency issues |
 
-## 7. 2006: RBM / DBN brought deep networks back into focus
+## 2006: RBM / DBN brought deep networks back into focus
 
 Around 2006, Hinton’s Deep Belief Nets and RBM pretraining work brought deep networks back into the spotlight. At that time, directly training deep networks was not easy, and pretraining offered a strategy of “learn representations layer by layer first, then fine-tune for the task.”
 
@@ -175,7 +175,7 @@ Recommended related learning:
 | Generative model electives | RBM, VAE, and GAN are different ways of learning data distributions |
 | Chapter 7 Pretraining | The idea of “learn general representations first, then transfer to tasks” |
 
-## 8. 2012–2015: AlexNet, ImageNet, and ResNet made deep learning truly break through in vision
+## 2012–2015: AlexNet, ImageNet, and ResNet made deep learning truly break through in vision
 
 In 2012, AlexNet achieved a breakthrough result in the ImageNet image classification competition. This breakthrough was not just about the model architecture itself, but about several conditions maturing at the same time:
 
@@ -197,7 +197,7 @@ Recommended related learning:
 | 3.5 Transfer Learning | Why pretrained vision models can transfer to new tasks |
 | Chapter 10 Computer Vision | How image classification, detection, and segmentation continue to develop |
 
-## 9. 2017: Attention and Transformer rewrote the main line of sequence modeling
+## 2017: Attention and Transformer rewrote the main line of sequence modeling
 
 RNNs and LSTMs process sequences in order, which naturally creates a problem: they are hard to parallelize, and the path for long-range information is also long. The breakthrough of the Transformer is:
 
@@ -222,7 +222,7 @@ Recommended related learning:
 | Chapter 7 Principles of Large Models | How Transformer became the foundation of LLMs |
 | Chapters 8–9 RAG / Agent | How large models connect with knowledge and tools |
 
-## 10. Map the breakthroughs in deep learning to the learning path of Chapter 6
+## Map the breakthroughs in deep learning to the learning path of Chapter 6
 
 | Historical breakthrough | Problem it solved | Corresponding chapter in this course |
 |---|---|---|
@@ -238,7 +238,7 @@ Recommended related learning:
 | ResNet | Training very deep CNNs is difficult | 3.4 Classic CNN Architectures |
 | Attention / Transformer | Long dependencies, parallel training, and unified sequence modeling | Chapter 5 Transformer, Chapter 7 LLMs |
 
-## 11. The intuition you should have after finishing this section
+## The intuition you should have after finishing this section
 
 The history of deep learning is not just a pile of model names, but a continuous chain of problems:
 

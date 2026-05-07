@@ -1,11 +1,11 @@
 ---
-title: "1.3 OpenCV 基础操作"
+title: "10.1.3 OpenCV 基础操作"
 sidebar_position: 2
 description: "学会用 OpenCV 读写图像、缩放、裁剪、颜色转换和绘图，迈出 CV 工程实践的第一步。"
 keywords: [OpenCV, cv2, 图像读取, 图像缩放, 绘图, 颜色转换]
 ---
 
-# OpenCV 基础操作
+# 10.1.3 OpenCV 基础操作
 
 ## 学习目标
 
@@ -242,16 +242,16 @@ print("已保存 opencv_info_card.png")
 
 ## 八、初学者常见误区
 
-### 1. 用 `cv2.imshow()` 结果窗口打不开
+### 用 `cv2.imshow()` 结果窗口打不开
 
 在很多远程环境、Notebook、服务器环境中，`imshow()` 不方便用。
 教学和脚本场景里，推荐先用 `cv2.imwrite()` 保存结果。
 
-### 2. 把 BGR 当成 RGB
+### 把 BGR 当成 RGB
 
 这是 OpenCV 初学者最常见 bug 之一。
 
-### 3. 裁剪时把 `x`、`y` 顺序写反
+### 裁剪时把 `x`、`y` 顺序写反
 
 图像数组索引是 `[y, x]`，不是 `[x, y]`。
 

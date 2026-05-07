@@ -1,11 +1,11 @@
 ---
-title: "6.1 Hands-on Project: Exploratory Data Analysis (EDA)"
+title: "3.6.1 Hands-on Project: Exploratory Data Analysis (EDA)"
 sidebar_position: 25
 description: "Perform a complete exploratory data analysis on a real dataset with Pandas and Matplotlib/Seaborn, from data cleaning to a visual report"
 keywords: [EDA, Exploratory Data Analysis, Pandas, Matplotlib, Seaborn, data visualization, data cleaning]
 ---
 
-# Hands-on Project: Exploratory Data Analysis (EDA)
+# 3.6.1 Hands-on Project: Exploratory Data Analysis (EDA)
 
 ![EDA exploratory data analysis workflow](/img/course/eda-analysis-workflow-en.png)
 
@@ -75,9 +75,9 @@ After finishing, you will have a **complete EDA report** (a Jupyter Notebook) th
 
 ---
 
-## 1. Project setup
+## Project setup
 
-### 1.1 Dataset selection
+### Dataset selection
 
 We will use Seaborn’s built-in **`tips` dataset** — a record of tips from a U.S. restaurant.
 
@@ -98,7 +98,7 @@ We will use Seaborn’s built-in **`tips` dataset** — a record of tips from a 
 - Easy-to-understand business context — everyone has been to a restaurant
 :::
 
-### 1.2 Environment setup
+### Environment setup
 
 ```python
 # Import all required libraries
@@ -119,7 +119,7 @@ sns.set_theme(style="whitegrid", font_scale=1.1)
 # %matplotlib inline
 ```
 
-### 1.3 Load the data
+### Load the data
 
 ```python
 # Load the built-in dataset
@@ -142,7 +142,7 @@ Example output:
 
 ---
 
-## 2. Data overview — start with “getting familiar”
+## Data overview — start with “getting familiar”
 
 The first step in EDA is not to rush into charts, but to first understand: How big is the dataset? What type is each column? Are there missing values?
 
@@ -157,7 +157,7 @@ The 4 most important questions are:
 
 If you can answer these 4 questions clearly first, many later analysis steps will go much more smoothly.
 
-### 2.1 Basic information
+### Basic information
 
 ```python
 # Data types and non-null counts
@@ -191,7 +191,7 @@ tips.describe()
 - Tips range from 1 USD to 10 USD
 - Most parties have 2 people
 
-### 2.2 Distribution of categorical variables
+### Distribution of categorical variables
 
 ```python
 # Count each value for categorical variables
@@ -206,7 +206,7 @@ for col in ['sex', 'smoker', 'day', 'time']:
 - Saturday and Sunday have the most records
 - Dinner data is far more common than lunch data (176 vs 68)
 
-### 2.3 Create derived features
+### Create derived features
 
 Good analysts **create new features** to help discover patterns:
 
@@ -230,11 +230,11 @@ tips[['total_bill', 'tip', 'tip_pct', 'per_person']].head()
 
 ---
 
-## 3. Data cleaning — check data quality
+## Data cleaning — check data quality
 
 This dataset is quite clean, but in real projects this step usually takes the most time. We will still go through the full process:
 
-### 3.1 Missing value check
+### Missing value check
 
 ```python
 # Missing value statistics
@@ -243,7 +243,7 @@ print("Missing value statistics:")
 print(missing[missing > 0] if missing.sum() > 0 else "No missing values ✓")
 ```
 
-### 3.2 Duplicate value check
+### Duplicate value check
 
 ```python
 # Completely duplicated rows
@@ -255,7 +255,7 @@ if dup_count > 0:
     print(f"Duplicates removed, {len(tips)} rows remaining")
 ```
 
-### 3.3 Outlier detection
+### Outlier detection
 
 Use the IQR (interquartile range) method to detect outliers:
 
@@ -288,9 +288,9 @@ In the EDA stage, we usually **do not rush to delete outliers**. Instead, we fir
 
 ---
 
-## 4. Statistical analysis — let the numbers speak
+## Statistical analysis — let the numbers speak
 
-### 4.1 Core statistical metrics
+### Core statistical metrics
 
 ```python
 # Tip statistics grouped by gender
@@ -303,7 +303,7 @@ day_stats = tips.groupby('day')[['total_bill', 'tip']].agg(['mean', 'count'])
 print(day_stats)
 ```
 
-### 4.2 Cross analysis
+### Cross analysis
 
 ```python
 # Pivot table: average tip percentage by gender and smoker status
@@ -327,7 +327,7 @@ Example output:
 
 **Finding**: Female smokers have the highest tip percentage, while male smokers have the lowest.
 
-### 4.3 Correlation analysis
+### Correlation analysis
 
 ```python
 # Correlation coefficients for numeric columns
@@ -354,9 +354,9 @@ This is often easier to follow than jumping directly into complex facet plots at
 
 ---
 
-## 5. Visual exploration — let the data speak
+## Visual exploration — let the data speak
 
-### 5.1 Numeric distributions
+### Numeric distributions
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
@@ -384,7 +384,7 @@ plt.show()
 
 **Interpretation**: Total bill and tip both have right-skewed distributions — most people spend between 10 and 25 USD, and most tips are between 2 and 4 USD.
 
-### 5.2 Visualization of categorical variables
+### Visualization of categorical variables
 
 ```python
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
@@ -411,7 +411,7 @@ plt.savefig('02_categorical.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.3 Exploring key relationships
+### Exploring key relationships
 
 #### Relationship between bill and tip
 
@@ -471,7 +471,7 @@ plt.show()
 - Dinner tips are overall higher than lunch tips (because dinner spending is higher)
 - Larger parties give higher tips
 
-### 5.4 Correlation heatmap
+### Correlation heatmap
 
 ```python
 plt.figure(figsize=(8, 6))
@@ -492,7 +492,7 @@ plt.savefig('05_correlation.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.5 Combined multi-dimensional analysis
+### Combined multi-dimensional analysis
 
 ```python
 # FacetGrid: look at the bill-tip relationship by gender and smoking status
@@ -509,7 +509,7 @@ plt.show()
 
 ---
 
-## 6. Analysis conclusions
+## Analysis conclusions
 
 After a complete EDA, we can draw the following conclusions:
 
@@ -563,7 +563,7 @@ This order is especially important because it turns your Notebook from “many c
 
 ---
 
-## 7. Code integration — complete analysis script
+## Code integration — complete analysis script
 
 Combine the above analysis into a clear, structured script:
 
@@ -627,7 +627,7 @@ print("\nAnalysis complete!")
 
 ---
 
-## 8. Advanced challenges
+## Advanced challenges
 
 After completing the basic EDA, try these challenges:
 
@@ -709,7 +709,7 @@ fig.show()
 
 ---
 
-## 9. EDA checklist
+## EDA checklist
 
 After finishing the project, check the following:
 

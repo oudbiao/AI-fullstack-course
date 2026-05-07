@@ -1,11 +1,11 @@
 ---
-title: "2.9 PyTorch + Matplotlib 实操工作坊"
+title: "6.2.9 PyTorch + Matplotlib 实操工作坊"
 sidebar_position: 7
 description: "一个适合新人的完整 PyTorch 实战：先画数据，转成 Tensor，构建 DataLoader，训练 MLP，并可视化损失曲线和决策边界。"
 keywords: [PyTorch 实操, Matplotlib, DataLoader, 训练循环, 决策边界, MLP, CrossEntropyLoss]
 ---
 
-# PyTorch + Matplotlib 实操工作坊
+# 6.2.9 PyTorch + Matplotlib 实操工作坊
 
 ![PyTorch 实操流程](/img/course/ch06-pytorch-hands-on-workflow.png)
 
@@ -51,7 +51,7 @@ python -m pip install -r requirements-course-ai.txt
 
 ---
 
-## 1. 先创建并画出数据
+## 先创建并画出数据
 
 写模型前先看数据。这能避免一个常见新手错误：还不知道模型要学什么形状，就直接开始训练。
 
@@ -76,7 +76,7 @@ plt.show()
 - 所以带非线性的神经网络会有用
 - 这张图也是后面判断决策边界是否合理的参照
 
-## 2. 转成 Tensor
+## 转成 Tensor
 
 PyTorch 模型需要 Tensor。对于 `CrossEntropyLoss` 使用的分类标签，`y` 应该是整数类别编号，并且类型是 `torch.long`。
 
@@ -104,7 +104,7 @@ y shape: torch.Size([600]) dtype: torch.int64
 - `X`：`[batch, features]`，每个样本有 2 个特征
 - `y`：`[batch]`，每个值是类别标签：`0` 或 `1`
 
-## 3. 构建 `Dataset` 和 `DataLoader`
+## 构建 `Dataset` 和 `DataLoader`
 
 `TensorDataset` 会让 `X` 和 `y` 保持配对。`DataLoader` 负责打乱数据并组成小批量。
 
@@ -132,7 +132,7 @@ print("batch_y shape:", batch_y.shape)
 - `shuffle=True` 避免模型每轮都按固定顺序看数据
 - 验证集不需要打乱，因为它只用于评估
 
-## 4. 定义一个小型神经网络
+## 定义一个小型神经网络
 
 这个模型把一个二维点映射为两个 logits，每个类别一个分数。
 
@@ -162,7 +162,7 @@ print(model)
 - 最后一层输出 `2` 个值，因为这是二分类任务
 - 不要在这里加 `Softmax`，因为 `nn.CrossEntropyLoss()` 需要原始 logits
 
-## 5. 训练和验证
+## 训练和验证
 
 训练循环遵循前面学过的节奏：
 
@@ -222,7 +222,7 @@ for epoch in range(1, 101):
 
 如果训练正常，验证准确率通常会明显高于随机猜测。
 
-## 6. 绘制损失曲线
+## 绘制损失曲线
 
 损失曲线能告诉你训练是否在朝正确方向走。
 
@@ -244,7 +244,7 @@ plt.show()
 - 如果训练 loss 下降但验证 loss 上升，要警惕过拟合
 - 如果两者都不下降，检查学习率、标签、模型输出形状和损失函数
 
-## 7. 绘制决策边界
+## 绘制决策边界
 
 决策边界能把模型学到的几何规律画出来。
 
@@ -278,7 +278,7 @@ plt.show()
 
 这张图通常是 PyTorch 开始变得具体的时刻：模型不再只是打印数字，你能看到它如何划分空间。
 
-## 8. 常见错误与修复
+## 常见错误与修复
 
 | 现象 | 可能原因 | 修复方式 |
 |---|---|---|
@@ -287,7 +287,7 @@ plt.show()
 | 损失函数 shape 报错 | 输出或标签形状不对 | `CrossEntropyLoss` 中 logits 应为 `[batch, classes]`，标签应为 `[batch]` |
 | 验证时显存或内存占用过高 | 验证阶段仍在记录梯度 | 使用 `model.eval()` 和 `with torch.no_grad()` |
 
-## 9. 练习任务
+## 练习任务
 
 1. 把隐藏层大小从 `32` 改成 `16` 和 `64`，比较决策边界。
 2. 把 `noise=0.18` 改成 `noise=0.3`，观察任务如何变难。

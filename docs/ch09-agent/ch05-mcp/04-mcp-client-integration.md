@@ -1,11 +1,11 @@
 ---
-title: "5.5 MCP Client Integration"
+title: "9.5.5 MCP Client Integration"
 sidebar_position: 28
 description: "From tool discovery and call dispatch to error handling and a minimal client implementation, understand how the client actually consumes the capabilities exposed by an MCP Server."
 keywords: [MCP client, tool discovery, client integration, dispatch, protocol client]
 ---
 
-# MCP Client Integration
+# 9.5.5 MCP Client Integration
 
 :::tip Section Overview
 So far, we have looked at MCP from the server side.
@@ -25,9 +25,9 @@ This step is very important, because in real usage, the one that actually uses t
 
 ---
 
-## 1. How are the responsibilities of Client and Server divided?
+## How are the responsibilities of Client and Server divided?
 
-### 1.1 The Server provides capabilities
+### The Server provides capabilities
 
 The Server is more like a “tool warehouse manager.” It is responsible for:
 
@@ -35,7 +35,7 @@ The Server is more like a “tool warehouse manager.” It is responsible for:
 - Exposing capabilities
 - Executing calls
 
-### 1.2 The Client consumes capabilities
+### The Client consumes capabilities
 
 The Client is more like the “person actually doing the work.” It is responsible for:
 
@@ -50,9 +50,9 @@ So one very important point is:
 
 ---
 
-## 2. What should the Client learn first? Discover tools first
+## What should the Client learn first? Discover tools first
 
-### 2.1 Why not hard-code everything?
+### Why not hard-code everything?
 
 If the client hard-codes all tools from the beginning:
 
@@ -61,7 +61,7 @@ If the client hard-codes all tools from the beginning:
 
 That is the exact opposite of what MCP is trying to solve.
 
-### 2.2 A minimal discovery example
+### A minimal discovery example
 
 ```python
 class MockMCPServer:
@@ -78,7 +78,7 @@ for tool in tools:
     print(tool)
 ```
 
-### 2.3 What is this step teaching you?
+### What is this step teaching you?
 
 It is teaching you this:
 
@@ -88,9 +88,9 @@ That is the value of the discovery phase.
 
 ---
 
-## 3. After discovery, what else does the client need to do?
+## After discovery, what else does the client need to do?
 
-### 3.1 Choose a tool
+### Choose a tool
 
 Not every tool needs to be called.
 The client usually needs to judge first:
@@ -98,11 +98,11 @@ The client usually needs to judge first:
 - Whether the current problem needs a tool
 - If it does, which tool to call
 
-### 3.2 Organize arguments
+### Organize arguments
 
 Even if the correct tool is chosen, the arguments still need to be organized properly.
 
-### 3.3 Handle errors
+### Handle errors
 
 If:
 
@@ -118,9 +118,9 @@ the client cannot just crash. It also needs to decide:
 
 ---
 
-## 4. A minimal Client example
+## A minimal Client example
 
-### 4.1 Runnable code
+### Runnable code
 
 ```python
 class MockMCPServer:
@@ -156,7 +156,7 @@ print(client.discover())
 print(client.call("search_docs", {"query": "refund policy"}))
 ```
 
-### 4.2 What is this code already showing?
+### What is this code already showing?
 
 It already shows the client’s two main functions:
 
@@ -167,9 +167,9 @@ This is the minimal closed loop of an MCP Client.
 
 ---
 
-## 5. The Client actually has a “strategy layer”
+## The Client actually has a “strategy layer”
 
-### 5.1 Why say the client is not just a protocol caller?
+### Why say the client is not just a protocol caller?
 
 Because in real systems, the client often still needs to decide:
 
@@ -177,7 +177,7 @@ Because in real systems, the client often still needs to decide:
 - If so, which server / which tool has priority
 - How to fall back after a failure
 
-### 5.2 A simple tool selector
+### A simple tool selector
 
 ```python
 def choose_tool(user_query, tools):
@@ -201,9 +201,9 @@ This shows that the client often also takes on a lightweight scheduling role.
 
 ---
 
-## 6. Why is error handling especially important for the client?
+## Why is error handling especially important for the client?
 
-### 6.1 Because the client is the first one to feel the failure
+### Because the client is the first one to feel the failure
 
 The server side may return:
 
@@ -213,7 +213,7 @@ The server side may return:
 
 And the client must decide what to do next.
 
-### 6.2 A minimal error handling example
+### A minimal error handling example
 
 ```python
 def safe_call(client, name, arguments):
@@ -236,9 +236,9 @@ into:
 
 ---
 
-## 7. Why do clients sometimes need caching too?
+## Why do clients sometimes need caching too?
 
-### 7.1 A very practical question
+### A very practical question
 
 If you call `list_tools()` again for every request, wouldn’t that be wasteful?
 
@@ -247,7 +247,7 @@ In many cases:
 - The tool list does not change that often
 - Rediscovering every time adds latency
 
-### 7.2 A minimal caching idea
+### A minimal caching idea
 
 ```python
 class CachedMCPClient(MockMCPClient):
@@ -267,19 +267,19 @@ Although simple, it already shows:
 
 ---
 
-## 8. Common pitfalls in client integration
+## Common pitfalls in client integration
 
-### 8.1 Being able to call, but not choose
+### Being able to call, but not choose
 
 If the client does not do selection strategy, it is easy to end up with:
 
 - Many tools, but no idea how to use them
 
-### 8.2 Looking only at success, not at failure paths
+### Looking only at success, not at failure paths
 
 Once the server fails, the system experience can suddenly get much worse.
 
-### 8.3 Rediscovering tools every time
+### Rediscovering tools every time
 
 This may waste a lot of unnecessary overhead.
 

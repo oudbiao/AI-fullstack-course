@@ -1,11 +1,11 @@
 ---
-title: "4.2 RNN Basics"
+title: "6.4.2 RNN Basics"
 sidebar_position: 1
 description: "From why sequences are hard, to hidden state, time unrolling, and PyTorch RNNs, truly understand what problem RNNs are solving."
 keywords: [RNN, sequence modeling, hidden state, recurrent neural network, time step]
 ---
 
-# RNN Basics
+# 6.4.2 RNN Basics
 
 ![RNN time-unrolled hidden state diagram](/img/course/rnn-unrolled-hidden-state-en.png)
 
@@ -39,9 +39,9 @@ In other words, the most important new thing in an RNN is not that “the recurr
 
 - the model now has a very basic form of “memory”
 
-## 1. Why Are Sequence Tasks Harder?
+## Why Are Sequence Tasks Harder?
 
-### 1.1 Order itself is information
+### Order itself is information
 
 Look at these two sentences:
 
@@ -66,7 +66,7 @@ So the difficulty in sequence tasks is not “there is more data,” but:
 
 > **Earlier information affects how later information is understood.**
 
-### 1.2 Why is MLP not good at this problem?
+### Why is MLP not good at this problem?
 
 An MLP can map a fixed-length vector to an output, but it does not naturally remember:
 
@@ -76,7 +76,7 @@ An MLP can map a fixed-length vector to an output, but it does not naturally rem
 
 It is like forcing yourself to “forget everything” every time you read a new sentence, which naturally makes long sequences hard to understand.
 
-### 1.3 When learning RNNs for the first time, don’t start with the formula
+### When learning RNNs for the first time, don’t start with the formula
 
 Instead, start by holding on to this sentence:
 
@@ -90,9 +90,9 @@ Once this idea is stable, it becomes much easier to understand why we need:
 
 ---
 
-## 2. The Core Idea of RNNs: At Each Step, Carry a Bit of “Memory”
+## The Core Idea of RNNs: At Each Step, Carry a Bit of “Memory”
 
-### 2.1 What is hidden state?
+### What is hidden state?
 
 The core design of an RNN is the hidden state `h_t`.
 
@@ -107,7 +107,7 @@ When a new input `x_t` arrives, the model combines:
 
 to compute a new memory `h_t`.
 
-### 2.2 A very easy-to-remember analogy
+### A very easy-to-remember analogy
 
 An RNN is like taking notes while listening to someone speak:
 
@@ -117,7 +117,7 @@ An RNN is like taking notes while listening to someone speak:
 
 This “read and update at the same time” process is the essence of an RNN.
 
-### 2.3 What is hidden state most often misunderstood as?
+### What is hidden state most often misunderstood as?
 
 Many beginners think of `h_t` as “exact memory.”
 A more accurate understanding is:
@@ -131,9 +131,9 @@ That is also why plain RNNs often run into problems:
 
 ---
 
-## 3. How Does an RNN Unroll Over Time?
+## How Does an RNN Unroll Over Time?
 
-### 3.1 The same parameters are reused at every time step
+### The same parameters are reused at every time step
 
 An RNN does not create a separate new set of parameters for each time step.
 What it does is:
@@ -156,12 +156,12 @@ flowchart LR
     style H3 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 3.2 Why is “parameter sharing” important?
+### Why is “parameter sharing” important?
 
 Because whether a sentence has 5 words or 50 words, the model can process it in the same way.
 This is one of the keys to why RNNs can handle variable-length sequences.
 
-### 3.3 When first learning time unrolling, what is the most important thing to understand?
+### When first learning time unrolling, what is the most important thing to understand?
 
 Don’t treat it as a complicated diagram right away.
 Just understand this one point first:
@@ -179,9 +179,9 @@ You can read this diagram from left to right: at each time step, the current inp
 
 ---
 
-## 4. A Minimal Hand-Crafted Example: Calculating the Hidden State Step by Step
+## A Minimal Hand-Crafted Example: Calculating the Hidden State Step by Step
 
-### 4.1 First look at the simplest formula
+### First look at the simplest formula
 
 The simplest RNN can be written as:
 
@@ -193,7 +193,7 @@ Here:
 - `h_{t-1}`: previous-step memory
 - `h_t`: current new memory
 
-### 4.2 Runnable example
+### Runnable example
 
 ```python
 import numpy as np
@@ -212,7 +212,7 @@ for t, x_t in enumerate(x_seq, start=1):
     print(f"step={t}, x_t={x_t:.1f}, h_t={h:.4f}")
 ```
 
-### 4.3 What is this code actually teaching?
+### What is this code actually teaching?
 
 It is not trying to simulate a real large model. It is here to help you understand first that:
 
@@ -222,7 +222,7 @@ It is not trying to simulate a real large model. It is here to help you understa
 
 Once you understand these three points, you have grasped the core of RNNs.
 
-### 4.4 When you manually walk through this code for the first time, what should you focus on?
+### When you manually walk through this code for the first time, what should you focus on?
 
 It is recommended to focus on just these three:
 
@@ -234,9 +234,9 @@ In other words, understanding “input + old memory -> new memory” is more imp
 
 ---
 
-## 5. What Are the Different Input/Output Patterns of RNNs?
+## What Are the Different Input/Output Patterns of RNNs?
 
-### 5.1 Many-to-one: one result for the whole sequence
+### Many-to-one: one result for the whole sequence
 
 Typical tasks:
 
@@ -252,7 +252,7 @@ Output:
 
 - one class
 
-### 5.2 Many-to-many: output at every step
+### Many-to-many: output at every step
 
 Typical tasks:
 
@@ -268,7 +268,7 @@ Output:
 
 - one label for each word
 
-### 5.3 Sequence-to-sequence: one sequence becomes another sequence
+### Sequence-to-sequence: one sequence becomes another sequence
 
 Typical tasks:
 
@@ -279,9 +279,9 @@ This will be covered in more detail later in the Seq2Seq chapter.
 
 ---
 
-## 6. How Do You Actually Use an RNN in PyTorch?
+## How Do You Actually Use an RNN in PyTorch?
 
-### 6.1 Minimal runnable example
+### Minimal runnable example
 
 ```python
 import torch
@@ -304,7 +304,7 @@ print("out shape :", out.shape)
 print("h shape   :", h.shape)
 ```
 
-### 6.2 What do these shapes mean?
+### What do these shapes mean?
 
 Input:
 
@@ -325,7 +325,7 @@ Final hidden state:
 - the second dimension `2` is the batch size
 - the third dimension `6` is the hidden-state size
 
-### 6.3 What is the difference between `out` and `h`?
+### What is the difference between `out` and `h`?
 
 - `out`: keeps the output of every time step
 - `h`: the hidden state at the last time step
@@ -334,7 +334,7 @@ In many-to-one classification tasks, people often directly use the final `h` or 
 
 ---
 
-## 7. A Small Example Closer to a Real Task: Sequence Classification
+## A Small Example Closer to a Real Task: Sequence Classification
 
 Below we simulate a very small task:
 
@@ -395,9 +395,9 @@ This example is very small, but it really teaches one thing:
 
 ---
 
-## 8. Why Were RNNs Eventually Pushed Aside by LSTM / GRU and Transformer?
+## Why Were RNNs Eventually Pushed Aside by LSTM / GRU and Transformer?
 
-### 8.1 Main problem: long-range dependencies are hard
+### Main problem: long-range dependencies are hard
 
 In theory, RNNs can remember for a long time, but in practice they often run into:
 
@@ -407,7 +407,7 @@ In theory, RNNs can remember for a long time, but in practice they often run int
 
 For example, in a very long sentence, information from the beginning may become hard to preserve by the end.
 
-### 8.2 Training is not parallelizable enough
+### Training is not parallelizable enough
 
 RNNs compute step by step:
 
@@ -431,9 +431,9 @@ But RNNs are still worth learning, because they help you truly understand the un
 
 ---
 
-## 9. Common Mistakes Beginners Make
+## Common Mistakes Beginners Make
 
-### 9.1 Not knowing what the input shape should look like
+### Not knowing what the input shape should look like
 
 In PyTorch, the most common confusion is:
 
@@ -444,14 +444,14 @@ If you set `batch_first=True`, the input is usually:
 
 - `[batch, seq_len, input_size]`
 
-### 9.2 Confusing `out` and `h`
+### Confusing `out` and `h`
 
 Remember:
 
 - `out` is for looking at every step
 - `h` is for the final summary
 
-### 9.3 Thinking RNNs can naturally remember very long histories
+### Thinking RNNs can naturally remember very long histories
 
 Theoretically they can, but in practice they often cannot.
 That is exactly why we need to learn LSTM / GRU later.

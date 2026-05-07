@@ -1,11 +1,11 @@
 ---
-title: "4.3 LSTM and GRU"
+title: "6.4.3 LSTM and GRU"
 sidebar_position: 2
 description: "From why RNNs forget to how gated mechanisms control information flow, understand the role of LSTM and GRU in sequence modeling."
 keywords: [LSTM, GRU, gated mechanism, cell state, update gate, forget gate]
 ---
 
-# LSTM and GRU
+# 6.4.3 LSTM and GRU
 
 ![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.png)
 
@@ -98,9 +98,9 @@ That is why many people later saw LSTM as:
 
 ---
 
-## 1. Why Is a Plain RNN Not Enough?
+## Why Is a Plain RNN Not Enough?
 
-### 1.1 A Classic Problem: Long-Range Dependencies
+### A Classic Problem: Long-Range Dependencies
 
 Look at this sentence:
 
@@ -115,7 +115,7 @@ A plain RNN can theoretically do this, but in practice it often faces these issu
 - Gradients tend to vanish during training
 - On long sequences, memory becomes unstable
 
-### 1.2 An Intuitive Analogy
+### An Intuitive Analogy
 
 A plain RNN is like repeatedly rewriting a short summary on a piece of paper:
 
@@ -134,9 +134,9 @@ That is the gated mechanism.
 
 ---
 
-## 2. LSTM’s Core Intuition: Adding “Gates” to Memory
+## LSTM’s Core Intuition: Adding “Gates” to Memory
 
-### 2.1 What Does LSTM Add?
+### What Does LSTM Add?
 
 Compared with a plain RNN, the key enhancements in LSTM are:
 
@@ -147,7 +147,7 @@ You can first understand it as:
 
 > **A plain RNN is like having only a small notebook, while LSTM is like a more refined memory management system.**
 
-### 2.2 The Three Gates in LSTM
+### The Three Gates in LSTM
 
 | Gate | Function |
 |---|---|
@@ -159,9 +159,9 @@ These gates are not hand-written rules; they are learned by the model itself.
 
 ---
 
-## 3. Build Intuition First with a “Scalar LSTM”
+## Build Intuition First with a “Scalar LSTM”
 
-### 3.1 Why Look at the Scalar Version First?
+### Why Look at the Scalar Version First?
 
 Because a real LSTM is full of matrices and vectors at the beginning, which can overwhelm beginners.
 Starting with a smaller version makes it easier to grasp the essence.
@@ -200,7 +200,7 @@ print("c_t         =", round(float(c_t), 4))
 print("h_t         =", round(float(h_t), 4))
 ```
 
-### 3.2 What Is This Code Teaching?
+### What Is This Code Teaching?
 
 It teaches you that:
 
@@ -220,16 +220,16 @@ When reading this diagram, focus on just three things first: the Forget Gate dec
 
 ---
 
-## 4. The Two States in LSTM: `c_t` and `h_t`
+## The Two States in LSTM: `c_t` and `h_t`
 
-### 4.1 Why Are There Two States?
+### Why Are There Two States?
 
 An LSTM usually has:
 
 - `c_t`: cell state, more like the main long-term memory path
 - `h_t`: hidden state, more like the current output at this time step
 
-### 4.2 An Easy-to-Remember Analogy
+### An Easy-to-Remember Analogy
 
 You can think of it as:
 
@@ -240,9 +240,9 @@ You do not necessarily say everything in the draft notebook, but it determines w
 
 ---
 
-## 5. GRU: A Lighter Gated Version
+## GRU: A Lighter Gated Version
 
-### 5.1 Why Did GRU Appear?
+### Why Did GRU Appear?
 
 LSTM is powerful, but it is also more complex.
 Later, people proposed GRU (Gated Recurrent Unit) as a version that is:
@@ -251,14 +251,14 @@ Later, people proposed GRU (Gated Recurrent Unit) as a version that is:
 - has fewer parameters
 - performs similarly well in many cases
 
-### 5.2 The Two Core Gates in GRU
+### The Two Core Gates in GRU
 
 | Gate | Function |
 |---|---|
 | Update Gate | Decides how much old state to keep and how much new state to mix in |
 | Reset Gate | Decides how much old information to forget when computing the new state |
 
-### 5.3 A Minimal GRU Intuition Example
+### A Minimal GRU Intuition Example
 
 ```python
 import numpy as np
@@ -281,7 +281,7 @@ print("h_candidate =", round(float(h_candidate), 4))
 print("h_t         =", round(float(h_t), 4))
 ```
 
-### 5.4 Intuitive Difference from LSTM
+### Intuitive Difference from LSTM
 
 - LSTM: more like a detailed memory management system
 - GRU: more like a compressed memory management system
@@ -292,9 +292,9 @@ So it is often convenient to remember it this way:
 
 ---
 
-## 6. How Should You Choose Between LSTM and GRU?
+## How Should You Choose Between LSTM and GRU?
 
-### 6.1 General Rule of Thumb
+### General Rule of Thumb
 
 If you just want a baseline sequence model:
 
@@ -304,7 +304,7 @@ If the task is especially sensitive to long-range dependencies:
 
 - LSTM is often worth trying
 
-### 6.2 But Do Not Overhype Them
+### But Do Not Overhype Them
 
 In the age of large models, many long-text tasks are handled more often by Transformers.
 Still, LSTM and GRU remain very common in these scenarios:
@@ -316,9 +316,9 @@ Still, LSTM and GRU remain very common in these scenarios:
 
 ---
 
-## 7. How Do You Use LSTM and GRU in PyTorch?
+## How Do You Use LSTM and GRU in PyTorch?
 
-### 7.1 Minimal Runnable Example
+### Minimal Runnable Example
 
 ```python
 import torch
@@ -341,7 +341,7 @@ print("gru_out shape :", gru_out.shape)
 print("gru_h shape   :", gru_h.shape)
 ```
 
-### 7.2 What Are the Outputs?
+### What Are the Outputs?
 
 For LSTM:
 
@@ -360,7 +360,7 @@ Here you can also see one difference at a glance:
 
 ---
 
-## 8. A Small Task: Let the Model Remember Information from the Beginning of a Sequence
+## A Small Task: Let the Model Remember Information from the Beginning of a Sequence
 
 Next, we construct a very small task:
 
@@ -424,13 +424,13 @@ This task is very small, but it does teach you something important:
 
 ---
 
-## 9. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 9.1 Thinking of LSTM / GRU as “deeper than RNN”
+### Thinking of LSTM / GRU as “deeper than RNN”
 
 It is not “deeper,” but “smarter about memory management.”
 
-### 9.2 Confusing `out`, `h`, and `c`
+### Confusing `out`, `h`, and `c`
 
 Remember:
 
@@ -438,7 +438,7 @@ Remember:
 - `h`: final hidden state
 - `c`: LSTM’s long-term memory state
 
-### 9.3 Thinking LSTM Automatically Never Forgets
+### Thinking LSTM Automatically Never Forgets
 
 Not true.
 It is just better than a plain RNN at controlling what to forget and what to keep; that does not mean it can handle infinitely long dependencies with ease.

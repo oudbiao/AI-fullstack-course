@@ -1,11 +1,11 @@
 ---
-title: "6.2 Finetuning Overview"
+title: "7.6.2 Finetuning Overview"
 sidebar_position: 19
 description: "Build your first engineering judgment for finetuning: from why you should not always finetune, to when finetuning is more appropriate, and the difference between full finetuning and PEFT."
 keywords: [finetuning, PEFT, full finetune, task adaptation, model customization]
 ---
 
-# Finetuning Overview
+# 7.6.2 Finetuning Overview
 
 ![Overall finetuning and alignment flowchart](/img/course/finetuning-alignment-pipeline-en.png)
 
@@ -71,7 +71,7 @@ What this section really wants to solve is:
 - When should you finetune?
 - What kinds of problems does finetuning solve, and what does it not solve?
 
-## 1. What Problem Does Finetuning Actually Solve?
+## What Problem Does Finetuning Actually Solve?
 
 You can roughly think of it as:
 
@@ -91,7 +91,7 @@ rather than just:
 
 - Adding knowledge
 
-### 1.1 When you first learn finetuning, what should you focus on first?
+### When you first learn finetuning, what should you focus on first?
 
 What you should focus on first is not method names like LoRA or full finetuning, but this sentence:
 
@@ -105,7 +105,7 @@ Once this idea is stable, many later judgments become easier:
 
 ---
 
-## 2. Why Should Not Every Problem Start with Finetuning?
+## Why Should Not Every Problem Start with Finetuning?
 
 Many problems are better handled first by considering:
 
@@ -113,20 +113,20 @@ Many problems are better handled first by considering:
 - RAG
 - Tool calling
 
-### 2.1 If the problem is “the knowledge is not up to date”
+### If the problem is “the knowledge is not up to date”
 
 The more natural first choice is often:
 
 - Retrieval
 
-### 2.2 If the problem is “the output format is unstable”
+### If the problem is “the output format is unstable”
 
 The more natural first choice is often:
 
 - Prompt optimization
 - Structured output
 
-### 2.3 When is finetuning more worth prioritizing?
+### When is finetuning more worth prioritizing?
 
 When you find the problem is more like:
 
@@ -140,7 +140,7 @@ Remember this one sentence first:
 
 > **First determine whether this is a knowledge problem, a format problem, or a behavior problem.**
 
-### 2.4 Judgment table for the three types of problems
+### Judgment table for the three types of problems
 
 | Problem symptom | What kind of problem is it more like? | What should you prioritize? |
 |---|---|---|
@@ -159,9 +159,9 @@ It is recommended to read this diagram from the root cause of the problem: if kn
 
 ---
 
-## 3. The Difference Between Full Finetuning and Parameter-Efficient Finetuning
+## The Difference Between Full Finetuning and Parameter-Efficient Finetuning
 
-### 3.1 Full Finetuning
+### Full Finetuning
 
 Intuitively, this means:
 
@@ -177,7 +177,7 @@ Disadvantages:
 - High cost
 - Harder to train
 
-### 3.2 Parameter-Efficient Finetuning (PEFT)
+### Parameter-Efficient Finetuning (PEFT)
 
 Intuitively, this means:
 
@@ -191,7 +191,7 @@ Advantages:
 
 That is why PEFT is becoming more and more common in real projects.
 
-### 3.3 When you first look at PEFT, what is most worth remembering?
+### When you first look at PEFT, what is most worth remembering?
 
 What is most worth remembering is not the details of specific algorithms, but this:
 
@@ -203,7 +203,7 @@ In other words, PEFT is not just trendy. It is:
 
 ---
 
-## 4. A Cost Map for Adaptation Approaches
+## A Cost Map for Adaptation Approaches
 
 ```mermaid
 flowchart LR
@@ -221,7 +221,7 @@ This diagram can serve as a reminder when choosing a solution for the first time
 
 ---
 
-## 5. A Minimal Parameter-Scale Example
+## A Minimal Parameter-Scale Example
 
 ```python
 params = {
@@ -233,7 +233,7 @@ for name, count in params.items():
     print(name, "trainable_params =", count)
 ```
 
-### 5.1 What is this code reminding us of?
+### What is this code reminding us of?
 
 It is not telling you a precise number. It is reminding you of this:
 
@@ -247,9 +247,9 @@ This directly determines:
 
 ---
 
-## 6. When Is Finetuning Really Valuable?
+## When Is Finetuning Really Valuable?
 
-### 6.1 When you want the model to form stable behavior
+### When you want the model to form stable behavior
 
 For example:
 
@@ -257,7 +257,7 @@ For example:
 - A specific task format
 - Specific domain habits
 
-### 6.2 When you have stable, sustainable data
+### When you have stable, sustainable data
 
 If your task data:
 
@@ -267,16 +267,16 @@ If your task data:
 
 then finetuning is usually more meaningful.
 
-### 6.3 When is it not worth it?
+### When is it not worth it?
 
 If the requirements change frequently, or the knowledge updates often,
 then in many cases finetuning is not the first choice.
 
 ---
 
-## 7. The Easiest Place to Overestimate Finetuning
+## The Easiest Place to Overestimate Finetuning
 
-### 7.1 Misconception 1: Thinking finetuning can solve everything
+### Misconception 1: Thinking finetuning can solve everything
 
 It cannot.
 Many problems are better solved with:
@@ -285,17 +285,17 @@ Many problems are better solved with:
 - Workflows
 - Prompt
 
-### 7.2 Misconception 2: Thinking finetuning will make the model “memorize the knowledge base”
+### Misconception 2: Thinking finetuning will make the model “memorize the knowledge base”
 
 Finetuning is better for shaping behavior, and is not always suitable for carrying rapidly changing knowledge.
 
-### 7.3 Misconception 3: Thinking that training it means it will definitely get better
+### Misconception 3: Thinking that training it means it will definitely get better
 
 If the data is poor, finetuning may actually make the model worse.
 
 ---
 
-## 8. A Very Practical Question
+## A Very Practical Question
 
 Before deciding whether to finetune, ask:
 
@@ -306,7 +306,7 @@ Before deciding whether to finetune, ask:
 
 If these questions are answered clearly, the finetuning decision will usually be much more solid.
 
-### 8.1 The safest order when doing a project for the first time
+### The safest order when doing a project for the first time
 
 If you want to truly ship a task, it is recommended to go in this order:
 
@@ -337,7 +337,7 @@ Once this judgment is established, when you later learn LoRA, QLoRA, and enginee
 
 ---
 
-## 9. Exercises
+## Exercises
 
 1. Think of a real project of yours and judge whether its problem is more like a knowledge problem or a behavior problem.
 2. Explain in your own words: why should not all tasks prioritize finetuning?

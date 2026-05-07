@@ -1,11 +1,11 @@
 ---
-title: "6.2 GAN Basics [Optional]"
+title: "6.6.2 GAN Basics [Optional]"
 sidebar_position: 1
 description: "Starting from the adversarial game between the generator and the discriminator, understand why GAN can learn realistic samples and why it is often hard to train stably."
 keywords: [GAN, generator, discriminator, adversarial training, mode collapse]
 ---
 
-# GAN Basics [Optional]
+# 6.6.2 GAN Basics [Optional]
 
 ![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.png)
 
@@ -62,9 +62,9 @@ So the most important thing in this section is not to memorize the loss function
 - What the discriminator wants to do
 - Why training both together makes the system harder
 
-## 1. What exactly does GAN do?
+## What exactly does GAN do?
 
-### 1.1 Generator
+### Generator
 
 Input:
 
@@ -78,7 +78,7 @@ Its goal is to:
 
 - Make the sample look like it came from the real data distribution
 
-### 1.2 Discriminator
+### Discriminator
 
 Input:
 
@@ -92,7 +92,7 @@ Its goal is to:
 
 - Distinguish real samples from fake ones
 
-### 1.3 An analogy
+### An analogy
 
 GAN is like a battle between a counterfeit money factory and a bill detector:
 
@@ -101,7 +101,7 @@ GAN is like a battle between a counterfeit money factory and a bill detector:
 
 Through this ongoing game, the quality of fake samples improves.
 
-### 1.4 When learning GAN for the first time, what should you focus on?
+### When learning GAN for the first time, what should you focus on?
 
 What you should focus on first is not a pile of adversarial loss formulas, but this sentence:
 
@@ -121,7 +121,7 @@ When reading this diagram, think of GAN as two people learning at the same time:
 
 ---
 
-## 2. Why is GAN more interesting than “direct pixel fitting”?
+## Why is GAN more interesting than “direct pixel fitting”?
 
 Because it does not ask the model to copy an image pixel by pixel,
 but instead lets the model learn:
@@ -136,7 +136,7 @@ This is one of the reasons it became so influential in image generation.
 
 ---
 
-## 3. Run a minimal GAN game example first
+## Run a minimal GAN game example first
 
 This example will not generate images,
 but instead uses 1D numbers to simulate the real distribution and the generated distribution.
@@ -173,14 +173,14 @@ for step in range(8):
         generator_output -= 0.2
 ```
 
-### 3.1 What should you take away from this example?
+### What should you take away from this example?
 
 It shows that the key to GAN is not a fixed answer,
 but rather:
 
 - The generator keeps adjusting based on “real-vs-fake” feedback
 
-### 3.2 Why does this feel different from ordinary classification training?
+### Why does this feel different from ordinary classification training?
 
 Because the goal itself is moving.
 The discriminator changes, and the generator changes too.
@@ -188,9 +188,9 @@ That is one of the root causes of instability in adversarial training.
 
 ---
 
-## 4. Why is GAN often unstable to train?
+## Why is GAN often unstable to train?
 
-### 4.1 Imbalance between the two sides
+### Imbalance between the two sides
 
 If the discriminator is too strong:
 
@@ -200,12 +200,12 @@ If the generator is too strong:
 
 - The discriminator cannot tell real from fake
 
-### 4.2 The objective itself changes
+### The objective itself changes
 
 In ordinary supervised learning, the labels do not move.
 In GAN, the generator and discriminator keep changing each other’s learning environment.
 
-### 4.3 What is mode collapse?
+### What is mode collapse?
 
 One of the most common failure cases is:
 
@@ -221,7 +221,7 @@ In other words:
 - It may look “realistic”
 - But diversity is lost
 
-### 4.4 What should beginners pay attention to first when training?
+### What should beginners pay attention to first when training?
 
 If you actually start running GAN, the most important things to observe first are:
 
@@ -235,7 +235,7 @@ In other words, with GAN, do not look only at a single loss number; also pay att
 - Diversity
 - Whether the two sides are becoming imbalanced
 
-### 4.5 What is the biggest difference between GAN training and ordinary supervised learning?
+### What is the biggest difference between GAN training and ordinary supervised learning?
 
 One very important difference is:
 
@@ -256,26 +256,26 @@ So GAN instability is not an accidental bug; it is a natural challenge brought b
 
 ---
 
-## 5. When is GAN worth learning?
+## When is GAN worth learning?
 
-### 5.1 Good for building the idea that generative models are not only about reconstruction and likelihood
+### Good for building the idea that generative models are not only about reconstruction and likelihood
 
 It can help you understand:
 
 - There is another path for learning distributions, starting from adversarial signals
 
-### 5.2 Also good for seeing why generative model training is hard
+### Also good for seeing why generative model training is hard
 
 GAN is a very good example for counterintuitive cases:
 
 - You can very clearly see problems like unstable training and mode collapse
 
-### 5.3 But it is not recommended as the default starting point for all generation projects
+### But it is not recommended as the default starting point for all generation projects
 
 Today, in many tasks,
 diffusion models are often more stable and more mainstream.
 
-### 5.4 Then why learn GAN in this chapter?
+### Then why learn GAN in this chapter?
 
 Because GAN is one of the best entry points for understanding why generative models are hard to train.
 
@@ -287,20 +287,20 @@ The value of learning GAN is not just to know one model, but to build these thre
 
 ---
 
-## 6. Most common misconceptions
+## Most common misconceptions
 
-### 6.1 Misconception 1: GAN is just “a model that can generate images”
+### Misconception 1: GAN is just “a model that can generate images”
 
 More fundamentally, it is a:
 
 - Adversarial generative learning method
 
-### 6.2 Misconception 2: The stronger the discriminator, the better
+### Misconception 2: The stronger the discriminator, the better
 
 Not true.
 If it becomes too strong, the generator cannot learn anything.
 
-### 6.3 Misconception 3: It is enough to only look at whether the generated samples look real
+### Misconception 3: It is enough to only look at whether the generated samples look real
 
 You also need to look at:
 

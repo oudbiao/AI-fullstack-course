@@ -1,11 +1,11 @@
 ---
-title: "8.2 项目：图像分类系统"
+title: "6.8.2 项目：图像分类系统"
 sidebar_position: 1
 description: "围绕一个真正可展示的图像分类项目，从选题、数据、baseline、训练、评估到演示方式，走完整条交付闭环。"
 keywords: [image classification project, CNN, confusion matrix, error analysis, computer vision]
 ---
 
-# 项目：图像分类系统
+# 6.8.2 项目：图像分类系统
 
 :::tip 本节定位
 图像分类很适合作为第一个视觉项目，不是因为它最简单，而是因为它最容易把完整工程链路讲清楚：
@@ -30,7 +30,7 @@ keywords: [image classification project, CNN, confusion matrix, error analysis, 
 
 ## 一、先别急着选模型，先把项目题目选对
 
-### 1.1 一个适合练手的题目通常有三个特征
+### 一个适合练手的题目通常有三个特征
 
 1. 类别边界清楚
    例如 `猫 / 狗 / 鸟`、`苹果叶片病害分类`、`垃圾分类`
@@ -39,7 +39,7 @@ keywords: [image classification project, CNN, confusion matrix, error analysis, 
 3. 错误能解释
    分错后你能说出可能原因，而不是只剩“模型不行”
 
-### 1.2 一个很稳的项目题目
+### 一个很稳的项目题目
 
 例如：
 
@@ -51,7 +51,7 @@ keywords: [image classification project, CNN, confusion matrix, error analysis, 
 - 数据相对容易收集
 - 很适合做 confusion matrix 和错误样例分析
 
-### 1.3 不建议一开始就做的题目
+### 不建议一开始就做的题目
 
 例如：
 
@@ -110,7 +110,7 @@ plan = CVProjectPlan(
 print(plan)
 ```
 
-### 3.1 这个对象为什么重要？
+### 这个对象为什么重要？
 
 因为项目一开始最容易缺的，不是代码，而是边界。
 这个最小对象逼你先说明：
@@ -193,7 +193,7 @@ for gold, features in test_data:
     print(results[-1])
 ```
 
-### 4.1 为什么这个示例仍然有项目价值？
+### 为什么这个示例仍然有项目价值？
 
 因为项目最重要的不是库名，而是评估思路。
 这个 toy baseline 已经让你看到：
@@ -228,7 +228,7 @@ error_cases = [row for row in results if row["gold"] != row["pred"]]
 print("\nerror cases:", error_cases)
 ```
 
-### 5.1 为什么 confusion matrix 对图像分类特别重要？
+### 为什么 confusion matrix 对图像分类特别重要？
 
 因为总准确率只会告诉你：
 
@@ -240,7 +240,7 @@ print("\nerror cases:", error_cases)
 
 这正是你下一步改数据和改模型最需要的信息。
 
-### 5.2 错误样例为什么比总分更值钱？
+### 错误样例为什么比总分更值钱？
 
 因为你能真正去看：
 
@@ -254,7 +254,7 @@ print("\nerror cases:", error_cases)
 
 ## 六、真实项目里最该补的三层
 
-### 6.1 数据层
+### 数据层
 
 你至少应该说明：
 
@@ -262,7 +262,7 @@ print("\nerror cases:", error_cases)
 - train / val / test 怎么分
 - 有没有类别不平衡
 
-### 6.2 模型层
+### 模型层
 
 很推荐先做两层 baseline：
 
@@ -273,7 +273,7 @@ print("\nerror cases:", error_cases)
 
 - 更复杂模型到底换来了什么
 
-### 6.3 展示层
+### 展示层
 
 图像分类项目做作品集时，最值得展示的通常是：
 
@@ -288,15 +288,15 @@ print("\nerror cases:", error_cases)
 
 ## 七、这个项目最容易踩的坑
 
-### 7.1 只看总准确率
+### 只看总准确率
 
 你会很容易错过真正的问题分布。
 
-### 7.2 类别定义太随意
+### 类别定义太随意
 
 如果类别边界本身模糊，模型和评估都会一起发虚。
 
-### 7.3 数据泄漏
+### 数据泄漏
 
 如果相似图片同时出现在训练和测试，
 结果会被高估。

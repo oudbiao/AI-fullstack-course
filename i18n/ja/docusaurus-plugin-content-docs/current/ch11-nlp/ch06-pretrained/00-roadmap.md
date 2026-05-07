@@ -1,11 +1,11 @@
 ---
-title: "6.1 学習ガイド：事前学習モデルのこの章では何を学ぶのか"
+title: "11.6.1 学習ガイド：事前学習モデルのこの章では何を学ぶのか"
 sidebar_position: 0
 description: "まず事前学習モデルの章の学習地図を作ろう：事前学習パラダイム、BERT、GPT、T5 と transformers 実践が、どうつながって現代 NLP の主線になるのか。"
 keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 ---
 
-# 学習ガイド：事前学習モデルのこの章では何を学ぶのか
+# 11.6.1 学習ガイド：事前学習モデルのこの章では何を学ぶのか
 
 ![BERT GPT T5 比較図](/img/course/bert-gpt-t5-comparison-ja.png)
 

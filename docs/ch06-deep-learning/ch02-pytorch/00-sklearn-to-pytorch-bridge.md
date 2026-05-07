@@ -1,11 +1,11 @@
 ---
-title: "2.2 Transition: From sklearn to PyTorch"
+title: "6.2.2 Transition: From sklearn to PyTorch"
 sidebar_position: 0
 description: "Understand the thinking differences between sklearn and PyTorch with a minimal runnable example, and build a bridge from traditional machine learning to deep learning frameworks."
 keywords: [sklearn, PyTorch, deep learning basics, training loop, tensor, gradient descent]
 ---
 
-# From sklearn to PyTorch
+# 6.2.2 From sklearn to PyTorch
 
 :::tip Section positioning
 If `scikit-learn` is like an automatic car, then `PyTorch` is more like a manual car.
@@ -25,7 +25,7 @@ By learning this section, you’ll know exactly where you are “shifting gears.
 
 ---
 
-## 1. Why learn PyTorch after learning sklearn?
+## Why learn PyTorch after learning sklearn?
 
 In Station 5, you already used `scikit-learn`:
 
@@ -63,7 +63,7 @@ This may look more troublesome, but the benefits are:
 
 ---
 
-## 2. Looking at both side by side
+## Looking at both side by side
 
 ![sklearn to PyTorch gear-shift diagram](/img/course/ch06-sklearn-to-pytorch-shift-map-en.png)
 
@@ -75,7 +75,7 @@ So the key thing to learn in PyTorch is not “a few more APIs,” but:
 
 ---
 
-## 3. A minimal comparison experiment
+## A minimal comparison experiment
 
 :::info Runtime environment
 The following code can be run directly. If you have not installed the dependencies locally:
@@ -87,7 +87,7 @@ pip install numpy scikit-learn torch
 
 Let’s do the simplest linear regression task: given study time, predict exam score.
 
-### 3.1 Train with sklearn
+### Train with sklearn
 
 ```python
 import numpy as np
@@ -109,7 +109,7 @@ print("Predicted score for 6 hours of study:", round(float(sk_model.predict([[6.
 
 You will get a straight-line model, and the process is very smooth.
 
-### 3.2 Train the same task with PyTorch
+### Train the same task with PyTorch
 
 ```python
 import torch
@@ -153,7 +153,7 @@ print("Predicted score for 6 hours of study:", round(pred_6, 2))
 
 ---
 
-## 4. What did you actually learn here?
+## What did you actually learn here?
 
 Although the PyTorch code is longer than `sklearn`, it reveals the five core components of deep learning:
 
@@ -169,7 +169,7 @@ Later, when you learn CNNs, Transformers, RAG fine-tuning, or local model traini
 
 ---
 
-## 5. When should you keep using sklearn, and when should you switch to PyTorch?
+## When should you keep using sklearn, and when should you switch to PyTorch?
 
 ### Cases better suited to `sklearn`
 
@@ -191,7 +191,7 @@ A simple memory aid:
 
 ---
 
-## 6. Common misconceptions
+## Common misconceptions
 
 ### Misconception 1: PyTorch is just another modeling library
 
@@ -217,7 +217,7 @@ These are the topics that the next sections of this chapter will cover.
 
 ---
 
-## 7. What you should be able to do after this chapter
+## What you should be able to do after this chapter
 
 After learning this section, you should be able to answer at least these three questions:
 

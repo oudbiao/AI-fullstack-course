@@ -1,10 +1,10 @@
 ---
-title: "1.3 文件操作与序列化"
+title: "2.2.3 文件操作与序列化"
 sidebar_position: 3
 description: "掌握文件读写和数据序列化"
 ---
 
-# 文件操作与序列化
+# 2.2.3 文件操作与序列化
 
 ![文件读写与序列化流程图](/img/course/ch02-file-io-serialization-flow.png)
 

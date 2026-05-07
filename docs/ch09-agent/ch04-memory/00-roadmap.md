@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-Study Guide: What Is This Chapter on Memory Really About?"
+title: "9.4.1 Pre-Study Guide: What Is This Chapter on Memory Really About?"
 sidebar_position: 0
 description: "First build a learning map for the Agent memory systems chapter: how short-term memory, long-term memory, episodic memory, procedural memory, and memory engineering support continuous collaboration."
 keywords: [memory systems overview, Agent memory, short-term memory, long-term memory, episodic memory]
 ---
 
-# Pre-Study Guide: What Is This Chapter on Memory Really About?
+# 9.4.1 Pre-Study Guide: What Is This Chapter on Memory Really About?
 
 This chapter answers one core question: how can an Agent do more than just respond in the current turn, and instead remember, retrieve, and use historical information at the right time?
 

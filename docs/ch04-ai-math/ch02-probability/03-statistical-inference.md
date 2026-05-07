@@ -1,11 +1,11 @@
 ---
-title: "2.4 Basics of Statistical Inference"
+title: "4.2.4 Basics of Statistical Inference"
 sidebar_position: 7
 description: "Understand the intuitive meaning of Maximum Likelihood Estimation (MLE), Maximum A Posteriori Estimation (MAP), hypothesis testing, and A/B testing"
 keywords: [Maximum Likelihood Estimation, MLE, MAP, hypothesis testing, A/B testing, statistical inference, AI math]
 ---
 
-# Basics of Statistical Inference
+# 4.2.4 Basics of Statistical Inference
 
 ![Maximum Likelihood Estimation likelihood curve](/img/course/mle-likelihood-curve-en.png)
 
@@ -121,9 +121,9 @@ The most important thing in this lesson is not memorizing terminology, but first
 - MAP: in addition to the data, also consider prior knowledge
 - Hypothesis testing: after seeing a difference, how do we judge whether it is just by chance?
 
-## 1. Maximum Likelihood Estimation (MLE)
+## Maximum Likelihood Estimation (MLE)
 
-### 1.1 Intuition: Which parameters best explain the data?
+### Intuition: Which parameters best explain the data?
 
 You pick up a coin and do not know whether it is fair. You toss it 10 times: **HHTHHHTHHH** (8 heads, 2 tails).
 
@@ -131,7 +131,7 @@ You pick up a coin and do not know whether it is fair. You toss it 10 times: **H
 
 Intuition tells you: p ≈ 0.8. MLE turns this intuition into math — **find the parameter value that makes the observed data most likely to occur**.
 
-### 1.1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can first think of MLE as a "detective reconstructing the case" process:
 
@@ -151,7 +151,7 @@ flowchart LR
     style MLE fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.2 Understanding with code
+### Understanding with code
 
 ```python
 import numpy as np
@@ -196,13 +196,13 @@ Expected output:
 MLE estimate: p = 0.800
 ```
 
-### 1.3 Mathematical intuition behind MLE
+### Mathematical intuition behind MLE
 
 The answer from MLE is actually very simple: **p = number of heads / total number of tosses = 8/10 = 0.8**
 
 But the value of MLE is that it is a **general framework** — for any distribution, you can use the same idea to find the parameters.
 
-### 1.3.1 Why is this especially important for AI?
+### Why is this especially important for AI?
 
 Because many loss functions, on the surface, look like they are "doing optimization,"
 but from a deeper perspective, they are actually:
@@ -212,7 +212,7 @@ but from a deeper perspective, they are actually:
 
 In other words, MLE is the common language behind many training objectives.
 
-### 1.4 More data = more accurate estimates
+### More data = more accurate estimates
 
 ```python
 # True p = 0.6
@@ -260,21 +260,21 @@ n=2000, heads=1212, MLE=0.606
 
 ---
 
-## 2. Maximum A Posteriori Estimation (MAP)
+## Maximum A Posteriori Estimation (MAP)
 
-### 2.1 The problem with MLE
+### The problem with MLE
 
 If you only toss a coin 3 times and all three are heads, MLE will tell you p = 3/3 = 1.0 — "this coin always lands heads."
 
 That is clearly unreasonable. Our **common sense** tells us that for most coins, p should be close to 0.5.
 
-### 2.2 MAP: adding prior knowledge
+### MAP: adding prior knowledge
 
 MAP adds a "prior" on top of MLE — your prior belief about the parameters:
 
 **MAP = likelihood × prior**
 
-### 2.2.1 A better way to remember it
+### A better way to remember it
 
 If MLE is:
 
@@ -341,7 +341,7 @@ MAP: p = 0.637
 - MAP gives p≈0.64 (a compromise between data and prior)
 - As the amount of data increases, MAP and MLE will converge
 
-### 2.3 MLE vs MAP
+### MLE vs MAP
 
 | | MLE | MAP |
 |---|-----|-----|
@@ -356,15 +356,15 @@ MAP: p = 0.637
 
 ---
 
-## 3. Hypothesis Testing and A/B Testing
+## Hypothesis Testing and A/B Testing
 
-### 3.1 A daily-life scenario
+### A daily-life scenario
 
 You changed the color of a website button (version A uses blue, version B uses green), and version B’s click-through rate increased by 2%.
 
 **Question: is this difference real, or just random fluctuation?**
 
-### 3.2 The idea behind hypothesis testing
+### The idea behind hypothesis testing
 
 ```mermaid
 flowchart TD
@@ -379,7 +379,7 @@ flowchart TD
     style G fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 3.3 Intuition for p-values
+### Intuition for p-values
 
 **p-value = the probability of getting a difference this large (or larger) just by random fluctuation, assuming there is no real difference.**
 
@@ -388,7 +388,7 @@ flowchart TD
 
 Be careful with wording: p-value does not prove the alternative hypothesis. It only tells you whether the observed result is unusual under the null hypothesis. In real products, you should also check sample size, experiment design, business impact, and whether you ran many tests at once.
 
-### 3.4 A/B testing in practice
+### A/B testing in practice
 
 ```python
 # Simulate an A/B test
@@ -441,7 +441,7 @@ p-value: 0.0347
 → p < 0.05, the difference is significant! Version B is indeed better.
 ```
 
-### 3.5 Understanding p-values through simulation
+### Understanding p-values through simulation
 
 ```python
 # Simulation: if A and B really had no difference (both 10%), how large a difference would we see?
@@ -493,9 +493,9 @@ Simulation p-value: 0.0262
 
 ---
 
-## 4. The Connection Between MLE and Loss Functions
+## The Connection Between MLE and Loss Functions
 
-### 4.1 MLE = minimizing cross-entropy
+### MLE = minimizing cross-entropy
 
 This is a very important connection — **in classification problems, maximizing likelihood is equivalent to minimizing cross-entropy loss**.
 
@@ -554,7 +554,7 @@ After reading this section, the most valuable questions to bring to the next one
 
 These questions will naturally lead you to:
 
-- [Basics of Information Theory](./04-information-theory.md)
+- [4.2.5 Basics of Information Theory](./04-information-theory.md)
 
 ```mermaid
 flowchart LR

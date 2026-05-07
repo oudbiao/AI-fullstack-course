@@ -1,11 +1,11 @@
 ---
-title: "5.1 学習ガイド：Seq2Seq と注意力のこの章では何を学ぶのか"
+title: "11.5.1 学習ガイド：Seq2Seq と注意力のこの章では何を学ぶのか"
 sidebar_position: 0
 description: "まず Seq2Seq 章の学習マップを作る：Encoder-Decoder、Attention、機械翻訳タスクがどうつながるのかを整理する。"
 keywords: [Seq2Seqガイド, attentionガイド, 機械翻訳]
 ---
 
-# 学習ガイド：Seq2Seq と注意力のこの章では何を学ぶのか
+# 11.5.1 学習ガイド：Seq2Seq と注意力のこの章では何を学ぶのか
 
 ## この章の位置づけ
 

@@ -1,11 +1,11 @@
 ---
-title: "3.3 Dimensionality Reduction Algorithms"
+title: "5.3.3 Dimensionality Reduction Algorithms"
 sidebar_position: 8
 description: "Master the principles and applications of PCA dimensionality reduction, and learn t-SNE and UMAP high-dimensional data visualization techniques"
 keywords: [dimensionality reduction, PCA, t-SNE, UMAP, principal component analysis, high-dimensional visualization, explained variance ratio]
 ---
 
-# Dimensionality Reduction Algorithms
+# 5.3.3 Dimensionality Reduction Algorithms
 
 ![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction-en.png)
 
@@ -71,9 +71,9 @@ Read this comic as the main story of the section: PCA is not “delete a few col
 
 ---
 
-## 1. Why do we need dimensionality reduction?
+## Why do we need dimensionality reduction?
 
-### 1.1 Problems with high-dimensional data
+### Problems with high-dimensional data
 
 ```mermaid
 flowchart TD
@@ -97,14 +97,14 @@ flowchart TD
 | **Multicollinearity** | Many features are highly correlated and redundant |
 | **Visualization** | Data with more than 3 dimensions cannot be plotted directly |
 
-### 1.2 Two approaches to dimensionality reduction
+### Two approaches to dimensionality reduction
 
 | Approach | Method | Description |
 |------|------|------|
 | **Feature selection** | Pick important features | Keep a subset of the original features |
 | **Feature extraction** | Generate new features | Transform original features into fewer new features. PCA is the classic modeling-friendly example; t-SNE is mainly for visualization |
 
-### 1.3 The easiest point to confuse when learning dimensionality reduction for the first time
+### The easiest point to confuse when learning dimensionality reduction for the first time
 
 Many newcomers mix up “dimensionality reduction” and “dropping features.”
 In fact, they are not the same:
@@ -114,7 +114,7 @@ In fact, they are not the same:
 
 So after PCA, the principal components are no longer the original fields themselves, but linear combinations of them.
 
-### 1.3.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of dimensionality reduction as:
 
@@ -129,9 +129,9 @@ So the most important thing to remember first is not the algorithm name, but:
 
 ---
 
-## 2. PCA in practice
+## PCA in practice
 
-### 2.1 Review the principle
+### Review the principle
 
 :::info Connection to Station 4
 In Section 1.3, "Eigenvalues and Eigenvectors," of Station 4, you already learned the mathematical principles behind PCA:
@@ -144,7 +144,7 @@ The focus of this section is **practical application**—how to use PCA on real 
 
 **The core idea of PCA**: find the direction with the largest variance in the data and project onto it.
 
-### 2.2 Handwritten digit dimensionality reduction
+### Handwritten digit dimensionality reduction
 
 ```python
 from sklearn.datasets import load_digits
@@ -199,7 +199,7 @@ Retained variance ratio: 21.6%
 
 This result is a good reminder: forcing 64 pixel features down to 2 dimensions is excellent for visualization, but it keeps only about one fifth of the variance. Do not assume that a 2D PCA plot contains enough information for a high-quality classifier.
 
-### 2.3 Explained variance ratio analysis
+### Explained variance ratio analysis
 
 **Key question**: How many principal components should we keep?
 
@@ -254,7 +254,7 @@ Keeping 90% of the variance requires 31 principal components (out of the origina
 Keeping 95% of the variance requires 40 principal components (out of the original 64)
 ```
 
-### 2.3.1 How do you decide between keeping 90% or 95%?
+### How do you decide between keeping 90% or 95%?
 
 There is no fixed answer that always works, but for your first project, you can start like this:
 
@@ -268,7 +268,7 @@ Because “how much variance is retained” is not the same as “what works bes
 
 When reading a PCA plot, first look at the inflection point of the cumulative variance curve: before the inflection point, each extra principal component is very valuable; after that, the gain becomes smaller. 90% or 95% are just practical thresholds, and you still need to judge together with downstream model scores, training speed, and interpretability.
 
-### 2.4 The impact of PCA on model performance
+### The impact of PCA on model performance
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -333,7 +333,7 @@ PC= 64 | Accuracy: 97.2% | Training time: 0.009s
 
 Training time depends on your machine, so do not memorize the seconds. The important pattern is the trade-off: too few components lose information; more components usually recover accuracy but reduce compression.
 
-### 2.4.1 PCA is not just about compressing dimensions
+### PCA is not just about compressing dimensions
 
 PCA often provides three kinds of value in projects:
 
@@ -349,13 +349,13 @@ So after PCA, don’t just ask “How many dimensions were reduced?” Also ask:
 
 ---
 
-## 3. t-SNE visualization
+## t-SNE visualization
 
-### 3.1 Limitations of PCA
+### Limitations of PCA
 
 PCA is a **linear** dimensionality reduction method—it can only find linear directions. For complex high-dimensional data, different classes may overlap on a 2D PCA plot.
 
-### 3.2 t-SNE principle
+### t-SNE principle
 
 t-SNE (t-distributed Stochastic Neighbor Embedding) is a nonlinear dimensionality reduction method designed specifically for **visualization**.
 
@@ -371,7 +371,7 @@ t-SNE (t-distributed Stochastic Neighbor Embedding) is a nonlinear dimensionalit
 | Preserves local structure | Nearby points remain nearby in low-dimensional space |
 | Randomness | Results may differ each run |
 
-### 3.3 t-SNE in practice
+### t-SNE in practice
 
 ```python
 from sklearn.manifold import TSNE
@@ -410,7 +410,7 @@ t-SNE result shape: (1797, 2)
 
 `max_iter` means the maximum number of optimization iterations. In recent sklearn versions, `max_iter` is the recommended parameter name; older tutorials may use `n_iter`, which was kept for compatibility in older versions.
 
-### 3.4 The perplexity parameter
+### The perplexity parameter
 
 `perplexity` controls the number of "neighbors" t-SNE pays attention to and affects the visualization:
 
@@ -447,7 +447,7 @@ perplexity=50: result shape = (1797, 2)
 4. **Results differ each run** (you can fix this with `random_state`)
 :::
 
-### 3.5 The easiest place to misread t-SNE
+### The easiest place to misread t-SNE
 
 t-SNE plots look beautiful, but beginners often mistakenly think:
 
@@ -464,9 +464,9 @@ Do not treat the whole plot as a strict geometric map.
 
 ---
 
-## 4. UMAP dimensionality reduction
+## UMAP dimensionality reduction
 
-### 4.1 Introduction to UMAP
+### Introduction to UMAP
 
 UMAP (Uniform Manifold Approximation and Projection) is a dimensionality reduction method that is faster than t-SNE and better at preserving global structure.
 
@@ -477,7 +477,7 @@ UMAP (Uniform Manifold Approximation and Projection) is a dimensionality reducti
 | Can be used for feature extraction | Not recommended | Yes |
 | Parameters | `perplexity` | `n_neighbors`, `min_dist` |
 
-### 4.2 UMAP in practice
+### UMAP in practice
 
 ```bash
 python -m pip install --upgrade umap-learn
@@ -523,7 +523,7 @@ UMAP result shape: (1797, 2)
 
 If you see the installation message instead, the code is still behaving correctly. It means the optional package is not installed in your current Python environment.
 
-### 4.3 UMAP parameters
+### UMAP parameters
 
 | Parameter | Description | Recommendation |
 |------|------|------|
@@ -534,7 +534,7 @@ If you see the installation message instead, the code is still behaving correctl
 
 ---
 
-## 5. Summary of dimensionality reduction methods
+## Summary of dimensionality reduction methods
 
 | Method | Type | Speed | Use case |
 |------|------|------|---------|
@@ -555,7 +555,7 @@ flowchart TD
     style UMAP fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 5.1 What is the safest default order when doing a project for the first time?
+### What is the safest default order when doing a project for the first time?
 
 You can follow this default order directly:
 
@@ -567,7 +567,7 @@ This order is the safest because it starts with the easiest method to explain.
 
 ---
 
-## 6. The safest default order when putting dimensionality reduction into a project for the first time
+## The safest default order when putting dimensionality reduction into a project for the first time
 
 When you first put dimensionality reduction into a real project, you can follow this order:
 

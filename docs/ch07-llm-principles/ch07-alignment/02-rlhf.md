@@ -1,11 +1,11 @@
 ---
-title: "7.3 RLHF Workflow"
+title: "7.7.3 RLHF Workflow"
 sidebar_position: 25
 description: "From preference data and reward models to policy optimization, this section breaks down why RLHF can make a model align more closely with human preferences, and why it is so expensive and hard to tune."
 keywords: [RLHF, reward model, preference data, PPO, alignment]
 ---
 
-# RLHF Workflow
+# 7.7.3 RLHF Workflow
 
 ![Three-stage RLHF workflow diagram](/img/course/rlhf-three-stage-loop-en.png)
 
@@ -73,9 +73,9 @@ So what this section really aims to solve is:
 
 ---
 
-## 1. Why Isn’t SFT Enough on Its Own?
+## Why Isn’t SFT Enough on Its Own?
 
-### 1.1 Because there is not always a single correct answer
+### Because there is not always a single correct answer
 
 Many large-model tasks are not math problems.
 For the same user question, there may be many answers that are all “basically correct.”
@@ -89,7 +89,7 @@ For example:
 
 At that point, it is hard to train the model with only one standard answer.
 
-### 1.2 What does preference data look like?
+### What does preference data look like?
 
 Preference data is usually not:
 
@@ -104,7 +104,7 @@ That is, relative comparison information:
 - `chosen`
 - `rejected`
 
-### 1.3 RLHF is exactly about learning this “relative quality”
+### RLHF is exactly about learning this “relative quality”
 
 SFT is more like teaching the model:
 
@@ -114,7 +114,7 @@ RLHF is more like continuing to teach it:
 
 - Among two answers that both work, which one is more aligned with human preference
 
-### 1.4 A simpler analogy for beginners
+### A simpler analogy for beginners
 
 You can think of RLHF like this:
 
@@ -128,9 +128,9 @@ In other words:
 
 ---
 
-## 2. What Are the Three RLHF Stages?
+## What Are the Three RLHF Stages?
 
-### 2.1 Step 1: Use SFT to get the model to a usable state
+### Step 1: Use SFT to get the model to a usable state
 
 If the model cannot even produce basic answers,
 direct preference optimization will be hard to stabilize.
@@ -145,7 +145,7 @@ This helps the model learn at least:
 - Common instruction following
 - An initial response style
 
-### 2.2 Step 2: Train a reward model
+### Step 2: Train a reward model
 
 The reward model does not generate text directly,
 it scores a given “prompt + answer” pair.
@@ -163,7 +163,7 @@ The reward model must learn to:
 - Give the chosen answer a higher score
 - Give the rejected answer a lower score
 
-### 2.3 Step 3: Use reinforcement learning to update the policy model
+### Step 3: Use reinforcement learning to update the policy model
 
 Once the reward model can score answers,
 you can use it to guide the policy model’s generation.
@@ -177,7 +177,7 @@ So one very common engineering intuition in RLHF is:
 
 > **First train a “scoring teacher” from human preferences, then fine-tune the generation model toward higher scores.**
 
-### 2.4 A role table that is useful for beginners
+### A role table that is useful for beginners
 
 | Component | The most important role to remember |
 |---|---|
@@ -194,7 +194,7 @@ This table is especially useful for beginners, because it breaks RLHF back down 
 It is best to read this diagram by role: SFT first teaches the model how to answer, preference pairs train the Reward Model, the policy model updates toward higher reward, and the Reference Model plus KL penalty prevent it from drifting while chasing scores. RLHF is heavy not because the name is complicated, but because this chain maintains multiple model roles at once.
 :::
 
-### 2.5 RLHF terms that make the pipeline less mysterious
+### RLHF terms that make the pipeline less mysterious
 
 | Term | Plain meaning | Why it matters |
 |---|---|---|
@@ -208,7 +208,7 @@ It is best to read this diagram by role: SFT first teaches the model how to answ
 
 ---
 
-## 3. First Run a Truly Relevant Reward Model Example
+## First Run a Truly Relevant Reward Model Example
 
 The example below will not train a real large neural network,
 but it will fully demonstrate the most core step of a reward model:
@@ -320,7 +320,7 @@ for response in candidates:
     print(f"score={score:.3f} response={response}")
 ```
 
-### 3.1 What does this code correspond to in real life?
+### What does this code correspond to in real life?
 
 It corresponds to an extremely simplified reward model:
 
@@ -332,7 +332,7 @@ but the essence does not change:
 
 > **Score prompt-response pairs so that answers more aligned with human preference receive higher scores.**
 
-### 3.2 Why use a “preference difference” instead of an absolute score here?
+### Why use a “preference difference” instead of an absolute score here?
 
 Because human absolute scores are often unstable,
 while comparing two answers is usually easier.
@@ -343,7 +343,7 @@ So the core training signal is:
 
 This is also the underlying structure shared by RLHF and methods like DPO.
 
-### 3.3 Which lines in this example are the most important?
+### Which lines in this example are the most important?
 
 There are two especially important parts:
 
@@ -355,7 +355,7 @@ There are two especially important parts:
 If you understand these two layers,
 you understand what the reward model is doing.
 
-### 3.4 Another minimal example of what preference data looks like
+### Another minimal example of what preference data looks like
 
 ```python
 preference_example = {
@@ -373,9 +373,9 @@ This example is very small, but it is important for beginners, because it brings
 
 ---
 
-## 4. If the Reward Model Is Learned, Why Do We Still Need PPO?
+## If the Reward Model Is Learned, Why Do We Still Need PPO?
 
-### 4.1 Because the reward model only scores; it does not generate by itself
+### Because the reward model only scores; it does not generate by itself
 
 The reward model is more like a judge,
 while the policy model is what actually generates the answer.
@@ -384,7 +384,7 @@ So you still need a step that teaches the policy model to:
 
 - Generate answers that are more likely to get high scores
 
-### 4.2 But you cannot blindly chase reward
+### But you cannot blindly chase reward
 
 If you let the model optimize reward without restraint,
 it can easily lead to:
@@ -406,7 +406,7 @@ Here, the KL penalty basically means:
 - You can improve
 - But do not change beyond recognition all at once
 
-### 4.3 This is also why RLHF is both powerful and expensive
+### This is also why RLHF is both powerful and expensive
 
 Because it often needs to maintain at the same time:
 
@@ -417,7 +417,7 @@ Because it often needs to maintain at the same time:
 
 This is clearly heavier than ordinary SFT.
 
-### 4.4 A simple rule of thumb for beginners
+### A simple rule of thumb for beginners
 
 It is easy to misunderstand RLHF as:
 
@@ -433,9 +433,9 @@ That is why it is much heavier than ordinary SFT.
 
 ---
 
-## 5. When Is RLHF Worth Doing?
+## When Is RLHF Worth Doing?
 
-### 5.1 When you already have the problem of “correct, but not good enough”
+### When you already have the problem of “correct, but not good enough”
 
 For example, the model can already answer the general direction correctly,
 but you care more about:
@@ -446,7 +446,7 @@ but you care more about:
 
 In such cases, preference optimization is very valuable.
 
-### 5.2 When you actually have high-quality preference data
+### When you actually have high-quality preference data
 
 If you do not have enough good preference-pair data,
 the reward model can easily learn the wrong thing.
@@ -458,7 +458,7 @@ but the data:
 - Are the dimensions clear?
 - Are the chosen/rejected pairs truly representative?
 
-### 5.3 When you have the resources to handle training complexity
+### When you have the resources to handle training complexity
 
 In practice, many teams end up not doing RLHF,
 not because it is useless, but because:
@@ -475,9 +475,9 @@ So in many cases, teams first try:
 
 ---
 
-## 6. These Misconceptions Are Very Common
+## These Misconceptions Are Very Common
 
-### 6.1 Misconception 1: RLHF is just “adding a bit of human feedback”
+### Misconception 1: RLHF is just “adding a bit of human feedback”
 
 Not accurate enough.
 Real RLHF is a complete chain:
@@ -486,12 +486,12 @@ Real RLHF is a complete chain:
 - Train a reward model
 - Then do policy optimization
 
-### 6.2 Misconception 2: A high reward-model score means the answer is truly better
+### Misconception 2: A high reward-model score means the answer is truly better
 
 A reward model is only an approximate proxy for human preference.
 It will also have blind spots and biases.
 
-### 6.3 Misconception 3: RLHF is always better than SFT, so it should be the default
+### Misconception 3: RLHF is always better than SFT, so it should be the default
 
 Not necessarily.
 If your main problem is:

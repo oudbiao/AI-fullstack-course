@@ -1,10 +1,10 @@
 ---
-title: "4.2 Seaborn 統計可視化"
+title: "3.4.3 Seaborn 統計可視化"
 sidebar_position: 18
 description: "より少ないコードで、より見やすい統計グラフを描く"
 ---
 
-# Seaborn 統計可視化
+# 3.4.3 Seaborn 統計可視化
 
 ![Seaborn 統計グラフ選択図](/img/course/seaborn-statistical-plots-ja.png)
 

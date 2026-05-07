@@ -1,10 +1,10 @@
 ---
-title: "2.6 Basic Linear Algebra Operations"
+title: "3.2.6 Basic Linear Algebra Operations"
 sidebar_position: 7
 description: "Use NumPy for linear algebra operations such as matrix multiplication, inversion, and eigenvalues"
 ---
 
-# Basic Linear Algebra Operations
+# 3.2.6 Basic Linear Algebra Operations
 
 ![NumPy Linear Algebra Toolkit](/img/course/ch03-numpy-linear-algebra-toolkit-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "2.1 学前导读：PyTorch 这一章到底在学什么"
+title: "6.2.1 学前导读：PyTorch 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 PyTorch 章节的学习地图：tensor、autograd、nn.Module、DataLoader 和训练循环分别负责什么。"
 keywords: [PyTorch导读, tensor, autograd, nn.Module, DataLoader, training loop]
 ---
 
-# 学前导读：PyTorch 这一章到底在学什么
+# 6.2.1 学前导读：PyTorch 这一章到底在学什么
 
 这一章不是在教“某几个 API”，而是在帮你搭出深度学习训练的最小工程闭环。
 

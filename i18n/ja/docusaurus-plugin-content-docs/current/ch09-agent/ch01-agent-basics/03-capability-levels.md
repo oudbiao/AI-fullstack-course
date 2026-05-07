@@ -1,11 +1,11 @@
 ---
-title: "1.4 Agent の能力レベル分け"
+title: "9.1.4 Agent の能力レベル分け"
 sidebar_position: 3
 description: "階層的な視点で異なる Agent システムの能力の境界を理解し、シンプルなワークフローを何でもできる自律エージェントだと言いすぎないようにする。"
 keywords: [agent capability, tool use, planning, workflow, autonomy]
 ---
 
-# Agent の能力レベル分け
+# 9.1.4 Agent の能力レベル分け
 
 ![Agent 能力レベルの階段図](/img/course/ch09-capability-level-ladder-map-ja.png)
 
@@ -22,7 +22,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 一、なぜ Agent をレベル分けするのか？
 
-### 1.1 「Agent」という言葉は、盛って言われやすいから
+### 「Agent」という言葉は、盛って言われやすいから
 
 中には、ただ次のことができるだけのシステムもあります。
 
@@ -36,7 +36,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 これらを全部 Agent と呼ぶと、多くの概念が混ざってしまいます。
 
-### 1.2 レベル分けの意味は、システム能力をより正直に表すこと
+### レベル分けの意味は、システム能力をより正直に表すこと
 
 これによって、次のことがわかりやすくなります。
 
@@ -48,7 +48,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 二、実用的な能力レベル分けのフレームワーク
 
-### 2.1 L0：純粋な応答型
+### L0：純粋な応答型
 
 特徴：
 
@@ -61,7 +61,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 - 普通のQAボット
 - ただ Prompt を生成するだけのもの
 
-### 2.2 L1：単一ツール実行型
+### L1：単一ツール実行型
 
 特徴：
 
@@ -78,7 +78,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 三、さらに上のレベル
 
-### 3.1 L2：複数ステップのツール連携型
+### L2：複数ステップのツール連携型
 
 特徴：
 
@@ -90,7 +90,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 - まず注文を確認し、次に返金ポリシーを調べ、最後に結論を出す
 - まず資料を検索し、それを要約してレポートにする
 
-### 3.2 L3：目標駆動型
+### L3：目標駆動型
 
 特徴：
 
@@ -108,7 +108,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 四、より高いレベルの能力は、たいていより高いリスクも意味する
 
-### 4.1 L4：長時間実行 / マルチ Agent / 強い自律性
+### L4：長時間実行 / マルチ Agent / 強い自律性
 
 特徴：
 
@@ -118,7 +118,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 この種のシステムは一番かっこよく聞こえますが、同時に一番エンジニアリングが難しいです。
 
-### 4.2 能力が高いほど、あなたのタスクに向いているとは限らない
+### 能力が高いほど、あなたのタスクに向いているとは限らない
 
 能力が上がると、たいてい次のようなものも増えます。
 
@@ -146,7 +146,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 六、小さな練習：タスクをレベル分けしてみる
 
-### 6.1 実行可能な例
+### 実行可能な例
 
 ```python
 tasks = [
@@ -177,7 +177,7 @@ for task in tasks:
 
 ## 七、低いレベルからどう上げるのか？
 
-### 7.1 L0 から L1 へ
+### L0 から L1 へ
 
 重要なのは、次を追加することです。
 
@@ -185,7 +185,7 @@ for task in tasks:
 - パラメータ生成
 - ツール結果の反映
 
-### 7.2 L1 から L2 へ
+### L1 から L2 へ
 
 重要なのは、次を追加することです。
 
@@ -193,7 +193,7 @@ for task in tasks:
 - 複数ステップ実行
 - アクション同士の依存関係
 
-### 7.3 L2 から L3 へ
+### L2 から L3 へ
 
 重要なのは、次を追加することです。
 
@@ -207,7 +207,7 @@ for task in tasks:
 
 ## 八、エンジニアリングで「能力を盛りすぎる」のを避けるには？
 
-### 8.1 まずシステムの境界を決める
+### まずシステムの境界を決める
 
 例えば、次のようにします。
 
@@ -215,7 +215,7 @@ for task in tasks:
 - 最大でいくつのツールを呼ぶか
 - どのタスクは人間の確認が必要か
 
-### 8.2 まず最小限の能力でリリースする
+### まず最小限の能力でリリースする
 
 多くのシステムは、最初は実際には次のどちらかだけで十分です。
 
@@ -231,15 +231,15 @@ for task in tasks:
 
 ## 九、初心者がよくやる誤解
 
-### 9.1 ツールを呼べるなら、高度な Agent だと思ってしまう
+### ツールを呼べるなら、高度な Agent だと思ってしまう
 
 1つのツールを呼べる程度なら、通常はせいぜい L1 です。
 
-### 9.2 ステップが多いほど賢いと思ってしまう
+### ステップが多いほど賢いと思ってしまう
 
 ステップが増えても、ただエラー経路が増えるだけのことがあります。
 
-### 9.3 タスクレベルを分けずに、やみくもにアーキテクチャを積み上げる
+### タスクレベルを分けずに、やみくもにアーキテクチャを積み上げる
 
 これは、多くの Agent プロジェクトが実運用に乗りにくい理由の1つです。
 

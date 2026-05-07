@@ -1,11 +1,11 @@
 ---
-title: "6.3 BERT Series"
+title: "11.6.3 BERT Series"
 sidebar_position: 17
 description: "From bidirectional context and Masked Language Modeling to fine-tuning methods, truly understand what BERT solves in modern NLP."
 keywords: [BERT, MLM, bidirectional encoder, pretraining, Transformer Encoder, NLP]
 ---
 
-# BERT Series
+# 11.6.3 BERT Series
 
 ![BERT Masked Language Model](/img/course/bert-masked-language-model-en.png)
 
@@ -41,9 +41,9 @@ That is also why, when you learn large models today, many ideas about “pretrai
 
 ---
 
-## 1. What problem did BERT actually solve?
+## What problem did BERT actually solve?
 
-### 1.1 First, the old problem: word meaning depends on context
+### First, the old problem: word meaning depends on context
 
 Words do not always have a fixed meaning.
 
@@ -59,7 +59,7 @@ The same is true in another English example:
 
 If a model can only give each word a fixed vector, it will struggle.
 
-### 1.2 BERT’s key breakthrough
+### BERT’s key breakthrough
 
 One of BERT’s core contributions is:
 
@@ -69,7 +69,7 @@ In other words, the same word can get different representations in different sen
 
 This is called a “contextual representation.”
 
-### 1.3 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of BERT as:
 
@@ -83,9 +83,9 @@ That is why BERT is especially suitable for understanding tasks.
 
 ---
 
-## 2. Why is BERT called a “bidirectional” model?
+## Why is BERT called a “bidirectional” model?
 
-### 2.1 What does bidirectional mean?
+### What does bidirectional mean?
 
 Consider the sentence:
 
@@ -97,7 +97,7 @@ BERT’s important feature is:
 
 > The representation of the current token uses both left and right context at the same time.
 
-### 2.2 The core difference from GPT
+### The core difference from GPT
 
 Roughly speaking:
 
@@ -111,9 +111,9 @@ So:
 
 ---
 
-## 3. What does BERT input actually look like?
+## What does BERT input actually look like?
 
-### 3.1 Three very common special tokens
+### Three very common special tokens
 
 | token | role |
 |---|---|
@@ -121,7 +121,7 @@ So:
 | `[SEP]` | Sentence separator |
 | `[MASK]` | Position hidden during pretraining |
 
-### 3.2 A minimal input example
+### A minimal input example
 
 ```python
 tokens = ["[CLS]", "I", "love", "natural", "language", "processing", "[SEP]"]
@@ -139,7 +139,7 @@ tokens = [
 print(tokens)
 ```
 
-### 3.3 A beginner-friendly input structure table
+### A beginner-friendly input structure table
 
 | Component | Most important thing to remember |
 |---|---|
@@ -151,9 +151,9 @@ This table is especially helpful for beginners because it turns BERT input from 
 
 ---
 
-## 4. What does BERT do during pretraining?
+## What does BERT do during pretraining?
 
-### 4.1 The classic task: Masked Language Modeling
+### The classic task: Masked Language Modeling
 
 BERT’s most classic training objective is MLM, which means:
 
@@ -165,7 +165,7 @@ For example:
 
 The model must infer what `[MASK]` is from the surrounding context.
 
-### 4.2 A minimal runnable example
+### A minimal runnable example
 
 ```python
 tokens = ["[CLS]", "I", "love", "[MASK]", "language", "processing", "[SEP]"]
@@ -184,7 +184,7 @@ This example is not actually training a model, but it already teaches you:
 - the model’s job is to recover the hidden information
 - predictions at the current position depend on bidirectional context
 
-### 4.3 Why is this important?
+### Why is this important?
 
 Because it forces the model to truly understand:
 
@@ -194,7 +194,7 @@ Because it forces the model to truly understand:
 
 This makes BERT very good at understanding tasks.
 
-### 4.4 The safest default learning order for BERT
+### The safest default learning order for BERT
 
 A more stable order is usually:
 
@@ -207,17 +207,17 @@ This is easier than jumping straight into paper details and large-model paramete
 
 ---
 
-## 5. BERT input is not just tokens
+## BERT input is not just tokens
 
-### 5.1 Token Embedding
+### Token Embedding
 
 Each token is first turned into a vector.
 
-### 5.2 Position Embedding
+### Position Embedding
 
 The model also needs to know the order, so positional encoding must be added.
 
-### 5.3 Segment Embedding
+### Segment Embedding
 
 For sentence-pair tasks, the model also needs to know “which tokens belong to sentence A” and “which tokens belong to sentence B”.
 
@@ -229,7 +229,7 @@ This step is important because Transformer itself does not inherently contain se
 
 ---
 
-## 6. A truly runnable offline BERT example
+## A truly runnable offline BERT example
 
 The example below does not require downloading pretrained weights. You only need to install `transformers` and `torch`, and you can initialize a small random BERT locally. It is mainly here to help you understand input/output shapes.
 
@@ -269,7 +269,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 6.2 How should we understand the outputs?
+### How should we understand the outputs?
 
 - `last_hidden_state`
   - shape: `[batch, seq_len, hidden_size]`
@@ -286,9 +286,9 @@ This also explains why BERT is suitable for:
 
 ---
 
-## 7. How do we use BERT for classification?
+## How do we use BERT for classification?
 
-### 7.1 Typical workflow
+### Typical workflow
 
 The most common approach is:
 
@@ -299,7 +299,7 @@ The most common approach is:
 
 This is the classic fine-tuning approach.
 
-### 7.2 A small conceptual example
+### A small conceptual example
 
 ```python
 import torch
@@ -319,7 +319,7 @@ This code is very simple, but it teaches you something very important:
 
 > BERT is often not the end of a task, but a powerful representation layer.
 
-### 7.3 What is most worth showing when BERT is used in a project
+### What is most worth showing when BERT is used in a project
 
 What is usually most worth showing is not:
 
@@ -339,16 +339,16 @@ That way, other people can more easily see:
 
 ---
 
-## 8. What tasks is BERT good for?
+## What tasks is BERT good for?
 
-### 8.1 Especially suitable for
+### Especially suitable for
 
 - Text classification
 - Sentence-pair matching
 - Named entity recognition
 - Extractive question answering
 
-### 8.2 Where it is less natural
+### Where it is less natural
 
 BERT itself was not designed for free-form long-text generation.
 If the task focus is:
@@ -361,9 +361,9 @@ then the GPT route is usually more natural.
 
 ---
 
-## 9. Why is BERT no longer the only main character?
+## Why is BERT no longer the only main character?
 
-### 9.1 The reason is not that BERT is useless, but that the ecosystem kept moving forward
+### The reason is not that BERT is useless, but that the ecosystem kept moving forward
 
 Later NLP and LLM development brought:
 
@@ -373,7 +373,7 @@ Later NLP and LLM development brought:
 
 So today, many applications more often discuss GPT, T5, and Llama-style routes.
 
-### 9.2 But BERT is still very worth learning
+### But BERT is still very worth learning
 
 Because it helps you truly understand:
 
@@ -386,17 +386,17 @@ These are all important foundations for learning large models later.
 
 ---
 
-## 10. Common beginner mistakes
+## Common beginner mistakes
 
-### 10.1 Mixing up BERT and GPT as if they were the same thing
+### Mixing up BERT and GPT as if they were the same thing
 
 They are both important, but their training objectives and strengths are not the same.
 
-### 10.2 Thinking `[CLS]` is “naturally the best sentence vector”
+### Thinking `[CLS]` is “naturally the best sentence vector”
 
 It is useful in many tasks, but it is not a universal best choice.
 
-### 10.3 Only knowing “use BERT for classification” without knowing what it actually learns
+### Only knowing “use BERT for classification” without knowing what it actually learns
 
 What you really need to master is:
 

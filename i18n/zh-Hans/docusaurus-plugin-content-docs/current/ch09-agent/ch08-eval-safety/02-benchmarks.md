@@ -1,11 +1,11 @@
 ---
-title: "8.3 Agent 评估基准"
+title: "9.8.3 Agent 评估基准"
 sidebar_position: 45
 description: "理解通用 benchmark 和自建业务评估集的区别，学会为自己的 Agent 项目设计更有用的评估基准。"
 keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 ---
 
-# Agent 评估基准
+# 9.8.3 Agent 评估基准
 
 ![Agent Benchmark 与自定义评估集对比图](/img/course/ch09-agent-benchmark-custom-eval-map.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "3.9 Template-Based Document Generation (Word / PPT)"
+title: "8.3.9 Template-Based Document Generation (Word / PPT)"
 sidebar_position: 18
 description: "From structured output and template filling to Word/PPT generation, understand why knowledge-base generation systems are best built by producing structure first and then rendering it into documents."
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---
 
-# Template-Based Document Generation (Word / PPT)
+# 8.3.9 Template-Based Document Generation (Word / PPT)
 
 ![Word PPT template generation pipeline](/img/course/template-doc-generation-pipeline-en.png)
 
@@ -51,7 +51,7 @@ So what this section really wants to solve is:
 - Why you should not let the model freely “write an entire Word document”
 - Why fixed templates make generation results more stable
 
-## 1. Why Is Template-Based Generation So Important?
+## Why Is Template-Based Generation So Important?
 
 Because your goal is not ordinary Q&A,
 but to deliver:
@@ -66,7 +66,7 @@ but also needs to satisfy:
 - fixed heading levels
 - reasonable placement of examples and summaries
 
-## 2. A Better Beginner-Friendly Analogy
+## A Better Beginner-Friendly Analogy
 
 You can think of document generation as:
 
@@ -84,7 +84,7 @@ So a more reliable approach is usually:
 - define the skeleton first
 - then add the flesh and blood
 
-## 3. A Minimal Structured Courseware Object Example
+## A Minimal Structured Courseware Object Example
 
 ```python
 courseware = {
@@ -119,7 +119,7 @@ The most important value of this example is:
 In other words, the model should not directly output the final `.docx`,
 but should first output a structured content object.
 
-## 4. A Courseware Schema Better Suited for Real Projects
+## A Courseware Schema Better Suited for Real Projects
 
 If your goal is to “generate a Word course handout in a fixed format,”
 it is recommended to add two more layers on top of the minimal object:
@@ -143,7 +143,7 @@ This table is especially useful for beginners because it reminds you:
 - you are not generating “long text”
 - you are generating a “data object that can be reliably consumed by a template”
 
-## 5. A Minimal Template Filling Example
+## A Minimal Template Filling Example
 
 The example below does not use real `python-docx`;
 instead, it uses the simplest string template to make the workflow clear.
@@ -181,7 +181,7 @@ This example is especially suitable for beginners because it helps you first see
 - the core of templating is not the library
 - it is “structure first, template second”
 
-## 6. How Should Template Fields Be Designed?
+## How Should Template Fields Be Designed?
 
 When building this kind of system for the first time, it is strongly recommended that you write the template fields out explicitly.
 
@@ -201,7 +201,7 @@ The benefits are:
 - the template rendering layer knows what it needs to fill
 - later, when you revise the system, you can tell which layer has a problem
 
-## 7. What Extra Things Do Word / PPT Actually Need to Handle?
+## What Extra Things Do Word / PPT Actually Need to Handle?
 
 In real engineering work, besides the body content, you also need to handle:
 
@@ -218,7 +218,7 @@ So template-based document generation is really a two-layer problem:
 1. content structure
 2. document layout
 
-## 8. A Minimal “Structured Object -> Template Fields” Example
+## A Minimal “Structured Object -> Template Fields” Example
 
 ```python
 def to_template_payload(courseware):
@@ -252,7 +252,7 @@ The key takeaway for beginners in this example is:
 Do not let the model directly “write Word.” First produce the courseware schema, then organize it into a template payload, and finally hand it to the docx/pptx rendering layer. This makes it much easier to separate formatting errors from content errors.
 :::
 
-## 9. Why Is This Layer Closely Related to Prompt / Structured Output?
+## Why Is This Layer Closely Related to Prompt / Structured Output?
 
 Because you will usually ask the model to first produce:
 
@@ -264,10 +264,10 @@ Because you will usually ask the model to first produce:
 rather than directly producing a long, free-form prose document.
 
 The most relevant existing lessons for this part are:
-- [Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [7.5.2 Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [7.5.4 Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
 
-## 10. The Safest Scope Control When You Build This Module for the First Time
+## The Safest Scope Control When You Build This Module for the First Time
 
 When you build this for the first time, the safest scope is usually:
 
@@ -282,7 +282,7 @@ This makes it easier to first prove that:
 - the template fields are stable
 - the export pipeline is stable
 
-## 11. A Generation Sequence Beginners Can Follow Directly
+## A Generation Sequence Beginners Can Follow Directly
 
 When building this kind of system for the first time, a more reliable sequence is usually:
 
@@ -293,7 +293,7 @@ When building this kind of system for the first time, a more reliable sequence i
 
 This is much more stable than directly generating `.docx` content from the start.
 
-## 12. What Libraries Are Used in Real Projects?
+## What Libraries Are Used in Real Projects?
 
 This section has not yet expanded into specific library usage,
 but when you work on a project, you will likely encounter:
@@ -307,7 +307,7 @@ So you can think of this section as:
 - first get the idea straight
 - then check the official documentation for the specific libraries
 
-## 13. If You Turn This into a Project, What Is Most Worth Showing?
+## If You Turn This into a Project, What Is Most Worth Showing?
 
 What is most worth showing is usually not:
 

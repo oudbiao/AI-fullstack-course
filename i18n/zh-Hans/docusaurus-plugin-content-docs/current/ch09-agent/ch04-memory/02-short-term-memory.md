@@ -1,11 +1,11 @@
 ---
-title: "4.3 短期记忆"
+title: "9.4.3 短期记忆"
 sidebar_position: 20
 description: "从上下文窗口、对话窗口、运行态状态到摘要压缩，理解 Agent 的短期记忆到底是什么、该怎么设计。"
 keywords: [short-term memory, context window, conversation memory, state, summary memory, Agent]
 ---
 
-# 短期记忆
+# 9.4.3 短期记忆
 
 ![短期记忆上下文窗口与运行状态图](/img/course/ch09-short-term-memory-window-map.png)
 
@@ -30,7 +30,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 一、短期记忆到底是什么？
 
-### 1.1 一句话理解
+### 一句话理解
 
 短期记忆可以先理解成：
 
@@ -43,7 +43,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 - 已执行步骤
 - 临时中间结果
 
-### 1.2 和长期记忆有什么不同？
+### 和长期记忆有什么不同？
 
 | 类型 | 关注什么 |
 |---|---|
@@ -59,7 +59,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 二、为什么不能把所有历史都一直塞给模型？
 
-### 2.1 因为上下文窗口不是无限的
+### 因为上下文窗口不是无限的
 
 模型能看的上下文长度有限。
 如果你把所有历史都不断塞进去，会遇到：
@@ -68,7 +68,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 - 响应越来越慢
 - 重要信息被淹没
 
-### 2.2 信息越多，不一定越好
+### 信息越多，不一定越好
 
 很多新人会觉得：
 
@@ -90,7 +90,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 三、短期记忆最常见的三种形态
 
-### 3.1 对话窗口（sliding window）
+### 对话窗口（sliding window）
 
 最简单的方式：
 
@@ -105,7 +105,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 - 太久之前的重要信息会被挤掉
 
-### 3.2 运行态状态（task state）
+### 运行态状态（task state）
 
 不是只记聊天文本，而是明确记：
 
@@ -115,7 +115,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 这类状态对 Agent 特别重要。
 
-### 3.3 摘要记忆（summary memory）
+### 摘要记忆（summary memory）
 
 当历史太长时，不是全丢掉，而是先压缩成摘要。
 
@@ -130,7 +130,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ## 四、一个最简单的短期记忆：滑动窗口
 
-### 4.1 可运行示例
+### 可运行示例
 
 ```python
 messages = [
@@ -148,7 +148,7 @@ for msg in short_term_memory:
     print(msg)
 ```
 
-### 4.2 这段代码虽然简单，但已经很重要
+### 这段代码虽然简单，但已经很重要
 
 它教你一件最本质的事：
 
@@ -160,7 +160,7 @@ for msg in short_term_memory:
 
 ## 五、但仅靠消息窗口还不够
 
-### 5.1 为什么不够？
+### 为什么不够？
 
 看这组对话：
 
@@ -172,7 +172,7 @@ for msg in short_term_memory:
 
 - 当前任务其实一直围绕“退款”
 
-### 5.2 所以 Agent 还要有结构化状态
+### 所以 Agent 还要有结构化状态
 
 例如：
 
@@ -228,7 +228,7 @@ memory.update_state(goal="判断退款资格", topic="退款政策")
 print(memory.snapshot())
 ```
 
-### 6.2 这个例子真正比“只存历史消息”强在哪里？
+### 这个例子真正比“只存历史消息”强在哪里？
 
 因为它把短期记忆拆成了两层：
 
@@ -241,14 +241,14 @@ print(memory.snapshot())
 
 ## 七、摘要记忆：当消息越来越长怎么办？
 
-### 7.1 一种常见策略
+### 一种常见策略
 
 真实系统很常见这种做法：
 
 - 最近几轮消息原样保留
 - 更早历史压缩成摘要
 
-### 7.2 一个简化版示例
+### 一个简化版示例
 
 ```python
 old_messages = [
@@ -279,11 +279,11 @@ print(memory_package)
 
 它主要解决三件事：
 
-### 8.1 保持当前任务连贯性
+### 保持当前任务连贯性
 
 系统不能每一步都像第一次见到用户那样重新开始。
 
-### 8.2 让多步执行不丢状态
+### 让多步执行不丢状态
 
 例如：
 
@@ -291,7 +291,7 @@ print(memory_package)
 - 已经查到了什么
 - 还差哪一步
 
-### 8.3 控制上下文成本
+### 控制上下文成本
 
 短期记忆不是只为“记住”，也是为了：
 
@@ -303,13 +303,13 @@ print(memory_package)
 
 ## 九、短期记忆最常见的失效方式
 
-### 9.1 记得太少
+### 记得太少
 
 表现：
 
 - 系统突然忘了刚才正在说什么
 
-### 9.2 记得太多
+### 记得太多
 
 表现：
 
@@ -317,14 +317,14 @@ print(memory_package)
 - 回答跑偏
 - 成本变高
 
-### 9.3 只存消息，不存状态
+### 只存消息，不存状态
 
 表现：
 
 - 多步任务容易掉链子
 - 工具调用前后状态衔接差
 
-### 9.4 只存状态，不存对话原文
+### 只存状态，不存对话原文
 
 表现：
 
@@ -337,15 +337,15 @@ print(memory_package)
 
 ## 十、初学者最常踩的坑
 
-### 10.1 把短期记忆和长期记忆混在一起
+### 把短期记忆和长期记忆混在一起
 
 短期记忆解决的是当前任务，不是用户画像全集。
 
-### 10.2 以为消息窗口越大越稳
+### 以为消息窗口越大越稳
 
 窗口太大也会带来噪声和成本。
 
-### 10.3 忽略结构化状态
+### 忽略结构化状态
 
 这会让 Agent 一到多步任务就开始发飘。
 

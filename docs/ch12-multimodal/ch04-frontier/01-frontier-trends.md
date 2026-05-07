@@ -1,11 +1,11 @@
 ---
-title: "4.2 AIGC Frontier Trends"
+title: "12.4.2 AIGC Frontier Trends"
 sidebar_position: 12
 description: "From multimodality, real-time generation, smaller models, and agentification to edge deployment, build a more practical framework for judging AIGC trends."
 keywords: [AIGC trends, multimodal, real-time generation, small models, agentic systems, edge deployment]
 ---
 
-# AIGC Frontier Trends
+# 12.4.2 AIGC Frontier Trends
 
 ![AIGC Frontier Trend System Map](/img/course/ch12-aigc-frontier-system-trend-map-en.png)
 
@@ -80,7 +80,7 @@ This analogy is very useful for beginners because it helps you first grasp:
 - what really matters about trends is the long-term main line
 - not short-term buzzwords
 
-## 1. Why can’t AIGC trends be judged only by model leaderboards?
+## Why can’t AIGC trends be judged only by model leaderboards?
 
 Because what really drives industry change is often not just:
 
@@ -100,7 +100,7 @@ So when you look at trends, the real question is:
 
 ---
 
-## 2. Putting six trends into one picture
+## Putting six trends into one picture
 
 Before going into specific trends, you can first place them in the same framework:
 
@@ -136,7 +136,7 @@ The purpose of this map is not to make you memorize terms, but to help you judge
 
 ---
 
-## 3. The first major trend: multimodality is becoming the default capability
+## The first major trend: multimodality is becoming the default capability
 
 In the past, many systems mainly handled:
 
@@ -151,7 +151,7 @@ But now more and more systems handle:
 
 This is not a small change. It means the input world itself has been opened up.
 
-### 3.1 Why is this important?
+### Why is this important?
 
 Because the real world is naturally multimodal.
 Once a model can take in more kinds of input, application forms expand dramatically:
@@ -165,7 +165,7 @@ So:
 
 > Multimodality is not “icing on the cake”; it is redefining the interaction entry point.
 
-### 3.2 A very useful early rule for beginners
+### A very useful early rule for beginners
 
 If a direction opens up a new input entry point,
 then it is often not just “the model got a little better,” but rather it is changing:
@@ -174,7 +174,7 @@ then it is often not just “the model got a little better,” but rather it is 
 
 ---
 
-## 4. The second trend: from “generating content” to “generating workflows”
+## The second trend: from “generating content” to “generating workflows”
 
 Early AIGC was more about:
 
@@ -196,9 +196,9 @@ This is also why Agent and AIGC are becoming increasingly tightly connected.
 
 ---
 
-## 5. The third trend: from model-size competition to cost-efficiency competition
+## The third trend: from model-size competition to cost-efficiency competition
 
-### 5.1 Simply stacking bigger models is no longer the only direction
+### Simply stacking bigger models is no longer the only direction
 
 While the industry continues to pursue stronger model capabilities, it is also paying more and more attention to:
 
@@ -207,7 +207,7 @@ While the industry continues to pursue stronger model capabilities, it is also p
 - whether it can run on-device
 - small-model capability
 
-### 5.2 Why has this become a trend?
+### Why has this become a trend?
 
 Because when building real products, you must face:
 
@@ -223,7 +223,7 @@ So an important future line is:
 
 ---
 
-## 6. The fourth trend: real-time generation is becoming more important
+## The fourth trend: real-time generation is becoming more important
 
 User expectations for AIGC are shifting from:
 
@@ -250,7 +250,7 @@ This will continue to push the field toward:
 
 ---
 
-## 7. The fifth trend: on-device and localized capabilities are becoming more important
+## The fifth trend: on-device and localized capabilities are becoming more important
 
 In the past, a lot of generation and inference was assumed to happen in the cloud.
 But now more and more people are paying attention to:
@@ -273,7 +273,7 @@ So in the future, one very important question will be:
 
 ---
 
-## 8. The sixth trend: from single-model capability to system capability
+## The sixth trend: from single-model capability to system capability
 
 Many years ago, the competition focus was more like:
 
@@ -298,7 +298,7 @@ So when you build AIGC projects in the future, you cannot focus only on the mode
 
 ---
 
-## 9. A very practical trend-judging framework
+## A very practical trend-judging framework
 
 When looking at a new direction, you can first ask four questions:
 
@@ -343,7 +343,7 @@ This example is not about scoring. It is a reminder:
 
 > Don’t just look at whether something is “new”; look at which layer it changes.
 
-### 9.1 A trend-judging table that is easier for beginners to remember
+### A trend-judging table that is easier for beginners to remember
 
 | Dimension | What should you ask first? |
 |---|---|
@@ -356,7 +356,7 @@ This table is great for beginners because it brings “trends” down from abstr
 
 ---
 
-## 10. The safest order when looking at frontier trends for the first time
+## The safest order when looking at frontier trends for the first time
 
 It is better to look at them in this order:
 
@@ -367,7 +367,7 @@ It is better to look at them in this order:
 
 This makes it easier to tell the difference between “the real main line” and “short-term noise.”
 
-## 11. If you turn this into notes or a project judgment, what is most worth showing?
+## If you turn this into notes or a project judgment, what is most worth showing?
 
 What is most worth showing is usually not:
 
@@ -386,17 +386,17 @@ Then others will more easily see:
 
 ---
 
-## 12. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 12.1 Treating “trend” as “recent buzzwords”
+### Treating “trend” as “recent buzzwords”
 
 This makes it easy to follow news around, instead of following the main line.
 
-### 12.2 Looking only at model capability, not cost and product form
+### Looking only at model capability, not cost and product form
 
 This can distort your judgment.
 
-### 12.3 Thinking trends develop in a purely linear, one-way way
+### Thinking trends develop in a purely linear, one-way way
 
 In reality, many trends exist in parallel:
 
@@ -423,7 +423,7 @@ Once you start looking at new trends through these dimensions, you will no longe
 
 ---
 
-## 13. Exercises
+## Exercises
 
 1. Pick a new AIGC direction you recently saw and analyze it using the four dimensions of “capability / cost / interaction / workflow.”
 2. Think about why multimodality is said to be a change in the “interaction entry point,” not just a change in “model capability.”

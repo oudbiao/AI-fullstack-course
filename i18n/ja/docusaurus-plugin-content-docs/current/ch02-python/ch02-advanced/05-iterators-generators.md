@@ -1,10 +1,10 @@
 ---
-title: "1.5 イテレータとジェネレータ"
+title: "2.2.5 イテレータとジェネレータ"
 sidebar_position: 5
 description: "Python のイテレーション規約と、ジェネレータによる効率的なデータ処理を理解する"
 ---
 
-# イテレータとジェネレータ
+# 2.2.5 イテレータとジェネレータ
 
 ![生成器によるストリーミングデータ処理図](/img/course/ch02-generator-streaming-data-ja.png)
 

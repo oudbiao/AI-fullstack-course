@@ -1,10 +1,10 @@
 ---
-title: "终端基础操作"
+title: "1.1.2 终端基础操作"
 sidebar_position: 2
 description: "掌握核心命令、路径概念、管道与环境变量"
 ---
 
-# 终端基础操作
+# 1.1.2 终端基础操作
 
 ![终端路径与命令执行关系图](/img/course/ch01-terminal-path-command-map.png)
 

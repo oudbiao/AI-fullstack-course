@@ -1,11 +1,11 @@
 ---
-title: "3.3 Speech Synthesis"
+title: "12.3.3 Speech Synthesis"
 sidebar_position: 10
 description: "Build an initial intuition for why TTS can turn text into natural speech, from text-to-speech, acoustic models, vocoders, to multi-speaker control."
 keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speaker control]
 ---
 
-# Speech Synthesis
+# 12.3.3 Speech Synthesis
 
 ![TTS text-to-speech generation pipeline diagram](/img/course/ch12-tts-text-to-speech-pipeline-map-en.png)
 
@@ -70,9 +70,9 @@ This analogy is especially helpful for beginners, because it helps you first gra
 - The real goal of TTS is not “making sound”
 - It is “making sound that feels like a person speaking”
 
-## 1. What exactly does speech synthesis do?
+## What exactly does speech synthesis do?
 
-### 1.1 It is not just reading characters out one by one
+### It is not just reading characters out one by one
 
 If you mechanically read the text character by character, the result will usually sound very stiff.
 Natural speech contains much more than just the text content, for example:
@@ -91,7 +91,7 @@ but:
 
 > “Can it make speech that sounds like a person?”
 
-### 1.2 A very important intuition
+### A very important intuition
 
 At its core, speech synthesis does:
 
@@ -104,7 +104,7 @@ In other words, it is not a single conversion step, but a multi-stage generation
 
 ---
 
-## 2. What does a minimal TTS pipeline look like?
+## What does a minimal TTS pipeline look like?
 
 You can roughly think of it as these steps:
 
@@ -130,7 +130,7 @@ The most important thing about this diagram is that it helps you build the right
 
 > Speech synthesis is not a one-step process, but a multi-layer pipeline.
 
-### 2.1 A module table that beginners should remember first
+### A module table that beginners should remember first
 
 | Module | Most important thing to remember |
 |---|---|
@@ -142,9 +142,9 @@ This table is useful for beginners because it breaks TTS, which can feel like a 
 
 ---
 
-## 3. Why can’t we skip text processing?
+## Why can’t we skip text processing?
 
-### 3.1 Because text itself is not the same as pronunciation information
+### Because text itself is not the same as pronunciation information
 
 For example, the same sentence may have different pauses and tone in different situations:
 
@@ -153,7 +153,7 @@ For example, the same sentence may have different pauses and tone in different s
 
 The words are very similar, but the spoken expression is completely different.
 
-### 3.2 What does text processing usually do?
+### What does text processing usually do?
 
 - Tokenization / phoneme mapping
 - Number reading conversion
@@ -164,9 +164,9 @@ In other words, the TTS system first needs to translate “text” into a repres
 
 ---
 
-## 4. What is an acoustic representation?
+## What is an acoustic representation?
 
-### 4.1 Why not go directly from text to waveform?
+### Why not go directly from text to waveform?
 
 It is hard to generate waveform directly from text in one step, because waveform data is very long, very detailed, and very sensitive.
 
@@ -178,7 +178,7 @@ You can think of it as:
 
 > **A “heatmap” of the sound’s frequencies.**
 
-### 4.2 An intuitive example
+### An intuitive example
 
 ```python
 tts_pipeline = {
@@ -197,13 +197,13 @@ Although this example is only a structural illustration, it already shows:
 
 ---
 
-## 5. What does the vocoder do?
+## What does the vocoder do?
 
-### 5.1 Its role is a bit like “translating a frequency map into actual audible sound”
+### Its role is a bit like “translating a frequency map into actual audible sound”
 
 If the earlier modules generate a kind of “acoustic blueprint,” then the vocoder is responsible for turning that blueprint into waveform.
 
-### 5.2 A very practical way to understand it
+### A very practical way to understand it
 
 You can remember it like this:
 
@@ -214,7 +214,7 @@ These two modules are often designed and optimized separately.
 
 ---
 
-## 6. A minimal multi-speaker control example
+## A minimal multi-speaker control example
 
 Many modern speech synthesis systems do not just “read text”; they also control:
 
@@ -235,7 +235,7 @@ tts_config = {
 print(tts_config)
 ```
 
-### 6.1 What is this example showing?
+### What is this example showing?
 
 It is showing a very important beginner idea:
 
@@ -243,7 +243,7 @@ It is showing a very important beginner idea:
 
 This is one of the reasons modern speech synthesis is much more powerful than early systems.
 
-### 6.2 What is this example teaching?
+### What is this example teaching?
 
 It is teaching you:
 
@@ -251,7 +251,7 @@ It is teaching you:
 
 This is one of the reasons modern speech synthesis is much more powerful than early systems.
 
-### 6.3 A beginner-friendly decision table
+### A beginner-friendly decision table
 
 | User need | What the TTS system should prioritize |
 |---|---|
@@ -264,7 +264,7 @@ This table is useful for beginners because it turns “controllable TTS” into 
 
 ---
 
-## 7. Why is speech synthesis more like a generation task than you might think?
+## Why is speech synthesis more like a generation task than you might think?
 
 Because it also has these typical generation challenges:
 
@@ -284,13 +284,13 @@ So you can think of TTS as:
 
 ---
 
-## 8. The most important directions in real TTS products
+## The most important directions in real TTS products
 
-### 8.1 Multi-speaker
+### Multi-speaker
 
 Can the system switch between different voice timbres?
 
-### 8.2 Emotion and prosody control
+### Emotion and prosody control
 
 Can the system express:
 
@@ -298,17 +298,17 @@ Can the system express:
 - calmness
 - seriousness
 
-### 8.3 Voice cloning
+### Voice cloning
 
 Can the system learn the voice characteristics of a specific person?
 
-### 8.4 Real-time performance
+### Real-time performance
 
 If this is a conversational assistant, latency becomes very important.
 
 ---
 
-## 9. What should beginners remember first when learning TTS?
+## What should beginners remember first when learning TTS?
 
 The most important things to remember first are:
 
@@ -318,17 +318,17 @@ The most important things to remember first are:
 
 ---
 
-## 10. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 10.1 Thinking TTS just means “reading text aloud”
+### Thinking TTS just means “reading text aloud”
 
 In fact, it is more like “generating a natural speaking process.”
 
-### 10.2 Only paying attention to voice timbre, not rhythm and pauses
+### Only paying attention to voice timbre, not rhythm and pauses
 
 A lot of “unnaturalness” actually comes from prosody, not timbre itself.
 
-### 10.3 Thinking TTS is naturally real-time
+### Thinking TTS is naturally real-time
 
 Many high-quality models are not necessarily low-latency.
 

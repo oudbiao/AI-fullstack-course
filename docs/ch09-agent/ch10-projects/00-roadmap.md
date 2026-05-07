@@ -1,11 +1,11 @@
 ---
-title: "10.1 Pre-course Guide: How Should You Actually Study This Chapter on Comprehensive Projects?"
+title: "9.10.1 Pre-course Guide: How Should You Actually Study This Chapter on Comprehensive Projects?"
 sidebar_position: 0
 description: "First build the study map for Chapter 9 on AI Agents and intelligent agent systems projects: research assistants, data analysis Agents, and multi-Agent development teams—how they organize planning, tools, memory, evaluation, and deployment into portfolio projects."
 keywords: [Agent Project Guide, research assistant, data analysis Agent, multi-Agent project, Agent portfolio]
 ---
 
-# Pre-course Guide: How Should You Actually Study This Chapter on Comprehensive Projects?
+# 9.10.1 Pre-course Guide: How Should You Actually Study This Chapter on Comprehensive Projects?
 
 This chapter is not about piling on more capabilities. Instead, it is about really putting the reasoning, tools, memory, MCP, evaluation, safety, and deployment you learned earlier into a project.
 
@@ -55,7 +55,7 @@ If you do not learn this chapter solidly, common problems are: the Agent has no 
 
 When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
 
-The recommended first runnable example is [Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands-on-workshop.md). Run it before the larger project pages if you want a concrete baseline for planning, tools, trace, permission blocking, and evaluation.
+The recommended first runnable example is [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands-on-workshop.md). Run it before the larger project pages if you want a concrete baseline for planning, tools, trace, permission blocking, and evaluation.
 
 Experienced learners can treat this chapter as a chance to fill gaps and practice engineering: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to distill this chapter into your own project README or experiment notes.
 

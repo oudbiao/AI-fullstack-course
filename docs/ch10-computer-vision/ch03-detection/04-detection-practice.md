@@ -1,11 +1,11 @@
 ---
-title: "3.5 Detection Practice"
+title: "10.3.5 Detection Practice"
 sidebar_position: 10
 description: "Walk through target definition, annotation, evaluation, and a minimal deployment approach around a security inspection task to build a complete detection project loop."
 keywords: [detection practice, computer vision project, bounding box, evaluation, IoU, mAP]
 ---
 
-# Detection Practice
+# 10.3.5 Detection Practice
 
 :::tip Section positioning
 When you really do a detection project, the difficulty is often not just the model itself.
@@ -57,9 +57,9 @@ So what this section really wants to solve is:
 - How a detection project should move forward
 - Which parts are more likely to go wrong than the model structure itself
 
-## 1. What should be defined first in a detection project?
+## What should be defined first in a detection project?
 
-### 1.1 Class boundaries
+### Class boundaries
 
 For example, in a security scenario you might only start with:
 
@@ -68,7 +68,7 @@ For example, in a security scenario you might only start with:
 
 instead of trying to cover every possible target from the beginning.
 
-### 1.2 Annotation standards
+### Annotation standards
 
 You must first make it clear:
 
@@ -76,14 +76,14 @@ You must first make it clear:
 - How to label occlusion
 - How to handle small objects
 
-### 1.3 Evaluation criteria
+### Evaluation criteria
 
 At minimum, you need to clarify:
 
 - IoU threshold
 - Recall / precision
 
-### 1.4 When a beginner builds a detection project for the first time, how should they choose the task to make it more stable?
+### When a beginner builds a detection project for the first time, how should they choose the task to make it more stable?
 
 A more stable task usually has these characteristics:
 
@@ -94,7 +94,7 @@ A more stable task usually has these characteristics:
 So when you do your first project,
 “fewer classes, stronger definitions, easier explanation” is usually more important than “a cooler task.”
 
-### 1.5 Why is this step more important than “choosing a model first”?
+### Why is this step more important than “choosing a model first”?
 
 Because if these things are not settled well at the start:
 
@@ -107,7 +107,7 @@ Then no matter how many model comparisons you do later, you may still be spinnin
 
 ---
 
-## 2. Run a minimal matching evaluation example first
+## Run a minimal matching evaluation example first
 
 ```python
 ground_truth = [
@@ -164,7 +164,7 @@ for pred in predictions:
 print(matches)
 ```
 
-### 2.1 What is the most important part of this code?
+### What is the most important part of this code?
 
 It shows you that detection evaluation is not:
 
@@ -175,7 +175,7 @@ Instead, it is:
 - The class must be correct
 - The box must also be accurate enough
 
-### 2.2 Why is this the core judgment in many detection projects?
+### Why is this the core judgment in many detection projects?
 
 Because in real detection results,
 the final quality is often reflected in:
@@ -183,7 +183,7 @@ the final quality is often reflected in:
 - Matching threshold
 - Box quality
 
-### 2.3 Why do detection projects especially need a “false detection / missed detection” perspective?
+### Why do detection projects especially need a “false detection / missed detection” perspective?
 
 Because detection systems rarely have only two outcomes: “correct” or “incorrect.”
 More often, you’ll see:
@@ -194,7 +194,7 @@ More often, you’ll see:
 
 That is why, when presenting a detection project, it’s best not to show only a few success cases.
 
-### 2.4 When doing a detection project for the first time, what types of errors are most worth separating first?
+### When doing a detection project for the first time, what types of errors are most worth separating first?
 
 A very practical way to categorize errors is:
 
@@ -217,24 +217,24 @@ When presenting a detection project, don’t just show success screenshots. When
 
 ---
 
-## 3. The most common pitfalls in detection projects
+## The most common pitfalls in detection projects
 
-### 3.1 Inconsistent annotation standards
+### Inconsistent annotation standards
 
 This will directly mess up both training and evaluation.
 
-### 3.2 Small objects and occlusion are not analyzed separately
+### Small objects and occlusion are not analyzed separately
 
 Many systems show a clear drop in performance in these scenarios.
 
-### 3.3 Only showing one or two pretty images
+### Only showing one or two pretty images
 
 A real project should also show:
 
 - Which situations are likely to cause missed detections
 - Which situations are likely to cause false detections
 
-## 4. A progress order that beginners can directly follow
+## A progress order that beginners can directly follow
 
 A better approach is:
 
@@ -244,7 +244,7 @@ A better approach is:
 4. Unify the IoU / mAP evaluation criteria
 5. Finally, pick typical missed detections / false detections for analysis
 
-### 4.1 If you turn it into a portfolio project, what is most worth showing?
+### If you turn it into a portfolio project, what is most worth showing?
 
 Compared with only showing one “prediction result” image, what is more valuable is:
 

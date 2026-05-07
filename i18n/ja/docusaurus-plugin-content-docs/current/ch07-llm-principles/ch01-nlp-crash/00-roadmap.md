@@ -1,11 +1,11 @@
 ---
-title: "1.1 学習前ガイド：NLP コア速習のこの章では何を学ぶのか"
+title: "7.1.1 学習前ガイド：NLP コア速習のこの章では何を学ぶのか"
 sidebar_position: 0
 description: "まず NLP コア速習章の学習マップを作ろう：tokenizer、embedding、事前学習モデル、そして Hugging Face の実践がどうつながるのかを整理します。"
 keywords: [NLP速習ガイド, tokenizer, embedding, HuggingFace]
 ---
 
-# 学習前ガイド：NLP コア速習のこの章では何を学ぶのか
+# 7.1.1 学習前ガイド：NLP コア速習のこの章では何を学ぶのか
 
 この章は、NLP を一通り学び直すためのものではなく、後半の大規模モデルの本筋に向けて、最小限必要なテキスト基礎を補うための章です。
 

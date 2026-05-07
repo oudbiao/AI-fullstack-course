@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?"
+title: "7.1.1 Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the NLP crash course chapter: how tokenizer, embedding, pre-trained models, and hands-on practice with Hugging Face fit together."
 keywords: [NLP crash course guide, tokenizer, embedding, HuggingFace]
 ---
 
-# Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?
+# 7.1.1 Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?
 
 This chapter is not meant to reteach all of NLP. Instead, it provides the minimum essential text foundation for the main LLM track later on.
 

@@ -1,11 +1,11 @@
 ---
-title: "3.3 原始 Transformer vs 现代 LLM Decoder"
+title: "7.3.3 原始 Transformer vs 现代 LLM Decoder"
 sidebar_position: 9
 description: "对比原始 Transformer block 和现代 LLM decoder block，理解 pre-norm、RMSNorm、RoPE、GQA/MQA 和 SwiGLU。"
 keywords: [现代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
 ---
 
-# 原始 Transformer vs 现代 LLM Decoder
+# 7.3.3 原始 Transformer vs 现代 LLM Decoder
 
 2017 年 Transformer 论文给了我们基础架构，但大多数现代 LLM decoder block 并不是原始图的逐行复刻。
 
@@ -21,7 +21,7 @@ keywords: [现代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
 不要先背名词。先把左右两条流程当成故事读：原始 block 让 Transformer 成立，现代 decoder block 保留思想，但为了 LLM 规模改了 normalization、位置编码、K/V 共享和 FFN 设计。
 :::
 
-## 1. 早期 Transformer block
+## 早期 Transformer block
 
 一个简化的早期 Transformer block 常被描述成：
 
@@ -45,7 +45,7 @@ Attention -> Add & Norm -> FeedForward -> Add & Norm
 - 推理时 KV cache 成本很高
 - FFN 在大规模训练下需要更强表达力
 
-## 2. 常见现代 LLM decoder block
+## 常见现代 LLM decoder block
 
 一个简化的现代 decoder block 通常更像：
 
@@ -65,7 +65,7 @@ RMSNorm -> Attention -> Add -> RMSNorm -> FeedForward -> Add
 不同模型会选择不同细节。
 但这个模式足够常见，读模型代码时应该能认出来。
 
-## 3. Pre-norm：先归一化，再进入子层
+## Pre-norm：先归一化，再进入子层
 
 在 post-norm block 里，归一化常出现在：
 
@@ -92,7 +92,7 @@ x = x + attention(norm1(x))
 x = x + ffn(norm2(x))
 ```
 
-## 4. RMSNorm：更轻的归一化
+## RMSNorm：更轻的归一化
 
 LayerNorm 使用均值和方差做归一化。
 RMSNorm 使用 root mean square，也就是均方根幅度，去掉了减均值这一步。
@@ -108,7 +108,7 @@ RMSNorm 流行，是因为它更简单、更高效，同时仍然能很好稳定
 
 > **RMSNorm 用更轻的归一化步骤，让 activation 数值更稳定。**
 
-## 5. RoPE：把位置旋进 attention
+## RoPE：把位置旋进 attention
 
 早期 Transformer 示例常把位置向量加到 token embedding 上。
 现代 LLM 经常使用：
@@ -127,7 +127,7 @@ RMSNorm 流行，是因为它更简单、更高效，同时仍然能很好稳定
 
 读模型代码时，RoPE 通常出现在 attention 计算附近，在 `QK^T` 之前。
 
-## 6. GQA / MQA：减少 KV cache 压力
+## GQA / MQA：减少 KV cache 压力
 
 推理时，decoder-only 模型会缓存历史 token 的 `K` 和 `V`。
 这叫：
@@ -148,7 +148,7 @@ RMSNorm 流行，是因为它更简单、更高效，同时仍然能很好稳定
 
 > **GQA/MQA 主要不是让模型“更聪明”，而是让长上下文推理更便宜。**
 
-## 7. SwiGLU FFN：更强的前馈层
+## SwiGLU FFN：更强的前馈层
 
 原始 Transformer FFN 常被讲成：
 
@@ -170,7 +170,7 @@ Linear -> activation -> Linear
 
 > **SwiGLU 让 FFN 不只是生成特征，还能控制哪些特征更重要。**
 
-## 8. 一张紧凑对比表
+## 一张紧凑对比表
 
 | 部分 | 早期 Transformer 直觉 | 现代 LLM decoder 直觉 |
 |---|---|---|
@@ -181,7 +181,7 @@ Linear -> activation -> Linear
 | FFN | 基础 MLP / ReLU 风格 | 常见 SwiGLU 门控 FFN |
 | 主要压力 | 让 attention 序列建模跑起来 | 让深度、上下文和推理成本可承受 |
 
-## 9. 这对读模型代码有什么帮助
+## 这对读模型代码有什么帮助
 
 打开现代模型代码时，不要只找 `Transformer` 这个词。
 

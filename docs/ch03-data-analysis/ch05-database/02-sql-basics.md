@@ -1,10 +1,10 @@
 ---
-title: "5.2 SQL Basics"
+title: "3.5.3 SQL Basics"
 sidebar_position: 22
 description: "Master SQL, the common language of databases, and learn how to create, read, update, and delete data"
 ---
 
-# SQL Basics
+# 3.5.3 SQL Basics
 
 ![SQL Table Join Relationship Diagram](/img/course/sql-table-join-map-en.png)
 
@@ -153,7 +153,7 @@ def query(sql):
 
 ---
 
-## 1. Query Data (`SELECT`)
+## Query Data (`SELECT`)
 
 `SELECT` is the most commonly used SQL statement. It is used to retrieve data from tables.
 
@@ -205,7 +205,7 @@ This is less confusing than trying to mix all clauses together right away.
 
 ---
 
-## 2. Condition Filtering (`WHERE`)
+## Condition Filtering (`WHERE`)
 
 `WHERE` is like Pandas boolean indexing and is used to filter rows that meet certain conditions.
 
@@ -280,7 +280,7 @@ This table is especially useful for beginners because it compresses SQL back int
 
 ---
 
-## 3. Sorting (`ORDER BY`)
+## Sorting (`ORDER BY`)
 
 ```sql
 -- Sort by salary ascending (default)
@@ -306,7 +306,7 @@ This is not the same kind of problem as:
 
 ---
 
-## 4. Aggregate Functions and Grouping (`GROUP BY`)
+## Aggregate Functions and Grouping (`GROUP BY`)
 
 ### Common Aggregate Functions
 
@@ -375,7 +375,7 @@ flowchart TD
 
 ---
 
-## 5. Joining Multiple Tables (`JOIN`)
+## Joining Multiple Tables (`JOIN`)
 
 `JOIN` is one of SQL’s most powerful features. It lets you combine data from multiple tables.
 
@@ -460,7 +460,7 @@ ORDER BY total_spent DESC;
 
 ---
 
-## 6. Insert, Update, Delete (`INSERT` / `UPDATE` / `DELETE`)
+## Insert, Update, Delete (`INSERT` / `UPDATE` / `DELETE`)
 
 ### Insert Data
 

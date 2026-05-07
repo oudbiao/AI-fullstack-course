@@ -1,11 +1,11 @@
 ---
-title: "9.4 实操：构建一个可复现的视觉迷你流水线"
+title: "10.6.4 实操：构建一个可复现的视觉迷你流水线"
 sidebar_position: 20
 description: "本地跑通一个完整计算机视觉流程：生成小型合成数据集、预处理图像、分类形状、检测框、分割 mask、计算指标并写出失败样本报告。"
 keywords: [computer vision workshop, OpenCV, synthetic dataset, classification, detection, segmentation, IoU, failure analysis]
 ---
 
-# 实操：构建一个可复现的视觉迷你流水线
+# 10.6.4 实操：构建一个可复现的视觉迷你流水线
 
 这一节把第 10 章变成一个可以跟着操作的项目。你不需要下载数据集，也不需要调用云端模型。一个 Python 脚本会自己生成小型图像数据集，然后跑完整视觉流程：
 

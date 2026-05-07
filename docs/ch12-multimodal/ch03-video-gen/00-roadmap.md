@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-class Guide: What Is This Chapter About in Video and Speech Generation?"
+title: "12.3.1 Pre-class Guide: What Is This Chapter About in Video and Speech Generation?"
 sidebar_position: 0
 description: "First build a learning map for the video and speech generation chapter: how temporal generation, shot consistency, TTS, voice cloning, digital humans, and multimodal asset flow work together."
 keywords: [video generation guide, speech synthesis guide, digital human guide, TTS, temporal generation]
 ---
 
-# Pre-class Guide: What Is This Chapter About in Video and Speech Generation?
+# 12.3.1 Pre-class Guide: What Is This Chapter About in Video and Speech Generation?
 
 This chapter answers a key question: when content changes from a static image to media that unfolds over time, why does generation suddenly become much more complicated?
 

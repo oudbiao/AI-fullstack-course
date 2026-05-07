@@ -1,11 +1,11 @@
 ---
-title: "6.4 Other PEFT Methods [Optional]"
+title: "7.6.4 Other PEFT Methods [Optional]"
 sidebar_position: 21
 description: "From Prompt Tuning and Prefix Tuning to Adapter and IA3, understand where the trainable part can be placed in parameter-efficient fine-tuning besides LoRA."
 keywords: [PEFT, prompt tuning, prefix tuning, adapter, IA3, finetuning]
 ---
 
-# Other PEFT Methods [Optional]
+# 7.6.4 Other PEFT Methods [Optional]
 
 :::tip Section overview
 In the previous section, we already learned the main storyline of LoRA and QLoRA:
@@ -32,9 +32,9 @@ This section organizes these branches into a map that you can really use for cho
 
 ---
 
-## 1. Why isn’t LoRA the only answer?
+## Why isn’t LoRA the only answer?
 
-### 1.1 What PEFT is really trying to solve is not “inventing acronyms”
+### What PEFT is really trying to solve is not “inventing acronyms”
 
 The core problem of PEFT is very simple:
 
@@ -48,7 +48,7 @@ So the biggest difference between these methods is not their names, but:
 - Which part of the model’s information flow they affect
 - How training cost, inference cost, and reusability compare
 
-### 1.2 An analogy: making lightweight modifications to the same computer
+### An analogy: making lightweight modifications to the same computer
 
 You can think of a base model as a computer that is already assembled:
 
@@ -60,7 +60,7 @@ You can think of a base model as a computer that is already assembled:
 None of these rebuild the whole computer.
 They all add a layer of adjustable structure at different positions.
 
-### 1.3 Why do real projects need these branches?
+### Why do real projects need these branches?
 
 Because engineering constraints are not exactly the same:
 
@@ -73,9 +73,9 @@ Even though they are all PEFT, the best method may not be the same.
 
 ---
 
-## 2. First, clarify the PEFT family map
+## First, clarify the PEFT family map
 
-### 2.1 Prompt Tuning: put the trainable part in front of the input
+### Prompt Tuning: put the trainable part in front of the input
 
 The intuition behind Prompt Tuning is:
 
@@ -94,7 +94,7 @@ Its limitations are:
 - Limited ability to transform complex tasks
 - Mainly affects the input side, not as deep as layer-level modifications
 
-### 2.2 Prefix Tuning: add “prefix context” to each layer
+### Prefix Tuning: add “prefix context” to each layer
 
 Prefix Tuning goes one step further than Prompt Tuning.
 
@@ -109,7 +109,7 @@ You can think of it like this:
 
 So it usually has stronger expressiveness than Prompt Tuning.
 
-### 2.3 Adapter: insert a small module between layers
+### Adapter: insert a small module between layers
 
 Adapter is easy for beginners to understand because it is most like “explicitly adding a plugin.”
 
@@ -130,7 +130,7 @@ Its engineering advantages are very clear:
 - Different tasks can use different adapters
 - When switching tasks, you only need to swap the small module
 
-### 2.4 IA3: instead of learning a large matrix, learn “scaling coefficients”
+### IA3: instead of learning a large matrix, learn “scaling coefficients”
 
 The idea behind IA3 is even more restrained:
 
@@ -147,7 +147,7 @@ This means:
 - Lighter training
 - But also relatively more limited expressive power
 
-### 2.5 Looking at the four methods together
+### Looking at the four methods together
 
 | Method | Where the trainable part is placed | Intuition | Common advantages | Common limitations |
 |---|---|---|---|---|
@@ -162,7 +162,7 @@ This means:
 Don’t memorize this figure by method name. Focus on “where the trainable part is placed”: Prompt Tuning is before the input, Prefix Tuning is the KV prefix of attention in each layer, Adapter inserts a small module between layers, and IA3 adjusts channel scaling. Different locations mean different costs, expressive power, and switching behavior.
 :::
 
-### 2.6 A small glossary for the PEFT family
+### A small glossary for the PEFT family
 
 | Term | Beginner-friendly explanation |
 |---|---|
@@ -175,7 +175,7 @@ Don’t memorize this figure by method name. Focus on “where the trainable par
 
 ---
 
-## 3. First, run a real Adapter example related to PEFT
+## First, run a real Adapter example related to PEFT
 
 The example below will do something very specific:
 
@@ -292,7 +292,7 @@ with torch.no_grad():
         print(f"{text:22s} -> {label_names[pred]}")
 ```
 
-### 3.1 What exactly does this code teach?
+### What exactly does this code teach?
 
 It is not teaching you how to build a complete production-grade fine-tuning system. Instead, it deliberately focuses on Adapter itself:
 
@@ -312,7 +312,7 @@ This is the classic Adapter idea:
 - Add a small bottleneck branch beside it
 - Add it back in residual form
 
-### 3.2 Why is this much better than “just printing the method name”?
+### Why is this much better than “just printing the method name”?
 
 Because now you can directly observe three things:
 
@@ -324,9 +324,9 @@ These three points are the essence of Adapter.
 
 ---
 
-## 4. Then look at three shorter structural illustrations
+## Then look at three shorter structural illustrations
 
-### 4.1 Prompt Tuning: concatenate soft prompts before the input
+### Prompt Tuning: concatenate soft prompts before the input
 
 ```python
 import torch
@@ -345,7 +345,7 @@ The most important thing to remember here is:
 - It is a set of vectors learned during training
 - What the model sees is the embedding of “extra input tokens”
 
-### 4.2 Prefix Tuning: do not change the input length, change the context seen by attention in each layer
+### Prefix Tuning: do not change the input length, change the context seen by attention in each layer
 
 ```python
 import torch
@@ -363,7 +363,7 @@ The intuition behind this illustration is:
 - Normal attention only sees the original sequence
 - Prefix Tuning lets each layer’s attention see an additional trainable prefix
 
-### 4.3 IA3: instead of adding a module, multiply key channels by scaling factors
+### IA3: instead of adding a module, multiply key channels by scaling factors
 
 ```python
 import torch
@@ -380,9 +380,9 @@ The core of IA3 is not “becoming more complex,” but “making lightweight ad
 
 ---
 
-## 5. How should you choose?
+## How should you choose?
 
-### 5.1 If you care most about task switching and modularity
+### If you care most about task switching and modularity
 
 Think first about:
 
@@ -394,7 +394,7 @@ Because it is naturally suitable for:
 - Many small adapters attached to it
 - Loading different adapters for different tasks
 
-### 5.2 If you care most about having even fewer parameters
+### If you care most about having even fewer parameters
 
 You can first look at:
 
@@ -406,7 +406,7 @@ These methods are very lightweight, but keep in mind:
 - Fewer parameters does not automatically mean better results
 - For complex tasks, expressive power may not be enough
 
-### 5.3 If you want deeper intervention
+### If you want deeper intervention
 
 You can look at:
 
@@ -414,7 +414,7 @@ You can look at:
 
 Because it affects not only the very beginning of the input, but also how each layer’s attention reads context.
 
-### 5.4 If you want a default industrial choice to try first
+### If you want a default industrial choice to try first
 
 In practice, many teams still try:
 
@@ -433,9 +433,9 @@ but to let you know:
 
 ---
 
-## 6. These misconceptions are very common
+## These misconceptions are very common
 
-### 6.1 Misconception 1: fewer parameters always means more advanced
+### Misconception 1: fewer parameters always means more advanced
 
 Not necessarily.
 Fewer parameters mean:
@@ -446,7 +446,7 @@ But they can also mean:
 
 - More limited expressive power
 
-### 6.2 Misconception 2: the more method names you know, the more you understand
+### Misconception 2: the more method names you know, the more you understand
 
 What you really need to know is:
 
@@ -454,7 +454,7 @@ What you really need to know is:
 - Which part of the information flow does it affect?
 - Why is it suitable for the current task?
 
-### 6.3 Misconception 3: treating the “trainable module” as the only thing that matters
+### Misconception 3: treating the “trainable module” as the only thing that matters
 
 Don’t forget that success also depends heavily on:
 

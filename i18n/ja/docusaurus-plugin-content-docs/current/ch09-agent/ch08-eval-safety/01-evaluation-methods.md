@@ -1,11 +1,11 @@
 ---
-title: "8.2 Agent 評価方法"
+title: "9.8.2 Agent 評価方法"
 sidebar_position: 44
 description: "タスク成功率、プロセス評価、ツール呼び出し、人的評価、リプレイサンプルをもとに、実務で使える Agent 評価方法を構築します。"
 keywords: [agent evaluation, task success, tool evaluation, human review, replay]
 ---
 
-# Agent 評価方法
+# 9.8.2 Agent 評価方法
 
 :::tip この節の位置づけ
 Agent の評価は、最終回答がそれっぽいかどうかだけでは不十分です。Agent は計画を立て、ツールを呼び出し、状態を変えるシステムなので、評価では結果・プロセス・安全性・コストを同時に見る必要があります。

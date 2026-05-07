@@ -1,11 +1,11 @@
 ---
-title: "5.4 MCP Server 开发"
+title: "9.5.4 MCP Server 开发"
 sidebar_position: 27
 description: "从工具描述、参数校验、结果返回到最小 server 结构，理解一个 MCP Server 到底应该怎样暴露能力。"
 keywords: [MCP server, tool server, schema, tool exposure, server development]
 ---
 
-# MCP Server 开发
+# 9.5.4 MCP Server 开发
 
 :::tip 本节定位
 前两节我们已经知道：
@@ -29,7 +29,7 @@ keywords: [MCP server, tool server, schema, tool exposure, server development]
 
 ## 一、MCP Server 真正在做什么？
 
-### 1.1 它不是“另一个普通后端”
+### 它不是“另一个普通后端”
 
 普通后端往往直接面向业务接口。
 而 MCP Server 更像：
@@ -43,7 +43,7 @@ keywords: [MCP server, tool server, schema, tool exposure, server development]
 - 参数怎样校验
 - 结果怎样统一返回
 
-### 1.2 一个直觉类比
+### 一个直觉类比
 
 MCP Server 很像一个有前台的工具库管理员：
 
@@ -58,7 +58,7 @@ MCP Server 很像一个有前台的工具库管理员：
 
 ## 二、先定义一个最小工具
 
-### 2.1 一个工具最少得有哪几样？
+### 一个工具最少得有哪几样？
 
 至少要有：
 
@@ -67,7 +67,7 @@ MCP Server 很像一个有前台的工具库管理员：
 - 参数说明
 - 实际执行逻辑
 
-### 2.2 一个最小工具描述示例
+### 一个最小工具描述示例
 
 ```python
 search_docs_tool = {
@@ -93,7 +93,7 @@ print(search_docs_tool)
 
 ## 三、工具描述为什么不能写得太随意？
 
-### 3.1 一个坏描述
+### 一个坏描述
 
 ```python
 bad_tool = {
@@ -111,7 +111,7 @@ print(bad_tool)
 - 描述太空
 - 参数含义不清楚
 
-### 3.2 一个更稳的描述
+### 一个更稳的描述
 
 ```python
 good_tool = {
@@ -144,7 +144,7 @@ print(good_tool)
 1. 列出可用工具
 2. 接受某个工具调用
 
-### 4.1 先写一个最小 Server
+### 先写一个最小 Server
 
 ```python
 class MockMCPServer:
@@ -166,7 +166,7 @@ server = MockMCPServer()
 print(server.list_tools())
 ```
 
-### 4.2 再加真正的执行逻辑
+### 再加真正的执行逻辑
 
 ```python
 class MockMCPServer:
@@ -209,7 +209,7 @@ print(server.call_tool("search_docs", {"query": "退款政策是什么"}))
 
 ## 五、参数校验为什么是 server 的责任之一？
 
-### 5.1 因为 client 或模型都可能给错参数
+### 因为 client 或模型都可能给错参数
 
 例如：
 
@@ -219,7 +219,7 @@ bad_call = {"query_text": "退款政策"}
 
 如果 server 直接执行，就可能报错或产生奇怪行为。
 
-### 5.2 一个最小校验版本
+### 一个最小校验版本
 
 ```python
 def validate_search_docs(arguments):
@@ -233,7 +233,7 @@ print(validate_search_docs({"query": "退款政策"}))
 print(validate_search_docs({"query_text": "退款政策"}))
 ```
 
-### 5.3 为什么这一步一定不能省？
+### 为什么这一步一定不能省？
 
 因为 server 是能力边界守门人。
 如果 server 不校验，整个工具系统就很难稳定。
@@ -293,7 +293,7 @@ print(server.call_tool("search_docs", {"query": "证书怎么获得"}))
 print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 ```
 
-### 6.2 这个版本比上一版强在哪？
+### 这个版本比上一版强在哪？
 
 它已经具备了：
 
@@ -308,7 +308,7 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 
 ## 七、MCP Server 开发里最常见的坑
 
-### 7.1 把业务逻辑和协议逻辑混在一起
+### 把业务逻辑和协议逻辑混在一起
 
 结果会变成：
 
@@ -316,12 +316,12 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 - 扩展困难
 - 调试困难
 
-### 7.2 工具粒度太粗或太细
+### 工具粒度太粗或太细
 
 - 太粗：一个工具什么都干
 - 太细：client 调用复杂度爆炸
 
-### 7.3 返回结构不统一
+### 返回结构不统一
 
 有时返回文本，有时返回 dict，有时直接抛异常，后面会很难接。
 

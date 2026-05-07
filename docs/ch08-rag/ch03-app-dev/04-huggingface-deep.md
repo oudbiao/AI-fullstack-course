@@ -1,11 +1,11 @@
 ---
-title: "3.5 Deep Dive into the HuggingFace Ecosystem"
+title: "8.3.5 Deep Dive into the HuggingFace Ecosystem"
 sidebar_position: 14
 description: "From models, datasets, and tokenizers to pipelines and the hub, understand why HuggingFace has become one of the most important foundational ecosystems for large model applications."
 keywords: [HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem]
 ---
 
-# Deep Dive into the HuggingFace Ecosystem
+# 8.3.5 Deep Dive into the HuggingFace Ecosystem
 
 :::tip Section Positioning
 When many people first encounter HuggingFace, they usually notice:
@@ -25,9 +25,9 @@ But to truly understand its engineering value, you cannot just look at a single 
 
 ---
 
-## 1. Why Is HuggingFace More Than Just a Model Library?
+## Why Is HuggingFace More Than Just a Model Library?
 
-### 1.1 Many People’s First Impression
+### Many People’s First Impression
 
 Usually, it is:
 
@@ -36,7 +36,7 @@ Usually, it is:
 
 That is true, but it is not complete.
 
-### 1.2 A More Accurate Understanding
+### A More Accurate Understanding
 
 HuggingFace is more like a complete ecosystem centered around model usage:
 
@@ -52,25 +52,25 @@ So its importance is not just “it has many models,” but rather:
 
 ---
 
-## 2. First, Separate the Key Layers in the Ecosystem
+## First, Separate the Key Layers in the Ecosystem
 
-### 2.1 Tokenizers
+### Tokenizers
 
 Responsible for turning text into tokens that the model can process.
 
-### 2.2 Models
+### Models
 
 Responsible for the actual forward computation.
 
-### 2.3 Datasets
+### Datasets
 
 Responsible for organizing and processing training / evaluation data.
 
-### 2.4 Pipelines
+### Pipelines
 
 Responsible for packaging common tasks into one-click interfaces.
 
-### 2.5 Hub
+### Hub
 
 Responsible for:
 
@@ -90,7 +90,7 @@ Read from bottom to top: Datasets provide data, Tokenizers define the input, Mod
 
 ---
 
-## 3. Why Are Tokenizers Especially Important in Engineering?
+## Why Are Tokenizers Especially Important in Engineering?
 
 Because models do not directly understand raw text.
 What they see first is:
@@ -119,9 +119,9 @@ print(tokenizer_layer)
 
 ---
 
-## 4. Why Is pipeline So Popular?
+## Why Is pipeline So Popular?
 
-### 4.1 Because It Is Great for Quick Validation
+### Because It Is Great for Quick Validation
 
 For example, if you just want to quickly try:
 
@@ -131,7 +131,7 @@ For example, if you just want to quickly try:
 
 pipeline lets you write much less boilerplate code.
 
-### 4.2 A Minimal Example
+### A Minimal Example
 
 ```python
 class MockPipeline:
@@ -150,7 +150,7 @@ Its value is speed, but that also means it is usually not the lowest-level or mo
 
 ---
 
-## 5. When Can You Not Rely on pipeline Alone?
+## When Can You Not Rely on pipeline Alone?
 
 If you start needing:
 
@@ -173,7 +173,7 @@ This is also a very important engineering judgment:
 
 ---
 
-## 6. Why Is the Model Hub So Important?
+## Why Is the Model Hub So Important?
 
 Because it solves:
 
@@ -196,7 +196,7 @@ So a big part of HuggingFace’s value is not in a single API, but in:
 
 ---
 
-## 7. Why Can’t We Ignore Datasets?
+## Why Can’t We Ignore Datasets?
 
 Many beginners focus only on models and ignore the data layer.
 But in real engineering:
@@ -213,7 +213,7 @@ So the reason HuggingFace is so powerful is not just because it has many models,
 
 ---
 
-## 8. A Practical Way to Judge the Usage Level
+## A Practical Way to Judge the Usage Level
 
 You can remember it like this:
 
@@ -225,17 +225,17 @@ This order matters, because many people dive straight into the lower layers at t
 
 ---
 
-## 9. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 9.1 Thinking HuggingFace Is Only a Model Repository
+### Thinking HuggingFace Is Only a Model Repository
 
 In fact, it is more like a complete ecosystem.
 
-### 9.2 Only Knowing pipeline, Without Understanding the Lower-Level Chain
+### Only Knowing pipeline, Without Understanding the Lower-Level Chain
 
 You can easily get stuck once the project becomes complex.
 
-### 9.3 Looking Only at the Model, Without Looking at the Tokenizer and Data
+### Looking Only at the Model, Without Looking at the Tokenizer and Data
 
 This will keep your understanding of the system stuck at a surface level.
 

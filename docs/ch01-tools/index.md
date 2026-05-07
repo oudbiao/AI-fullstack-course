@@ -36,14 +36,14 @@ You do not need to memorize every command. You need a small repeatable loop that
 
 | Step | Page | What to do |
 |---|---|---|
-| 1.1 | [Terminal and command line](ch01-terminal/01-why-cli.md) | Open a terminal, move between folders, list files, and run commands |
-| 1.2 | [Basic terminal operations](ch01-terminal/02-basic-operations.md) | Create, move, inspect, and remove files inside a practice folder |
-| 1.3 | [Package managers](ch01-terminal/03-package-managers.md) | Understand how tools are installed and checked |
-| 1.4 | [Git basics](ch02-git/01-git-basics.md) | Save a first project snapshot with Git |
-| 1.5 | [Git core operations](ch02-git/02-core-operations.md) | Use `status`, `add`, `commit`, `log`, and `diff` |
-| 1.6 | [Python environment](ch03-devenv/01-python-env.md) | Create an isolated Python environment and install packages correctly |
-| 1.7 | [VS Code](ch03-devenv/02-vscode.md) and [Jupyter](ch03-devenv/03-jupyter.md) | Use an editor for projects and a notebook for exploration |
-| 1.8 | [Follow-along workshop](ch04-workshop/01-hands-on-tools-workshop.md) | Connect everything into one reproducible mini-project |
+| 1.1 | [1.1.1 Terminal and command line](ch01-terminal/01-why-cli.md) | Open a terminal, move between folders, list files, and run commands |
+| 1.2 | [1.1.2 Basic terminal operations](ch01-terminal/02-basic-operations.md) | Create, move, inspect, and remove files inside a practice folder |
+| 1.3 | [1.1.3 Package managers](ch01-terminal/03-package-managers.md) | Understand how tools are installed and checked |
+| 1.4 | [1.2.1 Git basics](ch02-git/01-git-basics.md) | Save a first project snapshot with Git |
+| 1.5 | [1.2.2 Git core operations](ch02-git/02-core-operations.md) | Use `status`, `add`, `commit`, `log`, and `diff` |
+| 1.6 | [1.3.1 Python environment](ch03-devenv/01-python-env.md) | Create an isolated Python environment and install packages correctly |
+| 1.7 | [1.3.2 VS Code](ch03-devenv/02-vscode.md) and [1.3.3 Jupyter](ch03-devenv/03-jupyter.md) | Use an editor for projects and a notebook for exploration |
+| 1.8 | [1.4.1 Follow-along workshop](ch04-workshop/01-hands-on-tools-workshop.md) | Connect everything into one reproducible mini-project |
 
 The workshop stays at the end because it is the integration step. First learn the pieces, then use them together.
 

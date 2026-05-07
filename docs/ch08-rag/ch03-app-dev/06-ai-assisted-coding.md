@@ -1,11 +1,11 @@
 ---
-title: "3.7 AI-Assisted Programming with Large Models"
+title: "8.3.7 AI-Assisted Programming with Large Models"
 sidebar_position: 16
 description: "Learn how to use large models as programming assistants: generation, explanation, refactoring, testing, debugging, and how to avoid blind trust."
 keywords: [AI-assisted programming, code generation, code review, testing, debugging, LLM development]
 ---
 
-# AI-Assisted Programming with Large Models
+# 8.3.7 AI-Assisted Programming with Large Models
 
 :::tip Section Overview
 AI-assisted programming does not mean “let the model write all the code for you.” It means putting the model into your development workflow: helping you understand code, generate drafts, add tests, find bugs, and suggest refactoring. What really matters is how you verify it.
@@ -39,7 +39,7 @@ Large models are good at generating boilerplate code, explaining unfamiliar APIs
 Treat the model as a “draft generator,” not a “final approver.” An AI-generated piece of code should go through requirement checks, diff review, testing, real examples, and human review before it is ready to enter the project.
 :::
 
-## 1. Ask the Model to Restate Constraints Before Writing Code
+## Ask the Model to Restate Constraints Before Writing Code
 
 Instead of directly saying “help me write a RAG system,” it is better to provide the input, output, dependencies, boundaries, and acceptance criteria.
 
@@ -54,7 +54,7 @@ Requirements:
 
 This kind of Prompt is much more stable than a vague request, because the model knows what counts as done.
 
-## 2. You Must Verify Generated Code
+## You Must Verify Generated Code
 
 After AI generates code, do at least three things: read the diff, run tests, and run a real example. Do not merge code just because it looks correct.
 
@@ -65,7 +65,7 @@ python demo.py
 
 If the project does not have tests yet, you can first ask the model to add minimal tests. Tests should cover normal inputs, boundary inputs, and error inputs.
 
-## 3. Provide Full Context When Debugging
+## Provide Full Context When Debugging
 
 A good debugging Prompt should include: the error log, related code, the behavior you expect, the actual behavior, and what you have already tried. If you only paste a single error message, the model can usually only guess.
 
@@ -75,7 +75,7 @@ Here are the error message, the function code, and the test input. Please first 
 
 Requiring the “smallest possible fix” is important. It helps prevent the model from changing clear code into a different style entirely.
 
-## 4. AI Code Review Checklist
+## AI Code Review Checklist
 
 | Check Item | Question |
 |---|---|
@@ -85,7 +85,7 @@ Requiring the “smallest possible fix” is important. It helps prevent the mod
 | Dependencies | Does it introduce unnecessary new libraries? |
 | Testing | Is there runnable test coverage proving the behavior? |
 
-## 5. What Is Worth Recording in Your Portfolio
+## What Is Worth Recording in Your Portfolio
 
 If you use AI-assisted programming in a project, you can record: the key Prompt you gave the model, the problems in the model’s first output, how you tested and fixed it, and how the final code differs from the first draft. This shows engineering ability much better than simply saying “I used AI.”
 

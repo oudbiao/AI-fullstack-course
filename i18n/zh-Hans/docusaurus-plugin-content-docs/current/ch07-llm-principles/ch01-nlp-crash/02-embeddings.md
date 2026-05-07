@@ -1,11 +1,11 @@
 ---
-title: "1.3 词嵌入与语义表示"
+title: "7.1.3 词嵌入与语义表示"
 sidebar_position: 2
 description: "从 one-hot 到 dense vector，再到句子表示与上下文化表示，理解模型为什么能把“语义相近”变成向量空间里的距离关系。"
 keywords: [embedding, semantic representation, cosine similarity, sentence embedding, contextual embedding]
 ---
 
-# 词嵌入与语义表示
+# 7.1.3 词嵌入与语义表示
 
 ![Embedding 语义空间图](/img/course/embedding-semantic-space.png)
 
@@ -39,7 +39,7 @@ Embedding 解决的是：
 
 ## 一、为什么不能直接用 one-hot 表示词？
 
-### 1.1 one-hot 很干净，但它不表达语义关系
+### one-hot 很干净，但它不表达语义关系
 
 假设词表里有四个词：
 
@@ -65,7 +65,7 @@ one-hot 表示会像这样：
 
 > **one-hot 能区分身份，但不会表达相似性。**
 
-### 1.2 Dense embedding 的核心价值
+### Dense embedding 的核心价值
 
 embedding 想做的事情是：
 
@@ -83,7 +83,7 @@ embedding 想做的事情是：
 - 不只是编码
 - 而是表示
 
-### 1.3 一个类比：给词放进一张地图
+### 一个类比：给词放进一张地图
 
 你可以把 embedding 想成地图坐标。
 
@@ -106,7 +106,7 @@ embedding 想做的事情是：
 
 ## 二、词向量为什么会有语义？
 
-### 2.1 因为它们是在上下文里被学出来的
+### 因为它们是在上下文里被学出来的
 
 embedding 不是人工规定的。
 它通常是在训练过程中慢慢学出来的。
@@ -118,7 +118,7 @@ embedding 不是人工规定的。
 
 > **词的意义，很大程度上由它出现的上下文决定。**
 
-### 2.2 语义相近不代表完全同义
+### 语义相近不代表完全同义
 
 向量靠近只说明：
 
@@ -136,7 +136,7 @@ embedding 不是人工规定的。
 可能也会靠近，因为它们经常一起出现。
 所以 embedding 里的“近”，更多是分布意义上的近。
 
-### 2.3 从词到句，表示可以继续往上聚合
+### 从词到句，表示可以继续往上聚合
 
 当你把多个 token 向量组合起来，
 就可以得到：
@@ -204,7 +204,7 @@ print("query_a vs query_b:", round(cosine(vec_a, vec_b), 3))
 print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 ```
 
-### 3.1 这段代码在说明什么？
+### 这段代码在说明什么？
 
 它说明了两个层次的事情：
 
@@ -218,7 +218,7 @@ print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 
 这就是 embedding 为什么能支持语义检索和召回。
 
-### 3.2 为什么 `query_a` 和 `query_b` 会非常接近？
+### 为什么 `query_a` 和 `query_b` 会非常接近？
 
 因为它们只是词序不同，
 平均向量后得到的表示基本一致。
@@ -230,7 +230,7 @@ print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 所以早期静态句向量虽然有用，
 但表达能力有限。
 
-### 3.3 为什么这段代码仍然是有价值的？
+### 为什么这段代码仍然是有价值的？
 
 因为它抓住了 embedding 最本质的直觉：
 
@@ -243,7 +243,7 @@ print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 
 ## 四、从词向量到上下文化表示
 
-### 4.1 早期 embedding：一个词通常只有一个固定向量
+### 早期 embedding：一个词通常只有一个固定向量
 
 例如传统词向量里：
 
@@ -258,7 +258,7 @@ print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 
 这就会带来歧义问题。
 
-### 4.2 上下文化表示：同一个词在不同语境里可以变
+### 上下文化表示：同一个词在不同语境里可以变
 
 到了 Transformer 时代，
 词的表示不再完全固定，而是会根据上下文变化。
@@ -278,7 +278,7 @@ print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 读这张图时只盯一个词 `bank`：在 `bank account` 里它靠近金融概念，在 `river bank` 里它靠近地理概念。Transformer 的上下文化表示让同一个 token 不再永远只有一个固定坐标。
 :::
 
-### 4.3 一个简单的上下文模拟
+### 一个简单的上下文模拟
 
 下面这个例子不是真正的 Transformer，
 但它能帮你先建立“同词不同向量”的直觉。
@@ -305,7 +305,7 @@ print("bank in river  :", [round(x, 2) for x in bank_in_river])
 
 ## 五、Embedding 在真实项目里有什么用？
 
-### 5.1 检索和 RAG
+### 检索和 RAG
 
 把问题和文档都编码成向量后，
 就可以做：
@@ -314,7 +314,7 @@ print("bank in river  :", [round(x, 2) for x in bank_in_river])
 
 这正是很多 RAG 系统的基础。
 
-### 5.2 语义聚类和去重
+### 语义聚类和去重
 
 如果两段文本向量很近，
 往往表示它们语义也相近。
@@ -325,7 +325,7 @@ print("bank in river  :", [round(x, 2) for x in bank_in_river])
 - FAQ 合并
 - 近重复检测
 
-### 5.3 作为下游任务输入特征
+### 作为下游任务输入特征
 
 很多分类、匹配、排序任务也会先把文本变成 embedding，
 再在其上训练头部或做相似度打分。
@@ -334,7 +334,7 @@ print("bank in river  :", [round(x, 2) for x in bank_in_river])
 
 ## 六、Embedding 最容易被误解的地方
 
-### 6.1 误区一：向量接近就一定是同义词
+### 误区一：向量接近就一定是同义词
 
 不一定。
 它更可能意味着：
@@ -342,7 +342,7 @@ print("bank in river  :", [round(x, 2) for x in bank_in_river])
 - 分布相近
 - 用法相关
 
-### 6.2 误区二：句向量越简单越好
+### 误区二：句向量越简单越好
 
 平均词向量虽然直观，
 但很容易丢掉：
@@ -351,7 +351,7 @@ print("bank in river  :", [round(x, 2) for x in bank_in_river])
 - 否定
 - 长距离依赖
 
-### 6.3 误区三：有 embedding 就等于理解了语言
+### 误区三：有 embedding 就等于理解了语言
 
 embedding 只是表示层，
 真正的理解还需要：

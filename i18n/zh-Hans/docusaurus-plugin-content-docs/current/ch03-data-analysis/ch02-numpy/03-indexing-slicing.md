@@ -1,10 +1,10 @@
 ---
-title: "2.3 数组索引与切片"
+title: "3.2.3 数组索引与切片"
 sidebar_position: 4
 description: "掌握 NumPy 数组的多种访问方式：基本索引、布尔索引、花式索引"
 ---
 
-# 数组索引与切片
+# 3.2.3 数组索引与切片
 
 ![NumPy 索引切片地图](/img/course/ch03-numpy-indexing-slicing-map.png)
 

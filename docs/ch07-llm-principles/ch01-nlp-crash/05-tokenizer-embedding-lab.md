@@ -1,11 +1,11 @@
 ---
-title: "1.6 Hands-on: Tokenizer and Embedding Lab"
+title: "7.1.6 Hands-on: Tokenizer and Embedding Lab"
 sidebar_position: 5
 description: "Run a small offline lab that connects raw text, tokens, input_ids, attention_mask, embeddings, and cosine similarity."
 keywords: [tokenizer lab, embedding lab, input_ids, attention_mask, cosine similarity]
 ---
 
-# Hands-on: Tokenizer and Embedding Lab
+# 7.1.6 Hands-on: Tokenizer and Embedding Lab
 
 Tokenizer and embedding are easy to understand separately, but many beginners get stuck when they have to connect them.
 
@@ -19,7 +19,7 @@ This lab gives you the whole mini-chain:
 Read the picture first, then run the code, then inspect the printed output. Do not start from formulas. Start from the data flow.
 :::
 
-## 1. What this lab adds
+## What this lab adds
 
 Earlier pages explained tokenizer and embedding separately. This lab shows how they work together.
 
@@ -31,7 +31,7 @@ You will see:
 - how token IDs look up vectors from an embedding table
 - how sentence vectors support similarity comparison
 
-## 2. Terms to clarify before running
+## Terms to clarify before running
 
 | Term | Plain meaning | Why it matters |
 |---|---|---|
@@ -41,7 +41,7 @@ You will see:
 | `embedding` | A vector representation for a token | Turns symbolic IDs into continuous semantic features |
 | cosine similarity | A score measuring vector direction similarity | Commonly used in retrieval and semantic matching |
 
-## 3. Run the lab
+## Run the lab
 
 Save the following code as `tokenizer_embedding_lab.py`, then run:
 
@@ -140,9 +140,9 @@ print("similarity(text 1, text 2):", round(cosine(sentence_vectors[0], sentence_
 print("similarity(text 1, text 3):", round(cosine(sentence_vectors[0], sentence_vectors[2]), 3))
 ```
 
-## 4. How to read the output
+## How to read the output
 
-### 4.1 `tokens` are still human-readable
+### `tokens` are still human-readable
 
 The tokenizer first creates a list such as:
 
@@ -152,7 +152,7 @@ The tokenizer first creates a list such as:
 
 This is still readable by humans.
 
-### 4.2 `input_ids` are model-readable
+### `input_ids` are model-readable
 
 Then tokens become numbers:
 
@@ -162,12 +162,12 @@ Then tokens become numbers:
 
 The model does not know the word `password` directly. It sees the ID `5`, then looks up the vector for ID `5`.
 
-### 4.3 `attention_mask` prevents padding from becoming meaning
+### `attention_mask` prevents padding from becoming meaning
 
 If a sentence is shorter than `max_length`, the code adds `[PAD]`.
 The mask marks padding as `0`, so the model knows it is not real content.
 
-### 4.4 Embedding is where IDs start to carry semantic features
+### Embedding is where IDs start to carry semantic features
 
 `input_ids` alone are just identifiers.
 The embedding table turns each ID into a vector.
@@ -177,7 +177,7 @@ That is why this distinction matters:
 - token ID tells the model which symbol it is
 - embedding vector tells the model how that symbol should be represented
 
-## 5. Why similarity works in the example
+## Why similarity works in the example
 
 `please help reset password` and `reset password` are close because they share the important password-reset vectors.
 
@@ -185,7 +185,7 @@ That is why this distinction matters:
 
 This is the smallest intuition behind semantic search, retrieval, and RAG.
 
-## 6. Practice tasks
+## Practice tasks
 
 1. Add a new word `invoice` to `vocab` and `embedding_table`.
 2. Add the sentence `refund invoice`.

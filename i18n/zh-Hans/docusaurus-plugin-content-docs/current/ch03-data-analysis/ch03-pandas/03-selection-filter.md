@@ -1,10 +1,10 @@
 ---
-title: "3.3 数据选择与过滤"
+title: "3.3.4 数据选择与过滤"
 sidebar_position: 11
 description: "掌握 loc、iloc、布尔索引和 query 等数据筛选方法"
 ---
 
-# 数据选择与过滤
+# 3.3.4 数据选择与过滤
 
 :::tip 本节定位
 很多新人第一次学 `Pandas` 时，最早会卡住的通常不是清洗，而是：

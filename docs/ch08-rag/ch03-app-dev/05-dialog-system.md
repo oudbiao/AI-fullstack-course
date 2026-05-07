@@ -1,11 +1,11 @@
 ---
-title: "3.6 Dialog Systems and Multi-turn Management"
+title: "8.3.6 Dialog Systems and Multi-turn Management"
 sidebar_position: 15
 description: "From single-turn Q&A to multi-turn state, memory, and strategy control, understand why a truly usable dialog system is much harder than just “adding a chat API.”"
 keywords: [dialog system, multi-turn, conversation state, memory, turn management, LLM app]
 ---
 
-# Dialog Systems and Multi-turn Management
+# 8.3.6 Dialog Systems and Multi-turn Management
 
 :::tip Section Focus
 When many people build a chat app, their first instinct is:
@@ -60,9 +60,9 @@ So the agent must remember:
 If you only pile the chat logs beside the model without truly organizing the state,
 the agent will still easily get confused.
 
-## 1. Why Is Multi-turn Conversation Much Harder Than Single-turn Q&A?
+## Why Is Multi-turn Conversation Much Harder Than Single-turn Q&A?
 
-### 1.1 Single-turn Q&A Is More Like “One Question, One Answer”
+### Single-turn Q&A Is More Like “One Question, One Answer”
 
 For example:
 
@@ -71,7 +71,7 @@ For example:
 
 Such systems can work even without long-term state.
 
-### 1.2 What Makes Multi-turn Conversation Truly Hard?
+### What Makes Multi-turn Conversation Truly Hard?
 
 Because later turns often omit information:
 
@@ -87,7 +87,7 @@ So the real difficulty of multi-turn conversation is not “there are more messa
 
 ---
 
-## 2. What Does a Dialog System Usually Need to Manage?
+## What Does a Dialog System Usually Need to Manage?
 
 At a minimum, it usually needs to manage:
 
@@ -102,7 +102,7 @@ In other words, a dialog system does not just “generate answers”; it also ma
 
 ---
 
-## 3. A Minimal Dialog Manager Example
+## A Minimal Dialog Manager Example
 
 ```python
 def new_session():
@@ -121,7 +121,7 @@ add_turn(session, "assistant", "Do you want the time range, or the eligibility c
 print(session)
 ```
 
-### 3.1 Although This Code Is Very Small, What Is It Teaching?
+### Although This Code Is Very Small, What Is It Teaching?
 
 It teaches you that:
 
@@ -130,7 +130,7 @@ It teaches you that:
 
 This is the first step from “a one-off model call” to “a dialog system.”
 
-### 3.2 Another Minimal “State Flow” Example
+### Another Minimal “State Flow” Example
 
 ```python
 state = {
@@ -159,9 +159,9 @@ History is the raw material, while state is the system’s current understanding
 
 ---
 
-## 4. A Dialog System Must Not Only Answer, but Also Ask Follow-up Questions
+## A Dialog System Must Not Only Answer, but Also Ask Follow-up Questions
 
-### 4.1 Why Is Follow-up Questioning So Important?
+### Why Is Follow-up Questioning So Important?
 
 Because user inputs are often incomplete.
 
@@ -174,7 +174,7 @@ A more reasonable approach is:
 
 > **First fill in the missing information.**
 
-### 4.2 A Minimal Follow-up Example
+### A Minimal Follow-up Example
 
 ```python
 def dialog_step(session, user_message):
@@ -198,7 +198,7 @@ This already demonstrates a very important capability:
 
 > A dialog system does not just answer; it also manages information gaps.
 
-### 4.3 Why Is Follow-up Actually a Sign of a More Stable System?
+### Why Is Follow-up Actually a Sign of a More Stable System?
 
 Many beginners mistakenly think:
 
@@ -211,15 +211,15 @@ But in real products, it is often the opposite:
 
 ---
 
-## 5. Why Isn’t “Just Put the Entire History into the Model” Enough?
+## Why Isn’t “Just Put the Entire History into the Model” Enough?
 
-### 5.1 What Happens When History Becomes Too Long?
+### What Happens When History Becomes Too Long?
 
 - token cost increases
 - response becomes slower
 - irrelevant information keeps piling up
 
-### 5.2 So What Do Real Systems Usually Do?
+### So What Do Real Systems Usually Do?
 
 For example:
 
@@ -233,7 +233,7 @@ In other words, multi-turn management is not just “having history,” but:
 
 ---
 
-## 6. A Slightly More Complete Multi-turn Example
+## A Slightly More Complete Multi-turn Example
 
 ```python
 def dialog_reply(session, user_message):
@@ -258,7 +258,7 @@ print(dialog_reply(session, "What if I’ve already completed 30%?"))
 print(session)
 ```
 
-### 6.1 What Does This Example Really Add Compared with Ordinary Q&A?
+### What Does This Example Really Add Compared with Ordinary Q&A?
 
 The key addition is not a stronger model, but:
 
@@ -269,7 +269,7 @@ In other words:
 
 > The core of a dialog system often starts with state design.
 
-### 6.2 A Useful State Table for Beginners
+### A Useful State Table for Beginners
 
 | State type | What it records |
 |---|---|
@@ -282,13 +282,13 @@ This table is especially useful for beginners because it breaks the complexity o
 
 ---
 
-## 7. Common Types of State in Dialog Systems
+## Common Types of State in Dialog Systems
 
-### 7.1 Topic State
+### Topic State
 
 What exactly is being discussed right now.
 
-### 7.2 Slot State
+### Slot State
 
 Which key pieces of information are already known and which are still missing.
 
@@ -297,13 +297,13 @@ For example, in a weather system:
 - city known / unknown
 - date known / unknown
 
-### 7.3 Tool State
+### Tool State
 
 Which tools have been called and which results have been obtained.
 
 This is especially important in Agent-style dialog.
 
-## 8. If Your Goal Is a “Knowledge-base-driven Lesson Material Generation Assistant,” Which Slots Should You Maintain Most Carefully?
+## If Your Goal Is a “Knowledge-base-driven Lesson Material Generation Assistant,” Which Slots Should You Maintain Most Carefully?
 
 The biggest difference between this kind of project and ordinary chat is:
 
@@ -347,7 +347,7 @@ The most important value of this example is:
 
 - to help beginners first understand what multi-turn conversation is actually filling in for a project
 
-## 9. A Minimal Follow-up Example That Feels Closer to a Real Project
+## A Minimal Follow-up Example That Feels Closer to a Real Project
 
 ```python
 def next_question(state):
@@ -378,7 +378,7 @@ This helps beginners build a very important intuition:
 - a dialog system is not designed to “chat a few more lines”
 - it is designed to gradually fill in the parameters needed for the generation task
 
-## 10. The Safest Order for Beginners Building a Dialog System for the First Time
+## The Safest Order for Beginners Building a Dialog System for the First Time
 
 A more stable sequence is usually:
 
@@ -389,7 +389,7 @@ A more stable sequence is usually:
 
 If you try to implement all states at once from the start, things usually become messy.
 
-## 11. What Is Most Worth Showing If You Turn It Into a Project?
+## What Is Most Worth Showing If You Turn It Into a Project?
 
 What is usually most worth showing is not:
 
@@ -410,7 +410,7 @@ This makes it much easier for others to see:
 
 ---
 
-## 12. Why Does Multi-turn Conversation So Easily Go Off Track?
+## Why Does Multi-turn Conversation So Easily Go Off Track?
 
 Because it is easily affected by:
 
@@ -425,17 +425,17 @@ So you will find that:
 
 ---
 
-## 13. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 13.1 Only Maintain `history`, but Not Structured State
+### Only Maintain `history`, but Not Structured State
 
 The system will become harder and harder to control.
 
-### 13.2 Guess Blindly When Something Is Unclear
+### Guess Blindly When Something Is Unclear
 
 In many cases, a follow-up question is better than a random answer.
 
-### 13.3 Let History Grow Without Limit
+### Let History Grow Without Limit
 
 Both cost and noise will increase.
 

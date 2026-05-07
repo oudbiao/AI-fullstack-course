@@ -1,11 +1,11 @@
 ---
-title: "2.3 Modern Classification Architectures"
+title: "10.2.3 Modern Classification Architectures"
 sidebar_position: 5
 description: "From VGG and ResNet to EfficientNet and ConvNeXt, understand why modern image classification architectures keep iterating around depth, residual connections, and efficiency."
 keywords: [ResNet, EfficientNet, ConvNeXt, classification, architecture, computer vision]
 ---
 
-# Modern Classification Architectures
+# 10.2.3 Modern Classification Architectures
 
 :::tip Section focus
 When doing image classification, model architecture is not simply “the newer, the better.”
@@ -66,9 +66,9 @@ but about answering very practical questions:
 - Will the machines become unstable as they run?
 - Can we produce more with the same electricity bill?
 
-## 1. Why Do Image Classification Architectures Keep Evolving?
+## Why Do Image Classification Architectures Keep Evolving?
 
-### 1.1 Because “deeper” does not automatically mean “better”
+### Because “deeper” does not automatically mean “better”
 
 In early networks, once they became deeper, they often ran into:
 
@@ -76,19 +76,19 @@ In early networks, once they became deeper, they often ran into:
 - Optimization difficulties
 - Unstable training
 
-### 1.2 So later evolution is essentially answering two questions
+### So later evolution is essentially answering two questions
 
 1. How can deep networks be trained better?
 2. How can performance and efficiency be balanced?
 
-### 1.3 An Analogy
+### An Analogy
 
 Architecture evolution is like continually upgrading an assembly line:
 
 - Not to make the machine more ornate
 - But to keep it working reliably at larger production scales
 
-### 1.4 When Learning This Section for the First Time, What Should You Focus On?
+### When Learning This Section for the First Time, What Should You Focus On?
 
 What matters most is not the model year or leaderboard, but this sentence:
 
@@ -101,9 +101,9 @@ Once that idea is clear, whenever you see a new architecture, you’ll naturally
 
 ---
 
-## 2. What Did Different Generations of Architectures Focus On?
+## What Did Different Generations of Architectures Focus On?
 
-### 2.1 VGG: First Make “Going Deeper” Work
+### VGG: First Make “Going Deeper” Work
 
 Features:
 
@@ -115,7 +115,7 @@ Its significance is:
 
 - It proved that deeper networks can significantly improve capability
 
-### 2.2 ResNet: Make Very Deep Networks Actually Trainable
+### ResNet: Make Very Deep Networks Actually Trainable
 
 The core intuition of residual connections is:
 
@@ -124,7 +124,7 @@ The core intuition of residual connections is:
 
 This greatly improves training stability in deep networks.
 
-### 2.2.1 Why Did ResNet Become One of the Most Important Turning Points in Image Classification?
+### Why Did ResNet Become One of the Most Important Turning Points in Image Classification?
 
 Because it was the first architecture to systematically solve a very important problem:
 
@@ -138,14 +138,14 @@ The significance of ResNet is not just “the score got better.” It connected:
 
 These two things were finally brought together.
 
-### 2.3 EfficientNet: Start Taking Compute Efficiency Seriously
+### EfficientNet: Start Taking Compute Efficiency Seriously
 
 It does not only ask, “Can it be stronger?”
 It also asks:
 
 - How can we get better value with the same budget?
 
-### 2.4 ConvNeXt: Re-examining the Convolutional Family
+### ConvNeXt: Re-examining the Convolutional Family
 
 After Transformer became dominant,
 the convolutional path also began to be reorganized and modernized.
@@ -154,7 +154,7 @@ This shows:
 
 - Architecture evolution is not a one-way replacement
 
-### 2.5 A More Beginner-Friendly Architecture Comparison Table
+### A More Beginner-Friendly Architecture Comparison Table
 
 | Architecture | The most important thing to remember first | What intuition it helps you build |
 |---|---|---|
@@ -163,7 +163,7 @@ This shows:
 | EfficientNet | Performance and efficiency together | Why accuracy is not the only thing that matters |
 | ConvNeXt | Convolutions can still be modernized | Architecture is not a simple new-vs-old binary |
 
-### 2.7 Where Do Beginners Most Easily Go Wrong When Learning Architecture Evolution?
+### Where Do Beginners Most Easily Go Wrong When Learning Architecture Evolution?
 
 It is easiest to turn it into:
 
@@ -177,7 +177,7 @@ But a more valuable way to learn is:
 - Then ask about the structural changes
 - Finally ask whether it is worth using as a baseline in a project
 
-### 2.6 If You Put Them Into “Project Selection,” How Should You Understand Them?
+### If You Put Them Into “Project Selection,” How Should You Understand Them?
 
 A more practical way to remember them is:
 
@@ -186,7 +186,7 @@ A more practical way to remember them is:
 - `EfficientNet`: especially valuable when you start caring about “more value for the same resources”
 - `ConvNeXt`: more suitable when you want to understand how “the convolutional family can still be modernized”
 
-### 2.8 A Practical Architecture Selection Table for Beginners
+### A Practical Architecture Selection Table for Beginners
 
 | Your goal | Safer first choice |
 |---|---|
@@ -205,7 +205,7 @@ Do not read this diagram as a model leaderboard. Read it as a “problem evoluti
 
 ---
 
-## 3. Build Intuition with a Minimal Residual Example First
+## Build Intuition with a Minimal Residual Example First
 
 ```python
 def block_without_residual(x):
@@ -223,7 +223,7 @@ print("without residual:", block_without_residual(x))
 print("with residual   :", block_with_residual(x))
 ```
 
-### 3.1 What Is This Example Trying to Show?
+### What Is This Example Trying to Show?
 
 You can first understand residual connections as:
 
@@ -232,12 +232,12 @@ You can first understand residual connections as:
 
 This is very important for training deep networks.
 
-### 3.2 Why Does This Relate to “Deeper but More Stable”?
+### Why Does This Relate to “Deeper but More Stable”?
 
 Because when the network is very deep,
 fully rewriting representations is harder to learn than “gradually refining” them layer by layer.
 
-### 3.4 When Seeing Residual Connections for the First Time, the Most Important Thing to Remember Is Not the Formula, but “Keeping the Original Path”
+### When Seeing Residual Connections for the First Time, the Most Important Thing to Remember Is Not the Formula, but “Keeping the Original Path”
 
 You can first think of a residual block as:
 
@@ -249,7 +249,7 @@ This makes it easier to understand why it helps deep networks:
 - Information does not need to be forcibly rewritten at every layer
 - Gradients can also flow back more easily
 
-### 3.3 What Should Beginners Remember First When Learning This Section?
+### What Should Beginners Remember First When Learning This Section?
 
 The most important things to remember are:
 
@@ -259,26 +259,26 @@ The most important things to remember are:
 
 ---
 
-## 4. How Should You Choose Modern Classification Architectures?
+## How Should You Choose Modern Classification Architectures?
 
-### 4.1 If You Are a Beginner Building a Baseline
+### If You Are a Beginner Building a Baseline
 
 Prioritize:
 
 - Classic strong baselines such as ResNet
 
-### 4.2 If You Are Very Sensitive to Resources
+### If You Are Very Sensitive to Resources
 
 You should pay more attention to:
 
 - EfficientNet
 - Lighter-weight convolutional architectures
 
-### 4.3 If You Are Doing Research or Strong Performance Comparisons
+### If You Are Doing Research or Strong Performance Comparisons
 
 Only then is it worth systematically comparing different families.
 
-### 4.4 When Doing Your First Image Classification Project, How Can You Make a Safer Choice?
+### When Doing Your First Image Classification Project, How Can You Make a Safer Choice?
 
 A stable sequence is usually:
 
@@ -288,7 +288,7 @@ A stable sequence is usually:
 
 This is usually better than chasing the trendiest architecture from the start.
 
-### 4.5 A Practical Selection Table for Beginners
+### A Practical Selection Table for Beginners
 
 | Your scenario | Safer first choice |
 |---|---|
@@ -297,7 +297,7 @@ This is usually better than chasing the trendiest architecture from the start.
 | You want to understand the evolution of convolutional systems | VGG -> ResNet -> ConvNeXt |
 | You want to do a more serious architecture comparison | Systematically compare different families |
 
-### 4.6 The Safest Default Sequence When Putting Architectures into a Project for the First Time
+### The Safest Default Sequence When Putting Architectures into a Project for the First Time
 
 A safer sequence is usually:
 
@@ -310,25 +310,25 @@ This makes it easier to see where the gains actually come from than chasing the 
 
 ---
 
-## 5. The Most Common Misconceptions
+## The Most Common Misconceptions
 
-### 5.1 Misconception 1: Memorizing names without remembering the problem
+### Misconception 1: Memorizing names without remembering the problem
 
 What matters more is knowing:
 
 - What bottleneck is it actually solving?
 
-### 5.2 Misconception 2: The newest architecture is definitely the best fit for the current project
+### Misconception 2: The newest architecture is definitely the best fit for the current project
 
 In reality, a mature strong baseline is often more reliable.
 
-### 5.3 Misconception 3: A deeper network is always stronger
+### Misconception 3: A deeper network is always stronger
 
 Without a good optimization structure, depth easily becomes a burden.
 
 ---
 
-## 7. A Very Useful Reflection Question
+## A Very Useful Reflection Question
 
 After learning any architecture, ask yourself:
 

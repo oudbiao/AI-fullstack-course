@@ -1,11 +1,11 @@
 ---
-title: "3.5 Common Tool Integration"
+title: "9.3.5 Common Tool Integration"
 sidebar_position: 14
 description: "From search, calculators, databases, and file systems to browsers, understand the most common tool types in Agents and how to connect them into a system."
 keywords: [tool integration, search, calculator, database, filesystem, browser, Agent]
 ---
 
-# Common Tool Integration
+# 9.3.5 Common Tool Integration
 
 :::tip Section overview
 When talking about the tool layer, if we only stay at the abstract schema level, it can easily feel vague.
@@ -25,9 +25,9 @@ You’ll find that although many tools have different names, their integration p
 
 ---
 
-## 1. Why classify tools by type?
+## Why classify tools by type?
 
-### 1.1 Because the word “tool” is too broad
+### Because the word “tool” is too broad
 
 Search is a tool, a calculator is a tool, database queries are tools, and file operations are tools too.
 If you treat them all as “just a function,” you’ll quickly get confused.
@@ -40,7 +40,7 @@ A more practical approach is to divide them into categories first:
 4. File / environment operation tools
 5. External service call tools
 
-### 1.2 Why is classification helpful?
+### Why is classification helpful?
 
 Because different tool types have different concerns:
 
@@ -56,9 +56,9 @@ In other words:
 
 ---
 
-## 2. The five most common tool types
+## The five most common tool types
 
-### 2.1 Search / retrieval tools
+### Search / retrieval tools
 
 Good for:
 
@@ -71,7 +71,7 @@ Characteristics:
 - The input is usually a query
 - The output is usually a set of candidate results
 
-### 2.2 Computation tools
+### Computation tools
 
 Good for:
 
@@ -84,7 +84,7 @@ Characteristics:
 - Output must be stable and exact
 - Safety risks need special attention
 
-### 2.3 Data access tools
+### Data access tools
 
 Good for:
 
@@ -97,7 +97,7 @@ Characteristics:
 - Parameters and permissions are the key
 - A lot of business logic is determined here
 
-### 2.4 File / environment operation tools
+### File / environment operation tools
 
 Good for:
 
@@ -111,7 +111,7 @@ Characteristics:
 - High risk
 - Boundary control is extremely important
 
-### 2.5 External service call tools
+### External service call tools
 
 Good for:
 
@@ -125,11 +125,11 @@ Characteristics:
 
 ---
 
-## 3. A unified tool registry
+## A unified tool registry
 
 In real systems, tools are often not scattered everywhere, but registered in one place.
 
-### 3.1 Minimal runnable example
+### Minimal runnable example
 
 ```python
 import ast
@@ -184,7 +184,7 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
-### 3.2 Why is unified registration important?
+### Why is unified registration important?
 
 Because later you will need to:
 
@@ -197,9 +197,9 @@ If there is no tool registry, the system becomes harder and harder to maintain.
 
 ---
 
-## 4. A unified dispatcher
+## A unified dispatcher
 
-### 4.1 Minimal dispatcher example
+### Minimal dispatcher example
 
 ```python
 def dispatch(call):
@@ -225,7 +225,7 @@ for call in calls:
     print(call, "->", dispatch(call))
 ```
 
-### 4.2 What does this code teach you?
+### What does this code teach you?
 
 It shows you that:
 
@@ -235,9 +235,9 @@ It shows you that:
 
 ---
 
-## 5. What should you pay attention to for different tool types?
+## What should you pay attention to for different tool types?
 
-### 5.1 Search tools
+### Search tools
 
 Key concerns:
 
@@ -245,7 +245,7 @@ Key concerns:
 - How many results to return
 - Whether the results need reranking
 
-### 5.2 Computation tools
+### Computation tools
 
 Key concerns:
 
@@ -292,7 +292,7 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
-### 5.3 Database tools
+### Database tools
 
 Key concerns:
 
@@ -302,7 +302,7 @@ Key concerns:
 
 For example, do not let the model freely generate arbitrary SQL and execute it directly.
 
-### 5.4 File tools
+### File tools
 
 Key concerns:
 
@@ -310,7 +310,7 @@ Key concerns:
 - Write permissions
 - Whether human confirmation is needed
 
-### 5.5 External service tools
+### External service tools
 
 Key concerns:
 
@@ -320,9 +320,9 @@ Key concerns:
 
 ---
 
-## 6. A more Agent-like tool combination example
+## A more Agent-like tool combination example
 
-### 6.1 Scenario: determine whether a user can get a refund
+### Scenario: determine whether a user can get a refund
 
 This task may require two tools:
 
@@ -350,7 +350,7 @@ print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
 ```
 
-### 6.2 What does this code really show?
+### What does this code really show?
 
 It shows:
 
@@ -360,30 +360,30 @@ This is also why Agents will increasingly rely on tool orchestration ability.
 
 ---
 
-## 7. The most common failure points in tool integration
+## The most common failure points in tool integration
 
-### 7.1 Schema mismatch
+### Schema mismatch
 
 For example:
 
 - The tool expects `user_id`
 - But the model passes `id`
 
-### 7.2 Inconsistent return formats
+### Inconsistent return formats
 
 If one tool returns a string, another returns a dict, and a third returns a list, the system will become increasingly hard to connect.
 
-### 7.3 No unified error handling
+### No unified error handling
 
 One tool returns `None`, another raises an exception, and a third returns `"failed"`; the downstream logic can easily become messy.
 
-### 7.4 No logging or replay
+### No logging or replay
 
 When something goes wrong in production, it becomes very hard to know which type of tool caused the issue.
 
 ---
 
-## 8. A practical suggestion: standardize the tool return format
+## A practical suggestion: standardize the tool return format
 
 One of the safest approaches is to standardize the output structure of tools, for example:
 
@@ -420,20 +420,20 @@ This makes it easier for the Agent layer to make unified decisions later.
 
 ---
 
-## 9. Common pitfalls for beginners
+## Common pitfalls for beginners
 
-### 9.1 Connecting all tools first, then thinking later
+### Connecting all tools first, then thinking later
 
 The more tools you add, the more complex the system becomes.
 A safer approach is:
 
 - Start with the 2–3 most necessary tools first
 
-### 9.2 Not distinguishing between high-risk and low-risk tools
+### Not distinguishing between high-risk and low-risk tools
 
 File deletion, payment operations, and database writes are not at the same risk level as searching documents.
 
-### 9.3 No unified convention for tool interfaces
+### No unified convention for tool interfaces
 
 This is a direct reason why many Agent systems become messier and messier over time.
 

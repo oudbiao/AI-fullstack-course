@@ -1,10 +1,10 @@
 ---
-title: "2.6 線形代数の基本操作"
+title: "3.2.6 線形代数の基本操作"
 sidebar_position: 7
 description: "NumPy を使って、行列積・逆行列・固有値などの線形代数計算を行う"
 ---
 
-# 線形代数の基本操作
+# 3.2.6 線形代数の基本操作
 
 ![NumPy 線形代数ツールボックス](/img/course/ch03-numpy-linear-algebra-toolkit-ja.png)
 

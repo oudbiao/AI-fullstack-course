@@ -1,11 +1,11 @@
 ---
-title: "4.4 Sequence Modeling in Practice"
+title: "6.4.4 Sequence Modeling in Practice"
 sidebar_position: 3
 description: "Use a real, trainable small time-series task to connect window construction, RNN/LSTM training, validation, and prediction."
 keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 ---
 
-# Sequence Modeling in Practice
+# 6.4.4 Sequence Modeling in Practice
 
 :::tip Section Overview
 In the previous two sections, you already learned:
@@ -34,9 +34,9 @@ Before reading the LSTM code, use this picture to trace the data first: a contin
 
 ---
 
-## 1. Why choose “time-series forecasting” as a practical exercise?
+## Why choose “time-series forecasting” as a practical exercise?
 
-### 1.1 Because it is ideal for practicing the basics of sequence modeling
+### Because it is ideal for practicing the basics of sequence modeling
 
 Many sequence tasks can be abstracted as:
 
@@ -50,7 +50,7 @@ For example:
 - Predict the sales on day 8 based on the previous 7 days of sales
 - Predict the next temperature based on the previous 12 temperature values
 
-### 1.2 A very important intuition
+### A very important intuition
 
 When doing this kind of task, the model is not memorizing individual numbers. It is learning:
 
@@ -66,9 +66,9 @@ This is very different from a normal classification task.
 
 ---
 
-## 2. First, generate a dataset we can run directly
+## First, generate a dataset we can run directly
 
-### 2.1 Use a sine wave + noise to create a minimal sequence
+### Use a sine wave + noise to create a minimal sequence
 
 The benefits are:
 
@@ -92,7 +92,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 2.2 What does this data look like?
+### What does this data look like?
 
 It has two characteristics:
 
@@ -103,9 +103,9 @@ That makes it a little closer to a real task than a perfectly regular sequence.
 
 ---
 
-## 3. Sliding window: how do we turn a whole sequence into samples?
+## Sliding window: how do we turn a whole sequence into samples?
 
-### 3.1 Core idea
+### Core idea
 
 A model cannot directly consume “an entire infinite sequence.”
 We usually cut it into many small segments:
@@ -115,7 +115,7 @@ We usually cut it into many small segments:
 
 This is called a sliding window.
 
-### 3.2 Runnable example
+### Runnable example
 
 ```python
 import numpy as np
@@ -135,16 +135,16 @@ print("X =\n", X)
 print("y =", y)
 ```
 
-### 3.3 Why is this step so important?
+### Why is this step so important?
 
 Because it determines how sequence-task samples are defined.
 If the window construction is wrong, training, validation, and prediction will all be wrong too.
 
 ---
 
-## 4. Organize the data into a PyTorch-trainable format
+## Organize the data into a PyTorch-trainable format
 
-### 4.1 Complete data preparation
+### Complete data preparation
 
 ```python
 import numpy as np
@@ -175,7 +175,7 @@ print("X shape:", X.shape)
 print("y shape:", y.shape)
 ```
 
-### 4.2 Why use `unsqueeze(-1)`?
+### Why use `unsqueeze(-1)`?
 
 Because LSTM usually expects input in the form:
 
@@ -187,9 +187,9 @@ Here each time step has only one feature value, so:
 
 ---
 
-## 5. A small LSTM predictor that can really be trained
+## A small LSTM predictor that can really be trained
 
-### 5.1 Define the model
+### Define the model
 
 ```python
 import torch
@@ -211,7 +211,7 @@ class LSTMForecaster(nn.Module):
         return self.fc(last_hidden)
 ```
 
-### 5.2 Why do we take only the last time step?
+### Why do we take only the last time step?
 
 Because the current task is:
 
@@ -221,9 +221,9 @@ So the most natural approach is to use the representation at the last time step 
 
 ---
 
-## 6. Complete training workflow
+## Complete training workflow
 
-### 6.1 Training + validation
+### Training + validation
 
 ```python
 import numpy as np
@@ -280,7 +280,7 @@ for epoch in range(200):
         print(f"epoch={epoch:3d}, train_loss={loss.item():.4f}, val_loss={val_loss.item():.4f}")
 ```
 
-### 6.2 What should you pay closest attention to in this training code?
+### What should you pay closest attention to in this training code?
 
 The most important things are:
 
@@ -292,9 +292,9 @@ Once you understand these three points, you have truly stepped into sequence mod
 
 ---
 
-## 7. Make a real prediction
+## Make a real prediction
 
-### 7.1 Single-window prediction
+### Single-window prediction
 
 ```python
 model.eval()
@@ -305,7 +305,7 @@ with torch.no_grad():
     print("True value:", float(y_val[0].item()))
 ```
 
-### 7.2 Plot the prediction against the true value
+### Plot the prediction against the true value
 
 ```python
 import matplotlib.pyplot as plt
@@ -332,9 +332,9 @@ When working on sequence tasks in practice, plots are often more helpful than a 
 
 ---
 
-## 8. The most common pitfalls in sequence modeling practice
+## The most common pitfalls in sequence modeling practice
 
-### 8.1 Data leakage
+### Data leakage
 
 If you split the training set / validation set incorrectly, you may leak future information to the model.
 
@@ -342,24 +342,24 @@ For time-series tasks, the safest principle is usually:
 
 > Split in time order; do not shuffle randomly.
 
-### 8.2 Window too short or too long
+### Window too short or too long
 
 - Too short: the model cannot see enough history
 - Too long: training becomes harder, and there is more noise
 
-### 8.3 Only looking at loss, not the curve
+### Only looking at loss, not the curve
 
 In sequence prediction, plotting is often very important.
 Because two models with similar loss can have completely different trends.
 
-### 8.4 Thinking the model learned “causality” when it actually learned only short-term patterns
+### Thinking the model learned “causality” when it actually learned only short-term patterns
 
 This is something you must be careful about in all sequence prediction tasks.
 A model can predict something without truly understanding the mechanism.
 
 ---
 
-## 9. A very important engineering intuition
+## A very important engineering intuition
 
 In real projects, sequence tasks do not always use RNN / LSTM.
 Today, many tasks also use:

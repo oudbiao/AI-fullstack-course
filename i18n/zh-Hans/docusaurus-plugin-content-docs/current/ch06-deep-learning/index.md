@@ -46,7 +46,7 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 
 ![深度学习训练闭环主线图](/img/course/ch06-training-loop-backbone.png)
 
-如果你想按历史进程理解每次技术突破，可以先读 [1.2 深度学习历史突破主线](./ch01-nn-basics/06-history-breakthroughs.md)。它会把感知器、XOR 挫折、反向传播、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention 和 Transformer 分配到本章对应小节，帮助你理解模型为什么会一代代演进。
+如果你想按历史进程理解每次技术突破，可以先读 [6.1.2 深度学习历史突破主线](./ch01-nn-basics/06-history-breakthroughs.md)。它会把感知器、XOR 挫折、反向传播、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention 和 Transformer 分配到本章对应小节，帮助你理解模型为什么会一代代演进。
 
 ## 新人先做什么，进阶再做什么
 
@@ -55,22 +55,22 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 有经验的学习者可以把重点放在训练诊断上：过拟合如何发现，学习率如何影响曲线，数据增强和正则化什么时候有用，Transformer 为什么改变序列建模。你的目标是能解释一次训练为什么成功或失败。
 
 :::info 实操检查点
-如果你想在选择更大的深度学习项目之前先完整跟跑一次，可以从 [实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md) 开始。它会生成本地数据集、baseline、CNN、训练日志、验证曲线、checkpoint、shape trace、复盘样本和 README 证据。
+如果你想在选择更大的深度学习项目之前先完整跟跑一次，可以从 [6.8.5 实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md) 开始。它会生成本地数据集、baseline、CNN、训练日志、验证曲线、checkpoint、shape trace、复盘样本和 README 证据。
 :::
 
 ## 本阶段学习路径
 
-第一章学习神经网络基础和历史突破主线。你会理解感知器、XOR 局限、反向传播、神经元、激活函数、前向传播、反向传播、优化器、正则化和参数初始化。
+6.1 节学习神经网络基础和历史突破主线。你会理解感知器、XOR 局限、反向传播、神经元、激活函数、前向传播、反向传播、优化器、正则化和参数初始化。
 
-第二章学习 PyTorch。你会从张量、自动求导、`nn.Module`、数据加载和训练循环开始，真正搭出一个可训练模型。
+6.2 节学习 PyTorch。你会从张量、自动求导、`nn.Module`、数据加载和训练循环开始，真正搭出一个可训练模型。
 
-第三章学习 CNN。视觉任务最直观，适合作为第一次理解深度网络结构的入口。
+6.3 节学习 CNN。视觉任务最直观，适合作为第一次理解深度网络结构的入口。
 
-第四章学习 RNN 与序列模型。你会看到序列数据为什么和普通表格不同，也会理解 LSTM、GRU 的历史意义。
+6.4 节学习 RNN 与序列模型。你会看到序列数据为什么和普通表格不同，也会理解 LSTM、GRU 的历史意义。
 
-第五章学习 Attention 与 Transformer。它是后续大模型主线的关键桥梁。
+6.5 节学习 Attention 与 Transformer。它是后续大模型主线的关键桥梁。
 
-第六和第七章作为扩展，帮助你理解生成模型和训练调优。
+6.6 和 6.7 节作为扩展，帮助你理解生成模型和训练调优。
 
 ## 学完后你应该能做到
 
@@ -119,9 +119,9 @@ for x, y in dataloader:
 
 基础版是训练一个简单图像分类或文本情感分类模型，能完成数据加载、训练和评估。标准版需要加入验证集、指标曲线、过拟合分析和模型保存加载。挑战版可以比较 CNN、RNN、Transformer 或迁移学习方案，并写出实验报告说明模型为什么变好或变差。
 
-如果你想先做一次按步骤跟跑的 PyTorch 项目彩排，可以在图像分类、情感分析或生成模型项目前，先完成 [实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md)。
+如果你想先做一次按步骤跟跑的 PyTorch 项目彩排，可以在图像分类、情感分析或生成模型项目前，先完成 [6.8.5 实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md)。
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：深度学习基础怎么学最不容易学乱](./study-guide.md)。
+如果你想看更细的学习节奏，可以阅读 [6.0 学习指南：深度学习基础怎么学最不容易学乱](./study-guide.md)。
 
 
 

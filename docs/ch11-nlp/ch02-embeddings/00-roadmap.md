@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-study Guide: What Is This Chapter on Representation Learning Really About?"
+title: "11.2.1 Pre-study Guide: What Is This Chapter on Representation Learning Really About?"
 sidebar_position: 0
 description: "First build a learning map for the representation learning chapter: how word embeddings, contextualized representations, and language models evolve step by step."
 keywords: [representation learning guide, word embeddings, contextualized representations, language models]
 ---
 
-# Pre-study Guide: What Is This Chapter on Representation Learning Really About?
+# 11.2.1 Pre-study Guide: What Is This Chapter on Representation Learning Really About?
 
 This chapter addresses one question:
 

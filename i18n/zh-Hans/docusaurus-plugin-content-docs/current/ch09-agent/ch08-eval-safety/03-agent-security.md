@@ -1,11 +1,11 @@
 ---
-title: "8.4 Agent 安全与对齐"
+title: "9.8.4 Agent 安全与对齐"
 sidebar_position: 46
 description: "从权限、确认、提示注入、工具边界和审计日志出发，理解 Agent 系统为什么必须先设计安全边界。"
 keywords: [agent security, prompt injection, permissions, human approval, audit]
 ---
 
-# Agent 安全与对齐
+# 9.8.4 Agent 安全与对齐
 
 :::tip 本节定位
 Agent 一旦能调用工具，就不再只是“会说话的模型”。它可能读文件、写数据库、发消息、调用 API。能力越强，越需要权限、确认、回滚和审计。

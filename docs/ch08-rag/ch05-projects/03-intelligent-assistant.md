@@ -1,11 +1,11 @@
 ---
-title: "5.4 Project: Intelligent Q&A Assistant"
+title: "8.5.4 Project: Intelligent Q&A Assistant"
 sidebar_position: 23
 description: "Build a more product-like intelligent Q&A assistant by connecting multi-turn dialogue, knowledge retrieval, state management, and tool calling into a complete loop."
 keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calling, LLM app]
 ---
 
-# Project: Intelligent Q&A Assistant
+# 8.5.4 Project: Intelligent Q&A Assistant
 
 :::tip Section focus
 This section is very similar to “enterprise knowledge base Q&A,” but the goal goes one step further.
@@ -27,9 +27,9 @@ So this section is closer to a **prototype product project** than a single-turn 
 
 ---
 
-## 1. What does an intelligent Q&A assistant have that a regular Q&A app does not?
+## What does an intelligent Q&A assistant have that a regular Q&A app does not?
 
-### 1.1 It is not just “you ask once, I answer once”
+### It is not just “you ask once, I answer once”
 
 The real feeling of an assistant usually comes from:
 
@@ -37,7 +37,7 @@ The real feeling of an assistant usually comes from:
 2. It asks follow-up questions when needed
 3. It knows when to check the knowledge base and when to use tools
 
-### 1.2 A clear practice task
+### A clear practice task
 
 For example:
 
@@ -51,7 +51,7 @@ This is a very good task because it naturally includes:
 
 ---
 
-## 2. What does the minimum product-level loop look like?
+## What does the minimum product-level loop look like?
 
 1. Maintain conversation history
 2. Identify the current topic
@@ -61,7 +61,7 @@ This is a very good task because it naturally includes:
 
 As long as you make these 5 steps clear, the project already feels very product-like.
 
-### 2.1 A loop diagram that looks more like a real product
+### A loop diagram that looks more like a real product
 
 ```mermaid
 flowchart LR
@@ -84,7 +84,7 @@ This diagram is important because it reminds you that:
 For a multi-turn assistant trace, you should look at at least four things: what is remembered in the session, what the retrieval returns, whether a tool is called, and how the state changes after the answer. That is what proves it is not just a normal FAQ.
 :::
 
-## 3. Recommended build order
+## Recommended build order
 
 For beginners, a safer sequence is usually:
 
@@ -95,7 +95,7 @@ For beginners, a safer sequence is usually:
 
 This way, you can clearly see which layer creates the “assistant feel.”
 
-### 3.1 A simpler analogy for beginners
+### A simpler analogy for beginners
 
 You can think of an intelligent Q&A assistant as:
 
@@ -111,7 +111,7 @@ But rather:
 
 ---
 
-## 4. Start by running a more complete minimal assistant
+## Start by running a more complete minimal assistant
 
 The example below will:
 
@@ -192,7 +192,7 @@ print(assistant_reply(session, "Can I still get a refund?"))
 print(session)
 ```
 
-### 4.1 What is the most important value of this example?
+### What is the most important value of this example?
 
 It is not just doing “Q&A,” but showing:
 
@@ -202,12 +202,12 @@ It is not just doing “Q&A,” but showing:
 
 This already feels much more like a real assistant product than single-turn FAQ matching.
 
-### 4.2 Why is `session` more worth looking at than the answer itself?
+### Why is `session` more worth looking at than the answer itself?
 
 Because `session` is the key to keeping the system collaborative over time.
 Without state, it is very hard to create an assistant-like experience.
 
-### 4.3 Another tiny “state snapshot” example
+### Another tiny “state snapshot” example
 
 ```python
 snapshot = {
@@ -226,9 +226,9 @@ This example is great for beginners because it helps you first see:
 
 ---
 
-## 5. How should you evaluate this project?
+## How should you evaluate this project?
 
-### 5.1 Single-turn accuracy is not enough
+### Single-turn accuracy is not enough
 
 You should also check at least:
 
@@ -236,7 +236,7 @@ You should also check at least:
 - Whether tool calling is reasonable
 - Whether the system starts making things up when information is missing
 
-### 5.2 A minimal evaluation case table
+### A minimal evaluation case table
 
 ```python
 eval_cases = [
@@ -264,14 +264,14 @@ for case in eval_cases:
     })
 ```
 
-### 5.3 Why is multi-turn evaluation especially important?
+### Why is multi-turn evaluation especially important?
 
 Because the highlight of this kind of project is not single-turn performance.
 The place where it most easily fails is:
 
 - Forgetting the context starting from the second turn
 
-### 5.4 An evaluation table that beginners can remember first
+### An evaluation table that beginners can remember first
 
 | Dimension | What you are really checking |
 |---|---|
@@ -284,9 +284,9 @@ This table is especially useful for beginners because it breaks “assistant fee
 
 ---
 
-## 6. How do you turn this into a portfolio-quality page?
+## How do you turn this into a portfolio-quality page?
 
-### 6.1 Show one complete dialogue trace
+### Show one complete dialogue trace
 
 For example:
 
@@ -295,14 +295,14 @@ For example:
 3. Whether a tool was called
 4. Final answer
 
-### 6.2 Failure cases that are especially worth showing
+### Failure cases that are especially worth showing
 
 For example:
 
 - When the user does not provide enough information, does the system make random guesses?
 - When the tool cannot find the status, does the system honestly stop and wait?
 
-### 6.3 A very good bonus point
+### A very good bonus point
 
 Turn these two chains into flowcharts and show them:
 
@@ -311,17 +311,17 @@ Turn these two chains into flowcharts and show them:
 
 ---
 
-## 7. The easiest mistakes to make
+## The easiest mistakes to make
 
-### 7.1 Only building single-turn Q&A
+### Only building single-turn Q&A
 
 This makes it hard to show the “assistant feel.”
 
-### 7.2 No tool boundary
+### No tool boundary
 
 If every question depends on model guessing, the system will become less and less stable.
 
-### 7.3 Not checking context consistency
+### Not checking context consistency
 
 Many project problems happen exactly on the second and third turns.
 

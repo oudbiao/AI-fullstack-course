@@ -1,11 +1,11 @@
 ---
-title: "2.3 Logistic Regression"
+title: "5.2.3 Logistic Regression"
 sidebar_position: 4
 description: "From linear regression to classification problems; understand the Sigmoid function, decision boundaries, cross-entropy loss, multi-class extensions, and regularization"
 keywords: [logistic regression, Sigmoid, cross-entropy, decision boundary, Softmax, classification, regularization]
 ---
 
-# Logistic Regression
+# 5.2.3 Logistic Regression
 
 ![Logistic Regression Decision Boundary Diagram](/img/course/logistic-regression-boundary-en.png)
 
@@ -64,9 +64,9 @@ What this section really needs to explain is:
 | `solver` | The numerical optimizer used by sklearn to find the parameters | Some optimizers support different regularization styles |
 | `C` | Inverse regularization strength in sklearn logistic regression | Smaller `C` means stronger regularization and usually simpler coefficients |
 
-## 1. From Regression to Classification
+## From Regression to Classification
 
-### 1.1 Problem: the output is no longer a number
+### Problem: the output is no longer a number
 
 | Linear Regression | Logistic Regression |
 |---------|---------|
@@ -75,7 +75,7 @@ What this section really needs to explain is:
 
 **Key question**: the output of linear regression, `wx + b`, can be any real number, but probability must be between [0, 1]. How do we convert it?
 
-### 1.2 Why does “forcing linear regression into classification” cause problems?
+### Why does “forcing linear regression into classification” cause problems?
 
 What is worth remembering first is not “the formulas are different,” but:
 
@@ -91,7 +91,7 @@ So the first thing logistic regression really solves is not “changing the boun
 
 - **making the output into a probability first**
 
-### 1.2.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of it like this:
 
@@ -111,7 +111,7 @@ So the key upgrade in logistic regression is not that the model suddenly becomes
 
 Read this image before the formula: logistic regression first calculates a raw `logit`, then Sigmoid turns that raw score into a probability, and only after that does the threshold turn the probability into a class. This separation matters in real projects because you can keep the same probability model but move the threshold when the business cost of false alarms and missed positives changes.
 
-### 1.3 Sigmoid function — compress to [0, 1]
+### Sigmoid function — compress to [0, 1]
 
 > **σ(z) = 1 / (1 + e⁻ᶻ)**
 
@@ -158,7 +158,7 @@ Properties of Sigmoid:
 | z = 0 | σ(z) = 0.5 |
 | Derivative | σ'(z) = σ(z) × (1 - σ(z)) |
 
-### 1.4 The complete logistic regression model
+### The complete logistic regression model
 
 ```mermaid
 flowchart LR
@@ -176,7 +176,7 @@ flowchart LR
 
 > **P(y=1|x) = σ(wᵀx + b) = 1 / (1 + e^-(wᵀx + b))**
 
-### 1.5 One very important point that is often overlooked
+### One very important point that is often overlooked
 
 The output of logistic regression is not the final class,
 but:
@@ -192,15 +192,15 @@ So it naturally has two layers:
 
 ---
 
-## 2. Decision Boundary
+## Decision Boundary
 
-### 2.1 What is a decision boundary?
+### What is a decision boundary?
 
 A decision boundary is the **line that separates "class 0" and "class 1"**.
 
 For logistic regression, the decision boundary is the line (or hyperplane) `wᵀx + b = 0`.
 
-### 2.2 Why does the decision boundary fall on `wᵀx + b = 0`?
+### Why does the decision boundary fall on `wᵀx + b = 0`?
 
 Because:
 
@@ -263,13 +263,13 @@ The black contour line is the `0.5` probability boundary. Points on one side hav
 
 ---
 
-## 3. Loss Function — Cross-Entropy
+## Loss Function — Cross-Entropy
 
-### 3.1 Why not use MSE?
+### Why not use MSE?
 
 For classification problems, the loss surface of MSE is **non-convex**, and gradient descent can easily get stuck in a local optimum. We need a better loss function.
 
-### 3.2 What is most worth remembering here is not the word “non-convex”
+### What is most worth remembering here is not the word “non-convex”
 
 For beginners, a more practical understanding is:
 
@@ -280,7 +280,7 @@ Cross-entropy is more like asking:
 
 > **Did you assign a high enough probability to the true class?**
 
-### 3.3 Binary Cross-Entropy
+### Binary Cross-Entropy
 
 ![Binary cross entropy intuition for logistic regression](/img/course/ch05-logistic-bce-intuition-en.png)
 
@@ -347,7 +347,7 @@ true=0, predicted probability=0.9, loss=2.3026
 
 This is the most important intuition: cross-entropy does not only ask “right or wrong.” It asks, “how much probability did you assign to the true answer?”
 
-### 3.4 Implement logistic regression from scratch
+### Implement logistic regression from scratch
 
 ```python
 # Implement logistic regression from scratch with gradient descent
@@ -417,17 +417,17 @@ Read this loop as five small steps: compute the score, convert it to probability
 
 ---
 
-## 4. Multi-Class Extensions
+## Multi-Class Extensions
 
 ![OvR versus Softmax multi-class logistic regression](/img/course/ch05-logistic-multiclass-ovr-softmax-en.png)
 
 Before reading the implementation, use the image to separate the two mental models. OvR turns a K-class problem into K yes/no classifiers, so its scores do not have to sum to 1. Softmax produces one normalized probability distribution, so the class probabilities are directly comparable. In most beginner projects, you can start with the sklearn pipeline below and only reach for an explicit OvR wrapper when that strategy is part of your design.
 
-### 4.1 One-vs-Rest (OvR)
+### One-vs-Rest (OvR)
 
 For K classes, train K binary classifiers, each one deciding “this class vs. not this class.”
 
-### 4.2 When beginners do multi-class classification for the first time, what is the safest way to understand it?
+### When beginners do multi-class classification for the first time, what is the safest way to understand it?
 
 A more stable sequence is usually:
 
@@ -449,7 +449,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.3 Softmax Regression
+### Softmax Regression
 
 Directly output a probability distribution over K classes:
 
@@ -481,7 +481,7 @@ Softmax probabilities: [0.629 0.231 0.14 ]
 Sum of probabilities: 1.0000
 ```
 
-### 4.4 sklearn Multi-class Practice
+### sklearn Multi-class Practice
 
 ```python
 from sklearn.datasets import load_iris
@@ -554,7 +554,7 @@ weighted avg       1.00      1.00      1.00        30
 Older tutorials often show `multi_class='multinomial'` or `multi_class='ovr'`. In recent sklearn versions, the default multi-class behavior is already suitable for normal multi-class logistic regression. If you explicitly want One-vs-Rest behavior, use `OneVsRestClassifier(LogisticRegression(...))` so your intent is clear.
 :::
 
-### 4.5 Predicted probabilities
+### Predicted probabilities
 
 ```python
 # View the probabilities output by Softmax
@@ -582,13 +582,13 @@ Predicted probabilities for the first 5 samples:
 
 ---
 
-## 5. Regularization and Hyperparameters
+## Regularization and Hyperparameters
 
 ![Logistic regression regularization concepts](/img/course/ch05-logistic-regularization-concepts-en.png)
 
 Read this picture before tuning parameters. `C` controls how hard the model is allowed to push its weights, but it is an inverse strength: smaller `C` means stronger regularization. `L2` usually shrinks every coefficient and is a stable default; `L1` can push some coefficients to zero and is useful when you want a sparse, more interpretable model. `l1_ratio` mixes these two behaviors.
 
-### 5.1 The C parameter
+### The C parameter
 
 In sklearn’s logistic regression, the `C` parameter controls the regularization strength (note: **smaller C means stronger regularization**, which is the opposite of Ridge’s alpha).
 
@@ -644,7 +644,7 @@ C=    10: train=0.867, test=0.767
 C=   100: train=0.867, test=0.767
 ```
 
-### 5.2 L1 vs L2 regularization
+### L1 vs L2 regularization
 
 ```python
 # L1 regularization → sparse parameters (feature selection)
@@ -701,7 +701,7 @@ L2 test accuracy: 76.7%
 
 L1 is like asking the model to keep only a few useful knobs. L2 is like asking it to keep all knobs, but avoid turning any one knob too hard. This is why L1 often helps feature selection, while L2 is the safer default for stable baselines.
 
-### 5.3 When you do a classification project for the first time, why is logistic regression still especially worth trying first?
+### When you do a classification project for the first time, why is logistic regression still especially worth trying first?
 
 Because it usually has all of these advantages at once:
 
@@ -715,7 +715,7 @@ it is still a very good first choice.
 
 ---
 
-## 6. Decision Boundary Visualization Comparison
+## Decision Boundary Visualization Comparison
 
 ```python
 from sklearn.datasets import make_moons, make_circles

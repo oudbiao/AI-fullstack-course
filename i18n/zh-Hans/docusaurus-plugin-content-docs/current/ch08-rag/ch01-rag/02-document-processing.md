@@ -1,11 +1,11 @@
 ---
-title: "1.3 文档处理与向量化"
+title: "8.1.3 文档处理与向量化"
 sidebar_position: 2
 description: "从清洗、切块、重叠、元数据到简单向量化，理解 RAG 前处理链路为什么决定效果上限。"
 keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 ---
 
-# 文档处理与向量化
+# 8.1.3 文档处理与向量化
 
 ![文档解析与向量化流程图](/img/course/document-processing-vectorization.png)
 
@@ -47,7 +47,7 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 ## 二、文档处理常见的 4 步
 
-### 1. 清洗
+### 清洗
 
 去掉无关噪声，比如：
 
@@ -55,11 +55,11 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 - 页码
 - 重复标题
 
-### 2. 切块（Chunking）
+### 切块（Chunking）
 
 把长文切成适合检索的小片段。
 
-### 3. 加元数据
+### 加元数据
 
 给每块附加信息，如：
 
@@ -68,7 +68,7 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 - 页码
 - 标签
 
-### 4. 向量化
+### 向量化
 
 把文本块变成可做相似度检索的向量。
 
@@ -346,23 +346,23 @@ for score, chunk in scores:
 
 ## 十一、文档处理最容易出问题的地方
 
-### 1. chunk 太大
+### chunk 太大
 
 召回不精准，浪费上下文。
 
-### 2. chunk 太小
+### chunk 太小
 
 信息不完整，模型看到的片段支离破碎。
 
-### 3. 清洗过头
+### 清洗过头
 
 把标题、层级、表格结构等有价值信息也删掉了。
 
-### 4. 没有元数据
+### 没有元数据
 
 后面很难解释“答案来自哪里”。
 
-### 5. 只按长度切块，不按任务切块
+### 只按长度切块，不按任务切块
 
 对课件生成项目来说，这会导致：
 

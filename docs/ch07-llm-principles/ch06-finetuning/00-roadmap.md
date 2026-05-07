@@ -1,11 +1,11 @@
 ---
-title: "6.1 Pre-study Guide: What Is This Finetuning Chapter Actually About?"
+title: "7.6.1 Pre-study Guide: What Is This Finetuning Chapter Actually About?"
 sidebar_position: 0
 description: "First build a learning map for the finetuning chapter: when finetuning is needed, how data should be prepared, how LoRA/QLoRA/PEFT reduce cost, and how to evaluate whether finetuning is effective."
 keywords: [finetuning guide, LoRA, QLoRA, PEFT, LLM finetuning]
 ---
 
-# Pre-study Guide: What Is This Finetuning Chapter Actually About?
+# 7.6.1 Pre-study Guide: What Is This Finetuning Chapter Actually About?
 
 This chapter solves this problem: when Prompt is no longer enough to reliably change model behavior, how can you use training to make the model better suited to a certain task, format, or domain?
 

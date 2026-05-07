@@ -1,10 +1,10 @@
 ---
-title: "1.3 演算子と式"
+title: "2.1.3 演算子と式"
 sidebar_position: 3
 description: "Python におけるさまざまな演算子と式を理解する"
 ---
 
-# 演算子と式
+# 2.1.3 演算子と式
 
 ![演算子と条件分岐のフローチャート](/img/course/ch02-operators-decision-flow-ja.png)
 

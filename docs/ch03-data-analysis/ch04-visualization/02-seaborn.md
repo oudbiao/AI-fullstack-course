@@ -1,10 +1,10 @@
 ---
-title: "4.2 Seaborn Statistical Visualization"
+title: "3.4.3 Seaborn Statistical Visualization"
 sidebar_position: 18
 description: "Create prettier statistical charts with less code"
 ---
 
-# Seaborn Statistical Visualization
+# 3.4.3 Seaborn Statistical Visualization
 
 ![Seaborn Statistical Plot Selection Guide](/img/course/seaborn-statistical-plots-en.png)
 

@@ -1,10 +1,10 @@
 ---
-title: "1.2 データ型と変数"
+title: "2.1.2 データ型と変数"
 sidebar_position: 2
 description: "Python の基本データ型と変数の使い方を身につける"
 ---
 
-# データ型と変数
+# 2.1.2 データ型と変数
 
 ![変数、オブジェクト、参照の関係図](/img/course/ch02-variable-object-reference-ja.png)
 

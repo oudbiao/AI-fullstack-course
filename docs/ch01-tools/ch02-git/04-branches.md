@@ -1,10 +1,10 @@
 ---
-title: "Branches and Collaboration"
+title: "1.2.4 Branches and Collaboration"
 sidebar_position: 4
 description: "Develop new features safely with branches, and understand the Pull Request workflow"
 ---
 
-# Branches and Collaboration
+# 1.2.4 Branches and Collaboration
 
 ![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration-en.png)
 

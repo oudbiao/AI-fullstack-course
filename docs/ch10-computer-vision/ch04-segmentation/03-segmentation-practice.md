@@ -1,11 +1,11 @@
 ---
-title: "4.4 Segmentation Practice"
+title: "10.4.4 Segmentation Practice"
 sidebar_position: 13
 description: "Build a closed loop of labels, evaluation, and presentation for a minimal segmentation project around a road scene or medical region segmentation task."
 keywords: [segmentation practice, semantic segmentation project, mask, IoU, computer vision]
 ---
 
-# Segmentation Practice
+# 10.4.4 Segmentation Practice
 
 :::tip Section Overview
 The biggest challenge in a segmentation project is often not the model name,
@@ -74,7 +74,7 @@ Once you think about it this way, it becomes much easier to understand why segme
 - boundary standards
 - failure sample analysis
 
-## 1. How Do You Define the Project Problem?
+## How Do You Define the Project Problem?
 
 A very suitable segmentation project for practice is:
 
@@ -90,7 +90,7 @@ Shared characteristics:
 - region boundaries matter
 - IoU is meaningful
 
-### 1.1 When a Beginner Does a Segmentation Project for the First Time, How Should They Choose a Task?
+### When a Beginner Does a Segmentation Project for the First Time, How Should They Choose a Task?
 
 A more stable task usually has these characteristics:
 
@@ -101,7 +101,7 @@ A more stable task usually has these characteristics:
 So when you do a project for the first time,
 “fewer classes, strong boundaries, easy to explain” is usually more important than “the task looks cooler.”
 
-### 1.2 Why Is “Clear Boundaries” So Important?
+### Why Is “Clear Boundaries” So Important?
 
 Because many of the hard parts in segmentation tasks are concentrated in:
 
@@ -117,7 +117,7 @@ it will be hard to tell:
 
 ---
 
-## 2. First Run a Minimal Segmentation Project Evaluation Example
+## First Run a Minimal Segmentation Project Evaluation Example
 
 ```python
 pred_masks = [
@@ -150,7 +150,7 @@ print("ious:", [round(x, 4) for x in ious])
 print("mean_iou:", round(mean_iou, 4))
 ```
 
-### 2.1 What Is This Example Trying to Show?
+### What Is This Example Trying to Show?
 
 The most important thing in a segmentation project is usually not:
 
@@ -165,7 +165,7 @@ So projects usually need to summarize:
 - per-sample IoU
 - mean IoU
 
-### 2.2 Why Do Segmentation Projects Especially Need to “Review Sample by Sample”?
+### Why Do Segmentation Projects Especially Need to “Review Sample by Sample”?
 
 Because averages can easily hide problems.
 
@@ -176,7 +176,7 @@ For example:
 
 In that case, the average score may still look acceptable, but the project is actually not stable.
 
-### 2.3 When Doing a Segmentation Project for the First Time, Which Types of Failures Are Most Worth Separating First?
+### When Doing a Segmentation Project for the First Time, Which Types of Failures Are Most Worth Separating First?
 
 A very practical failure categorization is:
 
@@ -201,7 +201,7 @@ Once you separate these three types, it becomes much easier to decide:
 The biggest danger in a segmentation project is only looking at the average score. This diagram breaks failure samples into boundary errors, missing small classes, and class confusion, so you can match the next optimization step to the specific problem.
 :::
 
-### 2.4 Another Minimal Example of a “Project Checklist”
+### Another Minimal Example of a “Project Checklist”
 
 ```python
 checklist = {
@@ -234,21 +234,21 @@ This example is very small, but it is great for helping beginners understand:
 
 ---
 
-## 3. The Most Common Pitfalls in Segmentation Projects
+## The Most Common Pitfalls in Segmentation Projects
 
-### 3.1 Inconsistent Mask Annotation Boundaries
+### Inconsistent Mask Annotation Boundaries
 
 This will contaminate both training and evaluation.
 
-### 3.2 Severe Class Imbalance
+### Severe Class Imbalance
 
 Small-region classes are often overwhelmed by the main background.
 
-### 3.3 Only Looking at the Average, Not the Failure Samples
+### Only Looking at the Average, Not the Failure Samples
 
 The average may hide some especially bad cases.
 
-### 3.4 Only Showing Success Cases, Not Boundary Failures
+### Only Showing Success Cases, Not Boundary Failures
 
 Segmentation projects are especially easy to make “look good,”
 because colored mask images are visually impressive by themselves.
@@ -260,7 +260,7 @@ But if you do not show:
 
 it becomes hard to tell where the project is still unstable.
 
-## 4. A Recommended Workflow for Beginners to Follow
+## A Recommended Workflow for Beginners to Follow
 
 A better approach is:
 
@@ -272,7 +272,7 @@ A better approach is:
 
 This is much more effective than immediately switching models.
 
-### 4.1 If You Turn It into a Portfolio Project, What Is Most Worth Showing?
+### If You Turn It into a Portfolio Project, What Is Most Worth Showing?
 
 Rather than only pasting a colorful mask image, it is more valuable to show:
 
@@ -282,7 +282,7 @@ Rather than only pasting a colorful mask image, it is more valuable to show:
 - how you explain these failures
 - what you would improve next
 
-### 4.2 If This Is Your First Time Doing This Kind of Project, What Is the Safest Default Goal?
+### If This Is Your First Time Doing This Kind of Project, What Is the Safest Default Goal?
 
 When doing it for the first time, it is not recommended to chase:
 

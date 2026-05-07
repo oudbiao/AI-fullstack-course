@@ -1,11 +1,11 @@
 ---
-title: "6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline"
+title: "3.6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline"
 sidebar_position: 27
 description: "A step-by-step Chapter 3 workshop that turns a dirty learning-log CSV into cleaned data, grouped statistics, SQLite queries, an SVG chart, and an HTML report."
 keywords: [data analysis workshop, Python CSV, SQLite, data cleaning, reproducible analysis, visualization]
 ---
 
-# Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline
+# 3.6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline
 
 ![Follow-along data workshop route](/img/course/ch03-hands-on-data-workshop-route-en.png)
 

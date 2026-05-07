@@ -1,11 +1,11 @@
 ---
-title: "1.5 Agent システムアーキテクチャ"
+title: "9.1.5 Agent システムアーキテクチャ"
 sidebar_position: 4
 description: "Planner、Tool、Memory、State、Guardrails などのコンポーネントから、実用可能な Agent システムの基本アーキテクチャを理解する。"
 keywords: [agent architecture, planner, tools, memory, state, guardrails, observability]
 ---
 
-# Agent システムアーキテクチャ
+# 9.1.5 Agent システムアーキテクチャ
 
 ![Agent システムアーキテクチャ図](/img/course/agent-system-architecture-ja.png)
 
@@ -22,7 +22,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 一、Agent は「1つのモデル」だけではない
 
-### 1.1 最初にありがちな誤解：Agent は大規模言語モデル + Prompt だけだと思ってしまう
+### 最初にありがちな誤解：Agent は大規模言語モデル + Prompt だけだと思ってしまう
 
 実際に使える Agent システムには、通常、少なくとも次の要素も必要です。
 
@@ -35,7 +35,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 モデルはとても重要ですが、システム全体の一部にすぎません。  
 大きな脳のような役割を持ちますが、それだけで全体が成り立つわけではありません。
 
-### 1.2 Agent は小さなオペレーティングシステムのようなものと考えるとよい
+### Agent は小さなオペレーティングシステムのようなものと考えるとよい
 
 中には次のようなものがあります。
 
@@ -51,7 +51,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 二、よくある主要コンポーネント
 
-### 2.1 Planner / 意思決定器
+### Planner / 意思決定器
 
 役割は次のとおりです。
 
@@ -62,7 +62,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 シンプルなシステムでは、この部分を LLM が直接担当することがあります。  
 より強い制御が必要な場面では、ルール + LLM の組み合わせになることもあります。
 
-### 2.2 Tool Layer / ツール層
+### Tool Layer / ツール層
 
 ここが Agent が行動できるようにする重要な部分です。
 
@@ -80,7 +80,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 三、状態、記憶、コンテキスト
 
-### 3.1 State：今のタスクがどこまで進んだか
+### State：今のタスクがどこまで進んだか
 
 状態には通常、次のような情報を記録します。
 
@@ -92,7 +92,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 これは「長期記憶」とは別物です。  
 どちらかというと、今のタスクの作業スペースのようなものです。
 
-### 3.2 Memory：回をまたいで何を保持するか
+### Memory：回をまたいで何を保持するか
 
 記憶は、より次のような内容に関係します。
 
@@ -107,7 +107,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 四、標準的な実行ループ
 
-### 4.1 最小ループ：感知、決定、行動、観察
+### 最小ループ：感知、決定、行動、観察
 
 ```mermaid
 flowchart LR
@@ -124,7 +124,7 @@ flowchart LR
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 このループがなぜ重要なのか？
+### このループがなぜ重要なのか？
 
 Agent の本質は、「1回だけ回答する」ことではありません。  
 むしろ、
@@ -243,7 +243,7 @@ print("最終回答:", answer)
 
 ## 六、Guardrails：なぜガードレールは必須なのか？
 
-### 6.1 Agent は実際に行動するから
+### Agent は実際に行動するから
 
 行動するということは、リスクがあるということです。
 
@@ -261,7 +261,7 @@ print("最終回答:", answer)
 - 最大ステップ数の制限
 - 人間による確認ポイント
 
-### 6.2 とても簡単なガードレールの例
+### とても簡単なガードレールの例
 
 ```python
 import ast
@@ -307,7 +307,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 七、Observability：なぜ Agent の動きを見えるようにするのか？
 
-### 7.1 多段階システムは見えにくいとデバッグしにくいから
+### 多段階システムは見えにくいとデバッグしにくいから
 
 少なくとも次のことが見えるとよいです。
 
@@ -316,7 +316,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 - ツールが何を返したか
 - なぜ終了したか
 
-### 7.2 最小限の観測情報には通常次のものが含まれる
+### 最小限の観測情報には通常次のものが含まれる
 
 - 入力
 - action
@@ -330,7 +330,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 八、単一 Agent と複数 Agent
 
-### 8.1 まずは単一 Agent を安定させるのが基本
+### まずは単一 Agent を安定させるのが基本
 
 多くのシステムでは、まず単一 Agent をしっかり作るべきです。
 
@@ -338,7 +338,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 - 収束しやすい
 - アーキテクチャがわかりやすい
 
-### 8.2 多数 Agent はデフォルトの上位互換ではない
+### 多数 Agent はデフォルトの上位互換ではない
 
 複数 Agent は、タスクが本当に分業に向いているときだけ検討する価値があります。
 
@@ -354,15 +354,15 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 九、初学者がやりがちな誤解
 
-### 9.1 まず多 Agent にしてから、単一 Agent を考える
+### まず多 Agent にしてから、単一 Agent を考える
 
 これはたいてい、デバッグ難易度を一気に上げてしまいます。
 
-### 9.2 State と Memory を同じものとして扱う
+### State と Memory を同じものとして扱う
 
 State は今のタスク寄り、Memory はタスクをまたいだ蓄積寄りです。
 
-### 9.3 ログと再現機構がない
+### ログと再現機構がない
 
 一度システムが壊れると、推測するしかなくなります。
 

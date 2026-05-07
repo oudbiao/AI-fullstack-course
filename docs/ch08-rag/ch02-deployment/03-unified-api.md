@@ -1,11 +1,11 @@
 ---
-title: "2.4 Unified API Interface"
+title: "8.2.4 Unified API Interface"
 sidebar_position: 10
 description: "Starting from the pain points of integrating multiple models and multiple providers, understand why a unified API layer is so important in LLM application deployment."
 keywords: [unified API, provider abstraction, LLM gateway, model routing, deployment]
 ---
 
-# Unified API Interface
+# 8.2.4 Unified API Interface
 
 :::tip Section Overview
 Once your system is connected to more than one model, problems show up quickly:
@@ -70,13 +70,13 @@ the upper-layer business code becomes:
 In the end, the system becomes more and more fragmented.
 The most important value of a unified API is to gather these differences into one layer.
 
-## 1. Why Does a Unified API Become Important?
+## Why Does a Unified API Become Important?
 
-### 1.1 When You Only Have One Model, It Is Not Obvious
+### When You Only Have One Model, It Is Not Obvious
 
 If your project only has one model, a simple client is often enough.
 
-### 1.2 Once You Start Using Multiple Models / Multiple Providers
+### Once You Start Using Multiple Models / Multiple Providers
 
 You will face these problems:
 
@@ -92,7 +92,7 @@ So the core value of a unified API can be remembered like this:
 
 > **Gather provider differences into one layer instead of letting business code know them everywhere.**
 
-### 1.3 When Learning Unified API for the First Time, What Should You Focus on First?
+### When Learning Unified API for the First Time, What Should You Focus on First?
 
 What you should focus on first is not “how elegant the abstraction is,” but this sentence:
 
@@ -109,7 +109,7 @@ you will understand more naturally why they belong in this layer.
 
 ---
 
-## 2. What Is the Most Common Goal of a Unified API?
+## What Is the Most Common Goal of a Unified API?
 
 Usually it includes at least:
 
@@ -118,7 +118,7 @@ Usually it includes at least:
 - Unifying error handling
 - Unifying logs and trace
 
-### 2.1 A Minimal Unified Request Structure
+### A Minimal Unified Request Structure
 
 ```python
 request = {
@@ -130,7 +130,7 @@ request = {
 print(request)
 ```
 
-### 2.2 A Minimal Unified Response Structure
+### A Minimal Unified Response Structure
 
 ```python
 response = {
@@ -150,7 +150,7 @@ The advantage of doing this is:
 
 - Upper-layer business logic only needs to face one stable structure
 
-### 2.3 A Unified Table That Is Very Easy for Beginners to Remember
+### A Unified Table That Is Very Easy for Beginners to Remember
 
 | Layer | What should be unified in this layer? |
 |---|---|
@@ -169,7 +169,7 @@ The unified API layer is like a model gateway: upper-layer business code only se
 
 ---
 
-## 3. A Minimal Provider Abstraction Example
+## A Minimal Provider Abstraction Example
 
 ```python
 class ProviderA:
@@ -191,9 +191,9 @@ If you let business code call these two providers separately, the code will beco
 
 ---
 
-## 4. What Does the Unified Adaptation Layer Actually Do?
+## What Does the Unified Adaptation Layer Actually Do?
 
-### 4.1 Translate Different Providers into the Same Structure
+### Translate Different Providers into the Same Structure
 
 ```python
 class UnifiedClient:
@@ -229,7 +229,7 @@ print(client.chat("provider_a", "What is the refund policy?", "demo-1"))
 print(client.chat("provider_b", "What is the refund policy?", "demo-2"))
 ```
 
-### 4.2 What Is Really Important Here Is Not the Syntax, but the Layering
+### What Is Really Important Here Is Not the Syntax, but the Layering
 
 What it tells you is:
 
@@ -238,7 +238,7 @@ What it tells you is:
 
 This is the most practical engineering value of a “unified API.”
 
-### 4.3 Why Is This Layer Especially Suitable for Logging, Statistics, and Routing?
+### Why Is This Layer Especially Suitable for Logging, Statistics, and Routing?
 
 Because it naturally sits at the entry point that **all requests pass through**.
 So capabilities like these are a very good fit here:
@@ -248,7 +248,7 @@ So capabilities like these are a very good fit here:
 - Provider fallback
 - Model routing
 
-### 4.4 Another Minimal Example of a “Unified Error Structure”
+### Another Minimal Example of a “Unified Error Structure”
 
 ```python
 def normalize_error(provider, error_type, message):
@@ -273,7 +273,7 @@ This example is very suitable for beginners because it helps you realize:
 
 ---
 
-## 5. Why Doesn’t a Unified API Mean “All Models Are Exactly the Same”?
+## Why Doesn’t a Unified API Mean “All Models Are Exactly the Same”?
 
 This is a point that is very easy to misunderstand.
 
@@ -295,7 +295,7 @@ So a unified API is more like:
 
 ---
 
-## 6. Why Does Routing Naturally Appear in This Layer?
+## Why Does Routing Naturally Appear in This Layer?
 
 Once you have a unified API layer, the next natural question is:
 
@@ -303,7 +303,7 @@ Once you have a unified API layer, the next natural question is:
 - Is a cheaper model good enough?
 - Should high-risk requests go to a stronger model?
 
-### 6.1 A Simple Routing Example
+### A Simple Routing Example
 
 ```python
 def route_model(query):
@@ -319,17 +319,17 @@ The unified API layer is very suitable for taking on this role as the “model r
 
 ---
 
-## 7. The Most Common Engineering Benefits of a Unified API Layer
+## The Most Common Engineering Benefits of a Unified API Layer
 
-### 7.1 Easier Model Switching
+### Easier Model Switching
 
 You do not need to modify every business module.
 
-### 7.2 Easier Logging and Cost Statistics
+### Easier Logging and Cost Statistics
 
 Because all requests go through the same entry point.
 
-### 7.3 Easier Canary Releases and Fallback
+### Easier Canary Releases and Fallback
 
 For example:
 
@@ -338,7 +338,7 @@ For example:
 
 These are exactly the places where a unified entry point can shine.
 
-### 7.4 A Selection Table That Beginners Can Remember First
+### A Selection Table That Beginners Can Remember First
 
 | System symptom | What should the unified API layer prioritize first? |
 |---|---|
@@ -360,18 +360,18 @@ A safer order is usually:
 
 This keeps the interface layer more stable than starting with complex routing right away.
 
-## 9. The Most Common Misunderstandings
+## The Most Common Misunderstandings
 
-### 9.1 Thinking Unified API Can Eliminate All Model Differences
+### Thinking Unified API Can Eliminate All Model Differences
 
 It cannot.
 Differences still exist; you are just organizing them in a more controllable way.
 
-### 9.2 Designing It Too Heavy Too Early
+### Designing It Too Heavy Too Early
 
 If the project only has one provider, over-abstraction can become a burden instead.
 
-### 9.3 Unifying Input and Output, But Not Error Structure and Logging
+### Unifying Input and Output, But Not Error Structure and Logging
 
 Then debugging will still be painful later.
 

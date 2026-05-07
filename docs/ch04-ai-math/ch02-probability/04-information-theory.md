@@ -1,11 +1,11 @@
 ---
-title: "2.5 Fundamentals of Information Theory"
+title: "4.2.5 Fundamentals of Information Theory"
 sidebar_position: 8
 description: "Understand the intuitive meaning of information content, entropy, cross-entropy, and KL divergence, and why cross-entropy is the loss function for classification tasks"
 keywords: [information theory, entropy, cross entropy, KL divergence, loss function, AI math]
 ---
 
-# Fundamentals of Information Theory
+# 4.2.5 Fundamentals of Information Theory
 
 ![Information entropy and uncertainty diagram](/img/course/information-entropy-uncertainty-en.png)
 
@@ -90,9 +90,9 @@ So what this lesson really wants to explain is:
 - why a distribution with more uncertainty has higher entropy
 - why cross-entropy becomes the core loss function for classification tasks
 
-## 1. Information Content — "How Surprised Are You?"
+## Information Content — "How Surprised Are You?"
 
-### 1.1 Intuition
+### Intuition
 
 The **information content** of a message = how **unexpected** it is.
 
@@ -102,7 +102,7 @@ The **information content** of a message = how **unexpected** it is.
 
 **The lower the probability of an event, the more information it brings when it happens.**
 
-### 1.1.1 A More Beginner-Friendly Analogy
+### A More Beginner-Friendly Analogy
 
 You can think of information content as:
 
@@ -117,7 +117,7 @@ So the most important thing to remember about information content is not the for
 
 > **The less common something is, the more information it gives when it happens.**
 
-### 1.2 Mathematical Definition
+### Mathematical Definition
 
 **Information content = -log2(probability)**
 
@@ -175,13 +175,13 @@ p=0.01: information=6.6439 bits
 
 ---
 
-## 2. Entropy — Average Uncertainty
+## Entropy — Average Uncertainty
 
-### 2.1 Intuition
+### Intuition
 
 **Entropy = the "average information content" of a distribution = the system's "average uncertainty."**
 
-### 2.1.1 The Most Important Thing to Remember About Entropy Is Not the Definition, but the "Degree of Chaos"
+### The Most Important Thing to Remember About Entropy Is Not the Definition, but the "Degree of Chaos"
 
 You can first think of entropy as:
 
@@ -208,7 +208,7 @@ flowchart LR
     style B fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 Formula and Calculation
+### Formula and Calculation
 
 **H(X) = -Σ p(x) × log2(p(x))**
 
@@ -248,7 +248,7 @@ Entropy of a fair die: 2.585 bit
 
 `-0.000` appears because of floating-point rounding. Conceptually, the entropy is exactly 0.
 
-### 2.3 Visualization: How Coin Entropy Changes with p
+### Visualization: How Coin Entropy Changes with p
 
 ```python
 p_values = np.linspace(0.001, 0.999, 1000)
@@ -267,7 +267,7 @@ plt.show()
 
 **Key insight**: entropy is maximum when p = 0.5 (most uncertain), and entropy is 0 when p = 0 or 1 (completely certain).
 
-### 2.4 Applications of Entropy in AI
+### Applications of Entropy in AI
 
 | Application | Description |
 |------|------|
@@ -278,13 +278,13 @@ plt.show()
 
 ---
 
-## 3. Cross-Entropy — Measuring "How Accurate the Prediction Is"
+## Cross-Entropy — Measuring "How Accurate the Prediction Is"
 
-### 3.1 Intuition
+### Intuition
 
 **Cross-entropy = the average number of bits needed to encode data from distribution P using distribution Q.**
 
-### 3.1.1 A More Beginner-Friendly Way to Say It
+### A More Beginner-Friendly Way to Say It
 
 You can also temporarily think of cross-entropy as:
 
@@ -298,7 +298,7 @@ Because later, in classification models, what you really care about is also:
 If Q and P are exactly the same → cross-entropy = entropy of P (the minimum value)
 If Q and P are very different → cross-entropy is much larger than the entropy of P
 
-### 3.2 Formula and Calculation
+### Formula and Calculation
 
 **H(P, Q) = -Σ p(x) × log2(q(x))**
 
@@ -333,7 +333,7 @@ Cross-entropy, poor prediction:   1.5952
 Cross-entropy, wrong prediction: 3.0219
 ```
 
-### 3.3 Cross-Entropy as a Loss Function
+### Cross-Entropy as a Loss Function
 
 In classification tasks, **minimizing cross-entropy = making the model's predictions as close as possible to the true distribution**.
 
@@ -372,7 +372,7 @@ Completely wrong     → cross-entropy loss ≈ 2.3026
 
 This block uses `np.log`, the natural logarithm, so the unit is nats. That matches what most deep learning frameworks use for cross-entropy loss.
 
-### 3.4 Visualization: Prediction Accuracy vs. Loss
+### Visualization: Prediction Accuracy vs. Loss
 
 ```python
 # Relationship between predicted probability p and loss when the true label y=1
@@ -404,7 +404,7 @@ plt.show()
 
 **Interpretation**: cross-entropy loss has a very nice property — when the prediction is wrong (for example, y=1 but the model outputs 0.01), the loss increases **sharply**, strongly penalizing wrong predictions.
 
-### 3.5 A More Beginner-Friendly Classification Intuition
+### A More Beginner-Friendly Classification Intuition
 
 You can first think of cross-entropy as:
 
@@ -419,7 +419,7 @@ So the most important thing to remember about cross-entropy is not what the form
 
 > **The more probability the model assigns to the correct answer, the smaller the loss usually is.**
 
-### 3.6 Another Small "Single-Sample Cross-Entropy" Example
+### Another Small "Single-Sample Cross-Entropy" Example
 
 ```python
 labels = ["cat", "dog", "bird"]
@@ -450,13 +450,13 @@ This example is especially good for beginners because it brings abstract distrib
 
 ---
 
-## 4. KL Divergence — The "Distance" Between Two Distributions
+## KL Divergence — The "Distance" Between Two Distributions
 
-### 4.1 Intuition
+### Intuition
 
 **KL divergence = how many extra bits you "pay" if you use distribution Q instead of the true distribution P.**
 
-### 4.1.1 Why Does KL Divergence Feel So Intimidating?
+### Why Does KL Divergence Feel So Intimidating?
 
 Because it looks like a "distance" between distributions,
 but it is not symmetric.
@@ -499,7 +499,7 @@ KL(P || Q2): 0.4384 (Q2 is far from P)
 KL(P || P):  0.0000 (P with itself)
 ```
 
-### 4.2 Properties of KL Divergence
+### Properties of KL Divergence
 
 | Property | Description |
 |------|------|
@@ -525,7 +525,7 @@ KL(Q || P) = 0.4807
 They are not equal!
 ```
 
-### 4.3 Visualization: How KL Divergence Changes with Distribution Difference
+### Visualization: How KL Divergence Changes with Distribution Difference
 
 ```python
 # Binary distribution: P = [0.8, 0.2], let Q vary from [0.01, 0.99] to [0.99, 0.01]
@@ -545,7 +545,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.4 Applications of KL Divergence in AI
+### Applications of KL Divergence in AI
 
 | Application | Description |
 |------|------|
@@ -560,7 +560,7 @@ When fine-tuning a large language model with RLHF, you need to balance "satisfyi
 
 ---
 
-## 5. The Relationship Among the Three
+## The Relationship Among the Three
 
 ```mermaid
 flowchart TD
@@ -606,7 +606,7 @@ H(P) + KL =     1.2796
 Because during training, the true distribution P is fixed (the labels do not change), so H(P) is a constant. Minimizing cross-entropy H(P,Q) is equivalent to minimizing KL(P||Q). But cross-entropy is easier to compute — you do not need to know H(P).
 :::
 
-### 5.1 A Comparison Table That's Very Good for Beginners to Remember
+### A Comparison Table That's Very Good for Beginners to Remember
 
 | Concept | The Most Important Question to Remember |
 |------|------|
@@ -629,9 +629,9 @@ If you have read this entire probability and statistics chapter, what is most wo
 
 The most natural next reading is usually:
 
-- [Station 5 Home](../../ch05-machine-learning/index.md)
-- [Logistic Regression](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
-- [Evaluation Metrics](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
+- [5 Station 5 Home](../../ch05-machine-learning/index.md)
+- [5.2.3 Logistic Regression](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
+- [5.4.2 Evaluation Metrics](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
 
 :::info Chapter Review
 In these four lessons on probability and statistics, you learned:

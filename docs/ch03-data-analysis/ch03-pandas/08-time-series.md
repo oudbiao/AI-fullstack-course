@@ -1,10 +1,10 @@
 ---
-title: "3.8 Time Series"
+title: "3.3.9 Time Series"
 sidebar_position: 16
 description: "Master date-time handling, resampling, and rolling window calculations"
 ---
 
-# Time Series
+# 3.3.9 Time Series
 
 :::tip Section Focus
 When many beginners first learn time series, the easiest misunderstanding is:

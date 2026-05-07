@@ -1,11 +1,11 @@
 ---
-title: "5.2 Seq2Seq Models"
+title: "11.5.2 Seq2Seq Models"
 sidebar_position: 1
 description: "Start from the idea of “input one piece of text, output another piece of text,” and understand why the encoder-decoder structure became the foundation for translation, summarization, and paraphrasing tasks."
 keywords: [seq2seq, encoder decoder, translation, summarization, text generation]
 ---
 
-# Seq2Seq Models
+# 11.5.2 Seq2Seq Models
 
 ![Seq2Seq Encoder-Decoder Bottleneck Diagram](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-en.png)
 
@@ -54,9 +54,9 @@ So what this section really wants to solve is:
 - Why are “text-to-text” tasks fundamentally different from classification tasks?
 - Why do we split the system into encoder and decoder?
 
-## 1. What Problem Does Seq2Seq Solve?
+## What Problem Does Seq2Seq Solve?
 
-### 1.1 It is not “assigning a label to the whole sentence”
+### It is not “assigning a label to the whole sentence”
 
 It is more like:
 
@@ -67,7 +67,7 @@ For example:
 
 - “I love studying” -> “I enjoy learning”
 
-### 1.2 Why are ordinary classifiers not suitable for this kind of task?
+### Why are ordinary classifiers not suitable for this kind of task?
 
 Because classifier outputs are usually one label from a fixed set.
 But the output of a Seq2Seq task:
@@ -76,30 +76,30 @@ But the output of a Seq2Seq task:
 - Has variable content
 - Has sequential dependencies during generation
 
-### 1.3 An Analogy
+### An Analogy
 
 Classification is like giving an essay a score.
 Seq2Seq is more like rewriting a Chinese essay into an English one.
 
 ---
 
-## 2. What Do the Encoder and Decoder Do?
+## What Do the Encoder and Decoder Do?
 
-### 2.1 Encoder
+### Encoder
 
 It is responsible for:
 
 - Reading the input sequence
 - Compressing the input into an internal representation
 
-### 2.2 Decoder
+### Decoder
 
 It is responsible for:
 
 - Using the encoded result
 - Generating the output sequence step by step
 
-### 2.3 Why split it into two parts?
+### Why split it into two parts?
 
 Because these tasks naturally work in this order:
 
@@ -110,7 +110,7 @@ This is different from plain classification.
 
 ---
 
-## 3. Run a Minimal “Encode Then Generate” Example
+## Run a Minimal “Encode Then Generate” Example
 
 ```python
 translation_memory = {
@@ -139,7 +139,7 @@ print("encoded:", encoded)
 print("decoded:", target)
 ```
 
-### 3.1 What is the most important insight from this example?
+### What is the most important insight from this example?
 
 It shows that the core flow of Seq2Seq is:
 
@@ -147,7 +147,7 @@ It shows that the core flow of Seq2Seq is:
 2. There is first an intermediate encoded representation
 3. Then the decoder generates the output
 
-### 3.2 What should beginners remember first when learning Seq2Seq?
+### What should beginners remember first when learning Seq2Seq?
 
 The most important things to remember first are:
 
@@ -157,9 +157,9 @@ The most important things to remember first are:
 
 ---
 
-## 4. What Is the Most Common Difficulty in Seq2Seq?
+## What Is the Most Common Difficulty in Seq2Seq?
 
-### 4.1 The input is compressed too crudely
+### The input is compressed too crudely
 
 A classic problem in early encoder-decoder models is:
 
@@ -167,19 +167,19 @@ A classic problem in early encoder-decoder models is:
 
 When the input is long, information is easily lost.
 
-### 4.2 The output is generated step by step
+### The output is generated step by step
 
 This means:
 
 - If the previous step is wrong
 - The later steps are also likely to go wrong
 
-### 4.3 This is also why Attention was introduced later
+### This is also why Attention was introduced later
 
 One of the core goals of Attention is to let the decoder, when generating, not rely only on one fixed vector,
 but dynamically look at different positions in the input.
 
-### 4.4 How is this section related to the Attention mechanism later?
+### How is this section related to the Attention mechanism later?
 
 What this section should first establish is:
 
@@ -191,34 +191,34 @@ And the next section on Attention is meant to solve the core bottleneck here:
 
 ---
 
-## 5. What Tasks Is Seq2Seq Suitable For?
+## What Tasks Is Seq2Seq Suitable For?
 
-### 5.1 Translation
+### Translation
 
 A classic input-output mapping task.
 
-### 5.2 Summarization
+### Summarization
 
 Input a long article, output a short one.
 
-### 5.3 Paraphrasing and Question-Answer Generation
+### Paraphrasing and Question-Answer Generation
 
 The input and output are not the same text, but there is a clear correspondence between them.
 
 ---
 
-## 6. The Easiest Pitfalls to Fall Into
+## The Easiest Pitfalls to Fall Into
 
-### 6.1 Misconception 1: Seq2Seq is just a “translation model”
+### Misconception 1: Seq2Seq is just a “translation model”
 
 Translation is only the most classic example.
 In essence, it applies to a broader set of “text-to-text” tasks.
 
-### 6.2 Misconception 2: Having an encoder and decoder is already enough
+### Misconception 2: Having an encoder and decoder is already enough
 
 Without Attention and stronger representations, long-input problems become very obvious.
 
-### 6.3 Misconception 3: For generation tasks, being able to produce output is all that matters
+### Misconception 3: For generation tasks, being able to produce output is all that matters
 
 What is really hard in Seq2Seq tasks is:
 

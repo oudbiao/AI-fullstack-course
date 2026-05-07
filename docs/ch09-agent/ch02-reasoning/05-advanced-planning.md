@@ -1,11 +1,11 @@
 ---
-title: "2.6 Advanced Planning Strategies [Optional]"
+title: "9.2.6 Advanced Planning Strategies [Optional]"
 sidebar_position: 9
 description: "Move beyond a linear task list toward DAGs, parallel scheduling, critical paths, and replanning, and understand why advanced planning is more like task graph management than just “listing a few more steps.”"
 keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critical path]
 ---
 
-# Advanced Planning Strategies [Optional]
+# 9.2.6 Advanced Planning Strategies [Optional]
 
 :::tip Section overview
 The Plan-and-Execute approach in the previous section already split long tasks into sequential steps.
@@ -29,9 +29,9 @@ So in this section, we will take one more step forward:
 
 ---
 
-## 1. Why is a linear plan sometimes not enough?
+## Why is a linear plan sometimes not enough?
 
-### 1.1 Because in real tasks, many steps are not “A first, then B, then C”
+### Because in real tasks, many steps are not “A first, then B, then C”
 
 For example, when preparing a research report,
 you may need to:
@@ -48,7 +48,7 @@ the plan will feel:
 - Inefficient
 - Hard to express real dependencies
 
-### 1.2 The most important problem in advanced planning
+### The most important problem in advanced planning
 
 It is not “how many steps to list,”
 but rather:
@@ -61,7 +61,7 @@ In other words, the object of advanced planning is more like:
 
 - A task graph
 
-### 1.3 An analogy: a construction blueprint, not a to-do list
+### An analogy: a construction blueprint, not a to-do list
 
 An ordinary plan is like a checklist.
 Advanced planning is more like a construction blueprint:
@@ -72,9 +72,9 @@ Advanced planning is more like a construction blueprint:
 
 ---
 
-## 2. Three concepts you will see most often in advanced planning
+## Three concepts you will see most often in advanced planning
 
-### 2.1 Dependencies
+### Dependencies
 
 If task B must wait for the result of task A,
 then we have:
@@ -86,7 +86,7 @@ For example:
 - First fetch data, then clean data
 - First complete analysis, then write the report
 
-### 2.2 Parallelism
+### Parallelism
 
 If two tasks do not depend on each other,
 they can, in theory, be done at the same time.
@@ -96,7 +96,7 @@ This means:
 - Total time may be reduced
 - But scheduling becomes more complex
 
-### 2.3 Critical path
+### Critical path
 
 The critical path is:
 
@@ -107,7 +107,7 @@ The nodes that actually slow down the overall progress are often the ones on the
 
 ---
 
-## 3. First, run a real DAG scheduling example
+## First, run a real DAG scheduling example
 
 The code below does something very representative:
 
@@ -180,7 +180,7 @@ for item in timeline:
     print(item)
 ```
 
-### 3.1 What should you focus on in this code?
+### What should you focus on in this code?
 
 The key is not the syntax details,
 but these three things:
@@ -192,7 +192,7 @@ but these three things:
 Together, these three things
 form the most important real-world constraints in advanced planning.
 
-### 3.2 Why must `draft_report` be last?
+### Why must `draft_report` be last?
 
 Because it depends on:
 
@@ -205,7 +205,7 @@ it still cannot start before its prerequisites are ready.
 This shows that advanced planning is not “the more tasks, the more parallelism.”
 It depends on the structure of the dependency graph itself.
 
-### 3.3 What happens if you change workers from 2 to 1?
+### What happens if you change workers from 2 to 1?
 
 You will see that the plan becomes much longer.
 This helps you understand:
@@ -221,9 +221,9 @@ This diagram upgrades a “task list” into a “task graph”: nodes represent
 
 ---
 
-## 4. When do you need advanced planning instead of ordinary planning?
+## When do you need advanced planning instead of ordinary planning?
 
-### 4.1 When the task is naturally graph-shaped
+### When the task is naturally graph-shaped
 
 For example:
 
@@ -232,7 +232,7 @@ For example:
 - Complex code refactoring
 - Multi-step business approvals
 
-### 4.2 When parallelism can clearly bring benefits
+### When parallelism can clearly bring benefits
 
 If the task has many independent prerequisite steps,
 advanced planning can help you see:
@@ -240,7 +240,7 @@ advanced planning can help you see:
 - Which tasks should run in parallel
 - Which waiting times are unavoidable
 
-### 4.3 When failure recovery and replanning become important
+### When failure recovery and replanning become important
 
 In complex tasks, you often encounter:
 
@@ -257,9 +257,9 @@ but also needs to be able to:
 
 ---
 
-## 5. Why is advanced planning more like “graph search” than “listing tasks”?
+## Why is advanced planning more like “graph search” than “listing tasks”?
 
-### 5.1 Because there is not always only one path
+### Because there is not always only one path
 
 Many complex tasks do not have a unique solution.
 You may have:
@@ -268,7 +268,7 @@ You may have:
 - Multiple resource allocation strategies
 - Multiple execution orders
 
-### 5.2 Because you need to consider an objective function
+### Because you need to consider an objective function
 
 Sometimes what you want to optimize is:
 
@@ -278,7 +278,7 @@ Sometimes what you want to optimize is:
 
 Different goals will produce different plans.
 
-### 5.3 Because the “best plan” changes with the environment
+### Because the “best plan” changes with the environment
 
 If one tool becomes slow or one resource is unavailable,
 the previously optimal graph may no longer be optimal.
@@ -290,9 +290,9 @@ That is also why advanced planning often relies on:
 
 ---
 
-## 6. Common pitfalls in engineering practice
+## Common pitfalls in engineering practice
 
-### 6.1 Mistake 1: Thinking that drawing the dependency graph solves everything
+### Mistake 1: Thinking that drawing the dependency graph solves everything
 
 The graph is only the beginning.
 You still need to define:
@@ -301,7 +301,7 @@ You still need to define:
 - Failure handling
 - Node retry strategies
 
-### 6.2 Mistake 2: More parallelism is always better
+### Mistake 2: More parallelism is always better
 
 Parallelism brings:
 
@@ -311,7 +311,7 @@ Parallelism brings:
 
 Opening unlimited concurrency is not necessarily better.
 
-### 6.3 Mistake 3: Advanced planning is always more advanced than simple planning
+### Mistake 3: Advanced planning is always more advanced than simple planning
 
 If the task itself is short and fixed,
 using advanced planning may actually be overengineering.

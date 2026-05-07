@@ -1,11 +1,11 @@
 ---
-title: "7.7 Practice: Multi-Agent Collaboration System"
+title: "9.7.7 Practice: Multi-Agent Collaboration System"
 sidebar_position: 43
 description: "Build a minimal multi-Agent collaboration system from task input, role division, state transitions, to result aggregation."
 keywords: [multi-agent project, planner, retriever, writer, reviewer, workflow, collaboration]
 ---
 
-# Practice: Multi-Agent Collaboration System
+# 9.7.7 Practice: Multi-Agent Collaboration System
 
 ![Multi-Agent collaboration practice run map](/img/course/ch09-multi-agent-collaboration-run-map-en.png)
 
@@ -31,7 +31,7 @@ What we are going to do now is put all of these together and build a minimal but
 
 ---
 
-## 1. First, Define the Project Goal
+## First, Define the Project Goal
 
 We will build a minimal research-style multi-Agent system:
 
@@ -50,7 +50,7 @@ This task is a good fit because it can naturally be split into parts, and each r
 
 ---
 
-## 2. Prepare a Knowledge Base
+## Prepare a Knowledge Base
 
 ```python
 knowledge_base = {
@@ -66,9 +66,9 @@ This is the minimal knowledge source that the system will operate on.
 
 ---
 
-## 3. Define Four Agents
+## Define Four Agents
 
-### 3.1 Planner
+### Planner
 
 ```python
 def planner_agent(user_query):
@@ -77,7 +77,7 @@ def planner_agent(user_query):
     return ["retrieve related materials", "write summary", "review output"]
 ```
 
-### 3.2 Retriever
+### Retriever
 
 ```python
 def retriever_agent(task):
@@ -86,14 +86,14 @@ def retriever_agent(task):
     return "No materials found"
 ```
 
-### 3.3 Writer
+### Writer
 
 ```python
 def writer_agent(evidence):
     return f"Summary: {evidence}"
 ```
 
-### 3.4 Reviewer
+### Reviewer
 
 ```python
 def reviewer_agent(draft):
@@ -104,9 +104,9 @@ def reviewer_agent(draft):
 
 ---
 
-## 4. Connect Them Together
+## Connect Them Together
 
-### 4.1 A Minimal Multi-Agent Collaboration Flow
+### A Minimal Multi-Agent Collaboration Flow
 
 ```python
 def multi_agent_system(user_query):
@@ -137,7 +137,7 @@ for k, v in result.items():
     print(k, "->", v)
 ```
 
-### 4.2 What Does This Code Already Show?
+### What Does This Code Already Show?
 
 It already shows that:
 
@@ -149,9 +149,9 @@ This is a true minimal multi-Agent system.
 
 ---
 
-## 5. Make the System More Like a Real Workflow
+## Make the System More Like a Real Workflow
 
-### 5.1 What If the Reviewer Does Not Approve?
+### What If the Reviewer Does Not Approve?
 
 In a real system, if the review does not pass, the process usually should not end immediately.
 A more reasonable approach is:
@@ -159,7 +159,7 @@ A more reasonable approach is:
 - Send the comment back to the writer
 - Revise the output again
 
-### 5.2 A Small Example with Revision
+### A Small Example with Revision
 
 ```python
 def reviser_agent(draft, review):
@@ -181,9 +181,9 @@ This step is very important because it shows:
 
 ---
 
-## 6. Add Clearer Task Logs
+## Add Clearer Task Logs
 
-### 6.1 Why Must a Project Have Traces?
+### Why Must a Project Have Traces?
 
 If the system gives the wrong answer, at least you need to know:
 
@@ -192,7 +192,7 @@ If the system gives the wrong answer, at least you need to know:
 - What the writer wrote
 - Why the reviewer did not catch the problem
 
-### 6.2 A Minimal Trace Version
+### A Minimal Trace Version
 
 ```python
 def traced_multi_agent_system(user_query):
@@ -220,9 +220,9 @@ This trace is the important foundation for debugging and evaluating the system l
 
 ---
 
-## 7. Why Is This System More Worth Learning Than a Single Agent?
+## Why Is This System More Worth Learning Than a Single Agent?
 
-### 7.1 Because It Breaks the Problem Apart
+### Because It Breaks the Problem Apart
 
 A single Agent often does everything in one go:
 
@@ -237,7 +237,7 @@ A multi-Agent system breaks these actions apart, which makes it easier for you t
 - Replace one layer
 - Find out where an error happened
 
-### 7.2 But It Is Also More Expensive and More Complex
+### But It Is Also More Expensive and More Complex
 
 So the real engineering judgment is not:
 
@@ -249,7 +249,7 @@ Instead, it is:
 
 ---
 
-## 8. How Can This Project Be Extended?
+## How Can This Project Be Extended?
 
 You can keep adding:
 
@@ -263,17 +263,17 @@ If you keep expanding it, it will gradually become closer to a real multi-Agent 
 
 ---
 
-## 9. Common Mistakes Beginners Make
+## Common Mistakes Beginners Make
 
-### 9.1 Writing All Roles in Almost the Same Way
+### Writing All Roles in Almost the Same Way
 
 Then the result is just "multiple Agents with different names for the same thing."
 
-### 9.2 No Shared State or Trace
+### No Shared State or Trace
 
 Once something goes wrong, it becomes very hard to debug.
 
-### 9.3 The Project Looks Busy, but Each Role Does Not Actually Have a Real Division of Labor
+### The Project Looks Busy, but Each Role Does Not Actually Have a Real Division of Labor
 
 This is one of the most common problems in many multi-Agent demos.
 

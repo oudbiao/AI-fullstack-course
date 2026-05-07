@@ -1,11 +1,11 @@
 ---
-title: "1.1 支持向量机"
+title: "E.C.1 支持向量机"
 sidebar_position: 12
 description: "从最大间隔分类器讲起，理解 SVM 为什么在中小数据、高维特征和清晰边界任务里仍然是很强的基线。"
 keywords: [SVM, support vector machine, max margin, kernel, classification, classic ML]
 ---
 
-# 支持向量机
+# E.C.1 支持向量机
 
 ![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.png)
 
@@ -39,7 +39,7 @@ SVM 不是“过时算法”。
 
 ## 一、SVM 到底在做什么？
 
-### 1.1 不是只找一条分界线，而是找“最稳”的那条
+### 不是只找一条分界线，而是找“最稳”的那条
 
 假设你要把两类样本分开。
 能把它们分开的线可能很多条，但 SVM 不会随便挑一条，而是会倾向选择：
@@ -50,7 +50,7 @@ SVM 不是“过时算法”。
 
 - 最大间隔（max margin）
 
-### 1.2 为什么“间隔大”有意义？
+### 为什么“间隔大”有意义？
 
 因为间隔越大，模型通常越不容易被边界附近的小扰动影响。
 你可以把它理解成：
@@ -58,7 +58,7 @@ SVM 不是“过时算法”。
 - 不只是分开
 - 还要分得更稳
 
-### 1.3 什么是支持向量？
+### 什么是支持向量？
 
 并不是所有样本都同样重要。
 真正决定分界线位置的，往往是最靠近边界的那一小部分样本。
@@ -74,12 +74,12 @@ SVM 的边界是被“最关键的少数样本”撑起来的。
 
 ## 二、什么时候 SVM 特别值得试？
 
-### 2.1 中小数据集
+### 中小数据集
 
 如果数据量不是特别大，
 SVM 往往很值得作为基线。
 
-### 2.2 高维特征
+### 高维特征
 
 例如：
 
@@ -88,7 +88,7 @@ SVM 往往很值得作为基线。
 
 SVM 在这类任务里经常表现不错。
 
-### 2.3 类别边界相对清晰
+### 类别边界相对清晰
 
 如果不同类别在特征空间里本来就有较清楚的分隔，
 SVM 会更容易发挥。
@@ -138,7 +138,7 @@ print("n_support_ :", svc.n_support_.tolist())
 print("support_vectors shape:", svc.support_vectors_.shape)
 ```
 
-### 3.1 这段代码为什么比只 `fit/predict` 更有用？
+### 这段代码为什么比只 `fit/predict` 更有用？
 
 因为它不仅让你看到：
 
@@ -150,7 +150,7 @@ print("support_vectors shape:", svc.support_vectors_.shape)
 
 这有助于你把 SVM 的“最大间隔”直觉和模型行为连起来。
 
-### 3.2 为什么这里要加 `StandardScaler()`？
+### 为什么这里要加 `StandardScaler()`？
 
 因为 SVM 对特征尺度非常敏感。
 如果某一列数值范围特别大，它会在距离计算里占过大权重。
@@ -163,12 +163,12 @@ print("support_vectors shape:", svc.support_vectors_.shape)
 
 ## 四、核技巧到底在解决什么？
 
-### 4.1 线性 SVM 适合边界近似线性的情况
+### 线性 SVM 适合边界近似线性的情况
 
 如果两类样本本来就能被一条直线分开，
 线性核通常已经足够。
 
-### 4.2 核技巧的直觉
+### 核技巧的直觉
 
 当原空间里不好分时，可以通过核方法隐式映射到更高维空间，
 让问题在新空间里变得更容易线性可分。
@@ -177,7 +177,7 @@ print("support_vectors shape:", svc.support_vectors_.shape)
 
 - RBF kernel
 
-### 4.3 什么时候该谨慎用核方法？
+### 什么时候该谨慎用核方法？
 
 核 SVM 虽然更灵活，但也通常意味着：
 
@@ -193,7 +193,7 @@ print("support_vectors shape:", svc.support_vectors_.shape)
 
 ## 五、SVM 最常见的两个参数
 
-### 5.1 `C`
+### `C`
 
 它控制“错误容忍”和“边界硬度”的平衡。
 
@@ -202,7 +202,7 @@ print("support_vectors shape:", svc.support_vectors_.shape)
 - `C` 大：更努力把训练集分对，但可能更容易过拟合
 - `C` 小：允许一些误差，但边界更宽松
 
-### 5.2 `kernel`
+### `kernel`
 
 它决定模型使用：
 
@@ -213,15 +213,15 @@ print("support_vectors shape:", svc.support_vectors_.shape)
 
 ## 六、SVM 最容易踩的坑
 
-### 6.1 误区一：不做特征缩放
+### 误区一：不做特征缩放
 
 这几乎是最常见问题。
 
-### 6.2 误区二：数据量很大时还默认上核 SVM
+### 误区二：数据量很大时还默认上核 SVM
 
 数据量大后，核方法常常会变得比较重。
 
-### 6.3 误区三：把 SVM 当成“自动最优”
+### 误区三：把 SVM 当成“自动最优”
 
 SVM 常常是很强基线，
 但它不是所有任务的默认最优解。

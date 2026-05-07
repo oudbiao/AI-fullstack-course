@@ -1,11 +1,11 @@
 ---
-title: "1.4 Eigenvalues and Eigenvectors"
+title: "4.1.4 Eigenvalues and Eigenvectors"
 sidebar_position: 3
 description: "Build an intuitive understanding of eigenvalues and eigenvectors, see why PCA dimensionality reduction works, and compute and visualize them with NumPy"
 keywords: [eigenvalues, eigenvectors, PCA, dimensionality reduction, NumPy, linear algebra, principal component analysis]
 ---
 
-# Eigenvalues and Eigenvectors
+# 4.1.4 Eigenvalues and Eigenvectors
 
 ![Illustration of special eigenvector directions](/img/course/eigenvalue-special-directions-en.png)
 
@@ -58,9 +58,9 @@ So the real problem this lesson solves is not "memorize the definition," but:
 
 When reading the formulas, keep one sentence in mind: eigenvectors are directions, eigenvalues are how strong those directions are.
 
-## 1. Intuition
+## Intuition
 
-### 1.1 "Special directions" in matrix transformations
+### "Special directions" in matrix transformations
 
 In the previous section, we learned: matrix × vector = new vector (both direction and magnitude may change).
 
@@ -81,7 +81,7 @@ In mathematical terms: **A × v = λ × v**
 - v is the eigenvector (the vector whose direction does not change)
 - λ (lambda) is the eigenvalue (the stretching factor)
 
-### 1.1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of a matrix transformation as a gust of wind blowing across many arrows:
 
@@ -96,7 +96,7 @@ After those arrows are blown:
 These special arrows that "never get pushed off course,"
 are eigenvectors.
 
-### 1.2 Visualization: which vectors keep their direction?
+### Visualization: which vectors keep their direction?
 
 ```python
 import numpy as np
@@ -161,7 +161,7 @@ plt.show()
 - But the **direction** of the eigenvectors stays the same; only their lengths change (they become 3 times and 1 time longer, respectively)
 - The long axis and short axis of the ellipse happen to be the directions of the eigenvectors
 
-### 1.3 Why is this figure especially important for beginners?
+### Why is this figure especially important for beginners?
 
 Because it makes "eigenvalue / eigenvector" stop being abstract terms for the first time.
 
@@ -175,9 +175,9 @@ In other words, the key thing in this section is not learning to calculate first
 
 ---
 
-## 2. Compute eigenvalues and eigenvectors with NumPy
+## Compute eigenvalues and eigenvectors with NumPy
 
-### 2.1 Basic usage
+### Basic usage
 
 ```python
 A = np.array([[4, 2],
@@ -204,7 +204,7 @@ Eigenvectors:
 
 The sign of an eigenvector may flip in different environments, for example `[0.707, -0.707]` instead of `[-0.707, 0.707]`. That is still the same direction line, so it is not an error.
 
-### 2.2 Verify: A × v = λ × v
+### Verify: A × v = λ × v
 
 ```python
 for i in range(len(eigenvalues)):
@@ -222,7 +222,7 @@ for i in range(len(eigenvalues)):
 
 This verification is more important than the raw numbers. If `A @ v` and `λ * v` are almost equal, the pair really satisfies the eigenvector definition.
 
-### 2.3 Special properties of symmetric matrices
+### Special properties of symmetric matrices
 
 In AI, we often encounter **symmetric matrices** (such as covariance matrices). Symmetric matrices have a nice property: **their eigenvectors are perpendicular to each other**.
 
@@ -245,9 +245,9 @@ print(f"Dot product of the two eigenvectors: {dot:.10f}")  # ≈ 0 (perpendicula
 
 ---
 
-## 3. PCA dimensionality reduction — the most important application of eigenvalues
+## PCA dimensionality reduction — the most important application of eigenvalues
 
-### 3.1 First, remember the PCA workflow
+### First, remember the PCA workflow
 
 For beginners, it is best to remember PCA as a process rather than as an abstract definition:
 
@@ -262,7 +262,7 @@ flowchart TD
     G --> H["Get a lower-dimensional new representation"]
 ```
 
-### 3.2 Why do we need dimensionality reduction?
+### Why do we need dimensionality reduction?
 
 ```mermaid
 flowchart TD
@@ -278,7 +278,7 @@ flowchart TD
     style G fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.3 The intuition behind PCA
+### The intuition behind PCA
 
 The core idea of PCA (Principal Component Analysis):
 
@@ -286,7 +286,7 @@ The core idea of PCA (Principal Component Analysis):
 2. The direction with the **largest eigenvalue** = the direction where the data varies the most = the direction that contains the most information
 3. Keep only the first few most important directions and discard the less important ones → dimensionality reduction
 
-### 3.3.1 A more beginner-friendly way to say it
+### A more beginner-friendly way to say it
 
 You can think of PCA like this:
 
@@ -330,7 +330,7 @@ Variance ratio: [94.  6.]%
 
 This means the first principal direction keeps about 94% of the variation in this toy dataset, so reducing from 2D to 1D loses relatively little information.
 
-### 3.4 Visualization: directions found by PCA
+### Visualization: directions found by PCA
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
@@ -372,7 +372,7 @@ plt.show()
 - The blue arrow is the 2nd principal component — the direction with smaller variation
 - If we keep only the 1st principal component (reduce from 2D to 1D), we still preserve most of the information
 
-### 3.5 Use scikit-learn for PCA
+### Use scikit-learn for PCA
 
 In real projects, we usually use PCA from scikit-learn directly:
 
@@ -418,9 +418,9 @@ plt.show()
 
 ---
 
-## 4. Other meanings of eigenvalues
+## Other meanings of eigenvalues
 
-### 4.1 What the size of an eigenvalue means
+### What the size of an eigenvalue means
 
 | Eigenvalue | Meaning |
 |--------|------|
@@ -429,7 +429,7 @@ plt.show()
 | Eigenvalue of 0 | The data does not vary at all in this direction (a redundant dimension) |
 | Negative eigenvalue | The matrix "reverses" in this direction (flips the direction) |
 
-### 4.2 Explained variance ratio
+### Explained variance ratio
 
 The most important indicator in PCA — the ratio of the first k eigenvalues to the total eigenvalues:
 
@@ -483,7 +483,7 @@ After reading this section, the most valuable things to carry forward are these 
 
 These three questions will naturally lead you to:
 
-- [Vector Spaces and Linear Transformations](./04-vector-spaces.md)
+- [4.1.5 Vector Spaces and Linear Transformations](./04-vector-spaces.md)
 
 ```mermaid
 flowchart LR

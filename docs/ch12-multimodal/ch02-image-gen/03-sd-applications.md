@@ -1,11 +1,11 @@
 ---
-title: "2.4 SD Applications"
+title: "12.2.4 SD Applications"
 sidebar_position: 6
 description: "From text-to-image and image-to-image, to inpainting, style control, and workflow products, understand how Stable Diffusion is most commonly used in real-world applications."
 keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workflow product]
 ---
 
-# SD Applications
+# 12.2.4 SD Applications
 
 ![Stable Diffusion application mode selection diagram](/img/course/ch12-sd-application-mode-selector-map-en.png)
 
@@ -53,7 +53,7 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why Is Stable Diffusion So Easy to Productize?
+## Why Is Stable Diffusion So Easy to Productize?
 
 Because it is very close to user needs.
 Many user problems can be directly mapped to generation tasks:
@@ -73,7 +73,7 @@ to:
 
 That is the fundamental reason its application ecosystem exploded.
 
-### 1.1 A Better Analogy for Beginners
+### A Better Analogy for Beginners
 
 You can think of Stable Diffusion applications as:
 
@@ -95,9 +95,9 @@ Once you understand it this way, it becomes much clearer why it naturally grows 
 
 ---
 
-## 2. First Type: Text-to-Image
+## First Type: Text-to-Image
 
-### 2.1 The Classic Entry Point
+### The Classic Entry Point
 
 The user inputs:
 
@@ -118,16 +118,16 @@ text_to_image_task = {
 print(text_to_image_task)
 ```
 
-### 2.2 Why Is This So Intuitive?
+### Why Is This So Intuitive?
 
 Because it makes the idea of “language intent -> image result” very direct for the first time.
 Users do not need to understand the model; as long as they can describe what they want, they can start creating.
 
 ---
 
-## 3. Second Type: Image-to-Image (img2img)
+## Second Type: Image-to-Image (img2img)
 
-### 3.1 The Biggest Difference from Text-to-Image
+### The Biggest Difference from Text-to-Image
 
 Text-to-image is more like:
 
@@ -148,7 +148,7 @@ img2img_task = {
 print(img2img_task)
 ```
 
-### 3.2 Why Is This Mode Valuable?
+### Why Is This Mode Valuable?
 
 Because many creative tasks are not about “generating from zero,” but about:
 
@@ -160,9 +160,9 @@ Users often care more about “improving along an existing direction” than abo
 
 ---
 
-## 4. Third Type: Inpainting
+## Third Type: Inpainting
 
-### 4.1 Why Does This Feature Feel So Product-Like?
+### Why Does This Feature Feel So Product-Like?
 
 Because real users often do not want to remake the whole image. They only want to change one local area.
 
@@ -172,7 +172,7 @@ For example:
 - fill in an empty tabletop
 - replace a small region with something else
 
-### 4.2 A Task Example
+### A Task Example
 
 ```python
 inpainting_task = {
@@ -192,7 +192,7 @@ In other words, the model not only needs to know “what to generate,” but als
 
 ---
 
-## 5. Fourth Type: Style Control and Conditional Control
+## Fourth Type: Style Control and Conditional Control
 
 Often, what users really want to control is not “what to draw,” but:
 
@@ -211,7 +211,7 @@ For example:
 
 So in real applications, the user input is often not just one prompt, but a set of conditions.
 
-### 5.1 A Selection Table That Is Good for Beginners to Remember
+### A Selection Table That Is Good for Beginners to Remember
 
 | User need | More suitable mode |
 |---|---|
@@ -224,7 +224,7 @@ This table is especially useful for beginners, because it helps you translate a 
 
 ---
 
-## 6. Why Are Real SD Applications Usually Not Just “One Model + One Prompt”?
+## Why Are Real SD Applications Usually Not Just “One Model + One Prompt”?
 
 Because once you productize it, you usually add many more layers:
 
@@ -243,7 +243,7 @@ That is why many AI image generation products eventually look like a creative wo
 
 ---
 
-## 7. An Example of a Workflow Product
+## An Example of a Workflow Product
 
 ```python
 poster_workflow = {
@@ -269,7 +269,7 @@ The most important meaning of this example is:
 
 > At the application layer, what usually matters is not “generate one image,” but “how do we reliably produce a result the user can accept?”
 
-### 7.1 Another Minimal “Workflow Selector” Example
+### Another Minimal “Workflow Selector” Example
 
 ```python
 def choose_sd_mode(request):
@@ -293,7 +293,7 @@ This example is very suitable for beginners, because it reminds you that:
 
 ---
 
-## 8. Why Do Applications Often Need Batch Generation?
+## Why Do Applications Often Need Batch Generation?
 
 Because image generation is naturally stochastic.
 With the same prompt:
@@ -311,13 +311,13 @@ This is the product-level way of dealing with the randomness of the model.
 
 ---
 
-## 9. The Most Common Failure Points in Stable Diffusion Applications
+## The Most Common Failure Points in Stable Diffusion Applications
 
-### 9.1 Text Control Is Not Stable Enough
+### Text Control Is Not Stable Enough
 
 The more complex the user description is, the easier it is for the result to drift.
 
-### 9.2 Local Details Are Hard to Control
+### Local Details Are Hard to Control
 
 Especially:
 
@@ -325,7 +325,7 @@ Especially:
 - hands
 - fine structures
 
-### 9.3 The User’s Real Problem Is Often Not “Generation,” but “Editing”
+### The User’s Real Problem Is Often Not “Generation,” but “Editing”
 
 This is also why many products increasingly emphasize:
 

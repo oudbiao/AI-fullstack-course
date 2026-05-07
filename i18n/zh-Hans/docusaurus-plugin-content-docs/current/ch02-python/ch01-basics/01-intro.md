@@ -1,10 +1,10 @@
 ---
-title: "1.1 Python 简介"
+title: "2.1.1 Python 简介"
 sidebar_position: 1
 description: "了解 Python 语言的特点、应用领域和开发环境"
 ---
 
-# Python 简介
+# 2.1.1 Python 简介
 
 ![Python 到 AI 应用工作流](/img/course/ch02-python-ai-workflow.png)
 
@@ -77,7 +77,7 @@ print("Hello World")
 
 Python 的应用范围非常广泛，以下是几个最重要的方向：
 
-### 1. AI 和机器学习（这门课的核心）
+### AI 和机器学习（这门课的核心）
 
 :::tip 运行本段示例前请先安装 scikit-learn
 在 Colab 或 Jupyter 中运行下面代码前，先执行安装（只需一次）：
@@ -102,7 +102,7 @@ model.fit(X_train, y_train)
 
 主流框架：PyTorch、TensorFlow、scikit-learn、Hugging Face Transformers
 
-### 2. 数据分析和可视化
+### 数据分析和可视化
 
 ```python
 import pandas as pd
@@ -118,7 +118,7 @@ plt.show()
 
 主流库：pandas、NumPy、Matplotlib、Seaborn
 
-### 3. Web 后端开发
+### Web 后端开发
 
 用 Python 可以快速写一个提供 API 的网站后端，例如：
 
@@ -145,7 +145,7 @@ def say_hello():
 
 主流框架：FastAPI、Django、Flask
 
-### 4. 自动化脚本
+### 自动化脚本
 
 ```python
 import os
@@ -163,7 +163,7 @@ for i, filename in enumerate(os.listdir("photos/")):
 print(os.listdir("photos/"))   # ['photo_1.jpg', 'photo_2.jpg', 'photo_3.jpg']
 ```
 
-### 5. 网络爬虫
+### 网络爬虫
 
 ```python
 # 先安装：!pip install beautifulsoup4
@@ -280,7 +280,7 @@ jupyter notebook
 
 在深入学习之前，先了解几个最基本的规则：
 
-### 1. 缩进很重要
+### 缩进很重要
 
 Python 用**缩进**（通常是 4 个空格）来表示代码块，而不是像其他语言那样用大括号 `{}`。
 
@@ -302,7 +302,7 @@ print("没有缩进，Python 会报错")
 缩进错误是新手最常见的错误。VS Code 会帮你自动缩进，但如果你复制粘贴代码，要注意检查缩进是否正确。
 :::
 
-### 2. 注释用 `#`
+### 注释用 `#`
 
 ```python
 # 这是一行注释，Python 会忽略它
@@ -315,7 +315,7 @@ print("这行代码会执行")  # 行尾也可以写注释
 
 注释是写给人看的，帮助你（和别人）理解代码。好的注释解释**为什么**这么做，而不是**做了什么**。
 
-### 3. 大小写敏感
+### 大小写敏感
 
 ```python
 name = "Alice"
@@ -327,7 +327,7 @@ print(name)   # Alice
 Print(name)   # 报错！Python 没有 Print，只有 print
 ```
 
-### 4. 文件以 `.py` 结尾
+### 文件以 `.py` 结尾
 
 Python 脚本文件的后缀是 `.py`，比如 `hello.py`、`train.py`、`model.py`。
 

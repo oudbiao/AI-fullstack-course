@@ -1,11 +1,11 @@
 ---
-title: "1.6 How Mathematics Really Flows into Machine Learning"
+title: "5.1.6 How Mathematics Really Flows into Machine Learning"
 sidebar_position: 5
 description: "Connect the linear algebra, probability and statistics, and calculus from Station 4 to machine learning at Station 5: from matrices, loss, and probability to gradient descent."
 keywords: [math to machine learning, linear algebra, probability and statistics, calculus, gradient descent, machine learning bridge]
 ---
 
-# How Mathematics Really Flows into Machine Learning
+# 5.1.6 How Mathematics Really Flows into Machine Learning
 
 ![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge-en.png)
 
@@ -52,7 +52,7 @@ If you grasp this diagram first, you will not panic when you see formulas later,
 
 ---
 
-## 1. Linear algebra: organizing data and parameters
+## Linear algebra: organizing data and parameters
 
 In Station 4, you already saw:
 
@@ -67,7 +67,7 @@ In machine learning, their most direct use is:
 - Use matrices to represent a batch of samples
 - Use parameter vectors to represent the weights the model needs to learn
 
-### 1.1 Why is one sample written as a vector?
+### Why is one sample written as a vector?
 
 For example, for a house, we might describe it with these features:
 
@@ -81,7 +81,7 @@ Then it can be written as a vector:
 
 This is not to make it look fancy, but to let the model handle different features in a unified way.
 
-### 1.2 Why is a batch of samples written as a matrix?
+### Why is a batch of samples written as a matrix?
 
 When there are many houses, we stack them into a matrix `X`:
 
@@ -115,7 +115,7 @@ Here:
 
 This is why later in `sklearn` you will keep seeing `X.shape = (n_samples, n_features)`.
 
-### 1.3 Why are parameters also written as a vector?
+### Why are parameters also written as a vector?
 
 If the model believes each feature has a weight, then the parameters can also be written as a vector:
 
@@ -143,7 +143,7 @@ The most important thing here is not the code, but realizing that:
 `X @ w` means matrix multiplication in Python. `@` is not a special ML trick; it is the operator that multiplies the feature matrix by the weight vector. `b` is the intercept, a base value added to every prediction.
 :::
 
-### 1.4 Where does linear algebra appear later in Station 5?
+### Where does linear algebra appear later in Station 5?
 
 | Mathematical object | Where it appears in Station 5 |
 |---|---|
@@ -158,7 +158,7 @@ So the most important role of linear algebra in machine learning is not derivati
 
 ---
 
-## 2. Probability and statistics: describing uncertainty, defining quality
+## Probability and statistics: describing uncertainty, defining quality
 
 If linear algebra is responsible for “organizing things,” then probability and statistics are responsible for:
 
@@ -166,7 +166,7 @@ If linear algebra is responsible for “organizing things,” then probability a
 - How to define how wrong a prediction is
 - How to evaluate whether the model is actually good
 
-### 2.1 Why does logistic regression output probabilities?
+### Why does logistic regression output probabilities?
 
 In linear regression, we predict continuous values.
 But in classification, what we care more about is:
@@ -199,7 +199,7 @@ So you can understand the role of probability and statistics here as:
 
 `z` is often called a logit in classification: it is a raw score before probability conversion. The sigmoid function is like a soft gate that turns any real number into a value between 0 and 1.
 
-### 2.2 Why are loss functions related to probability?
+### Why are loss functions related to probability?
 
 In supervised learning, we need to judge whether the model’s predictions are good or bad.
 At this point, probability and statistics enter in two places:
@@ -212,7 +212,7 @@ A very plain way to understand this is:
 - The closer the prediction is to the true value, the smaller the loss
 - The more confident the model is about the true class, the smaller the classification loss
 
-### 2.3 Where does probability and statistics appear later in Station 5?
+### Where does probability and statistics appear later in Station 5?
 
 | Probability and statistics concept | Where it appears in Station 5 |
 |---|---|
@@ -227,7 +227,7 @@ So the most important job of probability and statistics in machine learning is n
 
 ---
 
-## 3. Calculus: telling the model which direction to adjust parameters
+## Calculus: telling the model which direction to adjust parameters
 
 The first two lines solve:
 
@@ -240,7 +240,7 @@ But the model still lacks the last step:
 
 That is where calculus comes in.
 
-### 3.1 What is the simplest meaning of gradient descent?
+### What is the simplest meaning of gradient descent?
 
 You can completely skip the formula at first and just remember this sentence:
 
@@ -248,7 +248,7 @@ You can completely skip the formula at first and just remember this sentence:
 
 That is the core intuition of gradient descent.
 
-### 3.2 A minimal runnable example of gradient descent
+### A minimal runnable example of gradient descent
 
 The following example does only one thing:
 Using the simplest linear relationship `y = wx + b`, it shows how parameters are learned step by step.
@@ -301,7 +301,7 @@ These 4 steps are the prototype of the training loop in later deep learning.
 
 `lr` means learning rate. It controls how large each update step is. If it is too small, learning is slow; if it is too large, the parameters may overshoot the better point.
 
-### 3.3 Where does calculus appear later in Station 5?
+### Where does calculus appear later in Station 5?
 
 | Calculus concept | Where it appears in Station 5 |
 |---|---|
@@ -316,7 +316,7 @@ So the most important role of calculus here is:
 
 ---
 
-## 4. Putting the three lines together
+## Putting the three lines together
 
 If you break down one smallest machine learning training cycle, it is actually the following steps:
 
@@ -345,7 +345,7 @@ This is how the math from Station 4 really flows into machine learning at Statio
 
 ---
 
-## 5. A reading method that is better for beginners
+## A reading method that is better for beginners
 
 Later in Station 5, you will see more and more formulas.
 Beginners are often most afraid of seeing them as one big block of unfamiliar symbols.
@@ -361,7 +361,7 @@ If you break formulas down this way, they will increasingly feel like “process
 
 ---
 
-## 6. A common mistake: memorizing math concepts separately
+## A common mistake: memorizing math concepts separately
 
 Many beginners remember matrices, probability, and gradients separately. But when they look at code in machine learning, they still do not know how they connect. The usual reason is that they were never placed into the same training loop:
 
@@ -378,7 +378,7 @@ So when you see a formula in the future, do not first ask “Is this formula har
 
 ---
 
-## 7. The learning loop for this section
+## The learning loop for this section
 
 After finishing this section, you can use the table below to check whether you have truly connected to the main machine learning thread:
 
@@ -390,7 +390,7 @@ After finishing this section, you can use the table below to check whether you h
 | Future connection | Understand why linear regression, logistic regression, and neural networks all repeatedly use this training loop |
 
 ---
-## 8. What you should take away from this section
+## What you should take away from this section
 
 If you only take away one sentence, I hope you remember this:
 
@@ -406,9 +406,9 @@ So the most important gains from this section should be:
 :::info The smoothest way to learn next
 After reading this page, the best next steps are:
 
-1. [1.4 Introduction to the Scikit-learn Framework](./02-sklearn-intro.md)
-2. [2.2 Linear Regression](../ch02-supervised/01-linear-regression.md)
-3. [4.2 Evaluation Metrics](../ch04-evaluation/01-metrics.md)
+1. [5.1.4 Introduction to the Scikit-learn Framework](./02-sklearn-intro.md)
+2. [5.2.2 Linear Regression](../ch02-supervised/01-linear-regression.md)
+3. [5.4.2 Evaluation Metrics](../ch04-evaluation/01-metrics.md)
 
 This is the easiest way to feel that “math has really started working inside the model.”
 :::

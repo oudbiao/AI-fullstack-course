@@ -1,11 +1,11 @@
 ---
-title: "4.2 HMM, CRF, and the Historical Thread of Sequence Labeling"
+title: "11.4.2 HMM, CRF, and the Historical Thread of Sequence Labeling"
 sidebar_position: 1
 description: "From HMM part-of-speech tagging to CRF, BiLSTM-CRF, and BERT token classification, understand why sequence labeling evolved this way."
 keywords: [HMM, CRF, part-of-speech tagging, sequence labeling, NER, BiLSTM-CRF]
 ---
 
-# HMM, CRF, and the Historical Thread of Sequence Labeling
+# 11.4.2 HMM, CRF, and the Historical Thread of Sequence Labeling
 
 ![HMM CRF Sequence Labeling History Map](/img/course/ch11-hmm-crf-sequence-history-map-en.png)
 
@@ -17,7 +17,7 @@ But in the history of NLP, this line of development started much earlier:
 > **HMM first turned part-of-speech tagging into a statistical sequence problem, CRF strengthened the constraints between labels, BiLSTM-CRF added contextual representations, and BERT made contextual representations even stronger.**
 :::
 
-## 1. Where is the real difficulty in sequence labeling?
+## Where is the real difficulty in sequence labeling?
 
 Sequence labeling does not assign one label to the whole sentence. Instead, it assigns a label to each position.
 
@@ -40,7 +40,7 @@ So this historical line has always been trying to solve the same problem:
 
 > **How can we look at the current token, the surrounding context, and still make the whole label sequence reasonable?**
 
-## 2. HMM: the classic starting point of early statistical sequence modeling
+## HMM: the classic starting point of early statistical sequence modeling
 
 You can think of HMM as a model that “generates observed words from hidden states.”
 
@@ -59,7 +59,7 @@ It asks two questions:
 The most classic decoding method is Viterbi:
 instead of choosing the highest-probability tag at each position separately, it finds the most likely tag path for the whole sentence.
 
-## 3. CRF: scoring the “entire label path” more directly
+## CRF: scoring the “entire label path” more directly
 
 HMM is classic, but it has relatively strong generative assumptions.
 CRF is more like answering directly:
@@ -77,7 +77,7 @@ O     -> I-PER  usually unreasonable
 
 The value of CRF is that it does not only ask whether “this token looks like an entity,” but also whether “the whole label chain is valid and smooth.”
 
-## 4. BiLSTM-CRF: contextual representations + label constraints
+## BiLSTM-CRF: contextual representations + label constraints
 
 Later, when deep learning entered NLP, BiLSTM was responsible for reading context, and CRF was responsible for choosing the overall label path.
 
@@ -91,7 +91,7 @@ You can understand it as a division of labor:
 
 This is why many early NER systems used BiLSTM-CRF.
 
-## 5. After BERT, is HMM/CRF still worth learning?
+## After BERT, is HMM/CRF still worth learning?
 
 Yes. The reason is not that you must manually implement HMM in a project, but that:
 
@@ -103,7 +103,7 @@ Yes. The reason is not that you must manually implement HMM in a project, but th
 In modern projects, BERT can often produce very strong token representations directly.
 But when the data is small, label rules are strict, or boundaries are easy to get wrong, the CRF idea is still valuable.
 
-## 6. Mapping historical milestones to course chapters
+## Mapping historical milestones to course chapters
 
 | Historical milestone | Problem it solved | Corresponding course chapter |
 |---|---|---|
@@ -113,7 +113,7 @@ But when the data is small, label rules are strict, or boundaries are easy to ge
 | BiLSTM-CRF | Combine contextual representations with label constraints | 4.3 BiLSTM + CRF, 4.4 NER practice |
 | BERT token classification | Use pretrained contextual representations for token-level tasks | 6.3 BERT, Chapter 7 LLM foundations |
 
-## 7. A minimal intuitive example
+## A minimal intuitive example
 
 The following is not a complete HMM. It is only meant to help you understand the feeling of “transition constraints”:
 
@@ -137,7 +137,7 @@ else:
 What this code wants to show is:
 sequence labeling is not something where each token is judged independently; labels also have their own “grammar.”
 
-## 8. The intuition you should have after finishing this section
+## The intuition you should have after finishing this section
 
 The history of sequence labeling did not start with BERT.
 It roughly went through:

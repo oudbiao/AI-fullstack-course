@@ -1,11 +1,11 @@
 ---
-title: "5.2 特征理解与探索"
+title: "5.5.2 特征理解与探索"
 sidebar_position: 14
 description: "掌握特征类型分析、特征分布分析、相关性分析和目标泄漏检查，先看懂数据再做特征工程。"
 keywords: [特征工程, 特征类型, 特征分布, 相关性分析, EDA, 数值特征, 类别特征]
 ---
 
-# 特征理解与探索
+# 5.5.2 特征理解与探索
 
 ![特征类型与目标关系图](/img/course/feature-type-target-map.png)
 

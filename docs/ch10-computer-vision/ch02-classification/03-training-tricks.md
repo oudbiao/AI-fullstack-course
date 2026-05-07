@@ -1,11 +1,11 @@
 ---
-title: "2.4 Image Classification Training Tricks"
+title: "10.2.4 Image Classification Training Tricks"
 sidebar_position: 4
 description: "Understand the most common training tricks for image classification, including learning rate, data augmentation, regularization, class imbalance, and error analysis."
 keywords: [image classification, training tricks, data augmentation, learning rate, overfitting, class imbalance]
 ---
 
-# Image Classification Training Tricks
+# 10.2.4 Image Classification Training Tricks
 
 :::tip Section Overview
 An image classification project is not something you can fix just by switching models. In many cases, the real factors that determine performance are training details: whether data augmentation is reasonable, whether the learning rate is stable, whether the validation set is trustworthy, and whether error samples have been analyzed.
@@ -32,7 +32,7 @@ flowchart TD
   D --> D1[Validation leakage / Single metric]
 ```
 
-## 1. Learning Rate Is the First Knob to Check
+## Learning Rate Is the First Knob to Check
 
 If the learning rate is too large, the loss may oscillate or even diverge; if it is too small, training will be very slow, and the model may look like it is not learning anything. When you are starting out, begin with a common default value and then observe the training curve.
 
@@ -45,7 +45,7 @@ scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
 
 If both the training loss and validation loss are high, the model may be underfitting or the learning rate may be inappropriate. If the training loss is very low but the validation loss is very high, it is usually overfitting or a problem with the data split.
 
-## 2. Data Augmentation Should Match Real-World Scenarios
+## Data Augmentation Should Match Real-World Scenarios
 
 Data augmentation is not about doing as much as possible, but about simulating changes that may occur in the real world. For cat-and-dog classification, horizontal flipping is fine; but for digit recognition, rotating an image by 180 degrees at random may change the meaning. Medical images also cannot be augmented arbitrarily in ways that break imaging logic.
 
@@ -62,7 +62,7 @@ train_tfms = transforms.Compose([
 
 The principle for augmentation is: apply augmentation to the training set, not to the validation set with random transforms; augmentation should preserve the label semantics; and after augmentation, it is best to manually inspect a few images.
 
-## 3. How to Tell Overfitting from Underfitting
+## How to Tell Overfitting from Underfitting
 
 | Phenomenon | Possible Cause | First Step to Take |
 |---|---|---|
@@ -77,7 +77,7 @@ The principle for augmentation is: apply augmentation to the training set, not t
 This diagram breaks training problems into three lines: data, training, and evaluation. When you see poor classification performance, do not rush to change the model. First look at the loss curves, validation leakage, class imbalance, and error samples.
 :::
 
-## 4. For Class Imbalance, Check the Confusion Matrix
+## For Class Imbalance, Check the Confusion Matrix
 
 Accuracy can be very misleading when classes are imbalanced. For example, if 95% of images are normal samples, a model that always predicts normal can still get 95% accuracy, but it completely fails to recognize abnormal cases.
 
@@ -90,11 +90,11 @@ print(confusion_matrix(y_true, y_pred))
 
 For class imbalance, you can consider resampling, class weights, focal loss, or adding more data for minority classes. Which method to choose depends on whether the minority-class samples are reliable enough.
 
-## 5. Error Sample Analysis
+## Error Sample Analysis
 
 After each training run, manually inspect at least 20 error samples. Group them into categories: wrong labels, poor image quality, blurry class boundaries, the model focusing on the wrong area, or too few similar samples in the training set. Error sample analysis is often more useful for the next step than blindly switching models.
 
-## 6. Minimal Training Log Template
+## Minimal Training Log Template
 
 In your README or experiment notes, it is recommended to keep: dataset version, training/validation split method, model architecture, input size, augmentation strategy, learning rate, batch size, number of epochs, best metric, confusion matrix, screenshots of error samples, and the next action plan.
 

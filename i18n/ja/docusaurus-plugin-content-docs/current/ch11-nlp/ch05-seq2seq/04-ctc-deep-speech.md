@@ -1,11 +1,11 @@
 ---
-title: "5.5 CTC と Deep Speech：音声認識における系列アラインメント"
+title: "11.5.5 CTC と Deep Speech：音声認識における系列アラインメント"
 sidebar_position: 4
 description: "CTC 損失と Deep Speech から、音声認識がなぜ難しいのか、そして入力と出力がそろっていないときにモデルがどう学習するのかを理解します。"
 keywords: [CTC, Deep Speech, ASR, 音声認識, 系列アラインメント, NLP]
 ---
 
-# CTC と Deep Speech：音声認識における系列アラインメント
+# 11.5.5 CTC と Deep Speech：音声認識における系列アラインメント
 
 ![CTC Deep Speech 音声認識アラインメント図](/img/course/ch11-ctc-deep-speech-asr-map-ja.png)
 

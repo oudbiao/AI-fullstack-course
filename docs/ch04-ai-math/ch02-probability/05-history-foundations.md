@@ -1,11 +1,11 @@
 ---
-title: "2.6 Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory"
+title: "4.2.6 Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory"
 sidebar_position: 9
 description: "Place Bayes' rule, maximum likelihood estimation, the EM algorithm, and Shannon information theory on one AI math timeline, and understand what problems each one solves."
 keywords: [Bayes' rule, maximum likelihood estimation, EM algorithm, Shannon information theory, AI math history]
 ---
 
-# Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory
+# 4.2.6 Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory
 
 ![Historical foundation map of probability and statistics](/img/course/ch04-probability-history-foundations-map-en.png)
 
@@ -17,7 +17,7 @@ You only need to remember one sentence first:
 > **Bayes lets judgments update with evidence, MLE lets parameters be inferred from data, EM lets problems with hidden information be approximated iteratively, and Shannon lets uncertainty be measured.**
 :::
 
-## 1. Why do these old ideas still keep showing up in AI today?
+## Why do these old ideas still keep showing up in AI today?
 
 AI models may look modern, but underneath they have always been dealing with three classic problems:
 
@@ -30,7 +30,7 @@ AI models may look modern, but underneath they have always been dealing with thr
 
 So these milestones are not “old relics from math class.” They are still the underlying language of many modern algorithms.
 
-## 2. Bayes: when new evidence arrives, the judgment updates
+## Bayes: when new evidence arrives, the judgment updates
 
 Bayes' rule is easiest to understand as “a detective updating a judgment.”
 
@@ -50,7 +50,7 @@ The most important thing about Bayes' rule is not what the formula looks like, b
 
 > **Do not treat your first impression as final. Evidence can change probabilities.**
 
-## 3. MLE: infer the most likely parameters from data
+## MLE: infer the most likely parameters from data
 
 Maximum likelihood estimation answers a different question:
 
@@ -85,7 +85,7 @@ print(round(p_mle, 2))
 
 This idea will appear again and again in Chapter 5 logistic regression, Chapter 6 cross entropy, and Chapter 7 language model training.
 
-## 4. EM: even invisible variables can be guessed first and then refined
+## EM: even invisible variables can be guessed first and then refined
 
 The EM algorithm solves a more difficult case:
 
@@ -108,7 +108,7 @@ It tells beginners something very important:
 
 > **Not all training problems can be solved in one step. Many models reach a solution by iterating toward it with incomplete information.**
 
-## 5. Shannon: uncertainty can also be computed
+## Shannon: uncertainty can also be computed
 
 In 1948, Shannon's information theory turned “information content” and “entropy” into quantities we can calculate.
 This is crucial for AI, because model training often asks:
@@ -129,7 +129,7 @@ loss = cross_entropy(prediction, label)
 
 It looks like a loss function on the surface, but underneath it is connected to information theory.
 
-## 6. Assigning historical milestones to course chapters
+## Assigning historical milestones to course chapters
 
 | Historical milestone | What a beginner should understand first | Corresponding course chapter |
 |---|---|---|
@@ -140,7 +140,7 @@ It looks like a loss function on the surface, but underneath it is connected to 
 | MCMC / Bayesian inference | Complex posteriors can be approximated by sampling | Elective extension, background in probabilistic inference |
 | Pearl causality | Correlation is not the same as causation | Chapter 3 data analysis, Chapter 9 decision systems background |
 
-## 7. The intuition you should have after learning this section
+## The intuition you should have after learning this section
 
 These historical lines are really helping you build the “language of judgment” in AI:
 

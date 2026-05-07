@@ -1,11 +1,11 @@
 ---
-title: "4.4 BiLSTM + CRF"
+title: "11.4.4 BiLSTM + CRF"
 sidebar_position: 3
 description: "シーケンスラベリングタスクで BiLSTM + CRF がよく使われる理由と、それがコンテキスト表現とラベル遷移制約を同時にどう活用するのかを理解する。"
 keywords: [BiLSTM, CRF, シーケンスラベリング, NER, 固有表現認識]
 ---
 
-# BiLSTM + CRF
+# 11.4.4 BiLSTM + CRF
 
 ![BiLSTM CRF ラベル経路デコード図](/img/course/ch11-bilstm-crf-label-path-map-ja.png)
 

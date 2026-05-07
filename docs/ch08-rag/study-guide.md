@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn LLM Application Development and RAG Without Getting Confused"
+title: "8.0 Study Guide and Task Sheet: How to Learn LLM Application Development and RAG Without Getting Confused"
 sidebar_position: 1
 description: "A learning guide for AI full-stack beginners on LLM applications: RAG, model deployment, application development, engineering practices, project roadmap, and acceptance criteria."
 keywords: [LLM application study guide, how to learn RAG, how to learn vector databases, how to learn LangChain, large model engineering]
 ---
 
-# Study Guide and Task Sheet: How to Learn LLM Application Development and RAG Without Getting Confused
+# 8.0 Study Guide and Task Sheet: How to Learn LLM Application Development and RAG Without Getting Confused
 
 If you reach `8 LLM Application Development and RAG` and feel that frameworks, databases, deployment, and application logic are all mixed together, first separate the system into layers. An LLM application is not just calling an API. It is about connecting knowledge, models, applications, and engineering.
 
@@ -79,7 +79,7 @@ The safest rule is to start with the simplest tool that closes the gap, then upg
 
 For your first project, it is recommended to build a minimal RAG system: prepare a few documents, chunk them, vectorize them, retrieve them, and let the model answer based on the materials.
 
-Before expanding the project, complete [8.5 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It is the recommended practical bridge between reading concepts and building a portfolio knowledge base assistant.
+Before expanding the project, complete [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It is the recommended practical bridge between reading concepts and building a portfolio knowledge base assistant.
 
 For your second project, it is recommended to build a course Q&A assistant or a personal knowledge base, adding source citations, retrieval result display, and feedback records.
 
@@ -106,7 +106,7 @@ If you want this stage to become portfolio material, keep at least these files o
 | `eval_questions.csv` | Fixed evaluation questions, ground-truth answers, expected documents to hit, and key citations |
 | `failure_cases.md` | Retrieval failures, generation failures, citation failures, metadata failures, and similar samples |
 | `rag_config.md` | Configuration records such as chunk size, overlap, top-k, rerank, and prompt version |
-| `rag_app_workshop_output.txt` | Output from [8.5 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md), plus notes about one change you made |
+| `rag_app_workshop_output.txt` | Output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md), plus notes about one change you made |
 | `README.md` | Run commands, example inputs and outputs, evaluation results, and improvement plans |
 
 These files turn your RAG project from “can answer” into “can explain, can evaluate, and can review.”

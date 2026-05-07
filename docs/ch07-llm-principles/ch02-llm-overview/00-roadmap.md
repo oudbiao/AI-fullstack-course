@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-Class Guide: What Exactly Will You Learn in the LLM Overview Chapter?"
+title: "7.2.1 Pre-Class Guide: What Exactly Will You Learn in the LLM Overview Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the LLM overview chapter: how development history, core concepts, model capabilities, the industry landscape, and the main learning line fit together into your first big-model map."
 keywords: [LLM overview guide, large model development, large model concepts, GPT, BERT]
 ---
 
-# Pre-Class Guide: What Exactly Will You Learn in the LLM Overview Chapter?
+# 7.2.1 Pre-Class Guide: What Exactly Will You Learn in the LLM Overview Chapter?
 
 This chapter answers one key question: when you first encounter large models in a systematic way, how do you build a map in your mind? You do not need to rush into memorizing every model name, and you do not need to get stuck immediately on parameter scales, leaderboards, or framework comparisons. Instead, you first need to know where large models came from, what the core concepts are, where their capability boundaries lie, and why they have become the new foundation for AI application development.
 

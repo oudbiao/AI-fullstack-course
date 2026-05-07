@@ -1,11 +1,11 @@
 ---
-title: "5.4 MCP Server Development"
+title: "9.5.4 MCP Server Development"
 sidebar_position: 27
 description: "From tool descriptions and parameter validation to result return and the minimal server structure, understand how an MCP Server should expose capabilities."
 keywords: [MCP server, tool server, schema, tool exposure, server development]
 ---
 
-# MCP Server Development
+# 9.5.4 MCP Server Development
 
 :::tip Section overview
 In the previous two sections, we already learned:
@@ -27,9 +27,9 @@ From this section on, we move into the real server-side implementation and answe
 
 ---
 
-## 1. What is an MCP Server really doing?
+## What is an MCP Server really doing?
 
-### 1.1 It is not “just another regular backend”
+### It is not “just another regular backend”
 
 A regular backend usually exposes business APIs directly.
 An MCP Server is more like:
@@ -43,7 +43,7 @@ So its core concerns are usually:
 - How parameters are validated
 - How results are returned in a consistent way
 
-### 1.2 An intuitive analogy
+### An intuitive analogy
 
 An MCP Server is a bit like a tool library manager with a front desk:
 
@@ -56,9 +56,9 @@ This is very different from “just writing all the business functions loosely s
 
 ---
 
-## 2. First define a minimal tool
+## First define a minimal tool
 
-### 2.1 What does a tool minimally need?
+### What does a tool minimally need?
 
 At minimum, it should have:
 
@@ -67,7 +67,7 @@ At minimum, it should have:
 - Parameter specifications
 - Actual execution logic
 
-### 2.2 A minimal tool description example
+### A minimal tool description example
 
 ```python
 search_docs_tool = {
@@ -91,9 +91,9 @@ You can think of this structure as:
 
 ---
 
-## 3. Why can’t tool descriptions be too casual?
+## Why can’t tool descriptions be too casual?
 
-### 3.1 A bad description
+### A bad description
 
 ```python
 bad_tool = {
@@ -111,7 +111,7 @@ The problems are:
 - The description is too empty
 - The meaning of the parameter is unclear
 
-### 3.2 A more reliable description
+### A more reliable description
 
 ```python
 good_tool = {
@@ -137,14 +137,14 @@ What is better here:
 
 ---
 
-## 4. The two minimum capabilities of a Server: list tools + call tools
+## The two minimum capabilities of a Server: list tools + call tools
 
 A minimal usable MCP Server usually needs to be able to:
 
 1. List available tools
 2. Accept a tool invocation
 
-### 4.1 First, write a minimal Server
+### First, write a minimal Server
 
 ```python
 class MockMCPServer:
@@ -166,7 +166,7 @@ server = MockMCPServer()
 print(server.list_tools())
 ```
 
-### 4.2 Then add real execution logic
+### Then add real execution logic
 
 ```python
 class MockMCPServer:
@@ -207,9 +207,9 @@ This is already a very clear minimal server skeleton.
 
 ---
 
-## 5. Why is parameter validation one of the server’s responsibilities?
+## Why is parameter validation one of the server’s responsibilities?
 
-### 5.1 Because the client or the model may pass incorrect parameters
+### Because the client or the model may pass incorrect parameters
 
 For example:
 
@@ -219,7 +219,7 @@ bad_call = {"query_text": "refund policy"}
 
 If the server executes this directly, it may crash or behave strangely.
 
-### 5.2 A minimal validation version
+### A minimal validation version
 
 ```python
 def validate_search_docs(arguments):
@@ -233,7 +233,7 @@ print(validate_search_docs({"query": "refund policy"}))
 print(validate_search_docs({"query_text": "refund policy"}))
 ```
 
-### 5.3 Why can’t we skip this step?
+### Why can’t we skip this step?
 
 Because the server is the gatekeeper of the capability boundary.
 If the server does not validate, the entire tool system becomes hard to keep stable.
@@ -246,7 +246,7 @@ Think of the MCP Server as the gatekeeper of the tool contract: it not only expo
 
 ---
 
-## 6. A more complete minimal Server version
+## A more complete minimal Server version
 
 ```python
 class BetterMCPServer:
@@ -293,7 +293,7 @@ print(server.call_tool("search_docs", {"query": "How do I get a certificate?"}))
 print(server.call_tool("search_docs", {"wrong": "How do I get a certificate?"}))
 ```
 
-### 6.2 What is better about this version than the previous one?
+### What is better about this version than the previous one?
 
 It already has:
 
@@ -306,9 +306,9 @@ This is already very close to the core responsibilities of a server in real-worl
 
 ---
 
-## 7. The most common pitfalls in MCP Server development
+## The most common pitfalls in MCP Server development
 
-### 7.1 Mixing business logic with protocol logic
+### Mixing business logic with protocol logic
 
 This leads to:
 
@@ -316,18 +316,18 @@ This leads to:
 - Harder extension
 - Harder debugging
 
-### 7.2 Tool granularity that is too coarse or too fine
+### Tool granularity that is too coarse or too fine
 
 - Too coarse: one tool does everything
 - Too fine: client invocation complexity explodes
 
-### 7.3 Inconsistent return structures
+### Inconsistent return structures
 
 Sometimes returning text, sometimes dicts, sometimes raising exceptions directly makes future integration very difficult.
 
 ---
 
-## 8. How do you know whether an MCP Server design is good enough?
+## How do you know whether an MCP Server design is good enough?
 
 You can start by asking four questions:
 

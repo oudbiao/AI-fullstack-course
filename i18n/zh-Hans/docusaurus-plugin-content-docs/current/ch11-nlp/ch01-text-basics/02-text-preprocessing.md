@@ -1,11 +1,11 @@
 ---
-title: "1.3 文本预处理"
+title: "11.1.3 文本预处理"
 sidebar_position: 2
 description: "从清洗、标准化、分词到保留关键信息，理解文本预处理为什么不是越重越好，而是任务驱动。"
 keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NLP]
 ---
 
-# 文本预处理
+# 11.1.3 文本预处理
 
 ![文本预处理流水线图](/img/course/text-preprocessing-pipeline.png)
 
@@ -68,7 +68,7 @@ flowchart LR
 
 > **让文本更适合当前任务。**
 
-### 1.1 一个更适合新人的总类比
+### 一个更适合新人的总类比
 
 你可以把文本预处理想成：
 
@@ -107,7 +107,7 @@ flowchart LR
 - 这些步骤不是每次都全做
 - 也不是做得越多越好
 
-### 2.1 一个新人很值得先记住的判断表
+### 一个新人很值得先记住的判断表
 
 | 任务 | 最值得优先保留的信息 |
 |---|---|
@@ -158,7 +158,7 @@ print(preprocess(sample))
 - 每一步为什么存在
 - 它是否真的适合当前任务
 
-### 3.1 再看一个“保留否定词”的最小对比
+### 再看一个“保留否定词”的最小对比
 
 ```python
 import re
@@ -189,7 +189,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 ## 四、小写化为什么常见？
 
-### 1. 统一词形
+### 统一词形
 
 在英文里：
 
@@ -199,7 +199,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 很多任务里可能都想当成同一个词。
 
-### 2. 但不是永远都该做
+### 但不是永远都该做
 
 例如：
 
@@ -216,7 +216,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 ## 五、分词为什么这么重要？
 
-### 1. 因为模型不直接处理“整句原文”
+### 因为模型不直接处理“整句原文”
 
 它通常需要更小单位：
 
@@ -224,7 +224,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 - 子词
 - 字
 
-### 2. 英文和中文情况不同
+### 英文和中文情况不同
 
 英文天然有空格，
 简单场景里可以直接 `split()`。
@@ -246,7 +246,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 会直接影响后续表示和模型效果。
 
-### 3. 一个简单中文切分意识
+### 一个简单中文切分意识
 
 即便现在不引入专业分词工具，你也要先建立一个判断：
 
@@ -256,7 +256,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 ## 六、停用词为什么有用，又为什么危险？
 
-### 1. 有用的地方
+### 有用的地方
 
 高频但区分度弱的词，例如：
 
@@ -266,7 +266,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 在很多传统模型里确实容易带来噪声。
 
-### 2. 危险的地方
+### 危险的地方
 
 某些看似不起眼的词，可能非常关键。
 
@@ -276,7 +276,7 @@ print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 
 如果把 `not` 去掉，语义就翻转了。
 
-### 3. 所以停用词不是“必删项”
+### 所以停用词不是“必删项”
 
 更合理的想法是：
 
@@ -329,12 +329,12 @@ for text in texts:
 
 ## 八、传统模型和预训练模型的预处理思路为什么不同？
 
-### 1. 传统机器学习
+### 传统机器学习
 
 通常更依赖人工预处理，因为模型本身比较浅，
 对噪声比较敏感。
 
-### 2. 预训练模型 / 大模型
+### 预训练模型 / 大模型
 
 很多时候更依赖模型自带 tokenizer，
 如果你在外面过度清洗，反而可能：
@@ -342,11 +342,11 @@ for text in texts:
 - 破坏原始结构
 - 丢掉模型能利用的信息
 
-### 3. 一个很重要的判断
+### 一个很重要的判断
 
 不是所有 NLP 时代都用同一套预处理策略。
 
-### 8.1 第一次做 NLP 项目时，最稳的默认顺序
+### 第一次做 NLP 项目时，最稳的默认顺序
 
 更稳的顺序通常是：
 
@@ -361,16 +361,16 @@ for text in texts:
 
 ## 九、初学者常见误区
 
-### 1. 觉得预处理越多越高级
+### 觉得预处理越多越高级
 
 不对。
 删太多信息，效果反而可能更差。
 
-### 2. 不区分任务就套同一套规则
+### 不区分任务就套同一套规则
 
 文本分类、检索、NER、RAG 的预处理策略常常不同。
 
-### 3. 中文也直接 `split()`
+### 中文也直接 `split()`
 
 在很多任务里通常不够。
 

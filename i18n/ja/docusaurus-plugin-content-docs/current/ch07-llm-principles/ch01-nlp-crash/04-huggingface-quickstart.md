@@ -1,11 +1,11 @@
 ---
-title: "1.5 HuggingFace クイックスタート"
+title: "7.1.5 HuggingFace クイックスタート"
 sidebar_position: 4
 description: "tokenizer、config、model、batch から forward の出力までを通して、HuggingFace で最もよく使うワークフローを理解し、ネットワークからのダウンロードに依存しない実行可能な入門例を示します。"
 keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 ---
 
-# HuggingFace クイックスタート
+# 7.1.5 HuggingFace クイックスタート
 
 :::tip この節の位置づけ
 多くの初心者は、HuggingFace に初めて触れるとき、次のような名前に混乱しがちです。
@@ -35,7 +35,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 
 ## 一、HuggingFace は実際に何を助けてくれるの？
 
-### 1.1 これは「1つのモデル」ではなく、1つのエコシステムです
+### これは「1つのモデル」ではなく、1つのエコシステムです
 
 多くの人は HuggingFace を次のように誤解しがちです。
 
@@ -54,7 +54,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 - model
 - config
 
-### 1.2 最も一般的なワークフローは数ステップしかありません
+### 最も一般的なワークフローは数ステップしかありません
 
 分類でも、生成でも、特徴抽出でも、  
 最も重要な呼び出しの流れは、たいてい次のようになります。
@@ -73,7 +73,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 この流れが頭の中でつながると、  
 多くの例はもう複雑に見えなくなります。
 
-### 1.3 たとえで言うと：標準化された実験台を組み立てる感じです
+### たとえで言うと：標準化された実験台を組み立てる感じです
 
 HuggingFace は、実験台の標準部品のように考えられます。
 
@@ -92,7 +92,7 @@ HuggingFace は、実験台の標準部品のように考えられます。
 
 ## 二、まずはよく出るオブジェクトを整理しよう
 
-### 2.1 Tokenizer：テキストをモデル入力に変える
+### Tokenizer：テキストをモデル入力に変える
 
 通常、次の処理を担当します。
 
@@ -106,7 +106,7 @@ HuggingFace は、実験台の標準部品のように考えられます。
 - `input_ids`
 - `attention_mask`
 
-### 2.2 Config：モデル構造の設計図
+### Config：モデル構造の設計図
 
 config は主に次の内容を表します。
 
@@ -117,7 +117,7 @@ config は主に次の内容を表します。
 
 これは「モデルがどんな形をしているか」の説明書だと考えられます。
 
-### 2.3 Model：実際に forward を実行する部分
+### Model：実際に forward を実行する部分
 
 model は config に基づいてニューラルネットワークを構築し、  
 テンソル入力を受け取って、次のようなものを出力します。
@@ -129,7 +129,7 @@ model は config に基づいてニューラルネットワークを構築し、
 タスクによって出力は少し変わりますが、  
 基本的な考え方は同じです。
 
-### 2.4 Batch：なぜ毎回 padding が必要なのか
+### Batch：なぜ毎回 padding が必要なのか
 
 一括で扱うテキストは長さがバラバラだからです。  
 モデルは通常、入力テンソルの形をそろえる必要があるため、次のことを行います。
@@ -217,7 +217,7 @@ print("last_hidden_state shape:", tuple(outputs.last_hidden_state.shape))
 print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 ```
 
-### 3.1 このコードはどの順番で読むのがよい？
+### このコードはどの順番で読むのがよい？
 
 おすすめの順番は次の通りです。
 
@@ -231,7 +231,7 @@ print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 - モデル構造
 - forward の出力
 
-### 3.2 なぜここでは `from_pretrained` を使わないのか？
+### なぜここでは `from_pretrained` を使わないのか？
 
 `from_pretrained` は、しばしば重みをダウンロードするためにネット接続が必要です。  
 この例では、オフラインでもそのまま動くように、あえて次を使っています。
@@ -246,7 +246,7 @@ print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 そのため、実際のタスク予測には使えません。  
 でも、HuggingFace の基本的な呼び出しの流れを理解するにはとても適しています。
 
-### 3.3 この例でいちばん見落としやすい点は？
+### この例でいちばん見落としやすい点は？
 
 いちばん見落としやすいのは次の点です。
 
@@ -297,7 +297,7 @@ print(outputs.last_hidden_state.shape)
 
 ## 五、なぜ HuggingFace は入門と実験にとても向いているのか？
 
-### 5.1 インターフェースが統一されているから
+### インターフェースが統一されているから
 
 内部構造が違っていても、多くのモデルは HuggingFace では似たインターフェースに従います。
 
@@ -306,7 +306,7 @@ print(outputs.last_hidden_state.shape)
 
 そのため、モデルを切り替えるときの負担がかなり小さくなります。
 
-### 5.2 エコシステムが豊富だから
+### エコシステムが豊富だから
 
 このあと、次のようなものにも触れることになります。
 
@@ -323,7 +323,7 @@ print(outputs.last_hidden_state.shape)
 まず主な流れを見ます。テキストが `input_ids` と `attention_mask` になり、batch として model に渡され、`forward` が計算を実行し、hidden states や logits が返ってきます。`pipeline`、`Trainer`、`DataCollator` は、この流れを便利にするためのラッパーであり、別の魔法ではありません。
 :::
 
-### 5.3 HuggingFace でよく見る用語の早見表
+### HuggingFace でよく見る用語の早見表
 
 | 用語 | 何か | ここでなぜ重要か |
 |---|---|---|
@@ -337,7 +337,7 @@ print(outputs.last_hidden_state.shape)
 
 - 「モデル設定に合わせて、適切なクラスを自動で選ぶ」
 
-### 5.4 「まず試して、あとで深く理解する」に向いているから
+### 「まず試して、あとで深く理解する」に向いているから
 
 多くの場合、最初から全部をゼロから実装するのではなく、  
 まず標準的なインターフェースを動かし、  
@@ -354,7 +354,7 @@ print(outputs.last_hidden_state.shape)
 
 ## 六、よくある落とし穴
 
-### 6.1 誤解その1：`from_pretrained` が動けば、本当にモデルを理解したことになる
+### 誤解その1：`from_pretrained` が動けば、本当にモデルを理解したことになる
 
 動かせるようになるのは始まりにすぎません。  
 本当に理解するには、さらに次を知る必要があります。
@@ -363,12 +363,12 @@ print(outputs.last_hidden_state.shape)
 - 出力フィールドは何を意味するか
 - tokenizer とモデルが合っているか
 
-### 6.2 誤解その2：`attention_mask` を無視する
+### 誤解その2：`attention_mask` を無視する
 
 padding があるのに mask を付けないと、  
 モデルが埋めた部分を本当の内容として扱ってしまうことがあります。
 
-### 6.3 誤解その3：ランダム初期化モデルと事前学習済みモデルを同じだと思う
+### 誤解その3：ランダム初期化モデルと事前学習済みモデルを同じだと思う
 
 この節のオフライン例は、あくまでインターフェース理解のためのものです。  
 実際にタスク能力を持つのは、通常次のようなモデルです。

@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-course Guide: What This MCP Chapter Is Really About"
+title: "9.5.1 Pre-course Guide: What This MCP Chapter Is Really About"
 sidebar_position: 0
 description: "First build a learning map for the MCP chapter: protocol positioning, and how Server, Client, tools, resources, prompt templates, and ecosystem integration make Agent capabilities connect more consistently."
 keywords: [MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server]
 ---
 
-# Pre-course Guide: What This MCP Chapter Is Really About
+# 9.5.1 Pre-course Guide: What This MCP Chapter Is Really About
 
 This chapter answers a key question: as tools, data sources, and external capabilities keep growing, how can we use a unified protocol to connect them to Agent and LLM applications more reliably?
 

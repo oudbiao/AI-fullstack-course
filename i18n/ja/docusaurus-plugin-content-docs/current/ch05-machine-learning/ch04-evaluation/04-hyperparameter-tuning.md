@@ -1,11 +1,11 @@
 ---
-title: "4.5 ハイパーパラメータチューニング"
+title: "5.4.5 ハイパーパラメータチューニング"
 sidebar_position: 13
 description: "グリッドサーチ、ランダムサーチ、ベイズ最適化（Optuna）などのハイパーパラメータチューニング手法を身につける"
 keywords: [ハイパーパラメータチューニング, GridSearchCV, RandomizedSearchCV, Optuna, ベイズ最適化, 調整]
 ---
 
-# ハイパーパラメータチューニング
+# 5.4.5 ハイパーパラメータチューニング
 
 ![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search-ja.png)
 
@@ -50,7 +50,7 @@ keywords: [ハイパーパラメータチューニング, GridSearchCV, Randomiz
 - なぜテストセットを何度も試行に使ってはいけないのか
 - なぜ探索空間そのものが設計の問題なのか
 
-### 1.1 新人に合うたとえ
+### 新人に合うたとえ
 
 まず、調整はこんなイメージで考えられます。
 
@@ -89,7 +89,7 @@ print(model.get_params())
 
 ## 二、グリッドサーチ（Grid Search）
 
-### 2.1 原理
+### 原理
 
 すべてのハイパーパラメータの組み合わせを総当たりし、それぞれを交差検証で評価して、最もよいものを選びます。
 
@@ -103,7 +103,7 @@ flowchart TD
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 GridSearchCV の実践
+### GridSearchCV の実践
 
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -144,7 +144,7 @@ print(f"最適な CV スコア: {grid.best_score_:.4f}")
 print(f"テストセットのスコア: {grid.best_estimator_.score(X_test, y_test):.4f}")
 ```
 
-### 2.3 すべての結果を見る
+### すべての結果を見る
 
 ```python
 import pandas as pd
@@ -172,7 +172,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 グリッドサーチの長所と短所
+### グリッドサーチの長所と短所
 
 | 長所 | 短所 |
 |------|------|
@@ -180,7 +180,7 @@ plt.show()
 | 実装が簡単 | グリッドの刻みが粗いと最適値を逃す |
 | 結果を再現しやすい | 悪い領域にも計算を使ってしまう |
 
-### 2.5 どんなときにグリッドサーチはまだ有効？
+### どんなときにグリッドサーチはまだ有効？
 
 より安定した判断基準は次のとおりです。
 
@@ -194,11 +194,11 @@ plt.show()
 
 ## 三、ランダムサーチ（Random Search）
 
-### 3.1 原理
+### 原理
 
 すべてを総当たりせず、**ランダムにサンプルした** N 通りの組み合わせを試します。同じ計算予算なら、ランダムサーチのほうが効率的なことが多いです。
 
-### 3.2 RandomizedSearchCV の実践
+### RandomizedSearchCV の実践
 
 ```python
 from sklearn.model_selection import RandomizedSearchCV
@@ -232,7 +232,7 @@ print(f"最適な CV スコア: {random_search.best_score_:.4f}")
 print(f"テストセットのスコア: {random_search.best_estimator_.score(X_test, y_test):.4f}")
 ```
 
-### 3.3 Grid vs Random の比較
+### Grid vs Random の比較
 
 ```python
 # 可視化で比較
@@ -271,7 +271,7 @@ plt.show()
 | 向いている場面 | パラメータが少ない、範囲がわかっている | パラメータが多い、範囲が不明確 |
 | 推奨 | 3 個未満のパラメータ | 3 個より多いパラメータ |
 
-### 3.4 なぜ「ランダムに探す」ほうが「細かいグリッド探索」より理にかなっていることが多いのか？
+### なぜ「ランダムに探す」ほうが「細かいグリッド探索」より理にかなっていることが多いのか？
 
 本当に時間を浪費しがちなのは、モデルの性能不足そのものではなく、  
 次のようなことです。
@@ -288,7 +288,7 @@ plt.show()
 
 ## 四、ベイズ最適化（Optuna）
 
-### 4.1 原理
+### 原理
 
 ベイズ最適化はランダムサーチよりも“賢く”探します。**これまでの試行結果をもとに、次に探す場所を決める**からです。
 
@@ -303,7 +303,7 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 Optuna の実践
+### Optuna の実践
 
 ```bash
 pip install optuna
@@ -344,7 +344,7 @@ except ImportError:
     print("先に optuna をインストールしてください: pip install optuna")
 ```
 
-### 4.3 ベイズ最適化はどんなときにより有効？
+### ベイズ最適化はどんなときにより有効？
 
 典型的には、次のようなときです。
 
@@ -354,7 +354,7 @@ except ImportError:
 
 このような場面では、「より賢く試す」ことがだんだん重要になります。
 
-### 4.4 Optuna の可視化
+### Optuna の可視化
 
 ```python
 try:
@@ -373,7 +373,7 @@ except (ImportError, NameError):
     print("先に optuna をインストールして最適化を実行する必要があります")
 ```
 
-### 4.5 3つの方法の比較
+### 3つの方法の比較
 
 | | Grid Search | Random Search | ベイズ最適化 |
 |---|------------|--------------|-----------|
@@ -386,7 +386,7 @@ except (ImportError, NameError):
 
 ## 五、ハイパーパラメータチューニングのベストプラクティス
 
-### 5.1 調整の進め方
+### 調整の進め方
 
 ```mermaid
 flowchart TD
@@ -398,7 +398,7 @@ flowchart TD
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 5.2 よくあるモデルの調整優先順位
+### よくあるモデルの調整優先順位
 
 **ランダムフォレスト / GBDT**：
 
@@ -419,7 +419,7 @@ flowchart TD
 | 3 | `subsample` / `colsample_bytree` | 0.6~1.0 |
 | 4 | `reg_alpha` / `reg_lambda` | 0~5 |
 
-### 5.3 注意点
+### 注意点
 
 :::warning 調整の落とし穴
 1. **テストセットで調整しない**——テストセットは最終評価のために 1 回だけ使う
@@ -429,7 +429,7 @@ flowchart TD
 5. **重要なパラメータに注目する**——すべてのパラメータを調整する必要はない
 :::
 
-### 5.4 Pipeline + GridSearch
+### Pipeline + GridSearch
 
 ```python
 from sklearn.pipeline import Pipeline
@@ -512,7 +512,7 @@ print(f"\n改善: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4
 
 ---
 
-## 7. 初めて調整実験をするとき、見落としやすいことは？
+## 初めて調整実験をするとき、見落としやすいことは？
 
 もっとも見落とされやすいのは次の点です。
 
@@ -522,7 +522,7 @@ print(f"\n改善: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4
 テストセットはもう「最終的に未知のデータ」ではなくなります。  
 その結果、評価に楽観バイアスが入ってしまいます。
 
-## 8. 初めての調整実験で最も安定した順番
+## 初めての調整実験で最も安定した順番
 
 本当に初めて調整をするなら、次の順番がおすすめです。
 
@@ -534,7 +534,7 @@ print(f"\n改善: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4
 
 この順番は、最初から大きな探索空間を広げるより安定していて、改善がどこから来たのかもわかりやすくなります。
 
-## 9. この節を学んでもまだ混乱しやすいなら、何を先に押さえるべき？
+## この節を学んでもまだ混乱しやすいなら、何を先に押さえるべき？
 
 もし今でも調整が難しく感じるなら、まず大事なのはすべてのツールの違いではなく、次の 3 つです。
 

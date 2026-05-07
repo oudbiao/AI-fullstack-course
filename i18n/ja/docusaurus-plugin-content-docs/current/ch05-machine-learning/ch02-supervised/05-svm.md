@@ -1,11 +1,11 @@
 ---
-title: "2.6 SVM：最大間隔と核法"
+title: "5.2.6 SVM：最大間隔と核法"
 sidebar_position: 7
 description: "初心者にもわかる形で、サポートベクターマシン、最大間隔、サポートベクター、核法、C、gamma、特徴量スケーリング、そして古典的機械学習での歴史的意義を学びます。"
 keywords: [SVM, サポートベクターマシン, 最大間隔, サポートベクター, カーネルトリック, RBFカーネル, C, gamma, 監督学習]
 ---
 
-# SVM：最大間隔と核法
+# 5.2.6 SVM：最大間隔と核法
 
 ![SVM 最大間隔の直感図](/img/course/ch05-svm-margin-map-ja.png)
 

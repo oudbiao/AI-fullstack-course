@@ -1,11 +1,11 @@
 ---
-title: "1.5 检索策略"
+title: "8.1.5 检索策略"
 sidebar_position: 4
 description: "理解关键词检索、向量检索、混合检索、重排和查询改写等常见策略，知道怎样把“找资料”这一步做得更准。"
 keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, sparse retrieval]
 ---
 
-# 检索策略
+# 8.1.5 检索策略
 
 ![Hybrid Search 与 Rerank 流程图](/img/course/hybrid-search-rerank-flow.png)
 
@@ -22,7 +22,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 ## 一、检索不是“只有一个 top-k”
 
-### 1.1 关键词检索：适合找明确词项
+### 关键词检索：适合找明确词项
 
 关键词检索更像“查目录”。
 
@@ -39,7 +39,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 这种场景关键词检索往往很强。
 
-### 1.2 向量检索：适合找语义相近内容
+### 向量检索：适合找语义相近内容
 
 向量检索更像“按意思找相似”。
 
@@ -63,7 +63,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 ## 二、为什么很多项目最后都走向混合检索？
 
-### 2.1 因为关键词和语义各有盲区
+### 因为关键词和语义各有盲区
 
 只用关键词：
 
@@ -77,7 +77,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 > **关键词分数 + 向量分数 = 混合分数**
 
-### 2.2 这很像“同时看字面和意思”
+### 这很像“同时看字面和意思”
 
 人类找资料时也会这样：
 
@@ -161,7 +161,7 @@ for hybrid, kw, vec, doc_id, text in sorted(results, reverse=True):
 
 ## 四、Rerank：先粗召回，再精排序
 
-### 4.1 为什么要 rerank？
+### 为什么要 rerank？
 
 很多系统不会一开始就追求“第一次就排准”，而是：
 
@@ -170,7 +170,7 @@ for hybrid, kw, vec, doc_id, text in sorted(results, reverse=True):
 
 这就叫 rerank。
 
-### 4.2 一个直觉比喻
+### 一个直觉比喻
 
 像找工作时：
 
@@ -183,7 +183,7 @@ RAG 也是一样。
 
 ## 五、Query Rewrite：用户问题往往不够“适合检索”
 
-### 5.1 用户提问不一定是好检索词
+### 用户提问不一定是好检索词
 
 用户可能会说：
 
@@ -195,7 +195,7 @@ RAG 也是一样。
 
 这时系统常常会先把问题改写得更适合检索。
 
-### 5.2 一个玩具版查询改写
+### 一个玩具版查询改写
 
 ```python
 def rewrite_query(query):
@@ -228,19 +228,19 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 
 ## 六、还有哪些常见检索增强策略？
 
-### 6.1 Multi-query
+### Multi-query
 
 把一个问题改写成多个等价问法，再分别检索，合并结果。
 
-### 6.2 Metadata filter
+### Metadata filter
 
 先按业务条件缩小范围，再做语义检索。
 
-### 6.3 Parent-child retrieval
+### Parent-child retrieval
 
 先检索小 chunk，再回到更大块或原文段落。
 
-### 6.4 Self-query retrieval
+### Self-query retrieval
 
 让模型自动判断需要哪些过滤条件和检索字段。
 
@@ -248,7 +248,7 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 
 ## 七、怎么选检索策略？
 
-### 7.1 如果你有大量专有名词
+### 如果你有大量专有名词
 
 更要重视：
 
@@ -256,7 +256,7 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 - 混合检索
 - 元数据过滤
 
-### 7.2 如果用户表达特别口语化
+### 如果用户表达特别口语化
 
 更要重视：
 
@@ -264,7 +264,7 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 - query rewrite
 - rerank
 
-### 7.3 如果知识库结构化程度高
+### 如果知识库结构化程度高
 
 可以考虑：
 
@@ -321,11 +321,11 @@ for hit in hits:
 
 ## 九、初学者常见误区
 
-### 9.1 只测向量检索，不测关键词检索
+### 只测向量检索，不测关键词检索
 
 很多企业场景里，关键词检索并不弱，甚至是基础盘。
 
-### 9.2 检索策略一开始就做太复杂
+### 检索策略一开始就做太复杂
 
 建议先从：
 
@@ -335,7 +335,7 @@ for hit in hits:
 
 开始。
 
-### 9.3 只看召回，不看最终回答
+### 只看召回，不看最终回答
 
 检索分数高，不代表最终答案一定更好。
 因为生成阶段也会影响表现。

@@ -1,10 +1,10 @@
 ---
-title: "1.1 Pure Python for Data Processing"
+title: "3.1.1 Pure Python for Data Processing"
 sidebar_position: 1
 description: "Work with real datasets using pure Python and experience firsthand why NumPy and Pandas are needed"
 ---
 
-# Warm-up: Processing Data with Pure Python
+# 3.1.1 Warm-up: Processing Data with Pure Python
 
 ## Learning Objectives
 
@@ -678,7 +678,7 @@ flowchart TD
     A["✅ Chapter 1: Pure Python Warm-up (you are here)"] --> B["Chapter 2: NumPy for Scientific Computing"]
     B --> C["Chapter 3: Pandas for Data Processing"]
     C --> D["Chapter 4: Data Visualization"]
-    D --> E["Chapter 6: Hands-on Projects"]
+    D --> E["3.6 Stage Projects"]
 
     B -- "Solves pain points" --> B1["Efficient array operations<br/>No loops needed<br/>Vectorized computation"]
     C -- "Solves pain points" --> C1["Read CSV in 1 line<br/>Automatic type conversion<br/>Grouped stats in 1 line"]

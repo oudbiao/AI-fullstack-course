@@ -1,10 +1,10 @@
 ---
-title: "2.4 数组运算"
+title: "3.2.4 数组运算"
 sidebar_position: 5
 description: "掌握向量化运算、广播机制和聚合函数"
 ---
 
-# 数组运算
+# 3.2.4 数组运算
 
 ![NumPy 广播与向量化运算图](/img/course/ch03-numpy-broadcasting-vectorization.png)
 

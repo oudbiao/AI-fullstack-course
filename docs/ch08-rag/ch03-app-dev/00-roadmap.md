@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-study Guide: What Is This Application Development Chapter Really About"
+title: "8.3.1 Pre-study Guide: What Is This Application Development Chapter Really About"
 sidebar_position: 0
 description: "First build a learning map for the LLM application development chapter: how API calls, framework abstractions, Function Calling, dialogue systems, document processing, and product loops fit together."
 keywords: [LLM application development guide, dialogue systems, Function Calling, LangChain, large model applications]
 ---
 
-# Pre-study Guide: What Is This Application Development Chapter Really About
+# 8.3.1 Pre-study Guide: What Is This Application Development Chapter Really About
 
 This chapter answers one question: how model capabilities are organized into truly usable product features.
 

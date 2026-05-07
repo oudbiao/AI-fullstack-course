@@ -1,11 +1,11 @@
 ---
-title: "2.5 nn Module"
+title: "6.2.5 nn Module"
 sidebar_position: 3
 description: "Learn to organize models with nn.Module, nn.Linear, and nn.Sequential, and understand forward and parameter management."
 keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 ---
 
-# nn Module
+# 6.2.5 nn Module
 
 ## Learning Objectives
 
@@ -34,7 +34,7 @@ So what this section really solves is:
 
 So this section is really preparing the "model half" of the training loop.
 
-## 1. Why Do We Need `nn.Module`?
+## Why Do We Need `nn.Module`?
 
 If a tensor is a "data box," then `nn.Module` is a "model box."
 
@@ -56,7 +56,7 @@ As an analogy:
 Without `nn.Module`, you could still write networks by hand, but it would be very messy.
 With it, a model is like LEGO blocks that can be stacked layer by layer.
 
-### 1.1 A More Beginner-Friendly Intuition: `nn.Module` Is a "Model Container"
+### A More Beginner-Friendly Intuition: `nn.Module` Is a "Model Container"
 
 You can first think of it as a unified model box that holds:
 
@@ -73,7 +73,7 @@ This is why many later places only need to pass in a `model` object to complete:
 
 ---
 
-## 2. The Most Common Layer: `nn.Linear`
+## The Most Common Layer: `nn.Linear`
 
 A linear layer does this:
 
@@ -98,7 +98,7 @@ You need to understand the shapes here:
 - The input is `[1, 3]`, meaning 1 sample, and each sample has 3 features
 - The output is `[1, 2]`, meaning it is mapped to 2 output values
 
-### 2.1 When You See `nn.Linear(in, out)`, What Should Immediately Come to Mind?
+### When You See `nn.Linear(in, out)`, What Should Immediately Come to Mind?
 
 The most important thing to think is:
 
@@ -111,7 +111,7 @@ So the most practical way to understand a linear layer is usually:
 
 ---
 
-## 3. Build a Network Quickly with `nn.Sequential`
+## Build a Network Quickly with `nn.Sequential`
 
 If the model is relatively simple, you can connect layers in order directly:
 
@@ -142,7 +142,7 @@ This is already a minimal multilayer perceptron.
 
 ---
 
-## 4. Define a Model Class Yourself
+## Define a Model Class Yourself
 
 When the model gets a little more complex, it is recommended to inherit from `nn.Module`.
 
@@ -184,7 +184,7 @@ A simple way to remember it:
 - `__init__` is responsible for "building the machine"
 - `forward` is responsible for "how the machine works"
 
-### 4.1 Why Does `forward()` Only Contain Data Flow and Not Training Logic?
+### Why Does `forward()` Only Contain Data Flow and Not Training Logic?
 
 Because training logic belongs to another level.
 The responsibility of `forward()` is very pure:
@@ -203,7 +203,7 @@ Being clear about this separation is very important when you read large model co
 
 ---
 
-## 5. How Are Model Parameters Managed?
+## How Are Model Parameters Managed?
 
 One big advantage of `nn.Module` is that:
 the layers you define are automatically registered by the framework, and the parameters also automatically appear in `model.parameters()`.
@@ -234,7 +234,7 @@ This is why an optimizer can be written directly as:
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 ```
 
-### 5.1 Why Is `model.parameters()` So Important?
+### Why Is `model.parameters()` So Important?
 
 Because it unifies the idea that "a model is a collection of many parameters."
 
@@ -248,7 +248,7 @@ Because the model has already packaged all the parameters that need to be learne
 
 ---
 
-## 6. What Are `train()` and `eval()`?
+## What Are `train()` and `eval()`?
 
 Many beginners think:
 
@@ -270,7 +270,7 @@ model.train()   # Before training
 model.eval()    # Before validation / testing
 ```
 
-### 6.1 At the Beginner Stage, Fix This in Your Memory — It Is Very Worth It
+### At the Beginner Stage, Fix This in Your Memory — It Is Very Worth It
 
 You may not fully understand:
 
@@ -286,7 +286,7 @@ The more complex the network becomes later, the more this habit will save you.
 
 ---
 
-## 7. A Complete Small Example: Predicting Scores
+## A Complete Small Example: Predicting Scores
 
 Below is a small network that you can run directly.
 It takes two features as input:
@@ -353,7 +353,7 @@ print("Predicted score:", round(model(test).item(), 2))
 
 ---
 
-## 8. When Should You Use `Sequential`, and When Should You Define a Custom `Module`?
+## When Should You Use `Sequential`, and When Should You Define a Custom `Module`?
 
 ### Use `nn.Sequential`
 
@@ -375,19 +375,19 @@ In practice, custom `Module`s are more common.
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 1. Creating New Layers Temporarily Inside `forward()`
+### Creating New Layers Temporarily Inside `forward()`
 
 Not recommended.
 Layers should be defined in `__init__()` so that parameters can be registered correctly.
 
-### 2. Only Knowing How to Write `Sequential`, but Not a Class
+### Only Knowing How to Write `Sequential`, but Not a Class
 
 `Sequential` is convenient, but you will eventually need to know how to write a custom `Module`.
 The CNNs and Transformer later on both depend on it.
 
-### 3. Not Knowing What Parameters Exist in the Model
+### Not Knowing What Parameters Exist in the Model
 
 Develop the habit of using `named_parameters()`. It is very useful for debugging.
 

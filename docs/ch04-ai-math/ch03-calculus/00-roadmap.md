@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?"
+title: "4.3.1 Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?"
 sidebar_position: 8
 description: "First build a learning map for calculus and optimization: what do derivatives, gradients, gradient descent, and backpropagation do in AI?"
 keywords: [calculus guide, optimization guide, derivatives, gradients, gradient descent, backpropagation]
 ---
 
-# Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?
+# 4.3.1 Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?
 
 ![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-vertical-en.png)
 
@@ -42,7 +42,7 @@ In other words, the most important thing here is to first clearly understand **w
 
 ---
 
-## 1. What is the relationship between the four sections in this chapter?
+## What is the relationship between the four sections in this chapter?
 
 ![Relationship diagram of calculus and optimization sections](/img/course/ch04-calculus-training-flow-en.png)
 
@@ -52,7 +52,7 @@ You can summarize this chapter in one sentence:
 
 ---
 
-## 2. How this chapter relates to AI
+## How this chapter relates to AI
 
 | Section | Most direct role in AI |
 |---|---|
@@ -70,7 +70,7 @@ optimizer.step()
 
 what is happening behind the scenes is this whole chapter at work.
 
-## 3. Why does AI depend so heavily on this chapter?
+## Why does AI depend so heavily on this chapter?
 
 Because training a model is essentially repeating one thing over and over:
 
@@ -92,9 +92,9 @@ So you can summarize this chapter in one sentence:
 
 ---
 
-## 4. How should beginners study this chapter?
+## How should beginners study this chapter?
 
-### 4.1 Start with the core intuition of “rate of change”
+### Start with the core intuition of “rate of change”
 
 Don’t get pulled away by complicated formulas at the beginning. First remember:
 
@@ -102,11 +102,11 @@ Don’t get pulled away by complicated formulas at the beginning. First remember
 - A gradient is the multivariable version of a rate of change
 - The negative gradient direction is usually the direction of steepest descent
 
-### 4.2 Connect every section back to “training a model”
+### Connect every section back to “training a model”
 
 If you study derivatives without thinking about “how loss changes,” or study gradients without thinking about “how parameters are adjusted,” then it is easy to feel like this is just math homework.
 
-### 4.3 Learn to read the diagram and code first, then fill in the derivation
+### Learn to read the diagram and code first, then fill in the derivation
 
 For beginners learning AI on their own, the priority should be:
 
@@ -115,7 +115,7 @@ For beginners learning AI on their own, the priority should be:
 3. Understand what the formula means
 4. Finally, look at the more rigorous derivation
 
-### 4.4 A sequence that is more beginner-friendly
+### A sequence that is more beginner-friendly
 
 It is recommended that you go through each section in this order:
 
@@ -126,7 +126,7 @@ It is recommended that you go through each section in this order:
 
 This is much steadier than jumping straight into the chain rule and derivations at the beginning.
 
-## 5. How should you allocate time for this chapter?
+## How should you allocate time for this chapter?
 
 A reference pace suitable for beginners is usually:
 
@@ -146,7 +146,7 @@ If you feel slow here, it does not mean you are bad at this. Usually it just mea
 
 ---
 
-## 6. After finishing this chapter, what should you at least be able to do?
+## After finishing this chapter, what should you at least be able to do?
 
 - When you see a derivative, know that it represents a rate of change
 - When you see a gradient, know that it represents the direction of fastest increase for a multivariable function

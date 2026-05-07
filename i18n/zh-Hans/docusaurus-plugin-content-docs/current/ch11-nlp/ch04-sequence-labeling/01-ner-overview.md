@@ -1,11 +1,11 @@
 ---
-title: "4.3 序列标注任务"
+title: "11.4.3 序列标注任务"
 sidebar_position: 2
 description: "从“整句一个标签”和“每个 token 一个标签”的差别讲起，理解序列标注为什么是信息抽取任务的重要基础。"
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# 序列标注任务
+# 11.4.3 序列标注任务
 
 ![BIO 标签到实体恢复图](/img/course/bio-ner-recovery.png)
 
@@ -36,7 +36,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ## 一、序列标注到底在解决什么问题？
 
-### 1.1 它不只是判断“这句话是什么”，而是判断“这句话里哪一段是什么”
+### 它不只是判断“这句话是什么”，而是判断“这句话里哪一段是什么”
 
 例如句子：
 
@@ -51,7 +51,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 - `张三` 是人名
 - `北京大学` 是机构名
 
-### 1.2 为什么这很重要？
+### 为什么这很重要？
 
 因为很多真实业务并不满足于整句理解。
 它们更关心：
@@ -64,7 +64,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 这些具体片段的位置和边界。
 
-### 1.3 一个类比
+### 一个类比
 
 文本分类像给整篇文章贴标签。
 序列标注像拿荧光笔在句子里圈重点。
@@ -73,7 +73,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ## 二、为什么输出通常要按 token 来标？
 
-### 2.1 因为实体是连续片段
+### 因为实体是连续片段
 
 很多要抽的信息不是单个词，而是一段连续 span。
 例如：
@@ -81,7 +81,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 - `上海交通大学`
 - `2025年6月1日`
 
-### 2.2 用 token 级标签可以表达边界
+### 用 token 级标签可以表达边界
 
 这就是为什么常见标签体系不是简单地写：
 
@@ -94,7 +94,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 - `I-PER`
 - `O`
 
-### 2.3 BIO 的直觉
+### BIO 的直觉
 
 - `B-`：实体开始
 - `I-`：实体内部
@@ -117,7 +117,7 @@ for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
-### 3.1 这个例子最核心的地方是什么？
+### 这个例子最核心的地方是什么？
 
 它让你看到：
 
@@ -128,7 +128,7 @@ for tok, tag in zip(tokens, tags):
 
 > **输入一串 token，输出同样长度的一串标签。**
 
-### 3.2 为什么 `北京 大学` 会被标成 `B-ORG / I-ORG`？
+### 为什么 `北京 大学` 会被标成 `B-ORG / I-ORG`？
 
 因为这里想表达的是：
 
@@ -185,7 +185,7 @@ def decode_entities(tokens, tags):
 print(decode_entities(tokens, tags))
 ```
 
-### 4.1 这段代码为什么很重要？
+### 这段代码为什么很重要？
 
 因为它把“标注任务”和“抽取结果”连起来了。
 真实系统里我们真正关心的通常不是标签本身，而是：
@@ -197,13 +197,13 @@ print(decode_entities(tokens, tags))
 
 ## 五、序列标注和信息抽取是什么关系？
 
-### 5.1 NER 是典型序列标注任务
+### NER 是典型序列标注任务
 
 最经典的就是：
 
 - 命名实体识别
 
-### 5.2 但它不只用于 NER
+### 但它不只用于 NER
 
 还可以做：
 
@@ -211,7 +211,7 @@ print(decode_entities(tokens, tags))
 - 关键词抽取
 - 事件触发词定位
 
-### 5.3 所以它是“信息抽取的底层技能”
+### 所以它是“信息抽取的底层技能”
 
 很多抽取系统后面会更复杂，
 但最基础的一步常常仍然是：
@@ -222,18 +222,18 @@ print(decode_entities(tokens, tags))
 
 ## 六、最容易踩的坑
 
-### 6.1 误区一：把序列标注当成普通分类
+### 误区一：把序列标注当成普通分类
 
 它和整句分类最大的差别就在于：
 
 - 输出是对齐序列
 
-### 6.2 误区二：只看标签，不看边界恢复
+### 误区二：只看标签，不看边界恢复
 
 真实系统更关心最终抽出的实体片段，
 不是标签表本身。
 
-### 6.3 误区三：标签体系随便定
+### 误区三：标签体系随便定
 
 如果标签设计混乱，模型和评估都会一起乱。
 

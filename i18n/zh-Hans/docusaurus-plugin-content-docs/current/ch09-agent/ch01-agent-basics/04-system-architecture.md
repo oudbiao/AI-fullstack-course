@@ -1,11 +1,11 @@
 ---
-title: "1.5 Agent 系统架构"
+title: "9.1.5 Agent 系统架构"
 sidebar_position: 4
 description: "从 Planner、Tool、Memory、State、Guardrails 等组件出发，理解一个可落地 Agent 系统的基本架构。"
 keywords: [agent architecture, planner, tools, memory, state, guardrails, observability]
 ---
 
-# Agent 系统架构
+# 9.1.5 Agent 系统架构
 
 ![Agent 系统架构图](/img/course/agent-system-architecture.png)
 
@@ -22,7 +22,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 一、Agent 不是“一个模型”这么简单
 
-### 1.1 最基础的误解：以为 Agent 只是大模型 + Prompt
+### 最基础的误解：以为 Agent 只是大模型 + Prompt
 
 真实可用的 Agent 系统，通常至少还需要：
 
@@ -34,7 +34,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 模型很重要，但它更像大脑的一部分，而不是整个系统。
 
-### 1.2 你可以把 Agent 想成一个小型操作系统
+### 你可以把 Agent 想成一个小型操作系统
 
 里面有：
 
@@ -50,7 +50,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 二、常见核心组件
 
-### 2.1 Planner / 决策器
+### Planner / 决策器
 
 负责决定：
 
@@ -61,7 +61,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 在简单系统里，这部分可能直接由 LLM 负责。
 在更强控制场景里，也可能由规则 + LLM 混合完成。
 
-### 2.2 Tool Layer / 工具层
+### Tool Layer / 工具层
 
 这是 Agent 能行动的关键。
 
@@ -79,7 +79,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 三、状态、记忆和上下文
 
-### 3.1 State：当前任务进行到哪
+### State：当前任务进行到哪
 
 状态通常记录：
 
@@ -91,7 +91,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 这和“长期记忆”不是一回事。
 它更像当前任务的工作区。
 
-### 3.2 Memory：跨回合保留什么
+### Memory：跨回合保留什么
 
 记忆更偏向：
 
@@ -105,7 +105,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 四、一个标准执行闭环
 
-### 4.1 最小闭环：感知、决策、行动、观察
+### 最小闭环：感知、决策、行动、观察
 
 ```mermaid
 flowchart LR
@@ -122,7 +122,7 @@ flowchart LR
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 为什么这个闭环很关键？
+### 为什么这个闭环很关键？
 
 因为 Agent 的本质不是“一次性回答”，而是：
 
@@ -238,7 +238,7 @@ print("最终答案:", answer)
 
 ## 六、Guardrails：为什么护栏必不可少？
 
-### 6.1 因为 Agent 会行动
+### 因为 Agent 会行动
 
 行动就意味着风险。
 
@@ -256,7 +256,7 @@ print("最终答案:", answer)
 - 最大步数限制
 - 人工确认节点
 
-### 6.2 一个最简单的护栏例子
+### 一个最简单的护栏例子
 
 ```python
 import ast
@@ -301,7 +301,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 七、Observability：为什么要能看见 Agent 在做什么？
 
-### 7.1 因为多步系统不透明就很难调试
+### 因为多步系统不透明就很难调试
 
 你至少希望能看到：
 
@@ -310,7 +310,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 - 工具返回了什么
 - 为什么结束
 
-### 7.2 最小观测信息通常包括
+### 最小观测信息通常包括
 
 - 输入
 - action
@@ -324,7 +324,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 八、单 Agent 和多 Agent
 
-### 8.1 单 Agent 通常先学会
+### 单 Agent 通常先学会
 
 大多数系统应该先把单 Agent 打稳：
 
@@ -332,7 +332,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 - 更易收敛
 - 架构更清楚
 
-### 8.2 多 Agent 不是默认升级路线
+### 多 Agent 不是默认升级路线
 
 只有当任务真的适合分工时，多 Agent 才值得考虑。
 
@@ -348,15 +348,15 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 九、初学者常见误区
 
-### 9.1 先上多 Agent，再想清楚单 Agent
+### 先上多 Agent，再想清楚单 Agent
 
 这通常会让调试难度直线上升。
 
-### 9.2 把状态和记忆混成一件事
+### 把状态和记忆混成一件事
 
 状态更偏当前任务，记忆更偏跨任务积累。
 
-### 9.3 没有日志和回放机制
+### 没有日志和回放机制
 
 一旦系统出错，就只能靠猜。
 

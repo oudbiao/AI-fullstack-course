@@ -1,10 +1,10 @@
 ---
-title: "1.2 异常处理"
+title: "2.2.2 异常处理"
 sidebar_position: 2
 description: "掌握 Python 异常处理机制，让程序更健壮"
 ---
 
-# 异常处理
+# 2.2.2 异常处理
 
 ![异常处理执行流程图](/img/course/ch02-exception-flow.png)
 

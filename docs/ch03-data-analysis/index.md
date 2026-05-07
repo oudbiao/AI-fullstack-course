@@ -54,17 +54,17 @@ Models do not learn from thin air. Data quality, structure, distribution, and la
 
 ## Learning path for this stage
 
-Chapter 1 uses pure Python to process data, helping you feel why NumPy and Pandas are needed.
+Section 3.1 uses pure Python to process data, helping you feel why NumPy and Pandas are needed.
 
-Chapter 2 teaches NumPy. You will understand arrays, vectorization, broadcasting, matrix operations, and random statistics. These concepts will appear again and again in machine learning and deep learning.
+Section 3.2 teaches NumPy. You will understand arrays, vectorization, broadcasting, matrix operations, and random statistics. These concepts will appear again and again in machine learning and deep learning.
 
-Chapter 3 teaches Pandas. You will work with tabular data, read and write files, filter and select, clean missing values, group and aggregate, merge data, and handle time series.
+Section 3.3 teaches Pandas. You will work with tabular data, read and write files, filter and select, clean missing values, group and aggregate, merge data, and handle time series.
 
-Chapter 4 teaches visualization. You will use charts to express distributions, trends, relationships, and anomalies, rather than just printing results as tables.
+Section 3.4 teaches visualization. You will use charts to express distributions, trends, relationships, and anomalies, rather than just printing results as tables.
 
-Chapter 5 databases are optional, but if you want to work on real applications or enterprise data projects, it is recommended that you at least understand relational databases and the basics of SQL.
+Section 3.5 databases are optional, but if you want to work on real applications or enterprise data projects, it is recommended that you at least understand relational databases and the basics of SQL.
 
-Chapter 6 is where you turn the scattered skills into visible evidence. If you want one course page to follow from start to finish, do [6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline](./ch06-projects/03-hands-on-data-workshop.md): it creates dirty CSV data, cleans it, writes SQLite, generates a chart, and outputs a report.
+Section 3.6 is where you turn the scattered skills into visible evidence. If you want one course page to follow from start to finish, do [3.6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline](./ch06-projects/03-hands-on-data-workshop.md): it creates dirty CSV data, cleans it, writes SQLite, generates a chart, and outputs a report.
 
 ## What you should be able to do after finishing this stage
 

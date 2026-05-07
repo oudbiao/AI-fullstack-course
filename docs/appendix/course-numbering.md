@@ -1,10 +1,10 @@
 ---
-title: "Course Numbering Convention"
+title: "A.2 Course Numbering Convention"
 description: "Explains the mapping between source directories like ch01-tools and ch02-python and the displayed chapters 1–12 on the website, so course maintenance stays consistent."
 keywords: [course numbering, chapter directory, chapter numbering, course maintenance]
 ---
 
-# Course Numbering Convention
+# A.2 Course Numbering Convention
 
 ![Map showing the correspondence between chapter numbers and source directories](/img/course/appendix-course-numbering-map-en.png)
 
@@ -38,6 +38,21 @@ The second half of each directory name is used to describe the topic. For exampl
 ## Writing rules
 
 In page titles, introductions, task sheets, appendix notes, and image progress records, prefer the displayed chapter number on the website, for example, “Chapter 5, Machine Learning.”
+
+For nested lessons, use a three-level display number so readers always know where they are:
+
+| Level | Format | Example |
+|---|---|---|
+| Start-here guide | `0.K` | `0.1 30-Minute AI Quick Experience` |
+| Chapter index | `N` | `4 AI Math` |
+| Chapter study guide | `N.0` | `4.0 Study Guide and Task Sheet` |
+| Section category | `N.M` | `4.1 Linear Algebra` |
+| Page inside a section | `N.M.K` | `4.1.2 Vectors` |
+| Elective module | `E.X` | `E.A C++ and Model Deployment` |
+| Elective lesson | `E.X.K` | `E.A.1 C++ Programming Basics` |
+| Appendix page | `A.K` | `A.2 Course Numbering Convention` |
+
+Do not use local-only numbers such as `1.2` inside Chapter 4, because learners who open that page directly cannot tell whether it belongs to `4.1`, `5.1`, or another chapter.
 
 When referring to file paths, code scripts, image filenames, or internal links, use source directory names like `ch05-machine-learning`.
 

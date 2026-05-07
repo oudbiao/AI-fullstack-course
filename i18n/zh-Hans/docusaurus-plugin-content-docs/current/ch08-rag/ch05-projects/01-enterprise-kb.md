@@ -1,11 +1,11 @@
 ---
-title: "5.2 项目：企业知识库问答"
+title: "8.5.2 项目：企业知识库问答"
 sidebar_position: 21
 description: "从文档切块、检索、权限过滤、引用来源到错误分析，建立一个企业知识库问答系统的作品级项目闭环。"
 keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions]
 ---
 
-# 项目：企业知识库问答
+# 8.5.2 项目：企业知识库问答
 
 :::tip 本节定位
 企业知识库问答之所以适合作为作品集项目，不是因为它名字高级，而是因为它非常真实：
@@ -46,7 +46,7 @@ keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source c
 
 ## 一、为什么企业知识库问答比普通 FAQ 更难？
 
-### 1.1 文档更长
+### 文档更长
 
 企业知识往往不只是几条问答，
 而是：
@@ -56,14 +56,14 @@ keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source c
 - 培训手册
 - 产品说明
 
-### 1.2 权限更复杂
+### 权限更复杂
 
 同一个问题，可能存在：
 
 - 对外版本
 - 内部版本
 
-### 1.3 可信度要求更高
+### 可信度要求更高
 
 用户常常会追问：
 
@@ -147,7 +147,7 @@ for item in kb:
     print(item)
 ```
 
-### 3.1 为什么这里要加这么多元数据？
+### 为什么这里要加这么多元数据？
 
 因为企业知识库检索不只是“内容像不像”，
 还要判断：
@@ -186,7 +186,7 @@ print("\ninternal support:")
 print(retrieve("客服核验流程是什么？", allowed_visibility={"public", "internal"}))
 ```
 
-### 4.1 这个检索器虽然简单，但为什么很适合教学？
+### 这个检索器虽然简单，但为什么很适合教学？
 
 因为它让你清楚看到三件事：
 
@@ -194,7 +194,7 @@ print(retrieve("客服核验流程是什么？", allowed_visibility={"public", "
 2. 权限怎么影响候选集
 3. 结果为什么会不同
 
-### 4.2 为什么这里故意不直接用 embedding？
+### 为什么这里故意不直接用 embedding？
 
 因为这节课要先把：
 
@@ -237,7 +237,7 @@ print(answer_with_sources("退款规则是什么？", {"public"}))
 print(answer_with_sources("客服核验流程是什么？", {"public", "internal"}))
 ```
 
-### 5.1 为什么“来源返回”是作品级项目的亮点？
+### 为什么“来源返回”是作品级项目的亮点？
 
 因为它让系统不只是“给你一个答案”，
 而是还能回答：
@@ -247,7 +247,7 @@ print(answer_with_sources("客服核验流程是什么？", {"public", "internal
 
 这会显著提高项目可信度。
 
-### 5.2 为什么企业场景比普通问答更需要来源？
+### 为什么企业场景比普通问答更需要来源？
 
 因为企业用户经常会真的拿答案去执行流程。
 没有来源，就很难建立信任。
@@ -256,7 +256,7 @@ print(answer_with_sources("客服核验流程是什么？", {"public", "internal
 
 ## 六、项目最该怎么评估？
 
-### 6.1 不是只看“有没有答出来”
+### 不是只看“有没有答出来”
 
 企业知识库项目最少要分成三层评估：
 
@@ -264,7 +264,7 @@ print(answer_with_sources("客服核验流程是什么？", {"public", "internal
 2. 权限是否正确
 3. 引用是否可追溯
 
-### 6.2 一个极简评估集
+### 一个极简评估集
 
 ```python
 eval_cases = [
@@ -296,7 +296,7 @@ for case in eval_cases:
     })
 ```
 
-### 6.3 为什么这种评估很值钱？
+### 为什么这种评估很值钱？
 
 因为它直接覆盖了企业知识库最关键的两个风险：
 
@@ -307,11 +307,11 @@ for case in eval_cases:
 
 ## 七、这个项目怎么往作品级再推一步？
 
-### 7.1 把规则检索升级成向量检索
+### 把规则检索升级成向量检索
 
-### 7.2 加文档 chunking 和 rerank
+### 加文档 chunking 和 rerank
 
-### 7.3 把来源展示做成界面
+### 把来源展示做成界面
 
 最推荐展示：
 
@@ -320,7 +320,7 @@ for case in eval_cases:
 - 最终答案
 - 来源引用
 
-### 7.4 展示几个“权限相关失败样例”
+### 展示几个“权限相关失败样例”
 
 这会非常有说服力。
 
@@ -328,11 +328,11 @@ for case in eval_cases:
 
 ## 八、最容易踩的坑
 
-### 8.1 只做“能答”，不做“能追溯”
+### 只做“能答”，不做“能追溯”
 
-### 8.2 只看语义相关，不看权限边界
+### 只看语义相关，不看权限边界
 
-### 8.3 文档单元切得太粗
+### 文档单元切得太粗
 
 切太粗时，答案和来源常常都会变得含糊。
 

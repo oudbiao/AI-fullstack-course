@@ -1,11 +1,11 @@
 ---
-title: "1.6 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent"
+title: "9.1.6 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent"
 sidebar_position: 5
 description: "用 TD-Gammon、DQN Atari 和 AlphaGo 三个历史节点理解强化学习、搜索、反馈和现代 Agent 的关系。"
 keywords: [TD-Gammon, DQN, Atari, AlphaGo, 强化学习, Agent历史]
 ---
 
-# 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent
+# 9.1.6 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent
 
 ![强化学习到 Agent 历史突破地图](/img/course/ch09-rl-agent-breakthroughs-map.png)
 

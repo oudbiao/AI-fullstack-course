@@ -1,10 +1,10 @@
 ---
-title: "Git の基礎概念"
+title: "1.2.1 Git の基礎概念"
 sidebar_position: 1
 description: "バージョン管理の必要性と Git の基本概念を理解する"
 ---
 
-# Git の基礎概念
+# 1.2.1 Git の基礎概念
 
 ![Git の4領域ワークフロー図](/img/course/git-four-areas-ja.png)
 

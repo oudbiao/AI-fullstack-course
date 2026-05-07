@@ -1,11 +1,11 @@
 ---
-title: "4.3 API Design and Serviceization"
+title: "8.4.3 API Design and Serviceization"
 sidebar_position: 18
 description: "From request structure, response structure, idempotency, and error handling to version management, understand how LLM service APIs can be designed more robustly."
 keywords: [API design, service design, idempotency, request schema, response schema, versioning]
 ---
 
-# API Design and Serviceization
+# 8.4.3 API Design and Serviceization
 
 :::tip Section Focus
 When building LLM applications, many people can write a local script, but once they move to serviceization, things quickly get messy.
@@ -40,9 +40,9 @@ Do not memorize these as vocabulary only. In a real system, these terms are the 
 
 ---
 
-## 1. Why API design is not “just wrapping some JSON”
+## Why API design is not “just wrapping some JSON”
 
-### 1.1 What does a bad interface look like?
+### What does a bad interface look like?
 
 ```python
 bad_request = {
@@ -62,7 +62,7 @@ What’s wrong here?
 - No version information
 - No context field
 
-### 1.2 What is a good API design doing?
+### What is a good API design doing?
 
 At its core, it answers:
 
@@ -77,16 +77,16 @@ In other words, API design is not “just writing an entry point”; it is defin
 
 ---
 
-## 2. First, design the request structure
+## First, design the request structure
 
-### 2.1 A minimal request structure usually needs at least these fields
+### A minimal request structure usually needs at least these fields
 
 - `query`
 - `user_id` (optional)
 - `session_id` (for multi-turn scenarios)
 - `metadata` (optional)
 
-### 2.2 A clearer request object
+### A clearer request object
 
 ```python
 request = {
@@ -112,9 +112,9 @@ This is much better than “passing only a string.”
 
 ---
 
-## 3. Then, design the response structure
+## Then, design the response structure
 
-### 3.1 Why must the response also be standardized?
+### Why must the response also be standardized?
 
 Because real consumers are often not just people, but also:
 
@@ -125,7 +125,7 @@ Because real consumers are often not just people, but also:
 
 They all need to consume the result reliably.
 
-### 3.2 A more robust response structure
+### A more robust response structure
 
 ```python
 response = {
@@ -143,7 +143,7 @@ response = {
 print(response)
 ```
 
-### 3.3 Why are these fields valuable?
+### Why are these fields valuable?
 
 - `trace_id`: makes it easy to trace the request path
 - `answer`: the actual business output
@@ -152,9 +152,9 @@ print(response)
 
 ---
 
-## 4. Error responses must also be designed
+## Error responses must also be designed
 
-### 4.1 Many systems only design successful responses
+### Many systems only design successful responses
 
 But in real engineering, the more common issues are actually:
 
@@ -163,7 +163,7 @@ But in real engineering, the more common issues are actually:
 - Insufficient permissions
 - Empty knowledge base
 
-### 4.2 A unified error structure
+### A unified error structure
 
 ```python
 error_response = {
@@ -191,9 +191,9 @@ An API is a system contract, not just JSON. When reading the diagram, focus on r
 
 ---
 
-## 5. A minimal runnable service handling function
+## A minimal runnable service handling function
 
-### 5.1 Simulate an API handler with pure Python first
+### Simulate an API handler with pure Python first
 
 ```python
 def handle_chat(request):
@@ -220,7 +220,7 @@ print(handle_chat({"query": "What is the refund policy?"}))
 print(handle_chat({"query": ""}))
 ```
 
-### 5.2 What is this code actually teaching?
+### What is this code actually teaching?
 
 It teaches you:
 
@@ -232,9 +232,9 @@ This is already the most important layer of service design.
 
 ---
 
-## 6. Why is idempotency important?
+## Why is idempotency important?
 
-### 6.1 What is idempotency?
+### What is idempotency?
 
 Simply put:
 
@@ -246,7 +246,7 @@ This is especially important in these scenarios:
 - Re-sending after a timeout
 - Network instability
 
-### 6.2 Which APIs need idempotency more?
+### Which APIs need idempotency more?
 
 Especially:
 
@@ -258,9 +258,9 @@ A pure question-answering API is usually more like a “read-only operation,” 
 
 ---
 
-## 7. Why can’t version management be added later?
+## Why can’t version management be added later?
 
-### 7.1 Once others integrate with your API, changing fields casually becomes hard
+### Once others integrate with your API, changing fields casually becomes hard
 
 If today the response returns:
 
@@ -272,7 +272,7 @@ and tomorrow it changes to:
 
 the caller will break immediately.
 
-### 7.2 A simple versioning strategy
+### A simple versioning strategy
 
 ```python
 api_info = {
@@ -287,7 +287,7 @@ Even for a small project, it is best to build version awareness early.
 
 ---
 
-## 8. A FastAPI example closer to a real service
+## A FastAPI example closer to a real service
 
 If you want to see a style closer to a real backend, take a look at this minimal version.
 
@@ -323,7 +323,7 @@ Although this code is simple, it is already closer to a real service because `Ch
 
 ---
 
-## 9. If your goal is a “knowledge-base-driven courseware generation assistant,” what should the minimal API look like?
+## If your goal is a “knowledge-base-driven courseware generation assistant,” what should the minimal API look like?
 
 These systems usually need more than just a `/chat` endpoint.
 At minimum, they often have interfaces like these:
@@ -359,21 +359,21 @@ The value of this object is:
 
 - It turns the slots collected during multi-turn conversation into actual service API parameters
 
-## 10. Common mistakes beginners make most often
+## Common mistakes beginners make most often
 
-### 10.1 The request structure is too loose
+### The request structure is too loose
 
 It may feel convenient at first, but it becomes very painful later.
 
-### 10.2 The error structure is inconsistent
+### The error structure is inconsistent
 
 This makes it increasingly difficult for the frontend and other services to integrate.
 
-### 10.3 No `trace_id`
+### No `trace_id`
 
 When something goes wrong, it becomes hard to trace the request path.
 
-### 10.4 Binding the API too tightly to a single business logic from the start
+### Binding the API too tightly to a single business logic from the start
 
 This makes future expansion very difficult.
 

@@ -1,11 +1,11 @@
 ---
-title: "1.6 模型服务化"
+title: "E.A.6 模型服务化"
 sidebar_position: 6
 description: "从请求队列、批处理、版本路由、健康检查到服务指标，理解模型服务化为什么是一套完整的工程系统。"
 keywords: [model serving, batching, request queue, version routing, health check, deployment]
 ---
 
-# 模型服务化
+# E.A.6 模型服务化
 
 ![模型服务化架构图](/img/course/elective-model-serving-architecture.png)
 
@@ -44,7 +44,7 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 ## 一、为什么模型服务化不是“包个 API”就结束？
 
-### 1.1 因为真实请求不是一条一条均匀到来的
+### 因为真实请求不是一条一条均匀到来的
 
 服务会遇到：
 
@@ -59,7 +59,7 @@ keywords: [model serving, batching, request queue, version routing, health check
 - 超时
 - 指标
 
-### 1.2 因为模型会升级
+### 因为模型会升级
 
 上线后你还会遇到：
 
@@ -70,7 +70,7 @@ keywords: [model serving, batching, request queue, version routing, health check
 所以服务化不只是“把当前模型暴露出去”，
 还包括未来如何维护。
 
-### 1.3 一个类比
+### 一个类比
 
 单次推理像你自己在厨房做一顿饭。
 模型服务化更像开餐厅：
@@ -83,7 +83,7 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 ## 二、服务化最核心的几个组件
 
-### 2.1 请求入口
+### 请求入口
 
 负责：
 
@@ -91,18 +91,18 @@ keywords: [model serving, batching, request queue, version routing, health check
 - 参数校验
 - 身份认证
 
-### 2.2 队列
+### 队列
 
 负责：
 
 - 缓冲请求
 - 平滑流量
 
-### 2.3 批处理器
+### 批处理器
 
 负责把多个小请求合并，提升吞吐。
 
-### 2.4 模型执行器
+### 模型执行器
 
 真正完成：
 
@@ -110,7 +110,7 @@ keywords: [model serving, batching, request queue, version routing, health check
 - 推理
 - 后处理
 
-### 2.5 版本路由与健康检查
+### 版本路由与健康检查
 
 负责：
 
@@ -174,21 +174,21 @@ for item in all_outputs:
     print(item)
 ```
 
-### 3.1 这段代码最值得学什么？
+### 这段代码最值得学什么？
 
 它说明模型服务化最基础的运行模式：
 
 - 请求不是直接一个个立刻跑
 - 而是先进队列，再按策略调度
 
-### 3.2 为什么批处理对服务很重要？
+### 为什么批处理对服务很重要？
 
 因为很多模型在批量处理时吞吐更高。
 如果每条请求都单独跑：
 
 - 资源利用率可能很差
 
-### 3.3 为什么这里显式保留 `model_version`？
+### 为什么这里显式保留 `model_version`？
 
 因为真实服务里，多版本共存很常见。
 没有版本字段，灰度和回滚会非常麻烦。
@@ -197,21 +197,21 @@ for item in all_outputs:
 
 ## 四、服务上线后最该看哪些指标？
 
-### 4.1 延迟
+### 延迟
 
 至少看：
 
 - 平均延迟
 - P95 延迟
 
-### 4.2 吞吐
+### 吞吐
 
 例如：
 
 - 每秒请求数
 - 每秒批次数
 
-### 4.3 错误率
+### 错误率
 
 包括：
 
@@ -219,7 +219,7 @@ for item in all_outputs:
 - 超时
 - 模型内部异常
 
-### 4.4 批处理效率
+### 批处理效率
 
 例如：
 
@@ -232,7 +232,7 @@ for item in all_outputs:
 
 ## 五、模型服务化最容易踩的坑
 
-### 5.1 误区一：只看模型推理时间
+### 误区一：只看模型推理时间
 
 真实延迟通常还包括：
 
@@ -241,12 +241,12 @@ for item in all_outputs:
 - 后处理
 - 网络开销
 
-### 5.2 误区二：批处理越大越好
+### 误区二：批处理越大越好
 
 batch 太大可能提升吞吐，
 但也可能把单请求延迟拉高。
 
-### 5.3 误区三：没有版本路由就直接替换线上模型
+### 误区三：没有版本路由就直接替换线上模型
 
 这样一旦出问题，回滚会非常痛苦。
 

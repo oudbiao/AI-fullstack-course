@@ -1,10 +1,10 @@
 ---
-title: "2.5 Array Reshaping and Operations"
+title: "3.2.5 Array Reshaping and Operations"
 sidebar_position: 6
 description: "Master reshape, concatenation, splitting, and transpose operations for arrays"
 ---
 
-# Array Reshaping and Operations
+# 3.2.5 Array Reshaping and Operations
 
 ![NumPy Reshaping and Axis Operations Diagram](/img/course/ch03-numpy-reshape-axis-flow-en.png)
 

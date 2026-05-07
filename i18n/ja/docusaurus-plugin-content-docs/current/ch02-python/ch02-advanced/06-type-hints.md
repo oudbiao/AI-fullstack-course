@@ -1,10 +1,10 @@
 ---
-title: "1.6 型注釈とコード品質"
+title: "2.2.6 型注釈とコード品質"
 sidebar_position: 6
 description: "Python の型注釈とコード品質ツールを身につける"
 ---
 
-# 型注釈とコード品質
+# 2.2.6 型注釈とコード品質
 
 ![型注釈とコード品質のフローチャート](/img/course/ch02-type-hints-quality-flow-ja.png)
 

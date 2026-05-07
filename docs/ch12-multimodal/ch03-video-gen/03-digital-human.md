@@ -1,11 +1,11 @@
 ---
-title: "3.4 Digital Human Technology [Elective]"
+title: "12.3.4 Digital Human Technology [Elective]"
 sidebar_position: 11
 description: "From text, speech, driving signals, and lip sync to character rendering, understand why digital humans are essentially a multi-module system."
 keywords: [digital human, avatar, lip sync, talking head, virtual human, audio-driven animation]
 ---
 
-# Digital Human Technology [Elective]
+# 12.3.4 Digital Human Technology [Elective]
 
 ![Digital human multi-module synchronization diagram](/img/course/ch12-digital-human-sync-pipeline-map-en.png)
 
@@ -59,16 +59,16 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. What exactly does a digital human do?
+## What exactly does a digital human do?
 
-### 1.1 The simplest explanation
+### The simplest explanation
 
 A digital human system usually tries to do this:
 
 - Given a piece of text or speech
 - Let a virtual character "say it like a real person"
 
-### 1.2 This sounds like video generation, but why is it not exactly the same?
+### This sounds like video generation, but why is it not exactly the same?
 
 Because a digital human often needs to do more than "generate a video." It also needs to make sure that:
 
@@ -81,7 +81,7 @@ In other words, it places more emphasis than normal video generation on:
 
 > **Character consistency + speech-driven consistency.**
 
-### 1.3 A better overall analogy for beginners
+### A better overall analogy for beginners
 
 You can think of a digital human system as:
 
@@ -99,7 +99,7 @@ This analogy is very useful for beginners because it helps you first grasp that:
 
 ---
 
-## 2. Why is a digital human system essentially a "multi-module pipeline"?
+## Why is a digital human system essentially a "multi-module pipeline"?
 
 A very rough workflow is usually:
 
@@ -117,7 +117,7 @@ The most important thing about this simple list is that it lets you see:
 
 > A digital human is not a single black box, but a chain system.
 
-### 2.1 A module breakdown table that beginners can remember first
+### A module breakdown table that beginners can remember first
 
 | Module | The most important thing to remember |
 |---|---|
@@ -130,14 +130,14 @@ This table is useful for beginners because it breaks the digital human from a "c
 
 ---
 
-## 3. The most critical step: lip sync
+## The most critical step: lip sync
 
-### 3.1 Why is this the core of the digital human experience?
+### Why is this the core of the digital human experience?
 
 Because users are extremely sensitive to "the mouth not matching."
 Even if the voice is great and the character looks good, once the lip movements are obviously off, the whole system feels fake.
 
-### 3.2 What is this fundamentally doing?
+### What is this fundamentally doing?
 
 It is:
 
@@ -148,7 +148,7 @@ This is a very typical "audio-driven visual" task in digital human systems.
 
 ---
 
-## 4. Why do digital humans have stricter requirements for "identity consistency"?
+## Why do digital humans have stricter requirements for "identity consistency"?
 
 In ordinary video generation, users may care more about the overall image.
 But a digital human usually focuses on one core subject:
@@ -170,7 +170,7 @@ That is why many digital human systems place heavy emphasis on:
 
 ---
 
-## 5. A minimal "digital human system state" example
+## A minimal "digital human system state" example
 
 ```python
 digital_human_request = {
@@ -192,7 +192,7 @@ This is why digital human projects are naturally more like a "product system" th
 
 ---
 
-## 6. A more complete workflow intuition
+## A more complete workflow intuition
 
 Suppose the generation process for a digital human video can be roughly written as:
 
@@ -215,7 +215,7 @@ This code is not implementing a digital human. It is helping you grasp an import
 
 > A digital human is a multi-stage conversion system for "text, speech, and visual rendering."
 
-### 6.1 A project checklist that beginners can remember first
+### A project checklist that beginners can remember first
 
 | What should you check first? | Why it matters |
 |---|---|
@@ -228,9 +228,9 @@ This table is useful for beginners because it helps you break "the digital human
 
 ---
 
-## 7. Why do digital human projects often become harder than expected?
+## Why do digital human projects often become harder than expected?
 
-### 7.1 Errors between modules accumulate layer by layer
+### Errors between modules accumulate layer by layer
 
 For example:
 
@@ -241,14 +241,14 @@ For example:
 
 In the end, the overall impression becomes very poor.
 
-### 7.2 Users are naturally more sensitive to human faces
+### Users are naturally more sensitive to human faces
 
 People are very sensitive to mismatches in "faces" and "speaking mouth movements."
 This makes digital human projects often harder to get right than ordinary generation tasks.
 
 ---
 
-## 8. Why are digital humans so valuable in products?
+## Why are digital humans so valuable in products?
 
 Because they are very suitable for:
 
@@ -263,7 +263,7 @@ Their value is often not in "technical flashiness," but in:
 
 ---
 
-## 9. A very important engineering judgment
+## A very important engineering judgment
 
 Many digital human products do not aim for "perfect realism." Instead, they aim for:
 

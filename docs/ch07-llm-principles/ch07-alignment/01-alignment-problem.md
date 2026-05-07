@@ -1,11 +1,11 @@
 ---
-title: "7.2 Alignment Problem"
+title: "7.7.2 Alignment Problem"
 sidebar_position: 24
 description: "Starting from the idea that capability is not the same as controllability, understand why large models can become goal-misaligned, and how alignment issues translate into evaluation, guardrails, and engineering governance."
 keywords: [alignment, helpful honest harmless, safety, governance, evaluation]
 ---
 
-# Alignment Problem
+# 7.7.2 Alignment Problem
 
 :::tip Section focus
 The stronger a model becomes, the more alignment should not be treated as “just add a safety switch before launch.”
@@ -52,9 +52,9 @@ So what this section is really trying to solve is:
 
 ---
 
-## 1. Why does alignment matter more as capability grows?
+## Why does alignment matter more as capability grows?
 
-### 1.1 The pretraining objective is not the same as the real business objective
+### The pretraining objective is not the same as the real business objective
 
 The most basic training objective of a large language model is usually understood roughly as:
 
@@ -72,7 +72,7 @@ In other words:
 
 > **Being able to continue text does not mean being able to cooperate.**
 
-### 1.2 An answer sounding “human” does not mean it is trustworthy
+### An answer sounding “human” does not mean it is trustworthy
 
 Many dangerous outputs sound perfectly natural:
 
@@ -89,7 +89,7 @@ But they may still contain:
 
 That is why in large-model governance, “fluency” is often treated as one of the least reliable surface-level indicators.
 
-### 1.3 Analogy: driving skill is not the same as traffic rules
+### Analogy: driving skill is not the same as traffic rules
 
 You can think of model capability as:
 
@@ -105,7 +105,7 @@ And alignment is more like:
 The faster the car, the more important the rules are.
 The stronger the model, the more important alignment is too.
 
-### 1.4 A more beginner-friendly overall analogy
+### A more beginner-friendly overall analogy
 
 You can also understand alignment like this:
 
@@ -127,9 +127,9 @@ then the stronger the capability, the faster problems may appear.
 
 ---
 
-## 2. What exactly is alignment aligning to?
+## What exactly is alignment aligning to?
 
-### 2.1 Helpful: help effectively when help is appropriate
+### Helpful: help effectively when help is appropriate
 
 Alignment is not just about refusing everything.
 If a model always does things like this when faced with normal requests:
@@ -148,7 +148,7 @@ That is:
 
 > **For reasonable requests, provide useful, specific, task-completing answers.**
 
-### 2.2 Honest: if you do not know, say you do not know; do not pretend
+### Honest: if you do not know, say you do not know; do not pretend
 
 The second common goal is:
 
@@ -164,7 +164,7 @@ but about:
 In many business scenarios,
 “honestly keeping boundaries” is more valuable than “forcing an answer.”
 
-### 2.3 Harmless: firmly block what should not be done
+### Harmless: firmly block what should not be done
 
 The third common goal is:
 
@@ -184,7 +184,7 @@ but rather requires the system to distinguish between:
 - dangerous requests
 - ambiguous boundary cases
 
-### 2.4 The three often pull against each other
+### The three often pull against each other
 
 The hardest part in real systems is:
 
@@ -195,7 +195,7 @@ The hardest part in real systems is:
 So alignment has never been a single-metric optimization problem,
 but a multi-objective balancing problem.
 
-### 2.5 A simple table worth remembering first
+### A simple table worth remembering first
 
 | Dimension | What is it asking? |
 |---|---|
@@ -211,7 +211,7 @@ This table is very worth remembering, because many later RLHF methods, rule-base
 When reading this diagram, pay attention to the triangular tension: Helpful means useful, Honest means admitting boundaries, and Harmless means blocking risk. Alignment is not just refusing everything, nor is it helping at all costs. It is about finding balance among the three for different requests, and implementing that balance through evaluation, policy, and guardrails.
 :::
 
-### 2.6 Alignment terms that beginners should not skip
+### Alignment terms that beginners should not skip
 
 | Term | Plain meaning | In real systems |
 |---|---|---|
@@ -224,9 +224,9 @@ When reading this diagram, pay attention to the triangular tension: Helpful mean
 
 ---
 
-## 3. Where does the risk actually come from?
+## Where does the risk actually come from?
 
-### 3.1 Goal misalignment: the model is not optimizing for the standard in your head
+### Goal misalignment: the model is not optimizing for the standard in your head
 
 Even with a large training set, what the model learns is still:
 
@@ -240,7 +240,7 @@ It does not automatically learn:
 
 This is the most fundamental source of goal misalignment.
 
-### 3.2 Distribution shift: online questions are always messier than training data
+### Distribution shift: online questions are always messier than training data
 
 Questions in the training set are usually relatively clean,
 but real online traffic may include:
@@ -253,7 +253,7 @@ but real online traffic may include:
 So even if offline performance is excellent,
 new risks may still appear after launch.
 
-### 3.3 Tools, memory, and external systems amplify risk
+### Tools, memory, and external systems amplify risk
 
 When a model only outputs text, risk already exists.
 Once you connect it to:
@@ -275,7 +275,7 @@ So alignment is always a system-level issue, not something you can judge only fr
 
 ---
 
-## 4. A minimal evaluation example that is truly about alignment
+## A minimal evaluation example that is truly about alignment
 
 The code below is no longer just listing risk terms,
 but simulates a minimal alignment evaluator.
@@ -351,7 +351,7 @@ for sample in samples:
     )
 ```
 
-### 4.1 What is this code teaching you?
+### What is this code teaching you?
 
 It is teaching one especially important fact:
 
@@ -365,7 +365,7 @@ The same response may be:
 
 So alignment evaluation is naturally multidimensional.
 
-### 4.2 Why is this example on the same path as real engineering?
+### Why is this example on the same path as real engineering?
 
 Because the first layer of governance in many production systems is exactly this:
 
@@ -376,7 +376,7 @@ Because the first layer of governance in many production systems is exactly this
 The industrial version is of course more complex,
 but the thinking is the same as this minimal example.
 
-### 4.3 Another minimal example of a routing action
+### Another minimal example of a routing action
 
 ```python
 cases = [
@@ -398,9 +398,9 @@ Although small, this example is very helpful for beginners to build a systems-le
 
 ---
 
-## 5. Alignment is not a value slogan; it is an engineering measure
+## Alignment is not a value slogan; it is an engineering measure
 
-### 5.1 First, there must be a strategy definition
+### First, there must be a strategy definition
 
 You must clearly define:
 
@@ -411,7 +411,7 @@ You must clearly define:
 If the policy itself is unclear,
 then no matter how strong the model is, there is nothing to align to.
 
-### 5.2 Next, there must be an evaluation set
+### Next, there must be an evaluation set
 
 If the policy cannot be grounded in samples, it is hard to execute.
 
@@ -422,7 +422,7 @@ So common practice is to build multiple evaluation sets, such as:
 - highly uncertain factual questions
 - prompt injection attacks
 
-### 5.3 Finally, there must be guardrails and rollback
+### Finally, there must be guardrails and rollback
 
 Model output is not the final action.
 Before and after launch, you still need:
@@ -442,7 +442,7 @@ So truly stable alignment always combines:
 
 These three layers must be done together.
 
-### 5.4 A more realistic engineering loop
+### A more realistic engineering loop
 
 ```mermaid
 flowchart LR
@@ -461,15 +461,15 @@ This diagram is important because it reminds you:
 
 ---
 
-## 6. A few of the easiest misunderstandings
+## A few of the easiest misunderstandings
 
-### 6.1 Misunderstanding 1: alignment is just safety filtering
+### Misunderstanding 1: alignment is just safety filtering
 
 No.
 If a system only knows how to refuse,
 it may be safe, but it is not useful at all.
 
-### 6.2 Misunderstanding 2: push all alignment problems onto the model
+### Misunderstanding 2: push all alignment problems onto the model
 
 Many risks actually come from:
 
@@ -478,7 +478,7 @@ Many risks actually come from:
 - missing logging and auditing
 - lacking human review processes
 
-### 6.3 Misunderstanding 3: “it sounds very real” means it is a good answer
+### Misunderstanding 3: “it sounds very real” means it is a good answer
 
 Fluency is a form of disguise,
 not proof of trustworthiness.

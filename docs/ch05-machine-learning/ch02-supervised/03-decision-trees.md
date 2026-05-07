@@ -1,11 +1,11 @@
 ---
-title: "2.4 Decision Trees"
+title: "5.2.4 Decision Trees"
 sidebar_position: 5
 description: "Understand how decision trees are built, information gain and Gini index, pruning strategies, decision tree visualization, and regression trees"
 keywords: [decision tree, information gain, Gini index, pruning, regression tree, CART, interpretability]
 ---
 
-# Decision Trees
+# 5.2.4 Decision Trees
 
 ![Decision tree split path diagram](/img/course/decision-tree-split-path-en.png)
 
@@ -69,9 +69,9 @@ If you first grasp this thread, the later parts about entropy, Gini, pruning, an
 
 ---
 
-## 1. Intuition of decision trees
+## Intuition of decision trees
 
-### 1.1 Decision trees in daily life
+### Decision trees in daily life
 
 ```mermaid
 flowchart TD
@@ -89,7 +89,7 @@ flowchart TD
 
 A decision tree is a series of **if-else decisions**. Each time, it uses the value of one feature to split the data into two (or more) groups.
 
-### 1.2 Decision trees in machine learning
+### Decision trees in machine learning
 
 | Element | Description |
 |------|------|
@@ -99,7 +99,7 @@ A decision tree is a series of **if-else decisions**. Each time, it uses the val
 | **Split condition** | For example, "petal length ≤ 2.5cm" |
 | **Depth** | The longest path from root to leaf |
 
-### 1.2.1 Why are decision trees so easy to understand at a glance?
+### Why are decision trees so easy to understand at a glance?
 
 Because they break the model into many local problems:
 
@@ -114,7 +114,7 @@ So the biggest teaching value of decision trees is:
 - They make it explainable why the model made a certain prediction
 - They also make it intuitive why the model can memorize the training set
 
-### 1.2.2 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of a decision tree as:
 
@@ -131,7 +131,7 @@ So when a tree grows deeper, what is happening in essence is:
 - the classes become more and more separated
 - but it also becomes easier to memorize the details of the training set
 
-### 1.3 A simple example
+### A simple example
 
 ```python
 from sklearn.datasets import load_iris
@@ -177,9 +177,9 @@ The root split tells a story: the tree first asks about petal length because tha
 
 ---
 
-## 2. How does a decision tree "learn"? — Split criteria
+## How does a decision tree "learn"? — Split criteria
 
-### 2.1 The core problem
+### The core problem
 
 At each node, the algorithm needs to decide:
 1. **Which feature** should be used for splitting?
@@ -187,7 +187,7 @@ At each node, the algorithm needs to decide:
 
 Goal: make the data in each child node as **pure** as possible after each split.
 
-### 2.1.1 Don’t rush to memorize formulas — first remember one sentence
+### Don’t rush to memorize formulas — first remember one sentence
 
 What a decision tree really wants to do at every step is very simple:
 
@@ -195,7 +195,7 @@ What a decision tree really wants to do at every step is very simple:
 
 Information gain and Gini index are both ways to quantify how much more organized the data became.
 
-### 2.1.2 What is most worth remembering the first time you learn tree models?
+### What is most worth remembering the first time you learn tree models?
 
 Rather than memorizing:
 
@@ -212,7 +212,7 @@ It is more useful to remember:
 
 Read this picture before the formulas: a split is good when it turns a mixed parent node into cleaner child nodes. Entropy and Gini are just two ways to score "how mixed" a node is, and information gain measures how much that mixedness dropped after the split.
 
-### 2.2 Information gain and entropy
+### Information gain and entropy
 
 :::info Connection to Station 4
 In Station 4, "2.4 Basics of Information Theory," you learned about **entropy** — it measures the "uncertainty" of a set. Decision trees use entropy to decide how to split.
@@ -270,7 +270,7 @@ Plan B (poor split) information gain: 0.0290
 
 Plan A is valuable because it turns two mixed groups into two pure groups. Plan B barely improves order, so a tree should prefer Plan A.
 
-### 2.3 Gini impurity
+### Gini impurity
 
 Another measure of "purity" that is faster to compute:
 
@@ -315,7 +315,7 @@ Gini=0.4800, Entropy=0.9710
 
 Both Gini and entropy are asking the same practical question: “how mixed are the labels in this node?” The exact numbers differ, but the ranking is often similar.
 
-### 2.4 Choice in sklearn
+### Choice in sklearn
 
 | Parameter | Option | Description |
 |------|------|------|
@@ -324,7 +324,7 @@ Both Gini and entropy are asking the same practical question: “how mixed are t
 
 In practice, the difference is usually small, so using `gini` by default is fine.
 
-### 2.5 If I am doing a project for the first time, how should I choose between `gini` and `entropy`?
+### If I am doing a project for the first time, how should I choose between `gini` and `entropy`?
 
 If you are not running a special algorithm comparison experiment, you can start like this in your first project:
 
@@ -337,7 +337,7 @@ The reason is simple:
 - the split criterion is usually not the main source of performance differences
 - controlling tree complexity is often much more important than choosing which purity formula to use
 
-### 2.6 The safest default tuning order for tree models
+### The safest default tuning order for tree models
 
 If you are tuning a tree model for the first time, it is recommended to follow this order:
 
@@ -354,7 +354,7 @@ This order is more stable because it first addresses:
 
 ---
 
-## 3. Visualizing the decision boundary
+## Visualizing the decision boundary
 
 ```python
 from sklearn.datasets import make_classification, make_moons
@@ -406,7 +406,7 @@ No depth limit: training accuracy 100.0%, leaves 33, depth 9
 A decision tree with unlimited depth will "memorize" every training sample (training accuracy 100%), but the decision boundary becomes very complex. This is overfitting — and it needs to be controlled through **pruning**.
 :::
 
-### 3.1 When you first see this boundary plot, what should you focus on?
+### When you first see this boundary plot, what should you focus on?
 
 Not on training accuracy first, but on:
 
@@ -425,13 +425,13 @@ This diagram should be read together with the boundary plot above: the deeper th
 
 ---
 
-## 4. Pruning — controlling complexity
+## Pruning — controlling complexity
 
 ![Decision tree pruning and tuning order](/img/course/ch05-decision-tree-pruning-order-en.png)
 
 Read this image before tuning a tree: a perfect training score is not a victory if the boundary is fragmented and the validation score drops. Pruning is the habit of keeping broad patterns while removing branches that only explain noise. For beginners, tune `max_depth` first, then `min_samples_leaf`, then `ccp_alpha`; compare `gini` and `entropy` only after the tree complexity is under control.
 
-### 4.1 Pre-pruning
+### Pre-pruning
 
 Limit tree growth **during construction**:
 
@@ -442,7 +442,7 @@ Limit tree growth **during construction**:
 | `min_samples_leaf` | Minimum number of samples required at a leaf node | 1 |
 | `max_leaf_nodes` | Maximum number of leaf nodes | None (unlimited) |
 
-### 4.1.1 What is a safer order when tuning a tree model for the first time?
+### What is a safer order when tuning a tree model for the first time?
 
 When beginners tune a decision tree for the first time, it is easy to change many parameters at once and then not know which one is actually responsible.
 A safer order is:
@@ -498,7 +498,7 @@ max_depth=10: train=99.2%, test=82.0%, leaves=39
 
 Notice the key diagnostic: the unpruned tree has the best training score but not the best test score. That gap is the visible footprint of overfitting.
 
-### 4.2 Post-pruning — cost complexity pruning
+### Post-pruning — cost complexity pruning
 
 **First grow a full tree, then go back and "trim" it.** In sklearn, this is done with the `ccp_alpha` (Cost Complexity Pruning) parameter.
 
@@ -553,7 +553,7 @@ Best tree leaves: 7
 
 ---
 
-## 5. Feature importance
+## Feature importance
 
 Decision trees naturally provide **feature importance** — showing how much each feature contributes to the classification decision.
 
@@ -605,7 +605,7 @@ Feature importance is useful for explanation, but it is not the same as causalit
 
 ---
 
-## 6. Regression trees
+## Regression trees
 
 Decision trees are not only for classification, they can also do **regression**.
 
@@ -613,11 +613,11 @@ Decision trees are not only for classification, they can also do **regression**.
 
 The key difference is in the leaf output: a classification tree leaf outputs a class, while a regression tree leaf outputs the average target value of samples in that region. Because each region outputs one constant value, regression-tree predictions naturally look like stairs rather than smooth curves.
 
-### 6.1 Principle
+### Principle
 
 The leaf nodes of a classification tree output **classes**; the leaf nodes of a regression tree output **numerical values** (the average value of all samples in that region).
 
-### 6.2 Example
+### Example
 
 ```python
 from sklearn.tree import DecisionTreeRegressor
@@ -667,7 +667,7 @@ A regression tree makes **step-like** predictions (each interval outputs a const
 
 ---
 
-## 7. Advantages and disadvantages of decision trees
+## Advantages and disadvantages of decision trees
 
 | Advantages | Disadvantages |
 |------|------|
@@ -683,7 +683,7 @@ Most drawbacks of decision trees can be addressed with **ensemble learning** (ne
 - Random sampling → reduce sensitivity to individual data points
 :::
 
-### 7.1 When is a decision tree especially worth trying first?
+### When is a decision tree especially worth trying first?
 
 Although a single tree is not always the strongest final model, it is very worth trying first in these scenarios:
 
@@ -699,7 +699,7 @@ Its value in this course is not just as an algorithm, but as a bridge between tw
 
 ---
 
-## 8. The safest default order when putting a decision tree into a project for the first time
+## The safest default order when putting a decision tree into a project for the first time
 
 When you first use a decision tree in a real project, you can follow this order:
 

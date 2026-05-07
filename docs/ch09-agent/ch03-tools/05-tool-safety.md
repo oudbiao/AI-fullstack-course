@@ -1,11 +1,11 @@
 ---
-title: "3.6 Tool Safety and Error Handling"
+title: "9.3.6 Tool Safety and Error Handling"
 sidebar_position: 15
 description: "Starting from permission tiers, parameter validation, timeouts, idempotency, and auditing, understand why the Agent tool layer must handle security and failures with the same rigor as backend systems."
 keywords: [tool safety, error handling, validation, timeout, idempotency, audit, permissions]
 ---
 
-# Tool Safety and Error Handling
+# 9.3.6 Tool Safety and Error Handling
 
 :::tip Section Overview
 Tools turn an Agent from “able to talk” into “able to act,”
@@ -31,9 +31,9 @@ So the core question in this section is not “can the tool run,” but:
 
 ---
 
-## 1. Why Is Tool Safety a Red Line for Agents?
+## Why Is Tool Safety a Red Line for Agents?
 
-### 1.1 If a pure answer is wrong, it is usually just “saying something wrong”
+### If a pure answer is wrong, it is usually just “saying something wrong”
 
 If the model only returns text,
 the consequences of an error are often:
@@ -44,7 +44,7 @@ the consequences of an error are often:
 These are still important,
 but in many scenarios they remain at the “output layer.”
 
-### 1.2 If a tool call is wrong, it may become “doing the wrong thing”
+### If a tool call is wrong, it may become “doing the wrong thing”
 
 Once a tool can execute actions,
 the risks become:
@@ -58,7 +58,7 @@ In other words:
 
 > **Tools amplify mistakes from the language layer into the action layer.**
 
-### 1.3 An analogy: a chatbot and an intern operator are not the same risk level
+### An analogy: a chatbot and an intern operator are not the same risk level
 
 A robot that only explains procedures,
 and an operator who can actually click buttons, modify the database, and send emails,
@@ -68,9 +68,9 @@ The same is true once an Agent enters the tool layer.
 
 ---
 
-## 2. The Four Most Common Safety Lines for Tools
+## The Four Most Common Safety Lines for Tools
 
-### 2.1 Parameter validation
+### Parameter validation
 
 First confirm:
 
@@ -78,7 +78,7 @@ First confirm:
 - Are the types correct?
 - Are the values valid?
 
-### 2.2 Permission tiers
+### Permission tiers
 
 Different tools have different risk levels.
 A common breakdown is:
@@ -87,7 +87,7 @@ A common breakdown is:
 - `write_limited`
 - `destructive`
 
-### 2.3 Execution constraints
+### Execution constraints
 
 For example:
 
@@ -96,7 +96,7 @@ For example:
 - Rate limiting
 - Idempotency key
 
-### 2.4 Auditing and replay
+### Auditing and replay
 
 At a minimum, you should record:
 
@@ -108,7 +108,7 @@ At a minimum, you should record:
 
 ---
 
-## 3. First, Run a Minimal Executor with Guardrails
+## First, Run a Minimal Executor with Guardrails
 
 The following example simulates three types of tools:
 
@@ -169,7 +169,7 @@ for call in calls:
     print(call, "->", run_tool(*call))
 ```
 
-### 3.1 Why is this better than just checking whether the tool is in a whitelist?
+### Why is this better than just checking whether the tool is in a whitelist?
 
 Because it is not just a simple on/off check,
 but reflects the real multi-layer structure of tool safety:
@@ -181,7 +181,7 @@ but reflects the real multi-layer structure of tool safety:
 
 That is what a real-world tool executor should do.
 
-### 3.2 Why can’t permissions be based only on whether “the Agent can use it”?
+### Why can’t permissions be based only on whether “the Agent can use it”?
 
 Because risk is not uniform.
 
@@ -192,7 +192,7 @@ Because risk is not uniform.
 So permissions must be tied to tool risk,
 not just controlled by one global switch.
 
-### 3.3 Why do high-risk tools often need human confirmation?
+### Why do high-risk tools often need human confirmation?
 
 Because even if the model chooses correctly most of the time,
 high-risk actions should not be fully automated.
@@ -210,9 +210,9 @@ When reading this diagram, think of “tool call” as a real action: low-risk a
 
 ---
 
-## 4. Why Can’t Error Handling Rely Only on `try/except`?
+## Why Can’t Error Handling Rely Only on `try/except`?
 
-### 4.1 Because failures are not all the same
+### Because failures are not all the same
 
 Common failure types include at least:
 
@@ -228,7 +228,7 @@ If every failure only returns:
 
 then debugging and recovery later become nearly impossible.
 
-### 4.2 A better approach: structured error types
+### A better approach: structured error types
 
 ```python
 def normalize_error(code, detail):
@@ -252,7 +252,7 @@ The benefits of structured errors are:
 - Logging systems can count and analyze errors more easily
 - The frontend can show clearer feedback
 
-### 4.3 Which errors are suitable for retry?
+### Which errors are suitable for retry?
 
 Usually, the errors more suitable for retry are:
 
@@ -268,9 +268,9 @@ Errors that are not suitable for retry include:
 
 ---
 
-## 5. What Are Timeout, Retry, and Idempotency Protecting Against?
+## What Are Timeout, Retry, and Idempotency Protecting Against?
 
-### 5.1 Timeout: preventing the system from hanging forever
+### Timeout: preventing the system from hanging forever
 
 If a tool never returns,
 the entire Agent chain is blocked.
@@ -280,7 +280,7 @@ So timeout is fundamentally protecting:
 - Latency
 - Resource usage
 
-### 5.2 Retry: preventing a temporary glitch from becoming a hard failure
+### Retry: preventing a temporary glitch from becoming a hard failure
 
 If the upstream service occasionally stumbles,
 a reasonable retry strategy can significantly improve stability.
@@ -290,7 +290,7 @@ But retries should also consider:
 - Whether the error is temporary
 - Whether the retry count is limited
 
-### 5.3 Idempotency: preventing repeated execution from causing repeated side effects
+### Idempotency: preventing repeated execution from causing repeated side effects
 
 For example:
 
@@ -304,9 +304,9 @@ So write-type tools should pay special attention to:
 
 ---
 
-## 6. Why Isn’t Auditing Something You “Add Later”?
+## Why Isn’t Auditing Something You “Add Later”?
 
-### 6.1 Without auditing, it is hard to reconstruct what happened after something goes wrong
+### Without auditing, it is hard to reconstruct what happened after something goes wrong
 
 You should at least be able to answer:
 
@@ -315,7 +315,7 @@ You should at least be able to answer:
 - Why did the system allow it to run?
 - What was the final result?
 
-### 6.2 A minimal audit record example
+### A minimal audit record example
 
 ```python
 def audit_log(user_id, tool_name, arguments, result):
@@ -340,19 +340,19 @@ Although simple, this already captures the core of auditing:
 
 ---
 
-## 7. The Most Common Misconceptions
+## The Most Common Misconceptions
 
-### 7.1 Misconception 1: Tool safety can wait until just before launch
+### Misconception 1: Tool safety can wait until just before launch
 
 No.
 Tool safety should be part of the design phase.
 
-### 7.2 Misconception 2: Just retry every failure
+### Misconception 2: Just retry every failure
 
 Parameter errors and permission errors
 will only waste resources if retried.
 
-### 7.3 Misconception 3: Read-only operations are completely risk-free
+### Misconception 3: Read-only operations are completely risk-free
 
 Many read operations may still involve:
 

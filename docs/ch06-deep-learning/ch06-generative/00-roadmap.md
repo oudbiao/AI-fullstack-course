@@ -1,11 +1,11 @@
 ---
-title: "6.1 Pre-Class Guide: What Is This Chapter on Generative Models Actually About?"
+title: "6.6.1 Pre-Class Guide: What Is This Chapter on Generative Models Actually About?"
 sidebar_position: 0
 description: "First build a learning map for the generative models chapter: under what problem settings do GAN and VAE work, and what intuitions are they good for helping beginners build?"
 keywords: [generative models guide, GAN, VAE, latent space]
 ---
 
-# Pre-Class Guide: What Is This Chapter on Generative Models Actually About?
+# 6.6.1 Pre-Class Guide: What Is This Chapter on Generative Models Actually About?
 
 This chapter is more like an extension of your perspective in deep learning. It focuses on this question:
 

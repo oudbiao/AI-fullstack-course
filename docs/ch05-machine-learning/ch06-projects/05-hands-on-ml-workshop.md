@@ -1,11 +1,11 @@
 ---
-title: "6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack"
+title: "5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack"
 sidebar_position: 23
 description: "A guided Chapter 5 machine learning workshop that turns baseline, Pipeline, metrics, thresholds, error analysis, and README evidence into one runnable project."
 keywords: [machine learning workshop, sklearn pipeline, baseline, model evaluation, error analysis, portfolio]
 ---
 
-# Hands-on Workshop: Build a Reproducible ML Evidence Pack
+# 5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack
 
 ![Chapter 5 hands-on ML workshop route map](/img/course/ch05-hands-on-ml-workshop-route-en.png)
 
@@ -24,7 +24,7 @@ Read each diagram first, then run the code below it. The goal is not to chase th
 
 ---
 
-## 1. What You Will Build
+## What You Will Build
 
 This workshop creates a small local project called `ml_workshop_run/`.
 
@@ -51,7 +51,7 @@ Read the diagram before you run the script. The target column `delayed` is the a
 
 ---
 
-## 2. Evidence Flow: From Data to Report
+## Evidence Flow: From Data to Report
 
 ![Machine learning evidence pipeline](/img/course/ch05-hands-on-evidence-pipeline-en.png)
 
@@ -99,7 +99,7 @@ ml_workshop_run/
 
 ---
 
-## 3. Prepare the Environment
+## Prepare the Environment
 
 If you are inside this course repository, install the Chapter 1-5 runtime:
 
@@ -117,20 +117,20 @@ This workshop uses stable scikit-learn APIs such as `Pipeline`, `ColumnTransform
 
 ---
 
-## 4. Run the Complete Workshop
+## Run the Complete Workshop
 
 ![Machine learning workshop code execution sequence](/img/course/ch05-hands-on-code-execution-sequence-en.png)
 
 This is the order you will follow: create a clean folder, copy one script, run it once, then inspect the generated evidence. Do not edit the model first. The first run is your reference point.
 
-### 4.1 Create a Clean Folder
+### Create a Clean Folder
 
 ```bash
 mkdir ch05-ml-workshop
 cd ch05-ml-workshop
 ```
 
-### 4.2 Create `ml_workshop.py`
+### Create `ml_workshop.py`
 
 ![ColumnTransformer and Pipeline training flow](/img/course/ch05-hands-on-pipeline-training-flow-en.png)
 
@@ -458,7 +458,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 4.3 Run It
+### Run It
 
 ```bash
 python ml_workshop.py
@@ -482,7 +482,7 @@ ml_workshop_run/outputs/error_samples.csv
 ml_workshop_run/reports/leakage_check.md
 ```
 
-### 4.4 Verify the Generated Evidence
+### Verify the Generated Evidence
 
 Before interpreting any score, confirm that the evidence files were actually created.
 
@@ -507,11 +507,11 @@ ml_workshop_run/reports/leakage_check.md
 
 ---
 
-## 5. Read the Output Step by Step
+## Read the Output Step by Step
 
 ![Threshold and metric decision lab](/img/course/ch05-hands-on-threshold-decision-lab-en.png)
 
-### 5.1 Start with the baseline
+### Start with the baseline
 
 Open `ml_workshop_run/outputs/model_comparison.csv`.
 
@@ -537,7 +537,7 @@ Logistic Regression    0.821        0.941     0.934
      Dummy baseline    0.000        0.000     0.500
 ```
 
-### 5.2 Check the real model
+### Check the real model
 
 The expected best model is `Logistic Regression`. That is a good beginner result because it is:
 
@@ -548,7 +548,7 @@ The expected best model is `Logistic Regression`. That is a good beginner result
 
 Do not jump straight to the Random Forest just because it sounds stronger. In Chapter 5, the first habit is: **simple baseline first, stronger model later**.
 
-### 5.3 Review the threshold
+### Review the threshold
 
 Open `ml_workshop_run/outputs/threshold_review.csv`.
 
@@ -585,7 +585,7 @@ precision=0.727 recall=0.941 f1=0.821 flagged=22
 
 If your business goal changes, change the rule. For example, `recall >= 0.80` may be enough for a low-cost reminder system, while a medical or safety workflow may require a much stricter recall target and human review.
 
-### 5.4 Inspect the errors
+### Inspect the errors
 
 ![Error analysis bucket review](/img/course/ch05-hands-on-error-bucket-review-en.png)
 
@@ -633,7 +633,7 @@ false_positive  app      2
 
 Read this as a to-do list, not as blame. False positives may mean the model is too cautious. False negatives are usually more urgent when the product goal is early help.
 
-### 5.5 Read the leakage check
+### Read the leakage check
 
 Open `ml_workshop_run/reports/leakage_check.md`.
 
@@ -645,7 +645,7 @@ That is why this example uses `ColumnTransformer` inside `Pipeline`.
 
 ---
 
-## 6. Common Errors and Debugging Loop
+## Common Errors and Debugging Loop
 
 ![Machine learning workshop leakage and debugging loop](/img/course/ch05-hands-on-debug-loop-en.png)
 
@@ -660,7 +660,7 @@ That is why this example uses `ColumnTransformer` inside `Pipeline`.
 
 ---
 
-## 7. Turn This Into a Portfolio Project
+## Turn This Into a Portfolio Project
 
 ![Machine learning portfolio evidence pack](/img/course/ch05-hands-on-portfolio-pack-en.png)
 

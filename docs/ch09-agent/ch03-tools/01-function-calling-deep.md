@@ -1,11 +1,11 @@
 ---
-title: "3.2 Function Calling Explained"
+title: "9.3.2 Function Calling Explained"
 sidebar_position: 11
 description: "From schema design and parameter validation to error recovery and multi-step calls, gain a deep understanding of the real engineering value of Function Calling in the Agent tool layer."
 keywords: [Function Calling, Tool Calling, parameter validation, Agent, schema, tool orchestration]
 ---
 
-# Function Calling Explained
+# 9.3.2 Function Calling Explained
 
 :::tip Section focus
 In the previous section, you learned that Function Calling means “the model outputs structured tool calls.”
@@ -26,9 +26,9 @@ That is its real engineering value in an Agent system.
 
 ---
 
-## 1. Why dig deeper into Function Calling separately?
+## Why dig deeper into Function Calling separately?
 
-### 1.1 The beginner version only solves “can it call?”
+### The beginner version only solves “can it call?”
 
 The simplest function calling system only requires:
 
@@ -37,7 +37,7 @@ The simplest function calling system only requires:
 
 That is usually enough in the demo stage.
 
-### 1.2 Once it goes live, harder problems appear immediately
+### Once it goes live, harder problems appear immediately
 
 For example:
 
@@ -51,9 +51,9 @@ So real Function Calling is not just a JSON structure, but an engineering mechan
 
 ---
 
-## 2. First, understand the complete pipeline
+## First, understand the complete pipeline
 
-### 2.1 The standard closed loop of Function Calling
+### The standard closed loop of Function Calling
 
 ```mermaid
 flowchart LR
@@ -71,7 +71,7 @@ flowchart LR
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 Which parts are handled by whom?
+### Which parts are handled by whom?
 
 | Step | Responsible party |
 |---|---|
@@ -93,9 +93,9 @@ Read this diagram as “model output is not the same as program execution”: th
 
 ---
 
-## 3. Why does schema design directly affect results?
+## Why does schema design directly affect results?
 
-### 3.1 What does a bad schema look like?
+### What does a bad schema look like?
 
 ```python
 bad_schema = {
@@ -117,7 +117,7 @@ The problems with this schema are:
 
 When the model sees a schema like this, it can easily get confused.
 
-### 3.2 A better schema
+### A better schema
 
 ```python
 good_schema = {
@@ -144,9 +144,9 @@ A better schema usually has:
 
 ---
 
-## 4. Parameter validation: you cannot treat the model as a perfectly reliable caller
+## Parameter validation: you cannot treat the model as a perfectly reliable caller
 
-### 4.1 A typical error
+### A typical error
 
 ```python
 tool_call = {
@@ -163,7 +163,7 @@ search_course_policy(**tool_call["arguments"])
 
 the program will likely fail.
 
-### 4.2 A minimal validator
+### A minimal validator
 
 ```python
 def validate_tool_call(call):
@@ -189,9 +189,9 @@ This step is not a “nice-to-have”; it is a basic line of defense for any pro
 
 ---
 
-## 5. A more complete runnable version
+## A more complete runnable version
 
-### 5.1 Define the tools first
+### Define the tools first
 
 ```python
 import ast
@@ -231,7 +231,7 @@ def calculate(expression):
     return str(safe_calculate(expression))
 ```
 
-### 5.2 Define the dispatcher and validation
+### Define the dispatcher and validation
 
 ```python
 def validate_tool_call(call):
@@ -258,7 +258,7 @@ def dispatch(call):
     return "unknown_tool"
 ```
 
-### 5.3 Simulate “the model decides the tool call”
+### Simulate “the model decides the tool call”
 
 ```python
 def mock_model(user_query):
@@ -280,7 +280,7 @@ def mock_model(user_query):
     return None
 ```
 
-### 5.4 Chain it into a complete closed loop
+### Chain it into a complete closed loop
 
 ```python
 queries = [
@@ -310,9 +310,9 @@ This example is already much closer to a real system than simply printing `tool_
 
 ---
 
-## 6. Where is the real challenge in multi-step calls?
+## Where is the real challenge in multi-step calls?
 
-### 6.1 The challenge is not calling once more, but managing state
+### The challenge is not calling once more, but managing state
 
 For example, a user asks:
 
@@ -330,7 +330,7 @@ The problem is:
 - When should the next step stop?
 - How do you handle errors?
 
-### 6.2 A minimal multi-step example
+### A minimal multi-step example
 
 ```python
 def multi_step_agent(query):
@@ -358,9 +358,9 @@ This is why, once Function Calling goes deeper, it will eventually be combined w
 
 ---
 
-## 7. Why are failure handling and recovery important?
+## Why are failure handling and recovery important?
 
-### 7.1 Tool failure is the norm, not the exception
+### Tool failure is the norm, not the exception
 
 In real systems, tool failures are very common:
 
@@ -369,7 +369,7 @@ In real systems, tool failures are very common:
 - Network issues
 - Empty data
 
-### 7.2 A simple fallback for failures
+### A simple fallback for failures
 
 ```python
 def safe_dispatch(call):
@@ -389,9 +389,9 @@ A mature system usually does not crash just because one tool call fails.
 
 ---
 
-## 8. What should you really pay attention to in the deeper end of Function Calling?
+## What should you really pay attention to in the deeper end of Function Calling?
 
-### 8.1 It is not about “can it call,” but “can it call reliably”
+### It is not about “can it call,” but “can it call reliably”
 
 The truly important questions include:
 
@@ -401,7 +401,7 @@ The truly important questions include:
 - How do multi-step calls converge?
 - Can errors be replayed and diagnosed?
 
-### 8.2 The tool layer is the reliability foundation of Agent engineering
+### The tool layer is the reliability foundation of Agent engineering
 
 If the tool layer is unstable, everything above it will wobble:
 
@@ -414,17 +414,17 @@ So although Function Calling looks like “structured output,” in essence it i
 
 ---
 
-## 9. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 9.1 Treating schema like copywriting
+### Treating schema like copywriting
 
 A schema is not decorative documentation; it is the call boundary itself.
 
-### 9.2 Executing directly without validation
+### Executing directly without validation
 
 This is very dangerous.
 
-### 9.3 Having no logs in the tool layer
+### Having no logs in the tool layer
 
 Once something is called incorrectly, a parameter is wrong, or execution blows up, you will not know where the problem came from.
 

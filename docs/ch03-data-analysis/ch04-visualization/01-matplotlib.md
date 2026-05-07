@@ -1,10 +1,10 @@
 ---
-title: "4.1 Matplotlib Basics"
+title: "3.4.2 Matplotlib Basics"
 sidebar_position: 17
 description: "Master Python’s most essential plotting library and learn to tell stories with code"
 ---
 
-# Matplotlib Basics
+# 3.4.2 Matplotlib Basics
 
 ![Matplotlib Figure and Axes structure diagram](/img/course/matplotlib-figure-axes-en.png)
 
@@ -185,7 +185,7 @@ Although `plt.plot()` is simpler, the object-oriented style (`fig, ax = plt.subp
 
 This table is especially important for beginners because it turns “function names” back into “communication tasks.”
 
-### 1. Line Plot
+### Line Plot
 
 **Best for:** showing how data changes over time or another continuous variable
 
@@ -226,7 +226,7 @@ plt.show()
 | `label` | Legend label | `"2023"` |
 | `alpha` | Transparency | `0.7` (0 fully transparent, 1 fully opaque) |
 
-### 2. Bar Chart
+### Bar Chart
 
 **Best for:** comparing values across different categories
 
@@ -282,7 +282,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 3. Scatter Plot
+### Scatter Plot
 
 **Best for:** observing the relationship between two variables
 
@@ -316,7 +316,7 @@ plt.show()
 | `cmap` | Colormap | `"viridis"`, `"RdYlGn"`, `"Blues"` |
 | `alpha` | Transparency | `0.7` |
 
-### 4. Histogram
+### Histogram
 
 **Best for:** viewing the distribution of data
 
@@ -343,7 +343,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 5. Pie Chart
+### Pie Chart
 
 **Best for:** showing parts of a whole (categories should not exceed 5–6)
 

@@ -1,11 +1,11 @@
 ---
-title: "1.4 Text Representation Methods"
+title: "11.1.4 Text Representation Methods"
 sidebar_position: 3
 description: "From one-hot, bag of words, and TF-IDF to similarity computation, understand why text must be converted to numbers first, and what tasks each representation is best suited for."
 keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity, embedding]
 ---
 
-# Text Representation Methods
+# 11.1.4 Text Representation Methods
 
 ![BoW and TF-IDF text representation diagram](/img/course/bow-tfidf-representation-en.png)
 
@@ -31,7 +31,7 @@ So what really matters in this section is not the names of several vectorization
 
 - Once the representation changes, the entire task pipeline that follows changes too
 
-## 1. Why must text be converted to numbers?
+## Why must text be converted to numbers?
 
 Models cannot directly understand the text itself, such as “refund policy” or “I like this course.”
 They can only process numbers.
@@ -45,7 +45,7 @@ This process is called:
 - text representation
 - or vectorization
 
-### 1.1 When learning NLP representations for the first time, what should you focus on first?
+### When learning NLP representations for the first time, what should you focus on first?
 
 What you should focus on first is not the names `one-hot / BoW / TF-IDF`, but this sentence:
 
@@ -58,7 +58,7 @@ Once this idea is solid, when you look at each representation method, you will n
 
 ---
 
-## 2. one-hot: the most basic representation
+## one-hot: the most basic representation
 
 Suppose the vocabulary has only 4 words:
 
@@ -85,7 +85,7 @@ Then each word can be represented by a vector with a single 1:
 
 For example, `love` and `like` are not any closer in one-hot space.
 
-### 2.1 What is the most important thing to remember about one-hot, beyond “simple”?
+### What is the most important thing to remember about one-hot, beyond “simple”?
 
 It is this:
 
@@ -100,7 +100,7 @@ This is also why we naturally move on to:
 
 ---
 
-## 3. Bag of Words (BoW)
+## Bag of Words (BoW)
 
 The core idea of bag of words is very straightforward:
 
@@ -153,7 +153,7 @@ For example:
 
 These may look very similar in bag-of-words representation, but their meanings are completely different.
 
-### 3.1 Why is bag of words still important, even though it is “rough”?
+### Why is bag of words still important, even though it is “rough”?
 
 Because it helps you build an important first intuition:
 
@@ -164,7 +164,7 @@ So the teaching value of bag of words is very high. It gives you the first real 
 
 ---
 
-## 4. TF-IDF: give higher weight to more discriminative words
+## TF-IDF: give higher weight to more discriminative words
 
 Bag of words only counts occurrences,
 but many high-frequency words do not provide much discriminative power.
@@ -182,7 +182,7 @@ So the idea behind TF-IDF is:
 
 ---
 
-## 5. A simple pure Python TF-IDF example
+## A simple pure Python TF-IDF example
 
 ```python
 import math
@@ -231,7 +231,7 @@ for doc, tokens in zip(docs, tokenized_docs):
 It lowers the weight of words that are common everywhere,
 and boosts the weight of words that are especially representative in the current text.
 
-### 5.1 When learning TF-IDF for the first time, what is the most important question to ask?
+### When learning TF-IDF for the first time, what is the most important question to ask?
 
 The most important question is:
 
@@ -244,7 +244,7 @@ Once you think this way, it becomes much easier to understand that TF-IDF is not
 
 ---
 
-## 6. After vectorization, text can be compared by similarity
+## After vectorization, text can be compared by similarity
 
 The most common method is:
 
@@ -301,7 +301,7 @@ This example will usually show:
 
 ---
 
-## 7. What is the difference between traditional representations and embedding?
+## What is the difference between traditional representations and embedding?
 
 ### Traditional representations
 
@@ -321,7 +321,7 @@ Limitations:
 - Limited semantic expressiveness
 - Not sensitive to context
 
-### 7.1 Why do we have to bring embedding in at the end of this section?
+### Why do we have to bring embedding in at the end of this section?
 
 Because this is exactly where the main track of Chapter 11 Natural Language Processing truly starts to rise:
 
@@ -346,17 +346,17 @@ That is why later we will continue learning:
 
 ---
 
-## 8. Common misconceptions
+## Common misconceptions
 
-### 1. Misconception 1: one-hot is too simple, so there is no need to learn it
+### Misconception 1: one-hot is too simple, so there is no need to learn it
 
 It is very important, because it helps you understand the idea that “text must first be converted into numbers.”
 
-### 2. Misconception 2: TF-IDF is definitely outdated
+### Misconception 2: TF-IDF is definitely outdated
 
 In many traditional text classification and retrieval baselines, it is still very valuable.
 
-### 3. Misconception 3: once you have vectors, you understand semantics
+### Misconception 3: once you have vectors, you understand semantics
 
 Vectorization is only the beginning.
 After that, you still need to look at:

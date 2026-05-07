@@ -1,11 +1,11 @@
 ---
-title: "Pandas Introduction: What Is This Chapter Really About?"
+title: "3.3.1 Pandas Introduction: What Is This Chapter Really About?"
 sidebar_position: 8
 description: "A roadmap for first-time Pandas learners: how DataFrame, reading and writing, filtering, cleaning, transformation, aggregation, merging, and time series fit together into a data analysis workflow."
 keywords: [Pandas introduction, DataFrame, data processing, data cleaning, groupby, how to learn Pandas]
 ---
 
-# Pandas Introduction: What Is This Chapter Really About?
+# 3.3.1 Pandas Introduction: What Is This Chapter Really About?
 
 This chapter answers a practical question: once you get a real-world data table, how do you use code to read it in, understand it clearly, organize it, filter it, summarize it, and hand it off to visualization, machine learning, or business analysis?
 
@@ -61,14 +61,14 @@ If you can clearly explain at each step “what the input is, what the output is
 
 | Section | The main problem it should help you solve |
 |---|---|
-| [3.1 Pandas Core Data Structures](./01-core-structures.md) | First understand what `Series / DataFrame / Index` actually are |
-| [3.2 Data Reading and Writing](./02-read-write.md) | Read CSV / Excel / JSON files in and export them out |
-| [3.3 Data Selection and Filtering](./03-selection-filter.md) | Start truly “picking out the part of the data I want” |
-| [3.4 Data Cleaning](./04-data-cleaning.md) | Handle missing values, duplicates, outliers, and formatting issues |
-| [3.5 Data Transformation](./05-data-transform.md) | Transform, map, and derive values across columns |
-| [3.6 Grouping and Aggregation](./06-groupby.md) | Do statistical analysis by department / month / category |
-| [3.7 Data Merging](./07-merge.md) | Stitch multiple tables together |
-| [3.8 Time Series](./08-time-series.md) | Make tables work along the time dimension |
+| [3.3.2 Pandas Core Data Structures](./01-core-structures.md) | First understand what `Series / DataFrame / Index` actually are |
+| [3.3.3 Data Reading and Writing](./02-read-write.md) | Read CSV / Excel / JSON files in and export them out |
+| [3.3.4 Data Selection and Filtering](./03-selection-filter.md) | Start truly “picking out the part of the data I want” |
+| [3.3.5 Data Cleaning](./04-data-cleaning.md) | Handle missing values, duplicates, outliers, and formatting issues |
+| [3.3.6 Data Transformation](./05-data-transform.md) | Transform, map, and derive values across columns |
+| [3.3.7 Grouping and Aggregation](./06-groupby.md) | Do statistical analysis by department / month / category |
+| [3.3.8 Data Merging](./07-merge.md) | Stitch multiple tables together |
+| [3.3.9 Time Series](./08-time-series.md) | Make tables work along the time dimension |
 
 ## How This Chapter Connects to Later Stages
 

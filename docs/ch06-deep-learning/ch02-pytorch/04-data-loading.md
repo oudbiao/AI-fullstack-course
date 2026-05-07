@@ -1,11 +1,11 @@
 ---
-title: "2.6 Data Loading"
+title: "6.2.6 Data Loading"
 sidebar_position: 4
 description: "Understand Dataset, DataLoader, batch, shuffle, and train/validation splitting so the model can steadily consume data batch by batch."
 keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 ---
 
-# Data Loading
+# 6.2.6 Data Loading
 
 ![Dataset DataLoader Batch Flow Diagram](/img/course/dataset-dataloader-batch-flow-en.png)
 
@@ -44,7 +44,7 @@ So what this section is really solving is not “memorize two class names,” bu
 
 So this section is really filling in the “data half” of the training loop.
 
-## 1. Why Do We Need a Data Loader?
+## Why Do We Need a Data Loader?
 
 Imagine you are feeding a model a meal.
 
@@ -66,7 +66,7 @@ for batch_x, batch_y in dataloader:
     pred = model(batch_x)
 ```
 
-### 1.1 When You First See `batch`, What Is Most Worth Remembering?
+### When You First See `batch`, What Is Most Worth Remembering?
 
 You can start by remembering just one sentence:
 
@@ -82,7 +82,7 @@ they are all revolving around this idea.
 
 ---
 
-## 2. What Do `Dataset` and `DataLoader` Each Do?
+## What Do `Dataset` and `DataLoader` Each Do?
 
 You can think of them like this:
 
@@ -96,7 +96,7 @@ A simple way to remember it:
 - `Dataset` handles “how to get one sample”
 - `DataLoader` handles “how to turn samples into a batch”
 
-### 2.1 Why Separate These Two Objects?
+### Why Separate These Two Objects?
 
 Because they solve two different levels of problems:
 
@@ -110,7 +110,7 @@ This separation brings big benefits:
 
 ---
 
-## 3. Start with the Smallest `Dataset`
+## Start with the Smallest `Dataset`
 
 ```python
 import torch
@@ -157,7 +157,7 @@ Usually, the most basic requirement is just two methods:
 - `__len__()`: returns the total number of samples
 - `__getitem__(idx)`: returns the data at index `idx`
 
-### 3.1 When You Write a `Dataset` for the First Time, What Should You Check First?
+### When You Write a `Dataset` for the First Time, What Should You Check First?
 
 The three most important things to check are:
 
@@ -169,7 +169,7 @@ Because if this layer is not written correctly, problems later in `DataLoader` a
 
 ---
 
-## 4. Hand the Dataset to `DataLoader`
+## Hand the Dataset to `DataLoader`
 
 ```python
 import torch
@@ -216,7 +216,7 @@ for batch_idx, (batch_x, batch_y) in enumerate(loader):
 | `batch_size=2` | Take 2 samples each time |
 | `shuffle=True` | Shuffle the order at the start of each epoch |
 
-### 4.1 Why Is It Especially Good to Print Shapes at the `DataLoader` Layer?
+### Why Is It Especially Good to Print Shapes at the `DataLoader` Layer?
 
 Because this is the last easy place to catch data problems before training starts.
 When you finish writing a `DataLoader` for the first time, it is a good idea to do this:
@@ -235,7 +235,7 @@ This quickly tells you:
 
 ---
 
-## 5. Why Shuffle the Data?
+## Why Shuffle the Data?
 
 If your data is originally sorted in some order, for example:
 
@@ -254,7 +254,7 @@ val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
 ---
 
-## 6. How Do We Split Train and Validation Sets?
+## How Do We Split Train and Validation Sets?
 
 PyTorch provides `random_split`:
 
@@ -306,7 +306,7 @@ During learning and debugging, fixing the random seed makes reproduction easier.
 
 ---
 
-## 7. A Complete Runnable Mini Workflow
+## A Complete Runnable Mini Workflow
 
 ```python
 import torch
@@ -363,7 +363,7 @@ for x, y in val_loader:
 
 ---
 
-## 8. How Should You Choose `batch_size`?
+## How Should You Choose `batch_size`?
 
 For beginners, keep this intuitive idea in mind:
 
@@ -378,7 +378,7 @@ If you are just running a teaching example, usually these are enough:
 
 When you start training larger models, then consider balancing memory and throughput.
 
-### 8.1 A More Stable Default Mindset
+### A More Stable Default Mindset
 
 At the beginner stage, think like this:
 
@@ -394,18 +394,18 @@ Because in the learning stage, the most important things are not peak throughput
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 1. Thinking `Dataset` Means Loading All Data into Memory
+### Thinking `Dataset` Means Loading All Data into Memory
 
 Not necessarily.
 In teaching examples, we do write it that way, but in real projects, `__getitem__()` often reads from disk when accessed.
 
-### 2. Not Shuffling the Training Set
+### Not Shuffling the Training Set
 
 It may still run, but it is usually not a good habit.
 
-### 3. Only Knowing How to Write Arrays, Not Dataset Classes
+### Only Knowing How to Write Arrays, Not Dataset Classes
 
 For small experiments, you can be lazy. For slightly more formal projects, it is recommended to write a `Dataset`.
 

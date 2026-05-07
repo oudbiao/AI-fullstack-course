@@ -1,11 +1,11 @@
 ---
-title: "1.2 NLP Overview"
+title: "11.1.2 NLP Overview"
 sidebar_position: 1
 description: "Build an overall map of natural language processing from tasks, workflows, challenges, and a minimal example, and understand why it becomes the foundation for later LLMs and Agents."
 keywords: [NLP, natural language processing, text classification, information extraction, machine translation, language model]
 ---
 
-# NLP Overview
+# 11.1.2 NLP Overview
 
 ![NLP task landscape map](/img/course/ch11-nlp-task-landscape-map-en.png)
 
@@ -25,7 +25,7 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. What is NLP actually doing?
+## What is NLP actually doing?
 
 NLP stands for Natural Language Processing.
 
@@ -53,11 +53,11 @@ What it ultimately aims to solve is not just “recognizing words,” but going 
 
 ---
 
-## 2. What are the most common tasks in NLP?
+## What are the most common tasks in NLP?
 
 You can first think of NLP tasks in four major categories:
 
-### 1. Sentence-level judgment
+### Sentence-level judgment
 
 Input: a piece of text; output: one overall result.
 
@@ -68,7 +68,7 @@ For example:
 - Sentiment analysis
   “Is this review positive or negative?”
 
-### 2. Span localization
+### Span localization
 
 Input: a piece of text; output: some key spans within it.
 
@@ -79,7 +79,7 @@ For example:
 - Information extraction
   Extract time, place, and people from an announcement
 
-### 3. Text-to-text
+### Text-to-text
 
 Input: a piece of text; output: another piece of text.
 
@@ -90,7 +90,7 @@ For example:
 - Paraphrasing
 - Question answering generation
 
-### 4. Interactive and system-level tasks
+### Interactive and system-level tasks
 
 Input is not necessarily just single-turn text; it may also include state, history, and tool outputs.
 
@@ -104,9 +104,9 @@ These tasks combine the capabilities above.
 
 ---
 
-## 3. Why is text processing usually harder than tabular data?
+## Why is text processing usually harder than tabular data?
 
-### 1. Text is ambiguous
+### Text is ambiguous
 
 One sentence can have multiple interpretations.
 
@@ -117,7 +117,7 @@ For example:
 If you only look at “not cheap,” it is easy to misjudge it as negative;
 but the whole sentence is actually more of a positive evaluation.
 
-### 2. Text depends heavily on context
+### Text depends heavily on context
 
 Many words do not mean much on their own; they gain specific meaning in context.
 
@@ -126,7 +126,7 @@ For example:
 - `bank`
   can mean a financial institution or the side of a river
 
-### 3. Text expression is not standardized
+### Text expression is not standardized
 
 Users may describe the same thing in many different ways.
 
@@ -138,7 +138,7 @@ For example:
 
 These texts look very different on the surface, but their intent is similar.
 
-### 4. Text is naturally unstructured
+### Text is naturally unstructured
 
 Tabular data often has clear column meanings:
 
@@ -151,7 +151,7 @@ The model must first turn it into a computable structure.
 
 ---
 
-## 4. What does a typical NLP workflow look like?
+## What does a typical NLP workflow look like?
 
 The most basic pipeline can be understood as:
 
@@ -178,7 +178,7 @@ Most of the later chapters in Chapter 11 Natural Language Processing (elective t
 
 ---
 
-## 5. Let’s run a minimal NLP example
+## Let’s run a minimal NLP example
 
 The example below is very simple, but it already fully shows the core NLP workflow:
 
@@ -226,9 +226,9 @@ Even though this example only uses rules, it is already the most basic NLP syste
 
 ---
 
-## 6. Three major development paths in NLP
+## Three major development paths in NLP
 
-### 1. Rule-based systems
+### Rule-based systems
 
 Use manually written rules and logic.
 
@@ -242,7 +242,7 @@ Cons:
 - Hard to maintain
 - Poor generalization
 
-### 2. Traditional machine learning
+### Traditional machine learning
 
 First design features, then train a classifier.
 
@@ -253,7 +253,7 @@ For example:
 - SVM
 - Logistic regression
 
-### 3. Deep learning and pre-trained models
+### Deep learning and pre-trained models
 
 Let the model learn representations and contextual relationships directly.
 
@@ -270,7 +270,7 @@ So many things you will learn later are essentially answering the same question:
 
 ---
 
-## 7. Why is NLP so closely related to LLMs, RAG, and Agents?
+## Why is NLP so closely related to LLMs, RAG, and Agents?
 
 Because LLMs are still fundamentally processing text.
 If you do not understand these basic concepts:
@@ -294,21 +294,21 @@ So Chapter 11 Natural Language Processing (elective track) is not a detour; it i
 
 ---
 
-## 8. Common beginner misconceptions
+## Common beginner misconceptions
 
-### 1. Thinking NLP is the same as chatbots
+### Thinking NLP is the same as chatbots
 
 Chat is only one application scenario of NLP, not the whole field.
 
-### 2. Thinking preprocessing is just a minor detail
+### Thinking preprocessing is just a minor detail
 
 In many tasks, preprocessing quality directly affects the upper bound of performance.
 
-### 3. Thinking only deep learning counts as NLP
+### Thinking only deep learning counts as NLP
 
 Rule-based systems and traditional machine learning are still very valuable in many small and medium-sized tasks.
 
-### 4. Thinking that if humans “understand” text, machines can process it directly
+### Thinking that if humans “understand” text, machines can process it directly
 
 For machines, text must first be converted into a computable form.
 

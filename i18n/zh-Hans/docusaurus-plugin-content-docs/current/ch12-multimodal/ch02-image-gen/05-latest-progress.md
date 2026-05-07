@@ -1,11 +1,11 @@
 ---
-title: "2.6 最新进展"
+title: "12.2.6 最新进展"
 sidebar_position: 8
 description: "从更快采样、更强可控生成、统一多模态和内容生产工作流四条主线，理解图像生成领域近几年的稳定进展方向。"
 keywords: [image generation, latest progress, diffusion, controllable generation, multimodal, image editing]
 ---
 
-# 最新进展
+# 12.2.6 最新进展
 
 ![图像生成前沿趋势雷达图](/img/course/ch12-image-generation-trend-radar-map.png)
 
@@ -38,7 +38,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ## 一、为什么“最新进展”不能只靠背模型名？
 
-### 1.1 因为名字换得快，底层方向变得慢一些
+### 因为名字换得快，底层方向变得慢一些
 
 图像生成领域变化很快。
 如果只记：
@@ -55,7 +55,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - 交互方式在往哪走
 - 工作流整合在往哪走
 
-### 1.2 一个类比
+### 一个类比
 
 看“最新进展”更像看城市道路规划，而不是只记今天哪辆车跑得最快。
 
@@ -67,7 +67,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ## 二、主线一：生成越来越快
 
-### 2.1 早期痛点：好看，但慢
+### 早期痛点：好看，但慢
 
 扩散模型最早让人惊艳的地方是：
 
@@ -79,7 +79,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - 采样步数多
 - 推理时间长
 
-### 2.2 后续演进方向
+### 后续演进方向
 
 这几年的一条明显主线就是：
 
@@ -93,7 +93,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - 交互式生成
 - 实时编辑
 
-### 2.3 为什么这条线特别重要？
+### 为什么这条线特别重要？
 
 因为速度不是锦上添花，它直接决定：
 
@@ -105,7 +105,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ## 三、主线二：可控生成越来越强
 
-### 3.1 从“给一句 prompt”到“给更多条件”
+### 从“给一句 prompt”到“给更多条件”
 
 早期文生图常见体验是：
 
@@ -121,7 +121,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - 参考图
 - 风格参考
 
-### 3.2 图像编辑成为重点
+### 图像编辑成为重点
 
 现在一个非常稳定的趋势是：
 
@@ -135,7 +135,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - 修局部
 - 保留人物一致性
 
-### 3.3 为什么“可控”比“更会画”更像产品能力？
+### 为什么“可控”比“更会画”更像产品能力？
 
 因为内容生产不只是看单次样张。
 真正重要的是：
@@ -150,7 +150,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ## 四、主线三：从单模态到统一多模态
 
-### 4.1 输入不再只有文本
+### 输入不再只有文本
 
 现在越来越多系统接受的输入是组合式的：
 
@@ -162,7 +162,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 也就是说，生成模型越来越像一个视觉交互系统，而不只是“文本到图像”。
 
-### 4.2 输出也不再只有单张图
+### 输出也不再只有单张图
 
 图像生成的边界正在往外扩：
 
@@ -174,7 +174,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 所以图像生成逐渐不是一个孤立赛道，
 而是在向更大的“多模态内容生成”汇合。
 
-### 4.3 为什么这条线值得注意？
+### 为什么这条线值得注意？
 
 因为它会影响你后面怎么学：
 
@@ -185,11 +185,11 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ## 五、主线四：从模型展示走向内容工作流
 
-### 5.1 早期常见目标：生成一张漂亮图
+### 早期常见目标：生成一张漂亮图
 
 这当然重要，但对生产环境来说还不够。
 
-### 5.2 现在更真实的目标
+### 现在更真实的目标
 
 常见真实需求其实是：
 
@@ -198,7 +198,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - 自动做尺寸适配
 - 与审查、素材库、发布系统串起来
 
-### 5.3 这意味着什么？
+### 这意味着什么？
 
 意味着图像生成系统越来越像一个工作流节点，而不是独立玩具。
 
@@ -242,7 +242,7 @@ for item in ranked:
     print(item)
 ```
 
-### 6.1 这段代码想传达什么？
+### 这段代码想传达什么？
 
 真正读“最新进展”时，不要只看技术炫不炫，
 还要问：
@@ -251,7 +251,7 @@ for item in ranked:
 - 工程门槛高不高
 - 稳定性是否已经足够
 
-### 6.2 为什么这比单纯列清单更有用？
+### 为什么这比单纯列清单更有用？
 
 因为你以后不只是读论文，
 还很可能要做判断：
@@ -263,7 +263,7 @@ for item in ranked:
 
 ## 七、怎么继续跟这个领域？
 
-### 7.1 先按“方向”追，而不是按“名字”追
+### 先按“方向”追，而不是按“名字”追
 
 优先追：
 
@@ -272,14 +272,14 @@ for item in ranked:
 - 多模态统一
 - 工作流集成
 
-### 7.2 读论文时建议问四个问题
+### 读论文时建议问四个问题
 
 1. 它解决的是速度、质量、可控性还是工作流问题？
 2. 它靠的是新训练目标、新架构，还是新系统设计？
 3. 它更适合研究演示，还是已经接近产品可用？
 4. 它会不会明显改变生产流程？
 
-### 7.3 对新人最有帮助的阅读顺序
+### 对新人最有帮助的阅读顺序
 
 建议先把：
 
@@ -293,16 +293,16 @@ for item in ranked:
 
 ## 八、常见误区
 
-### 8.1 误区一：最新进展就是最新模型名
+### 误区一：最新进展就是最新模型名
 
 模型名会变，主线更值得追。
 
-### 8.2 误区二：越前沿就越适合马上学
+### 误区二：越前沿就越适合马上学
 
 不一定。
 有些方向很前沿，但离产品和工程落地还比较远。
 
-### 8.3 误区三：图像生成只看画质
+### 误区三：图像生成只看画质
 
 现在越来越重要的是：
 

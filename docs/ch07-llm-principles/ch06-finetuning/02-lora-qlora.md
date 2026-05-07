@@ -1,11 +1,11 @@
 ---
-title: "6.3 LoRA and QLoRA"
+title: "7.6.3 LoRA and QLoRA"
 sidebar_position: 20
 description: "From low-rank increments to quantized fine-tuning, understand what LoRA and QLoRA actually change and why they can greatly lower the barrier to fine-tuning large models."
 keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]
 ---
 
-# LoRA and QLoRA
+# 7.6.3 LoRA and QLoRA
 
 ![LoRA parameter update comparison](/img/course/lora-parameter-update-en.png)
 
@@ -61,7 +61,7 @@ QLoRA goes one step further:
 
 - First make the original machine more memory-efficient, then attach that modification component
 
-## 1. Why Has LoRA Become So Important?
+## Why Has LoRA Become So Important?
 
 Because full fine-tuning is often too expensive for large models:
 
@@ -77,9 +77,9 @@ LoRA is the answer to that question.
 
 ---
 
-## 2. What Is the Core Intuition Behind LoRA?
+## What Is the Core Intuition Behind LoRA?
 
-### 2.1 Don’t Directly Change the Entire Weight Matrix
+### Don’t Directly Change the Entire Weight Matrix
 
 Suppose the original weight matrix is:
 
@@ -93,7 +93,7 @@ Then the model actually uses:
 
 > `W + ΔW`
 
-### 2.2 Why Is It Called “Low-Rank”?
+### Why Is It Called “Low-Rank”?
 
 Because this increment is usually not learned as one full large matrix. Instead, it is often written as:
 
@@ -105,7 +105,7 @@ where:
 
 This is the core reason it is called “low-rank.”
 
-### 2.3 Symbols and acronyms in this section
+### Symbols and acronyms in this section
 
 | Term | Meaning | Why it matters |
 |---|---|---|
@@ -118,7 +118,7 @@ This is the core reason it is called “low-rank.”
 
 ---
 
-## 3. A Minimal LoRA Matrix Illustration
+## A Minimal LoRA Matrix Illustration
 
 :::info Run note
 This example uses PyTorch. If your local environment does not have it yet, install it first:
@@ -143,7 +143,7 @@ print("delta shape :", delta.shape)
 print("W_new shape :", W_new.shape)
 ```
 
-### 3.2 What Does This Code Teach?
+### What Does This Code Teach?
 
 It teaches you that:
 
@@ -158,7 +158,7 @@ That is the fundamental reason it saves resources.
 When reading this diagram, think of the original weight `W` as a frozen large base. LoRA trains only the small matrices `A` and `B` to form `ΔW = A @ B`, while QLoRA further quantizes the base model to reduce VRAM usage. The key idea is not the acronym, but “fewer parameters changed, less VRAM used.”
 :::
 
-### 3.3 A Beginner-Friendly Comparison Table
+### A Beginner-Friendly Comparison Table
 
 | Approach | Core action to remember |
 |---|---|
@@ -170,7 +170,7 @@ This table is especially useful for beginners because it compresses three easily
 
 ---
 
-## 4. Why Can This Greatly Reduce Training Cost?
+## Why Can This Greatly Reduce Training Cost?
 
 Because training the original large matrix in full is expensive.
 After low-rank decomposition, the trainable part becomes much smaller.
@@ -183,14 +183,14 @@ That is also why it is so popular in real projects.
 
 ---
 
-## 5. What Additional Problem Does QLoRA Solve?
+## What Additional Problem Does QLoRA Solve?
 
-### 5.1 Why Isn’t LoRA Alone Always Enough?
+### Why Isn’t LoRA Alone Always Enough?
 
 Even if you only train the small increment parameters, the base model itself is still large.
 Once the model is loaded, VRAM pressure is still high.
 
-### 5.2 The Key Point of QLoRA
+### The Key Point of QLoRA
 
 QLoRA adds one more step on top of LoRA:
 
@@ -201,7 +201,7 @@ In other words:
 - The base model uses less memory
 - The adapter layers are still trainable
 
-### 5.3 A Minimal Intuition Example
+### A Minimal Intuition Example
 
 ```python
 config = {
@@ -218,7 +218,7 @@ The most important meaning of this example is:
 - LoRA: mainly saves training parameters
 - QLoRA: further reduces the memory used by the base model
 
-### 5.4 Another Minimal “Resource Constraint -> Solution Choice” Example
+### Another Minimal “Resource Constraint -> Solution Choice” Example
 
 ```python
 constraints = {
@@ -246,15 +246,15 @@ This example is especially useful for beginners because it reminds you to:
 
 ---
 
-## 6. When Is LoRA or QLoRA More Appropriate?
+## When Is LoRA or QLoRA More Appropriate?
 
-### 6.1 LoRA Is Better When
+### LoRA Is Better When
 
 - Resources are still acceptable
 - You do not necessarily need to push VRAM usage to the limit
 - You want to quickly try parameter-efficient fine-tuning
 
-### 6.2 QLoRA Is Better When
+### QLoRA Is Better When
 
 - VRAM is very tight
 - You want to run a larger model on a smaller machine
@@ -263,7 +263,7 @@ In other words:
 
 > QLoRA is more like a practical engineering solution for resource-constrained scenarios.
 
-### 6.3 If You Are Doing a Project for the First Time, How Should You Choose More Safely?
+### If You Are Doing a Project for the First Time, How Should You Choose More Safely?
 
 A practical decision order is:
 
@@ -271,7 +271,7 @@ A practical decision order is:
 2. If VRAM is already clearly tight, prioritize QLoRA
 3. If you still have not clarified the task boundary, don’t rush into fine-tuning details
 
-### 6.4 If You Turn This Into a Project or Proposal, What Is Most Worth Showing?
+### If You Turn This Into a Project or Proposal, What Is Most Worth Showing?
 
 What is usually most worth showing is not:
 
@@ -291,7 +291,7 @@ That way, others can more easily see that:
 
 ---
 
-## 7. Why Do They Lower the Fine-Tuning Barrier?
+## Why Do They Lower the Fine-Tuning Barrier?
 
 Before LoRA / QLoRA became widely used, many people thought of large-model fine-tuning as something that only:
 
@@ -306,24 +306,24 @@ This is not a small optimization, but a change in engineering accessibility.
 
 ---
 
-## 8. The Most Common Misunderstandings
+## The Most Common Misunderstandings
 
-### 8.1 Thinking LoRA / QLoRA Are “Free Improvements”
+### Thinking LoRA / QLoRA Are “Free Improvements”
 
 They are powerful, but they are not completely free.
 
-### 8.2 Thinking QLoRA Means You No Longer Need to Care About Resources
+### Thinking QLoRA Means You No Longer Need to Care About Resources
 
 It is lighter, but not infinitely light.
 
-### 8.3 Memorizing the Method Name Without Understanding What Is Actually Being Changed
+### Memorizing the Method Name Without Understanding What Is Actually Being Changed
 
 What you really need to remember is:
 
 - LoRA: learn increments
 - QLoRA: learn increments + quantize the base model
 
-## 9. Key Reminder
+## Key Reminder
 
 - The core of LoRA is “change fewer parameters”
 - The core of QLoRA is “change fewer parameters + use less base model memory”

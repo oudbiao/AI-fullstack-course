@@ -1,11 +1,11 @@
 ---
-title: "2.4 语言模型基础"
+title: "11.2.4 语言模型基础"
 sidebar_position: 6
 description: "从 n-gram 到 next token prediction，理解语言模型在做什么，以及它为什么会成为后面大模型的共同底座。"
 keywords: [language model, next token prediction, n-gram, autoregressive, probability, NLP]
 ---
 
-# 语言模型基础
+# 11.2.4 语言模型基础
 
 ![语言模型 next token 预测图](/img/course/ch11-language-model-next-token-stack.png)
 
@@ -35,7 +35,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 
 ## 一、语言模型到底在学什么？
 
-### 1.1 最基本的形式
+### 最基本的形式
 
 一句话讲，就是：
 
@@ -45,7 +45,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 
 - “我 爱” -> 下一个词可能是 `AI`、`你`、`Python`
 
-### 1.2 为什么这个任务看起来简单却很强？
+### 为什么这个任务看起来简单却很强？
 
 因为要做好这件事，模型必须逐渐学会：
 
@@ -58,7 +58,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 “预测下一个 token”虽然目标简单，
 但背后会逼着模型学很多语言规律。
 
-### 1.3 一个类比
+### 一个类比
 
 语言模型像在玩“接龙”，
 但这不是随便接，而是要接得：
@@ -71,7 +71,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 
 ## 二、先从 n-gram 直觉开始
 
-### 2.1 什么是 n-gram 语言模型？
+### 什么是 n-gram 语言模型？
 
 它可以先理解成：
 
@@ -86,13 +86,13 @@ trigram：
 
 - 只看前 2 个词
 
-### 2.2 这种方法有什么好处？
+### 这种方法有什么好处？
 
 - 直观
 - 可解释
 - 容易上手
 
-### 2.3 它的局限也很明显
+### 它的局限也很明显
 
 - 看不到长距离依赖
 - 很容易稀疏
@@ -123,14 +123,14 @@ for sent in corpus:
 print(dict(stats))
 ```
 
-### 3.1 这段代码最重要的价值是什么？
+### 这段代码最重要的价值是什么？
 
 它把语言模型最底层的逻辑掀开来看：
 
 - 看到一个词后
 - 下一个词在训练语料里出现过多少次
 
-### 3.2 为什么这已经像一个“语言模型”了？
+### 为什么这已经像一个“语言模型”了？
 
 因为它已经在做：
 
@@ -152,14 +152,14 @@ print(dict(stats))
 
 ## 四、怎么从统计模型走到神经语言模型？
 
-### 4.1 核心任务没变
+### 核心任务没变
 
 虽然模型架构后面变得越来越复杂，
 但一个重要事实是：
 
 - 目标函数常常还是“预测下一个 token”
 
-### 4.2 变的是表示和泛化方式
+### 变的是表示和泛化方式
 
 神经语言模型不再只是查频次表，
 而是会：
@@ -173,7 +173,7 @@ print(dict(stats))
 - 学到更抽象的模式
 - 对没见过的组合有更强泛化
 
-### 4.3 一个简化的“预测分布”例子
+### 一个简化的“预测分布”例子
 
 ```python
 import math
@@ -204,7 +204,7 @@ print(softmax(scores))
 
 ## 五、为什么语言模型会成为大模型的共同底座？
 
-### 5.1 因为这个目标足够通用
+### 因为这个目标足够通用
 
 无论后面你是做：
 
@@ -215,7 +215,7 @@ print(softmax(scores))
 
 很多能力都能从“语言延续能力”里长出来。
 
-### 5.2 因为它很适合大规模自监督学习
+### 因为它很适合大规模自监督学习
 
 你不需要人工标注“下一个词是什么”，
 文本本身就天然带这个标签。
@@ -227,7 +227,7 @@ print(softmax(scores))
 
 可以自然结合起来。
 
-### 5.3 这也是为什么后面会走向 GPT 这条线
+### 这也是为什么后面会走向 GPT 这条线
 
 因为自回归语言建模：
 
@@ -241,17 +241,17 @@ print(softmax(scores))
 
 ## 六、最容易踩的坑
 
-### 6.1 误区一：语言模型只是“会接下一个词”
+### 误区一：语言模型只是“会接下一个词”
 
 这个说法表面上对，
 但低估了这个任务能逼模型学到的东西。
 
-### 6.2 误区二：n-gram 没用，所以没必要学
+### 误区二：n-gram 没用，所以没必要学
 
 n-gram 很有用，
 因为它让你第一次真正看到语言模型在做什么。
 
-### 6.3 误区三：只要会生成，就等于理解了语言
+### 误区三：只要会生成，就等于理解了语言
 
 生成能力强不等于完全理解。
 这也是后面为什么还要看推理、对齐和工具调用。

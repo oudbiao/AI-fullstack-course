@@ -1,11 +1,11 @@
 ---
-title: "Database Overview: Why You Still Need Databases After Data Analysis"
+title: "3.5.1 Database Overview: Why You Still Need Databases After Data Analysis"
 sidebar_position: 20
 description: "A road map for beginners learning databases for the first time: why you still need databases beyond CSVs and DataFrames, and how to study this chapter without getting confused."
 keywords: [database overview, relational database, SQL, sqlite, Pandas and databases]
 ---
 
-# Database Overview: Why You Still Need Databases After Data Analysis
+# 3.5.1 Database Overview: Why You Still Need Databases After Data Analysis
 
 :::tip A very important learning expectation upfront
 The main thread of Chapter 3, Data Analysis and Visualization, is still:
@@ -96,22 +96,22 @@ then you can no longer rely only on scattered files.
 
 | Chapter | What problem should it help you solve most? |
 |---|---|
-| [5.1 Basics of Relational Databases](./01-relational-db.md) | First understand what databases, tables, primary keys, and foreign keys actually are |
-| [5.2 SQL Basics](./02-sql-basics.md) | Learn how to use SQL to query, filter, and aggregate data |
-| [5.3 Python Database Operations](./03-python-db.md) | Connect Python, Pandas, and databases for real |
-| [5.4 Database Design](./04-db-design.md) | Understand why tables are split up that way and why fields are designed that way |
+| [3.5.2 Basics of Relational Databases](./01-relational-db.md) | First understand what databases, tables, primary keys, and foreign keys actually are |
+| [3.5.3 SQL Basics](./02-sql-basics.md) | Learn how to use SQL to query, filter, and aggregate data |
+| [3.5.4 Python Database Operations](./03-python-db.md) | Connect Python, Pandas, and databases for real |
+| [3.5.5 Database Design](./04-db-design.md) | Understand why tables are split up that way and why fields are designed that way |
 
 ## The safest order for learning databases for the first time
 
 A more stable order is usually:
 
-1. Start with [Basics of Relational Databases](./01-relational-db.md)
+1. Start with [3.5.2 Basics of Relational Databases](./01-relational-db.md)
    First build the concepts of databases and tables.
-2. Then learn [SQL Basics](./02-sql-basics.md)
+2. Then learn [3.5.3 SQL Basics](./02-sql-basics.md)
    First learn how to query, filter, and group.
-3. Then learn [Python Database Operations](./03-python-db.md)
+3. Then learn [3.5.4 Python Database Operations](./03-python-db.md)
    Connect code with the database.
-4. Finally read [Database Design](./04-db-design.md)
+4. Finally read [3.5.5 Database Design](./04-db-design.md)
    Learn why tables are organized that way.
 
 ## What is most worth remembering the first time you learn databases?

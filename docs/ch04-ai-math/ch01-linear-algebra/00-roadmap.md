@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-class Guide: What Is This Linear Algebra Chapter Actually About?"
+title: "4.1.1 Pre-class Guide: What Is This Linear Algebra Chapter Actually About?"
 sidebar_position: 0
 description: "Before formally starting linear algebra, build a map: why AI cannot do without vectors, matrices, eigenvalues, and linear transformations."
 keywords: [Linear Algebra Guide, AI Math Guide, Vectors, Matrices, Eigenvalues, PCA]
 ---
 
-# Pre-class Guide: What Is This Linear Algebra Chapter Actually About?
+# 4.1.1 Pre-class Guide: What Is This Linear Algebra Chapter Actually About?
 
 ![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-vertical-en.png)
 
@@ -40,7 +40,7 @@ A more important standard is:
 
 ---
 
-## 1. Why is linear algebra everywhere in AI?
+## Why is linear algebra everywhere in AI?
 
 Because many objects in AI can essentially be represented as “arrays of numbers,” and linear algebra is the language for describing how these number arrays are represented, transformed, and compared.
 
@@ -61,7 +61,7 @@ So you can think of this chapter as:
 
 ---
 
-## 2. What is the relationship between the four sections of this chapter?
+## What is the relationship between the four sections of this chapter?
 
 ![Linear Algebra Chapter Flow](/img/course/ch04-linear-algebra-chapter-flow-en.png)
 
@@ -69,7 +69,7 @@ You can compress the whole chapter into one sentence:
 
 > **First learn to write data as vectors, then learn to use matrices to process vectors in batches, and finally learn to find the most important structures from these transformations.**
 
-## 3. Why is this chapter especially important for AI?
+## Why is this chapter especially important for AI?
 
 Because later you will keep seeing these things:
 
@@ -85,7 +85,7 @@ In other words, linear algebra in AI is not just “background knowledge,” but
 
 ---
 
-## 4. Tiny Glossary Before You Start
+## Tiny Glossary Before You Start
 
 | Term | What it means here | Why it appears in this chapter |
 |---|---|---|
@@ -97,9 +97,9 @@ In other words, linear algebra in AI is not just “background knowledge,” but
 
 If these terms still feel unfamiliar, do not pause the course to memorize them. Treat this table as a pocket dictionary and return to it whenever the same word appears again.
 
-## 5. How should beginners study this chapter?
+## How should beginners study this chapter?
 
-### 5.1 First: really understand vectors
+### First: really understand vectors
 
 At minimum, you should understand:
 
@@ -107,7 +107,7 @@ At minimum, you should understand:
 - What vector length, dot product, and cosine similarity each measure
 - Why RAG, recommendation systems, and word vectors all use similarity
 
-### 5.2 Second: treat matrices as “batch processing machines”
+### Second: treat matrices as “batch processing machines”
 
 At minimum, you should understand:
 
@@ -115,7 +115,7 @@ At minimum, you should understand:
 - Matrix multiplication is really “dot products between rows and columns”
 - Why one layer of a neural network can be written as `X @ W + b`
 
-### 5.3 Third: treat eigenvalues as “special directions”
+### Third: treat eigenvalues as “special directions”
 
 At minimum, you should understand:
 
@@ -123,7 +123,7 @@ At minimum, you should understand:
 - But some special directions are only stretched or shrunk
 - PCA is about finding the directions along which the data varies the most
 
-### 5.4 Fourth: treat vector spaces as an optional deepening step
+### Fourth: treat vector spaces as an optional deepening step
 
 This section is more like “elevating the previous content to a higher perspective.”
 
@@ -136,7 +136,7 @@ If your current goal is to quickly learn machine learning and deep learning, you
 
 to the level where you can explain them and verify them with code, and then keep moving forward.
 
-### 5.5 A more beginner-friendly reading order
+### A more beginner-friendly reading order
 
 It is recommended that you read each section in this order:
 
@@ -146,7 +146,7 @@ It is recommended that you read each section in this order:
 
 Especially in linear algebra, this will feel much more comfortable than staring at symbols from the very beginning.
 
-## 5. How should you allocate your time for this chapter?
+## How should you allocate your time for this chapter?
 
 If you want to learn this chapter more solidly, a very beginner-friendly reference pace is:
 
@@ -166,7 +166,7 @@ If you only study 1 section per day, that is usually more stable than grinding t
 
 ---
 
-## 6. Common misunderstandings about this chapter
+## Common misunderstandings about this chapter
 
 - Thinking linear algebra is just a bunch of formulas; in fact, it is first a language for describing data and transformations
 - Thinking that if you cannot understand proofs, you cannot learn AI; in fact, understanding diagrams and code already has great value
@@ -175,7 +175,7 @@ If you only study 1 section per day, that is usually more stable than grinding t
 
 ---
 
-## 7. Run a minimum example that runs through the whole chapter
+## Run a minimum example that runs through the whole chapter
 
 The small code below connects almost all the main ideas of this chapter:
 
@@ -225,7 +225,7 @@ If your output differs, first check whether the weights still sum to `1.0`, whet
 
 ---
 
-## 8. After finishing this chapter, what should you at least be able to do?
+## After finishing this chapter, what should you at least be able to do?
 
 - When you see one data point, know that it can be written as a vector
 - When you see a batch of data, know that it can be written as a matrix

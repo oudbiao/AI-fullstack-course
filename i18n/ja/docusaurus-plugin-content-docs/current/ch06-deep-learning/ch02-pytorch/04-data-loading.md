@@ -1,11 +1,11 @@
 ---
-title: "2.6 データ読み込み"
+title: "6.2.6 データ読み込み"
 sidebar_position: 4
 description: "Dataset、DataLoader、batch、shuffle、そして訓練データの分割を理解して、モデルがデータを安定して少しずつ受け取れるようにしよう。"
 keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 ---
 
-# データ読み込み
+# 6.2.6 データ読み込み
 
 ![Dataset DataLoader Batch の流れ図](/img/course/dataset-dataloader-batch-flow-ja.png)
 
@@ -46,7 +46,7 @@ flowchart LR
 
 つまりこの節は、学習の流れに「データ側」を足すパートです。
 
-## 1. なぜデータローダーが必要なのか？
+## なぜデータローダーが必要なのか？
 
 モデルにごはんを食べさせるところを想像してみましょう。
 
@@ -68,7 +68,7 @@ for batch_x, batch_y in dataloader:
     pred = model(batch_x)
 ```
 
-### 1.1 最初に `batch` について覚えるなら、何が大事？
+### 最初に `batch` について覚えるなら、何が大事？
 
 まずはこの1文だけ覚えれば十分です。
 
@@ -84,7 +84,7 @@ for batch_x, batch_y in dataloader:
 
 ---
 
-## 2. `Dataset` と `DataLoader` はそれぞれ何をするのか？
+## `Dataset` と `DataLoader` はそれぞれ何をするのか？
 
 次のように考えるとわかりやすいです。
 
@@ -98,7 +98,7 @@ for batch_x, batch_y in dataloader:
 - `Dataset` は「1件のデータをどう取るか」を担当
 - `DataLoader` は「1件のデータをどうやって batch にまとめるか」を担当
 
-### 2.1 なぜこの2つを分けるのか？
+### なぜこの2つを分けるのか？
 
 理由は、解決している問題の階層が違うからです。
 
@@ -112,7 +112,7 @@ for batch_x, batch_y in dataloader:
 
 ---
 
-## 3. まずは最小の `Dataset` を見よう
+## まずは最小の `Dataset` を見よう
 
 ```python
 import torch
@@ -159,7 +159,7 @@ print("3 番目のサンプル:", dataset[3])
 - `__len__()`：全サンプル数を返す
 - `__getitem__(idx)`：`idx` 番目のデータを返す
 
-### 3.1 初めて `Dataset` を自分で書くとき、何を最初に確認する？
+### 初めて `Dataset` を自分で書くとき、何を最初に確認する？
 
 まずは次の3つをチェックしましょう。
 
@@ -171,7 +171,7 @@ print("3 番目のサンプル:", dataset[3])
 
 ---
 
-## 4. データセットを `DataLoader` に渡す
+## データセットを `DataLoader` に渡す
 
 ```python
 import torch
@@ -218,7 +218,7 @@ for batch_idx, (batch_x, batch_y) in enumerate(loader):
 | `batch_size=2` | 1回で 2 件のサンプルを取る |
 | `shuffle=True` | 各 epoch の最初に順番を入れ替える |
 
-### 4.1 `DataLoader` の段階で shape を確認するのが大事な理由
+### `DataLoader` の段階で shape を確認するのが大事な理由
 
 ここは、訓練前にデータを確認できる最後のわかりやすい場所だからです。  
 最初に `DataLoader` を書いたら、ぜひ次をやってみましょう。
@@ -237,7 +237,7 @@ for batch_x, batch_y in loader:
 
 ---
 
-## 5. なぜデータをシャッフルするのか？
+## なぜデータをシャッフルするのか？
 
 もし元のデータが、ある順番で並んでいたとします。たとえば、
 
@@ -256,7 +256,7 @@ val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
 ---
 
-## 6. 訓練データと検証データはどう分ける？
+## 訓練データと検証データはどう分ける？
 
 PyTorch には `random_split` があります。
 
@@ -308,7 +308,7 @@ print("検証データサイズ:", len(val_dataset))
 
 ---
 
-## 7. ひと通り動く小さな例
+## ひと通り動く小さな例
 
 ```python
 import torch
@@ -365,7 +365,7 @@ for x, y in val_loader:
 
 ---
 
-## 8. `batch_size` はどう選べばいい？
+## `batch_size` はどう選べばいい？
 
 初心者のうちは、まず感覚でこう覚えれば大丈夫です。
 
@@ -380,7 +380,7 @@ for x, y in val_loader:
 
 もっと大きなモデルを扱うようになったら、そこで初めてメモリや処理速度のバランスを考えれば大丈夫です。
 
-### 8.1 まずは安定した設定を選ぶ考え方
+### まずは安定した設定を選ぶ考え方
 
 初心者の段階では、次の順番で考えるとよいです。
 
@@ -398,18 +398,18 @@ for x, y in val_loader:
 
 ---
 
-## 9. 初心者がよくやる勘違い
+## 初心者がよくやる勘違い
 
-### 1. `Dataset` はすべてのデータをメモリに読み込むものだと思う
+### `Dataset` はすべてのデータをメモリに読み込むものだと思う
 
 必ずしもそうではありません。  
 この教材ではわかりやすくそう書いていますが、実際の開発では `__getitem__()` のタイミングでディスクから読み込むこともよくあります。
 
-### 2. 訓練データをシャッフルしない
+### 訓練データをシャッフルしない
 
 動くことはありますが、普通はよい習慣ではありません。
 
-### 3. 配列だけを書いて、データセットクラスを書かない
+### 配列だけを書いて、データセットクラスを書かない
 
 小さな実験ならそれでもよいですが、少しきちんとしたプロジェクトでは `Dataset` として書くのがおすすめです。
 

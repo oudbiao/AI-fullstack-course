@@ -1,11 +1,11 @@
 ---
-title: "7.6 Multi-Agent Challenges and Solutions"
+title: "9.7.6 Multi-Agent Challenges and Solutions"
 sidebar_position: 42
 description: "From repeated work, communication distortion, conflict resolution, cost explosion, to observability, systematically understand the most common difficulties in real-world multi-Agent deployment."
 keywords: [multi-agent, failure modes, coordination, observability, cost, conflict resolution]
 ---
 
-# Multi-Agent Challenges and Solutions
+# 9.7.6 Multi-Agent Challenges and Solutions
 
 :::tip Section overview
 In the previous sections, you saw that multi-Agent systems can divide work, communicate, and coordinate.
@@ -25,9 +25,9 @@ This section is all about those “loss of control” points.
 
 ---
 
-## 1. Why Are Multi-Agent Systems More Error-Prone?
+## Why Are Multi-Agent Systems More Error-Prone?
 
-### 1.1 The Most Common Problems in a Single Agent
+### The Most Common Problems in a Single Agent
 
 Common single-Agent problems are usually:
 
@@ -35,7 +35,7 @@ Common single-Agent problems are usually:
 - Choosing the wrong tool
 - Unstable outputs
 
-### 1.2 Multi-Agent Systems Add Another Layer of System Complexity
+### Multi-Agent Systems Add Another Layer of System Complexity
 
 In addition to errors made by individual Agents, multi-Agent systems introduce new issues:
 
@@ -52,9 +52,9 @@ That’s why it sounds more powerful, but in practice it’s often more fragile.
 
 ---
 
-## 2. Common Challenge 1: Repeated Work
+## Common Challenge 1: Repeated Work
 
-### 2.1 Why Is Repetition So Easy?
+### Why Is Repetition So Easy?
 
 As long as task boundaries are not clear enough, it’s easy to see:
 
@@ -62,7 +62,7 @@ As long as task boundaries are not clear enough, it’s easy to see:
 - The worker does another retrieval on its own
 - The reviewer repeats the same check again
 
-### 2.2 A Minimal Example
+### A Minimal Example
 
 ```python
 tasks_done = []
@@ -80,7 +80,7 @@ This example is very simple, but it already shows:
 
 > Without deduplication, multi-Agent systems can easily “look busy” while actually wasting effort.
 
-### 2.3 A Minimal Fix
+### A Minimal Fix
 
 ```python
 assigned = set()
@@ -100,9 +100,9 @@ print(tasks_done)
 
 ---
 
-## 3. Common Challenge 2: Message Distortion and State Desynchronization
+## Common Challenge 2: Message Distortion and State Desynchronization
 
-### 3.1 Why Does Distortion Happen?
+### Why Does Distortion Happen?
 
 Because what Agents pass around is not the “real world,” but:
 
@@ -115,7 +115,7 @@ Once message formats are inconsistent or fields are unclear, the system can easi
 - I thought you meant A
 - But you were actually expressing B
 
-### 3.2 An Example
+### An Example
 
 ```python
 message_a = {"task": "check refund", "detail": "only review public policy"}
@@ -128,7 +128,7 @@ print(message_b)
 These two messages differ by only a little, but the impact on the result can be huge.
 If the system does not constrain the message protocol, it can easily drift off course later.
 
-### 3.3 An Engineering Lesson
+### An Engineering Lesson
 
 As soon as a system starts using fields like:
 
@@ -141,9 +141,9 @@ with vague semantics, you should be alert to whether the communication design is
 
 ---
 
-## 4. Common Challenge 3: How Do You Converge Conflicting Conclusions?
+## Common Challenge 3: How Do You Converge Conflicting Conclusions?
 
-### 4.1 Multi-Agent Systems Easily Reach Different Conclusions
+### Multi-Agent Systems Easily Reach Different Conclusions
 
 For example:
 
@@ -152,7 +152,7 @@ For example:
 
 This is not an exception; it’s the norm.
 
-### 4.2 A Minimal Conflict Example
+### A Minimal Conflict Example
 
 ```python
 results = {
@@ -163,7 +163,7 @@ results = {
 print(results)
 ```
 
-### 4.3 Conflict Resolution Must Define at Least One Rule
+### Conflict Resolution Must Define at Least One Rule
 
 The simplest and most common rules are:
 
@@ -190,9 +190,9 @@ If you do not design a convergence rule, the system becomes:
 
 ---
 
-## 5. Common Challenge 4: Costs and Latency Grow Exponentially
+## Common Challenge 4: Costs and Latency Grow Exponentially
 
-### 5.1 Why Does Multi-Agent Get Expensive So Quickly?
+### Why Does Multi-Agent Get Expensive So Quickly?
 
 Because every additional Agent usually adds another layer of:
 
@@ -201,7 +201,7 @@ Because every additional Agent usually adds another layer of:
 - State passing
 - Tool calls
 
-### 5.2 A Very Intuitive Example
+### A Very Intuitive Example
 
 ```python
 agents = [
@@ -220,7 +220,7 @@ print("total_latency_ms =", total_latency)
 
 If these steps are still executed serially, the overall latency becomes even more noticeable.
 
-### 5.3 A Very Important Engineering Judgment
+### A Very Important Engineering Judgment
 
 Many times, the biggest problem in multi-Agent systems is not poor quality, but:
 
@@ -234,9 +234,9 @@ So you must consciously ask:
 
 ---
 
-## 6. Common Challenge 5: The System Is Not Observable
+## Common Challenge 5: The System Is Not Observable
 
-### 6.1 Why Is This a Big Problem?
+### Why Is This a Big Problem?
 
 Once a multi-Agent system fails, if you can only see the final answer, you probably have no idea:
 
@@ -244,7 +244,7 @@ Once a multi-Agent system fails, if you can only see the final answer, you proba
 - Whether the problem was in communication, assignment, or tools
 - Who first pushed the system off track
 
-### 6.2 At Minimum, Record These Pieces of Information
+### At Minimum, Record These Pieces of Information
 
 - task_id
 - agent_name
@@ -270,9 +270,9 @@ Without this kind of trace, debugging a multi-Agent system becomes extremely dif
 
 ---
 
-## 7. Common Challenge 6: Role Boundary Drift
+## Common Challenge 6: Role Boundary Drift
 
-### 7.1 What Is Role Boundary Drift?
+### What Is Role Boundary Drift?
 
 Originally:
 
@@ -286,7 +286,7 @@ But gradually, the system becomes:
 
 In the end, every role becomes more and more like an “all-purpose Agent.”
 
-### 7.2 Why Is This Dangerous?
+### Why Is This Dangerous?
 
 Because it will make:
 
@@ -300,7 +300,7 @@ So you should regularly check a multi-Agent system:
 
 ---
 
-## 8. A More Practical “Challenge Checklist”
+## A More Practical “Challenge Checklist”
 
 If you are building a multi-Agent system, this checklist is very useful:
 
@@ -315,7 +315,7 @@ If you are building a multi-Agent system, this checklist is very useful:
 
 ---
 
-## 9. The Solution Is Not “More Complex,” but “Clearer”
+## The Solution Is Not “More Complex,” but “Clearer”
 
 When many people run into problems, their first reaction is:
 

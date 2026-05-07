@@ -1,11 +1,11 @@
 ---
-title: "4.5 Episodic and Procedural Memory [Optional]"
+title: "9.4.5 Episodic and Procedural Memory [Optional]"
 sidebar_position: 22
 description: "Understand why episodic memory and procedural memory are especially important for complex Agents from two perspectives: “remembering what happened” and “remembering how to do things.”"
 keywords: [episodic memory, procedural memory, workflow memory, agent experience, skill memory]
 ---
 
-# Episodic and Procedural Memory [Optional]
+# 9.4.5 Episodic and Procedural Memory [Optional]
 
 :::tip Section overview
 Long-term memory is more like a “stable archive.”
@@ -30,9 +30,9 @@ In one sentence:
 
 ---
 
-## 1. What exactly is episodic memory?
+## What exactly is episodic memory?
 
-### 1.1 It is more like a single experience
+### It is more like a single experience
 
 For example:
 
@@ -45,7 +45,7 @@ The characteristics of this kind of memory are:
 - It includes a specific event process
 - It is not always directly reusable
 
-### 1.2 Why does an Agent need episodic memory?
+### Why does an Agent need episodic memory?
 
 Because complex systems often need to refer to things that happened in the past:
 
@@ -57,9 +57,9 @@ This kind of information is not a static archive, but it is very helpful for dec
 
 ---
 
-## 2. What is procedural memory?
+## What is procedural memory?
 
-### 2.1 It is more like skills and workflows
+### It is more like skills and workflows
 
 For example:
 
@@ -69,7 +69,7 @@ For example:
 The focus of this kind of memory is not “which specific time in the past,”
 but rather “what method can be reused the next time a similar task appears.”
 
-### 2.2 Why is procedural memory important?
+### Why is procedural memory important?
 
 Because it helps an Agent avoid planning from scratch every time.
 Many tasks are not completely new problems, but rather:
@@ -80,21 +80,21 @@ In this case, procedural memory can significantly reduce reasoning burden.
 
 ---
 
-## 3. What is the biggest difference between them?
+## What is the biggest difference between them?
 
-### 3.1 Episodic memory answers “what happened”
+### Episodic memory answers “what happened”
 
 Example:
 
 - “Last time I generated a weekly report, too many logs caused the summary quality to drop”
 
-### 3.2 Procedural memory answers “how similar problems are usually handled”
+### Procedural memory answers “how similar problems are usually handled”
 
 Example:
 
 - “The general steps for generating a weekly report are: pull data -> cluster issues -> generate summary -> review”
 
-### 3.3 An analogy
+### An analogy
 
 Episodic memory is like a project postmortem.
 Procedural memory is like an SOP manual.
@@ -103,7 +103,7 @@ Both are important, but they serve different purposes.
 
 ---
 
-## 4. First, run an “experience -> workflow” example
+## First, run an “experience -> workflow” example
 
 The example below does two things:
 
@@ -161,7 +161,7 @@ procedural_memory = build_procedural_memory(episodes)
 print("procedural_memory:", procedural_memory)
 ```
 
-### 4.1 What does this code actually show?
+### What does this code actually show?
 
 It shows that:
 
@@ -171,7 +171,7 @@ It shows that:
 In other words, procedural memory is often not written from scratch,
 but distilled from repeatedly successful episodes.
 
-### 4.2 Why didn’t `weekly_report` enter procedural memory?
+### Why didn’t `weekly_report` enter procedural memory?
 
 Because it appeared only once,
 so there was not enough support.
@@ -180,7 +180,7 @@ This matches reality very well:
 
 - A one-time success or failure is not necessarily worth turning into a standard workflow immediately
 
-### 4.3 Why is this more insightful than writing a workflow directly?
+### Why is this more insightful than writing a workflow directly?
 
 Because it shows a very realistic process of knowledge accumulation:
 
@@ -192,9 +192,9 @@ This is exactly the path many mature Agent systems follow as they evolve.
 
 ---
 
-## 5. How is episodic memory usually used in a system?
+## How is episodic memory usually used in a system?
 
-### 5.1 Retrieve similar cases
+### Retrieve similar cases
 
 When facing a current problem, the system can first check:
 
@@ -202,7 +202,7 @@ When facing a current problem, the system can first check:
 - How it was handled
 - What the final result was
 
-### 5.2 Review failures
+### Review failures
 
 If a certain type of task often fails,
 episodic memory is very suitable for answering:
@@ -210,21 +210,21 @@ episodic memory is very suitable for answering:
 - Which step is likely to go wrong
 - Which context tends to trigger failure
 
-### 5.3 Serve as training material for procedural memory
+### Serve as training material for procedural memory
 
 It can also become the raw data for later workflow abstraction.
 
 ---
 
-## 6. How is procedural memory usually used in a system?
+## How is procedural memory usually used in a system?
 
-### 6.1 As the default template for the planner
+### As the default template for the planner
 
 Once a task type is recognized, the system can directly load:
 
 - A default workflow
 
-### 6.2 As a skill library
+### As a skill library
 
 In essence, many procedural memories are like:
 
@@ -232,16 +232,16 @@ In essence, many procedural memories are like:
 - Standard operating procedures
 - Task templates
 
-### 6.3 As a safety boundary
+### As a safety boundary
 
 Procedural memory can also act as a “don’t improvise” mechanism.
 For high-risk tasks, for example, the system may only be allowed to follow approved workflows.
 
 ---
 
-## 7. Common pitfalls
+## Common pitfalls
 
-### 7.1 Mistake 1: Calling all history episodic memory
+### Mistake 1: Calling all history episodic memory
 
 Not all history is worth keeping as an episode.
 Episodes are better for records with:
@@ -250,7 +250,7 @@ Episodes are better for records with:
 - A process
 - A result
 
-### 7.2 Mistake 2: Assuming every episode automatically becomes procedural memory
+### Mistake 2: Assuming every episode automatically becomes procedural memory
 
 Procedural memory needs:
 
@@ -258,7 +258,7 @@ Procedural memory needs:
 - Stability
 - Transferability
 
-### 7.3 Mistake 3: Never updating procedural memory after it is written
+### Mistake 3: Never updating procedural memory after it is written
 
 If the workflow changes, procedural memory should also be updated.
 Otherwise, it will go from “experience” to “outdated experience.”

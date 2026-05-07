@@ -1,11 +1,11 @@
 ---
-title: "3.4 YOLO Series"
+title: "10.3.4 YOLO Series"
 sidebar_position: 9
 description: "Starting from the idea of one-stage detection, understand why YOLO can make object detection more real-time, and why it is so popular in engineering practice."
 keywords: [YOLO, one-stage detector, object detection, NMS, realtime vision]
 ---
 
-# YOLO Series
+# 10.3.4 YOLO Series
 
 ![YOLO grid detection flowchart](/img/course/yolo-grid-detection-flow-en.png)
 
@@ -31,16 +31,16 @@ So in this section, the key is not the version numbers, but the route it represe
 
 ---
 
-## 1. What is the core idea behind YOLO?
+## What is the core idea behind YOLO?
 
-### 1.1 One-stage detection
+### One-stage detection
 
 What YOLO tries to do is:
 
 - No two-step process
 - Directly output classes and boxes from the image in one pass
 
-### 1.2 Why is this attractive?
+### Why is this attractive?
 
 Because it reduces:
 
@@ -51,7 +51,7 @@ So it is easier to achieve:
 
 - Real-time performance
 
-### 1.3 An analogy
+### An analogy
 
 Two-stage detection is like first drawing around suspicious areas, then sending someone to inspect them one by one.
 YOLO is more like taking one quick look and reporting at the same time:
@@ -61,7 +61,7 @@ YOLO is more like taking one quick look and reporting at the same time:
 
 ---
 
-## 2. What does YOLO’s output roughly look like?
+## What does YOLO’s output roughly look like?
 
 You can usually think of it as a set of candidate boxes, where each candidate includes:
 
@@ -71,7 +71,7 @@ You can usually think of it as a set of candidate boxes, where each candidate in
 
 Then, through filtering and NMS, the final result is obtained.
 
-### 2.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of YOLO as:
 
@@ -88,7 +88,7 @@ YOLO is more like:
 
 > **Scan once, then report the candidate objects as a whole.**
 
-### 2.3 A judgment table that beginners should remember first
+### A judgment table that beginners should remember first
 
 | What are you concerned about now? | Which layer is more worth looking at first? |
 |---|---|
@@ -99,7 +99,7 @@ YOLO is more like:
 
 This table is very suitable for beginners because it turns YOLO from a “collection of version names” back into a few concrete questions.
 
-### 2.2 A minimal “candidate box output” example
+### A minimal “candidate box output” example
 
 The example below is not simulating a real YOLO network,
 but it helps you build one very important intuition:
@@ -126,7 +126,7 @@ but rather:
 
 ---
 
-## 3. First, run a minimal NMS intuition example
+## First, run a minimal NMS intuition example
 
 ```python
 def iou(box_a, box_b):
@@ -173,7 +173,7 @@ def nms(preds, iou_threshold=0.5):
 print(nms(predictions))
 ```
 
-### 3.1 What is the key value of this example?
+### What is the key value of this example?
 
 It shows that detection outputs are not immediately usable.
 In many cases, the model will produce:
@@ -184,12 +184,12 @@ And the role of NMS is:
 
 - Keep the few most representative ones
 
-### 3.2 Why is this especially important for YOLO?
+### Why is this especially important for YOLO?
 
 Because a one-stage route like YOLO naturally produces many candidates,
 and post-processing is part of the whole detection pipeline.
 
-### 3.3 Another minimal example: threshold filtering first
+### Another minimal example: threshold filtering first
 
 ```python
 predictions = [
@@ -219,9 +219,9 @@ YOLO outputs are usually a batch of candidate boxes, not the final result. When 
 
 ---
 
-## 4. Why is YOLO so popular in engineering?
+## Why is YOLO so popular in engineering?
 
-### 4.1 Strong real-time performance
+### Strong real-time performance
 
 Many scenarios directly require:
 
@@ -230,15 +230,15 @@ Many scenarios directly require:
 
 YOLO-style routes are very suitable for these needs.
 
-### 4.2 Relatively unified structure
+### Relatively unified structure
 
 For many engineering practitioners, it is easier to implement than a complicated multi-stage pipeline.
 
-### 4.3 Mature community and engineering ecosystem
+### Mature community and engineering ecosystem
 
 This makes it more likely to be tried first in real projects.
 
-### 4.4 When doing a real-time detection project for the first time, why do many teams try YOLO first?
+### When doing a real-time detection project for the first time, why do many teams try YOLO first?
 
 Because YOLO often satisfies several very practical conditions at once:
 
@@ -252,7 +252,7 @@ but:
 
 > **It is especially easy to quickly get a version that “works in engineering.”**
 
-### 4.5 If you put YOLO into a project, what is the most worth showing first?
+### If you put YOLO into a project, what is the most worth showing first?
 
 What is usually most worth showing is not:
 
@@ -272,13 +272,13 @@ This makes it easier for others to see:
 
 ---
 
-## 5. The most common pitfalls
+## The most common pitfalls
 
-### 5.1 Mistake 1: YOLO equals object detection
+### Mistake 1: YOLO equals object detection
 
 YOLO is an important route, but not the whole field.
 
-### 5.2 Mistake 2: Faster automatically means better
+### Mistake 2: Faster automatically means better
 
 You still need to consider:
 
@@ -286,11 +286,11 @@ You still need to consider:
 - Box localization quality
 - Deployment constraints
 
-### 5.3 Mistake 3: Post-processing is not important
+### Mistake 3: Post-processing is not important
 
 Post-processing such as NMS and threshold settings directly affects the final experience.
 
-## 6. The safest default sequence for a first YOLO project
+## The safest default sequence for a first YOLO project
 
 When you first put YOLO into a project, the safer sequence is usually:
 

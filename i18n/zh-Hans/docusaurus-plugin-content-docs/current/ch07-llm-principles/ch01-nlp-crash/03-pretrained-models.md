@@ -1,11 +1,11 @@
 ---
-title: "1.4 预训练语言模型速览"
+title: "7.1.4 预训练语言模型速览"
 sidebar_position: 3
 description: "从“先在大语料上学通用模式，再迁移到具体任务”讲起，理解预训练模型为什么会成为现代 NLP 和大模型的共同底座。"
 keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models]
 ---
 
-# 预训练语言模型速览
+# 7.1.4 预训练语言模型速览
 
 :::tip 本节定位
 在大模型时代，“预训练”这个词几乎无处不在。
@@ -33,7 +33,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 
 ## 一、为什么预训练模型会成为现代 NLP 的主流？
 
-### 1.1 因为很多任务本质上共享语言能力
+### 因为很多任务本质上共享语言能力
 
 无论是做：
 
@@ -53,7 +53,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 如果每个任务都从零学这些能力，
 成本会非常高。
 
-### 1.2 预训练的核心思想
+### 预训练的核心思想
 
 于是大家开始先做一件事：
 
@@ -72,7 +72,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 - 先读完大部分通识教材
 - 再去做具体科目的专项训练
 
-### 1.3 为什么这比“每个任务从头训练”好很多？
+### 为什么这比“每个任务从头训练”好很多？
 
 因为你不必每次都重新学习语言本身。
 下游任务只需要在已有底座上做：
@@ -88,7 +88,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 
 ## 二、预训练模型到底给了我们什么？
 
-### 2.1 给了一个“已经懂一点语言”的底座
+### 给了一个“已经懂一点语言”的底座
 
 从零随机初始化的模型，最开始什么都不会。
 而预训练模型至少已经学会了一些：
@@ -100,7 +100,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 
 这意味着下游任务不再是从完全空白开始。
 
-### 2.2 给了可复用的表示
+### 给了可复用的表示
 
 很多预训练模型最宝贵的地方，不只是“会回答”，
 还在于它能输出一组比较好的隐藏表示。
@@ -112,7 +112,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 - 匹配
 - 排序
 
-### 2.3 给了迁移学习的可能
+### 给了迁移学习的可能
 
 迁移学习的核心就是：
 
@@ -198,7 +198,7 @@ for text in [text_c, text_d]:
     print("sentiment:", text, "->", best, probs)
 ```
 
-### 3.1 这段代码到底对应什么真实思路？
+### 这段代码到底对应什么真实思路？
 
 它对应的是预训练时代最重要的工作流之一：
 
@@ -208,7 +208,7 @@ for text in [text_c, text_d]:
 
 这就是为什么一个预训练模型能被拿来做很多任务。
 
-### 3.2 为什么这比“每个任务都重新学一遍词向量”强？
+### 为什么这比“每个任务都重新学一遍词向量”强？
 
 因为底座已经学到很多通用信息。
 下游任务不需要从零开始理解：
@@ -218,7 +218,7 @@ for text in [text_c, text_d]:
 
 它只需要在底座之上再做定向映射。
 
-### 3.3 真实世界里“head”会是什么？
+### 真实世界里“head”会是什么？
 
 在真实模型里，它可能是：
 
@@ -236,7 +236,7 @@ for text in [text_c, text_d]:
 
 ## 四、预训练模型大致有哪些路线？
 
-### 4.1 Encoder-only：更偏理解和表示
+### Encoder-only：更偏理解和表示
 
 代表：
 
@@ -249,7 +249,7 @@ for text in [text_c, text_d]:
 - 匹配
 - 检索编码
 
-### 4.2 Decoder-only：更偏生成
+### Decoder-only：更偏生成
 
 代表：
 
@@ -264,7 +264,7 @@ for text in [text_c, text_d]:
 - 代码生成
 - 开放式补全
 
-### 4.3 Encoder-Decoder：更适合“输入到输出”任务
+### Encoder-Decoder：更适合“输入到输出”任务
 
 代表：
 
@@ -282,7 +282,7 @@ for text in [text_c, text_d]:
 
 ## 五、预训练模型之后，还能怎么适配任务？
 
-### 5.1 线性探针 / 任务头微调
+### 线性探针 / 任务头微调
 
 最轻的一种方式是：
 
@@ -291,12 +291,12 @@ for text in [text_c, text_d]:
 
 这在小任务里很常见。
 
-### 5.2 全量微调
+### 全量微调
 
 让整个模型一起更新。
 优点是灵活，缺点是成本高。
 
-### 5.3 参数高效微调
+### 参数高效微调
 
 例如：
 
@@ -306,7 +306,7 @@ for text in [text_c, text_d]:
 这是大模型时代非常重要的路线，
 因为它让“在大底座上适配任务”的门槛下降了很多。
 
-### 5.4 Prompt 和 RAG
+### Prompt 和 RAG
 
 并不是所有任务都要真的改模型参数。
 很多问题也可以通过：
@@ -324,7 +324,7 @@ for text in [text_c, text_d]:
 
 ## 六、最容易踩的误区
 
-### 6.1 误区一：预训练模型什么都会
+### 误区一：预训练模型什么都会
 
 它有强底座，但不代表：
 
@@ -332,12 +332,12 @@ for text in [text_c, text_d]:
 - 行为一定稳定
 - 一上来就完美适配你的业务
 
-### 6.2 误区二：用了预训练模型，就不用关心数据了
+### 误区二：用了预训练模型，就不用关心数据了
 
 不对。
 无论是微调还是评估，数据质量仍然决定最后效果。
 
-### 6.3 误区三：只要模型大，就一定比小模型更适合当前任务
+### 误区三：只要模型大，就一定比小模型更适合当前任务
 
 有时任务很简单，
 或者成本非常敏感，

@@ -1,11 +1,11 @@
 ---
-title: "9.5 Cost Optimization"
+title: "9.9.5 Cost Optimization"
 sidebar_position: 52
 description: "From token usage, model routing, tool calls, caching, and retry overhead, understand why Agent cost is often a 'pipeline cost' rather than the cost of a single model call."
 keywords: [cost optimization, token cost, model routing, caching, retries, tool cost, deployment]
 ---
 
-# Cost Optimization
+# 9.9.5 Cost Optimization
 
 :::tip Section Overview
 The cost of an Agent system is often not as simple as “how much one model call costs.”
@@ -31,9 +31,9 @@ So when doing cost optimization, the key is not to focus only on the model price
 
 ---
 
-## 1. Where Does an Agent Usually Spend Money?
+## Where Does an Agent Usually Spend Money?
 
-### 1.1 Model token cost
+### Model token cost
 
 The most direct layer is:
 
@@ -42,7 +42,7 @@ The most direct layer is:
 
 The longer the context and the more steps there are, the higher the cost.
 
-### 1.2 Tool and external dependency costs
+### Tool and external dependency costs
 
 For example:
 
@@ -53,7 +53,7 @@ For example:
 
 These may not be billed by token, but they are still real costs.
 
-### 1.3 Retry and failure costs
+### Retry and failure costs
 
 A failure does not just mean “no result”; it also means:
 
@@ -64,9 +64,9 @@ So runtime strategy and cost optimization are naturally coupled.
 
 ---
 
-## 2. Why Is It Harder to “Read the Bill” for an Agent Than for a Normal Chat?
+## Why Is It Harder to “Read the Bill” for an Agent Than for a Normal Chat?
 
-### 2.1 Because one user request may be broken into many internal calls
+### Because one user request may be broken into many internal calls
 
 For example, a user asks only:
 
@@ -82,7 +82,7 @@ The system may internally do:
 
 If retries are involved, the cost grows even more.
 
-### 2.2 So cost accounting should be based on the “task chain,” not a single call
+### So cost accounting should be based on the “task chain,” not a single call
 
 This perspective is very important:
 
@@ -93,7 +93,7 @@ Cost optimization must focus on the entire chain.
 
 ---
 
-## 3. First, Run a Minimal Cost Estimator
+## First, Run a Minimal Cost Estimator
 
 This example breaks one Agent task into several cost parts:
 
@@ -154,7 +154,7 @@ print("baseline_cost =", task_cost(baseline_task))
 print("optimized_cost =", task_cost(optimized_task))
 ```
 
-### 3.1 What is this code mainly trying to show you?
+### What is this code mainly trying to show you?
 
 Not a specific price,
 but how cost is composed:
@@ -163,7 +163,7 @@ but how cost is composed:
 - Which tool calls also add up to a non-trivial amount
 - Why the cost drops significantly after optimization
 
-### 3.2 Why is “use a small model to screen first, then let a large model answer precisely” often effective?
+### Why is “use a small model to screen first, then let a large model answer precisely” often effective?
 
 Because many requests do not need the most expensive model to participate throughout the whole process.
 A common pattern is:
@@ -171,7 +171,7 @@ A common pattern is:
 - Small model for routing / filtering
 - Large model only for the truly complex parts
 
-### 3.3 Why can reducing one `search_api` call be so valuable?
+### Why can reducing one `search_api` call be so valuable?
 
 Because external API unit prices can sometimes be high,
 and they also increase latency and retry risk.
@@ -184,9 +184,9 @@ This diagram expands cost from a “single model call” to a “task-chain bill
 
 ---
 
-## 4. Five Common Directions for Cost Optimization
+## Five Common Directions for Cost Optimization
 
-### 4.1 Shorten the context
+### Shorten the context
 
 The most direct methods are usually:
 
@@ -194,14 +194,14 @@ The most direct methods are usually:
 - Compress long context
 - Summarize early
 
-### 4.2 Multi-tier model routing
+### Multi-tier model routing
 
 Common pattern:
 
 - Simple requests -> small model
 - Complex requests -> large model
 
-### 4.3 Caching
+### Caching
 
 Good for:
 
@@ -209,21 +209,21 @@ Good for:
 - Read-only tool results
 - Fixed policy content
 
-### 4.4 Deduplicate tool calls
+### Deduplicate tool calls
 
 A lot of an Agent’s money is not actually spent on “necessary tool calls,”
 but on:
 
 - Re-checking the same thing repeatedly
 
-### 4.5 Control failures and retries
+### Control failures and retries
 
 If failures or retries happen too often,
 the bill can quickly become misleading.
 
 ---
 
-## 5. A Very Practical Example of Cache Savings
+## A Very Practical Example of Cache Savings
 
 ```python
 cache = {}
@@ -253,14 +253,14 @@ Although this code is simple, it already reflects one core fact in real engineer
 
 ---
 
-## 6. The Most Common Cost Optimization Pitfalls
+## The Most Common Cost Optimization Pitfalls
 
-### 6.1 Mistake 1: Thinking that switching to a cheaper model alone counts as optimization
+### Mistake 1: Thinking that switching to a cheaper model alone counts as optimization
 
 If the pipeline design does not change, tool calls remain messy, and retries are still out of control,
 a lower model price may not save the overall bill.
 
-### 6.2 Mistake 2: Always chasing the lowest cost
+### Mistake 2: Always chasing the lowest cost
 
 If saving money causes:
 
@@ -270,7 +270,7 @@ If saving money causes:
 
 then it is not real optimization.
 
-### 6.3 Mistake 3: Not building a per-request cost profile
+### Mistake 3: Not building a per-request cost profile
 
 If you do not know:
 

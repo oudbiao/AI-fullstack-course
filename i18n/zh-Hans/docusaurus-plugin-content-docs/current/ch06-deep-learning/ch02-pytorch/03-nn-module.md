@@ -1,11 +1,11 @@
 ---
-title: "2.5 nn 模块"
+title: "6.2.5 nn 模块"
 sidebar_position: 3
 description: "学会用 nn.Module、nn.Linear、nn.Sequential 组织模型，理解 forward 和参数管理。"
 keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 ---
 
-# nn 模块
+# 6.2.5 nn 模块
 
 ## 学习目标
 
@@ -56,7 +56,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 如果没有 `nn.Module`，你也可以手写网络，但会非常乱。
 有了它，模型就像乐高积木，可以一层层拼起来。
 
-### 1.1 一个更适合新人的直觉：`nn.Module` 就是“模型容器”
+### 一个更适合新人的直觉：`nn.Module` 就是“模型容器”
 
 你可以先把它理解成一个统一的模型盒子，里面会装：
 
@@ -98,7 +98,7 @@ print("bias shape:", layer.bias.shape)
 - 输入是 `[1, 3]`，表示 1 个样本、每个样本 3 个特征
 - 输出是 `[1, 2]`，表示映射到 2 个输出值
 
-### 2.1 看到 `nn.Linear(in, out)` 时，脑子里最该立刻跳出什么？
+### 看到 `nn.Linear(in, out)` 时，脑子里最该立刻跳出什么？
 
 最值得先跳出来的是：
 
@@ -184,7 +184,7 @@ print(model(x))
 - `__init__` 负责“搭机器”
 - `forward` 负责“机器怎么工作”
 
-### 4.1 为什么 `forward()` 里只写数据流，不写训练逻辑？
+### 为什么 `forward()` 里只写数据流，不写训练逻辑？
 
 因为训练逻辑属于另一个层面。
 `forward()` 的职责非常纯粹：
@@ -234,7 +234,7 @@ for name, param in model.named_parameters():
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 ```
 
-### 5.1 为什么 `model.parameters()` 这么关键？
+### 为什么 `model.parameters()` 这么关键？
 
 因为它把“模型是很多参数的集合”这件事统一起来了。
 
@@ -270,7 +270,7 @@ model.train()   # 训练前
 model.eval()    # 验证 / 测试前
 ```
 
-### 6.1 初学阶段先把这一点记死，非常值
+### 初学阶段先把这一点记死，非常值
 
 你现在甚至可以先不完全理解：
 
@@ -377,17 +377,17 @@ print("预测分数:", round(model(test).item(), 2))
 
 ## 九、初学者常见误区
 
-### 1. 在 `forward()` 里临时创建新层
+### 在 `forward()` 里临时创建新层
 
 不推荐。
 层最好在 `__init__()` 里定义，这样参数才能被正确注册。
 
-### 2. 只会写 `Sequential`，不会写类
+### 只会写 `Sequential`，不会写类
 
 `Sequential` 很方便，但你迟早要会写自定义 `Module`。
 后面的 CNN、Transformer 都离不开它。
 
-### 3. 不知道模型里有哪些参数
+### 不知道模型里有哪些参数
 
 养成使用 `named_parameters()` 的习惯，调试时非常有用。
 

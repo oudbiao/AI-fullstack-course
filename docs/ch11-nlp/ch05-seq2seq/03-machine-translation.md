@@ -1,11 +1,11 @@
 ---
-title: "5.4 Machine Translation Practice [Optional]"
+title: "11.5.4 Machine Translation Practice [Optional]"
 sidebar_position: 3
 description: "Work through the full loop of a translation project around a minimal translation task: data pairs, a baseline system, error analysis, and next-step upgrade directions."
 keywords: [machine translation, seq2seq, translation project, alignment, error analysis]
 ---
 
-# Machine Translation Practice [Optional]
+# 11.5.4 Machine Translation Practice [Optional]
 
 ![Machine Translation Error Analysis Map](/img/course/ch11-machine-translation-error-analysis-map-en.png)
 
@@ -65,17 +65,17 @@ The real difficulty is not only “finding the matching word,” but also:
 
 Once you think about it this way, it becomes much more intuitive why translation tasks are naturally suited to Seq2Seq.
 
-## 1. What are the most essential input and output of machine translation?
+## What are the most essential input and output of machine translation?
 
-### 1.1 Input
+### Input
 
 - A sentence in the source language
 
-### 1.2 Output
+### Output
 
 - A sentence in the target language
 
-### 1.3 Why is this kind of task especially suitable for Seq2Seq?
+### Why is this kind of task especially suitable for Seq2Seq?
 
 Because:
 
@@ -86,7 +86,7 @@ This is exactly the typical Seq2Seq scenario.
 
 ---
 
-## 2. First, look at a minimal parallel corpus
+## First, look at a minimal parallel corpus
 
 ```python
 parallel_data = [
@@ -100,7 +100,7 @@ for src, tgt in parallel_data:
     print(src, "->", tgt)
 ```
 
-### 2.1 Why is parallel corpus the foundation of a translation project?
+### Why is parallel corpus the foundation of a translation project?
 
 Because the model ultimately needs to learn:
 
@@ -108,7 +108,7 @@ Because the model ultimately needs to learn:
 
 Without this kind of aligned data, the translation task cannot even begin.
 
-### 2.2 For a beginner’s first translation project, how should you choose data more safely?
+### For a beginner’s first translation project, how should you choose data more safely?
 
 A safer starting point is usually:
 
@@ -118,7 +118,7 @@ A safer starting point is usually:
 
 This makes it easier to see the problems than starting with a large and messy corpus.
 
-### 2.3 A data checklist that beginners can copy directly
+### A data checklist that beginners can copy directly
 
 When doing a translation project for the first time, the most important things to check first are:
 
@@ -132,7 +132,7 @@ later you may easily mistake data problems for model problems.
 
 ---
 
-## 3. First, run a minimal translation baseline
+## First, run a minimal translation baseline
 
 ```python
 parallel_data = [
@@ -162,7 +162,7 @@ for sent in tests:
     print(sent, "->", translate(sent))
 ```
 
-### 3.1 Why is this example still worth doing?
+### Why is this example still worth doing?
 
 Because it helps you first grasp the most basic form of a translation project:
 
@@ -170,7 +170,7 @@ Because it helps you first grasp the most basic form of a translation project:
 - Mapping rules
 - Output quality
 
-### 3.2 Its limitations are also very obvious
+### Its limitations are also very obvious
 
 - It cannot handle word order changes
 - It cannot handle polysemy
@@ -179,7 +179,7 @@ Because it helps you first grasp the most basic form of a translation project:
 And precisely because these limitations are so obvious,
 it becomes easier to understand why stronger models are needed later.
 
-### 3.3 Why is the minimal baseline especially valuable for teaching?
+### Why is the minimal baseline especially valuable for teaching?
 
 Because it forces you to really notice:
 
@@ -189,7 +189,7 @@ Because it forces you to really notice:
 
 These are all issues that attention and Transformer will continue to address later.
 
-### 3.4 For a first translation project, why should you not complain that the baseline is too weak?
+### For a first translation project, why should you not complain that the baseline is too weak?
 
 Because the simpler the baseline, the easier it is to explain the source of errors.
 
@@ -201,7 +201,7 @@ For example:
 
 This helps you build project judgment much better than starting with a complex model.
 
-### 3.5 Another example of a minimal “translation project checklist”
+### Another example of a minimal “translation project checklist”
 
 ```python
 project_status = {
@@ -234,21 +234,21 @@ This example is very small, but it is very suitable for beginners because it rem
 
 ---
 
-## 4. How should translation project error analysis be done?
+## How should translation project error analysis be done?
 
-### 4.1 Common error type 1: Omission
+### Common error type 1: Omission
 
 For example, a certain word is simply not translated.
 
-### 4.2 Common error type 2: Mistranslation
+### Common error type 2: Mistranslation
 
 For example, a word is translated into the wrong sense.
 
-### 4.3 Common error type 3: Unnatural word order
+### Common error type 3: Unnatural word order
 
 This is a problem that the minimal dictionary baseline is especially likely to produce.
 
-### 4.4 A very simple error check
+### A very simple error check
 
 ```python
 gold = {
@@ -266,7 +266,7 @@ for src, expected in gold.items():
     })
 ```
 
-### 4.5 An error analysis framework that is more beginner-friendly
+### An error analysis framework that is more beginner-friendly
 
 When analyzing translation errors, you can start by dividing them into these three categories:
 
@@ -279,7 +279,7 @@ This makes it easier to tell whether:
 - It is a data problem
 - Or a model capability problem
 
-### 4.6 A comparison format that is great for showing in a portfolio
+### A comparison format that is great for showing in a portfolio
 
 It is highly recommended to present them side by side directly:
 
@@ -290,7 +290,7 @@ It is highly recommended to present them side by side directly:
 
 This makes the project very clear and avoids the impression that you merely “ran a model.”
 
-### 4.7 If this is your first translation project, the safest error bucketing method
+### If this is your first translation project, the safest error bucketing method
 
 The safest approach is usually to start with only three categories:
 
@@ -306,20 +306,20 @@ Because for beginners, these three categories are already enough to help you jud
 
 ---
 
-## 5. How can you upgrade this minimal project later?
+## How can you upgrade this minimal project later?
 
-### 5.1 Add more parallel corpus
+### Add more parallel corpus
 
-### 5.2 Introduce attention and neural Seq2Seq
+### Introduce attention and neural Seq2Seq
 
-### 5.3 Then move further toward Transformer
+### Then move further toward Transformer
 
 So the value of this small project is not that it is strong by itself,
 but that it helps you see clearly:
 
 - The basic skeleton of a translation project
 
-### 5.4 When upgrading the project for the first time, what should you usually improve first?
+### When upgrading the project for the first time, what should you usually improve first?
 
 Usually, it is better to improve:
 
@@ -329,7 +329,7 @@ Usually, it is better to improve:
 
 This is more stable than blindly switching to a larger model at the very beginning.
 
-### 5.5 When is it more appropriate to add data instead of changing the model?
+### When is it more appropriate to add data instead of changing the model?
 
 If you find that the main issues come from:
 
@@ -360,17 +360,17 @@ This makes it much easier for others to see:
 
 ---
 
-## 6. The most common misunderstandings
+## The most common misunderstandings
 
-### 6.1 Misunderstanding 1: Translation is just dictionary lookup
+### Misunderstanding 1: Translation is just dictionary lookup
 
 Real translation is far more complex than word-for-word replacement.
 
-### 6.2 Misunderstanding 2: Only looking at one or two nice examples
+### Misunderstanding 2: Only looking at one or two nice examples
 
 In a real project, systematic error analysis matters much more.
 
-### 6.3 Misunderstanding 3: Wanting to train a very large model right away
+### Misunderstanding 3: Wanting to train a very large model right away
 
 A safer approach is usually to first make the data and baseline structure clear.
 

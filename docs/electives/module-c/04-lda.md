@@ -1,11 +1,11 @@
 ---
-title: "1.4 Linear Discriminant Analysis"
+title: "E.C.4 Linear Discriminant Analysis"
 sidebar_position: 15
 description: "Starting from the goal of “tighter within-class, farther between-class,” understand why LDA can be used for classification and is also often treated as a supervised dimensionality reduction method."
 keywords: [LDA, linear discriminant analysis, dimensionality reduction, classification, classic ML]
 ---
 
-# Linear Discriminant Analysis
+# E.C.4 Linear Discriminant Analysis
 
 :::tip Where this section fits
 LDA is easy to confuse with other acronyms,
@@ -29,16 +29,16 @@ So it can be used for classification, and it can also be viewed as a supervised 
 
 ---
 
-## 1. What problem is LDA solving?
+## What problem is LDA solving?
 
-### 1.1 More than just “separating classes”
+### More than just “separating classes”
 
 LDA’s goal is more specific:
 
 - Samples within the same class should be as close together as possible
 - Different classes should be as far apart as possible
 
-### 1.2 Why is this more interesting than ordinary linear splitting?
+### Why is this more interesting than ordinary linear splitting?
 
 Because it is not only looking for a boundary,
 it is also looking for a “more discriminative representation space.”
@@ -47,7 +47,7 @@ That means in addition to classification, it can also be used for:
 
 - Supervised dimensionality reduction
 
-### 1.3 An analogy
+### An analogy
 
 If PCA is more like:
 
@@ -59,16 +59,16 @@ Then LDA is more like:
 
 ---
 
-## 2. Why is LDA often treated as “label-aware dimensionality reduction”?
+## Why is LDA often treated as “label-aware dimensionality reduction”?
 
-### 2.1 Because it uses class labels
+### Because it uses class labels
 
 PCA does not care about classes; it only looks at overall variance.
 LDA explicitly uses labels to ask:
 
 - Which direction is most useful for classification?
 
-### 2.2 So what kinds of scenarios is it suitable for?
+### So what kinds of scenarios is it suitable for?
 
 It is suitable when:
 
@@ -78,7 +78,7 @@ It is suitable when:
 
 ---
 
-## 3. First run a minimal executable example
+## First run a minimal executable example
 
 This example does two things at the same time:
 
@@ -110,7 +110,7 @@ print("projection shape:", projection.shape)
 print("projected values:", projection.ravel().round(3).tolist())
 ```
 
-### 3.1 Why is this code more valuable than just `predict`?
+### Why is this code more valuable than just `predict`?
 
 Because it lets you see both:
 
@@ -122,7 +122,7 @@ This nicely shows LDA’s dual value:
 - It can classify
 - It can also perform supervised dimensionality reduction
 
-### 3.2 Why `n_components=1`?
+### Why `n_components=1`?
 
 Because there are only two classes here.
 In this case, LDA can project to at most:
@@ -133,9 +133,9 @@ This is one feature of LDA that depends on the number of classes.
 
 ---
 
-## 4. What is the difference between LDA and SVM / Logistic Regression?
+## What is the difference between LDA and SVM / Logistic Regression?
 
-### 4.1 Difference from SVM
+### Difference from SVM
 
 SVM focuses more on:
 
@@ -146,7 +146,7 @@ LDA focuses more on:
 - Small within-class variance
 - Large differences between class means
 
-### 4.2 Difference from Logistic Regression
+### Difference from Logistic Regression
 
 Logistic Regression is more like learning:
 
@@ -154,7 +154,7 @@ Logistic Regression is more like learning:
 
 LDA is more like first assuming a data distribution, then finding a direction that separates classes better.
 
-### 4.3 Why is this worth learning?
+### Why is this worth learning?
 
 Because it shows you:
 
@@ -162,39 +162,39 @@ Because it shows you:
 
 ---
 
-## 5. When is LDA worth trying?
+## When is LDA worth trying?
 
-### 5.1 When the dataset is not very large and the class structure is fairly clear
+### When the dataset is not very large and the class structure is fairly clear
 
 LDA can be very useful in this kind of scenario.
 
-### 5.2 When you need a more interpretable low-dimensional representation
+### When you need a more interpretable low-dimensional representation
 
 For example:
 
 - Project first, then visualize
 - Project first, then feed into a simple classifier
 
-### 5.3 When it is less suitable
+### When it is less suitable
 
 If the class boundaries are very complex and clearly nonlinear,
 LDA will usually struggle.
 
 ---
 
-## 6. Common misconceptions
+## Common misconceptions
 
-### 6.1 Misconception 1: LDA is just another classifier
+### Misconception 1: LDA is just another classifier
 
 That is incomplete.
 Its value as a “discriminative representation” is also important.
 
-### 6.2 Misconception 2: If labels exist, LDA is always better than PCA
+### Misconception 2: If labels exist, LDA is always better than PCA
 
 Not necessarily.
 It depends on the task goal and the data distribution.
 
-### 6.3 Misconception 3: LDA here is the same as LDA in topic models
+### Misconception 3: LDA here is the same as LDA in topic models
 
 It is not.
 The LDA here stands for:

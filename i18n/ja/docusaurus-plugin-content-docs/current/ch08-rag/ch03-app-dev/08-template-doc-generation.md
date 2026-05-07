@@ -1,11 +1,11 @@
 ---
-title: "3.9 テンプレート化文書生成（Word / PPT）"
+title: "8.3.9 テンプレート化文書生成（Word / PPT）"
 sidebar_position: 18
 description: "構造化出力、テンプレートへの入力、Word/PPT 生成までを通して、知識ベース型の生成システムでは、まず構造を出してから文書として描画するのがよい理由を理解する。"
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---
 
-# テンプレート化文書生成（Word / PPT）
+# 8.3.9 テンプレート化文書生成（Word / PPT）
 
 ![Word PPT テンプレート生成パイプライン図](/img/course/template-doc-generation-pipeline-ja.png)
 
@@ -266,8 +266,8 @@ print(payload)
 つまり、自由作文のような長文をそのまま出させるわけではありません。
 
 この部分に最も関係が深い既存の章は次のとおりです。
-- [Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [7.5.2 Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [7.5.4 構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
 
 ## 十、最初にこのモジュールを作るときの、いちばん安定した範囲
 

@@ -1,11 +1,11 @@
 ---
-title: "3.6 Model Scale and Computation"
+title: "7.3.6 Model Scale and Computation"
 sidebar_position: 12
 description: "Understand why large models get bigger by looking at parameters, context length, KV cache, training token count, and throughput, and what costs they are racing against."
 keywords: [scaling, parameters, flops, kv cache, context length, throughput, scaling laws]
 ---
 
-# Model Scale and Computation
+# 7.3.6 Model Scale and Computation
 
 :::tip What this section is about
 When many people talk about large models, they often focus on just one number:
@@ -36,9 +36,9 @@ This lesson will break the vague phrase “the model is huge” into engineering
 
 ---
 
-## 1. Parameter Count Is Only the First Layer of the Story
+## Parameter Count Is Only the First Layer of the Story
 
-### 1.1 Why do people like to say `7B / 70B`?
+### Why do people like to say `7B / 70B`?
 
 Because it is intuitive.
 Parameter count does roughly reflect a model’s capacity:
@@ -47,7 +47,7 @@ Parameter count does roughly reflect a model’s capacity:
 
 But that is only the first layer.
 
-### 1.2 For large models, cost also depends on many other dimensions
+### For large models, cost also depends on many other dimensions
 
 For example, even if two models are both labeled `7B`,
 they can still differ a lot because of factors like:
@@ -61,7 +61,7 @@ they can still differ a lot because of factors like:
 So parameter count is not useless,
 but you cannot look at it alone.
 
-### 1.3 An analogy: floor area is not the total cost of a building
+### An analogy: floor area is not the total cost of a building
 
 You can think of parameter count as the total floor area of a house.
 But what really costs money also includes:
@@ -74,9 +74,9 @@ Likewise, the real computational cost of a large model is not determined by para
 
 ---
 
-## 2. Where Does the Parameter Count Come From?
+## Where Does the Parameter Count Come From?
 
-### 2.1 In a decoder block, the main cost comes from attention and FFN
+### In a decoder block, the main cost comes from attention and FFN
 
 For a rough estimate, it helps to remember two main parts:
 
@@ -86,7 +86,7 @@ For a rough estimate, it helps to remember two main parts:
 In many decoder-only models,
 the FFN can have even more parameters than attention.
 
-### 2.2 A very useful rough formula
+### A very useful rough formula
 
 For a standard decoder block,
 you can use this approximate intuition:
@@ -101,7 +101,7 @@ So one layer can be roughly approximated as:
 Then multiply by the number of layers,
 and you get a very useful first-order estimate.
 
-### 2.3 Why is a rough estimate still valuable?
+### Why is a rough estimate still valuable?
 
 Because engineering decisions do not need exact values down to the last digit at the beginning.
 What matters more is:
@@ -112,7 +112,7 @@ What matters more is:
 
 ---
 
-## 3. Run a Truly Useful Estimation Script
+## Run a Truly Useful Estimation Script
 
 The script below estimates two very common real-world things:
 
@@ -185,7 +185,7 @@ for cfg in configs:
     print("kv cache    :", human_readable(kv_bytes))
 ```
 
-### 3.1 What is the most important takeaway from this code?
+### What is the most important takeaway from this code?
 
 First:
 
@@ -200,7 +200,7 @@ Second:
 
 This is why context length and inference memory affect each other.
 
-### 3.2 Why is the pressure on the `large` model not just a doubling of parameters?
+### Why is the pressure on the `large` model not just a doubling of parameters?
 
 Because you will find that many factors are growing at the same time:
 
@@ -211,7 +211,7 @@ Because you will find that many factors are growing at the same time:
 Once these factors stack together,
 both training and inference costs rise significantly.
 
-### 3.3 Why can GQA / MQA relieve inference pressure?
+### Why can GQA / MQA relieve inference pressure?
 
 Because they directly reduce:
 
@@ -227,9 +227,9 @@ This diagram breaks cost into several knobs: layers, hidden size, context length
 
 ---
 
-## 4. What Is Actually Different Between Training and Inference?
+## What Is Actually Different Between Training and Inference?
 
-### 4.1 What usually becomes the bottleneck during training?
+### What usually becomes the bottleneck during training?
 
 Common training bottlenecks include:
 
@@ -245,7 +245,7 @@ So during training, you will care a lot about:
 - tensor parallelism / data parallelism
 - activation memory
 
-### 4.2 What usually becomes the bottleneck during inference?
+### What usually becomes the bottleneck during inference?
 
 The main pressure during inference more often comes from:
 
@@ -261,7 +261,7 @@ So you will care more about:
 - how many kv heads there are
 - whether the cache can be quantized
 
-### 4.3 Why does “the model can be trained” not mean “it is easy to deploy”?
+### Why does “the model can be trained” not mean “it is easy to deploy”?
 
 Because training and inference are fundamentally different workloads.
 
@@ -284,9 +284,9 @@ Training is more like “continuous production,” where the focus is on paramet
 
 ---
 
-## 5. Scaling Is Not About Bigger Is Better, but About Bigger Is More Expensive
+## Scaling Is Not About Bigger Is Better, but About Bigger Is More Expensive
 
-### 5.1 Parameter growth creates opportunities for capability, not free performance
+### Parameter growth creates opportunities for capability, not free performance
 
 More parameters usually bring a higher expressive ceiling,
 but only if you also have:
@@ -297,7 +297,7 @@ but only if you also have:
 
 Otherwise, the model is just “bigger,” not necessarily “more worthwhile.”
 
-### 5.2 Longer context is not free either
+### Longer context is not free either
 
 Increasing context length brings:
 
@@ -311,7 +311,7 @@ But it also brings:
 
 So “supports 128k” does not mean “all 128k are necessarily useful.”
 
-### 5.3 Three common real-world problems when scaling up
+### Three common real-world problems when scaling up
 
 1. Training cost rises sharply
 2. Inference service cost increases at the same time
@@ -323,9 +323,9 @@ So the essence of scaling is:
 
 ---
 
-## 6. A Very Practical Decision Order
+## A Very Practical Decision Order
 
-### 6.1 If you are stuck on the training side
+### If you are stuck on the training side
 
 First check:
 
@@ -333,7 +333,7 @@ First check:
 - Are batch size and seq_len too high?
 - Are intermediate activations the main bottleneck?
 
-### 6.2 If you are stuck on the inference side
+### If you are stuck on the inference side
 
 First check:
 
@@ -342,7 +342,7 @@ First check:
 - KV cache size
 - whether you can use GQA / MQA / cache quantization
 
-### 6.3 If you are planning model scale
+### If you are planning model scale
 
 First ask:
 
@@ -355,19 +355,19 @@ model planning easily turns into the illusion that “bigger is always better.�
 
 ---
 
-## 7. Common Misconceptions
+## Common Misconceptions
 
-### 7.1 Misconception 1: If the parameter count is large, the result must be good
+### Misconception 1: If the parameter count is large, the result must be good
 
 Not necessarily.
 Parameter count is only capacity, not automatically realized performance.
 
-### 7.2 Misconception 2: Inference cost depends only on parameter count
+### Misconception 2: Inference cost depends only on parameter count
 
 Wrong.
 Context length and KV cache are often just as important.
 
-### 7.3 Misconception 3: Training memory and inference memory are the same thing
+### Misconception 3: Training memory and inference memory are the same thing
 
 No.
 Their memory composition and bottlenecks are different.

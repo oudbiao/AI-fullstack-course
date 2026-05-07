@@ -1,11 +1,11 @@
 ---
-title: "2.2 つなぎ目：sklearn から PyTorch へ"
+title: "6.2.2 つなぎ目：sklearn から PyTorch へ"
 sidebar_position: 0
 description: "最小限の動く例で sklearn と PyTorch の考え方の違いを理解し、従来の機械学習から深層学習フレームワークへの橋をかける。"
 keywords: [sklearn, PyTorch, 深層学習入門, 訓練ループ, テンソル, 勾配降下法]
 ---
 
-# sklearn から PyTorch へ
+# 6.2.2 sklearn から PyTorch へ
 
 :::tip この節の位置づけ
 `scikit-learn` がオートマ車なら、`PyTorch` はマニュアル車のようなものです。
@@ -87,7 +87,7 @@ pip install numpy scikit-learn torch
 
 最もシンプルな線形回帰をやってみましょう。学習時間から試験点数を予測します。
 
-### 3.1 sklearn で訓練する
+### sklearn で訓練する
 
 ```python
 import numpy as np
@@ -109,7 +109,7 @@ print("6時間勉強したときの予測点数:", round(float(sk_model.predict(
 
 きれいな直線モデルが得られ、流れもとてもスムーズです。
 
-### 3.2 PyTorch で同じタスクを訓練する
+### PyTorch で同じタスクを訓練する
 
 ```python
 import torch

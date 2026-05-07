@@ -1,11 +1,11 @@
 ---
-title: "6.2 Pretraining Paradigm"
+title: "11.6.2 Pretraining Paradigm"
 sidebar_position: 16
 description: "Start from the idea of “learn general language ability first, then transfer it to specific tasks,” and understand why pretraining became the main thread of modern NLP."
 keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-finetune]
 ---
 
-# Pretraining Paradigm
+# 11.6.2 Pretraining Paradigm
 
 ![Diagram of the relationship between pretraining, transfer, and fine-tuning](/img/course/ch11-pretraining-transfer-finetune-map-en.png)
 
@@ -59,9 +59,9 @@ So what this section really wants to explain is:
 - Why “training each task from scratch” is wasteful
 - Why “learn the foundation first, then transfer” changed the main direction of NLP
 
-## 1. Why Does Pretraining Change NLP So Much?
+## Why Does Pretraining Change NLP So Much?
 
-### 1.1 Because many tasks share basic language abilities
+### Because many tasks share basic language abilities
 
 Whether it is:
 
@@ -76,7 +76,7 @@ they all require some common underlying abilities, such as:
 - modeling syntactic structure
 - modeling context
 
-### 1.2 Training each task from scratch is wasteful
+### Training each task from scratch is wasteful
 
 It is like:
 
@@ -84,7 +84,7 @@ It is like:
 
 Obviously, the cost is high.
 
-### 1.3 The core idea of the pretraining paradigm
+### The core idea of the pretraining paradigm
 
 So a more reasonable approach becomes:
 
@@ -93,7 +93,7 @@ So a more reasonable approach becomes:
 
 This is the main thread of modern NLP.
 
-### 1.4 When you first learn the pretraining paradigm, what should you focus on?
+### When you first learn the pretraining paradigm, what should you focus on?
 
 What you should focus on first is not model names, but this sentence:
 
@@ -111,33 +111,33 @@ you will naturally ask:
 
 ---
 
-## 2. What Is the Relationship Between Pretraining, Transfer, and Fine-Tuning?
+## What Is the Relationship Between Pretraining, Transfer, and Fine-Tuning?
 
-### 2.1 Pretraining
+### Pretraining
 
 The goal is:
 
 - learn general language representations and patterns
 
-### 2.2 Transfer
+### Transfer
 
 The goal is:
 
 - bring existing capabilities to a new task
 
-### 2.3 Fine-tuning
+### Fine-tuning
 
 The goal is:
 
 - further adapt to a specific task
 
-### 2.4 An Analogy
+### An Analogy
 
 Pretraining is like reading a general education textbook first.
 Transfer is like moving that foundation to a new subject.
 Fine-tuning is like doing targeted practice for a specific exam format.
 
-### 2.5 Why Is This Analogy Worth Remembering First?
+### Why Is This Analogy Worth Remembering First?
 
 Because many beginners, when they first encounter pretraining, think:
 
@@ -151,7 +151,7 @@ But this analogy helps you see more clearly:
 
 ---
 
-## 3. Let’s Run a “Shared Foundation” Example First
+## Let’s Run a “Shared Foundation” Example First
 
 ```python
 shared_representation = {
@@ -181,7 +181,7 @@ for tokens in [["refund"], ["invoice"], ["password"]]:
     print(tokens, "->", classify_intent(tokens))
 ```
 
-### 3.1 What Is This Example Trying to Show?
+### What Is This Example Trying to Show?
 
 It is not meant to be a real strong model,
 but to express the most important paradigm:
@@ -189,7 +189,7 @@ but to express the most important paradigm:
 - first there is a shared representation foundation
 - then specific tasks are completed on top of it
 
-### 3.2 Why Is This Similar to the pretraining era?
+### Why Is This Similar to the pretraining era?
 
 Because you are no longer:
 
@@ -199,7 +199,7 @@ Instead:
 
 - you reuse an existing set of language representations
 
-### 3.3 When Beginners First Learn the Pretraining Paradigm, What Should They Remember Most?
+### When Beginners First Learn the Pretraining Paradigm, What Should They Remember Most?
 
 What is most worth remembering is actually:
 
@@ -207,7 +207,7 @@ What is most worth remembering is actually:
 2. Shared foundation capabilities are the core asset of modern NLP
 3. This greatly lowers the barrier for downstream tasks
 
-### 3.4 Why Is the “Shared Foundation” Perspective So Important?
+### Why Is the “Shared Foundation” Perspective So Important?
 
 Because it will directly change how you think later.
 
@@ -222,18 +222,18 @@ You will more naturally ask:
 
 ---
 
-## 4. Why Does This Path Eventually Lead to BERT / GPT / T5?
+## Why Does This Path Eventually Lead to BERT / GPT / T5?
 
-### 4.1 Because It Scales
+### Because It Scales
 
 Once pretraining is established,
 more data and more compute usually continue to improve the foundation’s capability.
 
-### 4.2 Because It Is More General
+### Because It Is More General
 
 The same foundation can be transferred to many tasks.
 
-### 4.3 Because It Lowers the Barrier for Downstream Tasks
+### Because It Lowers the Barrier for Downstream Tasks
 
 Many tasks no longer need to train a large model from scratch,
 but instead:
@@ -242,14 +242,14 @@ but instead:
 
 ---
 
-## 5. Common Pitfalls
+## Common Pitfalls
 
-### 5.1 Mistake 1: Thinking the pretraining paradigm is just “train first for a while”
+### Mistake 1: Thinking the pretraining paradigm is just “train first for a while”
 
 That is not right.
 It changes the whole way tasks are organized.
 
-### 5.2 Mistake 2: Thinking every task must be fine-tuned
+### Mistake 2: Thinking every task must be fine-tuned
 
 Some tasks only need:
 
@@ -259,7 +259,7 @@ Some tasks only need:
 
 That may be enough.
 
-### 5.3 Mistake 3: Memorizing model names without understanding the paradigm
+### Mistake 3: Memorizing model names without understanding the paradigm
 
 What really matters is:
 

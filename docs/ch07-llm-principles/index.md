@@ -54,19 +54,19 @@ Experienced learners can focus on solution selection: when is Prompt enough, whe
 
 ## Learning path for this stage
 
-Chapter 1 starts with a fast NLP crash course, including tokenizer, embedding, pretrained models, and a quick hands-on with HuggingFace.
+Section 7.1 starts with a fast NLP crash course, including tokenizer, embedding, pretrained models, and a quick hands-on with HuggingFace.
 
-Chapter 2 covers the LLM overview to understand the development history, core concepts, and industry landscape of LLMs.
+Section 7.2 covers the LLM overview to understand the development history, core concepts, and industry landscape of LLMs.
 
-Chapter 3 goes deep into Transformer, focusing on architecture, variants, efficient attention, and scaled computation.
+Section 7.3 goes deep into Transformer, focusing on architecture, variants, efficient attention, and scaled computation.
 
-Chapter 4 covers pretraining techniques, including data, training methods, and engineering challenges.
+Section 7.4 covers pretraining techniques, including data, training methods, and engineering challenges.
 
-Chapter 5 covers Prompt Engineering, helping you understand how to shape model behavior through input design.
+Section 7.5 covers Prompt Engineering, helping you understand how to shape model behavior through input design.
 
-Chapter 6 covers fine-tuning, focusing on LoRA, QLoRA, PEFT, and data labeling.
+Section 7.6 covers fine-tuning, focusing on LoRA, QLoRA, PEFT, and data labeling.
 
-Chapter 7 covers RLHF and alignment, explaining why a model being powerful does not mean it is reliable, controllable, or safe.
+Section 7.7 covers RLHF and alignment, explaining why a model being powerful does not mean it is reliable, controllable, or safe.
 
 ## What you should be able to do after finishing
 
@@ -116,9 +116,9 @@ The real exit point of this stage is not being able to recite many model names, 
 
 The basic version is to complete a Prompt comparison experiment and record the differences in performance between plain prompts, role prompts, step-by-step prompts, and structured output. The standard version requires building a Prompt Experiment Atlas around the same task and comparing stability, format control, cost, and error types. The challenge version can design a domain fine-tuning plan or a minimal fine-tuning experiment, explaining the data source, labeling rules, training method, evaluation approach, and safety risks.
 
-If you want one guided route before choosing a project, start with [Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). It gives you a runnable offline workflow that connects tokens, prompt versions, structured output validation, solution choice, and failure evidence in one place.
+If you want one guided route before choosing a project, start with [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). It gives you a runnable offline workflow that connects tokens, prompt versions, structured output validation, solution choice, and failure evidence in one place.
 
-If you want a more detailed learning rhythm, you can read [Learning Guide: How to Learn LLM Principles Without Getting Confused](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [7.0 Learning Guide: How to Learn LLM Principles Without Getting Confused](./study-guide.md).
 
 
 

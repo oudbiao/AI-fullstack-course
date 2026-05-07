@@ -1,11 +1,11 @@
 ---
-title: "1.4 跟做工作坊：构建可复现的 AI 学习工作台"
+title: "1.4.1 跟做工作坊：构建可复现的 AI 学习工作台"
 sidebar_position: 1
 description: "第 1 章跟做实操：把终端、Python 环境检查、VS Code、Jupyter、Git 和作品集证据串成一个可运行的学习仓库。"
 keywords: [开发者工具工作坊, 终端, Git, Python 环境, VS Code, Jupyter, 可复现项目]
 ---
 
-# 跟做工作坊：构建可复现的 AI 学习工作台
+# 1.4.1 跟做工作坊：构建可复现的 AI 学习工作台
 
 ![第 1 章实操工作台路线图](/img/course/ch01-hands-on-workstation-route.png)
 

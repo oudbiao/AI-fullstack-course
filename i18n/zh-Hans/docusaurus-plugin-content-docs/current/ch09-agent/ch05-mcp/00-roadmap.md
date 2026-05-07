@@ -1,11 +1,11 @@
 ---
-title: "5.1 学前导读：MCP 这一章到底在学什么"
+title: "9.5.1 学前导读：MCP 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 MCP 章节的学习地图：协议定位、Server、Client、工具资源提示词和生态集成怎样让 Agent 能力连接更统一。"
 keywords: [MCP导读, Model Context Protocol, Agent工具生态, MCP Server]
 ---
 
-# 学前导读：MCP 这一章到底在学什么
+# 9.5.1 学前导读：MCP 这一章到底在学什么
 
 这一章解决的是：当工具、数据源和外部能力越来越多时，怎样用统一协议把它们更稳定地接入 Agent 和大模型应用。
 

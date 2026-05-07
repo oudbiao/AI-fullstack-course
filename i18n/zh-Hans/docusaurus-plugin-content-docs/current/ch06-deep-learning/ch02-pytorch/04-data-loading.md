@@ -1,11 +1,11 @@
 ---
-title: "2.6 数据加载"
+title: "6.2.6 数据加载"
 sidebar_position: 4
 description: "理解 Dataset、DataLoader、batch、shuffle 和训练集划分，让模型能稳定地一批批吃数据。"
 keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 ---
 
-# 数据加载
+# 6.2.6 数据加载
 
 ![Dataset DataLoader Batch 流程图](/img/course/dataset-dataloader-batch-flow.png)
 
@@ -66,7 +66,7 @@ for batch_x, batch_y in dataloader:
     pred = model(batch_x)
 ```
 
-### 1.1 第一次看 `batch`，最值得先记什么？
+### 第一次看 `batch`，最值得先记什么？
 
 可以先只记一句话：
 
@@ -96,7 +96,7 @@ for batch_x, batch_y in dataloader:
 - `Dataset` 负责“单条数据怎么取”
 - `DataLoader` 负责“怎么把单条数据凑成一批”
 
-### 2.1 为什么这两个对象要分开？
+### 为什么这两个对象要分开？
 
 因为它们解决的是两个不同层面的问题：
 
@@ -157,7 +157,7 @@ print("第 3 条样本:", dataset[3])
 - `__len__()`：返回总样本数
 - `__getitem__(idx)`：返回第 `idx` 条数据
 
-### 3.1 第一次自己写 `Dataset` 时，最该先检查什么？
+### 第一次自己写 `Dataset` 时，最该先检查什么？
 
 最值得先检查这三件事：
 
@@ -216,7 +216,7 @@ for batch_idx, (batch_x, batch_y) in enumerate(loader):
 | `batch_size=2` | 每次取 2 条样本 |
 | `shuffle=True` | 每个 epoch 开头打乱顺序 |
 
-### 4.1 为什么 DataLoader 这一层特别适合先打印 shape？
+### 为什么 DataLoader 这一层特别适合先打印 shape？
 
 因为这是训练前最后一个最容易排查数据问题的位置。
 建议第一次写完 DataLoader 时都先做这件事：
@@ -380,7 +380,7 @@ for x, y in val_loader:
 
 等你开始训练更大的模型，再考虑显存和吞吐量平衡。
 
-### 8.1 一个更稳的默认思路
+### 一个更稳的默认思路
 
 初学阶段可以先这样想：
 
@@ -398,16 +398,16 @@ for x, y in val_loader:
 
 ## 九、初学者常见误区
 
-### 1. 以为 `Dataset` 就是把所有数据都读进内存
+### 以为 `Dataset` 就是把所有数据都读进内存
 
 不一定。
 教学示例里我们确实这样写，但真实工程里，`__getitem__()` 常常会在访问时再去读磁盘文件。
 
-### 2. 训练集也不打乱
+### 训练集也不打乱
 
 可能能跑，但通常不是好习惯。
 
-### 3. 只会写数组，不会写数据集类
+### 只会写数组，不会写数据集类
 
 小实验可以偷懒，稍微正规一点的项目都建议写成 `Dataset`。
 

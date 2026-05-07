@@ -1,11 +1,11 @@
 ---
-title: "1.4 Agent 能力分级"
+title: "9.1.4 Agent 能力分级"
 sidebar_position: 3
 description: "用分层视角理解不同 Agent 系统的能力边界，避免把简单工作流说成全能智能体。"
 keywords: [agent capability, tool use, planning, workflow, autonomy]
 ---
 
-# Agent 能力分级
+# 9.1.4 Agent 能力分级
 
 ![Agent 能力分级阶梯图](/img/course/ch09-capability-level-ladder-map.png)
 
@@ -22,7 +22,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 一、为什么要给 Agent 分级？
 
-### 1.1 因为“Agent”这个词太容易被说大
+### 因为“Agent”这个词太容易被说大
 
 有些系统只是：
 
@@ -36,7 +36,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 如果都叫 Agent，就会混淆很多概念。
 
-### 1.2 分级的意义在于更诚实地描述系统能力
+### 分级的意义在于更诚实地描述系统能力
 
 它能帮助你回答：
 
@@ -48,7 +48,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 二、一个实用的能力分级框架
 
-### 2.1 L0：纯回答型
+### L0：纯回答型
 
 特点：
 
@@ -61,7 +61,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 - 普通问答机器人
 - 纯 Prompt 生成器
 
-### 2.2 L1：单工具执行型
+### L1：单工具执行型
 
 特点：
 
@@ -78,7 +78,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 三、再往上一层
 
-### 3.1 L2：多步工具协同型
+### L2：多步工具协同型
 
 特点：
 
@@ -90,7 +90,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 - 先查订单，再查退款政策，再给结论
 - 先搜资料，再总结成报告
 
-### 3.2 L3：目标驱动型
+### L3：目标驱动型
 
 特点：
 
@@ -108,7 +108,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 四、更高层能力通常意味着更高风险
 
-### 4.1 L4：长时运行 / 多 Agent / 强自治
+### L4：长时运行 / 多 Agent / 强自治
 
 特点：
 
@@ -118,7 +118,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 这类系统听起来最酷，但也最难工程化。
 
-### 4.2 能力越高，不代表越适合你的任务
+### 能力越高，不代表越适合你的任务
 
 因为能力提升往往伴随：
 
@@ -146,7 +146,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ## 六、一个小练习：给任务分等级
 
-### 6.1 可运行示例
+### 可运行示例
 
 ```python
 tasks = [
@@ -177,7 +177,7 @@ for task in tasks:
 
 ## 七、怎么从低一级往上升级？
 
-### 7.1 从 L0 到 L1
+### 从 L0 到 L1
 
 关键是加上：
 
@@ -185,7 +185,7 @@ for task in tasks:
 - 参数生成
 - 工具结果回填
 
-### 7.2 从 L1 到 L2
+### 从 L1 到 L2
 
 关键是加上：
 
@@ -193,7 +193,7 @@ for task in tasks:
 - 多步执行
 - 动作间依赖
 
-### 7.3 从 L2 到 L3
+### 从 L2 到 L3
 
 关键是加上：
 
@@ -207,7 +207,7 @@ for task in tasks:
 
 ## 八、工程上怎么避免“能力吹过头”？
 
-### 8.1 先给系统设边界
+### 先给系统设边界
 
 例如：
 
@@ -215,7 +215,7 @@ for task in tasks:
 - 最多调用几个工具
 - 哪些任务必须人工确认
 
-### 8.2 先用最小能力上线
+### 先用最小能力上线
 
 很多系统一开始其实只需要：
 
@@ -231,15 +231,15 @@ for task in tasks:
 
 ## 九、初学者常见误区
 
-### 9.1 以为有工具调用就是高级 Agent
+### 以为有工具调用就是高级 Agent
 
 会调一个工具，通常最多只是 L1。
 
-### 9.2 以为越多步骤越智能
+### 以为越多步骤越智能
 
 步骤变多，有时只是错误路径变多。
 
-### 9.3 不区分任务等级就乱堆架构
+### 不区分任务等级就乱堆架构
 
 这是很多 Agent 项目难落地的原因之一。
 

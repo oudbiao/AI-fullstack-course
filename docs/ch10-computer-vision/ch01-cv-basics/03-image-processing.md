@@ -1,11 +1,11 @@
 ---
-title: "1.4 Image Processing Techniques"
+title: "10.1.4 Image Processing Techniques"
 sidebar_position: 3
 description: "From filtering and edge detection to morphological operations, understand how classic image processing works with runnable OpenCV examples."
 keywords: [filtering, edge detection, morphology, OpenCV, Canny, blur]
 ---
 
-# Image Processing Techniques
+# 10.1.4 Image Processing Techniques
 
 ![Image processing pipeline diagram](/img/course/cv-image-processing-pipeline-en.png)
 
@@ -20,7 +20,7 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. What does image processing work on?
+## What does image processing work on?
 
 Classic image processing can be understood as:
 
@@ -46,7 +46,7 @@ pip install opencv-python numpy
 
 ---
 
-## 2. First, generate a test image
+## First, generate a test image
 
 To keep the example independent of external images, we will generate a simple image ourselves.
 
@@ -68,13 +68,13 @@ Here we use a grayscale image directly, which will make edge detection and thres
 
 ---
 
-## 3. Filtering: make the image a little smoother
+## Filtering: make the image a little smoother
 
 The intuition of filtering is very similar to this:
 
 > Consider the values of the neighboring pixels around a pixel to make the image smoother.
 
-### 3.1 Mean filtering
+### Mean filtering
 
 ```python
 import cv2
@@ -89,7 +89,7 @@ print("Saved processing_blur.png")
 
 Mean filtering softens edges, but it can also lose details.
 
-### 3.2 Gaussian filtering
+### Gaussian filtering
 
 ```python
 import cv2
@@ -105,7 +105,7 @@ Gaussian filtering is used more often than simple mean filtering because it feel
 
 ---
 
-## 4. Edge detection: find where the changes are most obvious
+## Edge detection: find where the changes are most obvious
 
 An edge can be understood as:
 
@@ -113,7 +113,7 @@ An edge can be understood as:
 
 For example, the boundary of a white rectangle on a black background is a typical edge.
 
-### 4.1 Canny edge detection
+### Canny edge detection
 
 ```python
 import cv2
@@ -135,7 +135,7 @@ You can roughly remember it like this:
 
 ---
 
-## 5. Thresholding: convert a grayscale image into a black-and-white image
+## Thresholding: convert a grayscale image into a black-and-white image
 
 Thresholding means setting a line:
 
@@ -160,13 +160,13 @@ This operation is commonly used for:
 
 ---
 
-## 6. Morphological operations: editing shapes
+## Morphological operations: editing shapes
 
 Morphological operations are especially suitable for binary images.
 
 You can think of them as "kneading, expanding, or shrinking the white areas."
 
-### 6.1 Erosion
+### Erosion
 
 The white areas become smaller.
 
@@ -182,7 +182,7 @@ cv2.imwrite("processing_eroded.png", eroded)
 print("Saved processing_eroded.png")
 ```
 
-### 6.2 Dilation
+### Dilation
 
 The white areas become larger.
 
@@ -198,7 +198,7 @@ cv2.imwrite("processing_dilated.png", dilated)
 print("Saved processing_dilated.png")
 ```
 
-### 6.3 Opening and closing
+### Opening and closing
 
 - Opening = erosion followed by dilation, suitable for removing small noise
 - Closing = dilation followed by erosion, suitable for filling small holes
@@ -226,7 +226,7 @@ Classic image processing is not just a list of APIs, but a set of pixel rules wi
 
 ---
 
-## 7. Combine these operations into a pipeline
+## Combine these operations into a pipeline
 
 In real tasks, these operations are often used together.
 
@@ -268,7 +268,7 @@ print("The full processing pipeline results have been saved")
 
 ---
 
-## 8. Why do we still learn these classic methods today?
+## Why do we still learn these classic methods today?
 
 Because they are still very useful:
 
@@ -281,18 +281,18 @@ Many beginners only want to learn CNNs at first, but if you do not even understa
 
 ---
 
-## 9. Common beginner mistakes
+## Common beginner mistakes
 
-### 1. Thinking filtering is just about "making the image look better"
+### Thinking filtering is just about "making the image look better"
 
 Not only that.
 Filtering is often used to make later algorithms more stable.
 
-### 2. Thinking thresholds can stay fixed forever
+### Thinking thresholds can stay fixed forever
 
 In real images, lighting changes a lot, so thresholds often need to be adjusted based on the scenario.
 
-### 3. Learning only the API without understanding the purpose
+### Learning only the API without understanding the purpose
 
 You should always ask yourself:
 

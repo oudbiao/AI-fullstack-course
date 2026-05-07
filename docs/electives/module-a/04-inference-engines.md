@@ -1,11 +1,11 @@
 ---
-title: "1.4 Inference Engines"
+title: "E.A.4 Inference Engines"
 sidebar_position: 4
 description: "Starting from the roles and differences of inference engines such as ONNX Runtime, TensorRT, and OpenVINO, understand why deployment is not as simple as just “exporting the model.”"
 keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, deployment]
 ---
 
-# Inference Engines
+# E.A.4 Inference Engines
 
 ![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware-en.png)
 
@@ -37,9 +37,9 @@ So the question this lesson answers is:
 
 ---
 
-## 1. What exactly does an inference engine do?
+## What exactly does an inference engine do?
 
-### 1.1 It is not the model itself
+### It is not the model itself
 
 The model answers:
 
@@ -49,7 +49,7 @@ The inference engine answers:
 
 - How can this structure be executed more efficiently on the target device?
 
-### 1.2 What does it usually do?
+### What does it usually do?
 
 Common tasks include:
 
@@ -58,7 +58,7 @@ Common tasks include:
 - Memory planning
 - Backend kernel selection
 
-### 1.3 An analogy
+### An analogy
 
 A model is like a recipe.
 An inference engine is like a kitchen scheduling system.
@@ -68,9 +68,9 @@ using different workflows in different kitchens will lead to different speed and
 
 ---
 
-## 2. Why are there so many inference engines?
+## Why are there so many inference engines?
 
-### 2.1 Because the hardware is different
+### Because the hardware is different
 
 Common target environments include:
 
@@ -79,7 +79,7 @@ Common target environments include:
 - Intel CPU / NPU
 - Edge devices
 
-### 2.2 Because the optimization goals are different
+### Because the optimization goals are different
 
 Some care more about:
 
@@ -89,7 +89,7 @@ Others care more about:
 
 - Extreme performance
 
-### 2.3 So there is no “absolutely best engine”
+### So there is no “absolutely best engine”
 
 A more reasonable question is:
 
@@ -97,7 +97,7 @@ A more reasonable question is:
 
 ---
 
-## 3. Understand “engine selection” with a small example first
+## Understand “engine selection” with a small example first
 
 This example does not actually run ONNX Runtime or TensorRT,
 but it very directly simulates:
@@ -143,7 +143,7 @@ for item in throughput_first:
     print(item)
 ```
 
-### 3.1 What does this code teach?
+### What does this code teach?
 
 It reminds you that:
 
@@ -159,7 +159,7 @@ and you care more about:
 
 the final ranking may be different.
 
-### 3.2 Why is this more useful than just remembering “TensorRT is faster”?
+### Why is this more useful than just remembering “TensorRT is faster”?
 
 Because real decisions are never only about:
 
@@ -173,9 +173,9 @@ They also include:
 
 ---
 
-## 4. Broad differences among several common engines
+## Broad differences among several common engines
 
-### 4.1 ONNX Runtime
+### ONNX Runtime
 
 It is more like a general-purpose player.
 Its strengths are usually:
@@ -184,7 +184,7 @@ Its strengths are usually:
 - Strong compatibility
 - Relatively balanced ease of use
 
-### 4.2 TensorRT
+### TensorRT
 
 It is more like a high-performance path in the NVIDIA ecosystem.
 Common characteristics:
@@ -193,7 +193,7 @@ Common characteristics:
 - Large optimization potential
 - Relatively higher engineering barrier
 
-### 4.3 OpenVINO
+### OpenVINO
 
 It is more focused on the Intel ecosystem and adaptation to specific hardware.
 Common characteristics:
@@ -201,7 +201,7 @@ Common characteristics:
 - Good performance on certain CPUs / Intel devices
 - Suitable for specific deployment environments
 
-### 4.4 How should you choose among these three?
+### How should you choose among these three?
 
 Do not ask first, “Which one is the most popular?”
 Instead ask:
@@ -212,28 +212,28 @@ Instead ask:
 
 ---
 
-## 5. What deployment outcomes can inference engines directly affect?
+## What deployment outcomes can inference engines directly affect?
 
-### 5.1 Latency
+### Latency
 
 What users notice first is:
 
 - Is it fast or not?
 
-### 5.2 Throughput
+### Throughput
 
 The service side cares more about:
 
 - How many requests can it handle at the same time?
 
-### 5.3 Resource utilization
+### Resource utilization
 
 For example:
 
 - Is it more memory-efficient?
 - Is CPU usage more reasonable?
 
-### 5.4 Maintenance complexity
+### Maintenance complexity
 
 A route with higher performance
 sometimes also means:
@@ -244,9 +244,9 @@ sometimes also means:
 
 ---
 
-## 6. The most common misconceptions
+## The most common misconceptions
 
-### 6.1 Misconception 1: An inference engine is just “running the model with a different library”
+### Misconception 1: An inference engine is just “running the model with a different library”
 
 Not really.
 It often changes:
@@ -255,12 +255,12 @@ It often changes:
 - Optimization strategy
 - Hardware utilization
 
-### 6.2 Misconception 2: The fastest engine is the best engine
+### Misconception 2: The fastest engine is the best engine
 
 If compatibility is poor, debugging is complicated, or deployment is too difficult,
 “fastest” may not be the best choice.
 
-### 6.3 Misconception 3: Choose the engine first, then look at the hardware
+### Misconception 3: Choose the engine first, then look at the hardware
 
 A more reasonable order is usually the opposite:
 

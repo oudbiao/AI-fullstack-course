@@ -1,10 +1,10 @@
 ---
-title: "1.6 Type Hints and Code Quality"
+title: "2.2.6 Type Hints and Code Quality"
 sidebar_position: 6
 description: "Master Python type hints and code quality tools"
 ---
 
-# Type Hints and Code Quality
+# 2.2.6 Type Hints and Code Quality
 
 ![Type Hints and Code Quality Flowchart](/img/course/ch02-type-hints-quality-flow-en.png)
 

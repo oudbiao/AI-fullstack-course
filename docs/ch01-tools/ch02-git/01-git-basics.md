@@ -1,10 +1,10 @@
 ---
-title: "Git Basics"
+title: "1.2.1 Git Basics"
 sidebar_position: 1
 description: "Understand why version control is necessary and learn Git’s core concepts"
 ---
 
-# Git Basics
+# 1.2.1 Git Basics
 
 ![Git four-area workflow diagram](/img/course/git-four-areas-en.png)
 

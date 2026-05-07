@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-reading guide: What is this chapter on probability and statistics really about?"
+title: "4.2.1 Pre-reading guide: What is this chapter on probability and statistics really about?"
 sidebar_position: 4
 description: "First build a learning map for probability and statistics: what problems probability, distributions, statistical inference, and information theory solve in AI."
 keywords: [probability guide, statistics guide, probability distribution, Bayes, MLE, information theory]
 ---
 
-# Pre-reading guide: What is this chapter on probability and statistics really about?
+# 4.2.1 Pre-reading guide: What is this chapter on probability and statistics really about?
 
 ![Probability and statistics learning map](/img/course/ch04-probability-roadmap-vertical-en.png)
 
@@ -56,7 +56,7 @@ but you should begin to clearly explain:
 
 ---
 
-## 1. What is the relationship between the four sections in this chapter?
+## What is the relationship between the four sections in this chapter?
 
 ![Probability and statistics chapter flow](/img/course/ch04-probability-chapter-flow-en.png)
 
@@ -76,7 +76,7 @@ The learning path is intentionally ordered this way:
 
 ---
 
-## 2. How this chapter relates to AI
+## How this chapter relates to AI
 
 | Chapter | Most direct role in AI |
 |---|---|
@@ -102,7 +102,7 @@ One small but important distinction:
 
 Machine learning constantly moves between the two. During training, it uses data to estimate parameters; during prediction, it uses those parameters to output probabilities.
 
-## 3. Why is AI especially inseparable from this chapter?
+## Why is AI especially inseparable from this chapter?
 
 Because the world AI deals with is almost never completely certain.
 
@@ -119,9 +119,9 @@ So you can think of this chapter as:
 
 ---
 
-## 4. How should beginners learn this chapter?
+## How should beginners learn this chapter?
 
-### 4.1 Start with intuition, not with brute-forcing symbols
+### Start with intuition, not with brute-forcing symbols
 
 For example:
 
@@ -130,11 +130,11 @@ For example:
 - For MLE, first think “which parameters best explain the observed data”
 - For entropy, first think “how uncertain it really is”
 
-### 4.2 Connect every concept back to an AI scenario
+### Connect every concept back to an AI scenario
 
 If after learning a concept, you cannot answer “What is it used for in AI?”, then it probably has not truly become part of your understanding yet.
 
-### 4.3 Do not try to master everything at once
+### Do not try to master everything at once
 
 Many topics in this chapter will come up again later:
 
@@ -144,7 +144,7 @@ Many topics in this chapter will come up again later:
 
 So what matters most in this chapter is building a clear first understanding.
 
-## 5. How should you allocate your time for this chapter?
+## How should you allocate your time for this chapter?
 
 A beginner-friendly pace could be:
 
@@ -165,7 +165,7 @@ A beginner-friendly pace could be:
 
 This way of learning is much more stable than “memorizing a pile of symbols first.”
 
-## 6. A minimal runnable thread for this chapter
+## A minimal runnable thread for this chapter
 
 If you want one tiny project that connects the whole chapter, use a binary classifier example:
 
@@ -178,7 +178,7 @@ The later lessons will show the pieces separately. If you can explain this four-
 
 ---
 
-## 7. After finishing this chapter, what should you at least be able to do?
+## After finishing this chapter, what should you at least be able to do?
 
 - When you see a model’s probability output, you will not treat it as an “absolute conclusion”
 - You know what conditional probability, Bayes updates, and distributions are each saying

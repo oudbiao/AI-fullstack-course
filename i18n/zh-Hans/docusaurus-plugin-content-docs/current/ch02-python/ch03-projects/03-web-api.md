@@ -1,10 +1,10 @@
 ---
-title: "1.3 项目：Web API 开发"
+title: "2.3.3 项目：Web API 开发"
 sidebar_position: 3
 description: "使用 FastAPI 构建你的第一个 Web API"
 ---
 
-# 项目：Web API 开发
+# 2.3.3 项目：Web API 开发
 
 ![Web API 请求响应架构图](/img/course/ch02-web-api-request-response.png)
 

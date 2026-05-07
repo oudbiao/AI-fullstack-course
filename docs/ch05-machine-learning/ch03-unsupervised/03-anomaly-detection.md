@@ -1,11 +1,11 @@
 ---
-title: "3.4 Anomaly Detection"
+title: "5.3.4 Anomaly Detection"
 sidebar_position: 9
 description: "Master anomaly detection techniques such as statistical methods (Z-score, IQR), Isolation Forest, One-Class SVM, and LOF"
 keywords: [anomaly detection, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, outliers]
 ---
 
-# Anomaly Detection
+# 5.3.4 Anomaly Detection
 
 ![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers-en.png)
 
@@ -65,9 +65,9 @@ Read this comic as the main warning for the section: anomaly detection is not si
 
 ---
 
-## 1. Overview of anomaly detection
+## Overview of anomaly detection
 
-### 1.1 What is an anomaly?
+### What is an anomaly?
 
 **Anomaly (Outlier)** = a sample that is significantly different from most of the data.
 
@@ -90,7 +90,7 @@ flowchart LR
 | Network security | Normal traffic | DDoS attacks |
 | Medical diagnosis | Normal health indicators | Disease signals |
 
-### 1.2 Why not use a classifier?
+### Why not use a classifier?
 
 | Problem | Explanation |
 |------|------|
@@ -98,7 +98,7 @@ flowchart LR
 | **Lack of labels** | Many anomalies are not known in advance |
 | **Anomalies change** | New fraud methods keep appearing |
 
-### 1.2.1 What is the real difference between anomaly detection and classification?
+### What is the real difference between anomaly detection and classification?
 
 Classification usually learns:
 
@@ -111,7 +111,7 @@ Anomaly detection more often learns:
 
 That is why thresholds, false positives, false negatives, and business cost matter so much in anomaly detection.
 
-### 1.2.2 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of anomaly detection as:
 
@@ -128,7 +128,7 @@ but rather something that:
 - Deviates too far from the normal pattern
 - Or falls into a place that very few points occupy
 
-### 1.3 Generate demo data
+### Generate demo data
 
 ```python
 import numpy as np
@@ -178,9 +178,9 @@ In real projects, you usually do not know the true anomaly ratio. Here we know i
 
 ---
 
-## 2. Statistical methods
+## Statistical methods
 
-### 2.1 Z-score method
+### Z-score method
 
 **Idea**: Assume the data follows a normal distribution, and treat samples that are more than N standard deviations away from the mean as anomalies.
 
@@ -221,7 +221,7 @@ Z-score anomalies found: 3
 Z-score anomaly values: [25.0, -5.0, 30.0]
 ```
 
-### 2.2 IQR method
+### IQR method
 
 **Idea**: Based on quartiles, with no assumption about the data distribution.
 
@@ -271,7 +271,7 @@ IQR anomaly values: [15.83, 25.0, -5.0, 30.0]
 
 Notice that IQR finds one more point than Z-score here. This is not a bug; the two methods define “far away” differently.
 
-### 2.3 Z-score vs IQR
+### Z-score vs IQR
 
 | | Z-score | IQR |
 |---|---------|-----|
@@ -280,7 +280,7 @@ Notice that IQR finds one more point than Z-score here. This is not a bug; the t
 | Suitable for | Roughly normal data | Any distribution |
 | Threshold | Usually 3σ | 1.5×IQR |
 
-### 2.4 When are statistical methods especially worth trying first?
+### When are statistical methods especially worth trying first?
 
 If you are dealing with:
 
@@ -301,9 +301,9 @@ When reading this chart, first ask what the anomaly looks like: if it is just ex
 
 ---
 
-## 3. Isolation Forest
+## Isolation Forest
 
-### 3.1 Principle
+### Principle
 
 The idea behind Isolation Forest is very clever:
 
@@ -326,7 +326,7 @@ flowchart TD
 | Anomaly score | Shorter path → higher score → more likely an anomaly |
 | Normal point | Surrounded by “normal” data and needs more splits to isolate |
 
-### 3.2 sklearn implementation
+### sklearn implementation
 
 ```python
 from sklearn.ensemble import IsolationForest
@@ -381,7 +381,7 @@ Isolation Forest detected: 16
 
 The detector flags 16 points while we injected 15 anomalies. That difference is exactly why anomaly detection is a threshold-and-cost problem: a few extra alerts may be acceptable in fraud monitoring, but annoying in a user-facing notification system.
 
-### 3.3 Key parameters
+### Key parameters
 
 | Parameter | Explanation | Recommendation |
 |------|------|------|
@@ -390,7 +390,7 @@ The detector flags 16 points while we injected 15 anomalies. That difference is 
 | `max_samples` | Number of samples per tree | 'auto' or 256 |
 | `max_features` | Fraction of features used per tree | 1.0 (default) |
 
-### 3.4 Why is Isolation Forest often the first choice?
+### Why is Isolation Forest often the first choice?
 
 Because in many real-world tasks, it hits a very practical balance:
 
@@ -402,9 +402,9 @@ So when you build your first anomaly detection project, if you do not yet have a
 
 ---
 
-## 4. One-Class SVM
+## One-Class SVM
 
-### 4.1 Principle
+### Principle
 
 Train using **normal data only** and learn a boundary around “normal.” Anything outside the boundary is anomalous.
 
@@ -447,7 +447,7 @@ One-Class SVM detected: 60
 
 This result is intentionally useful for learning: with `gamma='auto'` on this toy data, One-Class SVM is much more aggressive than Isolation Forest. Do not treat `nu=0.05` as a guarantee that exactly 5% of points will be flagged; it is a constraint-like parameter, not a magic percentage switch.
 
-### 4.2 Key parameters
+### Key parameters
 
 | Parameter | Explanation |
 |------|------|
@@ -457,9 +457,9 @@ This result is intentionally useful for learning: with `gamma='auto'` on this to
 
 ---
 
-## 5. LOF (Local Outlier Factor)
+## LOF (Local Outlier Factor)
 
-### 5.1 Principle
+### Principle
 
 LOF (Local Outlier Factor) judges anomalies by comparing **a point’s density with its neighbors’ density**.
 
@@ -468,7 +468,7 @@ LOF (Local Outlier Factor) judges anomalies by comparing **a point’s density w
 
 LOF’s advantage: **it can detect local anomalies** — it works even in regions with different densities.
 
-### 5.2 sklearn implementation
+### sklearn implementation
 
 ```python
 from sklearn.neighbors import LocalOutlierFactor
@@ -505,14 +505,14 @@ LOF score range: 0.96 to 3.21
 
 LOF scores are most useful as relative signals. A larger score means “this point looks less like its local neighborhood,” not necessarily “this point is globally far away.”
 
-### 5.3 Key parameters
+### Key parameters
 
 | Parameter | Explanation | Recommendation |
 |------|------|------|
 | `n_neighbors` | Number of neighbors to consider | 20 (default) |
 | `contamination` | Anomaly ratio | `'auto'` or set manually |
 
-### 5.4 What problem is LOF best for?
+### What problem is LOF best for?
 
 The most important thing to remember about LOF is not the formula, but that it is especially good at handling cases where:
 
@@ -524,7 +524,7 @@ If your data has large density differences across regions, LOF often makes more 
 
 ---
 
-## 6. Comprehensive method comparison
+## Comprehensive method comparison
 
 ```python
 from sklearn.ensemble import IsolationForest
@@ -572,7 +572,7 @@ LOF: 16 anomalies detected
 
 ---
 
-## 7. Practice: Simulated credit card fraud detection
+## Practice: Simulated credit card fraud detection
 
 ```python
 from sklearn.datasets import make_classification
@@ -643,7 +643,7 @@ This simulated fraud example is deliberately hard: overall accuracy looks high b
 
 ---
 
-## 8. How should you choose a method?
+## How should you choose a method?
 
 ```mermaid
 flowchart TD
@@ -667,7 +667,7 @@ flowchart TD
 4. **Setting `contamination`**: Estimate the anomaly ratio based on business knowledge
 :::
 
-### 8.1 What is a more stable order for your first anomaly detection project?
+### What is a more stable order for your first anomaly detection project?
 
 It is recommended to follow this order:
 
@@ -681,7 +681,7 @@ This is more stable than jumping straight to advanced models, because you first 
 
 ---
 
-## 9. The safest default order when bringing anomaly detection into a project for the first time
+## The safest default order when bringing anomaly detection into a project for the first time
 
 When you first put anomaly detection into a real project, you can follow this order:
 

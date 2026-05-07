@@ -1,11 +1,11 @@
 ---
-title: "5.5 Feature Selection"
+title: "5.5.5 Feature Selection"
 sidebar_position: 17
 description: "Learn why more features are not always better, and master filter methods, wrapper methods, embedded methods, and leak-free validation-based feature selection."
 keywords: [feature selection, filter methods, wrapper methods, embedded methods, SelectKBest, RFE, Pipeline, overfitting]
 ---
 
-# Feature Selection
+# 5.5.5 Feature Selection
 
 ![Feature selection method comparison](/img/course/feature-selection-methods-en.png)
 
@@ -90,7 +90,7 @@ Target names: ['malignant', 'benign']
 First 5 columns: ['mean radius', 'mean texture', 'mean perimeter', 'mean area', 'mean smoothness']
 ```
 
-## 1. First, Remove Features That Should Not Enter the Model
+## First, Remove Features That Should Not Enter the Model
 
 The first step is not an advanced algorithm, but manual inspection. Usually, you should prioritize removing:
 
@@ -117,7 +117,7 @@ print("Remaining feature count:", X_train_safe.shape[1])
 
 An ID is not always useless, but beginners should be careful. Many IDs can cause the model to memorize training samples instead of learning generalizable patterns.
 
-## 2. Build a Baseline Before Selecting Features
+## Build a Baseline Before Selecting Features
 
 Before removing or selecting anything, build a model using all safe features. This gives you a reference point.
 
@@ -137,7 +137,7 @@ print(f"Baseline validation AUC: {baseline_auc:.4f}")
 
 If later feature selection produces a similar AUC with fewer features, it may still be valuable because the model becomes simpler, faster, and easier to explain.
 
-## 3. Filter Methods: First Look at the Statistical Relationship of Each Feature
+## Filter Methods: First Look at the Statistical Relationship of Each Feature
 
 Filter methods do not depend on a specific final model. They first screen features using statistical metrics. For example, numerical features can use ANOVA F-tests, categorical features can use chi-square tests, and high-dimensional sparse features can use variance filtering.
 
@@ -167,7 +167,7 @@ If you want to evaluate feature selection fairly, do not fit it on the full data
 
 Filter methods are fast and suitable for initial screening. Their downside is that they can easily miss interactions between features. A feature may look weak alone but become useful when combined with another feature.
 
-## 4. Wrapper Methods: Repeatedly Test with Model Performance
+## Wrapper Methods: Repeatedly Test with Model Performance
 
 Wrapper methods use model training performance as the selection criterion. A common example is RFE, or Recursive Feature Elimination. RFE trains a model, removes the least useful features, and repeats until the desired number of features remains.
 
@@ -198,7 +198,7 @@ print("Selected features:", selected_rfe_cols)
 
 Wrapper methods are suitable when the number of features is not too large and you are willing to spend more computation to get results that are closer to actual model performance.
 
-## 5. Embedded Methods: Let the Model Determine Importance
+## Embedded Methods: Let the Model Determine Importance
 
 Embedded methods perform selection during model training. Linear models with L1 regularization, Random Forest, GBDT, XGBoost, and LightGBM can all be used for this idea.
 
@@ -237,7 +237,7 @@ print("Selected features:", selected_l1_cols)
 
 Feature importance is not absolute truth. Different models, random seeds, and data splits can all affect the ranking. It is best to judge using validation performance together with business understanding.
 
-## 6. Use Cross-Validation to Confirm Whether Things Really Improved
+## Use Cross-Validation to Confirm Whether Things Really Improved
 
 The easiest mistake in feature selection is to only look at whether the selected features "seem reasonable," without verifying whether the model is actually more stable. The correct approach is to compare the baseline model with the models after feature selection.
 
@@ -264,7 +264,7 @@ print(results)
 
 If fewer features produce similar performance but faster training, clearer interpretation, and fewer production dependencies, that may be the better solution.
 
-## 7. How to Decide What to Keep
+## How to Decide What to Keep
 
 In real projects, feature selection is not judged only by score. You also need to consider whether it is stable, explainable, deployable, compliant, and cost-effective. A feature that improves AUC by 0.001 but requires integrating an expensive external data source may not be worth deploying.
 
@@ -276,7 +276,7 @@ In real projects, feature selection is not judged only by score. You also need t
 | Interpretability | You can explain why it should help |
 | Cost | Its data source is worth maintaining |
 
-## 8. A Beginner-Friendly Decision Rule
+## A Beginner-Friendly Decision Rule
 
 For your first project, use this conservative rule:
 

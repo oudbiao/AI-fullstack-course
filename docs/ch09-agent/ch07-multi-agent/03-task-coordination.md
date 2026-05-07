@@ -1,11 +1,11 @@
 ---
-title: "7.4 Task Allocation and Coordination"
+title: "9.7.4 Task Allocation and Coordination"
 sidebar_position: 40
 description: "From breaking down tasks, assigning roles, and syncing state to resolving conflicts, understand how multi-Agent systems actually distribute work and bring it back together."
 keywords: [task coordination, task assignment, multi-agent, scheduling, conflict resolution]
 ---
 
-# Task Allocation and Coordination
+# 9.7.4 Task Allocation and Coordination
 
 :::tip Section Focus
 The previous section covered communication and explained "how information is transmitted."
@@ -25,9 +25,9 @@ If the assignment is poor, a multi-Agent system may be able to communicate, but 
 
 ---
 
-## 1. Why “multi” is not the only challenge
+## Why “multi” is not the only challenge
 
-### 1.1 The biggest risk in multi-Agent systems: not that nobody works, but that everyone works incorrectly
+### The biggest risk in multi-Agent systems: not that nobody works, but that everyone works incorrectly
 
 Common failures in multi-Agent systems are not just:
 
@@ -44,7 +44,7 @@ So the real focus is:
 
 > **How do we get the right Agent, at the right time, to do the right thing?**
 
-### 1.2 A real-life analogy
+### A real-life analogy
 
 Think of a small project:
 
@@ -56,9 +56,9 @@ If the assignments are messy, even very smart people will be inefficient.
 
 ---
 
-## 2. The three most common task allocation methods
+## The three most common task allocation methods
 
-### 2.1 Static allocation
+### Static allocation
 
 Tasks and roles are fixed in advance.
 
@@ -76,7 +76,7 @@ Cons:
 
 - not very flexible
 
-### 2.2 Dynamic allocation
+### Dynamic allocation
 
 The system decides who gets the task based on the current content.
 
@@ -93,7 +93,7 @@ Cons:
 
 - if routing is wrong, failures can cascade
 
-### 2.3 Capability-based routing
+### Capability-based routing
 
 This is not based on names, but on capability traits:
 
@@ -105,7 +105,7 @@ This is more like "assigning work based on role capability."
 
 ---
 
-## 3. A minimal task allocation example
+## A minimal task allocation example
 
 ```python
 agents = {
@@ -130,7 +130,7 @@ for task in tasks:
     print(task["name"], "->", assign_task(task, agents))
 ```
 
-### 3.2 What is this code teaching you?
+### What is this code teaching you?
 
 It teaches you a very important abstraction:
 
@@ -138,9 +138,9 @@ It teaches you a very important abstraction:
 
 ---
 
-## 4. Coordination is not just assignment, but also order control
+## Coordination is not just assignment, but also order control
 
-### 4.1 Some tasks cannot run in parallel
+### Some tasks cannot run in parallel
 
 For example:
 
@@ -150,7 +150,7 @@ For example:
 
 If the order is reversed, the system will break down.
 
-### 4.2 A minimal scheduling example
+### A minimal scheduling example
 
 ```python
 dependencies = {
@@ -182,21 +182,21 @@ This shows an important layer in multi-Agent coordination:
 
 ---
 
-## 5. The most common conflicts in task coordination
+## The most common conflicts in task coordination
 
-### 5.1 Duplicate work
+### Duplicate work
 
 Two Agents both do the same task.
 
-### 5.2 Conflicting conclusions
+### Conflicting conclusions
 
 One Agent says "refund is allowed," another says "refund is not allowed."
 
-### 5.3 Out-of-sync state
+### Out-of-sync state
 
 The writer still thinks the material has not been found, but the retriever has already returned it.
 
-### 5.4 Why are these problems so common?
+### Why are these problems so common?
 
 Because multi-Agent systems are essentially a small-scale version of a distributed system.
 Once you split the work, you will run into:
@@ -209,7 +209,7 @@ These kinds of problems.
 
 ---
 
-## 6. A small example with conflict resolution
+## A small example with conflict resolution
 
 ```python
 results = {
@@ -227,7 +227,7 @@ def resolve_conflict(results):
 print(resolve_conflict(results))
 ```
 
-### 6.2 Why is this only the minimal version?
+### Why is this only the minimal version?
 
 In real systems, conflict resolution may use:
 
@@ -248,7 +248,7 @@ This diagram shows coordination costs: task assignment, dependency ordering, sha
 
 ---
 
-## 7. What is the relationship between task coordination and communication?
+## What is the relationship between task coordination and communication?
 
 Communication solves:
 
@@ -269,9 +269,9 @@ Both are essential.
 
 ---
 
-## 8. Common coordination strategies in real systems
+## Common coordination strategies in real systems
 
-### 8.1 Centralized scheduling
+### Centralized scheduling
 
 A supervisor decides the task flow in one place.
 
@@ -279,7 +279,7 @@ Pros:
 
 - easiest to manage
 
-### 8.2 Distributed negotiation
+### Distributed negotiation
 
 Agents propose and negotiate with each other.
 
@@ -291,7 +291,7 @@ Cons:
 
 - harder to tune
 
-### 8.3 Semi-centralized
+### Semi-centralized
 
 The supervisor controls the big picture, while workers handle details autonomously.
 
@@ -299,17 +299,17 @@ In real engineering work, this is often a more balanced choice.
 
 ---
 
-## 9. Common pitfalls for beginners
+## Common pitfalls for beginners
 
-### 9.1 Only assigning work, without designing the finish
+### Only assigning work, without designing the finish
 
 A task being half done with nobody responsible for the final step is very common.
 
-### 9.2 Only designing the happy path
+### Only designing the happy path
 
 Once an Agent times out, fails, or conflicts arise, the system falls apart.
 
-### 9.3 Thinking "more Agents = higher efficiency"
+### Thinking "more Agents = higher efficiency"
 
 If coordination is not done well, more Agents only bring more management overhead.
 

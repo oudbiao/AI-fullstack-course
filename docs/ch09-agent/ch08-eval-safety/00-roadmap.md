@@ -1,11 +1,11 @@
 ---
-title: "8.1 Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter"
+title: "9.8.1 Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter"
 sidebar_position: 0
 description: "Build a learning map for the Agent Evaluation and Safety chapter: how task evaluation, process evaluation, guardrails, observability, and risk governance work together to determine whether a system is controllable."
 keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk]
 ---
 
-# Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter
+# 9.8.1 Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter
 
 This chapter is about this: an Agent should not only be able to run, but also let you know whether it is running well, whether it is safe, and whether problems can be seen when they happen.
 

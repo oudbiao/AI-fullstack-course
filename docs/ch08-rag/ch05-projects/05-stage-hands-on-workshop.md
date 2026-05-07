@@ -1,11 +1,11 @@
 ---
-title: "5.6 Hands-on: Full Chapter 8 RAG App Workshop"
+title: "8.5.6 Hands-on: Full Chapter 8 RAG App Workshop"
 sidebar_position: 25
 description: "A step-by-step Chapter 8 hands-on workshop: build a small RAG application with chunking, retrieval, permissions, citations, no-answer handling, traces, evaluation, and an optional modern OpenAI Responses API upgrade."
 keywords: [RAG workshop, hands-on RAG, LLM application project, citations, RAG evaluation, Responses API]
 ---
 
-# Hands-on: Full Chapter 8 RAG App Workshop
+# 8.5.6 Hands-on: Full Chapter 8 RAG App Workshop
 
 This workshop turns the whole Chapter 8 thread into one runnable mini project. You will not start with LangChain, a vector database, or a cloud API. First you will build a transparent RAG loop with plain Python, so every beginner can see what happens at each step.
 

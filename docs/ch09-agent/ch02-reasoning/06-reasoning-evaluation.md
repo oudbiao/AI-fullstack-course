@@ -1,11 +1,11 @@
 ---
-title: "2.7 Reasoning Evaluation and Optimization"
+title: "9.2.7 Reasoning Evaluation and Optimization"
 sidebar_position: 10
 description: "Move beyond “Is the answer correct?” to “Is the process stable, is the tool usage worthwhile, and are there unnecessary steps?”, and build a closed-loop evaluation and optimization workflow for Agent reasoning systems."
 keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, tool efficiency]
 ---
 
-# Reasoning Evaluation and Optimization
+# 9.2.7 Reasoning Evaluation and Optimization
 
 :::tip Section Overview
 One of the most common mistakes in reasoning systems is:
@@ -32,9 +32,9 @@ So this section is here to answer:
 
 ---
 
-## 1. Why is reasoning evaluation more complex than ordinary QA?
+## Why is reasoning evaluation more complex than ordinary QA?
 
-### 1.1 Because a reasoning system does not just output a single text
+### Because a reasoning system does not just output a single text
 
 A reasoning Agent often also produces:
 
@@ -46,7 +46,7 @@ A reasoning Agent often also produces:
 So this is not a single-point output problem,
 but a process-oriented system problem.
 
-### 1.2 Looking only at final accuracy misses a lot of information
+### Looking only at final accuracy misses a lot of information
 
 For example, two systems are both 80% correct:
 
@@ -57,7 +57,7 @@ If you only look at accuracy,
 you may think they are about the same;
 but in engineering terms, they are at completely different levels.
 
-### 1.3 An analogy: not only whether you reached the destination, but also how you got there
+### An analogy: not only whether you reached the destination, but also how you got there
 
 If two cars both reach the destination:
 
@@ -69,9 +69,9 @@ The same applies to reasoning systems.
 
 ---
 
-## 2. The four most common types of metrics for reasoning systems
+## The four most common types of metrics for reasoning systems
 
-### 2.1 Final outcome metrics
+### Final outcome metrics
 
 The most common ones are:
 
@@ -83,7 +83,7 @@ These answer:
 
 - Is the final conclusion correct?
 
-### 2.2 Process quality metrics
+### Process quality metrics
 
 For example:
 
@@ -95,7 +95,7 @@ These answer:
 
 - Is the process reliable?
 
-### 2.3 Tool usage metrics
+### Tool usage metrics
 
 For example:
 
@@ -107,7 +107,7 @@ These answer:
 
 - Are tools being used properly?
 
-### 2.4 Cost and efficiency metrics
+### Cost and efficiency metrics
 
 For example:
 
@@ -121,7 +121,7 @@ These answer:
 
 ---
 
-## 3. First, run a truly useful evaluation script
+## First, run a truly useful evaluation script
 
 The code below compares the trace quality of two agents.
 It counts:
@@ -200,7 +200,7 @@ print("agent_a:", evaluate_agent(agent_a))
 print("agent_b:", evaluate_agent(agent_b))
 ```
 
-### 3.1 What is the most important takeaway from this code?
+### What is the most important takeaway from this code?
 
 The most important thing is not a formula,
 but the way of thinking it shows:
@@ -210,7 +210,7 @@ but the way of thinking it shows:
 Only by looking at all three together
 can you know whether the system is truly stable or just occasionally getting the right answer.
 
-### 3.2 Why does `agent_b` not necessarily look much worse at first glance, but is actually worse in engineering terms?
+### Why does `agent_b` not necessarily look much worse at first glance, but is actually worse in engineering terms?
 
 Because it may have:
 
@@ -221,7 +221,7 @@ Because it may have:
 Even if it gets some individual cases right in the end,
 the cost is still higher.
 
-### 3.3 Why is repeated call rate worth tracking separately?
+### Why is repeated call rate worth tracking separately?
 
 Because many Agent problems are not “completely incapable,”
 but rather:
@@ -240,9 +240,9 @@ When evaluating, do not only ask “Was the answer wrong?” This diagram breaks
 
 ---
 
-## 4. Evaluation should not only ask “Was the answer correct?”
+## Evaluation should not only ask “Was the answer correct?”
 
-### 4.1 For answer-based tasks, look at accuracy
+### For answer-based tasks, look at accuracy
 
 For example:
 
@@ -250,7 +250,7 @@ For example:
 - rule-based Q&A
 - clear retrieval questions
 
-### 4.2 For process-based tasks, look at whether the steps are reasonable
+### For process-based tasks, look at whether the steps are reasonable
 
 For example:
 
@@ -258,7 +258,7 @@ For example:
 - Was the conclusion drawn too early?
 - Was it checked before calculating?
 
-### 4.3 For Agent tasks, look at whether the actions are worthwhile
+### For Agent tasks, look at whether the actions are worthwhile
 
 For example:
 
@@ -270,9 +270,9 @@ The timing of stopping is itself part of the capability.
 
 ---
 
-## 5. After getting evaluation results, how should you optimize?
+## After getting evaluation results, how should you optimize?
 
-### 5.1 If accuracy is low
+### If accuracy is low
 
 Prioritize checking:
 
@@ -280,7 +280,7 @@ Prioritize checking:
 - whether the tool choice was wrong
 - whether the observations were integrated incorrectly
 
-### 5.2 If accuracy is acceptable but the number of steps is too high
+### If accuracy is acceptable but the number of steps is too high
 
 Prioritize checking:
 
@@ -288,7 +288,7 @@ Prioritize checking:
 - whether it should stop earlier
 - whether steps can be merged
 
-### 5.3 If tool success rate is low
+### If tool success rate is low
 
 Prioritize checking:
 
@@ -296,7 +296,7 @@ Prioritize checking:
 - whether parameter generation is stable
 - whether observations are sufficiently structured
 
-### 5.4 If performance differs a lot across task types
+### If performance differs a lot across task types
 
 You should do bucketed analysis by task type.
 For example:
@@ -309,9 +309,9 @@ Only then can you make targeted improvements.
 
 ---
 
-## 6. How should evaluation samples be designed?
+## How should evaluation samples be designed?
 
-### 6.1 Do not include only easy questions
+### Do not include only easy questions
 
 Otherwise, the system will easily look like “it’s all pretty good.”
 You should deliberately include:
@@ -320,7 +320,7 @@ You should deliberately include:
 - questions that require multi-step tool coordination
 - questions that can easily lead to endless loops
 
-### 6.2 It is best to cover failure modes
+### It is best to cover failure modes
 
 For example:
 
@@ -328,16 +328,16 @@ For example:
 - calls tools randomly when it should not
 - cannot recover after a tool failure
 
-### 6.3 Keep the fixed evaluation set for the long term
+### Keep the fixed evaluation set for the long term
 
 That way, every time you change the prompt, strategy, or tools,
 you can make a meaningful before / after comparison.
 
 ---
 
-## 7. Common misconceptions
+## Common misconceptions
 
-### 7.1 Misconception 1: If the final answer is correct, the system has no problems
+### Misconception 1: If the final answer is correct, the system has no problems
 
 Not necessarily.
 It may simply be:
@@ -346,7 +346,7 @@ It may simply be:
 - too expensive
 - unstable
 
-### 7.2 Misconception 2: More metrics are always better
+### Misconception 2: More metrics are always better
 
 Metrics are not a collection hobby.
 What matters is:
@@ -354,7 +354,7 @@ What matters is:
 - can the metric explain the problem?
 - can the metric guide optimization?
 
-### 7.3 Misconception 3: You can iterate by instinct even without a fixed benchmark
+### Misconception 3: You can iterate by instinct even without a fixed benchmark
 
 If you rely only on subjective feeling,
 it is very easy to make the system more and more uncontrollable.

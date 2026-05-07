@@ -1,11 +1,11 @@
 ---
-title: "2.5 跟做工作坊：构建本地学习任务助手"
+title: "2.3.5 跟做工作坊：构建本地学习任务助手"
 sidebar_position: 24
 description: "第 2 章 Python 跟做实操：用 argparse、dataclass、JSON 持久化、异常处理和报告导出，构建一个可运行的命令行学习任务助手。"
 keywords: [Python 实操, 命令行应用, argparse, JSON, dataclass, 文件读写, Python 项目]
 ---
 
-# 跟做工作坊：构建本地学习任务助手
+# 2.3.5 跟做工作坊：构建本地学习任务助手
 
 ![Python 跟做工作坊路线图](/img/course/ch02-hands-on-python-workshop-route.png)
 

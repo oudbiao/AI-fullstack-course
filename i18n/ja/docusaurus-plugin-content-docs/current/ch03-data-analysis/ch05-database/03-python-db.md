@@ -1,10 +1,10 @@
 ---
-title: "5.3 Python データベース操作"
+title: "3.5.4 Python データベース操作"
 sidebar_position: 23
 description: "Python でデータベースに接続し、追加・削除・更新・検索を行い、Pandas と連携する"
 ---
 
-# Python データベース操作
+# 3.5.4 Python データベース操作
 
 ![Python とデータベースをつなぐ橋の図](/img/course/ch03-python-database-bridge-ja.png)
 

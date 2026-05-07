@@ -1,11 +1,11 @@
 ---
-title: "8.6 Agent Observability"
+title: "9.8.6 Agent Observability"
 sidebar_position: 48
 description: "Starting from logs, traces, metrics, and replay, understand why it is almost impossible to iterate on Agent systems reliably without observability."
 keywords: [observability, trace, metrics, logs, replay, agent]
 ---
 
-# Agent Observability
+# 9.8.6 Agent Observability
 
 :::tip Section Positioning
 If an Agent system has no observability, many problems become “something looks weird, but we don’t know which step is weird.” The core of this section is to make the system’s internal process visible, traceable, and replayable.
@@ -32,7 +32,7 @@ flowchart LR
 
 A normal API usually only needs to know whether a request succeeded or failed, how long it took, and what the error code was. Agents are different: one request may involve multiple rounds of reasoning, multiple retrievals, multiple tools, state changes, and human confirmation. If you only save the final answer, it is almost impossible to explain why it answered incorrectly, why it called the wrong tool, or why the cost suddenly increased.
 
-## 1. Why Agents especially need observability
+## Why Agents especially need observability
 
 Agent failures are often not single-point failures, but chain failures. For example, if a user asks, “Help me organize RAG review materials,” the system may first split the task, then look up course docs, then generate a plan, and then call a file tool. If the final result is bad, the reason might be that the task was split incorrectly, retrieval was wrong, the tool parameters were wrong, context was lost, or the model ignored the sources during final generation.
 
@@ -50,7 +50,7 @@ flowchart TD
 
 So the goal of Agent observability is not “print a few more lines of logs,” but to reconstruct the execution trace of a task.
 
-## 2. The four most important observability targets
+## The four most important observability targets
 
 Logs answer “what happened,” such as starting retrieval, calling a tool, or a tool error. Metrics answer “what the overall trend looks like,” such as average latency, success rate, token cost, and tool failure rate. Traces answer “how this request flowed end to end,” such as each step’s input, output, and state changes. Replay answers “whether the failure can be reproduced,” meaning enough context is preserved so you can rerun it or analyze it manually.
 
@@ -61,7 +61,7 @@ Logs answer “what happened,” such as starting retrieval, calling a tool, or 
 | Trace | Request path | request_id, step_id, node, input, output, status |
 | Replay | Failure reproduction | raw input, retrieval results, tool outputs, model parameters, final output |
 
-## 3. A minimal trace schema
+## A minimal trace schema
 
 When you first build Agent observability, you do not need a complex platform right away. First, make sure every request leaves a structured trace.
 
@@ -110,7 +110,7 @@ for step in trace:
 
 The most important thing in this example is not the code complexity, but that it turns every step into an inspectable object. Later, whether you use LangGraph, LlamaIndex, CrewAI, or write functions yourself, the underlying system should preserve a similar trace.
 
-## 4. How to inspect traces when debugging problems
+## How to inspect traces when debugging problems
 
 When Agent output quality is poor, do not start by changing the Prompt. A more stable debugging order is: first check whether planning is correct, then whether retrieval or tool results are correct, then whether the model used those results correctly, and only then look at the final wording.
 
@@ -122,19 +122,19 @@ When Agent output quality is poor, do not start by changing the Prompt. A more s
 | Cost suddenly increased | metrics / trace | Looping calls, overly long context, too many retries |
 | Intermittent failure | replay samples | Input edge cases, external service instability, state not persisted |
 
-## 5. The fields most worth recording first
+## The fields most worth recording first
 
 If you can only build the minimum version first, it is recommended to keep at least: request_id, user_query, plan, selected_tools, tool_inputs, tool_outputs, retrieved_docs, final_answer, latency_ms, token_usage, status, error_message. These fields cover most debugging needs.
 
 For high-risk Agents, you should also record human_approval, permission_scope, rollback_action, and audit_log. Any action involving sending messages, modifying files, deleting data, making payments, or sending emails cannot rely only on the final result.
 
-## 6. Relationship with existing tools
+## Relationship with existing tools
 
 In real projects, you can use LangSmith, OpenTelemetry, Arize Phoenix, Helicone, or cloud logging systems to host observability data. The course does not require you to bind to a specific tool, but you should understand that these tools are all solving the same problem: linking model calls, retrieval, tools, state, and cost into a queryable execution trace.
 
 More importantly, do not treat the tool as the whole of observability. Even if you use a platform, if your event naming is messy, fields are missing, or request_id does not run through the whole chain, troubleshooting will still be difficult.
 
-## 7. Common misconceptions
+## Common misconceptions
 
 The first misconception is recording only the final answer. The final answer only shows the result, not the process. The second misconception is writing only natural-language logs and not keeping structured fields; later, it becomes hard to aggregate and filter. The third misconception is recording only when errors happen; successful samples are equally important because you need to compare the differences between successful and failed paths. The fourth misconception is having no cost metrics, which makes the system runnable but not sustainable.
 

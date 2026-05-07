@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?"
+title: "5.5.1 Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?"
 sidebar_position: 13
 description: "First build a learning map for the Feature Engineering chapter: understand features, preprocessing, feature construction, feature selection, and why Pipelines are so important in ML projects."
 keywords: [feature engineering guide, preprocessing, feature construction, feature selection, Pipeline]
 ---
 
-# Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?
+# 5.5.1 Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?
 
 ![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "1.6 Model Serving"
+title: "E.A.6 Model Serving"
 sidebar_position: 6
 description: "From request queues, batching, version routing, and health checks to service metrics, understand why model serving is a complete engineering system."
 keywords: [model serving, batching, request queue, version routing, health check, deployment]
 ---
 
-# Model Serving
+# E.A.6 Model Serving
 
 ![Model serving architecture](/img/course/elective-model-serving-architecture-en.png)
 
@@ -42,9 +42,9 @@ What this lesson solves is the step from “able to call a model” to “able t
 
 ---
 
-## 1. Why is model serving not finished just by “wrapping it in an API”?
+## Why is model serving not finished just by “wrapping it in an API”?
 
-### 1.1 Because real requests do not arrive one by one at a steady pace
+### Because real requests do not arrive one by one at a steady pace
 
 A service will face:
 
@@ -59,7 +59,7 @@ That means you need:
 - Timeouts
 - Metrics
 
-### 1.2 Because models will be upgraded
+### Because models will be upgraded
 
 After launch, you will still face:
 
@@ -70,7 +70,7 @@ After launch, you will still face:
 So serving is not just about “exposing the current model,”
 it also includes how to maintain it in the future.
 
-### 1.3 An analogy
+### An analogy
 
 Single inference is like cooking one meal by yourself in a kitchen.
 Model serving is more like running a restaurant:
@@ -81,9 +81,9 @@ Model serving is more like running a restaurant:
 
 ---
 
-## 2. The most core components of serving
+## The most core components of serving
 
-### 2.1 Request entry point
+### Request entry point
 
 Responsible for:
 
@@ -91,18 +91,18 @@ Responsible for:
 - Validating parameters
 - Authenticating identity
 
-### 2.2 Queue
+### Queue
 
 Responsible for:
 
 - Buffering requests
 - Smoothing traffic
 
-### 2.3 Batch processor
+### Batch processor
 
 Responsible for combining multiple small requests to improve throughput.
 
-### 2.4 Model executor
+### Model executor
 
 Actually performs:
 
@@ -110,7 +110,7 @@ Actually performs:
 - Inference
 - Postprocessing
 
-### 2.5 Version routing and health checks
+### Version routing and health checks
 
 Responsible for:
 
@@ -119,7 +119,7 @@ Responsible for:
 
 ---
 
-## 3. First, run a minimal serving flow
+## First, run a minimal serving flow
 
 This example simulates:
 
@@ -174,44 +174,44 @@ for item in all_outputs:
     print(item)
 ```
 
-### 3.1 What is the most important thing to learn from this code?
+### What is the most important thing to learn from this code?
 
 It shows the most basic operating pattern of model serving:
 
 - Requests do not run immediately one by one
 - Instead, they first enter a queue and are then scheduled by policy
 
-### 3.2 Why is batching important for serving?
+### Why is batching important for serving?
 
 Because many models achieve higher throughput when processing in batches.
 If each request runs separately:
 
 - Resource utilization may be very poor
 
-### 3.3 Why do we explicitly keep `model_version` here?
+### Why do we explicitly keep `model_version` here?
 
 Because in real services, multiple versions often coexist.
 Without a version field, gradual rollout and rollback become very difficult.
 
 ---
 
-## 4. What metrics should you watch most closely after launch?
+## What metrics should you watch most closely after launch?
 
-### 4.1 Latency
+### Latency
 
 At minimum, look at:
 
 - Average latency
 - P95 latency
 
-### 4.2 Throughput
+### Throughput
 
 For example:
 
 - Requests per second
 - Batches per second
 
-### 4.3 Error rate
+### Error rate
 
 Including:
 
@@ -219,7 +219,7 @@ Including:
 - Timeouts
 - Internal model exceptions
 
-### 4.4 Batching efficiency
+### Batching efficiency
 
 For example:
 
@@ -230,9 +230,9 @@ it may mean the batching strategy is not really working.
 
 ---
 
-## 5. The easiest mistakes to make in model serving
+## The easiest mistakes to make in model serving
 
-### 5.1 Mistake 1: Only looking at model inference time
+### Mistake 1: Only looking at model inference time
 
 Real latency usually also includes:
 
@@ -241,12 +241,12 @@ Real latency usually also includes:
 - Postprocessing
 - Network overhead
 
-### 5.2 Mistake 2: Thinking bigger batches are always better
+### Mistake 2: Thinking bigger batches are always better
 
 A larger batch may improve throughput,
 but it may also increase single-request latency.
 
-### 5.3 Mistake 3: Replacing the production model directly without version routing
+### Mistake 3: Replacing the production model directly without version routing
 
 If something goes wrong, rollback becomes very painful.
 

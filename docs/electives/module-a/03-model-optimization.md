@@ -1,11 +1,11 @@
 ---
-title: "1.3 Model Optimization Techniques"
+title: "E.A.3 Model Optimization Techniques"
 sidebar_position: 3
 description: "Starting from quantization, pruning, distillation, operator fusion, and batching, understand what model optimization is really trading off in deployment."
 keywords: [model optimization, quantization, pruning, distillation, fusion, batching, deployment]
 ---
 
-# Model Optimization Techniques
+# E.A.3 Model Optimization Techniques
 
 ![Model Optimization Roadmap](/img/course/elective-model-optimization-map-en.png)
 
@@ -39,16 +39,16 @@ Only after you make this clear can optimization stop becoming “optimization fo
 
 ---
 
-## 1. Model Optimization Is Not a Single Goal
+## Model Optimization Is Not a Single Goal
 
-### 1.1 What people usually want to optimize are actually four things
+### What people usually want to optimize are actually four things
 
 - Model size
 - Inference latency
 - Throughput
 - Device compatibility
 
-### 1.2 Why doesn’t “faster” always mean “better”?
+### Why doesn’t “faster” always mean “better”?
 
 Because many optimizations involve trade-offs:
 
@@ -56,7 +56,7 @@ Because many optimizations involve trade-offs:
 - Faster, but harder to debug
 - Less memory usage, but more difficult post-processing
 
-### 1.3 An analogy
+### An analogy
 
 Model optimization is more like packing a suitcase.
 You are not stuffing everything in blindly; instead, you are making trade-offs among:
@@ -67,9 +67,9 @@ You are not stuffing everything in blindly; instead, you are making trade-offs a
 
 ---
 
-## 2. Five of the Most Common Optimization Paths
+## Five of the Most Common Optimization Paths
 
-### 2.1 Quantization
+### Quantization
 
 Compress high-precision weights into lower precision.
 The usual goals are:
@@ -78,14 +78,14 @@ The usual goals are:
 - Improve throughput
 - Better fit edge devices
 
-### 2.2 Pruning
+### Pruning
 
 Remove unimportant weights, channels, or layers.
 The usual goal is:
 
 - Reduce computation
 
-### 2.3 Distillation
+### Distillation
 
 Let a smaller model learn from a larger model’s outputs.
 The usual goals are:
@@ -93,7 +93,7 @@ The usual goals are:
 - Retain as much capability as possible
 - Lower deployment cost
 
-### 2.4 Operator Fusion
+### Operator Fusion
 
 Merge multiple computation steps in the execution graph.
 The usual goals are:
@@ -101,7 +101,7 @@ The usual goals are:
 - Reduce memory reads and writes
 - Improve execution efficiency
 
-### 2.5 Batching and Scheduling Optimization
+### Batching and Scheduling Optimization
 
 This does not change the model itself,
 but changes how it runs.
@@ -111,7 +111,7 @@ The usual goal is:
 
 ---
 
-## 3. First Run a Quantization Error Example
+## First Run a Quantization Error Example
 
 This example does one very direct thing:
 
@@ -138,7 +138,7 @@ print("q8 mae   :", np.mean(np.abs(weights - q8_like)))
 print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 ```
 
-### 3.1 What is the most important takeaway from this code?
+### What is the most important takeaway from this code?
 
 Quantization is not “free compression.”
 It introduces error.
@@ -153,21 +153,21 @@ but also:
 
 - How much accuracy is lost?
 
-### 3.2 Why is lower bit width usually harder?
+### Why is lower bit width usually harder?
 
 Because the representation space is coarser.
 The more aggressively you compress, the more original detail may be lost.
 
 ---
 
-## 4. Why Is Distillation Often Considered a “Deployment-Friendly” Approach?
+## Why Is Distillation Often Considered a “Deployment-Friendly” Approach?
 
-### 4.1 Because it does not just compress the model, it replaces the model
+### Because it does not just compress the model, it replaces the model
 
 The essence of distillation is not to directly modify the original model,
 but to train a smaller student model.
 
-### 4.2 What scenarios is it best suited for?
+### What scenarios is it best suited for?
 
 It is suitable for:
 
@@ -175,16 +175,16 @@ It is suitable for:
 - Clear task boundaries
 - Cases where you are willing to trade training effort for deployment gains
 
-### 4.3 How is it different from quantization?
+### How is it different from quantization?
 
 - Quantization: keep the same model, but at lower precision
 - Distillation: switch to a new, smaller model
 
 ---
 
-## 5. How Is the Optimization Order Usually Arranged?
+## How Is the Optimization Order Usually Arranged?
 
-### 5.1 Check the pipeline first, not the trick first
+### Check the pipeline first, not the trick first
 
 First ask:
 
@@ -192,7 +192,7 @@ First ask:
 - Where is it expensive?
 - Where does memory blow up?
 
-### 5.2 A very practical order
+### A very practical order
 
 1. Start with runtime-level optimization
    For example: batching, caching, scheduling
@@ -201,7 +201,7 @@ First ask:
 3. Finally consider more aggressive approaches
    For example: heavy pruning, distillation, structural changes
 
-### 5.3 Why is this order more stable?
+### Why is this order more stable?
 
 Because many problems are not in the model itself.
 If the runtime is not tuned well,
@@ -209,16 +209,16 @@ changing the model first often brings limited benefit.
 
 ---
 
-## 6. The Most Common Misunderstandings
+## The Most Common Misunderstandings
 
-### 6.1 Misunderstanding 1: Optimization means making it as small as possible
+### Misunderstanding 1: Optimization means making it as small as possible
 
 No.
 The key is:
 
 - Save as much as possible while staying within acceptable business accuracy
 
-### 6.2 Misunderstanding 2: If you quantize it, it will definitely be faster
+### Misunderstanding 2: If you quantize it, it will definitely be faster
 
 Not necessarily.
 It also depends on:
@@ -226,7 +226,7 @@ It also depends on:
 - Whether the hardware supports it
 - Whether the inference engine is well optimized
 
-### 6.3 Misunderstanding 3: All models should use the same optimization methods
+### Misunderstanding 3: All models should use the same optimization methods
 
 Different models, different hardware, and different business needs
 often require different best paths.

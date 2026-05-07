@@ -1,11 +1,11 @@
 ---
-title: "10.5 实操：构建一个可追踪的单 Agent 助手"
+title: "9.10.5 实操：构建一个可追踪的单 Agent 助手"
 sidebar_position: 57
 description: "第 9 章分步骤实操工作坊：构建一个包含规划、工具 schema 校验、权限边界、JSONL trace、评估用例和可选 OpenAI Agents SDK 升级的可追踪单 Agent 助手。"
 keywords: [Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agent 评估, OpenAI Agents SDK]
 ---
 
-# 实操：构建一个可追踪的单 Agent 助手
+# 9.10.5 实操：构建一个可追踪的单 Agent 助手
 
 这个工作坊把第 9 章的主线压缩成一个可以运行的小项目。你会做一个小型单 Agent 助手：它能读取目标、选择工具、校验工具参数、拦截高风险动作、把每一步写入 trace，并运行一组小评估。
 

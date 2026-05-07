@@ -1,10 +1,10 @@
 ---
-title: "4.1 Matplotlib 基础"
+title: "3.4.2 Matplotlib 基础"
 sidebar_position: 17
 description: "掌握 Python 最核心的绑图库，学会用代码讲故事"
 ---
 
-# Matplotlib 基础
+# 3.4.2 Matplotlib 基础
 
 ![Matplotlib Figure 与 Axes 结构图](/img/course/matplotlib-figure-axes.png)
 
@@ -185,7 +185,7 @@ plt.show()
 
 这张表对新人特别重要，因为它会把“函数名”重新变回“表达任务”。
 
-### 1. 折线图（Line Plot）
+### 折线图（Line Plot）
 
 **适合场景：** 展示数据随时间或连续变量的变化趋势
 
@@ -226,7 +226,7 @@ plt.show()
 | `label` | 图例标签 | `"2023年"` |
 | `alpha` | 透明度 | `0.7`（0 全透明, 1 不透明） |
 
-### 2. 柱状图（Bar Chart）
+### 柱状图（Bar Chart）
 
 **适合场景：** 比较不同类别的数据大小
 
@@ -282,7 +282,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 3. 散点图（Scatter Plot）
+### 散点图（Scatter Plot）
 
 **适合场景：** 观察两个变量之间的关系
 
@@ -316,7 +316,7 @@ plt.show()
 | `cmap` | 颜色映射 | `"viridis"`, `"RdYlGn"`, `"Blues"` |
 | `alpha` | 透明度 | `0.7` |
 
-### 4. 直方图（Histogram）
+### 直方图（Histogram）
 
 **适合场景：** 查看数据的分布情况
 
@@ -343,7 +343,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 5. 饼图（Pie Chart）
+### 饼图（Pie Chart）
 
 **适合场景：** 展示各部分占整体的比例（类别不超过 5-6 个）
 

@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-Class Guide: What Exactly Will You Learn in the Agent Basics Chapter?"
+title: "9.1.1 Pre-Class Guide: What Exactly Will You Learn in the Agent Basics Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the Agent basics chapter: how Agent boundaries, goals, state, tools, memory, planning, and the system feedback loop fit together into the first smart-agent map."
 keywords: [Agent guide, intelligent agent guide, Agent system architecture, tool calling, Agent loop]
 ---
 
-# Pre-Class Guide: What Exactly Will You Learn in the Agent Basics Chapter?
+# 9.1.1 Pre-Class Guide: What Exactly Will You Learn in the Agent Basics Chapter?
 
 This chapter is about clarifying the boundaries, capabilities, and system architecture of an Agent.
 

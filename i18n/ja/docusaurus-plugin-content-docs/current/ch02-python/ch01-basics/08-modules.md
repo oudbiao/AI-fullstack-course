@@ -1,10 +1,10 @@
 ---
-title: "1.8 モジュールとパッケージ"
+title: "2.1.8 モジュールとパッケージ"
 sidebar_position: 8
 description: "Python のモジュールとパッケージの使い方を身につける"
 ---
 
-# モジュールとパッケージ
+# 2.1.8 モジュールとパッケージ
 
 ![モジュールとパッケージのプロジェクト構造図](/img/course/ch02-modules-package-structure-ja.png)
 

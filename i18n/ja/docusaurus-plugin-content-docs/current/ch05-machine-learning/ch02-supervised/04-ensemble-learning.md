@@ -1,11 +1,11 @@
 ---
-title: "2.5 アンサンブル学習"
+title: "5.2.5 アンサンブル学習"
 sidebar_position: 6
 description: "Bagging と Boosting の原理を理解し、ランダムフォレスト、GBDT、XGBoost、LightGBM などのアンサンブル手法を身につける"
 keywords: [アンサンブル学習, ランダムフォレスト, Bagging, Boosting, GBDT, XGBoost, LightGBM, CatBoost, Stacking]
 ---
 
-# アンサンブル学習
+# 5.2.5 アンサンブル学習
 
 ![集約学習の投票と森林の図](/img/course/ensemble-learning-voting-forest-ja.png)
 
@@ -78,7 +78,7 @@ keywords: [アンサンブル学習, ランダムフォレスト, Bagging, Boost
 
 ## 一、アンサンブル学習のコアな考え方
 
-### 1.1 1枚の図で理解するアンサンブル学習
+### 1枚の図で理解するアンサンブル学習
 
 ```mermaid
 flowchart TD
@@ -97,7 +97,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.2 なぜうまくいくのか？
+### なぜうまくいくのか？
 
 それぞれのモデルは間違えますが、**間違える場所がモデルごとに違う**ことが多いです。複数のモデルで「投票」すると、互いのミスを補えます。
 
@@ -139,7 +139,7 @@ print(f"投票アンサンブルの正解率: {np.mean(ensemble_pred == true_lab
 
 この簡単なシミュレーションは、アンサンブルの約束を見せています。各モデルの間違い方が完全には同じでなければ、投票によって単独モデルより正確になることがあります。
 
-### 1.3 2つの大きな流派
+### 2つの大きな流派
 
 | | Bagging | Boosting |
 |---|---------|---------|
@@ -171,7 +171,7 @@ flowchart LR
     style V2 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 1.4 先に覚えるのはモデル名ではなく、2つの違いです
+### 先に覚えるのはモデル名ではなく、2つの違いです
 
 この節で最初に覚えるべきなのは、ライブラリ名ではありません。次の2文です。
 
@@ -180,7 +180,7 @@ flowchart LR
 
 この2つだけでも、後の多くのモデルの関係が見えやすくなります。
 
-### 1.5 初心者向けのたとえ
+### 初心者向けのたとえ
 
 この2本の流れをしっかり覚えたいなら、次のたとえが便利です。
 
@@ -197,7 +197,7 @@ flowchart LR
 
 ## 二、Bagging とランダムフォレスト
 
-### 2.1 Bagging の原理
+### Bagging の原理
 
 **Bootstrap Aggregating = ブートストラップサンプリング + 集約**
 
@@ -228,13 +228,13 @@ for i in range(3):
 
 大切なのは「復元抽出」です。ある行は何度も選ばれ、別の行はまったく選ばれないことがあります。これにより、ランダムフォレストでは木どうしに違いが生まれます。
 
-### 2.2 ランダムフォレスト（Random Forest）
+### ランダムフォレスト（Random Forest）
 
 ランダムフォレスト = Bagging + **特徴量のランダム選択**
 
 各分割のたびに、**ランダムに選んだ一部の特徴量**の中から最適な分割を探します。これにより、木どうしの多様性が高まります。
 
-### 2.2.1 なぜランダムフォレストは単独の木より安定しやすいのか？
+### なぜランダムフォレストは単独の木より安定しやすいのか？
 
 理由は、単独の決定木ではできないことを2つやっているからです。
 
@@ -295,7 +295,7 @@ plt.show()
 
 どちらも訓練データを覚える力はありますが、ランダムフォレストは多くの木が投票するため、境界が単独の木より滑らかで壊れにくくなりやすいです。
 
-### 2.3 ランダムフォレストの重要なハイパーパラメータ
+### ランダムフォレストの重要なハイパーパラメータ
 
 | パラメータ | 説明 | 推奨 |
 |------|------|------|
@@ -305,7 +305,7 @@ plt.show()
 | `min_samples_split` | ノード分割に必要な最小サンプル数 | 2~10 |
 | `min_samples_leaf` | 葉ノードの最小サンプル数 | 1~5 |
 
-### 2.4 最初にランダムフォレストを調整するとき、どう進めるのが安定か？
+### 最初にランダムフォレストを調整するとき、どう進めるのが安定か？
 
 おすすめは、次の順番です。
 
@@ -320,7 +320,7 @@ plt.show()
 - `max_depth` と `min_samples_leaf` は、過学習に直接影響しやすい
 - `max_features` は、より細かい調整向き
 
-### 2.5 最初にランダムフォレストを使うとき、何を覚えるべきか？
+### 最初にランダムフォレストを使うとき、何を覚えるべきか？
 
 最初に覚えるべきなのは、
 
@@ -379,7 +379,7 @@ n_estimators=100: 学習=100.0%, テスト=88.0%
 
 ## 三、Boosting 系列
 
-### 3.1 AdaBoost
+### AdaBoost
 
 **考え方**：毎ラウンドで**前のラウンドが間違えたサンプル**に注目し、その重みを高くします。
 
@@ -417,7 +417,7 @@ print(f"AdaBoost | 学習: {ada.score(X_train, y_train):.1%} | テスト: {ada.s
 AdaBoost | 学習: 93.5% | テスト: 89.0%
 ```
 
-### 3.2 GBDT（勾配ブースティング決定木）
+### GBDT（勾配ブースティング決定木）
 
 **考え方**：新しい木は、元のラベルそのものではなく、これまでの木が残した**残差**（予測誤差）を学習します。
 
@@ -436,7 +436,7 @@ AdaBoost | 学習: 93.5% | テスト: 89.0%
 - **学習率** は、新しい木の修正を各ラウンドでどれだけ足すかを決めます。小さいほど遅くなりますが、安定しやすいです。
 - **`n_estimators`** は、アンサンブルに追加する木の本数です。
 
-### 3.2.1 GBDT で最初に覚えるべき直感
+### GBDT で最初に覚えるべき直感
 
 GBDT をひとことで言うなら、こう覚えると分かりやすいです。
 
@@ -464,7 +464,7 @@ print(f"GBDT | 学習: {gbdt.score(X_train, y_train):.1%} | テスト: {gbdt.sco
 GBDT | 学習: 98.0% | テスト: 90.0%
 ```
 
-### 3.3 GBDT の回帰を直感で理解する
+### GBDT の回帰を直感で理解する
 
 ```python
 from sklearn.ensemble import GradientBoostingRegressor
@@ -525,7 +525,7 @@ plt.show()
 
 ## 四、XGBoost
 
-### 4.1 XGBoost の改良点
+### XGBoost の改良点
 
 XGBoost（eXtreme Gradient Boosting）は、GBDT の**実装・最適化版**です。
 
@@ -537,7 +537,7 @@ XGBoost（eXtreme Gradient Boosting）は、GBDT の**実装・最適化版**で
 | 列サンプリング | なし | 対応（ランダムフォレストに近い） |
 | 早期停止 | なし | `early_stopping_rounds` に対応 |
 
-### 4.2 インストールと使い方
+### インストールと使い方
 
 ```bash
 pip install xgboost
@@ -571,7 +571,7 @@ print(f"XGBoost | 学習: {xgb_model.score(X_train, y_train):.1%} | テスト: {
 `xgboost`、`lightgbm`、`catboost` は任意の追加パッケージであり、コースの最小実行環境には含めていません。この節まで来たら必要に応じてインストールしてください。最近の XGBoost では、古いチュートリアルでよく見る `use_label_encoder=False` は不要です。
 :::
 
-### 4.3 XGBoost の重要なハイパーパラメータ
+### XGBoost の重要なハイパーパラメータ
 
 | パラメータ | 説明 | 推奨範囲 |
 |------|------|---------|
@@ -583,7 +583,7 @@ print(f"XGBoost | 学習: {xgb_model.score(X_train, y_train):.1%} | テスト: {
 | `reg_alpha` | L1 正則化係数 | 0~1 |
 | `reg_lambda` | L2 正則化係数 | 1~5 |
 
-### 4.3.1 最初に XGBoost を調整するとき、どこから触るべき？
+### 最初に XGBoost を調整するとき、どこから触るべき？
 
 最初から10個以上のパラメータを一気に調整しない方が安全です。おすすめの順番は次の通りです。
 
@@ -597,7 +597,7 @@ print(f"XGBoost | 学習: {xgb_model.score(X_train, y_train):.1%} | テスト: {
 - 小さい学習率 + 多めの木 の方が、大きく一気に進むより安定しやすい
 - 深さを大きくしすぎると、Boosting 系は訓練データを覚えやすくなります
 
-### 4.4 早期停止（Early Stopping）
+### 早期停止（Early Stopping）
 
 ```python
 # 早期停止: 検証セットで連続 N 回改善しなければ止める
@@ -620,7 +620,7 @@ print(f"最良の反復回数: {xgb_model.best_iteration}")
 print(f"テスト正解率: {xgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 4.5 特徴量重要度
+### 特徴量重要度
 
 ```python
 # XGBoost の特徴量重要度
@@ -641,7 +641,7 @@ plt.show()
 
 ## 五、LightGBM と CatBoost
 
-### 5.1 LightGBM
+### LightGBM
 
 LightGBM は Microsoft が開発した高効率な勾配ブースティングフレームワークで、XGBoost より**高速**です。
 
@@ -670,7 +670,7 @@ lgb_model.fit(X_train, y_train)
 print(f"LightGBM | 学習: {lgb_model.score(X_train, y_train):.1%} | テスト: {lgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.2 CatBoost
+### CatBoost
 
 CatBoost（Categorical Boosting）は Yandex が開発したフレームワークで、**カテゴリ特徴量**の処理が得意です。
 
@@ -698,7 +698,7 @@ cat_model.fit(X_train, y_train)
 print(f"CatBoost | 学習: {cat_model.score(X_train, y_train):.1%} | テスト: {cat_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.3 3つの Boosting フレームワーク比較
+### 3つの Boosting フレームワーク比較
 
 ![Boosting ツール選択コミック](/img/course/ch05-ensemble-boosting-toolkit-ja.png)
 
@@ -717,7 +717,7 @@ print(f"CatBoost | 学習: {cat_model.score(X_train, y_train):.1%} | テスト: 
 - **LightGBM** は、表が大きく、学習速度を重視したいときに有力です。
 - **CatBoost** は、都市、端末種別、料金プラン、商品カテゴリのようなカテゴリ列が多いときに有力です。
 
-### 5.4 最初に表形式データのプロジェクトをするなら、どう選ぶのが安定か？
+### 最初に表形式データのプロジェクトをするなら、どう選ぶのが安定か？
 
 初めて構造化された表形式データを扱うなら、まずは次のように選ぶと安定です。
 
@@ -727,7 +727,7 @@ print(f"CatBoost | 学習: {cat_model.score(X_train, y_train):.1%} | テスト: 
 
 「今いちばん流行っているものを先に使う」より、この順番の方が安定です。まず baseline を作ってから、少しずつ上限を上げていくイメージです。
 
-### 5.5 アンサンブル学習を最初に学ぶときの、安定した読み順
+### アンサンブル学習を最初に学ぶときの、安定した読み順
 
 この節を初めて学ぶなら、次の順で理解するのがおすすめです。
 
@@ -743,7 +743,7 @@ print(f"CatBoost | 学習: {cat_model.score(X_train, y_train):.1%} | テスト: 
 
 ## 六、Stacking——モデルの積み重ね
 
-### 6.1 原理
+### 原理
 
 複数の異なるモデルの予測結果を**新しい特徴量**として使い、その上でもう1つモデルを学習して最終予測を行います。
 
@@ -774,7 +774,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 6.2 sklearn での実装
+### sklearn での実装
 
 ```python
 from sklearn.ensemble import StackingClassifier, RandomForestClassifier, GradientBoostingClassifier
@@ -805,7 +805,7 @@ print(f"Stacking | 学習: {stack.score(X_train, y_train):.1%} | テスト: {sta
 Stacking | 学習: 95.0% | テスト: 89.0%
 ```
 
-### 6.3 なぜ Stacking は初心者の最初の一歩ではないのか？
+### なぜ Stacking は初心者の最初の一歩ではないのか？
 
 Stacking は強力になりやすい一方で、実験設計の難易度も上がります。
 

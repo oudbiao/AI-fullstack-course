@@ -1,11 +1,11 @@
 ---
-title: "6.4 LlamaIndex"
+title: "9.6.4 LlamaIndex"
 sidebar_position: 32
 description: "从文档摄取、节点切分、索引、检索到查询引擎，理解 LlamaIndex 为什么更像知识系统框架。"
 keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 ---
 
-# LlamaIndex
+# 9.6.4 LlamaIndex
 
 :::tip 本节定位
 如果说 LangGraph 更像“状态流与工作流编排框架”，那 LlamaIndex 更像：
@@ -32,7 +32,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 ## 一、为什么很多 LLM 项目其实首先是“知识系统项目”？
 
-### 1.1 不是所有系统都在解决对话问题
+### 不是所有系统都在解决对话问题
 
 很多真实 LLM 应用的核心，其实不是聊天，而是：
 
@@ -45,7 +45,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 > **知识本身的组织方式，直接决定系统质量。**
 
-### 1.2 这正是 LlamaIndex 最有价值的地方
+### 这正是 LlamaIndex 最有价值的地方
 
 它不是只问“怎么调模型”，而是在问：
 
@@ -62,7 +62,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 ## 二、先把几个最重要的概念分清
 
-### 2.1 Document
+### Document
 
 最原始的知识单元。
 例如：
@@ -71,20 +71,20 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 - 一份 PDF
 - 一段网页内容
 
-### 2.2 Node
+### Node
 
 Document 被切分后的更小单位。
 在很多知识系统里，真正拿去做检索的往往不是整篇文档，而是更细粒度的 node。
 
-### 2.3 Index
+### Index
 
 把这些 node 组织成可查询结构的方式。
 
-### 2.4 Retriever
+### Retriever
 
 负责根据用户查询，把相关 node 找回来。
 
-### 2.5 Query Engine
+### Query Engine
 
 把“查询 -> 检索 -> 组织结果”整成更完整的一层。
 
@@ -96,7 +96,7 @@ Document 被切分后的更小单位。
 
 ## 三、先用纯 Python 走一遍这条链
 
-### 3.1 文档 -> 节点
+### 文档 -> 节点
 
 ```python
 documents = [
@@ -122,7 +122,7 @@ print(nodes)
 
 ## 四、为什么“文档摄取”是知识系统的第一步？
 
-### 4.1 原始文档通常很脏
+### 原始文档通常很脏
 
 真实文档可能包含：
 
@@ -133,7 +133,7 @@ print(nodes)
 
 如果不先处理好，后面的检索往往会一起变差。
 
-### 4.2 所以知识系统最常见的第一步不是“调模型”
+### 所以知识系统最常见的第一步不是“调模型”
 
 而是：
 
@@ -148,7 +148,7 @@ print(nodes)
 
 ## 五、索引和检索为什么是它的中心？
 
-### 5.1 因为知识应用最怕“文档在那，但系统找不到”
+### 因为知识应用最怕“文档在那，但系统找不到”
 
 如果：
 
@@ -158,7 +158,7 @@ print(nodes)
 
 那没有好的索引和检索层，后面模型再强也会被拖累。
 
-### 5.2 一个最小检索示例
+### 一个最小检索示例
 
 如果你想在本地运行这段代码，先安装 `scikit-learn`。
 
@@ -179,7 +179,7 @@ def retrieve(query):
 print(retrieve("退款政策是什么"))
 ```
 
-### 5.3 这段代码真正对应的抽象是什么？
+### 这段代码真正对应的抽象是什么？
 
 它其实已经对应到：
 
@@ -193,7 +193,7 @@ print(retrieve("退款政策是什么"))
 
 ## 六、Query Engine 为什么值得单独抽出来？
 
-### 6.1 因为问答不只等于“返回一个最像的段落”
+### 因为问答不只等于“返回一个最像的段落”
 
 实际系统里，你通常还要决定：
 
@@ -204,7 +204,7 @@ print(retrieve("退款政策是什么"))
 
 这时“查询引擎”就比“单个 retriever”更像一个系统层抽象。
 
-### 6.2 一个极简 Query Engine 示例
+### 一个极简 Query Engine 示例
 
 ```python
 def query_engine(query):
@@ -260,15 +260,15 @@ print(query_engine("退款政策是什么"))
 
 ## 九、初学者最常踩的坑
 
-### 9.1 只看模型，不看文档摄取
+### 只看模型，不看文档摄取
 
 很多知识系统问题，其实都出在文档入口。
 
-### 9.2 觉得索引做好了就等于问答系统完成了
+### 觉得索引做好了就等于问答系统完成了
 
 索引只是中间层，不是产品终点。
 
-### 9.3 不知道它和工作流型框架的边界
+### 不知道它和工作流型框架的边界
 
 这样很容易期待它去解决并不属于它最强项的问题。
 

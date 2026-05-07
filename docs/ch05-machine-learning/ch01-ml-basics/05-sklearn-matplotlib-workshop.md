@@ -1,11 +1,11 @@
 ---
-title: "1.5 Scikit-learn and Matplotlib Hands-on Workshop"
+title: "5.1.5 Scikit-learn and Matplotlib Hands-on Workshop"
 sidebar_position: 4
 description: "Follow a complete hands-on machine learning workflow: prepare data, visualize with Matplotlib, train sklearn Pipeline models, evaluate results, tune safely, save models, and avoid common beginner mistakes."
 keywords: [Scikit-learn practice, sklearn tutorial, Matplotlib basics, Pipeline, train_test_split, confusion matrix, cross-validation, joblib]
 ---
 
-# Scikit-learn and Matplotlib Hands-on Workshop
+# 5.1.5 Scikit-learn and Matplotlib Hands-on Workshop
 
 ![Scikit-learn hands-on workflow](/img/course/ch05-sklearn-hands-on-loop-en.png)
 
@@ -22,7 +22,7 @@ This is a **follow-along workshop**. The goal is not to add more theory, but to 
 - Use cross-validation to tune one thing at a time
 - Save and reload a trained Pipeline with `joblib`
 
-## 0. Prepare one runnable cell
+## Prepare one runnable cell
 
 Create a new notebook or Python file, then run this setup first.
 
@@ -50,7 +50,7 @@ python -m pip install --upgrade scikit-learn matplotlib joblib
 
 ---
 
-## 1. Load data: separate features and labels
+## Load data: separate features and labels
 
 In sklearn examples, you will see `X` and `y` all the time:
 
@@ -89,7 +89,7 @@ Before training any model, always answer three questions: “What is one row? Wh
 
 ---
 
-## 2. Matplotlib basics: read the chart before the model
+## Matplotlib basics: read the chart before the model
 
 ![Matplotlib chart anatomy](/img/course/ch05-matplotlib-chart-anatomy-en.png)
 
@@ -151,7 +151,7 @@ This is why visualization matters: it gives you a first feeling for whether the 
 
 ---
 
-## 3. Split data: keep the test set hidden
+## Split data: keep the test set hidden
 
 `train_test_split` creates a training set and a test set.
 
@@ -186,7 +186,7 @@ Do not run `fit` on the test set. The test set is your final exam. If preprocess
 
 ---
 
-## 4. Build a Pipeline: preprocessing plus model
+## Build a Pipeline: preprocessing plus model
 
 Many models, such as logistic regression, SVM, and KNN, are sensitive to feature scale. The Wine dataset has columns with very different units, so we put `StandardScaler` before the model.
 
@@ -221,7 +221,7 @@ That tiny difference prevents data leakage.
 
 ---
 
-## 5. Predict and inspect concrete examples
+## Predict and inspect concrete examples
 
 A score is useful, but beginners should also look at a few actual predictions.
 
@@ -250,7 +250,7 @@ Sample 4: predicted=class_2, true=class_2, confidence=99.9%
 
 ---
 
-## 6. Evaluate with a confusion matrix and report
+## Evaluate with a confusion matrix and report
 
 Accuracy alone hides which classes are confused with each other. A confusion matrix shows actual labels on one axis and predicted labels on the other axis.
 
@@ -282,7 +282,7 @@ What to read:
 
 ---
 
-## 7. Compare several models with the same workflow
+## Compare several models with the same workflow
 
 Because sklearn has a unified API, model comparison is very practical.
 
@@ -352,7 +352,7 @@ If train score is much higher than test score, suspect overfitting. If both scor
 
 ---
 
-## 8. Tune safely with cross-validation
+## Tune safely with cross-validation
 
 Do not tune hyperparameters directly on the test set. Use cross-validation on the training set.
 
@@ -388,7 +388,7 @@ The habit is more important than this exact result:
 
 ---
 
-## 9. Save and reload the final Pipeline
+## Save and reload the final Pipeline
 
 ```python
 import joblib
@@ -424,7 +424,7 @@ Only load `joblib` or `pickle` files you trust. Loading serialized Python object
 
 ---
 
-## 10. Common errors and quick fixes
+## Common errors and quick fixes
 
 | Error / symptom | Likely cause | Fix |
 |---|---|---|

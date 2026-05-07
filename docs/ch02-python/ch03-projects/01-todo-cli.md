@@ -1,10 +1,10 @@
 ---
-title: "1.1 Project: Command-Line Task Manager"
+title: "2.3.1 Project: Command-Line Task Manager"
 sidebar_position: 1
 description: "Apply Python fundamentals in a hands-on way to build a command-line task management tool"
 ---
 
-# Project: Command-Line Task Manager
+# 2.3.1 Project: Command-Line Task Manager
 
 ![Command-Line Task Manager architecture diagram](/img/course/ch02-todo-cli-architecture-en.png)
 

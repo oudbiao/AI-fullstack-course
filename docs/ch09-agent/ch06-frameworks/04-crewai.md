@@ -1,11 +1,11 @@
 ---
-title: "6.5 CrewAI"
+title: "9.6.5 CrewAI"
 sidebar_position: 33
 description: "From roles and tasks to crew organization and team collaboration workflows, understand why CrewAI is especially well suited to expressing multi-Agent systems with a 'team model.'"
 keywords: [CrewAI, multi-agent, roles, tasks, crew, team abstraction]
 ---
 
-# CrewAI
+# 9.6.5 CrewAI
 
 :::tip Section focus
 If some frameworks feel more like a “state-flow engine,” then CrewAI usually gives this first impression:
@@ -31,9 +31,9 @@ So it is a great fit for tasks that naturally look like “multiple people worki
 
 ---
 
-## 1. What Is CrewAI’s Most Fundamental Abstraction?
+## What Is CrewAI’s Most Fundamental Abstraction?
 
-### 1.1 Start by Defining Roles, Not a State Diagram
+### Start by Defining Roles, Not a State Diagram
 
 CrewAI’s way of thinking is very similar to real-world team management:
 
@@ -49,7 +49,7 @@ Instead, it first asks:
 
 - Who is on this team?
 
-### 1.2 A Very Intuitive Analogy
+### A Very Intuitive Analogy
 
 CrewAI is more like:
 
@@ -59,9 +59,9 @@ This is very different from LangGraph’s approach of “define the state and ed
 
 ---
 
-## 2. The Three Most Important Concepts
+## The Three Most Important Concepts
 
-### 2.1 Agent
+### Agent
 
 A member.
 It usually has:
@@ -70,7 +70,7 @@ It usually has:
 - a goal
 - a capability tendency
 
-### 2.2 Task
+### Task
 
 A specific piece of work.
 It usually has:
@@ -79,7 +79,7 @@ It usually has:
 - an owner
 - expected output
 
-### 2.3 Crew
+### Crew
 
 A small team collaborating around a common goal.
 
@@ -89,7 +89,7 @@ Remember this one-sentence summary:
 
 ---
 
-## 3. A Minimal Crew Example
+## A Minimal Crew Example
 
 ```python
 crew = [
@@ -108,7 +108,7 @@ print(crew)
 print(tasks)
 ```
 
-### 3.2 What Does This Example Really Express?
+### What Does This Example Really Express?
 
 It expresses this:
 
@@ -118,7 +118,7 @@ That is exactly why CrewAI is so easy to get started with.
 
 ---
 
-## 4. Why Is This Abstraction Especially Suitable for Content Collaboration Tasks?
+## Why Is This Abstraction Especially Suitable for Content Collaboration Tasks?
 
 Many tasks naturally look like a small team getting work done:
 
@@ -139,7 +139,7 @@ CrewAI’s abstraction fits these tasks very well, so it often gives people the 
 
 ---
 
-## 5. A More Complete Small Crew Workflow
+## A More Complete Small Crew Workflow
 
 ```python
 def researcher_agent(topic):
@@ -171,17 +171,17 @@ This example shows:
 
 ---
 
-## 6. Where Does CrewAI Shine?
+## Where Does CrewAI Shine?
 
-### 6.1 Easy to Understand
+### Easy to Understand
 
 Compared with complex state graphs, “team roles” match many people’s intuition better.
 
-### 6.2 Easy to Present
+### Easy to Present
 
 It is very easy to explain in demos, architecture discussions, and collaboration examples.
 
-### 6.3 Well Suited for Tasks with Clear Role Division
+### Well Suited for Tasks with Clear Role Division
 
 Especially suitable for:
 
@@ -194,9 +194,9 @@ These are scenarios where “who does what” is very clear.
 
 ---
 
-## 7. CrewAI’s Limitations Are Also Important to Understand
+## CrewAI’s Limitations Are Also Important to Understand
 
-### 7.1 It Does Not Automatically Solve Complex State Flows
+### It Does Not Automatically Solve Complex State Flows
 
 If your system has:
 
@@ -206,7 +206,7 @@ If your system has:
 
 Then relying only on “role abstraction” may not be enough.
 
-### 7.2 Role Abstraction Can Sometimes Hide Underlying Engineering Complexity
+### Role Abstraction Can Sometimes Hide Underlying Engineering Complexity
 
 It may look like:
 
@@ -226,7 +226,7 @@ So it is more like a “way of expressing” and “way of organizing” systems
 
 ---
 
-## 8. When Is CrewAI a Better Choice?
+## When Is CrewAI a Better Choice?
 
 If your task feels very much like:
 
@@ -251,17 +251,17 @@ then a graph-based framework may be more stable.
 
 ---
 
-## 9. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 9.1 Too Many Roles, but No Clear Responsibilities
+### Too Many Roles, but No Clear Responsibilities
 
 It looks like a team, but in reality it is just many vague roles thrown together.
 
-### 9.2 Thinking Role Abstraction Means the System Is Automatically Stable
+### Thinking Role Abstraction Means the System Is Automatically Stable
 
 Roles are only an organizational form. They will not automatically fill in engineering capabilities for you.
 
-### 9.3 Forcing Multi-Agent Just to “Look Like a Team”
+### Forcing Multi-Agent Just to “Look Like a Team”
 
 If the task itself does not need division of labor, multi-Agent can become a burden instead.
 

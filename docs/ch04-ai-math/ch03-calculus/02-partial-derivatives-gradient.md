@@ -1,11 +1,11 @@
 ---
-title: "3.3 Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions"
+title: "4.3.3 Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions"
 sidebar_position: 10
 description: "Build intuition for partial derivatives and gradients, understand the directional meaning of gradients, and visualize gradients on 3D surfaces with Python"
 keywords: [partial derivatives, gradient, multivariable calculus, gradient direction, Python, AI math]
 ---
 
-# Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions
+# 4.3.3 Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions
 
 ![Gradient contour direction field](/img/course/gradient-contour-field-en.png)
 
@@ -53,15 +53,15 @@ The most important thing in this lesson is not memorizing symbols first, but und
 - A partial derivative looks at one variable under the condition that "other variables do not change"
 - A gradient packages all local change information into a vector
 
-## 1. Partial Derivatives — "Change One Variable Only"
+## Partial Derivatives — "Change One Variable Only"
 
-### 1.1 From Single Variable to Multiple Variables
+### From Single Variable to Multiple Variables
 
 The derivative in the previous section had only one variable. But in AI, loss functions usually depend on **thousands or even millions of parameters**.
 
 The idea of a partial derivative is simple: **hold all other variables fixed and only look at how changing one variable affects the result.**
 
-### 1.1.1 A Beginner-Friendly Analogy
+### A Beginner-Friendly Analogy
 
 You can think of partial derivatives as "a single knob on a mixing board":
 
@@ -82,7 +82,7 @@ plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 ```
 
-### 1.2 Everyday Intuition
+### Everyday Intuition
 
 Suppose your exam score depends on "study time" and "sleep time":
 
@@ -91,7 +91,7 @@ Suppose your exam score depends on "study time" and "sleep time":
 - Partial derivative ∂f/∂study_time = **keep sleep fixed**; if you study one more hour, how much does your score improve?
 - Partial derivative ∂f/∂sleep_time = **keep study fixed**; if you sleep one more hour, how much does your score improve?
 
-### 1.3 Mathematical Example
+### Mathematical Example
 
 f(x, y) = x² + y²
 
@@ -123,13 +123,13 @@ print(f"  ∂f/∂y = {df_dy:.4f} (exact value: {2*y0})")
 
 ---
 
-## 2. Gradient — "The Direction of Steepest Ascent"
+## Gradient — "The Direction of Steepest Ascent"
 
-### 2.1 Definition
+### Definition
 
 **Gradient = a vector made up of all partial derivatives.**
 
-### 2.1.1 A More Memorable Way to Say It
+### A More Memorable Way to Say It
 
 You can first understand the gradient as:
 
@@ -155,7 +155,7 @@ grad = gradient(f, [1, 2])
 print(f"Gradient: {grad}")  # [2, 4]
 ```
 
-### 2.2 The Directional Meaning of the Gradient
+### The Directional Meaning of the Gradient
 
 ```mermaid
 flowchart LR
@@ -170,7 +170,7 @@ flowchart LR
 
 **Key insight**: The gradient points in the direction of the steepest uphill climb. So if you want the loss function to go down, you should move in the **negative gradient direction**. This is the principle behind gradient descent.
 
-### 2.2.1 Why Is This Especially Important for AI?
+### Why Is This Especially Important for AI?
 
 Because when training a model, the one thing you most want to know is:
 
@@ -178,7 +178,7 @@ Because when training a model, the one thing you most want to know is:
 
 And that is exactly what the gradient answers.
 
-### 2.2.2 A Better Overall Analogy for Beginners
+### A Better Overall Analogy for Beginners
 
 You can think of the gradient as:
 
@@ -191,7 +191,7 @@ This analogy is especially worth remembering first, because it turns the abstrac
 
 - Which way should I step right now?
 
-### 2.3 Visualization: The Gradient on a 3D Surface
+### Visualization: The Gradient on a 3D Surface
 
 ```python
 # f(x, y) = x² + y² (bowl-shaped surface)
@@ -236,7 +236,7 @@ plt.show()
 - The farther away from the center, the larger the gradient (the longer the arrows) — this means the function changes more sharply
 - At the lowest point (0,0), the gradient is [0,0] — you are already at the bottom
 
-### 2.4 The Gradient on a Non-Bowl Surface
+### The Gradient on a Non-Bowl Surface
 
 ```python
 # A more interesting function: with multiple extrema
@@ -272,9 +272,9 @@ plt.show()
 
 ---
 
-## 3. The Meaning of Gradients in Neural Networks
+## The Meaning of Gradients in Neural Networks
 
-### 3.1 The Gradient of the Loss Function
+### The Gradient of the Loss Function
 
 In a neural network:
 - **Parameters** = thousands to billions of weights [w1, w2, ..., wn]
@@ -302,7 +302,7 @@ print(f"→ Partial derivative with respect to w1 = {grad[0]:.1f} (negative → 
 print(f"→ Partial derivative with respect to w2 = {grad[1]:.1f} (positive → w2 should decrease)")
 ```
 
-### 3.2 The Challenge of High-Dimensional Gradients
+### The Challenge of High-Dimensional Gradients
 
 | Model | Number of parameters | Gradient dimension |
 |------|---------|---------|
@@ -313,7 +313,7 @@ print(f"→ Partial derivative with respect to w2 = {grad[1]:.1f} (positive → 
 
 Although the dimensionality is extremely high, the rule for computing the gradient is the same — the partial derivative of each parameter. PyTorch's `autograd` automatically computes this efficiently for you.
 
-### 3.3 Another Minimal Example of "Updating Parameters by Gradient"
+### Another Minimal Example of "Updating Parameters by Gradient"
 
 ```python
 def loss(w1, w2):
@@ -340,7 +340,7 @@ This example is especially good for beginners because it turns the idea that "th
 In other words, a gradient is not just a mathematical object;
 it directly becomes the update action during training.
 
-### 3.4 A Comparison Table That Beginners Should Remember First
+### A Comparison Table That Beginners Should Remember First
 
 | Concept | The most important question to remember |
 |------|------|
@@ -350,7 +350,7 @@ it directly becomes the update action during training.
 
 This table is especially useful for beginners because it compresses "multivariable calculus" back into a few actionable questions.
 
-### 3.5 A Common Mistake: Updating Loss in the Gradient Direction
+### A Common Mistake: Updating Loss in the Gradient Direction
 
 When many beginners first write gradient descent, they accidentally write:
 
@@ -402,7 +402,7 @@ After understanding partial derivatives and gradients, the most worthwhile quest
 
 The next section to read is usually:
 
-- [Gradient Descent](./03-gradient-descent.md)
+- [4.3.4 Gradient Descent](./03-gradient-descent.md)
 
 :::info Connecting to What Comes Next
 - **Next section**: Gradient Descent — step by step along the negative gradient to find the minimum of the loss function

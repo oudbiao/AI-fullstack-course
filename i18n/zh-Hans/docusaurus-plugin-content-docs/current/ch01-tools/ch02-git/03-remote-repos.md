@@ -1,10 +1,10 @@
 ---
-title: "远程仓库"
+title: "1.2.3 远程仓库"
 sidebar_position: 3
 description: "将代码推送到 GitHub，学会远程协作"
 ---
 
-# 远程仓库
+# 1.2.3 远程仓库
 
 ![Git 本地远程同步图](/img/course/ch01-git-remote-sync.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "2.4 Fundamentals of Language Models"
+title: "11.2.4 Fundamentals of Language Models"
 sidebar_position: 6
 description: "From n-gram to next token prediction, understand what language models do and why they become the common foundation of later large models."
 keywords: [language model, next token prediction, n-gram, autoregressive, probability, NLP]
 ---
 
-# Fundamentals of Language Models
+# 11.2.4 Fundamentals of Language Models
 
 ![Language model next token prediction diagram](/img/course/ch11-language-model-next-token-stack-en.png)
 
@@ -33,9 +33,9 @@ It may look like a simple task on the surface, but many later capabilities grow 
 
 ---
 
-## 1. What exactly does a language model learn?
+## What exactly does a language model learn?
 
-### 1.1 The most basic form
+### The most basic form
 
 In one sentence:
 
@@ -45,7 +45,7 @@ For example:
 
 - “I love” -> the next word might be `AI`, `you`, `Python`
 
-### 1.2 Why does this task look simple but powerful?
+### Why does this task look simple but powerful?
 
 Because to do it well, the model must gradually learn:
 
@@ -58,7 +58,7 @@ In other words,
 although “predict the next token” is a simple objective,
 it pushes the model to learn many language patterns underneath.
 
-### 1.3 An analogy
+### An analogy
 
 A language model is like playing a word chain game,
 but not just any continuation—it has to continue in a way that is:
@@ -69,9 +69,9 @@ but not just any continuation—it has to continue in a way that is:
 
 ---
 
-## 2. Start with the n-gram intuition
+## Start with the n-gram intuition
 
-### 2.1 What is an n-gram language model?
+### What is an n-gram language model?
 
 You can first understand it as:
 
@@ -86,13 +86,13 @@ trigram:
 
 - only looks at the previous 2 words
 
-### 2.2 What are the advantages of this method?
+### What are the advantages of this method?
 
 - intuitive
 - interpretable
 - easy to get started with
 
-### 2.3 Its limitations are also obvious
+### Its limitations are also obvious
 
 - cannot see long-distance dependencies
 - very sparse
@@ -102,7 +102,7 @@ But it is very suitable for helping beginners build the first layer of intuition
 
 ---
 
-## 3. Run a simple bigram example first
+## Run a simple bigram example first
 
 ```python
 from collections import defaultdict, Counter
@@ -123,14 +123,14 @@ for sent in corpus:
 print(dict(stats))
 ```
 
-### 3.1 What is the most important value of this code?
+### What is the most important value of this code?
 
 It peels back the lowest-level logic of a language model:
 
 - after seeing a word
 - how many times each possible next word appeared in the training corpus
 
-### 3.2 Why is this already like a “language model”?
+### Why is this already like a “language model”?
 
 Because it is already doing:
 
@@ -150,16 +150,16 @@ can each have different probabilities.
 
 ---
 
-## 4. How do we move from statistical models to neural language models?
+## How do we move from statistical models to neural language models?
 
-### 4.1 The core task has not changed
+### The core task has not changed
 
 Although model architectures become more and more complex later,
 one important fact remains:
 
 - the objective function is often still “predict the next token”
 
-### 4.2 What changes is the representation and generalization
+### What changes is the representation and generalization
 
 Neural language models no longer just look up a frequency table,
 but instead:
@@ -173,7 +173,7 @@ This allows them to:
 - learn more abstract patterns
 - generalize better to unseen combinations
 
-### 4.3 A simplified example of a “prediction distribution”
+### A simplified example of a “prediction distribution”
 
 ```python
 import math
@@ -202,9 +202,9 @@ but it already expresses one key idea:
 
 ---
 
-## 5. Why do language models become the common foundation of large models?
+## Why do language models become the common foundation of large models?
 
-### 5.1 Because this objective is general enough
+### Because this objective is general enough
 
 Whether you later do:
 
@@ -215,7 +215,7 @@ Whether you later do:
 
 many capabilities can grow out of “language continuation ability.”
 
-### 5.2 Because it is well suited to large-scale self-supervised learning
+### Because it is well suited to large-scale self-supervised learning
 
 You do not need human annotation for “what the next word is,”
 because the text itself naturally contains the label.
@@ -227,7 +227,7 @@ This means:
 
 can be combined naturally.
 
-### 5.3 This is also why the later path leads to GPT
+### This is also why the later path leads to GPT
 
 Because autoregressive language modeling is:
 
@@ -239,19 +239,19 @@ This path later became one of the important main lines of large language models.
 
 ---
 
-## 6. The most common pitfalls
+## The most common pitfalls
 
-### 6.1 Misconception 1: a language model is only “good at continuing the next word”
+### Misconception 1: a language model is only “good at continuing the next word”
 
 This statement is superficially true,
 but it underestimates how much the model can be pushed to learn by this task.
 
-### 6.2 Misconception 2: n-gram is useless, so there is no need to learn it
+### Misconception 2: n-gram is useless, so there is no need to learn it
 
 n-gram is very useful,
 because it lets you see for the first time what a language model is actually doing.
 
-### 6.3 Misconception 3: if it can generate, then it understands language
+### Misconception 3: if it can generate, then it understands language
 
 Strong generation ability does not mean full understanding.
 That is also why later we still need to look at reasoning, alignment, and tool use.

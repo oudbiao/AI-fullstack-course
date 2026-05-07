@@ -1,10 +1,10 @@
 ---
-title: "2.4 配列演算"
+title: "3.2.4 配列演算"
 sidebar_position: 5
 description: "ベクトル化演算、ブロードキャスト機構、集約関数を身につける"
 ---
 
-# 配列演算
+# 3.2.4 配列演算
 
 ![NumPy のブロードキャストとベクトル化演算の図](/img/course/ch03-numpy-broadcasting-vectorization-ja.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It"
+title: "3.4.1 Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It"
 sidebar_position: 16
 description: "A master map for beginners learning data visualization for the first time: how to choose charts for trends, comparisons, distributions, and relationships, and how Matplotlib, Seaborn, Plotly, and best practices fit together."
 keywords: [data visualization, chart selection, matplotlib, seaborn, plotly, visualization roadmap]
 ---
 
-# Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It
+# 3.4.1 Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It
 
 This chapter answers one question: how do you turn trends, comparisons, distributions, and relationships in your data into charts that other people can understand at a glance?
 
@@ -63,10 +63,10 @@ Once you understand this flow, you will know that â€œmaking charts look prettyâ€
 
 | Section | The problem it should help you solve |
 |---|---|
-| [4.1 Matplotlib Basics](./01-matplotlib.md) | Learn the most basic plotting actions and the Figure/Axes model |
-| [4.2 Seaborn Statistical Visualization](./02-seaborn.md) | Do exploratory analysis and statistical charts faster with less code |
-| [4.3 Interactive Visualization (Optional)](./03-plotly.md) | How to handle interactivity, presentations, and web charts when needed |
-| [4.4 Visualization Best Practices](./04-best-practices.md) | Choose charts, colors, and avoid misleading visuals so the chart is truly readable |
+| [3.4.2 Matplotlib Basics](./01-matplotlib.md) | Learn the most basic plotting actions and the Figure/Axes model |
+| [3.4.3 Seaborn Statistical Visualization](./02-seaborn.md) | Do exploratory analysis and statistical charts faster with less code |
+| [3.4.4 Interactive Visualization (Optional)](./03-plotly.md) | How to handle interactivity, presentations, and web charts when needed |
+| [3.4.5 Visualization Best Practices](./04-best-practices.md) | Choose charts, colors, and avoid misleading visuals so the chart is truly readable |
 
 ## How This Chapter Connects to Later Stages
 

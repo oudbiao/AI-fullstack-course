@@ -1,11 +1,11 @@
 ---
-title: "7.3 Communication Between Agents"
+title: "9.7.3 Communication Between Agents"
 sidebar_position: 39
 description: "Build a systematic understanding of how multiple Agents communicate, from message format, synchronous vs. asynchronous communication, and shared state to failure retries."
 keywords: [multi-agent communication, message passing, event bus, shared state, async, protocol]
 ---
 
-# Communication Between Agents
+# 9.7.3 Communication Between Agents
 
 :::tip Section Overview
 If the previous section answered “How should these Agents split up the work?”, then this section answers:
@@ -24,9 +24,9 @@ In many multi-Agent systems, the final failure is not because each individual Ag
 
 ---
 
-## 1. Why Does Communication Become the Core Problem in Multi-Agent Systems?
+## Why Does Communication Become the Core Problem in Multi-Agent Systems?
 
-### 1.1 The Biggest Risk in Multi-Agent Systems Is Not “Not Doing the Work,” but “Not Staying Aligned”
+### The Biggest Risk in Multi-Agent Systems Is Not “Not Doing the Work,” but “Not Staying Aligned”
 
 Even if each Agent is strong on its own, the system can still fail because of poor communication design:
 
@@ -35,7 +35,7 @@ Even if each Agent is strong on its own, the system can still fail because of po
 - Inconsistent understanding of information
 - Continuing to discuss a task after it has already been completed
 
-### 1.2 A Very Intuitive Analogy
+### A Very Intuitive Analogy
 
 A multi-Agent system is a lot like a small team working together:
 
@@ -46,9 +46,9 @@ That is why communication is not an “extra module” — it is a core structur
 
 ---
 
-## 2. Three of the Most Common Communication Patterns
+## Three of the Most Common Communication Patterns
 
-### 2.1 Direct Message Passing
+### Direct Message Passing
 
 One Agent explicitly sends a message to another Agent.
 
@@ -62,7 +62,7 @@ Cons:
 
 - The coupling between Agents is relatively strong
 
-### 2.2 Shared State / Blackboard
+### Shared State / Blackboard
 
 All Agents write to and read from one shared workspace.
 
@@ -76,7 +76,7 @@ Cons:
 - Easier to get messy
 - Harder to control permissions and conflicts
 
-### 2.3 Event Bus
+### Event Bus
 
 Agents do not necessarily know each other directly; instead, they publish messages to a bus, and subscribers receive them.
 
@@ -91,9 +91,9 @@ Cons:
 
 ---
 
-## 3. Start with the Simplest Point-to-Point Message Passing
+## Start with the Simplest Point-to-Point Message Passing
 
-### 3.1 A Minimal Example
+### A Minimal Example
 
 ```python
 message = {
@@ -106,7 +106,7 @@ message = {
 print(message)
 ```
 
-### 3.2 Why Is This Already Important?
+### Why Is This Already Important?
 
 Because it makes the key elements of communication explicit:
 
@@ -119,9 +119,9 @@ This is much more robust than “just passing some natural language.”
 
 ---
 
-## 4. Why Should Message Formats Be Standardized?
+## Why Should Message Formats Be Standardized?
 
-### 4.1 A Bad Message Format
+### A Bad Message Format
 
 ```python
 bad_message = "Help me do this task"
@@ -135,7 +135,7 @@ The problem is:
 - You do not know the context
 - You do not know what to do next
 
-### 4.2 A More Reliable Message Structure
+### A More Reliable Message Structure
 
 ```python
 good_message = {
@@ -161,9 +161,9 @@ Do not send only one sentence of natural language in multi-Agent communication. 
 
 ---
 
-## 5. A Minimal Event Bus Example
+## A Minimal Event Bus Example
 
-### 5.1 Runnable Code
+### Runnable Code
 
 ```python
 from collections import defaultdict
@@ -200,7 +200,7 @@ bus.publish("task_assignment", {
 })
 ```
 
-### 5.2 What Does This Code Actually Teach?
+### What Does This Code Actually Teach?
 
 It teaches you:
 
@@ -212,9 +212,9 @@ This is already very close to the communication backbone of a real system.
 
 ---
 
-## 6. Shared State: When Is It More Suitable?
+## Shared State: When Is It More Suitable?
 
-### 6.1 A Very Typical Scenario
+### A Very Typical Scenario
 
 If multiple Agents are working around the same task, such as:
 
@@ -225,7 +225,7 @@ If multiple Agents are working around the same task, such as:
 
 Then much of the information can be placed in a shared workspace.
 
-### 6.2 A Minimal Example
+### A Minimal Example
 
 ```python
 shared_state = {
@@ -248,7 +248,7 @@ shared_state["draft"] = "Refund conditions include time limits and study progres
 print(shared_state)
 ```
 
-### 6.3 Pros and Cons of This Approach
+### Pros and Cons of This Approach
 
 Pros:
 
@@ -262,9 +262,9 @@ Cons:
 
 ---
 
-## 7. How Should We Understand Synchronous and Asynchronous Communication?
+## How Should We Understand Synchronous and Asynchronous Communication?
 
-### 7.1 Synchronous Communication
+### Synchronous Communication
 
 After an Agent sends a request, it must wait for the other side to reply before it can continue.
 
@@ -277,7 +277,7 @@ Cons:
 
 - Can easily block progress
 
-### 7.2 Asynchronous Communication
+### Asynchronous Communication
 
 After sending a message, the Agent continues doing other work first, and handles the result later when the other side finishes.
 
@@ -290,27 +290,27 @@ Cons:
 
 - More complex state management
 
-### 7.3 A Very Practical Engineering Rule of Thumb
+### A Very Practical Engineering Rule of Thumb
 
 If your task chain is short and the process is clear, start with synchronous communication.
 If the task is long and waiting time is unstable, then consider asynchronous communication.
 
 ---
 
-## 8. The Most Common Failure Points in Agent-to-Agent Communication
+## The Most Common Failure Points in Agent-to-Agent Communication
 
-### 8.1 Inconsistent Message Formats
+### Inconsistent Message Formats
 
 Today it is called `task_id`, tomorrow `id`, and the day after `job_id` — the system will quickly become messy.
 
-### 8.2 A Message Was Sent, but Nobody Handles It
+### A Message Was Sent, but Nobody Handles It
 
 This is a very common issue in event systems:
 
 - It was published
 - But there are no subscribers
 
-### 8.3 Multiple Agents Interpret the Same Message Differently
+### Multiple Agents Interpret the Same Message Differently
 
 For example:
 
@@ -319,15 +319,15 @@ For example:
 
 This will cause the system to drift off course.
 
-### 8.4 No Timeouts or Retries
+### No Timeouts or Retries
 
 If one Agent gets stuck, the whole system may keep waiting forever.
 
 ---
 
-## 9. How Can Real Systems Make Communication More Reliable?
+## How Can Real Systems Make Communication More Reliable?
 
-### 9.1 Unify the Message Protocol
+### Unify the Message Protocol
 
 At minimum, standardize:
 
@@ -337,7 +337,7 @@ At minimum, standardize:
 - `task_id`
 - `payload`
 
-### 9.2 Unify State Tracking
+### Unify State Tracking
 
 Each task should ideally have a unique ID to make it easier to:
 
@@ -345,7 +345,7 @@ Each task should ideally have a unique ID to make it easier to:
 - Replay
 - Debug
 
-### 9.3 Unify Timeout and Failure Policies
+### Unify Timeout and Failure Policies
 
 For example:
 

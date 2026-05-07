@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-study Guide: What Is This Chapter on Pretraining Actually About?"
+title: "7.4.1 Pre-study Guide: What Is This Chapter on Pretraining Actually About?"
 sidebar_position: 0
 description: "First build a learning map for the pretraining chapter: how data, objective functions, and training engineering jointly determine a pretrained model's capabilities."
 keywords: [pretraining guide, pretraining data, pretraining objective, training engineering]
 ---
 
-# Pre-study Guide: What Is This Chapter on Pretraining Actually About?
+# 7.4.1 Pre-study Guide: What Is This Chapter on Pretraining Actually About?
 
 ## Chapter Positioning
 

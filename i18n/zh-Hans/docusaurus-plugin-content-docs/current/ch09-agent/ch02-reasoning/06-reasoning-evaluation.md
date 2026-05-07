@@ -1,11 +1,11 @@
 ---
-title: "2.7 推理评估与优化"
+title: "9.2.7 推理评估与优化"
 sidebar_position: 10
 description: "从“答案对不对”进一步走向“过程稳不稳、工具用得值不值、步骤有没有浪费”，建立 Agent 推理系统的评估与优化闭环。"
 keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, tool efficiency]
 ---
 
-# 推理评估与优化
+# 9.2.7 推理评估与优化
 
 :::tip 本节定位
 推理系统最容易犯的错误之一是：
@@ -34,7 +34,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 ## 一、为什么推理评估比普通 QA 更复杂？
 
-### 1.1 因为推理系统不只是输出一个文本
+### 因为推理系统不只是输出一个文本
 
 一个推理 Agent 往往还会产生：
 
@@ -46,7 +46,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 所以它不是单点输出问题，
 而是过程型系统问题。
 
-### 1.2 只看最终准确率会漏掉很多信息
+### 只看最终准确率会漏掉很多信息
 
 例如两个系统都答对了 80%：
 
@@ -57,7 +57,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 你会觉得它们差不多；
 但工程上，它们完全不是一个水平。
 
-### 1.3 一个类比：不仅要看是否到达终点，还要看怎么到的
+### 一个类比：不仅要看是否到达终点，还要看怎么到的
 
 如果两辆车都到达终点：
 
@@ -71,7 +71,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 ## 二、推理系统最常看的四类指标
 
-### 2.1 最终结果指标
+### 最终结果指标
 
 最常见的是：
 
@@ -83,7 +83,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 - 最终结论对不对
 
-### 2.2 过程质量指标
+### 过程质量指标
 
 例如：
 
@@ -95,7 +95,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 - 过程是否可依赖
 
-### 2.3 工具使用指标
+### 工具使用指标
 
 例如：
 
@@ -107,7 +107,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 - 工具有没有被合理使用
 
-### 2.4 成本与效率指标
+### 成本与效率指标
 
 例如：
 
@@ -200,7 +200,7 @@ print("agent_a:", evaluate_agent(agent_a))
 print("agent_b:", evaluate_agent(agent_b))
 ```
 
-### 3.1 这段代码最值得带走什么？
+### 这段代码最值得带走什么？
 
 最重要的不是某个公式，
 而是它展示了一种思路：
@@ -210,7 +210,7 @@ print("agent_b:", evaluate_agent(agent_b))
 只有三者一起看，
 你才知道系统到底是真的稳，还是只是偶然答对。
 
-### 3.2 为什么 `agent_b` 看起来不一定差很多，但工程上其实更差？
+### 为什么 `agent_b` 看起来不一定差很多，但工程上其实更差？
 
 因为它可能会出现：
 
@@ -221,7 +221,7 @@ print("agent_b:", evaluate_agent(agent_b))
 即使最终个别 case 答对了，
 代价也更高。
 
-### 3.3 为什么重复调用率值得单独看？
+### 为什么重复调用率值得单独看？
 
 因为很多 Agent 常见问题不是“完全不会”，
 而是：
@@ -242,7 +242,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ## 四、评估时不能只看“有没有答对”
 
-### 4.1 对答案类任务，看正确率
+### 对答案类任务，看正确率
 
 例如：
 
@@ -250,7 +250,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 规则问答
 - 明确检索题
 
-### 4.2 对过程类任务，看步骤是否合理
+### 对过程类任务，看步骤是否合理
 
 例如：
 
@@ -258,7 +258,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 是否提前下结论
 - 是否先查再算
 
-### 4.3 对 Agent 类任务，看动作是否划算
+### 对 Agent 类任务，看动作是否划算
 
 例如：
 
@@ -272,7 +272,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ## 五、拿到评估结果后，该怎么优化？
 
-### 5.1 如果准确率低
+### 如果准确率低
 
 优先看：
 
@@ -280,7 +280,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 工具选择是否错
 - observation 整合是否错
 
-### 5.2 如果准确率还行，但步数太长
+### 如果准确率还行，但步数太长
 
 优先看：
 
@@ -288,7 +288,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 是否该提早 stop
 - 是否可以合并步骤
 
-### 5.3 如果工具成功率低
+### 如果工具成功率低
 
 优先看：
 
@@ -296,7 +296,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 参数生成是否稳定
 - observation 是否足够结构化
 
-### 5.4 如果不同题型表现差异很大
+### 如果不同题型表现差异很大
 
 就应该按题型分桶分析。
 例如：
@@ -311,7 +311,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ## 六、评估样本该怎么设计？
 
-### 6.1 不要只放容易题
+### 不要只放容易题
 
 否则系统很容易显得“都挺好”。
 你应该刻意加入：
@@ -320,7 +320,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 需要多步工具配合的题
 - 很容易无限循环的题
 
-### 6.2 最好覆盖失败模式
+### 最好覆盖失败模式
 
 例如：
 
@@ -328,7 +328,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 不该调工具却乱调
 - 工具失败后不会恢复
 
-### 6.3 固定评估集要长期保留
+### 固定评估集要长期保留
 
 这样每次改 prompt、改策略、改工具后，
 你才能进行可比的 before / after 对比。
@@ -337,7 +337,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ## 七、常见误区
 
-### 7.1 误区一：最终答案对就说明系统没问题
+### 误区一：最终答案对就说明系统没问题
 
 不一定。
 它可能只是：
@@ -346,7 +346,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 成本过高
 - 稳定性差
 
-### 7.2 误区二：指标越多越好
+### 误区二：指标越多越好
 
 指标不是收集癖。
 关键是：
@@ -354,7 +354,7 @@ print("agent_b:", evaluate_agent(agent_b))
 - 指标能不能解释问题
 - 指标能不能指导优化
 
-### 7.3 误区三：没有固定 benchmark 也能靠感觉迭代
+### 误区三：没有固定 benchmark 也能靠感觉迭代
 
 只靠主观感觉，
 很容易把系统改得越来越不可控。

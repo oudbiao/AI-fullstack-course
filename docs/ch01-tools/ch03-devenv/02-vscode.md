@@ -1,10 +1,10 @@
 ---
-title: "VS Code Configuration"
+title: "1.3.2 VS Code Configuration"
 sidebar_position: 2
 description: "Turn VS Code into a handy AI development tool"
 ---
 
-# VS Code Configuration
+# 1.3.2 VS Code Configuration
 
 ![VS Code project workflow diagram](/img/course/ch01-vscode-workspace-flow-en.png)
 

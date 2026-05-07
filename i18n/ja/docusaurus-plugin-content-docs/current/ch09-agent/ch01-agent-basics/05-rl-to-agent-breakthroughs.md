@@ -1,11 +1,11 @@
 ---
-title: "1.6 TD-Gammon から AlphaGo へ：強化学習は Agent にどう影響したのか"
+title: "9.1.6 TD-Gammon から AlphaGo へ：強化学習は Agent にどう影響したのか"
 sidebar_position: 5
 description: "TD-Gammon、DQN Atari、AlphaGo の3つの歴史的な節目から、強化学習・探索・フィードバック・現代の Agent の関係を理解します。"
 keywords: [TD-Gammon, DQN, Atari, AlphaGo, 強化学習, Agentの歴史]
 ---
 
-# TD-Gammon から AlphaGo へ：強化学習は Agent にどう影響したのか
+# 9.1.6 TD-Gammon から AlphaGo へ：強化学習は Agent にどう影響したのか
 
 ![強化学習から Agent への歴史的ブレークスルーマップ](/img/course/ch09-rl-agent-breakthroughs-map-ja.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "5.2 Attention Mechanism 🔧"
+title: "6.5.2 Attention Mechanism 🔧"
 sidebar_position: 1
 description: "From why attention is needed, to Q/K/V, scaled dot-product, self-attention, multi-head attention, and masks, truly understand the heart of Transformer."
 keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 ---
 
-# Attention Mechanism
+# 6.5.2 Attention Mechanism
 
 ![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.png)
 
@@ -68,9 +68,9 @@ So the key new idea in this section is not the formula, but:
 - The current position no longer depends only on the hidden state passed in step by step
 - Instead, it can directly build long-distance relationships
 
-## 1. Why do we need attention mechanism?
+## Why do we need attention mechanism?
 
-### 1.1 First, look at a pain point of Seq2Seq
+### First, look at a pain point of Seq2Seq
 
 Early encoder-decoder structures often worked like this:
 
@@ -87,7 +87,7 @@ For example, when translating this sentence:
 
 If the model still needs to remember the earlier part “the owner is especially warm and friendly” when generating the end of the sentence, a fixed vector is often not flexible enough.
 
-### 1.2 The core improvement of attention
+### The core improvement of attention
 
 Attention mechanism says:
 
@@ -101,7 +101,7 @@ This is like answering reading-comprehension questions not by memorizing the who
 
 That is the intuition behind attention.
 
-### 1.3 What you should understand first in this section is not QKV, but “why the change is needed”
+### What you should understand first in this section is not QKV, but “why the change is needed”
 
 In other words, don’t rush to memorize Q / K / V.
 First establish this question:
@@ -115,11 +115,11 @@ Once this problem is clear, QKV will not feel like pure memorization.
 
 ---
 
-## 2. What exactly are Query / Key / Value?
+## What exactly are Query / Key / Value?
 
 This is often the most confusing part for beginners.
 
-### 2.1 A search-and-retrieval analogy
+### A search-and-retrieval analogy
 
 You want to find information in a database:
 
@@ -133,11 +133,11 @@ The attention process can be understood as:
 2. The stronger the match, the more relevant it is
 3. Then aggregate the corresponding Values according to relevance weights
 
-### 2.2 One-sentence version
+### One-sentence version
 
 > **Q asks the question, K gets matched, and V provides the content.**
 
-### 2.3 What is easiest to get stuck on when learning QKV for the first time?
+### What is easiest to get stuck on when learning QKV for the first time?
 
 Usually it is not the English terms that are hard to remember, but:
 
@@ -159,9 +159,9 @@ Read this image as a search-and-retrieval story: `Q` is the question you are ask
 
 ---
 
-## 3. Minimal runnable example: calculate attention by hand
+## Minimal runnable example: calculate attention by hand
 
-### 3.1 Start by looking at the code directly
+### Start by looking at the code directly
 
 ```python
 import numpy as np
@@ -193,7 +193,7 @@ print("weights =\n", np.round(weights, 3))
 print("output =\n", np.round(output, 3))
 ```
 
-### 3.2 The most important first line: `Q @ K.T`
+### The most important first line: `Q @ K.T`
 
 This step calculates:
 
@@ -201,14 +201,14 @@ This step calculates:
 
 If two vectors point in more similar directions, their dot product is usually larger.
 
-### 3.3 Second step: softmax
+### Second step: softmax
 
 softmax turns these relevance scores into a probability distribution:
 
 - They add up to 1
 - They can be treated as “attention strength”
 
-### 3.4 Third step: `weights @ V`
+### Third step: `weights @ V`
 
 This step says:
 
@@ -216,7 +216,7 @@ This step says:
 
 This gives a new representation.
 
-### 3.5 Why is this one of the fundamental capabilities behind Transformer’s rise?
+### Why is this one of the fundamental capabilities behind Transformer’s rise?
 
 Because for the first time it naturally does one thing very well:
 
@@ -231,9 +231,9 @@ This means the model can build more flexibly:
 
 ---
 
-## 4. Why do we need to “scale”?
+## Why do we need to “scale”?
 
-### 4.1 The formula for scaled dot-product attention
+### The formula for scaled dot-product attention
 
 In Transformer, the common formula is:
 
@@ -241,7 +241,7 @@ In Transformer, the common formula is:
 
 Here, `sqrt(d_k)` is the scaling term.
 
-### 4.2 Why divide by this number?
+### Why divide by this number?
 
 Because when the dimension becomes large, dot products can become large too, and softmax may become too sharp:
 
@@ -258,9 +258,9 @@ You can think of it like this:
 
 ---
 
-## 5. What is Self-Attention?
+## What is Self-Attention?
 
-### 5.1 The key idea of self-attention
+### The key idea of self-attention
 
 When Query / Key / Value all come from the same input sequence, it is called self-attention.
 
@@ -277,7 +277,7 @@ To decide, you need to look at the other words before it.
 
 Self-attention can directly build this kind of relationship.
 
-### 5.2 The difference from RNN
+### The difference from RNN
 
 RNN:
 
@@ -289,7 +289,7 @@ Self-attention:
 
 This is one reason Transformer is better at long-range dependencies.
 
-### 5.3 What is most worth remembering about self-attention is not the name, but its capability boundary
+### What is most worth remembering about self-attention is not the name, but its capability boundary
 
 What is most worth remembering is:
 
@@ -302,9 +302,9 @@ This sentence is important because it exactly corresponds to the weakness of RNN
 
 ---
 
-## 6. What is Mask used for?
+## What is Mask used for?
 
-### 6.1 Why do generation tasks need a mask?
+### Why do generation tasks need a mask?
 
 In language generation, when predicting the current position, you must not peek at future words.
 
@@ -316,7 +316,7 @@ If the model has already peeked at the true answer later on, the training is no 
 
 So decoder self-attention often adds a **causal mask**.
 
-### 6.2 A minimal mask example
+### A minimal mask example
 
 ```python
 import numpy as np
@@ -351,7 +351,7 @@ You will see:
 - The 2nd position can only see the first two
 - The 3rd position can see the first three
 
-### 6.3 Why must mask be understood early?
+### Why must mask be understood early?
 
 Because once you enter generation tasks, if you do not understand masks, you will easily get confused about:
 
@@ -368,9 +368,9 @@ When reading this image, look at the lower-triangular matrix: the 1st position c
 
 ---
 
-## 7. Why does multi-head attention need “multiple heads”?
+## Why does multi-head attention need “multiple heads”?
 
-### 7.1 It is not that one head cannot compute enough, but that one head cannot see everything
+### It is not that one head cannot compute enough, but that one head cannot see everything
 
 A single attention head may only learn one type of relationship.
 The idea of multi-head attention is:
@@ -384,7 +384,7 @@ For example, different heads may focus more on:
 - subject-verb-object relations
 - long-range dependencies
 
-### 7.2 An intuitive analogy
+### An intuitive analogy
 
 Multi-head attention is like inviting different people to a meeting to look at the problem together:
 
@@ -396,9 +396,9 @@ Finally, these observations are combined, and the understanding becomes more com
 
 ---
 
-## 8. `MultiheadAttention` in PyTorch
+## `MultiheadAttention` in PyTorch
 
-### 8.1 Minimal runnable example
+### Minimal runnable example
 
 ```python
 import torch
@@ -422,7 +422,7 @@ print("output shape:", out.shape)
 print("weights shape:", weights.shape)
 ```
 
-### 8.2 How do we read the output shapes?
+### How do we read the output shapes?
 
 - `out.shape = [4, 2, 8]`
   - Each position outputs a new 8-dimensional representation
@@ -437,7 +437,7 @@ That is to say:
 
 ---
 
-## 9. What does attention mechanism really solve?
+## What does attention mechanism really solve?
 
 You can summarize it in three sentences:
 
@@ -449,7 +449,7 @@ When these three points are combined, Transformer becomes extremely powerful.
 
 ---
 
-## 10. A common mistake: treating attention weights as the “final explanation”
+## A common mistake: treating attention weights as the “final explanation”
 
 Attention weights are very intuitive, so many beginners naturally think: a high weight means the model has “truly understood the reason.” Be careful with this understanding.
 
@@ -466,7 +466,7 @@ So the most reliable way to describe attention visualizations the first time you
 
 ---
 
-## 11. Learning loop for this section
+## Learning loop for this section
 
 After finishing this section, you can self-check with the table below:
 
@@ -479,13 +479,13 @@ After finishing this section, you can self-check with the table below:
 
 ---
 
-## 12. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 12.1 Treating Q / K / V as three “mysterious variables”
+### Treating Q / K / V as three “mysterious variables”
 
 It is enough at first to understand them as “query / index / content.”
 
-### 12.2 Looking only at the formula and not at the matrix shapes
+### Looking only at the formula and not at the matrix shapes
 
 Attention chapters are easiest to get wrong on shapes.
 Be sure to watch:
@@ -494,7 +494,7 @@ Be sure to watch:
 - embedding dimension
 - number of heads
 
-### 12.3 Thinking attention naturally understands everything
+### Thinking attention naturally understands everything
 
 The attention mechanism is powerful, but it is not “automatic reasoning magic.”
 Its essence is still:
@@ -517,7 +517,7 @@ This is exactly the core reason why Transformer, large models, and multimodal mo
 
 ---
 
-## 13. Exercises
+## Exercises
 
 1. Change `Q / K / V` in the minimal attention example and observe how the weights change.
 2. Modify the mask example to a longer sequence and see how future positions are blocked.

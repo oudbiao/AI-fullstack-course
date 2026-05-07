@@ -1,11 +1,11 @@
 ---
-title: "9.4 Hands-on: Build a Reproducible Vision Mini Pipeline"
+title: "10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline"
 sidebar_position: 20
 description: "Run a complete local computer vision workflow: generate a small synthetic dataset, preprocess images, classify shapes, detect boxes, segment masks, calculate metrics, and write failure reports."
 keywords: [computer vision workshop, OpenCV, synthetic dataset, classification, detection, segmentation, IoU, failure analysis]
 ---
 
-# Hands-on: Build a Reproducible Vision Mini Pipeline
+# 10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline
 
 This workshop turns Chapter 10 into a follow-along project. You will not download a dataset or call a cloud model. Instead, one Python script will create a small synthetic image dataset and then run a complete vision loop:
 

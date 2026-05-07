@@ -1,11 +1,11 @@
 ---
-title: "8.2 Project: Image Classification System"
+title: "6.8.2 Project: Image Classification System"
 sidebar_position: 1
 description: "Work through a complete delivery loop for a real, demo-friendly image classification project, from topic selection, data, and baseline to training, evaluation, and presentation."
 keywords: [image classification project, CNN, confusion matrix, error analysis, computer vision]
 ---
 
-# Project: Image Classification System
+# 6.8.2 Project: Image Classification System
 
 :::tip Section overview
 Image classification is a great first vision project, not because it is the easiest, but because it is the easiest way to explain the full engineering pipeline clearly:
@@ -28,9 +28,9 @@ The goal of this section is not to build a model that “runs,” but to build a
 
 ---
 
-## 1. Don’t rush to pick a model; first pick the right project topic
+## Don’t rush to pick a model; first pick the right project topic
 
-### 1.1 A good practice topic usually has three characteristics
+### A good practice topic usually has three characteristics
 
 1. Clear class boundaries
    For example: `cat / dog / bird`, `apple leaf disease classification`, `garbage sorting`
@@ -39,7 +39,7 @@ The goal of this section is not to build a model that “runs,” but to build a
 3. Explainable mistakes
    After a wrong prediction, you can describe possible reasons instead of ending with “the model is bad”
 
-### 1.2 A very stable project topic
+### A very stable project topic
 
 For example:
 
@@ -51,7 +51,7 @@ Its advantages are:
 - The data is relatively easy to collect
 - It is very suitable for a confusion matrix and error sample analysis
 
-### 1.3 Topics not recommended for the beginning
+### Topics not recommended for the beginning
 
 For example:
 
@@ -61,7 +61,7 @@ For example:
 
 ---
 
-## 2. What does the minimum project loop look like?
+## What does the minimum project loop look like?
 
 A minimal but complete image classification project should usually include at least:
 
@@ -82,7 +82,7 @@ Read it from top to bottom: labels define the task boundary, data splitting prot
 
 ---
 
-## 3. First, look at a minimal project planning object
+## First, look at a minimal project planning object
 
 ```python
 from dataclasses import dataclass, field
@@ -110,7 +110,7 @@ plan = CVProjectPlan(
 print(plan)
 ```
 
-### 3.1 Why is this object important?
+### Why is this object important?
 
 Because at the start of a project, what you lack most often is not code, but boundaries.
 This minimal object forces you to explain first:
@@ -122,7 +122,7 @@ This minimal object forces you to explain first:
 
 ---
 
-## 4. Start by understanding project evaluation with a “pseudo-feature” baseline
+## Start by understanding project evaluation with a “pseudo-feature” baseline
 
 To avoid adding extra dependencies, we’ll use a tiny toy baseline to simulate the validation flow of an image classification project.
 
@@ -193,7 +193,7 @@ for gold, features in test_data:
     print(results[-1])
 ```
 
-### 4.1 Why does this example still have project value?
+### Why does this example still have project value?
 
 Because the most important thing in a project is not the library name, but the evaluation logic.
 This toy baseline already lets you see:
@@ -206,7 +206,7 @@ This is exactly the same line that a real CNN project must follow later.
 
 ---
 
-## 5. A minimal confusion matrix and error analysis
+## A minimal confusion matrix and error analysis
 
 ```python
 labels = ["cat", "dog", "rabbit"]
@@ -228,7 +228,7 @@ error_cases = [row for row in results if row["gold"] != row["pred"]]
 print("\nerror cases:", error_cases)
 ```
 
-### 5.1 Why is the confusion matrix especially important for image classification?
+### Why is the confusion matrix especially important for image classification?
 
 Because overall accuracy only tells you:
 
@@ -240,7 +240,7 @@ But the confusion matrix tells you:
 
 That is exactly the information you need next when improving the data and the model.
 
-### 5.2 Why are error samples more valuable than the overall score?
+### Why are error samples more valuable than the overall score?
 
 Because you can actually inspect whether:
 
@@ -252,9 +252,9 @@ This is the most insightful part of an image project.
 
 ---
 
-## 6. Three layers you should add in a real project
+## Three layers you should add in a real project
 
-### 6.1 Data layer
+### Data layer
 
 You should at least explain:
 
@@ -262,7 +262,7 @@ You should at least explain:
 - How train / val / test are split
 - Whether there is class imbalance
 
-### 6.2 Model layer
+### Model layer
 
 It is highly recommended to start with two baselines:
 
@@ -273,7 +273,7 @@ Then you can clearly explain:
 
 - What the more complex model actually buys you
 
-### 6.3 Presentation layer
+### Presentation layer
 
 When turning an image classification project into a portfolio piece, the most valuable things to show are usually:
 
@@ -286,17 +286,17 @@ Not just a screenshot saying “training completed.”
 
 ---
 
-## 7. The most common pitfalls in this project
+## The most common pitfalls in this project
 
-### 7.1 Looking only at overall accuracy
+### Looking only at overall accuracy
 
 You will very easily miss the real distribution of problems.
 
-### 7.2 Defining classes too casually
+### Defining classes too casually
 
 If the class boundaries are fuzzy to begin with, both the model and the evaluation will be unstable.
 
-### 7.3 Data leakage
+### Data leakage
 
 If similar images appear in both training and testing,
 the results will be overestimated.

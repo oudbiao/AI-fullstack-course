@@ -1,10 +1,10 @@
 ---
-title: "Jupyter Notebook"
+title: "1.3.3 Jupyter Notebook"
 sidebar_position: 3
 description: "データ分析と AI 実験の標準ツールをマスターする"
 ---
 
-# Jupyter Notebook
+# 1.3.3 Jupyter Notebook
 
 ![Jupyter Cell と Kernel の状態図](/img/course/ch01-jupyter-kernel-state-ja.png)
 

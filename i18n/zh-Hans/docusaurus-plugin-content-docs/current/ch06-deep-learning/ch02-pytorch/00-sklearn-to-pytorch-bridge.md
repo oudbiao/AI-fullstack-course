@@ -1,11 +1,11 @@
 ---
-title: "2.2 过渡：从 sklearn 到 PyTorch"
+title: "6.2.2 过渡：从 sklearn 到 PyTorch"
 sidebar_position: 0
 description: "用最小可运行示例理解 sklearn 和 PyTorch 的思维差异，建立从传统机器学习到深度学习框架的桥梁。"
 keywords: [sklearn, PyTorch, 深度学习入门, 训练循环, 张量, 梯度下降]
 ---
 
-# 从 sklearn 到 PyTorch
+# 6.2.2 从 sklearn 到 PyTorch
 
 :::tip 本节定位
 如果说 `scikit-learn` 像自动挡汽车，那么 `PyTorch` 更像手动挡汽车。
@@ -87,7 +87,7 @@ pip install numpy scikit-learn torch
 
 我们来做一个最简单的线性回归任务：已知学习时长，预测考试分数。
 
-### 3.1 用 sklearn 训练
+### 用 sklearn 训练
 
 ```python
 import numpy as np
@@ -109,7 +109,7 @@ print("学习 6 小时的预测分数:", round(float(sk_model.predict([[6.0]])[0
 
 你会得到一条直线模型，过程非常顺滑。
 
-### 3.2 用 PyTorch 训练同一个任务
+### 用 PyTorch 训练同一个任务
 
 ```python
 import torch

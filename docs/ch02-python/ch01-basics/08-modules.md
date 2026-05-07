@@ -1,10 +1,10 @@
 ---
-title: "1.8 Modules and Packages"
+title: "2.1.8 Modules and Packages"
 sidebar_position: 8
 description: "Master how to use Python modules and packages"
 ---
 
-# Modules and Packages
+# 2.1.8 Modules and Packages
 
 ![Module and package project structure diagram](/img/course/ch02-modules-package-structure-en.png)
 

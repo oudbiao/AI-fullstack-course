@@ -1,11 +1,11 @@
 ---
-title: "3.4 Text Classification Practice"
+title: "11.3.4 Text Classification Practice"
 sidebar_position: 9
 description: "Centered on a customer service ticket classification task, this lesson walks through a complete text classification project loop, from label design and data preparation to baseline training and error analysis."
 keywords: [text classification practice, intent classification, baseline, error analysis, NLP project]
 ---
 
-# Text Classification Practice
+# 11.3.4 Text Classification Practice
 
 ![Text classification training flowchart](/img/course/text-classification-pipeline-en.png)
 
@@ -35,9 +35,9 @@ This lesson will walk through this closed loop with a small customer service int
 
 ---
 
-## 1. First, Define the Project Problem Clearly
+## First, Define the Project Problem Clearly
 
-### 1.1 Scenario
+### Scenario
 
 We will build a minimal customer service ticket intent classifier, with the target classes:
 
@@ -45,7 +45,7 @@ We will build a minimal customer service ticket intent classifier, with the targ
 - `invoice`
 - `password`
 
-### 1.2 Why is this a good practice task?
+### Why is this a good practice task?
 
 Because it has all the essentials at once:
 
@@ -53,7 +53,7 @@ Because it has all the essentials at once:
 - Clear output: an intent class
 - Easy-to-analyze errors: when it misclassifies, you can usually trace it back to words and label boundaries
 
-### 1.3 The first key point is not the model, but the label boundaries
+### The first key point is not the model, but the label boundaries
 
 For example:
 
@@ -65,7 +65,7 @@ This must be clear first.
 
 ---
 
-## 2. Start with an Explainable Baseline
+## Start with an Explainable Baseline
 
 Here we will not use external dependencies.
 Instead, we will directly write a minimal keyword-counting baseline so you can see the full loop first.
@@ -134,7 +134,7 @@ for item in details:
     print(item)
 ```
 
-### 2.1 Why is this example valuable?
+### Why is this example valuable?
 
 Because it includes the 4 core pieces of a classification project:
 
@@ -143,7 +143,7 @@ Because it includes the 4 core pieces of a classification project:
 3. A runnable baseline
 4. Detailed outputs
 
-### 2.2 Why do we intentionally start with a “very simple” baseline?
+### Why do we intentionally start with a “very simple” baseline?
 
 Because it makes it easier for you to:
 
@@ -153,22 +153,22 @@ Because it makes it easier for you to:
 
 ---
 
-## 3. In a Text Classification Project, the Most Valuable Part Is Not the Final Score, but Error Analysis
+## In a Text Classification Project, the Most Valuable Part Is Not the Final Score, but Error Analysis
 
-### 3.1 Start by looking at the overall accuracy
+### Start by looking at the overall accuracy
 
 Accuracy tells you:
 
 - Whether the current system is roughly working
 
-### 3.2 But the real insight comes from per-sample details
+### But the real insight comes from per-sample details
 
 You need to check:
 
 - Which types of samples are most likely to be misclassified
 - Whether the mistake comes from similar wording, overlapping labels, or insufficient training data
 
-### 3.3 A simple error analysis function
+### A simple error analysis function
 
 ```python
 def error_cases(details):
@@ -187,16 +187,16 @@ If there are many errors, you should first ask:
 
 ---
 
-## 4. When Should You Upgrade from Traditional Methods to Deep Methods?
+## When Should You Upgrade from Traditional Methods to Deep Methods?
 
-### 4.1 When the main errors come from changes in semantic expression
+### When the main errors come from changes in semantic expression
 
 For example:
 
 - The sentence does not contain keywords that commonly appear in training
 - But the meaning is actually the same class
 
-### 4.2 When you find that bag-of-words features are no longer enough
+### When you find that bag-of-words features are no longer enough
 
 For example:
 
@@ -204,7 +204,7 @@ For example:
 - Negation and context matter more
 - Class boundaries are more subtle
 
-### 4.3 But keep the baseline before upgrading
+### But keep the baseline before upgrading
 
 The baseline is very important because it helps you answer:
 
@@ -212,9 +212,9 @@ The baseline is very important because it helps you answer:
 
 ---
 
-## 5. How Should a Project Loop Be Presented?
+## How Should a Project Loop Be Presented?
 
-### 5.1 Task definition
+### Task definition
 
 First, make it clear:
 
@@ -222,14 +222,14 @@ First, make it clear:
 - What is the output?
 - How are the labels defined?
 
-### 5.2 Baseline
+### Baseline
 
 Explain:
 
 - What minimal method was used
 - Why it was chosen
 
-### 5.3 Evaluation and error analysis
+### Evaluation and error analysis
 
 At minimum, show:
 
@@ -237,7 +237,7 @@ At minimum, show:
 - Several typical success cases
 - Several typical failure cases
 
-### 5.4 Next optimization directions
+### Next optimization directions
 
 For example:
 
@@ -247,17 +247,17 @@ For example:
 
 ---
 
-## 6. Common Mistakes
+## Common Mistakes
 
-### 6.1 Mistake 1: Using the most complex model from the start
+### Mistake 1: Using the most complex model from the start
 
 This can easily make you lose your judgment of the task itself.
 
-### 6.2 Mistake 2: Only looking at the overall accuracy
+### Mistake 2: Only looking at the overall accuracy
 
 Without checking detailed errors, it is hard to improve in a meaningful way.
 
-### 6.3 Mistake 3: Vague label definitions
+### Mistake 3: Vague label definitions
 
 Once labels are vague, even a stronger model will learn unstable patterns.
 

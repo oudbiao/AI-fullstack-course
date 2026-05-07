@@ -1,10 +1,10 @@
 ---
-title: "1.7 Function Basics"
+title: "2.1.7 Function Basics"
 sidebar_position: 7
 description: "Master function definitions, parameters, return values, and scope"
 ---
 
-# Function Basics
+# 2.1.7 Function Basics
 
 ![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope-en.png)
 

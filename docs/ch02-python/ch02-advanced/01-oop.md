@@ -1,10 +1,10 @@
 ---
-title: "1.1 Object-Oriented Programming"
+title: "2.2.1 Object-Oriented Programming"
 sidebar_position: 1
 description: "Master the core concepts of Python object-oriented programming"
 ---
 
-# Object-Oriented Programming
+# 2.2.1 Object-Oriented Programming
 
 ![Diagram of the relationship between classes, objects, attributes, and methods](/img/course/ch02-oop-class-object-map-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-Class Guide: What Exactly Will We Learn in This RAG Chapter?"
+title: "8.1.1 Pre-Class Guide: What Exactly Will We Learn in This RAG Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the RAG chapter: how document processing, chunking, vectorization, retrieval, reranking, generation, and evaluation connect into the main knowledge-enhanced workflow."
 keywords: [RAG guide, retrieval-augmented generation, vector database, document chunking, reranking, RAG evaluation]
 ---
 
-# Pre-Class Guide: What Exactly Will We Learn in This RAG Chapter?
+# 8.1.1 Pre-Class Guide: What Exactly Will We Learn in This RAG Chapter?
 
 This chapter solves this question: when the model’s knowledge is not new enough, not complete enough, or not well aligned with your business data, how can you reliably bring external knowledge into the answer pipeline?
 

@@ -1,11 +1,11 @@
 ---
-title: "7.1 Pre-class Guide: How Should You Study This Chapter on Comprehensive Projects?"
+title: "11.7.1 Pre-class Guide: How Should You Study This Chapter on Comprehensive Projects?"
 sidebar_position: 0
 description: "First build the learning map for the NLP project chapter: how question answering, summarization, and information extraction form a portfolio-ready loop through data, task boundaries, baselines, evaluation, and structured output."
 keywords: [NLP Project Guide, QA, Summarization, Information Extraction, NLP Portfolio]
 ---
 
-# Pre-class Guide: How Should You Study This Chapter on Comprehensive Projects?
+# 11.7.1 Pre-class Guide: How Should You Study This Chapter on Comprehensive Projects?
 
 This chapter is not about stacking more models. Instead, it is about truly putting the text representation, classification, sequence labeling, Seq2Seq, pre-trained models, and evaluation you learned earlier into a complete project loop.
 
@@ -54,7 +54,7 @@ If you do not learn this chapter well, common problems later will include: RAG p
 
 When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimum project can run, you can move on.
 
-The recommended first runnable example is [Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-workshop.md). Run it before the larger project pages if you want a concrete baseline for text data, tokenization, TF-IDF, classification, retrieval QA, summarization, extraction, metrics, and failure analysis.
+The recommended first runnable example is [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-workshop.md). Run it before the larger project pages if you want a concrete baseline for text data, tokenization, TF-IDF, classification, retrieval QA, summarization, extraction, metrics, and failure analysis.
 
 Learners with more experience can use this chapter to fill in gaps and practice engineering skills: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and the connection between this chapter and the earlier and later stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 

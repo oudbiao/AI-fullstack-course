@@ -1,11 +1,11 @@
 ---
-title: "8.4 Agentの安全性とアラインメント"
+title: "9.8.4 Agentの安全性とアラインメント"
 sidebar_position: 46
 description: "権限、確認、プロンプトインジェクション、ツールの境界、監査ログの観点から、Agent システムになぜまず安全境界の設計が必要なのかを理解します。"
 keywords: [agent security, prompt injection, permissions, human approval, audit]
 ---
 
-# Agentの安全性とアラインメント
+# 9.8.4 Agentの安全性とアラインメント
 
 :::tip この節の位置づけ
 Agent がツールを呼び出せるようになると、もう単なる「話せるモデル」ではありません。ファイルを読む、データベースに書き込む、メッセージを送る、API を呼ぶこともあります。能力が強くなるほど、権限、確認、ロールバック、監査がより重要になります。

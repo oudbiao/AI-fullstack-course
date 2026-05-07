@@ -1,11 +1,11 @@
 ---
-title: "3.2 Object Detection Overview"
+title: "10.3.2 Object Detection Overview"
 sidebar_position: 7
 description: "Starting from why classification alone is not enough, understand how object detection answers both “what is in the image” and “where is it?”."
 keywords: [object detection, bounding box, detection, localization, computer vision]
 ---
 
-# Object Detection Overview
+# 10.3.2 Object Detection Overview
 
 ![Object detection output breakdown](/img/course/object-detection-output-en.png)
 
@@ -59,7 +59,7 @@ So the detection task is naturally more complex than classification, because it 
 - Localization
 - Multi-object filtering
 
-## 1. What exactly does object detection do?
+## What exactly does object detection do?
 
 A detection task usually outputs:
 
@@ -74,7 +74,7 @@ For example:
 
 That is much more complex than classifying the whole image.
 
-### 1.1 What should you remember first when learning this section?
+### What should you remember first when learning this section?
 
 The most important things to remember first are:
 
@@ -82,7 +82,7 @@ The most important things to remember first are:
 2. Each object needs at least three things: class, location, and confidence
 3. Many later model differences are really variations around these three things
 
-### 1.2 Why is the “three-element” view the most important one here?
+### Why is the “three-element” view the most important one here?
 
 Because almost all detection models are ultimately organized around these three things:
 
@@ -96,7 +96,7 @@ You can think of detection output in a very simple way:
 
 ---
 
-## 2. Why isn’t an image classification model enough?
+## Why isn’t an image classification model enough?
 
 Because the same image may contain:
 
@@ -107,7 +107,7 @@ Because the same image may contain:
 Image classification gives only one label for the whole image,
 so it cannot express this information.
 
-### 2.1 A more beginner-friendly way to judge a vision problem
+### A more beginner-friendly way to judge a vision problem
 
 When you see a vision problem in the future, ask:
 
@@ -118,7 +118,7 @@ If it is the latter, then it is already beyond the scope of a standard classific
 
 ---
 
-## 3. Let’s look at a minimal IoU example
+## Let’s look at a minimal IoU example
 
 IoU is a very core concept in detection,
 because it answers:
@@ -152,14 +152,14 @@ pred_box = (15, 15, 32, 32)
 print("IoU =", round(iou(gt_box, pred_box), 4))
 ```
 
-### 3.1 Why is this metric so important?
+### Why is this metric so important?
 
 Because detection is not only about “did we find the object?”
 It also asks:
 
 - Is the box accurate?
 
-### 3.1.1 The most important thing to remember about IoU is not the formula, but “overlap quality”
+### The most important thing to remember about IoU is not the formula, but “overlap quality”
 
 When you first learn detection, don’t start by memorizing the coordinate formula for intersection over union.
 Instead, remember this:
@@ -172,7 +172,7 @@ This will help you understand many later concepts:
 - NMS
 - mAP
 
-### 3.2 When you first learn detection, which three concepts should you remember first?
+### When you first learn detection, which three concepts should you remember first?
 
 When you first encounter object detection, the most important concepts to remember are:
 
@@ -185,7 +185,7 @@ When you first encounter object detection, the most important concepts to rememb
 3. Multi-object scenes
    A single image usually contains more than one object, so duplicate boxes, occlusion, and overlap all become issues.
 
-### 3.3 Why is detection naturally more like a “system problem”?
+### Why is detection naturally more like a “system problem”?
 
 Because in the end, you often need to handle not just one box,
 but a set of boxes:
@@ -196,7 +196,7 @@ but a set of boxes:
 
 That is also why detection has a clear post-processing stage from very early on.
 
-### 3.4 What do beginners usually underestimate when doing detection for the first time?
+### What do beginners usually underestimate when doing detection for the first time?
 
 Usually not the classifier itself, but:
 
@@ -215,17 +215,17 @@ This diagram breaks detection output into three parts — class, box, and score 
 
 ---
 
-## 4. The most common pitfalls
+## The most common pitfalls
 
-### 4.1 Mistake 1: Thinking detection is just classification plus a box
+### Mistake 1: Thinking detection is just classification plus a box
 
 The box itself is already a difficult regression problem.
 
-### 4.2 Mistake 2: Only looking at the classification score
+### Mistake 2: Only looking at the classification score
 
 Location error is just as important.
 
-### 4.3 Mistake 3: Thinking about multi-object scenes as if they were single-object scenes
+### Mistake 3: Thinking about multi-object scenes as if they were single-object scenes
 
 Multi-object scenes bring:
 
@@ -233,7 +233,7 @@ Multi-object scenes bring:
 - Occlusion
 - Duplicate predictions
 
-## 5. The right expectations for this section
+## The right expectations for this section
 
 The most important goal of this section is not to learn a complete detector today,
 but to clearly distinguish:

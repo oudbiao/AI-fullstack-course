@@ -1,11 +1,11 @@
 ---
-title: "1.4 Multimodal Application Development"
+title: "12.1.4 Multimodal Application Development"
 sidebar_position: 3
 description: "Starting from real product forms and engineering pipelines, understand how multimodal applications combine image, text, speech, and other inputs into usable systems."
 keywords: [multimodal app, OCR, screenshot assistant, image-text product, workflow]
 ---
 
-# Multimodal Application Development
+# 12.1.4 Multimodal Application Development
 
 ![Multimodal application engineering pipeline diagram](/img/course/ch12-multimodal-app-engineering-loop-en.png)
 
@@ -24,9 +24,9 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. What Do Multimodal Applications Actually Look Like?
+## What Do Multimodal Applications Actually Look Like?
 
-### 1.1 It’s not “adding images for coolness”; it’s about having more complete input
+### It’s not “adding images for coolness”; it’s about having more complete input
 
 For many tasks, text alone is actually incomplete.
 
@@ -40,7 +40,7 @@ For example:
 
 These are all naturally suited to multimodal applications.
 
-### 1.2 Common product forms
+### Common product forms
 
 | Form | User input | System output |
 |---|---|---|
@@ -51,9 +51,9 @@ These are all naturally suited to multimodal applications.
 
 ---
 
-## 2. The Basic Engineering Pipeline for Multimodal Applications
+## The Basic Engineering Pipeline for Multimodal Applications
 
-### 2.1 A very common processing pipeline
+### A very common processing pipeline
 
 ```mermaid
 flowchart LR
@@ -71,7 +71,7 @@ flowchart LR
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 Why are many multimodal applications not “one model does everything”?
+### Why are many multimodal applications not “one model does everything”?
 
 Because real systems often combine multiple modules:
 
@@ -85,7 +85,7 @@ So multimodal applications are often not “pure model products,” but rather �
 
 ---
 
-## 3. A Runnable Toy Screenshot Assistant
+## A Runnable Toy Screenshot Assistant
 
 To make sure the code runs directly, we use structured image information to simulate the output of a vision module.
 
@@ -120,9 +120,9 @@ Even though this is a toy example, it already reflects the real feel of multimod
 
 ---
 
-## 4. Why Do Multimodal Applications Often Need OCR?
+## Why Do Multimodal Applications Often Need OCR?
 
-### 4.1 Because many “look at the image” problems are also “read the image” problems
+### Because many “look at the image” problems are also “read the image” problems
 
 For example:
 
@@ -133,7 +133,7 @@ For example:
 
 In these scenarios, if you don’t do OCR, the model will miss a lot of key text information.
 
-### 4.2 The division of labor between OCR and VLM
+### The division of labor between OCR and VLM
 
 You can think of it like this:
 
@@ -144,7 +144,7 @@ In many engineering setups, using both together is more robust than relying on e
 
 ---
 
-## 5. A Small Example of an Image-Text Product Assistant
+## A Small Example of an Image-Text Product Assistant
 
 The example below simulates making a judgment using both “image features + text requirements.”
 
@@ -174,9 +174,9 @@ This kind of image-text collaboration is very common in e-commerce, recommendati
 
 ---
 
-## 6. The Most Common Engineering Problems in Real Systems
+## The Most Common Engineering Problems in Real Systems
 
-### 6.1 Input quality issues
+### Input quality issues
 
 For example:
 
@@ -185,7 +185,7 @@ For example:
 - OCR misreads
 - Low image resolution
 
-### 6.2 Latency and cost issues
+### Latency and cost issues
 
 Multimodal models are usually heavier than pure text models.
 So you especially need to pay attention to:
@@ -194,7 +194,7 @@ So you especially need to pay attention to:
 - Concurrency capacity
 - Cost per request
 
-### 6.3 Privacy and data compliance
+### Privacy and data compliance
 
 Many images may contain:
 
@@ -207,9 +207,9 @@ So multimodal applications are often more likely than pure text applications to 
 
 ---
 
-## 7. A Very Practical Product Design Habit
+## A Very Practical Product Design Habit
 
-### 7.1 Don’t let the model carry all the responsibility alone
+### Don’t let the model carry all the responsibility alone
 
 Mature systems often add mechanisms like:
 
@@ -218,7 +218,7 @@ Mature systems often add mechanisms like:
 - Source display
 - Requesting additional images when recognition fails
 
-### 7.2 A simple fallback idea
+### A simple fallback idea
 
 ```python
 def safe_multimodal_reply(image_info, user_question):
@@ -233,9 +233,9 @@ Often, a good fallback prompt is more valuable than forcing out a wrong answer.
 
 ---
 
-## 8. When Is It Worth Building a Multimodal Application?
+## When Is It Worth Building a Multimodal Application?
 
-### 8.1 Strong signs that it is worth it
+### Strong signs that it is worth it
 
 If your users’ questions often depend on:
 
@@ -246,7 +246,7 @@ If your users’ questions often depend on:
 
 Then multimodal is very worthwhile.
 
-### 8.2 Signs that it may not be worth it
+### Signs that it may not be worth it
 
 If your task is essentially just:
 
@@ -258,9 +258,9 @@ Then it is usually more cost-effective to first build a strong pure-text pipelin
 
 ---
 
-## 9. Common Beginner Misconceptions
+## Common Beginner Misconceptions
 
-### 9.1 Thinking multimodal applications must directly use the most complex model
+### Thinking multimodal applications must directly use the most complex model
 
 In many cases:
 
@@ -269,11 +269,11 @@ In many cases:
 
 Can already solve quite a few problems.
 
-### 9.2 Thinking “can see images” means the system automatically “understands the scenario”
+### Thinking “can see images” means the system automatically “understands the scenario”
 
 A multimodal model can extract information, but that does not mean it naturally understands business rules.
 
-### 9.3 Ignoring failure-scenario design
+### Ignoring failure-scenario design
 
 Blurry images, low light, and cropped screenshots are all common high-frequency production cases.
 

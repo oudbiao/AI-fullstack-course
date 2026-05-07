@@ -1,11 +1,11 @@
 ---
-title: "9.1 Pre-reading Guide: How Should You Study This Comprehensive Projects Chapter?"
+title: "10.6.1 Pre-reading Guide: How Should You Study This Comprehensive Projects Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the Computer Vision projects chapter: how image classification, object detection, image segmentation, and industry scenarios form a portfolio loop around data, annotation, training, evaluation, and presentation."
 keywords: [CV project guide, security inspection, medical imaging, image classification project, object detection project]
 ---
 
-# Pre-reading Guide: How Should You Study This Comprehensive Projects Chapter?
+# 10.6.1 Pre-reading Guide: How Should You Study This Comprehensive Projects Chapter?
 
 This chapter is not about stacking more models. Instead, it is about putting the vision tasks you have learned into a real application scenario.
 
@@ -54,7 +54,7 @@ If you do not learn this chapter well, common problems later are: the multimodal
 
 When beginners study this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project gets running, you can keep moving forward.
 
-The recommended first runnable example is [Hands-on: Build a Reproducible Vision Mini Pipeline](./03-hands-on-vision-workshop.md). Run it before the larger project pages if you want a concrete baseline for data generation, preprocessing, classification, detection boxes, segmentation masks, metrics, and failure analysis.
+The recommended first runnable example is [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./03-hands-on-vision-workshop.md). Run it before the larger project pages if you want a concrete baseline for data generation, preprocessing, classification, detection boxes, segmentation masks, metrics, and failure analysis.
 
 Experienced learners can use this chapter for gap-filling and engineering practice: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 

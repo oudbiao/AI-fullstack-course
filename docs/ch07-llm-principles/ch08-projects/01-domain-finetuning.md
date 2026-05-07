@@ -1,11 +1,11 @@
 ---
-title: "8.2 Project: Vertical Domain Fine-tuning"
+title: "7.8.2 Project: Vertical Domain Fine-tuning"
 sidebar_position: 27
 description: "Build a portfolio-ready fine-tuning course around a demonstrable domain assistant project, covering task boundaries, SFT data, baselines, evaluation, and before/after comparisons."
 keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, project]
 ---
 
-# Project: Vertical Domain Fine-tuning
+# 7.8.2 Project: Vertical Domain Fine-tuning
 
 :::tip Section Overview
 Vertical domain fine-tuning projects often degenerate into a vague slogan:
@@ -28,9 +28,9 @@ This section will walk through that process step by step.
 
 ---
 
-## 1. Why must you narrow the project topic first?
+## Why must you narrow the project topic first?
 
-### 1.1 Broad topics are almost impossible to complete
+### Broad topics are almost impossible to complete
 
 For example:
 
@@ -43,7 +43,7 @@ and it is hard to define clearly:
 - What is the output?
 - What counts as a correct answer?
 
-### 1.2 Topics that are better suited for a portfolio
+### Topics that are better suited for a portfolio
 
 For example:
 
@@ -57,7 +57,7 @@ This topic is good because:
 
 ---
 
-## 2. What does the smallest portfolio-ready fine-tuning loop look like?
+## What does the smallest portfolio-ready fine-tuning loop look like?
 
 1. Define the task boundary
 2. Organize knowledge and dialogue samples
@@ -74,7 +74,7 @@ As long as these 6 steps are clear, your project will already be very convincing
 Read the picture from top to bottom: narrow the task first, turn raw knowledge into SFT samples, compare baselines before training, evaluate with a fixed test set, and only then decide whether fine-tuning is worth the extra cost.
 :::
 
-## 3. Recommended implementation order
+## Recommended implementation order
 
 For beginners, a more reliable order is usually:
 
@@ -85,7 +85,7 @@ For beginners, a more reliable order is usually:
 
 That way, the project feels like “fine-tuning after judgment,” rather than “fine-tuning for the sake of fine-tuning.”
 
-### 3.1 Key project words before you read the code
+### Key project words before you read the code
 
 | Term | Beginner-friendly meaning | Why it matters here |
 |---|---|---|
@@ -100,7 +100,7 @@ That way, the project feels like “fine-tuning after judgment,” rather than �
 
 ---
 
-## 4. Let’s first look at a more complete data and baseline example
+## Let’s first look at a more complete data and baseline example
 
 The example below shows:
 
@@ -208,7 +208,7 @@ sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [
 
 The point is not that this tiny retrieval baseline is production-ready. The point is to make the comparison visible: a generic answer sounds polite but misses required policy details, while a domain-aware answer can be checked against a fixed list of required points.
 
-### 4.1 Why is this example more valuable than a pure “project plan” object?
+### Why is this example more valuable than a pure “project plan” object?
 
 Because it already shows the four most important things in the project:
 
@@ -225,7 +225,7 @@ This is already very close to the core structure of a real fine-tuning project.
 It is best to read this diagram from a portfolio perspective: first narrow the task boundary, then make sure the SFT data shows its source and format, run a baseline first, and use policy-point coverage, rule violations, style consistency, and before/after comparisons for evaluation. What makes the project valuable is not “I fine-tuned a model,” but that you can prove why fine-tuning was worth doing and where the improvement came from.
 :::
 
-### 4.2 Why should you build two baselines first?
+### Why should you build two baselines first?
 
 At minimum, it is recommended to compare:
 
@@ -237,7 +237,7 @@ Otherwise, it will be hard to explain later:
 
 - What exactly did fine-tuning improve?
 
-### 4.3 If retrieval already works, when is fine-tuning still worth it?
+### If retrieval already works, when is fine-tuning still worth it?
 
 Retrieval answers the question “which knowledge should the model see?” Fine-tuning answers a different question: “how should the model behave after seeing the input?” If retrieval already finds the correct policy text, fine-tuning may still be valuable when the assistant must always follow a fixed tone, classify intents consistently, output a strict JSON schema, or apply a repeated reasoning pattern.
 
@@ -251,9 +251,9 @@ Retrieval answers the question “which knowledge should the model see?” Fine-
 
 ---
 
-## 5. The most important evaluation for a fine-tuning project is not just “it looks like an expert”
+## The most important evaluation for a fine-tuning project is not just “it looks like an expert”
 
-### 5.1 Structured evaluation points
+### Structured evaluation points
 
 At minimum, include:
 
@@ -262,7 +262,7 @@ At minimum, include:
 - Whether the tone is consistent
 - Whether the answer is off-topic
 
-### 5.2 A more portfolio-friendly presentation style
+### A more portfolio-friendly presentation style
 
 The best format is:
 
@@ -271,7 +271,7 @@ The best format is:
 - Fine-tuned answers
 - Line-by-line explanation of the differences
 
-### 5.3 Failure cases are very important
+### Failure cases are very important
 
 For example:
 
@@ -283,9 +283,9 @@ These are more realistic than showing only successful cases.
 
 ---
 
-## 6. How do you turn this into a portfolio-quality page?
+## How do you turn this into a portfolio-quality page?
 
-### 6.1 Recommended page structure
+### Recommended page structure
 
 1. Task boundary
 2. Data construction method
@@ -294,24 +294,24 @@ These are more realistic than showing only successful cases.
 5. Before / after
 6. Failure cases
 
-### 6.2 A very useful extra point
+### A very useful extra point
 
 Expose a clear rule such as “policy-point coverage rate.”
 It makes the project feel solid and well-grounded, rather than based only on subjective judgment.
 
 ---
 
-## 7. The most common pitfalls
+## The most common pitfalls
 
-### 7.1 Starting with a broad topic
+### Starting with a broad topic
 
 This causes both evaluation and data to drift apart.
 
-### 7.2 No baseline
+### No baseline
 
 Without a comparison, a fine-tuning project is almost impossible to defend.
 
-### 7.3 Showing only model training, not task judgment
+### Showing only model training, not task judgment
 
 ## What to include when delivering the project
 

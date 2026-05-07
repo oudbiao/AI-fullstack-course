@@ -15,19 +15,19 @@ keywords: [AI 全栈课程, AI 学习, AI 新手课程, LLM, RAG, AI Agent]
 
 ![30 分钟 AI 快速体验闭环](/img/course/intro-quick-experience-loop.png)
 
-[先跑快速体验](/intro/quick-experience)：在记术语前，先看见输入 -> 模型 -> 输出。
+[0.1 先跑快速体验](/intro/quick-experience)：在记术语前，先看见输入 -> 模型 -> 输出。
 
 ![AI 课程最小环境工具包](/img/course/intro-minimal-setup-kit.png)
 
-[准备最小环境](/intro/environment-setup)：第一周只需要 Python、Git 和一个项目文件夹。
+[0.2 准备最小环境](/intro/environment-setup)：第一周只需要 Python、Git 和一个项目文件夹。
 
 ![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.png)
 
-[看能力地图](/intro/ai-fullstack-map)：工具、数据、模型、LLM、RAG、Agent 和交付是一条路线。
+[0.3 看能力地图](/intro/ai-fullstack-map)：工具、数据、模型、LLM、RAG、Agent 和交付是一条路线。
 
 ![推荐学习路线选择图](/img/course/intro-learning-path-selection.png)
 
-[选择学习路线](/intro/learning-path)：选一条路线，然后进入[第 1 章](/ch01-tools)。
+[0.4 选择学习路线](/intro/learning-path)：选一条路线，然后进入[第 1 章](/ch01-tools)。
 
 ## 一个规则
 

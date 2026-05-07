@@ -1,11 +1,11 @@
 ---
-title: "4.3 AI Ethics and Safety"
+title: "12.4.3 AI Ethics and Safety"
 sidebar_position: 13
 description: "Build a systematic understanding of AIGC ethics and safety issues, from bias, privacy, and false content to misuse risks and human oversight."
 keywords: [AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC]
 ---
 
-# AI Ethics and Safety
+# 12.4.3 AI Ethics and Safety
 
 ![AIGC Ethics and Safety Risk Guardrail Map](/img/course/ch12-ai-ethics-safety-guardrail-map-en.png)
 
@@ -48,7 +48,7 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why Are AIGC Ethics and Safety Issues So Prominent?
+## Why Are AIGC Ethics and Safety Issues So Prominent?
 
 Because what these systems generate includes:
 
@@ -72,7 +72,7 @@ So its risks are not only “getting an answer wrong,” but also:
 - Deepfakes
 - Privacy exposure
 
-### 1.1 A More Beginner-Friendly Analogy
+### A More Beginner-Friendly Analogy
 
 You can think of an AIGC system as:
 
@@ -90,9 +90,9 @@ That is why its ethical and safety risks are amplified.
 
 ---
 
-## 2. First Risk Type: Bias and Unfairness
+## First Risk Type: Bias and Unfairness
 
-### 2.1 Why Does Bias Appear?
+### Why Does Bias Appear?
 
 Because the model learns patterns from historical data.
 And historical data may already contain:
@@ -101,7 +101,7 @@ And historical data may already contain:
 - Regional bias
 - Occupational stereotypes
 
-### 2.2 The Most Intuitive Way to Understand It
+### The Most Intuitive Way to Understand It
 
 If the training data has long associated a certain group with a certain label, the model may learn those biases.
 
@@ -109,7 +109,7 @@ This shows that:
 
 > Models do not automatically become fairer than humans; they often inherit and even amplify existing biases.
 
-### 2.3 A Risk Table Worth Remembering First
+### A Risk Table Worth Remembering First
 
 | Risk Type | Most Important Question to Ask First |
 |---|---|
@@ -121,7 +121,7 @@ This shows that:
 
 This table is great for beginners because it turns “ethics and safety” back into a few concrete questions that can be checked.
 
-### 2.4 Why Is This Hard?
+### Why Is This Hard?
 
 Because it is usually not a “clear error,” but instead:
 
@@ -132,9 +132,9 @@ That is why it especially requires evaluation and monitoring.
 
 ---
 
-## 3. Second Risk Type: Privacy and Sensitive Information Leakage
+## Second Risk Type: Privacy and Sensitive Information Leakage
 
-### 3.1 Why Is AIGC Especially Prone to This Problem?
+### Why Is AIGC Especially Prone to This Problem?
 
 Because it often handles:
 
@@ -148,7 +148,7 @@ These materials may contain:
 - Medical information
 - Trade secrets
 
-### 3.2 A Very Important Engineering Intuition
+### A Very Important Engineering Intuition
 
 Privacy is not only about “whether the model remembers training data.” It also includes:
 
@@ -162,9 +162,9 @@ In other words, privacy is often a combined issue of:
 
 ---
 
-## 4. Third Risk Type: False Content and Hallucination
+## Third Risk Type: False Content and Hallucination
 
-### 4.1 Why Do Generative Systems Naturally Have This Risk?
+### Why Do Generative Systems Naturally Have This Risk?
 
 Because the model’s goal is usually not:
 
@@ -176,7 +176,7 @@ but rather:
 
 This creates hallucination problems.
 
-### 4.2 Why Is It More Dangerous in AIGC Scenarios?
+### Why Is It More Dangerous in AIGC Scenarios?
 
 Because once the output is:
 
@@ -191,9 +191,9 @@ So hallucination is not a “small model flaw.” In many scenarios, it is a hig
 
 ---
 
-## 5. Fourth Risk Type: Misuse and Malicious Use
+## Fourth Risk Type: Misuse and Malicious Use
 
-### 5.1 Why Is This Problem Especially Real?
+### Why Is This Problem Especially Real?
 
 Because AIGC is not only used by legitimate users; it may also be used for:
 
@@ -202,7 +202,7 @@ Because AIGC is not only used by legitimate users; it may also be used for:
 - Automated attack scripts
 - False promotion
 
-### 5.2 What Does This Mean?
+### What Does This Mean?
 
 It means safety is not just about “whether the model itself can go out of control,” but also about:
 
@@ -217,7 +217,7 @@ So in many cases, the focus of protection also falls on:
 
 ---
 
-## 6. Fifth Risk Type: Anthropomorphism and Misplaced Trust
+## Fifth Risk Type: Anthropomorphism and Misplaced Trust
 
 Many users naturally mistake something that:
 
@@ -240,7 +240,7 @@ This is also a very important type of risk from an ethics perspective.
 
 ---
 
-## 7. Why Is Human Oversight Still Important?
+## Why Is Human Oversight Still Important?
 
 Because in many high-risk scenarios, you cannot leave the final decision entirely to a generative system.
 
@@ -260,7 +260,7 @@ So a very practical rule of thumb is:
 
 > **In high-risk scenarios, AIGC is better suited to assist rather than fully replace humans.**
 
-### 7.1 A Layered Thinking Pattern That Is Easy for Beginners to Remember
+### A Layered Thinking Pattern That Is Easy for Beginners to Remember
 
 You can first understand governance as three layers:
 
@@ -273,7 +273,7 @@ that usually is not the most robust engineering solution.
 
 ---
 
-## 8. A Very Practical Risk Decomposition Example
+## A Very Practical Risk Decomposition Example
 
 ```python
 risk_map = {
@@ -294,7 +294,7 @@ This example is not meant to “solve” the risks. It is teaching you that:
 
 ---
 
-## 9. The Most Important Point: Ethical Issues Must Be Turned into Engineering Issues
+## The Most Important Point: Ethical Issues Must Be Turned into Engineering Issues
 
 If ethics is discussed only in terms of:
 

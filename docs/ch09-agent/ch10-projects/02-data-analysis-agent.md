@@ -1,11 +1,11 @@
 ---
-title: "10.3 Project: Data Analysis Agent"
+title: "9.10.3 Project: Data Analysis Agent"
 sidebar_position: 55
 description: "Build a reproducible, end-to-end Data Analysis Agent project centered on reading tables, performing statistics, suggesting charts, and explaining conclusions."
 keywords: [data analysis agent, statistics, chart suggestion, insight generation, agent project]
 ---
 
-# Project: Data Analysis Agent
+# 9.10.3 Project: Data Analysis Agent
 
 :::tip Section focus
 The real value of a Data Analysis Agent is not:
@@ -46,7 +46,7 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. How should we narrow the project topic?
+## How should we narrow the project topic?
 
 It is recommended to start with:
 
@@ -59,7 +59,7 @@ Rather than starting with:
 - an automatic BI platform
 - a fully automated report factory
 
-### 1.1 A more beginner-friendly overall analogy
+### A more beginner-friendly overall analogy
 
 You can think of a Data Analysis Agent as:
 
@@ -75,7 +75,7 @@ But rather:
 
 ---
 
-## 2. First run a minimal data analysis loop
+## First run a minimal data analysis loop
 
 This example will:
 
@@ -118,7 +118,7 @@ result = summarize_sales(sales)
 print(result)
 ```
 
-### 2.1 Why is this already very project-like?
+### Why is this already very project-like?
 
 Because it does not only do “computation”,
 it also does:
@@ -129,7 +129,7 @@ it also does:
 
 This is already the smallest data analysis workflow.
 
-### 2.2 Why is `insight` especially important?
+### Why is `insight` especially important?
 
 Because users are usually not trying to look at raw numbers,
 but want:
@@ -138,7 +138,7 @@ but want:
 
 This is exactly the difference between a Data Analysis Agent and a regular calculator.
 
-### 2.3 A beginner-friendly project checklist to remember first
+### A beginner-friendly project checklist to remember first
 
 | Step | What should you confirm first |
 |---|---|
@@ -157,9 +157,9 @@ Read this diagram using a notebook mindset: load data, profile schema, compute s
 
 ---
 
-## 3. What should a portfolio-level Data Analysis Agent show?
+## What should a portfolio-level Data Analysis Agent show?
 
-### 3.1 What does the input data look like?
+### What does the input data look like?
 
 It is best to make clear:
 
@@ -167,7 +167,7 @@ It is best to make clear:
 - sample size
 - missing value status
 
-### 3.2 Intermediate computation results
+### Intermediate computation results
 
 For example:
 
@@ -175,14 +175,14 @@ For example:
 - grouped results
 - trend judgments
 
-### 3.3 Final explanation
+### Final explanation
 
 For example:
 
 - which product category performed best
 - which time period fluctuated the most
 
-### 3.4 Chart suggestions
+### Chart suggestions
 
 Even if you do not generate charts directly, you can still output:
 
@@ -192,7 +192,7 @@ This makes the project feel closer to a real analysis assistant.
 
 ---
 
-## 4. Add a minimal “chart recommender”
+## Add a minimal “chart recommender”
 
 ```python
 def suggest_chart(columns):
@@ -207,7 +207,7 @@ print(suggest_chart(["category", "amount"]))
 print(suggest_chart(["date", "amount"]))
 ```
 
-### 4.1 What value does this small module provide?
+### What value does this small module provide?
 
 It shows that the project is not just “doing arithmetic”,
 but is gradually moving toward:
@@ -216,7 +216,7 @@ but is gradually moving toward:
 - explanation
 - visualization suggestions
 
-### 4.2 Let’s look at a minimal “analysis trace” example
+### Let’s look at a minimal “analysis trace” example
 
 ```python
 trace = {
@@ -236,18 +236,18 @@ This example is especially suitable for beginners because it helps you see:
 
 ---
 
-## 5. The most common pitfalls
+## The most common pitfalls
 
-### 5.1 Misunderstanding the fields
+### Misunderstanding the fields
 
 This is a typical fatal problem for Data Analysis Agents.
 If the field meanings are misunderstood, the entire workflow may be led astray.
 
-### 5.2 Only showing the conclusion, not the intermediate process
+### Only showing the conclusion, not the intermediate process
 
 This makes the project feel like a black box and makes it hard to build trust.
 
-### 5.3 Only handling the happy path
+### Only handling the happy path
 
 If you do not show:
 
@@ -259,9 +259,9 @@ the project will feel unrealistic.
 
 ---
 
-## 6. How do you polish it into a portfolio-level page?
+## How do you polish it into a portfolio-level page?
 
-### 6.1 Suggested structure
+### Suggested structure
 
 1. Raw data example
 2. Intermediate statistics table
@@ -269,7 +269,7 @@ the project will feel unrealistic.
 4. Chart suggestions
 5. Error cases
 
-### 6.2 One highlight worth adding
+### One highlight worth adding
 
 Show:
 
@@ -280,7 +280,7 @@ Show:
 as a single trace.
 This will be much stronger than pasting only a result.
 
-### 6.3 A beginner-friendly evaluation table to remember first
+### A beginner-friendly evaluation table to remember first
 
 | Dimension | What is the most important first question |
 |---|---|

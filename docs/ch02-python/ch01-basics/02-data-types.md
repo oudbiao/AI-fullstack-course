@@ -1,10 +1,10 @@
 ---
-title: "1.2 Data Types and Variables"
+title: "2.1.2 Data Types and Variables"
 sidebar_position: 2
 description: "Master the basic data types in Python and how to use variables"
 ---
 
-# Data Types and Variables
+# 2.1.2 Data Types and Variables
 
 ![Diagram of the relationship between variables, objects, and references](/img/course/ch02-variable-object-reference-en.png)
 

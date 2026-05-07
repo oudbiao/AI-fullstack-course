@@ -1,10 +1,10 @@
 ---
-title: "1.5 Iterators and Generators"
+title: "2.2.5 Iterators and Generators"
 sidebar_position: 5
 description: "Understand Python's iteration protocol and the efficient data processing style of generators"
 ---
 
-# Iterators and Generators
+# 2.2.5 Iterators and Generators
 
 ![Generator streaming data processing diagram](/img/course/ch02-generator-streaming-data-en.png)
 

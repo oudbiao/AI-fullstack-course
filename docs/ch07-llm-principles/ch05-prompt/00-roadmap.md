@@ -1,11 +1,11 @@
 ---
-title: "5.1 Pre-study Guide: What Is This Prompt Engineering Chapter Really About?"
+title: "7.5.1 Pre-study Guide: What Is This Prompt Engineering Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the Prompt Engineering chapter: how task expression, context organization, structured output, prompting strategies, and evaluation iterations connect."
 keywords: [Prompt Guide, Prompt Engineering, Structured Output, Prompt Engineering]
 ---
 
-# Pre-study Guide: What Is This Prompt Engineering Chapter Really About?
+# 7.5.1 Pre-study Guide: What Is This Prompt Engineering Chapter Really About?
 
 This chapter answers the question: without changing the model parameters, how can we make the model understand tasks more reliably, follow constraints, and produce results that meet product requirements?
 

@@ -1,11 +1,11 @@
 ---
-title: "2.6 SVM：最大间隔与核方法"
+title: "5.2.6 SVM：最大间隔与核方法"
 sidebar_position: 7
 description: "用新手能理解的方式学习支持向量机：最大间隔、支持向量、核方法、C、gamma、特征缩放，以及它为什么是经典机器学习的重要里程碑。"
 keywords: [SVM, 支持向量机, 最大间隔, 支持向量, 核技巧, RBF核, C, gamma, 监督学习]
 ---
 
-# SVM：最大间隔与核方法
+# 5.2.6 SVM：最大间隔与核方法
 
 ![SVM 最大间隔直觉图](/img/course/ch05-svm-margin-map.png)
 

@@ -1,10 +1,10 @@
 ---
-title: "Package Managers"
+title: "1.1.3 Package Managers"
 sidebar_position: 3
 description: "Install system software and development tools with package managers"
 ---
 
-# Package Managers
+# 1.1.3 Package Managers
 
 ![Package manager dependency installation flowchart](/img/course/ch01-package-manager-flow-en.png)
 

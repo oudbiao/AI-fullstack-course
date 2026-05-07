@@ -1,11 +1,11 @@
 ---
-title: "7.1 Pre-class Guide: What Is This Alignment Chapter Really About?"
+title: "7.7.1 Pre-class Guide: What Is This Alignment Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the LLM alignment chapter: why having capabilities does not mean the model is useful, reliable, or aligned with human intent."
 keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 ---
 
-# Pre-class Guide: What Is This Alignment Chapter Really About?
+# 7.7.1 Pre-class Guide: What Is This Alignment Chapter Really About?
 
 ## Chapter Overview
 

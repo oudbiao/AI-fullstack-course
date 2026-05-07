@@ -1,11 +1,11 @@
 ---
-title: "5.5 Introduction to 3D Vision [Optional]"
+title: "10.5.5 Introduction to 3D Vision [Optional]"
 sidebar_position: 17
 description: "Starting from depth, point clouds, and multi-view geometry, understand why 3D vision has an extra layer of spatial structure compared with 2D vision."
 keywords: [3D vision, depth, point cloud, stereo, camera geometry]
 ---
 
-# Introduction to 3D Vision [Optional]
+# 10.5.5 Introduction to 3D Vision [Optional]
 
 :::tip Section Overview
 2D vision mainly understands content in flat images.
@@ -51,7 +51,7 @@ In other words, what 3D vision really adds is not “one more column of numbers,
 
 - You begin to care about spatial relationships themselves
 
-## 1. What Is the Most Core New Problem in 3D Vision?
+## What Is the Most Core New Problem in 3D Vision?
 
 In 2D images, most of the time we only care about:
 
@@ -73,23 +73,23 @@ In 2D images, most of the time we only care about:
 
 ---
 
-## 2. Several of the Most Common 3D Vision Concepts
+## Several of the Most Common 3D Vision Concepts
 
-### 2.1 Depth
+### Depth
 
 How far each point is from the camera.
 
-### 2.2 Point Cloud
+### Point Cloud
 
 Representing a scene as many points with 3D coordinates.
 
-### 2.3 Multi-View Geometry
+### Multi-View Geometry
 
 Recovering 3D structure through correspondences between multiple views.
 
 ---
 
-## 3. First, Look at a Minimal Depth Intuition Example
+## First, Look at a Minimal Depth Intuition Example
 
 ```python
 def estimate_depth(focal_length, baseline, disparity):
@@ -106,18 +106,18 @@ for disparity in [40, 20, 10]:
     print({"disparity": disparity, "depth": round(depth, 4)})
 ```
 
-### 3.1 What Is This Example Trying to Express?
+### What Is This Example Trying to Express?
 
 It captures the most essential intuition of stereo vision:
 
 - The larger the disparity, the closer the object usually is
 - The smaller the disparity, the farther the object usually is
 
-### 3.2 Why Is This Important?
+### Why Is This Important?
 
 Because it connects “points in an image” to real 3D space for the first time.
 
-### 3.3 When Beginners First Learn 3D Vision, What Three Things Should They Remember First?
+### When Beginners First Learn 3D Vision, What Three Things Should They Remember First?
 
 1. Depth
    First understand “how far it is from the camera.”
@@ -128,7 +128,7 @@ Because it connects “points in an image” to real 3D space for the first time
 3. Disparity
    First understand why multiple views can recover spatial distance.
 
-### 3.4 Then Look at a Minimal Example of “Recovering Points from Depth”
+### Then Look at a Minimal Example of “Recovering Points from Depth”
 
 ```python
 pixels = [
@@ -160,14 +160,14 @@ What 3D vision truly adds is spatial relationships. When reading this diagram, f
 
 ---
 
-## 4. Why Is 3D Vision Harder?
+## Why Is 3D Vision Harder?
 
-### 4.1 Data Is Harder to Collect
+### Data Is Harder to Collect
 
 2D images are easy to gather,
 while 3D annotations and depth data are usually more expensive.
 
-### 4.2 Geometric Relationships Are More Complex
+### Geometric Relationships Are More Complex
 
 You are not only processing appearance,
 but also handling:
@@ -176,25 +176,25 @@ but also handling:
 - Viewpoint changes
 - Spatial consistency
 
-### 4.3 Visualization and Debugging Are Harder Too
+### Visualization and Debugging Are Harder Too
 
 Errors in 2D images are very intuitive,
 while errors in 3D structure are often much harder to see with the naked eye.
 
 ---
 
-## 5. The Most Common Misunderstandings
+## The Most Common Misunderstandings
 
-### 5.1 Misunderstanding 1: 3D Vision Is Just “One More Dimension”
+### Misunderstanding 1: 3D Vision Is Just “One More Dimension”
 
 Not quite.
 It brings new geometric problems.
 
-### 5.2 Misunderstanding 2: If You Do 2D Well, You Can Naturally Do 3D
+### Misunderstanding 2: If You Do 2D Well, You Can Naturally Do 3D
 
 That helps, but you still need to build spatial geometry intuition.
 
-### 5.3 Misunderstanding 3: Start Directly with Complex 3D Networks
+### Misunderstanding 3: Start Directly with Complex 3D Networks
 
 A more stable approach is usually to first make these basics solid:
 
@@ -202,7 +202,7 @@ A more stable approach is usually to first make these basics solid:
 - Disparity
 - Point cloud
 
-### 5.4 The Most Stable Default Order When You First Work on a 3D Project
+### The Most Stable Default Order When You First Work on a 3D Project
 
 A more stable order is usually:
 

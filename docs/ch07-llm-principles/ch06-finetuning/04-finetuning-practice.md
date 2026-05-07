@@ -1,11 +1,11 @@
 ---
-title: "6.5 Fine-Tuning Engineering Practice"
+title: "7.6.5 Fine-Tuning Engineering Practice"
 sidebar_position: 22
 description: "Build a practical fine-tuning workflow that can actually be put into production, from task definition and data format to data splitting, training plans, and validation strategy."
 keywords: [finetuning, sft, dataset formatting, training plan, validation, llmops]
 ---
 
-# Fine-Tuning Engineering Practice
+# 7.6.5 Fine-Tuning Engineering Practice
 
 :::tip Section Focus
 Many fine-tuning projects do not fail because “the model is not strong enough,” but because they fail earlier:
@@ -29,9 +29,9 @@ So in this lesson, we will not talk about “the fanciest method.” Instead, we
 
 ---
 
-## 1. The real starting point of a fine-tuning project is not “start training”
+## The real starting point of a fine-tuning project is not “start training”
 
-### 1.1 First, write the task as one very specific sentence
+### First, write the task as one very specific sentence
 
 Many teams begin by saying:
 
@@ -51,7 +51,7 @@ You can see that this already implies a lot of key information:
 
 If this step is vague, all the data and metrics that follow will drift too.
 
-### 1.2 Run a baseline first, then talk about fine-tuning
+### Run a baseline first, then talk about fine-tuning
 
 Before training, you should try to produce a baseline using methods like:
 
@@ -66,7 +66,7 @@ The reason is simple:
 - If the baseline is already strong, the gain from fine-tuning may be small
 - If the baseline is weak, it becomes easier to see what fine-tuning actually improves
 
-### 1.3 First decide the “basic unit” of training samples
+### First decide the “basic unit” of training samples
 
 There are three common training units:
 
@@ -82,7 +82,7 @@ so the most common unit is:
 
 Do not underestimate this decision. It will directly affect your later data cleaning and template format.
 
-### 1.4 Terms worth understanding before touching training scripts
+### Terms worth understanding before touching training scripts
 
 | Term | Beginner-friendly meaning | Why it matters here |
 |---|---|---|
@@ -94,9 +94,9 @@ Do not underestimate this decision. It will directly affect your later data clea
 
 ---
 
-## 2. Three things that are easy to ignore before training
+## Three things that are easy to ignore before training
 
-### 2.1 Unclear goals will make the data messier and messier
+### Unclear goals will make the data messier and messier
 
 If your annotators do not know:
 
@@ -106,7 +106,7 @@ If your annotators do not know:
 
 then the resulting data will definitely drift in style.
 
-### 2.2 Data leakage makes the validation set falsely optimistic
+### Data leakage makes the validation set falsely optimistic
 
 A very common problem is:
 
@@ -117,7 +117,7 @@ A very common problem is:
 If these samples appear in both training and validation,
 you may think the model generalizes well, but in reality it is just memorizing data from the same source.
 
-### 2.3 A decreasing loss does not mean the model is usable for business
+### A decreasing loss does not mean the model is usable for business
 
 For large models, this often happens:
 
@@ -135,7 +135,7 @@ You also need to check:
 
 ---
 
-## 3. First, organize raw business data into training samples
+## First, organize raw business data into training samples
 
 The following example does three very practical things:
 
@@ -210,7 +210,7 @@ print("first train example:")
 print(json.dumps(train_records[0], ensure_ascii=False, indent=2))
 ```
 
-### 3.1 Why does this code have engineering value?
+### Why does this code have engineering value?
 
 Because it corresponds to the very first real step in fine-tuning:
 
@@ -221,7 +221,7 @@ Because it corresponds to the very first real step in fine-tuning:
 Many projects do not fail because the training method is wrong,
 but because they already plant problems at this layer.
 
-### 3.2 Why split by customer instead of randomly?
+### Why split by customer instead of randomly?
 
 Because random splitting may put different questions from the same customer into both training and validation.
 
@@ -246,9 +246,9 @@ Read this as an engineering assembly line, not as a magic training button. A hea
 
 ---
 
-## 4. Training format is not just “looks like a conversation”
+## Training format is not just “looks like a conversation”
 
-### 4.1 During SFT training, we usually only want the model to be responsible for the assistant part
+### During SFT training, we usually only want the model to be responsible for the assistant part
 
 This is called:
 
@@ -290,7 +290,7 @@ but to help you understand:
 
 In a real SFT pipeline, the tokenizer turns messages into token IDs, and the trainer usually builds a label mask. Tokens from `system` and `user` tell the model what condition it is under; tokens from `assistant` are the target behavior to learn. This is why assistant-only loss helps the model learn how to answer, instead of wasting training signal on copying the user question.
 
-### 4.2 If the formatting rules are unstable, the model will learn “dirty patterns”
+### If the formatting rules are unstable, the model will learn “dirty patterns”
 
 For example, in the same task:
 
@@ -310,7 +310,7 @@ So format consistency is critical:
 
 ---
 
-## 5. Training plans should be calculated before training starts
+## Training plans should be calculated before training starts
 
 Many people only realize during training that:
 
@@ -365,7 +365,7 @@ best = min(val_history, key=lambda item: (item["val_loss"], -item["format_acc"])
 print("best checkpoint =", best)
 ```
 
-### 5.1 Why should you pay special attention to effective batch size?
+### Why should you pay special attention to effective batch size?
 
 Because the number of samples the model actually sees for each parameter update is not just:
 
@@ -381,7 +381,7 @@ This directly affects:
 - Learning rate choice
 - Total number of training steps
 
-### 5.2 Why not look only at `val_loss` during validation?
+### Why not look only at `val_loss` during validation?
 
 Because business tasks often have more important metrics, such as:
 
@@ -396,7 +396,7 @@ you should usually consider at least:
 - General training metrics
 - Business metrics
 
-### 5.3 Training-plan terms that are easy to misread
+### Training-plan terms that are easy to misread
 
 | Term | What it means | Why it affects the project |
 |---|---|---|
@@ -409,9 +409,9 @@ you should usually consider at least:
 
 ---
 
-## 6. What should you actually monitor during training?
+## What should you actually monitor during training?
 
-### 6.1 First layer: Are the curves obviously abnormal?
+### First layer: Are the curves obviously abnormal?
 
 For example:
 
@@ -422,7 +422,7 @@ For example:
 
 These are “firefighting” problems.
 
-### 6.2 Second layer: Has the model output drifted?
+### Second layer: Has the model output drifted?
 
 Pick 20 to 50 fixed samples,
 and review the outputs for each checkpoint.
@@ -434,7 +434,7 @@ Focus on whether:
 - The format is unstable
 - It forgets its original general ability
 
-### 6.3 Third layer: Is there overfitting or catastrophic forgetting?
+### Third layer: Is there overfitting or catastrophic forgetting?
 
 You will often see this:
 
@@ -453,9 +453,9 @@ Catastrophic forgetting means the model improves on the narrow fine-tuning task 
 
 ---
 
-## 7. The final layer to check before deployment
+## The final layer to check before deployment
 
-### 7.1 Passing offline evaluation does not mean you can deploy directly
+### Passing offline evaluation does not mean you can deploy directly
 
 Before real deployment, you should at least add:
 
@@ -464,7 +464,7 @@ Before real deployment, you should at least add:
 - Rollback plan
 - Version records
 
-### 7.2 What you need to record online is not only request logs
+### What you need to record online is not only request logs
 
 You also need to pay attention to:
 
@@ -474,7 +474,7 @@ You also need to pay attention to:
 
 This will directly become the source of data for your next iteration.
 
-### 7.3 A fine-tuning project is not “one training run,” but a continuous iteration loop
+### A fine-tuning project is not “one training run,” but a continuous iteration loop
 
 The healthiest loop usually looks like this:
 
@@ -488,13 +488,13 @@ The healthiest loop usually looks like this:
 
 ---
 
-## 8. The most common misconceptions
+## The most common misconceptions
 
-### 8.1 Misconception 1: Start by tuning training parameters
+### Misconception 1: Start by tuning training parameters
 
 Starting with parameters usually means skipping the most important parts: task definition and data organization.
 
-### 8.2 Misconception 2: More data is always better
+### Misconception 2: More data is always better
 
 Often, what matters more is:
 
@@ -502,7 +502,7 @@ Often, what matters more is:
 - Whether the style is consistent
 - Whether it is representative
 
-### 8.3 Misconception 3: The project ends when training ends
+### Misconception 3: The project ends when training ends
 
 In real engineering practice,
 training completion is usually only a midpoint, not the finish line.

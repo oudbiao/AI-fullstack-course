@@ -1,11 +1,11 @@
 ---
-title: "3.4 Mainstream Variants of Large Model Architectures"
+title: "7.3.4 Mainstream Variants of Large Model Architectures"
 sidebar_position: 10
 description: "From Encoder-only, Decoder-only, and Encoder-Decoder to MoE, understand why different large model architectures branch out for different tasks."
 keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 ---
 
-# Mainstream Variants of Large Model Architectures
+# 7.3.4 Mainstream Variants of Large Model Architectures
 
 :::tip Section Overview
 When many people first encounter the large model family, they may feel that the models are only different in name:
@@ -31,9 +31,9 @@ This lesson brings these branches back to their underlying structure.
 
 ---
 
-## 1. Why do so many branches grow from the same Transformer?
+## Why do so many branches grow from the same Transformer?
 
-### 1.1 Because tasks differ, and so do information-flow constraints
+### Because tasks differ, and so do information-flow constraints
 
 Different NLP tasks have different essential needs:
 
@@ -44,7 +44,7 @@ Different NLP tasks have different essential needs:
 So even if the underlying building blocks are all Transformer blocks,
 they will still grow into different structures.
 
-### 1.2 A simple analogy
+### A simple analogy
 
 You can think of the three classic architectures as three ways of reading:
 
@@ -57,9 +57,9 @@ the differences that follow become much easier to understand.
 
 ---
 
-## 2. What does each of the three classic structures do?
+## What does each of the three classic structures do?
 
-### 2.1 Encoder-only: good for understanding, not ideal for open-ended continuation
+### Encoder-only: good for understanding, not ideal for open-ended continuation
 
 A typical representative of Encoder-only is:
 
@@ -74,7 +74,7 @@ Its characteristics are:
 But it is not naturally suited for free generation,
 because during training it does not strictly follow the constraint of “only seeing the past.”
 
-### 2.2 Decoder-only: the most direct route for generation
+### Decoder-only: the most direct route for generation
 
 Typical representatives of Decoder-only are:
 
@@ -94,7 +94,7 @@ Its advantages are:
 - Natural generation process
 - Very suitable for large-scale autoregressive modeling
 
-### 2.3 Encoder-Decoder: separate the responsibilities of input and output
+### Encoder-Decoder: separate the responsibilities of input and output
 
 Typical representatives of Encoder-Decoder are:
 
@@ -118,7 +118,7 @@ Because these tasks are naturally:
 - Given one piece of text
 - Output another piece of text
 
-### 2.4 MoE: not changing the information flow, but changing “who does the computation”
+### MoE: not changing the information flow, but changing “who does the computation”
 
 As models become larger and larger,
 another important branch appears:
@@ -142,7 +142,7 @@ So MoE is more like a “scaling strategy variant.”
 Read MoE from the token’s point of view. Each token first enters a router, the router scores multiple expert FFNs, and only the top-k experts are activated for that token. This is why MoE can have many total parameters while keeping the active compute per token smaller than a dense FFN.
 :::
 
-### 2.5 MoE terms beginners should not skip
+### MoE terms beginners should not skip
 
 | Term | Plain meaning | Why it matters |
 |---|---|---|
@@ -154,7 +154,7 @@ Read MoE from the token’s point of view. Each token first enters a router, the
 
 ---
 
-## 3. First, run a truly instructive example of structural differences
+## First, run a truly instructive example of structural differences
 
 The code below does not train a model,
 but it directly prints the most important difference among the three core architectures:
@@ -189,7 +189,7 @@ pretty_print("decoder-only self-attention", causal_mask(length))
 pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 ```
 
-### 3.1 What is this code teaching?
+### What is this code teaching?
 
 It teaches three most fundamental things:
 
@@ -202,7 +202,7 @@ most architectural differences can ultimately be traced back to:
 
 - Different information-flow constraints
 
-### 3.2 Why is the mask so important?
+### Why is the mask so important?
 
 Because the mask determines what the model is allowed to know during training.
 
@@ -210,7 +210,7 @@ If the decoder does not have a causal mask,
 the model will peek at future tokens during training,
 but at generation time it cannot see the future. That creates a mismatch between training and inference.
 
-### 3.3 Why does this determine task suitability?
+### Why does this determine task suitability?
 
 Because tasks themselves correspond to different information flows:
 
@@ -228,9 +228,9 @@ When reading this diagram, first ask “who can see whom”: Encoder-only is sui
 
 ---
 
-## 4. Connect the three routes to typical tasks
+## Connect the three routes to typical tasks
 
-### 4.1 Why are text understanding tasks often based on Encoder-only?
+### Why are text understanding tasks often based on Encoder-only?
 
 Because these tasks focus more on:
 
@@ -246,7 +246,7 @@ For example:
 
 These tasks are more like “read the whole passage first, then make a judgment.”
 
-### 4.2 Why do most mainstream large models now mainly follow Decoder-only?
+### Why do most mainstream large models now mainly follow Decoder-only?
 
 Because when the goal becomes:
 
@@ -265,7 +265,7 @@ And with that:
 
 So it became the mainstream route in the era of large language models.
 
-### 4.3 Why hasn’t Encoder-Decoder disappeared?
+### Why hasn’t Encoder-Decoder disappeared?
 
 Because many tasks are still very suitable for it:
 
@@ -277,7 +277,7 @@ Because many tasks are still very suitable for it:
 If a task is naturally “given an input, generate another output,”
 Encoder-Decoder still has a strong advantage.
 
-### 4.4 What situations is MoE suitable for?
+### What situations is MoE suitable for?
 
 When a team is pursuing:
 
@@ -294,9 +294,9 @@ But it also brings new engineering problems:
 
 ---
 
-## 5. Structural differences are not just about “which is stronger,” but “which is more suitable”
+## Structural differences are not just about “which is stronger,” but “which is more suitable”
 
-### 5.1 There is no universally strongest structure forever
+### There is no universally strongest structure forever
 
 Many beginners ask:
 
@@ -311,7 +311,7 @@ A more reasonable question is:
 An architecture is not a ranking list,
 but a task-matching problem.
 
-### 5.2 Many “performance gaps” actually come from training scale and data, not just architecture
+### Many “performance gaps” actually come from training scale and data, not just architecture
 
 For example, GPT models are strong not only because they are decoder-only,
 but also because:
@@ -322,7 +322,7 @@ but also because:
 
 So do not turn the architecture itself into the only decisive factor.
 
-### 5.3 Architecture and objective function should be viewed together
+### Architecture and objective function should be viewed together
 
 You will usually see such pairings:
 
@@ -335,20 +335,20 @@ architecture and training objective are usually designed as a package, not assem
 
 ---
 
-## 6. Common misconceptions
+## Common misconceptions
 
-### 6.1 Misconception 1: BERT is just an “old model,” so it is not worth learning
+### Misconception 1: BERT is just an “old model,” so it is not worth learning
 
 That is not true.
 It is still an important baseline for understanding tasks and representation learning.
 
-### 6.2 Misconception 2: Decoder-only can do everything, so it must be the optimal solution
+### Misconception 2: Decoder-only can do everything, so it must be the optimal solution
 
 It is indeed very general,
 but for some tasks with clearly separated input and output,
 Encoder-Decoder may still be more natural.
 
-### 6.3 Misconception 3: MoE is just a “bigger normal model”
+### Misconception 3: MoE is just a “bigger normal model”
 
 Not exactly.
 The core change in MoE is:

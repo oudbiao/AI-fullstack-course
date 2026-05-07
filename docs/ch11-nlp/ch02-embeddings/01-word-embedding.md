@@ -1,11 +1,11 @@
 ---
-title: "2.2 Word Embeddings"
+title: "11.2.2 Word Embeddings"
 sidebar_position: 4
 description: "Starting from the limitations of one-hot, understand why word embeddings can turn “semantic similarity” into distance relationships in vector space."
 keywords: [word embedding, vector space, cosine similarity, one-hot, semantic representation]
 ---
 
-# Word Embeddings
+# 11.2.2 Word Embeddings
 
 ![Word vector semantic neighborhood diagram](/img/course/word2vec-embedding-neighborhood-en.png)
 
@@ -85,9 +85,9 @@ but it does not tell you:
 
 Once words become map coordinates, “closeness” becomes something you can compute for the first time.
 
-## 1. Why Do We Need Word Embeddings?
+## Why Do We Need Word Embeddings?
 
-### 1.1 one-hot Can Only Distinguish Identity, Not Relationships
+### one-hot Can Only Distinguish Identity, Not Relationships
 
 Suppose the vocabulary contains:
 
@@ -106,7 +106,7 @@ The problem is:
 - `refund` and `return` are clearly semantically closer
 - but in one-hot, they are equally “far” from each other
 
-### 1.2 What Is Word Embedding Doing?
+### What Is Word Embedding Doing?
 
 What word embeddings do is:
 
@@ -117,7 +117,7 @@ In other words, it is not just “encoding,” but also:
 
 - semantic representation
 
-### 1.3 An Analogy
+### An Analogy
 
 You can think of word embeddings as map coordinates.
 
@@ -127,7 +127,7 @@ You can think of word embeddings as map coordinates.
 An ID number can distinguish people, but it does not show who lives closer together;
 map coordinates, however, make “closeness” computable.
 
-### 1.4 When Learning Word Embeddings for the First Time, What Should You Focus on Most?
+### When Learning Word Embeddings for the First Time, What Should You Focus on Most?
 
 What matters most is not the training method, but this sentence:
 
@@ -141,9 +141,9 @@ Once this idea is stable, the following will become much easier to understand:
 
 ---
 
-## 2. How Do Word Embeddings Learn Semantics?
+## How Do Word Embeddings Learn Semantics?
 
-### 2.1 Core Assumption: Similar Contexts Often Mean Similar Word Meaning
+### Core Assumption: Similar Contexts Often Mean Similar Word Meaning
 
 If two words often appear in similar contexts,
 the model will tend to learn them as nearby vectors.
@@ -161,7 +161,7 @@ may often appear in contexts like:
 
 This will push them closer together in space.
 
-### 2.2 Being “Close” in Vector Space Does Not Mean Exactly the Same Meaning
+### Being “Close” in Vector Space Does Not Mean Exactly the Same Meaning
 
 It more often means:
 
@@ -170,7 +170,7 @@ It more often means:
 
 So in word embeddings, “close” often means distributionally close, not necessarily strictly synonymous in dictionary terms.
 
-### 2.3 Why Is This Already Very Useful?
+### Why Is This Already Very Useful?
 
 Because once you have this spatial relationship,
 many tasks can take advantage of it:
@@ -180,7 +180,7 @@ many tasks can take advantage of it:
 - retrieval
 - clustering
 
-### 2.4 Why Does “Distributional Similarity” Change the Main NLP Storyline?
+### Why Does “Distributional Similarity” Change the Main NLP Storyline?
 
 Because from this point on, the model no longer only asks:
 
@@ -195,7 +195,7 @@ This is exactly the starting point of representation learning as it moves deeper
 
 ---
 
-## 3. Run a Word Vector Similarity Example First
+## Run a Word Vector Similarity Example First
 
 The example below does three things:
 
@@ -226,7 +226,7 @@ print("refund vs invoice :", round(cosine(embeddings["refund"], embeddings["invo
 print("refund vs password:", round(cosine(embeddings["refund"], embeddings["password"]), 4))
 ```
 
-### 3.1 What Is the Most Important Intuition Here?
+### What Is the Most Important Intuition Here?
 
 You will see that:
 
@@ -237,7 +237,7 @@ This is the key intuition behind word embeddings:
 
 > **“Semantic closeness” can be turned into “vector closeness.”**
 
-### 3.2 Why Use Cosine Similarity Here?
+### Why Use Cosine Similarity Here?
 
 Because we often care more about:
 
@@ -246,7 +246,7 @@ Because we often care more about:
 rather than the absolute length.
 Cosine similarity is a natural fit for this kind of comparison.
 
-### 3.3 What Should Beginners Remember First When Learning Word Embeddings?
+### What Should Beginners Remember First When Learning Word Embeddings?
 
 The most important things to remember are:
 
@@ -254,7 +254,7 @@ The most important things to remember are:
 2. the value of word embeddings is turning “semantically close” into “vector close”
 3. the first step in many NLP models is, in essence, still using embeddings
 
-### 3.4 Another Minimal “Find Nearest Neighbors” Example
+### Another Minimal “Find Nearest Neighbors” Example
 
 ```python
 from math import sqrt
@@ -292,19 +292,19 @@ This example is especially good for beginners because it quickly turns an abstra
 
 ---
 
-## 4. Why Are Word Embeddings Helpful for Later Tasks?
+## Why Are Word Embeddings Helpful for Later Tasks?
 
-### 4.1 Text Classification
+### Text Classification
 
 If `refund` and `return` are close in vector space,
 the model can more easily learn to group them into a “after-sales” category.
 
-### 4.2 Similar Text Retrieval
+### Similar Text Retrieval
 
 If a piece of text contains many similar words,
 it is usually also closer in vector space to content on the same topic.
 
-### 4.3 Input to Downstream Deep Learning Models
+### Input to Downstream Deep Learning Models
 
 For many models, the first layer is essentially:
 
@@ -312,7 +312,7 @@ For many models, the first layer is essentially:
 
 So word embeddings are not old knowledge; they are the entry point for more complex models later.
 
-### 4.4 Why Does This Section Connect Directly to the Pretraining Storyline Later?
+### Why Does This Section Connect Directly to the Pretraining Storyline Later?
 
 Because most NLP models you will see later still do something similar at the beginning:
 
@@ -324,7 +324,7 @@ The difference is:
 - contextual representations are more dynamic
 - pretrained models learn this representation power at much larger scale
 
-### 4.5 If You Use Embeddings in a Project for the First Time, the Safest Default Workflow
+### If You Use Embeddings in a Project for the First Time, the Safest Default Workflow
 
 A safer workflow is usually:
 
@@ -336,19 +336,19 @@ This is easier to build intuition with than starting directly with a complex mod
 
 ---
 
-## 5. Common Pitfalls with Word Embeddings
+## Common Pitfalls with Word Embeddings
 
-### 5.1 Mistake 1: Word Embeddings Are the Same as Dictionary Definitions
+### Mistake 1: Word Embeddings Are the Same as Dictionary Definitions
 
 No.
 They are more like a statistical semantic space, not a dictionary definition table.
 
-### 5.2 Mistake 2: Once Word Vectors Are Well Trained, They Can Solve Everything
+### Mistake 2: Once Word Vectors Are Well Trained, They Can Solve Everything
 
 Word embeddings can only express basic semantic relationships.
 When facing polysemy and complex context, they quickly become insufficient.
 
-### 5.3 Mistake 3: Only Look at Individual Words, Not the Task
+### Mistake 3: Only Look at Individual Words, Not the Task
 
 The value of word embeddings still has to be judged in the context of the specific task.
 

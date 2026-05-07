@@ -1,11 +1,11 @@
 ---
-title: "7.4 Project: Information Extraction"
+title: "11.7.4 Project: Information Extraction"
 sidebar_position: 3
 description: "Connect NER, relation extraction, and structured output into a small information extraction project to understand the process from text to structured data."
 keywords: [information extraction, NER, relation extraction, structured output, NLP project]
 ---
 
-# Project: Information Extraction
+# 11.7.4 Project: Information Extraction
 
 ![Information Extraction schema flowchart](/img/course/ch11-information-extraction-schema-pipeline-map-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "4.7 Hands-on Practice: Complete Memory System"
+title: "9.4.7 Hands-on Practice: Complete Memory System"
 sidebar_position: 24
 description: "Build a runnable multi-layer memory Agent: short-term window, long-term preferences, episodic records, and procedural memory work together, showing a closed loop of querying, writing, compression, and reply generation."
 keywords: [memory practice, short term, long term, episodic memory, procedural memory, agent]
 ---
 
-# Hands-on Practice: Complete Memory System
+# 9.4.7 Hands-on Practice: Complete Memory System
 
 :::tip Section Positioning
 In the previous sections, we split memory into concepts and strategies.
@@ -28,9 +28,9 @@ The goal is not to build something huge and complete, but to first make the “c
 
 ---
 
-## 1. What does the system we want to build look like?
+## What does the system we want to build look like?
 
-### 1.1 Target Scenario
+### Target Scenario
 
 We will continue using the customer support assistant scenario.
 The user may ask continuously about:
@@ -44,7 +44,7 @@ The system needs to do two things:
 1. Keep the current conversation coherent
 2. Remember the user’s preferences the next time they come back
 
-### 1.2 Division of Labor Across Four Memory Layers
+### Division of Labor Across Four Memory Layers
 
 In this example, we divide responsibilities like this:
 
@@ -57,7 +57,7 @@ In this example, we divide responsibilities like this:
 - `procedural`
   Predefined workflow templates, such as refund handling steps
 
-### 1.3 Evaluation Goals
+### Evaluation Goals
 
 The most important checkpoints for this hands-on example are:
 
@@ -68,7 +68,7 @@ The most important checkpoints for this hands-on example are:
 
 ---
 
-## 2. First, run a complete executable version
+## First, run a complete executable version
 
 The code below simulates two rounds of conversation:
 
@@ -198,7 +198,7 @@ print("\nmemory snapshot:")
 print(agent.snapshot("u_001"))
 ```
 
-### 2.1 What four-layer collaboration does this code demonstrate?
+### What four-layer collaboration does this code demonstrate?
 
 1. `short_term_messages`
    Keeps recent conversation
@@ -211,7 +211,7 @@ print(agent.snapshot("u_001"))
 
 All four layers are used here, so this is no longer “just a concept, not actually running”.
 
-### 2.2 Why can the second round still stay concise?
+### Why can the second round still stay concise?
 
 Because in the first round, the user said “please answer briefly,”
 and the system wrote that into long-term preference:
@@ -220,7 +220,7 @@ and the system wrote that into long-term preference:
 
 So even if the user does not repeat it in the second round, the reply will continue to follow that style.
 
-### 2.3 What is the value of episodic memory here?
+### What is the value of episodic memory here?
 
 After each task is handled, the system writes one episode summary.
 This allows us to answer later questions such as:
@@ -232,18 +232,18 @@ This is very useful for review and explanation.
 
 ---
 
-## 3. How else can this system be extended?
+## How else can this system be extended?
 
-### 3.1 Add “confidence” and “update time” to long-term memory
+### Add “confidence” and “update time” to long-term memory
 
 This helps prevent very old or low-confidence information from continuing to affect answers.
 
-### 3.2 Add retrieval to episodic memory
+### Add retrieval to episodic memory
 
 For example, retrieve past experiences by topic and keywords,
 so that complex questions can be answered with historical reference.
 
-### 3.3 Version procedural memory
+### Version procedural memory
 
 When the workflow changes, you can track:
 
@@ -253,20 +253,20 @@ This is important for auditing and replay.
 
 ---
 
-## 4. The easiest pitfalls to fall into in real practice
+## The easiest pitfalls to fall into in real practice
 
-### 4.1 Writing everything into long-term memory
+### Writing everything into long-term memory
 
 The result will be:
 
 - More and more retrieval noise
 
-### 4.2 No “write threshold”
+### No “write threshold”
 
 For example, if the user casually says something once and it gets written into long-term memory,
 the system can easily learn the wrong preference.
 
-### 4.3 Storing memory without letting it affect decisions
+### Storing memory without letting it affect decisions
 
 In that case, the system may look like it “has memory,”
 but in reality the answers do not change at all.

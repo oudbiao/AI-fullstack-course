@@ -1,11 +1,11 @@
 ---
-title: "3.1 学習ガイド：Transformer 深掘り、この章では何を学ぶのか"
+title: "7.3.1 学習ガイド：Transformer 深掘り、この章では何を学ぶのか"
 sidebar_position: 0
 description: "まずは Transformer 深掘り章の学習地図を作ろう。Attention、構造の変種、高効率計算、スケーリングがどう現代の大規模モデルを支えているかをつかむ。"
 keywords: [Transformerガイド, 注意力机制, 大模型架构, 高效注意力]
 ---
 
-# 学習ガイド：Transformer 深掘り、この章では何を学ぶのか
+# 7.3.1 学習ガイド：Transformer 深掘り、この章では何を学ぶのか
 
 ## 本章の位置づけ
 

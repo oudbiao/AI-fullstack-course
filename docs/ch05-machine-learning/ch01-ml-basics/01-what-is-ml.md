@@ -1,11 +1,11 @@
 ---
-title: "1.3 What Is Machine Learning"
+title: "5.1.3 What Is Machine Learning"
 sidebar_position: 2
 description: "Understand the definition and categories of machine learning, distinguish supervised learning, unsupervised learning, and reinforcement learning, and master the ML workflow"
 keywords: [machine learning, supervised learning, unsupervised learning, reinforcement learning, AI, workflow]
 ---
 
-# What Is Machine Learning
+# 5.1.3 What Is Machine Learning
 
 ![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.png)
 
@@ -40,13 +40,13 @@ Use this comic as a quick entry checklist: if rules can be written clearly, norm
 
 ---
 
-## 1. What Exactly Is Machine Learning?
+## What Exactly Is Machine Learning?
 
-### 1.1 One-Sentence Definition
+### One-Sentence Definition
 
 **Machine learning = letting a computer automatically discover patterns from data instead of having humans hand-code rules.**
 
-### 1.2 Traditional Programming vs. Machine Learning
+### Traditional Programming vs. Machine Learning
 
 ```mermaid
 flowchart LR
@@ -73,7 +73,7 @@ flowchart LR
 | Suitable for | Clear rules (such as calculating taxes) | Rules that are hard to describe (such as recognizing cats) |
 | How it is built | Humans write if-else logic | Algorithms learn automatically from data |
 
-### 1.3 Why Do We Need Machine Learning?
+### Why Do We Need Machine Learning?
 
 For some tasks, humans **cannot clearly describe the rules**:
 
@@ -100,7 +100,7 @@ Machine learning is suitable for scenarios such as:
 - Very large datasets that humans cannot analyze manually
 - Situations where personalized results are needed
 
-### 1.4 When Learning Machine Learning for the First Time, What Should You Focus on Most?
+### When Learning Machine Learning for the First Time, What Should You Focus on Most?
 
 The first thing to grasp is not “how many kinds of models there are,” but this sentence:
 
@@ -112,7 +112,7 @@ Once you understand that, many questions become easier to judge:
 - When to let a model learn
 - Why data quality directly determines the upper limit of a model’s performance
 
-### 1.5 Terms Beginners Should Decode Early
+### Terms Beginners Should Decode Early
 
 | Term | What it is | Why it matters in this chapter |
 |---|---|---|
@@ -128,7 +128,7 @@ For beginners, the most important distinction is `algorithm` vs. `model`: the al
 
 ---
 
-## 2. The Three Major Categories of Machine Learning
+## The Three Major Categories of Machine Learning
 
 ```mermaid
 flowchart TD
@@ -151,7 +151,7 @@ flowchart TD
     style RL fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.1 Supervised Learning — With a "Correct Answer"
+### Supervised Learning — With a "Correct Answer"
 
 **Core idea**: Give the model lots of input-output pairs and let it learn the mapping relationship.
 
@@ -171,7 +171,7 @@ flowchart TD
 
 **Key point**: Training data must have **labels** (correct answers). The model’s goal is to learn to predict y from X.
 
-### 2.1.1 How Can You Quickly Tell Whether a Problem Is Supervised Learning?
+### How Can You Quickly Tell Whether a Problem Is Supervised Learning?
 
 Ask yourself directly:
 
@@ -187,7 +187,7 @@ That will naturally split it into:
 - Classification
 - Regression
 
-### 2.2 Unsupervised Learning — No "Correct Answer"
+### Unsupervised Learning — No "Correct Answer"
 
 **Core idea**: There are only input data, no labels. The model discovers the structure and patterns in the data by itself.
 
@@ -207,7 +207,7 @@ That will naturally split it into:
 # → The model automatically splits them into groups like "high-value customers" and "low-frequency customers"
 ```
 
-### 2.2.1 The Most Easily Misunderstood Part of Unsupervised Learning
+### The Most Easily Misunderstood Part of Unsupervised Learning
 
 Many beginners think unsupervised learning means “the machine can find the true answer by itself.”
 A more accurate way to say it is:
@@ -217,7 +217,7 @@ A more accurate way to say it is:
 
 So in unsupervised learning, “explaining the result” is often just as important as “getting the result.”
 
-### 2.3 Reinforcement Learning — Learning Through Trial and Error
+### Reinforcement Learning — Learning Through Trial and Error
 
 **Core idea**: An agent takes actions in an environment and adjusts its strategy based on rewards and penalties.
 
@@ -241,7 +241,7 @@ So in unsupervised learning, “explaining the result” is often just as import
 At this stage, we mainly learn **supervised learning** and **unsupervised learning**. Reinforcement learning will appear later in the agent systems section.
 :::
 
-### 2.4 Comparison of the Three Learning Types
+### Comparison of the Three Learning Types
 
 | | Supervised Learning | Unsupervised Learning | Reinforcement Learning |
 |---|---------|----------|---------|
@@ -252,9 +252,9 @@ At this stage, we mainly learn **supervised learning** and **unsupervised learni
 
 ---
 
-## 3. The Machine Learning Workflow
+## The Machine Learning Workflow
 
-### 3.1 Complete Workflow
+### Complete Workflow
 
 ```mermaid
 flowchart TD
@@ -273,7 +273,7 @@ flowchart TD
     style I fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.1.1 Read the Workflow as Plain English First
+### Read the Workflow as Plain English First
 
 This workflow can be translated into a simpler sentence for beginners:
 
@@ -281,7 +281,7 @@ This workflow can be translated into a simpler sentence for beginners:
 
 This sentence is actually the underlying logic of the entire main line in Stage 5.
 
-### 3.2 Training Set vs. Test Set
+### Training Set vs. Test Set
 
 This is one of the most important concepts in ML: **you cannot evaluate a model using the training data.**
 
@@ -330,7 +330,7 @@ If you train and evaluate on the same data, the model may get a perfect score by
 
 When reading this diagram, first look at the three boundaries: the training set is used for learning, the validation set is used to choose a solution, and the test set is only used for final verification. If any preprocessing step sees test-set information too early—for example, standardizing on the full dataset first or selecting features using the full dataset—the model score may look artificially high.
 
-### 3.2.1 A Common Beginner Mistake: Confusing "Learning" with "Memorizing"
+### A Common Beginner Mistake: Confusing "Learning" with "Memorizing"
 
 One especially important boundary in machine learning is:
 
@@ -341,7 +341,7 @@ So from this section onward, you should build a habit:
 
 - When you see a high score, first ask whether it is a training-set score or a test-set score
 
-### 3.3 A Minimal Complete Example
+### A Minimal Complete Example
 
 Before reading the code, look at the whole loop first:
 
@@ -405,7 +405,7 @@ Read the code with this mapping in mind:
 
 ---
 
-## 4. Key Terms Quick Reference
+## Key Terms Quick Reference
 
 | Term | English | Meaning |
 |------|------|------|

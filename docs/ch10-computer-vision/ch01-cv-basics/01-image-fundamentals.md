@@ -1,11 +1,11 @@
 ---
-title: "1.2 Digital Image Fundamentals"
+title: "10.1.2 Digital Image Fundamentals"
 sidebar_position: 1
 description: "Starting from pixels, channels, color spaces, and image formats, understand how computers see images in the most intuitive way."
 keywords: [image, pixel, RGB, HSV, channel, image format, computer vision]
 ---
 
-# Digital Image Fundamentals
+# 10.1.2 Digital Image Fundamentals
 
 ![Pixel grid and RGB channel diagram](/img/course/cv-pixel-rgb-grid-en.png)
 
@@ -32,7 +32,7 @@ So this section is not drifting away from the model storyline. Instead, it is fi
 - What an image actually is inside a computer
 - Why concepts like channels, color spaces, and image size keep showing up later
 
-## 1. What is a picture in the eyes of a computer?
+## What is a picture in the eyes of a computer?
 
 When people see a photo of a cat, they think, “This is a cat.”
 What the computer actually sees is not “a cat,” but a bunch of numbers.
@@ -47,7 +47,7 @@ You can think of it as a “grid of lights”:
 - Each pixel stores a brightness or color value
 - All pixels together make up the whole image
 
-### 1.1 What should you focus on first when learning vision for the first time?
+### What should you focus on first when learning vision for the first time?
 
 What you should focus on first is not “what is in this image,” but:
 
@@ -61,9 +61,9 @@ Once this idea is solid, many operations become much easier to understand:
 
 ---
 
-## 2. Pixels: the smallest unit of an image
+## Pixels: the smallest unit of an image
 
-### 2.1 Grayscale images
+### Grayscale images
 
 In a grayscale image, each pixel needs only one number to represent brightness:
 
@@ -94,7 +94,7 @@ Here, `shape` is `(5, 5)`, which means:
 
 In other words, this image has only 25 pixels.
 
-### 2.2 Color images
+### Color images
 
 Color images are usually represented with **RGB**:
 
@@ -123,7 +123,7 @@ Here, `shape = (2, 2, 3)`, which means:
 - Width 2
 - 3 channels per pixel
 
-### 2.3 The most useful habit to build first in this section
+### The most useful habit to build first in this section
 
 When you see an image array, ask these three questions:
 
@@ -141,7 +141,7 @@ Read this figure as `height -> width -> channel`: grayscale images are usually a
 
 ---
 
-## 3. What are channels?
+## What are channels?
 
 A channel can be understood as a “different color layer” of the same image.
 
@@ -174,7 +174,7 @@ For example:
 - Enhance a specific color only
 - Convert to grayscale first, then do edge detection
 
-### 3.1 What is most important to remember about channels is not the definition, but that they can be processed separately
+### What is most important to remember about channels is not the definition, but that they can be processed separately
 
 In other words:
 
@@ -189,7 +189,7 @@ This is important because many vision operations later are essentially doing:
 
 ---
 
-## 4. Why are images often stored as `uint8`?
+## Why are images often stored as `uint8`?
 
 Most image pixel values are in the range `0~255`, so `uint8` is commonly used for storage:
 
@@ -220,7 +220,7 @@ print(pixel_normalized)
 Because neural networks prefer data with stable numeric scales.
 It is like cooking: each seasoning needs a reasonable amount, and you cannot have one measured in “grams” while another is measured in “barrels.”
 
-### 4.1 Why is this directly related to the training main track in Station 6?
+### Why is this directly related to the training main track in Station 6?
 
 Because in Station 6, you already saw that:
 
@@ -233,9 +233,9 @@ So image normalization is not a small trick in vision. It is:
 
 ---
 
-## 5. What is the difference between RGB and HSV?
+## What is the difference between RGB and HSV?
 
-### 5.1 RGB: describing colors by “how much red, green, and blue”
+### RGB: describing colors by “how much red, green, and blue”
 
 RGB is very suitable for storing and displaying images.
 But it does not match how humans usually describe colors.
@@ -252,7 +252,7 @@ At this point, **HSV** is often more intuitive:
 - `S` = Saturation
 - `V` = Value
 
-### 5.2 A small example you can run directly
+### A small example you can run directly
 
 ```python
 import colorsys
@@ -278,7 +278,7 @@ For example, if you want to “find reddish regions in an image,” HSV is often
 
 ---
 
-## 6. Convert a color image to grayscale
+## Convert a color image to grayscale
 
 A grayscale image is not simply the average of the three channels.
 Usually, it is weighted according to how sensitive the human eye is to different colors.
@@ -306,7 +306,7 @@ print(gray.astype(np.uint8))
 
 ---
 
-## 7. How should you choose an image format?
+## How should you choose an image format?
 
 This is very practical and engineering-oriented knowledge.
 
@@ -325,7 +325,7 @@ This is very practical and engineering-oriented knowledge.
 
 ---
 
-## 8. Why do vision tasks always mention “resolution”?
+## Why do vision tasks always mention “resolution”?
 
 Resolution is the size of an image, such as:
 
@@ -347,7 +347,7 @@ That is why many deep learning models first resize images to a fixed size.
 
 ---
 
-## 9. A small experiment: count image brightness
+## A small experiment: count image brightness
 
 The following example can help you quickly build the feeling that “an image is just a numeric matrix.”
 
@@ -373,14 +373,14 @@ This is very common in vision tasks, for example:
 
 ---
 
-## 10. Common beginner mistakes
+## Common beginner mistakes
 
-### 1. Thinking an image is an “object,” not an “array”
+### Thinking an image is an “object,” not an “array”
 
 To humans, it is an object; to a computer, it starts as an array.
 Once you accept this, many vision algorithms become much easier to understand.
 
-### 2. Confusing image shape
+### Confusing image shape
 
 Different libraries may use different conventions:
 
@@ -389,7 +389,7 @@ Different libraries may use different conventions:
 
 This is something you must be especially careful about when writing models later.
 
-### 3. Thinking RGB and HSV are just different names
+### Thinking RGB and HSV are just different names
 
 They are not.
 They are different ways of representing color, and they are suitable for different processing tasks.

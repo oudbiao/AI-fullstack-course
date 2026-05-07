@@ -1,10 +1,10 @@
 ---
-title: "1.2 例外処理"
+title: "2.2.2 例外処理"
 sidebar_position: 2
 description: "Python の例外処理メカニズムを身につけて、プログラムをより堅牢にしよう"
 ---
 
-# 例外処理
+# 2.2.2 例外処理
 
 ![例外処理の実行フロー図](/img/course/ch02-exception-flow-ja.png)
 

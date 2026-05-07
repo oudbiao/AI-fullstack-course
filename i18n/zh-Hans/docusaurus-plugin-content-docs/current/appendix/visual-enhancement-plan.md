@@ -1,10 +1,10 @@
 ---
-title: "课程视觉增强规划"
+title: "A.4 课程视觉增强规划"
 description: "按展示章节梳理哪些页面适合继续增加图片、示意图、流程图和代码可视化，帮助新人更快建立直觉。"
 keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid, 图像生成]
 ---
 
-# 课程视觉增强规划
+# A.4 课程视觉增强规划
 
 ![课程图片资产规划看板](/img/course/appendix-visual-enhancement-kanban.png)
 

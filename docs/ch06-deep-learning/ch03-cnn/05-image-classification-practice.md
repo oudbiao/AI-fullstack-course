@@ -1,11 +1,11 @@
 ---
-title: "3.6 CNN Practice: Image Classification"
+title: "6.3.6 CNN Practice: Image Classification"
 sidebar_position: 5
 description: "Walk through a complete small CNN image classification project from data generation, network building, training, validation, to prediction."
 keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic dataset]
 ---
 
-# CNN Practice: Image Classification
+# 6.3.6 CNN Practice: Image Classification
 
 :::tip Section Overview
 After we have finished convolution, CNN architectures, classic models, and transfer learning, the most important thing is:
@@ -32,7 +32,7 @@ Read the picture before running the code: first confirm the synthetic images and
 
 ---
 
-## 1. What is the minimal closed loop for an image classification project?
+## What is the minimal closed loop for an image classification project?
 
 An image classification project needs at least these parts:
 
@@ -49,9 +49,9 @@ The key point of this lesson is to walk through this chain completely.
 
 ---
 
-## 2. First, prepare data that can run directly
+## First, prepare data that can run directly
 
-### 2.1 Why keep using synthetic images?
+### Why keep using synthetic images?
 
 Because:
 
@@ -59,7 +59,7 @@ Because:
 - The class patterns are very clear
 - It is ideal for teaching
 
-### 2.2 Create three small image classes
+### Create three small image classes
 
 We create 3 classes:
 
@@ -94,7 +94,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.3 This dataset is simple, but what can it teach you?
+### This dataset is simple, but what can it teach you?
 
 It can teach you enough to understand:
 
@@ -106,7 +106,7 @@ That makes it much better for beginners than throwing a large dataset at you rig
 
 ---
 
-## 3. Turn the data into a training set and a validation set
+## Turn the data into a training set and a validation set
 
 ```python
 import numpy as np
@@ -141,7 +141,7 @@ print("train:", X_train.shape, y_train.shape)
 print("val  :", X_val.shape, y_val.shape)
 ```
 
-### 3.2 Why do we use `unsqueeze(1)`?
+### Why do we use `unsqueeze(1)`?
 
 Because PyTorch convolution inputs need the shape:
 
@@ -151,7 +151,7 @@ Here we are using grayscale images, so the channel count is 1.
 
 ---
 
-## 4. Define a minimal CNN classifier
+## Define a minimal CNN classifier
 
 ```python
 import torch
@@ -186,7 +186,7 @@ sample_out = model(X_train[:4])
 print("sample output shape:", sample_out.shape)
 ```
 
-### 4.2 Why is it `16 * 3 * 3` here?
+### Why is it `16 * 3 * 3` here?
 
 Because the original image size is `12x12`:
 
@@ -201,7 +201,7 @@ This is the most common shape calculation problem in CNN practice.
 
 ---
 
-## 5. Complete training loop
+## Complete training loop
 
 ```python
 import torch
@@ -239,7 +239,7 @@ for epoch in range(100):
         )
 ```
 
-### 5.2 What should you pay the most attention to in this code?
+### What should you pay the most attention to in this code?
 
 When learning image classification, the four most important things to watch are:
 
@@ -256,9 +256,9 @@ Because they tell you:
 
 ---
 
-## 6. Make a real prediction
+## Make a real prediction
 
-### 6.1 Look at a single sample
+### Look at a single sample
 
 ```python
 import matplotlib.pyplot as plt
@@ -275,7 +275,7 @@ plt.axis("off")
 plt.show()
 ```
 
-### 6.2 Why is this step important?
+### Why is this step important?
 
 Because often:
 
@@ -286,9 +286,9 @@ Looking at a few prediction examples yourself helps you build intuition much fas
 
 ---
 
-## 7. How do you tell whether the model has really learned?
+## How do you tell whether the model has really learned?
 
-### 7.1 A few typical signs
+### A few typical signs
 
 If the model has really learned:
 
@@ -297,7 +297,7 @@ If the model has really learned:
 - train / val acc will improve
 - single-sample predictions will become more stable
 
-### 7.2 A few typical issues
+### A few typical issues
 
 #### Both the training set and validation set are poor
 
@@ -325,7 +325,7 @@ Possible reasons:
 
 ---
 
-## 8. What else is needed in a real image classification project?
+## What else is needed in a real image classification project?
 
 We intentionally keep this teaching example very small.
 In real projects, you usually still need to add:
@@ -343,17 +343,17 @@ In other words:
 
 ---
 
-## 9. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 9.1 Copying the model without checking data shape
+### Copying the model without checking data shape
 
 In image tasks, shape is almost always the first thing to check.
 
-### 9.2 Only watching train loss
+### Only watching train loss
 
 Validation metrics are equally important.
 
-### 9.3 Thinking the task is done once the model runs
+### Thinking the task is done once the model runs
 
 In a real project, success is not just making it run; you also need to explain the results.
 

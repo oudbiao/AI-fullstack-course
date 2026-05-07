@@ -1,10 +1,10 @@
 ---
-title: "2.1 NumPy 概要"
+title: "3.2.1 NumPy 概要"
 sidebar_position: 2
 description: "NumPy を知ろう——Python 科学計算の土台"
 ---
 
-# NumPy 概要
+# 3.2.1 NumPy 概要
 
 ## 学習目標
 

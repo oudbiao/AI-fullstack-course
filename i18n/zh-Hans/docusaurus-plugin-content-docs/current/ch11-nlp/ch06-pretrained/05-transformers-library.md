@@ -1,11 +1,11 @@
 ---
-title: "6.6 Transformers 库实战"
+title: "11.6.6 Transformers 库实战"
 sidebar_position: 20
 description: "从 tokenizer、config、model 到最小 pipeline，真正学会怎样离线使用 HuggingFace Transformers 的核心接口。"
 keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 ---
 
-# Transformers 库实战
+# 11.6.6 Transformers 库实战
 
 ![Transformers 库调用链图](/img/course/ch11-transformers-library-call-chain-map.png)
 
@@ -33,11 +33,11 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ## 一、先把库里的几个主角分清楚
 
-### 1.1 `Tokenizer`
+### `Tokenizer`
 
 负责把文本变成模型能吃的数字序列。
 
-### 1.2 `Config`
+### `Config`
 
 负责描述模型结构参数，比如：
 
@@ -45,11 +45,11 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 - 层数
 - 头数
 
-### 1.3 `Model`
+### `Model`
 
 真正负责前向计算。
 
-### 1.4 `Pipeline`
+### `Pipeline`
 
 是更高层的封装，帮你把：
 
@@ -69,14 +69,14 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 因为它有两层世界：
 
-### 2.1 概念层
+### 概念层
 
 你知道：
 
 - BERT 是 encoder-only
 - GPT 是 decoder-only
 
-### 2.2 工具层
+### 工具层
 
 你又会遇到：
 
@@ -96,12 +96,12 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ## 三、先离线构造一个最小 tokenizer
 
-### 3.1 为什么不直接下载现成模型？
+### 为什么不直接下载现成模型？
 
 因为教程要尽量保证你在没有外网时也能跑通。
 所以这里我们手工准备一个超小 `vocab.txt`，让你真正理解 tokenizer 在做什么。
 
-### 3.2 可运行示例
+### 可运行示例
 
 ```python
 from pathlib import Path
@@ -123,7 +123,7 @@ print(encoded)
 print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
 
-### 3.3 这段代码在教你什么？
+### 这段代码在教你什么？
 
 它在教你：
 
@@ -135,13 +135,13 @@ print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 
 ## 四、再离线构造一个最小 BERT 模型
 
-### 4.1 为什么用随机初始化模型？
+### 为什么用随机初始化模型？
 
 因为我们现在的目标不是追求效果，而是：
 
 > 真正看懂 `transformers` 库里 model 对象是怎么接输入、吐输出的。
 
-### 4.2 可运行示例
+### 可运行示例
 
 ```python
 import torch
@@ -166,7 +166,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 4.3 你真正该看懂什么？
+### 你真正该看懂什么？
 
 - `input_ids` 是 token 编号
 - `attention_mask` 告诉模型哪些位置有效
@@ -179,7 +179,7 @@ print("pooler_output shape    :", outputs.pooler_output.shape)
 
 ## 五、把 tokenizer 和 model 串起来
 
-### 5.1 可运行示例
+### 可运行示例
 
 ```python
 from pathlib import Path
@@ -213,7 +213,7 @@ print("attention_mask shape   :", batch["attention_mask"].shape)
 print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
 
-### 5.2 这就是最基础的真实调用链
+### 这就是最基础的真实调用链
 
 真正项目里，最常见的底层流程就是：
 
@@ -228,7 +228,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 
 ## 六、`Auto*` 系列接口是干什么的？
 
-### 6.1 为什么库里这么多 `AutoModel`？
+### 为什么库里这么多 `AutoModel`？
 
 因为 `transformers` 想让你不用手写一堆模型类型判断。
 
@@ -243,7 +243,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 
 > 给一个模型名字或配置，就自动选合适的类。
 
-### 6.2 一个离线的 `AutoModel.from_config` 示例
+### 一个离线的 `AutoModel.from_config` 示例
 
 ```python
 from transformers import AutoModel, BertConfig
@@ -269,7 +269,7 @@ print(type(model))
 
 ## 七、`pipeline` 到底值不值得学？
 
-### 7.1 值得，但你要知道它适合什么阶段
+### 值得，但你要知道它适合什么阶段
 
 `pipeline` 的优点：
 
@@ -283,7 +283,7 @@ print(type(model))
 - 快速验证
 - 小实验
 
-### 7.2 但工程里不能只靠它
+### 但工程里不能只靠它
 
 因为真实项目往往还要控制：
 
@@ -320,18 +320,18 @@ print(type(model))
 
 ## 九、初学者最常踩的坑
 
-### 9.1 只会 `pipeline`，不会底层调用
+### 只会 `pipeline`，不会底层调用
 
 这样一到工程场景就容易卡住。
 
-### 9.2 不理解 tokenizer 输出字段
+### 不理解 tokenizer 输出字段
 
 至少要看懂：
 
 - `input_ids`
 - `attention_mask`
 
-### 9.3 把“模型概念”和“库接口”混在一起
+### 把“模型概念”和“库接口”混在一起
 
 你要能分清：
 

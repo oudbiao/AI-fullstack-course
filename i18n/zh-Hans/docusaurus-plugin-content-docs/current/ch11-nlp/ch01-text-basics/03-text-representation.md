@@ -1,11 +1,11 @@
 ---
-title: "1.4 文本表示方法"
+title: "11.1.4 文本表示方法"
 sidebar_position: 3
 description: "从 one-hot、词袋、TF-IDF 到相似度计算，理解文本为什么必须先数值化，以及不同表示方式各自适合什么任务。"
 keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity, embedding]
 ---
 
-# 文本表示方法
+# 11.1.4 文本表示方法
 
 ![BoW 与 TF-IDF 文本表示图](/img/course/bow-tfidf-representation.png)
 
@@ -45,7 +45,7 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 - 文本表示
 - 或向量化
 
-### 1.1 第一次学 NLP 表示，最该先抓住什么？
+### 第一次学 NLP 表示，最该先抓住什么？
 
 最该先抓住的不是 `one-hot / BoW / TF-IDF` 名字，而是这句：
 
@@ -85,7 +85,7 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 
 例如 `love` 和 `like` 在 one-hot 空间里并不会更接近。
 
-### 2.1 one-hot 最值得先记住的，不是“简单”，而是“只会区分身份”
+### one-hot 最值得先记住的，不是“简单”，而是“只会区分身份”
 
 也就是说：
 
@@ -153,7 +153,7 @@ for doc, tokens in zip(docs, tokenized_docs):
 
 在词袋表示里可能非常接近，但含义完全不同。
 
-### 3.1 为什么词袋虽然“粗”，却依然很重要？
+### 为什么词袋虽然“粗”，却依然很重要？
 
 因为它第一次帮你建立了一件很重要的感觉：
 
@@ -231,7 +231,7 @@ for doc, tokens in zip(docs, tokenized_docs):
 它会压低“到处都常见”的词，
 放大“在当前文本里特别有代表性”的词。
 
-### 5.1 第一次学 TF-IDF，最值得先问什么？
+### 第一次学 TF-IDF，最值得先问什么？
 
 最值得先问的是：
 
@@ -321,7 +321,7 @@ print("句子1 vs 句子3:", round(cosine_similarity(vec1, vec3), 4))
 - 语义表达能力有限
 - 对上下文不敏感
 
-### 7.1 为什么这一节最后一定要把 embedding 拉进来？
+### 为什么这一节最后一定要把 embedding 拉进来？
 
 因为这正是 11 自然语言处理（方向选修）主线真正开始抬升的地方：
 
@@ -348,15 +348,15 @@ embedding 的核心目标是：
 
 ## 八、最常见误区
 
-### 1. 误区一：one-hot 太简单，所以没必要学
+### 误区一：one-hot 太简单，所以没必要学
 
 它很重要，因为它帮你理解“文本必须先数值化”这件事。
 
-### 2. 误区二：TF-IDF 一定过时
+### 误区二：TF-IDF 一定过时
 
 在很多传统文本分类和检索基线里，它依然很有价值。
 
-### 3. 误区三：有了向量就等于理解语义
+### 误区三：有了向量就等于理解语义
 
 向量化只是开始。
 后面还要看：

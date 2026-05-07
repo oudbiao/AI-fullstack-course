@@ -1,10 +1,10 @@
 ---
-title: "1.4 项目：AI API 快速体验"
+title: "2.3.4 项目：AI API 快速体验"
 sidebar_position: 4
 description: "通过调用 AI API 体验人工智能的能力"
 ---
 
-# 项目：AI API 快速体验
+# 2.3.4 项目：AI API 快速体验
 
 ![AI API 请求响应链路图](/img/course/ch02-ai-api-request-response.png)
 

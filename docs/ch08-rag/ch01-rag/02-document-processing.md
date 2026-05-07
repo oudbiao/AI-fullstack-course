@@ -1,11 +1,11 @@
 ---
-title: "1.3 Document Processing and Vectorization"
+title: "8.1.3 Document Processing and Vectorization"
 sidebar_position: 2
 description: "From cleaning, chunking, overlap, and metadata to simple vectorization, understand why the RAG preprocessing pipeline determines the performance ceiling."
 keywords: [chunking, document chunking, vectorization, metadata, RAG preprocessing]
 ---
 
-# Document Processing and Vectorization
+# 8.1.3 Document Processing and Vectorization
 
 ![Document parsing and vectorization flowchart](/img/course/document-processing-vectorization-en.png)
 
@@ -20,7 +20,7 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. Why not just “drop the document into RAG”?
+## Why not just “drop the document into RAG”?
 
 Because real documents are often long, messy, and mixed together.
 
@@ -45,9 +45,9 @@ So document processing is really doing one thing:
 
 ---
 
-## 2. The 4 common steps in document processing
+## The 4 common steps in document processing
 
-### 1. Cleaning
+### Cleaning
 
 Remove irrelevant noise, such as:
 
@@ -55,11 +55,11 @@ Remove irrelevant noise, such as:
 - Page numbers
 - Repeated headings
 
-### 2. Chunking
+### Chunking
 
 Split long text into small pieces suitable for retrieval.
 
-### 3. Adding metadata
+### Adding metadata
 
 Attach information to each chunk, such as:
 
@@ -68,7 +68,7 @@ Attach information to each chunk, such as:
 - Page number
 - Tags
 
-### 4. Vectorization
+### Vectorization
 
 Turn text chunks into vectors that can be used for similarity retrieval.
 
@@ -78,7 +78,7 @@ OCR, short for Optical Character Recognition, is the step that turns scanned pag
 
 ---
 
-## 3. Why is chunking so important?
+## Why is chunking so important?
 
 Chunk size is a lot like deciding how much content to write on one flashcard when taking notes.
 
@@ -99,7 +99,7 @@ Start by looking at the central idea of “evidence completeness”: chunks that
 
 ---
 
-## 4. A minimal runnable chunking example
+## A minimal runnable chunking example
 
 ```python
 import re
@@ -131,7 +131,7 @@ But more often, we combine several sentences into one chunk.
 
 ---
 
-## 5. Chunking with overlap
+## Chunking with overlap
 
 Why do many RAG systems use chunk overlap?
 
@@ -160,7 +160,7 @@ for i, chunk in enumerate(chunks):
 
 ---
 
-## 6. Why is metadata important?
+## Why is metadata important?
 
 Many beginners focus only on the text content and ignore metadata.
 But metadata often directly affects retrieval and display quality.
@@ -202,7 +202,7 @@ The value of metadata is that it:
 
 ---
 
-## 7. If your goal is a “knowledge-base-driven courseware generation assistant,” you need to think one step further about chunking
+## If your goal is a “knowledge-base-driven courseware generation assistant,” you need to think one step further about chunking
 
 This kind of project is very different from a normal FAQ Q&A system:
 
@@ -231,7 +231,7 @@ This table is important because it helps beginners realize:
 Courseware generation is most likely to fail when it “finds the text but does not know where to place it.” When looking at the diagram, focus on the `topic`, `content_type`, `source_origin`, and `page_or_slide` fields. They determine whether the system can reliably assemble knowledge points, examples, and exercises later.
 :::
 
-## 8. A knowledge chunk example that looks more like a courseware project
+## A knowledge chunk example that looks more like a courseware project
 
 ```python
 courseware_chunks = [
@@ -269,7 +269,7 @@ The most important thing beginners should notice here is:
 
 ---
 
-## 9. What is vectorization actually doing?
+## What is vectorization actually doing?
 
 The core idea of vectorization is to map text chunks into a “semantic space.”
 
@@ -327,7 +327,7 @@ This is the most basic version of retrieval.
 
 ---
 
-## 10. Real projects are usually more complex
+## Real projects are usually more complex
 
 In real RAG systems, vectorization usually uses a dedicated embedding model instead of simple word frequencies.
 
@@ -342,25 +342,25 @@ At its core, it is still doing similarity retrieval, just at a larger scale and 
 
 ---
 
-## 11. The most common problem areas in document processing
+## The most common problem areas in document processing
 
-### 1. Chunk too large
+### Chunk too large
 
 Retrieval becomes less precise and wastes context.
 
-### 2. Chunk too small
+### Chunk too small
 
 The information is incomplete, and the model only sees fragmented pieces.
 
-### 3. Over-cleaning
+### Over-cleaning
 
 You also remove valuable information such as headings, hierarchy, and table structure.
 
-### 4. No metadata
+### No metadata
 
 Later it becomes hard to explain “where the answer came from.”
 
-### 5. Chunking only by length, not by task
+### Chunking only by length, not by task
 
 For courseware generation projects, this can cause:
 

@@ -1,11 +1,11 @@
 ---
-title: "6.8 Low-Code Platforms [Optional]"
+title: "9.6.8 Low-Code Platforms [Optional]"
 sidebar_position: 36
 description: "From visual nodes and drag-and-drop workflows to team collaboration and long-term maintenance, understand what low-code platforms are really good at—and what they are not—in Agent systems."
 keywords: [low-code, visual workflow, drag-and-drop, no-code, agent builder]
 ---
 
-# Low-Code Platforms [Optional]
+# 9.6.8 Low-Code Platforms [Optional]
 
 :::tip Section Overview
 Not every team wants to:
@@ -30,9 +30,9 @@ That is the core value of low-code platforms.
 
 ---
 
-## 1. What Is the Most Core Value of a Low-Code Platform?
+## What Is the Most Core Value of a Low-Code Platform?
 
-### 1.1 It Is Not Meant to “Replace Engineers”
+### It Is Not Meant to “Replace Engineers”
 
 More precisely, it is usually doing this:
 
@@ -48,7 +48,7 @@ But rather:
 
 > “Process expression and collaboration become lighter.”
 
-### 1.2 An Analogy
+### An Analogy
 
 A low-code platform is a bit like:
 
@@ -62,7 +62,7 @@ A whiteboard cannot replace every engineering detail, of course, but it is very 
 
 ---
 
-## 2. Why Are Agent Scenarios Especially Likely to Use Low-Code?
+## Why Are Agent Scenarios Especially Likely to Use Low-Code?
 
 Because many Agent systems naturally look like:
 
@@ -85,7 +85,7 @@ In other words, Agent systems are naturally easy to express as workflows.
 
 ---
 
-## 3. A Minimal Workflow Example
+## A Minimal Workflow Example
 
 ```python
 workflow = {
@@ -100,7 +100,7 @@ workflow = {
 print(workflow)
 ```
 
-### 3.2 What Does This Example Really Show?
+### What Does This Example Really Show?
 
 It shows the core of low-code thinking:
 
@@ -110,9 +110,9 @@ That is also why low-code platforms are often especially good for prototyping.
 
 ---
 
-## 4. What Types of Tasks Are Low-Code Platforms Best Suited For?
+## What Types of Tasks Are Low-Code Platforms Best Suited For?
 
-### 4.1 Especially Suitable For
+### Especially Suitable For
 
 - FAQ workflows
 - approval flows
@@ -125,7 +125,7 @@ These usually have the following characteristics:
 - well-defined node responsibilities
 - frequent changes
 
-### 4.2 Not Always Suitable For
+### Not Always Suitable For
 
 If your system needs:
 
@@ -137,13 +137,13 @@ then a low-code platform may eventually become insufficient.
 
 ---
 
-## 5. Where Is the Biggest Advantage of Low-Code Platforms?
+## Where Is the Biggest Advantage of Low-Code Platforms?
 
-### 5.1 Visual Communication
+### Visual Communication
 
 In many cases, being able to “let others understand the flow” is already a huge benefit.
 
-### 5.2 Prototype Speed
+### Prototype Speed
 
 It is especially valuable in these stages:
 
@@ -151,20 +151,20 @@ It is especially valuable in these stages:
 - solution testing
 - cross-role collaboration
 
-### 5.3 Lower Cost of Workflow Changes
+### Lower Cost of Workflow Changes
 
 If business logic changes frequently,
 a low-code workflow is often more flexible than hard-coding certain processes.
 
 ---
 
-## 6. But Why Are Low-Code Platforms Often Overestimated?
+## But Why Are Low-Code Platforms Often Overestimated?
 
-### 6.1 They Do Not Automatically Eliminate Complexity
+### They Do Not Automatically Eliminate Complexity
 
 Once a workflow truly becomes complex, the visual diagram can also become messy.
 
-### 6.2 Many “Low-Code Systems” Still End Up Returning to Code
+### Many “Low-Code Systems” Still End Up Returning to Code
 
 For example:
 
@@ -180,13 +180,13 @@ Rather than the final form of every system.
 
 ---
 
-## 7. A Very Important Question: Who Is Using the Platform?
+## A Very Important Question: Who Is Using the Platform?
 
-### 7.1 If It Is Mainly Used by the Engineering Team
+### If It Is Mainly Used by the Engineering Team
 
 Often, using a code-based framework directly is perfectly fine.
 
-### 7.2 If You Want These Roles to Participate Too
+### If You Want These Roles to Participate Too
 
 - product
 - operations
@@ -201,7 +201,7 @@ So low-code platforms are often not just a technical decision, but also a collab
 
 ---
 
-## 8. When Should You Move Back from Low-Code to Code?
+## When Should You Move Back from Low-Code to Code?
 
 This usually happens at these moments:
 
@@ -224,17 +224,17 @@ and not necessarily for:
 
 ---
 
-## 9. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 9.1 Thinking Low-Code Looks Fast, So It Should Be Used for Everything
+### Thinking Low-Code Looks Fast, So It Should Be Used for Everything
 
 This usually hits a wall once complexity grows.
 
-### 9.2 Only Looking at Build Speed, Not Long-Term Maintenance
+### Only Looking at Build Speed, Not Long-Term Maintenance
 
 This is one of the easiest places to overestimate low-code.
 
-### 9.3 Assuming Low-Code Means You Don’t Need to Understand the System
+### Assuming Low-Code Means You Don’t Need to Understand the System
 
 In fact, the opposite is true.
 If you do not understand the system principles, you are only hiding the problem inside a visual interface.

@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-study Guide: What Is This Evaluation Chapter Really About?"
+title: "5.4.1 Pre-study Guide: What Is This Evaluation Chapter Really About?"
 sidebar_position: 9
 description: "First build a learning map for the model evaluation chapter: how metrics, cross-validation, bias-variance, and hyperparameter tuning connect into a closed loop."
 keywords: [model evaluation guide, cross-validation, bias-variance, hyperparameter tuning]
 ---
 
-# Pre-study Guide: What Is This Evaluation Chapter Really About?
+# 5.4.1 Pre-study Guide: What Is This Evaluation Chapter Really About?
 
 ![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "5.4 结构化输出"
+title: "7.5.4 结构化输出"
 sidebar_position: 17
 description: "从为什么自然语言输出不够稳，到 JSON 约束、字段设计和校验，真正理解结构化输出在 LLM 工程里的价值。"
 keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 ---
 
-# 结构化输出
+# 7.5.4 结构化输出
 
 :::tip 本节定位
 很多人第一次用大模型时，默认让它输出一段自然语言。
@@ -28,7 +28,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 ## 一、为什么光有自然语言不够？
 
-### 1.1 一个很常见的脆弱场景
+### 一个很常见的脆弱场景
 
 假设你想让模型识别用户意图：
 
@@ -52,7 +52,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 }
 ```
 
-### 1.2 真正的问题是什么？
+### 真正的问题是什么？
 
 问题不在于模型不会回答，而在于：
 
@@ -71,7 +71,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 ## 二、结构化输出到底是什么？
 
-### 2.1 一句话理解
+### 一句话理解
 
 > **结构化输出 = 让模型按预先约定的字段和格式输出结果。**
 
@@ -82,7 +82,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 - 表格
 - 固定字段对象
 
-### 2.2 为什么 JSON 最常见？
+### 为什么 JSON 最常见？
 
 因为它同时满足：
 
@@ -92,7 +92,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 所以在 LLM 应用里，JSON 通常是结构化输出的第一选择。
 
-### 2.3 写 schema 前先理解几个术语
+### 写 schema 前先理解几个术语
 
 | 术语 | 直白解释 | 实际作用 |
 |---|---|---|
@@ -106,7 +106,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 ## 三、结构化输出最核心的设计点是什么？
 
-### 3.1 字段要少而清楚
+### 字段要少而清楚
 
 初学者很容易犯的错是：
 
@@ -128,7 +128,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 就已经够用了。
 
-### 3.2 字段命名要稳定
+### 字段命名要稳定
 
 如果今天叫：
 
@@ -152,7 +152,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 ## 四、一个最小可运行示例：从字符串 JSON 到程序解析
 
-### 4.1 先看最小解析
+### 先看最小解析
 
 ```python
 import json
@@ -165,7 +165,7 @@ print("intent =", data["intent"])
 print("confidence =", data["confidence"])
 ```
 
-### 4.2 这段代码虽然简单，但意义很大
+### 这段代码虽然简单，但意义很大
 
 它在教你：
 
@@ -180,7 +180,7 @@ print("confidence =", data["confidence"])
 
 ## 五、一个更贴近真实任务的小例子：用户意图识别
 
-### 5.1 假设你要求模型输出这个结构
+### 假设你要求模型输出这个结构
 
 ```json
 {
@@ -190,7 +190,7 @@ print("confidence =", data["confidence"])
 }
 ```
 
-### 5.2 模拟模型输出 + 程序解析
+### 模拟模型输出 + 程序解析
 
 ```python
 import json
@@ -219,7 +219,7 @@ print(data)
 
 ## 六、Prompt 要怎么写，结构化输出才更稳？
 
-### 6.1 不要只说“请输出 JSON”
+### 不要只说“请输出 JSON”
 
 更稳妥的写法通常包括：
 
@@ -241,7 +241,7 @@ print(data)
 不要输出任何额外解释，只输出 JSON。
 ```
 
-### 6.2 为什么这会更稳？
+### 为什么这会更稳？
 
 因为你不是只在“提需求”，而是在：
 
@@ -253,7 +253,7 @@ print(data)
 
 ## 七、为什么结构化输出仍然需要校验？
 
-### 7.1 因为模型不是编译器
+### 因为模型不是编译器
 
 即使你 prompt 写得很好，模型也可能：
 
@@ -268,7 +268,7 @@ print(data)
 这张图建议按工程闭环读：Prompt 先定义 JSON 合同，模型输出结构化结果，程序解析并校验字段、类型和值域，失败时重试或转人工。结构化输出不是“看起来像 JSON”，而是后续程序真的能稳定接住。
 :::
 
-### 7.2 一个最小校验示例
+### 一个最小校验示例
 
 ```python
 import json
@@ -312,13 +312,13 @@ print(validate_output(bad))
 
 ## 八、结构化输出和 Function Calling 有什么关系？
 
-### 8.1 相同点
+### 相同点
 
 它们都在做一件事：
 
 > 把模型输出从自由文本，变成程序更容易接住的格式。
 
-### 8.2 不同点
+### 不同点
 
 粗略地说：
 
@@ -370,19 +370,19 @@ print(validate_output(bad))
 
 ## 十、真实项目里最常见的坑
 
-### 10.1 字段设计过多
+### 字段设计过多
 
 字段越多，模型越容易错，后处理也越复杂。
 
-### 10.2 字段含义不稳定
+### 字段含义不稳定
 
 比如 `confidence` 有时写 0~1，有时写百分比，这种设计很危险。
 
-### 10.3 不做解析与校验
+### 不做解析与校验
 
 很多 demo 看起来能跑，但一接程序就崩，问题通常出在这里。
 
-### 10.4 输出结构和业务流程脱节
+### 输出结构和业务流程脱节
 
 如果 JSON 虽然完整，但不能直接驱动后续流程，那结构化输出就没有真正服务业务。
 

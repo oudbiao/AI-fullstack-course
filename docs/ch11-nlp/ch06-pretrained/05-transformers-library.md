@@ -1,11 +1,11 @@
 ---
-title: "6.6 Practical Transformers Library Usage"
+title: "11.6.6 Practical Transformers Library Usage"
 sidebar_position: 20
 description: "From tokenizer, config, and model to the smallest pipeline, truly learn how to use the core HuggingFace Transformers interfaces offline."
 keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 ---
 
-# Practical Transformers Library Usage
+# 11.6.6 Practical Transformers Library Usage
 
 ![Transformers library call chain diagram](/img/course/ch11-transformers-library-call-chain-map-en.png)
 
@@ -31,13 +31,13 @@ We will try to walk through the most important interfaces in a way that does not
 
 ---
 
-## 1. First, let’s separate the main characters in the library
+## First, let’s separate the main characters in the library
 
-### 1.1 `Tokenizer`
+### `Tokenizer`
 
 Responsible for turning text into a sequence of numbers that the model can process.
 
-### 1.2 `Config`
+### `Config`
 
 Responsible for describing model architecture parameters, such as:
 
@@ -45,11 +45,11 @@ Responsible for describing model architecture parameters, such as:
 - number of layers
 - number of heads
 
-### 1.3 `Model`
+### `Model`
 
 Responsible for the actual forward computation.
 
-### 1.4 `Pipeline`
+### `Pipeline`
 
 A higher-level wrapper that helps you combine:
 
@@ -65,18 +65,18 @@ Remember this in one sentence:
 
 ---
 
-## 2. Why do many people get confused the first time they use `transformers`?
+## Why do many people get confused the first time they use `transformers`?
 
 Because it has two layers:
 
-### 2.1 Concept layer
+### Concept layer
 
 You know things like:
 
 - BERT is encoder-only
 - GPT is decoder-only
 
-### 2.2 Tool layer
+### Tool layer
 
 Then you run into:
 
@@ -94,14 +94,14 @@ So the key goal of this section is not memorizing APIs, but building a map of th
 
 ---
 
-## 3. First, build a minimal tokenizer offline
+## First, build a minimal tokenizer offline
 
-### 3.1 Why not just download an existing model?
+### Why not just download an existing model?
 
 Because the tutorial should try to ensure that you can still run it even without internet access.
 So here we manually prepare a tiny `vocab.txt` so that you can truly understand what a tokenizer does.
 
-### 3.2 Runnable example
+### Runnable example
 
 ```python
 from pathlib import Path
@@ -123,7 +123,7 @@ print(encoded)
 print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
 
-### 3.3 What is this code teaching you?
+### What is this code teaching you?
 
 It is teaching you that:
 
@@ -133,15 +133,15 @@ It is teaching you that:
 
 ---
 
-## 4. Next, build a minimal BERT model offline
+## Next, build a minimal BERT model offline
 
-### 4.1 Why use a randomly initialized model?
+### Why use a randomly initialized model?
 
 Because our goal right now is not to chase performance, but to:
 
 > truly understand how a model object in the `transformers` library receives input and produces output.
 
-### 4.2 Runnable example
+### Runnable example
 
 ```python
 import torch
@@ -166,7 +166,7 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 4.3 What should you really understand here?
+### What should you really understand here?
 
 - `input_ids` are token IDs
 - `attention_mask` tells the model which positions are valid
@@ -177,9 +177,9 @@ Once you understand these, it becomes much easier to add a classification head, 
 
 ---
 
-## 5. Connect tokenizer and model together
+## Connect tokenizer and model together
 
-### 5.1 Runnable example
+### Runnable example
 
 ```python
 from pathlib import Path
@@ -213,7 +213,7 @@ print("attention_mask shape   :", batch["attention_mask"].shape)
 print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
 
-### 5.2 This is the most basic real call chain
+### This is the most basic real call chain
 
 In real projects, the most common low-level flow is:
 
@@ -226,9 +226,9 @@ You have already run through this chain.
 
 ---
 
-## 6. What are the `Auto*` interfaces for?
+## What are the `Auto*` interfaces for?
 
-### 6.1 Why does the library have so many `AutoModel` variants?
+### Why does the library have so many `AutoModel` variants?
 
 Because `transformers` wants to save you from writing lots of model-type conditionals by hand.
 
@@ -243,7 +243,7 @@ Their design goal is:
 
 > Give a model name or config, and automatically pick the right class.
 
-### 6.2 An offline `AutoModel.from_config` example
+### An offline `AutoModel.from_config` example
 
 ```python
 from transformers import AutoModel, BertConfig
@@ -267,9 +267,9 @@ This shows that:
 
 ---
 
-## 7. Is `pipeline` worth learning?
+## Is `pipeline` worth learning?
 
-### 7.1 Yes, but you need to know when it is appropriate
+### Yes, but you need to know when it is appropriate
 
 Advantages of `pipeline`:
 
@@ -283,7 +283,7 @@ It is better suited for:
 - quick validation
 - small experiments
 
-### 7.2 But in engineering, you cannot rely on it alone
+### But in engineering, you cannot rely on it alone
 
 Because real projects often still need control over:
 
@@ -300,7 +300,7 @@ So the mature approach is usually:
 
 ---
 
-## 8. The most common task heads in the Transformers library
+## The most common task heads in the Transformers library
 
 Here are some high-frequency interfaces to remember:
 
@@ -318,20 +318,20 @@ The logic behind this is actually simple:
 
 ---
 
-## 9. Common pitfalls for beginners
+## Common pitfalls for beginners
 
-### 9.1 Only knowing `pipeline`, not the underlying calls
+### Only knowing `pipeline`, not the underlying calls
 
 This makes it easy to get stuck in engineering scenarios.
 
-### 9.2 Not understanding tokenizer output fields
+### Not understanding tokenizer output fields
 
 At minimum, you should understand:
 
 - `input_ids`
 - `attention_mask`
 
-### 9.3 Mixing up “model concepts” and “library interfaces”
+### Mixing up “model concepts” and “library interfaces”
 
 You need to clearly distinguish:
 

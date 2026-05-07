@@ -1,11 +1,11 @@
 ---
-title: "9.4 実践：再現可能なビジョン・ミニパイプラインを作る"
+title: "10.6.4 実践：再現可能なビジョン・ミニパイプラインを作る"
 sidebar_position: 20
 description: "小さな合成データセットの生成、画像前処理、形状分類、bbox 検出、mask 分割、指標計算、失敗例レポートまでをローカルで実行します。"
 keywords: [computer vision workshop, OpenCV, synthetic dataset, classification, detection, segmentation, IoU, failure analysis]
 ---
 
-# 実践：再現可能なビジョン・ミニパイプラインを作る
+# 10.6.4 実践：再現可能なビジョン・ミニパイプラインを作る
 
 このセクションでは、第 10 章を手を動かして進めるプロジェクトにします。データセットをダウンロードする必要も、クラウドモデルを呼び出す必要もありません。1 本の Python スクリプトが小さな画像データセットを生成し、そのまま一連の視覚処理を実行します。
 

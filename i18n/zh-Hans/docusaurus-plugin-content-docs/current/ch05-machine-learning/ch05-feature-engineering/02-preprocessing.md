@@ -1,11 +1,11 @@
 ---
-title: "5.3 特征预处理"
+title: "5.5.3 特征预处理"
 sidebar_position: 15
 description: "学习缺失值、异常值、标准化、编码和数据泄漏等机器学习项目前最常见的特征预处理决策。"
 keywords: [特征预处理, 缺失值, 标准化, one-hot, 数据泄漏, preprocessing]
 ---
 
-# 特征预处理
+# 5.5.3 特征预处理
 
 ![特征预处理流水线图](/img/course/feature-preprocessing-pipeline.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "2.5 Hands-on: LLM Call Workbench"
+title: "7.2.5 Hands-on: LLM Call Workbench"
 sidebar_position: 8
 description: "Run a beginner-friendly LLM call workflow: token budget, request payload, model output, JSON validation, and retry logic."
 keywords: [LLM API, Responses API, token budget, JSON validation, structured output, API payload]
 ---
 
-# Hands-on: LLM Call Workbench
+# 7.2.5 Hands-on: LLM Call Workbench
 
 This lesson turns the previous concepts into a practical workflow. Before you worry about which model is strongest, first learn what happens during one complete LLM call: user task, token budget, request payload, model output, validation, and retry.
 
@@ -15,7 +15,7 @@ This lesson turns the previous concepts into a practical workflow. Before you wo
 Follow this order: look at the picture first, run the code second, then read the terms and formulas. LLM engineering becomes much less mysterious once you can trace one request from input to validated output.
 :::
 
-## 1. What this lab teaches
+## What this lab teaches
 
 After this lab, you should be able to explain:
 
@@ -25,7 +25,7 @@ After this lab, you should be able to explain:
 - Why retry logic should change the request instead of blindly asking again.
 - Why a demo that prints a nice answer is not yet a reliable product feature.
 
-## 2. Terms you should understand before the code
+## Terms you should understand before the code
 
 | Term | Plain meaning | In this lab |
 |---|---|---|
@@ -40,7 +40,7 @@ After this lab, you should be able to explain:
 | Retry | Trying again after a controlled failure | A useful retry should fix the cause, such as adding clearer schema instructions |
 | Latency | How long the request takes | Longer context and larger outputs usually increase latency |
 
-## 3. Run the offline workbench first
+## Run the offline workbench first
 
 This first example uses only the Python standard library. It does not call a real model. That is intentional: it lets you understand the engineering loop without needing an API key, internet access, or paid model usage.
 
@@ -171,21 +171,21 @@ validation: valid
 first era: {'period': '1936-1950', ...}
 ```
 
-## 4. What this code is really showing
+## What this code is really showing
 
-### 4.1 A request is not only a prompt
+### A request is not only a prompt
 
 The payload includes `model`, `instructions`, `input`, `text.format`, `max_output_tokens`, and `temperature`. A beginner often changes only the prompt sentence, but real LLM engineering also controls output length, format, randomness, and validation behavior.
 
-### 4.2 Token budget is a product constraint
+### Token budget is a product constraint
 
 The model cannot see infinite text. System instructions, user messages, conversation history, retrieved documents, and output space all share the context window. If you fill the whole window with background text, the model may not have enough room to answer.
 
-### 4.3 Validation changes a demo into a workflow
+### Validation changes a demo into a workflow
 
 Printing a response is only a demo. A workflow must parse the output, check required fields, detect failure types, and decide whether to retry, ask the user for clarification, or hand the case to a human.
 
-### 4.4 Retry should fix the cause
+### Retry should fix the cause
 
 Blind retries waste time and cost. A better retry changes something specific:
 
@@ -197,7 +197,7 @@ Blind retries waste time and cost. A better retry changes something specific:
 | Unstable classification | Lower `temperature` and add examples |
 | Missing knowledge | Add retrieval context or move the problem to RAG later |
 
-## 5. Optional: a real Responses API call
+## Optional: a real Responses API call
 
 If you have an API key, you can run the same idea with the official OpenAI Python SDK and the modern Responses API. Use this only after the offline workbench makes sense.
 
@@ -250,7 +250,7 @@ print(response.output_parsed.model_dump())
 For new text-generation applications, prefer the Responses API rather than starting from older chat-completion examples. The key engineering idea is the same as the offline workbench: build a request, control output, parse the result, and verify that the result is usable by the program.
 :::
 
-## 6. How to practice
+## How to practice
 
 1. Change the offline task from "AI history timeline" to "course study plan" and update the required schema fields.
 2. Make the first fake response invalid JSON and observe whether the validator catches it.

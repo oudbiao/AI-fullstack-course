@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-class Guide: What Exactly Will You Learn in the Image Segmentation Chapter?"
+title: "10.4.1 Pre-class Guide: What Exactly Will You Learn in the Image Segmentation Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the image segmentation chapter: how semantic segmentation, instance segmentation, and practical segmentation tasks unfold from pixel-level task understanding."
 keywords: [image segmentation guide, semantic segmentation, instance segmentation, mask]
 ---
 
-# Pre-class Guide: What Exactly Will You Learn in the Image Segmentation Chapter?
+# 10.4.1 Pre-class Guide: What Exactly Will You Learn in the Image Segmentation Chapter?
 
 This chapter is about:
 

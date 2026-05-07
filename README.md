@@ -22,13 +22,20 @@ The course combines:
 
 ## Course Path
 
-The public course uses a clear 1-12 learning sequence:
+The public course uses a clear, hierarchical numbering system:
 
 ```text
-1-12      Learning stations across the whole course
-1.1       Chapters inside a learning station
-1.1.1     Individual pages or knowledge points inside a chapter
+0         Start-here guides before Chapter 1
+1-12      Main course chapters
+N.0       Chapter study guide and task sheet
+N.M       Section inside a chapter
+N.M.K     Individual lesson page inside a section
+E.X       Elective module
+E.X.K     Elective lesson page
+A.K       Appendix page
 ```
+
+For example, `4.1.2` means Chapter 4, section 1, lesson 2. It should not appear as a local-only `1.2`, because readers who open a page directly need to know where they are in the whole course.
 
 The recommended path is:
 
@@ -103,7 +110,7 @@ README intentionally stays mostly text-based so it remains fast to load, easy to
 | `docker/` | Nginx runtime configuration for Docker deployment |
 | `.github/workflows/` | GitHub Actions deployment workflow |
 
-Historical folder names such as `ch01-tools/` and `ch12-multimodal/` are maintenance paths. Learners should follow the public 1-12 order shown in the sidebar.
+Folder names such as `ch01-tools/` and `ch12-multimodal/` are maintenance paths. Learners should follow the public numbering shown in the sidebar: `0` for start-here pages, `1-12` for the main course, `E` for electives, and `A` for appendix pages.
 
 ## Local Development
 

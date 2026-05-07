@@ -1,10 +1,10 @@
 ---
-title: "3.5 Data Transformation"
+title: "3.3.6 Data Transformation"
 sidebar_position: 13
 description: "Master data transformation methods such as apply, map, sorting, ranking, and replacement"
 ---
 
-# Data Transformation
+# 3.3.6 Data Transformation
 
 :::tip Section Overview
 Many beginners start to feel a bit confused when they get here:

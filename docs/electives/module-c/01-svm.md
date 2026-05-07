@@ -1,11 +1,11 @@
 ---
-title: "1.1 Support Vector Machine"
+title: "E.C.1 Support Vector Machine"
 sidebar_position: 12
 description: "Starting from the max-margin classifier, understand why SVM is still a strong baseline for small to medium datasets, high-dimensional features, and tasks with clear decision boundaries."
 keywords: [SVM, support vector machine, max margin, kernel, classification, classic ML]
 ---
 
-# Support Vector Machine
+# E.C.1 Support Vector Machine
 
 ![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors-en.png)
 
@@ -37,9 +37,9 @@ The goal of this lesson is not to fill the page with formulas, but to first buil
 
 ---
 
-## 1. What exactly does SVM do?
+## What exactly does SVM do?
 
-### 1.1 It does not just find a separating line; it finds the “most stable” one
+### It does not just find a separating line; it finds the “most stable” one
 
 Suppose you want to separate two classes of samples.
 There may be many lines that can separate them, but SVM does not pick one at random. Instead, it tends to choose:
@@ -50,7 +50,7 @@ This is:
 
 - Max margin
 
-### 1.2 Why is a “large margin” meaningful?
+### Why is a “large margin” meaningful?
 
 Because the larger the margin, the less likely the model is to be affected by small disturbances near the boundary.
 You can think of it as:
@@ -58,7 +58,7 @@ You can think of it as:
 - Not just separating the classes
 - But separating them more stably
 
-### 1.3 What are support vectors?
+### What are support vectors?
 
 Not all samples matter equally.
 The samples that actually determine the position of the decision boundary are usually the small set of points closest to that boundary.
@@ -72,14 +72,14 @@ the SVM boundary is held up by the “most critical few samples.”
 
 ---
 
-## 2. When is SVM especially worth trying?
+## When is SVM especially worth trying?
 
-### 2.1 Small to medium datasets
+### Small to medium datasets
 
 If the dataset is not too large,
 SVM is often a very worthwhile baseline.
 
-### 2.2 High-dimensional features
+### High-dimensional features
 
 For example:
 
@@ -88,14 +88,14 @@ For example:
 
 SVM often performs well on these tasks.
 
-### 2.3 Relatively clear class boundaries
+### Relatively clear class boundaries
 
 If different classes are already fairly separable in feature space,
 SVM can work especially well.
 
 ---
 
-## 3. First run a truly meaningful minimal example
+## First run a truly meaningful minimal example
 
 This example does two things at the same time:
 
@@ -138,7 +138,7 @@ print("n_support_ :", svc.n_support_.tolist())
 print("support_vectors shape:", svc.support_vectors_.shape)
 ```
 
-### 3.1 Why is this code more useful than just `fit/predict`?
+### Why is this code more useful than just `fit/predict`?
 
 Because it lets you see not only:
 
@@ -150,7 +150,7 @@ but also:
 
 This helps connect the “max margin” intuition with the model’s behavior.
 
-### 3.2 Why do we add `StandardScaler()` here?
+### Why do we add `StandardScaler()` here?
 
 Because SVM is very sensitive to feature scale.
 If one column has a much larger numeric range, it will get too much weight in distance calculations.
@@ -161,14 +161,14 @@ This is also one of the most common engineering pitfalls with SVM:
 
 ---
 
-## 4. What problem does the kernel trick solve?
+## What problem does the kernel trick solve?
 
-### 4.1 Linear SVM is suitable when the boundary is approximately linear
+### Linear SVM is suitable when the boundary is approximately linear
 
 If two classes can already be separated by a straight line,
 a linear kernel is usually enough.
 
-### 4.2 The intuition behind the kernel trick
+### The intuition behind the kernel trick
 
 When the original space is hard to separate, kernel methods can implicitly map the data into a higher-dimensional space,
 making the problem easier to separate linearly in the new space.
@@ -177,7 +177,7 @@ The most common choice is:
 
 - RBF kernel
 
-### 4.3 When should you be cautious with kernel methods?
+### When should you be cautious with kernel methods?
 
 Although kernel SVM is more flexible, it usually also means:
 
@@ -191,9 +191,9 @@ So in practice, the usual recommendation is:
 
 ---
 
-## 5. The two most common SVM parameters
+## The two most common SVM parameters
 
-### 5.1 `C`
+### `C`
 
 It controls the balance between “error tolerance” and “boundary hardness.”
 
@@ -202,7 +202,7 @@ A rough rule of thumb:
 - Large `C`: tries harder to fit the training set, but may overfit more easily
 - Small `C`: allows some errors, but gives a wider, looser boundary
 
-### 5.2 `kernel`
+### `kernel`
 
 It determines whether the model uses:
 
@@ -211,17 +211,17 @@ It determines whether the model uses:
 
 ---
 
-## 6. The most common SVM pitfalls
+## The most common SVM pitfalls
 
-### 6.1 Mistake 1: Not scaling features
+### Mistake 1: Not scaling features
 
 This is by far the most common issue.
 
-### 6.2 Mistake 2: Using kernel SVM by default on a very large dataset
+### Mistake 2: Using kernel SVM by default on a very large dataset
 
 When the dataset gets large, kernel methods can become quite heavy.
 
-### 6.3 Mistake 3: Treating SVM as “automatically optimal”
+### Mistake 3: Treating SVM as “automatically optimal”
 
 SVM is often a very strong baseline,
 but it is not the default best solution for every task.

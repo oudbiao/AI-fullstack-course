@@ -1,10 +1,10 @@
 ---
-title: "1.1 Python Introduction"
+title: "2.1.1 Python Introduction"
 sidebar_position: 1
 description: "Understand the features of Python, its application areas, and development environment"
 ---
 
-# Python Introduction
+# 2.1.1 Python Introduction
 
 ![Python to AI Application Workflow](/img/course/ch02-python-ai-workflow-en.png)
 
@@ -77,7 +77,7 @@ To print the same sentence, Python needs only **1 line**, while C needs 5 lines.
 
 Python is used in many areas. Here are a few of the most important:
 
-### 1. AI and Machine Learning (the core of this course)
+### AI and Machine Learning (the core of this course)
 
 :::tip Install scikit-learn before running this example
 Before running the code below in Colab or Jupyter, install it first (only once):
@@ -102,7 +102,7 @@ model.fit(X_train, y_train)
 
 Mainstream frameworks: PyTorch, TensorFlow, scikit-learn, Hugging Face Transformers
 
-### 2. Data Analysis and Visualization
+### Data Analysis and Visualization
 
 ```python
 import pandas as pd
@@ -118,7 +118,7 @@ plt.show()
 
 Mainstream libraries: pandas, NumPy, Matplotlib, Seaborn
 
-### 3. Web Backend Development
+### Web Backend Development
 
 With Python, you can quickly build a website backend that provides an API, for example:
 
@@ -145,7 +145,7 @@ def say_hello():
 
 Mainstream frameworks: FastAPI, Django, Flask
 
-### 4. Automation Scripts
+### Automation Scripts
 
 ```python
 import os
@@ -163,7 +163,7 @@ for i, filename in enumerate(os.listdir("photos/")):
 print(os.listdir("photos/"))   # ['photo_1.jpg', 'photo_2.jpg', 'photo_3.jpg']
 ```
 
-### 5. Web Scraping
+### Web Scraping
 
 ```python
 # First install: !pip install beautifulsoup4
@@ -280,7 +280,7 @@ Create a new Notebook, enter `print("Hello from Jupyter!")` in a code cell, and 
 
 Before diving deeper, let’s first understand a few basic rules:
 
-### 1. Indentation Matters
+### Indentation Matters
 
 Python uses **indentation** (usually 4 spaces) to indicate code blocks, instead of braces `{}` like some other languages.
 
@@ -302,7 +302,7 @@ print("Not indented, Python will raise an error")
 Indentation errors are one of the most common mistakes for beginners. VS Code will help you indent automatically, but if you copy and paste code, make sure the indentation is still correct.
 :::
 
-### 2. Comments Use `#`
+### Comments Use `#`
 
 ```python
 # This is a comment line; Python will ignore it
@@ -315,7 +315,7 @@ print("This line will run")  # You can also write comments at the end of a line
 
 Comments are for humans to read and help you (and others) understand the code. Good comments explain **why** something is done, not **what** is done.
 
-### 3. Python Is Case-Sensitive
+### Python Is Case-Sensitive
 
 ```python
 name = "Alice"
@@ -327,7 +327,7 @@ print(name)   # Alice
 Print(name)   # Error! Python has no Print, only print
 ```
 
-### 4. Files End with `.py`
+### Files End with `.py`
 
 Python script files use the `.py` extension, such as `hello.py`, `train.py`, and `model.py`.
 

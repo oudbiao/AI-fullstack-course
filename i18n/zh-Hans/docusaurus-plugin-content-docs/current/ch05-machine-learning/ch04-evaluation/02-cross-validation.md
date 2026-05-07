@@ -1,11 +1,11 @@
 ---
-title: "4.3 交叉验证"
+title: "5.4.3 交叉验证"
 sidebar_position: 11
 description: "掌握留出法、K 折交叉验证、分层 K 折、留一法和时间序列交叉验证"
 keywords: [交叉验证, K折, 分层K折, 留一法, 时间序列, Hold-out, cross_val_score]
 ---
 
-# 交叉验证
+# 5.4.3 交叉验证
 
 ![K 折交叉验证切分图](/img/course/cross-validation-kfold.png)
 
@@ -52,7 +52,7 @@ keywords: [交叉验证, K折, 分层K折, 留一法, 时间序列, Hold-out, cr
 
 ## 一、留出法的问题
 
-### 1.1 一次划分够吗？
+### 一次划分够吗？
 
 ```python
 from sklearn.datasets import load_iris
@@ -90,7 +90,7 @@ print(f"最低: {min(scores):.3f}, 最高: {max(scores):.3f}, 差距: {max(score
 一次划分的结果**不稳定**——不同的随机种子可能差异很大。我们需要更可靠的评估方式。
 :::
 
-### 1.2 一个更适合新人的判断标准
+### 一个更适合新人的判断标准
 
 如果你现在还在想：
 
@@ -100,7 +100,7 @@ print(f"最低: {min(scores):.3f}, 最高: {max(scores):.3f}, 差距: {max(score
 
 - **一次分数不重要，稳定分数才重要**
 
-### 1.3 一个更适合新人的类比
+### 一个更适合新人的类比
 
 你可以先把交叉验证想成：
 
@@ -119,7 +119,7 @@ print(f"最低: {min(scores):.3f}, 最高: {max(scores):.3f}, 差距: {max(score
 
 ## 二、K 折交叉验证
 
-### 2.1 原理
+### 原理
 
 把数据分成 K 份，每次用 1 份做测试、其余 K-1 份做训练。重复 K 次，取平均。
 
@@ -140,7 +140,7 @@ flowchart TD
     style AVG fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 sklearn 实现
+### sklearn 实现
 
 ```python
 from sklearn.model_selection import cross_val_score, KFold
@@ -155,7 +155,7 @@ print(f"  每折分数: {scores}")
 print(f"  平均: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.3 手动控制 KFold
+### 手动控制 KFold
 
 ```python
 from sklearn.model_selection import KFold
@@ -180,7 +180,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 K 值怎么选？
+### K 值怎么选？
 
 | K 值 | 优点 | 缺点 |
 |------|------|------|
@@ -189,7 +189,7 @@ plt.show()
 | **K=10** | **更稳定** | **速度稍慢** |
 | K=n（留一法） | 最稳定 | 非常慢 |
 
-### 2.5 第一次做项目时怎么选最稳？
+### 第一次做项目时怎么选最稳？
 
 一个够稳的顺序通常是：
 
@@ -205,7 +205,7 @@ plt.show()
 
 ## 三、分层 K 折交叉验证
 
-### 3.1 为什么需要分层？
+### 为什么需要分层？
 
 普通 KFold 随机划分，可能导致某一折的类别比例与整体不同（尤其不平衡数据）。
 
@@ -234,7 +234,7 @@ for fold, (_, test_idx) in enumerate(skf.split(X_imb, y_imb)):
     print(f"  折 {fold+1}: {y_imb[test_idx].mean():.1%}")
 ```
 
-### 3.2 sklearn 中的默认行为
+### sklearn 中的默认行为
 
 ```python
 # cross_val_score 对分类任务默认使用 StratifiedKFold
@@ -256,7 +256,7 @@ print(f"分层 5 折 F1: {scores.mean():.4f} ± {scores.std():.4f}")
 - **时间序列**：使用 `TimeSeriesSplit`
 :::
 
-### 3.3 这节最该先记住的一句话
+### 这节最该先记住的一句话
 
 > **评估切法也属于建模设计的一部分。**
 
@@ -298,11 +298,11 @@ print(f"  平均准确率: {scores.mean():.4f}")
 
 ## 五、时间序列交叉验证
 
-### 5.1 为什么不能随机划分？
+### 为什么不能随机划分？
 
 时间序列数据有**时间顺序**——用未来数据训练去预测过去，是"数据泄漏"。
 
-### 5.2 TimeSeriesSplit
+### TimeSeriesSplit
 
 ```python
 from sklearn.model_selection import TimeSeriesSplit
@@ -356,7 +356,7 @@ print(f"  测试 F1:    {results['test_f1_macro'].mean():.4f} ± {results['test_
 print(f"  每折耗时:   {results['fit_time'].mean():.3f}s")
 ```
 
-### 6.1 为什么 `cross_validate` 比 `cross_val_score` 更适合项目？
+### 为什么 `cross_validate` 比 `cross_val_score` 更适合项目？
 
 因为项目里你经常不只关心：
 

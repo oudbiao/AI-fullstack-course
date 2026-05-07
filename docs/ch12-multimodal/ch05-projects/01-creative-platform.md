@@ -1,11 +1,11 @@
 ---
-title: "5.2 Project: AI Creative Content Platform"
+title: "12.5.2 Project: AI Creative Content Platform"
 sidebar_position: 15
 description: "A portfolio-level project loop that truly organizes text-to-image generation, image editing, voice generation, and asset management into a multimodal creative platform."
 keywords: [creative platform, multimodal project, image generation, editing, voice, asset management]
 ---
 
-# Project: AI Creative Content Platform
+# 12.5.2 Project: AI Creative Content Platform
 
 ![AI Creative Content Platform Workflow](/img/course/creative-platform-workflow-en.png)
 
@@ -33,7 +33,7 @@ This section will push it one step further toward a “portfolio-level product p
 
 ---
 
-## 1. What Kind of Topic Really Feels Like a “Platform Project”?
+## What Kind of Topic Really Feels Like a “Platform Project”?
 
 A topic that feels more like a portfolio piece should be:
 
@@ -54,7 +54,7 @@ Because:
 
 ---
 
-## 2. What Does the Minimum Portfolio-Level Creative Platform Loop Look Like?
+## What Does the Minimum Portfolio-Level Creative Platform Loop Look Like?
 
 1. The user submits a request
 2. The request is routed to the right module
@@ -65,7 +65,7 @@ Because:
 
 If you can make these 6 steps run smoothly, the project already feels very product-like.
 
-### 2.1 A More Realistic Asset Flow Diagram for a Platform
+### A More Realistic Asset Flow Diagram for a Platform
 
 ```mermaid
 flowchart LR
@@ -82,7 +82,7 @@ This diagram is important because it reminds you:
 - A platform is not a feature list
 - It is a process where assets continuously evolve
 
-## 3. Recommended Build Order
+## Recommended Build Order
 
 For beginners, a safer order is usually:
 
@@ -93,7 +93,7 @@ For beginners, a safer order is usually:
 
 This way, you can build the “platform feel” step by step.
 
-### 3.1 A Better Analogy for Beginners
+### A Better Analogy for Beginners
 
 You can think of a creative platform as:
 
@@ -113,7 +113,7 @@ does it really start to feel like a “platform.”
 
 ---
 
-## 4. Let’s First Run a Workflow Example That Feels More Like a Platform
+## Let’s First Run a Workflow Example That Feels More Like a Platform
 
 ```python
 from dataclasses import dataclass, field
@@ -181,7 +181,7 @@ bundle = run_creative_project(requests)
 print(bundle)
 ```
 
-### 4.1 What Makes This Version Stronger Than the Previous One?
+### What Makes This Version Stronger Than the Previous One?
 
 This time, in addition to:
 
@@ -198,14 +198,14 @@ That makes it closer to the real-world logic of a platform:
 - asset flow
 - operation flow
 
-### 4.2 Why Is `logs` So Worth Showing?
+### Why Is `logs` So Worth Showing?
 
 Because platform projects are most vulnerable when users can only see the final result
 but cannot see the intermediate process.
 
 In a portfolio presentation, the intermediate process is often the highlight.
 
-### 4.3 Let’s Look at a Minimal Version Management Example
+### Let’s Look at a Minimal Version Management Example
 
 ```python
 assets = [
@@ -225,9 +225,9 @@ This example is great for beginners because it helps you build a platform mindse
 
 ---
 
-## 5. Where Creative Platforms Are Most Likely to Go Off Track
+## Where Creative Platforms Are Most Likely to Go Off Track
 
-### 5.1 Confusing Asset Versions
+### Confusing Asset Versions
 
 For example:
 
@@ -237,7 +237,7 @@ For example:
 
 If naming and archiving are unclear, the system will quickly become messy.
 
-### 5.2 Unclear Routing Logic
+### Unclear Routing Logic
 
 For example:
 
@@ -245,7 +245,7 @@ For example:
 
 This makes the output hard to predict.
 
-### 5.3 Inconsistent Multimodal Style
+### Inconsistent Multimodal Style
 
 For example:
 
@@ -256,7 +256,7 @@ This kind of mismatch is great to analyze separately in the project.
 
 ---
 
-## 6. What Should a Portfolio-Level Creative Platform Showcase?
+## What Should a Portfolio-Level Creative Platform Showcase?
 
 At minimum, it is recommended to show:
 
@@ -274,7 +274,7 @@ Because it lets others see:
 - This is a workflow system
 - It is not just a single-generation demo
 
-### 6.1 If This Is Your First Time Building Such a Project, the Safest Default Order Is
+### If This Is Your First Time Building Such a Project, the Safest Default Order Is
 
 A safer order is usually:
 
@@ -288,7 +288,7 @@ This is much easier than trying to build a “big, everything-included platform�
 
 ---
 
-## 7. A Very Useful Error Analysis Layer to Add
+## A Very Useful Error Analysis Layer to Add
 
 For example, you can additionally record:
 

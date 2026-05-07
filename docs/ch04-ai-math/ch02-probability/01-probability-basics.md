@@ -1,11 +1,11 @@
 ---
-title: "2.2 Probability Basics: Measuring Uncertainty"
+title: "4.2.2 Probability Basics: Measuring Uncertainty"
 sidebar_position: 5
 description: "Understand the intuitive meaning of probability, master conditional probability, joint probability, and Bayes' theorem, and verify them with Python simulations"
 keywords: [probability, conditional probability, Bayes' theorem, joint probability, Python probability, AI math]
 ---
 
-# Probability Basics: Measuring Uncertainty
+# 4.2.2 Probability Basics: Measuring Uncertainty
 
 ![Probability distribution and Bayes update diagram](/img/course/probability-distribution-map-en.png)
 
@@ -123,9 +123,9 @@ What you really need to learn here is not just a few formulas, but:
 - When new evidence appears, our judgments are updated
 - This is exactly the basic idea behind AI models outputting probabilities
 
-## 1. What Is Probability?
+## What Is Probability?
 
-### 1.1 Two Interpretations
+### Two Interpretations
 
 ```mermaid
 flowchart LR
@@ -142,14 +142,14 @@ In AI, both interpretations are used:
 - **When training models**: use frequentist methods (statistical patterns from large amounts of data)
 - **When doing inference with models**: use Bayesian methods (updating beliefs based on observations)
 
-### 1.1.1 A More Beginner-Friendly Analogy
+### A More Beginner-Friendly Analogy
 
 You can first think of probability as "confidence" in two different contexts:
 
 - Frequentist: like a statistical conclusion from repeated experiments
 - Bayesian: like updating your subjective confidence after getting evidence
 
-### 1.2 Experiencing "Frequency Is Probability" with Python
+### Experiencing "Frequency Is Probability" with Python
 
 ```python
 import numpy as np
@@ -194,13 +194,13 @@ Final proportion of heads after 10000 flips: 0.5061
 
 ---
 
-## 2. Conditional Probability — "Given Some Information"
+## Conditional Probability — "Given Some Information"
 
-### 2.1 Intuitive Understanding
+### Intuitive Understanding
 
 **Conditional probability P(A|B)** = the probability that A happens, given that B has already happened.
 
-### 2.1.1 Why Does Conditional Probability Feel So Much Like How AI Thinks?
+### Why Does Conditional Probability Feel So Much Like How AI Thinks?
 
 Because real-world judgments almost always happen in a context.
 
@@ -214,7 +214,7 @@ In other words, the most important thing about conditional probability is not th
 - P(is spam | contains "free") = the probability that an email containing the word "free" is spam
 :::
 
-### 2.2 Formula and Calculation
+### Formula and Calculation
 
 **P(A|B) = P(A and B) / P(B)**
 
@@ -247,7 +247,7 @@ Among students who like programming, the proportion who also like math: 60.0%
 
 **Note**: P(A|B) and P(B|A) are usually not equal!
 
-### 2.2.1 This Is One of the Easiest Pitfalls for Beginners
+### This Is One of the Easiest Pitfalls for Beginners
 
 When many people first learn this, they instinctively mix up:
 
@@ -259,7 +259,7 @@ with
 
 But they have different denominators, so they are fundamentally different questions.
 
-### 2.3 Joint Probability and Marginal Probability
+### Joint Probability and Marginal Probability
 
 ```python
 # Simulate data with NumPy
@@ -314,9 +314,9 @@ The table is slightly different from the ideal values because it is simulated. W
 
 ---
 
-## 3. Bayes' Theorem — The Most Important Probability Formula in AI
+## Bayes' Theorem — The Most Important Probability Formula in AI
 
-### 3.1 Introduction: The Story of a Hospital Test
+### Introduction: The Story of a Hospital Test
 
 A rare disease has an incidence rate of 0.1% (1 in 1000 people has it). A hospital has a test:
 - If you have the disease, the probability the test is positive is 99% (sensitivity)
@@ -326,7 +326,7 @@ A rare disease has an incidence rate of 0.1% (1 in 1000 people has it). A hospit
 
 Many people instinctively say "99%" — but the answer may surprise you.
 
-### 3.2 Bayes' Formula
+### Bayes' Formula
 
 **P(Have disease | Positive) = P(Positive | Have disease) × P(Have disease) / P(Positive)**
 
@@ -357,7 +357,7 @@ Approximately 1.9%
 
 **Result: only about 2%!** Even if the test is positive, the probability that you actually have the disease is only 2%.
 
-### 3.3 Why Is It So Low?
+### Why Is It So Low?
 
 Because the incidence rate is too low (0.1%), most positive results are actually false positives.
 
@@ -405,7 +405,7 @@ flowchart TD
     style F fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 3.4 The Core Idea of Bayes' Theorem
+### The Core Idea of Bayes' Theorem
 
 ```mermaid
 flowchart LR
@@ -421,7 +421,7 @@ flowchart LR
 
 This is the core of Bayes: **continuously updating your belief with new evidence**.
 
-### 3.5 Verifying Bayes' Theorem with Simulation
+### Verifying Bayes' Theorem with Simulation
 
 ```python
 # Monte Carlo simulation
@@ -460,9 +460,9 @@ Simulation is not a replacement for the formula. It is a learning tool: it helps
 
 ---
 
-## 4. Applications of Bayes' Theorem in AI
+## Applications of Bayes' Theorem in AI
 
-### 4.1 Naive Bayes Classifier
+### Naive Bayes Classifier
 
 Spam filtering is a classic application of Bayes' theorem:
 
@@ -489,7 +489,7 @@ Expected output:
 Probability that an email containing 'free' is spam: 87.3%
 ```
 
-### 4.2 More AI Applications
+### More AI Applications
 
 | Application | Prior | Likelihood | Posterior |
 |------|------|------|------|
@@ -500,9 +500,9 @@ Probability that an email containing 'free' is spam: 87.3%
 
 ---
 
-## 5. Independence — A Powerful Tool for Simplifying Calculations
+## Independence — A Powerful Tool for Simplifying Calculations
 
-### 5.1 What Is Independence?
+### What Is Independence?
 
 Two events are **independent**, meaning the occurrence of one does not affect the probability of the other.
 
@@ -532,7 +532,7 @@ Both flips are heads: 0.25
 Simulated result: 0.2512
 ```
 
-### 5.2 The Independence Assumption in AI
+### The Independence Assumption in AI
 
 Naive Bayes is called "naive" because it **assumes all features are independent** (although in reality they often are not, the method still works surprisingly well).
 
@@ -582,7 +582,7 @@ After finishing probability basics, the most worthwhile questions to carry forwa
 
 These three questions will naturally lead you to:
 
-- [Probability Distributions: Patterns Behind Data](./02-distributions.md)
+- [4.2.3 Probability Distributions: Patterns Behind Data](./02-distributions.md)
 
 :::info Connecting to Later Sections
 - **Next section**: Probability Distributions — Patterns Behind Data

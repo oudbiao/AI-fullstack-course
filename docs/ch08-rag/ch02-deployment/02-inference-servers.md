@@ -1,11 +1,11 @@
 ---
-title: "2.3 High-Performance Inference Serving"
+title: "8.2.3 High-Performance Inference Serving"
 sidebar_position: 9
 description: "Start with throughput, latency, batching, and queues to build an understanding of why high-performance inference serving is completely different from just “running the model once.”"
 keywords: [inference server, batching, throughput, latency, queue, serving]
 ---
 
-# High-Performance Inference Serving
+# 8.2.3 High-Performance Inference Serving
 
 :::tip Section Overview
 If the previous section was about:
@@ -47,16 +47,16 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why Are Local Inference and Inference Serving Different?
+## Why Are Local Inference and Inference Serving Different?
 
-### 1.1 Local inference cares about “does it produce an output?”
+### Local inference cares about “does it produce an output?”
 
 For example:
 
 - Can a prompt get an answer?
 - Can an image be generated?
 
-### 1.2 Inference serving cares about “how many requests can it handle at the same time?”
+### Inference serving cares about “how many requests can it handle at the same time?”
 
 Once you go online, you have to deal with:
 
@@ -69,7 +69,7 @@ So the core question of inference serving becomes:
 
 > **How do you balance speed and throughput when resources are limited?**
 
-### 1.3 A Better Analogy for Beginners
+### A Better Analogy for Beginners
 
 You can think of inference serving as:
 
@@ -90,13 +90,13 @@ This analogy is useful for beginners because it helps you first grasp:
 
 ---
 
-## 2. First, Distinguish the Two Most Important Terms
+## First, Distinguish the Two Most Important Terms
 
-### 2.1 Latency
+### Latency
 
 How long one request has to wait.
 
-### 2.2 Throughput
+### Throughput
 
 How many requests can be handled per unit of time.
 
@@ -111,9 +111,9 @@ So inference serving is not about making one metric as high as possible, but abo
 
 ---
 
-## 3. Why Is Batching So Important?
+## Why Is Batching So Important?
 
-### 3.1 An Intuitive View
+### An Intuitive View
 
 If 8 requests arrive almost at the same time, you can:
 
@@ -125,7 +125,7 @@ or you can:
 
 The second approach is usually more efficient on hardware.
 
-### 3.2 A Minimal Example
+### A Minimal Example
 
 ```python
 requests = [12, 8, 15]
@@ -136,13 +136,13 @@ for r in requests:
     print("needs", num_batches, "batches")
 ```
 
-### 3.3 What Is This Code Teaching?
+### What Is This Code Teaching?
 
 It is teaching you:
 
 > Inference serving is not about thinking in terms of “one request,” but more like thinking in terms of “queues and batches.”
 
-### 3.4 A Simple Decision Table for Beginners
+### A Simple Decision Table for Beginners
 
 | Phenomenon | Which Layer Is More Worth Checking First? |
 |---|---|
@@ -161,9 +161,9 @@ Requests do not go straight into the model. They first queue up, then get batche
 
 ---
 
-## 4. Why Are Queues a Core Component of High-Performance Serving?
+## Why Are Queues a Core Component of High-Performance Serving?
 
-### 4.1 Because Requests Do Not Arrive in a Neat Order
+### Because Requests Do Not Arrive in a Neat Order
 
 Real traffic often has:
 
@@ -176,7 +176,7 @@ Without a queue, the system can easily:
 - suddenly crash
 - drop requests directly
 
-### 4.2 A Minimal Queue Example
+### A Minimal Queue Example
 
 ```python
 from collections import deque
@@ -200,15 +200,15 @@ This is the most basic behavior pattern of many inference services.
 
 ---
 
-## 5. Concurrency and Batching Are Not the Same Thing
+## Concurrency and Batching Are Not the Same Thing
 
 This is one of the easiest places for beginners to get confused.
 
-### 5.1 Concurrency
+### Concurrency
 
 Multiple requests move through the system at the same time.
 
-### 5.2 Batching
+### Batching
 
 Multiple requests are combined into one batch at the model layer and computed together.
 
@@ -221,7 +221,7 @@ These two often appear together, but they are not the same.
 
 ---
 
-## 6. A Minimal Inference Service Main Loop
+## A Minimal Inference Service Main Loop
 
 ```python
 from collections import deque
@@ -243,7 +243,7 @@ while queue:
         print(item, "->", result)
 ```
 
-### 6.2 Why Is This Code Important?
+### Why Is This Code Important?
 
 Because it already includes the most important skeleton of a high-performance inference service:
 
@@ -254,7 +254,7 @@ Because it already includes the most important skeleton of a high-performance in
 
 This chain is the actual essence of “serving.”
 
-### 6.3 The Safest Default Order When You Build an Inference Service for the First Time
+### The Safest Default Order When You Build an Inference Service for the First Time
 
 A more stable order is usually:
 
@@ -267,7 +267,7 @@ This is usually much easier than chasing “maximum throughput” from the start
 
 ---
 
-## 7. Why Is High-Performance Inference Serving Always About Balance?
+## Why Is High-Performance Inference Serving Always About Balance?
 
 You usually have to trade off among these dimensions:
 
@@ -282,7 +282,7 @@ This means:
 
 ---
 
-## 8. The Metrics Worth Watching in Real Services
+## The Metrics Worth Watching in Real Services
 
 At a minimum, you usually want to monitor:
 
@@ -299,7 +299,7 @@ These metrics tell you:
 - or on batching
 - or on model execution
 
-### 8.1 A Simple Monitoring Table for Beginners
+### A Simple Monitoring Table for Beginners
 
 | Metric | What Question Should You Ask First? |
 |---|---|
@@ -312,17 +312,17 @@ This table is useful for beginners because it turns “monitor many metrics” i
 
 ---
 
-## 9. The Most Common Mistakes
+## The Most Common Mistakes
 
-### 9.1 Only Looking at a Single Inference Benchmark
+### Only Looking at a Single Inference Benchmark
 
 What really matters in production is performance under overall traffic.
 
-### 9.2 Setting the Batch Size Very Large Right Away
+### Setting the Batch Size Very Large Right Away
 
 Throughput may go up, but latency may get dragged down.
 
-### 9.3 Being Able to Run the Model, But Not Knowing How to Inspect Queues and Resource Utilization
+### Being Able to Run the Model, But Not Knowing How to Inspect Queues and Resource Utilization
 
 This makes it very hard to truly understand where the system bottleneck is.
 

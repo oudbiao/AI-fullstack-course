@@ -1,11 +1,11 @@
 ---
-title: "5.6 Pipeline 与工作流"
+title: "5.5.6 Pipeline 与工作流"
 sidebar_position: 18
 description: "掌握 sklearn Pipeline、ColumnTransformer 处理混合类型数据、自定义 Transformer"
 keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, sklearn]
 ---
 
-# Pipeline 与工作流
+# 5.5.6 Pipeline 与工作流
 
 ![ColumnTransformer 与 Pipeline 工作流图](/img/course/column-transformer-pipeline.png)
 
@@ -118,7 +118,7 @@ X_transformed = preprocessor.fit_transform(X)
 print(f"原始: {X.shape} → 处理后: {X_transformed.shape}")
 ```
 
-### 1.1 这个例子最值得先抓住什么？
+### 这个例子最值得先抓住什么？
 
 最值得先抓住的是：
 
@@ -150,7 +150,7 @@ scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='accuracy')
 print(f"5 折 CV 准确率: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.1 为什么 Pipeline 和交叉验证特别搭？
+### 为什么 Pipeline 和交叉验证特别搭？
 
 因为交叉验证的本质是：
 
@@ -203,7 +203,7 @@ scores = cross_val_score(pipe, df[num_features + cat_features + custom_features]
 print(f"含自定义特征: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 3.1 自定义 Transformer 最适合什么时候上？
+### 自定义 Transformer 最适合什么时候上？
 
 最适合在这种时候上：
 

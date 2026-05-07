@@ -1,10 +1,10 @@
 ---
-title: "2.3 Array Indexing and Slicing"
+title: "3.2.3 Array Indexing and Slicing"
 sidebar_position: 4
 description: "Master the various ways to access NumPy arrays: basic indexing, boolean indexing, and fancy indexing"
 ---
 
-# Array Indexing and Slicing
+# 3.2.3 Array Indexing and Slicing
 
 ![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "5.1 学前导读：Transformer 这一章到底在学什么"
+title: "6.5.1 学前导读：Transformer 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 Transformer 章节的学习地图：注意力机制、Self-Attention、Encoder/Decoder 和大模型主线之间是什么关系。"
 keywords: [Transformer导读, 注意力机制, 自注意力, Attention, 大模型基础]
 ---
 
-# 学前导读：Transformer 这一章到底在学什么
+# 6.5.1 学前导读：Transformer 这一章到底在学什么
 
 这一章解决的是一个非常关键的问题：为什么现代 NLP、大模型和很多多模态系统，都绕不开 Transformer。
 

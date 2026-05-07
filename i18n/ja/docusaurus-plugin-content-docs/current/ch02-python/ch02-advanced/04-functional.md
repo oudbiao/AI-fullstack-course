@@ -1,10 +1,10 @@
 ---
-title: "1.4 関数型プログラミングの基礎"
+title: "2.2.4 関数型プログラミングの基礎"
 sidebar_position: 4
 description: "Python の関数型プログラミングの核となるツールを身につける"
 ---
 
-# 関数型プログラミングの基礎
+# 2.2.4 関数型プログラミングの基礎
 
 ![関数型データパイプライン図](/img/course/ch02-functional-pipeline-ja.png)
 

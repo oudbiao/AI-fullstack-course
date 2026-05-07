@@ -1,11 +1,11 @@
 ---
-title: "8.5 Guardrails Protection Mechanism"
+title: "9.8.5 Guardrails Protection Mechanism"
 sidebar_position: 47
 description: "From input guardrails, output guardrails, and tool guardrails to workflow guardrails, understand why guardrails are more like multi-layer system constraints than a single rule."
 keywords: [guardrails, safety policy, input filter, output filter, tool guard, agent]
 ---
 
-# Guardrails Protection Mechanism
+# 9.8.5 Guardrails Protection Mechanism
 
 ![Agent Layered Guardrails Diagram](/img/course/agent-guardrails-layers-en.png)
 
@@ -64,7 +64,7 @@ This analogy is especially useful for beginners because it helps you first grasp
 - Guardrails are essentially layered defense lines
 - They are not a single universal rule
 
-## 1. Why Can’t Guardrails Be Placed in Only One Spot?
+## Why Can’t Guardrails Be Placed in Only One Spot?
 
 Because attacks and mistakes can come from:
 
@@ -77,25 +77,25 @@ If you only defend one place, you will usually miss other channels.
 
 ---
 
-## 2. Four Common Types of Guardrails
+## Four Common Types of Guardrails
 
-### 1. Input Guardrails
+### Input Guardrails
 
 Block obviously malicious requests.
 
-### 2. Output Guardrails
+### Output Guardrails
 
 Check whether the model outputs dangerous content.
 
-### 3. Tool Guardrails
+### Tool Guardrails
 
 Restrict the allowed scope of tool calls and the validity of parameters.
 
-### 4. Workflow Guardrails
+### Workflow Guardrails
 
 Force human confirmation or multi-step approval for high-risk actions.
 
-### 2.1 A Guardrail Table for Beginners to Remember First
+### A Guardrail Table for Beginners to Remember First
 
 | Guardrail Layer | Most Important Thing to Remember |
 |---|---|
@@ -108,7 +108,7 @@ This table is helpful for beginners because it compresses “multi-layer guardra
 
 ---
 
-## 3. First, Run a Minimal Multi-Layer Guardrail Example
+## First, Run a Minimal Multi-Layer Guardrail Example
 
 ```python
 blocked_patterns = ["ignore previous instructions", "reveal system prompt"]
@@ -134,7 +134,7 @@ print("tool ok :", tool_guard("search_docs"))
 print("output ok:", output_guard("safe response"))
 ```
 
-### 3.1 What Is the Most Important Thing in This Example?
+### What Is the Most Important Thing in This Example?
 
 It shows that guardrails are usually not a single if statement, but:
 
@@ -144,7 +144,7 @@ It shows that guardrails are usually not a single if statement, but:
 
 A multi-layer combination.
 
-### 3.2 Why Is “Workflow Guardrails” Often the Easiest to Miss?
+### Why Is “Workflow Guardrails” Often the Easiest to Miss?
 
 Because many teams think first about filtering text,
 but overlook that high-risk actions are often better handled with:
@@ -155,7 +155,7 @@ but overlook that high-risk actions are often better handled with:
 
 This kind of process control is itself part of guardrails.
 
-### 3.3 Another Minimal “Workflow Guardrail” Example
+### Another Minimal “Workflow Guardrail” Example
 
 ```python
 def process_guard(action, risk_level):
@@ -173,7 +173,7 @@ This example is especially good for beginners because it reminds you that:
 - Guardrails are not only about checking text
 - They also decide whether the system can continue to the next step
 
-## 4. A Guardrail Design Order Beginners Can Copy Directly
+## A Guardrail Design Order Beginners Can Copy Directly
 
 It is better to do it this way:
 
@@ -184,7 +184,7 @@ It is better to do it this way:
 
 Catching the riskiest parts first is more stable than writing lots of detailed rules all at once.
 
-## 5. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Guardrails Are Worth Building First?
+## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Guardrails Are Worth Building First?
 
 In this kind of project, the truly dangerous part is often not “the model swears,”
 but:
@@ -207,7 +207,7 @@ You can remember this line first:
 
 > **The guardrail focus in this kind of project is not just safety-word filtering, but stable control of “source, priority, and export workflow.”**
 
-### 5.1 A Minimal Guardrail Example That Feels More Like a Courseware Generation System
+### A Minimal Guardrail Example That Feels More Like a Courseware Generation System
 
 ```python
 def knowledge_guard(item):
@@ -259,15 +259,15 @@ That way, other people can more easily see that:
 
 ---
 
-## 6. Most Common Mistakes
+## Most Common Mistakes
 
-### 6.1 Putting Guardrails Only on the Output Side
+### Putting Guardrails Only on the Output Side
 
-### 6.2 Making Guardrail Rules Too Rigid, Causing Many False Blocks of Normal Requests
+### Making Guardrail Rules Too Rigid, Causing Many False Blocks of Normal Requests
 
-### 6.3 Changing Guardrails Without a Regression Set
+### Changing Guardrails Without a Regression Set
 
-## 7. A Very Practical Guardrail Checklist
+## A Very Practical Guardrail Checklist
 
 You can ask yourself first:
 

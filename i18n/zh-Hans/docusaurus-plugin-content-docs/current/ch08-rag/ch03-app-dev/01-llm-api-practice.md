@@ -1,11 +1,11 @@
 ---
-title: "3.2 大模型 API 调用实践"
+title: "8.3.2 大模型 API 调用实践"
 sidebar_position: 11
 description: "从最小聊天请求、参数设计、错误处理到封装客户端，真正理解怎样把大模型 API 接进应用。"
 keywords: [LLM API, chat completion, API client, prompt, response parsing, error handling]
 ---
 
-# 大模型 API 调用实践
+# 8.3.2 大模型 API 调用实践
 
 :::tip 本节定位
 很多人第一次做 LLM 应用时，停留在“我会调用一下接口”。
@@ -27,7 +27,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 ## 一、为什么 API 调用是 LLM 应用开发的第一步？
 
-### 1.1 因为这是模型真正进入系统的入口
+### 因为这是模型真正进入系统的入口
 
 你前面学的大多数概念，不管多强，最终到了应用里都要落到一件事：
 
@@ -39,7 +39,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 > **大模型能力进入产品的接口层。**
 
-### 1.2 一个经常被忽略的问题
+### 一个经常被忽略的问题
 
 很多人只在乎：
 
@@ -75,7 +75,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 不要把这张图看成“一行调用代码”，而要看成一个运行闭环。`API` 是应用程序接口，`endpoint` 是服务地址，`JSON` 是网络传输里常用的结构化数据格式，`usage` 记录 token 用量，方便后续做成本和性能分析。
 :::
 
-### 2.1 一个最小请求示意
+### 一个最小请求示意
 
 ```python
 request = {
@@ -90,7 +90,7 @@ request = {
 print(request)
 ```
 
-### 2.2 为什么 `messages` 是列表？
+### 为什么 `messages` 是列表？
 
 因为聊天模型通常不是只看一条字符串，而是看：
 
@@ -137,7 +137,7 @@ response = client.chat([
 print(response)
 ```
 
-### 3.2 为什么先做 mock 版？
+### 为什么先做 mock 版？
 
 因为这能让你先理解：
 
@@ -151,7 +151,7 @@ print(response)
 
 ## 四、从“能调”走向“能用”
 
-### 4.1 为什么不能在业务代码里到处直接写 API 调用？
+### 为什么不能在业务代码里到处直接写 API 调用？
 
 如果你每个地方都写：
 
@@ -166,7 +166,7 @@ client.chat(...)
 - 错误处理不一致
 - 后面很难切模型或切 provider
 
-### 4.2 一个更像项目代码的封装
+### 一个更像项目代码的封装
 
 ```python
 class CourseAssistant:
@@ -186,7 +186,7 @@ assistant = CourseAssistant(MockLLMClient())
 print(assistant.ask("证书怎么拿？"))
 ```
 
-### 4.3 这个封装在教你什么？
+### 这个封装在教你什么？
 
 它在教你：
 
@@ -235,7 +235,7 @@ print("usage =", response["usage"])
 - 网络异常
 - 服务端错误
 
-### 6.1 一个最小错误处理示例
+### 一个最小错误处理示例
 
 ```python
 class UnstableMockLLMClient:
@@ -265,7 +265,7 @@ print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
-### 6.2 为什么这一层一定要认真做？
+### 为什么这一层一定要认真做？
 
 因为一旦模型调用成了系统中间的一环，错误就不只是“用户没回复”，而是：
 
@@ -320,15 +320,15 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 
 ## 九、最常见的误区
 
-### 9.1 以为“拿到 content”就够了
+### 以为“拿到 content”就够了
 
 其实 usage、错误结构、trace 信息也很重要。
 
-### 9.2 业务代码里到处散着 `client.chat(...)`
+### 业务代码里到处散着 `client.chat(...)`
 
 这会让后面维护很痛苦。
 
-### 9.3 没有统一错误处理
+### 没有统一错误处理
 
 一到线上问题就很容易暴露出来。
 

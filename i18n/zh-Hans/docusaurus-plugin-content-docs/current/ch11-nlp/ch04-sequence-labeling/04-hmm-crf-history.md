@@ -1,11 +1,11 @@
 ---
-title: "4.2 HMM、CRF 与序列标注历史主线"
+title: "11.4.2 HMM、CRF 与序列标注历史主线"
 sidebar_position: 1
 description: "从 HMM 词性标注到 CRF、BiLSTM-CRF 和 BERT token classification，理解序列标注任务为什么这样演进。"
 keywords: [HMM, CRF, 词性标注, 序列标注, NER, BiLSTM-CRF]
 ---
 
-# HMM、CRF 与序列标注历史主线
+# 11.4.2 HMM、CRF 与序列标注历史主线
 
 ![HMM CRF 序列标注历史地图](/img/course/ch11-hmm-crf-sequence-history-map.png)
 

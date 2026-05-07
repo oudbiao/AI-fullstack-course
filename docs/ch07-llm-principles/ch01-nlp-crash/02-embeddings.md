@@ -1,11 +1,11 @@
 ---
-title: "1.3 Word Embeddings and Semantic Representation"
+title: "7.1.3 Word Embeddings and Semantic Representation"
 sidebar_position: 2
 description: "From one-hot to dense vectors, and then to sentence representations and contextual representations, understand why models can turn “semantically similar” into distance relationships in vector space."
 keywords: [embedding, semantic representation, cosine similarity, sentence embedding, contextual embedding]
 ---
 
-# Word Embeddings and Semantic Representation
+# 7.1.3 Word Embeddings and Semantic Representation
 
 ![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.png)
 
@@ -37,9 +37,9 @@ The real key is:
 
 ---
 
-## 1. Why can’t we directly use one-hot to represent words?
+## Why can’t we directly use one-hot to represent words?
 
-### 1.1 one-hot is clean, but it does not express semantic relationships
+### one-hot is clean, but it does not express semantic relationships
 
 Suppose the vocabulary contains four words:
 
@@ -65,7 +65,7 @@ This means:
 
 > **one-hot can distinguish identity, but it cannot express similarity.**
 
-### 1.2 The core value of dense embedding
+### The core value of dense embedding
 
 What embedding tries to do is:
 
@@ -83,7 +83,7 @@ This is what really matters about embedding:
 - Not just encoding
 - But representation
 
-### 1.3 An analogy: putting words on a map
+### An analogy: putting words on a map
 
 You can think of embedding as map coordinates.
 
@@ -104,9 +104,9 @@ The key point of this diagram is the contrast: one-hot is like an ID number, whi
 
 ---
 
-## 2. Why do word vectors have semantics?
+## Why do word vectors have semantics?
 
-### 2.1 Because they are learned in context
+### Because they are learned in context
 
 Embedding is not manually defined.
 It is usually learned gradually during training.
@@ -118,7 +118,7 @@ This is the classic distributional hypothesis:
 
 > **A word’s meaning is largely determined by the context in which it appears.**
 
-### 2.2 Similar semantics does not mean exact synonymy
+### Similar semantics does not mean exact synonymy
 
 Being close in vector space only means:
 
@@ -136,7 +136,7 @@ For example:
 may also be close, because they often appear together.
 So “close” in embedding is more about being close in distributional meaning.
 
-### 2.3 From words to sentences, representations can keep building upward
+### From words to sentences, representations can keep building upward
 
 When you combine multiple token vectors,
 you can get:
@@ -155,7 +155,7 @@ but is also widely used in:
 
 ---
 
-## 3. First, run a truly semantic comparison example
+## First, run a truly semantic comparison example
 
 The code below does three things:
 
@@ -204,7 +204,7 @@ print("query_a vs query_b:", round(cosine(vec_a, vec_b), 3))
 print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 ```
 
-### 3.1 What is this code showing?
+### What is this code showing?
 
 It shows two levels of meaning:
 
@@ -218,7 +218,7 @@ Second level:
 
 This is why embedding can support semantic retrieval and recall.
 
-### 3.2 Why are `query_a` and `query_b` so close?
+### Why are `query_a` and `query_b` so close?
 
 Because they differ only in word order,
 and after averaging the vectors, the resulting representation is basically the same.
@@ -230,7 +230,7 @@ This also reveals a limitation of simple averaging:
 So early static sentence vectors were useful,
 but their expressive power was limited.
 
-### 3.3 Why is this code still valuable?
+### Why is this code still valuable?
 
 Because it captures the most essential intuition of embedding:
 
@@ -241,9 +241,9 @@ they still fundamentally rely on this idea.
 
 ---
 
-## 4. From word vectors to contextual representations
+## From word vectors to contextual representations
 
-### 4.1 Early embedding: one word usually has one fixed vector
+### Early embedding: one word usually has one fixed vector
 
 For example, in traditional word vectors:
 
@@ -258,7 +258,7 @@ it usually has the same vector.
 
 This creates ambiguity problems.
 
-### 4.2 Contextual representations: the same word can change in different contexts
+### Contextual representations: the same word can change in different contexts
 
 By the Transformer era,
 word representations are no longer completely fixed, but can change according to context.
@@ -278,7 +278,7 @@ This is one of the most important advances of contextual representations.
 When reading this diagram, focus only on the word `bank`: in `bank account` it moves closer to financial concepts, while in `river bank` it moves closer to geographic concepts. Transformer contextual representations let the same token no longer have only one fixed coordinate.
 :::
 
-### 4.3 A simple context simulation
+### A simple context simulation
 
 The example below is not a real Transformer,
 but it can help you build the intuition of “the same word, different vectors.”
@@ -303,9 +303,9 @@ but to help you remember:
 
 ---
 
-## 5. What are embeddings used for in real projects?
+## What are embeddings used for in real projects?
 
-### 5.1 Retrieval and RAG
+### Retrieval and RAG
 
 After encoding both questions and documents into vectors,
 you can perform:
@@ -314,7 +314,7 @@ you can perform:
 
 This is the foundation of many RAG systems.
 
-### 5.2 Semantic clustering and deduplication
+### Semantic clustering and deduplication
 
 If the vectors of two pieces of text are very close,
 they often mean the texts are semantically similar too.
@@ -325,16 +325,16 @@ This can be used for:
 - FAQ merging
 - Near-duplicate detection
 
-### 5.3 As input features for downstream tasks
+### As input features for downstream tasks
 
 Many classification, matching, and ranking tasks first convert text into embeddings,
 then train heads on top of them or use them for similarity scoring.
 
 ---
 
-## 6. The most easily misunderstood parts of embedding
+## The most easily misunderstood parts of embedding
 
-### 6.1 Misconception 1: If vectors are close, they must be synonyms
+### Misconception 1: If vectors are close, they must be synonyms
 
 Not necessarily.
 It more likely means:
@@ -342,7 +342,7 @@ It more likely means:
 - Similar distribution
 - Related usage
 
-### 6.2 Misconception 2: The simpler the sentence vector, the better
+### Misconception 2: The simpler the sentence vector, the better
 
 Averaging word vectors is intuitive,
 but it easily loses:
@@ -351,7 +351,7 @@ but it easily loses:
 - Negation
 - Long-range dependencies
 
-### 6.3 Misconception 3: Having embeddings means language is understood
+### Misconception 3: Having embeddings means language is understood
 
 Embedding is only a representation layer,
 and true understanding still requires:

@@ -1,11 +1,11 @@
 ---
-title: "7.3 Training Monitoring and Diagnosis"
+title: "6.7.3 Training Monitoring and Diagnosis"
 sidebar_position: 2
 description: "Build a basic framework for diagnosing training issues from loss curves, overfitting, gradient anomalies, and data problems."
 keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, debugging]
 ---
 
-# Training Monitoring and Diagnosis
+# 6.7.3 Training Monitoring and Diagnosis
 
 ![Training curve diagnosis chart](/img/course/training-curve-diagnosis-en.png)
 
@@ -69,9 +69,9 @@ A more stable approach is usually:
 - Make a preliminary classification
 - Then locate the real root cause
 
-## 1. Why is training diagnosis so important?
+## Why is training diagnosis so important?
 
-### 1.1 Because training failures rarely report the “real reason” directly
+### Because training failures rarely report the “real reason” directly
 
 What you more often see is:
 
@@ -81,14 +81,14 @@ What you more often see is:
 
 But these are only symptoms, not root causes.
 
-### 1.2 Real diagnosis needs to answer
+### Real diagnosis needs to answer
 
 - Is it a learning rate problem?
 - Is it a data problem?
 - Is it overfitting?
 - Or is the model capacity not enough?
 
-### 1.3 The most important thing to remember first is not the failure name, but what?
+### The most important thing to remember first is not the failure name, but what?
 
 The most important thing to remember is:
 
@@ -103,7 +103,7 @@ Once you separate “symptoms” from “root causes,” debugging becomes much 
 
 ---
 
-## 2. Start with the most common diagnostic entry point: the training curve
+## Start with the most common diagnostic entry point: the training curve
 
 ```python
 history = [
@@ -117,7 +117,7 @@ for row in history:
     print(row)
 ```
 
-### 2.1 What is the most obvious signal in this example?
+### What is the most obvious signal in this example?
 
 - `train_loss` keeps going down
 - `val_loss` first decreases, then increases
@@ -126,12 +126,12 @@ This usually looks a lot like:
 
 - Overfitting
 
-### 2.2 Why is the training curve the first entry point?
+### Why is the training curve the first entry point?
 
 Because it is the first place where problems show up,
 and many issues can be inferred from the curve shape early on.
 
-### 2.3 When looking at the curve for the first time, what three things should you focus on?
+### When looking at the curve for the first time, what three things should you focus on?
 
 1. Whether the training set is actually being learned
 2. Whether the validation set is improving at the same time
@@ -139,7 +139,7 @@ and many issues can be inferred from the curve shape early on.
 
 If you focus on these three things first, many problems can be classified in the first round.
 
-### 2.4 A fault-location table that beginners can use directly
+### A fault-location table that beginners can use directly
 
 | Symptom | What to check first |
 |------|------|
@@ -158,9 +158,9 @@ It is recommended to troubleshoot this diagram from top to bottom: first check t
 
 ---
 
-## 3. What do common problems look like?
+## What do common problems look like?
 
-### 3.1 Underfitting
+### Underfitting
 
 Typical signs:
 
@@ -168,21 +168,21 @@ Typical signs:
 - High val_loss as well
 - Both fail to go down
 
-### 3.2 Overfitting
+### Overfitting
 
 Typical signs:
 
 - train_loss keeps decreasing
 - val_loss starts getting worse
 
-### 3.3 Learning rate too large
+### Learning rate too large
 
 Typical signs:
 
 - Loss oscillates
 - Or even suddenly blows up
 
-### 3.4 Learning rate too small
+### Learning rate too small
 
 Typical signs:
 
@@ -191,23 +191,23 @@ Typical signs:
 
 ---
 
-## 4. What should you look at besides loss?
+## What should you look at besides loss?
 
-### 4.1 Whether the gradients are abnormal
+### Whether the gradients are abnormal
 
 For example:
 
 - Gradient explosion
 - Vanishing gradients
 
-### 4.2 Whether the prediction distribution is abnormal
+### Whether the prediction distribution is abnormal
 
 For example:
 
 - The model always predicts the same class
 - Confidence is extremely skewed
 
-### 4.3 Whether the data itself has problems
+### Whether the data itself has problems
 
 For example:
 
@@ -215,7 +215,7 @@ For example:
 - Class imbalance
 - Large differences between training and validation distributions
 
-### 4.4 A troubleshooting order that beginners can follow directly
+### A troubleshooting order that beginners can follow directly
 
 When training goes wrong, you can prioritize this order:
 
@@ -227,7 +227,7 @@ When training goes wrong, you can prioritize this order:
 
 This is usually more effective than changing the model right away.
 
-### 4.5 Why is this order more stable than “just switch models first”?
+### Why is this order more stable than “just switch models first”?
 
 Because the root cause of many training problems is not in the model architecture, but earlier in the pipeline:
 
@@ -240,7 +240,7 @@ If these are not checked first, the problem often remains even after switching t
 
 ---
 
-## 5. A minimal diagnosis rule example
+## A minimal diagnosis rule example
 
 ```python
 def diagnose(train_losses, val_losses):
@@ -259,14 +259,14 @@ val_losses = [0.98, 0.81, 0.79, 0.92]
 print(diagnose(train_losses, val_losses))
 ```
 
-### 5.1 This example is not meant to replace human judgment
+### This example is not meant to replace human judgment
 
 It is mainly helping you build an important diagnostic habit:
 
 - First classify by symptoms
 - Then look for possible causes
 
-### 5.2 Let’s look at another minimal “training log checklist” example
+### Let’s look at another minimal “training log checklist” example
 
 ```python
 training_log = {
@@ -297,17 +297,17 @@ into:
 
 ---
 
-## 6. The most common pitfalls
+## The most common pitfalls
 
-### 6.1 Mistake 1: Only looking at final accuracy
+### Mistake 1: Only looking at final accuracy
 
 This makes it hard to understand what happened during training.
 
-### 6.2 Mistake 2: Immediately switching models when the loss does not go down
+### Mistake 2: Immediately switching models when the loss does not go down
 
 Very often, the problem is not in the model architecture at all.
 
-### 6.3 Mistake 3: Thinking training problems can only be guessed from experience
+### Mistake 3: Thinking training problems can only be guessed from experience
 
 In fact, many problems can be systematically located through:
 
@@ -315,7 +315,7 @@ In fact, many problems can be systematically located through:
 - Statistics
 - Sample inspection
 
-## 7. What is worth saving during training
+## What is worth saving during training
 
 - Train / val loss for each epoch
 - Key metrics
@@ -342,7 +342,7 @@ This makes it much easier for others to see:
 
 These records will also make later retrospectives much easier.
 
-### 7.1 Why are the “worst samples” often more valuable than the average score?
+### Why are the “worst samples” often more valuable than the average score?
 
 Because the average score can only tell you “what the overall situation is like,”
 but the worst samples are better at exposing:

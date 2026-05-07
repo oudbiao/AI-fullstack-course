@@ -1,11 +1,11 @@
 ---
-title: "4.3 预训练方法"
+title: "7.4.3 预训练方法"
 sidebar_position: 13
 description: "把 Causal LM、Masked LM、Span Corruption 等目标放在同一张图里，理解不同预训练方法究竟在让模型学什么。"
 keywords: [causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5]
 ---
 
-# 预训练方法
+# 7.4.3 预训练方法
 
 :::tip 本节定位
 预训练方法本质上是在回答一句非常根本的话：
@@ -53,7 +53,7 @@ flowchart LR
 
 ## 一、为什么预训练目标会决定模型路线？
 
-### 1.1 因为模型会优先学会“训练里反复被要求做的事”
+### 因为模型会优先学会“训练里反复被要求做的事”
 
 如果训练时模型不断被要求：
 
@@ -76,7 +76,7 @@ flowchart LR
 所以预训练目标不是表面任务，
 而是模型能力的方向盘。
 
-### 1.2 一个类比：考试题型会塑造学习方式
+### 一个类比：考试题型会塑造学习方式
 
 你可以把模型想成学生。
 
@@ -86,7 +86,7 @@ flowchart LR
 
 模型也是一样。
 
-### 1.3 一个更适合新人的总类比
+### 一个更适合新人的总类比
 
 你可以把预训练目标理解成：
 
@@ -112,7 +112,7 @@ flowchart LR
 
 ## 二、三条最重要的预训练路线
 
-### 2.1 Causal Language Modeling：根据过去预测未来
+### Causal Language Modeling：根据过去预测未来
 
 这是 GPT 一系最经典的目标。
 
@@ -129,7 +129,7 @@ flowchart LR
 推理时模型也不能看未来，
 两者没有错位。
 
-### 2.2 Masked Language Modeling：根据上下文补空
+### Masked Language Modeling：根据上下文补空
 
 这是 BERT 一系的经典目标。
 
@@ -147,7 +147,7 @@ flowchart LR
 
 但它天然不如 Causal LM 那么适合自由生成。
 
-### 2.3 Span Corruption / Denoising：不是遮一个词，而是遮一段
+### Span Corruption / Denoising：不是遮一个词，而是遮一段
 
 T5 / BART 一类模型常用更一般化的去噪目标：
 
@@ -214,7 +214,7 @@ print("span inputs   :", span_inputs)
 print("span target   :", span_target)
 ```
 
-### 3.1 这段代码最该看哪里？
+### 这段代码最该看哪里？
 
 先看这三件事：
 
@@ -233,7 +233,7 @@ print("span target   :", span_target)
 读这张图时对比同一句话被改造成三种训练题：Causal LM 练“续写下一个 token”，Masked LM 练“根据左右文补空”，Span Corruption 练“恢复缺失片段”。模型每天刷什么题，长期就会长出什么能力倾向。
 :::
 
-### 3.2 Causal LM 的标签为什么是右移一位？
+### Causal LM 的标签为什么是右移一位？
 
 因为它在做的就是：
 
@@ -244,7 +244,7 @@ print("span target   :", span_target)
 - 输入：`x_1 ... x_{t-1}`
 - 标签：`x_2 ... x_t`
 
-### 3.3 Span Corruption 为什么常被看得更“通用”？
+### Span Corruption 为什么常被看得更“通用”？
 
 因为它比单点 mask 更接近真实文本变换。
 模型不仅要恢复一个词，
@@ -256,7 +256,7 @@ print("span target   :", span_target)
 
 这也是 T5 路线很重要的原因。
 
-### 3.4 再看一个最小“同一句话三种训练目标的对比表”
+### 再看一个最小“同一句话三种训练目标的对比表”
 
 | 方法 | 输入长什么样 | 标签长什么样 | 最容易让新人先记住什么 |
 |---|---|---|---|
@@ -277,7 +277,7 @@ print("span target   :", span_target)
 
 ## 四、这些目标分别更擅长什么？
 
-### 4.1 Causal LM：生成、续写、对话
+### Causal LM：生成、续写、对话
 
 这类目标和后续生成任务高度一致，
 所以特别适合：
@@ -287,7 +287,7 @@ print("span target   :", span_target)
 - 代码补全
 - 长文本续写
 
-### 4.2 Masked LM：表示学习和理解
+### Masked LM：表示学习和理解
 
 因为模型能同时看到左右上下文，
 所以很适合：
@@ -297,7 +297,7 @@ print("span target   :", span_target)
 - 语义匹配
 - 抽取任务
 
-### 4.3 Span Corruption：输入到输出映射
+### Span Corruption：输入到输出映射
 
 如果你想要模型自然地做：
 
@@ -308,7 +308,7 @@ print("span target   :", span_target)
 
 这类去噪和 seq2seq 目标会更顺手。
 
-### 4.4 第一次学这节时，最稳的默认顺序
+### 第一次学这节时，最稳的默认顺序
 
 更稳的顺序通常是：
 
@@ -329,7 +329,7 @@ print("span target   :", span_target)
 
 ## 五、预训练目标不是独立存在的，它和架构绑在一起
 
-### 5.1 为什么 Decoder-only 常配 Causal LM？
+### 为什么 Decoder-only 常配 Causal LM？
 
 因为两者完全一致：
 
@@ -338,14 +338,14 @@ print("span target   :", span_target)
 
 训练和生成闭环非常自然。
 
-### 5.2 为什么 Encoder-only 常配 Masked LM？
+### 为什么 Encoder-only 常配 Masked LM？
 
 因为 encoder 擅长双向建模。
 既然它能看全句，就很适合做：
 
 - 被 mask 位置的恢复
 
-### 5.3 为什么 Encoder-Decoder 常配去噪目标？
+### 为什么 Encoder-Decoder 常配去噪目标？
 
 因为这类结构天然适合：
 
@@ -358,7 +358,7 @@ print("span target   :", span_target)
 
 ## 六、除了经典目标，还会有什么变化？
 
-### 6.1 Prefix LM：部分双向、部分因果
+### Prefix LM：部分双向、部分因果
 
 有些方法会让输入前半段可以双向看，
 但生成段仍然保持因果约束。
@@ -368,7 +368,7 @@ print("span target   :", span_target)
 - 既要读上下文
 - 又要生成续写
 
-### 6.2 多模态预训练：输入不只是一串文本
+### 多模态预训练：输入不只是一串文本
 
 如果输入同时包含：
 
@@ -386,7 +386,7 @@ print("span target   :", span_target)
 
 - 训练目标决定模型优先学什么
 
-### 6.3 自监督目标不代表完全“无偏”
+### 自监督目标不代表完全“无偏”
 
 即使标签是自动构造的，
 目标函数本身也在给模型施加偏好。
@@ -403,17 +403,17 @@ print("span target   :", span_target)
 
 ## 七、最容易踩的误区
 
-### 7.1 误区一：预训练目标只是前期细节，后面微调会解决一切
+### 误区一：预训练目标只是前期细节，后面微调会解决一切
 
 不对。
 预训练目标会给模型打下长期能力偏向。
 
-### 7.2 误区二：Masked LM 比 Causal LM 更高级，或者反过来
+### 误区二：Masked LM 比 Causal LM 更高级，或者反过来
 
 两者不是等级关系，
 而是针对不同路线的设计。
 
-### 7.3 误区三：只记名字，不看标签长什么样
+### 误区三：只记名字，不看标签长什么样
 
 真正的理解是：
 

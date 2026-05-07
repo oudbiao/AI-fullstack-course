@@ -1,11 +1,11 @@
 ---
-title: "3.4 Gradient Descent: The Most Core Optimization Algorithm in AI"
+title: "4.3.4 Gradient Descent: The Most Core Optimization Algorithm in AI"
 sidebar_position: 11
 description: "Build an intuitive understanding of gradient descent, grasp the impact of learning rate, implement gradient descent from scratch to fit a line, and learn about variants such as SGD"
 keywords: [gradient descent, learning rate, SGD, optimization algorithm, linear regression, AI math]
 ---
 
-# Gradient Descent: The Most Core Optimization Algorithm in AI
+# 4.3.4 Gradient Descent: The Most Core Optimization Algorithm in AI
 
 ![Gradient descent path diagram](/img/course/gradient-descent-path-en.png)
 
@@ -41,7 +41,7 @@ The previous two sections solved the question of "how to know how a function cha
 
 If you understand this section clearly, then later when you see optimizers, learning rates, and training processes, you won't be left with just "memorizing the API."
 
-## 1. Intuition: Walking Down a Hill Blindfolded
+## Intuition: Walking Down a Hill Blindfolded
 
 Imagine you are standing on a mountain, blindfolded, and you want to reach the lowest point in the valley. What would you do?
 
@@ -49,7 +49,7 @@ Imagine you are standing on a mountain, blindfolded, and you want to reach the l
 2. **Take one step in the steepest downhill direction** (= update parameters along the negative gradient direction)
 3. **Repeat** until it feels flat all around (= the gradient is close to zero, meaning you have reached the minimum)
 
-### 1.1 Why is this analogy especially important for beginners?
+### Why is this analogy especially important for beginners?
 
 Because it helps you accept one thing first:
 
@@ -70,9 +70,9 @@ flowchart TD
 
 ---
 
-## 2. Start by Understanding Through Code
+## Start by Understanding Through Code
 
-### 2.1 The simplest example: finding the minimum of f(x) = x²
+### The simplest example: finding the minimum of f(x) = x²
 
 ```python
 import numpy as np
@@ -104,7 +104,7 @@ for step in range(20):
 print(f"\nFinal: x = {x:.6f}, f(x) = {f(x):.10f}")
 ```
 
-### 2.2 Visualize the descent process
+### Visualize the descent process
 
 ```python
 x_plot = np.linspace(-5, 5, 200)
@@ -132,11 +132,11 @@ plt.show()
 
 ---
 
-## 3. Learning Rate — The Most Important Hyperparameter
+## Learning Rate — The Most Important Hyperparameter
 
-### 3.1 Learning rate too large vs too small
+### Learning rate too large vs too small
 
-### 3.1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 The learning rate is very much like how big each step is when you walk downhill:
 
@@ -194,9 +194,9 @@ for i in range(5):
 
 ---
 
-## 4. Hands-on: Implement Gradient Descent from Scratch to Fit a Line
+## Hands-on: Implement Gradient Descent from Scratch to Fit a Line
 
-### 4.1 Problem setup
+### Problem setup
 
 Use gradient descent to fit y = wx + b and find the best w and b.
 
@@ -216,7 +216,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.2 Loss function
+### Loss function
 
 **Mean Squared Error (MSE)**:
 
@@ -241,7 +241,7 @@ def compute_gradients(X, y, w, b):
     return dw, db
 ```
 
-### 4.3 Gradient descent training
+### Gradient descent training
 
 ```python
 # Initialize parameters
@@ -277,7 +277,7 @@ print(f"\nFinal result: w={w:.4f}, b={b:.4f}")
 print(f"True parameters: w=2.0000, b=3.0000")
 ```
 
-### 4.4 Visualize the training process
+### Visualize the training process
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
@@ -317,9 +317,9 @@ plt.show()
 
 ---
 
-## 5. Three Variants of Gradient Descent
+## Three Variants of Gradient Descent
 
-### 5.1 Batch Gradient Descent (BGD)
+### Batch Gradient Descent (BGD)
 
 Use **all data** to compute the gradient at each step (the implementation above is BGD).
 
@@ -328,7 +328,7 @@ Use **all data** to compute the gradient at each step (the implementation above 
 dw = (2/n) * np.sum((y_pred - y) * X)  # use all data
 ```
 
-### 5.2 Stochastic Gradient Descent (SGD)
+### Stochastic Gradient Descent (SGD)
 
 Use **only one sample** to compute the gradient at each step.
 
@@ -339,7 +339,7 @@ i = rng.integers(0, n)
 dw = 2 * (w * X[i] + b - y_true[i]) * X[i]
 ```
 
-### 5.3 Mini-batch Gradient Descent (Mini-batch SGD)
+### Mini-batch Gradient Descent (Mini-batch SGD)
 
 Use a small batch of data at each step (for example, 32 samples) — **the most commonly used**.
 
@@ -353,7 +353,7 @@ y_batch = y_true[indices]
 dw = (2/batch_size) * np.sum((w * X_batch + b - y_batch) * X_batch)
 ```
 
-### 5.4 Comparison
+### Comparison
 
 | Method | Data used per step | Gradient estimate | Speed | Practical use |
 |------|------------|---------|------|---------|
@@ -403,9 +403,9 @@ plt.show()
 
 ---
 
-## 6. Local Minima and Saddle Points
+## Local Minima and Saddle Points
 
-### 6.1 Challenges of non-convex functions
+### Challenges of non-convex functions
 
 ```python
 # A function with multiple extrema
@@ -443,7 +443,7 @@ plt.show()
 
 **Interpretation**: Different starting points may "walk downhill" to different valleys (local minima). In deep learning, the good news is that local minima in high-dimensional spaces are usually good enough.
 
-### 6.2 Saddle points
+### Saddle points
 
 ```mermaid
 flowchart LR
@@ -468,7 +468,7 @@ After looking at gradient descent, the most valuable questions to bring to the n
 
 These questions will naturally lead you to:
 
-- [Preview of the chain rule and backpropagation](./04-chain-rule-backprop.md)
+- [4.3.5 Preview of the chain rule and backpropagation](./04-chain-rule-backprop.md)
 
 :::info Connecting to what comes next
 - **Next section**: Chain rule — how to efficiently compute the gradient of each parameter in a complex network

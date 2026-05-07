@@ -1,11 +1,11 @@
 ---
-title: "4.5 NER Practice"
+title: "11.4.5 NER Practice"
 sidebar_position: 4
 description: "Walk through the full NER practice loop around a small resume information extraction project: label design, data organization, entity recovery, and error analysis."
 keywords: [NER, named entity recognition, information extraction, BIO, project, NLP]
 ---
 
-# NER Practice
+# 11.4.5 NER Practice
 
 ![NER project entity evaluation loop](/img/course/ch11-ner-project-entity-eval-loop-en.png)
 
@@ -58,9 +58,9 @@ So the real questions this section wants to solve are:
 
 ---
 
-## 1. First, define the project problem clearly
+## First, define the project problem clearly
 
-### 1.1 Scenario
+### Scenario
 
 Input:
 
@@ -72,7 +72,7 @@ Output:
 - School
 - Skill
 
-### 1.2 Why is this more suitable for practice than “just extracting some entities”?
+### Why is this more suitable for practice than “just extracting some entities”?
 
 Because the boundaries are clear:
 
@@ -80,7 +80,7 @@ Because the boundaries are clear:
 - Entity types are explicit
 - The results are easy to explain from a business perspective
 
-### 1.3 The first key point is not the model, but the label scheme
+### The first key point is not the model, but the label scheme
 
 For example:
 
@@ -90,7 +90,7 @@ For example:
 
 If this step is vague, the model and evaluation will both become messy later.
 
-### 1.4 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of NER as:
 
@@ -106,7 +106,7 @@ Once you understand it this way, it becomes much more natural why NER often gets
 
 ---
 
-## 2. First build a runnable annotation and decoding loop
+## First build a runnable annotation and decoding loop
 
 The example below does three things:
 
@@ -174,7 +174,7 @@ for sample in samples:
     print()
 ```
 
-### 2.1 Why is this code the “minimal project loop”?
+### Why is this code the “minimal project loop”?
 
 Because it already includes:
 
@@ -185,7 +185,7 @@ Because it already includes:
 
 This is much closer to the shape of a real project than printing a string of labels.
 
-### 2.2 Why compare by entity here instead of only by token?
+### Why compare by entity here instead of only by token?
 
 Because what the business usually cares about is:
 
@@ -194,7 +194,7 @@ Because what the business usually cares about is:
 
 Not whether a single token was labeled correctly.
 
-### 2.3 Another minimal “entity log” example
+### Another minimal “entity log” example
 
 ```python
 sample = samples[1]
@@ -218,13 +218,13 @@ This kind of log is especially good for beginners because it turns an abstract l
 
 ---
 
-## 3. What metrics should an NER project look at first?
+## What metrics should an NER project look at first?
 
-### 3.1 Entity-level Precision / Recall / F1
+### Entity-level Precision / Recall / F1
 
 This is the most common and most meaningful set of metrics.
 
-### 3.2 Why is token accuracy not enough?
+### Why is token accuracy not enough?
 
 Because most positions in a sequence are often:
 
@@ -233,7 +233,7 @@ Because most positions in a sequence are often:
 If you only look at token accuracy, it can easily seem “very high,”
 but the actual entity extraction performance may still be poor.
 
-### 3.3 A minimal entity recall example
+### A minimal entity recall example
 
 ```python
 def entity_recall(gold_entities, pred_entities):
@@ -249,7 +249,7 @@ for sample in samples:
     print(entity_recall(gold_entities, pred_entities))
 ```
 
-### 3.4 The safest default order when doing an NER project for the first time
+### The safest default order when doing an NER project for the first time
 
 A more stable order is usually:
 
@@ -262,26 +262,26 @@ This is easier to keep the project stable than rushing to BERT from the start.
 
 ---
 
-## 4. The most common failure points in NER projects
+## The most common failure points in NER projects
 
-### 4.1 Wrong entity boundary
+### Wrong entity boundary
 
 For example, only half of a school name is extracted.
 
-### 4.2 Wrong type
+### Wrong type
 
 For example, a skill is recognized as a school.
 
-### 4.3 Missing entity
+### Missing entity
 
 For example, in sample 2, `Peking University` is missed.
 
-### 4.4 Why is this so suitable for error analysis?
+### Why is this so suitable for error analysis?
 
 Because NER errors are usually very concrete,
 which makes them easy to inspect one by one and fix category by category.
 
-### 4.5 A very useful error-bucketing method for beginners
+### A very useful error-bucketing method for beginners
 
 When doing error analysis for the first time, the most valuable buckets are usually:
 
@@ -297,9 +297,9 @@ These three are already enough to help you judge:
 
 ---
 
-## 5. What should the next step be in a real project?
+## What should the next step be in a real project?
 
-### 5.1 Expand the data
+### Expand the data
 
 Especially:
 
@@ -307,14 +307,14 @@ Especially:
 - rare entities
 - easily confused types
 
-### 5.2 Upgrade from rules / classic models to stronger models
+### Upgrade from rules / classic models to stronger models
 
 For example:
 
 - BiLSTM + CRF
 - BERT token classification
 
-### 5.3 Add post-processing rules
+### Add post-processing rules
 
 In many business projects,
 reasonable post-processing rules can significantly improve entity quality.
@@ -340,19 +340,19 @@ This makes it much easier for others to feel that:
 
 ---
 
-## 6. The most common misconceptions
+## The most common misconceptions
 
-### 6.1 Misconception 1: Only look at token-level metrics
+### Misconception 1: Only look at token-level metrics
 
 NER should pay more attention to entity-level performance.
 
-### 6.2 Misconception 2: Try to cover all entity types from the start
+### Misconception 2: Try to cover all entity types from the start
 
 A more stable approach is usually:
 
 - first choose 2~4 core entity types and make them solid
 
-### 6.3 Misconception 3: Do not define the label scheme clearly at the beginning
+### Misconception 3: Do not define the label scheme clearly at the beginning
 
 If the label boundaries are unclear, both the data and the evaluation will drift.
 

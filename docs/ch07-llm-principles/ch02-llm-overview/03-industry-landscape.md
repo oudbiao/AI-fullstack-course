@@ -1,11 +1,11 @@
 ---
-title: "2.4 LLM Industry Landscape"
+title: "7.2.4 LLM Industry Landscape"
 sidebar_position: 7
 description: "Build a foundational framework for understanding the LLM industry landscape from the model layer, platform layer, application layer, and open-source vs. closed-source ecosystem."
 keywords: [LLM industry, open-source models, closed-source models, API, inference, application layer]
 ---
 
-# LLM Industry Landscape
+# 7.2.4 LLM Industry Landscape
 
 ![LLM industry landscape layer map](/img/course/ch07-llm-industry-landscape-map-en.png)
 
@@ -24,9 +24,9 @@ After completing this section, you will be able to:
 
 ---
 
-## 1. First, break the industry chain down
+## First, break the industry chain down
 
-### 1.1 Model layer: who is building the "engine"?
+### Model layer: who is building the "engine"?
 
 The model layer is mainly responsible for training foundation models and general-purpose models.
 You can think of it as "the people who build the engine."
@@ -44,7 +44,7 @@ Common forms include:
 - Open-source downloadable models
 - Industry-specific models
 
-### 1.2 Platform layer: who makes models easier to use?
+### Platform layer: who makes models easier to use?
 
 The platform layer is like "the people who build roads and supply electricity."
 
@@ -59,7 +59,7 @@ What they usually do includes:
 
 Without the platform layer, many teams would struggle to put models into production reliably, even if they already had the model.
 
-### 1.3 Beginner glossary: words that appear often in the platform layer
+### Beginner glossary: words that appear often in the platform layer
 
 | Term | What it means | Why it matters |
 |---|---|---|
@@ -71,9 +71,9 @@ Without the platform layer, many teams would struggle to put models into product
 
 ---
 
-## 2. Application layer: the layer closest to users
+## Application layer: the layer closest to users
 
-### 2.1 The application layer sells results, not models
+### The application layer sells results, not models
 
 The application layer is more like "the people who run a restaurant."
 
@@ -92,7 +92,7 @@ Typical applications include:
 - AI office tools
 - AI teaching assistants
 
-### 2.2 The same model can become many different products
+### The same model can become many different products
 
 The same foundation model may turn into completely different products in different teams:
 
@@ -110,9 +110,9 @@ This shows that industry competition is not only about "whose model is bigger." 
 
 ---
 
-## 3. How should you choose between open-source and closed-source approaches?
+## How should you choose between open-source and closed-source approaches?
 
-### 3.1 Closed-source models are more like "plug-and-play mature engines"
+### Closed-source models are more like "plug-and-play mature engines"
 
 Their advantages are usually:
 
@@ -126,7 +126,7 @@ Their trade-offs are usually:
 - Less controllable
 - Private deployment is more limited
 
-### 3.2 Open-source models are more like "engines you can modify yourself"
+### Open-source models are more like "engines you can modify yourself"
 
 Their advantages are usually:
 
@@ -146,9 +146,9 @@ One-sentence memory aid:
 
 ---
 
-## 4. What many teams really compete on is "system capability"
+## What many teams really compete on is "system capability"
 
-### 4.1 The model is only one component in the system
+### The model is only one component in the system
 
 In real-world LLM products, it is usually not "the model acting alone," but the collaboration of an entire system:
 
@@ -163,7 +163,7 @@ In other words:
 
 > User experience = model capability × system design × data quality
 
-### 4.2 Why can the same model feel very different in different products?
+### Why can the same model feel very different in different products?
 
 Because what really determines the experience often also includes:
 
@@ -176,9 +176,9 @@ This is also why "being able to call an API" is not the same as "being able to b
 
 ---
 
-## 5. A practical framework for model selection
+## A practical framework for model selection
 
-### 5.1 Do not ask first, "Which one is the strongest?" Ask first, "What do I need?"
+### Do not ask first, "Which one is the strongest?" Ask first, "What do I need?"
 
 Common selection dimensions include:
 
@@ -191,7 +191,7 @@ Common selection dimensions include:
 | Multimodal | Do you need image understanding or audio? |
 | Tool capability | Do you need function calling / agent support? |
 
-### 5.2 A small scoring script
+### A small scoring script
 
 This example is not about choosing a real latest model. It is for practicing how to score based on requirements.
 
@@ -239,9 +239,9 @@ You can change `weights` to simulate different preferences in different companie
 
 ---
 
-## 6. Why does the "industry landscape" matter to engineers too?
+## Why does the "industry landscape" matter to engineers too?
 
-### 6.1 Because you make technical choices every day
+### Because you make technical choices every day
 
 You will keep running into questions like:
 
@@ -252,7 +252,7 @@ You will keep running into questions like:
 
 At their core, these questions are all related to industry structure.
 
-### 6.2 Because technology choices affect your career path
+### Because technology choices affect your career path
 
 Different roles tend to emphasize different skills:
 
@@ -264,18 +264,18 @@ Understanding the industry landscape can help you more clearly see which kind of
 
 ---
 
-## 7. Common beginner mistakes
+## Common beginner mistakes
 
-### 7.1 Only looking at leaderboards
+### Only looking at leaderboards
 
 Leaderboards are useful, but they are not everything.
 In real projects, cost, latency, and stability are equally important.
 
-### 7.2 Thinking open-source is always cheaper
+### Thinking open-source is always cheaper
 
 A model being open-source does not mean training, deployment, and maintenance are all cheap.
 
-### 7.3 Thinking there is always a "best model"
+### Thinking there is always a "best model"
 
 Many times there is no "absolute best," only "the most suitable for the current scenario."
 

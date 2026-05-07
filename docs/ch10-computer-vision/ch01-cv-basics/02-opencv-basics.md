@@ -1,11 +1,11 @@
 ---
-title: "1.3 OpenCV Basics"
+title: "10.1.3 OpenCV Basics"
 sidebar_position: 2
 description: "Learn how to use OpenCV to read and write images, resize, crop, convert colors, and draw shapes — your first step into practical CV engineering."
 keywords: [OpenCV, cv2, image reading, image resizing, drawing, color conversion]
 ---
 
-# OpenCV Basics
+# 10.1.3 OpenCV Basics
 
 ## Learning Objectives
 
@@ -18,7 +18,7 @@ After completing this section, you will be able to:
 
 ---
 
-## 1. Why do almost every CV beginner course start with OpenCV?
+## Why do almost every CV beginner course start with OpenCV?
 
 Because OpenCV is like the “Swiss Army knife” of computer vision:
 
@@ -39,7 +39,7 @@ pip install opencv-python numpy
 
 ---
 
-## 2. First create an image instead of relying on an external file
+## First create an image instead of relying on an external file
 
 To make the code run directly, let’s generate a blank image ourselves first.
 
@@ -65,7 +65,7 @@ Here, `shape = (240, 320, 3)` means:
 
 ---
 
-## 3. The color order in OpenCV is BGR, not RGB
+## The color order in OpenCV is BGR, not RGB
 
 This is a very classic pitfall.
 
@@ -107,7 +107,7 @@ print("RGB pixel:", img_rgb[0, 0].tolist())
 
 ---
 
-## 4. Common basic operations: resizing, cropping, flipping
+## Common basic operations: resizing, cropping, flipping
 
 ```python
 import cv2
@@ -150,7 +150,7 @@ Two of the most common beginner mistakes in OpenCV are: the default color order 
 
 ---
 
-## 5. Drawing on images
+## Drawing on images
 
 Many computer vision tasks need results marked on the image, such as:
 
@@ -190,7 +190,7 @@ print("Saved opencv_draw_demo.png")
 
 ---
 
-## 6. Convert to a grayscale image
+## Convert to a grayscale image
 
 Many classic vision operations first convert a color image to grayscale because:
 
@@ -217,7 +217,7 @@ cv2.imwrite("opencv_gray.png", gray)
 
 ---
 
-## 7. A small project: make an “info card” image
+## A small project: make an “info card” image
 
 This example combines the knowledge from above: creating an image, drawing shapes, writing text, and saving the result.
 
@@ -240,18 +240,18 @@ print("Saved opencv_info_card.png")
 
 ---
 
-## 8. Common beginner mistakes
+## Common beginner mistakes
 
-### 1. `cv2.imshow()` does not open a window
+### `cv2.imshow()` does not open a window
 
 In many remote environments, notebooks, and server environments, `imshow()` is not convenient to use.
 For teaching and script-based scenarios, it is recommended to use `cv2.imwrite()` to save the result first.
 
-### 2. Treating BGR as RGB
+### Treating BGR as RGB
 
 This is one of the most common bugs for OpenCV beginners.
 
-### 3. Reversing the `x` and `y` order when cropping
+### Reversing the `x` and `y` order when cropping
 
 Image array indexing is `[y, x]`, not `[x, y]`.
 

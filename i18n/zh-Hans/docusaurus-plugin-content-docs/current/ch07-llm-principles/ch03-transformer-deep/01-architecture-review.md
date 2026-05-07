@@ -1,11 +1,11 @@
 ---
-title: "3.2 Transformer 架构回顾与深入"
+title: "7.3.2 Transformer 架构回顾与深入"
 sidebar_position: 8
 description: "从一个 Transformer block 的数据流出发，重新看懂 token embedding、位置编码、自注意力、残差连接和前馈网络是怎样串起来工作的。"
 keywords: [Transformer, self-attention, residual, layer norm, feed forward, decoder]
 ---
 
-# Transformer 架构回顾与深入
+# 7.3.2 Transformer 架构回顾与深入
 
 :::tip 本节定位
 如果你学过注意力机制，可能已经知道 `Q / K / V` 这些名词。
@@ -29,7 +29,7 @@ keywords: [Transformer, self-attention, residual, layer norm, feed forward, deco
 
 ## 一、为什么 Transformer 会成为大模型的底座？
 
-### 1.1 它解决的是“序列里谁该看谁”的问题
+### 它解决的是“序列里谁该看谁”的问题
 
 语言天然是序列。
 当模型处理一句话时，它需要知道：
@@ -46,7 +46,7 @@ Transformer 的思路则是：
 
 这就是自注意力的核心。
 
-### 1.2 Transformer 真正强的地方不只是注意力
+### Transformer 真正强的地方不只是注意力
 
 很多人会把 Transformer 简化成：
 
@@ -64,7 +64,7 @@ Transformer 的思路则是：
 
 这套组合让它既能建模序列关系，又能做深、做大、做并行。
 
-### 1.3 一个类比：每层 block 都像一次“讨论 + 整理”
+### 一个类比：每层 block 都像一次“讨论 + 整理”
 
 你可以把一个 Transformer block 想成开会：
 
@@ -79,7 +79,7 @@ Transformer 的思路则是：
 
 ## 二、一个 Transformer block 里到底有什么？
 
-### 2.1 输入先变成向量
+### 输入先变成向量
 
 模型看到的不是文字本身，而是 token id。
 这些 token id 会先查 embedding 表，变成向量。
@@ -93,7 +93,7 @@ Transformer 的思路则是：
 
 > **把离散符号变成连续空间里的表示。**
 
-### 2.2 然后补上位置信息
+### 然后补上位置信息
 
 注意力本身只关心“集合里的关系”，
 它并不知道 token 原本处在第几个位置。
@@ -112,7 +112,7 @@ Transformer 的思路则是：
 
 注入进去。
 
-### 2.3 自注意力负责“跨 token 交流”
+### 自注意力负责“跨 token 交流”
 
 自注意力里每个 token 都会生成三份表示：
 
@@ -129,7 +129,7 @@ Transformer 的思路则是：
 
 - “结合了上下文后的新表示”
 
-### 2.4 前馈网络负责“单 token 深加工”
+### 前馈网络负责“单 token 深加工”
 
 很多新人学 Transformer 时，会把注意力看成唯一核心。
 但实际上，FFN 也非常重要。
@@ -144,7 +144,7 @@ Transformer 的思路则是：
 
 > 注意力负责交换信息，FFN 负责消化信息。
 
-### 2.5 残差和归一化为什么总出现？
+### 残差和归一化为什么总出现？
 
 因为深层网络很容易训练不稳。
 残差连接和 LayerNorm 的作用，可以先粗略记成：
@@ -270,7 +270,7 @@ for row in block_output:
     print([round(x, 3) for x in row])
 ```
 
-### 3.1 读这段代码时，先盯住四个位置
+### 读这段代码时，先盯住四个位置
 
 最关键的地方只有四处：
 
@@ -282,7 +282,7 @@ for row in block_output:
 如果这四处看懂了，
 你对 Transformer block 的理解就已经越过“只会背图”的阶段了。
 
-### 3.2 为什么这里要加 causal mask？
+### 为什么这里要加 causal mask？
 
 你会看到这句：
 
@@ -300,7 +300,7 @@ row.append(dot(q, k) / scale if j <= i else -10**9)
 如果你把 `j <= i` 去掉，
 它就更像 encoder 里的双向注意力。
 
-### 3.3 为什么注意力后面还要再过 FFN？
+### 为什么注意力后面还要再过 FFN？
 
 因为注意力只是在“汇总上下文”。
 它告诉当前 token：
@@ -318,7 +318,7 @@ FFN 的作用就是：
 
 ## 四、把 block 放回整张结构图里
 
-### 4.1 多层堆叠意味着逐层抽象
+### 多层堆叠意味着逐层抽象
 
 第一层注意力看到的可能更多是：
 
@@ -335,7 +335,7 @@ FFN 的作用就是：
 这也是为什么 Transformer 不只是“一层 attention”，
 而是很多层 block 叠起来。
 
-### 4.2 Encoder 和 Decoder 的差别主要在 mask 和交互方式
+### Encoder 和 Decoder 的差别主要在 mask 和交互方式
 
 如果只看 block，本质上它们很像。
 差别主要在：
@@ -348,7 +348,7 @@ FFN 的作用就是：
 
 - 谁能看谁
 
-### 4.3 GPT 为什么只保留 decoder？
+### GPT 为什么只保留 decoder？
 
 因为生成任务最核心的结构约束是：
 
@@ -361,7 +361,7 @@ decoder-only 更贴这个目标，结构也更直接。
 
 ## 五、工程上最容易忽略的点
 
-### 5.1 注意力不是免费午餐
+### 注意力不是免费午餐
 
 每个 token 都要和其他 token 比较，
 长度一长，成本会迅速上升。
@@ -375,7 +375,7 @@ decoder-only 更贴这个目标，结构也更直接。
 
 这些改造。
 
-### 5.2 block 结构看起来重复，但训练时并不轻松
+### block 结构看起来重复，但训练时并不轻松
 
 当层数和 hidden size 提高后，你很快就会碰到：
 
@@ -386,7 +386,7 @@ decoder-only 更贴这个目标，结构也更直接。
 所以 Transformer 真正能成为大模型底座，不只是因为“结构优雅”，
 也因为大量工程细节逐步成熟了。
 
-### 5.3 看懂 block，后面很多章节都会轻松很多
+### 看懂 block，后面很多章节都会轻松很多
 
 后面你学：
 
@@ -401,17 +401,17 @@ decoder-only 更贴这个目标，结构也更直接。
 
 ## 六、常见误区
 
-### 6.1 误区一：Transformer = 注意力
+### 误区一：Transformer = 注意力
 
 不完整。
 Transformer 是一套 block 设计，不是一个孤立公式。
 
-### 6.2 误区二：FFN 只是配角
+### 误区二：FFN 只是配角
 
 错。
 它承担的是非常重要的非线性特征变换。
 
-### 6.3 误区三：只要知道 QKV 就算理解了 Transformer
+### 误区三：只要知道 QKV 就算理解了 Transformer
 
 真正理解还包括：
 

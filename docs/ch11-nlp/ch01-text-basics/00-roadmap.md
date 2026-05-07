@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-class Guide: What Is This Chapter on Text Basics Really About?"
+title: "11.1.1 Pre-class Guide: What Is This Chapter on Text Basics Really About?"
 sidebar_position: 0
 description: "First build a learning map for the text basics chapter: how NLP tasks, preprocessing, and text representation lay the foundation for all later tasks."
 keywords: [Text Basics Guide, NLP Guide, Text Representation]
 ---
 
-# Pre-class Guide: What Is This Chapter on Text Basics Really About?
+# 11.1.1 Pre-class Guide: What Is This Chapter on Text Basics Really About?
 
 This chapter is not about learning “a few text processing tools.” It is helping you build an intuition for NLP inputs.
 

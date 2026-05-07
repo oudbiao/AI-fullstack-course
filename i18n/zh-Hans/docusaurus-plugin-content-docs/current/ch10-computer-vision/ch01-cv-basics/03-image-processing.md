@@ -1,11 +1,11 @@
 ---
-title: "1.4 图像处理技术"
+title: "10.1.4 图像处理技术"
 sidebar_position: 3
 description: "从滤波、边缘检测到形态学操作，用可运行的 OpenCV 示例理解经典图像处理的工作方式。"
 keywords: [滤波, 边缘检测, 形态学, OpenCV, Canny, blur]
 ---
 
-# 图像处理技术
+# 10.1.4 图像处理技术
 
 ![图像处理流水线图](/img/course/cv-image-processing-pipeline.png)
 
@@ -74,7 +74,7 @@ print("已保存 processing_original.png")
 
 > 把一个像素周围邻居的值也考虑进来，让图像更平滑。
 
-### 3.1 均值滤波
+### 均值滤波
 
 ```python
 import cv2
@@ -89,7 +89,7 @@ print("已保存 processing_blur.png")
 
 均值滤波会让边缘变软，但也可能让细节损失。
 
-### 3.2 高斯滤波
+### 高斯滤波
 
 ```python
 import cv2
@@ -113,7 +113,7 @@ print("已保存 processing_gaussian.png")
 
 比如黑底上的白色矩形边界，就是典型边缘。
 
-### 4.1 Canny 边缘检测
+### Canny 边缘检测
 
 ```python
 import cv2
@@ -166,7 +166,7 @@ print("已保存 processing_binary.png")
 
 可以把它理解成“对白色区域做揉一揉、扩一扩、缩一缩”。
 
-### 6.1 腐蚀（Erosion）
+### 腐蚀（Erosion）
 
 白色区域会变小。
 
@@ -182,7 +182,7 @@ cv2.imwrite("processing_eroded.png", eroded)
 print("已保存 processing_eroded.png")
 ```
 
-### 6.2 膨胀（Dilation）
+### 膨胀（Dilation）
 
 白色区域会变大。
 
@@ -198,7 +198,7 @@ cv2.imwrite("processing_dilated.png", dilated)
 print("已保存 processing_dilated.png")
 ```
 
-### 6.3 开运算和闭运算
+### 开运算和闭运算
 
 - 开运算 = 先腐蚀再膨胀，适合去小噪点
 - 闭运算 = 先膨胀再腐蚀，适合补小孔洞
@@ -283,16 +283,16 @@ print("完整处理流程结果已保存")
 
 ## 九、初学者常见误区
 
-### 1. 以为滤波就是“让图更好看”
+### 以为滤波就是“让图更好看”
 
 不只是。
 滤波常常是为了让后面的算法更稳定。
 
-### 2. 以为阈值可以固定不变
+### 以为阈值可以固定不变
 
 真实图像里光照变化大，阈值常常要结合场景调。
 
-### 3. 只学 API，不理解目的
+### 只学 API，不理解目的
 
 你要始终问自己：
 

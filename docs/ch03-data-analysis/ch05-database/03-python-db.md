@@ -1,10 +1,10 @@
 ---
-title: "5.3 Python Database Operations"
+title: "3.5.4 Python Database Operations"
 sidebar_position: 23
 description: "Connect to databases with Python to perform CRUD operations and work with Pandas"
 ---
 
-# Python Database Operations
+# 3.5.4 Python Database Operations
 
 ![Python and database collaboration bridge diagram](/img/course/ch03-python-database-bridge-en.png)
 

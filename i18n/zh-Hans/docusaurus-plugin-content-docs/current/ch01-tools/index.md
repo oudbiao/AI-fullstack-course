@@ -9,7 +9,7 @@ keywords: [终端, 命令行, Git, VS Code, 开发环境, Python 环境配置]
 
 ![开发者工具基础主视觉](/img/course/ch01-tools-foundation.png)
 
-第 1 章只解决一件事：你能不能**创建代码、运行代码、保存代码，并说明别人怎样重新运行**。如果这个工作台不稳定，后面每个 AI 主题都会被环境问题放大。
+本章只解决一件事：你能不能**创建代码、运行代码、保存代码，并说明别人怎样重新运行**。如果这个工作台不稳定，后面每个 AI 主题都会被环境问题放大。
 
 ## 先看工作台
 
@@ -36,14 +36,14 @@ keywords: [终端, 命令行, Git, VS Code, 开发环境, Python 环境配置]
 
 | 步骤 | 页面 | 要做什么 |
 |---|---|---|
-| 1.1 | [终端与命令行](ch01-terminal/01-why-cli.md) | 打开终端、切换目录、查看文件、运行命令 |
-| 1.2 | [基础终端操作](ch01-terminal/02-basic-operations.md) | 在练习文件夹里创建、移动、查看和删除文件 |
-| 1.3 | [包管理器](ch01-terminal/03-package-managers.md) | 理解工具怎样安装、怎样检查 |
-| 1.4 | [Git 基础](ch02-git/01-git-basics.md) | 用 Git 保存第一次项目快照 |
-| 1.5 | [Git 核心操作](ch02-git/02-core-operations.md) | 使用 `status`、`add`、`commit`、`log`、`diff` |
-| 1.6 | [Python 环境](ch03-devenv/01-python-env.md) | 创建隔离环境，正确安装依赖 |
-| 1.7 | [VS Code](ch03-devenv/02-vscode.md) 与 [Jupyter](ch03-devenv/03-jupyter.md) | 用编辑器写项目，用 Notebook 做探索 |
-| 1.8 | [跟做工作坊](ch04-workshop/01-hands-on-tools-workshop.md) | 把所有工具串成一个可复现小项目 |
+| 1.1 | [1.1.1 终端与命令行](ch01-terminal/01-why-cli.md) | 打开终端、切换目录、查看文件、运行命令 |
+| 1.2 | [1.1.2 基础终端操作](ch01-terminal/02-basic-operations.md) | 在练习文件夹里创建、移动、查看和删除文件 |
+| 1.3 | [1.1.3 包管理器](ch01-terminal/03-package-managers.md) | 理解工具怎样安装、怎样检查 |
+| 1.4 | [1.2.1 Git 基础](ch02-git/01-git-basics.md) | 用 Git 保存第一次项目快照 |
+| 1.5 | [1.2.2 Git 核心操作](ch02-git/02-core-operations.md) | 使用 `status`、`add`、`commit`、`log`、`diff` |
+| 1.6 | [1.3.1 Python 环境](ch03-devenv/01-python-env.md) | 创建隔离环境，正确安装依赖 |
+| 1.7 | [1.3.2 VS Code](ch03-devenv/02-vscode.md) 与 [1.3.3 Jupyter](ch03-devenv/03-jupyter.md) | 用编辑器写项目，用 Notebook 做探索 |
+| 1.8 | [1.4.1 跟做工作坊](ch04-workshop/01-hands-on-tools-workshop.md) | 把所有工具串成一个可复现小项目 |
 
 工作坊放在最后，因为它是综合实操。先学零件，再把零件装起来。
 
@@ -118,4 +118,4 @@ AI learning lab is ready
 - 从新终端重新运行项目的命令是什么？
 - 你把第一次错误和修复过程记录在哪里？
 
-完成本章后继续第 2 章。目标不是把工具学到完美，而是为后面的课程准备一个稳定工作台。
+完成本章后继续1.2 节。目标不是把工具学到完美，而是为后面的课程准备一个稳定工作台。

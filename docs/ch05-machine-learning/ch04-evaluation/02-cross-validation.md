@@ -1,11 +1,11 @@
 ---
-title: "4.3 Cross-Validation"
+title: "5.4.3 Cross-Validation"
 sidebar_position: 11
 description: "Master hold-out validation, K-Fold cross-validation, stratified K-Fold, leave-one-out, and time series cross-validation"
 keywords: [cross-validation, KFold, stratified KFold, leave-one-out, time series, Hold-out, cross_val_score]
 ---
 
-# Cross-Validation
+# 5.4.3 Cross-Validation
 
 ![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.png)
 
@@ -50,9 +50,9 @@ What this section is really trying to solve is:
 - Why one random split is not trustworthy enough
 - Why the evaluation method must match the task type
 
-## 1. Problems with hold-out validation
+## Problems with hold-out validation
 
-### 1.1 Is one split enough?
+### Is one split enough?
 
 ```python
 from sklearn.datasets import load_iris
@@ -90,7 +90,7 @@ print(f"Min: {min(scores):.3f}, Max: {max(scores):.3f}, Gap: {max(scores)-min(sc
 The result of one split is **unstable** — different random seeds can lead to very different results. We need a more reliable evaluation method.
 :::
 
-### 1.2 A better rule of thumb for beginners
+### A better rule of thumb for beginners
 
 If you are still thinking:
 
@@ -100,7 +100,7 @@ Then what this section wants to help you build is this idea:
 
 - **One score is not important; a stable score is.**
 
-### 1.3 A beginner-friendly analogy
+### A beginner-friendly analogy
 
 You can think of cross-validation like this:
 
@@ -117,9 +117,9 @@ but rather:
 
 ---
 
-## 2. K-Fold cross-validation
+## K-Fold cross-validation
 
-### 2.1 Principle
+### Principle
 
 Split the data into K parts. Each time, use 1 part for testing and the remaining K-1 parts for training. Repeat K times and take the average.
 
@@ -140,7 +140,7 @@ flowchart TD
     style AVG fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 sklearn implementation
+### sklearn implementation
 
 ```python
 from sklearn.model_selection import cross_val_score, KFold
@@ -155,7 +155,7 @@ print(f"  Scores per fold: {scores}")
 print(f"  Mean: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.3 Manually controlling KFold
+### Manually controlling KFold
 
 ```python
 from sklearn.model_selection import KFold
@@ -180,7 +180,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 How should you choose K?
+### How should you choose K?
 
 | K value | Advantage | Disadvantage |
 |------|------|------|
@@ -189,7 +189,7 @@ plt.show()
 | **K=10** | **More stable** | **Slightly slower** |
 | K=n (leave-one-out) | Most stable | Very slow |
 
-### 2.5 What is the safest choice for your first project?
+### What is the safest choice for your first project?
 
 A reasonably stable sequence is usually:
 
@@ -203,9 +203,9 @@ So in many cases, bigger is not better. Instead:
 
 ---
 
-## 3. Stratified K-Fold cross-validation
+## Stratified K-Fold cross-validation
 
-### 3.1 Why do we need stratification?
+### Why do we need stratification?
 
 Standard KFold splits data randomly, which may cause the class ratio in one fold to differ from the overall dataset, especially with imbalanced data.
 
@@ -234,7 +234,7 @@ for fold, (_, test_idx) in enumerate(skf.split(X_imb, y_imb)):
     print(f"  Fold {fold+1}: {y_imb[test_idx].mean():.1%}")
 ```
 
-### 3.2 Default behavior in sklearn
+### Default behavior in sklearn
 
 ```python
 # cross_val_score uses StratifiedKFold by default for classification tasks
@@ -256,7 +256,7 @@ print(f"Stratified 5-Fold F1: {scores.mean():.4f} ± {scores.std():.4f}")
 - **Time series**: use `TimeSeriesSplit`
 :::
 
-### 3.3 The one sentence you should remember most from this section
+### The one sentence you should remember most from this section
 
 > **The evaluation split strategy is also part of model design.**
 
@@ -268,7 +268,7 @@ The most important part of this figure is: for each fold, you must `fit` the pre
 
 ---
 
-## 4. Leave-One-Out (LOO)
+## Leave-One-Out (LOO)
 
 **Leave-One-Out**: each time, leave 1 sample for testing and use the other n-1 samples for training. Repeat n times.
 
@@ -296,13 +296,13 @@ print(f"  Mean accuracy: {scores.mean():.4f}")
 
 ---
 
-## 5. Time series cross-validation
+## Time series cross-validation
 
-### 5.1 Why can’t we split randomly?
+### Why can’t we split randomly?
 
 Time series data has **temporal order** — training on future data to predict the past is “data leakage.”
 
-### 5.2 TimeSeriesSplit
+### TimeSeriesSplit
 
 ```python
 from sklearn.model_selection import TimeSeriesSplit
@@ -334,7 +334,7 @@ plt.show()
 
 ---
 
-## 6. `cross_validate` — richer output
+## `cross_validate` — richer output
 
 ```python
 from sklearn.model_selection import cross_validate
@@ -356,7 +356,7 @@ print(f"  Testing F1:        {results['test_f1_macro'].mean():.4f} ± {results['
 print(f"  Time per fold:     {results['fit_time'].mean():.3f}s")
 ```
 
-### 6.1 Why is `cross_validate` more suitable for projects than `cross_val_score`?
+### Why is `cross_validate` more suitable for projects than `cross_val_score`?
 
 Because in real projects, you often care about more than just:
 
@@ -372,7 +372,7 @@ This makes your experiment feel more like real model evaluation, not just number
 
 ---
 
-## 7. Comprehensive comparison
+## Comprehensive comparison
 
 ```python
 from sklearn.model_selection import cross_val_score
@@ -413,7 +413,7 @@ plt.show()
 
 ---
 
-## 8. The safest default sequence for the first time you add cross-validation to a project
+## The safest default sequence for the first time you add cross-validation to a project
 
 When you first add cross-validation into a project workflow, you can follow this sequence:
 

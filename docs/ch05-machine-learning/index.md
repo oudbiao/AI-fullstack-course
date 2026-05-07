@@ -46,7 +46,7 @@ Machine learning moved AI from “human-written rules” to “machines learning
 
 ![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.png)
 
-If you want to understand each technical breakthrough in historical order, you can first read [1.2 Main line of machine learning historical breakthroughs](./ch01-ml-basics/04-history-breakthroughs.md). It maps Bayes, MLE, EM, linear models, decision trees, SVM, random forests, boosting, XGBoost, and sklearn to the corresponding sections in this chapter, so you can understand why each algorithm appeared.
+If you want to understand each technical breakthrough in historical order, you can first read [5.1.2 Main line of machine learning historical breakthroughs](./ch01-ml-basics/04-history-breakthroughs.md). It maps Bayes, MLE, EM, linear models, decision trees, SVM, random forests, boosting, XGBoost, and sklearn to the corresponding sections in this chapter, so you can understand why each algorithm appeared.
 
 ## What beginners should do first, and what advanced learners should do later
 
@@ -55,22 +55,22 @@ When beginners study this stage for the first time, they should first complete a
 Experienced learners can focus on error analysis and experiment design: whether the baseline is strong enough, whether the metric matches the goal, whether there is data leakage, and what pattern the errors show. Your goal is to write a modeling report that others can reproduce, question, and continue improving.
 
 :::info Hands-on checkpoint
-If you want one guided run before choosing a larger project, start with [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md). It creates a local dataset, baseline, Pipeline, model comparison, threshold review, error samples, leakage notes, and README evidence.
+If you want one guided run before choosing a larger project, start with [5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md). It creates a local dataset, baseline, Pipeline, model comparison, threshold review, error samples, leakage notes, and README evidence.
 :::
 
 ## Learning path for this stage
 
-Chapter 1 covers the basic concepts of machine learning, including the main line of historical breakthroughs, task types, training and test sets, basic usage of Scikit-learn, and how mathematics enters machine learning.
+Section 5.1 covers the basic concepts of machine learning, including the main line of historical breakthroughs, task types, training and test sets, basic usage of Scikit-learn, and how mathematics enters machine learning.
 
-Chapter 2 covers supervised learning, including linear regression, logistic regression, decision trees, and ensemble learning. You will understand how classification and regression tasks are modeled.
+Section 5.2 covers supervised learning, including linear regression, logistic regression, decision trees, and ensemble learning. You will understand how classification and regression tasks are modeled.
 
-Chapter 3 covers unsupervised learning, including clustering, dimensionality reduction, and anomaly detection. You will understand how to discover structure when there are no labels.
+Section 5.3 covers unsupervised learning, including clustering, dimensionality reduction, and anomaly detection. You will understand how to discover structure when there are no labels.
 
-Chapter 4 covers model evaluation and selection, including metrics, cross-validation, bias and variance, and hyperparameter tuning. This is where you decide whether you can really tell if a model is good.
+Section 5.4 covers model evaluation and selection, including metrics, cross-validation, bias and variance, and hyperparameter tuning. This is where you decide whether you can really tell if a model is good.
 
-Chapter 5 covers feature engineering. For many real tabular-data projects, understanding and processing features is more important than choosing a model.
+Section 5.5 covers feature engineering. For many real tabular-data projects, understanding and processing features is more important than choosing a model.
 
-Chapter 6 moves into hands-on projects and runs through the full modeling workflow.
+Section 5.6 moves into hands-on projects and runs through the full modeling workflow.
 
 ## What you should be able to do after learning
 
@@ -137,9 +137,9 @@ Start with a baseline, then talk about optimization. Without a baseline, it is h
 
 The basic version is to complete a baseline project on tabular data, including data splitting, model training, and basic metrics. The standard version should add feature processing, cross-validation, model comparison, and error analysis, forming an interpretable modeling report. The challenge version can use a Kaggle starter task or real business data, adding experiment logs, feature iteration, and pre-deployment risk notes.
 
-For a step-by-step project rehearsal, use [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md) before the house price, churn, segmentation, or Kaggle projects.
+For a step-by-step project rehearsal, use [5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md) before the house price, churn, segmentation, or Kaggle projects.
 
-If you want to see a more detailed learning sequence, you can read [Study guide: How to learn machine learning without getting confused](./study-guide.md).
+If you want to see a more detailed learning sequence, you can read [5.0 Study guide: How to learn machine learning without getting confused](./study-guide.md).
 
 
 ## Stage deliverables

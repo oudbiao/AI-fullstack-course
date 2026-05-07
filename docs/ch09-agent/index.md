@@ -78,19 +78,19 @@ When building a project, you can start with a “research assistant Agent”: it
 
 ## Learning path for this stage
 
-Chapter 1 covers Agent fundamentals, including the difference between Agents and chatbots, their development history, capability levels, and system architecture.
+Section 9.1 covers Agent fundamentals, including the difference between Agents and chatbots, their development history, capability levels, and system architecture.
 
-Chapter 2 covers reasoning and planning, including Chain-of-Thought, ReAct, Plan-and-Execute, and reasoning evaluation.
+Section 9.2 covers reasoning and planning, including Chain-of-Thought, ReAct, Plan-and-Execute, and reasoning evaluation.
 
-Chapter 3 covers tool use and Function Calling. You will learn tool descriptions, parameter design, calling strategies, safety boundaries, and code-execution Agents.
+Section 9.3 covers tool use and Function Calling. You will learn tool descriptions, parameter design, calling strategies, safety boundaries, and code-execution Agents.
 
-Chapter 4 covers memory systems, including short-term memory, long-term memory, episodic memory, procedural memory, and memory engineering.
+Section 9.4 covers memory systems, including short-term memory, long-term memory, episodic memory, procedural memory, and memory engineering.
 
-Chapter 5 covers MCP and how model and external tool ecosystems connect through a protocol.
+Section 9.5 covers MCP and how model and external tool ecosystems connect through a protocol.
 
-Chapters 6 and 7 cover Agent frameworks and multi-Agent systems, including LangGraph, LlamaIndex, CrewAI, and AutoGen.
+Sections 9.6 and 9.7 cover Agent frameworks and multi-Agent systems, including LangGraph, LlamaIndex, CrewAI, and AutoGen.
 
-Chapters 8 to 10 cover evaluation, safety, deployment, and integrated projects.
+Sections 9.8 to 9.10 cover evaluation, safety, deployment, and integrated projects.
 
 ## What you should be able to do after finishing
 
@@ -189,9 +189,9 @@ The real outcome of this stage is building a traceable, reviewable, and evaluabl
 
 The basic version is to implement a research assistant that can break a topic into questions, call material tools, and generate structured summaries. The standard version should add execution logs, failure retries, result self-checks, and simple memory. The challenge version can be a data analysis Agent or a multi-Agent development team, with permission boundaries, cost control, evaluation samples, and recovery mechanisms.
 
-If you want to run one concrete baseline before choosing a bigger project, start with [Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md). It gives you a runnable single-Agent loop, tool schema validation, permission blocking, JSONL trace logs, and evaluation cases.
+If you want to run one concrete baseline before choosing a bigger project, start with [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md). It gives you a runnable single-Agent loop, tool schema validation, permission blocking, JSONL trace logs, and evaluation cases.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Agent Systems Without Getting Confused](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [9.0 Study Guide: How to Learn Agent Systems Without Getting Confused](./study-guide.md).
 
 ## Relationship to the end-to-end AI learning assistant project
 

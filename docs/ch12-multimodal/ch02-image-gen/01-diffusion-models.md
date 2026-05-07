@@ -1,11 +1,11 @@
 ---
-title: "2.2 Principles of Diffusion Models"
+title: "12.2.2 Principles of Diffusion Models"
 sidebar_position: 4
 description: "From why image generation is hard, to forward noise addition, reverse denoising, and the training objective—truly understand why diffusion models can generate images."
 keywords: [diffusion model, denoising, forward process, reverse process, generative model, image generation]
 ---
 
-# Principles of Diffusion Models
+# 12.2.2 Principles of Diffusion Models
 
 ![Diffusion model noise addition and denoising diagram](/img/course/diffusion-noise-denoise-en.png)
 
@@ -78,9 +78,9 @@ So what this section really wants to solve is:
 - What the model is actually learning during training
 - Why inference starts from noise
 
-## 1. Why is image generation so hard?
+## Why is image generation so hard?
 
-### 1.1 First look at the difference between classification and generation
+### First look at the difference between classification and generation
 
 In classification, you are asking:
 
@@ -92,7 +92,7 @@ In generation, you are asking:
 
 These two tasks sound similar, but their difficulty is not on the same level.
 
-### 1.2 What is the real difficulty?
+### What is the real difficulty?
 
 Because the image space is huge.
 If you randomly generate pixels, most results will look like noise rather than a “reasonable image.”
@@ -103,7 +103,7 @@ So what the generative model really needs to learn is:
 
 The power of diffusion models is that they do not try to do this in one leap. Instead, they break the problem into many smaller denoising steps.
 
-### 1.3 When learning diffusion models for the first time, what should you focus on first?
+### When learning diffusion models for the first time, what should you focus on first?
 
 What you should focus on first is not the formula, but this sentence:
 
@@ -118,9 +118,9 @@ Once this idea becomes solid, the following will all fall naturally into the sam
 
 ---
 
-## 2. The core intuition of diffusion models
+## The core intuition of diffusion models
 
-### 2.1 Forward process: add noise to the image step by step
+### Forward process: add noise to the image step by step
 
 If you have a real image, and you keep adding noise to it:
 
@@ -130,7 +130,7 @@ If you have a real image, and you keep adding noise to it:
 
 This process is very easy to define.
 
-### 2.2 Reverse process: learn to denoise step by step
+### Reverse process: learn to denoise step by step
 
 The hard part is the reverse direction:
 
@@ -139,7 +139,7 @@ The hard part is the reverse direction:
 
 If you do this many times, you may eventually recover a structured image from noise.
 
-### 2.3 A memorable analogy
+### A memorable analogy
 
 You can think of it like this:
 
@@ -148,7 +148,7 @@ You can think of it like this:
 
 The hard part is not dirtying the image, but cleaning it back up.
 
-### 2.4 Why is this decomposition especially valuable for generation tasks?
+### Why is this decomposition especially valuable for generation tasks?
 
 Because it turns a very difficult one-shot generation problem into many smaller local problems:
 
@@ -159,7 +159,7 @@ This is also one of the reasons diffusion models later felt “more stable but s
 
 ---
 
-## 3. A minimal runnable example of forward noise addition
+## A minimal runnable example of forward noise addition
 
 Let’s not use images first. Instead, let’s look at a 1D vector so the “step-by-step noise addition” process is easier to see.
 
@@ -178,7 +178,7 @@ for step in range(1, 6):
     print(f"step {step}: {np.round(x, 3)}")
 ```
 
-### 3.2 What is this code teaching?
+### What is this code teaching?
 
 It teaches you two very important facts:
 
@@ -191,9 +191,9 @@ This is the intuitive version of forward diffusion.
 
 ---
 
-## 4. Why is the forward process easy, but the reverse process hard?
+## Why is the forward process easy, but the reverse process hard?
 
-### 4.1 Because the forward process is defined by you
+### Because the forward process is defined by you
 
 You completely know:
 
@@ -202,7 +202,7 @@ You completely know:
 
 So the forward process is almost “human-controlled.”
 
-### 4.2 Why is the reverse process hard?
+### Why is the reverse process hard?
 
 Because when you only see a noisy sample, you do not know:
 
@@ -217,15 +217,15 @@ So what the model really needs to learn is:
 
 ---
 
-## 5. What is the model really learning during training?
+## What is the model really learning during training?
 
-### 5.1 A very important point
+### A very important point
 
 During diffusion training, the model is usually not directly taught to “learn to draw,” but instead to learn:
 
 > Given a noisy sample, predict the noise inside it.
 
-### 5.2 Why is this smart?
+### Why is this smart?
 
 Because the noise is added by you during training, the supervision signal comes for free:
 
@@ -234,7 +234,7 @@ Because the noise is added by you during training, the supervision signal comes 
 
 So the problem becomes a fairly clear supervised learning task.
 
-### 5.3 Why is this the key turning point for understanding diffusion models?
+### Why is this the key turning point for understanding diffusion models?
 
 Because many beginners, when first learning diffusion models, mistakenly think:
 
@@ -246,7 +246,7 @@ But a more accurate understanding is:
 
 Once this view is stable, it becomes much easier to understand Stable Diffusion, conditional generation, and image editing later on.
 
-### 5.4 A minimal “learning objective” example
+### A minimal “learning objective” example
 
 ```python
 import numpy as np
@@ -265,9 +265,9 @@ it can strip noise away step by step during inference.
 
 ---
 
-## 6. Why do we start sampling from pure noise?
+## Why do we start sampling from pure noise?
 
-### 6.1 Because there is no original image during inference
+### Because there is no original image during inference
 
 When generating, there is no `x0`; there is only noise.
 
@@ -281,7 +281,7 @@ Then it repeatedly does:
 2. Remove a little bit of noise
 3. Get a slightly cleaner state
 
-### 6.2 The difference between step-by-step denoising and one-shot generation
+### The difference between step-by-step denoising and one-shot generation
 
 GANs are more like:
 
@@ -295,13 +295,13 @@ This is also why diffusion models often feel “more stable but slower.”
 
 ---
 
-## 7. Why did this route become so powerful later?
+## Why did this route become so powerful later?
 
-### 7.1 Training is usually more stable
+### Training is usually more stable
 
 Compared with the adversarial instability in many GAN trainings, diffusion model training is often more stable.
 
-### 7.2 Conditioning is very natural
+### Conditioning is very natural
 
 Once you can inject condition information into the denoising process, you can do:
 
@@ -311,7 +311,7 @@ Once you can inject condition information into the denoising process, you can do
 
 This is one of the key reasons it became powerful so quickly.
 
-### 7.3 What should beginners remember first when learning diffusion models?
+### What should beginners remember first when learning diffusion models?
 
 The most important things to remember first are:
 
@@ -319,7 +319,7 @@ The most important things to remember first are:
 2. During training, the model mainly learns to “predict noise”
 3. During inference, the system is gradually wiping the noise away
 
-### 7.4 Why does this connect directly to the later Stable Diffusion main line?
+### Why does this connect directly to the later Stable Diffusion main line?
 
 Because although later systems become more complex in structure, the underlying intuition does not change:
 
@@ -331,17 +331,17 @@ So what matters most in this section is establishing the skeleton of “diffusio
 
 ---
 
-## 8. What is the cost of diffusion models?
+## What is the cost of diffusion models?
 
-### 8.1 Sampling is slow
+### Sampling is slow
 
 Because generation is not done in one step, but through many denoising steps.
 
-### 8.2 Computation is heavy
+### Computation is heavy
 
 Especially for high-resolution images, the cost can be relatively high.
 
-### 8.3 So what did people later focus on?
+### So what did people later focus on?
 
 Mainly two things:
 

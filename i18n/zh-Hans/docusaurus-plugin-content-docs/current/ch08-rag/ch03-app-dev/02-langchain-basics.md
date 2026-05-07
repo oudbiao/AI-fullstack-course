@@ -1,11 +1,11 @@
 ---
-title: "3.3 LangChain 基础"
+title: "8.3.3 LangChain 基础"
 sidebar_position: 12
 description: "从为什么需要链式抽象，到 Prompt、模型、检索器和解析器怎样被串起来，建立对 LangChain 的第一层应用直觉。"
 keywords: [LangChain, chain, prompt template, output parser, retriever, LLM application]
 ---
 
-# LangChain 基础
+# 8.3.3 LangChain 基础
 
 :::tip 本节定位
 很多人第一次看 LangChain，会觉得它只是“把模型调一下”。
@@ -43,7 +43,7 @@ flowchart LR
 
 ## 一、为什么需要“链”这种抽象？
 
-### 1.1 因为真实应用通常不只调一次模型
+### 因为真实应用通常不只调一次模型
 
 比如你想做一个小问答系统，可能就已经有这些步骤：
 
@@ -59,7 +59,7 @@ flowchart LR
 - 不可复用
 - 不好调试
 
-### 1.2 链式抽象到底在做什么？
+### 链式抽象到底在做什么？
 
 它在说：
 
@@ -103,7 +103,7 @@ chain = SimpleChain([
 print(chain.run("  退款政策是什么？ "))
 ```
 
-### 2.2 这段代码在教什么？
+### 这段代码在教什么？
 
 它已经在教你 LangChain 最核心的一件事：
 
@@ -115,14 +115,14 @@ print(chain.run("  退款政策是什么？ "))
 
 ## 三、Prompt 在链里扮演什么角色？
 
-### 3.1 Prompt 不是“附属文案”，而是一个组件
+### Prompt 不是“附属文案”，而是一个组件
 
 在很多链路里，Prompt 本身就是中间的一步：
 
 - 输入 query
 - 生成更清晰的提示模板
 
-### 3.2 一个简单示意
+### 一个简单示意
 
 ```python
 def build_prompt(payload):
@@ -158,7 +158,7 @@ chain = SimpleChain([
 print(chain.run("退款政策是什么？"))
 ```
 
-### 4.2 这一步最关键的收获
+### 这一步最关键的收获
 
 你会开始看到：
 

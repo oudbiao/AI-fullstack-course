@@ -1,11 +1,11 @@
 ---
-title: "10.5 Hands-on: Build a Traceable Single-Agent Assistant"
+title: "9.10.5 Hands-on: Build a Traceable Single-Agent Assistant"
 sidebar_position: 57
 description: "A step-by-step Chapter 9 hands-on workshop: build a traceable single-Agent assistant with planning, tool schema validation, permission boundaries, JSONL traces, evaluation cases, and an optional OpenAI Agents SDK upgrade."
 keywords: [Agent workshop, single Agent, Agent trace, tool calling, tool schema, Agent evaluation, OpenAI Agents SDK]
 ---
 
-# Hands-on: Build a Traceable Single-Agent Assistant
+# 9.10.5 Hands-on: Build a Traceable Single-Agent Assistant
 
 This workshop turns the whole Chapter 9 thread into one runnable mini project. You will build a small single-Agent assistant that can read a goal, choose tools, validate tool arguments, block risky actions, record every step into a trace, and run a small evaluation set.
 

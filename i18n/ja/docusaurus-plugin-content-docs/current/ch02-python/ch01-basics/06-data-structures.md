@@ -1,10 +1,10 @@
 ---
-title: "1.6 データ構造"
+title: "2.1.6 データ構造"
 sidebar_position: 6
 description: "Python の4大データ構造：リスト、タプル、辞書、集合をマスターする"
 ---
 
-# データ構造
+# 2.1.6 データ構造
 
 ![Python データ構造比較図](/img/course/ch02-data-structures-comparison-ja.png)
 

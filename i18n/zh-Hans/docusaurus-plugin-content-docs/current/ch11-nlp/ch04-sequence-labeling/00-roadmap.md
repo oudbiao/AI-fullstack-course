@@ -1,11 +1,11 @@
 ---
-title: "4.1 学前导读：序列标注这一章到底在学什么"
+title: "11.4.1 学前导读：序列标注这一章到底在学什么"
 sidebar_position: 0
 description: "先建立序列标注章的学习地图：NER、BiLSTM-CRF 和项目实践是怎样围绕词级标签任务展开的。"
 keywords: [序列标注导读, NER, BiLSTM-CRF]
 ---
 
-# 学前导读：序列标注这一章到底在学什么
+# 11.4.1 学前导读：序列标注这一章到底在学什么
 
 这一章解决的是：
 
@@ -28,7 +28,7 @@ keywords: [序列标注导读, NER, BiLSTM-CRF]
 
 不是突然出现的新东西，而是在更老的统计序列建模主线上继续升级。
 
-如果想把这条历史线看得更完整，建议先读 [4.2 HMM、CRF 与序列标注历史主线](./04-hmm-crf-history.md)，再进入 NER 和 BiLSTM-CRF。
+如果想把这条历史线看得更完整，建议先读 [11.4.2 HMM、CRF 与序列标注历史主线](./04-hmm-crf-history.md)，再进入 NER 和 BiLSTM-CRF。
 
 ## 这一章的主线
 

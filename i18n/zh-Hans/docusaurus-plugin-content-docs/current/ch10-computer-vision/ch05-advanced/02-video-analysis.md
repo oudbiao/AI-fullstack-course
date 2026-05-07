@@ -1,11 +1,11 @@
 ---
-title: "5.3 视频分析【选修】"
+title: "10.5.3 视频分析【选修】"
 sidebar_position: 15
 description: "从逐帧处理到时序建模，理解视频分析为什么比单张图更难，以及它为什么天然需要时间维度。"
 keywords: [video analysis, temporal modeling, frame sampling, tracking, action recognition]
 ---
 
-# 视频分析【选修】
+# 10.5.3 视频分析【选修】
 
 :::tip 本节定位
 视频分析最容易被误解成：
@@ -31,7 +31,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 ## 一、视频为什么比单张图更复杂？
 
-### 1.1 因为同一目标会跨帧出现
+### 因为同一目标会跨帧出现
 
 一张图里，你只需要回答当前画面。
 视频里还要考虑：
@@ -39,7 +39,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 - 它刚刚在哪
 - 接下来会去哪
 
-### 1.2 因为“变化”本身就是信息
+### 因为“变化”本身就是信息
 
 很多视频任务里，真正重要的不是某一帧长什么样，
 而是：
@@ -47,7 +47,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 - 动作怎么发生
 - 轨迹怎么移动
 
-### 1.3 一个类比
+### 一个类比
 
 单张图像分析像看照片。
 视频分析更像看监控回放，你会自然关心：
@@ -59,7 +59,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 ## 二、视频分析里最常见的几种处理方式
 
-### 2.1 抽帧 + 单帧模型
+### 抽帧 + 单帧模型
 
 最简单的方法：
 
@@ -74,7 +74,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 - 容易丢掉时间信息
 
-### 2.2 检测 + 跟踪
+### 检测 + 跟踪
 
 适合：
 
@@ -86,7 +86,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 - 每一帧先检测
 - 再在时间上关联同一目标
 
-### 2.3 时序建模
+### 时序建模
 
 例如：
 
@@ -97,7 +97,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 - 多帧共同表达一个模式
 
-### 2.4 第一次做视频分析时，最稳的选择顺序
+### 第一次做视频分析时，最稳的选择顺序
 
 新人第一次做视频任务时，
 最容易一上来就觉得“我要不要直接上时序网络”。
@@ -165,14 +165,14 @@ for frame in tracked:
     print(frame)
 ```
 
-### 3.1 这个例子最想表达什么？
+### 这个例子最想表达什么？
 
 视频分析里很多系统的第一步不是复杂时序网络，
 而是：
 
 - 把跨帧的同一目标串起来
 
-### 3.2 为什么这对业务很重要？
+### 为什么这对业务很重要？
 
 如果不能把同一目标在不同帧里关联起来，
 很多任务根本做不下去：
@@ -181,7 +181,7 @@ for frame in tracked:
 - 行为分析
 - 越界告警
 
-### 3.3 再补一个“滑动窗口看动作”的最小示例
+### 再补一个“滑动窗口看动作”的最小示例
 
 跟踪能解决“同一个目标是不是同一个”的问题，
 但很多视频任务还会关心：
@@ -217,7 +217,7 @@ for idx, window in enumerate(windows):
 
 ## 四、最容易踩的坑
 
-### 4.1 把视频当作独立图片集合
+### 把视频当作独立图片集合
 
 这样很容易丢掉：
 
@@ -225,11 +225,11 @@ for idx, window in enumerate(windows):
 - 动作
 - 事件顺序
 
-### 4.2 抽帧策略过粗
+### 抽帧策略过粗
 
 抽帧太稀，会漏掉关键瞬间。
 
-### 4.3 只看单帧精度，不看时序稳定性
+### 只看单帧精度，不看时序稳定性
 
 真实视频系统更该关注：
 

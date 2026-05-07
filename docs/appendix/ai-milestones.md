@@ -1,11 +1,11 @@
 ---
-title: "AI Development History: 15 Stages and Key Papers"
+title: "A.3 AI Development History: 15 Stages and Key Papers"
 sidebar_position: 2
 description: "A beginner-friendly 15-stage map of AI development, followed by key papers and algorithms from the perceptron, backpropagation, AlexNet, Transformer, GPT, RAG, Agent, and diffusion models."
 keywords: [AI history, AI development stages, key papers, Transformer paper, GPT paper, RAG, Agent, diffusion model paper]
 ---
 
-# AI Development History: 15 Stages and Key Papers
+# A.3 AI Development History: 15 Stages and Key Papers
 
 ![AI 15-stage development history map](/img/course/appendix-ai-15-stage-history-map-en.png)
 
@@ -43,7 +43,7 @@ This page is not meant to make you memorize paper names. It is here to help you 
 
 You can think of this page as an “AI tech adventure map”: each node is not just an isolated name, but a plot point where the previous generation’s problem was solved and the next generation’s capability was unlocked.
 
-## 1. First, look at the big map: the AI main line is like a relay race
+## First, look at the big map: the AI main line is like a relay race
 
 If we compress AI development into a single picture, you can think of it like this:
 
@@ -53,7 +53,7 @@ The first half can be understood this way: AI started with “how to make judgme
 
 What makes this main storyline most interesting is that AI history is not a queue of paper names, but a relay race. The previous runner exposes a problem, and the next one solves it; sometimes the solution is so effective that the whole industry changes direction; sometimes the problem is not fully solved, so the hype cools down and waits for data, compute, and engineering conditions to mature.
 
-## 2. If you want to get interested first, start with these 6 “story-like moments”
+## If you want to get interested first, start with these 6 “story-like moments”
 
 Some historical milestones are worth remembering not only because they are important, but because they really feel like turning points in a story:
 
@@ -150,7 +150,7 @@ So the AutoGPT boom is also a very good historical reminder:
 
 > **When AI capabilities first explode, the industry often gets excited first, and only then engineers the system.**
 
-### 2.1 Read these turning points like a comic strip
+### Read these turning points like a comic strip
 
 ![AI History Turning Points Comic Strip](/img/course/appendix-ai-history-comic-turning-points-en.png)
 
@@ -165,7 +165,7 @@ This image is best read as a six-panel comic:
 
 Looking at history this way feels much easier: not as a pile of years, but as a sequence of “expectation, setback, correction, explosion, and engineering.”
 
-## 3. How to use this page most effectively
+## How to use this page most effectively
 
 The best way to use it is:
 
@@ -179,7 +179,7 @@ If you can answer these three questions, this page has already helped you:
 - What bottleneck from the previous generation did it replace?
 - Where does it sit in this course?
 
-### 3.1 First, one important note: some nodes are not “one paper”
+### First, one important note: some nodes are not “one paper”
 
 Some items in this page are:
 
@@ -203,7 +203,7 @@ but to first ask:
 - What problem did it actually solve?
 - What main line did it lead to next?
 
-### 3.2 If you do not want to memorize history, first remember three “mood shifts”
+### If you do not want to memorize history, first remember three “mood shifts”
 
 For beginners, the easiest thing to remember about AI history is not always the year,
 but often the “mood shift” of each generation of researchers:
@@ -245,7 +245,7 @@ So when you read this timeline, it is best to see it as:
 
 > **An evolution history of “problems constantly exposed, methods constantly pushing back, and engineering finally making things real.”**
 
-### 3.3 Beginners can read the timeline using just four tags
+### Beginners can read the timeline using just four tags
 
 If this is your first time looking at the page, you do not need to memorize all authors and years at once. A simpler way is to attach four tags to each node:
 
@@ -258,7 +258,7 @@ If this is your first time looking at the page, you do not need to memorize all 
 
 This way of reading feels more like a technology evolution story, not like memorizing a list of names.
 
-### 3.4 Go one step further: read papers as “old problem -> new method -> new capability”
+### Go one step further: read papers as “old problem -> new method -> new capability”
 
 ![AI Paper Problem-Solution-Impact Chain](/img/course/appendix-ai-paper-problem-solution-impact-chain-en.png)
 
@@ -277,7 +277,7 @@ For example, `Attention Is All You Need` can be read like this:
 
 This reading style is very friendly for beginners because it does not require you to derive formulas first. Instead, it helps you understand: which historical problem did this paper actually solve?
 
-### 3.5 From the perspective of course projects, the timeline can be read like this
+### From the perspective of course projects, the timeline can be read like this
 
 ![AI Timeline Map from the Project Perspective](/img/course/appendix-ai-project-lens-map-en.png)
 
@@ -285,7 +285,7 @@ In other words, this page is not an isolated appendix. It can help you understan
 
 ---
 
-## 2. Early foundations and probabilistic inference nodes
+## Early foundations and probabilistic inference nodes
 
 | Year | Paper / Algorithm | Key author(s) | What it most importantly solved | Where it maps in the course |
 |---|---|---|---|---|
@@ -309,7 +309,7 @@ have always stood on this older probabilistic inference main line.
 
 ---
 
-## 3. Key nodes in the three waves of neural networks
+## Key nodes in the three waves of neural networks
 
 ![Timeline of Three Neural Network Waves and Two Valleys](/img/course/appendix-neural-network-waves-timeline-en.png)
 
@@ -344,7 +344,7 @@ This part of history feels like a story with clear ups and downs:
 
 ---
 
-## 4. The classic machine learning main line
+## The classic machine learning main line
 
 This line is not as flashy as large models, but it is very much like the process of turning modeling into reliable engineering. Decision trees made rules learnable, SVM pursued a more stable classification boundary, random forests and boosting combined multiple weak models, and XGBoost made this route a powerful baseline for tabular data projects.
 
@@ -362,7 +362,7 @@ For beginners, the key idea to remember is: what classic machine learning is mos
 
 ---
 
-## 5. The deep learning vision main line
+## The deep learning vision main line
 
 | Year | Paper / Algorithm | Key author(s) | What it most importantly solved | Where it maps in the course |
 |---|---|---|---|---|
@@ -376,7 +376,7 @@ For beginners, the key idea to remember is: what classic machine learning is mos
 
 ---
 
-## 6. The reinforcement learning and game-playing main line
+## The reinforcement learning and game-playing main line
 
 | Year | Paper / Algorithm | Key author(s) | What it most importantly solved | Where it maps in the course |
 |---|---|---|---|---|
@@ -400,7 +400,7 @@ but also that they first made many ordinary people truly feel:
 
 ---
 
-## 7. The modern NLP and large model main line
+## The modern NLP and large model main line
 
 This line is very much like a story of an evolving language interface: at first we wanted machines to understand words and sentences, then we wanted translation and generation, and later we realized that the same text interface can summarize, write code, reason, call tools, and organize tasks.
 
@@ -431,7 +431,7 @@ What makes this part of history so exciting is that it feels like a route where 
 
 ---
 
-## 8. Alignment, Agent, and systems-oriented main line
+## Alignment, Agent, and systems-oriented main line
 
 If the previous main line solves “can the model generate,” this line cares more about “can the model do things according to human intent, safely, and in a traceable way?” This is also a necessary step when moving from model capability to real products.
 
@@ -461,7 +461,7 @@ So when beginners learn Agent, do not only ask whether it can do things on its o
 
 ---
 
-## 9. Multimodal and AIGC main line
+## Multimodal and AIGC main line
 
 The story of multimodal AI and AIGC can be understood as AI moving from “reading text” to “understanding and generating multiple media types.” CLIP aligns images and text, diffusion models make high-quality generation more stable, Latent Diffusion reduces generation cost, Whisper makes speech recognition more general-purpose, and SAM pushes visual segmentation toward a foundation-model form.
 
@@ -487,7 +487,7 @@ often begins with image generation, speech generation, and multimodal demos.
 
 ---
 
-## 10. Review articles, textbooks, and brain-inspired supplementary nodes
+## Review articles, textbooks, and brain-inspired supplementary nodes
 
 The following nodes are not all “a single algorithm paper that directly rewrote the main line,”
 but they are very useful for adding background and broadening your worldview, especially when you want to see AI history more completely:
@@ -508,7 +508,7 @@ rather than nodes you must memorize on the first pass.
 
 ---
 
-## 11. The 17 nodes most worth remembering first in this course
+## The 17 nodes most worth remembering first in this course
 
 If you do not want to memorize too many things at once, you can start with just these 17. A lighter way to remember them is not as a paper list, but as 17 plot twists.
 
@@ -534,7 +534,7 @@ If you do not want to memorize too many things at once, you can start with just 
 
 ---
 
-## 12. How course stages map to these historical nodes
+## How course stages map to these historical nodes
 
 | Learning station | Historical nodes most worth remembering |
 |---|---|
@@ -547,7 +547,7 @@ If you do not want to memorize too many things at once, you can start with just 
 | 11 Natural Language Processing (elective track) | HMM, Word2Vec, AMR, Seq2Seq, BERT, GPT, CTC / Deep Speech |
 | 12 AIGC and multimodal | CLIP, DDPM, Latent Diffusion |
 
-## 12.1 Find by chapter: where should you learn these nodes?
+## Find by chapter: where should you learn these nodes?
 
 If you are looking up a course chapter from a paper or algorithm name, you can use this table to locate it first:
 
@@ -572,7 +572,7 @@ If you are looking up a course chapter from a paper or algorithm name, you can u
 | RLHF, ReAct, Toolformer | 7 Alignment, 9 reasoning and tool use | They explain how large models move from generating to acting toward goals |
 | CLIP, diffusion models, Whisper, SAM | 12 AIGC and multimodal | They explain how text, images, speech, and video enter unified AI systems |
 
-## 13. The most practical way to memorize
+## The most practical way to memorize
 
 If you are worried that there are too many names, you can remember them using just this template:
 
@@ -589,7 +589,7 @@ For example:
 
 Remembering it this way is far more useful than simply memorizing paper names.
 
-## 14. A small exercise: rewrite paper nodes in project language
+## A small exercise: rewrite paper nodes in project language
 
 After reading this page, choose any 3 nodes and rewrite them using the following format:
 

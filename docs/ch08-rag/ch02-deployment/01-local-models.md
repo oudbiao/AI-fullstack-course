@@ -1,11 +1,11 @@
 ---
-title: "2.2 Local Model Runtime"
+title: "8.2.2 Local Model Runtime"
 sidebar_position: 8
 description: "From why models are run locally, to model size, quantization, CPU/GPU trade-offs, and the minimum inference flow, build an engineering intuition for local model runtime."
 keywords: [local models, local inference, quantization, CPU, GPU, model runtime]
 ---
 
-# Local Model Runtime
+# 8.2.2 Local Model Runtime
 
 :::tip Section focus
 The most common default path for large-model applications is:
@@ -75,9 +75,9 @@ But you also have to handle:
 
 The relationship between local models and cloud APIs is very much a trade-off like this.
 
-## 1. Why consider local models?
+## Why consider local models?
 
-### 1.1 First, look at the strengths of cloud APIs
+### First, look at the strengths of cloud APIs
 
 The advantages of cloud APIs are obvious:
 
@@ -87,7 +87,7 @@ The advantages of cloud APIs are obvious:
 
 So when a project is just getting started, cloud APIs are often the most convenient choice.
 
-### 1.2 But why do some people still insist on running locally?
+### But why do some people still insist on running locally?
 
 Common reasons usually include:
 
@@ -102,9 +102,9 @@ In other words, the core value of local models is not “being more advanced,”
 
 ---
 
-## 2. First build the most important real-world intuition: model size is not an abstract number
+## First build the most important real-world intuition: model size is not an abstract number
 
-### 2.1 Parameter count directly affects resource usage
+### Parameter count directly affects resource usage
 
 When you see a model described as:
 
@@ -118,7 +118,7 @@ These are not just marketing labels. They usually mean:
 - Very different loading times
 - Very different inference speeds
 
-### 2.2 A rough resource illustration
+### A rough resource illustration
 
 ```python
 runtime_options = [
@@ -131,7 +131,7 @@ for item in runtime_options:
     print(item)
 ```
 
-### 2.3 What is this code really trying to tell you?
+### What is this code really trying to tell you?
 
 It is not asking you to memorize numbers. It is helping you build a very practical judgment:
 
@@ -139,7 +139,7 @@ It is not asking you to memorize numbers. It is helping you build a very practic
 
 The question is not “Do I want to run it?” but “Can my machine handle it?”
 
-### 2.4 A decision table that is very useful for beginners
+### A decision table that is very useful for beginners
 
 | What you care about most | Which path is more likely to come first |
 |---|---|
@@ -160,15 +160,15 @@ When looking at the diagram, do not start by asking “which model is stronger.�
 
 ---
 
-## 3. Why are quantization and local models always mentioned together?
+## Why are quantization and local models always mentioned together?
 
-### 3.1 Because everyone wants to fit the model into a smaller machine
+### Because everyone wants to fit the model into a smaller machine
 
 The roughest but easiest way to understand quantization is:
 
 > **Use lower-precision values to represent model parameters, and trade that for lower memory usage.**
 
-### 3.2 A minimal illustration
+### A minimal illustration
 
 ```python
 params = 7_000_000_000  # 7 billion parameters, illustrative
@@ -184,7 +184,7 @@ for name, bytes_per_param in precisions.items():
     print(name, "rough memory GB =", round(memory_gb, 2))
 ```
 
-### 3.3 The benefits and costs of quantization
+### The benefits and costs of quantization
 
 Benefits:
 
@@ -198,7 +198,7 @@ Costs:
 
 So quantization is also a typical engineering trade-off, not a free magic trick.
 
-### 3.4 Another minimal example of “what if resources are not enough”
+### Another minimal example of “what if resources are not enough”
 
 ```python
 constraints = {
@@ -226,9 +226,9 @@ This example is very suitable for beginners because it reminds you:
 
 ---
 
-## 4. What is the real difference between CPU runtime and GPU runtime?
+## What is the real difference between CPU runtime and GPU runtime?
 
-### 4.1 Characteristics of CPU runtime
+### Characteristics of CPU runtime
 
 Advantages:
 
@@ -239,7 +239,7 @@ Disadvantages:
 
 - Slow
 
-### 4.2 Characteristics of GPU runtime
+### Characteristics of GPU runtime
 
 Advantages:
 
@@ -251,7 +251,7 @@ Disadvantages:
 - Higher cost
 - Higher environment requirements
 
-### 4.3 A practical rule of thumb
+### A practical rule of thumb
 
 If your scenario is:
 
@@ -271,9 +271,9 @@ Then GPU or a more specialized runtime is more realistic.
 
 ---
 
-## 5. A minimal local inference flow
+## A minimal local inference flow
 
-### 5.1 Why start with a mock runtime?
+### Why start with a mock runtime?
 
 Here we will not use a real large model yet. Instead, we will write a mock runtime to make the “load -> infer -> return” flow clear.
 
@@ -297,7 +297,7 @@ runtime.load()
 print(runtime.generate("What is the refund policy?"))
 ```
 
-### 5.2 What is this code teaching?
+### What is this code teaching?
 
 It is teaching you the three most basic things about local model runtime:
 
@@ -339,7 +339,7 @@ That way, others can more easily see:
 
 ---
 
-## 6. The real challenge is not “generation succeeds,” but “stable long-term operation”
+## The real challenge is not “generation succeeds,” but “stable long-term operation”
 
 Once you reach a real system, you will encounter these more practical issues:
 
@@ -348,12 +348,12 @@ Once you reach a real system, you will encounter these more practical issues:
 - How much concurrency can one machine handle
 - Does switching models require reloading
 
-### 6.1 The cold start problem
+### The cold start problem
 
 The first model load is usually slow.
 This is a big problem for service-oriented systems.
 
-### 6.2 The always-on process problem
+### The always-on process problem
 
 To reduce cold start, you often keep the model resident in memory.
 But that brings:
@@ -366,9 +366,9 @@ So you will find:
 
 ---
 
-## 7. When is a local model especially worth it?
+## When is a local model especially worth it?
 
-### 7.1 A very good fit
+### A very good fit
 
 - Enterprise intranets
 - Privacy-sensitive content
@@ -376,7 +376,7 @@ So you will find:
 - Weak network / offline scenarios
 - Need for stronger control over the pipeline
 
-### 7.2 Not necessarily a good fit
+### Not necessarily a good fit
 
 - The team lacks operations capability
 - The task heavily depends on cutting-edge large-model quality
@@ -386,7 +386,7 @@ In these cases, a cloud model may actually be more appropriate.
 
 ---
 
-## 8. A very practical checklist for deciding
+## A very practical checklist for deciding
 
 Before deciding to run locally, you can ask:
 
@@ -399,17 +399,17 @@ If these questions are answered clearly, the local model approach usually will n
 
 ---
 
-## 9. Common beginner mistakes
+## Common beginner mistakes
 
-### 9.1 Looking only at model parameters, not the runtime
+### Looking only at model parameters, not the runtime
 
 For the same model, changing the runtime can make the experience very different.
 
-### 9.2 Going straight for a large model
+### Going straight for a large model
 
 In many local scenarios, a small model is already enough.
 
-### 9.3 Thinking “it runs” means “it is ready for production”
+### Thinking “it runs” means “it is ready for production”
 
 After going live, you still need to look at:
 

@@ -1,11 +1,11 @@
 ---
-title: "3.6 CNN 实战：图像分类"
+title: "6.3.6 CNN 实战：图像分类"
 sidebar_position: 5
 description: "从造数据、搭网络、训练、验证到预测，完整走通一个小型 CNN 图像分类项目。"
 keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic dataset]
 ---
 
-# CNN 实战：图像分类
+# 6.3.6 CNN 实战：图像分类
 
 :::tip 本节定位
 卷积、CNN 结构、经典架构、迁移学习都讲完以后，最重要的一件事就是：
@@ -51,7 +51,7 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 
 ## 二、先准备一份能直接跑的数据
 
-### 2.1 为什么继续用合成图像？
+### 为什么继续用合成图像？
 
 因为这样：
 
@@ -59,7 +59,7 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 - 类别规律非常清楚
 - 最适合教学
 
-### 2.2 造三类小图像
+### 造三类小图像
 
 我们造 3 类：
 
@@ -94,7 +94,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.3 这个数据集虽然简单，但足够教会你什么？
+### 这个数据集虽然简单，但足够教会你什么？
 
 它足够教会你：
 
@@ -141,7 +141,7 @@ print("train:", X_train.shape, y_train.shape)
 print("val  :", X_val.shape, y_val.shape)
 ```
 
-### 3.2 为什么要 `unsqueeze(1)`？
+### 为什么要 `unsqueeze(1)`？
 
 因为 PyTorch 的卷积输入需要：
 
@@ -186,7 +186,7 @@ sample_out = model(X_train[:4])
 print("sample output shape:", sample_out.shape)
 ```
 
-### 4.2 为什么这里 `16 * 3 * 3`？
+### 为什么这里 `16 * 3 * 3`？
 
 因为原图大小是 `12x12`：
 
@@ -239,7 +239,7 @@ for epoch in range(100):
         )
 ```
 
-### 5.2 这段代码里最该盯住什么？
+### 这段代码里最该盯住什么？
 
 初学图像分类时，最重要的是看这四样：
 
@@ -258,7 +258,7 @@ for epoch in range(100):
 
 ## 六、真正做一次预测
 
-### 6.1 看单个样本
+### 看单个样本
 
 ```python
 import matplotlib.pyplot as plt
@@ -275,7 +275,7 @@ plt.axis("off")
 plt.show()
 ```
 
-### 6.2 为什么这一步很重要？
+### 为什么这一步很重要？
 
 因为很多时候：
 
@@ -288,7 +288,7 @@ plt.show()
 
 ## 七、怎样判断模型有没有真的学会？
 
-### 7.1 几个典型信号
+### 几个典型信号
 
 如果模型真的学到了：
 
@@ -297,7 +297,7 @@ plt.show()
 - train / val acc 会提高
 - 对单样本预测越来越稳定
 
-### 7.2 几个典型异常
+### 几个典型异常
 
 #### 训练集和验证集都很差
 
@@ -345,15 +345,15 @@ plt.show()
 
 ## 九、初学者最常踩的坑
 
-### 9.1 只会抄模型，不会检查数据 shape
+### 只会抄模型，不会检查数据 shape
 
 图像任务里，shape 几乎永远是第一检查项。
 
-### 9.2 只盯 train loss
+### 只盯 train loss
 
 验证集指标同样重要。
 
-### 9.3 模型能跑起来就以为任务做完了
+### 模型能跑起来就以为任务做完了
 
 真正的项目，不只是跑通，而是要能解释结果。
 

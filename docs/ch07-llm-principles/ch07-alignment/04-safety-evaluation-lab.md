@@ -1,11 +1,11 @@
 ---
-title: "7.5 Hands-on: Safety Evaluation Lab"
+title: "7.7.5 Hands-on: Safety Evaluation Lab"
 sidebar_position: 27
 description: "Build a small alignment safety lab with fixed cases, HHH scoring, refusal boundaries, and failure notes."
 keywords: [alignment safety, HHH, refusal boundary, evaluation, guardrails]
 ---
 
-# Hands-on: Safety Evaluation Lab
+# 7.7.5 Hands-on: Safety Evaluation Lab
 
 At this point, you have seen the alignment problem, RLHF, and alternative methods. The missing practical step is this:
 
@@ -17,7 +17,7 @@ At this point, you have seen the alignment problem, RLHF, and alternative method
 Keep the test cases fixed. Change only one thing at a time. Then you can tell whether the improvement came from the model, the prompt, or pure luck.
 :::
 
-## 1. What this lab teaches
+## What this lab teaches
 
 This lab turns abstract alignment goals into a small evaluation loop.
 
@@ -32,7 +32,7 @@ That gives you a simple but useful question:
 
 > Is the model helpful, honest, and harmless in the right places?
 
-## 2. Terms to know first
+## Terms to know first
 
 | Term | Plain meaning | Why it matters |
 |---|---|---|
@@ -44,7 +44,7 @@ That gives you a simple but useful question:
 
 ![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.png)
 
-## 3. Run a fully offline evaluation loop
+## Run a fully offline evaluation loop
 
 The following example uses a fake model so you can focus on the evaluation logic.
 Save it as `alignment_safety_lab.py`, then run:
@@ -175,21 +175,21 @@ pass_rate: 100%
 failures : []
 ```
 
-## 4. How to read the result
+## How to read the result
 
-### 4.1 Too permissive is not safe
+### Too permissive is not safe
 
 `v1_too_permissive` answers everything directly, even unsafe requests. It may feel “helpful,” but it fails the harmless part of alignment.
 
-### 4.2 Too strict is also not good
+### Too strict is also not good
 
 `v2_too_strict` refuses even the public-article summary. That is over-refusal. A model that refuses too much becomes hard to use.
 
-### 4.3 Balanced behavior is the goal
+### Balanced behavior is the goal
 
 `v3_balanced` helps when it should, admits uncertainty when needed, and refuses harmful requests. That is much closer to the HHH target.
 
-## 5. Keep a failure note
+## Keep a failure note
 
 You can record results in a small table:
 
@@ -201,7 +201,7 @@ You can record results in a small table:
 
 This is the main habit that turns alignment from a feeling into an engineering workflow.
 
-## 6. What to do next
+## What to do next
 
 When you replace `fake_model()` with a real model call, do not change everything at once.
 

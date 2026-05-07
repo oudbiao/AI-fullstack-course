@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?"
+title: "5.1.1 Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?"
 sidebar_position: 0
 description: "First build a learning map for the introductory machine learning chapter: task types, datasets, training workflow, and how sklearn and later algorithm study connect into one main thread."
 keywords: [machine learning guide, ML introduction, sklearn guide, supervised learning, unsupervised learning]
 ---
 
-# Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?
+# 5.1.1 Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?
 
 ![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.png)
 
@@ -62,7 +62,7 @@ This chapter is the entry point to Station 5. Later, supervised learning will ex
 
 If this chapter is not learned well, common problems later are: you have seen each algorithm, but you do not know when to use it; the code runs, but you do not know whether the result is trustworthy; the model score is very high, but you do not realize that data leakage or evaluation mistakes may have occurred.
 
-If you want to first understand “why these algorithms appeared,” you can read [1.2 Main Thread of Machine Learning History Breakthroughs](./04-history-breakthroughs.md). It will map Bayes, MLE, EM, linear models, decision trees, SVM, random forests, Boosting, XGBoost, and sklearn to the corresponding learning chapters.
+If you want to first understand “why these algorithms appeared,” you can read [5.1.2 Main Thread of Machine Learning History Breakthroughs](./04-history-breakthroughs.md). It will map Bayes, MLE, EM, linear models, decision trees, SVM, random forests, Boosting, XGBoost, and sklearn to the corresponding learning chapters.
 
 ## How Beginners and Advanced Learners Should Read This
 

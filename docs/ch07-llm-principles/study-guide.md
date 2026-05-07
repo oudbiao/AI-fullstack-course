@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused"
+title: "7.0 Study Guide and Task Sheet: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused"
 sidebar_position: 1
 description: "A learning guide for AI full-stack beginners: LLM history, Transformer, pretraining, Prompt, fine-tuning, alignment, project roadmap, and evaluation criteria."
 keywords: [LLM study guide, how to learn Transformer, how to learn Prompt, how to learn fine-tuning, how to learn RLHF]
 ---
 
-# Study Guide and Task Sheet: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused
+# 7.0 Study Guide and Task Sheet: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused
 
 If you arrive at `7 LLM Principles, Prompt, and Fine-Tuning` and feel overwhelmed by the terminology, don’t rush to model leaderboards. First, you need to understand where LLM capabilities come from and how those capabilities are controlled and adapted.
 
@@ -40,7 +40,7 @@ In the fourth round, study Prompt. Prompt is the lightest-weight way to control 
 
 In the fifth round, study fine-tuning and alignment. Focus on when fine-tuning is needed, what problems LoRA/QLoRA solve, and why RLHF is related to model behavior.
 
-In the sixth round, run [Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). At this point the workshop becomes a review lab: you connect tokens, prompt evaluation, structured validation, and solution choice in one run.
+In the sixth round, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). At this point the workshop becomes a review lab: you connect tokens, prompt evaluation, structured validation, and solution choice in one run.
 
 ## Suggested learning pace
 

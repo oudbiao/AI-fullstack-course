@@ -1,11 +1,11 @@
 ---
-title: "2.9 PyTorch + Matplotlib Hands-on Workshop"
+title: "6.2.9 PyTorch + Matplotlib Hands-on Workshop"
 sidebar_position: 7
 description: "A complete beginner-friendly PyTorch practice: plot data first, convert to tensors, build DataLoader, train an MLP, and visualize loss curves and decision boundaries."
 keywords: [PyTorch workshop, Matplotlib, DataLoader, training loop, decision boundary, MLP, CrossEntropyLoss]
 ---
 
-# PyTorch + Matplotlib Hands-on Workshop
+# 6.2.9 PyTorch + Matplotlib Hands-on Workshop
 
 ![PyTorch hands-on workflow](/img/course/ch06-pytorch-hands-on-workflow-en.png)
 
@@ -51,7 +51,7 @@ You will train a small neural network to classify two moon-shaped groups of poin
 
 ---
 
-## 1. Create and Plot the Data First
+## Create and Plot the Data First
 
 Before writing a model, always look at the data. This prevents a common beginner mistake: training blindly without knowing what pattern the model is supposed to learn.
 
@@ -76,7 +76,7 @@ What you should notice:
 - This is why a small neural network with nonlinearity is useful
 - The chart gives you a target picture for the decision boundary later
 
-## 2. Convert Data to Tensors
+## Convert Data to Tensors
 
 PyTorch models expect tensors. For classification labels used with `CrossEntropyLoss`, `y` should be integer class IDs with type `torch.long`.
 
@@ -104,7 +104,7 @@ The meaning of the shapes is:
 - `X`: `[batch, features]`, and each sample has 2 features
 - `y`: `[batch]`, and each value is a class label: `0` or `1`
 
-## 3. Build `Dataset` and `DataLoader`
+## Build `Dataset` and `DataLoader`
 
 `TensorDataset` keeps `X` and `y` paired. `DataLoader` shuffles the data and creates mini-batches.
 
@@ -132,7 +132,7 @@ Why this matters:
 - `shuffle=True` prevents the model from always seeing samples in the same order
 - Validation data does not need shuffling because it is only used for evaluation
 
-## 4. Define a Small Neural Network
+## Define a Small Neural Network
 
 This model maps a 2D point to two logits, one score for each class.
 
@@ -162,7 +162,7 @@ Important detail:
 - The final layer outputs `2` values because this is a two-class task
 - Do not add `Softmax` here because `nn.CrossEntropyLoss()` expects raw logits
 
-## 5. Train and Validate
+## Train and Validate
 
 The training loop follows the same rhythm you saw earlier:
 
@@ -222,7 +222,7 @@ for epoch in range(1, 101):
 
 If training works, validation accuracy should usually rise clearly above random guessing.
 
-## 6. Plot the Loss Curve
+## Plot the Loss Curve
 
 The loss curve tells you whether training is moving in the right direction.
 
@@ -244,7 +244,7 @@ How to read it:
 - If training loss decreases but validation loss rises, watch for overfitting
 - If neither decreases, check learning rate, labels, model output shape, and loss function
 
-## 7. Plot the Decision Boundary
+## Plot the Decision Boundary
 
 The decision boundary shows what the model has learned geometrically.
 
@@ -278,7 +278,7 @@ plt.show()
 
 This picture is usually the moment when PyTorch starts to feel concrete: the model is no longer just printing numbers; you can see how it divides the space.
 
-## 8. Common Errors and Fixes
+## Common Errors and Fixes
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
@@ -287,7 +287,7 @@ This picture is usually the moment when PyTorch starts to feel concrete: the mod
 | Shape error in loss | Output or label shape is wrong | For `CrossEntropyLoss`, logits should be `[batch, classes]`, labels should be `[batch]` |
 | Validation uses too much memory | Gradients are recorded during validation | Use `model.eval()` and `with torch.no_grad()` |
 
-## 9. Practice Tasks
+## Practice Tasks
 
 1. Change the hidden size from `32` to `16` and `64`. Compare the decision boundary.
 2. Change `noise=0.18` to `noise=0.3`. Observe how the task becomes harder.

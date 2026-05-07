@@ -1,10 +1,10 @@
 ---
-title: "2.7 随机数与统计"
+title: "3.2.7 随机数与统计"
 sidebar_position: 8
 description: "掌握 NumPy 的随机数生成、概率分布和统计运算"
 ---
 
-# 随机数与统计
+# 3.2.7 随机数与统计
 
 ![NumPy 随机数与统计地图](/img/course/ch03-numpy-random-statistics-map.png)
 

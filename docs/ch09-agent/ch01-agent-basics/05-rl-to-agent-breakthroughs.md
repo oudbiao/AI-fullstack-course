@@ -1,11 +1,11 @@
 ---
-title: "1.6 From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents"
+title: "9.1.6 From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents"
 sidebar_position: 5
 description: "Understand the relationship between reinforcement learning, search, feedback, and modern Agents through three historical milestones: TD-Gammon, DQN Atari, and AlphaGo."
 keywords: [TD-Gammon, DQN, Atari, AlphaGo, reinforcement learning, Agent history]
 ---
 
-# From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents
+# 9.1.6 From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents
 
 ![Historical breakthroughs map from reinforcement learning to Agent](/img/course/ch09-rl-agent-breakthroughs-map-en.png)
 
@@ -17,7 +17,7 @@ In this section, we will first focus on three stories:
 > **TD-Gammon showed that machines can get stronger through self-play, DQN showed that deep networks can learn policies from pixels and rewards, and AlphaGo showed that combining learning, search, and planning can break through complex games.**
 :::
 
-## 1. Why does an Agent course need reinforcement learning history?
+## Why does an Agent course need reinforcement learning history?
 
 An Agent cares about:
 
@@ -38,7 +38,7 @@ This is highly similar to the basic problems in reinforcement learning.
 
 So the history of reinforcement learning is not a side topic. It helps you understand why Agents need to care about feedback, planning, trial and error, and safety boundaries.
 
-## 2. TD-Gammon: learning strategy from self-play
+## TD-Gammon: learning strategy from self-play
 
 Around 1992, Gerald Tesauro’s TD-Gammon achieved a very strong level of play in backgammon using temporal-difference learning.
 
@@ -58,7 +58,7 @@ This opened up an important idea for later reinforcement learning and game AI:
 
 > **If a system can generate its own experience, it is not fully limited by manually labeled data.**
 
-## 3. DQN Atari: from pixels to actions
+## DQN Atari: from pixels to actions
 
 In 2015, DeepMind’s DQN achieved a breakthrough on Atari games.
 Its significance was that it combined deep learning and reinforcement learning:
@@ -82,7 +82,7 @@ Its inspiration for modern Agents is:
 
 This is also why evaluating Agents is more difficult than evaluating ordinary question-answering systems.
 
-## 4. AlphaGo: combining learning, search, and planning
+## AlphaGo: combining learning, search, and planning
 
 In 2016, AlphaGo defeated Lee Sedol, and many people felt AI’s breakthrough very directly for the first time.
 
@@ -99,7 +99,7 @@ For Agents, this is extremely important:
 
 > **Strong systems are often not the result of one model working alone, but of models, search, tools, feedback, and constraints working together.**
 
-## 5. What does this line have to do with LLM Agents?
+## What does this line have to do with LLM Agents?
 
 The core of modern LLM Agents is not necessarily a reinforcement learning algorithm, but they inherit many of reinforcement learning’s problems:
 
@@ -114,7 +114,7 @@ So when you later study ReAct, Plan-and-Execute, tool calling, and Agent evaluat
 
 > **new implementations in the language-model era of the old problems of “action, feedback, and planning.”**
 
-## 6. Assigning historical milestones to course chapters
+## Assigning historical milestones to course chapters
 
 | Historical milestone | Problem it solved | Corresponding course chapter |
 |---|---|---|
@@ -124,7 +124,7 @@ So when you later study ReAct, Plan-and-Execute, tool calling, and Agent evaluat
 | RLHF | Adjusting model behavior using human preferences | Chapter 7 alignment, 9.8 safety evaluation |
 | ReAct | Letting the model alternate between reasoning and acting | 9.2 ReAct, 9.3 tool calling |
 
-## 7. The intuition you should have after this section
+## The intuition you should have after this section
 
 An Agent is not just “letting the model improvise.”
 It is more like a system that constantly balances the following:

@@ -54,17 +54,17 @@ Experienced learners can focus on data and evaluation: annotation quality, class
 
 ## Learning path for this stage
 
-Chapter 1 covers CV basics and OpenCV, helping you understand image pixels, color spaces, filtering, edges, morphology, and basic image processing.
+Section 10.1 covers CV basics and OpenCV, helping you understand image pixels, color spaces, filtering, edges, morphology, and basic image processing.
 
-Chapter 2 covers advanced image classification, including data augmentation, modern classification architectures, and training techniques.
+Section 10.2 covers advanced image classification, including data augmentation, modern classification architectures, and training techniques.
 
-Chapter 3 covers object detection, helping you understand candidate boxes, classes, confidence, IoU, mAP, and the YOLO family.
+Section 10.3 covers object detection, helping you understand candidate boxes, classes, confidence, IoU, mAP, and the YOLO family.
 
-Chapter 4 covers image segmentation, helping you understand semantic segmentation, instance segmentation, and pixel-level outputs.
+Section 10.4 covers image segmentation, helping you understand semantic segmentation, instance segmentation, and pixel-level outputs.
 
-Chapter 5 covers advanced topics, including face detection, video analysis, OCR, and 3D vision.
+Section 10.5 covers advanced topics, including face detection, video analysis, OCR, and 3D vision.
 
-Chapter 6 completes a comprehensive project that connects data, models, metrics, and application scenarios.
+Section 10.6 completes a comprehensive project that connects data, models, metrics, and application scenarios.
 
 ## What you should be able to do after learning
 
@@ -113,9 +113,9 @@ Vision projects must keep the input image, processed result, and prediction visu
 
 The basic version is to complete an image classification project, including data preparation, training, and basic evaluation. The standard version should add data augmentation, error sample analysis, and visualization of prediction results. The challenge version can be an object detection or segmentation project, with annotation formats, mAP/IoU metrics, inference demos, and scenario-based application descriptions.
 
-If you want one guided baseline before choosing a larger direction, start with [Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md). It gives you a local script that generates images, masks, boxes, metrics, prediction visualizations, and a failure report.
+If you want one guided baseline before choosing a larger direction, start with [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md). It gives you a local script that generates images, masks, boxes, metrics, prediction visualizations, and a failure report.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Computer Vision Without Getting Confused](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [10.0 Study Guide: How to Learn Computer Vision Without Getting Confused](./study-guide.md).
 
 
 

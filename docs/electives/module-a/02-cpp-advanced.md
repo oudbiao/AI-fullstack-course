@@ -1,11 +1,11 @@
 ---
-title: "1.2 Advanced C++"
+title: "E.A.2 Advanced C++"
 sidebar_position: 2
 description: "From RAII, smart pointers, abstract interfaces, and move semantics to simple concurrency, understand the most common advanced C++ capabilities in deployment engineering."
 keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deployment]
 ---
 
-# Advanced C++
+# E.A.2 Advanced C++
 
 :::tip Section Overview
 If the basic course solves “how to read and write simple C++,”
@@ -29,9 +29,9 @@ These are exactly the most common and most likely pain points for students with 
 
 ---
 
-## 1. Why are advanced C++ concepts so common in deployment?
+## Why are advanced C++ concepts so common in deployment?
 
-### 1.1 Because deployment scenarios often manage external resources
+### Because deployment scenarios often manage external resources
 
 For example:
 
@@ -42,7 +42,7 @@ For example:
 
 Once these resources leak, the problem is often more serious than in a regular script.
 
-### 1.2 Because deployment systems care a lot about “who owns this object”
+### Because deployment systems care a lot about “who owns this object”
 
 For example:
 
@@ -52,7 +52,7 @@ For example:
 
 This is an ownership problem.
 
-### 1.3 An analogy
+### An analogy
 
 Basic syntax is like learning how to open a toolbox.
 The advanced part is more like learning:
@@ -65,9 +65,9 @@ In engineering, this is often more important than writing a piece of algorithm c
 
 ---
 
-## 2. RAII: Why does C++ like “automatically releasing resources when an object is destroyed”?
+## RAII: Why does C++ like “automatically releasing resources when an object is destroyed”?
 
-### 2.1 A one-sentence understanding
+### A one-sentence understanding
 
 RAII can be roughly understood as:
 
@@ -76,7 +76,7 @@ RAII can be roughly understood as:
 When the object is created, it acquires the resource,
 and when the object is destroyed, it automatically releases the resource.
 
-### 2.2 Why is this so suitable for deployment code?
+### Why is this so suitable for deployment code?
 
 Because exceptions and early returns are very common in deployment.
 If you rely entirely on manual:
@@ -86,7 +86,7 @@ If you rely entirely on manual:
 
 it is very easy to forget cleanup.
 
-### 2.3 A simple example
+### A simple example
 
 ```cpp
 #include <iostream>
@@ -120,9 +120,9 @@ Although this example is simple, it captures the key feeling of RAII very well:
 
 ---
 
-## 3. Smart pointers: Why do we always see `unique_ptr` in deployment code?
+## Smart pointers: Why do we always see `unique_ptr` in deployment code?
 
-### 3.1 `unique_ptr`: exclusive ownership
+### `unique_ptr`: exclusive ownership
 
 The most common and most important smart pointer to learn first is:
 
@@ -132,7 +132,7 @@ It means:
 
 - One object has one clearly defined owner
 
-### 3.2 Why is this especially common in deployment?
+### Why is this especially common in deployment?
 
 Because many resources should not be copied casually.
 For example:
@@ -141,7 +141,7 @@ For example:
 - Inference sessions
 - External device handles
 
-### 3.3 A very common combination: abstract interface + `unique_ptr`
+### A very common combination: abstract interface + `unique_ptr`
 
 ```cpp
 #include <iostream>
@@ -171,7 +171,7 @@ int main() {
 }
 ```
 
-### 3.4 Why does this example look very much like real deployment code?
+### Why does this example look very much like real deployment code?
 
 Because it shows three things that are very common in deployment:
 
@@ -181,9 +181,9 @@ Because it shows three things that are very common in deployment:
 
 ---
 
-## 4. Why is move semantics mentioned so often?
+## Why is move semantics mentioned so often?
 
-### 4.1 Because copying large objects is expensive
+### Because copying large objects is expensive
 
 If an object is large, for example:
 
@@ -193,7 +193,7 @@ If an object is large, for example:
 
 then the cost of copying becomes very noticeable.
 
-### 4.2 What is move semantics trying to do?
+### What is move semantics trying to do?
 
 In one sentence:
 
@@ -201,7 +201,7 @@ In one sentence:
 
 This makes resource transfer more efficient.
 
-### 4.3 A simple intuitive example
+### A simple intuitive example
 
 ```cpp
 #include <iostream>
@@ -227,9 +227,9 @@ This intuition is enough for now.
 
 ---
 
-## 5. Why are abstract interfaces especially important in inference backends?
+## Why are abstract interfaces especially important in inference backends?
 
-### 5.1 Because the same business logic may need multiple backends
+### Because the same business logic may need multiple backends
 
 For example:
 
@@ -238,7 +238,7 @@ For example:
 - ONNX Runtime
 - TensorRT
 
-### 5.2 What happens if there is no unified interface?
+### What happens if there is no unified interface?
 
 The business layer ends up writing all over the place:
 
@@ -248,16 +248,16 @@ The business layer ends up writing all over the place:
 
 It quickly becomes hard to maintain.
 
-### 5.3 The value of an abstract interface
+### The value of an abstract interface
 
 It pushes differences down into the implementation layer,
 so the business layer can program against a unified capability.
 
 ---
 
-## 6. The most common pitfalls
+## The most common pitfalls
 
-### 6.1 Mistake 1: Being afraid of every pointer
+### Mistake 1: Being afraid of every pointer
 
 Modern C++ often does not encourage you to manually manage resources with raw pointers,
 and instead prefers:
@@ -266,7 +266,7 @@ and instead prefers:
 - Value objects
 - RAII
 
-### 6.2 Mistake 2: Thinking you must learn a lot of template metaprogramming before you can be “advanced”
+### Mistake 2: Thinking you must learn a lot of template metaprogramming before you can be “advanced”
 
 For deployment engineering, what you should learn first is:
 
@@ -274,7 +274,7 @@ For deployment engineering, what you should learn first is:
 - Interface abstraction
 - Ownership
 
-### 6.3 Mistake 3: Thinking `unique_ptr` is just a syntax trick
+### Mistake 3: Thinking `unique_ptr` is just a syntax trick
 
 It is not.
 It explicitly expresses:

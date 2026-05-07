@@ -1,11 +1,11 @@
 ---
-title: "1.3 并发编程（含 asyncio）"
+title: "E.B.3 并发编程（含 asyncio）"
 sidebar_position: 10
 description: "从 I/O 密集任务讲起，理解线程、协程和 asyncio 在服务代码中的适用边界，并学会一个最小并发控制器。"
 keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 ---
 
-# 并发编程（含 asyncio）
+# E.B.3 并发编程（含 asyncio）
 
 ![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.png)
 
@@ -35,7 +35,7 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 ## 一、为什么很多 Python 工程会走到 asyncio？
 
-### 1.1 因为很多任务都在“等”
+### 因为很多任务都在“等”
 
 例如：
 
@@ -46,7 +46,7 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 这类任务真正占时间的不是 CPU 计算，
 而是等待外部 I/O。
 
-### 1.2 asyncio 的核心价值
+### asyncio 的核心价值
 
 它允许你在等待一个任务时，
 切去推进别的任务。
@@ -58,7 +58,7 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 - 多工具服务
 - 批量请求
 
-### 1.3 一个类比
+### 一个类比
 
 同步代码像一个窗口一次只服务一个人。
 异步代码更像取号排队，窗口在等某个人资料时还能先办别人的单。
@@ -87,7 +87,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 2.1 这段代码真正想说明什么？
+### 这段代码真正想说明什么？
 
 它说明：
 
@@ -102,7 +102,7 @@ asyncio.run(main())
 
 - `max(0.2, 0.1)`
 
-### 2.2 为什么这在 AI 应用里很常见？
+### 为什么这在 AI 应用里很常见？
 
 因为很多应用会同时做：
 
@@ -116,7 +116,7 @@ asyncio.run(main())
 
 ## 三、为什么并发不是越多越好？
 
-### 3.1 并发过大可能把上游打崩
+### 并发过大可能把上游打崩
 
 如果你一次发 1000 个请求，
 也许不是更快，而是：
@@ -125,7 +125,7 @@ asyncio.run(main())
 - 超时增加
 - 上游雪崩
 
-### 3.2 所以常常需要并发上限
+### 所以常常需要并发上限
 
 最简单的做法之一就是：
 
@@ -157,7 +157,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.3 这段代码最值得学什么？
+### 这段代码最值得学什么？
 
 并发不只是“能不能一起跑”，
 还包括：
@@ -170,7 +170,7 @@ asyncio.run(main())
 
 ## 四、超时和取消为什么也很重要？
 
-### 4.1 没有超时，慢任务会一直挂着
+### 没有超时，慢任务会一直挂着
 
 这在外部依赖很多时非常危险。
 最常见做法是：
@@ -197,7 +197,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 4.2 为什么这对 Agent 特别重要？
+### 为什么这对 Agent 特别重要？
 
 因为 Agent 很多时候依赖：
 
@@ -211,7 +211,7 @@ asyncio.run(main())
 
 ## 五、什么时候不该优先用 asyncio？
 
-### 5.1 纯 CPU 密集任务
+### 纯 CPU 密集任务
 
 例如：
 
@@ -223,7 +223,7 @@ asyncio.run(main())
 - 多进程
 - 原生高性能库
 
-### 5.2 团队还没准备好接受异步复杂度
+### 团队还没准备好接受异步复杂度
 
 异步代码会引入：
 
@@ -232,7 +232,7 @@ asyncio.run(main())
 
 如果场景不需要，不必强上。
 
-### 5.3 同步已经够简单够稳
+### 同步已经够简单够稳
 
 小脚本、小任务里，
 同步有时反而更清晰。
@@ -241,16 +241,16 @@ asyncio.run(main())
 
 ## 六、最常见误区
 
-### 6.1 误区一：并发就是更快
+### 误区一：并发就是更快
 
 不一定。
 关键看任务是不是 I/O 密集。
 
-### 6.2 误区二：`async` 到处都该加
+### 误区二：`async` 到处都该加
 
 异步是手段，不是风格标签。
 
-### 6.3 误区三：只会 `gather` 就算会 asyncio
+### 误区三：只会 `gather` 就算会 asyncio
 
 真实工程里更重要的常常是：
 

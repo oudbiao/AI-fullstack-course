@@ -1,10 +1,10 @@
 ---
-title: "2.3 配列のインデックスとスライス"
+title: "3.2.3 配列のインデックスとスライス"
 sidebar_position: 4
 description: "NumPy 配列のさまざまなアクセス方法を身につける：基本インデックス、ブールインデックス、ファンシーインデックス"
 ---
 
-# 配列のインデックスとスライス
+# 3.2.3 配列のインデックスとスライス
 
 ![NumPy のインデックスとスライスの図](/img/course/ch03-numpy-indexing-slicing-map-ja.png)
 

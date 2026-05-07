@@ -1,11 +1,11 @@
 ---
-title: "2.4 ReAct Framework"
+title: "9.2.4 ReAct Framework"
 sidebar_position: 7
 description: "Starting from the Thought-Action-Observation loop, understand why ReAct can intertwine reasoning and tool use, and which types of Agent tasks it is best suited for."
 keywords: [ReAct, thought action observation, tool use, agent loop, reasoning and acting]
 ---
 
-# ReAct Framework
+# 9.2.4 ReAct Framework
 
 ![ReAct reasoning-action-observation loop diagram](/img/course/react-reason-act-observe-loop-en.png)
 
@@ -34,9 +34,9 @@ The core idea of ReAct is to intertwine the two:
 
 ---
 
-## 1. Why is “thinking” alone not enough?
+## Why is “thinking” alone not enough?
 
-### 1.1 Because many answers are not in the model’s head
+### Because many answers are not in the model’s head
 
 For example:
 
@@ -56,7 +56,7 @@ it can lead to:
 - Overconfidence
 - Calculation errors
 
-### 1.2 The essence of ReAct: think while getting new information
+### The essence of ReAct: think while getting new information
 
 Its typical loop is:
 
@@ -71,7 +71,7 @@ Its typical loop is:
 This allows the Agent to do more than just “make up an answer in its head,”
 and instead gradually move closer to the real environment.
 
-### 1.3 An analogy: like doing an investigation, not writing in isolation
+### An analogy: like doing an investigation, not writing in isolation
 
 Pure CoT is more like solving a problem on scratch paper.
 ReAct is more like doing an investigation:
@@ -82,16 +82,16 @@ ReAct is more like doing an investigation:
 
 ---
 
-## 2. The fundamental difference between ReAct and CoT
+## The fundamental difference between ReAct and CoT
 
-### 2.1 CoT focuses on “internal reasoning”
+### CoT focuses on “internal reasoning”
 
 The core questions are:
 
 - How to break down the steps
 - How to maintain intermediate state
 
-### 2.2 ReAct focuses on “reasoning + external interaction”
+### ReAct focuses on “reasoning + external interaction”
 
 It adds another layer:
 
@@ -101,7 +101,7 @@ So ReAct is more like:
 
 - CoT + Tool Loop
 
-### 2.3 Why is this especially important for Agents?
+### Why is this especially important for Agents?
 
 Because Agents do more than static Q&A.
 They often need to:
@@ -115,7 +115,7 @@ All of these require the system to continuously connect with the external world 
 
 ---
 
-## 3. First run a real minimal ReAct closed loop
+## First run a real minimal ReAct closed loop
 
 The following example simulates a small e-commerce assistant.
 The user asks:
@@ -234,7 +234,7 @@ print("\nfinal answer:")
 print(answer)
 ```
 
-### 3.1 How should you read this code?
+### How should you read this code?
 
 It is recommended to read it in this order:
 
@@ -245,7 +245,7 @@ It is recommended to read it in this order:
 3. Finally look at `run_react`
    Understand how the full loop gradually accumulates the trace
 
-### 3.2 Why is `trace` so important?
+### Why is `trace` so important?
 
 Because ReAct does not answer in one shot,
 but progresses step by step.
@@ -259,7 +259,7 @@ With a trace, you can know:
 
 This is crucial for debugging.
 
-### 3.3 Why is ReAct often stronger than “calling a tool directly once”?
+### Why is ReAct often stronger than “calling a tool directly once”?
 
 Because real problems are often not solved in a single step.
 The order of tool calls may depend on the result of the previous step.
@@ -274,9 +274,9 @@ This is exactly the kind of structure ReAct is best at.
 
 ---
 
-## 4. When is ReAct most useful?
+## When is ReAct most useful?
 
-### 4.1 Tasks that require multiple rounds of observation
+### Tasks that require multiple rounds of observation
 
 For example:
 
@@ -284,7 +284,7 @@ For example:
 - Check first, then compare
 - Inspect the status first, then decide the next step
 
-### 4.2 Tool call order is not fixed
+### Tool call order is not fixed
 
 If every task is strictly:
 
@@ -298,7 +298,7 @@ ReAct is more suitable when:
 
 - The result of the current step affects the next choice
 
-### 4.3 You need process traceability
+### You need process traceability
 
 Because ReAct naturally has:
 
@@ -314,9 +314,9 @@ This makes it a good fit for:
 
 ---
 
-## 5. What are the most common problems with ReAct?
+## What are the most common problems with ReAct?
 
-### 5.1 The loop is too long
+### The loop is too long
 
 If the agent keeps:
 
@@ -331,7 +331,7 @@ Then it can become:
 - Expensive
 - Prone to drifting off track
 
-### 5.2 Choosing the wrong tool
+### Choosing the wrong tool
 
 ReAct does not guarantee the right tool is chosen each round.
 It may:
@@ -340,7 +340,7 @@ It may:
 - Call the same tool repeatedly
 - Call a tool that is actually unnecessary
 
-### 5.3 Failure to integrate the observation
+### Failure to integrate the observation
 
 Even if the tool returns the correct information,
 the agent may:
@@ -354,20 +354,20 @@ but also “whether the tool output can be understood.”
 
 ---
 
-## 6. How can we make ReAct more stable in practice?
+## How can we make ReAct more stable in practice?
 
-### 6.1 Make the action schema clear enough
+### Make the action schema clear enough
 
 The clearer the tool description is,
 the less likely the agent is to call tools incorrectly.
 
-### 6.2 Limit the maximum number of steps
+### Limit the maximum number of steps
 
 One of the simplest ways to avoid useless loops is to:
 
 - Set `max_steps` explicitly
 
-### 6.3 Structure the observation
+### Structure the observation
 
 If the tool returns a messy block of natural language,
 the agent is more likely to misread it.
@@ -382,20 +382,20 @@ For example:
 
 ---
 
-## 7. Common misconceptions
+## Common misconceptions
 
-### 7.1 Misconception 1: ReAct just means “can call tools”
+### Misconception 1: ReAct just means “can call tools”
 
 That is not accurate enough.
 The key idea of ReAct is:
 
 - Reasoning and action alternate and progress together
 
-### 7.2 Misconception 2: As long as there is a trace, it must be reliable
+### Misconception 2: As long as there is a trace, it must be reliable
 
 A trace is traceable, but it does not automatically guarantee correctness.
 
-### 7.3 Misconception 3: All Agents should use ReAct
+### Misconception 3: All Agents should use ReAct
 
 Not necessarily.
 If the process is highly fixed,

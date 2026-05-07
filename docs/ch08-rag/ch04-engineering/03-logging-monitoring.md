@@ -1,11 +1,11 @@
 ---
-title: "4.4 Logging and Monitoring"
+title: "8.4.4 Logging and Monitoring"
 sidebar_position: 19
 description: "From structured logs, key metrics, and traces to alerting ideas, understand why LLM services must be observable."
 keywords: [logging, monitoring, tracing, metrics, observability, LLM ops]
 ---
 
-# Logging and Monitoring
+# 8.4.4 Logging and Monitoring
 
 :::tip Section overview
 Many LLM app demos work well locally, but once they go live, one problem quickly appears:
@@ -60,9 +60,9 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why is this especially important?
+## Why is this especially important?
 
-### 1.1 Failures in LLM systems are more hidden than in normal APIs
+### Failures in LLM systems are more hidden than in normal APIs
 
 Errors in ordinary APIs are usually pretty direct:
 
@@ -81,7 +81,7 @@ So if you do not have observability, the system often becomes:
 
 > It looks alive, but in reality it is already half broken.
 
-### 1.2 What do logging and monitoring actually solve?
+### What do logging and monitoring actually solve?
 
 A rough three-layer view is enough to start:
 
@@ -89,7 +89,7 @@ A rough three-layer view is enough to start:
 - Metrics: how often, how fast, and how expensive it is
 - Tracing: the full path a request took
 
-### 1.3 A beginner-friendly analogy
+### A beginner-friendly analogy
 
 You can think of observability as:
 
@@ -107,9 +107,9 @@ With them, you can actually know:
 
 ---
 
-## 2. Start with logs: the most basic and most often misused tool
+## Start with logs: the most basic and most often misused tool
 
-### 2.1 What is a “structured log”?
+### What is a “structured log”?
 
 Instead of printing just a string:
 
@@ -125,7 +125,7 @@ It is much more useful to record structured fields:
 - latency_ms
 - model_name
 
-### 2.2 A minimal structured log example
+### A minimal structured log example
 
 ```python
 log = {
@@ -145,9 +145,9 @@ The biggest advantage of this kind of log is:
 
 ---
 
-## 3. Metrics: the thermometer for overall system health
+## Metrics: the thermometer for overall system health
 
-### 3.1 The most important metrics to monitor
+### The most important metrics to monitor
 
 For LLM systems, the most common metrics include:
 
@@ -159,7 +159,7 @@ For LLM systems, the most common metrics include:
 - Number of tool calls
 - Retrieval hit rate
 
-### 3.2 A minimal metrics aggregation example
+### A minimal metrics aggregation example
 
 ```python
 requests = [
@@ -179,7 +179,7 @@ print("avg_tokens     =", avg_tokens)
 
 This is the smallest possible prototype of a monitoring dashboard.
 
-### 3.3 A beginner-friendly metric table to remember first
+### A beginner-friendly metric table to remember first
 
 | Metric | What it helps answer |
 |---|---|
@@ -200,9 +200,9 @@ Logs answer “what happened,” metrics answer “what is the overall trend,”
 
 ---
 
-## 4. Tracing: what exactly did a request go through?
+## Tracing: what exactly did a request go through?
 
-### 4.1 Why do LLM systems especially need traces?
+### Why do LLM systems especially need traces?
 
 Because a single request usually does not go through just one module; it may pass through:
 
@@ -218,7 +218,7 @@ If the final answer is wrong, you need to know:
 - Or was model generation wrong?
 - Or did the tool layer fail?
 
-### 4.2 A minimal trace example
+### A minimal trace example
 
 ```python
 trace = [
@@ -236,7 +236,7 @@ The core value of trace is:
 
 > It lets you see the complete journey of the same request.
 
-### 4.3 The safest default order for your first production troubleshooting session
+### The safest default order for your first production troubleshooting session
 
 A more reliable order is usually:
 
@@ -248,7 +248,7 @@ This is usually easier than opening a wall of logs right away.
 
 ---
 
-## 5. A more realistic minimal observability loop
+## A more realistic minimal observability loop
 
 ```python
 import time
@@ -286,25 +286,25 @@ Although this example is small, it already includes these core fields:
 
 ---
 
-## 6. What else is worth monitoring in an LLM system?
+## What else is worth monitoring in an LLM system?
 
 Compared with a traditional API, an LLM system is usually worth monitoring for these additional things:
 
-### 6.1 Token cost
+### Token cost
 
 Because it directly determines:
 
 - How much money you spend
 - Whether prompts are getting longer and longer
 
-### 6.2 Retrieval quality
+### Retrieval quality
 
 For example:
 
 - Whether top-1 is a hit
 - The rate of empty retrieval results
 
-### 6.3 Tool call quality
+### Tool call quality
 
 For example:
 
@@ -312,7 +312,7 @@ For example:
 - Parameter validation failure rate
 - Retry rate
 
-### 6.4 Answer quality signals
+### Answer quality signals
 
 For example:
 
@@ -324,9 +324,9 @@ These metrics cannot replace offline evaluation, but they are still very importa
 
 ---
 
-## 7. Why alerts should not only ask “is the service down?”
+## Why alerts should not only ask “is the service down?”
 
-### 7.1 Many LLM issues do not directly cause a 500 error
+### Many LLM issues do not directly cause a 500 error
 
 For example:
 
@@ -336,7 +336,7 @@ For example:
 
 The system may still be “alive,” but the business is already clearly broken.
 
-### 7.2 So alerts are best split into two layers
+### So alerts are best split into two layers
 
 - Basic availability alerts
   - Error rate
@@ -347,7 +347,7 @@ The system may still be “alive,” but the business is already clearly broken.
   - Average token count rises abnormally
   - User negative feedback increases abnormally
 
-### 7.3 A beginner-friendly alert layering table
+### A beginner-friendly alert layering table
 
 | Alert type | Typical example |
 |---|---|
@@ -361,7 +361,7 @@ This table is useful for beginners because it reminds you:
 
 ---
 
-## 8. If your goal is a “courseware generation assistant driven by a knowledge base,” what should you monitor first?
+## If your goal is a “courseware generation assistant driven by a knowledge base,” what should you monitor first?
 
 This kind of system is more likely than ordinary Q&A to look “fine” while actually drifting off course.
 
@@ -397,7 +397,7 @@ This example is especially good for beginners because it helps you understand:
 
 ---
 
-## 9. A very practical checklist of log fields
+## A very practical checklist of log fields
 
 If you are building an LLM service, the most practical set of fields usually includes:
 
@@ -417,21 +417,21 @@ Not every log needs all of these, but this list is a very good starting point fo
 
 ---
 
-## 10. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 10.1 Only logging strings, not fields
+### Only logging strings, not fields
 
 That makes later aggregation and analysis difficult.
 
-### 10.2 Only logging successes, not failures
+### Only logging successes, not failures
 
 This makes error diagnosis very painful.
 
-### 10.3 No trace_id
+### No trace_id
 
 When something goes wrong, you cannot reconstruct the full request path.
 
-### 10.4 Monitoring only availability, not business quality
+### Monitoring only availability, not business quality
 
 This is a very common problem in LLM projects.
 

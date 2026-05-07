@@ -1,10 +1,10 @@
 ---
-title: "1.3 Operators and Expressions"
+title: "2.1.3 Operators and Expressions"
 sidebar_position: 3
 description: "Master various operators and expressions in Python"
 ---
 
-# Operators and Expressions
+# 2.1.3 Operators and Expressions
 
 ![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow-en.png)
 

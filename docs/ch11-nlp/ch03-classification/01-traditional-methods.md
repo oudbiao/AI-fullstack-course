@@ -1,11 +1,11 @@
 ---
-title: "3.2 Traditional Text Classification"
+title: "11.3.2 Traditional Text Classification"
 sidebar_position: 7
 description: "Starting from bag-of-words, TF-IDF, and linear classifiers, understand why traditional text classification is still a very strong baseline in many real-world tasks."
 keywords: [text classification, bag of words, tf-idf, logistic regression, baseline, NLP]
 ---
 
-# Traditional Text Classification
+# 11.3.2 Traditional Text Classification
 
 ![Traditional text classification baseline map](/img/course/ch11-traditional-classification-baseline-map-en.png)
 
@@ -57,9 +57,9 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. What does traditional text classification do?
+## What does traditional text classification do?
 
-### 1.1 First convert text into features, then feed the features into a classifier
+### First convert text into features, then feed the features into a classifier
 
 A typical workflow is:
 
@@ -70,7 +70,7 @@ A typical workflow is:
 In other words, it is not an end-to-end deep learning model,
 but an explicit “feature engineering + classifier” approach.
 
-### 1.2 Why can this work?
+### Why can this work?
 
 Because in many text tasks,
 individual words and short phrases already carry strong discriminative power.
@@ -83,12 +83,12 @@ For example:
 
 These words can strongly hint at the category.
 
-### 1.3 An analogy
+### An analogy
 
 Traditional text classification is like manually organizing clue cards.
 You first extract keyword clues, then let the classifier make a judgment based on those clues.
 
-### 1.4 A more beginner-friendly overall analogy
+### A more beginner-friendly overall analogy
 
 You can also think of it as:
 
@@ -101,9 +101,9 @@ That is why it works especially well in these tasks:
 
 ---
 
-## 2. What do bag-of-words and TF-IDF do?
+## What do bag-of-words and TF-IDF do?
 
-### 2.1 Bag-of-words
+### Bag-of-words
 
 The simplest idea is:
 
@@ -115,7 +115,7 @@ and cares more about:
 - whether the word appears
 - how often it appears
 
-### 2.2 TF-IDF
+### TF-IDF
 
 It goes one step further on top of bag-of-words:
 
@@ -126,13 +126,13 @@ This helps reduce the influence of:
 
 - high-frequency but low-discriminative words such as “the” or “is”
 
-### 2.3 Why is it often effective in text classification?
+### Why is it often effective in text classification?
 
 Because many category distinctions depend on:
 
 - which words are more representative
 
-### 2.4 A selection table that beginners should remember first
+### A selection table that beginners should remember first
 
 | Phenomenon | Safer first reaction |
 |---|---|
@@ -145,7 +145,7 @@ This table is especially useful for beginners because it turns “when tradition
 
 ---
 
-## 3. Run a minimal traditional text classification example first
+## Run a minimal traditional text classification example first
 
 The example below uses:
 
@@ -187,7 +187,7 @@ pred = clf.predict(["How do I handle a refund?", "When will the e-invoice be iss
 print(pred.tolist())
 ```
 
-### 3.1 What is the most important part of this code?
+### What is the most important part of this code?
 
 There are two key pieces:
 
@@ -196,7 +196,7 @@ There are two key pieces:
 2. `LogisticRegression`
    Then classify based on those features
 
-### 3.2 Why is this already very similar to a real system skeleton?
+### Why is this already very similar to a real system skeleton?
 
 Because many lightweight online classifiers are essentially:
 
@@ -205,7 +205,7 @@ Because many lightweight online classifiers are essentially:
 
 Their deployment and maintenance costs are relatively low.
 
-### 3.3 Another minimal example: switching to TF-IDF
+### Another minimal example: switching to TF-IDF
 
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -228,25 +228,25 @@ This example is great for beginners because it reminds you:
 
 ---
 
-## 4. Why are traditional methods often good baselines?
+## Why are traditional methods often good baselines?
 
-### 4.1 Fast training
+### Fast training
 
 You can get the first version very quickly.
 
-### 4.2 Easy to debug
+### Easy to debug
 
 If the classifier makes mistakes, it is easier to trace:
 
 - which words triggered the decision
 - whether the features were extracted correctly
 
-### 4.3 Often not bad at all on small data
+### Often not bad at all on small data
 
 Especially for tasks with clear label definitions and short texts,
 traditional methods often perform better than people expect.
 
-### 4.4 The safest default order when doing a text classification project for the first time
+### The safest default order when doing a text classification project for the first time
 
 A more reliable order is usually:
 
@@ -258,9 +258,9 @@ This makes it easier to see the problem than starting with a heavier model right
 
 ---
 
-## 5. When do traditional methods start to fall short?
+## When do traditional methods start to fall short?
 
-### 5.1 When more complex semantic understanding is needed
+### When more complex semantic understanding is needed
 
 For example:
 
@@ -268,11 +268,11 @@ For example:
 - long-range dependencies
 - subtle contextual differences
 
-### 5.2 When word order matters a lot
+### When word order matters a lot
 
 Because bag-of-words methods are not sensitive to order.
 
-### 5.3 When there are many ambiguous expressions and implicit meanings
+### When there are many ambiguous expressions and implicit meanings
 
 At that point, you usually need more:
 
@@ -281,14 +281,14 @@ At that point, you usually need more:
 
 ---
 
-## 6. Common misconceptions
+## Common misconceptions
 
-### 6.1 Misconception 1: Traditional text classification is no longer worth learning
+### Misconception 1: Traditional text classification is no longer worth learning
 
 Not true.
 It is still a very practical starting point in many business scenarios.
 
-### 6.2 Misconception 2: If accuracy is worse than the strongest model, it has no value
+### Misconception 2: If accuracy is worse than the strongest model, it has no value
 
 In real engineering, you also need to consider:
 
@@ -296,7 +296,7 @@ In real engineering, you also need to consider:
 - latency
 - interpretability
 
-### 6.3 Misconception 3: Bag-of-words methods understand nothing
+### Misconception 3: Bag-of-words methods understand nothing
 
 Although they do not understand deep semantics,
 many tasks simply do not require that much complexity.

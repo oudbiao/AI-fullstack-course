@@ -1,10 +1,10 @@
 ---
-title: "1.4 函数式编程基础"
+title: "2.2.4 函数式编程基础"
 sidebar_position: 4
 description: "掌握 Python 函数式编程的核心工具"
 ---
 
-# 函数式编程基础
+# 2.2.4 函数式编程基础
 
 ![函数式数据流水线图](/img/course/ch02-functional-pipeline.png)
 

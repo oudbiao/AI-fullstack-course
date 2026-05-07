@@ -1,11 +1,11 @@
 ---
-title: "5.2 Prompt Basics"
+title: "7.5.2 Prompt Basics"
 sidebar_position: 15
 description: "Start by understanding what Prompt really is and why vague instructions can throw the model off, building the most fundamental and important intuition for Prompt engineering."
 keywords: [prompt, instruction, task framing, output format, constraints, prompt engineering]
 ---
 
-# Prompt Basics
+# 7.5.2 Prompt Basics
 
 ![Prompt before-and-after comparison](/img/course/prompt-before-after-en.png)
 
@@ -65,9 +65,9 @@ So what this section really wants to solve is:
 - Does the model know what it should deliver?
 - Which boundaries must be fixed in advance?
 
-## 1. What Exactly Is a Prompt?
+## What Exactly Is a Prompt?
 
-### 1.1 Not Just “Typing in Some Text”
+### Not Just “Typing in Some Text”
 
 On the most surface level, a Prompt is of course a piece of text you input to the model.
 But from an engineering perspective, it is more like:
@@ -80,7 +80,7 @@ What you are really telling the model through the Prompt is:
 - What format the output should take
 - What boundaries must be followed
 
-### 1.2 A Very Intuitive Analogy
+### A Very Intuitive Analogy
 
 A Prompt is like giving a new teammate an assignment:
 
@@ -91,7 +91,7 @@ A Prompt is like giving a new teammate an assignment:
 If all of these are vague, the result can easily go off track.
 The model is the same.
 
-### 1.2.1 A More Beginner-Friendly Overall Analogy
+### A More Beginner-Friendly Overall Analogy
 
 You can also think of a Prompt as:
 
@@ -108,7 +108,7 @@ but that:
 
 - you did not clearly explain the goal, format, and boundaries
 
-### 1.3 When You First Learn Prompt, What Should You Focus on First?
+### When You First Learn Prompt, What Should You Focus on First?
 
 What you should focus on first is not a few popular patterns, but this sentence:
 
@@ -124,9 +124,9 @@ it becomes more natural to ask first: is it adding task goals, output format, or
 
 ---
 
-## 2. Why Are “Vague Prompts” So Dangerous?
+## Why Are “Vague Prompts” So Dangerous?
 
-### 2.1 A Typical Bad Example
+### A Typical Bad Example
 
 ```text
 Please handle this content for me.
@@ -139,7 +139,7 @@ The problem with this sentence is not whether it sounds polite, but:
 - Or classify?
 - How long should the output be?
 
-### 2.2 A Slightly Clearer Version
+### A Slightly Clearer Version
 
 ```text
 Please summarize the following content into 3 English bullet points, with no more than 20 characters per point.
@@ -155,7 +155,7 @@ This is the most basic value of a Prompt:
 
 > **Turning a vague task into a clear task.**
 
-### 2.3 A Minimal “Bad Prompt -> Good Prompt” Comparison Table
+### A Minimal “Bad Prompt -> Good Prompt” Comparison Table
 
 | Version | Prompt | Problem or Advantage |
 |---|---|---|
@@ -170,9 +170,9 @@ This table is especially useful for beginners, because it lets you see:
 
 ---
 
-## 3. The Three Basic Layers of Prompt Writing
+## The Three Basic Layers of Prompt Writing
 
-### 3.1 Layer 1: Task Goal
+### Layer 1: Task Goal
 
 First answer:
 
@@ -185,7 +185,7 @@ For example:
 - Extract
 - Rewrite
 
-### 3.2 Layer 2: Output Format
+### Layer 2: Output Format
 
 Then answer:
 
@@ -198,7 +198,7 @@ For example:
 - JSON
 - A table
 
-### 3.3 Layer 3: Constraints
+### Layer 3: Constraints
 
 Finally answer:
 
@@ -212,7 +212,7 @@ For example:
 
 These three layers are the most basic and important skeleton of Prompt engineering.
 
-### 3.4 Why Is This Three-Layer Structure Especially Worth Remembering First?
+### Why Is This Three-Layer Structure Especially Worth Remembering First?
 
 Because many Prompts that look “well written” still end up unstable because:
 
@@ -222,7 +222,7 @@ Because many Prompts that look “well written” still end up unstable because:
 
 So for beginners, the most stable first step is not to pile on tricks, but to complete these three layers first.
 
-### 3.5 The Most Stable Default Order for Your First Prompt
+### The Most Stable Default Order for Your First Prompt
 
 A more stable order is usually:
 
@@ -245,7 +245,7 @@ Read it like a small workplace story: a vague request makes the model guess; a c
 
 ---
 
-## 4. A Minimal Prompt Specification Example
+## A Minimal Prompt Specification Example
 
 ```python
 prompt_spec = {
@@ -257,7 +257,7 @@ prompt_spec = {
 print(prompt_spec)
 ```
 
-### 4.2 What Is This Example Teaching?
+### What Is This Example Teaching?
 
 It is reminding you:
 
@@ -265,7 +265,7 @@ It is reminding you:
 
 In other words, a Prompt is not written purely from inspiration, but is more like “translating task specifications into language the model can understand.”
 
-### 4.3 A Minimal “Prompt Checklist” Example
+### A Minimal “Prompt Checklist” Example
 
 ```python
 prompt_checklist = {
@@ -300,22 +300,22 @@ This diagram breaks Prompt into three layers: task goal, output format, and cons
 
 ---
 
-## 5. An Example That Really Shows the Difference
+## An Example That Really Shows the Difference
 
-### 5.1 Vague Version
+### Vague Version
 
 ```text
 Please analyze the following text.
 ```
 
-### 5.2 Clear Version
+### Clear Version
 
 ```text
 Please read the following text and perform sentiment classification.
 Only output positive or negative. Do not output any other explanation.
 ```
 
-### 5.3 Why Is the Latter More Stable?
+### Why Is the Latter More Stable?
 
 Because it clearly defines all of the following at the same time:
 
@@ -329,7 +329,7 @@ So the real foundation of Prompt is not “sounding fancy,” but:
 
 ---
 
-## 6. Why Does Prompt Basics Affect Every Later Chapter?
+## Why Does Prompt Basics Affect Every Later Chapter?
 
 Because later you will keep encountering:
 
@@ -346,7 +346,7 @@ Although these capabilities are more complex, they all depend on the same premis
 
 So Prompt basics are not an isolated chapter, but the foundation for many system capabilities that come later.
 
-### 6.1 Terms You Will Keep Seeing Later
+### Terms You Will Keep Seeing Later
 
 | Term | Beginner-friendly meaning | Why it connects back to Prompt basics |
 |---|---|---|
@@ -358,17 +358,17 @@ So Prompt basics are not an isolated chapter, but the foundation for many system
 
 ---
 
-## 7. The Most Common Beginner Mistakes
+## The Most Common Beginner Mistakes
 
-### 7.1 Thinking Prompt Is Just About Wordsmithing
+### Thinking Prompt Is Just About Wordsmithing
 
 In fact, task structure matters more.
 
-### 7.2 Only Stating the Task, but Not the Output Format
+### Only Stating the Task, but Not the Output Format
 
 This makes model output less stable and makes post-processing more painful.
 
-### 7.3 Not Writing Constraints
+### Not Writing Constraints
 
 Once the model has room to improvise, it may improvise in places where it should not.
 
@@ -390,7 +390,7 @@ This makes it easier for others to feel that:
 - you understand task expression
 - not just a few Prompt technique terms
 
-## 8. The Most Stable Order for Writing a Prompt for the First Time
+## The Most Stable Order for Writing a Prompt for the First Time
 
 You can follow this order directly:
 
@@ -401,7 +401,7 @@ You can follow this order directly:
 
 This will be much more stable than piling on role setting and tricks right from the start.
 
-## 9. Key Takeaways
+## Key Takeaways
 
 - The core of a Prompt is not rhetoric, but task expression
 - A basic Prompt should clearly explain “what to do, how to deliver it, and what not to do”
@@ -409,7 +409,7 @@ This will be much more stable than piling on role setting and tricks right from 
 
 ---
 
-## 10. A Very Practical Prompt-Writing Habit
+## A Very Practical Prompt-Writing Habit
 
 Before writing a Prompt each time, ask yourself in your head:
 

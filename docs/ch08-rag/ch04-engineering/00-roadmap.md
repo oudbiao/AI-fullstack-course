@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-Class Guide: What Is This Engineering Chapter Really About?"
+title: "8.4.1 Pre-Class Guide: What Is This Engineering Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the engineering chapter: how async programming, APIs, logging/monitoring, and deployment together determine whether an LLM system can truly go live."
 keywords: [LLM engineering guide, asynchronous programming, API design, logging and monitoring, Docker]
 ---
 
-# Pre-Class Guide: What Is This Engineering Chapter Really About?
+# 8.4.1 Pre-Class Guide: What Is This Engineering Chapter Really About?
 
 This chapter answers the question:
 

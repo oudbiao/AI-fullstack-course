@@ -1,11 +1,11 @@
 ---
-title: "7.1 Pre-Class Guide: What Is This Chapter on Training Tips Really About"
+title: "6.7.1 Pre-Class Guide: What Is This Chapter on Training Tips Really About"
 sidebar_position: 0
 description: "Build a learning map for the training tips chapter first: what roles do hyperparameter tuning, diagnosis, and compression play in the training and deployment pipeline?"
 keywords: [training tips guide, hyperparameter tuning, diagnosis, model compression]
 ---
 
-# Pre-Class Guide: What Is This Chapter on Training Tips Really About
+# 6.7.1 Pre-Class Guide: What Is This Chapter on Training Tips Really About
 
 This chapter is about solving this question:
 

@@ -1,11 +1,11 @@
 ---
-title: "2.3 Contextual Embeddings"
+title: "11.2.3 Contextual Embeddings"
 sidebar_position: 5
 description: "Starting from the limitations of fixed word vectors, understand why the same word should have different representations in different sentences, and how contextualized representations change NLP."
 keywords: [contextual embedding, contextual representation, polysemy, BERT, dynamic embeddings]
 ---
 
-# Contextual Embeddings
+# 11.2.3 Contextual Embeddings
 
 ![Contextual embedding comparison](/img/course/contextual-embedding-comparison-en.png)
 
@@ -60,9 +60,9 @@ Likewise:
 - The same word in different sentences
 - Should not always look like the same vector
 
-## 1. What is the fundamental limitation of fixed word vectors?
+## What is the fundamental limitation of fixed word vectors?
 
-### 1.1 A word may have multiple meanings
+### A word may have multiple meanings
 
 Classic example:
 
@@ -76,7 +76,7 @@ It can mean:
 If it always has only one fixed vector,
 then what should that vector be closer to?
 
-### 1.2 So fixed word vectors struggle with polysemous words
+### So fixed word vectors struggle with polysemous words
 
 Even if static embeddings are very good,
 they still treat:
@@ -86,7 +86,7 @@ they still treat:
 
 as the same `bank` vector.
 
-### 1.3 An analogy
+### An analogy
 
 A fixed word vector is like giving every person one ID photo that never changes.
 A contextualized representation is more like a dynamic work photo based on the current scene:
@@ -96,9 +96,9 @@ A contextualized representation is more like a dynamic work photo based on the c
 
 ---
 
-## 2. What exactly do contextualized representations do?
+## What exactly do contextualized representations do?
 
-### 2.1 Core idea
+### Core idea
 
 It is not “one vector per word,”
 but:
@@ -109,14 +109,14 @@ In other words,
 the representation is determined not only by the word itself,
 but also by the surrounding context.
 
-### 2.2 Why is this important?
+### Why is this important?
 
 Because the real difficulty in NLP has never been just “what is the word,”
 but:
 
 - what does the word mean in this sentence
 
-### 2.3 What does this change?
+### What does this change?
 
 This moves representation learning from:
 
@@ -130,7 +130,7 @@ This is also one of the key reasons modern pretraining models can significantly 
 
 ---
 
-## 3. Let’s first run an intuitive “same word, different vector” example
+## Let’s first run an intuitive “same word, different vector” example
 
 The example below does not implement real BERT,
 but it clearly simulates the process of “word vector + contextual adjustment.”
@@ -161,21 +161,21 @@ print("bank in finance:", bank_in_finance)
 print("bank in nature :", bank_in_nature)
 ```
 
-### 3.1 Of course, this code is not a real contextual model
+### Of course, this code is not a real contextual model
 
 But it captures the most important intuition:
 
 - The word itself has a base representation
 - Context pushes that representation in different directions
 
-### 3.2 Why is this intuition important enough?
+### Why is this intuition important enough?
 
 Because when you later learn BERT, GPT, and T5,
 you will keep seeing one fact:
 
 - the final representation of a token depends on the entire context
 
-### 3.3 What should you remember first when learning this section?
+### What should you remember first when learning this section?
 
 The most important things to remember first are:
 
@@ -183,7 +183,7 @@ The most important things to remember first are:
 2. Contextualized representations answer “what does this word mean in this sentence”
 3. This is a key step that makes modern pretraining models much stronger
 
-### 3.4 Another minimal example showing how a context window affects representation
+### Another minimal example showing how a context window affects representation
 
 ```python
 sentences = [
@@ -215,23 +215,23 @@ Otherwise, it is hard to clearly say:
 
 ---
 
-## 4. What practical changes do contextualized representations bring?
+## What practical changes do contextualized representations bring?
 
-### 4.1 Polysemy handling becomes more natural
+### Polysemy handling becomes more natural
 
 The model can distinguish the representation of the same word in different sentences.
 
-### 4.2 Sentence and paragraph understanding becomes stronger
+### Sentence and paragraph understanding becomes stronger
 
 Because the word representation is no longer isolated,
 it already incorporates contextual clues.
 
-### 4.3 Transfer learning works better
+### Transfer learning works better
 
 Many downstream tasks no longer need to learn complex representations from scratch,
 but can directly use contextualized hidden states.
 
-### 4.4 Why does this step directly raise the ceiling for many tasks?
+### Why does this step directly raise the ceiling for many tasks?
 
 Because the real difficulty in many NLP tasks is not:
 
@@ -244,7 +244,7 @@ but:
 Once the representation layer starts distinguishing this,
 many classification, extraction, and question-answering tasks become naturally more stable.
 
-### 4.5 If we put this into tasks, which scenarios should you think of first?
+### If we put this into tasks, which scenarios should you think of first?
 
 Contextualized representations are especially easy for beginners to appreciate in these scenarios:
 
@@ -263,35 +263,35 @@ but:
 
 ---
 
-## 5. What is the relationship between this and static word vectors?
+## What is the relationship between this and static word vectors?
 
-### 5.1 Not a complete replacement, but an upgrade in capability
+### Not a complete replacement, but an upgrade in capability
 
 Static word vectors still have educational value and are useful in some lightweight tasks.
 But on the main line of modern NLP, contextualized representations are usually stronger.
 
-### 5.2 A simple summary
+### A simple summary
 
 - Static embedding: fixed representation at the word level
 - Contextualized representation: dynamic representation of a token in a sentence
 
 ---
 
-## 6. The most common misconceptions
+## The most common misconceptions
 
-### 6.1 Misconception 1: Contextualized representations are just “bigger word vectors”
+### Misconception 1: Contextualized representations are just “bigger word vectors”
 
 Not true.
 The key change is:
 
 - the representation depends on context
 
-### 6.2 Misconception 2: Different vectors for the same word are just a minor optimization
+### Misconception 2: Different vectors for the same word are just a minor optimization
 
 No.
 This step actually changes the performance ceiling of many tasks.
 
-### 6.3 Misconception 3: Once you have contextualized representations, you no longer need higher-level modeling
+### Misconception 3: Once you have contextualized representations, you no longer need higher-level modeling
 
 Contextualized representations are powerful,
 but they still need to be used within specific tasks and specific models.

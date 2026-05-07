@@ -1,11 +1,11 @@
 ---
-title: "1.4 Scikit-learn 框架入门"
+title: "5.1.4 Scikit-learn 框架入门"
 sidebar_position: 3
 description: "掌握 Scikit-learn 的设计哲学与核心 API 模式（Estimator、Transformer、Pipeline），学会数据集加载、模型训练与持久化"
 keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, 机器学习框架]
 ---
 
-# Scikit-learn 框架入门
+# 5.1.4 Scikit-learn 框架入门
 
 ![Scikit-learn Estimator 与 Pipeline 图](/img/course/sklearn-estimator-pipeline.png)
 
@@ -50,7 +50,7 @@ Scikit-learn 是 Python 机器学习的**事实标准库**。几乎所有经典 
 
 ## 一、为什么是 Scikit-learn？
 
-### 1.1 sklearn 在 ML 生态中的位置
+### sklearn 在 ML 生态中的位置
 
 ```mermaid
 flowchart TD
@@ -71,7 +71,7 @@ flowchart TD
 | **活跃的社区** | 全球最流行的 ML 库之一 |
 | **生产就绪** | 可直接用于真实项目 |
 
-### 1.1.1 对新人来说，sklearn 最重要的价值是什么？
+### 对新人来说，sklearn 最重要的价值是什么？
 
 最重要的不是“算法多”，而是：
 
@@ -79,7 +79,7 @@ flowchart TD
 - 你可以专心比较模型，而不是被库的差异打断
 - 你会更容易理解“训练、预测、评估”其实是一条统一流程
 
-### 1.2 安装
+### 安装
 
 ```bash
 python -m pip install --upgrade scikit-learn
@@ -102,7 +102,7 @@ print(sklearn.__version__)
 
 ## 二、Scikit-learn 的设计哲学
 
-### 2.1 统一 API——一招鲜吃遍天
+### 统一 API——一招鲜吃遍天
 
 Scikit-learn 最厉害的地方是：**所有算法都遵循同一套 API 模式**。不管是线性回归、决策树还是 SVM，使用方法都一样。
 
@@ -144,7 +144,7 @@ for name, model in models.items():
 你只需要学一次 `fit` / `predict` / `score`，就能使用 sklearn 中的所有算法。换模型就像换零件一样简单。
 :::
 
-### 2.1.1 新人第一次最该先记哪三个动作？
+### 新人第一次最该先记哪三个动作？
 
 如果现在只记三个动作，那就记住：
 
@@ -154,7 +154,7 @@ for name, model in models.items():
 
 这三个动作是第 5 站最常出现的最小闭环。
 
-### 2.1.2 先拆开 API 术语，后面就不吓人
+### 先拆开 API 术语，后面就不吓人
 
 | 术语 | 它是什么 | 在本节为什么重要 |
 |---|---|---|
@@ -166,7 +166,7 @@ for name, model in models.items():
 | `parameter` | `fit` 过程中从数据里学到的值 | 例如树的分裂规则、标准化的均值和标准差、线性模型权重 |
 | `attribute_` | sklearn 中以下划线 `_` 结尾的学习后属性 | 例如 `classes_`、`mean_`、`feature_importances_`，只有 `fit` 后才存在 |
 
-### 2.2 三大核心角色
+### 三大核心角色
 
 ```mermaid
 flowchart LR
@@ -192,7 +192,7 @@ flowchart LR
 
 这张图可以当作 sklearn 的“零件说明书”：Transformer 负责把数据整理好，Estimator 负责学习规律，Pipeline 负责保证训练和预测走同一条路。新人只要先把这三个角色分清，后面换模型、换预处理步骤时就不会乱。
 
-### 2.3 怎么用一句话记住这三个角色？
+### 怎么用一句话记住这三个角色？
 
 可以直接这样记：
 
@@ -204,7 +204,7 @@ flowchart LR
 
 ## 三、Estimator——学习与预测
 
-### 3.1 核心方法
+### 核心方法
 
 ```python
 # Estimator 是所有"能学习"的对象的基类
@@ -229,7 +229,7 @@ print(params["criterion"], params["max_depth"], params["random_state"])
 gini 3 42
 ```
 
-### 3.2 完整示例
+### 完整示例
 
 ```python
 from sklearn.datasets import load_iris
@@ -288,7 +288,7 @@ print(f"\n特征重要性: {np.round(model.feature_importances_, 4)}")
 在 sklearn 中，以下划线 `_` 结尾的属性（如 `feature_importances_`）是**训练后才有的**。调用 `fit()` 之前访问会报错。这是 sklearn 的命名约定。
 :::
 
-### 3.2.1 `fit` 到底“学”了什么？
+### `fit` 到底“学”了什么？
 
 这是一个特别值得先想清楚的问题。
 
@@ -302,7 +302,7 @@ print(f"\n特征重要性: {np.round(model.feature_importances_, 4)}")
 
 > **从训练数据里提炼出一组后面要复用的参数或规则。**
 
-### 3.3 预测概率
+### 预测概率
 
 对于分类问题，很多模型还支持 `predict_proba()`：
 
@@ -339,7 +339,7 @@ for i, p in enumerate(proba):
 
 ## 四、Transformer——数据变换
 
-### 4.1 为什么需要数据变换？
+### 为什么需要数据变换？
 
 很多 ML 算法对数据的**尺度敏感**。比如一个特征的范围是 [0, 1]，另一个是 [0, 1000000]，后者会"压制"前者。
 
@@ -362,7 +362,7 @@ print(f"年龄均值: {age.mean():.0f}, 标准差: {age.std():.0f}")
 年龄均值: 35, 标准差: 8
 ```
 
-### 4.2 StandardScaler 标准化
+### StandardScaler 标准化
 
 ```python
 from sklearn.preprocessing import StandardScaler
@@ -417,7 +417,7 @@ print(f"标准化后标准差: {X_scaled.std(axis=0).round(2)}")     # 接近 1
 标准化后标准差: [1. 1.]
 ```
 
-### 4.2.1 为什么标准化也要先 `fit` 再 `transform`？
+### 为什么标准化也要先 `fit` 再 `transform`？
 
 ![StandardScaler fit 与 transform 图解](/img/course/ch05-standard-scaler-fit-transform.png)
 
@@ -430,7 +430,7 @@ print(f"标准化后标准差: {X_scaled.std(axis=0).round(2)}")     # 接近 1
 
 新人最该记住的规则是：`fit` 可以看训练数据，因为它要学习参数；`transform` 只是套用已经学到的参数。如果测试集也参与了 `fit`，评估就不再像是在模拟真实的新数据。
 
-### 4.3 fit_transform 快捷方法
+### fit_transform 快捷方法
 
 ```python
 # fit + transform 合一步（训练集常用）
@@ -446,7 +446,7 @@ X_scaled = scaler.fit_transform(X)
 - **错误做法**：对测试集也用 `fit_transform()` → 数据泄漏！
 :::
 
-### 4.4 常用 Transformer
+### 常用 Transformer
 
 | Transformer | 做什么 | 公式/说明 |
 |------------|--------|----------|
@@ -485,7 +485,7 @@ MinMaxScaler 归一化:
 
 ## 五、数据集——加载与生成
 
-### 5.1 内置真实数据集
+### 内置真实数据集
 
 sklearn 自带多个经典数据集，非常适合学习和实验：
 
@@ -507,7 +507,7 @@ print(f"  类别名: {iris.target_names}")
 print(f"  描述: {iris.DESCR[:200]}...")
 ```
 
-### 5.2 生成模拟数据
+### 生成模拟数据
 
 有时需要"定制化"数据来理解算法行为：
 
@@ -546,7 +546,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 5.3 常用数据生成函数
+### 常用数据生成函数
 
 | 函数 | 用途 | 关键参数 |
 |------|------|---------|
@@ -581,7 +581,7 @@ plt.show()
 
 ## 六、Pipeline——把一切串起来
 
-### 6.1 为什么需要 Pipeline？
+### 为什么需要 Pipeline？
 
 在真实项目中，数据处理和模型训练往往是多个步骤：
 
@@ -598,7 +598,7 @@ score = model.score(X_test_scaled, y_test)
 
 问题：步骤多了容易**遗漏或搞混**。Pipeline 把所有步骤打包在一起：
 
-### 6.2 创建 Pipeline
+### 创建 Pipeline
 
 ```python
 from sklearn.pipeline import Pipeline
@@ -644,7 +644,7 @@ flowchart LR
     style C fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 6.3 make_pipeline 快捷方式
+### make_pipeline 快捷方式
 
 ```python
 from sklearn.pipeline import make_pipeline
@@ -669,7 +669,7 @@ print(f"步骤: {list(pipe.named_steps.keys())}")
 步骤: ['standardscaler', 'decisiontreeclassifier']
 ```
 
-### 6.4 Pipeline 的好处
+### Pipeline 的好处
 
 | 好处 | 说明 |
 |------|------|
@@ -688,7 +688,7 @@ print(f"步骤: {list(pipe.named_steps.keys())}")
 
 在 sklearn 项目里，只要预处理也是工作流的一部分，最稳的习惯就是保存整个 `Pipeline`。这样新数据进入系统时，会按同样顺序经过同一个标准化器、编码器、特征选择器和模型。
 
-### 7.1 使用 joblib（推荐）
+### 使用 joblib（推荐）
 
 ```python
 import joblib
@@ -727,7 +727,7 @@ print(f"加载后准确率: {loaded_model.score(X_test, y_test):.1%}")
 
 `joblib` 不只是“一个文件格式”。它是 Python 中常用于 sklearn 的序列化工具，因为很多 sklearn 对象内部包含 NumPy 数组。序列化的意思是：把内存里的 Python 对象变成可以写入磁盘、以后再加载回来的字节数据。
 
-### 7.2 使用 pickle
+### 使用 pickle
 
 ```python
 import pickle

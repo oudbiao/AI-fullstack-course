@@ -1,11 +1,11 @@
 ---
-title: "5.1 学習ガイド：Transformer という章で何を学ぶのか"
+title: "6.5.1 学習ガイド：Transformer という章で何を学ぶのか"
 sidebar_position: 0
 description: "まず Transformer 章の学習地図を作ろう。Attention、Self-Attention、Encoder/Decoder と大規模モデルの主線はどうつながっているのか。"
 keywords: [Transformerガイド, 注意力機構, 自己注意力, Attention, 大規模モデル基礎]
 ---
 
-# 学習ガイド：Transformer という章で何を学ぶのか
+# 6.5.1 学習ガイド：Transformer という章で何を学ぶのか
 
 この章で解決するのは、とても重要な問題です。なぜ現代の NLP、大規模モデル、そして多くのマルチモーダルシステムが、Transformer を避けて通れないのか、ということです。
 

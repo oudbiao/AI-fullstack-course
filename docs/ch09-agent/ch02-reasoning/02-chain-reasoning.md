@@ -1,11 +1,11 @@
 ---
-title: "2.3 Chain-of-Thought Reasoning Strategy"
+title: "9.2.3 Chain-of-Thought Reasoning Strategy"
 sidebar_position: 6
 description: "Starting from the core role of CoT, understand why 'split the steps first, then answer' can improve multi-step task performance, and when it helps or slows a system down."
 keywords: [chain of thought, CoT, reasoning trace, scratchpad, decomposition]
 ---
 
-# Chain-of-Thought Reasoning Strategy
+# 9.2.3 Chain-of-Thought Reasoning Strategy
 
 :::tip Section focus
 If we summarize the previous section in one sentence, it is:
@@ -31,9 +31,9 @@ The Chain-of-Thought strategy, or CoT, is built around one core idea:
 
 ---
 
-## 1. Why does “thinking through the steps first” help?
+## Why does “thinking through the steps first” help?
 
-### 1.1 Because many problems do not reach the end in one jump
+### Because many problems do not reach the end in one jump
 
 For example, consider this problem:
 
@@ -53,7 +53,7 @@ But if it first breaks the process into steps:
 
 the final answer is usually more stable.
 
-### 1.2 The core of CoT is not “writing more,” but “exposing intermediate structure”
+### The core of CoT is not “writing more,” but “exposing intermediate structure”
 
 This point is especially important.
 The real value of Chain-of-Thought is not:
@@ -68,7 +68,7 @@ But rather:
 
 explicit.
 
-### 1.3 An analogy: scratch paper is not for looking serious
+### An analogy: scratch paper is not for looking serious
 
 When students solve problems, they use scratch paper not to make the answer longer,
 but to:
@@ -81,7 +81,7 @@ CoT plays a similar role for models.
 
 ---
 
-## 2. First, let’s compare “direct answer” and “chain reasoning”
+## First, let’s compare “direct answer” and “chain reasoning”
 
 The example below does not call an LLM,
 but it clearly demonstrates:
@@ -125,7 +125,7 @@ for step in steps:
 print("final answer:", answer)
 ```
 
-### 2.1 What does this code show most clearly?
+### What does this code show most clearly?
 
 It shows that:
 
@@ -139,7 +139,7 @@ For example:
 As soon as you write that step out,
 the mistake is much harder to hide.
 
-### 2.2 Why is CoT especially useful for math, logic, and planning tasks?
+### Why is CoT especially useful for math, logic, and planning tasks?
 
 Because these tasks usually have:
 
@@ -149,7 +149,7 @@ Because these tasks usually have:
 
 That naturally matches chain reasoning.
 
-### 2.3 Why shouldn’t CoT be used for every task?
+### Why shouldn’t CoT be used for every task?
 
 Because not every problem needs step-by-step reasoning.
 For example:
@@ -165,9 +165,9 @@ but rather:
 
 ---
 
-## 3. How is CoT usually used in Agents?
+## How is CoT usually used in Agents?
 
-### 3.1 First decompose, then call tools
+### First decompose, then call tools
 
 In many Agent tasks, CoT is not directly used for arithmetic,
 but to decide:
@@ -182,7 +182,7 @@ For example:
 2. Decide whether to check policy first or inventory first
 3. After getting observations, organize the conclusion
 
-### 3.2 It can also become more structured “reasoning slots”
+### It can also become more structured “reasoning slots”
 
 In production, we do not always need the model to output a long natural-language thought process.
 Many systems instead switch to a shorter, more structured format, such as:
@@ -198,7 +198,7 @@ This kind of structure is often easier to:
 - log
 - debug
 
-### 3.3 CoT is also often combined with self-checking
+### CoT is also often combined with self-checking
 
 A very common enhancement is:
 
@@ -216,9 +216,9 @@ This diagram emphasizes “structured intermediate states,” not letting the mo
 
 ---
 
-## 4. When is CoT most helpful?
+## When is CoT most helpful?
 
-### 4.1 Problems that require step-by-step decomposition
+### Problems that require step-by-step decomposition
 
 For example:
 
@@ -227,7 +227,7 @@ For example:
 - Combined decision-making
 - Complex rule checking
 
-### 4.2 Problems that require explaining the process
+### Problems that require explaining the process
 
 For example:
 
@@ -238,16 +238,16 @@ For example:
 When the system must provide not only a conclusion but also a reason,
 explicit intermediate steps are very valuable.
 
-### 4.3 Problems with high error cost
+### Problems with high error cost
 
 If a mistake in calculation or judgment can lead to serious consequences,
 then explicit steps are usually more worthwhile.
 
 ---
 
-## 5. When might CoT actually hurt performance?
+## When might CoT actually hurt performance?
 
-### 5.1 Simple retrieval questions
+### Simple retrieval questions
 
 If the problem itself does not require step-by-step reasoning,
 forcing the model to output a long process usually just means:
@@ -256,7 +256,7 @@ forcing the model to output a long process usually just means:
 - longer
 - more expensive
 
-### 5.2 A reasoning chain that is too long can confuse itself
+### A reasoning chain that is too long can confuse itself
 
 When the chain gets too long, the model may:
 
@@ -266,7 +266,7 @@ When the chain gets too long, the model may:
 
 In other words, longer CoT is not automatically better.
 
-### 5.3 It may not be suitable to expose the full chain to users
+### It may not be suitable to expose the full chain to users
 
 In many products, a more reasonable approach is:
 
@@ -282,7 +282,7 @@ Not a long scratchpad.
 
 ---
 
-## 6. A more practical structured CoT pattern
+## A more practical structured CoT pattern
 
 The following example shows a style that is more suitable for Agents:
 
@@ -323,21 +323,21 @@ The advantages of this format are:
 
 ---
 
-## 7. Common misconceptions
+## Common misconceptions
 
-### 7.1 Misconception 1: CoT just means making the model more verbose
+### Misconception 1: CoT just means making the model more verbose
 
 No.
 The core is:
 
 - Making intermediate structure explicit
 
-### 7.2 Misconception 2: All tasks should use CoT by default
+### Misconception 2: All tasks should use CoT by default
 
 Not true.
 Whether to enable it depends on whether the problem is truly multi-step.
 
-### 7.3 Misconception 3: With CoT, the answer is always reliable
+### Misconception 3: With CoT, the answer is always reliable
 
 Also not true.
 Chain reasoning can improve stability,

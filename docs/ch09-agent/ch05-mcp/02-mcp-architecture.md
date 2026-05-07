@@ -1,11 +1,11 @@
 ---
-title: "5.3 MCP Architecture and Core Concepts"
+title: "9.5.3 MCP Architecture and Core Concepts"
 sidebar_position: 26
 description: "From client-server relationships, tool exposure, and message flow to transport, build a systematic understanding of how an MCP system works internally."
 keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 ---
 
-# MCP Architecture and Core Concepts
+# 9.5.3 MCP Architecture and Core Concepts
 
 ![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
 
@@ -31,7 +31,7 @@ You’ll see that the focus of this chapter is not abstract slogans, but:
 
 ---
 
-## 1. First, Get a Clear View of the Whole Architecture
+## First, Get a Clear View of the Whole Architecture
 
 ```mermaid
 flowchart LR
@@ -58,7 +58,7 @@ What is most worth remembering in this diagram is not the node names, but this:
 
 ---
 
-## 2. What Exactly Does the Client Do?
+## What Exactly Does the Client Do?
 
 The Client’s responsibilities usually include:
 
@@ -82,7 +82,7 @@ Its core value is not that it “does everything itself,” but that it:
 
 ---
 
-## 3. What Exactly Does the Server Do?
+## What Exactly Does the Server Do?
 
 The Server’s responsibilities usually include:
 
@@ -103,7 +103,7 @@ So the server is the core carrier of the protocol in practice.
 
 ---
 
-## 4. Why Can’t We Ignore Transport?
+## Why Can’t We Ignore Transport?
 
 Many beginners focus only on:
 
@@ -112,7 +112,7 @@ Many beginners focus only on:
 
 But what actually enables communication between them is transport.
 
-### 4.1 What problem does it solve?
+### What problem does it solve?
 
 Simply put, it determines:
 
@@ -124,7 +124,7 @@ For example:
 - Standard input/output
 - Network connections
 
-### 4.2 Why is transport important?
+### Why is transport important?
 
 Because it affects:
 
@@ -137,11 +137,11 @@ So transport is not a minor detail you choose casually; it is part of the archit
 
 ---
 
-## 5. The Three Most Common Types of Capabilities in MCP
+## The Three Most Common Types of Capabilities in MCP
 
 Although people often say “tools,” if we look more completely, the commonly exposed content can be understood as three types:
 
-### 5.1 Tools
+### Tools
 
 Capabilities that can be called and executed.
 
@@ -151,7 +151,7 @@ For example:
 - Read files
 - Check the weather
 
-### 5.2 Resources
+### Resources
 
 These are more like “readable information sources.”
 
@@ -161,7 +161,7 @@ For example:
 - Configuration data
 - Database table snapshots
 
-### 5.3 Prompts
+### Prompts
 
 These are more like “reusable prompt templates.”
 
@@ -169,9 +169,9 @@ These three things are not exactly the same, but they all belong to the category
 
 ---
 
-## 6. What Does a Complete Message Flow Look Like?
+## What Does a Complete Message Flow Look Like?
 
-### 6.1 First, Discover the Tools
+### First, Discover the Tools
 
 ```python
 list_request = {
@@ -196,7 +196,7 @@ print(list_request)
 print(list_response)
 ```
 
-### 6.2 Then, Call the Tool
+### Then, Call the Tool
 
 ```python
 call_request = {
@@ -221,7 +221,7 @@ print(call_request)
 print(call_response)
 ```
 
-### 6.3 What Do These Two Steps Really Show?
+### What Do These Two Steps Really Show?
 
 They show that MCP is not just “calling a function.” Instead, it has:
 
@@ -238,9 +238,9 @@ Read this diagram in message order: the Client in the Host first requests `tools
 
 ---
 
-## 7. Why Is MCP Called a “Decoupling Layer”?
+## Why Is MCP Called a “Decoupling Layer”?
 
-### 7.1 Without MCP
+### Without MCP
 
 The client usually has to know directly:
 
@@ -250,7 +250,7 @@ The client usually has to know directly:
 
 This creates tight coupling between the client and the tool provider.
 
-### 7.2 With MCP
+### With MCP
 
 The client relies more on:
 
@@ -269,7 +269,7 @@ So you can think of MCP as:
 
 ---
 
-## 8. A Minimal Architecture Simulation
+## A Minimal Architecture Simulation
 
 Below is a very simple MCP interaction simulated in pure Python.
 
@@ -305,7 +305,7 @@ print(client.discover())
 print(client.call("search_docs", {"query": "refund policy"}))
 ```
 
-### 8.2 This example is small, but very valuable for learning
+### This example is small, but very valuable for learning
 
 Because it already shows the three-layer division of labor:
 
@@ -317,19 +317,19 @@ As long as you understand this three-part division clearly, it will be much easi
 
 ---
 
-## 9. The Most Common Architectural Misunderstandings
+## The Most Common Architectural Misunderstandings
 
-### 9.1 Treating the server as the tool itself
+### Treating the server as the tool itself
 
 The server is not the tool. It is:
 
 > The protocol-facing gateway for tools.
 
-### 9.2 Thinking transport is optional
+### Thinking transport is optional
 
 Transport directly affects deployment and stability.
 
-### 9.3 Assuming MCP automatically solves permissions and policy issues
+### Assuming MCP automatically solves permissions and policy issues
 
 It does not.
 It solves “unified access,” not “automatic governance.”

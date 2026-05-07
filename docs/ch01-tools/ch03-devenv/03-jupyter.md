@@ -1,10 +1,10 @@
 ---
-title: "Jupyter Notebook"
+title: "1.3.3 Jupyter Notebook"
 sidebar_position: 3
 description: "A standard tool for data analysis and AI experiments"
 ---
 
-# Jupyter Notebook
+# 1.3.3 Jupyter Notebook
 
 ![Jupyter Cell and Kernel State Diagram](/img/course/ch01-jupyter-kernel-state-en.png)
 

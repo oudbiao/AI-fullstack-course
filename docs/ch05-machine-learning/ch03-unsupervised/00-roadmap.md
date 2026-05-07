@@ -1,11 +1,11 @@
 ---
-title: "3.1 Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?"
+title: "5.3.1 Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?"
 sidebar_position: 6
 description: "First build a learning map for unsupervised learning: when to use clustering, dimensionality reduction, and anomaly detection."
 keywords: [Unsupervised Learning Guide, Clustering, Dimensionality Reduction, Anomaly Detection]
 ---
 
-# Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?
+# 5.3.1 Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?
 
 ![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap-en.png)
 

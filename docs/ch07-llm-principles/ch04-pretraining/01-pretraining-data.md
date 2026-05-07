@@ -1,11 +1,11 @@
 ---
-title: "4.2 Pretraining Data"
+title: "7.4.2 Pretraining Data"
 sidebar_position: 12
 description: "From data sources, cleaning, deduplication, and mixture ratios to contamination control, understand why pretraining data often determines the model ceiling more than many people expect."
 keywords: [pretraining data, deduplication, data mixture, contamination, corpus cleaning]
 ---
 
-# Pretraining Data
+# 7.4.2 Pretraining Data
 
 ![Pretraining data pipeline diagram](/img/course/pretraining-data-pipeline-en.png)
 
@@ -53,7 +53,7 @@ So the real goal here is not the empty phrase “data matters,” but to answer:
 - What does pretraining data actually determine?
 - Why does data engineering directly affect the model ceiling?
 
-## 1. Why does pretraining data determine the model foundation?
+## Why does pretraining data determine the model foundation?
 
 ### First, a story: two students read different books
 
@@ -63,7 +63,7 @@ The first student reads high-quality textbooks, papers, technical docs, and well
 
 Pretraining data affects a model in a similar way. The model architecture is like the learning method, compute is like learning time, and data is the material it reads every day. Different material leads to different capabilities in the end.
 
-### 1.1 What the model learns is not only knowledge, but also language habits and the world distribution
+### What the model learns is not only knowledge, but also language habits and the world distribution
 
 During pretraining, the model does not automatically distinguish between:
 
@@ -84,7 +84,7 @@ but also:
 - bias distribution
 - safety risks
 
-### 1.2 An analogy: foundation quality sets the ceiling for all later renovation
+### An analogy: foundation quality sets the ceiling for all later renovation
 
 You can think of pretraining data as the foundation.
 
@@ -95,7 +95,7 @@ If the foundation itself is messy,
 then no matter how much you fine-tune later,
 you are mostly just patching an already-set base.
 
-### 1.3 Why doesn’t “the internet is huge” mean “we can just train on it directly”?
+### Why doesn’t “the internet is huge” mean “we can just train on it directly”?
 
 Because real-world text contains many problems:
 
@@ -111,7 +111,7 @@ but rather:
 
 > **How do you turn massive raw text into a high-quality, controllable, reusable data foundation?**
 
-### 1.4 When learning pretraining data for the first time, what should you grasp first?
+### When learning pretraining data for the first time, what should you grasp first?
 
 What you should grasp first is not specific corpus names, but this sentence:
 
@@ -126,7 +126,7 @@ Once this idea is stable, then later when you see:
 
 you will understand that these are not just engineering details — they directly shape the model foundation.
 
-### 1.5 Put the pretraining data pipeline in one picture first
+### Put the pretraining data pipeline in one picture first
 
 ```mermaid
 flowchart LR
@@ -148,9 +148,9 @@ Read this diagram from “there is a lot of raw data” to “there is only a sm
 
 ---
 
-## 2. Which dimensions should we look at for pretraining data?
+## Which dimensions should we look at for pretraining data?
 
-### 2.1 Coverage: how many types of language and knowledge can the model access?
+### Coverage: how many types of language and knowledge can the model access?
 
 Common sources may include:
 
@@ -167,7 +167,7 @@ For example:
 - If code is underrepresented, coding ability will be weak
 - If long-form writing is rare, long-document organization will be poor
 
-### 2.2 Quality: not every token is equally valuable
+### Quality: not every token is equally valuable
 
 A very practical rule of thumb is:
 
@@ -182,7 +182,7 @@ If the corpus contains lots of:
 
 then the model wastes compute on patterns that are not worth learning.
 
-### 2.3 Diversity: the model should not only know one style of speaking
+### Diversity: the model should not only know one style of speaking
 
 If all data comes from the same kind of source,
 the model will likely become biased.
@@ -197,7 +197,7 @@ If it is all encyclopedia-style writing, then:
 - conversational feel may be lacking
 - instruction following may feel unnatural
 
-### 2.4 Safety and compliance: some content should not be handled with “just train on it first”
+### Safety and compliance: some content should not be handled with “just train on it first”
 
 Data governance must also consider:
 
@@ -208,7 +208,7 @@ Data governance must also consider:
 
 This is not something you can fully fix later with a safety fine-tune.
 
-### 2.5 When first learning data governance, which four words are most worth remembering?
+### When first learning data governance, which four words are most worth remembering?
 
 You can start with these four words:
 
@@ -221,7 +221,7 @@ These four words are basically the smallest framework for almost all later data 
 
 ---
 
-## 3. First run a truly useful data cleaning example
+## First run a truly useful data cleaning example
 
 The code below simulates a very small pretraining data pipeline:
 
@@ -282,7 +282,7 @@ for doc in clean_docs:
 print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 ```
 
-### 3.1 What steps in real engineering does this code correspond to?
+### What steps in real engineering does this code correspond to?
 
 Although it is very small, it corresponds to the most common actions in a pretraining pipeline:
 
@@ -294,7 +294,7 @@ Although it is very small, it corresponds to the most common actions in a pretra
 This is not optional preprocessing,
 but the basic foundation of large-model data engineering.
 
-### 3.2 Why is deduplication especially important?
+### Why is deduplication especially important?
 
 Because duplicate text makes the model see the same content again and again.
 This creates two problems:
@@ -305,7 +305,7 @@ This creates two problems:
 This is especially common in web data,
 where reposts, mirrors, and template pages are everywhere.
 
-### 3.3 Why should a sample like “hahahahaha” be filtered out?
+### Why should a sample like “hahahahaha” be filtered out?
 
 Because although this is real language,
 it has almost no value for improving general capability,
@@ -314,7 +314,7 @@ and it may also skew the distribution.
 So pretraining data is not about being as raw as possible,
 but about judging “training value.”
 
-### 3.4 Why is this small example especially worth studying again and again?
+### Why is this small example especially worth studying again and again?
 
 Because it shows you:
 
@@ -331,9 +331,9 @@ These judgments accumulate into differences in model capability.
 
 ---
 
-## 4. Why does data mixture directly affect model style?
+## Why does data mixture directly affect model style?
 
-### 4.1 Tokens from different sources shape different capabilities
+### Tokens from different sources shape different capabilities
 
 A rough but practical understanding is:
 
@@ -348,7 +348,7 @@ So the final data mixture ratio directly affects whether the model feels more li
 - an assistant
 - a programmer
 
-### 4.2 What happens if the mixture ratio is unreasonable?
+### What happens if the mixture ratio is unreasonable?
 
 For example:
 
@@ -360,7 +360,7 @@ That is also why before training, people often need to design:
 
 - source mix
 
-### 4.3 A simple example of mixture-based sampling
+### A simple example of mixture-based sampling
 
 ```python
 import random
@@ -402,9 +402,9 @@ This code is reminding you that:
 
 ---
 
-## 5. Why are contamination and evaluation leakage so dangerous?
+## Why are contamination and evaluation leakage so dangerous?
 
-### 5.1 What is data contamination?
+### What is data contamination?
 
 A very common form is:
 
@@ -413,7 +413,7 @@ A very common form is:
 Then the model looks strong during evaluation,
 but that is not generalization — it is more like having already seen the original question.
 
-### 5.2 Why is this more serious than ordinary duplication?
+### Why is this more serious than ordinary duplication?
 
 Because it directly distorts your judgment of model ability.
 You may think:
@@ -425,7 +425,7 @@ But in reality it may just be:
 
 - the test samples leaked into the training data
 
-### 5.3 How can we reduce this risk in practice?
+### How can we reduce this risk in practice?
 
 Common approaches include:
 
@@ -441,7 +441,7 @@ This is also why data governance must have version awareness.
 Keep the training corpus and the evaluation set separated. If benchmark questions, answers, or near-duplicates leak into training, the model may get a falsely high score because it has seen the answer pattern before. That is not true generalization.
 :::
 
-### 5.4 Terms worth distinguishing
+### Terms worth distinguishing
 
 | Term | What it means | Why it matters in pretraining |
 |---|---|---|
@@ -453,7 +453,7 @@ Keep the training corpus and the evaluation set separated. If benchmark question
 
 ---
 
-## 6. Pretraining data quality self-check table
+## Pretraining data quality self-check table
 
 When reviewing a pretraining corpus, you can use the table below for a quick judgment:
 
@@ -470,14 +470,14 @@ This table is worth putting into your project notes, because it shows that you d
 
 ---
 
-## 7. The most common pitfalls in pretraining data
+## The most common pitfalls in pretraining data
 
-### 7.1 Mistake 1: More data is always better
+### Mistake 1: More data is always better
 
 If the low-quality proportion is high,
 simply increasing volume may just waste compute.
 
-### 7.2 Mistake 2: The stricter the cleaning, the safer it is
+### Mistake 2: The stricter the cleaning, the safer it is
 
 Over-cleaning also has a cost:
 
@@ -488,7 +488,7 @@ Over-cleaning also has a cost:
 So cleaning is not about being as aggressive as possible,
 but about matching the target capability.
 
-### 7.3 Mistake 3: Since we have fine-tuning later, pretraining data does not need that much attention
+### Mistake 3: Since we have fine-tuning later, pretraining data does not need that much attention
 
 That is not correct.
 Fine-tuning is more like shaping an already existing foundation in a targeted way,
@@ -508,7 +508,7 @@ then when you later look at pretraining objectives, training engineering, and fi
 
 ---
 
-## 8. Exercises
+## Exercises
 
 1. Based on the code in this section, add a few more samples that you think should be filtered or kept, and see whether the rules are reasonable.
 2. Why do we say “exact dedup” is only the first step, and real projects also need near-duplicate detection?

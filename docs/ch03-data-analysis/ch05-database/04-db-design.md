@@ -1,10 +1,10 @@
 ---
-title: "5.4 Database Design"
+title: "3.5.5 Database Design"
 sidebar_position: 24
 description: "Learn how to design a sensible database structure and master normalization, indexes, and practical design principles"
 ---
 
-# Database Design
+# 3.5.5 Database Design
 
 ![Database Design and Normalization Diagram](/img/course/ch03-database-design-erd-normalization-en.png)
 

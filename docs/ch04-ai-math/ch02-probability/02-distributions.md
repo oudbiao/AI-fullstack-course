@@ -1,11 +1,11 @@
 ---
-title: "2.3 Probability Distributions: Patterns Behind the Data"
+title: "4.2.3 Probability Distributions: Patterns Behind the Data"
 sidebar_position: 6
 description: "Understand common discrete and continuous distributions, master the normal distribution and the Central Limit Theorem, and use Python to plot distribution charts"
 keywords: [probability distribution, normal distribution, binomial distribution, Poisson distribution, central limit theorem, Python, AI math]
 ---
 
-# Probability Distributions: Patterns Behind the Data
+# 4.2.3 Probability Distributions: Patterns Behind the Data
 
 ![Probability distribution family comparison chart](/img/course/distribution-family-comparison-en.png)
 
@@ -64,11 +64,11 @@ The key point of this lesson is not to memorize every distribution, but to first
 - What it roughly looks like
 - Why you keep running into it in AI
 
-## 1. What is a probability distribution?
+## What is a probability distribution?
 
 **A probability distribution = all possible values of a random variable and the probability of each value.**
 
-### 1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 If probability is like "whether something will happen this time,"
 then a distribution is more like:
@@ -99,9 +99,9 @@ plt.rcParams['axes.unicode_minus'] = False
 
 ---
 
-## 2. Discrete distributions
+## Discrete distributions
 
-### 2.1 Bernoulli distribution — only two outcomes
+### Bernoulli distribution — only two outcomes
 
 You **perform one experiment only**, and the result is either "success" (1) or "failure" (0).
 
@@ -133,7 +133,7 @@ Proportion of heads: 0.605
 
 **Application in AI**: labels for binary classification tasks follow a Bernoulli distribution (0 or 1).
 
-### 2.2 Binomial distribution — the sum of multiple Bernoulli trials
+### Binomial distribution — the sum of multiple Bernoulli trials
 
 The **total number of successes after n Bernoulli trials** follows a binomial distribution.
 
@@ -183,7 +183,7 @@ Simulated mean: 9.984
 - Mean = n × p (if you flip a fair coin 20 times, the expected number of heads is 10)
 - Variance = n × p × (1-p)
 
-### 2.3 Poisson distribution — counting "rare events"
+### Poisson distribution — counting "rare events"
 
 This is the **number of times a rare event occurs in a fixed amount of time or space**.
 
@@ -219,9 +219,9 @@ Probability of 10+ customers: 0.0318
 
 ---
 
-## 3. Continuous distributions
+## Continuous distributions
 
-### 3.1 Uniform distribution — completely random
+### Uniform distribution — completely random
 
 Every value has exactly the same probability of occurring.
 
@@ -251,7 +251,7 @@ Uniform sample min/max: 0.000/1.000
 
 **Application in AI**: random weight initialization, random sampling, random transformations in data augmentation.
 
-### 3.2 Normal distribution (Gaussian distribution) — the most important distribution
+### Normal distribution (Gaussian distribution) — the most important distribution
 
 Normal distribution is often called a **Gaussian distribution**. `stats.norm.pdf(x, mu, sigma)` returns the height of the bell curve at `x`. For continuous distributions, the height itself is not a probability; the probability is the area under the curve across an interval.
 
@@ -290,7 +290,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 3.3 The 68-95-99.7 rule
+### The 68-95-99.7 rule
 
 The normal distribution has a very useful rule:
 
@@ -334,7 +334,7 @@ ax.legend(loc='upper right')
 plt.show()
 ```
 
-### 3.4 Applications of the normal distribution in AI
+### Applications of the normal distribution in AI
 
 | Use case | Description |
 |---------|------|
@@ -346,15 +346,15 @@ plt.show()
 
 ---
 
-## 4. The Central Limit Theorem — the most important theorem
+## The Central Limit Theorem — the most important theorem
 
-### 4.1 Core idea
+### Core idea
 
 **No matter what the original data distribution is, the average of a large number of independent samples tends toward a normal distribution.**
 
 This is why the normal distribution appears everywhere in nature and data science — many phenomena are essentially the combined effect of many independent factors.
 
-### 4.2 Verify it with code
+### Verify it with code
 
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(16, 10))
@@ -407,7 +407,7 @@ Binomial distribution: mean of sample means=3.005, std=0.262
 
 **Interpretation**: No matter whether the original data is uniform, skewed, or discrete, as long as you take the average of enough samples, the distribution will become normal.
 
-### 4.3 The effect of sample size
+### The effect of sample size
 
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
@@ -434,7 +434,7 @@ Usually when n ≥ 30, the Central Limit Theorem works quite well. That is why m
 
 ---
 
-## 5. Distribution overview table
+## Distribution overview table
 
 | Distribution | Type | Parameters | Typical scenario | NumPy generation |
 |------|------|------|---------|-----------|
@@ -457,7 +457,7 @@ After looking at distributions, the most valuable questions to carry forward are
 
 These questions will naturally lead you to:
 
-- [Basics of Statistical Inference](./03-statistical-inference.md)
+- [4.2.4 Basics of Statistical Inference](./03-statistical-inference.md)
 
 :::info Connecting ahead
 - **Next section**: Statistical inference — inferring distribution parameters from data

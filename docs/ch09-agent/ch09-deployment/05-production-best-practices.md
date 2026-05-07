@@ -1,11 +1,11 @@
 ---
-title: "9.6 Production Best Practices"
+title: "9.9.6 Production Best Practices"
 sidebar_position: 53
 description: "From pre-release checks, canary rollout, alerting, rollback, and human takeover to security auditing, this section organizes a truly actionable set of production best practices for Agents."
 keywords: [production best practices, rollout, canary, rollback, observability, oncall, safety]
 ---
 
-# Production Best Practices
+# 9.9.6 Production Best Practices
 
 :::tip Section Positioning
 In the previous parts of this chapter, we covered:
@@ -38,9 +38,9 @@ So the focus here is:
 
 ---
 
-## 1. What Do You Really Need to Confirm Before Launch?
+## What Do You Really Need to Confirm Before Launch?
 
-### 1.1 Functional correctness is only the most basic layer
+### Functional correctness is only the most basic layer
 
 Production readiness should also include at least:
 
@@ -50,7 +50,7 @@ Production readiness should also include at least:
 - Is there a safety boundary?
 - Is there an evaluation baseline?
 
-### 1.2 A very practical way to judge
+### A very practical way to judge
 
 If a service goes wrong after release, do you already know:
 
@@ -63,9 +63,9 @@ If you cannot answer these questions, the system is usually not ready for produc
 
 ---
 
-## 2. The Six Most Important Principles for Production
+## The Six Most Important Principles for Production
 
-### 2.1 Start with canary rollout, not full release
+### Start with canary rollout, not full release
 
 Agent systems are usually more uncertain than ordinary CRUD systems.
 Canary rollout lets you observe:
@@ -74,11 +74,11 @@ Canary rollout lets you observe:
 - Changes in latency
 - Changes in cost
 
-### 2.2 Always keep a rollback path
+### Always keep a rollback path
 
 Without rollback, there is no truly safe release.
 
-### 2.3 Critical capabilities must have a human takeover plan
+### Critical capabilities must have a human takeover plan
 
 Especially for:
 
@@ -86,7 +86,7 @@ Especially for:
 - Write operations
 - Tasks with external side effects
 
-### 2.4 Define alerting before talking about launch
+### Define alerting before talking about launch
 
 At minimum, make it clear:
 
@@ -94,7 +94,7 @@ At minimum, make it clear:
 - Who receives the alerts
 - What to check first after an alert is triggered
 
-### 2.5 Every critical action should be auditable
+### Every critical action should be auditable
 
 Especially:
 
@@ -102,14 +102,14 @@ Especially:
 - Permission decisions
 - Important state changes
 
-### 2.6 Release must be tied to evaluation
+### Release must be tied to evaluation
 
 Launching is not “trusting the model,”
 but “letting evaluation and online signals speak together.”
 
 ---
 
-## 3. Run a Minimal Readiness Checker First
+## Run a Minimal Readiness Checker First
 
 The example below simulates a pre-launch check.
 It does not deploy the service directly, but instead answers:
@@ -162,7 +162,7 @@ def readiness_check(config):
 print(readiness_check(deployment_config))
 ```
 
-### 3.1 What is the most important takeaway from this example?
+### What is the most important takeaway from this example?
 
 It reminds you that:
 
@@ -175,7 +175,7 @@ It reminds you that:
 You can use this diagram as a pre-launch checklist: metrics, logs, timeout, rate limit, eval suite, canary, rollback, human override, and audit log. If one is missing, you should know what risk it creates.
 :::
 
-### 3.2 Why is it important to explicitly list missing items?
+### Why is it important to explicitly list missing items?
 
 Because it shifts team discussion from:
 
@@ -189,9 +189,9 @@ That makes the launch decision much clearer.
 
 ---
 
-## 4. Why Is Canary Rollout Especially Important for Agents?
+## Why Is Canary Rollout Especially Important for Agents?
 
-### 4.1 Because Agent issues are often probabilistic
+### Because Agent issues are often probabilistic
 
 Some issues do not reproduce reliably in local testing,
 but only show up under real traffic, for example:
@@ -200,13 +200,13 @@ but only show up under real traffic, for example:
 - A tool behaves unstably under high concurrency
 - Some prompts go out of control on edge cases
 
-### 4.2 The main benefits of canary rollout
+### The main benefits of canary rollout
 
 - Validate with a small amount of traffic first
 - Keep the old system as a fallback
 - Collect metrics in a real environment
 
-### 4.3 A very simple traffic routing example
+### A very simple traffic routing example
 
 ```python
 def route_request(request_id, canary_ratio=0.2):
@@ -225,9 +225,9 @@ Although this code is simple, it shows that:
 
 ---
 
-## 5. Why Must Rollback Be Designed in Advance?
+## Why Must Rollback Be Designed in Advance?
 
-### 5.1 Rollback is not something you improvise after something breaks
+### Rollback is not something you improvise after something breaks
 
 If the system has a problem and you only then start thinking about:
 
@@ -237,13 +237,13 @@ If the system has a problem and you only then start thinking about:
 
 it is usually already too late.
 
-### 5.2 Rollback should answer at least three questions
+### Rollback should answer at least three questions
 
 1. How do you switch back to the old version?
 2. How do you handle intermediate state created by the new version?
 3. Do you need to pause high-risk actions?
 
-### 5.3 Why is rollback more complex for Agents than for ordinary pages?
+### Why is rollback more complex for Agents than for ordinary pages?
 
 Because it may have already produced:
 
@@ -256,9 +256,9 @@ but also a question of state consistency.
 
 ---
 
-## 6. How Should Alerting and Human Takeover Work Together?
+## How Should Alerting and Human Takeover Work Together?
 
-### 6.1 More alerts are not always better
+### More alerts are not always better
 
 The key is:
 
@@ -270,7 +270,7 @@ For example:
 - Circuit breaker stays open continuously
 - Cost suddenly deviates from the normal range
 
-### 6.2 Human takeover is not system failure; it is system maturity
+### Human takeover is not system failure; it is system maturity
 
 In high-risk systems,
 human takeover means you acknowledge that:
@@ -279,7 +279,7 @@ human takeover means you acknowledge that:
 
 That is actually a sign of mature design.
 
-### 6.3 Common takeover methods
+### Common takeover methods
 
 - Hand off to a human support agent
 - Pause write operations
@@ -288,14 +288,14 @@ That is actually a sign of mature design.
 
 ---
 
-## 7. The Most Common Mistakes
+## The Most Common Mistakes
 
-### 7.1 Mistake 1: Only doing functional self-tests before launch
+### Mistake 1: Only doing functional self-tests before launch
 
 Without evaluation, observability, rollback, and canary rollout,
 functional self-tests are far from enough.
 
-### 7.2 Mistake 2: Thinking only safety systems need auditing
+### Mistake 2: Thinking only safety systems need auditing
 
 Many ordinary business Agents also involve:
 
@@ -305,7 +305,7 @@ Many ordinary business Agents also involve:
 
 Auditing is just as important.
 
-### 7.3 Mistake 3: Treating production best practices as just a checklist
+### Mistake 3: Treating production best practices as just a checklist
 
 A checklist is important,
 but it is only truly useful when:

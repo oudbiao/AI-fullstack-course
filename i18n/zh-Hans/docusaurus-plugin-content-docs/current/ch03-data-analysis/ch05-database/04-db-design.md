@@ -1,10 +1,10 @@
 ---
-title: "5.4 数据库设计"
+title: "3.5.5 数据库设计"
 sidebar_position: 24
 description: "学会设计合理的数据库结构，掌握范式、索引和实践原则"
 ---
 
-# 数据库设计
+# 3.5.5 数据库设计
 
 ![数据库设计与范式图](/img/course/ch03-database-design-erd-normalization.png)
 

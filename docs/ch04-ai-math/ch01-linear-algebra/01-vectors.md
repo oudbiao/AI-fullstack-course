@@ -1,11 +1,11 @@
 ---
-title: "1.2 Vectors: The Basic Unit of the AI World"
+title: "4.1.2 Vectors: The Basic Unit of the AI World"
 sidebar_position: 1
 description: "Understand the intuitive meaning of vectors, master dot product and cosine similarity, and practice vector operations with NumPy and Matplotlib"
 keywords: [vector, dot product, cosine similarity, NumPy, linear algebra, AI math]
 ---
 
-# Vectors: The Basic Unit of the AI World
+# 4.1.2 Vectors: The Basic Unit of the AI World
 
 ![Geometric diagram of vector dot product and cosine similarity](/img/course/vector-dot-cosine-geometry-en.png)
 
@@ -62,13 +62,13 @@ You can understand this lesson as:
 
 Read this table as a safety net, not as vocabulary to memorize. When a later code example uses one of these words, return here and reconnect it to the current operation.
 
-## 1. What Is a Vector?
+## What Is a Vector?
 
-### 1.1 Intuitive Understanding
+### Intuitive Understanding
 
 **A vector = an ordered set of numbers.**
 
-### 1.1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 If this is your first time learning vectors, and “direction + magnitude” still feels a bit abstract, you can think of it as:
 
@@ -114,7 +114,7 @@ mindmap
       Gradients are also vectors
 ```
 
-### 1.2 Geometric Intuition
+### Geometric Intuition
 
 In 2D space, a vector can be drawn as a **line segment with an arrow** — it has both **direction** and **magnitude** (length).
 
@@ -153,7 +153,7 @@ plt.show()
 Vectors in AI are often hundreds or thousands of dimensions, so they cannot be drawn. But the mathematical operations are exactly the same — a vector is just **a sequence of numbers**, and all the rules apply to any dimension.
 :::
 
-### 1.3 From a Real Data Record to a Vector
+### From a Real Data Record to a Vector
 
 A point where beginners often get stuck is this: they know “a vector is a sequence of numbers,” but they do not know how that connects to real data.
 
@@ -197,9 +197,9 @@ This already connects to a main thread in machine learning:
 
 ---
 
-## 2. Basic Vector Operations
+## Basic Vector Operations
 
-### 2.1 Vector Addition
+### Vector Addition
 
 Adding two vectors = **adding the numbers at corresponding positions**.
 
@@ -236,7 +236,7 @@ ax.set_title('Vector addition: head-to-tail')
 plt.show()
 ```
 
-### 2.2 Scalar Multiplication
+### Scalar Multiplication
 
 Multiplying a vector by a number = **multiplying each component by that number**.
 
@@ -274,7 +274,7 @@ ax.set_title('Scalar multiplication: scaling and flipping')
 plt.show()
 ```
 
-### 2.3 Vector Length (Magnitude / Norm)
+### Vector Length (Magnitude / Norm)
 
 The **length** of a vector (also called **magnitude** or **norm**) is calculated using the Pythagorean theorem:
 
@@ -296,7 +296,7 @@ print(f"NumPy length: {length}")  # 5.0
 The length of vector [3, 4] is exactly 5 — the classic Pythagorean triple. In data science, we will often use `np.linalg.norm()` to compute vector length.
 :::
 
-### 2.4 Unit Vector
+### Unit Vector
 
 A vector with length 1 is called a **unit vector**. If you divide any vector by its length, you get a unit vector in the same direction:
 
@@ -311,7 +311,7 @@ print(f"Unit vector length: {np.linalg.norm(unit_a)}")  # 1.0
 
 **Why is this important?** In AI, we often need to compare the **direction** of two vectors rather than their size. After normalization, only the directional information remains.
 
-### 2.5 A Shape Sense You Must Build as a Beginner
+### A Shape Sense You Must Build as a Beginner
 
 When many people first learn vectors, they can understand the concept, but get confused by `shape` as soon as they write code.
 
@@ -337,9 +337,9 @@ When you later learn matrices and neural networks, this `shape` sense is more im
 
 ---
 
-## 3. Dot Product — The Most Important Vector Operation
+## Dot Product — The Most Important Vector Operation
 
-### 3.1 What Is the Dot Product?
+### What Is the Dot Product?
 
 The **dot product** of two vectors = **multiply corresponding positions and then sum**.
 
@@ -360,7 +360,7 @@ dot_at = a @ b
 print(f"@ operator: {dot_at}")  # 32
 ```
 
-### 3.2 Geometric Meaning of the Dot Product
+### Geometric Meaning of the Dot Product
 
 The dot product reflects the **directional relationship** between two vectors:
 
@@ -392,7 +392,7 @@ b = np.array([-1, 0])
 print(f"Opposite direction: a · b = {np.dot(a, b)}")  # -1 (negative)
 ```
 
-### 3.3 Why Can the Dot Product Be Understood as “Alignment”?
+### Why Can the Dot Product Be Understood as “Alignment”?
 
 The dot product can also be understood from another very important angle:
 
@@ -413,7 +413,7 @@ So the dot product contains both:
 - Length information
 - Direction information
 
-### 3.4 Understanding the Dot Product with Visualization
+### Understanding the Dot Product with Visualization
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
@@ -448,9 +448,9 @@ plt.show()
 
 ---
 
-## 4. Cosine Similarity — The Most Common Similarity Measure in AI
+## Cosine Similarity — The Most Common Similarity Measure in AI
 
-### 4.1 From Dot Product to Cosine Similarity
+### From Dot Product to Cosine Similarity
 
 The size of the dot product depends not only on direction, but also on vector length. If we only care about **how similar the directions are**, we need to remove the effect of length:
 
@@ -477,7 +477,7 @@ The range of cosine similarity is:
 | 0 | Completely unrelated (perpendicular) |
 | -1 | Exactly opposite directions |
 
-### 4.2 Example: User Preference Similarity
+### Example: User Preference Similarity
 
 Suppose three users rate five movie genres:
 
@@ -502,7 +502,7 @@ Bob vs Charlie:   0.5600
 
 **Interpretation**: Alice and Bob have very similar preferences (0.98 is close to 1). Charlie is less aligned with both of them, but not completely opposite. This is the basic idea behind recommendation systems — compare preference directions first, then recommend items liked by nearby users or nearby items.
 
-### 4.3 Applications of Cosine Similarity in AI
+### Applications of Cosine Similarity in AI
 
 ```mermaid
 flowchart TD
@@ -527,7 +527,7 @@ flowchart TD
 So cosine similarity is a tool you will encounter repeatedly throughout your AI learning journey.
 :::
 
-### 4.4 Visualization: Vectors with Different Cosine Similarities
+### Visualization: Vectors with Different Cosine Similarities
 
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(16, 4))
@@ -559,7 +559,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 4.5 A Minimal Retrieval Example: Find the Most Similar Item Among 3 Candidates
+### A Minimal Retrieval Example: Find the Most Similar Item Among 3 Candidates
 
 Although the following example uses hand-crafted small vectors, the idea is the same as vector retrieval, RAG, and semantic search.
 
@@ -600,7 +600,7 @@ You will find that the document with the highest similarity is usually the one w
 
 ---
 
-## 5. NumPy Vector Operations Summary
+## NumPy Vector Operations Summary
 
 Let’s organize all the operations learned in this section with NumPy:
 
@@ -648,7 +648,7 @@ After finishing vectors, the most valuable questions to carry forward are:
 
 These three questions will naturally lead you to:
 
-- [Matrices: Batch Transformations of Data](./02-matrices.md)
+- [4.1.3 Matrices: Batch Transformations of Data](./02-matrices.md)
 
 :::info Connection to later sections
 - **Next section**: Matrices — batch transformations for a set of vectors

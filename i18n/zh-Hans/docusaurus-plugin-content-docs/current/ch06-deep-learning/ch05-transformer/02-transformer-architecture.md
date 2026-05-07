@@ -1,11 +1,11 @@
 ---
-title: "5.3 Transformer 架构 🔧"
+title: "6.5.3 Transformer 架构 🔧"
 sidebar_position: 2
 description: "从一个 Transformer Block 的组成开始，理解残差、LayerNorm、前馈网络、编码器与解码器怎样组合成完整架构。"
 keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding]
 ---
 
-# Transformer 架构
+# 6.5.3 Transformer 架构
 
 ![Transformer Block 架构图](/img/course/transformer-block-architecture.png)
 
@@ -49,7 +49,7 @@ flowchart LR
 
 ## 一、Transformer 不只等于“注意力”
 
-### 1.1 一个常见误解
+### 一个常见误解
 
 很多人一提 Transformer，就只记得：
 
@@ -65,7 +65,7 @@ flowchart LR
 - 层归一化（LayerNorm）
 - 前馈网络（Feed Forward Network, FFN）
 
-### 1.2 为什么要加这么多东西？
+### 为什么要加这么多东西？
 
 因为注意力层虽然擅长“建关系”，但一个稳定、可训练的大模型还需要：
 
@@ -77,7 +77,7 @@ flowchart LR
 
 > 注意力负责“看哪里”，FFN 负责“怎么进一步加工”，残差和归一化负责“让整个系统更稳”。
 
-### 1.3 一个更适合新人的总类比
+### 一个更适合新人的总类比
 
 你可以把一个 Transformer Block 理解成：
 
@@ -103,7 +103,7 @@ flowchart LR
 
 ## 二、一个 Encoder Block 长什么样？
 
-### 2.1 结构图
+### 结构图
 
 ```mermaid
 flowchart LR
@@ -121,7 +121,7 @@ flowchart LR
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 翻译成人话
+### 翻译成人话
 
 对于每个 block 来说：
 
@@ -132,7 +132,7 @@ flowchart LR
 
 这就是 Transformer 编码器 block 的主线。
 
-### 2.3 一个很适合初学者先记的模块作用表
+### 一个很适合初学者先记的模块作用表
 
 | 模块 | 最值得先记住的作用 |
 |---|---|
@@ -147,7 +147,7 @@ flowchart LR
 
 ## 三、残差连接到底在帮什么忙？
 
-### 3.1 最直觉的理解
+### 最直觉的理解
 
 残差连接就是：
 
@@ -157,7 +157,7 @@ flowchart LR
 
 > `y = f(x) + x`
 
-### 3.2 为什么这会有帮助？
+### 为什么这会有帮助？
 
 因为深网络容易出现：
 
@@ -170,7 +170,7 @@ flowchart LR
 
 这让网络更容易训练、更容易堆深。
 
-### 3.3 一个最小示例
+### 一个最小示例
 
 ```python
 import torch
@@ -189,7 +189,7 @@ print("y   =", y)
 
 ## 四、LayerNorm 在做什么？
 
-### 4.1 为什么需要归一化？
+### 为什么需要归一化？
 
 深层网络里，每层输出的数值分布可能会漂得很厉害。
 这会让训练变得不稳定。
@@ -198,13 +198,13 @@ LayerNorm 的作用是：
 
 > 在特征维度上，把每个位置的表示拉回一个更稳定的尺度。
 
-### 4.2 一个直觉类比
+### 一个直觉类比
 
 你可以把 LayerNorm 想成：
 
 > 每处理完一层，都先把数值“摆正姿态”，别让后面层接到太离谱的输入。
 
-### 4.3 最小示例
+### 最小示例
 
 ```python
 import torch
@@ -229,7 +229,7 @@ print("row means:", y.mean(dim=1))
 
 ## 五、前馈网络（FFN）为什么也很重要？
 
-### 5.1 不是注意力之后就结束了
+### 不是注意力之后就结束了
 
 很多人容易以为：
 
@@ -241,7 +241,7 @@ print("row means:", y.mean(dim=1))
 注意力更擅长“混合不同位置的信息”，
 而 FFN 更擅长“对当前位置的表示再做一层非线性加工”。
 
-### 5.2 一个标准 FFN
+### 一个标准 FFN
 
 通常可以粗略写成：
 
@@ -274,7 +274,7 @@ print("output shape:", y.shape)
 
 ## 六、位置编码为什么不可缺？
 
-### 6.1 注意力本身不带顺序感
+### 注意力本身不带顺序感
 
 self-attention 很擅长看“谁和谁相关”，
 但如果你只给它 token 向量，不告诉它位置：
@@ -284,14 +284,14 @@ self-attention 很擅长看“谁和谁相关”，
 
 在某些情况下它可能很难直接区分顺序差异。
 
-### 6.2 所以要加位置编码
+### 所以要加位置编码
 
 位置编码告诉模型：
 
 - 这个 token 在第几个位置
 - 和其他 token 的相对位置怎样
 
-### 6.3 一个简单的正弦位置编码示例
+### 一个简单的正弦位置编码示例
 
 ```python
 import numpy as np
@@ -313,7 +313,7 @@ print(np.round(encoding, 4))
 
 ## 七、一个最小 Transformer 编码器示例
 
-### 7.1 可运行代码
+### 可运行代码
 
 ```python
 import torch
@@ -337,7 +337,7 @@ print("input shape :", x.shape)
 print("output shape:", y.shape)
 ```
 
-### 7.2 这段代码在教什么？
+### 这段代码在教什么？
 
 它在教你两个非常重要的事实：
 
@@ -360,7 +360,7 @@ print("output shape:", y.shape)
 
 ## 八、Decoder Block 又多了什么？
 
-### 8.1 Decoder 和 Encoder 的关键区别
+### Decoder 和 Encoder 的关键区别
 
 Decoder Block 通常会多一个模块：
 
@@ -372,7 +372,7 @@ Decoder Block 通常会多一个模块：
 2. Cross-Attention
 3. Feed Forward
 
-### 8.2 为什么多一个 Cross-Attention？
+### 为什么多一个 Cross-Attention？
 
 因为 decoder 不只要看自己已经生成的历史内容，还要看 encoder 传来的输入信息。
 
@@ -384,7 +384,7 @@ Decoder Block 通常会多一个模块：
 
 里都很常见。
 
-### 8.3 Encoder-only / Decoder-only / Encoder-Decoder 最稳的区分方式
+### Encoder-only / Decoder-only / Encoder-Decoder 最稳的区分方式
 
 第一次学这三条路线时，更稳的区分方式通常是：
 
@@ -404,7 +404,7 @@ Decoder Block 通常会多一个模块：
 
 ## 九、三种主流 Transformer 路线
 
-### 9.1 Encoder-only
+### Encoder-only
 
 代表：
 
@@ -414,7 +414,7 @@ Decoder Block 通常会多一个模块：
 
 - 更偏理解任务
 
-### 9.2 Decoder-only
+### Decoder-only
 
 代表：
 
@@ -424,7 +424,7 @@ Decoder Block 通常会多一个模块：
 
 - 更偏生成任务
 
-### 9.3 Encoder-Decoder
+### Encoder-Decoder
 
 代表：
 
@@ -461,7 +461,7 @@ flowchart TD
     style F fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 10.1 初学者最该记住的快速对照
+### 初学者最该记住的快速对照
 
 | 部分 | 早期 Transformer | 现代 LLM decoder | 为什么会这样演进 |
 |---|---|---|---|
@@ -472,7 +472,7 @@ flowchart TD
 | FFN | 普通 FFN，常见 ReLU/GELU | SwiGLU FFN | 门控更强，扩展效果更好 |
 | 常见结构 | encoder-decoder | decoder-only | 下一个 token 预测更适合大规模预训练 |
 
-### 10.2 这些缩写用大白话解释
+### 这些缩写用大白话解释
 
 - **RMSNorm**：只按特征的均方根做归一化，不再显式减均值
 - **RoPE**：把位置信息“旋转”进注意力空间，让模型更自然地感知顺序
@@ -480,7 +480,7 @@ flowchart TD
 - **MQA**：很多 query 头共享一组 key/value
 - **SwiGLU**：带门控的前馈模块，用 Swish 风格的门来控制信息流
 
-### 10.3 为什么现代 LLM decoder 要这样改
+### 为什么现代 LLM decoder 要这样改
 
 这些变化不是“换个名字”，而是为了解决扩展时的现实问题：
 
@@ -521,16 +521,16 @@ flowchart TD
 
 ## 十一、初学者最常踩的坑
 
-### 11.1 把 Transformer 误解成“只有注意力”
+### 把 Transformer 误解成“只有注意力”
 
 注意力很重要，但不是全部。
 残差、归一化、FFN 都是架构能跑稳的关键。
 
-### 11.2 只盯着 shape，不理解信息流
+### 只盯着 shape，不理解信息流
 
 很多时候 shape 不变，但语义表示已经在层层重构。
 
-### 11.3 不知道 encoder / decoder 的差异
+### 不知道 encoder / decoder 的差异
 
 这会让你后面看 BERT、GPT、T5 时一直混。
 

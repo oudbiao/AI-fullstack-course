@@ -1,11 +1,11 @@
 ---
 sidebar_position: 1
-title: "AI 全栈能力地图"
+title: "0.3 AI 全栈能力地图"
 description: "用一张紧凑图理解 AI 全栈学习的七层能力。"
 keywords: [AI 全栈, 能力地图, AI 学习路线, LLM 应用, RAG, AI Agent]
 ---
 
-# AI 全栈能力地图
+# 0.3 AI 全栈能力地图
 
 ![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.png)
 

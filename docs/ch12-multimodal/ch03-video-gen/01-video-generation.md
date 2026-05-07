@@ -1,11 +1,11 @@
 ---
-title: "3.2 Video Generation Technology"
+title: "12.3.2 Video Generation Technology"
 sidebar_position: 9
 description: "Starting from temporal consistency, motion modeling, and mainstream approaches, build a systematic intuition for why video generation is harder than image generation and also more valuable."
 keywords: [video generation, temporal consistency, motion modeling, video diffusion, frame coherence]
 ---
 
-# Video Generation Technology
+# 12.3.2 Video Generation Technology
 
 ![Video and audio generation pipeline diagram](/img/course/video-audio-generation-pipeline-en.png)
 
@@ -48,15 +48,15 @@ So what this section really wants to explain is:
 
 ---
 
-## 1. Why Is Video Generation Harder?
+## Why Is Video Generation Harder?
 
-### 1.1 Image generation only requires a reasonable single frame
+### Image generation only requires a reasonable single frame
 
 The core requirement of text-to-image is:
 
 - This image should look real
 
-### 1.2 Video generation also requires continuity over time
+### Video generation also requires continuity over time
 
 In addition to single-frame quality, video must also ensure:
 
@@ -69,7 +69,7 @@ In other words, the most important new problem in video generation is:
 
 > **Temporal consistency.**
 
-### 1.3 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of video generation as:
 
@@ -89,15 +89,15 @@ This analogy is very helpful for beginners because it helps you focus first on:
 
 ---
 
-## 2. Start by Understanding Video from the Simplest View
+## Start by Understanding Video from the Simplest View
 
-### 2.1 What is video, essentially?
+### What is video, essentially?
 
 From the roughest perspective:
 
 > Video = a sequence of image frames arranged in time.
 
-### 2.2 A minimal illustration
+### A minimal illustration
 
 ```python
 frames = ["frame_1", "frame_2", "frame_3", "frame_4"]
@@ -113,9 +113,9 @@ Of course, that is not the whole story, but it is the starting point that every 
 
 ---
 
-## 3. Why Does “Good Frames” Not Mean “Good Video”?
+## Why Does “Good Frames” Not Mean “Good Video”?
 
-### 3.1 A very typical failure example
+### A very typical failure example
 
 Suppose there is a cat running from left to right in a video.
 If each frame looks fine on its own, but:
@@ -126,7 +126,7 @@ If each frame looks fine on its own, but:
 
 Then users will still feel that it is very fake.
 
-### 3.2 So the key extra constraints in video generation are
+### So the key extra constraints in video generation are
 
 - Inter-frame consistency
 - Motion continuity
@@ -138,7 +138,7 @@ That is also why a video task cannot be understood simply as:
 
 ---
 
-## 4. A Minimal “Frames to Clip” Example
+## A Minimal “Frames to Clip” Example
 
 ```python
 frames = ["f1", "f2", "f3", "f4"]
@@ -148,7 +148,7 @@ print("frames:", frames)
 print("clips :", clips)
 ```
 
-### 4.1 What is this example teaching?
+### What is this example teaching?
 
 It is teaching you that:
 
@@ -158,9 +158,9 @@ It is teaching you that:
 
 ---
 
-## 5. How Can We Roughly Understand Mainstream Video Generation Approaches?
+## How Can We Roughly Understand Mainstream Video Generation Approaches?
 
-### 5.1 Frame-by-frame generation
+### Frame-by-frame generation
 
 Idea:
 
@@ -175,7 +175,7 @@ Cons:
 
 - Inconsistency is very easy to appear
 
-### 5.2 Extending image models into the time dimension
+### Extending image models into the time dimension
 
 Idea:
 
@@ -184,7 +184,7 @@ Idea:
 
 This is a very natural route, because image generation itself is already quite mature.
 
-### 5.3 Video diffusion approaches
+### Video diffusion approaches
 
 Idea:
 
@@ -192,7 +192,7 @@ Idea:
 
 This is also an increasingly important direction.
 
-### 5.4 A comparison table that beginners can remember first
+### A comparison table that beginners can remember first
 
 | Approach | The most important first impression to remember |
 |---|---|
@@ -204,7 +204,7 @@ This table is very useful for beginners because it compresses “there are many 
 
 ---
 
-## 6. Why Are Many Video Generation Approaches Related to Image Models?
+## Why Are Many Video Generation Approaches Related to Image Models?
 
 Because image generation has already solved many fundamental problems:
 
@@ -224,27 +224,27 @@ This is not a coincidence, but a very natural evolutionary logic.
 
 ---
 
-## 7. The Most Common Evaluation Dimensions for Video Generation
+## The Most Common Evaluation Dimensions for Video Generation
 
-### 7.1 Single-frame quality
+### Single-frame quality
 
 Whether each frame itself looks real.
 
-### 7.2 Temporal consistency
+### Temporal consistency
 
 Whether adjacent frames are smooth and stable.
 
-### 7.3 Motion plausibility
+### Motion plausibility
 
 Whether the motion trajectory feels natural.
 
-### 7.4 Condition control
+### Condition control
 
 Whether the user’s text or reference conditions are maintained throughout the entire video.
 
 So evaluating video generation is often more complex than evaluating image generation, because it is at least a dual task of “spatial quality + temporal quality.”
 
-### 7.5 A beginner-friendly evaluation table
+### A beginner-friendly evaluation table
 
 | Dimension | What you should look at first |
 |---|---|
@@ -257,9 +257,9 @@ This table is helpful for beginners because it breaks “video quality” into s
 
 ---
 
-## 8. Why Is Video Generation Harder in Engineering?
+## Why Is Video Generation Harder in Engineering?
 
-### 8.1 Larger compute cost
+### Larger compute cost
 
 Because it is no longer just:
 
@@ -269,18 +269,18 @@ but:
 
 - Number of frames x height x width x channels
 
-### 8.2 Failures are easier to notice
+### Failures are easier to notice
 
 A small flaw in an image may still be acceptable to users.
 But if a video jumps inconsistently from frame to frame, users will immediately feel that it is fake.
 
-### 8.3 Higher interaction cost
+### Higher interaction cost
 
 Video generation is usually slower, more expensive, and more dependent on engineering optimization.
 
 ---
 
-## 9. An Important Product Perspective
+## An Important Product Perspective
 
 In practice, many video generation products do not rely entirely on one single large model. Instead, they are more like a combination of:
 

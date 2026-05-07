@@ -1,11 +1,11 @@
 ---
-title: "1.3 Text Preprocessing"
+title: "11.1.3 Text Preprocessing"
 sidebar_position: 2
 description: "From cleaning and normalization to tokenization and keeping key information, understand why text preprocessing is not about doing more, but about choosing what the task needs."
 keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NLP]
 ---
 
-# Text Preprocessing
+# 11.1.3 Text Preprocessing
 
 ![Text preprocessing pipeline diagram](/img/course/text-preprocessing-pipeline-en.png)
 
@@ -50,7 +50,7 @@ So what this section really wants to solve is:
 - Why preprocessing is not about doing more
 - Why the same text can be processed differently in different tasks
 
-## 1. Why preprocess text?
+## Why preprocess text?
 
 Raw text is usually very “dirty”:
 
@@ -68,7 +68,7 @@ So the core of preprocessing is not “the cleaner the better,” but:
 
 > **Make the text more suitable for the current task.**
 
-### 1.1 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of text preprocessing as:
 
@@ -91,7 +91,7 @@ But rather:
 
 ---
 
-## 2. The most common preprocessing steps
+## The most common preprocessing steps
 
 | Step | Common purpose |
 |---|---|
@@ -107,7 +107,7 @@ But remember:
 - These steps are not all applied every time
 - More steps does not mean better
 
-### 2.1 A judgment table worth remembering for beginners
+### A judgment table worth remembering for beginners
 
 | Task | Information to prioritize keeping |
 |---|---|
@@ -122,7 +122,7 @@ This table is not an absolute rule, but it helps beginners build an important in
 
 ---
 
-## 3. Start with a minimal preprocessing function
+## Start with a minimal preprocessing function
 
 Here we will first use an English example, because English is easier to demonstrate with the standard library.
 The same idea applies to Chinese, except that Chinese usually relies on more specialized segmentation tools.
@@ -158,7 +158,7 @@ What really matters is:
 - Why each step exists
 - Whether it really fits the current task
 
-### 3.1 A minimal contrast showing why keeping negation words matters
+### A minimal contrast showing why keeping negation words matters
 
 ```python
 import re
@@ -187,9 +187,9 @@ This example is especially good for beginners because it shows directly that:
 
 ---
 
-## 4. Why is lowercasing so common?
+## Why is lowercasing so common?
 
-### 1. Unify word forms
+### Unify word forms
 
 In English:
 
@@ -199,7 +199,7 @@ In English:
 
 Many tasks may want to treat them as the same word.
 
-### 2. But it should not always be done
+### But it should not always be done
 
 For example:
 
@@ -214,9 +214,9 @@ So remember:
 
 ---
 
-## 5. Why is tokenization so important?
+## Why is tokenization so important?
 
-### 1. Because models do not directly process the “entire original sentence”
+### Because models do not directly process the “entire original sentence”
 
 They usually need smaller units:
 
@@ -224,7 +224,7 @@ They usually need smaller units:
 - subwords
 - characters
 
-### 2. English and Chinese are different
+### English and Chinese are different
 
 English naturally has spaces,
 so in simple cases you can use `split()` directly.
@@ -246,7 +246,7 @@ or:
 
 This directly affects downstream representations and model performance.
 
-### 3. A simple awareness for Chinese segmentation
+### A simple awareness for Chinese segmentation
 
 Even if we are not introducing a professional segmentation tool yet, you should first build this judgment:
 
@@ -254,9 +254,9 @@ Even if we are not introducing a professional segmentation tool yet, you should 
 
 ---
 
-## 6. Why are stopwords useful, and why are they risky?
+## Why are stopwords useful, and why are they risky?
 
-### 1. Where they are useful
+### Where they are useful
 
 High-frequency but low-discriminative words, such as:
 
@@ -266,7 +266,7 @@ High-frequency but low-discriminative words, such as:
 
 can indeed introduce noise in many traditional models.
 
-### 2. Where they are risky
+### Where they are risky
 
 Some words that seem unimportant may be very critical.
 
@@ -276,7 +276,7 @@ For example:
 
 If you remove `not`, the meaning flips.
 
-### 3. So stopwords are not something you must always delete
+### So stopwords are not something you must always delete
 
 A more reasonable view is:
 
@@ -285,7 +285,7 @@ A more reasonable view is:
 
 ---
 
-## 7. Let’s look at a slightly more complete exercise
+## Let’s look at a slightly more complete exercise
 
 ```python
 import re
@@ -327,14 +327,14 @@ This is more important than memorizing a preprocessing step list.
 
 ---
 
-## 8. Why are preprocessing strategies different for traditional models and pretrained models?
+## Why are preprocessing strategies different for traditional models and pretrained models?
 
-### 1. Traditional machine learning
+### Traditional machine learning
 
 It usually relies more on manual preprocessing because the model itself is relatively shallow,
 and it is more sensitive to noise.
 
-### 2. Pretrained models / large models
+### Pretrained models / large models
 
 In many cases, they rely more on the model’s built-in tokenizer,
 and if you over-clean on the outside, you may instead:
@@ -342,11 +342,11 @@ and if you over-clean on the outside, you may instead:
 - damage the original structure
 - lose information the model could have used
 
-### 3. A very important judgment
+### A very important judgment
 
 Not all NLP eras use the same preprocessing strategy.
 
-### 8.1 The safest default order when doing your first NLP project
+### The safest default order when doing your first NLP project
 
 A safer order is usually:
 
@@ -359,18 +359,18 @@ This is usually clearer than piling on a lot of regexes and rules from the start
 
 ---
 
-## 9. Common beginner mistakes
+## Common beginner mistakes
 
-### 1. Thinking more preprocessing means more advanced
+### Thinking more preprocessing means more advanced
 
 Not true.
 If you remove too much information, performance may get worse.
 
-### 2. Using the same rule set for every task
+### Using the same rule set for every task
 
 Text classification, retrieval, NER, and RAG often need different preprocessing strategies.
 
-### 3. Using `split()` directly for Chinese
+### Using `split()` directly for Chinese
 
 In many tasks, that is usually not enough.
 

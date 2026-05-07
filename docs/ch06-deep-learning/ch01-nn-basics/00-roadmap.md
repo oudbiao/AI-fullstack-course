@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-Class Guide: What Is This Chapter on Neural Network Basics Really About?"
+title: "6.1.1 Pre-Class Guide: What Is This Chapter on Neural Network Basics Really About?"
 sidebar_position: 0
 description: "First build a learning map for the neural network basics chapter: how neurons, forward and backward propagation, optimizers, regularization, and initialization fit together."
 keywords: [neural network guide, backpropagation, optimizer, regularization, initialization]
 ---
 
-# Pre-Class Guide: What Is This Chapter on Neural Network Basics Really About?
+# 6.1.1 Pre-Class Guide: What Is This Chapter on Neural Network Basics Really About?
 
 This chapter addresses a fundamental question:
 

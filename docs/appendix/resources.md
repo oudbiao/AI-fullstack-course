@@ -1,9 +1,9 @@
 ---
-title: "Recommended Learning Resources"
+title: "A.1 Recommended Learning Resources"
 sidebar_position: 1
 ---
 
-# Recommended Learning Resources
+# A.1 Recommended Learning Resources
 
 ![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel-en.png)
 
@@ -15,7 +15,7 @@ More resources are not always better. What matters is whether they solve your cu
 
 This page is not about “the more resources, the better.” Instead, it helps you know what to supplement, why to supplement it, and how far is enough at different stages of learning.
 
-## 1. The right way to use this page
+## The right way to use this page
 
 A better approach is:
 
@@ -29,7 +29,7 @@ External resources are best used for three things:
 - Visual intuition
 - A more systematic overview
 
-## 2. Math and intuition resources
+## Math and intuition resources
 
 | Resource | When to look at it | Main help |
 |---|---|---|
@@ -37,7 +37,7 @@ External resources are best used for three things:
 | Related math supplements from Andrew Ng / Li Hongyi | When you want to know how formulas are used in models | Connects tasks and math |
 | *Statistical Learning Methods* | After finishing the basics of traditional machine learning | Builds a systematic understanding of classic methods |
 
-## 3. Python and engineering resources
+## Python and engineering resources
 
 | Resource | When to look at it | Main help |
 |---|---|---|
@@ -47,7 +47,7 @@ External resources are best used for three things:
 
 If your biggest pain point right now is the environment, debugging, functions, classes, or package management, then prioritize this category first.
 
-## 4. Machine learning and deep learning resources
+## Machine learning and deep learning resources
 
 | Resource | When to look at it | Main help |
 |---|---|---|
@@ -56,7 +56,7 @@ If your biggest pain point right now is the environment, debugging, functions, c
 | *Dive into Deep Learning* | When you want to learn while running code | Combines theory and code very well |
 | Fast.ai | When you want to build practical intuition quickly | More focused on hands-on progress |
 
-## 5. CV, NLP, and large model resources
+## CV, NLP, and large model resources
 
 | Area | Resource | Better for supplementing |
 |---|---|---|
@@ -64,7 +64,7 @@ If your biggest pain point right now is the environment, debugging, functions, c
 | NLP | CS224n | Text tasks, representation learning, sequence modeling |
 | Transformer / LLM | Hugging Face documentation, engineering blogs | Model usage, ecosystem, and hands-on practice |
 
-## 6. RAG, Agent, and application engineering resources
+## RAG, Agent, and application engineering resources
 
 | Resource | When to look at it | Main help |
 |---|---|---|
@@ -72,7 +72,7 @@ If your biggest pain point right now is the environment, debugging, functions, c
 | LlamaIndex documentation | When building a knowledge base system | Shows indexing, retrieval, and query pipelines |
 | Common backend and deployment documentation | When building APIs, logs, and deployment workflows | Shows real engineering implementation |
 
-## 7. Quick resource selection by learning stage
+## Quick resource selection by learning stage
 
 If you do not want to re-evaluate every time, you can follow this simple route:
 
@@ -86,7 +86,7 @@ If you do not want to re-evaluate every time, you can follow this simple route:
 | 9 AI Agent and intelligent agent systems | LangChain / LangGraph, LlamaIndex, MCP and engineering docs |
 | 10 Computer vision, 11 Natural language processing, 12 AIGC and multimodal | CS231n, CS224n, OpenCV, diffusion models, multimodal and AIGC engineering materials |
 
-## 8. Common mistakes when supplementing resources
+## Common mistakes when supplementing resources
 
 - Adding too many resources at once and interrupting the main learning path
 - Saving a lot of links but rarely finishing or reviewing them
@@ -98,7 +98,7 @@ So a more stable approach is usually:
 2. After supplementing, return to the course or project
 3. Write down one sentence: “What exactly did this resource help me solve?”
 
-## 9. What is most worth noting when reading resources
+## What is most worth noting when reading resources
 
 Do not just record “what you read.” It is better to note:
 
@@ -108,7 +108,7 @@ Do not just record “what you read.” It is better to note:
 
 That way, when you look things up later, you will be much more efficient than simply saving links.
 
-## 10. The most practical usage advice
+## The most practical usage advice
 
 If you are unsure whether you should supplement materials right now, ask yourself three questions first:
 

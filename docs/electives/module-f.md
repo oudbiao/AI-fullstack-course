@@ -1,11 +1,11 @@
 ---
-title: "1.1 AI Product Design Thinking"
+title: "E.F AI Product Design Thinking"
 sidebar_position: 6
 description: "Starting from user problems, task success criteria, cost, and risk constraints, understand why AI product design is first and foremost a trade-off problem."
 keywords: [AI product design, product thinking, evaluation, cost, UX, product strategy]
 ---
 
-# AI Product Design Thinking
+# E.F AI Product Design Thinking
 
 ![AI Product Decision Matrix](/img/course/elective-ai-product-decision-matrix-en.png)
 
@@ -44,9 +44,9 @@ So this lesson aims to answer:
 
 ---
 
-## 1. What is the core question in AI product design?
+## What is the core question in AI product design?
 
-### 1.1 Not “Can we build it?”, but “Is it worth building?”
+### Not “Can we build it?”, but “Is it worth building?”
 
 Many AI features are technically possible,
 but from a product perspective, what matters more is:
@@ -56,7 +56,7 @@ but from a product perspective, what matters more is:
 - Is the risk manageable?
 - Is the experience sustainable?
 
-### 1.2 An analogy
+### An analogy
 
 Technical implementation is like being able to cook many dishes.
 Product design is deciding:
@@ -65,7 +65,7 @@ Product design is deciding:
 - Who it is for
 - Whether the cost can be recovered
 
-### 1.3 So AI product design is not about “weakening technology”
+### So AI product design is not about “weakening technology”
 
 It is about making technology serve:
 
@@ -75,13 +75,13 @@ It is about making technology serve:
 
 ---
 
-## 2. Four dimensions commonly used when designing AI products
+## Four dimensions commonly used when designing AI products
 
-### 2.1 User value
+### User value
 
 Does it really solve a frequent and clear user problem?
 
-### 2.2 Cost
+### Cost
 
 Includes:
 
@@ -89,7 +89,7 @@ Includes:
 - engineering maintenance cost
 - human review cost
 
-### 2.3 Risk
+### Risk
 
 Includes:
 
@@ -97,7 +97,7 @@ Includes:
 - compliance risk
 - brand risk
 
-### 2.4 Experience quality
+### Experience quality
 
 Includes:
 
@@ -107,7 +107,7 @@ Includes:
 
 ---
 
-## 3. First, let’s run a simple product prioritization example
+## First, let’s run a simple product prioritization example
 
 The following example uses a very simple approach
 to help you rank several AI product directions in the first round.
@@ -139,7 +139,7 @@ for item in ranked:
     print(item)
 ```
 
-### 3.1 What should you take away from this example?
+### What should you take away from this example?
 
 Product judgment is usually not one-dimensional.
 An idea being “high value” does not automatically mean it is the most worth doing.
@@ -150,7 +150,7 @@ Because you also need to consider:
 - risk
 - experience
 
-### 3.2 Why is this more useful than “I think this direction is cool”?
+### Why is this more useful than “I think this direction is cool”?
 
 Because it forces you to make your decision criteria explicit:
 
@@ -160,9 +160,9 @@ instead of relying on intuition.
 
 ---
 
-## 4. Three common traps in AI product design
+## Three common traps in AI product design
 
-### 4.1 Mistake 1: Starting from model capability instead of user problems
+### Mistake 1: Starting from model capability instead of user problems
 
 For example:
 
@@ -170,7 +170,7 @@ For example:
 
 This usually leads to products that are neither painful nor truly useful.
 
-### 4.2 Mistake 2: Looking only at features and ignoring risk and cost
+### Mistake 2: Looking only at features and ignoring risk and cost
 
 Some features have dazzling demos,
 but if:
@@ -181,7 +181,7 @@ but if:
 
 then it is hard to turn them into real products.
 
-### 4.3 Mistake 3: Attributing all experience issues to the frontend
+### Mistake 3: Attributing all experience issues to the frontend
 
 The experience of an AI product depends heavily on:
 
@@ -193,14 +193,14 @@ This is not just a UI problem, but a product design problem as a whole.
 
 ---
 
-## 5. A practical product judgment sequence
+## A practical product judgment sequence
 
-### 5.1 First ask where the user is getting stuck
+### First ask where the user is getting stuck
 
 Don’t ask first what the model can write,
 ask first which step is most painful for the user.
 
-### 5.2 Then ask whether AI is really better than rules or a traditional workflow
+### Then ask whether AI is really better than rules or a traditional workflow
 
 Not every problem should use AI.
 For some problems:
@@ -209,16 +209,16 @@ For some problems:
 - database retrieval is enough
 - a form-based workflow is enough
 
-### 5.3 Only then ask “Which model should we use?”
+### Only then ask “Which model should we use?”
 
 Model selection is usually not the first-layer problem,
 but an implementation question after the solution direction is decided.
 
 ---
 
-## 6. Two very important outputs in product design
+## Two very important outputs in product design
 
-### 6.1 Success criteria
+### Success criteria
 
 For example:
 
@@ -226,7 +226,7 @@ For example:
 - lower average waiting time
 - reduced manual workload
 
-### 6.2 Failure boundaries
+### Failure boundaries
 
 For example:
 
@@ -238,7 +238,7 @@ This makes the product more stable and more realistic.
 
 ---
 
-## 7. Summary
+## Summary
 
 The most important thing in this lesson is to build a product perspective:
 

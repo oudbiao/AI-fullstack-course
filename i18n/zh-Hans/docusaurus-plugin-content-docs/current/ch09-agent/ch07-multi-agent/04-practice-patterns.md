@@ -1,11 +1,11 @@
 ---
-title: "7.5 多 Agent 实战模式"
+title: "9.7.5 多 Agent 实战模式"
 sidebar_position: 41
 description: "从研究型、写作型、开发型到审核型协作，理解多 Agent 在真实任务中的几种常见组合方式。"
 keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration]
 ---
 
-# 多 Agent 实战模式
+# 9.7.5 多 Agent 实战模式
 
 :::tip 本节定位
 前面我们已经讲了：
@@ -30,7 +30,7 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ## 一、为什么要讲“实战模式”？
 
-### 1.1 因为真实系统通常不是纯理论架构
+### 因为真实系统通常不是纯理论架构
 
 很多项目不会说：
 
@@ -44,7 +44,7 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 也就是说，真实项目更像“任务组织形态”，而不只是抽象架构名。
 
-### 1.2 所以学实战模式的意义是什么？
+### 所以学实战模式的意义是什么？
 
 它能帮你从：
 
@@ -58,19 +58,19 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ## 二、模式一：研究型协作
 
-### 2.1 典型分工
+### 典型分工
 
 - Planner：拆问题
 - Researcher：检索资料
 - Synthesizer：整合结果
 
-### 2.2 适合什么任务？
+### 适合什么任务？
 
 - 做背景调研
 - 收集材料
 - 输出结构化报告
 
-### 2.3 一个最小示例
+### 一个最小示例
 
 ```python
 def planner(query):
@@ -103,7 +103,7 @@ print(answer)
 
 ## 三、模式二：写作 + 审核
 
-### 3.1 最经典也最实用的模式之一
+### 最经典也最实用的模式之一
 
 分工通常是：
 
@@ -111,7 +111,7 @@ print(answer)
 - Reviewer：检查问题
 - Reviser：按意见修订
 
-### 3.2 为什么这个模式特别常见？
+### 为什么这个模式特别常见？
 
 因为很多任务天然就适合：
 
@@ -125,7 +125,7 @@ print(answer)
 - 答案生成
 - 代码文档
 
-### 3.3 一个最小示例
+### 一个最小示例
 
 ```python
 def writer(topic):
@@ -156,7 +156,7 @@ print(final)
 
 ## 四、模式三：开发团队模式
 
-### 4.1 一个很常见的 AI 开发团队抽象
+### 一个很常见的 AI 开发团队抽象
 
 例如：
 
@@ -165,12 +165,12 @@ print(final)
 - Reviewer：做代码检查
 - Tester：验证结果
 
-### 4.2 为什么这个模式在 AI coding 场景里很常见？
+### 为什么这个模式在 AI coding 场景里很常见？
 
 因为软件开发天然就已经有这种角色分工。
 多 Agent 只是把它程序化、自动化了。
 
-### 4.3 一个最小示例
+### 一个最小示例
 
 ```python
 workflow = [
@@ -192,7 +192,7 @@ for step in workflow:
 
 ## 五、模式四：双重核验 / 高风险审核模式
 
-### 5.1 什么时候需要？
+### 什么时候需要？
 
 如果任务风险较高，比如：
 
@@ -202,7 +202,7 @@ for step in workflow:
 
 那么很多时候不能只让一个 Agent 单独产出结论。
 
-### 5.2 常见做法
+### 常见做法
 
 - 一个 Agent 生成答案
 - 另一个 Agent 做事实核查
@@ -250,25 +250,25 @@ print("review :", review)
 
 ## 七、怎样选合适的实战模式？
 
-### 7.1 如果任务重点在搜资料
+### 如果任务重点在搜资料
 
 优先考虑：
 
 - 研究型协作
 
-### 7.2 如果任务重点在内容质量
+### 如果任务重点在内容质量
 
 优先考虑：
 
 - 写作 + 审核
 
-### 7.3 如果任务重点在工程落地
+### 如果任务重点在工程落地
 
 优先考虑：
 
 - 开发团队模式
 
-### 7.4 如果任务风险高
+### 如果任务风险高
 
 优先考虑：
 
@@ -286,16 +286,16 @@ print("review :", review)
 
 ## 八、初学者最常踩的坑
 
-### 8.1 把模式和角色数量绑定死
+### 把模式和角色数量绑定死
 
 不是“3 个 Agent 就一定是某模式”。
 关键是职责关系，不是数量。
 
-### 8.2 为了看起来复杂而堆模式
+### 为了看起来复杂而堆模式
 
 很多任务用单 Agent 或两 Agent 已经足够。
 
-### 8.3 没有明确评价标准
+### 没有明确评价标准
 
 如果你不知道“这个模式为什么比另一个模式更好”，那系统迭代会很难推进。
 

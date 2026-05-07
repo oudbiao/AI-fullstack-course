@@ -1,11 +1,11 @@
 ---
 sidebar_position: 1
-title: "AI Full-Stack Capability Map"
+title: "0.3 AI Full-Stack Capability Map"
 description: "A compact visual map of the seven capability layers in AI full-stack learning."
 keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RAG, AI Agent]
 ---
 
-# AI Full-Stack Capability Map
+# 0.3 AI Full-Stack Capability Map
 
 ![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
 

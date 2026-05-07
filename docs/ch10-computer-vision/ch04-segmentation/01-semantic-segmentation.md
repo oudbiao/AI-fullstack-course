@@ -1,11 +1,11 @@
 ---
-title: "4.2 Semantic Segmentation"
+title: "10.4.2 Semantic Segmentation"
 sidebar_position: 11
 description: "Move from “one label for the whole image” to “one label for each pixel,” and understand why semantic segmentation is a more fine-grained visual understanding task."
 keywords: [semantic segmentation, pixel classification, mask, IoU, vision]
 ---
 
-# Semantic Segmentation
+# 10.4.2 Semantic Segmentation
 
 ![Semantic Segmentation Mask Comparison](/img/course/semantic-segmentation-mask-en.png)
 
@@ -76,7 +76,7 @@ This makes it much easier to see why segmentation is harder:
 - It does not just draw a few boxes
 - It is responsible for every region in the entire image
 
-## 1. What Exactly Does Semantic Segmentation Do?
+## What Exactly Does Semantic Segmentation Do?
 
 Its goal is:
 
@@ -89,7 +89,7 @@ For example:
 - person
 - car
 
-### 1.1 What Should You Remember First When Learning This Section?
+### What Should You Remember First When Learning This Section?
 
 The most important thing to remember first is:
 
@@ -104,7 +104,7 @@ And this “region” is not just a rough hint — every pixel belongs to a clas
 Because detection only gives boxes,
 while segmentation gives the region boundaries much more precisely.
 
-### 1.2 Why Is the “Pixel-Level” Idea the Most Important Part to Grasp First?
+### Why Is the “Pixel-Level” Idea the Most Important Part to Grasp First?
 
 Because starting from this section, vision tasks are no longer just about:
 
@@ -122,7 +122,7 @@ So you can think of semantic segmentation simply as:
 
 ---
 
-## 2. First, Run a Minimal Segmentation Mask Example
+## First, Run a Minimal Segmentation Mask Example
 
 ```python
 pred_mask = [
@@ -153,14 +153,14 @@ def iou_for_class(pred, gt, target_class):
 print("IoU for class 1:", round(iou_for_class(pred_mask, gt_mask, 1), 4))
 ```
 
-### 2.1 What Is the Most Important Intuition in This Example?
+### What Is the Most Important Intuition in This Example?
 
 Segmentation evaluation is not about whether the whole image is correct,
 but about:
 
 - how well the regions overlap
 
-### 2.1.1 Why Does IoU Matter So Much in Segmentation?
+### Why Does IoU Matter So Much in Segmentation?
 
 Because in segmentation tasks:
 
@@ -176,13 +176,13 @@ instead of only a single overall accuracy value.
 
 This is why IoU is also very important in segmentation.
 
-### 2.2 When a Beginner Learns Segmentation for the First Time, What Three Things Should They Remember Most?
+### When a Beginner Learns Segmentation for the First Time, What Three Things Should They Remember Most?
 
 1. A mask is a pixel-level label map
 2. Segmentation evaluation cares more about region overlap than classification does
 3. Small classes and boundary regions are often the hardest
 
-### 2.3 Why Do Segmentation Projects So Often Have the Problem of “Looks Almost the Same, But the Metrics Are Very Different”?
+### Why Do Segmentation Projects So Often Have the Problem of “Looks Almost the Same, But the Metrics Are Very Different”?
 
 Because as long as the boundary region is slightly wrong, or a small class is missed,
 the IoU can drop very noticeably.
@@ -191,7 +191,7 @@ This is also why segmentation tasks are especially good for helping beginners bu
 
 > **In visual results, “looks similar” is not enough; the region boundary itself is part of the result.**
 
-### 2.4 What Is Most Likely to Be Underestimated When Learning Segmentation for the First Time?
+### What Is Most Likely to Be Underestimated When Learning Segmentation for the First Time?
 
 The most commonly underestimated parts are:
 
@@ -202,7 +202,7 @@ The most commonly underestimated parts are:
 Because these areas often take up only a tiny portion in visualizations,
 but they can have a huge impact on IoU and real-world performance.
 
-### 2.5 Look at Another Minimal “Class Imbalance” Example
+### Look at Another Minimal “Class Imbalance” Example
 
 ```python
 mask = [
@@ -239,22 +239,22 @@ Segmentation is not just “painting colors on top and calling it done.” This 
 
 ---
 
-## 3. The Most Common Pitfalls
+## The Most Common Pitfalls
 
-### 3.1 Inaccurate Boundaries
+### Inaccurate Boundaries
 
 Segmentation models can easily make mistakes at object edges.
 
-### 3.2 Extremely Imbalanced Classes
+### Extremely Imbalanced Classes
 
 Backgrounds are often too dominant,
 and small object classes can easily be ignored.
 
-### 3.3 Only Looking at Overall Pixel Accuracy
+### Only Looking at Overall Pixel Accuracy
 
 High pixel accuracy does not mean small classes are actually segmented well.
 
-### 3.4 Only Looking at Color Visualizations, Without Failure Analysis
+### Only Looking at Color Visualizations, Without Failure Analysis
 
 Many beginners make a few nice-looking mask images and stop there when they first do segmentation.
 But what really drives project progress is usually dividing failure cases into:
@@ -271,7 +271,7 @@ Only then can you know what to improve next:
 - the sampling strategy
 - or the model architecture
 
-## 4. The Right Expectations When Studying This Section
+## The Right Expectations When Studying This Section
 
 The most important thing in this section is not to master complex segmentation models today,
 but to truly understand:

@@ -1,11 +1,11 @@
 ---
-title: "7.2 Project: Intelligent Question Answering System"
+title: "11.7.2 Project: Intelligent Question Answering System"
 sidebar_position: 1
 description: "Walk through a truly interpretable small QA system project, from knowledge base design, retrieval, refusal, and evaluation to presentation."
 keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project]
 ---
 
-# Project: Intelligent Question Answering System
+# 11.7.2 Project: Intelligent Question Answering System
 
 ![Question answering system retrieval-answer-evaluation loop](/img/course/ch11-qa-retrieval-answer-evaluation-map-en.png)
 
@@ -35,7 +35,7 @@ But to make it feel like a real "project" rather than just a demo that "can answ
 
 ---
 
-## 1. How should we narrow the project topic?
+## How should we narrow the project topic?
 
 A very solid starting point is:
 
@@ -49,7 +49,7 @@ Why this works well:
 
 ---
 
-## 2. The minimal closed loop of a portfolio-level QA project
+## The minimal closed loop of a portfolio-level QA project
 
 1. Define the knowledge scope
 2. Prepare the knowledge base
@@ -60,7 +60,7 @@ Why this works well:
 
 As long as these 6 steps are clear, the project is already quite convincing.
 
-### 2.1 A loop diagram that looks more like a real system
+### A loop diagram that looks more like a real system
 
 ```mermaid
 flowchart LR
@@ -80,7 +80,7 @@ but rather:
 
 - a system with a clear knowledge boundary that also knows how to review its mistakes
 
-## 3. Recommended implementation order
+## Recommended implementation order
 
 For beginners, a safer order is usually:
 
@@ -91,7 +91,7 @@ For beginners, a safer order is usually:
 
 This makes the project feel more like an "explainable system" rather than a demo that just happens to get a few answers right.
 
-### 3.1 Why is a QA system especially good for training "system boundary awareness"?
+### Why is a QA system especially good for training "system boundary awareness"?
 
 Because it forces you to keep asking three questions:
 
@@ -101,7 +101,7 @@ Because it forces you to keep asking three questions:
 
 This is one of the most important layers of judgment in many real product systems.
 
-### 3.2 A better analogy for beginners
+### A better analogy for beginners
 
 You can think of a QA system as:
 
@@ -121,7 +121,7 @@ This analogy is important because it helps beginners build the right intuition e
 
 ---
 
-## 4. First build a more complete minimal system
+## First build a more complete minimal system
 
 ```python
 knowledge_base = [
@@ -157,7 +157,7 @@ print(answer_question("How long is the refund period?"))
 print(answer_question("How do I get the certificate?"))
 ```
 
-### 4.1 Why does this example feel more like a project, not just a function?
+### Why does this example feel more like a project, not just a function?
 
 Because it already has:
 
@@ -166,14 +166,14 @@ Because it already has:
 - A matching score
 - An explainable return value
 
-### 4.2 Why is `matched_question` worth showing?
+### Why is `matched_question` worth showing?
 
 Because it helps you answer:
 
 - Did the system really answer correctly?
 - Or did it just happen to sound right?
 
-### 4.3 Why is "what was retrieved" more important to inspect first than "whether the answer sounds smooth"?
+### Why is "what was retrieved" more important to inspect first than "whether the answer sounds smooth"?
 
 Because many QA system errors are not errors in generation,
 but instead:
@@ -183,7 +183,7 @@ but instead:
 If you do not see this clearly,
 it becomes very hard to figure out where the problem actually is.
 
-### 4.4 Another minimal "match log" example
+### Another minimal "match log" example
 
 ```python
 queries = ["How long is the refund period?", "How do I get the certificate?"]
@@ -209,7 +209,7 @@ Many issues can already be diagnosed at this stage.
 
 ---
 
-## 5. Why is a refusal mechanism the key to a portfolio-level QA system?
+## Why is a refusal mechanism the key to a portfolio-level QA system?
 
 Without refusal, the system will easily:
 
@@ -232,7 +232,7 @@ def safe_answer_question(user_query, threshold=2):
 print(safe_answer_question("Which is stronger, DeepSeek or OpenAI?"))
 ```
 
-### 5.1 Why is this step especially valuable?
+### Why is this step especially valuable?
 
 Because it changes the system from:
 
@@ -246,7 +246,7 @@ That is a big plus in a portfolio.
 
 ---
 
-## 6. How should a minimal evaluation set be designed?
+## How should a minimal evaluation set be designed?
 
 ```python
 eval_data = [
@@ -266,7 +266,7 @@ accuracy = correct / len(eval_data)
 print("accuracy =", accuracy)
 ```
 
-### 6.1 What else should be evaluated?
+### What else should be evaluated?
 
 Besides accuracy, it is also worth checking:
 
@@ -274,7 +274,7 @@ Besides accuracy, it is also worth checking:
 - Which questions are most likely to be mismatched
 - Whether paraphrases are handled consistently
 
-### 6.2 A minimal evaluation table that works well for beginners
+### A minimal evaluation table that works well for beginners
 
 You can start with just this table:
 
@@ -287,7 +287,7 @@ This table is already enough to help you judge:
 - Whether refusal is stable
 - Whether the final answer is reliable
 
-### 6.3 The safest default order for your first QA project
+### The safest default order for your first QA project
 
 A safer order is usually:
 
@@ -300,7 +300,7 @@ This is easier than trying to pursue generation quality right away.
 
 ---
 
-## 7. The most valuable failure cases to show
+## The most valuable failure cases to show
 
 For example:
 
@@ -310,7 +310,7 @@ For example:
 
 Listing these will make the project feel more like a course project than only showing correct examples.
 
-### 7.1 If you keep improving the project, what should you add first?
+### If you keep improving the project, what should you add first?
 
 The most worthwhile additions are usually:
 

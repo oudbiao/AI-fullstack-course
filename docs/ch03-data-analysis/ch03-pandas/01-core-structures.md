@@ -1,10 +1,10 @@
 ---
-title: "3.1 Pandas Core Data Structures"
+title: "3.3.2 Pandas Core Data Structures"
 sidebar_position: 9
 description: "Getting to know Series and DataFrame—the two pillars of Pandas"
 ---
 
-# Pandas Core Data Structures
+# 3.3.2 Pandas Core Data Structures
 
 ![Pandas DataFrame structure diagram](/img/course/pandas-dataframe-structure-en.png)
 

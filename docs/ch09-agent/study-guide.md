@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn AI Agents and Agent Systems Without Getting Confused"
+title: "9.0 Study Guide and Task Sheet: How to Learn AI Agents and Agent Systems Without Getting Confused"
 sidebar_position: 1
 description: "A learning guide for AI full-stack beginners on Agents: task planning, tool calling, memory, MCP, multi-Agent, evaluation, deployment, project roadmap, and acceptance criteria."
 keywords: [Agent Learning Guide, How to learn AI Agent, How to learn ReAct, How to learn MCP, Multi-Agent]
 ---
 
-# Study Guide and Task Sheet: How to Learn AI Agents and Agent Systems Without Getting Confused
+# 9.0 Study Guide and Task Sheet: How to Learn AI Agents and Agent Systems Without Getting Confused
 
 If you reach `Chapter 9: AI Agents and Agent Systems` and feel that tools, memory, frameworks, multi-Agent, and MCP are all mixed together, first go back to the smallest Agent loop: goal, plan, action, observation, refinement.
 
@@ -78,7 +78,7 @@ If you really do need an Agent, pass three safety gates first:
 
 For the first project, it is recommended to build a research assistant. Given a topic, the Agent breaks down the problem, retrieves materials, organizes summaries, and outputs a structured report.
 
-Before choosing among the larger projects, run the [traceable single-Agent workshop](./ch10-projects/04-stage-hands-on-workshop.md). It is the baseline exercise for this stage: one Agent, a few tools, permission checks, trace logs, and fixed evaluation cases.
+Before choosing among the larger projects, run the [9.10.5 traceable single-Agent workshop](./ch10-projects/04-stage-hands-on-workshop.md). It is the baseline exercise for this stage: one Agent, a few tools, permission checks, trace logs, and fixed evaluation cases.
 
 For the second project, it is recommended to build a data analysis Agent. It can read data, make an analysis plan, call Python tools, and generate charts and conclusions.
 

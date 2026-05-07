@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn Computer Vision Without Getting Confused"
+title: "10.0 Study Guide and Task Sheet: How to Learn Computer Vision Without Getting Confused"
 sidebar_position: 1
 description: "A computer vision learning guide for AI full-stack beginners: image fundamentals, classification, detection, segmentation, project paths, and acceptance criteria."
 keywords: [Computer vision learning guide, how to learn image classification, how to learn object detection, how to learn image segmentation]
 ---
 
-# Study Guide and Task Sheet: How to Learn Computer Vision Without Getting Confused
+# 10.0 Study Guide and Task Sheet: How to Learn Computer Vision Without Getting Confused
 
 If you come to `Chapter 10 Computer Vision (elective track)` and feel like there are too many models and too many tasks, first sort out visual tasks by output granularity. Classification, detection, and segmentation are not just a stack of parallel terms; they are different ways to understand images, from coarse to fine.
 
@@ -57,7 +57,7 @@ For your second project, it is recommended to do object detection, such as helme
 
 For your third project, you can do image segmentation or OCR, depending on your direction, and choose medical imaging, document recognition, or industrial quality inspection.
 
-Before choosing a larger project, run the [reproducible vision mini pipeline](./ch06-projects/03-hands-on-vision-workshop.md). It is the baseline exercise for this stage: one script, synthetic images, classification, boxes, masks, metrics, and failure cases.
+Before choosing a larger project, run the [10.6.4 reproducible vision mini pipeline](./ch06-projects/03-hands-on-vision-workshop.md). It is the baseline exercise for this stage: one script, synthetic images, classification, boxes, masks, metrics, and failure cases.
 
 ## Common sticking points
 

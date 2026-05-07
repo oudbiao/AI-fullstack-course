@@ -1,10 +1,10 @@
 ---
-title: "4.4 Visualization Best Practices"
+title: "3.4.5 Visualization Best Practices"
 sidebar_position: 20
 description: "Learn how to choose charts, use color well, and avoid common pitfalls so your charts are professional and clear"
 ---
 
-# Visualization Best Practices
+# 3.4.5 Visualization Best Practices
 
 ![Chart selection decision tree](/img/course/chart-selection-decision-tree-en.png)
 
@@ -89,7 +89,7 @@ So the most important thing in best practices is not “looking nice,” but:
 
 ---
 
-## 1. Chart type selection guide
+## Chart type selection guide
 
 ### Core principle: first ask yourself, “What do I want to show?”
 
@@ -156,9 +156,9 @@ These 5 questions are more important than many plotting library parameters.
 
 ---
 
-## 2. Color principles
+## Color principles
 
-### 1. Three uses of color
+### Three uses of color
 
 | Use | Scenario | Example |
 |------|---------|------|
@@ -166,7 +166,7 @@ These 5 questions are more important than many plotting library parameters.
 | **Sequential** (continuous color) | Represent magnitude | Temperature from blue to red |
 | **Diverging** (two-sided color) | Data with a center value | Correlation coefficients from -1 to 1 |
 
-### 2. Recommended color palettes
+### Recommended color palettes
 
 ```python
 import matplotlib.pyplot as plt
@@ -190,7 +190,7 @@ sns.color_palette("colorblind") # Color-blind-friendly!
 # "RdYlGn" (red-yellow-green) — shows good/bad
 ```
 
-### 3. Color-blind-friendly design
+### Color-blind-friendly design
 
 About 8% of men worldwide have color vision deficiency (the most common is red-green color blindness).
 
@@ -226,7 +226,7 @@ Do not rely on color alone to convey information. Use **shape, line style, label
 
 ---
 
-## 3. Data-ink ratio
+## Data-ink ratio
 
 ### What is the data-ink ratio?
 
@@ -323,7 +323,7 @@ Charts made this way are usually already clearer than many “carefully decorate
 
 ---
 
-## 4. Common visualization misleading techniques
+## Common visualization misleading techniques
 
 ### Misleading 1: Truncating the Y-axis
 
@@ -467,7 +467,7 @@ sizes = [v * 2 for v in values]  # Area proportional
 
 ---
 
-## 5. Full checklist
+## Full checklist
 
 After finishing a chart, check it with this list:
 
@@ -497,7 +497,7 @@ This is less likely to go off track than worrying about colors and shadows from 
 
 ---
 
-## 6. From “usable” to “easy to use” templates
+## From “usable” to “easy to use” templates
 
 ### Minimal professional template
 

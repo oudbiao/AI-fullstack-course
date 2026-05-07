@@ -1,11 +1,11 @@
 ---
-title: "4.3 Short-Term Memory"
+title: "9.4.3 Short-Term Memory"
 sidebar_position: 20
 description: "From context windows and conversation windows to runtime state and summary compression, understand what an Agent’s short-term memory really is and how to design it."
 keywords: [short-term memory, context window, conversation memory, state, summary memory, Agent]
 ---
 
-# Short-Term Memory
+# 9.4.3 Short-Term Memory
 
 ![Short-term memory context window and runtime state](/img/course/ch09-short-term-memory-window-map-en.png)
 
@@ -28,9 +28,9 @@ This section is about that layer of “working memory.”
 
 ---
 
-## 1. What Exactly Is Short-Term Memory?
+## What Exactly Is Short-Term Memory?
 
-### 1.1 A One-Sentence Definition
+### A One-Sentence Definition
 
 You can first think of short-term memory as:
 
@@ -43,7 +43,7 @@ It usually includes:
 - The steps already executed
 - Temporary intermediate results
 
-### 1.2 How Is It Different from Long-Term Memory?
+### How Is It Different from Long-Term Memory?
 
 | Type | What it focuses on |
 |---|---|
@@ -57,9 +57,9 @@ For example:
 
 ---
 
-## 2. Why Can’t We Just Keep Feeding the Model All the History?
+## Why Can’t We Just Keep Feeding the Model All the History?
 
-### 2.1 Because the Context Window Is Not Infinite
+### Because the Context Window Is Not Infinite
 
 The model can only see a limited amount of context.
 If you keep stuffing all the history into it, you will run into:
@@ -68,7 +68,7 @@ If you keep stuffing all the history into it, you will run into:
 - Slower and slower responses
 - Important information getting buried
 
-### 2.2 More Information Is Not Always Better
+### More Information Is Not Always Better
 
 Many beginners think:
 
@@ -88,9 +88,9 @@ So the real job of short-term memory is not “the more the better,” but:
 
 ---
 
-## 3. The Three Most Common Forms of Short-Term Memory
+## The Three Most Common Forms of Short-Term Memory
 
-### 3.1 Conversation Window (Sliding Window)
+### Conversation Window (Sliding Window)
 
 The simplest approach is:
 
@@ -105,7 +105,7 @@ Disadvantages:
 
 - Important information from too long ago gets pushed out
 
-### 3.2 Runtime State (Task State)
+### Runtime State (Task State)
 
 Instead of only remembering chat text, explicitly keep track of:
 
@@ -115,7 +115,7 @@ Instead of only remembering chat text, explicitly keep track of:
 
 This kind of state is especially important for Agents.
 
-### 3.3 Summary Memory
+### Summary Memory
 
 When the history gets too long, don’t discard it entirely—compress it into a summary first.
 
@@ -128,9 +128,9 @@ This is a very common trade-off.
 
 ---
 
-## 4. The Simplest Short-Term Memory: A Sliding Window
+## The Simplest Short-Term Memory: A Sliding Window
 
-### 4.1 Runnable Example
+### Runnable Example
 
 ```python
 messages = [
@@ -148,7 +148,7 @@ for msg in short_term_memory:
     print(msg)
 ```
 
-### 4.2 This Code Is Simple, but Still Very Important
+### This Code Is Simple, but Still Very Important
 
 It teaches you something essential:
 
@@ -158,9 +158,9 @@ Not every piece of history is worth carrying forward.
 
 ---
 
-## 5. But a Message Window Alone Is Not Enough
+## But a Message Window Alone Is Not Enough
 
-### 5.1 Why Not?
+### Why Not?
 
 Look at this conversation:
 
@@ -172,7 +172,7 @@ If you only keep the most recent 3 turns, the system may have already forgotten:
 
 - That the whole task was actually about “refunds”
 
-### 5.2 So an Agent Also Needs Structured State
+### So an Agent Also Needs Structured State
 
 For example:
 
@@ -192,7 +192,7 @@ This kind of state is different from raw chat logs. It is more like:
 
 ---
 
-## 6. A More Teaching-Friendly Short-Term Memory Manager
+## A More Teaching-Friendly Short-Term Memory Manager
 
 The example below manages both:
 
@@ -228,7 +228,7 @@ memory.update_state(goal="Determine refund eligibility", topic="refund policy")
 print(memory.snapshot())
 ```
 
-### 6.2 What Makes This Example Better Than “Just Storing Message History”?
+### What Makes This Example Better Than “Just Storing Message History”?
 
 Because it splits short-term memory into two layers:
 
@@ -239,16 +239,16 @@ This is very important in Agent systems.
 
 ---
 
-## 7. Summary Memory: What Should We Do When Messages Keep Growing?
+## Summary Memory: What Should We Do When Messages Keep Growing?
 
-### 7.1 A Common Strategy
+### A Common Strategy
 
 In real systems, this is a very common approach:
 
 - Keep the most recent few turns as-is
 - Compress older history into a summary
 
-### 7.2 A Simplified Example
+### A Simplified Example
 
 ```python
 old_messages = [
@@ -275,15 +275,15 @@ This is the most basic “summary + recent window” idea.
 
 ---
 
-## 8. What Does Short-Term Memory Actually Solve in an Agent?
+## What Does Short-Term Memory Actually Solve in an Agent?
 
 It mainly solves three things:
 
-### 8.1 Keeping the Current Task Coherent
+### Keeping the Current Task Coherent
 
 The system should not restart from scratch at every step as if it were seeing the user for the first time.
 
-### 8.2 Preserving State Across Multi-Step Execution
+### Preserving State Across Multi-Step Execution
 
 For example:
 
@@ -291,7 +291,7 @@ For example:
 - What has already been found
 - What step is still missing
 
-### 8.3 Controlling Context Cost
+### Controlling Context Cost
 
 Short-term memory is not only about “remembering.” It is also about:
 
@@ -301,15 +301,15 @@ Short-term memory is not only about “remembering.” It is also about:
 
 ---
 
-## 9. The Most Common Ways Short-Term Memory Fails
+## The Most Common Ways Short-Term Memory Fails
 
-### 9.1 Remembering Too Little
+### Remembering Too Little
 
 Symptoms:
 
 - The system suddenly forgets what it was just talking about
 
-### 9.2 Remembering Too Much
+### Remembering Too Much
 
 Symptoms:
 
@@ -317,14 +317,14 @@ Symptoms:
 - Answers drift off track
 - Cost goes up
 
-### 9.3 Storing Only Messages, Not State
+### Storing Only Messages, Not State
 
 Symptoms:
 
 - Multi-step tasks easily break down
 - The connection between tool calls before and after becomes weak
 
-### 9.4 Storing Only State, Not the Original Dialogue
+### Storing Only State, Not the Original Dialogue
 
 Symptoms:
 
@@ -335,17 +335,17 @@ So short-term memory is usually not “choose just one,” but rather a combined
 
 ---
 
-## 10. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 10.1 Mixing Up Short-Term Memory and Long-Term Memory
+### Mixing Up Short-Term Memory and Long-Term Memory
 
 Short-term memory is for the current task, not for a complete user profile.
 
-### 10.2 Thinking a Bigger Message Window Is Always Better
+### Thinking a Bigger Message Window Is Always Better
 
 A window that is too large also brings noise and cost.
 
-### 10.3 Ignoring Structured State
+### Ignoring Structured State
 
 This can make an Agent start drifting as soon as the task becomes multi-step.
 

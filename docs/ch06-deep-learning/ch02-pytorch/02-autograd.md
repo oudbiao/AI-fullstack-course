@@ -1,11 +1,11 @@
 ---
-title: "2.4 Autograd"
+title: "6.2.4 Autograd"
 sidebar_position: 2
 description: "Understand requires_grad, backward, gradient accumulation, and no_grad, and truly see why parameters update during training."
 keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
 ---
 
-# Autograd
+# 6.2.4 Autograd
 
 ![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.png)
 
@@ -47,7 +47,7 @@ So what you really need to understand in this section is not a single API, but:
 So this section is the beam in the middle:
 without it, the training process only has a forward pass, but no “learning.”
 
-## 1. Why do we need autograd?
+## Why do we need autograd?
 
 The core goal of training a model is just one sentence:
 
@@ -70,7 +70,7 @@ PyTorch’s `autograd` is like an automatic bookkeeper:
 - It records the gradient path for you
 - When you call `backward()`, it computes the gradients automatically
 
-### 1.1 Why does this become impossible to do by hand once things get complicated?
+### Why does this become impossible to do by hand once things get complicated?
 
 With one parameter, you can still compute it by hand.
 But once a model has:
@@ -86,7 +86,7 @@ So the most important value of automatic differentiation is not “saving a bit 
 
 ---
 
-## 2. A minimal example
+## A minimal example
 
 ```python
 import torch
@@ -127,7 +127,7 @@ w.grad
 
 This is the information that tells you “if `w` moves a little bit further, how will the loss change?”
 
-### 2.1 When you see this example for the first time, what should you focus on?
+### When you see this example for the first time, what should you focus on?
 
 What you should focus on first is:
 
@@ -139,7 +139,7 @@ As long as these three things are clear, more complex networks are just a longer
 
 ---
 
-## 3. From gradients to parameter updates
+## From gradients to parameter updates
 
 Once you have gradients, you can do the simplest form of gradient descent:
 
@@ -172,7 +172,7 @@ for step in range(5):
 
 ---
 
-## 4. Why do we need to clear gradients?
+## Why do we need to clear gradients?
 
 This is one of the easiest traps for beginners in PyTorch.
 
@@ -208,7 +208,7 @@ or:
 tensor.grad.zero_()
 ```
 
-### 4.1 Why does PyTorch default to “accumulate gradients”?
+### Why does PyTorch default to “accumulate gradients”?
 
 Because some advanced training techniques intentionally do this, such as:
 
@@ -228,7 +228,7 @@ Read this diagram as one training cycle: first the forward pass computes the los
 
 ---
 
-## 5. What exactly does `requires_grad=True` control?
+## What exactly does `requires_grad=True` control?
 
 Only tensors marked with `requires_grad=True` will have their gradients tracked by PyTorch.
 
@@ -255,7 +255,7 @@ if a value is not a “learnable parameter,” then there is no need to compute 
 
 ---
 
-## 6. What is `torch.no_grad()` for?
+## What is `torch.no_grad()` for?
 
 During training, we need to record gradients.
 But during inference, evaluation, or manual parameter updates, we often **do not need** gradients.
@@ -273,7 +273,7 @@ Its effects are:
 - Save memory
 - Speed up inference
 
-### 6.1 The easiest thing for beginners to miss: parameter updates often also need gradient tracking turned off
+### The easiest thing for beginners to miss: parameter updates often also need gradient tracking turned off
 
 You will find that many hand-written update snippets are wrapped in:
 
@@ -300,7 +300,7 @@ print("y.requires_grad:", y.requires_grad)
 
 ---
 
-## 7. Putting it back into the context of “model training”
+## Putting it back into the context of “model training”
 
 In real training, we usually do not update just one number `w`, but a whole set of parameters.
 
@@ -320,7 +320,7 @@ So autograd is not an “extra feature”; it is the engine of deep learning tra
 
 ---
 
-## 8. A runnable example with two parameters
+## A runnable example with two parameters
 
 ```python
 import torch
@@ -357,19 +357,19 @@ If everything works normally, `w` will approach `2` and `b` will approach `1`.
 
 ---
 
-## 9. Common misconceptions
+## Common misconceptions
 
-### 1. `backward()` automatically updates parameters
+### `backward()` automatically updates parameters
 
 No.
 `backward()` only **computes gradients**. The actual parameter update is done by your own update logic, or by the optimizer’s `step()`.
 
-### 2. It does not matter if we don’t clear gradients every round
+### It does not matter if we don’t clear gradients every round
 
 That is not okay.
 If you do not clear them, gradients will keep accumulating, and the training result will usually go wrong.
 
-### 3. We can keep gradients on during inference too
+### We can keep gradients on during inference too
 
 It will run, but it wastes resources.
 During evaluation or deployment, you should wrap code with `torch.no_grad()` whenever possible.

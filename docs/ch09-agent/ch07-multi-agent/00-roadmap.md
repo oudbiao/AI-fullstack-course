@@ -1,11 +1,11 @@
 ---
-title: "7.1 Pre-course Guide: What Is This Multi-Agent Chapter Really About?"
+title: "9.7.1 Pre-course Guide: What Is This Multi-Agent Chapter Really About?"
 sidebar_position: 0
 description: "First build a learning map for the Multi-Agent chapter: when multiple Agents are needed, how role division, communication coordination, shared state, evaluation, and runaway risks together form a collaborative system."
 keywords: [Multi-Agent guide, collaborative systems, Agent communication, Agent coordination, multi-agent]
 ---
 
-# Pre-course Guide: What Is This Multi-Agent Chapter Really About
+# 9.7.1 Pre-course Guide: What Is This Multi-Agent Chapter Really About
 
 This chapter addresses a simple question: when is one Agent not enough, why should a task be split across multiple Agents, and how can we keep the system from becoming even messier after the split?
 

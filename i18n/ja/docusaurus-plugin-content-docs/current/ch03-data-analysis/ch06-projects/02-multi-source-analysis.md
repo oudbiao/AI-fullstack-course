@@ -1,11 +1,11 @@
 ---
-title: "6.2 実践プロジェクト：多データソース統合分析"
+title: "3.6.2 実践プロジェクト：多データソース統合分析"
 sidebar_position: 26
 description: "CSV、JSON、SQLite など複数のソースからデータを取得し、統合・クレンジング、グループ集計、時間トレンド分析を行い、可視化レポートを出力する"
 keywords: [多データソース, データ統合, Pandas, データ分析, 透視分析, 可視化ダッシュボード]
 ---
 
-# 実践プロジェクト：多データソース統合分析
+# 3.6.2 実践プロジェクト：多データソース統合分析
 
 ![多データソース統合分析のアーキテクチャ図](/img/course/ch03-multi-source-analysis-architecture-ja.png)
 
@@ -109,7 +109,7 @@ flowchart TD
 
 実際のプロジェクトではデータはすでにありますが、学習のためにまず Python でモックデータを作ります。
 
-### 1.1 注文データを生成する（CSV）
+### 注文データを生成する（CSV）
 
 ```python
 import numpy as np
@@ -139,7 +139,7 @@ print(f"注文データ：{orders.shape}")
 orders.head()
 ```
 
-### 1.2 商品データを生成する（JSON）
+### 商品データを生成する（JSON）
 
 ```python
 # ---------- 商品データ ----------
@@ -174,7 +174,7 @@ print(f"商品データ：{len(products)} 商品")
 pd.DataFrame(products).head()
 ```
 
-### 1.3 ユーザーデータを生成する（SQLite）
+### ユーザーデータを生成する（SQLite）
 
 ```python
 # ---------- ユーザーデータ ----------
@@ -207,7 +207,7 @@ users.head()
 
 ## 二、複数ソースのデータを読み込む
 
-### 2.1 CSV を読む
+### CSV を読む
 
 ```python
 import pandas as pd
@@ -228,7 +228,7 @@ print(orders.dtypes)
 orders.head()
 ```
 
-### 2.2 JSON を読む
+### JSON を読む
 
 ```python
 # 2. JSON を読み込む
@@ -247,7 +247,7 @@ Pandas なら直接読むこともできます。
 products = pd.read_json('products.json')
 ```
 
-### 2.3 SQLite を読む
+### SQLite を読む
 
 ```python
 # 3. SQLite を読み込む
@@ -259,7 +259,7 @@ print(f"\nユーザーデータ：{users.shape}")
 users.head()
 ```
 
-### 2.4 データの全体確認
+### データの全体確認
 
 ```python
 print("=" * 50)
@@ -293,7 +293,7 @@ print(f"商品表の product_id 範囲：{products['product_id'].min()} ~ {produ
 
 これが本プロジェクトの**中心部分**です。3 つの表を 1 つの広い表にまとめます。
 
-### 3.1 統合方針
+### 統合方針
 
 ```mermaid
 flowchart LR
@@ -308,7 +308,7 @@ flowchart LR
     style FULL fill:#f3e5f5,stroke:#7b1fa2,color:#333
 ```
 
-### 3.2 結合操作
+### 結合操作
 
 ```python
 # 1 つ目：注文 + 商品情報
@@ -322,7 +322,7 @@ print(f"ユーザーを結合後：{df.shape}")
 df.head()
 ```
 
-### 3.3 重要指標を計算する
+### 重要指標を計算する
 
 ```python
 # 注文金額 = 単価 × 数量
@@ -350,7 +350,7 @@ users_slim = users[['user_id', 'city', 'register_date']]
 ```
 :::
 
-### 3.4 データ品質の確認
+### データ品質の確認
 
 ```python
 # 結合後のデータの完全性を確認する
@@ -367,7 +367,7 @@ print(f"\n対応できない product_id：{orphan_products if orphan_products el
 print(f"対応できない user_id：{orphan_users if orphan_users else 'なし'}")
 ```
 
-### 3.5 初学者がそのまま使える統合チェックリスト
+### 初学者がそのまま使える統合チェックリスト
 
 初めて複数ソースを統合するときは、次のチェックを先に行うと安全です。
 
@@ -382,7 +382,7 @@ print(f"対応できない user_id：{orphan_users if orphan_users else 'なし'
 
 ## 四、分析 1：売上の全体像
 
-### 4.1 全体指標
+### 全体指標
 
 ```python
 print("=" * 50)
@@ -395,7 +395,7 @@ print(f"  アクティブユーザー数：{df['user_id'].nunique()}")
 print(f"  商品数：{df['product_id'].nunique()}")
 ```
 
-### 4.2 カテゴリ分析
+### カテゴリ分析
 
 ```python
 # 各カテゴリの売上と注文数
@@ -428,7 +428,7 @@ plt.savefig('07_category.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 4.3 都市分析
+### 都市分析
 
 ```python
 # 売上上位の都市
@@ -453,7 +453,7 @@ plt.savefig('08_city.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 4.4 この段階でまず学びたいこと
+### この段階でまず学びたいこと
 
 まず押さえたいのは次の点です。
 
@@ -468,7 +468,7 @@ plt.show()
 
 ## 五、分析 2：時間トレンド
 
-### 5.1 月別トレンド
+### 月別トレンド
 
 ```python
 # 月ごとに集計
@@ -506,7 +506,7 @@ plt.savefig('09_monthly.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.2 週内分布
+### 週内分布
 
 ```python
 # 曜日ごとに集計
@@ -533,7 +533,7 @@ plt.savefig('10_weekday.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.3 カテゴリ別の月次トレンド
+### カテゴリ別の月次トレンド
 
 ```python
 # 各カテゴリの月別売上
@@ -556,7 +556,7 @@ plt.show()
 
 ## 六、分析 3：ユーザー分析
 
-### 6.1 ユーザー消費の層別化
+### ユーザー消費の層別化
 
 **RFM モデル** の簡易版でユーザーを分類します。
 
@@ -586,7 +586,7 @@ print(rfm.describe().round(1))
 rfm.head(10)
 ```
 
-### 6.2 ユーザー層の可視化
+### ユーザー層の可視化
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(16, 4))
@@ -608,7 +608,7 @@ plt.savefig('12_rfm.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 6.3 簡単なユーザーセグメント分け
+### 簡単なユーザーセグメント分け
 
 ```python
 # 購入金額と頻度でユーザーを 4 つのグループに分ける
@@ -630,7 +630,7 @@ print(f"  平均頻度：{high_value['Frequency'].mean():.1f} 回")
 print(f"  平均間隔：{high_value['Recency'].mean():.0f} 日")
 ```
 
-### 6.4 都市 × ユーザー層
+### 都市 × ユーザー層
 
 ```python
 # RFM セグメントを主表に戻す

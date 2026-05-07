@@ -1,11 +1,11 @@
 ---
-title: "5.3 Transformer Architecture 🔧"
+title: "6.5.3 Transformer Architecture 🔧"
 sidebar_position: 2
 description: "Starting from the components of a Transformer Block, understand how residual connections, LayerNorm, feed-forward networks, and the encoder and decoder combine into a complete architecture."
 keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding]
 ---
 
-# Transformer Architecture
+# 6.5.3 Transformer Architecture
 
 ![Transformer Block architecture diagram](/img/course/transformer-block-architecture-en.png)
 
@@ -47,9 +47,9 @@ So the real questions this section answers are:
 
 ---
 
-## 1. A Transformer Is More Than Just “Attention”
+## A Transformer Is More Than Just “Attention”
 
-### 1.1 A Common Misunderstanding
+### A Common Misunderstanding
 
 When many people hear “Transformer,” they only remember:
 
@@ -65,7 +65,7 @@ A typical block also includes at least:
 - Layer normalization (LayerNorm)
 - Feed-forward network (FFN)
 
-### 1.2 Why Add So Many Things?
+### Why Add So Many Things?
 
 Because although the attention layer is good at “building relationships,” a stable and trainable large model also needs:
 
@@ -77,7 +77,7 @@ So you can roughly remember it this way:
 
 > Attention decides “where to look,” FFN decides “how to further process,” and residual connections plus normalization keep the whole system stable.
 
-### 1.3 A Beginner-Friendly Analogy
+### A Beginner-Friendly Analogy
 
 You can think of a Transformer Block as:
 
@@ -101,9 +101,9 @@ It is helpful to read this diagram by responsibility: Attention mixes context, R
 
 ---
 
-## 2. What Does an Encoder Block Look Like?
+## What Does an Encoder Block Look Like?
 
-### 2.1 Structure Diagram
+### Structure Diagram
 
 ```mermaid
 flowchart LR
@@ -121,7 +121,7 @@ flowchart LR
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 In Plain English
+### In Plain English
 
 For each block:
 
@@ -132,7 +132,7 @@ For each block:
 
 That is the main flow of a Transformer encoder block.
 
-### 2.3 A Beginner-Friendly Module Summary Table
+### A Beginner-Friendly Module Summary Table
 
 | Module | The Most Important Thing to Remember |
 |---|---|
@@ -145,9 +145,9 @@ This table is useful for beginners because it compresses a block from a structur
 
 ---
 
-## 3. What Does the Residual Connection Actually Help With?
+## What Does the Residual Connection Actually Help With?
 
-### 3.1 The Most Intuitive Understanding
+### The Most Intuitive Understanding
 
 A residual connection is simply:
 
@@ -157,7 +157,7 @@ In formula form, it is very simple:
 
 > `y = f(x) + x`
 
-### 3.2 Why Is This Helpful?
+### Why Is This Helpful?
 
 Because deep networks often suffer from:
 
@@ -170,7 +170,7 @@ A residual connection is like saying:
 
 This makes the network easier to train and easier to deepen.
 
-### 3.3 A Minimal Example
+### A Minimal Example
 
 ```python
 import torch
@@ -187,9 +187,9 @@ print("y   =", y)
 
 ---
 
-## 4. What Does LayerNorm Do?
+## What Does LayerNorm Do?
 
-### 4.1 Why Do We Need Normalization?
+### Why Do We Need Normalization?
 
 In deep networks, the value distribution of each layer’s output can drift a lot.
 This makes training unstable.
@@ -198,13 +198,13 @@ The role of LayerNorm is:
 
 > On the feature dimension, pull the representation of each position back to a more stable scale.
 
-### 4.2 A Simple Analogy
+### A Simple Analogy
 
 You can think of LayerNorm as:
 
 > After each layer finishes processing, first “straighten the posture” of the values so the next layer does not receive input that is too extreme.
 
-### 4.3 Minimal Example
+### Minimal Example
 
 ```python
 import torch
@@ -227,9 +227,9 @@ You will see that each row is pulled toward a more stable distribution.
 
 ---
 
-## 5. Why Is the Feed-Forward Network (FFN) Also Important?
+## Why Is the Feed-Forward Network (FFN) Also Important?
 
-### 5.1 Attention Does Not End the Story
+### Attention Does Not End the Story
 
 It is easy to think:
 
@@ -241,7 +241,7 @@ That is not true.
 Attention is better at “mixing information from different positions,”
 while the FFN is better at “doing another nonlinear transformation on the representation at the current position.”
 
-### 5.2 A Standard FFN
+### A Standard FFN
 
 It is usually written roughly as:
 
@@ -272,9 +272,9 @@ Note:
 
 ---
 
-## 6. Why Is Positional Encoding Essential?
+## Why Is Positional Encoding Essential?
 
-### 6.1 Attention Itself Does Not Carry Order
+### Attention Itself Does Not Carry Order
 
 Self-attention is very good at figuring out “who is related to whom,”
 but if you only give it token embeddings and do not tell it the positions:
@@ -284,14 +284,14 @@ but if you only give it token embeddings and do not tell it the positions:
 
 In some cases, it may be hard to directly distinguish the difference in order.
 
-### 6.2 So We Add Positional Encoding
+### So We Add Positional Encoding
 
 Positional encoding tells the model:
 
 - which position this token is at
 - what its relative position is compared to other tokens
 
-### 6.3 A Simple Sinusoidal Positional Encoding Example
+### A Simple Sinusoidal Positional Encoding Example
 
 ```python
 import numpy as np
@@ -311,9 +311,9 @@ Real positional encodings are higher-dimensional and more complex, but for intui
 
 ---
 
-## 7. A Minimal Transformer Encoder Example
+## A Minimal Transformer Encoder Example
 
-### 7.1 Runnable Code
+### Runnable Code
 
 ```python
 import torch
@@ -337,7 +337,7 @@ print("input shape :", x.shape)
 print("output shape:", y.shape)
 ```
 
-### 7.2 What Does This Code Teach?
+### What Does This Code Teach?
 
 It teaches you two very important facts:
 
@@ -358,9 +358,9 @@ When reading this diagram, do not focus only on shape: `[batch, seq_len, d_model
 
 ---
 
-## 8. What Does a Decoder Block Add?
+## What Does a Decoder Block Add?
 
-### 8.1 The Key Difference Between Decoder and Encoder
+### The Key Difference Between Decoder and Encoder
 
 A Decoder Block usually adds one more module:
 
@@ -372,7 +372,7 @@ So a typical decoder structure is:
 2. Cross-Attention
 3. Feed Forward
 
-### 8.2 Why Add Cross-Attention?
+### Why Add Cross-Attention?
 
 Because the decoder does not only need to look at the history of what it has already generated, but also at the input information passed from the encoder.
 
@@ -382,7 +382,7 @@ This is very common in:
 - summarization
 - question answering generation
 
-### 8.3 The Easiest Way to Distinguish Encoder-only / Decoder-only / Encoder-Decoder
+### The Easiest Way to Distinguish Encoder-only / Decoder-only / Encoder-Decoder
 
 When you first learn these three paths, the safest distinction is usually:
 
@@ -400,9 +400,9 @@ you will not be left with only the model names.
 
 ---
 
-## 9. Three Main Transformer Families
+## Three Main Transformer Families
 
-### 9.1 Encoder-only
+### Encoder-only
 
 Representative model:
 
@@ -412,7 +412,7 @@ Features:
 
 - More focused on understanding tasks
 
-### 9.2 Decoder-only
+### Decoder-only
 
 Representative model:
 
@@ -422,7 +422,7 @@ Features:
 
 - More focused on generation tasks
 
-### 9.3 Encoder-Decoder
+### Encoder-Decoder
 
 Representative model:
 
@@ -434,7 +434,7 @@ Features:
 
 ---
 
-## 10. Early Transformer vs Modern LLM Decoder
+## Early Transformer vs Modern LLM Decoder
 
 The original Transformer paper mainly introduced an encoder-decoder stack for sequence-to-sequence tasks such as machine translation. Modern large language models usually use a decoder-only stack optimized for next-token prediction and large-scale pretraining. The backbone is still Transformer, but the design choices are different.
 
@@ -459,7 +459,7 @@ flowchart TD
     style F fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 10.1 What beginners should remember first
+### What beginners should remember first
 
 | Part | Early Transformer | Modern LLM decoder | Why it changed |
 |---|---|---|---|
@@ -470,7 +470,7 @@ flowchart TD
 | FFN | Standard FFN, often ReLU/GELU | SwiGLU FFN | Stronger gating and better scaling behavior |
 | Common architecture | Encoder-decoder | Decoder-only | Next-token prediction is easier to scale for LLMs |
 
-### 10.2 Plain-language explanations of the acronyms
+### Plain-language explanations of the acronyms
 
 - **RMSNorm**: normalize by the root mean square of the features, without subtracting the mean
 - **RoPE**: rotate position information into the attention space so the model feels order more naturally
@@ -478,7 +478,7 @@ flowchart TD
 - **MQA**: let many query heads share a single key/value set
 - **SwiGLU**: a gated feed-forward block that uses a Swish-style gate to control information flow
 
-### 10.3 Why modern LLM decoders changed the block design
+### Why modern LLM decoders changed the block design
 
 These changes are not cosmetic. They solve practical scaling problems:
 
@@ -517,18 +517,18 @@ That question almost directly determines what it is good at.
 
 ---
 
-## 11. Common Beginner Pitfalls
+## Common Beginner Pitfalls
 
-### 11.1 Mistaking Transformer for “Just Attention”
+### Mistaking Transformer for “Just Attention”
 
 Attention is important, but it is not everything.
 Residual connections, normalization, and FFN are all key to making the architecture work reliably.
 
-### 11.2 Focusing Only on Shape and Ignoring Information Flow
+### Focusing Only on Shape and Ignoring Information Flow
 
 Many times the shape does not change, but the semantic representation is being rebuilt layer by layer.
 
-### 11.3 Not Knowing the Difference Between Encoder and Decoder
+### Not Knowing the Difference Between Encoder and Decoder
 
 This will keep you confused when you later look at BERT, GPT, and T5.
 

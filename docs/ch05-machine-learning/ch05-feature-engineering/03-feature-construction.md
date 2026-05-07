@@ -1,11 +1,11 @@
 ---
-title: "5.4 Feature Construction"
+title: "5.5.4 Feature Construction"
 sidebar_position: 16
 description: "Master polynomial features, interaction features, time feature extraction, statistical features, and domain-knowledge-driven feature design"
 keywords: [feature construction, polynomial features, interaction features, time features, statistical features, feature engineering]
 ---
 
-# Feature Construction
+# 5.5.4 Feature Construction
 
 ![Feature Construction Workshop Diagram](/img/course/feature-construction-workshop-en.png)
 
@@ -81,7 +81,7 @@ A more stable order is usually:
 
 This is usually easier than piling on polynomial features from the start, because it makes it clearer where the gains come from.
 
-## 1. Polynomial Features and Interaction Features
+## Polynomial Features and Interaction Features
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
@@ -109,7 +109,7 @@ print(f"Number of features: {X.shape[1]} → {X_poly.shape[1]}")
 Polynomial features can cause the number of features to **explode**. A 3rd-degree polynomial with 10 features will produce 286 features. Usually, use `degree=2` and combine it with feature selection.
 :::
 
-### 1.1 When You First Learn Interaction Features, What Is Most Worth Remembering?
+### When You First Learn Interaction Features, What Is Most Worth Remembering?
 
 What is most worth remembering is not the formula, but:
 
@@ -126,7 +126,7 @@ So interaction features are essentially asking:
 
 ---
 
-## 2. Time Feature Extraction
+## Time Feature Extraction
 
 ```python
 # Extract rich features from dates
@@ -152,7 +152,7 @@ print(df_time.head(10))
 | Quarter | Quarterly business analysis |
 | Days from an event | Holiday effects |
 
-### 2.1 A Beginner-Friendly Rule of Thumb
+### A Beginner-Friendly Rule of Thumb
 
 Time fields are often not “just one field,” but a bundle of hidden patterns:
 
@@ -164,7 +164,7 @@ So what we most often do with time features is not only extract year/month/day, 
 
 ---
 
-## 3. Statistical Features (Group Statistics)
+## Statistical Features (Group Statistics)
 
 ```python
 import seaborn as sns
@@ -187,7 +187,7 @@ print(df[['day', 'total_bill', 'tip', 'avg_tip_by_day', 'tip_pct', 'bill_rank_in
 | Rank/percentile | Spending rank within the group | Relative position |
 | Difference/ratio | Tip/bill ratio | Derived metric |
 
-### 3.1 Another Minimal Example of “Relative Position Within the Same Group”
+### Another Minimal Example of “Relative Position Within the Same Group”
 
 ```python
 df_small = pd.DataFrame({
@@ -208,7 +208,7 @@ This example is especially good for beginners because it helps you first see tha
 
 ---
 
-## 4. Domain-Knowledge-Driven Feature Design
+## Domain-Knowledge-Driven Feature Design
 
 **Good features often come from understanding the business:**
 
@@ -237,7 +237,7 @@ house['is_high_floor'] = (house['floor'] >= 15).astype(int)
 print(house.head())
 ```
 
-### 4.1 Why Are Domain-Knowledge Features Often the Most Valuable?
+### Why Are Domain-Knowledge Features Often the Most Valuable?
 
 Because they are often closest to the metrics the business really cares about.
 For example:
@@ -250,7 +250,7 @@ These features often look more like decision variables than the raw fields thems
 
 ---
 
-## 5. Don’t Forget These Three Things After Feature Construction
+## Don’t Forget These Three Things After Feature Construction
 
 1. Check whether the dimensionality has exploded
 2. Check whether cross-validation scores actually improved
@@ -268,7 +268,7 @@ When you build features for the first time, the safest checklist is usually:
 If you cannot answer these four questions clearly,
 the feature usually is not worth keeping right away.
 
-## 6. If You Put This Section Into a Project, What Is Most Worth Showing?
+## If You Put This Section Into a Project, What Is Most Worth Showing?
 
 - A comparison between the raw features and the new features
 - Why the new features make business sense

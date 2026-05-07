@@ -1,11 +1,11 @@
 ---
-title: "9.3 Project: Medical Imaging Analysis [Elective]"
+title: "10.6.3 Project: Medical Imaging Analysis [Elective]"
 sidebar_position: 19
 description: "Build a more realistic clinical-assistance project loop around a high-risk visual task, starting from task boundaries, annotation protocols, metric priorities, and risk explanation."
 keywords: [medical imaging, segmentation, sensitivity, risk, annotation, project]
 ---
 
-# Project: Medical Imaging Analysis [Elective]
+# 10.6.3 Project: Medical Imaging Analysis [Elective]
 
 :::tip Section Positioning
 The biggest difference between a medical imaging project and a regular computer vision project is not that the model has a different name, but that:
@@ -46,7 +46,7 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why Must the Project Title Be Narrowed Down?
+## Why Must the Project Title Be Narrowed Down?
 
 A portfolio-friendly project title could be:
 
@@ -68,7 +68,7 @@ This will cause the project to lose verifiability from the start.
 
 ---
 
-## 2. The Minimum Closed Loop for a Portfolio-Level Medical Imaging Project
+## The Minimum Closed Loop for a Portfolio-Level Medical Imaging Project
 
 1. Define the task and clinical boundaries
 2. Explain the annotation protocol
@@ -79,7 +79,7 @@ This will cause the project to lose verifiability from the start.
 
 If these are not clearly explained, the project will be hard to trust.
 
-### 2.1 A Loop Diagram That Feels More Like a Real Clinical Assistance System
+### A Loop Diagram That Feels More Like a Real Clinical Assistance System
 
 ```mermaid
 flowchart LR
@@ -103,7 +103,7 @@ Instead, they are:
 
 ---
 
-## 3. First Look at a Planning Object That Feels More Like a Real Project
+## First Look at a Planning Object That Feels More Like a Real Project
 
 ```python
 from dataclasses import dataclass, field
@@ -134,7 +134,7 @@ project = MedicalProject(
 print(project)
 ```
 
-### 3.1 Why Is `clinical_constraints` Listed Separately Here?
+### Why Is `clinical_constraints` Listed Separately Here?
 
 Because one of the biggest differences between this kind of project and a regular vision project is:
 
@@ -145,7 +145,7 @@ This is also what makes it feel more like a real high-risk project.
 
 ---
 
-## 4. Why Are False Negatives the Most Dangerous in This Kind of Project?
+## Why Are False Negatives the Most Dangerous in This Kind of Project?
 
 If the model misses a lesion,
 the risk is usually greater than flagging one extra suspicious region.
@@ -158,7 +158,7 @@ it is very worthwhile to show separately:
 
 rather than only a single overall accuracy number.
 
-### 4.1 A More Beginner-Friendly Analogy
+### A More Beginner-Friendly Analogy
 
 You can think of a medical imaging system like:
 
@@ -172,7 +172,7 @@ That is why in many medical projects:
 - False positives are annoying
 - False negatives are more dangerous
 
-### 4.2 Another Minimal Example of “Case Review Priority”
+### Another Minimal Example of “Case Review Priority”
 
 ```python
 cases = [
@@ -201,7 +201,7 @@ Although this example is small, it already reflects a real project idea:
 
 ---
 
-## 5. A Minimal Example of “High-Risk Metric Priority”
+## A Minimal Example of “High-Risk Metric Priority”
 
 ```python
 metrics = {
@@ -223,7 +223,7 @@ def risk_summary(metrics):
 print(risk_summary(metrics))
 ```
 
-### 5.1 Why Is This More Valuable Than Printing a Bunch of Scores?
+### Why Is This More Valuable Than Printing a Bunch of Scores?
 
 Because it translates metrics into:
 
@@ -231,7 +231,7 @@ Because it translates metrics into:
 
 This is especially important in medical projects.
 
-### 5.2 An Evaluation Table That Beginners Can Remember First
+### An Evaluation Table That Beginners Can Remember First
 
 | Metric | What question does it answer? |
 |---|---|
@@ -250,7 +250,7 @@ A medical imaging project should not only show pretty masks. When reading this d
 
 ---
 
-## 6. What Is Most Worth Showing in a Medical Imaging Project?
+## What Is Most Worth Showing in a Medical Imaging Project?
 
 At minimum, it is recommended to show:
 
@@ -268,7 +268,7 @@ Because the most important things in a high-risk project are:
 - Explainability
 - Clear boundaries
 
-### 6.1 If You Are Doing This Kind of Project for the First Time, the Safest Default Order
+### If You Are Doing This Kind of Project for the First Time, the Safest Default Order
 
 A more stable order is usually:
 
@@ -284,7 +284,7 @@ This will be easier to make into a trustworthy project than starting with:
 - Multiple modalities
 - Multiple tasks
 
-### 6.2 If You Turn It into a Portfolio Piece, What Is Most Worth Showing?
+### If You Turn It into a Portfolio Piece, What Is Most Worth Showing?
 
 What is most worth showing is not just model scores, but:
 
@@ -299,7 +299,7 @@ This makes it easier for recruiters or readers to feel that:
 - You understand the system problem
 - You are not just someone who can run a segmentation model
 
-### 6.3 An Error Analysis Order That Beginners Can Copy Directly
+### An Error Analysis Order That Beginners Can Copy Directly
 
 When doing this kind of project for the first time, a safer error analysis order is usually:
 
@@ -314,15 +314,15 @@ Rather than visual presentation effects.
 
 ---
 
-## 7. Most Common Mistakes
+## Most Common Mistakes
 
-### 7.1 Only Looking at Overall Accuracy
+### Only Looking at Overall Accuracy
 
-### 7.2 Not Writing Down Annotation Consistency Issues
+### Not Writing Down Annotation Consistency Issues
 
-### 7.3 Not Explaining the Human Review Boundary
+### Not Explaining the Human Review Boundary
 
-### 7.4 Only Showing Pretty Success Images, Not High-Risk Failure Cases
+### Only Showing Pretty Success Images, Not High-Risk Failure Cases
 
 Medical imaging projects are easiest to make “look strong,”
 because success cases are often very intuitive.

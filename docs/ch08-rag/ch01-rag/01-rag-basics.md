@@ -1,11 +1,11 @@
 ---
-title: "1.2 RAG Basics"
+title: "8.1.2 RAG Basics"
 sidebar_position: 1
 description: "Explain the motivation, workflow, advantages, and limitations of RAG in the easiest way to understand, and provide a pure Python mini RAG that can run."
 keywords: [RAG, retrieval augmented generation, retrieval-augmented generation, chunk, retrieval]
 ---
 
-# RAG Basics
+# 8.1.2 RAG Basics
 
 ![RAG document-to-answer loop](/img/course/rag-document-answer-loop-en.png)
 
@@ -82,7 +82,7 @@ With RAG, the system becomes more like:
 
 This is the loop you will trace again and again in the RAG chapter: ask, retrieve, check evidence, then answer with sources.
 
-## 1. Why Do We Need RAG?
+## Why Do We Need RAG?
 
 You can think of an LLM as "someone who has read a lot of books."
 But even after reading many books, there are still three problems:
@@ -100,7 +100,7 @@ An analogy:
 - Pure model answer: closed-book exam
 - RAG answer: open-book exam
 
-### 1.1 When learning RAG for the first time, what should you focus on?
+### When learning RAG for the first time, what should you focus on?
 
 The most important thing is not the vector database, but this sentence:
 
@@ -117,7 +117,7 @@ you will more naturally know what main goal they are serving.
 
 ---
 
-## 2. The Standard RAG Workflow
+## The Standard RAG Workflow
 
 ```mermaid
 flowchart LR
@@ -140,7 +140,7 @@ Breaking it down:
 3. These chunks are given to the model as context
 4. The model generates an answer based on that context
 
-### 2.1 Why should you not focus only on the final generation step?
+### Why should you not focus only on the final generation step?
 
 Because many RAG problems actually happen earlier:
 
@@ -153,7 +153,7 @@ So the core of RAG is not "stuffing in more text before generation," but:
 
 - Getting the right information into the model context at the right time
 
-### 2.2 A failure-diagnosis table that is very beginner-friendly
+### A failure-diagnosis table that is very beginner-friendly
 
 | Symptom | Where to check first |
 |---|---|
@@ -174,7 +174,7 @@ Follow the diagram from left to right and ask three questions: Was the right inf
 
 ---
 
-## 3. A Minimal, Runnable Mini RAG
+## A Minimal, Runnable Mini RAG
 
 To make sure the code runs directly, we will not use a vector database below. Instead, we will first simulate "retrieval" with simple keyword overlap.
 
@@ -232,7 +232,7 @@ print(answer_with_rag(query))
 
 Although simplified, this example already fully shows the structure of RAG.
 
-### 3.1.1 Another minimal example of "retrieval logs"
+### Another minimal example of "retrieval logs"
 
 ```python
 query = "How long after purchase can I get a refund?"
@@ -250,25 +250,25 @@ Many RAG errors can already be half-diagnosed just by looking at this log.
 
 ---
 
-## 4. What Does RAG Really Improve?
+## What Does RAG Really Improve?
 
 RAG mainly improves three things:
 
-### 4.1 Timeliness
+### Timeliness
 
 Materials can be updated at any time without retraining the LLM.
 
-### 4.2 Controllability
+### Controllability
 
 Answers are based on the knowledge base you specify, not just on the model's free-form generation.
 
-### 4.3 Traceability
+### Traceability
 
 You can show users which document chunks were referenced.
 
 This is especially important in enterprise scenarios.
 
-### 4.4 Why are these three points more like engineering value than "whether the model has big parameters"?
+### Why are these three points more like engineering value than "whether the model has big parameters"?
 
 Because they are directly related to system usability:
 
@@ -276,7 +276,7 @@ Because they are directly related to system usability:
 - Controllability determines whether the answer stays within business boundaries
 - Traceability determines whether the system can be trusted and audited
 
-### 4.5 The safest default order when building a RAG project for the first time
+### The safest default order when building a RAG project for the first time
 
 A safer order is usually:
 
@@ -290,7 +290,7 @@ This is usually easier than starting with a complex vector database and reranker
 
 ---
 
-## 5. RAG Does Not Mean "No Hallucinations for Any Question"
+## RAG Does Not Mean "No Hallucinations for Any Question"
 
 This is a very common misunderstanding.
 
@@ -306,7 +306,7 @@ So RAG is not a silver bullet. It is an engineering method for making answers mo
 
 ---
 
-## 6. Which Scenarios Are Best Suited for RAG?
+## Which Scenarios Are Best Suited for RAG?
 
 ### Very suitable
 
@@ -323,7 +323,7 @@ So RAG is not a silver bullet. It is an engineering method for making answers mo
 
 ---
 
-## 7. What Is the Relationship Between RAG and Fine-Tuning?
+## What Is the Relationship Between RAG and Fine-Tuning?
 
 Many beginners mix them up.
 
@@ -346,7 +346,7 @@ The two are not mutually exclusive, and many systems use both together.
 
 ---
 
-## 8. A Small Example That Feels More Like a "Product"
+## A Small Example That Feels More Like a "Product"
 
 You can package the mini RAG above a little as a "course assistant":
 
@@ -367,7 +367,7 @@ This is the smallest prototype of many AI Q&A products.
 
 ---
 
-## 9. If Your Goal Is a "Knowledge-Base-Driven Courseware Generation Assistant," What Should You Focus on First in This Section?
+## If Your Goal Is a "Knowledge-Base-Driven Courseware Generation Assistant," What Should You Focus on First in This Section?
 
 For this kind of project, the key to RAG is not just "finding some relevant text,"
 but finding:
@@ -401,7 +401,7 @@ This directly affects whether later you can:
 - Organize concepts, examples, and exercises separately
 - Preserve source information in the final Word document
 
-## 10. How Should Internal and External Materials Be Divided in RAG?
+## How Should Internal and External Materials Be Divided in RAG?
 
 If your system looks up both internal knowledge bases and external materials,
 the safest default principle is usually:
@@ -419,23 +419,23 @@ If this boundary is unclear, the system can easily end up in a situation where:
 
 - The internal document clearly has the standard wording, but the final answer is pulled off course by external content
 
-## 11. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 11.1 Thinking the core of RAG is "just call a vector database"
+### Thinking the core of RAG is "just call a vector database"
 
 No.
 The core of RAG is: **make sure the right materials enter the model context at the right time.**
 
-### 11.2 Thinking retrieval and generation can be completely separated
+### Thinking retrieval and generation can be completely separated
 
 No.
 Retrieval quality directly determines generation quality.
 
-### 11.3 Thinking you can just dump the raw documents in as-is
+### Thinking you can just dump the raw documents in as-is
 
 In practice, the results depend heavily on chunking, cleaning, metadata, and retrieval strategy.
 
-## 12. If You Turn This Into a Project, What Is Most Worth Showing?
+## If You Turn This Into a Project, What Is Most Worth Showing?
 
 What is most worth showing is usually not:
 
@@ -454,7 +454,7 @@ That makes it easier for others to see:
 - You understand the full RAG pipeline
 - Not just a few component names
 
-## 13. A Common Mistake: Dumping the Entire Document Directly into the Prompt
+## A Common Mistake: Dumping the Entire Document Directly into the Prompt
 
 Many beginners, when building RAG for the first time, think: if the model needs materials, why not just put the entire document into the prompt?
 
@@ -475,7 +475,7 @@ This failure case is especially worth remembering: RAG is not a "long prompt tri
 
 ---
 
-## 14. RAG Project Deliverables Template
+## RAG Project Deliverables Template
 
 If you turn a RAG system into a portfolio project, it is recommended to deliver at least these items:
 
@@ -491,7 +491,7 @@ This way, when others look at your project, they will know that you understand t
 
 ---
 
-## 15. What Should You Take Away from This Section?
+## What Should You Take Away from This Section?
 
 Use the table below to check yourself after finishing this section:
 

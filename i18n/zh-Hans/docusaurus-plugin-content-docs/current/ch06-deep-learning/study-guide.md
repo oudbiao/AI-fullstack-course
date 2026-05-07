@@ -1,11 +1,11 @@
 ---
-title: "学习指南与任务单：深度学习与 Transformer 基础怎么学最不容易学乱"
+title: "6.0 学习指南与任务单：深度学习与 Transformer 基础怎么学最不容易学乱"
 sidebar_position: 1
 description: "给 AI 全栈新人的深度学习学习指南：神经网络、PyTorch、CNN、RNN、Attention、Transformer、项目路线和验收标准。"
 keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transformer 怎么学, Attention]
 ---
 
-# 学习指南与任务单：深度学习与 Transformer 基础怎么学最不容易学乱
+# 6.0 学习指南与任务单：深度学习与 Transformer 基础怎么学最不容易学乱
 
 如果你来到 `第 6 章 深度学习与 Transformer 基础` 后觉得代码变长、模型变多，先把注意力放回训练闭环。深度学习第一遍最重要的是知道数据如何经过模型、损失和梯度更新参数。
 
@@ -42,7 +42,7 @@ keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transform
 
 生成模型和训练技巧可以作为扩展，不必在第一遍全部吃透。
 
-进入更大的项目之前，建议先完成 [实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md)。它会把抽象训练循环变成一个可运行脚本，并生成日志、曲线、checkpoint、shape trace 和复盘样本。
+进入更大的项目之前，建议先完成 [6.8.5 实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md)。它会把抽象训练循环变成一个可运行脚本，并生成日志、曲线、checkpoint、shape trace 和复盘样本。
 
 ## 建议学习节奏
 
@@ -56,7 +56,7 @@ keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transform
 
 ## 阶段项目路线
 
-在选择更大的项目主题前，建议先跑一遍 [PyTorch 证据包工作坊](./ch08-projects/04-hands-on-dl-workshop.md)。把它当作热身：你会生成数据、追踪 shape、训练 baseline、训练 CNN、做验证、保存曲线，并写出项目证据。
+在选择更大的项目主题前，建议先跑一遍 [6.8.5 PyTorch 证据包工作坊](./ch08-projects/04-hands-on-dl-workshop.md)。把它当作热身：你会生成数据、追踪 shape、训练 baseline、训练 CNN、做验证、保存曲线，并写出项目证据。
 
 第一个项目建议做手写数字或小型图像分类，练习 Dataset、DataLoader、CNN、训练和评估。
 

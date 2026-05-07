@@ -1,11 +1,11 @@
 ---
-title: "2.5 Image Generation Fine-tuning"
+title: "12.2.5 Image Generation Fine-tuning"
 sidebar_position: 7
 description: "Starting from the differences between DreamBooth, LoRA, and Textual Inversion, understand what Stable Diffusion fine-tuning actually changes and which path to choose in different situations."
 keywords: [DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, personalization, style tuning]
 ---
 
-# Image Generation Fine-tuning
+# 12.2.5 Image Generation Fine-tuning
 
 ![Image generation fine-tuning route selection chart](/img/course/ch12-sd-finetuning-route-choice-map-en.png)
 
@@ -48,7 +48,7 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why is the base model still not enough?
+## Why is the base model still not enough?
 
 The base model can of course already generate many things.
 But real-world needs are usually more specific:
@@ -63,7 +63,7 @@ So the essence of fine-tuning can be remembered as:
 
 > **Letting the model converge toward a more specific visual target while keeping its original capabilities.**
 
-### 1.1 A beginner-friendly overall analogy
+### A beginner-friendly overall analogy
 
 You can think of image generation fine-tuning as:
 
@@ -81,22 +81,22 @@ but to draw more consistently in a certain direction.
 
 ---
 
-## 2. The three core routes in image generation fine-tuning
+## The three core routes in image generation fine-tuning
 
-### 2.1 Textual Inversion
+### Textual Inversion
 
 The lightest approach.
 It is more like:
 
 > Teaching the model a new trigger word / concept word.
 
-### 2.2 LoRA
+### LoRA
 
 More like:
 
 > Attaching a small, plug-in adapter to the base model.
 
-### 2.3 DreamBooth
+### DreamBooth
 
 More like:
 
@@ -106,9 +106,9 @@ If you first separate these three intuitions, many later terms will stop feeling
 
 ---
 
-## 3. Textual Inversion: why is it called the lightest?
+## Textual Inversion: why is it called the lightest?
 
-### 3.1 What is it actually learning?
+### What is it actually learning?
 
 It is not making large changes to the whole model, but more like:
 
@@ -118,7 +118,7 @@ You can think of it as:
 
 > Teaching the model to recognize a new “word.”
 
-### 3.2 A minimal example
+### A minimal example
 
 ```python
 textual_inversion = {
@@ -130,7 +130,7 @@ textual_inversion = {
 print(textual_inversion)
 ```
 
-### 3.3 What is it good for?
+### What is it good for?
 
 - Style trigger words
 - Some lightweight concept injection
@@ -145,9 +145,9 @@ But it is usually less powerful than heavier methods.
 
 ---
 
-## 4. LoRA: why has it become the most common engineering choice?
+## LoRA: why has it become the most common engineering choice?
 
-### 4.1 Its core idea
+### Its core idea
 
 LoRA does not change the entire original model. Instead, it is:
 
@@ -159,7 +159,7 @@ This makes it very suitable for:
 - Switching between different adapters
 - Reducing training and storage costs
 
-### 4.2 A simple example
+### A simple example
 
 ```python
 base_model = "stable_diffusion_base"
@@ -173,7 +173,7 @@ print(base_model)
 print(lora_adapter)
 ```
 
-### 4.3 Why is it especially practical in engineering?
+### Why is it especially practical in engineering?
 
 Because it is especially well-suited for:
 
@@ -188,9 +188,9 @@ That is one of the main reasons LoRA became so popular.
 
 ---
 
-## 5. DreamBooth: why is it more often used for “dedicated subjects”?
+## DreamBooth: why is it more often used for “dedicated subjects”?
 
-### 5.1 What problem is it solving?
+### What problem is it solving?
 
 DreamBooth is commonly used to:
 
@@ -198,11 +198,11 @@ DreamBooth is commonly used to:
 - Teach the model a specific object
 - Teach the model a specific IP character
 
-### 5.2 Why is it “stronger” than Textual Inversion?
+### Why is it “stronger” than Textual Inversion?
 
 Because it usually does more than learn just one word; it more deeply adapts the model to how this subject appears in image space.
 
-### 5.3 What is the cost?
+### What is the cost?
 
 - Heavier
 - More prone to overfitting
@@ -216,21 +216,21 @@ So you can roughly remember it like this:
 
 ---
 
-## 6. How do you choose? A very practical rule of thumb
+## How do you choose? A very practical rule of thumb
 
-### 6.1 If you want a lightweight style trigger word
+### If you want a lightweight style trigger word
 
 Prefer:
 
 - Textual Inversion
 
-### 6.2 If you want low-cost, plug-and-play, and maintainable
+### If you want low-cost, plug-and-play, and maintainable
 
 Prefer:
 
 - LoRA
 
-### 6.3 If you want to strongly bind a specific subject
+### If you want to strongly bind a specific subject
 
 Prefer:
 
@@ -244,7 +244,7 @@ But:
 
 > “What am I actually fine-tuning: a word, a style, or a subject?”
 
-### 6.4 A selection table that is very beginner-friendly
+### A selection table that is very beginner-friendly
 
 | Your goal | Safer first choice |
 |---|---|
@@ -256,7 +256,7 @@ This table is helpful for beginners because it brings method selection back to �
 
 ---
 
-## 7. Why is evaluating image generation fine-tuning especially difficult?
+## Why is evaluating image generation fine-tuning especially difficult?
 
 Because this is not like a classification task, where you can look at one accuracy number.
 
@@ -271,7 +271,7 @@ In other words:
 
 > Evaluation is more like judging visual and creative quality than judging a single metric.
 
-### 7.1 A beginner-friendly evaluation table
+### A beginner-friendly evaluation table
 
 | Evaluation dimension | What should you ask first? |
 |---|---|
@@ -284,7 +284,7 @@ This table is helpful for beginners because it breaks “evaluation is subjectiv
 
 ---
 
-## 8. A very practical summary table
+## A very practical summary table
 
 | Method | More like | Advantage | Cost |
 |---|---|---|---|
@@ -296,18 +296,18 @@ This table is not for memorizing mechanically, but for building a judgment habit
 
 ---
 
-## 9. The most common misconceptions
+## The most common misconceptions
 
-### 9.1 Starting with full fine-tuning right away
+### Starting with full fine-tuning right away
 
 In many cases, that is completely unnecessary.
 
-### 9.2 Not being clear about what exactly you want to fine-tune
+### Not being clear about what exactly you want to fine-tune
 
 Is it style? Subject? Trigger word?
 If this is unclear, it is very easy to choose the wrong method.
 
-### 9.3 Only looking at a few successful images
+### Only looking at a few successful images
 
 What really matters is:
 

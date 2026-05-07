@@ -1,11 +1,11 @@
 ---
-title: "4.1 Pre-class guide: What exactly do we learn in this chapter on sequence labeling?"
+title: "11.4.1 Pre-class guide: What exactly do we learn in this chapter on sequence labeling?"
 sidebar_position: 0
 description: "First build a learning map for the sequence labeling chapter: how NER, BiLSTM-CRF, and project practice are organized around token-level tagging tasks."
 keywords: [sequence labeling guide, NER, BiLSTM-CRF]
 ---
 
-# Pre-class guide: What exactly do we learn in this chapter on sequence labeling?
+# 11.4.1 Pre-class guide: What exactly do we learn in this chapter on sequence labeling?
 
 This chapter focuses on:
 
@@ -28,7 +28,7 @@ So when you later see:
 
 these are not brand-new ideas that appeared out of nowhere, but continued upgrades on the older statistical sequence modeling line.
 
-If you want to understand this history more completely, it is recommended that you first read [4.2 HMM, CRF, and the historical main line of sequence labeling](./04-hmm-crf-history.md), and then move on to NER and BiLSTM-CRF.
+If you want to understand this history more completely, it is recommended that you first read [11.4.2 HMM, CRF, and the historical main line of sequence labeling](./04-hmm-crf-history.md), and then move on to NER and BiLSTM-CRF.
 
 ## The main thread of this chapter
 

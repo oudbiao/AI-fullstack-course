@@ -1,11 +1,11 @@
 ---
-title: "4.3 Instance Segmentation"
+title: "10.4.3 Instance Segmentation"
 sidebar_position: 12
 description: "Continuing from semantic segmentation, understand why instance segmentation must not only separate categories, but also distinguish different individual objects within the same category."
 keywords: [instance segmentation, mask, object instance, vision]
 ---
 
-# Instance Segmentation
+# 10.4.3 Instance Segmentation
 
 :::tip Section focus
 Semantic segmentation can already answer:
@@ -43,7 +43,7 @@ So what this section really wants to solve is:
 - Why "the category is correct" is still not enough
 - Why "separating same-category individuals" significantly increases the difficulty
 
-## 1. What does instance segmentation add beyond semantic segmentation?
+## What does instance segmentation add beyond semantic segmentation?
 
 Semantic segmentation:
 
@@ -55,7 +55,7 @@ Instance segmentation:
 
 In other words, two "person" objects in the image should not be merged into one whole.
 
-### 1.1 Three things beginners should distinguish first
+### Three things beginners should distinguish first
 
 When learning instance segmentation for the first time, the most important things to remember are:
 
@@ -63,7 +63,7 @@ When learning instance segmentation for the first time, the most important thing
 2. Instance segmentation also answers "which individual is this"
 3. So the latter is naturally closer to real multi-object scenarios
 
-### 1.2 A comparison table that is easier for beginners
+### A comparison table that is easier for beginners
 
 When many beginners first learn this topic, it is easy to mix up classification, detection, semantic segmentation, and instance segmentation.
 The safest way is to place them in the same table and compare them:
@@ -82,7 +82,7 @@ This table is especially valuable because it helps you immediately see:
 
 ---
 
-## 2. Start with a minimal instance mask example
+## Start with a minimal instance mask example
 
 ```python
 instance_map = [
@@ -105,7 +105,7 @@ print("instance 1:", pixels_of_instance(instance_map, 1))
 print("instance 2:", pixels_of_instance(instance_map, 2))
 ```
 
-### 2.1 What is the most important thing in this example?
+### What is the most important thing in this example?
 
 It shows that instance segmentation does not just output a category ID,
 it also distinguishes:
@@ -115,7 +115,7 @@ it also distinguishes:
 
 This is very important in counting, tracking, and interaction scenarios.
 
-### 2.2 Why is instance segmentation especially suitable for security and autonomous driving?
+### Why is instance segmentation especially suitable for security and autonomous driving?
 
 Because in these scenarios, the system often does not only care about:
 
@@ -129,7 +129,7 @@ It cares more about:
 
 In other words, instance segmentation is naturally closer to a visual representation for downstream decision-making.
 
-### 2.3 Look at another minimal "count + area" example
+### Look at another minimal "count + area" example
 
 One reason instance segmentation is so valuable in real systems is that
 it can not only tell you "how many targets there are,"
@@ -176,22 +176,22 @@ Semantic segmentation only cares about "which pixels are people," while instance
 
 ---
 
-## 3. The most common pitfalls
+## The most common pitfalls
 
-### 3.1 Adjacent same-category instances easily stick together
+### Adjacent same-category instances easily stick together
 
 This is a very common error in instance segmentation.
 
-### 3.2 Small instances are harder
+### Small instances are harder
 
 The smaller and denser the objects are, the harder they are to separate.
 
-### 3.3 Evaluation is more complex than semantic segmentation
+### Evaluation is more complex than semantic segmentation
 
 Because now you not only need to check mask quality,
 you also need to check whether the instances are correctly separated.
 
-## 4. The safest default workflow for your first instance segmentation project
+## The safest default workflow for your first instance segmentation project
 
 When you first bring instance segmentation into a project,
 it is better to move forward in this order:
@@ -212,7 +212,7 @@ but rather:
 - the annotation boundaries themselves are unclear
 - the task requirements are not defined clearly
 
-## 5. The right expectation when learning this section for the first time
+## The right expectation when learning this section for the first time
 
 The most important thing in this section is not to master a complex instance segmentation network today,
 but to clearly understand:

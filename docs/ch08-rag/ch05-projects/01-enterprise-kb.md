@@ -1,11 +1,11 @@
 ---
-title: "5.2 Project: Enterprise Knowledge Base Q&A"
+title: "8.5.2 Project: Enterprise Knowledge Base Q&A"
 sidebar_position: 21
 description: "Build a portfolio-grade enterprise knowledge base Q&A system, covering document chunking, retrieval, permission filtering, source citation, and error analysis."
 keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions]
 ---
 
-# Project: Enterprise Knowledge Base Q&A
+# 8.5.2 Project: Enterprise Knowledge Base Q&A
 
 :::tip Section positioning
 The reason enterprise knowledge base Q&A is a great portfolio project is not because it sounds fancy, but because it is very real:
@@ -44,9 +44,9 @@ The key idea is: an enterprise knowledge base is not only a search problem. It i
 
 ---
 
-## 1. Why is enterprise knowledge base Q&A harder than ordinary FAQ?
+## Why is enterprise knowledge base Q&A harder than ordinary FAQ?
 
-### 1.1 Documents are longer
+### Documents are longer
 
 Enterprise knowledge is often not just a few Q&As,
 but rather:
@@ -56,14 +56,14 @@ but rather:
 - Training manuals
 - Product documentation
 
-### 1.2 Permissions are more complex
+### Permissions are more complex
 
 For the same question, there may be:
 
 - An external version
 - An internal version
 
-### 1.3 Trust requirements are higher
+### Trust requirements are higher
 
 Users will often ask:
 
@@ -84,7 +84,7 @@ An enterprise knowledge base cannot rely only on “semantic relevance.” First
 
 ---
 
-## 2. Define the project scope first
+## Define the project scope first
 
 A very suitable minimum scope for a portfolio project is:
 
@@ -105,7 +105,7 @@ It should at least answer four types of questions:
 
 ---
 
-## 3. Design the knowledge units first, not the model first
+## Design the knowledge units first, not the model first
 
 The following example does three things:
 
@@ -145,7 +145,7 @@ for item in kb:
     print(item)
 ```
 
-### 3.1 Why add so much metadata here?
+### Why add so much metadata here?
 
 Because enterprise knowledge base retrieval is not only about “does the content seem similar,”
 but also about deciding:
@@ -158,7 +158,7 @@ This is also the fundamental difference between an enterprise project and a norm
 
 ---
 
-## 4. Build an explainable retriever first
+## Build an explainable retriever first
 
 To make the example runnable in the current environment, we will not use an external embedding library yet,
 but instead use a pure Python keyword-overlap retriever to get the project skeleton in place first.
@@ -184,7 +184,7 @@ print("\ninternal support:")
 print(retrieve("What is the customer verification process?", allowed_visibility={"public", "internal"}))
 ```
 
-### 4.1 Although this retriever is simple, why is it very suitable for teaching?
+### Although this retriever is simple, why is it very suitable for teaching?
 
 Because it makes three things very clear:
 
@@ -192,7 +192,7 @@ Because it makes three things very clear:
 2. How permissions affect the candidate set
 3. Why the results are different
 
-### 4.2 Why deliberately not use embeddings directly here?
+### Why deliberately not use embeddings directly here?
 
 Because this lesson first needs to explain clearly:
 
@@ -205,7 +205,7 @@ Once the skeleton is clear, switching to a stronger retrieval method will be muc
 
 ---
 
-## 5. Make “answer + sources” together
+## Make “answer + sources” together
 
 ```python
 def answer_with_sources(query, allowed_visibility):
@@ -235,7 +235,7 @@ print(answer_with_sources("What is the refund policy?", {"public"}))
 print(answer_with_sources("What is the customer verification process?", {"public", "internal"}))
 ```
 
-### 5.1 Why is “returning sources” a highlight of a portfolio project?
+### Why is “returning sources” a highlight of a portfolio project?
 
 Because it makes the system do more than just “give you an answer,”
 and also answer:
@@ -245,16 +245,16 @@ and also answer:
 
 This significantly increases the credibility of the project.
 
-### 5.2 Why do enterprise scenarios need sources more than ordinary Q&A?
+### Why do enterprise scenarios need sources more than ordinary Q&A?
 
 Because enterprise users often really use the answer to carry out a process.
 Without sources, trust is hard to build.
 
 ---
 
-## 6. How should this project be evaluated?
+## How should this project be evaluated?
 
-### 6.1 It is not enough to only check “whether it answered”
+### It is not enough to only check “whether it answered”
 
 An enterprise knowledge base project should be evaluated in at least three layers:
 
@@ -262,7 +262,7 @@ An enterprise knowledge base project should be evaluated in at least three layer
 2. Whether the permissions are correct
 3. Whether the citations are traceable
 
-### 6.2 A minimal evaluation set
+### A minimal evaluation set
 
 ```python
 eval_cases = [
@@ -294,7 +294,7 @@ for case in eval_cases:
     })
 ```
 
-### 6.3 Why is this kind of evaluation valuable?
+### Why is this kind of evaluation valuable?
 
 Because it directly covers the two most important risks in an enterprise knowledge base:
 
@@ -303,13 +303,13 @@ Because it directly covers the two most important risks in an enterprise knowled
 
 ---
 
-## 7. How can you take this project one step closer to portfolio quality?
+## How can you take this project one step closer to portfolio quality?
 
-### 7.1 Upgrade rule-based retrieval to vector retrieval
+### Upgrade rule-based retrieval to vector retrieval
 
-### 7.2 Add document chunking and reranking
+### Add document chunking and reranking
 
-### 7.3 Build a user interface for source display
+### Build a user interface for source display
 
 The most recommended items to show are:
 
@@ -318,19 +318,19 @@ The most recommended items to show are:
 - Final answer
 - Source citation
 
-### 7.4 Show a few “permission-related failure examples”
+### Show a few “permission-related failure examples”
 
 This will be very convincing.
 
 ---
 
-## 8. The most common pitfalls
+## The most common pitfalls
 
-### 8.1 Only building “can answer,” not “can be traced”
+### Only building “can answer,” not “can be traced”
 
-### 8.2 Only looking at semantic relevance, not permission boundaries
+### Only looking at semantic relevance, not permission boundaries
 
-### 8.3 Making document chunks too coarse
+### Making document chunks too coarse
 
 When chunks are too coarse, both answers and sources often become vague.
 

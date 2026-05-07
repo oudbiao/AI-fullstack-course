@@ -1,10 +1,10 @@
 ---
-title: "Remote Repositories"
+title: "1.2.3 Remote Repositories"
 sidebar_position: 3
 description: "Push code to GitHub and learn remote collaboration"
 ---
 
-# Remote Repositories
+# 1.2.3 Remote Repositories
 
 ![Git local-remote sync diagram](/img/course/ch01-git-remote-sync-en.png)
 

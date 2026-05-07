@@ -1,11 +1,11 @@
 ---
-title: "9.2 Project: Intelligent Security System"
+title: "10.6.2 Project: Intelligent Security System"
 sidebar_position: 18
 description: "Build a portfolio-level vision project loop around a demo-ready security detection system, covering goal definition, rules, alert deduplication, evaluation, and presentation."
 keywords: [security detection, surveillance, alerting, tracking, false alarm, vision project]
 ---
 
-# Project: Intelligent Security System
+# 10.6.2 Project: Intelligent Security System
 
 :::tip Section focus
 Security projects are very easy to turn into a demo that just “draws a box when a person is detected.”
@@ -28,7 +28,7 @@ So the focus of this lesson is to turn it into a **portfolio-level system projec
 
 ---
 
-## 1. First, define the project topic clearly
+## First, define the project topic clearly
 
 A good practice topic that also feels very close to real business use cases is:
 
@@ -50,7 +50,7 @@ That scope is too large, and the project can easily become a pile of features wi
 
 ---
 
-## 2. What does the minimum closed loop of a portfolio-level security project look like?
+## What does the minimum closed loop of a portfolio-level security project look like?
 
 1. Define the surveillance target and restricted area
 2. Run detection
@@ -62,7 +62,7 @@ That scope is too large, and the project can easily become a pile of features wi
 If you only do the first two steps, it looks more like a model demo;
 once you get to the later steps, it starts to look like a real system project.
 
-### 2.1 A flowchart that looks more like a real system
+### A flowchart that looks more like a real system
 
 ```mermaid
 flowchart LR
@@ -88,7 +88,7 @@ The output of a security project is not “drawing boxes,” but reliable alerts
 
 ---
 
-## 3. Start with a minimal “detection -> alert -> deduplication” closed loop
+## Start with a minimal “detection -> alert -> deduplication” closed loop
 
 The example below does three very important things:
 
@@ -138,14 +138,14 @@ alerts = build_alerts(detections, danger_zone)
 print(alerts)
 ```
 
-### 3.1 Why is this example much stronger than “alert when a person is detected”?
+### Why is this example much stronger than “alert when a person is detected”?
 
 Because it already reflects one of the most important engineering judgments in security systems:
 
 - If the same person is inside the restricted area for 3 consecutive frames
 - You should not alert 3 times
 
-### 3.2 Why is `track_id` so important?
+### Why is `track_id` so important?
 
 Without tracking information, it is hard to tell:
 
@@ -157,9 +157,9 @@ often gets stuck at this layer.
 
 ---
 
-## 4. How should a portfolio-level project be evaluated?
+## How should a portfolio-level project be evaluated?
 
-### 4.1 Don’t look only at detection accuracy
+### Don’t look only at detection accuracy
 
 Security projects should be evaluated in at least two layers:
 
@@ -168,7 +168,7 @@ Security projects should be evaluated in at least two layers:
 2. Alert layer
    Was the alert triggered reasonably?
 
-### 4.2 A minimal alert evaluation example
+### A minimal alert evaluation example
 
 ```python
 pred_alerts = [
@@ -191,7 +191,7 @@ def alert_recall(pred_alerts, gold_alerts):
 print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 ```
 
-### 4.3 Why are “alert-layer metrics” more like project value than mAP?
+### Why are “alert-layer metrics” more like project value than mAP?
 
 Because what users actually receive is not boxes, but:
 
@@ -200,7 +200,7 @@ Because what users actually receive is not boxes, but:
 If detection is very accurate but the alert strategy is terrible,
 the real user experience will still be poor.
 
-### 4.4 Another minimal example: “alert fatigue”
+### Another minimal example: “alert fatigue”
 
 ```python
 alerts_per_hour = [1, 2, 18, 3, 21]
@@ -221,27 +221,27 @@ What this example wants to emphasize is not an exact formula, but a very real sy
 
 ---
 
-## 5. The failure cases most worth showing in a security project
+## The failure cases most worth showing in a security project
 
-### 5.1 False positives
+### False positives
 
 For example:
 
 - A person poster in the background is detected as a real person
 
-### 5.2 Missed detections
+### Missed detections
 
 For example:
 
 - An intruder is missed under low-light conditions
 
-### 5.3 Repeated alerts
+### Repeated alerts
 
 For example:
 
 - The same target triggers an alert in every frame
 
-### 5.4 Why show these separately?
+### Why show these separately?
 
 Because these failures are exactly what best reveals:
 
@@ -249,7 +249,7 @@ Because these failures are exactly what best reveals:
 
 ---
 
-## 6. How do you turn this project into a portfolio-level presentation?
+## How do you turn this project into a portfolio-level presentation?
 
 Your page should ideally show:
 
@@ -261,7 +261,7 @@ Your page should ideally show:
 
 Then it will no longer feel like a “detection demo,” but more like a complete security system.
 
-### 6.1 The safest default sequence when building this kind of project for the first time
+### The safest default sequence when building this kind of project for the first time
 
 A more stable order is usually:
 
@@ -277,7 +277,7 @@ This is much easier than starting with:
 - Multiple alert types
 - Multiple linked rules
 
-### 6.2 If you turn it into a portfolio piece, what should you emphasize most?
+### If you turn it into a portfolio piece, what should you emphasize most?
 
 What is usually most worth emphasizing is not:
 
@@ -294,13 +294,13 @@ This makes the project feel like a real business system, not just a vision demo.
 
 ---
 
-## 7. Most common mistakes
+## Most common mistakes
 
-### 7.1 Only looking at model accuracy, not alert experience
+### Only looking at model accuracy, not alert experience
 
-### 7.2 No deduplication logic
+### No deduplication logic
 
-### 7.3 Only showing successful videos
+### Only showing successful videos
 
 ---
 

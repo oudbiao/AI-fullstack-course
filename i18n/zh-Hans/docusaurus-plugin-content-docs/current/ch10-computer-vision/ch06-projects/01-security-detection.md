@@ -1,11 +1,11 @@
 ---
-title: "9.2 项目：智能安防系统"
+title: "10.6.2 项目：智能安防系统"
 sidebar_position: 18
 description: "围绕一个可展示的安防检测系统，从目标定义、规则、告警去重、评估到展示方式，建立作品级视觉项目闭环。"
 keywords: [security detection, surveillance, alerting, tracking, false alarm, vision project]
 ---
 
-# 项目：智能安防系统
+# 10.6.2 项目：智能安防系统
 
 :::tip 本节定位
 安防项目很容易做成“检测到人就画框”的 demo。
@@ -62,7 +62,7 @@ keywords: [security detection, surveillance, alerting, tracking, false alarm, vi
 如果只做前两步，那更像模型 demo；
 做到后面几步，才更像一个系统项目。
 
-### 2.1 一张更像真实系统的告警闭环图
+### 一张更像真实系统的告警闭环图
 
 ```mermaid
 flowchart LR
@@ -138,14 +138,14 @@ alerts = build_alerts(detections, danger_zone)
 print(alerts)
 ```
 
-### 3.1 这个例子为什么比“检测到人就报警”强得多？
+### 这个例子为什么比“检测到人就报警”强得多？
 
 因为它已经体现了安防系统里最重要的一层工程判断：
 
 - 同一个人连续 3 帧都在禁区
 - 不能报警 3 次
 
-### 3.2 为什么 `track_id` 很重要？
+### 为什么 `track_id` 很重要？
 
 没有跟踪信息，你很难判断：
 
@@ -159,7 +159,7 @@ print(alerts)
 
 ## 四、一个作品级项目最该怎么评估？
 
-### 4.1 不是只看检测精度
+### 不是只看检测精度
 
 安防项目更应该至少拆成两层评估：
 
@@ -168,7 +168,7 @@ print(alerts)
 2. 告警层
    告警触发是否合理
 
-### 4.2 最小告警评估示例
+### 最小告警评估示例
 
 ```python
 pred_alerts = [
@@ -191,7 +191,7 @@ def alert_recall(pred_alerts, gold_alerts):
 print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 ```
 
-### 4.3 为什么“告警层指标”比 mAP 更像项目价值？
+### 为什么“告警层指标”比 mAP 更像项目价值？
 
 因为实际交付给用户的不是框，而是：
 
@@ -200,7 +200,7 @@ print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 如果检测很准但告警策略很糟，
 项目实际体验仍然会很差。
 
-### 4.4 再看一个最小“告警疲劳”示例
+### 再看一个最小“告警疲劳”示例
 
 ```python
 alerts_per_hour = [1, 2, 18, 3, 21]
@@ -223,25 +223,25 @@ print(alert_fatigue(alerts_per_hour))
 
 ## 五、安防项目最值得展示的失败案例
 
-### 5.1 误报
+### 误报
 
 例如：
 
 - 背景人像海报被识别成真人
 
-### 5.2 漏报
+### 漏报
 
 例如：
 
 - 光线很暗时漏掉入侵者
 
-### 5.3 重复报警
+### 重复报警
 
 例如：
 
 - 同一个目标每帧都触发一次
 
-### 5.4 为什么这些要单独展示？
+### 为什么这些要单独展示？
 
 因为这类失败恰好最能体现：
 
@@ -261,7 +261,7 @@ print(alert_fatigue(alerts_per_hour))
 
 这样它就不再像“检测 demo”，而更像完整安防系统。
 
-### 6.1 第一次做这类项目时，最稳的默认顺序
+### 第一次做这类项目时，最稳的默认顺序
 
 更稳的顺序通常是：
 
@@ -279,7 +279,7 @@ print(alert_fatigue(alerts_per_hour))
 
 更容易把项目做完整。
 
-### 6.2 如果把它做成作品集，最值得强调什么
+### 如果把它做成作品集，最值得强调什么
 
 最值得强调的通常不是：
 
@@ -298,11 +298,11 @@ print(alert_fatigue(alerts_per_hour))
 
 ## 七、最常见误区
 
-### 7.1 只看模型精度，不看告警体验
+### 只看模型精度，不看告警体验
 
-### 7.2 没有去重逻辑
+### 没有去重逻辑
 
-### 7.3 只展示成功视频
+### 只展示成功视频
 
 ---
 

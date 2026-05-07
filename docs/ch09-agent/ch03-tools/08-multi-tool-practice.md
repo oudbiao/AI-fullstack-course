@@ -1,11 +1,11 @@
 ---
-title: "3.9 Hands-on: Multi-Tool Collaborative Agent"
+title: "9.3.9 Hands-on: Multi-Tool Collaborative Agent"
 sidebar_position: 18
 description: "Put tool discovery, strategy, safety, and multi-step reasoning together into a complete practice by building a multi-tool Agent that can handle refund tickets."
 keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund assistant]
 ---
 
-# Hands-on: Multi-Tool Collaborative Agent
+# 9.3.9 Hands-on: Multi-Tool Collaborative Agent
 
 ![Agent Tool Call Trace Diagram](/img/course/agent-tool-trace-en.png)
 
@@ -34,9 +34,9 @@ This is a classic multi-tool collaboration task.
 
 ---
 
-## 1. What Makes Multi-Tool Collaboration Hard?
+## What Makes Multi-Tool Collaboration Hard?
 
-### 1.1 The difficulty is not just "more tools"
+### The difficulty is not just "more tools"
 
 The real challenges usually come in three layers:
 
@@ -50,7 +50,7 @@ For a refund scenario, for example:
 - If you do not know the order amount, you cannot calculate the refund
 - If a tool fails, the final answer must also change
 
-### 1.2 An analogy: a relay race, not a solo run
+### An analogy: a relay race, not a solo run
 
 A single-tool task is like one person completing an action directly.
 A multi-tool task is like a relay race:
@@ -58,7 +58,7 @@ A multi-tool task is like a relay race:
 - The result from the previous runner must be passed to the next one
 - If one runner drops the baton, everything after that is affected
 
-### 1.3 That is why multi-tool systems fear "state drift"
+### That is why multi-tool systems fear "state drift"
 
 If every round is unclear about what is already known,
 the system can easily:
@@ -69,7 +69,7 @@ the system can easily:
 
 ---
 
-## 2. What Problem Does This Hands-on Example Solve?
+## What Problem Does This Hands-on Example Solve?
 
 We are building a minimal but complete refund ticket assistant.
 The user asks:
@@ -92,7 +92,7 @@ And they have a clear order:
 
 ---
 
-## 3. Start with a Complete End-to-End Example
+## Start with a Complete End-to-End Example
 
 The following code shows the full process:
 
@@ -213,7 +213,7 @@ print("\nanswer:")
 print(answer)
 ```
 
-### 3.1 What is the biggest difference between this code and the earlier scattered examples?
+### What is the biggest difference between this code and the earlier scattered examples?
 
 It is no longer just:
 
@@ -228,7 +228,7 @@ Instead, it clearly shows:
 
 In other words, it is already very close to the skeleton of a real multi-tool Agent.
 
-### 3.2 Why is `state` so important?
+### Why is `state` so important?
 
 Because after every tool call, the system needs to know:
 
@@ -239,7 +239,7 @@ Because after every tool call, the system needs to know:
 Without a shared state,
 multi-tool collaboration will almost certainly become messy.
 
-### 3.3 Why does the final answer not simply use the last observation?
+### Why does the final answer not simply use the last observation?
 
 Because the goal of a multi-tool system is usually not to repeat a tool output verbatim.
 What it really needs to do is:
@@ -250,13 +250,13 @@ That is exactly where the value of the Agent layer comes from.
 
 ---
 
-## 4. Where Do These Systems Most Often Fail?
+## Where Do These Systems Most Often Fail?
 
-### 4.1 Wrong tool order
+### Wrong tool order
 
 For example, checking refund amount or giving a conclusion before checking order status.
 
-### 4.2 Intermediate state is not saved
+### Intermediate state is not saved
 
 This can lead to:
 
@@ -264,7 +264,7 @@ This can lead to:
 - Overwriting results incorrectly
 - Later steps being unable to use earlier results
 
-### 4.3 A tool fails, but the system still pretends everything succeeded
+### A tool fails, but the system still pretends everything succeeded
 
 This is a very dangerous kind of bug in multi-tool systems.
 For example:
@@ -276,9 +276,9 @@ So failure paths must also be part of the design.
 
 ---
 
-## 5. How Can You Turn This Demo into a Portfolio Project?
+## How Can You Turn This Demo into a Portfolio Project?
 
-### 5.1 Step 1: Make the tools more realistic
+### Step 1: Make the tools more realistic
 
 For example, replace:
 
@@ -290,7 +290,7 @@ with:
 - Database queries
 - Document retrieval
 
-### 5.2 Step 2: Add failure handling
+### Step 2: Add failure handling
 
 For example:
 
@@ -300,7 +300,7 @@ For example:
 
 The system should always have a clear fallback path.
 
-### 5.3 Step 3: Add an evaluation set
+### Step 3: Add an evaluation set
 
 You can prepare:
 
@@ -312,16 +312,16 @@ You can prepare:
 This way, the system is not just "able to run,"
 but also "able to be tested."
 
-### 5.4 Step 4: Visualize the trace
+### Step 4: Visualize the trace
 
 If you show the tool call trace,
 this project will be very suitable for portfolio demos.
 
 ---
 
-## 6. Common Mistakes
+## Common Mistakes
 
-### 6.1 Mistake 1: Multi-tool just means chaining several functions in order
+### Mistake 1: Multi-tool just means chaining several functions in order
 
 Not enough.
 What is truly hard is:
@@ -330,7 +330,7 @@ What is truly hard is:
 - State passing
 - Failure recovery
 
-### 6.2 Mistake 2: More tools means a stronger Agent
+### Mistake 2: More tools means a stronger Agent
 
 More tools only increases:
 
@@ -339,7 +339,7 @@ More tools only increases:
 
 at the same time.
 
-### 6.3 Mistake 3: If the final answer sounds human, the system must be good
+### Mistake 3: If the final answer sounds human, the system must be good
 
 For a multi-tool system, you should care more about:
 

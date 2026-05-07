@@ -1,11 +1,11 @@
 ---
-title: "3.5 迁移学习 🔧"
+title: "6.3.5 迁移学习 🔧"
 sidebar_position: 4
 description: "从为什么不从零训练开始，到冻结骨干、替换分类头和逐步微调，真正理解视觉里的迁移学习。"
 keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]
 ---
 
-# 迁移学习
+# 6.3.5 迁移学习
 
 :::tip 本节定位
 如果你现在已经知道 CNN 会提特征、经典架构怎么演进，那接下来非常自然的一个工程问题就是：
@@ -28,7 +28,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 
 ## 一、为什么迁移学习几乎成了视觉任务默认选项？
 
-### 1.1 从零训练有多贵？
+### 从零训练有多贵？
 
 如果你要从零训练一个像样的视觉模型，通常至少会遇到这些问题：
 
@@ -40,7 +40,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 例如，你手里只有 2000 张图片，要分 5 类。
 这在真实项目里已经不算特别少，但对从零训练一个深 CNN 来说，仍然很可能不够稳。
 
-### 1.2 预训练模型到底“预训练”了什么？
+### 预训练模型到底“预训练”了什么？
 
 一个在大规模图像数据上训练过的模型，通常已经学会了很多通用视觉特征：
 
@@ -56,7 +56,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 
 > **先复用已经学到的底层视觉能力，再把最后几层调成适合你自己的任务。**
 
-### 1.3 一个帮助记忆的类比
+### 一个帮助记忆的类比
 
 迁移学习很像请一个已经学过通用绘画技巧的人来帮你画专业插图：
 
@@ -69,7 +69,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 
 ## 二、迁移学习最常见的两种方式
 
-### 2.1 方式一：固定特征提取器（feature extractor）
+### 方式一：固定特征提取器（feature extractor）
 
 做法：
 
@@ -86,7 +86,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 
 - 适应新任务能力有限
 
-### 2.2 方式二：微调（fine-tuning）
+### 方式二：微调（fine-tuning）
 
 做法：
 
@@ -103,7 +103,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 - 训练更慢
 - 学习率更需要小心
 
-### 2.3 一句话记忆
+### 一句话记忆
 
 - 数据少：先倾向于固定特征提取器
 - 数据多 / 任务差异大：再考虑逐步微调
@@ -120,7 +120,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 
 为了保证代码在没有外部模型下载的情况下也能跑通，我们自己模拟一个“已经预训练好的 backbone”。
 
-### 3.1 先定义一个小型 backbone
+### 先定义一个小型 backbone
 
 ```python
 import torch
@@ -150,7 +150,7 @@ class TinyBackbone(nn.Module):
 
 ## 四、先做“固定特征提取器”版本
 
-### 4.1 替换分类头并冻结 backbone
+### 替换分类头并冻结 backbone
 
 ```python
 import torch
@@ -176,7 +176,7 @@ for name, param in model.named_parameters():
     print(name, "trainable =", param.requires_grad)
 ```
 
-### 4.2 你应该从输出里看到什么？
+### 你应该从输出里看到什么？
 
 你会发现：
 
@@ -189,7 +189,7 @@ for name, param in model.named_parameters():
 
 ## 五、做一个真正能训练的小型图像分类任务
 
-### 5.1 用合成数据模拟一个小任务
+### 用合成数据模拟一个小任务
 
 我们造 3 类简单图像：
 
@@ -286,7 +286,7 @@ for epoch in range(80):
         print(f"epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
 ```
 
-### 6.2 这段代码真正想让你学会什么？
+### 这段代码真正想让你学会什么？
 
 不是“冻结参数”这件语法本身，而是：
 
@@ -296,14 +296,14 @@ for epoch in range(80):
 
 ## 七、什么时候要进一步微调？
 
-### 7.1 一个很常见的下一步
+### 一个很常见的下一步
 
 如果只训头部效果不够好，可以考虑：
 
 - 解冻最后一个卷积块
 - 用更小学习率继续训练
 
-### 7.2 一个最小微调示例
+### 一个最小微调示例
 
 ```python
 # 解冻最后一个卷积层
@@ -328,7 +328,7 @@ for epoch in range(40):
         print(f"finetune epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
 ```
 
-### 7.3 为什么微调通常要更小学习率？
+### 为什么微调通常要更小学习率？
 
 因为 backbone 已经有一套“原来学到的特征”。
 如果学习率太大，很容易把这些已经不错的表示一下子冲坏。
@@ -342,7 +342,7 @@ for epoch in range(40):
 
 ## 八、真实项目里迁移学习通常怎么做？
 
-### 8.1 最常见套路
+### 最常见套路
 
 1. 选一个预训练 backbone
 2. 替换最后分类头
@@ -350,7 +350,7 @@ for epoch in range(40):
 4. 如果效果不够，再逐步解冻
 5. 持续看验证集表现
 
-### 8.2 为什么这套流程很流行？
+### 为什么这套流程很流行？
 
 因为它兼顾了：
 
@@ -364,7 +364,7 @@ for epoch in range(40):
 
 ## 九、初学者最常踩的坑
 
-### 9.1 以为迁移学习就是“复制一个大模型”
+### 以为迁移学习就是“复制一个大模型”
 
 真正关键的是：
 
@@ -372,11 +372,11 @@ for epoch in range(40):
 - 哪些层解冻
 - 学习率怎么配
 
-### 9.2 一上来就全量微调
+### 一上来就全量微调
 
 这通常既慢又不稳，特别是在小数据任务上。
 
-### 9.3 忘记检查哪些参数在训练
+### 忘记检查哪些参数在训练
 
 这是非常常见的错误。
 训练前最好打印一遍 `requires_grad` 状态。

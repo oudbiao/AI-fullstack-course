@@ -1,11 +1,11 @@
 ---
-title: "6.2 Agent Framework Overview"
+title: "9.6.2 Agent Framework Overview"
 sidebar_position: 30
 description: "From why frameworks are needed to the differences among Agent frameworks in abstraction level, control, and applicable scenarios, build a map for choosing frameworks."
 keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview]
 ---
 
-# Agent Framework Overview
+# 9.6.2 Agent Framework Overview
 
 :::tip Where this section fits
 When people reach the Agent stage, many quickly fall into another trap:
@@ -26,9 +26,9 @@ This lesson is not about picking sides or memorizing framework names. It is abou
 
 ---
 
-## 1. Why do we need Agent frameworks?
+## Why do we need Agent frameworks?
 
-### 1.1 What happens if you write everything yourself without a framework?
+### What happens if you write everything yourself without a framework?
 
 A slightly more complex Agent system usually requires you to handle:
 
@@ -45,7 +45,7 @@ Of course, you can write it by hand, but you will quickly run into:
 - Inconsistent structure across projects
 - Increasing difficulty in debugging and extending
 
-### 1.2 What do frameworks actually solve?
+### What do frameworks actually solve?
 
 You can remember it with one sentence:
 
@@ -60,9 +60,9 @@ For example:
 
 ---
 
-## 2. The biggest differences among frameworks are usually not about “can it do it,” but about “how does it do it”
+## The biggest differences among frameworks are usually not about “can it do it,” but about “how does it do it”
 
-### 2.1 A very important perspective: abstraction level
+### A very important perspective: abstraction level
 
 Many frameworks can:
 
@@ -76,7 +76,7 @@ But they differ in abstraction level:
 - Some are closer to “high-level role orchestration”
 - Some are more focused on retrieval and data organization
 
-### 2.2 An analogy
+### An analogy
 
 You can think of different frameworks as different kinds of kitchens:
 
@@ -90,7 +90,7 @@ So the difference between frameworks is often not “who is stronger,” but:
 
 ---
 
-## 3. Let’s first look at a coarse-grained map
+## Let’s first look at a coarse-grained map
 
 The following table is not an exact ranking, but a way to build intuition quickly:
 
@@ -107,9 +107,9 @@ The most important purpose of this map is:
 
 ---
 
-## 4. What work do frameworks usually save you from?
+## What work do frameworks usually save you from?
 
-### 4.1 State flow and node management
+### State flow and node management
 
 For example:
 
@@ -117,7 +117,7 @@ For example:
 - Where the next step goes
 - How to roll back on errors
 
-### 4.2 Tool integration and message structure
+### Tool integration and message structure
 
 For example:
 
@@ -125,7 +125,7 @@ For example:
 - Wrapping call results
 - Error handling
 
-### 4.3 Execution and observation
+### Execution and observation
 
 For example:
 
@@ -139,9 +139,9 @@ So the most common value of a framework is not “the model becomes smarter,” 
 
 ---
 
-## 5. Frameworks also bring trade-offs
+## Frameworks also bring trade-offs
 
-### 5.1 The higher the abstraction, the easier it is to lose low-level control
+### The higher the abstraction, the easier it is to lose low-level control
 
 A framework saves you effort, but it also brings:
 
@@ -149,7 +149,7 @@ A framework saves you effort, but it also brings:
 - Framework constraints
 - The need to understand its internal abstractions when debugging
 
-### 5.2 A very common problem
+### A very common problem
 
 Many beginners do not fail because they cannot build an Agent. They fail because they:
 
@@ -164,7 +164,7 @@ So the right order is usually:
 
 ---
 
-## 6. A minimal “framework-like” example
+## A minimal “framework-like” example
 
 The example below is not from a real framework, but a very small example that has the flavor of framework abstraction.
 
@@ -197,7 +197,7 @@ wf.add_step("answer", answer)
 wf.run({"query": "What is the refund policy?"})
 ```
 
-### 6.2 Why does this code feel “framework-like”?
+### Why does this code feel “framework-like”?
 
 Because it is already abstracting:
 
@@ -209,7 +209,7 @@ Real frameworks are simply more complete and more sophisticated versions of this
 
 ---
 
-## 7. When is it more suitable to avoid a framework?
+## When is it more suitable to avoid a framework?
 
 If your system is:
 
@@ -229,7 +229,7 @@ So do not treat “using a framework” as the only sign of maturity.
 
 ---
 
-## 8. A very practical framework-selection approach
+## A very practical framework-selection approach
 
 First ask these questions:
 
@@ -243,17 +243,17 @@ If you can answer these questions, framework comparison becomes much clearer.
 
 ---
 
-## 9. Common pitfalls for beginners
+## Common pitfalls for beginners
 
-### 9.1 Learn the framework first, then the system
+### Learn the framework first, then the system
 
 This is the easiest way to end up “able to call APIs, but unable to make architectural decisions.”
 
-### 9.2 Choose a framework just because it is popular
+### Choose a framework just because it is popular
 
 Popularity does not mean it fits your current project.
 
-### 9.3 Treat the framework as the capability itself
+### Treat the framework as the capability itself
 
 A framework is only an organizing approach, not a guarantee of system quality.
 

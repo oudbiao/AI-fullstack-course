@@ -1,11 +1,11 @@
 ---
-title: "1.4 Pretrained Language Models at a Glance"
+title: "7.1.4 Pretrained Language Models at a Glance"
 sidebar_position: 3
 description: "Start from the idea of “learn general patterns on large-scale corpora first, then transfer to specific tasks,” and understand why pretrained models have become the shared foundation of modern NLP and large models."
 keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models]
 ---
 
-# Pretrained Language Models at a Glance
+# 7.1.4 Pretrained Language Models at a Glance
 
 :::tip Section Overview
 In the era of large models, the word “pretraining” appears almost everywhere.
@@ -31,9 +31,9 @@ This lesson is a quick entry into that intuition.
 
 ---
 
-## 1. Why Have Pretrained Models Become the Mainstream in Modern NLP?
+## Why Have Pretrained Models Become the Mainstream in Modern NLP?
 
-### 1.1 Because Many Tasks Essentially Share Language Ability
+### Because Many Tasks Essentially Share Language Ability
 
 Whether you are doing:
 
@@ -53,7 +53,7 @@ they all rely on some common fundamentals:
 If every task had to learn these abilities from scratch,
 the cost would be very high.
 
-### 1.2 The Core Idea of Pretraining
+### The Core Idea of Pretraining
 
 So people began by doing one thing first:
 
@@ -72,7 +72,7 @@ It is like:
 - first reading most general education textbooks
 - then doing specialized training for specific subjects
 
-### 1.3 Why Is This Much Better Than “Training Each Task from Scratch”?
+### Why Is This Much Better Than “Training Each Task from Scratch”?
 
 Because you do not need to relearn language itself every time.
 Downstream tasks only need to do the following on top of an existing foundation:
@@ -86,9 +86,9 @@ This greatly lowers the barrier.
 
 ---
 
-## 2. What Do Pretrained Models Actually Give Us?
+## What Do Pretrained Models Actually Give Us?
 
-### 2.1 A Foundation That “Already Knows a Bit of Language”
+### A Foundation That “Already Knows a Bit of Language”
 
 A model initialized from random weights knows nothing at the beginning.
 A pretrained model, however, has at least learned some of the following:
@@ -100,7 +100,7 @@ A pretrained model, however, has at least learned some of the following:
 
 This means downstream tasks are no longer starting from complete zero.
 
-### 2.2 Reusable Representations
+### Reusable Representations
 
 What makes many pretrained models so valuable is not just that they “can answer,”
 but that they can output a set of relatively good hidden representations.
@@ -112,7 +112,7 @@ These representations can be used by downstream tasks for:
 - matching
 - ranking
 
-### 2.3 The Possibility of Transfer Learning
+### The Possibility of Transfer Learning
 
 The core of transfer learning is:
 
@@ -123,7 +123,7 @@ the entire NLP workflow was rewritten.
 
 ---
 
-## 3. First Run a “Shared Foundation + Two Task Heads” Example
+## First Run a “Shared Foundation + Two Task Heads” Example
 
 The code below does not train a real large model,
 but it captures the most important structural intuition of pretrained models:
@@ -198,7 +198,7 @@ for text in [text_c, text_d]:
     print("sentiment:", text, "->", best, probs)
 ```
 
-### 3.1 What Real Idea Does This Code Correspond To?
+### What Real Idea Does This Code Correspond To?
 
 It corresponds to one of the most important workflows in the pretraining era:
 
@@ -208,7 +208,7 @@ It corresponds to one of the most important workflows in the pretraining era:
 
 This is why one pretrained model can be used for many tasks.
 
-### 3.2 Why Is This Better Than “Relearning Word Vectors for Every Task”?
+### Why Is This Better Than “Relearning Word Vectors for Every Task”?
 
 Because the foundation has already learned a lot of general information.
 Downstream tasks do not need to start from scratch to understand:
@@ -218,7 +218,7 @@ Downstream tasks do not need to start from scratch to understand:
 
 They only need to perform a directed mapping on top of the foundation.
 
-### 3.3 What Would a “Head” Be in the Real World?
+### What Would a “Head” Be in the Real World?
 
 In a real model, it might be:
 
@@ -234,9 +234,9 @@ The idea is always the same:
 
 ---
 
-## 4. What Are the Main Pretrained Model Directions?
+## What Are the Main Pretrained Model Directions?
 
-### 4.1 Encoder-only: More Focused on Understanding and Representation
+### Encoder-only: More Focused on Understanding and Representation
 
 Representative models:
 
@@ -249,7 +249,7 @@ These models are usually more suitable for:
 - matching
 - retrieval encoding
 
-### 4.2 Decoder-only: More Focused on Generation
+### Decoder-only: More Focused on Generation
 
 Representative models:
 
@@ -264,7 +264,7 @@ These models are usually more suitable for:
 - code generation
 - open-ended completion
 
-### 4.3 Encoder-Decoder: Better for Input-to-Output Tasks
+### Encoder-Decoder: Better for Input-to-Output Tasks
 
 Representative models:
 
@@ -280,9 +280,9 @@ These models are naturally suitable for:
 
 ---
 
-## 5. After Pretraining, How Else Can We Adapt to Tasks?
+## After Pretraining, How Else Can We Adapt to Tasks?
 
-### 5.1 Linear Probing / Task-Head Fine-Tuning
+### Linear Probing / Task-Head Fine-Tuning
 
 The lightest approach is:
 
@@ -291,12 +291,12 @@ The lightest approach is:
 
 This is very common for small tasks.
 
-### 5.2 Full Fine-Tuning
+### Full Fine-Tuning
 
 Let the entire model update together.
 The advantage is flexibility, but the disadvantage is high cost.
 
-### 5.3 Parameter-Efficient Fine-Tuning
+### Parameter-Efficient Fine-Tuning
 
 For example:
 
@@ -306,7 +306,7 @@ For example:
 This is a very important direction in the large-model era,
 because it greatly lowers the barrier to adapting a task on a large foundation.
 
-### 5.4 Prompt and RAG
+### Prompt and RAG
 
 Not every task needs the model parameters to be changed.
 Many problems can also be solved through:
@@ -320,9 +320,9 @@ but also “giving you a reusable foundation.”
 
 ---
 
-## 6. The Most Common Misunderstandings
+## The Most Common Misunderstandings
 
-### 6.1 Misunderstanding 1: Pretrained Models Know Everything
+### Misunderstanding 1: Pretrained Models Know Everything
 
 They have a strong foundation, but that does not mean:
 
@@ -330,12 +330,12 @@ They have a strong foundation, but that does not mean:
 - their behavior is always stable
 - they are perfectly adapted to your business right away
 
-### 6.2 Misunderstanding 2: Once You Use a Pretrained Model, You No Longer Need to Care About Data
+### Misunderstanding 2: Once You Use a Pretrained Model, You No Longer Need to Care About Data
 
 That is not true.
 Whether you are fine-tuning or evaluating, data quality still determines the final result.
 
-### 6.3 Misunderstanding 3: As Long as the Model Is Bigger, It Must Be Better Than a Smaller Model for the Current Task
+### Misunderstanding 3: As Long as the Model Is Bigger, It Must Be Better Than a Smaller Model for the Current Task
 
 Sometimes the task is very simple,
 or the cost is highly sensitive,

@@ -1,11 +1,11 @@
 ---
-title: "2.5 集成学习"
+title: "5.2.5 集成学习"
 sidebar_position: 6
 description: "理解 Bagging 与 Boosting 原理，掌握随机森林、GBDT、XGBoost、LightGBM 等集成方法"
 keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGBM, CatBoost, Stacking]
 ---
 
-# 集成学习
+# 5.2.5 集成学习
 
 ![集成学习投票与森林图](/img/course/ensemble-learning-voting-forest.png)
 
@@ -78,7 +78,7 @@ keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGB
 
 ## 一、集成学习的核心思想
 
-### 1.1 一张图理解集成学习
+### 一张图理解集成学习
 
 ```mermaid
 flowchart TD
@@ -97,7 +97,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.2 为什么有效？
+### 为什么有效？
 
 每个模型都会犯错，但**不同模型犯的错往往不同**。多个模型"投票"可以互相纠正。
 
@@ -139,7 +139,7 @@ print(f"投票集成准确率: {np.mean(ensemble_pred == true_labels):.1%}")
 
 这个小模拟展示了集成学习的核心承诺：如果多个模型犯错位置不完全一样，投票结果可能比任何单个投票者更准。
 
-### 1.3 两大流派
+### 两大流派
 
 | | Bagging | Boosting |
 |---|---------|---------|
@@ -171,7 +171,7 @@ flowchart LR
     style V2 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 1.4 先别急着记模型名，先记两件事
+### 先别急着记模型名，先记两件事
 
 这节最该先记的不是库名，而是下面两句话：
 
@@ -180,7 +180,7 @@ flowchart LR
 
 这两句话几乎能解释后面大多数模型的家族关系。
 
-### 1.5 一个更适合新人的类比
+### 一个更适合新人的类比
 
 如果你想把这两条主线记得更稳，可以直接用这个类比：
 
@@ -197,7 +197,7 @@ flowchart LR
 
 ## 二、Bagging 与随机森林
 
-### 2.1 Bagging 原理
+### Bagging 原理
 
 **Bootstrap Aggregating = 自助采样 + 聚合**
 
@@ -228,13 +228,13 @@ for i in range(3):
 
 关键点是“有放回”：某一行可以出现多次，另一行也可能完全没出现。这正是随机森林让每棵树彼此不同的方式。
 
-### 2.2 随机森林（Random Forest）
+### 随机森林（Random Forest）
 
 随机森林 = Bagging + **特征随机选择**
 
 在每次分裂时，只从**随机选取的一部分特征**中选最优分裂点。这增加了树之间的多样性。
 
-### 2.2.1 为什么随机森林通常比单棵树稳？
+### 为什么随机森林通常比单棵树稳？
 
 因为它做了两件单棵树做不到的事：
 
@@ -295,7 +295,7 @@ plt.show()
 
 两个模型都可能记住训练集，但随机森林通常会得到更平滑、更不脆弱的边界，因为很多棵树会一起投票。
 
-### 2.3 随机森林的关键超参数
+### 随机森林的关键超参数
 
 | 参数 | 说明 | 推荐 |
 |------|------|------|
@@ -305,7 +305,7 @@ plt.show()
 | `min_samples_split` | 节点分裂最小样本数 | 2~10 |
 | `min_samples_leaf` | 叶节点最小样本数 | 1~5 |
 
-### 2.4 第一次调随机森林时，更稳的顺序是什么？
+### 第一次调随机森林时，更稳的顺序是什么？
 
 建议先按下面顺序来：
 
@@ -320,7 +320,7 @@ plt.show()
 - `max_depth` 和 `min_samples_leaf` 更直接影响是否过拟合
 - `max_features` 更多是在做细调
 
-### 2.5 第一次用随机森林时，最值得先记住什么？
+### 第一次用随机森林时，最值得先记住什么？
 
 第一次用随机森林时，最值得先记住的不是：
 
@@ -377,7 +377,7 @@ n_estimators=100: 训练=100.0%, 测试=88.0%
 
 ## 三、Boosting 系列
 
-### 3.1 AdaBoost
+### AdaBoost
 
 **思路**：每一轮关注**上一轮分错的样本**，给它们更高的权重。
 
@@ -415,7 +415,7 @@ print(f"AdaBoost | 训练: {ada.score(X_train, y_train):.1%} | 测试: {ada.scor
 AdaBoost | 训练: 93.5% | 测试: 89.0%
 ```
 
-### 3.2 GBDT（梯度提升决策树）
+### GBDT（梯度提升决策树）
 
 **思路**：每棵新树拟合的不是原始标签，而是前面所有树的**残差**（预测误差）。
 
@@ -434,7 +434,7 @@ AdaBoost | 训练: 93.5% | 测试: 89.0%
 - **学习率** 决定每一轮把新树的修正加进去多少。学习率小会慢一些，但通常更稳。
 - **`n_estimators`** 是加入集成模型的树的数量。
 
-### 3.2.1 GBDT 最值得先记住的直觉
+### GBDT 最值得先记住的直觉
 
 如果只用一句话解释 GBDT，可以这样记：
 
@@ -462,7 +462,7 @@ print(f"GBDT | 训练: {gbdt.score(X_train, y_train):.1%} | 测试: {gbdt.score(
 GBDT | 训练: 98.0% | 测试: 90.0%
 ```
 
-### 3.3 GBDT 回归——直觉理解
+### GBDT 回归——直觉理解
 
 ```python
 from sklearn.ensemble import GradientBoostingRegressor
@@ -523,7 +523,7 @@ plt.show()
 
 ## 四、XGBoost
 
-### 4.1 XGBoost 的改进
+### XGBoost 的改进
 
 XGBoost (eXtreme Gradient Boosting) 是 GBDT 的**工程优化版**：
 
@@ -535,7 +535,7 @@ XGBoost (eXtreme Gradient Boosting) 是 GBDT 的**工程优化版**：
 | 列采样 | 无 | 支持（类似随机森林） |
 | 早停 | 无 | 支持 early_stopping_rounds |
 
-### 4.2 安装与使用
+### 安装与使用
 
 ```bash
 pip install xgboost
@@ -569,7 +569,7 @@ print(f"XGBoost | 训练: {xgb_model.score(X_train, y_train):.1%} | 测试: {xgb
 `xgboost`、`lightgbm` 和 `catboost` 都是可选包，不包含在课程最小运行环境中。学到这一节时再按需安装即可。新版 XGBoost 已经不需要很多旧教程里的 `use_label_encoder=False` 参数。
 :::
 
-### 4.3 XGBoost 关键超参数
+### XGBoost 关键超参数
 
 | 参数 | 说明 | 推荐范围 |
 |------|------|---------|
@@ -581,7 +581,7 @@ print(f"XGBoost | 训练: {xgb_model.score(X_train, y_train):.1%} | 测试: {xgb
 | `reg_alpha` | L1 正则化系数 | 0~1 |
 | `reg_lambda` | L2 正则化系数 | 1~5 |
 
-### 4.3.1 第一次调 XGBoost，最该先动哪几个参数？
+### 第一次调 XGBoost，最该先动哪几个参数？
 
 不要一上来把十几个参数全开。更稳的顺序是：
 
@@ -595,7 +595,7 @@ print(f"XGBoost | 训练: {xgb_model.score(X_train, y_train):.1%} | 测试: {xgb
 - 小学习率 + 更多树，通常比大步快跑更稳
 - 深度太大时，Boosting 系列会很容易开始记训练集
 
-### 4.4 早停（Early Stopping）
+### 早停（Early Stopping）
 
 ```python
 # 早停：验证集上连续 N 轮没有提升就停止
@@ -618,7 +618,7 @@ print(f"最佳迭代次数: {xgb_model.best_iteration}")
 print(f"测试准确率: {xgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 4.5 特征重要性
+### 特征重要性
 
 ```python
 # XGBoost 的特征重要性
@@ -639,7 +639,7 @@ plt.show()
 
 ## 五、LightGBM 与 CatBoost
 
-### 5.1 LightGBM
+### LightGBM
 
 LightGBM 是微软开发的高效梯度提升框架，比 XGBoost **更快**：
 
@@ -668,7 +668,7 @@ lgb_model.fit(X_train, y_train)
 print(f"LightGBM | 训练: {lgb_model.score(X_train, y_train):.1%} | 测试: {lgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.2 CatBoost
+### CatBoost
 
 CatBoost（Categorical Boosting）是 Yandex 开发的框架，擅长处理**类别特征**：
 
@@ -696,7 +696,7 @@ cat_model.fit(X_train, y_train)
 print(f"CatBoost | 训练: {cat_model.score(X_train, y_train):.1%} | 测试: {cat_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.3 三大 Boosting 框架对比
+### 三大 Boosting 框架对比
 
 ![Boosting 工具选择漫画](/img/course/ch05-ensemble-boosting-toolkit.png)
 
@@ -715,7 +715,7 @@ print(f"CatBoost | 训练: {cat_model.score(X_train, y_train):.1%} | 测试: {ca
 - **LightGBM** 适合表格数据较大、训练速度很重要的场景。
 - **CatBoost** 适合类别列很多的数据，例如城市、设备类型、用户套餐、商品类别。
 
-### 5.4 第一次做表格数据项目时，模型怎么选最稳？
+### 第一次做表格数据项目时，模型怎么选最稳？
 
 如果你是第一次做结构化表格数据任务，可以先这样选：
 
@@ -725,7 +725,7 @@ print(f"CatBoost | 训练: {cat_model.score(X_train, y_train):.1%} | 测试: {ca
 
 这个顺序比“哪个最火就先上哪个”更稳，因为它先帮你建立 baseline，再逐步提高上限。
 
-### 5.5 第一次学集成学习时，最稳的阅读顺序
+### 第一次学集成学习时，最稳的阅读顺序
 
 如果你第一次学这节，建议按这个顺序理解：
 
@@ -741,7 +741,7 @@ print(f"CatBoost | 训练: {cat_model.score(X_train, y_train):.1%} | 测试: {ca
 
 ## 六、Stacking——模型堆叠
 
-### 6.1 原理
+### 原理
 
 用多个不同模型的预测结果作为**新特征**，再训练一个模型来做最终预测。
 
@@ -772,7 +772,7 @@ flowchart TD
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 6.2 sklearn 实现
+### sklearn 实现
 
 ```python
 from sklearn.ensemble import StackingClassifier, RandomForestClassifier, GradientBoostingClassifier
@@ -803,7 +803,7 @@ print(f"Stacking | 训练: {stack.score(X_train, y_train):.1%} | 测试: {stack.
 Stacking | 训练: 95.0% | 测试: 89.0%
 ```
 
-### 6.3 为什么 Stacking 不是新人第一步？
+### 为什么 Stacking 不是新人第一步？
 
 因为 Stacking 虽然可能更强，但它对实验设计要求更高：
 

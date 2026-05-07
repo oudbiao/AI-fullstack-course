@@ -1,11 +1,11 @@
 ---
-title: "7.3 Project: Text Summarization System"
+title: "11.7.3 Project: Text Summarization System"
 sidebar_position: 2
 description: "Walk through a complete, showcase-ready text summarization project loop, from sentence splitting and sentence scoring to summary generation, evaluation, and failure analysis."
 keywords: [text summarization, extractive summarization, TF-IDF, evaluation, NLP project]
 ---
 
-# Project: Text Summarization System
+# 11.7.3 Project: Text Summarization System
 
 ![Text summarization extraction-generation-evaluation diagram](/img/course/ch11-summarization-extractive-generative-eval-map-en.png)
 
@@ -61,7 +61,7 @@ The real difficulty is not “making the text shorter,” but:
 - Not keeping only side details
 - Making the final summary read smoothly
 
-## 1. How should you narrow the project topic?
+## How should you narrow the project topic?
 
 A good starter project could be:
 
@@ -73,7 +73,7 @@ This type of task is good because:
 - The text length is moderate
 - The summarization goal is easy to understand
 
-### 1.1 When doing your first summarization project, how do you choose a safer topic?
+### When doing your first summarization project, how do you choose a safer topic?
 
 A safer starting point usually has these three traits:
 
@@ -89,7 +89,7 @@ So texts like:
 
 are often great practice topics.
 
-### 1.2 A useful early judgment for beginners
+### A useful early judgment for beginners
 
 When you do a summarization project for the first time, the most worthwhile thing to choose first is:
 
@@ -101,7 +101,7 @@ Because the hardest layer of summarization is:
 
 ---
 
-## 2. The minimum project loop for a portfolio-level summarization project
+## The minimum project loop for a portfolio-level summarization project
 
 1. Select a text collection
 2. Split into sentences
@@ -110,7 +110,7 @@ Because the hardest layer of summarization is:
 5. Do human evaluation
 6. Summarize failure patterns
 
-### 2.1 A project checklist that beginners can remember first
+### A project checklist that beginners can remember first
 
 | Step | What should you confirm first? |
 |---|---|
@@ -121,7 +121,7 @@ Because the hardest layer of summarization is:
 
 This table is useful for beginners because it turns a summarization project back into a chain of steps that can be checked, rather than “just extract a few sentences and stop.”
 
-## 3. Recommended order of progress
+## Recommended order of progress
 
 For beginners, a safer order is usually:
 
@@ -134,7 +134,7 @@ This way, you can more easily see what the summarization system is actually impr
 
 ---
 
-## 4. Start with a more complete extractive summarization system
+## Start with a more complete extractive summarization system
 
 ```python
 import re
@@ -174,7 +174,7 @@ print("summary:", summary)
 print("scores:", scored)
 ```
 
-### 4.1 Why does this example feel more like a project?
+### Why does this example feel more like a project?
 
 Because it does not only give you the result,
 it also keeps:
@@ -188,14 +188,14 @@ This lets you do:
 - debugging
 - failure analysis
 
-### 4.2 Why is it especially worth showing intermediate scores in a summarization project?
+### Why is it especially worth showing intermediate scores in a summarization project?
 
 Because whether a summary is good or bad is inherently subjective.
 The intermediate scoring process helps others understand:
 
 - how you made your selection
 
-### 4.3 Here is another minimal example for “summary length control”
+### Here is another minimal example for “summary length control”
 
 ```python
 for k in [1, 2, 3]:
@@ -214,7 +214,7 @@ Rather, it is about:
 
 ---
 
-## 5. What should a minimal human evaluation table look like?
+## What should a minimal human evaluation table look like?
 
 ```python
 eval_cases = [
@@ -234,7 +234,7 @@ for case in eval_cases:
     })
 ```
 
-### 5.1 Why is this evaluation simple but useful?
+### Why is this evaluation simple but useful?
 
 Because it forces you to answer:
 
@@ -244,7 +244,7 @@ That is more concrete than only asking whether it “reads smoothly.”
 
 ---
 
-## 6. The failure cases most worth showing in a summarization project
+## The failure cases most worth showing in a summarization project
 
 For example:
 
@@ -256,7 +256,7 @@ For example:
 
 Because they happen to reflect the typical limitations of extractive summarization.
 
-### 6.1 A failure analysis framework that is easy for beginners to use directly
+### A failure analysis framework that is easy for beginners to use directly
 
 You can first categorize them into these three types:
 
@@ -266,7 +266,7 @@ You can first categorize them into these three types:
 
 This is easier to move forward with than just saying “the summary is not very good.”
 
-### 6.2 An error bucket table that beginners can copy directly
+### An error bucket table that beginners can copy directly
 
 | Error type | What should you probably improve next? |
 |---|---|
@@ -278,11 +278,11 @@ This table is helpful for beginners because it helps turn “the summary is not 
 
 ---
 
-## 7. How can you push this project toward portfolio quality?
+## How can you push this project toward portfolio quality?
 
-### 7.1 Add a generative summarization comparison
+### Add a generative summarization comparison
 
-### 7.2 Include more text types
+### Include more text types
 
 For example:
 
@@ -290,7 +290,7 @@ For example:
 - course introductions
 - meeting minutes
 
-### 7.3 Make a one-page before / after display
+### Make a one-page before / after display
 
 For example:
 

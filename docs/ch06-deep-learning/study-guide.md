@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn Deep Learning and Transformer Basics Without Getting Confused"
+title: "6.0 Study Guide and Task Sheet: How to Learn Deep Learning and Transformer Basics Without Getting Confused"
 sidebar_position: 1
 description: "A deep learning study guide for AI full-stack beginners: neural networks, PyTorch, CNN, RNN, Attention, Transformer, project roadmap, and acceptance criteria."
 keywords: [deep learning study guide, how to learn PyTorch, how to learn CNN, how to learn Transformer, Attention]
 ---
 
-# Study Guide and Task Sheet: How to Learn Deep Learning and Transformer Basics Without Getting Confused
+# 6.0 Study Guide and Task Sheet: How to Learn Deep Learning and Transformer Basics Without Getting Confused
 
 If you reach `Chapter 6 Deep Learning and Transformer Basics` and feel that the code is getting longer and the models are getting more numerous, first bring your attention back to the training loop. On your first pass through deep learning, the most important thing is to understand how data flows through the model, how the loss is computed, and how gradients update parameters.
 
@@ -42,7 +42,7 @@ In the fifth round, learn Attention and Transformer. This is the most important 
 
 Generative models and training techniques can be treated as extensions; you do not need to fully master them in the first pass.
 
-Before larger projects, complete [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It turns the abstract training loop into one runnable script plus logs, curves, checkpoint, shape trace, and review samples.
+Before larger projects, complete [6.8.5 Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It turns the abstract training loop into one runnable script plus logs, curves, checkpoint, shape trace, and review samples.
 
 ## Suggested learning pace
 
@@ -56,7 +56,7 @@ Before larger projects, complete [Hands-on Workshop: Build a PyTorch Training Ev
 
 ## Stage project roadmap
 
-Before choosing a larger topic, run the [PyTorch evidence-pack workshop](./ch08-projects/04-hands-on-dl-workshop.md) once. Treat it as a warm-up: you will create data, trace shapes, train a baseline, train a CNN, validate, save curves, and write project evidence.
+Before choosing a larger topic, run the [6.8.5 PyTorch evidence-pack workshop](./ch08-projects/04-hands-on-dl-workshop.md) once. Treat it as a warm-up: you will create data, trace shapes, train a baseline, train a CNN, validate, save curves, and write project evidence.
 
 For your first project, I recommend handwritten digit recognition or a small image classification task to practice Dataset, DataLoader, CNN, training, and evaluation.
 

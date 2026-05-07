@@ -1,11 +1,11 @@
 ---
-title: "5.3 MCP 架构与核心概念"
+title: "9.5.3 MCP 架构与核心概念"
 sidebar_position: 26
 description: "从 client-server 关系、工具暴露、消息流转到 transport，系统理解一个 MCP 系统内部是怎样工作的。"
 keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 ---
 
-# MCP 架构与核心概念
+# 9.5.3 MCP 架构与核心概念
 
 ![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
 
@@ -112,7 +112,7 @@ Server 的职责通常包括：
 
 但真正让两者能沟通的，是 transport。
 
-### 4.1 它在解决什么问题？
+### 它在解决什么问题？
 
 简单说，它决定：
 
@@ -124,7 +124,7 @@ Server 的职责通常包括：
 - 标准输入输出
 - 网络连接
 
-### 4.2 为什么 transport 很重要？
+### 为什么 transport 很重要？
 
 因为它会影响：
 
@@ -141,7 +141,7 @@ Server 的职责通常包括：
 
 虽然大家经常说“工具”，但更完整一点看，常见暴露内容可以理解成三类：
 
-### 5.1 Tools
+### Tools
 
 能被调用执行的能力。
 
@@ -151,7 +151,7 @@ Server 的职责通常包括：
 - 读文件
 - 查天气
 
-### 5.2 Resources
+### Resources
 
 更偏“可读取的信息源”。
 
@@ -161,7 +161,7 @@ Server 的职责通常包括：
 - 配置数据
 - 数据表快照
 
-### 5.3 Prompts
+### Prompts
 
 更偏“可复用的提示模板”。
 
@@ -171,7 +171,7 @@ Server 的职责通常包括：
 
 ## 六、一条完整消息流长什么样？
 
-### 6.1 先发现工具
+### 先发现工具
 
 ```python
 list_request = {
@@ -196,7 +196,7 @@ print(list_request)
 print(list_response)
 ```
 
-### 6.2 再调用工具
+### 再调用工具
 
 ```python
 call_request = {
@@ -221,7 +221,7 @@ print(call_request)
 print(call_response)
 ```
 
-### 6.3 这两步真正说明了什么？
+### 这两步真正说明了什么？
 
 它说明 MCP 不是单纯“调一个函数”，而是先有：
 
@@ -240,7 +240,7 @@ print(call_response)
 
 ## 七、为什么说 MCP 是“解耦层”？
 
-### 7.1 没有 MCP 时
+### 没有 MCP 时
 
 客户端通常得直接知道：
 
@@ -250,7 +250,7 @@ print(call_response)
 
 这会导致 client 和 tool provider 强耦合。
 
-### 7.2 有了 MCP 以后
+### 有了 MCP 以后
 
 client 更多依赖的是：
 
@@ -305,7 +305,7 @@ print(client.discover())
 print(client.call("search_docs", {"query": "退款政策"}))
 ```
 
-### 8.2 这个例子很小，但非常有教学价值
+### 这个例子很小，但非常有教学价值
 
 因为它已经体现了三层分工：
 
@@ -319,17 +319,17 @@ print(client.call("search_docs", {"query": "退款政策"}))
 
 ## 九、最常见的架构误区
 
-### 9.1 把 server 当成工具本身
+### 把 server 当成工具本身
 
 server 不是工具，而是：
 
 > 工具的协议化出口。
 
-### 9.2 觉得 transport 可有可无
+### 觉得 transport 可有可无
 
 transport 直接影响部署和稳定性。
 
-### 9.3 以为 MCP 自动解决权限和策略问题
+### 以为 MCP 自动解决权限和策略问题
 
 不会。
 它解决的是“统一接入”，不是“自动治理”。

@@ -1,11 +1,11 @@
 ---
-title: "1.2 深層学習の歴史的ブレークスルーの流れ"
+title: "6.1.2 深層学習の歴史的ブレークスルーの流れ"
 sidebar_position: 1
 description: "歴史の流れに沿って、深層学習の重要なブレークスルーを理解します。パーセプトロン、XORの挫折、逆伝播、勾配消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention、Transformer がそれぞれ何を解決したのかを学びます。"
 keywords: [深層学習の歴史, ニューラルネットワークの三つの波, パーセプトロン, XOR, 逆伝播, LSTM, AlexNet, ResNet, Transformer]
 ---
 
-# 深層学習の歴史的ブレークスルーの流れ
+# 6.1.2 深層学習の歴史的ブレークスルーの流れ
 
 ![深層学習の歴史的ブレークスルーマップ](/img/course/ch06-dl-history-breakthrough-map-ja.png)
 

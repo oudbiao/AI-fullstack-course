@@ -1,11 +1,11 @@
 ---
-title: "3.1 学前导读：Transformer 深入这一章到底在学什么"
+title: "7.3.1 学前导读：Transformer 深入这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 Transformer 深入章的学习地图：注意力、结构变体、高效计算和规模化怎样共同支撑现代大模型。"
 keywords: [Transformer导读, 注意力机制, 大模型架构, 高效注意力]
 ---
 
-# 学前导读：Transformer 深入这一章到底在学什么
+# 7.3.1 学前导读：Transformer 深入这一章到底在学什么
 
 ## 本章定位
 

@@ -1,10 +1,10 @@
 ---
-title: "Course Visual Enhancement Plan"
+title: "A.4 Course Visual Enhancement Plan"
 description: "Organize, by presentation chapter, which pages are suitable for adding more images, diagrams, flowcharts, and code-based visualizations to help newcomers build intuition faster."
 keywords: [course illustrations, instructional design, visual learning, AI course images, Mermaid, image generation]
 ---
 
-# Course Visual Enhancement Plan
+# A.4 Course Visual Enhancement Plan
 
 ![Course image asset planning board](/img/course/appendix-visual-enhancement-kanban-en.png)
 

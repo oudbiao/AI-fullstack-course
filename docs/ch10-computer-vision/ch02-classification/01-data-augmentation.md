@@ -1,11 +1,11 @@
 ---
-title: "2.2 Data Augmentation Strategies"
+title: "10.2.2 Data Augmentation Strategies"
 sidebar_position: 4
 description: "From flipping and cropping to color jitter and Mixup, understand why data augmentation is one of the cheapest and most effective ways to improve generalization in vision tasks."
 keywords: [data augmentation, flip, crop, color jitter, mixup, vision]
 ---
 
-# Data Augmentation Strategies
+# 10.2.2 Data Augmentation Strategies
 
 ![Example wall of image data augmentation](/img/course/cv-data-augmentation-gallery-en.png)
 
@@ -54,9 +54,9 @@ So what this section really wants to answer is:
 - Why image classification especially needs augmentation
 - When augmentation helps, and when it starts hurting semantics
 
-## 1. Why Do Vision Tasks Need Data Augmentation So Much?
+## Why Do Vision Tasks Need Data Augmentation So Much?
 
-### 1.1 The Real World Is Always Changing
+### The Real World Is Always Changing
 
 The same cat can appear in different images with:
 
@@ -67,7 +67,7 @@ The same cat can appear in different images with:
 
 If the training set does not cover enough of this, the model can easily mistake incidental background details for real features.
 
-### 1.2 Augmentation Is Not “Creating More Data,” but “Simulating Reasonable Variation”
+### Augmentation Is Not “Creating More Data,” but “Simulating Reasonable Variation”
 
 After a proper transform,
 the meaning of the image usually stays the same.
@@ -79,7 +79,7 @@ For example:
 
 That is why augmentation helps the model learn more robustly.
 
-### 1.4 When You First Learn Data Augmentation, What Should You Focus on Most?
+### When You First Learn Data Augmentation, What Should You Focus on Most?
 
 The most important thing is not a list of APIs, but this sentence:
 
@@ -94,16 +94,16 @@ Once that idea is clear, when you later see:
 
 it becomes much easier to judge whether they are helping or whether they are already hurting semantics.
 
-### 1.3 An Analogy
+### An Analogy
 
 Data augmentation is like practicing variation questions before an exam.
 You are not changing the subject; you are preventing yourself from memorizing only the surface form of one problem.
 
 ---
 
-## 2. The Most Common Types of Augmentation
+## The Most Common Types of Augmentation
 
-### 2.1 Geometric Augmentation
+### Geometric Augmentation
 
 For example:
 
@@ -116,7 +116,7 @@ It mainly helps the model handle:
 
 - viewpoint and position changes
 
-### 2.2 Color Augmentation
+### Color Augmentation
 
 For example:
 
@@ -128,7 +128,7 @@ It mainly helps the model handle:
 
 - lighting and shooting-condition changes
 
-### 2.3 Combined and Mixed Augmentation
+### Combined and Mixed Augmentation
 
 For example:
 
@@ -138,7 +138,7 @@ For example:
 
 They are more aggressive, but often more effective too.
 
-### 2.4 When You First Do Image Classification, Which Type of Augmentation Should You Start With?
+### When You First Do Image Classification, Which Type of Augmentation Should You Start With?
 
 A more stable order is usually:
 
@@ -153,7 +153,7 @@ A more stable order is usually:
 
 ---
 
-## 3. First Run a Minimal Augmentation Pipeline Example
+## First Run a Minimal Augmentation Pipeline Example
 
 The example below does not rely on an image library.
 Instead, it uses a 2D list to simulate a grayscale image, helping you grasp the core idea of augmentation.
@@ -195,7 +195,7 @@ for row in brightness_shift(image):
     print(row)
 ```
 
-### 3.1 What Should You Focus on Most in This Example?
+### What Should You Focus on Most in This Example?
 
 The essence of augmentation is not the image-library API,
 but:
@@ -203,7 +203,7 @@ but:
 - applying reasonable transforms to the input
 - while trying not to change the label semantics
 
-### 3.2 Why Is “Reasonable” So Important?
+### Why Is “Reasonable” So Important?
 
 If you randomly rotate digit images like “6” and “9,”
 the label may really change.
@@ -211,7 +211,7 @@ the label may really change.
 So augmentation is not about blindly making it stronger and stronger.
 It must also respect the task semantics.
 
-### 3.3 Why Is This Especially Important for Vision Tasks?
+### Why Is This Especially Important for Vision Tasks?
 
 Because in vision, many labels actually depend on geometry and orientation.
 
@@ -233,16 +233,16 @@ When reading this diagram, focus on one sentence: augmentation trains the model 
 
 ---
 
-## 4. Why Is Mixup Worth Remembering Separately?
+## Why Is Mixup Worth Remembering Separately?
 
-### 4.1 It Does Not Just Modify the Image — It Mixes the Labels Too
+### It Does Not Just Modify the Image — It Mixes the Labels Too
 
 The core idea of Mixup is:
 
 - mix two images by a ratio
 - mix the labels by the same ratio
 
-### 4.2 A Purely Numeric Intuition Example
+### A Purely Numeric Intuition Example
 
 ```python
 img_a = [1.0, 2.0, 3.0]
@@ -258,24 +258,24 @@ print("mixed_img:", mixed_img)
 print("mixed_label:", mixed_label)
 ```
 
-### 4.3 Why Can This Work Well?
+### Why Can This Work Well?
 
 It encourages the model to learn fewer extreme boundaries
 and to form a smoother decision surface.
 
 ---
 
-## 5. Common Pitfalls in Augmentation
+## Common Pitfalls in Augmentation
 
-### 5.1 Mistake 1: More Augmentation Is Always Better
+### Mistake 1: More Augmentation Is Always Better
 
 Too much augmentation can damage useful features.
 
-### 5.2 Mistake 2: Use the Same Augmentation Set for All Tasks
+### Mistake 2: Use the Same Augmentation Set for All Tasks
 
 Classification, detection, and segmentation are not equally sensitive to the same augmentations.
 
-### 5.3 Mistake 3: Add Augmentation Without Validation
+### Mistake 3: Add Augmentation Without Validation
 
 Augmentation is a means, not the goal.
 In the end, you still need to check whether the validation set really benefits.
@@ -291,7 +291,7 @@ If you are just starting with vision classification, it is recommended to follow
 
 This makes it easier to tell which type of augmentation is actually helping.
 
-### 6.1 What Should You Look At First to Verify Whether Augmentation Is Really Effective?
+### What Should You Look At First to Verify Whether Augmentation Is Really Effective?
 
 Do not only look at training loss.
 A more stable judgment is:

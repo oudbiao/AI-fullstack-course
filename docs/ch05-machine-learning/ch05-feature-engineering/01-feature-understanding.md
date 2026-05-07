@@ -1,11 +1,11 @@
 ---
-title: "5.2 Feature Understanding and Exploration"
+title: "5.5.2 Feature Understanding and Exploration"
 sidebar_position: 14
 description: "Master feature type analysis, distribution analysis, correlation analysis, and target leakage checks. Understand the data first, then do feature engineering."
 keywords: [feature engineering, feature types, feature distribution, correlation analysis, EDA, numerical features, categorical features]
 ---
 
-# Feature Understanding and Exploration
+# 5.5.2 Feature Understanding and Exploration
 
 ![Feature Type and Target Relationship Diagram](/img/course/feature-type-target-map-en.png)
 
@@ -28,7 +28,7 @@ Feature engineering is one of the highest-ROI steps in a machine learning projec
 
 The more solid this step is, the less likely you are to blindly try models later. Poor model performance is often not because the algorithm is not advanced enough, but because the data meaning, outliers, target leakage, or train-test distribution differences were not understood clearly.
 
-## 1. Feature Types
+## Feature Types
 
 ```mermaid
 flowchart TD
@@ -46,7 +46,7 @@ flowchart TD
 
 Different types determine the processing method that comes next. Numerical features may need scaling or binning, categorical features may need encoding, time-based features often need cyclic features extracted from them, and text features may need vectorization or embeddings.
 
-## 2. Quickly Identifying Feature Types
+## Quickly Identifying Feature Types
 
 ```python
 import pandas as pd
@@ -65,7 +65,7 @@ print("Categorical features:", cat_cols)
 
 Automatic identification is only a starting point, not the final judgment. For example, postal codes, user IDs, and product IDs may look like numbers, but in business terms they are categorical or identifier fields and should not be used directly as continuous numerical values.
 
-## 3. Distribution Analysis
+## Distribution Analysis
 
 Distribution analysis should answer three questions: Is the numerical range reasonable? Is there obvious skewness? Are there extreme values?
 
@@ -88,7 +88,7 @@ plt.show()
 
 If the mean and median are far apart, that usually means the distribution is skewed. Skewness does not always need to be fixed, but you should know it exists. For example, income, spending amount, and visit counts are often long-tailed distributions.
 
-## 4. Categorical Feature Analysis
+## Categorical Feature Analysis
 
 For categorical features, focus on the number of unique values, long-tail categories, and whether there is a risk of unseen categories.
 
@@ -100,7 +100,7 @@ for col in ["sex", "embarked", "class"]:
 
 If a categorical feature has thousands of unique values, direct one-hot encoding may cause the feature dimension to explode. If new categories appear in test data or production that were not seen in training, you should prepare handling strategies in advance, such as `handle_unknown="ignore"`.
 
-## 5. Relationship with the Target Variable
+## Relationship with the Target Variable
 
 Feature exploration should not stop at a single column; you also need to look at the relationship between the feature and the target variable.
 
@@ -110,7 +110,7 @@ pd.crosstab(df["sex"], df["survived"], normalize="index")
 
 For numerical features, you can compare distributions by target group. For categorical features, you can look at the target mean across categories. But be careful: correlation is not causation. If you see a strong relationship between a feature and the target, that only means it may be useful for prediction; it does not mean it caused the outcome.
 
-## 6. Correlation and Redundancy
+## Correlation and Redundancy
 
 ```python
 corr = df[["survived", "age", "fare", "sibsp", "parch", "pclass"]].corr()
@@ -120,7 +120,7 @@ plt.show()
 
 Highly correlated features may introduce redundancy. For linear models, redundant features may affect coefficient interpretation. For tree models, the impact is usually smaller, but they can still add noise and training cost.
 
-## 7. Target Leakage Check
+## Target Leakage Check
 
 Target leakage is one of the most dangerous problems in feature engineering. It means using information during training that would not be available at prediction time. For example, when predicting whether a user will churn, using the “number of customer service follow-ups after churn”; when predicting loan default, using the “collection status after delinquency.”
 

@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn Machine Learning Without Getting Lost"
+title: "5.0 Study Guide and Task Sheet: How to Learn Machine Learning Without Getting Lost"
 sidebar_position: 1
 description: "A machine learning study guide for AI full-stack beginners: task definition, baseline, metrics, feature engineering, project roadmap, and acceptance criteria."
 keywords: [machine learning study guide, how to learn sklearn, machine learning project, baseline, feature engineering]
 ---
 
-# Study Guide and Task Sheet: How to Learn Machine Learning Without Getting Lost
+# 5.0 Study Guide and Task Sheet: How to Learn Machine Learning Without Getting Lost
 
 ![Machine learning study loop diagram](/img/course/ml-study-loop-en.png)
 
@@ -44,7 +44,7 @@ In the fourth round, study model evaluation and selection. Metrics, cross-valida
 
 In the fifth round, study feature engineering and projects. In many tabular data projects, feature processing matters more than switching models.
 
-If you want a concrete rehearsal before the larger projects, complete [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md). It turns the abstract loop into one runnable file and a folder of evidence.
+If you want a concrete rehearsal before the larger projects, complete [5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md). It turns the abstract loop into one runnable file and a folder of evidence.
 
 ## Modeling-term translator for beginners
 
@@ -76,7 +76,7 @@ If you can explain these terms as project actions, you are no longer only learni
 
 ## Project Roadmap for This Stage
 
-Before choosing a larger topic, run the [hands-on evidence-pack workshop](./ch06-projects/05-hands-on-ml-workshop.md) once. Treat it as a warm-up: you will create data, split it, train a baseline, compare models, inspect errors, and write project evidence in the same sitting.
+Before choosing a larger topic, run the [5.6.6 hands-on evidence-pack workshop](./ch06-projects/05-hands-on-ml-workshop.md) once. Treat it as a warm-up: you will create data, split it, train a baseline, compare models, inspect errors, and write project evidence in the same sitting.
 
 For your first project, it is recommended to predict house prices and practice regression, feature processing, and error analysis.
 

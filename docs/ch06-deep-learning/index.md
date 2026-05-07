@@ -46,7 +46,7 @@ Deep learning allows models to automatically learn complex representations from 
 
 ![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.png)
 
-If you want to understand each technical breakthrough in historical order, you can first read [1.2 Main Thread of Deep Learning Historical Breakthroughs](./ch01-nn-basics/06-history-breakthroughs.md). It will map the perceptron, XOR setbacks, backpropagation, vanishing gradients, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer to the corresponding subsections in this chapter, helping you understand why models keep evolving generation after generation.
+If you want to understand each technical breakthrough in historical order, you can first read [6.1.2 Main Thread of Deep Learning Historical Breakthroughs](./ch01-nn-basics/06-history-breakthroughs.md). It will map the perceptron, XOR setbacks, backpropagation, vanishing gradients, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer to the corresponding subsections in this chapter, helping you understand why models keep evolving generation after generation.
 
 ## What Beginners Should Do First, and What Advanced Learners Should Do Later
 
@@ -55,22 +55,22 @@ When beginners learn this stage for the first time, they should first understand
 Experienced learners can focus on training diagnostics: how to detect overfitting, how learning rate affects the curve, when data augmentation and regularization are useful, and why Transformer changed sequence modeling. Your goal is to be able to explain why a training run succeeded or failed.
 
 :::info Hands-on checkpoint
-If you want one guided run before choosing a larger deep learning project, start with [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It creates a local dataset, baseline, CNN, training logs, validation curves, checkpoint, shape trace, review samples, and README evidence.
+If you want one guided run before choosing a larger deep learning project, start with [6.8.5 Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It creates a local dataset, baseline, CNN, training logs, validation curves, checkpoint, shape trace, review samples, and README evidence.
 :::
 
 ## Learning Path for This Stage
 
-Chapter 1 covers neural network basics and the main thread of historical breakthroughs. You will understand perceptrons, XOR limitations, backpropagation, neurons, activation functions, forward propagation, backpropagation, optimizers, regularization, and parameter initialization.
+Section 6.1 covers neural network basics and the main thread of historical breakthroughs. You will understand perceptrons, XOR limitations, backpropagation, neurons, activation functions, forward propagation, backpropagation, optimizers, regularization, and parameter initialization.
 
-Chapter 2 covers PyTorch. You will start with tensors, automatic differentiation, `nn.Module`, data loading, and the training loop to build a truly trainable model.
+Section 6.2 covers PyTorch. You will start with tensors, automatic differentiation, `nn.Module`, data loading, and the training loop to build a truly trainable model.
 
-Chapter 3 covers CNN. Visual tasks are the most intuitive and are a good entry point for understanding deep network structures for the first time.
+Section 6.3 covers CNN. Visual tasks are the most intuitive and are a good entry point for understanding deep network structures for the first time.
 
-Chapter 4 covers RNNs and sequence models. You will see why sequence data is different from ordinary tabular data, and you will also understand the historical significance of LSTM and GRU.
+Section 6.4 covers RNNs and sequence models. You will see why sequence data is different from ordinary tabular data, and you will also understand the historical significance of LSTM and GRU.
 
-Chapter 5 covers Attention and Transformer. It is the key bridge to the later main line of large models.
+Section 6.5 covers Attention and Transformer. It is the key bridge to the later main line of large models.
 
-Chapters 6 and 7 are extensions that help you understand generative models and training tuning.
+Sections 6.6 and 6.7 are extensions that help you understand generative models and training tuning.
 
 ## What You Should Be Able to Do After Learning This Stage
 
@@ -119,9 +119,9 @@ If you can plot the training loss and validation loss, and explain why they chan
 
 The basic version is to train a simple image classification or text sentiment classification model that can complete data loading, training, and evaluation. The standard version should add a validation set, metric curves, overfitting analysis, and model save/load. The challenge version can compare CNN, RNN, Transformer, or transfer learning approaches, and write an experiment report explaining why the model got better or worse.
 
-For a step-by-step PyTorch rehearsal, complete [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md) before the image classification, sentiment analysis, or generative model projects.
+For a step-by-step PyTorch rehearsal, complete [6.8.5 Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md) before the image classification, sentiment analysis, or generative model projects.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: The Easiest Way to Learn Deep Learning Basics Without Getting Confused](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [6.0 Study Guide: The Easiest Way to Learn Deep Learning Basics Without Getting Confused](./study-guide.md).
 
 
 

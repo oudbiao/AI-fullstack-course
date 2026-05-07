@@ -1,11 +1,11 @@
 ---
-title: "1.2 K-Nearest Neighbors"
+title: "E.C.2 K-Nearest Neighbors"
 sidebar_position: 13
 description: "Start from the idea of 'letting neighbors vote' to understand why KNN is valuable for small-data, low-training-cost scenarios, and why it is strongly affected by feature scale."
 keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classification]
 ---
 
-# K-Nearest Neighbors
+# E.C.2 K-Nearest Neighbors
 
 ![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.png)
 
@@ -33,9 +33,9 @@ These are all very important concepts in classic machine learning.
 
 ---
 
-## 1. What exactly does KNN do?
+## What exactly does KNN do?
 
-### 1.1 It almost does not “train”
+### It almost does not “train”
 
 KNN is often called a:
 
@@ -47,7 +47,7 @@ It is more like:
 - remembering the samples first
 - finding the nearest neighbors when making predictions
 
-### 1.2 Why is it so easy to understand?
+### Why is it so easy to understand?
 
 Because the logic is really very similar to human intuition:
 
@@ -57,7 +57,7 @@ Because the logic is really very similar to human intuition:
 If most of the nearest samples belong to one class,
 the new sample is also likely to belong to that class.
 
-### 1.3 An analogy
+### An analogy
 
 KNN is like asking:
 
@@ -68,22 +68,22 @@ you would tend to judge that this person is also more like an engineer.
 
 ---
 
-## 2. Why is the K value so important?
+## Why is the K value so important?
 
-### 2.1 If K is too small
+### If K is too small
 
 If K=1, the model becomes very sensitive:
 
 - it can be easily affected by noisy points
 
-### 2.2 If K is too large
+### If K is too large
 
 If K is very large,
 the model becomes too averaged:
 
 - local differences get smoothed out
 
-### 2.3 So what is K really controlling?
+### So what is K really controlling?
 
 You can roughly understand it as:
 
@@ -94,7 +94,7 @@ That is why KNN, although simple, still depends a lot on tuning.
 
 ---
 
-## 3. Let’s first run a real example that shows “neighbor voting”
+## Let’s first run a real example that shows “neighbor voting”
 
 ```python
 import numpy as np
@@ -122,7 +122,7 @@ pred = clf.predict([[3, 3], [8.5, 8.2]])
 print(pred.tolist())
 ```
 
-### 3.1 What should you focus on in this code?
+### What should you focus on in this code?
 
 It highlights the two most basic points of KNN:
 
@@ -131,7 +131,7 @@ It highlights the two most basic points of KNN:
 2. `StandardScaler()`
    means feature scaling is applied before distance calculation
 
-### 3.2 Why does KNN also need scaling?
+### Why does KNN also need scaling?
 
 Because its core is distance.
 If one feature has a much larger numeric range than another, that feature will dominate the distance.
@@ -145,21 +145,21 @@ Without scaling, the income feature will almost “swallow” the age feature.
 
 ---
 
-## 4. What are the advantages and costs of KNN?
+## What are the advantages and costs of KNN?
 
-### 4.1 Advantages
+### Advantages
 
 - intuitive idea
 - very light training phase
 - a good baseline for small datasets
 
-### 4.2 Costs
+### Costs
 
 - prediction can be slower
 - query cost is high when the dataset is large
 - very sensitive to feature scaling and the distance definition
 
-### 4.3 An engineering judgment
+### An engineering judgment
 
 KNN is a good choice when:
 
@@ -174,9 +174,9 @@ It is not ideal when:
 
 ---
 
-## 5. Why is the distance metric worth paying attention to?
+## Why is the distance metric worth paying attention to?
 
-### 5.1 Euclidean distance is only the most common one
+### Euclidean distance is only the most common one
 
 In many cases, the default is:
 
@@ -187,7 +187,7 @@ But different tasks may also consider:
 - Manhattan distance
 - Cosine distance
 
-### 5.2 Why does the distance definition change model behavior?
+### Why does the distance definition change model behavior?
 
 Because all KNN decisions are based on:
 
@@ -197,17 +197,17 @@ If the definition of “close” changes, the neighbor set also changes.
 
 ---
 
-## 6. The most common pitfalls with KNN
+## The most common pitfalls with KNN
 
-### 6.1 Mistake 1: Using KNN by default on large data
+### Mistake 1: Using KNN by default on large data
 
 Neighbor search becomes increasingly expensive during prediction.
 
-### 6.2 Mistake 2: Forgetting to scale
+### Mistake 2: Forgetting to scale
 
 This is just like SVM — also a very common pitfall.
 
-### 6.3 Mistake 3: Only tuning K and ignoring feature quality
+### Mistake 3: Only tuning K and ignoring feature quality
 
 If the features themselves are not discriminative,
 no matter how well you tune K, it is still hard to save the model.

@@ -1,11 +1,11 @@
 ---
-title: "6.4 Project: User Segmentation Analysis"
+title: "5.6.4 Project: User Segmentation Analysis"
 sidebar_position: 21
 description: "A complete hands-on clustering project: RFM model, comparison of multiple clustering algorithms, interpretation of clustering results, and business recommendations"
 keywords: [user segmentation, clustering, RFM, K-Means, dimensionality reduction, customer value analysis]
 ---
 
-# Project 3: User Segmentation Analysis (Clustering Problem)
+# 5.6.4 Project 3: User Segmentation Analysis (Clustering Problem)
 
 ![User segmentation RFM clustering chart](/img/course/user-segmentation-rfm-en.png)
 

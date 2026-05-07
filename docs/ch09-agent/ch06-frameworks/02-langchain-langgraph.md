@@ -1,11 +1,11 @@
 ---
-title: "6.3 LangChain / LangGraph"
+title: "9.6.3 LangChain / LangGraph"
 sidebar_position: 31
 description: "From chain-style component composition to explicit state graphs, truly understand what LangChain and LangGraph are each abstracting for you."
 keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framework]
 ---
 
-# LangChain / LangGraph
+# 9.6.3 LangChain / LangGraph
 
 :::tip Section Focus
 When many people first encounter Agent frameworks, they tend to mix up LangChain and LangGraph.
@@ -26,9 +26,9 @@ Understanding the difference between these two matters much more than memorizing
 
 ---
 
-## 1. Why did LangChain come first, and LangGraph come later?
+## Why did LangChain come first, and LangGraph come later?
 
-### 1.1 Early requirements are usually linear
+### Early requirements are usually linear
 
 Many LLM applications start out like this:
 
@@ -43,7 +43,7 @@ This kind of workflow is very much like a straight line:
 
 In this situation, a “chain” is a very natural abstraction.
 
-### 1.2 But systems quickly become more complex
+### But systems quickly become more complex
 
 Once you start needing things like:
 
@@ -66,9 +66,9 @@ That is the core reason LangGraph matters.
 
 ---
 
-## 2. First understand LangChain: what exactly is it abstracting?
+## First understand LangChain: what exactly is it abstracting?
 
-### 2.1 What it is best at: component pipelines
+### What it is best at: component pipelines
 
 LangChain’s typical strength is connecting things like:
 
@@ -84,7 +84,7 @@ You can think of it as:
 
 It is like turning “prompts, models, retrievers, parsers” into building blocks that are easier to assemble.
 
-### 2.2 A minimal chain-style example
+### A minimal chain-style example
 
 The example below does not use real LangChain, but it already has the LangChain style.
 
@@ -120,7 +120,7 @@ chain = SimpleChain([
 print(chain.run("  What is the refund policy? "))
 ```
 
-### 2.3 What should you remember most from this example?
+### What should you remember most from this example?
 
 It expresses a very clear idea:
 
@@ -130,9 +130,9 @@ This is exactly why LangChain is so easy for beginners to pick up.
 
 ---
 
-## 3. When is LangChain especially useful?
+## When is LangChain especially useful?
 
-### 3.1 Good fits for these situations
+### Good fits for these situations
 
 - The workflow is basically linear
 - There are not many branches
@@ -146,13 +146,13 @@ Typical examples:
 - Retrieval-augmented generation
 - Single-tool-enhanced QA
 
-### 3.2 Its advantages
+### Its advantages
 
 - Quick to get started
 - Rich component ecosystem
 - Great for assembling “small modules” first
 
-### 3.3 Where does it start to struggle?
+### Where does it start to struggle?
 
 When you begin to need:
 
@@ -165,9 +165,9 @@ At that point, chain thinking starts to feel increasingly forced.
 
 ---
 
-## 4. Then understand LangGraph: why is it more like a “state machine”?
+## Then understand LangGraph: why is it more like a “state machine”?
 
-### 4.1 LangGraph is not just about nodes, but about state
+### LangGraph is not just about nodes, but about state
 
 The most important perspective in LangGraph is not:
 
@@ -183,7 +183,7 @@ You can first think of it as:
 
 > **A stateful workflow graph.**
 
-### 4.2 A minimal graph-style example
+### A minimal graph-style example
 
 ```python
 def plan_node(state):
@@ -223,7 +223,7 @@ while state["next"] is not None:
     print(current, "->", state)
 ```
 
-### 4.3 What is the biggest difference between this and the chain example?
+### What is the biggest difference between this and the chain example?
 
 In a chain system:
 
@@ -243,9 +243,9 @@ This diagram can help you shift from “chain steps” to a “state machine”:
 
 ---
 
-## 5. When should you switch from LangChain thinking to LangGraph thinking?
+## When should you switch from LangChain thinking to LangGraph thinking?
 
-### 5.1 A very practical rule of thumb
+### A very practical rule of thumb
 
 If you draw the workflow and find that it is no longer a straight line, but instead has:
 
@@ -256,7 +256,7 @@ If you draw the workflow and find that it is no longer a straight line, but inst
 
 then it is usually time to consider a graph-style abstraction.
 
-### 5.2 A very obvious red flag
+### A very obvious red flag
 
 If your code starts to look like this:
 
@@ -273,11 +273,11 @@ and all of those conditions are centered around intermediate state, that usually
 
 ---
 
-## 6. Why do many teams mention LangChain and LangGraph together?
+## Why do many teams mention LangChain and LangGraph together?
 
 Because real systems are often not an “either/or” choice.
 
-### 6.1 A very common combination
+### A very common combination
 
 - LangChain-style code handles:
   - prompt
@@ -298,9 +298,9 @@ rather than two completely opposing camps.
 
 ---
 
-## 7. A practical recommendation for real projects
+## A practical recommendation for real projects
 
-### 7.1 If what you are building now is:
+### If what you are building now is:
 
 - single-turn FAQ
 - simple RAG
@@ -308,7 +308,7 @@ rather than two completely opposing camps.
 
 then chain thinking is usually enough.
 
-### 7.2 If what you are building now is:
+### If what you are building now is:
 
 - multi-step Agent
 - tool loops
@@ -317,7 +317,7 @@ then chain thinking is usually enough.
 
 then graph thinking will be more robust.
 
-### 7.3 Don’t jump to a graph just for “advanced” vibes
+### Don’t jump to a graph just for “advanced” vibes
 
 This is also an important judgment call.
 Graph abstractions are more powerful, but they also bring:
@@ -329,17 +329,17 @@ When complexity is not high, a chain-based approach can actually be clearer.
 
 ---
 
-## 8. Common beginner mistakes
+## Common beginner mistakes
 
-### 8.1 Learning a bunch of framework APIs before understanding task structure
+### Learning a bunch of framework APIs before understanding task structure
 
 This means you end up learning only the “framework syntax,” not system design.
 
-### 8.2 Forcing a graph-shaped problem into a chain
+### Forcing a graph-shaped problem into a chain
 
 The system keeps growing more and more `if/else`, but you still do not want to switch to a graph abstraction.
 
-### 8.3 Starting with a graph framework right away
+### Starting with a graph framework right away
 
 Even though the requirement is simple, you make the system heavy from the beginning.
 

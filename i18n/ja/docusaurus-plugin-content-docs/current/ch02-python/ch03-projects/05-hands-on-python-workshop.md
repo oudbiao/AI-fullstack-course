@@ -1,11 +1,11 @@
 ---
-title: "2.5 ハンズオンワークショップ：ローカル学習タスクアシスタントを作る"
+title: "2.3.5 ハンズオンワークショップ：ローカル学習タスクアシスタントを作る"
 sidebar_position: 24
 description: "第 2 章の Python ハンズオン。argparse、dataclass、JSON 永続化、例外処理、レポート出力を使って、実行できるコマンドライン学習タスクアシスタントを作る。"
 keywords: [Python ハンズオン, コマンドラインアプリ, argparse, JSON, dataclass, ファイル入出力, Python プロジェクト]
 ---
 
-# ハンズオンワークショップ：ローカル学習タスクアシスタントを作る
+# 2.3.5 ハンズオンワークショップ：ローカル学習タスクアシスタントを作る
 
 ![Python ハンズオンワークショップのルート](/img/course/ch02-hands-on-python-workshop-route-ja.png)
 

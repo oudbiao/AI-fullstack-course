@@ -1,11 +1,11 @@
 ---
-title: "4.2 Memory System Overview"
+title: "9.4.2 Memory System Overview"
 sidebar_position: 19
 description: "From why an Agent needs memory to the layered structure of short-term, long-term, episodic, and procedural memory, build a complete map of the memory system."
 keywords: [memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory]
 ---
 
-# Memory System Overview
+# 9.4.2 Memory System Overview
 
 ![Agent memory system layering diagram](/img/course/agent-memory-system-en.png)
 
@@ -35,9 +35,9 @@ If you have already built Agent projects, you can go further and think about: wh
 
 ---
 
-## 1. Why Does an Agent Need Memory?
+## Why Does an Agent Need Memory?
 
-### 1.1 Without memory, the system is like rebooting every time
+### Without memory, the system is like rebooting every time
 
 Suppose the conversation between a user and an Agent goes like this:
 
@@ -51,7 +51,7 @@ If the system only looks at the last sentence each time:
 
 it is actually missing a lot of important context.
 
-### 1.2 So what does the memory system solve?
+### So what does the memory system solve?
 
 It solves:
 
@@ -65,9 +65,9 @@ In one sentence:
 
 ---
 
-## 2. Memory Does Not Mean “Stuff All History In”
+## Memory Does Not Mean “Stuff All History In”
 
-### 2.1 A common misunderstanding
+### A common misunderstanding
 
 When many people hear “memory,” their first thought is:
 
@@ -81,7 +81,7 @@ But this usually leads to:
 - Too much noise
 - Important information getting buried instead
 
-### 2.2 What a memory system really needs to do is filter and organize
+### What a memory system really needs to do is filter and organize
 
 So a memory system is not just “store more stuff.” It is:
 
@@ -94,9 +94,9 @@ This is very similar to human memory:
 
 ---
 
-## 3. First Build a Complete Map
+## First Build a Complete Map
 
-### 3.1 Common memory layers
+### Common memory layers
 
 | Memory Type | What It Is Like | What It Mainly Solves |
 |---|---|---|
@@ -105,7 +105,7 @@ This is very similar to human memory:
 | Episodic memory | Task experiences | What happened in the past |
 | Procedural memory | An operation manual | How to do a class of tasks |
 
-### 3.2 One sentence to remember first
+### One sentence to remember first
 
 - Short-term memory: what is happening in this task right now
 - Long-term memory: what this user / system is like over time
@@ -122,16 +122,16 @@ This diagram is not asking you to build all four kinds of memory at once. It is 
 
 ---
 
-## 4. Short-Term Memory: The Work Area for the Current Task
+## Short-Term Memory: The Work Area for the Current Task
 
-### 4.1 What does it usually store?
+### What does it usually store?
 
 - The most recent few turns of conversation
 - The current task goal
 - Intermediate tool results
 - Which step the system is currently on
 
-### 4.2 Why is it the first thing that matters?
+### Why is it the first thing that matters?
 
 Because the failures users notice most often come from short-term memory mistakes:
 
@@ -143,9 +143,9 @@ That is also why the next section will focus specifically on short-term memory f
 
 ---
 
-## 5. Long-Term Memory: Information That Still Matters Across Turns
+## Long-Term Memory: Information That Still Matters Across Turns
 
-### 5.1 What does it usually store?
+### What does it usually store?
 
 For example:
 
@@ -153,7 +153,7 @@ For example:
 - User background: a Python beginner
 - Project context: currently building a RAG system
 
-### 5.2 The biggest difference from short-term memory
+### The biggest difference from short-term memory
 
 Short-term memory serves “this one task.”
 Long-term memory serves “similar situations in the future.”
@@ -162,9 +162,9 @@ So long-term memory is more like an archive than a current workbench.
 
 ---
 
-## 6. What Are Episodic Memory and Procedural Memory?
+## What Are Episodic Memory and Procedural Memory?
 
-### 6.1 Episodic memory
+### Episodic memory
 
 You can understand it as:
 
@@ -176,7 +176,7 @@ For example:
 
 It is more like a record with both time and event context.
 
-### 6.2 Procedural memory
+### Procedural memory
 
 You can understand it as:
 
@@ -188,7 +188,7 @@ For example:
 
 This is more like an experienced workflow than a single event.
 
-### 6.3 Why do we need to distinguish these two?
+### Why do we need to distinguish these two?
 
 Because:
 
@@ -199,7 +199,7 @@ These two types of memory directly affect an Agent’s ability to transfer knowl
 
 ---
 
-## 7. A Minimal Multi-Layer Memory Example
+## A Minimal Multi-Layer Memory Example
 
 The example below is simple, but it helps you quickly build an intuition for a “multi-layer memory structure.”
 
@@ -224,7 +224,7 @@ memory = {
 print(memory)
 ```
 
-### 7.2 What does this code really teach?
+### What does this code really teach?
 
 It teaches you this:
 
@@ -234,19 +234,19 @@ If everything is mixed into one pile of text, the system will become harder and 
 
 ---
 
-## 8. The Most Common Trade-offs in Memory System Design
+## The Most Common Trade-offs in Memory System Design
 
-### 8.1 How much should you remember?
+### How much should you remember?
 
 - Too little: the system easily forgets
 - Too much: the system becomes confused and costs go up
 
-### 8.2 Should you store raw text or summaries?
+### Should you store raw text or summaries?
 
 - Raw text: more complete details
 - Summary: saves context space
 
-### 8.3 When should you write and when should you read?
+### When should you write and when should you read?
 
 Not all content is worth writing into long-term memory.
 And you do not need to read all long-term memories every time you answer.
@@ -259,7 +259,7 @@ So the key to a memory system is not just “store,” but also:
 
 ---
 
-## 9. An Important Engineering Reminder
+## An Important Engineering Reminder
 
 A memory system is not better just because it is more complex.
 
@@ -282,17 +282,17 @@ So a safer principle is usually:
 
 ---
 
-## 10. The Most Common Mistakes for Beginners
+## The Most Common Mistakes for Beginners
 
-### 10.1 Thinking of memory as “chat log archiving”
+### Thinking of memory as “chat log archiving”
 
 That is only a very shallow layer.
 
-### 10.2 Focusing only on storage, not on retrieval and usage
+### Focusing only on storage, not on retrieval and usage
 
 If you store something but never bring it back at the right time, the memory is not really working.
 
-### 10.3 Not distinguishing between short-term and long-term
+### Not distinguishing between short-term and long-term
 
 This will eventually cause:
 
@@ -301,7 +301,7 @@ This will eventually cause:
 
 ---
 
-## 11. What Is Most Worth Showing in a Memory System
+## What Is Most Worth Showing in a Memory System
 
 If you turn a memory system into a portfolio project, what is most worth showing is not “I stored a lot of historical records,” but rather:
 
@@ -315,7 +315,7 @@ If you turn a memory system into a portfolio project, what is most worth showing
 
 This will show that you understand “memory engineering,” not just simple chat log archiving.
 
-## 12. The Learning Loop for This Section
+## The Learning Loop for This Section
 
 | Layer | What You Should Be Able to Do |
 |---|---|

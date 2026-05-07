@@ -1,11 +1,11 @@
 ---
-title: "5.5 プロジェクト：知識ベース駆動の課件生成アシスタント"
+title: "8.5.5 プロジェクト：知識ベース駆動の課件生成アシスタント"
 sidebar_position: 24
 description: "PDF/Word/PPT 資料ベース、RAG 検索、外部資料の補完、例題抽出、テンプレート化した Word 生成を中心に、実際の製品のような課件アシスタントのプロジェクトを一通り作る。"
 keywords: [courseware assistant, knowledge base, word generation, ppt parsing, document parsing, rag project]
 ---
 
-# プロジェクト：知識ベース駆動の課件生成アシスタント
+# 8.5.5 プロジェクト：知識ベース駆動の課件生成アシスタント
 
 ![課件生成アシスタントのワークフロー図](/img/course/courseware-assistant-workflow-ja.png)
 
@@ -151,7 +151,7 @@ def build_courseware(topic):
 print(build_courseware("割引の文章題"))
 ```
 
-### 4.1 この例で一番大事な価値は何？
+### この例で一番大事な価値は何？
 
 この例が示しているのは、このシステムの本当の価値は単に
 
@@ -187,18 +187,18 @@ flowchart TD
 
 システム層ごとに見ると、中心となる能力は次の通りです。
 
-### 6.1 文書解析
+### 文書解析
 
 - PDF / DOCX / PPTX の読み取り
 - スキャン画像の OCR
 - 見出し階層と例題の認識
 
 対応する講座：
-- [文書解析と知識抽出](../ch03-app-dev/07-document-parsing.md)
-- [文書処理](../ch01-rag/02-document-processing.md)
-- [OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [8.3.8 文書解析と知識抽出](../ch03-app-dev/07-document-parsing.md)
+- [8.1.3 文書処理](../ch01-rag/02-document-processing.md)
+- [10.5.4 OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-### 6.2 知識ベースと検索
+### 知識ベースと検索
 
 - 分割
 - メタデータ
@@ -206,22 +206,22 @@ flowchart TD
 - 例題の再呼び出し
 
 対応する講座：
-- [RAG 基礎](../ch01-rag/01-rag-basics.md)
-- [ベクトルデータベース](../ch01-rag/03-vector-databases.md)
-- [検索戦略](../ch01-rag/04-retrieval-strategies.md)
+- [8.1.2 RAG 基礎](../ch01-rag/01-rag-basics.md)
+- [8.1.4 ベクトルデータベース](../ch01-rag/03-vector-databases.md)
+- [8.1.5 検索戦略](../ch01-rag/04-retrieval-strategies.md)
 
-### 6.3 構造化出力とテンプレート生成
+### 構造化出力とテンプレート生成
 
 - まずアウトラインを生成する
 - 次に知識点 / 例題 / 練習問題を生成する
 - その後テンプレートを当てはめて Word に出力する
 
 対応する講座：
-- [Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [テンプレート化した文書生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
+- [7.5.2 Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [7.5.4 構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [8.3.9 テンプレート化した文書生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
 
-### 6.4 ツール呼び出しとワークフロー
+### ツール呼び出しとワークフロー
 
 - 内部知識ベース検索
 - 外部資料補完
@@ -229,9 +229,9 @@ flowchart TD
 - ファイル出力
 
 対応する講座：
-- [関数呼び出しの実践](../ch03-app-dev/03-function-calling.md)
-- [対話システムとマルチターン管理](../ch03-app-dev/05-dialog-system.md)
-- [Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
+- [8.3.4 関数呼び出しの実践](../ch03-app-dev/03-function-calling.md)
+- [8.3.6 対話システムとマルチターン管理](../ch03-app-dev/05-dialog-system.md)
+- [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
 
 ## 七、定型フォーマットの課件に必要な最小 schema は何か？
 

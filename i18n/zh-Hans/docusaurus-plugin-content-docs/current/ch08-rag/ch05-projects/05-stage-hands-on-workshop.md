@@ -1,11 +1,11 @@
 ---
-title: "5.6 实操：第 8 章 RAG 应用完整工作坊"
+title: "8.5.6 实操：第 8 章 RAG 应用完整工作坊"
 sidebar_position: 25
 description: "第 8 章完整实操工作坊：一步步构建包含切块、检索、权限、引用、无答案处理、链路记录、评估和可选现代 OpenAI Responses API 升级的小型 RAG 应用。"
 keywords: [RAG 实操, RAG 工作坊, LLM 应用项目, 引用, RAG 评估, Responses API]
 ---
 
-# 实操：第 8 章 RAG 应用完整工作坊
+# 8.5.6 实操：第 8 章 RAG 应用完整工作坊
 
 这个工作坊把第 8 章的主线压缩成一个可以运行的小项目。你不会一开始就接 LangChain、向量数据库或云端 API，而是先用纯 Python 做出一个透明的 RAG 闭环，让新人能看见每一步到底发生了什么。
 

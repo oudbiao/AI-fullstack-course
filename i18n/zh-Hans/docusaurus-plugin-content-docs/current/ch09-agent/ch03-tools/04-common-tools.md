@@ -1,11 +1,11 @@
 ---
-title: "3.5 常见工具集成"
+title: "9.3.5 常见工具集成"
 sidebar_position: 14
 description: "从搜索、计算器、数据库、文件系统到浏览器，理解 Agent 里最常见的工具类型以及怎样把它们接进系统。"
 keywords: [tool integration, search, calculator, database, filesystem, browser, Agent]
 ---
 
-# 常见工具集成
+# 9.3.5 常见工具集成
 
 :::tip 本节定位
 讲工具层时，如果只停留在抽象 schema，很容易发虚。
@@ -27,7 +27,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ## 一、为什么要把工具分类型来看？
 
-### 1.1 因为“工具”这个词太宽了
+### 因为“工具”这个词太宽了
 
 搜索是工具，计算器是工具，数据库查询是工具，文件读写也是工具。
 如果一股脑都看成“一个函数”，你很快就会混乱。
@@ -40,7 +40,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 4. 文件 / 环境操作类
 5. 外部服务调用类
 
-### 1.2 为什么分类有帮助？
+### 为什么分类有帮助？
 
 因为不同类型工具的关注点不同：
 
@@ -58,7 +58,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ## 二、最常见的五类工具
 
-### 2.1 搜索 / 检索类
+### 搜索 / 检索类
 
 适合：
 
@@ -71,7 +71,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - 输入通常是 query
 - 输出通常是一组候选结果
 
-### 2.2 计算类
+### 计算类
 
 适合：
 
@@ -84,7 +84,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - 输出必须稳定精确
 - 安全风险要格外小心
 
-### 2.3 数据访问类
+### 数据访问类
 
 适合：
 
@@ -97,7 +97,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - 参数和权限最关键
 - 很多业务逻辑在这一层决定
 
-### 2.4 文件 / 环境操作类
+### 文件 / 环境操作类
 
 适合：
 
@@ -111,7 +111,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 - 风险高
 - 边界控制极其重要
 
-### 2.5 外部服务调用类
+### 外部服务调用类
 
 适合：
 
@@ -129,7 +129,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 真实系统里，常常不会把工具散落在各处，而是统一注册。
 
-### 3.1 最小可运行示例
+### 最小可运行示例
 
 ```python
 import ast
@@ -184,7 +184,7 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
-### 3.2 为什么统一注册很重要？
+### 为什么统一注册很重要？
 
 因为后面你会需要：
 
@@ -199,7 +199,7 @@ print(TOOLS.keys())
 
 ## 四、一个统一调度器
 
-### 4.1 最小调度器示例
+### 最小调度器示例
 
 ```python
 def dispatch(call):
@@ -225,7 +225,7 @@ for call in calls:
     print(call, "->", dispatch(call))
 ```
 
-### 4.2 这段代码教会你什么？
+### 这段代码教会你什么？
 
 它教会你：
 
@@ -237,7 +237,7 @@ for call in calls:
 
 ## 五、不同类型工具到底要注意什么？
 
-### 5.1 搜索类工具
+### 搜索类工具
 
 重点关注：
 
@@ -245,7 +245,7 @@ for call in calls:
 - 返回多少条结果
 - 结果是否要 rerank
 
-### 5.2 计算类工具
+### 计算类工具
 
 重点关注：
 
@@ -292,7 +292,7 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
-### 5.3 数据库类工具
+### 数据库类工具
 
 重点关注：
 
@@ -302,7 +302,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 
 例如，不要让模型随意生成任意 SQL 再直接执行。
 
-### 5.4 文件类工具
+### 文件类工具
 
 重点关注：
 
@@ -310,7 +310,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 - 写入权限
 - 是否需要人工确认
 
-### 5.5 外部服务类工具
+### 外部服务类工具
 
 重点关注：
 
@@ -322,7 +322,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 
 ## 六、一个更贴近 Agent 的工具组合例子
 
-### 6.1 场景：判断用户能不能退款
+### 场景：判断用户能不能退款
 
 这件事可能需要两个工具：
 
@@ -350,7 +350,7 @@ print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
 ```
 
-### 6.2 这段代码真正说明了什么？
+### 这段代码真正说明了什么？
 
 它说明：
 
@@ -362,22 +362,22 @@ print(refund_eligibility_agent(2))
 
 ## 七、工具集成最常见的失败点
 
-### 7.1 schema 对不上
+### schema 对不上
 
 例如：
 
 - 工具需要 `user_id`
 - 模型却传了 `id`
 
-### 7.2 返回值格式不统一
+### 返回值格式不统一
 
 如果有的工具返回字符串，有的返回 dict，有的返回 list，系统会越来越难接。
 
-### 7.3 没有统一错误处理
+### 没有统一错误处理
 
 一个工具返回 `None`，另一个抛异常，第三个返回 `"failed"`，后面逻辑很容易乱。
 
-### 7.4 没有日志和回放
+### 没有日志和回放
 
 线上一出错，就很难知道到底是哪类工具出了问题。
 
@@ -422,18 +422,18 @@ print(wrapped_search("退款"))
 
 ## 九、初学者最常踩的坑
 
-### 9.1 把所有工具都接进来再说
+### 把所有工具都接进来再说
 
 工具越多，系统越复杂。
 更稳妥的做法是：
 
 - 先接最刚需的 2~3 个
 
-### 9.2 不区分高风险工具和低风险工具
+### 不区分高风险工具和低风险工具
 
 文件删除、支付操作、数据库写入，和搜索文档不是一个风险等级。
 
-### 9.3 工具接口没有统一约定
+### 工具接口没有统一约定
 
 这是很多 Agent 系统越做越乱的直接原因。
 

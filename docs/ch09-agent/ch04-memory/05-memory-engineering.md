@@ -1,11 +1,11 @@
 ---
-title: "4.6 Memory Engineering Implementation"
+title: "9.4.6 Memory Engineering Implementation"
 sidebar_position: 23
 description: "Starting from memory writing, retrieval, expiration, compression, and privacy control, understand how an Agent memory system is turned from a concept into a maintainable engineering module."
 keywords: [memory engineering, write policy, retrieval policy, ttl, summarization, agent memory]
 ---
 
-# Memory Engineering Implementation
+# 9.4.6 Memory Engineering Implementation
 
 :::tip Section focus
 When we first talk about the concept of a "memory system" earlier, it is easy to form a misconception:
@@ -28,9 +28,9 @@ These four things determine whether a memory system is ultimately "helpful" or "
 
 ---
 
-## 1. What Does Memory Engineering Actually Solve?
+## What Does Memory Engineering Actually Solve?
 
-### 1.1 A memory system is not a "bucket", but a process with policies
+### A memory system is not a "bucket", but a process with policies
 
 If we dump all conversations and tool results into long-term memory, it may look complete in the short term, but in the long run it usually leads to:
 
@@ -41,7 +41,7 @@ If we dump all conversations and tool results into long-term memory, it may look
 
 So the core of memory engineering is not "store everything", but "store with policies."
 
-### 1.2 We can first split the memory pipeline into four parts
+### We can first split the memory pipeline into four parts
 
 1. `write`: whether to store
 2. `index`: how to organize after writing
@@ -50,7 +50,7 @@ So the core of memory engineering is not "store everything", but "store with pol
 
 As long as these four parts are clear, the system is much easier to keep stable.
 
-### 1.3 An analogy
+### An analogy
 
 A memory system is more like a library than a storage room.
 
@@ -61,9 +61,9 @@ If an Agent needs to work for a long time, it must be closer to the latter.
 
 ---
 
-## 2. Write Policy: What Information Is Worth Keeping in Long-Term Memory?
+## Write Policy: What Information Is Worth Keeping in Long-Term Memory?
 
-### 2.1 Not every message is worth writing
+### Not every message is worth writing
 
 For example, these two kinds of information are very different in value:
 
@@ -72,7 +72,7 @@ For example, these two kinds of information are very different in value:
 
 The second one is more suitable for long-term retention, while the first one usually is not.
 
-### 2.2 A practical write decision
+### A practical write decision
 
 You can start by filtering with three questions:
 
@@ -80,7 +80,7 @@ You can start by filtering with three questions:
 2. Is this information related to the user, the task, or the strategy?
 3. Is this information stable enough, rather than one-time noise?
 
-### 2.3 Common types that can be written
+### Common types that can be written
 
 - User preferences
 - Stable background information
@@ -95,9 +95,9 @@ Common types that are not recommended for direct long-term storage:
 
 ---
 
-## 3. Retrieval Policy: How Do We Find "Useful Memory" Again?
+## Retrieval Policy: How Do We Find "Useful Memory" Again?
 
-### 3.1 Retrieval is not just semantic similarity
+### Retrieval is not just semantic similarity
 
 Pure similarity sometimes misses important engineering signals, such as:
 
@@ -105,7 +105,7 @@ Pure similarity sometimes misses important engineering signals, such as:
 - Whether the memory itself is highly important
 - Whether it is related to the current user
 
-### 3.2 A common ranking combination
+### A common ranking combination
 
 Retrieval scores can come from weighted multiple factors:
 
@@ -116,16 +116,16 @@ Retrieval scores can come from weighted multiple factors:
 
 This is more stable than looking only at "does it look similar."
 
-### 3.3 Why decay matters
+### Why decay matters
 
 Some information becomes outdated.
 Without time decay, the system may keep using very old preferences or context in current decisions.
 
 ---
 
-## 4. Lifecycle: Expiration, Cleanup, and Compression
+## Lifecycle: Expiration, Cleanup, and Compression
 
-### 4.1 TTL is not optional
+### TTL is not optional
 
 Some memories are naturally short-lived, such as:
 
@@ -134,7 +134,7 @@ Some memories are naturally short-lived, such as:
 
 These kinds of information are best stored with a TTL.
 
-### 4.2 Cleanup is not as simple as "deleting a batch on a schedule"
+### Cleanup is not as simple as "deleting a batch on a schedule"
 
 A better approach is usually to combine:
 
@@ -142,7 +142,7 @@ A better approach is usually to combine:
 - Low-value eviction
 - Duplicate content merging
 
-### 4.3 Compression makes the system sustainable over time
+### Compression makes the system sustainable over time
 
 When the number of records keeps growing, you can compress similar history into summaries, for example:
 
@@ -158,7 +158,7 @@ Read this diagram by lifecycle: `write` decides whether to store, `index` decide
 
 ---
 
-## 5. First Run a Runnable Minimal Memory Engine
+## First Run a Runnable Minimal Memory Engine
 
 The example below will demonstrate the full flow:
 
@@ -284,7 +284,7 @@ for item, score in results:
     print(item.memory_id, round(score, 4), item.text)
 ```
 
-### 5.1 The three most important things to learn from this code
+### The three most important things to learn from this code
 
 1. Writing is not unconditional
    `importance`, `tags`, and deduplication are used to control write quality
@@ -293,12 +293,12 @@ for item, score in results:
 3. A lifecycle is necessary
    `ttl_steps` and `cleanup` prevent long-term growth from getting out of control
 
-### 5.2 Why is it reasonable to clear the "debug flag"?
+### Why is it reasonable to clear the "debug flag"?
 
 Because it is temporary information and has `ttl_steps=1`.
 If it is kept in later steps, it usually only pollutes retrieval results.
 
-### 5.3 Why are "user preference" and "refund policy" retrieved first?
+### Why are "user preference" and "refund policy" retrieved first?
 
 Because the query terms trigger both:
 
@@ -309,16 +309,16 @@ And both have higher importance and have not expired.
 
 ---
 
-## 6. What Else Should Be Added in Engineering Practice?
+## What Else Should Be Added in Engineering Practice?
 
-### 6.1 Privacy and sensitive information handling
+### Privacy and sensitive information handling
 
 Before writing to long-term memory, you usually need to do:
 
 - PII anonymization
 - Compliance field filtering
 
-### 6.2 Storage backends and indexing
+### Storage backends and indexing
 
 The example uses in-memory structures.
 Real systems often connect to:
@@ -327,7 +327,7 @@ Real systems often connect to:
 - Vector databases
 - Relational databases
 
-### 6.3 Monitoring metrics
+### Monitoring metrics
 
 It is recommended to observe at least:
 
@@ -340,18 +340,18 @@ Without metrics, a memory system can easily become more and more of a black box 
 
 ---
 
-## 7. Most Common Misconceptions
+## Most Common Misconceptions
 
-### 7.1 Misconception 1: More memory means smarter
+### Misconception 1: More memory means smarter
 
 More memory can also mean more noise.
 The key is the proportion of effective memory, not the total amount.
 
-### 7.2 Misconception 2: Only write, but never clean up
+### Misconception 2: Only write, but never clean up
 
 This leads to the accumulation of retrieval noise over time, and performance may actually get worse later.
 
-### 7.3 Misconception 3: Only do semantic retrieval, but no policy layer
+### Misconception 3: Only do semantic retrieval, but no policy layer
 
 Memory engineering is always a combination of "retrieval + policy",
 not something a single vector search can solve completely.

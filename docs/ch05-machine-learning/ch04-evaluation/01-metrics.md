@@ -1,11 +1,11 @@
 ---
-title: "4.2 Evaluation Metrics"
+title: "5.4.2 Evaluation Metrics"
 sidebar_position: 10
 description: "Master classification metrics (accuracy, precision, recall, F1, ROC/AUC) and regression metrics (MSE, RMSE, MAE, R²), and understand multi-class evaluation"
 keywords: [evaluation metrics, accuracy, precision, recall, F1, ROC, AUC, confusion matrix, MSE, R²]
 ---
 
-# Evaluation Metrics
+# 5.4.2 Evaluation Metrics
 
 ![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.png)
 
@@ -51,9 +51,9 @@ In other words, metrics are not “scores you casually check after training”; 
 
 ---
 
-## 1. Why isn’t accuracy enough?
+## Why isn’t accuracy enough?
 
-### 1.1 The trap of imbalanced data
+### The trap of imbalanced data
 
 ```python
 import numpy as np
@@ -73,7 +73,7 @@ print(f"Accuracy: {accuracy:.1%}")
 With imbalanced data, **always predicting the majority class** can still give you very high accuracy. But such a model is useless. We need more detailed metrics.
 :::
 
-### 1.2 Don’t rush to memorize metrics—first ask about error cost
+### Don’t rush to memorize metrics—first ask about error cost
 
 One of the most valuable ideas from Andrew Ng–style machine learning courses is:
 **First ask what consequences errors will cause, then decide how to evaluate the model.**
@@ -91,9 +91,9 @@ So evaluation metrics are not abstract math exercises. They help you answer:
 
 ---
 
-## 2. Confusion matrix — the foundation of all classification metrics
+## Confusion matrix — the foundation of all classification metrics
 
-### 2.1 Four basic quantities
+### Four basic quantities
 
 | | Predicted Positive | Predicted Negative |
 |---|---------------------|---------------------|
@@ -130,7 +130,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.2 Deriving metrics from the confusion matrix
+### Deriving metrics from the confusion matrix
 
 ```mermaid
 flowchart TD
@@ -144,7 +144,7 @@ flowchart TD
     style F1 fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.3 A more beginner-friendly way to read it
+### A more beginner-friendly way to read it
 
 Many people see a confusion matrix for the first time and treat it as a table they must memorize.
 In fact, there is a simpler way to read it:
@@ -161,9 +161,9 @@ This naturally leads you to the two most important questions:
 
 ---
 
-## 3. Classification metrics in detail
+## Classification metrics in detail
 
-### 3.1 Precision
+### Precision
 
 > **Precision = TP / (TP + FP)**
 >
@@ -171,7 +171,7 @@ This naturally leads you to the two most important questions:
 
 **Use when**: **false positives are costly** — for example, recommendation systems (bad suggestions hurt user experience), spam detection (marking normal mail as spam is annoying).
 
-### 3.2 Recall
+### Recall
 
 > **Recall = TP / (TP + FN)**
 >
@@ -179,7 +179,7 @@ This naturally leads you to the two most important questions:
 
 **Use when**: **false negatives are costly** — for example, disease screening (missing a disease is dangerous), fraud detection (missing fraud causes loss).
 
-### 3.3 F1-Score
+### F1-Score
 
 > **F1 = 2 × Precision × Recall / (Precision + Recall)**
 >
@@ -194,7 +194,7 @@ print(f"Recall:     {recall_score(y_test, y_pred):.4f}")
 print(f"F1-Score:   {f1_score(y_test, y_pred):.4f}")
 ```
 
-### 3.4 Precision vs. recall trade-off
+### Precision vs. recall trade-off
 
 ```python
 from sklearn.metrics import precision_recall_curve
@@ -235,7 +235,7 @@ plt.show()
 
 You can use this diagram as a reading order for classification evaluation: first use the confusion matrix to see where the errors are, then use the threshold curve to see how precision and recall trade off, and finally look at the ROC or PR curve. The more imbalanced the classes are, the more important the PR curve usually becomes.
 
-### 3.5 When you build your first classification project, how should you choose metrics?
+### When you build your first classification project, how should you choose metrics?
 
 If you are still a beginner, use this default order:
 
@@ -247,7 +247,7 @@ If you are still a beginner, use this default order:
 
 This is more stable than piling on many metrics from the beginning, because it first helps you see where the model is wrong.
 
-### 3.6 A beginner-friendly mnemonic
+### A beginner-friendly mnemonic
 
 If you haven’t formed a habit for choosing metrics yet, you can remember this:
 
@@ -257,9 +257,9 @@ This sentence matters more than memorizing many definitions, because it forces y
 
 ---
 
-## 4. ROC curve and AUC
+## ROC curve and AUC
 
-### 4.1 ROC curve
+### ROC curve
 
 The ROC (Receiver Operating Characteristic) curve shows **True Positive Rate vs False Positive Rate** under different thresholds.
 
@@ -284,7 +284,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.2 What AUC means
+### What AUC means
 
 **AUC (Area Under Curve) = the area under the ROC curve.**
 
@@ -297,7 +297,7 @@ plt.show()
 | 0.5 | Same as random guessing |
 | < 0.5 | Worse than random (there is a problem with the model) |
 
-### 4.3 ROC comparison across multiple models
+### ROC comparison across multiple models
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
@@ -332,9 +332,9 @@ plt.show()
 
 ---
 
-## 5. Regression metrics
+## Regression metrics
 
-### 5.1 Common metrics
+### Common metrics
 
 | Metric | Formula | Description |
 |------|------|------|
@@ -373,7 +373,7 @@ print(f"MAE:  {mae:.2f}")
 print(f"R²:   {r2:.4f}")
 ```
 
-### 5.2 Why shouldn’t you rely only on R² in regression?
+### Why shouldn’t you rely only on R² in regression?
 
 `R²` is very common, but it is not a universal score.
 When you do a regression project for the first time, a more stable approach is to check it together with error-based metrics:
@@ -392,7 +392,7 @@ So in regression, a more mature habit is:
 
 This diagram turns the regression side of evaluation into a picture: MAE tells you the average miss, MSE exaggerates large mistakes, RMSE keeps the same unit as the target, and the residual plot tells you whether the model still has an obvious pattern to learn.
 
-### 5.3 Visualization: residual analysis
+### Visualization: residual analysis
 
 ```python
 residuals = y_test - y_pred
@@ -429,9 +429,9 @@ plt.show()
 
 ---
 
-## 6. Multi-class evaluation
+## Multi-class evaluation
 
-### 6.1 Three averaging methods
+### Three averaging methods
 
 For multi-class problems, precision/recall/F1 can be calculated in three ways:
 
@@ -459,7 +459,7 @@ y_pred = model.predict(X_test)
 print(classification_report(y_test, y_pred, target_names=iris.target_names))
 ```
 
-### 6.2 Multi-class confusion matrix
+### Multi-class confusion matrix
 
 ```python
 from sklearn.metrics import confusion_matrix
@@ -488,7 +488,7 @@ plt.show()
 
 ---
 
-## 7. Metric selection guide
+## Metric selection guide
 
 ```mermaid
 flowchart TD
@@ -516,7 +516,7 @@ flowchart TD
 | Regression | RMSE, R² |
 | Model comparison | AUC (threshold-independent) |
 
-### 7.1 A metric selection order that feels more like a real project
+### A metric selection order that feels more like a real project
 
 When you actually apply this section to a project, you can follow this order:
 

@@ -1,11 +1,11 @@
 ---
-title: "1.6 RAG Optimization"
+title: "8.1.6 RAG Optimization"
 sidebar_position: 5
 description: "Understand the most common optimization levers in a RAG system, from chunking and retrieval to context packing and answer constraints."
 keywords: [RAG optimization, chunking, top-k, rerank, prompt, context packing]
 ---
 
-# RAG Optimization
+# 8.1.6 RAG Optimization
 
 ## Learning Objectives
 
@@ -18,9 +18,9 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. First locate which stage has the problem before optimizing
+## First locate which stage has the problem before optimizing
 
-### 1.1 A RAG system usually has four stages
+### A RAG system usually has four stages
 
 It can be roughly broken down into:
 
@@ -35,7 +35,7 @@ If the answer quality is poor, you should first ask:
 - Or did it find it but not include it?
 - Or did it include it, but the model did not use it well?
 
-### 1.2 Different problems call for different optimization directions
+### Different problems call for different optimization directions
 
 | Symptom | Common problem area |
 |---|---|
@@ -51,9 +51,9 @@ Before optimizing, locate the issue along the funnel: document processing, retri
 
 ---
 
-## 2. Start optimizing from document processing
+## Start optimizing from document processing
 
-### 2.1 Chunk size is not better just because it is larger
+### Chunk size is not better just because it is larger
 
 If chunks are too large:
 
@@ -67,7 +67,7 @@ If chunks are too small:
 
 So the usual goal is not “the bigger the safer,” but finding a balance.
 
-### 2.2 Preserving structural information is often important
+### Preserving structural information is often important
 
 The value of many documents is not only in the sentences themselves, but also in:
 
@@ -80,9 +80,9 @@ If you remove all of this structure during cleaning, retrieval quality often get
 
 ---
 
-## 3. A few of the most commonly tuned levers in retrieval
+## A few of the most commonly tuned levers in retrieval
 
-### 3.1 `top_k`: bigger is not always better
+### `top_k`: bigger is not always better
 
 Many people initially think:
 
@@ -91,16 +91,16 @@ Many people initially think:
 Not necessarily.
 When `top_k` is too large, irrelevant content may be brought in as well, which can actually distract the model.
 
-### 3.2 Rerank: cast a wide net first, then filter more carefully
+### Rerank: cast a wide net first, then filter more carefully
 
 When coarse retrieval brings in a lot of borderline content, rerank is very helpful.
 It is not just “doing one more step”; it increases the density of useful context.
 
 ---
 
-## 4. Context packing matters more than many people think
+## Context packing matters more than many people think
 
-### 4.1 The model does not automatically “use” information just because it sees it
+### The model does not automatically “use” information just because it sees it
 
 Even if the correct content is retrieved, you may still see:
 
@@ -110,7 +110,7 @@ Even if the correct content is retrieved, you may still see:
 
 So “which chunks to include, and in what order” is itself an optimization point.
 
-### 4.2 A runnable example of context packing
+### A runnable example of context packing
 
 ```python
 chunks = [
@@ -141,9 +141,9 @@ This is the simplest form of “context budget management.”
 
 ---
 
-## 5. How do we optimize the generation stage?
+## How do we optimize the generation stage?
 
-### 5.1 The prompt should clearly tell the model how to use the materials
+### The prompt should clearly tell the model how to use the materials
 
 Many times the problem is not that the materials were not found, but that the model was not clearly instructed to:
 
@@ -155,7 +155,7 @@ A common prompt idea is:
 
 > “Please answer only according to the following materials; if the materials are insufficient, clearly say so.”
 
-### 5.2 Citing sources can significantly improve controllability
+### Citing sources can significantly improve controllability
 
 Having the answer include sources usually has several benefits:
 
@@ -165,9 +165,9 @@ Having the answer include sources usually has several benefits:
 
 ---
 
-## 6. A simple way to think about optimization experiments
+## A simple way to think about optimization experiments
 
-### 6.1 Do not change five parameters at once
+### Do not change five parameters at once
 
 It is better to follow this order:
 
@@ -181,7 +181,7 @@ For example:
 - Then change only top-k
 - Then add rerank
 
-### 6.2 A small configuration comparison script
+### A small configuration comparison script
 
 ```python
 configs = [
@@ -212,19 +212,19 @@ The key idea in this diagram is “change only one variable at a time.” In eac
 
 ---
 
-## 7. Common trade-offs in RAG optimization
+## Common trade-offs in RAG optimization
 
-### 7.1 Quality vs cost
+### Quality vs cost
 
 - Larger `top_k`: may be more complete, but more expensive
 - Stronger reranker: may be more accurate, but slower
 
-### 7.2 Recall vs precision
+### Recall vs precision
 
 - Too little retrieval: may miss the answer
 - Too much retrieval: may introduce noise
 
-### 7.3 Real-time performance vs stability
+### Real-time performance vs stability
 
 - Retrieving fresh information in real time is more flexible
 - More thorough preprocessing is usually more stable
@@ -233,7 +233,7 @@ There is no universal best solution, only the best solution for a given scenario
 
 ---
 
-## 8. If your goal is a “courseware generation assistant driven by a knowledge base,” what optimization order is best?
+## If your goal is a “courseware generation assistant driven by a knowledge base,” what optimization order is best?
 
 A very common mistake in this kind of project is:
 
@@ -252,7 +252,7 @@ You can compress this into one sentence:
 
 > **For this kind of project, prioritize optimizing “finding the right content” and “placing it correctly,” and only then optimize “writing it more beautifully.”**
 
-## 9. A minimal optimization checklist more like a courseware generation project
+## A minimal optimization checklist more like a courseware generation project
 
 | Symptom | What should you check first |
 |---|---|
@@ -265,17 +265,17 @@ This table is especially useful for beginners because it pushes “optimization�
 
 ---
 
-## 10. Common beginner mistakes
+## Common beginner mistakes
 
-### 10.1 Switching to a larger model right away
+### Switching to a larger model right away
 
 Many RAG problems are not because the model is too weak, but because the retrieval pipeline is not tuned well.
 
-### 10.2 Only looking at a single demo, without stable evaluation
+### Only looking at a single demo, without stable evaluation
 
 Getting one answer right does not mean the system is stable.
 
-### 10.3 Increasing `top_k` over and over
+### Increasing `top_k` over and over
 
 More context is not always better, especially when the context contains too many irrelevant chunks.
 

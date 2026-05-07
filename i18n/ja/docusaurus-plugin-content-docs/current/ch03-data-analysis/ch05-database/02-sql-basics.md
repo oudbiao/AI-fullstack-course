@@ -1,10 +1,10 @@
 ---
-title: "5.2 SQL 基礎"
+title: "3.5.3 SQL 基礎"
 sidebar_position: 22
 description: "データベースの共通言語 SQL を身につけ、追加・削除・更新・検索を学ぶ"
 ---
 
-# SQL 基礎
+# 3.5.3 SQL 基礎
 
 ![SQL 表の関連図](/img/course/sql-table-join-map-ja.png)
 

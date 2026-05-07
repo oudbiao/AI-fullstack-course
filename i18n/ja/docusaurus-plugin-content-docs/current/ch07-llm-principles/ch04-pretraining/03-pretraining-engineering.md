@@ -1,11 +1,11 @@
 ---
-title: "4.4 事前学習エンジニアリング【選択】"
+title: "7.4.4 事前学習エンジニアリング【選択】"
 sidebar_position: 14
 description: "データの分割、ストリーミング読み込み、checkpoint、学習の再開、スループットの安定性という観点から、なぜ事前学習がしばしばシステム工学の問題になるのかを理解する。"
 keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training]
 ---
 
-# 事前学習エンジニアリング【選択】
+# 7.4.4 事前学習エンジニアリング【選択】
 
 :::tip この節の位置づけ
 もし前の2節が次のことに答えていたなら：
@@ -37,7 +37,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 ## 一、なぜ事前学習はすぐに「モデルを書く」から「システムを作る」に変わるのか？
 
-### 1.1 データが大きく、時間が長く、失敗コストが高いから
+### データが大きく、時間が長く、失敗コストが高いから
 
 小さな実験では、たとえば次の程度で済むかもしれません。
 
@@ -59,7 +59,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 - 学習が中断した後に復元できるか
 - 各ステップのスループットが安定しているか
 
-### 1.2 たとえで言うと：1回プログラムを動かすのではなく、生産ラインを運営する
+### たとえで言うと：1回プログラムを動かすのではなく、生産ラインを運営する
 
 事前学習は、工場の生産ラインに似ています。
 
@@ -81,7 +81,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 ## 二、事前学習エンジニアリングで最も重要な3つの問題
 
-### 2.1 データをどう入れるか？
+### データをどう入れるか？
 
 データ量が非常に大きいときは、  
 通常、全部を一度にメモリへ読み込むのではなく、次のようにします。
@@ -90,7 +90,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 - ストリーミングで読む
 - 読みながら token block にまとめる
 
-### 2.2 学習が中断したらどうするか？
+### 学習が中断したらどうするか？
 
 長時間の学習で、故障が一切起きないことを保証するのはほぼ不可能です。  
 そのため checkpoint は「ついでに保存するもの」ではなく、  
@@ -103,7 +103,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 これが揃って初めて、中断後に混乱せずに再開できます。
 
-### 2.3 なぜスループットが重要なのか？
+### なぜスループットが重要なのか？
 
 事前学習は時間をとても使うからです。  
 毎秒の token スループットが安定しないと、  
@@ -185,7 +185,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
     print(f"step={state['global_step']:02d} shard={shard_name} batch={batch}")
 ```
 
-### 3.1 なぜこのコードは「shard 名を並べるだけ」より学習価値があるのか？
+### なぜこのコードは「shard 名を並べるだけ」より学習価値があるのか？
 
 これは事前学習でいちばん現実的な問題に対応しているからです。
 
@@ -199,7 +199,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 どちらも学習の安定性に悪影響があります。
 
-### 3.2 なぜ `state` に3つの情報を同時に持たせるのか？
+### なぜ `state` に3つの情報を同時に持たせるのか？
 
 ここで保存しているのは次の3つです。
 
@@ -215,7 +215,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 これが最小の復元可能状態です。
 
-### 3.3 実際のエンジニアリングでは、ほかに何を保存するのか？
+### 実際のエンジニアリングでは、ほかに何を保存するのか？
 
 通常は次も含めます。
 
@@ -229,7 +229,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 ## 四、なぜデータ分割はほぼ標準のやり方なのか？
 
-### 4.1 データを一度に全部メモリへ載せるのは不可能だから
+### データを一度に全部メモリへ載せるのは不可能だから
 
 コーパスが TB 級になると、  
 「全部読み込んでから学習する」のは現実的ではありません。
@@ -240,7 +240,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 - 障害復旧しやすい
 - バージョン管理しやすい
 
-### 4.2 分割は複数 worker の並列処理にも役立つ
+### 分割は複数 worker の並列処理にも役立つ
 
 複数 GPU や複数 worker で学習するときは、  
 それぞれに次のような役割を持たせられます。
@@ -250,7 +250,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 これにより、データ供給がより安定します。
 
-### 4.3 よくある落とし穴：shard の大きさが揃っていない
+### よくある落とし穴：shard の大きさが揃っていない
 
 一部の shard が極端に大きく、別の shard が小さいと、  
 次のようなことが起こりやすくなります。
@@ -267,7 +267,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 ## 五、なぜ「全部 tokenize してから読む」よりストリーミング読み込みの方が現実的なのか？
 
-### 5.1 前処理そのものにもコストがかかるから
+### 前処理そのものにもコストがかかるから
 
 大規模コーパスでは、tokenization も無料ではありません。  
 全部を一気に処理しようとすると、次の問題が出やすいです。
@@ -281,7 +281,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 - 事前に shard 化してストリーミングする
 - ある部分は事前処理、ある部分はオンライン処理にする
 
-### 5.2 ただし、ストリーミング読み込みには新しい問題もある
+### ただし、ストリーミング読み込みには新しい問題もある
 
 たとえば次の通りです。
 
@@ -295,7 +295,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 ## 六、なぜスループットは学習結果に直接影響するのか？
 
-### 6.1 スループットが不安定だと、多くの資源が無駄になる
+### スループットが不安定だと、多くの資源が無駄になる
 
 各ステップの学習時間が速くなったり遅くなったりする場合、  
 よくある原因は次の通りです。
@@ -307,7 +307,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 
 これは総学習時間を直接伸ばします。
 
-### 6.2 もっと見えにくい問題：学習計画がずれる
+### もっと見えにくい問題：学習計画がずれる
 
 事前学習は通常、次のように計画します。
 
@@ -321,7 +321,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
 - checkpoint の周期
 - 予算見積もり
 
-### 6.3 とても簡単なスループットログの例
+### とても簡単なスループットログの例
 
 ```python
 step_logs = [
@@ -345,7 +345,7 @@ for log in step_logs:
 
 ## 七、事前学習エンジニアリングで見落とされやすい2つのこと
 
-### 7.1 データバージョン管理
+### データバージョン管理
 
 次のことを説明できなければいけません。
 
@@ -355,7 +355,7 @@ for log in step_logs:
 
 これが曖昧だと、後で結果の変化を原因ごとに追うのがほぼ不可能になります。
 
-### 7.2 復元可能性のテスト
+### 復元可能性のテスト
 
 多くのチームは次を丁寧に確認します。
 
@@ -372,17 +372,17 @@ for log in step_logs:
 
 ## 八、よくある誤解
 
-### 8.1 誤解1：まずモデルを正しく書いて、エンジニアリングは後で足せばいい
+### 誤解1：まずモデルを正しく書いて、エンジニアリングは後で足せばいい
 
 事前学習では、エンジニアリングは後付けの飾りではありません。  
 実験を本当に動かすための前提です。
 
-### 8.2 誤解2：checkpoint はモデルパラメータだけ保存すれば十分
+### 誤解2：checkpoint はモデルパラメータだけ保存すれば十分
 
 十分ではありません。  
 データ位置と optimizer の状態がなければ、再開後に整合しない可能性があります。
 
-### 8.3 誤解3：スループットはコストの問題だけで、学習品質には関係ない
+### 誤解3：スループットはコストの問題だけで、学習品質には関係ない
 
 スループット自体が直接 loss を決めるわけではありません。  
 ただし、学習計画、安定性、資源利用に影響し、  

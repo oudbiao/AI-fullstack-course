@@ -1,11 +1,11 @@
 ---
-title: "7.2 项目：智能问答系统"
+title: "11.7.2 项目：智能问答系统"
 sidebar_position: 1
 description: "从知识库设计、检索、拒答、评估到展示方式，走通一个真正可解释的小型问答系统项目。"
 keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project]
 ---
 
-# 项目：智能问答系统
+# 11.7.2 项目：智能问答系统
 
 ![问答系统检索回答评估闭环图](/img/course/ch11-qa-retrieval-answer-evaluation-map.png)
 
@@ -60,7 +60,7 @@ keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project
 
 只要这 6 步清楚，项目就已经很有说服力。
 
-### 2.1 一张更像真实系统的闭环图
+### 一张更像真实系统的闭环图
 
 ```mermaid
 flowchart LR
@@ -91,7 +91,7 @@ flowchart LR
 
 这样项目会更像“可解释系统”，而不是“碰巧答对几句”的 demo。
 
-### 3.1 为什么问答系统特别适合训练“系统边界感”？
+### 为什么问答系统特别适合训练“系统边界感”？
 
 因为它会逼你一直面对三个问题：
 
@@ -101,7 +101,7 @@ flowchart LR
 
 这正是很多真实产品系统最关键的一层判断。
 
-### 3.2 一个更适合新人的总类比
+### 一个更适合新人的总类比
 
 你可以把问答系统想成：
 
@@ -157,7 +157,7 @@ print(answer_question("退款时间是多久"))
 print(answer_question("怎么拿证书"))
 ```
 
-### 4.1 这个例子为什么更像项目，而不只是一个函数？
+### 这个例子为什么更像项目，而不只是一个函数？
 
 因为它已经有：
 
@@ -166,14 +166,14 @@ print(answer_question("怎么拿证书"))
 - 匹配得分
 - 可解释的返回结果
 
-### 4.2 为什么 `matched_question` 很值得展示？
+### 为什么 `matched_question` 很值得展示？
 
 因为它能帮你回答：
 
 - 系统是答对了
 - 还是只是碰巧答得像
 
-### 4.3 为什么“检索命中什么”比“回答看起来顺不顺”更值得先看？
+### 为什么“检索命中什么”比“回答看起来顺不顺”更值得先看？
 
 因为问答系统很多错误并不是生成层的错误，
 而是：
@@ -183,7 +183,7 @@ print(answer_question("怎么拿证书"))
 如果这一步没看清，
 后面你会很难判断问题到底出在哪。
 
-### 4.4 再看一个最小“命中日志”示例
+### 再看一个最小“命中日志”示例
 
 ```python
 queries = ["退款时间是多久", "怎么拿证书"]
@@ -232,7 +232,7 @@ def safe_answer_question(user_query, threshold=2):
 print(safe_answer_question("DeepSeek 和 OpenAI 哪个更强？"))
 ```
 
-### 5.1 为什么这一步特别值钱？
+### 为什么这一步特别值钱？
 
 因为它会让系统从：
 
@@ -266,7 +266,7 @@ accuracy = correct / len(eval_data)
 print("accuracy =", accuracy)
 ```
 
-### 6.1 还应该评估什么？
+### 还应该评估什么？
 
 除了准确率，还值得看：
 
@@ -274,7 +274,7 @@ print("accuracy =", accuracy)
 - 哪些问题最容易误匹配
 - 近义表达是否稳定
 
-### 6.2 一个很适合新人的最小评估表
+### 一个很适合新人的最小评估表
 
 你可以先只做这样一张表：
 
@@ -287,7 +287,7 @@ print("accuracy =", accuracy)
 - 拒答稳不稳
 - 最后答案靠不靠谱
 
-### 6.3 第一次做问答项目时，最稳的默认顺序
+### 第一次做问答项目时，最稳的默认顺序
 
 更稳的顺序通常是：
 
@@ -310,7 +310,7 @@ print("accuracy =", accuracy)
 
 把这些列出来，会比只展示正确样例更像项目课。
 
-### 7.1 如果继续把项目往上做，最值得补什么？
+### 如果继续把项目往上做，最值得补什么？
 
 更值得优先补的通常是：
 

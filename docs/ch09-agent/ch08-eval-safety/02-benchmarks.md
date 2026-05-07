@@ -1,11 +1,11 @@
 ---
-title: "8.3 Agent Benchmarking"
+title: "9.8.3 Agent Benchmarking"
 sidebar_position: 45
 description: "Understand the difference between general benchmarks and custom business evaluation sets, and learn how to design more useful evaluation benchmarks for your own Agent project."
 keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 ---
 
-# Agent Benchmarking
+# 9.8.3 Agent Benchmarking
 
 ![Agent benchmark and custom eval set comparison](/img/course/ch09-agent-benchmark-custom-eval-map-en.png)
 
@@ -22,7 +22,7 @@ Benchmarks can help you understand the capability boundaries of a model or Agent
 
 ---
 
-## 1. What Problem Do Benchmarks Solve
+## What Problem Do Benchmarks Solve
 
 The purpose of a benchmark is to provide a fixed set of tasks so different models or systems can be compared. For example, a coding Agent can be evaluated on bug-fixing ability, a web Agent can be evaluated on browser operation ability, and a tool Agent can be evaluated on multi-step tool use.
 
@@ -35,7 +35,7 @@ flowchart LR
 
 Its value lies in being repeatable, comparable, and useful for observing trends. But it does not necessarily represent your real business use case.
 
-## 2. Common Types of Agent Benchmarks
+## Common Types of Agent Benchmarks
 
 | Type | Evaluation Focus | Typical Tasks |
 |---|---|---|
@@ -46,7 +46,7 @@ Its value lies in being repeatable, comparable, and useful for observing trends.
 
 When learning these benchmarks, the key is not to memorize the names, but to understand how they define tasks, inputs, scoring, and failures.
 
-## 3. Why You Still Need a Custom Project Evaluation Set
+## Why You Still Need a Custom Project Evaluation Set
 
 General benchmarks cannot cover your course docs, your tool permissions, your user goals, and your business constraints. For example, your “AI learning assistant” needs to answer course questions, generate study plans, cite chapter sources, and avoid inventing course content. All of these must be tested with your own evaluation set.
 
@@ -63,7 +63,7 @@ You can organize the 20 samples like this:
 
 This distribution prevents a common beginner mistake: testing only the happy path.
 
-## 4. An Example Benchmark for a Course Agent
+## An Example Benchmark for a Course Agent
 
 ```json
 {
@@ -82,7 +82,7 @@ This distribution prevents a common beginner mistake: testing only the happy pat
 
 This example is more actionable than simply asking whether the answer is satisfactory, because it clearly defines what must be included, what must not be done, and how to score it.
 
-## 5. A minimal benchmark runner
+## A minimal benchmark runner
 
 A benchmark becomes useful only when you can run the same cases again after changing a Prompt, model, tool schema, or retrieval strategy.
 
@@ -122,11 +122,11 @@ This is deliberately simple. In a real Agent benchmark, you would also inspect:
 - Whether it asked for confirmation before risky actions
 - Whether latency and cost stayed within acceptable limits
 
-## 6. Limitations of Benchmarks
+## Limitations of Benchmarks
 
 Benchmarks are easy to overfit. A system may perform very well on fixed tasks, but become unstable when given real user input. Benchmarks may also ignore cost, latency, safety, and maintainability. For Agents, whether the execution trace is explainable is sometimes more important than the final score.
 
-## 7. Recommended Way to Use Benchmarks
+## Recommended Way to Use Benchmarks
 
 Start with general benchmarks to build intuition about capability, then use a custom evaluation set to validate project quality. Every time you change the Prompt, switch models, modify the tool schema, or add a retrieval strategy, run the same evaluation set again. That way, you can tell whether the change improved performance, made it worse, or only changed the output style.
 

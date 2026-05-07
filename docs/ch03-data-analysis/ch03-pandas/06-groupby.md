@@ -1,10 +1,10 @@
 ---
-title: "3.6 Grouping and Aggregation"
+title: "3.3.7 Grouping and Aggregation"
 sidebar_position: 14
 description: "Master core operations such as groupby aggregation and pivot tables"
 ---
 
-# Grouping and Aggregation
+# 3.3.7 Grouping and Aggregation
 
 ![Pandas GroupBy grouping and aggregation flowchart](/img/course/ch03-pandas-groupby-split-apply-combine-en.png)
 

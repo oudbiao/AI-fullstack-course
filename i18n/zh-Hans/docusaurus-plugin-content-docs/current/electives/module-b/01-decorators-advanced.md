@@ -1,11 +1,11 @@
 ---
-title: "1.1 装饰器高级用法"
+title: "E.B.1 装饰器高级用法"
 sidebar_position: 8
 description: "从日志、计时、重试和权限控制这些真实工程需求出发，理解装饰器为什么是 Python 服务代码里的高频模式。"
 keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 ---
 
-# 装饰器高级用法
+# E.B.1 装饰器高级用法
 
 ![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.png)
 
@@ -46,7 +46,7 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 ## 一、为什么装饰器在工程里这么常见？
 
-### 1.1 因为很多逻辑会反复附着在不同函数外层
+### 因为很多逻辑会反复附着在不同函数外层
 
 例如你有很多函数都需要：
 
@@ -57,7 +57,7 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 如果每个函数都手写一遍，代码会很快变成重复模板。
 
-### 1.2 装饰器的核心价值
+### 装饰器的核心价值
 
 它不是“神奇修改函数”，
 而是：
@@ -70,7 +70,7 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 > **装饰器是在复用“函数外层行为”。**
 
-### 1.3 一个类比
+### 一个类比
 
 函数像真正做事的人。
 装饰器像给所有人统一加上的：
@@ -115,7 +115,7 @@ print(add(3, 5))
 print(add.__name__)
 ```
 
-### 2.1 为什么 `wraps` 很重要？
+### 为什么 `wraps` 很重要？
 
 如果没有 `@wraps(fn)`，
 被装饰后的函数元信息可能会丢失，例如：
@@ -130,7 +130,7 @@ print(add.__name__)
 - 文档生成
 - 某些框架行为
 
-### 2.2 为什么日志装饰器很常见？
+### 为什么日志装饰器很常见？
 
 因为它是一种非常典型的“横切逻辑”：
 
@@ -173,7 +173,7 @@ def fake_inference():
 print(fake_inference())
 ```
 
-### 3.1 这类装饰器在 AI 工程里很实用
+### 这类装饰器在 AI 工程里很实用
 
 例如你想快速看：
 
@@ -228,7 +228,7 @@ except PermissionError as e:
     print("error:", e)
 ```
 
-### 4.1 为什么这里是两层函数？
+### 为什么这里是两层函数？
 
 因为：
 
@@ -282,7 +282,7 @@ def flaky_call():
 print(flaky_call())
 ```
 
-### 5.1 这段代码的工程意义是什么？
+### 这段代码的工程意义是什么？
 
 它说明装饰器非常适合收纳：
 
@@ -292,7 +292,7 @@ print(flaky_call())
 
 这类外围控制逻辑。
 
-### 5.2 为什么重试装饰器要慎用？
+### 为什么重试装饰器要慎用？
 
 因为不是所有错误都适合重试。
 例如：
@@ -306,17 +306,17 @@ print(flaky_call())
 
 ## 六、装饰器最容易踩的坑
 
-### 6.1 误区一：一看到装饰器就觉得“高级”
+### 误区一：一看到装饰器就觉得“高级”
 
 装饰器不是为了炫技，
 而是为了减少重复逻辑。
 
-### 6.2 误区二：装饰器套太多层
+### 误区二：装饰器套太多层
 
 如果一个函数上挂了太多装饰器，
 调试和理解都会变难。
 
-### 6.3 误区三：不用 `wraps`
+### 误区三：不用 `wraps`
 
 这会让元信息丢失，后期排查问题很痛苦。
 

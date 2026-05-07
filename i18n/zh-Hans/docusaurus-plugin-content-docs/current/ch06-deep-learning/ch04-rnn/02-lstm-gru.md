@@ -1,11 +1,11 @@
 ---
-title: "4.3 LSTM 与 GRU"
+title: "6.4.3 LSTM 与 GRU"
 sidebar_position: 2
 description: "从 RNN 为什么会忘，到门控机制如何控制信息流，理解 LSTM 和 GRU 在序列建模中的作用。"
 keywords: [LSTM, GRU, 门控机制, cell state, update gate, forget gate]
 ---
 
-# LSTM 与 GRU
+# 6.4.3 LSTM 与 GRU
 
 ![LSTM 门控记忆流图](/img/course/lstm-gate-memory-flow.png)
 
@@ -100,7 +100,7 @@ LSTM 和 GRU 就是为了解决这个“会读，但容易忘”的问题。
 
 ## 一、为什么普通 RNN 不够？
 
-### 1.1 一个经典问题：长距离依赖
+### 一个经典问题：长距离依赖
 
 看这句话：
 
@@ -114,7 +114,7 @@ LSTM 和 GRU 就是为了解决这个“会读，但容易忘”的问题。
 - 训练时梯度容易消失
 - 序列一长，记忆就不稳
 
-### 1.2 一个直觉类比
+### 一个直觉类比
 
 普通 RNN 很像你在纸条上不断改写一小段摘要：
 
@@ -135,7 +135,7 @@ LSTM 和 GRU 就是为了解决这个“会读，但容易忘”的问题。
 
 ## 二、LSTM 的核心直觉：给记忆加上“门”
 
-### 2.1 LSTM 到底多了什么？
+### LSTM 到底多了什么？
 
 LSTM 在普通 RNN 基础上，最关键的增强是：
 
@@ -146,7 +146,7 @@ LSTM 在普通 RNN 基础上，最关键的增强是：
 
 > **普通 RNN 像只有一个小本子，LSTM 则像一套更精细的记忆管理系统。**
 
-### 2.2 LSTM 的三道门
+### LSTM 的三道门
 
 | 门 | 作用 |
 |---|---|
@@ -160,7 +160,7 @@ LSTM 在普通 RNN 基础上，最关键的增强是：
 
 ## 三、先用一个“标量版”LSTM 建立直觉
 
-### 3.1 为什么先看标量版？
+### 为什么先看标量版？
 
 因为真实 LSTM 一上来全是矩阵和向量，初学者容易看晕。
 先看缩小版逻辑，会更容易抓住本质。
@@ -199,7 +199,7 @@ print("c_t         =", round(float(c_t), 4))
 print("h_t         =", round(float(h_t), 4))
 ```
 
-### 3.2 这段代码到底在教什么？
+### 这段代码到底在教什么？
 
 它在教你：
 
@@ -221,14 +221,14 @@ print("h_t         =", round(float(h_t), 4))
 
 ## 四、LSTM 的两个状态：`c_t` 和 `h_t`
 
-### 4.1 为什么要有两个状态？
+### 为什么要有两个状态？
 
 LSTM 里通常有：
 
 - `c_t`：cell state，更偏长期记忆主通道
 - `h_t`：hidden state，更偏当前时刻对外输出
 
-### 4.2 一个容易记的比喻
+### 一个容易记的比喻
 
 你可以把它理解成：
 
@@ -241,7 +241,7 @@ LSTM 里通常有：
 
 ## 五、GRU：更轻量的门控版本
 
-### 5.1 GRU 为什么会出现？
+### GRU 为什么会出现？
 
 LSTM 很强，但结构也更复杂。
 后来人们提出 GRU（Gated Recurrent Unit），想做一个：
@@ -252,14 +252,14 @@ LSTM 很强，但结构也更复杂。
 
 的版本。
 
-### 5.2 GRU 的两个核心门
+### GRU 的两个核心门
 
 | 门 | 作用 |
 |---|---|
 | Update Gate | 决定保留多少旧状态、混入多少新状态 |
 | Reset Gate | 决定计算新状态时忘掉多少旧信息 |
 
-### 5.3 一个最小 GRU 直觉示例
+### 一个最小 GRU 直觉示例
 
 ```python
 import numpy as np
@@ -282,7 +282,7 @@ print("h_candidate =", round(float(h_candidate), 4))
 print("h_t         =", round(float(h_t), 4))
 ```
 
-### 5.4 和 LSTM 的直觉差别
+### 和 LSTM 的直觉差别
 
 - LSTM：更像精细记忆管理系统
 - GRU：更像压缩版记忆管理系统
@@ -295,7 +295,7 @@ print("h_t         =", round(float(h_t), 4))
 
 ## 六、LSTM 和 GRU 怎么选？
 
-### 6.1 一般经验
+### 一般经验
 
 如果你只是要一个序列模型 baseline：
 
@@ -305,7 +305,7 @@ print("h_t         =", round(float(h_t), 4))
 
 - LSTM 常常更值得一试
 
-### 6.2 但不要把它们神化
+### 但不要把它们神化
 
 在今天的大模型时代，很多长文本任务已经更多交给 Transformer。
 但在这些场景里，LSTM / GRU 仍然很常见：
@@ -319,7 +319,7 @@ print("h_t         =", round(float(h_t), 4))
 
 ## 七、PyTorch 中怎么用 LSTM 和 GRU？
 
-### 7.1 最小可运行示例
+### 最小可运行示例
 
 ```python
 import torch
@@ -342,7 +342,7 @@ print("gru_out shape :", gru_out.shape)
 print("gru_h shape   :", gru_h.shape)
 ```
 
-### 7.2 输出分别是什么？
+### 输出分别是什么？
 
 对于 LSTM：
 
@@ -427,11 +427,11 @@ with torch.no_grad():
 
 ## 九、初学者最常踩的坑
 
-### 9.1 把 LSTM / GRU 当成“比 RNN 更深”
+### 把 LSTM / GRU 当成“比 RNN 更深”
 
 不是“更深”，而是“记忆管理更聪明”。
 
-### 9.2 分不清 `out`、`h`、`c`
+### 分不清 `out`、`h`、`c`
 
 记住：
 
@@ -439,7 +439,7 @@ with torch.no_grad():
 - `h`：最后隐藏状态
 - `c`：LSTM 的长期记忆状态
 
-### 9.3 以为用了 LSTM 就天然不会忘
+### 以为用了 LSTM 就天然不会忘
 
 不是。
 它只是比普通 RNN 更擅长控制忘和记，不代表无限长依赖都能轻松搞定。

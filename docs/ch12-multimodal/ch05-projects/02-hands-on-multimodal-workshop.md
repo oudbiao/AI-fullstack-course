@@ -1,11 +1,11 @@
 ---
-title: "5.3 Hands-on: Build a Reproducible Multimodal Creative Package"
+title: "12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package"
 sidebar_position: 20
 description: "A hands-on AIGC and multimodal workshop: build a local creative package pipeline covering brief intake, prompt records, SVG visual assets, storyboard export, asset review, safety checks, and failure analysis."
 keywords: [AIGC hands-on, multimodal project, prompt records, asset review, safety review, creative package]
 ---
 
-# Hands-on: Build a Reproducible Multimodal Creative Package
+# 12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package
 
 Before you connect real image, video, or speech models, first build a small workflow that proves you understand the product loop: input, prompt planning, asset generation, version records, review, export, and failure cases.
 

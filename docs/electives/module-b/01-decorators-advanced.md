@@ -1,11 +1,11 @@
 ---
-title: "1.1 Advanced Decorator Usage"
+title: "E.B.1 Advanced Decorator Usage"
 sidebar_position: 8
 description: "Starting from real engineering needs such as logging, timing, retries, and permission control, understand why decorators are such a common pattern in Python service code."
 keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 ---
 
-# Advanced Decorator Usage
+# E.B.1 Advanced Decorator Usage
 
 ![Python decorator execution flow](/img/course/elective-python-decorator-flow-en.png)
 
@@ -44,9 +44,9 @@ So in this lesson, we will not treat decorators as “fancy syntax.” Instead, 
 
 ---
 
-## 1. Why are decorators so common in engineering?
+## Why are decorators so common in engineering?
 
-### 1.1 Because many pieces of logic repeatedly attach to the outside of different functions
+### Because many pieces of logic repeatedly attach to the outside of different functions
 
 For example, many of your functions may need to:
 
@@ -57,7 +57,7 @@ For example, many of your functions may need to:
 
 If you write all of that by hand in every function, the code will quickly turn into repetitive boilerplate.
 
-### 1.2 The core value of decorators
+### The core value of decorators
 
 They do not “magically modify functions,”
 instead they:
@@ -70,7 +70,7 @@ In other words:
 
 > **Decorators reuse the “outer behavior” of functions.**
 
-### 1.3 An analogy
+### An analogy
 
 A function is like a person doing real work.
 A decorator is like adding the same things to everyone:
@@ -84,7 +84,7 @@ The person does not change, but the workflow becomes more consistent.
 
 ---
 
-## 2. Start with the most common logging decorator
+## Start with the most common logging decorator
 
 The code below demonstrates:
 
@@ -115,7 +115,7 @@ print(add(3, 5))
 print(add.__name__)
 ```
 
-### 2.1 Why is `wraps` so important?
+### Why is `wraps` so important?
 
 Without `@wraps(fn)`,
 the metadata of the decorated function may be lost, such as:
@@ -130,7 +130,7 @@ This can affect:
 - documentation generation
 - the behavior of some frameworks
 
-### 2.2 Why are logging decorators so common?
+### Why are logging decorators so common?
 
 Because logging is a very typical form of cross-cutting logic:
 
@@ -139,7 +139,7 @@ Because logging is a very typical form of cross-cutting logic:
 
 ---
 
-## 3. Timing decorators: make performance issues visible first
+## Timing decorators: make performance issues visible first
 
 Many engineering problems are not “the function is wrong,” but rather:
 
@@ -173,7 +173,7 @@ def fake_inference():
 print(fake_inference())
 ```
 
-### 3.1 This kind of decorator is very useful in AI engineering
+### This kind of decorator is very useful in AI engineering
 
 For example, you may want to quickly see:
 
@@ -185,7 +185,7 @@ There is no need to write timing logic by hand in every function.
 
 ---
 
-## 4. Decorators with parameters: why are they closer to real engineering?
+## Decorators with parameters: why are they closer to real engineering?
 
 Often, you do not just want to know whether a piece of logic is enabled,
 you also want to specify:
@@ -228,7 +228,7 @@ except PermissionError as e:
     print("error:", e)
 ```
 
-### 4.1 Why are there two layers of functions here?
+### Why are there two layers of functions here?
 
 Because:
 
@@ -241,7 +241,7 @@ but once you remember the three layers of responsibility, it becomes much easier
 
 ---
 
-## 5. Retry decorators: a very typical production code pattern
+## Retry decorators: a very typical production code pattern
 
 The example below simulates an unstable function
 and uses a decorator to centralize retry logic.
@@ -282,7 +282,7 @@ def flaky_call():
 print(flaky_call())
 ```
 
-### 5.1 What is the engineering meaning of this code?
+### What is the engineering meaning of this code?
 
 It shows that decorators are very suitable for packaging:
 
@@ -292,7 +292,7 @@ It shows that decorators are very suitable for packaging:
 
 These kinds of outer control logic.
 
-### 5.2 Why should retry decorators be used carefully?
+### Why should retry decorators be used carefully?
 
 Because not all errors are suitable for retrying.
 For example:
@@ -304,19 +304,19 @@ Retrying those only wastes resources.
 
 ---
 
-## 6. Common pitfalls with decorators
+## Common pitfalls with decorators
 
-### 6.1 Mistake 1: thinking “decorator” means “advanced” as soon as you see it
+### Mistake 1: thinking “decorator” means “advanced” as soon as you see it
 
 Decorators are not for showing off,
 but for reducing repeated logic.
 
-### 6.2 Mistake 2: stacking too many decorators
+### Mistake 2: stacking too many decorators
 
 If a function has too many decorators,
 debugging and understanding it both become harder.
 
-### 6.3 Mistake 3: not using `wraps`
+### Mistake 3: not using `wraps`
 
 This causes metadata loss, which makes later troubleshooting painful.
 

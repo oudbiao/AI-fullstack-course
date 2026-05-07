@@ -1,11 +1,11 @@
 ---
-title: "8.3 Project: Deliverables Kit"
+title: "7.8.3 Project: Deliverables Kit"
 sidebar_position: 28
 description: "Turn an LLM project into a portfolio-ready package with a README template, evaluation records, failure notes, screenshots, and next-step plans."
 keywords: [LLM project deliverables, README template, evaluation record, failure notes, portfolio]
 ---
 
-# Project: Deliverables Kit
+# 7.8.3 Project: Deliverables Kit
 
 The last step in an LLM project is not just “it runs.”
 
@@ -19,7 +19,7 @@ It is:
 Many projects fail the portfolio test not because the model is weak, but because the final handoff is weak. A good project needs evidence, not just a demo.
 :::
 
-## 1. What should be in the final package?
+## What should be in the final package?
 
 At minimum, a good LLM project package should include:
 
@@ -33,7 +33,7 @@ At minimum, a good LLM project package should include:
 
 This is the smallest set that lets the project stand on its own.
 
-## 2. The folder structure that makes review easy
+## The folder structure that makes review easy
 
 ```text
 project/
@@ -58,7 +58,7 @@ This structure is simple on purpose:
 - `reports/` proves the evaluation
 - `screenshots/` proves the project runs
 
-## 3. A README template you can reuse
+## A README template you can reuse
 
 Copy this outline and fill it with your own project content.
 
@@ -93,7 +93,7 @@ How do I reproduce the result?
 What would you improve next?
 ```
 
-## 4. A simple evaluation record template
+## A simple evaluation record template
 
 If your project has a fixed test set, keep the results in a small table like this:
 
@@ -105,7 +105,7 @@ If your project has a fixed test set, keep the results in a small table like thi
 
 This makes it easy to compare versions later.
 
-## 5. A failure note template that is actually useful
+## A failure note template that is actually useful
 
 Do not just write “the model is bad.”
 
@@ -124,7 +124,7 @@ Write a note like this:
 
 That one note is often more valuable than ten screenshots.
 
-## 6. What a strong project handoff looks like
+## What a strong project handoff looks like
 
 The handoff should let another person answer three questions quickly:
 
@@ -136,7 +136,7 @@ If those three questions are easy to answer, the project is ready for a portfoli
 
 ![Project Deliverables Kit](/img/course/ch07-project-deliverables-kit-en.png)
 
-## 7. Final checklist
+## Final checklist
 
 Before you close the project, check these items:
 

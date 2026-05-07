@@ -1,11 +1,11 @@
 ---
-title: "6.6 Data Labeling and the Data Flywheel"
+title: "7.6.6 Data Labeling and the Data Flywheel"
 sidebar_position: 23
 description: "Treat data labeling as part of task definition, and understand how labeling guidelines, consistency, hard example mining, and the data flywheel truly drive improvements in fine-tuning quality."
 keywords: [data labeling, data flywheel, annotation, agreement, hard example mining, finetuning]
 ---
 
-# Data Labeling and the Data Flywheel
+# 7.6.6 Data Labeling and the Data Flywheel
 
 :::tip Section Overview
 The upper limit of model performance is often determined not by training tricks, but by data.
@@ -34,9 +34,9 @@ So this lesson is about solving a more fundamental question:
 
 ---
 
-## 1. Why is “data labeling” essentially task definition?
+## Why is “data labeling” essentially task definition?
 
-### 1.1 Labels are not clerical work, but product decisions
+### Labels are not clerical work, but product decisions
 
 Suppose your task is “customer service reply quality classification.”
 
@@ -59,7 +59,7 @@ So the labels should really answer:
 - What counts as wrong
 - How to judge edge cases
 
-### 1.2 Analogy: the model is not learning label names, but the rules behind them
+### Analogy: the model is not learning label names, but the rules behind them
 
 You can think of each labeled data point as:
 
@@ -71,7 +71,7 @@ but the judgment criteria you implicitly express through many examples.
 So if the rules themselves are vague,
 the model cannot learn them clearly.
 
-### 1.3 Why do many fine-tuning projects get stuck here?
+### Why do many fine-tuning projects get stuck here?
 
 Because teams often overestimate how clear the “label names” are, and underestimate the importance of the “labeling guidelines.”
 
@@ -84,9 +84,9 @@ What really improves data quality in a stable way is often not the labeling plat
 
 ---
 
-## 2. First, design the label system clearly
+## First, design the label system clearly
 
-### 2.1 Labels should map naturally to business actions
+### Labels should map naturally to business actions
 
 A good label system should map cleanly to downstream actions.
 
@@ -109,7 +109,7 @@ Because these labels are more useful for:
 - Data augmentation
 - Targeted fine-tuning
 
-### 2.2 Boundary cases must have their own rules
+### Boundary cases must have their own rules
 
 What beginners most easily overlook is that:
 
@@ -127,7 +127,7 @@ The truly difficult cases are:
 If these boundary cases are not clearly defined,
 consistency will definitely drop.
 
-### 2.3 When should you use classification labels, and when should you use preference comparison?
+### When should you use classification labels, and when should you use preference comparison?
 
 If your task focuses on:
 
@@ -150,7 +150,7 @@ In other words:
 
 ---
 
-## 3. Start with a truly useful data quality check script
+## Start with a truly useful data quality check script
 
 The code below does three very practical things:
 
@@ -242,7 +242,7 @@ for row in needs_review:
     )
 ```
 
-### 3.1 Why is this code not a “useless example”?
+### Why is this code not a “useless example”?
 
 Because it corresponds to three things data teams do every day:
 
@@ -253,7 +253,7 @@ Because it corresponds to three things data teams do every day:
 If you only look at “total sample size” and ignore these signals,
 data quality can easily stay at a superficial level.
 
-### 3.2 Why is `agreement` not enough?
+### Why is `agreement` not enough?
 
 Because sometimes the classes are highly imbalanced.
 For example, if 90% of samples are `good`,
@@ -265,7 +265,7 @@ That is why many teams also look at:
 
 It tries to subtract the part that may have matched by chance.
 
-### 3.3 Why should low-confidence samples go into the review queue?
+### Why should low-confidence samples go into the review queue?
 
 Because such samples often mean:
 
@@ -283,9 +283,9 @@ For this diagram, it is recommended to first look at the review queue: inconsist
 
 ---
 
-## 4. What is the “data flywheel”?
+## What is the “data flywheel”?
 
-### 4.1 What does the smallest loop look like?
+### What does the smallest loop look like?
 
 A typical data flywheel usually looks like this:
 
@@ -299,7 +299,7 @@ A typical data flywheel usually looks like this:
 The key point of the flywheel is not the word “loop,”
 but that the data coming back each round is closer to the real problem.
 
-### 4.2 Why are failed online samples especially valuable?
+### Why are failed online samples especially valuable?
 
 Because they usually have two characteristics:
 
@@ -309,7 +309,7 @@ Because they usually have two characteristics:
 Compared with manually invented samples,
 this kind of data is much more targeted.
 
-### 4.3 What does the flywheel fear most?
+### What does the flywheel fear most?
 
 It fears three things the most:
 
@@ -322,9 +322,9 @@ that is not a flywheel — it is just accumulation.
 
 ---
 
-## 5. How do we make the flywheel more stable?
+## How do we make the flywheel more stable?
 
-### 5.1 First, bucket the failure types
+### First, bucket the failure types
 
 Dividing online issues into categories is often more effective than simply piling up samples.
 
@@ -338,7 +338,7 @@ For example:
 
 Then in the next round, you know exactly which type of data to add.
 
-### 5.2 Then deduplicate and sample representatively
+### Then deduplicate and sample representatively
 
 Real online data is often repetitive.
 If users repeatedly ask the same kind of question, you should not mechanically dump all samples back into the training set.
@@ -349,7 +349,7 @@ A better approach is usually:
 - Keep representative samples
 - Give higher priority to rare but high-risk issues
 
-### 5.3 Don’t forget version control
+### Don’t forget version control
 
 Each round of data should clearly record:
 
@@ -364,9 +364,9 @@ Otherwise, later on it will be very hard to answer:
 
 ---
 
-## 6. How detailed should labeling guidelines be?
+## How detailed should labeling guidelines be?
 
-### 6.1 At minimum, include positive examples, negative examples, and boundary examples
+### At minimum, include positive examples, negative examples, and boundary examples
 
 A good guideline usually includes at least:
 
@@ -376,7 +376,7 @@ A good guideline usually includes at least:
 - Clear negative examples
 - Confusing boundary examples
 
-### 6.2 It should preferably answer “why”
+### It should preferably answer “why”
 
 If the guideline only says:
 
@@ -385,7 +385,7 @@ If the guideline only says:
 but does not explain why,
 annotators will hesitate when they encounter similar but not identical cases.
 
-### 6.3 The guidelines themselves also need to evolve
+### The guidelines themselves also need to evolve
 
 As the project progresses, you will keep discovering:
 
@@ -398,14 +398,14 @@ but the guidelines themselves.
 
 ---
 
-## 7. These mistakes are especially easy to make
+## These mistakes are especially easy to make
 
-### 7.1 Mistake 1: Label a lot first, talk about rules later
+### Mistake 1: Label a lot first, talk about rules later
 
 If the rules are not clearly defined before large-scale labeling,
 the rework burden is usually enormous.
 
-### 7.2 Mistake 2: Only focus on agreement rate, not on the reasons for disagreement
+### Mistake 2: Only focus on agreement rate, not on the reasons for disagreement
 
 Low agreement is just a symptom.
 What matters more is knowing whether:
@@ -414,7 +414,7 @@ What matters more is knowing whether:
 - The samples are too noisy
 - Or the label system itself is unreasonable
 
-### 7.3 Mistake 3: Thinking of the flywheel as “just adding more data all the time”
+### Mistake 3: Thinking of the flywheel as “just adding more data all the time”
 
 The flywheel is not about blindly increasing volume,
 but about continuously turning the most valuable failed samples into high-quality training assets.

@@ -1,9 +1,9 @@
 ---
-title: "Job Search Preparation Checklist"
+title: "A.10 Job Search Preparation Checklist"
 sidebar_position: 7
 ---
 
-# Job Search Preparation Checklist
+# A.10 Job Search Preparation Checklist
 
 ![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel-en.png)
 
@@ -15,7 +15,7 @@ When reviewing job-search projects, do not just pile up technical buzzwords. Rea
 
 This page is not telling you to “finish learning before looking for a job.” Instead, it helps you gradually turn your learning process into results that you can apply with, interview with, and explain clearly.
 
-## 1. First, figure out which role you want to apply for
+## First, figure out which role you want to apply for
 
 Different directions require different priorities in preparation.
 
@@ -28,7 +28,7 @@ Different directions require different priorities in preparation.
 
 If you are a beginner, do not try to prepare for every direction at once. Choosing one main target first is more effective.
 
-## 2. What matters most in a resume
+## What matters most in a resume
 
 For most beginners, the most valuable things are usually not “how many courses you watched,” but these three things:
 
@@ -43,7 +43,7 @@ Projects are more convincing than saying “I studied XXX” or “I know XXX,�
 - Trade-off judgment
 - Communication ability
 
-## 3. How to choose projects that actually help with job hunting
+## How to choose projects that actually help with job hunting
 
 Instead of making very large projects, it is more important to make projects with clear boundaries.
 
@@ -63,19 +63,19 @@ For example:
 - Intelligent assistant or Agent workflow
 - Data analysis Agent
 
-## 4. How to write project experience on your resume
+## How to write project experience on your resume
 
 Do not just write, “Used some framework to complete a project.” A better format is:
 
-### 4.1 Start with the problem
+### Start with the problem
 
 What problem does the project solve? Who is it for? What are the inputs and outputs?
 
-### 4.2 Then write your solution
+### Then write your solution
 
 What modules did you build? Why did you design it that way?
 
-### 4.3 Finally, write the results
+### Finally, write the results
 
 Results can include:
 
@@ -85,7 +85,7 @@ Results can include:
 - Improved user experience
 - Lower deployment or maintenance cost
 
-### 4.4 A resume wording comparison
+### A resume wording comparison
 
 A weaker version:
 
@@ -102,7 +102,7 @@ designed an evaluation set to compare different chunking strategies, reducing fa
 
 The second version shows much more clearly that you actually built something.
 
-## 5. How to prepare your GitHub project page
+## How to prepare your GitHub project page
 
 A project repository that can add points should at least include:
 
@@ -120,30 +120,30 @@ If someone opens your repository, they should be able to know within 3 minutes:
 - Which key parts you built
 - Roughly how well it works
 
-## 6. What basics should you review before interviews
+## What basics should you review before interviews
 
-### 6.1 General basics
+### General basics
 
 - Python basics
 - Data structures and awareness of common time complexity
 - Git, environment management, common command-line operations
 - HTTP / API basics
 
-### 6.2 Machine learning / deep learning basics
+### Machine learning / deep learning basics
 
 - Common tasks and metrics
 - Overfitting and underfitting
 - Training set, validation set, test set
 - Optimizers, learning rate, loss functions
 
-### 6.3 LLM / Agent basics
+### LLM / Agent basics
 
 - The differences between Prompt, RAG, and Fine-tuning
 - The role of vector retrieval and chunking
 - Why tool calling needs schema and validation
 - Why Agent needs state, memory, and monitoring
 
-## 7. What are the most common questions in project interviews
+## What are the most common questions in project interviews
 
 The most frequent questions are usually not “Which framework did you use?” but:
 
@@ -161,7 +161,7 @@ So when preparing, you should be able to explain clearly:
 4. Your evaluation method
 5. Your failure cases and improvement directions
 
-## 8. A pre-application checklist
+## A pre-application checklist
 
 - Can my resume be understood within 30 seconds?
 - Do I have at least 2 projects I can discuss in depth?
@@ -172,7 +172,7 @@ So when preparing, you should be able to explain clearly:
 
 If most of these 6 items are still not solid, prioritize projects and communication instead of endlessly collecting more knowledge.
 
-## 9. A four-week job-search sprint plan
+## A four-week job-search sprint plan
 
 ### Week 1
 
@@ -198,7 +198,7 @@ If most of these 6 items are still not solid, prioritize projects and communicat
 - Record questions that come up often
 - Keep improving projects and presentation based on feedback
 
-## 10. The most important thing
+## The most important thing
 
 For beginners, job-search preparation is not about memorizing all the knowledge. It is about turning “traces of learning” into “results that others can understand.”
 

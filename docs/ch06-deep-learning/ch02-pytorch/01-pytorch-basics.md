@@ -1,11 +1,11 @@
 ---
-title: "2.3 PyTorch Basics"
+title: "6.2.3 PyTorch Basics"
 sidebar_position: 1
 description: "Build a solid first layer of PyTorch fundamentals, from tensors, shapes, and indexing to broadcasting and its relationship with NumPy."
 keywords: [PyTorch, tensor, shape, broadcasting, numpy]
 ---
 
-# PyTorch Basics
+# 6.2.3 PyTorch Basics
 
 ## Learning Objectives
 
@@ -44,7 +44,7 @@ So this section is not about learning “brand-new math,” but about:
 
 - Expressing the same data objects in a way that is more suitable for training neural networks
 
-## 1. What Exactly Is a Tensor?
+## What Exactly Is a Tensor?
 
 The most practical way to understand it is:
 
@@ -72,7 +72,7 @@ In deep learning, almost all data eventually becomes a tensor:
 - A batch of images: `[batch_size, channels, height, width]`
 - A batch of sentence embeddings: `[batch_size, seq_len, embedding_dim]`
 
-### 1.1 What Should You Ask First When You See a Tensor?
+### What Should You Ask First When You See a Tensor?
 
 Don’t rush to ask about the API. First ask these three questions:
 
@@ -84,7 +84,7 @@ This helps you connect “shape” and “meaning” from the very beginning.
 
 ---
 
-## 2. Creating Tensors
+## Creating Tensors
 
 :::info Runtime Environment
 The following code can be run directly. If PyTorch is not installed locally:
@@ -119,7 +119,7 @@ print("arange:", arange)
 
 ---
 
-## 3. Shape, Dimensions, and Data Types
+## Shape, Dimensions, and Data Types
 
 When you’re learning deep learning, what trips you up most often is not formulas, but **shape**.
 
@@ -150,7 +150,7 @@ Before writing a model, ask yourself:
 
 Many training errors are, at their core, shape mismatches.
 
-### 3.1 A More Reliable “4-Step Tensor Check”
+### A More Reliable “4-Step Tensor Check”
 
 Whenever you get a tensor, it’s a good idea to check it in these four steps:
 
@@ -186,7 +186,7 @@ You can use this diagram as a quick shape reference: tabular data commonly uses 
 
 ---
 
-## 4. Indexing, Slicing, and Reshaping
+## Indexing, Slicing, and Reshaping
 
 ```python
 import torch
@@ -217,7 +217,7 @@ It’s like rearranging a box of building blocks:
 - The number of elements cannot change
 - You’re only changing how they are organized
 
-### 4.1 A Common Pitfall for Beginners with `reshape`
+### A Common Pitfall for Beginners with `reshape`
 
 The most common misunderstanding is:
 
@@ -230,7 +230,7 @@ So a safer habit is to ask after every `reshape`:
 
 ---
 
-## 5. Tensor Operations
+## Tensor Operations
 
 ```python
 import torch
@@ -266,7 +266,7 @@ print(Y)
 This is the same linear algebra you learned at Station 4.
 Many layers in neural networks are essentially “tensor linear transformations followed by a nonlinear function.”
 
-### 5.1 When You See `@`, What Should Immediately Come to Mind?
+### When You See `@`, What Should Immediately Come to Mind?
 
 The first thing worth thinking is:
 
@@ -285,7 +285,7 @@ you can first understand it as:
 
 ---
 
-## 6. Broadcasting
+## Broadcasting
 
 Broadcasting is a very code-saving mechanism in PyTorch.
 
@@ -315,7 +315,7 @@ PyTorch automatically treats `bonus` as being added to each row.
 - Normalizing images
 - Scaling each feature in a batch
 
-### 6.1 Why Is Broadcasting Both Convenient and Risky?
+### Why Is Broadcasting Both Convenient and Risky?
 
 It’s convenient because it saves a lot of code.
 It’s risky because:
@@ -330,7 +330,7 @@ So in broadcasting scenarios, the safest habit is:
 
 ---
 
-## 7. Converting Between NumPy and PyTorch
+## Converting Between NumPy and PyTorch
 
 NumPy and PyTorch are very closely related, so converting between them is common.
 
@@ -354,7 +354,7 @@ print("Tensor -> NumPy:\n", back_to_numpy)
 
 ---
 
-## 8. A Small Example: Calculating Students’ Total Scores and Averages
+## A Small Example: Calculating Students’ Total Scores and Averages
 
 This example doesn’t feel very “deep learning”-like, but it’s great for practicing tensor thinking.
 
@@ -385,26 +385,26 @@ Here you’re already using one of the most important tensor-thinking ideas:
 
 ---
 
-## 9. Common Mistakes Beginners Make
+## Common Mistakes Beginners Make
 
-### 1. Ignoring shape
+### Ignoring shape
 
 Many people only look at the numbers and not the tensor shape.
 As a result, the code seems correct at a glance, but throws a dimension error when run.
 
-### 2. Treating `*` as matrix multiplication
+### Treating `*` as matrix multiplication
 
 In PyTorch:
 
 - `*` is element-wise multiplication
 - `@` is matrix multiplication
 
-### 3. Not Being Clear About `dtype`
+### Not Being Clear About `dtype`
 
 Some models require `float32`, while labels sometimes need `long`.
 If the type is wrong, the loss function may fail immediately.
 
-### 4. Looking at the values but not their meaning
+### Looking at the values but not their meaning
 
 The most common beginner problem is not inability to write code, but:
 

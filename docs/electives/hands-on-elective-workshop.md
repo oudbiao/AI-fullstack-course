@@ -1,11 +1,11 @@
 ---
-title: "Elective Hands-on Workshop"
+title: "E.0 Elective Hands-on Workshop"
 sidebar_position: 0
 description: "A guided practice workshop that connects elective modules A-F into one runnable evidence pack."
 keywords: [elective module, hands-on workshop, deployment, advanced Python, classic ML, AI safety, frontend, product design]
 ---
 
-# Elective Hands-on Workshop
+# E.0 Elective Hands-on Workshop
 
 ![Elective module hands-on route map](/img/course/elective-workshop-route-map-en.png)
 
@@ -23,7 +23,7 @@ Read the diagram first, then run the code. This workshop is not a replacement fo
 
 ---
 
-## 1. What Are the Electives For?
+## What Are the Electives For?
 
 The elective modules are not extra pages to read only after you finish everything else. They are focused toolboxes. You come back to them when a project exposes a real need.
 
@@ -45,7 +45,7 @@ The beginner-friendly rule is:
 
 ---
 
-## 2. The Evidence Pack Flow
+## The Evidence Pack Flow
 
 ![Elective workshop evidence pipeline](/img/course/elective-workshop-evidence-pipeline-en.png)
 
@@ -83,18 +83,18 @@ elective_workshop_run/
 
 ---
 
-## 3. Run the Full Workshop
+## Run the Full Workshop
 
 ![Elective workshop code execution sequence](/img/course/elective-workshop-code-execution-sequence-en.png)
 
-### 3.1 Create a Clean Folder
+### Create a Clean Folder
 
 ```bash
 mkdir elective-workshop
 cd elective-workshop
 ```
 
-### 3.2 Create `elective_workshop.py`
+### Create `elective_workshop.py`
 
 Copy the code below into a file named `elective_workshop.py`.
 
@@ -451,7 +451,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 3.3 Run It
+### Run It
 
 ```bash
 python3 elective_workshop.py
@@ -477,9 +477,9 @@ elective_workshop_run/outputs/module_e_dashboard.html
 
 ---
 
-## 4. Read the Results Like an Engineer
+## Read the Results Like an Engineer
 
-### 4.1 Module A: Deployment Is a Trade-off
+### Module A: Deployment Is a Trade-off
 
 Open `elective_workshop_run/outputs/module_a_deployment_score.csv`.
 
@@ -487,13 +487,13 @@ You should see three deployment candidates. The script chooses `quantized-int8` 
 
 Operation tip: if your real project cannot accept the accuracy drop, raise `accuracy_floor` and run again. The best variant may change.
 
-### 4.2 Module B: Advanced Python Should Make Work Traceable
+### Module B: Advanced Python Should Make Work Traceable
 
 Open `elective_workshop_run/outputs/module_b_python_trace.json`.
 
 The decorator records timing. The generator cleans rows one by one. This is the practical value of advanced Python: not clever syntax, but a pipeline that is easier to observe and reuse.
 
-### 4.3 Module C: Classic ML Gives You a Baseline
+### Module C: Classic ML Gives You a Baseline
 
 Open `elective_workshop_run/outputs/module_c_knn_predictions.csv`.
 
@@ -503,19 +503,19 @@ The KNN example uses distance voting. In a real project, this baseline helps ans
 - Does a heavier model actually improve the result?
 - Which examples are misclassified first?
 
-### 4.4 Module D: Safety Work Must Keep Failure Cases
+### Module D: Safety Work Must Keep Failure Cases
 
 Open `elective_workshop_run/reports/failure_cases.md`.
 
 One tool-related case intentionally fails. This is not bad for learning. The point is to record the failure, decide the guardrail, and rerun it later as a regression case.
 
-### 4.5 Module E: Frontend Evidence Makes the Result Inspectable
+### Module E: Frontend Evidence Makes the Result Inspectable
 
 Open `elective_workshop_run/outputs/module_e_dashboard.html` in your browser.
 
 The page is static, but it proves an important idea: product users need a readable surface, not only backend logs.
 
-### 4.6 Module F: Product Thinking Decides the Next Step
+### Module F: Product Thinking Decides the Next Step
 
 Open `elective_workshop_run/outputs/module_f_product_canvas.md`.
 
@@ -523,7 +523,7 @@ The RICE score makes your prioritization explicit. You can disagree with the num
 
 ---
 
-## 5. Common Errors and How to Debug Them
+## Common Errors and How to Debug Them
 
 ![Elective workshop debugging loop](/img/course/elective-workshop-debug-loop-en.png)
 
@@ -537,7 +537,7 @@ The RICE score makes your prioritization explicit. You can disagree with the num
 
 ---
 
-## 6. Turn This Into Your Own Elective Project
+## Turn This Into Your Own Elective Project
 
 ![Elective workshop portfolio evidence pack](/img/course/elective-workshop-portfolio-pack-en.png)
 

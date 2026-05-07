@@ -1,11 +1,11 @@
 ---
-title: "3.9 模板化文档生成（Word / PPT）"
+title: "8.3.9 模板化文档生成（Word / PPT）"
 sidebar_position: 18
 description: "从结构化输出、模板填充到 Word/PPT 生成，理解为什么知识库型生成系统最好先产出结构，再渲染成文档。"
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---
 
-# 模板化文档生成（Word / PPT）
+# 8.3.9 模板化文档生成（Word / PPT）
 
 ![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.png)
 
@@ -264,8 +264,8 @@ print(payload)
 而不是直接产出一份“自由散文式”长文档。
 
 这部分最相关的已有课程是：
-- [Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [7.5.2 Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [7.5.4 结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
 
 ## 十、第一次做这个模块时，最稳的范围控制
 

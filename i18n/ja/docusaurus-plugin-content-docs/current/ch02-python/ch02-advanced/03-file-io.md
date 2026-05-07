@@ -1,10 +1,10 @@
 ---
-title: "1.3 ファイル操作とシリアライズ"
+title: "2.2.3 ファイル操作とシリアライズ"
 sidebar_position: 3
 description: "ファイルの読み書きとデータのシリアライズを理解する"
 ---
 
-# ファイル操作とシリアライズ
+# 2.2.3 ファイル操作とシリアライズ
 
 ![ファイル読書きとシリアライズのフローチャート](/img/course/ch02-file-io-serialization-flow-ja.png)
 

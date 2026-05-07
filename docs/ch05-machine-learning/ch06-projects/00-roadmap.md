@@ -1,11 +1,11 @@
 ---
-title: "6.1 Pre-class Guide: How Should You Study This Project-Practice Chapter?"
+title: "5.6.1 Pre-class Guide: How Should You Study This Project-Practice Chapter?"
 sidebar_position: 18
 description: "First build a learning map for the machine learning project chapter: how regression, classification, clustering, and Kaggle practice form a portfolio loop through problem definition, baseline, evaluation, iteration, and delivery."
 keywords: [machine learning project guide, house price prediction, customer churn, user segmentation, Kaggle, machine learning portfolio]
 ---
 
-# Pre-class Guide: How Should You Study This Project-Practice Chapter?
+# 5.6.1 Pre-class Guide: How Should You Study This Project-Practice Chapter?
 
 ![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap-en.png)
 
@@ -26,7 +26,7 @@ This chapter answers five questions: how to define a real-world problem as a reg
 The most common mistake beginners make is treating the project chapter as “just running the code.” A real project is not about getting a model to run. It is about clearly explaining why the problem is defined this way, why this metric was chosen, why this improvement worked, where the model fails, and what should be done next.
 
 :::info Guided practice before the larger projects
-If this project loop still feels abstract, run [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./05-hands-on-ml-workshop.md) first. It gives you one complete, runnable rehearsal before the house price, churn, segmentation, and Kaggle projects.
+If this project loop still feels abstract, run [5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack](./05-hands-on-ml-workshop.md) first. It gives you one complete, runnable rehearsal before the house price, churn, segmentation, and Kaggle projects.
 :::
 
 ## Recommended Learning Order for Beginners

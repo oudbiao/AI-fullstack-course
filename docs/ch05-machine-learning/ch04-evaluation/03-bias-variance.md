@@ -1,11 +1,11 @@
 ---
-title: "4.4 Bias-Variance Tradeoff"
+title: "5.4.4 Bias-Variance Tradeoff"
 sidebar_position: 12
 description: "Understand the essence of underfitting and overfitting, master learning curve and validation curve analysis, and understand how regularization affects bias and variance"
 keywords: [bias, variance, overfitting, underfitting, learning curve, validation curve, regularization]
 ---
 
-# Bias-Variance Tradeoff
+# 5.4.4 Bias-Variance Tradeoff
 
 ![Three-panel bias-variance tradeoff diagram](/img/course/bias-variance-tradeoff-en.png)
 
@@ -46,9 +46,9 @@ So what this section is really trying to solve is:
 - Why you should not make random changes when model performance is poor
 - How to base “what to do next” on evidence
 
-## 1. What are bias and variance?
+## What are bias and variance?
 
-### 1.1 Intuition — a target-shooting analogy
+### Intuition — a target-shooting analogy
 
 ```mermaid
 flowchart LR
@@ -72,7 +72,7 @@ flowchart LR
 | High → | Underfitting (model is too simple) | Overfitting (model is too complex) |
 | Solution | Increase model complexity | Reduce model complexity, increase data |
 
-### 1.1.1 A more beginner-friendly way to think about it
+### A more beginner-friendly way to think about it
 
 If you do not want to get stuck in terminology right away, you can remember it like this:
 
@@ -81,11 +81,11 @@ If you do not want to get stuck in terminology right away, you can remember it l
 
 These two sentences are not fully rigorous, but they are very useful for building intuition on the first pass.
 
-### 1.2 Total error decomposition
+### Total error decomposition
 
 > **Total error = bias² + variance + irreducible error (noise)**
 
-### 1.3 Don’t rush to memorize the formula; first remember one sentence
+### Don’t rush to memorize the formula; first remember one sentence
 
 For beginners, a more practical way to remember it is usually:
 
@@ -124,9 +124,9 @@ plt.show()
 
 ---
 
-## 2. Observing bias and variance in practice
+## Observing bias and variance in practice
 
-### 2.1 Demonstration with polynomial regression
+### Demonstration with polynomial regression
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
@@ -182,9 +182,9 @@ plt.show()
 
 ---
 
-## 3. Learning curves
+## Learning curves
 
-### 3.1 What is a learning curve?
+### What is a learning curve?
 
 A learning curve shows how **training set size** affects model performance. It can tell you:
 - Whether the model is underfitting or overfitting
@@ -248,7 +248,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 3.2 How to interpret learning curves
+### How to interpret learning curves
 
 | Phenomenon | Diagnosis | Solution |
 |------|------|---------|
@@ -257,7 +257,7 @@ plt.show()
 | The two lines converge and are both high | **Just right** | The model is good |
 | Validation is still rising | More data needed | Collect more data |
 
-### 3.3 Why are learning curves so important in Andrew Ng’s course style?
+### Why are learning curves so important in Andrew Ng’s course style?
 
 Because they are especially good at answering:
 
@@ -269,9 +269,9 @@ But learning curves are exactly the core evidence for “diagnose first, then de
 
 ---
 
-## 4. Validation curves
+## Validation curves
 
-### 4.1 What is a validation curve?
+### What is a validation curve?
 
 A validation curve shows how **one hyperparameter** affects model performance and helps you find the best value.
 
@@ -308,7 +308,7 @@ plt.legend()
 plt.show()
 ```
 
-### 4.2 How to interpret validation curves
+### How to interpret validation curves
 
 ```mermaid
 flowchart LR
@@ -326,7 +326,7 @@ flowchart LR
 
 ---
 
-## 5. How regularization affects bias and variance
+## How regularization affects bias and variance
 
 ```python
 from sklearn.linear_model import Ridge
@@ -400,7 +400,7 @@ plt.show()
 
 ---
 
-## 6. Practical diagnosis flow
+## Practical diagnosis flow
 
 ```mermaid
 flowchart TD
@@ -421,7 +421,7 @@ flowchart TD
     style OF fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 6.1 What is the most important part of this diagram?
+### What is the most important part of this diagram?
 
 It teaches you:
 
@@ -429,7 +429,7 @@ It teaches you:
 
 This is one of the most important engineering mindsets in the second half of Station 5.
 
-### 6.2 The safest default order when diagnosing for the first time
+### The safest default order when diagnosing for the first time
 
 If this is your first time facing “poor model performance,” you can judge it in this order:
 

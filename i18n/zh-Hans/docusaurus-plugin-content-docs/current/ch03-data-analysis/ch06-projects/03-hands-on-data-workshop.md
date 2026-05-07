@@ -1,11 +1,11 @@
 ---
-title: "6.3 跟做工作坊：搭建可复现的数据分析流水线"
+title: "3.6.3 跟做工作坊：搭建可复现的数据分析流水线"
 sidebar_position: 27
 description: "第 3 章跟做实操：把一份脏的学习记录 CSV 处理成清洗数据、分组统计、SQLite 查询、SVG 图表和 HTML 报告。"
 keywords: [数据分析实操, Python CSV, SQLite, 数据清洗, 可复现分析, 可视化]
 ---
 
-# 跟做工作坊：搭建可复现的数据分析流水线
+# 3.6.3 跟做工作坊：搭建可复现的数据分析流水线
 
 ![跟做式数据工作坊路线图](/img/course/ch03-hands-on-data-workshop-route.png)
 

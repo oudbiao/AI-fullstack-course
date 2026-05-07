@@ -1,10 +1,10 @@
 ---
-title: "2.1 NumPy Overview"
+title: "3.2.1 NumPy Overview"
 sidebar_position: 2
 description: "Get to know NumPy — the foundation of scientific computing in Python"
 ---
 
-# NumPy Overview
+# 3.2.1 NumPy Overview
 
 ## Learning Objectives
 

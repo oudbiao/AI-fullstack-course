@@ -1,11 +1,11 @@
 ---
-title: "5.3 Project: Integrated RAG + Fine-tuning System"
+title: "8.5.3 Project: Integrated RAG + Fine-tuning System"
 sidebar_position: 22
 description: "From why using only RAG or only fine-tuning is not enough, to how to combine them to design a more complete domain Q&A system."
 keywords: [RAG, finetuning, domain adaptation, hybrid system, LLM project]
 ---
 
-# Project: Integrated RAG + Fine-tuning System
+# 8.5.3 Project: Integrated RAG + Fine-tuning System
 
 :::tip Section overview
 So far, you have learned them separately:
@@ -44,9 +44,9 @@ The practical rule is: do not use fine-tuning to memorize frequently changing do
 
 ---
 
-## 1. Why combine RAG and fine-tuning?
+## Why combine RAG and fine-tuning?
 
-### 1.1 The strengths and limitations of RAG alone
+### The strengths and limitations of RAG alone
 
 The advantages of RAG:
 
@@ -60,7 +60,7 @@ But it also has limitations:
 - Even if it retrieves the right content, it may not answer in the required business format
 - For complex tasks, the model’s “answering habits” may not be stable enough
 
-### 1.2 The strengths and limitations of fine-tuning alone
+### The strengths and limitations of fine-tuning alone
 
 The advantages of fine-tuning:
 
@@ -74,7 +74,7 @@ But it also has limitations:
 - It is hard to make the model memorize all detailed documents through fine-tuning alone
 - The cost is higher
 
-### 1.3 So they are often complementary
+### So they are often complementary
 
 You can remember this in one sentence:
 
@@ -90,7 +90,7 @@ Look at the left side for RAG: knowledge updates, source citations, external doc
 
 ---
 
-## 2. What is this project actually doing?
+## What is this project actually doing?
 
 We define the goal as a domain Q&A assistant, for example:
 
@@ -106,7 +106,7 @@ In other words, this system needs to:
 
 ---
 
-## 3. First draw the system structure
+## First draw the system structure
 
 ```mermaid
 flowchart LR
@@ -122,7 +122,7 @@ flowchart LR
     style E fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 3.2 What really matters in this diagram
+### What really matters in this diagram
 
 It is not that “there are many components,” but that the responsibilities are clear:
 
@@ -133,7 +133,7 @@ This makes the system more explainable and easier to iterate on.
 
 ---
 
-## 4. A minimal knowledge base and retriever
+## A minimal knowledge base and retriever
 
 :::note Dependency
 This example uses `scikit-learn` for a lightweight TF-IDF retriever. If you want to run it locally, install it first:
@@ -171,7 +171,7 @@ This retriever is not complicated, but it is already the first half of the combi
 
 ---
 
-## 5. Simulate a “fine-tuned” answer style
+## Simulate a “fine-tuned” answer style
 
 In a real project, this step might come from:
 
@@ -206,7 +206,7 @@ def domain_answer_style(question, retrieved_docs):
     }
 ```
 
-### 5.2 Why is this simulation meaningful?
+### Why is this simulation meaningful?
 
 Because it helps you understand:
 
@@ -215,7 +215,7 @@ Because it helps you understand:
 
 ---
 
-## 6. Connect the two parts for real
+## Connect the two parts for real
 
 ```python
 def rag_plus_finetune_system(question):
@@ -233,7 +233,7 @@ print(result["answer"])
 print("evidence:", result["evidence"])
 ```
 
-### 6.2 What does this system already show?
+### What does this system already show?
 
 It already shows:
 
@@ -241,9 +241,9 @@ It already shows:
 
 ---
 
-## 7. What does fine-tuning usually optimize in a real project?
+## What does fine-tuning usually optimize in a real project?
 
-### 7.1 It is not for “memorizing all documents”
+### It is not for “memorizing all documents”
 
 Many beginners mistakenly think:
 
@@ -256,7 +256,7 @@ But a more common and realistic goal is:
 - Learn business answer templates
 - Learn the fixed structure of certain tasks
 
-### 7.2 For example
+### For example
 
 You may want the model to learn:
 
@@ -268,16 +268,16 @@ These kinds of capabilities are well suited to fine-tuning, or at least to stron
 
 ---
 
-## 8. A project split that is truly valuable
+## A project split that is truly valuable
 
-### 8.1 The RAG layer is responsible for
+### The RAG layer is responsible for
 
 - Document chunking
 - Retrieval
 - Source citations
 - Knowledge updates
 
-### 8.2 The fine-tuning layer is responsible for
+### The fine-tuning layer is responsible for
 
 - Response style
 - Output format
@@ -288,16 +288,16 @@ Once this responsibility split is clear, the project becomes much easier to main
 
 ---
 
-## 9. How do we evaluate this combined system?
+## How do we evaluate this combined system?
 
-### 9.1 You cannot only look at whether the answer sounds smooth
+### You cannot only look at whether the answer sounds smooth
 
 You should check at least two layers:
 
 - Retrieval layer: did it find the right document?
 - Answer layer: does the output meet business requirements?
 
-### 9.2 A minimal evaluation approach
+### A minimal evaluation approach
 
 ```python
 eval_data = [
@@ -316,17 +316,17 @@ This is already much better than just saying “the demo looks good.”
 
 ---
 
-## 10. Common pitfalls for beginners
+## Common pitfalls for beginners
 
-### 10.1 Using fine-tuning to solve knowledge update problems
+### Using fine-tuning to solve knowledge update problems
 
 This is usually inefficient.
 
-### 10.2 Using RAG to force stable output style problems
+### Using RAG to force stable output style problems
 
 This is not always appropriate either.
 
-### 10.3 Confusing the responsibilities of the two layers
+### Confusing the responsibilities of the two layers
 
 If you cannot clearly explain “which layer is responsible for what,” the system will be hard to debug later.
 

@@ -1,11 +1,11 @@
 ---
-title: "8.1 Pre-class Guide: How Should You Actually Learn This Project Practice Chapter?"
+title: "6.8.1 Pre-class Guide: How Should You Actually Learn This Project Practice Chapter?"
 sidebar_position: 0
 description: "First build a learning map for the deep learning project chapter: how image classification, text sentiment analysis, and generative model projects form a portfolio loop through data, training, evaluation, error analysis, and presentation."
 keywords: [deep learning project guide, image classification, sentiment analysis, generative model project, deep learning portfolio]
 ---
 
-# Pre-class Guide: How Should You Actually Learn This Project Practice Chapter?
+# 6.8.1 Pre-class Guide: How Should You Actually Learn This Project Practice Chapter?
 
 This chapter is not about piling up more concepts. Instead, it is about turning the neural networks, PyTorch, CNN, RNN, Transformer, generative models, and training techniques you learned earlier into real projects.
 
@@ -28,7 +28,7 @@ This chapter answers five questions: how to prepare datasets and data loaders fo
 The most common mistake beginners make is caring only about “whether the code finished running.” Deep learning projects should care more about: Did training converge? Did the validation set improve? What patterns appear in the error samples? When the model fails, is it a data problem, a model problem, or a training setup problem?
 
 :::info Guided practice before the larger projects
-If this project loop still feels abstract, run [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./04-hands-on-dl-workshop.md) first. It gives you one complete, runnable rehearsal before the image classification, sentiment analysis, and generative model projects.
+If this project loop still feels abstract, run [6.8.5 Hands-on Workshop: Build a PyTorch Training Evidence Pack](./04-hands-on-dl-workshop.md) first. It gives you one complete, runnable rehearsal before the image classification, sentiment analysis, and generative model projects.
 :::
 
 ## Recommended Learning Order for Beginners

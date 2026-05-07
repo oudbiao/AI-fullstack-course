@@ -1,9 +1,9 @@
 ---
-title: "Learning Rescue for Stuck Points"
+title: "A.8 Learning Rescue for Stuck Points"
 sidebar_position: 5
 ---
 
-# Learning Rescue for Stuck Points
+# A.8 Learning Rescue for Stuck Points
 
 ![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map-en.png)
 
@@ -15,7 +15,7 @@ When you run into a problem, don’t rush to change direction. Follow the steps 
 
 The goal of this page is not to explain theory, but to help you “get moving again as quickly as possible when you get stuck.” Many learning interruptions are not because the material is too hard, but because one small issue has dragged on for too long.
 
-## 1. First figure out what kind of problem you’re stuck on
+## First figure out what kind of problem you’re stuck on
 
 | Symptom | Most likely type of problem | First reaction |
 |---|---|---|
@@ -26,7 +26,7 @@ The goal of this page is not to explain theory, but to help you “get moving ag
 | You don’t know how to start a project | The task is too big and not broken down | Draw the smallest closed loop first |
 | You’ve learned a lot but can’t remember it | Lacking review and output | Take notes and write short summaries |
 
-## 2. How to check environment issues
+## How to check environment issues
 
 Environment problems are the easiest to make people feel stuck, but in fact many of them are repeated problems.
 
@@ -47,7 +47,7 @@ If you have a GPU, add one more command:
 nvidia-smi
 ```
 
-### 2.1 The most common environment problems
+### The most common environment problems
 
 #### Problem 1: The package is installed, but import fails
 
@@ -92,11 +92,11 @@ If you keep running into dependency problems, prioritize two things:
 
 Don’t cram all experiments into one dirty environment.
 
-## 3. The code runs, but you don’t know whether it is correct
+## The code runs, but you don’t know whether it is correct
 
 This kind of problem is more dangerous than a direct error.
 
-### 3.1 Check the inputs first
+### Check the inputs first
 
 You should confirm at least:
 
@@ -114,7 +114,7 @@ print("First two labels:", labels[:2])
 print("Label set:", sorted(set(labels)))
 ```
 
-### 3.2 Then check intermediate results
+### Then check intermediate results
 
 Don’t only look at the final accuracy. More important is:
 
@@ -122,7 +122,7 @@ Don’t only look at the final accuracy. More important is:
 - Are the probabilities reasonable?
 - Are the intermediate features all zeros or all the same?
 
-### 3.3 Finally check the evaluation method
+### Finally check the evaluation method
 
 Common mistakes:
 
@@ -130,7 +130,7 @@ Common mistakes:
 - The classes are extremely imbalanced, but you only look at accuracy
 - For text tasks, you only inspect a single example and ignore the overall error distribution
 
-## 4. What to do if training does not converge
+## What to do if training does not converge
 
 Don’t rush to blame the model architecture. In many cases, the problem is not that complicated.
 
@@ -148,7 +148,7 @@ If a model cannot even learn a very small batch of data, you should usually chec
 - Whether the loss function is chosen correctly
 - Whether the optimizer and learning rate are unreasonable
 
-## 5. What to do if GPU memory is not enough
+## What to do if GPU memory is not enough
 
 The most direct order is:
 
@@ -160,13 +160,13 @@ The most direct order is:
 
 Many beginners immediately think about “getting a bigger GPU,” but shrinking the experiment scale is usually more effective first.
 
-## 6. What to do if you don’t know how to turn a project into something real
+## What to do if you don’t know how to turn a project into something real
 
 If you feel like “I know a little bit of everything, but I don’t know how to build a project,” it is usually because the topic is too big.
 
 A more reliable way to break it down is:
 
-### 6.1 First write a one-sentence goal
+### First write a one-sentence goal
 
 For example:
 
@@ -174,7 +174,7 @@ For example:
 - Build a small system that can recognize image categories
 - Build a tool that can generate summaries for articles
 
-### 6.2 Then break it into the smallest closed loop
+### Then break it into the smallest closed loop
 
 A minimal closed loop usually contains only:
 
@@ -183,7 +183,7 @@ A minimal closed loop usually contains only:
 3. One observable output
 4. One basic evaluation method
 
-### 6.3 Then gradually add features
+### Then gradually add features
 
 Common additions include:
 
@@ -194,7 +194,7 @@ Common additions include:
 - Evaluation set
 - Deployment
 
-## 7. What to do if you feel anxious about learning and always feel behind
+## What to do if you feel anxious about learning and always feel behind
 
 Remember one thing: the AI field changes fast, but core abilities do not change that fast.
 
@@ -208,7 +208,7 @@ The abilities that really matter are:
 
 If you are already getting better at these five things, you are not falling behind.
 
-## 8. How to ask questions so it’s easier to get useful help
+## How to ask questions so it’s easier to get useful help
 
 Don’t just send “There’s an error, please help me take a look.” A better question template is:
 
@@ -223,7 +223,7 @@ Minimal reproducible code:
 
 This makes it easier for others to help you, and it also forces you to clarify the problem first.
 
-## 9. A minimal reproducible template
+## A minimal reproducible template
 
 When you suspect your big project is too messy, first shrink the problem to something like this:
 
@@ -238,7 +238,7 @@ print(preds)
 
 Then add the real logic back little by little. The point is that you can quickly locate which layer, once added, caused the problem to appear.
 
-## 10. When should you pause, and when should you keep pushing?
+## When should you pause, and when should you keep pushing?
 
 Situations where it is appropriate to pause:
 

@@ -1,11 +1,11 @@
 ---
-title: "1.3 模型优化技术"
+title: "E.A.3 模型优化技术"
 sidebar_position: 3
 description: "从量化、剪枝、蒸馏、算子融合和批处理出发，理解部署里的模型优化到底在换取什么。"
 keywords: [model optimization, quantization, pruning, distillation, fusion, batching, deployment]
 ---
 
-# 模型优化技术
+# E.A.3 模型优化技术
 
 ![模型优化路线图](/img/course/elective-model-optimization-map.png)
 
@@ -41,14 +41,14 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 ## 一、模型优化不是单一目标
 
-### 1.1 常见想优化的其实是四件事
+### 常见想优化的其实是四件事
 
 - 模型体积
 - 推理延迟
 - 吞吐
 - 设备适配性
 
-### 1.2 为什么“更快”不总等于“更好”？
+### 为什么“更快”不总等于“更好”？
 
 因为很多优化都在做 trade-off：
 
@@ -56,7 +56,7 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 - 更快，但调试更复杂
 - 更省内存，但后处理变难
 
-### 1.3 一个类比
+### 一个类比
 
 模型优化更像收拾行李箱。
 你不是把所有东西都塞进去，而是在：
@@ -71,7 +71,7 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 ## 二、五种最常见的优化路线
 
-### 2.1 量化
+### 量化
 
 把高精度权重压到更低精度。
 目标通常是：
@@ -80,14 +80,14 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 - 提升吞吐
 - 更适合边缘设备
 
-### 2.2 剪枝
+### 剪枝
 
 移除不重要的权重、通道或层。
 目标通常是：
 
 - 减少计算量
 
-### 2.3 蒸馏
+### 蒸馏
 
 让一个更小模型学习大模型输出。
 目标通常是：
@@ -95,7 +95,7 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 - 保留尽量多能力
 - 但把部署成本降下来
 
-### 2.4 算子融合
+### 算子融合
 
 把多步计算在执行图里合并。
 目标通常是：
@@ -103,7 +103,7 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 - 减少内存读写
 - 提升执行效率
 
-### 2.5 批处理与调度优化
+### 批处理与调度优化
 
 不是改模型本身，
 而是改运行方式。
@@ -140,7 +140,7 @@ print("q8 mae   :", np.mean(np.abs(weights - q8_like)))
 print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 ```
 
-### 3.1 这段代码最重要的启发是什么？
+### 这段代码最重要的启发是什么？
 
 量化并不是“免费压缩”。
 它会带来误差。
@@ -155,7 +155,7 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 
 - 精度损失有多少
 
-### 3.2 为什么更低比特通常更难？
+### 为什么更低比特通常更难？
 
 因为表达空间更粗。
 压得越狠，原始细节越可能丢。
@@ -164,12 +164,12 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 
 ## 四、蒸馏为什么常被当成“部署友好方案”？
 
-### 4.1 因为它不只是压模型，而是换模型
+### 因为它不只是压模型，而是换模型
 
 蒸馏的本质不是直接改原模型，
 而是训练一个更小学生模型。
 
-### 4.2 它最适合什么场景？
+### 它最适合什么场景？
 
 适合：
 
@@ -177,7 +177,7 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 - 任务边界清楚
 - 你愿意用训练换部署收益
 
-### 4.3 它和量化的差别
+### 它和量化的差别
 
 - 量化：还是原模型，只是更低精度
 - 蒸馏：换成了更小的新模型
@@ -186,7 +186,7 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 
 ## 五、优化顺序通常怎么排？
 
-### 5.1 最先查链路，不是最先上技巧
+### 最先查链路，不是最先上技巧
 
 先问：
 
@@ -194,7 +194,7 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 - 贵在哪里
 - 爆内存在哪里
 
-### 5.2 一个很实用的顺序
+### 一个很实用的顺序
 
 1. 先做运行时层优化
    例如 batching、缓存、调度
@@ -203,7 +203,7 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 3. 最后再考虑更激进路线
    例如重剪枝、蒸馏、结构改造
 
-### 5.3 为什么这个顺序更稳？
+### 为什么这个顺序更稳？
 
 因为很多问题根本不在模型本身。
 如果运行时没调好，
@@ -213,14 +213,14 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 
 ## 六、最常见误区
 
-### 6.1 误区一：优化就是尽量压到最小
+### 误区一：优化就是尽量压到最小
 
 不是。
 关键是：
 
 - 在业务可接受的精度下尽量省
 
-### 6.2 误区二：只要量化了就一定更快
+### 误区二：只要量化了就一定更快
 
 不一定。
 还要看：
@@ -228,7 +228,7 @@ print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 - 硬件是否支持
 - 引擎是否优化到位
 
-### 6.3 误区三：所有模型都用同一套优化手段
+### 误区三：所有模型都用同一套优化手段
 
 不同模型、不同硬件、不同业务，
 最优路线经常不同。

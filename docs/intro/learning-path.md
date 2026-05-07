@@ -1,11 +1,11 @@
 ---
 sidebar_position: 2
-title: "Recommended Learning Path"
+title: "0.4 Recommended Learning Path"
 description: "Choose one practical learning path first, then enter Chapter 1."
 keywords: [AI learning path, AI full-stack path, LLM learning path, Agent learning path, RAG learning path]
 ---
 
-# Recommended Learning Path
+# 0.4 Recommended Learning Path
 
 ![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "1.2 What Is an AI Agent"
+title: "9.1.2 What Is an AI Agent"
 sidebar_position: 1
 description: "Start with the differences between workflows, chatbots, and agents, and use a runnable mini example to understand the minimal closed loop of an Agent."
 keywords: [AI Agent, agent, tools, planning, workflow, function calling]
 ---
 
-# What Is an AI Agent
+# 9.1.2 What Is an AI Agent
 
 ![Comparison diagram of Agent vs. a regular Chatbot](/img/course/agent-vs-chatbot-comparison-en.png)
 
@@ -62,7 +62,7 @@ but its real key point is not “being able to chat” — it is:
 
 - whether it can organize a chain of actions toward a goal
 
-## 1. Don’t Rush to Put Agent on a Pedestal
+## Don’t Rush to Put Agent on a Pedestal
 
 When many people first hear about Agents, they imagine them as “AI employees that can think and execute tasks autonomously.”
 
@@ -80,7 +80,7 @@ It usually has these abilities:
 - continue acting based on results
 - stop when appropriate
 
-### 1.1 When Learning Agent for the First Time, What Should You Focus on First?
+### When Learning Agent for the First Time, What Should You Focus on First?
 
 The first thing to focus on is not the word “autonomous,” but this sentence:
 
@@ -97,7 +97,7 @@ you will more naturally understand why they exist.
 
 ---
 
-## 2. What Is the Difference Between Workflows, Chatbots, and Agents?
+## What Is the Difference Between Workflows, Chatbots, and Agents?
 
 ### Workflow
 
@@ -125,7 +125,7 @@ For example, an Agent may:
 2. then decide whether to check the weather, search docs, or calculate
 3. after getting the result, organize the output
 
-### 2.1 Why Must These Three Concepts Be Separated First?
+### Why Must These Three Concepts Be Separated First?
 
 Because many systems look like they “just connect a model,” but their engineering forms are completely different:
 
@@ -139,7 +139,7 @@ If you don’t separate these boundaries at the beginning, later it becomes easy
 - think something is an Agent just because it has state
 - mistake a chatting system for an Agent
 
-### 2.2 A System Boundary Diagram That Beginners Can Remember First
+### A System Boundary Diagram That Beginners Can Remember First
 
 ```mermaid
 flowchart LR
@@ -161,7 +161,7 @@ When reading this diagram, don’t first ask who is more “intelligent.” Inst
 
 ---
 
-## 3. The Minimal Components of an Agent
+## The Minimal Components of an Agent
 
 You can first break an Agent into 4 parts:
 
@@ -172,7 +172,7 @@ You can first break an Agent into 4 parts:
 | Tools | What external capabilities can be called |
 | State / memory | Where the current task has progressed to |
 
-### 3.1 When You See These Four Parts for the First Time, What Is the Most Worth Remembering Sentence?
+### When You See These Four Parts for the First Time, What Is the Most Worth Remembering Sentence?
 
 You can remember this first:
 
@@ -184,7 +184,7 @@ An analogy:
 
 > An Agent is like an intern who can get things done: there is a task goal, a toolbox, work records, and they still need to decide the next step on their own.
 
-### 3.2 Look at Another Minimal “Candidate Action” Example
+### Look at Another Minimal “Candidate Action” Example
 
 ```python
 def choose_action(query):
@@ -206,7 +206,7 @@ This example is very suitable for beginners because it helps you grasp one core 
 - an Agent does not answer first
 - it first decides what to do next
 
-### 3.3 A System Boundary Diagram That Beginners Can Remember First
+### A System Boundary Diagram That Beginners Can Remember First
 
 ```mermaid
 flowchart LR
@@ -230,7 +230,7 @@ You can read this diagram as a timeline: after the goal enters the system, the A
 
 ---
 
-## 4. A Mini Agent That Does Not Depend on a Large Model
+## A Mini Agent That Does Not Depend on a Large Model
 
 To make the principle clearer, let’s not use a real large model yet. Instead, we’ll write a “rule-based Agent.”
 
@@ -330,7 +330,7 @@ This example is simple, but it already contains the core flavor of an Agent:
 
 ---
 
-## 5. What Is the Relationship Between an Agent and “Function Calling”?
+## What Is the Relationship Between an Agent and “Function Calling”?
 
 Agents often use function calling (Function Calling / Tool Calling), but the two are not exactly the same.
 
@@ -351,7 +351,7 @@ So you can remember it like this:
 
 > Tool calling is a common capability of an Agent, but an Agent is not just tool calling.
 
-### 5.1 Why Is This Step So Easy for Beginners to Mix Up?
+### Why Is This Step So Easy for Beginners to Mix Up?
 
 Because many early demos all look like:
 
@@ -366,7 +366,7 @@ But a real Agent goes further and cares about:
 - what to do next after the call
 - whether it needs to iterate further
 
-### 5.2 Look at Another Minimal “Candidate Action” Example
+### Look at Another Minimal “Candidate Action” Example
 
 ```python
 def choose_action(query):
@@ -390,7 +390,7 @@ This example is very suitable for beginners because it helps you grasp one core 
 
 ---
 
-## 6. Why Is an Agent Harder Than a Normal Q&A System?
+## Why Is an Agent Harder Than a Normal Q&A System?
 
 Because it adds an extra layer of “action.”
 
@@ -416,7 +416,7 @@ This brings more challenges:
 
 ---
 
-## 7. A Looping Idea That Feels More Like an Agent
+## A Looping Idea That Feels More Like an Agent
 
 A real Agent system often looks like this:
 
@@ -442,7 +442,7 @@ This is why Agents emphasize:
 - feedback
 - iteration
 
-### 7.1 What Is Most Worth Understanding in This Loop Is Not the Diagram, But the “Closed Loop”
+### What Is Most Worth Understanding in This Loop Is Not the Diagram, But the “Closed Loop”
 
 In other words, the key of an Agent is not a one-time output, but:
 
@@ -453,7 +453,7 @@ In other words, the key of an Agent is not a one-time output, but:
 
 This is one of the most fundamental differences between it and a normal Q&A system.
 
-### 7.2 The Safest Default Order When Building Your First Agent Project
+### The Safest Default Order When Building Your First Agent Project
 
 A more stable sequence is usually:
 
@@ -485,7 +485,7 @@ This makes it easier for others to see:
 
 ---
 
-## 8. What Tasks Are Suitable for Agents?
+## What Tasks Are Suitable for Agents?
 
 ### More Suitable
 
@@ -510,19 +510,19 @@ In many cases, **a workflow is actually more suitable than an Agent**.
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 1. Thinking “able to chat” means Agent
+### Thinking “able to chat” means Agent
 
 Wrong.
 A chatbot does not necessarily act autonomously in steps.
 
-### 2. Thinking an Agent is definitely more advanced than a workflow
+### Thinking an Agent is definitely more advanced than a workflow
 
 Not necessarily.
 For simple and stable tasks, a workflow may be cheaper and more reliable.
 
-### 3. Thinking that adding tool calling solves everything
+### Thinking that adding tool calling solves everything
 
 The more tools and steps you add, the harder debugging and safety become.
 

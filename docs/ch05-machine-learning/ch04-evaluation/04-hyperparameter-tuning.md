@@ -1,11 +1,11 @@
 ---
-title: "4.5 Hyperparameter Tuning"
+title: "5.4.5 Hyperparameter Tuning"
 sidebar_position: 13
 description: "Master hyperparameter tuning methods such as grid search, random search, and Bayesian optimization (Optuna)"
 keywords: [hyperparameter tuning, GridSearchCV, RandomizedSearchCV, Optuna, Bayesian optimization, parameter tuning]
 ---
 
-# Hyperparameter Tuning
+# 5.4.5 Hyperparameter Tuning
 
 ![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search-en.png)
 
@@ -50,7 +50,7 @@ What this section really wants to solve is:
 - Why the test set should not be used to try parameters repeatedly
 - Why the search space itself is a design problem
 
-### 1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can first think of tuning as:
 
@@ -68,7 +68,7 @@ So tuning is more like experimental design, not just parameter search.
 
 When reading this diagram, first look at the “budget” line: the more parameters and the larger the ranges, the more the number of combinations explodes. For your first tuning attempt, do not twist every knob at once. Start with the parameters that most affect complexity, such as `max_depth` and `min_samples_leaf` in tree models, and then gradually expand the search space.
 
-## 1. Parameters vs. hyperparameters
+## Parameters vs. hyperparameters
 
 | | Parameters | Hyperparameters |
 |---|-------------------|------------------------|
@@ -87,9 +87,9 @@ print(model.get_params())
 
 ---
 
-## 2. Grid search
+## Grid search
 
-### 2.1 How it works
+### How it works
 
 Exhaustively try every hyperparameter combination, evaluate each one with cross-validation, and choose the best.
 
@@ -103,7 +103,7 @@ flowchart TD
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 GridSearchCV in action
+### GridSearchCV in action
 
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -144,7 +144,7 @@ print(f"Best CV score: {grid.best_score_:.4f}")
 print(f"Test set score: {grid.best_estimator_.score(X_test, y_test):.4f}")
 ```
 
-### 2.3 View all results
+### View all results
 
 ```python
 import pandas as pd
@@ -172,7 +172,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 Pros and cons of grid search
+### Pros and cons of grid search
 
 | Pros | Cons |
 |------|------|
@@ -180,7 +180,7 @@ plt.show()
 | Simple to implement | Coarse grid spacing may miss the best value |
 | Reproducible results | Wastes computation on poor regions |
 
-### 2.5 When is grid search still worth using?
+### When is grid search still worth using?
 
 A more reliable rule of thumb is:
 
@@ -192,13 +192,13 @@ In that case, Grid Search is actually a very good choice because it is extremely
 
 ---
 
-## 3. Random search
+## Random search
 
-### 3.1 How it works
+### How it works
 
 Instead of trying every combination, it **randomly samples** N combinations. Under the same compute budget, random search is often more efficient.
 
-### 3.2 RandomizedSearchCV in action
+### RandomizedSearchCV in action
 
 ```python
 from sklearn.model_selection import RandomizedSearchCV
@@ -232,7 +232,7 @@ print(f"Best CV score: {random_search.best_score_:.4f}")
 print(f"Test set score: {random_search.best_estimator_.score(X_test, y_test):.4f}")
 ```
 
-### 3.3 Grid vs. Random comparison
+### Grid vs. Random comparison
 
 ```python
 # Visual comparison
@@ -271,7 +271,7 @@ plt.show()
 | Best for | Fewer parameters, known ranges | More parameters, uncertain ranges |
 | Recommended when | Fewer than 3 parameters | More than 3 parameters |
 
-### 3.4 Why is “random search” often more reasonable than “fine grid search”?
+### Why is “random search” often more reasonable than “fine grid search”?
 
 Because what often wastes time is not that the model is too weak,
 but that:
@@ -286,9 +286,9 @@ but also:
 
 ---
 
-## 4. Bayesian optimization (Optuna)
+## Bayesian optimization (Optuna)
 
-### 4.1 How it works
+### How it works
 
 Bayesian optimization is smarter than random search—it **uses previous trial results to guide the next search**.
 
@@ -303,7 +303,7 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 Optuna in action
+### Optuna in action
 
 ```bash
 pip install optuna
@@ -344,7 +344,7 @@ except ImportError:
     print("Please install optuna first: pip install optuna")
 ```
 
-### 4.3 When is Bayesian optimization worth using?
+### When is Bayesian optimization worth using?
 
 Typical cases include:
 
@@ -354,7 +354,7 @@ Typical cases include:
 
 At that point, “trying more intelligently” becomes increasingly important.
 
-### 4.4 Optuna visualization
+### Optuna visualization
 
 ```python
 try:
@@ -373,7 +373,7 @@ except (ImportError, NameError):
     print("You need to install optuna first and run the optimization")
 ```
 
-### 4.5 Comparison of the three methods
+### Comparison of the three methods
 
 | | Grid Search | Random Search | Bayesian Optimization |
 |---|------------|--------------|-----------|
@@ -384,9 +384,9 @@ except (ImportError, NameError):
 
 ---
 
-## 5. Best practices for hyperparameter tuning
+## Best practices for hyperparameter tuning
 
-### 5.1 Tuning strategy
+### Tuning strategy
 
 ```mermaid
 flowchart TD
@@ -398,7 +398,7 @@ flowchart TD
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 5.2 Common model tuning priorities
+### Common model tuning priorities
 
 **Random Forest / GBDT**:
 
@@ -419,7 +419,7 @@ flowchart TD
 | 3 | `subsample` / `colsample_bytree` | 0.6~1.0 |
 | 4 | `reg_alpha` / `reg_lambda` | 0~5 |
 
-### 5.3 Important notes
+### Important notes
 
 :::warning Tuning pitfalls
 1. **Do not tune on the test set** — use the test set only once for final evaluation
@@ -429,7 +429,7 @@ flowchart TD
 5. **Focus on important parameters** — not every parameter is worth tuning
 :::
 
-### 5.4 Pipeline + GridSearch
+### Pipeline + GridSearch
 
 ```python
 from sklearn.pipeline import Pipeline
@@ -460,7 +460,7 @@ print(f"Test set score: {grid.score(X_test, y_test):.4f}")
 
 ---
 
-## 6. Complete tuning example
+## Complete tuning example
 
 ```python
 from sklearn.datasets import load_digits
@@ -512,7 +512,7 @@ print(f"\nImprovement: {rs.score(X_test, y_test) - baseline.score(X_test, y_test
 
 ---
 
-## 7. What is the easiest thing to overlook when doing tuning for the first time?
+## What is the easiest thing to overlook when doing tuning for the first time?
 
 What is most often overlooked is:
 
@@ -522,7 +522,7 @@ Because once you start using the test set to guide tuning,
 the test set is no longer “final unknown data,”
 and your evaluation will start to become optimistically biased.
 
-## 8. For your first tuning experiment, what is the safest default order?
+## For your first tuning experiment, what is the safest default order?
 
 If you are tuning for the first time, it is recommended to follow this order:
 
@@ -534,7 +534,7 @@ If you are tuning for the first time, it is recommended to follow this order:
 
 This order is more stable than opening a huge search space right away, and it also makes it easier to know where the improvement came from.
 
-## 9. If you still feel confused after learning this section, what should you focus on first?
+## If you still feel confused after learning this section, what should you focus on first?
 
 If tuning still feels easy to get lost in, what is most worth focusing on is not all the differences between tools, but these three sentences:
 

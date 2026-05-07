@@ -1,11 +1,11 @@
 ---
-title: "10.5 実践：追跡可能な単一 Agent アシスタントを作る"
+title: "9.10.5 実践：追跡可能な単一 Agent アシスタントを作る"
 sidebar_position: 57
 description: "第 9 章の実践ワークショップ：計画、ツール schema 検証、権限境界、JSONL trace、評価ケース、必要に応じた OpenAI Agents SDK への拡張まで、追跡可能な単一 Agent アシスタントを順番に作ります。"
 keywords: [Agent 実践, single Agent, Agent trace, tool calling, tool schema, Agent 評価, OpenAI Agents SDK]
 ---
 
-# 実践：追跡可能な単一 Agent アシスタントを作る
+# 9.10.5 実践：追跡可能な単一 Agent アシスタントを作る
 
 このワークショップでは、第 9 章の主線を 1 つの動く小さなプロジェクトにまとめます。小さな単一 Agent アシスタントを作り、目標の読み取り、ツール選択、ツール引数の検証、危険な操作のブロック、各ステップの trace 記録、小さな評価セットの実行まで行います。
 

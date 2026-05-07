@@ -1,11 +1,11 @@
 ---
-title: "1.4 ハンズオンワークショップ：再現可能な AI 学習ラボを作る"
+title: "1.4.1 ハンズオンワークショップ：再現可能な AI 学習ラボを作る"
 sidebar_position: 1
 description: "第 1 章のハンズオン。ターミナル、Python 環境チェック、VS Code、Jupyter、Git、作品集の証拠を 1 つの実行可能な学習リポジトリにつなげます。"
 keywords: [開発者ツールワークショップ, ターミナル, Git, Python 環境, VS Code, Jupyter, 再現可能なプロジェクト]
 ---
 
-# ハンズオンワークショップ：再現可能な AI 学習ラボを作る
+# 1.4.1 ハンズオンワークショップ：再現可能な AI 学習ラボを作る
 
 ![第 1 章ハンズオン作業台ルート](/img/course/ch01-hands-on-workstation-route-ja.png)
 

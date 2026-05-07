@@ -1,11 +1,11 @@
 ---
-title: "3.2 Practice with LLM API Calls"
+title: "8.3.2 Practice with LLM API Calls"
 sidebar_position: 11
 description: "From the smallest chat request and parameter design to error handling and client wrapping, truly understand how to connect an LLM API into an application."
 keywords: [LLM API, chat completion, API client, prompt, response parsing, error handling]
 ---
 
-# Practice with LLM API Calls
+# 8.3.2 Practice with LLM API Calls
 
 :::tip Section overview
 When many people build their first LLM application, they stop at “I can call the API.”
@@ -25,9 +25,9 @@ In this section, we’ll start from the smallest request and explain it step by 
 
 ---
 
-## 1. Why is API calling the first step in LLM application development?
+## Why is API calling the first step in LLM application development?
 
-### 1.1 Because this is the entry point where the model actually enters the system
+### Because this is the entry point where the model actually enters the system
 
 Most of the concepts you’ve learned so far, no matter how powerful, eventually come down to one thing in an application:
 
@@ -39,7 +39,7 @@ So API calls are not “basic chores”; they are:
 
 > **The interface layer through which LLM capabilities enter the product.**
 
-### 1.2 A question that is often overlooked
+### A question that is often overlooked
 
 Many people only care about:
 
@@ -56,7 +56,7 @@ So the focus of this section is not “how to send an HTTP request,” but “ho
 
 ---
 
-## 2. What does the smallest chat request contain?
+## What does the smallest chat request contain?
 
 The most core set of elements usually includes:
 
@@ -75,7 +75,7 @@ You can think of it as:
 Read this diagram as a runtime loop instead of a single line of code. `API` means an application interface, `endpoint` means the service address, `JSON` is the structured data format sent over the network, and `usage` records token consumption so later cost and performance analysis are possible.
 :::
 
-### 2.1 A minimal request example
+### A minimal request example
 
 ```python
 request = {
@@ -90,7 +90,7 @@ request = {
 print(request)
 ```
 
-### 2.2 Why is `messages` a list?
+### Why is `messages` a list?
 
 Because chat models usually do not look at just one string. They look at:
 
@@ -102,7 +102,7 @@ This helps them better understand the context of multi-turn conversations.
 
 ---
 
-## 3. Start with an “offline mock client”
+## Start with an “offline mock client”
 
 To make the code directly runnable, we won’t use a real network request yet. Instead, we’ll write a minimal mock client.
 
@@ -137,7 +137,7 @@ response = client.chat([
 print(response)
 ```
 
-### 3.2 Why start with a mock version?
+### Why start with a mock version?
 
 Because it helps you first understand:
 
@@ -149,9 +149,9 @@ Without being distracted too early by networking, authentication, and SDK detail
 
 ---
 
-## 4. From “can call” to “can use”
+## From “can call” to “can use”
 
-### 4.1 Why not write API calls directly everywhere in business code?
+### Why not write API calls directly everywhere in business code?
 
 If you write this everywhere:
 
@@ -166,7 +166,7 @@ Over time, you’ll run into these problems:
 - Inconsistent error handling
 - Hard to switch models or providers later
 
-### 4.2 A wrapper that looks more like real project code
+### A wrapper that looks more like real project code
 
 ```python
 class CourseAssistant:
@@ -186,7 +186,7 @@ assistant = CourseAssistant(MockLLMClient())
 print(assistant.ask("How do I get a certificate?"))
 ```
 
-### 4.3 What is this wrapper teaching you?
+### What is this wrapper teaching you?
 
 It is teaching you:
 
@@ -201,7 +201,7 @@ This is very important, because later you will keep adding:
 
 ---
 
-## 5. Why is response parsing equally important?
+## Why is response parsing equally important?
 
 After you get the model output, you usually do not stop there.
 You often still need to:
@@ -226,7 +226,7 @@ This may look simple, but it reminds you:
 
 ---
 
-## 6. One of the most important engineering problems: error handling
+## One of the most important engineering problems: error handling
 
 In real calls, the most common situation is not “always success,” but:
 
@@ -235,7 +235,7 @@ In real calls, the most common situation is not “always success,” but:
 - Network exception
 - Server error
 
-### 6.1 A minimal error-handling example
+### A minimal error-handling example
 
 ```python
 class UnstableMockLLMClient:
@@ -265,7 +265,7 @@ print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
-### 6.2 Why must this layer be taken seriously?
+### Why must this layer be taken seriously?
 
 Because once model calls become part of your system pipeline, an error is no longer just “the user didn’t get a reply.” It can mean:
 
@@ -275,7 +275,7 @@ Because once model calls become part of your system pipeline, an error is no lon
 
 ---
 
-## 7. A retry example with more realistic behavior
+## A retry example with more realistic behavior
 
 ```python
 def retry_chat(client, messages, retries=2):
@@ -297,7 +297,7 @@ This example teaches you:
 
 ---
 
-## 8. What else do real projects need to add?
+## What else do real projects need to add?
 
 When you move from a mock client to a real API, you usually still need to add:
 
@@ -318,17 +318,17 @@ and as:
 
 ---
 
-## 9. The most common misunderstandings
+## The most common misunderstandings
 
-### 9.1 Thinking “getting the content” is enough
+### Thinking “getting the content” is enough
 
 In fact, usage, error structure, and trace information are also important.
 
-### 9.2 Scattering `client.chat(...)` everywhere in business code
+### Scattering `client.chat(...)` everywhere in business code
 
 This will make maintenance painful later.
 
-### 9.3 Having no unified error handling
+### Having no unified error handling
 
 Production issues will be exposed very quickly.
 

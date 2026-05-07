@@ -1,10 +1,10 @@
 ---
-title: "ターミナルの基本操作"
+title: "1.1.2 ターミナルの基本操作"
 sidebar_position: 2
 description: "コアコマンド、パスの考え方、パイプ、環境変数を身につける"
 ---
 
-# ターミナルの基本操作
+# 1.1.2 ターミナルの基本操作
 
 ![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map-ja.png)
 

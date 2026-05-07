@@ -80,15 +80,15 @@ A good capstone project is a “multimodal learning assistant”: it can read co
 
 ## Learning path for this stage
 
-Chapter 1 covers multimodal large models and explains image-text alignment, vision-language models, and multimodal applications.
+Section 12.1 covers multimodal large models and explains image-text alignment, vision-language models, and multimodal applications.
 
-Chapter 2 covers image generation and explains diffusion models, Stable Diffusion, common applications, fine-tuning, and the latest progress.
+Section 12.2 covers image generation and explains diffusion models, Stable Diffusion, common applications, fine-tuning, and the latest progress.
 
-Chapter 3 covers video generation and digital humans, including video generation, speech synthesis, TTS, and digital human systems.
+Section 12.3 covers video generation and digital humans, including video generation, speech synthesis, TTS, and digital human systems.
 
-Chapter 4 covers AIGC frontiers and ethics, including trends, copyright, bias, compliance, and safety boundaries.
+Section 12.4 covers AIGC frontiers and ethics, including trends, copyright, bias, compliance, and safety boundaries.
 
-Chapter 5 completes a comprehensive project and organizes generation capabilities into a product workflow.
+Section 12.5 completes a comprehensive project and organizes generation capabilities into a product workflow.
 
 ## What you should be able to do after finishing
 
@@ -142,9 +142,9 @@ The key point of this experiment is to build multimodal engineering awareness: a
 
 The basic version is to complete an image generation or multimodal Q&A demo that can take a topic and produce a displayable result. The standard version needs prompt templates, result filtering, manual editing, and export workflows. The challenge version can be an AI creative workspace that chains copywriting, visuals, storyboards, voice scripts, review, and delivery into the final capstone of the whole course.
 
-If you want one guided baseline before choosing a larger capstone, start with [Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md). It gives you a local script that produces a creative brief, prompt records, SVG visual assets, storyboard files, review reports, failure cases, and an export preview.
+If you want one guided baseline before choosing a larger capstone, start with [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md). It gives you a local script that produces a creative brief, prompt records, SVG visual assets, storyboard files, review reports, failure cases, and an export preview.
 
-If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Multimodal and AIGC Without Getting Confused](./study-guide.md).
+If you want a more detailed learning rhythm, you can read [12.0 Study Guide: How to Learn Multimodal and AIGC Without Getting Confused](./study-guide.md).
 
 
 

@@ -1,11 +1,11 @@
 ---
-title: "6.2 Hands-on Project: Multi-Source Data Integration Analysis"
+title: "3.6.2 Hands-on Project: Multi-Source Data Integration Analysis"
 sidebar_position: 26
 description: "Fetch data from multiple sources such as CSV, JSON, and SQLite, perform integration and cleaning, grouping and aggregation, trend analysis over time, and output a visual report"
 keywords: [multi-source data, data integration, Pandas, data analysis, pivot analysis, visual dashboard]
 ---
 
-# Hands-on Project: Multi-Source Data Integration Analysis
+# 3.6.2 Hands-on Project: Multi-Source Data Integration Analysis
 
 ![Multi-source data integration analysis architecture diagram](/img/course/ch03-multi-source-analysis-architecture-en.png)
 
@@ -105,11 +105,11 @@ In this project, the most important engineering habit is to check `ID / PK / FK`
 
 ---
 
-## 1. Prepare Mock Data
+## Prepare Mock Data
 
 In real projects, data is already available. But for learning, we’ll first generate mock data with Python.
 
-### 1.1 Generate Order Data (CSV)
+### Generate Order Data (CSV)
 
 ```python
 import numpy as np
@@ -139,7 +139,7 @@ print(f"Order data: {orders.shape}")
 orders.head()
 ```
 
-### 1.2 Generate Product Data (JSON)
+### Generate Product Data (JSON)
 
 ```python
 # ---------- Product data ----------
@@ -174,7 +174,7 @@ print(f"Product data: {len(products)} products")
 pd.DataFrame(products).head()
 ```
 
-### 1.3 Generate User Data (SQLite)
+### Generate User Data (SQLite)
 
 ```python
 # ---------- User data ----------
@@ -205,9 +205,9 @@ After running the code above, you will get three files:
 
 ---
 
-## 2. Read Multi-Source Data
+## Read Multi-Source Data
 
-### 2.1 Read CSV
+### Read CSV
 
 ```python
 import pandas as pd
@@ -228,7 +228,7 @@ print(orders.dtypes)
 orders.head()
 ```
 
-### 2.2 Read JSON
+### Read JSON
 
 ```python
 # 2. Read JSON
@@ -247,7 +247,7 @@ You can also read it directly with Pandas:
 products = pd.read_json('products.json')
 ```
 
-### 2.3 Read SQLite
+### Read SQLite
 
 ```python
 # 3. Read SQLite
@@ -259,7 +259,7 @@ print(f"\nUser data: {users.shape}")
 users.head()
 ```
 
-### 2.4 Data Overview
+### Data Overview
 
 ```python
 print("=" * 50)
@@ -287,11 +287,11 @@ The most important questions to ask first are:
 This step is especially important because many problems that look like “analysis issues” later on
 are actually caused by incorrect merging at the beginning.
 
-## 3. Data Integration
+## Data Integration
 
 This is the **core step** of the project — merging three tables into one wide table.
 
-### 3.1 Integration Strategy
+### Integration Strategy
 
 ```mermaid
 flowchart LR
@@ -306,7 +306,7 @@ flowchart LR
     style FULL fill:#f3e5f5,stroke:#7b1fa2,color:#333
 ```
 
-### 3.2 Merge Operations
+### Merge Operations
 
 ```python
 # Step 1: orders + product information
@@ -320,7 +320,7 @@ print(f"After merging users: {df.shape}")
 df.head()
 ```
 
-### 3.3 Compute Key Metrics
+### Compute Key Metrics
 
 ```python
 # Order amount = unit price × quantity
@@ -348,7 +348,7 @@ users_slim = users[['user_id', 'city', 'register_date']]
 ```
 :::
 
-### 3.4 Data Quality Check
+### Data Quality Check
 
 ```python
 # Check data completeness after merging
@@ -365,7 +365,7 @@ print(f"\nUnmatched product IDs: {orphan_products if orphan_products else 'None'
 print(f"Unmatched user IDs: {orphan_users if orphan_users else 'None'}")
 ```
 
-### 3.5 A Data Integration Checklist Beginners Can Copy Directly
+### A Data Integration Checklist Beginners Can Copy Directly
 
 When doing multi-source integration for the first time, the safest checklist is usually:
 
@@ -376,9 +376,9 @@ When doing multi-source integration for the first time, the safest checklist is 
 
 Check these 4 items first, and then move on to analysis. Things will usually be much more stable.
 
-## 4. Analysis 1: Sales Overview
+## Analysis 1: Sales Overview
 
-### 4.1 Overall Metrics
+### Overall Metrics
 
 ```python
 print("=" * 50)
@@ -391,7 +391,7 @@ print(f"  Active users: {df['user_id'].nunique()}")
 print(f"  Number of products: {df['product_id'].nunique()}")
 ```
 
-### 4.2 Category Analysis
+### Category Analysis
 
 ```python
 # Sales and order volume by category
@@ -424,7 +424,7 @@ plt.savefig('07_category.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 4.3 City Analysis
+### City Analysis
 
 ```python
 # Top cities by sales
@@ -449,7 +449,7 @@ plt.savefig('08_city.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 4.4 What Is the Most Important Thing to Learn Here?
+### What Is the Most Important Thing to Learn Here?
 
 The most important thing to learn is:
 
@@ -462,9 +462,9 @@ In other words, the real bottleneck in this project is often not the chart, but:
 
 ---
 
-## 5. Analysis 2: Time Trends
+## Analysis 2: Time Trends
 
-### 5.1 Monthly Trend
+### Monthly Trend
 
 ```python
 # Aggregate by month
@@ -502,7 +502,7 @@ plt.savefig('09_monthly.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.2 Weekly Distribution
+### Weekly Distribution
 
 ```python
 # Statistics by day of week
@@ -529,7 +529,7 @@ plt.savefig('10_weekday.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.3 Monthly Trend by Category
+### Monthly Trend by Category
 
 ```python
 # Monthly sales by category
@@ -550,9 +550,9 @@ plt.show()
 
 ---
 
-## 6. Analysis 3: User Analysis
+## Analysis 3: User Analysis
 
-### 6.1 User Consumption Segmentation
+### User Consumption Segmentation
 
 Use a simplified version of the **RFM model** to segment users:
 
@@ -582,7 +582,7 @@ print(rfm.describe().round(1))
 rfm.head(10)
 ```
 
-### 6.2 Visualize User Segments
+### Visualize User Segments
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(16, 4))
@@ -604,7 +604,7 @@ plt.savefig('12_rfm.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 6.3 Simple User Segmentation
+### Simple User Segmentation
 
 ```python
 # Divide users into 4 groups based on spending and frequency
@@ -626,7 +626,7 @@ print(f"  Average frequency: {high_value['Frequency'].mean():.1f} orders")
 print(f"  Average recency: {high_value['Recency'].mean():.0f} days")
 ```
 
-### 6.4 City × User Segmentation
+### City × User Segmentation
 
 ```python
 # Merge RFM segmentation back to the main table
@@ -650,7 +650,7 @@ plt.show()
 
 ---
 
-## 7. Analysis 4: Comprehensive Dashboard
+## Analysis 4: Comprehensive Dashboard
 
 Integrate key metrics and charts into one large figure:
 
@@ -729,7 +729,7 @@ plt.show()
 
 ---
 
-## 8. Findings and Recommendations
+## Findings and Recommendations
 
 ### Key Findings
 
@@ -764,7 +764,7 @@ mindmap
 
 ---
 
-## 9. Project Summary and Extension
+## Project Summary and Extension
 
 ### Knowledge Review
 
@@ -814,7 +814,7 @@ Find a real e-commerce dataset on [Kaggle](https://www.kaggle.com/datasets) (for
 
 ---
 
-## 10. Project Checklist
+## Project Checklist
 
 | Checklist Item | Completed |
 |--------|---------|

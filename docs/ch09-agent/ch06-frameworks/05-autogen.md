@@ -1,11 +1,11 @@
 ---
-title: "6.6 AutoGen【Elective】"
+title: "9.6.6 AutoGen【Elective】"
 sidebar_position: 34
 description: "From multi-Agent conversations and role collaboration to code execution loops, understand why the AutoGen-style framework is especially well suited for 'conversational multi-Agent' systems."
 keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code execution, agent collaboration]
 ---
 
-# AutoGen【Elective】
+# 9.6.6 AutoGen【Elective】
 
 :::tip Section Overview
 If some frameworks feel more like a “workflow graph” or a “knowledge organization layer,” then the first impression of AutoGen is usually:
@@ -24,9 +24,9 @@ Its key idea is not simply “many roles,” but the fact that **conversation dr
 
 ---
 
-## 1. What is the core intuition behind the AutoGen style?
+## What is the core intuition behind the AutoGen style?
 
-### 1.1 It does not start by drawing a flowchart; it starts by letting the roles “talk”
+### It does not start by drawing a flowchart; it starts by letting the roles “talk”
 
 Many frameworks first ask:
 
@@ -43,7 +43,7 @@ In other words, it abstracts the system as:
 
 > **A group of roles that send messages to one another.**
 
-### 1.2 A real-life analogy
+### A real-life analogy
 
 You can think of an AutoGen-style system as a group chat for work:
 
@@ -56,7 +56,7 @@ This analogy is very important because it directly determines the kinds of tasks
 
 ---
 
-## 2. Why does this “conversational multi-Agent” style feel so natural?
+## Why does this “conversational multi-Agent” style feel so natural?
 
 Because many complex tasks already have this shape:
 
@@ -75,7 +75,7 @@ So the AutoGen-style abstraction is very close to human collaboration intuition.
 
 ---
 
-## 3. A minimal AutoGen-style example
+## A minimal AutoGen-style example
 
 First, let’s not use a real framework. Instead, let’s use pure Python to get a feel for “multi-round conversational collaboration.”
 
@@ -99,7 +99,7 @@ for msg in messages:
     print(msg)
 ```
 
-### 3.2 Although this code is simple, what is it teaching?
+### Although this code is simple, what is it teaching?
 
 It teaches you that:
 
@@ -111,9 +111,9 @@ This is the core entry point of the AutoGen style.
 
 ---
 
-## 4. Why is AutoGen often tied to “code execution” scenarios?
+## Why is AutoGen often tied to “code execution” scenarios?
 
-### 4.1 Because these scenarios naturally fit multi-round feedback
+### Because these scenarios naturally fit multi-round feedback
 
 Code tasks are rarely finished in one round:
 
@@ -124,7 +124,7 @@ Code tasks are rarely finished in one round:
 
 This matches AutoGen’s message back-and-forth pattern very well.
 
-### 4.2 A minimal “write code -> run -> feedback” example
+### A minimal “write code -> run -> feedback” example
 
 ```python
 conversation = [
@@ -142,9 +142,9 @@ This example already looks very similar to the workflow skeleton in many AutoGen
 
 ---
 
-## 5. What is the real advantage of AutoGen?
+## What is the real advantage of AutoGen?
 
-### 5.1 It expresses “back-and-forth collaboration among multiple roles” very naturally
+### It expresses “back-and-forth collaboration among multiple roles” very naturally
 
 It is especially good at expressing:
 
@@ -154,7 +154,7 @@ It is especially good at expressing:
 
 These multi-round feedback relationships.
 
-### 5.2 It is very friendly for prototyping and experimentation
+### It is very friendly for prototyping and experimentation
 
 Because you do not necessarily need to fully draw out the state graph from the beginning.
 You can first:
@@ -167,9 +167,9 @@ This is very valuable during the exploration stage.
 
 ---
 
-## 6. But you also need to understand the risks of the AutoGen style
+## But you also need to understand the risks of the AutoGen style
 
-### 6.1 The number of message rounds can easily get out of control
+### The number of message rounds can easily get out of control
 
 Once the system mainly relies on message back-and-forth to move forward, it is easy to end up with:
 
@@ -177,7 +177,7 @@ Once the system mainly relies on message back-and-forth to move forward, it is e
 - Repeated discussions
 - Continuing to talk even though the task already has enough information
 
-### 6.2 Role boundaries can drift easily
+### Role boundaries can drift easily
 
 If you do not define clear boundaries for each role, then you may see:
 
@@ -186,7 +186,7 @@ If you do not define clear boundaries for each role, then you may see:
 
 As a result, role responsibilities become increasingly messy.
 
-### 6.3 The stopping condition must be very clear
+### The stopping condition must be very clear
 
 Without a rule for “when to stop,” the system can easily keep running longer and longer.
 
@@ -196,9 +196,9 @@ So one very important engineering principle for AutoGen is:
 
 ---
 
-## 7. What is the difference between it and CrewAI / LangGraph?
+## What is the difference between it and CrewAI / LangGraph?
 
-### 7.1 Difference from CrewAI
+### Difference from CrewAI
 
 CrewAI emphasizes:
 
@@ -215,7 +215,7 @@ So a rough but memorable distinction is:
 - CrewAI is more like a “team schedule”
 - AutoGen is more like “team chat collaboration”
 
-### 7.2 Difference from LangGraph
+### Difference from LangGraph
 
 LangGraph emphasizes:
 
@@ -232,7 +232,7 @@ So AutoGen feels more natural when expressing systems that “move the task forw
 
 ---
 
-## 8. When is it worth considering AutoGen?
+## When is it worth considering AutoGen?
 
 It is especially suitable for:
 
@@ -252,7 +252,7 @@ In other words, it is more like:
 
 ---
 
-## 9. A very practical engineering reminder
+## A very practical engineering reminder
 
 If you really want to build an AutoGen-style system in depth, it is best to add these early:
 

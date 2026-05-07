@@ -1,10 +1,10 @@
 ---
-title: "1.2 Project: Web Scraper"
+title: "2.3.2 Project: Web Scraper"
 sidebar_position: 2
 description: "Learn how to use Python to fetch and parse web data"
 ---
 
-# Project: Web Scraper
+# 2.3.2 Project: Web Scraper
 
 ![Web scraper data collection flowchart](/img/course/ch02-web-scraper-pipeline-en.png)
 

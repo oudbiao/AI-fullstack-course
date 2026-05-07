@@ -1,11 +1,11 @@
 ---
-title: "2.1 Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?"
+title: "5.2.1 Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?"
 sidebar_position: 2
 description: "First build a learning map for supervised learning: how regression, classification, tree models, and ensemble learning should be understood step by step."
 keywords: [supervised learning guide, linear regression, logistic regression, decision tree, ensemble learning]
 ---
 
-# Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?
+# 5.2.1 Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?
 
 ![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap-en.png)
 

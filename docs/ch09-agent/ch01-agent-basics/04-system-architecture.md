@@ -1,11 +1,11 @@
 ---
-title: "1.5 Agent System Architecture"
+title: "9.1.5 Agent System Architecture"
 sidebar_position: 4
 description: "Understand the basic architecture of a deployable Agent system, starting from components such as Planner, Tool, Memory, State, and Guardrails."
 keywords: [agent architecture, planner, tools, memory, state, guardrails, observability]
 ---
 
-# Agent System Architecture
+# 9.1.5 Agent System Architecture
 
 ![Agent System Architecture Diagram](/img/course/agent-system-architecture-en.png)
 
@@ -20,9 +20,9 @@ After completing this section, you will be able to:
 
 ---
 
-## 1. An Agent Is Not Just "a Model"
+## An Agent Is Not Just "a Model"
 
-### 1.1 The most basic misconception: thinking an Agent is just an LLM + Prompt
+### The most basic misconception: thinking an Agent is just an LLM + Prompt
 
 A truly usable Agent system usually also needs at least:
 
@@ -34,7 +34,7 @@ A truly usable Agent system usually also needs at least:
 
 The model is important, but it is more like one part of the brain, not the whole system.
 
-### 1.2 You can think of an Agent as a small operating system
+### You can think of an Agent as a small operating system
 
 It contains:
 
@@ -48,9 +48,9 @@ That is also why once an Agent enters the engineering stage, it is no longer jus
 
 ---
 
-## 2. Common Core Components
+## Common Core Components
 
-### 2.1 Planner / Decision Maker
+### Planner / Decision Maker
 
 Responsible for deciding:
 
@@ -61,7 +61,7 @@ Responsible for deciding:
 In simple systems, this part may be handled directly by the LLM.
 In scenarios that require stronger control, it may also be handled by a combination of rules + LLM.
 
-### 2.2 Tool Layer / Tools Layer
+### Tool Layer / Tools Layer
 
 This is the key to letting an Agent take action.
 
@@ -77,9 +77,9 @@ Without tools, many Agents can only "talk" and cannot actually "do."
 
 ---
 
-## 3. State, Memory, and Context
+## State, Memory, and Context
 
-### 3.1 State: where the current task is now
+### State: where the current task is now
 
 State usually records:
 
@@ -91,7 +91,7 @@ State usually records:
 This is not the same as "long-term memory."
 It is more like the workspace for the current task.
 
-### 3.2 Memory: what is kept across turns
+### Memory: what is kept across turns
 
 Memory is more about:
 
@@ -103,9 +103,9 @@ Many basic Agents do not necessarily need complex memory at the beginning, but a
 
 ---
 
-## 4. A Standard Execution Loop
+## A Standard Execution Loop
 
-### 4.1 The minimal loop: perceive, decide, act, observe
+### The minimal loop: perceive, decide, act, observe
 
 ```mermaid
 flowchart LR
@@ -122,7 +122,7 @@ flowchart LR
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 Why is this loop so important?
+### Why is this loop so important?
 
 Because the essence of an Agent is not "answer once," but:
 
@@ -138,7 +138,7 @@ Think of this diagram as the "anatomy of a production Agent": the Planner decide
 
 ---
 
-## 5. A Mini Runnable Architecture Example
+## A Mini Runnable Architecture Example
 
 In the example below, we explicitly write out:
 
@@ -236,9 +236,9 @@ This example is small, but it already contains the core feel of an Agent archite
 
 ---
 
-## 6. Guardrails: Why Are Safety Rails Essential?
+## Guardrails: Why Are Safety Rails Essential?
 
-### 6.1 Because Agents take actions
+### Because Agents take actions
 
 And action means risk.
 
@@ -256,7 +256,7 @@ So common guardrails in real systems include:
 - maximum step limits
 - human approval checkpoints
 
-### 6.2 The simplest guardrail example
+### The simplest guardrail example
 
 ```python
 import ast
@@ -299,9 +299,9 @@ The core idea of guardrails is not to make the system completely error-free, but
 
 ---
 
-## 7. Observability: Why Do We Need to See What the Agent Is Doing?
+## Observability: Why Do We Need to See What the Agent Is Doing?
 
-### 7.1 Because multi-step systems are hard to debug when they are opaque
+### Because multi-step systems are hard to debug when they are opaque
 
 At minimum, you want to see:
 
@@ -310,7 +310,7 @@ At minimum, you want to see:
 - what the tool returned
 - why the process ended
 
-### 7.2 The minimum observability information usually includes
+### The minimum observability information usually includes
 
 - input
 - action
@@ -322,9 +322,9 @@ Many Agent projects get stuck in the end not because the model is too weak, but 
 
 ---
 
-## 8. Single Agent and Multi-Agent
+## Single Agent and Multi-Agent
 
-### 8.1 A single Agent is usually what you should learn first
+### A single Agent is usually what you should learn first
 
 Most systems should first make a single Agent solid:
 
@@ -332,7 +332,7 @@ Most systems should first make a single Agent solid:
 - easier to converge
 - clearer architecture
 
-### 8.2 Multi-Agent is not the default upgrade path
+### Multi-Agent is not the default upgrade path
 
 Only when a task is truly suitable for division of labor is Multi-Agent worth considering.
 
@@ -346,17 +346,17 @@ If the task is not complex, Multi-Agent may instead increase coordination costs.
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 9.1 Starting with Multi-Agent before understanding Single Agent
+### Starting with Multi-Agent before understanding Single Agent
 
 This usually makes debugging much harder.
 
-### 9.2 Mixing up state and memory
+### Mixing up state and memory
 
 State is more about the current task, while memory is more about accumulation across tasks.
 
-### 9.3 Having no logging or replay mechanism
+### Having no logging or replay mechanism
 
 Once the system fails, you can only guess.
 

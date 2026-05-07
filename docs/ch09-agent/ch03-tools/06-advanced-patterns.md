@@ -1,11 +1,11 @@
 ---
-title: "3.7 Advanced Tool Patterns [Optional]"
+title: "9.3.7 Advanced Tool Patterns [Optional]"
 sidebar_position: 16
 description: "From retries, caching, batching, and composite tools to tool proxy layers, understand why the tool layer must become a composable system as tools grow in number."
 keywords: [tool patterns, composite tools, caching, batching, retries, decorators, orchestration]
 ---
 
-# Advanced Tool Patterns [Optional]
+# 9.3.7 Advanced Tool Patterns [Optional]
 
 :::tip Section Positioning
 When there are only two or three tools,
@@ -33,9 +33,9 @@ What this section is about is:
 
 ---
 
-## 1. Why Does the Tool Layer Need Patterns Too?
+## Why Does the Tool Layer Need Patterns Too?
 
-### 1.1 Because Many Problems Repeat
+### Because Many Problems Repeat
 
 For example:
 
@@ -47,7 +47,7 @@ For example:
 If you hand-code this logic inside every tool,
 the system will quickly become unmanageable.
 
-### 1.2 The Value of Patterns Is Not “Looking Advanced”
+### The Value of Patterns Is Not “Looking Advanced”
 
 It is:
 
@@ -57,7 +57,7 @@ It is:
 
 This is very similar to the middleware idea in backend services.
 
-### 1.3 An Analogy: The Tool Itself Is Like an Appliance, and the Pattern Is Like a Power Strip or Voltage Regulator
+### An Analogy: The Tool Itself Is Like an Appliance, and the Pattern Is Like a Power Strip or Voltage Regulator
 
 The appliance you buy can certainly be used on its own,
 but when you have more and more devices,
@@ -71,30 +71,30 @@ Tool patterns do something similar for an Agent.
 
 ---
 
-## 2. Four Common Advanced Tool Patterns
+## Four Common Advanced Tool Patterns
 
-### 2.1 Retry Wrapping
+### Retry Wrapping
 
 Suitable for:
 
 - Temporary failures
 - Occasional upstream instability
 
-### 2.2 Cache Wrapping
+### Cache Wrapping
 
 Suitable for:
 
 - High-frequency repeated queries in a short time
 - Read-only tools
 
-### 2.3 Batch Tools
+### Batch Tools
 
 Suitable for:
 
 - Asking many similar questions at once
 - Combining a group of similar requests for processing
 
-### 2.4 Composite Tools
+### Composite Tools
 
 Suitable for:
 
@@ -109,7 +109,7 @@ it is better to package it as a higher-level composite tool.
 
 ---
 
-## 3. First, Run a “Composable Tool Wrapper” Example
+## First, Run a “Composable Tool Wrapper” Example
 
 The example below does three things:
 
@@ -177,7 +177,7 @@ print(search_and_summarize("refund"))
 print(search_and_summarize("refund"))
 ```
 
-### 3.1 What Is the Most Important Lesson in This Code?
+### What Is the Most Important Lesson in This Code?
 
 It shows that the tool layer is not just the “tool itself.”
 In real systems, you often do this first:
@@ -189,7 +189,7 @@ In real systems, you often do this first:
 What the Agent finally calls
 is often the enhanced capability, not just the raw function.
 
-### 3.2 Why Is Caching Suitable for Read-Only Tools?
+### Why Is Caching Suitable for Read-Only Tools?
 
 Because when read-only tools are called repeatedly over a short time,
 their return values often do not change immediately.
@@ -201,7 +201,7 @@ For example:
 
 Adding short-term caching to these tools can significantly reduce cost.
 
-### 3.3 Why Is “Search + Summarize” Suitable as a Composite Tool?
+### Why Is “Search + Summarize” Suitable as a Composite Tool?
 
 Because it is a highly fixed combination.
 If you let the Agent figure it out every time:
@@ -216,9 +216,9 @@ the system becomes more stable.
 
 ---
 
-## 4. Why Are Batch Tools Important?
+## Why Are Batch Tools Important?
 
-### 4.1 Because Many Requests Can Be Handled Together
+### Because Many Requests Can Be Handled Together
 
 For example:
 
@@ -233,7 +233,7 @@ you will waste a lot of:
 - Model steps
 - Scheduling overhead
 
-### 4.2 A Minimal Batch Tool Example
+### A Minimal Batch Tool Example
 
 ```python
 def get_order_status_batch(order_ids):
@@ -255,9 +255,9 @@ This pattern is especially suitable when:
 
 ---
 
-## 5. When Should You Package a Chain of Tools as an “Advanced Tool”?
+## When Should You Package a Chain of Tools as an “Advanced Tool”?
 
-### 5.1 When the Combination Is Stable Enough
+### When the Combination Is Stable Enough
 
 If the workflow is always:
 
@@ -265,7 +265,7 @@ If the workflow is always:
 
 then it is a good fit for a composite tool.
 
-### 5.2 When You Want the Agent to Think Less About Details
+### When You Want the Agent to Think Less About Details
 
 An Agent should not always stay at the level of low-level operations.
 If the basic actions are already stable,
@@ -273,7 +273,7 @@ then after packaging them into a higher-level tool, the Agent can focus on:
 
 - Higher-level decisions
 
-### 5.3 When You Want the System to Be More Stable, Faster, and Easier to Test
+### When You Want the System to Be More Stable, Faster, and Easier to Test
 
 Composite tools are usually easier for:
 
@@ -285,7 +285,7 @@ because the boundaries are clearer.
 
 ---
 
-## 6. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Combinations Are Worth Packaging First?
+## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Combinations Are Worth Packaging First?
 
 In this kind of project, tools often naturally grow into these categories:
 
@@ -314,7 +314,7 @@ You can think of this first as:
 
 > **Bundling actions that often appear together into one stable step in advance.**
 
-### 6.1 A Minimal Composite Tool Example That Feels Closer to a Real Project
+### A Minimal Composite Tool Example That Feels Closer to a Real Project
 
 ```python
 def retrieve_internal_docs(topic):
@@ -346,20 +346,20 @@ but that it helps beginners see:
 
 ---
 
-## 7. The Most Common Misunderstandings
+## The Most Common Misunderstandings
 
-### 7.1 Misunderstanding 1: Advanced Patterns Just Mean “Writing More Decorators”
+### Misunderstanding 1: Advanced Patterns Just Mean “Writing More Decorators”
 
 Not really.
 The key is not whether the implementation looks fancy,
 but whether it actually reduces repeated problems.
 
-### 7.2 Misunderstanding 2: Caching Is Always Better Once You Have It
+### Misunderstanding 2: Caching Is Always Better Once You Have It
 
 If data changes quickly,
 caching may instead create the risk of stale results.
 
-### 7.3 Misunderstanding 3: The More Combinations You Have, the Stronger the System Must Be
+### Misunderstanding 3: The More Combinations You Have, the Stronger the System Must Be
 
 Over-engineering can also make the system rigid.
 The key is whether the combination is stable and frequent enough.

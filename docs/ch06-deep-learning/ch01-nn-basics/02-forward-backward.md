@@ -1,11 +1,11 @@
 ---
-title: "1.5 Forward and Backward Propagation 🔧"
+title: "6.1.5 Forward and Backward Propagation 🔧"
 sidebar_position: 4
 description: "Understand the forward propagation computation process, loss functions (MSE/cross-entropy), the backpropagation algorithm, and computational graphs"
 keywords: [forward propagation, backpropagation, loss function, MSE, cross-entropy, chain rule, computational graph, backpropagation derivation]
 ---
 
-# Forward and Backward Propagation
+# 6.1.5 Forward and Backward Propagation
 
 ![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.png)
 
@@ -56,7 +56,7 @@ So what this section really adds is not "suddenly a lot of formulas," but:
 
 - How responsibility during training is passed backward layer by layer
 
-## 1. Forward Propagation
+## Forward Propagation
 
 Forward propagation is the **computation process from input to output**:
 
@@ -74,7 +74,7 @@ flowchart LR
     style L fill:#fce4ec,stroke:#c62828,color:#333
 ```
 
-### 1.1 During Forward Propagation, Which Four Things Should You Focus on First?
+### During Forward Propagation, Which Four Things Should You Focus on First?
 
 When you read network forward code for the first time, you can start by focusing only on these four kinds of variables:
 
@@ -90,7 +90,7 @@ In this way, whenever you see a line of code, it becomes easier to tell whether 
 - output
 - or error definition
 
-### 1.1 Manual Calculation Example
+### Manual Calculation Example
 
 ```python
 import numpy as np
@@ -125,7 +125,7 @@ a2 = exp_z2 / exp_z2.sum(axis=1, keepdims=True)
 print(f"a2 (Softmax) = {a2}")
 ```
 
-### 1.2 What Are the Three Things You Should Pay the Most Attention to in Forward Propagation?
+### What Are the Three Things You Should Pay the Most Attention to in Forward Propagation?
 
 When you first look at a network's forward computation, it is recommended that you ask only these three questions at each step:
 
@@ -135,7 +135,7 @@ When you first look at a network's forward computation, it is recommended that y
 
 Many people get lost as soon as they see formulas. In fact, just grasping these three things first is enough.
 
-### 1.3 A More Beginner-Friendly Analogy: Forward Propagation Is Like "Layer-by-Layer Processing"
+### A More Beginner-Friendly Analogy: Forward Propagation Is Like "Layer-by-Layer Processing"
 
 You can first think of forward propagation as a factory assembly line:
 
@@ -151,9 +151,9 @@ So the most important thing about forward propagation is not that "the formulas 
 
 ---
 
-## 2. Loss Functions
+## Loss Functions
 
-### 2.1 MSE (Regression)
+### MSE (Regression)
 
 > **MSE = (1/n) × Σ(yi - ŷi)²**
 
@@ -165,7 +165,7 @@ mse = np.mean((y_true_reg - y_pred_reg) ** 2)
 print(f"MSE = {mse:.4f}")
 ```
 
-### 2.2 Cross-Entropy (Classification)
+### Cross-Entropy (Classification)
 
 > **Cross-Entropy = -Σ(yi × log(ŷi))**
 
@@ -175,7 +175,7 @@ loss = -np.sum(y_true * np.log(a2 + 1e-8))
 print(f"Cross-entropy loss = {loss:.4f}")
 ```
 
-### 2.3 Binary Cross-Entropy (Binary Classification)
+### Binary Cross-Entropy (Binary Classification)
 
 > **BCE = -(y × log(ŷ) + (1-y) × log(1-ŷ))**
 
@@ -195,7 +195,7 @@ print(f"BCE = {bce:.4f}")
 | Binary classification | Sigmoid | BCE |
 | Multi-class classification | Softmax | Cross-entropy |
 
-### 2.4 Why Are the Output Layer and Loss Function Always Explained Together?
+### Why Are the Output Layer and Loss Function Always Explained Together?
 
 Because they are originally a matched pair.
 
@@ -212,9 +212,9 @@ So when beginners do their first task, a very reliable habit is:
 
 ---
 
-## 3. Backpropagation — 🔧 Manual Derivation
+## Backpropagation — 🔧 Manual Derivation
 
-### 3.1 Core Idea
+### Core Idea
 
 Backpropagation is the **systematic application of the chain rule** — starting from the loss and moving backward layer by layer to calculate the gradient of each parameter.
 
@@ -232,7 +232,7 @@ flowchart RL
     style W1 fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.2 The Most Beginner-Friendly One-Sentence Explanation of Backpropagation
+### The Most Beginner-Friendly One-Sentence Explanation of Backpropagation
 
 You do not need to memorize the full derivation right away. You only need to remember this first:
 
@@ -242,7 +242,7 @@ You do not need to memorize the full derivation right away. You only need to rem
 
 This already captures the first essential nature of backpropagation.
 
-### 3.2.1 A More Direct Way to Say It: Error Responsibility Is Distributed Backward
+### A More Direct Way to Say It: Error Responsibility Is Distributed Backward
 
 If "gradient" still feels abstract, you can first understand backpropagation as:
 
@@ -259,7 +259,7 @@ This is why backpropagation looks like it is "sending messages from back to fron
 This diagram is best read from right to left: first look at `loss` to see how wrong the prediction is, then distribute the responsibility along the computational graph to the output layer, hidden layer, and earlier parameters. Backpropagation is not magic; it answers, "How much did each parameter contribute to this error, and how should it change next?"
 :::
 
-### 3.3 Complete Derivation (2-Layer Network)
+### Complete Derivation (2-Layer Network)
 
 ```python
 # Continue the example above with manual backpropagation
@@ -298,7 +298,7 @@ b1 -= lr * db1
 print("\nParameters updated!")
 ```
 
-### 3.4 Summary of Gradient Formulas
+### Summary of Gradient Formulas
 
 | Variable | Gradient |
 |------|------|
@@ -310,7 +310,7 @@ print("\nParameters updated!")
 | `dW1` | `X.T @ dz1` |
 | `db1` | `dz1` |
 
-### 3.5 What Is the Most Common Source of Mistakes the First Time You Derive It Yourself?
+### What Is the Most Common Source of Mistakes the First Time You Derive It Yourself?
 
 Usually, the easiest mistakes are these three types:
 
@@ -330,9 +330,9 @@ So the first time you do it, it is recommended that for each step you also write
 
 ---
 
-## 4. Computational Graph
+## Computational Graph
 
-### 4.1 What Is a Computational Graph?
+### What Is a Computational Graph?
 
 A computational graph splits each computation step into nodes and records **what depends on what**. During backpropagation, gradients are passed in the reverse direction along the graph.
 
@@ -353,7 +353,7 @@ flowchart TD
 
 **PyTorch automatically builds and traverses this computational graph** — this is the essence of `autograd`.
 
-### 4.2 Which Steps Do Beginners Usually Get Stuck on in This Section?
+### Which Steps Do Beginners Usually Get Stuck on in This Section?
 
 - Not understanding what `z`, `a`, and `loss` each represent
 - Not knowing why the gradient direction must flow from back to front
@@ -367,7 +367,7 @@ If you can now clearly explain:
 
 then you have already learned this section very well.
 
-### 4.3 Numerical Verification
+### Numerical Verification
 
 Use a small perturbation to verify whether the gradient is correct:
 
@@ -394,7 +394,7 @@ print(f"Numerical gradient: {numerical_gradient(f, x)[0]:.6f}")
 
 ---
 
-## 5. Complete Training Loop
+## Complete Training Loop
 
 ```python
 # Complete 2-layer network training (moon-shaped classification data)
@@ -458,7 +458,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 5.1 Why Is This NumPy Training Loop So Worth Studying Repeatedly?
+### Why Is This NumPy Training Loop So Worth Studying Repeatedly?
 
 Because it is actually the bare version of the PyTorch training loop that comes later:
 

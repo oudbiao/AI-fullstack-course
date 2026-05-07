@@ -1,11 +1,11 @@
 ---
-title: "8.4 Project: Generative Models in Practice [Optional]"
+title: "6.8.4 Project: Generative Models in Practice [Optional]"
 sidebar_position: 3
 description: "Build an evaluation and presentation framework for a minimal generative model project, from task definition and data to generation quality observation and sample diversity analysis."
 keywords: [generative project, GAN, VAE, generation quality, diversity, evaluation]
 ---
 
-# Project: Generative Models in Practice [Optional]
+# 6.8.4 Project: Generative Models in Practice [Optional]
 
 :::tip Section focus
 The biggest difference between a generative project and a classification project is:
@@ -51,7 +51,7 @@ flowchart LR
 
 So what you really need to learn in this section is “how to judge and present,” not just “how to generate.”
 
-## 1. What Is the First Problem a Generative Project Needs to Solve?
+## What Is the First Problem a Generative Project Needs to Solve?
 
 Not:
 
@@ -76,31 +76,31 @@ For practice, it is recommended to start with a topic that is:
 
 ---
 
-## 2. The Minimal Structure of a Generative Project
+## The Minimal Structure of a Generative Project
 
-### 1. Data
+### Data
 
 - Training samples
 
-### 2. Model
+### Model
 
 - GAN / VAE / more modern generative models
 
-### 3. Sampling and Visualization
+### Sampling and Visualization
 
 - Generate samples periodically to observe trends
 
-### 4. Evaluation
+### Evaluation
 
 - Sample quality
 - Diversity
 
-### 5. Presentation
+### Presentation
 
 - Compare samples from different training stages
 - Summarize failure modes
 
-### 2.1 A More Beginner-Friendly Evaluation Dashboard
+### A More Beginner-Friendly Evaluation Dashboard
 
 When many beginners do a generative project for the first time,
 the biggest problem is not “I can’t train it,”
@@ -121,7 +121,7 @@ flowchart LR
 As long as you can keep filling in these 4 columns consistently,
 your project will no longer be just “some generated images.”
 
-## 3. Recommended Order of Progress
+## Recommended Order of Progress
 
 1. First choose a very small dataset that is easy to inspect
 2. Then decide whether you care more about quality, diversity, or stability
@@ -130,7 +130,7 @@ your project will no longer be just “some generated images.”
 
 ---
 
-## 4. A Minimal Project Planning Example
+## A Minimal Project Planning Example
 
 ```python
 from dataclasses import dataclass, field
@@ -156,7 +156,7 @@ plan = GenerativeProjectPlan(
 print(plan)
 ```
 
-### 4.1 Why Is This Step More Important Than Directly Piling on Code?
+### Why Is This Step More Important Than Directly Piling on Code?
 
 Because if a generative project does not first clarify:
 
@@ -168,17 +168,17 @@ then later it is very easy to end up with only “I generated some images,” wi
 
 ---
 
-## 5. How Do You Do the Most Basic Result Check for a Generative Project?
+## How Do You Do the Most Basic Result Check for a Generative Project?
 
-### 5.1 First, Check Quality
+### First, Check Quality
 
 Do the generated results look like the target data?
 
-### 5.2 Then, Check Diversity
+### Then, Check Diversity
 
 Does it keep generating almost the same thing?
 
-### 5.3 A Minimal Diversity Check Example
+### A Minimal Diversity Check Example
 
 ```python
 samples = [
@@ -198,7 +198,7 @@ it is already reminding you that:
 - It is not enough to only check “does it look similar?”
 - You also need to check “is it just generating the same thing over and over?”
 
-### 5.4 Add a “Training Stage Sample Dashboard” Example
+### Add a “Training Stage Sample Dashboard” Example
 
 In real projects, a very useful presentation method is:
 
@@ -229,20 +229,20 @@ but that:
 
 ---
 
-## 6. The Most Common Pitfalls
+## The Most Common Pitfalls
 
-### 6.1 Mistake 1: Only Showing the Best-Looking Images
+### Mistake 1: Only Showing the Best-Looking Images
 
 A real project should show:
 
 - Average sample quality
 - Failure samples
 
-### 6.2 Mistake 2: Only Looking at Quality, Not Diversity
+### Mistake 2: Only Looking at Quality, Not Diversity
 
 This can hide mode collapse.
 
-### 6.3 Mistake 3: Choosing a Dataset That Is Too Complex Too Early
+### Mistake 3: Choosing a Dataset That Is Too Complex Too Early
 
 Practice projects are better off starting with small tasks that are:
 
@@ -283,7 +283,7 @@ The most worthwhile additions are usually:
 
 This way, the project will move from “I generated some results” to “I know how to evaluate and explain these results.”
 
-## 10. A Presentation Order Better Suited for a Portfolio
+## A Presentation Order Better Suited for a Portfolio
 
 If you turn this project into a portfolio page, a recommended order is:
 

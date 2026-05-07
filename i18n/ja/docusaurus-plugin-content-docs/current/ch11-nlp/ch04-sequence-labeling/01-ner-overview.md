@@ -1,11 +1,11 @@
 ---
-title: "4.3 シーケンスラベリングタスク"
+title: "11.4.3 シーケンスラベリングタスク"
 sidebar_position: 2
 description: "「文全体に1つのラベル」と「各 token に1つのラベル」の違いから始めて、シーケンスラベリングがなぜ情報抽出タスクの重要な基礎なのかを理解します。"
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# シーケンスラベリングタスク
+# 11.4.3 シーケンスラベリングタスク
 
 ![BIO 標注から実体を復元する図](/img/course/bio-ner-recovery-ja.png)
 
@@ -38,7 +38,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ## 一、シーケンスラベリングは何を解決するのか？
 
-### 1.1 「この文は何か」を判断するだけでなく、「この文のどの部分が何か」を判断する
+### 「この文は何か」を判断するだけでなく、「この文のどの部分が何か」を判断する
 
 たとえば、次の文を考えます。
 
@@ -53,7 +53,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 - `張三` は人名
 - `北京大学` は組織名
 
-### 1.2 なぜこれが重要なのか？
+### なぜこれが重要なのか？
 
 なぜなら、実際の多くの業務では、文全体の理解だけでは足りないからです。  
 より知りたいのは、たとえば次のような情報です。
@@ -66,7 +66,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 つまり、具体的な断片の位置や境界です。
 
-### 1.3 たとえで考えると
+### たとえで考えると
 
 テキスト分類は、記事全体にラベルを貼るようなものです。  
 シーケンスラベリングは、蛍光ペンで文の重要部分を囲むようなものです。
@@ -75,7 +75,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ## 二、なぜ出力は通常 token 単位なのか？
 
-### 2.1 実体は連続した断片だから
+### 実体は連続した断片だから
 
 抽出したい情報の多くは、単語1つではなく、連続した span です。  
 たとえば次のようなものです。
@@ -83,7 +83,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 - `上海交通大学`
 - `2025年6月1日`
 
-### 2.2 token 単位のラベルなら境界を表現できる
+### token 単位のラベルなら境界を表現できる
 
 そのため、よく使われるラベル体系は、単純に次のように書くのではなく、
 
@@ -96,7 +96,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 - `I-PER`
 - `O`
 
-### 2.3 BIO の直感
+### BIO の直感
 
 - `B-`：実体の開始
 - `I-`：実体の内部
@@ -119,7 +119,7 @@ for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
-### 3.1 この例でいちばん大事なことは？
+### この例でいちばん大事なことは？
 
 ここで見えてくるのは、
 
@@ -132,7 +132,7 @@ for tok, tag in zip(tokens, tags):
 
 > **token の列を入力し、同じ長さのラベル列を出力する。**
 
-### 3.2 なぜ `北京 大学` が `B-ORG / I-ORG` なのか？
+### なぜ `北京 大学` が `B-ORG / I-ORG` なのか？
 
 ここで表したいのは、
 
@@ -191,7 +191,7 @@ def decode_entities(tokens, tags):
 print(decode_entities(tokens, tags))
 ```
 
-### 4.1 このコードが重要なのはなぜ？
+### このコードが重要なのはなぜ？
 
 これは「ラベリングタスク」と「抽出結果」をつないでいるからです。  
 実際のシステムで本当に大事なのは、タグそのものよりも、次のような結果です。
@@ -203,13 +203,13 @@ print(decode_entities(tokens, tags))
 
 ## 五、シーケンスラベリングと情報抽出の関係は？
 
-### 5.1 NER は典型的なシーケンスラベリングタスク
+### NER は典型的なシーケンスラベリングタスク
 
 最も代表的なのは次のタスクです。
 
 - 命名実体認識
 
-### 5.2 でも NER だけではない
+### でも NER だけではない
 
 ほかにも次のような用途があります。
 
@@ -217,7 +217,7 @@ print(decode_entities(tokens, tags))
 - キーワード抽出
 - イベントトリガー語の位置特定
 
-### 5.3 つまり「情報抽出の土台となるスキル」
+### つまり「情報抽出の土台となるスキル」
 
 多くの抽出システムは、さらに複雑になります。  
 それでも、いちばん基礎となる一歩は、しばしば次のことです。
@@ -228,7 +228,7 @@ print(decode_entities(tokens, tags))
 
 ## 六、よくある落とし穴
 
-### 6.1 誤解1：シーケンスラベリングを普通の分類だと思ってしまう
+### 誤解1：シーケンスラベリングを普通の分類だと思ってしまう
 
 文全体分類との最大の違いは、
 
@@ -236,11 +236,11 @@ print(decode_entities(tokens, tags))
 
 です。
 
-### 6.2 誤解2：ラベルだけ見て、境界の復元を見ない
+### 誤解2：ラベルだけ見て、境界の復元を見ない
 
 実際のシステムでは、ラベル表そのものよりも、最終的に抽出された実体片のほうが重要です。
 
-### 6.3 誤解3：ラベル体系を適当に決める
+### 誤解3：ラベル体系を適当に決める
 
 ラベル設計が乱れていると、モデルも評価も一緒に乱れます。
 

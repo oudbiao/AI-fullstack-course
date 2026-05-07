@@ -1,10 +1,10 @@
 ---
-title: "3.4 Data Cleaning"
+title: "3.3.5 Data Cleaning"
 sidebar_position: 12
 description: "Master missing values, duplicate values, outlier handling, and string cleaning"
 ---
 
-# Data Cleaning
+# 3.3.5 Data Cleaning
 
 :::tip Section Positioning
 When many beginners first learn data cleaning, the easiest misunderstanding is:

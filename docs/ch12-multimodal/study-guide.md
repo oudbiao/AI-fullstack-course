@@ -1,11 +1,11 @@
 ---
-title: "Study Guide and Task Sheet: How to Learn Multimodal and AIGC Without Getting Lost"
+title: "12.0 Study Guide and Task Sheet: How to Learn Multimodal and AIGC Without Getting Lost"
 sidebar_position: 1
 description: "A multimodal and AIGC study guide for AI full-stack beginners: multimodal basics, image generation, video and speech, digital humans, project roadmap, and acceptance criteria."
 keywords: [AIGC study guide, how to learn multimodal, how to learn diffusion models, how to learn image generation, Stable Diffusion]
 ---
 
-# Study Guide and Task Sheet: How to Learn Multimodal and AIGC Without Getting Lost
+# 12.0 Study Guide and Task Sheet: How to Learn Multimodal and AIGC Without Getting Lost
 
 If you reach `Chapter 12: AIGC and Multimodal` and feel that images, speech, video, digital humans, and all kinds of new models are scattered all over the place, don’t rush to follow every Demo. On your first pass through multimodal learning, you should understand how different modalities enter the same system.
 
@@ -58,7 +58,7 @@ For the second project, it is recommended to build an image-text multimodal Q&A 
 
 For the third project, you can build a prototype of a creative content platform: input a topic, generate copy, images, speech, or video scripts, and add review and export flows.
 
-Before choosing a larger capstone, run the [reproducible multimodal creative package](./ch05-projects/02-hands-on-multimodal-workshop.md). It is the baseline exercise for this stage: one script, a creative brief, prompt versions, generated SVG assets, storyboard, safety review, export preview, and failure cases.
+Before choosing a larger capstone, run the [12.5.3 reproducible multimodal creative package](./ch05-projects/02-hands-on-multimodal-workshop.md). It is the baseline exercise for this stage: one script, a creative brief, prompt versions, generated SVG assets, storyboard, safety review, export preview, and failure cases.
 
 ## Common stumbling blocks
 

@@ -1,11 +1,11 @@
 ---
-title: "1.2 Fundamentals of Multimodal Learning"
+title: "12.1.2 Fundamentals of Multimodal Learning"
 sidebar_position: 1
 description: "Starting from modalities, fusion, alignment, and common tasks, understand why many future AI systems will not process only one type of input."
 keywords: [multimodal, multimodal, image-text, speech, video, fusion]
 ---
 
-# Fundamentals of Multimodal Learning
+# 12.1.2 Fundamentals of Multimodal Learning
 
 ![Diagram of multimodal alignment and fusion](/img/course/multimodal-alignment-fusion-en.png)
 
@@ -103,7 +103,7 @@ So what this section really wants to solve is:
 - What does “modality” mean?
 - Why are alignment and fusion the two core actions in multimodal systems?
 
-## 1. What Is a Modality?
+## What Is a Modality?
 
 A modality can be understood simply as a “form of information.”
 
@@ -121,7 +121,7 @@ As an analogy:
 
 > Humans do not understand the world by reading text only; we also look, listen, read, and speak. Multimodal AI is moving in that direction too.
 
-### 1.1 When Learning Multimodal for the First Time, What Should You Focus on Most?
+### When Learning Multimodal for the First Time, What Should You Focus on Most?
 
 What you should focus on first is not the list of modality types, but this sentence:
 
@@ -137,7 +137,7 @@ it becomes more natural to first ask: how are these systems actually aligning di
 
 ---
 
-## 2. Why Is the Real World Naturally Multimodal?
+## Why Is the Real World Naturally Multimodal?
 
 Think about everyday situations:
 
@@ -155,7 +155,7 @@ So the importance of multimodal systems is that:
 
 ---
 
-## 3. What Multimodal Tasks Are There?
+## What Multimodal Tasks Are There?
 
 | Task | Example |
 |---|---|
@@ -168,7 +168,7 @@ So the importance of multimodal systems is that:
 
 ---
 
-## 4. What Does Fusion Mean?
+## What Does Fusion Mean?
 
 Fusion can be understood as:
 
@@ -204,7 +204,7 @@ print("Fused feature shape:", fused_feature.shape)
 
 Real models are of course much more complex than this, but the idea of “combining information from multiple sources” is exactly this.
 
-### 4.1 What Should You Remember Most About Fusion: the Method or the Goal?
+### What Should You Remember Most About Fusion: the Method or the Goal?
 
 What you should remember most is:
 
@@ -218,7 +218,7 @@ So fusion is not just about concatenating vectors; it is about answering:
 
 ---
 
-## 5. What Does Alignment Mean?
+## What Does Alignment Mean?
 
 Alignment is another key concept in multimodal learning.
 
@@ -233,7 +233,7 @@ For example:
 
 If the model learns well, their vector representations should be close to each other.
 
-### 5.1 Why Has “Alignment” Become One of the Most Core Words in Multimodal Learning?
+### Why Has “Alignment” Become One of the Most Core Words in Multimodal Learning?
 
 Because if representations from different modalities do not match at all, then almost nothing can be done later:
 
@@ -247,7 +247,7 @@ All of these abilities depend on one prerequisite:
 
 ---
 
-## 6. A Runnable Toy Example for Image-Text Matching
+## A Runnable Toy Example for Image-Text Matching
 
 ```python
 import numpy as np
@@ -284,7 +284,7 @@ This is the most minimal version of cross-modal retrieval:
 
 ---
 
-## 7. Why Is Multimodal Harder?
+## Why Is Multimodal Harder?
 
 Because it has to solve two kinds of problems at the same time:
 
@@ -307,17 +307,17 @@ Once the two are combined, the complexity naturally becomes higher.
 
 ---
 
-## 8. Common Multimodal Paths Today
+## Common Multimodal Paths Today
 
-### 1. Dual-tower retrieval path
+### Dual-tower retrieval path
 
 One encoder for images, one encoder for text, and then compare vector similarity.
 
-### 2. Unified Transformer path
+### Unified Transformer path
 
 Map images and text into a unified sequence space, then model them together.
 
-### 3. Large model extension path
+### Large model extension path
 
 Attach modules such as image encoders and audio encoders in front of a language model.
 
@@ -329,19 +329,19 @@ This is why many systems today can do:
 
 ---
 
-## 9. Common Beginner Mistakes
+## Common Beginner Mistakes
 
-### 1. Thinking multimodal means only “images + text”
+### Thinking multimodal means only “images + text”
 
 Not true.
 Speech, video, and sensor signals are also modalities.
 
-### 2. Thinking multimodal is always better than unimodal
+### Thinking multimodal is always better than unimodal
 
 Not necessarily.
 If the extra modality is low quality, it may instead introduce noise.
 
-### 3. Only looking at flashy demos and ignoring alignment
+### Only looking at flashy demos and ignoring alignment
 
 The real difficulty in multimodal learning is often alignment and fusion.
 

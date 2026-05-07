@@ -1,10 +1,10 @@
 ---
-title: "1.7 関数の基礎"
+title: "2.1.7 関数の基礎"
 sidebar_position: 7
 description: "関数の定義、引数、戻り値、スコープを理解する"
 ---
 
-# 関数の基礎
+# 2.1.7 関数の基礎
 
 ![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope-ja.png)
 

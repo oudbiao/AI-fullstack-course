@@ -1,11 +1,11 @@
 ---
-title: "2.3 Stable Diffusion Architecture"
+title: "12.2.3 Stable Diffusion Architecture"
 sidebar_position: 5
 description: "Starting from latent diffusion, VAE, text encoders, U-Net, and cross-attention, understand why Stable Diffusion makes text-to-image generation practical in real engineering workflows."
 keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-attention]
 ---
 
-# Stable Diffusion Architecture
+# 12.2.3 Stable Diffusion Architecture
 
 ![Stable Diffusion component architecture diagram](/img/course/stable-diffusion-components-en.png)
 
@@ -37,9 +37,9 @@ The key is not just “diffusion”, but also:
 
 ---
 
-## 1. Why isn’t the original diffusion idea practical enough?
+## Why isn’t the original diffusion idea practical enough?
 
-### 1.1 The most intuitive problem: pixel space is too large
+### The most intuitive problem: pixel space is too large
 
 If you diffuse directly in the original image pixel space:
 
@@ -52,7 +52,7 @@ For example:
 
 is already a very large representation space.
 
-### 1.2 The key shift in Stable Diffusion
+### The key shift in Stable Diffusion
 
 Its most important step is:
 
@@ -66,7 +66,7 @@ It greatly improves engineering feasibility.
 
 ---
 
-## 2. Let’s first look at the overall structure
+## Let’s first look at the overall structure
 
 ```mermaid
 flowchart LR
@@ -98,9 +98,9 @@ A simple way to remember it is to split it into three main parts:
 
 ---
 
-## 3. What exactly is the role of the VAE here?
+## What exactly is the role of the VAE here?
 
-### 3.1 It acts more like a compressor than the main generator
+### It acts more like a compressor than the main generator
 
 In Stable Diffusion, the VAE mainly does this:
 
@@ -111,7 +111,7 @@ In other words, it mainly serves as a bridge between:
 
 > image space and latent space.
 
-### 3.2 Why is this step so important?
+### Why is this step so important?
 
 Because if diffusion is done directly in image space, the cost is too high.
 The VAE provides a much smaller and more abstract intermediate space.
@@ -120,7 +120,7 @@ You can think of it like this:
 
 > Instead of carving directly on a huge high-resolution canvas, first compress it into a much smaller “semantic sketch board.”
 
-### 3.3 A minimal intuition example for “compression / expansion”
+### A minimal intuition example for “compression / expansion”
 
 ```python
 import numpy as np
@@ -145,15 +145,15 @@ Of course, this example is not a VAE, but it is enough to help you grasp the cor
 
 ---
 
-## 4. Why is the text encoder indispensable?
+## Why is the text encoder indispensable?
 
-### 4.1 The prompt cannot be understood directly by the U-Net
+### The prompt cannot be understood directly by the U-Net
 
 The U-Net processes numeric tensors, and it cannot directly understand natural language such as:
 
 - “an orange cat sitting by the window”
 
-### 4.2 So we need a text encoder first
+### So we need a text encoder first
 
 The text encoder turns the prompt into:
 
@@ -163,7 +163,7 @@ You can think of it as:
 
 > **Translating language conditions into numeric conditions that the image generation pipeline can consume.**
 
-### 4.3 A simple illustration
+### A simple illustration
 
 ```python
 text_condition = {
@@ -181,9 +181,9 @@ The most important thing here is not the exact dimensions, but understanding tha
 
 ---
 
-## 5. Why did U-Net become the backbone of diffusion?
+## Why did U-Net become the backbone of diffusion?
 
-### 5.1 U-Net is naturally good at multi-scale information processing
+### U-Net is naturally good at multi-scale information processing
 
 Typical U-Net characteristics include:
 
@@ -191,7 +191,7 @@ Typical U-Net characteristics include:
 - decoder path: gradually restores spatial details
 - skip connections: help preserve details instead of losing them completely
 
-### 5.2 Why is this a good fit for denoising?
+### Why is this a good fit for denoising?
 
 Because denoising requires both:
 
@@ -206,9 +206,9 @@ So in Stable Diffusion, the role of U-Net is:
 
 ---
 
-## 6. Why is cross-attention so important?
+## Why is cross-attention so important?
 
-### 6.1 Text and images are not naturally connected
+### Text and images are not naturally connected
 
 If you only have:
 
@@ -217,7 +217,7 @@ If you only have:
 
 but no clear mechanism for the image to “look at” the text, then the prompt control effect will be weak.
 
-### 6.2 The intuition behind cross-attention
+### The intuition behind cross-attention
 
 Its core idea is:
 
@@ -227,7 +227,7 @@ In other words, when the image latent is updated, it does not only look at its o
 
 - the semantic signals provided by the prompt
 
-### 6.3 A very simple illustration
+### A very simple illustration
 
 ```python
 latent_feature = "current image latent features"
@@ -244,7 +244,7 @@ Although this is only a textual illustration, it captures the essence:
 
 ---
 
-## 7. Putting the whole workflow together
+## Putting the whole workflow together
 
 You can compress the main Stable Diffusion flow into these 5 steps:
 
@@ -271,16 +271,16 @@ This is the most important main workflow of Stable Diffusion.
 
 ---
 
-## 8. Why did it become such an important architecture for text-to-image generation?
+## Why did it become such an important architecture for text-to-image generation?
 
-### 8.1 Because it balances quality and engineering feasibility
+### Because it balances quality and engineering feasibility
 
 Compared with direct pixel-space diffusion:
 
 - latent diffusion is lighter
 - training and inference are more practical
 
-### 8.2 Because it is well suited for conditional control
+### Because it is well suited for conditional control
 
 Stable Diffusion is naturally good for:
 
@@ -289,7 +289,7 @@ Stable Diffusion is naturally good for:
 - local inpainting
 - style control
 
-### 8.3 Because the module boundaries are clear
+### Because the module boundaries are clear
 
 This is very important:
 
@@ -301,9 +301,9 @@ Clear module responsibilities make it easier for an ecosystem to grow.
 
 ---
 
-## 9. Common misconceptions
+## Common misconceptions
 
-### 9.1 Thinking Stable Diffusion is just “one big black box”
+### Thinking Stable Diffusion is just “one big black box”
 
 In fact, it is a collaboration of multiple modules:
 
@@ -312,11 +312,11 @@ In fact, it is a collaboration of multiple modules:
 - VAE
 - conditioning injection mechanism
 
-### 9.2 Not understanding the engineering value of latent diffusion
+### Not understanding the engineering value of latent diffusion
 
 This is one of the key reasons it can actually be used.
 
-### 9.3 Memorizing module names without understanding their responsibilities
+### Memorizing module names without understanding their responsibilities
 
 If you do this, later learning about fine-tuning and applications will feel very vague.
 

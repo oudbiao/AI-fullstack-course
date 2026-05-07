@@ -1,10 +1,10 @@
 ---
-title: "Jupyter Notebook"
+title: "1.3.3 Jupyter Notebook"
 sidebar_position: 3
 description: "掌握数据分析和 AI 实验的标配工具"
 ---
 
-# Jupyter Notebook
+# 1.3.3 Jupyter Notebook
 
 ![Jupyter Cell 与 Kernel 状态图](/img/course/ch01-jupyter-kernel-state.png)
 

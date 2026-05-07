@@ -1,11 +1,11 @@
 ---
-title: "2.9 PyTorch + Matplotlib 実践ワークショップ"
+title: "6.2.9 PyTorch + Matplotlib 実践ワークショップ"
 sidebar_position: 7
 description: "初学者向けの完整な PyTorch 実践です。データを描き、Tensor に変換し、DataLoader を作り、MLP を訓練し、損失曲線と決定境界を可視化します。"
 keywords: [PyTorch 実践, Matplotlib, DataLoader, 学習ループ, 決定境界, MLP, CrossEntropyLoss]
 ---
 
-# PyTorch + Matplotlib 実践ワークショップ
+# 6.2.9 PyTorch + Matplotlib 実践ワークショップ
 
 ![PyTorch 実践フロー](/img/course/ch06-pytorch-hands-on-workflow-ja.png)
 
@@ -51,7 +51,7 @@ python -m pip install -r requirements-course-ai.txt
 
 ---
 
-## 1. まずデータを作って描く
+## まずデータを作って描く
 
 モデルを書く前に、必ずデータを見ます。これは、モデルが何を学ぶべきか分からないまま訓練する、という初学者によくある失敗を防ぎます。
 
@@ -76,7 +76,7 @@ plt.show()
 - そのため、非線形を持つ小さなニューラルネットワークが役立つ
 - この図は、後で決定境界を見るときの基準になる
 
-## 2. Tensor に変換する
+## Tensor に変換する
 
 PyTorch モデルは Tensor を受け取ります。`CrossEntropyLoss` に使う分類ラベルは、整数クラス ID で、型は `torch.long` にします。
 
@@ -104,7 +104,7 @@ shape の意味：
 - `X`: `[batch, features]`。各サンプルは 2 つの特徴量を持つ
 - `y`: `[batch]`。各値は `0` または `1` のクラスラベル
 
-## 3. `Dataset` と `DataLoader` を作る
+## `Dataset` と `DataLoader` を作る
 
 `TensorDataset` は `X` と `y` の対応を保ちます。`DataLoader` はデータをシャッフルし、ミニバッチを作ります。
 
@@ -132,7 +132,7 @@ print("batch_y shape:", batch_y.shape)
 - `shuffle=True` は、毎回同じ順番で見ることを防ぐ
 - 検証データは評価だけに使うので、通常シャッフルしなくてよい
 
-## 4. 小さなニューラルネットワークを定義する
+## 小さなニューラルネットワークを定義する
 
 このモデルは 2D の点を 2 つの logits に変換します。各クラスに 1 つのスコアがあります。
 
@@ -162,7 +162,7 @@ print(model)
 - 最後の層は `2` 個の値を出します。これは 2 クラス分類だからです
 - ここで `Softmax` は追加しません。`nn.CrossEntropyLoss()` は生の logits を受け取るためです
 
-## 5. 訓練と検証
+## 訓練と検証
 
 学習ループは前に学んだリズムと同じです。
 
@@ -222,7 +222,7 @@ for epoch in range(1, 101):
 
 正常に学習できれば、検証 accuracy はランダム予測よりかなり高くなるはずです。
 
-## 6. 損失曲線を描く
+## 損失曲線を描く
 
 損失曲線は、学習が正しい方向に進んでいるかを見るためのものです。
 
@@ -244,7 +244,7 @@ plt.show()
 - training loss は下がるのに validation loss が上がるなら、過学習に注意する
 - どちらも下がらないなら、learning rate、ラベル、出力 shape、loss function を確認する
 
-## 7. 決定境界を描く
+## 決定境界を描く
 
 決定境界は、モデルが学んだ分類ルールを幾何的に見せてくれます。
 
@@ -278,7 +278,7 @@ plt.show()
 
 この図を見ると、PyTorch がかなり具体的に感じられます。モデルは数字を出すだけではなく、空間をどう分けているかを見せてくれます。
 
-## 8. よくあるエラーと直し方
+## よくあるエラーと直し方
 
 | 現象 | よくある原因 | 直し方 |
 |---|---|---|
@@ -287,7 +287,7 @@ plt.show()
 | loss の shape エラー | 出力またはラベルの形が違う | `CrossEntropyLoss` では logits は `[batch, classes]`、ラベルは `[batch]` |
 | 検証時にメモリを使いすぎる | 検証中も勾配を記録している | `model.eval()` と `with torch.no_grad()` を使う |
 
-## 9. 練習タスク
+## 練習タスク
 
 1. hidden size を `32` から `16` と `64` に変え、決定境界を比較する。
 2. `noise=0.18` を `noise=0.3` に変え、タスクがどのくらい難しくなるか見る。

@@ -1,11 +1,11 @@
 ---
-title: "1.1 Pre-reading guide: What exactly do you learn in the multimodal foundations chapter?"
+title: "12.1.1 Pre-reading guide: What exactly do you learn in the multimodal foundations chapter?"
 sidebar_position: 0
 description: "Build a learning map for the multimodal foundations chapter first: how modalities, representations, alignment, fusion, visual-language models, and multimodal applications connect into one systematic thread."
 keywords: [multimodal introduction, alignment, fusion, visual-language models, multimodal applications]
 ---
 
-# Pre-reading guide: What exactly do you learn in the multimodal foundations chapter?
+# 12.1.1 Pre-reading guide: What exactly do you learn in the multimodal foundations chapter?
 
 This chapter answers a real-world question: the world is not single-modal, so how do AI systems put text, images, speech, and video into one shared understanding pipeline?
 

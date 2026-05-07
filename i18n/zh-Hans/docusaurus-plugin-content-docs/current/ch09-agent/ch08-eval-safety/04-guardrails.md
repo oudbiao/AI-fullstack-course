@@ -1,11 +1,11 @@
 ---
-title: "8.5 Guardrails 护栏机制"
+title: "9.8.5 Guardrails 护栏机制"
 sidebar_position: 47
 description: "从输入护栏、输出护栏、工具护栏到流程护栏，理解 guardrails 为什么更像多层系统约束，而不是一条规则。"
 keywords: [guardrails, safety policy, input filter, output filter, tool guard, agent]
 ---
 
-# Guardrails 护栏机制
+# 9.8.5 Guardrails 护栏机制
 
 ![Agent 护栏分层图](/img/course/agent-guardrails-layers.png)
 
@@ -81,23 +81,23 @@ flowchart LR
 
 ## 二、四类常见护栏
 
-### 1. 输入护栏
+### 输入护栏
 
 拦截明显恶意请求。
 
-### 2. 输出护栏
+### 输出护栏
 
 检查模型是否输出危险内容。
 
-### 3. 工具护栏
+### 工具护栏
 
 限制调用范围和参数合法性。
 
-### 4. 流程护栏
+### 流程护栏
 
 对高风险动作强制加人工确认或多步审批。
 
-### 2.1 一个很适合初学者先记的护栏表
+### 一个很适合初学者先记的护栏表
 
 | 护栏层 | 最值得先记住的作用 |
 |---|---|
@@ -136,7 +136,7 @@ print("tool ok :", tool_guard("search_docs"))
 print("output ok:", output_guard("safe response"))
 ```
 
-### 3.1 这个示例最重要的地方是什么？
+### 这个示例最重要的地方是什么？
 
 它说明护栏通常不是一个 if，而是：
 
@@ -146,7 +146,7 @@ print("output ok:", output_guard("safe response"))
 
 多层组合。
 
-### 3.2 为什么“流程护栏”经常最容易被漏掉？
+### 为什么“流程护栏”经常最容易被漏掉？
 
 因为很多团队会优先想到过滤文本，
 却忽略了高风险动作更适合走：
@@ -157,7 +157,7 @@ print("output ok:", output_guard("safe response"))
 
 这类流程控制本身，就是护栏的一部分。
 
-### 3.3 再看一个最小“流程护栏”示例
+### 再看一个最小“流程护栏”示例
 
 ```python
 def process_guard(action, risk_level):
@@ -209,7 +209,7 @@ print(process_guard("search_policy", "low"))
 
 > **这类项目的护栏重点，不只是安全词过滤，而是“来源、优先级、导出流程”的稳定控制。**
 
-### 5.1 一个更像课件生成系统的最小护栏示例
+### 一个更像课件生成系统的最小护栏示例
 
 ```python
 def knowledge_guard(item):
@@ -263,11 +263,11 @@ print(knowledge_guard(sample_2))
 
 ## 六、最常见误区
 
-### 6.1 护栏只做在输出端
+### 护栏只做在输出端
 
-### 6.2 护栏规则太死，正常请求也大量误伤
+### 护栏规则太死，正常请求也大量误伤
 
-### 6.3 没有回归集就改护栏
+### 没有回归集就改护栏
 
 ## 七、一个很实用的护栏检查清单
 

@@ -1,11 +1,11 @@
 ---
-title: "4.4 Pretraining Engineering [Optional]"
+title: "7.4.4 Pretraining Engineering [Optional]"
 sidebar_position: 14
 description: "From data sharding, streaming reads, checkpointing, resuming training, and throughput stability, understand why pretraining is often a systems engineering problem."
 keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training]
 ---
 
-# Pretraining Engineering [Optional]
+# 7.4.4 Pretraining Engineering [Optional]
 
 :::tip Section overview
 If the previous two sections answered:
@@ -35,9 +35,9 @@ but to build the most important engineering intuition first:
 
 ---
 
-## 1. Why does pretraining quickly go from “writing a model” to “building a system”?
+## Why does pretraining quickly go from “writing a model” to “building a system”?
 
-### 1.1 Because the data is large, the training time is long, and the cost of failure is high
+### Because the data is large, the training time is long, and the cost of failure is high
 
 In a small experiment, you might only train on:
 
@@ -59,7 +59,7 @@ but also:
 - Can training resume after interruption?
 - Is the throughput stable at each step?
 
-### 1.2 An analogy: not running a program once, but operating a production line
+### An analogy: not running a program once, but operating a production line
 
 Pretraining is more like a factory production line:
 
@@ -79,9 +79,9 @@ This diagram treats pretraining as a production line: shards are the raw materia
 
 ---
 
-## 2. The three most important problems in pretraining engineering
+## The three most important problems in pretraining engineering
 
-### 2.1 How do you feed the data in?
+### How do you feed the data in?
 
 When the dataset is very large,
 it is usually not loaded into memory all at once. Instead, people use:
@@ -90,7 +90,7 @@ it is usually not loaded into memory all at once. Instead, people use:
 - Streaming reads
 - Reading and packing into token blocks on the fly
 
-### 2.2 What if training is interrupted?
+### What if training is interrupted?
 
 Long training runs can hardly guarantee that nothing will ever go wrong.
 So checkpointing is not just “saving occasionally,”
@@ -103,7 +103,7 @@ but something that must include:
 
 Only then can recovery after interruption be correct.
 
-### 2.3 Why does throughput matter?
+### Why does throughput matter?
 
 Because pretraining is very time-consuming.
 If token throughput per second is unstable,
@@ -118,7 +118,7 @@ In engineering practice, people often keep an eye on:
 
 ---
 
-## 3. First, run a minimal example of “sharding + resume”
+## First, run a minimal example of “sharding + resume”
 
 The example below simulates a very small pretraining data stream:
 
@@ -185,7 +185,7 @@ for shard_name, batch, state in stream_batches(shards, batch_size=2, state=saved
     print(f"step={state['global_step']:02d} shard={shard_name} batch={batch}")
 ```
 
-### 3.1 Why is this code more educational than just listing a few shard names?
+### Why is this code more educational than just listing a few shard names?
 
 Because it corresponds to one of the most realistic problems in pretraining:
 
@@ -199,7 +199,7 @@ recovery may:
 
 Both will affect training stability.
 
-### 3.2 Why does `state` need to record three things at the same time?
+### Why does `state` need to record three things at the same time?
 
 Here we save:
 
@@ -215,7 +215,7 @@ They answer:
 
 This is the minimal recoverable state.
 
-### 3.3 What else is usually saved in real systems?
+### What else is usually saved in real systems?
 
 Usually also:
 
@@ -227,9 +227,9 @@ Usually also:
 
 ---
 
-## 4. Why is data sharding almost the default approach?
+## Why is data sharding almost the default approach?
 
-### 4.1 Because data cannot all fit into memory at once
+### Because data cannot all fit into memory at once
 
 When the corpus reaches TB scale,
 “read everything into memory and then train” is simply unrealistic.
@@ -240,7 +240,7 @@ So data is split into many shards:
 - Easier to recover from failures
 - Easier to manage versions
 
-### 4.2 Sharding also helps multiple workers run in parallel
+### Sharding also helps multiple workers run in parallel
 
 In multi-GPU or multi-worker training,
 different workers can:
@@ -250,7 +250,7 @@ different workers can:
 
 This makes data supply more stable.
 
-### 4.3 A very common pitfall: shards are too uneven
+### A very common pitfall: shards are too uneven
 
 If some shards are much larger and some are much smaller,
 then it is easy for:
@@ -265,9 +265,9 @@ This eventually shows up as:
 
 ---
 
-## 5. Why is streaming reading more practical than “tokenize everything first, then read”?
+## Why is streaming reading more practical than “tokenize everything first, then read”?
 
-### 5.1 Because preprocessing itself can be expensive
+### Because preprocessing itself can be expensive
 
 In large-scale corpora, tokenization is not free either.
 If you try to preprocess all the data at once,
@@ -282,7 +282,7 @@ So many systems use:
 - Pre-sharding + streaming reads
 - Or partial preprocessing plus partial online processing
 
-### 5.2 But streaming reads also bring new problems
+### But streaming reads also bring new problems
 
 For example:
 
@@ -294,9 +294,9 @@ That is why the data pipeline itself must be designed very carefully.
 
 ---
 
-## 6. Why does throughput directly affect training results?
+## Why does throughput directly affect training results?
 
-### 6.1 Unstable throughput means many resources are wasted
+### Unstable throughput means many resources are wasted
 
 If the training time per step changes a lot,
 common reasons may be:
@@ -308,7 +308,7 @@ common reasons may be:
 
 This directly slows down total training time.
 
-### 6.2 A more hidden problem: the training plan becomes inaccurate
+### A more hidden problem: the training plan becomes inaccurate
 
 Pretraining is often planned by:
 
@@ -325,7 +325,7 @@ your:
 
 may all drift as well.
 
-### 6.3 A very simple throughput log example
+### A very simple throughput log example
 
 ```python
 step_logs = [
@@ -347,9 +347,9 @@ engineers need to keep digging:
 
 ---
 
-## 7. Two easily overlooked things in pretraining engineering
+## Two easily overlooked things in pretraining engineering
 
-### 7.1 Data version management
+### Data version management
 
 If you cannot clearly state:
 
@@ -359,7 +359,7 @@ If you cannot clearly state:
 
 then later changes in results are almost impossible to attribute.
 
-### 7.2 Recoverability testing
+### Recoverability testing
 
 Many teams carefully test:
 
@@ -374,19 +374,19 @@ recovery ability is often required, not optional.
 
 ---
 
-## 8. Common misunderstandings
+## Common misunderstandings
 
-### 8.1 Misunderstanding 1: First write the model correctly, and fix the engineering later
+### Misunderstanding 1: First write the model correctly, and fix the engineering later
 
 For pretraining, engineering is not a later decoration,
 but the prerequisite for actually getting the experiment to run.
 
-### 8.2 Misunderstanding 2: It is enough to save only the model parameters in a checkpoint
+### Misunderstanding 2: It is enough to save only the model parameters in a checkpoint
 
 Not enough.
 Without data position and optimizer state, recovery will likely be inconsistent.
 
-### 8.3 Misunderstanding 3: Throughput is only a cost issue and does not affect training quality
+### Misunderstanding 3: Throughput is only a cost issue and does not affect training quality
 
 Throughput does not directly determine the loss,
 but it does affect the training plan, stability, and resource utilization,

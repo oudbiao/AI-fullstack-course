@@ -1,11 +1,11 @@
 ---
-title: "1.1 AI 安全与红队测试"
+title: "E.D AI 安全与红队测试"
 sidebar_position: 4
 description: "从威胁建模、攻击样本设计、自动评测到修复闭环，理解 AI 系统安全为什么必须通过红队测试不断验证。"
 keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails]
 ---
 
-# AI 安全与红队测试
+# E.D AI 安全与红队测试
 
 ![AI 安全红队闭环图](/img/course/elective-ai-security-red-team-loop.png)
 
@@ -48,7 +48,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ## 一、为什么 AI 安全不能只靠一次规则检查？
 
-### 1.1 因为攻击方式会变
+### 因为攻击方式会变
 
 一个系统可能今天能挡住：
 
@@ -62,7 +62,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 打穿。
 
-### 1.2 因为风险不只存在于模型输出
+### 因为风险不只存在于模型输出
 
 常见攻击面包括：
 
@@ -74,7 +74,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 也就是说，AI 安全不是纯模型问题，而是系统问题。
 
-### 1.3 一个类比
+### 一个类比
 
 传统 QA 更像检查“这个功能能不能用”。
 红队测试更像检查：
@@ -85,7 +85,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ## 二、先学会威胁建模，而不是先背攻击名字
 
-### 2.1 第一步：资产是什么？
+### 第一步：资产是什么？
 
 你要先问：
 
@@ -98,7 +98,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 - 外部工具权限
 - 付费 API 配额
 
-### 2.2 第二步：攻击面在哪里？
+### 第二步：攻击面在哪里？
 
 例如：
 
@@ -107,7 +107,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 - 工具返回结果
 - 长期记忆
 
-### 2.3 第三步：失败后后果是什么？
+### 第三步：失败后后果是什么？
 
 例如：
 
@@ -122,7 +122,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ## 三、红队测试到底在测什么？
 
-### 3.1 不是只测“能不能 jailbreak”
+### 不是只测“能不能 jailbreak”
 
 更完整地说，红队测试常常会看：
 
@@ -131,7 +131,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 - 是否能误导工具调用
 - 是否能触发危险行为
 
-### 3.2 红队样本不只是“越坏越好”
+### 红队样本不只是“越坏越好”
 
 高质量红队样本通常有几个特点：
 
@@ -139,7 +139,7 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 - 覆盖不同攻击面
 - 能帮助定位系统薄弱点
 
-### 3.3 所以红队测试的目标不是“证明系统很差”
+### 所以红队测试的目标不是“证明系统很差”
 
 而是：
 
@@ -212,7 +212,7 @@ print("\nsummary:")
 print(summary)
 ```
 
-### 4.1 这个示例最想让你抓住什么？
+### 这个示例最想让你抓住什么？
 
 AI 安全不是只看一条总分。
 更有用的是按攻击类别分桶：
@@ -220,7 +220,7 @@ AI 安全不是只看一条总分。
 - 哪类攻击最容易打穿
 - 哪类护栏相对更稳
 
-### 4.2 为什么“分类统计”比单个例子更重要？
+### 为什么“分类统计”比单个例子更重要？
 
 因为单个失败只能说明：
 
@@ -230,7 +230,7 @@ AI 安全不是只看一条总分。
 
 - 先修哪一类洞
 
-### 4.3 这段代码虽然简化，但思路是对的
+### 这段代码虽然简化，但思路是对的
 
 真实系统里当然不会只靠这种简单规则，
 但红队测试的基本框架就是：
@@ -243,7 +243,7 @@ AI 安全不是只看一条总分。
 
 ## 五、红队测试和修复应该怎样形成闭环？
 
-### 5.1 先记录失败模式
+### 先记录失败模式
 
 例如：
 
@@ -251,7 +251,7 @@ AI 安全不是只看一条总分。
 - policy bypass
 - tool misuse
 
-### 5.2 再做针对性修复
+### 再做针对性修复
 
 常见修复手段包括：
 
@@ -260,7 +260,7 @@ AI 安全不是只看一条总分。
 - 检索结果清洗
 - 输出后审查
 
-### 5.3 最后把失败样本留进回归集
+### 最后把失败样本留进回归集
 
 这非常关键。
 否则每次修完后，下次还会在同一个坑里重复跌倒。
@@ -269,17 +269,17 @@ AI 安全不是只看一条总分。
 
 ## 六、最常见误区
 
-### 6.1 误区一：红队测试就是找最极端样例
+### 误区一：红队测试就是找最极端样例
 
 极端样例有价值，
 但更重要的是覆盖真实高频攻击方式。
 
-### 6.2 误区二：安全做一次就够了
+### 误区二：安全做一次就够了
 
 模型、工具和提示词一变，
 风险面也会变。
 
-### 6.3 误区三：只测模型，不测系统链路
+### 误区三：只测模型，不测系统链路
 
 很多真实事故来自：
 

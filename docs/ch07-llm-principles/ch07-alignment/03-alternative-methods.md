@@ -1,11 +1,11 @@
 ---
-title: "7.4 Alternative Alignment Methods"
+title: "7.7.4 Alternative Alignment Methods"
 sidebar_position: 26
 description: "From DPO, ORPO, and RLAIF to Constitutional AI, understand why industry looks for alternatives to RLHF and what each method removes."
 keywords: [DPO, ORPO, IPO, RLAIF, constitutional AI, alignment]
 ---
 
-# Alternative Alignment Methods
+# 7.7.4 Alternative Alignment Methods
 
 :::tip Section overview
 RLHF is important, but it is not the only answer.
@@ -30,9 +30,9 @@ They all share a very similar goal:
 
 ---
 
-## 1. Why are people looking for alternatives to RLHF?
+## Why are people looking for alternatives to RLHF?
 
-### 1.1 The pain point of RLHF is not just a little inconvenience, but a heavy end-to-end pipeline
+### The pain point of RLHF is not just a little inconvenience, but a heavy end-to-end pipeline
 
 A complete RLHF setup often requires:
 
@@ -43,7 +43,7 @@ A complete RLHF setup often requires:
 
 If any layer is not handled well, the result can become unstable.
 
-### 1.2 What many teams really want is “preference optimization,” not “reinforcement learning itself”
+### What many teams really want is “preference optimization,” not “reinforcement learning itself”
 
 At the core, what people care about is:
 
@@ -58,7 +58,7 @@ That naturally raises a question:
 
 > **Can we optimize the model directly from preference data, without going through the reward model and the whole RL loop?**
 
-### 1.3 The core idea behind alternative approaches
+### The core idea behind alternative approaches
 
 Later methods can roughly be divided into two categories:
 
@@ -76,9 +76,9 @@ Read the map from “what cost or complexity are we trying to reduce?” RLHF ke
 
 ---
 
-## 2. Let’s first put the main approaches into one picture
+## Let’s first put the main approaches into one picture
 
-### 2.1 DPO: optimize the policy directly from preference pairs
+### DPO: optimize the policy directly from preference pairs
 
 DPO is very attractive because it bypasses the heaviest parts of RLHF.
 
@@ -91,7 +91,7 @@ In other words:
 - no separate reward model
 - no explicit PPO training
 
-### 2.2 IPO / ORPO: continue simplifying and stabilizing the objective
+### IPO / ORPO: continue simplifying and stabilizing the objective
 
 These methods belong to the same broad direction as DPO:
 
@@ -107,7 +107,7 @@ For beginners, it is enough to grasp the big picture:
 
 > **They are all trying to make preference optimization shorter and more stable than RLHF.**
 
-### 2.3 RLAIF: feedback does not have to come from humans
+### RLAIF: feedback does not have to come from humans
 
 The key change in RLAIF is not the training formula,
 but the source of feedback:
@@ -122,7 +122,7 @@ This can reduce cost, but it also introduces new issues:
 - whether the judge model itself is reliable
 - whether its own biases will be passed along
 
-### 2.4 Constitutional AI: write the rules first, then let the model critique itself
+### Constitutional AI: write the rules first, then let the model critique itself
 
 Constitutional AI is a great way for beginners to build intuition:
 
@@ -137,7 +137,7 @@ It emphasizes:
 - self-review
 - explainable rule sources
 
-### 2.5 A quick glossary of alternative alignment methods
+### A quick glossary of alternative alignment methods
 
 | Method | Full idea | What it tries to remove or reduce |
 |---|---|---|
@@ -149,9 +149,9 @@ It emphasizes:
 
 ---
 
-## 3. Why has DPO become so popular?
+## Why has DPO become so popular?
 
-### 3.1 Because it shortens the heaviest part of the pipeline
+### Because it shortens the heaviest part of the pipeline
 
 Compared with RLHF, the most appealing thing about DPO is:
 
@@ -160,7 +160,7 @@ Compared with RLHF, the most appealing thing about DPO is:
 
 This makes it much easier for many teams to adopt.
 
-### 3.2 What it actually optimizes is the “preference margin”
+### What it actually optimizes is the “preference margin”
 
 You can roughly understand DPO’s objective as:
 
@@ -173,7 +173,7 @@ but directly learning:
 
 - which answer should be relatively more preferred
 
-### 3.3 What kinds of scenarios is it especially good for?
+### What kinds of scenarios is it especially good for?
 
 It is especially suitable when:
 
@@ -183,7 +183,7 @@ It is especially suitable when:
 
 ---
 
-## 4. First, run a runnable example related to DPO
+## First, run a runnable example related to DPO
 
 The following example directly computes a DPO-style loss.
 
@@ -253,7 +253,7 @@ improved_loss = average_loss(improved_pairs)
 print("improved loss =", round(improved_loss, 4))
 ```
 
-### 4.1 Which line should you pay the most attention to?
+### Which line should you pay the most attention to?
 
 The most important part is here:
 
@@ -273,7 +273,7 @@ but rather about:
 - how much the current policy favors chosen compared with rejected
 - whether that preference is stronger than the reference model’s
 
-### 4.2 Why does this objective make training more direct?
+### Why does this objective make training more direct?
 
 Because it directly uses preference pairs to optimize the policy,
 instead of first learning an intermediate reward model and then having the policy chase that reward.
@@ -282,7 +282,7 @@ So you can think of DPO like this:
 
 > **It writes “chosen is better than rejected” directly into the training objective.**
 
-### 4.3 Why does `improved loss` go down?
+### Why does `improved loss` go down?
 
 Because we manually made:
 
@@ -300,7 +300,7 @@ When reading this figure, first look at the long RLHF chain: preference pairs ->
 
 ---
 
-## 5. Next, a minimal Constitutional AI-style revision example
+## Next, a minimal Constitutional AI-style revision example
 
 The focus of this kind of method is not numerical optimization,
 but how rules enter the revision process.
@@ -336,16 +336,16 @@ but it highlights the core idea:
 
 ---
 
-## 6. How should you choose among these methods?
+## How should you choose among these methods?
 
-### 6.1 If you already have high-quality human preference pairs, but limited resources
+### If you already have high-quality human preference pairs, but limited resources
 
 Good first choices include:
 
 - DPO
 - ORPO / IPO-style direct preference optimization methods
 
-### 6.2 If human labeling is too expensive
+### If human labeling is too expensive
 
 You can consider:
 
@@ -353,7 +353,7 @@ You can consider:
 
 But you must pay special attention to the judge model’s bias and auditing.
 
-### 6.3 If you care more about explicit and explainable principles
+### If you care more about explicit and explainable principles
 
 You can focus on:
 
@@ -367,7 +367,7 @@ Because it is well suited for writing:
 
 directly into the workflow.
 
-### 6.4 If you need the most complete and strongest control over the preference optimization pipeline
+### If you need the most complete and strongest control over the preference optimization pipeline
 
 You may still choose:
 
@@ -378,9 +378,9 @@ it remains very valuable.
 
 ---
 
-## 7. These misconceptions are especially common
+## These misconceptions are especially common
 
-### 7.1 Misconception 1: Once DPO appeared, RLHF became outdated
+### Misconception 1: Once DPO appeared, RLHF became outdated
 
 Not true.
 A more accurate statement is:
@@ -389,7 +389,7 @@ A more accurate statement is:
 
 But that does not mean RLHF automatically stopped being useful.
 
-### 7.2 Misconception 2: Since RLAIF does not use humans, it must be cheaper
+### Misconception 2: Since RLAIF does not use humans, it must be cheaper
 
 AI feedback is cheaper, but not free.
 It shifts the cost into:
@@ -397,7 +397,7 @@ It shifts the cost into:
 - judge model quality issues
 - auditing and bias control issues
 
-### 7.3 Misconception 3: Constitutional AI only needs a few rules
+### Misconception 3: Constitutional AI only needs a few rules
 
 Writing the rules is only the beginning.
 The harder parts are:
@@ -406,7 +406,7 @@ The harder parts are:
 - whether they cover edge cases
 - whether the revisions are actually better
 
-## 8. A practical method-selection cheat sheet
+## A practical method-selection cheat sheet
 
 When you are choosing an alignment method for a project, ask four questions first:
 

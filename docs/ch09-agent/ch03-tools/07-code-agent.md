@@ -1,11 +1,11 @@
 ---
-title: "3.8 Code Generation and Execution Agent"
+title: "9.3.8 Code Generation and Execution Agent"
 sidebar_position: 17
 description: "From reading code, making plans, editing code, running verification, to error recovery, understand why a code Agent is essentially an engineering system with an execution loop, not just something that “can write code.”"
 keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests]
 ---
 
-# Code Generation and Execution Agent
+# 9.3.8 Code Generation and Execution Agent
 
 :::tip Section Overview
 When many people hear “code Agent,” their first reaction is:
@@ -31,9 +31,9 @@ Without this closed loop, the system is more like a code completer than a true c
 
 ---
 
-## 1. What is the real difference between a code Agent and “letting the model write code”?
+## What is the real difference between a code Agent and “letting the model write code”?
 
-### 1.1 Ordinary code generation is more like a one-time output
+### Ordinary code generation is more like a one-time output
 
 For example:
 
@@ -42,7 +42,7 @@ For example:
 After the model outputs a piece of code,
 the task is usually over.
 
-### 1.2 A code Agent is more like working in a real repository
+### A code Agent is more like working in a real repository
 
 The tasks it faces are more likely to be:
 
@@ -58,7 +58,7 @@ In other words, it must handle:
 - runtime feedback
 - error recovery
 
-### 1.3 An analogy: writing a sample answer vs. actually fixing a problem in a project
+### An analogy: writing a sample answer vs. actually fixing a problem in a project
 
 “Generating code” is like solving a whiteboard interview problem.
 A “code Agent” is more like actually entering a repository and doing the work:
@@ -74,9 +74,9 @@ These are completely different levels of difficulty.
 
 ---
 
-## 2. What is the minimal closed loop of a code Agent?
+## What is the minimal closed loop of a code Agent?
 
-### 2.1 Read: read the context first
+### Read: read the context first
 
 It usually needs to know:
 
@@ -84,7 +84,7 @@ It usually needs to know:
 - how the current function is written
 - how the tests are organized
 
-### 2.2 Plan: form a modification plan
+### Plan: form a modification plan
 
 For example:
 
@@ -92,11 +92,11 @@ For example:
 - add tests
 - adjust configuration
 
-### 2.3 Act: actually make the changes
+### Act: actually make the changes
 
 This is the part most people immediately think of as “writing code.”
 
-### 2.4 Verify: run verification
+### Verify: run verification
 
 For example:
 
@@ -104,7 +104,7 @@ For example:
 - run scripts
 - inspect output
 
-### 2.5 Repair: keep fixing based on feedback
+### Repair: keep fixing based on feedback
 
 This is also one of the biggest differences between a code Agent and a normal generator:
 
@@ -112,7 +112,7 @@ This is also one of the biggest differences between a code Agent and a normal ge
 
 ---
 
-## 3. First, run a minimal “code Agent loop” example
+## First, run a minimal “code Agent loop” example
 
 The example below does not really modify files,
 but it fully simulates a very important loop:
@@ -169,7 +169,7 @@ if failures:
         print("patch accepted")
 ```
 
-### 3.1 What does this code correspond to in the real world?
+### What does this code correspond to in the real world?
 
 It corresponds to the most important closed loop in a code Agent:
 
@@ -182,7 +182,7 @@ the system can easily end up:
 - writing code that looks reasonable
 - but cannot run at all
 
-### 3.2 Why is `run_tests` more important than `generate_patch`?
+### Why is `run_tests` more important than `generate_patch`?
 
 Because what pulls the system back to reality
 is often not generation ability, but verification ability.
@@ -191,7 +191,7 @@ Without verification, a code Agent can easily remain stuck at:
 
 - looks right
 
-### 3.3 Why is this an Agent and not just a “function replacement”?
+### Why is this an Agent and not just a “function replacement”?
 
 Because it has:
 
@@ -210,9 +210,9 @@ The key point of a code Agent is not “it can write code,” but that it can re
 
 ---
 
-## 4. What other key steps does a real code Agent include?
+## What other key steps does a real code Agent include?
 
-### 4.1 File location and reading
+### File location and reading
 
 In a real repository, the first problem is:
 
@@ -220,7 +220,7 @@ In a real repository, the first problem is:
 - which part of the implementation to inspect
 - which tests are related
 
-### 4.2 Patch-based changes instead of rewriting the whole file
+### Patch-based changes instead of rewriting the whole file
 
 A more stable approach is usually:
 
@@ -233,7 +233,7 @@ Because this makes it:
 - easier to review
 - easier to roll back
 
-### 4.3 Execution environment isolation
+### Execution environment isolation
 
 A code Agent often needs to:
 
@@ -247,7 +247,7 @@ This involves:
 - permission boundaries
 - timeouts
 
-### 4.4 Rollback and retry
+### Rollback and retry
 
 If a candidate patch fails,
 the system should ideally be able to:
@@ -258,9 +258,9 @@ the system should ideally be able to:
 
 ---
 
-## 5. Why does a code Agent depend so heavily on verification?
+## Why does a code Agent depend so heavily on verification?
 
-### 5.1 Because code tasks often have objective feedback
+### Because code tasks often have objective feedback
 
 Compared with pure text tasks, one huge advantage of code tasks is:
 
@@ -272,7 +272,7 @@ For example:
 - whether the program crashes
 - whether the output matches expectations
 
-### 5.2 This makes code Agents especially suitable for trial-and-error iteration
+### This makes code Agents especially suitable for trial-and-error iteration
 
 They can:
 
@@ -282,7 +282,7 @@ They can:
 
 That is also why code Agents are often one of the easiest types of Agent systems to build a strong closed loop around.
 
-### 5.3 But don’t be overly optimistic
+### But don’t be overly optimistic
 
 Because “tests pass” does not necessarily mean:
 
@@ -294,9 +294,9 @@ but not magical.
 
 ---
 
-## 6. The most common failure points of code Agents
+## The most common failure points of code Agents
 
-### 6.1 Changing code without understanding the context
+### Changing code without understanding the context
 
 This can lead to:
 
@@ -304,7 +304,7 @@ This can lead to:
 - breaking interface contracts
 - conflicting with the existing style
 
-### 6.2 Fixing only the surface error without understanding the root cause
+### Fixing only the surface error without understanding the root cause
 
 Typical signs include:
 
@@ -314,7 +314,7 @@ Typical signs include:
 
 But the real problem is still there.
 
-### 6.3 Inadequate verification
+### Inadequate verification
 
 For example, only running a single happy path,
 without covering:
@@ -325,15 +325,15 @@ without covering:
 
 ---
 
-## 7. What should a code Agent protect most in engineering practice?
+## What should a code Agent protect most in engineering practice?
 
-### 7.1 Rollback capability
+### Rollback capability
 
 Any automatic change should:
 
 - be reversible
 
-### 7.2 Small-step commits
+### Small-step commits
 
 The smaller the patch, the easier it is to:
 
@@ -341,7 +341,7 @@ The smaller the patch, the easier it is to:
 - locate problems
 - do the next round of fixes
 
-### 7.3 Clear boundaries
+### Clear boundaries
 
 For example:
 

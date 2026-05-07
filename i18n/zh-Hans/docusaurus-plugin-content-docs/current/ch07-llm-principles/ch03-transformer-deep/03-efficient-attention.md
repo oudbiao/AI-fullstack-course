@@ -1,11 +1,11 @@
 ---
-title: "3.5 高效注意力机制"
+title: "7.3.5 高效注意力机制"
 sidebar_position: 11
 description: "从长上下文带来的 O(n^2) 压力讲起，理解滑动窗口、KV cache、MQA/GQA、FlashAttention 等方法分别在优化哪一类瓶颈。"
 keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context]
 ---
 
-# 高效注意力机制
+# 7.3.5 高效注意力机制
 
 :::tip 本节定位
 当序列长度还很短时，普通自注意力看起来几乎没有问题。
@@ -30,7 +30,7 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 
 ## 一、普通注意力到底贵在哪里？
 
-### 1.1 每个 token 都要和很多 token 比较
+### 每个 token 都要和很多 token 比较
 
 假设序列长度是 `n`。
 普通自注意力里，每个位置都要和其他位置做相似度计算。
@@ -46,7 +46,7 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 当 `n = 512` 时还不算夸张，
 但当 `n = 32768` 时，情况就完全不同了。
 
-### 1.2 长度翻倍，开销不是翻倍
+### 长度翻倍，开销不是翻倍
 
 这正是很多新人最容易低估的地方。
 
@@ -62,7 +62,7 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 
 > **怎样在代价不爆炸的前提下支持更多 token。**
 
-### 1.3 训练和推理的痛点还不完全一样
+### 训练和推理的痛点还不完全一样
 
 训练时更常见的压力是：
 
@@ -81,7 +81,7 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 
 ## 二、先把几条主流路线分开
 
-### 2.1 滑动窗口 / 局部注意力：减少“谁看谁”
+### 滑动窗口 / 局部注意力：减少“谁看谁”
 
 最直观的一条路线是：
 
@@ -98,7 +98,7 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 - sliding window attention
 - local attention
 
-### 2.2 MQA / GQA：减少 KV cache 体积
+### MQA / GQA：减少 KV cache 体积
 
 另一条很重要的路线不是改 mask，
 而是改多头注意力的 `K / V` 组织方式。
@@ -116,7 +116,7 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 - 推理内存更省
 - 吞吐更好
 
-### 2.3 FlashAttention：不是改公式，而是改算的方式
+### FlashAttention：不是改公式，而是改算的方式
 
 FlashAttention 很容易被误解成：
 
@@ -138,7 +138,7 @@ FlashAttention 很容易被误解成：
 这张图不是让你背方法名，而是先分清瓶颈：上下文太长时看 sliding/local attention，KV cache 太大时看 MQA/GQA，显存读写太贵时看 FlashAttention。高效注意力是一组工程取舍，不是一种万能公式。
 :::
 
-### 2.4 线性注意力：尝试从公式层面降复杂度
+### 线性注意力：尝试从公式层面降复杂度
 
 还有一类方法更激进，
 它会直接改写注意力计算形式，希望把复杂度从平方级降下来。
@@ -211,7 +211,7 @@ print("full outputs :", [round(x, 3) for x in full_outputs])
 print("local outputs:", [round(x, 3) for x in local_outputs])
 ```
 
-### 3.1 这段代码到底对应了什么直觉？
+### 这段代码到底对应了什么直觉？
 
 它告诉你两件特别关键的事：
 
@@ -222,14 +222,14 @@ print("local outputs:", [round(x, 3) for x in local_outputs])
 
 > **你不是在免费提速，而是在效率和可见范围之间做权衡。**
 
-### 3.2 为什么 `full pairs` 和 `local pairs` 差很多？
+### 为什么 `full pairs` 和 `local pairs` 差很多？
 
 因为全局注意力里每个位置都看全部位置。
 局部注意力里，每个位置只看窗口附近。
 
 当序列长度很长时，这种差距会迅速放大。
 
-### 3.3 为什么局部注意力不一定就更差？
+### 为什么局部注意力不一定就更差？
 
 因为很多信息本来就具有局部性。
 例如语言里：
@@ -247,7 +247,7 @@ print("local outputs:", [round(x, 3) for x in local_outputs])
 
 ## 四、推理期另一个大头：KV cache
 
-### 4.1 为什么聊天越长，推理越吃内存？
+### 为什么聊天越长，推理越吃内存？
 
 因为 decoder-only 模型在生成时，
 前面每一步的 `K / V` 都会缓存下来，供后续 token 重用。
@@ -261,7 +261,7 @@ print("local outputs:", [round(x, 3) for x in local_outputs])
 
 - 会话越长，缓存越大
 
-### 4.2 MQA / GQA 到底在省什么？
+### MQA / GQA 到底在省什么？
 
 它们省的不是注意力矩阵本身，
 而是每层每步要保存的 K/V 体积。
@@ -278,7 +278,7 @@ print("local outputs:", [round(x, 3) for x in local_outputs])
 - 长对话
 - 高吞吐服务
 
-### 4.3 一个简单的“谁更省”的估算
+### 一个简单的“谁更省”的估算
 
 ```python
 def kv_units(num_query_heads, num_kv_heads, head_dim, seq_len):
@@ -309,7 +309,7 @@ print("MQA units =", kv_units(32, 1, head_dim, seq_len))
 
 ## 五、FlashAttention 为什么这么常被提？
 
-### 5.1 因为很多瓶颈不在“算不出来”，而在“搬数据太贵”
+### 因为很多瓶颈不在“算不出来”，而在“搬数据太贵”
 
 注意力实现里，一个常见问题是：
 
@@ -326,7 +326,7 @@ FlashAttention 的关键思路是：
 - 更高吞吐
 - 更低显存占用
 
-### 5.2 它和滑动窗口不是同一类东西
+### 它和滑动窗口不是同一类东西
 
 这一点非常重要。
 
@@ -340,7 +340,7 @@ FlashAttention 的关键思路是：
 
 ## 六、什么时候该优先想哪条路线？
 
-### 6.1 如果你主要卡在长上下文训练显存
+### 如果你主要卡在长上下文训练显存
 
 优先会想到：
 
@@ -348,7 +348,7 @@ FlashAttention 的关键思路是：
 - activation checkpointing
 - 序列并行
 
-### 6.2 如果你主要卡在推理时 KV cache 太大
+### 如果你主要卡在推理时 KV cache 太大
 
 优先会想到：
 
@@ -356,7 +356,7 @@ FlashAttention 的关键思路是：
 - GQA
 - KV cache 量化
 
-### 6.3 如果你主要卡在超长上下文的平方复杂度
+### 如果你主要卡在超长上下文的平方复杂度
 
 优先会想到：
 
@@ -373,7 +373,7 @@ FlashAttention 的关键思路是：
 
 ## 七、常见误区
 
-### 7.1 误区一：高效注意力 = 更快而且一定更好
+### 误区一：高效注意力 = 更快而且一定更好
 
 很多方法本质上是在交换：
 
@@ -384,7 +384,7 @@ FlashAttention 的关键思路是：
 
 不可能所有指标都白赚。
 
-### 7.2 误区二：只要支持长上下文，模型就一定“会用长上下文”
+### 误区二：只要支持长上下文，模型就一定“会用长上下文”
 
 支持 128k 上下文，不等于模型真的能稳定利用 128k 里的关键信息。
 
@@ -393,7 +393,7 @@ FlashAttention 的关键思路是：
 - 工程支持长度
 - 模型有效利用长度
 
-### 7.3 误区三：FlashAttention 是一种新模型架构
+### 误区三：FlashAttention 是一种新模型架构
 
 不是。
 它更像一种高效实现技术。

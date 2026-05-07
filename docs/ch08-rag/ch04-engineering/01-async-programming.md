@@ -1,11 +1,11 @@
 ---
-title: "4.2 Asynchronous Programming and Concurrent Calls"
+title: "8.4.2 Asynchronous Programming and Concurrent Calls"
 sidebar_position: 17
 description: "From why LLM engineering is often slow because it is waiting, to asyncio, gather, Semaphore, and timeout control, understand the engineering main line of concurrent calls."
 keywords: [asyncio, concurrency, gather, semaphore, timeout, async programming, LLM engineering]
 ---
 
-# Asynchronous Programming and Concurrent Calls
+# 8.4.2 Asynchronous Programming and Concurrent Calls
 
 :::tip Section overview
 When building LLM applications, many people’s first performance bottleneck is not that the model is too weak, but that:
@@ -58,9 +58,9 @@ So what this section really wants to solve is:
 
 ---
 
-## 1. Why is LLM engineering especially prone to “waiting”?
+## Why is LLM engineering especially prone to “waiting”?
 
-### 1.1 A very real-world scenario
+### A very real-world scenario
 
 You build a question-answering assistant, and one request may need to:
 
@@ -70,7 +70,7 @@ You build a question-answering assistant, and one request may need to:
 
 If each step is waited on sequentially before starting the next one, overall latency can easily grow.
 
-### 1.2 Key point: many steps are not “slow computation” but “slow waiting”
+### Key point: many steps are not “slow computation” but “slow waiting”
 
 For example:
 
@@ -85,7 +85,7 @@ That means:
 
 This is exactly where asynchronous programming is most valuable.
 
-### 1.3 A beginner-friendly analogy
+### A beginner-friendly analogy
 
 You can think of asynchronous programming as:
 
@@ -104,9 +104,9 @@ This analogy is great for beginners because it helps you first grasp that:
 
 ---
 
-## 2. What is the difference between synchronous and asynchronous?
+## What is the difference between synchronous and asynchronous?
 
-### 2.1 Synchronous: finish one task before starting the next
+### Synchronous: finish one task before starting the next
 
 ```python
 import time
@@ -123,7 +123,7 @@ print("elapsed =", round(time.time() - start, 2))
 
 This code will take about 2 seconds.
 
-### 2.2 Asynchronous: send it off and do not wait idly
+### Asynchronous: send it off and do not wait idly
 
 ```python
 import asyncio
@@ -147,7 +147,7 @@ asyncio.run(main())
 
 This version usually takes about 1 second.
 
-### 2.3 What is the real difference?
+### What is the real difference?
 
 It is not that “asynchrony is mysterious,” but that:
 
@@ -155,9 +155,9 @@ It is not that “asynchrony is mysterious,” but that:
 
 ---
 
-## 3. What exactly do `async` and `await` express?
+## What exactly do `async` and `await` express?
 
-### 3.1 `async def`
+### `async def`
 
 It means:
 
@@ -165,7 +165,7 @@ It means:
 
 It will not finish immediately like a normal function; it can be scheduled for execution.
 
-### 3.2 `await`
+### `await`
 
 It means:
 
@@ -173,7 +173,7 @@ It means:
 
 But while waiting, the scheduler can process other coroutines.
 
-### 3.3 A very easy-to-understand analogy
+### A very easy-to-understand analogy
 
 Synchronous is like:
 
@@ -185,9 +185,9 @@ Asynchronous is like:
 
 ---
 
-## 4. Why is `gather` so commonly used?
+## Why is `gather` so commonly used?
 
-### 4.1 Because many LLM scenarios are naturally “concurrently query multiple sources”
+### Because many LLM scenarios are naturally “concurrently query multiple sources”
 
 For example:
 
@@ -197,7 +197,7 @@ For example:
 
 At that point, `asyncio.gather()` feels very natural.
 
-### 4.2 A more LLM-like example
+### A more LLM-like example
 
 ```python
 import asyncio
@@ -231,9 +231,9 @@ This is already very similar to “query several layers of information in parall
 
 ---
 
-## 5. Why can’t we run infinitely many tasks concurrently?
+## Why can’t we run infinitely many tasks concurrently?
 
-### 5.1 Because external systems cannot handle unlimited load
+### Because external systems cannot handle unlimited load
 
 If you launch 1000 requests at once, you may run into:
 
@@ -246,7 +246,7 @@ So asynchronous programming is not “the more concurrency, the better,” but r
 
 > **Find a balance between throughput and stability.**
 
-### 5.2 Use `Semaphore` to limit concurrency
+### Use `Semaphore` to limit concurrency
 
 ```python
 import asyncio
@@ -270,7 +270,7 @@ This example means:
 - Although 10 tasks are started in total
 - At any given moment, only 3 are allowed to run at the same time
 
-### 5.3 A beginner-friendly judgment table
+### A beginner-friendly judgment table
 
 | Phenomenon | What to try first |
 |---|---|
@@ -289,13 +289,13 @@ Asynchrony is not unlimited concurrency. In the diagram, `gather` handles concur
 
 ---
 
-## 6. Why is timeout control especially important?
+## Why is timeout control especially important?
 
-### 6.1 Because some requests can “hang”
+### Because some requests can “hang”
 
 In real systems, if an upstream service is extremely slow and you do not have timeout control, the whole request may hang forever.
 
-### 6.2 A minimal timeout example
+### A minimal timeout example
 
 ```python
 import asyncio
@@ -318,9 +318,9 @@ This is extremely important in engineering, because “waiting forever” is usu
 
 ---
 
-## 7. Typical places where asynchronous programming is used in LLM engineering
+## Typical places where asynchronous programming is used in LLM engineering
 
-### 7.1 Concurrent retrieval
+### Concurrent retrieval
 
 Query at the same time:
 
@@ -328,14 +328,14 @@ Query at the same time:
 - Vector database
 - Database
 
-### 7.2 Multi-model concurrency
+### Multi-model concurrency
 
 For example:
 
 - Main model + fallback model
 - Generate multiple candidate answers concurrently
 
-### 7.3 Tool concurrency
+### Tool concurrency
 
 For example, when an Agent needs to simultaneously:
 
@@ -343,11 +343,11 @@ For example, when an Agent needs to simultaneously:
 - Check user status
 - Check order records
 
-### 7.4 Logging and monitoring pipelines
+### Logging and monitoring pipelines
 
 Some logs and reporting are also suitable for asynchronous handling, so they do not block the main request.
 
-### 7.5 The safest default order for introducing async into a project
+### The safest default order for introducing async into a project
 
 A safer sequence is usually:
 
@@ -360,7 +360,7 @@ This is more stable than converting the entire project to async all at once.
 
 ---
 
-## 8. If your goal is a “courseware generation assistant driven by a knowledge base,” which steps are most worth running concurrently?
+## If your goal is a “courseware generation assistant driven by a knowledge base,” which steps are most worth running concurrently?
 
 In this kind of project, the easiest steps to parallelize are usually not the “final courseware generation” step,
 but the external waiting actions before generation.
@@ -376,7 +376,7 @@ You can first understand it as:
 
 > **The most valuable place for concurrency is often the “context gathering” stage.**
 
-## 9. A small example that looks more like a real system
+## A small example that looks more like a real system
 
 ```python
 import asyncio
@@ -413,17 +413,17 @@ This example already looks very much like a real backend:
 
 ---
 
-## 10. Common mistakes beginners make
+## Common mistakes beginners make
 
-### 10.1 Thinking of async as “faster synchronous code”
+### Thinking of async as “faster synchronous code”
 
 Asynchrony is not a speed-up magic trick; it is more like a smarter way of waiting.
 
-### 10.2 Starting with unlimited concurrency
+### Starting with unlimited concurrency
 
 This can easily overload your system.
 
-### 10.3 Not handling timeouts and exceptions
+### Not handling timeouts and exceptions
 
 Once a task gets stuck, the entire request pipeline may be dragged down.
 

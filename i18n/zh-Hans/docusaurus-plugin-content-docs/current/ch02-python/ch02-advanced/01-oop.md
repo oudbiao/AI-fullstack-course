@@ -1,10 +1,10 @@
 ---
-title: "1.1 面向对象编程"
+title: "2.2.1 面向对象编程"
 sidebar_position: 1
 description: "掌握 Python 面向对象编程的核心概念"
 ---
 
-# 面向对象编程
+# 2.2.1 面向对象编程
 
 ![类、对象、属性与方法关系图](/img/course/ch02-oop-class-object-map.png)
 

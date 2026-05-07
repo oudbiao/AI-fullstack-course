@@ -1,11 +1,11 @@
 ---
-title: "1.8 Weight Initialization"
+title: "6.1.8 Weight Initialization"
 sidebar_position: 7
 description: "Understand why weight initialization matters, and the principles and use cases of Xavier and He initialization"
 keywords: [weight initialization, Xavier, Glorot, He, Kaiming, vanishing gradients, exploding gradients]
 ---
 
-# Weight Initialization
+# 6.1.8 Weight Initialization
 
 :::tip Section Overview
 One of the key factors in whether a deep network trains successfully is **weight initialization**. Bad initialization can cause vanishing or exploding gradients and make training fail completely. The good news is that PyTorch has already chosen a suitable default initialization for you.
@@ -48,18 +48,18 @@ So initialization is really answering:
 
 > **Before model training starts, how should the first move be made so the whole game doesn’t fall apart later?**
 
-## 1. Why Is Initialization Important?
+## Why Is Initialization Important?
 
-### 1.1 The Problem with All-Zero Initialization
+### The Problem with All-Zero Initialization
 
 If all weights are 0, then all neurons produce exactly the same results and the gradients are also the same. They will **never diverge**—which is equivalent to having only one neuron.
 
-### 1.2 Random Initialization Also Has Pitfalls
+### Random Initialization Also Has Pitfalls
 
 - **Too large**: activations saturate → vanishing gradients (Sigmoid/Tanh) or exploding gradients
 - **Too small**: signals weaken layer by layer → gradients also weaken → training becomes very slow
 
-### 1.2.1 A More Beginner-Friendly Intuition: Don’t Let Each Layer Be Too “Quiet” or Too “Excited”
+### A More Beginner-Friendly Intuition: Don’t Let Each Layer Be Too “Quiet” or Too “Excited”
 
 You can think of initialization as giving each layer a starting posture:
 
@@ -122,9 +122,9 @@ observe_activations(
 
 ---
 
-## 2. Xavier / Glorot Initialization
+## Xavier / Glorot Initialization
 
-### 2.1 Core Idea
+### Core Idea
 
 Keep the **variance of the input and output of each layer** consistent, so the signal does not grow or shrink from layer to layer.
 
@@ -132,7 +132,7 @@ Keep the **variance of the input and output of each layer** consistent, so the s
 >
 > fan_in = input dimension, fan_out = output dimension
 
-### 2.1.1 What Is the Most Important Thing to Remember About Xavier, Besides the Formula?
+### What Is the Most Important Thing to Remember About Xavier, Besides the Formula?
 
 The most important thing to remember is its goal:
 
@@ -141,7 +141,7 @@ The most important thing to remember is its goal:
 The formula is only one way to achieve that goal.
 So when learning it for the first time, holding on to this intuition is more important than memorizing the denominator exactly.
 
-### 2.2 Applicable to: Sigmoid / Tanh
+### Applicable to: Sigmoid / Tanh
 
 ```python
 observe_activations(
@@ -152,15 +152,15 @@ observe_activations(
 
 ---
 
-## 3. He / Kaiming Initialization
+## He / Kaiming Initialization
 
-### 3.1 Core Idea
+### Core Idea
 
 Xavier assumes the activation function is linear. But ReLU sets about half of the neurons to 0, so a **larger variance** is needed to compensate.
 
 > **Sample weights from N(0, 2/fan_in)**
 
-### 3.1.1 Why Is He Initialization More Suitable for ReLU Than Xavier?
+### Why Is He Initialization More Suitable for ReLU Than Xavier?
 
 Because ReLU directly cuts part of the signal to 0.
 If you still use a more conservative initialization, the signal is even more likely to decay all the way through.
@@ -169,7 +169,7 @@ So a simple way to understand He initialization is:
 
 - To adapt to ReLU’s “truncation” behavior, slightly increase the initial variance
 
-### 3.2 Applicable to: ReLU and its variants
+### Applicable to: ReLU and its variants
 
 ```python
 observe_activations(
@@ -181,7 +181,7 @@ observe_activations(
 
 ---
 
-## 4. Selection Guide
+## Selection Guide
 
 | Activation Function | Recommended Initialization | PyTorch Function |
 |---------|-----------|-------------|
@@ -205,7 +205,7 @@ nn.init.zeros_(linear.bias)
 PyTorch's `nn.Linear` uses Kaiming Uniform initialization by default, and so does `nn.Conv2d`. In most cases, **you do not need to initialize weights manually**—but understanding the principle can help you diagnose training issues.
 :::
 
-### 4.1 When You First Start a Project, Do You Need to Initialize Manually?
+### When You First Start a Project, Do You Need to Initialize Manually?
 
 Most of the time:
 
@@ -223,7 +223,7 @@ So the most important thing in this section is not “write a lot of initializat
 - Why default values are usually usable
 - When to suspect initialization problems
 
-### 4.2 A More Stable Default Decision Order
+### A More Stable Default Decision Order
 
 If you are just starting a project, you can judge things in this order:
 
@@ -235,7 +235,7 @@ This is more stable than “whenever a problem appears, change the initializatio
 
 ---
 
-## 5. The Impact of Initialization on Training
+## The Impact of Initialization on Training
 
 ```python
 # Compare training results under different initializations
@@ -287,7 +287,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 5.1 If Training Feels Wrong from the Start, Initialization Is One Thing to Suspect
+### If Training Feels Wrong from the Start, Initialization Is One Thing to Suspect
 
 Typical signals include:
 

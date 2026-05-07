@@ -1,11 +1,11 @@
 ---
-title: "2.3 Core Concepts of Large Models"
+title: "7.2.3 Core Concepts of Large Models"
 sidebar_position: 6
 description: "Understand core concepts such as token, context, attention, sampling temperature, pretraining, and instruction following in a way beginners can understand."
 keywords: [token, context window, attention, temperature, sampling, pretraining, LLM]
 ---
 
-# Core Concepts of Large Models
+# 7.2.3 Core Concepts of Large Models
 
 ## Learning Objectives
 
@@ -18,7 +18,7 @@ By the end of this section, you will be able to:
 
 ---
 
-## 1. What Exactly Is a Large Model Doing?
+## What Exactly Is a Large Model Doing?
 
 ### First, a story: an apprentice that auto-completes text
 
@@ -97,7 +97,7 @@ What this example really wants to show is: the model does not “pick by feeling
 
 ---
 
-## 2. Token: What the Model Actually Sees Is Not a “Sentence,” but Split Units
+## Token: What the Model Actually Sees Is Not a “Sentence,” but Split Units
 
 Many beginners think the model reads text by “characters” or “words,” but that is not necessarily true.
 
@@ -129,7 +129,7 @@ Real large models usually split text more finely, because that helps handle rare
 
 ---
 
-## 3. Context Window: How Far the Model Can “See” at Once
+## Context Window: How Far the Model Can “See” at Once
 
 The context window can be understood as the model’s “current workbench.”
 
@@ -153,7 +153,7 @@ Think of the context window as a fixed-size workbench: system prompt, user quest
 
 ---
 
-## 4. Embedding: First Turn Tokens into Vectors
+## Embedding: First Turn Tokens into Vectors
 
 The model cannot directly consume token strings, so they must first be turned into vectors.
 You can initially understand this process as:
@@ -185,7 +185,7 @@ This is only a toy illustration, but you can already see:
 
 ---
 
-## 5. Why Is the Model Called “Autoregressive”?
+## Why Is the Model Called “Autoregressive”?
 
 Because it often generates text like this:
 
@@ -203,7 +203,7 @@ It is like playing a word-chain game:
 
 ---
 
-## 6. Logits, Probabilities, and Temperature
+## Logits, Probabilities, and Temperature
 
 What the model computes internally first is usually not the “final probability,” but a set of scores, often called `logits`.
 
@@ -241,7 +241,7 @@ In analogy:
 
 ---
 
-## 7. Attention: Why Is It So Important?
+## Attention: Why Is It So Important?
 
 The core intuition of attention is:
 
@@ -293,17 +293,17 @@ You do not need to fully master the formula right now, but you should first gras
 
 ---
 
-## 8. What Do Pretraining, Fine-Tuning, and Prompts Do?
+## What Do Pretraining, Fine-Tuning, and Prompts Do?
 
-### 1. Pretraining
+### Pretraining
 
 Let the model learn language patterns from massive amounts of text.
 
-### 2. Fine-tuning
+### Fine-tuning
 
 Continue training on a specific task or style so the model adapts better to a certain scenario.
 
-### 3. Prompting
+### Prompting
 
 Do not change the model parameters; instead, guide the model through the input so it works in a desired way.
 
@@ -317,7 +317,7 @@ In analogy:
 
 ---
 
-## 9. Why Do Large Models Seem to “Think”?
+## Why Do Large Models Seem to “Think”?
 
 Because when the model scale, data volume, and training quality are large enough, it learns many complex patterns:
 
@@ -338,7 +338,7 @@ As engineers, what we care about more is:
 
 ---
 
-## 10. Quick Self-Check: Are These Statements True?
+## Quick Self-Check: Are These Statements True?
 
 Before moving on to RAG and Agent, let’s judge the following statements:
 
@@ -351,19 +351,19 @@ Before moving on to RAG and Agent, let’s judge the following statements:
 
 ---
 
-## 11. Common Beginner Misconceptions
+## Common Beginner Misconceptions
 
-### 1. Thinking that a large model “directly memorizes answers”
+### Thinking that a large model “directly memorizes answers”
 
 Not quite.
 It is more like learning large-scale language distributions and patterns.
 
-### 2. Thinking that a higher temperature means smarter
+### Thinking that a higher temperature means smarter
 
 No.
 Higher temperature means more diversity, not necessarily more accuracy.
 
-### 3. Giving up when seeing the attention formula
+### Giving up when seeing the attention formula
 
 No need.
 First grasp the intuition of “relevance weighting,” then gradually look at the formula.

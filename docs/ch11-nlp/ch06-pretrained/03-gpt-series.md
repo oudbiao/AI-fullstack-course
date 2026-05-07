@@ -1,11 +1,11 @@
 ---
-title: "6.4 GPT Series"
+title: "11.6.4 GPT Series"
 sidebar_position: 18
 description: "From autoregressive language modeling and causal masking to in-context learning and instruction tuning, understand why the GPT series changed generative NLP."
 keywords: [GPT, autoregressive, causal language model, decoder-only, in-context learning, next token]
 ---
 
-# GPT Series
+# 11.6.4 GPT Series
 
 ![GPT autoregressive generation diagram](/img/course/gpt-autoregressive-generation-en.png)
 
@@ -43,9 +43,9 @@ The conversational assistants, instruction following, and Agent capabilities we 
 
 ---
 
-## 1. What Exactly Is GPT Doing?
+## What Exactly Is GPT Doing?
 
-### 1.1 The simplest one-sentence answer
+### The simplest one-sentence answer
 
 The most fundamental goal of the GPT line is:
 
@@ -69,7 +69,7 @@ This looks simple, but if you repeat this action many times:
 
 You can generate a complete text step by step.
 
-### 1.2 Why is this path so powerful?
+### Why is this path so powerful?
 
 Because the “predict the next token” objective is very general:
 
@@ -82,7 +82,7 @@ So GPT is powerful not because it was born knowing how to chat, but because:
 
 > It first learned large-scale language generation patterns.
 
-### 1.3 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 You can think of GPT as:
 
@@ -104,16 +104,16 @@ That is why the GPT path naturally grows into:
 
 ---
 
-## 2. The Fundamental Difference Between GPT and BERT
+## The Fundamental Difference Between GPT and BERT
 
-### 2.1 Remember this table first
+### Remember this table first
 
 | Model line | Core approach | What it is better at |
 |---|---|---|
 | BERT | Bidirectional context viewing | Understanding, matching, extraction |
 | GPT | Left-to-right history only, autoregressive generation | Completion, dialogue, generation |
 
-### 2.2 Why can’t GPT peek at the right side?
+### Why can’t GPT peek at the right side?
 
 Because training must match generation.
 
@@ -122,9 +122,9 @@ This is the **causal / autoregressive** constraint.
 
 ---
 
-## 3. Why Is Causal Masking So Important for GPT?
+## Why Is Causal Masking So Important for GPT?
 
-### 3.1 An intuitive explanation
+### An intuitive explanation
 
 In GPT, when the model is predicting the token at position `t`:
 
@@ -136,7 +136,7 @@ It is like a cloze test:
 - you can only see the text that has already been filled in
 - you cannot peek at the answer key
 
-### 3.2 A minimal mask example
+### A minimal mask example
 
 ```python
 import numpy as np
@@ -165,7 +165,7 @@ It means:
 
 This is the source of consistency between GPT training and generation.
 
-### 3.3 A very beginner-friendly comparison table
+### A very beginner-friendly comparison table
 
 | Question | GPT’s answer style |
 |---|---|
@@ -179,16 +179,16 @@ This table is good for beginners because it turns “causal mask” from a techn
 
 ---
 
-## 4. A Truly Educational Minimal GPT Example: a Bigram Language Model
+## A Truly Educational Minimal GPT Example: a Bigram Language Model
 
-### 4.1 Why start with bigram?
+### Why start with bigram?
 
 Because it is very simple, yet it already lets you see with your own eyes:
 
 - what it means to “predict the next word from the previous context”
 - what autoregressive generation means
 
-### 4.2 Runnable example
+### Runnable example
 
 ```python
 from collections import defaultdict, Counter
@@ -231,7 +231,7 @@ for _ in range(5):
     print(generate("I"))
 ```
 
-### 4.3 What is this code teaching exactly?
+### What is this code teaching exactly?
 
 It teaches you the smallest skeleton of GPT:
 
@@ -244,7 +244,7 @@ This is already the minimal prototype of “autoregressive generation.”
 
 Of course, real GPT is far more complex than this, but the main idea is the same.
 
-### 4.4 The safest order for a first-time GPT learner
+### The safest order for a first-time GPT learner
 
 A more stable learning order is usually:
 
@@ -257,9 +257,9 @@ This is easier to understand than jumping straight into parameter counts and rel
 
 ---
 
-## 5. Why Is GPT Decoder-Only?
+## Why Is GPT Decoder-Only?
 
-### 5.1 Because its core task is step-by-step generation
+### Because its core task is step-by-step generation
 
 GPT series are usually based on a decoder-only Transformer:
 
@@ -271,7 +271,7 @@ The biggest difference from encoder-only models (such as BERT) is:
 
 > GPT’s architecture is naturally built for “completion and generation.”
 
-### 5.2 A small offline randomly initialized GPT shape example
+### A small offline randomly initialized GPT shape example
 
 If you want to feel more intuitively what a “decoder-only LM” outputs, you can use a locally randomly initialized small model without downloading weights:
 
@@ -318,9 +318,9 @@ This means:
 
 ---
 
-## 6. What Is In-Context Learning?
+## What Is In-Context Learning?
 
-### 6.1 Why does GPT increasingly look like it can learn rules on the spot?
+### Why does GPT increasingly look like it can learn rules on the spot?
 
 As models grow larger, the GPT line gradually shows an important ability:
 
@@ -347,7 +347,7 @@ positive
 
 That is the feel of in-context learning.
 
-### 6.2 Why is this important?
+### Why is this important?
 
 Because it means:
 
@@ -358,9 +358,9 @@ This laid a large foundation for later Prompt engineering, Agents, and tool use.
 
 ---
 
-## 7. How Has the GPT Series Evolved Step by Step?
+## How Has the GPT Series Evolved Step by Step?
 
-### 7.1 A rough timeline
+### A rough timeline
 
 You can remember this path first:
 
@@ -369,7 +369,7 @@ You can remember this path first:
 3. Then use instruction tuning, alignment, and preference optimization
 4. Finally, they become more like “assistants”
 
-### 7.2 From “can complete text” to “can cooperate”
+### From “can complete text” to “can cooperate”
 
 Early GPT was more like:
 
@@ -389,9 +389,9 @@ In other words:
 
 ---
 
-## 8. What Is GPT Best At? What Is It Not Naturally Good At?
+## What Is GPT Best At? What Is It Not Naturally Good At?
 
-### 8.1 Strengths
+### Strengths
 
 - text generation
 - dialogue
@@ -400,7 +400,7 @@ In other words:
 - code generation
 - open-ended completion
 
-### 8.2 Not naturally good at
+### Not naturally good at
 
 - strict factual retrieval
 - long-term stable memory
@@ -433,19 +433,19 @@ That way, others can more easily see:
 
 ---
 
-## 9. Common Pitfalls for Beginners
+## Common Pitfalls for Beginners
 
-### 9.1 Thinking GPT is just a “chatting model”
+### Thinking GPT is just a “chatting model”
 
 Chatting is only the surface.
 The root is autoregressive language modeling.
 
-### 9.2 Thinking GPT can also look bidirectionally during training
+### Thinking GPT can also look bidirectionally during training
 
 No.
 The key GPT constraint is that it cannot peek at the future.
 
-### 9.3 Only knowing “the model is big,” but not understanding what its output tensor means
+### Only knowing “the model is big,” but not understanding what its output tensor means
 
 What you really need to remember is:
 

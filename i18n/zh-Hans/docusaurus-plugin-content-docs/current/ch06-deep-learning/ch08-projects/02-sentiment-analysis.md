@@ -1,11 +1,11 @@
 ---
-title: "8.3 项目：文本情感分析"
+title: "6.8.3 项目：文本情感分析"
 sidebar_position: 2
 description: "围绕一个真正可展示的情感分析项目，从标签边界、baseline、错误分析到交付方式，走完完整闭环。"
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
-# 项目：文本情感分析
+# 6.8.3 项目：文本情感分析
 
 :::tip 本节定位
 情感分析项目很适合做作品集，不是因为它最炫，而是因为它很适合训练“项目判断力”：
@@ -29,7 +29,7 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 
 ## 一、项目题目先要收窄
 
-### 1.1 最稳的起点是二分类
+### 最稳的起点是二分类
 
 先做：
 
@@ -40,7 +40,7 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 
 - positive / neutral / negative / irony / mixed
 
-### 1.2 为什么二分类适合练手？
+### 为什么二分类适合练手？
 
 因为：
 
@@ -48,7 +48,7 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 - 数据更容易准备
 - 错误更容易分析
 
-### 1.3 一个适合作品集的题目
+### 一个适合作品集的题目
 
 例如：
 
@@ -145,7 +145,7 @@ for text, gold in test_data:
     print(results[-1])
 ```
 
-### 4.1 这个 baseline 为什么有教学价值？
+### 这个 baseline 为什么有教学价值？
 
 因为它很容易解释：
 
@@ -156,7 +156,7 @@ for text, gold in test_data:
 
 这让你能真正做“错误分析”，而不是只盯一个数字。
 
-### 4.2 再补一个“否定词翻转”的最小升级版
+### 再补一个“否定词翻转”的最小升级版
 
 情感分析里最典型的一类错误就是：
 
@@ -225,14 +225,14 @@ for text, gold in extra_cases:
 
 ## 五、真正让项目变强的是错误分析
 
-### 5.1 先把错例挑出来
+### 先把错例挑出来
 
 ```python
 errors = [row for row in results if row["gold"] != row["pred"]]
 print(errors)
 ```
 
-### 5.2 常见错误类型
+### 常见错误类型
 
 对情感分析来说，最值得单独看的是：
 
@@ -243,7 +243,7 @@ print(errors)
 - 混合评价
   例如“内容很好，但太难了”
 
-### 5.3 为什么错误分析这么值钱？
+### 为什么错误分析这么值钱？
 
 因为它能直接告诉你下一步该怎么做：
 
@@ -251,7 +251,7 @@ print(errors)
 - 改标签标准
 - 升级模型
 
-### 5.4 给自己做一张最小错误分桶表
+### 给自己做一张最小错误分桶表
 
 初学者做情感分析项目时，很容易只说：
 
@@ -298,7 +298,7 @@ for k, v in error_buckets.items():
 
 ## 六、这个项目怎么往作品级再推一步？
 
-### 6.1 补一个传统强基线
+### 补一个传统强基线
 
 例如：
 
@@ -309,14 +309,14 @@ for k, v in error_buckets.items():
 - 规则基线
 - 传统 ML 基线
 
-### 6.2 再补一个深度 baseline
+### 再补一个深度 baseline
 
 例如：
 
 - embedding + pooling
 - BERT 分类
 
-### 6.3 展示时不要只放总分
+### 展示时不要只放总分
 
 很推荐展示：
 
@@ -327,7 +327,7 @@ for k, v in error_buckets.items():
 
 这样项目会非常完整。
 
-### 6.4 一个更像真实项目的展示顺序
+### 一个更像真实项目的展示顺序
 
 如果你把这题做成作品集页面，
 比较推荐按这个顺序展示：
@@ -348,15 +348,15 @@ for k, v in error_buckets.items():
 
 ## 七、最容易踩的坑
 
-### 7.1 标签标准不一致
+### 标签标准不一致
 
 这是很多情感项目的第一大坑。
 
-### 7.2 只看准确率
+### 只看准确率
 
 不看具体错在哪，你很难真正优化。
 
-### 7.3 一开始就追求最复杂模型
+### 一开始就追求最复杂模型
 
 没有 baseline，复杂模型的提升就很难讲清。
 

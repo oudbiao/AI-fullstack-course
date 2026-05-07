@@ -1,10 +1,10 @@
 ---
-title: "分支与协作"
+title: "1.2.4 分支与协作"
 sidebar_position: 4
 description: "用分支安全地开发新功能，了解 Pull Request 流程"
 ---
 
-# 分支与协作
+# 1.2.4 分支与协作
 
 ![Git 分支协作流程图](/img/course/ch01-git-branch-collaboration.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "3.2 Derivatives: The Intuition of Rate of Change"
+title: "4.3.2 Derivatives: The Intuition of Rate of Change"
 sidebar_position: 9
 description: "Understand the intuitive meaning of derivatives (tangent slope = rate of change), master common differentiation rules, and use Python for numerical differentiation and visualization"
 keywords: [derivative, calculus, rate of change, tangent slope, Python, AI math]
 ---
 
-# Derivatives: The Intuition of Rate of Change
+# 4.3.2 Derivatives: The Intuition of Rate of Change
 
 ![Derivative tangent slope illustration](/img/course/derivative-tangent-slope-en.png)
 
@@ -44,9 +44,9 @@ It’s best to place this section back into the context of the whole chapter:
 
 So this section is not an isolated math topic; it is laying the foundation for the optimization storyline that follows.
 
-## 1. What Is a Derivative?
+## What Is a Derivative?
 
-### 1.1 "Rate of change" in daily life
+### "Rate of change" in daily life
 
 | Scenario | Variable | Rate of change (derivative) |
 |------|------|--------------|
@@ -57,7 +57,7 @@ So this section is not an isolated math topic; it is laying the foundation for t
 
 **A derivative = the speed at which some quantity changes at a particular moment.**
 
-### 1.1.1 A more beginner-friendly analogy
+### A more beginner-friendly analogy
 
 If "tangent slope" still feels a bit abstract, you can first think of a derivative as:
 
@@ -73,7 +73,7 @@ but instead asking:
 
 > **At this moment, how fast is it changing?**
 
-### 1.2 Geometric intuition: tangent slope
+### Geometric intuition: tangent slope
 
 ```python
 import numpy as np
@@ -112,7 +112,7 @@ plt.show()
 
 **Interpretation**: The derivative of f(x) = x² at x = 1 is 2, which means "when x increases a little near 1, f(x) increases by about twice as much."
 
-### 1.3 Numerical differentiation — approximate with Python
+### Numerical differentiation — approximate with Python
 
 You don’t need to know the formula; as long as you can compute function values, you can compute derivatives:
 
@@ -140,11 +140,11 @@ for x0 in [0, 1, 2, 3]:
 
 ---
 
-## 2. Common Differentiation Rules
+## Common Differentiation Rules
 
 You don’t need to memorize all the rules. Just get familiar with the most common ones:
 
-### 2.1 Basic rule cheat sheet
+### Basic rule cheat sheet
 
 | Function | Derivative | Example |
 |------|------|------|
@@ -154,7 +154,7 @@ You don’t need to memorize all the rules. Just get familiar with the most comm
 | ln(x) | 1/x | (ln x)' = 1/x |
 | sin(x) | cos(x) | (sin x)' = cos x |
 
-### 2.2 Verify with Python
+### Verify with Python
 
 ```python
 # Verify common differentiation rules
@@ -176,7 +176,7 @@ for name, f, f_prime in functions:
     print(f"{name:<10} {x0:<5} {numerical:<15.8f} {analytical:<15.8f} {error:<15.2e}")
 ```
 
-### 2.3 Visualization: functions and their derivatives
+### Visualization: functions and their derivatives
 
 ```python
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
@@ -204,9 +204,9 @@ plt.show()
 
 ---
 
-## 3. The Role of Derivatives in AI
+## The Role of Derivatives in AI
 
-### 3.1 The derivative of the loss function = the direction of optimization
+### The derivative of the loss function = the direction of optimization
 
 ```mermaid
 flowchart LR
@@ -221,7 +221,7 @@ flowchart LR
 
 **A derivative tells you: which direction should the parameters move so that the loss becomes smaller.** This is the core idea of gradient descent (we’ll explain it in detail in the next subsection).
 
-### 3.2 Derivatives of common AI functions
+### Derivatives of common AI functions
 
 ```python
 # Sigmoid function and its derivative
@@ -274,7 +274,7 @@ After reading about derivatives, the most valuable questions to carry forward ar
 
 These three questions will naturally lead you to:
 
-- [Partial Derivatives and Gradients](./02-partial-derivatives-gradient.md)
+- [4.3.3 Partial Derivatives and Gradients](./02-partial-derivatives-gradient.md)
 
 :::info Connect to what comes next
 - **Next section**: Partial derivatives and gradients — "directional change" when there are multiple variables
