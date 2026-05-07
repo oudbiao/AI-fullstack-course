@@ -1,67 +1,64 @@
 ---
-title: "8.4.1 学習ガイド：エンジニアリング編では何を学ぶのか"
+title: "8.4.1 Engineering ロードマップ：Async、API、Logs、Deploy"
 sidebar_position: 0
-description: "まずはエンジニアリング編の学習マップを作ろう。非同期、API、ログ監視、デプロイがどう連携して、LLM システムを本当に公開できるかを理解する。"
-keywords: [LLMエンジニアリングガイド, 非同期プログラミング, API設計, ログ監視, Docker]
+description: "LLM engineering の短い実践ロードマップ：async 制御、API 契約、observability、Docker deploy、trace 可能な運用を追加する。"
+keywords: [LLM engineering guide, 非同期プログラミング, API 設計, ログ監視, Docker]
 ---
 
-# 8.4.1 学習ガイド：エンジニアリング編では何を学ぶのか
+# 8.4.1 Engineering ロードマップ：Async、API、Logs、Deploy
 
-この章で扱うのは、次のことです。
+Engineering は、動く LLM demo をソフトウェアに変えます。Prompt、model、documents、users が変わったあとも、deploy、debug、measure、maintain できる状態にします。
 
-> **動く LLM アプリを、実際に公開できて、障害対応できて、保守できるシステムにするにはどうすればよいか。**
+## 8.4.1.1 まず LLMOps ループを見る
 
-## この章の主な流れ
+![LLM engineering 章の学習順序図](/img/course/ch08-engineering-chapter-flow-ja.png)
 
-![LLM エンジニアリング章の学習順序図](/img/course/ch08-engineering-chapter-flow-ja.png)
+![LLMOps trace レビュー閉ループ図](/img/course/ch08-llmops-trace-loop-ja.png)
 
-## LLMOps 詳説：大規模モデルアプリを長く動くソフトウェアとして扱う
+![Observability logs metrics trace map](/img/course/ch08-observability-logs-metrics-trace-map-ja.png)
 
-LLM アプリを公開したあとで一番大きいリスクは、「ある 1 回の呼び出しが失敗すること」だけではありません。Prompt が変わる、モデルのバージョンが変わる、文書が更新される、ユーザーの質問が変わる、コストが急に上がる——なのに、どの層に問題があるのか誰も分からないことです。LLMOps が解決したいのは、評価できること、観測できること、ロールバックできること、継続的に改善できることです。
+最初の engineering 目標は単純です。回答が間違ったとき、どの層が原因か説明できることです。
 
-![LLMOps Trace ふりかえり閉ループ図](/img/course/ch08-llmops-trace-loop-ja.png)
+## 8.4.1.2 Trace readiness チェックを動かす
 
-| 方向 | 解決する問題 | この章の注目点 |
+本番に近い LLM 機能には、悪い回答を 1 件 debug できるだけの trace fields が必要です。
+
+```python
+trace = {
+    "request_id": "demo-001",
+    "prompt_version": "rag-v2",
+    "retrieval_hits": 2,
+    "model_ms": 850,
+    "format_ok": True,
+    "cost_usd": 0.003,
+}
+
+required = ["request_id", "prompt_version", "retrieval_hits", "model_ms", "format_ok", "cost_usd"]
+
+print("trace_ready:", all(field in trace for field in required))
+print("debug_fields:", ", ".join(required))
+```
+
+出力：
+
+```text
+trace_ready: True
+debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, cost_usd
+```
+
+これらの field がないと、debug は推測になります。機能を増やす前に logs を追加します。
+
+## 8.4.1.3 この順番で学ぶ
+
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| Prompt バージョン管理 | Prompt を変えたあとに効果を比較できない | バージョン、変更理由、適用タスク、失敗サンプルを記録する |
-| 評価セット | 改善が感覚頼みになる | 固定のテスト問題、理想回答、採点基準、回帰テストを用意する |
-| LLM-as-Judge | 人手レビューのコストが高い | モデルで採点を補助しつつ、手動チェックと正解例は残す |
-| Trace | 処理の流れで起きたエラーをふりかえりにくい | 入力、検索、Prompt、モデル出力、ツール結果、最終回答を記録する |
-| コスト監視 | Token、再ランキング、Embedding、ツール呼び出しのコストが見えにくい | 呼び出し回数、Token、処理時間、1 件あたりのコストを記録する |
-| Guardrails | 出力形式、安全境界、権限が崩れやすい | 入力検証、出力検証、機密情報の扱い、手動確認を入れる |
-| Drift Monitoring | 長期運用で品質が変わる | モデルのバージョン、文書のバージョン、ユーザー質問の分布変化を見る |
-| AI CI/CD | アプリ更新後に性能劣化していないか分からない | 評価セット、形式チェック、重要な処理経路のテストをリリース工程に入れる |
+| 1 | 非同期プログラミング | timeout、retry、concurrency limit、cancellation の考え方を入れる |
+| 2 | API 設計 | request/response schema と error code を定義する |
+| 3 | ログと監視 | prompt version、retrieval hits、latency、cost、failures を記録する |
+| 4 | Docker デプロイ | 再現可能な実行手順でアプリを package する |
 
-この章を学ぶときは、「1 回の失敗を説明できるようになる」ことを目標にするとよいです。もしシステムが誤答したら、次のことを確認できる必要があります。ユーザーは何を聞いたのか、何を検索できたのか、Prompt はどのバージョンなのか、モデルは何を返したのか、ツールは失敗したのか、時間とコストはどれくらいか、そして最後になぜその結果になったのか。
+## 8.4.1.4 合格ライン
 
-## 初学者と上級学習者はどう読むか
+最小アプリに run command、API contract、error handling、logs、1 件の失敗調査メモがあれば、この章は合格です。
 
-初めてこの章を学ぶ人は、まず非同期、API、ログ監視、デプロイという主な流れをつかみましょう。最初から完全な LLMOps プラットフォームを理解する必要はありません。最小構成のアプリに、エラー処理、リクエストログ、コスト記録、デプロイ手順を追加できれば、先へ進めます。
-
-経験のある学習者は、この章を「抜け漏れ確認」と「エンジニアリング練習」として読むとよいです。境界条件、失敗ケース、評価方法、コードの再現性、そして前後の章とのつながりに注目しましょう。読み終わったら、この章の内容を自分の作品の README や実験記録にまとめておくのがおすすめです。
-
-## 学習時間と難易度の目安
-
-| 学び方 | 目安時間 | 目標 |
-|---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、後でどこで使うかを知る |
-| 最小クリア | 1～2 時間 | 最小例を動かし、この章の小さな出口課題を終える |
-| じっくり練習 | 半日～1 日 | エラー分析、比較実験、プロジェクト README の記録を追加する |
-
-## この章の自己チェック問題
-
-| 自己チェック問題 | 合格基準 |
-|---|---|
-| この章は何を解決する？ | 1 文で、この章が講座全体の中でどこにあるか説明できる |
-| 最小の入力と出力は何？ | 例に何が必要で、どんな結果が出るかを説明できる |
-| よくある失敗ポイントはどこ？ | 少なくとも 1 つ、エラー、効果不足、理解のずれの原因を挙げられる |
-| 学んだあとに何を残せる？ | この章の成果をプロジェクト README、実験記録、作品集に書ける |
-## この章の小プロジェクト出口
-
-この章を学び終えたら、最小の練習を 1 つ完成させることをおすすめします。つまり、この章で最も重要な概念またはツールを 1 つ選び、動かせて、スクリーンショットを取れて、README に書ける小さな成果物を作ります。複雑である必要はありませんが、入力、処理、出力が何かを説明できることが大切です。
-
-## 合格基準
-
-この章の最後には、何を解決する章なのか、前後の学習ステップとどうつながるのかを、自分の言葉で説明できるようになっているはずです。そして、この章の小プロジェクト出口の最小版を完成させられることが目標です。
-
-さらに、よくあるエラーを 1 回、デバッグの過程を 1 回、または結果改善の例を 1 回記録できたなら、ただ「読んだ」だけではなく、この章を自分のプロジェクト経験に変えられたと言えます。
+出口ミニプロジェクトは engineering evidence pack です：1 件の trace log、1 つのよくある error、1 回の fix、1 回の regression check、1 つの deployment note を残します。
