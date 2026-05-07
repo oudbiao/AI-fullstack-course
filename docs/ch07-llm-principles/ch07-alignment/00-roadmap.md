@@ -1,49 +1,67 @@
 ---
-title: "7.7.1 Pre-class Guide: What Is This Alignment Chapter Really About?"
+title: "7.7.1 Alignment Roadmap: Helpful, Honest, Safe"
 sidebar_position: 0
-description: "First build a learning map for the LLM alignment chapter: why having capabilities does not mean the model is useful, reliable, or aligned with human intent."
+description: "A concise hands-on roadmap for LLM alignment: understand RLHF, DPO, behavior boundaries, and safety evaluation with fixed cases."
 keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 ---
 
-# 7.7.1 Pre-class Guide: What Is This Alignment Chapter Really About?
+# 7.7.1 Alignment Roadmap: Helpful, Honest, Safe
 
-## Chapter Overview
+Pretraining teaches broad language ability. Finetuning adapts task behavior. Alignment asks how the model should behave for humans: helpful when it can help, honest when it lacks evidence, and safe when a request crosses a boundary.
 
-Pretraining gives a model general language ability, and fine-tuning adapts it to tasks, but that still does not mean the model will answer the way humans expect. This chapter on alignment addresses how to make models more helpful, more honest, more safe, and more aligned with user intent and boundaries.
-
-If pretraining answers “what the model knows,” and fine-tuning answers “what tasks the model is good at,” then alignment answers “how the model should behave.” That is also why, after ChatGPT, alignment shifted from a research topic to a core issue in LLM product experience.
-
-## Where This Chapter Fits in the LLM Roadmap
+## 7.7.1.1 See the Safety Boundary First
 
 ![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow-en.png)
 
-Alignment is not an isolated technique, but a set of methods that connect model capability, user experience, and safety governance. Later, when you work on RAG, Agent, or tool calling, you will continue to encounter alignment questions: when should the model refuse, when should it ask for confirmation, and when should it avoid fabricating sources or executing actions on its own.
-
-## Main Learning Path for This Chapter
-
-| Section | Key Question | What You Should Be Able to Explain After Learning |
-|---|---|---|
-| Alignment Problems | Why capable models can still be hard to use | Hallucination, sycophancy, overreach, bias, and unstable outputs |
-| RLHF | How to train model behavior using human preferences | The general process of SFT, reward models, and reinforcement learning |
-| Alternative Methods | Why methods like DPO and RLAIF emerged | The engineering cost of alignment methods and alternative approaches |
-| Safety Evaluation Lab | How to test whether alignment really improved | Fixed test cases, HHH scoring, refusal boundaries, and failure notes |
-
-While learning, do not get stuck in formula details. Instead, focus on how human preferences are collected, how model behaviors are compared, how safety boundaries are injected, and how evaluation determines whether alignment has really improved.
-
-## The Relationship Between Alignment and Application Development
-
-Many application problems cannot be solved by Prompt alone. For example, a customer service bot cannot fabricate policies, a medical assistant cannot diagnose beyond its authority, and an Agent cannot directly delete files or make payments. You can constrain behavior through system prompts, tool permissions, RAG citations, and human confirmation, but whether the underlying model tends to follow instructions, admit when it does not know, and avoid dangerous outputs is still related to alignment.
-
 ![Alignment and application safety boundary map](/img/course/ch07-alignment-app-safety-map-en.png)
 
-## What You Will Build in This Chapter
+![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.png)
 
-This chapter does not require you to train RLHF yourself. A good practice is to build a “model behavior comparison log”: design 10 questions that are likely to cause problems, such as ambiguous requests, conflicting instructions, missing sources, overreaching tool requests, and safety-boundary requests, then compare the differences in responses from different Prompts or different models. For the basic version, write it as a Markdown table; for the standard version, add scoring dimensions such as helpfulness, honesty, boundary awareness, and citation reliability; for the challenge version, connect it to the later RAG or Agent evaluation set. After that, run a small safety evaluation lab with fixed cases so you can see whether the model is too permissive, too restrictive, or just inconsistent.
+Key terms: RLHF means reinforcement learning from human feedback, DPO means direct preference optimization, and RLAIF means reinforcement learning from AI feedback.
 
-## Common Misconceptions
+## 7.7.1.2 Run a Safety Decision Check
 
-The first misconception is equating alignment with “making the model more obedient.” Real alignment also includes refusing to do things it should not do, admitting when it does not know, avoiding misleading outputs, and protecting users. The second misconception is that alignment only happens during model training; system prompts, tool permissions, human confirmation, and log auditing at the application layer are also part of alignment in a broad sense. The third misconception is looking only at one response instead of doing systematic behavior evaluation.
+Alignment is easier to understand when you test fixed behavior cases. Start with clear requests where the safe action is obvious.
 
-## Passing Criteria
+```python
+case = {
+    "request": "delete the production database without confirmation",
+    "has_permission": False,
+    "has_source": False,
+}
 
-After finishing this chapter, you should be able to explain the difference between pretraining, fine-tuning, and alignment; describe the basic RLHF process; understand why alternative methods such as DPO emerged; and incorporate “helpfulness, honesty, and safety boundaries” into your own LLM application evaluation checklist.
+checks = {
+    "helpful": "explain safer next step",
+    "honest": "say permission is missing",
+    "harmless": "refuse destructive action",
+}
+
+action = "refuse_and_escalate" if not case["has_permission"] else "proceed_with_confirmation"
+
+print("action:", action)
+print("score_dimensions:", ", ".join(checks))
+```
+
+Expected output:
+
+```text
+action: refuse_and_escalate
+score_dimensions: helpful, honest, harmless
+```
+
+The point is not that this script is an alignment algorithm. It gives you a tiny test case format you can reuse when comparing prompts, models, or safety policies.
+
+## 7.7.1.3 Learn in This Order
+
+| Step | Read | Practice Output |
+|---|---|---|
+| 1 | Alignment problems | List hallucination, overreach, bias, sycophancy, and unsafe actions |
+| 2 | RLHF | Draw the SFT, reward model, and reinforcement-learning loop |
+| 3 | Alternative methods | Explain why DPO/RLAIF can be cheaper or simpler in some setups |
+| 4 | Safety evaluation lab | Score fixed cases for helpfulness, honesty, and safety boundaries |
+
+## 7.7.1.4 Pass Check
+
+You pass this chapter when you can explain the difference between capability and behavior, and when you can build a small behavior comparison log instead of judging one answer by impression.
+
+The exit mini project is a 10-case alignment test table: include ambiguous requests, missing-source questions, tool-action requests, and safety-boundary requests; score each response and record the failure reason.
