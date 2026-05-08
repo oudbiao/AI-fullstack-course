@@ -196,6 +196,13 @@ print(list_request)
 print(list_response)
 ```
 
+Expected output:
+
+```text
+{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}}
+{'jsonrpc': '2.0', 'id': 1, 'result': {'tools': [{'name': 'search_docs', 'description': 'Search course documents'}, {'name': 'get_weather', 'description': 'Query the weather'}]}}
+```
+
 ### Then, Call the Tool
 
 ```python
@@ -219,6 +226,13 @@ call_response = {
 
 print(call_request)
 print(call_response)
+```
+
+Expected output:
+
+```text
+{'jsonrpc': '2.0', 'id': 2, 'method': 'tools/call', 'params': {'name': 'search_docs', 'arguments': {'query': 'refund policy'}}}
+{'jsonrpc': '2.0', 'id': 2, 'result': {'content': [{'type': 'text', 'text': 'A purchase can be refunded within 7 days if learning progress is below 20%.'}]}}
 ```
 
 ### What Do These Two Steps Really Show?
@@ -303,6 +317,13 @@ client = MockMCPClient(server)
 
 print(client.discover())
 print(client.call("search_docs", {"query": "refund policy"}))
+```
+
+Expected output:
+
+```text
+[{'name': 'search_docs'}]
+{'result': 'Search result: refund policy'}
 ```
 
 ### This example is small, but very valuable for learning

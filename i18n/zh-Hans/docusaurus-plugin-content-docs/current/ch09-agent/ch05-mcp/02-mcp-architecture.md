@@ -196,6 +196,13 @@ print(list_request)
 print(list_response)
 ```
 
+预期输出：
+
+```text
+{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}}
+{'jsonrpc': '2.0', 'id': 1, 'result': {'tools': [{'name': 'search_docs', 'description': '搜索课程文档'}, {'name': 'get_weather', 'description': '查询天气'}]}}
+```
+
 ### 再调用工具
 
 ```python
@@ -219,6 +226,13 @@ call_response = {
 
 print(call_request)
 print(call_response)
+```
+
+预期输出：
+
+```text
+{'jsonrpc': '2.0', 'id': 2, 'method': 'tools/call', 'params': {'name': 'search_docs', 'arguments': {'query': '退款政策'}}}
+{'jsonrpc': '2.0', 'id': 2, 'result': {'content': [{'type': 'text', 'text': '课程购买后 7 天内且学习进度低于 20% 可退款。'}]}}
 ```
 
 ### 这两步真正说明了什么？
@@ -303,6 +317,13 @@ client = MockMCPClient(server)
 
 print(client.discover())
 print(client.call("search_docs", {"query": "退款政策"}))
+```
+
+预期输出：
+
+```text
+[{'name': 'search_docs'}]
+{'result': '检索结果: 退款政策'}
 ```
 
 ### 这个例子很小，但非常有教学价值

@@ -170,6 +170,13 @@ print(request)
 print(response)
 ```
 
+想定出力：
+
+```text
+{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}}
+{'jsonrpc': '2.0', 'id': 1, 'result': {'tools': [{'name': 'search_docs', 'description': 'コース資料を検索する'}, {'name': 'get_weather', 'description': '天気を調べる'}]}}
+```
+
 ### この例で最も大事なのはフィールド名ではなく、構造の感覚
 
 この例が教えているのは次の点です：

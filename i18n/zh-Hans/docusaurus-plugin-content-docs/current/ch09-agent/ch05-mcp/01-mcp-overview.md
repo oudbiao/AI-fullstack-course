@@ -167,6 +167,13 @@ print(request)
 print(response)
 ```
 
+预期输出：
+
+```text
+{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}}
+{'jsonrpc': '2.0', 'id': 1, 'result': {'tools': [{'name': 'search_docs', 'description': '检索课程文档'}, {'name': 'get_weather', 'description': '查询天气'}]}}
+```
+
 ### 这个例子最重要的不是字段名，而是结构感
 
 它在教你：

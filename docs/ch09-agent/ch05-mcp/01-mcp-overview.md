@@ -167,6 +167,13 @@ print(request)
 print(response)
 ```
 
+Expected output:
+
+```text
+{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}}
+{'jsonrpc': '2.0', 'id': 1, 'result': {'tools': [{'name': 'search_docs', 'description': 'Search course documents'}, {'name': 'get_weather', 'description': 'Query weather'}]}}
+```
+
 ### The most important thing in this example is not the field names, but the structure
 
 It teaches you that:
