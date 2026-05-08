@@ -201,7 +201,7 @@ print("融合後特徴:", fused_feature)
 print("融合後の次元:", fused_feature.shape)
 ```
 
-想定出力：
+期待される出力：
 
 ```text
 画像特徴: [0.8 0.7 0.2]
@@ -287,7 +287,7 @@ for text_name, text_vec in texts.items():
         print(f"  {image_name}: {score:.4f}")
 ```
 
-想定出力：
+期待される出力：
 
 ```text
 検索テキスト: red fruit

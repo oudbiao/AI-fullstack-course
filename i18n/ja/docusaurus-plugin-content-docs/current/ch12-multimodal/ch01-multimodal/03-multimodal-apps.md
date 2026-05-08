@@ -112,7 +112,7 @@ print(multimodal_assistant(image_info, "これは何のエラーですか？"))
 print(multimodal_assistant(image_info, "どうやって解決しますか？"))
 ```
 
-想定出力：
+期待される出力：
 
 ```text
 スクリーンショットの主なエラーは：401 Unauthorized です。
@@ -179,7 +179,7 @@ print(match_product(product_image_feature, "ランニングに合う靴を探し
 print(match_product(product_image_feature, "会社への通勤で履いても大丈夫ですか"))
 ```
 
-想定出力：
+期待される出力：
 
 ```text
 この画像はスポーツシューズに見えるので、ランニング関連の商品をおすすめしやすいです。
@@ -245,7 +245,7 @@ def safe_multimodal_reply(image_info, user_question):
 print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "これは何のエラーですか"))
 ```
 
-想定出力：
+期待される出力：
 
 ```text
 この画像では十分な文字が認識できませんでした。より鮮明で全体が写ったスクリーンショットをアップロードしてください。

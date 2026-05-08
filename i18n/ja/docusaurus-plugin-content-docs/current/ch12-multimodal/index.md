@@ -65,7 +65,7 @@ print("uncertainty_count:", len(visual_record["uncertainty"]))
 print("rag_ready:", rag_ready)
 ```
 
-期待される出力:
+期待される出力：
 
 ```text
 source: course-slide-01.png
