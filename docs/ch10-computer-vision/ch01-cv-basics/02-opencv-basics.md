@@ -57,6 +57,14 @@ cv2.imwrite("opencv_blank.png", img)
 print("Saved opencv_blank.png")
 ```
 
+Expected output:
+
+```text
+shape: (240, 320, 3)
+dtype: uint8
+Saved opencv_blank.png
+```
+
 Here, `shape = (240, 320, 3)` means:
 
 - Height: 240
@@ -88,6 +96,12 @@ cv2.imwrite("opencv_blue.png", img)
 print("Saved a blue image opencv_blue.png")
 ```
 
+Expected output:
+
+```text
+Saved a blue image opencv_blue.png
+```
+
 If you think `(255, 0, 0)` is red, you will end up with a “wrong color” image.
 
 ### Convert to RGB
@@ -103,6 +117,13 @@ img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
 print("BGR pixel:", img_bgr[0, 0].tolist())
 print("RGB pixel:", img_rgb[0, 0].tolist())
+```
+
+Expected output:
+
+```text
+BGR pixel: [255, 0, 0]
+RGB pixel: [0, 0, 255]
 ```
 
 ---
@@ -133,6 +154,15 @@ print("After horizontal flip:", flip_horizontal.shape)
 cv2.imwrite("opencv_small.png", small)
 cv2.imwrite("opencv_crop.png", crop)
 cv2.imwrite("opencv_flip.png", flip_horizontal)
+```
+
+Expected output:
+
+```text
+Original image: (200, 300, 3)
+After resizing: (100, 150, 3)
+After cropping: (100, 140, 3)
+After horizontal flip: (200, 300, 3)
 ```
 
 ### Why is cropping written as `[y1:y2, x1:x2]`?
@@ -188,6 +218,12 @@ cv2.imwrite("opencv_draw_demo.png", canvas)
 print("Saved opencv_draw_demo.png")
 ```
 
+Expected output:
+
+```text
+Saved opencv_draw_demo.png
+```
+
 ---
 
 ## Convert to a grayscale image
@@ -215,6 +251,14 @@ print("First 5 pixels of grayscale image:", gray[0, :5].tolist())
 cv2.imwrite("opencv_gray.png", gray)
 ```
 
+Expected output:
+
+```text
+Original image shape: (100, 100, 3)
+Grayscale image shape: (100, 100)
+First 5 pixels of grayscale image: [76, 76, 76, 76, 76]
+```
+
 ---
 
 ## A small project: make an “info card” image
@@ -236,6 +280,12 @@ cv2.putText(card, "OpenCV starter demo", (40, 170), cv2.FONT_HERSHEY_SIMPLEX, 0.
 
 cv2.imwrite("opencv_info_card.png", card)
 print("Saved opencv_info_card.png")
+```
+
+Expected output:
+
+```text
+Saved opencv_info_card.png
 ```
 
 ---

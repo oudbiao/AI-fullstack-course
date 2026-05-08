@@ -64,6 +64,12 @@ cv2.imwrite("processing_original.png", img)
 print("已保存 processing_original.png")
 ```
 
+预期输出：
+
+```text
+已保存 processing_original.png
+```
+
 这里我们直接用灰度图，后面做边缘和阈值会更方便。
 
 ---
@@ -87,6 +93,12 @@ cv2.imwrite("processing_blur.png", blurred)
 print("已保存 processing_blur.png")
 ```
 
+预期输出：
+
+```text
+已保存 processing_blur.png
+```
+
 均值滤波会让边缘变软，但也可能让细节损失。
 
 ### 高斯滤波
@@ -99,6 +111,12 @@ gaussian = cv2.GaussianBlur(img, (7, 7), 0)
 
 cv2.imwrite("processing_gaussian.png", gaussian)
 print("已保存 processing_gaussian.png")
+```
+
+预期输出：
+
+```text
+已保存 processing_gaussian.png
 ```
 
 高斯滤波比简单均值滤波更常用，因为它更自然一些。
@@ -123,6 +141,12 @@ edges = cv2.Canny(img, threshold1=50, threshold2=150)
 
 cv2.imwrite("processing_edges.png", edges)
 print("已保存 processing_edges.png")
+```
+
+预期输出：
+
+```text
+已保存 processing_edges.png
 ```
 
 ### 两个阈值怎么理解？
@@ -150,6 +174,12 @@ _, binary = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
 
 cv2.imwrite("processing_binary.png", binary)
 print("已保存 processing_binary.png")
+```
+
+预期输出：
+
+```text
+已保存 processing_binary.png
 ```
 
 这种操作常用于：
@@ -182,6 +212,12 @@ cv2.imwrite("processing_eroded.png", eroded)
 print("已保存 processing_eroded.png")
 ```
 
+预期输出：
+
+```text
+已保存 processing_eroded.png
+```
+
 ### 膨胀（Dilation）
 
 白色区域会变大。
@@ -196,6 +232,12 @@ dilated = cv2.dilate(img, kernel, iterations=1)
 
 cv2.imwrite("processing_dilated.png", dilated)
 print("已保存 processing_dilated.png")
+```
+
+预期输出：
+
+```text
+已保存 processing_dilated.png
 ```
 
 ### 开运算和闭运算
@@ -216,6 +258,12 @@ closed = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 cv2.imwrite("processing_opened.png", opened)
 cv2.imwrite("processing_closed.png", closed)
 print("已保存 processing_opened.png 和 processing_closed.png")
+```
+
+预期输出：
+
+```text
+已保存 processing_opened.png 和 processing_closed.png
 ```
 
 ![经典图像处理操作选择图](/img/course/ch10-image-processing-operation-decision-map.png)
@@ -264,6 +312,12 @@ cv2.imwrite("processing_pipeline_binary.png", binary)
 cv2.imwrite("processing_pipeline_cleaned.png", cleaned)
 cv2.imwrite("processing_pipeline_edges.png", edges)
 print("完整处理流程结果已保存")
+```
+
+预期输出：
+
+```text
+完整处理流程结果已保存
 ```
 
 ---

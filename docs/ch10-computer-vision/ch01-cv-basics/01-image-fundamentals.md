@@ -87,6 +87,17 @@ print("Grayscale image shape:", gray.shape)
 print(gray)
 ```
 
+Expected output:
+
+```text
+Grayscale image shape: (5, 5)
+[[  0  50 100 150 200]
+ [ 30  80 130 180 230]
+ [ 60 110 160 210 255]
+ [ 20  70 120 170 220]
+ [ 10  40  90 140 190]]
+```
+
 Here, `shape` is `(5, 5)`, which means:
 
 - Height 5
@@ -115,6 +126,17 @@ rgb = np.array([
 
 print("RGB image shape:", rgb.shape)
 print(rgb)
+```
+
+Expected output:
+
+```text
+RGB image shape: (2, 2, 3)
+[[[255   0   0]
+  [  0 255   0]]
+
+ [[  0   0 255]
+  [255 255   0]]]
 ```
 
 Here, `shape = (2, 2, 3)`, which means:
@@ -166,6 +188,20 @@ print("G channel:\n", green_channel)
 print("B channel:\n", blue_channel)
 ```
 
+Expected output:
+
+```text
+R channel:
+ [[255   0]
+ [  0 255]]
+G channel:
+ [[  0 255]
+ [  0 255]]
+B channel:
+ [[  0   0]
+ [255   0]]
+```
+
 In computer vision, “splitting channels” is a very common operation.
 
 For example:
@@ -204,6 +240,12 @@ pixel = np.array([128, 200, 30], dtype=np.uint8)
 print(pixel, pixel.dtype)
 ```
 
+Expected output:
+
+```text
+[128 200  30] uint8
+```
+
 But during model training, we often normalize images to `0~1`:
 
 ```python
@@ -213,6 +255,12 @@ pixel = np.array([128, 200, 30], dtype=np.float32)
 pixel_normalized = pixel / 255.0
 
 print(pixel_normalized)
+```
+
+Expected output:
+
+```text
+[0.5019608  0.78431374 0.11764706]
 ```
 
 ### Why normalize?
@@ -267,6 +315,15 @@ print("S =", round(s, 3))
 print("V =", round(v, 3))
 ```
 
+Expected output:
+
+```text
+HSV:
+H = 0.0
+S = 0.686
+V = 1.0
+```
+
 ### What are RGB and HSV good for?
 
 | Color space | Best suited for |
@@ -302,6 +359,13 @@ gray = (
 )
 
 print(gray.astype(np.uint8))
+```
+
+Expected output:
+
+```text
+[[ 76 149]
+ [ 29 255]]
 ```
 
 ---
@@ -363,6 +427,14 @@ gray = np.array([
 print("Darkest pixel:", gray.min())
 print("Brightest pixel:", gray.max())
 print("Average brightness:", gray.mean())
+```
+
+Expected output:
+
+```text
+Darkest pixel: 10
+Brightest pixel: 240
+Average brightness: 120.0
 ```
 
 This is very common in vision tasks, for example:

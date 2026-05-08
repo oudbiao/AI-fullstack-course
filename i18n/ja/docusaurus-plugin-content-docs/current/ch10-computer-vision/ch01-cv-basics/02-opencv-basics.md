@@ -57,6 +57,14 @@ cv2.imwrite("opencv_blank.png", img)
 print("opencv_blank.png を保存しました")
 ```
 
+実行結果の例：
+
+```text
+shape: (240, 320, 3)
+dtype: uint8
+opencv_blank.png を保存しました
+```
+
 ここでの `shape = (240, 320, 3)` は、次の意味です。
 
 - 高さ 240
@@ -89,6 +97,12 @@ cv2.imwrite("opencv_blue.png", img)
 print("青い画像 opencv_blue.png を保存しました")
 ```
 
+実行結果の例：
+
+```text
+青い画像 opencv_blue.png を保存しました
+```
+
 もし `(255, 0, 0)` を赤だと思っていると、「色が違う」画像になってしまいます。
 
 ### RGB に変換する
@@ -104,6 +118,13 @@ img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
 print("BGR ピクセル:", img_bgr[0, 0].tolist())
 print("RGB ピクセル:", img_rgb[0, 0].tolist())
+```
+
+実行結果の例：
+
+```text
+BGR ピクセル: [255, 0, 0]
+RGB ピクセル: [0, 0, 255]
 ```
 
 ---
@@ -134,6 +155,15 @@ print("水平反転後:", flip_horizontal.shape)
 cv2.imwrite("opencv_small.png", small)
 cv2.imwrite("opencv_crop.png", crop)
 cv2.imwrite("opencv_flip.png", flip_horizontal)
+```
+
+実行結果の例：
+
+```text
+元画像: (200, 300, 3)
+縮小後: (100, 150, 3)
+切り抜き後: (100, 140, 3)
+水平反転後: (200, 300, 3)
 ```
 
 ### なぜ切り抜きは `[y1:y2, x1:x2]` と書くのか？
@@ -189,6 +219,12 @@ cv2.imwrite("opencv_draw_demo.png", canvas)
 print("opencv_draw_demo.png を保存しました")
 ```
 
+実行結果の例：
+
+```text
+opencv_draw_demo.png を保存しました
+```
+
 ---
 
 ## 六、グレースケール画像への変換
@@ -216,6 +252,14 @@ print("グレースケール画像の最初の 5 ピクセル:", gray[0, :5].tol
 cv2.imwrite("opencv_gray.png", gray)
 ```
 
+実行結果の例：
+
+```text
+元画像の shape: (100, 100, 3)
+グレースケール画像の shape: (100, 100)
+グレースケール画像の最初の 5 ピクセル: [76, 76, 76, 76, 76]
+```
+
 ---
 
 ## 七、小さなプロジェクト：「情報カード画像」を作る
@@ -237,6 +281,12 @@ cv2.putText(card, "OpenCV starter demo", (40, 170), cv2.FONT_HERSHEY_SIMPLEX, 0.
 
 cv2.imwrite("opencv_info_card.png", card)
 print("opencv_info_card.png を保存しました")
+```
+
+実行結果の例：
+
+```text
+opencv_info_card.png を保存しました
 ```
 
 ---

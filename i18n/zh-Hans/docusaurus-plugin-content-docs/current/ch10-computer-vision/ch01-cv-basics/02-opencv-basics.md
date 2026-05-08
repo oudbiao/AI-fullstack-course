@@ -57,6 +57,14 @@ cv2.imwrite("opencv_blank.png", img)
 print("已保存 opencv_blank.png")
 ```
 
+预期输出：
+
+```text
+shape: (240, 320, 3)
+dtype: uint8
+已保存 opencv_blank.png
+```
+
 这里的 `shape = (240, 320, 3)`，表示：
 
 - 高度 240
@@ -88,6 +96,12 @@ cv2.imwrite("opencv_blue.png", img)
 print("保存了一张蓝色图片 opencv_blue.png")
 ```
 
+预期输出：
+
+```text
+保存了一张蓝色图片 opencv_blue.png
+```
+
 如果你以为 `(255, 0, 0)` 是红色，就会得到“颜色不对”的图。
 
 ### 转成 RGB
@@ -103,6 +117,13 @@ img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
 print("BGR 像素:", img_bgr[0, 0].tolist())
 print("RGB 像素:", img_rgb[0, 0].tolist())
+```
+
+预期输出：
+
+```text
+BGR 像素: [255, 0, 0]
+RGB 像素: [0, 0, 255]
 ```
 
 ---
@@ -133,6 +154,15 @@ print("水平翻转后:", flip_horizontal.shape)
 cv2.imwrite("opencv_small.png", small)
 cv2.imwrite("opencv_crop.png", crop)
 cv2.imwrite("opencv_flip.png", flip_horizontal)
+```
+
+预期输出：
+
+```text
+原图: (200, 300, 3)
+缩放后: (100, 150, 3)
+裁剪后: (100, 140, 3)
+水平翻转后: (200, 300, 3)
 ```
 
 ### 裁剪为什么写成 `[y1:y2, x1:x2]`？
@@ -188,6 +218,12 @@ cv2.imwrite("opencv_draw_demo.png", canvas)
 print("已保存 opencv_draw_demo.png")
 ```
 
+预期输出：
+
+```text
+已保存 opencv_draw_demo.png
+```
+
 ---
 
 ## 六、灰度图转换
@@ -215,6 +251,14 @@ print("灰度图前 5 个像素:", gray[0, :5].tolist())
 cv2.imwrite("opencv_gray.png", gray)
 ```
 
+预期输出：
+
+```text
+原图 shape: (100, 100, 3)
+灰度图 shape: (100, 100)
+灰度图前 5 个像素: [76, 76, 76, 76, 76]
+```
+
 ---
 
 ## 七、一个小项目：做一张“信息卡片图”
@@ -236,6 +280,12 @@ cv2.putText(card, "OpenCV starter demo", (40, 170), cv2.FONT_HERSHEY_SIMPLEX, 0.
 
 cv2.imwrite("opencv_info_card.png", card)
 print("已保存 opencv_info_card.png")
+```
+
+预期输出：
+
+```text
+已保存 opencv_info_card.png
 ```
 
 ---

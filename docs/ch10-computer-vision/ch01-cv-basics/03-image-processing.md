@@ -64,6 +64,12 @@ cv2.imwrite("processing_original.png", img)
 print("Saved processing_original.png")
 ```
 
+Expected output:
+
+```text
+Saved processing_original.png
+```
+
 Here we use a grayscale image directly, which will make edge detection and thresholding more convenient later.
 
 ---
@@ -87,6 +93,12 @@ cv2.imwrite("processing_blur.png", blurred)
 print("Saved processing_blur.png")
 ```
 
+Expected output:
+
+```text
+Saved processing_blur.png
+```
+
 Mean filtering softens edges, but it can also lose details.
 
 ### Gaussian filtering
@@ -99,6 +111,12 @@ gaussian = cv2.GaussianBlur(img, (7, 7), 0)
 
 cv2.imwrite("processing_gaussian.png", gaussian)
 print("Saved processing_gaussian.png")
+```
+
+Expected output:
+
+```text
+Saved processing_gaussian.png
 ```
 
 Gaussian filtering is used more often than simple mean filtering because it feels more natural.
@@ -123,6 +141,12 @@ edges = cv2.Canny(img, threshold1=50, threshold2=150)
 
 cv2.imwrite("processing_edges.png", edges)
 print("Saved processing_edges.png")
+```
+
+Expected output:
+
+```text
+Saved processing_edges.png
 ```
 
 ### How should we understand the two thresholds?
@@ -150,6 +174,12 @@ _, binary = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
 
 cv2.imwrite("processing_binary.png", binary)
 print("Saved processing_binary.png")
+```
+
+Expected output:
+
+```text
+Saved processing_binary.png
 ```
 
 This operation is commonly used for:
@@ -182,6 +212,12 @@ cv2.imwrite("processing_eroded.png", eroded)
 print("Saved processing_eroded.png")
 ```
 
+Expected output:
+
+```text
+Saved processing_eroded.png
+```
+
 ### Dilation
 
 The white areas become larger.
@@ -196,6 +232,12 @@ dilated = cv2.dilate(img, kernel, iterations=1)
 
 cv2.imwrite("processing_dilated.png", dilated)
 print("Saved processing_dilated.png")
+```
+
+Expected output:
+
+```text
+Saved processing_dilated.png
 ```
 
 ### Opening and closing
@@ -216,6 +258,12 @@ closed = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 cv2.imwrite("processing_opened.png", opened)
 cv2.imwrite("processing_closed.png", closed)
 print("Saved processing_opened.png and processing_closed.png")
+```
+
+Expected output:
+
+```text
+Saved processing_opened.png and processing_closed.png
 ```
 
 ![Classic image processing operation decision map](/img/course/ch10-image-processing-operation-decision-map-en.png)
@@ -264,6 +312,12 @@ cv2.imwrite("processing_pipeline_binary.png", binary)
 cv2.imwrite("processing_pipeline_cleaned.png", cleaned)
 cv2.imwrite("processing_pipeline_edges.png", edges)
 print("The full processing pipeline results have been saved")
+```
+
+Expected output:
+
+```text
+The full processing pipeline results have been saved
 ```
 
 ---

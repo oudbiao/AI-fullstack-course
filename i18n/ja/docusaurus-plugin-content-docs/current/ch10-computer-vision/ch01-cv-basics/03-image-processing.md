@@ -64,6 +64,12 @@ cv2.imwrite("processing_original.png", img)
 print("processing_original.png を保存しました")
 ```
 
+実行結果の例：
+
+```text
+processing_original.png を保存しました
+```
+
 ここではグレースケール画像を直接使います。あとでエッジや閾値処理をする際に扱いやすいからです。
 
 ---
@@ -87,6 +93,12 @@ cv2.imwrite("processing_blur.png", blurred)
 print("processing_blur.png を保存しました")
 ```
 
+実行結果の例：
+
+```text
+processing_blur.png を保存しました
+```
+
 平均フィルタはエッジをやわらかくしますが、細部も失いやすくなります。
 
 ### ガウシアンフィルタ
@@ -99,6 +111,12 @@ gaussian = cv2.GaussianBlur(img, (7, 7), 0)
 
 cv2.imwrite("processing_gaussian.png", gaussian)
 print("processing_gaussian.png を保存しました")
+```
+
+実行結果の例：
+
+```text
+processing_gaussian.png を保存しました
 ```
 
 ガウシアンフィルタは、単純な平均フィルタよりもよく使われます。より自然な見た目になりやすいからです。
@@ -123,6 +141,12 @@ edges = cv2.Canny(img, threshold1=50, threshold2=150)
 
 cv2.imwrite("processing_edges.png", edges)
 print("processing_edges.png を保存しました")
+```
+
+実行結果の例：
+
+```text
+processing_edges.png を保存しました
 ```
 
 ### 2つの閾値はどう考える？
@@ -150,6 +174,12 @@ _, binary = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
 
 cv2.imwrite("processing_binary.png", binary)
 print("processing_binary.png を保存しました")
+```
+
+実行結果の例：
+
+```text
+processing_binary.png を保存しました
 ```
 
 この操作は、次のような場面でよく使われます。
@@ -182,6 +212,12 @@ cv2.imwrite("processing_eroded.png", eroded)
 print("processing_eroded.png を保存しました")
 ```
 
+実行結果の例：
+
+```text
+processing_eroded.png を保存しました
+```
+
 ### 膨張（Dilation）
 
 白い領域が大きくなります。
@@ -196,6 +232,12 @@ dilated = cv2.dilate(img, kernel, iterations=1)
 
 cv2.imwrite("processing_dilated.png", dilated)
 print("processing_dilated.png を保存しました")
+```
+
+実行結果の例：
+
+```text
+processing_dilated.png を保存しました
 ```
 
 ### オープニングとクロージング
@@ -216,6 +258,12 @@ closed = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 cv2.imwrite("processing_opened.png", opened)
 cv2.imwrite("processing_closed.png", closed)
 print("processing_opened.png と processing_closed.png を保存しました")
+```
+
+実行結果の例：
+
+```text
+processing_opened.png と processing_closed.png を保存しました
 ```
 
 ![古典的な画像処理操作の選択図](/img/course/ch10-image-processing-operation-decision-map-ja.png)
@@ -264,6 +312,12 @@ cv2.imwrite("processing_pipeline_binary.png", binary)
 cv2.imwrite("processing_pipeline_cleaned.png", cleaned)
 cv2.imwrite("processing_pipeline_edges.png", edges)
 print("処理フロー全体の結果を保存しました")
+```
+
+実行結果の例：
+
+```text
+処理フロー全体の結果を保存しました
 ```
 
 ---
