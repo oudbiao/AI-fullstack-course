@@ -99,6 +99,12 @@ workflow = {
 print(workflow)
 ```
 
+想定出力：
+
+```text
+{'trigger': 'user_message', 'steps': ['classify_intent', 'retrieve_docs', 'generate_answer']}
+```
+
 ### この例は何を本当に表していますか？
 
 これは、ローコード思考の核心を表しています。

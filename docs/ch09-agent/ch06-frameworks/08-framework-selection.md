@@ -128,6 +128,14 @@ for name, info in frameworks.items():
     print(name, "->", round(score(info, weights), 3))
 ```
 
+Expected output:
+
+```text
+langgraph -> 7.05
+llamaindex -> 6.2
+crewai -> 6.4
+```
+
 ### What really matters in this code is not the score
 
 What really matters is that you start asking:

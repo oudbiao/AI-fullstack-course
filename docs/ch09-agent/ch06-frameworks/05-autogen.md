@@ -99,6 +99,14 @@ for msg in messages:
     print(msg)
 ```
 
+Expected output:
+
+```text
+{'from': 'planner', 'to': 'coder', 'content': 'Please implement a function that checks refund eligibility.'}
+{'from': 'coder', 'to': 'reviewer', 'content': 'I’ve written the first version. Please review it.'}
+{'from': 'reviewer', 'to': 'coder', 'content': 'Please add logic for cases where learning progress exceeds 20%.'}
+```
+
 ### Although this code is simple, what is it teaching?
 
 It teaches you that:
@@ -136,6 +144,15 @@ conversation = [
 
 for turn in conversation:
     print(turn)
+```
+
+Expected output:
+
+```text
+{'from': 'planner', 'to': 'coder', 'content': 'Please write a discount calculation function'}
+{'from': 'coder', 'to': 'executor', 'content': 'def discount(price): return price * 0.7'}
+{'from': 'executor', 'to': 'reviewer', 'content': 'Execution result: discount(100)=70'}
+{'from': 'reviewer', 'to': 'coder', 'content': 'Please add invalid input handling'}
 ```
 
 This example already looks very similar to the workflow skeleton in many AutoGen tutorials.

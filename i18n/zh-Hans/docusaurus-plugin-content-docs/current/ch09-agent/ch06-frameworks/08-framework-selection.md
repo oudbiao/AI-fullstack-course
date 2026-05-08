@@ -128,6 +128,14 @@ for name, info in frameworks.items():
     print(name, "->", round(score(info, weights), 3))
 ```
 
+预期输出：
+
+```text
+langgraph -> 7.05
+llamaindex -> 6.2
+crewai -> 6.4
+```
+
 ### 这段代码真正重要的不是分数
 
 真正重要的是你开始会问：

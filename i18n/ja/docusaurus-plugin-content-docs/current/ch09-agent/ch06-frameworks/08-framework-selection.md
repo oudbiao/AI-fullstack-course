@@ -128,6 +128,14 @@ for name, info in frameworks.items():
     print(name, "->", round(score(info, weights), 3))
 ```
 
+想定出力：
+
+```text
+langgraph -> 7.05
+llamaindex -> 6.2
+crewai -> 6.4
+```
+
 ### このコードで本当に大事なのは点数ではない
 
 本当に大事なのは、次のような問いを持てるようになることです。

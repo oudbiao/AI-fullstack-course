@@ -108,6 +108,13 @@ print(crew)
 print(tasks)
 ```
 
+想定出力：
+
+```text
+[{'role': 'researcher', 'goal': '返金ポリシーを調べる'}, {'role': 'writer', 'goal': '要約にまとめる'}, {'role': 'reviewer', 'goal': '条件の抜け漏れがないか確認する'}]
+[{'owner': 'researcher', 'task': '返金ポリシーを探す'}, {'owner': 'writer', 'task': '要約を書く'}, {'owner': 'reviewer', 'task': '要約を確認する'}]
+```
+
 ### この例が本当に表していることは？
 
 この例が表しているのは次のことです。
@@ -161,6 +168,14 @@ review = reviewer_agent(draft)
 print("material:", material)
 print("draft   :", draft)
 print("review  :", review)
+```
+
+想定出力：
+
+```text
+material: 資料：返金ポリシー の重要な条件には、7 日以内と学習進捗の制限が含まれます。
+draft   : 要約案：資料：返金ポリシー の重要な条件には、7 日以内と学習進捗の制限が含まれます。
+review  : {'approved': True, 'comment': '重要情報はかなり揃っています'}
 ```
 
 この例が示しているのは次の点です。

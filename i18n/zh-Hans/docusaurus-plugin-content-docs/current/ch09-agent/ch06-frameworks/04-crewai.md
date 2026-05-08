@@ -108,6 +108,13 @@ print(crew)
 print(tasks)
 ```
 
+预期输出：
+
+```text
+[{'role': 'researcher', 'goal': '检索退款政策'}, {'role': 'writer', 'goal': '整理成总结'}, {'role': 'reviewer', 'goal': '检查是否遗漏条件'}]
+[{'owner': 'researcher', 'task': '查找退款政策'}, {'owner': 'writer', 'task': '撰写总结'}, {'owner': 'reviewer', 'task': '检查总结'}]
+```
+
 ### 这个例子真正表达了什么？
 
 它表达的是：
@@ -161,6 +168,14 @@ review = reviewer_agent(draft)
 print("material:", material)
 print("draft   :", draft)
 print("review  :", review)
+```
+
+预期输出：
+
+```text
+material: 资料：退款政策 的关键条件包括 7 天内和学习进度限制。
+draft   : 总结稿：资料：退款政策 的关键条件包括 7 天内和学习进度限制。
+review  : {'approved': True, 'comment': '关键信息较完整'}
 ```
 
 这个例子说明：

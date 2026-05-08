@@ -99,6 +99,14 @@ for msg in messages:
     print(msg)
 ```
 
+想定出力：
+
+```text
+{'from': 'planner', 'to': 'coder', 'content': '返金対象かどうかを判定する関数を実装してください。'}
+{'from': 'coder', 'to': 'reviewer', 'content': '初版を書きました。確認してください。'}
+{'from': 'reviewer', 'to': 'coder', 'content': '学習進度が 20% を超えた場合の処理を追加してください。'}
+```
+
 ### このコードは単純ですが、何を教えているのでしょうか？
 
 このコードが教えているのは次のことです。
@@ -136,6 +144,15 @@ conversation = [
 
 for turn in conversation:
     print(turn)
+```
+
+想定出力：
+
+```text
+{'from': 'planner', 'to': 'coder', 'content': '割引計算関数を書いてください'}
+{'from': 'coder', 'to': 'executor', 'content': 'def discount(price): return price * 0.7'}
+{'from': 'executor', 'to': 'reviewer', 'content': '実行結果：discount(100)=70'}
+{'from': 'reviewer', 'to': 'coder', 'content': '不正な入力の処理を追加してください'}
 ```
 
 この例は、多くの AutoGen 教材で見かけるワークフローの骨組みにかなり近いです。

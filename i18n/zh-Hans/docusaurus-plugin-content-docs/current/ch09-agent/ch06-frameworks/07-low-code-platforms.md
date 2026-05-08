@@ -100,6 +100,12 @@ workflow = {
 print(workflow)
 ```
 
+预期输出：
+
+```text
+{'trigger': 'user_message', 'steps': ['classify_intent', 'retrieve_docs', 'generate_answer']}
+```
+
 ### 这个例子真正体现了什么？
 
 它体现的是低代码思维的核心：

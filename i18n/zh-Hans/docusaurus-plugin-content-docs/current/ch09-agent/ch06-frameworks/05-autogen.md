@@ -99,6 +99,14 @@ for msg in messages:
     print(msg)
 ```
 
+预期输出：
+
+```text
+{'from': 'planner', 'to': 'coder', 'content': '请实现一个判断退款资格的函数。'}
+{'from': 'coder', 'to': 'reviewer', 'content': '我写好了第一版，请帮我检查。'}
+{'from': 'reviewer', 'to': 'coder', 'content': '请补上学习进度超过 20% 的处理逻辑。'}
+```
+
 ### 这段代码虽然简单，但它在教什么？
 
 它在教你：
@@ -136,6 +144,15 @@ conversation = [
 
 for turn in conversation:
     print(turn)
+```
+
+预期输出：
+
+```text
+{'from': 'planner', 'to': 'coder', 'content': '请写一个折扣计算函数'}
+{'from': 'coder', 'to': 'executor', 'content': 'def discount(price): return price * 0.7'}
+{'from': 'executor', 'to': 'reviewer', 'content': '运行结果：discount(100)=70'}
+{'from': 'reviewer', 'to': 'coder', 'content': '请补充非法输入处理'}
 ```
 
 这个例子已经很像很多 AutoGen 教学场景里的工作流骨架了。

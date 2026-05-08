@@ -124,6 +124,12 @@ runner = Runner()
 print(runner.run(assistant, "get_weather", city="北京"))
 ```
 
+想定出力：
+
+```text
+{'agent': 'weather_assistant', 'tool': 'get_weather', 'result': '北京 は現在、晴れで 22 度です'}
+```
+
 ### このコードがなぜ「SDK っぽい」のか？
 
 それは、次の 3 つを明確に分けているからです。

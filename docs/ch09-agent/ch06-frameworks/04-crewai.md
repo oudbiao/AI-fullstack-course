@@ -108,6 +108,13 @@ print(crew)
 print(tasks)
 ```
 
+Expected output:
+
+```text
+[{'role': 'researcher', 'goal': 'retrieve refund policy'}, {'role': 'writer', 'goal': 'organize it into a summary'}, {'role': 'reviewer', 'goal': 'check whether any conditions are missing'}]
+[{'owner': 'researcher', 'task': 'find the refund policy'}, {'owner': 'writer', 'task': 'write the summary'}, {'owner': 'reviewer', 'task': 'check the summary'}]
+```
+
 ### What Does This Example Really Express?
 
 It expresses this:
@@ -161,6 +168,14 @@ review = reviewer_agent(draft)
 print("material:", material)
 print("draft   :", draft)
 print("review  :", review)
+```
+
+Expected output:
+
+```text
+material: Material: The key conditions for refund policy include a 7-day limit and learning progress restrictions.
+draft   : Draft: Material: The key conditions for refund policy include a 7-day limit and learning progress restrictions.
+review  : {'approved': True, 'comment': 'The key information is fairly complete'}
 ```
 
 This example shows:

@@ -124,6 +124,12 @@ runner = Runner()
 print(runner.run(assistant, "get_weather", city="Beijing"))
 ```
 
+Expected output:
+
+```text
+{'agent': 'weather_assistant', 'tool': 'get_weather', 'result': 'Beijing is sunny and 22 degrees right now'}
+```
+
 ### Why does this code feel very “SDK-like”?
 
 Because it clearly separates three things:

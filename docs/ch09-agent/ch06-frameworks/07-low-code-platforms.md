@@ -100,6 +100,12 @@ workflow = {
 print(workflow)
 ```
 
+Expected output:
+
+```text
+{'trigger': 'user_message', 'steps': ['classify_intent', 'retrieve_docs', 'generate_answer']}
+```
+
 ### What Does This Example Really Show?
 
 It shows the core of low-code thinking:
