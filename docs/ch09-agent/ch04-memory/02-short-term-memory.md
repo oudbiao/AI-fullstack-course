@@ -148,6 +148,14 @@ for msg in short_term_memory:
     print(msg)
 ```
 
+Expected output:
+
+```text
+{'role': 'user', 'content': 'I want to understand the refund policy'}
+{'role': 'assistant', 'content': 'Are you asking about the time limit or the specific conditions?'}
+{'role': 'user', 'content': 'Mainly the time limit'}
+```
+
 ### This Code Is Simple, but Still Very Important
 
 It teaches you something essential:
@@ -184,6 +192,12 @@ task_state = {
 }
 
 print(task_state)
+```
+
+Expected output:
+
+```text
+{'goal': 'Help the user determine refund eligibility', 'last_tool': 'search_policy', 'latest_policy_result': 'Refunds are available within 7 days of purchase and if learning progress is below 20%'}
 ```
 
 This kind of state is different from raw chat logs. It is more like:
@@ -228,6 +242,12 @@ memory.update_state(goal="Determine refund eligibility", topic="refund policy")
 print(memory.snapshot())
 ```
 
+Expected output:
+
+```text
+{'messages': [{'role': 'user', 'content': 'I want to check the refund policy'}, {'role': 'assistant', 'content': 'Are you more concerned about the time limit or the conditions?'}, {'role': 'user', 'content': 'First, let’s look at the time limit'}], 'state': {'goal': 'Determine refund eligibility', 'topic': 'refund policy'}}
+```
+
 ### What Makes This Example Better Than “Just Storing Message History”?
 
 Because it splits short-term memory into two layers:
@@ -269,6 +289,12 @@ memory_package = {
 }
 
 print(memory_package)
+```
+
+Expected output:
+
+```text
+{'summary': 'The user’s main goal in this session is to determine whether they meet the refund conditions, and they also asked about certificates along the way.', 'recent_messages': [{'role': 'user', 'content': 'Can I still get a refund if my learning progress is 30%?'}]}
 ```
 
 This is the most basic “summary + recent window” idea.

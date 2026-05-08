@@ -224,6 +224,12 @@ memory = {
 print(memory)
 ```
 
+Expected output:
+
+```text
+{'short_term': {'messages': ['I want to check the refund policy', 'Focus mainly on the time range'], 'current_goal': 'Determine refund eligibility'}, 'long_term': {'user_preference': 'Responses should be concise', 'skill_level': 'Python beginner'}, 'episodic': ['Last time handling a refund issue, the user could not get a refund because their learning progress was too high'], 'procedural': {'refund_workflow': ['Check order', 'Check policy', 'Judge eligibility', 'Return conclusion']}}
+```
+
 ### What does this code really teach?
 
 It teaches you this:

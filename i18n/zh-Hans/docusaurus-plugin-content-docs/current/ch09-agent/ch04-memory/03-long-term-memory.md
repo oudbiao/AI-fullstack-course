@@ -276,6 +276,13 @@ print("u_001 profile:", store.get_profile("u_001"))
 print("u_002 profile:", store.get_profile("u_002"))
 ```
 
+预期输出：
+
+```text
+u_001 profile: {'response_style': 'concise', 'language': 'zh'}
+u_002 profile: {'response_style': 'table'}
+```
+
 ### 这个例子最值得注意什么？
 
 不是“能不能存进去”，
@@ -318,6 +325,13 @@ for fact in facts:
     print(fact)
 ```
 
+预期输出：
+
+```text
+{'text': '以后尽量用中文', 'stability': 'high', 'target': 'long_term'}
+{'text': '这次回答先短一点', 'stability': 'low', 'target': 'short_term'}
+```
+
 这个示例虽然很小，但它很适合帮助初学者先建立一个关键习惯：
 
 - 写入记忆前，先问这条信息到底是长期还是短期
@@ -353,6 +367,12 @@ def select_relevant_profile(profile, query):
 
 profile = store.get_profile("u_001")
 print(select_relevant_profile(profile, "之后回答风格保持一致"))
+```
+
+预期输出：
+
+```text
+{'response_style': 'concise'}
 ```
 
 这说明长期记忆真正有效，
@@ -406,6 +426,12 @@ profile = {
 }
 
 print(profile)
+```
+
+预期输出：
+
+```text
+{'preferred_doc_format': 'word', 'preferred_style': '课堂讲解', 'preferred_language': 'zh', 'default_audience': '小学高年级', 'prefer_source_refs': True}
 ```
 
 这个例子最值得新人注意的是：

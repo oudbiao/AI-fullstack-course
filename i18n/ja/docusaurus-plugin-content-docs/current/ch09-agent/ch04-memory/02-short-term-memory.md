@@ -148,6 +148,14 @@ for msg in short_term_memory:
     print(msg)
 ```
 
+期待される出力：
+
+```text
+{'role': 'user', 'content': '返金ポリシーを知りたいです'}
+{'role': 'assistant', 'content': '期間の条件と具体的な条件、どちらが気になりますか？'}
+{'role': 'user', 'content': 'まず期間の条件です'}
+```
+
 ### このコードはシンプルですが、すでにとても重要です
 
 ここで学べる本質は次のことです。
@@ -184,6 +192,12 @@ task_state = {
 }
 
 print(task_state)
+```
+
+期待される出力：
+
+```text
+{'goal': 'ユーザーの返金条件を判断する', 'last_tool': 'search_policy', 'latest_policy_result': '購入後 7 日以内かつ学習進捗が 20% 未満なら返金可'}
 ```
 
 このような状態は、元の会話ログとは違って、もっとこういうものに近いです。
@@ -228,6 +242,12 @@ memory.update_state(goal="返金資格の判断", topic="返金ポリシー")
 print(memory.snapshot())
 ```
 
+期待される出力：
+
+```text
+{'messages': [{'role': 'user', 'content': '返金ポリシーを調べたいです'}, {'role': 'assistant', 'content': '期間の条件と条件のどちらが気になりますか？'}, {'role': 'user', 'content': 'まず期間の条件です'}], 'state': {'goal': '返金資格の判断', 'topic': '返金ポリシー'}}
+```
+
 ### この例が「履歴を保存するだけ」より強いのはなぜ？
 
 短期記憶を2層に分けているからです。
@@ -269,6 +289,12 @@ memory_package = {
 }
 
 print(memory_package)
+```
+
+期待される出力：
+
+```text
+{'summary': 'ユーザーの今回の主目的は、自分が返金条件を満たすかどうかを確認すること。途中で証明書についても少し質問した。', 'recent_messages': [{'role': 'user', 'content': 'では、学習進捗が 30% なら返金できますか？'}]}
 ```
 
 これが、もっとも基本的な「要約 + 直近ウィンドウ」の考え方です。

@@ -276,6 +276,13 @@ print("u_001 profile:", store.get_profile("u_001"))
 print("u_002 profile:", store.get_profile("u_002"))
 ```
 
+Expected output:
+
+```text
+u_001 profile: {'response_style': 'concise', 'language': 'zh'}
+u_002 profile: {'response_style': 'table'}
+```
+
 ### What Is the Most Important Thing to Notice Here?
 
 Not “can it be stored,”
@@ -318,6 +325,13 @@ for fact in facts:
     print(fact)
 ```
 
+Expected output:
+
+```text
+{'text': 'Please use Chinese from now on', 'stability': 'high', 'target': 'long_term'}
+{'text': 'Keep this answer short for this time', 'stability': 'low', 'target': 'short_term'}
+```
+
 Although this example is very small, it is great for helping beginners build one key habit first:
 
 - Before writing memory, ask whether this information is really long-term or short-term
@@ -353,6 +367,12 @@ def select_relevant_profile(profile, query):
 
 profile = store.get_profile("u_001")
 print(select_relevant_profile(profile, "keep the response style consistent later"))
+```
+
+Expected output:
+
+```text
+{'response_style': 'concise'}
 ```
 
 This shows that long-term memory only becomes truly effective
@@ -406,6 +426,12 @@ profile = {
 }
 
 print(profile)
+```
+
+Expected output:
+
+```text
+{'preferred_doc_format': 'word', 'preferred_style': 'lecture-style explanation', 'preferred_language': 'zh', 'default_audience': 'upper elementary school', 'prefer_source_refs': True}
 ```
 
 What beginners should notice most here is:

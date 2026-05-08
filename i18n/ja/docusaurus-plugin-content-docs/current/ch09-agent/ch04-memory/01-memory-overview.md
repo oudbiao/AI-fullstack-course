@@ -232,6 +232,12 @@ memory = {
 print(memory)
 ```
 
+期待される出力：
+
+```text
+{'short_term': {'messages': ['返金ポリシーを確認したいです', '主に期間を見たいです'], 'current_goal': '返金資格を判断する'}, 'long_term': {'user_preference': '回答は簡潔にする', 'skill_level': 'Python 初学者'}, 'episodic': ['前回返金問題を処理したとき、ユーザーは学習進捗が高すぎて返金できなかった'], 'procedural': {'refund_workflow': ['注文を確認', 'ポリシーを確認', '資格を判断', '結論を返す']}}
+```
+
 ### このコードが本当に教えていること
 
 このコードが教えているのは、

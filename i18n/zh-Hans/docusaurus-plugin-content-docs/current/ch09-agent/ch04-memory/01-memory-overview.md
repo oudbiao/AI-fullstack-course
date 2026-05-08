@@ -224,6 +224,12 @@ memory = {
 print(memory)
 ```
 
+预期输出：
+
+```text
+{'short_term': {'messages': ['我想查退款政策', '主要看时间范围'], 'current_goal': '判断退款资格'}, 'long_term': {'user_preference': '回答要简洁', 'skill_level': 'Python 初学者'}, 'episodic': ['上次处理退款问题时，用户因为学习进度过高而不能退款'], 'procedural': {'refund_workflow': ['查订单', '查政策', '判断资格', '返回结论']}}
+```
+
 ### 这段代码真正教了什么？
 
 它在教你：

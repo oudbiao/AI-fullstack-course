@@ -148,6 +148,14 @@ for msg in short_term_memory:
     print(msg)
 ```
 
+预期输出：
+
+```text
+{'role': 'user', 'content': '我想了解退款政策'}
+{'role': 'assistant', 'content': '你是想了解时间范围，还是具体条件？'}
+{'role': 'user', 'content': '主要看时间范围'}
+```
+
 ### 这段代码虽然简单，但已经很重要
 
 它教你一件最本质的事：
@@ -184,6 +192,12 @@ task_state = {
 }
 
 print(task_state)
+```
+
+预期输出：
+
+```text
+{'goal': '帮助用户判断退款条件', 'last_tool': 'search_policy', 'latest_policy_result': '购买后 7 天内且学习进度低于 20% 可退款'}
 ```
 
 这类状态和原始聊天记录不同，它更像：
@@ -228,6 +242,12 @@ memory.update_state(goal="判断退款资格", topic="退款政策")
 print(memory.snapshot())
 ```
 
+预期输出：
+
+```text
+{'messages': [{'role': 'user', 'content': '我想查退款政策'}, {'role': 'assistant', 'content': '你更关心时间范围还是条件？'}, {'role': 'user', 'content': '先看时间范围'}], 'state': {'goal': '判断退款资格', 'topic': '退款政策'}}
+```
+
 ### 这个例子真正比“只存历史消息”强在哪里？
 
 因为它把短期记忆拆成了两层：
@@ -269,6 +289,12 @@ memory_package = {
 }
 
 print(memory_package)
+```
+
+预期输出：
+
+```text
+{'summary': '用户本轮主要目标是判断自己是否满足退款条件，中间顺带问过证书。', 'recent_messages': [{'role': 'user', 'content': '那我学习进度 30% 还能退吗？'}]}
 ```
 
 这就是最基本的“摘要 + 最近窗口”的思路。

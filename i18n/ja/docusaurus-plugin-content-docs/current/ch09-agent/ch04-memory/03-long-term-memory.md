@@ -270,11 +270,18 @@ class LongTermMemoryStore:
 store = LongTermMemoryStore()
 store.upsert("u_001", "response_style", "detailed", confidence=0.4)
 store.upsert("u_001", "response_style", "concise", confidence=0.9)
-store.upsert("u_001", "language", "zh", confidence=0.8)
+store.upsert("u_001", "language", "ja", confidence=0.8)
 store.upsert("u_002", "response_style", "table", confidence=0.7)
 
 print("u_001 profile:", store.get_profile("u_001"))
 print("u_002 profile:", store.get_profile("u_002"))
+```
+
+期待される出力：
+
+```text
+u_001 profile: {'response_style': 'concise', 'language': 'ja'}
+u_002 profile: {'response_style': 'table'}
 ```
 
 ### この例で一番注目すべき点は？
@@ -318,6 +325,13 @@ for fact in facts:
     print(fact)
 ```
 
+期待される出力：
+
+```text
+{'text': '以後はできるだけ中国語で', 'stability': 'high', 'target': 'long_term'}
+{'text': '今回は少し短めに', 'stability': 'low', 'target': 'short_term'}
+```
+
 この例はとても小さいですが、初学者がまず次の習慣を身につけるのに役立ちます：
 
 - 記憶に書き込む前に、この情報は長期か短期かを先に考える
@@ -342,7 +356,7 @@ for fact in facts:
 ```python
 def select_relevant_profile(profile, query):
     selected = {}
-    if "回答" in query or "風格" in query:
+    if "回答" in query or "スタイル" in query:
         if "response_style" in profile:
             selected["response_style"] = profile["response_style"]
     if "中国語" in query or "言語" in query:
@@ -353,6 +367,12 @@ def select_relevant_profile(profile, query):
 
 profile = store.get_profile("u_001")
 print(select_relevant_profile(profile, "これからは回答スタイルを統一して"))
+```
+
+期待される出力：
+
+```text
+{'response_style': 'concise'}
 ```
 
 これは、長期記憶の有効性が  
@@ -406,6 +426,12 @@ profile = {
 }
 
 print(profile)
+```
+
+期待される出力：
+
+```text
+{'preferred_doc_format': 'word', 'preferred_style': '授業向けの解説', 'preferred_language': 'ja', 'default_audience': '小学校高学年', 'prefer_source_refs': True}
 ```
 
 この例で初学者が特に注目すべきなのは、次の点です：
