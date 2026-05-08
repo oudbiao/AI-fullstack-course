@@ -190,6 +190,14 @@ tts_pipeline = {
 print(tts_pipeline)
 ```
 
+Expected output:
+
+```text
+{'input': 'Hello, welcome to the AI full-stack course.', 'intermediate': 'mel_spectrogram', 'output': 'waveform'}
+```
+
+The important part is the intermediate layer. In many TTS systems, text first becomes an acoustic representation, and only then becomes actual audio.
+
 Although this example is only a structural illustration, it already shows:
 
 - Text does not become sound directly
@@ -235,19 +243,19 @@ tts_config = {
 print(tts_config)
 ```
 
+Expected output:
+
+```text
+{'text': 'Welcome to the course.', 'speaker': 'female_voice_01', 'speed': 1.0, 'emotion': 'neutral'}
+```
+
+This is the practical input shape you should remember: a TTS request usually contains the sentence and the speaking controls together.
+
 ### What is this example showing?
 
 It is showing a very important beginner idea:
 
 > TTS input is often not just text, but also control conditions for “how to speak.”
-
-This is one of the reasons modern speech synthesis is much more powerful than early systems.
-
-### What is this example teaching?
-
-It is teaching you:
-
-> The input to TTS is often not just text, but also control conditions for “how to speak.”
 
 This is one of the reasons modern speech synthesis is much more powerful than early systems.
 

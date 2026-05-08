@@ -106,6 +106,17 @@ for i, frame in enumerate(frames, start=1):
     print(f"t={i}: {frame}")
 ```
 
+Expected output:
+
+```text
+t=1: frame_1
+t=2: frame_2
+t=3: frame_3
+t=4: frame_4
+```
+
+Read `t` as the time order. A video model must keep both the content of each frame and the order between frames under control.
+
 Of course, that is not the whole story, but it is the starting point that every video generation model must deal with:
 
 - You need to understand spatial structure
@@ -147,6 +158,15 @@ clips = [(frames[i], frames[i + 1]) for i in range(len(frames) - 1)]
 print("frames:", frames)
 print("clips :", clips)
 ```
+
+Expected output:
+
+```text
+frames: ['f1', 'f2', 'f3', 'f4']
+clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
+```
+
+The `clips` list makes the hidden requirement visible: the model must make each adjacent pair feel connected, not only make each frame look good alone.
 
 ### What is this example teaching?
 

@@ -113,6 +113,14 @@ pipeline = ["text", "tts", "lip_sync", "avatar_render"]
 print(pipeline)
 ```
 
+预期输出：
+
+```text
+['text', 'tts', 'lip_sync', 'avatar_render']
+```
+
+可以把它当作检查清单。任何一环太弱，最终数字人都会显得不可信，即使其他环节都能跑通。
+
 这个简单列表最重要的作用是让你看到：
 
 > 数字人不是一个单一黑盒，而是一个链路系统。
@@ -185,6 +193,14 @@ digital_human_request = {
 print(digital_human_request)
 ```
 
+预期输出：
+
+```text
+{'text': '欢迎来到 AI 全栈课程。', 'speaker': 'female_01', 'avatar': 'teacher_avatar_v1', 'style': 'formal'}
+```
+
+这个请求已经不只是文本：它同时固定了声音、头像和呈现风格，才能把同一段内容稳定演成同一个角色。
+
 这个例子在教你：
 
 - 输入不只是文本
@@ -212,6 +228,14 @@ workflow = {
 
 print(workflow)
 ```
+
+预期输出：
+
+```text
+{'input_text': '欢迎来到 AI 全栈课程。', 'audio': 'generated_speech.wav', 'face_motion': 'lip_sync_features', 'output_video': 'teacher_avatar_video.mp4'}
+```
+
+视频只是最后产物，不是整个系统。在视频出现之前，流程已经生成了语音和动作特征，而且这些特征必须保持同步。
 
 这段代码不是在实现数字人，而是在帮你抓住一个重要事实：
 

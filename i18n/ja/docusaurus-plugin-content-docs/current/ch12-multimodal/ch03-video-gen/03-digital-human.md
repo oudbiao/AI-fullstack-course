@@ -113,6 +113,14 @@ pipeline = ["text", "tts", "lip_sync", "avatar_render"]
 print(pipeline)
 ```
 
+期待される出力：
+
+```text
+['text', 'tts', 'lip_sync', 'avatar_render']
+```
+
+これはチェックリストとして読めます。どれか1つの段階が弱いと、他が動いていても最終的なデジタルヒューマンは不自然に見えます。
+
 このシンプルなリストの一番大事な役割は、次の点を見せることです。
 
 > デジタルヒューマンは単一のブラックボックスではなく、つながった処理の連鎖である。 
@@ -185,6 +193,14 @@ digital_human_request = {
 print(digital_human_request)
 ```
 
+期待される出力：
+
+```text
+{'text': 'AI フルスタックコースへようこそ。', 'speaker': 'female_01', 'avatar': 'teacher_avatar_v1', 'style': 'formal'}
+```
+
+このリクエストはすでにテキストだけではありません。声、アバター、表現スタイルを固定することで、同じ内容を一貫したキャラクターの演技にできます。
+
 この例が教えてくれるのは、次のことです。
 
 - 入力はテキストだけではない
@@ -212,6 +228,14 @@ workflow = {
 
 print(workflow)
 ```
+
+期待される出力：
+
+```text
+{'input_text': 'AI フルスタックコースへようこそ。', 'audio': 'generated_speech.wav', 'face_motion': 'lip_sync_features', 'output_video': 'teacher_avatar_video.mp4'}
+```
+
+出力動画は最後の成果物であり、システム全体ではありません。その前に音声と動きの特徴が作られ、それらが同期している必要があります。
 
 このコードはデジタルヒューマンを実装しているわけではありません。  
 でも、次の大事な事実をつかむ助けになります。

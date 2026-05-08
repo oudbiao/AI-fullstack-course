@@ -113,6 +113,14 @@ pipeline = ["text", "tts", "lip_sync", "avatar_render"]
 print(pipeline)
 ```
 
+Expected output:
+
+```text
+['text', 'tts', 'lip_sync', 'avatar_render']
+```
+
+Treat this as a checklist. If any stage is weak, the final digital human will feel less believable even if the other stages work.
+
 The most important thing about this simple list is that it lets you see:
 
 > A digital human is not a single black box, but a chain system.
@@ -183,6 +191,14 @@ digital_human_request = {
 print(digital_human_request)
 ```
 
+Expected output:
+
+```text
+{'text': 'Welcome to the AI full-stack course.', 'speaker': 'female_01', 'avatar': 'teacher_avatar_v1', 'style': 'formal'}
+```
+
+The request already contains more than text: it fixes the voice, avatar, and presentation style so the same content can become a consistent character performance.
+
 This example is teaching you that:
 
 - The input is not just text
@@ -210,6 +226,14 @@ workflow = {
 
 print(workflow)
 ```
+
+Expected output:
+
+```text
+{'input_text': 'Welcome to the AI full-stack course.', 'audio': 'generated_speech.wav', 'face_motion': 'lip_sync_features', 'output_video': 'teacher_avatar_video.mp4'}
+```
+
+The output video is the last artifact, not the whole system. Before it appears, the pipeline has already created speech and motion features that must stay synchronized.
 
 This code is not implementing a digital human. It is helping you grasp an important fact:
 

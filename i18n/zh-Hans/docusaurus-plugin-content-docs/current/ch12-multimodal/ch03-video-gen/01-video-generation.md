@@ -106,6 +106,17 @@ for i, frame in enumerate(frames, start=1):
     print(f"t={i}: {frame}")
 ```
 
+预期输出：
+
+```text
+t=1: frame_1
+t=2: frame_2
+t=3: frame_3
+t=4: frame_4
+```
+
+把 `t` 看成时间顺序。视频模型既要控制每一帧的内容，也要控制帧和帧之间的顺序关系。
+
 这当然不是全部，但这是所有视频生成模型都绕不开的起点：
 
 - 你不仅要理解空间结构
@@ -147,6 +158,15 @@ clips = [(frames[i], frames[i + 1]) for i in range(len(frames) - 1)]
 print("frames:", frames)
 print("clips :", clips)
 ```
+
+预期输出：
+
+```text
+frames: ['f1', 'f2', 'f3', 'f4']
+clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
+```
+
+`clips` 把隐藏要求显出来了：模型不能只让单帧看起来不错，还要让每一对相邻帧连得自然。
 
 ### 这个例子在教什么？
 
