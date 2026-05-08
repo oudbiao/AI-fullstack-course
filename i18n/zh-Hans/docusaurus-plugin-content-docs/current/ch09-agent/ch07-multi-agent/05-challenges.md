@@ -76,6 +76,12 @@ run_task("retriever_b", "检索退款政策")
 print(tasks_done)
 ```
 
+预期输出：
+
+```text
+[('retriever_a', '检索退款政策'), ('retriever_b', '检索退款政策')]
+```
+
 这个例子很简单，但已经说明：
 
 > 如果没有去重机制，多 Agent 很容易“表面很忙，实际在浪费”。
@@ -96,6 +102,14 @@ def run_task_once(agent, task):
 print(run_task_once("retriever_a", "检索退款政策"))
 print(run_task_once("retriever_b", "检索退款政策"))
 print(tasks_done)
+```
+
+预期输出：
+
+```text
+retriever_a: 执行 检索退款政策
+retriever_b: 跳过，任务已有人处理
+[('retriever_a', '检索退款政策')]
 ```
 
 ---
@@ -123,6 +137,13 @@ message_b = {"task": "查退款", "detail": "包括内部客服规范"}
 
 print(message_a)
 print(message_b)
+```
+
+预期输出：
+
+```text
+{'task': '查退款', 'detail': '只看对外政策'}
+{'task': '查退款', 'detail': '包括内部客服规范'}
 ```
 
 这两个消息只差一点，但对结果影响很大。
@@ -163,6 +184,12 @@ results = {
 print(results)
 ```
 
+预期输出：
+
+```text
+{'policy_agent': {'decision': 'allow', 'confidence': 0.72}, 'risk_agent': {'decision': 'deny', 'confidence': 0.88}}
+```
+
 ### 冲突解决至少要明确一个规则
 
 最简单也最常见的规则有：
@@ -174,6 +201,8 @@ print(results)
 
 例如一个保守优先版本：
 
+继续在同一个文件或解释器会话中运行，确保上一段里的 `results` 已经定义。
+
 ```python
 def resolve_with_safe_bias(results):
     decisions = [r["decision"] for r in results.values()]
@@ -182,6 +211,12 @@ def resolve_with_safe_bias(results):
     return "allow"
 
 print(resolve_with_safe_bias(results))
+```
+
+预期输出：
+
+```text
+deny
 ```
 
 如果你不设计收敛规则，系统就会变成：
@@ -216,6 +251,13 @@ total_latency = sum(a["latency_ms"] for a in agents)
 
 print("total_cost =", total_cost)
 print("total_latency_ms =", total_latency)
+```
+
+预期输出：
+
+```text
+total_cost = 0.011
+total_latency_ms = 2500
 ```
 
 如果这些步骤还是串行执行，整体时延会更明显。
@@ -264,6 +306,14 @@ trace = [
 
 for item in trace:
     print(item)
+```
+
+预期输出：
+
+```text
+{'task_id': 't1', 'agent': 'planner', 'action': 'decompose', 'latency_ms': 120}
+{'task_id': 't1', 'agent': 'retriever', 'action': 'search_docs', 'latency_ms': 350}
+{'task_id': 't1', 'agent': 'writer', 'action': 'draft', 'latency_ms': 480}
 ```
 
 没有这类 trace，多 Agent 系统的调试难度会非常高。

@@ -76,6 +76,12 @@ run_task("retriever_b", "retrieve refund policy")
 print(tasks_done)
 ```
 
+Expected output:
+
+```text
+[('retriever_a', 'retrieve refund policy'), ('retriever_b', 'retrieve refund policy')]
+```
+
 This example is very simple, but it already shows:
 
 > Without deduplication, multi-Agent systems can easily “look busy” while actually wasting effort.
@@ -96,6 +102,14 @@ def run_task_once(agent, task):
 print(run_task_once("retriever_a", "retrieve refund policy"))
 print(run_task_once("retriever_b", "retrieve refund policy"))
 print(tasks_done)
+```
+
+Expected output:
+
+```text
+retriever_a: executing retrieve refund policy
+retriever_b: skipped, task has already been handled
+[('retriever_a', 'retrieve refund policy')]
 ```
 
 ---
@@ -123,6 +137,13 @@ message_b = {"task": "check refund", "detail": "including internal customer serv
 
 print(message_a)
 print(message_b)
+```
+
+Expected output:
+
+```text
+{'task': 'check refund', 'detail': 'only review public policy'}
+{'task': 'check refund', 'detail': 'including internal customer service rules'}
 ```
 
 These two messages differ by only a little, but the impact on the result can be huge.
@@ -163,6 +184,12 @@ results = {
 print(results)
 ```
 
+Expected output:
+
+```text
+{'policy_agent': {'decision': 'allow', 'confidence': 0.72}, 'risk_agent': {'decision': 'deny', 'confidence': 0.88}}
+```
+
 ### Conflict Resolution Must Define at Least One Rule
 
 The simplest and most common rules are:
@@ -174,6 +201,8 @@ The simplest and most common rules are:
 
 For example, a conservative-bias version:
 
+Continue in the same file or interpreter session after the conflict example so `results` is already defined.
+
 ```python
 def resolve_with_safe_bias(results):
     decisions = [r["decision"] for r in results.values()]
@@ -182,6 +211,12 @@ def resolve_with_safe_bias(results):
     return "allow"
 
 print(resolve_with_safe_bias(results))
+```
+
+Expected output:
+
+```text
+deny
 ```
 
 If you do not design a convergence rule, the system becomes:
@@ -216,6 +251,13 @@ total_latency = sum(a["latency_ms"] for a in agents)
 
 print("total_cost =", total_cost)
 print("total_latency_ms =", total_latency)
+```
+
+Expected output:
+
+```text
+total_cost = 0.011
+total_latency_ms = 2500
 ```
 
 If these steps are still executed serially, the overall latency becomes even more noticeable.
@@ -264,6 +306,14 @@ trace = [
 
 for item in trace:
     print(item)
+```
+
+Expected output:
+
+```text
+{'task_id': 't1', 'agent': 'planner', 'action': 'decompose', 'latency_ms': 120}
+{'task_id': 't1', 'agent': 'retriever', 'action': 'search_docs', 'latency_ms': 350}
+{'task_id': 't1', 'agent': 'writer', 'action': 'draft', 'latency_ms': 480}
 ```
 
 Without this kind of trace, debugging a multi-Agent system becomes extremely difficult.
