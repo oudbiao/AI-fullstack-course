@@ -160,13 +160,21 @@ def run_tool(name, arguments, user_role):
 
 
 calls = [
-    ("search_docs", {"keyword": "refund"}, "guest"),
-    ("update_profile", {"user_id": 7, "city": "Taipei"}, "operator"),
+    ("search_docs", {"keyword": "返金"}, "guest"),
+    ("update_profile", {"user_id": 7, "city": "台北"}, "operator"),
     ("delete_file", {"path": "/tmp/a.txt"}, "operator"),
 ]
 
 for call in calls:
     print(call, "->", run_tool(*call))
+```
+
+期待される出力：
+
+```text
+('search_docs', {'keyword': '返金'}, 'guest') -> {'ok': True, 'data': {'result': '返金 に関連するドキュメントが見つかりました'}}
+('update_profile', {'user_id': 7, 'city': '台北'}, 'operator') -> {'ok': True, 'data': {'message': 'ユーザー 7 の都市を 台北 に更新しました'}}
+('delete_file', {'path': '/tmp/a.txt'}, 'operator') -> {'ok': False, 'error': 'permission_denied'}
 ```
 
 ### このコードが「ホワイトリストにあるかどうかだけ」を見るよりずっと強いのはなぜ？
@@ -244,6 +252,13 @@ def normalize_error(code, detail):
 
 print(normalize_error("missing_arg", "keyword が不足しています"))
 print(normalize_error("timeout", "上流 API が 3 秒以内に返答しませんでした"))
+```
+
+期待される出力：
+
+```text
+{'ok': False, 'error': {'code': 'missing_arg', 'detail': 'keyword が不足しています', 'retryable': False}}
+{'ok': False, 'error': {'code': 'timeout', 'detail': '上流 API が 3 秒以内に返答しませんでした', 'retryable': True}}
 ```
 
 構造化エラーの利点は次のとおりです。
@@ -328,8 +343,14 @@ def audit_log(user_id, tool_name, arguments, result):
     }
 
 
-result = run_tool("search_docs", {"keyword": "refund"}, "guest")
-print(audit_log("u_001", "search_docs", {"keyword": "refund"}, result))
+result = run_tool("search_docs", {"keyword": "返金"}, "guest")
+print(audit_log("u_001", "search_docs", {"keyword": "返金"}, result))
+```
+
+期待される出力：
+
+```text
+{'user_id': 'u_001', 'tool_name': 'search_docs', 'arguments': {'keyword': '返金'}, 'ok': True, 'error': None}
 ```
 
 これはシンプルですが、監査の核心はすでに入っています。

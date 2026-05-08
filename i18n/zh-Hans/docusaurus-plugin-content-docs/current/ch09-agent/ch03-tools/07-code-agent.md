@@ -169,6 +169,14 @@ if failures:
         print("patch accepted")
 ```
 
+预期输出：
+
+```text
+before patch failures: [{'args': (100, 0.8), 'expected': 80.0, 'actual': 99.2}, {'args': (50, 0.5), 'expected': 25.0, 'actual': 49.5}]
+after patch failures: []
+patch accepted
+```
+
 ### 这段代码在真实世界里对应什么？
 
 它对应的是代码 Agent 最核心的一条闭环：

@@ -169,6 +169,14 @@ for call in calls:
     print(call, "->", run_tool(*call))
 ```
 
+Expected output:
+
+```text
+('search_docs', {'keyword': 'refund'}, 'guest') -> {'ok': True, 'data': {'result': 'Found documents related to refund'}}
+('update_profile', {'user_id': 7, 'city': 'Taipei'}, 'operator') -> {'ok': True, 'data': {'message': "Updated user 7's city to Taipei"}}
+('delete_file', {'path': '/tmp/a.txt'}, 'operator') -> {'ok': False, 'error': 'permission_denied'}
+```
+
 ### Why is this better than just checking whether the tool is in a whitelist?
 
 Because it is not just a simple on/off check,
@@ -244,6 +252,13 @@ def normalize_error(code, detail):
 
 print(normalize_error("missing_arg", "keyword is missing"))
 print(normalize_error("timeout", "Upstream API did not respond within 3 seconds"))
+```
+
+Expected output:
+
+```text
+{'ok': False, 'error': {'code': 'missing_arg', 'detail': 'keyword is missing', 'retryable': False}}
+{'ok': False, 'error': {'code': 'timeout', 'detail': 'Upstream API did not respond within 3 seconds', 'retryable': True}}
 ```
 
 The benefits of structured errors are:
@@ -330,6 +345,12 @@ def audit_log(user_id, tool_name, arguments, result):
 
 result = run_tool("search_docs", {"keyword": "refund"}, "guest")
 print(audit_log("u_001", "search_docs", {"keyword": "refund"}, result))
+```
+
+Expected output:
+
+```text
+{'user_id': 'u_001', 'tool_name': 'search_docs', 'arguments': {'keyword': 'refund'}, 'ok': True, 'error': None}
 ```
 
 Although simple, this already captures the core of auditing:

@@ -175,7 +175,7 @@ def build_final_answer(state):
         return "This order does not currently qualify for a direct refund. Please contact human support for further assistance."
 
     return (
-        f"Order {state['order_id']} is currently {order['status']}."
+        f"Order {state['order_id']} is currently {order['status']}. "
         f"{state['policy']} "
         f"The estimated refund amount is {state['refund_amount']} yuan."
     )
@@ -211,6 +211,18 @@ for item in trace:
     print(item)
 print("\nanswer:")
 print(answer)
+```
+
+Expected output:
+
+```text
+trace:
+{'tool': 'get_order_status', 'arguments': {'order_id': 'ORD-1001'}, 'observation': {'order_id': 'ORD-1001', 'status': 'Not shipped', 'amount': 299, 'shipping_fee': 15}}
+{'tool': 'search_refund_policy', 'arguments': {'keyword': 'refund'}, 'observation': {'policy_text': 'Unshipped orders can be refunded directly. The money will be returned to the original payment method, usually within 3 to 7 business days.'}}
+{'tool': 'calculator', 'arguments': {'expression': '299 + 15'}, 'observation': {'result': 314}}
+
+answer:
+Order ORD-1001 is currently Not shipped. Unshipped orders can be refunded directly. The money will be returned to the original payment method, usually within 3 to 7 business days. The estimated refund amount is 314 yuan.
 ```
 
 ### What is the biggest difference between this code and the earlier scattered examples?

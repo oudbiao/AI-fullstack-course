@@ -177,6 +177,13 @@ print(search_and_summarize("refund"))
 print(search_and_summarize("refund"))
 ```
 
+Expected output:
+
+```text
+{'keyword': 'refund', 'raw': {'source': 'tool', 'value': 'Refunds require being within 7 days and having a learning progress below 20%.'}, 'summary': 'Summary: Refunds require be...'}
+{'keyword': 'refund', 'raw': {'source': 'cache', 'value': 'Refunds require being within 7 days and having a learning progress below 20%.'}, 'summary': 'Summary: Refunds require be...'}
+```
+
 ### What Is the Most Important Lesson in This Code?
 
 It shows that the tool layer is not just the “tool itself.”
@@ -246,6 +253,12 @@ def get_order_status_batch(order_ids):
 
 
 print(get_order_status_batch(["A001", "A002", "A009"]))
+```
+
+Expected output:
+
+```text
+{'A001': 'Not shipped', 'A002': 'Shipped', 'A009': 'Unknown order'}
 ```
 
 This pattern is especially suitable when:
@@ -336,6 +349,12 @@ def retrieve_teaching_materials(topic):
 
 
 print(retrieve_teaching_materials("discount word problems"))
+```
+
+Expected output:
+
+```text
+[{'source': 'internal', 'text': 'Internal materials: key points and examples for discount word problems'}, {'source': 'external', 'text': 'External materials: supplementary notes for discount word problems'}]
 ```
 
 The most important value of this example is not that the code is complicated,

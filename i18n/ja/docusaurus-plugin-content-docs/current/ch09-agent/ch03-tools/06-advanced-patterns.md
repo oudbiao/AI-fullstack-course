@@ -177,6 +177,13 @@ print(search_and_summarize("返金"))
 print(search_and_summarize("返金"))
 ```
 
+期待される出力：
+
+```text
+{'keyword': '返金', 'raw': {'source': 'tool', 'value': '返金には 7 日以内で、学習進捗が 20% 未満であることが必要です。'}, 'summary': '要約：返金には 7 日以内で、学習進捗が ...'}
+{'keyword': '返金', 'raw': {'source': 'cache', 'value': '返金には 7 日以内で、学習進捗が 20% 未満であることが必要です。'}, 'summary': '要約：返金には 7 日以内で、学習進捗が ...'}
+```
+
 ### このコードで一番学ぶべきことは？
 
 ツール層には「ツール本体」だけがあるわけではない、ということです。  
@@ -245,6 +252,12 @@ def get_order_status_batch(order_ids):
 
 
 print(get_order_status_batch(["A001", "A002", "A009"]))
+```
+
+期待される出力：
+
+```text
+{'A001': '未発送', 'A002': '発送済み', 'A009': '不明な注文'}
 ```
 
 このパターンは特に次のような場合に向いています。
@@ -336,6 +349,12 @@ def retrieve_teaching_materials(topic):
 
 
 print(retrieve_teaching_materials("割引の応用問題"))
+```
+
+期待される出力：
+
+```text
+[{'source': 'internal', 'text': '内部資料：割引の応用問題 の要点と例題'}, {'source': 'external', 'text': '外部資料：割引の応用問題 の補足説明'}]
 ```
 
 この例の大事な点は、コードがどれだけ複雑かではありません。  

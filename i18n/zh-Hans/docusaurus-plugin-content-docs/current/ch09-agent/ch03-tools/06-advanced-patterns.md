@@ -177,6 +177,13 @@ print(search_and_summarize("退款"))
 print(search_and_summarize("退款"))
 ```
 
+预期输出：
+
+```text
+{'keyword': '退款', 'raw': {'source': 'tool', 'value': '退款需要在 7 天内且学习进度低于 20%。'}, 'summary': '总结：退款需要在 7 天内且学习进度低于 ...'}
+{'keyword': '退款', 'raw': {'source': 'cache', 'value': '退款需要在 7 天内且学习进度低于 20%。'}, 'summary': '总结：退款需要在 7 天内且学习进度低于 ...'}
+```
+
 ### 这段代码最值得学的是什么？
 
 它说明工具层不是只有“工具本体”。
@@ -246,6 +253,12 @@ def get_order_status_batch(order_ids):
 
 
 print(get_order_status_batch(["A001", "A002", "A009"]))
+```
+
+预期输出：
+
+```text
+{'A001': '未发货', 'A002': '已发货', 'A009': '未知订单'}
 ```
 
 这类模式特别适合：
@@ -336,6 +349,12 @@ def retrieve_teaching_materials(topic):
 
 
 print(retrieve_teaching_materials("折扣应用题"))
+```
+
+预期输出：
+
+```text
+[{'source': 'internal', 'text': '内部资料：折扣应用题 的重点与例题'}, {'source': 'external', 'text': '外部资料：折扣应用题 的补充说明'}]
 ```
 
 这个示例最重要的价值不是代码多复杂，

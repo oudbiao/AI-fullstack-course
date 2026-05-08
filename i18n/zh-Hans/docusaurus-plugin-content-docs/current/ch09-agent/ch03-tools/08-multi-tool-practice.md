@@ -213,6 +213,18 @@ print("\nanswer:")
 print(answer)
 ```
 
+预期输出：
+
+```text
+trace:
+{'tool': 'get_order_status', 'arguments': {'order_id': 'ORD-1001'}, 'observation': {'order_id': 'ORD-1001', 'status': '未发货', 'amount': 299, 'shipping_fee': 15}}
+{'tool': 'search_refund_policy', 'arguments': {'keyword': '退款'}, 'observation': {'policy_text': '未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。'}}
+{'tool': 'calculator', 'arguments': {'expression': '299 + 15'}, 'observation': {'result': 314}}
+
+answer:
+订单 ORD-1001 当前状态为未发货。未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。 预计退款金额为 314 元。
+```
+
 ### 这段代码和前面分散示例最大的差别是什么？
 
 它已经不再是：

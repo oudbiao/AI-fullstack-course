@@ -177,7 +177,7 @@ def build_final_answer(state):
     return (
         f"注文 {state['order_id']} の現在の状態は{order['status']}です。"
         f"{state['policy']} "
-        f"予想返金額は {state['refund_amount']} 元です。"
+        f"予想返金額は {state['refund_amount']} 円です。"
     )
 
 
@@ -211,6 +211,18 @@ for item in trace:
     print(item)
 print("\nanswer:")
 print(answer)
+```
+
+期待される出力：
+
+```text
+trace:
+{'tool': 'get_order_status', 'arguments': {'order_id': 'ORD-1001'}, 'observation': {'order_id': 'ORD-1001', 'status': '未発送', 'amount': 299, 'shipping_fee': 15}}
+{'tool': 'search_refund_policy', 'arguments': {'keyword': '返金'}, 'observation': {'policy_text': '未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻され、通常 3〜7 営業日で着金します。'}}
+{'tool': 'calculator', 'arguments': {'expression': '299 + 15'}, 'observation': {'result': 314}}
+
+answer:
+注文 ORD-1001 の現在の状態は未発送です。未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻され、通常 3〜7 営業日で着金します。 予想返金額は 314 円です。
 ```
 
 ### このコードと前の分散サンプルとの最大の違いは何か？

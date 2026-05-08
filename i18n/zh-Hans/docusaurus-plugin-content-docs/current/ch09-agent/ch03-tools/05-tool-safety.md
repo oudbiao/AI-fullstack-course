@@ -161,12 +161,20 @@ def run_tool(name, arguments, user_role):
 
 calls = [
     ("search_docs", {"keyword": "退款"}, "guest"),
-    ("update_profile", {"user_id": 7, "city": "Taipei"}, "operator"),
+    ("update_profile", {"user_id": 7, "city": "台北"}, "operator"),
     ("delete_file", {"path": "/tmp/a.txt"}, "operator"),
 ]
 
 for call in calls:
     print(call, "->", run_tool(*call))
+```
+
+预期输出：
+
+```text
+('search_docs', {'keyword': '退款'}, 'guest') -> {'ok': True, 'data': {'result': '找到与 退款 相关的文档'}}
+('update_profile', {'user_id': 7, 'city': '台北'}, 'operator') -> {'ok': True, 'data': {'message': '已把用户 7 的城市更新为 台北'}}
+('delete_file', {'path': '/tmp/a.txt'}, 'operator') -> {'ok': False, 'error': 'permission_denied'}
 ```
 
 ### 这段代码为什么比“判断在不在白名单里”强得多？
@@ -244,6 +252,13 @@ def normalize_error(code, detail):
 
 print(normalize_error("missing_arg", "缺少 keyword"))
 print(normalize_error("timeout", "上游接口 3 秒未返回"))
+```
+
+预期输出：
+
+```text
+{'ok': False, 'error': {'code': 'missing_arg', 'detail': '缺少 keyword', 'retryable': False}}
+{'ok': False, 'error': {'code': 'timeout', 'detail': '上游接口 3 秒未返回', 'retryable': True}}
 ```
 
 结构化错误的好处是：
@@ -330,6 +345,12 @@ def audit_log(user_id, tool_name, arguments, result):
 
 result = run_tool("search_docs", {"keyword": "退款"}, "guest")
 print(audit_log("u_001", "search_docs", {"keyword": "退款"}, result))
+```
+
+预期输出：
+
+```text
+{'user_id': 'u_001', 'tool_name': 'search_docs', 'arguments': {'keyword': '退款'}, 'ok': True, 'error': None}
 ```
 
 这虽然简单，但已经体现出审计核心：
