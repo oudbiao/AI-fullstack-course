@@ -48,7 +48,9 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
-预期输出取决于你当前所在目录，形式大致是：
+预期输出：
+
+你当前所在目录会不同，形式大致是：
 
 ```text
 /your/current/project

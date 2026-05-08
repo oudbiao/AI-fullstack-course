@@ -48,7 +48,9 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
-期待される出力は現在のフォルダによって変わりますが、形は次のようになります。
+期待される出力：
+
+現在のフォルダは環境によって変わりますが、形は次のようになります。
 
 ```text
 /your/current/project

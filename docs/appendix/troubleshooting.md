@@ -48,7 +48,9 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
-Expected output will depend on your folder, but it should look like:
+Expected output:
+
+Your folder will differ, but it should look like:
 
 ```text
 /your/current/project

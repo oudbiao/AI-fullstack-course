@@ -99,12 +99,26 @@ selected: ONNX Runtime
 
 ```python
 need = {"hardware": "nvidia", "format": "onnx", "latency": "low"}
+print(need)
+```
+
+1つ目のスニペットの期待される出力：
+
+```text
+{'hardware': 'nvidia', 'format': 'onnx', 'latency': 'low'}
 ```
 
 次のように変更します。
 
 ```python
 need = {"hardware": "intel", "format": "onnx", "latency": "low"}
+print(need)
+```
+
+2つ目のスニペットの期待される出力：
+
+```text
+{'hardware': 'intel', 'format': 'onnx', 'latency': 'low'}
 ```
 
 もう一度実行します。期待される結果：

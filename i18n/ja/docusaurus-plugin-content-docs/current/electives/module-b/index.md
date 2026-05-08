@@ -35,7 +35,7 @@ async def main():
 asyncio.run(main())
 ```
 
-期待される出力:
+期待される出力：
 
 ```text
 ['retrieval:done', 'rerank:done']

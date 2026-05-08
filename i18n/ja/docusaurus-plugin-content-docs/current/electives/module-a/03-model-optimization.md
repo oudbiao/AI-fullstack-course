@@ -24,7 +24,7 @@ print([round(value, 4) for value in quantized])
 print(f"max_error={max(errors):.4f}")
 ```
 
-期待される出力:
+期待される出力：
 
 ```text
 [0.1216, 0.5686, 0.902]

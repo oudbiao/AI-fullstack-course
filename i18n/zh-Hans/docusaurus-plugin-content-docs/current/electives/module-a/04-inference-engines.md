@@ -99,12 +99,26 @@ selected: ONNX Runtime
 
 ```python
 need = {"hardware": "nvidia", "format": "onnx", "latency": "low"}
+print(need)
+```
+
+第一个片段的预期输出：
+
+```text
+{'hardware': 'nvidia', 'format': 'onnx', 'latency': 'low'}
 ```
 
 改成：
 
 ```python
 need = {"hardware": "intel", "format": "onnx", "latency": "low"}
+print(need)
+```
+
+第二个片段的预期输出：
+
+```text
+{'hardware': 'intel', 'format': 'onnx', 'latency': 'low'}
 ```
 
 再次运行。预期结果：

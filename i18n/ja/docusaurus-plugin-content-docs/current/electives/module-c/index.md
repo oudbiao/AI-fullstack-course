@@ -35,7 +35,7 @@ print("prediction:", nearest[1])
 print("neighbor:", nearest[0])
 ```
 
-期待される出力:
+期待される出力：
 
 ```text
 prediction: high

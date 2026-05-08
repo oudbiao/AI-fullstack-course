@@ -207,7 +207,7 @@ if __name__ == "__main__":
 python3 elective_workshop.py
 ```
 
-期待される出力:
+期待される出力：
 
 ```text
 modules: 6

@@ -99,12 +99,26 @@ Now change:
 
 ```python
 need = {"hardware": "nvidia", "format": "onnx", "latency": "low"}
+print(need)
+```
+
+Expected output for the first snippet:
+
+```text
+{'hardware': 'nvidia', 'format': 'onnx', 'latency': 'low'}
 ```
 
 to:
 
 ```python
 need = {"hardware": "intel", "format": "onnx", "latency": "low"}
+print(need)
+```
+
+Expected output for the second snippet:
+
+```text
+{'hardware': 'intel', 'format': 'onnx', 'latency': 'low'}
 ```
 
 Run again. Expected result:
