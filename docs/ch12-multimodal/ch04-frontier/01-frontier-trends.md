@@ -322,11 +322,27 @@ for trend, scores in trend_check.items():
     print(f"{trend}: total={total}, strongest_change={strongest}")
 ```
 
+Expected output:
+
+```text
+multimodal: total=32, strongest_change=ability
+small_models: total=27, strongest_change=cost_impact
+real_time_generation: total=32, strongest_change=new_interaction
+```
+
+Do not treat the totals as an objective leaderboard. Use them as a quick way to ask which layer a trend changes most.
+
 This example is not calculating an objective ranking. It is training a way of thinking: every time you see a new trend, break it down into concrete dimensions.
 
 If you want this little tool to be more practical, you can add:
 
 ```python
+trend_check = {
+    "multimodal": {"ability": 9, "cost_impact": 6, "new_interaction": 9, "workflow_change": 8},
+    "small_models": {"ability": 6, "cost_impact": 9, "new_interaction": 5, "workflow_change": 7},
+    "real_time_generation": {"ability": 7, "cost_impact": 8, "new_interaction": 9, "workflow_change": 8}
+}
+
 advice = {
     "ability": "First look at what new tasks it can do",
     "cost_impact": "First look at whether it lowers large-scale usage cost",
@@ -338,6 +354,16 @@ for trend, scores in trend_check.items():
     strongest = max(scores, key=scores.get)
     print(trend, "->", advice[strongest])
 ```
+
+Expected output:
+
+```text
+multimodal -> First look at what new tasks it can do
+small_models -> First look at whether it lowers large-scale usage cost
+real_time_generation -> First look at whether it changes the user entry point
+```
+
+This version is self-contained: you can paste it into a new Python file and run it directly.
 
 This example is not about scoring. It is a reminder:
 

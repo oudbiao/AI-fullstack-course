@@ -210,6 +210,14 @@ compliance_config = {
 print(compliance_config)
 ```
 
+期待される出力：
+
+```text
+{'data_traceable': True, 'human_override': True, 'audit_log_enabled': True, 'sensitive_action_requires_approval': True}
+```
+
+これは法律アドバイスではなく、「コンプライアンスの言葉をエンジニアリング能力へ翻訳する」練習です。各 `True` は、実装・テスト・監査できるシステム機能を表します。
+
 この例はとてもシンプルですが、重要な考え方を表しています。
 
 > コンプライアンス要件は、最終的にシステムのスイッチ、ポリシー、フローになることが多いです。 

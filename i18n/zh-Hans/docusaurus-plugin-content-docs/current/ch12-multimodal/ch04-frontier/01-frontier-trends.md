@@ -322,11 +322,27 @@ for trend, scores in trend_check.items():
     print(f"{trend}: total={total}, strongest_change={strongest}")
 ```
 
+预期输出：
+
+```text
+multimodal: total=32, strongest_change=ability
+small_models: total=27, strongest_change=cost_impact
+real_time_generation: total=32, strongest_change=new_interaction
+```
+
+不要把总分当成客观排行榜。它更适合用来快速判断：这个趋势主要改变了哪一层。
+
 这个例子不是在算一个客观排名，而是在训练一种判断习惯：每次看到新趋势，都把它拆到具体维度里看。
 
 如果你想让这个小工具更实用，可以继续加上：
 
 ```python
+trend_check = {
+    "multimodal": {"ability": 9, "cost_impact": 6, "new_interaction": 9, "workflow_change": 8},
+    "small_models": {"ability": 6, "cost_impact": 9, "new_interaction": 5, "workflow_change": 7},
+    "real_time_generation": {"ability": 7, "cost_impact": 8, "new_interaction": 9, "workflow_change": 8}
+}
+
 advice = {
     "ability": "优先看它能做什么新任务",
     "cost_impact": "优先看它是否降低大规模使用成本",
@@ -338,6 +354,16 @@ for trend, scores in trend_check.items():
     strongest = max(scores, key=scores.get)
     print(trend, "->", advice[strongest])
 ```
+
+预期输出：
+
+```text
+multimodal -> 优先看它能做什么新任务
+small_models -> 优先看它是否降低大规模使用成本
+real_time_generation -> 优先看它是否改变用户入口
+```
+
+这个版本是自包含的：复制到新的 Python 文件里也能直接运行。
 
 这个例子不是在算分，而是在提醒你：
 

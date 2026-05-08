@@ -210,6 +210,14 @@ compliance_config = {
 print(compliance_config)
 ```
 
+预期输出：
+
+```text
+{'data_traceable': True, 'human_override': True, 'audit_log_enabled': True, 'sensitive_action_requires_approval': True}
+```
+
+这不是法律意见，而是一次“合规语言 -> 工程能力”的翻译练习。每个 `True` 都代表工程侧可以实现、测试和审计的一项能力。
+
 这个例子虽然简单，但在表达一个很重要的思路：
 
 > 合规要求最后经常会变成系统开关、策略和流程。

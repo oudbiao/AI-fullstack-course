@@ -324,12 +324,28 @@ for trend, scores in trend_check.items():
     print(f"{trend}: total={total}, strongest_change={strongest}")
 ```
 
+期待される出力：
+
+```text
+multimodal: total=32, strongest_change=ability
+small_models: total=27, strongest_change=cost_impact
+real_time_generation: total=32, strongest_change=new_interaction
+```
+
+合計点を客観的なランキングとして扱わないでください。これは、そのトレンドが主にどの層を変えているのかを見るための簡易ツールです。
+
 この例は、客観的な順位を出すためのものではありません。  
 むしろ、新しいトレンドを見るたびに、それを具体的な観点に分解して考える習慣をつけるためのものです。
 
 この小さなツールをもっと実用的にしたければ、さらに次のようにできます。
 
 ```python
+trend_check = {
+    "multimodal": {"ability": 9, "cost_impact": 6, "new_interaction": 9, "workflow_change": 8},
+    "small_models": {"ability": 6, "cost_impact": 9, "new_interaction": 5, "workflow_change": 7},
+    "real_time_generation": {"ability": 7, "cost_impact": 8, "new_interaction": 9, "workflow_change": 8}
+}
+
 advice = {
     "ability": "まず、それがどんな新しいタスクをできるようにするかを見る",
     "cost_impact": "まず、大規模利用のコストを下げているかを見る",
@@ -341,6 +357,16 @@ for trend, scores in trend_check.items():
     strongest = max(scores, key=scores.get)
     print(trend, "->", advice[strongest])
 ```
+
+期待される出力：
+
+```text
+multimodal -> まず、それがどんな新しいタスクをできるようにするかを見る
+small_models -> まず、大規模利用のコストを下げているかを見る
+real_time_generation -> まず、ユーザーの入り口が変わっているかを見る
+```
+
+この版は単体で動きます。新しい Python ファイルに貼り付けても、そのまま実行できます。
 
 この例は点数をつけるためではなく、次のことを思い出させるためのものです。
 

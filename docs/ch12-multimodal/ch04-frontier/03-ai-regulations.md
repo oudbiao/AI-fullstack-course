@@ -210,6 +210,14 @@ compliance_config = {
 print(compliance_config)
 ```
 
+Expected output:
+
+```text
+{'data_traceable': True, 'human_override': True, 'audit_log_enabled': True, 'sensitive_action_requires_approval': True}
+```
+
+This is not legal advice; it is a translation exercise. Each `True` represents a system capability that engineers can implement, test, and audit.
+
 Although this example is simple, it expresses a very important idea:
 
 > Compliance requirements often end up becoming system switches, policies, and workflows.

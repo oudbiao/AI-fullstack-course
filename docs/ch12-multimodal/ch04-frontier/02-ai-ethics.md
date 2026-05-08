@@ -288,6 +288,18 @@ for k, v in risk_map.items():
     print(k, "->", v)
 ```
 
+Expected output:
+
+```text
+bias -> Outputs contain stereotypes or unfair tendencies
+privacy -> Sensitive information is leaked or access goes beyond authorization
+hallucination -> Generates content that is not true but sounds reasonable
+misuse -> Used in malicious scenarios such as scams, forgery, or attacks
+overtrust -> Users develop misplaced trust in the system's capabilities
+```
+
+Use this as the first pass of a risk register. After the categories are visible, you can assign owners, checks, and mitigation steps.
+
 This example is not meant to “solve” the risks. It is teaching you that:
 
 > Risks must be clearly classified first before engineering measures can be discussed.
