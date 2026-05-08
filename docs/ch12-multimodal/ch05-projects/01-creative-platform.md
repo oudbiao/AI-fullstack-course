@@ -128,11 +128,12 @@ class AssetBundle:
 
 
 def route_task(user_request):
-    if "voiceover" in user_request or "voice" in user_request:
+    normalized = user_request.lower()
+    if "voiceover" in normalized or "voice" in normalized:
         return "tts"
-    if "edit image" in user_request or "retouch" in user_request:
+    if ("edit" in normalized and "image" in normalized) or "retouch" in normalized:
         return "image_editing"
-    if "poster" in user_request or "image" in user_request:
+    if "poster" in normalized or "image" in normalized:
         return "image_generation"
     return "general"
 
@@ -178,8 +179,24 @@ requests = [
 ]
 
 bundle = run_creative_project(requests)
-print(bundle)
+print("image_count:", len(bundle.images))
+print("voice_count:", len(bundle.voices))
+print("log_count:", len(bundle.logs))
+print("tasks:", [item["task_type"] for item in bundle.logs])
+print("latest_image_is_edit:", bundle.images[-1].startswith("edited::"))
 ```
+
+Expected output:
+
+```text
+image_count: 2
+voice_count: 1
+log_count: 3
+tasks: ['image_generation', 'image_editing', 'tts']
+latest_image_is_edit: True
+```
+
+The important check is the `tasks` line. The same project now contains one first image, one edited image version, and one voice asset, instead of three unrelated generation calls.
 
 ### What Makes This Version Stronger Than the Previous One?
 
@@ -217,6 +234,16 @@ assets = [
 for asset in assets:
     print(asset)
 ```
+
+Expected output:
+
+```text
+{'id': 'img_v1', 'type': 'image', 'parent': None}
+{'id': 'img_v2', 'type': 'image', 'parent': 'img_v1'}
+{'id': 'voice_v1', 'type': 'voice', 'parent': None}
+```
+
+`parent` is the minimum versioning field. It tells you whether an asset starts a new branch or was derived from an earlier asset.
 
 This example is great for beginners because it helps you build a platform mindset first:
 

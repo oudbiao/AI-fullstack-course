@@ -128,7 +128,7 @@ class AssetBundle:
 def route_task(user_request):
     if "ナレーション" in user_request or "音声" in user_request:
         return "tts"
-    if "画像を直す" in user_request or "画像を修正" in user_request:
+    if ("画像" in user_request and ("編集" in user_request or "修正" in user_request or "直す" in user_request)):
         return "image_editing"
     if "ポスター" in user_request or "画像" in user_request:
         return "image_generation"
@@ -176,8 +176,24 @@ requests = [
 ]
 
 bundle = run_creative_project(requests)
-print(bundle)
+print("image_count:", len(bundle.images))
+print("voice_count:", len(bundle.voices))
+print("log_count:", len(bundle.logs))
+print("tasks:", [item["task_type"] for item in bundle.logs])
+print("latest_image_is_edit:", bundle.images[-1].startswith("edited::"))
 ```
+
+期待される出力：
+
+```text
+image_count: 2
+voice_count: 1
+log_count: 3
+tasks: ['image_generation', 'image_editing', 'tts']
+latest_image_is_edit: True
+```
+
+重要なのは `tasks` の行です。同じプロジェクトの中に、最初の画像、編集後の画像バージョン、音声アセットが入り、単なる3つの独立した生成ではなくなります。
 
 ### この版が前の版より優れている点
 
@@ -215,6 +231,16 @@ assets = [
 for asset in assets:
     print(asset)
 ```
+
+期待される出力：
+
+```text
+{'id': 'img_v1', 'type': 'image', 'parent': None}
+{'id': 'img_v2', 'type': 'image', 'parent': 'img_v1'}
+{'id': 'voice_v1', 'type': 'voice', 'parent': None}
+```
+
+`parent` は最小限のバージョン管理フィールドです。そのアセットが新しい枝なのか、以前のアセットから派生したものなのかを示します。
 
 この例は初心者にとても向いています。なぜなら、まず次の考え方を身につけやすいからです。
 

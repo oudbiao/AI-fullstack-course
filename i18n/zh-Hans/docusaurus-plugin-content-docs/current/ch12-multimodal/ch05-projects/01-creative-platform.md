@@ -178,8 +178,24 @@ requests = [
 ]
 
 bundle = run_creative_project(requests)
-print(bundle)
+print("image_count:", len(bundle.images))
+print("voice_count:", len(bundle.voices))
+print("log_count:", len(bundle.logs))
+print("tasks:", [item["task_type"] for item in bundle.logs])
+print("latest_image_is_edit:", bundle.images[-1].startswith("edited::"))
 ```
+
+预期输出：
+
+```text
+image_count: 2
+voice_count: 1
+log_count: 3
+tasks: ['image_generation', 'image_editing', 'tts']
+latest_image_is_edit: True
+```
+
+关键看 `tasks` 这一行：同一个项目里现在有首张图、改图版本和配音资产，而不是三次彼此无关的生成调用。
 
 ### 这个版本比前一版强在哪？
 
@@ -217,6 +233,16 @@ assets = [
 for asset in assets:
     print(asset)
 ```
+
+预期输出：
+
+```text
+{'id': 'img_v1', 'type': 'image', 'parent': None}
+{'id': 'img_v2', 'type': 'image', 'parent': 'img_v1'}
+{'id': 'voice_v1', 'type': 'voice', 'parent': None}
+```
+
+`parent` 是最小可用的版本字段。它告诉你某个资产是新分支，还是从之前的资产改出来的。
 
 这个示例很适合初学者，因为它会帮助你先建立一个平台思维：
 
