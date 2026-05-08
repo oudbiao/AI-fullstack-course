@@ -212,6 +212,15 @@ for item in trace:
     print(item)
 ```
 
+実行結果の例：
+
+```text
+{'request_id': 'req-001', 'stage': 'gateway', 'payload': {'request_id': 'req-001', 'user_id': 'u-01', 'message': 'Please tell me the refund rules'}}
+{'request_id': 'req-001', 'stage': 'orchestrator', 'payload': {'workflow': 'refund_flow', 'tool': 'search_policy'}}
+{'request_id': 'req-001', 'stage': 'tool_executor', 'payload': {'policy_text': 'Refunds must be requested within 7 days and learning progress must be below 20%.'}}
+{'request_id': 'req-001', 'stage': 'state_store', 'payload': {'request_id': 'req-001', 'workflow': 'refund_flow', 'observation': {'policy_text': 'Refunds must be requested within 7 days and learning progress must be below 20%.'}}}
+```
+
 ### このコードで本当に学びたいことは？
 
 「いくつかの関数を書くこと」ではなく、  

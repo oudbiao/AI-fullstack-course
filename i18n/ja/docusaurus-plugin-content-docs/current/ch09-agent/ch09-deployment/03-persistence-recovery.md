@@ -161,15 +161,33 @@ try:
 except RuntimeError as e:
     print("最初の実行はクラッシュしました:", e)
 
-print("クラッシュ後の checkpoint:", runner.last_checkpoint)
+print("クラッシュ後の checkpoint:", {
+    "current_index": runner.last_checkpoint["current_index"],
+    "completed_steps": runner.last_checkpoint["completed_steps"],
+})
 
 final_state = runner.run()
 print("\n復元後の最終状態:")
-print(final_state)
+print({
+    "completed_steps": final_state["completed_steps"],
+    "report": final_state["report"],
+})
 
-print("\nevent log:")
-for event in runner.event_log:
-    print(event["type"], event["payload"])
+print("\nevent types:")
+print([event["type"] for event in runner.event_log])
+```
+
+実行結果の例：
+
+```text
+最初の実行はクラッシュしました: crash_on_summarize
+クラッシュ後の checkpoint: {'current_index': 1, 'completed_steps': ['load_data']}
+
+復元後の最終状態:
+{'completed_steps': ['load_data', 'summarize', 'write_report'], 'report': '最終レポート: 返金ルール；請求書ルール；住所変更ルール'}
+
+event types:
+['step_started', 'step_completed', 'step_started', 'step_failed', 'step_started', 'step_completed', 'step_started', 'step_completed']
 ```
 
 ### この例で特に学ぶべきことは何か？
@@ -242,6 +260,13 @@ def send_email_once(task_id, address):
 
 print(send_email_once("task-1", "a@example.com"))
 print(send_email_once("task-1", "a@example.com"))
+```
+
+実行結果の例：
+
+```text
+{'ok': True, 'status': 'sent_to:a@example.com'}
+{'ok': True, 'status': 'skipped_duplicate'}
 ```
 
 これが、最もシンプルな冪等保護の考え方です。

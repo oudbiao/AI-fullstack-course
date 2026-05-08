@@ -212,6 +212,15 @@ for item in trace:
     print(item)
 ```
 
+预期输出：
+
+```text
+{'request_id': 'req-001', 'stage': 'gateway', 'payload': {'request_id': 'req-001', 'user_id': 'u-01', 'message': '请告诉我退款规则'}}
+{'request_id': 'req-001', 'stage': 'orchestrator', 'payload': {'workflow': 'refund_flow', 'tool': 'search_policy'}}
+{'request_id': 'req-001', 'stage': 'tool_executor', 'payload': {'policy_text': '退款需满足 7 天内且学习进度低于 20%。'}}
+{'request_id': 'req-001', 'stage': 'state_store', 'payload': {'request_id': 'req-001', 'workflow': 'refund_flow', 'observation': {'policy_text': '退款需满足 7 天内且学习进度低于 20%。'}}}
+```
+
 ### 这段代码真正想教什么？
 
 不是“写几个函数”，

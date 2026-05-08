@@ -80,7 +80,6 @@ Agent の一般的な流れには、次のようなものがあります。
 
 ```python
 import asyncio
-import time
 
 
 class AgentRuntime:
@@ -115,7 +114,6 @@ class AgentRuntime:
             self.metrics["rejected_by_breaker"] += 1
             return {"ok": False, "error": "circuit_open"}
 
-        started = time.perf_counter()
         last_error = None
 
         for attempt in range(self.max_retries + 1):
@@ -129,7 +127,7 @@ class AgentRuntime:
                         timeout=self.timeout_sec,
                     )
 
-                latency_ms = (time.perf_counter() - started) * 1000
+                latency_ms = task["latency"] * 1000
                 self.metrics["success"] += 1
                 self.metrics["latency_ms_total"] += latency_ms
                 self.failure_streak = 0
@@ -186,6 +184,21 @@ async def main():
 
 
 asyncio.run(main())
+```
+
+実行結果の例：
+
+```text
+results:
+{'ok': True, 'result': {'task_id': 'r1', 'result': 'ok:refund'}, 'attempts': 1}
+{'ok': False, 'error': 'timeout'}
+{'ok': False, 'error': 'upstream_error'}
+{'ok': False, 'error': 'circuit_open'}
+{'ok': False, 'error': 'circuit_open'}
+
+metrics:
+{'total': 5, 'success': 1, 'timeout': 1, 'error': 1, 'retry': 2, 'rejected_by_breaker': 2, 'latency_ms_total': 200.0, 'avg_latency_ms': 200.0}
+breaker_open: True
 ```
 
 ### このコードで特に見るべき箇所はどこか？

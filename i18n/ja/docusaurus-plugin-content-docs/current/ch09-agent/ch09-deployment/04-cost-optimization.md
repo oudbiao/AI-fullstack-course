@@ -155,6 +155,13 @@ print("baseline_cost =", task_cost(baseline_task))
 print("optimized_cost =", task_cost(optimized_task))
 ```
 
+実行結果の例：
+
+```text
+baseline_cost = 0.0501
+optimized_cost = 0.01584
+```
+
 ### このコードでまず見てほしいポイント
 
 特定の価格そのものではなく、  
@@ -246,6 +253,16 @@ for query in queries:
     print(query, "->", result)
 
 print("total_cost =", total_cost)
+```
+
+実行結果の例：
+
+```text
+返金ポリシー -> {'source': 'api', 'cost': 0.002}
+返金ポリシー -> {'source': 'cache', 'cost': 0.0}
+証明書ルール -> {'source': 'api', 'cost': 0.002}
+返金ポリシー -> {'source': 'cache', 'cost': 0.0}
+total_cost = 0.004
 ```
 
 このコードはとてもシンプルですが、実際の開発で大事なことをよく表しています。

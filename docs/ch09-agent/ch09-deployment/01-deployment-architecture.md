@@ -212,6 +212,15 @@ for item in trace:
     print(item)
 ```
 
+Expected output:
+
+```text
+{'request_id': 'req-001', 'stage': 'gateway', 'payload': {'request_id': 'req-001', 'user_id': 'u-01', 'message': 'Please tell me the refund policy'}}
+{'request_id': 'req-001', 'stage': 'orchestrator', 'payload': {'workflow': 'refund_flow', 'tool': 'search_policy'}}
+{'request_id': 'req-001', 'stage': 'tool_executor', 'payload': {'policy_text': 'Refunds must be within 7 days and the learning progress must be below 20%.'}}
+{'request_id': 'req-001', 'stage': 'state_store', 'payload': {'request_id': 'req-001', 'workflow': 'refund_flow', 'observation': {'policy_text': 'Refunds must be within 7 days and the learning progress must be below 20%.'}}}
+```
+
 ### What is this code really teaching?
 
 Not “how to write a few functions,”

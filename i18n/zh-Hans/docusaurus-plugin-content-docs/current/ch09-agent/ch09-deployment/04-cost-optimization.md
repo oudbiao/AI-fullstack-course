@@ -154,6 +154,13 @@ print("baseline_cost =", task_cost(baseline_task))
 print("optimized_cost =", task_cost(optimized_task))
 ```
 
+预期输出：
+
+```text
+baseline_cost = 0.0501
+optimized_cost = 0.01584
+```
+
 ### 这段代码最想让你看到什么？
 
 不是某个具体价格，
@@ -245,6 +252,16 @@ for query in queries:
     print(query, "->", result)
 
 print("total_cost =", total_cost)
+```
+
+预期输出：
+
+```text
+退款政策 -> {'source': 'api', 'cost': 0.002}
+退款政策 -> {'source': 'cache', 'cost': 0.0}
+证书规则 -> {'source': 'api', 'cost': 0.002}
+退款政策 -> {'source': 'cache', 'cost': 0.0}
+total_cost = 0.004
 ```
 
 这段代码虽然简单，但已经非常接近真实工程的一个核心事实：

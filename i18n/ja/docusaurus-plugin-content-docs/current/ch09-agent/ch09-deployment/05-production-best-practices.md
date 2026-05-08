@@ -162,6 +162,12 @@ def readiness_check(config):
 print(readiness_check(deployment_config))
 ```
 
+実行結果の例：
+
+```text
+{'ready': True, 'missing_required': [], 'warnings': ['missing_rate_limit', 'missing_human_override']}
+```
+
 ### この例から得られる最も重要な気づきは？
 
 この例が教えてくれるのは、次のことです。
@@ -218,6 +224,15 @@ def route_request(request_id, canary_ratio=0.2):
 
 for request_id in ["req-001", "req-002", "req-003", "req-004"]:
     print(request_id, "->", route_request(request_id))
+```
+
+実行結果の例：
+
+```text
+req-001 -> new_agent
+req-002 -> new_agent
+req-003 -> stable_agent
+req-004 -> stable_agent
 ```
 
 このコードはシンプルですが、次のことを示しています。

@@ -154,6 +154,13 @@ print("baseline_cost =", task_cost(baseline_task))
 print("optimized_cost =", task_cost(optimized_task))
 ```
 
+Expected output:
+
+```text
+baseline_cost = 0.0501
+optimized_cost = 0.01584
+```
+
 ### What is this code mainly trying to show you?
 
 Not a specific price,
@@ -245,6 +252,16 @@ for query in queries:
     print(query, "->", result)
 
 print("total_cost =", total_cost)
+```
+
+Expected output:
+
+```text
+refund policy -> {'source': 'api', 'cost': 0.002}
+refund policy -> {'source': 'cache', 'cost': 0.0}
+certificate rules -> {'source': 'api', 'cost': 0.002}
+refund policy -> {'source': 'cache', 'cost': 0.0}
+total_cost = 0.004
 ```
 
 Although this code is simple, it already reflects one core fact in real engineering:
