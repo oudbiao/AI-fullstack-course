@@ -81,11 +81,24 @@ This small script shows the core loop: requests arrive, are grouped by version, 
 Add this before the batching loop:
 
 ```python
-healthy_versions = {"v1": True, "v2": False}
 requests = [
+    {"id": 1, "version": "v1", "text": "refund"},
+    {"id": 2, "version": "v1", "text": "invoice"},
+    {"id": 3, "version": "v2", "text": "change address"},
+]
+healthy_versions = {"v1": True, "v2": False}
+routed_requests = [
     request if healthy_versions[request["version"]] else {**request, "version": "v1"}
     for request in requests
 ]
+
+print([request["version"] for request in routed_requests])
+```
+
+Expected output:
+
+```text
+['v1', 'v1', 'v1']
 ```
 
 Run again. Requests that asked for unhealthy `v2` now route back to `v1`. That is the basic idea behind health checks and rollback.

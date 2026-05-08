@@ -98,14 +98,27 @@ nvidia-smi
 ## 最小训练循环
 
 ```python
-for epoch in range(num_epochs):
-    model.train()
-    for x, y in train_loader:
-        optimizer.zero_grad()
-        pred = model(x)
-        loss = criterion(pred, y)
-        loss.backward()
-        optimizer.step()
+data = [(1.0, 2.0), (2.0, 4.0), (3.0, 6.0)]
+w = 0.0
+lr = 0.01
+
+for epoch in range(3):
+    total_loss = 0.0
+    for x, y in data:
+        pred = w * x
+        error = pred - y
+        total_loss += error * error
+        grad = 2 * error * x
+        w -= lr * grad
+    print(f"epoch={epoch} w={w:.3f} loss={total_loss:.3f}")
+```
+
+预期输出：
+
+```text
+epoch=0 w=0.521 loss=48.630
+epoch=1 w=0.907 loss=26.580
+epoch=2 w=1.192 loss=14.528
 ```
 
 按这个顺序读：数据 -> 预测 -> 损失 -> 梯度 -> 参数更新。

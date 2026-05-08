@@ -87,19 +87,28 @@ python generator_pipeline.py
 
 ## `yield from` を使う
 
-次のヘルパーを追加します。
+この単独で動く小さな例を実行します。
 
 ```python
 def flatten(groups):
     for group in groups:
         yield from group
-```
 
-最後のループを次のように変えます。
+pipeline = [
+    ["error db timeout", "error auth failed"],
+    ["error model busy"],
+]
 
-```python
 for item in flatten(pipeline):
     print(item)
+```
+
+期待される出力：
+
+```text
+error db timeout
+error auth failed
+error model busy
 ```
 
 ネストしたループよりも、「各グループ内の要素を外へ流す」という意図がはっきりします。

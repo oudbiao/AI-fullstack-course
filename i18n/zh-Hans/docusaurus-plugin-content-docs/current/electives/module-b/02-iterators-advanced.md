@@ -87,19 +87,28 @@ python generator_pipeline.py
 
 ## 使用 `yield from`
 
-加入这个辅助函数：
+运行这个独立小示例：
 
 ```python
 def flatten(groups):
     for group in groups:
         yield from group
-```
 
-然后把最后的循环改成：
+pipeline = [
+    ["error db timeout", "error auth failed"],
+    ["error model busy"],
+]
 
-```python
 for item in flatten(pipeline):
     print(item)
+```
+
+预期输出：
+
+```text
+error db timeout
+error auth failed
+error model busy
 ```
 
 这比嵌套循环更清楚地表达了“把每个分组里的元素继续向外产出”。

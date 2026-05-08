@@ -80,16 +80,24 @@ This is the smallest useful SVM habit: scale features, fit the model, predict, t
 
 ## Change The Boundary
 
-Change:
+Run this standalone comparison:
 
 ```python
-SVC(kernel="linear", C=1.0)
+from sklearn.svm import SVC
+
+for kernel in ["linear", "rbf"]:
+    if kernel == "linear":
+        model = SVC(kernel="linear", C=1.0)
+    else:
+        model = SVC(kernel="rbf", C=1.0, gamma="scale")
+    print(model)
 ```
 
-to:
+Expected output starts like:
 
-```python
-SVC(kernel="rbf", C=1.0, gamma="scale")
+```text
+SVC(kernel='linear')
+SVC()
 ```
 
 Use `linear` first when the boundary is simple. Try `rbf` when the boundary is visibly curved or linear SVM underfits.

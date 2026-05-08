@@ -81,11 +81,24 @@ answers:
 バッチ処理ループの前にこれを追加します。
 
 ```python
-healthy_versions = {"v1": True, "v2": False}
 requests = [
+    {"id": 1, "version": "v1", "text": "refund"},
+    {"id": 2, "version": "v1", "text": "invoice"},
+    {"id": 3, "version": "v2", "text": "change address"},
+]
+healthy_versions = {"v1": True, "v2": False}
+routed_requests = [
     request if healthy_versions[request["version"]] else {**request, "version": "v1"}
     for request in requests
 ]
+
+print([request["version"] for request in routed_requests])
+```
+
+期待される出力：
+
+```text
+['v1', 'v1', 'v1']
 ```
 
 もう一度実行します。`v2` を希望したリクエストは `v1` に戻ります。これがヘルスチェックとロールバックの基本です。

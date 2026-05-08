@@ -81,11 +81,24 @@ answers:
 在批处理循环前加入：
 
 ```python
-healthy_versions = {"v1": True, "v2": False}
 requests = [
+    {"id": 1, "version": "v1", "text": "refund"},
+    {"id": 2, "version": "v1", "text": "invoice"},
+    {"id": 3, "version": "v2", "text": "change address"},
+]
+healthy_versions = {"v1": True, "v2": False}
+routed_requests = [
     request if healthy_versions[request["version"]] else {**request, "version": "v1"}
     for request in requests
 ]
+
+print([request["version"] for request in routed_requests])
+```
+
+预期输出：
+
+```text
+['v1', 'v1', 'v1']
 ```
 
 再次运行。原本请求 `v2` 的流量会回到 `v1`。这就是健康检查和回滚的基本思路。

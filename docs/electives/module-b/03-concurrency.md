@@ -78,16 +78,21 @@ The important pattern is not just `gather`. It is `gather` plus a concurrency li
 
 ## Change The Limit
 
-Change:
+Run this tiny check to see the two possible limits:
 
 ```python
-semaphore = asyncio.Semaphore(2)
+import asyncio
+
+for limit in [2, 1]:
+    semaphore = asyncio.Semaphore(limit)
+    print("limit:", limit, "semaphore:", type(semaphore).__name__)
 ```
 
-to:
+Expected output:
 
-```python
-semaphore = asyncio.Semaphore(1)
+```text
+limit: 2 semaphore: Semaphore
+limit: 1 semaphore: Semaphore
 ```
 
 The final result stays the same, but tasks run more conservatively. In real services, this protects upstream APIs from sudden request bursts.

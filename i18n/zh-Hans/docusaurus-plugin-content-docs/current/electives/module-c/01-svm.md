@@ -80,16 +80,24 @@ support_per_class: [2, 1]
 
 ## 改变边界
 
-把：
+运行这个独立对比：
 
 ```python
-SVC(kernel="linear", C=1.0)
+from sklearn.svm import SVC
+
+for kernel in ["linear", "rbf"]:
+    if kernel == "linear":
+        model = SVC(kernel="linear", C=1.0)
+    else:
+        model = SVC(kernel="rbf", C=1.0, gamma="scale")
+    print(model)
 ```
 
-改成：
+预期输出开头类似：
 
-```python
-SVC(kernel="rbf", C=1.0, gamma="scale")
+```text
+SVC(kernel='linear')
+SVC()
 ```
 
 边界简单时先用 `linear`。如果线性 SVM 明显欠拟合，或者边界看起来是弯曲的，再尝试 `rbf`。

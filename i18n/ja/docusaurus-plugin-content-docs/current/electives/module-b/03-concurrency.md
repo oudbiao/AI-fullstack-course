@@ -78,16 +78,21 @@ python async_batch.py
 
 ## 上限を変える
 
-次を：
+この小さな確認コードで、2つの上限を見てみます。
 
 ```python
-semaphore = asyncio.Semaphore(2)
+import asyncio
+
+for limit in [2, 1]:
+    semaphore = asyncio.Semaphore(limit)
+    print("limit:", limit, "semaphore:", type(semaphore).__name__)
 ```
 
-次に変更します。
+期待される出力：
 
-```python
-semaphore = asyncio.Semaphore(1)
+```text
+limit: 2 semaphore: Semaphore
+limit: 1 semaphore: Semaphore
 ```
 
 最終結果は同じですが、タスクはより保守的に実行されます。実サービスでは、これにより上流 API を急なリクエストから守れます。

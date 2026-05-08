@@ -48,6 +48,13 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
+期待される出力は現在のフォルダによって変わりますが、形は次のようになります。
+
+```text
+/your/current/project
+False
+```
+
 ## この順番でデバッグする
 
 1. 最初の 2 件の入力とラベルを出す。
@@ -59,10 +66,22 @@ print(Path("data").exists())
 最小確認例:
 
 ```python
+texts = ["refund request", "invoice copy", "shipping delay"]
+labels = ["support", "billing", "support"]
+
 print("samples:", len(texts))
 print("first texts:", texts[:2])
 print("first labels:", labels[:2])
 print("label set:", sorted(set(labels)))
+```
+
+期待される出力：
+
+```text
+samples: 3
+first texts: ['refund request', 'invoice copy']
+first labels: ['support', 'billing']
+label set: ['billing', 'support']
 ```
 
 ## 助けを求めるときの形
@@ -87,6 +106,12 @@ def predict(x):
 data = [1, 2, 3]
 preds = [predict(x) for x in data]
 print(preds)
+```
+
+期待される出力：
+
+```text
+[2, 4, 6]
 ```
 
 そこへ実際の処理を 1 層ずつ戻します。壊れた層が、調べるべき層です。

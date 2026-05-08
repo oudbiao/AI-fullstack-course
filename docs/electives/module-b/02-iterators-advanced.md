@@ -87,19 +87,28 @@ The pipeline reads, filters, normalizes, and batches without creating a full lis
 
 ## Use `yield from`
 
-Add this helper:
+Run this small standalone demo:
 
 ```python
 def flatten(groups):
     for group in groups:
         yield from group
-```
 
-Then change the final loop:
+pipeline = [
+    ["error db timeout", "error auth failed"],
+    ["error model busy"],
+]
 
-```python
 for item in flatten(pipeline):
     print(item)
+```
+
+Expected output:
+
+```text
+error db timeout
+error auth failed
+error model busy
 ```
 
 This expresses “send every item inside each group outward” more clearly than a nested loop.

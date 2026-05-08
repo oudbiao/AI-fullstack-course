@@ -48,6 +48,13 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
+Expected output will depend on your folder, but it should look like:
+
+```text
+/your/current/project
+False
+```
+
 ## Debug code in this order
 
 1. Print the first 2 inputs and labels.
@@ -59,10 +66,22 @@ print(Path("data").exists())
 Minimal inspection example:
 
 ```python
+texts = ["refund request", "invoice copy", "shipping delay"]
+labels = ["support", "billing", "support"]
+
 print("samples:", len(texts))
 print("first texts:", texts[:2])
 print("first labels:", labels[:2])
 print("label set:", sorted(set(labels)))
+```
+
+Expected output:
+
+```text
+samples: 3
+first texts: ['refund request', 'invoice copy']
+first labels: ['support', 'billing']
+label set: ['billing', 'support']
 ```
 
 ## Ask for help with a complete question
@@ -87,6 +106,12 @@ def predict(x):
 data = [1, 2, 3]
 preds = [predict(x) for x in data]
 print(preds)
+```
+
+Expected output:
+
+```text
+[2, 4, 6]
 ```
 
 Then add real logic back one layer at a time. The layer that breaks is the layer to inspect.

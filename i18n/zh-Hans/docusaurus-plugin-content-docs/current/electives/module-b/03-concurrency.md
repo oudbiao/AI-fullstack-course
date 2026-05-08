@@ -78,16 +78,21 @@ python async_batch.py
 
 ## 改变并发上限
 
-把：
+运行这个小检查，看看两种并发上限：
 
 ```python
-semaphore = asyncio.Semaphore(2)
+import asyncio
+
+for limit in [2, 1]:
+    semaphore = asyncio.Semaphore(limit)
+    print("limit:", limit, "semaphore:", type(semaphore).__name__)
 ```
 
-改成：
+预期输出：
 
-```python
-semaphore = asyncio.Semaphore(1)
+```text
+limit: 2 semaphore: Semaphore
+limit: 1 semaphore: Semaphore
 ```
 
 最终结果不变，但任务会更保守地执行。真实服务中，这可以保护上游 API 不被突发请求压垮。

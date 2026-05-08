@@ -48,6 +48,13 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
+预期输出取决于你当前所在目录，形式大致是：
+
+```text
+/your/current/project
+False
+```
+
 ## 按这个顺序调试代码
 
 1. 打印前 2 条输入和标签。
@@ -59,10 +66,22 @@ print(Path("data").exists())
 最小检查示例：
 
 ```python
+texts = ["refund request", "invoice copy", "shipping delay"]
+labels = ["support", "billing", "support"]
+
 print("samples:", len(texts))
 print("first texts:", texts[:2])
 print("first labels:", labels[:2])
 print("label set:", sorted(set(labels)))
+```
+
+预期输出：
+
+```text
+samples: 3
+first texts: ['refund request', 'invoice copy']
+first labels: ['support', 'billing']
+label set: ['billing', 'support']
 ```
 
 ## 用完整问题请求帮助
@@ -87,6 +106,12 @@ def predict(x):
 data = [1, 2, 3]
 preds = [predict(x) for x in data]
 print(preds)
+```
+
+预期输出：
+
+```text
+[2, 4, 6]
 ```
 
 然后一层一层把真实逻辑加回去。哪一层加回去后坏了，就检查哪一层。

@@ -80,16 +80,24 @@ support_per_class: [2, 1]
 
 ## 境界を変える
 
-次を：
+この単独の比較コードを実行します。
 
 ```python
-SVC(kernel="linear", C=1.0)
+from sklearn.svm import SVC
+
+for kernel in ["linear", "rbf"]:
+    if kernel == "linear":
+        model = SVC(kernel="linear", C=1.0)
+    else:
+        model = SVC(kernel="rbf", C=1.0, gamma="scale")
+    print(model)
 ```
 
-次に変更します。
+期待される出力の先頭は次のようになります。
 
-```python
-SVC(kernel="rbf", C=1.0, gamma="scale")
+```text
+SVC(kernel='linear')
+SVC()
 ```
 
 境界が単純なら、まず `linear` を使います。線形 SVM が明らかに足りない場合や、境界が曲線的に見える場合に `rbf` を試します。
