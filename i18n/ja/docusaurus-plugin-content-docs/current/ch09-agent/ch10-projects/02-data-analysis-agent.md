@@ -120,6 +120,12 @@ result = summarize_sales(sales)
 print(result)
 ```
 
+実行結果の例：
+
+```text
+{'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service の客単価が最も高い。'}
+```
+
 ### この例がすでにプロジェクトらしい理由
 
 これは「計算」だけをしているのではなく、  
@@ -210,6 +216,13 @@ print(suggest_chart(["category", "amount"]))
 print(suggest_chart(["date", "amount"]))
 ```
 
+実行結果の例：
+
+```text
+bar_chart
+line_chart
+```
+
 ### この小さなモジュールにはどんな価値があるか？
 
 これは、このプロジェクトが単なる「計算」ではなく、  
@@ -221,6 +234,8 @@ print(suggest_chart(["date", "amount"]))
 
 ### もう1つの最小「分析 trace」の例
 
+同じファイルまたは同じ Python セッションで続けて実行してください。このブロックは `sales` と `result` を再利用します。
+
 ```python
 trace = {
     "input_rows": len(sales),
@@ -230,6 +245,12 @@ trace = {
 }
 
 print(trace)
+```
+
+実行結果の例：
+
+```text
+{'input_rows': 5, 'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service の客単価が最も高い。'}
 ```
 
 この例は初心者にとても向いています。  

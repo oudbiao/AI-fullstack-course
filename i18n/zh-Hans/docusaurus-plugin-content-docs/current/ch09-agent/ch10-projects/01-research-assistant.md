@@ -139,6 +139,13 @@ for item in result:
     print(item)
 ```
 
+预期输出：
+
+```text
+{'claim': 'RAG can improve factual grounding by retrieving external evidence.', 'source_id': 'd1', 'source_title': 'RAG improves factual grounding'}
+{'claim': 'Users trust generated summaries more when each claim is tied to an explicit source.', 'source_id': 'd3', 'source_title': 'Citations increase user trust'}
+```
+
 ### 这个例子为什么比“项目骨架 dataclass”更有价值？
 
 因为它已经体现出研究助手最关键的产品特征：
@@ -178,6 +185,8 @@ for item in result:
 
 ### 一个最小评估数据结构
 
+继续在同一个文件或 Python 会话里运行，因为下面这段会复用 `summarize_with_citations()`。
+
 ```python
 eval_cases = [
     {
@@ -191,12 +200,20 @@ eval_cases = [
 ]
 
 for case in eval_cases:
-    hit_ids = {item["source_id"] for item in summarize_with_citations(case["query"])}
+    hit_ids = sorted(item["source_id"] for item in summarize_with_citations(case["query"]))
+    overlap = sorted(set(hit_ids) & case["expected_source_ids"])
     print({
         "query": case["query"],
         "hit_ids": hit_ids,
-        "overlap": hit_ids & case["expected_source_ids"],
+        "overlap": overlap,
     })
+```
+
+预期输出：
+
+```text
+{'query': 'rag retrieval grounding', 'hit_ids': ['d1', 'd2'], 'overlap': ['d1', 'd2']}
+{'query': 'citation trust summary', 'hit_ids': ['d3'], 'overlap': ['d3']}
 ```
 
 ---

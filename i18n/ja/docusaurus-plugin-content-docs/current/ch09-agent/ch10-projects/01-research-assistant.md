@@ -141,6 +141,13 @@ for item in result:
     print(item)
 ```
 
+実行結果の例：
+
+```text
+{'claim': 'RAG can improve factual grounding by retrieving external evidence.', 'source_id': 'd1', 'source_title': 'RAG improves factual grounding'}
+{'claim': 'Users trust generated summaries more when each claim is tied to an explicit source.', 'source_id': 'd3', 'source_title': 'Citations increase user trust'}
+```
+
 ### この例が「project skeleton の dataclass」より価値があるのはなぜ？
 
 それは、研究アシスタントで最も重要な製品特性がすでに表れているからです。
@@ -180,6 +187,8 @@ for item in result:
 
 ### 最小の評価データ構造
 
+同じファイルまたは同じ Python セッションで続けて実行してください。このブロックは `summarize_with_citations()` を再利用します。
+
 ```python
 eval_cases = [
     {
@@ -193,12 +202,20 @@ eval_cases = [
 ]
 
 for case in eval_cases:
-    hit_ids = {item["source_id"] for item in summarize_with_citations(case["query"])}
+    hit_ids = sorted(item["source_id"] for item in summarize_with_citations(case["query"]))
+    overlap = sorted(set(hit_ids) & case["expected_source_ids"])
     print({
         "query": case["query"],
         "hit_ids": hit_ids,
-        "overlap": hit_ids & case["expected_source_ids"],
+        "overlap": overlap,
     })
+```
+
+実行結果の例：
+
+```text
+{'query': 'rag retrieval grounding', 'hit_ids': ['d1', 'd2'], 'overlap': ['d1', 'd2']}
+{'query': 'citation trust summary', 'hit_ids': ['d3'], 'overlap': ['d3']}
 ```
 
 ---

@@ -139,6 +139,13 @@ for item in result:
     print(item)
 ```
 
+Expected output:
+
+```text
+{'claim': 'RAG can improve factual grounding by retrieving external evidence.', 'source_id': 'd1', 'source_title': 'RAG improves factual grounding'}
+{'claim': 'Users trust generated summaries more when each claim is tied to an explicit source.', 'source_id': 'd3', 'source_title': 'Citations increase user trust'}
+```
+
 ### Why is this example more valuable than a “project skeleton dataclass”?
 
 Because it already reflects the most important product characteristic of a research assistant:
@@ -178,6 +185,8 @@ This is a particularly important layer for a research assistant:
 
 ### A minimal evaluation data structure
 
+Continue in the same file or Python session, because this block reuses `summarize_with_citations()`.
+
 ```python
 eval_cases = [
     {
@@ -191,12 +200,20 @@ eval_cases = [
 ]
 
 for case in eval_cases:
-    hit_ids = {item["source_id"] for item in summarize_with_citations(case["query"])}
+    hit_ids = sorted(item["source_id"] for item in summarize_with_citations(case["query"]))
+    overlap = sorted(set(hit_ids) & case["expected_source_ids"])
     print({
         "query": case["query"],
         "hit_ids": hit_ids,
-        "overlap": hit_ids & case["expected_source_ids"],
+        "overlap": overlap,
     })
+```
+
+Expected output:
+
+```text
+{'query': 'rag retrieval grounding', 'hit_ids': ['d1', 'd2'], 'overlap': ['d1', 'd2']}
+{'query': 'citation trust summary', 'hit_ids': ['d3'], 'overlap': ['d3']}
 ```
 
 ---

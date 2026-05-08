@@ -118,6 +118,12 @@ result = summarize_sales(sales)
 print(result)
 ```
 
+Expected output:
+
+```text
+{'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service has the highest average order value.'}
+```
+
 ### Why is this already very project-like?
 
 Because it does not only do “computation”,
@@ -207,6 +213,13 @@ print(suggest_chart(["category", "amount"]))
 print(suggest_chart(["date", "amount"]))
 ```
 
+Expected output:
+
+```text
+bar_chart
+line_chart
+```
+
 ### What value does this small module provide?
 
 It shows that the project is not just “doing arithmetic”,
@@ -218,6 +231,8 @@ but is gradually moving toward:
 
 ### Let’s look at a minimal “analysis trace” example
 
+Continue in the same file or Python session, because this block reuses `sales` and `result`.
+
 ```python
 trace = {
     "input_rows": len(sales),
@@ -227,6 +242,12 @@ trace = {
 }
 
 print(trace)
+```
+
+Expected output:
+
+```text
+{'input_rows': 5, 'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service has the highest average order value.'}
 ```
 
 This example is especially suitable for beginners because it helps you see:

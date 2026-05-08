@@ -112,6 +112,15 @@ print(review)
 print(test_report)
 ```
 
+Expected output:
+
+```text
+TaskPlan(goal='Fix the incorrect amount display on the refund page', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='Given 100 yuan and 20% off, the result should be 80 yuan')
+Patch(summary='Fix the discount calculation logic and add tests', changed_files=['refund.py', 'test_refund.py'])
+ReviewNote(approved=False, issues=['Unclear variable naming', 'Incomplete edge case tests'])
+TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
+```
+
 ### What is the most important part of this example?
 
 It shows that what a multi-Agent project should really demonstrate is not plain chat logs,
@@ -129,6 +138,8 @@ If you only look at conversation, it is hard to tell whether the system can coll
 ---
 
 ## A minimal workflow loop
+
+Continue in the same file or Python session, because this block reuses the dataclasses from the previous example.
 
 Now connect the four roles into a minimal flow:
 
@@ -170,6 +181,15 @@ print(plan)
 print(patch)
 print(review)
 print(test_report)
+```
+
+Expected output:
+
+```text
+TaskPlan(goal='Fix the incorrect amount display on the refund page', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='Given 100 yuan and 20% off, the result should be 80 yuan')
+Patch(summary='Implement according to the task goal: Fix the incorrect amount display on the refund page', changed_files=['refund.py', 'test_refund.py'])
+ReviewNote(approved=True, issues=[])
+TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
 ### Why does this loop already feel like a real project?

@@ -112,6 +112,15 @@ print(review)
 print(test_report)
 ```
 
+预期输出：
+
+```text
+TaskPlan(goal='修复退款页面金额显示错误', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='输入 100 元和 8 折，结果应为 80 元')
+Patch(summary='修复折扣计算逻辑，并补充测试', changed_files=['refund.py', 'test_refund.py'])
+ReviewNote(approved=False, issues=['变量命名不清晰', '边界条件测试不完整'])
+TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
+```
+
 ### 这个例子最关键的地方是什么？
 
 它说明多 Agent 项目真正应该展示的，不是纯聊天记录，
@@ -129,6 +138,8 @@ print(test_report)
 ---
 
 ## 一个最小工作流闭环
+
+继续在同一个文件或 Python 会话里运行，因为下面这段会复用上一个示例里的 dataclass。
 
 下面把四个角色串成一条最小流程：
 
@@ -170,6 +181,15 @@ print(plan)
 print(patch)
 print(review)
 print(test_report)
+```
+
+预期输出：
+
+```text
+TaskPlan(goal='修复退款页面金额显示错误', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='输入 100 元和 8 折，结果应为 80 元')
+Patch(summary='根据任务目标实现: 修复退款页面金额显示错误', changed_files=['refund.py', 'test_refund.py'])
+ReviewNote(approved=True, issues=[])
+TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
 ### 为什么这个闭环已经很像真实项目？

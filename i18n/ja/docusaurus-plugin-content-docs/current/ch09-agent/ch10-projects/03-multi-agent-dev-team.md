@@ -112,6 +112,15 @@ print(review)
 print(test_report)
 ```
 
+実行結果の例：
+
+```text
+TaskPlan(goal='返金ページの金額表示エラーを修正する', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='100円と8割引を入力したら、結果は80円になること')
+Patch(summary='割引計算ロジックを修正し、テストを追加する', changed_files=['refund.py', 'test_refund.py'])
+ReviewNote(approved=False, issues=['変数名がわかりにくい', '境界条件のテストが不十分'])
+TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
+```
+
 ### この例でいちばん大事な点は何か？
 
 この例が示しているのは、マルチ Agent プロジェクトで本当に見せるべきものは、  
@@ -129,6 +138,8 @@ print(test_report)
 ---
 
 ## 最小ワークフローのループ
+
+同じファイルまたは同じ Python セッションで続けて実行してください。このブロックは前の例の dataclass を再利用します。
 
 次に、4つの役割を1本の最小フローにつなげます。
 
@@ -170,6 +181,15 @@ print(plan)
 print(patch)
 print(review)
 print(test_report)
+```
+
+実行結果の例：
+
+```text
+TaskPlan(goal='返金ページの金額表示エラーを修正する', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='100円と8割引を入力したら、結果は80円になること')
+Patch(summary='タスク目標に基づいて実装: 返金ページの金額表示エラーを修正する', changed_files=['refund.py', 'test_refund.py'])
+ReviewNote(approved=True, issues=[])
+TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
 ### なぜこのループだけでもかなり実際のプロジェクトに近いのか？

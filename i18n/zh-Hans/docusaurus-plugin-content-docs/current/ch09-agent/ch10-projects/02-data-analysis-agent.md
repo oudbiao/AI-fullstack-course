@@ -118,6 +118,12 @@ result = summarize_sales(sales)
 print(result)
 ```
 
+预期输出：
+
+```text
+{'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service 的客单价最高。'}
+```
+
 ### 这个例子为什么已经很像项目？
 
 因为它不只做了“计算”，
@@ -207,6 +213,13 @@ print(suggest_chart(["category", "amount"]))
 print(suggest_chart(["date", "amount"]))
 ```
 
+预期输出：
+
+```text
+bar_chart
+line_chart
+```
+
 ### 这个小模块有什么价值？
 
 它说明项目不只是“算数”，
@@ -220,6 +233,8 @@ print(suggest_chart(["date", "amount"]))
 
 ### 再看一个最小“分析 trace”示例
 
+继续在同一个文件或 Python 会话里运行，因为下面这段会复用 `sales` 和 `result`。
+
 ```python
 trace = {
     "input_rows": len(sales),
@@ -229,6 +244,12 @@ trace = {
 }
 
 print(trace)
+```
+
+预期输出：
+
+```text
+{'input_rows': 5, 'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service 的客单价最高。'}
 ```
 
 这个示例很适合初学者，因为它会帮助你看到：
