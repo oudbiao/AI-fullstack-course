@@ -86,6 +86,7 @@ test_data = [
     ("返金はどう処理されますか", "refund"),
     ("電子請求書はいつ発行されますか", "invoice"),
     ("パスワード再設定にはどれくらいかかりますか", "password"),
+    ("返金の請求書はどう発行しますか", "invoice"),
 ]
 
 
@@ -134,6 +135,18 @@ for item in details:
     print(item)
 ```
 
+実行結果の例：
+
+```text
+accuracy: 0.75
+{'text': '返金はどう処理されますか', 'gold': 'refund', 'pred': 'refund', 'scores': {'refund': 17, 'invoice': 10, 'password': 12}}
+{'text': '電子請求書はいつ発行されますか', 'gold': 'invoice', 'pred': 'invoice', 'scores': {'refund': 13, 'invoice': 21, 'password': 10}}
+{'text': 'パスワード再設定にはどれくらいかかりますか', 'gold': 'password', 'pred': 'password', 'scores': {'refund': 15, 'invoice': 17, 'password': 29}}
+{'text': '返金の請求書はどう発行しますか', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 17, 'invoice': 17, 'password': 11}}
+```
+
+最後のサンプルは、あえて曖昧にしています。`返金` と `請求書` の手がかりが同時に出るため、単純な baseline では同点になり、先に登録された `refund` が選ばれます。
+
 ### この例に価値がある理由
 
 このコードには、分類プロジェクトの最も重要な4つの要素が入っています。
@@ -171,6 +184,14 @@ for item in details:
 ### かんたんなエラー分析関数
 
 ```python
+details = [
+    {"text": "返金はどう処理されますか", "gold": "refund", "pred": "refund", "scores": {"refund": 17, "invoice": 10, "password": 12}},
+    {"text": "電子請求書はいつ発行されますか", "gold": "invoice", "pred": "invoice", "scores": {"refund": 13, "invoice": 21, "password": 10}},
+    {"text": "パスワード再設定にはどれくらいかかりますか", "gold": "password", "pred": "password", "scores": {"refund": 15, "invoice": 17, "password": 29}},
+    {"text": "返金の請求書はどう発行しますか", "gold": "invoice", "pred": "refund", "scores": {"refund": 17, "invoice": 17, "password": 11}},
+]
+
+
 def error_cases(details):
     return [item for item in details if item["gold"] != item["pred"]]
 
@@ -178,6 +199,14 @@ def error_cases(details):
 errors = error_cases(details)
 print("errors:", errors)
 ```
+
+実行結果の例：
+
+```text
+errors: [{'text': '返金の請求書はどう発行しますか', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 17, 'invoice': 17, 'password': 11}}]
+```
+
+このエラーから、モデルを強くする前に「返金に関係する請求書」を請求書ラベルに入れるのか、返金ラベルに入れるのか、あるいは混合意図として分けるのかを確認できます。
 
 エラーが多いなら、まず次のように考えてみてください。
 

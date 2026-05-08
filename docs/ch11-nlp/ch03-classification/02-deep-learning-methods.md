@@ -189,6 +189,17 @@ print("scores:", scores)
 print("prediction:", prediction)
 ```
 
+Expected output:
+
+```text
+token_ids: [0, 3]
+sentence_vector: [0.85, 0.75, 0.15]
+scores: {'refund': 1.315, 'invoice': 0.935, 'password': 0.31}
+prediction: refund
+```
+
+Read it step by step: the tokens become IDs, IDs become vectors, vectors are averaged into one sentence vector, and the classifier gives the highest score to `refund`.
+
 ### Why is this example more useful than directly using `nn.Sequential`?
 
 Because it separates the three key steps:
@@ -221,6 +232,15 @@ def l1_distance(a, b):
 print("refund request vs return handling:", l1_distance(sentences["refund request"], sentences["return handling"]))
 print("refund request vs password reset:", l1_distance(sentences["refund request"], sentences["password reset"]))
 ```
+
+Expected output:
+
+```text
+refund request vs return handling: 0.09
+refund request vs password reset: 2.1
+```
+
+The lower distance shows that `refund request` and `return handling` are closer in this toy representation. That is exactly the kind of geometry a neural classifier tries to learn from data.
 
 This example is very suitable for beginners because it helps you feel more intuitively that:
 

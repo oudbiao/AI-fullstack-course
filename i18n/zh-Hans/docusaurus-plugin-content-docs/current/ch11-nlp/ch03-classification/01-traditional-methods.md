@@ -178,7 +178,7 @@ labels = [
 ]
 
 clf = make_pipeline(
-    CountVectorizer(token_pattern=r"(?u)\b\w+\b"),
+    CountVectorizer(analyzer="char"),
     LogisticRegression(max_iter=200),
 )
 
@@ -186,6 +186,14 @@ clf.fit(texts, labels)
 pred = clf.predict(["退款怎么处理", "电子发票什么时候开"])
 print(pred.tolist())
 ```
+
+预期输出：
+
+```text
+['refund', 'invoice']
+```
+
+这里用 `analyzer="char"` 是为了让中文示例不依赖额外分词库。第一句包含更多退款相关字，第二句包含更多发票相关字，所以这个 baseline 能先给出可解释结果。
 
 ### 这段代码最关键的地方在哪？
 
@@ -212,14 +220,40 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
+texts = [
+    "退款多久到账",
+    "怎么申请退款",
+    "发票什么时候可以开",
+    "电子发票发到哪里",
+    "忘记密码怎么办",
+    "密码重置入口在哪",
+]
+
+labels = [
+    "refund",
+    "refund",
+    "invoice",
+    "invoice",
+    "password",
+    "password",
+]
+
 clf_tfidf = make_pipeline(
-    TfidfVectorizer(token_pattern=r"(?u)\b\w+\b"),
+    TfidfVectorizer(analyzer="char"),
     LogisticRegression(max_iter=200),
 )
 
 clf_tfidf.fit(texts, labels)
 print(clf_tfidf.predict(["密码找回入口在哪"]).tolist())
 ```
+
+预期输出：
+
+```text
+['password']
+```
+
+TF-IDF 会降低过于常见的字的影响，让 `密码`、`入口` 这类更有区分度的特征更明显。
 
 这个例子很适合初学者，因为它会提醒你：
 

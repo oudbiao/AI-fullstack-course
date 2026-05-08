@@ -72,6 +72,7 @@ Instead, we will directly write a minimal keyword-counting baseline so you can s
 
 ```python
 from collections import Counter, defaultdict
+import re
 
 train_data = [
     ("How long does it take for a refund to arrive?", "refund"),
@@ -86,11 +87,38 @@ test_data = [
     ("How do I handle a refund?", "refund"),
     ("When will the e-invoice be issued?", "invoice"),
     ("How long does it take to reset a password?", "password"),
+    ("Can I get a refund invoice?", "invoice"),
 ]
+
+stop_words = {
+    "a",
+    "an",
+    "be",
+    "can",
+    "do",
+    "does",
+    "for",
+    "how",
+    "i",
+    "if",
+    "is",
+    "it",
+    "long",
+    "my",
+    "should",
+    "take",
+    "the",
+    "to",
+    "what",
+    "when",
+    "where",
+    "will",
+}
 
 
 def tokenize(text):
-    return list(text)
+    words = re.findall(r"[a-z]+", text.lower())
+    return [word for word in words if word not in stop_words]
 
 
 class KeywordClassifier:
@@ -134,6 +162,18 @@ for item in details:
     print(item)
 ```
 
+Expected output:
+
+```text
+accuracy: 0.75
+{'text': 'How do I handle a refund?', 'gold': 'refund', 'pred': 'refund', 'scores': {'refund': 2, 'invoice': 0, 'password': 0}}
+{'text': 'When will the e-invoice be issued?', 'gold': 'invoice', 'pred': 'invoice', 'scores': {'refund': 0, 'invoice': 4, 'password': 0}}
+{'text': 'How long does it take to reset a password?', 'gold': 'password', 'pred': 'password', 'scores': {'refund': 0, 'invoice': 0, 'password': 3}}
+{'text': 'Can I get a refund invoice?', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 2, 'invoice': 2, 'password': 0}}
+```
+
+The last sample is intentionally ambiguous. The baseline sees both `refund` and `invoice`, ties on score, and chooses the first matching class. That gives you a useful error case to inspect instead of pretending the baseline is perfect.
+
 ### Why is this example valuable?
 
 Because it includes the 4 core pieces of a classification project:
@@ -171,6 +211,14 @@ You need to check:
 ### A simple error analysis function
 
 ```python
+details = [
+    {"text": "How do I handle a refund?", "gold": "refund", "pred": "refund", "scores": {"refund": 2, "invoice": 0, "password": 0}},
+    {"text": "When will the e-invoice be issued?", "gold": "invoice", "pred": "invoice", "scores": {"refund": 0, "invoice": 4, "password": 0}},
+    {"text": "How long does it take to reset a password?", "gold": "password", "pred": "password", "scores": {"refund": 0, "invoice": 0, "password": 3}},
+    {"text": "Can I get a refund invoice?", "gold": "invoice", "pred": "refund", "scores": {"refund": 2, "invoice": 2, "password": 0}},
+]
+
+
 def error_cases(details):
     return [item for item in details if item["gold"] != item["pred"]]
 
@@ -178,6 +226,14 @@ def error_cases(details):
 errors = error_cases(details)
 print("errors:", errors)
 ```
+
+Expected output:
+
+```text
+errors: [{'text': 'Can I get a refund invoice?', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 2, 'invoice': 2, 'password': 0}}]
+```
+
+This tells you the next practical action: clarify whether “refund invoice” belongs to billing, refunds, or a separate mixed-intent label before upgrading the model.
 
 If there are many errors, you should first ask:
 

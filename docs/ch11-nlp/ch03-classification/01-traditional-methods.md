@@ -187,6 +187,14 @@ pred = clf.predict(["How do I handle a refund?", "When will the e-invoice be iss
 print(pred.tolist())
 ```
 
+Expected output:
+
+```text
+['refund', 'invoice']
+```
+
+The first sentence contains `refund`, so the baseline predicts `refund`. The second sentence contains `e-invoice` and `issued`, so it lands in `invoice`. This is simple, but it gives you a runnable reference point before trying a deeper model.
+
 ### What is the most important part of this code?
 
 There are two key pieces:
@@ -212,6 +220,24 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
+texts = [
+    "When will I get my refund?",
+    "How do I apply for a refund?",
+    "When can I issue an invoice?",
+    "Where do I send the e-invoice?",
+    "What should I do if I forgot my password?",
+    "Where is the password reset entry?",
+]
+
+labels = [
+    "refund",
+    "refund",
+    "invoice",
+    "invoice",
+    "password",
+    "password",
+]
+
 clf_tfidf = make_pipeline(
     TfidfVectorizer(token_pattern=r"(?u)\b\w+\b"),
     LogisticRegression(max_iter=200),
@@ -220,6 +246,14 @@ clf_tfidf = make_pipeline(
 clf_tfidf.fit(texts, labels)
 print(clf_tfidf.predict(["Where is the password reset entry?"]).tolist())
 ```
+
+Expected output:
+
+```text
+['password']
+```
+
+TF-IDF lowers the impact of very common words and keeps discriminative words like `password`, `reset`, and `entry` more visible.
 
 This example is great for beginners because it reminds you:
 

@@ -86,6 +86,7 @@ test_data = [
     ("退款怎么处理", "refund"),
     ("电子发票什么时候开", "invoice"),
     ("重置密码需要多久", "password"),
+    ("退款申请发票怎么开", "invoice"),
 ]
 
 
@@ -134,6 +135,18 @@ for item in details:
     print(item)
 ```
 
+预期输出：
+
+```text
+accuracy: 0.75
+{'text': '退款怎么处理', 'gold': 'refund', 'pred': 'refund', 'scores': {'refund': 6, 'invoice': 1, 'password': 2}}
+{'text': '电子发票什么时候开', 'gold': 'invoice', 'pred': 'invoice', 'scores': {'refund': 1, 'invoice': 12, 'password': 1}}
+{'text': '重置密码需要多久', 'gold': 'password', 'pred': 'password', 'scores': {'refund': 2, 'invoice': 0, 'password': 6}}
+{'text': '退款申请发票怎么开', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 8, 'invoice': 7, 'password': 2}}
+```
+
+最后一条是刻意保留的模糊样本：它既有 `退款`，又有 `发票`。关键词 baseline 会偏向退款类，这正好给你一个可以分析的错误案例。
+
 ### 这个示例为什么有价值？
 
 因为它把一个分类项目最核心的 4 件事都放进来了：
@@ -171,6 +184,14 @@ for item in details:
 ### 一个简单的错误分析函数
 
 ```python
+details = [
+    {"text": "退款怎么处理", "gold": "refund", "pred": "refund", "scores": {"refund": 6, "invoice": 1, "password": 2}},
+    {"text": "电子发票什么时候开", "gold": "invoice", "pred": "invoice", "scores": {"refund": 1, "invoice": 12, "password": 1}},
+    {"text": "重置密码需要多久", "gold": "password", "pred": "password", "scores": {"refund": 2, "invoice": 0, "password": 6}},
+    {"text": "退款申请发票怎么开", "gold": "invoice", "pred": "refund", "scores": {"refund": 8, "invoice": 7, "password": 2}},
+]
+
+
 def error_cases(details):
     return [item for item in details if item["gold"] != item["pred"]]
 
@@ -178,6 +199,14 @@ def error_cases(details):
 errors = error_cases(details)
 print("errors:", errors)
 ```
+
+预期输出：
+
+```text
+errors: [{'text': '退款申请发票怎么开', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 8, 'invoice': 7, 'password': 2}}]
+```
+
+这条错误会提醒你：升级模型之前，先确认“退款相关发票”到底归发票、退款，还是应该单独定义混合意图标签。
 
 如果错误很多，你应该先问：
 

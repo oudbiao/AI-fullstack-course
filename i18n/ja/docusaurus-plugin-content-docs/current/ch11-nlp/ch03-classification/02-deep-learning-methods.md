@@ -190,6 +190,17 @@ print("scores:", scores)
 print("prediction:", prediction)
 ```
 
+実行結果の例：
+
+```text
+token_ids: [0, 3]
+sentence_vector: [0.85, 0.75, 0.15]
+scores: {'refund': 1.315, 'invoice': 0.935, 'password': 0.31}
+prediction: refund
+```
+
+順番に見ると、token が ID になり、ID から埋め込みベクトルを取り出し、複数の token ベクトルを平均して文ベクトルにし、最後に分類ヘッドが `refund` に最も高いスコアを付けています。
+
 ### この例が、単に `nn.Sequential` より役立つ理由
 
 この例では、3つの重要なステップが分かれて見えます。
@@ -222,6 +233,15 @@ def l1_distance(a, b):
 print("返金申請 vs 返品処理:", l1_distance(sentences["返金申請"], sentences["返品処理"]))
 print("返金申請 vs パスワード再設定:", l1_distance(sentences["返金申請"], sentences["パスワード再設定"]))
 ```
+
+実行結果の例：
+
+```text
+返金申請 vs 返品処理: 0.09
+返金申請 vs パスワード再設定: 2.1
+```
+
+距離が小さいほど、2つの文表現は近いと読めます。このおもちゃの例では、`返金申請` と `返品処理` が近く、ニューラル分類器がデータから学びたい幾何関係を簡略化して見せています。
 
 これは初学者にとても向いています。なぜなら、次の感覚を直感的につかみやすいからです。
 

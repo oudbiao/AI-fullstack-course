@@ -178,7 +178,7 @@ labels = [
 ]
 
 clf = make_pipeline(
-    CountVectorizer(token_pattern=r"(?u)\b\w+\b"),
+    CountVectorizer(analyzer="char"),
     LogisticRegression(max_iter=200),
 )
 
@@ -186,6 +186,14 @@ clf.fit(texts, labels)
 pred = clf.predict(["返金はどう処理しますか", "電子請求書はいつ発行されますか"])
 print(pred.tolist())
 ```
+
+実行結果の例：
+
+```text
+['refund', 'invoice']
+```
+
+ここでは外部分かち書きライブラリを使わずに動かせるよう、`analyzer="char"` を使っています。1つ目は返金に関係する文字が多く、2つ目は請求書に関係する文字が多いため、まず説明しやすい baseline になります。
 
 ### このコードで一番大事なところはどこか？
 
@@ -212,14 +220,40 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
+texts = [
+    "返金はいつ振り込まれますか",
+    "返金を申請するにはどうすればいいですか",
+    "請求書はいつ発行できますか",
+    "電子請求書はどこに届きますか",
+    "パスワードを忘れたらどうすればいいですか",
+    "パスワードの再設定画面はどこですか",
+]
+
+labels = [
+    "refund",
+    "refund",
+    "invoice",
+    "invoice",
+    "password",
+    "password",
+]
+
 clf_tfidf = make_pipeline(
-    TfidfVectorizer(token_pattern=r"(?u)\b\w+\b"),
+    TfidfVectorizer(analyzer="char"),
     LogisticRegression(max_iter=200),
 )
 
 clf_tfidf.fit(texts, labels)
 print(clf_tfidf.predict(["パスワード再設定の入口はどこですか"]).tolist())
 ```
+
+実行結果の例：
+
+```text
+['password']
+```
+
+TF-IDF は、どのクラスにも出やすい文字の影響を下げ、`パスワード` や `再設定` のような区別に効く手がかりを見えやすくします。
 
 この例は初学者に向いています。なぜなら、次のことに気づけるからです：
 

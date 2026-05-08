@@ -190,6 +190,17 @@ print("scores:", scores)
 print("prediction:", prediction)
 ```
 
+预期输出：
+
+```text
+token_ids: [0, 3]
+sentence_vector: [0.85, 0.75, 0.15]
+scores: {'refund': 1.315, 'invoice': 0.935, 'password': 0.31}
+prediction: refund
+```
+
+按顺序看：token 先变成 ID，ID 查表得到向量，多个 token 向量平均成一个句子向量，最后分类头给 `refund` 最高分。
+
 ### 这个例子为什么比直接 `nn.Sequential` 更有用？
 
 因为它把三个关键步骤拆开了：
@@ -222,6 +233,15 @@ def l1_distance(a, b):
 print("退款申请 vs 退货处理:", l1_distance(sentences["退款申请"], sentences["退货处理"]))
 print("退款申请 vs 密码重置:", l1_distance(sentences["退款申请"], sentences["密码重置"]))
 ```
+
+预期输出：
+
+```text
+退款申请 vs 退货处理: 0.09
+退款申请 vs 密码重置: 2.1
+```
+
+距离越小，说明两个句子表示越接近。这个玩具例子中，`退款申请` 和 `退货处理` 更近，正是神经分类器希望从数据里学到的几何关系。
 
 这个例子很适合新人，因为它能让你更直观地感受到：
 
