@@ -105,6 +105,15 @@ print("instance 1:", pixels_of_instance(instance_map, 1))
 print("instance 2:", pixels_of_instance(instance_map, 2))
 ```
 
+実行結果の例：
+
+```text
+instance 1: [(0, 1), (0, 2), (1, 1), (1, 2)]
+instance 2: [(1, 3), (2, 3)]
+```
+
+この2つの instance ID はクラスラベルではなく、個別の物体 ID です。同じクラスに属していても、システムはそれぞれを分けて扱う必要があります。
+
 ### この例でいちばん重要な点は何か？
 
 これは、インスタンスセグメンテーションがクラス番号を出すだけではなく、  
@@ -163,6 +172,15 @@ def instance_area(instance_map, target_id):
 for target_id in [1, 2]:
     print(target_id, "area =", instance_area(instance_map, target_id))
 ```
+
+実行結果の例：
+
+```text
+1 area = 4
+2 area = 3
+```
+
+各物体に独立した mask があれば、数を数えたり面積を計算したりできます。これが、検査・追跡・計画システムでインスタンスセグメンテーションが役立つ理由の1つです。
 
 この例でまずつかむべきなのは、コードそのものよりも次の点です。
 

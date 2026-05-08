@@ -105,6 +105,15 @@ print("instance 1:", pixels_of_instance(instance_map, 1))
 print("instance 2:", pixels_of_instance(instance_map, 2))
 ```
 
+预期输出：
+
+```text
+instance 1: [(0, 1), (0, 2), (1, 1), (1, 2)]
+instance 2: [(1, 3), (2, 3)]
+```
+
+这里的两个 instance ID 不是类别标签，而是“具体对象编号”。它们可以属于同一个类别，但系统仍然要把它们分开。
+
 ### 这个例子最关键的地方是什么？
 
 它说明实例分割不只是输出类别编号，
@@ -161,6 +170,15 @@ def instance_area(instance_map, target_id):
 for target_id in [1, 2]:
     print(target_id, "area =", instance_area(instance_map, target_id))
 ```
+
+预期输出：
+
+```text
+1 area = 4
+2 area = 3
+```
+
+一旦每个对象都有自己的 mask，你就可以计数，也可以计算面积。这正是实例分割在质检、跟踪和规划系统里很有价值的原因之一。
 
 这个例子最值得先抓住的不是代码本身，
 而是：

@@ -153,6 +153,14 @@ def iou_for_class(pred, gt, target_class):
 print("IoU for class 1:", round(iou_for_class(pred_mask, gt_mask, 1), 4))
 ```
 
+预期输出：
+
+```text
+IoU for class 1: 0.8
+```
+
+这里的类别 `1` 是前景区域。预测漏掉了一个前景像素，所以 mask 看起来仍然接近，但 IoU 已经降到了 `0.8`。
+
 ### 这个例子最关键的直觉是什么？
 
 分割评估不是看“整图对不对”，
@@ -223,6 +231,14 @@ def class_counts(mask):
 
 print(class_counts(mask))
 ```
+
+预期输出：
+
+```text
+{0: 14, 1: 2}
+```
+
+前景只有 2 个像素，背景却有 14 个像素。这就是为什么模型可能整体像素准确率很高，却仍然把你真正关心的小类别做得很差。
 
 这个例子虽然很小，但能一下子帮新人看懂一个现实问题：
 

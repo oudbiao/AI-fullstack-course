@@ -1,11 +1,11 @@
 ---
-title: "10.4.1 Segmentation ロードマップ：Pixel-Level Regions"
+title: "10.4.1 画像分割ロードマップ：ピクセル単位の領域"
 sidebar_position: 0
 description: "Image segmentation の短い実践ロードマップ：masks、semantic segmentation、instance segmentation、IoU、boundary failures を理解する。"
 keywords: [image segmentation guide, semantic segmentation, instance segmentation, mask]
 ---
 
-# 10.4.1 Segmentation ロードマップ：Pixel-Level Regions
+# 10.4.1 画像分割ロードマップ：ピクセル単位の領域
 
 Segmentation は detection より細かいです。box ではなく mask を出力し、どの pixels が class または instance に属するかを示します。
 

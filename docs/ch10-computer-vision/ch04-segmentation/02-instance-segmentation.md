@@ -105,6 +105,15 @@ print("instance 1:", pixels_of_instance(instance_map, 1))
 print("instance 2:", pixels_of_instance(instance_map, 2))
 ```
 
+Expected output:
+
+```text
+instance 1: [(0, 1), (0, 2), (1, 1), (1, 2)]
+instance 2: [(1, 3), (2, 3)]
+```
+
+The two instance IDs are not class labels; they are individual object IDs. Both could belong to the same class, but the system still needs to keep them separate.
+
 ### What is the most important thing in this example?
 
 It shows that instance segmentation does not just output a category ID,
@@ -161,6 +170,15 @@ def instance_area(instance_map, target_id):
 for target_id in [1, 2]:
     print(target_id, "area =", instance_area(instance_map, target_id))
 ```
+
+Expected output:
+
+```text
+1 area = 4
+2 area = 3
+```
+
+Once each object has its own mask, you can count objects and compute area. That is one reason instance segmentation is valuable in inspection, tracking, and planning systems.
 
 The most important thing to grasp here is not the code itself,
 but that:

@@ -150,6 +150,15 @@ print("ious:", [round(x, 4) for x in ious])
 print("mean_iou:", round(mean_iou, 4))
 ```
 
+Expected output:
+
+```text
+ious: [0.8, 0.8]
+mean_iou: 0.8
+```
+
+This tells you both samples perform similarly in this toy dataset. In a real report, you would keep the per-sample values because the average alone can hide bad edge cases.
+
 ### What Is This Example Trying to Show?
 
 The most important thing in a segmentation project is usually not:
@@ -226,6 +235,14 @@ def next_step(checklist):
 
 print(next_step(checklist))
 ```
+
+Expected output:
+
+```text
+First bucket the failure samples.
+```
+
+The baseline and mask checks are ready, so the next useful action is not “try a bigger model” yet. It is to group failure samples so the next change has a clear target.
 
 This example is very small, but it is great for helping beginners understand:
 

@@ -153,6 +153,14 @@ def iou_for_class(pred, gt, target_class):
 print("IoU for class 1:", round(iou_for_class(pred_mask, gt_mask, 1), 4))
 ```
 
+Expected output:
+
+```text
+IoU for class 1: 0.8
+```
+
+Here, class `1` is the foreground region. One foreground pixel is missed, so the predicted mask still looks close, but the IoU already drops to `0.8`.
+
 ### What Is the Most Important Intuition in This Example?
 
 Segmentation evaluation is not about whether the whole image is correct,
@@ -223,6 +231,14 @@ def class_counts(mask):
 
 print(class_counts(mask))
 ```
+
+Expected output:
+
+```text
+{0: 14, 1: 2}
+```
+
+There are only 2 foreground pixels but 14 background pixels. This is why a model can get high overall pixel accuracy while still failing the small class that you actually care about.
 
 Although this example is very small, it can help beginners immediately understand a real-world issue:
 
