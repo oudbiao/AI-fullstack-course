@@ -134,6 +134,14 @@ project = MedicalProject(
 print(project)
 ```
 
+Expected output:
+
+```text
+MedicalProject(task='Lung lesion region segmentation', input_type='CT slice', labels=['background', 'lesion'], metrics=['dice', 'iou', 'sensitivity', 'false_negative_rate'], clinical_constraints=['High-risk samples must be reviewed by humans', 'Results are for assistance only and do not directly replace clinical judgment'], risks=['annotation inconsistency', 'extreme class imbalance', 'high cost of false negatives'])
+```
+
+This output is intentionally more than a metric list. It records the task, inputs, labels, metrics, clinical boundaries, and risks in one project object.
+
 ### Why Is `clinical_constraints` Listed Separately Here?
 
 Because one of the biggest differences between this kind of project and a regular vision project is:
@@ -194,6 +202,16 @@ for case in cases:
     print(case["id"], review_priority(case))
 ```
 
+Expected output:
+
+```text
+case-001 high
+case-002 low
+case-003 medium
+```
+
+`case-001` is high priority because its score is high. `case-003` is medium priority because its lesion is large even though the score is not above `0.85`.
+
 Although this example is small, it already reflects a real project idea:
 
 - Not all samples are treated equally
@@ -222,6 +240,14 @@ def risk_summary(metrics):
 
 print(risk_summary(metrics))
 ```
+
+Expected output:
+
+```text
+The metrics are preliminarily usable, but human review and clinical validation are still required.
+```
+
+The metrics pass the simple risk gate, but the message still keeps the clinical boundary clear: this is assistance, not automatic diagnosis.
 
 ### Why Is This More Valuable Than Printing a Bunch of Scores?
 
@@ -310,7 +336,7 @@ When doing this kind of project for the first time, a safer error analysis order
 
 This makes it easier to identify the real problem than immediately replacing the network.
 
-Rather than visual presentation effects.
+The goal is risk-grounded evidence, not visual polish.
 
 ---
 

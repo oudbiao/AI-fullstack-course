@@ -138,6 +138,14 @@ alerts = build_alerts(detections, danger_zone)
 print(alerts)
 ```
 
+预期输出：
+
+```text
+[{'frame': 1, 'track_id': 101, 'alert': 'intrusion'}]
+```
+
+只有 `101` 这条轨迹第一次进入危险区域时会触发告警。第 2、3 帧不会重复告警，因为同一条轨迹已经处于 active 状态。
+
 ### 这个例子为什么比“检测到人就报警”强得多？
 
 因为它已经体现了安防系统里最重要的一层工程判断：
@@ -191,6 +199,14 @@ def alert_recall(pred_alerts, gold_alerts):
 print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 ```
 
+预期输出：
+
+```text
+alert_recall: 0.5
+```
+
+系统只命中了 2 个应触发告警中的 1 个。这也是为什么告警层指标能暴露单张检测截图看不出来的问题。
+
 ### 为什么“告警层指标”比 mAP 更像项目价值？
 
 因为实际交付给用户的不是框，而是：
@@ -213,6 +229,14 @@ def alert_fatigue(hours):
 
 print(alert_fatigue(alerts_per_hour))
 ```
+
+预期输出：
+
+```text
+告警过密，用户很可能开始忽略系统
+```
+
+这一步把告警数量变成了用户体验信号。告警太多时，系统可能技术上还在运行，但实际已经没人愿意相信它。
 
 这个例子想强调的不是精确公式，而是一个很真实的系统问题：
 

@@ -138,6 +138,14 @@ project = MedicalProject(
 print(project)
 ```
 
+実行結果の例：
+
+```text
+MedicalProject(task='肺の病変領域セグメンテーション', input_type='CT slice', labels=['background', 'lesion'], metrics=['dice', 'iou', 'sensitivity', 'false_negative_rate'], clinical_constraints=['高リスクサンプルは必ず人手で再確認する', '結果は補助用途に限定し、臨床判断を直接置き換えない'], risks=['アノテーションの不一致', 'クラスの極端な不均衡', 'false negative の代償が大きい'])
+```
+
+この出力は、単なる指標リストではありません。タスク、入力、ラベル、指標、臨床上の境界、リスクを 1 つの project object にまとめています。
+
 ### なぜここで `clinical_constraints` を別にしているのか？
 
 この種のプロジェクトは、普通の画像プロジェクトと大きく違う点の一つとして、
@@ -201,6 +209,16 @@ for case in cases:
     print(case["id"], review_priority(case))
 ```
 
+実行結果の例：
+
+```text
+case-001 high
+case-002 low
+case-003 medium
+```
+
+`case-001` はスコアが高いので high priority です。`case-003` はスコアが `0.85` 未満ですが、病変サイズが大きいため medium priority になります。
+
 この例は小さいですが、すでに実際のプロジェクトの考え方を表しています。
 
 - すべてのサンプルを同じようには扱わない
@@ -229,6 +247,14 @@ def risk_summary(metrics):
 
 print(risk_summary(metrics))
 ```
+
+実行結果の例：
+
+```text
+指標はひとまず使えますが、人手による再確認と臨床検証を組み合わせる必要があります。
+```
+
+この簡単なリスク判定では指標は通っていますが、メッセージは臨床上の境界を残しています。これは補助システムであり、自動診断ではありません。
 
 ### これが、ただ数字を並べるだけより価値がある理由
 
@@ -320,7 +346,7 @@ print(risk_summary(metrics))
 
 こうしたほうが、いきなりネットワークを変えるよりも、本当の問題が見えやすくなります。
 
-それではなく、視覚的な見せ方だけを重視するのではありません。
+目標は、見た目の演出ではなく、リスクに基づいた証拠を示すことです。
 
 ---
 

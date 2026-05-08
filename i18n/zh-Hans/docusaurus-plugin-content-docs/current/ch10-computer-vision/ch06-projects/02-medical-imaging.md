@@ -134,6 +134,14 @@ project = MedicalProject(
 print(project)
 ```
 
+预期输出：
+
+```text
+MedicalProject(task='肺部病灶区域分割', input_type='CT slice', labels=['background', 'lesion'], metrics=['dice', 'iou', 'sensitivity', 'false_negative_rate'], clinical_constraints=['高风险样本必须人工复核', '结果仅作辅助，不直接替代临床判断'], risks=['标注不一致', '类别极度不平衡', '假阴性代价高'])
+```
+
+这个输出刻意不只是指标列表，而是把任务、输入、标签、指标、临床边界和风险一起写进了一个项目对象。
+
 ### 为什么这里要把 `clinical_constraints` 单独列出来？
 
 因为这类项目和普通视觉项目最大的差别之一就在于：
@@ -194,6 +202,16 @@ for case in cases:
     print(case["id"], review_priority(case))
 ```
 
+预期输出：
+
+```text
+case-001 high
+case-002 low
+case-003 medium
+```
+
+`case-001` 因为分数高，所以优先级高；`case-003` 虽然分数没超过 `0.85`，但病灶尺寸较大，所以是中优先级。
+
 这个例子虽然很小，但它已经体现出一个真实项目思路：
 
 - 不是所有样本都同样对待
@@ -222,6 +240,14 @@ def risk_summary(metrics):
 
 print(risk_summary(metrics))
 ```
+
+预期输出：
+
+```text
+指标初步可用，但仍需配合人工复核与临床验证。
+```
+
+这些指标通过了这个简化风险门槛，但提示语仍然保留临床边界：这是辅助系统，不是自动诊断。
 
 ### 这个例子为什么比只打印一堆分数更有价值？
 
@@ -312,7 +338,7 @@ print(risk_summary(metrics))
 
 这样会比一上来就重新换网络更容易看清真正问题。
 
-而不是视觉演示效果。
+目标是拿出围绕风险的证据，而不是只做视觉演示效果。
 
 ---
 

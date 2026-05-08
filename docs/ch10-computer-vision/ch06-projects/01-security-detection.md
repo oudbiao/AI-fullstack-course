@@ -138,6 +138,14 @@ alerts = build_alerts(detections, danger_zone)
 print(alerts)
 ```
 
+Expected output:
+
+```text
+[{'frame': 1, 'track_id': 101, 'alert': 'intrusion'}]
+```
+
+Only the first inside-the-zone hit from track `101` creates an alert. Frames 2 and 3 do not create duplicate alerts because the same track is already active.
+
 ### Why is this example much stronger than “alert when a person is detected”?
 
 Because it already reflects one of the most important engineering judgments in security systems:
@@ -191,6 +199,14 @@ def alert_recall(pred_alerts, gold_alerts):
 print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 ```
 
+Expected output:
+
+```text
+alert_recall: 0.5
+```
+
+The system caught 1 of 2 required alerts. This is why alert-layer evaluation can reveal problems that detection screenshots alone do not show.
+
 ### Why are “alert-layer metrics” more like project value than mAP?
 
 Because what users actually receive is not boxes, but:
@@ -213,6 +229,14 @@ def alert_fatigue(hours):
 
 print(alert_fatigue(alerts_per_hour))
 ```
+
+Expected output:
+
+```text
+Alerts are too frequent; users will probably start ignoring the system
+```
+
+This turns alert volume into a user-experience signal. If alerts are too frequent, the system may be technically active but practically ignored.
 
 What this example wants to emphasize is not an exact formula, but a very real system problem:
 
