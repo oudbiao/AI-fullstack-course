@@ -106,6 +106,12 @@ message = {
 print(message)
 ```
 
+想定出力：
+
+```text
+{'from': 'planner', 'to': 'worker', 'type': 'task_assignment', 'content': '返品ポリシーの重要条件を整理してください'}
+```
+
 ### なぜこれでもう重要なのか？
 
 通信の重要な要素が、すべて明示されているからです。
@@ -126,6 +132,12 @@ print(message)
 ```python
 bad_message = "このタスクをやってください"
 print(bad_message)
+```
+
+想定出力：
+
+```text
+このタスクをやってください
 ```
 
 問題は次の通りです。
@@ -149,6 +161,12 @@ good_message = {
 }
 
 print(good_message)
+```
+
+想定出力：
+
+```text
+{'from': 'planner', 'to': 'researcher', 'type': 'search_request', 'task_id': 'task_001', 'payload': {'query': '返品ポリシー'}}
 ```
 
 これなら、システムの処理パイプラインに載せやすいメッセージになります。
@@ -200,6 +218,13 @@ bus.publish("task_assignment", {
 })
 ```
 
+想定出力：
+
+```text
+[worker] タスクを受け取りました: {'task_id': 'task_001', 'query': '返品ポリシー'}
+[planner] 結果を受け取りました: {'task_id': 'task_001', 'summary': '返品ポリシー の検索が完了しました'}
+```
+
 ### このコードが本当に教えていること
 
 このコードが教えているのは、次の点です。
@@ -246,6 +271,12 @@ shared_state["evidence"].append("購入後 7 日以内かつ学習進捗が 20% 
 shared_state["draft"] = "返金条件には、期間の制限と学習進捗の制限があります。"
 
 print(shared_state)
+```
+
+想定出力：
+
+```text
+{'goal': '返品ポリシーの要約を完成させる', 'plan': ['ポリシーを確認する', '要点を整理する', '要約を出力する'], 'evidence': ['購入後 7 日以内かつ学習進捗が 20% 未満なら返金可能'], 'draft': '返金条件には、期間の制限と学習進捗の制限があります。', 'review': None}
 ```
 
 ### この方法の長所と短所

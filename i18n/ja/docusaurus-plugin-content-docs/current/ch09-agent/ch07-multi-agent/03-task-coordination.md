@@ -130,6 +130,14 @@ for task in tasks:
     print(task["name"], "->", assign_task(task, agents))
 ```
 
+想定出力：
+
+```text
+資料を調べる -> researcher
+要約を書く -> writer
+レビューする -> reviewer
+```
+
 ### このコードは何を教えてくれるのか？
 
 ここで学ぶべき、とても大事な考え方があります。
@@ -223,6 +231,12 @@ def resolve_conflict(results):
     }
 
 print(resolve_conflict(results))
+```
+
+想定出力：
+
+```text
+{'final_decision': 'reject', 'source': 'agent_b'}
 ```
 
 ### なぜこれは最小版にすぎないのか？

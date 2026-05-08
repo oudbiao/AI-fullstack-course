@@ -125,6 +125,14 @@ for task in tasks:
     print(f"{worker} <- {task} ({workers[worker]})")
 ```
 
+想定出力：
+
+```text
+researcher <- 資料を検索する (資料を探す担当)
+analyst <- 要点を整理する (情報を整理する担当)
+writer <- 要約を書く (最終テキストを生成する担当)
+```
+
 ### 長所と短所
 
 長所：
@@ -177,6 +185,14 @@ print(step2)
 print(step3)
 ```
 
+想定出力：
+
+```text
+{'docs': ['返金ポリシー', '証明書の説明'], 'query': '返金ポリシーとは何ですか'}
+{'docs': ['返金ポリシー'], 'query': '返金ポリシーとは何ですか'}
+['返金ポリシー'] をもとに、最終回答を生成します。
+```
+
 ### どんな場面に向いている？
 
 向いているのは次のような場面です。
@@ -220,6 +236,13 @@ review = reviewer_agent(draft)
 
 print("draft :", draft)
 print("review:", review)
+```
+
+想定出力：
+
+```text
+draft : 返金ポリシー についての下書き: コース購入後7日以内は返金できます。
+review: {'approved': True, 'comment': '重要な情報はカバーされています'}
 ```
 
 ### なぜ使いやすいのか？

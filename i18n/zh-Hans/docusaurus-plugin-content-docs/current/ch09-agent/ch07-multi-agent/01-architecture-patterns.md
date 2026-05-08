@@ -125,6 +125,14 @@ for task in tasks:
     print(f"{worker} <- {task} ({workers[worker]})")
 ```
 
+预期输出：
+
+```text
+researcher <- 检索资料 (负责找资料)
+analyst <- 整理要点 (负责整理信息)
+writer <- 撰写总结 (负责生成最终文本)
+```
+
 ### 它的优点和缺点
 
 优点：
@@ -177,6 +185,14 @@ print(step2)
 print(step3)
 ```
 
+预期输出：
+
+```text
+{'docs': ['退款政策', '证书说明'], 'query': '退款政策是什么'}
+{'docs': ['退款政策'], 'query': '退款政策是什么'}
+基于 ['退款政策']，生成最终回答。
+```
+
 ### 它适合什么？
 
 适合：
@@ -220,6 +236,13 @@ review = reviewer_agent(draft)
 
 print("draft :", draft)
 print("review:", review)
+```
+
+预期输出：
+
+```text
+draft : 关于 退款政策 的初稿：课程购买后 7 天内可退款。
+review: {'approved': True, 'comment': '关键信息已覆盖'}
 ```
 
 ### 为什么这个模式好用？

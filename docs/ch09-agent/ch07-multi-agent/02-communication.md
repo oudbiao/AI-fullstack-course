@@ -106,6 +106,12 @@ message = {
 print(message)
 ```
 
+Expected output:
+
+```text
+{'from': 'planner', 'to': 'worker', 'type': 'task_assignment', 'content': 'Please summarize the key conditions of the refund policy'}
+```
+
 ### Why Is This Already Important?
 
 Because it makes the key elements of communication explicit:
@@ -126,6 +132,12 @@ This is much more robust than “just passing some natural language.”
 ```python
 bad_message = "Help me do this task"
 print(bad_message)
+```
+
+Expected output:
+
+```text
+Help me do this task
 ```
 
 The problem is:
@@ -149,6 +161,12 @@ good_message = {
 }
 
 print(good_message)
+```
+
+Expected output:
+
+```text
+{'from': 'planner', 'to': 'researcher', 'type': 'search_request', 'task_id': 'task_001', 'payload': {'query': 'refund policy'}}
 ```
 
 This is much closer to a message that can enter a system pipeline.
@@ -200,6 +218,13 @@ bus.publish("task_assignment", {
 })
 ```
 
+Expected output:
+
+```text
+[worker] received task: {'task_id': 'task_001', 'query': 'refund policy'}
+[planner] received result: {'task_id': 'task_001', 'summary': 'Finished retrieving information about refund policy'}
+```
+
 ### What Does This Code Actually Teach?
 
 It teaches you:
@@ -246,6 +271,12 @@ shared_state["evidence"].append("Refunds are available within 7 days after purch
 shared_state["draft"] = "Refund conditions include time limits and study progress limits."
 
 print(shared_state)
+```
+
+Expected output:
+
+```text
+{'goal': 'Complete the refund policy summary', 'plan': ['check policy', 'organize key points', 'output summary'], 'evidence': ['Refunds are available within 7 days after purchase if study progress is below 20%'], 'draft': 'Refund conditions include time limits and study progress limits.', 'review': None}
 ```
 
 ### Pros and Cons of This Approach

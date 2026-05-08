@@ -130,6 +130,14 @@ for task in tasks:
     print(task["name"], "->", assign_task(task, agents))
 ```
 
+预期输出：
+
+```text
+查资料 -> researcher
+写总结 -> writer
+做评审 -> reviewer
+```
+
 ### 这段代码在教你什么？
 
 它在教你一个非常重要的抽象：
@@ -225,6 +233,12 @@ def resolve_conflict(results):
     }
 
 print(resolve_conflict(results))
+```
+
+预期输出：
+
+```text
+{'final_decision': 'reject', 'source': 'agent_b'}
 ```
 
 ### 为什么这只是最小版？

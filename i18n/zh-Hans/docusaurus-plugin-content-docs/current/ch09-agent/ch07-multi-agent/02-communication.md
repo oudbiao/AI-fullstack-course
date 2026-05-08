@@ -106,6 +106,12 @@ message = {
 print(message)
 ```
 
+预期输出：
+
+```text
+{'from': 'planner', 'to': 'worker', 'type': 'task_assignment', 'content': '请整理退款政策的关键条件'}
+```
+
 ### 为什么这已经很重要？
 
 因为它把通信的几个关键元素都显式化了：
@@ -126,6 +132,12 @@ print(message)
 ```python
 bad_message = "帮我做这个任务"
 print(bad_message)
+```
+
+预期输出：
+
+```text
+帮我做这个任务
 ```
 
 问题在于：
@@ -149,6 +161,12 @@ good_message = {
 }
 
 print(good_message)
+```
+
+预期输出：
+
+```text
+{'from': 'planner', 'to': 'researcher', 'type': 'search_request', 'task_id': 'task_001', 'payload': {'query': '退款政策'}}
 ```
 
 这才更像一个能进入系统流水线的消息。
@@ -200,6 +218,13 @@ bus.publish("task_assignment", {
 })
 ```
 
+预期输出：
+
+```text
+[worker] 收到任务: {'task_id': 'task_001', 'query': '退款政策'}
+[planner] 收到结果: {'task_id': 'task_001', 'summary': '已完成对 退款政策 的检索'}
+```
+
 ### 这段代码真正教了什么？
 
 它教你：
@@ -246,6 +271,12 @@ shared_state["evidence"].append("购买后 7 天内且学习进度低于 20% 可
 shared_state["draft"] = "退款条件包括时间限制和学习进度限制。"
 
 print(shared_state)
+```
+
+预期输出：
+
+```text
+{'goal': '完成退款政策总结', 'plan': ['查政策', '整理要点', '输出总结'], 'evidence': ['购买后 7 天内且学习进度低于 20% 可退款'], 'draft': '退款条件包括时间限制和学习进度限制。', 'review': None}
 ```
 
 ### 这种方式的优缺点

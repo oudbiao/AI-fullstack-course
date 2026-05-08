@@ -130,6 +130,14 @@ for task in tasks:
     print(task["name"], "->", assign_task(task, agents))
 ```
 
+Expected output:
+
+```text
+Find information -> researcher
+Write summary -> writer
+Do review -> reviewer
+```
+
 ### What is this code teaching you?
 
 It teaches you a very important abstraction:
@@ -225,6 +233,12 @@ def resolve_conflict(results):
     }
 
 print(resolve_conflict(results))
+```
+
+Expected output:
+
+```text
+{'final_decision': 'reject', 'source': 'agent_b'}
 ```
 
 ### Why is this only the minimal version?

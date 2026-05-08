@@ -125,6 +125,14 @@ for task in tasks:
     print(f"{worker} <- {task} ({workers[worker]})")
 ```
 
+Expected output:
+
+```text
+researcher <- retrieve materials (responsible for finding materials)
+analyst <- organize key points (responsible for organizing information)
+writer <- write summary (responsible for generating the final text)
+```
+
 ### Its strengths and weaknesses
 
 Strengths:
@@ -177,6 +185,14 @@ print(step2)
 print(step3)
 ```
 
+Expected output:
+
+```text
+{'docs': ['refund policy', 'certificate instructions'], 'query': 'What is the refund policy'}
+{'docs': ['refund policy'], 'query': 'What is the refund policy'}
+Based on ['refund policy'], generate the final answer.
+```
+
 ### What is it suitable for?
 
 Suitable for:
@@ -220,6 +236,13 @@ review = reviewer_agent(draft)
 
 print("draft :", draft)
 print("review:", review)
+```
+
+Expected output:
+
+```text
+draft : Draft about refund policy: courses are refundable within 7 days after purchase.
+review: {'approved': True, 'comment': 'Key information is covered'}
 ```
 
 ### Why is this pattern useful?
