@@ -120,6 +120,12 @@ chain = SimpleChain([
 print(chain.run("  退款政策是什么？ "))
 ```
 
+预期输出：
+
+```text
+根据资料：课程购买后 7 天内可退款
+```
+
 ### 这个例子最该你记住什么？
 
 它在表达一个非常清楚的思想：
@@ -221,6 +227,14 @@ while state["next"] is not None:
     current = state["next"]
     state = nodes[current](state)
     print(current, "->", state)
+```
+
+预期输出：
+
+```text
+plan -> {'query': '退款政策是什么', 'next': 'retrieve'}
+retrieve -> {'query': '退款政策是什么', 'next': 'answer', 'docs': ['课程购买后 7 天内可退款']}
+answer -> {'query': '退款政策是什么', 'next': None, 'docs': ['课程购买后 7 天内可退款'], 'answer': '根据资料：课程购买后 7 天内可退款'}
 ```
 
 ### 这段代码和链式示例最大的差别在哪？

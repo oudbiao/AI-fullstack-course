@@ -197,6 +197,13 @@ wf.add_step("answer", answer)
 wf.run({"query": "What is the refund policy?"})
 ```
 
+Expected output:
+
+```text
+retrieve -> {'query': 'What is the refund policy?', 'docs': ['refund policy']}
+answer -> {'query': 'What is the refund policy?', 'docs': ['refund policy'], 'answer': "Generate an answer based on ['refund policy']"}
+```
+
 ### Why does this code feel “framework-like”?
 
 Because it is already abstracting:

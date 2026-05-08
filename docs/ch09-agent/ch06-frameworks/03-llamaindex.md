@@ -114,6 +114,12 @@ for doc in documents:
 print(nodes)
 ```
 
+Expected output:
+
+```text
+[{'doc_id': 'doc1', 'text': 'You can request a refund within 7 days after purchase if your learning progress is below 20%.'}, {'doc_id': 'doc2', 'text': 'You can receive a certificate after completing all projects and passing the test.'}]
+```
+
 Although this example is simple, it already expresses a core idea:
 
 > Original documents are usually not used directly for Q&A. They are first turned into knowledge units that are more suitable for indexing and retrieval.
@@ -179,6 +185,12 @@ def retrieve(query):
 print(retrieve("What is the refund policy?"))
 ```
 
+Expected output:
+
+```text
+{'doc_id': 'doc1', 'text': 'You can request a refund within 7 days after purchase if your learning progress is below 20%.'}
+```
+
 ### What abstract ideas does this code really correspond to?
 
 It already corresponds to:
@@ -215,6 +227,12 @@ def query_engine(query):
     }
 
 print(query_engine("What is the refund policy?"))
+```
+
+Expected output:
+
+```text
+{'answer': 'You can request a refund within 7 days after purchase if your learning progress is below 20%.', 'source': 'doc1'}
 ```
 
 This example is teaching you:

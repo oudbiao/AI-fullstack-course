@@ -197,6 +197,13 @@ wf.add_step("answer", answer)
 wf.run({"query": "退款政策是什么"})
 ```
 
+预期输出：
+
+```text
+retrieve -> {'query': '退款政策是什么', 'docs': ['退款政策']}
+answer -> {'query': '退款政策是什么', 'docs': ['退款政策'], 'answer': "根据 ['退款政策'] 生成回答"}
+```
+
 ### 这段代码为什么有“框架感”？
 
 因为它已经在抽象：

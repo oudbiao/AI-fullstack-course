@@ -120,6 +120,12 @@ chain = SimpleChain([
 print(chain.run("  What is the refund policy? "))
 ```
 
+Expected output:
+
+```text
+According to the materials: You can request a refund within 7 days after purchasing the course.
+```
+
 ### What should you remember most from this example?
 
 It expresses a very clear idea:
@@ -221,6 +227,14 @@ while state["next"] is not None:
     current = state["next"]
     state = nodes[current](state)
     print(current, "->", state)
+```
+
+Expected output:
+
+```text
+plan -> {'query': 'What is the refund policy', 'next': 'retrieve'}
+retrieve -> {'query': 'What is the refund policy', 'next': 'answer', 'docs': ['You can request a refund within 7 days after purchasing the course.']}
+answer -> {'query': 'What is the refund policy', 'next': None, 'docs': ['You can request a refund within 7 days after purchasing the course.'], 'answer': 'According to the materials: You can request a refund within 7 days after purchasing the course.'}
 ```
 
 ### What is the biggest difference between this and the chain example?

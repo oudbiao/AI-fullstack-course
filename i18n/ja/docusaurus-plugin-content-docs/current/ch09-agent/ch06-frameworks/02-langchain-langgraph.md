@@ -122,6 +122,12 @@ chain = SimpleChain([
 print(chain.run("  返金ポリシーは何ですか？ "))
 ```
 
+想定出力：
+
+```text
+資料によると：コース購入後 7 日以内なら返金できます
+```
+
 ### この例で一番覚えるべきことは？
 
 この例が表しているのは、とてもシンプルな考え方です。
@@ -223,6 +229,14 @@ while state["next"] is not None:
     current = state["next"]
     state = nodes[current](state)
     print(current, "->", state)
+```
+
+想定出力：
+
+```text
+plan -> {'query': '返金ポリシーは何ですか', 'next': 'retrieve'}
+retrieve -> {'query': '返金ポリシーは何ですか', 'next': 'answer', 'docs': ['コース購入後 7 日以内なら返金できます']}
+answer -> {'query': '返金ポリシーは何ですか', 'next': None, 'docs': ['コース購入後 7 日以内なら返金できます'], 'answer': '資料によると：コース購入後 7 日以内なら返金できます'}
 ```
 
 ### このコードとチェーン型の例の最大の違いは？
