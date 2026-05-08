@@ -95,6 +95,14 @@ print(materials)
 print(answer)
 ```
 
+Expected output:
+
+```text
+['collect refund policy', 'organize time conditions', 'form a conclusion']
+['After course purchase, you can get a refund within 7 days if learning progress is below 20%.', 'Key conditions include the time window and learning progress.']
+Conclusion: After course purchase, you can get a refund within 7 days if learning progress is below 20%. Key conditions include the time window and learning progress.
+```
+
 The key idea of this pattern is:
 
 > First expand to collect information, then converge to summarize it.
@@ -148,6 +156,14 @@ print(review)
 print(final)
 ```
 
+Expected output:
+
+```text
+Draft: The key point of refund policy is that refunds are available within 7 days.
+Suggest adding the learning progress condition.
+Draft: The key point of refund policy is that refunds are available within 7 days. Suggest adding the learning progress condition.
+```
+
 The biggest advantage of this pattern is:
 
 > It separates “generation ability” from “error-correction ability”.
@@ -182,6 +198,15 @@ workflow = [
 
 for step in workflow:
     print(step["agent"], "->", step["task"])
+```
+
+Expected output:
+
+```text
+planner -> define the feature to implement
+coder -> write the implementation code
+reviewer -> check for logic issues
+tester -> verify whether the output meets expectations
 ```
 
 The key point of this pattern is not that the roles sound impressive, but that:
@@ -238,6 +263,14 @@ review = reviewer(draft)
 print("steps  :", steps)
 print("draft  :", draft)
 print("review :", review)
+```
+
+Expected output:
+
+```text
+steps  : ['retrieve', 'write', 'review']
+draft  : Answer draft: Retrieval result: refunds require both time and progress conditions.
+review : {'approved': True, 'comment': 'The information is fairly complete'}
 ```
 
 Although this code is small, it already shows the core feel of practical patterns:

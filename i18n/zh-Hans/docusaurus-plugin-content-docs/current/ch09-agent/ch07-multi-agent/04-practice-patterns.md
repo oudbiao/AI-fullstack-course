@@ -95,6 +95,14 @@ print(materials)
 print(answer)
 ```
 
+预期输出：
+
+```text
+['收集退款政策', '整理时间条件', '形成结论']
+['课程购买后 7 天内且学习进度低于 20% 可退款。', '关键条件包括时间范围和学习进度。']
+结论：课程购买后 7 天内且学习进度低于 20% 可退款。 关键条件包括时间范围和学习进度。
+```
+
 这个模式的关键是：
 
 > 先发散搜集，再统一收敛。
@@ -148,6 +156,14 @@ print(review)
 print(final)
 ```
 
+预期输出：
+
+```text
+初稿：退款政策 的核心是 7 天内可退款。
+建议补充学习进度条件。
+初稿：退款政策 的核心是 7 天内可退款。 建议补充学习进度条件。
+```
+
 这个模式最大的好处是：
 
 > 它把“生成能力”和“纠错能力”分开了。
@@ -182,6 +198,15 @@ workflow = [
 
 for step in workflow:
     print(step["agent"], "->", step["task"])
+```
+
+预期输出：
+
+```text
+planner -> 定义要实现的功能
+coder -> 写出实现代码
+reviewer -> 检查逻辑问题
+tester -> 验证输出是否符合预期
 ```
 
 这个模式的关键不是“角色好听”，而是：
@@ -238,6 +263,14 @@ review = reviewer(draft)
 print("steps  :", steps)
 print("draft  :", draft)
 print("review :", review)
+```
+
+预期输出：
+
+```text
+steps  : ['retrieve', 'write', 'review']
+draft  : 回答草稿：检索结果：退款需满足时间与进度条件。
+review : {'approved': True, 'comment': '信息较完整'}
 ```
 
 这段代码虽然很小，但已经体现了实战模式最核心的味道：
