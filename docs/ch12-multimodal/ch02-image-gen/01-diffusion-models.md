@@ -178,6 +178,19 @@ for step in range(1, 6):
     print(f"step {step}: {np.round(x, 3)}")
 ```
 
+Expected output:
+
+```text
+x0 = [ 1.   0.5 -0.5 -1. ]
+step 1: [ 0.899  0.372 -0.27  -0.495]
+step 2: [ 0.673  0.251  0.099 -0.243]
+step 3: [ 0.444  0.309 -0.013 -0.287]
+step 4: [ 0.404 -0.135 -0.355 -0.342]
+step 5: [ 0.12  -0.045 -0.466 -0.556]
+```
+
+Run it once and read the rows from top to bottom. The values do not become random immediately; the old signal is weakened while new noise is mixed in, which is exactly the forward diffusion intuition.
+
 ### What is this code teaching?
 
 It teaches you two very important facts:
@@ -259,6 +272,16 @@ print("clean =", x_clean)
 print("noise =", noise)
 print("noisy =", x_noisy)
 ```
+
+Expected output:
+
+```text
+clean = [ 1.  -0.5  0.8]
+noise = [ 0.2 -0.1  0.3]
+noisy = [ 1.1  -0.55  1.02]
+```
+
+In training, `clean` and `noise` are both known because you created the noisy sample yourself. That is why diffusion training can turn image generation into a supervised “predict the added noise” task.
 
 If the model learns to predict `noise` from `x_noisy`,
 it can strip noise away step by step during inference.

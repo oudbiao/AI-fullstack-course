@@ -121,6 +121,14 @@ text_to_image_task = {
 print(text_to_image_task)
 ```
 
+期待される出力：
+
+```text
+{'prompt': '窓辺に座る茶トラ猫、夕日、映画のような雰囲気', 'output': 'generated_image'}
+```
+
+これは「白紙のキャンバス」モードです。prompt が主な入力になり、システムはゼロから新しい候補画像を生成します。
+
 ### なぜこんなに直感的なのか？
 
 それは、「言葉で伝えた意図 -> 画像の結果」という流れを、とても直接的に体験できるからです。  
@@ -150,6 +158,14 @@ img2img_task = {
 
 print(img2img_task)
 ```
+
+期待される出力：
+
+```text
+{'image': 'rough_sketch.png', 'prompt': 'これをサイバーパンク風のイラストにして'}
+```
+
+ここでは画像は単なる参考ではなく、出発点となる構造です。prompt は、その構造をどの方向に変えるかを指定します。
 
 ### なぜこのモードは価値が高いのか？
 
@@ -186,6 +202,14 @@ inpainting_task = {
 
 print(inpainting_task)
 ```
+
+期待される出力：
+
+```text
+{'image': 'scene.png', 'mask': 'mask.png', 'prompt': '隠れている部分を木のテーブルとして補完する'}
+```
+
+`mask` が重要な追加入力です。これがないと、システムは間違った場所を編集したり、残したい部分まで作り直したりする可能性があります。
 
 ここで新しく重要になる要素は
 
@@ -270,6 +294,14 @@ poster_workflow = {
 print(poster_workflow)
 ```
 
+期待される出力：
+
+```text
+{'task': 'ポスター生成', 'inputs': {'prompt': 'テクノロジー会議のポスター、青いネオン風', 'style_preset': 'futuristic', 'negative_prompt': 'ぼやけ, 低解像度, 文字の崩れ', 'num_images': 4}, 'steps': ['プロンプトを組み立てる', 'バッチサンプリングする', '候補画像を選ぶ', '後処理する']}
+```
+
+この記録は、単一の prompt よりも製品ワークフローに近い形です。依頼内容、制約、候補数、確認手順を残すことで、結果を再現しやすくなります。
+
 この例で最も大事なのは、次の点です。
 
 > アプリケーション層で本当に大事なのは、単に「1枚の画像を生成すること」ではなく、「ユーザーが受け入れられる結果を安定して出すこと」です。 
@@ -280,7 +312,7 @@ print(poster_workflow)
 def choose_sd_mode(request):
     if "画像を直す" in request or "画像を修正" in request:
         return "inpainting_or_img2img"
-    if "ラフ" in request or "下書き" in request:
+    if "ラフ" in request or "下書き" in request or "草稿" in request:
         return "img2img"
     if "ポーズ" in request or "線画" in request:
         return "controlled_generation"
@@ -290,6 +322,16 @@ def choose_sd_mode(request):
 for request in ["ポスターを作って", "この草稿をイラストにして", "画像を修正：右上の人を消して"]:
     print(request, "->", choose_sd_mode(request))
 ```
+
+期待される出力：
+
+```text
+ポスターを作って -> text_to_image
+この草稿をイラストにして -> img2img
+画像を修正：右上の人を消して -> inpainting_or_img2img
+```
+
+実際の製品では、このようなルーティングの前に表記揺れや類義語の正規化も行います。表現が少し変わっただけで、間違ったモードに入らないようにするためです。
 
 この例は初心者にとても向いています。  
 なぜなら、次のことを思い出させてくれるからです。

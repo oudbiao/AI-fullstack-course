@@ -138,6 +138,16 @@ print("latent shape       :", latent.shape)
 print("reconstructed shape:", reconstructed.shape)
 ```
 
+期待される出力：
+
+```text
+image shape        : (8, 8)
+latent shape       : (4, 4)
+reconstructed shape: (8, 8)
+```
+
+注目すべきは真ん中の行です。latent は小さくなっています。Stable Diffusion は主なノイズ除去をこの圧縮空間で行い、最後に latent を画像空間へ戻します。
+
 この例はもちろん VAE そのものではありませんが、もっとも大事な直感はつかめます。
 
 - latent は元画像より小さい
@@ -173,6 +183,14 @@ text_condition = {
 
 print(text_condition)
 ```
+
+期待される出力：
+
+```text
+{'prompt': '窓辺に座るオレンジ色の猫', 'embedding_shape': (77, 768)}
+```
+
+ここでの形状はあくまで例ですが、考え方は実務でも同じです。画像モジュールがテキストを使う前に、prompt は数値ベクトルへ変換されます。
 
 ここで大事なのは具体的な次元数ではなく、次の点です。
 
@@ -237,6 +255,14 @@ fusion = f"{latent_feature} が更新するときに {text_feature} を参照す
 print(fusion)
 ```
 
+期待される出力：
+
+```text
+現在の画像 latent 特徴 が更新するときに オレンジ色の猫 + 窓辺 + 夕日 を参照する
+```
+
+この文を cross-attention の役割として読んでください。latent は盲目的にノイズ除去されるのではなく、更新のたびにテキスト条件を参照します。
+
 これはただの文字の例ですが、本質はすでに表しています。
 
 - self-attention は「自分自身を見る」イメージ
@@ -266,6 +292,18 @@ workflow = [
 for step in workflow:
     print(step)
 ```
+
+期待される出力：
+
+```text
+prompt -> text encoder
+latent noise
+U-Net denoise with text condition
+clean latent
+decode to image
+```
+
+各行が何を受け取り、何を出すのか説明できれば、Stable Diffusion の多くのワークフローをデバッグするための実用的な地図ができています。
 
 これが Stable Diffusion のもっとも重要な主線です。
 

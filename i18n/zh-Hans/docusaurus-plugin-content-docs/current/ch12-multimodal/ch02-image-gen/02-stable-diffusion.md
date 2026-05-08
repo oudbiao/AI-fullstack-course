@@ -138,6 +138,16 @@ print("latent shape       :", latent.shape)
 print("reconstructed shape:", reconstructed.shape)
 ```
 
+预期输出：
+
+```text
+image shape        : (8, 8)
+latent shape       : (4, 4)
+reconstructed shape: (8, 8)
+```
+
+关键看中间那一行：latent 变小了。Stable Diffusion 把主要去噪工作放在这个压缩空间里完成，最后再把 latent 解码回图像空间。
+
 这个例子当然不是 VAE，但它足够帮你抓住最核心的直觉：
 
 - latent 比原图小
@@ -175,6 +185,14 @@ text_condition = {
 
 print(text_condition)
 ```
+
+预期输出：
+
+```text
+{'prompt': '一只坐在窗边的橘猫', 'embedding_shape': (77, 768)}
+```
+
+这里的维度只是示意，但习惯是真实的：图像模块使用文本之前，prompt 必须先变成数值向量。
 
 这里最重要的不是具体维度，而是理解：
 
@@ -239,6 +257,14 @@ fusion = f"{latent_feature} 在更新时参考 {text_feature}"
 print(fusion)
 ```
 
+预期输出：
+
+```text
+当前图像 latent 特征 在更新时参考 橘猫 + 窗边 + 夕阳
+```
+
+可以把这句话当作 cross-attention 的职责：latent 不是盲目去噪，而是一边更新一边参考文本条件。
+
 虽然只是文字示意，但它已经抓住本质：
 
 - self-attention 更像“自己看自己”
@@ -268,6 +294,18 @@ workflow = [
 for step in workflow:
     print(step)
 ```
+
+预期输出：
+
+```text
+prompt -> text encoder
+latent noise
+U-Net denoise with text condition
+clean latent
+decode to image
+```
+
+如果你能说清每一行消耗什么、产出什么，就已经具备调试大多数 Stable Diffusion 工作流的实用心智模型。
 
 这就是 Stable Diffusion 的最重要主线。
 

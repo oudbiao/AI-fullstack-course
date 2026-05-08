@@ -130,6 +130,14 @@ textual_inversion = {
 print(textual_inversion)
 ```
 
+预期输出：
+
+```text
+{'new_token': '<my_style>', 'meaning': '一种特定视觉风格', 'learned_object': 'token embedding'}
+```
+
+关键看 `learned_object`：Textual Inversion 主要学习一个新 token 的 embedding，所以它轻量，但控制能力也有限。
+
 ### 它适合什么？
 
 - 风格 trigger word
@@ -172,6 +180,15 @@ lora_adapter = {
 print(base_model)
 print(lora_adapter)
 ```
+
+预期输出：
+
+```text
+stable_diffusion_base
+{'target': 'attention blocks / U-Net blocks', 'size': 'small', 'effect': '附加风格或主体控制能力'}
+```
+
+这就是 LoRA 流行的工程原因：基础模型保持共享，小适配器负责承载定制能力。
 
 ### 为什么它工程上特别实用？
 

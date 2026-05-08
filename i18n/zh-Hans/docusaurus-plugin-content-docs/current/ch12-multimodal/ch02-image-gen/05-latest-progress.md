@@ -242,6 +242,17 @@ for item in ranked:
     print(item)
 ```
 
+预期输出：
+
+```text
+{'name': '更强可控编辑', 'product_value': 10, 'engineering_cost': 7, 'stability': 8, 'score': 6.0}
+{'name': '更快采样', 'product_value': 9, 'engineering_cost': 6, 'stability': 8, 'score': 5.7}
+{'name': '统一多模态输入', 'product_value': 8, 'engineering_cost': 8, 'stability': 6, 'score': 4.2}
+{'name': '从单图走向视频与3D', 'product_value': 8, 'engineering_cost': 9, 'stability': 5, 'score': 3.7}
+```
+
+这里的权重不是标准答案。真正要练的是：把“这个趋势很酷”拆成价值、成本、稳定性三个维度来判断。
+
 ### 这段代码想传达什么？
 
 真正读“最新进展”时，不要只看技术炫不炫，

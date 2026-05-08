@@ -118,6 +118,14 @@ text_to_image_task = {
 print(text_to_image_task)
 ```
 
+Expected output:
+
+```text
+{'prompt': 'An orange cat sitting by the window, sunset, cinematic', 'output': 'generated_image'}
+```
+
+This is the blank-canvas mode: the prompt is the main input, and the system creates a new candidate image from scratch.
+
 ### Why Is This So Intuitive?
 
 Because it makes the idea of “language intent -> image result” very direct for the first time.
@@ -147,6 +155,14 @@ img2img_task = {
 
 print(img2img_task)
 ```
+
+Expected output:
+
+```text
+{'image': 'rough_sketch.png', 'prompt': 'Turn it into a cyberpunk-style illustration'}
+```
+
+Here the image is no longer optional context. It becomes the starting structure, and the prompt tells the model how to transform it.
 
 ### Why Is This Mode Valuable?
 
@@ -183,6 +199,14 @@ inpainting_task = {
 
 print(inpainting_task)
 ```
+
+Expected output:
+
+```text
+{'image': 'scene.png', 'mask': 'mask.png', 'prompt': 'Fill the masked area with a wooden table'}
+```
+
+The `mask` is the key extra input. Without it, the system may edit the wrong area or regenerate more of the image than the user intended.
 
 The key new element here is:
 
@@ -265,6 +289,14 @@ poster_workflow = {
 print(poster_workflow)
 ```
 
+Expected output:
+
+```text
+{'task': 'poster generation', 'inputs': {'prompt': 'Tech conference poster, blue neon style', 'style_preset': 'futuristic', 'negative_prompt': 'blurry, low resolution, distorted text', 'num_images': 4}, 'steps': ['Construct the prompt', 'Batch sampling', 'Filter candidate images', 'Post-process']}
+```
+
+This record is deliberately more product-like than a single prompt. It captures the brief, constraints, number of candidates, and review steps needed to make the result repeatable.
+
 The most important meaning of this example is:
 
 > At the application layer, what usually matters is not “generate one image,” but “how do we reliably produce a result the user can accept?”
@@ -273,11 +305,12 @@ The most important meaning of this example is:
 
 ```python
 def choose_sd_mode(request):
-    if "edit image" in request or "retouch" in request:
+    normalized = request.lower()
+    if "edit image" in normalized or "retouch" in normalized:
         return "inpainting_or_img2img"
-    if "sketch" in request:
+    if "sketch" in normalized:
         return "img2img"
-    if "pose" in request or "line art" in request:
+    if "pose" in normalized or "line art" in normalized:
         return "controlled_generation"
     return "text_to_image"
 
@@ -285,6 +318,16 @@ def choose_sd_mode(request):
 for request in ["Make a poster", "Turn this sketch into an illustration", "Edit image: remove the person in the upper right corner"]:
     print(request, "->", choose_sd_mode(request))
 ```
+
+Expected output:
+
+```text
+Make a poster -> text_to_image
+Turn this sketch into an illustration -> img2img
+Edit image: remove the person in the upper right corner -> inpainting_or_img2img
+```
+
+Notice the first line in the function: product routing should normalize user text before matching rules. Otherwise a capitalized request can silently fall into the wrong mode.
 
 This example is very suitable for beginners, because it reminds you that:
 

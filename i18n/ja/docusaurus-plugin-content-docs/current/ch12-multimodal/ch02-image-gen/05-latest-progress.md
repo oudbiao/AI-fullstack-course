@@ -243,6 +243,17 @@ for item in ranked:
     print(item)
 ```
 
+期待される出力：
+
+```text
+{'name': 'より強い制御編集', 'product_value': 10, 'engineering_cost': 7, 'stability': 8, 'score': 6.0}
+{'name': 'より速いサンプリング', 'product_value': 9, 'engineering_cost': 6, 'stability': 8, 'score': 5.7}
+{'name': '統一されたマルチモーダル入力', 'product_value': 8, 'engineering_cost': 8, 'stability': 6, 'score': 4.2}
+{'name': '単一画像から動画と3Dへ', 'product_value': 8, 'engineering_cost': 9, 'stability': 5, 'score': 3.7}
+```
+
+ここでの重みは標準解ではありません。大事なのは、「この流れは面白そう」を、価値・コスト・安定性に分解して判断する練習です。
+
 ### このコードが伝えたいことは？
 
 「最新の進展」を読むときは、技術が面白いかどうかだけでなく、次のことも考えましょう。

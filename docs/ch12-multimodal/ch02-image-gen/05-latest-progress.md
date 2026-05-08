@@ -242,6 +242,17 @@ for item in ranked:
     print(item)
 ```
 
+Expected output:
+
+```text
+{'name': 'stronger controllable editing', 'product_value': 10, 'engineering_cost': 7, 'stability': 8, 'score': 6.0}
+{'name': 'faster sampling', 'product_value': 9, 'engineering_cost': 6, 'stability': 8, 'score': 5.7}
+{'name': 'unified multimodal input', 'product_value': 8, 'engineering_cost': 8, 'stability': 6, 'score': 4.2}
+{'name': 'from single images to video and 3D', 'product_value': 8, 'engineering_cost': 9, 'stability': 5, 'score': 3.7}
+```
+
+The exact weights are not universal. The practical lesson is to turn “this trend feels exciting” into a small scoring rule that includes value, cost, and stability.
+
 ### What is this code trying to convey?
 
 When you truly read “latest progress,” don’t just ask whether a technique is flashy,

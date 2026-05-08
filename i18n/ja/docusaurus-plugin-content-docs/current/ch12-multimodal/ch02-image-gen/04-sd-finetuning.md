@@ -132,6 +132,14 @@ textual_inversion = {
 print(textual_inversion)
 ```
 
+期待される出力：
+
+```text
+{'new_token': '<my_style>', 'meaning': '特定の視覚スタイル', 'learned_object': 'token embedding'}
+```
+
+注目すべきは `learned_object` です。Textual Inversion は主に新しい token の embedding を学ぶため、軽量ですが制御力は限定的です。
+
 ### どんなときに向いている？
 
 - スタイル用の trigger word
@@ -176,6 +184,15 @@ lora_adapter = {
 print(base_model)
 print(lora_adapter)
 ```
+
+期待される出力：
+
+```text
+stable_diffusion_base
+{'target': 'attention blocks / U-Net blocks', 'size': 'small', 'effect': 'スタイルや主体の制御能力を追加する'}
+```
+
+これが LoRA が実務で人気な理由です。ベースモデルは共有したまま、小さなアダプタがカスタマイズ能力を持ちます。
 
 ### なぜ実務で特に便利なのか？
 

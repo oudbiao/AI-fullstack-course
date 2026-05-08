@@ -119,6 +119,14 @@ text_to_image_task = {
 print(text_to_image_task)
 ```
 
+预期输出：
+
+```text
+{'prompt': '一只坐在窗边的橘猫，夕阳，电影感', 'output': 'generated_image'}
+```
+
+这是“空白画布”模式：prompt 是主要输入，系统从零生成一张新的候选图。
+
 ### 为什么它这么直观？
 
 因为它第一次把“语言意图 -> 图像结果”这件事变得特别直接。
@@ -148,6 +156,14 @@ img2img_task = {
 
 print(img2img_task)
 ```
+
+预期输出：
+
+```text
+{'image': 'rough_sketch.png', 'prompt': '把它变成赛博朋克风格插画'}
+```
+
+这里图片不再只是可选参考，而是起始结构；prompt 则告诉模型要沿着什么方向改造它。
 
 ### 为什么这个模式很有价值？
 
@@ -184,6 +200,14 @@ inpainting_task = {
 
 print(inpainting_task)
 ```
+
+预期输出：
+
+```text
+{'image': 'scene.png', 'mask': 'mask.png', 'prompt': '把被遮住区域补成一张木桌'}
+```
+
+`mask` 是关键的额外输入。没有它，系统可能改错区域，或者重绘掉用户本来想保留的部分。
 
 这里最关键的新元素是：
 
@@ -266,6 +290,14 @@ poster_workflow = {
 print(poster_workflow)
 ```
 
+预期输出：
+
+```text
+{'task': '海报生成', 'inputs': {'prompt': '科技会议海报，蓝色霓虹风格', 'style_preset': 'futuristic', 'negative_prompt': '模糊, 低清晰度, 畸形文字', 'num_images': 4}, 'steps': ['构造提示词', '批量采样', '筛选候选图', '后处理']}
+```
+
+这条记录故意比单个 prompt 更像产品流程：它同时记录需求、约束、候选数量和审核步骤，方便稳定复现和迭代。
+
 这个例子最重要的意义是：
 
 > 应用层真正关心的通常不是“只生成一张图”，而是“怎样稳定地产出一个用户可接受的结果”。
@@ -286,6 +318,16 @@ def choose_sd_mode(request):
 for request in ["做一张海报", "把这张草图变成插画", "改图：去掉右上角的人"]:
     print(request, "->", choose_sd_mode(request))
 ```
+
+预期输出：
+
+```text
+做一张海报 -> text_to_image
+把这张草图变成插画 -> img2img
+改图：去掉右上角的人 -> inpainting_or_img2img
+```
+
+真实产品里，这类路由通常还会先做大小写、同义词和语言归一化。否则用户表达稍微变化，就可能进入错误模式。
 
 这个示例很适合初学者，因为它会提醒你：
 

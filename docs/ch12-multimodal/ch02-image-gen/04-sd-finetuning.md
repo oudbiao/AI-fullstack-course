@@ -130,6 +130,14 @@ textual_inversion = {
 print(textual_inversion)
 ```
 
+Expected output:
+
+```text
+{'new_token': '<my_style>', 'meaning': 'a specific visual style', 'learned_object': 'token embedding'}
+```
+
+The key is `learned_object`: Textual Inversion mainly learns a new embedding for a token, so it is light but limited.
+
 ### What is it good for?
 
 - Style trigger words
@@ -172,6 +180,15 @@ lora_adapter = {
 print(base_model)
 print(lora_adapter)
 ```
+
+Expected output:
+
+```text
+stable_diffusion_base
+{'target': 'attention blocks / U-Net blocks', 'size': 'small', 'effect': 'adds style or subject control capability'}
+```
+
+This is the engineering reason LoRA is popular: the base model stays shared, and the small adapter carries the customization.
 
 ### Why is it especially practical in engineering?
 

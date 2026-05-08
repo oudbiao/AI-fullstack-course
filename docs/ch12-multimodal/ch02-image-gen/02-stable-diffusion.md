@@ -138,6 +138,16 @@ print("latent shape       :", latent.shape)
 print("reconstructed shape:", reconstructed.shape)
 ```
 
+Expected output:
+
+```text
+image shape        : (8, 8)
+latent shape       : (4, 4)
+reconstructed shape: (8, 8)
+```
+
+The important observation is the middle line: the latent is smaller. Stable Diffusion spends most denoising work in this compressed space, then decodes the final latent back to image space.
+
 Of course, this example is not a VAE, but it is enough to help you grasp the core intuition:
 
 - latent is smaller than the original image
@@ -173,6 +183,14 @@ text_condition = {
 
 print(text_condition)
 ```
+
+Expected output:
+
+```text
+{'prompt': 'an orange cat sitting by the window', 'embedding_shape': (77, 768)}
+```
+
+The shape is only a placeholder, but the habit is real: before image modules can use text, the prompt must become numeric vectors.
 
 The most important thing here is not the exact dimensions, but understanding that:
 
@@ -237,6 +255,14 @@ fusion = f"{latent_feature} updates while referring to {text_feature}"
 print(fusion)
 ```
 
+Expected output:
+
+```text
+current image latent features updates while referring to orange cat + window + sunset
+```
+
+Read this sentence as the role of cross-attention: the latent is not denoised blindly; it keeps checking the text condition while it updates.
+
 Although this is only a textual illustration, it captures the essence:
 
 - self-attention is more like “looking at yourself”
@@ -266,6 +292,18 @@ workflow = [
 for step in workflow:
     print(step)
 ```
+
+Expected output:
+
+```text
+prompt -> text encoder
+latent noise
+U-Net denoise with text condition
+clean latent
+decode to image
+```
+
+If you can explain what each line consumes and produces, you already have the practical mental model needed to debug most Stable Diffusion workflows.
 
 This is the most important main workflow of Stable Diffusion.
 
