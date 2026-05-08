@@ -164,6 +164,14 @@ for pred in predictions:
 print(matches)
 ```
 
+预期输出：
+
+```text
+[{'label': 'person', 'score': 0.92, 'best_iou': 0.8182, 'matched': True}, {'label': 'helmet', 'score': 0.81, 'best_iou': 0.64, 'matched': True}, {'label': 'helmet', 'score': 0.3, 'best_iou': 0.0, 'matched': False}]
+```
+
+按行理解这个输出：前两个预测都找到同类真实框，而且 IoU 超过 `0.5`；最后一个 helmet 预测没有匹配到真实 helmet 框，所以它是误检。
+
 ### 这段代码最重要的地方是什么？
 
 它让你看到检测评估不是：

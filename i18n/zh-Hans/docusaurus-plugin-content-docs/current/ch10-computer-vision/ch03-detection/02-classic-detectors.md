@@ -161,6 +161,16 @@ for n in [1, 4, 16]:
     )
 ```
 
+预期输出：
+
+```text
+{'proposals': 1, 'rcnn_cost': 10, 'fast_rcnn_cost': 12}
+{'proposals': 4, 'rcnn_cost': 40, 'fast_rcnn_cost': 18}
+{'proposals': 16, 'rcnn_cost': 160, 'fast_rcnn_cost': 42}
+```
+
+注意 proposal 数量增加时，R-CNN 风格的成本涨得很快；Fast R-CNN 风格因为共享了最贵的特征提取步骤，所以增长慢很多。
+
 ### 这个例子最想表达什么？
 
 Fast R-CNN 这类改进的核心并不是“更神奇”，
@@ -194,6 +204,14 @@ def keep_proposals(proposals, threshold=0.5):
 
 print(keep_proposals(proposals))
 ```
+
+预期输出：
+
+```text
+[{'id': 'p1', 'score': 0.91}, {'id': 'p3', 'score': 0.77}]
+```
+
+这里 `p2` 被过滤掉，是因为它的分数低于 `0.5`。后面你读取检测输出时，也会经常做这种非常实际的筛选。
 
 这个例子当然比真实检测器简单得多，但它能帮助新人先抓住一个关键动作：
 

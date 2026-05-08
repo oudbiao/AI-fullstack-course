@@ -161,6 +161,16 @@ for n in [1, 4, 16]:
     )
 ```
 
+Expected output:
+
+```text
+{'proposals': 1, 'rcnn_cost': 10, 'fast_rcnn_cost': 12}
+{'proposals': 4, 'rcnn_cost': 40, 'fast_rcnn_cost': 18}
+{'proposals': 16, 'rcnn_cost': 160, 'fast_rcnn_cost': 42}
+```
+
+Notice how the R-CNN-style cost grows quickly as proposal count increases, while the Fast R-CNN-style cost grows much more slowly because the expensive feature extraction step is shared.
+
 ### What is this example trying to show?
 
 The core of improvements like Fast R-CNN is not that they are “more magical,”
@@ -194,6 +204,14 @@ def keep_proposals(proposals, threshold=0.5):
 
 print(keep_proposals(proposals))
 ```
+
+Expected output:
+
+```text
+[{'id': 'p1', 'score': 0.91}, {'id': 'p3', 'score': 0.77}]
+```
+
+Here, `p2` is filtered out because its score is below `0.5`. This is the same kind of practical filtering you will use later when reading detection outputs.
 
 Of course, this example is much simpler than a real detector, but it can help beginners grasp one key action first:
 

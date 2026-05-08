@@ -165,6 +165,14 @@ for pred in predictions:
 print(matches)
 ```
 
+実行結果の例：
+
+```text
+[{'label': 'person', 'score': 0.92, 'best_iou': 0.8182, 'matched': True}, {'label': 'helmet', 'score': 0.81, 'best_iou': 0.64, 'matched': True}, {'label': 'helmet', 'score': 0.3, 'best_iou': 0.0, 'matched': False}]
+```
+
+この出力は行ごとに読みます。最初の2つの予測は、同じラベルの正解ボックスと IoU `0.5` 以上で一致しています。最後の helmet 予測は対応する正解 helmet ボックスがないため、誤検出です。
+
 ### このコードでいちばん大事なところは？
 
 このコードは、検出評価が次のようなものではないことを見せてくれます。

@@ -164,6 +164,14 @@ for pred in predictions:
 print(matches)
 ```
 
+Expected output:
+
+```text
+[{'label': 'person', 'score': 0.92, 'best_iou': 0.8182, 'matched': True}, {'label': 'helmet', 'score': 0.81, 'best_iou': 0.64, 'matched': True}, {'label': 'helmet', 'score': 0.3, 'best_iou': 0.0, 'matched': False}]
+```
+
+Read this output row by row: the first two predictions match a ground-truth box with IoU above `0.5`; the last helmet prediction has no matching helmet box, so it is a false detection.
+
 ### What is the most important part of this code?
 
 It shows you that detection evaluation is not:

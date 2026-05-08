@@ -152,6 +152,14 @@ pred_box = (15, 15, 32, 32)
 print("IoU =", round(iou(gt_box, pred_box), 4))
 ```
 
+Expected output:
+
+```text
+IoU = 0.4849
+```
+
+This means the two boxes overlap by less than half of their combined area. In a real detector, whether this counts as a correct match depends on the IoU threshold you choose, such as `0.5` or `0.75`.
+
 ### Why is this metric so important?
 
 Because detection is not only about “did we find the object?”

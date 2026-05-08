@@ -163,6 +163,16 @@ for n in [1, 4, 16]:
     )
 ```
 
+実行結果の例：
+
+```text
+{'proposals': 1, 'rcnn_cost': 10, 'fast_rcnn_cost': 12}
+{'proposals': 4, 'rcnn_cost': 40, 'fast_rcnn_cost': 18}
+{'proposals': 16, 'rcnn_cost': 160, 'fast_rcnn_cost': 42}
+```
+
+proposal の数が増えると、R-CNN 風のコストは急に大きくなります。一方、Fast R-CNN 風のコストは、重い特徴抽出を共有するので、ずっとゆるやかに増えます。
+
 ### この例でいちばん伝えたいこと
 
 Fast R-CNN のような改善の本質は、「より魔法のようなこと」ではなく、  
@@ -194,6 +204,14 @@ def keep_proposals(proposals, threshold=0.5):
 
 print(keep_proposals(proposals))
 ```
+
+実行結果の例：
+
+```text
+[{'id': 'p1', 'score': 0.91}, {'id': 'p3', 'score': 0.77}]
+```
+
+ここでは `p2` が除外されます。スコアが `0.5` 未満だからです。後で検出結果を読むときも、このような実用的なフィルタリングをよく行います。
 
 もちろん、この例は本物の検出器よりずっと単純です。  
 それでも初心者にとっては、次の流れをつかむ助けになります。

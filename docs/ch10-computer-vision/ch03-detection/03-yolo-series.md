@@ -118,6 +118,16 @@ for pred in predictions:
     print(pred)
 ```
 
+Expected output:
+
+```text
+{'class': 'person', 'score': 0.93, 'box': (12, 18, 80, 160)}
+{'class': 'person', 'score': 0.87, 'box': (15, 20, 82, 158)}
+{'class': 'dog', 'score': 0.78, 'box': (120, 60, 190, 150)}
+```
+
+The first two boxes are both `person` candidates and are close to each other. That is the setup for the NMS example below.
+
 The most important thing to remember from this output is not the field names,
 but rather:
 
@@ -173,6 +183,14 @@ def nms(preds, iou_threshold=0.5):
 print(nms(predictions))
 ```
 
+Expected output:
+
+```text
+[{'box': (10, 10, 30, 30), 'score': 0.95}, {'box': (60, 60, 90, 90), 'score': 0.91}]
+```
+
+The middle box is removed because it overlaps too much with the highest-scoring first box. The third box is kept because it is far away and likely represents another object.
+
 ### What is the key value of this example?
 
 It shows that detection outputs are not immediately usable.
@@ -205,6 +223,14 @@ def filter_by_score(preds, threshold=0.5):
 
 print(filter_by_score(predictions, threshold=0.5))
 ```
+
+Expected output:
+
+```text
+[{'class': 'person', 'score': 0.93}, {'class': 'dog', 'score': 0.78}]
+```
+
+The lower-scoring `person` candidate is removed. In a real project, changing this threshold directly changes the balance between missed detections and false detections.
 
 This example is very suitable for beginners because it helps you see:
 

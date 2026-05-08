@@ -118,6 +118,16 @@ for pred in predictions:
     print(pred)
 ```
 
+预期输出：
+
+```text
+{'class': 'person', 'score': 0.93, 'box': (12, 18, 80, 160)}
+{'class': 'person', 'score': 0.87, 'box': (15, 20, 82, 158)}
+{'class': 'dog', 'score': 0.78, 'box': (120, 60, 190, 150)}
+```
+
+前两个框都是 `person` 候选，而且位置很接近。下面的 NMS 示例正是用来处理这种情况。
+
 这段输出最值得先记住的不是字段名，
 而是：
 
@@ -173,6 +183,14 @@ def nms(preds, iou_threshold=0.5):
 print(nms(predictions))
 ```
 
+预期输出：
+
+```text
+[{'box': (10, 10, 30, 30), 'score': 0.95}, {'box': (60, 60, 90, 90), 'score': 0.91}]
+```
+
+中间那个框被移除，是因为它和分数最高的第一个框重叠太多。第三个框被保留，是因为它离得很远，更像另一个目标。
+
 ### 这个例子最关键的价值是什么？
 
 它说明检测输出并不是直接就能用。
@@ -205,6 +223,14 @@ def filter_by_score(preds, threshold=0.5):
 
 print(filter_by_score(predictions, threshold=0.5))
 ```
+
+预期输出：
+
+```text
+[{'class': 'person', 'score': 0.93}, {'class': 'dog', 'score': 0.78}]
+```
+
+低分的 `person` 候选被移除了。真实项目里，调整这个阈值会直接影响漏检和误检之间的平衡。
 
 这个示例很适合初学者，因为它会帮助你看到：
 
