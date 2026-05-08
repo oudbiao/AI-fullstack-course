@@ -149,7 +149,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text, text_vec in text_embeddings.items():
-    print(f"\\nText query: {text}")
+    print(f"\nText query: {text}")
     results = []
     for image_name, image_vec in image_embeddings.items():
         results.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -157,6 +157,27 @@ for text, text_vec in text_embeddings.items():
     for score, image_name in results:
         print(f"  {image_name}: {score:.4f}")
 ```
+
+Expected output:
+
+```text
+Text query: a small cat
+  cat_photo: 0.9982
+  cake_photo: 0.7041
+  car_photo: 0.1379
+
+Text query: a vehicle
+  car_photo: 0.9944
+  cake_photo: 0.2066
+  cat_photo: 0.1129
+
+Text query: a sweet dessert
+  cake_photo: 0.9978
+  cat_photo: 0.6093
+  car_photo: 0.2937
+```
+
+The top result changes with the text query. That is the central idea of image-text retrieval: both sides are compared in one aligned vector space.
 
 If a model learns good cross-modal alignment, related images and text will be closer to each other.
 
@@ -223,6 +244,16 @@ print(ask_vlm("screen_error", "Is it a UI screenshot?"))
 print(ask_vlm("food_photo", "What is the topic?"))
 ```
 
+Expected output:
+
+```text
+Yes, it has text
+It looks like a UI screenshot
+The topic of this image is closer to: dessert
+```
+
+The answer depends on both inputs: the image record provides visual facts, while the user question decides which fact should be used.
+
 Of course, real VLMs do not rely on hand-written rules, but this example can help you understand:
 
 - Image information must first be represented
@@ -237,13 +268,21 @@ def vlm_task_type(question):
         return "attribute_check"
     if "topic" in question or "what is" in question:
         return "semantic_qa"
-    if "looks like" in question:
+    if "look like" in question or "looks like" in question:
         return "classification_judgement"
     return "generic_vlm_task"
 
 
 for question in ["Does this image have text?", "What is the topic?", "Does this look like a UI screenshot?"]:
     print(question, "->", vlm_task_type(question))
+```
+
+Expected output:
+
+```text
+Does this image have text? -> attribute_check
+What is the topic? -> semantic_qa
+Does this look like a UI screenshot? -> classification_judgement
 ```
 
 This example is great for beginners because it reminds you:

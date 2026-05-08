@@ -201,6 +201,17 @@ print("融合後特徴:", fused_feature)
 print("融合後の次元:", fused_feature.shape)
 ```
 
+想定出力：
+
+```text
+画像特徴: [0.8 0.7 0.2]
+テキスト特徴: [0.6 0.2 0.1]
+融合後特徴: [0.8 0.7 0.2 0.6 0.2 0.1]
+融合後の次元: (6,)
+```
+
+融合後のベクトルは 6 次元です。3 つの画像特徴の後ろに、3 つのテキスト特徴をつなげているからです。本物のモデルはもっと複雑ですが、ここでは核心だけを見える形にしています。
+
 実際のモデルはもちろんこれよりずっと複雑ですが、「複数の情報源をまとめる」という考え方はこの通りです。
 
 ### 融合でまず覚えるべきことは、方法ではなく目的
@@ -267,7 +278,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text_name, text_vec in texts.items():
-    print(f"\\n検索テキスト: {text_name}")
+    print(f"\n検索テキスト: {text_name}")
     scores = []
     for image_name, image_vec in images.items():
         scores.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -275,6 +286,27 @@ for text_name, text_vec in texts.items():
     for score, image_name in scores:
         print(f"  {image_name}: {score:.4f}")
 ```
+
+想定出力：
+
+```text
+検索テキスト: red fruit
+  red_apple.jpg: 0.9953
+  orange_ball.jpg: 0.8041
+  blue_car.jpg: 0.1357
+
+検索テキスト: vehicle
+  blue_car.jpg: 0.9905
+  orange_ball.jpg: 0.0744
+  red_apple.jpg: 0.0110
+
+検索テキスト: round toy
+  orange_ball.jpg: 0.9958
+  red_apple.jpg: 0.6785
+  blue_car.jpg: 0.2150
+```
+
+最も高いスコアが検索結果です。トップが間違う場合、まず見るべきなのは、画像とテキストが同じ特徴空間で本当に対応づけられているかです。
 
 これは「クロスモーダル検索」の最小原理版です。
 

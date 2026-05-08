@@ -202,6 +202,17 @@ print("Fused features:", fused_feature)
 print("Fused feature shape:", fused_feature.shape)
 ```
 
+Expected output:
+
+```text
+Image features: [0.8 0.7 0.2]
+Text features: [0.6 0.2 0.1]
+Fused features: [0.8 0.7 0.2 0.6 0.2 0.1]
+Fused feature shape: (6,)
+```
+
+The fused vector has 6 dimensions because it keeps the 3 image dimensions and appends the 3 text dimensions. This is only a toy method, but it makes the core idea visible.
+
 Real models are of course much more complex than this, but the idea of “combining information from multiple sources” is exactly this.
 
 ### What Should You Remember Most About Fusion: the Method or the Goal?
@@ -268,7 +279,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text_name, text_vec in texts.items():
-    print(f"\\nQuery text: {text_name}")
+    print(f"\nQuery text: {text_name}")
     scores = []
     for image_name, image_vec in images.items():
         scores.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -276,6 +287,27 @@ for text_name, text_vec in texts.items():
     for score, image_name in scores:
         print(f"  {image_name}: {score:.4f}")
 ```
+
+Expected output:
+
+```text
+Query text: red fruit
+  red_apple.jpg: 0.9953
+  orange_ball.jpg: 0.8041
+  blue_car.jpg: 0.1357
+
+Query text: vehicle
+  blue_car.jpg: 0.9905
+  orange_ball.jpg: 0.0744
+  red_apple.jpg: 0.0110
+
+Query text: round toy
+  orange_ball.jpg: 0.9958
+  red_apple.jpg: 0.6785
+  blue_car.jpg: 0.2150
+```
+
+The highest score is the retrieved image. If the top result is wrong, the first place to inspect is whether the two modalities are really aligned in the same feature space.
 
 This is the most minimal version of cross-modal retrieval:
 

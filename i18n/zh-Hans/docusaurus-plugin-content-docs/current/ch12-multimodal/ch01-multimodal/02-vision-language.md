@@ -149,7 +149,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text, text_vec in text_embeddings.items():
-    print(f"\\n文本查询: {text}")
+    print(f"\n文本查询: {text}")
     results = []
     for image_name, image_vec in image_embeddings.items():
         results.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -157,6 +157,27 @@ for text, text_vec in text_embeddings.items():
     for score, image_name in results:
         print(f"  {image_name}: {score:.4f}")
 ```
+
+预期输出：
+
+```text
+文本查询: a small cat
+  cat_photo: 0.9982
+  cake_photo: 0.7041
+  car_photo: 0.1379
+
+文本查询: a vehicle
+  car_photo: 0.9944
+  cake_photo: 0.2066
+  cat_photo: 0.1129
+
+文本查询: a sweet dessert
+  cake_photo: 0.9978
+  cat_photo: 0.6093
+  car_photo: 0.2937
+```
+
+不同文本查询会换到不同的最高分结果。这就是图文检索的核心：图像和文本要在同一个对齐后的向量空间里比较。
 
 如果一个模型学会了好的跨模态对齐，相关图文就会更靠近。
 
@@ -223,6 +244,16 @@ print(ask_vlm("screen_error", "是不是界面截图？"))
 print(ask_vlm("food_photo", "主题是什么？"))
 ```
 
+预期输出：
+
+```text
+有文字
+像是一个界面截图
+这张图的主题更接近：dessert
+```
+
+回答依赖两个输入：图像记录提供视觉事实，用户问题决定应该使用哪一个事实。
+
 当然，真实 VLM 不是靠手写规则，但这个例子能帮你理解：
 
 - 图像信息要先被表示
@@ -244,6 +275,14 @@ def vlm_task_type(question):
 
 for question in ["这张图有没有文字？", "主题是什么？", "这像不像界面截图？"]:
     print(question, "->", vlm_task_type(question))
+```
+
+预期输出：
+
+```text
+这张图有没有文字？ -> attribute_check
+主题是什么？ -> semantic_qa
+这像不像界面截图？ -> classification_judgement
 ```
 
 这个示例很适合初学者，因为它会提醒你：

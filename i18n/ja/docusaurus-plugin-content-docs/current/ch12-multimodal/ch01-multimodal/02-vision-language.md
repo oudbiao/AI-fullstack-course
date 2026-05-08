@@ -153,7 +153,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text, text_vec in text_embeddings.items():
-    print(f"\\nテキスト検索: {text}")
+    print(f"\nテキスト検索: {text}")
     results = []
     for image_name, image_vec in image_embeddings.items():
         results.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -161,6 +161,27 @@ for text, text_vec in text_embeddings.items():
     for score, image_name in results:
         print(f"  {image_name}: {score:.4f}")
 ```
+
+想定出力：
+
+```text
+テキスト検索: a small cat
+  cat_photo: 0.9982
+  cake_photo: 0.7041
+  car_photo: 0.1379
+
+テキスト検索: a vehicle
+  car_photo: 0.9944
+  cake_photo: 0.2066
+  cat_photo: 0.1129
+
+テキスト検索: a sweet dessert
+  cake_photo: 0.9978
+  cat_photo: 0.6093
+  car_photo: 0.2937
+```
+
+テキスト検索ごとに、最も高いスコアの画像が変わります。これが図文検索の中心です。画像と言葉を、同じ対応づけ済みのベクトル空間で比較します。
 
 モデルがうまくクロスモーダル整合を学べると、関連する画像と言葉はより近くなります。
 
@@ -214,9 +235,9 @@ def ask_vlm(image_name, question):
     feat = image_features[image_name]
     question = question.lower()
 
-    if "文字がありますか" in question or "has text" in question:
+    if "文字" in question or "has text" in question:
         return "文字があります" if feat["has_text"] else "はっきりした文字はありません"
-    if "UIですか" in question or "ui" in question:
+    if "ui" in question or "スクリーンショット" in question:
         return "UIのスクリーンショットのようです" if feat["is_ui"] else "UIのスクリーンショットには見えません"
     if "テーマ" in question:
         return f"この画像のテーマは：{feat['topic']} に近いです"
@@ -226,6 +247,16 @@ print(ask_vlm("screen_error", "この画像に文字はありますか？"))
 print(ask_vlm("screen_error", "UIのスクリーンショットですか？"))
 print(ask_vlm("food_photo", "テーマは何ですか？"))
 ```
+
+想定出力：
+
+```text
+文字があります
+UIのスクリーンショットのようです
+この画像のテーマは：dessert に近いです
+```
+
+答えは 2 つの入力に依存します。画像レコードが視覚的な事実を持ち、ユーザーの質問がどの事実を使うかを決めます。
 
 もちろん、実際の VLM は手書きルールではありません。ですが、この例で次のことが理解しやすくなります。
 
@@ -237,17 +268,25 @@ print(ask_vlm("food_photo", "テーマは何ですか？"))
 
 ```python
 def vlm_task_type(question):
-    if "文字がありますか" in question:
+    if "文字" in question:
         return "attribute_check"
     if "テーマ" in question or "何ですか" in question:
         return "semantic_qa"
-    if "〜のようですか" in question:
+    if "スクリーンショット" in question or "っぽい" in question or "よう" in question:
         return "classification_judgement"
     return "generic_vlm_task"
 
 
 for question in ["この画像に文字はありますか？", "テーマは何ですか？", "UIのスクリーンショットっぽいですか？"]:
     print(question, "->", vlm_task_type(question))
+```
+
+想定出力：
+
+```text
+この画像に文字はありますか？ -> attribute_check
+テーマは何ですか？ -> semantic_qa
+UIのスクリーンショットっぽいですか？ -> classification_judgement
 ```
 
 この例は初心者にとても向いています。ユーザーが何を聞いているのか、まずどの種類の問題なのかを考える必要がある、と気づけるからです。

@@ -102,7 +102,7 @@ def multimodal_assistant(image_info, user_question):
 
     if image_info["type"] == "screenshot" and image_info["has_text"]:
         if "401" in image_info["ocr_text"] or "unauthorized" in image_info["ocr_text"].lower():
-            if "どうすればいい" in user_question or "what should i do" in user_question:
+            if "どうすればいい" in user_question or "どうやって解決" in user_question or "what should i do" in user_question:
                 return "これは認証失敗の問題に見えます。まず API Key、ログイン状態、または権限設定を確認しましょう。"
             return "スクリーンショットの主なエラーは：401 Unauthorized です。"
 
@@ -111,6 +111,15 @@ def multimodal_assistant(image_info, user_question):
 print(multimodal_assistant(image_info, "これは何のエラーですか？"))
 print(multimodal_assistant(image_info, "どうやって解決しますか？"))
 ```
+
+想定出力：
+
+```text
+スクリーンショットの主なエラーは：401 Unauthorized です。
+これは認証失敗の問題に見えます。まず API Key、ログイン状態、または権限設定を確認しましょう。
+```
+
+この小さな例は、すでに実際の製品パターンになっています。まず視覚/OCR の状態を読み、次にユーザーの質問の角度に合わせて答えます。
 
 この例はおもちゃ版ですが、すでにマルチモーダルアプリの実際の雰囲気が出ています。
 
@@ -170,6 +179,13 @@ print(match_product(product_image_feature, "ランニングに合う靴を探し
 print(match_product(product_image_feature, "会社への通勤で履いても大丈夫ですか"))
 ```
 
+想定出力：
+
+```text
+この画像はスポーツシューズに見えるので、ランニング関連の商品をおすすめしやすいです。
+この靴はスポーティーな印象なので、通勤シーンにはあまり合わないかもしれません。
+```
+
 このような画像とテキストの協調は、EC、レコメンド、客服でとてもよく使われます。
 
 ---
@@ -227,6 +243,12 @@ def safe_multimodal_reply(image_info, user_question):
     return multimodal_assistant(image_info, user_question)
 
 print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "これは何のエラーですか"))
+```
+
+想定出力：
+
+```text
+この画像では十分な文字が認識できませんでした。より鮮明で全体が写ったスクリーンショットをアップロードしてください。
 ```
 
 多くの場合、無理に間違った答えを出すより、うまくフォールバックするほうがずっと価値があります。

@@ -112,6 +112,15 @@ print(multimodal_assistant(image_info, "这是什么错误？"))
 print(multimodal_assistant(image_info, "怎么解决？"))
 ```
 
+预期输出：
+
+```text
+截图中的核心错误是：401 Unauthorized。
+这更像鉴权失败问题，优先检查 API Key、登录状态或权限配置。
+```
+
+这个小例子已经是一个真实产品模式：先读取视觉/OCR 状态，再根据用户问题的角度回答。
+
 这个例子虽然是玩具版，但已经体现了多模态应用的真实味道：
 
 - 图像提供视觉上下文
@@ -168,6 +177,13 @@ def match_product(image_feature, user_text):
 
 print(match_product(product_image_feature, "我想找一双适合跑步的鞋"))
 print(match_product(product_image_feature, "上班通勤穿合适吗"))
+```
+
+预期输出：
+
+```text
+这张图更像运动鞋，适合推荐跑步相关商品。
+这双鞋偏运动风，通勤场景可能不是最佳匹配。
 ```
 
 这类图文协同，在电商、推荐、客服里都很常见。
@@ -227,6 +243,12 @@ def safe_multimodal_reply(image_info, user_question):
     return multimodal_assistant(image_info, user_question)
 
 print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "这是什么错误"))
+```
+
+预期输出：
+
+```text
+这张图里没有识别到足够文字，请上传更清晰的完整截图。
 ```
 
 很多时候，一个好的兜底提示，比勉强给出错误答案更有价值。

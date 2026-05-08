@@ -112,6 +112,15 @@ print(multimodal_assistant(image_info, "What error is this?"))
 print(multimodal_assistant(image_info, "How do I fix it?"))
 ```
 
+Expected output:
+
+```text
+The core error in the screenshot is: 401 Unauthorized.
+This looks like an authentication failure. Check the API Key, login status, or permission settings first.
+```
+
+This small example is already a real product pattern: first read the visual/OCR state, then answer from the angle requested by the user.
+
 Even though this is a toy example, it already reflects the real feel of multimodal applications:
 
 - The image provides visual context
@@ -168,6 +177,13 @@ def match_product(image_feature, user_text):
 
 print(match_product(product_image_feature, "I want a pair of shoes suitable for running"))
 print(match_product(product_image_feature, "Are they suitable for commuting to work?"))
+```
+
+Expected output:
+
+```text
+This image looks more like sports shoes, so it may be suitable for running-related recommendations.
+These shoes have a sporty style and may not be the best match for a commuting scenario.
 ```
 
 This kind of image-text collaboration is very common in e-commerce, recommendation systems, and customer support.
@@ -227,6 +243,12 @@ def safe_multimodal_reply(image_info, user_question):
     return multimodal_assistant(image_info, user_question)
 
 print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "What error is this?"))
+```
+
+Expected output:
+
+```text
+Not enough text was recognized in this image. Please upload a clearer, complete screenshot.
 ```
 
 Often, a good fallback prompt is more valuable than forcing out a wrong answer.

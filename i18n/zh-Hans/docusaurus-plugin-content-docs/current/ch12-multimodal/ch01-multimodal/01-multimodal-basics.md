@@ -203,6 +203,17 @@ print("融合后特征:", fused_feature)
 print("融合后维度:", fused_feature.shape)
 ```
 
+预期输出：
+
+```text
+图像特征: [0.8 0.7 0.2]
+文本特征: [0.6 0.2 0.1]
+融合后特征: [0.8 0.7 0.2 0.6 0.2 0.1]
+融合后维度: (6,)
+```
+
+融合后的向量是 6 维，因为它保留了 3 个图像维度，又接上了 3 个文本维度。真实模型不会这么简单，但这个例子能把核心思路看清楚。
+
 真实模型里当然比这复杂得多，但“多源信息合并”的思路就是这样。
 
 ### 融合这件事最值得先记住的，不是方式，而是目的
@@ -269,7 +280,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text_name, text_vec in texts.items():
-    print(f"\\n查询文本: {text_name}")
+    print(f"\n查询文本: {text_name}")
     scores = []
     for image_name, image_vec in images.items():
         scores.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -277,6 +288,27 @@ for text_name, text_vec in texts.items():
     for score, image_name in scores:
         print(f"  {image_name}: {score:.4f}")
 ```
+
+预期输出：
+
+```text
+查询文本: red fruit
+  red_apple.jpg: 0.9953
+  orange_ball.jpg: 0.8041
+  blue_car.jpg: 0.1357
+
+查询文本: vehicle
+  blue_car.jpg: 0.9905
+  orange_ball.jpg: 0.0744
+  red_apple.jpg: 0.0110
+
+查询文本: round toy
+  orange_ball.jpg: 0.9958
+  red_apple.jpg: 0.6785
+  blue_car.jpg: 0.2150
+```
+
+最高分就是检索命中的图片。如果最高分错了，首先要检查的是图像和文本是否真的对齐到了同一个特征空间里。
 
 这就是“跨模态检索”的最小原理版：
 
