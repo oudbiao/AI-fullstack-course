@@ -161,6 +161,12 @@ procedural_memory = build_procedural_memory(episodes)
 print("procedural_memory:", procedural_memory)
 ```
 
+预期输出：
+
+```text
+procedural_memory: {'refund_case': ['查订单状态', '查退款政策', '判断资格', '返回结论']}
+```
+
 ### 这段代码到底说明了什么？
 
 它说明：

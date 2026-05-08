@@ -198,6 +198,19 @@ print("\nmemory snapshot:")
 print(agent.snapshot("u_001"))
 ```
 
+想定出力：
+
+```text
+round1:
+注文 ORD-1001 の学習進度は現在 12% です。返金条件を満たしています。返金ルール：購入後7日以内かつ学習進度が20%未満なら返金...
+
+round2:
+注文 ORD-1001 の学習進度は現在 12% です。返金条件を満たしています。返金ルール：購入後7日以内かつ学習進度が20%未満なら返金...
+
+memory snapshot:
+{'short_term_messages': [{'role': 'user', 'content': '簡潔に答えてください。返金条件を知りたいです'}, {'role': 'assistant', 'content': '注文 ORD-1001 の学習進度は現在 12% です。返金条件を満たしています。返金ルール：購入後7日以内かつ学習進度が20%未満なら返金...'}, {'role': 'user', 'content': 'では、いつ着金しますか？'}, {'role': 'assistant', 'content': '注文 ORD-1001 の学習進度は現在 12% です。返金条件を満たしています。返金ルール：購入後7日以内かつ学習進度が20%未満なら返金...'}], 'short_term_state': {'active_workflow': 'refund_workflow', 'order_id': 'ORD-1001'}, 'long_term_profile': {'style': 'concise'}, 'episodic_memory_tail': [{'user_id': 'u_001', 'topic': 'refund', 'summary': "workflow=['注文状態を読み取る', '返金ポリシーを読み取る', '条件を満たすか判断する', '結論と着金の説明を返す']; order=ORD-1001; style=concise; result=注文 ORD-1001 の学習進度は現在 12% です。返金条件を満たしています。返金ルール：購入後7日以内かつ学習進度が20%未満なら返金..."}, {'user_id': 'u_001', 'topic': 'refund', 'summary': "workflow=['注文状態を読み取る', '返金ポリシーを読み取る', '条件を満たすか判断する', '結論と着金の説明を返す']; order=ORD-1001; style=concise; result=注文 ORD-1001 の学習進度は現在 12% です。返金条件を満たしています。返金ルール：購入後7日以内かつ学習進度が20%未満なら返金..."}], 'procedural_memory': {'refund_workflow': ['注文状態を読み取る', '返金ポリシーを読み取る', '条件を満たすか判断する', '結論と着金の説明を返す']}}
+```
+
 ### このコードは、4 層がどう協力しているかをどう表している？
 
 1. `short_term_messages`  

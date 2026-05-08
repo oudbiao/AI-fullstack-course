@@ -284,6 +284,17 @@ for item, score in results:
     print(item.memory_id, round(score, 4), item.text)
 ```
 
+Expected output:
+
+```text
+before cleanup: ['User preference: answer as briefly as possible, no more than three points', 'Temporary debug flag: this round uses experimental prompt v2', 'Key refund policy points: within 7 days and learning progress below 20%']
+after cleanup : ['User preference: answer as briefly as possible, no more than three points', 'Key refund policy points: within 7 days and learning progress below 20%']
+
+retrieval:
+1 1.5141 User preference: answer as briefly as possible, no more than three points
+3 1.5127 Key refund policy points: within 7 days and learning progress below 20%
+```
+
 ### The three most important things to learn from this code
 
 1. Writing is not unconditional

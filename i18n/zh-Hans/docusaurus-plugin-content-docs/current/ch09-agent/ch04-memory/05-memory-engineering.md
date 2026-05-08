@@ -227,15 +227,22 @@ class MemoryEngine:
     def cleanup(self):
         self.long_memories = [item for item in self.long_memories if self._is_alive(item)]
 
+    def _tokenize(self, text):
+        lowered = text.lower()
+        compacted = lowered.replace(" ", "")
+        tokens = set(lowered.split())
+        tokens.update(compacted[i : i + 2] for i in range(max(len(compacted) - 1, 0)))
+        return tokens
+
     def retrieve(self, query, top_k=3):
-        query_tokens = set(query.lower().split())
+        query_tokens = self._tokenize(query)
         scored = []
 
         for item in self.long_memories:
             if not self._is_alive(item):
                 continue
 
-            item_tokens = set(item.text.lower().split()) | set(tag.lower() for tag in item.tags)
+            item_tokens = self._tokenize(item.text) | set(tag.lower() for tag in item.tags)
             overlap = len(query_tokens & item_tokens)
 
             age = self.step - item.created_step
@@ -253,7 +260,7 @@ engine = MemoryEngine(short_window=3)
 engine.add_short_message("user", "我想了解退款条件")
 engine.write_long_memory(
     "用户偏好: 回答尽量简洁，最多三点",
-    tags=["preference", "style"],
+    tags=["preference", "style", "简洁", "风格"],
     importance=0.95,
 )
 
@@ -269,7 +276,7 @@ engine.write_long_memory(
 engine.tick()
 engine.write_long_memory(
     "退款政策关键点: 7天内且学习进度低于20%",
-    tags=["refund", "policy"],
+    tags=["refund", "policy", "退款", "政策"],
     importance=0.9,
 )
 
@@ -282,6 +289,17 @@ results = engine.retrieve("请按简洁风格回答退款政策", top_k=2)
 print("\nretrieval:")
 for item, score in results:
     print(item.memory_id, round(score, 4), item.text)
+```
+
+预期输出：
+
+```text
+before cleanup: ['用户偏好: 回答尽量简洁，最多三点', '临时调试标记: 本轮使用实验提示词 v2', '退款政策关键点: 7天内且学习进度低于20%']
+after cleanup : ['用户偏好: 回答尽量简洁，最多三点', '退款政策关键点: 7天内且学习进度低于20%']
+
+retrieval:
+1 2.0641 用户偏好: 回答尽量简洁，最多三点
+3 2.0627 退款政策关键点: 7天内且学习进度低于20%
 ```
 
 ### 这段代码最值得学的三点

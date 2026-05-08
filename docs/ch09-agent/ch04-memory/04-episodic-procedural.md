@@ -161,6 +161,12 @@ procedural_memory = build_procedural_memory(episodes)
 print("procedural_memory:", procedural_memory)
 ```
 
+Expected output:
+
+```text
+procedural_memory: {'refund_case': ['Check order status', 'Check refund policy', 'Determine eligibility', 'Return conclusion']}
+```
+
 ### What does this code actually show?
 
 It shows that:

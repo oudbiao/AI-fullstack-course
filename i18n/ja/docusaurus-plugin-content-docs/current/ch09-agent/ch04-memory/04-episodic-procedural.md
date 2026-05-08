@@ -163,6 +163,12 @@ procedural_memory = build_procedural_memory(episodes)
 print("procedural_memory:", procedural_memory)
 ```
 
+想定出力：
+
+```text
+procedural_memory: {'refund_case': ['注文状態を確認する', '返金ポリシーを確認する', '対象か判断する', '結論を返す']}
+```
+
 ### このコードは何を示しているのか？
 
 示しているのは次の点です。
