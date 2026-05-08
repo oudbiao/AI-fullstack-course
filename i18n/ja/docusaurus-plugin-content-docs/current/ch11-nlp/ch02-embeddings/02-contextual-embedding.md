@@ -162,6 +162,15 @@ print("finance における bank:", bank_in_finance)
 print("nature における bank :", bank_in_nature)
 ```
 
+実行結果の例：
+
+```text
+finance における bank: [0.8, 0.3]
+nature における bank : [0.3, 0.8]
+```
+
+同じ `bank` でも、金融文脈では1つ目の軸が強くなり、自然文脈では2つ目の軸が強くなります。ここでは小さな足し算だけですが、「文脈が token 表現を動かす」という核心を観察できます。
+
 ### このコードはもちろん本物の文脈モデルではない
 
 それでも、いちばん大事な直感はつかめます。
@@ -204,6 +213,15 @@ def explain_representation(word, context_words, sense):
 for word, context_words, sense in sentences:
     print(explain_representation(word, context_words, sense))
 ```
+
+実行結果の例：
+
+```text
+{'word': 'bank', 'context': ['open', 'account', 'money'], 'sense': 'finance'}
+{'word': 'bank', 'context': ['river', 'water', 'shore'], 'sense': 'nature'}
+```
+
+この出力は、単語だけでなく周囲の語も一緒に見ないと語義を決めにくいことを示しています。本物の文脈モデルは、この「周囲を見る」処理を大規模なニューラルネットワークで学習します。
 
 この例も神経ネットワークではありません。  
 それでも、新人が次の重要な感覚をつかむ助けになります。

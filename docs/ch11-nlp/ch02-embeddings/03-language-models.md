@@ -123,6 +123,14 @@ for sent in corpus:
 print(dict(stats))
 ```
 
+Expected output:
+
+```text
+{'I': Counter({'love': 2}), 'love': Counter({'AI': 1, 'Python': 1, 'NLP': 1}), 'You': Counter({'love': 1})}
+```
+
+Read this as a tiny next-token table: after `I`, the next token was `love` twice; after `love`, three different next tokens appeared once each.
+
 ### What is the most important value of this code?
 
 It peels back the lowest-level logic of a language model:
@@ -193,6 +201,14 @@ def softmax(score_dict):
 
 print(softmax(scores))
 ```
+
+Expected output:
+
+```text
+{'AI': 0.5242, 'Python': 0.3179, 'NLP': 0.1579}
+```
+
+The model does not have to choose immediately. It first produces a probability distribution, then a decoding rule can choose, sample, or rank candidate next tokens.
 
 This is not a complete neural network,
 but it already expresses one key idea:

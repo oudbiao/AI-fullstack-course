@@ -226,6 +226,16 @@ print("refund vs invoice :", round(cosine(embeddings["refund"], embeddings["invo
 print("refund vs password:", round(cosine(embeddings["refund"], embeddings["password"]), 4))
 ```
 
+Expected output:
+
+```text
+refund vs return  : 0.9998
+refund vs invoice : 0.78
+refund vs password: 0.261
+```
+
+The toy vectors make `refund` and `return` almost point in the same direction. `password` is far away, so a classifier or retrieval system can use that distance as a useful signal.
+
 ### What Is the Most Important Intuition Here?
 
 You will see that:
@@ -284,6 +294,14 @@ for word, vector in embeddings.items():
 neighbors.sort(key=lambda x: x[1], reverse=True)
 print(neighbors)
 ```
+
+Expected output:
+
+```text
+[('return', 0.9998), ('invoice', 0.78), ('password', 0.261)]
+```
+
+This nearest-neighbor list is the practical face of embeddings: instead of only storing word IDs, the space lets you ask which words are semantically closer.
 
 This example is especially good for beginners because it quickly turns an abstract concept into something concrete:
 

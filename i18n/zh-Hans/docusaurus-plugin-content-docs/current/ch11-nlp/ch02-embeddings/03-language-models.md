@@ -123,6 +123,14 @@ for sent in corpus:
 print(dict(stats))
 ```
 
+预期输出：
+
+```text
+{'我': Counter({'爱': 2}), '爱': Counter({'AI': 1, 'Python': 1, 'NLP': 1}), '你': Counter({'爱': 1})}
+```
+
+把它当成一个极小的 next-token 表：看到 `我` 之后，下一个 token 是 `爱` 出现了 2 次；看到 `爱` 之后，`AI`、`Python`、`NLP` 各出现 1 次。
+
 ### 这段代码最重要的价值是什么？
 
 它把语言模型最底层的逻辑掀开来看：
@@ -193,6 +201,14 @@ def softmax(score_dict):
 
 print(softmax(scores))
 ```
+
+预期输出：
+
+```text
+{'AI': 0.5242, 'Python': 0.3179, 'NLP': 0.1579}
+```
+
+模型不一定立刻只输出一个词。它会先给出概率分布，后面的解码规则再选择、采样或排序候选 token。
 
 这不是完整神经网络，
 但它已经在表达一件关键事：

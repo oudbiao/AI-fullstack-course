@@ -161,6 +161,15 @@ print("bank in finance:", bank_in_finance)
 print("bank in nature :", bank_in_nature)
 ```
 
+Expected output:
+
+```text
+bank in finance: [0.8, 0.3]
+bank in nature : [0.3, 0.8]
+```
+
+The same word starts from the same base vector, but the finance context pushes it toward a finance-like direction, while the nature context pushes it toward a river-like direction.
+
 ### Of course, this code is not a real contextual model
 
 But it captures the most important intuition:
@@ -203,6 +212,15 @@ def explain_representation(word, context_words, sense):
 for word, context_words, sense in sentences:
     print(explain_representation(word, context_words, sense))
 ```
+
+Expected output:
+
+```text
+{'word': 'bank', 'context': ['open', 'account', 'money'], 'sense': 'finance'}
+{'word': 'bank', 'context': ['river', 'water', 'shore'], 'sense': 'nature'}
+```
+
+This output makes the hidden assumption visible: you cannot decide the meaning of `bank` from the word alone; you need the surrounding words.
 
 This example is definitely not a neural network,
 but it helps beginners build a crucial awareness:

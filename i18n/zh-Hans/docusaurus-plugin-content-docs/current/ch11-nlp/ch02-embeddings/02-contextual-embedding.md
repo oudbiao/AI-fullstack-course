@@ -161,6 +161,15 @@ print("bank in finance:", bank_in_finance)
 print("bank in nature :", bank_in_nature)
 ```
 
+预期输出：
+
+```text
+bank in finance: [0.8, 0.3]
+bank in nature : [0.3, 0.8]
+```
+
+同一个词从同一个基础向量出发，但金融上下文会把它推向金融语义，自然上下文会把它推向河岸语义。
+
 ### 这段代码当然不是真实上下文模型
 
 但它抓住了最重要的一层直觉：
@@ -203,6 +212,15 @@ def explain_representation(word, context_words, sense):
 for word, context_words, sense in sentences:
     print(explain_representation(word, context_words, sense))
 ```
+
+预期输出：
+
+```text
+{'word': 'bank', 'context': ['open', 'account', 'money'], 'sense': 'finance'}
+{'word': 'bank', 'context': ['river', 'water', 'shore'], 'sense': 'nature'}
+```
+
+这个输出把隐藏假设显式化了：不能只看 `bank` 这个词本身就判断含义，还要看周围词。
 
 这个示例当然不是神经网络，
 但它能帮助新人先建立一个非常关键的意识：

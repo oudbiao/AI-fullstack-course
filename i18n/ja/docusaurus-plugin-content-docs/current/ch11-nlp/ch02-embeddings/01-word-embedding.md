@@ -226,6 +226,16 @@ print("refund vs invoice :", round(cosine(embeddings["refund"], embeddings["invo
 print("refund vs password:", round(cosine(embeddings["refund"], embeddings["password"]), 4))
 ```
 
+実行結果の例：
+
+```text
+refund vs return  : 0.9998
+refund vs invoice : 0.78
+refund vs password: 0.261
+```
+
+このおもちゃのベクトルでは、`refund` と `return` はほぼ同じ方向を向き、`password` はかなり離れています。実務ではこのような距離感が、分類、検索、類似語の発見に使われます。
+
 ### この例でいちばん大事な直感は何か？
 
 次のような結果が見えるはずです。
@@ -284,6 +294,14 @@ for word, vector in embeddings.items():
 neighbors.sort(key=lambda x: x[1], reverse=True)
 print(neighbors)
 ```
+
+実行結果の例：
+
+```text
+[('return', 0.9998), ('invoice', 0.78), ('password', 0.261)]
+```
+
+結果を上から見ると、`refund` に最も近い単語は `return` です。次に `invoice`、最後に `password` となります。これは検索システムで「近い候補から順に取り出す」動きの最小版です。
 
 この例は初学者にとても向いています。なぜなら、抽象的な概念をすぐ具体的にできるからです。
 

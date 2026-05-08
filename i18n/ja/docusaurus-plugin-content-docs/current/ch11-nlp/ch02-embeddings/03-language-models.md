@@ -108,9 +108,9 @@ trigram なら：
 from collections import defaultdict, Counter
 
 corpus = [
-    "我 爱 AI",
-    "我 爱 Python",
-    "你 爱 NLP",
+    "私 は AI が 好き",
+    "私 は Python が 好き",
+    "あなた は NLP が 好き",
 ]
 
 stats = defaultdict(Counter)
@@ -122,6 +122,14 @@ for sent in corpus:
 
 print(dict(stats))
 ```
+
+実行結果の例：
+
+```text
+{'私': Counter({'は': 2}), 'は': Counter({'AI': 1, 'Python': 1, 'NLP': 1}), 'AI': Counter({'が': 1}), 'が': Counter({'好き': 3}), 'Python': Counter({'が': 1}), 'あなた': Counter({'は': 1}), 'NLP': Counter({'が': 1})}
+```
+
+これは小さな next-token 表です。`私` の後には `は` が2回出ており、`は` の後には `AI`、`Python`、`NLP` がそれぞれ1回ずつ出ています。語順をスペースで区切っているのは、最小例として token を見やすくするためです。
 
 ### このコードで最も大事な点は？
 
@@ -189,6 +197,14 @@ def softmax(score_dict):
 
 print(softmax(scores))
 ```
+
+実行結果の例：
+
+```text
+{'AI': 0.5242, 'Python': 0.3179, 'NLP': 0.1579}
+```
+
+モデルはすぐに1語だけを選ぶ必要はありません。まず候補 token 全体の確率分布を出し、その後のデコード規則が選択、サンプリング、順位付けを行います。
 
 これは完全なニューラルネットワークではありませんが、  
 すでに大事なことを表しています。

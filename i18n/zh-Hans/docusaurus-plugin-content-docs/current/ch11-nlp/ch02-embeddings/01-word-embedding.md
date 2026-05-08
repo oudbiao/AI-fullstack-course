@@ -228,6 +228,16 @@ print("refund vs invoice :", round(cosine(embeddings["refund"], embeddings["invo
 print("refund vs password:", round(cosine(embeddings["refund"], embeddings["password"]), 4))
 ```
 
+预期输出：
+
+```text
+refund vs return  : 0.9998
+refund vs invoice : 0.78
+refund vs password: 0.261
+```
+
+这个玩具向量让 `refund` 和 `return` 几乎指向同一个方向，而 `password` 距离很远。分类或检索系统就可以把这种距离当成有用信号。
+
 ### 这个例子最重要的直觉是什么？
 
 你会看到：
@@ -286,6 +296,14 @@ for word, vector in embeddings.items():
 neighbors.sort(key=lambda x: x[1], reverse=True)
 print(neighbors)
 ```
+
+预期输出：
+
+```text
+[('return', 0.9998), ('invoice', 0.78), ('password', 0.261)]
+```
+
+这个近邻列表就是 embedding 的实际用法：它不只是存词 ID，而是让你能询问哪些词在语义空间里更接近。
 
 这个示例很适合初学者，因为它能马上把一个抽象概念变得具体：
 
