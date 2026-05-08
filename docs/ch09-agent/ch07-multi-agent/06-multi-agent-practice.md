@@ -62,6 +62,12 @@ knowledge_base = {
 print(knowledge_base)
 ```
 
+Expected output:
+
+```text
+{'refund policy': 'You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.', 'certificate policy': 'You can receive a completion certificate after finishing all required projects and passing the test.', 'learning sequence': 'It is recommended to learn Python, data analysis, and machine learning first, then move on to deep learning and large models.'}
+```
+
 This is the minimal knowledge source that the system will operate on.
 
 ---
@@ -108,6 +114,8 @@ def reviewer_agent(draft):
 
 ### A Minimal Multi-Agent Collaboration Flow
 
+Run this in the same Python file or interpreter session after the knowledge base and four Agent functions above.
+
 ```python
 def multi_agent_system(user_query):
     state = {
@@ -137,6 +145,16 @@ for k, v in result.items():
     print(k, "->", v)
 ```
 
+Expected output:
+
+```text
+query -> Please help me summarize the key conditions of the refund policy.
+plan -> ['retrieve refund policy', 'organize key conditions', 'write summary', 'review output']
+evidence -> You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.
+draft -> Summary: You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.
+review -> {'approved': True, 'comment': 'Key information is complete'}
+```
+
 ### What Does This Code Already Show?
 
 It already shows that:
@@ -161,6 +179,8 @@ A more reasonable approach is:
 
 ### A Small Example with Revision
 
+Continue in the same file or session so `multi_agent_system` and the Agent functions are already defined.
+
 ```python
 def reviser_agent(draft, review):
     if review["approved"]:
@@ -173,6 +193,14 @@ final_output = reviser_agent(state["draft"], state["review"])
 print("draft :", state["draft"])
 print("review:", state["review"])
 print("final :", final_output)
+```
+
+Expected output:
+
+```text
+draft : Summary: You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.
+review: {'approved': True, 'comment': 'Key information is complete'}
+final : Summary: You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.
 ```
 
 This step is very important because it shows:
@@ -194,6 +222,8 @@ If the system gives the wrong answer, at least you need to know:
 
 ### A Minimal Trace Version
 
+Continue in the same file or session so the four Agent functions are already defined.
+
 ```python
 def traced_multi_agent_system(user_query):
     trace = []
@@ -214,6 +244,15 @@ def traced_multi_agent_system(user_query):
 
 for step in traced_multi_agent_system("Please help me summarize the key conditions of the refund policy."):
     print(step)
+```
+
+Expected output:
+
+```text
+{'agent': 'planner', 'output': ['retrieve refund policy', 'organize key conditions', 'write summary', 'review output']}
+{'agent': 'retriever', 'output': 'You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.'}
+{'agent': 'writer', 'output': 'Summary: You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.'}
+{'agent': 'reviewer', 'output': {'approved': True, 'comment': 'Key information is complete'}}
 ```
 
 This trace is the important foundation for debugging and evaluating the system later.

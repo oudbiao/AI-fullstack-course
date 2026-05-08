@@ -62,6 +62,12 @@ knowledge_base = {
 print(knowledge_base)
 ```
 
+想定出力：
+
+```text
+{'返金ポリシー': 'コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。', '証明書ポリシー': 'すべての必修項目を完了し、テストに合格すると修了証を取得できます。', '学習順序': 'まず Python、データ分析、機械学習を学び、その後に深層学習と大規模モデルの段階に進むのがおすすめです。'}
+```
+
 これが、このシステムが扱う最小限の知識ソースです。
 
 ---
@@ -108,6 +114,8 @@ def reviewer_agent(draft):
 
 ### 最小構成のマルチ Agent 協調フロー
 
+上の知識ベースと 4 つの Agent 関数を定義したあと、同じ Python ファイルまたは同じインタプリタセッションで続けて実行してください。
+
 ```python
 def multi_agent_system(user_query):
     state = {
@@ -137,6 +145,16 @@ for k, v in result.items():
     print(k, "->", v)
 ```
 
+想定出力：
+
+```text
+query -> 返金ポリシーの重要な条件をまとめてください。
+plan -> ['返金ポリシーを検索する', '重要条件を整理する', '要約を作成する', '出力をレビューする']
+evidence -> コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。
+draft -> 要約：コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。
+review -> {'approved': True, 'comment': '重要情報がそろっています'}
+```
+
 ### このコードから分かることは？
 
 このコードから分かるのは、次の点です。
@@ -161,6 +179,8 @@ for k, v in result.items():
 
 ### 修正版を作る小さな例
 
+同じファイルまたは同じセッションで続けて実行し、`multi_agent_system` と前の Agent 関数が定義済みであることを確認してください。
+
 ```python
 def reviser_agent(draft, review):
     if review["approved"]:
@@ -173,6 +193,14 @@ final_output = reviser_agent(state["draft"], state["review"])
 print("draft :", state["draft"])
 print("review:", state["review"])
 print("final :", final_output)
+```
+
+想定出力：
+
+```text
+draft : 要約：コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。
+review: {'approved': True, 'comment': '重要情報がそろっています'}
+final : 要約：コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。
 ```
 
 このステップが大切なのは、次のことを表しているからです。
@@ -194,6 +222,8 @@ print("final :", final_output)
 
 ### 最小構成の trace 版
 
+同じファイルまたは同じセッションで続けて実行し、4 つの Agent 関数が定義済みであることを確認してください。
+
 ```python
 def traced_multi_agent_system(user_query):
     trace = []
@@ -214,6 +244,15 @@ def traced_multi_agent_system(user_query):
 
 for step in traced_multi_agent_system("返金ポリシーの重要な条件をまとめてください。"):
     print(step)
+```
+
+想定出力：
+
+```text
+{'agent': 'planner', 'output': ['返金ポリシーを検索する', '重要条件を整理する', '要約を作成する', '出力をレビューする']}
+{'agent': 'retriever', 'output': 'コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。'}
+{'agent': 'writer', 'output': '要約：コース購入後 7 日以内、かつ学習進捗が 20% 未満であれば返金申請が可能です。'}
+{'agent': 'reviewer', 'output': {'approved': True, 'comment': '重要情報がそろっています'}}
 ```
 
 この trace は、後でデバッグしたり評価したりするときの重要な土台になります。

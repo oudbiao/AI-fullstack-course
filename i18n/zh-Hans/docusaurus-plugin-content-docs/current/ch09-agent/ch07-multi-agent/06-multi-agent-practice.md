@@ -62,6 +62,12 @@ knowledge_base = {
 print(knowledge_base)
 ```
 
+预期输出：
+
+```text
+{'退款政策': '课程购买后 7 天内且学习进度低于 20% 可申请退款。', '证书政策': '完成所有必修项目并通过测试后可获得结业证书。', '学习顺序': '建议先学 Python、数据分析、机器学习，再进入深度学习与大模型阶段。'}
+```
+
 这就是系统要操作的最小知识来源。
 
 ---
@@ -108,6 +114,8 @@ def reviewer_agent(draft):
 
 ### 一个最小多 Agent 协作流程
 
+请接着上面的知识库和四个 Agent 函数，在同一个 Python 文件或同一个解释器会话里运行。
+
 ```python
 def multi_agent_system(user_query):
     state = {
@@ -137,6 +145,16 @@ for k, v in result.items():
     print(k, "->", v)
 ```
 
+预期输出：
+
+```text
+query -> 请帮我总结退款政策的关键条件。
+plan -> ['检索退款政策', '整理关键条件', '撰写总结', '审核输出']
+evidence -> 课程购买后 7 天内且学习进度低于 20% 可申请退款。
+draft -> 总结：课程购买后 7 天内且学习进度低于 20% 可申请退款。
+review -> {'approved': True, 'comment': '关键信息完整'}
+```
+
 ### 这段代码已经说明了什么？
 
 它已经说明：
@@ -161,6 +179,8 @@ for k, v in result.items():
 
 ### 一个带修订的小例子
 
+继续在同一个文件或会话中运行，确保 `multi_agent_system` 和前面的 Agent 函数已经定义。
+
 ```python
 def reviser_agent(draft, review):
     if review["approved"]:
@@ -173,6 +193,14 @@ final_output = reviser_agent(state["draft"], state["review"])
 print("draft :", state["draft"])
 print("review:", state["review"])
 print("final :", final_output)
+```
+
+预期输出：
+
+```text
+draft : 总结：课程购买后 7 天内且学习进度低于 20% 可申请退款。
+review: {'approved': True, 'comment': '关键信息完整'}
+final : 总结：课程购买后 7 天内且学习进度低于 20% 可申请退款。
 ```
 
 这一步很重要，因为它体现了：
@@ -194,6 +222,8 @@ print("final :", final_output)
 
 ### 一个最小 trace 版本
 
+继续在同一个文件或会话中运行，确保四个 Agent 函数已经定义。
+
 ```python
 def traced_multi_agent_system(user_query):
     trace = []
@@ -214,6 +244,15 @@ def traced_multi_agent_system(user_query):
 
 for step in traced_multi_agent_system("请帮我总结退款政策的关键条件。"):
     print(step)
+```
+
+预期输出：
+
+```text
+{'agent': 'planner', 'output': ['检索退款政策', '整理关键条件', '撰写总结', '审核输出']}
+{'agent': 'retriever', 'output': '课程购买后 7 天内且学习进度低于 20% 可申请退款。'}
+{'agent': 'writer', 'output': '总结：课程购买后 7 天内且学习进度低于 20% 可申请退款。'}
+{'agent': 'reviewer', 'output': {'approved': True, 'comment': '关键信息完整'}}
 ```
 
 这个 trace 就是后面你调试和评估系统的重要基础。
