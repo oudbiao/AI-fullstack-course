@@ -7,7 +7,7 @@ keywords: [LLM applications, RAG, Prompt Engineering, LangChain, vector database
 
 # 8 LLM Application Development and RAG
 
-![Main visual for LLM applications and RAG](/img/course/ch08-rag-engineering-en.png)
+![Main visual for LLM applications and RAG](/img/course/ch08-rag-engineering-en.webp)
 
 Chapter 7 explained how an LLM produces text. Chapter 8 turns that model into a useful application: **connect documents, retrieve evidence, answer with citations, log failures, and improve with an evaluation set.**
 
@@ -15,7 +15,7 @@ Think of RAG as "read before answering." The model should not guess from memory 
 
 ## See the RAG Application Loop
 
-![RAG application loop](/img/course/ch08-rag-app-loop-en.png)
+![RAG application loop](/img/course/ch08-rag-app-loop-en.webp)
 
 Use this loop as the chapter map.
 
@@ -111,7 +111,7 @@ Operation tip: add one new document, ask one new question, and print the top-k c
 
 ## Debug Bad RAG Answers
 
-![RAG debugging ladder](/img/course/ch08-rag-debug-ladder-en.png)
+![RAG debugging ladder](/img/course/ch08-rag-debug-ladder-en.webp)
 
 When the answer is bad, locate the failing layer before changing the model.
 

@@ -11,7 +11,7 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 This is the “put it all together” lesson. You will create a small image dataset, train a CNN, validate it, inspect predictions, and decide what to try next.
 :::
 
-![CNN image classification practice loop](/img/course/ch06-cnn-image-classification-practice-loop-en.png)
+![CNN image classification practice loop](/img/course/ch06-cnn-image-classification-practice-loop-en.webp)
 
 ## Learning Objectives
 

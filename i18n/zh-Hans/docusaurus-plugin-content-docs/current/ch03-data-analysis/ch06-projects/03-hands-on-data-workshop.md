@@ -7,7 +7,7 @@ keywords: [数据分析实操, Python CSV, SQLite, 数据清洗, 可复现分析
 
 # 3.6.3 跟做工作坊：搭建可复现的数据分析流水线
 
-![跟做式数据工作坊路线图](/img/course/ch03-hands-on-data-workshop-route.png)
+![跟做式数据工作坊路线图](/img/course/ch03-hands-on-data-workshop-route.webp)
 
 :::tip 工作坊目标
 这一页是第 3 章的**实操桥梁**。你不会把 NumPy、Pandas、可视化和 SQL 当成零散知识点背，而是先完成一条能跑通的流程：脏 CSV → 干净表格 → 分组统计 → SQLite 查询 → 图表 → 报告证据。
@@ -48,7 +48,7 @@ Python 3.12.3
 
 ## Step 1：先看懂流水线，再写代码
 
-![清洗与校验流水线](/img/course/ch03-hands-on-cleaning-pipeline.png)
+![清洗与校验流水线](/img/course/ch03-hands-on-cleaning-pipeline.webp)
 
 核心思路很简单：不要从原始数据直接跳到结论。可信的数据分析应该为每一次转换留下证据。
 
@@ -403,7 +403,7 @@ Generated files:
 
 ## Step 4：阅读生成的证据
 
-![分组统计与 SQLite 流程](/img/course/ch03-hands-on-groupby-sql-flow.png)
+![分组统计与 SQLite 流程](/img/course/ch03-hands-on-groupby-sql-flow.webp)
 
 先打开 `ch03_output/cleaning_log.json`。它应该记录三条被丢弃的数据：一条 `minutes` 缺失，一条 `minutes` 为负数，一条重复记录。这个文件很重要，因为没有记录的数据清洗，很难让别人信任。
 
@@ -452,7 +452,7 @@ PY
 
 ## Step 5：打开图表和报告
 
-![图表与报告输出流程](/img/course/ch03-hands-on-chart-report-flow.png)
+![图表与报告输出流程](/img/course/ch03-hands-on-chart-report-flow.webp)
 
 打开 HTML 报告：
 
@@ -500,7 +500,7 @@ xdg-open ch03_output/report.html
 
 ## 作品集证据清单
 
-![证据包检查清单](/img/course/ch03-hands-on-evidence-pack.png)
+![证据包检查清单](/img/course/ch03-hands-on-evidence-pack.webp)
 
 如果你把这个工作坊当成作品集练习，请保留这些材料：
 

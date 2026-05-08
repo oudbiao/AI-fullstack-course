@@ -11,11 +11,11 @@ keywords: [シーケンスラベリングガイド, NER, BiLSTM-CRF]
 
 ## 先に全体像を見る
 
-![系列ラベリング章の進め方](/img/course/ch11-sequence-labeling-chapter-flow-ja.png)
+![系列ラベリング章の進め方](/img/course/ch11-sequence-labeling-chapter-flow-ja.webp)
 
-![HMM と CRF から系列ラベリングを見る](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
+![HMM と CRF から系列ラベリングを見る](/img/course/ch11-hmm-crf-sequence-history-map-ja.webp)
 
-![BiLSTM-CRF のラベル経路](/img/course/ch11-bilstm-crf-label-path-map-ja.png)
+![BiLSTM-CRF のラベル経路](/img/course/ch11-bilstm-crf-label-path-map-ja.webp)
 
 重要な出力は文全体のラベルではなく、`B-PER`、`I-PER`、`O` のように token ごとにそろったタグ列です。
 

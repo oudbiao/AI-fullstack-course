@@ -7,7 +7,7 @@ keywords: [deployment project, edge inference, model serving, optimization, port
 
 # E.A.7 デプロイ統合プロジェクト
 
-![デプロイ統合プロジェクトの納品クローズドループ図](/img/course/elective-deployment-project-delivery-loop-ja.png)
+![デプロイ統合プロジェクトの納品クローズドループ図](/img/course/elective-deployment-project-delivery-loop-ja.webp)
 
 このプロジェクトの目的は、最大のモデルを学習することではありません。モデルを小さく、測定可能で、デプロイできるシステムに変えられることを示すことです。
 

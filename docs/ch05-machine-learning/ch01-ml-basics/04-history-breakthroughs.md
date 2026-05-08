@@ -7,7 +7,7 @@ keywords: [machine learning history, ML breakthroughs, Bayes, maximum likelihood
 
 # 5.1.5 Main Thread of Major Breakthroughs in Machine Learning History
 
-![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map-en.png)
+![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map-en.webp)
 
 :::tip Section focus
 This section is not about memorizing years. Instead, it helps you understand:
@@ -22,11 +22,11 @@ This section is not about memorizing years. Instead, it helps you understand:
 
 You can first understand the history of machine learning as a path from “handwritten rules” to “learning patterns from data.”
 
-![Machine learning history from rules to workflow comic](/img/course/ch05-ml-history-rules-to-workflow-comic-en.png)
+![Machine learning history from rules to workflow comic](/img/course/ch05-ml-history-rules-to-workflow-comic-en.webp)
 
 Read the comic as a problem chain: handwritten rules became too brittle, probability made uncertainty usable, linear models made training concrete, trees/SVM/ensembles improved structure and stability, and sklearn turned these ideas into a repeatable workflow.
 
-![Machine learning breakthrough relay comic](/img/course/ch05-ml-breakthrough-relay-en.png)
+![Machine learning breakthrough relay comic](/img/course/ch05-ml-breakthrough-relay-en.webp)
 
 This relay view is useful because every breakthrough hands the baton to the next one. Probability methods made uncertainty usable; linear models made training visible; trees and SVMs made structure and boundaries clearer; ensembles made unstable models stronger; sklearn finally made the whole process reproducible.
 

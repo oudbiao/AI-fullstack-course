@@ -15,7 +15,7 @@ keywords: [深度学习历史, 感知器, XOR, 反向传播, LSTM, AlexNet, ResN
 
 ## 先看时间线
 
-![深度学习历史突破地图](/img/course/ch06-dl-history-breakthrough-map.png)
+![深度学习历史突破地图](/img/course/ch06-dl-history-breakthrough-map.webp)
 
 把时间线读成一条链：
 

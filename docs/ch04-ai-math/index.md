@@ -7,13 +7,13 @@ keywords: [AI math, linear algebra, probability and statistics, calculus, machin
 
 # 4 AI Math: the Minimum Necessary Foundation
 
-![AI Math Foundations Main Visual](/img/course/ch04-ai-math-en.png)
+![AI Math Foundations Main Visual](/img/course/ch04-ai-math-en.webp)
 
 Chapter 4 has one job: make the math inside models feel like **tools you can run and explain**, not a wall of formulas.
 
 ## See The Model Math Loop
 
-![AI Math Minimum Necessary Backbone](/img/course/ch04-ai-math-backbone-en.png)
+![AI Math Minimum Necessary Backbone](/img/course/ch04-ai-math-backbone-en.webp)
 
 Read the picture first. Most AI math in this course supports one loop:
 

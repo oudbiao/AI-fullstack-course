@@ -6,7 +6,7 @@ description: "Python におけるさまざまな演算子と式を理解する"
 
 # 2.1.3 演算子と式
 
-![演算子と条件分岐のフローチャート](/img/course/ch02-operators-decision-flow-ja.png)
+![演算子と条件分岐のフローチャート](/img/course/ch02-operators-decision-flow-ja.webp)
 
 ## この節の位置づけ
 
@@ -211,7 +211,7 @@ print(f"実用的ですか: {is_practical}")  # True
 
 ### 短絡評価
 
-![短絡評価の安全チェック図解](/img/course/ch02-short-circuit-safety-check-ja.svg)
+![短絡評価の安全チェック図解](/img/course/ch02-short-circuit-safety-check-ja.webp)
 
 Python の `and` と `or` には、**短絡評価**という賢い性質があります。
 

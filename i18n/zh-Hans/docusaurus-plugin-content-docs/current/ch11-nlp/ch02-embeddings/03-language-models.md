@@ -7,7 +7,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 
 # 11.2.4 语言模型基础
 
-![语言模型 next token 预测图](/img/course/ch11-language-model-next-token-stack.png)
+![语言模型 next token 预测图](/img/course/ch11-language-model-next-token-stack.webp)
 
 :::tip 读图提示
 不要只把语言模型理解成“接龙”。读图时重点看前文上下文、候选 token 概率分布和采样/选择之间的关系：大模型很多生成能力都从这个训练目标扩展而来。

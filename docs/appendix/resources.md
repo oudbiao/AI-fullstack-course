@@ -5,9 +5,9 @@ sidebar_position: 1
 
 # A.1 Recommended Learning Resources
 
-![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel-en.png)
+![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel-en.webp)
 
-![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map-en.png)
+![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map-en.webp)
 
 Use outside resources only when they solve a current bottleneck. Do not collect links as a substitute for building projects.
 

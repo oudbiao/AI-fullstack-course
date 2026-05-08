@@ -68,7 +68,7 @@ Later methods can roughly be divided into two categories:
 The former mainly simplifies the training objective,
 while the latter mainly reduces the cost of relying entirely on human preference data.
 
-![Alignment method map](/img/course/ch07-alignment-method-map-en.png)
+![Alignment method map](/img/course/ch07-alignment-method-map-en.webp)
 
 :::tip How to read this map
 Read the map from “what cost or complexity are we trying to reduce?” RLHF keeps the full preference-optimization chain, DPO shortens it by optimizing from chosen/rejected pairs directly, RLAIF changes the feedback source, and Constitutional AI makes rules explicit before critique and revision.
@@ -299,7 +299,7 @@ Because we manually made:
 This matches the direction DPO is trying to optimize.
 A lower loss means the policy fits the preference data better.
 
-![Preference optimization shortcut of DPO compared with RLHF](/img/course/ch07-dpo-rlhf-shortcut-map-en.png)
+![Preference optimization shortcut of DPO compared with RLHF](/img/course/ch07-dpo-rlhf-shortcut-map-en.webp)
 
 :::tip Reading the figure
 When reading this figure, first look at the long RLHF chain: preference pairs -> reward model -> PPO / policy optimization. Then look at the short DPO chain: directly optimize the policy margin using chosen / rejected preference pairs. The appeal of DPO is that it keeps the preference learning goal while removing a large amount of engineering complexity from the reward model and reinforcement learning steps.

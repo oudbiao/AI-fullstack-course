@@ -11,7 +11,7 @@ keywords: [数据可视化, 图表选择, matplotlib, seaborn, plotly, 可视化
 
 ## 先看选图地图
 
-![数据可视化路线图](/img/course/ch03-visualization-roadmap.png)
+![数据可视化路线图](/img/course/ch03-visualization-roadmap.webp)
 
 先用这个判断：
 

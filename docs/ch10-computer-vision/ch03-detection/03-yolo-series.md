@@ -7,7 +7,7 @@ keywords: [YOLO, one-stage detector, object detection, NMS, realtime vision]
 
 # 10.3.4 YOLO Series
 
-![YOLO grid detection flowchart](/img/course/yolo-grid-detection-flow-en.png)
+![YOLO grid detection flowchart](/img/course/yolo-grid-detection-flow-en.webp)
 
 :::tip Section Overview
 YOLO became popular not just because it can detect objects,
@@ -237,7 +237,7 @@ This example is very suitable for beginners because it helps you see:
 - Detection systems usually do not draw boxes from all candidates directly
 - They first filter with scores and rules
 
-![YOLO candidate boxes, threshold, and NMS diagram](/img/course/ch10-yolo-threshold-nms-map-en.png)
+![YOLO candidate boxes, threshold, and NMS diagram](/img/course/ch10-yolo-threshold-nms-map-en.webp)
 
 :::tip Reading the diagram
 YOLO outputs are usually a batch of candidate boxes, not the final result. When reading the diagram, first filter low-score boxes with the score threshold, then merge overlapping boxes with NMS, and only then do you get the detection results you see on the page.

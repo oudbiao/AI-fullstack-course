@@ -7,7 +7,7 @@ keywords: [C++, 基础, vector, 引用, 函数, 类, 部署]
 
 # E.A.1 C++ 编程基础
 
-![C++ 运行时与内存模型图](/img/course/elective-cpp-runtime-memory.png)
+![C++ 运行时与内存模型图](/img/course/elective-cpp-runtime-memory.webp)
 
 读部署代码前，你不需要先变成 C++ 专家。先掌握反复出现的小集合：类型、函数、`std::vector`、引用、编译和清晰输出。
 

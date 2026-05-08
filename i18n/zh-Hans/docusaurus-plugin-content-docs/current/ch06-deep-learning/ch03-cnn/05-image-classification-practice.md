@@ -11,7 +11,7 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 这是“把前面内容串起来”的一节。你会创建一个小型图像数据集，训练 CNN，做验证，检查预测结果，并判断下一步该尝试什么。
 :::
 
-![CNN 图像分类实操闭环](/img/course/ch06-cnn-image-classification-practice-loop.png)
+![CNN 图像分类实操闭环](/img/course/ch06-cnn-image-classification-practice-loop.webp)
 
 ## 学习目标
 

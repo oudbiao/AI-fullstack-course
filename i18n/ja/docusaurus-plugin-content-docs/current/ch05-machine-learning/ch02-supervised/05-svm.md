@@ -7,9 +7,9 @@ keywords: [SVM, サポートベクターマシン, 最大マージン, サポー
 
 # 5.2.6 SVM：最大マージンとカーネル法
 
-![SVM 最大間隔の直感図](/img/course/ch05-svm-margin-map-ja.png)
+![SVM 最大間隔の直感図](/img/course/ch05-svm-margin-map-ja.webp)
 
-![SVM の間隔と核法コミック](/img/course/ch05-svm-margin-kernel-comic-ja.png)
+![SVM の間隔と核法コミック](/img/course/ch05-svm-margin-kernel-comic-ja.webp)
 
 :::tip この節の位置づけ
 SVM は、今の本番環境で常に第一候補になるモデルではありません。それでも **マージン、カーネル、距離に敏感なモデル** を学ぶには非常に良い題材です。
@@ -147,7 +147,7 @@ kernel=rbf    accuracy=0.950 support_vectors=98
 
 ## スケーリングは任意ではない
 
-![SVM の特徴量スケーリングコミック](/img/course/ch05-svm-feature-scaling-ja.png)
+![SVM の特徴量スケーリングコミック](/img/course/ch05-svm-feature-scaling-ja.webp)
 
 SVM は距離と類似度に依存します。ある特徴量が `0-1`、別の特徴量が `0-1000` の範囲を持つと、後者が意味以上に境界を支配することがあります。
 
@@ -162,7 +162,7 @@ with_scaling=0.950
 
 ## `C` と `gamma` を理解する
 
-![SVM の C と gamma の境界調整コミック](/img/course/ch05-svm-c-gamma-boundary-ja.png)
+![SVM の C と gamma の境界調整コミック](/img/course/ch05-svm-c-gamma-boundary-ja.webp)
 
 `C` と `gamma` は境界の別々の性質を制御します。
 

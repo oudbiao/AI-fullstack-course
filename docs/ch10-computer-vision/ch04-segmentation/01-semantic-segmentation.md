@@ -7,7 +7,7 @@ keywords: [semantic segmentation, pixel classification, mask, IoU, vision]
 
 # 10.4.2 Semantic Segmentation
 
-![Semantic Segmentation Mask Comparison](/img/course/semantic-segmentation-mask-en.png)
+![Semantic Segmentation Mask Comparison](/img/course/semantic-segmentation-mask-en.webp)
 
 :::tip Section Focus
 Classification answers:
@@ -247,7 +247,7 @@ Although this example is very small, it can help beginners immediately understan
 
 So in segmentation projects, if you only focus on overall pixel accuracy, it is easy to be misled by the fact that “the background was all predicted correctly.”
 
-![Semantic Segmentation Mask, IoU, and Boundary Error Diagram](/img/course/ch10-semantic-segmentation-iou-boundary-map-en.png)
+![Semantic Segmentation Mask, IoU, and Boundary Error Diagram](/img/course/ch10-semantic-segmentation-iou-boundary-map-en.webp)
 
 :::tip Reading Tip
 Segmentation is not just “painting colors on top and calling it done.” This image places the original image, GT mask, predicted mask, IoU, and boundary error together to help you understand why small classes and edge regions affect mIoU.

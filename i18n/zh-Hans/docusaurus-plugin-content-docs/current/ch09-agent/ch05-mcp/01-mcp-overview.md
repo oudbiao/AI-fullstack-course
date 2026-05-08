@@ -7,7 +7,7 @@ keywords: [MCP, Model Context Protocol, tool protocol, client-server, JSON-RPC]
 
 # 9.5.2 MCP 协议概述
 
-![MCP 客户端服务器消息流图](/img/course/ch09-mcp-client-server-message-flow-map.png)
+![MCP 客户端服务器消息流图](/img/course/ch09-mcp-client-server-message-flow-map.webp)
 
 :::tip 本节定位
 前面你已经学过：

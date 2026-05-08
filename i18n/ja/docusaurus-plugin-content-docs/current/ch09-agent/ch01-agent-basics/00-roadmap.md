@@ -11,11 +11,11 @@ Agent はモデル名ではありません。Goal に向かって、model、tool
 
 ## まず single-Agent loop を見る
 
-![Agent 基礎位置づけブリッジ図](/img/course/ch09-basics-position-bridge-ja.png)
+![Agent 基礎位置づけブリッジ図](/img/course/ch09-basics-position-bridge-ja.webp)
 
-![Agent 基礎章の学習順序図](/img/course/ch09-basics-chapter-flow-ja.png)
+![Agent 基礎章の学習順序図](/img/course/ch09-basics-chapter-flow-ja.webp)
 
-![Single-Agent 実行ループ図](/img/course/ch09-basics-execution-loop-ja.png)
+![Single-Agent 実行ループ図](/img/course/ch09-basics-execution-loop-ja.webp)
 
 普通の chatbot は 1 回答えます。workflow は固定手順を進みます。Agent は plan、act、observe、state update を行い、goal が終わっていなければ続けます。
 

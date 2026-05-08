@@ -7,9 +7,9 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 # E.A.6 モデルのサービス化
 
-![モデルのサービス化アーキテクチャ図](/img/course/elective-model-serving-architecture-ja.png)
+![モデルのサービス化アーキテクチャ図](/img/course/elective-model-serving-architecture-ja.webp)
 
-![モデルサービスの指標とバージョンルーティング図](/img/course/elective-serving-metrics-version-routing-map-ja.png)
+![モデルサービスの指標とバージョンルーティング図](/img/course/elective-serving-metrics-version-routing-map-ja.webp)
 
 モデルをサービス化することは、スクリプトで一度モデルを呼ぶこととは違います。サービスは多くのリクエストを受け取り、キューに並べ、バッチ化し、正しいモデルバージョンへ送り、指標を記録し、あるバージョンが失敗しても戻せる必要があります。
 

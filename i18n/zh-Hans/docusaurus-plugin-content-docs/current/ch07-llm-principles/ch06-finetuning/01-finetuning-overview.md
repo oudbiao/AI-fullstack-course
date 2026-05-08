@@ -7,7 +7,7 @@ keywords: [finetuning, PEFT, full finetune, task adaptation, model customization
 
 # 7.6.2 微调概述
 
-![微调与对齐总流程图](/img/course/finetuning-alignment-pipeline.png)
+![微调与对齐总流程图](/img/course/finetuning-alignment-pipeline.webp)
 
 :::tip 本节定位
 很多人一提模型定制，第一反应就是：
@@ -151,7 +151,7 @@ flowchart TD
 
 这个表很重要，因为它能帮你避免一个常见错误：只要效果不好就想微调。真实项目里，很多问题并不是靠动参数解决的。
 
-![微调前方案选择决策图](/img/course/ch07-finetune-decision-rag-prompt-peft-map.png)
+![微调前方案选择决策图](/img/course/ch07-finetune-decision-rag-prompt-peft-map.webp)
 
 :::tip 读图提示
 这张图建议从问题根因读起：知识缺失先看 RAG，格式不稳先看 Prompt/结构化输出，工具流程问题先看 Agent/工作流，只有长期行为和风格不稳定时，微调或 PEFT 才更值得进入候选。微调不是第一反应，而是判断后的动作。

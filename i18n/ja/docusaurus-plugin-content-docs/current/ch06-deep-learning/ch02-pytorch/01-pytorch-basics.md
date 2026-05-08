@@ -23,7 +23,7 @@ keywords: [PyTorch, tensor, テンソル, shape, dtype, device, broadcasting, lo
 
 ## まず Tensor のライフサイクルを見る
 
-![PyTorch Tensor ライフサイクル図](/img/course/ch06-pytorch-tensor-lifecycle-map-ja.png)
+![PyTorch Tensor ライフサイクル図](/img/course/ch06-pytorch-tensor-lifecycle-map-ja.webp)
 
 多くの PyTorch データは、次の流れを通ります。
 
@@ -46,7 +46,7 @@ NumPy 配列と比べると、PyTorch テンソルには深層学習向けの機
 
 よく見る shape：
 
-![PyTorch テンソル shape と意味の速習図](/img/course/ch06-tensor-shape-meaning-map-ja.png)
+![PyTorch テンソル shape と意味の速習図](/img/course/ch06-tensor-shape-meaning-map-ja.webp)
 
 | データ | よくある shape | 意味 |
 |---|---|---|

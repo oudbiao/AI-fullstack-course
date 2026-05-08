@@ -7,7 +7,7 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 
 # 11.1.3 Text Preprocessing
 
-![Text preprocessing pipeline diagram](/img/course/text-preprocessing-pipeline-en.png)
+![Text preprocessing pipeline diagram](/img/course/text-preprocessing-pipeline-en.webp)
 
 :::tip Section overview
 Text preprocessing is most likely to be misunderstood by beginners as:

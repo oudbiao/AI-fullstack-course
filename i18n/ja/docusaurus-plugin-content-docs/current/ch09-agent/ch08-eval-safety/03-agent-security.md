@@ -52,7 +52,7 @@ flowchart TD
 
 防御の考え方としては、外部コンテンツを明確に「信頼できないもの」として扱うこと、システムプロンプトで外部内容はツール権限を上書きできないと明記すること、高リスク動作には権限チェックを通すこと、機密情報をマスキングすること、ツール発火前の文脈を記録すること、などがあります。
 
-![Prompt Injection とツールリスクの隔離図](/img/course/ch09-agent-security-prompt-injection-risk-map-ja.png)
+![Prompt Injection とツールリスクの隔離図](/img/course/ch09-agent-security-prompt-injection-risk-map-ja.webp)
 
 :::tip 図の読み方
 この図は「信頼できない外部コンテンツ」から読むのがポイントです。Web ページ、ドキュメント、メールは資料として扱うだけで、システム指示にはなりません。実際に高リスク動作を実行できるのは、権限、確認、マスキング、監査を通ったものだけです。

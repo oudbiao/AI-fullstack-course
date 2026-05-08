@@ -33,7 +33,7 @@ flowchart LR
 
 Large models are good at generating boilerplate code, explaining unfamiliar APIs, rewriting functions, generating test cases, summarizing error logs, and suggesting refactoring directions. They are not good at guaranteeing that code is correct, and they may not fully understand your project context, implicit constraints, or production risks.
 
-![Human verification closed loop for AI-assisted programming](/img/course/ch08-ai-coding-human-review-loop-map-en.png)
+![Human verification closed loop for AI-assisted programming](/img/course/ch08-ai-coding-human-review-loop-map-en.webp)
 
 :::tip Reading Guide
 Treat the model as a “draft generator,” not a “final approver.” An AI-generated piece of code should go through requirement checks, diff review, testing, real examples, and human review before it is ready to enter the project.

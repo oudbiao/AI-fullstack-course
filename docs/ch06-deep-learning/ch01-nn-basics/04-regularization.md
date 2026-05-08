@@ -7,7 +7,7 @@ keywords: [regularization, dropout, weight decay, early stopping, overfitting, P
 
 # 6.1.6 Regularization
 
-![Regularization controls overfitting](/img/course/regularization-overfitting-controls-en.png)
+![Regularization controls overfitting](/img/course/regularization-overfitting-controls-en.webp)
 
 :::tip Section Overview
 Regularization is not about making training loss as low as possible. It is about making the model generalize better to validation and future data.
@@ -23,7 +23,7 @@ This lesson runs one PyTorch lab that compares:
 - dropout plus weight decay;
 - early stopping behavior through `best_epoch`.
 
-![Map from overfitting issues to regularization actions](/img/course/ch06-regularization-overfit-action-map-en.png)
+![Map from overfitting issues to regularization actions](/img/course/ch06-regularization-overfit-action-map-en.webp)
 
 ## Setup
 

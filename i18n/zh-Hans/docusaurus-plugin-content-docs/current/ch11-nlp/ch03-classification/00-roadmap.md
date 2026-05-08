@@ -11,11 +11,11 @@ keywords: [文本分类指南, 情感分析, TF-IDF, 文本分类项目]
 
 ## 先看分类流水线
 
-![文本分类章节学习顺序图](/img/course/ch11-classification-chapter-flow.png)
+![文本分类章节学习顺序图](/img/course/ch11-classification-chapter-flow.webp)
 
-![传统分类 baseline 图](/img/course/ch11-traditional-classification-baseline-map.png)
+![传统分类 baseline 图](/img/course/ch11-traditional-classification-baseline-map.webp)
 
-![神经分类 embedding pooling 图](/img/course/ch11-neural-classification-embedding-pooling-map.png)
+![神经分类 embedding pooling 图](/img/course/ch11-neural-classification-embedding-pooling-map.webp)
 
 复杂模型之前先做 baseline。大多数分类问题不是模型不够强，而是标签模糊或样本分布偏。
 

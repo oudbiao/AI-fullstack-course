@@ -5,9 +5,9 @@ sidebar_position: 5
 
 # A.8 学习卡住时的急救指南
 
-![学习卡点排查地图](/img/course/appendix-troubleshooting-rescue-map.png)
+![学习卡点排查地图](/img/course/appendix-troubleshooting-rescue-map.webp)
 
-![最小复现与提问流程图](/img/course/appendix-debug-mre-help-flow.png)
+![最小复现与提问流程图](/img/course/appendix-debug-mre-help-flow.webp)
 
 卡住时，先把“我学不会”变成“我能定位这个失败”。
 

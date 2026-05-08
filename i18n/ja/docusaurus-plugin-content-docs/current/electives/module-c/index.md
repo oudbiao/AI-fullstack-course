@@ -10,9 +10,9 @@ description: "古典的機械学習の補足ロードマップ。SVM、KNN、ナ
 
 ## まずベースラインの地図を見る
 
-![古典的 ML 補足アルゴリズムモジュールマップ](/img/course/elective-classic-ml-module-map-ja.png)
+![古典的 ML 補足アルゴリズムモジュールマップ](/img/course/elective-classic-ml-module-map-ja.webp)
 
-![KNN の近傍投票図](/img/course/elective-knn-neighbor-voting-ja.png)
+![KNN の近傍投票図](/img/course/elective-knn-neighbor-voting-ja.webp)
 
 古典的 ML は、「この問題はシンプルな特徴量だけで解けるのか」を先に確かめる助けになります。
 

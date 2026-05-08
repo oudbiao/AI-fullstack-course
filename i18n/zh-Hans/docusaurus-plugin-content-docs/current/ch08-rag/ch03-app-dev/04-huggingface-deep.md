@@ -82,7 +82,7 @@ HuggingFace 更像一个围绕模型使用的完整生态：
 
 > HuggingFace 不是一个点工具，而是一整条模型使用链的生态。
 
-![HuggingFace 生态层次图](/img/course/ch08-huggingface-ecosystem-layers-map.png)
+![HuggingFace 生态层次图](/img/course/ch08-huggingface-ecosystem-layers-map.webp)
 
 :::tip 读图提示
 从下往上看：Datasets 供给数据，Tokenizers 规定输入，Models 做计算，Pipelines 提供任务级快捷入口，Hub 负责共享和协作。不要只把 HuggingFace 理解成“下载模型的网站”。

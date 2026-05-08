@@ -206,7 +206,7 @@ mean_iou: 0.8
 - 该改损失
 - 还是该改模型输入分辨率
 
-![分割项目失败样本分桶图](/img/course/ch10-segmentation-practice-failure-buckets-map.png)
+![分割项目失败样本分桶图](/img/course/ch10-segmentation-practice-failure-buckets-map.webp)
 
 :::tip 读图提示
 分割项目最怕只看平均分。这张图把失败样本拆成边界错、小类别漏掉和类别混淆，让你能把下一步优化动作对应到具体问题。

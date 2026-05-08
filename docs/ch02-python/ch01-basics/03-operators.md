@@ -6,7 +6,7 @@ description: "Master various operators and expressions in Python"
 
 # 2.1.3 Operators and Expressions
 
-![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow-en.png)
+![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow-en.webp)
 
 ## What this section is about
 
@@ -211,7 +211,7 @@ print(f"Is it practical: {is_practical}")  # True
 
 ### Short-circuit evaluation
 
-![Short-circuit safety check diagram](/img/course/ch02-short-circuit-safety-check-en.svg)
+![Short-circuit safety check diagram](/img/course/ch02-short-circuit-safety-check-en.webp)
 
 Python’s `and` and `or` have a smart feature called **short-circuit evaluation**:
 

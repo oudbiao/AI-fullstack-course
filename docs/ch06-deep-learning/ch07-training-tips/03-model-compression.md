@@ -23,7 +23,7 @@ Model compression is a deployment trade-off, not a magic shrink button. You comp
 
 ## Start from the Deployment Bottleneck
 
-![Model compression trade-off map](/img/course/ch06-model-compression-tradeoff-en.png)
+![Model compression trade-off map](/img/course/ch06-model-compression-tradeoff-en.webp)
 
 | Bottleneck | First method to consider | Why |
 |---|---|---|

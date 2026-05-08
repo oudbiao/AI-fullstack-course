@@ -15,7 +15,7 @@ keywords: [深層学習の歴史, パーセプトロン, XOR, 逆伝播, LSTM, A
 
 ## まず時間線を見る
 
-![深層学習の歴史的ブレークスルーマップ](/img/course/ch06-dl-history-breakthrough-map-ja.png)
+![深層学習の歴史的ブレークスルーマップ](/img/course/ch06-dl-history-breakthrough-map-ja.webp)
 
 時間線は、次の一本の流れとして読みます。
 

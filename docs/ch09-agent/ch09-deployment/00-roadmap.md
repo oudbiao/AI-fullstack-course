@@ -11,11 +11,11 @@ Deploying an Agent means more than putting code on a server. You need model call
 
 ## See the Runtime Loop First
 
-![Agent production runtime architecture diagram](/img/course/ch09-production-runtime-map-en.png)
+![Agent production runtime architecture diagram](/img/course/ch09-production-runtime-map-en.webp)
 
-![Agent deployment and operations chapter learning flow diagram](/img/course/ch09-deployment-chapter-flow-en.png)
+![Agent deployment and operations chapter learning flow diagram](/img/course/ch09-deployment-chapter-flow-en.webp)
 
-![Agent deployment observability and recovery loop](/img/course/ch09-deployment-observability-loop-en.png)
+![Agent deployment observability and recovery loop](/img/course/ch09-deployment-observability-loop-en.webp)
 
 The production question is not “did it work once?” It is “can it keep working, fail safely, and recover?”
 

@@ -34,23 +34,23 @@ By the end, you will have a folder named `ch04_math_workshop_evidence` containin
 
 Before writing code, use these diagrams as the workshop map.
 
-![Chapter 4 math workshop route](/img/course/ch04-hands-on-math-workshop-route-en.png)
+![Chapter 4 math workshop route](/img/course/ch04-hands-on-math-workshop-route-en.webp)
 
 The whole route is: small numbers first, then code, then visible evidence.
 
-![Vector similarity evidence flow](/img/course/ch04-hands-on-vector-similarity-flow-en.png)
+![Vector similarity evidence flow](/img/course/ch04-hands-on-vector-similarity-flow-en.webp)
 
 The vector step answers one question: which topic vector points most like the query vector?
 
-![Probability simulation and uncertainty flow](/img/course/ch04-hands-on-probability-simulation-flow-en.png)
+![Probability simulation and uncertainty flow](/img/course/ch04-hands-on-probability-simulation-flow-en.webp)
 
 The probability step shows why a model score is not a single magical truth; it is a way to summarize uncertainty across samples.
 
-![Gradient descent execution loop](/img/course/ch04-hands-on-gradient-descent-loop-en.png)
+![Gradient descent execution loop](/img/course/ch04-hands-on-gradient-descent-loop-en.webp)
 
 The gradient descent step shows the training rhythm: compute loss, compute slope, update the parameter, repeat.
 
-![Chapter 4 math evidence pack](/img/course/ch04-hands-on-evidence-pack-en.png)
+![Chapter 4 math evidence pack](/img/course/ch04-hands-on-evidence-pack-en.webp)
 
 The evidence folder is the final learning artifact. It lets you review the math without rerunning everything from memory.
 

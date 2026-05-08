@@ -11,11 +11,11 @@ keywords: [序列标注指南, NER, BiLSTM-CRF]
 
 ## 先看标签路径
 
-![序列标注章节学习流程图](/img/course/ch11-sequence-labeling-chapter-flow.png)
+![序列标注章节学习流程图](/img/course/ch11-sequence-labeling-chapter-flow.webp)
 
-![HMM CRF 序列历史图](/img/course/ch11-hmm-crf-sequence-history-map.png)
+![HMM CRF 序列历史图](/img/course/ch11-hmm-crf-sequence-history-map.webp)
 
-![BiLSTM CRF 标签路径图](/img/course/ch11-bilstm-crf-label-path-map.png)
+![BiLSTM CRF 标签路径图](/img/course/ch11-bilstm-crf-label-path-map.webp)
 
 关键输出不是一个句子标签，而是对齐 token 的标签，例如 `B-PER`、`I-PER` 和 `O`。
 

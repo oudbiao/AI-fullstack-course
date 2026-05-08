@@ -6,9 +6,9 @@ description: "A compact quick reference for environment checks, baselines, metri
 
 # A.9 Learning Resources Quick Reference
 
-![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map-en.png)
+![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map-en.webp)
 
-![AI Project Quick Reference Troubleshooting Index](/img/course/appendix-quick-ref-debug-index-map-en.png)
+![AI Project Quick Reference Troubleshooting Index](/img/course/appendix-quick-ref-debug-index-map-en.webp)
 
 Use this page while building. Do not read it from top to bottom.
 

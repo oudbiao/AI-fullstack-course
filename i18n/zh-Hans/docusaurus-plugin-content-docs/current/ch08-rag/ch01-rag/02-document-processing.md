@@ -7,7 +7,7 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 # 8.1.3 文档处理与向量化
 
-![文档解析与向量化流程图](/img/course/document-processing-vectorization.png)
+![文档解析与向量化流程图](/img/course/document-processing-vectorization.webp)
 
 ## 学习目标
 
@@ -72,7 +72,7 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 把文本块变成可做相似度检索的向量。
 
-![RAG 文档处理流水线](/img/course/ch08-document-processing-pipeline-map-v2.png)
+![RAG 文档处理流水线](/img/course/ch08-document-processing-pipeline-map-v2.webp)
 
 :::tip 读图提示
 先看“原始资料”到“知识块”的变化：PDF、Word、PPT 不会直接变成答案，而是要经过清洗、切块、元数据补全、向量化和入库。OCR 是 Optical Character Recognition 的缩写，意思是“光学字符识别”，专门把扫描件或图片里的文字识别出来。
@@ -93,7 +93,7 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 > 做开卷考试笔记时，你不会把整本书粘成一张超大海报，也不会把每个字都剪成一张纸条。
 
-![Chunk 大小与 overlap 取舍图](/img/course/ch08-chunk-size-overlap-tradeoff-map.png)
+![Chunk 大小与 overlap 取舍图](/img/course/ch08-chunk-size-overlap-tradeoff-map.webp)
 
 :::tip 读图提示
 这张图要从中间的“证据完整度”看起：chunk 太大会让检索变钝，chunk 太小会切断证据，overlap 的价值是给边界处的信息多留一段缓冲。
@@ -256,7 +256,7 @@ for item in chunks_with_meta:
 
 > **切块不是固定的文本操作，它其实在服务后面的生成目标。**
 
-![课件知识块元数据 schema 图](/img/course/ch08-courseware-chunk-metadata-schema-map.png)
+![课件知识块元数据 schema 图](/img/course/ch08-courseware-chunk-metadata-schema-map.webp)
 
 :::tip 读图提示
 课件生成最怕“找到了文字却不知道该放哪”。看图时重点关注 `topic`、`content_type`、`source_origin`、`page_or_slide` 这几个字段，它们会决定后面能不能按知识点、例题和练习稳定组装。

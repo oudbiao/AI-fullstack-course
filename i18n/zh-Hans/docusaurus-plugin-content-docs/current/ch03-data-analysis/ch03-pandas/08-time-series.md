@@ -31,7 +31,7 @@ description: "掌握日期时间处理、重采样和滚动窗口计算"
 
 时间序列更适合按“先把日期变成可操作对象，再按时间维度做分析”来理解：
 
-![Pandas 时间序列分析图](/img/course/ch03-pandas-time-series-analysis.png)
+![Pandas 时间序列分析图](/img/course/ch03-pandas-time-series-analysis.webp)
 
 所以这节真正想解决的是：
 
@@ -204,7 +204,7 @@ print(sales.loc["2024-06-15"])
 
 ## 重采样（resample）
 
-![Pandas 重采样与滚动窗口时间线图解](/img/course/ch03-pandas-resample-rolling-timeline.svg)
+![Pandas 重采样与滚动窗口时间线图解](/img/course/ch03-pandas-resample-rolling-timeline.webp)
 
 重采样是时间序列最核心的操作——改变数据的**时间频率**。
 

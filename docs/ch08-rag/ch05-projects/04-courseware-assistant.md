@@ -7,7 +7,7 @@ keywords: [courseware assistant, knowledge base, word generation, ppt parsing, d
 
 # 8.5.5 Project: Knowledge Base-Driven Courseware Generation Assistant
 
-![Courseware generation assistant workflow diagram](/img/course/courseware-assistant-workflow-en.png)
+![Courseware generation assistant workflow diagram](/img/course/courseware-assistant-workflow-en.webp)
 
 :::tip Section Positioning
 This project goes one step further than a typical knowledge base Q&A system.
@@ -331,7 +331,7 @@ but that it helps you keep these 5 actions in mind:
 4. Generate a fixed schema
 5. Export the document
 
-![Courseware generation assistant production line diagram](/img/course/ch08-courseware-assistant-production-line-map-en.png)
+![Courseware generation assistant production line diagram](/img/course/ch08-courseware-assistant-production-line-map-en.webp)
 
 :::tip Reading Guide
 Read this diagram like a production line: materials are ingested, parsed into knowledge chunks, retrieved by topic and content type, converted into a courseware schema, and then rendered into Word. If any layer has no intermediate output, debugging the next layer becomes very difficult.

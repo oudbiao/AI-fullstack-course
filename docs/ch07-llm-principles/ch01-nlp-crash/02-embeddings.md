@@ -7,7 +7,7 @@ keywords: [embedding, semantic representation, cosine similarity, sentence embed
 
 # 7.1.3 Word Embeddings and Semantic Representation
 
-![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.png)
+![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.webp)
 
 :::tip One Sentence
 Tokenization gives the model discrete IDs. Embedding turns those IDs into vectors so the model can compare, combine, and move meaning through layers.
@@ -30,7 +30,7 @@ In that space:
 
 ## From One-Hot to Dense Vectors
 
-![Semantic space map from one-hot to dense embedding](/img/course/ch07-embedding-onehot-dense-map-en.png)
+![Semantic space map from one-hot to dense embedding](/img/course/ch07-embedding-onehot-dense-map-en.webp)
 
 With one-hot vectors, every different word is equally different:
 
@@ -157,7 +157,7 @@ For example, `reset password` and `password reset` become identical in the toy r
 
 ## Contextual Representations
 
-![Contextual representation disambiguates polysemy diagram](/img/course/ch07-contextual-embedding-sense-map-en.png)
+![Contextual representation disambiguates polysemy diagram](/img/course/ch07-contextual-embedding-sense-map-en.webp)
 
 Static embeddings usually give one word one vector. Contextual models make the vector depend on surrounding words:
 

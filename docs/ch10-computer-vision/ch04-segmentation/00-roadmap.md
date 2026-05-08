@@ -11,11 +11,11 @@ Segmentation is finer than detection. Instead of a box, it outputs a mask that s
 
 ## See the Mask Workflow First
 
-![Image segmentation chapter learning order diagram](/img/course/ch10-segmentation-chapter-flow-en.png)
+![Image segmentation chapter learning order diagram](/img/course/ch10-segmentation-chapter-flow-en.webp)
 
-![Semantic segmentation mask example](/img/course/semantic-segmentation-mask-en.png)
+![Semantic segmentation mask example](/img/course/semantic-segmentation-mask-en.webp)
 
-![Semantic segmentation IoU and boundary map](/img/course/ch10-semantic-segmentation-iou-boundary-map-en.png)
+![Semantic segmentation IoU and boundary map](/img/course/ch10-semantic-segmentation-iou-boundary-map-en.webp)
 
 The main object in this chapter is the mask. The main failure is often boundary quality, tiny objects, occlusion, or class confusion.
 

@@ -7,7 +7,7 @@ keywords: [multimodal app, OCR, screenshot assistant, image-text product, workfl
 
 # 12.1.4 Multimodal Application Development
 
-![Multimodal application engineering pipeline diagram](/img/course/ch12-multimodal-app-engineering-loop-en.png)
+![Multimodal application engineering pipeline diagram](/img/course/ch12-multimodal-app-engineering-loop-en.webp)
 
 :::tip Reading Guide
 Multimodal applications do not end when “the model can see images.” When reading this diagram, focus on how input quality, OCR/VLM responsibilities, retrieval or tool calls, user feedback, failure fallback, and privacy compliance come together into a real product pipeline.

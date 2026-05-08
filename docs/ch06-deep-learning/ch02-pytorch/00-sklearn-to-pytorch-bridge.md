@@ -65,7 +65,7 @@ This may look more troublesome, but the benefits are:
 
 ## Looking at both side by side
 
-![sklearn to PyTorch gear-shift diagram](/img/course/ch06-sklearn-to-pytorch-shift-map-en.png)
+![sklearn to PyTorch gear-shift diagram](/img/course/ch06-sklearn-to-pytorch-shift-map-en.webp)
 
 - In `sklearn`, this whole chain is mostly wrapped inside `fit()`
 - In `PyTorch`, this chain is fully exposed

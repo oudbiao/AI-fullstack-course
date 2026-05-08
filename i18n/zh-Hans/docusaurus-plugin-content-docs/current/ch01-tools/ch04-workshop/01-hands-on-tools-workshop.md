@@ -7,7 +7,7 @@ keywords: [开发者工具工作坊, 终端, Git, Python 环境, VS Code, Jupyte
 
 # 1.4.1 跟做工作坊：构建可复现的 AI 学习工作台
 
-![第 1 章实操工作台路线图](/img/course/ch01-hands-on-workstation-route.png)
+![第 1 章实操工作台路线图](/img/course/ch01-hands-on-workstation-route.webp)
 
 :::tip 工作坊目标
 这一页是第 1 章的实操桥梁。你会创建一个名为 `ai-learning-lab` 的小仓库，运行 Python 环境检查脚本，保存报告，完成 Git 提交，并留下能证明工作台可用的作品集证据。
@@ -56,7 +56,7 @@ Python 3.12.3
 
 ## 第 1 步：先看完整路线
 
-![终端、Python 与 Git 执行循环图](/img/course/ch01-hands-on-terminal-git-loop.png)
+![终端、Python 与 Git 执行循环图](/img/course/ch01-hands-on-terminal-git-loop.webp)
 
 不要把这些工具看成互不相关的主题。在真实开发中，它们会组成一个闭环：
 
@@ -368,7 +368,7 @@ Add-Content notes/learning-log.md "- Practiced terminal, Python, and Git togethe
 
 ## 第 7 步：把 VS Code 和 Jupyter 当成两块操作面板
 
-![环境、编辑器与 Notebook 协作流程图](/img/course/ch01-hands-on-env-editor-notebook-flow.png)
+![环境、编辑器与 Notebook 协作流程图](/img/course/ch01-hands-on-env-editor-notebook-flow.webp)
 
 用 VS Code 打开项目：
 
@@ -409,7 +409,7 @@ main
 
 ## 第 8 步：按断点定位问题
 
-![第 1 章工作台常见错误排查图](/img/course/ch01-hands-on-debug-map.png)
+![第 1 章工作台常见错误排查图](/img/course/ch01-hands-on-debug-map.webp)
 
 看到错误时，先放慢速度，判断是哪一环断了：
 
@@ -426,7 +426,7 @@ main
 
 ## 第 9 步：整理作品集证据包
 
-![第 1 章作品集证据包](/img/course/ch01-hands-on-portfolio-pack.png)
+![第 1 章作品集证据包](/img/course/ch01-hands-on-portfolio-pack.webp)
 
 离开第 1 章前，你的证据包要同时展示结果和过程：
 

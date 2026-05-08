@@ -7,7 +7,7 @@ keywords: [特徴量選択, フィルタ法, ラッパー法, 埋め込み法, S
 
 # 5.5.5 特徴量選択
 
-![特徴量選択方法の比較](/img/course/feature-selection-methods-ja.png)
+![特徴量選択方法の比較](/img/course/feature-selection-methods-ja.webp)
 
 :::tip この節の焦点
 特徴量選択は、できるだけ多くの特徴量を削る作業ではありません。性能、安定性、説明しやすさ、コストのバランスを取る作業です。目的は、タスクに役立ち、本番でも取得でき、データリークのない特徴量を残すことです。
@@ -20,7 +20,7 @@ keywords: [特徴量選択, フィルタ法, ラッパー法, 埋め込み法, S
 - 検証データと交差検証で、特徴量選択が本当に有効か判断する
 - 特徴量選択と業務上の説明性、運用コストの関係を理解する
 
-![特徴量選択の実践フロー](/img/course/ch05-feature-selection-practical-workflow-ja.png)
+![特徴量選択の実践フロー](/img/course/ch05-feature-selection-practical-workflow-ja.webp)
 
 コードを見る前に、この図で流れをつかみましょう。特徴量選択は「表の列を小さくする作業」ではありません。まず明らかなリスクを外し、ベースラインを作り、選択器を `Pipeline` に入れ、最後に有効で取得可能で説明しやすい特徴量だけを残します。
 

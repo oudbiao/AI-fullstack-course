@@ -208,7 +208,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 - 段階依存
 - 引き継ぎ品質
 
-![マルチ Agent 開発チームの成果物ループ図](/img/course/ch09-multi-agent-dev-team-delivery-map-ja.png)
+![マルチ Agent 開発チームの成果物ループ図](/img/course/ch09-multi-agent-dev-team-delivery-map-ja.webp)
 
 :::tip 図の見方
 この図が強調しているのは、「役割の数が重要なのではなく、アーティファクトの引き継ぎが重要」ということです。planner は plan を出し、coder は patch を出し、reviewer は issue を出し、tester は test report を出します。失敗したら、それぞれの役割に戻って修正します。

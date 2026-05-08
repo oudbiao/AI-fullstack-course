@@ -11,7 +11,7 @@ keywords: [表現学習ガイド, 単語埋め込み, 文脈依存表現, 言語
 
 ## 先に全体像を見る
 
-![表現学習章の進め方](/img/course/ch11-embeddings-chapter-flow-ja.png)
+![表現学習章の進め方](/img/course/ch11-embeddings-chapter-flow-ja.webp)
 
 | 順番 | 学ぶこと | 役割 |
 |---|---|---|
@@ -21,7 +21,7 @@ keywords: [表現学習ガイド, 単語埋め込み, 文脈依存表現, 言語
 
 ## ベクトルの近さを手で確かめる
 
-![意味空間のイメージ](/img/course/embedding-semantic-space-ja.png)
+![意味空間のイメージ](/img/course/embedding-semantic-space-ja.webp)
 
 `embedding` は、token を数字の並びに変えたものです。数字そのものを暗記する必要はありません。大事なのは、似た意味の token が近い場所に置かれることです。
 
@@ -50,7 +50,7 @@ cat_car: 0.26
 
 ## 固定表現と文脈依存表現を比べる
 
-![固定 embedding と文脈依存 embedding の違い](/img/course/contextual-embedding-comparison-ja.png)
+![固定 embedding と文脈依存 embedding の違い](/img/course/contextual-embedding-comparison-ja.webp)
 
 同じ単語でも、文によって意味が変わります。たとえば `bank` は銀行にも川岸にもなります。固定 embedding は単語ごとに 1 つの表現を持ち、文脈依存 embedding は周囲の文から表現を変えます。
 

@@ -5,9 +5,9 @@ sidebar_position: 3
 
 # A.6 常见问题
 
-![FAQ 新人问题决策树](/img/course/appendix-faq-decision-tree.png)
+![FAQ 新人问题决策树](/img/course/appendix-faq-decision-tree.webp)
 
-![FAQ 焦虑重置与行动映射图](/img/course/appendix-faq-confidence-reset-map.png)
+![FAQ 焦虑重置与行动映射图](/img/course/appendix-faq-confidence-reset-map.webp)
 
 当问题很模糊、很焦虑时，先用这一页把它转成下一步行动。
 

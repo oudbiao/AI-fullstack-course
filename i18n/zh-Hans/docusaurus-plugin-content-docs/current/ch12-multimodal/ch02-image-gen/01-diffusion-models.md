@@ -7,7 +7,7 @@ keywords: [diffusion model, denoising, forward process, reverse process, generat
 
 # 12.2.2 扩散模型原理
 
-![扩散模型加噪去噪图](/img/course/diffusion-noise-denoise.png)
+![扩散模型加噪去噪图](/img/course/diffusion-noise-denoise.webp)
 
 :::tip 本节定位
 生成模型有很多路线：

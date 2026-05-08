@@ -6,7 +6,7 @@ description: "掌握 Python 中的各种运算符和表达式"
 
 # 2.1.3 运算符与表达式
 
-![运算符与条件判断流程图](/img/course/ch02-operators-decision-flow.png)
+![运算符与条件判断流程图](/img/course/ch02-operators-decision-flow.webp)
 
 ## 本节定位
 
@@ -211,7 +211,7 @@ print(f"是否实用: {is_practical}")  # True
 
 ### 短路求值
 
-![短路求值安全检查图解](/img/course/ch02-short-circuit-safety-check.svg)
+![短路求值安全检查图解](/img/course/ch02-short-circuit-safety-check.webp)
 
 Python 的 `and` 和 `or` 有一个聪明的特性——**短路求值**：
 

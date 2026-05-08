@@ -23,7 +23,7 @@ keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional E
 
 ## 先看 Block 图
 
-![Transformer Block 架构图](/img/course/transformer-block-architecture.png)
+![Transformer Block 架构图](/img/course/transformer-block-architecture.webp)
 
 一个 Transformer block 通常保持外层 shape 不变：
 
@@ -87,7 +87,7 @@ norm: LayerNorm
 
 ## 残差与归一化
 
-![Transformer Block 组件职责图](/img/course/ch06-transformer-block-role-map.png)
+![Transformer Block 组件职责图](/img/course/ch06-transformer-block-role-map.webp)
 
 残差连接和归一化不是装饰。它们让 block 可以堆深，同时不轻易丢失原始信号，也不让数值变得难以训练。
 
@@ -251,7 +251,7 @@ changed: True
 
 shape 没变，但每个 token 都已经被其他 token 的上下文重写过。
 
-![Transformer 层间表示逐步精炼图](/img/course/ch06-transformer-representation-refinement-map.png)
+![Transformer 层间表示逐步精炼图](/img/course/ch06-transformer-representation-refinement-map.webp)
 
 ## Encoder、Decoder 与 Encoder-Decoder
 
@@ -310,7 +310,7 @@ output: (2, 3, 16)
 
 ## 早期 Transformer 与现代 LLM Decoder
 
-![早期 Transformer 与现代 LLM decoder 视觉对比图](/img/course/ch06-transformer-early-modern-decoder.png)
+![早期 Transformer 与现代 LLM decoder 视觉对比图](/img/course/ch06-transformer-early-modern-decoder.webp)
 
 | 部分 | 早期 Transformer | 现代 LLM decoder | 为什么变化 |
 |---|---|---|---|

@@ -7,7 +7,7 @@ keywords: [機械学習学習ガイド, sklearn, 機械学習プロジェクト,
 
 # 5.0 学習ガイドとタスクリスト：機械学習
 
-![機械学習学習ガイドのプロジェクトループ](/img/course/ch05-study-guide-project-loop-ja.png)
+![機械学習学習ガイドのプロジェクトループ](/img/course/ch05-study-guide-project-loop-ja.webp)
 
 主な学習ルートは [第 5 章の入口](./) にまとめました。このページは、練習中に見る短いチェックリストとして使います。
 

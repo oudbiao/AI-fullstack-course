@@ -11,9 +11,9 @@ AI product design starts with the user problem, not the model capability. A feat
 
 ## See the Decision Loop First
 
-![AI Product Decision Matrix](/img/course/elective-ai-product-decision-matrix-en.png)
+![AI Product Decision Matrix](/img/course/elective-ai-product-decision-matrix-en.webp)
 
-![AI Product Experiment and Metrics Loop](/img/course/elective-ai-product-experiment-metrics-loop-en.png)
+![AI Product Experiment and Metrics Loop](/img/course/elective-ai-product-experiment-metrics-loop-en.webp)
 
 The first product habit is to make trade-offs explicit before implementation starts.
 

@@ -7,7 +7,7 @@ keywords: [固有値, 固有ベクトル, PCA, 次元削減, NumPy, 線形代数
 
 # 4.1.4 固有値と固有ベクトル
 
-![固有ベクトルの特別な方向のイメージ図](/img/course/eigenvalue-special-directions-ja.png)
+![固有ベクトルの特別な方向のイメージ図](/img/course/eigenvalue-special-directions-ja.webp)
 
 :::tip 名前におびえなくて大丈夫
 「固有値」と「固有ベクトル」は数学っぽく聞こえますが、直感はとてもシンプルです。**行列変換の下で、ある特別なベクトルは方向を変えずに、伸びたり縮んだりするだけ**です。これが固有ベクトルで、その伸び縮みの倍率が固有値です。
@@ -38,7 +38,7 @@ keywords: [固有値, 固有ベクトル, PCA, 次元削減, NumPy, 線形代数
 
 この節は、名前だけ見ると「難しそう」「かなり高度そう」と感じやすいです。ですが、まずは次の流れだけ覚えれば十分です。
 
-![固有方向と PCA の地図](/img/course/ch04-eigen-pca-direction-map-ja.png)
+![固有方向と PCA の地図](/img/course/ch04-eigen-pca-direction-map-ja.webp)
 
 この授業で本当に解決したいのは、定義を丸暗記することではなく、次のことです。
 

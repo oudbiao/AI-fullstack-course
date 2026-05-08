@@ -34,7 +34,7 @@ description: "掌握 apply、map、排序、排名和替换等数据转换方法
 
 数据转换更适合按“我要把这列变成什么”来理解：
 
-![Pandas 数据转换流水线](/img/course/ch03-pandas-transform-pipeline.png)
+![Pandas 数据转换流水线](/img/course/ch03-pandas-transform-pipeline.webp)
 
 所以这节真正想解决的是：
 
@@ -43,7 +43,7 @@ description: "掌握 apply、map、排序、排名和替换等数据转换方法
 
 ## apply：对行或列应用函数
 
-![Pandas 转换方法选择图解](/img/course/ch03-pandas-transform-method-choice.svg)
+![Pandas 转换方法选择图解](/img/course/ch03-pandas-transform-method-choice.webp)
 
 `apply` 是 Pandas 最灵活的转换工具——可以把任意函数应用到每一行或每一列。
 

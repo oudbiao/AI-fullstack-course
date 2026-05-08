@@ -7,7 +7,7 @@ keywords: [tool strategy, Agent, routing, retry, fallback, verification, tool po
 
 # 9.3.4 Tool Calling Strategies
 
-![Tool calling strategy routing map](/img/course/ch09-tool-strategy-routing-map-en.png)
+![Tool calling strategy routing map](/img/course/ch09-tool-strategy-routing-map-en.webp)
 
 :::tip Section Overview
 In the previous section, you learned how to safely connect tools behind the model.

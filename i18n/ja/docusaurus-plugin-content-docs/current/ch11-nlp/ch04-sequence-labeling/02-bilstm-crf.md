@@ -7,7 +7,7 @@ keywords: [BiLSTM, CRF, シーケンスラベリング, NER, 固有表現認識]
 
 # 11.4.4 BiLSTM + CRF
 
-![BiLSTM CRF ラベル経路デコード図](/img/course/ch11-bilstm-crf-label-path-map-ja.png)
+![BiLSTM CRF ラベル経路デコード図](/img/course/ch11-bilstm-crf-label-path-map-ja.webp)
 
 :::tip 画像の見方
 BiLSTM は各 token に対してコンテキスト表現を作り、CRF はすべての候補ラベル経路の中から最も自然なものを選びます。図を見るときは、「各位置のスコア」と「ラベル遷移の制約」がどのように合わさって最終的な BIO 列を決めるのかに注目してください。

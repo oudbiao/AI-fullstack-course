@@ -29,7 +29,7 @@ After finishing Station 5, many beginners typically have two questions:
 
 A more stable way to understand it is to first look at this evolution path:
 
-![Bridge diagram from machine learning to deep learning](/img/course/ch06-ml-to-dl-bridge-map-en.png)
+![Bridge diagram from machine learning to deep learning](/img/course/ch06-ml-to-dl-bridge-map-en.webp)
 
 So Station 6 is not overthrowing Station 5; it is continuing forward based on the modeling mindset you already built in Station 5.
 

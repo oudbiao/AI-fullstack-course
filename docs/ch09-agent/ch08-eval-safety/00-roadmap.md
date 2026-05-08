@@ -11,11 +11,11 @@ An Agent should not only run. You must know whether it succeeded, whether the pr
 
 ## See the Guardrail Stack First
 
-![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-en.png)
+![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-en.webp)
 
-![Agent evaluation and safety chapter learning flow](/img/course/ch09-eval-safety-chapter-flow-en.png)
+![Agent evaluation and safety chapter learning flow](/img/course/ch09-eval-safety-chapter-flow-en.webp)
 
-![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-en.png)
+![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-en.webp)
 
 Evaluation tells you whether the system works. Safety tells you what it may do. Observability tells you where it broke.
 

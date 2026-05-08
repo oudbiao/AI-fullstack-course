@@ -150,7 +150,7 @@ When the number of records keeps growing, you can compress similar history into 
 
 This can significantly reduce retrieval noise and context pressure.
 
-![Memory engineering lifecycle diagram](/img/course/ch09-memory-engineering-lifecycle-map-en.png)
+![Memory engineering lifecycle diagram](/img/course/ch09-memory-engineering-lifecycle-map-en.webp)
 
 :::tip Reading guide
 Read this diagram by lifecycle: `write` decides whether to store, `index` decides how to organize, `retrieve` decides how to find it back, and `cleanup` / `compress` decide when to clean up and compress. The hard part of memory engineering is policy, not just storage.

@@ -7,7 +7,7 @@ keywords: [house price prediction, regression, EDA, feature engineering, XGBoost
 
 # 5.6.2 Project 1: House Price Prediction (Regression Problem)
 
-![House price prediction project flowchart](/img/course/house-price-project-flow-en.png)
+![House price prediction project flowchart](/img/course/house-price-project-flow-en.webp)
 
 :::tip Project Positioning
 This is your **first complete ML regression project**. You will go through the full workflow, from data exploration to model deployment. We use the built-in California Housing dataset from sklearn.
@@ -298,7 +298,7 @@ print(f"Best parameters: {rs.best_params_}")
 
 ## Step 5: Result Analysis
 
-![House price residual review map](/img/course/ch05-house-price-residual-review-map-en.png)
+![House price residual review map](/img/course/ch05-house-price-residual-review-map-en.webp)
 
 ```python
 # Prediction vs actual

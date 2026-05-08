@@ -11,11 +11,11 @@ Representation learning asks how text can become numbers that carry meaning, not
 
 ## See the Representation Path First
 
-![NLP representation learning chapter learning sequence diagram](/img/course/ch11-embeddings-chapter-flow-en.png)
+![NLP representation learning chapter learning sequence diagram](/img/course/ch11-embeddings-chapter-flow-en.webp)
 
-![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.png)
+![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.webp)
 
-![Contextual embedding comparison diagram](/img/course/contextual-embedding-comparison-en.png)
+![Contextual embedding comparison diagram](/img/course/contextual-embedding-comparison-en.webp)
 
 The path moves from sparse word identity, to word vectors, to contextual vectors, to language models that learn broader language patterns.
 

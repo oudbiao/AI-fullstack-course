@@ -183,7 +183,7 @@ optimized_cost = 0.01584
 因为外部 API 单价有时并不低，
 而且它还会增加延迟和重试风险。
 
-![Agent 成本路由、缓存与预算控制图](/img/course/ch09-agent-cost-routing-cache-budget-map.png)
+![Agent 成本路由、缓存与预算控制图](/img/course/ch09-agent-cost-routing-cache-budget-map.webp)
 
 :::tip 读图提示
 这张图把成本从“单次模型调用”扩展成“任务链路账单”：模型路由、上下文长度、工具调用、缓存命中、失败重试和预算上限都会影响最终成本。

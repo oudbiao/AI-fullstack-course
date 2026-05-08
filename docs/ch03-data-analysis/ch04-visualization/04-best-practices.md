@@ -6,7 +6,7 @@ description: "Learn how to choose charts, use color well, and avoid common pitfa
 
 # 3.4.5 Visualization Best Practices
 
-![Chart selection decision tree](/img/course/chart-selection-decision-tree-en.png)
+![Chart selection decision tree](/img/course/chart-selection-decision-tree-en.webp)
 
 :::tip Section focus
 When many beginners learn visualization, they focus on:

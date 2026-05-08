@@ -11,11 +11,11 @@ Calculus explains how a model changes its parameters. The first goal is intuitio
 
 ## Look at the Map First
 
-![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-vertical-en.png)
+![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-vertical-en.webp)
 
 The training flow is:
 
-![Relationship diagram of calculus and optimization sections](/img/course/ch04-calculus-training-flow-en.png)
+![Relationship diagram of calculus and optimization sections](/img/course/ch04-calculus-training-flow-en.webp)
 
 | Idea | First meaning in AI |
 |---|---|

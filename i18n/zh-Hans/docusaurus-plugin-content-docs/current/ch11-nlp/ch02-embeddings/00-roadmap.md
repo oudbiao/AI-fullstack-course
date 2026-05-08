@@ -11,11 +11,11 @@ keywords: [表示学习指南, 词向量, 上下文化表示, 语言模型]
 
 ## 先看表示路径
 
-![NLP 表示学习章节学习顺序图](/img/course/ch11-embeddings-chapter-flow.png)
+![NLP 表示学习章节学习顺序图](/img/course/ch11-embeddings-chapter-flow.webp)
 
-![Embedding 语义空间图](/img/course/embedding-semantic-space.png)
+![Embedding 语义空间图](/img/course/embedding-semantic-space.webp)
 
-![上下文向量对比图](/img/course/contextual-embedding-comparison.png)
+![上下文向量对比图](/img/course/contextual-embedding-comparison.webp)
 
 这条路径从稀疏词身份，到词向量，到上下文向量，再到学习更广泛语言模式的语言模型。
 

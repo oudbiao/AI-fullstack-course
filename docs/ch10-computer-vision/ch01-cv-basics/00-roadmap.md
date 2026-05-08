@@ -11,11 +11,11 @@ Computer vision starts with input intuition. Before classification, detection, o
 
 ## See the Image Pipeline First
 
-![Vision basics chapter learning flow](/img/course/ch10-cv-basics-chapter-flow-en.png)
+![Vision basics chapter learning flow](/img/course/ch10-cv-basics-chapter-flow-en.webp)
 
-![Pixel RGB grid diagram](/img/course/cv-pixel-rgb-grid-en.png)
+![Pixel RGB grid diagram](/img/course/cv-pixel-rgb-grid-en.webp)
 
-![Image array shape and channel map](/img/course/ch10-image-array-shape-channel-map-en.png)
+![Image array shape and channel map](/img/course/ch10-image-array-shape-channel-map-en.webp)
 
 The first mental model is simple: image = height × width × channels. Most later bugs come from shape, channel order, coordinates, or color-space confusion.
 

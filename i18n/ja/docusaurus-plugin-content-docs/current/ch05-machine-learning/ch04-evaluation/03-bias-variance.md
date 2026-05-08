@@ -7,7 +7,7 @@ keywords: [バイアス, バリアンス, アンダーフィット, オーバー
 
 # 5.4.4 バイアス・バリアンスのトレードオフ
 
-![偏差方差トレードオフ三連図](/img/course/bias-variance-tradeoff-ja.png)
+![偏差方差トレードオフ三連図](/img/course/bias-variance-tradeoff-ja.webp)
 
 :::tip この節の概要
 バイアスとバリアンスは理論用語だけではありません。モデルが単純すぎるのか、不安定すぎるのか、データ品質に制限されているのかを診断する道具です。
@@ -22,7 +22,7 @@ keywords: [バイアス, バリアンス, アンダーフィット, オーバー
 - 学習曲線で、データ追加が効きそうかどうかを見る方法；
 - high bias と high variance で取るべき行動。
 
-![偏差方差アクション診断図](/img/course/ch05-bias-variance-action-map-ja.png)
+![偏差方差アクション診断図](/img/course/ch05-bias-variance-action-map-ja.webp)
 
 ## セットアップ
 
@@ -119,7 +119,7 @@ max_depth=3 train=0.977 test=0.944 gap=0.032
 
 ## 学習曲線
 
-![学習曲線診断図](/img/course/ch05-learning-curve-diagnosis-map-ja.png)
+![学習曲線診断図](/img/course/ch05-learning-curve-diagnosis-map-ja.webp)
 
 学習曲線は、訓練データが増えると何が起きるかを示します。
 

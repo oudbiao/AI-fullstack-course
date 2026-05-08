@@ -23,7 +23,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict,
 
 ## まずモデルコンテナを見る
 
-![nn.Module パラメータ整理フローチャート](/img/course/ch06-nn-module-parameter-flow-ja.png)
+![nn.Module パラメータ整理フローチャート](/img/course/ch06-nn-module-parameter-flow-ja.webp)
 
 `nn.Module` はモデルコンテナだと考えます。
 

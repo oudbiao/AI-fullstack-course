@@ -23,7 +23,7 @@ keywords: [LeNet, AlexNet, VGG, ResNet, CNN, 残差接続, 古典的アーキテ
 
 ## まず進化の流れを見る
 
-![古典的な CNN アーキテクチャの進化図](/img/course/imagenet-cnn-evolution-ja.png)
+![古典的な CNN アーキテクチャの進化図](/img/course/imagenet-cnn-evolution-ja.webp)
 
 タイムラインは次のように読みます。
 

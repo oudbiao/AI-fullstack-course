@@ -5,9 +5,9 @@ sidebar_position: 7
 
 # A.10 就職準備チェックリスト
 
-![就職準備ファネル図](/img/course/appendix-job-prep-funnel-ja.png)
+![就職準備ファネル図](/img/course/appendix-job-prep-funnel-ja.webp)
 
-![AI ポートフォリオのストーリーマップ](/img/course/appendix-job-portfolio-storyline-map-ja.png)
+![AI ポートフォリオのストーリーマップ](/img/course/appendix-job-portfolio-storyline-map-ja.webp)
 
 就職準備は「全部学んでから」ではありません。学習の跡を、他人が理解できるプロジェクトに整理することです。
 

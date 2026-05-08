@@ -197,7 +197,7 @@ ResNet 的意义，不只是“分数变高”，而是它把：
 
 这个表很适合初学者，因为它会把“模型名”重新变成“什么时候我该先想到它”。
 
-![图像分类架构演进与选择图](/img/course/ch10-classification-architecture-evolution-map.png)
+![图像分类架构演进与选择图](/img/course/ch10-classification-architecture-evolution-map.webp)
 
 :::tip 读图提示
 这张图不要当模型排行榜看，而要当“问题演进图”看：VGG 先证明深度有效，ResNet 解决深层可训练性，EfficientNet 关注效率，ConvNeXt 代表卷积路线的现代化整理。

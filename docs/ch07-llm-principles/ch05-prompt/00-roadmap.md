@@ -11,11 +11,11 @@ Prompt engineering is the interface between your application and the model. The 
 
 ## See the Prompt Loop First
 
-![Prompt engineering chapter relationship diagram](/img/course/ch07-prompt-chapter-flow-en.png)
+![Prompt engineering chapter relationship diagram](/img/course/ch07-prompt-chapter-flow-en.webp)
 
-![Prompt three-layer task specification diagram](/img/course/ch07-prompt-spec-three-layer-map-en.png)
+![Prompt three-layer task specification diagram](/img/course/ch07-prompt-spec-three-layer-map-en.webp)
 
-![Prompt iteration test closed loop diagram](/img/course/ch07-prompt-iteration-loop-en.png)
+![Prompt iteration test closed loop diagram](/img/course/ch07-prompt-iteration-loop-en.webp)
 
 Use this chapter when the model already has the general ability, but the result is vague, unstable, in the wrong format, or hard to evaluate.
 

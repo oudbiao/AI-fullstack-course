@@ -7,7 +7,7 @@ keywords: [prompt, instruction, task framing, output format, constraints, prompt
 
 # 7.5.2 Prompt 基础
 
-![Prompt 改写前后对比卡](/img/course/prompt-before-after.png)
+![Prompt 改写前后对比卡](/img/course/prompt-before-after.webp)
 
 :::tip 本节定位
 很多人第一次学 Prompt，会把它理解成：
@@ -237,7 +237,7 @@ Prompt 很像你给新同事下任务：
 
 这类角色设定更稳，因为最基础的任务规格先站住了。
 
-![Prompt 三层任务简报漫画](/img/course/ch07-prompt-task-brief-comic.png)
+![Prompt 三层任务简报漫画](/img/course/ch07-prompt-task-brief-comic.webp)
 
 :::tip 读图提示
 可以把这张图当成一个小职场故事来看：模糊请求会让模型猜；清楚的任务简报会告诉模型目标、交付格式和边界。所以好 Prompt 更像任务卡，而不是神秘咒语。
@@ -304,7 +304,7 @@ print(next_fix(prompt_checklist))
 
 - 一份可检查的任务规格
 
-![Prompt 三层任务规格图](/img/course/ch07-prompt-spec-three-layer-map.png)
+![Prompt 三层任务规格图](/img/course/ch07-prompt-spec-three-layer-map.webp)
 
 :::tip 读图提示
 这张图把 Prompt 拆成三层：任务目标、输出格式、约束边界。新人先别急着加角色设定或高级技巧，先确认这三层有没有写清楚；很多不稳定输出，其实只是任务规格缺了一层。

@@ -5,9 +5,9 @@ sidebar_position: 4
 
 # A.7 AI の継続学習方法
 
-![3 層の継続学習フライホイール](/img/course/appendix-continuous-learning-flywheel-ja.png)
+![3 層の継続学習フライホイール](/img/course/appendix-continuous-learning-flywheel-ja.webp)
 
-![論文、プロジェクト、知識ベースの復習ループ](/img/course/appendix-learning-paper-project-notes-loop-ja.png)
+![論文、プロジェクト、知識ベースの復習ループ](/img/course/appendix-learning-paper-project-notes-loop-ja.webp)
 
 継続学習は毎日ニュースを追うことではありません。基礎、プロジェクト、前線の信号、復習を回すことです。
 

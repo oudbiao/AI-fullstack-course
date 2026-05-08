@@ -9,7 +9,7 @@ keywords: [LLM API, Responses API, Token 予算, JSON 検証, 構造化出力, A
 
 このレッスンでは、前の概念を実際に追えるワークフローに変えます。どのモデルが一番強いかを比較する前に、まず 1 回の LLM 呼び出しで何が起きているのかを理解しましょう。ユーザー課題、Token 予算、リクエスト payload、モデル出力、検証、再試行までを順に見ます。
 
-![LLM 呼び出しワークベンチ](/img/course/ch07-llm-call-workbench-ja.png)
+![LLM 呼び出しワークベンチ](/img/course/ch07-llm-call-workbench-ja.webp)
 
 :::tip 学習の順番
 まず図を見て、次にコードを動かし、最後に用語や式を確認します。1 回のリクエストを入力から検証済み出力まで追えるようになると、LLM エンジニアリングはかなり見通しやすくなります。

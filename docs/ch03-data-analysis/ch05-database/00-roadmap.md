@@ -11,7 +11,7 @@ This chapter is optional in Chapter 3. Read it when you want to understand where
 
 ## Look at the Database Map First
 
-![Database elective learning roadmap](/img/course/ch03-database-roadmap-en.png)
+![Database elective learning roadmap](/img/course/ch03-database-roadmap-en.webp)
 
 Remember the simple comparison:
 

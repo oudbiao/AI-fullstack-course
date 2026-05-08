@@ -7,7 +7,7 @@ keywords: [text classification, bag of words, tf-idf, logistic regression, basel
 
 # 11.3.2 Traditional Text Classification
 
-![Traditional text classification baseline map](/img/course/ch11-traditional-classification-baseline-map-en.png)
+![Traditional text classification baseline map](/img/course/ch11-traditional-classification-baseline-map-en.webp)
 
 :::tip Reading guide
 Traditional text classification is easiest to understand as: “text cleaning -> feature representation -> linear classifier -> error analysis.” It is not outdated content; in many text projects, it is still the most stable, fastest, and easiest-to-explain first baseline.

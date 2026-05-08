@@ -7,9 +7,9 @@ keywords: [推論エンジン, ONNX Runtime, TensorRT, OpenVINO, 実行グラフ
 
 # E.A.4 推論エンジン
 
-![推論エンジンとハードウェア適合図](/img/course/elective-inference-engine-hardware-ja.png)
+![推論エンジンとハードウェア適合図](/img/course/elective-inference-engine-hardware-ja.webp)
 
-![推論エンジン選定マトリクス図](/img/course/elective-inference-engine-selection-matrix-ja.png)
+![推論エンジン選定マトリクス図](/img/course/elective-inference-engine-selection-matrix-ja.webp)
 
 推論エンジンは、学習済みモデルと実際のハードウェアの間にある実行レイヤーです。モデルは「何を計算するか」を表し、エンジンは CPU、GPU、NPU、エッジ機器で「どう効率よく実行するか」を決めます。
 

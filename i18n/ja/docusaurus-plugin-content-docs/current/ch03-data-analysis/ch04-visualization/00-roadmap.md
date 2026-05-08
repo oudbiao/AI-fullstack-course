@@ -11,7 +11,7 @@ keywords: [データ可視化, グラフ選択, matplotlib, seaborn, plotly, 可
 
 ## まずグラフ選択マップを見る
 
-![データ可視化ロードマップ](/img/course/ch03-visualization-roadmap-ja.png)
+![データ可視化ロードマップ](/img/course/ch03-visualization-roadmap-ja.webp)
 
 最初はこの判断で十分です。
 

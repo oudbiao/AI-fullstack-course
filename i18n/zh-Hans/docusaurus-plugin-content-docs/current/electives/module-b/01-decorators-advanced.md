@@ -7,9 +7,9 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 # E.B.1 装饰器进阶用法
 
-![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.png)
+![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.webp)
 
-![装饰器横切逻辑分层图](/img/course/elective-decorator-crosscutting-layers.png)
+![装饰器横切逻辑分层图](/img/course/elective-decorator-crosscutting-layers.webp)
 
 装饰器会在函数外面包一层可复用行为。当很多函数都需要同样的日志、计时、重试、权限检查或 trace 时，就适合用装饰器。
 

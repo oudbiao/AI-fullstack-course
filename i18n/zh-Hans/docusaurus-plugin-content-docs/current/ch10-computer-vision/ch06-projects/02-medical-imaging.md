@@ -268,7 +268,7 @@ print(risk_summary(metrics))
 
 这个表很适合新人，因为它会把医学影像评估从“又多几个指标名”重新变成“这些指标到底在替谁服务”。
 
-![医学影像风险指标与人工复核闭环图](/img/course/ch10-medical-imaging-risk-review-map.png)
+![医学影像风险指标与人工复核闭环图](/img/course/ch10-medical-imaging-risk-review-map.webp)
 
 :::tip 读图提示
 医学影像项目不能只展示漂亮 mask。读这张图时按任务边界、标注协议、sensitivity、false negative rate、人工复核和失败样本回流来判断它是否可信。

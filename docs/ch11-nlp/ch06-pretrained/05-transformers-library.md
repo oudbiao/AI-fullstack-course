@@ -7,7 +7,7 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 # 11.6.6 Practical Transformers Library Usage
 
-![Transformers library call chain diagram](/img/course/ch11-transformers-library-call-chain-map-en.png)
+![Transformers library call chain diagram](/img/course/ch11-transformers-library-call-chain-map-en.webp)
 
 :::tip Reading the diagram
 When you first use the Transformers library, it is easy to get confused by all the API names. First, look at the call chain in this order: Tokenizer, Config, Model, Task Head, Pipeline. Understand what each object is responsible for, and then look up the specific class names. That will make things much clearer.

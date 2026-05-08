@@ -7,7 +7,7 @@ keywords: [LDA, linear discriminant analysis, dimensionality reduction, classifi
 
 # E.C.4 Linear Discriminant Analysis
 
-![LDA supervised projection intuition diagram](/img/course/elective-lda-projection-map-en.png)
+![LDA supervised projection intuition diagram](/img/course/elective-lda-projection-map-en.webp)
 
 LDA finds a projection that keeps samples from the same class close and different classes far apart. It can act as a classifier and as supervised dimensionality reduction.
 

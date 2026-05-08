@@ -7,7 +7,7 @@ keywords: [BERT, MLM, bidirectional encoder, pretraining, Transformer Encoder, N
 
 # 11.6.3 BERT Series
 
-![BERT Masked Language Model](/img/course/bert-masked-language-model-en.png)
+![BERT Masked Language Model](/img/course/bert-masked-language-model-en.webp)
 
 :::tip Section focus
 BERT is one of the key milestones that brought modern NLP into the “pretraining for everything” era.

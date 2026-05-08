@@ -23,7 +23,7 @@ keywords: [LSTM, GRU, ゲート機構, cell state, update gate, forget gate]
 
 ## まず gate の考え方を見る
 
-![LSTM ゲート記憶フロー図](/img/course/lstm-gate-memory-flow-ja.png)
+![LSTM ゲート記憶フロー図](/img/course/lstm-gate-memory-flow-ja.webp)
 
 図は次のように読みます。
 
@@ -53,7 +53,7 @@ LSTM と GRU は「より深い RNN」ではありません。記憶を制御す
 
 ## LSTM：Cell State と 3 つの Gate
 
-![LSTM ゲートによる情報流制御図](/img/course/ch06-lstm-gates-information-control-map-ja.png)
+![LSTM ゲートによる情報流制御図](/img/course/ch06-lstm-gates-information-control-map-ja.webp)
 
 LSTM は 2 つの状態を持ちます。
 

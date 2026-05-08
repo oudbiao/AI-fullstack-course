@@ -7,7 +7,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 # 8.1.5 検索戦略
 
-![Hybrid Search と Rerank のフローチャート](/img/course/hybrid-search-rerank-flow-ja.png)
+![Hybrid Search と Rerank のフローチャート](/img/course/hybrid-search-rerank-flow-ja.webp)
 
 ## 学習目標
 
@@ -86,9 +86,9 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 ハイブリッド検索は、この 2 つの判断を合わせたものです。
 
-![キーワード検索とベクトル検索の盲点図](/img/course/ch08-hybrid-retrieval-blindspot-map-ja.png)
+![キーワード検索とベクトル検索の盲点図](/img/course/ch08-hybrid-retrieval-blindspot-map-ja.webp)
 
-![検索戦略の比較図](/img/course/ch08-retrieval-strategy-comparison-map-v2-ja.png)
+![検索戦略の比較図](/img/course/ch08-retrieval-strategy-comparison-map-v2-ja.webp)
 
 BM25 は、古典的なキーワード順位付けの方法です。多くのハイブリッド検索では、BM25 風のスコアとベクトル類似度を組み合わせ、最後に rerank で並び順を整えます。
 
@@ -240,7 +240,7 @@ for q in queries:
 
 実際のシステムでは、query rewrite を LLM が担当することもあります。
 
-![Query Rewrite と Rerank の二段階ファネル図](/img/course/ch08-rerank-query-rewrite-funnel-map-ja.png)
+![Query Rewrite と Rerank の二段階ファネル図](/img/course/ch08-rerank-query-rewrite-funnel-map-ja.webp)
 
 :::tip 図の読み方
 Query Rewrite は検索の前に行い、ユーザーの質問を探しやすくします。Rerank は広く集めた後に行い、候補の並びを整えます。役割は別なので、同じものとして考えないでください。

@@ -7,7 +7,7 @@ keywords: [Maximum Likelihood Estimation, MLE, MAP, hypothesis testing, A/B test
 
 # 4.2.4 Basics of Statistical Inference
 
-![Maximum Likelihood Estimation likelihood curve](/img/course/mle-likelihood-curve-en.png)
+![Maximum Likelihood Estimation likelihood curve](/img/course/mle-likelihood-curve-en.webp)
 
 :::tip Statistical inference = inferring rules from data
 In the previous section, we learned about various probability distributions. But in the real world, we often do not know the parameters of a distribution (for example, what is the probability that a coin lands heads?). Statistical inference is **using observed data to infer the parameters of the distribution**.
@@ -113,7 +113,7 @@ The previous two sections were about "how probability is defined" and "what dist
 
 > **Now that we have data, how do we infer the underlying parameters and conclusions?**
 
-![Statistical inference from data to parameters](/img/course/ch04-statistical-inference-data-to-parameter-en.png)
+![Statistical inference from data to parameters](/img/course/ch04-statistical-inference-data-to-parameter-en.webp)
 
 The most important thing in this lesson is not memorizing terminology, but first grasping:
 
@@ -381,7 +381,7 @@ flowchart TD
 
 ### Intuition for p-values
 
-![p-value null distribution diagram](/img/course/ch04-pvalue-null-distribution-en.svg)
+![p-value null distribution diagram](/img/course/ch04-pvalue-null-distribution-en.webp)
 
 **p-value = the probability of getting a difference this large (or larger) just by random fluctuation, assuming there is no real difference.**
 

@@ -6,7 +6,7 @@ description: "NumPy を使って、行列積・逆行列・固有値などの線
 
 # 3.2.6 線形代数の基本操作
 
-![NumPy 線形代数ツールボックス](/img/course/ch03-numpy-linear-algebra-toolkit-ja.png)
+![NumPy 線形代数ツールボックス](/img/course/ch03-numpy-linear-algebra-toolkit-ja.webp)
 
 ## 学習目標
 

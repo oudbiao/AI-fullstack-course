@@ -217,7 +217,7 @@ A very practical way to categorize errors is:
 
 Once you separate these three, many of your next iteration directions become much clearer immediately.
 
-![Detection project evaluation and error bucket diagram](/img/course/ch10-detection-practice-eval-buckets-map-en.png)
+![Detection project evaluation and error bucket diagram](/img/course/ch10-detection-practice-eval-buckets-map-en.webp)
 
 :::tip Reading guide
 When presenting a detection project, don’t just show success screenshots. When reading this figure, look at four parts: annotation standards, IoU/mAP evaluation, the false detection / missed detection / poor localization buckets, and whether the next round should improve data, thresholds, or the model.

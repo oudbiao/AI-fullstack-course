@@ -7,7 +7,7 @@ keywords: [deep learning study guide, PyTorch, CNN, Transformer, Attention]
 
 # 6.0 Study Guide and Task Sheet: Deep Learning and Transformer Basics
 
-![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop-en.png)
+![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop-en.webp)
 
 The main study route is now in [Chapter 6 entry](./). Use this page only as a quick checklist while you practice.
 

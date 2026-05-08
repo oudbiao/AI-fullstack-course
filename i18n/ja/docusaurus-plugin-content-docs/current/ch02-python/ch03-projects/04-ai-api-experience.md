@@ -6,7 +6,7 @@ description: "AI API を呼び出して人工知能の力を体験する"
 
 # 2.3.4 プロジェクト：AI API クイック体験
 
-![AI API リクエスト・レスポンスの流れ図](/img/course/ch02-ai-api-request-response-ja.png)
+![AI API リクエスト・レスポンスの流れ図](/img/course/ch02-ai-api-request-response-ja.webp)
 
 ## プロジェクトの位置づけ
 

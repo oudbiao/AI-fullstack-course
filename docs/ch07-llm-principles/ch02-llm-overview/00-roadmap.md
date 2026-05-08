@@ -11,9 +11,9 @@ LLM overview is not a model-name list. It helps you decide what a large model ca
 
 ## Look at the Capability Stack First
 
-![LLM overview chapter relationship diagram](/img/course/ch07-llm-overview-chapter-flow-en.png)
+![LLM overview chapter relationship diagram](/img/course/ch07-llm-overview-chapter-flow-en.webp)
 
-![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack-en.png)
+![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack-en.webp)
 
 | Route | Use when... |
 |---|---|

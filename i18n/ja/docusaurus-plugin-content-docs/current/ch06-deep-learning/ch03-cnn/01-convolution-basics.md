@@ -23,7 +23,7 @@ keywords: [convolution, 畳み込み, 畳み込みカーネル, CNN, stride, pad
 
 ## まずスライドする窓を見る
 
-![CNN の畳み込み核がスライドする模式図](/img/course/cnn-convolution-kernel-ja.png)
+![CNN の畳み込み核がスライドする模式図](/img/course/cnn-convolution-kernel-ja.webp)
 
 図は次の順番で読みます。
 
@@ -157,7 +157,7 @@ edge_lab
 
 ## Stride、Padding、出力サイズ
 
-![畳み込みの stride と padding による出力サイズ変化図](/img/course/ch06-conv-stride-padding-size-map-ja.png)
+![畳み込みの stride と padding による出力サイズ変化図](/img/course/ch06-conv-stride-padding-size-map-ja.webp)
 
 | 用語 | 意味 | 影響 |
 |---|---|---|
@@ -259,7 +259,7 @@ bias: (8,)
 
 ## 受容野：CNN が深さによって広く見る仕組み
 
-![CNN の受容野が層ごとに大きくなる特徴組み合わせ図](/img/course/ch06-cnn-receptive-field-growth-map-ja.png)
+![CNN の受容野が層ごとに大きくなる特徴組み合わせ図](/img/course/ch06-cnn-receptive-field-growth-map-ja.webp)
 
 1 つの `3 x 3` 畳み込みは、小さな局所領域しか見ません。層を重ねると、後ろの特徴は元画像のより広い範囲に間接的に依存します。
 

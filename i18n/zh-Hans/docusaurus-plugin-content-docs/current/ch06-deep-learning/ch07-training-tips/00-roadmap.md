@@ -11,9 +11,9 @@ keywords: [深度学习训练技巧, 超参数调优, 训练诊断, 模型压缩
 
 ## 先看诊断流程
 
-![深度学习训练技巧章节关系图](/img/course/ch06-training-tips-chapter-flow.png)
+![深度学习训练技巧章节关系图](/img/course/ch06-training-tips-chapter-flow.webp)
 
-![训练诊断仪表盘图](/img/course/ch06-training-diagnosis-dashboard-map.png)
+![训练诊断仪表盘图](/img/course/ch06-training-diagnosis-dashboard-map.webp)
 
 | 现象 | 先检查 |
 |---|---|

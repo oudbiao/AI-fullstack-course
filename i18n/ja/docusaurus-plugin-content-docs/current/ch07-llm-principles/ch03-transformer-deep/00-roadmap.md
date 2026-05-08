@@ -11,9 +11,9 @@ keywords: [Transformer 深掘り, decoder block, efficient attention, KV cache, 
 
 ## まず内部フローを見る
 
-![Transformer 深掘り章関係図](/img/course/ch07-transformer-deep-chapter-flow-ja.png)
+![Transformer 深掘り章関係図](/img/course/ch07-transformer-deep-chapter-flow-ja.webp)
 
-![Transformer 情報フロー、計算コスト、タスク適合図](/img/course/ch07-transformer-cost-task-map-ja.png)
+![Transformer 情報フロー、計算コスト、タスク適合図](/img/course/ch07-transformer-cost-task-map-ja.webp)
 
 ## causal mask を作る
 

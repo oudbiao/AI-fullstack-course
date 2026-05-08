@@ -7,7 +7,7 @@ keywords: [bias, variance, underfitting, overfitting, learning curve, validation
 
 # 5.4.4 Bias-Variance Tradeoff
 
-![Three-panel bias-variance tradeoff diagram](/img/course/bias-variance-tradeoff-en.png)
+![Three-panel bias-variance tradeoff diagram](/img/course/bias-variance-tradeoff-en.webp)
 
 :::tip Section Overview
 Bias and variance are not just theory words. They are a way to diagnose whether your model is too simple, too unstable, or limited by data quality.
@@ -22,7 +22,7 @@ This lesson uses decision trees to show:
 - how learning curves show whether more data may help;
 - what action to take for high bias vs high variance.
 
-![Bias-variance action diagnosis map](/img/course/ch05-bias-variance-action-map-en.png)
+![Bias-variance action diagnosis map](/img/course/ch05-bias-variance-action-map-en.webp)
 
 ## Setup
 
@@ -119,7 +119,7 @@ It is not perfect on training data, but it generalizes better.
 
 ## Learning Curves
 
-![Learning curve diagnosis map](/img/course/ch05-learning-curve-diagnosis-map-en.png)
+![Learning curve diagnosis map](/img/course/ch05-learning-curve-diagnosis-map-en.webp)
 
 The learning curve shows what happens when more training data is used:
 

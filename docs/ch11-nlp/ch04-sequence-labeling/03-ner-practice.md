@@ -7,7 +7,7 @@ keywords: [NER, named entity recognition, information extraction, BIO, project, 
 
 # 11.4.5 NER Practice
 
-![NER project entity evaluation loop](/img/course/ch11-ner-project-entity-eval-loop-en.png)
+![NER project entity evaluation loop](/img/course/ch11-ner-project-entity-eval-loop-en.webp)
 
 :::tip Reading guide
 For NER projects, do not focus only on token accuracy. First look at how the label scheme, annotation examples, entity recovery, entity-level Precision/Recall/F1, and error buckets form a closed loop. This is much closer to a real project than simply swapping models.

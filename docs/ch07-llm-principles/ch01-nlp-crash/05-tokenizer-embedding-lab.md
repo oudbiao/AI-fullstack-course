@@ -13,7 +13,7 @@ This lab gives you the whole mini-chain:
 
 > **raw text -> tokens -> input_ids -> attention_mask -> embedding -> similarity score**
 
-![Tokenizer and Embedding Lab](/img/course/ch07-tokenizer-embedding-lab-en.png)
+![Tokenizer and Embedding Lab](/img/course/ch07-tokenizer-embedding-lab-en.webp)
 
 :::tip Learning rhythm
 Read the picture first, then run the code, then inspect the printed output. Do not start from formulas. Start from the data flow.

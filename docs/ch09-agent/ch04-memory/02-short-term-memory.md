@@ -7,7 +7,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 # 9.4.3 Short-Term Memory
 
-![Short-term memory context window and runtime state](/img/course/ch09-short-term-memory-window-map-en.png)
+![Short-term memory context window and runtime state](/img/course/ch09-short-term-memory-window-map-en.webp)
 
 :::tip Section Overview
 When many people hear “Agent memory,” they first think of “long-term storage.”

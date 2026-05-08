@@ -7,13 +7,13 @@ keywords: [Python入门, Python基础, Python教程, 编程入门, AI API]
 
 # 2 Python 编程基础
 
-![Python 编程基础主视觉](/img/course/ch02-python-foundation.png)
+![Python 编程基础主视觉](/img/course/ch02-python-foundation.webp)
 
 第 2 章只解决一件事：把一个小想法写成**能运行、能保存数据、能处理错误、能讲清楚的 Python 程序**。
 
 ## 先看 Python 工作闭环
 
-![Python AI 主线能力链](/img/course/ch02-python-ai-backbone.png)
+![Python AI 主线能力链](/img/course/ch02-python-ai-backbone.webp)
 
 先看图。大多数入门 Python 程序都是这个闭环：
 

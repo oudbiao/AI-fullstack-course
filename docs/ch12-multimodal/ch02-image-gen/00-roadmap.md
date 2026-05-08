@@ -11,11 +11,11 @@ Image generation is a workflow, not a single prompt. A useful result needs inten
 
 ## See the Pipeline First
 
-![Image generation chapter learning flowchart](/img/course/ch12-image-gen-chapter-flow-en.png)
+![Image generation chapter learning flowchart](/img/course/ch12-image-gen-chapter-flow-en.webp)
 
-![Stable Diffusion application mode selector](/img/course/ch12-sd-application-mode-selector-map-en.png)
+![Stable Diffusion application mode selector](/img/course/ch12-sd-application-mode-selector-map-en.webp)
 
-![Stable Diffusion fine-tuning route selector](/img/course/ch12-sd-finetuning-route-choice-map-en.png)
+![Stable Diffusion fine-tuning route selector](/img/course/ch12-sd-finetuning-route-choice-map-en.webp)
 
 The first habit is to log what you asked for, which mode you used, which seed or parameters shaped the result, and what must be reviewed before export.
 

@@ -11,11 +11,11 @@ Memory is not there to make an Agent feel human. It should help the task: reduce
 
 ## See the Memory Loop First
 
-![Layered diagram of the Agent memory system](/img/course/agent-memory-system-en.png)
+![Layered diagram of the Agent memory system](/img/course/agent-memory-system-en.webp)
 
-![Learning order diagram for the Agent memory systems chapter](/img/course/ch09-memory-chapter-flow-en.png)
+![Learning order diagram for the Agent memory systems chapter](/img/course/ch09-memory-chapter-flow-en.webp)
 
-![Closed loop diagram of Agent memory writing and retrieval](/img/course/ch09-memory-write-retrieve-loop-en.png)
+![Closed loop diagram of Agent memory writing and retrieval](/img/course/ch09-memory-write-retrieve-loop-en.webp)
 
 The core decision is not “save everything.” It is what to save, when to retrieve it, when to update it, and when to forget it.
 

@@ -7,7 +7,7 @@ keywords: [machine translation, seq2seq, translation project, alignment, error a
 
 # 11.5.4 Machine Translation Practice [Optional]
 
-![Machine Translation Error Analysis Map](/img/course/ch11-machine-translation-error-analysis-map-en.png)
+![Machine Translation Error Analysis Map](/img/course/ch11-machine-translation-error-analysis-map-en.webp)
 
 :::tip Reading guide
 A translation project is not just about whether one output sentence sounds smooth. When reading the diagram, connect parallel corpus, baseline, omission, mistranslation, word order issues, terminology consistency, and human evaluation together so you can really see where the system is improving.

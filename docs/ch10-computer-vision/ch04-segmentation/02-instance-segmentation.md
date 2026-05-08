@@ -186,7 +186,7 @@ but that:
 - once individuals are separated
 - many statistics and decisions naturally become available afterward
 
-![Instance separation, counting, and area diagram](/img/course/ch10-instance-segmentation-count-mask-map-en.png)
+![Instance separation, counting, and area diagram](/img/course/ch10-instance-segmentation-count-mask-map-en.webp)
 
 :::tip Reading hint
 Semantic segmentation only cares about "which pixels are people," while instance segmentation also needs to distinguish "person 1" and "person 2." When reading the figure, focus on why neighboring same-category objects easily stick together, and how separating instances enables counting and area statistics afterward.

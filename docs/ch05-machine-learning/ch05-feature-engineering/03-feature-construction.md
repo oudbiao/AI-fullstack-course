@@ -7,7 +7,7 @@ keywords: [feature construction, polynomial features, interaction features, time
 
 # 5.5.4 Feature Construction
 
-![Feature Construction Workshop Diagram](/img/course/feature-construction-workshop-en.png)
+![Feature Construction Workshop Diagram](/img/course/feature-construction-workshop-en.webp)
 
 :::tip Section Overview
 Feature construction is about **creating new features** from existing data. It is often the most effective way to improve model performance. In Kaggle competitions, the winner is often decided by who built better features.

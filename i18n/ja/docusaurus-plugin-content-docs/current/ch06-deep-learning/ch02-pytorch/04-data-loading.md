@@ -23,7 +23,7 @@ keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 
 ## まず batch の流れを見る
 
-![Dataset DataLoader Batch フロー図](/img/course/ch06-hands-on-dataset-dataloader-batch-flow-ja.png)
+![Dataset DataLoader Batch フロー図](/img/course/ch06-hands-on-dataset-dataloader-batch-flow-ja.webp)
 
 次の順番で読みます。
 

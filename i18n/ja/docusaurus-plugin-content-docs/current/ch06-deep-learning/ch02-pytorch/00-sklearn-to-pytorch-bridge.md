@@ -65,7 +65,7 @@ pred = model.predict(X_test)
 
 ## 二、両者を1枚の図で見る
 
-![sklearn から PyTorch へのギアチェンジ図](/img/course/ch06-sklearn-to-pytorch-shift-map-ja.png)
+![sklearn から PyTorch へのギアチェンジ図](/img/course/ch06-sklearn-to-pytorch-shift-map-ja.webp)
 
 - `sklearn` では、この流れの多くが `fit()` の中にまとめられています
 - `PyTorch` では、この流れがそのまま全部見えます

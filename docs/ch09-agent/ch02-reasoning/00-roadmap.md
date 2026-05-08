@@ -11,11 +11,11 @@ Agent reasoning is not a longer answer. It is the ability to create usable inter
 
 ## See the Planning Loop First
 
-![Agent reasoning and planning chapter learning sequence diagram](/img/course/ch09-reasoning-chapter-flow-en.png)
+![Agent reasoning and planning chapter learning sequence diagram](/img/course/ch09-reasoning-chapter-flow-en.webp)
 
-![Plan execute monitor replan map](/img/course/ch09-plan-execute-monitor-replan-map-en.png)
+![Plan execute monitor replan map](/img/course/ch09-plan-execute-monitor-replan-map-en.webp)
 
-![Reasoning state checkpoint map](/img/course/ch09-reasoning-state-checkpoint-map-en.png)
+![Reasoning state checkpoint map](/img/course/ch09-reasoning-state-checkpoint-map-en.webp)
 
 The core habit is: plan a step, act, observe the result, checkpoint state, and replan when the result changes the situation.
 

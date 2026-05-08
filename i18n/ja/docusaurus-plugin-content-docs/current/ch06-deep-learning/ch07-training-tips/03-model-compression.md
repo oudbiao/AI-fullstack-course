@@ -23,7 +23,7 @@ keywords: [model compression, quantization, pruning, distillation, deployment, m
 
 ## Deployment Bottleneck から始める
 
-![モデル圧縮のトレードオフ図](/img/course/ch06-model-compression-tradeoff-ja.png)
+![モデル圧縮のトレードオフ図](/img/course/ch06-model-compression-tradeoff-ja.webp)
 
 | Bottleneck | まず考える方法 | 理由 |
 |---|---|---|

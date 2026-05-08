@@ -7,9 +7,9 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 # E.A.3 Model Optimization Techniques
 
-![Model Optimization Roadmap](/img/course/elective-model-optimization-map-en.png)
+![Model Optimization Roadmap](/img/course/elective-model-optimization-map-en.webp)
 
-![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard-en.png)
+![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard-en.webp)
 
 Optimization does not mean “make the model as small as possible.” It means improving one constraint while checking what you lose.
 

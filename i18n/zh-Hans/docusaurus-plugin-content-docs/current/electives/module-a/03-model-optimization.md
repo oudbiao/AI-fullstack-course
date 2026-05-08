@@ -7,9 +7,9 @@ keywords: [模型优化, 量化, 剪枝, 蒸馏, 融合, batching, 部署]
 
 # E.A.3 模型优化技术
 
-![模型优化路线图](/img/course/elective-model-optimization-map.png)
+![模型优化路线图](/img/course/elective-model-optimization-map.webp)
 
-![模型优化取舍仪表盘](/img/course/elective-optimization-tradeoff-dashboard.png)
+![模型优化取舍仪表盘](/img/course/elective-optimization-tradeoff-dashboard.webp)
 
 优化不是“把模型压到越小越好”，而是在改善一个约束时，同时检查你失去了什么。
 

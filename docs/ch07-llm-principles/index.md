@@ -7,7 +7,7 @@ keywords: [large language models, LLM, Transformer, Prompt Engineering, LoRA, fi
 
 # 7 LLM Principles, Prompt, and Fine-tuning
 
-![Main visual for LLM principles](/img/course/ch07-llm-principles-en.png)
+![Main visual for LLM principles](/img/course/ch07-llm-principles-en.webp)
 
 This chapter answers one practical question: **when a user sends text to an LLM, what path does that text take, and how can you make the result stable enough for an application?**
 
@@ -15,7 +15,7 @@ Do not start by memorizing model names. Start with the loop you can operate: tex
 
 ## See the Whole Loop First
 
-![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.png)
+![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.webp)
 
 Use this picture as the map for the whole chapter.
 
@@ -45,7 +45,7 @@ The workshop belongs at the end. First build the mental model, then run the full
 
 ## First Runnable Loop: Prompt Testing Without an API
 
-![Prompt experiment loop](/img/course/ch07-prompt-experiment-loop-en.png)
+![Prompt experiment loop](/img/course/ch07-prompt-experiment-loop-en.webp)
 
 Prompt work should feel like testing software: keep the input cases fixed, change one prompt variable at a time, validate the output, and save failures.
 
@@ -113,7 +113,7 @@ Operation tip: add one bad case, one longer case, and one output field requireme
 
 ## Choose Prompt, RAG, Fine-tuning, Or Tools
 
-![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.png)
+![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.webp)
 
 When an LLM result is weak, do not jump straight to fine-tuning.
 

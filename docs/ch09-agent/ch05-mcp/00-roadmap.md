@@ -11,11 +11,11 @@ MCP is a protocol layer for connecting tools, resources, and prompt templates to
 
 ## See the MCP Boundary First
 
-![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.webp)
 
-![MCP chapter learning order diagram](/img/course/ch09-mcp-chapter-flow-en.png)
+![MCP chapter learning order diagram](/img/course/ch09-mcp-chapter-flow-en.webp)
 
-![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-en.png)
+![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-en.webp)
 
 Function Calling focuses on structured calls. MCP focuses on how external capabilities are discovered, described, called, and governed through a protocol.
 

@@ -95,7 +95,7 @@ The principle for augmentation is: apply augmentation to the training set, not t
 | Training fluctuates a lot | Batch too small, learning rate too large | Lower the learning rate, increase batch size, check data |
 | Validation score is unusually high | Data leakage | Check for duplicate images and whether the same subject appears across splits |
 
-![Image classification training diagnosis matrix](/img/course/ch10-classification-training-diagnosis-map-en.png)
+![Image classification training diagnosis matrix](/img/course/ch10-classification-training-diagnosis-map-en.webp)
 
 :::tip Reading Guide
 This diagram breaks training problems into three lines: data, training, and evaluation. When you see poor classification performance, do not rush to change the model. First look at the loss curves, validation leakage, class imbalance, and error samples.

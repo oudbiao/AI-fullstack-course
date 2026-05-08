@@ -7,7 +7,7 @@ keywords: [video generation, temporal consistency, motion modeling, video diffus
 
 # 12.3.2 Video Generation Technology
 
-![Video and audio generation pipeline diagram](/img/course/video-audio-generation-pipeline-en.png)
+![Video and audio generation pipeline diagram](/img/course/video-audio-generation-pipeline-en.webp)
 
 :::tip Section Overview
 If image generation is about solving:

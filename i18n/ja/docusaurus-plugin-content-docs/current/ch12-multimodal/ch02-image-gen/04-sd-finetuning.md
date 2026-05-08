@@ -7,7 +7,7 @@ keywords: [DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, per
 
 # 12.2.5 画像生成の微調整
 
-![画像生成の微調整ルート選択図](/img/course/ch12-sd-finetuning-route-choice-map-ja.png)
+![画像生成の微調整ルート選択図](/img/course/ch12-sd-finetuning-route-choice-map-ja.webp)
 
 :::tip 図の見方
 画像生成の微調整は、いきなり「フル学習」を考えなくて大丈夫です。まずは、ほしいのが新しい概念のトリガー語なのか、差し替え可能なスタイルなのか、それとも専用主体の一貫性なのかを判断して、Textual Inversion、LoRA、DreamBooth のどれを使うか選びましょう。

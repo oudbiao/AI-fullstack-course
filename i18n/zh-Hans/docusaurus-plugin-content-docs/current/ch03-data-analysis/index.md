@@ -7,13 +7,13 @@ keywords: [NumPy, Pandas, Matplotlib, Seaborn, 数据分析, 数据可视化, Py
 
 # 3 数据分析与可视化
 
-![数据分析与可视化主视觉](/img/course/ch03-data-visualization.png)
+![数据分析与可视化主视觉](/img/course/ch03-data-visualization.webp)
 
 第 3 章只解决一件事：把混乱数据变成**有代码可复现、有图表支撑、能讲清边界的可信结论**。
 
 ## 先看数据分析闭环
 
-![数据分析主线闭环](/img/course/ch03-data-analysis-backbone.png)
+![数据分析主线闭环](/img/course/ch03-data-analysis-backbone.webp)
 
 先看图。大多数有价值的数据分析都遵循这个闭环：
 

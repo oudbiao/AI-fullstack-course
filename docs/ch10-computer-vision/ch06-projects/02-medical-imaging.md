@@ -268,7 +268,7 @@ This is especially important in medical projects.
 
 This table is very suitable for beginners, because it turns medical imaging evaluation from “yet another list of metric names” into “who are these metrics really serving?”
 
-![Medical imaging risk metrics and human review loop](/img/course/ch10-medical-imaging-risk-review-map-en.png)
+![Medical imaging risk metrics and human review loop](/img/course/ch10-medical-imaging-risk-review-map-en.webp)
 
 :::tip Reading Tip
 A medical imaging project should not only show pretty masks. When reading this diagram, judge whether it is trustworthy based on the task boundary, annotation protocol, sensitivity, false negative rate, human review, and failure-case feedback.

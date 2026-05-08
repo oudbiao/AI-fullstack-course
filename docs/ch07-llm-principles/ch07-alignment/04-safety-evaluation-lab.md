@@ -11,7 +11,7 @@ At this point, you have seen the alignment problem, RLHF, and alternative method
 
 > **Can you tell whether a model is actually safer, or just sounding safer?**
 
-![Alignment Safety Evaluation Lab](/img/course/ch07-alignment-safety-eval-lab-en.png)
+![Alignment Safety Evaluation Lab](/img/course/ch07-alignment-safety-eval-lab-en.webp)
 
 :::tip Learning rhythm
 Keep the test cases fixed. Change only one thing at a time. Then you can tell whether the improvement came from the model, the prompt, or pure luck.
@@ -42,7 +42,7 @@ That gives you a simple but useful question:
 | Safety case | A request designed to test risk behavior | Lets you evaluate behavior consistently |
 | Failure note | A short explanation of what went wrong | Turns mistakes into the next improvement step |
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.png)
+![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.webp)
 
 ## Run a fully offline evaluation loop
 

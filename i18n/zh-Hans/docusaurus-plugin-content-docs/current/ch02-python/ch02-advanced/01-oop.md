@@ -6,7 +6,7 @@ description: "掌握 Python 面向对象编程的核心概念"
 
 # 2.2.1 面向对象编程
 
-![类、对象、属性与方法关系图](/img/course/ch02-oop-class-object-map.png)
+![类、对象、属性与方法关系图](/img/course/ch02-oop-class-object-map.webp)
 
 ## 本节定位
 

@@ -7,7 +7,7 @@ keywords: [YOLO, one-stage detector, object detection, NMS, realtime vision]
 
 # 10.3.4 YOLOシリーズ
 
-![YOLO グリッド検出フロー図](/img/course/yolo-grid-detection-flow-ja.png)
+![YOLO グリッド検出フロー図](/img/course/yolo-grid-detection-flow-ja.webp)
 
 :::tip この節の位置づけ
 YOLO が人気なのは、物体を検出できるからだけではありません。  
@@ -236,7 +236,7 @@ print(filter_by_score(predictions, threshold=0.5))
 - 検出システムは、いきなり全部の候補をそのまま描画するわけではない
 - まずスコアやルールで一度ふるいにかける
 
-![YOLO 候補ボックス、しきい値、NMS の図](/img/course/ch10-yolo-threshold-nms-map-ja.png)
+![YOLO 候補ボックス、しきい値、NMS の図](/img/course/ch10-yolo-threshold-nms-map-ja.webp)
 
 :::tip 図の読み方
 YOLO の出力は最終結果ではなく、通常は候補ボックスの集合です。図を見るときは、まず score threshold で低スコアのボックスを除外し、その後 NMS で重なったボックスをまとめ、最後に画面上で見える検出結果になります。

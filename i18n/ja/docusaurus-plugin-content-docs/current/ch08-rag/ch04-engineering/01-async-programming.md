@@ -319,7 +319,7 @@ asyncio.run(main())
 この表は初心者にとても役立ちます。  
 「いつ非同期を使うか」「いつ制限をかけるか」が、具体的に判断しやすくなるからです。
 
-![非同期並行、Semaphore と timeout 制御の図](/img/course/ch08-async-concurrency-semaphore-timeout-map-ja.png)
+![非同期並行、Semaphore と timeout 制御の図](/img/course/ch08-async-concurrency-semaphore-timeout-map-ja.webp)
 
 :::tip 図の見方
 非同期は無限並行ではありません。図では `gather` が並行待ちを担当し、`Semaphore` が制限を担当し、`timeout` がリクエストの停止を防ぎます。この3つがそろって、ようやく実際の工程に近くなります。

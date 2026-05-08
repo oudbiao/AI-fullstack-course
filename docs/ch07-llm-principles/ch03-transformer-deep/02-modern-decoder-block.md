@@ -15,7 +15,7 @@ The core idea is still the same:
 
 But the details have evolved for deeper models, longer contexts, faster inference, and more stable training.
 
-![Original Transformer vs Modern LLM Decoder](/img/course/ch07-modern-decoder-block-comparison-en.png)
+![Original Transformer vs Modern LLM Decoder](/img/course/ch07-modern-decoder-block-comparison-en.webp)
 
 :::tip Learning rhythm
 Do not memorize the names first. Read the two pipelines as a story: the original block made Transformer work; modern decoder blocks keep the idea but change normalization, position handling, K/V sharing, and FFN design to survive at LLM scale.

@@ -11,11 +11,11 @@ keywords: [大模型工程指南, 异步编程, API 设计, 日志监控, Docker
 
 ## 先看 LLMOps 闭环
 
-![大模型工程章节学习顺序图](/img/course/ch08-engineering-chapter-flow.png)
+![大模型工程章节学习顺序图](/img/course/ch08-engineering-chapter-flow.webp)
 
-![LLMOps trace 复盘闭环图](/img/course/ch08-llmops-trace-loop.png)
+![LLMOps trace 复盘闭环图](/img/course/ch08-llmops-trace-loop.webp)
 
-![可观测性日志指标追踪图](/img/course/ch08-observability-logs-metrics-trace-map.png)
+![可观测性日志指标追踪图](/img/course/ch08-observability-logs-metrics-trace-map.webp)
 
 第一个工程目标很简单：当答案错了，你能解释是哪一层导致的。
 

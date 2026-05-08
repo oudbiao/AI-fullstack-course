@@ -6,7 +6,7 @@ description: "コアコマンド、パスの考え方、パイプ、環境変数
 
 # 1.1.2 ターミナルの基本操作
 
-![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map-ja.png)
+![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map-ja.webp)
 
 ## この節の位置づけ
 
@@ -210,7 +210,7 @@ echo "hello"       # 文字を表示する
 
 ## 第3部：パイプとリダイレクト
 
-![ターミナルのパイプ、リダイレクト、PATH のデータ流](/img/course/ch01-terminal-pipe-redirection-path-ja.svg)
+![ターミナルのパイプ、リダイレクト、PATH のデータ流](/img/course/ch01-terminal-pipe-redirection-path-ja.webp)
 
 この2つは、コマンドラインを本当に強力にする仕組みです。
 

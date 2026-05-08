@@ -31,7 +31,7 @@ So the most important thing in this section is not memorizing functions, but bui
 
 Data cleaning is better understood as “check first, then decide how to handle it”:
 
-![Pandas Data Cleaning Workflow](/img/course/ch03-pandas-cleaning-workflow-en.png)
+![Pandas Data Cleaning Workflow](/img/course/ch03-pandas-cleaning-workflow-en.webp)
 
 So what this section really wants to solve is:
 

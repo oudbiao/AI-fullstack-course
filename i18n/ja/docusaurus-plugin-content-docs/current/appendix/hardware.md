@@ -5,9 +5,9 @@ sidebar_position: 2
 
 # A.5 ハードウェアとクラウドリソースガイド
 
-![ハードウェアとクラウドリソースの判断ツリー](/img/course/appendix-hardware-cloud-decision-tree-ja.png)
+![ハードウェアとクラウドリソースの判断ツリー](/img/course/appendix-hardware-cloud-decision-tree-ja.webp)
 
-![ローカル、クラウド、API のコスト比較図](/img/course/appendix-hardware-local-cloud-api-cost-map-ja.png)
+![ローカル、クラウド、API のコスト比較図](/img/course/appendix-hardware-local-cloud-api-cost-map-ja.webp)
 
 短い結論: 最初に GPU を買わないでください。まずタスクを見て、ローカル CPU、クラウド GPU、API のどれを使うか決めます。
 

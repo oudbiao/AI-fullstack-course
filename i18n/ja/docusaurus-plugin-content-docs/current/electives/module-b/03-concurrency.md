@@ -7,9 +7,9 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 # E.B.3 並行プログラミング（asyncio を含む）
 
-![asyncio 並行制御フローチャート](/img/course/elective-asyncio-concurrency-control-ja.png)
+![asyncio 並行制御フローチャート](/img/course/elective-asyncio-concurrency-control-ja.webp)
 
-![非同期タスクのタイムアウト・キャンセル・レート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-ja.png)
+![非同期タスクのタイムアウト・キャンセル・レート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-ja.webp)
 
 並行処理は、プログラムの多くの時間が「待ち」であるときに役立ちます。HTTP 呼び出し、DB 呼び出し、ファイル I/O、スクレイピング、RAG 検索、Agent のツール呼び出しなどです。CPU が重い処理を魔法のように速くするものではありません。
 

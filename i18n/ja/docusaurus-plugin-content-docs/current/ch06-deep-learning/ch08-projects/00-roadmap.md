@@ -11,9 +11,9 @@ keywords: [深層学習プロジェクトガイド, 画像分類, 感情分析, 
 
 ## まずプロジェクトループを見る
 
-![深層学習プロジェクトポートフォリオロードマップ](/img/course/ch06-projects-portfolio-loop-ja.png)
+![深層学習プロジェクトポートフォリオロードマップ](/img/course/ch06-projects-portfolio-loop-ja.webp)
 
-![深層学習プロジェクト学習レビューループ](/img/course/ch06-deep-learning-project-cycle-ja.png)
+![深層学習プロジェクト学習レビューループ](/img/course/ch06-deep-learning-project-cycle-ja.webp)
 
 ```text
 データセット -> モデル -> 学習ログ -> 評価 -> 失敗例 -> パッケージ化

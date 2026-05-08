@@ -238,7 +238,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 
 これはシステムを遅くし、コストを直接押し上げます。
 
-![Agent 推論失敗タイプ診断図](/img/course/ch09-reasoning-eval-failure-taxonomy-map-ja.png)
+![Agent 推論失敗タイプ診断図](/img/course/ch09-reasoning-eval-failure-taxonomy-map-ja.webp)
 
 :::tip 図の見方
 評価するときは、「答えが間違っているか」だけを見ないでください。この図は失敗を intent、plan、tool、observation、stop condition、final answer に分けているので、どの層に問題があるかを特定しやすくなります。

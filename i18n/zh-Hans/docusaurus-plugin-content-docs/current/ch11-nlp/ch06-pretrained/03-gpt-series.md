@@ -7,7 +7,7 @@ keywords: [GPT, 自回归, causal language model, decoder-only, in-context learn
 
 # 11.6.4 GPT 系列
 
-![GPT 自回归生成图](/img/course/gpt-autoregressive-generation.png)
+![GPT 自回归生成图](/img/course/gpt-autoregressive-generation.webp)
 
 :::tip 本节定位
 如果说 BERT 更像“读懂文本的高手”，那 GPT 路线更像：

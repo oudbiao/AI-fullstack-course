@@ -7,7 +7,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 # 7 大模型原理、Prompt 与微调
 
-![大模型原理主视觉](/img/course/ch07-llm-principles.png)
+![大模型原理主视觉](/img/course/ch07-llm-principles.webp)
 
 本章只回答一个实用问题：**用户把文字发给大模型后，这段文字经历了什么路径，我们又怎样让输出稳定到可以放进应用里？**
 
@@ -15,7 +15,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 ## 先看完整流程
 
-![Token 到答案的完整流程](/img/course/ch07-token-to-answer-lifecycle.png)
+![Token 到答案的完整流程](/img/course/ch07-token-to-answer-lifecycle.webp)
 
 整章学习都可以围绕这张图走。
 
@@ -45,7 +45,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 ## 第一个可运行循环：不用 API 测 Prompt
 
-![Prompt 实验循环](/img/course/ch07-prompt-experiment-loop.png)
+![Prompt 实验循环](/img/course/ch07-prompt-experiment-loop.webp)
 
 Prompt 工作应该像软件测试：固定输入样本，每次只改一个 Prompt 变量，校验输出，并保存失败样本。
 
@@ -113,7 +113,7 @@ json: 2/2 cases passed
 
 ## 选择 Prompt、RAG、微调还是工具
 
-![Prompt、RAG、微调和工具选择图](/img/course/ch07-solution-choice-map.png)
+![Prompt、RAG、微调和工具选择图](/img/course/ch07-solution-choice-map.webp)
 
 大模型效果不好时，不要直接跳到微调。
 

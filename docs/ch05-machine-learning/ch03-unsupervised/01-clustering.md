@@ -7,7 +7,7 @@ keywords: [clustering, K-Means, DBSCAN, hierarchical clustering, elbow method, s
 
 # 5.3.2 Clustering Algorithms
 
-![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids-en.png)
+![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids-en.webp)
 
 :::tip Section Overview
 Clustering means grouping similar samples **without labels**. The result is not the one true answer; it is a hypothesis about structure that must be checked with metrics, plots, and domain meaning.
@@ -25,11 +25,11 @@ This lesson gives you one practical clustering lab:
 
 Read the maps first. Clustering is mostly about matching the algorithm's assumption to the data shape.
 
-![Clustering algorithm selection flowchart](/img/course/ch05-clustering-decision-flow-en.png)
+![Clustering algorithm selection flowchart](/img/course/ch05-clustering-decision-flow-en.webp)
 
-![Clustering hypothesis comic](/img/course/ch05-clustering-hypothesis-comic-en.png)
+![Clustering hypothesis comic](/img/course/ch05-clustering-hypothesis-comic-en.webp)
 
-![Clustering data shape and algorithm selection guide](/img/course/ch05-clustering-shape-selection-map-en.png)
+![Clustering data shape and algorithm selection guide](/img/course/ch05-clustering-shape-selection-map-en.webp)
 
 ## Keyword Decoder
 

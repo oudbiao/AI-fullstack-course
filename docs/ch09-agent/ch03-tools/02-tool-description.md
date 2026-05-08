@@ -149,7 +149,7 @@ So it is better to clearly define:
 
 This table is very suitable for beginners because it turns “tool description” from an abstract concept into a checklist that can be reviewed.
 
-![Tool description quality and discovery flowchart](/img/course/ch09-tool-description-quality-map-en.png)
+![Tool description quality and discovery flowchart](/img/course/ch09-tool-description-quality-map-en.webp)
 
 :::tip Reading guide
 Think of tool descriptions as “instructions written for the model.” Every field in the diagram reduces ambiguity: when to use it, when not to use it, how to fill parameters, what it returns, and how risky it is.

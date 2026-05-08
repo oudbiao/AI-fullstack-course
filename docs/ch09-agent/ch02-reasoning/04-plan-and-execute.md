@@ -152,7 +152,7 @@ In other words:
 
 This table is useful for beginners because it turns “which reasoning organization should I use?” into something you can actually judge.
 
-![Plan-and-Execute monitoring and replanning diagram](/img/course/ch09-plan-execute-monitor-replan-map-en.png)
+![Plan-and-Execute monitoring and replanning diagram](/img/course/ch09-plan-execute-monitor-replan-map-en.webp)
 
 :::tip Reading the diagram
 When reading the diagram, pay attention to the two layers of responsibility: the Planner handles the global route, the Executor handles the current step; once the Monitor detects missing information, a tool failure, or a goal change, it triggers replan instead of forcing the system to keep following the original plan.

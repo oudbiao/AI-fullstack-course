@@ -7,9 +7,9 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 # E.B.3 并发编程（含 asyncio）
 
-![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.png)
+![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.webp)
 
-![异步任务超时取消与限流图](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.png)
+![异步任务超时取消与限流图](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.webp)
 
 并发适合程序大部分时间都在“等”的场景：HTTP 调用、数据库调用、文件 I/O、爬取、RAG 检索或 Agent 工具调用。它不是 CPU 重任务的万能加速按钮。
 

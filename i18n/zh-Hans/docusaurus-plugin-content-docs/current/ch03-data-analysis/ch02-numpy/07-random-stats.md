@@ -6,7 +6,7 @@ description: "掌握 NumPy 的随机数生成、概率分布和统计运算"
 
 # 3.2.7 随机数与统计
 
-![NumPy 随机数与统计地图](/img/course/ch03-numpy-random-statistics-map.png)
+![NumPy 随机数与统计地图](/img/course/ch03-numpy-random-statistics-map.webp)
 
 ## 学习目标
 

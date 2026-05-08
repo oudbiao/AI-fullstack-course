@@ -6,7 +6,7 @@ description: "ファイルの読み書きとデータのシリアライズを理
 
 # 2.2.3 ファイル操作とシリアライズ
 
-![ファイル読書きとシリアライズのフローチャート](/img/course/ch02-file-io-serialization-flow-ja.png)
+![ファイル読書きとシリアライズのフローチャート](/img/course/ch02-file-io-serialization-flow-ja.webp)
 
 ## この節の位置づけ
 

@@ -7,7 +7,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 
 # 7.1.4 事前学習済み言語モデルの概観
 
-![転移学習の適応マップ](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.png)
+![転移学習の適応マップ](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.webp)
 
 :::tip 実務での判断
 事前学習済みモデルは、あなたの業務を自動で理解する魔法ではありません。再利用できる言語 foundation です。大事なのは、その foundation を最小コストで信頼できる形に適応させることです。

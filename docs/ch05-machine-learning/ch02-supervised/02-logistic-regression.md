@@ -7,7 +7,7 @@ keywords: [logistic regression, sigmoid, cross-entropy, threshold, classificatio
 
 # 5.2.3 Logistic Regression
 
-![Logistic Regression Decision Boundary Diagram](/img/course/logistic-regression-boundary-en.png)
+![Logistic Regression Decision Boundary Diagram](/img/course/logistic-regression-boundary-en.webp)
 
 :::tip Section Positioning
 Logistic regression has "regression" in its name, but in practice it is a **classification** model. It learns a linear score, turns that score into a probability, and then uses a threshold to make a class decision.
@@ -26,9 +26,9 @@ By the end of this lesson you will have a runnable classification workflow that 
 
 First read the two maps, then run the code. The details below will make much more sense after you see real output.
 
-![Logistic Regression Classification Flow Diagram](/img/course/ch05-logistic-classification-flow-en.png)
+![Logistic Regression Classification Flow Diagram](/img/course/ch05-logistic-classification-flow-en.webp)
 
-![Logistic Regression Probability Learning Comic](/img/course/ch05-logistic-probability-comic-en.png)
+![Logistic Regression Probability Learning Comic](/img/course/ch05-logistic-probability-comic-en.webp)
 
 ## Setup
 
@@ -151,7 +151,7 @@ setosa:0.05 | versicolor:0.88 | virginica:0.07
 
 ## Read the Pipeline
 
-![Logistic regression score probability threshold pipeline](/img/course/ch05-logistic-score-probability-threshold-en.png)
+![Logistic regression score probability threshold pipeline](/img/course/ch05-logistic-score-probability-threshold-en.webp)
 
 The model is doing three different jobs:
 
@@ -173,7 +173,7 @@ sigmoid(z) = 1 / (1 + exp(-z))
 
 When `z = 0`, the probability is `0.5`. That is why the default decision boundary for binary logistic regression is the line or hyperplane where the raw score equals zero.
 
-![Binary cross entropy intuition for logistic regression](/img/course/ch05-logistic-bce-intuition-en.png)
+![Binary cross entropy intuition for logistic regression](/img/course/ch05-logistic-bce-intuition-en.webp)
 
 `BCE` means **Binary Cross-Entropy**. It is the loss used for binary probability prediction. Its practical rule is simple:
 
@@ -185,7 +185,7 @@ That is why logistic regression learns probabilities better than forcing linear 
 
 ## Threshold Is a Product Decision
 
-![Logistic Regression Threshold Trade-off Diagram](/img/course/ch05-logistic-threshold-tradeoff-en.png)
+![Logistic Regression Threshold Trade-off Diagram](/img/course/ch05-logistic-threshold-tradeoff-en.webp)
 
 In the output, changing the threshold changes the type of mistake:
 
@@ -197,11 +197,11 @@ In the output, changing the threshold changes the type of mistake:
 
 For experienced readers: do not choose the threshold only from accuracy. Check the cost of `fp` and `fn`, then compare precision-recall curves or ROC curves.
 
-![Threshold ROC PR curve map](/img/course/ch05-threshold-roc-pr-curve-map-en.png)
+![Threshold ROC PR curve map](/img/course/ch05-threshold-roc-pr-curve-map-en.webp)
 
 ## Regularization and `C`
 
-![Logistic regression regularization concepts](/img/course/ch05-logistic-regularization-concepts-en.png)
+![Logistic regression regularization concepts](/img/course/ch05-logistic-regularization-concepts-en.webp)
 
 `C` is the inverse regularization strength in sklearn:
 
@@ -221,7 +221,7 @@ The highest coefficient norm is not the best model here. For a production baseli
 
 ## Multi-Class Classification
 
-![OvR versus Softmax multi-class logistic regression](/img/course/ch05-logistic-multiclass-ovr-softmax-en.png)
+![OvR versus Softmax multi-class logistic regression](/img/course/ch05-logistic-multiclass-ovr-softmax-en.webp)
 
 For more than two classes, logistic regression still returns probabilities. In the Iris output, each row sums to about `1.0`:
 

@@ -78,7 +78,7 @@ This diagram is important because it reminds you that:
 - The assistant does not answer just once
 - It keeps updating state and actions across turns
 
-![Intelligent assistant session, retrieval, and tool trace diagram](/img/course/ch08-assistant-session-tool-trace-map-en.png)
+![Intelligent assistant session, retrieval, and tool trace diagram](/img/course/ch08-assistant-session-tool-trace-map-en.webp)
 
 :::tip Reading guide
 For a multi-turn assistant trace, you should look at at least four things: what is remembered in the session, what the retrieval returns, whether a tool is called, and how the state changes after the answer. That is what proves it is not just a normal FAQ.

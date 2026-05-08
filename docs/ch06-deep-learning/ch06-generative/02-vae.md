@@ -23,7 +23,7 @@ A VAE is a generative autoencoder. Instead of compressing each input into one fi
 
 ## See the Flow First
 
-![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-en.png)
+![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-en.webp)
 
 | Step | What happens | Practical meaning |
 |---|---|---|
@@ -39,7 +39,7 @@ Autoencoder: x -> one latent point -> reconstruction
 VAE: x -> latent distribution -> sample z -> reconstruction or generation
 ```
 
-![VAE continuous latent space and sampling region diagram](/img/course/ch06-vae-latent-continuity-sampling-map-en.png)
+![VAE continuous latent space and sampling region diagram](/img/course/ch06-vae-latent-continuity-sampling-map-en.webp)
 
 ## Why Reparameterization Exists
 

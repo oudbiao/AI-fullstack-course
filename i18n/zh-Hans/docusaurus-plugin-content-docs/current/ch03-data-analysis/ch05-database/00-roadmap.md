@@ -11,7 +11,7 @@ keywords: [数据库概览, 关系型数据库, SQL, sqlite, Pandas 与数据库
 
 ## 先看数据库地图
 
-![数据库选修学习路线图](/img/course/ch03-database-roadmap.png)
+![数据库选修学习路线图](/img/course/ch03-database-roadmap.webp)
 
 先记住这个对比：
 

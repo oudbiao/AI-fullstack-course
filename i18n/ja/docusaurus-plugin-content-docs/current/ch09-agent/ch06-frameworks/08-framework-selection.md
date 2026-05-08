@@ -101,7 +101,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 > まずタスクの観点を並べてから判断する。 
 
-![Agent フレームワーク選定決定図](/img/course/ch09-framework-selection-decision-map-ja.png)
+![Agent フレームワーク選定決定図](/img/course/ch09-framework-selection-decision-map-ja.webp)
 
 :::tip 図の読み方
 フレームワークを選ぶときは、まず「どれが一番流行っているか」ではなく、タスクがどのタイプに近いかを考えます。複雑な状態遷移、知識検索、役割分担、すばやいデモ、長期保守性のどれが中心かを見るのが選定の出発点です。図の分岐が、その判断材料です。

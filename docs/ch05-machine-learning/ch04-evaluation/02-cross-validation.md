@@ -7,7 +7,7 @@ keywords: [cross-validation, K-Fold, StratifiedKFold, cross_validate, data leaka
 
 # 5.4.3 Cross-Validation
 
-![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.png)
+![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.webp)
 
 :::tip Section Overview
 A single train-test split is a snapshot. Cross-validation gives you a more stable estimate by testing the model across several different validation folds.
@@ -23,7 +23,7 @@ This lesson shows:
 - why preprocessing must stay inside `Pipeline`;
 - when random K-Fold is wrong, especially for time series.
 
-![Cross-validation stable evaluation flowchart](/img/course/ch05-cross-validation-stability-flow-en.png)
+![Cross-validation stable evaluation flowchart](/img/course/ch05-cross-validation-stability-flow-en.webp)
 
 ## Setup
 
@@ -134,7 +134,7 @@ Use `K=5` as a practical default:
 
 ## Use a Leakage-Safe Pipeline
 
-![Cross-validation leakage-safe pipeline diagram](/img/course/ch05-cv-leakage-safe-pipeline-map-en.png)
+![Cross-validation leakage-safe pipeline diagram](/img/course/ch05-cv-leakage-safe-pipeline-map-en.webp)
 
 This is the safe pattern:
 

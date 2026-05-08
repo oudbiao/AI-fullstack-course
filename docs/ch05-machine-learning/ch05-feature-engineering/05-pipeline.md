@@ -7,7 +7,7 @@ keywords: [Pipeline, ColumnTransformer, Transformer, feature engineering pipelin
 
 # 5.5.6 Pipeline and Workflows
 
-![ColumnTransformer and Pipeline workflow diagram](/img/course/column-transformer-pipeline-en.png)
+![ColumnTransformer and Pipeline workflow diagram](/img/course/column-transformer-pipeline-en.webp)
 
 :::tip Section overview
 In real projects, numeric features and categorical features often need **different preprocessing**. This section teaches you how to use `ColumnTransformer` + `Pipeline` to build a **complete feature engineering pipeline**, so one object can handle everything.
@@ -164,7 +164,7 @@ then for each fold it will automatically:
 
 This is exactly the key to preventing data leakage.
 
-![ColumnTransformer Pipeline diagram for real tabular data](/img/course/ch05-columntransformer-real-table-pipeline-en.png)
+![ColumnTransformer Pipeline diagram for real tabular data](/img/course/ch05-columntransformer-real-table-pipeline-en.webp)
 
 This diagram breaks a real tabular-data project into three paths: numeric columns are imputed first and then scaled, categorical columns are imputed first and then encoded, and custom features must also be included in the same Pipeline. Finally, the whole process is handed over to cross-validation or GridSearch, so training, validation, and prediction all follow the same reproducible workflow.
 

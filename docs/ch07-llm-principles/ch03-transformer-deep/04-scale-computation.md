@@ -232,7 +232,7 @@ Because they directly reduce:
 
 And that is one of the core terms in the KV cache formula.
 
-![Large model scale cost knobs diagram](/img/course/ch07-scale-cost-knobs-map-en.png)
+![Large model scale cost knobs diagram](/img/course/ch07-scale-cost-knobs-map-en.webp)
 
 :::tip Reading the diagram
 This diagram breaks cost into several knobs: layers, hidden size, context length, batch size, and kv heads. What beginners often underestimate is that these knobs multiply each other, especially hidden size, which usually affects both parameters and computation quadratically.
@@ -289,7 +289,7 @@ Inference is more like:
 That is why some model training setups are feasible,
 but deployment is still extremely painful.
 
-![Comparison of cost structures between training and inference](/img/course/ch07-train-inference-cost-split-map-en.png)
+![Comparison of cost structures between training and inference](/img/course/ch07-train-inference-cost-split-map-en.webp)
 
 :::tip Reading the diagram
 Training is more like “continuous production,” where the focus is on parameters, gradients, optimizer states, and intermediate activations. Inference is more like “real-time service,” where the focus is on KV cache, latency, throughput, and memory under concurrency. Being trainable does not mean being easy to deploy, because the bottlenecks on each side are completely different.

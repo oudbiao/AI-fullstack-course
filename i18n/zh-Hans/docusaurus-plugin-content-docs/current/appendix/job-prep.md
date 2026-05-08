@@ -5,9 +5,9 @@ sidebar_position: 7
 
 # A.10 求职准备检查清单
 
-![求职准备漏斗图](/img/course/appendix-job-prep-funnel.png)
+![求职准备漏斗图](/img/course/appendix-job-prep-funnel.webp)
 
-![AI 项目作品集故事线地图](/img/course/appendix-job-portfolio-storyline-map.png)
+![AI 项目作品集故事线地图](/img/course/appendix-job-portfolio-storyline-map.webp)
 
 求职准备不是“先学完所有东西”，而是把学习痕迹整理成别人能看懂的项目。
 

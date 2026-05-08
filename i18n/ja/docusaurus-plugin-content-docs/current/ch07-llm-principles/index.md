@@ -7,7 +7,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 # 7 大モデル原理、Prompt と微調整
 
-![大モデル原理メインビジュアル](/img/course/ch07-llm-principles-ja.png)
+![大モデル原理メインビジュアル](/img/course/ch07-llm-principles-ja.webp)
 
 この章で答える実践的な問いは1つです。**ユーザーが LLM に文章を送ったあと、その文章はどんな流れを通り、どうすればアプリに入れられるほど安定した出力にできるのか。**
 
@@ -15,7 +15,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 ## まず全体の流れを見る
 
-![Token から回答までの流れ](/img/course/ch07-token-to-answer-lifecycle-ja.png)
+![Token から回答までの流れ](/img/course/ch07-token-to-answer-lifecycle-ja.webp)
 
 この図を、この章全体の地図として使ってください。
 
@@ -45,7 +45,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 ## 最初に動かすループ：API なしで Prompt を試す
 
-![Prompt 実験ループ](/img/course/ch07-prompt-experiment-loop-ja.png)
+![Prompt 実験ループ](/img/course/ch07-prompt-experiment-loop-ja.webp)
 
 Prompt の作業はソフトウェアテストに近いです。入力ケースを固定し、毎回1つの Prompt 変数だけを変え、出力を検証し、失敗例を保存します。
 
@@ -113,7 +113,7 @@ json: 2/2 cases passed
 
 ## Prompt、RAG、微調整、ツールの選び方
 
-![Prompt、RAG、微調整、ツールの選択図](/img/course/ch07-solution-choice-map-ja.png)
+![Prompt、RAG、微調整、ツールの選択図](/img/course/ch07-solution-choice-map-ja.webp)
 
 LLM の結果が弱いとき、すぐ微調整へ進まないでください。
 

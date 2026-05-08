@@ -7,7 +7,7 @@ keywords: [住宅価格予測, 回帰, EDA, 特徴量エンジニアリング, X
 
 # 5.6.2 プロジェクト1：住宅価格予測（回帰問題）
 
-![住宅価格予測プロジェクトのフローチャート](/img/course/house-price-project-flow-ja.png)
+![住宅価格予測プロジェクトのフローチャート](/img/course/house-price-project-flow-ja.webp)
 
 :::tip プロジェクトの位置づけ
 これはあなたの**最初の完全な ML 回帰プロジェクト**です。データ探索からモデルのデプロイまで、ひと通りの流れを体験します。sklearn に内蔵されているカリフォルニア住宅価格データセットを使います。
@@ -300,7 +300,7 @@ print(f"最適パラメータ: {rs.best_params_}")
 
 ## Step 5：結果の分析
 
-![住宅価格の残差レビュー図](/img/course/ch05-house-price-residual-review-map-ja.png)
+![住宅価格の残差レビュー図](/img/course/ch05-house-price-residual-review-map-ja.webp)
 
 ```python
 # 予測値 vs 実測値

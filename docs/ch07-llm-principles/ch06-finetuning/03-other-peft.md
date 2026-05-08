@@ -156,7 +156,7 @@ This means:
 | Adapter | Small bottleneck module between layers | Insert a lightweight plugin | Easy multi-task switching | Adds a little extra computation at inference |
 | IA3 | Activation scaling vector | Adjust the gain of key channels | Extremely few parameters, lightweight implementation | Weaker expressiveness for complex changes |
 
-![Diagram of where trainable parameters are placed in PEFT methods](/img/course/ch07-peft-placement-family-map-en.png)
+![Diagram of where trainable parameters are placed in PEFT methods](/img/course/ch07-peft-placement-family-map-en.webp)
 
 :::tip Reading tip
 Don’t memorize this figure by method name. Focus on “where the trainable part is placed”: Prompt Tuning is before the input, Prefix Tuning is the KV prefix of attention in each layer, Adapter inserts a small module between layers, and IA3 adjusts channel scaling. Different locations mean different costs, expressive power, and switching behavior.

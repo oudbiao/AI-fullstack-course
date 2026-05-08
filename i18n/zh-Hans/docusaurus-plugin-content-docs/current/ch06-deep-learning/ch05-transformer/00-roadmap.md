@@ -11,9 +11,9 @@ Transformer 是从深度学习走向现代 LLM 的桥。第一直觉很简单：
 
 ## 先看 Attention 流程
 
-![Transformer 章节关系图](/img/course/ch06-transformer-chapter-flow.png)
+![Transformer 章节关系图](/img/course/ch06-transformer-chapter-flow.webp)
 
-![Transformer 全局上下文建模图](/img/course/ch06-transformer-global-context-map.png)
+![Transformer 全局上下文建模图](/img/course/ch06-transformer-global-context-map.webp)
 
 | 概念 | 第一层意思 |
 |---|---|

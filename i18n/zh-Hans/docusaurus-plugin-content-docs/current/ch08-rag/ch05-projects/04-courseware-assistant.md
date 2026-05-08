@@ -7,7 +7,7 @@ keywords: [courseware assistant, knowledge base, word generation, ppt parsing, d
 
 # 8.5.5 项目：知识库驱动的课件生成助手
 
-![课件生成助手工作流图](/img/course/courseware-assistant-workflow.png)
+![课件生成助手工作流图](/img/course/courseware-assistant-workflow.webp)
 
 :::tip 本节定位
 这个项目比普通知识库问答更进一步。
@@ -331,7 +331,7 @@ def generate_courseware(topic):
 4. 生成固定 schema
 5. 导出文档
 
-![课件生成助手生产线图](/img/course/ch08-courseware-assistant-production-line-map.png)
+![课件生成助手生产线图](/img/course/ch08-courseware-assistant-production-line-map.webp)
 
 :::tip 读图提示
 这张图要按生产线看：资料入库、解析成知识块、按主题和内容类型检索、生成 courseware schema、再渲染 Word。任何一层没有中间产物，后面就很难排查。

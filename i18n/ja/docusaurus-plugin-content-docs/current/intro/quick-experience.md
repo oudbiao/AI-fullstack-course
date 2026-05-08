@@ -7,7 +7,7 @@ keywords: [AIクイック体験, Google Colab, 画像認識, テキスト生成,
 
 # 0.1 30分 AI クイック体験
 
-![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.png)
+![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.webp)
 
 **まず流れを感じます：**入力 -> モデル -> 出力。用語の暗記はまだ不要です。
 

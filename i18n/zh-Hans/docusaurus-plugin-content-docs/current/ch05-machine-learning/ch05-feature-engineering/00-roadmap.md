@@ -11,9 +11,9 @@ keywords: [特征工程指南, 预处理, 特征构造, 特征选择, Pipeline]
 
 ## 先看特征流
 
-![特征工程路线图](/img/course/feature-engineering-roadmap.png)
+![特征工程路线图](/img/course/feature-engineering-roadmap.webp)
 
-![特征工程章节流程图](/img/course/ch05-feature-engineering-chapter-flow.png)
+![特征工程章节流程图](/img/course/ch05-feature-engineering-chapter-flow.webp)
 
 ```text
 理解字段 -> 预处理 -> 构造 -> 选择 -> 封装成 Pipeline

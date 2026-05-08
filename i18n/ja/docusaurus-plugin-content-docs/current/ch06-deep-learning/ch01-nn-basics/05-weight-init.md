@@ -25,7 +25,7 @@ keywords: [重みの初期化, Xavier, Glorot, He, Kaiming, 勾配消失, 勾配
 
 式を覚える前に、初期化の役割を見ておきます。
 
-![重み初期化の信号安定図](/img/course/ch06-weight-init-signal-stability-map-ja.png)
+![重み初期化の信号安定図](/img/course/ch06-weight-init-signal-stability-map-ja.webp)
 
 この図は上から順に読みます。
 

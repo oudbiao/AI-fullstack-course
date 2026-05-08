@@ -173,7 +173,7 @@ The advantage of doing this is:
 
 This table is great for beginners because it pulls “unified API” back from an abstract term into a few visible object types.
 
-![Unified API Provider Gateway Diagram](/img/course/ch08-unified-api-provider-gateway-map-en.png)
+![Unified API Provider Gateway Diagram](/img/course/ch08-unified-api-provider-gateway-map-en.webp)
 
 :::tip Reading the Diagram
 The unified API layer is like a model gateway: upper-layer business code only sends unified requests, and the gateway internally handles provider adaptation, model routing, fallback, usage statistics, and a unified error structure.

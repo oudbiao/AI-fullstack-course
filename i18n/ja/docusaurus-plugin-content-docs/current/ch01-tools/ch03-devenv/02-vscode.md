@@ -6,7 +6,7 @@ description: "VS Code を使いやすい AI 開発ツールに設定する"
 
 # 1.3.2 VS Code の設定
 
-![VS Code プロジェクト作業フロー図](/img/course/ch01-vscode-workspace-flow-ja.png)
+![VS Code プロジェクト作業フロー図](/img/course/ch01-vscode-workspace-flow-ja.webp)
 
 ## この節の位置づけ
 

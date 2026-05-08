@@ -7,7 +7,7 @@ keywords: [machine translation, seq2seq, translation project, alignment, error a
 
 # 11.5.4 机器翻译实战【选修】
 
-![机器翻译错误分析图](/img/course/ch11-machine-translation-error-analysis-map.png)
+![机器翻译错误分析图](/img/course/ch11-machine-translation-error-analysis-map.webp)
 
 :::tip 读图提示
 翻译项目不是只看一句结果顺不顺。读图时把平行语料、baseline、漏译、错译、词序问题、术语一致性和人工评估连起来看，才能真正知道系统哪里在进步。

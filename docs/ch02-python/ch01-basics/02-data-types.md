@@ -6,7 +6,7 @@ description: "Master the basic data types in Python and how to use variables"
 
 # 2.1.2 Data Types and Variables
 
-![Diagram of the relationship between variables, objects, and references](/img/course/ch02-variable-object-reference-en.png)
+![Diagram of the relationship between variables, objects, and references](/img/course/ch02-variable-object-reference-en.webp)
 
 ## Where This Section Fits
 
@@ -233,7 +233,7 @@ print(parts)  # ['Zhang San', '20', 'Beijing']
 
 ### String Indexing and Slicing
 
-![String index and slice diagram](/img/course/ch02-string-index-slice-en.svg)
+![String index and slice diagram](/img/course/ch02-string-index-slice-en.webp)
 
 Each character in a string has a **position number (index)** starting from 0:
 

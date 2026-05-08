@@ -7,7 +7,7 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 
 # 8.3.9 Template-Based Document Generation (Word / PPT)
 
-![Word PPT template generation pipeline](/img/course/template-doc-generation-pipeline-en.png)
+![Word PPT template generation pipeline](/img/course/template-doc-generation-pipeline-en.webp)
 
 :::tip Section focus
 When many beginners create “generated Word / slides,” they tend to directly ask the model to output a long block of text,
@@ -276,7 +276,7 @@ The key takeaway for beginners in this example is:
 - a structured object is not necessarily the same as a template object
 - there is often an extra layer for “field organization” in between
 
-![Structured courseware to template rendering diagram](/img/course/ch08-template-schema-to-render-map-en.png)
+![Structured courseware to template rendering diagram](/img/course/ch08-template-schema-to-render-map-en.webp)
 
 :::tip Reading guide
 Do not let the model directly “write Word.” First produce the courseware schema, then organize it into a template payload, and finally hand it to the docx/pptx rendering layer. This makes it much easier to separate formatting errors from content errors.

@@ -7,7 +7,7 @@ keywords: [semantic segmentation, pixel classification, mask, IoU, vision]
 
 # 10.4.2 セマンティックセグメンテーション
 
-![セマンティックセグメンテーション Mask 比較図](/img/course/semantic-segmentation-mask-ja.png)
+![セマンティックセグメンテーション Mask 比較図](/img/course/semantic-segmentation-mask-ja.webp)
 
 :::tip この節の位置づけ
 分類が答えるのは：
@@ -248,7 +248,7 @@ print(class_counts(mask))
 そのため、セグメンテーションで全体のピクセル正解率だけを見ていると、  
 「背景を全部当てたから高得点」という状況にだまされやすいです。
 
-![セマンティックセグメンテーション Mask、IoU、境界誤差の図](/img/course/ch10-semantic-segmentation-iou-boundary-map-ja.png)
+![セマンティックセグメンテーション Mask、IoU、境界誤差の図](/img/course/ch10-semantic-segmentation-iou-boundary-map-ja.webp)
 
 :::tip 図の見方
 セグメンテーションは「色を塗れたら終わり」ではありません。この図では、元画像、GT mask、予測 mask、IoU、境界誤差を並べて、なぜ小さいカテゴリや端の領域が mIoU に影響するのかをわかりやすく示しています。

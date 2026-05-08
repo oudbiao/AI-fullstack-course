@@ -155,7 +155,7 @@ print(result)
 
 这个表很适合新人，因为它会把“数据分析 Agent”重新压回一条可检查的工作流。
 
-![数据分析 Agent 可复核工作流图](/img/course/ch09-data-analysis-agent-notebook-loop-map.png)
+![数据分析 Agent 可复核工作流图](/img/course/ch09-data-analysis-agent-notebook-loop-map.webp)
 
 :::tip 读图提示
 这张图按 notebook 思路读：load data、profile schema、compute statistics、generate insight、suggest chart、write report。每个结论都应该能回到中间计算结果。

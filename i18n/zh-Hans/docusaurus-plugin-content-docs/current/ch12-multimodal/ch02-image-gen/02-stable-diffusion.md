@@ -7,7 +7,7 @@ keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-a
 
 # 12.2.3 Stable Diffusion 架构
 
-![Stable Diffusion 组件架构图](/img/course/stable-diffusion-components.png)
+![Stable Diffusion 组件架构图](/img/course/stable-diffusion-components.webp)
 
 :::tip 本节定位
 上一节我们已经知道扩散模型的核心是：

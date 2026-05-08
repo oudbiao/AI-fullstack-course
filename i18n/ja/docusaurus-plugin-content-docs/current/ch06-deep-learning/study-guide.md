@@ -7,7 +7,7 @@ keywords: [深層学習学習ガイド, PyTorch, CNN, Transformer, Attention]
 
 # 6.0 学習ガイドとタスクリスト：深層学習と Transformer 基礎
 
-![深層学習学習ガイドのトレーニングループ](/img/course/ch06-study-guide-training-loop-ja.png)
+![深層学習学習ガイドのトレーニングループ](/img/course/ch06-study-guide-training-loop-ja.webp)
 
 主な学習ルートは [第 6 章の入口](./) にまとめました。このページは、練習中に見る短いチェックリストとして使います。
 

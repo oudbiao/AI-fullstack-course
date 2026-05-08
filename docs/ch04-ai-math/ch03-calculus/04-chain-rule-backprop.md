@@ -7,7 +7,7 @@ keywords: [chain rule, backpropagation, computation graph, automatic differentia
 
 # 4.3.5 Chain Rule and Backpropagation Preview
 
-![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph-en.png)
+![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph-en.webp)
 
 :::tip This section is the bridge between mathematics and deep learning
 The chain rule explains a core question: **For a neural network with hundreds of layers, how do we compute the derivative of the loss function with respect to each parameter?** The answer is backpropagation — in essence, it is the systematic application of the chain rule.
@@ -35,7 +35,7 @@ So what you should focus on first in this section is not every formula, but:
 
 This lesson is the bridge from Station 4 to deep learning in Station 6.
 
-![Bridge diagram of backpropagation and the chain rule](/img/course/ch04-backprop-chain-rule-training-bridge-en.png)
+![Bridge diagram of backpropagation and the chain rule](/img/course/ch04-backprop-chain-rule-training-bridge-en.webp)
 
 If what you learned before was:
 
@@ -93,7 +93,7 @@ Multiply the change rates of each step = the overall change rate.
 
 ### Calculation Example
 
-![Step-by-step chain rule calculation example](/img/course/ch04-chain-rule-calculation-example-en.png)
+![Step-by-step chain rule calculation example](/img/course/ch04-chain-rule-calculation-example-en.webp)
 
 Before looking at the code, read this example as a small assembly line:
 
@@ -139,7 +139,7 @@ print(f"  Numerical check: dy/dx = {dy_dx_numerical:.4f}")
 
 ### Multi-layer chain rule
 
-![Multi-layer chain rule path for sin(exp(x squared))](/img/course/ch04-chain-rule-multilayer-en.png)
+![Multi-layer chain rule path for sin(exp(x squared))](/img/course/ch04-chain-rule-multilayer-en.webp)
 
 What if there are even more nested layers? The same idea still works, layer by layer:
 
@@ -194,7 +194,7 @@ flowchart LR
 
 ### Forward Pass
 
-![Forward pass saves intermediate values for backpropagation](/img/course/ch04-chain-rule-forward-pass-en.png)
+![Forward pass saves intermediate values for backpropagation](/img/course/ch04-chain-rule-forward-pass-en.webp)
 
 **Forward pass** means “compute from input to prediction to loss.” In this tiny network, the important point is not the size of the model, but the habit of saving intermediate values:
 
@@ -251,7 +251,7 @@ So a very stable way to understand it is:
 
 ### Backward Pass
 
-![Backward pass sends gradients from loss back to parameters](/img/course/ch04-chain-rule-backward-pass-en.png)
+![Backward pass sends gradients from loss back to parameters](/img/course/ch04-chain-rule-backward-pass-en.webp)
 
 **Starting from the loss, compute the gradient of each parameter layer by layer:**
 
@@ -303,7 +303,7 @@ print(f"dL/db1 = dL/dz1 × 1 = {dL_db1:.4f}")
 
 ### Update Parameters with the Gradients
 
-![Parameter update with gradients and learning rate](/img/course/ch04-chain-rule-parameter-update-en.png)
+![Parameter update with gradients and learning rate](/img/course/ch04-chain-rule-parameter-update-en.webp)
 
 After backpropagation, gradients are not the final goal. They are instructions for how to update the parameters.
 
@@ -420,7 +420,7 @@ Manually computing the gradients of 4 parameters is already tedious. GPT-3 has 1
 
 ## Full Example: Training a Small Network
 
-![Full training loop for a small neural network](/img/course/ch04-chain-rule-full-training-loop-en.png)
+![Full training loop for a small neural network](/img/course/ch04-chain-rule-full-training-loop-en.webp)
 
 Put the forward pass + backward pass + parameter update together to train a two-layer network:
 

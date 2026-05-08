@@ -174,7 +174,7 @@ print(response)
 この表は初心者に向いています。  
 「統一 API」という抽象的な言葉を、見える対象のまとまりに戻してくれるからです。
 
-![統一 API Provider Gateway 図](/img/course/ch08-unified-api-provider-gateway-map-ja.png)
+![統一 API Provider Gateway 図](/img/course/ch08-unified-api-provider-gateway-map-ja.webp)
 
 :::tip 図の読み方
 統一 API 層はモデルのゲートウェイのようなものです。上位の業務は統一されたリクエストだけを送り、ゲートウェイ内部で provider の適合、モデルルーティング、fallback、usage 集計、統一エラー構造を処理します。

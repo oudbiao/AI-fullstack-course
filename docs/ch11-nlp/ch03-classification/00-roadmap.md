@@ -11,11 +11,11 @@ Text classification takes one piece of text and predicts one label, such as sent
 
 ## See the Classification Pipeline First
 
-![Text classification chapter learning sequence diagram](/img/course/ch11-classification-chapter-flow-en.png)
+![Text classification chapter learning sequence diagram](/img/course/ch11-classification-chapter-flow-en.webp)
 
-![Traditional classification baseline map](/img/course/ch11-traditional-classification-baseline-map-en.png)
+![Traditional classification baseline map](/img/course/ch11-traditional-classification-baseline-map-en.webp)
 
-![Neural classification embedding pooling map](/img/course/ch11-neural-classification-embedding-pooling-map-en.png)
+![Neural classification embedding pooling map](/img/course/ch11-neural-classification-embedding-pooling-map-en.webp)
 
 Always build a baseline before a complex model. Most classification problems fail because labels are vague or examples are skewed.
 

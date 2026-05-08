@@ -11,9 +11,9 @@ Model evaluation answers: is the model actually good, or did the score only look
 
 ## Look at the Evaluation Map First
 
-![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap-en.png)
+![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap-en.webp)
 
-![Chapter Flow for Model Evaluation](/img/course/ch05-evaluation-chapter-flow-en.png)
+![Chapter Flow for Model Evaluation](/img/course/ch05-evaluation-chapter-flow-en.webp)
 
 | Topic | First question |
 |---|---|

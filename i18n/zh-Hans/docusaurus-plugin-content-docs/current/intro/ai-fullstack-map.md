@@ -7,7 +7,7 @@ keywords: [AI 全栈, 能力地图, AI 学习路线, LLM 应用, RAG, AI Agent]
 
 # 0.3 AI 全栈能力地图
 
-![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.png)
+![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.webp)
 
 先看图。课程是一条路线：
 

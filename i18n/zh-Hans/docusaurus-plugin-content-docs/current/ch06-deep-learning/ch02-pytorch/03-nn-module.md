@@ -23,7 +23,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict,
 
 ## 先看模型容器
 
-![nn.Module 参数组织流程图](/img/course/ch06-nn-module-parameter-flow.png)
+![nn.Module 参数组织流程图](/img/course/ch06-nn-module-parameter-flow.webp)
 
 可以把 `nn.Module` 理解成模型容器：
 

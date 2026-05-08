@@ -6,7 +6,7 @@ description: "Create prettier statistical charts with less code"
 
 # 3.4.3 Seaborn Statistical Visualization
 
-![Seaborn Statistical Plot Selection Guide](/img/course/seaborn-statistical-plots-en.png)
+![Seaborn Statistical Plot Selection Guide](/img/course/seaborn-statistical-plots-en.webp)
 
 :::tip Where this section fits
 One of the easiest things for beginners to mix up between `Matplotlib` and `Seaborn` is:

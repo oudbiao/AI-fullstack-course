@@ -7,7 +7,7 @@ keywords: [Python study guide, Python task sheet, programming fundamentals, JSON
 
 # 2.0 Study Guide and Task Sheet: Python Programming Fundamentals
 
-![Python learning guide minimal closed loop](/img/course/ch02-study-guide-program-loop-en.png)
+![Python learning guide minimal closed loop](/img/course/ch02-study-guide-program-loop-en.webp)
 
 The main study route is now in [Chapter 2 entry](./). Use this page only as a quick checklist while you practice.
 

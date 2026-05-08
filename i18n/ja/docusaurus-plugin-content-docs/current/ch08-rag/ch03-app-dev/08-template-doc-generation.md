@@ -7,7 +7,7 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 
 # 8.3.9 テンプレート化文書生成（Word / PPT）
 
-![Word PPT テンプレート生成パイプライン図](/img/course/template-doc-generation-pipeline-ja.png)
+![Word PPT テンプレート生成パイプライン図](/img/course/template-doc-generation-pipeline-ja.webp)
 
 :::tip この節の位置づけ
 多くの初心者が「Word / 予習資料を生成する」とき、最もやりがちなのは、モデルにそのまま長い本文を出力させて、  
@@ -278,7 +278,7 @@ print(payload)
 - 構造オブジェクトとテンプレートオブジェクトは同じとは限らない
 - その間に「字段整理」の層があることが多い
 
-![構造化課件からテンプレート描画への図](/img/course/ch08-template-schema-to-render-map-ja.png)
+![構造化課件からテンプレート描画への図](/img/course/ch08-template-schema-to-render-map-ja.webp)
 
 :::tip 図の読み方
 モデルに直接「Word を書かせる」のではありません。まず courseware schema を出力し、次に template payload に整理し、最後に docx/pptx の描画層へ渡します。こうすると、形式エラーと内容エラーを切り分けて調べやすくなります。

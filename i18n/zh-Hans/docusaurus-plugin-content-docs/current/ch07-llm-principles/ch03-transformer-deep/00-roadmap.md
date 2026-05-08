@@ -11,9 +11,9 @@ keywords: [Transformer 深入, decoder block, efficient attention, KV cache, mod
 
 ## 先看内部流
 
-![Transformer 深入章节关系图](/img/course/ch07-transformer-deep-chapter-flow.png)
+![Transformer 深入章节关系图](/img/course/ch07-transformer-deep-chapter-flow.webp)
 
-![Transformer 信息流、计算成本与任务适配图](/img/course/ch07-transformer-cost-task-map.png)
+![Transformer 信息流、计算成本与任务适配图](/img/course/ch07-transformer-cost-task-map.webp)
 
 ## 构造 causal mask
 

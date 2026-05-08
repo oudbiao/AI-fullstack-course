@@ -7,7 +7,7 @@ keywords: [LDA, linear discriminant analysis, dimensionality reduction, classifi
 
 # E.C.4 线性判别分析
 
-![LDA 有监督投影直觉图](/img/course/elective-lda-projection-map.png)
+![LDA 有监督投影直觉图](/img/course/elective-lda-projection-map.webp)
 
 LDA 会寻找一个投影方向，让同类样本更靠近、不同类样本更分开。它既可以做分类，也可以做有监督降维。
 

@@ -7,9 +7,9 @@ keywords: [SVM, Support Vector Machine, maximum margin, support vectors, kernel,
 
 # 5.2.6 SVM: Maximum Margin and Kernel Methods
 
-![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map-en.png)
+![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map-en.webp)
 
-![SVM margin and kernel comic](/img/course/ch05-svm-margin-kernel-comic-en.png)
+![SVM margin and kernel comic](/img/course/ch05-svm-margin-kernel-comic-en.webp)
 
 :::tip Section Position
 SVM is not always the first production model today, but it is still one of the clearest ways to learn **margin**, **kernel**, and **distance-sensitive modeling**.
@@ -147,7 +147,7 @@ The `linear` kernel asks for a straight separating line. The `rbf` kernel compar
 
 ## Why Scaling Is Not Optional
 
-![SVM feature scaling comic](/img/course/ch05-svm-feature-scaling-en.png)
+![SVM feature scaling comic](/img/course/ch05-svm-feature-scaling-en.webp)
 
 SVM relies on distances and similarities. If one feature has values around `0-1` and another has values around `0-1000`, the larger-scale feature can dominate the boundary even when it is not more meaningful.
 
@@ -162,7 +162,7 @@ This is why `StandardScaler` should live inside a `Pipeline`: the scaler is fitt
 
 ## Understand `C` and `gamma`
 
-![SVM C and gamma boundary control comic](/img/course/ch05-svm-c-gamma-boundary-en.png)
+![SVM C and gamma boundary control comic](/img/course/ch05-svm-c-gamma-boundary-en.webp)
 
 `C` and `gamma` control different parts of the boundary:
 

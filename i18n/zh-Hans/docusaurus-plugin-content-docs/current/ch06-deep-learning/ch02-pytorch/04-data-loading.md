@@ -23,7 +23,7 @@ keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 
 ## 先看 batch 流程
 
-![Dataset DataLoader Batch 流程图](/img/course/ch06-hands-on-dataset-dataloader-batch-flow.png)
+![Dataset DataLoader Batch 流程图](/img/course/ch06-hands-on-dataset-dataloader-batch-flow.webp)
 
 按这个顺序读：
 

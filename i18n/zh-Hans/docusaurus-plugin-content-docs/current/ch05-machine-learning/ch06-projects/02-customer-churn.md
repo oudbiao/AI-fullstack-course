@@ -7,7 +7,7 @@ keywords: [客户流失, 分类, 不平衡数据, SMOTE, 特征重要性, 业务
 
 # 5.6.3 项目二：客户流失预测（分类问题）
 
-![客户流失预测项目流程图](/img/course/customer-churn-project-flow.png)
+![客户流失预测项目流程图](/img/course/customer-churn-project-flow.webp)
 
 :::tip 项目定位
 客户流失预测是**最经典的商业 ML 应用**之一。本项目重点练习：不平衡数据处理、业务指标理解、从模型结果中提取业务洞察。
@@ -161,7 +161,7 @@ print(f"流失客户: {df['流失'].sum()}, 留存客户: {(1-df['流失']).sum(
 
 ## Step 2：不平衡数据处理
 
-![客户流失不平衡与阈值图](/img/course/ch05-churn-imbalance-threshold-map.png)
+![客户流失不平衡与阈值图](/img/course/ch05-churn-imbalance-threshold-map.webp)
 
 ```python
 from sklearn.model_selection import train_test_split

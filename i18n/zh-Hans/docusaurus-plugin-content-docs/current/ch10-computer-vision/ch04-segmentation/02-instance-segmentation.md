@@ -186,7 +186,7 @@ for target_id in [1, 2]:
 - 一旦个体被拆开
 - 后面很多统计和决策都会自然多出来
 
-![实例分割个体拆分、计数与面积图](/img/course/ch10-instance-segmentation-count-mask-map.png)
+![实例分割个体拆分、计数与面积图](/img/course/ch10-instance-segmentation-count-mask-map.webp)
 
 :::tip 读图提示
 语义分割只关心“哪些像素是人”，实例分割还要分清“第 1 个人、第 2 个人”。读图时重点看相邻同类目标为什么容易粘连，以及个体拆开后如何继续做计数和面积统计。

@@ -7,13 +7,13 @@ keywords: [線形回帰, 最小二乗法, 残差, RMSE, MAE, Ridge, 多項式回
 
 # 5.2.2 線形回帰：baseline、残差、正則化
 
-![線形回帰の学習主線図](/img/course/ch05-linear-regression-learning-flow-ja.png)
+![線形回帰の学習主線図](/img/course/ch05-linear-regression-learning-flow-ja.webp)
 
 線形回帰が答える実用的な問いは、**いくつかの入力数値で、1つの連続値を説明または予測できるか**です。例は価格、売上、需要、気温、遅延、コストなどです。
 
 ## まず直感を見る
 
-![線形回帰の直感漫画](/img/course/ch05-linear-regression-intuition-comic-ja.png)
+![線形回帰の直感漫画](/img/course/ch05-linear-regression-intuition-comic-ja.webp)
 
 この流れを覚えてください。
 
@@ -121,7 +121,7 @@ price ~= 30.54 + 2.85 * area + 17.97 * rooms - 1.72 * age
 
 ## 解法をどう選ぶか
 
-![正規方程式と勾配降下法の選択図](/img/course/ch05-linear-regression-solver-choice-ja.png)
+![正規方程式と勾配降下法の選択図](/img/course/ch05-linear-regression-solver-choice-ja.webp)
 
 毎日手で線形回帰を解く必要はありませんが、2 つの考え方は知っておきます。
 
@@ -134,7 +134,7 @@ price ~= 30.54 + 2.85 * area + 17.97 * rooms - 1.72 * age
 
 ## 多項式と Ridge
 
-![多項式の複雑さと正則化の直感](/img/course/ch05-linear-regression-complexity-regularization-ja.png)
+![多項式の複雑さと正則化の直感](/img/course/ch05-linear-regression-complexity-regularization-ja.webp)
 
 スクリプトでは次も試しています。
 
@@ -146,7 +146,7 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 
 ## 残差を確認する
 
-![線形回帰の残差診断図](/img/course/ch05-linear-regression-residual-diagnostics-ja.png)
+![線形回帰の残差診断図](/img/course/ch05-linear-regression-residual-diagnostics-ja.webp)
 
 回帰モデルが良さそうに見えても、残差を確認します。
 

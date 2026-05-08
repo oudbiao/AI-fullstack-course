@@ -34,7 +34,7 @@ So the most important thing in this section is not memorizing more functions, bu
 
 Data transformation is easier to understand by asking: “What do I want this column to become?”
 
-![Pandas data transformation pipeline](/img/course/ch03-pandas-transform-pipeline-en.png)
+![Pandas data transformation pipeline](/img/course/ch03-pandas-transform-pipeline-en.webp)
 
 So what this section really aims to solve is:
 
@@ -43,7 +43,7 @@ So what this section really aims to solve is:
 
 ## apply: Apply a function to rows or columns
 
-![Pandas transform method choice diagram](/img/course/ch03-pandas-transform-method-choice-en.svg)
+![Pandas transform method choice diagram](/img/course/ch03-pandas-transform-method-choice-en.webp)
 
 `apply` is one of Pandas’ most flexible transformation tools — it can apply any function to each row or each column.
 

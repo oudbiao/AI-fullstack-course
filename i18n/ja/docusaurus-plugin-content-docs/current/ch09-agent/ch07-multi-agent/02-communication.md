@@ -171,7 +171,7 @@ print(good_message)
 
 これなら、システムの処理パイプラインに載せやすいメッセージになります。
 
-![Agent 間通信契約図](/img/course/ch09-multi-agent-communication-contract-map-ja.png)
+![Agent 間通信契約図](/img/course/ch09-multi-agent-communication-contract-map-ja.webp)
 
 :::tip 図の読み方
 多 Agent 通信では、単に自然言語の一文だけを送らないようにしましょう。図の各メッセージには sender、receiver、type、task_id、payload、status が必要です。そうすることで、システムは追跡、再試行、責任の切り分けができます。

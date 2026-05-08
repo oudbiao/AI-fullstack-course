@@ -6,7 +6,7 @@ description: "Master core commands, path concepts, pipes, and environment variab
 
 # 1.1.2 Basic Terminal Operations
 
-![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map-en.png)
+![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map-en.webp)
 
 ## Where this section fits
 
@@ -210,7 +210,7 @@ echo "hello"       # Print some text
 
 ## Part 3: Pipes and redirection
 
-![Terminal pipe, redirection, and PATH data flow](/img/course/ch01-terminal-pipe-redirection-path-en.svg)
+![Terminal pipe, redirection, and PATH data flow](/img/course/ch01-terminal-pipe-redirection-path-en.webp)
 
 These two concepts are where the command line becomes truly powerful.
 

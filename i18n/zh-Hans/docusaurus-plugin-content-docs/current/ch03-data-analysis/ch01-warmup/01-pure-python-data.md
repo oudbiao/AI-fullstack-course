@@ -31,7 +31,7 @@ description: "用纯 Python 处理真实数据集，亲身体会为什么需要 
 
 在动手之前，先看看数据分析的典型流程：
 
-![纯 Python 数据处理痛点图](/img/course/ch03-pure-python-data-flow.png)
+![纯 Python 数据处理痛点图](/img/course/ch03-pure-python-data-flow.webp)
 
 今天我们用**纯 Python** 走完前四步。后面学了 NumPy 和 Pandas，你会发现同样的事情代码量能少 **5-10 倍**。
 

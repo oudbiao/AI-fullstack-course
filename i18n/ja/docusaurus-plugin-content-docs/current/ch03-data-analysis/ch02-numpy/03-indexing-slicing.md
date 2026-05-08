@@ -6,7 +6,7 @@ description: "NumPy 配列のさまざまなアクセス方法を身につける
 
 # 3.2.3 配列のインデックスとスライス
 
-![NumPy のインデックスとスライスの図](/img/course/ch03-numpy-indexing-slicing-map-ja.png)
+![NumPy のインデックスとスライスの図](/img/course/ch03-numpy-indexing-slicing-map-ja.webp)
 
 ## 学習目標
 
@@ -239,7 +239,7 @@ print(matrix[rows, cols])   # [ 2  7 12]
 
 ## ビュー（View）vs コピー（Copy）
 
-![NumPy のビューとコピーの落とし穴図解](/img/course/ch03-numpy-view-copy-trap-ja.svg)
+![NumPy のビューとコピーの落とし穴図解](/img/course/ch03-numpy-view-copy-trap-ja.webp)
 
 ここは初心者がつまずきやすいポイントです。NumPy のスライスは**コピーではなくビュー**を返します。
 

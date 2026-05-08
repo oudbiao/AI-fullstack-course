@@ -9526,6 +9526,7 @@ def register_remake_job(
     prompt: str | None = None,
     overlay_style: str | None = None,
     generated_only: bool = False,
+    background_key: str | None = None,
 ) -> None:
     overlay: dict[str, Any] | None = None
     if not generated_only:
@@ -9551,6 +9552,8 @@ def register_remake_job(
         "prompt": prompt or remake_scene_prompt(scene),
         "overlay": overlay,
     }
+    if background_key:
+        remake_data["background_key"] = background_key
 
     for job in [*IMAGE_JOBS, *P0_REMAKE_IMAGE_JOBS]:
         if str(job.get("filename")) == filename:
@@ -10413,6 +10416,743 @@ register_remake_job(
     footer="マルチモーダルは align、understand、review、deliver の順で進める。",
 )
 
+
+SVG_REPLACEMENT_CALLOUTS_5 = remake_callouts(
+    boxes=[
+        (0.04, 0.24, 0.36, 0.085),
+        (0.60, 0.33, 0.36, 0.085),
+        (0.04, 0.47, 0.36, 0.085),
+        (0.60, 0.61, 0.36, 0.085),
+        (0.18, 0.76, 0.64, 0.085),
+    ],
+    targets=[
+        (0.28, 0.30),
+        (0.67, 0.40),
+        (0.32, 0.55),
+        (0.72, 0.63),
+        (0.50, 0.78),
+    ],
+)
+
+SVG_REPLACEMENT_CALLOUTS_6 = remake_callouts(
+    boxes=[
+        (0.04, 0.23, 0.35, 0.082),
+        (0.61, 0.28, 0.35, 0.082),
+        (0.04, 0.42, 0.35, 0.082),
+        (0.61, 0.50, 0.35, 0.082),
+        (0.04, 0.66, 0.35, 0.082),
+        (0.61, 0.73, 0.35, 0.082),
+    ],
+    targets=[
+        (0.30, 0.30),
+        (0.69, 0.35),
+        (0.33, 0.49),
+        (0.68, 0.55),
+        (0.32, 0.68),
+        (0.70, 0.76),
+    ],
+)
+
+
+def svg_replacement_prompt(scene: str) -> str:
+    return f"""
+Create a vertical 9:16 bitmap teaching illustration for an AI full-stack course.
+This replaces an old SVG diagram. Redesign it as a real teaching image, not as SVG-style art.
+The image must teach through the scene itself: visible workbench, cards, screens, hands moving data, arrows, before/after states, and concrete artifacts.
+Do not make a white-background rounded-box flowchart, slide, UI card stack, or pure text poster.
+Use readable, sparse teaching text that is physically attached to the visual objects it explains. Do not make text-only posters, dense paragraphs, or top/bottom blocks unrelated to the image.
+Avoid tiny text, gibberish, watermarks, real brand logos, decorative-only art, and unrelated background detail.
+
+Teaching scene:
+{scene}
+""".strip()
+
+
+def svg_replacement_direct_prompt(
+    scene: str,
+    locale: str,
+    data: dict[str, Any],
+    shared_layout: str,
+) -> str:
+    language_name = {
+        "en": "English",
+        "zh": "Simplified Chinese",
+        "ja": "Japanese",
+    }[locale]
+    allowed_terms = {
+        "en": "English only, plus standard code symbols when required.",
+        "zh": "自然简体中文为主；API、RAG、Agent、token、embedding、Pipeline、Git、PATH、grep、wc、map、apply、NumPy、Pandas、p-value 等必要技术词可以保留英文。",
+        "ja": "自然な日本語を主に使う。API、RAG、Agent、token、embedding、Pipeline、Git、PATH、grep、wc、map、apply、NumPy、Pandas、p-value など必要な技術語は英語表記のままでよい。",
+    }[locale]
+    locale_guard = {
+        "en": "Important: every explanatory word visible in the image must be natural English. Only code, commands, math symbols, and API names may use technical notation.",
+        "zh": "重要：图片中所有解释性文字必须是自然简体中文。只有代码、命令、数学符号和 API/工具名可以保留英文技术写法，不要出现英文说明句或日文假字。",
+        "ja": "重要：画像内の説明文は自然な日本語にする。code、command、数式、API 名だけは英語表記のままでよい。英語の説明文や中国語の文字列は入れない。",
+    }[locale]
+    item_lines = "\n".join(
+        f"- Show label text exactly: \"{label}\". Put nearby short note exactly: \"{detail}\""
+        for label, detail in data["items"]
+    )
+    return f"""
+Create one complete vertical 9:16 final bitmap teaching image for an AI full-stack course.
+Target language: {language_name}.
+Visible text policy: {allowed_terms}
+{locale_guard}
+
+Language-set consistency: this image belongs to a Simplified Chinese / English / Japanese triplet. All three variants must share the same composition, visual metaphor, camera angle, panel order, object placement, color rhythm, and reading path. Only the localized visible text should change.
+Shared composition for this triplet:
+{shared_layout}
+
+This replaces an old SVG. Do not imitate SVG style. Do not create a white-background rounded-box flowchart, slide deck, UI card stack, pure text poster, or decorative scene.
+The image must work as a practical worked example: a learner should understand the actual input, the command/code/action, the output/result, and the rule or mistake avoided before reading the article.
+Prefer a concrete tutorial board, debugging notebook, terminal/code screen, data table, math grid, A/B test chart, or before/after example. People, devices, arrows, and panels are allowed only when they make the example easier to learn.
+Every visual region must answer one teaching question: What is the input? What operation runs? What changes? What output appears? What mistake is prevented?
+Show real, simple artifacts from the teaching scene: short code snippets, tiny tables, arrays, terminal commands, result files, equations, chart markers, or error/fix states. Make them large enough to read on a phone.
+All visible text must be sparse, large, clean, readable, and physically attached to the visual object it explains. Use the target language for explanations. Code, commands, symbols, and named APIs may stay exactly as technical notation.
+Do not include any other language, pseudo text, gibberish, filler UI text, watermark, logo, unrelated small text, fantasy factory decoration, or cute scene that does not teach the worked example.
+
+Visible title exactly:
+"{data['title']}"
+
+Visible subtitle exactly:
+"{data['subtitle']}"
+
+Required teaching labels and short explanations. Include all of them, readable, near the matching visual action:
+{item_lines}
+
+Only draw the label text and the short note text. Do not draw field names such as "label", "explanation", "caption", "标签", "解释", "ラベル", or "説明".
+
+Visible footer exactly:
+"{data['footer']}"
+
+Teaching scene:
+{scene}
+""".strip()
+
+
+def register_svg_replacement_group(
+    *,
+    slug: str,
+    pages: dict[str, str],
+    scene: str,
+    chapter_context: str,
+    shared_layout: str,
+    variants: dict[str, dict[str, Any]],
+    callouts: list[dict[str, Any]],
+) -> None:
+    suffix = {"zh": "", "en": "-en", "ja": "-ja"}
+    for locale, data in variants.items():
+        register_remake_job(
+            filename=f"{slug}{suffix[locale]}.png",
+            title=str(data["title"]),
+            suggested_page=pages[locale],
+            alt=str(data["alt"]),
+            scene=f"{scene}\n\nNearby chapter context to honor:\n{chapter_context}",
+            subtitle=str(data["subtitle"]),
+            items=[{"label": label, "detail": detail} for label, detail in data["items"]],
+            footer=str(data["footer"]),
+            prompt=svg_replacement_direct_prompt(
+                f"{scene}\n\nNearby chapter context to honor:\n{chapter_context}",
+                locale,
+                data,
+                shared_layout,
+            ),
+            generated_only=True,
+        )
+
+
+SVG_REPLACEMENT_GROUPS: list[dict[str, Any]] = [
+    {
+        "slug": "ch01-terminal-pipe-redirection-path",
+        "pages": {
+            "en": "docs/ch01-tools/ch01-terminal/02-basic-operations.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch01-tools/ch01-terminal/02-basic-operations.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch01-tools/ch01-terminal/02-basic-operations.md",
+        },
+        "scene": "A practical terminal worked example based on the nearby lesson. Show a file list containing train.py, model.py, README.md, notes.txt. The first command ls -la | grep \".py\" should send the file list through a pipe and leave only train.py and model.py. Then show a wc line-counter tool receiving two .py lines and outputting the number 2. Important: do not write the option token -l anywhere in the artwork, because image models often confuse lowercase ell with the digit 1; instead label the wc tool with the natural-language note line count / 行数统计 / 行数カウント depending on locale. A redirection example should show python train.py > training_log.txt saving output to a log file, and echo \"A new line\" >> notes.txt appending. A small PATH panel should show echo $PATH and which python pointing to a command location. The learner should clearly see pipe, redirection, append, count, and PATH as the same route-for-text idea.",
+        "chapter_context": "The image appears at the start of Part 3: Pipes and redirection. The text explains that a pipe takes the previous command output and uses it as the next command input. Nearby examples are ls -la | grep \".py\", history | grep \"git\", counting Python files with wc, ls -la > filelist.txt, echo \"A new line\" >> notes.txt, python train.py > training_log.txt, cat model.py piped into wc, grep -r \"TODO\" ./ piped into wc, then Part 4 introduces echo $PATH and which python. In the generated image, avoid drawing the ambiguous wc option token; teach the count result visually instead.",
+        "shared_layout": "Use the same vertical terminal blackboard for all three languages: title band at top, terminal output list in the upper-left, pipe/filter path through the center, wc count result in a small middle panel, redirection and append examples in the lower-left, PATH lookup panel on the lower-right, and a footer question at the bottom. Keep the same chalk/terminal texture, arrows, colors, and object positions across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Terminal Data Flow",
+                "subtitle": "Read a command line as a route for text, files, and tools.",
+                "items": [
+                    ("Pipe |", "Output becomes the next input."),
+                    ("Filter", "grep keeps matching lines."),
+                    ("Count", "wc turns text into a number."),
+                    ("Redirect >", "Save output as evidence."),
+                    ("PATH", "The shell finds the command file."),
+                ],
+                "footer": "Ask: where does the text go next?",
+                "alt": "Terminal data flow: pipe sends output to the next command, grep filters text, wc counts lines, redirection saves evidence, and PATH resolves commands.",
+            },
+            "zh": {
+                "title": "终端数据流",
+                "subtitle": "把命令行看成文本、文件和工具的路线。",
+                "items": [
+                    ("管道 |", "上一步输出变成下一步输入。"),
+                    ("过滤", "grep 只保留匹配行。"),
+                    ("计数", "wc 把文本变成数量。"),
+                    ("重定向 >", "把输出保存成证据文件。"),
+                    ("PATH", "shell 按路径找到命令程序。"),
+                ],
+                "footer": "先问：这段文本下一步流向哪里？",
+                "alt": "终端数据流图：管道把输出交给下一条命令，grep 过滤文本，wc 计数，重定向保存证据，PATH 解析命令位置。",
+            },
+            "ja": {
+                "title": "Terminal のデータ流",
+                "subtitle": "コマンド行を、テキスト、ファイル、ツールの経路として読む。",
+                "items": [
+                    ("Pipe |", "前の出力が次の入力になる。"),
+                    ("Filter", "grep が一致行だけ残す。"),
+                    ("Count", "wc がテキストを数にする。"),
+                    ("Redirect >", "出力を証拠ファイルに保存。"),
+                    ("PATH", "shell がコマンド本体を探す。"),
+                ],
+                "footer": "まず考える：このテキストは次にどこへ流れる？",
+                "alt": "Terminal のデータ流：pipe が出力を次のコマンドへ渡し、grep が絞り込み、wc が数え、redirect が保存し、PATH がコマンドを解決する。",
+            },
+        },
+    },
+    {
+        "slug": "ch01-git-merge-conflict-resolution",
+        "pages": {
+            "en": "docs/ch01-tools/ch02-git/04-branches.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch01-tools/ch02-git/04-branches.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch01-tools/ch02-git/04-branches.md",
+        },
+        "scene": "A practical Git merge conflict worked example based on the nearby lesson. Show two branch timelines, alice/update-model and bob/update-model, both editing src/model.py. Alice changes SimpleCNN to 32 filters and Bob changes it to 64 filters with a 5x5 kernel. In the center, show a readable conflict zone with conflict markers around the conv1 and fc1 lines. Then show a clean resolved src/model.py where the learner intentionally chooses the final architecture, followed by terminal steps git add src/model.py and git commit. The learner should clearly see why Git stopped, what same-location edit caused the conflict, and what stage/commit does after repair.",
+        "chapter_context": "The image appears in Merge Conflicts. The chapter creates alice/update-model and bob/update-model from main. Alice edits src/model.py to use nn.Conv2d(3, 32, 3, padding=1) and fc1 with 32 * 16 * 16. Bob edits the same location to nn.Conv2d(3, 64, 5, padding=2) and fc1 with 64 * 16 * 16. Merging Bob after Alice produces CONFLICT (content), then the learner opens src/model.py, resolves conflict markers, stages, and commits.",
+        "shared_layout": "Use the same vertical debugging board for all three languages: two colored branch timelines enter from the top, a large conflicted src/model.py file sits in the center, a clean resolved file sits below it, terminal commands git add and git commit sit near the bottom, and a final merge commit stamp appears before the footer. Keep identical branch colors, file positions, arrows, and reading order across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_6,
+        "variants": {
+            "en": {
+                "title": "Merge Conflict Repair",
+                "subtitle": "A conflict asks you to combine two edits, not guess.",
+                "items": [
+                    ("Two branches", "Both changed the same file."),
+                    ("Same line", "Git cannot choose automatically."),
+                    ("Conflict zone", "Compare both versions."),
+                    ("Resolve", "Keep the correct final code."),
+                    ("git add", "Mark the file as fixed."),
+                    ("Commit", "Save the merge result."),
+                ],
+                "footer": "Resolve by intent, then stage and commit.",
+                "alt": "Git merge conflict repair: two branches edit the same line, Git marks a conflict zone, the developer resolves it, runs git add, and commits the merge.",
+            },
+            "zh": {
+                "title": "合并冲突修复现场",
+                "subtitle": "冲突是在请你合并两份修改，不是让你猜。",
+                "items": [
+                    ("两条分支", "都改了同一个文件。"),
+                    ("同一位置", "Git 无法自动选择。"),
+                    ("冲突区", "对照两边版本。"),
+                    ("修复", "留下正确的最终代码。"),
+                    ("git add", "标记这个文件已解决。"),
+                    ("Commit", "保存合并结果。"),
+                ],
+                "footer": "先按意图修复，再暂存并提交。",
+                "alt": "Git 合并冲突修复图：两条分支修改同一行，Git 标出冲突区，开发者对照并修复，git add 后提交合并结果。",
+            },
+            "ja": {
+                "title": "Merge conflict の直し方",
+                "subtitle": "conflict は、2つの編集を人が統合する合図。",
+                "items": [
+                    ("2つの branch", "同じ file を変更した。"),
+                    ("同じ位置", "Git は自動で選べない。"),
+                    ("Conflict zone", "両方の版を見比べる。"),
+                    ("Resolve", "正しい最終 code にする。"),
+                    ("git add", "解決済みとして印を付ける。"),
+                    ("Commit", "merge 結果を保存する。"),
+                ],
+                "footer": "意図で直し、stage して commit する。",
+                "alt": "Git merge conflict の修復：2つの branch が同じ行を変更し、conflict zone を比較して直し、git add して merge commit する。",
+            },
+        },
+    },
+    {
+        "slug": "ch02-string-index-slice",
+        "pages": {
+            "en": "docs/ch02-python/ch01-basics/02-data-types.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch02-python/ch01-basics/02-data-types.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch02-python/ch01-basics/02-data-types.md",
+        },
+        "scene": "A practical Python string indexing worked example based on the nearby lesson. Show text = \"Python\" as six large tiles: P y t h o n. Above the tiles, positive indexes 0 1 2 3 4 5; below them, negative indexes -6 -5 -4 -3 -2 -1. Show text[0] -> P, text[-1] -> n, text[0:3] -> Pyt with the stop boundary before h visibly excluded, text[2:5] -> tho, text[::2] -> Pto, and text[::-1] -> nohtyP. The learner should see that indexes point to characters, while slices use start:stop:step and the stop is not included.",
+        "chapter_context": "The image appears in String Indexing and Slicing. The text uses text = \"Python\", shows positive indexes 0..5 and negative indexes -6..-1, then examples text[0], text[5], text[-1], text[-2], text[0:3] -> Pyt, text[2:5] -> tho, text[:3], text[3:], text[:], text[::2] -> Pto, and text[::-1] -> nohtyP. It stresses left-closed, right-open slicing.",
+        "shared_layout": "Use the same vertical ruler-and-tiles composition for all three languages: title at top, six large Python character tiles across the upper-middle, positive index ruler above, negative index ruler below, slice brackets and excluded stop marker in the center, example outputs in small panels around the tiles, and the footer at the bottom. Keep tile colors, ruler positions, arrows, and examples in the same places across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "String Index and Slice",
+                "subtitle": "Indexes point to characters; slices point between boundaries.",
+                "items": [
+                    ("Index 0", "Counting starts at the first character."),
+                    ("-1", "Negative index starts from the end."),
+                    ("Start", "Slice includes this boundary."),
+                    ("Stop", "Slice excludes this boundary."),
+                    ("text[0:3]", "Returns the selected characters."),
+                ],
+                "footer": "For slices, read the stop position as the first item left out.",
+                "alt": "String index and slicing: Python character tiles show positive and negative indexes, a slice start boundary, an excluded stop boundary, and text[0:3].",
+            },
+            "zh": {
+                "title": "字符串索引与切片",
+                "subtitle": "索引指向字符，切片更像在边界之间截取。",
+                "items": [
+                    ("index 0", "从第一个字符开始数。"),
+                    ("-1", "负索引从末尾往前数。"),
+                    ("start", "切片包含这个边界。"),
+                    ("stop", "切片不包含这个边界。"),
+                    ("text[0:3]", "返回被选中的字符。"),
+                ],
+                "footer": "读切片时，把 stop 当成第一个不取的位置。",
+                "alt": "字符串索引和切片图：Python 字符方块展示正向索引、负向索引、切片起点、被排除的终点和 text[0:3]。",
+            },
+            "ja": {
+                "title": "文字列の index と slice",
+                "subtitle": "index は文字を指し、slice は境界の間を切り出す。",
+                "items": [
+                    ("index 0", "最初の文字から数える。"),
+                    ("-1", "負の index は末尾から数える。"),
+                    ("start", "slice はここを含む。"),
+                    ("stop", "slice はここを含まない。"),
+                    ("text[0:3]", "選ばれた文字を返す。"),
+                ],
+                "footer": "slice の stop は、最初に取らない位置として読む。",
+                "alt": "文字列 index と slice：Python の文字タイルに正の index、負の index、start 境界、除外される stop 境界、text[0:3] を示す。",
+            },
+        },
+    },
+    {
+        "slug": "ch02-short-circuit-safety-check",
+        "pages": {
+            "en": "docs/ch02-python/ch01-basics/03-operators.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch02-python/ch01-basics/03-operators.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch02-python/ch01-basics/03-operators.md",
+        },
+        "scene": "A practical Python short-circuit worked example based on the nearby lesson. Show False and print(\"This line will not be executed\") where the print call is skipped because and already knows the result is False. Show True or print(\"This line will not be executed either\") where print is skipped because or already knows the result is True. Then show the real safety check data = [] and if len(data) > 0 and data[0] > 10: because the list is empty, len(data) > 0 evaluates to False, so this first gate must be red/closed, not green/open. The data[0] access is skipped and locked, and an IndexError hazard stays behind a closed gate. The learner should clearly see left-to-right evaluation, the False first check for an empty list, and why the guard len(data) > 0 must come before data[0].",
+        "chapter_context": "The image appears in Short-circuit evaluation. The text says Python's and and or evaluate from left to right and may skip the second expression. Nearby examples are False and print(...), True or print(...), then a safety check with data = [] and if len(data) > 0 and data[0] > 10 to avoid accessing an empty list.",
+        "shared_layout": "Use the same vertical two-lane safety-check board for all three languages: top lane shows and with a red stop after False, middle lane shows or with a green stop after True, lower lane shows data=[] hitting len(data)>0 as a red False gate, then a locked data[0] gate with the error hazard blocked. Never put a green checkmark on len(data)>0 when data=[]. Keep gate shapes, arrows, warning colors, and lane order identical across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Short-circuit Safety Check",
+                "subtitle": "Python evaluates boolean conditions from left to right.",
+                "items": [
+                    ("First check", "data=[] makes len(data) > 0 False."),
+                    ("and", "False stops the rest."),
+                    ("Protected access", "data[0] is skipped."),
+                    ("or", "True can stop early too."),
+                    ("Order matters", "Put the safety check first."),
+                ],
+                "footer": "Short-circuiting is a guardrail against unsafe access.",
+                "alt": "Short-circuit evaluation as a safety gate: len(data) > 0 runs before data[0], and a false first condition stops unsafe access.",
+            },
+            "zh": {
+                "title": "短路求值安全检查",
+                "subtitle": "Python 从左到右计算布尔条件。",
+                "items": [
+                    ("先检查", "data=[] 时 len(data) > 0 为 False。"),
+                    ("and", "左边为 False 就停止。"),
+                    ("保护访问", "跳过 data[0]。"),
+                    ("or", "左边为 True 也会提前停止。"),
+                    ("顺序重要", "安全检查要放在前面。"),
+                ],
+                "footer": "短路求值是避免危险访问的护栏。",
+                "alt": "短路求值安全检查图：len(data) > 0 在 data[0] 前执行，左侧 False 会阻止危险访问。",
+            },
+            "ja": {
+                "title": "短絡評価の安全チェック",
+                "subtitle": "Python は条件を左から右へ評価する。",
+                "items": [
+                    ("最初の確認", "data=[] なら len(data) > 0 は False。"),
+                    ("and", "左が False なら残りは止まる。"),
+                    ("安全な access", "data[0] を skip する。"),
+                    ("or", "左が True なら早く止まる。"),
+                    ("順序が重要", "安全チェックを先に置く。"),
+                ],
+                "footer": "短絡評価は危険な access を防ぐ guardrail。",
+                "alt": "短絡評価の安全チェック：len(data) > 0 を data[0] より先に評価し、False なら危険な access を止める。",
+            },
+        },
+    },
+    {
+        "slug": "ch02-mutable-default-trap",
+        "pages": {
+            "en": "docs/ch02-python/ch01-basics/07-functions.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch02-python/ch01-basics/07-functions.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch02-python/ch01-basics/07-functions.md",
+        },
+        "scene": "A practical Python mutable default worked example based on the nearby lesson. Show the wrong code def add_item(item, items=[]): items.append(item); return items. Visualize the default list being created once when the function is defined, then reused. Show print(add_item(\"a\")) -> ['a'] and print(add_item(\"b\")) -> ['a', 'b'] as the bug. On the fix side, show def add_item(item, items=None): if items is None: items = []; items.append(item); return items, with separate fresh lists for calls. The learner should clearly see definition-time default values and why None is safer.",
+        "chapter_context": "The image appears inside a caution block called The Default Parameter Trap. The text states default parameter values are determined when the function is defined and warns not to use mutable objects such as lists or dictionaries as defaults. The exact bad function is add_item(item, items=[]), and the fix is add_item(item, items=None) with a new list created inside.",
+        "shared_layout": "Use the same vertical bug-vs-fix split for all three languages: left side is the wrong shared default list path, right side is the safe items=None path, with code snippets at the top, call results in the middle, shared/fresh list visuals below, and a footer warning at the bottom. Keep the same red bug color on the left and green fix color on the right across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Mutable Default Trap",
+                "subtitle": "A default list is created once, then reused.",
+                "items": [
+                    ("Definition time", "items=[] is made once."),
+                    ("Call 1", "The shared list gets a."),
+                    ("Call 2", "The same list now has a and b."),
+                    ("Bug", "State leaks between calls."),
+                    ("Fix", "Use items=None, then create a list."),
+                ],
+                "footer": "Use None when the default should be fresh each time.",
+                "alt": "Mutable default parameter trap: a default list is created once, reused across calls, accumulates values, and is fixed with items=None.",
+            },
+            "zh": {
+                "title": "可变默认参数陷阱",
+                "subtitle": "默认 list 只创建一次，后续调用会复用。",
+                "items": [
+                    ("定义时", "items=[] 只创建一次。"),
+                    ("第 1 次调用", "共享 list 加入 a。"),
+                    ("第 2 次调用", "同一个 list 又加入 b。"),
+                    ("Bug", "调用之间泄漏状态。"),
+                    ("修复", "用 items=None，再新建 list。"),
+                ],
+                "footer": "想要每次都是新对象，就不要把可变对象写进默认值。",
+                "alt": "可变默认参数陷阱图：默认 list 在定义时只创建一次，多次调用共享并累积值，正确做法是 items=None 后再创建新 list。",
+            },
+            "ja": {
+                "title": "mutable default の罠",
+                "subtitle": "default の list は一度だけ作られ、後で再利用される。",
+                "items": [
+                    ("定義時", "items=[] が一度だけ作られる。"),
+                    ("1回目", "共有 list に a が入る。"),
+                    ("2回目", "同じ list に b も入る。"),
+                    ("Bug", "呼び出し間で状態が漏れる。"),
+                    ("修正", "items=None にして中で list を作る。"),
+                ],
+                "footer": "毎回新しい object が必要なら、mutable object を default にしない。",
+                "alt": "mutable default parameter の罠：default list が一度だけ作られ、複数回の呼び出しで共有され、items=None で修正する。",
+            },
+        },
+    },
+    {
+        "slug": "ch03-numpy-view-copy-trap",
+        "pages": {
+            "en": "docs/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md",
+        },
+        "scene": "A practical NumPy view versus copy worked example based on the nearby lesson. Show arr = np.array([1, 2, 3, 4, 5]). On the view side, sub = arr[1:4] points to the same memory cells [2, 3, 4]; after sub[0] = 99, show sub as [99, 3, 4] and arr as [1, 99, 3, 4, 5]. On the copy side, sub = arr[1:4].copy(); after sub[0] = 99, show sub as [99, 3, 4] but arr still [1, 2, 3, 4, 5]. Add a small note that slicing returns a view, boolean/fancy indexing return copies, and .copy() isolates edits. The learner should clearly see shared memory versus independent data.",
+        "chapter_context": "The image appears in View vs Copy. The chapter says NumPy slicing returns a view, not a copy. It uses arr = np.array([1, 2, 3, 4, 5]), sub = arr[1:4], sub[0] = 99, and shows arr changing to [1, 99, 3, 4, 5]. The copy example uses arr[1:4].copy() and shows the original array unchanged. A nearby table contrasts slicing, boolean indexing, fancy indexing, .copy(), and reshape.",
+        "shared_layout": "Use the same vertical memory-board comparison for all three languages: original array cells across the top, left column shows view sharing the highlighted cells and changing arr, right column shows copy on a separate board and leaving arr unchanged, with a small operation table near the bottom. Keep memory-cell colors, left/right split, arrows, and edit sequence identical across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "NumPy View vs Copy",
+                "subtitle": "A slice may share memory with the original array.",
+                "items": [
+                    ("Original array", "Cells live in one memory block."),
+                    ("View", "Slice points to the same cells."),
+                    ("Edit view", "The original changes too."),
+                    ("copy()", "Creates independent cells."),
+                    ("Check intent", "Use copy when edits must be isolated."),
+                ],
+                "footer": "Before editing a slice, ask whether it shares memory.",
+                "alt": "NumPy view versus copy: a slice view shares the original memory and changes the array, while copy() creates independent cells.",
+            },
+            "zh": {
+                "title": "NumPy view 与 copy",
+                "subtitle": "切片可能和原数组共享同一块内存。",
+                "items": [
+                    ("原数组", "数据在同一块内存里。"),
+                    ("view", "切片指向同一批格子。"),
+                    ("改 view", "原数组也会一起变。"),
+                    ("copy()", "复制出独立格子。"),
+                    ("看意图", "需要隔离修改时用 copy。"),
+                ],
+                "footer": "修改切片前，先问它是否共享内存。",
+                "alt": "NumPy view 与 copy 图：切片 view 与原数组共享内存，修改 view 会影响原数组；copy() 生成独立数据。",
+            },
+            "ja": {
+                "title": "NumPy view と copy",
+                "subtitle": "slice は元 array と memory を共有することがある。",
+                "items": [
+                    ("元 array", "同じ memory block にある。"),
+                    ("view", "slice は同じ cell を指す。"),
+                    ("view を編集", "元 array も変わる。"),
+                    ("copy()", "独立した cell を作る。"),
+                    ("意図を確認", "隔離したい編集では copy を使う。"),
+                ],
+                "footer": "slice を編集する前に、memory 共有を確認する。",
+                "alt": "NumPy view と copy：slice view は元 array と memory を共有し、編集が元 array に反映される。copy() は独立した data を作る。",
+            },
+        },
+    },
+    {
+        "slug": "ch03-pandas-transform-method-choice",
+        "pages": {
+            "en": "docs/ch03-data-analysis/ch03-pandas/05-data-transform.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/05-data-transform.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/05-data-transform.md",
+        },
+        "scene": "A practical Pandas transform choice worked example based on the nearby lesson. Show a small student/customer DataFrame using the chapter's kinds of columns: name, math, english, gender, department_code, city. For math, show apply(grade) turning scores into excellent/good/average/pass. For a row operation, show apply(axis=1) creating total = math + english or a description. For gender and department_code, show map translating M/F and department codes into names. For city, show replace changing BJ to Beijing and SH/GZ/SZ to city names. For continuous scores, show binning into high/medium/low. The learner should choose by question: one value translation -> map, dirty value swap -> replace, custom row/column logic -> apply, new derived column -> assign/binning.",
+        "chapter_context": "The image appears near the start of a Pandas data transformation lesson. The text asks what each column should become and contrasts translating codes, calculating a result from several row columns, and splitting continuous numbers into levels. Nearby examples include df with name/math/english, apply(np.sqrt), apply(grade), lambda pass/fail, apply(axis=1) for total/description, map for gender M/F and department_code, replace for city codes, and later sorting/ranking.",
+        "shared_layout": "Use the same vertical DataFrame decision board for all three languages: source table at the top, five method lanes below it for map, replace, apply, assign, and binning, each lane showing one column goal and a before/after mini-column. Keep the table position, lane order, color coding, and footer rule identical across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Choose a Pandas Transform",
+                "subtitle": "Start from what each column should become.",
+                "items": [
+                    ("map", "Replace known values with a dictionary."),
+                    ("replace", "Clean fixed labels or codes."),
+                    ("apply", "Use custom row or column logic."),
+                    ("assign", "Create a new derived column."),
+                    ("binning", "Turn numbers into buckets."),
+                ],
+                "footer": "Use the simplest transform that matches the column goal.",
+                "alt": "Pandas transform choice: map for known value lookup, replace for fixed labels, apply for custom logic, assign for derived columns, and binning for buckets.",
+            },
+            "zh": {
+                "title": "选择 Pandas 转换方法",
+                "subtitle": "先问：这一列最终要变成什么？",
+                "items": [
+                    ("map", "用字典替换已知值。"),
+                    ("replace", "清理固定标签或编码。"),
+                    ("apply", "写自定义行列逻辑。"),
+                    ("assign", "生成新的派生列。"),
+                    ("分箱", "把数字变成区间标签。"),
+                ],
+                "footer": "选择最贴合列目标的最简单方法。",
+                "alt": "Pandas 转换方法选择图：map 做字典映射，replace 清理固定标签，apply 处理自定义逻辑，assign 生成派生列，分箱生成区间标签。",
+            },
+            "ja": {
+                "title": "Pandas 変換メソッドの選び方",
+                "subtitle": "まず、この列を何に変えたいかを見る。",
+                "items": [
+                    ("map", "辞書で既知の値を置き換える。"),
+                    ("replace", "固定ラベルや code を直す。"),
+                    ("apply", "行や列の custom logic を使う。"),
+                    ("assign", "派生列を作る。"),
+                    ("binning", "数値を区間ラベルにする。"),
+                ],
+                "footer": "列の目的に合う一番単純な変換を選ぶ。",
+                "alt": "Pandas 変換メソッド選択：map は辞書変換、replace は固定ラベル修正、apply は custom logic、assign は派生列、binning は区間化。",
+            },
+        },
+    },
+    {
+        "slug": "ch03-pandas-resample-rolling-timeline",
+        "pages": {
+            "en": "docs/ch03-data-analysis/ch03-pandas/08-time-series.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/08-time-series.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/08-time-series.md",
+        },
+        "scene": "A practical Pandas time-series worked example based on the nearby lesson, but keep it mobile-readable and not dense. Use only 7 daily sales points: Mon 10, Tue 12, Wed 8, Thu 14, Fri 16, Sat 9, Sun 11. Top panel: three preparation steps only, pd.to_datetime(date), set date as index, choose resample or rolling. Left panel: resample('W').sum() wraps the seven days into one weekly bucket and outputs total = 80. Right panel: rolling(3).mean() shows a 3-day window sliding from Mon-Wed to Tue-Thu, smoothing nearby points while daily frequency stays daily. Use large labels, large arrows, and no tables longer than 7 rows. Do not include quick-reference tables, many dates, many code blocks, or tiny chart axis labels. The learner should clearly see frequency bucket versus moving window.",
+        "chapter_context": "The image appears just before Resampling in a time-series lesson. The chapter first gives a reliable beginner sequence: convert to datetime, set date as index, then resampling and rolling. It explains resample changes time frequency, with examples daily -> monthly/weekly aggregation, and rolling for the average of recent days. For this generated image, simplify the data to 7 days so the concept is readable on mobile.",
+        "shared_layout": "Use the same sparse vertical time-axis board for all three languages: title at top, three small preparation steps in a horizontal strip, a 7-day sales timeline in the center, resample bucket on the left showing all seven days compressed into one total, rolling window on the right showing a 3-day window sliding one day, and a one-line footer. Keep the same timeline, bucket shape, moving-window overlay, colors, and branch order across zh/en/ja. Avoid dense tables and tiny text.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Resample vs Rolling",
+                "subtitle": "Resample changes frequency; rolling slides a window.",
+                "items": [
+                    ("Datetime", "Convert dates first."),
+                    ("Time index", "Put dates on the index."),
+                    ("resample", "Group into new time buckets."),
+                    ("rolling", "Slide a fixed-size window."),
+                    ("Compare trend", "Use both to see signal."),
+                ],
+                "footer": "Buckets summarize periods; windows smooth nearby points.",
+                "alt": "Pandas time series diagram: convert dates, set a time index, resample daily points into buckets, and use rolling windows to smooth trends.",
+            },
+            "zh": {
+                "title": "resample 与 rolling 时间线",
+                "subtitle": "resample 改频率，rolling 滑动窗口。",
+                "items": [
+                    ("datetime", "先把日期转成时间类型。"),
+                    ("时间索引", "把日期放到 index 上。"),
+                    ("resample", "按新时间桶聚合。"),
+                    ("rolling", "用固定窗口滑动计算。"),
+                    ("看趋势", "两者配合看信号。"),
+                ],
+                "footer": "时间桶总结一段时间，窗口平滑相邻点。",
+                "alt": "Pandas 时间序列图：先转换 datetime 并设置时间索引，resample 把日数据聚合到时间桶，rolling 用滑动窗口观察趋势。",
+            },
+            "ja": {
+                "title": "resample と rolling の時間線",
+                "subtitle": "resample は頻度を変え、rolling は窓を滑らせる。",
+                "items": [
+                    ("datetime", "日付を先に時刻型へ変換。"),
+                    ("time index", "日付を index に置く。"),
+                    ("resample", "新しい時間 bucket で集計。"),
+                    ("rolling", "固定幅の window を滑らせる。"),
+                    ("trend", "両方で信号を見る。"),
+                ],
+                "footer": "bucket は期間を要約し、window は近くの点をならす。",
+                "alt": "Pandas 時系列図：datetime 変換、time index、resample の時間 bucket、rolling window による trend smoothing。",
+            },
+        },
+    },
+    {
+        "slug": "ch04-vector-norm-unit-vector",
+        "pages": {
+            "en": "docs/ch04-ai-math/ch01-linear-algebra/01-vectors.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/01-vectors.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/01-vectors.md",
+        },
+        "scene": "A practical vector norm worked example based on the nearby lesson. Use a dark chalkboard / dark coordinate-grid style, not a white worksheet, not a paper notebook, and not a pale slide. Show vector a = np.array([3, 4]) as an arrow from origin to point (3,4) on a dark coordinate grid. Draw the 3 horizontal and 4 vertical legs as the classic 3-4-5 triangle. Show two code paths: manual length = sqrt(a[0]^2 + a[1]^2) = 5.0 and np.linalg.norm(a) = 5.0. Then show unit_a = a / np.linalg.norm(a) -> [0.6, 0.8], with an arrow in the same direction but length 1. Add the AI intuition: compare direction after normalization, not raw size. The learner should clearly see length, unit vector, and direction-only comparison.",
+        "chapter_context": "The image appears in Vector Length (Magnitude / Norm). The chapter uses a = np.array([3, 4]), manual calculation with np.sqrt(a[0]**2 + a[1]**2), np.linalg.norm(a), and unit_a = a / np.linalg.norm(a) -> [0.6, 0.8]. It notes the 3-4-5 triangle and explains that AI often compares vector direction rather than size after normalization.",
+        "shared_layout": "Use the same dark vertical math grid for all three languages: black or deep navy background, glowing/chalk coordinate grid with [3,4] vector in the upper half, 3-4-5 triangle and norm formula beside it, normalization operation in the center, unit vector arrow in the lower half, and AI direction-comparison note near the footer. Keep the grid, arrow angles, triangle colors, formula placement, and dark visual style identical across zh/en/ja. Do not use a white background, beige paper, worksheet, slide, or rounded-box infographic style.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Vector Norm and Unit Vector",
+                "subtitle": "Norm measures length; normalization keeps direction.",
+                "items": [
+                    ("Vector [3, 4]", "A point and direction from origin."),
+                    ("Right triangle", "3 and 4 create length 5."),
+                    ("Norm", "||a|| = 5 measures size."),
+                    ("Normalize", "Divide every component by 5."),
+                    ("Unit vector", "Same direction, length 1."),
+                ],
+                "footer": "Use norm for size; use unit vector for direction only.",
+                "alt": "Vector norm and unit vector: a 3-4-5 vector on a grid is normalized by dividing components by five, keeping direction with length one.",
+            },
+            "zh": {
+                "title": "向量范数与单位向量",
+                "subtitle": "范数测长度，归一化保留方向。",
+                "items": [
+                    ("向量 [3, 4]", "从原点出发的方向。"),
+                    ("直角三角形", "3 和 4 得到长度 5。"),
+                    ("范数", "||a|| = 5 表示大小。"),
+                    ("归一化", "每个分量都除以 5。"),
+                    ("单位向量", "方向相同，长度为 1。"),
+                ],
+                "footer": "要大小看范数，只要方向看单位向量。",
+                "alt": "向量范数与单位向量图：网格上的 3-4-5 向量通过每个分量除以 5 归一化，方向不变、长度变为 1。",
+            },
+            "ja": {
+                "title": "vector norm と unit vector",
+                "subtitle": "norm は長さを測り、正規化は向きを残す。",
+                "items": [
+                    ("vector [3, 4]", "原点からの向き。"),
+                    ("直角三角形", "3 と 4 から長さ 5。"),
+                    ("norm", "||a|| = 5 が大きさ。"),
+                    ("正規化", "各成分を 5 で割る。"),
+                    ("unit vector", "同じ向きで長さ 1。"),
+                ],
+                "footer": "大きさは norm、向きだけなら unit vector。",
+                "alt": "vector norm と unit vector：grid 上の 3-4-5 vector を成分ごとに 5 で割り、向きを保ったまま長さ 1 にする。",
+            },
+        },
+    },
+    {
+        "slug": "ch04-matrix-multiplication-shape-rule",
+        "pages": {
+            "en": "docs/ch04-ai-math/ch01-linear-algebra/02-matrices.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/02-matrices.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/02-matrices.md",
+        },
+        "scene": "A practical matrix multiplication shape worked example based on the nearby lesson. Show A = [[1,2,3],[4,5,6]] with shape 2 x 3 and B = [[1,2],[3,4],[5,6]] with shape 3 x 2. Highlight the matching inner dimensions 3 and 3, then show C = A @ B with shape 2 x 2 and result [[22,28],[49,64]]. Include one readable cell calculation: C[0,0] = 1*1 + 2*3 + 3*5 = 22. Add a failed side example (2 x 3) @ (4 x 2) where inner 3 and 4 do not match. The learner should clearly see inner dimensions must match, outer dimensions remain, and A @ B order matters.",
+        "chapter_context": "The image appears in Size rules for matrix multiplication. The chapter states columns of the left matrix must equal rows of the right matrix, and result shape is rows of left by columns of right. It uses A = [[1,2,3],[4,5,6]] shape 2x3, B = [[1,2],[3,4],[5,6]] shape 3x2, C = A @ B shape 2x2, output [[22,28],[49,64]], and warns matrix multiplication is not commutative.",
+        "shared_layout": "Use the same vertical matrix-tile board for all three languages: A matrix on the left, B matrix on the right, matching inner dimensions highlighted where they meet, C result matrix below, one C[0,0] dot-product calculation in a callout, mismatch example in a small warning panel, and footer rule at bottom. Keep tile sizes, matrix positions, colors, and highlight order identical across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "Matrix Multiplication Shape Rule",
+                "subtitle": "Inner dimensions must match; outer dimensions become the result.",
+                "items": [
+                    ("A: m x n", "Rows of samples, n features."),
+                    ("B: n x p", "n inputs, p outputs."),
+                    ("Inner n", "These two dimensions must match."),
+                    ("C: m x p", "Outer dimensions remain."),
+                    ("Mismatch", "If inner sizes differ, multiplication fails."),
+                ],
+                "footer": "Read A @ B as (m x n) @ (n x p) -> (m x p).",
+                "alt": "Matrix multiplication shape rule: A is m by n, B is n by p, inner n dimensions must match, and result C is m by p.",
+            },
+            "zh": {
+                "title": "矩阵乘法尺寸规则",
+                "subtitle": "中间维度要接得上，外侧维度留下来。",
+                "items": [
+                    ("A: m x n", "m 行样本，n 个特征。"),
+                    ("B: n x p", "n 个输入，p 个输出。"),
+                    ("中间 n", "这两个维度必须相等。"),
+                    ("C: m x p", "外侧维度组成结果。"),
+                    ("不匹配", "中间维度不同就不能乘。"),
+                ],
+                "footer": "把 A @ B 读成 (m x n) @ (n x p) -> (m x p)。",
+                "alt": "矩阵乘法尺寸规则图：A 是 m x n，B 是 n x p，中间 n 必须相等，结果 C 是 m x p。",
+            },
+            "ja": {
+                "title": "行列積の shape rule",
+                "subtitle": "内側の次元が一致し、外側の次元が結果になる。",
+                "items": [
+                    ("A: m x n", "m 行の sample、n features。"),
+                    ("B: n x p", "n inputs、p outputs。"),
+                    ("内側の n", "この2つが一致する必要がある。"),
+                    ("C: m x p", "外側の次元が残る。"),
+                    ("不一致", "内側が違うと掛けられない。"),
+                ],
+                "footer": "A @ B は (m x n) @ (n x p) -> (m x p) と読む。",
+                "alt": "行列積の shape rule：A は m x n、B は n x p、内側の n が一致し、結果 C は m x p になる。",
+            },
+        },
+    },
+    {
+        "slug": "ch04-pvalue-null-distribution",
+        "pages": {
+            "en": "docs/ch04-ai-math/ch02-probability/03-statistical-inference.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/03-statistical-inference.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/03-statistical-inference.md",
+        },
+        "scene": "A practical A/B test p-value worked example based on the nearby lesson. Show H0: A and B have no real click-through-rate difference. Use the chapter's product example: Group A blue button n=1000, true click-through rate 10%; Group B green button n=1000, true click-through rate 12%. Show observed difference as a marker in the right tail of a null distribution centered at 0. Shade the tail area as p-value, label small p-value like 0.01 as unusual under H0 and large p-value like 0.3 as common under H0. Add a decision check strip for sample size, experiment design, business impact, and many tests. The learner should clearly see p-value is a probability under H0, not proof of the alternative hypothesis.",
+        "chapter_context": "The image appears in Intuition for p-values. The chapter defines p-value as the probability of a difference this large or larger by random fluctuation assuming no real difference. It contrasts p=0.01 and p=0.3, warns p-value does not prove the alternative hypothesis, and says real products must also check sample size, experiment design, business impact, and multiple tests. The following A/B example simulates blue button A at 10% and green button B at 12%, each n=1000.",
+        "shared_layout": "Use the same vertical A/B-test analysis board for all three languages: H0 statement and A/B sample cards at the top, null distribution curve in the center, observed lift marker in the right tail, shaded p-value area, small p=0.01 vs p=0.3 interpretation strip, decision-check strip near the bottom, and footer warning at the bottom. Keep chart shape, marker position, colors, and panel order identical across zh/en/ja.",
+        "callouts": SVG_REPLACEMENT_CALLOUTS_5,
+        "variants": {
+            "en": {
+                "title": "p-value Under H0",
+                "subtitle": "How unusual is this result if no real difference exists?",
+                "items": [
+                    ("H0", "Assume A and B are equal."),
+                    ("Null distribution", "Simulate expected random differences."),
+                    ("Observed result", "Place the real experiment on the curve."),
+                    ("Tail area", "This area is the p-value."),
+                    ("Decision check", "Also inspect sample size and impact."),
+                ],
+                "footer": "Small p-value means unusual under H0, not automatically true in business.",
+                "alt": "p-value intuition: under H0, simulated no-difference experiments form a distribution, the observed result sits in a tail, and tail area is the p-value.",
+            },
+            "zh": {
+                "title": "零假设下的 p-value",
+                "subtitle": "如果真的没有差异，这个结果有多罕见？",
+                "items": [
+                    ("H0", "先假设 A 和 B 没差异。"),
+                    ("零假设分布", "模拟随机波动会长什么样。"),
+                    ("观测结果", "把真实实验放到曲线上。"),
+                    ("尾部面积", "这块面积就是 p-value。"),
+                    ("决策检查", "还要看样本量和业务影响。"),
+                ],
+                "footer": "p-value 小表示在 H0 下罕见，不等于业务上一定成立。",
+                "alt": "p-value 直觉图：在零假设 H0 下模拟无差异实验形成分布，真实观测结果落在尾部，尾部面积就是 p-value。",
+            },
+            "ja": {
+                "title": "H0 のもとでの p-value",
+                "subtitle": "本当に差がないなら、この結果はどれほど珍しいか。",
+                "items": [
+                    ("H0", "A と B は同じと仮定する。"),
+                    ("null distribution", "偶然の差の分布を見る。"),
+                    ("観測結果", "実験結果を曲線上に置く。"),
+                    ("tail area", "この面積が p-value。"),
+                    ("判断確認", "sample size と impact も見る。"),
+                ],
+                "footer": "p-value が小さいとは、H0 のもとで珍しいという意味。",
+                "alt": "p-value の直感：H0 のもとで無差の実験をシミュレーションして分布を作り、観測結果の尾部面積を p-value として見る。",
+            },
+        },
+    },
+]
+
+for svg_group in SVG_REPLACEMENT_GROUPS:
+    register_svg_replacement_group(**svg_group)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
@@ -10504,6 +11244,11 @@ for job in IMAGE_JOBS:
 
 def convert_remaining_overlays_to_generated_images() -> None:
     for job in IMAGE_JOBS:
+        # SVG replacement jobs intentionally generate a no-text background once,
+        # then apply exact zh/en/ja labels locally. Do not convert them into
+        # fully generated text images.
+        if job.get("background_key"):
+            continue
         overlay = job.get("overlay")
         if not overlay:
             continue
@@ -10583,6 +11328,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing valid PNG files.")
     parser.add_argument("--continue-on-error", action="store_true", help="Keep generating remaining images and write an error report.")
     parser.add_argument("--ensure-placeholders", action="store_true", help="Create local preview PNG files for all planned images.")
+    parser.add_argument("--http-fallback", action="store_true", help="Use the built-in HTTP client instead of the openai Python package.")
     return parser.parse_args()
 
 
@@ -11267,14 +12013,18 @@ def main() -> None:
     write_manifest(report_dir, jobs)
 
     client = None
-    try:
-        from openai import OpenAI
-    except ImportError as exc:
-        print("The Python package `openai` is not installed; using the built-in HTTP fallback.", flush=True)
+    if args.http_fallback:
+        print("Using the built-in HTTP fallback.", flush=True)
     else:
-        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, timeout=args.request_timeout)
+        try:
+            from openai import OpenAI
+        except ImportError as exc:
+            print("The Python package `openai` is not installed; using the built-in HTTP fallback.", flush=True)
+        else:
+            client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, timeout=args.request_timeout)
 
     errors: list[dict[str, str]] = []
+    generated_backgrounds: dict[str, bytes] = {}
     for job in jobs:
         output_path = output_dir / job["filename"]
         if output_path.exists() and output_path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n") and not args.overwrite:
@@ -11282,18 +12032,21 @@ def main() -> None:
             continue
         print(f"Generating {job['filename']}...", flush=True)
         try:
-            if client:
-                result = client.images.generate(
-                    model=args.model,
-                    prompt=job["prompt"],
-                    **({} if job.get("size") == "default" else {"size": job["size"]}),
-                    **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
-                )
-                image_base64 = result.data[0].b64_json
-                output_path.write_bytes(base64.b64decode(image_base64))
+            background_key = str(job.get("background_key") or "")
+            if background_key and background_key in generated_backgrounds:
+                output_path.write_bytes(generated_backgrounds[background_key])
             else:
-                output_path.write_bytes(
-                    generate_image_with_http(
+                if client:
+                    result = client.images.generate(
+                        model=args.model,
+                        prompt=job["prompt"],
+                        **({} if job.get("size") == "default" else {"size": job["size"]}),
+                        **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
+                    )
+                    image_base64 = result.data[0].b64_json
+                    image_bytes = base64.b64decode(image_base64)
+                else:
+                    image_bytes = generate_image_with_http(
                         api_key=os.environ["OPENAI_API_KEY"],
                         base_url=args.base_url,
                         model=args.model,
@@ -11301,7 +12054,9 @@ def main() -> None:
                         retries=args.retries,
                         request_timeout=args.request_timeout,
                     )
-                )
+                if background_key:
+                    generated_backgrounds[background_key] = image_bytes
+                output_path.write_bytes(image_bytes)
             apply_text_overlay(output_path, job)
             set_user_readable_permissions(output_path)
             print(f"Saved {output_path}", flush=True)

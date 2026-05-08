@@ -26,7 +26,7 @@ keywords: [PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device,
 
 训练坏掉时，先查简单工程问题，不要一上来重设计模型。
 
-![PyTorch 训练调试排查顺序](/img/course/ch06-pytorch-debug-check-order.png)
+![PyTorch 训练调试排查顺序](/img/course/ch06-pytorch-debug-check-order.webp)
 
 按这个顺序：
 

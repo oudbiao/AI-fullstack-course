@@ -160,7 +160,7 @@ for item in runtime_options:
 
 - 部署路线首先是业务决策，不只是技术偏好
 
-![本地模型与云 API 部署决策图](/img/course/ch08-local-model-api-decision-map.png)
+![本地模型与云 API 部署决策图](/img/course/ch08-local-model-api-decision-map.webp)
 
 :::tip 读图提示
 看图时不要从“哪个模型更强”开始，而是先看隐私、成本、延迟、离线和运维能力。很多部署选择本质上是业务约束排序，而不是单纯模型能力排序。

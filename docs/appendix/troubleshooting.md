@@ -5,9 +5,9 @@ sidebar_position: 5
 
 # A.8 Learning Rescue for Stuck Points
 
-![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map-en.png)
+![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map-en.webp)
 
-![Flowchart for minimal reproduction and asking for help](/img/course/appendix-debug-mre-help-flow-en.png)
+![Flowchart for minimal reproduction and asking for help](/img/course/appendix-debug-mre-help-flow-en.webp)
 
 When stuck, first turn the problem from “I cannot learn this” into “I can locate this failure.”
 

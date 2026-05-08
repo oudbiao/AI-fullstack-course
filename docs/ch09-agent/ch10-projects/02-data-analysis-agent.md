@@ -155,7 +155,7 @@ This is exactly the difference between a Data Analysis Agent and a regular calcu
 
 This table is especially useful for beginners because it compresses “Data Analysis Agent” back into a workflow that can be checked step by step.
 
-![Data Analysis Agent reproducible workflow diagram](/img/course/ch09-data-analysis-agent-notebook-loop-map-en.png)
+![Data Analysis Agent reproducible workflow diagram](/img/course/ch09-data-analysis-agent-notebook-loop-map-en.webp)
 
 :::tip Reading guide
 Read this diagram using a notebook mindset: load data, profile schema, compute statistics, generate insight, suggest chart, write report. Every conclusion should be traceable back to the intermediate computation results.

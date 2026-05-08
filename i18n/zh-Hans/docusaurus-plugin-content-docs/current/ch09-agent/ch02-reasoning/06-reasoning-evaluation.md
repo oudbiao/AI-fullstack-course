@@ -239,7 +239,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 
 这会直接拖慢系统、抬高成本。
 
-![Agent 推理失败类型诊断图](/img/course/ch09-reasoning-eval-failure-taxonomy-map.png)
+![Agent 推理失败类型诊断图](/img/course/ch09-reasoning-eval-failure-taxonomy-map.webp)
 
 :::tip 读图提示
 评估时不要只问“答案错了没”。这张图把失败拆到 intent、plan、tool、observation、stop condition 和 final answer，方便你定位到底是哪一层出了问题。

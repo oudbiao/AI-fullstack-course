@@ -155,7 +155,7 @@ Transformer 的思路则是：
 如果没有它们，
 深层 Transformer 很容易训练困难。
 
-![Transformer Block 数据流拆解图](/img/course/ch07-transformer-block-dataflow-map.png)
+![Transformer Block 数据流拆解图](/img/course/ch07-transformer-block-dataflow-map.webp)
 
 :::tip 读图提示
 这张图建议按一层 block 的数据流读：token 表示先通过 Self-Attention 和上下文交流，再经 Residual/LayerNorm 稳住信息，随后进入 FFN 做逐 token 深加工。Transformer 不是只有 attention，而是“交流、保留、稳定、加工”的组合。

@@ -11,9 +11,9 @@ RNNs are built for ordered data: text, time series, clicks, sensor readings, and
 
 ## Look at the Sequence Flow First
 
-![RNN sequence model chapter relationship diagram](/img/course/ch06-rnn-chapter-flow-en.png)
+![RNN sequence model chapter relationship diagram](/img/course/ch06-rnn-chapter-flow-en.webp)
 
-![RNN hidden state rolling memory map](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.png)
+![RNN hidden state rolling memory map](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.webp)
 
 | Concept | First meaning |
 |---|---|

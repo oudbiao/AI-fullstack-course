@@ -7,7 +7,7 @@ keywords: [metaprogramming, type, registry, descriptor, dynamic class, Python]
 
 # E.B.4 メタプログラミング
 
-![Python メタプログラミングのレジストリ図](/img/course/elective-metaprogramming-registry-map-ja.png)
+![Python メタプログラミングのレジストリ図](/img/course/elective-metaprogramming-registry-map-ja.webp)
 
 メタプログラミングとは、コードでコード構造を整理または生成することです。日常の Python 工程で役立つのは、派手な技ではなく、自動登録、フィールド検証、定型処理の削減であることが多いです。
 

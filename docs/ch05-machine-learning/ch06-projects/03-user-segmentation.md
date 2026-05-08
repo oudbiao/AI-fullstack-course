@@ -7,7 +7,7 @@ keywords: [user segmentation, clustering, RFM, K-Means, dimensionality reduction
 
 # 5.6.4 Project 3: User Segmentation Analysis (Clustering Problem)
 
-![User segmentation RFM clustering chart](/img/course/user-segmentation-rfm-en.png)
+![User segmentation RFM clustering chart](/img/course/user-segmentation-rfm-en.webp)
 
 :::tip Project Positioning
 User segmentation is the **most common business application of unsupervised learning**. In this project, we use the RFM model to build customer features, discover customer groups with different values through clustering, and then provide marketing recommendations.

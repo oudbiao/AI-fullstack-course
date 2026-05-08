@@ -7,7 +7,7 @@ keywords: [视觉语言模型, VLM, 图文检索, 图像问答, image-text]
 
 # 12.1.3 视觉-语言模型
 
-![视觉语言模型架构图](/img/course/vision-language-model-architecture.png)
+![视觉语言模型架构图](/img/course/vision-language-model-architecture.webp)
 
 :::tip 本节定位
 视觉-语言模型最容易被新人理解成：

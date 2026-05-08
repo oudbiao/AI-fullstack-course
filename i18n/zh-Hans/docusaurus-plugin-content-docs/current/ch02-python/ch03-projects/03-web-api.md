@@ -6,7 +6,7 @@ description: "使用 FastAPI 构建你的第一个 Web API"
 
 # 2.3.3 项目：Web API 开发
 
-![Web API 请求响应架构图](/img/course/ch02-web-api-request-response.png)
+![Web API 请求响应架构图](/img/course/ch02-web-api-request-response.webp)
 
 ## 项目定位
 

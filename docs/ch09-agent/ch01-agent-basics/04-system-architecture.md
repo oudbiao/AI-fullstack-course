@@ -7,7 +7,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 # 9.1.5 Agent System Architecture
 
-![Agent System Architecture Diagram](/img/course/agent-system-architecture-en.png)
+![Agent System Architecture Diagram](/img/course/agent-system-architecture-en.webp)
 
 ## Learning Objectives
 
@@ -130,7 +130,7 @@ Because the essence of an Agent is not "answer once," but:
 
 This is one of the fundamental differences between an Agent and a normal chatbot.
 
-![Agent System Architecture Data Flow Diagram](/img/course/ch09-agent-system-architecture-dataflow-map-en.png)
+![Agent System Architecture Data Flow Diagram](/img/course/ch09-agent-system-architecture-dataflow-map-en.webp)
 
 :::tip Reading Tip
 Think of this diagram as the "anatomy of a production Agent": the Planner decides the next step, the Tool Layer handles actions, Memory and State record context, Guardrails decide what is allowed, and Observability makes every step traceable.

@@ -11,7 +11,7 @@ keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 这一节把序列建模变成一个小项目：把连续序列切成滑动窗口样本，训练 LSTM，对比 naive baseline，并检查验证集预测。
 :::
 
-![RNN 时间序列滑动窗口实操闭环](/img/course/ch06-rnn-sliding-window-practice-loop.png)
+![RNN 时间序列滑动窗口实操闭环](/img/course/ch06-rnn-sliding-window-practice-loop.webp)
 
 ## 学习目标
 

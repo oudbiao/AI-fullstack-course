@@ -7,7 +7,7 @@ keywords: [data augmentation, flip, crop, color jitter, mixup, vision]
 
 # 10.2.2 数据增强策略
 
-![图像数据增强样例墙](/img/course/cv-data-augmentation-gallery.png)
+![图像数据增强样例墙](/img/course/cv-data-augmentation-gallery.webp)
 
 :::tip 本节定位
 图像分类里最常见也最容易被低估的技巧之一，就是数据增强。
@@ -248,7 +248,7 @@ brightness:
 
 - 是否还在尊重任务本身的语义边界
 
-![数据增强不变性与语义风险图](/img/course/ch10-augmentation-invariance-risk-map.png)
+![数据增强不变性与语义风险图](/img/course/ch10-augmentation-invariance-risk-map.webp)
 
 :::tip 读图提示
 读这张图时抓住一句话：增强是在训练模型忽略“合理变化”，但不能破坏标签语义。分类、检测、分割的增强还要同步处理 label、box 和 mask。

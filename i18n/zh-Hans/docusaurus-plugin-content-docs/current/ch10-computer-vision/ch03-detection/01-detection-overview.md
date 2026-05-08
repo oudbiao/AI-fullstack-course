@@ -7,7 +7,7 @@ keywords: [object detection, bounding box, detection, localization, computer vis
 
 # 10.3.2 目标检测概述
 
-![目标检测输出拆解图](/img/course/object-detection-output.png)
+![目标检测输出拆解图](/img/course/object-detection-output.webp)
 
 :::tip 本节定位
 图像分类只能回答：
@@ -215,7 +215,7 @@ IoU = 0.4849
 
 所以检测项目会比分类更像一个完整系统，而不是单个模型输出。
 
-![目标检测输出、IoU 与错误类型图](/img/course/ch10-detection-output-iou-error-map.png)
+![目标检测输出、IoU 与错误类型图](/img/course/ch10-detection-output-iou-error-map.webp)
 
 :::tip 读图提示
 这张图把检测输出拆成 class、box、score 三件事，再用 IoU 判断框是否够准。检测错误通常不是“一个错”，而是漏检、误检、定位偏差和重复框共同组成。

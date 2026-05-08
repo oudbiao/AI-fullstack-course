@@ -7,7 +7,7 @@ keywords: [PyTorch workshop, Matplotlib, DataLoader, training loop, decision bou
 
 # 6.2.9 PyTorch + Matplotlib Hands-on Workshop
 
-![PyTorch hands-on workflow](/img/course/ch06-pytorch-hands-on-workflow-en.png)
+![PyTorch hands-on workflow](/img/course/ch06-pytorch-hands-on-workflow-en.webp)
 
 :::tip Learning Rhythm
 Use this section as your first complete PyTorch mini-project. The rhythm is:

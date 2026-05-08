@@ -7,7 +7,7 @@ keywords: [token, context window, attention, temperature, sampling, logits, pret
 
 # 7.2.3 Core Concepts of Large Models
 
-![Next-token generation loop and sampling diagram](/img/course/ch07-next-token-generation-loop-map-en.png)
+![Next-token generation loop and sampling diagram](/img/course/ch07-next-token-generation-loop-map-en.webp)
 
 :::tip Core Loop
 A large language model does not write a whole answer at once. It repeats this loop:
@@ -68,7 +68,7 @@ Real models do this over a very large vocabulary. The principle is the same: out
 
 ## Context Window Is a Budget
 
-![Context window information budget diagram](/img/course/ch07-context-window-budget-map-en.png)
+![Context window information budget diagram](/img/course/ch07-context-window-budget-map-en.webp)
 
 The context window is not infinite memory. It is a fixed token budget:
 

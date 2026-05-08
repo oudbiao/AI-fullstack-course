@@ -11,9 +11,9 @@ keywords: [深度学习项目指南, 图像分类, 情感分析, 生成实践, P
 
 ## 先看项目闭环
 
-![深度学习项目作品集路线图](/img/course/ch06-projects-portfolio-loop.png)
+![深度学习项目作品集路线图](/img/course/ch06-projects-portfolio-loop.webp)
 
-![深度学习项目训练复盘闭环](/img/course/ch06-deep-learning-project-cycle.png)
+![深度学习项目训练复盘闭环](/img/course/ch06-deep-learning-project-cycle.webp)
 
 ```text
 数据集 -> 模型 -> 训练日志 -> 评估 -> 失败案例 -> 打包

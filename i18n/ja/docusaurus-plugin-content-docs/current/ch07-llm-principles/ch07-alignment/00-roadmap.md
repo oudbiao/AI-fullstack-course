@@ -11,11 +11,11 @@ keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 
 ## まず安全境界を見る
 
-![大規模モデルのアライメント章の関係図](/img/course/ch07-alignment-chapter-flow-ja.png)
+![大規模モデルのアライメント章の関係図](/img/course/ch07-alignment-chapter-flow-ja.webp)
 
-![アライメントとアプリケーションの安全境界図](/img/course/ch07-alignment-app-safety-map-ja.png)
+![アライメントとアプリケーションの安全境界図](/img/course/ch07-alignment-app-safety-map-ja.webp)
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-ja.png)
+![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-ja.webp)
 
 重要語：RLHF は reinforcement learning from human feedback、DPO は direct preference optimization、RLAIF は reinforcement learning from AI feedback です。
 

@@ -7,7 +7,7 @@ keywords: [token, context window, attention, temperature, sampling, logits, pret
 
 # 7.2.3 大模型核心概念
 
-![Next-token 生成循环与采样图](/img/course/ch07-next-token-generation-loop-map.png)
+![Next-token 生成循环与采样图](/img/course/ch07-next-token-generation-loop-map.webp)
 
 :::tip 核心循环
 大语言模型不是一次写完整答案，而是不断重复：
@@ -68,7 +68,7 @@ Most likely next token: capital
 
 ## Context Window 是预算
 
-![Context window 信息预算图](/img/course/ch07-context-window-budget-map.png)
+![Context window 信息预算图](/img/course/ch07-context-window-budget-map.webp)
 
 上下文窗口不是无限记忆，而是一段固定 token 预算：
 

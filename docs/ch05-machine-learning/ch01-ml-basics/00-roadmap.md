@@ -11,9 +11,9 @@ Machine learning starts when you stop hand-writing every rule and let a model le
 
 ## Look at the Map First
 
-![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.png)
+![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.webp)
 
-![Machine Learning Basics Chapter Flow](/img/course/ch05-basics-chapter-flow-en.png)
+![Machine Learning Basics Chapter Flow](/img/course/ch05-basics-chapter-flow-en.webp)
 
 Keep this loop:
 

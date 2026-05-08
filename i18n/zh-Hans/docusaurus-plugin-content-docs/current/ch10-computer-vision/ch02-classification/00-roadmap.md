@@ -11,11 +11,11 @@ keywords: [图像分类指南, 数据增强, ResNet, 训练技巧]
 
 ## 先看分类闭环
 
-![图像分类章节学习流程图](/img/course/ch10-classification-chapter-flow.png)
+![图像分类章节学习流程图](/img/course/ch10-classification-chapter-flow.webp)
 
-![图像分类架构演化图](/img/course/ch10-classification-architecture-evolution-map.png)
+![图像分类架构演化图](/img/course/ch10-classification-architecture-evolution-map.webp)
 
-![分类训练诊断图](/img/course/ch10-classification-training-diagnosis-map.png)
+![分类训练诊断图](/img/course/ch10-classification-training-diagnosis-map.webp)
 
 分类是最简单的视觉输出，但它仍然依赖数据划分、增强、架构、loss、指标和错误样例。
 

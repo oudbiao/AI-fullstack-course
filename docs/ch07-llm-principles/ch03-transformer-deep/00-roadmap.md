@@ -11,9 +11,9 @@ This chapter looks inside the Transformer enough to debug LLM behavior and under
 
 ## Look at the Internal Flow First
 
-![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow-en.png)
+![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow-en.webp)
 
-![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.png)
+![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.webp)
 
 ## Build a Causal Mask
 

@@ -310,7 +310,7 @@ asyncio.run(main())
 
 这个表很适合新人，因为它会把“什么时候该上异步、什么时候该限流”重新变成几个具体判断。
 
-![异步并发、Semaphore 与 timeout 控制图](/img/course/ch08-async-concurrency-semaphore-timeout-map.png)
+![异步并发、Semaphore 与 timeout 控制图](/img/course/ch08-async-concurrency-semaphore-timeout-map.webp)
 
 :::tip 读图提示
 异步不是无限并发。图里 `gather` 负责并发等待，`Semaphore` 负责限流，`timeout` 负责不让请求卡死，这三者合在一起才更像真实工程。

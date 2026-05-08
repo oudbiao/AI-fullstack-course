@@ -7,7 +7,7 @@ keywords: [hyperparameter tuning, GridSearchCV, RandomizedSearchCV, search space
 
 # 5.4.5 Hyperparameter Tuning
 
-![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search-en.png)
+![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search-en.webp)
 
 :::tip Section Overview
 Hyperparameter tuning is not "trying settings until the test score looks good." A safe tuning workflow searches on training folds, chooses by cross-validation, and checks once on a final holdout.
@@ -23,9 +23,9 @@ This lesson shows:
 - how to keep a final holdout untouched;
 - how to avoid over-tuning.
 
-![Hyperparameter tuning validation workflow diagram](/img/course/ch05-hyperparameter-tuning-workflow-en.png)
+![Hyperparameter tuning validation workflow diagram](/img/course/ch05-hyperparameter-tuning-workflow-en.webp)
 
-![Hyperparameter search space and budget diagram](/img/course/ch05-search-space-budget-map-en.png)
+![Hyperparameter search space and budget diagram](/img/course/ch05-search-space-budget-map-en.webp)
 
 ## Keyword Decoder
 

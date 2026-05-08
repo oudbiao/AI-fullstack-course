@@ -7,7 +7,7 @@ keywords: [异常检测, 离群点检测, Isolation Forest, LOF, contamination, 
 
 # 5.3.4 异常检测
 
-![异常检测离群点示意图](/img/course/anomaly-detection-outliers.png)
+![异常检测离群点示意图](/img/course/anomaly-detection-outliers.webp)
 
 :::tip 本节概览
 异常检测是在正常模式之外寻找不寻常样本。在真实系统里，它通常是一个告警流程，而不只是一个模型分数。
@@ -25,9 +25,9 @@ keywords: [异常检测, 离群点检测, Isolation Forest, LOF, contamination, 
 
 先看图。异常检测的核心是决定什么要报警，以及每种错误有多贵。
 
-![异常检测决策流程图](/img/course/ch05-anomaly-detection-decision-flow.png)
+![异常检测决策流程图](/img/course/ch05-anomaly-detection-decision-flow.webp)
 
-![异常检测报警阈值漫画](/img/course/ch05-anomaly-alert-threshold-comic.png)
+![异常检测报警阈值漫画](/img/course/ch05-anomaly-alert-threshold-comic.webp)
 
 ## 术语速查
 
@@ -145,7 +145,7 @@ contamination=0.12 flagged=46 precision=0.478 recall=0.917
 
 ## Isolation Forest
 
-![异常检测方法对比图](/img/course/ch05-anomaly-method-comparison-map.png)
+![异常检测方法对比图](/img/course/ch05-anomaly-method-comparison-map.webp)
 
 Isolation Forest 会构建随机划分树。异常点通常更容易被少数几次划分隔离出来，所以会得到更异常的分数。
 

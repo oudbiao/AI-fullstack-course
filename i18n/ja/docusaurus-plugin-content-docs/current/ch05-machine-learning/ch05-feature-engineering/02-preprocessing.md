@@ -7,7 +7,7 @@ keywords: [特徴量前処理, 欠損値, 標準化, one-hot, データリーク
 
 # 5.5.3 特徴量の前処理
 
-![特徴量前処理のパイプライン図](/img/course/feature-preprocessing-pipeline-ja.png)
+![特徴量前処理のパイプライン図](/img/course/feature-preprocessing-pipeline-ja.webp)
 
 :::tip この節の位置づけ
 特徴量の前処理は、「すべての手法を全部かける」ことではありません。モデル、データ、タスクに応じて選ぶことが大切です。本当に重要なのは、各ステップをなぜ行うのか、いつ行うべきでないのか、そしてどうやってデータリークを防ぐのかを理解することです。

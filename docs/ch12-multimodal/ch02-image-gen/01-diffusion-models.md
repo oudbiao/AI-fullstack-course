@@ -7,7 +7,7 @@ keywords: [diffusion model, denoising, forward process, reverse process, generat
 
 # 12.2.2 Principles of Diffusion Models
 
-![Diffusion model noise addition and denoising diagram](/img/course/diffusion-noise-denoise-en.png)
+![Diffusion model noise addition and denoising diagram](/img/course/diffusion-noise-denoise-en.webp)
 
 :::tip Section overview
 There are many paths for generative models:

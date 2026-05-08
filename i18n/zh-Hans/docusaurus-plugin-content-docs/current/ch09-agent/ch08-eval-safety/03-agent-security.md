@@ -52,7 +52,7 @@ flowchart TD
 
 防护思路包括：把外部内容明确标记为不可信；系统提示中说明外部内容不能覆盖工具权限；高风险动作必须走权限检查；对敏感信息做脱敏；记录触发工具前的上下文。
 
-![Prompt Injection 与工具风险隔离图](/img/course/ch09-agent-security-prompt-injection-risk-map.png)
+![Prompt Injection 与工具风险隔离图](/img/course/ch09-agent-security-prompt-injection-risk-map.webp)
 
 :::tip 读图提示
 这张图要从“不可信外部内容”开始读：网页、文档和邮件只能作为资料，不能变成系统指令。真正能执行高风险动作的，必须经过权限、确认、脱敏和审计。

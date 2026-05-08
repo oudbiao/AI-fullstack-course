@@ -23,7 +23,7 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 
 ## 先看决策流程
 
-![迁移学习冻结 backbone 与逐步微调决策图](/img/course/ch06-transfer-learning-freeze-finetune-map.png)
+![迁移学习冻结 backbone 与逐步微调决策图](/img/course/ch06-transfer-learning-freeze-finetune-map.webp)
 
 按这条线读图：
 

@@ -11,7 +11,7 @@ keywords: [NLP 速成, tokenizer, embedding, pretrained model, Hugging Face]
 
 ## 先看流程
 
-![NLP 速成章节流程图](/img/course/ch07-nlp-crash-chapter-flow.png)
+![NLP 速成章节流程图](/img/course/ch07-nlp-crash-chapter-flow.webp)
 
 | 词 | 第一层意思 |
 |---|---|

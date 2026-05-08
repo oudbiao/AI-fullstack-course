@@ -10,9 +10,9 @@ Use this elective when your prototype starts repeating logic, waiting on slow ca
 
 ## See the Engineering Path First
 
-![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map-en.png)
+![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map-en.webp)
 
-![Generator stream pipeline](/img/course/elective-generator-stream-pipeline-en.png)
+![Generator stream pipeline](/img/course/elective-generator-stream-pipeline-en.webp)
 
 Advanced Python is useful when it makes code more observable, reusable, and easier to control.
 

@@ -9,7 +9,7 @@ keywords: [computer vision workshop, OpenCV, synthetic dataset, classification, 
 
 This workshop turns Chapter 10 into a follow-along project. You will not download a dataset or call a cloud model. Instead, one Python script will create a small synthetic image dataset and then run a complete vision loop:
 
-![Vision workshop end-to-end pipeline](/img/course/ch10-workshop-vision-pipeline-map-en.png)
+![Vision workshop end-to-end pipeline](/img/course/ch10-workshop-vision-pipeline-map-en.webp)
 
 You will build four pieces that appear in real vision projects:
 
@@ -50,7 +50,7 @@ Read this as a portfolio habit:
 
 First look at the data flow. A vision project starts before training: image, label, mask, bounding box, split, and hard examples must all be visible.
 
-![Synthetic vision dataset generation map](/img/course/ch10-workshop-synthetic-dataset-map-en.png)
+![Synthetic vision dataset generation map](/img/course/ch10-workshop-synthetic-dataset-map-en.webp)
 
 In this workshop:
 
@@ -478,7 +478,7 @@ This is not meant to beat a deep learning model. It is meant to show the project
 
 Before trusting a vision project, check more than one metric:
 
-![Vision workshop metrics, IoU, and confusion map](/img/course/ch10-workshop-metrics-iou-confusion-map-en.png)
+![Vision workshop metrics, IoU, and confusion map](/img/course/ch10-workshop-metrics-iou-confusion-map-en.webp)
 
 | Metric | What it checks | Why it matters |
 |---|---|---|
@@ -504,7 +504,7 @@ If a red box and green box do not overlap well, the classification may still be 
 
 ## Step 8: Read the Failure Report
 
-![Vision workshop failure sample debugging map](/img/course/ch10-workshop-failure-debug-map-en.png)
+![Vision workshop failure sample debugging map](/img/course/ch10-workshop-failure-debug-map-en.webp)
 
 Open:
 

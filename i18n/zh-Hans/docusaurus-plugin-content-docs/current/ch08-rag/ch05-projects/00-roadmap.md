@@ -11,11 +11,11 @@ keywords: [大模型项目指南, 企业知识库, 智能助手, RAG 项目, 课
 
 ## 先看项目证据闭环
 
-![大模型应用综合项目路线图](/img/course/ch08-projects-route-map.png)
+![大模型应用综合项目路线图](/img/course/ch08-projects-route-map.webp)
 
-![大模型应用项目学习顺序图](/img/course/ch08-project-learning-order-map.png)
+![大模型应用项目学习顺序图](/img/course/ch08-project-learning-order-map.webp)
 
-![大模型应用项目交付闭环图](/img/course/ch08-project-delivery-loop.png)
+![大模型应用项目交付闭环图](/img/course/ch08-project-delivery-loop.webp)
 
 项目不是“连上向量数据库”。它是一个可追踪闭环：文档、分块、检索、上下文、回答、引用、日志、评估和改进。
 

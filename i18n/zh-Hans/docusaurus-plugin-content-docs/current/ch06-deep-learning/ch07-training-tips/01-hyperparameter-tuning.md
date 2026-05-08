@@ -23,7 +23,7 @@ keywords: [hyperparameter tuning, learning rate, batch size, regularization, exp
 
 ## 先看路线图
 
-![深度学习调参与诊断路线图](/img/course/ch06-training-tuning-diagnosis-route.png)
+![深度学习调参与诊断路线图](/img/course/ch06-training-tuning-diagnosis-route.webp)
 
 实操顺序：
 
@@ -127,7 +127,7 @@ best_lr: 1.0
 
 ## 下一步调什么
 
-![超参数搜索图](/img/course/hyperparameter-tuning-search.png)
+![超参数搜索图](/img/course/hyperparameter-tuning-search.webp)
 
 找到合理 learning rate 后，按这个顺序继续：
 

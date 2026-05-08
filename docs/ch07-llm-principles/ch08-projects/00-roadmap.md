@@ -11,11 +11,11 @@ This capstone turns Chapter 7 into one engineering decision: is the problem task
 
 ## See the Project Route First
 
-![LLM capstone project roadmap](/img/course/ch07-projects-route-map-en.png)
+![LLM capstone project roadmap](/img/course/ch07-projects-route-map-en.webp)
 
-![LLM project method-selection loop](/img/course/ch07-project-method-choice-loop-en.png)
+![LLM project method-selection loop](/img/course/ch07-project-method-choice-loop-en.webp)
 
-![Portfolio evidence pack diagram](/img/course/ch07-hands-on-portfolio-evidence-pack-en.png)
+![Portfolio evidence pack diagram](/img/course/ch07-hands-on-portfolio-evidence-pack-en.webp)
 
 Do not start with the strongest model or the most complex framework. Start with a small domain task, a prompt baseline, fixed examples, and a failure log.
 

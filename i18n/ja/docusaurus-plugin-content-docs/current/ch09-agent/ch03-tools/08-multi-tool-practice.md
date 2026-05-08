@@ -7,7 +7,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 # 9.3.9 実践：マルチツール協調 Agent
 
-![Agent 工具调用 Trace 図](/img/course/agent-tool-trace-ja.png)
+![Agent 工具调用 Trace 図](/img/course/agent-tool-trace-ja.webp)
 
 :::tip この節の位置づけ
 前の節までで、すでに次の内容をそれぞれ学びました。

@@ -69,7 +69,7 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 > **把任务说明、上下文和控制参数一起交给模型。**
 
-![LLM API 调用心智模型](/img/course/ch08-llm-api-call-mental-model.png)
+![LLM API 调用心智模型](/img/course/ch08-llm-api-call-mental-model.webp)
 
 :::tip 读图提示
 不要把这张图看成“一行调用代码”，而要看成一个运行闭环。`API` 是应用程序接口，`endpoint` 是服务地址，`JSON` 是网络传输里常用的结构化数据格式，`usage` 记录 token 用量，方便后续做成本和性能分析。
@@ -388,7 +388,7 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 
 这张表的重点是让 API 层成为“稳定接口”，而不是散落在代码里的若干次模型请求。后面的 RAG、结构化输出、Function Calling 和 Agent 都会依赖这一层。
 
-![LLM API 稳健客户端闭环图](/img/course/ch08-llm-api-robust-client-loop-map.png)
+![LLM API 稳健客户端闭环图](/img/course/ch08-llm-api-robust-client-loop-map.webp)
 
 :::tip 读图提示
 一次模型调用进入项目后，就不再只是 `client.chat()`。图里把配置、timeout、retry、统一响应、usage、日志和 raw output 放在同一圈，是为了提醒你 API 层要先变成稳定运行时。

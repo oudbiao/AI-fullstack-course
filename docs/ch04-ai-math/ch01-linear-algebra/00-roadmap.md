@@ -11,11 +11,11 @@ Linear algebra is the language AI uses to represent data and transform it. Do no
 
 ## Look at the Map First
 
-![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-vertical-en.png)
+![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-vertical-en.webp)
 
 The chapter flow is:
 
-![Linear Algebra Chapter Flow](/img/course/ch04-linear-algebra-chapter-flow-en.png)
+![Linear Algebra Chapter Flow](/img/course/ch04-linear-algebra-chapter-flow-en.webp)
 
 | Idea | First meaning in AI |
 |---|---|

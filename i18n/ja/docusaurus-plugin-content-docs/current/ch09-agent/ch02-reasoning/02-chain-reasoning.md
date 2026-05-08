@@ -220,7 +220,7 @@ final answer: 59.0
 
 こうすると、うっかりミスを一部減らせます。
 
-![チェーン推論と自己チェックの構造図](/img/course/ch09-cot-self-check-structure-map-ja.png)
+![チェーン推論と自己チェックの構造図](/img/course/ch09-cot-self-check-structure-map-ja.webp)
 
 :::tip 図の見方
 この図が強調しているのは、「構造化された中間状態」です。モデルに無限に長い思考文を書かせることではありません。本番環境では、推論を facts、subtasks、decision、next_action のような検証可能なスロットに圧縮するほうが一般的です。

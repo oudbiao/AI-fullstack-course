@@ -11,13 +11,13 @@ keywords: [AIGCプロジェクトガイド, クリエイティブプラットフ
 
 ## まずプロダクトの閉ループを見る
 
-![AIGC クリエイティブプラットフォームの納品ループ](/img/course/ch12-projects-delivery-loop-ja.png)
+![AIGC クリエイティブプラットフォームの納品ループ](/img/course/ch12-projects-delivery-loop-ja.webp)
 
-![クリエイティブパッケージのパイプライン](/img/course/ch12-workshop-creative-package-pipeline-map-ja.png)
+![クリエイティブパッケージのパイプライン](/img/course/ch12-workshop-creative-package-pipeline-map-ja.webp)
 
-![プロンプト、素材、バージョンの地図](/img/course/ch12-workshop-prompt-asset-version-map-ja.png)
+![プロンプト、素材、バージョンの地図](/img/course/ch12-workshop-prompt-asset-version-map-ja.webp)
 
-![レビューと出力の地図](/img/course/ch12-workshop-review-export-map-ja.png)
+![レビューと出力の地図](/img/course/ch12-workshop-review-export-map-ja.webp)
 
 最初の習慣は、生成結果をすべて素材として保存し、出所、プロンプト、バージョン、レビュー状態、出力先を付けることです。
 

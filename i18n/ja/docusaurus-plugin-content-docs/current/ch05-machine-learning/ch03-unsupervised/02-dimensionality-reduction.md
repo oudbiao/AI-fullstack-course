@@ -7,7 +7,7 @@ keywords: [次元削減, PCA, 説明分散, t-SNE, UMAP, 特徴量圧縮, 可視
 
 # 5.3.3 次元削減
 
-![PCA 次元削減の投影図](/img/course/pca-dimensionality-reduction-ja.png)
+![PCA 次元削減の投影図](/img/course/pca-dimensionality-reduction-ja.webp)
 
 :::tip この節の概要
 次元削減は、多数の特徴量をより少ない特徴量へ圧縮する方法です。可視化、高速化、ノイズ低減、モデリングに役立ちますが、目的ごとに確認すべきことが違います。
@@ -25,9 +25,9 @@ keywords: [次元削減, PCA, 説明分散, t-SNE, UMAP, 特徴量圧縮, 可視
 
 まず図を見てください。次元削減は、1 つの道具が 1 つの目的だけを持つものではありません。
 
-![次元削減の目的選択図](/img/course/ch05-dimensionality-reduction-purpose-map-ja.png)
+![次元削減の目的選択図](/img/course/ch05-dimensionality-reduction-purpose-map-ja.webp)
 
-![PCA の直感を説明するマンガ](/img/course/ch05-pca-intuition-comic-ja.png)
+![PCA の直感を説明するマンガ](/img/course/ch05-pca-intuition-comic-ja.webp)
 
 ## 用語早見表
 
@@ -141,7 +141,7 @@ total_2d_variance= 0.216
 
 ## 説明分散
 
-![PCA 分散説明率の読み方ガイド](/img/course/ch05-pca-explained-variance-map-ja.png)
+![PCA 分散説明率の読み方ガイド](/img/course/ch05-pca-explained-variance-map-ja.webp)
 
 説明分散は、どれだけ情報を残すかを判断する助けになります。
 

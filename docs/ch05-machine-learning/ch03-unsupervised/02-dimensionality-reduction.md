@@ -7,7 +7,7 @@ keywords: [dimensionality reduction, PCA, explained variance, t-SNE, UMAP, featu
 
 # 5.3.3 Dimensionality Reduction
 
-![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction-en.png)
+![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction-en.webp)
 
 :::tip Section Overview
 Dimensionality reduction compresses many features into fewer features. It can help with visualization, speed, noise reduction, and modeling, but each goal needs a different check.
@@ -25,9 +25,9 @@ This lesson uses the handwritten digits dataset to show:
 
 Look at the maps first. Dimensionality reduction is not one tool with one purpose.
 
-![Dimensionality reduction purpose selection map](/img/course/ch05-dimensionality-reduction-purpose-map-en.png)
+![Dimensionality reduction purpose selection map](/img/course/ch05-dimensionality-reduction-purpose-map-en.webp)
 
-![PCA intuition comic](/img/course/ch05-pca-intuition-comic-en.png)
+![PCA intuition comic](/img/course/ch05-pca-intuition-comic-en.webp)
 
 ## Keyword Decoder
 
@@ -141,7 +141,7 @@ Two components are useful for plotting, but they keep only about `21.6%` of the 
 
 ## Explained Variance
 
-![PCA explained variance ratio reading guide](/img/course/ch05-pca-explained-variance-map-en.png)
+![PCA explained variance ratio reading guide](/img/course/ch05-pca-explained-variance-map-en.webp)
 
 Explained variance helps you decide how much information to keep:
 

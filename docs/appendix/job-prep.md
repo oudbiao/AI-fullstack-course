@@ -5,9 +5,9 @@ sidebar_position: 7
 
 # A.10 Job Search Preparation Checklist
 
-![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel-en.png)
+![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel-en.webp)
 
-![AI job portfolio storyline map](/img/course/appendix-job-portfolio-storyline-map-en.png)
+![AI job portfolio storyline map](/img/course/appendix-job-portfolio-storyline-map-en.webp)
 
 Job preparation is not “learn everything first.” It is turning learning traces into projects other people can understand.
 

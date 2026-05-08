@@ -7,7 +7,7 @@ keywords: [行列, 行列積, 転置, 逆行列, NumPy, ニューラルネット
 
 # 4.1.3 行列：データのバッチ変換
 
-![行列の線形変換グリッド図](/img/course/matrix-linear-transform-grid-ja.png)
+![行列の線形変換グリッド図](/img/course/matrix-linear-transform-grid-ja.webp)
 
 ## 学習目標
 
@@ -31,7 +31,7 @@ keywords: [行列, 行列積, 転置, 逆行列, NumPy, ニューラルネット
 
 行列をただの「数字の表」として見るだけだと、だんだん抽象的に感じやすくなります。初心者には、次のように見るのがおすすめです。
 
-![行列のバッチ変換フローチャート](/img/course/ch04-matrix-batch-transform-flow-ja.png)
+![行列のバッチ変換フローチャート](/img/course/ch04-matrix-batch-transform-flow-ja.webp)
 
 この節で大事なのは、定義を暗記することではなく、次を理解することです。
 
@@ -199,7 +199,7 @@ print(C)
 
 ### 行列積のサイズのルール
 
-![行列積のサイズルール図解](/img/course/ch04-matrix-multiplication-shape-rule-ja.svg)
+![行列積のサイズルール図解](/img/course/ch04-matrix-multiplication-shape-rule-ja.webp)
 
 ```mermaid
 flowchart LR

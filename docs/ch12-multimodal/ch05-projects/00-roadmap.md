@@ -11,13 +11,13 @@ The capstone is not about connecting many model APIs. It is about giving a user 
 
 ## See the Product Loop First
 
-![AIGC creative platform project delivery loop diagram](/img/course/ch12-projects-delivery-loop-en.png)
+![AIGC creative platform project delivery loop diagram](/img/course/ch12-projects-delivery-loop-en.webp)
 
-![Creative package pipeline](/img/course/ch12-workshop-creative-package-pipeline-map-en.png)
+![Creative package pipeline](/img/course/ch12-workshop-creative-package-pipeline-map-en.webp)
 
-![Prompt, asset, and version map](/img/course/ch12-workshop-prompt-asset-version-map-en.png)
+![Prompt, asset, and version map](/img/course/ch12-workshop-prompt-asset-version-map-en.webp)
 
-![Review and export map](/img/course/ch12-workshop-review-export-map-en.png)
+![Review and export map](/img/course/ch12-workshop-review-export-map-en.webp)
 
 The first habit is to save every generated result as an asset with source, prompt, version, review status, and export target.
 

@@ -11,11 +11,11 @@ Tools move an Agent from language to action. More tools do not automatically mak
 
 ## See the Action Boundary First
 
-![Agent tool action layer map](/img/course/ch09-tools-action-layer-map-en.png)
+![Agent tool action layer map](/img/course/ch09-tools-action-layer-map-en.webp)
 
-![Agent tools chapter learning sequence diagram](/img/course/ch09-tools-chapter-flow-en.png)
+![Agent tools chapter learning sequence diagram](/img/course/ch09-tools-chapter-flow-en.webp)
 
-![Agent controlled tool-calling closed loop diagram](/img/course/ch09-tool-control-loop-en.png)
+![Agent controlled tool-calling closed loop diagram](/img/course/ch09-tool-control-loop-en.webp)
 
 Tool calling should always be controlled: choose tool, validate arguments, check permission, run, observe, and decide the next step.
 

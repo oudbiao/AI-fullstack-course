@@ -7,7 +7,7 @@ keywords: [Hugging Face, transformers, tokenizer, model, config, forward, batch,
 
 # 7.1.5 Hugging Face Quick Start
 
-![Hugging Face workflow object map](/img/course/ch07-huggingface-workflow-object-map-en.png)
+![Hugging Face workflow object map](/img/course/ch07-huggingface-workflow-object-map-en.webp)
 
 :::tip Core Chain
 Most Hugging Face examples reduce to one chain:
@@ -147,7 +147,7 @@ Now the model has pretrained weights. The workflow is the same, but the tokenize
 
 ## Object Map for Reading Real Code
 
-![Hugging Face terms map](/img/course/ch07-huggingface-terms-map-en.png)
+![Hugging Face terms map](/img/course/ch07-huggingface-terms-map-en.webp)
 
 When reading a repository, map unfamiliar names back to the core chain:
 

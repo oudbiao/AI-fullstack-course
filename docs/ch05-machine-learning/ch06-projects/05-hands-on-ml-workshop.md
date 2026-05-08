@@ -7,7 +7,7 @@ keywords: [machine learning workshop, sklearn pipeline, baseline, model evaluati
 
 # 5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack
 
-![Chapter 5 hands-on ML workshop route map](/img/course/ch05-hands-on-ml-workshop-route-en.png)
+![Chapter 5 hands-on ML workshop route map](/img/course/ch05-hands-on-ml-workshop-route-en.webp)
 
 :::tip How to use this workshop
 Read each diagram first, then run the code below it. The goal is not to chase the highest score. The goal is to practice the whole Chapter 5 loop: define the task, split the data, build a baseline, train a real model, evaluate it, inspect errors, and leave evidence that another person can rerun.
@@ -45,7 +45,7 @@ The dataset is synthetic and generated locally, so you do not need to download a
 | Error analysis | Save mispredicted samples |
 | Portfolio evidence | Save README, metrics, error samples, and leakage notes |
 
-![Train/test split hands-on guardrail](/img/course/ch05-hands-on-data-split-lab-en.png)
+![Train/test split hands-on guardrail](/img/course/ch05-hands-on-data-split-lab-en.webp)
 
 Read the diagram before you run the script. The target column `delayed` is the answer the model is trying to learn. It must stay out of `X`. The training split is where preprocessing and model parameters are learned; the test split is held back for the final check. If you mix these roles, the score may look good while the project is already broken.
 
@@ -53,7 +53,7 @@ Read the diagram before you run the script. The target column `delayed` is the a
 
 ## Evidence Flow: From Data to Report
 
-![Machine learning evidence pipeline](/img/course/ch05-hands-on-evidence-pipeline-en.png)
+![Machine learning evidence pipeline](/img/course/ch05-hands-on-evidence-pipeline-en.webp)
 
 A beginner mistake is stopping at:
 
@@ -119,7 +119,7 @@ This workshop uses stable scikit-learn APIs such as `Pipeline`, `ColumnTransform
 
 ## Run the Complete Workshop
 
-![Machine learning workshop code execution sequence](/img/course/ch05-hands-on-code-execution-sequence-en.png)
+![Machine learning workshop code execution sequence](/img/course/ch05-hands-on-code-execution-sequence-en.webp)
 
 This is the order you will follow: create a clean folder, copy one script, run it once, then inspect the generated evidence. Do not edit the model first. The first run is your reference point.
 
@@ -132,7 +132,7 @@ cd ch05-ml-workshop
 
 ### Create `ml_workshop.py`
 
-![ColumnTransformer and Pipeline training flow](/img/course/ch05-hands-on-pipeline-training-flow-en.png)
+![ColumnTransformer and Pipeline training flow](/img/course/ch05-hands-on-pipeline-training-flow-en.webp)
 
 Copy the code below into `ml_workshop.py`.
 
@@ -509,7 +509,7 @@ ml_workshop_run/reports/leakage_check.md
 
 ## Read the Output Step by Step
 
-![Threshold and metric decision lab](/img/course/ch05-hands-on-threshold-decision-lab-en.png)
+![Threshold and metric decision lab](/img/course/ch05-hands-on-threshold-decision-lab-en.webp)
 
 ### Start with the baseline
 
@@ -587,7 +587,7 @@ If your business goal changes, change the rule. For example, `recall >= 0.80` ma
 
 ### Inspect the errors
 
-![Error analysis bucket review](/img/course/ch05-hands-on-error-bucket-review-en.png)
+![Error analysis bucket review](/img/course/ch05-hands-on-error-bucket-review-en.webp)
 
 Open `ml_workshop_run/outputs/error_samples.csv`.
 
@@ -647,7 +647,7 @@ That is why this example uses `ColumnTransformer` inside `Pipeline`.
 
 ## Common Errors and Debugging Loop
 
-![Machine learning workshop leakage and debugging loop](/img/course/ch05-hands-on-debug-loop-en.png)
+![Machine learning workshop leakage and debugging loop](/img/course/ch05-hands-on-debug-loop-en.webp)
 
 | Symptom | Likely cause | What to do |
 |---|---|---|
@@ -662,9 +662,9 @@ That is why this example uses `ColumnTransformer` inside `Pipeline`.
 
 ## Turn This Into a Portfolio Project
 
-![Machine learning portfolio evidence pack](/img/course/ch05-hands-on-portfolio-pack-en.png)
+![Machine learning portfolio evidence pack](/img/course/ch05-hands-on-portfolio-pack-en.webp)
 
-![Experiment rerun loop for the ML workshop](/img/course/ch05-hands-on-rerun-experiment-loop-en.png)
+![Experiment rerun loop for the ML workshop](/img/course/ch05-hands-on-rerun-experiment-loop-en.webp)
 
 Upgrade the workshop in small steps:
 

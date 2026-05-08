@@ -5,9 +5,9 @@ sidebar_position: 5
 
 # A.8 学習が止まったときのレスキュー
 
-![学習の詰まりを切り分けるマップ](/img/course/appendix-troubleshooting-rescue-map-ja.png)
+![学習の詰まりを切り分けるマップ](/img/course/appendix-troubleshooting-rescue-map-ja.webp)
 
-![最小再現と質問のフローチャート](/img/course/appendix-debug-mre-help-flow-ja.png)
+![最小再現と質問のフローチャート](/img/course/appendix-debug-mre-help-flow-ja.webp)
 
 詰まったら、「自分には無理」ではなく「どこで失敗しているかを探せる」に変えます。
 

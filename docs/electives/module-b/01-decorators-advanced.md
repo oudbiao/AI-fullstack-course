@@ -7,9 +7,9 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 # E.B.1 Advanced Decorator Usage
 
-![Python decorator execution flow](/img/course/elective-python-decorator-flow-en.png)
+![Python decorator execution flow](/img/course/elective-python-decorator-flow-en.webp)
 
-![Decorator cross-cutting logic layering diagram](/img/course/elective-decorator-crosscutting-layers-en.png)
+![Decorator cross-cutting logic layering diagram](/img/course/elective-decorator-crosscutting-layers-en.webp)
 
 A decorator wraps a function with reusable outer behavior. Use it when many functions need the same logic, such as logging, timing, retry, permission checks, or tracing.
 

@@ -201,7 +201,7 @@ print(error_response)
 - エラーの種類は何か
 - リトライする価値があるか
 
-![API 契約、エラー構造、バージョン管理の図](/img/course/ch08-api-contract-error-version-map-ja.png)
+![API 契約、エラー構造、バージョン管理の図](/img/course/ch08-api-contract-error-version-map-ja.webp)
 
 :::tip 図の読み方
 API は単なる JSON ではなく、システムの契約です。図を見るときは request schema、response schema、error object、trace_id、version に注目してください。これらが、フロントエンド、評価システム、他サービスから長期的に安定して使われるかどうかを決めます。

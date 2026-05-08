@@ -205,7 +205,7 @@ flowchart LR
 
 这个表非常值得先记住，因为后面很多 RLHF、规则护栏、评估 rubric，都是在围绕这三类问题打转。
 
-![Helpful Honest Harmless 对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.png)
+![Helpful Honest Harmless 对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.webp)
 
 :::tip 读图提示
 读这张图时注意三角拉扯：Helpful 要有用，Honest 要承认边界，Harmless 要拦住风险。对齐不是只会拒答，也不是一味帮忙，而是在不同请求里找到三者的平衡，并用评估、策略和护栏落地。

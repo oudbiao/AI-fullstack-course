@@ -11,11 +11,11 @@ Agent project portfolio は、1 つの final model answer ではなく、traceab
 
 ## まず project loop を見る
 
-![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-ja.png)
+![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-ja.webp)
 
-![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-ja.png)
+![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-ja.webp)
 
-![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-ja.png)
+![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-ja.webp)
 
 loop は、goal、plan、tool call、observation、state update、failure handling、stop decision、final output、evaluation です。
 

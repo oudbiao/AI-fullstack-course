@@ -11,9 +11,9 @@ keywords: [机器学习项目指南, 房价预测, 客户流失, 用户分群, K
 
 ## 先看项目闭环
 
-![机器学习项目实践路线图](/img/course/ml-projects-roadmap.png)
+![机器学习项目实践路线图](/img/course/ml-projects-roadmap.webp)
 
-![机器学习项目作品集闭环](/img/course/ch05-projects-portfolio-loop.png)
+![机器学习项目作品集闭环](/img/course/ch05-projects-portfolio-loop.webp)
 
 记住这个项目闭环：
 
@@ -65,7 +65,7 @@ next_step: inspect failure cases before adding more models
 
 ## 项目交付物标准
 
-![机器学习项目报告分镜图](/img/course/ch05-project-report-storyboard.png)
+![机器学习项目报告分镜图](/img/course/ch05-project-report-storyboard.webp)
 
 至少为一个项目保留这些文件：`README.md`、运行命令、指标表、实验记录、一个失败样本、一张图、下一步计划。
 

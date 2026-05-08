@@ -7,7 +7,7 @@ keywords: [token, context window, attention, temperature, sampling, logits, pret
 
 # 7.2.3 大規模モデルの核心概念
 
-![Next-token 生成ループとサンプリング図](/img/course/ch07-next-token-generation-loop-map-ja.png)
+![Next-token 生成ループとサンプリング図](/img/course/ch07-next-token-generation-loop-map-ja.webp)
 
 :::tip 中心ループ
 大規模言語モデルは、答え全体を一度に書くのではありません。次のループを繰り返します。
@@ -68,7 +68,7 @@ Most likely next token: capital
 
 ## Context Window は予算
 
-![Context window 情報予算図](/img/course/ch07-context-window-budget-map-ja.png)
+![Context window 情報予算図](/img/course/ch07-context-window-budget-map-ja.webp)
 
 Context window は無限の記憶ではなく、固定された token budget です。
 

@@ -7,7 +7,7 @@ keywords: [AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC]
 
 # 12.4.3 AI 伦理与安全
 
-![AIGC 伦理安全风险护栏图](/img/course/ch12-ai-ethics-safety-guardrail-map.png)
+![AIGC 伦理安全风险护栏图](/img/course/ch12-ai-ethics-safety-guardrail-map.webp)
 
 :::tip 读图提示
 伦理安全不是抽象口号，而是可以落到数据、模型、提示词、输出审核、人工复核和申诉机制上的工程护栏。读图时先看风险如何被发现、拦截和追踪。

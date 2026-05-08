@@ -23,7 +23,7 @@ A plain RNN has memory, but that memory is easy to overwrite. LSTM and GRU add g
 
 ## See the Gate Idea First
 
-![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.png)
+![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.webp)
 
 Read the picture like this:
 
@@ -53,7 +53,7 @@ LSTM and GRU are not “deeper RNNs.” They are memory-control designs.
 
 ## LSTM: Cell State Plus Three Gates
 
-![LSTM gated information flow control diagram](/img/course/ch06-lstm-gates-information-control-map-en.png)
+![LSTM gated information flow control diagram](/img/course/ch06-lstm-gates-information-control-map-en.webp)
 
 An LSTM keeps two states:
 

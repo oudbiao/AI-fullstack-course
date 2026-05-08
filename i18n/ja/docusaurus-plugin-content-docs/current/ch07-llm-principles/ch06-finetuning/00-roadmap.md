@@ -11,11 +11,11 @@ keywords: [微調整ガイド, LoRA, QLoRA, PEFT, LLM 微調整]
 
 ## まず意思決定ループを見る
 
-![大規模モデル微調の章の関係図](/img/course/ch07-finetuning-chapter-flow-ja.png)
+![大規模モデル微調の章の関係図](/img/course/ch07-finetuning-chapter-flow-ja.webp)
 
-![微調の意思決定と評価のループ図](/img/course/ch07-finetuning-decision-loop-ja.png)
+![微調の意思決定と評価のループ図](/img/course/ch07-finetuning-decision-loop-ja.webp)
 
-![微調整エンジニアリングループ漫画](/img/course/ch07-finetuning-engineering-loop-ja.png)
+![微調整エンジニアリングループ漫画](/img/course/ch07-finetuning-engineering-loop-ja.webp)
 
 重要語：LoRA は low-rank adapter、QLoRA は量子化された LoRA、PEFT は parameter-efficient fine-tuning です。全重みを更新せず、少数の追加パラメータを訓練することでコストを下げます。
 

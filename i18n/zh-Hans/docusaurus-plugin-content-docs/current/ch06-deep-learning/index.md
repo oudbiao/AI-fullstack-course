@@ -7,13 +7,13 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 
 # 6 深度学习与 Transformer 基础
 
-![深度学习与 Transformer 主视觉](/img/course/ch06-deep-learning.png)
+![深度学习与 Transformer 主视觉](/img/course/ch06-deep-learning.webp)
 
 第 6 章只解决一件事：理解模型怎样通过**损失、梯度和反复训练步骤**学会东西。
 
 ## 先看训练闭环
 
-![深度学习训练闭环主图](/img/course/ch06-training-loop-backbone.png)
+![深度学习训练闭环主图](/img/course/ch06-training-loop-backbone.webp)
 
 先看图。大多数深度学习训练代码都是这个闭环：
 

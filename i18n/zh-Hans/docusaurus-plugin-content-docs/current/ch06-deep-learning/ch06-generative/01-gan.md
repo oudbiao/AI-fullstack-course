@@ -23,7 +23,7 @@ GAN 是一个双人训练循环：generator 试图造出看起来真实的假样
 
 ## 先看这场游戏
 
-![GAN 生成器与判别器对抗图](/img/course/gan-adversarial-loop.png)
+![GAN 生成器与判别器对抗图](/img/course/gan-adversarial-loop.webp)
 
 | 部件 | 输入 | 输出 | 目标 |
 |---|---|---|---|
@@ -33,7 +33,7 @@ GAN 是一个双人训练循环：generator 试图造出看起来真实的假样
 
 GAN 不是像普通分类那样只对一个固定标签目标训练。discriminator 会改变“什么样的假样本难以识别”，generator 也会改变假样本长什么样。
 
-![GAN 对抗训练平衡与 mode collapse 图](/img/course/ch06-gan-adversarial-balance-map.png)
+![GAN 对抗训练平衡与 mode collapse 图](/img/course/ch06-gan-adversarial-balance-map.webp)
 
 ## 实操循环
 

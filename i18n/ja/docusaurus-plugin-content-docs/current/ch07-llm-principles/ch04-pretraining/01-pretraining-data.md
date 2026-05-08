@@ -7,7 +7,7 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 # 7.4.2 事前学習データ
 
-![事前学習データのパイプライン図](/img/course/pretraining-data-pipeline-ja.png)
+![事前学習データのパイプライン図](/img/course/pretraining-data-pipeline-ja.webp)
 
 :::tip この節の位置づけ
 多くの人は、大規模モデルというと、まず次のような点を思い浮かべます。
@@ -139,7 +139,7 @@ flowchart LR
 
 このパイプラインは、「データが大事」という話を具体化してくれます。どの段階も、モデルが最終的に何を学べるか、何に偏るか、どんなミスをしやすいかを変えます。
 
-![事前学習データガバナンスのファネル図](/img/course/ch07-pretraining-data-governance-funnel-ja.png)
+![事前学習データガバナンスのファネル図](/img/course/ch07-pretraining-data-governance-funnel-ja.webp)
 
 :::tip 図の見方
 この図は「生データがたくさんある」状態から、「学習可能なコーパスはずっと少ない」状態へと読んでください。クリーニング、重複排除、リスクフィルタリング、汚染対策、配分は飾りではなく、モデルに対して「どのパターンを学ぶ価値があるか」「どのノイズを訓練前に止めるべきか」を決める工程です。
@@ -473,7 +473,7 @@ pprint(draws)
 
 だからこそ、データガバナンスにはバージョン管理の意識が必要です。
 
-![データ汚染と評価リーク図](/img/course/ch07-pretraining-contamination-leakage-map-ja.png)
+![データ汚染と評価リーク図](/img/course/ch07-pretraining-contamination-leakage-map-ja.webp)
 
 :::tip 図の読み方
 学習コーパスと評価セットは、必ずきれいに分離します。benchmark の問題、解答、または近い変種が学習に漏れると、モデルは答え方のパターンを見たことがあるだけで高得点に見える場合があります。それは本当の汎化ではありません。

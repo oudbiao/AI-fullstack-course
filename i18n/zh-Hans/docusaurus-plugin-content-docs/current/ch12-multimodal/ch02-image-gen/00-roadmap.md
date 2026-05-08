@@ -11,11 +11,11 @@ keywords: [图像生成指南, 扩散模型, Stable Diffusion, ControlNet, LoRA]
 
 ## 先看流程图
 
-![图像生成章节学习流程图](/img/course/ch12-image-gen-chapter-flow.png)
+![图像生成章节学习流程图](/img/course/ch12-image-gen-chapter-flow.webp)
 
-![Stable Diffusion 应用模式选择图](/img/course/ch12-sd-application-mode-selector-map.png)
+![Stable Diffusion 应用模式选择图](/img/course/ch12-sd-application-mode-selector-map.webp)
 
-![Stable Diffusion 微调路线选择图](/img/course/ch12-sd-finetuning-route-choice-map.png)
+![Stable Diffusion 微调路线选择图](/img/course/ch12-sd-finetuning-route-choice-map.webp)
 
 先养成一个习惯：记录你要什么、用了哪种模式、哪些 seed 或参数影响结果，以及导出前必须审核什么。
 

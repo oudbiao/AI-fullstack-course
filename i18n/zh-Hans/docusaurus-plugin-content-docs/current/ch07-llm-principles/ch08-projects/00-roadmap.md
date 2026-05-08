@@ -11,11 +11,11 @@ keywords: [大模型项目指南, 领域微调, Prompt, RAG, 大模型评估]
 
 ## 先看项目路线
 
-![大模型综合项目路线图](/img/course/ch07-projects-route-map.png)
+![大模型综合项目路线图](/img/course/ch07-projects-route-map.webp)
 
-![大模型项目方法选择闭环图](/img/course/ch07-project-method-choice-loop.png)
+![大模型项目方法选择闭环图](/img/course/ch07-project-method-choice-loop.webp)
 
-![作品集证据包图](/img/course/ch07-hands-on-portfolio-evidence-pack.png)
+![作品集证据包图](/img/course/ch07-hands-on-portfolio-evidence-pack.webp)
 
 不要从最强模型或最复杂框架开始。先从一个小领域任务、Prompt 基线、固定样例和失败记录开始。
 

@@ -7,7 +7,7 @@ keywords: [偏差, 方差, 欠拟合, 过拟合, 学习曲线, 验证曲线, 模
 
 # 5.4.4 偏差-方差权衡
 
-![偏差方差权衡三联图](/img/course/bias-variance-tradeoff.png)
+![偏差方差权衡三联图](/img/course/bias-variance-tradeoff.webp)
 
 :::tip 本节概览
 偏差和方差不是只存在于理论里的词。它们是一种诊断方式：模型是太简单、太不稳定，还是受限于数据质量。
@@ -22,7 +22,7 @@ keywords: [偏差, 方差, 欠拟合, 过拟合, 学习曲线, 验证曲线, 模
 - 学习曲线如何说明更多数据是否可能有帮助；
 - 高偏差和高方差分别应该采取什么行动。
 
-![偏差方差行动诊断图](/img/course/ch05-bias-variance-action-map.png)
+![偏差方差行动诊断图](/img/course/ch05-bias-variance-action-map.webp)
 
 ## 环境准备
 
@@ -119,7 +119,7 @@ max_depth=3 train=0.977 test=0.944 gap=0.032
 
 ## 学习曲线
 
-![学习曲线诊断图](/img/course/ch05-learning-curve-diagnosis-map.png)
+![学习曲线诊断图](/img/course/ch05-learning-curve-diagnosis-map.webp)
 
 学习曲线展示训练数据增加时会发生什么：
 

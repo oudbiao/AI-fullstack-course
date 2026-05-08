@@ -7,7 +7,7 @@ keywords: [computer vision, OpenCV, image classification, object detection, YOLO
 
 # 10 Computer Vision (Elective Track)
 
-![Computer Vision main visual](/img/course/ch10-computer-vision-en.png)
+![Computer Vision main visual](/img/course/ch10-computer-vision-en.webp)
 
 This elective chapter answers a simple question: **what does it mean for a model to see an image?** Start with pixels, then move from coarse output to fine output: classify the whole image, locate objects, segment pixels, and finally connect vision to OCR, video, or multimodal systems.
 
@@ -15,7 +15,7 @@ If your main track is LLM apps and Agents, you can return later. If you care abo
 
 ## See Vision Tasks By Output Granularity
 
-![Vision task granularity ladder](/img/course/ch10-vision-task-granularity-ladder-en.png)
+![Vision task granularity ladder](/img/course/ch10-vision-task-granularity-ladder-en.webp)
 
 Ask three questions about the same image:
 
@@ -87,7 +87,7 @@ Operation tip: change `width`, `height`, or the RGB formula. If the saved image 
 
 ## Debug Vision Results
 
-![Vision pipeline and failure review loop](/img/course/ch10-vision-pipeline-loop-en.png)
+![Vision pipeline and failure review loop](/img/course/ch10-vision-pipeline-loop-en.webp)
 
 When a vision model is wrong, inspect the input and labels before blaming the architecture.
 

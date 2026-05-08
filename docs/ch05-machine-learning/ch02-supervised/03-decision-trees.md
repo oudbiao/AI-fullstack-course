@@ -7,7 +7,7 @@ keywords: [decision tree, Gini, entropy, pruning, ccp_alpha, CART, feature impor
 
 # 5.2.4 Decision Trees
 
-![Decision tree split path diagram](/img/course/decision-tree-split-path-en.png)
+![Decision tree split path diagram](/img/course/decision-tree-split-path-en.webp)
 
 :::tip Section Overview
 A decision tree is a model made of questions. It is easy to read because each prediction follows a path of rules, but it can also overfit quickly when the rules become too detailed.
@@ -25,9 +25,9 @@ In this lesson you will run one script that shows:
 
 Read the maps first. A tree is not just "if-else"; it is "if-else plus a scoring rule plus complexity control."
 
-![Decision tree learning main flow chart](/img/course/ch05-decision-tree-learning-flow-en.png)
+![Decision tree learning main flow chart](/img/course/ch05-decision-tree-learning-flow-en.webp)
 
-![Decision tree learning and pruning comic](/img/course/ch05-decision-tree-learning-comic-en.png)
+![Decision tree learning and pruning comic](/img/course/ch05-decision-tree-learning-comic-en.webp)
 
 ## Setup
 
@@ -152,7 +152,7 @@ max_depth=3    train=0.982 test=0.974 leaves=5 depth=3
 
 `max_depth=1` asks only one question, so the model is too simple. `max_depth=3` asks a few follow-up questions and performs much better. On this tiny dataset, `max_depth=None` does not grow deeper because `min_samples_leaf=3` and the data are already simple enough.
 
-![Decision tree split criteria: entropy, Gini, and information gain](/img/course/ch05-decision-tree-split-criteria-en.png)
+![Decision tree split criteria: entropy, Gini, and information gain](/img/course/ch05-decision-tree-split-criteria-en.webp)
 
 At each node, the tree searches for a question like:
 
@@ -177,7 +177,7 @@ Use `gini` first unless you have a reason to compare. In many tabular projects, 
 
 ## Complexity Control
 
-![Decision tree overfitting and pruning diagram](/img/course/ch05-tree-pruning-overfit-map-en.png)
+![Decision tree overfitting and pruning diagram](/img/course/ch05-tree-pruning-overfit-map-en.webp)
 
 The practical tuning order is:
 
@@ -185,7 +185,7 @@ The practical tuning order is:
 2. Set `min_samples_leaf` so each leaf has enough examples.
 3. Use `ccp_alpha` for post-pruning after a full tree is grown.
 
-![Decision tree pruning and tuning order](/img/course/ch05-decision-tree-pruning-order-en.png)
+![Decision tree pruning and tuning order](/img/course/ch05-decision-tree-pruning-order-en.webp)
 
 The pruning output shows the trade-off:
 
@@ -217,7 +217,7 @@ For stronger interpretation, compare tree importance with permutation importance
 
 ## Regression Trees
 
-![Regression tree step prediction intuition](/img/course/ch05-decision-tree-regression-tree-en.png)
+![Regression tree step prediction intuition](/img/course/ch05-decision-tree-regression-tree-en.webp)
 
 A regression tree predicts numbers, but the idea is the same: split the feature space into regions, then output the average target value in each leaf.
 

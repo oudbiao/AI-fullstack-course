@@ -150,7 +150,7 @@ Agent 要长期工作，必须接近后者。
 
 这能显著减轻检索噪声和上下文压力。
 
-![记忆工程生命周期图](/img/course/ch09-memory-engineering-lifecycle-map.png)
+![记忆工程生命周期图](/img/course/ch09-memory-engineering-lifecycle-map.webp)
 
 :::tip 读图提示
 这张图按生命周期读：write 决定是否写入，index 决定怎么组织，retrieve 决定怎么找回，cleanup / compress 决定什么时候清理和压缩。记忆工程的难点是策略，不只是存储。

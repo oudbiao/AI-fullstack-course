@@ -7,7 +7,7 @@ keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workfl
 
 # 12.2.4 SD Applications
 
-![Stable Diffusion application mode selection diagram](/img/course/ch12-sd-application-mode-selector-map-en.png)
+![Stable Diffusion application mode selection diagram](/img/course/ch12-sd-application-mode-selector-map-en.webp)
 
 :::tip Reading guide
 For SD applications, first figure out whether the user is trying to “generate from scratch,” “edit based on a reference image,” “do partial repair,” or “control by conditions.” Choose the right application mode first, then talk about prompts, parameters, and workflows. That will make your project much more stable.

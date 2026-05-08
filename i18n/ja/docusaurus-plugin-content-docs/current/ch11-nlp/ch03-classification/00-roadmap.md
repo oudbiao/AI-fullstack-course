@@ -11,7 +11,7 @@ keywords: [テキスト分類ガイド, 感情分析, TF-IDF, テキスト分類
 
 ## 先に全体像を見る
 
-![テキスト分類章の進め方](/img/course/ch11-classification-chapter-flow-ja.png)
+![テキスト分類章の進め方](/img/course/ch11-classification-chapter-flow-ja.webp)
 
 | 順番 | 方法 | 使いどころ |
 |---|---|---|
@@ -21,7 +21,7 @@ keywords: [テキスト分類ガイド, 感情分析, TF-IDF, テキスト分類
 
 ## まずルール baseline を動かす
 
-![従来分類 baseline の流れ](/img/course/ch11-traditional-classification-baseline-map-ja.png)
+![従来分類 baseline の流れ](/img/course/ch11-traditional-classification-baseline-map-ja.webp)
 
 `baseline` は、後で比べるための最初の基準です。最初から複雑なモデルに進むより、簡単なルールで入力と出力を確認すると失敗に気づきやすくなります。
 
@@ -46,7 +46,7 @@ needs_review - confusing setup error
 
 ## embedding 分類へ進む
 
-![embedding と pooling を使う分類の流れ](/img/course/ch11-neural-classification-embedding-pooling-map-ja.png)
+![embedding と pooling を使う分類の流れ](/img/course/ch11-neural-classification-embedding-pooling-map-ja.webp)
 
 深層学習版では、token を embedding に変え、文全体の表現を作り、最後にラベルを予測します。`pooling` は複数 token の情報を 1 つの文ベクトルにまとめる操作です。
 

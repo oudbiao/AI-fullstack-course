@@ -192,7 +192,7 @@ print(chain.run("返金ポリシーは何ですか？"))
 
 LangChain が「コンポーネントを組み立てるフレームワーク」に見えるのは、このためです。
 
-![LangChain コンポーネントのパイプライン図](/img/course/ch08-langchain-component-pipeline-map-ja.png)
+![LangChain コンポーネントのパイプライン図](/img/course/ch08-langchain-component-pipeline-map-ja.webp)
 
 :::tip 図の見方
 LangChain はコードをかっこよく見せるためのものではなく、Prompt、Retriever、Model、Output Parser などのノード間の入出力境界をはっきり分けるためのものです。初心者はまず「データがどのノードから次のノードへ流れるか」を見てください。

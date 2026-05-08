@@ -7,13 +7,13 @@ keywords: [NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization
 
 # 3 Data Analysis and Visualization
 
-![Main visual for data analysis and visualization](/img/course/ch03-data-visualization-en.png)
+![Main visual for data analysis and visualization](/img/course/ch03-data-visualization-en.webp)
 
 Chapter 3 has one job: help you turn messy data into **a trustworthy conclusion with reproducible code and charts**.
 
 ## See The Data Analysis Loop
 
-![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone-en.png)
+![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone-en.webp)
 
 Read the picture first. Most useful analysis follows this loop:
 

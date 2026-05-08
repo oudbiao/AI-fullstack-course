@@ -7,9 +7,9 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 # E.C.1 支持向量机
 
-![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.png)
+![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.webp)
 
-![SVM 参数 C 与 kernel 选择图](/img/course/elective-svm-c-kernel-decision-map.png)
+![SVM 参数 C 与 kernel 选择图](/img/course/elective-svm-c-kernel-decision-map.webp)
 
 SVM 会寻找一个间隔尽量大的决策边界。离边界最近的点叫支持向量，它们是最影响边界位置的关键样本。
 

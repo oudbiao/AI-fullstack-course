@@ -5,9 +5,9 @@ sidebar_position: 4
 
 # A.7 AI 持续学习方法
 
-![三层持续学习飞轮图](/img/course/appendix-continuous-learning-flywheel.png)
+![三层持续学习飞轮图](/img/course/appendix-continuous-learning-flywheel.webp)
 
-![论文、项目、知识库复盘闭环图](/img/course/appendix-learning-paper-project-notes-loop.png)
+![论文、项目、知识库复盘闭环图](/img/course/appendix-learning-paper-project-notes-loop.webp)
 
 持续学习不是每天追新闻，而是一个循环：基础、项目、前沿信号、复盘。
 

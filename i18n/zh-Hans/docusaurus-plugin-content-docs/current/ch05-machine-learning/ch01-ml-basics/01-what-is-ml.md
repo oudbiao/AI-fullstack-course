@@ -7,7 +7,7 @@ keywords: [机器学习, 监督学习, 无监督学习, 强化学习, AI, 工作
 
 # 5.1.2 什么是机器学习
 
-![机器学习建模闭环图](/img/course/ml-modeling-loop.png)
+![机器学习建模闭环图](/img/course/ml-modeling-loop.webp)
 
 ## 本节定位
 
@@ -30,11 +30,11 @@ keywords: [机器学习, 监督学习, 无监督学习, 强化学习, AI, 工作
 
 这篇最重要的任务，不是把定义背下来，而是先帮你建立一个判断框架：
 
-![机器学习任务类型判断图](/img/course/ch05-task-type-decision-map.png)
+![机器学习任务类型判断图](/img/course/ch05-task-type-decision-map.webp)
 
 如果这张图你看懂了，后面第 5 站很多章节都会突然顺起来。
 
-![机器学习第一判断漫画](/img/course/ch05-ml-first-decision-comic.png)
+![机器学习第一判断漫画](/img/course/ch05-ml-first-decision-comic.webp)
 
 可以把这张漫画当成快速入门检查表：如果规则能写清楚，普通程序可能就够了；如果规律藏在大量案例里，机器学习就开始有价值。然后再判断你有没有标签、输出是类别还是数值、评估指标能不能证明模型真的有用。
 
@@ -326,7 +326,7 @@ flowchart LR
 如果你用同一份数据训练和评估，模型可以通过"记住"数据来获得满分——但面对新数据时表现很差。这叫**过拟合**（overfit）。就像考试前把答案背下来，换一套题就不会了。
 :::
 
-![训练验证测试与数据泄漏护栏图](/img/course/ch05-data-split-leakage-guardrail.png)
+![训练验证测试与数据泄漏护栏图](/img/course/ch05-data-split-leakage-guardrail.webp)
 
 读这张图时，先看三条边界：训练集用来学，验证集用来选方案，测试集只在最后验收。只要某个处理步骤提前看到了测试集信息，比如先对全量数据标准化、先用全量数据选特征，模型分数就可能变得“虚高”。
 
@@ -345,7 +345,7 @@ flowchart LR
 
 先别急着看代码，先看完整闭环：
 
-![最小机器学习项目闭环](/img/course/ch05-minimal-ml-project-loop.png)
+![最小机器学习项目闭环](/img/course/ch05-minimal-ml-project-loop.webp)
 
 这张图就是一个最小可用 ML 项目的形状：定义问题，准备 `X` 和 `y`，训练模型，用指标评估，再决定下一步改哪里。下面的代码故意写得很小，是为了让你把每一行都对应到图里的一个步骤，而不是一上来就被框架细节淹没。
 

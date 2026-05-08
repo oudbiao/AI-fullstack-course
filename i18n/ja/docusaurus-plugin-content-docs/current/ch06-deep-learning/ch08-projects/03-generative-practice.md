@@ -23,7 +23,7 @@ keywords: [generative project, GAN, VAE, generation quality, diversity, evaluati
 
 ## まず Evaluation Loop を見る
 
-![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-ja.png)
+![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-ja.webp)
 
 ```text
 train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step

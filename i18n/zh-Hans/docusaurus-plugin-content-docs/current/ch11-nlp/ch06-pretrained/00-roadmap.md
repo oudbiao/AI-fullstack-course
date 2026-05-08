@@ -11,11 +11,11 @@ keywords: [预训练指南, BERT, GPT, T5, transformers]
 
 ## 先看范式地图
 
-![BERT GPT T5 对比图](/img/course/bert-gpt-t5-comparison.png)
+![BERT GPT T5 对比图](/img/course/bert-gpt-t5-comparison.webp)
 
-![预训练语言模型章节学习顺序图](/img/course/ch11-pretrained-chapter-flow.png)
+![预训练语言模型章节学习顺序图](/img/course/ch11-pretrained-chapter-flow.webp)
 
-![预训练迁移微调图](/img/course/ch11-pretraining-transfer-finetune-map.png)
+![预训练迁移微调图](/img/course/ch11-pretraining-transfer-finetune-map.webp)
 
 BERT 偏理解，GPT 偏生成，T5 把很多任务改写成 text-to-text。
 

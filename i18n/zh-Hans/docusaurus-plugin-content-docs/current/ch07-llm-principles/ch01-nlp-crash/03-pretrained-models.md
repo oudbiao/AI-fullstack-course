@@ -7,7 +7,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 
 # 7.1.4 预训练语言模型速览
 
-![迁移学习适配图](/img/course/ch06-transfer-learning-freeze-finetune-map.png)
+![迁移学习适配图](/img/course/ch06-transfer-learning-freeze-finetune-map.webp)
 
 :::tip 一个实用判断
 预训练模型不是自动懂你业务的魔法模型。它是可复用的语言基础。你的任务是选择最便宜、最可靠的方式，把这个基础适配到当前任务。

@@ -7,7 +7,7 @@ keywords: [AI Agent, agent, tools, planning, workflow, function calling]
 
 # 9.1.2 What Is an AI Agent
 
-![Comparison diagram of Agent vs. a regular Chatbot](/img/course/agent-vs-chatbot-comparison-en.png)
+![Comparison diagram of Agent vs. a regular Chatbot](/img/course/agent-vs-chatbot-comparison-en.webp)
 
 :::tip Section Overview
 Beginners often misunderstand an Agent as:
@@ -153,7 +153,7 @@ This diagram is very important because it helps beginners first see:
 - an Agent is not “a smarter chat box”
 - instead, the way the system is controlled changes
 
-![Boundary diagram of workflow, chatbot, and Agent](/img/course/ch09-agent-boundary-workflow-chatbot-map-en.png)
+![Boundary diagram of workflow, chatbot, and Agent](/img/course/ch09-agent-boundary-workflow-chatbot-map-en.webp)
 
 :::tip Reading Tip
 When reading this diagram, don’t first ask who is more “intelligent.” Instead, look at where the control lies: the workflow path is predefined by the program, the chatbot mainly handles replies, and the Agent repeatedly decides the next action around a goal.
@@ -230,7 +230,7 @@ This diagram is especially important because it reminds you:
 - the key of an Agent is not just outputting one sentence
 - instead, it enters a closed loop of “goal -> action -> observation”
 
-![Agent action loop and trace diagram](/img/course/ch09-agent-action-loop-trace-map-en.png)
+![Agent action loop and trace diagram](/img/course/ch09-agent-action-loop-trace-map-en.webp)
 
 :::tip Reading Tip
 You can read this diagram as a timeline: after the goal enters the system, the Agent leaves behind action, observation, and state updates in each round. When debugging an Agent later, you don’t just look at the final answer — you look at this trace that can be reviewed afterward.

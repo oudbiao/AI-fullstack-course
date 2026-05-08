@@ -7,7 +7,7 @@ keywords: [matrices, matrix multiplication, transpose, inverse matrix, NumPy, ne
 
 # 4.1.3 Matrices: Batch Transformations of Data
 
-![Matrix linear transformation grid diagram](/img/course/matrix-linear-transform-grid-en.png)
+![Matrix linear transformation grid diagram](/img/course/matrix-linear-transform-grid-en.webp)
 
 ## Learning Objectives
 
@@ -31,7 +31,7 @@ This section is not about finishing matrix theory. Instead, it is about stabiliz
 
 If you only think of matrices as “number tables,” this topic can quickly become abstract. A more beginner-friendly view is:
 
-![Matrix batch transformation flowchart](/img/course/ch04-matrix-batch-transform-flow-en.png)
+![Matrix batch transformation flowchart](/img/course/ch04-matrix-batch-transform-flow-en.webp)
 
 So the most important thing in this section is not memorizing the matrix definition, but understanding:
 
@@ -196,7 +196,7 @@ print(C)
 
 ### Size rules for matrix multiplication
 
-![Matrix multiplication shape rule diagram](/img/course/ch04-matrix-multiplication-shape-rule-en.svg)
+![Matrix multiplication shape rule diagram](/img/course/ch04-matrix-multiplication-shape-rule-en.webp)
 
 ```mermaid
 flowchart LR

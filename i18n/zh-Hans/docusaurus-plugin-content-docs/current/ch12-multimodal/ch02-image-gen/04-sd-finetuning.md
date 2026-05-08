@@ -7,7 +7,7 @@ keywords: [DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, per
 
 # 12.2.5 图像生成微调
 
-![图像生成微调路线选择图](/img/course/ch12-sd-finetuning-route-choice-map.png)
+![图像生成微调路线选择图](/img/course/ch12-sd-finetuning-route-choice-map.webp)
 
 :::tip 读图提示
 图像生成微调不要一上来就想“全量训练”。先判断你要的是新概念触发词、可插拔风格，还是专属主体一致性，再选择 Textual Inversion、LoRA 或 DreamBooth。

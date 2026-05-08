@@ -9,7 +9,7 @@ keywords: [LLM API, Responses API, Token 预算, JSON 校验, 结构化输出, A
 
 这一节把前面的概念变成一个能跟着做的流程。先不要急着比较哪个模型最强，先学会一次完整 LLM 调用到底发生了什么：用户任务、Token 预算、请求载荷、模型输出、校验和重试。
 
-![LLM 调用工作台](/img/course/ch07-llm-call-workbench-zh.png)
+![LLM 调用工作台](/img/course/ch07-llm-call-workbench-zh.webp)
 
 :::tip 学习节奏
 按照“先看图，再跑代码，最后看术语和公式”的顺序学习。只要能把一次请求从输入追踪到可用输出，LLM 工程就不会那么像黑盒。

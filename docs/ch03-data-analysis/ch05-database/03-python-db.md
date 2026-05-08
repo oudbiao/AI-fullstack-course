@@ -6,7 +6,7 @@ description: "Connect to databases with Python to perform CRUD operations and wo
 
 # 3.5.4 Python Database Operations
 
-![Python and database collaboration bridge diagram](/img/course/ch03-python-database-bridge-en.png)
+![Python and database collaboration bridge diagram](/img/course/ch03-python-database-bridge-en.webp)
 
 :::tip Section overview
 Many beginners start to feel a little confused here:
@@ -53,7 +53,7 @@ So what this section really wants to solve is:
 - How Python and databases are connected
 - Why this step becomes the real entry point for many data projects
 
-![Python, SQL, SQLite, and Pandas safe collaboration workflow](/img/course/ch03-python-database-safety-vertical-en.png)
+![Python, SQL, SQLite, and Pandas safe collaboration workflow](/img/course/ch03-python-database-safety-vertical-en.webp)
 
 ### Acronyms and Terms to Understand First
 

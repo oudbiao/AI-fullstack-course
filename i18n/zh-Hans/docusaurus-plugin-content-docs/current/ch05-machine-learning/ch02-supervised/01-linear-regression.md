@@ -7,13 +7,13 @@ keywords: [线性回归, 最小二乘法, 残差, RMSE, MAE, Ridge, 多项式回
 
 # 5.2.2 线性回归：baseline、残差、正则化
 
-![线性回归学习主线图](/img/course/ch05-linear-regression-learning-flow.png)
+![线性回归学习主线图](/img/course/ch05-linear-regression-learning-flow.webp)
 
 线性回归回答一个很实用的问题：**能不能用几个输入数字解释或预测一个连续数值？** 例如价格、销量、需求、温度、延迟或成本。
 
 ## 先看直觉
 
-![线性回归直觉漫画](/img/course/ch05-linear-regression-intuition-comic.png)
+![线性回归直觉漫画](/img/course/ch05-linear-regression-intuition-comic.webp)
 
 先记住这条线：
 
@@ -121,7 +121,7 @@ price ~= 30.54 + 2.85 * area + 17.97 * rooms - 1.72 * age
 
 ## 求解方法怎么选
 
-![正规方程与梯度下降选择图](/img/course/ch05-linear-regression-solver-choice.png)
+![正规方程与梯度下降选择图](/img/course/ch05-linear-regression-solver-choice.webp)
 
 你不需要每天手推线性回归，但要知道两种思路：
 
@@ -134,7 +134,7 @@ price ~= 30.54 + 2.85 * area + 17.97 * rooms - 1.72 * age
 
 ## 多项式与 Ridge
 
-![多项式复杂度与正则化直觉](/img/course/ch05-linear-regression-complexity-regularization.png)
+![多项式复杂度与正则化直觉](/img/course/ch05-linear-regression-complexity-regularization.webp)
 
 脚本里还尝试了：
 
@@ -146,7 +146,7 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 
 ## 检查残差
 
-![线性回归残差诊断图](/img/course/ch05-linear-regression-residual-diagnostics.png)
+![线性回归残差诊断图](/img/course/ch05-linear-regression-residual-diagnostics.webp)
 
 回归模型看起来不错时，仍然要看残差：
 

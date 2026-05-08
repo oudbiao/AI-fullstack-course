@@ -7,7 +7,7 @@ keywords: [OCR, text detection, text recognition, document AI, layout analysis]
 
 # 10.5.4 OCR Text Recognition [Optional]
 
-![OCR layout analysis and text recognition pipeline](/img/course/ocr-layout-recognition-pipeline-en.png)
+![OCR layout analysis and text recognition pipeline](/img/course/ocr-layout-recognition-pipeline-en.webp)
 
 :::tip Section Overview
 OCR is often explained in one sentence:
@@ -203,7 +203,7 @@ This example is very small, but it helps beginners build an important intuition:
 - OCR is not finished just because recognition is done
 - Restoring text order and structure is often equally important
 
-![OCR detection, recognition, and reading order restoration diagram](/img/course/ch10-ocr-layout-reading-order-map-en.png)
+![OCR detection, recognition, and reading order restoration diagram](/img/course/ch10-ocr-layout-reading-order-map-en.webp)
 
 :::tip Reading Tip
 OCR projects should be debugged in three layers: whether text detection boxes are correct, whether text recognition is correct, and whether the layout structure and order are restored correctly. Receipts, tables, and two-column documents often fail at the third layer.

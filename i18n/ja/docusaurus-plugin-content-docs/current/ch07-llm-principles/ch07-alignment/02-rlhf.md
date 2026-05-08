@@ -7,7 +7,7 @@ keywords: [RLHF, reward model, preference data, PPO, alignment]
 
 # 7.7.3 RLHF の流れ
 
-![RLHF 三段階の流れ図](/img/course/rlhf-three-stage-loop-ja.png)
+![RLHF 三段階の流れ図](/img/course/rlhf-three-stage-loop-ja.webp)
 
 :::tip この節の位置づけ
 RLHF と聞くと、最初はふわっとした言い方に聞こえる人が多いです。
@@ -191,7 +191,7 @@ RLHF でよく使う工程上の直感は、まず次のように覚えるとよ
 
 この表は、RLHF を単なる略語ではなく、いくつかの明確な役割に分解して理解するのに役立ちます。
 
-![RLHF 報酬モデルと KL 制約の閉ループ図](/img/course/ch07-rlhf-reward-kl-loop-map-ja.png)
+![RLHF 報酬モデルと KL 制約の閉ループ図](/img/course/ch07-rlhf-reward-kl-loop-map-ja.webp)
 
 :::tip 図の読み方
 この図は、役割ごとに読むのがおすすめです。SFT でまずモデルが答えられるようにし、嗜好ペアで Reward Model を学習し、ポリシーモデルが高報酬方向へ更新されます。Reference Model と KL penalty は、スコアを取りに行きすぎて軌道を外れるのを防ぎます。RLHF が重いのは名前が複雑だからではなく、この流れの中で複数のモデル役割を同時に保つ必要があるからです。

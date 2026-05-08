@@ -6,7 +6,7 @@ description: "Apply Python fundamentals in a hands-on way to build a command-lin
 
 # 2.3.1 Project: Command-Line Task Manager
 
-![Command-Line Task Manager architecture diagram](/img/course/ch02-todo-cli-architecture-en.png)
+![Command-Line Task Manager architecture diagram](/img/course/ch02-todo-cli-architecture-en.webp)
 
 ## Project Overview
 

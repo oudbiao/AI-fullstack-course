@@ -7,7 +7,7 @@ keywords: [information theory, entropy, cross entropy, KL divergence, loss funct
 
 # 4.2.5 Fundamentals of Information Theory
 
-![Information entropy and uncertainty diagram](/img/course/information-entropy-uncertainty-en.png)
+![Information entropy and uncertainty diagram](/img/course/information-entropy-uncertainty-en.webp)
 
 :::tip Why learn information theory?
 When you train a classification model with `CrossEntropyLoss`, the word "entropy" is right there in the name. Information theory tells you **what this loss function is actually measuring** and why it is so effective for classification tasks.
@@ -82,7 +82,7 @@ You can think of this section as:
 
 This section may not look much like a "probability lesson," but it is very closely related to model training.
 
-![Map from information theory to loss function](/img/course/ch04-information-theory-loss-map-en.png)
+![Map from information theory to loss function](/img/course/ch04-information-theory-loss-map-en.webp)
 
 So what this lesson really wants to explain is:
 

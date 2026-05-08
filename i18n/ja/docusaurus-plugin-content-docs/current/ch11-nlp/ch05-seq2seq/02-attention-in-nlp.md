@@ -7,7 +7,7 @@ keywords: [attention, seq2seq, encoder decoder, alignment, NLP]
 
 # 11.5.3 NLP における注意機構
 
-![Seq2Seq 注意力のアライメント図](/img/course/seq2seq-attention-alignment-ja.png)
+![Seq2Seq 注意力のアライメント図](/img/course/seq2seq-attention-alignment-ja.webp)
 
 :::tip この節の位置づけ
 前の節では、Seq2Seq の典型的な問題として次の点を見ました。

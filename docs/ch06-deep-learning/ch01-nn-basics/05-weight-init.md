@@ -25,7 +25,7 @@ Initialization decides whether a neural network starts training with usable sign
 
 Before formulas, look at the job of initialization:
 
-![Weight initialization signal stability map](/img/course/ch06-weight-init-signal-stability-map-en.png)
+![Weight initialization signal stability map](/img/course/ch06-weight-init-signal-stability-map-en.webp)
 
 Read the picture from top to bottom:
 

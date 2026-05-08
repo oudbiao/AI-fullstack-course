@@ -6,7 +6,7 @@ description: "Install system software and development tools with package manager
 
 # 1.1.3 Package Managers
 
-![Package manager dependency installation flowchart](/img/course/ch01-package-manager-flow-en.png)
+![Package manager dependency installation flowchart](/img/course/ch01-package-manager-flow-en.webp)
 
 ## Where This Section Fits
 

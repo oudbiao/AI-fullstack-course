@@ -11,9 +11,9 @@ keywords: [模型评估指南, 交叉验证, 偏差方差, 超参数调优]
 
 ## 先看评估地图
 
-![模型评估学习地图](/img/course/ml-evaluation-roadmap.png)
+![模型评估学习地图](/img/course/ml-evaluation-roadmap.webp)
 
-![模型评估章节流程](/img/course/ch05-evaluation-chapter-flow.png)
+![模型评估章节流程](/img/course/ch05-evaluation-chapter-flow.webp)
 
 | 主题 | 先问的问题 |
 |---|---|

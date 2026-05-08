@@ -45,7 +45,7 @@ keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured r
 
 这时“只检索一次”往往不够。
 
-![高级 RAG 架构选型图](/img/course/ch08-advanced-rag-architecture-decision-map-v2.png)
+![高级 RAG 架构选型图](/img/course/ch08-advanced-rag-architecture-decision-map-v2.webp)
 
 这张图的核心意思很简单：先用最轻的架构解决真正的失败点，而不是一上来就堆最复杂的方案。
 
@@ -242,7 +242,7 @@ Agentic RAG 则可能会：
 
 可以考虑图式检索思路。
 
-![高级 RAG 架构选择图](/img/course/ch08-advanced-rag-architecture-selection-map.png)
+![高级 RAG 架构选择图](/img/course/ch08-advanced-rag-architecture-selection-map.webp)
 
 :::tip 读图提示
 先从问题形态选架构：多知识库干扰先考虑 Router RAG，多步问题考虑 Multi-hop RAG，需要自主决策再考虑 Agentic RAG，关系链明显时再考虑 Graph RAG。

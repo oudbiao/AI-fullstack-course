@@ -7,7 +7,7 @@ keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classificat
 
 # E.C.2 K 近傍法
 
-![KNN の近傍投票図](/img/course/elective-knn-neighbor-voting-ja.png)
+![KNN の近傍投票図](/img/course/elective-knn-neighbor-voting-ja.webp)
 
 KNN は、新しいサンプルの近くにあるラベル付きサンプルを見て投票します。学習コストはほとんどありませんが、予測時に距離比較が必要なため、データが大きいと重くなります。
 

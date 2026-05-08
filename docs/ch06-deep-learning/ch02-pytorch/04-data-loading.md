@@ -23,7 +23,7 @@ The model is ready, but it should not receive one giant pile of data. `Dataset` 
 
 ## Look at the Batch Flow
 
-![Dataset DataLoader Batch Flow Diagram](/img/course/ch06-hands-on-dataset-dataloader-batch-flow-en.png)
+![Dataset DataLoader Batch Flow Diagram](/img/course/ch06-hands-on-dataset-dataloader-batch-flow-en.webp)
 
 Read it like this:
 

@@ -6,7 +6,7 @@ description: "理解 Python 迭代协议和生成器的高效数据处理方式"
 
 # 2.2.5 迭代器与生成器
 
-![生成器流式数据处理图](/img/course/ch02-generator-streaming-data.png)
+![生成器流式数据处理图](/img/course/ch02-generator-streaming-data.webp)
 
 ## 本节定位
 

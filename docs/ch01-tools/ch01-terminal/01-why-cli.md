@@ -6,7 +6,7 @@ description: "Understand why the command line is the repeatable control layer fo
 
 # 1.1.1 Why Learn the Command Line
 
-![Command-line automation workflow diagram](/img/course/ch01-cli-automation-workflow-en.png)
+![Command-line automation workflow diagram](/img/course/ch01-cli-automation-workflow-en.webp)
 
 The command line is where you give the computer precise text instructions. In AI projects, you will use it to enter a project folder, run Python, install packages, save Git commits, connect to servers, and start services.
 

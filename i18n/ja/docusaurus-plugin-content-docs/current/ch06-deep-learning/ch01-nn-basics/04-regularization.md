@@ -7,7 +7,7 @@ keywords: [正則化, dropout, weight decay, early stopping, 過学習, PyTorch,
 
 # 6.1.6 正則化
 
-![正則化で過学習を抑える図](/img/course/regularization-overfitting-controls-ja.png)
+![正則化で過学習を抑える図](/img/course/regularization-overfitting-controls-ja.webp)
 
 :::tip この節の概要
 正則化は、training loss をできるだけ低くするためだけのものではありません。validation や未来のデータでよく汎化させるためのものです。
@@ -23,7 +23,7 @@ keywords: [正則化, dropout, weight decay, early stopping, 過学習, PyTorch,
 - dropout + weight decay；
 - `best_epoch` による early stopping の挙動。
 
-![過学習の問題から正則化の行動を選ぶ図](/img/course/ch06-regularization-overfit-action-map-ja.png)
+![過学習の問題から正則化の行動を選ぶ図](/img/course/ch06-regularization-overfit-action-map-ja.webp)
 
 ## セットアップ
 

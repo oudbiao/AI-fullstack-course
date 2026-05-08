@@ -7,13 +7,13 @@ keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict
 
 # 5.1.3 Scikit-learn ハンズオン：fit、transform、Pipeline
 
-![Scikit-learn Estimator と Pipeline の図解](/img/course/sklearn-estimator-pipeline-ja.png)
+![Scikit-learn Estimator と Pipeline の図解](/img/course/sklearn-estimator-pipeline-ja.webp)
 
 Scikit-learn は古典的な機械学習でよく使われる Python ライブラリです。このページは短くします。先に流れを見て、次に完全なスクリプトを動かします。
 
 ## まずワークフローを見る
 
-![統一された sklearn fit-predict ワークフロー](/img/course/ch05-sklearn-fit-predict-loop-ja.png)
+![統一された sklearn fit-predict ワークフロー](/img/course/ch05-sklearn-fit-predict-loop-ja.webp)
 
 sklearn の多くの作業はこのループです。
 
@@ -32,7 +32,7 @@ sklearn の多くの作業はこのループです。
 
 ## 三つの役割
 
-![sklearn Pipeline の部品分解](/img/course/ch05-sklearn-pipeline-anatomy-ja.png)
+![sklearn Pipeline の部品分解](/img/course/ch05-sklearn-pipeline-anatomy-ja.webp)
 
 | 役割 | 仕事 | 例 |
 |---|---|---|
@@ -157,7 +157,7 @@ sklearn のバージョンによって、同点のときに選ばれる best mod
 
 ## Pipeline がよくある失敗を防ぐ理由
 
-![StandardScaler の fit と transform の比較漫画](/img/course/ch05-standard-scaler-fit-transform-ja.png)
+![StandardScaler の fit と transform の比較漫画](/img/course/ch05-standard-scaler-fit-transform-ja.webp)
 
 間違った流れ：
 

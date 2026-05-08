@@ -11,7 +11,7 @@ keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 この節では、シーケンスモデリングを小さなプロジェクトとして動かします。連続系列をスライディングウィンドウのサンプルに変換し、LSTM を学習し、naive baseline と比較し、検証予測を確認します。
 :::
 
-![RNN 時系列スライディングウィンドウの実践ループ](/img/course/ch06-rnn-sliding-window-practice-loop-ja.png)
+![RNN 時系列スライディングウィンドウの実践ループ](/img/course/ch06-rnn-sliding-window-practice-loop-ja.webp)
 
 ## 学習目標
 

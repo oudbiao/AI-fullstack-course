@@ -25,7 +25,7 @@ keywords: [权重初始化, Xavier, Glorot, He, Kaiming, 梯度消失, 梯度爆
 
 先别急着背公式，先看初始化要完成什么任务：
 
-![权重初始化信号稳定图](/img/course/ch06-weight-init-signal-stability-map.png)
+![权重初始化信号稳定图](/img/course/ch06-weight-init-signal-stability-map.webp)
 
 从上往下读这张图：
 

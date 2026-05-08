@@ -7,7 +7,7 @@ keywords: [NLP, Natural Language Processing, Transformer, BERT, word vectors, te
 
 # 11 NLP Specialization: Text Tasks After LLMs
 
-![Natural Language Processing hero visual](/img/course/ch11-nlp-en.png)
+![Natural Language Processing hero visual](/img/course/ch11-nlp-en.webp)
 
 This specialization comes after the LLM/RAG/Agent main line. Chapter 7 already gives you the minimum NLP crash course; Chapter 11 is where you return when a real product needs cleaner labels, better extraction, stronger evaluation, or a text pipeline that an LLM alone cannot make reliable.
 
@@ -17,7 +17,7 @@ If you are following the fastest beginner route, finish Chapters 1-9 first, then
 
 ## See the Text-To-Task Pipeline
 
-![Text to NLP task pipeline](/img/course/ch11-text-to-task-pipeline-en.png)
+![Text to NLP task pipeline](/img/course/ch11-text-to-task-pipeline-en.webp)
 
 Use this as the chapter map.
 
@@ -96,7 +96,7 @@ Operation tip: add a confusing sample such as "the document source field is miss
 
 ## Choose The NLP Task By Output
 
-![NLP task output map](/img/course/ch11-nlp-task-output-map-en.png)
+![NLP task output map](/img/course/ch11-nlp-task-output-map-en.webp)
 
 Do not choose a model before you know the output.
 

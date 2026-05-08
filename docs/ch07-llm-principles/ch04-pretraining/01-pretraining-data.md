@@ -7,7 +7,7 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 # 7.4.2 Pretraining Data
 
-![Pretraining data pipeline diagram](/img/course/pretraining-data-pipeline-en.png)
+![Pretraining data pipeline diagram](/img/course/pretraining-data-pipeline-en.webp)
 
 :::tip Section overview
 When many people talk about large models, they first think about:
@@ -140,7 +140,7 @@ flowchart LR
 
 This pipeline helps make “data matters” concrete: every step changes what the model can learn, what it leans toward, and what mistakes it is likely to make.
 
-![Pretraining data governance funnel diagram](/img/course/ch07-pretraining-data-governance-funnel-en.png)
+![Pretraining data governance funnel diagram](/img/course/ch07-pretraining-data-governance-funnel-en.webp)
 
 :::tip Reading guide
 Read this diagram from “there is a lot of raw data” to “there is only a small amount of trainable corpus”: cleaning, deduplication, risk filtering, contamination control, and mixing are not decorative steps. They are how we decide which patterns are worth learning and which noise must be kept out before training starts.
@@ -472,7 +472,7 @@ Common approaches include:
 
 This is also why data governance must have version awareness.
 
-![Data contamination and evaluation leakage diagram](/img/course/ch07-pretraining-contamination-leakage-map-en.png)
+![Data contamination and evaluation leakage diagram](/img/course/ch07-pretraining-contamination-leakage-map-en.webp)
 
 :::tip How to read this diagram
 Keep the training corpus and the evaluation set separated. If benchmark questions, answers, or near-duplicates leak into training, the model may get a falsely high score because it has seen the answer pattern before. That is not true generalization.

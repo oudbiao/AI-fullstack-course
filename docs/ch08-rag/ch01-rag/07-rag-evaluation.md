@@ -7,7 +7,7 @@ keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluatio
 
 # 8.1.8 RAG Evaluation
 
-![RAG evaluation triangle diagram](/img/course/rag-evaluation-triangle-en.png)
+![RAG evaluation triangle diagram](/img/course/rag-evaluation-triangle-en.webp)
 
 ## Learning Objectives
 
@@ -86,9 +86,9 @@ Answer evaluation should at least consider:
 
 In real business scenarios, different dimensions matter differently.
 
-![Layered RAG evaluation dashboard diagram](/img/course/ch08-rag-evaluation-layered-dashboard-map-en.png)
+![Layered RAG evaluation dashboard diagram](/img/course/ch08-rag-evaluation-layered-dashboard-map-en.webp)
 
-![RAG evaluation loop map](/img/course/ch08-rag-evaluation-loop-map-v2-en.png)
+![RAG evaluation loop map](/img/course/ch08-rag-evaluation-loop-map-v2-en.webp)
 
 Good evaluation is a loop, not a one-time test: test set -> retrieval -> answer -> citation -> failure analysis -> fix -> re-evaluate.
 
@@ -274,7 +274,7 @@ Real systems of course do not rely only on string matching, but the idea is corr
 
 > The answer should be supported by the retrieval evidence as much as possible.
 
-![Faithfulness and citation authenticity check diagram](/img/course/ch08-faithfulness-citation-check-map-en.png)
+![Faithfulness and citation authenticity check diagram](/img/course/ch08-faithfulness-citation-check-map-en.webp)
 
 :::tip Reading tip
 Split the answer into a few key conclusions, then link each one back to the evidence. What can be linked is supported; what cannot be linked is unsupported. This is more reliable than “the answer sounds fluent.”

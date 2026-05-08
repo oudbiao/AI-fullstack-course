@@ -7,7 +7,7 @@ keywords: [Kaggle, 竞赛, Titanic, 数据科学竞赛, Notebook, 排行榜]
 
 # 5.6.5 Kaggle 竞赛实战（选修）
 
-![Kaggle 竞赛提交闭环图](/img/course/kaggle-submission-loop.png)
+![Kaggle 竞赛提交闭环图](/img/course/kaggle-submission-loop.webp)
 
 :::tip 本节定位
 Kaggle 是全球最大的数据科学竞赛平台。通过参加入门竞赛，你可以把之前学到的所有技能**串联起来**，并向真实的评分系统验证。
@@ -187,7 +187,7 @@ for name, model in models.items():
 
 ### Kaggle 最容易让新人踩的坑
 
-![Kaggle 本地验证与排行榜闭环](/img/course/ch05-kaggle-validation-leaderboard-loop.png)
+![Kaggle 本地验证与排行榜闭环](/img/course/ch05-kaggle-validation-leaderboard-loop.webp)
 
 - 在公开榜单上反复试，结果过拟合排行榜
 - 没有本地交叉验证，只盯线上分数

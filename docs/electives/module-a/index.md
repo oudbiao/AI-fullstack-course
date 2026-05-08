@@ -10,9 +10,9 @@ Use this elective when a Python model already works, but latency, memory, packag
 
 ## See the Deployment Path First
 
-![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map-en.png)
+![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map-en.webp)
 
-![C++ runtime memory map](/img/course/elective-cpp-runtime-memory-en.png)
+![C++ runtime memory map](/img/course/elective-cpp-runtime-memory-en.webp)
 
 The core question is simple: can you turn model output into a fast, measurable, deployable inference path?
 

@@ -11,11 +11,11 @@ Multi-Agent is a division-of-labor mechanism, not several chatbots talking. Use 
 
 ## See the Collaboration Cost First
 
-![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
+![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.webp)
 
-![Multi-Agent chapter learning order diagram](/img/course/ch09-multi-agent-chapter-flow-en.png)
+![Multi-Agent chapter learning order diagram](/img/course/ch09-multi-agent-chapter-flow-en.webp)
 
-![Multi-Agent collaboration and coordination map](/img/course/ch09-multi-agent-coordination-map-en.png)
+![Multi-Agent collaboration and coordination map](/img/course/ch09-multi-agent-coordination-map-en.webp)
 
 The key question is: does the benefit of splitting work exceed the cost of messages, repeated context, conflicts, and final merging?
 

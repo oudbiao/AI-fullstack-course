@@ -7,7 +7,7 @@ keywords: [LDA, linear discriminant analysis, dimensionality reduction, classifi
 
 # E.C.4 線形判別分析
 
-![LDA の教師あり射影イメージ図](/img/course/elective-lda-projection-map-ja.png)
+![LDA の教師あり射影イメージ図](/img/course/elective-lda-projection-map-ja.webp)
 
 LDA は、同じクラスのサンプルを近づけ、異なるクラスを離す射影方向を探します。分類器としても、教師あり次元削減としても使えます。
 

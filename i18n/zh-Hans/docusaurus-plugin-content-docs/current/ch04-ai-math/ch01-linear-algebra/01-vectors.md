@@ -7,7 +7,7 @@ keywords: [向量, 点积, 余弦相似度, NumPy, 线性代数, AI数学]
 
 # 4.1.2 向量：AI 世界的基本单元
 
-![向量点积与余弦相似度几何图](/img/course/vector-dot-cosine-geometry.png)
+![向量点积与余弦相似度几何图](/img/course/vector-dot-cosine-geometry.webp)
 
 :::tip 学习方式
 本章的数学不需要你"证明定理"，只需要你**理解直觉、会用代码实现**。每个概念都会配上可视化和 NumPy 代码，看不懂公式没关系，看懂图和代码就行。
@@ -42,7 +42,7 @@ keywords: [向量, 点积, 余弦相似度, NumPy, 线性代数, AI数学]
 
 这一节最重要的不是记住多少名词，而是先抓住一条主线：
 
-![向量 AI 含义地图](/img/course/ch04-vector-ai-meaning-map.png)
+![向量 AI 含义地图](/img/course/ch04-vector-ai-meaning-map.webp)
 
 你可以把这节课理解成：
 
@@ -276,7 +276,7 @@ plt.show()
 
 ### 向量的长度（模/范数）
 
-![向量范数与单位向量图解](/img/course/ch04-vector-norm-unit-vector.svg)
+![向量范数与单位向量图解](/img/course/ch04-vector-norm-unit-vector.webp)
 
 向量的**长度**（也叫**模**或**范数**）用勾股定理计算：
 

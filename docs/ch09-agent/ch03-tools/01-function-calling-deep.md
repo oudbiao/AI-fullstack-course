@@ -85,7 +85,7 @@ This is a very important boundary:
 
 > **The model is responsible for “decision-making,” and the program is responsible for ensuring safe and stable execution.**
 
-![Function Calling schema validation and execution guardrail map](/img/course/ch09-tool-schema-validation-guardrail-map-en.png)
+![Function Calling schema validation and execution guardrail map](/img/course/ch09-tool-schema-validation-guardrail-map-en.webp)
 
 :::tip Reading guide
 Read this diagram as “model output is not the same as program execution”: the model only proposes a tool call, and the program must first perform schema validation, permission checks, parameter cleaning, and error normalization before the real tool is executed.

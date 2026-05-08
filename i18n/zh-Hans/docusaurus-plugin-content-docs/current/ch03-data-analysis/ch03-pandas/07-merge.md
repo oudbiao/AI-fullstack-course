@@ -33,7 +33,7 @@ description: "掌握 merge、join、concat 等数据合并方法"
 
 数据合并更适合按“有没有共同键”来理解：
 
-![Pandas 合并拼接连接图](/img/course/ch03-pandas-merge-concat-join.png)
+![Pandas 合并拼接连接图](/img/course/ch03-pandas-merge-concat-join.webp)
 
 所以这节真正想解决的是：
 

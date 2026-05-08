@@ -232,7 +232,7 @@ kv cache    : 1.50 GB
 
 而这正是 KV cache 公式里的核心项之一。
 
-![大模型规模成本旋钮图](/img/course/ch07-scale-cost-knobs-map.png)
+![大模型规模成本旋钮图](/img/course/ch07-scale-cost-knobs-map.webp)
 
 :::tip 读图提示
 这张图把成本拆成几个旋钮：layers、hidden size、context length、batch size、kv heads。新人最容易低估的是这些旋钮会叠加放大，尤其 hidden size 往往按平方影响参数和计算。
@@ -289,7 +289,7 @@ kv cache    : 1.50 GB
 这就是为什么有些模型训练方案可行，
 部署时却仍然非常痛苦。
 
-![训练期与推理期成本结构对比图](/img/course/ch07-train-inference-cost-split-map.png)
+![训练期与推理期成本结构对比图](/img/course/ch07-train-inference-cost-split-map.webp)
 
 :::tip 读图提示
 训练期更像“持续生产”，重点看参数、梯度、优化器状态和中间激活；推理期更像“实时服务”，重点看 KV cache、延迟、吞吐和并发显存。能训练不等于好部署，因为两边卡点完全不同。

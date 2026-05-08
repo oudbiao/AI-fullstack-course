@@ -7,7 +7,7 @@ keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation model
 
 # 7.1.4 Pretrained Language Models at a Glance
 
-![Transfer learning adaptation map](/img/course/ch06-transfer-learning-freeze-finetune-map-en.png)
+![Transfer learning adaptation map](/img/course/ch06-transfer-learning-freeze-finetune-map-en.webp)
 
 :::tip One Practical Judgment
 A pretrained model is not a magic model that knows your business. It is a reusable language foundation. Your job is to decide the cheapest reliable way to adapt that foundation to the task.

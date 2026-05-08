@@ -23,7 +23,7 @@ RNNs pass information step by step. Attention lets one token look directly at ot
 
 ## Look at Q/K/V First
 
-![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.png)
+![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.webp)
 
 Attention is a weighted retrieval operation:
 
@@ -33,7 +33,7 @@ Q asks -> K matches -> softmax makes weights -> V provides content -> weighted s
 
 The retrieval analogy:
 
-![Library retrieval analogy diagram for attention QKV](/img/course/ch06-attention-qkv-library-analogy-map-en.png)
+![Library retrieval analogy diagram for attention QKV](/img/course/ch06-attention-qkv-library-analogy-map-en.webp)
 
 | Role | Intuition | In attention |
 |---|---|---|
@@ -151,7 +151,7 @@ To understand “he” and “him,” the current token needs other tokens. Self
 
 Generation tasks must not look at future tokens. A causal mask keeps only the lower triangle visible.
 
-![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map-en.png)
+![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map-en.webp)
 
 ```python
 import numpy as np

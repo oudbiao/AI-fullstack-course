@@ -5,9 +5,9 @@ sidebar_position: 3
 
 # A.6 よくある質問
 
-![FAQ 初学者の質問判断ツリー](/img/course/appendix-faq-decision-tree-ja.png)
+![FAQ 初学者の質問判断ツリー](/img/course/appendix-faq-decision-tree-ja.webp)
 
-![FAQ 不安リセットと行動マップ](/img/course/appendix-faq-confidence-reset-map-ja.png)
+![FAQ 不安リセットと行動マップ](/img/course/appendix-faq-confidence-reset-map-ja.webp)
 
 質問がぼんやりしていたり不安に近いときは、このページで次の行動に変えます。
 

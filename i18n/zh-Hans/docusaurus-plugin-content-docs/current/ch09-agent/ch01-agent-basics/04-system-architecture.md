@@ -7,7 +7,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 # 9.1.5 Agent 系统架构
 
-![Agent 系统架构图](/img/course/agent-system-architecture.png)
+![Agent 系统架构图](/img/course/agent-system-architecture.webp)
 
 ## 学习目标
 
@@ -130,7 +130,7 @@ flowchart LR
 
 这就是它和普通聊天机器人的根本差别之一。
 
-![Agent 系统架构数据流图](/img/course/ch09-agent-system-architecture-dataflow-map.png)
+![Agent 系统架构数据流图](/img/course/ch09-agent-system-architecture-dataflow-map.webp)
 
 :::tip 读图提示
 把这张图当成“生产 Agent 的解剖图”来看：Planner 决定下一步，Tool Layer 负责行动，Memory 和 State 记录上下文，Guardrails 决定什么能做，Observability 让每一步能被追踪。

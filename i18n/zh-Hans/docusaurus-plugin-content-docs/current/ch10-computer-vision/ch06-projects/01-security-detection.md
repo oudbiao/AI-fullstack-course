@@ -80,7 +80,7 @@ flowchart LR
 - 安防系统真正交付的是告警体验
 - 不是单张图上的框
 
-![安防检测、规则、跟踪与告警去重图](/img/course/ch10-security-detection-alert-dedup-map.png)
+![安防检测、规则、跟踪与告警去重图](/img/course/ch10-security-detection-alert-dedup-map.webp)
 
 :::tip 读图提示
 安防项目的输出不是“画框”，而是可信告警。读图时重点看检测结果如何进入规则判断，track_id 如何避免重复报警，最后再进入人工确认、日志和失败复盘。

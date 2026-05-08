@@ -11,7 +11,7 @@ keywords: [NLPプロジェクト導入, QA, 要約, 情報抽出, NLP作品集]
 
 ## 先に全体像を見る
 
-![NLP プロジェクトの納品ループ](/img/course/ch11-projects-delivery-loop-ja.png)
+![NLP プロジェクトの納品ループ](/img/course/ch11-projects-delivery-loop-ja.webp)
 
 | 順番 | 作業 | 成果物 |
 |---|---|---|
@@ -22,7 +22,7 @@ keywords: [NLPプロジェクト導入, QA, 要約, 情報抽出, NLP作品集]
 
 ## 作品集に残す証拠
 
-![NLP プロジェクトの証拠パック](/img/course/ch11-nlp-evidence-pack-ja.png)
+![NLP プロジェクトの証拠パック](/img/course/ch11-nlp-evidence-pack-ja.webp)
 
 よい NLP プロジェクトは、自然な出力を 1 つ見せるだけでは足りません。なぜそのタスクなのか、何を入力し、何を出力し、どう評価したのかを残します。
 
@@ -52,7 +52,7 @@ portfolio_ready: True
 
 ## ワークショップへ進む
 
-![テキストから成果物までのパイプライン](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-ja.png)
+![テキストから成果物までのパイプライン](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-ja.webp)
 
 大きなプロジェクトに入る前に、[11.7.6 実践：再現可能な NLP ミニパイプラインを作る](./05-hands-on-nlp-workshop.md) を先に動かすのがおすすめです。tokenization、TF-IDF、分類、検索 QA、要約、抽出、評価、失敗分析を 1 本の小さな流れで確認できます。
 

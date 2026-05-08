@@ -11,11 +11,11 @@ keywords: [画像生成ガイド, 拡散モデル, Stable Diffusion, ControlNet,
 
 ## まずパイプラインを見る
 
-![画像生成章の学習フロー](/img/course/ch12-image-gen-chapter-flow-ja.png)
+![画像生成章の学習フロー](/img/course/ch12-image-gen-chapter-flow-ja.webp)
 
-![Stable Diffusion の応用モード選択](/img/course/ch12-sd-application-mode-selector-map-ja.png)
+![Stable Diffusion の応用モード選択](/img/course/ch12-sd-application-mode-selector-map-ja.webp)
 
-![Stable Diffusion の微調整ルート選択](/img/course/ch12-sd-finetuning-route-choice-map-ja.png)
+![Stable Diffusion の微調整ルート選択](/img/course/ch12-sd-finetuning-route-choice-map-ja.webp)
 
 最初の習慣は、何を作りたいか、どのモードを使ったか、どの seed やパラメータが結果を左右したか、出力前に何を確認すべきかを記録することです。
 

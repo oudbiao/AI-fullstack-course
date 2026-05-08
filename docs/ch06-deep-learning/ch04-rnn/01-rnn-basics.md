@@ -23,7 +23,7 @@ CNNs scan space. RNNs scan time. The key idea is simple: read the current step, 
 
 ## Look at the Hidden-State Loop First
 
-![RNN time-unrolled hidden state diagram](/img/course/rnn-unrolled-hidden-state-en.png)
+![RNN time-unrolled hidden state diagram](/img/course/rnn-unrolled-hidden-state-en.webp)
 
 Read the picture like this:
 
@@ -217,7 +217,7 @@ This is small, but it is a complete RNN loop: sequence tensor, recurrent layer, 
 
 ## Where Plain RNNs Struggle
 
-![RNN hidden-state rolling memory diagram](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.png)
+![RNN hidden-state rolling memory diagram](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.webp)
 
 Hidden state is compressed memory, not exact memory. As sequences get long, two problems appear:
 
@@ -226,7 +226,7 @@ Hidden state is compressed memory, not exact memory. As sequences get long, two 
 | information washout | early information becomes hard to preserve |
 | vanishing gradients | training signal becomes weak for early steps |
 
-![RNN long-dependency and vanishing-gradient intuition diagram](/img/course/ch06-rnn-long-dependency-vanishing-map-en.png)
+![RNN long-dependency and vanishing-gradient intuition diagram](/img/course/ch06-rnn-long-dependency-vanishing-map-en.webp)
 
 This is why LSTM and GRU add gates: they give the model a better way to keep, update, or discard information.
 

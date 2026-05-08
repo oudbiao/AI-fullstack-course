@@ -19,7 +19,7 @@ description: "认识 NumPy——Python 科学计算的基石"
 
 **NumPy**（Numerical Python）是 Python 中用于**科学计算**的核心库。如果说 Python 是一辆汽车，那 NumPy 就是它的引擎——几乎所有数据科学和 AI 相关的库都建立在 NumPy 之上。
 
-![NumPy 科学计算引擎图](/img/course/ch03-numpy-overview-array-engine.png)
+![NumPy 科学计算引擎图](/img/course/ch03-numpy-overview-array-engine.webp)
 
 简单来说：**学数据分析和 AI，NumPy 是绕不开的第一站。**
 

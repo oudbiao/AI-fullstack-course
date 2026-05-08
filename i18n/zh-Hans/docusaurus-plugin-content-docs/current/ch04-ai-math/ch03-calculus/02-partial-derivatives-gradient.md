@@ -7,7 +7,7 @@ keywords: [偏导数, 梯度, 多变量微积分, 梯度方向, Python, AI数学
 
 # 4.3.3 偏导数与梯度：多变量的变化方向
 
-![梯度等高线方向场图](/img/course/gradient-contour-field.png)
+![梯度等高线方向场图](/img/course/gradient-contour-field.webp)
 
 ## 学习目标
 
@@ -45,7 +45,7 @@ keywords: [偏导数, 梯度, 多变量微积分, 梯度方向, Python, AI数学
 
 > **如果一个函数同时受很多变量影响，我们怎么知道该往哪个方向调？**
 
-![偏导与梯度调参旋钮图](/img/course/ch04-gradient-parameter-knobs-map.png)
+![偏导与梯度调参旋钮图](/img/course/ch04-gradient-parameter-knobs-map.webp)
 
 这节课最重要的不是先记符号，而是先理解：
 

@@ -33,7 +33,7 @@ description: "純 Python で実際のデータセットを扱い、NumPy と Pan
 
 手を動かす前に、まずはデータ分析の典型的な流れを見てみましょう。
 
-![純 Python データ処理のつまずきポイント図](/img/course/ch03-pure-python-data-flow-ja.png)
+![純 Python データ処理のつまずきポイント図](/img/course/ch03-pure-python-data-flow-ja.webp)
 
 今日は**純 Python**で最初の 4 ステップを進めます。あとで NumPy と Pandas を学ぶと、同じことをするコードが **5〜10 倍**も少なくなるとわかります。
 

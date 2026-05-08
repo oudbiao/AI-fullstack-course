@@ -23,7 +23,7 @@ Hyperparameter tuning is experiment design. Change one important thing, keep a l
 
 ## Use the Route First
 
-![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-en.png)
+![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-en.webp)
 
 The practical order:
 
@@ -127,7 +127,7 @@ Read it carefully:
 
 ## What to Tune Next
 
-![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-en.png)
+![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-en.webp)
 
 After a reasonable learning rate, tune in this order:
 

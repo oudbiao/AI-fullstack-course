@@ -23,7 +23,7 @@ This page is not an API catalog. The goal is to build the reflex you need before
 
 ## Look at the Tensor Lifecycle
 
-![PyTorch Tensor lifecycle map](/img/course/ch06-pytorch-tensor-lifecycle-map-en.png)
+![PyTorch Tensor lifecycle map](/img/course/ch06-pytorch-tensor-lifecycle-map-en.webp)
 
 Most PyTorch data follows this path:
 
@@ -46,7 +46,7 @@ Compared with NumPy arrays, PyTorch tensors add two deep learning features:
 
 Common shapes:
 
-![Quick reference map for PyTorch tensor shapes and meanings](/img/course/ch06-tensor-shape-meaning-map-en.png)
+![Quick reference map for PyTorch tensor shapes and meanings](/img/course/ch06-tensor-shape-meaning-map-en.webp)
 
 | Data | Common shape | Meaning |
 |---|---|---|

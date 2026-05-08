@@ -7,7 +7,7 @@ keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]
 
 # 7.6.3 LoRA 与 QLoRA
 
-![LoRA 参数更新对比图](/img/course/lora-parameter-update.png)
+![LoRA 参数更新对比图](/img/course/lora-parameter-update.webp)
 
 :::tip 本节定位
 上一节已经把“为什么不是所有任务都该全量微调”讲清楚了。
@@ -160,7 +160,7 @@ W_new shape : torch.Size([8, 8])
 
 这就是它能省资源的根本原因。
 
-![LoRA 与 QLoRA 低秩增量和显存节省图](/img/course/ch07-lora-qlora-low-rank-memory-map.png)
+![LoRA 与 QLoRA 低秩增量和显存节省图](/img/course/ch07-lora-qlora-low-rank-memory-map.webp)
 
 :::tip 读图提示
 读这张图时把原始权重 `W` 看成冻结的大底座，LoRA 只训练小矩阵 `A` 和 `B` 形成 `ΔW = A @ B`，QLoRA 再把基础模型量化以减少显存。核心不是缩写，而是“少改参数、少占显存”。

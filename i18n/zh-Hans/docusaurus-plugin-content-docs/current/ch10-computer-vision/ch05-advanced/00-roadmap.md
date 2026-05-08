@@ -11,11 +11,11 @@ keywords: [高级视觉指南, OCR, 视频分析, 人脸识别, 3D 视觉]
 
 ## 先看方向地图
 
-![高级视觉方向选择图](/img/course/ch10-advanced-vision-route-map.png)
+![高级视觉方向选择图](/img/course/ch10-advanced-vision-route-map.webp)
 
-![OCR 版面阅读顺序图](/img/course/ch10-ocr-layout-reading-order-map.png)
+![OCR 版面阅读顺序图](/img/course/ch10-ocr-layout-reading-order-map.webp)
 
-![视频帧跟踪时间窗口图](/img/course/ch10-video-frame-tracking-temporal-window-map.png)
+![视频帧跟踪时间窗口图](/img/course/ch10-video-frame-tracking-temporal-window-map.webp)
 
 OCR 适合文档，人脸识别适合身份敏感场景，视频适合时间和运动，3D 视觉适合空间结构。
 

@@ -11,9 +11,9 @@ keywords: [教師なし学習ガイド, クラスタリング, 次元削減, 異
 
 ## まず構造マップを見る
 
-![教師なし学習ロードマップ](/img/course/unsupervised-learning-roadmap-ja.png)
+![教師なし学習ロードマップ](/img/course/unsupervised-learning-roadmap-ja.webp)
 
-![教師なし学習章フロー](/img/course/ch05-unsupervised-chapter-flow-ja.png)
+![教師なし学習章フロー](/img/course/ch05-unsupervised-chapter-flow-ja.webp)
 
 | やりたいこと | まず使うもの |
 |---|---|

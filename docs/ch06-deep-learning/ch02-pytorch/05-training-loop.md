@@ -23,7 +23,7 @@ This is the PyTorch workflow page where the pieces become one loop: batch, forwa
 
 ## Look at the Loop Anatomy
 
-![PyTorch training loop diagram](/img/course/ch06-hands-on-training-loop-anatomy-en.png)
+![PyTorch training loop diagram](/img/course/ch06-hands-on-training-loop-anatomy-en.webp)
 
 The training rhythm is:
 

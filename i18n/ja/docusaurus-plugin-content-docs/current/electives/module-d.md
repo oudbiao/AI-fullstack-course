@@ -11,9 +11,9 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ## まずループを見る
 
-![AI セキュリティ レッドチームループ図](/img/course/elective-ai-security-red-team-loop-ja.png)
+![AI セキュリティ レッドチームループ図](/img/course/elective-ai-security-red-team-loop-ja.webp)
 
-![AI セキュリティ脅威モデリングと回帰セット図](/img/course/elective-ai-security-threat-regression-map-ja.png)
+![AI セキュリティ脅威モデリングと回帰セット図](/img/course/elective-ai-security-threat-regression-map-ja.webp)
 
 攻撃名からではなく、攻撃面から始めます。prompt、検索、ツール、メモリ、外部アクションです。
 

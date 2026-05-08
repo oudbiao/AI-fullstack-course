@@ -7,7 +7,7 @@ keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 
 # 9.8.3 Agent 评估基准
 
-![Agent Benchmark 与自定义评估集对比图](/img/course/ch09-agent-benchmark-custom-eval-map.png)
+![Agent Benchmark 与自定义评估集对比图](/img/course/ch09-agent-benchmark-custom-eval-map.webp)
 
 :::tip 本节定位
 Benchmark 可以帮你了解模型和 Agent 能力边界，但它不能替代你自己的项目评估集。真正上线时，最重要的是你的用户任务能不能稳定完成。

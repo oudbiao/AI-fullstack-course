@@ -165,7 +165,7 @@ print(state)
 - 対話システムが本当に保持するのは、ただの原文ではない
 - 構造化された状態も保持している
 
-![対話状態、スロット、記憶管理の図](/img/course/ch08-dialog-state-slot-memory-map-ja.png)
+![対話状態、スロット、記憶管理の図](/img/course/ch08-dialog-state-slot-memory-map-ja.webp)
 
 :::tip 図の見方
 履歴は元の材料で、state はシステムが今維持している「現在の理解」です。図で topic、slots、last_tool_result、summary を分けているのは、すべてのコンテキストを雑に prompt に詰め込まないためです。

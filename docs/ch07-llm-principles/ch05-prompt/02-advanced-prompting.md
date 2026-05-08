@@ -135,7 +135,7 @@ This table is very beginner-friendly because it turns a “list of techniques”
 
 - What should I add first when a certain problem appears?
 
-![Advanced Prompt technique decision map](/img/course/ch07-advanced-prompt-technique-decision-map-en.png)
+![Advanced Prompt technique decision map](/img/course/ch07-advanced-prompt-technique-decision-map-en.webp)
 
 :::tip Reading guide
 When you read this diagram, do not stack techniques blindly. First identify the problem type: if the label boundary is blurry, add few-shot; if the format is unstable, add structural constraints; if the steps are complex, split them explicitly; if conditions are often missed, add self-check. The core of advanced Prompting is matching the problem, not making the Prompt look fancier.

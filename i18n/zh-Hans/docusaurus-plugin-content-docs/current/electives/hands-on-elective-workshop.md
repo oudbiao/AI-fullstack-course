@@ -7,13 +7,13 @@ keywords: [选修模块, 实操工作坊, 部署, Python 进阶, 经典机器学
 
 # E.0 选修模块实操工作坊
 
-![选修模块实操路线图](/img/course/elective-workshop-route-map.png)
+![选修模块实操路线图](/img/course/elective-workshop-route-map.webp)
 
 这个工作坊是最快感受“选修模块有什么用”的方式。你会运行一个 Python 脚本，然后检查它生成的证据文件。
 
 ## 你会构建什么
 
-![选修实操证据包流水线图](/img/course/elective-workshop-evidence-pipeline.png)
+![选修实操证据包流水线图](/img/course/elective-workshop-evidence-pipeline.webp)
 
 脚本会生成这个目录：
 
@@ -43,7 +43,7 @@ elective_workshop_run/
 
 ## 运行工作坊
 
-![选修工作坊代码执行顺序](/img/course/elective-workshop-code-execution-sequence.png)
+![选修工作坊代码执行顺序](/img/course/elective-workshop-code-execution-sequence.webp)
 
 创建干净目录：
 
@@ -232,7 +232,7 @@ inspect: elective_workshop_run/README.md
 
 ## 快速排错
 
-![选修工作坊调试闭环](/img/course/elective-workshop-debug-loop.png)
+![选修工作坊调试闭环](/img/course/elective-workshop-debug-loop.webp)
 
 | 现象 | 先怎么修 |
 |---|---|
@@ -244,7 +244,7 @@ inspect: elective_workshop_run/README.md
 
 ## 改成你的项目
 
-![选修工作坊作品集证据包](/img/course/elective-workshop-portfolio-pack.png)
+![选修工作坊作品集证据包](/img/course/elective-workshop-portfolio-pack.webp)
 
 把其中一个模块换成真实证据：
 

@@ -6,7 +6,7 @@ description: "Master the various ways to access NumPy arrays: basic indexing, bo
 
 # 3.2.3 Array Indexing and Slicing
 
-![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map-en.png)
+![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map-en.webp)
 
 ## Learning Objectives
 
@@ -239,7 +239,7 @@ print(matrix[rows, cols])   # [ 2  7 12]
 
 ## View vs Copy
 
-![NumPy view vs copy trap diagram](/img/course/ch03-numpy-view-copy-trap-en.svg)
+![NumPy view vs copy trap diagram](/img/course/ch03-numpy-view-copy-trap-en.webp)
 
 This is a common beginner trap — NumPy slicing returns a **view**, not a copy!
 

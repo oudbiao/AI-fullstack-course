@@ -11,11 +11,11 @@ An Agent is not a model name. It is a system pattern that uses a model, tools, s
 
 ## See the Single-Agent Loop First
 
-![Agent basics position bridging diagram](/img/course/ch09-basics-position-bridge-en.png)
+![Agent basics position bridging diagram](/img/course/ch09-basics-position-bridge-en.webp)
 
-![Agent basics chapter learning order diagram](/img/course/ch09-basics-chapter-flow-en.png)
+![Agent basics chapter learning order diagram](/img/course/ch09-basics-chapter-flow-en.webp)
 
-![Single-Agent execution loop diagram](/img/course/ch09-basics-execution-loop-en.png)
+![Single-Agent execution loop diagram](/img/course/ch09-basics-execution-loop-en.webp)
 
 A normal chatbot answers once. A workflow follows fixed steps. An Agent can plan, act, observe, update state, and continue when the goal is not done.
 

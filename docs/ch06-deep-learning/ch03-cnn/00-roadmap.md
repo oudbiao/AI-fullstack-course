@@ -11,9 +11,9 @@ CNNs learn local visual patterns. Instead of reading an image as one flat row of
 
 ## Look at the Image Flow First
 
-![CNN chapter relationship diagram](/img/course/ch06-cnn-chapter-flow-en.png)
+![CNN chapter relationship diagram](/img/course/ch06-cnn-chapter-flow-en.webp)
 
-![CNN receptive field growth map](/img/course/ch06-cnn-receptive-field-growth-map-en.png)
+![CNN receptive field growth map](/img/course/ch06-cnn-receptive-field-growth-map-en.webp)
 
 | Concept | First meaning |
 |---|---|

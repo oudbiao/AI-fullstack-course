@@ -11,11 +11,11 @@ Agent は動くだけでは不十分です。成功したか、process は安全
 
 ## まず guardrail stack を見る
 
-![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-ja.png)
+![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-ja.webp)
 
-![Agent evaluation and safety 章の学習フロー](/img/course/ch09-eval-safety-chapter-flow-ja.png)
+![Agent evaluation and safety 章の学習フロー](/img/course/ch09-eval-safety-chapter-flow-ja.webp)
 
-![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-ja.png)
+![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-ja.webp)
 
 Evaluation は system が有効かを示します。Safety は system が何をしてよいかを決めます。Observability はどこで壊れたかを示します。
 

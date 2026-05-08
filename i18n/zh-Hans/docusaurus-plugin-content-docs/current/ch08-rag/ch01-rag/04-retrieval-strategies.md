@@ -7,7 +7,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 # 8.1.5 检索策略
 
-![Hybrid Search 与 Rerank 流程图](/img/course/hybrid-search-rerank-flow.png)
+![Hybrid Search 与 Rerank 流程图](/img/course/hybrid-search-rerank-flow.webp)
 
 ## 学习目标
 
@@ -86,9 +86,9 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 混合检索就是把这两种判断合起来。
 
-![关键词检索与向量检索盲区图](/img/course/ch08-hybrid-retrieval-blindspot-map.png)
+![关键词检索与向量检索盲区图](/img/course/ch08-hybrid-retrieval-blindspot-map.webp)
 
-![检索策略对比图](/img/course/ch08-retrieval-strategy-comparison-map-v2.png)
+![检索策略对比图](/img/course/ch08-retrieval-strategy-comparison-map-v2.webp)
 
 BM25 是一种经典的关键词排序方法。很多混合检索都会把 BM25 风格的分数和向量相似度结合起来，再交给 rerank 做最终排序。
 
@@ -239,7 +239,7 @@ for q in queries:
 
 真实系统里，query rewrite 可能由 LLM 来完成。
 
-![Query Rewrite 与 Rerank 双阶段漏斗图](/img/course/ch08-rerank-query-rewrite-funnel-map.png)
+![Query Rewrite 与 Rerank 双阶段漏斗图](/img/course/ch08-rerank-query-rewrite-funnel-map.webp)
 
 :::tip 读图提示
 Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rerank 发生在粗召回后，负责把候选重新排准。它们一个改入口，一个改排序，不要混成同一件事。

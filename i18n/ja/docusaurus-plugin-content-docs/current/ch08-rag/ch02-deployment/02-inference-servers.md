@@ -166,7 +166,7 @@ for r in requests:
 
 この表は初心者にとても役立ちます。なぜなら、「推理サービスが遅い」という曖昧な話を、具体的な切り分けポイントに分解してくれるからです。
 
-![推理サービスのキューとバッチ処理の図](/img/course/ch08-inference-serving-queue-batch-map-ja.png)
+![推理サービスのキューとバッチ処理の図](/img/course/ch08-inference-serving-queue-batch-map-ja.webp)
 
 :::tip 図の読み方
 リクエストは直接モデルに飛び込むのではなく、まずキューに並び、そのあと batch にまとめられ、最後に実行されます。batch はスループットを上げますが、待ち時間も増やし得るので、サービス化の調整はいつも latency と throughput のバランス取りになります。

@@ -6,7 +6,7 @@ description: "掌握函数的定义、参数、返回值和作用域"
 
 # 2.1.7 函数基础
 
-![函数调用、参数与作用域图](/img/course/ch02-function-call-scope.png)
+![函数调用、参数与作用域图](/img/course/ch02-function-call-scope.webp)
 
 ## 本节定位
 
@@ -225,7 +225,7 @@ train_model(epochs=100, lr=0.01)
 ```
 
 :::caution 默认参数的陷阱
-![可变默认参数陷阱图解](/img/course/ch02-mutable-default-trap.svg)
+![可变默认参数陷阱图解](/img/course/ch02-mutable-default-trap.webp)
 
 默认参数的值在函数定义时就确定了。不要用可变对象（如列表、字典）作为默认值：
 

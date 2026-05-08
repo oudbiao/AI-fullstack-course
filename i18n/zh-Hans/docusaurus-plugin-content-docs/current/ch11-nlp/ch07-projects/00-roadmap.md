@@ -11,11 +11,11 @@ NLP 项目不是一段流畅输出，而是清晰任务边界、数据来源、b
 
 ## 先看项目证据闭环
 
-![NLP 项目交付闭环](/img/course/ch11-projects-delivery-loop.png)
+![NLP 项目交付闭环](/img/course/ch11-projects-delivery-loop.webp)
 
-![NLP 证据包图](/img/course/ch11-nlp-evidence-pack.png)
+![NLP 证据包图](/img/course/ch11-nlp-evidence-pack.webp)
 
-![工作坊文本到产物流水线图](/img/course/ch11-workshop-text-to-artifacts-pipeline-map.png)
+![工作坊文本到产物流水线图](/img/course/ch11-workshop-text-to-artifacts-pipeline-map.webp)
 
 如果要清晰标签，从信息抽取或分类开始。能评估事实性、拒答、引用和边界后，再做总结和问答。
 

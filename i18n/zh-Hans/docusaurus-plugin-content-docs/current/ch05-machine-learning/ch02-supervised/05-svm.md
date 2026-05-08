@@ -7,9 +7,9 @@ keywords: [SVM, 支持向量机, 最大间隔, 支持向量, 核方法, RBF, C, 
 
 # 5.2.6 SVM：最大间隔与核方法
 
-![SVM 最大间隔直觉图](/img/course/ch05-svm-margin-map.png)
+![SVM 最大间隔直觉图](/img/course/ch05-svm-margin-map.webp)
 
-![SVM 间隔与核方法漫画](/img/course/ch05-svm-margin-kernel-comic.png)
+![SVM 间隔与核方法漫画](/img/course/ch05-svm-margin-kernel-comic.webp)
 
 :::tip 本节定位
 SVM 今天不一定是所有生产项目的首选模型，但它仍然是理解**间隔、核方法、距离敏感模型**的很好入口。
@@ -147,7 +147,7 @@ kernel=rbf    accuracy=0.950 support_vectors=98
 
 ## 为什么缩放不是可选项
 
-![SVM 特征缩放漫画](/img/course/ch05-svm-feature-scaling.png)
+![SVM 特征缩放漫画](/img/course/ch05-svm-feature-scaling.webp)
 
 SVM 依赖距离和相似度。如果一个特征范围是 `0-1`，另一个特征范围是 `0-1000`，后者即使不更重要，也可能主导边界。
 
@@ -162,7 +162,7 @@ with_scaling=0.950
 
 ## 理解 `C` 和 `gamma`
 
-![SVM 的 C 和 gamma 边界控制漫画](/img/course/ch05-svm-c-gamma-boundary.png)
+![SVM 的 C 和 gamma 边界控制漫画](/img/course/ch05-svm-c-gamma-boundary.webp)
 
 `C` 和 `gamma` 控制边界的不同方面：
 

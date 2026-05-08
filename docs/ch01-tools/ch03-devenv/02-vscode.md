@@ -6,7 +6,7 @@ description: "Turn VS Code into a handy AI development tool"
 
 # 1.3.2 VS Code Configuration
 
-![VS Code project workflow diagram](/img/course/ch01-vscode-workspace-flow-en.png)
+![VS Code project workflow diagram](/img/course/ch01-vscode-workspace-flow-en.webp)
 
 ## What this section is about
 

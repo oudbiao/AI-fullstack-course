@@ -7,7 +7,7 @@ keywords: [text classification practice, intent classification, baseline, error 
 
 # 11.3.4 Text Classification Practice
 
-![Text classification training flowchart](/img/course/text-classification-pipeline-en.png)
+![Text classification training flowchart](/img/course/text-classification-pipeline-en.webp)
 
 :::tip Lesson Focus
 The previous two lessons covered:

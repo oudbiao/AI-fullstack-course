@@ -7,7 +7,7 @@ keywords: [图像, 像素, RGB, HSV, 通道, 图像格式, 计算机视觉]
 
 # 10.1.2 数字图像基础
 
-![像素网格与 RGB 通道图](/img/course/cv-pixel-rgb-grid.png)
+![像素网格与 RGB 通道图](/img/course/cv-pixel-rgb-grid.webp)
 
 ## 学习目标
 
@@ -155,7 +155,7 @@ RGB 图 shape: (2, 2, 3)
 
 这个习惯会直接帮你少掉很多视觉代码里的 shape 混乱。
 
-![图像数组 Shape 与通道语义图](/img/course/ch10-image-array-shape-channel-map.png)
+![图像数组 Shape 与通道语义图](/img/course/ch10-image-array-shape-channel-map.webp)
 
 :::tip 读图提示
 这张图按 `height -> width -> channel` 读：灰度图通常是二维网格，RGB 图像多出颜色通道，模型训练前还会把 `uint8` 的 0-255 转成更稳定的浮点范围。

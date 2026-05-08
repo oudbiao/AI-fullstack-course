@@ -7,9 +7,9 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 # E.C.1 サポートベクターマシン
 
-![SVM の最大マージンとサポートベクトル図](/img/course/elective-svm-margin-support-vectors-ja.png)
+![SVM の最大マージンとサポートベクトル図](/img/course/elective-svm-margin-support-vectors-ja.webp)
 
-![SVM のパラメータ C と kernel 選択図](/img/course/elective-svm-c-kernel-decision-map-ja.png)
+![SVM のパラメータ C と kernel 選択図](/img/course/elective-svm-c-kernel-decision-map-ja.webp)
 
 SVM は、マージンができるだけ大きい決定境界を探します。境界に最も近い点がサポートベクトルで、境界の位置を強く決める重要なサンプルです。
 

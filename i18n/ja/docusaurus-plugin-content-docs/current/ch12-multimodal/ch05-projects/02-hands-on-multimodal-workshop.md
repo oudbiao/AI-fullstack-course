@@ -9,7 +9,7 @@ keywords: [AIGC 実践, マルチモーダルプロジェクト, Prompt 記録, 
 
 本物の画像、動画、音声モデルにつなぐ前に、まず小さなワークフローを作ります。入力、Prompt 設計、資産生成、バージョン記録、レビュー、書き出し、失敗例まで含むプロダクトの流れを確認します。
 
-![マルチモーダル・クリエイティブパッケージのパイプライン](/img/course/ch12-workshop-creative-package-pipeline-map-ja.png)
+![マルチモーダル・クリエイティブパッケージのパイプライン](/img/course/ch12-workshop-creative-package-pipeline-map-ja.webp)
 
 このワークショップは Python 標準ライブラリだけを使い、ローカルで SVG の仮資産を生成します。これは意図的です。SVG baseline を画像生成、TTS、動画生成、マルチモーダルモデル API に置き換える前に、まずワークフローを再現可能にすることが目的です。
 
@@ -65,7 +65,7 @@ source .venv/bin/activate
 
 `pip install` は不要です。`multimodal_workshop.py` を作り、下の完全なスクリプトを貼り付けます。
 
-![Prompt から資産バージョン記録への図](/img/course/ch12-workshop-prompt-asset-version-map-ja.png)
+![Prompt から資産バージョン記録への図](/img/course/ch12-workshop-prompt-asset-version-map-ja.webp)
 
 ## Step 2：完全なスクリプトを実行する
 
@@ -465,7 +465,7 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 `outputs/storyboard.json` と `outputs/timeline.csv` を開きます。これらのファイルは、ビジュアル資産が短い動画やランディングページの流れにどう変わるかを説明します。
 
-![レビューと書き出しワークフロー図](/img/course/ch12-workshop-review-export-map-ja.png)
+![レビューと書き出しワークフロー図](/img/course/ch12-workshop-review-export-map-ja.webp)
 
 ## Step 5：レビュー関連ファイルを読む
 
@@ -496,7 +496,7 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ## Step 7：失敗レポートを読む
 
-![マルチモーダル失敗例デバッグマップ](/img/course/ch12-workshop-failure-debug-map-ja.png)
+![マルチモーダル失敗例デバッグマップ](/img/course/ch12-workshop-failure-debug-map-ja.webp)
 
 `reports/failure_cases.md` を開きます。このワークショップでは、1 つの scene がコントラストチェックに落ちるようにしています。ポートフォリオでは、きれいな出力だけでなく、問題をどう検出するかも見せるべきです。
 

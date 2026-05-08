@@ -7,9 +7,9 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 # E.A.3 モデル最適化技術
 
-![モデル最適化ロードマップ](/img/course/elective-model-optimization-map-ja.png)
+![モデル最適化ロードマップ](/img/course/elective-model-optimization-map-ja.webp)
 
-![モデル最適化トレードオフダッシュボード](/img/course/elective-optimization-tradeoff-dashboard-ja.png)
+![モデル最適化トレードオフダッシュボード](/img/course/elective-optimization-tradeoff-dashboard-ja.webp)
 
 最適化は「できるだけ小さくすること」ではありません。1 つの制約を改善しながら、何を失ったかも確認することです。
 

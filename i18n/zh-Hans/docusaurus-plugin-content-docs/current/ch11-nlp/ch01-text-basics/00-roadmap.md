@@ -11,11 +11,11 @@ keywords: [文本基础指南, NLP 指南, 文本表示]
 
 ## 先看文本流水线
 
-![文本基础章节学习流程图](/img/course/ch11-text-basics-chapter-flow.png)
+![文本基础章节学习流程图](/img/course/ch11-text-basics-chapter-flow.webp)
 
-![文本到任务流水线图](/img/course/ch11-text-to-task-pipeline.png)
+![文本到任务流水线图](/img/course/ch11-text-to-task-pipeline.webp)
 
-![NLP 任务输出图](/img/course/ch11-nlp-task-output-map.png)
+![NLP 任务输出图](/img/course/ch11-nlp-task-output-map.webp)
 
 第一个习惯是先问：输入文本是什么、任务是什么、系统应该产生什么输出形态？
 

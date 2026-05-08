@@ -7,7 +7,7 @@ keywords: [evaluation metrics, confusion matrix, precision, recall, F1, ROC AUC,
 
 # 5.4.2 Evaluation Metrics
 
-![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.png)
+![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.webp)
 
 :::tip Section Overview
 Metrics are not report-card decorations. They decide which model you trust, which threshold you ship, and which mistake your product is willing to pay for.
@@ -25,7 +25,7 @@ This lesson gives you one evaluation lab:
 
 Start with the map:
 
-![Evaluation metric selection flowchart](/img/course/ch05-metrics-selection-flow-en.png)
+![Evaluation metric selection flowchart](/img/course/ch05-metrics-selection-flow-en.webp)
 
 ## Keyword Decoder
 
@@ -191,7 +191,7 @@ Before choosing a metric, ask:
 
 ## Thresholds Change the Story
 
-![Guide to reading thresholds, ROC, and PR curves](/img/course/ch05-threshold-roc-pr-curve-map-en.png)
+![Guide to reading thresholds, ROC, and PR curves](/img/course/ch05-threshold-roc-pr-curve-map-en.webp)
 
 The same model gives different behavior at different thresholds:
 
@@ -220,7 +220,7 @@ Use this guide:
 
 ## Regression Metrics
 
-![Regression metrics and residual diagnosis comic](/img/course/ch05-regression-error-residual-comic-en.png)
+![Regression metrics and residual diagnosis comic](/img/course/ch05-regression-error-residual-comic-en.webp)
 
 The regression lab compares a mean baseline with a linear model:
 

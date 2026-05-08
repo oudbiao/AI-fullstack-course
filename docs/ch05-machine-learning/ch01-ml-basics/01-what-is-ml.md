@@ -7,7 +7,7 @@ keywords: [machine learning, supervised learning, unsupervised learning, reinfor
 
 # 5.1.2 What Is Machine Learning
 
-![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.png)
+![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.webp)
 
 ## Where This Section Fits
 
@@ -30,11 +30,11 @@ In the first three stages, you learned Python, data analysis, and math fundament
 
 The most important task in this article is not memorizing the definition, but first building a decision framework:
 
-![Machine learning task type decision map](/img/course/ch05-task-type-decision-map-en.png)
+![Machine learning task type decision map](/img/course/ch05-task-type-decision-map-en.webp)
 
 If you understand this diagram, many chapters later in Stage 5 will suddenly start making sense.
 
-![Machine learning first decision comic](/img/course/ch05-ml-first-decision-comic-en.png)
+![Machine learning first decision comic](/img/course/ch05-ml-first-decision-comic-en.webp)
 
 Use this comic as a quick entry checklist: if rules can be written clearly, normal programming may be enough; if the rule is hidden in many examples, machine learning becomes useful. Then decide whether you have labels, whether the output is a category or a number, and whether the evaluation metric can prove the model is useful.
 
@@ -326,7 +326,7 @@ flowchart LR
 If you train and evaluate on the same data, the model may get a perfect score by "memorizing" the data—but perform poorly on new data. This is called **overfitting**. It is like memorizing the answers before an exam and then failing when given a different set of questions.
 :::
 
-![Training/validation/test and data leakage guardrail diagram](/img/course/ch05-data-split-leakage-guardrail-en.png)
+![Training/validation/test and data leakage guardrail diagram](/img/course/ch05-data-split-leakage-guardrail-en.webp)
 
 When reading this diagram, first look at the three boundaries: the training set is used for learning, the validation set is used to choose a solution, and the test set is only used for final verification. If any preprocessing step sees test-set information too early—for example, standardizing on the full dataset first or selecting features using the full dataset—the model score may look artificially high.
 
@@ -345,7 +345,7 @@ So from this section onward, you should build a habit:
 
 Before reading the code, look at the whole loop first:
 
-![Minimal machine learning project loop](/img/course/ch05-minimal-ml-project-loop-en.png)
+![Minimal machine learning project loop](/img/course/ch05-minimal-ml-project-loop-en.webp)
 
 This diagram is the smallest useful ML project shape: define the problem, prepare `X` and `y`, train a model, evaluate it with a metric, then decide what to improve. The code below is intentionally tiny so you can connect each line to one step in the picture instead of getting lost in framework details.
 

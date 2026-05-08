@@ -13,7 +13,7 @@ The goal is not to build the most powerful system in one page. The goal is to bu
 
 ## What You Will Build
 
-![Chapter 8 four-layer learning map](/img/course/ch08-study-guide-four-layer-map-en.png)
+![Chapter 8 four-layer learning map](/img/course/ch08-study-guide-four-layer-map-en.webp)
 
 You will build a tiny knowledge base assistant with these abilities:
 
@@ -34,7 +34,7 @@ Follow this page in order: look at the diagram, copy the code, run it, compare t
 
 ## Step 0: Understand the RAG Loop Before Coding
 
-![RAG data-to-answer pipeline](/img/course/ch08-rag-data-to-answer-pipeline-en.png)
+![RAG data-to-answer pipeline](/img/course/ch08-rag-data-to-answer-pipeline-en.webp)
 
 RAG means **Retrieval-Augmented Generation**. In plain language:
 
@@ -60,13 +60,13 @@ You only need Python 3.10 or newer. This first script uses only the Python stand
 
 ## Step 2: Copy the Full Offline RAG Script
 
-![Document parsing and format routing map](/img/course/ch08-document-parsing-format-router-map-en.png)
+![Document parsing and format routing map](/img/course/ch08-document-parsing-format-router-map-en.webp)
 
 In a real project, documents may come from Markdown, PDF, Word, PPT, HTML, or databases. In this first workshop, we use four in-memory documents so the flow is easy to see. Each document already has metadata, because later citations, logs, permission checks, and evaluation all depend on it.
 
 Before copying the full script, use the next diagram to follow only `chunk_documents()`. When you read the code, move your eyes from `DOCUMENTS` to `sentences`, then to each chunk record. The key habit is that `source` and `roles` travel with every chunk; retrieval and permission checks are safer when metadata is not reconstructed later.
 
-![RAG workshop chunk_documents execution flow map](/img/course/ch08-workshop-chunk-execution-flow-map-en.png)
+![RAG workshop chunk_documents execution flow map](/img/course/ch08-workshop-chunk-execution-flow-map-en.webp)
 
 Copy this into `rag_app_workshop.py`:
 
@@ -312,11 +312,11 @@ If your output matches, you have already completed the minimum Chapter 8 loop: d
 
 Read the evaluation part with this diagram. `evaluate()` does not judge answer quality by feeling; it runs each item in `EVAL_CASES`, checks `status`, checks citations, then counts pass/fail. Notice that `private_block` passes even with no citation because the expected behavior is `blocked_by_permission`.
 
-![RAG workshop evaluation PASS/FAIL flow map](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-en.png)
+![RAG workshop evaluation PASS/FAIL flow map](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-en.webp)
 
 ## Step 4: Read the Code Like a Pipeline
 
-![RAG basics workflow map](/img/course/ch08-rag-basics-workflow-map-v2-en.png)
+![RAG basics workflow map](/img/course/ch08-rag-basics-workflow-map-v2-en.webp)
 
 Read the script in this order:
 
@@ -334,11 +334,11 @@ The current retrieval is deliberately simple. It is not a replacement for embedd
 
 ## Step 5: Observe Permission and Citation Behavior
 
-![Enterprise knowledge base permission and citation map](/img/course/ch08-enterprise-kb-permission-citation-map-en.png)
+![Enterprise knowledge base permission and citation map](/img/course/ch08-enterprise-kb-permission-citation-map-en.webp)
 
 Now zoom into the decision branch inside `retrieve()`. A matched chunk is not automatically evidence. It first has to pass the role check. If it matches but is private for this user, it goes to `blocked_hits`, not into the answer context.
 
-![RAG workshop retrieve permission branch map](/img/course/ch08-workshop-retrieve-permission-branch-map-en.png)
+![RAG workshop retrieve permission branch map](/img/course/ch08-workshop-retrieve-permission-branch-map-en.webp)
 
 Look at this document:
 
@@ -367,7 +367,7 @@ This distinction matters in real projects. `no_evidence` means the system did no
 
 ## Step 6: Add Trace Thinking Before Adding Frameworks
 
-![Assistant session and tool trace map](/img/course/ch08-assistant-session-tool-trace-map-en.png)
+![Assistant session and tool trace map](/img/course/ch08-assistant-session-tool-trace-map-en.webp)
 
 In real LLM applications, a trace is the record of what happened during one request. Even if you do not store a log file yet, you should be able to explain this sequence:
 
@@ -384,7 +384,7 @@ This is why Chapter 8 is application engineering, not just prompting. A reliable
 
 ## Step 7: Upgrade Path to Embeddings, Vector Databases, and APIs
 
-![Vector record and metadata filter map](/img/course/ch08-vector-record-metadata-filter-map-en.png)
+![Vector record and metadata filter map](/img/course/ch08-vector-record-metadata-filter-map-en.webp)
 
 Once the offline script works, replace one part at a time:
 
@@ -401,7 +401,7 @@ Do not replace everything at once. If you change parsing, embedding, vector data
 
 ## Step 8: Optional OpenAI Responses API Upgrade
 
-![Robust LLM API client loop](/img/course/ch08-llm-api-robust-client-loop-map-en.png)
+![Robust LLM API client loop](/img/course/ch08-llm-api-robust-client-loop-map-en.webp)
 
 The offline script is the required beginner path. After it works, you can replace `build_answer()` with a real model call. Current OpenAI documentation recommends using the Responses API, and the models page currently points general complex reasoning and coding work to `gpt-5.5`. Keep the model configurable so you can switch to a cheaper or course-standard model later.
 
@@ -488,7 +488,7 @@ If the model returns text without citations, treat that as a failed check. In a 
 
 ## Step 9: Function Calling and Structured Output Mental Model
 
-![Function calling validation and dispatch map](/img/course/ch08-function-calling-validation-dispatch-map-en.png)
+![Function calling validation and dispatch map](/img/course/ch08-function-calling-validation-dispatch-map-en.webp)
 
 In this workshop, `retrieve()` is a normal Python function. In a model-driven application, a model may decide to call tools such as `search_knowledge_base`, `get_user_profile`, or `create_ticket`.
 
@@ -506,7 +506,7 @@ The offline script already teaches the same habit: retrieval, permission, answer
 
 ## Step 10: Troubleshooting Checklist
 
-![RAG layer failure debug map](/img/course/ch08-rag-layer-failure-debug-map-en.png)
+![RAG layer failure debug map](/img/course/ch08-rag-layer-failure-debug-map-en.webp)
 
 | Symptom | Likely cause | What to check | Fix |
 |---|---|---|---|
@@ -519,7 +519,7 @@ The offline script already teaches the same habit: retrieval, permission, answer
 
 ## Step 11: Practice Tasks
 
-![RAG experiment and evaluation loop](/img/course/ch08-rag-experiment-eval-loop-map-en.png)
+![RAG experiment and evaluation loop](/img/course/ch08-rag-experiment-eval-loop-map-en.webp)
 
 Complete these in order:
 
@@ -533,7 +533,7 @@ Complete these in order:
 
 ## Workshop Completion Standard
 
-![LLM application project delivery loop](/img/course/ch08-project-delivery-loop-en.png)
+![LLM application project delivery loop](/img/course/ch08-project-delivery-loop-en.webp)
 
 You have completed this Chapter 8 hands-on workshop when you can:
 

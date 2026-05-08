@@ -46,7 +46,7 @@ flowchart LR
 
 実際のプロジェクトでは、最初から全部の指標を完璧にしようとしないでください。まずはタスク成功率、ツール失敗率、人的介入率、平均コストから始めるだけでも、多くの問題を見つけられます。
 
-![Agent 分層評価スコアカード図](/img/course/ch09-agent-eval-layered-scorecard-map-ja.png)
+![Agent 分層評価スコアカード図](/img/course/ch09-agent-eval-layered-scorecard-map-ja.webp)
 
 :::tip 図の見方
 この図は、Agent の評価を結果・プロセス・ツール・安全性の 4 層に分けています。初学者はまずこれを最小限の scorecard として使うと、「最終回答がそれっぽいか」だけを見る状態を避けられます。

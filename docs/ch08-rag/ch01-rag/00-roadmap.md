@@ -11,11 +11,11 @@ RAG solves a practical problem: the model does not know every fresh, private, or
 
 ## See the RAG Pipeline First
 
-![Bridge diagram showing RAG's position in LLM applications](/img/course/ch08-rag-position-bridge-en.png)
+![Bridge diagram showing RAG's position in LLM applications](/img/course/ch08-rag-position-bridge-en.webp)
 
-![Flow diagram of the core chapter learning order for RAG](/img/course/ch08-rag-core-chapter-flow-en.png)
+![Flow diagram of the core chapter learning order for RAG](/img/course/ch08-rag-core-chapter-flow-en.webp)
 
-![Pipeline diagram from materials to answers in RAG](/img/course/ch08-rag-data-to-answer-pipeline-en.png)
+![Pipeline diagram from materials to answers in RAG](/img/course/ch08-rag-data-to-answer-pipeline-en.webp)
 
 The core loop is: load documents, split chunks, add metadata, embed, retrieve, rerank, assemble context, answer, cite sources, and evaluate.
 

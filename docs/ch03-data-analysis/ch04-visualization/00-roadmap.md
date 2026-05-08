@@ -11,7 +11,7 @@ Visualization is not decoration. It turns an analysis result into something anot
 
 ## Look at the Chart Choice Map First
 
-![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap-en.png)
+![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap-en.webp)
 
 Use this decision first:
 

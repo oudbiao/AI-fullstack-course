@@ -208,7 +208,7 @@ but must respect:
 - Stage dependencies
 - Handoff quality
 
-![Multi-Agent development team delivery closed loop diagram](/img/course/ch09-multi-agent-dev-team-delivery-map-en.png)
+![Multi-Agent development team delivery closed loop diagram](/img/course/ch09-multi-agent-dev-team-delivery-map-en.webp)
 
 :::tip Reading guide
 This diagram emphasizes that “the number of roles is not the point; artifact handoff is the point”: planner produces the plan, coder produces the patch, reviewer produces issues, tester produces the test report, and after failure the system returns to the corresponding role for fixes.

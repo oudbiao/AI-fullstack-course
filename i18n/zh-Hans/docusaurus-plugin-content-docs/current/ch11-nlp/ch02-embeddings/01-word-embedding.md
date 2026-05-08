@@ -7,7 +7,7 @@ keywords: [word embedding, vector space, cosine similarity, one-hot, semantic re
 
 # 11.2.2 词嵌入
 
-![词向量语义邻域图](/img/course/word2vec-embedding-neighborhood.png)
+![词向量语义邻域图](/img/course/word2vec-embedding-neighborhood.webp)
 
 :::tip 本节定位
 做 NLP 时，模型并不直接理解“退款”“证书”“密码”这些词本身。

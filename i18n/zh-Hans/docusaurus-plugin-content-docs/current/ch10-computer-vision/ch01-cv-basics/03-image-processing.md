@@ -7,7 +7,7 @@ keywords: [滤波, 边缘检测, 形态学, OpenCV, Canny, blur]
 
 # 10.1.4 图像处理技术
 
-![图像处理流水线图](/img/course/cv-image-processing-pipeline.png)
+![图像处理流水线图](/img/course/cv-image-processing-pipeline.webp)
 
 ## 学习目标
 
@@ -266,7 +266,7 @@ print("已保存 processing_opened.png 和 processing_closed.png")
 已保存 processing_opened.png 和 processing_closed.png
 ```
 
-![经典图像处理操作选择图](/img/course/ch10-image-processing-operation-decision-map.png)
+![经典图像处理操作选择图](/img/course/ch10-image-processing-operation-decision-map.webp)
 
 :::tip 读图提示
 经典图像处理不是一堆 API 清单，而是一组目的明确的像素规则：去噪先滤波，找变化看边缘，分前景用阈值，清理小噪点和孔洞用形态学。

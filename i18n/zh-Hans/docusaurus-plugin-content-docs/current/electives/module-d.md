@@ -11,9 +11,9 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ## 先看闭环
 
-![AI 安全红队闭环图](/img/course/elective-ai-security-red-team-loop.png)
+![AI 安全红队闭环图](/img/course/elective-ai-security-red-team-loop.webp)
 
-![AI 安全威胁建模与回归集图](/img/course/elective-ai-security-threat-regression-map.png)
+![AI 安全威胁建模与回归集图](/img/course/elective-ai-security-threat-regression-map.webp)
 
 先从攻击面开始，而不是从攻击名字开始：prompt、检索、工具、记忆和外部动作。
 

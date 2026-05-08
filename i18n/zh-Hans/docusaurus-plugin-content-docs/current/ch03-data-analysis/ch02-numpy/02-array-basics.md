@@ -6,7 +6,7 @@ description: "掌握 NumPy 数组的创建方法、属性和数据类型"
 
 # 3.2.2 数组基础
 
-![NumPy 数组 Shape 与 Axis 图](/img/course/ch03-numpy-array-shape-axis.png)
+![NumPy 数组 Shape 与 Axis 图](/img/course/ch03-numpy-array-shape-axis.webp)
 
 ## 学习目标
 

@@ -11,11 +11,11 @@ Object detection adds location to classification: what object is present, and wh
 
 ## See the Box Workflow First
 
-![Learning flowchart for the object detection chapter](/img/course/ch10-detection-chapter-flow-en.png)
+![Learning flowchart for the object detection chapter](/img/course/ch10-detection-chapter-flow-en.webp)
 
-![Object detection output diagram](/img/course/object-detection-output-en.png)
+![Object detection output diagram](/img/course/object-detection-output-en.webp)
 
-![Detection output IoU error map](/img/course/ch10-detection-output-iou-error-map-en.png)
+![Detection output IoU error map](/img/course/ch10-detection-output-iou-error-map-en.webp)
 
 The important concepts are bounding box, class, confidence, IoU, threshold, false positive, false negative, and mAP.
 

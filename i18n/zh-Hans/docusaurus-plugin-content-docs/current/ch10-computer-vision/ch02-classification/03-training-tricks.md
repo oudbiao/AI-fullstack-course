@@ -95,7 +95,7 @@ avoid: Rotate180 - 可能改变数字或方向敏感标签
 | 训练波动大 | batch 太小、学习率偏大 | 降学习率、增大 batch、检查数据 |
 | 验证分数异常高 | 数据泄漏 | 检查重复图片、同一主体是否跨集合 |
 
-![图像分类训练诊断矩阵图](/img/course/ch10-classification-training-diagnosis-map.png)
+![图像分类训练诊断矩阵图](/img/course/ch10-classification-training-diagnosis-map.webp)
 
 :::tip 读图提示
 这张图把训练问题拆成数据、训练、评估三条线。看到分类效果不好时，先别急着换模型，先看 loss 曲线、验证集泄漏、类别不平衡和错误样本。

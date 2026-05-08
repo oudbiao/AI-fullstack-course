@@ -7,7 +7,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 # 9.4.2 记忆系统概述
 
-![Agent 记忆系统分层图](/img/course/agent-memory-system.png)
+![Agent 记忆系统分层图](/img/course/agent-memory-system.webp)
 
 :::tip 本节定位
 很多 Agent 系统一开始看起来很聪明，但一旦任务一长、回合一多，就会暴露一个本质问题：
@@ -114,7 +114,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 这四种记忆不是总要全都上，但它们组成了一个非常实用的思考框架。
 
-![Agent 记忆分层选择图](/img/course/ch09-memory-layer-selection-map.png)
+![Agent 记忆分层选择图](/img/course/ch09-memory-layer-selection-map.webp)
 
 :::tip 读图提示
 这张图不是要求你一次做满四类记忆，而是帮你判断“这条信息该放哪”。当前任务放 short-term，稳定偏好放 long-term，单次经历放 episodic，可复用流程放 procedural。

@@ -7,7 +7,7 @@ keywords: [正则化, dropout, weight decay, early stopping, 过拟合, PyTorch,
 
 # 6.1.6 正则化
 
-![正则化控制过拟合图](/img/course/regularization-overfitting-controls.png)
+![正则化控制过拟合图](/img/course/regularization-overfitting-controls.webp)
 
 :::tip 本节概览
 正则化不是为了让训练 loss 尽可能低，而是为了让模型在验证集和未来数据上泛化更好。
@@ -23,7 +23,7 @@ keywords: [正则化, dropout, weight decay, early stopping, 过拟合, PyTorch,
 - dropout + weight decay；
 - 通过 `best_epoch` 观察 early stopping 行为。
 
-![过拟合问题到正则化动作选择图](/img/course/ch06-regularization-overfit-action-map.png)
+![过拟合问题到正则化动作选择图](/img/course/ch06-regularization-overfit-action-map.webp)
 
 ## 环境准备
 

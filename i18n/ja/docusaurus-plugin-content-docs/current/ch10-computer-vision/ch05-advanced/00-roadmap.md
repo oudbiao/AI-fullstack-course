@@ -11,11 +11,11 @@ keywords: [Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Visi
 
 ## まず direction map を見る
 
-![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-ja.png)
+![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-ja.webp)
 
-![OCR layout reading order map](/img/course/ch10-ocr-layout-reading-order-map-ja.png)
+![OCR layout reading order map](/img/course/ch10-ocr-layout-reading-order-map-ja.webp)
 
-![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-ja.png)
+![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-ja.webp)
 
 OCR は文書、顔認識は本人確認などの慎重な場面、動画は時間と動き、3D 視覚は空間構造に向いています。
 

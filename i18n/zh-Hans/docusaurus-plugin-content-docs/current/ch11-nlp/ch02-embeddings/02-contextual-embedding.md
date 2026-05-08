@@ -7,7 +7,7 @@ keywords: [contextual embedding, contextual representation, polysemy, BERT, dyna
 
 # 11.2.3 上下文词嵌入
 
-![上下文词嵌入对比图](/img/course/contextual-embedding-comparison.png)
+![上下文词嵌入对比图](/img/course/contextual-embedding-comparison.webp)
 
 :::tip 本节定位
 上一节我们讲了词嵌入能把词映射到语义空间。

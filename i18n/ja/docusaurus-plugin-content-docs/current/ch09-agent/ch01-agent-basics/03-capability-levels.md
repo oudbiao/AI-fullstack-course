@@ -7,7 +7,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 # 9.1.4 Agent の能力レベル分け
 
-![Agent 能力レベルの階段図](/img/course/ch09-capability-level-ladder-map-ja.png)
+![Agent 能力レベルの階段図](/img/course/ch09-capability-level-ladder-map-ja.webp)
 
 ## 学習目標
 

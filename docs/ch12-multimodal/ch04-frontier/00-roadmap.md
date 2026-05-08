@@ -11,11 +11,11 @@ Responsible AIGC is not a disclaimer at the end. It is a workflow that checks ma
 
 ## See the Guardrails First
 
-![AIGC frontier ethics and compliance roadmap](/img/course/ch12-frontier-ethics-route-map-en.png)
+![AIGC frontier ethics and compliance roadmap](/img/course/ch12-frontier-ethics-route-map-en.webp)
 
-![AI ethics and safety guardrail map](/img/course/ch12-ai-ethics-safety-guardrail-map-en.png)
+![AI ethics and safety guardrail map](/img/course/ch12-ai-ethics-safety-guardrail-map-en.webp)
 
-![Regulation to engineering translation map](/img/course/ch12-ai-regulation-engineering-translation-map-en.png)
+![Regulation to engineering translation map](/img/course/ch12-ai-regulation-engineering-translation-map-en.webp)
 
 The first habit is to ask what should be blocked, what should be limited, and what needs human confirmation.
 

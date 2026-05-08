@@ -11,11 +11,11 @@ LLM application development is not just an input box plus a model API. A real fe
 
 ## See the Application Loop First
 
-![LLM application development chapter relationship diagram](/img/course/ch08-app-dev-chapter-flow-en.png)
+![LLM application development chapter relationship diagram](/img/course/ch08-app-dev-chapter-flow-en.webp)
 
-![LLM application development learning order diagram](/img/course/ch08-app-dev-learning-order-map-en.png)
+![LLM application development learning order diagram](/img/course/ch08-app-dev-learning-order-map-en.webp)
 
-![LLM application capability loop diagram](/img/course/ch08-llm-app-capability-loop-en.png)
+![LLM application capability loop diagram](/img/course/ch08-llm-app-capability-loop-en.webp)
 
 The chapter upgrades one model call into a maintainable application loop: input, prompt/context, model, optional tool, validation, output, feedback.
 

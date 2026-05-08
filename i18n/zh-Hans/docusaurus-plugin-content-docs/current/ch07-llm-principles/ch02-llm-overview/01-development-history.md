@@ -7,7 +7,7 @@ keywords: [LLM history, language model, n-gram, RNN, Transformer, GPT, RLHF, Age
 
 # 7.2.2 大模型发展史
 
-![AI 15 阶段发展地图](/img/course/appendix-ai-15-stage-history-map.png)
+![AI 15 阶段发展地图](/img/course/appendix-ai-15-stage-history-map.webp)
 
 :::tip 把这页当成地图，不要当成年代背诵
 不需要背日期，只抓住一条线：

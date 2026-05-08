@@ -7,7 +7,7 @@ keywords: [text classification, bag of words, tf-idf, logistic regression, basel
 
 # 11.3.2 伝統的なテキスト分類
 
-![伝統的なテキスト分類のベースライン図](/img/course/ch11-traditional-classification-baseline-map-ja.png)
+![伝統的なテキスト分類のベースライン図](/img/course/ch11-traditional-classification-baseline-map-ja.webp)
 
 :::tip 図の見方
 伝統的なテキスト分類は、まず「テキストの前処理 -> 特徴表現 -> 線形分類器 -> 誤り分析」の順で理解すると分かりやすいです。これは古い内容ではなく、多くのテキストプロジェクトで最も安定していて、最も速く、最も説明しやすい最初のベースラインです。

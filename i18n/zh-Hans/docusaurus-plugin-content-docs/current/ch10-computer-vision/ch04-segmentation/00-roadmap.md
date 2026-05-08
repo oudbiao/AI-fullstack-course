@@ -11,11 +11,11 @@ keywords: [图像分割指南, 语义分割, 实例分割, mask]
 
 ## 先看 Mask 工作流
 
-![图像分割章节学习顺序图](/img/course/ch10-segmentation-chapter-flow.png)
+![图像分割章节学习顺序图](/img/course/ch10-segmentation-chapter-flow.webp)
 
-![语义分割 mask 示例](/img/course/semantic-segmentation-mask.png)
+![语义分割 mask 示例](/img/course/semantic-segmentation-mask.webp)
 
-![语义分割 IoU 与边界图](/img/course/ch10-semantic-segmentation-iou-boundary-map.png)
+![语义分割 IoU 与边界图](/img/course/ch10-semantic-segmentation-iou-boundary-map.webp)
 
 本章最重要的对象是 mask。常见失败通常是边界质量、小目标、遮挡或类别混淆。
 

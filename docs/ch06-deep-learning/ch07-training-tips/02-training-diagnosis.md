@@ -23,7 +23,7 @@ Training diagnosis means separating symptoms from root causes. Do not switch mod
 
 ## Look at the Curves First
 
-![Training curve diagnosis chart](/img/course/training-curve-diagnosis-en.png)
+![Training curve diagnosis chart](/img/course/training-curve-diagnosis-en.webp)
 
 The first question is not “which model should I switch to?” It is:
 
@@ -39,7 +39,7 @@ what symptom is visible in the training evidence?
 | predictions mostly one class | collapse or data issue | labels, class balance, output layer |
 | metrics suddenly change | pipeline bug or distribution shift | data loader, preprocessing, validation split |
 
-![Training diagnosis dashboard troubleshooting map](/img/course/ch06-training-diagnosis-dashboard-map-en.png)
+![Training diagnosis dashboard troubleshooting map](/img/course/ch06-training-diagnosis-dashboard-map-en.webp)
 
 ## Lab 1: Classify Curve Patterns
 

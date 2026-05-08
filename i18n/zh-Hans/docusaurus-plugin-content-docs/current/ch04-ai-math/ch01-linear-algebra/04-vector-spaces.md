@@ -7,7 +7,7 @@ keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性
 
 # 4.1.5 向量空间与线性变换【选修】
 
-![向量空间基向量张成示意图](/img/course/vector-space-basis-span.png)
+![向量空间基向量张成示意图](/img/course/vector-space-basis-span.webp)
 
 :::info 选修章节
 本节内容帮助你**加深理解**。如果你只想快速上手 AI 项目，可以先跳过，后续遇到相关概念再回来看。
@@ -38,7 +38,7 @@ keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性
 
 如果你前面三节学的是“向量怎么表示、矩阵怎么变换、特征值怎么找特殊方向”，那这一节就是把这些内容抬高一个视角来重新看。
 
-![向量空间高层理解图](/img/course/ch04-vector-space-high-level-map.png)
+![向量空间高层理解图](/img/course/ch04-vector-space-high-level-map.webp)
 
 所以这节课更像“加深理解的整理课”，不是必须第一时间全部吃透，但学懂之后，你会更知道前面那些概念为什么成立。
 
@@ -379,7 +379,7 @@ print(f"[1, 0] → {result.round(3)}")  # ≈ [1.414, 1.414]
 - 因为它不只是“能算”
 - 还很适合拿来解释结构
 
-![SVD 直觉：方向、强弱和重构](/img/course/ch04-svd-intuition-vertical.png)
+![SVD 直觉：方向、强弱和重构](/img/course/ch04-svd-intuition-vertical.webp)
 
 SVD 把一个矩阵 M 分解为三个矩阵的乘积：
 

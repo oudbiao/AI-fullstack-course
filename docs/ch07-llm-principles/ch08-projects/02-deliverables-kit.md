@@ -13,7 +13,7 @@ It is:
 
 > **Can another person understand the goal, reproduce the result, inspect the evaluation, and continue from where you stopped?**
 
-![Project Deliverables Kit](/img/course/ch07-project-deliverables-kit-en.png)
+![Project Deliverables Kit](/img/course/ch07-project-deliverables-kit-en.webp)
 
 :::tip Why this page exists
 Many projects fail the portfolio test not because the model is weak, but because the final handoff is weak. A good project needs evidence, not just a demo.
@@ -134,7 +134,7 @@ The handoff should let another person answer three questions quickly:
 
 If those three questions are easy to answer, the project is ready for a portfolio or a team review.
 
-![Project Deliverables Kit](/img/course/ch07-project-deliverables-kit-en.png)
+![Project Deliverables Kit](/img/course/ch07-project-deliverables-kit-en.webp)
 
 ## Final checklist
 

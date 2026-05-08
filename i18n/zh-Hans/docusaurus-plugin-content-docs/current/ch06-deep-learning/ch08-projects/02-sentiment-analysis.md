@@ -23,7 +23,7 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 
 ## 先看项目闭环
 
-![情感分析项目闭环图](/img/course/ch06-project-sentiment-analysis-loop.png)
+![情感分析项目闭环图](/img/course/ch06-project-sentiment-analysis-loop.webp)
 
 ```text
 label boundary -> baseline -> predictions -> error buckets -> targeted upgrade

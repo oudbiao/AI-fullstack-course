@@ -9,7 +9,7 @@ keywords: [RAG checklist, LLM application checklist, vector retrieval, RAG evalu
 
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 8 entry page](./index.md).
 
-![RAG portfolio evidence pack](/img/course/ch08-rag-evidence-pack-en.png)
+![RAG portfolio evidence pack](/img/course/ch08-rag-evidence-pack-en.webp)
 
 ## Two-Hour First Pass
 

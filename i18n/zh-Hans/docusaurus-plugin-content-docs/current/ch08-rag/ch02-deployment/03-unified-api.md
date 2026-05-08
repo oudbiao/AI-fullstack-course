@@ -173,7 +173,7 @@ print(response)
 
 这个表很适合新人，因为它能把“统一 API”从一个抽象名词重新拉回成几类可见对象。
 
-![统一 API Provider Gateway 图](/img/course/ch08-unified-api-provider-gateway-map.png)
+![统一 API Provider Gateway 图](/img/course/ch08-unified-api-provider-gateway-map.webp)
 
 :::tip 读图提示
 统一 API 层像模型网关：上层业务只发统一请求，网关内部再处理 provider 适配、模型路由、fallback、usage 统计和统一错误结构。

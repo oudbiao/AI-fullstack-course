@@ -7,7 +7,7 @@ keywords: [AI学習ルート, AIフルスタックルート, LLM学習, Agent学
 
 # 0.4 おすすめ学習ルート
 
-![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.png)
+![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.webp)
 
 迷うなら初心者ルートを選びます。**第1章 -> 第9章を順番に進め、各ステージで小さな成果を1つ残します。**
 

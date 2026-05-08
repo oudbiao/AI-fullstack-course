@@ -7,7 +7,7 @@ keywords: [machine translation, seq2seq, translation project, alignment, error a
 
 # 11.5.4 機械翻訳の実践【選択】
 
-![機械翻訳エラー分析図](/img/course/ch11-machine-translation-error-analysis-map-ja.png)
+![機械翻訳エラー分析図](/img/course/ch11-machine-translation-error-analysis-map-ja.webp)
 
 :::tip 図の見方
 翻訳プロジェクトでは、1文の結果が自然かどうかだけを見ればよいわけではありません。図を見るときは、平行コーパス、baseline、訳抜け、誤訳、語順の問題、用語の一貫性、そして人手評価をつなげて見ると、システムのどこが伸びているのか本当に分かります。

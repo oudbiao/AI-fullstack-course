@@ -6,7 +6,7 @@ description: "Develop new features safely with branches, and understand the Pull
 
 # 1.2.4 Branches and Collaboration
 
-![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration-en.png)
+![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration-en.webp)
 
 ## Where This Lesson Fits
 
@@ -228,7 +228,7 @@ git branch
 
 ## Merge Conflicts
 
-![Git merge conflict resolution flow](/img/course/ch01-git-merge-conflict-resolution-en.svg)
+![Git merge conflict resolution flow](/img/course/ch01-git-merge-conflict-resolution-en.webp)
 
 ### When Do Conflicts Happen?
 

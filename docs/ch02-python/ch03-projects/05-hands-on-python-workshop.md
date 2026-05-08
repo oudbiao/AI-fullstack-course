@@ -7,7 +7,7 @@ keywords: [Python workshop, command-line app, argparse, JSON, dataclass, file I/
 
 # 2.3.5 Follow-Along Workshop: Build a Local Learning Task Assistant
 
-![Follow-along Python workshop route](/img/course/ch02-hands-on-python-workshop-route-en.png)
+![Follow-along Python workshop route](/img/course/ch02-hands-on-python-workshop-route-en.webp)
 
 :::tip Workshop goal
 This page is the practical bridge for Chapter 2. You will not just read syntax explanations; you will build a small tool that can create learning tasks, save them to JSON, mark tasks as done, show statistics, and export a Markdown report.
@@ -56,7 +56,7 @@ This workshop uses modern Python standard-library features such as `dataclass`, 
 
 ## Step 1: See the whole program before typing
 
-![CLI command execution flow](/img/course/ch02-hands-on-cli-command-flow-en.png)
+![CLI command execution flow](/img/course/ch02-hands-on-cli-command-flow-en.webp)
 
 The program follows one simple route:
 
@@ -283,7 +283,7 @@ ID  Status  Stage  Title
 
 ## Step 4: Add and complete a task
 
-![JSON persistence flow](/img/course/ch02-hands-on-json-persistence-flow-en.png)
+![JSON persistence flow](/img/course/ch02-hands-on-json-persistence-flow-en.webp)
 
 Add a new task:
 
@@ -357,7 +357,7 @@ You now have a runnable project and a small report that can be used as portfolio
 
 ## Common mistakes and fixes
 
-![Error and debugging map](/img/course/ch02-hands-on-error-debug-map-en.png)
+![Error and debugging map](/img/course/ch02-hands-on-error-debug-map-en.webp)
 
 | Problem | Likely cause | Fix |
 |---|---|---|
@@ -377,7 +377,7 @@ You now have a runnable project and a small report that can be used as portfolio
 
 ## Portfolio evidence checklist
 
-![Python project evidence pack](/img/course/ch02-hands-on-evidence-pack-en.png)
+![Python project evidence pack](/img/course/ch02-hands-on-evidence-pack-en.webp)
 
 Keep these files as evidence:
 

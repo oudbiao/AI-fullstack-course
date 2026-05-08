@@ -199,7 +199,7 @@ This table is very useful for beginners because it helps answer the easiest conf
 
 - What exactly is worth putting into long-term memory
 
-![Long-term memory write, update, and confidence diagram](/img/course/ch09-long-term-memory-write-update-policy-map-en.png)
+![Long-term memory write, update, and confidence diagram](/img/course/ch09-long-term-memory-write-update-policy-map-en.webp)
 
 :::tip Reading the Diagram
 Long-term memory is not “permanent chat history.” When reading the diagram, focus on write policy, confidence, version, and retrieval: the system must first decide whether something is worth writing, then handle conflicts between old and new information, and finally retrieve the relevant facts for the current task.

@@ -11,11 +11,11 @@ Finetuning changes model behavior by training on examples. It is useful for stab
 
 ## See the Decision Loop First
 
-![Relationship diagram of the large model finetuning chapter](/img/course/ch07-finetuning-chapter-flow-en.png)
+![Relationship diagram of the large model finetuning chapter](/img/course/ch07-finetuning-chapter-flow-en.webp)
 
-![Finetuning decision and evaluation loop diagram](/img/course/ch07-finetuning-decision-loop-en.png)
+![Finetuning decision and evaluation loop diagram](/img/course/ch07-finetuning-decision-loop-en.webp)
 
-![Fine-tuning engineering workflow comic](/img/course/ch07-finetuning-engineering-loop-en.png)
+![Fine-tuning engineering workflow comic](/img/course/ch07-finetuning-engineering-loop-en.webp)
 
 Key terms: LoRA means low-rank adapters, QLoRA means quantized LoRA, and PEFT means parameter-efficient fine-tuning. They reduce cost by training a small set of extra parameters instead of every model weight.
 

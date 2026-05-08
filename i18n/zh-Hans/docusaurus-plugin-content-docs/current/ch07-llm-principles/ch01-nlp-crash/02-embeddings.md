@@ -7,7 +7,7 @@ keywords: [embedding, semantic representation, cosine similarity, sentence embed
 
 # 7.1.3 词向量与语义表示
 
-![Embedding 语义空间图](/img/course/embedding-semantic-space.png)
+![Embedding 语义空间图](/img/course/embedding-semantic-space.webp)
 
 :::tip 一句话理解
 Tokenizer 给模型离散 ID，Embedding 把这些 ID 变成向量，让模型可以比较、组合并在层与层之间传递语义。
@@ -30,7 +30,7 @@ token id -> embedding table lookup -> dense vector
 
 ## 从 One-Hot 到稠密向量
 
-![从 one-hot 到稠密 embedding 的语义空间图](/img/course/ch07-embedding-onehot-dense-map.png)
+![从 one-hot 到稠密 embedding 的语义空间图](/img/course/ch07-embedding-onehot-dense-map.webp)
 
 One-hot 向量里，任何不同词都一样“不同”：
 
@@ -157,7 +157,7 @@ Mean pooling 很好理解，但会丢掉重要信息：
 
 ## 上下文表示
 
-![上下文表示消除多义词歧义图](/img/course/ch07-contextual-embedding-sense-map.png)
+![上下文表示消除多义词歧义图](/img/course/ch07-contextual-embedding-sense-map.webp)
 
 静态 embedding 通常一个词一个向量。上下文模型会让向量受周围词影响：
 

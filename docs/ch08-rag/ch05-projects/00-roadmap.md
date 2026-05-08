@@ -11,11 +11,11 @@ This capstone proves you can connect knowledge, model calls, application flow, a
 
 ## See the Project Evidence Loop First
 
-![LLM application capstone project roadmap](/img/course/ch08-projects-route-map-en.png)
+![LLM application capstone project roadmap](/img/course/ch08-projects-route-map-en.webp)
 
-![LLM application project learning order diagram](/img/course/ch08-project-learning-order-map-en.png)
+![LLM application project learning order diagram](/img/course/ch08-project-learning-order-map-en.webp)
 
-![LLM application project delivery loop diagram](/img/course/ch08-project-delivery-loop-en.png)
+![LLM application project delivery loop diagram](/img/course/ch08-project-delivery-loop-en.webp)
 
 The project is not “connect a vector database.” It is a traceable loop: documents, chunks, retrieval, context, answer, citations, logs, evaluation, and improvement.
 

@@ -6,7 +6,7 @@ description: "掌握条件判断和循环结构"
 
 # 2.1.5 流程控制
 
-![Python 流程控制执行路径图](/img/course/ch02-control-flow-paths.png)
+![Python 流程控制执行路径图](/img/course/ch02-control-flow-paths.webp)
 
 ## 本节定位
 

@@ -11,11 +11,11 @@ keywords: [微调指南, LoRA, QLoRA, PEFT, 大模型微调]
 
 ## 先看决策闭环
 
-![大模型微调章节关系图](/img/course/ch07-finetuning-chapter-flow.png)
+![大模型微调章节关系图](/img/course/ch07-finetuning-chapter-flow.webp)
 
-![微调决策与评估闭环图](/img/course/ch07-finetuning-decision-loop.png)
+![微调决策与评估闭环图](/img/course/ch07-finetuning-decision-loop.webp)
 
-![微调工程闭环漫画](/img/course/ch07-finetuning-engineering-loop.png)
+![微调工程闭环漫画](/img/course/ch07-finetuning-engineering-loop.webp)
 
 关键术语：LoRA 指低秩适配器，QLoRA 指量化版 LoRA，PEFT 指参数高效微调。它们通过训练少量新增参数，而不是更新全部模型权重，来降低成本。
 

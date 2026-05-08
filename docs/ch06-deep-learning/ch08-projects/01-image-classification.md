@@ -23,7 +23,7 @@ An image classification project is portfolio-ready when another person can under
 
 ## See the Project Loop First
 
-![Image classification project closed loop](/img/course/ch06-project-image-classification-loop-en.png)
+![Image classification project closed loop](/img/course/ch06-project-image-classification-loop-en.webp)
 
 ```text
 labels -> data split -> baseline -> metrics -> error cases -> next data/model action

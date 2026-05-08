@@ -23,7 +23,7 @@ Sentiment analysis is a good first NLP project because the hard parts are visibl
 
 ## See the Project Loop First
 
-![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-en.png)
+![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-en.webp)
 
 ```text
 label boundary -> baseline -> predictions -> error buckets -> targeted upgrade

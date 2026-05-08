@@ -11,11 +11,11 @@ keywords: [LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation]
 
 ## まずプロジェクトルートを見る
 
-![大規模モデル総合プロジェクトのロードマップ](/img/course/ch07-projects-route-map-ja.png)
+![大規模モデル総合プロジェクトのロードマップ](/img/course/ch07-projects-route-map-ja.webp)
 
-![大規模モデルプロジェクトの手法選択ループ図](/img/course/ch07-project-method-choice-loop-ja.png)
+![大規模モデルプロジェクトの手法選択ループ図](/img/course/ch07-project-method-choice-loop-ja.webp)
 
-![ポートフォリオ証拠パック図](/img/course/ch07-hands-on-portfolio-evidence-pack-ja.png)
+![ポートフォリオ証拠パック図](/img/course/ch07-hands-on-portfolio-evidence-pack-ja.webp)
 
 最強モデルや複雑なフレームワークから始めないでください。小さなドメインタスク、Prompt ベースライン、固定例、失敗ログから始めます。
 

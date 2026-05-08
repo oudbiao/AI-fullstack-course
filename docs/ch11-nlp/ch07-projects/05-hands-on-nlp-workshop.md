@@ -9,7 +9,7 @@ keywords: [NLP hands-on, TF-IDF, text classification, retrieval QA, summarizatio
 
 Before you choose a larger NLP project, run this mini pipeline once. It turns the abstract ideas from this chapter into files you can inspect: raw text, tokens, TF-IDF features, classification predictions, retrieval answers, summaries, extracted fields, metrics, and failure cases.
 
-![NLP workshop end-to-end artifact pipeline](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.png)
+![NLP workshop end-to-end artifact pipeline](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.webp)
 
 This workshop uses only the Python standard library. TF-IDF and centroid classification are classical methods, not the newest model family, but they are used here on purpose: they are transparent, offline, fast, and excellent as a baseline before you replace one module with scikit-learn, Transformers, embeddings, or an LLM API.
 
@@ -65,7 +65,7 @@ source .venv/bin/activate
 
 This example does not need `pip install` because it uses only Python built-ins. Now create `nlp_workshop.py` and paste the full script below.
 
-![TF-IDF classification baseline map](/img/course/ch11-workshop-tfidf-classification-map-en.png)
+![TF-IDF classification baseline map](/img/course/ch11-workshop-tfidf-classification-map-en.webp)
 
 ## Step 2: Run the Complete Script
 
@@ -556,7 +556,7 @@ Low `margin` means the model is unsure even if the label is correct. In real NLP
 
 ## Step 6: Inspect Retrieval QA, Summary, and Extraction
 
-![Retrieval, summarization, and extraction workflow](/img/course/ch11-workshop-retrieval-summary-extraction-map-en.png)
+![Retrieval, summarization, and extraction workflow](/img/course/ch11-workshop-retrieval-summary-extraction-map-en.webp)
 
 Open `nlp_workshop_run/outputs/qa_predictions.jsonl`. The out-of-scope question is:
 
@@ -591,7 +591,7 @@ The important lesson is that different NLP tasks need different metrics:
 
 ## Step 8: Read the Failure Report
 
-![NLP failure debugging map](/img/course/ch11-workshop-failure-debug-map-en.png)
+![NLP failure debugging map](/img/course/ch11-workshop-failure-debug-map-en.webp)
 
 Open `nlp_workshop_run/reports/failure_cases.md`. The point of this file is not to shame the model. It is where the next improvement plan comes from.
 

@@ -7,7 +7,7 @@ keywords: [image, pixel, RGB, HSV, channel, image format, computer vision]
 
 # 10.1.2 Digital Image Fundamentals
 
-![Pixel grid and RGB channel diagram](/img/course/cv-pixel-rgb-grid-en.png)
+![Pixel grid and RGB channel diagram](/img/course/cv-pixel-rgb-grid-en.webp)
 
 ## Learning Objectives
 
@@ -155,7 +155,7 @@ When you see an image array, ask these three questions:
 
 This habit will help you avoid a lot of shape confusion in vision code.
 
-![Image array shape and channel semantics diagram](/img/course/ch10-image-array-shape-channel-map-en.png)
+![Image array shape and channel semantics diagram](/img/course/ch10-image-array-shape-channel-map-en.webp)
 
 :::tip Reading tip
 Read this figure as `height -> width -> channel`: grayscale images are usually a 2D grid, RGB images add a color channel, and before training, models also convert `uint8` values from 0-255 into a more stable floating-point range.

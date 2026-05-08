@@ -7,7 +7,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 # 7.1.2 Tokenization and Tokenizer
 
-![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.png)
+![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.webp)
 
 :::tip What You Should Be Able to Do
 After this lesson, you should be able to look at any prompt and answer four practical questions:
@@ -36,7 +36,7 @@ Most LLM issues that look mysterious become easier once you inspect this contrac
 
 ## Split Size Trade-Off
 
-![Tokenizer Granularity Trade-off Diagram](/img/course/ch07-tokenizer-granularity-tradeoff-map-en.png)
+![Tokenizer Granularity Trade-off Diagram](/img/course/ch07-tokenizer-granularity-tradeoff-map-en.webp)
 
 There are three common choices:
 
@@ -174,7 +174,7 @@ Read the output like this:
 
 ## Lab 2: See Truncation as a Product Risk
 
-![Tokenizer to input_ids and attention_mask Diagram](/img/course/ch07-tokenizer-inputids-mask-length-map-en.png)
+![Tokenizer to input_ids and attention_mask Diagram](/img/course/ch07-tokenizer-inputids-mask-length-map-en.webp)
 
 Now force the same tokenizer into a small context window.
 

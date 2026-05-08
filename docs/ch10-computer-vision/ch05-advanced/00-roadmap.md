@@ -11,11 +11,11 @@ Advanced vision is not a list of model names. It is a set of application directi
 
 ## See the Direction Map First
 
-![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-en.png)
+![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-en.webp)
 
-![OCR layout reading order map](/img/course/ch10-ocr-layout-reading-order-map-en.png)
+![OCR layout reading order map](/img/course/ch10-ocr-layout-reading-order-map-en.webp)
 
-![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-en.png)
+![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-en.webp)
 
 OCR fits documents, face recognition fits identity-sensitive scenarios, video fits time and motion, and 3D vision fits spatial structure.
 

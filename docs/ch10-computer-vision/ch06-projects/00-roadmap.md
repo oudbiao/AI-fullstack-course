@@ -11,11 +11,11 @@ A computer vision project is not “I used a model.” It is a loop of data, ann
 
 ## See the Project Loop First
 
-![Progression map of output granularity in vision tasks](/img/course/ch10-visual-task-progression-map-en.png)
+![Progression map of output granularity in vision tasks](/img/course/ch10-visual-task-progression-map-en.webp)
 
-![Closed-loop delivery diagram for vision projects](/img/course/ch10-projects-delivery-loop-en.png)
+![Closed-loop delivery diagram for vision projects](/img/course/ch10-projects-delivery-loop-en.webp)
 
-![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-en.png)
+![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-en.webp)
 
 Start with classification if you need the fastest complete loop. Move to detection for boxes, segmentation for masks, and OCR/video/3D for specialized scenarios.
 

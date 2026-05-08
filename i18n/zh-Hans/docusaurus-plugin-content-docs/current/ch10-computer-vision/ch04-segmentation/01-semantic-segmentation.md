@@ -7,7 +7,7 @@ keywords: [semantic segmentation, pixel classification, mask, IoU, vision]
 
 # 10.4.2 语义分割
 
-![语义分割 Mask 对比图](/img/course/semantic-segmentation-mask.png)
+![语义分割 Mask 对比图](/img/course/semantic-segmentation-mask.webp)
 
 :::tip 本节定位
 分类回答的是：
@@ -247,7 +247,7 @@ print(class_counts(mask))
 
 所以分割项目里，如果你只盯总体像素准确率，很容易被“背景全都判对了”这件事误导。
 
-![语义分割 Mask、IoU 与边界误差图](/img/course/ch10-semantic-segmentation-iou-boundary-map.png)
+![语义分割 Mask、IoU 与边界误差图](/img/course/ch10-semantic-segmentation-iou-boundary-map.webp)
 
 :::tip 读图提示
 分割不是“看起来涂上颜色就行”。这张图把原图、GT mask、预测 mask、IoU 和边界误差放在一起，帮助你看懂为什么小类别和边缘区域会影响 mIoU。

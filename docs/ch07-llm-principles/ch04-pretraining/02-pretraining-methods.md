@@ -240,7 +240,7 @@ you will understand why:
 
 - GPT, BERT, and T5 end up with different capability profiles
 
-![Comparison of pretraining objective sample transformations](/img/course/ch07-pretraining-objective-comparison-map-en.png)
+![Comparison of pretraining objective sample transformations](/img/course/ch07-pretraining-objective-comparison-map-en.webp)
 
 :::tip Reading Guide
 When reading this figure, compare how the same sentence is turned into three different training tasks: Causal LM trains “predict the next token,” Masked LM trains “fill in blanks from both sides,” and Span Corruption trains “recover missing spans.” What the model practices every day is what it will gradually become good at.

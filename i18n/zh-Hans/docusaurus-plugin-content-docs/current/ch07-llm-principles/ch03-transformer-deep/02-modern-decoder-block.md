@@ -15,7 +15,7 @@ keywords: [现代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
 
 但为了更深的模型、更长的上下文、更快的推理和更稳定的训练，很多细节已经演化了。
 
-![原始 Transformer vs 现代 LLM Decoder](/img/course/ch07-modern-decoder-block-comparison-zh.png)
+![原始 Transformer vs 现代 LLM Decoder](/img/course/ch07-modern-decoder-block-comparison-zh.webp)
 
 :::tip 学习节奏
 不要先背名词。先把左右两条流程当成故事读：原始 block 让 Transformer 成立，现代 decoder block 保留思想，但为了 LLM 规模改了 normalization、位置编码、K/V 共享和 FFN 设计。

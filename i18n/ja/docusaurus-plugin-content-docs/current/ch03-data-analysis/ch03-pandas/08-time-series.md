@@ -31,7 +31,7 @@ description: "日付時刻の処理、リサンプリング、ローリングウ
 
 時系列は、「まず日付を操作可能なオブジェクトに変えてから、時間の軸で分析する」と考えると理解しやすいです：
 
-![Pandas 時系列分析図](/img/course/ch03-pandas-time-series-analysis-ja.png)
+![Pandas 時系列分析図](/img/course/ch03-pandas-time-series-analysis-ja.webp)
 
 この節で本当に解決したいのは、次の2つです。
 
@@ -201,7 +201,7 @@ print(sales.loc["2024-06-15"])
 
 ## リサンプリング（resample）
 
-![Pandas のリサンプリングとローリングのタイムライン図解](/img/course/ch03-pandas-resample-rolling-timeline-ja.svg)
+![Pandas のリサンプリングとローリングのタイムライン図解](/img/course/ch03-pandas-resample-rolling-timeline-ja.webp)
 
 リサンプリングは、時系列で最も重要な操作の1つです。データの**時間頻度**を変えます。
 

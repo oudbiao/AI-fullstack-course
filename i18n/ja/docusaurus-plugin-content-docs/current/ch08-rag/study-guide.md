@@ -9,7 +9,7 @@ keywords: [RAG チェックリスト, LLM アプリチェックリスト, ベク
 
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 8 章入口ページ](./index.md) に戻ってください。
 
-![RAG ポートフォリオ証拠パック](/img/course/ch08-rag-evidence-pack-ja.png)
+![RAG ポートフォリオ証拠パック](/img/course/ch08-rag-evidence-pack-ja.webp)
 
 ## 2時間の初回通読
 

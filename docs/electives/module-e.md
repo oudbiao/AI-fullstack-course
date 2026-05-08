@@ -11,9 +11,9 @@ An AI feature needs a surface users can operate. The smallest useful front end s
 
 ## See the Interaction Stack First
 
-![AI front-end interaction stack diagram](/img/course/elective-ai-frontend-stack-en.png)
+![AI front-end interaction stack diagram](/img/course/elective-ai-frontend-stack-en.webp)
 
-![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map-en.png)
+![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map-en.webp)
 
 Treat every model call as uncertain: it may be slow, fail, return partial output, or need a retry.
 

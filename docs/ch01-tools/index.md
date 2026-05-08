@@ -7,13 +7,13 @@ keywords: [Terminal, command line, Git, VS Code, development environment, Python
 
 # 1 Developer Tools Fundamentals
 
-![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation-en.png)
+![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation-en.webp)
 
 Chapter 1 has one job: make sure you can **create code, run code, save code, and explain how to rerun it**.
 
 ## See The Workstation
 
-![AI workstation comic guide for developer tools](/img/course/ch01-ai-workstation-comic-en.png)
+![AI workstation comic guide for developer tools](/img/course/ch01-ai-workstation-comic-en.webp)
 
 Read the picture first. The whole chapter is this loop:
 

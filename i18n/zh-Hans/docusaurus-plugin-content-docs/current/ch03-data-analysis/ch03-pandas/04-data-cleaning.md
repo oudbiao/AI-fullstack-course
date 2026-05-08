@@ -31,7 +31,7 @@ description: "掌握缺失值、重复值、异常值处理和字符串清洗"
 
 数据清洗更适合按“先检查，再决定怎么处理”来理解：
 
-![Pandas 数据清洗工作流](/img/course/ch03-pandas-cleaning-workflow.png)
+![Pandas 数据清洗工作流](/img/course/ch03-pandas-cleaning-workflow.webp)
 
 所以这节真正想解决的是：
 

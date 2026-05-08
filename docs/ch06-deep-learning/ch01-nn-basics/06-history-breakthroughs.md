@@ -15,7 +15,7 @@ This page is a short map, not a history exam. Use it to answer one question for 
 
 ## Look at the Timeline First
 
-![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map-en.png)
+![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map-en.webp)
 
 Read the timeline as a chain:
 

@@ -11,11 +11,11 @@ keywords: [大模型应用开发指南, 对话系统, Function Calling, LangChai
 
 ## 先看应用闭环
 
-![大模型应用开发章节关系图](/img/course/ch08-app-dev-chapter-flow.png)
+![大模型应用开发章节关系图](/img/course/ch08-app-dev-chapter-flow.webp)
 
-![大模型应用开发学习顺序图](/img/course/ch08-app-dev-learning-order-map.png)
+![大模型应用开发学习顺序图](/img/course/ch08-app-dev-learning-order-map.webp)
 
-![大模型应用能力闭环图](/img/course/ch08-llm-app-capability-loop.png)
+![大模型应用能力闭环图](/img/course/ch08-llm-app-capability-loop.webp)
 
 本章把一次模型调用升级成可维护的应用闭环：输入、Prompt/上下文、模型、可选工具、校验、输出、反馈。
 

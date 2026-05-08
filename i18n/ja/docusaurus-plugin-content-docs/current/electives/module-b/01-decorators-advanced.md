@@ -7,9 +7,9 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 # E.B.1 デコレータの応用
 
-![Python デコレータ実行フロー図](/img/course/elective-python-decorator-flow-ja.png)
+![Python デコレータ実行フロー図](/img/course/elective-python-decorator-flow-ja.webp)
 
-![デコレータによる横断的ロジックの階層図](/img/course/elective-decorator-crosscutting-layers-ja.png)
+![デコレータによる横断的ロジックの階層図](/img/course/elective-decorator-crosscutting-layers-ja.webp)
 
 デコレータは、関数の外側に再利用できる動作を巻き付けます。ログ、計測、リトライ、権限チェック、トレースのように、多くの関数で同じ処理が必要なときに向いています。
 

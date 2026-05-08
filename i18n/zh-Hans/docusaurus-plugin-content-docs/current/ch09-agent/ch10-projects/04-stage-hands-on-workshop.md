@@ -13,7 +13,7 @@ keywords: [Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agen
 
 ## 你将做出什么
 
-![Agent 工作坊单 Agent 执行循环图](/img/course/ch09-workshop-single-agent-loop-flow-map.png)
+![Agent 工作坊单 Agent 执行循环图](/img/course/ch09-workshop-single-agent-loop-flow-map.webp)
 
 你会做一个学习规划 Agent，包含这些能力：
 
@@ -32,7 +32,7 @@ keywords: [Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agen
 
 ## Step 0：写代码前先看懂 Agent 循环
 
-![Agent 行动闭环与 Trace 图](/img/course/ch09-agent-action-loop-trace-map.png)
+![Agent 行动闭环与 Trace 图](/img/course/ch09-agent-action-loop-trace-map.webp)
 
 Agent 不是“加了工具的聊天机器人”。在这个工作坊里，Agent 指的是：
 
@@ -59,7 +59,7 @@ touch agent_workshop.py
 
 ## Step 2：复制完整离线 Agent 脚本
 
-![Agent 工作坊工具 Schema 与权限门](/img/course/ch09-workshop-tool-schema-permission-map.png)
+![Agent 工作坊工具 Schema 与权限门](/img/course/ch09-workshop-tool-schema-permission-map.webp)
 
 复制代码前，先把这张图当成安全检查表。工具调用不能从模型决策直接跳到执行，它要经过：
 
@@ -433,7 +433,7 @@ passed: 3/3
 
 ## Step 4：检查 Trace 文件
 
-![Agent 工作坊 Trace JSONL 复盘图](/img/course/ch09-workshop-trace-jsonl-replay-map.png)
+![Agent 工作坊 Trace JSONL 复盘图](/img/course/ch09-workshop-trace-jsonl-replay-map.webp)
 
 运行：
 
@@ -489,7 +489,7 @@ head -n 1 logs/agent_traces.jsonl | python3 -m json.tool
 
 ## Step 6：理解权限分支
 
-![工具安全权限、沙箱与审计图](/img/course/ch09-tool-safety-permission-sandbox-map.png)
+![工具安全权限、沙箱与审计图](/img/course/ch09-tool-safety-permission-sandbox-map.webp)
 
 关键安全行为在这里：
 
@@ -518,7 +518,7 @@ risky = run_agent(
 
 ## Step 7：把评估当成计分卡读
 
-![Agent 工作坊评估计分卡图](/img/course/ch09-workshop-evaluation-scorecard-map.png)
+![Agent 工作坊评估计分卡图](/img/course/ch09-workshop-evaluation-scorecard-map.webp)
 
 `EVAL_CASES` 检查三种行为：
 
@@ -544,7 +544,7 @@ risky = run_agent(
 
 ## Step 9：可选 OpenAI Agents SDK 升级
 
-![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.png)
+![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.webp)
 
 离线脚本是必做的新手路径。跑通之后，可以把手写 planner 换成当前 OpenAI Agents SDK。官方 quickstart 使用 `pip install openai-agents` 安装包，并以 `Agent`、`Runner` 和 `@function_tool` 作为核心构件。
 
@@ -600,7 +600,7 @@ python3 agent_sdk_upgrade.py
 
 ## 工作坊通关标准
 
-![Agent 项目交付闭环图](/img/course/ch09-project-delivery-loop.png)
+![Agent 项目交付闭环图](/img/course/ch09-project-delivery-loop.webp)
 
 当你能做到下面这些，就算完成本工作坊：
 

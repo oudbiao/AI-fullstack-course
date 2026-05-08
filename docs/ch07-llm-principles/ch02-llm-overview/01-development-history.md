@@ -7,7 +7,7 @@ keywords: [LLM history, language model, n-gram, RNN, Transformer, GPT, RLHF, Age
 
 # 7.2.2 Development History of Large Models
 
-![15-stage AI development map](/img/course/appendix-ai-15-stage-history-map-en.png)
+![15-stage AI development map](/img/course/appendix-ai-15-stage-history-map-en.webp)
 
 :::tip Read This Page as a Map, Not a Memory Test
 You do not need to memorize dates. Keep one line in mind:

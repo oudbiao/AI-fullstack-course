@@ -5,9 +5,9 @@ sidebar_position: 2
 
 # A.5 Hardware and Cloud Resource Guide
 
-![Hardware and Cloud Resource Decision Tree](/img/course/appendix-hardware-cloud-decision-tree-en.png)
+![Hardware and Cloud Resource Decision Tree](/img/course/appendix-hardware-cloud-decision-tree-en.webp)
 
-![Cost comparison chart for local, cloud, and API approaches](/img/course/appendix-hardware-local-cloud-api-cost-map-en.png)
+![Cost comparison chart for local, cloud, and API approaches](/img/course/appendix-hardware-local-cloud-api-cost-map-en.webp)
 
 The short answer: do not buy a GPU first. Start with the task, then choose local CPU, cloud GPU, or API.
 

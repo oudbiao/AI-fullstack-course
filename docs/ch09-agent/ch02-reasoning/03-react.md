@@ -7,7 +7,7 @@ keywords: [ReAct, thought action observation, tool use, agent loop, reasoning an
 
 # 9.2.4 ReAct Framework
 
-![ReAct reasoning-action-observation loop diagram](/img/course/react-reason-act-observe-loop-en.png)
+![ReAct reasoning-action-observation loop diagram](/img/course/react-reason-act-observe-loop-en.webp)
 
 :::tip Section Overview
 CoT solves this problem:

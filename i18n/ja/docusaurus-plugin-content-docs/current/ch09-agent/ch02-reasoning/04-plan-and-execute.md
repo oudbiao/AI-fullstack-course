@@ -153,7 +153,7 @@ Plan-and-Execute は、次のように考えるとよいです。
 この表は初心者にとても役立ちます。  
 「どの推論の組み立て方を使うべきか」を、判断できる問題にしてくれるからです。
 
-![Plan-and-Execute モニタリングと再計画の図](/img/course/ch09-plan-execute-monitor-replan-map-ja.png)
+![Plan-and-Execute モニタリングと再計画の図](/img/course/ch09-plan-execute-monitor-replan-map-ja.webp)
 
 :::tip 図の読み方
 図を見るときは、2つの役割に注目してください。Planner は全体のルートを担当し、Executor は今のステップを担当します。Monitor は、情報不足・ツール失敗・目標変更を見つけたら、無理に元の計画を進めるのではなく replan を起こします。

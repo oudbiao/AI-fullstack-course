@@ -7,7 +7,7 @@ keywords: [prompt, instruction, task framing, output format, constraints, prompt
 
 # 7.5.2 Prompt 基礎
 
-![Prompt の改善前後比較カード](/img/course/prompt-before-after-ja.png)
+![Prompt の改善前後比較カード](/img/course/prompt-before-after-ja.webp)
 
 :::tip この節の位置づけ
 多くの人は Prompt を初めて学ぶと、次のように捉えがちです。
@@ -244,7 +244,7 @@ Prompt は次のようにも理解できます。
 のようなロール設定を書くよりも安定しやすいです。  
 なぜなら、いちばん土台になるタスク仕様が先に固まるからです。
 
-![Prompt 三層タスクブリーフ漫画](/img/course/ch07-prompt-task-brief-comic-ja.png)
+![Prompt 三層タスクブリーフ漫画](/img/course/ch07-prompt-task-brief-comic-ja.webp)
 
 :::tip 図の読み方
 この図は、小さな職場の物語として読むと分かりやすいです。あいまいな依頼ではモデルが推測してしまいますが、明確なタスクブリーフなら、目標、納品形式、境界を渡せます。よい Prompt は魔法の言葉ではなく、明確なタスクカードに近いものです。
@@ -312,7 +312,7 @@ print(next_fix(prompt_checklist))
 
 - チェック可能なタスク仕様
 
-![Prompt 三層タスク仕様図](/img/course/ch07-prompt-spec-three-layer-map-ja.png)
+![Prompt 三層タスク仕様図](/img/course/ch07-prompt-spec-three-layer-map-ja.webp)
 
 :::tip 図の見方
 この図では Prompt を 3 層に分けています。タスク目標、出力形式、制約境界です。初学者は、まずロール設定や高度なテクニックを足す前に、この 3 つがちゃんと書かれているかを確認してください。安定しない出力の多くは、実はタスク仕様のどこか 1 層が抜けているだけです。

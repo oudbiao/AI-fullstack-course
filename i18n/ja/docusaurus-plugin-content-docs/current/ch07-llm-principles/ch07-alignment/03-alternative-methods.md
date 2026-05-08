@@ -68,7 +68,7 @@ RLHF はとても重要ですが、唯一の答えではありません。
 前者は主に学習目標の簡略化、  
 後者は主に「人手の偏好データだけに頼る」コストの削減を目指します。
 
-![アライメント手法マップ](/img/course/ch07-alignment-method-map-ja.png)
+![アライメント手法マップ](/img/course/ch07-alignment-method-map-ja.webp)
 
 :::tip 図の読み方
 この図は、「どのコストや複雑さを減らしたいのか」から読むと分かりやすいです。RLHF は完全な嗜好最適化の流れを保ち、DPO は chosen/rejected の嗜好ペアから直接 policy を最適化します。RLAIF はフィードバック源を変え、Constitutional AI は先にルールを明示してから批評と修正を行います。
@@ -299,7 +299,7 @@ DPO が見ているのは、ある回答単体の点数ではありません。
 これは DPO の最適化方向にぴったり合っています。  
 loss が下がるということは、方策が偏好データにより合っている、という意味です。
 
-![DPO と RLHF の偏好最適化ショートカット図](/img/course/ch07-dpo-rlhf-shortcut-map-ja.png)
+![DPO と RLHF の偏好最適化ショートカット図](/img/course/ch07-dpo-rlhf-shortcut-map-ja.webp)
 
 :::tip 図の読み方
 この図は、まず RLHF の長い流れを見ると分かりやすいです。偏好対 -> 報酬モデル -> PPO / 方策最適化、という流れです。次に DPO の短い流れを見ると、chosen / rejected の偏好対を直接使って方策の差分を最適化していることが分かります。DPO の魅力は、偏好学習の目的を保ちながら、報酬モデルと強化学習の大きな実装複雑性を削れる点にあります。

@@ -6,7 +6,7 @@ description: "Learn how to use Python to fetch and parse web data"
 
 # 2.3.2 Project: Web Scraper
 
-![Web scraper data collection flowchart](/img/course/ch02-web-scraper-pipeline-en.png)
+![Web scraper data collection flowchart](/img/course/ch02-web-scraper-pipeline-en.webp)
 
 ## Project Overview
 

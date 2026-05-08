@@ -11,9 +11,9 @@ This chapter is the exit point of Chapter 6. A deep learning project is not just
 
 ## Look at the Project Loop First
 
-![Deep Learning Project Portfolio Roadmap](/img/course/ch06-projects-portfolio-loop-en.png)
+![Deep Learning Project Portfolio Roadmap](/img/course/ch06-projects-portfolio-loop-en.webp)
 
-![Deep Learning Project Training Review Loop](/img/course/ch06-deep-learning-project-cycle-en.png)
+![Deep Learning Project Training Review Loop](/img/course/ch06-deep-learning-project-cycle-en.webp)
 
 ```text
 dataset -> model -> training log -> evaluation -> failure cases -> package

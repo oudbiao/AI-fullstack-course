@@ -7,7 +7,7 @@ keywords: [特征预处理, 缺失值, 标准化, one-hot, 数据泄漏, preproc
 
 # 5.5.3 特征预处理
 
-![特征预处理流水线图](/img/course/feature-preprocessing-pipeline.png)
+![特征预处理流水线图](/img/course/feature-preprocessing-pipeline.webp)
 
 :::tip 本节定位
 特征预处理不是“把所有处理方法都套一遍”，而是根据模型、数据和任务做选择。真正重要的是知道每一步为什么做、什么时候不该做，以及怎样避免数据泄漏。

@@ -254,7 +254,7 @@ But you should first realize this:
 
 > Multi-Agent systems will definitely have conflicts. Conflict is not an exception; it is the norm.
 
-![Multi-Agent coordination, conflict, and convergence diagram](/img/course/ch09-multi-agent-coordination-cost-map-en.png)
+![Multi-Agent coordination, conflict, and convergence diagram](/img/course/ch09-multi-agent-coordination-cost-map-en.webp)
 
 :::tip Reading guide
 This diagram shows coordination costs: task assignment, dependency ordering, shared state, and conflict arbitration all increase complexity. The benefits of a multi-Agent system must be greater than these communication and convergence costs for it to be worth using.

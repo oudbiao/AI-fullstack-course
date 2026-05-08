@@ -7,7 +7,7 @@ keywords: [optimizer, SGD, momentum, Adam, learning rate, PyTorch, gradient desc
 
 # 6.1.5 Optimizers
 
-![Optimizer path comparison](/img/course/optimizer-comparison-en.png)
+![Optimizer path comparison](/img/course/optimizer-comparison-en.webp)
 
 :::tip Section Overview
 An optimizer decides how parameters move after gradients are computed. The optimizer name matters, but the learning rate often matters even more.
@@ -22,7 +22,7 @@ This lesson runs a tiny PyTorch optimization lab:
 - test learning-rate sensitivity;
 - learn a safe optimizer choice order.
 
-![Optimizer decision map from gradients to parameter updates](/img/course/ch06-optimizer-gradient-to-update-map-en.png)
+![Optimizer decision map from gradients to parameter updates](/img/course/ch06-optimizer-gradient-to-update-map-en.webp)
 
 ## Setup
 

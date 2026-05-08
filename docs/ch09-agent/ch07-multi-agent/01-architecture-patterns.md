@@ -7,7 +7,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 # 9.7.2 Multi-Agent Architecture Patterns
 
-![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
+![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.webp)
 
 :::tip This section’s focus
 When many people build their first multi-Agent system, the easiest mistake to make is:
@@ -270,7 +270,7 @@ Weaknesses:
 - Easy to drift off topic
 - Harder to converge
 
-![Multi-Agent architecture pattern selection map](/img/course/ch09-multi-agent-pattern-selection-map-en.png)
+![Multi-Agent architecture pattern selection map](/img/course/ch09-multi-agent-pattern-selection-map-en.webp)
 
 :::tip Reading guide
 When reading this diagram, first check whether the task has a natural division of labor: choose supervisor-worker if you need central scheduling, choose pipeline if the stages are fixed, add a reviewer if you need quality checks, and only consider peer/group when you truly need multi-perspective discussion.

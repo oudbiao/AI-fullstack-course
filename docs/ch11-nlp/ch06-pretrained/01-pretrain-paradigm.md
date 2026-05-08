@@ -7,7 +7,7 @@ keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-fin
 
 # 11.6.2 Pretraining Paradigm
 
-![Diagram of the relationship between pretraining, transfer, and fine-tuning](/img/course/ch11-pretraining-transfer-finetune-map-en.png)
+![Diagram of the relationship between pretraining, transfer, and fine-tuning](/img/course/ch11-pretraining-transfer-finetune-map-en.webp)
 
 :::tip Reading Guide
 The most important thing about the pretraining paradigm is not any specific model name, but the flow of “general corpus → downstream tasks → fine-tuning or prompt adaptation.” Once you understand this flow, BERT, GPT, and T5 will no longer feel like a pile of isolated terms.

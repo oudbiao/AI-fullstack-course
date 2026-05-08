@@ -46,7 +46,7 @@ flowchart LR
 
 In real projects, do not try to perfect every metric at once. Start with task success rate, tool failure rate, human takeover rate, and average cost. That already reveals many problems.
 
-![Agent layered evaluation scorecard diagram](/img/course/ch09-agent-eval-layered-scorecard-map-en.png)
+![Agent layered evaluation scorecard diagram](/img/course/ch09-agent-eval-layered-scorecard-map-en.webp)
 
 :::tip Reading Guide
 This diagram breaks Agent evaluation into four layers: result, process, tool, and safety. Beginners can use it to build a minimum scorecard first, instead of only checking whether the “final answer looks right.”

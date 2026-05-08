@@ -7,7 +7,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 # 9.4.2 Memory System Overview
 
-![Agent memory system layering diagram](/img/course/agent-memory-system-en.png)
+![Agent memory system layering diagram](/img/course/agent-memory-system-en.webp)
 
 :::tip Section Overview
 Many Agent systems may seem smart at first, but once a task gets longer and the conversation has more turns, they reveal a fundamental problem:
@@ -114,7 +114,7 @@ This is very similar to human memory:
 
 These four types of memory are not always all needed, but together they form a very practical framework for thinking.
 
-![Agent memory layer selection map](/img/course/ch09-memory-layer-selection-map-en.png)
+![Agent memory layer selection map](/img/course/ch09-memory-layer-selection-map-en.webp)
 
 :::tip Reading Tip
 This diagram is not asking you to build all four kinds of memory at once. It is there to help you decide “which layer should this information go into?” Current task goes to short-term, stable preferences go to long-term, a single experience goes to episodic, and reusable workflows go to procedural.

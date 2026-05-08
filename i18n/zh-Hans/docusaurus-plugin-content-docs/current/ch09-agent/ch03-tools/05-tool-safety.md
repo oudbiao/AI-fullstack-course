@@ -210,7 +210,7 @@ for call in calls:
 - 先生成执行计划
 - 再要求用户或管理员确认
 
-![工具安全权限、沙箱与审计图](/img/course/ch09-tool-safety-permission-sandbox-map.png)
+![工具安全权限、沙箱与审计图](/img/course/ch09-tool-safety-permission-sandbox-map.webp)
 
 :::tip 读图提示
 读这张图时，把“工具调用”想成一次真实操作：低风险可直接记录，高风险要经过权限、沙箱、人工确认和 audit log。Agent 越能行动，系统护栏越不能省。

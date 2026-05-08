@@ -59,7 +59,7 @@ Because for a research assistant, “trustworthy” matters more than “flashy.
 
 As long as these 6 steps are clear, the project already has strong portfolio value.
 
-![Research assistant citation trace map](/img/course/ch09-research-assistant-citation-trace-map-en.png)
+![Research assistant citation trace map](/img/course/ch09-research-assistant-citation-trace-map-en.webp)
 
 :::tip Reading the Diagram
 The most important thing in a research assistant is not “the summary reads smoothly,” but whether each claim can be traced back to a source. When reading the diagram, check each conclusion along the chain of retrieve, select, summarize, cite, and verify to see whether it has evidence.

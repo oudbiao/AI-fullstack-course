@@ -7,7 +7,7 @@ keywords: [NER, named entity recognition, information extraction, BIO, project, 
 
 # 11.4.5 NER 实战
 
-![NER 项目实体评估闭环图](/img/course/ch11-ner-project-entity-eval-loop.png)
+![NER 项目实体评估闭环图](/img/course/ch11-ner-project-entity-eval-loop.webp)
 
 :::tip 读图提示
 NER 项目不要只盯 token accuracy。先看标签体系、标注样例、实体恢复、实体级 Precision/Recall/F1 和错例分桶如何形成闭环，这比单纯换模型更像真实项目。

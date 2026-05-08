@@ -7,7 +7,7 @@ keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project
 
 # 11.7.2 プロジェクト：スマートQAシステム
 
-![問答システムの検索・回答・評価の閉ループ図](/img/course/ch11-qa-retrieval-answer-evaluation-map-ja.png)
+![問答システムの検索・回答・評価の閉ループ図](/img/course/ch11-qa-retrieval-answer-evaluation-map-ja.webp)
 
 :::tip 図の見方
 QAシステムは「それっぽい答えを1文生成したら終わり」ではありません。図を見るときは、query、retrieval、evidence、answer、refusal、evaluation、error log がどう閉ループになっているかに注目してください。これが後の RAG プロジェクトの核心の骨組みです。

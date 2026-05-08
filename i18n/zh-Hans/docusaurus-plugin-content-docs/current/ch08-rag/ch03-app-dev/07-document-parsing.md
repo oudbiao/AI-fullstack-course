@@ -93,7 +93,7 @@ flowchart LR
 
 - 文档处理不是“一个解析器走天下”
 
-![PDF Word PPT 文档解析路由图](/img/course/ch08-document-parsing-format-router-map.png)
+![PDF Word PPT 文档解析路由图](/img/course/ch08-document-parsing-format-router-map.webp)
 
 :::tip 读图提示
 文件进入系统后先路由：文本 PDF、扫描 PDF、DOCX、PPTX 的问题不同。真正入库前要恢复正文顺序、标题层级、页码和内容类型，而不是只抽一大段纯文本。

@@ -6,7 +6,7 @@ description: "Getting to know Series and DataFrame—the two pillars of Pandas"
 
 # 3.3.2 Pandas Core Data Structures
 
-![Pandas DataFrame structure diagram](/img/course/pandas-dataframe-structure-en.png)
+![Pandas DataFrame structure diagram](/img/course/pandas-dataframe-structure-en.webp)
 
 :::tip Section overview
 When many beginners first learn `Pandas`, they feel that:

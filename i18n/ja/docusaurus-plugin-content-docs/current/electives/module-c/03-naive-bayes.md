@@ -7,7 +7,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 # E.C.3 ナイーブベイズ
 
-![ナイーブベイズの証拠蓄積図](/img/course/elective-naive-bayes-evidence-ja.png)
+![ナイーブベイズの証拠蓄積図](/img/course/elective-naive-bayes-evidence-ja.webp)
 
 ナイーブベイズは、観測された証拠をどのクラスがより生成しやすいかを比べます。テキスト分類では、単語数だけでも安くて有用なベースラインになることがあります。
 

@@ -7,7 +7,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 # 11.4.2 シーケンスラベリングタスク
 
-![BIO 標注から実体を復元する図](/img/course/bio-ner-recovery-ja.png)
+![BIO 標注から実体を復元する図](/img/course/bio-ner-recovery-ja.webp)
 
 :::tip この節の位置づけ
 テキスト分類の出力は通常、次のようになります。

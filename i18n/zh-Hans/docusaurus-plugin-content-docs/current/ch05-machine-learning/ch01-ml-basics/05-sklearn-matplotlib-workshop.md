@@ -7,7 +7,7 @@ keywords: [Scikit-learn 实操, sklearn 教程, Matplotlib 基础, Pipeline, tra
 
 # 5.1.6 Scikit-learn 与 Matplotlib 实操工作坊
 
-![Scikit-learn 实操流程](/img/course/ch05-sklearn-hands-on-loop.png)
+![Scikit-learn 实操流程](/img/course/ch05-sklearn-hands-on-loop.webp)
 
 :::tip 本节定位
 这一节是一个**跟练工作坊**。目标不是继续堆概念，而是让你自己跑通一个完整的经典机器学习流程：读取数据、先画图、划分数据、训练模型、评估结果、安全改进、保存模型。
@@ -91,7 +91,7 @@ First sample label: 0 => class_0
 
 ## Matplotlib 基础：先读懂图，再判断模型
 
-![Matplotlib 图表结构](/img/course/ch05-matplotlib-chart-anatomy.png)
+![Matplotlib 图表结构](/img/course/ch05-matplotlib-chart-anatomy.webp)
 
 Matplotlib 有两个词很容易让新人混淆：
 

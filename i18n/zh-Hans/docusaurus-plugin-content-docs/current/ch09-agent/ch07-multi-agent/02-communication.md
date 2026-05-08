@@ -171,7 +171,7 @@ print(good_message)
 
 这才更像一个能进入系统流水线的消息。
 
-![Agent 间通信契约图](/img/course/ch09-multi-agent-communication-contract-map.png)
+![Agent 间通信契约图](/img/course/ch09-multi-agent-communication-contract-map.webp)
 
 :::tip 读图提示
 多 Agent 通信不要只传一句自然语言。图里每条消息都要有 sender、receiver、type、task_id、payload 和 status，这样系统才能追踪、重试和定位责任。

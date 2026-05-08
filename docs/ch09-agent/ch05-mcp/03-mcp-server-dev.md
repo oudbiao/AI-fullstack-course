@@ -275,7 +275,7 @@ Expected output:
 Because the server is the gatekeeper of the capability boundary.
 If the server does not validate, the entire tool system becomes hard to keep stable.
 
-![MCP Server Tool Contract Diagram](/img/course/ch09-mcp-server-tool-contract-map-en.png)
+![MCP Server Tool Contract Diagram](/img/course/ch09-mcp-server-tool-contract-map-en.webp)
 
 :::tip Reading guide
 Think of the MCP Server as the gatekeeper of the tool contract: it not only exposes list_tools, but also validates call_tool parameters, executes the real logic, standardizes returned results, and turns errors into structures the client can understand.

@@ -34,23 +34,23 @@ keywords: [AI 数学工作坊, 向量相似度, 概率模拟, 熵, 梯度下降,
 
 写代码前，先把这些图当作工作坊地图。
 
-![第 4 章数学实操工作坊路线图](/img/course/ch04-hands-on-math-workshop-route.png)
+![第 4 章数学实操工作坊路线图](/img/course/ch04-hands-on-math-workshop-route.webp)
 
 整条路线是：先用小数字，再写代码，最后留下可见证据。
 
-![向量相似度证据流图](/img/course/ch04-hands-on-vector-similarity-flow.png)
+![向量相似度证据流图](/img/course/ch04-hands-on-vector-similarity-flow.webp)
 
 向量这一步只回答一个问题：哪个主题向量和查询向量最像？
 
-![概率模拟与不确定性流程图](/img/course/ch04-hands-on-probability-simulation-flow.png)
+![概率模拟与不确定性流程图](/img/course/ch04-hands-on-probability-simulation-flow.webp)
 
 概率这一步说明：模型分数不是一个神奇真相，而是对很多样本中不确定性的总结方式。
 
-![梯度下降执行循环图](/img/course/ch04-hands-on-gradient-descent-loop.png)
+![梯度下降执行循环图](/img/course/ch04-hands-on-gradient-descent-loop.webp)
 
 梯度下降这一步展示训练节奏：计算 loss，计算斜率，更新参数，然后重复。
 
-![第 4 章数学证据包图](/img/course/ch04-hands-on-evidence-pack.png)
+![第 4 章数学证据包图](/img/course/ch04-hands-on-evidence-pack.webp)
 
 证据文件夹是最终学习产物。它让你不用靠记忆，也能回头复盘数学。
 

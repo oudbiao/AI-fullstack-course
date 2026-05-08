@@ -23,7 +23,7 @@ keywords: [image classification project, CNN, confusion matrix, error analysis, 
 
 ## まず Project Loop を見る
 
-![画像分類 project closed loop](/img/course/ch06-project-image-classification-loop-ja.png)
+![画像分類 project closed loop](/img/course/ch06-project-image-classification-loop-ja.webp)
 
 ```text
 labels -> data split -> baseline -> metrics -> error cases -> next data/model action

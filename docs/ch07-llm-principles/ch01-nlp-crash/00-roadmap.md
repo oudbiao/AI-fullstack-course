@@ -11,7 +11,7 @@ Before LLMs feel understandable, first see how text becomes pieces a model can p
 
 ## Look at the Flow First
 
-![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow-en.png)
+![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow-en.webp)
 
 | Word | First meaning |
 |---|---|

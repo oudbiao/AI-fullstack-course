@@ -23,7 +23,7 @@ keywords: [convolution, 卷积, 卷积核, CNN, stride, padding, receptive field
 
 ## 先看滑动窗口
 
-![CNN 卷积核滑动图](/img/course/cnn-convolution-kernel.png)
+![CNN 卷积核滑动图](/img/course/cnn-convolution-kernel.webp)
 
 按这个顺序读图：
 
@@ -157,7 +157,7 @@ edge_lab
 
 ## Stride、Padding 和输出尺寸
 
-![卷积 stride padding 和输出尺寸变化图](/img/course/ch06-conv-stride-padding-size-map.png)
+![卷积 stride padding 和输出尺寸变化图](/img/course/ch06-conv-stride-padding-size-map.webp)
 
 | 术语 | 含义 | 影响 |
 |---|---|---|
@@ -259,7 +259,7 @@ bias: (8,)
 
 ## 感受野：CNN 如何随深度看得更大
 
-![CNN 感受野逐层增长图](/img/course/ch06-cnn-receptive-field-growth-map.png)
+![CNN 感受野逐层增长图](/img/course/ch06-cnn-receptive-field-growth-map.webp)
 
 一层 `3 x 3` 卷积只能看很小的局部区域。如果堆叠多层，后面的特征会间接依赖原图中更大的区域。
 

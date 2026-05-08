@@ -23,7 +23,7 @@ keywords: [hyperparameter tuning, learning rate, batch size, regularization, exp
 
 ## まずルートを見る
 
-![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-ja.png)
+![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-ja.webp)
 
 実践的な順序：
 
@@ -127,7 +127,7 @@ best_lr: 1.0
 
 ## 次に何を調整するか
 
-![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-ja.png)
+![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-ja.webp)
 
 妥当な learning rate を見つけたら、次の順で進めます。
 

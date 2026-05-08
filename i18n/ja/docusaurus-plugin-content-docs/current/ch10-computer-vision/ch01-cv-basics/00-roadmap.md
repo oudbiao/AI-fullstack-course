@@ -11,11 +11,11 @@ Computer vision は input intuition から始まります。classification、det
 
 ## まず image pipeline を見る
 
-![Vision basics 章の学習フロー](/img/course/ch10-cv-basics-chapter-flow-ja.png)
+![Vision basics 章の学習フロー](/img/course/ch10-cv-basics-chapter-flow-ja.webp)
 
-![Pixel RGB grid diagram](/img/course/cv-pixel-rgb-grid-ja.png)
+![Pixel RGB grid diagram](/img/course/cv-pixel-rgb-grid-ja.webp)
 
-![Image array shape and channel map](/img/course/ch10-image-array-shape-channel-map-ja.png)
+![Image array shape and channel map](/img/course/ch10-image-array-shape-channel-map-ja.webp)
 
 最初の mental model は単純です：image = height × width × channels。多くの後続 bug は shape、channel order、coordinates、color space の混同から来ます。
 

@@ -11,9 +11,9 @@ Transformer is the bridge from deep learning to modern LLMs. Its first idea is s
 
 ## Look at the Attention Flow First
 
-![Transformer chapter relationship diagram](/img/course/ch06-transformer-chapter-flow-en.png)
+![Transformer chapter relationship diagram](/img/course/ch06-transformer-chapter-flow-en.webp)
 
-![Transformer global context modeling diagram](/img/course/ch06-transformer-global-context-map-en.png)
+![Transformer global context modeling diagram](/img/course/ch06-transformer-global-context-map-en.webp)
 
 | Concept | First meaning |
 |---|---|

@@ -11,11 +11,11 @@ keywords: [CV project guide, security inspection, medical imaging, image classif
 
 ## まずプロジェクトループを見る
 
-![Vision tasks の output granularity progression map](/img/course/ch10-visual-task-progression-map-ja.png)
+![Vision tasks の output granularity progression map](/img/course/ch10-visual-task-progression-map-ja.webp)
 
-![Vision projects の closed-loop delivery diagram](/img/course/ch10-projects-delivery-loop-ja.png)
+![Vision projects の closed-loop delivery diagram](/img/course/ch10-projects-delivery-loop-ja.webp)
 
-![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-ja.png)
+![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-ja.webp)
 
 最速で完結したループを作るなら分類から始めます。ボックスが必要なら検出、マスクが必要なら分割、OCR・動画・3D はより専門的な場面で使います。
 

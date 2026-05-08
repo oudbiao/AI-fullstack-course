@@ -11,9 +11,9 @@ Pretraining is how a model first learns broad language patterns. The useful engi
 
 ## Look at the Pretraining Triangle First
 
-![Diagram of pretraining chapter relationships](/img/course/ch07-pretraining-chapter-flow-en.png)
+![Diagram of pretraining chapter relationships](/img/course/ch07-pretraining-chapter-flow-en.webp)
 
-![Triangle diagram of pretraining data, objective, and engineering](/img/course/ch07-pretraining-data-objective-engineering-map-en.png)
+![Triangle diagram of pretraining data, objective, and engineering](/img/course/ch07-pretraining-data-objective-engineering-map-en.webp)
 
 | Piece | First question |
 |---|---|

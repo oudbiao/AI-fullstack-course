@@ -7,7 +7,7 @@ keywords: [contextual embedding, contextual representation, polysemy, BERT, dyna
 
 # 11.2.3 Contextual Embeddings
 
-![Contextual embedding comparison](/img/course/contextual-embedding-comparison-en.png)
+![Contextual embedding comparison](/img/course/contextual-embedding-comparison-en.webp)
 
 :::tip Section overview
 In the previous section, we saw that word embeddings can map words into a semantic space.

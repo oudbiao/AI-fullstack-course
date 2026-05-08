@@ -11,9 +11,9 @@ keywords: [生成模型指南, GAN, VAE, latent vector, deep learning]
 
 ## 先看生成流程
 
-![生成模型章节关系图](/img/course/ch06-generative-chapter-flow.png)
+![生成模型章节关系图](/img/course/ch06-generative-chapter-flow.webp)
 
-![GAN 对抗平衡图](/img/course/ch06-gan-adversarial-balance-map.png)
+![GAN 对抗平衡图](/img/course/ch06-gan-adversarial-balance-map.webp)
 
 | 概念 | 第一层意思 |
 |---|---|

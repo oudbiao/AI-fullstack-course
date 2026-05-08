@@ -78,7 +78,7 @@ flowchart LR
 - 助手不是只回答一次
 - 而是在一轮轮对话里不断更新状态和行动
 
-![智能助手 session、检索与工具 Trace 图](/img/course/ch08-assistant-session-tool-trace-map.png)
+![智能助手 session、检索与工具 Trace 图](/img/course/ch08-assistant-session-tool-trace-map.webp)
 
 :::tip 读图提示
 一条多轮助手 trace 至少要看四件事：session 里记住了什么、检索命中了什么、工具有没有被调用、回答后状态怎样更新。这样才能证明它不是普通 FAQ。

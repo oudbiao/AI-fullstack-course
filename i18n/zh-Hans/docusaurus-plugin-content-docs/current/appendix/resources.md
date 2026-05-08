@@ -5,9 +5,9 @@ sidebar_position: 1
 
 # A.1 推荐学习资源
 
-![资源选择漏斗](/img/course/appendix-resource-selection-funnel.png)
+![资源选择漏斗](/img/course/appendix-resource-selection-funnel.webp)
 
-![资源瓶颈优先级地图](/img/course/appendix-resource-bottleneck-priority-map.png)
+![资源瓶颈优先级地图](/img/course/appendix-resource-bottleneck-priority-map.webp)
 
 只有当外部资源能解决你当前的卡点时，才值得打开。不要把收藏链接当成做项目的替代品。
 

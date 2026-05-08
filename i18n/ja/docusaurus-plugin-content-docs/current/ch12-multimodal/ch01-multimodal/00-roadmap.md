@@ -11,11 +11,11 @@ keywords: [マルチモーダル入門, アラインメント, 融合, 視覚言
 
 ## まずパイプラインを見る
 
-![マルチモーダル基礎章の学習フロー](/img/course/ch12-multimodal-chapter-flow-ja.png)
+![マルチモーダル基礎章の学習フロー](/img/course/ch12-multimodal-chapter-flow-ja.webp)
 
-![マルチモーダルの対応づけと融合](/img/course/multimodal-alignment-fusion-ja.png)
+![マルチモーダルの対応づけと融合](/img/course/multimodal-alignment-fusion-ja.webp)
 
-![マルチモーダルシステムの骨格](/img/course/ch12-multimodal-system-backbone-ja.png)
+![マルチモーダルシステムの骨格](/img/course/ch12-multimodal-system-backbone-ja.webp)
 
 最初の習慣は、入力のモダリティ、見えている証拠、不確かな部分、構造化結果の次の行き先を確認することです。
 

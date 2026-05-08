@@ -7,7 +7,7 @@ keywords: [Scikit-learn practice, sklearn tutorial, Matplotlib basics, Pipeline,
 
 # 5.1.6 Scikit-learn and Matplotlib Hands-on Workshop
 
-![Scikit-learn hands-on workflow](/img/course/ch05-sklearn-hands-on-loop-en.png)
+![Scikit-learn hands-on workflow](/img/course/ch05-sklearn-hands-on-loop-en.webp)
 
 :::tip Section focus
 This is a **follow-along workshop**. The goal is not to add more theory, but to help you run a complete classic machine learning workflow by yourself: load data, visualize first, split data, train a model, evaluate it, improve it safely, and save it.
@@ -91,7 +91,7 @@ Before training any model, always answer three questions: “What is one row? Wh
 
 ## Matplotlib basics: read the chart before the model
 
-![Matplotlib chart anatomy](/img/course/ch05-matplotlib-chart-anatomy-en.png)
+![Matplotlib chart anatomy](/img/course/ch05-matplotlib-chart-anatomy-en.webp)
 
 Matplotlib has two words that confuse beginners:
 

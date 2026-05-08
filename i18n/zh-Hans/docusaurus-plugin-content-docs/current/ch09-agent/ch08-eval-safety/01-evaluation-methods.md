@@ -46,7 +46,7 @@ flowchart LR
 
 真实项目里不要试图一次把所有指标做满。先从任务成功率、工具失败率、人工接管率和平均成本开始，就能发现很多问题。
 
-![Agent 分层评估计分卡图](/img/course/ch09-agent-eval-layered-scorecard-map.png)
+![Agent 分层评估计分卡图](/img/course/ch09-agent-eval-layered-scorecard-map.webp)
 
 :::tip 读图提示
 这张图把 Agent 评估拆成四层：结果、过程、工具和安全。新人可以先用它做最小 scorecard，避免只看“最终答案像不像”。

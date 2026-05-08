@@ -7,7 +7,7 @@ keywords: [ニューロン, パーセプトロン, 活性化関数, ReLU, Sigmoi
 
 # 6.1.3 ニューロンから多層パーセプトロンへ
 
-![ニューロンから MLP への構造図](/img/course/mlp-neuron-activation-ja.png)
+![ニューロンから MLP への構造図](/img/course/mlp-neuron-activation-ja.webp)
 
 :::tip この節の概要
 ニューラルネットワークは、重み付きスコアを計算し、非線形の活性化を通し、その単位を層として積み重ねる、という単純な考えから始まります。
@@ -28,7 +28,7 @@ keywords: [ニューロン, パーセプトロン, 活性化関数, ReLU, Sigmoi
 features -> weighted sum z -> activation a -> layer -> multilayer network
 ```
 
-![ニューロンの線形スコアと活性化ゲート図](/img/course/ch06-neuron-linear-activation-gate-ja.png)
+![ニューロンの線形スコアと活性化ゲート図](/img/course/ch06-neuron-linear-activation-gate-ja.webp)
 
 ## 最小限の歴史
 
@@ -38,7 +38,7 @@ features -> weighted sum z -> activation a -> layer -> multilayer network
 
 > ニューロン自体は単純。表現力を生むのは、非線形活性化を持つ層の積み重ね。
 
-![XOR における単層パーセプトロンの限界図](/img/course/ch06-xor-single-layer-limit-map-ja.png)
+![XOR における単層パーセプトロンの限界図](/img/course/ch06-xor-single-layer-limit-map-ja.webp)
 
 ## セットアップ
 

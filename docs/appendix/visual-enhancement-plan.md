@@ -6,9 +6,9 @@ keywords: [course illustrations, instructional design, visual learning, AI cours
 
 # A.4 Course Visual Guidelines
 
-![Course image asset planning board](/img/course/appendix-visual-enhancement-kanban-en.png)
+![Course image asset planning board](/img/course/appendix-visual-enhancement-kanban-en.webp)
 
-![Flowchart from image gap detection to generation and release](/img/course/appendix-image-production-pipeline-map-en.png)
+![Flowchart from image gap detection to generation and release](/img/course/appendix-image-production-pipeline-map-en.webp)
 
 Images are teaching content, not decoration. Add or keep an image only when it reduces the learner’s thinking cost.
 

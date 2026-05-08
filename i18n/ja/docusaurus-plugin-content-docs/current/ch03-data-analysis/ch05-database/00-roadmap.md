@@ -11,7 +11,7 @@ keywords: [データベース概要, リレーショナルデータベース, SQ
 
 ## まずデータベースマップを見る
 
-![データベース選択学習ロードマップ](/img/course/ch03-database-roadmap-ja.png)
+![データベース選択学習ロードマップ](/img/course/ch03-database-roadmap-ja.webp)
 
 まずこの比較を覚えます。
 

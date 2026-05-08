@@ -7,7 +7,7 @@ keywords: [AI Agent, agent, Function Calling, ReAct, MCP, Multi-Agent, tool call
 
 # 9 AI Agent and Intelligent Agent Systems
 
-![Main visual of the AI Agent system](/img/course/ch09-agent-systems-en.png)
+![Main visual of the AI Agent system](/img/course/ch09-agent-systems-en.webp)
 
 Chapter 8 made the model answer from documents. Chapter 9 makes the system **act toward a goal**: plan a next step, call a tool, read the observation, adjust, stop safely, and leave a trace that people can review.
 
@@ -15,7 +15,7 @@ Do not start with multi-agent frameworks. Start with one small Agent that can sh
 
 ## See the Agent Execution Loop
 
-![Agent execution loop](/img/course/ch09-agent-execution-loop-en.png)
+![Agent execution loop](/img/course/ch09-agent-execution-loop-en.webp)
 
 An Agent is not "a chatbot with tools." It is a controlled execution loop.
 
@@ -118,7 +118,7 @@ Operation tip: change `make_todo` to a non-whitelisted tool name such as `send_e
 
 ## Choose Agent, Workflow, RAG, Or Function Calling
 
-![Agent boundary map](/img/course/ch09-agent-boundary-map-en.png)
+![Agent boundary map](/img/course/ch09-agent-boundary-map-en.webp)
 
 Agents are powerful, but they are not the default solution.
 

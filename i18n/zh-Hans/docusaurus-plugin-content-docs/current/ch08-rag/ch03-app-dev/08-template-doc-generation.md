@@ -7,7 +7,7 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 
 # 8.3.9 模板化文档生成（Word / PPT）
 
-![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.png)
+![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.webp)
 
 :::tip 本节定位
 很多新人做“生成 Word / 课件”时，最容易直接让模型输出一大段正文，
@@ -276,7 +276,7 @@ print(payload)
 - 结构对象不一定等于模板对象
 - 中间往往还会有一层“字段整理”
 
-![结构化课件到模板渲染图](/img/course/ch08-template-schema-to-render-map.png)
+![结构化课件到模板渲染图](/img/course/ch08-template-schema-to-render-map.webp)
 
 :::tip 读图提示
 不要让模型直接“写 Word”。先产出 courseware schema，再整理成 template payload，最后交给 docx/pptx 渲染层。这样格式错误和内容错误才容易分开排查。

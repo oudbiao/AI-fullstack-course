@@ -11,9 +11,9 @@ keywords: [无监督学习指南, 聚类, 降维, 异常检测]
 
 ## 先看结构地图
 
-![无监督学习路线图](/img/course/unsupervised-learning-roadmap.png)
+![无监督学习路线图](/img/course/unsupervised-learning-roadmap.webp)
 
-![无监督学习章节流程](/img/course/ch05-unsupervised-chapter-flow.png)
+![无监督学习章节流程](/img/course/ch05-unsupervised-chapter-flow.webp)
 
 | 如果你想... | 先用... |
 |---|---|

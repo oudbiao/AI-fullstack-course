@@ -7,7 +7,7 @@ keywords: [顧客離脱, 分類, 不均衡データ, SMOTE, 特徴量重要度, 
 
 # 5.6.3 プロジェクト2：顧客離脱予測（分類問題）
 
-![顧客離脱予測プロジェクトのフローチャート](/img/course/customer-churn-project-flow-ja.png)
+![顧客離脱予測プロジェクトのフローチャート](/img/course/customer-churn-project-flow-ja.webp)
 
 :::tip プロジェクトの位置づけ
 顧客離脱予測は、**最も定番のビジネス向け ML アプリケーション**の1つです。このプロジェクトでは、主に次の点を練習します：不均衡データの処理、ビジネス指標の理解、モデル結果からビジネス洞察を引き出すこと。
@@ -163,7 +163,7 @@ print(f"離脱顧客: {df['離脱'].sum()}, 継続顧客: {(1-df['離脱']).sum(
 
 ## Step 2：不均衡データの処理
 
-![顧客離脱の不均衡としきい値図](/img/course/ch05-churn-imbalance-threshold-map-ja.png)
+![顧客離脱の不均衡としきい値図](/img/course/ch05-churn-imbalance-threshold-map-ja.webp)
 
 ```python
 from sklearn.model_selection import train_test_split

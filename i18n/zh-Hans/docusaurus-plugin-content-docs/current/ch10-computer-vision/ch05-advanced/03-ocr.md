@@ -7,7 +7,7 @@ keywords: [OCR, text detection, text recognition, document AI, layout analysis]
 
 # 10.5.4 OCR 文字识别【选修】
 
-![OCR 版面解析与文字识别流程图](/img/course/ocr-layout-recognition-pipeline.png)
+![OCR 版面解析与文字识别流程图](/img/course/ocr-layout-recognition-pipeline.webp)
 
 :::tip 本节定位
 OCR 很容易被说成一句话：
@@ -203,7 +203,7 @@ print(restore_reading_order(lines))
 - OCR 做完识别，不代表任务结束
 - 文字顺序和结构恢复，常常同样重要
 
-![OCR 检测、识别与阅读顺序恢复图](/img/course/ch10-ocr-layout-reading-order-map.png)
+![OCR 检测、识别与阅读顺序恢复图](/img/course/ch10-ocr-layout-reading-order-map.webp)
 
 :::tip 读图提示
 OCR 项目要分三层排查：文本检测有没有框准，文本识别有没有读对，版面结构有没有恢复顺序。票据、表格、双栏文档经常错在第三层。

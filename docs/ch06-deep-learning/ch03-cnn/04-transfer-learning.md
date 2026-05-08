@@ -23,7 +23,7 @@ Transfer learning is the default starting point for many vision projects: reuse 
 
 ## Look at the Decision Flow First
 
-![Decision diagram for freezing the backbone and progressive fine-tuning in transfer learning](/img/course/ch06-transfer-learning-freeze-finetune-map-en.png)
+![Decision diagram for freezing the backbone and progressive fine-tuning in transfer learning](/img/course/ch06-transfer-learning-freeze-finetune-map-en.webp)
 
 Read the flow like this:
 

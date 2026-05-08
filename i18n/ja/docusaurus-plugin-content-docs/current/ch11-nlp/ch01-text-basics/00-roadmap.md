@@ -11,7 +11,7 @@ keywords: [テキスト基礎ガイド, NLPガイド, テキスト表現]
 
 ## 先に全体像を見る
 
-![テキスト基礎章の進め方](/img/course/ch11-text-basics-chapter-flow-ja.png)
+![テキスト基礎章の進め方](/img/course/ch11-text-basics-chapter-flow-ja.webp)
 
 読む順番はシンプルです。
 
@@ -23,7 +23,7 @@ keywords: [テキスト基礎ガイド, NLPガイド, テキスト表現]
 
 ## Token から始める
 
-![テキストからタスクまでのパイプライン](/img/course/ch11-text-to-task-pipeline-ja.png)
+![テキストからタスクまでのパイプライン](/img/course/ch11-text-to-task-pipeline-ja.webp)
 
 `token` は、モデルに渡すために切り出した最小単位です。英語なら単語に近いこともありますが、実際の tokenizer では単語の一部になることもあります。最初は「文章を小さな部品に分ける」と理解すれば十分です。
 
@@ -52,7 +52,7 @@ vocab_size: 4
 
 ## 出力でタスクを見分ける
 
-![NLP タスクと出力の対応](/img/course/ch11-nlp-task-output-map-ja.png)
+![NLP タスクと出力の対応](/img/course/ch11-nlp-task-output-map-ja.webp)
 
 初心者が迷ったときは、モデル名より先に出力を見ます。
 

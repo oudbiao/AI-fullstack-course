@@ -23,7 +23,7 @@ Convolution is how CNNs look at images without flattening away spatial structure
 
 ## Look at the Sliding Window First
 
-![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.png)
+![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.webp)
 
 Read the picture like this:
 
@@ -157,7 +157,7 @@ The `1` values appear where the image changes from `0` to `1`. That is why early
 
 ## Stride, Padding, and Output Size
 
-![Convolution stride padding and output size change diagram](/img/course/ch06-conv-stride-padding-size-map-en.png)
+![Convolution stride padding and output size change diagram](/img/course/ch06-conv-stride-padding-size-map-en.webp)
 
 | Term | Meaning | Effect |
 |---|---|---|
@@ -259,7 +259,7 @@ Interpretation:
 
 ## Receptive Field: How CNNs See More Over Depth
 
-![CNN receptive field grows layer by layer feature combination diagram](/img/course/ch06-cnn-receptive-field-growth-map-en.png)
+![CNN receptive field grows layer by layer feature combination diagram](/img/course/ch06-cnn-receptive-field-growth-map-en.webp)
 
 One `3 x 3` convolution sees a small local region. If you stack layers, later features indirectly depend on larger regions of the original image.
 

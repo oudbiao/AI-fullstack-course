@@ -170,7 +170,7 @@ This example is not a strict camera model. It is only meant to help beginners bu
 
 This is exactly the easiest place to get started with a “point cloud feel.”
 
-![Intuition diagram for depth, disparity, and point cloud in 3D vision](/img/course/ch10-3d-depth-disparity-pointcloud-map-en.png)
+![Intuition diagram for depth, disparity, and point cloud in 3D vision](/img/course/ch10-3d-depth-disparity-pointcloud-map-en.webp)
 
 :::tip Reading Hint
 What 3D vision truly adds is spatial relationships. When reading this diagram, first see how disparity affects depth, then see how image points become a point cloud with depth, and finally understand why camera parameters and multi-view geometry matter.

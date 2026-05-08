@@ -7,7 +7,7 @@ keywords: [Scikit-learn 実践, sklearn チュートリアル, Matplotlib 基礎
 
 # 5.1.6 Scikit-learn と Matplotlib 実践ワークショップ
 
-![Scikit-learn 実践ワークフロー](/img/course/ch05-sklearn-hands-on-loop-ja.png)
+![Scikit-learn 実践ワークフロー](/img/course/ch05-sklearn-hands-on-loop-ja.webp)
 
 :::tip この節の位置づけ
 この節は**手を動かすワークショップ**です。新しい理論を増やすことではなく、データを読む、まず図を見る、分割する、モデルを学習する、評価する、安全に改善する、保存する、という一連の流れを自分で実行できるようにします。
@@ -91,7 +91,7 @@ First sample label: 0 => class_0
 
 ## Matplotlib 基礎：図を読んでからモデルを見る
 
-![Matplotlib の図表構造](/img/course/ch05-matplotlib-chart-anatomy-ja.png)
+![Matplotlib の図表構造](/img/course/ch05-matplotlib-chart-anatomy-ja.webp)
 
 Matplotlib では、初心者が混乱しやすい言葉が2つあります。
 

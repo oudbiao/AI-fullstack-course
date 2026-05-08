@@ -7,7 +7,7 @@ keywords: [chunking, document chunking, vectorization, metadata, RAG preprocessi
 
 # 8.1.3 Document Processing and Vectorization
 
-![Document parsing and vectorization flowchart](/img/course/document-processing-vectorization-en.png)
+![Document parsing and vectorization flowchart](/img/course/document-processing-vectorization-en.webp)
 
 ## Learning Objectives
 
@@ -72,7 +72,7 @@ Attach information to each chunk, such as:
 
 Turn text chunks into vectors that can be used for similarity retrieval.
 
-![Document processing pipeline for RAG](/img/course/ch08-document-processing-pipeline-map-v2-en.png)
+![Document processing pipeline for RAG](/img/course/ch08-document-processing-pipeline-map-v2-en.webp)
 
 OCR, short for Optical Character Recognition, is the step that turns scanned pages or screenshots into text before cleaning and chunking.
 
@@ -91,7 +91,7 @@ Think of it like this:
 
 > When making notes for an open-book exam, you would not paste the whole book into one giant poster, and you would not cut every single word into its own slip of paper.
 
-![Chunk size vs. overlap trade-off diagram](/img/course/ch08-chunk-size-overlap-tradeoff-map-en.png)
+![Chunk size vs. overlap trade-off diagram](/img/course/ch08-chunk-size-overlap-tradeoff-map-en.webp)
 
 :::tip Reading hint
 Start by looking at the central idea of “evidence completeness”: chunks that are too large make retrieval blunt, chunks that are too small cut evidence apart, and the value of overlap is to leave some buffer for information near boundaries.
@@ -254,7 +254,7 @@ This table is important because it helps beginners realize:
 
 > **Chunking is not just a fixed text operation; it actually serves the downstream generation goal.**
 
-![Courseware knowledge chunk metadata schema diagram](/img/course/ch08-courseware-chunk-metadata-schema-map-en.png)
+![Courseware knowledge chunk metadata schema diagram](/img/course/ch08-courseware-chunk-metadata-schema-map-en.webp)
 
 :::tip Reading hint
 Courseware generation is most likely to fail when it “finds the text but does not know where to place it.” When looking at the diagram, focus on the `topic`, `content_type`, `source_origin`, and `page_or_slide` fields. They determine whether the system can reliably assemble knowledge points, examples, and exercises later.

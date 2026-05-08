@@ -7,7 +7,7 @@ keywords: [digital human, avatar, lip sync, talking head, virtual human, audio-d
 
 # 12.3.4 デジタルヒューマン技術【選択】
 
-![デジタルヒューマンのマルチモジュール同期図](/img/course/ch12-digital-human-sync-pipeline-map-ja.png)
+![デジタルヒューマンのマルチモジュール同期図](/img/course/ch12-digital-human-sync-pipeline-map-ja.webp)
 
 :::tip 図の見方
 デジタルヒューマンの体験は、単独のモデルではなく、複数モジュールの同期で決まります。図を見るときは、台本、TTS、口形同期、表情や動き、本人らしさの一貫性、検閲、書き出しのあいだで、誤差がどのように段階的に伝わるかに注目してください。

@@ -11,9 +11,9 @@ Transformer は深層学習から現代 LLM への橋です。最初の直感は
 
 ## まず Attention の流れを見る
 
-![Transformer 章関係図](/img/course/ch06-transformer-chapter-flow-ja.png)
+![Transformer 章関係図](/img/course/ch06-transformer-chapter-flow-ja.webp)
 
-![Transformer グローバル文脈モデリング図](/img/course/ch06-transformer-global-context-map-ja.png)
+![Transformer グローバル文脈モデリング図](/img/course/ch06-transformer-global-context-map-ja.webp)
 
 | 概念 | 最初の意味 |
 |---|---|

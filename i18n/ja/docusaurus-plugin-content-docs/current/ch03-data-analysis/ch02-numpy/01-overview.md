@@ -19,7 +19,7 @@ description: "NumPy を知ろう——Python 科学計算の土台"
 
 **NumPy**（Numerical Python）は、Python で**科学計算**を行うための中核ライブラリです。Python を車にたとえるなら、NumPy はそのエンジンです。データサイエンスや AI に関するほとんどのライブラリは、NumPy の上に成り立っています。
 
-![NumPy 科学計算エンジン図](/img/course/ch03-numpy-overview-array-engine-ja.png)
+![NumPy 科学計算エンジン図](/img/course/ch03-numpy-overview-array-engine-ja.webp)
 
 簡単に言うと、**データ分析と AI を学ぶなら、NumPy は必ず通る最初の入口**です。
 

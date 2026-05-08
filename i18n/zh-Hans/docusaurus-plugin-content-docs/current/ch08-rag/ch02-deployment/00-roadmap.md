@@ -11,11 +11,11 @@ keywords: [模型部署指南, 本地模型, 推理服务, 统一 API]
 
 ## 先看服务决策
 
-![模型部署章节学习流程图](/img/course/ch08-deployment-chapter-flow.png)
+![模型部署章节学习流程图](/img/course/ch08-deployment-chapter-flow.webp)
 
-![模型服务选择决策图](/img/course/ch08-model-serving-decision-map.png)
+![模型服务选择决策图](/img/course/ch08-model-serving-decision-map.webp)
 
-![统一 API 供应商网关图](/img/course/ch08-unified-api-provider-gateway-map.png)
+![统一 API 供应商网关图](/img/course/ch08-unified-api-provider-gateway-map.webp)
 
 部署选择要平衡质量、延迟、成本、隐私和运维复杂度。最强模型不一定是最该调用的模型。
 

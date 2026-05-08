@@ -7,7 +7,7 @@ keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speake
 
 # 12.3.3 音声合成
 
-![TTS テキストから音声への生成パイプライン図](/img/course/ch12-tts-text-to-speech-pipeline-map-ja.png)
+![TTS テキストから音声への生成パイプライン図](/img/course/ch12-tts-text-to-speech-pipeline-map-ja.webp)
 
 :::tip 図の見方
 TTS は文字を1文字ずつ読むだけではありません。図を見るときは、テキスト正規化、音素/韻律、音響特徴、vocoder、音色、そしてリアルタイム性がどのように組み合わさって「人が話しているように聞こえるか」を決めるのかに注目しましょう。

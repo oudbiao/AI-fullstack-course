@@ -172,7 +172,7 @@ cv2.imwrite("opencv_flip.png", flip_horizontal)
 1. 先行（高度方向，`y`）
 2. 再列（宽度方向，`x`）
 
-![OpenCV BGR、坐标与裁剪顺序图](/img/course/ch10-opencv-bgr-coordinate-crop-map.png)
+![OpenCV BGR、坐标与裁剪顺序图](/img/course/ch10-opencv-bgr-coordinate-crop-map.webp)
 
 :::tip 读图提示
 OpenCV 入门最常踩两个坑：颜色默认是 BGR，不是 RGB；数组裁剪先写 `y` 再写 `x`。读这张图时，把图片当成“行列数组”而不是平面坐标纸。

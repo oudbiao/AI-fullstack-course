@@ -7,7 +7,7 @@ keywords: [metaprogramming, type, registry, descriptor, dynamic class, Python]
 
 # E.B.4 Metaprogramming
 
-![Python Metaprogramming Registry Map](/img/course/elective-metaprogramming-registry-map-en.png)
+![Python Metaprogramming Registry Map](/img/course/elective-metaprogramming-registry-map-en.webp)
 
 Metaprogramming means using code to organize or generate code structure. In day-to-day Python engineering, the most useful version is usually not clever magic; it is automatic registration, field validation, and reducing repeated boilerplate.
 

@@ -163,7 +163,7 @@ needs 2 batches
 
 这个表很适合新人，因为它会把“推理服务慢”重新拆成几个更具体的排查方向。
 
-![推理服务队列与批处理图](/img/course/ch08-inference-serving-queue-batch-map.png)
+![推理服务队列与批处理图](/img/course/ch08-inference-serving-queue-batch-map.webp)
 
 :::tip 读图提示
 请求不是直接冲进模型，而是先排队、再合批、再执行。batch 能提高吞吐，但也会增加等待，所以服务化调优永远是在 latency 和 throughput 之间取平衡。

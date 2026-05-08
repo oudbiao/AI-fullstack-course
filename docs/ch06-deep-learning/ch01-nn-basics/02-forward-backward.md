@@ -7,7 +7,7 @@ keywords: [forward propagation, backpropagation, gradient, loss, optimizer, PyTo
 
 # 6.1.4 Forward and Backward Propagation
 
-![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.png)
+![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.webp)
 
 :::tip Section Overview
 Training a neural network is a loop: predict, measure error, compute gradients, update parameters, repeat.
@@ -23,7 +23,7 @@ This lesson runs one tiny PyTorch example that shows:
 - parameter updates created by `optimizer.step()`;
 - a mini training loop with decreasing loss.
 
-![Backpropagation error responsibility allocation diagram](/img/course/ch06-backprop-error-responsibility-map-en.png)
+![Backpropagation error responsibility allocation diagram](/img/course/ch06-backprop-error-responsibility-map-en.webp)
 
 ## Setup
 
@@ -106,7 +106,7 @@ step=5 loss=0.0478 pred=0.953
 
 ## Read the Five Steps
 
-![NumPy to PyTorch training loop comparison diagram](/img/course/ch06-numpy-to-pytorch-training-loop-map-en.png)
+![NumPy to PyTorch training loop comparison diagram](/img/course/ch06-numpy-to-pytorch-training-loop-map-en.webp)
 
 One training step has a fixed order:
 

@@ -7,6 +7,12 @@ const path = require("path");
 const projectRoot = path.resolve(__dirname, "..");
 const locales = ["en", "zh-Hans", "ja"];
 const finalBuildDir = path.join(projectRoot, "build");
+const docusaurusBin = path.join(
+  projectRoot,
+  "node_modules",
+  ".bin",
+  process.platform === "win32" ? "docusaurus.cmd" : "docusaurus",
+);
 const dockerBuildOldSpace = process.env.DOCKER_BUILD_NODE_OLD_SPACE || "1536";
 const localizedStaticLocales = locales.filter((locale) => locale !== "en");
 const textExtensions = new Set([
@@ -155,14 +161,17 @@ function forceGarbageCollection() {
   }
 }
 
+if (!fs.existsSync(docusaurusBin)) {
+  throw new Error(`Missing local Docusaurus binary: ${path.relative(projectRoot, docusaurusBin)}`);
+}
+
 removeDirectory("build");
 removeDirectory(".docusaurus");
 removeDirectory(".tmp-docker-build");
 
 console.log(`\n[build:docker] Building locales: ${locales.join(", ")}`);
 const localeArgs = locales.flatMap((locale) => ["--locale", locale]);
-run("npx", [
-  "docusaurus",
+run(docusaurusBin, [
   "build",
   ...localeArgs,
   "--out-dir",

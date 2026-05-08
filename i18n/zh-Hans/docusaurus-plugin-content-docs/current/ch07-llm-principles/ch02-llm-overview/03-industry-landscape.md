@@ -7,7 +7,7 @@ keywords: [LLM 产业, 开源模型, 闭源模型, API, 推理, 应用层]
 
 # 7.2.4 大模型产业格局
 
-![大模型产业格局分层图](/img/course/ch07-llm-industry-landscape-map.png)
+![大模型产业格局分层图](/img/course/ch07-llm-industry-landscape-map.webp)
 
 :::tip 读图提示
 把它当成一栋楼来看：模型层提供“发动机”，平台层让发动机可调用、可观察、可运维，应用层把能力变成用户能使用的工作流。开源和闭源 API 不是“谁绝对更好”，而是在可控性、成本、延迟、隐私和运维之间做不同取舍。

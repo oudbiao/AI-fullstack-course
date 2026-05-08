@@ -7,7 +7,7 @@ keywords: [BiLSTM, CRF, sequence labeling, NER, named entity recognition]
 
 # 11.4.4 BiLSTM + CRF
 
-![BiLSTM CRF label path decoding diagram](/img/course/ch11-bilstm-crf-label-path-map-en.png)
+![BiLSTM CRF label path decoding diagram](/img/course/ch11-bilstm-crf-label-path-map-en.webp)
 
 :::tip Reading guide
 BiLSTM is responsible for building contextual representations for each token, while CRF is responsible for choosing the most reasonable path among all possible label paths. When reading the diagram, focus on how “local scores” and “label transition constraints” work together to determine the final BIO sequence.

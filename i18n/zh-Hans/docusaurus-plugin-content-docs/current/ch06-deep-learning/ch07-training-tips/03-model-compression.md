@@ -23,7 +23,7 @@ keywords: [model compression, quantization, pruning, distillation, deployment, m
 
 ## 从部署瓶颈开始
 
-![模型压缩取舍图](/img/course/ch06-model-compression-tradeoff.png)
+![模型压缩取舍图](/img/course/ch06-model-compression-tradeoff.webp)
 
 | 瓶颈 | 优先考虑 | 原因 |
 |---|---|---|

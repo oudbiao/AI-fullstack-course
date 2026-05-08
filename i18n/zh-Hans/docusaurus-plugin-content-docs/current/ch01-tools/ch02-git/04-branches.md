@@ -6,7 +6,7 @@ description: "用分支安全地开发新功能，了解 Pull Request 流程"
 
 # 1.2.4 分支与协作
 
-![Git 分支协作流程图](/img/course/ch01-git-branch-collaboration.png)
+![Git 分支协作流程图](/img/course/ch01-git-branch-collaboration.webp)
 
 ## 本节定位
 
@@ -228,7 +228,7 @@ git branch
 
 ## 合并冲突
 
-![Git 合并冲突解决流程](/img/course/ch01-git-merge-conflict-resolution.svg)
+![Git 合并冲突解决流程](/img/course/ch01-git-merge-conflict-resolution.webp)
 
 ### 什么时候会冲突？
 

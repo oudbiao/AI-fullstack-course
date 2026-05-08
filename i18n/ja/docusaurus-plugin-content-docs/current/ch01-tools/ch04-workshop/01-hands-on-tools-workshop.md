@@ -7,7 +7,7 @@ keywords: [開発者ツールワークショップ, ターミナル, Git, Python
 
 # 1.4.1 ハンズオンワークショップ：再現可能な AI 学習ラボを作る
 
-![第 1 章ハンズオン作業台ルート](/img/course/ch01-hands-on-workstation-route-ja.png)
+![第 1 章ハンズオン作業台ルート](/img/course/ch01-hands-on-workstation-route-ja.webp)
 
 :::tip ワークショップの目標
 このページは第 1 章の実践ブリッジです。`ai-learning-lab` という小さなリポジトリを作り、Python 環境チェックを実行し、レポートを保存し、Git commit を行い、作業台が使えることを示す作品集の証拠を残します。
@@ -56,7 +56,7 @@ PowerShell で `python3 --version` が認識されない場合は、`python --ve
 
 ## Step 1：まず全体の流れを見る
 
-![ターミナル、Python、Git の実行ループ](/img/course/ch01-hands-on-terminal-git-loop-ja.png)
+![ターミナル、Python、Git の実行ループ](/img/course/ch01-hands-on-terminal-git-loop-ja.webp)
 
 これらのツールを別々の話題として扱わないでください。実際の開発では、1 つのループになります。
 
@@ -368,7 +368,7 @@ Add-Content notes/learning-log.md "- Practiced terminal, Python, and Git togethe
 
 ## Step 7：VS Code と Jupyter を 2 つの作業パネルとして使う
 
-![環境、エディタ、Notebook の連携フロー](/img/course/ch01-hands-on-env-editor-notebook-flow-ja.png)
+![環境、エディタ、Notebook の連携フロー](/img/course/ch01-hands-on-env-editor-notebook-flow-ja.webp)
 
 VS Code でプロジェクトを開きます。
 
@@ -409,7 +409,7 @@ main
 
 ## Step 8：壊れたリンクを見つけて直す
 
-![第 1 章作業台トラブルシュートマップ](/img/course/ch01-hands-on-debug-map-ja.png)
+![第 1 章作業台トラブルシュートマップ](/img/course/ch01-hands-on-debug-map-ja.webp)
 
 エラーが出たら、まず落ち着いて、どのリンクが切れているかを確認します。
 
@@ -426,7 +426,7 @@ main
 
 ## Step 9：作品集の証拠パックを整理する
 
-![第 1 章作品集証拠パック](/img/course/ch01-hands-on-portfolio-pack-ja.png)
+![第 1 章作品集証拠パック](/img/course/ch01-hands-on-portfolio-pack-ja.webp)
 
 第 1 章を終える前に、証拠パックで結果と過程の両方を見せられるようにしましょう。
 

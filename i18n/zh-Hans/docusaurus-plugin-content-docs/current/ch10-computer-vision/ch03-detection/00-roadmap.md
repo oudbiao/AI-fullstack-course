@@ -11,11 +11,11 @@ keywords: [目标检测指南, YOLO, IoU, mAP]
 
 ## 先看框工作流
 
-![目标检测章节学习流程图](/img/course/ch10-detection-chapter-flow.png)
+![目标检测章节学习流程图](/img/course/ch10-detection-chapter-flow.webp)
 
-![目标检测输出图](/img/course/object-detection-output.png)
+![目标检测输出图](/img/course/object-detection-output.webp)
 
-![检测输出 IoU 错误图](/img/course/ch10-detection-output-iou-error-map.png)
+![检测输出 IoU 错误图](/img/course/ch10-detection-output-iou-error-map.webp)
 
 重要概念是 bounding box、class、confidence、IoU、threshold、false positive、false negative 和 mAP。
 

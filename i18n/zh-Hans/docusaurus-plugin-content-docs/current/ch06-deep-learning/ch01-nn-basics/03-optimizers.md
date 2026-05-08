@@ -7,7 +7,7 @@ keywords: [优化器, SGD, momentum, Adam, learning rate, PyTorch, 梯度下降]
 
 # 6.1.5 优化器
 
-![优化器路径对比图](/img/course/optimizer-comparison.png)
+![优化器路径对比图](/img/course/optimizer-comparison.webp)
 
 :::tip 本节概览
 梯度算出来以后，优化器决定参数怎么移动。优化器名字很重要，但学习率往往更重要。
@@ -22,7 +22,7 @@ keywords: [优化器, SGD, momentum, Adam, learning rate, PyTorch, 梯度下降]
 - 测试学习率敏感性；
 - 学会安全的优化器选择顺序。
 
-![梯度到参数更新的优化器决策图](/img/course/ch06-optimizer-gradient-to-update-map.png)
+![梯度到参数更新的优化器决策图](/img/course/ch06-optimizer-gradient-to-update-map.webp)
 
 ## 环境准备
 

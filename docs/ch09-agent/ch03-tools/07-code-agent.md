@@ -210,7 +210,7 @@ Because it has:
 
 That is already a minimal agentic loop.
 
-![Code Agent sandbox, test, and review closed-loop diagram](/img/course/ch09-code-agent-sandbox-review-map-en.png)
+![Code Agent sandbox, test, and review closed-loop diagram](/img/course/ch09-code-agent-sandbox-review-map-en.webp)
 
 :::tip Reading the diagram
 The key point of a code Agent is not “it can write code,” but that it can read context in a sandbox, generate a patch, run tests, inspect failures, and then fix things again. Verify and Review in the diagram are the key steps that bring ideas back to reality.

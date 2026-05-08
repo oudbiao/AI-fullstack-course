@@ -265,7 +265,7 @@ first train example:
 - 問い合わせチケット
 - 製品ライン
 
-![微調整エンジニアリングループ漫画](/img/course/ch07-finetuning-engineering-loop-ja.png)
+![微調整エンジニアリングループ漫画](/img/course/ch07-finetuning-engineering-loop-ja.webp)
 
 :::tip 図の読み方
 この図は「学習ボタンを押せば魔法のように良くなる」という話ではなく、工程ラインとして読んでください。健全な微調整プロジェクトは、タスク定義と baseline から始まり、漏洩のないデータを準備し、監視しながら学習し、カナリアとロールバックで安全に公開し、失敗例を次のデータに戻します。

@@ -23,7 +23,7 @@ GAN は 2 人のプレイヤーによる学習ループです。generator は本
 
 ## まずゲームを見る
 
-![GAN generator discriminator adversarial 図](/img/course/gan-adversarial-loop-ja.png)
+![GAN generator discriminator adversarial 図](/img/course/gan-adversarial-loop-ja.webp)
 
 | 部品 | 入力 | 出力 | 目標 |
 |---|---|---|---|
@@ -33,7 +33,7 @@ GAN は 2 人のプレイヤーによる学習ループです。generator は本
 
 GAN は通常の分類のように、固定されたラベル目標だけで学習するわけではありません。discriminator は「だましにくさ」を変え、generator は fake sample の姿を変えます。
 
-![GAN adversarial training balance と mode collapse 図](/img/course/ch06-gan-adversarial-balance-map-ja.png)
+![GAN adversarial training balance と mode collapse 図](/img/course/ch06-gan-adversarial-balance-map-ja.webp)
 
 ## 実践ループ
 

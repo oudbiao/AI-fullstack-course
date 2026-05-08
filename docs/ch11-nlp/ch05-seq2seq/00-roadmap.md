@@ -11,11 +11,11 @@ Seq2Seq handles tasks where both input and output are sequences: translation, su
 
 ## See the Generation Bridge First
 
-![Seq2Seq and Attention chapter learning order diagram](/img/course/ch11-seq2seq-chapter-flow-en.png)
+![Seq2Seq and Attention chapter learning order diagram](/img/course/ch11-seq2seq-chapter-flow-en.webp)
 
-![Seq2Seq encoder decoder bottleneck map](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-en.png)
+![Seq2Seq encoder decoder bottleneck map](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-en.webp)
 
-![T5 text-to-text task unification map](/img/course/ch11-t5-text-to-text-task-unification-map-en.png)
+![T5 text-to-text task unification map](/img/course/ch11-t5-text-to-text-task-unification-map-en.webp)
 
 The bridge to modern LLMs is clear: generation happens step by step, and attention helps the decoder look back at useful input positions.
 

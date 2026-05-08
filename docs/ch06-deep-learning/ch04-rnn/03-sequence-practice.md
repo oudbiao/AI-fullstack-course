@@ -11,7 +11,7 @@ keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 This lesson turns sequence modeling into a small project: convert a continuous series into sliding-window samples, train an LSTM, compare against a naive baseline, and inspect validation predictions.
 :::
 
-![RNN time-series sliding window practice loop](/img/course/ch06-rnn-sliding-window-practice-loop-en.png)
+![RNN time-series sliding window practice loop](/img/course/ch06-rnn-sliding-window-practice-loop-en.webp)
 
 ## Learning Goals
 

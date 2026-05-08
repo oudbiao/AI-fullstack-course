@@ -175,7 +175,7 @@ print(readiness_check(deployment_config))
 - 本番 readiness は「感覚」ではない
 - ちゃんと確認できる条件の集まりである
 
-![Agent 本番 Readiness、段階的リリース、ロールバック図](/img/course/ch09-production-readiness-canary-rollback-map-ja.png)
+![Agent 本番 Readiness、段階的リリース、ロールバック図](/img/course/ch09-production-readiness-canary-rollback-map-ja.webp)
 
 :::tip 図の見方
 この図は、リリース前チェックリストとして使えます。metrics、logs、timeout、rate limit、eval suite、canary、rollback、human override、audit log のどれか1つでも欠けていれば、どんなリスクがあるかを把握しておきましょう。

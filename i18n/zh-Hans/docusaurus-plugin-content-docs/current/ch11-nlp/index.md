@@ -7,7 +7,7 @@ keywords: [NLP, 自然语言处理, Transformer, BERT, 词向量, 文本分类, 
 
 # 11 NLP 专题：LLM 之后的文本任务
 
-![自然语言处理主视觉](/img/course/ch11-nlp.png)
+![自然语言处理主视觉](/img/course/ch11-nlp.webp)
 
 这一专题放在 LLM、RAG、Agent 主线之后。第 7 章已经给了最小 NLP 速通；第 11 章适合在真实产品需要更清楚的标签、更稳定的抽取、更可靠的评估，或一个不能只靠 LLM 硬撑的文本流水线时再回来学习。
 
@@ -17,7 +17,7 @@ keywords: [NLP, 自然语言处理, Transformer, BERT, 词向量, 文本分类, 
 
 ## 先看文本到任务的流水线
 
-![文本到 NLP 任务流水线](/img/course/ch11-text-to-task-pipeline.png)
+![文本到 NLP 任务流水线](/img/course/ch11-text-to-task-pipeline.webp)
 
 整章围绕这张图学习。
 
@@ -96,7 +96,7 @@ accuracy=3/3
 
 ## 按输出选择 NLP 任务
 
-![NLP 任务输出图](/img/course/ch11-nlp-task-output-map.png)
+![NLP 任务输出图](/img/course/ch11-nlp-task-output-map.webp)
 
 先确定输出，再选择模型。
 

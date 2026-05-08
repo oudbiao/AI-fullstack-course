@@ -11,11 +11,11 @@ Multimodal AI is not just “chat with an image.” A useful system turns images
 
 ## See the Pipeline First
 
-![Multimodal foundations chapter learning flow diagram](/img/course/ch12-multimodal-chapter-flow-en.png)
+![Multimodal foundations chapter learning flow diagram](/img/course/ch12-multimodal-chapter-flow-en.webp)
 
-![Multimodal alignment and fusion diagram](/img/course/multimodal-alignment-fusion-en.png)
+![Multimodal alignment and fusion diagram](/img/course/multimodal-alignment-fusion-en.webp)
 
-![Multimodal system backbone](/img/course/ch12-multimodal-system-backbone-en.png)
+![Multimodal system backbone](/img/course/ch12-multimodal-system-backbone-en.webp)
 
 The first habit is to ask: what modality comes in, what evidence is visible, what is uncertain, and where does the structured result go next?
 

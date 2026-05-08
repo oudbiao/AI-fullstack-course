@@ -7,7 +7,7 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 
 # 11.1.4 テキスト表現方法
 
-![BoW と TF-IDF のテキスト表現図](/img/course/bow-tfidf-representation-ja.png)
+![BoW と TF-IDF のテキスト表現図](/img/course/bow-tfidf-representation-ja.webp)
 
 ## 学習目標
 

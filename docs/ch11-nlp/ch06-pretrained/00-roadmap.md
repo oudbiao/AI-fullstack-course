@@ -11,11 +11,11 @@ Pretrained models move NLP from one-task training to a reusable foundation: pret
 
 ## See the Paradigm Map First
 
-![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison-en.png)
+![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison-en.webp)
 
-![Learning order diagram for the pretrained language models chapter](/img/course/ch11-pretrained-chapter-flow-en.png)
+![Learning order diagram for the pretrained language models chapter](/img/course/ch11-pretrained-chapter-flow-en.webp)
 
-![Pretraining transfer finetune map](/img/course/ch11-pretraining-transfer-finetune-map-en.png)
+![Pretraining transfer finetune map](/img/course/ch11-pretraining-transfer-finetune-map-en.webp)
 
 BERT emphasizes understanding, GPT emphasizes generation, and T5 rewrites many tasks into text-to-text form.
 

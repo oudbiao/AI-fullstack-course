@@ -23,7 +23,7 @@ A generative project is not finished when it produces one nice sample. You need 
 
 ## See the Evaluation Loop First
 
-![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-en.png)
+![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-en.webp)
 
 ```text
 train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step

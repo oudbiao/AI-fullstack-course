@@ -7,7 +7,7 @@ keywords: [視覚言語モデル, VLM, 図文検索, 画像QA, image-text]
 
 # 12.1.3 視覚-言語モデル
 
-![視覚言語モデルのアーキテクチャ図](/img/course/vision-language-model-architecture-ja.png)
+![視覚言語モデルのアーキテクチャ図](/img/course/vision-language-model-architecture-ja.webp)
 
 :::tip この節の位置づけ
 視覚-言語モデルは、初心者には次のように理解されがちです。

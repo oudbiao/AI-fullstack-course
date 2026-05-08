@@ -7,7 +7,7 @@ keywords: [eigenvalues, eigenvectors, PCA, dimensionality reduction, NumPy, line
 
 # 4.1.4 Eigenvalues and Eigenvectors
 
-![Illustration of special eigenvector directions](/img/course/eigenvalue-special-directions-en.png)
+![Illustration of special eigenvector directions](/img/course/eigenvalue-special-directions-en.webp)
 
 :::tip Don't be intimidated by the names
 "Eigenvalue" and "eigenvector" sound very mathematical, but the intuition is actually simple: **under a matrix transformation, some special vectors only get stretched or shrunk, and their direction does not change**. These are eigenvectors, and the stretching factor is the eigenvalue.
@@ -38,7 +38,7 @@ but to truly build an intuition for these "special directions."
 
 This section can easily make beginners think, "The name sounds hard; it must be very advanced." In fact, you only need to remember this line:
 
-![Map of eigen-directions and PCA](/img/course/ch04-eigen-pca-direction-map-en.png)
+![Map of eigen-directions and PCA](/img/course/ch04-eigen-pca-direction-map-en.webp)
 
 So the real problem this lesson solves is not "memorize the definition," but:
 

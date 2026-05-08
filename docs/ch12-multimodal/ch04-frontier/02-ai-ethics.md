@@ -7,7 +7,7 @@ keywords: [AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC]
 
 # 12.4.3 AI Ethics and Safety
 
-![AIGC Ethics and Safety Risk Guardrail Map](/img/course/ch12-ai-ethics-safety-guardrail-map-en.png)
+![AIGC Ethics and Safety Risk Guardrail Map](/img/course/ch12-ai-ethics-safety-guardrail-map-en.webp)
 
 :::tip Reading Guide
 Ethics and safety are not abstract slogans. They are engineering guardrails that can be implemented through data, models, prompts, output review, human review, and appeal mechanisms. When reading the diagram, first look at how risks are detected, blocked, and traced.

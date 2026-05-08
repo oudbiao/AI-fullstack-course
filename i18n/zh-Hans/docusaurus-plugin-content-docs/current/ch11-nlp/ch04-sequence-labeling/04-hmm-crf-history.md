@@ -7,7 +7,7 @@ keywords: [HMM, CRF, 词性标注, 序列标注, NER, BiLSTM-CRF]
 
 # 11.4.3 HMM、CRF 与序列标注历史主线
 
-![HMM CRF 序列标注历史地图](/img/course/ch11-hmm-crf-sequence-history-map.png)
+![HMM CRF 序列标注历史地图](/img/course/ch11-hmm-crf-sequence-history-map.webp)
 
 :::tip 本节定位
 如果你只看现代 BERT token classification，很容易觉得序列标注就是“给每个 token 分类”。

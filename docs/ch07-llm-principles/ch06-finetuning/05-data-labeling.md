@@ -287,7 +287,7 @@ Because such samples often mean:
 
 They are exactly where the next round of data gains is greatest.
 
-![Data labeling quality check and flywheel feedback diagram](/img/course/ch07-data-labeling-flywheel-review-map-en.png)
+![Data labeling quality check and flywheel feedback diagram](/img/course/ch07-data-labeling-flywheel-review-map-en.webp)
 
 :::tip Reading guide
 For this diagram, it is recommended to first look at the review queue: inconsistent annotators, low-confidence model outputs, and failed online samples should all go into review, and then become high-value training data for the next round. The data flywheel is not about “collecting more samples,” but about continuously feeding back the problems that best expose boundaries.

@@ -7,13 +7,13 @@ keywords: [deep learning, PyTorch, neural network, CNN, RNN, Transformer, Attent
 
 # 6 Deep Learning and Transformer Basics
 
-![Main visual for Deep Learning and Transformer](/img/course/ch06-deep-learning-en.png)
+![Main visual for Deep Learning and Transformer](/img/course/ch06-deep-learning-en.webp)
 
 Chapter 6 has one job: help you understand **how a model learns from loss, gradients, and repeated training steps**.
 
 ## See The Training Loop
 
-![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.png)
+![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.webp)
 
 Read the picture first. Most deep learning training code is this loop:
 

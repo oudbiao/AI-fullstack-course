@@ -7,7 +7,7 @@ keywords: [AI history, AI development stages, key papers, Transformer paper, GPT
 
 # A.3 AI Development History: 15 Stages and Key Papers
 
-![AI 15-stage development history map](/img/course/appendix-ai-15-stage-history-map-en.png)
+![AI 15-stage development history map](/img/course/appendix-ai-15-stage-history-map-en.webp)
 
 This appendix is optional. Read it when you want a historical “where did this come from?” map, not when you need to memorize papers for the first pass.
 
@@ -42,7 +42,7 @@ The pattern is simple: every stage solves a bottleneck from the previous stage, 
 
 ## Read the main storyline as a relay
 
-![AI Main Line Relay Map](/img/course/appendix-ai-main-relay-map-en.png)
+![AI Main Line Relay Map](/img/course/appendix-ai-main-relay-map-en.webp)
 
 AI history is easier to remember as a relay than as a list of names:
 
@@ -57,7 +57,7 @@ AI history is easier to remember as a relay than as a list of names:
 
 ## Six turning points worth remembering
 
-![AI History Turning Points Comic Strip](/img/course/appendix-ai-history-comic-turning-points-en.png)
+![AI History Turning Points Comic Strip](/img/course/appendix-ai-history-comic-turning-points-en.webp)
 
 | Turning point | Why beginners should care |
 |---|---|
@@ -72,7 +72,7 @@ Do not memorize every year first. Remember the shape: hope, setback, repair, sca
 
 ## How to read a paper node
 
-![AI Paper Problem-Solution-Impact Chain](/img/course/appendix-ai-paper-problem-solution-impact-chain-en.png)
+![AI Paper Problem-Solution-Impact Chain](/img/course/appendix-ai-paper-problem-solution-impact-chain-en.webp)
 
 For any paper or algorithm, ask only four questions first:
 
@@ -87,7 +87,7 @@ This is enough for beginner-level historical understanding. Formula details can 
 
 ## Key nodes by course line
 
-![AI Timeline Map from the Project Perspective](/img/course/appendix-ai-project-lens-map-en.png)
+![AI Timeline Map from the Project Perspective](/img/course/appendix-ai-project-lens-map-en.webp)
 
 | Course line | Key nodes to recognize first | Why they matter |
 |---|---|---|
@@ -104,17 +104,17 @@ Some entries are landmark papers. Some are algorithm families or historical turn
 
 Use these only when you are studying the related chapter.
 
-![Timeline of Three Neural Network Waves and Two Valleys](/img/course/appendix-neural-network-waves-timeline-en.png)
+![Timeline of Three Neural Network Waves and Two Valleys](/img/course/appendix-neural-network-waves-timeline-en.webp)
 
-![Classic Machine Learning Branch Map](/img/course/appendix-classic-ml-branch-map-en.png)
+![Classic Machine Learning Branch Map](/img/course/appendix-classic-ml-branch-map-en.webp)
 
-![NLP to LLM Lineage Map](/img/course/appendix-nlp-llm-lineage-map-en.png)
+![NLP to LLM Lineage Map](/img/course/appendix-nlp-llm-lineage-map-en.webp)
 
-![Alignment, Agent, and Systems Main Line Map](/img/course/appendix-agent-system-lineage-map-en.png)
+![Alignment, Agent, and Systems Main Line Map](/img/course/appendix-agent-system-lineage-map-en.webp)
 
-![LLM to Agent Engineering Evolution Timeline](/img/course/appendix-llm-to-agent-evolution-timeline-en.png)
+![LLM to Agent Engineering Evolution Timeline](/img/course/appendix-llm-to-agent-evolution-timeline-en.webp)
 
-![Multimodal and AIGC Lineage Map](/img/course/appendix-multimodal-aigc-lineage-map-en.png)
+![Multimodal and AIGC Lineage Map](/img/course/appendix-multimodal-aigc-lineage-map-en.webp)
 
 ## Fast chapter lookup
 

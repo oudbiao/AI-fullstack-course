@@ -29,7 +29,7 @@ description: "掌握 loc、iloc、布尔索引和 query 等数据筛选方法"
 
 数据选择与过滤更适合按“我要选谁”来理解：
 
-![Pandas 数据选择与过滤地图](/img/course/ch03-pandas-selection-filter-map.png)
+![Pandas 数据选择与过滤地图](/img/course/ch03-pandas-selection-filter-map.webp)
 
 所以这节真正想解决的是：
 

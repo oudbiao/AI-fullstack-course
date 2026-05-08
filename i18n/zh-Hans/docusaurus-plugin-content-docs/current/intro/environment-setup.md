@@ -7,7 +7,7 @@ keywords: [AI 环境准备, Python 环境, VS Code, Git, Miniconda, 快速开始
 
 # 0.2 环境准备
 
-![AI 课程最小环境工具包](/img/course/intro-minimal-setup-kit.png)
+![AI 课程最小环境工具包](/img/course/intro-minimal-setup-kit.webp)
 
 先少装。目标只有一个：能运行 Python、用 Git 保存代码、保留一个项目文件夹。
 

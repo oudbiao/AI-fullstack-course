@@ -7,13 +7,13 @@ keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict
 
 # 5.1.3 Scikit-learn Follow-Along: Fit, Transform, Pipeline
 
-![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline-en.png)
+![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline-en.webp)
 
 Scikit-learn is the standard Python library for classic machine learning. This page is intentionally short: first see the workflow, then run one complete script.
 
 ## Look at the Workflow First
 
-![Unified sklearn fit-predict workflow](/img/course/ch05-sklearn-fit-predict-loop-en.png)
+![Unified sklearn fit-predict workflow](/img/course/ch05-sklearn-fit-predict-loop-en.webp)
 
 Most sklearn work follows the same loop:
 
@@ -32,7 +32,7 @@ The four verbs to remember:
 
 ## Three Roles
 
-![sklearn Pipeline component breakdown](/img/course/ch05-sklearn-pipeline-anatomy-en.png)
+![sklearn Pipeline component breakdown](/img/course/ch05-sklearn-pipeline-anatomy-en.webp)
 
 | Role | Job | Example |
 |---|---|---|
@@ -157,7 +157,7 @@ Different sklearn versions may break ties differently when two models have the s
 
 ## Why Pipeline Prevents a Common Mistake
 
-![StandardScaler fit versus transform comic](/img/course/ch05-standard-scaler-fit-transform-en.png)
+![StandardScaler fit versus transform comic](/img/course/ch05-standard-scaler-fit-transform-en.webp)
 
 Wrong workflow:
 

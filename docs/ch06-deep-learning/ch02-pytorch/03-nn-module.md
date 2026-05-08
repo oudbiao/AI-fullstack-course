@@ -23,7 +23,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict,
 
 ## Look at the Model Container
 
-![nn.Module parameter organization flowchart](/img/course/ch06-nn-module-parameter-flow-en.png)
+![nn.Module parameter organization flowchart](/img/course/ch06-nn-module-parameter-flow-en.webp)
 
 Think of `nn.Module` as a model container:
 

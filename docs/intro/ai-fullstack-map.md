@@ -7,7 +7,7 @@ keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RA
 
 # 0.3 AI Full-Stack Capability Map
 
-![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
+![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.webp)
 
 Read the picture first. The course is one path:
 

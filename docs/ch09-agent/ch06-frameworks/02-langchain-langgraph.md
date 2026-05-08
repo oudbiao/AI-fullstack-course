@@ -249,7 +249,7 @@ In a graph system:
 
 That is the most fundamental advantage of graph workflows.
 
-![LangGraph state machine and conditional edge graph](/img/course/ch09-langgraph-state-machine-map-en.png)
+![LangGraph state machine and conditional edge graph](/img/course/ch09-langgraph-state-machine-map-en.webp)
 
 :::tip Reading the Diagram
 This diagram can help you shift from “chain steps” to a “state machine”: nodes handle the state, conditional edges decide the next stop, and checkpoints let the system recover and be debugged in complex workflows.

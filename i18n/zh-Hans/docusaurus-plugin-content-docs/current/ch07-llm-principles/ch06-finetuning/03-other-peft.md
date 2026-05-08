@@ -156,7 +156,7 @@ IA3 的思路更节制：
 | Adapter | 层间小瓶颈模块 | 插一个轻量插件 | 多任务切换方便 | 推理会多一小段计算 |
 | IA3 | 激活缩放向量 | 调关键通道的增益 | 参数极少、实现轻 | 对复杂变化的表达较弱 |
 
-![PEFT 方法可训练参数放置位置图](/img/course/ch07-peft-placement-family-map.png)
+![PEFT 方法可训练参数放置位置图](/img/course/ch07-peft-placement-family-map.webp)
 
 :::tip 读图提示
 这张图不要按方法名背，而要看“可训练部分放在哪里”：Prompt Tuning 放输入前，Prefix Tuning 放每层注意力 KV 前缀，Adapter 插层间小模块，IA3 调通道缩放。位置不同，成本、表达力和切换方式就不同。

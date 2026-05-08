@@ -7,7 +7,7 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 # 11.6.6 Transformers ライブラリ実践
 
-![Transformers ライブラリの呼び出しチェーン図](/img/course/ch11-transformers-library-call-chain-map-ja.png)
+![Transformers ライブラリの呼び出しチェーン図](/img/course/ch11-transformers-library-call-chain-map-ja.webp)
 
 :::tip 画像の見方
 初めて Transformers ライブラリを使うと、API 名に少し混乱しやすいです。まずは Tokenizer、Config、Model、Task Head、Pipeline の呼び出しチェーンに沿って見て、それぞれの役割を理解してから具体的なクラス名を調べると、ずっと分かりやすくなります。

@@ -137,7 +137,7 @@ for ex in few_shot_examples:
 
 - どんな問題が起きたら、どの層を先に補うのか
 
-![高度な Prompt 技巧の選択図](/img/course/ch07-advanced-prompt-technique-decision-map-ja.png)
+![高度な Prompt 技巧の選択図](/img/course/ch07-advanced-prompt-technique-decision-map-ja.webp)
 
 :::tip 図の読み方
 この図を読むときは、技巧を上から足していくのではなく、まず問題の種類を見てください。ラベルの境界があいまいなら few-shot、フォーマットが不安定なら構造制約、手順が複雑なら手順を明示的に分ける、条件漏れが多いなら自己チェックを加える、という考え方です。高度な Prompt の核心は「問題に合っていること」であって、「見た目が派手であること」ではありません。

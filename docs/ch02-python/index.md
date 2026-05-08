@@ -7,13 +7,13 @@ keywords: [Python Basics, Python Fundamentals, Python Tutorial, Programming Basi
 
 # 2 Python Programming Fundamentals
 
-![Main visual for Python programming fundamentals](/img/course/ch02-python-foundation-en.png)
+![Main visual for Python programming fundamentals](/img/course/ch02-python-foundation-en.webp)
 
 Chapter 2 has one job: help you turn a small idea into **Python code that runs, saves data, handles errors, and can be explained**.
 
 ## See The Python Work Loop
 
-![Python AI backbone capability chain](/img/course/ch02-python-ai-backbone-en.png)
+![Python AI backbone capability chain](/img/course/ch02-python-ai-backbone-en.webp)
 
 Read the picture first. Most beginner Python programs are this loop:
 

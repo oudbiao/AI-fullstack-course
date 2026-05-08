@@ -11,9 +11,9 @@ Unsupervised learning starts when the data has no labels. The model does not tel
 
 ## Look at the Structure Map First
 
-![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap-en.png)
+![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap-en.webp)
 
-![Unsupervised learning chapter flow](/img/course/ch05-unsupervised-chapter-flow-en.png)
+![Unsupervised learning chapter flow](/img/course/ch05-unsupervised-chapter-flow-en.webp)
 
 | If you want to... | Start with... |
 |---|---|

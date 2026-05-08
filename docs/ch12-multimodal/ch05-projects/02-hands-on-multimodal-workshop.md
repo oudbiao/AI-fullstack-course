@@ -9,7 +9,7 @@ keywords: [AIGC hands-on, multimodal project, prompt records, asset review, safe
 
 Before you connect real image, video, or speech models, first build a small workflow that proves you understand the product loop: input, prompt planning, asset generation, version records, review, export, and failure cases.
 
-![Multimodal creative package pipeline](/img/course/ch12-workshop-creative-package-pipeline-map-en.png)
+![Multimodal creative package pipeline](/img/course/ch12-workshop-creative-package-pipeline-map-en.webp)
 
 This workshop uses only the Python standard library and generates SVG mock assets locally. That is intentional: the goal is to make the workflow reproducible before you replace the SVG baseline with image generation, TTS, video generation, or a multimodal model API.
 
@@ -65,7 +65,7 @@ source .venv/bin/activate
 
 No `pip install` is needed. Create `multimodal_workshop.py` and paste the complete script below.
 
-![Prompt to asset version record map](/img/course/ch12-workshop-prompt-asset-version-map-en.png)
+![Prompt to asset version record map](/img/course/ch12-workshop-prompt-asset-version-map-en.webp)
 
 ## Step 2: Run the Complete Script
 
@@ -465,7 +465,7 @@ Open `assets/scene_01.svg`, `assets/scene_02.svg`, and `assets/scene_03.svg` in 
 
 Open `outputs/storyboard.json` and `outputs/timeline.csv`. These files explain how visual assets become a short video or landing-page sequence.
 
-![Review and export workflow map](/img/course/ch12-workshop-review-export-map-en.png)
+![Review and export workflow map](/img/course/ch12-workshop-review-export-map-en.webp)
 
 ## Step 5: Read the Review Files
 
@@ -496,7 +496,7 @@ In a real upgrade, you can replace:
 
 ## Step 7: Read the Failure Report
 
-![Multimodal failure debugging map](/img/course/ch12-workshop-failure-debug-map-en.png)
+![Multimodal failure debugging map](/img/course/ch12-workshop-failure-debug-map-en.webp)
 
 Open `reports/failure_cases.md`. This workshop intentionally makes one scene fail the contrast check. That is useful because a portfolio project should show how you catch problems, not only how you produce pretty outputs.
 

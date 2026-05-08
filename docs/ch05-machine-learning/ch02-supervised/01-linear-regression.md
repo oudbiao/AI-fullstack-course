@@ -7,13 +7,13 @@ keywords: [linear regression, least squares, residuals, RMSE, MAE, Ridge, polyno
 
 # 5.2.2 Linear Regression: Baseline, Residuals, Regularization
 
-![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow-en.png)
+![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow-en.webp)
 
 Linear regression answers one practical question: **can a few input numbers explain or predict one continuous target number?** Examples: price, sales, demand, temperature, latency, or cost.
 
 ## Look at the Intuition First
 
-![Linear regression intuition comic](/img/course/ch05-linear-regression-intuition-comic-en.png)
+![Linear regression intuition comic](/img/course/ch05-linear-regression-intuition-comic-en.webp)
 
 Keep this mental model:
 
@@ -121,7 +121,7 @@ The first residual is `30.0`, meaning the first test item was about 30 price uni
 
 ## Solver Choice
 
-![Normal equation versus gradient descent solver choice](/img/course/ch05-linear-regression-solver-choice-en.png)
+![Normal equation versus gradient descent solver choice](/img/course/ch05-linear-regression-solver-choice-en.webp)
 
 You do not need to hand-solve linear regression every day, but you should know the two ideas:
 
@@ -134,7 +134,7 @@ In daily sklearn work, call `LinearRegression()` first. Learn manual gradient de
 
 ## Polynomial and Ridge
 
-![Polynomial complexity and regularization intuition](/img/course/ch05-linear-regression-complexity-regularization-en.png)
+![Polynomial complexity and regularization intuition](/img/course/ch05-linear-regression-complexity-regularization-en.webp)
 
 The script also tries:
 
@@ -146,7 +146,7 @@ This lets the model use interactions such as `area * rooms`, but Ridge adds a br
 
 ## Check Residuals
 
-![Linear regression residual diagnostics](/img/course/ch05-linear-regression-residual-diagnostics-en.png)
+![Linear regression residual diagnostics](/img/course/ch05-linear-regression-residual-diagnostics-en.webp)
 
 When a regression model looks good, still inspect residuals:
 

@@ -158,7 +158,7 @@ print(result)
 この表は初心者にとても向いています。  
 なぜなら、「データ分析 Agent」を、確認可能なワークフローとして見直せるからです。
 
-![データ分析 Agent の検証可能なワークフロー図](/img/course/ch09-data-analysis-agent-notebook-loop-map-ja.png)
+![データ分析 Agent の検証可能なワークフロー図](/img/course/ch09-data-analysis-agent-notebook-loop-map-ja.webp)
 
 :::tip 図の読み方
 この図は notebook の考え方で読みます。load data、profile schema、compute statistics、generate insight、suggest chart、write report の順です。各結論は、中間計算結果に戻って確認できる必要があります。

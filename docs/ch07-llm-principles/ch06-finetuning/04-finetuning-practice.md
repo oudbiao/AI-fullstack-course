@@ -263,7 +263,7 @@ So the splitting unit should usually be as close as possible to the real general
 - Ticket
 - Product line
 
-![Fine-tuning engineering workflow comic](/img/course/ch07-finetuning-engineering-loop-en.png)
+![Fine-tuning engineering workflow comic](/img/course/ch07-finetuning-engineering-loop-en.webp)
 
 :::tip How to read this workflow
 Read this as an engineering assembly line, not as a magic training button. A healthy fine-tuning project starts from task definition and baselines, then prepares leak-free data, trains with monitoring, deploys with canary and rollback, and turns failure cases into the next round of data.

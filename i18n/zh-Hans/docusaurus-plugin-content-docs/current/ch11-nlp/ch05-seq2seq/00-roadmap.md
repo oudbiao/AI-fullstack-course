@@ -11,11 +11,11 @@ Seq2Seq 处理输入和输出都是序列的任务：翻译、总结、改写、
 
 ## 先看生成桥梁
 
-![Seq2Seq 与 Attention 章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.png)
+![Seq2Seq 与 Attention 章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.webp)
 
-![Seq2Seq Encoder Decoder 瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.png)
+![Seq2Seq Encoder Decoder 瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.webp)
 
-![T5 text-to-text 任务统一图](/img/course/ch11-t5-text-to-text-task-unification-map.png)
+![T5 text-to-text 任务统一图](/img/course/ch11-t5-text-to-text-task-unification-map.webp)
 
 通往现代 LLM 的桥梁很清楚：生成是一步步发生的，Attention 帮助 decoder 回看有用的输入位置。
 

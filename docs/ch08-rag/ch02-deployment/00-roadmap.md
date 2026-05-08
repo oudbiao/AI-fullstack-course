@@ -11,11 +11,11 @@ Deployment turns a model from a notebook experiment into a reusable capability. 
 
 ## See the Serving Decision First
 
-![Model deployment chapter learning flowchart](/img/course/ch08-deployment-chapter-flow-en.png)
+![Model deployment chapter learning flowchart](/img/course/ch08-deployment-chapter-flow-en.webp)
 
-![Model serving selection decision map](/img/course/ch08-model-serving-decision-map-en.png)
+![Model serving selection decision map](/img/course/ch08-model-serving-decision-map-en.webp)
 
-![Unified API provider gateway map](/img/course/ch08-unified-api-provider-gateway-map-en.png)
+![Unified API provider gateway map](/img/course/ch08-unified-api-provider-gateway-map-en.webp)
 
 Deployment choices balance quality, latency, cost, privacy, and operational complexity. The strongest model is not always the model you should call.
 

@@ -7,7 +7,7 @@ keywords: [降维, PCA, 解释方差, t-SNE, UMAP, 特征压缩, 可视化]
 
 # 5.3.3 降维
 
-![PCA 降维投影图](/img/course/pca-dimensionality-reduction.png)
+![PCA 降维投影图](/img/course/pca-dimensionality-reduction.webp)
 
 :::tip 本节概览
 降维是把很多特征压缩成更少特征。它可以用于可视化、提速、降噪和建模，但不同目标需要不同检查方式。
@@ -25,9 +25,9 @@ keywords: [降维, PCA, 解释方差, t-SNE, UMAP, 特征压缩, 可视化]
 
 先看图。降维不是一个工具对应一个目的。
 
-![降维目的选择图](/img/course/ch05-dimensionality-reduction-purpose-map.png)
+![降维目的选择图](/img/course/ch05-dimensionality-reduction-purpose-map.webp)
 
-![PCA 直觉漫画](/img/course/ch05-pca-intuition-comic.png)
+![PCA 直觉漫画](/img/course/ch05-pca-intuition-comic.webp)
 
 ## 术语速查
 
@@ -141,7 +141,7 @@ total_2d_variance= 0.216
 
 ## 解释方差
 
-![PCA 方差解释比读图指南](/img/course/ch05-pca-explained-variance-map.png)
+![PCA 方差解释比读图指南](/img/course/ch05-pca-explained-variance-map.webp)
 
 解释方差帮助你判断保留多少信息：
 

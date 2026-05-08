@@ -23,7 +23,7 @@ keywords: [CNN, 卷积块, 池化, 特征图, 分类头, 全连接层, Global Av
 
 ## 先看整体流水线
 
-![CNN 特征图流水线](/img/course/cnn-feature-map-pipeline.png)
+![CNN 特征图流水线](/img/course/cnn-feature-map-pipeline.webp)
 
 按从左到右读图：
 
@@ -42,7 +42,7 @@ CNN 通常分成两部分：
 
 ## 通道数变多，空间尺寸变小
 
-![CNN 通道数与空间尺寸权衡图](/img/course/ch06-cnn-channel-spatial-tradeoff-map.png)
+![CNN 通道数与空间尺寸权衡图](/img/course/ch06-cnn-channel-spatial-tradeoff-map.webp)
 
 浅层保留更多空间细节。深层保留更少像素位置，但保存更多特征类型。
 

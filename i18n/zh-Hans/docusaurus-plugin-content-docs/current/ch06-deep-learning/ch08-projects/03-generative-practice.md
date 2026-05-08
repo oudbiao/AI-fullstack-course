@@ -23,7 +23,7 @@ keywords: [generative project, GAN, VAE, generation quality, diversity, evaluati
 
 ## 先看评估闭环
 
-![生成模型项目评估闭环图](/img/course/ch06-project-generative-eval-loop.png)
+![生成模型项目评估闭环图](/img/course/ch06-project-generative-eval-loop.webp)
 
 ```text
 train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step

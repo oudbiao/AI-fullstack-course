@@ -135,7 +135,7 @@ for ex in few_shot_examples:
 
 - 出现什么问题时，我先补哪一层
 
-![高级 Prompt 技巧选择图](/img/course/ch07-advanced-prompt-technique-decision-map.png)
+![高级 Prompt 技巧选择图](/img/course/ch07-advanced-prompt-technique-decision-map.webp)
 
 :::tip 读图提示
 读这张图时不要把技巧往上堆，而是先看问题类型：标签边界模糊再加 few-shot，格式不稳再加结构约束，步骤复杂再显式拆步骤，总漏条件再加自检。高级 Prompt 的核心是匹配问题，不是写得更花。

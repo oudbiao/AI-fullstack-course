@@ -11,9 +11,9 @@ Generative models create new samples instead of only predicting labels. The prac
 
 ## Look at the Generation Flow First
 
-![Generative models chapter relationship diagram](/img/course/ch06-generative-chapter-flow-en.png)
+![Generative models chapter relationship diagram](/img/course/ch06-generative-chapter-flow-en.webp)
 
-![GAN adversarial balance map](/img/course/ch06-gan-adversarial-balance-map-en.png)
+![GAN adversarial balance map](/img/course/ch06-gan-adversarial-balance-map-en.webp)
 
 | Concept | First meaning |
 |---|---|

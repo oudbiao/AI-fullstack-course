@@ -7,7 +7,7 @@ keywords: [chunking, 文書分割, ベクトル化, metadata, RAG preprocessing]
 
 # 8.1.3 文書処理とベクトル化
 
-![文書解析とベクトル化のフローチャート](/img/course/document-processing-vectorization-ja.png)
+![文書解析とベクトル化のフローチャート](/img/course/document-processing-vectorization-ja.webp)
 
 ## 学習目標
 
@@ -72,7 +72,7 @@ keywords: [chunking, 文書分割, ベクトル化, metadata, RAG preprocessing]
 
 テキストブロックを、類似度検索に使えるベクトルへ変換します。
 
-![RAG の文書処理パイプライン](/img/course/ch08-document-processing-pipeline-map-v2-ja.png)
+![RAG の文書処理パイプライン](/img/course/ch08-document-processing-pipeline-map-v2-ja.webp)
 
 :::tip 図の読み方
 まず「元資料」から「知識チャンク」へ変わる流れを見てください。PDF、Word、PPT はそのまま答えになるのではなく、クリーニング、分割、メタデータ付与、ベクトル化、保存という段階を通ります。OCR は Optical Character Recognition の略で、スキャン画像や写真の中の文字を読み取る技術です。
@@ -93,7 +93,7 @@ keywords: [chunking, 文書分割, ベクトル化, metadata, RAG preprocessing]
 
 > 開いた試験のためのノートを作るとき、教科書 1 冊をそのまま超巨大ポスター 1 枚に貼りつけたり、逆に 1 文字ずつ紙切れに切り分けたりはしませんよね。
 
-![Chunk サイズと overlap のトレードオフ図](/img/course/ch08-chunk-size-overlap-tradeoff-map-ja.png)
+![Chunk サイズと overlap のトレードオフ図](/img/course/ch08-chunk-size-overlap-tradeoff-map-ja.webp)
 
 :::tip 読み方のヒント
 この図は中央の「証拠の完全性」から見るのがポイントです。chunk が大きすぎると検索が鈍くなり、小さすぎると証拠が分断されます。overlap の役割は、境界部分の情報に少し余裕を持たせることです。
@@ -256,7 +256,7 @@ for item in chunks_with_meta:
 
 > **分割は固定のテキスト操作ではなく、その先の生成目的のためにある。**
 
-![教材知識ブロックのメタデータ schema 図](/img/course/ch08-courseware-chunk-metadata-schema-map-ja.png)
+![教材知識ブロックのメタデータ schema 図](/img/course/ch08-courseware-chunk-metadata-schema-map-ja.webp)
 
 :::tip 読み方のヒント
 教材生成で一番困るのは、「文字は見つかったのに、どこに入れればいいかわからない」ことです。図を見るときは、`topic`、`content_type`、`source_origin`、`page_or_slide` の 4 つに注目してください。これらが、後で知識点、例題、練習問題として安定して組み立てられるかを左右します。

@@ -227,7 +227,7 @@ for item in timeline:
 - プランニングはロジックの問題だけではない
 - リソースの問題でもある
 
-![高度なプランニング DAG、並列性、クリティカルパスの図](/img/course/ch09-advanced-planning-dag-critical-path-map-ja.png)
+![高度なプランニング DAG、並列性、クリティカルパスの図](/img/course/ch09-advanced-planning-dag-critical-path-map-ja.webp)
 
 :::tip 図の読み方
 この図では、「タスクリスト」が「タスクグラフ」に進化しています。ノードはステップを表し、矢印は依存関係を表し、太線はクリティカルパスを表します。初心者はまず、「どれが並行できるか」「どれが前提結果を待つ必要があるか」を自分で確認してみましょう。

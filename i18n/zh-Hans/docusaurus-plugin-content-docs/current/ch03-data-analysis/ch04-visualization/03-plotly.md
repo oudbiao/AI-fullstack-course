@@ -38,7 +38,7 @@ description: "用 Plotly 制作可交互的动态图表"
 
 `Plotly` 最适合按“什么时候要让用户自己探索图表”来理解：
 
-![Plotly 交互式仪表盘图](/img/course/ch03-plotly-interactive-dashboard.png)
+![Plotly 交互式仪表盘图](/img/course/ch03-plotly-interactive-dashboard.webp)
 
 所以这节真正想解决的是：
 

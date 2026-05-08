@@ -23,7 +23,7 @@ Classic CNNs are useful when you read them as an engineering evolution, not as m
 
 ## See the Evolution First
 
-![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution-en.png)
+![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution-en.webp)
 
 Read the timeline like this:
 

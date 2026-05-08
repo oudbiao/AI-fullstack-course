@@ -11,11 +11,11 @@ Frameworks do not make an Agent smarter. They organize state, tools, workflows, 
 
 ## See the Selection Map First
 
-![Agent framework position map](/img/course/ch09-frameworks-position-map-en.png)
+![Agent framework position map](/img/course/ch09-frameworks-position-map-en.webp)
 
-![Agent framework selection map](/img/course/ch09-framework-selection-map-en.png)
+![Agent framework selection map](/img/course/ch09-framework-selection-map-en.webp)
 
-![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.png)
+![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.webp)
 
 If a task has three fixed steps, plain Python functions may be better. Add a framework when state, branching, recovery, data connection, or role collaboration becomes hard to manage.
 

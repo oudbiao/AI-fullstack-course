@@ -11,9 +11,9 @@ CNN は局所的な視覚パターンを学びます。画像を1行に平坦化
 
 ## まず画像フローを見る
 
-![CNN 章関係図](/img/course/ch06-cnn-chapter-flow-ja.png)
+![CNN 章関係図](/img/course/ch06-cnn-chapter-flow-ja.webp)
 
-![CNN 受容野成長マップ](/img/course/ch06-cnn-receptive-field-growth-map-ja.png)
+![CNN 受容野成長マップ](/img/course/ch06-cnn-receptive-field-growth-map-ja.webp)
 
 | 概念 | 最初の意味 |
 |---|---|

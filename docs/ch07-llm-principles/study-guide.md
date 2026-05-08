@@ -9,7 +9,7 @@ keywords: [LLM study checklist, Prompt evaluation, Transformer, fine-tuning, RLH
 
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 7 entry page](./index.md).
 
-![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.png)
+![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.webp)
 
 ## Two-Hour First Pass
 

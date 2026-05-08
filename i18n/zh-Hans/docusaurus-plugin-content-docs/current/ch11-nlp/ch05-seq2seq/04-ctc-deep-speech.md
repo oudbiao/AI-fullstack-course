@@ -7,7 +7,7 @@ keywords: [CTC, Deep Speech, ASR, 语音识别, 序列对齐, NLP]
 
 # 11.5.5 CTC 与 Deep Speech：语音识别里的序列对齐
 
-![CTC Deep Speech 语音识别对齐图](/img/course/ch11-ctc-deep-speech-asr-map.png)
+![CTC Deep Speech 语音识别对齐图](/img/course/ch11-ctc-deep-speech-asr-map.webp)
 
 :::tip 本节定位
 这一节是 Seq2Seq 的扩展：它帮你理解语音识别为什么不能简单按“一帧音频对应一个字”训练。

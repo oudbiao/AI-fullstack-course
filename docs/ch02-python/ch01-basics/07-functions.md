@@ -6,7 +6,7 @@ description: "Master function definitions, parameters, return values, and scope"
 
 # 2.1.7 Function Basics
 
-![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope-en.png)
+![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope-en.webp)
 
 ## Where This Section Fits
 
@@ -225,7 +225,7 @@ train_model(epochs=100, lr=0.01)
 ```
 
 :::caution The Default Parameter Trap
-![Mutable default parameter trap diagram](/img/course/ch02-mutable-default-trap-en.svg)
+![Mutable default parameter trap diagram](/img/course/ch02-mutable-default-trap-en.webp)
 
 Default parameter values are determined when the function is defined. Do not use mutable objects (such as lists or dictionaries) as default values:
 

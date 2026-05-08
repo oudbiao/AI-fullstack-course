@@ -6,7 +6,7 @@ description: "適切なデータベース構造の設計方法を学び、正規
 
 # 3.5.5 データベース設計
 
-![データベース設計と正規形の図](/img/course/ch03-database-design-erd-normalization-ja.png)
+![データベース設計と正規形の図](/img/course/ch03-database-design-erd-normalization-ja.webp)
 
 :::tip この節の位置づけ
 データベース設計を初めて学ぶ人は、次のことに意識が向きがちです。

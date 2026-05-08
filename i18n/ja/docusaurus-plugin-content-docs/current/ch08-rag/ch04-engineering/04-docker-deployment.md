@@ -105,7 +105,7 @@ Docker は、まず名詞を分けると怖さが減ります。
 
 この順番を理解していないと、後で Docker コマンドを見たときにずっと混乱します。
 
-![Docker イメージ、コンテナと Compose デプロイ図](/img/course/ch08-docker-image-container-compose-map-ja.png)
+![Docker イメージ、コンテナと Compose デプロイ図](/img/course/ch08-docker-image-container-compose-map-ja.webp)
 
 :::tip 図の見方
 イメージは再現可能な実行テンプレート、コンテナは実行中のインスタンス、Compose は複数のサービスをまとめて起動する役割です。LLM アプリでは、環境変数、ヘルスチェック、ベクトルデータベース、ログもデプロイ図に含めて考える必要があります。

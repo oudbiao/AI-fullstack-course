@@ -7,7 +7,7 @@ keywords: [anomaly detection, outlier detection, Isolation Forest, LOF, contamin
 
 # 5.3.4 Anomaly Detection
 
-![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers-en.png)
+![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers-en.webp)
 
 :::tip Section Overview
 Anomaly detection finds samples that look unusual compared with normal patterns. In real systems, it is usually an alert workflow, not just a model score.
@@ -25,9 +25,9 @@ This lesson gives you one practical alert lab:
 
 Start with the maps. Anomaly detection is mostly about deciding what to flag and how costly each mistake is.
 
-![Anomaly detection decision flowchart](/img/course/ch05-anomaly-detection-decision-flow-en.png)
+![Anomaly detection decision flowchart](/img/course/ch05-anomaly-detection-decision-flow-en.webp)
 
-![Anomaly detection alert threshold comic](/img/course/ch05-anomaly-alert-threshold-comic-en.png)
+![Anomaly detection alert threshold comic](/img/course/ch05-anomaly-alert-threshold-comic-en.webp)
 
 ## Keyword Decoder
 
@@ -145,7 +145,7 @@ The right choice is not purely mathematical. If a missed fraud case is expensive
 
 ## Isolation Forest
 
-![Anomaly detection method comparison map](/img/course/ch05-anomaly-method-comparison-map-en.png)
+![Anomaly detection method comparison map](/img/course/ch05-anomaly-method-comparison-map-en.webp)
 
 Isolation Forest builds random split trees. Unusual points are often isolated in fewer splits, so they receive more abnormal scores.
 

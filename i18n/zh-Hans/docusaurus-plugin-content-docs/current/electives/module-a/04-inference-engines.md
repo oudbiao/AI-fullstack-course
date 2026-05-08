@@ -7,9 +7,9 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 # E.A.4 推理引擎
 
-![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.png)
+![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.webp)
 
-![推理引擎选型矩阵图](/img/course/elective-inference-engine-selection-matrix.png)
+![推理引擎选型矩阵图](/img/course/elective-inference-engine-selection-matrix.webp)
 
 推理引擎是训练好的模型和真实硬件之间的运行层。模型说明“要算什么”，推理引擎决定“怎样在 CPU、GPU、NPU 或边缘硬件上高效执行”。
 

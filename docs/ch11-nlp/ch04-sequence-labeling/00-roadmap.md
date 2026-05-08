@@ -11,11 +11,11 @@ Sequence labeling predicts one label for each token. NER, word segmentation, par
 
 ## See the Label Path First
 
-![Sequence labeling chapter learning flowchart](/img/course/ch11-sequence-labeling-chapter-flow-en.png)
+![Sequence labeling chapter learning flowchart](/img/course/ch11-sequence-labeling-chapter-flow-en.webp)
 
-![HMM CRF sequence history map](/img/course/ch11-hmm-crf-sequence-history-map-en.png)
+![HMM CRF sequence history map](/img/course/ch11-hmm-crf-sequence-history-map-en.webp)
 
-![BiLSTM CRF label path map](/img/course/ch11-bilstm-crf-label-path-map-en.png)
+![BiLSTM CRF label path map](/img/course/ch11-bilstm-crf-label-path-map-en.webp)
 
 The key output is not one sentence label, but aligned token-level tags such as `B-PER`, `I-PER`, and `O`.
 

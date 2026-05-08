@@ -11,7 +11,7 @@ Pandas is the table workstation of this course. Use it when a plain CSV, Excel f
 
 ## Look at the Workflow First
 
-![Pandas data processing roadmap](/img/course/ch03-pandas-roadmap-en.png)
+![Pandas data processing roadmap](/img/course/ch03-pandas-roadmap-en.webp)
 
 Keep this one-line flow in mind:
 

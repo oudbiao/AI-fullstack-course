@@ -188,7 +188,7 @@ print(chain.run("退款政策是什么？"))
 
 这也是为什么 LangChain 会给人一种“组件拼装框架”的感觉。
 
-![LangChain 组件流水线图](/img/course/ch08-langchain-component-pipeline-map.png)
+![LangChain 组件流水线图](/img/course/ch08-langchain-component-pipeline-map.webp)
 
 :::tip 读图提示
 LangChain 不是为了让代码显得高级，而是把 Prompt、Retriever、Model、Output Parser 这些节点的输入输出边界拆清楚。新人先看“数据怎样从一个节点流到下一个节点”。

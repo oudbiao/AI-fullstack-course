@@ -263,7 +263,7 @@ first train example:
 - 工单
 - 产品线
 
-![微调工程闭环漫画](/img/course/ch07-finetuning-engineering-loop.png)
+![微调工程闭环漫画](/img/course/ch07-finetuning-engineering-loop.webp)
 
 :::tip 读图提示
 把这张图当成一条工程流水线，而不是一个“训练魔法按钮”：健康的微调项目先定义任务和 baseline，再准备无泄漏数据，训练时监控指标，上线时做灰度和回滚，最后把失败样本变成下一轮数据。

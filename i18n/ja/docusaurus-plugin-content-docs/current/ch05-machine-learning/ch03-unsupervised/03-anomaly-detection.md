@@ -7,7 +7,7 @@ keywords: [異常検知, 外れ値検知, Isolation Forest, LOF, contamination, 
 
 # 5.3.4 異常検知
 
-![異常検知の外れ値イメージ図](/img/course/anomaly-detection-outliers-ja.png)
+![異常検知の外れ値イメージ図](/img/course/anomaly-detection-outliers-ja.webp)
 
 :::tip この節の概要
 異常検知は、通常パターンから外れたサンプルを見つける方法です。実システムでは、単なるモデルスコアではなく、アラート運用のワークフローになります。
@@ -25,9 +25,9 @@ keywords: [異常検知, 外れ値検知, Isolation Forest, LOF, contamination, 
 
 まず図を見てください。異常検知の中心は、何をアラートにするか、そして各ミスがどれくらい高いかです。
 
-![異常検知の意思決定フローチャート](/img/course/ch05-anomaly-detection-decision-flow-ja.png)
+![異常検知の意思決定フローチャート](/img/course/ch05-anomaly-detection-decision-flow-ja.webp)
 
-![異常検知の警報しきい値マンガ](/img/course/ch05-anomaly-alert-threshold-comic-ja.png)
+![異常検知の警報しきい値マンガ](/img/course/ch05-anomaly-alert-threshold-comic-ja.webp)
 
 ## 用語早見表
 
@@ -145,7 +145,7 @@ contamination=0.12 flagged=46 precision=0.478 recall=0.917
 
 ## Isolation Forest
 
-![異常検知手法の比較図](/img/course/ch05-anomaly-method-comparison-map-ja.png)
+![異常検知手法の比較図](/img/course/ch05-anomaly-method-comparison-map-ja.webp)
 
 Isolation Forest はランダムな分割木を作ります。異常点は少ない分割で孤立しやすいため、より異常なスコアを受け取ります。
 

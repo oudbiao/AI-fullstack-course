@@ -170,7 +170,7 @@ print(match_results(similarities, threshold))
 - 顔認識は「モデルが答えを直接教えてくれる」ものではなく
 - 「モデルがスコアを出し、システムが閾値で判断する」もの
 
-![顔検出、アライメント、Embedding と閾値リスク図](/img/course/ch10-face-recognition-threshold-pipeline-map-ja.png)
+![顔検出、アライメント、Embedding と閾値リスク図](/img/course/ch10-face-recognition-threshold-pipeline-map-ja.webp)
 
 :::tip 図の読み方
 顔システムは1つのモデルではありません。検出でまず顔を見つけ、アライメントで入力を比較可能にし、embedding で類似度を表し、閾値で same / different を決めます。閾値がゆるすぎると誤認識し、厳しすぎると見逃しが増えます。

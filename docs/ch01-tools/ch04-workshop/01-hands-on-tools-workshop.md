@@ -7,7 +7,7 @@ keywords: [developer tools workshop, terminal, Git, Python environment, VS Code,
 
 # 1.4.1 Follow-Along Workshop: Build a Reproducible AI Learning Lab
 
-![Chapter 1 hands-on workstation route](/img/course/ch01-hands-on-workstation-route-en.png)
+![Chapter 1 hands-on workstation route](/img/course/ch01-hands-on-workstation-route-en.webp)
 
 :::tip Workshop goal
 This page is the practical bridge for Chapter 1. You will build a small repository named `ai-learning-lab`, run a Python environment check, save reports, make Git commits, and leave portfolio evidence that proves your workstation is usable.
@@ -56,7 +56,7 @@ In PowerShell, use `python --version` if `python3 --version` is not recognized. 
 
 ## Step 1: Understand the complete route first
 
-![Terminal, Python, and Git execution loop](/img/course/ch01-hands-on-terminal-git-loop-en.png)
+![Terminal, Python, and Git execution loop](/img/course/ch01-hands-on-terminal-git-loop-en.webp)
 
 Do not treat the tools as separate topics. In real work, they form one loop:
 
@@ -368,7 +368,7 @@ This exercise is small on purpose. The goal is not to learn a complex branching 
 
 ## Step 7: Use VS Code and Jupyter as two work panels
 
-![Environment, editor, and notebook flow](/img/course/ch01-hands-on-env-editor-notebook-flow-en.png)
+![Environment, editor, and notebook flow](/img/course/ch01-hands-on-env-editor-notebook-flow-en.webp)
 
 Open the project in VS Code:
 
@@ -409,7 +409,7 @@ The file count can be different. The important point is that the Notebook reads 
 
 ## Step 8: Troubleshoot by locating the broken link
 
-![Chapter 1 workstation troubleshooting map](/img/course/ch01-hands-on-debug-map-en.png)
+![Chapter 1 workstation troubleshooting map](/img/course/ch01-hands-on-debug-map-en.webp)
 
 When an error appears, slow down and locate which link is broken:
 
@@ -426,7 +426,7 @@ Do not only copy the last error line. Save the full command, the full output, an
 
 ## Step 9: Package the portfolio evidence
 
-![Chapter 1 portfolio evidence pack](/img/course/ch01-hands-on-portfolio-pack-en.png)
+![Chapter 1 portfolio evidence pack](/img/course/ch01-hands-on-portfolio-pack-en.webp)
 
 Before leaving Chapter 1, your evidence pack should show both result and process:
 

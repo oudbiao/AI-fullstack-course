@@ -7,7 +7,7 @@ keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deploym
 
 # E.A.2 C++ 応用
 
-![C++ RAII と所有権マップ](/img/course/elective-cpp-raii-ownership-map-ja.png)
+![C++ RAII と所有権マップ](/img/course/elective-cpp-raii-ownership-map-ja.webp)
 
 デプロイで出てくる C++ 応用の中心は、ほとんどこの問いです。誰がリソースを所有し、いつ解放するのか。
 

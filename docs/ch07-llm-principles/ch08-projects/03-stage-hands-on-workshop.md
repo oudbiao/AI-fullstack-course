@@ -30,49 +30,49 @@ The code intentionally uses only the Python standard library. That keeps the fir
 
 Before touching code, place these chapter diagrams in order. They are not decoration; they are the map for the workshop.
 
-![Tokenizer to input ids and attention mask](/img/course/ch07-tokenizer-inputids-mask-length-map-en.png)
+![Tokenizer to input ids and attention mask](/img/course/ch07-tokenizer-inputids-mask-length-map-en.webp)
 
 First, text must become tokens and ids before a model can process it.
 
-![LLM call workbench](/img/course/ch07-llm-call-workbench-en.png)
+![LLM call workbench](/img/course/ch07-llm-call-workbench-en.webp)
 
 Then, a model call is a request payload, not just a sentence typed into a chat box.
 
-![Structured output contract and validation loop](/img/course/ch07-structured-output-contract-validation-map-en.png)
+![Structured output contract and validation loop](/img/course/ch07-structured-output-contract-validation-map-en.webp)
 
 Next, production code must parse and validate the model output.
 
-![Prompt Evaluation Lab](/img/course/ch07-prompt-evaluation-lab-en.png)
+![Prompt Evaluation Lab](/img/course/ch07-prompt-evaluation-lab-en.webp)
 
 After that, prompt changes should be tested with fixed cases instead of judged by feeling.
 
-![Fine-tuning decision and evaluation loop](/img/course/ch07-finetuning-decision-loop-en.png)
+![Fine-tuning decision and evaluation loop](/img/course/ch07-finetuning-decision-loop-en.webp)
 
 Finally, do not jump to fine-tuning. First decide what kind of problem you actually have.
 
-![Alignment Safety Evaluation Lab](/img/course/ch07-alignment-safety-eval-lab-en.png)
+![Alignment Safety Evaluation Lab](/img/course/ch07-alignment-safety-eval-lab-en.webp)
 
 For risky tasks, add behavior evaluation and human review boundaries.
 
 Now use these workshop-specific diagrams as your running checklist.
 
-![Chapter 7 hands-on workshop route](/img/course/ch07-hands-on-workshop-route-en.png)
+![Chapter 7 hands-on workshop route](/img/course/ch07-hands-on-workshop-route-en.webp)
 
 This is the route you will follow in the file: tokens, payloads, prompt versions, validation, route choice, and evidence.
 
-![Prompt payload and validation loop](/img/course/ch07-hands-on-payload-validation-loop-en.png)
+![Prompt payload and validation loop](/img/course/ch07-hands-on-payload-validation-loop-en.webp)
 
 Every model-like answer must pass through a parser and field/type checks before the program trusts it.
 
-![Chapter 7 workshop code execution trace](/img/course/ch07-hands-on-code-execution-trace-en.png)
+![Chapter 7 workshop code execution trace](/img/course/ch07-hands-on-code-execution-trace-en.webp)
 
 When the script runs, it first builds traces, then evaluates prompts, then chooses solution routes, then saves files.
 
-![Prompt, RAG, and fine-tuning route ladder](/img/course/ch07-hands-on-route-decision-ladder-en.png)
+![Prompt, RAG, and fine-tuning route ladder](/img/course/ch07-hands-on-route-decision-ladder-en.webp)
 
 Do not jump to fine-tuning. Look at the failure type first and choose the cheapest reliable route.
 
-![Chapter 7 portfolio evidence pack](/img/course/ch07-hands-on-portfolio-evidence-pack-en.png)
+![Chapter 7 portfolio evidence pack](/img/course/ch07-hands-on-portfolio-evidence-pack-en.webp)
 
 The final folder is part of the lesson: it makes the run reproducible and reviewable.
 

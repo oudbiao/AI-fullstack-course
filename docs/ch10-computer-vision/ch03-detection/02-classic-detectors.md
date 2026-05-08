@@ -127,7 +127,7 @@ The R-CNN family was answering this question step by step:
 - Then reduce repeated computation
 - Then make proposal itself a learnable module
 
-![R-CNN family shared feature evolution diagram](/img/course/ch10-classic-detectors-shared-feature-map-en.png)
+![R-CNN family shared feature evolution diagram](/img/course/ch10-classic-detectors-shared-feature-map-en.webp)
 
 :::tip Reading guide
 What is most worth looking at in the R-CNN family is not the names, but how repeated computation is gradually removed: from extracting features for each proposal separately, to sharing features across the whole image, and finally to letting the network learn proposals as well.

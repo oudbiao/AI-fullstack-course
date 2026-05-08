@@ -7,7 +7,7 @@ keywords: [vector, dot product, cosine similarity, NumPy, linear algebra, AI mat
 
 # 4.1.2 Vectors: The Basic Unit of the AI World
 
-![Geometric diagram of vector dot product and cosine similarity](/img/course/vector-dot-cosine-geometry-en.png)
+![Geometric diagram of vector dot product and cosine similarity](/img/course/vector-dot-cosine-geometry-en.webp)
 
 :::tip Learning approach
 You do not need to “prove theorems” in this chapter. You only need to **understand the intuition and know how to implement it in code**. Each concept comes with visualization and NumPy code. It is okay if you do not fully understand the formulas—just understand the diagrams and code.
@@ -42,7 +42,7 @@ A more important standard is:
 
 The most important thing in this section is not memorizing terms, but first grasping the main thread:
 
-![Map of the meaning of vectors in AI](/img/course/ch04-vector-ai-meaning-map-en.png)
+![Map of the meaning of vectors in AI](/img/course/ch04-vector-ai-meaning-map-en.webp)
 
 You can understand this lesson as:
 
@@ -276,7 +276,7 @@ plt.show()
 
 ### Vector Length (Magnitude / Norm)
 
-![Vector norm and unit vector diagram](/img/course/ch04-vector-norm-unit-vector-en.svg)
+![Vector norm and unit vector diagram](/img/course/ch04-vector-norm-unit-vector-en.webp)
 
 The **length** of a vector (also called **magnitude** or **norm**) is calculated using the Pythagorean theorem:
 

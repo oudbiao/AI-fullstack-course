@@ -7,13 +7,13 @@ keywords: [ターミナル, コマンドライン, Git, VS Code, 開発環境, P
 
 # 1 開発者ツールの基礎
 
-![開発者ツールの基礎メインビジュアル](/img/course/ch01-tools-foundation-ja.png)
+![開発者ツールの基礎メインビジュアル](/img/course/ch01-tools-foundation-ja.webp)
 
 この章の目的は 1 つだけです。**コードを作り、実行し、保存し、他の人が再実行できるように説明できること**。
 
 ## まず作業台を見る
 
-![開発者ツール AI 作業台漫画ガイド](/img/course/ch01-ai-workstation-comic-ja.png)
+![開発者ツール AI 作業台漫画ガイド](/img/course/ch01-ai-workstation-comic-ja.webp)
 
 先に図を見てください。この章全体は次の流れです。
 

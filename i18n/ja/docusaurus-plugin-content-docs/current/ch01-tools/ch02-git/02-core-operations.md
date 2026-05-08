@@ -6,7 +6,7 @@ description: "日常開発で最もよく使う Git 操作を身につける"
 
 # 1.2.2 Gitのコア操作
 
-![Git の日常最小ループ図](/img/course/ch01-git-daily-loop-ja.png)
+![Git の日常最小ループ図](/img/course/ch01-git-daily-loop-ja.webp)
 
 ## この節の位置づけ
 

@@ -7,7 +7,7 @@ keywords: [NER, named entity recognition, information extraction, BIO, project, 
 
 # 11.4.5 NER 実践
 
-![NER プロジェクトのエンティティ評価ループ図](/img/course/ch11-ner-project-entity-eval-loop-ja.png)
+![NER プロジェクトのエンティティ評価ループ図](/img/course/ch11-ner-project-entity-eval-loop-ja.webp)
 
 :::tip 読み方のヒント
 NER プロジェクトでは、token accuracy だけを見ないでください。まずはラベル体系、アノテーション例、エンティティ復元、エンティティ単位の Precision/Recall/F1、そしてエラーの分類がどうつながって閉ループになるのかを見ましょう。これのほうが、単純にモデルを替えるより実際のプロジェクトに近いです。

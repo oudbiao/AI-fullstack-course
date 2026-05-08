@@ -23,7 +23,7 @@ keywords: [PyTorch, tensor, 张量, shape, dtype, device, broadcasting, logits]
 
 ## 先看 Tensor 生命周期
 
-![PyTorch Tensor 生命周期图](/img/course/ch06-pytorch-tensor-lifecycle-map.png)
+![PyTorch Tensor 生命周期图](/img/course/ch06-pytorch-tensor-lifecycle-map.webp)
 
 大多数 PyTorch 数据会走这条路径：
 
@@ -46,7 +46,7 @@ keywords: [PyTorch, tensor, 张量, shape, dtype, device, broadcasting, logits]
 
 常见 shape：
 
-![PyTorch 张量 shape 语义速查图](/img/course/ch06-tensor-shape-meaning-map.png)
+![PyTorch 张量 shape 语义速查图](/img/course/ch06-tensor-shape-meaning-map.webp)
 
 | 数据 | 常见 shape | 含义 |
 |---|---|---|

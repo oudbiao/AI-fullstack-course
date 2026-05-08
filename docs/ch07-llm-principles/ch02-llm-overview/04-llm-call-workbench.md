@@ -9,7 +9,7 @@ keywords: [LLM API, Responses API, token budget, JSON validation, structured out
 
 This lesson turns the previous concepts into a practical workflow. Before you worry about which model is strongest, first learn what happens during one complete LLM call: user task, token budget, request payload, model output, validation, and retry.
 
-![LLM call workbench](/img/course/ch07-llm-call-workbench-en.png)
+![LLM call workbench](/img/course/ch07-llm-call-workbench-en.webp)
 
 :::tip Learning rhythm
 Follow this order: look at the picture first, run the code second, then read the terms and formulas. LLM engineering becomes much less mysterious once you can trace one request from input to validated output.

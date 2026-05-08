@@ -7,13 +7,13 @@ keywords: [elective module, hands-on workshop, deployment, advanced Python, clas
 
 # E.0 Elective Hands-on Workshop
 
-![Elective module hands-on route map](/img/course/elective-workshop-route-map-en.png)
+![Elective module hands-on route map](/img/course/elective-workshop-route-map-en.webp)
 
 This workshop is the shortest way to feel what the electives are for. You will run one Python script and inspect the evidence files it creates.
 
 ## What you will build
 
-![Elective workshop evidence pipeline](/img/course/elective-workshop-evidence-pipeline-en.png)
+![Elective workshop evidence pipeline](/img/course/elective-workshop-evidence-pipeline-en.webp)
 
 The script creates this folder:
 
@@ -43,7 +43,7 @@ Each file maps to one elective:
 
 ## Run the workshop
 
-![Elective workshop code execution sequence](/img/course/elective-workshop-code-execution-sequence-en.png)
+![Elective workshop code execution sequence](/img/course/elective-workshop-code-execution-sequence-en.webp)
 
 Create a clean folder:
 
@@ -232,7 +232,7 @@ inspect: elective_workshop_run/README.md
 
 ## Debug quickly
 
-![Elective workshop debugging loop](/img/course/elective-workshop-debug-loop-en.png)
+![Elective workshop debugging loop](/img/course/elective-workshop-debug-loop-en.webp)
 
 | Symptom | First fix |
 |---|---|
@@ -244,7 +244,7 @@ inspect: elective_workshop_run/README.md
 
 ## Turn it into your project
 
-![Elective workshop portfolio evidence pack](/img/course/elective-workshop-portfolio-pack-en.png)
+![Elective workshop portfolio evidence pack](/img/course/elective-workshop-portfolio-pack-en.webp)
 
 Replace one module with real evidence:
 

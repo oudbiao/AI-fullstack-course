@@ -7,7 +7,7 @@ keywords: [Python ハンズオン, コマンドラインアプリ, argparse, JSO
 
 # 2.3.5 ハンズオンワークショップ：ローカル学習タスクアシスタントを作る
 
-![Python ハンズオンワークショップのルート](/img/course/ch02-hands-on-python-workshop-route-ja.png)
+![Python ハンズオンワークショップのルート](/img/course/ch02-hands-on-python-workshop-route-ja.webp)
 
 :::tip ワークショップの目標
 このページは第 2 章の実践の橋渡しです。構文説明を読むだけでなく、学習タスクを作成し、JSON に保存し、完了扱いにし、統計を表示し、Markdown レポートを書き出す小さなツールを作ります。
@@ -56,7 +56,7 @@ Python 3.12.3
 
 ## Step 1：まずプログラム全体の流れを見る
 
-![CLI コマンド実行フロー](/img/course/ch02-hands-on-cli-command-flow-ja.png)
+![CLI コマンド実行フロー](/img/course/ch02-hands-on-cli-command-flow-ja.webp)
 
 プログラムは単純な流れで動きます。
 
@@ -283,7 +283,7 @@ ID  Status  Stage  Title
 
 ## Step 4：タスクを追加し、完了にする
 
-![JSON 永続化フロー](/img/course/ch02-hands-on-json-persistence-flow-ja.png)
+![JSON 永続化フロー](/img/course/ch02-hands-on-json-persistence-flow-ja.webp)
 
 新しいタスクを追加します。
 
@@ -357,7 +357,7 @@ Exported report to ch02_output/learning_report.md
 
 ## よくあるエラーと直し方
 
-![エラーとデバッグのマップ](/img/course/ch02-hands-on-error-debug-map-ja.png)
+![エラーとデバッグのマップ](/img/course/ch02-hands-on-error-debug-map-ja.webp)
 
 | 問題 | よくある原因 | 修正 |
 |---|---|---|
@@ -377,7 +377,7 @@ Exported report to ch02_output/learning_report.md
 
 ## ポートフォリオ用の証拠チェックリスト
 
-![Python プロジェクト証拠パック](/img/course/ch02-hands-on-evidence-pack-ja.png)
+![Python プロジェクト証拠パック](/img/course/ch02-hands-on-evidence-pack-ja.webp)
 
 証拠として次のファイルを残しましょう。
 

@@ -170,7 +170,7 @@ This example is small, but it helps beginners build a system-level intuition:
 - Face recognition is often not “the model tells you the answer”
 - It is more like “the model gives scores, and the system makes decisions based on a threshold”
 
-![Face detection, alignment, embedding, and threshold risk diagram](/img/course/ch10-face-recognition-threshold-pipeline-map-en.png)
+![Face detection, alignment, embedding, and threshold risk diagram](/img/course/ch10-face-recognition-threshold-pipeline-map-en.webp)
 
 :::tip Reading Guide
 A face system is not one model: detection finds the face first, alignment makes the input comparable, embedding represents similarity, and the threshold decides same / different. A threshold that is too loose causes misidentification; one that is too strict causes missed recognition.

@@ -11,7 +11,7 @@ keywords: [对齐安全, HHH, 拒答边界, 评测, 护栏]
 
 > **怎么判断模型是真的更安全了，还是只是“听起来更安全”？**
 
-![对齐安全评测实验室](/img/course/ch07-alignment-safety-eval-lab-zh.png)
+![对齐安全评测实验室](/img/course/ch07-alignment-safety-eval-lab-zh.webp)
 
 :::tip 学习节奏
 测试样例要固定，一次只改一个变量。这样你才能知道改进来自模型、Prompt，还是运气。
@@ -42,7 +42,7 @@ keywords: [对齐安全, HHH, 拒答边界, 评测, 护栏]
 | 安全样例 | 专门用来测试风险行为的问题 | 让评测保持一致 |
 | 失败记录 | 记录哪里错了、为什么错了 | 把错误变成下一步修复方向 |
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-zh.png)
+![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-zh.webp)
 
 ## 跑一个完全离线的评测循环
 

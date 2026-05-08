@@ -23,7 +23,7 @@ Attention is the heart, but a Transformer block works because several engineerin
 
 ## Start with the Block Picture
 
-![Transformer Block architecture diagram](/img/course/transformer-block-architecture-en.png)
+![Transformer Block architecture diagram](/img/course/transformer-block-architecture-en.webp)
 
 A Transformer block usually keeps the outer shape:
 
@@ -87,7 +87,7 @@ Read the parameters:
 
 ## Residual and Normalization
 
-![Transformer Block component responsibility diagram](/img/course/ch06-transformer-block-role-map-en.png)
+![Transformer Block component responsibility diagram](/img/course/ch06-transformer-block-role-map-en.webp)
 
 Residual connections and normalization are not decoration. They are what let the block become deep without losing the original signal or exploding into unstable values.
 
@@ -251,7 +251,7 @@ changed: True
 
 The shape stays the same, but every token has been rewritten with context from other tokens.
 
-![Progressive refinement of representations across Transformer layers](/img/course/ch06-transformer-representation-refinement-map-en.png)
+![Progressive refinement of representations across Transformer layers](/img/course/ch06-transformer-representation-refinement-map-en.webp)
 
 ## Encoder, Decoder, and Encoder-Decoder
 
@@ -310,7 +310,7 @@ Read it this way:
 
 ## Early Transformer vs Modern LLM Decoder
 
-![Early Transformer vs modern LLM decoder visual comparison](/img/course/ch06-transformer-early-modern-decoder-en.png)
+![Early Transformer vs modern LLM decoder visual comparison](/img/course/ch06-transformer-early-modern-decoder-en.webp)
 
 | Part | Early Transformer | Modern LLM decoder | Why it changed |
 |---|---|---|---|

@@ -23,7 +23,7 @@ keywords: [autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch
 
 ## 先看计算图
 
-![PyTorch Autograd 计算图](/img/course/pytorch-autograd-graph.png)
+![PyTorch Autograd 计算图](/img/course/pytorch-autograd-graph.webp)
 
 按这个顺序读图：
 
@@ -153,7 +153,7 @@ after zero and third backward: 2.0
 - 第二次 backward 后，`.grad` 变成 `6 + 2 = 8`；
 - 调用 `zero_()` 后，下一个梯度会从干净状态开始。
 
-![PyTorch autograd 梯度生命周期图](/img/course/ch06-autograd-gradient-lifecycle-map.png)
+![PyTorch autograd 梯度生命周期图](/img/course/ch06-autograd-gradient-lifecycle-map.webp)
 
 正常训练代码因此会使用：
 

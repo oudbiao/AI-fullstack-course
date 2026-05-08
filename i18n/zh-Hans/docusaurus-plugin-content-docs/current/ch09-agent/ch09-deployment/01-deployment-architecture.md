@@ -270,7 +270,7 @@ for item in trace:
 
 这个表很适合新人，因为它会把“架构层次很多”重新压回成五个很清楚的角色。
 
-![Agent 部署架构分层数据流图](/img/course/ch09-agent-runtime-state-queue-map.png)
+![Agent 部署架构分层数据流图](/img/course/ch09-agent-runtime-state-queue-map.webp)
 
 :::tip 读图提示
 这张图适合按请求流读：接入层收请求，编排层决定流程，任务队列削峰，执行层调模型和工具，状态层保存 checkpoint，观测层记录 trace 和告警。

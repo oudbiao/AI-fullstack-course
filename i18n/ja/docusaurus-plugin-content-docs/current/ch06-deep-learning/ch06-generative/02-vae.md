@@ -23,7 +23,7 @@ VAE は生成型の autoencoder です。各入力を 1 つの固定点に圧縮
 
 ## まず流れを見る
 
-![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-ja.png)
+![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-ja.webp)
 
 | 手順 | 何が起こるか | 実践的な意味 |
 |---|---|---|
@@ -39,7 +39,7 @@ Autoencoder: x -> 1 つの latent 点 -> reconstruction
 VAE: x -> latent distribution -> sample z -> reconstruction または generation
 ```
 
-![VAE continuous latent space と sampling region 図](/img/course/ch06-vae-latent-continuity-sampling-map-ja.png)
+![VAE continuous latent space と sampling region 図](/img/course/ch06-vae-latent-continuity-sampling-map-ja.webp)
 
 ## Reparameterization が必要な理由
 

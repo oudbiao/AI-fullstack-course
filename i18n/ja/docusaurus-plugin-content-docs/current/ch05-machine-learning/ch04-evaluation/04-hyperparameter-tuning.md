@@ -7,7 +7,7 @@ keywords: [ハイパーパラメータ調整, GridSearchCV, RandomizedSearchCV, 
 
 # 5.4.5 ハイパーパラメータチューニング
 
-![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search-ja.png)
+![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search-ja.webp)
 
 :::tip この節の概要
 ハイパーパラメータ調整は、「テストスコアが良く見えるまで設定を試すこと」ではありません。安全な流れは、訓練 fold で探索し、クロスバリデーションで選び、最後に final holdout で 1 回だけ確認することです。
@@ -23,9 +23,9 @@ keywords: [ハイパーパラメータ調整, GridSearchCV, RandomizedSearchCV, 
 - final holdout を調整に使わず残す方法；
 - 過剰調整を避ける方法。
 
-![ハイパーパラメータチューニングの検証フロー図](/img/course/ch05-hyperparameter-tuning-workflow-ja.png)
+![ハイパーパラメータチューニングの検証フロー図](/img/course/ch05-hyperparameter-tuning-workflow-ja.webp)
 
-![ハイパーパラメータ探索空間と予算の図](/img/course/ch05-search-space-budget-map-ja.png)
+![ハイパーパラメータ探索空間と予算の図](/img/course/ch05-search-space-budget-map-ja.webp)
 
 ## 用語早見表
 

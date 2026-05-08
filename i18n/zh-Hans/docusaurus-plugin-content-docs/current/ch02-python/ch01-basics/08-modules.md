@@ -6,7 +6,7 @@ description: "掌握 Python 模块和包的使用方法"
 
 # 2.1.8 模块与包
 
-![模块与包项目结构图](/img/course/ch02-modules-package-structure.png)
+![模块与包项目结构图](/img/course/ch02-modules-package-structure.webp)
 
 ## 本节定位
 

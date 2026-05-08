@@ -153,7 +153,7 @@ The role of residual connections and LayerNorm can be roughly remembered as:
 Without them,
 deep Transformers can become hard to train very easily.
 
-![Transformer Block Data Flow Breakdown](/img/course/ch07-transformer-block-dataflow-map-en.png)
+![Transformer Block Data Flow Breakdown](/img/course/ch07-transformer-block-dataflow-map-en.webp)
 
 :::tip Reading Guide
 It is recommended to read this diagram according to the data flow of one block: token representations first communicate with context through Self-Attention, then LayerNorm/Residual keep the information stable, and then FFN performs token-by-token deep processing. Transformer is not just attention, but a combination of “communication, preservation, stability, and processing.”

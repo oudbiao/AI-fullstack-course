@@ -7,7 +7,7 @@ keywords: [深度学习学习指南, PyTorch, CNN, Transformer, Attention]
 
 # 6.0 学习指南与任务单：深度学习与 Transformer 基础
 
-![深度学习学习指南训练闭环](/img/course/ch06-study-guide-training-loop.png)
+![深度学习学习指南训练闭环](/img/course/ch06-study-guide-training-loop.webp)
 
 主要学习路线已经放在 [第 6 章入口](./)。本页只作为练习时快速查看的清单。
 

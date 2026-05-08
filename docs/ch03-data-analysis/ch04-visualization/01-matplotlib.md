@@ -6,7 +6,7 @@ description: "Master Python’s most essential plotting library and learn to tel
 
 # 3.4.2 Matplotlib Basics
 
-![Matplotlib Figure and Axes structure diagram](/img/course/matplotlib-figure-axes-en.png)
+![Matplotlib Figure and Axes structure diagram](/img/course/matplotlib-figure-axes-en.webp)
 
 :::tip Section focus
 For many beginners learning `Matplotlib` for the first time, the hardest parts are:

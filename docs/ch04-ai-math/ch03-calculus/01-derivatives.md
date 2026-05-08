@@ -7,7 +7,7 @@ keywords: [derivative, calculus, rate of change, tangent slope, Python, AI math]
 
 # 4.3.2 Derivatives: The Intuition of Rate of Change
 
-![Derivative tangent slope illustration](/img/course/derivative-tangent-slope-en.png)
+![Derivative tangent slope illustration](/img/course/derivative-tangent-slope-en.webp)
 
 :::tip No need to memorize formulas
 This section will not test your ability to derive formulas. The core goal is to help you understand the intuition that **derivative = speed of change**, and to be able to compute derivatives with Python. Later, when you learn gradient descent, you’ll find that derivatives tell you "which direction to adjust parameters to make the loss smaller."
@@ -40,7 +40,7 @@ What matters more is:
 
 It’s best to place this section back into the context of the whole chapter:
 
-![Derivative as a bridge for rate of change](/img/course/ch04-derivative-change-rate-bridge-en.png)
+![Derivative as a bridge for rate of change](/img/course/ch04-derivative-change-rate-bridge-en.webp)
 
 So this section is not an isolated math topic; it is laying the foundation for the optimization storyline that follows.
 

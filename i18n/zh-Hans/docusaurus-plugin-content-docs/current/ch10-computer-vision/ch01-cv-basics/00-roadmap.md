@@ -11,11 +11,11 @@ keywords: [视觉基础指南, OpenCV 指南, 图像处理指南]
 
 ## 先看图像流水线
 
-![视觉基础章节学习流程](/img/course/ch10-cv-basics-chapter-flow.png)
+![视觉基础章节学习流程](/img/course/ch10-cv-basics-chapter-flow.webp)
 
-![像素 RGB 网格图](/img/course/cv-pixel-rgb-grid.png)
+![像素 RGB 网格图](/img/course/cv-pixel-rgb-grid.webp)
 
-![图像数组形状与通道图](/img/course/ch10-image-array-shape-channel-map.png)
+![图像数组形状与通道图](/img/course/ch10-image-array-shape-channel-map.webp)
 
 第一个心智模型很简单：图像 = 高度 × 宽度 × 通道。后面的很多 bug 都来自 shape、通道顺序、坐标或颜色空间混淆。
 

@@ -7,7 +7,7 @@ keywords: [deployment project, edge inference, model serving, optimization, port
 
 # E.A.7 部署综合项目
 
-![部署综合项目交付闭环图](/img/course/elective-deployment-project-delivery-loop.png)
+![部署综合项目交付闭环图](/img/course/elective-deployment-project-delivery-loop.webp)
 
 这个项目不是训练最大模型，而是证明你能把一个模型变成小型、可衡量、可部署的系统。
 

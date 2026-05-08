@@ -6,7 +6,7 @@ description: "関数の定義、引数、戻り値、スコープを理解する
 
 # 2.1.7 関数の基礎
 
-![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope-ja.png)
+![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope-ja.webp)
 
 ## この節の位置づけ
 
@@ -225,7 +225,7 @@ train_model(epochs=100, lr=0.01)
 ```
 
 :::caution デフォルト引数の落とし穴
-![ミュータブルなデフォルト引数の落とし穴図解](/img/course/ch02-mutable-default-trap-ja.svg)
+![ミュータブルなデフォルト引数の落とし穴図解](/img/course/ch02-mutable-default-trap-ja.webp)
 
 デフォルト値は、関数が定義されたときに決まります。リストや辞書のような可変オブジェクトをデフォルト値にしないでください。
 

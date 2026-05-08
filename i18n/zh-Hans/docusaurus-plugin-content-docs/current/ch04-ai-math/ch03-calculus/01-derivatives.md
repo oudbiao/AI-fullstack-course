@@ -7,7 +7,7 @@ keywords: [导数, 微积分, 变化率, 切线斜率, Python, AI数学]
 
 # 4.3.2 导数：变化率的直觉
 
-![导数切线斜率示意图](/img/course/derivative-tangent-slope.png)
+![导数切线斜率示意图](/img/course/derivative-tangent-slope.webp)
 
 :::tip 不需要你背公式
 本节不会考你推导能力。核心目标是让你理解**导数 = 变化的速度**这个直觉，会用 Python 计算导数即可。后面学梯度下降时，你会发现导数就是告诉你"往哪个方向调参数能让损失变小"。
@@ -40,7 +40,7 @@ keywords: [导数, 微积分, 变化率, 切线斜率, Python, AI数学]
 
 这一节最好先把它放回整章里理解：
 
-![导数变化率桥梁图](/img/course/ch04-derivative-change-rate-bridge.png)
+![导数变化率桥梁图](/img/course/ch04-derivative-change-rate-bridge.webp)
 
 所以这一节不是单独的数学知识点，而是在给后面整个优化主线打地基。
 

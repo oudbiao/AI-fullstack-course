@@ -201,7 +201,7 @@ This step is very important because it makes the caller clearly understand:
 - What category the error belongs to
 - Whether it is worth retrying
 
-![API contract, error structure, and version management diagram](/img/course/ch08-api-contract-error-version-map-en.png)
+![API contract, error structure, and version management diagram](/img/course/ch08-api-contract-error-version-map-en.webp)
 
 :::tip Reading Guide
 An API is a system contract, not just JSON. When reading the diagram, focus on request schema, response schema, error object, `trace_id`, and version, because they determine whether the interface can be consumed stably over time by the frontend, evaluation systems, and other services.

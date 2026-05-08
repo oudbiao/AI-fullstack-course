@@ -7,7 +7,7 @@ keywords: [Hugging Face, transformers, tokenizer, model, config, forward, batch,
 
 # 7.1.5 Hugging Face 快速上手
 
-![Hugging Face 工作流对象图](/img/course/ch07-huggingface-workflow-object-map.png)
+![Hugging Face 工作流对象图](/img/course/ch07-huggingface-workflow-object-map.webp)
 
 :::tip 核心链路
 大多数 Hugging Face 示例都能还原成一条链：
@@ -147,7 +147,7 @@ torch.Size([2, 6, 768])
 
 ## 读真实代码时的对象地图
 
-![Hugging Face 术语地图](/img/course/ch07-huggingface-terms-map.png)
+![Hugging Face 术语地图](/img/course/ch07-huggingface-terms-map.webp)
 
 读仓库时，把陌生名字映射回核心链路：
 

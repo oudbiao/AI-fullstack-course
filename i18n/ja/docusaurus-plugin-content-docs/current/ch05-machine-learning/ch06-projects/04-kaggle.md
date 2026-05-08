@@ -7,7 +7,7 @@ keywords: [Kaggle, コンペ, Titanic, データサイエンスコンペ, Notebo
 
 # 5.6.5 Kaggle コンペ実戦（選修）
 
-![Kaggle コンペ提出のクローズドループ図](/img/course/kaggle-submission-loop-ja.png)
+![Kaggle コンペ提出のクローズドループ図](/img/course/kaggle-submission-loop-ja.webp)
 
 :::tip この節の位置づけ
 Kaggle は世界最大のデータサイエンスコンペプラットフォームです。入門コンペに参加することで、これまでに学んだすべてのスキルを**つなぎ合わせて**、実際の採点システムで確かめることができます。
@@ -187,7 +187,7 @@ for name, model in models.items():
 
 ### Kaggle で初心者が特にハマりやすい落とし穴
 
-![Kaggle のローカル検証とリーダーボードのループ](/img/course/ch05-kaggle-validation-leaderboard-loop-ja.png)
+![Kaggle のローカル検証とリーダーボードのループ](/img/course/ch05-kaggle-validation-leaderboard-loop-ja.webp)
 
 - 公開リーダーボードで何度も試し、結果としてランキングに過学習してしまう
 - ローカルでの交差検証をせず、オンラインのスコアだけを見る

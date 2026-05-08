@@ -11,11 +11,11 @@ Object detection は classification に location を加えます。どの object
 
 ## まず box workflow を見る
 
-![Object detection 章の学習フローチャート](/img/course/ch10-detection-chapter-flow-ja.png)
+![Object detection 章の学習フローチャート](/img/course/ch10-detection-chapter-flow-ja.webp)
 
-![Object detection output diagram](/img/course/object-detection-output-ja.png)
+![Object detection output diagram](/img/course/object-detection-output-ja.webp)
 
-![Detection output IoU error map](/img/course/ch10-detection-output-iou-error-map-ja.png)
+![Detection output IoU error map](/img/course/ch10-detection-output-iou-error-map-ja.webp)
 
 重要概念は bounding box、class、confidence、IoU、threshold、false positive、false negative、mAP です。
 

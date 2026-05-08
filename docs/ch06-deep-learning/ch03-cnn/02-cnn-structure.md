@@ -23,7 +23,7 @@ The previous page explained how one kernel scans one local window. This page ass
 
 ## Start with the Whole Pipeline
 
-![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline-en.png)
+![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline-en.webp)
 
 Read the picture from left to right:
 
@@ -42,7 +42,7 @@ The output of the final layer is usually called `logits`: raw class scores befor
 
 ## Channels Go Up, Spatial Size Goes Down
 
-![CNN channel count vs spatial size trade-off](/img/course/ch06-cnn-channel-spatial-tradeoff-map-en.png)
+![CNN channel count vs spatial size trade-off](/img/course/ch06-cnn-channel-spatial-tradeoff-map-en.webp)
 
 Early layers keep more spatial detail. Deeper layers keep fewer pixels but more feature types.
 

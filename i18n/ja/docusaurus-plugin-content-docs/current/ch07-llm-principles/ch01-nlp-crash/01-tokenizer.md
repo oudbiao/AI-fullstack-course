@@ -7,7 +7,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 # 7.1.2 トークン化と Tokenizer
 
-![Tokenizer サブワード分割フロー](/img/course/tokenizer-subword-flow-ja.png)
+![Tokenizer サブワード分割フロー](/img/course/tokenizer-subword-flow-ja.webp)
 
 :::tip 学習後にできること
 この節の後では、任意の prompt を見て次の 4 点を確認できるようにします。
@@ -36,7 +36,7 @@ raw text -> tokens -> input_ids -> model
 
 ## 分割粒度のトレードオフ
 
-![Tokenizer 粒度トレードオフ図](/img/course/ch07-tokenizer-granularity-tradeoff-map-ja.png)
+![Tokenizer 粒度トレードオフ図](/img/course/ch07-tokenizer-granularity-tradeoff-map-ja.webp)
 
 代表的な分け方は 3 つです。
 
@@ -174,7 +174,7 @@ attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 
 ## 実験 2：truncation をプロダクトリスクとして見る
 
-![Tokenizer から input_ids と attention_mask への図](/img/course/ch07-tokenizer-inputids-mask-length-map-ja.png)
+![Tokenizer から input_ids と attention_mask への図](/img/course/ch07-tokenizer-inputids-mask-length-map-ja.webp)
 
 今度は context window をあえて小さくします。
 

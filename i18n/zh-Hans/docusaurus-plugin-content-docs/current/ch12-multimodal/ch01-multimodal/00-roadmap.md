@@ -11,11 +11,11 @@ keywords: [多模态入门, 对齐, 融合, 视觉语言模型, 多模态应用]
 
 ## 先看流程图
 
-![多模态基础章节学习流程图](/img/course/ch12-multimodal-chapter-flow.png)
+![多模态基础章节学习流程图](/img/course/ch12-multimodal-chapter-flow.webp)
 
-![多模态对齐与融合图](/img/course/multimodal-alignment-fusion.png)
+![多模态对齐与融合图](/img/course/multimodal-alignment-fusion.webp)
 
-![多模态系统主干图](/img/course/ch12-multimodal-system-backbone.png)
+![多模态系统主干图](/img/course/ch12-multimodal-system-backbone.webp)
 
 先养成一个习惯：输入是什么模态，看到了哪些证据，哪些地方不确定，结构化结果下一步要去哪里。
 

@@ -6,9 +6,9 @@ keywords: [课程编号, 章节目录, 章节编号, 课程维护]
 
 # A.2 课程编号约定
 
-![展示章节号与源码目录对应地图](/img/course/appendix-course-numbering-map.png)
+![展示章节号与源码目录对应地图](/img/course/appendix-course-numbering-map.webp)
 
-![课程维护命名一致性检查图](/img/course/appendix-course-numbering-maintenance-check.png)
+![课程维护命名一致性检查图](/img/course/appendix-course-numbering-maintenance-check.webp)
 
 :::tip 读图提示
 维护课程时，网页标题、sidebar 顺序、源码目录和图片命名要互相对齐。读图时把“展示编号”和“文件路径”分开看，就不容易再出现 chxx 与中文章节号混用的问题。

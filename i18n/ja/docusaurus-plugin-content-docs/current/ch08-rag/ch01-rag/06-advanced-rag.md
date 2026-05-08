@@ -45,7 +45,7 @@ keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured r
 
 このとき、「1回だけ検索する」では足りないことが多いです。
 
-![高度な RAG アーキテクチャの選択図](/img/course/ch08-advanced-rag-architecture-decision-map-v2-ja.png)
+![高度な RAG アーキテクチャの選択図](/img/course/ch08-advanced-rag-architecture-decision-map-v2-ja.webp)
 
 この図のポイントはとてもシンプルです。いきなり一番複雑な構成にするのではなく、本当に失敗している部分を最小の構成で直すことです。
 
@@ -242,7 +242,7 @@ Router RAG は、それだけで検索が賢くなる魔法ではありません
 - 関係の連鎖をたどる
 - 構造化された推論をする
 
-![高度な RAG アーキテクチャ選択図](/img/course/ch08-advanced-rag-architecture-selection-map-ja.png)
+![高度な RAG アーキテクチャ選択図](/img/course/ch08-advanced-rag-architecture-selection-map-ja.webp)
 
 :::tip 読み方のヒント
 まず問題の形からアーキテクチャを選びましょう。複数ナレッジベースの干渉があるならまず Router RAG、複数ステップの問題なら Multi-hop RAG、自律的な判断が必要なら Agentic RAG、関係の連鎖がはっきりしているなら Graph RAG を考えます。

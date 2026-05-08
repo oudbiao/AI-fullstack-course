@@ -7,7 +7,7 @@ keywords: [customer churn, classification, imbalanced data, SMOTE, feature impor
 
 # 5.6.3 Project 2: Customer Churn Prediction (Classification Problem)
 
-![Customer Churn Prediction Project Flowchart](/img/course/customer-churn-project-flow-en.png)
+![Customer Churn Prediction Project Flowchart](/img/course/customer-churn-project-flow-en.webp)
 
 :::tip Project Positioning
 Customer churn prediction is one of the **most classic business ML applications**. This project focuses on practicing: handling imbalanced data, understanding business metrics, and extracting business insights from model results.
@@ -161,7 +161,7 @@ print(f"Churn customers: {df['Churn'].sum()}, Retained customers: {(1-df['Churn'
 
 ## Step 2: Handle imbalanced data
 
-![Churn imbalance and threshold map](/img/course/ch05-churn-imbalance-threshold-map-en.png)
+![Churn imbalance and threshold map](/img/course/ch05-churn-imbalance-threshold-map-en.webp)
 
 ```python
 from sklearn.model_selection import train_test_split

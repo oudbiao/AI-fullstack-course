@@ -6,9 +6,9 @@ keywords: [コース番号, 章ディレクトリ, 章番号, コース保守]
 
 # A.2 コース番号の約束
 
-![章番号とソースディレクトリの対応マップを表示](/img/course/appendix-course-numbering-map-ja.png)
+![章番号とソースディレクトリの対応マップを表示](/img/course/appendix-course-numbering-map-ja.webp)
 
-![コース保守の命名一貫性チェック図](/img/course/appendix-course-numbering-maintenance-check-ja.png)
+![コース保守の命名一貫性チェック図](/img/course/appendix-course-numbering-maintenance-check-ja.webp)
 
 :::tip 読み方のヒント
 コースを保守するときは、Web タイトル、sidebar の順番、ソースディレクトリ、画像の命名を互いにそろえる必要があります。図を見るときは、「表示番号」と「ファイルパス」を分けて見ると、chxx と中国語の章番号が混ざる問題が起きにくくなります。

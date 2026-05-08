@@ -26,7 +26,7 @@ keywords: [PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device,
 
 学習が壊れているときは、モデルを作り直す前に単純なエンジニアリング問題を確認します。
 
-![PyTorch 学習デバッグ確認順序](/img/course/ch06-pytorch-debug-check-order-ja.png)
+![PyTorch 学習デバッグ確認順序](/img/course/ch06-pytorch-debug-check-order-ja.webp)
 
 この順番で見ます。
 

@@ -208,7 +208,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 - 阶段依赖
 - 交接质量
 
-![多 Agent 开发团队交付闭环图](/img/course/ch09-multi-agent-dev-team-delivery-map.png)
+![多 Agent 开发团队交付闭环图](/img/course/ch09-multi-agent-dev-team-delivery-map.webp)
 
 :::tip 读图提示
 这张图强调“角色数量不是重点，工件交接才是重点”：planner 产出 plan，coder 产出 patch，reviewer 产出 issue，tester 产出 test report，失败后回到对应角色修复。

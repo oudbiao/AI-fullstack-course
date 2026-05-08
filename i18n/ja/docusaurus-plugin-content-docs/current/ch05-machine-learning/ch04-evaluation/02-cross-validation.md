@@ -7,7 +7,7 @@ keywords: [クロスバリデーション, K-Fold, StratifiedKFold, cross_valida
 
 # 5.4.3 クロスバリデーション
 
-![K分割クロスバリデーションの分割図](/img/course/cross-validation-kfold-ja.png)
+![K分割クロスバリデーションの分割図](/img/course/cross-validation-kfold-ja.webp)
 
 :::tip この節の概要
 1 回の train-test 分割は 1 枚のスナップショットです。クロスバリデーションは、複数の検証 fold でモデルを試すことで、より安定した推定を得ます。
@@ -23,7 +23,7 @@ keywords: [クロスバリデーション, K-Fold, StratifiedKFold, cross_valida
 - 前処理を `Pipeline` に入れる理由；
 - 時系列など、ランダム K-Fold が間違いになる場面。
 
-![クロスバリデーションの安定評価フロー図](/img/course/ch05-cross-validation-stability-flow-ja.png)
+![クロスバリデーションの安定評価フロー図](/img/course/ch05-cross-validation-stability-flow-ja.webp)
 
 ## セットアップ
 
@@ -134,7 +134,7 @@ cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 ## 漏洩を防ぐ Pipeline
 
-![クロスバリデーションのデータ漏洩を防ぐ Pipeline 図](/img/course/ch05-cv-leakage-safe-pipeline-map-ja.png)
+![クロスバリデーションのデータ漏洩を防ぐ Pipeline 図](/img/course/ch05-cv-leakage-safe-pipeline-map-ja.webp)
 
 安全な形は次です。
 

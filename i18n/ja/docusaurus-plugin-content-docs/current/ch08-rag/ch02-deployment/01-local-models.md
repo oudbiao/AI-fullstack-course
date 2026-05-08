@@ -163,7 +163,7 @@ for item in runtime_options:
 
 - デプロイ方法は、まず業務判断であって、単なる技術の好みではない
 
-![ローカルモデルとクラウド API のデプロイ判断図](/img/course/ch08-local-model-api-decision-map-ja.png)
+![ローカルモデルとクラウド API のデプロイ判断図](/img/course/ch08-local-model-api-decision-map-ja.webp)
 
 :::tip 図の読み方
 図を見るときは、「どのモデルが強いか」から考えないでください。まず見るべきなのは、プライバシー、コスト、遅延、オフライン対応、運用能力です。多くのデプロイ判断は、モデル性能の比較ではなく、業務上の制約の順番で決まります。

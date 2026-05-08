@@ -23,7 +23,7 @@ keywords: [転移学習, fine-tuning, feature extractor, freeze backbone, transf
 
 ## まず判断フローを見る
 
-![転移学習で backbone を凍結するか、段階的に微調整するかの判断図](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.png)
+![転移学習で backbone を凍結するか、段階的に微調整するかの判断図](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.webp)
 
 次の流れで読みます。
 

@@ -7,9 +7,9 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 # E.A.6 Model Serving
 
-![Model serving architecture](/img/course/elective-model-serving-architecture-en.png)
+![Model serving architecture](/img/course/elective-model-serving-architecture-en.webp)
 
-![Model serving metrics and version routing diagram](/img/course/elective-serving-metrics-version-routing-map-en.png)
+![Model serving metrics and version routing diagram](/img/course/elective-serving-metrics-version-routing-map-en.webp)
 
 Serving a model is different from calling a model once. A service receives many requests, queues them, batches them, sends them to the right model version, records metrics, and stays recoverable when a version fails.
 

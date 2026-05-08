@@ -13,7 +13,7 @@ keywords: [RAG 实操, RAG 工作坊, LLM 应用项目, 引用, RAG 评估, Resp
 
 ## 你将做出什么
 
-![第 8 章四层学习地图](/img/course/ch08-study-guide-four-layer-map.png)
+![第 8 章四层学习地图](/img/course/ch08-study-guide-four-layer-map.webp)
 
 你会做一个小型知识库助手，包含这些能力：
 
@@ -34,7 +34,7 @@ keywords: [RAG 实操, RAG 工作坊, LLM 应用项目, 引用, RAG 评估, Resp
 
 ## Step 0：写代码前先看懂 RAG 闭环
 
-![RAG 从资料到答案的流水线](/img/course/ch08-rag-data-to-answer-pipeline.png)
+![RAG 从资料到答案的流水线](/img/course/ch08-rag-data-to-answer-pipeline.webp)
 
 RAG 是 **Retrieval-Augmented Generation**，中文常译为“检索增强生成”。说人话就是：
 
@@ -60,13 +60,13 @@ touch rag_app_workshop.py
 
 ## Step 2：复制完整离线 RAG 脚本
 
-![文档解析与格式路由图](/img/course/ch08-document-parsing-format-router-map.png)
+![文档解析与格式路由图](/img/course/ch08-document-parsing-format-router-map.webp)
 
 真实项目里的文档可能来自 Markdown、PDF、Word、PPT、HTML 或数据库。这个入门工作坊先用 4 份内存文档，让你看清主流程。每份文档已经带有元数据，因为后面的引用、日志、权限检查和评估都会依赖它。
 
 复制完整脚本前，先用下一张图只盯住 `chunk_documents()`。等会读代码时，视线从 `DOCUMENTS` 移到 `sentences`，再移到每条 chunk 记录。关键习惯是：`source` 和 `roles` 要跟着每个 chunk 一起走，后面检索和权限检查才安全。
 
-![RAG 工作坊 chunk_documents 执行顺序图](/img/course/ch08-workshop-chunk-execution-flow-map.png)
+![RAG 工作坊 chunk_documents 执行顺序图](/img/course/ch08-workshop-chunk-execution-flow-map.webp)
 
 把下面代码复制到 `rag_app_workshop.py`：
 
@@ -312,11 +312,11 @@ passed: 3/3
 
 请用这张图读评估部分。`evaluate()` 不是靠感觉判断答案好坏，而是逐条运行 `EVAL_CASES`，检查 `status`，检查 citations，再统计 PASS/FAIL。注意 `private_block` 没有 citation 也可以 PASS，因为预期行为就是 `blocked_by_permission`。
 
-![RAG 工作坊 evaluate PASS/FAIL 流程图](/img/course/ch08-workshop-evaluation-pass-fail-flow-map.png)
+![RAG 工作坊 evaluate PASS/FAIL 流程图](/img/course/ch08-workshop-evaluation-pass-fail-flow-map.webp)
 
 ## Step 4：像看流水线一样读代码
 
-![RAG 基础工作闭环图](/img/course/ch08-rag-basics-workflow-map-v2.png)
+![RAG 基础工作闭环图](/img/course/ch08-rag-basics-workflow-map-v2.webp)
 
 请按这个顺序读脚本：
 
@@ -334,11 +334,11 @@ passed: 3/3
 
 ## Step 5：观察权限和引用行为
 
-![企业知识库权限与引用图](/img/course/ch08-enterprise-kb-permission-citation-map.png)
+![企业知识库权限与引用图](/img/course/ch08-enterprise-kb-permission-citation-map.webp)
 
 现在把视角放大到 `retrieve()` 里的分支判断。命中关键词的 chunk 还不能自动成为证据，它必须先通过角色检查。如果命中了但当前用户无权访问，它会进入 `blocked_hits`，而不是进入 answer context。
 
-![RAG 工作坊 retrieve 权限分支图](/img/course/ch08-workshop-retrieve-permission-branch-map.png)
+![RAG 工作坊 retrieve 权限分支图](/img/course/ch08-workshop-retrieve-permission-branch-map.webp)
 
 看这份文档：
 
@@ -367,7 +367,7 @@ private_question_as_public: blocked_by_permission
 
 ## Step 6：加框架前，先建立 trace 思维
 
-![助手会话与工具 trace 图](/img/course/ch08-assistant-session-tool-trace-map.png)
+![助手会话与工具 trace 图](/img/course/ch08-assistant-session-tool-trace-map.webp)
 
 真实 LLM 应用里，trace 是一次请求的过程记录。即使你还没有写日志文件，也应该能解释这条链路：
 
@@ -384,7 +384,7 @@ private_question_as_public: blocked_by_permission
 
 ## Step 7：升级到 embedding、向量数据库和 API 的路线
 
-![向量记录与 metadata 过滤图](/img/course/ch08-vector-record-metadata-filter-map.png)
+![向量记录与 metadata 过滤图](/img/course/ch08-vector-record-metadata-filter-map.webp)
 
 离线脚本跑通之后，一次只替换一个部分：
 
@@ -401,7 +401,7 @@ private_question_as_public: blocked_by_permission
 
 ## Step 8：可选 OpenAI Responses API 升级
 
-![稳健 LLM API 客户端闭环图](/img/course/ch08-llm-api-robust-client-loop-map.png)
+![稳健 LLM API 客户端闭环图](/img/course/ch08-llm-api-robust-client-loop-map.webp)
 
 离线脚本是必做的新手路径。它跑通以后，可以把 `build_answer()` 替换成真实模型调用。当前 OpenAI 文档建议使用 Responses API；模型页面目前把复杂推理和编码类任务的默认起点指向 `gpt-5.5`。请把模型名做成可配置，这样以后可以切到更便宜或课程统一指定的模型。
 
@@ -488,7 +488,7 @@ python3 ask_with_openai.py
 
 ## Step 9：Function Calling 与结构化输出的心智模型
 
-![Function Calling 校验与分发图](/img/course/ch08-function-calling-validation-dispatch-map.png)
+![Function Calling 校验与分发图](/img/course/ch08-function-calling-validation-dispatch-map.webp)
 
 在这个工作坊里，`retrieve()` 是普通 Python 函数。在模型驱动的应用里，模型可能会决定调用 `search_knowledge_base`、`get_user_profile` 或 `create_ticket` 等工具。
 
@@ -506,7 +506,7 @@ python3 ask_with_openai.py
 
 ## Step 10：常见错误排查清单
 
-![RAG 分层故障排查图](/img/course/ch08-rag-layer-failure-debug-map.png)
+![RAG 分层故障排查图](/img/course/ch08-rag-layer-failure-debug-map.webp)
 
 | 现象 | 可能原因 | 先检查什么 | 修复方向 |
 |---|---|---|---|
@@ -519,7 +519,7 @@ python3 ask_with_openai.py
 
 ## Step 11：练习任务
 
-![RAG 实验与评估闭环图](/img/course/ch08-rag-experiment-eval-loop-map.png)
+![RAG 实验与评估闭环图](/img/course/ch08-rag-experiment-eval-loop-map.webp)
 
 按顺序完成：
 
@@ -533,7 +533,7 @@ python3 ask_with_openai.py
 
 ## 工作坊通关标准
 
-![LLM 应用项目交付闭环图](/img/course/ch08-project-delivery-loop.png)
+![LLM 应用项目交付闭环图](/img/course/ch08-project-delivery-loop.webp)
 
 当你能做到下面这些，就算完成本工作坊：
 

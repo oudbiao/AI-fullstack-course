@@ -23,7 +23,7 @@ keywords: [autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch
 
 ## Look at the Computation Graph First
 
-![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.png)
+![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.webp)
 
 Read the graph like this:
 
@@ -153,7 +153,7 @@ Why:
 - after the second backward, `.grad` becomes `6 + 2 = 8`;
 - after `zero_()`, the next gradient starts cleanly.
 
-![PyTorch autograd gradient lifecycle diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.png)
+![PyTorch autograd gradient lifecycle diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.webp)
 
 In normal training code, this is why each iteration uses:
 

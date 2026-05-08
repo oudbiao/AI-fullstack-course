@@ -7,7 +7,7 @@ keywords: [LLM industry, open-source models, closed-source models, API, inferenc
 
 # 7.2.4 LLM Industry Landscape
 
-![LLM industry landscape layer map](/img/course/ch07-llm-industry-landscape-map-en.png)
+![LLM industry landscape layer map](/img/course/ch07-llm-industry-landscape-map-en.webp)
 
 :::tip How to read this map
 Read it as a stack: the model layer provides the engine, the platform layer makes the engine usable and observable, and the application layer turns capability into user-facing workflows. Open-source and closed-source APIs are not “good vs bad”; they are different trade-offs among control, cost, latency, privacy, and operations.

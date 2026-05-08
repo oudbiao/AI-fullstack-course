@@ -11,11 +11,11 @@ keywords: [工具概览, Function Calling, Tool Use, Code Agent, Agent 工具]
 
 ## 先看行动边界
 
-![Agent 工具行动层地图](/img/course/ch09-tools-action-layer-map.png)
+![Agent 工具行动层地图](/img/course/ch09-tools-action-layer-map.webp)
 
-![Agent 工具章节学习顺序图](/img/course/ch09-tools-chapter-flow.png)
+![Agent 工具章节学习顺序图](/img/course/ch09-tools-chapter-flow.webp)
 
-![Agent 受控工具调用闭环图](/img/course/ch09-tool-control-loop.png)
+![Agent 受控工具调用闭环图](/img/course/ch09-tool-control-loop.webp)
 
 工具调用必须受控：选择工具、校验参数、检查权限、执行、观察，再决定下一步。
 

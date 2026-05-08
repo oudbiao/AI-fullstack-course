@@ -7,7 +7,7 @@ keywords: [AI Agent, 智能体, tools, planning, workflow, function calling]
 
 # 9.1.2 AI Agentとは何か
 
-![Agent と通常の Chatbot の比較図](/img/course/agent-vs-chatbot-comparison-ja.png)
+![Agent と通常の Chatbot の比較図](/img/course/agent-vs-chatbot-comparison-ja.webp)
 
 :::tip この節の位置づけ
 Agent は、初心者が次のように誤解しやすいです：
@@ -155,7 +155,7 @@ flowchart LR
 
 という点だからです。
 
-![ワークフロー、チャットボット、Agent の境界図](/img/course/ch09-agent-boundary-workflow-chatbot-map-ja.png)
+![ワークフロー、チャットボット、Agent の境界図](/img/course/ch09-agent-boundary-workflow-chatbot-map-ja.webp)
 
 :::tip 図の読み方
 この図を見るときは、誰がより「賢い」かではなく、制御権がどこにあるかを見てください。ワークフローは経路があらかじめプログラムに固定されており、チャットボットは主に返答を担当し、Agent は目標に沿って何度も次の動作を決めます。
@@ -234,7 +234,7 @@ flowchart LR
 
 だと教えてくれるからです。
 
-![Agent の行動ループと Trace 図](/img/course/ch09-agent-action-loop-trace-map-ja.png)
+![Agent の行動ループと Trace 図](/img/course/ch09-agent-action-loop-trace-map-ja.webp)
 
 :::tip 図の読み方
 この図は時間の流れで見ると分かりやすいです。目標がシステムに入ると、Agent は各ラウンドで action、observation、state 更新を残します。あとで Agent をデバッグするときに見るのは最終回答だけではなく、この再現可能な軌跡です。

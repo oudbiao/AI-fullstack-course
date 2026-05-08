@@ -11,7 +11,7 @@ At this point, you already know Prompt basics, advanced techniques, structured o
 
 > **When I run the same fixed test cases, which prompt version passes more reliably, and why?**
 
-![Prompt Evaluation Lab](/img/course/ch07-prompt-evaluation-lab-en.png)
+![Prompt Evaluation Lab](/img/course/ch07-prompt-evaluation-lab-en.webp)
 
 :::tip Learning rhythm
 Prompt engineering becomes much easier when you keep the test set fixed and change only one thing at a time. Otherwise, you cannot tell whether the improvement came from the new prompt, the new test input, or pure luck.

@@ -11,9 +11,9 @@ PyTorch は深層学習ループを実行できるコードにします。まず
 
 ## まずワークフローを見る
 
-![PyTorch 章フローチャート](/img/course/ch06-pytorch-chapter-flow-ja.png)
+![PyTorch 章フローチャート](/img/course/ch06-pytorch-chapter-flow-ja.webp)
 
-![NumPy から PyTorch への学習ループマップ](/img/course/ch06-numpy-to-pytorch-training-loop-map-ja.png)
+![NumPy から PyTorch への学習ループマップ](/img/course/ch06-numpy-to-pytorch-training-loop-map-ja.webp)
 
 ```text
 tensor -> model -> loss -> backward -> optimizer.step -> repeat

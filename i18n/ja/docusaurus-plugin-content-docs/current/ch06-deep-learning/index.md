@@ -7,13 +7,13 @@ keywords: [深層学習, PyTorch, ニューラルネットワーク, CNN, RNN, T
 
 # 6 深層学習と Transformer 基礎
 
-![深層学習と Transformer のメインビジュアル](/img/course/ch06-deep-learning-ja.png)
+![深層学習と Transformer のメインビジュアル](/img/course/ch06-deep-learning-ja.webp)
 
 第 6 章の目的は 1 つです。モデルが**損失、勾配、反復する学習ステップ**によってどう学ぶのかを理解することです。
 
 ## まず学習ループを見る
 
-![深層学習トレーニングループのメイン図](/img/course/ch06-training-loop-backbone-ja.png)
+![深層学習トレーニングループのメイン図](/img/course/ch06-training-loop-backbone-ja.webp)
 
 先に図を見てください。深層学習の学習コードの多くは、この流れです。
 

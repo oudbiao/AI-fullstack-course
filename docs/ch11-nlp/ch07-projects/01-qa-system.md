@@ -7,7 +7,7 @@ keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project
 
 # 11.7.2 Project: Intelligent Question Answering System
 
-![Question answering system retrieval-answer-evaluation loop](/img/course/ch11-qa-retrieval-answer-evaluation-map-en.png)
+![Question answering system retrieval-answer-evaluation loop](/img/course/ch11-qa-retrieval-answer-evaluation-map-en.webp)
 
 :::tip Reading guide
 A QA system is not finished just because it "generates something that looks like an answer." When reading the diagram, focus on how query, retrieval, evidence, answer, refusal, evaluation, and error log form a closed loop. This is also the core structure of later RAG projects.

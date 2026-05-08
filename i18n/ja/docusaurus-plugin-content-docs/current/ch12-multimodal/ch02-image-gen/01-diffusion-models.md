@@ -7,7 +7,7 @@ keywords: [diffusion model, denoising, forward process, reverse process, generat
 
 # 12.2.2 拡散モデルの原理
 
-![拡散モデルのノイズ付与・ノイズ除去図](/img/course/diffusion-noise-denoise-ja.png)
+![拡散モデルのノイズ付与・ノイズ除去図](/img/course/diffusion-noise-denoise-ja.webp)
 
 :::tip この節の位置づけ
 生成モデルにはいろいろな道があります。

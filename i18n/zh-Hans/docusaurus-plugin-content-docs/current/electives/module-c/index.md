@@ -10,9 +10,9 @@ description: "经典机器学习补充模块的简明实操路线图：SVM、KNN
 
 ## 先看 baseline 地图
 
-![经典机器学习补充模块地图](/img/course/elective-classic-ml-module-map.png)
+![经典机器学习补充模块地图](/img/course/elective-classic-ml-module-map.webp)
 
-![KNN 邻居投票图](/img/course/elective-knn-neighbor-voting.png)
+![KNN 邻居投票图](/img/course/elective-knn-neighbor-voting.webp)
 
 经典机器学习帮你回答：这个问题是否已经能被简单特征解决。
 

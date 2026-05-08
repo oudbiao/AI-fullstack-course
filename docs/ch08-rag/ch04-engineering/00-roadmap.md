@@ -11,11 +11,11 @@ Engineering turns a working LLM demo into software that can be deployed, debugge
 
 ## See the LLMOps Loop First
 
-![LLM engineering chapter learning sequence diagram](/img/course/ch08-engineering-chapter-flow-en.png)
+![LLM engineering chapter learning sequence diagram](/img/course/ch08-engineering-chapter-flow-en.webp)
 
-![LLMOps trace review closed-loop diagram](/img/course/ch08-llmops-trace-loop-en.png)
+![LLMOps trace review closed-loop diagram](/img/course/ch08-llmops-trace-loop-en.webp)
 
-![Observability logs metrics trace map](/img/course/ch08-observability-logs-metrics-trace-map-en.png)
+![Observability logs metrics trace map](/img/course/ch08-observability-logs-metrics-trace-map-en.webp)
 
 Your first engineering goal is simple: when an answer is wrong, you can explain which layer caused it.
 

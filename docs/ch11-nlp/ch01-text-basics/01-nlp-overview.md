@@ -7,7 +7,7 @@ keywords: [NLP, natural language processing, text classification, information ex
 
 # 11.1.2 NLP Overview
 
-![NLP task landscape map](/img/course/ch11-nlp-task-landscape-map-en.png)
+![NLP task landscape map](/img/course/ch11-nlp-task-landscape-map-en.webp)
 
 :::tip Reading guide
 First think of NLP as the overall process of “text -> computable structure or result”: the same piece of text can go through different tasks such as classification, extraction, generation, and retrieval-based QA, and all later models serve these task boundaries.

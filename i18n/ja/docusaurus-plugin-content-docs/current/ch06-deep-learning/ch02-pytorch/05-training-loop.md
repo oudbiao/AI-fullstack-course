@@ -23,7 +23,7 @@ keywords: [training loop, optimizer, loss, model.train, model.eval, checkpoint, 
 
 ## まずループの構造を見る
 
-![PyTorch training loop 図解](/img/course/ch06-hands-on-training-loop-anatomy-ja.png)
+![PyTorch training loop 図解](/img/course/ch06-hands-on-training-loop-anatomy-ja.webp)
 
 学習のリズムは次です。
 

@@ -76,7 +76,7 @@ keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source c
 - 引用システム
 - 権限システム
 
-![企業ナレッジベースの権限と引用のクローズドループ図](/img/course/ch08-enterprise-kb-permission-citation-map-ja.png)
+![企業ナレッジベースの権限と引用のクローズドループ図](/img/course/ch08-enterprise-kb-permission-citation-map-ja.webp)
 
 :::tip 図の見方
 企業ナレッジベースでは、「意味的に近いか」だけを見てはいけません。まずユーザー権限で候補を絞り、その後に検索と再ランキングを行い、最後の回答には必ず出典を付けます。そうしないと、見た目はそれらしく答えても、社内文書を漏らしたり、あとから追跡できなかったりします。

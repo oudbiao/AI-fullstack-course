@@ -45,7 +45,7 @@ This actually implies multiple actions:
 
 At this point, “retrieving only once” is often not enough.
 
-![Advanced RAG architecture decision map](/img/course/ch08-advanced-rag-architecture-decision-map-v2-en.png)
+![Advanced RAG architecture decision map](/img/course/ch08-advanced-rag-architecture-decision-map-v2-en.webp)
 
 The main lesson in this map is simple: use the lightest architecture that actually solves the failure, not the most complicated one you can name.
 
@@ -242,7 +242,7 @@ When your questions often require:
 
 you can consider graph-style retrieval.
 
-![Advanced RAG architecture selection map](/img/course/ch08-advanced-rag-architecture-selection-map-en.png)
+![Advanced RAG architecture selection map](/img/course/ch08-advanced-rag-architecture-selection-map-en.webp)
 
 :::tip Reading guide
 Start by choosing an architecture based on the question type: if multiple knowledge bases interfere with one another, consider Router RAG first; if the question needs multiple steps, consider Multi-hop RAG; if you need autonomous decision-making, consider Agentic RAG; if relationship chains are obvious, then consider Graph RAG.

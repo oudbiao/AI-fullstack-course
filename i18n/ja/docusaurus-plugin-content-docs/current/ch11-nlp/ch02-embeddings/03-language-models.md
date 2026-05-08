@@ -7,7 +7,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 
 # 11.2.4 言語モデルの基礎
 
-![言語モデル next token 予測図](/img/course/ch11-language-model-next-token-stack-ja.png)
+![言語モデル next token 予測図](/img/course/ch11-language-model-next-token-stack-ja.webp)
 
 :::tip 図の見方
 言語モデルを「しりとり」のようなものだとだけ考えないでください。図を見るときは、前後の文脈、候補 token の確率分布、そしてサンプリング/選択の関係に注目しましょう。大規模モデルの多くの生成能力は、この学習目標から発展しています。

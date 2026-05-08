@@ -6,7 +6,7 @@ description: "ブランチを使って新機能を安全に開発し、Pull Requ
 
 # 1.2.4 ブランチと協働
 
-![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration-ja.png)
+![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration-ja.webp)
 
 ## この節の位置づけ
 
@@ -228,7 +228,7 @@ git branch
 
 ## マージコンフリクト
 
-![Git マージコンフリクト解決フロー](/img/course/ch01-git-merge-conflict-resolution-ja.svg)
+![Git マージコンフリクト解決フロー](/img/course/ch01-git-merge-conflict-resolution-ja.webp)
 
 ### いつ起こる？
 

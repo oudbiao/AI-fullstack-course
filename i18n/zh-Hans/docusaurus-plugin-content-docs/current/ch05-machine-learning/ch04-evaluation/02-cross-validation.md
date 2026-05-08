@@ -7,7 +7,7 @@ keywords: [交叉验证, K-Fold, StratifiedKFold, cross_validate, 数据泄漏, 
 
 # 5.4.3 交叉验证
 
-![K 折交叉验证切分图](/img/course/cross-validation-kfold.png)
+![K 折交叉验证切分图](/img/course/cross-validation-kfold.webp)
 
 :::tip 本节概览
 单次 train-test 切分只是一个快照。交叉验证会在多个验证折上测试模型，从而得到更稳定的估计。
@@ -23,7 +23,7 @@ keywords: [交叉验证, K-Fold, StratifiedKFold, cross_validate, 数据泄漏, 
 - 为什么预处理必须放进 `Pipeline`；
 - 什么时候随机 K-Fold 是错的，尤其是时间序列。
 
-![交叉验证稳定评估流程图](/img/course/ch05-cross-validation-stability-flow.png)
+![交叉验证稳定评估流程图](/img/course/ch05-cross-validation-stability-flow.webp)
 
 ## 环境准备
 
@@ -134,7 +134,7 @@ cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 ## 使用防泄漏 Pipeline
 
-![交叉验证防泄漏 Pipeline 图](/img/course/ch05-cv-leakage-safe-pipeline-map.png)
+![交叉验证防泄漏 Pipeline 图](/img/course/ch05-cv-leakage-safe-pipeline-map.webp)
 
 安全模式是：
 

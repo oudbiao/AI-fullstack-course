@@ -23,7 +23,7 @@ A GAN is a two-player training loop: the generator tries to create fake samples 
 
 ## See the Game First
 
-![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.png)
+![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.webp)
 
 | Part | Input | Output | Goal |
 |---|---|---|---|
@@ -33,7 +33,7 @@ A GAN is a two-player training loop: the generator tries to create fake samples 
 
 GAN is not trained with one fixed label target like ordinary classification. The discriminator changes what “hard to fool” means, and the generator changes what fake samples look like.
 
-![GAN adversarial training balance and mode collapse diagram](/img/course/ch06-gan-adversarial-balance-map-en.png)
+![GAN adversarial training balance and mode collapse diagram](/img/course/ch06-gan-adversarial-balance-map-en.webp)
 
 ## The Practical Loop
 

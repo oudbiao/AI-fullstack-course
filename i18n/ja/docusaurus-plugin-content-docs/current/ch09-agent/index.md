@@ -7,7 +7,7 @@ keywords: [AI Agent, エージェント, Function Calling, ReAct, MCP, Multi-Age
 
 # 9 AI Agent とエージェントシステム
 
-![AI Agent システムメインビジュアル](/img/course/ch09-agent-systems-ja.png)
+![AI Agent システムメインビジュアル](/img/course/ch09-agent-systems-ja.webp)
 
 第 8 章では、モデルが文書に基づいて答えられるようにしました。第 9 章では、システムが**目標に向かって行動する**ようにします。次の手を計画し、ツールを呼び、観察を読み、方針を調整し、安全に止まり、人がレビューできる trace を残します。
 
@@ -15,7 +15,7 @@ keywords: [AI Agent, エージェント, Function Calling, ReAct, MCP, Multi-Age
 
 ## まず Agent 実行ループを見る
 
-![Agent 実行ループ](/img/course/ch09-agent-execution-loop-ja.png)
+![Agent 実行ループ](/img/course/ch09-agent-execution-loop-ja.webp)
 
 Agent は「ツール付きチャットボット」ではなく、制御された実行ループです。
 
@@ -118,7 +118,7 @@ for item in trace:
 
 ## Agent、ワークフロー、RAG、Function Calling の選び方
 
-![Agent 境界選択図](/img/course/ch09-agent-boundary-map-ja.png)
+![Agent 境界選択図](/img/course/ch09-agent-boundary-map-ja.webp)
 
 Agent は強力ですが、常に最初の選択肢ではありません。
 

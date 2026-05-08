@@ -85,7 +85,7 @@ flowchart LR
 
 > **模型负责“决定”，程序负责“保证执行安全和稳定”。**
 
-![Function Calling Schema 校验与执行护栏图](/img/course/ch09-tool-schema-validation-guardrail-map.png)
+![Function Calling Schema 校验与执行护栏图](/img/course/ch09-tool-schema-validation-guardrail-map.webp)
 
 :::tip 读图提示
 这张图要按“模型输出不等于程序执行”来读：模型只提出 tool call，程序必须先做 schema 校验、权限检查、参数清洗和错误归一化，最后才进入真实工具。

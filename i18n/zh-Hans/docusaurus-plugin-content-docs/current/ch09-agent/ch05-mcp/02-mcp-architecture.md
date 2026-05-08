@@ -7,7 +7,7 @@ keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 
 # 9.5.3 MCP 架构与核心概念
 
-![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
+![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.webp)
 
 :::tip 本节定位
 上一节我们已经知道 MCP 是“工具接入层的统一协议”。
@@ -244,7 +244,7 @@ print(call_response)
 
 这样 client 才不需要把所有工具细节都写死。
 
-![MCP 工具发现与调用消息流图](/img/course/ch09-mcp-host-client-server-message-flow-map.png)
+![MCP 工具发现与调用消息流图](/img/course/ch09-mcp-host-client-server-message-flow-map.webp)
 
 :::tip 读图提示
 这张图按消息顺序看：Host 里的 Client 先向 Server 请求 tools/list，拿到能力清单后再发起 tools/call。MCP 的价值在于让“发现能力”和“调用能力”有统一协议。

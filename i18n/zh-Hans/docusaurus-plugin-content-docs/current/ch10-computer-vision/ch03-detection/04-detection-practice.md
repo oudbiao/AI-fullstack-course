@@ -217,7 +217,7 @@ print(matches)
 
 这三类一分开，你后面很多迭代方向就会立刻更清楚。
 
-![检测项目评估与误检漏检分桶图](/img/course/ch10-detection-practice-eval-buckets-map.png)
+![检测项目评估与误检漏检分桶图](/img/course/ch10-detection-practice-eval-buckets-map.webp)
 
 :::tip 读图提示
 检测项目展示时，不要只放成功截图。读这张图时看四个环节：标注规范、IoU/mAP 评估、误检/漏检/定位不准分桶，以及下一轮该改数据、阈值还是模型。

@@ -7,7 +7,7 @@ keywords: [word embedding, vector space, cosine similarity, one-hot, semantic re
 
 # 11.2.2 単語埋め込み
 
-![単語ベクトルの意味近傍図](/img/course/word2vec-embedding-neighborhood-ja.png)
+![単語ベクトルの意味近傍図](/img/course/word2vec-embedding-neighborhood-ja.webp)
 
 :::tip この節の位置づけ
 NLP をやるとき、モデルは「返金」「証明書」「パスワード」といった単語そのものを直接理解しているわけではありません。  

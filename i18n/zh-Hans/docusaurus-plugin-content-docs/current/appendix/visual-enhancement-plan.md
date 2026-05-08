@@ -6,9 +6,9 @@ keywords: [课程插图, 教学设计, 视觉学习, AI课程图片, image2, SVG
 
 # A.4 课程视觉使用规则
 
-![课程图片资产规划看板](/img/course/appendix-visual-enhancement-kanban.png)
+![课程图片资产规划看板](/img/course/appendix-visual-enhancement-kanban.webp)
 
-![从图片缺口检测到生成发布的流程图](/img/course/appendix-image-production-pipeline-map.png)
+![从图片缺口检测到生成发布的流程图](/img/course/appendix-image-production-pipeline-map.webp)
 
 图片是教学内容，不是装饰。只有当图片能降低学习者理解成本时，才值得添加或保留。
 

@@ -11,11 +11,11 @@ An NLP project is not a fluent paragraph. It is a clear task boundary, data sour
 
 ## See the Project Evidence Loop First
 
-![NLP project delivery loop](/img/course/ch11-projects-delivery-loop-en.png)
+![NLP project delivery loop](/img/course/ch11-projects-delivery-loop-en.webp)
 
-![NLP evidence pack diagram](/img/course/ch11-nlp-evidence-pack-en.png)
+![NLP evidence pack diagram](/img/course/ch11-nlp-evidence-pack-en.webp)
 
-![Workshop text to artifacts pipeline map](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.png)
+![Workshop text to artifacts pipeline map](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.webp)
 
 Start with information extraction or classification for clear labels. Move to summarization and QA when you can evaluate factuality, refusal, citations, and boundaries.
 

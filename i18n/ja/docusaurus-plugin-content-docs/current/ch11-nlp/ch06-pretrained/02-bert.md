@@ -7,7 +7,7 @@ keywords: [BERT, MLM, 双方向エンコーダー, 事前学習, Transformer Enc
 
 # 11.6.3 BERT シリーズ
 
-![BERT Masked Language Model 図](/img/course/bert-masked-language-model-ja.png)
+![BERT Masked Language Model 図](/img/course/bert-masked-language-model-ja.webp)
 
 :::tip この節の位置づけ
 BERT は、現代 NLP が「事前学習が主流の時代」へ入るうえでの重要な節目の一つです。  

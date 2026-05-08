@@ -7,7 +7,7 @@ keywords: [text summarization, extractive summarization, TF-IDF, evaluation, NLP
 
 # 11.7.3 Project: Text Summarization System
 
-![Text summarization extraction-generation-evaluation diagram](/img/course/ch11-summarization-extractive-generative-eval-map-en.png)
+![Text summarization extraction-generation-evaluation diagram](/img/course/ch11-summarization-extractive-generative-eval-map-en.webp)
 
 :::tip Reading tip
 Evaluation is the part summarization projects most easily overlook. When reading this diagram, think about extractive summary, generative summary, coverage, faithfulness, length control, and human scoring together. First make sure the summary does not lose facts, then pursue better expression.

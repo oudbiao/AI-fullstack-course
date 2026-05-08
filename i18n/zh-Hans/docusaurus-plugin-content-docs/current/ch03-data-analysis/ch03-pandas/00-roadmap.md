@@ -11,7 +11,7 @@ Pandas 是本课程里的表格工作台。只要 CSV、Excel、日志表或 SQL
 
 ## 先看工作流
 
-![Pandas 数据处理路线图](/img/course/ch03-pandas-roadmap.png)
+![Pandas 数据处理路线图](/img/course/ch03-pandas-roadmap.webp)
 
 先记住这一行：
 

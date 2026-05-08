@@ -11,11 +11,11 @@ Pretraining teaches broad language ability. Finetuning adapts task behavior. Ali
 
 ## See the Safety Boundary First
 
-![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow-en.png)
+![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow-en.webp)
 
-![Alignment and application safety boundary map](/img/course/ch07-alignment-app-safety-map-en.png)
+![Alignment and application safety boundary map](/img/course/ch07-alignment-app-safety-map-en.webp)
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.png)
+![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.webp)
 
 Key terms: RLHF means reinforcement learning from human feedback, DPO means direct preference optimization, and RLAIF means reinforcement learning from AI feedback.
 

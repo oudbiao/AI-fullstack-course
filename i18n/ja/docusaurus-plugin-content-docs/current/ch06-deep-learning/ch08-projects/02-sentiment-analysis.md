@@ -23,7 +23,7 @@ Sentiment analysis は、最初の NLP project として向いています。難
 
 ## まず Project Loop を見る
 
-![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-ja.png)
+![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-ja.webp)
 
 ```text
 label boundary -> baseline -> predictions -> error buckets -> targeted upgrade

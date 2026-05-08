@@ -11,9 +11,9 @@ Red teaming is a repeatable loop, not one scary prompt. You define attack surfac
 
 ## See the Loop First
 
-![AI Security Red Team Loop Diagram](/img/course/elective-ai-security-red-team-loop-en.png)
+![AI Security Red Team Loop Diagram](/img/course/elective-ai-security-red-team-loop-en.webp)
 
-![AI Security Threat Modeling and Regression Set Diagram](/img/course/elective-ai-security-threat-regression-map-en.png)
+![AI Security Threat Modeling and Regression Set Diagram](/img/course/elective-ai-security-threat-regression-map-en.webp)
 
 Start with surfaces: prompt, retrieval, tools, memory, and external actions.
 

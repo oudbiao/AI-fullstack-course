@@ -23,7 +23,7 @@ keywords: [LeNet, AlexNet, VGG, ResNet, CNN, 残差连接, 经典架构]
 
 ## 先看演进线
 
-![经典 CNN 架构演进图](/img/course/imagenet-cnn-evolution.png)
+![经典 CNN 架构演进图](/img/course/imagenet-cnn-evolution.webp)
 
 按下面这条线读图：
 

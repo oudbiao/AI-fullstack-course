@@ -11,9 +11,9 @@ Feature engineering is the work of making inputs useful, stable, and safe for mo
 
 ## Look at the Feature Flow First
 
-![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.png)
+![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.webp)
 
-![Feature engineering chapter flow diagram](/img/course/ch05-feature-engineering-chapter-flow-en.png)
+![Feature engineering chapter flow diagram](/img/course/ch05-feature-engineering-chapter-flow-en.webp)
 
 ```text
 understand columns -> preprocess -> construct -> select -> package as Pipeline

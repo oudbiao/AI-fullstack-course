@@ -132,7 +132,7 @@ Its main optimization target is:
 
 It is not about making the model suddenly understand completely different relationships.
 
-![Efficient attention bottleneck distribution diagram](/img/course/ch07-efficient-attention-bottleneck-map-en.png)
+![Efficient attention bottleneck distribution diagram](/img/course/ch07-efficient-attention-bottleneck-map-en.webp)
 
 :::tip Reading guide
 You do not need to memorize the method names in this figure. First separate the bottlenecks: when the context is too long, look at sliding/local attention; when the KV cache is too large, look at MQA/GQA; when memory reads and writes are too expensive, look at FlashAttention. Efficient attention is a set of engineering trade-offs, not a universal formula.
@@ -316,7 +316,7 @@ but they are enough to build an initial intuition:
 - the fewer `num_kv_heads` there are
 - the smaller the KV cache becomes
 
-![KV cache comparison of MHA/GQA/MQA](/img/course/ch07-kv-cache-mqa-gqa-map-en.png)
+![KV cache comparison of MHA/GQA/MQA](/img/course/ch07-kv-cache-mqa-gqa-map-en.webp)
 
 :::tip Reading guide
 This figure is best understood from an inference perspective: in ordinary MHA, each query head often has its own K/V; GQA makes a group of query heads share K/V; MQA makes even more heads share the same K/V. The more sharing there is, the smaller the KV cache becomes, but you also need to accept some trade-off in expressive power.

@@ -9,7 +9,7 @@ keywords: [computer vision workshop, OpenCV, synthetic dataset, classification, 
 
 这一节把第 10 章变成一个可以跟着操作的项目。你不需要下载数据集，也不需要调用云端模型。一个 Python 脚本会自己生成小型图像数据集，然后跑完整视觉流程：
 
-![视觉工作坊端到端流水线图](/img/course/ch10-workshop-vision-pipeline-map.png)
+![视觉工作坊端到端流水线图](/img/course/ch10-workshop-vision-pipeline-map.webp)
 
 你会做出真实视觉项目里常见的四件事：
 
@@ -50,7 +50,7 @@ cv_workshop_run/
 
 先看数据流。视觉项目不是从训练开始，而是从图像、标签、mask、框、划分方式和难例是否可见开始。
 
-![视觉合成数据集生成图](/img/course/ch10-workshop-synthetic-dataset-map.png)
+![视觉合成数据集生成图](/img/course/ch10-workshop-synthetic-dataset-map.webp)
 
 在这个工作坊中：
 
@@ -478,7 +478,7 @@ prediction_images: cv_workshop_run/outputs
 
 信任一个视觉项目之前，不要只看一个指标：
 
-![视觉工作坊指标、IoU 与混淆矩阵图](/img/course/ch10-workshop-metrics-iou-confusion-map.png)
+![视觉工作坊指标、IoU 与混淆矩阵图](/img/course/ch10-workshop-metrics-iou-confusion-map.webp)
 
 | 指标 | 检查什么 | 为什么重要 |
 |---|---|---|
@@ -504,7 +504,7 @@ prediction_images: cv_workshop_run/outputs
 
 ## Step 8：阅读失败报告
 
-![视觉工作坊失败样本排查图](/img/course/ch10-workshop-failure-debug-map.png)
+![视觉工作坊失败样本排查图](/img/course/ch10-workshop-failure-debug-map.webp)
 
 打开：
 

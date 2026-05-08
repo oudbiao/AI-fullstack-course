@@ -11,9 +11,9 @@ This chapter is the exit point of Chapter 5. It proves you can turn a data probl
 
 ## Look at the Project Loop First
 
-![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap-en.png)
+![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap-en.webp)
 
-![Machine Learning Project Portfolio Loop](/img/course/ch05-projects-portfolio-loop-en.png)
+![Machine Learning Project Portfolio Loop](/img/course/ch05-projects-portfolio-loop-en.webp)
 
 Keep this project loop:
 
@@ -65,7 +65,7 @@ The workshop comes last because it packages the project habits into one reproduc
 
 ## Project Deliverable Standards
 
-![Machine Learning Project Report Storyboard](/img/course/ch05-project-report-storyboard-en.png)
+![Machine Learning Project Report Storyboard](/img/course/ch05-project-report-storyboard-en.webp)
 
 Keep these files for at least one project: `README.md`, run command, metric table, experiment log, one failure case, one chart, and a next-step plan.
 

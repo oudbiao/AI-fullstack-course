@@ -271,7 +271,7 @@ Prompt 调试最怕这样：
 
 这和调模型超参数很像。
 
-![Prompt 调试闭环漫画](/img/course/ch07-prompt-debug-loop.png)
+![Prompt 调试闭环漫画](/img/course/ch07-prompt-debug-loop.webp)
 
 :::tip 读图提示
 Prompt 调试应该像工程调试，而不是靠猜。先准备测试样本，一次只改一层，再用同一批样本运行，对比通过/不通过，最后记录 Prompt 版本和失败样本。回归的意思是：新改动不能把原来已经通过的旧样本弄坏。

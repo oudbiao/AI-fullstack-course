@@ -29,7 +29,7 @@ So the most important thing in this section is not memorizing every syntax patte
 
 Data selection and filtering are easier to understand as “who do I want to select?”
 
-![Pandas Data Selection and Filtering Map](/img/course/ch03-pandas-selection-filter-map-en.png)
+![Pandas Data Selection and Filtering Map](/img/course/ch03-pandas-selection-filter-map-en.webp)
 
 So what this section really aims to solve is:
 

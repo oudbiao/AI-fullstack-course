@@ -11,11 +11,11 @@ keywords: [概率指南, 统计指南, 概率分布, 贝叶斯, MLE, 信息论]
 
 ## 先看地图
 
-![概率统计学习地图](/img/course/ch04-probability-roadmap-vertical.png)
+![概率统计学习地图](/img/course/ch04-probability-roadmap-vertical.webp)
 
 本小章流向是：
 
-![概率统计章节流程](/img/course/ch04-probability-chapter-flow.png)
+![概率统计章节流程](/img/course/ch04-probability-chapter-flow.webp)
 
 | 术语 | 先问的问题 |
 |---|---|

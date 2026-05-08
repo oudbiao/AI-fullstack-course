@@ -7,7 +7,7 @@ keywords: [神经元, 感知机, 激活函数, ReLU, Sigmoid, Tanh, MLP, PyTorch
 
 # 6.1.3 从神经元到多层感知机
 
-![神经元到 MLP 结构图](/img/course/mlp-neuron-activation.png)
+![神经元到 MLP 结构图](/img/course/mlp-neuron-activation.webp)
 
 :::tip 本节概览
 神经网络从一个简单想法开始：计算加权分数，经过非线性激活，再把许多这样的单元堆成层。
@@ -28,7 +28,7 @@ keywords: [神经元, 感知机, 激活函数, ReLU, Sigmoid, Tanh, MLP, PyTorch
 features -> weighted sum z -> activation a -> layer -> multilayer network
 ```
 
-![神经元线性打分与激活门图](/img/course/ch06-neuron-linear-activation-gate.png)
+![神经元线性打分与激活门图](/img/course/ch06-neuron-linear-activation-gate.webp)
 
 ## 最小历史背景
 
@@ -38,7 +38,7 @@ features -> weighted sum z -> activation a -> layer -> multilayer network
 
 > 神经元本身很简单。真正带来表达能力的是带非线性激活的多层堆叠。
 
-![XOR 单层感知机局限图](/img/course/ch06-xor-single-layer-limit-map.png)
+![XOR 单层感知机局限图](/img/course/ch06-xor-single-layer-limit-map.webp)
 
 ## 环境准备
 

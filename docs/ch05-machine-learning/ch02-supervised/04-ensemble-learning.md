@@ -7,13 +7,13 @@ keywords: [Ensemble Learning, Random Forest, Bagging, Boosting, GBDT, Stacking, 
 
 # 5.2.5 Ensemble Learning: Forest, Boosting, Stacking
 
-![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow-en.png)
+![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow-en.webp)
 
 Ensemble learning combines several models so one model's weakness is less likely to dominate the final prediction. For tabular data, this is often the strongest classic ML family.
 
 ## Look at the Two Main Paths
 
-![Ensemble Learning Family Comic](/img/course/ch05-ensemble-family-comic-en.png)
+![Ensemble Learning Family Comic](/img/course/ch05-ensemble-family-comic-en.webp)
 
 Do not memorize every model name first. Separate the two main ideas:
 
@@ -118,7 +118,7 @@ Stacking can win here because it combines different model families, but it must 
 
 ## Bagging: Random Forest
 
-![Ensemble Learning Voting and Forest Diagram](/img/course/ensemble-learning-voting-forest-en.png)
+![Ensemble Learning Voting and Forest Diagram](/img/course/ensemble-learning-voting-forest-en.webp)
 
 Random Forest trains many decision trees on randomized views of the data and averages/votes their predictions.
 
@@ -133,7 +133,7 @@ Good first settings:
 
 ## Boosting: GBDT and Toolkits
 
-![GBDT residual correction comic](/img/course/ch05-ensemble-gbdt-residual-correction-en.png)
+![GBDT residual correction comic](/img/course/ch05-ensemble-gbdt-residual-correction-en.webp)
 
 Boosting builds models in sequence:
 
@@ -143,7 +143,7 @@ first small tree -> find errors -> next small tree focuses on errors -> repeat
 
 In sklearn, start with `GradientBoostingClassifier` or `HistGradientBoostingClassifier`. In real tabular projects, XGBoost, LightGBM, and CatBoost are common external libraries, but do not add them before the sklearn baseline is clear.
 
-![Boosting toolkit model choice comic](/img/course/ch05-ensemble-boosting-toolkit-en.png)
+![Boosting toolkit model choice comic](/img/course/ch05-ensemble-boosting-toolkit-en.webp)
 
 First tuning order for boosting:
 
@@ -156,7 +156,7 @@ First tuning order for boosting:
 
 ## Stacking Safely
 
-![Stacking leakage-safe workflow comic](/img/course/ch05-ensemble-stacking-leakage-safe-en.png)
+![Stacking leakage-safe workflow comic](/img/course/ch05-ensemble-stacking-leakage-safe-en.webp)
 
 Stacking is powerful only if the meta-model sees out-of-fold predictions:
 

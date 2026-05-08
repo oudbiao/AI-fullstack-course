@@ -11,9 +11,9 @@ Supervised learning answers one question: when examples already have labels, how
 
 ## Look at the Model Choice Map First
 
-![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap-en.png)
+![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap-en.webp)
 
-![Supervised Learning Chapter Flow](/img/course/ch05-supervised-chapter-flow-en.png)
+![Supervised Learning Chapter Flow](/img/course/ch05-supervised-chapter-flow-en.webp)
 
 | Model family | First use |
 |---|---|

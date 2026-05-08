@@ -65,7 +65,7 @@ pred = model.predict(X_test)
 
 ## 二、把两者放在一张图里看
 
-![sklearn 到 PyTorch 换挡图](/img/course/ch06-sklearn-to-pytorch-shift-map.png)
+![sklearn 到 PyTorch 换挡图](/img/course/ch06-sklearn-to-pytorch-shift-map.webp)
 
 - 在 `sklearn` 里，这条链路大多被包进了 `fit()`
 - 在 `PyTorch` 里，这条链路会完整暴露出来

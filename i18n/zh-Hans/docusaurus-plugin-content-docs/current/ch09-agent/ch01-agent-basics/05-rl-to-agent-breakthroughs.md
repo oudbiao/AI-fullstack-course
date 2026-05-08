@@ -7,7 +7,7 @@ keywords: [TD-Gammon, DQN, Atari, AlphaGo, 强化学习, Agent历史]
 
 # 9.1.6 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent
 
-![强化学习到 Agent 历史突破地图](/img/course/ch09-rl-agent-breakthroughs-map.png)
+![强化学习到 Agent 历史突破地图](/img/course/ch09-rl-agent-breakthroughs-map.webp)
 
 :::tip 本节定位
 现代 LLM Agent 不等于强化学习，但 Agent 这个概念和强化学习历史有很深的关系。

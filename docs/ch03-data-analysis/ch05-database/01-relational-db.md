@@ -6,7 +6,7 @@ description: "Understand what a database is and why AI engineers also need to le
 
 # 3.5.2 Basics of Relational Databases
 
-![Basics of Relational Databases](/img/course/ch03-relational-database-foundation-en.png)
+![Basics of Relational Databases](/img/course/ch03-relational-database-foundation-en.webp)
 
 :::info Elective Chapter
 This chapter is optional. If you only want to do data analysis and modeling, you can skip it for now. But if you plan to build AI applications in the future (such as RAG systems or AI Agents), database knowledge is essential.

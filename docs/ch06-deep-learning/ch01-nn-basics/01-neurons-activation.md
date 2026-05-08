@@ -7,7 +7,7 @@ keywords: [neuron, perceptron, activation function, ReLU, Sigmoid, Tanh, MLP, Py
 
 # 6.1.3 From Neurons to Multilayer Perceptrons
 
-![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.png)
+![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.webp)
 
 :::tip Section Overview
 A neural network starts with a simple idea: compute a weighted score, pass it through a nonlinear activation, then stack many such units into layers.
@@ -28,7 +28,7 @@ The key path is:
 features -> weighted sum z -> activation a -> layer -> multilayer network
 ```
 
-![Diagram of neuron linear scoring and activation gate](/img/course/ch06-neuron-linear-activation-gate-en.png)
+![Diagram of neuron linear scoring and activation gate](/img/course/ch06-neuron-linear-activation-gate-en.webp)
 
 ## Minimal History
 
@@ -38,7 +38,7 @@ That history matters because it gives you the main lesson:
 
 > A neuron is simple. Stacking neurons with nonlinear activation is what creates expressive power.
 
-![XOR single-layer perceptron limitation diagram](/img/course/ch06-xor-single-layer-limit-map-en.png)
+![XOR single-layer perceptron limitation diagram](/img/course/ch06-xor-single-layer-limit-map-en.webp)
 
 ## Setup
 

@@ -93,7 +93,7 @@ This table is especially useful for beginners because it reminds you:
 
 - Document processing is not “one parser to rule them all”
 
-![PDF Word PPT document parsing routing diagram](/img/course/ch08-document-parsing-format-router-map-en.png)
+![PDF Word PPT document parsing routing diagram](/img/course/ch08-document-parsing-format-router-map-en.webp)
 
 :::tip Reading guide
 After a file enters the system, it is routed first: text PDFs, scanned PDFs, DOCX, and PPTX have different problems. Before storing into the knowledge base, you need to restore body order, heading hierarchy, page numbers, and content types—not just extract one big block of plain text.

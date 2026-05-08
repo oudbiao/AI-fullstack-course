@@ -7,7 +7,7 @@ keywords: [AI regulation, compliance, risk classification, governance, audit, le
 
 # 12.4.4 AI Regulations and Compliance
 
-![AI Compliance Engineering Translation Map](/img/course/ch12-ai-regulation-engineering-translation-map-en.png)
+![AI Compliance Engineering Translation Map](/img/course/ch12-ai-regulation-engineering-translation-map-en.webp)
 
 :::tip Reading the diagram
 Compliance requirements eventually become system design requirements: data permissions, log auditing, risk classification, human oversight, content labeling, and traceability. When reading the diagram, focus on how “regulatory language” is translated into “engineering configuration.”

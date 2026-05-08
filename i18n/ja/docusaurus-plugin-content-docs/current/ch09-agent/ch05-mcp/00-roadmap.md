@@ -11,11 +11,11 @@ MCP は、tools、resources、prompt templates をより標準的に model appli
 
 ## まず MCP boundary を見る
 
-![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-ja.png)
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-ja.webp)
 
-![MCP 章の学習順序図](/img/course/ch09-mcp-chapter-flow-ja.png)
+![MCP 章の学習順序図](/img/course/ch09-mcp-chapter-flow-ja.webp)
 
-![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-ja.png)
+![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-ja.webp)
 
 Function Calling は structured calls に注目します。MCP は external capabilities が protocol を通じて discovered、described、called、governed される方法に注目します。
 

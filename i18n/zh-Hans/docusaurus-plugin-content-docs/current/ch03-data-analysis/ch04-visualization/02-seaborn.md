@@ -6,7 +6,7 @@ description: "用更少的代码画出更美观的统计图表"
 
 # 3.4.3 Seaborn 统计可视化
 
-![Seaborn 统计图选择图](/img/course/seaborn-statistical-plots.png)
+![Seaborn 统计图选择图](/img/course/seaborn-statistical-plots.webp)
 
 :::tip 本节定位
 很多新人在 `Matplotlib` 和 `Seaborn` 之间最容易混的一点是：

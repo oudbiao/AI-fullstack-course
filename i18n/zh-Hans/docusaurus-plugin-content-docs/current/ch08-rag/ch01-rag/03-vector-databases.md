@@ -7,7 +7,7 @@ keywords: [向量数据库, embedding, similarity search, metadata filter, RAG]
 
 # 8.1.4 向量数据库
 
-![向量数据库相似度检索图](/img/course/vector-database-similarity-search.png)
+![向量数据库相似度检索图](/img/course/vector-database-similarity-search.webp)
 
 ## 学习目标
 
@@ -92,7 +92,7 @@ print(record)
 
 所以向量数据库不是“只有向量”，而是“向量 + 文本 + 元数据”的组合管理。
 
-![向量库记录与元数据过滤图](/img/course/ch08-vector-record-metadata-filter-map.png)
+![向量库记录与元数据过滤图](/img/course/ch08-vector-record-metadata-filter-map.webp)
 
 :::tip 读图提示
 不要只看 vector 那一列。真实 RAG 里，`text` 负责给模型证据，`metadata` 负责过滤、权限、引用和评估，三者缺一块都会让系统难以调试。
@@ -293,7 +293,7 @@ print(record)
 
 - 可能不是绝对最优，但通常足够好
 
-![精确搜索与 ANN 取舍图](/img/course/ch08-ann-exact-search-tradeoff-map.png)
+![精确搜索与 ANN 取舍图](/img/course/ch08-ann-exact-search-tradeoff-map.webp)
 
 :::tip 读图提示
 精确搜索像全班逐个比对，ANN 像先按区域缩小候选再找邻居。新人先记住一句：ANN 牺牲一点“绝对最优保证”，换来大规模检索速度。

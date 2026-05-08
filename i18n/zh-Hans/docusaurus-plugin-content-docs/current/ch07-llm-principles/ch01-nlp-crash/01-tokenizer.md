@@ -7,7 +7,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 # 7.1.2 分词与 Tokenizer
 
-![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.png)
+![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.webp)
 
 :::tip 学完要能做到
 读完这一节，你应该能看着任意一段 prompt，回答四个实操问题：
@@ -36,7 +36,7 @@ raw text -> tokens -> input_ids -> model
 
 ## 切分粒度的取舍
 
-![Tokenizer 粒度取舍图](/img/course/ch07-tokenizer-granularity-tradeoff-map.png)
+![Tokenizer 粒度取舍图](/img/course/ch07-tokenizer-granularity-tradeoff-map.webp)
 
 常见切法有三类：
 
@@ -174,7 +174,7 @@ attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 
 ## 实验 2：把 truncation 当成产品风险看
 
-![Tokenizer 到 input_ids 与 attention_mask 图](/img/course/ch07-tokenizer-inputids-mask-length-map.png)
+![Tokenizer 到 input_ids 与 attention_mask 图](/img/course/ch07-tokenizer-inputids-mask-length-map.webp)
 
 现在故意把上下文窗口调小。
 

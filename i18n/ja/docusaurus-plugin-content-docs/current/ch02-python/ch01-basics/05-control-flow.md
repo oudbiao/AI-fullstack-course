@@ -6,7 +6,7 @@ description: "条件分岐とループ構造を身につける"
 
 # 2.1.5 フロー制御
 
-![Python フロー制御の実行パス図](/img/course/ch02-control-flow-paths-ja.png)
+![Python フロー制御の実行パス図](/img/course/ch02-control-flow-paths-ja.webp)
 
 ## この節の位置づけ
 

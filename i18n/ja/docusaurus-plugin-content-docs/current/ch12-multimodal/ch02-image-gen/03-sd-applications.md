@@ -7,7 +7,7 @@ keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workfl
 
 # 12.2.4 SD の応用
 
-![Stable Diffusion の応用モード選択図](/img/course/ch12-sd-application-mode-selector-map-ja.png)
+![Stable Diffusion の応用モード選択図](/img/course/ch12-sd-application-mode-selector-map-ja.webp)
 
 :::tip 図の見方
 SD の応用では、まずユーザーが本当に「ゼロから生成したい」のか、「参考画像を加工したい」のか、「局所修復したい」のか、それとも「条件付きで制御したい」のかを分けて考えます。  

@@ -7,7 +7,7 @@ keywords: [digital human, avatar, lip sync, talking head, virtual human, audio-d
 
 # 12.3.4 Digital Human Technology [Elective]
 
-![Digital human multi-module synchronization diagram](/img/course/ch12-digital-human-sync-pipeline-map-en.png)
+![Digital human multi-module synchronization diagram](/img/course/ch12-digital-human-sync-pipeline-map-en.webp)
 
 :::tip Reading guide
 The digital human experience depends on multi-module synchronization, not on any single model. When reading the diagram, focus on how the script, TTS, lip sync, facial expressions and motion, identity consistency, moderation, and export pass errors along step by step.

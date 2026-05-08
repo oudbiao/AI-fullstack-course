@@ -11,9 +11,9 @@ keywords: [LLM 预训练, 训练数据, next token prediction, 数据治理, 预
 
 ## 先看预训练三角
 
-![预训练章节关系图](/img/course/ch07-pretraining-chapter-flow.png)
+![预训练章节关系图](/img/course/ch07-pretraining-chapter-flow.webp)
 
-![预训练数据、目标与工程三角图](/img/course/ch07-pretraining-data-objective-engineering-map.png)
+![预训练数据、目标与工程三角图](/img/course/ch07-pretraining-data-objective-engineering-map.webp)
 
 | 部分 | 先问的问题 |
 |---|---|

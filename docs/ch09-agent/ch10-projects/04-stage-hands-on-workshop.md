@@ -13,7 +13,7 @@ The first version uses only the Python standard library. That is intentional. Be
 
 ## What You Will Build
 
-![Agent workshop single-Agent execution loop](/img/course/ch09-workshop-single-agent-loop-flow-map-en.png)
+![Agent workshop single-Agent execution loop](/img/course/ch09-workshop-single-agent-loop-flow-map-en.webp)
 
 You will build a learning-planning Agent with these abilities:
 
@@ -32,7 +32,7 @@ Follow this page in order: look at the diagram, copy the code, run it, compare o
 
 ## Step 0: Understand the Agent Loop Before Coding
 
-![Agent action loop and trace diagram](/img/course/ch09-agent-action-loop-trace-map-en.png)
+![Agent action loop and trace diagram](/img/course/ch09-agent-action-loop-trace-map-en.webp)
 
 An Agent is not just “a chatbot with tools.” In this workshop, an Agent means:
 
@@ -59,7 +59,7 @@ You only need Python 3.10 or newer. The first script uses no third-party package
 
 ## Step 2: Copy the Full Offline Agent Script
 
-![Agent workshop tool schema and permission gate](/img/course/ch09-workshop-tool-schema-permission-map-en.png)
+![Agent workshop tool schema and permission gate](/img/course/ch09-workshop-tool-schema-permission-map-en.webp)
 
 Before copying the code, read the diagram as a safety checklist. A tool call should not jump directly from model decision to execution. It should pass through:
 
@@ -433,7 +433,7 @@ If your output matches, you have completed the minimum Chapter 9 loop: the Agent
 
 ## Step 4: Inspect the Trace File
 
-![Agent workshop trace JSONL replay map](/img/course/ch09-workshop-trace-jsonl-replay-map-en.png)
+![Agent workshop trace JSONL replay map](/img/course/ch09-workshop-trace-jsonl-replay-map-en.webp)
 
 Run:
 
@@ -489,7 +489,7 @@ This script is deliberately deterministic. It is not trying to be intelligent ye
 
 ## Step 6: Understand the Permission Branch
 
-![Tool safety permission, sandbox, and audit diagram](/img/course/ch09-tool-safety-permission-sandbox-map-en.png)
+![Tool safety permission, sandbox, and audit diagram](/img/course/ch09-tool-safety-permission-sandbox-map-en.webp)
 
 The key safety behavior happens here:
 
@@ -518,7 +518,7 @@ Run the script again. The risky case should move from `blocked_by_approval` to `
 
 ## Step 7: Read the Evaluation as a Scorecard
 
-![Agent workshop evaluation scorecard](/img/course/ch09-workshop-evaluation-scorecard-map-en.png)
+![Agent workshop evaluation scorecard](/img/course/ch09-workshop-evaluation-scorecard-map-en.webp)
 
 `EVAL_CASES` checks three different behaviors:
 
@@ -544,7 +544,7 @@ Complete these in order:
 
 ## Step 9: Optional OpenAI Agents SDK Upgrade
 
-![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.png)
+![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.webp)
 
 The offline script is the required beginner path. After it works, you can replace the hand-written planner with the current OpenAI Agents SDK. The official quickstart installs the package with `pip install openai-agents` and uses `Agent`, `Runner`, and `@function_tool` as the core building blocks.
 
@@ -600,7 +600,7 @@ In a real project, keep the same habits from the offline script:
 
 ## Workshop Completion Standard
 
-![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-en.png)
+![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-en.webp)
 
 You have completed this Chapter 9 hands-on workshop when you can:
 

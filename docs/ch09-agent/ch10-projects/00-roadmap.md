@@ -11,11 +11,11 @@ An Agent project portfolio should show a traceable execution loop, not just one 
 
 ## See the Project Loop First
 
-![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-en.png)
+![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-en.webp)
 
-![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-en.png)
+![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-en.webp)
 
-![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-en.png)
+![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-en.webp)
 
 The loop is: goal, plan, tool call, observation, state update, failure handling, stop decision, final output, evaluation.
 

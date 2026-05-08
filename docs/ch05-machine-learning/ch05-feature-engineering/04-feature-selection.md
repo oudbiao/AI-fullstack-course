@@ -7,7 +7,7 @@ keywords: [feature selection, filter methods, wrapper methods, embedded methods,
 
 # 5.5.5 Feature Selection
 
-![Feature selection method comparison](/img/course/feature-selection-methods-en.png)
+![Feature selection method comparison](/img/course/feature-selection-methods-en.webp)
 
 :::tip This Section's Focus
 Feature selection is not about removing as many features as possible. It is about balancing performance, stability, interpretability, and cost. The real goal is to keep features that are useful for the task, available in production, and free of leakage.
@@ -20,7 +20,7 @@ Feature selection is not about removing as many features as possible. It is abou
 - Use validation and cross-validation to determine whether feature selection actually helps
 - Understand the relationship between feature selection, business interpretability, and production cost
 
-![Practical Feature Selection Workflow](/img/course/ch05-feature-selection-practical-workflow-en.png)
+![Practical Feature Selection Workflow](/img/course/ch05-feature-selection-practical-workflow-en.webp)
 
 Read this picture before the code: feature selection is not "delete columns until the table is small." A practical workflow is to remove obvious risks first, build a baseline, put the selector inside a `Pipeline`, and keep only features that are useful, available, and explainable.
 

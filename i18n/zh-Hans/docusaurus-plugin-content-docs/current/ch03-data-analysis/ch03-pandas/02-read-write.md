@@ -36,7 +36,7 @@ description: "掌握 CSV、Excel、JSON 等格式的数据读写"
 
 数据读写更适合按“先读进来，再确认读对了没有”来理解：
 
-![Pandas 数据读写初次见面流程](/img/course/ch03-pandas-read-write-first-look.png)
+![Pandas 数据读写初次见面流程](/img/course/ch03-pandas-read-write-first-look.webp)
 
 所以这节真正想解决的是：
 

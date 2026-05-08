@@ -170,7 +170,7 @@ print(points)
 
 这正是“点云感”最容易入门的地方。
 
-![3D 视觉深度、视差与点云直觉图](/img/course/ch10-3d-depth-disparity-pointcloud-map.png)
+![3D 视觉深度、视差与点云直觉图](/img/course/ch10-3d-depth-disparity-pointcloud-map.webp)
 
 :::tip 读图提示
 3D 视觉真正新增的是空间关系。读这张图时先看 disparity 如何影响 depth，再看像素点如何带着深度变成 point cloud，最后再理解相机参数和多视角几何为什么重要。

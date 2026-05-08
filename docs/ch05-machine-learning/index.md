@@ -7,13 +7,13 @@ keywords: [machine learning, Scikit-learn, supervised learning, unsupervised lea
 
 # 5 Introduction to Machine Learning: From Basics to Practice
 
-![Main visual for machine learning](/img/course/ch05-machine-learning-en.png)
+![Main visual for machine learning](/img/course/ch05-machine-learning-en.webp)
 
 Chapter 5 has one job: help you turn a data problem into **a trainable, evaluable, improvable machine learning project**.
 
 ## See The Modeling Loop
 
-![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.png)
+![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.webp)
 
 Read the picture first. Most reliable ML work follows this loop:
 

@@ -5,9 +5,9 @@ sidebar_position: 3
 
 # A.6 Frequently Asked Questions
 
-![FAQ Newcomer Question Decision Tree](/img/course/appendix-faq-decision-tree-en.png)
+![FAQ Newcomer Question Decision Tree](/img/course/appendix-faq-decision-tree-en.webp)
 
-![FAQ Anxiety Reset and Action Mapping Diagram](/img/course/appendix-faq-confidence-reset-map-en.png)
+![FAQ Anxiety Reset and Action Mapping Diagram](/img/course/appendix-faq-confidence-reset-map-en.webp)
 
 Use this page when the question is emotional or vague. Convert it into a next action.
 

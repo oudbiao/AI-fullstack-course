@@ -7,7 +7,7 @@ keywords: [逻辑回归, sigmoid, 交叉熵, 阈值, 分类, 正则化, sklearn]
 
 # 5.2.3 逻辑回归
 
-![逻辑回归决策边界图](/img/course/logistic-regression-boundary.png)
+![逻辑回归决策边界图](/img/course/logistic-regression-boundary.webp)
 
 :::tip 本节定位
 逻辑回归名字里有“回归”，但实际项目里它是一个**分类模型**。它先学习一个线性分数，再把分数变成概率，最后用阈值做分类决定。
@@ -26,9 +26,9 @@ keywords: [逻辑回归, sigmoid, 交叉熵, 阈值, 分类, 正则化, sklearn]
 
 先看下面两张图，再运行代码。看到真实输出以后，后面的概念会容易很多。
 
-![逻辑回归分类主线图](/img/course/ch05-logistic-classification-flow.png)
+![逻辑回归分类主线图](/img/course/ch05-logistic-classification-flow.webp)
 
-![逻辑回归概率学习漫画](/img/course/ch05-logistic-probability-comic.png)
+![逻辑回归概率学习漫画](/img/course/ch05-logistic-probability-comic.webp)
 
 ## 环境准备
 
@@ -151,7 +151,7 @@ setosa:0.05 | versicolor:0.88 | virginica:0.07
 
 ## 读懂这条流水线
 
-![逻辑回归从分数到概率再到阈值决策](/img/course/ch05-logistic-score-probability-threshold.png)
+![逻辑回归从分数到概率再到阈值决策](/img/course/ch05-logistic-score-probability-threshold.webp)
 
 模型其实在做三件不同的事：
 
@@ -173,7 +173,7 @@ sigmoid(z) = 1 / (1 + exp(-z))
 
 当 `z = 0` 时，概率就是 `0.5`。所以二分类逻辑回归的默认决策边界，就是原始分数等于零的那条线或那个超平面。
 
-![逻辑回归二元交叉熵直觉图](/img/course/ch05-logistic-bce-intuition.png)
+![逻辑回归二元交叉熵直觉图](/img/course/ch05-logistic-bce-intuition.webp)
 
 `BCE` 是 **Binary Cross-Entropy，二元交叉熵**，常用于二分类概率预测。先记住这个直觉：
 
@@ -185,7 +185,7 @@ sigmoid(z) = 1 / (1 + exp(-z))
 
 ## 阈值是产品决策
 
-![逻辑回归阈值权衡图](/img/course/ch05-logistic-threshold-tradeoff.png)
+![逻辑回归阈值权衡图](/img/course/ch05-logistic-threshold-tradeoff.webp)
 
 从输出可以看到，阈值一变，错误类型也会变：
 
@@ -197,11 +197,11 @@ sigmoid(z) = 1 / (1 + exp(-z))
 
 给有经验的读者：不要只用 accuracy 选阈值。先弄清楚 `fp` 和 `fn` 的成本，再结合 precision-recall 曲线或 ROC 曲线判断。
 
-![阈值、ROC 与 PR 曲线地图](/img/course/ch05-threshold-roc-pr-curve-map.png)
+![阈值、ROC 与 PR 曲线地图](/img/course/ch05-threshold-roc-pr-curve-map.webp)
 
 ## 正则化与 `C`
 
-![逻辑回归正则化概念图](/img/course/ch05-logistic-regularization-concepts.png)
+![逻辑回归正则化概念图](/img/course/ch05-logistic-regularization-concepts.webp)
 
 在 sklearn 里，`C` 是正则化强度的倒数：
 
@@ -221,7 +221,7 @@ C=10.0 accuracy=0.972 coef_norm=8.38
 
 ## 多分类
 
-![OvR 与 Softmax 多分类逻辑回归对比图](/img/course/ch05-logistic-multiclass-ovr-softmax.png)
+![OvR 与 Softmax 多分类逻辑回归对比图](/img/course/ch05-logistic-multiclass-ovr-softmax.webp)
 
 类别超过两个时，逻辑回归仍然可以输出概率。在 Iris 的输出里，每一行概率加起来大约是 `1.0`：
 

@@ -7,7 +7,7 @@ keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]
 
 # 7.6.3 LoRA と QLoRA
 
-![LoRA パラメータ更新の比較図](/img/course/lora-parameter-update-ja.png)
+![LoRA パラメータ更新の比較図](/img/course/lora-parameter-update-ja.webp)
 
 :::tip この節の位置づけ
 前の節で、「なぜすべてのタスクを全量ファインチューニングすべきではないのか」はすでに整理しました。  
@@ -160,7 +160,7 @@ W_new の形 : torch.Size([8, 8])
 
 これが、リソースを節約できる根本的な理由です。
 
-![LoRA と QLoRA の低ランク増分とメモリ節約の図](/img/course/ch07-lora-qlora-low-rank-memory-map-ja.png)
+![LoRA と QLoRA の低ランク増分とメモリ節約の図](/img/course/ch07-lora-qlora-low-rank-memory-map-ja.webp)
 
 :::tip 図の読み方
 この図を見るときは、元の重み `W` を「凍結された大きな土台」として見てください。LoRA は小さな行列 `A` と `B` だけを学習して `ΔW = A @ B` を作ります。QLoRA はさらにベースモデルを量子化して、GPU メモリを減らします。大事なのは略語ではなく、「変更するパラメータを減らし、使うメモリも減らす」という考え方です。

@@ -38,7 +38,7 @@ description: "Plotly を使って操作できる動くグラフを作る"
 
 `Plotly` は、「いつユーザーにグラフを自由に見てもらいたいか」という観点で理解するのがいちばん分かりやすいです。
 
-![Plotly インタラクティブダッシュボード図](/img/course/ch03-plotly-interactive-dashboard-ja.png)
+![Plotly インタラクティブダッシュボード図](/img/course/ch03-plotly-interactive-dashboard-ja.webp)
 
 この節で本当に知りたいのは、次の点です。
 

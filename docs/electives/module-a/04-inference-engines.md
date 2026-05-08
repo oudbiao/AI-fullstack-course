@@ -7,9 +7,9 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 # E.A.4 Inference Engines
 
-![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware-en.png)
+![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware-en.webp)
 
-![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix-en.png)
+![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix-en.webp)
 
 An inference engine is the runtime layer between a trained model and real hardware. The model says what to compute; the engine decides how to execute that graph efficiently on CPU, GPU, NPU, or edge hardware.
 

@@ -68,7 +68,7 @@ RLHF 很重要，但它不是唯一答案。
 前者主要在简化训练目标，
 后者主要在降低“全靠人工偏好数据”的成本。
 
-![对齐方法选择地图](/img/course/ch07-alignment-method-map.png)
+![对齐方法选择地图](/img/course/ch07-alignment-method-map.webp)
 
 :::tip 读图提示
 读这张图时可以从“我们想降低哪种成本或复杂度”出发：RLHF 保留完整偏好优化链路；DPO 直接用 chosen/rejected 偏好对优化策略；RLAIF 改变反馈来源；Constitutional AI 先把规则写清楚，再做批评和修订。
@@ -299,7 +299,7 @@ DPO 关心的不是某个回答单独的分数，
 这正符合 DPO 的优化方向。
 loss 下降，说明策略更符合偏好数据。
 
-![DPO 相比 RLHF 的偏好优化捷径图](/img/course/ch07-dpo-rlhf-shortcut-map.png)
+![DPO 相比 RLHF 的偏好优化捷径图](/img/course/ch07-dpo-rlhf-shortcut-map.webp)
 
 :::tip 读图提示
 读这张图时先看 RLHF 的长链：偏好对 -> 奖励模型 -> PPO/策略优化；再看 DPO 的短链：直接用 chosen/rejected 偏好对优化策略边距。DPO 的吸引力就在于保留偏好学习目标，同时砍掉奖励模型和强化学习的大段工程复杂度。

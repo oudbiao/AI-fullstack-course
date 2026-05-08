@@ -11,11 +11,11 @@ keywords: [Agent 框架指南, LangGraph, LlamaIndex, CrewAI, AutoGen]
 
 ## 先看选择地图
 
-![Agent 框架位置图](/img/course/ch09-frameworks-position-map.png)
+![Agent 框架位置图](/img/course/ch09-frameworks-position-map.webp)
 
-![Agent 框架选择图](/img/course/ch09-framework-selection-map.png)
+![Agent 框架选择图](/img/course/ch09-framework-selection-map.webp)
 
-![Agent 框架选择决策图](/img/course/ch09-framework-selection-decision-map.png)
+![Agent 框架选择决策图](/img/course/ch09-framework-selection-decision-map.webp)
 
 如果任务只有三个固定步骤，普通 Python 函数可能更好。只有当状态、分支、恢复、数据连接或角色协作开始难以管理时，再加入框架。
 

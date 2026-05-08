@@ -7,7 +7,7 @@ keywords: [AI environment setup, Python environment, VS Code, Git, Miniconda, qu
 
 # 0.2 Environment Setup
 
-![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.png)
+![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.webp)
 
 Install less first. The goal is only: run Python, save code with Git, and keep one project folder.
 

@@ -7,7 +7,7 @@ keywords: [Hugging Face, transformers, tokenizer, model, config, forward, batch,
 
 # 7.1.5 Hugging Face クイックスタート
 
-![Hugging Face ワークフローのオブジェクト図](/img/course/ch07-huggingface-workflow-object-map-ja.png)
+![Hugging Face ワークフローのオブジェクト図](/img/course/ch07-huggingface-workflow-object-map-ja.webp)
 
 :::tip 中心の流れ
 多くの Hugging Face 例は、次の 1 本の流れに戻せます。
@@ -147,7 +147,7 @@ torch.Size([2, 6, 768])
 
 ## 実コードを読むためのオブジェクト地図
 
-![Hugging Face 用語マップ](/img/course/ch07-huggingface-terms-map-ja.png)
+![Hugging Face 用語マップ](/img/course/ch07-huggingface-terms-map-ja.webp)
 
 リポジトリを読むときは、知らない名前を中心の流れに戻します。
 

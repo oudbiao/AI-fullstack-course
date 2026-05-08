@@ -7,7 +7,7 @@ keywords: [超参数调优, GridSearchCV, RandomizedSearchCV, 搜索空间, hold
 
 # 5.4.5 超参数调优
 
-![超参数搜索方法对比图](/img/course/hyperparameter-tuning-search.png)
+![超参数搜索方法对比图](/img/course/hyperparameter-tuning-search.webp)
 
 :::tip 本节概览
 超参数调优不是“不断试设置，直到测试集分数好看”。安全流程是在训练折上搜索，用交叉验证选择参数，最后只在 final holdout 上检查一次。
@@ -23,9 +23,9 @@ keywords: [超参数调优, GridSearchCV, RandomizedSearchCV, 搜索空间, hold
 - 如何保留最终 holdout 不参与调参；
 - 如何避免过度调参。
 
-![超参数调优验证流程图](/img/course/ch05-hyperparameter-tuning-workflow.png)
+![超参数调优验证流程图](/img/course/ch05-hyperparameter-tuning-workflow.webp)
 
-![超参数搜索空间与预算图](/img/course/ch05-search-space-budget-map.png)
+![超参数搜索空间与预算图](/img/course/ch05-search-space-budget-map.webp)
 
 ## 术语速查
 

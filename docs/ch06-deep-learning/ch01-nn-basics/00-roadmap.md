@@ -11,7 +11,7 @@ Neural networks are not magic. A layer first does a weighted sum, then an activa
 
 ## Look at the Flow First
 
-![Neural network basics chapter relationship diagram](/img/course/ch06-nn-basics-chapter-flow-en.png)
+![Neural network basics chapter relationship diagram](/img/course/ch06-nn-basics-chapter-flow-en.webp)
 
 Keep this loop:
 

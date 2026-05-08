@@ -136,7 +136,7 @@ Encoder-Decoder 的典型代表是：
 
 所以 MoE 更像“规模化路线的变体”。
 
-![MoE token 路由与专家激活图](/img/course/ch07-moe-token-routing-map.png)
+![MoE token 路由与专家激活图](/img/course/ch07-moe-token-routing-map.webp)
 
 :::tip 读图提示
 从 token 的视角读 MoE：每个 token 先进入路由器，路由器给多个专家 FFN 打分，然后只激活得分最高的 top-k 专家。正因为这样，MoE 可以拥有更多总参数，但每个 token 实际激活的计算量仍然较小。
@@ -243,7 +243,7 @@ encoder-decoder cross-attention
 
 结构是否合适，本质上就是信息流约束是否匹配任务。
 
-![架构 mask 与任务适配图](/img/course/ch07-architecture-mask-task-fit-map.png)
+![架构 mask 与任务适配图](/img/course/ch07-architecture-mask-task-fit-map.webp)
 
 :::tip 读图提示
 读这张图时先问“谁能看谁”：Encoder-only 适合理解，因为能双向看完整输入；Decoder-only 适合生成，因为只能看过去；Encoder-Decoder 适合翻译摘要，因为输入先被完整编码，输出再因果生成。

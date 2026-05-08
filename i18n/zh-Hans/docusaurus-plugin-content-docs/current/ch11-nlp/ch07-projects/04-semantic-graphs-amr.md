@@ -7,7 +7,7 @@ keywords: [AMR, 语义图, 语义解析, 信息抽取, 知识图谱]
 
 # 11.7.5 语义图与 AMR：把句子变成结构化含义
 
-![AMR 语义图理解地图](/img/course/ch11-amr-semantic-graph-map.png)
+![AMR 语义图理解地图](/img/course/ch11-amr-semantic-graph-map.webp)
 
 :::tip 本节定位
 文本不只是一串词。很多时候，我们真正想要的是句子背后的结构化含义。

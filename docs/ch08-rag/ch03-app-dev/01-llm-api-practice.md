@@ -69,7 +69,7 @@ You can think of it as:
 
 > **Sending task instructions, context, and control parameters to the model together.**
 
-![LLM API call mental model](/img/course/ch08-llm-api-call-mental-model-en.png)
+![LLM API call mental model](/img/course/ch08-llm-api-call-mental-model-en.webp)
 
 :::tip Reading guide
 Read this diagram as a runtime loop instead of a single line of code. `API` means an application interface, `endpoint` means the service address, `JSON` is the structured data format sent over the network, and `usage` records token consumption so later cost and performance analysis are possible.
@@ -388,7 +388,7 @@ When you start connecting API calls into a real project, you can use the table b
 
 The key point of this table is to make the API layer a “stable interface” rather than a collection of scattered model requests in the codebase. The later topics of RAG, structured output, Function Calling, and Agent all depend on this layer.
 
-![LLM API robust client closed-loop diagram](/img/course/ch08-llm-api-robust-client-loop-map-en.png)
+![LLM API robust client closed-loop diagram](/img/course/ch08-llm-api-robust-client-loop-map-en.webp)
 
 :::tip Reading guide
 Once a model call enters the project, it is no longer just `client.chat()`. In the diagram, configuration, timeout, retry, unified response, usage, logging, and raw output are placed in the same loop to remind you that the API layer should first become a stable runtime.

@@ -31,7 +31,7 @@ So the most important thing in this section is not memorizing `resample()` and `
 
 Time series is easier to understand as: “first turn dates into objects you can work with, then analyze along the time dimension”:
 
-![Pandas Time Series Analysis Diagram](/img/course/ch03-pandas-time-series-analysis-en.png)
+![Pandas Time Series Analysis Diagram](/img/course/ch03-pandas-time-series-analysis-en.webp)
 
 So what this section really aims to solve is:
 
@@ -204,7 +204,7 @@ This sequence is especially important because many beginners learn in a jumpy wa
 
 ## Resampling (`resample`)
 
-![Pandas resample and rolling timeline diagram](/img/course/ch03-pandas-resample-rolling-timeline-en.svg)
+![Pandas resample and rolling timeline diagram](/img/course/ch03-pandas-resample-rolling-timeline-en.webp)
 
 Resampling is one of the core operations in time series—it changes the **time frequency** of the data.
 

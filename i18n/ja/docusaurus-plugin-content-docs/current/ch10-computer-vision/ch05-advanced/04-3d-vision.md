@@ -173,7 +173,7 @@ print(points)
 
 これが「点群っぽさ」を最初に理解するいちばん簡単な入口です。
 
-![3D ビジョンの深度、視差、点群の直感図](/img/course/ch10-3d-depth-disparity-pointcloud-map-ja.png)
+![3D ビジョンの深度、視差、点群の直感図](/img/course/ch10-3d-depth-disparity-pointcloud-map-ja.webp)
 
 :::tip 図の見方
 3Dビジョンで本当に新しくなるのは空間関係です。  

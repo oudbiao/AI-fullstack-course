@@ -7,7 +7,7 @@ keywords: [video generation, temporal consistency, motion modeling, video diffus
 
 # 12.3.2 视频生成技术
 
-![视频与语音生成流水线图](/img/course/video-audio-generation-pipeline.png)
+![视频与语音生成流水线图](/img/course/video-audio-generation-pipeline.webp)
 
 :::tip 本节定位
 如果说图像生成是在解决：

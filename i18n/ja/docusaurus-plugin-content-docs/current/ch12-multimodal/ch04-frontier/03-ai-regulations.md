@@ -7,7 +7,7 @@ keywords: [AI regulation, compliance, risk classification, governance, audit, le
 
 # 12.4.4 AI規制とコンプライアンス
 
-![AI コンプライアンスのエンジニアリング変換図](/img/course/ch12-ai-regulation-engineering-translation-map-ja.png)
+![AI コンプライアンスのエンジニアリング変換図](/img/course/ch12-ai-regulation-engineering-translation-map-ja.webp)
 
 :::tip 読み方のヒント
 コンプライアンス要件は、最終的にシステム設計要件に変わります。たとえば、データ権限、ログ監査、リスク分類、人的監督、内容の明示、追跡可能性です。図を見るときは、「規制の言葉」がどのように「エンジニアリング設定」に翻訳されているかに注目してください。

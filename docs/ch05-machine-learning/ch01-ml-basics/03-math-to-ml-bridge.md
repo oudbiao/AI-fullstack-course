@@ -7,7 +7,7 @@ keywords: [math to machine learning, linear algebra, probability and statistics,
 
 # 5.1.4 How Mathematics Really Flows into Machine Learning
 
-![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge-en.png)
+![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge-en.webp)
 
 :::tip Section focus
 This is not a new math lesson, and it is not a concrete algorithm lesson either. It has only one job: to connect the math you learned in Station 4 to the machine learning modeling process in Station 5.
@@ -43,7 +43,7 @@ The usual reason is not that they did not learn the math, but that they never ma
 
 A more stable way to understand it is to remember this diagram first:
 
-![Math to machine learning training map](/img/course/ch05-math-to-ml-training-map-en.png)
+![Math to machine learning training map](/img/course/ch05-math-to-ml-training-map-en.webp)
 
 If you grasp this diagram first, you will not panic when you see formulas later, because you will know:
 
@@ -253,7 +253,7 @@ That is the core intuition of gradient descent.
 The following example does only one thing:
 Using the simplest linear relationship `y = wx + b`, it shows how parameters are learned step by step.
 
-![Gradient descent four-step training loop](/img/course/ch05-gradient-descent-four-step-loop-en.png)
+![Gradient descent four-step training loop](/img/course/ch05-gradient-descent-four-step-loop-en.webp)
 
 Read the picture before the code: every loop first makes a prediction, then measures how wrong it was, then calculates the direction to improve, and finally nudges `w` and `b`. The code below is just this picture written in NumPy.
 
@@ -320,7 +320,7 @@ So the most important role of calculus here is:
 
 If you break down one smallest machine learning training cycle, it is actually the following steps:
 
-![Machine learning math training loop comic](/img/course/ch05-math-training-loop-comic-en.png)
+![Machine learning math training loop comic](/img/course/ch05-math-training-loop-comic-en.webp)
 
 Read this image from top to bottom: the table becomes `X`, the knobs become `w`, the gap becomes `loss`, and the downhill path becomes gradient descent. This is the same story as the code above, just drawn as a training loop.
 

@@ -7,7 +7,7 @@ keywords: [AI learning path, AI full-stack path, LLM learning path, Agent learni
 
 # 0.4 Recommended Learning Path
 
-![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.png)
+![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.webp)
 
 If you are unsure, choose the beginner path: **Chapter 1 -> Chapter 9 in order, one small output per stage.**
 

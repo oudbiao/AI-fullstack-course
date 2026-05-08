@@ -7,7 +7,7 @@ keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classificat
 
 # E.C.2 K 近邻
 
-![KNN 邻居投票图](/img/course/elective-knn-neighbor-voting.png)
+![KNN 邻居投票图](/img/course/elective-knn-neighbor-voting.webp)
 
 KNN 会看离新样本最近的已标注样本，再让它们投票。它几乎没有训练成本，但预测时要比较距离，所以数据大时会变慢。
 

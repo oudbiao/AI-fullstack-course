@@ -7,7 +7,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 # 9.7.2 多 Agent 架构模式
 
-![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.png)
+![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.webp)
 
 :::tip 本节定位
 很多人第一次做多 Agent 时，最容易犯的错就是：
@@ -270,7 +270,7 @@ review: {'approved': True, 'comment': '关键信息已覆盖'}
 - 容易跑题
 - 更难收敛
 
-![多 Agent 架构模式选择图](/img/course/ch09-multi-agent-pattern-selection-map.png)
+![多 Agent 架构模式选择图](/img/course/ch09-multi-agent-pattern-selection-map.webp)
 
 :::tip 读图提示
 读这张图时，先看任务有没有天然分工：需要中心调度就选 supervisor-worker，阶段固定就选 pipeline，需要质量检查就加 reviewer，需要多视角讨论才考虑 peer/group。

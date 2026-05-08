@@ -7,7 +7,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 # E.C.3 Naive Bayes
 
-![Naive Bayes evidence accumulation diagram](/img/course/elective-naive-bayes-evidence-en.png)
+![Naive Bayes evidence accumulation diagram](/img/course/elective-naive-bayes-evidence-en.webp)
 
 Naive Bayes compares which class is more likely to generate the observed evidence. In text tasks, word counts are often strong enough to create a cheap and useful baseline.
 

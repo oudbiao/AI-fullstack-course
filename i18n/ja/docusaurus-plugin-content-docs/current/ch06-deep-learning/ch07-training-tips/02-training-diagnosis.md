@@ -23,7 +23,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 ## まずカーブを見る
 
-![訓練カーブ診断図](/img/course/training-curve-diagnosis-ja.png)
+![訓練カーブ診断図](/img/course/training-curve-diagnosis-ja.webp)
 
 最初の質問は「どのモデルに変えるか」ではありません。
 
@@ -39,7 +39,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 | prediction がほぼ 1 class | collapse または data issue | labels、class balance、output layer |
 | metric が急に変わる | pipeline bug または distribution shift | data loader、preprocessing、validation split |
 
-![訓練診断ダッシュボードの切り分け図](/img/course/ch06-training-diagnosis-dashboard-map-ja.png)
+![訓練診断ダッシュボードの切り分け図](/img/course/ch06-training-diagnosis-dashboard-map-ja.webp)
 
 ## 実験 1：カーブパターンを分類する
 

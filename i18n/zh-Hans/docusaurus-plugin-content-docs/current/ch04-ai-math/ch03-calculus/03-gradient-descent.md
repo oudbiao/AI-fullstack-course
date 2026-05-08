@@ -7,7 +7,7 @@ keywords: [梯度下降, 学习率, SGD, 优化算法, 线性回归, AI数学]
 
 # 4.3.4 梯度下降：AI 最核心的优化算法
 
-![梯度下降路径图](/img/course/gradient-descent-path.png)
+![梯度下降路径图](/img/course/gradient-descent-path.webp)
 
 :::tip 本节是整个数学阶段的高潮
 梯度下降是**所有深度学习模型训练的基础**。理解了它，你就理解了 AI 模型是如何"学习"的。
@@ -37,7 +37,7 @@ keywords: [梯度下降, 学习率, SGD, 优化算法, 线性回归, AI数学]
 
 > **既然知道怎么变了，怎样真正把参数一步步调到更好的位置？**
 
-![梯度下降迭代闭环图](/img/course/ch04-gradient-descent-iteration-loop.png)
+![梯度下降迭代闭环图](/img/course/ch04-gradient-descent-iteration-loop.webp)
 
 如果把这一节学明白，后面你看到优化器、学习率、训练过程时就不会只剩下“背 API”了。
 

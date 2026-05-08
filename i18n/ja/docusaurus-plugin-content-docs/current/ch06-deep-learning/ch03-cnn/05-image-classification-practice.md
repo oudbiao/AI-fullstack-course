@@ -11,7 +11,7 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 ここは、これまでの内容をまとめて動かす節です。小さな画像データセットを作り、CNN を学習し、検証し、予測を確認し、次に何を試すべきかを判断します。
 :::
 
-![CNN 画像分類の実践ループ](/img/course/ch06-cnn-image-classification-practice-loop-ja.png)
+![CNN 画像分類の実践ループ](/img/course/ch06-cnn-image-classification-practice-loop-ja.webp)
 
 ## 学習目標
 

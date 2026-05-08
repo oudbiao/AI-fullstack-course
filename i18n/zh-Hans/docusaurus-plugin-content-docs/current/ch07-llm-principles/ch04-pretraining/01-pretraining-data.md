@@ -7,7 +7,7 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 # 7.4.2 预训练数据
 
-![预训练数据流水线图](/img/course/pretraining-data-pipeline.png)
+![预训练数据流水线图](/img/course/pretraining-data-pipeline.webp)
 
 :::tip 本节定位
 很多人提到大模型，会先想到：
@@ -139,7 +139,7 @@ flowchart LR
 
 这条管道可以帮你把“数据很重要”具体化：每一步都会改变模型最后能学到什么、偏向什么、容易犯什么错。
 
-![预训练数据治理漏斗图](/img/course/ch07-pretraining-data-governance-funnel.png)
+![预训练数据治理漏斗图](/img/course/ch07-pretraining-data-governance-funnel.webp)
 
 :::tip 读图提示
 这张图要从“原始数据很多”读到“可训练语料很少”：清洗、去重、风险过滤、污染控制和配比不是装饰步骤，而是在替模型决定哪些模式值得学、哪些噪声必须挡在训练前。
@@ -471,7 +471,7 @@ pprint(draws)
 
 这也是为什么数据治理必须有版本意识。
 
-![数据污染与评测泄漏图](/img/course/ch07-pretraining-contamination-leakage-map.png)
+![数据污染与评测泄漏图](/img/course/ch07-pretraining-contamination-leakage-map.webp)
 
 :::tip 读图提示
 训练语料和评测集必须严格隔离。如果 benchmark 题目、答案或近似变体泄漏到训练中，模型可能只是见过类似答案模式，所以分数虚高。这不代表真实泛化能力。

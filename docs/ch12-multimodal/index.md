@@ -7,7 +7,7 @@ keywords: [AIGC, multimodal, Stable Diffusion, image generation, video generatio
 
 # 12 AIGC and Multimodal
 
-![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc-en.png)
+![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc-en.webp)
 
 Chapter 12 is the final expansion: **AI is no longer only text.** Images, PDFs, audio, video, screenshots, charts, and generated assets can all enter the same product workflow.
 
@@ -15,7 +15,7 @@ Do not chase every new demo. First learn how to turn non-text inputs into struct
 
 ## See the Multimodal Workflow
 
-![Multimodal workflow loop](/img/course/ch12-multimodal-workflow-loop-en.png)
+![Multimodal workflow loop](/img/course/ch12-multimodal-workflow-loop-en.webp)
 
 Use this workflow as the chapter map.
 
@@ -78,7 +78,7 @@ Operation tip: add `page`, `region`, or `timestamp` fields. If the record can be
 
 ## Connect Multimodal To RAG, Agent, And Creative Work
 
-![Multimodal RAG Agent capstone map](/img/course/ch12-multimodal-rag-agent-capstone-map-en.png)
+![Multimodal RAG Agent capstone map](/img/course/ch12-multimodal-rag-agent-capstone-map-en.webp)
 
 Multimodal is not separate from the main track.
 

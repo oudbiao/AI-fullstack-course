@@ -11,11 +11,11 @@ Probability and statistics explain why models output confidence, why data varies
 
 ## Look at the Map First
 
-![Probability and statistics learning map](/img/course/ch04-probability-roadmap-vertical-en.png)
+![Probability and statistics learning map](/img/course/ch04-probability-roadmap-vertical-en.webp)
 
 The chapter flow is:
 
-![Probability and statistics chapter flow](/img/course/ch04-probability-chapter-flow-en.png)
+![Probability and statistics chapter flow](/img/course/ch04-probability-chapter-flow-en.webp)
 
 | Term | First question to ask |
 |---|---|

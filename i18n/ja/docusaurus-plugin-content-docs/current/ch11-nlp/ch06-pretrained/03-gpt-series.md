@@ -7,7 +7,7 @@ keywords: [GPT, 自己回帰, causal language model, decoder-only, in-context le
 
 # 11.6.4 GPT シリーズ
 
-![GPT 自己回帰生成図](/img/course/gpt-autoregressive-generation-ja.png)
+![GPT 自己回帰生成図](/img/course/gpt-autoregressive-generation-ja.webp)
 
 :::tip この節の位置づけ
 BERT が「テキストを読み解くのが得意なモデル」だとしたら、GPT 系列はもっとこういうイメージです：

@@ -7,7 +7,7 @@ keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluatio
 
 # 8.1.8 RAG 评估
 
-![RAG 评估三角图](/img/course/rag-evaluation-triangle.png)
+![RAG 评估三角图](/img/course/rag-evaluation-triangle.webp)
 
 ## 学习目标
 
@@ -86,9 +86,9 @@ Hit@k 的意思很简单：
 
 在业务里，不同维度的重要性不一样。
 
-![RAG 分层评估仪表盘图](/img/course/ch08-rag-evaluation-layered-dashboard-map.png)
+![RAG 分层评估仪表盘图](/img/course/ch08-rag-evaluation-layered-dashboard-map.webp)
 
-![RAG 评估闭环图](/img/course/ch08-rag-evaluation-loop-map-v2.png)
+![RAG 评估闭环图](/img/course/ch08-rag-evaluation-loop-map-v2.webp)
 
 好的评估不是做一次就完，而是一个循环：测试集 -> 检索 -> 回答 -> 引用 -> 分析失败 -> 修正 -> 再评估。
 
@@ -274,7 +274,7 @@ print("是否被证据支持:", faithful)
 
 > 回答应该尽量能在检索证据里找到支撑。
 
-![Faithfulness 与引用真实性检查图](/img/course/ch08-faithfulness-citation-check-map.png)
+![Faithfulness 与引用真实性检查图](/img/course/ch08-faithfulness-citation-check-map.webp)
 
 :::tip 读图提示
 把答案拆成几个关键结论，再逐条连回 evidence。能连上的是 supported，连不上的是 unsupported，这比“答案听起来很顺”更可靠。

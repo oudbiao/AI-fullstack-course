@@ -6,7 +6,7 @@ description: "把 VS Code 配置成趁手的 AI 开发工具"
 
 # 1.3.2 VS Code 配置
 
-![VS Code 项目工作流图](/img/course/ch01-vscode-workspace-flow.png)
+![VS Code 项目工作流图](/img/course/ch01-vscode-workspace-flow.webp)
 
 ## 本节定位
 

@@ -206,7 +206,7 @@ This is the smallest possible prototype of a monitoring dashboard.
 
 This table is useful for beginners because it turns “there are many metrics” back into a few understandable questions.
 
-![Observability map for logs, metrics, and trace](/img/course/ch08-observability-logs-metrics-trace-map-en.png)
+![Observability map for logs, metrics, and trace](/img/course/ch08-observability-logs-metrics-trace-map-en.webp)
 
 :::tip Reading the diagram
 Logs answer “what happened,” metrics answer “what is the overall trend,” and traces answer “where did a single request go.” When troubleshooting an LLM system, you need all three together, not just 500 errors and timeouts.

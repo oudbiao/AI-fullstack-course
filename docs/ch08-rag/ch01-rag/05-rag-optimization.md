@@ -43,7 +43,7 @@ If the answer quality is poor, you should first ask:
 | The right content was retrieved, but the answer is still off | Prompt / context packing / model summarization |
 | The answer is slow and expensive | `top_k` too large / context too long / too much reranking |
 
-![RAG optimization layered troubleshooting funnel diagram](/img/course/ch08-rag-optimization-debug-funnel-map-en.png)
+![RAG optimization layered troubleshooting funnel diagram](/img/course/ch08-rag-optimization-debug-funnel-map-en.webp)
 
 :::tip Reading note
 Before optimizing, locate the issue along the funnel: document processing, retrieval, context packing, or generation constraints. If you cannot tell which layer is at fault, and you change chunk, top-k, rerank, and prompt all at once, you usually just make the problem harder to reproduce.
@@ -204,7 +204,7 @@ for cfg in configs:
 Although this is toy data, it expresses an important engineering habit:
 **Optimization should rely on comparison experiments, not intuition.**
 
-![RAG optimization experiment feedback loop diagram](/img/course/ch08-rag-experiment-eval-loop-map-en.png)
+![RAG optimization experiment feedback loop diagram](/img/course/ch08-rag-experiment-eval-loop-map-en.webp)
 
 :::tip Reading note
 The key idea in this diagram is “change only one variable at a time.” In each round, fix the evaluation set, record the baseline, observe both fixed failures and new failures, and then decide whether to keep the change.

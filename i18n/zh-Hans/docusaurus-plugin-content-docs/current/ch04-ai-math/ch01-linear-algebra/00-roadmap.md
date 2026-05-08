@@ -11,11 +11,11 @@ keywords: [线性代数指南, AI 数学指南, 向量, 矩阵, 特征值, PCA]
 
 ## 先看地图
 
-![线性代数学习地图](/img/course/ch04-linear-algebra-roadmap-vertical.png)
+![线性代数学习地图](/img/course/ch04-linear-algebra-roadmap-vertical.webp)
 
 本小章流向是：
 
-![线性代数章节流程](/img/course/ch04-linear-algebra-chapter-flow.png)
+![线性代数章节流程](/img/course/ch04-linear-algebra-chapter-flow.webp)
 
 | 概念 | 在 AI 里的第一层意思 |
 |---|---|

@@ -9,11 +9,11 @@ keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 
 事前学習モデルでは、モデルを毎回ゼロから育てません。大規模テキストで先に言語のパターンを学び、あとから分類、生成、抽出、検索などのタスクに使います。
 
-![BERT、GPT、T5 の違い](/img/course/bert-gpt-t5-comparison-ja.png)
+![BERT、GPT、T5 の違い](/img/course/bert-gpt-t5-comparison-ja.webp)
 
 ## 先に全体像を見る
 
-![事前学習モデル章の進め方](/img/course/ch11-pretrained-chapter-flow-ja.png)
+![事前学習モデル章の進め方](/img/course/ch11-pretrained-chapter-flow-ja.webp)
 
 | モデル群 | 得意な方向 | 代表的な用途 |
 |---|---|---|
@@ -23,7 +23,7 @@ keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 
 ## タスクからモデルの型を選ぶ
 
-![事前学習から転移・微調整への流れ](/img/course/ch11-pretraining-transfer-finetune-map-ja.png)
+![事前学習から転移・微調整への流れ](/img/course/ch11-pretraining-transfer-finetune-map-ja.webp)
 
 モデル名を丸暗記するより、まず出力形式を見ます。
 

@@ -7,7 +7,7 @@ keywords: [機械学習の歴史, MLブレークスルー, ベイズ, 最尤法,
 
 # 5.1.5 機械学習の歴史的ブレークスルーの流れ
 
-![機械学習歴史ブレークスルーマップ](/img/course/ch05-ml-history-breakthrough-map-ja.png)
+![機械学習歴史ブレークスルーマップ](/img/course/ch05-ml-history-breakthrough-map-ja.webp)
 
 :::tip この節の位置づけ
 この節は、年号を暗記するためのものではありません。次のことを理解する助けにするためのものです。
@@ -22,11 +22,11 @@ keywords: [機械学習の歴史, MLブレークスルー, ベイズ, 最尤法,
 
 機械学習の歴史は、まず「人がルールを書く」世界から「データから規則を学ぶ」世界へ向かう流れとして理解できます。
 
-![機械学習がルールから工程へ進む歴史漫画](/img/course/ch05-ml-history-rules-to-workflow-comic-ja.png)
+![機械学習がルールから工程へ進む歴史漫画](/img/course/ch05-ml-history-rules-to-workflow-comic-ja.webp)
 
 この漫画は問題が順番に解かれていく流れとして読んでください。手書きルールは壊れやすく、確率は不確実性を扱えるようにし、線形モデルは学習を具体化し、木・SVM・集成法は構造と安定性を強め、最後に sklearn が再現可能な工程にまとめました。
 
-![機械学習ブレークスルーのリレー漫画](/img/course/ch05-ml-breakthrough-relay-ja.png)
+![機械学習ブレークスルーのリレー漫画](/img/course/ch05-ml-breakthrough-relay-ja.webp)
 
 このリレー図は、「なぜ次の方法が必要になったのか」をつかむのに役立ちます。確率的手法は不確実性を扱えるようにし、線形モデルは学習を見える形にし、木と SVM は構造と境界を分かりやすくし、アンサンブルは不安定なモデルを強くし、最後に sklearn が全体を再現可能なプロジェクトにしました。
 

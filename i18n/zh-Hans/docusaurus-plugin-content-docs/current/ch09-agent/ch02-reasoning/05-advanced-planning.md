@@ -226,7 +226,7 @@ for item in timeline:
 - 规划不只是逻辑问题
 - 也是资源问题
 
-![高级规划 DAG、并行与关键路径图](/img/course/ch09-advanced-planning-dag-critical-path-map.png)
+![高级规划 DAG、并行与关键路径图](/img/course/ch09-advanced-planning-dag-critical-path-map.webp)
 
 :::tip 读图提示
 这张图把“任务清单”升级成“任务图”：节点表示步骤，箭头表示依赖，粗线表示关键路径。新人可以先问自己：哪些能并行，哪些必须等前置结果完成？

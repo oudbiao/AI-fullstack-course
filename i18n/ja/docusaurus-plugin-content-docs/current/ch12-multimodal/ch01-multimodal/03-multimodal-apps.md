@@ -7,7 +7,7 @@ keywords: [multimodal app, OCR, screenshot assistant, image-text product, workfl
 
 # 12.1.4 マルチモーダルアプリ開発
 
-![マルチモーダルアプリのエンジニアリングループ図](/img/course/ch12-multimodal-app-engineering-loop-ja.png)
+![マルチモーダルアプリのエンジニアリングループ図](/img/course/ch12-multimodal-app-engineering-loop-ja.webp)
 
 :::tip 図の見方
 マルチモーダルアプリは「モデルが画像を見られる」だけでは終わりません。図を見るときは、入力品質、OCR/VLM の役割分担、検索やツール呼び出し、ユーザーフィードバック、失敗時のフォールバック、そしてプライバシーとコンプライアンスが、どう実際の製品フローを作っているかに注目しましょう。

@@ -7,7 +7,7 @@ keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, skle
 
 # 5.5.6 Pipeline 与工作流
 
-![ColumnTransformer 与 Pipeline 工作流图](/img/course/column-transformer-pipeline.png)
+![ColumnTransformer 与 Pipeline 工作流图](/img/course/column-transformer-pipeline.webp)
 
 :::tip 本节定位
 真实项目中，数值特征、类别特征需要**不同的预处理**。本节教你用 `ColumnTransformer` + `Pipeline` 构建**完整的特征工程流水线**，一个对象搞定所有。
@@ -164,7 +164,7 @@ print(f"5 折 CV 准确率: {scores.mean():.4f} ± {scores.std():.4f}")
 
 这正是防止数据泄漏的关键。
 
-![真实表格数据 ColumnTransformer Pipeline 图](/img/course/ch05-columntransformer-real-table-pipeline.png)
+![真实表格数据 ColumnTransformer Pipeline 图](/img/course/ch05-columntransformer-real-table-pipeline.webp)
 
 这张图把真实表格项目拆成三条线：数值列先补缺失再缩放，类别列先补缺失再编码，自定义特征也必须放进同一个 Pipeline。最后整体交给交叉验证或 GridSearch，这样每次训练、验证、预测都走同一套可复现流程。
 

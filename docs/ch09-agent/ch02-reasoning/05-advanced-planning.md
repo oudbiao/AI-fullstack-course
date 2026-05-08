@@ -226,7 +226,7 @@ This helps you understand:
 - Planning is not only a logic problem
 - It is also a resource problem
 
-![Advanced planning DAG, parallelism, and critical path diagram](/img/course/ch09-advanced-planning-dag-critical-path-map-en.png)
+![Advanced planning DAG, parallelism, and critical path diagram](/img/course/ch09-advanced-planning-dag-critical-path-map-en.webp)
 
 :::tip Reading guide
 This diagram upgrades a “task list” into a “task graph”: nodes represent steps, arrows represent dependencies, and the thick line represents the critical path. Beginners can start by asking themselves: which tasks can run in parallel, and which ones must wait for prerequisite results?

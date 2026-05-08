@@ -7,9 +7,9 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 # E.A.6 模型服务化
 
-![模型服务化架构图](/img/course/elective-model-serving-architecture.png)
+![模型服务化架构图](/img/course/elective-model-serving-architecture.webp)
 
-![模型服务指标与版本路由图](/img/course/elective-serving-metrics-version-routing-map.png)
+![模型服务指标与版本路由图](/img/course/elective-serving-metrics-version-routing-map.webp)
 
 把模型服务化，和在脚本里调用一次模型不是一回事。服务要接很多请求，把它们排队、批处理、发到正确的模型版本、记录指标，并在某个版本失败时可以恢复。
 

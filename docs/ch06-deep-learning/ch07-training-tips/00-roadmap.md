@@ -11,9 +11,9 @@ Training tips are useful only when they answer a diagnosis. Do not change optimi
 
 ## Look at the Diagnosis Flow First
 
-![Deep learning training tips chapter relationship diagram](/img/course/ch06-training-tips-chapter-flow-en.png)
+![Deep learning training tips chapter relationship diagram](/img/course/ch06-training-tips-chapter-flow-en.webp)
 
-![Training diagnosis dashboard map](/img/course/ch06-training-diagnosis-dashboard-map-en.png)
+![Training diagnosis dashboard map](/img/course/ch06-training-diagnosis-dashboard-map-en.webp)
 
 | Symptom | First check |
 |---|---|

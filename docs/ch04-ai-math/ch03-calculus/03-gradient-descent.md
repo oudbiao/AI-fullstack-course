@@ -7,7 +7,7 @@ keywords: [gradient descent, learning rate, SGD, optimization algorithm, linear 
 
 # 4.3.4 Gradient Descent: The Most Core Optimization Algorithm in AI
 
-![Gradient descent path diagram](/img/course/gradient-descent-path-en.png)
+![Gradient descent path diagram](/img/course/gradient-descent-path-en.webp)
 
 :::tip This section is the climax of the entire math phase
 Gradient descent is the **foundation of training all deep learning models**. Once you understand it, you understand how AI models "learn".
@@ -37,7 +37,7 @@ The previous two sections solved the question of "how to know how a function cha
 
 > **Now that we know how it changes, how do we actually move the parameters step by step to a better position?**
 
-![Gradient descent iteration loop diagram](/img/course/ch04-gradient-descent-iteration-loop-en.png)
+![Gradient descent iteration loop diagram](/img/course/ch04-gradient-descent-iteration-loop-en.webp)
 
 If you understand this section clearly, then later when you see optimizers, learning rates, and training processes, you won't be left with just "memorizing the API."
 

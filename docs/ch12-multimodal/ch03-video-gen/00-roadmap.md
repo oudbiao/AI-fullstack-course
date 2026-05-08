@@ -11,11 +11,11 @@ Video and speech generation adds time. You are no longer creating one image; you
 
 ## See the Timeline First
 
-![Video, speech, and digital human chapter learning sequence diagram](/img/course/ch12-video-gen-chapter-flow-en.png)
+![Video, speech, and digital human chapter learning sequence diagram](/img/course/ch12-video-gen-chapter-flow-en.webp)
 
-![TTS text-to-speech pipeline](/img/course/ch12-tts-text-to-speech-pipeline-map-en.png)
+![TTS text-to-speech pipeline](/img/course/ch12-tts-text-to-speech-pipeline-map-en.webp)
 
-![Digital human synchronization pipeline](/img/course/ch12-digital-human-sync-pipeline-map-en.png)
+![Digital human synchronization pipeline](/img/course/ch12-digital-human-sync-pipeline-map-en.webp)
 
 The first habit is to describe every generated asset by its place on the timeline.
 

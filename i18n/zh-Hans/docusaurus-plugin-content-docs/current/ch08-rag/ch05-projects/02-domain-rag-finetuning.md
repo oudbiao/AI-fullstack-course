@@ -82,7 +82,7 @@ RAG 的优点：
 
 这正是组合式系统的核心逻辑。
 
-![RAG 与微调职责拆分图](/img/course/ch08-rag-finetune-responsibility-split-map.png)
+![RAG 与微调职责拆分图](/img/course/ch08-rag-finetune-responsibility-split-map.webp)
 
 :::tip 读图提示
 左边看 RAG：知识更新、来源引用、外部文档；右边看 fine-tuning：回答风格、格式稳定、业务口径。两层职责分清，系统才好评估和维护。

@@ -7,7 +7,7 @@ keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 
 # E.B.2 イテレータとジェネレータの応用
 
-![ジェネレータのストリーミングパイプライン図](/img/course/elective-generator-stream-pipeline-ja.png)
+![ジェネレータのストリーミングパイプライン図](/img/course/elective-generator-stream-pipeline-ja.webp)
 
 データがストリームとして届くとき、ジェネレータは役に立ちます。ログ、ファイル、API ページ、サンプル batch、検索結果、モデル出力などです。値を一つずつ出すため、不要な中間リストを作らずに済みます。
 

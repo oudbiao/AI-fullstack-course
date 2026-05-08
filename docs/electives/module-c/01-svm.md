@@ -7,9 +7,9 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 # E.C.1 Support Vector Machine
 
-![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors-en.png)
+![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors-en.webp)
 
-![SVM parameter C and kernel selection diagram](/img/course/elective-svm-c-kernel-decision-map-en.png)
+![SVM parameter C and kernel selection diagram](/img/course/elective-svm-c-kernel-decision-map-en.webp)
 
 SVM tries to find a decision boundary with a large margin. The points closest to the boundary are the support vectors; they are the samples that most strongly shape the boundary.
 

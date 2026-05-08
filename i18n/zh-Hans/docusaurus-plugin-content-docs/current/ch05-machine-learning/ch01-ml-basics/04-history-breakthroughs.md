@@ -7,7 +7,7 @@ keywords: [机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树,
 
 # 5.1.5 机器学习历史突破主线
 
-![机器学习历史突破地图](/img/course/ch05-ml-history-breakthrough-map.png)
+![机器学习历史突破地图](/img/course/ch05-ml-history-breakthrough-map.webp)
 
 :::tip 本节定位
 这一节不是让你背年份，而是帮你看懂：
@@ -22,11 +22,11 @@ keywords: [机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树,
 
 机器学习的历史可以先理解成一条从“人工写规则”走向“用数据学习规律”的路线。
 
-![机器学习从规则到工程流程的历史漫画](/img/course/ch05-ml-history-rules-to-workflow-comic.png)
+![机器学习从规则到工程流程的历史漫画](/img/course/ch05-ml-history-rules-to-workflow-comic.webp)
 
 可以把这张漫画看成一条问题链：人工规则太脆弱，概率方法让不确定性可建模，线性模型让训练变具体，树、SVM、集成方法增强结构和稳定性，最后 sklearn 把这些想法变成可复现的工程流程。
 
-![机器学习突破接力漫画](/img/course/ch05-ml-breakthrough-relay.png)
+![机器学习突破接力漫画](/img/course/ch05-ml-breakthrough-relay.webp)
 
 这张接力图更适合帮你抓住“为什么下一个方法会出现”：概率方法让不确定性可以被使用，线性模型让训练过程看得见，树和 SVM 让结构与边界更清楚，集成学习把不稳定模型变强，最后 sklearn 把整条流程变成可复现项目。
 

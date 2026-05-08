@@ -7,7 +7,7 @@ keywords: [finetuning, PEFT, full finetune, task adaptation, model customization
 
 # 7.6.2 Finetuning Overview
 
-![Overall finetuning and alignment flowchart](/img/course/finetuning-alignment-pipeline-en.png)
+![Overall finetuning and alignment flowchart](/img/course/finetuning-alignment-pipeline-en.webp)
 
 :::tip Section focus
 When many people think about model customization, their first reaction is:
@@ -151,7 +151,7 @@ Remember this one sentence first:
 
 This table is very important because it helps you avoid a common mistake: thinking finetuning is the answer whenever performance is poor. In real projects, many problems are not solved by changing parameters.
 
-![Decision map for choosing a solution before finetuning](/img/course/ch07-finetune-decision-rag-prompt-peft-map-en.png)
+![Decision map for choosing a solution before finetuning](/img/course/ch07-finetune-decision-rag-prompt-peft-map-en.webp)
 
 :::tip Reading guide
 It is recommended to read this diagram from the root cause of the problem: if knowledge is missing, look at RAG first; if the format is unstable, look at Prompt/structured output first; if the issue is a tool-based process, look at Agent/workflow first. Only when long-term behavior and style are unstable does finetuning or PEFT become a more valuable candidate. Finetuning is not the first reaction; it is an action you take after making a judgment.

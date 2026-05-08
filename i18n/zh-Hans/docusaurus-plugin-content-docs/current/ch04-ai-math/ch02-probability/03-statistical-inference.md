@@ -7,7 +7,7 @@ keywords: [最大似然估计, MLE, MAP, 假设检验, A/B测试, 统计推断, 
 
 # 4.2.4 统计推断基础
 
-![最大似然估计似然曲线图](/img/course/mle-likelihood-curve.png)
+![最大似然估计似然曲线图](/img/course/mle-likelihood-curve.webp)
 
 :::tip 统计推断 = 从数据反推规律
 上一节学了各种概率分布。但真实世界中，我们不知道分布的参数（比如硬币正面概率是多少）。统计推断就是**从观测到的数据，反推出分布的参数**。
@@ -113,7 +113,7 @@ MLE 最打动人的地方，恰恰就是它很像侦探工作：
 
 > **既然我们拿到了数据，怎样反推出背后的参数和结论？**
 
-![统计推断从数据到参数图](/img/course/ch04-statistical-inference-data-to-parameter.png)
+![统计推断从数据到参数图](/img/course/ch04-statistical-inference-data-to-parameter.webp)
 
 这节课最重要的不是记名词，而是先抓住：
 
@@ -381,7 +381,7 @@ flowchart TD
 
 ### p 值的直觉
 
-![p 值与零假设分布图解](/img/course/ch04-pvalue-null-distribution.svg)
+![p 值与零假设分布图解](/img/course/ch04-pvalue-null-distribution.webp)
 
 **p 值 = 假设没有真实差异，仅靠随机波动产生这么大（或更大）差异的概率。**
 

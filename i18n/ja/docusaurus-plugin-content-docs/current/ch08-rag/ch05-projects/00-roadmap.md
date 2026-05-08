@@ -11,11 +11,11 @@ keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, 
 
 ## まずプロジェクト証拠ループを見る
 
-![LLM アプリケーション総合プロジェクトのロードマップ](/img/course/ch08-projects-route-map-ja.png)
+![LLM アプリケーション総合プロジェクトのロードマップ](/img/course/ch08-projects-route-map-ja.webp)
 
-![LLM アプリケーションプロジェクトの学習順序図](/img/course/ch08-project-learning-order-map-ja.png)
+![LLM アプリケーションプロジェクトの学習順序図](/img/course/ch08-project-learning-order-map-ja.webp)
 
-![LLM アプリケーションプロジェクトのデリバリーループ図](/img/course/ch08-project-delivery-loop-ja.png)
+![LLM アプリケーションプロジェクトのデリバリーループ図](/img/course/ch08-project-delivery-loop-ja.webp)
 
 プロジェクトは「ベクトルデータベースをつなぐ」だけではありません。文書、chunks、検索、context、回答、引用、logs、評価、改善の traceable loop です。
 

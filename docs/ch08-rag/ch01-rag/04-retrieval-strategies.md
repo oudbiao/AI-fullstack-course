@@ -7,7 +7,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 # 8.1.5 Retrieval Strategies
 
-![Hybrid Search and Rerank Flowchart](/img/course/hybrid-search-rerank-flow-en.png)
+![Hybrid Search and Rerank Flowchart](/img/course/hybrid-search-rerank-flow-en.webp)
 
 ## Learning Objectives
 
@@ -86,9 +86,9 @@ Humans do the same thing when searching for materials:
 
 Hybrid retrieval combines these two judgments.
 
-![Blind Spot Map for Keyword Retrieval and Vector Retrieval](/img/course/ch08-hybrid-retrieval-blindspot-map-en.png)
+![Blind Spot Map for Keyword Retrieval and Vector Retrieval](/img/course/ch08-hybrid-retrieval-blindspot-map-en.webp)
 
-![Retrieval strategy comparison map](/img/course/ch08-retrieval-strategy-comparison-map-v2-en.png)
+![Retrieval strategy comparison map](/img/course/ch08-retrieval-strategy-comparison-map-v2-en.webp)
 
 BM25 is a classic keyword-ranking method. Many hybrid search systems combine a BM25-style score with vector similarity, then let reranking polish the final order.
 
@@ -237,7 +237,7 @@ Can I cancel the course? -> Can I refund?
 
 In real systems, query rewrite may be done by an LLM.
 
-![Two-Stage Funnel Diagram for Query Rewrite and Rerank](/img/course/ch08-rerank-query-rewrite-funnel-map-en.png)
+![Two-Stage Funnel Diagram for Query Rewrite and Rerank](/img/course/ch08-rerank-query-rewrite-funnel-map-en.webp)
 
 :::tip Reading Tip
 Query Rewrite happens before retrieval and makes the user question easier to search. Rerank happens after rough recall and makes the candidates more accurately ordered. One changes the input, the other changes the ranking. Do not mix them up as the same thing.

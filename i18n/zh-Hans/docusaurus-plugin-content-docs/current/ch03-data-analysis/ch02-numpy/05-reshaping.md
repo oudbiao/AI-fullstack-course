@@ -6,7 +6,7 @@ description: "掌握数组的 reshape、拼接、分割和转置操作"
 
 # 3.2.5 数组变形与操作
 
-![NumPy 变形与轴操作图](/img/course/ch03-numpy-reshape-axis-flow.png)
+![NumPy 变形与轴操作图](/img/course/ch03-numpy-reshape-axis-flow.webp)
 
 ## 学习目标
 

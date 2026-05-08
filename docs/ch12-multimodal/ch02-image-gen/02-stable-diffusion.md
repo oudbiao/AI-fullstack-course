@@ -7,7 +7,7 @@ keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-a
 
 # 12.2.3 Stable Diffusion Architecture
 
-![Stable Diffusion component architecture diagram](/img/course/stable-diffusion-components-en.png)
+![Stable Diffusion component architecture diagram](/img/course/stable-diffusion-components-en.webp)
 
 :::tip Section Overview
 In the previous section, we learned that the core idea of diffusion models is:

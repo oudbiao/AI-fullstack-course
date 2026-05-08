@@ -23,7 +23,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 ## 先看曲线
 
-![训练曲线诊断图](/img/course/training-curve-diagnosis.png)
+![训练曲线诊断图](/img/course/training-curve-diagnosis.webp)
 
 第一个问题不是“我要换成哪个模型”，而是：
 
@@ -39,7 +39,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 | 预测几乎都是同一类 | collapse 或数据问题 | 标签、类别平衡、输出层 |
 | 指标突然变化 | pipeline bug 或分布变化 | data loader、预处理、验证集划分 |
 
-![训练诊断仪表盘排查路线图](/img/course/ch06-training-diagnosis-dashboard-map.png)
+![训练诊断仪表盘排查路线图](/img/course/ch06-training-diagnosis-dashboard-map.webp)
 
 ## 实验 1：分类曲线模式
 

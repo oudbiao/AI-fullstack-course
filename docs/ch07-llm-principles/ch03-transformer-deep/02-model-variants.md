@@ -136,7 +136,7 @@ The main goal of this is:
 
 So MoE is more like a “scaling strategy variant.”
 
-![MoE token routing and expert activation diagram](/img/course/ch07-moe-token-routing-map-en.png)
+![MoE token routing and expert activation diagram](/img/course/ch07-moe-token-routing-map-en.webp)
 
 :::tip How to read the MoE diagram
 Read MoE from the token’s point of view. Each token first enters a router, the router scores multiple expert FFNs, and only the top-k experts are activated for that token. This is why MoE can have many total parameters while keeping the active compute per token smaller than a dense FFN.
@@ -243,7 +243,7 @@ Because tasks themselves correspond to different information flows:
 
 Whether a structure is suitable is, in essence, whether its information-flow constraints match the task.
 
-![Architecture mask and task-fit map](/img/course/ch07-architecture-mask-task-fit-map-en.png)
+![Architecture mask and task-fit map](/img/course/ch07-architecture-mask-task-fit-map-en.webp)
 
 :::tip Reading Guide
 When reading this diagram, first ask “who can see whom”: Encoder-only is suitable for understanding because it can look at the full input bidirectionally; Decoder-only is suitable for generation because it can only see the past; Encoder-Decoder is suitable for translation and summarization because the input is fully encoded first, and then the output is generated causally.

@@ -6,7 +6,7 @@ description: "掌握 Python 中的基本数据类型和变量使用"
 
 # 2.1.2 数据类型与变量
 
-![变量、对象与引用关系图](/img/course/ch02-variable-object-reference.png)
+![变量、对象与引用关系图](/img/course/ch02-variable-object-reference.webp)
 
 ## 本节定位
 
@@ -233,7 +233,7 @@ print(parts)  # ['张三', '20', '北京']
 
 ### 字符串索引和切片
 
-![字符串索引和切片图解](/img/course/ch02-string-index-slice.svg)
+![字符串索引和切片图解](/img/course/ch02-string-index-slice.webp)
 
 字符串里的每个字符都有一个**位置编号（索引）**，从 0 开始：
 

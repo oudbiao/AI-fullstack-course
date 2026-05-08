@@ -11,11 +11,11 @@ Image classification answers one question: given a whole image, which class best
 
 ## See the Classification Loop First
 
-![Image classification chapter learning flowchart](/img/course/ch10-classification-chapter-flow-en.png)
+![Image classification chapter learning flowchart](/img/course/ch10-classification-chapter-flow-en.webp)
 
-![Image classification architecture evolution map](/img/course/ch10-classification-architecture-evolution-map-en.png)
+![Image classification architecture evolution map](/img/course/ch10-classification-architecture-evolution-map-en.webp)
 
-![Classification training diagnosis map](/img/course/ch10-classification-training-diagnosis-map-en.png)
+![Classification training diagnosis map](/img/course/ch10-classification-training-diagnosis-map-en.webp)
 
 Classification is the simplest vision output, but it still depends on data split, augmentation, architecture, loss, metrics, and error examples.
 

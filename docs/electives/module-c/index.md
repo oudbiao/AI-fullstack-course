@@ -10,9 +10,9 @@ Use this elective when your dataset is small, your features are clear, or you ne
 
 ## See the Baseline Map First
 
-![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map-en.png)
+![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map-en.webp)
 
-![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.png)
+![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.webp)
 
 Classic ML helps you answer: is the problem already solvable with simple features?
 

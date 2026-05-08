@@ -275,7 +275,7 @@ print(validate_search_docs({"query_text": "退款政策"}))
 因为 server 是能力边界守门人。
 如果 server 不校验，整个工具系统就很难稳定。
 
-![MCP Server 工具契约图](/img/course/ch09-mcp-server-tool-contract-map.png)
+![MCP Server 工具契约图](/img/course/ch09-mcp-server-tool-contract-map.webp)
 
 :::tip 读图提示
 把 MCP Server 看成工具契约的守门人：它不仅暴露 list_tools，还要校验 call_tool 的参数、执行真实逻辑、统一返回结果，并把错误变成 client 能理解的结构。

@@ -6,7 +6,7 @@ description: "掌握核心命令、路径概念、管道与环境变量"
 
 # 1.1.2 终端基础操作
 
-![终端路径与命令执行关系图](/img/course/ch01-terminal-path-command-map.png)
+![终端路径与命令执行关系图](/img/course/ch01-terminal-path-command-map.webp)
 
 ## 本节定位
 
@@ -210,7 +210,7 @@ echo "hello"       # 输出一段文字
 
 ## 第三部分：管道与重定向
 
-![终端管道、重定向与 PATH 数据流](/img/course/ch01-terminal-pipe-redirection-path.svg)
+![终端管道、重定向与 PATH 数据流](/img/course/ch01-terminal-pipe-redirection-path.webp)
 
 这两个概念是命令行真正强大的地方。
 

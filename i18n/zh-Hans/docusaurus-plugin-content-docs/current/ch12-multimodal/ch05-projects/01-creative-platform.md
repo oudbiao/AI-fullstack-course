@@ -7,7 +7,7 @@ keywords: [creative platform, multimodal project, image generation, editing, voi
 
 # 12.5.2 项目：AI 创意内容平台
 
-![AI 创意内容平台工作流图](/img/course/creative-platform-workflow.png)
+![AI 创意内容平台工作流图](/img/course/creative-platform-workflow.webp)
 
 :::tip 本节定位
 AI 创意平台特别容易做成“功能堆叠页”：

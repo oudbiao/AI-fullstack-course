@@ -7,7 +7,7 @@ keywords: [Kaggle, competition, Titanic, data science competition, Notebook, lea
 
 # 5.6.5 Kaggle Competition Practice (Elective)
 
-![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop-en.png)
+![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop-en.webp)
 
 :::tip Section focus
 Kaggle is the world’s largest data science competition platform. By joining a beginner competition, you can **connect** all the skills you learned earlier and verify them against a real scoring system.
@@ -187,7 +187,7 @@ If you can do these four things, you have already learned the most important par
 
 ### Common Pitfalls for Beginners on Kaggle
 
-![Kaggle validation and leaderboard loop](/img/course/ch05-kaggle-validation-leaderboard-loop-en.png)
+![Kaggle validation and leaderboard loop](/img/course/ch05-kaggle-validation-leaderboard-loop-en.webp)
 
 - Repeatedly trying things on the public leaderboard and overfitting to it
 - Having no local cross-validation and only watching the online score

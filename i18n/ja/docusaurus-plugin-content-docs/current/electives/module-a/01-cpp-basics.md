@@ -7,7 +7,7 @@ keywords: [C++, basics, vector, reference, function, class, deployment]
 
 # E.A.1 C++ プログラミング基礎
 
-![C++ ランタイムとメモリモデル図](/img/course/elective-cpp-runtime-memory-ja.png)
+![C++ ランタイムとメモリモデル図](/img/course/elective-cpp-runtime-memory-ja.webp)
 
 デプロイコードを読む前に、C++ の専門家になる必要はありません。まず、何度も出る小さな範囲だけ押さえます。型、関数、`std::vector`、参照、コンパイル、明確な出力です。
 

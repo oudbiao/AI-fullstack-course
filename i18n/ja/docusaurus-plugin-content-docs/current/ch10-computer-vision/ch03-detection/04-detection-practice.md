@@ -220,7 +220,7 @@ print(matches)
 
 この3つを分けると、その後の改善方向がかなり見えやすくなります。
 
-![検出プロジェクトの評価と誤検出・見逃しの分類図](/img/course/ch10-detection-practice-eval-buckets-map-ja.png)
+![検出プロジェクトの評価と誤検出・見逃しの分類図](/img/course/ch10-detection-practice-eval-buckets-map-ja.webp)
 
 :::tip 図の見方
 検出プロジェクトを見せるときは、成功スクリーンショットだけを載せないようにしましょう。この図を見るときは、アノテーション規約、IoU/mAP 評価、誤検出/見逃し/位置ずれの分類、そして次の改善でデータ・閾値・モデルのどれを直すか、の4点を意識してください。

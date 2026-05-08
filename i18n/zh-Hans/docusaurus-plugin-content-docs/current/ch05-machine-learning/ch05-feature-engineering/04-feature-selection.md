@@ -7,7 +7,7 @@ keywords: [特征选择, 过滤法, 包装法, 嵌入法, SelectKBest, RFE, Pipe
 
 # 5.5.5 特征选择
 
-![特征选择方法对比](/img/course/feature-selection-methods.png)
+![特征选择方法对比](/img/course/feature-selection-methods.webp)
 
 :::tip 本节重点
 特征选择不是尽可能删掉更多特征，而是在效果、稳定性、解释性和成本之间做平衡。真正目标是保留对任务有用、上线时能获得、并且没有数据泄漏风险的特征。
@@ -20,7 +20,7 @@ keywords: [特征选择, 过滤法, 包装法, 嵌入法, SelectKBest, RFE, Pipe
 - 用验证集和交叉验证判断特征选择是否真的有效
 - 理解特征选择和业务解释性、上线成本之间的关系
 
-![特征选择实操流程](/img/course/ch05-feature-selection-practical-workflow.png)
+![特征选择实操流程](/img/course/ch05-feature-selection-practical-workflow.webp)
 
 先看这张图，再看代码：特征选择不是“把表格删到很小”。更可靠的实操流程是先移除明显风险，再建立基线，把选择器放进 `Pipeline`，最后只保留真正有效、可获得、可解释的特征。
 

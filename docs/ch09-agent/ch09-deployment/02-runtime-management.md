@@ -7,7 +7,7 @@ keywords: [runtime management, concurrency, timeout, retry, circuit breaker, met
 
 # 9.9.3 Runtime Management
 
-![Agent runtime management protection map](/img/course/ch09-runtime-management-protection-map-en.png)
+![Agent runtime management protection map](/img/course/ch09-runtime-management-protection-map-en.webp)
 
 :::tip Section focus
 For a local demo, “it runs once” is usually good enough.

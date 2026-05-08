@@ -7,13 +7,13 @@ keywords: [選択モジュール, ハンズオン, デプロイ, Python 応用, 
 
 # E.0 選択モジュール実践ワークショップ
 
-![選択モジュール実践ルートマップ](/img/course/elective-workshop-route-map-ja.png)
+![選択モジュール実践ルートマップ](/img/course/elective-workshop-route-map-ja.webp)
 
 このワークショップは、選択モジュールの使いどころを最短で体感するためのものです。1 つの Python スクリプトを実行し、生成された証拠ファイルを確認します。
 
 ## 作るもの
 
-![選択実践の証拠パックパイプライン](/img/course/elective-workshop-evidence-pipeline-ja.png)
+![選択実践の証拠パックパイプライン](/img/course/elective-workshop-evidence-pipeline-ja.webp)
 
 スクリプトはこのフォルダを作ります。
 
@@ -43,7 +43,7 @@ elective_workshop_run/
 
 ## ワークショップを実行する
 
-![選択ワークショップのコード実行順序](/img/course/elective-workshop-code-execution-sequence-ja.png)
+![選択ワークショップのコード実行順序](/img/course/elective-workshop-code-execution-sequence-ja.webp)
 
 きれいなフォルダを作ります。
 
@@ -232,7 +232,7 @@ inspect: elective_workshop_run/README.md
 
 ## すばやく直す
 
-![選択ワークショップのデバッグループ](/img/course/elective-workshop-debug-loop-ja.png)
+![選択ワークショップのデバッグループ](/img/course/elective-workshop-debug-loop-ja.webp)
 
 | 症状 | 最初の対処 |
 |---|---|
@@ -244,7 +244,7 @@ inspect: elective_workshop_run/README.md
 
 ## 自分のプロジェクトに変える
 
-![選択ワークショップのポートフォリオ証拠パック](/img/course/elective-workshop-portfolio-pack-ja.png)
+![選択ワークショップのポートフォリオ証拠パック](/img/course/elective-workshop-portfolio-pack-ja.webp)
 
 どれか 1 つのモジュールを実データに置き換えます。
 

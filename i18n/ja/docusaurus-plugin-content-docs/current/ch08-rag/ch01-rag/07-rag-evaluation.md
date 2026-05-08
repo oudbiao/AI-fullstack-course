@@ -7,7 +7,7 @@ keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluatio
 
 # 8.1.8 RAG 評価
 
-![RAG 評価の三角図](/img/course/rag-evaluation-triangle-ja.png)
+![RAG 評価の三角図](/img/course/rag-evaluation-triangle-ja.webp)
 
 ## 学習目標
 
@@ -86,9 +86,9 @@ Hit@k の意味はとてもシンプルです。
 
 実際の業務では、観点ごとの重要度は異なります。
 
-![RAG の階層評価ダッシュボード図](/img/course/ch08-rag-evaluation-layered-dashboard-map-ja.png)
+![RAG の階層評価ダッシュボード図](/img/course/ch08-rag-evaluation-layered-dashboard-map-ja.webp)
 
-![RAG 評価の閉ループ図](/img/course/ch08-rag-evaluation-loop-map-v2-ja.png)
+![RAG 評価の閉ループ図](/img/course/ch08-rag-evaluation-loop-map-v2-ja.webp)
 
 よい評価は 1 回で終わるものではなく、テストセット -> 検索 -> 回答 -> 引用 -> 失敗分析 -> 修正 -> 再評価、というループです。
 
@@ -276,7 +276,7 @@ print("証拠に支えられているか:", faithful)
 
 > 回答は、できるだけ検索した証拠の中で支えられるべきです。
 
-![Faithfulness と引用の真正性チェック図](/img/course/ch08-faithfulness-citation-check-map-ja.png)
+![Faithfulness と引用の真正性チェック図](/img/course/ch08-faithfulness-citation-check-map-ja.webp)
 
 :::tip 図の読み方
 回答をいくつかの重要な結論に分けて、それぞれを evidence に戻して確認します。つながるものは supported、つながらないものは unsupported です。これは「見た目が自然か」より信頼できます。

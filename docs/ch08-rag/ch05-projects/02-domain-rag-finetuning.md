@@ -82,7 +82,7 @@ You can remember this in one sentence:
 
 That is the core logic of a combined system.
 
-![RAG and fine-tuning responsibility split diagram](/img/course/ch08-rag-finetune-responsibility-split-map-en.png)
+![RAG and fine-tuning responsibility split diagram](/img/course/ch08-rag-finetune-responsibility-split-map-en.webp)
 
 :::tip Reading guide
 Look at the left side for RAG: knowledge updates, source citations, external documents. Look at the right side for fine-tuning: response style, stable formatting, business wording. When the responsibilities are clearly separated, the system becomes easier to evaluate and maintain.

@@ -7,25 +7,25 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 # AI フルスタック学習コース
 
-![ここから始める4ステップ図](/img/course/intro-start-here-four-step-map-ja.png)
+![ここから始める4ステップ図](/img/course/intro-start-here-four-step-map-ja.webp)
 
 まず小さく始めます。AI例を1つ体験し、最小環境を準備し、能力マップを見て、第1章へ進みます。
 
 ## 画像に沿って進む
 
-![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.png)
+![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.webp)
 
 [0.1 クイック体験を動かす](/intro/quick-experience)：用語を覚える前に、入力 -> モデル -> 出力を見ます。
 
-![AIコース最小セットアップキット](/img/course/intro-minimal-setup-kit-ja.png)
+![AIコース最小セットアップキット](/img/course/intro-minimal-setup-kit-ja.webp)
 
 [0.2 最小環境を準備する](/intro/environment-setup)：最初の週は Python、Git、プロジェクトフォルダで十分です。
 
-![AI フルスタック能力マップ](/img/course/intro-ai-fullstack-capability-map-ja.png)
+![AI フルスタック能力マップ](/img/course/intro-ai-fullstack-capability-map-ja.webp)
 
 [0.3 能力マップを見る](/intro/ai-fullstack-map)：ツール、データ、モデル、LLM、RAG、Agent、提出は1つの道です。
 
-![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.png)
+![おすすめ学習ルート選択図](/img/course/intro-learning-path-selection-ja.webp)
 
 [0.4 学習ルートを選ぶ](/intro/learning-path)：ルートを1つ選び、[第1章](/ch01-tools)へ進みます。
 

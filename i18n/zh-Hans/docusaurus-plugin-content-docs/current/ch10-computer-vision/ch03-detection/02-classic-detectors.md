@@ -127,7 +127,7 @@ R-CNN 家族正是在一点点回答这个问题：
 - 再减少重复计算
 - 再让 proposal 本身也变成可学习模块
 
-![R-CNN 家族共享特征演进图](/img/course/ch10-classic-detectors-shared-feature-map.png)
+![R-CNN 家族共享特征演进图](/img/course/ch10-classic-detectors-shared-feature-map.webp)
 
 :::tip 读图提示
 R-CNN 家族最值得看的不是名字，而是“重复计算如何被一步步省掉”：从每个 proposal 单独提特征，到整图共享特征，再到 proposal 也由网络学习。

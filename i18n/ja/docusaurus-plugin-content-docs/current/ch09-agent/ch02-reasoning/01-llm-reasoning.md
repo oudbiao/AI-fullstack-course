@@ -7,7 +7,7 @@ keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, age
 
 # 9.2.2 LLM 推論能力
 
-![LLM 推論と中間状態チェックポイント図](/img/course/ch09-reasoning-state-checkpoint-map-ja.png)
+![LLM 推論と中間状態チェックポイント図](/img/course/ch09-reasoning-state-checkpoint-map-ja.webp)
 
 :::tip この節の位置づけ
 多くの人が初めて Agent に触れるとき、大規模モデルを自然に次のように理解します。

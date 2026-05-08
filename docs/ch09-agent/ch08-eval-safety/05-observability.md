@@ -157,7 +157,7 @@ Although this section focuses on Agents, the earlier LLM APIs, Prompts, RAG, and
 
 This table can serve as the starting point for logging design in all AI projects. Do not wait until the system breaks before thinking about adding logs; without request_id and structured fields, it will be very hard to connect a failure end to end later.
 
-![Agent Observability Trace Span Diagram](/img/course/ch09-agent-observability-trace-span-map-en.png)
+![Agent Observability Trace Span Diagram](/img/course/ch09-agent-observability-trace-span-map-en.webp)
 
 :::tip Reading Guide
 When reading this diagram, focus on the request_id thread: one user request passes through multiple spans such as planner, retriever, tool, LLM, and safety. Only when the chain can be connected can troubleshooting stop relying on guesswork.

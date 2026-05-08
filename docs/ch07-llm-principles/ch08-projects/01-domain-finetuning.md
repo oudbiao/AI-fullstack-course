@@ -68,7 +68,7 @@ This topic is good because:
 
 As long as these 6 steps are clear, your project will already be very convincing.
 
-![Vertical domain fine-tuning closed loop](/img/course/ch07-domain-finetune-closed-loop-en.png)
+![Vertical domain fine-tuning closed loop](/img/course/ch07-domain-finetune-closed-loop-en.webp)
 
 :::tip How to read this loop
 Read the picture from top to bottom: narrow the task first, turn raw knowledge into SFT samples, compare baselines before training, evaluate with a fixed test set, and only then decide whether fine-tuning is worth the extra cost.
@@ -219,7 +219,7 @@ Because it already shows the four most important things in the project:
 
 This is already very close to the core structure of a real fine-tuning project.
 
-![Vertical domain fine-tuning project evaluation dashboard](/img/course/ch07-domain-finetune-evaluation-board-map-en.png)
+![Vertical domain fine-tuning project evaluation dashboard](/img/course/ch07-domain-finetune-evaluation-board-map-en.webp)
 
 :::tip How to read this diagram
 It is best to read this diagram from a portfolio perspective: first narrow the task boundary, then make sure the SFT data shows its source and format, run a baseline first, and use policy-point coverage, rule violations, style consistency, and before/after comparisons for evaluation. What makes the project valuable is not “I fine-tuned a model,” but that you can prove why fine-tuning was worth doing and where the improvement came from.

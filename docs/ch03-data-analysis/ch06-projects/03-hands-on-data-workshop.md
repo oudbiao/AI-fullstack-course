@@ -7,7 +7,7 @@ keywords: [data analysis workshop, Python CSV, SQLite, data cleaning, reproducib
 
 # 3.6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline
 
-![Follow-along data workshop route](/img/course/ch03-hands-on-data-workshop-route-en.png)
+![Follow-along data workshop route](/img/course/ch03-hands-on-data-workshop-route-en.webp)
 
 :::tip Workshop goal
 This page is the **hands-on bridge** for Chapter 3. Instead of learning NumPy, Pandas, visualization, and SQL as isolated topics, you will complete one runnable flow: dirty CSV → clean table → grouped statistics → SQLite query → chart → report evidence.
@@ -48,7 +48,7 @@ Keep this terminal open. All following commands assume you are inside `ch03-lear
 
 ## Step 1: Understand the pipeline before writing code
 
-![Cleaning and validation pipeline](/img/course/ch03-hands-on-cleaning-pipeline-en.png)
+![Cleaning and validation pipeline](/img/course/ch03-hands-on-cleaning-pipeline-en.webp)
 
 The key idea is simple: never jump from raw data to conclusions. A trustworthy analysis keeps evidence for each transformation.
 
@@ -403,7 +403,7 @@ If your output matches the counts, the pipeline is working.
 
 ## Step 4: Read the generated evidence
 
-![Group statistics and SQLite flow](/img/course/ch03-hands-on-groupby-sql-flow-en.png)
+![Group statistics and SQLite flow](/img/course/ch03-hands-on-groupby-sql-flow-en.webp)
 
 Open `ch03_output/cleaning_log.json` first. It should show three dropped rows: one missing `minutes`, one negative `minutes`, and one duplicate record. This file is important because data cleaning without a record is hard to trust later.
 
@@ -452,7 +452,7 @@ Expected output:
 
 ## Step 5: Open the chart and report
 
-![Chart and report output flow](/img/course/ch03-hands-on-chart-report-flow-en.png)
+![Chart and report output flow](/img/course/ch03-hands-on-chart-report-flow-en.webp)
 
 Open the HTML report:
 
@@ -500,7 +500,7 @@ The report is intentionally simple. Its purpose is not visual polish; its purpos
 
 ## Portfolio evidence checklist
 
-![Evidence pack checklist](/img/course/ch03-hands-on-evidence-pack-en.png)
+![Evidence pack checklist](/img/course/ch03-hands-on-evidence-pack-en.webp)
 
 When you use this workshop as portfolio practice, keep these materials:
 

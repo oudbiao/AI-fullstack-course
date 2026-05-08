@@ -7,7 +7,7 @@ keywords: [seq2seq, encoder decoder, translation, summarization, text generation
 
 # 11.5.2 Seq2Seq 模型
 
-![Seq2Seq 编码器解码器瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.png)
+![Seq2Seq 编码器解码器瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.webp)
 
 :::tip 读图提示
 Seq2Seq 的核心难点是“把输入序列压进表示，再一步步生成输出序列”。读图时重点看 context vector 为什么会形成信息瓶颈，以及后面的 Attention 为什么会出现。

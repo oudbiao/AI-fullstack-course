@@ -101,7 +101,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 > 先把任务维度摊开，再做判断。
 
-![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.png)
+![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.webp)
 
 :::tip 读图提示
 选框架时先不要问“哪个最火”，而要问任务更像哪一类：复杂状态流、知识检索、角色协作、快速 Demo，还是长期可维护系统。图中的分叉就是选型依据。
