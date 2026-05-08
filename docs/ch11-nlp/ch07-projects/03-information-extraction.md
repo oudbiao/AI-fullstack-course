@@ -36,18 +36,82 @@ For the basic version, you do not need to train a model first. Use rules and reg
 ```python
 import re
 
-text = "This Saturday at 19:30, there will be an introductory RAG livestream on Tencent Meeting, hosted by Teacher Zhang."
+text = "This Saturday at 19:30 on Tencent Meeting, Teacher Zhang will host an introductory RAG livestream for AI application beginners."
+
+speaker_match = re.search(r"Teacher [A-Z][a-z]+", text)
 
 result = {
-    "time": re.findall(r"\d{1,2}:\d{2}", text),
+    "time": re.findall(r"\d{1,2}:\d{2}", text)[0],
     "platform": "Tencent Meeting" if "Tencent Meeting" in text else None,
-    "topic": "RAG Introduction" if "RAG Introduction" in text else None,
+    "topic": "RAG Introduction" if "RAG" in text else None,
+    "speaker": speaker_match.group(0) if speaker_match else None,
+    "audience": "AI application beginners" if "AI application beginners" in text else None,
 }
 
 print(result)
 ```
 
+Expected output:
+
+```text
+{'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG Introduction', 'speaker': 'Teacher Zhang', 'audience': 'AI application beginners'}
+```
+
 Although this version is simple, it helps you understand the core of information extraction: extracting usable fields from unstructured text.
+
+### Add a Tiny Field-Level Evaluator
+
+Do not stop at one success case. A project needs to show whether each field is stable across more than one input.
+
+```python
+import re
+
+examples = [
+    {
+        "text": "This Saturday at 19:30 on Tencent Meeting, Teacher Zhang will host an introductory RAG livestream.",
+        "gold": {"time": "19:30", "platform": "Tencent Meeting", "topic": "RAG Introduction", "speaker": "Teacher Zhang"},
+    },
+    {
+        "text": "Sunday 10:00 on Zoom, Teacher Li explains evaluation metrics.",
+        "gold": {"time": "10:00", "platform": "Zoom", "topic": "evaluation metrics", "speaker": "Teacher Li"},
+    },
+]
+
+
+def extract(text):
+    time_match = re.search(r"\d{1,2}:\d{2}", text)
+    speaker_match = re.search(r"Teacher [A-Z][a-z]+", text)
+    platform = next((name for name in ["Tencent Meeting", "Zoom"] if name in text), "")
+    topic = "RAG Introduction" if "RAG" in text else ("evaluation metrics" if "evaluation metrics" in text else "")
+    return {
+        "time": time_match.group(0) if time_match else "",
+        "platform": platform,
+        "topic": topic,
+        "speaker": speaker_match.group(0) if speaker_match else "",
+    }
+
+
+correct = 0
+total = 0
+for item in examples:
+    predicted = extract(item["text"])
+    print({"text": item["text"], "predicted": predicted})
+    for field, gold_value in item["gold"].items():
+        correct += int(predicted[field] == gold_value)
+        total += 1
+
+print("field_accuracy =", round(correct / total, 4))
+```
+
+Expected output:
+
+```text
+{'text': 'This Saturday at 19:30 on Tencent Meeting, Teacher Zhang will host an introductory RAG livestream.', 'predicted': {'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG Introduction', 'speaker': 'Teacher Zhang'}}
+{'text': 'Sunday 10:00 on Zoom, Teacher Li explains evaluation metrics.', 'predicted': {'time': '10:00', 'platform': 'Zoom', 'topic': 'evaluation metrics', 'speaker': 'Teacher Li'}}
+field_accuracy = 1.0
+```
+
+This evaluator is small, but it teaches the habit that matters: information extraction should be measured field by field, not only judged by whether the final JSON looks plausible.
 
 ## Standard Version
 

@@ -151,6 +151,16 @@ for role, value in semantic_graph.items():
     print(role, "=>", value)
 ```
 
+Expected output:
+
+```text
+event => teach
+teacher => Professor Andrew Ng
+topic => machine learning course
+```
+
+Read this as a role table first. The sentence is no longer only a string; it has become an event plus participants.
+
 The main point is for you to first understand:
 
 - Text can be broken into roles
@@ -183,6 +193,17 @@ courseware_block = {
 for key, value in courseware_block.items():
     print(f"{key}: {value}")
 ```
+
+Expected output:
+
+```text
+title: chain rule
+definition: A rule for decomposing the derivative of a composite function.
+why_it_matters: It helps neural networks compute gradients.
+teaching_hint: Explain it as passing gradient signals layer by layer.
+```
+
+This is the practical value of semantic structure: once the roles are explicit, the next template can use them consistently.
 
 The workflow becomes clearer:
 

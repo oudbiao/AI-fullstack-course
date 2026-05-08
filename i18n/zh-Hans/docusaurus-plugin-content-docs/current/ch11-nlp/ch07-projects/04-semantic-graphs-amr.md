@@ -151,6 +151,16 @@ for role, value in semantic_graph.items():
     print(role, "=>", value)
 ```
 
+预期输出：
+
+```text
+event => 讲授
+teacher => 吴恩达教授
+topic => 机器学习课程
+```
+
+先把它当成角色表来看：句子不再只是一串文本，而是一个事件和参与者。
+
 它的重点是让你先看懂：
 
 - 文本可以被拆成角色
@@ -183,6 +193,17 @@ courseware_block = {
 for key, value in courseware_block.items():
     print(f"{key}: {value}")
 ```
+
+预期输出：
+
+```text
+title: 链式法则
+definition: 用于拆解复合函数导数的规则。
+why_it_matters: 它帮助神经网络计算梯度。
+teaching_hint: 可以把它讲成梯度信号逐层向前一层传递。
+```
+
+这就是语义结构的实用价值：角色一旦明确，后面的模板就能稳定复用这些字段。
 
 流程会变得更清楚：
 

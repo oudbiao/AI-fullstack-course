@@ -36,18 +36,82 @@ flowchart LR
 ```python
 import re
 
-text = "今週土曜 19:30 に Tencent Meeting で RAG 入門ライブ配信を開催します。講師は張先生です。"
+text = "今週土曜 19:30 に Tencent Meeting で AI アプリ初学者向けの RAG 入門ライブ配信を開催します。講師は張先生です。"
+
+speaker_match = re.search(r"[\u3400-\u9fff]先生", text)
 
 result = {
-    "time": re.findall(r"\d{1,2}:\d{2}", text),
+    "time": re.findall(r"\d{1,2}:\d{2}", text)[0],
     "platform": "Tencent Meeting" if "Tencent Meeting" in text else None,
     "topic": "RAG 入門" if "RAG 入門" in text else None,
+    "speaker": speaker_match.group(0) if speaker_match else None,
+    "audience": "AI アプリ初学者" if "AI アプリ初学者" in text else None,
 }
 
 print(result)
 ```
 
+想定出力：
+
+```text
+{'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG 入門', 'speaker': '張先生', 'audience': 'AI アプリ初学者'}
+```
+
 この版はシンプルですが、情報抽出の核心である「非構造化テキストから使えるフィールドを取り出す」という考え方を理解する助けになります。
+
+### 小さなフィールド単位の評価器を追加する
+
+成功例 1 件で止めないようにしましょう。プロジェクトでは、複数の入力に対して各フィールドが安定しているかを見せる必要があります。
+
+```python
+import re
+
+examples = [
+    {
+        "text": "今週土曜 19:30 に Tencent Meeting で RAG 入門ライブ配信を開催します。講師は張先生です。",
+        "gold": {"time": "19:30", "platform": "Tencent Meeting", "topic": "RAG 入門", "speaker": "張先生"},
+    },
+    {
+        "text": "日曜 10:00 に Zoom で評価指標の解説を行います。講師は李先生です。",
+        "gold": {"time": "10:00", "platform": "Zoom", "topic": "評価指標", "speaker": "李先生"},
+    },
+]
+
+
+def extract(text):
+    time_match = re.search(r"\d{1,2}:\d{2}", text)
+    speaker_match = re.search(r"[\u3400-\u9fff]先生", text)
+    platform = next((name for name in ["Tencent Meeting", "Zoom"] if name in text), "")
+    topic = "RAG 入門" if "RAG" in text else ("評価指標" if "評価指標" in text else "")
+    return {
+        "time": time_match.group(0) if time_match else "",
+        "platform": platform,
+        "topic": topic,
+        "speaker": speaker_match.group(0) if speaker_match else "",
+    }
+
+
+correct = 0
+total = 0
+for item in examples:
+    predicted = extract(item["text"])
+    print({"text": item["text"], "predicted": predicted})
+    for field, gold_value in item["gold"].items():
+        correct += int(predicted[field] == gold_value)
+        total += 1
+
+print("field_accuracy =", round(correct / total, 4))
+```
+
+想定出力：
+
+```text
+{'text': '今週土曜 19:30 に Tencent Meeting で RAG 入門ライブ配信を開催します。講師は張先生です。', 'predicted': {'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG 入門', 'speaker': '張先生'}}
+{'text': '日曜 10:00 に Zoom で評価指標の解説を行います。講師は李先生です。', 'predicted': {'time': '10:00', 'platform': 'Zoom', 'topic': '評価指標', 'speaker': '李先生'}}
+field_accuracy = 1.0
+```
+
+この評価器は小さいですが、重要な習慣を身につけられます。情報抽出は、最終 JSON がそれらしく見えるかではなく、フィールドごとに測る必要があります。
 
 ## 標準版
 

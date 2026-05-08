@@ -124,6 +124,8 @@ flowchart LR
 ## 四、先做一个更完整的最小系统
 
 ```python
+import re
+
 knowledge_base = [
     {"question": "课程多久内可以退款？", "answer": "课程购买后 7 天内且学习进度低于 20% 可申请退款。"},
     {"question": "证书怎么获得？", "answer": "完成所有必修项目并通过结课测试后，可以获得结业证书。"},
@@ -131,9 +133,15 @@ knowledge_base = [
     {"question": "前四阶段需要 GPU 吗？", "answer": "前四阶段不需要 GPU，普通电脑即可完成学习。"},
 ]
 
+STOP_TOKENS = set("的了是吗么？?和个更哪可可以怎么什么") | {"gpu", "python"}
+
 
 def tokenize(text):
-    return set(text.replace("？", "").replace("?", ""))
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]+|[\u4e00-\u9fff]", text.lower())
+        if token not in STOP_TOKENS
+    }
 
 
 def answer_question(user_query):
@@ -156,6 +164,15 @@ def answer_question(user_query):
 print(answer_question("退款时间是多久"))
 print(answer_question("怎么拿证书"))
 ```
+
+预期输出：
+
+```text
+{'matched_question': '课程多久内可以退款？', 'answer': '课程购买后 7 天内且学习进度低于 20% 可申请退款。', 'score': 4}
+{'matched_question': '证书怎么获得？', 'answer': '完成所有必修项目并通过结课测试后，可以获得结业证书。', 'score': 2}
+```
+
+这里的分数表示共享的有效 token 数。它仍然很简单，但比直接按字符粗暴匹配更稳，因为越界问题可以得到 `0` 分。
 
 ### 这个例子为什么更像项目，而不只是一个函数？
 
@@ -185,6 +202,8 @@ print(answer_question("怎么拿证书"))
 
 ### 再看一个最小“命中日志”示例
 
+把下面代码接在上一段后面，再运行同一个文件。
+
 ```python
 queries = ["退款时间是多久", "怎么拿证书"]
 
@@ -198,6 +217,15 @@ for query in queries:
         }
     )
 ```
+
+预期输出：
+
+```text
+{'query': '退款时间是多久', 'matched_question': '课程多久内可以退款？', 'score': 4}
+{'query': '怎么拿证书', 'matched_question': '证书怎么获得？', 'score': 2}
+```
+
+如果命中的问题错了，不要先调回答文案。先检查检索、分词或知识库边界。
 
 这个日志很像真实项目里最值得先看的东西之一：
 
@@ -218,7 +246,7 @@ for query in queries:
 这在真实项目里很危险。
 
 ```python
-def safe_answer_question(user_query, threshold=2):
+def safe_answer_question(user_query, threshold=1):
     result = answer_question(user_query)
     if result["score"] < threshold:
         return {
@@ -231,6 +259,14 @@ def safe_answer_question(user_query, threshold=2):
 
 print(safe_answer_question("DeepSeek 和 OpenAI 哪个更强？"))
 ```
+
+预期输出：
+
+```text
+{'answer': '当前知识库中没有足够相关的信息。', 'matched_question': None, 'score': 0}
+```
+
+这才是我们想要的行为：系统没有找到可支撑答案的知识，所以拒答，而不是猜。
 
 ### 为什么这一步特别值钱？
 
@@ -265,6 +301,14 @@ for q, gold in eval_data:
 accuracy = correct / len(eval_data)
 print("accuracy =", accuracy)
 ```
+
+预期输出：
+
+```text
+accuracy = 1.0
+```
+
+这个评估集很小，不能代表真实产品质量，但它证明了闭环：正常问题能答对，轻微改写仍能命中正确条目，拒答可以单独测试。
 
 ### 还应该评估什么？
 

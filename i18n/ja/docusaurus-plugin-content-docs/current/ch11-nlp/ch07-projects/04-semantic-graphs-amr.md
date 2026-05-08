@@ -152,6 +152,16 @@ for role, value in semantic_graph.items():
     print(role, "=>", value)
 ```
 
+想定出力：
+
+```text
+event => 教える
+teacher => Andrew Ng 教授
+topic => 機械学習コース
+```
+
+まずは役割表として読んでください。文はただの文字列ではなく、イベントと参加者の構造になります。
+
 ここで大事なのは、まず次の点を理解することです。
 
 - テキストは役割に分解できる
@@ -184,6 +194,17 @@ courseware_block = {
 for key, value in courseware_block.items():
     print(f"{key}: {value}")
 ```
+
+想定出力：
+
+```text
+title: 連鎖律
+definition: 合成関数の導関数を分解して考えるための規則。
+why_it_matters: ニューラルネットワーク が 勾配を計算する ために重要。
+teaching_hint: 勾配信号が 層ごとに 前の層へ伝わる、と説明できる。
+```
+
+これが意味構造の実用的な価値です。役割が明示されると、次のテンプレートがそれらを安定して再利用できます。
 
 流れは次のように整理できます。
 

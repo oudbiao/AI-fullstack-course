@@ -166,13 +166,22 @@ def summarize(text, top_k=2):
         for idx, sent in enumerate(sentences)
     ]
     top = sorted(sorted(scored, reverse=True)[:top_k], key=lambda x: x[1])
-    return "。".join(item[2] for item in top) + "。", scored
+    return " ".join(item[2] for item in top), scored
 
 
 summary, scored = summarize(article, top_k=2)
 print("summary:", summary)
-print("scores:", scored)
+print("top scored:", sorted(scored, reverse=True)[:2])
 ```
+
+Expected output:
+
+```text
+summary: Many people want to jump straight into large models at the beginning, but they often get stuck quickly because their foundation is not solid enough. If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.
+top scored: [(4136, 4, 'If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.'), (3866, 3, 'Many people want to jump straight into large models at the beginning, but they often get stuck quickly because their foundation is not solid enough.')]
+```
+
+Do not treat the score as truth. Treat it as a debug signal: if the selected sentence is strange, inspect the scoring rule before changing models.
 
 ### Why does this example feel more like a project?
 
@@ -201,6 +210,14 @@ The intermediate scoring process helps others understand:
 for k in [1, 2, 3]:
     summary_k, _ = summarize(article, top_k=k)
     print(f"top_k={k} -> {summary_k}")
+```
+
+Expected output:
+
+```text
+top_k=1 -> If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.
+top_k=2 -> Many people want to jump straight into large models at the beginning, but they often get stuck quickly because their foundation is not solid enough. If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.
+top_k=3 -> Only after learners master these topics can they move more steadily into deep learning and large model application development. Many people want to jump straight into large models at the beginning, but they often get stuck quickly because their foundation is not solid enough. If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.
 ```
 
 This example is great for beginners because it helps you build one key intuition:
@@ -233,6 +250,14 @@ for case in eval_cases:
         "coverage_ratio": round(len(covered) / len(case["gold_focus"]), 4),
     })
 ```
+
+Expected output:
+
+```text
+{'summary': 'Many people want to jump straight into large models at the beginning, but they often get stuck quickly because their foundation is not solid enough. If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.', 'covered_focus': ['system deployment'], 'coverage_ratio': 0.3333}
+```
+
+The low coverage ratio is not a failure of the lesson. It is the lesson: a naive frequency baseline can miss important learning-path facts even when the summary reads smoothly.
 
 ### Why is this evaluation simple but useful?
 

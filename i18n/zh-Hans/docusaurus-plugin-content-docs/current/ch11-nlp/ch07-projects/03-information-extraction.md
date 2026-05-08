@@ -36,18 +36,82 @@ flowchart LR
 ```python
 import re
 
-text = "本周六 19:30 在腾讯会议举行 RAG 入门直播，主讲人是张老师。"
+text = "本周六 19:30 在腾讯会议举行面向 AI 应用初学者的 RAG 入门直播，主讲人是张老师。"
+
+speaker_match = re.search(r"[\u4e00-\u9fff]老师", text)
 
 result = {
-    "time": re.findall(r"\d{1,2}:\d{2}", text),
+    "time": re.findall(r"\d{1,2}:\d{2}", text)[0],
     "platform": "腾讯会议" if "腾讯会议" in text else None,
     "topic": "RAG 入门" if "RAG 入门" in text else None,
+    "speaker": speaker_match.group(0) if speaker_match else None,
+    "audience": "AI 应用初学者" if "AI 应用初学者" in text else None,
 }
 
 print(result)
 ```
 
+预期输出：
+
+```text
+{'time': '19:30', 'platform': '腾讯会议', 'topic': 'RAG 入门', 'speaker': '张老师', 'audience': 'AI 应用初学者'}
+```
+
 这个版本虽然简单，但能帮助你理解信息抽取的核心：从非结构化文本中提取可用字段。
+
+### 加一个字段级评估器
+
+不要停在一个成功样例。项目要展示的是：多个输入里，每个字段是否都稳定。
+
+```python
+import re
+
+examples = [
+    {
+        "text": "本周六 19:30 在腾讯会议举行 RAG 入门直播，主讲人是张老师。",
+        "gold": {"time": "19:30", "platform": "腾讯会议", "topic": "RAG 入门", "speaker": "张老师"},
+    },
+    {
+        "text": "周日 10:00 在 Zoom 举行评估指标讲解，主讲人是李老师。",
+        "gold": {"time": "10:00", "platform": "Zoom", "topic": "评估指标", "speaker": "李老师"},
+    },
+]
+
+
+def extract(text):
+    time_match = re.search(r"\d{1,2}:\d{2}", text)
+    speaker_match = re.search(r"[\u4e00-\u9fff]老师", text)
+    platform = next((name for name in ["腾讯会议", "Zoom"] if name in text), "")
+    topic = "RAG 入门" if "RAG" in text else ("评估指标" if "评估指标" in text else "")
+    return {
+        "time": time_match.group(0) if time_match else "",
+        "platform": platform,
+        "topic": topic,
+        "speaker": speaker_match.group(0) if speaker_match else "",
+    }
+
+
+correct = 0
+total = 0
+for item in examples:
+    predicted = extract(item["text"])
+    print({"text": item["text"], "predicted": predicted})
+    for field, gold_value in item["gold"].items():
+        correct += int(predicted[field] == gold_value)
+        total += 1
+
+print("field_accuracy =", round(correct / total, 4))
+```
+
+预期输出：
+
+```text
+{'text': '本周六 19:30 在腾讯会议举行 RAG 入门直播，主讲人是张老师。', 'predicted': {'time': '19:30', 'platform': '腾讯会议', 'topic': 'RAG 入门', 'speaker': '张老师'}}
+{'text': '周日 10:00 在 Zoom 举行评估指标讲解，主讲人是李老师。', 'predicted': {'time': '10:00', 'platform': 'Zoom', 'topic': '评估指标', 'speaker': '李老师'}}
+field_accuracy = 1.0
+```
+
+这个评估器很小，但它训练的是最重要的习惯：信息抽取要按字段评估，而不是只看最终 JSON 像不像。
 
 ## 标准版本
 

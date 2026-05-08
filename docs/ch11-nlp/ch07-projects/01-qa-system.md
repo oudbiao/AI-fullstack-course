@@ -124,6 +124,8 @@ This analogy is important because it helps beginners build the right intuition e
 ## First build a more complete minimal system
 
 ```python
+import re
+
 knowledge_base = [
     {"question": "How long after purchase can I get a refund?", "answer": "Refunds can be requested within 7 days of purchase if your learning progress is below 20%."},
     {"question": "How do I get the certificate?", "answer": "You can receive the completion certificate after finishing all required projects and passing the final test."},
@@ -131,9 +133,11 @@ knowledge_base = [
     {"question": "Do I need a GPU for the first four stages?", "answer": "A GPU is not required for the first four stages; a regular computer is enough."},
 ]
 
+STOPWORDS = {"a", "an", "the", "is", "do", "i", "can", "get", "how", "what", "for", "after"}
+
 
 def tokenize(text):
-    return set(text.replace("？", "").replace("?", ""))
+    return {token for token in re.findall(r"[a-z0-9]+", text.lower()) if token not in STOPWORDS}
 
 
 def answer_question(user_query):
@@ -156,6 +160,15 @@ def answer_question(user_query):
 print(answer_question("How long is the refund period?"))
 print(answer_question("How do I get the certificate?"))
 ```
+
+Expected output:
+
+```text
+{'matched_question': 'How long after purchase can I get a refund?', 'answer': 'Refunds can be requested within 7 days of purchase if your learning progress is below 20%.', 'score': 2}
+{'matched_question': 'How do I get the certificate?', 'answer': 'You can receive the completion certificate after finishing all required projects and passing the final test.', 'score': 1}
+```
+
+The score is the number of shared meaningful tokens. It is intentionally simple, but it is already better than character matching because an unrelated question can now receive a score of `0`.
 
 ### Why does this example feel more like a project, not just a function?
 
@@ -185,6 +198,8 @@ it becomes very hard to figure out where the problem actually is.
 
 ### Another minimal "match log" example
 
+Add this below the previous code and run the file again.
+
 ```python
 queries = ["How long is the refund period?", "How do I get the certificate?"]
 
@@ -198,6 +213,15 @@ for query in queries:
         }
     )
 ```
+
+Expected output:
+
+```text
+{'query': 'How long is the refund period?', 'matched_question': 'How long after purchase can I get a refund?', 'score': 2}
+{'query': 'How do I get the certificate?', 'matched_question': 'How do I get the certificate?', 'score': 1}
+```
+
+If the matched question is wrong, do not tune the answer text first. Fix retrieval, tokenization, or the knowledge base boundary first.
 
 This kind of log is one of the most useful things to look at in a real project:
 
@@ -218,7 +242,7 @@ Without refusal, the system will easily:
 That is dangerous in real projects.
 
 ```python
-def safe_answer_question(user_query, threshold=2):
+def safe_answer_question(user_query, threshold=1):
     result = answer_question(user_query)
     if result["score"] < threshold:
         return {
@@ -231,6 +255,14 @@ def safe_answer_question(user_query, threshold=2):
 
 print(safe_answer_question("Which is stronger, DeepSeek or OpenAI?"))
 ```
+
+Expected output:
+
+```text
+{'answer': 'There is not enough relevant information in the current knowledge base.', 'matched_question': None, 'score': 0}
+```
+
+This is the behavior you want: the system found no supporting knowledge, so it refused instead of guessing.
 
 ### Why is this step especially valuable?
 
@@ -265,6 +297,14 @@ for q, gold in eval_data:
 accuracy = correct / len(eval_data)
 print("accuracy =", accuracy)
 ```
+
+Expected output:
+
+```text
+accuracy = 1.0
+```
+
+This tiny evaluation set is not enough for a real product, but it proves the loop: normal questions answer correctly, paraphrases still retrieve the right item, and refusal can be tested separately.
 
 ### What else should be evaluated?
 
