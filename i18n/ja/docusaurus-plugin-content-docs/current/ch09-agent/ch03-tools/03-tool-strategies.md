@@ -207,16 +207,16 @@ Agent のツール呼び出し戦略も同じです。
 
 ```python
 def route_query(query):
-    if "总结" in query or "改写" in query:
+    if "要約" in query or "書き換え" in query:
         return {"action": "no_tool", "reason": "純テキストタスク"}
 
-    if "天气" in query:
+    if "天気" in query:
         if "北京" in query:
             return {"action": "tool", "tool": "weather", "arguments": {"city": "北京"}}
         return {"action": "ask_user", "question": "どの都市の天気を調べたいですか？"}
 
-    if "计算" in query:
-        expression = query.replace("计算", "").strip()
+    if "計算" in query:
+        expression = query.replace("計算", "").strip()
         return {"action": "tool", "tool": "calculator", "arguments": {"expression": expression}}
 
     return {"action": "fallback", "reason": "現在、適切な戦略がありません"}
@@ -230,6 +230,15 @@ queries = [
 
 for q in queries:
     print(q, "->", route_query(q))
+```
+
+期待される出力：
+
+```text
+この文章を要約して -> {'action': 'no_tool', 'reason': '純テキストタスク'}
+北京の天気はどうですか -> {'action': 'tool', 'tool': 'weather', 'arguments': {'city': '北京'}}
+天気を調べて -> {'action': 'ask_user', 'question': 'どの都市の天気を調べたいですか？'}
+計算 12 * 7 -> {'action': 'tool', 'tool': 'calculator', 'arguments': {'expression': '12 * 7'}}
 ```
 
 この例はシンプルですが、「戦略」という層をよく表しています。
@@ -302,6 +311,14 @@ def execute_strategy(query):
 
 for q in ["北京の天気はどうですか", "天気を調べて", "計算 9 + 8"]:
     print(q, "->", execute_strategy(q))
+```
+
+期待される出力：
+
+```text
+北京の天気はどうですか -> {'type': 'tool_result', 'content': {'city': '北京', 'temperature': 22, 'condition': 'sunny'}}
+天気を調べて -> {'type': 'question', 'content': 'どの都市の天気を調べたいですか？'}
+計算 9 + 8 -> {'type': 'tool_result', 'content': {'result': 17}}
 ```
 
 このコードが本当に教えているのは次のことです。

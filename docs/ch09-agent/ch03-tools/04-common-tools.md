@@ -184,6 +184,12 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
+Expected output:
+
+```text
+dict_keys(['search_docs', 'calculator', 'get_user_status'])
+```
+
 ### Why is unified registration important?
 
 Because later you will need to:
@@ -223,6 +229,14 @@ calls = [
 
 for call in calls:
     print(call, "->", dispatch(call))
+```
+
+Expected output:
+
+```text
+{'name': 'search_docs', 'arguments': {'keyword': 'refund'}} -> {'result': 'You can apply for a refund within 7 days after purchasing the course'}
+{'name': 'calculator', 'arguments': {'expression': '12 * 7'}} -> {'result': 84}
+{'name': 'get_user_status', 'arguments': {'user_id': 1}} -> {'result': {'name': 'Alice', 'progress': 0.15}}
 ```
 
 ### What does this code teach you?
@@ -292,6 +306,13 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
+Expected output:
+
+```text
+{'result': 27}
+{'error': 'invalid_expression'}
+```
+
 ### Database tools
 
 Key concerns:
@@ -348,6 +369,13 @@ def refund_eligibility_agent(user_id):
 
 print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
+```
+
+Expected output:
+
+```text
+{'user': 'Alice', 'progress': 0.15, 'policy': 'You can apply for a refund within 7 days after purchasing the course', 'can_refund': True}
+{'user': 'Bob', 'progress': 0.35, 'policy': 'You can apply for a refund within 7 days after purchasing the course', 'can_refund': False}
 ```
 
 ### What does this code really show?
@@ -414,6 +442,12 @@ def wrapped_search(keyword):
         return {"ok": False, "error": str(e)}
 
 print(wrapped_search("refund"))
+```
+
+Expected output:
+
+```text
+{'ok': True, 'data': 'You can apply for a refund within 7 days after purchasing the course'}
 ```
 
 This makes it easier for the Agent layer to make unified decisions later.

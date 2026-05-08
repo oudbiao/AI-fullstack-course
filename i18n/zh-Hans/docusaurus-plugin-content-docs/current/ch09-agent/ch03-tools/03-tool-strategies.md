@@ -228,6 +228,15 @@ for q in queries:
     print(q, "->", route_query(q))
 ```
 
+预期输出：
+
+```text
+把这段话总结一下 -> {'action': 'no_tool', 'reason': '纯文本任务'}
+北京天气怎么样 -> {'action': 'tool', 'tool': 'weather', 'arguments': {'city': '北京'}}
+帮我查天气 -> {'action': 'ask_user', 'question': '你想查哪个城市的天气？'}
+计算 12 * 7 -> {'action': 'tool', 'tool': 'calculator', 'arguments': {'expression': '12 * 7'}}
+```
+
 这个例子虽然简单，但已经体现出“策略”这个层次了：
 
 - 不是所有输入都交给工具
@@ -298,6 +307,14 @@ def execute_strategy(query):
 
 for q in ["北京天气怎么样", "帮我查天气", "计算 9 + 8"]:
     print(q, "->", execute_strategy(q))
+```
+
+预期输出：
+
+```text
+北京天气怎么样 -> {'type': 'tool_result', 'content': {'city': '北京', 'temperature': 22, 'condition': 'sunny'}}
+帮我查天气 -> {'type': 'question', 'content': '你想查哪个城市的天气？'}
+计算 9 + 8 -> {'type': 'tool_result', 'content': {'result': 17}}
 ```
 
 这段代码真正教的是：

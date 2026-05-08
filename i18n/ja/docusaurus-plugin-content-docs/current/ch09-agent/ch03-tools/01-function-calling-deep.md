@@ -185,6 +185,13 @@ print(validate_tool_call({"name": "search_course_policy", "arguments": {"keyword
 print(validate_tool_call({"name": "search_course_policy", "arguments": {}}))
 ```
 
+期待される出力：
+
+```text
+(True, 'ok')
+(False, 'missing_keyword')
+```
+
 これは「あると便利」なものではなく、本番システムの基本防御です。
 
 ---
@@ -306,6 +313,26 @@ for q in queries:
     print("-" * 50)
 ```
 
+期待される出力：
+
+```text
+ユーザーの質問: 返金ポリシーは何ですか？
+モデルの出力: {'name': 'search_course_policy', 'arguments': {'keyword': '返金'}}
+検証結果: True ok
+ツール実行結果: コース購入後 7 日以内で、学習進捗が 20% 未満なら返金申請が可能です。
+--------------------------------------------------
+ユーザーの質問: 証明書はどうやってもらえますか？
+モデルの出力: {'name': 'search_course_policy', 'arguments': {'keyword': '証明書'}}
+検証結果: True ok
+ツール実行結果: 必修項目をすべて完了し、修了テストに合格すると証明書を取得できます。
+--------------------------------------------------
+ユーザーの質問: 計算 12 * (3 + 2)
+モデルの出力: {'name': 'calculate', 'arguments': {'expression': '12 * (3 + 2)'}}
+検証結果: True ok
+ツール実行結果: 60
+--------------------------------------------------
+```
+
 この例は、単に `tool_call` を表示するだけのものより、実際のシステムにかなり近いです。
 
 ---
@@ -350,8 +377,17 @@ def multi_step_agent(query):
 
     return steps
 
-for step in multi_step_agent("まず返金を調べて、それから 3000 円の 7 割を計算"):
+for step in multi_step_agent("まず返金を調べて、それから 3000 円の 7割を計算"):
     print(step)
+```
+
+期待される出力：
+
+```text
+('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': '返金'}})
+('tool_result', 'コース購入後 7 日以内で、学習進捗が 20% 未満なら返金申請が可能です。')
+('tool_call', {'name': 'calculate', 'arguments': {'expression': '3000 * 0.7'}})
+('tool_result', '2100.0')
 ```
 
 だからこそ、Function Calling を学んでいくと、最終的には Agent と結びついていきます。
@@ -383,6 +419,13 @@ def safe_dispatch(call):
 
 print(safe_dispatch({"name": "calculate", "arguments": {"expression": "2 + 3"}}))
 print(safe_dispatch({"name": "calculate", "arguments": {"wrong": "2 + 3"}}))
+```
+
+期待される出力：
+
+```text
+{'result': '5'}
+{'error': 'invalid_calculate_arguments'}
 ```
 
 成熟したシステムは、1回のツール失敗でそのまま崩壊しません。
@@ -463,6 +506,13 @@ def tool_result(ok, data=None, error=None, retryable=False):
 
 print(tool_result(True, data={"text": "コース購入後 7 日以内なら返金申請できます"}))
 print(tool_result(False, error="timeout", retryable=True))
+```
+
+期待される出力：
+
+```text
+{'ok': True, 'data': {'text': 'コース購入後 7 日以内なら返金申請できます'}, 'error': None, 'retryable': False}
+{'ok': False, 'data': None, 'error': 'timeout', 'retryable': True}
 ```
 
 このような構造は、単なる文字列を返すより Agent に向いています。システムは `ok`、`error`、`retryable` を見て、次に進む、再試行する、別のツールを使う、止めてユーザーに説明する、のどれにするかを決められるからです。

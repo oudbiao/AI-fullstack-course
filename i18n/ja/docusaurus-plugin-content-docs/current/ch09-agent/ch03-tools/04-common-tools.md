@@ -186,6 +186,12 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
+期待される出力：
+
+```text
+dict_keys(['search_docs', 'calculator', 'get_user_status'])
+```
+
 ### なぜ統一登録が重要なのか？
 
 後で次のようなことが必要になるからです。
@@ -225,6 +231,14 @@ calls = [
 
 for call in calls:
     print(call, "->", dispatch(call))
+```
+
+期待される出力：
+
+```text
+{'name': 'search_docs', 'arguments': {'keyword': '返金'}} -> {'result': 'コース購入後 7 日以内に返金申請ができます'}
+{'name': 'calculator', 'arguments': {'expression': '12 * 7'}} -> {'result': 84}
+{'name': 'get_user_status', 'arguments': {'user_id': 1}} -> {'result': {'name': 'Alice', 'progress': 0.15}}
 ```
 
 ### このコードで分かること
@@ -294,6 +308,13 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
+期待される出力：
+
+```text
+{'result': 27}
+{'error': 'invalid_expression'}
+```
+
 ### データベース系ツール
 
 重点ポイント:
@@ -350,6 +371,13 @@ def refund_eligibility_agent(user_id):
 
 print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
+```
+
+期待される出力：
+
+```text
+{'user': 'Alice', 'progress': 0.15, 'policy': 'コース購入後 7 日以内に返金申請ができます', 'can_refund': True}
+{'user': 'Bob', 'progress': 0.35, 'policy': 'コース購入後 7 日以内に返金申請ができます', 'can_refund': False}
 ```
 
 ### このコードが本当に示していること
@@ -419,6 +447,12 @@ def wrapped_search(keyword):
         return {"ok": False, "error": str(e)}
 
 print(wrapped_search("返金"))
+```
+
+期待される出力：
+
+```text
+{'ok': True, 'data': 'コース購入後 7 日以内に返金申請ができます'}
 ```
 
 こうしておくと、後の Agent 層で統一的に判定しやすくなります。

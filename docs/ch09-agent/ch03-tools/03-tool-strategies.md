@@ -203,16 +203,18 @@ The example below distinguishes three cases:
 
 ```python
 def route_query(query):
-    if "summarize" in query or "rewrite" in query:
+    normalized = query.lower()
+
+    if "summarize" in normalized or "rewrite" in normalized:
         return {"action": "no_tool", "reason": "pure text task"}
 
-    if "weather" in query:
-        if "Beijing" in query:
+    if "weather" in normalized:
+        if "beijing" in normalized:
             return {"action": "tool", "tool": "weather", "arguments": {"city": "Beijing"}}
         return {"action": "ask_user", "question": "Which city's weather would you like to check?"}
 
-    if "calculate" in query:
-        expression = query.replace("calculate", "").strip()
+    if "calculate" in normalized:
+        expression = query[normalized.index("calculate") + len("calculate") :].strip()
         return {"action": "tool", "tool": "calculator", "arguments": {"expression": expression}}
 
     return {"action": "fallback", "reason": "no suitable strategy available"}
@@ -226,6 +228,15 @@ queries = [
 
 for q in queries:
     print(q, "->", route_query(q))
+```
+
+Expected output:
+
+```text
+Summarize this paragraph -> {'action': 'no_tool', 'reason': 'pure text task'}
+How's the weather in Beijing? -> {'action': 'tool', 'tool': 'weather', 'arguments': {'city': 'Beijing'}}
+Help me check the weather -> {'action': 'ask_user', 'question': "Which city's weather would you like to check?"}
+Calculate 12 * 7 -> {'action': 'tool', 'tool': 'calculator', 'arguments': {'expression': '12 * 7'}}
 ```
 
 Although this example is simple, it already shows the level of "strategy":
@@ -298,6 +309,14 @@ def execute_strategy(query):
 
 for q in ["How's the weather in Beijing?", "Help me check the weather", "Calculate 9 + 8"]:
     print(q, "->", execute_strategy(q))
+```
+
+Expected output:
+
+```text
+How's the weather in Beijing? -> {'type': 'tool_result', 'content': {'city': 'Beijing', 'temperature': 22, 'condition': 'sunny'}}
+Help me check the weather -> {'type': 'question', 'content': "Which city's weather would you like to check?"}
+Calculate 9 + 8 -> {'type': 'tool_result', 'content': {'result': 17}}
 ```
 
 What this code really teaches is:

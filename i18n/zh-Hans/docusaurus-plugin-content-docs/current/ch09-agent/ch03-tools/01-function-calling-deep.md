@@ -185,6 +185,13 @@ print(validate_tool_call({"name": "search_course_policy", "arguments": {"keyword
 print(validate_tool_call({"name": "search_course_policy", "arguments": {}}))
 ```
 
+预期输出：
+
+```text
+(True, 'ok')
+(False, 'missing_keyword')
+```
+
 这一步不是“锦上添花”，而是上线系统的基础防线。
 
 ---
@@ -306,6 +313,26 @@ for q in queries:
     print("-" * 50)
 ```
 
+预期输出：
+
+```text
+用户问题: 退款政策是什么？
+模型产出: {'name': 'search_course_policy', 'arguments': {'keyword': '退款'}}
+校验结果: True ok
+工具执行结果: 课程购买后 7 天内且学习进度低于 20% 可申请退款。
+--------------------------------------------------
+用户问题: 证书怎么拿？
+模型产出: {'name': 'search_course_policy', 'arguments': {'keyword': '证书'}}
+校验结果: True ok
+工具执行结果: 完成所有必修项目并通过结课测试后可获得证书。
+--------------------------------------------------
+用户问题: 计算 12 * (3 + 2)
+模型产出: {'name': 'calculate', 'arguments': {'expression': '12 * (3 + 2)'}}
+校验结果: True ok
+工具执行结果: 60
+--------------------------------------------------
+```
+
 这个示例已经比“单纯打印 tool_call”更接近真实系统。
 
 ---
@@ -354,6 +381,15 @@ for step in multi_step_agent("先查退款，再算 3000 元打七折"):
     print(step)
 ```
 
+预期输出：
+
+```text
+('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': '退款'}})
+('tool_result', '课程购买后 7 天内且学习进度低于 20% 可申请退款。')
+('tool_call', {'name': 'calculate', 'arguments': {'expression': '3000 * 0.7'}})
+('tool_result', '2100.0')
+```
+
 这就是为什么 Function Calling 讲到后面，迟早会和 Agent 结合起来。
 
 ---
@@ -383,6 +419,13 @@ def safe_dispatch(call):
 
 print(safe_dispatch({"name": "calculate", "arguments": {"expression": "2 + 3"}}))
 print(safe_dispatch({"name": "calculate", "arguments": {"wrong": "2 + 3"}}))
+```
+
+预期输出：
+
+```text
+{'result': '5'}
+{'error': 'invalid_calculate_arguments'}
 ```
 
 一个成熟系统通常不会因为一次工具失败就直接崩掉。
@@ -462,6 +505,13 @@ def tool_result(ok, data=None, error=None, retryable=False):
 
 print(tool_result(True, data={"text": "课程购买后 7 天内可申请退款"}))
 print(tool_result(False, error="timeout", retryable=True))
+```
+
+预期输出：
+
+```text
+{'ok': True, 'data': {'text': '课程购买后 7 天内可申请退款'}, 'error': None, 'retryable': False}
+{'ok': False, 'data': None, 'error': 'timeout', 'retryable': True}
 ```
 
 这种结构比单纯返回字符串更适合 Agent，因为系统可以根据 `ok`、`error` 和 `retryable` 决定下一步是继续、重试、换工具，还是停止并向用户说明。

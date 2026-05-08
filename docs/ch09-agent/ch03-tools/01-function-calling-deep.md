@@ -185,6 +185,13 @@ print(validate_tool_call({"name": "search_course_policy", "arguments": {"keyword
 print(validate_tool_call({"name": "search_course_policy", "arguments": {}}))
 ```
 
+Expected output:
+
+```text
+(True, 'ok')
+(False, 'missing_keyword')
+```
+
 This step is not a “nice-to-have”; it is a basic line of defense for any production system.
 
 ---
@@ -306,6 +313,26 @@ for q in queries:
     print("-" * 50)
 ```
 
+Expected output:
+
+```text
+User question: What is the refund policy?
+Model output: {'name': 'search_course_policy', 'arguments': {'keyword': 'refund'}}
+Validation result: True ok
+Tool execution result: You can apply for a refund within 7 days after purchase and if your learning progress is below 20%.
+--------------------------------------------------
+User question: How do I get a certificate?
+Model output: {'name': 'search_course_policy', 'arguments': {'keyword': 'certificate'}}
+Validation result: True ok
+Tool execution result: You can obtain a certificate after completing all required items and passing the final assessment.
+--------------------------------------------------
+User question: calculate 12 * (3 + 2)
+Model output: {'name': 'calculate', 'arguments': {'expression': '12 * (3 + 2)'}}
+Validation result: True ok
+Tool execution result: 60
+--------------------------------------------------
+```
+
 This example is already much closer to a real system than simply printing `tool_call`.
 
 ---
@@ -354,6 +381,15 @@ for step in multi_step_agent("First check the refund policy, then calculate a 30
     print(step)
 ```
 
+Expected output:
+
+```text
+('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': 'refund'}})
+('tool_result', 'You can apply for a refund within 7 days after purchase and if your learning progress is below 20%.')
+('tool_call', {'name': 'calculate', 'arguments': {'expression': '3000 * 0.7'}})
+('tool_result', '2100.0')
+```
+
 This is why, once Function Calling goes deeper, it will eventually be combined with Agents.
 
 ---
@@ -383,6 +419,13 @@ def safe_dispatch(call):
 
 print(safe_dispatch({"name": "calculate", "arguments": {"expression": "2 + 3"}}))
 print(safe_dispatch({"name": "calculate", "arguments": {"wrong": "2 + 3"}}))
+```
+
+Expected output:
+
+```text
+{'result': '5'}
+{'error': 'invalid_calculate_arguments'}
 ```
 
 A mature system usually does not crash just because one tool call fails.
@@ -462,6 +505,13 @@ def tool_result(ok, data=None, error=None, retryable=False):
 
 print(tool_result(True, data={"text": "You can apply for a refund within 7 days after purchase"}))
 print(tool_result(False, error="timeout", retryable=True))
+```
+
+Expected output:
+
+```text
+{'ok': True, 'data': {'text': 'You can apply for a refund within 7 days after purchase'}, 'error': None, 'retryable': False}
+{'ok': False, 'data': None, 'error': 'timeout', 'retryable': True}
 ```
 
 This structure is more suitable for Agents than simply returning a string, because the system can decide whether to continue, retry, switch tools, or stop and explain to the user based on `ok`, `error`, and `retryable`.

@@ -170,8 +170,6 @@ It is more educational than just printing a tool array, because it already shows
 - How “tool description” participates in decision-making
 
 ```python
-from collections import Counter
-
 TOOL_REGISTRY = [
     {
         "name": "search_refund_policy",
@@ -223,6 +221,14 @@ for query in queries:
     print(query, "->", discover_tools(query, TOOL_REGISTRY))
 ```
 
+Expected output:
+
+```text
+What is the refund policy -> [('search_refund_policy', 2), ('get_order_status', 1)]
+Has the order been shipped now -> [('get_order_status', 3), ('search_refund_policy', 0)]
+What is 299 times 80% minus 5 -> [('calculator', 1), ('search_refund_policy', 0)]
+```
+
 ### What is this code really teaching?
 
 It teaches two especially important things:
@@ -261,6 +267,13 @@ candidates = discover_tools(query, TOOL_REGISTRY)
 
 for item in candidates:
     print({"query": query, "candidate_tool": item[0], "score": item[1]})
+```
+
+Expected output:
+
+```text
+{'query': 'What is the refund policy', 'candidate_tool': 'search_refund_policy', 'score': 2}
+{'query': 'What is the refund policy', 'candidate_tool': 'get_order_status', 'score': 1}
 ```
 
 This example is very suitable for beginners, because it helps you see first that:
@@ -346,6 +359,13 @@ def normalize_tool_result(ok, data=None, error=None):
 
 print(normalize_tool_result(True, data={"policy_text": "Refunds available within 7 days"}))
 print(normalize_tool_result(False, error="missing_order_id"))
+```
+
+Expected output:
+
+```text
+{'ok': True, 'data': {'policy_text': 'Refunds available within 7 days'}, 'error': None}
+{'ok': False, 'data': {}, 'error': 'missing_order_id'}
 ```
 
 The benefits of a unified return structure are:

@@ -169,13 +169,11 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 - “工具描述”如何参与决策
 
 ```python
-from collections import Counter
-
 TOOL_REGISTRY = [
     {
         "name": "search_refund_policy",
         "description": "查询退款、发票、地址修改等售后政策规则",
-        "tags": ["policy", "refund", "invoice", "after_sales"],
+        "tags": ["policy", "refund", "invoice", "after_sales", "退款", "发票", "售后"],
         "required_args": ["keyword"],
         "returns": ["policy_text"],
         "risk_level": "low",
@@ -183,7 +181,7 @@ TOOL_REGISTRY = [
     {
         "name": "get_order_status",
         "description": "查询订单当前状态，例如未发货、已发货、已签收",
-        "tags": ["order", "status", "shipping", "after_sales"],
+        "tags": ["order", "status", "shipping", "after_sales", "订单", "发货", "状态"],
         "required_args": ["order_id"],
         "returns": ["order_status"],
         "risk_level": "medium",
@@ -191,7 +189,7 @@ TOOL_REGISTRY = [
     {
         "name": "calculator",
         "description": "做确定性数值计算，例如加减乘除和折扣金额计算",
-        "tags": ["math", "price", "discount", "calculation"],
+        "tags": ["math", "price", "discount", "calculation", "计算", "价格", "折扣", "多少"],
         "required_args": ["expression"],
         "returns": ["result"],
         "risk_level": "low",
@@ -200,7 +198,10 @@ TOOL_REGISTRY = [
 
 
 def discover_tools(query, registry, top_k=2):
-    words = query.lower().replace("？", "").replace("?", "").split()
+    cleaned = query.lower().replace("？", "").replace("?", "")
+    compacted = cleaned.replace(" ", "")
+    words = set(cleaned.split())
+    words.update(compacted[i : i + 2] for i in range(max(len(compacted) - 1, 0)))
     scored = []
 
     for tool in registry:
@@ -220,6 +221,14 @@ queries = [
 
 for query in queries:
     print(query, "->", discover_tools(query, TOOL_REGISTRY))
+```
+
+预期输出：
+
+```text
+退款政策是什么 -> [('search_refund_policy', 2), ('get_order_status', 0)]
+订单现在发货了吗 -> [('get_order_status', 2), ('search_refund_policy', 0)]
+299 打 8 折再减 5 等于多少 -> [('calculator', 1), ('search_refund_policy', 0)]
 ```
 
 ### 这段代码到底在教什么？
@@ -260,6 +269,13 @@ candidates = discover_tools(query, TOOL_REGISTRY)
 
 for item in candidates:
     print({"query": query, "candidate_tool": item[0], "score": item[1]})
+```
+
+预期输出：
+
+```text
+{'query': '退款政策是什么', 'candidate_tool': 'search_refund_policy', 'score': 2}
+{'query': '退款政策是什么', 'candidate_tool': 'get_order_status', 'score': 0}
 ```
 
 这个示例很适合初学者，因为它会帮助你先看到：
@@ -345,6 +361,13 @@ def normalize_tool_result(ok, data=None, error=None):
 
 print(normalize_tool_result(True, data={"policy_text": "7 天内可退款"}))
 print(normalize_tool_result(False, error="missing_order_id"))
+```
+
+预期输出：
+
+```text
+{'ok': True, 'data': {'policy_text': '7 天内可退款'}, 'error': None}
+{'ok': False, 'data': {}, 'error': 'missing_order_id'}
 ```
 
 统一返回结构的好处是：

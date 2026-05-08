@@ -184,6 +184,12 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
+预期输出：
+
+```text
+dict_keys(['search_docs', 'calculator', 'get_user_status'])
+```
+
 ### 为什么统一注册很重要？
 
 因为后面你会需要：
@@ -223,6 +229,14 @@ calls = [
 
 for call in calls:
     print(call, "->", dispatch(call))
+```
+
+预期输出：
+
+```text
+{'name': 'search_docs', 'arguments': {'keyword': '退款'}} -> {'result': '课程购买后 7 天内可申请退款'}
+{'name': 'calculator', 'arguments': {'expression': '12 * 7'}} -> {'result': 84}
+{'name': 'get_user_status', 'arguments': {'user_id': 1}} -> {'result': {'name': 'Alice', 'progress': 0.15}}
 ```
 
 ### 这段代码教会你什么？
@@ -292,6 +306,13 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
+预期输出：
+
+```text
+{'result': 27}
+{'error': 'invalid_expression'}
+```
+
 ### 数据库类工具
 
 重点关注：
@@ -348,6 +369,13 @@ def refund_eligibility_agent(user_id):
 
 print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
+```
+
+预期输出：
+
+```text
+{'user': 'Alice', 'progress': 0.15, 'policy': '课程购买后 7 天内可申请退款', 'can_refund': True}
+{'user': 'Bob', 'progress': 0.35, 'policy': '课程购买后 7 天内可申请退款', 'can_refund': False}
 ```
 
 ### 这段代码真正说明了什么？
@@ -414,6 +442,12 @@ def wrapped_search(keyword):
         return {"ok": False, "error": str(e)}
 
 print(wrapped_search("退款"))
+```
+
+预期输出：
+
+```text
+{'ok': True, 'data': '课程购买后 7 天内可申请退款'}
 ```
 
 这会让后面 Agent 层更容易做统一判断。
