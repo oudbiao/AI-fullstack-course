@@ -134,6 +134,14 @@ print("tool ok :", tool_guard("search_docs"))
 print("output ok:", output_guard("safe response"))
 ```
 
+Expected output:
+
+```text
+input ok: False
+tool ok : True
+output ok: True
+```
+
 ### What Is the Most Important Thing in This Example?
 
 It shows that guardrails are usually not a single if statement, but:
@@ -166,6 +174,13 @@ def process_guard(action, risk_level):
 
 print(process_guard("refund_to_external_account", "high"))
 print(process_guard("search_policy", "low"))
+```
+
+Expected output:
+
+```text
+{'allow': False, 'reason': 'needs_human_confirmation'}
+{'allow': True, 'reason': 'safe_to_continue'}
 ```
 
 This example is especially good for beginners because it reminds you that:
@@ -232,6 +247,13 @@ sample_2 = {
 
 print(knowledge_guard(sample_1))
 print(knowledge_guard(sample_2))
+```
+
+Expected output:
+
+```text
+{'allow': True, 'reason': 'ok'}
+{'allow': False, 'reason': 'external_cannot_override_internal'}
 ```
 
 This example is useful for beginners because it helps you see that:

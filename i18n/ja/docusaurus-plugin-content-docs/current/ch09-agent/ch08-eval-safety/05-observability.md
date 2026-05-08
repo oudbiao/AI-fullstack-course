@@ -67,8 +67,6 @@ flowchart TD
 
 ```python
 from dataclasses import dataclass, asdict
-from time import time
-from uuid import uuid4
 
 
 @dataclass
@@ -84,20 +82,17 @@ class TraceStep:
 
 
 def run_agent(query):
-    request_id = str(uuid4())
+    request_id = "req_rag_review_001"
     trace = []
 
-    start = time()
     plan = "まずコース文書を検索して、それから復習計画を作る"
-    trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", int((time() - start) * 1000)))
+    trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", 0))
 
-    start = time()
     docs = ["RAG には分割、ベクトル化、検索、生成、引用チェックが含まれる"]
-    trace.append(TraceStep(request_id, 2, "retriever", "RAG の復習", str(docs), "ok", int((time() - start) * 1000)))
+    trace.append(TraceStep(request_id, 2, "retriever", "RAG の復習", str(docs), "ok", 0))
 
-    start = time()
     answer = "おすすめの復習順は、基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り です。"
-    trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", int((time() - start) * 1000), cost_tokens=120))
+    trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", 0, cost_tokens=120))
 
     return answer, [asdict(step) for step in trace]
 
@@ -106,6 +101,15 @@ answer, trace = run_agent("RAG の段階的な復習準備を手伝って")
 print(answer)
 for step in trace:
     print(step)
+```
+
+実行結果の例：
+
+```text
+おすすめの復習順は、基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り です。
+{'request_id': 'req_rag_review_001', 'step_id': 1, 'node': 'planner', 'input_summary': 'RAG の段階的な復習準備を手伝って', 'output_summary': 'まずコース文書を検索して、それから復習計画を作る', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 0}
+{'request_id': 'req_rag_review_001', 'step_id': 2, 'node': 'retriever', 'input_summary': 'RAG の復習', 'output_summary': "['RAG には分割、ベクトル化、検索、生成、引用チェックが含まれる']", 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 0}
+{'request_id': 'req_rag_review_001', 'step_id': 3, 'node': 'generator', 'input_summary': "['RAG には分割、ベクトル化、検索、生成、引用チェックが含まれる']", 'output_summary': 'おすすめの復習順は、基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り です。', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 120}
 ```
 
 この例で大事なのは、コードが複雑なことではありません。各ステップを検査できるオブジェクトにしていることです。今後 LangGraph、LlamaIndex、CrewAI を使う場合でも、自分で関数を書く場合でも、土台には同じような軌跡が残っているべきです。

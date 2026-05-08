@@ -149,6 +149,15 @@ print(f"average_steps: {average_steps:.1f}")
 print(f"tool_failure_rate: {tool_failure_rate:.0%}")
 ```
 
+実行結果の例：
+
+```text
+success_rate: 50%
+average_score: 3.0/5
+average_steps: 7.0
+tool_failure_rate: 50%
+```
+
 これだけでも、実務上かなり重要な問いに答えられます。
 
 > 新しい Prompt は本当に Agent を改善したのか、それとも回答の見た目をよくしただけなのか？

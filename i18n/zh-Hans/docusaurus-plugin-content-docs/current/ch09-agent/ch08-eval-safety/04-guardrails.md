@@ -136,6 +136,14 @@ print("tool ok :", tool_guard("search_docs"))
 print("output ok:", output_guard("safe response"))
 ```
 
+预期输出：
+
+```text
+input ok: False
+tool ok : True
+output ok: True
+```
+
 ### 这个示例最重要的地方是什么？
 
 它说明护栏通常不是一个 if，而是：
@@ -168,6 +176,13 @@ def process_guard(action, risk_level):
 
 print(process_guard("refund_to_external_account", "high"))
 print(process_guard("search_policy", "low"))
+```
+
+预期输出：
+
+```text
+{'allow': False, 'reason': 'needs_human_confirmation'}
+{'allow': True, 'reason': 'safe_to_continue'}
 ```
 
 这个示例很适合初学者，因为它会提醒你：
@@ -234,6 +249,13 @@ sample_2 = {
 
 print(knowledge_guard(sample_1))
 print(knowledge_guard(sample_2))
+```
+
+预期输出：
+
+```text
+{'allow': True, 'reason': 'ok'}
+{'allow': False, 'reason': 'external_cannot_override_internal'}
 ```
 
 这个例子很适合新人，因为它会帮助你看到：

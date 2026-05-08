@@ -97,7 +97,7 @@ sample = {
 
 answer = """
 この1週間計画は、RAG 基礎、検索戦略、RAG 評価を含みます。
-コース内の RAG 入口章を引用し、書き込みツールは呼び出していません。
+コース内の RAG 入口章を引用し、計画はテキストとして返すだけにしています。
 """
 
 def score_answer(sample, answer):
@@ -111,6 +111,12 @@ def score_answer(sample, answer):
     }
 
 print(score_answer(sample, answer))
+```
+
+実行結果の例：
+
+```text
+{'coverage': 1.0, 'forbidden_violations': 0, 'pass': True}
 ```
 
 この例は意図的にシンプルにしています。実際の Agent benchmark では、さらに次の点も確認します。

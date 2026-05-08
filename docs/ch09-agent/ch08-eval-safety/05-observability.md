@@ -67,8 +67,6 @@ When you first build Agent observability, you do not need a complex platform rig
 
 ```python
 from dataclasses import dataclass, asdict
-from time import time
-from uuid import uuid4
 
 
 @dataclass
@@ -84,20 +82,17 @@ class TraceStep:
 
 
 def run_agent(query):
-    request_id = str(uuid4())
+    request_id = "req_rag_review_001"
     trace = []
 
-    start = time()
     plan = "First retrieve course docs, then generate a review plan"
-    trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", int((time() - start) * 1000)))
+    trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", 0))
 
-    start = time()
     docs = ["RAG includes chunking, vectorization, retrieval, generation, and citation checks"]
-    trace.append(TraceStep(request_id, 2, "retriever", "RAG review", str(docs), "ok", int((time() - start) * 1000)))
+    trace.append(TraceStep(request_id, 2, "retriever", "RAG review", str(docs), "ok", 0))
 
-    start = time()
     answer = "I suggest reviewing in this order: fundamentals -> retrieval optimization -> evaluation set -> project retrospective."
-    trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", int((time() - start) * 1000), cost_tokens=120))
+    trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", 0, cost_tokens=120))
 
     return answer, [asdict(step) for step in trace]
 
@@ -106,6 +101,15 @@ answer, trace = run_agent("Help me prepare for the RAG phase review")
 print(answer)
 for step in trace:
     print(step)
+```
+
+Expected output:
+
+```text
+I suggest reviewing in this order: fundamentals -> retrieval optimization -> evaluation set -> project retrospective.
+{'request_id': 'req_rag_review_001', 'step_id': 1, 'node': 'planner', 'input_summary': 'Help me prepare for the RAG phase review', 'output_summary': 'First retrieve course docs, then generate a review plan', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 0}
+{'request_id': 'req_rag_review_001', 'step_id': 2, 'node': 'retriever', 'input_summary': 'RAG review', 'output_summary': "['RAG includes chunking, vectorization, retrieval, generation, and citation checks']", 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 0}
+{'request_id': 'req_rag_review_001', 'step_id': 3, 'node': 'generator', 'input_summary': "['RAG includes chunking, vectorization, retrieval, generation, and citation checks']", 'output_summary': 'I suggest reviewing in this order: fundamentals -> retrieval optimization -> evaluation set -> project retrospective.', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 120}
 ```
 
 The most important thing in this example is not the code complexity, but that it turns every step into an inspectable object. Later, whether you use LangGraph, LlamaIndex, CrewAI, or write functions yourself, the underlying system should preserve a similar trace.

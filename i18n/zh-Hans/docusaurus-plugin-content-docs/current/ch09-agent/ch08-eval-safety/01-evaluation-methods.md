@@ -149,6 +149,15 @@ print(f"average_steps: {average_steps:.1f}")
 print(f"tool_failure_rate: {tool_failure_rate:.0%}")
 ```
 
+预期输出：
+
+```text
+success_rate: 50%
+average_score: 3.0/5
+average_steps: 7.0
+tool_failure_rate: 50%
+```
+
 这已经足够回答一个很实际的问题：
 
 > 新 Prompt 真的让 Agent 变强了，还是只是让回答看起来更好看？

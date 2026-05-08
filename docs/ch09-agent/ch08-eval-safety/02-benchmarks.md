@@ -97,7 +97,7 @@ sample = {
 
 answer = """
 This one-week plan covers RAG basics, retrieval strategy, and RAG evaluation.
-It cites the course RAG entry chapter and does not call any write-file tool.
+It cites the course RAG entry chapter and returns the plan as text only.
 """
 
 def score_answer(sample, answer):
@@ -112,6 +112,12 @@ def score_answer(sample, answer):
     }
 
 print(score_answer(sample, answer))
+```
+
+Expected output:
+
+```text
+{'coverage': 1.0, 'forbidden_violations': 0, 'pass': True}
 ```
 
 This is deliberately simple. In a real Agent benchmark, you would also inspect:

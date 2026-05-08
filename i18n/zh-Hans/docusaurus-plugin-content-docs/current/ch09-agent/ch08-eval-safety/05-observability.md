@@ -67,8 +67,6 @@ flowchart TD
 
 ```python
 from dataclasses import dataclass, asdict
-from time import time
-from uuid import uuid4
 
 
 @dataclass
@@ -84,20 +82,17 @@ class TraceStep:
 
 
 def run_agent(query):
-    request_id = str(uuid4())
+    request_id = "req_rag_review_001"
     trace = []
 
-    start = time()
     plan = "先检索课程文档，再生成复习计划"
-    trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", int((time() - start) * 1000)))
+    trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", 0))
 
-    start = time()
     docs = ["RAG 包含切分、向量化、检索、生成和引用检查"]
-    trace.append(TraceStep(request_id, 2, "retriever", "RAG 复习", str(docs), "ok", int((time() - start) * 1000)))
+    trace.append(TraceStep(request_id, 2, "retriever", "RAG 复习", str(docs), "ok", 0))
 
-    start = time()
     answer = "建议按：基础概念 -> 检索优化 -> 评估集 -> 项目复盘来复习。"
-    trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", int((time() - start) * 1000), cost_tokens=120))
+    trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", 0, cost_tokens=120))
 
     return answer, [asdict(step) for step in trace]
 
@@ -106,6 +101,15 @@ answer, trace = run_agent("帮我准备 RAG 阶段复习")
 print(answer)
 for step in trace:
     print(step)
+```
+
+预期输出：
+
+```text
+建议按：基础概念 -> 检索优化 -> 评估集 -> 项目复盘来复习。
+{'request_id': 'req_rag_review_001', 'step_id': 1, 'node': 'planner', 'input_summary': '帮我准备 RAG 阶段复习', 'output_summary': '先检索课程文档，再生成复习计划', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 0}
+{'request_id': 'req_rag_review_001', 'step_id': 2, 'node': 'retriever', 'input_summary': 'RAG 复习', 'output_summary': "['RAG 包含切分、向量化、检索、生成和引用检查']", 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 0}
+{'request_id': 'req_rag_review_001', 'step_id': 3, 'node': 'generator', 'input_summary': "['RAG 包含切分、向量化、检索、生成和引用检查']", 'output_summary': '建议按：基础概念 -> 检索优化 -> 评估集 -> 项目复盘来复习。', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 120}
 ```
 
 这个例子最重要的不是代码复杂度，而是它把每一步都变成可检查对象。后面无论你用 LangGraph、LlamaIndex、CrewAI，还是自己写函数，底层都应该保留类似轨迹。

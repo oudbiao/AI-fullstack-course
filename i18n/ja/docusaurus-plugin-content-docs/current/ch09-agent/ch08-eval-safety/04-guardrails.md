@@ -134,6 +134,14 @@ print("tool ok :", tool_guard("search_docs"))
 print("output ok:", output_guard("safe response"))
 ```
 
+実行結果の例：
+
+```text
+input ok: False
+tool ok : True
+output ok: True
+```
+
 ### この例でいちばん大事な点は？
 
 この例が示しているのは、ガードレールは普通 1 つの `if` ではなく、次のように重なっているということです。
@@ -166,6 +174,13 @@ def process_guard(action, risk_level):
 
 print(process_guard("refund_to_external_account", "high"))
 print(process_guard("search_policy", "low"))
+```
+
+実行結果の例：
+
+```text
+{'allow': False, 'reason': 'needs_human_confirmation'}
+{'allow': True, 'reason': 'safe_to_continue'}
 ```
 
 この例は初心者にとても向いています。なぜなら、次のことを思い出させてくれるからです。
@@ -231,6 +246,13 @@ sample_2 = {
 
 print(knowledge_guard(sample_1))
 print(knowledge_guard(sample_2))
+```
+
+実行結果の例：
+
+```text
+{'allow': True, 'reason': 'ok'}
+{'allow': False, 'reason': 'external_cannot_override_internal'}
 ```
 
 この例は初心者に向いています。なぜなら、次の点が見えやすいからです。
