@@ -163,6 +163,17 @@ for path in valid_paths[:8]:
     print(path, "->", ctc_collapse(path))
 ```
 
+Expected output begins like this:
+
+```text
+number of valid paths: 15
+('_', '_', 'I', 'love') -> ['I', 'love']
+('_', 'I', '_', 'love') -> ['I', 'love']
+('_', 'I', 'I', 'love') -> ['I', 'love']
+```
+
+The key result is not the exact list order, but the count and the idea: many frame-level paths can collapse into the same transcript.
+
 When beginners first see CTC, the most important realization is:
 
 - The model is allowed to be uncertain about exact frame boundaries

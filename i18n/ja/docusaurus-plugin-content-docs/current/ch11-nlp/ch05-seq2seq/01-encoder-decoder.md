@@ -141,6 +141,15 @@ print("encoded:", encoded)
 print("decoded:", target)
 ```
 
+実行結果の例：
+
+```text
+encoded: {'source_tokens': ['私', 'は', '学習'], 'length': 3}
+decoded: ['I', 'like', 'study']
+```
+
+これはおもちゃの辞書 decoder ですが、Seq2Seq の形を見せるには十分です。まず入力全体を encode し、その後 decoder が出力列を生成します。
+
 ### この例からいちばん大事にしたいことは？
 
 この例が示しているのは、Seq2Seq の基本的な流れです。

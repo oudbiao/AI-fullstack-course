@@ -100,6 +100,17 @@ for src, tgt in parallel_data:
     print(src, "->", tgt)
 ```
 
+実行結果の例：
+
+```text
+hello -> こんにちは
+world -> 世界
+i love ai -> 私は AI が好きです
+study hard -> 一生懸命 勉強する
+```
+
+各行は、1つの対応した学習例として読みます。原文と訳文が同じ意味を表していないと、モデルはノイズを学習してしまいます。
+
 ### なぜ平行コーパスが翻訳プロジェクトの土台なのか？
 
 モデルが最終的に学ぶ必要があるのは、
@@ -163,6 +174,16 @@ tests = [
 for sent in tests:
     print(sent, "->", translate(sent))
 ```
+
+実行結果の例：
+
+```text
+hello world -> こんにちは 世界
+i love study -> 私 愛する 勉強する
+love ai -> 愛する <unk>
+```
+
+ここで重要なのは `<unk>` です。baseline には `ai` の対応がないため、その単語を訳せません。これは語彙カバー率の問題であり、decoder のバグではありません。
 
 ### それでもこの例をやる価値があるのはなぜか？
 
@@ -229,6 +250,14 @@ def next_step(status):
 print(next_step(project_status))
 ```
 
+実行結果の例：
+
+```text
+まずエラーの種類を、訳抜け・誤訳・語順の問題に分けましょう。
+```
+
+これにより、プロジェクトの進め方が実践的になります。モデルを変える前に、翻訳エラーをどう名付けて確認するかを決めます。
+
 この例はとても小さいですが、初心者にはとても向いています。なぜなら、次のことを思い出させてくれるからです。
 
 - プロジェクトは「モデルを変える」だけでは進まない
@@ -253,9 +282,26 @@ print(next_step(project_status))
 ### ごく簡単なエラーチェック
 
 ```python
+parallel_data = [
+    ("hello", "こんにちは"),
+    ("world", "世界"),
+    ("i", "私"),
+    ("love", "愛する"),
+    ("study", "勉強する"),
+]
+
+phrase_table = {src: tgt for src, tgt in parallel_data}
+
+
+def translate(sentence):
+    tokens = sentence.split()
+    output = [phrase_table.get(tok, "<unk>") for tok in tokens]
+    return " ".join(output)
+
+
 gold = {
     "hello world": "こんにちは 世界",
-    "i love study": "私 愛 学習",
+    "i love study": "私は勉強が好きです",
 }
 
 for src, expected in gold.items():
@@ -267,6 +313,15 @@ for src, expected in gold.items():
         "match": pred == expected,
     })
 ```
+
+実行結果の例：
+
+```text
+{'src': 'hello world', 'pred': 'こんにちは 世界', 'gold': 'こんにちは 世界', 'match': True}
+{'src': 'i love study', 'pred': '私 愛する 勉強する', 'gold': '私は勉強が好きです', 'match': False}
+```
+
+2つ目の例は、最小 baseline の典型的な限界を示しています。逐語訳は意味の手がかりにはなりますが、自然な訳文や文脈に合った表現には届かないことがあります。
 
 ### 初心者向けのエラー分析フレームワーク
 

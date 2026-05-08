@@ -127,6 +127,16 @@ print("weights:", weights)
 print("context:", [round(x, 4) for x in context])
 ```
 
+実行結果の例：
+
+```text
+scores : [0.7, 0.5, 0.3]
+weights: [0.4018, 0.3289, 0.2693]
+context: [0.5663, 0.4337]
+```
+
+最も高い重みは1つ目の encoder state にありますが、context ベクトルはすべての位置を混ぜています。Attention は固定的な参照ではなく、重み付きで読む仕組みです。
+
 ### このコードでまず見るべきポイントは？
 
 最も大事なのは 3 ステップです。
@@ -160,6 +170,16 @@ attention_weights = [0.1, 0.2, 0.7]
 for token, weight in zip(source_tokens, attention_weights):
     print({"source_token": token, "weight": weight})
 ```
+
+実行結果の例：
+
+```text
+{'source_token': 'i', 'weight': 0.1}
+{'source_token': 'love', 'weight': 0.2}
+{'source_token': 'nlp', 'weight': 0.7}
+```
+
+この出力ステップでは、モデルが主に `nlp` の位置を見ていると読めます。
 
 この例は実際のモデルよりずっと単純ですが、  
 初心者がまずイメージをつかむのにとても役立ちます。

@@ -100,6 +100,17 @@ for src, tgt in parallel_data:
     print(src, "->", tgt)
 ```
 
+Expected output:
+
+```text
+hello -> hola
+world -> mundo
+i love ai -> me encanta la IA
+study hard -> estudia mucho
+```
+
+Read each row as one aligned training example. The source sentence and target sentence must describe the same meaning, or the model will learn noise.
+
 ### Why is parallel corpus the foundation of a translation project?
 
 Because the model ultimately needs to learn:
@@ -161,6 +172,16 @@ tests = [
 for sent in tests:
     print(sent, "->", translate(sent))
 ```
+
+Expected output:
+
+```text
+hello world -> hola mundo
+i love study -> yo amo estudiar
+love ai -> amo <unk>
+```
+
+The `<unk>` token is the important clue here: the baseline has no entry for `ai`, so it cannot translate that word. This is a vocabulary coverage problem, not a decoder bug.
 
 ### Why is this example still worth doing?
 
@@ -227,6 +248,14 @@ def next_step(status):
 print(next_step(project_status))
 ```
 
+Expected output:
+
+```text
+First divide error types into omission, mistranslation, and word order issues.
+```
+
+This keeps the project loop practical: before changing the model, define how you will name and inspect translation errors.
+
 This example is very small, but it is very suitable for beginners because it reminds you that:
 
 - Project progress is not just “changing the model”
@@ -251,9 +280,26 @@ This is a problem that the minimal dictionary baseline is especially likely to p
 ### A very simple error check
 
 ```python
+parallel_data = [
+    ("hello", "hola"),
+    ("world", "mundo"),
+    ("i", "yo"),
+    ("love", "amo"),
+    ("study", "estudiar"),
+]
+
+phrase_table = {src: tgt for src, tgt in parallel_data}
+
+
+def translate(sentence):
+    tokens = sentence.split()
+    output = [phrase_table.get(tok, "<unk>") for tok in tokens]
+    return " ".join(output)
+
+
 gold = {
-    "hello world": "hello world",
-    "i love study": "I love learning",
+    "hello world": "hola mundo",
+    "i love study": "me encanta estudiar",
 }
 
 for src, expected in gold.items():
@@ -265,6 +311,15 @@ for src, expected in gold.items():
         "match": pred == expected,
     })
 ```
+
+Expected output:
+
+```text
+{'src': 'hello world', 'pred': 'hola mundo', 'gold': 'hola mundo', 'match': True}
+{'src': 'i love study', 'pred': 'yo amo estudiar', 'gold': 'me encanta estudiar', 'match': False}
+```
+
+The second example shows a common baseline limitation: word-by-word translation may be understandable, but it can still be unnatural or semantically weaker than the reference.
 
 ### An error analysis framework that is more beginner-friendly
 

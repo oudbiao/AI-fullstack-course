@@ -139,6 +139,15 @@ print("encoded:", encoded)
 print("decoded:", target)
 ```
 
+预期输出：
+
+```text
+encoded: {'source_tokens': ['我', '爱', '学习'], 'length': 3}
+decoded: ['I', 'love', 'study']
+```
+
+这只是玩具级词典 decoder，但它把 Seq2Seq 的形状展示出来了：先把整个输入编码起来，再由 decoder 生成一个输出序列。
+
 ### 这个例子最重要的启发是什么？
 
 它说明 Seq2Seq 的核心流程是：

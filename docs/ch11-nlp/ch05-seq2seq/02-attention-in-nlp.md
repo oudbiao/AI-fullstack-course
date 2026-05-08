@@ -126,6 +126,16 @@ print("weights:", weights)
 print("context:", [round(x, 4) for x in context])
 ```
 
+Expected output:
+
+```text
+scores : [0.7, 0.5, 0.3]
+weights: [0.4018, 0.3289, 0.2693]
+context: [0.5663, 0.4337]
+```
+
+The highest weight goes to the first encoder state, but the context vector still mixes all positions. Attention is not a hard lookup; it is a weighted read.
+
 ### What Should You Focus on in This Code?
 
 The three key steps are:
@@ -159,6 +169,16 @@ attention_weights = [0.1, 0.2, 0.7]
 for token, weight in zip(source_tokens, attention_weights):
     print({"source_token": token, "weight": weight})
 ```
+
+Expected output:
+
+```text
+{'source_token': 'i', 'weight': 0.1}
+{'source_token': 'love', 'weight': 0.2}
+{'source_token': 'nlp', 'weight': 0.7}
+```
+
+This tells you that, for the current output step, the model is mostly looking at `nlp`.
 
 Although this example is much simpler than a real model,
 it is very helpful for beginners to first build a visual sense:

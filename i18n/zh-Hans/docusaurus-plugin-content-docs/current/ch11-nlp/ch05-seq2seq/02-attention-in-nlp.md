@@ -127,6 +127,16 @@ print("weights:", weights)
 print("context:", [round(x, 4) for x in context])
 ```
 
+预期输出：
+
+```text
+scores : [0.7, 0.5, 0.3]
+weights: [0.4018, 0.3289, 0.2693]
+context: [0.5663, 0.4337]
+```
+
+最高权重落在第一个 encoder state 上，但 context 向量仍然混合了所有位置。Attention 不是硬查表，而是带权读取。
+
 ### 这段代码最该看什么？
 
 三步最关键：
@@ -160,6 +170,16 @@ attention_weights = [0.1, 0.2, 0.7]
 for token, weight in zip(source_tokens, attention_weights):
     print({"source_token": token, "weight": weight})
 ```
+
+预期输出：
+
+```text
+{'source_token': 'i', 'weight': 0.1}
+{'source_token': 'love', 'weight': 0.2}
+{'source_token': 'nlp', 'weight': 0.7}
+```
+
+这说明在当前输出步，模型主要在看 `nlp` 这个输入位置。
 
 这个示例虽然比真实模型简单很多，
 但很适合帮助新人先建立一个图像化感觉：

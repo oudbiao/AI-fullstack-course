@@ -100,6 +100,17 @@ for src, tgt in parallel_data:
     print(src, "->", tgt)
 ```
 
+预期输出：
+
+```text
+hello -> 你好
+world -> 世界
+i love ai -> 我 爱 AI
+study hard -> 努力 学习
+```
+
+把每一行都当成一个对齐训练样本。源句和目标句必须表达同一个意思，否则模型学到的就是噪声。
+
 ### 为什么平行语料是翻译项目的基础？
 
 因为模型最终需要学习的是：
@@ -161,6 +172,16 @@ tests = [
 for sent in tests:
     print(sent, "->", translate(sent))
 ```
+
+预期输出：
+
+```text
+hello world -> 你好 世界
+i love study -> 我 爱 学习
+love ai -> 爱 <unk>
+```
+
+这里最值得看的线索是 `<unk>`：baseline 没有 `ai` 这个词的映射，所以翻不出来。这是词表覆盖问题，不是 decoder 写错。
 
 ### 这个例子为什么仍然值得做？
 
@@ -227,6 +248,14 @@ def next_step(status):
 print(next_step(project_status))
 ```
 
+预期输出：
+
+```text
+先把错误类型分成漏译、错译、词序问题。
+```
+
+这能让项目闭环更实际：先定义怎么命名和检查错误，再考虑换模型。
+
 这个例子很小，但它非常适合初学者，因为它会提醒你：
 
 - 项目推进不只是“换模型”
@@ -251,9 +280,26 @@ print(next_step(project_status))
 ### 一个极简错误检查
 
 ```python
+parallel_data = [
+    ("hello", "你好"),
+    ("world", "世界"),
+    ("i", "我"),
+    ("love", "爱"),
+    ("study", "学习"),
+]
+
+phrase_table = {src: tgt for src, tgt in parallel_data}
+
+
+def translate(sentence):
+    tokens = sentence.split()
+    output = [phrase_table.get(tok, "<unk>") for tok in tokens]
+    return " ".join(output)
+
+
 gold = {
     "hello world": "你好 世界",
-    "i love study": "我 爱 学习",
+    "i love study": "我 喜欢 学习",
 }
 
 for src, expected in gold.items():
@@ -265,6 +311,15 @@ for src, expected in gold.items():
         "match": pred == expected,
     })
 ```
+
+预期输出：
+
+```text
+{'src': 'hello world', 'pred': '你好 世界', 'gold': '你好 世界', 'match': True}
+{'src': 'i love study', 'pred': '我 爱 学习', 'gold': '我 喜欢 学习', 'match': False}
+```
+
+第二条说明了最小 baseline 的典型局限：逐词翻译可能能看懂，但表达可能不够自然，或没有达到参考译文的语义效果。
 
 ### 一个更适合新人的错误分析框架
 

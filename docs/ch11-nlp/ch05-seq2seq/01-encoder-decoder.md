@@ -139,6 +139,15 @@ print("encoded:", encoded)
 print("decoded:", target)
 ```
 
+Expected output:
+
+```text
+encoded: {'source_tokens': ['I', 'love', 'study'], 'length': 3}
+decoded: ['I', 'love', 'study']
+```
+
+This is only a toy dictionary decoder, but it makes the Seq2Seq shape visible: encode the whole input first, then let the decoder produce an output sequence.
+
 ### What is the most important insight from this example?
 
 It shows that the core flow of Seq2Seq is:
