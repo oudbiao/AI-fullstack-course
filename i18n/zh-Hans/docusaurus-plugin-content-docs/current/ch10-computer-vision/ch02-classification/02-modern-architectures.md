@@ -223,6 +223,13 @@ print("without residual:", block_without_residual(x))
 print("with residual   :", block_with_residual(x))
 ```
 
+预期输出：
+
+```text
+without residual: 0.8
+with residual   : 1.8
+```
+
 ### 这个例子想表达什么？
 
 残差连接的感觉可以先理解成：

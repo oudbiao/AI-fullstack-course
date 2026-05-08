@@ -36,11 +36,26 @@ flowchart TD
 
 学習率が大きすぎると、loss が上下に振れたり、発散したりすることがあります。逆に学習率が小さすぎると、学習がとても遅くなり、モデルが何も学べていないように見えます。初心者のうちは、まずよくあるデフォルト値から始めて、学習曲線を観察するとよいです。
 
-この節のコードをローカルで動かす場合は、先に `torch`、`torchvision`、`scikit-learn` をインストールしてください。
+まずはフレームワークに結びつける前に、スケジュールの考え方を小さく動かしてみましょう。次の例は、よくある `StepLR` の考え方を模擬しています。数 epoch は学習率を保ち、その後 `gamma` を掛けます。
 
 ```python
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
+initial_lr = 1e-3
+step_size = 5
+gamma = 0.1
+
+for epoch in [1, 5, 6, 10, 11]:
+    lr = initial_lr * (gamma ** ((epoch - 1) // step_size))
+    print(f"epoch={epoch:02d} lr={lr:.5f}")
+```
+
+実行結果の例：
+
+```text
+epoch=01 lr=0.00100
+epoch=05 lr=0.00100
+epoch=06 lr=0.00010
+epoch=10 lr=0.00010
+epoch=11 lr=0.00001
 ```
 
 学習 loss も検証 loss も高い場合は、学習不足か学習率が合っていない可能性があります。学習 loss が低いのに検証 loss が高い場合は、たいてい過学習か、データ分割に問題があります。
@@ -50,14 +65,23 @@ scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
 データ拡張は、多ければ多いほどよいわけではありません。現実世界で起こりうる変化をうまく再現することが大切です。猫と犬の分類なら左右反転は使えますが、数字認識で 180 度回転を自由に行うと意味が変わることがあります。医療画像でも、撮影のルールに合わない拡張は避けるべきです。
 
 ```python
-from torchvision import transforms
+augmentation_policy = [
+    {"name": "RandomResizedCrop", "label_safe": True, "reason": "対象は通常まだ認識できる"},
+    {"name": "HorizontalFlip", "label_safe": True, "reason": "左右方向がラベルの一部ではない"},
+    {"name": "Rotate180", "label_safe": False, "reason": "数字や向きに敏感なラベルを変える可能性がある"},
+]
 
-train_tfms = transforms.Compose([
-    transforms.RandomResizedCrop(224),
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),
-    transforms.ToTensor(),
-])
+for rule in augmentation_policy:
+    status = "use" if rule["label_safe"] else "avoid"
+    print(f"{status}: {rule['name']} - {rule['reason']}")
+```
+
+実行結果の例：
+
+```text
+use: RandomResizedCrop - 対象は通常まだ認識できる
+use: HorizontalFlip - 左右方向がラベルの一部ではない
+avoid: Rotate180 - 数字や向きに敏感なラベルを変える可能性がある
 ```
 
 拡張の基本原則は、学習用データだけに拡張を使い、検証用データにはランダム拡張を使わないことです。また、拡張後もラベルの意味が保たれている必要があります。さらに、拡張した画像は数枚でもよいので、手で確認すると安心です。
@@ -82,10 +106,38 @@ train_tfms = transforms.Compose([
 クラス不均衡があると、accuracy は簡単にだまされます。たとえば、95% の画像が正常サンプルなら、モデルがすべて正常と予測するだけで 95% の accuracy が出ます。しかし、そのモデルは異常をまったく識別できません。
 
 ```python
-from sklearn.metrics import classification_report, confusion_matrix
+labels = ["normal", "scratch", "stain"]
+y_true = ["normal", "normal", "scratch", "scratch", "stain", "stain"]
+y_pred = ["normal", "normal", "normal", "scratch", "normal", "stain"]
 
-print(classification_report(y_true, y_pred))
-print(confusion_matrix(y_true, y_pred))
+index = {label: i for i, label in enumerate(labels)}
+matrix = [[0 for _ in labels] for _ in labels]
+
+for truth, pred in zip(y_true, y_pred):
+    matrix[index[truth]][index[pred]] += 1
+
+print("confusion_matrix:")
+for label, row in zip(labels, matrix):
+    print(label, row)
+
+print("\nrecall_by_class:")
+for label, row in zip(labels, matrix):
+    recall = row[index[label]] / sum(row)
+    print(label, round(recall, 2))
+```
+
+実行結果の例：
+
+```text
+confusion_matrix:
+normal [2, 0, 0]
+scratch [1, 1, 0]
+stain [1, 0, 1]
+
+recall_by_class:
+normal 1.0
+scratch 0.5
+stain 0.5
 ```
 
 クラス不均衡への対策としては、再サンプリング、class weight、focal loss、少数クラスのデータ追加などが考えられます。どの方法を選ぶかは、少数クラスのサンプルがどれだけ信頼できるかによって変わります。

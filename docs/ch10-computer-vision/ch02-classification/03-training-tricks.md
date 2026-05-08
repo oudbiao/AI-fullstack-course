@@ -36,11 +36,26 @@ flowchart TD
 
 If the learning rate is too large, the loss may oscillate or even diverge; if it is too small, training will be very slow, and the model may look like it is not learning anything. When you are starting out, begin with a common default value and then observe the training curve.
 
-If you want to run the code snippets in this section locally, install `torch`, `torchvision`, and `scikit-learn` first.
+Start with the scheduling idea before binding it to a framework. The tiny example below mirrors a common `StepLR` policy: keep the learning rate for a few epochs, then multiply it by `gamma`.
 
 ```python
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
+initial_lr = 1e-3
+step_size = 5
+gamma = 0.1
+
+for epoch in [1, 5, 6, 10, 11]:
+    lr = initial_lr * (gamma ** ((epoch - 1) // step_size))
+    print(f"epoch={epoch:02d} lr={lr:.5f}")
+```
+
+Expected output:
+
+```text
+epoch=01 lr=0.00100
+epoch=05 lr=0.00100
+epoch=06 lr=0.00010
+epoch=10 lr=0.00010
+epoch=11 lr=0.00001
 ```
 
 If both the training loss and validation loss are high, the model may be underfitting or the learning rate may be inappropriate. If the training loss is very low but the validation loss is very high, it is usually overfitting or a problem with the data split.
@@ -50,14 +65,23 @@ If both the training loss and validation loss are high, the model may be underfi
 Data augmentation is not about doing as much as possible, but about simulating changes that may occur in the real world. For cat-and-dog classification, horizontal flipping is fine; but for digit recognition, rotating an image by 180 degrees at random may change the meaning. Medical images also cannot be augmented arbitrarily in ways that break imaging logic.
 
 ```python
-from torchvision import transforms
+augmentation_policy = [
+    {"name": "RandomResizedCrop", "label_safe": True, "reason": "object usually remains recognizable"},
+    {"name": "HorizontalFlip", "label_safe": True, "reason": "left-right direction is not part of the label"},
+    {"name": "Rotate180", "label_safe": False, "reason": "may change digit or orientation-sensitive labels"},
+]
 
-train_tfms = transforms.Compose([
-    transforms.RandomResizedCrop(224),
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),
-    transforms.ToTensor(),
-])
+for rule in augmentation_policy:
+    status = "use" if rule["label_safe"] else "avoid"
+    print(f"{status}: {rule['name']} - {rule['reason']}")
+```
+
+Expected output:
+
+```text
+use: RandomResizedCrop - object usually remains recognizable
+use: HorizontalFlip - left-right direction is not part of the label
+avoid: Rotate180 - may change digit or orientation-sensitive labels
 ```
 
 The principle for augmentation is: apply augmentation to the training set, not to the validation set with random transforms; augmentation should preserve the label semantics; and after augmentation, it is best to manually inspect a few images.
@@ -82,10 +106,38 @@ This diagram breaks training problems into three lines: data, training, and eval
 Accuracy can be very misleading when classes are imbalanced. For example, if 95% of images are normal samples, a model that always predicts normal can still get 95% accuracy, but it completely fails to recognize abnormal cases.
 
 ```python
-from sklearn.metrics import classification_report, confusion_matrix
+labels = ["normal", "scratch", "stain"]
+y_true = ["normal", "normal", "scratch", "scratch", "stain", "stain"]
+y_pred = ["normal", "normal", "normal", "scratch", "normal", "stain"]
 
-print(classification_report(y_true, y_pred))
-print(confusion_matrix(y_true, y_pred))
+index = {label: i for i, label in enumerate(labels)}
+matrix = [[0 for _ in labels] for _ in labels]
+
+for truth, pred in zip(y_true, y_pred):
+    matrix[index[truth]][index[pred]] += 1
+
+print("confusion_matrix:")
+for label, row in zip(labels, matrix):
+    print(label, row)
+
+print("\nrecall_by_class:")
+for label, row in zip(labels, matrix):
+    recall = row[index[label]] / sum(row)
+    print(label, round(recall, 2))
+```
+
+Expected output:
+
+```text
+confusion_matrix:
+normal [2, 0, 0]
+scratch [1, 1, 0]
+stain [1, 0, 1]
+
+recall_by_class:
+normal 1.0
+scratch 0.5
+stain 0.5
 ```
 
 For class imbalance, you can consider resampling, class weights, focal loss, or adding more data for minority classes. Which method to choose depends on whether the minority-class samples are reliable enough.

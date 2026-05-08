@@ -195,6 +195,29 @@ for row in brightness_shift(image):
     print(row)
 ```
 
+実行結果の例：
+
+```text
+original:
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+
+flip:
+[3, 2, 1]
+[6, 5, 4]
+[9, 8, 7]
+
+crop:
+[1, 2]
+[4, 5]
+
+brightness:
+[2, 3, 4]
+[5, 6, 7]
+[8, 9, 10]
+```
+
 ### この例でまず押さえるべきこと
 
 拡張の本質は画像ライブラリの API ではなく、  
@@ -253,11 +276,18 @@ label_a = [1.0, 0.0]
 label_b = [0.0, 1.0]
 alpha = 0.7
 
-mixed_img = [alpha * a + (1 - alpha) * b for a, b in zip(img_a, img_b)]
-mixed_label = [alpha * a + (1 - alpha) * b for a, b in zip(label_a, label_b)]
+mixed_img = [round(alpha * a + (1 - alpha) * b, 2) for a, b in zip(img_a, img_b)]
+mixed_label = [round(alpha * a + (1 - alpha) * b, 2) for a, b in zip(label_a, label_b)]
 
 print("mixed_img:", mixed_img)
 print("mixed_label:", mixed_label)
+```
+
+実行結果の例：
+
+```text
+mixed_img: [2.8, 3.8, 4.8]
+mixed_label: [0.7, 0.3]
 ```
 
 ### なぜこの方法が効くのか？

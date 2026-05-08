@@ -36,11 +36,26 @@ flowchart TD
 
 学习率太大，loss 可能震荡甚至发散；学习率太小，训练会非常慢，模型看起来像没学到东西。初学时可以先从一个常见默认值开始，再观察训练曲线。
 
-如果你想在本地运行本节代码，请先安装 `torch`、`torchvision` 和 `scikit-learn`。
+先用不依赖框架的小例子理解调度思想。下面这段模拟常见的 `StepLR` 策略：学习率保持几轮后，再乘以 `gamma`。
 
 ```python
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
+initial_lr = 1e-3
+step_size = 5
+gamma = 0.1
+
+for epoch in [1, 5, 6, 10, 11]:
+    lr = initial_lr * (gamma ** ((epoch - 1) // step_size))
+    print(f"epoch={epoch:02d} lr={lr:.5f}")
+```
+
+预期输出：
+
+```text
+epoch=01 lr=0.00100
+epoch=05 lr=0.00100
+epoch=06 lr=0.00010
+epoch=10 lr=0.00010
+epoch=11 lr=0.00001
 ```
 
 如果训练 loss 和验证 loss 都很高，可能是欠拟合或学习率不合适。如果训练 loss 很低但验证 loss 很高，通常是过拟合或数据划分有问题。
@@ -50,14 +65,23 @@ scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
 数据增强不是越多越好，而是模拟真实世界可能出现的变化。猫狗分类可以水平翻转，但数字识别随便旋转 180 度可能改变语义；医学影像也不能随意做不符合成像逻辑的增强。
 
 ```python
-from torchvision import transforms
+augmentation_policy = [
+    {"name": "RandomResizedCrop", "label_safe": True, "reason": "主体通常仍可识别"},
+    {"name": "HorizontalFlip", "label_safe": True, "reason": "左右方向不是标签的一部分"},
+    {"name": "Rotate180", "label_safe": False, "reason": "可能改变数字或方向敏感标签"},
+]
 
-train_tfms = transforms.Compose([
-    transforms.RandomResizedCrop(224),
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),
-    transforms.ToTensor(),
-])
+for rule in augmentation_policy:
+    status = "use" if rule["label_safe"] else "avoid"
+    print(f"{status}: {rule['name']} - {rule['reason']}")
+```
+
+预期输出：
+
+```text
+use: RandomResizedCrop - 主体通常仍可识别
+use: HorizontalFlip - 左右方向不是标签的一部分
+avoid: Rotate180 - 可能改变数字或方向敏感标签
 ```
 
 增强的原则是：训练集做增强，验证集不做随机增强；增强应该保留标签语义；增强后最好人工抽查几张图。
@@ -82,10 +106,38 @@ train_tfms = transforms.Compose([
 准确率在类别不平衡时很容易骗人。比如 95% 图片都是正常样本，模型全预测正常也有 95% 准确率，但它完全不会识别异常。
 
 ```python
-from sklearn.metrics import classification_report, confusion_matrix
+labels = ["normal", "scratch", "stain"]
+y_true = ["normal", "normal", "scratch", "scratch", "stain", "stain"]
+y_pred = ["normal", "normal", "normal", "scratch", "normal", "stain"]
 
-print(classification_report(y_true, y_pred))
-print(confusion_matrix(y_true, y_pred))
+index = {label: i for i, label in enumerate(labels)}
+matrix = [[0 for _ in labels] for _ in labels]
+
+for truth, pred in zip(y_true, y_pred):
+    matrix[index[truth]][index[pred]] += 1
+
+print("confusion_matrix:")
+for label, row in zip(labels, matrix):
+    print(label, row)
+
+print("\nrecall_by_class:")
+for label, row in zip(labels, matrix):
+    recall = row[index[label]] / sum(row)
+    print(label, round(recall, 2))
+```
+
+预期输出：
+
+```text
+confusion_matrix:
+normal [2, 0, 0]
+scratch [1, 1, 0]
+stain [1, 0, 1]
+
+recall_by_class:
+normal 1.0
+scratch 0.5
+stain 0.5
 ```
 
 类别不平衡可以考虑重采样、class weight、focal loss 或补充少数类数据。选择哪种方法，要看少数类样本是否足够可靠。

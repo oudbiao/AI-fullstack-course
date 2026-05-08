@@ -226,6 +226,13 @@ print("without residual:", block_without_residual(x))
 print("with residual   :", block_with_residual(x))
 ```
 
+実行結果の例：
+
+```text
+without residual: 0.8
+with residual   : 1.8
+```
+
 ### この例で伝えたいことは？
 
 残差接続は、まず次のように理解できます。
