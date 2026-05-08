@@ -163,6 +163,16 @@ for frame in tracked:
     print(frame)
 ```
 
+Expected output:
+
+```text
+[{'id': 1, 'x': 10, 'y': 10}]
+[{'id': 1, 'x': 12, 'y': 11}]
+[{'id': 1, 'x': 15, 'y': 13}]
+```
+
+The same target keeps ID `1` because its movement between neighboring frames is small enough. If the movement becomes larger than `max_distance`, this simple tracker may assign a new ID by mistake.
+
 ### What is this example mainly trying to show?
 
 In video analysis, the first step in many systems is not a complex temporal network,
@@ -205,6 +215,18 @@ for idx, window in enumerate(windows):
     label = "moving_event" if motion_ratio >= 0.67 else "static_or_unclear"
     print(idx, window, label)
 ```
+
+Expected output:
+
+```text
+0 [0, 0, 1] static_or_unclear
+1 [0, 1, 1] static_or_unclear
+2 [1, 1, 1] moving_event
+3 [1, 1, 0] static_or_unclear
+4 [1, 0, 0] static_or_unclear
+```
+
+Only the window with three continuous moving frames is labeled as a moving event. This is the key difference between a single-frame label and a temporal event label.
 
 The key point in this example is:
 

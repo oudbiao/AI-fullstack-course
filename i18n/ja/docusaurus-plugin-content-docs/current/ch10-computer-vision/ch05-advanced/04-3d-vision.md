@@ -108,6 +108,16 @@ for disparity in [40, 20, 10]:
     print({"disparity": disparity, "depth": round(depth, 4)})
 ```
 
+実行結果の例：
+
+```text
+{'disparity': 40, 'depth': 2.4}
+{'disparity': 20, 'depth': 4.8}
+{'disparity': 10, 'depth': 9.6}
+```
+
+視差が小さくなるほど、推定される depth は大きくなります。ステレオ幾何を詳しく学ぶ前に、まずこの直感を押さえてください。
+
 ### この例でいちばん伝えたいことは？
 
 これは、ステレオビジョンのいちばん大事な直感を表しています。
@@ -146,6 +156,14 @@ def to_point(pixel):
 points = [to_point(pixel) for pixel in pixels]
 print(points)
 ```
+
+実行結果の例：
+
+```text
+[(20.0, 40.0, 2.0), (30.0, 52.5, 2.5)]
+```
+
+これは簡略化した point cloud の直感です。各画像点が depth を持つと、その点を 3D 空間上の点として想像できます。
 
 この例は厳密なカメラモデルではありません。  
 ただし、初心者がまず直感をつかむには役立ちます。

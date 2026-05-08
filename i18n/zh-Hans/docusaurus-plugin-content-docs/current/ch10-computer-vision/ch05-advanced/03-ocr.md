@@ -109,6 +109,15 @@ print("regions:", regions)
 print("texts:", texts)
 ```
 
+预期输出：
+
+```text
+regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
+texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
+```
+
+第一行是检测结果：文字区域在哪里。第二行是识别结果：每个检测到的区域里写了什么。
+
 ### 这个例子最关键的地方是什么？
 
 它清楚分开了：
@@ -180,6 +189,14 @@ def restore_reading_order(lines):
 
 print(restore_reading_order(lines))
 ```
+
+预期输出：
+
+```text
+['INVOICE', 'INV-001', 'TOTAL 299']
+```
+
+原始列表顺序是乱的，但按纵坐标排序后，就能恢复这个简单文档从上到下的自然阅读顺序。
 
 这个例子很小，但它能帮新人先建立一个关键直觉：
 
@@ -270,6 +287,16 @@ errors = [
 for item in errors:
     print(f"{item['type']}: {item['count']}")
 ```
+
+预期输出：
+
+```text
+detection_miss: 4
+wrong_character: 7
+reading_order: 3
+```
+
+这个小表会告诉你下一步该看哪里：漏检文字框、字符识别错，还是文档顺序错。每一类问题通常都需要不同修法。
 
 这个表虽然简单，但很像真实 OCR 项目里会做的第一步：
 

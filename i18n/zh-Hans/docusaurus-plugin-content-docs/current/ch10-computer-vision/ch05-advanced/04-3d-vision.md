@@ -106,6 +106,16 @@ for disparity in [40, 20, 10]:
     print({"disparity": disparity, "depth": round(depth, 4)})
 ```
 
+预期输出：
+
+```text
+{'disparity': 40, 'depth': 2.4}
+{'disparity': 20, 'depth': 4.8}
+{'disparity': 10, 'depth': 9.6}
+```
+
+视差越小，估计出来的深度越大。学习完整双目几何之前，先抓住这条直觉就够了。
+
 ### 这个例子最想表达什么？
 
 它抓住了立体视觉最核心的一层直觉：
@@ -144,6 +154,14 @@ def to_point(pixel):
 points = [to_point(pixel) for pixel in pixels]
 print(points)
 ```
+
+预期输出：
+
+```text
+[(20.0, 40.0, 2.0), (30.0, 52.5, 2.5)]
+```
+
+这是一个简化版点云直觉：每个图像点带着深度值，所以你可以把它想象成 3D 空间里的一个点。
 
 这个示例不是严格相机模型，只是帮助新人先建立一个直觉：
 

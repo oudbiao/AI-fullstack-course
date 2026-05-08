@@ -106,6 +106,16 @@ for disparity in [40, 20, 10]:
     print({"disparity": disparity, "depth": round(depth, 4)})
 ```
 
+Expected output:
+
+```text
+{'disparity': 40, 'depth': 2.4}
+{'disparity': 20, 'depth': 4.8}
+{'disparity': 10, 'depth': 9.6}
+```
+
+As disparity gets smaller, the estimated depth becomes larger. This is the first intuition to keep before studying stereo geometry in detail.
+
 ### What Is This Example Trying to Express?
 
 It captures the most essential intuition of stereo vision:
@@ -144,6 +154,14 @@ def to_point(pixel):
 points = [to_point(pixel) for pixel in pixels]
 print(points)
 ```
+
+Expected output:
+
+```text
+[(20.0, 40.0, 2.0), (30.0, 52.5, 2.5)]
+```
+
+This is a simplified point-cloud intuition: each image point carries a depth value, so you can imagine it as a point in 3D space.
 
 This example is not a strict camera model. It is only meant to help beginners build an intuition first:
 

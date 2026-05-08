@@ -165,6 +165,16 @@ for frame in tracked:
     print(frame)
 ```
 
+预期输出：
+
+```text
+[{'id': 1, 'x': 10, 'y': 10}]
+[{'id': 1, 'x': 12, 'y': 11}]
+[{'id': 1, 'x': 15, 'y': 13}]
+```
+
+同一个目标一直保持 ID `1`，因为相邻帧之间移动得足够小。如果移动距离超过 `max_distance`，这个极简 tracker 就可能误分配一个新 ID。
+
 ### 这个例子最想表达什么？
 
 视频分析里很多系统的第一步不是复杂时序网络，
@@ -207,6 +217,18 @@ for idx, window in enumerate(windows):
     label = "moving_event" if motion_ratio >= 0.67 else "static_or_unclear"
     print(idx, window, label)
 ```
+
+预期输出：
+
+```text
+0 [0, 0, 1] static_or_unclear
+1 [0, 1, 1] static_or_unclear
+2 [1, 1, 1] moving_event
+3 [1, 1, 0] static_or_unclear
+4 [1, 0, 0] static_or_unclear
+```
+
+只有连续三帧都在移动的窗口会被标记为 moving event。这就是单帧标签和时序事件标签之间的关键差别。
 
 这个例子最关键的地方是：
 

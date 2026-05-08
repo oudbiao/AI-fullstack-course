@@ -1,13 +1,13 @@
 ---
-title: "10.5.1 Advanced Vision ロードマップ：OCR、Face、Video、3D"
+title: "10.5.1 高度な視覚タスクのロードマップ：OCR、顔、動画、3D"
 sidebar_position: 0
-description: "Advanced vision directions の短い実践ロードマップ：input、output、risk、project goals に基づいて OCR、face、video、3D を選ぶ。"
+description: "高度な視覚タスクの短い実践ロードマップ：入力、出力、リスク、プロジェクト目標に基づいて OCR、顔、動画、3D を選ぶ。"
 keywords: [Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Vision]
 ---
 
-# 10.5.1 Advanced Vision ロードマップ：OCR、Face、Video、3D
+# 10.5.1 高度な視覚タスクのロードマップ：OCR、顔、動画、3D
 
-Advanced vision は model names のリストではありません。同じ vision foundation の上にある application directions で、inputs、outputs、constraints、risks がより複雑になります。
+高度な視覚タスクは、モデル名のリストではありません。同じ視覚基盤の上にある応用方向で、入力、出力、制約、リスクがより複雑になります。
 
 ## まず direction map を見る
 
@@ -17,7 +17,7 @@ Advanced vision は model names のリストではありません。同じ visio
 
 ![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-ja.png)
 
-OCR は documents、face recognition は identity-sensitive scenarios、video は time and motion、3D vision は spatial structure に向いています。
+OCR は文書、顔認識は本人確認などの慎重な場面、動画は時間と動き、3D 視覚は空間構造に向いています。
 
 ## Direction choice check を動かす
 

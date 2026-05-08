@@ -103,6 +103,15 @@ print("a vs b:", round(cosine(face_a, face_b), 4))
 print("a vs c:", round(cosine(face_a, face_c), 4))
 ```
 
+预期输出：
+
+```text
+a vs b: 0.9994
+a vs c: 0.3034
+```
+
+`face_a` 和 `face_b` 非常接近，而 `face_c` 在 embedding 空间里离得很远。真实系统里，这个分数还需要配合阈值和拒绝策略一起使用。
+
 ### 这个例子最重要的直觉
 
 人脸识别很多时候不是直接分类名字，
@@ -147,6 +156,14 @@ def match_results(scores, threshold):
 
 print(match_results(similarities, threshold))
 ```
+
+预期输出：
+
+```text
+['same_person', 'same_person', 'different_person']
+```
+
+阈值为 `0.8` 时，前两个分数会被接受为同一个人，最后一个会被拒绝。如果提高阈值，中间那个样本可能从“接受”变成“拒绝”。
 
 这个示例很小，但它能帮助新人立住一个系统直觉：
 

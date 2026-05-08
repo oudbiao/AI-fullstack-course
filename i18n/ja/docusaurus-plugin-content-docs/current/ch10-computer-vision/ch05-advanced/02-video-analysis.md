@@ -163,6 +163,16 @@ for frame in tracked:
     print(frame)
 ```
 
+実行結果の例：
+
+```text
+[{'id': 1, 'x': 10, 'y': 10}]
+[{'id': 1, 'x': 12, 'y': 11}]
+[{'id': 1, 'x': 15, 'y': 13}]
+```
+
+同じ対象が ID `1` のまま保たれています。隣り合うフレーム間の移動が十分小さいからです。移動量が `max_distance` を超えると、この単純な tracker は誤って新しい ID を割り当てる可能性があります。
+
 ### この例でいちばん伝えたいことは？
 
 動画分析で多くのシステムが最初にやるのは、複雑な時系列ネットワークではなく、  
@@ -205,6 +215,18 @@ for idx, window in enumerate(windows):
     label = "moving_event" if motion_ratio >= 0.67 else "static_or_unclear"
     print(idx, window, label)
 ```
+
+実行結果の例：
+
+```text
+0 [0, 0, 1] static_or_unclear
+1 [0, 1, 1] static_or_unclear
+2 [1, 1, 1] moving_event
+3 [1, 1, 0] static_or_unclear
+4 [1, 0, 0] static_or_unclear
+```
+
+3フレームすべてが動いている window だけが moving event と判定されます。ここが、単一フレームのラベルと時系列イベントラベルの大きな違いです。
 
 この例でいちばん大事なのは次の点です。
 

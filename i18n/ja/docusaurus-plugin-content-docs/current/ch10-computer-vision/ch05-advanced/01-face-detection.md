@@ -103,6 +103,15 @@ print("a vs b:", round(cosine(face_a, face_b), 4))
 print("a vs c:", round(cosine(face_a, face_c), 4))
 ```
 
+実行結果の例：
+
+```text
+a vs b: 0.9994
+a vs c: 0.3034
+```
+
+`face_a` と `face_b` は非常に近く、`face_c` は embedding 空間でかなり離れています。実際のシステムでは、このスコアを閾値と拒否ポリシーと一緒に扱います。
+
 ### この例でいちばん大事な直感
 
 顔認識は、多くの場合、名前を直接分類するのではなく、  
@@ -147,6 +156,14 @@ def match_results(scores, threshold):
 
 print(match_results(similarities, threshold))
 ```
+
+実行結果の例：
+
+```text
+['same_person', 'same_person', 'different_person']
+```
+
+閾値が `0.8` の場合、最初の2つのスコアは同一人物として受け入れられ、最後の1つは拒否されます。閾値を上げると、中央のケースは「受け入れ」から「拒否」に変わる可能性があります。
 
 この例は小さいですが、初学者がシステムの感覚をつかむのに役立ちます。
 

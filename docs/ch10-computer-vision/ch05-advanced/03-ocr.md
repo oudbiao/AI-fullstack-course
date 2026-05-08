@@ -109,6 +109,15 @@ print("regions:", regions)
 print("texts:", texts)
 ```
 
+Expected output:
+
+```text
+regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
+texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
+```
+
+The first line is the detection result: where text regions are. The second line is the recognition result: what each detected region says.
+
 ### What Is the Most Important Part of This Example?
 
 It clearly separates:
@@ -180,6 +189,14 @@ def restore_reading_order(lines):
 
 print(restore_reading_order(lines))
 ```
+
+Expected output:
+
+```text
+['INVOICE', 'INV-001', 'TOTAL 299']
+```
+
+The list was originally out of order, but sorting by the vertical coordinate restores the natural top-to-bottom reading order for this simple document.
 
 This example is very small, but it helps beginners build an important intuition:
 
@@ -270,6 +287,16 @@ errors = [
 for item in errors:
     print(f"{item['type']}: {item['count']}")
 ```
+
+Expected output:
+
+```text
+detection_miss: 4
+wrong_character: 7
+reading_order: 3
+```
+
+This tiny table tells you where to look next: missed text boxes, wrong characters, or wrong document order. Each bucket usually needs a different fix.
 
 Although this table is simple, it is very similar to the first step in a real OCR project:
 

@@ -103,6 +103,15 @@ print("a vs b:", round(cosine(face_a, face_b), 4))
 print("a vs c:", round(cosine(face_a, face_c), 4))
 ```
 
+Expected output:
+
+```text
+a vs b: 0.9994
+a vs c: 0.3034
+```
+
+`face_a` and `face_b` are extremely close, while `face_c` is far away in embedding space. In a real system, this score still needs a threshold and a rejection policy.
+
 ### The Most Important Intuition from This Example
 
 Face recognition is often not directly classifying a name,
@@ -147,6 +156,14 @@ def match_results(scores, threshold):
 
 print(match_results(similarities, threshold))
 ```
+
+Expected output:
+
+```text
+['same_person', 'same_person', 'different_person']
+```
+
+With threshold `0.8`, the first two scores are accepted as the same person and the last one is rejected. If you raise the threshold, the middle case may change from accepted to rejected.
 
 This example is small, but it helps beginners build a system-level intuition:
 
