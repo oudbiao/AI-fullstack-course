@@ -78,6 +78,13 @@ for tool in tools:
     print(tool)
 ```
 
+Expected output:
+
+```text
+{'name': 'search_docs', 'description': 'Search course documents'}
+{'name': 'get_weather', 'description': 'Query the weather'}
+```
+
 ### What is this step teaching you?
 
 It is teaching you this:
@@ -156,6 +163,13 @@ print(client.discover())
 print(client.call("search_docs", {"query": "refund policy"}))
 ```
 
+Expected output:
+
+```text
+[{'name': 'search_docs', 'description': 'Search course documents'}, {'name': 'get_weather', 'description': 'Query the weather'}]
+{'result': 'Search result: refund policy'}
+```
+
 ### What is this code already showing?
 
 It already shows the client’s two main functions:
@@ -179,6 +193,8 @@ Because in real systems, the client often still needs to decide:
 
 ### A simple tool selector
 
+Continue in the same Python file or interpreter session after the previous client example, because this snippet reuses `client`.
+
 ```python
 def choose_tool(user_query, tools):
     tool_names = [t["name"] for t in tools]
@@ -195,6 +211,13 @@ tools = client.discover()
 decision = choose_tool("What is the refund policy?", tools)
 print(decision)
 print(client.call(decision["name"], decision["arguments"]))
+```
+
+Expected output:
+
+```text
+{'name': 'search_docs', 'arguments': {'query': 'refund policy'}}
+{'result': 'Search result: refund policy'}
 ```
 
 This shows that the client often also takes on a lightweight scheduling role.
@@ -215,6 +238,8 @@ And the client must decide what to do next.
 
 ### A minimal error handling example
 
+Continue in the same file or session so `client` is already defined.
+
 ```python
 def safe_call(client, name, arguments):
     result = client.call(name, arguments)
@@ -224,6 +249,13 @@ def safe_call(client, name, arguments):
 
 print(safe_call(client, "search_docs", {"query": "refund policy"}))
 print(safe_call(client, "bad_tool", {}))
+```
+
+Expected output:
+
+```text
+{'ok': True, 'data': 'Search result: refund policy'}
+{'ok': False, 'fallback': 'This tool is currently unavailable. Please try again later.'}
 ```
 
 This step turns the system from:
@@ -249,6 +281,8 @@ In many cases:
 
 ### A minimal caching idea
 
+Continue in the same file or session so `MockMCPClient` and `server` are already defined.
+
 ```python
 class CachedMCPClient(MockMCPClient):
     def discover_once(self):
@@ -259,6 +293,13 @@ class CachedMCPClient(MockMCPClient):
 cached_client = CachedMCPClient(server)
 print(cached_client.discover_once())
 print(cached_client.discover_once())
+```
+
+Expected output:
+
+```text
+[{'name': 'search_docs', 'description': 'Search course documents'}, {'name': 'get_weather', 'description': 'Query the weather'}]
+[{'name': 'search_docs', 'description': 'Search course documents'}, {'name': 'get_weather', 'description': 'Query the weather'}]
 ```
 
 Although simple, it already shows:

@@ -99,6 +99,12 @@ ecosystem = {
 print(ecosystem)
 ```
 
+Expected output:
+
+```text
+{'clients': ['IDE assistant', 'desktop Agent', 'enterprise workspace'], 'servers': ['file system server', 'database server', 'browser server'], 'connectors': ['filesystem', 'database', 'browser']}
+```
+
 Although this code is simple, it shows the three layers in the ecosystem:
 
 - who uses it
@@ -155,6 +161,12 @@ ide_use_case = {
 }
 
 print(ide_use_case)
+```
+
+Expected output:
+
+```text
+{'query': 'Help me locate the refund logic code', 'needed_servers': ['filesystem_server', 'code_search_server']}
 ```
 
 Here you can already see:

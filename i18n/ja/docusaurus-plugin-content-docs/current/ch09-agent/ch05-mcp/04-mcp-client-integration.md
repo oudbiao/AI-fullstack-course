@@ -78,6 +78,13 @@ for tool in tools:
     print(tool)
 ```
 
+想定出力：
+
+```text
+{'name': 'search_docs', 'description': 'コース文書を検索する'}
+{'name': 'get_weather', 'description': '天気を調べる'}
+```
+
 ### ここで学ぶことは？
 
 このコードが教えているのは次のことです。
@@ -156,6 +163,13 @@ print(client.discover())
 print(client.call("search_docs", {"query": "返金ポリシー"}))
 ```
 
+想定出力：
+
+```text
+[{'name': 'search_docs', 'description': 'コース文書を検索する'}, {'name': 'get_weather', 'description': '天気を調べる'}]
+{'result': '検索結果: 返金ポリシー'}
+```
+
 ### このコードは何を示しているのか？
 
 このコードには、client の 2 つの基本機能がすでに表れています。
@@ -179,6 +193,8 @@ print(client.call("search_docs", {"query": "返金ポリシー"}))
 
 ### 簡単なツール選択器
 
+前の client 例の続きとして、同じ Python ファイルまたは同じインタプリタセッションで実行してください。このスニペットは `client` を再利用します。
+
 ```python
 def choose_tool(user_query, tools):
     tool_names = [t["name"] for t in tools]
@@ -195,6 +211,13 @@ tools = client.discover()
 decision = choose_tool("返金ポリシーとは？", tools)
 print(decision)
 print(client.call(decision["name"], decision["arguments"]))
+```
+
+想定出力：
+
+```text
+{'name': 'search_docs', 'arguments': {'query': '返金ポリシー'}}
+{'result': '検索結果: 返金ポリシー'}
 ```
 
 これは、client が軽い振り分け役も担うことを示しています。
@@ -215,6 +238,8 @@ server 側では次のようなエラーが返ることがあります。
 
 ### 最小限のエラー処理の例
 
+同じファイルまたは同じセッションで続けて実行し、前の `client` が定義済みであることを確認してください。
+
 ```python
 def safe_call(client, name, arguments):
     result = client.call(name, arguments)
@@ -224,6 +249,13 @@ def safe_call(client, name, arguments):
 
 print(safe_call(client, "search_docs", {"query": "返金ポリシー"}))
 print(safe_call(client, "bad_tool", {}))
+```
+
+想定出力：
+
+```text
+{'ok': True, 'data': '検索結果: 返金ポリシー'}
+{'ok': False, 'fallback': '現在このツールは使えません。しばらくしてから再試行してください。'}
 ```
 
 この一歩で、システムは次の状態から：
@@ -249,6 +281,8 @@ print(safe_call(client, "bad_tool", {}))
 
 ### 最小限のキャッシュの考え方
 
+同じファイルまたは同じセッションで続けて実行し、`MockMCPClient` と `server` が定義済みであることを確認してください。
+
 ```python
 class CachedMCPClient(MockMCPClient):
     def discover_once(self):
@@ -259,6 +293,13 @@ class CachedMCPClient(MockMCPClient):
 cached_client = CachedMCPClient(server)
 print(cached_client.discover_once())
 print(cached_client.discover_once())
+```
+
+想定出力：
+
+```text
+[{'name': 'search_docs', 'description': 'コース文書を検索する'}, {'name': 'get_weather', 'description': '天気を調べる'}]
+[{'name': 'search_docs', 'description': 'コース文書を検索する'}, {'name': 'get_weather', 'description': '天気を調べる'}]
 ```
 
 これはとても単純ですが、次のことを表しています。

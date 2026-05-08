@@ -99,6 +99,12 @@ ecosystem = {
 print(ecosystem)
 ```
 
+预期输出：
+
+```text
+{'clients': ['IDE 助手', '桌面 Agent', '企业工作台'], 'servers': ['文件系统 server', '数据库 server', '浏览器 server'], 'connectors': ['filesystem', 'database', 'browser']}
+```
+
 这段代码虽然简单，但它说明了生态里的三层：
 
 - 谁来用
@@ -155,6 +161,12 @@ ide_use_case = {
 }
 
 print(ide_use_case)
+```
+
+预期输出：
+
+```text
+{'query': '帮我定位退款逻辑代码', 'needed_servers': ['filesystem_server', 'code_search_server']}
 ```
 
 这里你已经能看出：

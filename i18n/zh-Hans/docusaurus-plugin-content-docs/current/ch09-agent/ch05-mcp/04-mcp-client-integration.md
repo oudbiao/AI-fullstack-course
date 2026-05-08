@@ -78,6 +78,13 @@ for tool in tools:
     print(tool)
 ```
 
+预期输出：
+
+```text
+{'name': 'search_docs', 'description': '搜索课程文档'}
+{'name': 'get_weather', 'description': '查询天气'}
+```
+
 ### 这一步在教你什么？
 
 它在教你：
@@ -156,6 +163,13 @@ print(client.discover())
 print(client.call("search_docs", {"query": "退款政策"}))
 ```
 
+预期输出：
+
+```text
+[{'name': 'search_docs', 'description': '搜索课程文档'}, {'name': 'get_weather', 'description': '查询天气'}]
+{'result': '检索结果: 退款政策'}
+```
+
 ### 这段代码已经在说明什么？
 
 它已经体现了 client 的两大主功能：
@@ -179,6 +193,8 @@ print(client.call("search_docs", {"query": "退款政策"}))
 
 ### 一个简单工具选择器
 
+请接着上一段 client 示例，在同一个 Python 文件或同一个解释器会话里运行，因为这里会继续使用 `client`。
+
 ```python
 def choose_tool(user_query, tools):
     tool_names = [t["name"] for t in tools]
@@ -195,6 +211,13 @@ tools = client.discover()
 decision = choose_tool("退款政策是什么？", tools)
 print(decision)
 print(client.call(decision["name"], decision["arguments"]))
+```
+
+预期输出：
+
+```text
+{'name': 'search_docs', 'arguments': {'query': '退款政策'}}
+{'result': '检索结果: 退款政策'}
 ```
 
 这说明 client 往往还承担一层轻量调度职责。
@@ -215,6 +238,8 @@ server 那边可能返回：
 
 ### 一个最小错误处理示例
 
+继续在同一个文件或会话中运行，确保前面的 `client` 已经定义。
+
 ```python
 def safe_call(client, name, arguments):
     result = client.call(name, arguments)
@@ -224,6 +249,13 @@ def safe_call(client, name, arguments):
 
 print(safe_call(client, "search_docs", {"query": "退款政策"}))
 print(safe_call(client, "bad_tool", {}))
+```
+
+预期输出：
+
+```text
+{'ok': True, 'data': '检索结果: 退款政策'}
+{'ok': False, 'fallback': '当前工具不可用，请稍后重试。'}
 ```
 
 这一步让系统从：
@@ -249,6 +281,8 @@ print(safe_call(client, "bad_tool", {}))
 
 ### 一个最小缓存思路
 
+继续在同一个文件或会话中运行，确保 `MockMCPClient` 和 `server` 已经定义。
+
 ```python
 class CachedMCPClient(MockMCPClient):
     def discover_once(self):
@@ -259,6 +293,13 @@ class CachedMCPClient(MockMCPClient):
 cached_client = CachedMCPClient(server)
 print(cached_client.discover_once())
 print(cached_client.discover_once())
+```
+
+预期输出：
+
+```text
+[{'name': 'search_docs', 'description': '搜索课程文档'}, {'name': 'get_weather', 'description': '查询天气'}]
+[{'name': 'search_docs', 'description': '搜索课程文档'}, {'name': 'get_weather', 'description': '查询天气'}]
 ```
 
 这虽然简单，但已经体现出：

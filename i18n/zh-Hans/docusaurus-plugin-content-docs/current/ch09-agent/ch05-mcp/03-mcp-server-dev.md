@@ -85,6 +85,12 @@ search_docs_tool = {
 print(search_docs_tool)
 ```
 
+预期输出：
+
+```text
+{'name': 'search_docs', 'description': '搜索课程文档并返回相关内容', 'parameters': {'query': {'type': 'string', 'description': '要搜索的关键词'}}, 'required': ['query']}
+```
+
 你可以把这个结构理解成：
 
 > 工具的对外说明书。
@@ -103,6 +109,12 @@ bad_tool = {
 }
 
 print(bad_tool)
+```
+
+预期输出：
+
+```text
+{'name': 'search', 'description': '做搜索', 'parameters': {'q': {'type': 'string'}}}
 ```
 
 问题在于：
@@ -127,6 +139,12 @@ good_tool = {
 }
 
 print(good_tool)
+```
+
+预期输出：
+
+```text
+{'name': 'search_course_docs', 'description': '搜索课程 FAQ、政策和学习路线文档', 'parameters': {'query': {'type': 'string', 'description': '用户要查询的主题，比如 退款政策 或 证书'}}, 'required': ['query']}
 ```
 
 这里更好的地方在于：
@@ -166,6 +184,12 @@ server = MockMCPServer()
 print(server.list_tools())
 ```
 
+预期输出：
+
+```text
+[{'name': 'search_docs', 'description': '搜索课程文档', 'parameters': {'query': {'type': 'string'}}}]
+```
+
 ### 再加真正的执行逻辑
 
 ```python
@@ -203,6 +227,12 @@ server = MockMCPServer()
 print(server.call_tool("search_docs", {"query": "退款政策是什么"}))
 ```
 
+预期输出：
+
+```text
+{'result': '课程购买后 7 天内且学习进度低于 20% 可退款。'}
+```
+
 这已经是一个非常清楚的最小 server 骨架了。
 
 ---
@@ -231,6 +261,13 @@ def validate_search_docs(arguments):
 
 print(validate_search_docs({"query": "退款政策"}))
 print(validate_search_docs({"query_text": "退款政策"}))
+```
+
+预期输出：
+
+```text
+(True, 'ok')
+(False, 'missing_query')
 ```
 
 ### 为什么这一步一定不能省？
@@ -291,6 +328,14 @@ server = BetterMCPServer()
 print(server.list_tools())
 print(server.call_tool("search_docs", {"query": "证书怎么获得"}))
 print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
+```
+
+预期输出：
+
+```text
+[{'name': 'search_docs', 'description': '搜索课程文档', 'parameters': {'query': {'type': 'string'}}}]
+{'result': '完成所有项目并通过测试后可获得证书。'}
+{'error': 'missing_query'}
 ```
 
 ### 这个版本比上一版强在哪？

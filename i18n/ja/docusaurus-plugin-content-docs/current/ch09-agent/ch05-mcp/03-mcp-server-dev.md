@@ -85,6 +85,12 @@ search_docs_tool = {
 print(search_docs_tool)
 ```
 
+想定出力：
+
+```text
+{'name': 'search_docs', 'description': 'コース文書を検索して関連内容を返す', 'parameters': {'query': {'type': 'string', 'description': '検索したいキーワード'}}, 'required': ['query']}
+```
+
 この構造は、次のように考えると分かりやすいです。
 
 > ツールの対外向け説明書。 
@@ -103,6 +109,12 @@ bad_tool = {
 }
 
 print(bad_tool)
+```
+
+想定出力：
+
+```text
+{'name': 'search', 'description': '検索する', 'parameters': {'q': {'type': 'string'}}}
 ```
 
 問題点は次のとおりです。
@@ -127,6 +139,12 @@ good_tool = {
 }
 
 print(good_tool)
+```
+
+想定出力：
+
+```text
+{'name': 'search_course_docs', 'description': 'コース FAQ、ポリシー、学習ロードマップの文書を検索する', 'parameters': {'query': {'type': 'string', 'description': 'ユーザーが調べたいトピック。たとえば 返金ポリシー や 証明書'}}, 'required': ['query']}
 ```
 
 こちらのほうがよい理由は次のとおりです。
@@ -166,6 +184,12 @@ server = MockMCPServer()
 print(server.list_tools())
 ```
 
+想定出力：
+
+```text
+[{'name': 'search_docs', 'description': 'コース文書を検索する', 'parameters': {'query': {'type': 'string'}}}]
+```
+
 ### 次に実際の実行ロジックを追加する
 
 ```python
@@ -203,6 +227,12 @@ server = MockMCPServer()
 print(server.call_tool("search_docs", {"query": "返金ポリシーは何ですか"}))
 ```
 
+想定出力：
+
+```text
+{'result': 'コース購入後 7 日以内で、学習進捗が 20% 未満なら返金できます。'}
+```
+
 ここまでで、かなり分かりやすい最小の server 骨組みになっています。
 
 ---
@@ -231,6 +261,13 @@ def validate_search_docs(arguments):
 
 print(validate_search_docs({"query": "返金ポリシー"}))
 print(validate_search_docs({"query_text": "返金ポリシー"}))
+```
+
+想定出力：
+
+```text
+(True, 'ok')
+(False, 'missing_query')
 ```
 
 ### この手順を省いてはいけない理由
@@ -291,6 +328,14 @@ server = BetterMCPServer()
 print(server.list_tools())
 print(server.call_tool("search_docs", {"query": "証明書はどうやって取得しますか"}))
 print(server.call_tool("search_docs", {"wrong": "証明書はどうやって取得しますか"}))
+```
+
+想定出力：
+
+```text
+[{'name': 'search_docs', 'description': 'コース文書を検索する', 'parameters': {'query': {'type': 'string'}}}]
+{'result': 'すべてのプロジェクトを完了し、テストに合格すると証明書を取得できます。'}
+{'error': 'missing_query'}
 ```
 
 ### この版が前の版より優れている点

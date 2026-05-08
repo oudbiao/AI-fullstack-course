@@ -85,6 +85,12 @@ search_docs_tool = {
 print(search_docs_tool)
 ```
 
+Expected output:
+
+```text
+{'name': 'search_docs', 'description': 'Search course documents and return relevant content', 'parameters': {'query': {'type': 'string', 'description': 'The keyword to search for'}}, 'required': ['query']}
+```
+
 You can think of this structure as:
 
 > The public-facing instruction manual for the tool.
@@ -103,6 +109,12 @@ bad_tool = {
 }
 
 print(bad_tool)
+```
+
+Expected output:
+
+```text
+{'name': 'search', 'description': 'Do search', 'parameters': {'q': {'type': 'string'}}}
 ```
 
 The problems are:
@@ -127,6 +139,12 @@ good_tool = {
 }
 
 print(good_tool)
+```
+
+Expected output:
+
+```text
+{'name': 'search_course_docs', 'description': 'Search course FAQ, policies, and learning path documents', 'parameters': {'query': {'type': 'string', 'description': 'The topic the user wants to query, such as refund policy or certificate'}}, 'required': ['query']}
 ```
 
 What is better here:
@@ -166,6 +184,12 @@ server = MockMCPServer()
 print(server.list_tools())
 ```
 
+Expected output:
+
+```text
+[{'name': 'search_docs', 'description': 'Search course documents', 'parameters': {'query': {'type': 'string'}}}]
+```
+
 ### Then add real execution logic
 
 ```python
@@ -203,6 +227,12 @@ server = MockMCPServer()
 print(server.call_tool("search_docs", {"query": "What is the refund policy?"}))
 ```
 
+Expected output:
+
+```text
+{'result': 'You can request a refund within 7 days after purchase if your learning progress is below 20%.'}
+```
+
 This is already a very clear minimal server skeleton.
 
 ---
@@ -231,6 +261,13 @@ def validate_search_docs(arguments):
 
 print(validate_search_docs({"query": "refund policy"}))
 print(validate_search_docs({"query_text": "refund policy"}))
+```
+
+Expected output:
+
+```text
+(True, 'ok')
+(False, 'missing_query')
 ```
 
 ### Why can’t we skip this step?
@@ -291,6 +328,14 @@ server = BetterMCPServer()
 print(server.list_tools())
 print(server.call_tool("search_docs", {"query": "How do I get a certificate?"}))
 print(server.call_tool("search_docs", {"wrong": "How do I get a certificate?"}))
+```
+
+Expected output:
+
+```text
+[{'name': 'search_docs', 'description': 'Search course documents', 'parameters': {'query': {'type': 'string'}}}]
+{'result': 'You can receive a certificate after completing all projects and passing the tests.'}
+{'error': 'missing_query'}
 ```
 
 ### What is better about this version than the previous one?

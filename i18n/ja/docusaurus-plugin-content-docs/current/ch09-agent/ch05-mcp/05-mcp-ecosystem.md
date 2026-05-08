@@ -99,6 +99,12 @@ ecosystem = {
 print(ecosystem)
 ```
 
+想定出力：
+
+```text
+{'clients': ['IDE アシスタント', 'デスクトップ Agent', '企業ワークベンチ'], 'servers': ['ファイルシステム server', 'データベース server', 'ブラウザ server'], 'connectors': ['filesystem', 'database', 'browser']}
+```
+
 このコードはとてもシンプルですが、エコシステムの 3 層を示しています。
 
 - 誰が使うのか
@@ -155,6 +161,12 @@ ide_use_case = {
 }
 
 print(ide_use_case)
+```
+
+想定出力：
+
+```text
+{'query': '返金ロジックのコードを特定して', 'needed_servers': ['filesystem_server', 'code_search_server']}
 ```
 
 ここから分かるのは、
