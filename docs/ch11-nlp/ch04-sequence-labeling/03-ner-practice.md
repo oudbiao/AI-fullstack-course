@@ -137,7 +137,7 @@ def decode_entities(tokens, tags):
     for token, tag in zip(tokens, tags):
         if tag == "O":
             if current_tokens:
-                entities.append(("".join(current_tokens), current_type))
+                entities.append((" ".join(current_tokens), current_type))
                 current_tokens = []
                 current_type = None
             continue
@@ -146,19 +146,19 @@ def decode_entities(tokens, tags):
 
         if prefix == "B":
             if current_tokens:
-                entities.append(("".join(current_tokens), current_type))
+                entities.append((" ".join(current_tokens), current_type))
             current_tokens = [token]
             current_type = entity_type
         elif prefix == "I" and current_type == entity_type:
             current_tokens.append(token)
         else:
             if current_tokens:
-                entities.append(("".join(current_tokens), current_type))
+                entities.append((" ".join(current_tokens), current_type))
             current_tokens = [token]
             current_type = entity_type
 
     if current_tokens:
-        entities.append(("".join(current_tokens), current_type))
+        entities.append((" ".join(current_tokens), current_type))
 
     return entities
 
@@ -173,6 +173,22 @@ for sample in samples:
     print("miss :", [x for x in gold_entities if x not in pred_entities])
     print()
 ```
+
+Expected output:
+
+```text
+tokens: ['Zhang San', 'graduated from', 'Tsinghua University', ',', 'familiar with', 'Python', 'and', 'PyTorch']
+gold : [('Zhang San', 'NAME'), ('Tsinghua University', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL')]
+pred : [('Zhang San', 'NAME'), ('Tsinghua University', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL')]
+miss : []
+
+tokens: ['Li Si', 'is from', 'Peking University', ',', 'knows', 'Java']
+gold : [('Li Si', 'NAME'), ('Peking University', 'SCHOOL'), ('Java', 'SKILL')]
+pred : [('Li Si', 'NAME'), ('Java', 'SKILL')]
+miss : [('Peking University', 'SCHOOL')]
+```
+
+The second sample misses the school entity. That is exactly why NER projects should inspect recovered entities, not only token-level labels.
 
 ### Why is this code the “minimal project loop”?
 
@@ -197,17 +213,57 @@ Not whether a single token was labeled correctly.
 ### Another minimal “entity log” example
 
 ```python
-sample = samples[1]
+sample = {
+    "tokens": ["Li Si", "is from", "Peking University", ",", "knows", "Java"],
+    "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL"],
+    "pred_tags": ["B-NAME", "O", "O", "O", "O", "B-SKILL"],
+}
+
+
+def decode_entities(tokens, tags):
+    entities = []
+    current_tokens = []
+    current_type = None
+
+    for token, tag in zip(tokens, tags):
+        if tag == "O":
+            if current_tokens:
+                entities.append((" ".join(current_tokens), current_type))
+                current_tokens = []
+                current_type = None
+            continue
+
+        prefix, entity_type = tag.split("-", 1)
+        if prefix == "B":
+            if current_tokens:
+                entities.append((" ".join(current_tokens), current_type))
+            current_tokens = [token]
+            current_type = entity_type
+        elif prefix == "I" and current_type == entity_type:
+            current_tokens.append(token)
+
+    if current_tokens:
+        entities.append((" ".join(current_tokens), current_type))
+
+    return entities
+
+
 gold_entities = decode_entities(sample["tokens"], sample["gold_tags"])
 pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
 
 print(
     {
-        "text": "".join(sample["tokens"]),
+        "text": " ".join(sample["tokens"]).replace(" ,", ","),
         "gold_entities": gold_entities,
         "pred_entities": pred_entities,
     }
 )
+```
+
+Expected output:
+
+```text
+{'text': 'Li Si is from Peking University, knows Java', 'gold_entities': [('Li Si', 'NAME'), ('Peking University', 'SCHOOL'), ('Java', 'SKILL')], 'pred_entities': [('Li Si', 'NAME'), ('Java', 'SKILL')]}
 ```
 
 This kind of log is especially good for beginners because it turns an abstract labeling task into a more realistic project output:
@@ -236,6 +292,48 @@ but the actual entity extraction performance may still be poor.
 ### A minimal entity recall example
 
 ```python
+samples = [
+    {
+        "tokens": ["Zhang San", "graduated from", "Tsinghua University", ",", "familiar with", "Python", "and", "PyTorch"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
+        "pred_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
+    },
+    {
+        "tokens": ["Li Si", "is from", "Peking University", ",", "knows", "Java"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL"],
+        "pred_tags": ["B-NAME", "O", "O", "O", "O", "B-SKILL"],
+    },
+]
+
+
+def decode_entities(tokens, tags):
+    entities = []
+    current_tokens = []
+    current_type = None
+
+    for token, tag in zip(tokens, tags):
+        if tag == "O":
+            if current_tokens:
+                entities.append((" ".join(current_tokens), current_type))
+                current_tokens = []
+                current_type = None
+            continue
+
+        prefix, entity_type = tag.split("-", 1)
+        if prefix == "B":
+            if current_tokens:
+                entities.append((" ".join(current_tokens), current_type))
+            current_tokens = [token]
+            current_type = entity_type
+        elif prefix == "I" and current_type == entity_type:
+            current_tokens.append(token)
+
+    if current_tokens:
+        entities.append((" ".join(current_tokens), current_type))
+
+    return entities
+
+
 def entity_recall(gold_entities, pred_entities):
     if not gold_entities:
         return 1.0
@@ -248,6 +346,15 @@ for sample in samples:
     pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
     print(entity_recall(gold_entities, pred_entities))
 ```
+
+Expected output:
+
+```text
+1.0
+0.6666666666666666
+```
+
+The first sample recovers all entities. The second recovers 2 of 3 entities, so entity-level recall drops even though many `O` tokens were still correct.
 
 ### The safest default order when doing an NER project for the first time
 

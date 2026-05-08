@@ -175,6 +175,22 @@ for sample in samples:
     print()
 ```
 
+预期输出：
+
+```text
+tokens: ['张三', '毕业于', '清华大学', '，', '熟悉', 'Python', '和', 'PyTorch']
+gold : [('张三', 'NAME'), ('清华大学', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL')]
+pred : [('张三', 'NAME'), ('清华大学', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL')]
+miss : []
+
+tokens: ['李四', '来自', '北京大学', '，', '掌握', 'Java']
+gold : [('李四', 'NAME'), ('北京大学', 'SCHOOL'), ('Java', 'SKILL')]
+pred : [('李四', 'NAME'), ('Java', 'SKILL')]
+miss : [('北京大学', 'SCHOOL')]
+```
+
+第二条样本漏掉了学校实体。这正说明 NER 项目不能只看 token 标签，而要看最终恢复出来的实体。
+
 ### 这段代码为什么是“项目最小闭环”？
 
 因为它已经包含了：
@@ -198,7 +214,41 @@ for sample in samples:
 ### 再看一个最小“实体日志”示例
 
 ```python
-sample = samples[1]
+sample = {
+    "tokens": ["李四", "来自", "北京大学", "，", "掌握", "Java"],
+    "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL"],
+    "pred_tags": ["B-NAME", "O", "O", "O", "O", "B-SKILL"],
+}
+
+
+def decode_entities(tokens, tags):
+    entities = []
+    current_tokens = []
+    current_type = None
+
+    for token, tag in zip(tokens, tags):
+        if tag == "O":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+                current_tokens = []
+                current_type = None
+            continue
+
+        prefix, entity_type = tag.split("-", 1)
+        if prefix == "B":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+            current_tokens = [token]
+            current_type = entity_type
+        elif prefix == "I" and current_type == entity_type:
+            current_tokens.append(token)
+
+    if current_tokens:
+        entities.append(("".join(current_tokens), current_type))
+
+    return entities
+
+
 gold_entities = decode_entities(sample["tokens"], sample["gold_tags"])
 pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
 
@@ -209,6 +259,12 @@ print(
         "pred_entities": pred_entities,
     }
 )
+```
+
+预期输出：
+
+```text
+{'text': '李四来自北京大学，掌握Java', 'gold_entities': [('李四', 'NAME'), ('北京大学', 'SCHOOL'), ('Java', 'SKILL')], 'pred_entities': [('李四', 'NAME'), ('Java', 'SKILL')]}
 ```
 
 这个日志特别适合初学者，因为它会把一个抽象的标签任务，变成更像真实项目的输出：
@@ -237,6 +293,48 @@ print(
 ### 一个极简实体召回例子
 
 ```python
+samples = [
+    {
+        "tokens": ["张三", "毕业于", "清华大学", "，", "熟悉", "Python", "和", "PyTorch"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
+        "pred_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
+    },
+    {
+        "tokens": ["李四", "来自", "北京大学", "，", "掌握", "Java"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL"],
+        "pred_tags": ["B-NAME", "O", "O", "O", "O", "B-SKILL"],
+    },
+]
+
+
+def decode_entities(tokens, tags):
+    entities = []
+    current_tokens = []
+    current_type = None
+
+    for token, tag in zip(tokens, tags):
+        if tag == "O":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+                current_tokens = []
+                current_type = None
+            continue
+
+        prefix, entity_type = tag.split("-", 1)
+        if prefix == "B":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+            current_tokens = [token]
+            current_type = entity_type
+        elif prefix == "I" and current_type == entity_type:
+            current_tokens.append(token)
+
+    if current_tokens:
+        entities.append(("".join(current_tokens), current_type))
+
+    return entities
+
+
 def entity_recall(gold_entities, pred_entities):
     if not gold_entities:
         return 1.0
@@ -249,6 +347,15 @@ for sample in samples:
     pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
     print(entity_recall(gold_entities, pred_entities))
 ```
+
+预期输出：
+
+```text
+1.0
+0.6666666666666666
+```
+
+第一条样本实体全中；第二条样本只抽出了 3 个实体中的 2 个，所以实体级 recall 会下降，即使很多 `O` 位置仍然是对的。
 
 ### 第一次做 NER 项目时，最稳的默认顺序
 

@@ -1,11 +1,11 @@
 ---
-title: "11.4.3 序列标注任务"
-sidebar_position: 2
+title: "11.4.2 序列标注任务"
+sidebar_position: 1
 description: "从“整句一个标签”和“每个 token 一个标签”的差别讲起，理解序列标注为什么是信息抽取任务的重要基础。"
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# 11.4.3 序列标注任务
+# 11.4.2 序列标注任务
 
 ![BIO 标签到实体恢复图](/img/course/bio-ner-recovery.png)
 
@@ -117,6 +117,18 @@ for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
+预期输出：
+
+```text
+张三 B-PER
+在 O
+北京 B-ORG
+大学 I-ORG
+工作 O
+```
+
+token 列表和标签列表长度必须一致。做任何序列标注数据集时，第一件事就是先确认这种一一对齐没有错。
+
 ### 这个例子最核心的地方是什么？
 
 它让你看到：
@@ -184,6 +196,14 @@ def decode_entities(tokens, tags):
 
 print(decode_entities(tokens, tags))
 ```
+
+预期输出：
+
+```text
+[('张三', 'PER'), ('北京大学', 'ORG')]
+```
+
+这一步把 token 级标签还原成项目真正要用的结果：实体文本和实体类型。
 
 ### 这段代码为什么很重要？
 

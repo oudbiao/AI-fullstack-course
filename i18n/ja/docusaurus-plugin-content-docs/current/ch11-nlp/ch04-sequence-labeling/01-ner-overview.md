@@ -1,11 +1,11 @@
 ---
-title: "11.4.3 シーケンスラベリングタスク"
-sidebar_position: 2
+title: "11.4.2 シーケンスラベリングタスク"
+sidebar_position: 1
 description: "「文全体に1つのラベル」と「各 token に1つのラベル」の違いから始めて、シーケンスラベリングがなぜ情報抽出タスクの重要な基礎なのかを理解します。"
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# 11.4.3 シーケンスラベリングタスク
+# 11.4.2 シーケンスラベリングタスク
 
 ![BIO 標注から実体を復元する図](/img/course/bio-ner-recovery-ja.png)
 
@@ -119,6 +119,19 @@ for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
+実行結果の例：
+
+```text
+張三 B-PER
+は O
+北京 B-ORG
+大学 I-ORG
+で O
+働いている O
+```
+
+token の列とタグの列は同じ長さでなければなりません。系列ラベリングのデータを見るとき、最初に確認するのはこの一対一の対応です。
+
 ### この例でいちばん大事なことは？
 
 ここで見えてくるのは、
@@ -190,6 +203,14 @@ def decode_entities(tokens, tags):
 
 print(decode_entities(tokens, tags))
 ```
+
+実行結果の例：
+
+```text
+[('張三', 'PER'), ('北京大学', 'ORG')]
+```
+
+この処理で、token 単位のラベルが実際に使う成果物、つまりエンティティ文字列とエンティティタイプに変わります。
 
 ### このコードが重要なのはなぜ？
 

@@ -13,15 +13,13 @@ keywords: [シーケンスラベリングガイド, NER, BiLSTM-CRF]
 
 ![系列ラベリング章の進め方](/img/course/ch11-sequence-labeling-chapter-flow-ja.png)
 
-| 順番 | 学ぶこと | 目的 |
-|---|---|---|
-| 1 | BIO ラベル | エンティティの開始・継続・外側を表す |
-| 2 | HMM / CRF | ラベル列の自然なつながりを扱う |
-| 3 | BiLSTM-CRF | 文脈表現とラベル列制約を組み合わせる |
+![HMM と CRF から系列ラベリングを見る](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
+
+![BiLSTM-CRF のラベル経路](/img/course/ch11-bilstm-crf-label-path-map-ja.png)
+
+重要な出力は文全体のラベルではなく、`B-PER`、`I-PER`、`O` のように token ごとにそろったタグ列です。
 
 ## BIO ラベルを手で見る
-
-![HMM と CRF から系列ラベリングを見る](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
 
 `B-PER` は人物名の開始、`I-PER` は人物名の続き、`O` は対象外を表します。まずは小さな文で、token とラベルの対応を確認します。
 
@@ -44,17 +42,15 @@ notes O
 
 操作のコツ：系列ラベリングでは token 数と tag 数が一致している必要があります。ここがずれると、学習データとして使えません。
 
-## BiLSTM-CRF の直感
+## 学ぶ順番
 
-![BiLSTM-CRF のラベル経路](/img/course/ch11-bilstm-crf-label-path-map-ja.png)
-
-`BiLSTM` は前後の文脈を読み、`CRF` はラベル列として自然な並びを選びます。たとえば `I-PER` が文頭に突然出るより、`B-PER` の後に出るほうが自然です。
+| ステップ | 読む内容 | 実践で作るもの |
+|---|---|---|
+| 1 | NER と BIO | token 単位ラベルとエンティティ span を作る |
+| 2 | HMM / CRF の歴史 | 系列制約とラベル遷移を理解する |
+| 3 | BiLSTM-CRF | 文脈特徴と正しいラベル経路をつなげる |
+| 4 | プロジェクト実践 | precision、recall、F1、境界エラーを評価する |
 
 ## 通過条件
 
-| チェック | 合格ライン |
-|---|---|
-| 分類との違い | 文全体ではなく token ごとに予測すると説明できる |
-| BIO | B、I、O の意味を言える |
-| CRF | 1 token ずつではなくラベル列として整える役割を説明できる |
-| プロジェクト化 | token、tag、評価指標をセットで準備できる |
+token/tag の対応を確認でき、境界ミスまたは不正なタグ遷移を1つ説明できれば、この章は通過です。

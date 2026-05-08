@@ -117,14 +117,14 @@ NER は、次のように考えると理解しやすいです。
 ```python
 samples = [
     {
-        "tokens": ["张三", "毕业于", "清华大学", "，", "熟悉", "Python", "和", "PyTorch"],
-        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
-        "pred_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
+        "tokens": ["田中太郎", "は", "東京大学", "を卒業し", "Python", "と", "PyTorch", "に詳しい"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O", "B-SKILL", "O"],
+        "pred_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O", "B-SKILL", "O"],
     },
     {
-        "tokens": ["李四", "来自", "北京大学", "，", "掌握", "Java"],
-        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL"],
-        "pred_tags": ["B-NAME", "O", "O", "O", "O", "B-SKILL"],
+        "tokens": ["佐藤花子", "は", "京都大学", "出身で", "Java", "を使えます"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O"],
+        "pred_tags": ["B-NAME", "O", "O", "O", "B-SKILL", "O"],
     },
 ]
 
@@ -174,6 +174,22 @@ for sample in samples:
     print()
 ```
 
+実行結果の例：
+
+```text
+tokens: ['田中太郎', 'は', '東京大学', 'を卒業し', 'Python', 'と', 'PyTorch', 'に詳しい']
+gold : [('田中太郎', 'NAME'), ('東京大学', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL')]
+pred : [('田中太郎', 'NAME'), ('東京大学', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL')]
+miss : []
+
+tokens: ['佐藤花子', 'は', '京都大学', '出身で', 'Java', 'を使えます']
+gold : [('佐藤花子', 'NAME'), ('京都大学', 'SCHOOL'), ('Java', 'SKILL')]
+pred : [('佐藤花子', 'NAME'), ('Java', 'SKILL')]
+miss : [('京都大学', 'SCHOOL')]
+```
+
+2つ目のサンプルでは学校エンティティを見逃しています。だから NER プロジェクトでは、token ラベルだけでなく復元されたエンティティを確認する必要があります。
+
 ### なぜこのコードが「プロジェクトの最小閉ループ」なのか？
 
 すでに次の要素が入っているからです。
@@ -197,7 +213,41 @@ for sample in samples:
 ### 最小の「エンティティログ」の例
 
 ```python
-sample = samples[1]
+sample = {
+    "tokens": ["佐藤花子", "は", "京都大学", "出身で", "Java", "を使えます"],
+    "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O"],
+    "pred_tags": ["B-NAME", "O", "O", "O", "B-SKILL", "O"],
+}
+
+
+def decode_entities(tokens, tags):
+    entities = []
+    current_tokens = []
+    current_type = None
+
+    for token, tag in zip(tokens, tags):
+        if tag == "O":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+                current_tokens = []
+                current_type = None
+            continue
+
+        prefix, entity_type = tag.split("-", 1)
+        if prefix == "B":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+            current_tokens = [token]
+            current_type = entity_type
+        elif prefix == "I" and current_type == entity_type:
+            current_tokens.append(token)
+
+    if current_tokens:
+        entities.append(("".join(current_tokens), current_type))
+
+    return entities
+
+
 gold_entities = decode_entities(sample["tokens"], sample["gold_tags"])
 pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
 
@@ -208,6 +258,12 @@ print(
         "pred_entities": pred_entities,
     }
 )
+```
+
+実行結果の例：
+
+```text
+{'text': '佐藤花子は京都大学出身でJavaを使えます', 'gold_entities': [('佐藤花子', 'NAME'), ('京都大学', 'SCHOOL'), ('Java', 'SKILL')], 'pred_entities': [('佐藤花子', 'NAME'), ('Java', 'SKILL')]}
 ```
 
 このログは、初心者にとても向いています。なぜなら、抽象的なラベルタスクを、実際のプロジェクトっぽい出力に変えてくれるからです。
@@ -234,6 +290,48 @@ token accuracy だけを見ると、数値は高く見えやすいです。
 ### とても簡単なエンティティ Recall の例
 
 ```python
+samples = [
+    {
+        "tokens": ["田中太郎", "は", "東京大学", "を卒業し", "Python", "と", "PyTorch", "に詳しい"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O", "B-SKILL", "O"],
+        "pred_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O", "B-SKILL", "O"],
+    },
+    {
+        "tokens": ["佐藤花子", "は", "京都大学", "出身で", "Java", "を使えます"],
+        "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "B-SKILL", "O"],
+        "pred_tags": ["B-NAME", "O", "O", "O", "B-SKILL", "O"],
+    },
+]
+
+
+def decode_entities(tokens, tags):
+    entities = []
+    current_tokens = []
+    current_type = None
+
+    for token, tag in zip(tokens, tags):
+        if tag == "O":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+                current_tokens = []
+                current_type = None
+            continue
+
+        prefix, entity_type = tag.split("-", 1)
+        if prefix == "B":
+            if current_tokens:
+                entities.append(("".join(current_tokens), current_type))
+            current_tokens = [token]
+            current_type = entity_type
+        elif prefix == "I" and current_type == entity_type:
+            current_tokens.append(token)
+
+    if current_tokens:
+        entities.append(("".join(current_tokens), current_type))
+
+    return entities
+
+
 def entity_recall(gold_entities, pred_entities):
     if not gold_entities:
         return 1.0
@@ -246,6 +344,15 @@ for sample in samples:
     pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
     print(entity_recall(gold_entities, pred_entities))
 ```
+
+実行結果の例：
+
+```text
+1.0
+0.6666666666666666
+```
+
+1つ目のサンプルではすべてのエンティティを復元できています。2つ目では3つのうち2つだけなので、entity-level recall は下がります。多くの `O` が正しくても、実体の見逃しは残ります。
 
 ### NER プロジェクトを始めるときの、いちばん安定した順番
 

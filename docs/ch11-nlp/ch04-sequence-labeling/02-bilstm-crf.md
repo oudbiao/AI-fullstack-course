@@ -89,6 +89,14 @@ for a, b in zip(path, path[1:]):
         print("Invalid transition:", a, "->", b)
 ```
 
+Expected output:
+
+```text
+Invalid transition: O -> I-LOC
+```
+
+The local token classifier might assign `I-LOC`, but the path is structurally suspicious because an inside-location tag should usually follow `B-LOC` or `I-LOC`.
+
 In a real CRF, these are not hand-written rules. Instead, it learns from training data which label transitions are more reasonable. This example is only meant to help you build the intuition that labels are related to each other.
 
 ## Relationship with BERT token classification

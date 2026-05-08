@@ -44,8 +44,8 @@ If tokenization changes, labels must stay aligned. Many sequence-labeling bugs a
 
 | Step | Read | Practice Output |
 |---|---|---|
-| 1 | HMM/CRF history | Understand sequence constraints and label transitions |
-| 2 | NER and BIO | Create token-level labels and entity spans |
+| 1 | NER and BIO | Create token-level labels and entity spans |
+| 2 | HMM/CRF history | Understand sequence constraints and label transitions |
 | 3 | BiLSTM-CRF | Connect contextual features with valid label paths |
 | 4 | Project practice | Evaluate precision, recall, F1, boundary errors |
 

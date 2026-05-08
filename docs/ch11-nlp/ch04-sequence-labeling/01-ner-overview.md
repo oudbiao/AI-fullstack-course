@@ -1,11 +1,11 @@
 ---
-title: "11.4.3 Sequence Labeling Tasks"
-sidebar_position: 2
+title: "11.4.2 Sequence Labeling Tasks"
+sidebar_position: 1
 description: "Start from the difference between “one label for the whole sentence” and “one label for each token” to understand why sequence labeling is an important foundation for information extraction."
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# 11.4.3 Sequence Labeling Tasks
+# 11.4.2 Sequence Labeling Tasks
 
 ![BIO label to entity recovery diagram](/img/course/bio-ner-recovery-en.png)
 
@@ -117,6 +117,18 @@ for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
+Expected output:
+
+```text
+Zhang San B-PER
+works at O
+Peking B-ORG
+University I-ORG
+today O
+```
+
+The token list and the tag list have the same length. That one-to-one alignment is the first thing to verify in every sequence-labeling dataset.
+
 ### What is the most important thing in this example?
 
 It shows you:
@@ -155,7 +167,7 @@ def decode_entities(tokens, tags):
     for token, tag in zip(tokens, tags):
         if tag == "O":
             if current_tokens:
-                entities.append(("".join(current_tokens), current_type))
+                entities.append((" ".join(current_tokens), current_type))
                 current_tokens = []
                 current_type = None
             continue
@@ -164,7 +176,7 @@ def decode_entities(tokens, tags):
 
         if prefix == "B":
             if current_tokens:
-                entities.append(("".join(current_tokens), current_type))
+                entities.append((" ".join(current_tokens), current_type))
             current_tokens = [token]
             current_type = entity_type
         elif prefix == "I" and current_type == entity_type:
@@ -172,18 +184,26 @@ def decode_entities(tokens, tags):
         else:
             # If the label is invalid, simply cut off and restart
             if current_tokens:
-                entities.append(("".join(current_tokens), current_type))
+                entities.append((" ".join(current_tokens), current_type))
             current_tokens = [token]
             current_type = entity_type
 
     if current_tokens:
-        entities.append(("".join(current_tokens), current_type))
+        entities.append((" ".join(current_tokens), current_type))
 
     return entities
 
 
 print(decode_entities(tokens, tags))
 ```
+
+Expected output:
+
+```text
+[('Zhang San', 'PER'), ('Peking University', 'ORG')]
+```
+
+This is the step that turns token-level labels into the project output people actually use: entity text plus entity type.
 
 ### Why is this code important?
 

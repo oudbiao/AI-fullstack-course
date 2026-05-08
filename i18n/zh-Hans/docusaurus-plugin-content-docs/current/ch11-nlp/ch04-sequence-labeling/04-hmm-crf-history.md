@@ -1,11 +1,11 @@
 ---
-title: "11.4.2 HMM、CRF 与序列标注历史主线"
-sidebar_position: 1
+title: "11.4.3 HMM、CRF 与序列标注历史主线"
+sidebar_position: 2
 description: "从 HMM 词性标注到 CRF、BiLSTM-CRF 和 BERT token classification，理解序列标注任务为什么这样演进。"
 keywords: [HMM, CRF, 词性标注, 序列标注, NER, BiLSTM-CRF]
 ---
 
-# 11.4.2 HMM、CRF 与序列标注历史主线
+# 11.4.3 HMM、CRF 与序列标注历史主线
 
 ![HMM CRF 序列标注历史地图](/img/course/ch11-hmm-crf-sequence-history-map.png)
 
@@ -134,6 +134,14 @@ if path[1] not in allowed[path[0]]:
 else:
     print("这条标签路径可以接受")
 ```
+
+预期输出：
+
+```text
+这条标签路径不合理
+```
+
+`I-PER` 应该接在已有的人名实体后面。它直接跟在 `O` 后面，就破坏了标签语法；这正是 HMM/CRF 这类序列思维能帮你看见的约束。
 
 这段代码想表达的是：
 序列标注不是每个 token 各判各的，标签之间也有“语法”。

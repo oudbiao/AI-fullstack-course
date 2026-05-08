@@ -1,11 +1,11 @@
 ---
-title: "11.4.2 HMM、CRF と系列ラベリングの歴史の主線"
-sidebar_position: 1
+title: "11.4.3 HMM、CRF と系列ラベリングの歴史の主線"
+sidebar_position: 2
 description: "HMM の品詞タグ付けから、CRF、BiLSTM-CRF、BERT の token classification まで、系列ラベリングがなぜこのように進化してきたのかを理解します。"
 keywords: [HMM, CRF, 品詞タグ付け, 系列ラベリング, NER, BiLSTM-CRF]
 ---
 
-# 11.4.2 HMM、CRF と系列ラベリングの歴史の主線
+# 11.4.3 HMM、CRF と系列ラベリングの歴史の主線
 
 ![HMM CRF 系列ラベリング歴史マップ](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
 
@@ -136,6 +136,14 @@ if path[1] not in allowed[path[0]]:
 else:
     print("このラベル経路は許容できます")
 ```
+
+実行結果の例：
+
+```text
+このラベル経路は不自然です
+```
+
+`I-PER` は、すでに始まっている人物エンティティを続けるためのタグです。`O` の直後に突然出るとラベルの文法が崩れます。このような制約を見えるようにするのが、HMM/CRF 的な考え方の大事な価値です。
 
 このコードが伝えたいのは、  
 系列ラベリングでは、各 token をバラバラに判定するのではなく、ラベル同士にも「文法」があるということです。

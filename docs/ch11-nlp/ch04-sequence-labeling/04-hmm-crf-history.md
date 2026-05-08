@@ -1,11 +1,11 @@
 ---
-title: "11.4.2 HMM, CRF, and the Historical Thread of Sequence Labeling"
-sidebar_position: 1
+title: "11.4.3 HMM, CRF, and the Historical Thread of Sequence Labeling"
+sidebar_position: 2
 description: "From HMM part-of-speech tagging to CRF, BiLSTM-CRF, and BERT token classification, understand why sequence labeling evolved this way."
 keywords: [HMM, CRF, part-of-speech tagging, sequence labeling, NER, BiLSTM-CRF]
 ---
 
-# 11.4.2 HMM, CRF, and the Historical Thread of Sequence Labeling
+# 11.4.3 HMM, CRF, and the Historical Thread of Sequence Labeling
 
 ![HMM CRF Sequence Labeling History Map](/img/course/ch11-hmm-crf-sequence-history-map-en.png)
 
@@ -133,6 +133,14 @@ if path[1] not in allowed[path[0]]:
 else:
     print("This label path is acceptable")
 ```
+
+Expected output:
+
+```text
+This label path is unreasonable
+```
+
+`I-PER` should continue an existing person entity. Starting it directly after `O` breaks the label grammar, which is exactly the kind of constraint HMM/CRF-style thinking makes visible.
 
 What this code wants to show is:
 sequence labeling is not something where each token is judged independently; labels also have their own “grammar.”

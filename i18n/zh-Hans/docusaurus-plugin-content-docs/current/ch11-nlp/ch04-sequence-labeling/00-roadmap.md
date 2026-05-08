@@ -44,8 +44,8 @@ notes O
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
-| 1 | HMM/CRF 历史 | 理解序列约束和标签转移 |
-| 2 | NER 与 BIO | 创建 token 级标签和实体 span |
+| 1 | NER 与 BIO | 创建 token 级标签和实体 span |
+| 2 | HMM/CRF 历史 | 理解序列约束和标签转移 |
 | 3 | BiLSTM-CRF | 连接上下文特征和合法标签路径 |
 | 4 | 项目实战 | 评估 precision、recall、F1、边界错误 |
 
