@@ -96,6 +96,12 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ## 三、先离线构造一个最小 tokenizer
 
+:::info 运行环境
+```bash
+pip install torch transformers
+```
+:::
+
 ### 为什么不直接下载现成模型？
 
 因为教程要尽量保证你在没有外网时也能跑通。
@@ -105,6 +111,7 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ```python
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from transformers import BertTokenizer
 
 vocab_tokens = [
@@ -112,16 +119,26 @@ vocab_tokens = [
     "我", "爱", "自", "然", "语", "言", "处", "理", "北", "京"
 ]
 
-vocab_path = Path("mini_vocab.txt")
-vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+with TemporaryDirectory() as tmpdir:
+    vocab_path = Path(tmpdir) / "vocab.txt"
+    vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
-tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+    tokenizer = BertTokenizer.from_pretrained(tmpdir)
 
-encoded = tokenizer("我爱自然语言处理", return_tensors="pt")
+    encoded = tokenizer("我爱自然语言处理", return_tensors="pt")
 
-print(encoded)
-print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
+    print(encoded)
+    print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
+
+预期输出：
+
+```text
+{'input_ids': tensor([[ 2,  5,  6,  7,  8,  9, 10, 11, 12,  3]]), 'token_type_ids': tensor([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+tokens: ['[CLS]', '我', '爱', '自', '然', '语', '言', '处', '理', '[SEP]']
+```
+
+这里用临时目录，是为了跑完示例后不在项目根目录留下 `vocab.txt`。`input_ids` 是 token 编号，`attention_mask` 标记哪些位置有效。
 
 ### 这段代码在教你什么？
 
@@ -166,6 +183,15 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
+预期输出：
+
+```text
+last_hidden_state shape: torch.Size([1, 10, 32])
+pooler_output shape    : torch.Size([1, 32])
+```
+
+这个随机模型适合用来学接口，不适合看效果。第一个形状表示：1 条样本、10 个 token 位置、每个位置 32 维隐藏表示。
+
 ### 你真正该看懂什么？
 
 - `input_ids` 是 token 编号
@@ -183,6 +209,7 @@ print("pooler_output shape    :", outputs.pooler_output.shape)
 
 ```python
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import torch
 from transformers import BertTokenizer, BertConfig, BertModel
 
@@ -191,27 +218,38 @@ vocab_tokens = [
     "我", "爱", "自", "然", "语", "言", "处", "理"
 ]
 
-vocab_path = Path("mini_vocab_2.txt")
-vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+with TemporaryDirectory() as tmpdir:
+    vocab_path = Path(tmpdir) / "vocab.txt"
+    vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
-tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+    tokenizer = BertTokenizer.from_pretrained(tmpdir)
 
-config = BertConfig(
-    vocab_size=len(vocab_tokens),
-    hidden_size=32,
-    num_hidden_layers=2,
-    num_attention_heads=4,
-    intermediate_size=64
-)
-model = BertModel(config)
+    config = BertConfig(
+        vocab_size=len(vocab_tokens),
+        hidden_size=32,
+        num_hidden_layers=2,
+        num_attention_heads=4,
+        intermediate_size=64
+    )
+    model = BertModel(config)
 
-batch = tokenizer(["我爱自然语言处理", "我爱语言"], padding=True, return_tensors="pt")
-outputs = model(**batch)
+    batch = tokenizer(["我爱自然语言处理", "我爱语言"], padding=True, return_tensors="pt")
+    outputs = model(**batch)
 
-print("input_ids shape        :", batch["input_ids"].shape)
-print("attention_mask shape   :", batch["attention_mask"].shape)
-print("last_hidden_state shape:", outputs.last_hidden_state.shape)
+    print("input_ids shape        :", batch["input_ids"].shape)
+    print("attention_mask shape   :", batch["attention_mask"].shape)
+    print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
+
+预期输出：
+
+```text
+input_ids shape        : torch.Size([2, 10])
+attention_mask shape   : torch.Size([2, 10])
+last_hidden_state shape: torch.Size([2, 10, 32])
+```
+
+tokenizer 会把较短句子 padding 到和较长句子一样长，所以 batch 才能变成规整的二维张量。
 
 ### 这就是最基础的真实调用链
 
@@ -259,6 +297,14 @@ config = BertConfig(
 model = AutoModel.from_config(config)
 print(type(model))
 ```
+
+预期输出：
+
+```text
+<class 'transformers.models.bert.modeling_bert.BertModel'>
+```
+
+`AutoModel` 读到的是 BERT 配置，所以会自动实例化匹配的 BERT 模型类。真实加载预训练 checkpoint 时，本质上也是类似的自动选择逻辑。
 
 这说明：
 

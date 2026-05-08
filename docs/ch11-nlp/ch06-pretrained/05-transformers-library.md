@@ -96,6 +96,12 @@ So the key goal of this section is not memorizing APIs, but building a map of th
 
 ## First, build a minimal tokenizer offline
 
+:::info Runtime environment
+```bash
+pip install torch transformers
+```
+:::
+
 ### Why not just download an existing model?
 
 Because the tutorial should try to ensure that you can still run it even without internet access.
@@ -105,6 +111,7 @@ So here we manually prepare a tiny `vocab.txt` so that you can truly understand 
 
 ```python
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from transformers import BertTokenizer
 
 vocab_tokens = [
@@ -112,16 +119,26 @@ vocab_tokens = [
     "I", "love", "natural", "language", "processing", "Beijing"
 ]
 
-vocab_path = Path("mini_vocab.txt")
-vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+with TemporaryDirectory() as tmpdir:
+    vocab_path = Path(tmpdir) / "vocab.txt"
+    vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
-tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+    tokenizer = BertTokenizer.from_pretrained(tmpdir, do_lower_case=False)
 
-encoded = tokenizer("Ilovenatural language processing", return_tensors="pt")
+    encoded = tokenizer("I love natural language processing", return_tensors="pt")
 
-print(encoded)
-print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
+    print(encoded)
+    print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
+
+Expected output:
+
+```text
+{'input_ids': tensor([[2, 5, 6, 7, 8, 9, 3]]), 'token_type_ids': tensor([[0, 0, 0, 0, 0, 0, 0]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]])}
+tokens: ['[CLS]', 'I', 'love', 'natural', 'language', 'processing', '[SEP]']
+```
+
+The temporary directory keeps this practice run from leaving `vocab.txt` in your project. `input_ids` are the token numbers, while `attention_mask` marks the valid positions.
 
 ### What is this code teaching you?
 
@@ -166,6 +183,15 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
+Expected output:
+
+```text
+last_hidden_state shape: torch.Size([1, 10, 32])
+pooler_output shape    : torch.Size([1, 32])
+```
+
+The random model is useful for interface learning, not accuracy. The first shape says: 1 sample, 10 token positions, 32 hidden dimensions.
+
 ### What should you really understand here?
 
 - `input_ids` are token IDs
@@ -183,6 +209,7 @@ Once you understand these, it becomes much easier to add a classification head, 
 
 ```python
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import torch
 from transformers import BertTokenizer, BertConfig, BertModel
 
@@ -191,27 +218,38 @@ vocab_tokens = [
     "I", "love", "natural", "language", "processing"
 ]
 
-vocab_path = Path("mini_vocab_2.txt")
-vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+with TemporaryDirectory() as tmpdir:
+    vocab_path = Path(tmpdir) / "vocab.txt"
+    vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
-tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+    tokenizer = BertTokenizer.from_pretrained(tmpdir, do_lower_case=False)
 
-config = BertConfig(
-    vocab_size=len(vocab_tokens),
-    hidden_size=32,
-    num_hidden_layers=2,
-    num_attention_heads=4,
-    intermediate_size=64
-)
-model = BertModel(config)
+    config = BertConfig(
+        vocab_size=len(vocab_tokens),
+        hidden_size=32,
+        num_hidden_layers=2,
+        num_attention_heads=4,
+        intermediate_size=64
+    )
+    model = BertModel(config)
 
-batch = tokenizer(["Ilovenatural language processing", "I love language"], padding=True, return_tensors="pt")
-outputs = model(**batch)
+    batch = tokenizer(["I love natural language processing", "I love language"], padding=True, return_tensors="pt")
+    outputs = model(**batch)
 
-print("input_ids shape        :", batch["input_ids"].shape)
-print("attention_mask shape   :", batch["attention_mask"].shape)
-print("last_hidden_state shape:", outputs.last_hidden_state.shape)
+    print("input_ids shape        :", batch["input_ids"].shape)
+    print("attention_mask shape   :", batch["attention_mask"].shape)
+    print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
+
+Expected output:
+
+```text
+input_ids shape        : torch.Size([2, 7])
+attention_mask shape   : torch.Size([2, 7])
+last_hidden_state shape: torch.Size([2, 7, 32])
+```
+
+The tokenizer padded the shorter sentence to the same length as the longer one. That is why the batch becomes a neat rectangular tensor.
 
 ### This is the most basic real call chain
 
@@ -259,6 +297,14 @@ config = BertConfig(
 model = AutoModel.from_config(config)
 print(type(model))
 ```
+
+Expected output:
+
+```text
+<class 'transformers.models.bert.modeling_bert.BertModel'>
+```
+
+`AutoModel` inspected the BERT config and instantiated the matching BERT model class. This is the same idea used when loading real pretrained checkpoints by name.
 
 This shows that:
 

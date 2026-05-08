@@ -181,6 +181,16 @@ for tokens in [["refund"], ["invoice"], ["password"]]:
     print(tokens, "->", classify_intent(tokens))
 ```
 
+Expected output:
+
+```text
+['refund'] -> ('refund', {'refund': 1.0, 'invoice': 0.2, 'password': 0.1})
+['invoice'] -> ('invoice', {'refund': 0.3, 'invoice': 1.0, 'password': 0.1})
+['password'] -> ('password', {'refund': 0.1, 'invoice': 0.2, 'password': 1.0})
+```
+
+Read the output from left to right: each input token reuses the same shared representation table, then a small task-specific classifier reads the three score dimensions. This is the miniature version of “shared foundation first, task adaptation second.”
+
 ### What Is This Example Trying to Show?
 
 It is not meant to be a real strong model,

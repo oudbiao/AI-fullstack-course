@@ -194,6 +194,8 @@ print(mask)
 from collections import defaultdict, Counter
 import random
 
+random.seed(7)
+
 corpus = [
     "我 爱 AI",
     "我 爱 Python",
@@ -230,6 +232,18 @@ def generate(start, max_steps=5):
 for _ in range(5):
     print(generate("我"))
 ```
+
+预期输出：
+
+```text
+我 爱 AI
+我 爱 AI
+我 爱 AI
+我 爱 Python
+我 爱 AI
+```
+
+这里固定了随机种子，所以采样结果可以复现。真正要看的不是哪一次采到了 `AI`，而是循环机制：每生成一个词，就把它接回上下文，再根据新的上下文继续采样下一个词。
 
 ### 这段代码到底在教什么？
 
@@ -307,6 +321,15 @@ logits = outputs.logits
 print("input_ids shape:", input_ids.shape)
 print("logits shape   :", logits.shape)
 ```
+
+预期输出：
+
+```text
+input_ids shape: torch.Size([2, 5])
+logits shape   : torch.Size([2, 5, 100])
+```
+
+最后一维来自 `vocab_size=100`：对每条样本、每个位置，模型都会输出 100 个原始分数，分别对应玩具词表里的每个可能下一个 token。
 
 这里的 `logits.shape` 会是：
 

@@ -98,6 +98,12 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ## 三、まずはオフラインで最小の tokenizer を作る
 
+:::info 実行環境
+```bash
+pip install torch transformers
+```
+:::
+
 ### なぜ既製モデルをそのままダウンロードしないのか？
 
 教材では、外部ネットワークがなくても動くようにしておくことが大切だからです。  
@@ -107,6 +113,7 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 ```python
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from transformers import BertTokenizer
 
 vocab_tokens = [
@@ -114,16 +121,26 @@ vocab_tokens = [
     "我", "愛", "自", "然", "語", "言", "処", "理", "北", "京"
 ]
 
-vocab_path = Path("mini_vocab.txt")
-vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+with TemporaryDirectory() as tmpdir:
+    vocab_path = Path(tmpdir) / "vocab.txt"
+    vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
-tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+    tokenizer = BertTokenizer.from_pretrained(tmpdir)
 
-encoded = tokenizer("我愛自然言語処理", return_tensors="pt")
+    encoded = tokenizer("我愛自然言語処理", return_tensors="pt")
 
-print(encoded)
-print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
+    print(encoded)
+    print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
+
+想定出力：
+
+```text
+{'input_ids': tensor([[ 2,  5,  6,  7,  8, 10,  9, 11, 12,  3]]), 'token_type_ids': tensor([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+tokens: ['[CLS]', '我', '愛', '自', '然', '言', '語', '処', '理', '[SEP]']
+```
+
+一時ディレクトリを使うので、練習後にプロジェクト直下へ `vocab.txt` が残りません。`input_ids` は token 番号で、`attention_mask` は有効な位置を示します。
 
 ### このコードで学ぶこと
 
@@ -170,6 +187,15 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
+想定出力：
+
+```text
+last_hidden_state shape: torch.Size([1, 10, 32])
+pooler_output shape    : torch.Size([1, 32])
+```
+
+このランダムモデルは、精度ではなくインターフェースを学ぶためのものです。最初の shape は、1 件のサンプル、10 個の token 位置、各位置 32 次元の隠れ表現を意味します。
+
 ### 本当に理解すべきポイント
 
 - `input_ids` は token の番号
@@ -187,6 +213,7 @@ print("pooler_output shape    :", outputs.pooler_output.shape)
 
 ```python
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import torch
 from transformers import BertTokenizer, BertConfig, BertModel
 
@@ -195,27 +222,38 @@ vocab_tokens = [
     "我", "愛", "自", "然", "語", "言", "処", "理"
 ]
 
-vocab_path = Path("mini_vocab_2.txt")
-vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+with TemporaryDirectory() as tmpdir:
+    vocab_path = Path(tmpdir) / "vocab.txt"
+    vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
-tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+    tokenizer = BertTokenizer.from_pretrained(tmpdir)
 
-config = BertConfig(
-    vocab_size=len(vocab_tokens),
-    hidden_size=32,
-    num_hidden_layers=2,
-    num_attention_heads=4,
-    intermediate_size=64
-)
-model = BertModel(config)
+    config = BertConfig(
+        vocab_size=len(vocab_tokens),
+        hidden_size=32,
+        num_hidden_layers=2,
+        num_attention_heads=4,
+        intermediate_size=64
+    )
+    model = BertModel(config)
 
-batch = tokenizer(["我愛自然言語処理", "我愛言語"], padding=True, return_tensors="pt")
-outputs = model(**batch)
+    batch = tokenizer(["我愛自然言語処理", "我愛言語"], padding=True, return_tensors="pt")
+    outputs = model(**batch)
 
-print("input_ids shape        :", batch["input_ids"].shape)
-print("attention_mask shape   :", batch["attention_mask"].shape)
-print("last_hidden_state shape:", outputs.last_hidden_state.shape)
+    print("input_ids shape        :", batch["input_ids"].shape)
+    print("attention_mask shape   :", batch["attention_mask"].shape)
+    print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
+
+想定出力：
+
+```text
+input_ids shape        : torch.Size([2, 10])
+attention_mask shape   : torch.Size([2, 10])
+last_hidden_state shape: torch.Size([2, 10, 32])
+```
+
+tokenizer は短い文を長い文と同じ長さまで padding します。そのため、batch はきれいな長方形の tensor になります。
 
 ### これが基本の本当の呼び出しチェーン
 
@@ -265,6 +303,14 @@ config = BertConfig(
 model = AutoModel.from_config(config)
 print(type(model))
 ```
+
+想定出力：
+
+```text
+<class 'transformers.models.bert.modeling_bert.BertModel'>
+```
+
+`AutoModel` は BERT の config を読み取り、それに合う BERT モデルクラスを自動で作ります。実際の事前学習済み checkpoint を名前で読み込むときも、考え方は同じです。
 
 これが示しているのは次の点です。
 

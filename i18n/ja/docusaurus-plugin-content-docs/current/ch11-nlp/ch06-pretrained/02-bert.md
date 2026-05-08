@@ -130,6 +130,15 @@ print(tokens)
 print("シーケンス長:", len(tokens))
 ```
 
+想定出力：
+
+```text
+['[CLS]', '私', 'は', '自', '然', '言', '語', '処', '理', 'が', '好', 'き', 'です', '[SEP]']
+シーケンス長: 14
+```
+
+境界 token も実際のシーケンス長に含まれます。モデルの計算量や attention mask は、目に見える単語だけでなく、特殊 token を含む完全な token 列に対して決まります。
+
 句対タスク、たとえば質問文マッチングなら：
 
 ```python
@@ -139,6 +148,14 @@ tokens = [
 ]
 print(tokens)
 ```
+
+想定出力：
+
+```text
+['[CLS]', '今', '日', 'の', '天', '気', 'は', 'ど', 'う', 'です', 'か', '[SEP]', '東', '京', 'は', '今', '日', '雨', 'が', '降', 'り', 'ま', 'す', 'か', '[SEP]']
+```
+
+文ペアでは `[SEP]` が 2 回出ます。1 つ目は文 A の終わり、2 つ目は文 B の終わりです。実際の BERT 入力では、segment id が 2 つの文を区別する助けになります。
 
 ### 初学者がまず覚えやすい入力構造表
 
@@ -178,6 +195,16 @@ print("tokens =", tokens)
 print("mask index =", mask_index)
 print("候補の穴埋め =", candidates)
 ```
+
+想定出力：
+
+```text
+tokens = ['[CLS]', '私', 'は', '[MASK]', '言', '語', '処', '理', '[SEP]']
+mask index = 3
+候補の穴埋め = ['自', '然', '機']
+```
+
+`mask index` は、モデルがどの位置を予測すべきかを示します。本物の MLM では、この手書きの候補だけでなく、語彙全体に対してスコアを出します。
 
 この例は本当のモデル学習ではありませんが、次のことを教えてくれます：
 
@@ -268,6 +295,15 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
+想定出力：
+
+```text
+last_hidden_state shape: torch.Size([2, 7, 32])
+pooler_output shape    : torch.Size([2, 32])
+```
+
+このモデルはランダム初期化なので、数値そのものは意味のある予測ではありません。ここで見るべきなのは shape です。2 件のサンプル、各 7 位置、各 token が 32 次元の隠れ表現を持っています。
+
 ### 出力はどう理解する？
 
 - `last_hidden_state`
@@ -313,6 +349,14 @@ logits = classifier(cls_embedding)
 
 print("logits shape:", logits.shape)
 ```
+
+想定出力：
+
+```text
+logits shape: torch.Size([4, 2])
+```
+
+batch に 4 件のサンプルがあり、分類ヘッドが各サンプルに 2 つの生スコアを返している、という意味です。実際の分類では、この logits に softmax や cross-entropy を組み合わせることが多いです。
 
 このコードはとてもシンプルですが、次の重要な事実を教えてくれます：
 

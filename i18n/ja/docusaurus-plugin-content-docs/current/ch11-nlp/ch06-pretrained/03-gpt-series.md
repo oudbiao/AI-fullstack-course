@@ -199,6 +199,8 @@ print(mask)
 from collections import defaultdict, Counter
 import random
 
+random.seed(7)
+
 corpus = [
     "私 AI が 好き",
     "私 Python が 好き",
@@ -235,6 +237,18 @@ def generate(start, max_steps=5):
 for _ in range(5):
     print(generate("私"))
 ```
+
+想定出力：
+
+```text
+私 AI が 好き
+私 AI が 好き
+私 AI が 好き
+私 AI が 好き
+私 AI が 好き
+```
+
+ここでは乱数シードを固定しているので、サンプリング結果を再現できます。大事なのは、どの語が選ばれたかそのものではなく、生成した語を文脈に戻し、更新された文脈から次の語をまたサンプリングするというループです。
 
 ### このコードは何を教えているのか？
 
@@ -312,6 +326,15 @@ logits = outputs.logits
 print("input_ids shape:", input_ids.shape)
 print("logits shape   :", logits.shape)
 ```
+
+想定出力：
+
+```text
+input_ids shape: torch.Size([2, 5])
+logits shape   : torch.Size([2, 5, 100])
+```
+
+最後の次元は `vocab_size=100` です。各サンプル・各位置について、玩具語彙の各 token が「次に来る」候補として 100 個の生スコアを返している、という意味です。
 
 ここでの `logits.shape` は次のようになります。
 

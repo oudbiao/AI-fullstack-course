@@ -194,6 +194,8 @@ Because it is very simple, yet it already lets you see with your own eyes:
 from collections import defaultdict, Counter
 import random
 
+random.seed(7)
+
 corpus = [
     "I love AI",
     "I love Python",
@@ -230,6 +232,18 @@ def generate(start, max_steps=5):
 for _ in range(5):
     print(generate("I"))
 ```
+
+Expected output:
+
+```text
+I love AI
+I love AI
+I love AI
+I love Python
+I love AI
+```
+
+The fixed random seed makes the sampling result reproducible. The important behavior is the loop: every generated word is appended to the context, then the next word is sampled from the transition table again.
 
 ### What is this code teaching exactly?
 
@@ -307,6 +321,15 @@ logits = outputs.logits
 print("input_ids shape:", input_ids.shape)
 print("logits shape   :", logits.shape)
 ```
+
+Expected output:
+
+```text
+input_ids shape: torch.Size([2, 5])
+logits shape   : torch.Size([2, 5, 100])
+```
+
+The last dimension is `vocab_size=100`: for each sample and each position, the model returns 100 raw scores, one for each possible next token in the toy vocabulary.
 
 Here `logits.shape` will be:
 

@@ -130,6 +130,15 @@ print(tokens)
 print("序列长度:", len(tokens))
 ```
 
+预期输出：
+
+```text
+['[CLS]', '我', '爱', '自', '然', '语', '言', '处', '理', '[SEP]']
+序列长度: 10
+```
+
+两个边界 token 也会算进真实序列长度。模型成本和 attention mask 都按完整 token 序列计算，不只按你肉眼看到的词计算。
+
 如果是句对任务，比如问句匹配：
 
 ```python
@@ -139,6 +148,14 @@ tokens = [
 ]
 print(tokens)
 ```
+
+预期输出：
+
+```text
+['[CLS]', '今', '天', '天', '气', '怎', '么', '样', '[SEP]', '北', '京', '今', '天', '会', '下', '雨', '吗', '[SEP]']
+```
+
+注意句对任务会有两个 `[SEP]`：一个结束句子 A，一个结束句子 B。真实 BERT 输入里还会用 segment id 帮模型区分两边。
 
 ### 一个很适合初学者先记的输入结构表
 
@@ -178,6 +195,16 @@ print("tokens =", tokens)
 print("mask index =", mask_index)
 print("候选填空 =", candidates)
 ```
+
+预期输出：
+
+```text
+tokens = ['[CLS]', '我', '爱', '[MASK]', '语', '言', '处', '理', '[SEP]']
+mask index = 3
+候选填空 = ['自', '学', '看']
+```
+
+`mask index` 告诉你模型到底要在哪个位置预测。真实 MLM 模型会在整个词表上打分，而不是只从这里手写的三个候选里选。
 
 这个例子虽然不是在真正训练模型，但已经在教你：
 
@@ -270,6 +297,15 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
+预期输出：
+
+```text
+last_hidden_state shape: torch.Size([2, 7, 32])
+pooler_output shape    : torch.Size([2, 32])
+```
+
+这里的模型是随机初始化的，所以数值本身不代表真实预测。真正要看的信息是形状：2 条样本，每条 7 个位置，每个 token 有 32 维隐藏表示。
+
 ### 输出怎么理解？
 
 - `last_hidden_state`
@@ -315,6 +351,14 @@ logits = classifier(cls_embedding)
 
 print("logits shape:", logits.shape)
 ```
+
+预期输出：
+
+```text
+logits shape: torch.Size([4, 2])
+```
+
+这表示 batch 里有 4 条样本，分类头为每条样本输出 2 个原始分数。真实分类训练时通常会在这些 logits 上接 softmax 或交叉熵损失。
 
 这段代码很简单，但它教你一个很重要的事实：
 

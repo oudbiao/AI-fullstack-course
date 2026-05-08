@@ -129,6 +129,15 @@ print(tokens)
 print("sequence length:", len(tokens))
 ```
 
+Expected output:
+
+```text
+['[CLS]', 'I', 'love', 'natural', 'language', 'processing', '[SEP]']
+sequence length: 7
+```
+
+The two boundary tokens are part of the actual sequence length. This matters because model cost and attention masks are calculated over the full token sequence, not only the visible words.
+
 For sentence-pair tasks, such as question matching:
 
 ```python
@@ -138,6 +147,14 @@ tokens = [
 ]
 print(tokens)
 ```
+
+Expected output:
+
+```text
+['[CLS]', 'How', 'is', 'the', 'weather', 'today', '[SEP]', 'Will', 'it', 'rain', 'in', 'Beijing', 'today', '[SEP]']
+```
+
+Notice that sentence pairs use two `[SEP]` markers: one to close sentence A and one to close sentence B. In a real BERT input, segment IDs then help the model distinguish the two sides.
 
 ### A beginner-friendly input structure table
 
@@ -177,6 +194,16 @@ print("tokens =", tokens)
 print("mask index =", mask_index)
 print("candidate fill-ins =", candidates)
 ```
+
+Expected output:
+
+```text
+tokens = ['[CLS]', 'I', 'love', '[MASK]', 'language', 'processing', '[SEP]']
+mask index = 3
+candidate fill-ins = ['natural', 'machine', 'deep']
+```
+
+The index tells you exactly where the model must predict. In a real MLM model, the candidate with the highest score would be selected from the whole vocabulary, not from this tiny hand-written list.
 
 This example is not actually training a model, but it already teaches you:
 
@@ -269,6 +296,15 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
+Expected output:
+
+```text
+last_hidden_state shape: torch.Size([2, 7, 32])
+pooler_output shape    : torch.Size([2, 32])
+```
+
+The model is randomly initialized, so the numeric values are not meaningful predictions. The useful part is the shape: 2 samples, 7 positions per sample, and 32 hidden dimensions per token.
+
 ### How should we understand the outputs?
 
 - `last_hidden_state`
@@ -314,6 +350,14 @@ logits = classifier(cls_embedding)
 
 print("logits shape:", logits.shape)
 ```
+
+Expected output:
+
+```text
+logits shape: torch.Size([4, 2])
+```
+
+This means the batch has 4 samples and the classifier returns 2 raw scores for each sample. A real classifier would usually apply softmax or cross-entropy on top of these logits.
 
 This code is very simple, but it teaches you something very important:
 

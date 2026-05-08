@@ -181,6 +181,16 @@ for tokens in [["退款"], ["发票"], ["密码"]]:
     print(tokens, "->", classify_intent(tokens))
 ```
 
+预期输出：
+
+```text
+['退款'] -> ('refund', {'refund': 1.0, 'invoice': 0.2, 'password': 0.1})
+['发票'] -> ('invoice', {'refund': 0.3, 'invoice': 1.0, 'password': 0.1})
+['密码'] -> ('password', {'refund': 0.1, 'invoice': 0.2, 'password': 1.0})
+```
+
+从左往右看：每个输入词都复用同一张共享表示表，然后一个很小的任务分类器读取三个分数维度。这就是“先有共享底座，再做任务适配”的缩小版。
+
 ### 这个例子在说明什么？
 
 它想表达的不是一个真实强模型，
