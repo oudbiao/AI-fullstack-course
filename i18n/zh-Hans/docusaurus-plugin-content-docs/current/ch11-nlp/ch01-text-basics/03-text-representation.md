@@ -63,7 +63,14 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 假设词表只有 4 个词：
 
 ```python
-["i", "love", "nlp", "python"]
+vocab = ["i", "love", "nlp", "python"]
+print(vocab)
+```
+
+预期输出：
+
+```text
+['i', 'love', 'nlp', 'python']
 ```
 
 那每个词都可以用一个只有一个位置为 1 的向量表示：
@@ -134,6 +141,17 @@ print("词表:", vocab)
 for doc, tokens in zip(docs, tokenized_docs):
     print(doc, "->", to_bow_vector(tokens))
 ```
+
+预期输出：
+
+```text
+词表: ['i', 'love', 'me', 'nlp', 'python']
+i love nlp -> [1, 1, 0, 1, 0]
+i love python -> [1, 1, 0, 0, 1]
+python love me -> [0, 1, 1, 0, 1]
+```
+
+向量里的每个位置对应一个词表项，数字表示这个词在当前文档里出现了几次。
 
 ### 这个表示法的直觉是什么？
 
@@ -226,6 +244,20 @@ for doc, tokens in zip(docs, tokenized_docs):
     print(to_tfidf(tokens, vocab, idf))
 ```
 
+预期输出：
+
+```text
+词表: ['a', 'analysis', 'basketball', 'data', 'for', 'great', 'is', 'learning', 'machine', 'python', 'sport']
+python is great for data analysis
+[0.0, 0.2822, 0.0, 0.2822, 0.2146, 0.1667, 0.1667, 0.0, 0.0, 0.2146, 0.0]
+python is great for machine learning
+[0.0, 0.0, 0.0, 0.0, 0.2146, 0.1667, 0.1667, 0.2822, 0.2822, 0.2146, 0.0]
+basketball is a great sport
+[0.3386, 0.0, 0.3386, 0.0, 0.0, 0.2, 0.2, 0.0, 0.0, 0.0, 0.3386]
+```
+
+`is`、`great` 这样的常见词仍然会出现，但 `basketball`、`analysis` 这类更能区分文档的词，会在各自文档里获得更高权重。
+
 ### TF-IDF 最重要的直觉
 
 它会压低“到处都常见”的词，
@@ -293,6 +325,15 @@ vec3 = to_bow(tokenized_docs[2])
 print("句子1 vs 句子2:", round(cosine_similarity(vec1, vec2), 4))
 print("句子1 vs 句子3:", round(cosine_similarity(vec1, vec3), 4))
 ```
+
+预期输出：
+
+```text
+句子1 vs 句子2: 0.6667
+句子1 vs 句子3: 0.0
+```
+
+前两个句子共享 `i` 和 `love`，所以向量方向更接近。天气句子和第一句没有共享词，因此相似度是 `0.0`。
 
 这个例子通常会得到：
 

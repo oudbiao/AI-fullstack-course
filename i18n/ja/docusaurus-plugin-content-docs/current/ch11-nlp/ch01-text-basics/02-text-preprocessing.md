@@ -150,6 +150,14 @@ sample = "The movie is AMAZING, and the ending is full of surprises!"
 print(preprocess(sample))
 ```
 
+実行結果の例：
+
+```text
+['movie', 'amazing', 'ending', 'full', 'surprises']
+```
+
+大文字小文字、句読点、一般的なストップワード、余分な記号が取り除かれ、感情やトピックを持つ単語が残ります。
+
 ### この例でいちばん見てほしいことは？
 
 テキスト前処理は、ふしぎなブラックボックスではなく、  
@@ -183,6 +191,15 @@ sample = "This movie is not good"
 print("keep_not :", preprocess_with_stopwords(sample, stopwords_keep_not))
 print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 ```
+
+実行結果の例：
+
+```text
+keep_not : ['this', 'movie', 'not', 'good']
+drop_not : ['this', 'movie', 'good']
+```
+
+2つ目の結果では `not` が消え、意味が静かに反転します。だから、ストップワードのルールはタスクに合わせて選ぶ必要があります。
 
 この例は初心者にとても向いています。なぜなら、
 
@@ -323,6 +340,22 @@ for text in texts:
     print("処理後 :", preprocess(text))
     print("-" * 30)
 ```
+
+実行結果の例：
+
+```text
+原文   : This course is easy to follow!
+処理後 : ['course', 'easy', 'follow']
+------------------------------
+原文   : The examples are clear and practical.
+処理後 : ['examples', 'are', 'clear', 'practical']
+------------------------------
+原文   : I love the hands-on exercises in this class.
+処理後 : ['i', 'love', 'hands', 'on', 'exercises', 'class']
+------------------------------
+```
+
+この前後比較を習慣にしてください。重要な語が消えていたら、モデルを学習する前にルールを直します。
 
 ### この例で本当に見るべきことは？
 

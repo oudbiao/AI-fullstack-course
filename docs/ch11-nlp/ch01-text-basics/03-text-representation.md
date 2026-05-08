@@ -63,7 +63,14 @@ Once this idea is solid, when you look at each representation method, you will n
 Suppose the vocabulary has only 4 words:
 
 ```python
-["i", "love", "nlp", "python"]
+vocab = ["i", "love", "nlp", "python"]
+print(vocab)
+```
+
+Expected output:
+
+```text
+['i', 'love', 'nlp', 'python']
 ```
 
 Then each word can be represented by a vector with a single 1:
@@ -134,6 +141,17 @@ print("Vocabulary:", vocab)
 for doc, tokens in zip(docs, tokenized_docs):
     print(doc, "->", to_bow_vector(tokens))
 ```
+
+Expected output:
+
+```text
+Vocabulary: ['i', 'love', 'me', 'nlp', 'python']
+i love nlp -> [1, 1, 0, 1, 0]
+i love python -> [1, 1, 0, 0, 1]
+python love me -> [0, 1, 1, 0, 1]
+```
+
+Each position in the vector corresponds to one vocabulary item. The number tells you how many times that word appears in the document.
 
 ### What is the intuition behind this representation?
 
@@ -226,6 +244,20 @@ for doc, tokens in zip(docs, tokenized_docs):
     print(to_tfidf(tokens, vocab, idf))
 ```
 
+Expected output:
+
+```text
+Vocabulary: ['a', 'analysis', 'basketball', 'data', 'for', 'great', 'is', 'learning', 'machine', 'python', 'sport']
+python is great for data analysis
+[0.0, 0.2822, 0.0, 0.2822, 0.2146, 0.1667, 0.1667, 0.0, 0.0, 0.2146, 0.0]
+python is great for machine learning
+[0.0, 0.0, 0.0, 0.0, 0.2146, 0.1667, 0.1667, 0.2822, 0.2822, 0.2146, 0.0]
+basketball is a great sport
+[0.3386, 0.0, 0.3386, 0.0, 0.0, 0.2, 0.2, 0.0, 0.0, 0.0, 0.3386]
+```
+
+Common words such as `is` and `great` still appear, but words that distinguish a document, such as `basketball` or `analysis`, receive stronger weights in their own documents.
+
 ### The most important intuition behind TF-IDF
 
 It lowers the weight of words that are common everywhere,
@@ -293,6 +325,15 @@ vec3 = to_bow(tokenized_docs[2])
 print("Sentence 1 vs Sentence 2:", round(cosine_similarity(vec1, vec2), 4))
 print("Sentence 1 vs Sentence 3:", round(cosine_similarity(vec1, vec3), 4))
 ```
+
+Expected output:
+
+```text
+Sentence 1 vs Sentence 2: 0.6667
+Sentence 1 vs Sentence 3: 0.0
+```
+
+The first two sentences share `i` and `love`, so their vectors point in a more similar direction. The weather sentence shares no vocabulary with the first sentence, so its similarity is `0.0`.
 
 This example will usually show:
 

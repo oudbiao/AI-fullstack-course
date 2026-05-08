@@ -214,6 +214,17 @@ for text in texts:
     print(text, "->", classify_intent(text))
 ```
 
+Expected output:
+
+```text
+Help me check today's weather in Beijing -> weather_query
+Please help me book a flight to Shanghai -> ticket_booking
+Calculate what 25 times 4 is -> calculation
+Will it rain in Shenzhen tomorrow -> weather_query
+```
+
+The output is structured: every free-form sentence is converted into a task label. Later models can be more powerful, but the project still needs this clear output boundary.
+
 ### What should you really take away from this example?
 
 It shows that the smallest NLP loop is actually quite straightforward:

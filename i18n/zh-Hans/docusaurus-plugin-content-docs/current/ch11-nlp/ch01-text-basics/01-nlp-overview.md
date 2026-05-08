@@ -214,6 +214,17 @@ for text in texts:
     print(text, "->", classify_intent(text))
 ```
 
+预期输出：
+
+```text
+帮我查一下今天北京天气 -> weather_query
+请帮我订一张去上海的机票 -> ticket_booking
+计算一下 25 乘以 4 是多少 -> calculation
+明天深圳会下雨吗 -> weather_query
+```
+
+输出是结构化的：每句自由表达都被转换成一个任务标签。后面的模型可以更强，但项目仍然需要先有清晰的输出边界。
+
 ### 这个例子真正想让你抓住什么？
 
 它说明 NLP 的最小闭环其实很朴素：

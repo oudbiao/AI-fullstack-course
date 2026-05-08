@@ -148,6 +148,14 @@ sample = "The movie is AMAZING, and the ending is full of surprises!"
 print(preprocess(sample))
 ```
 
+Expected output:
+
+```text
+['movie', 'amazing', 'ending', 'full', 'surprises']
+```
+
+The casing, punctuation, common stopwords, and extra symbols are removed, while the words that carry sentiment and topic information are kept.
+
 ### What should you notice from this example?
 
 Text preprocessing is usually not a mysterious black box,
@@ -179,6 +187,15 @@ sample = "This movie is not good"
 print("keep_not :", preprocess_with_stopwords(sample, stopwords_keep_not))
 print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 ```
+
+Expected output:
+
+```text
+keep_not : ['this', 'movie', 'not', 'good']
+drop_not : ['this', 'movie', 'good']
+```
+
+The second result silently flips the meaning by removing `not`. This is exactly why stopword rules must be chosen according to the task.
 
 This example is especially good for beginners because it shows directly that:
 
@@ -314,6 +331,22 @@ for text in texts:
     print("Processed:", preprocess(text))
     print("-" * 30)
 ```
+
+Expected output:
+
+```text
+Original: This course is easy to follow!
+Processed: ['course', 'easy', 'follow']
+------------------------------
+Original: The examples are clear and practical.
+Processed: ['examples', 'are', 'clear', 'practical']
+------------------------------
+Original: I love the hands-on exercises in this class.
+Processed: ['i', 'love', 'hands', 'on', 'exercises', 'class']
+------------------------------
+```
+
+Use this before/after view as a habit. If an important word disappears, adjust the rule before training a model.
 
 ### What is really worth paying attention to here?
 

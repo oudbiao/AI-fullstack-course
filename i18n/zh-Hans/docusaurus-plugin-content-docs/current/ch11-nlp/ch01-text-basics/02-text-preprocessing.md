@@ -148,6 +148,14 @@ sample = "The movie is AMAZING, and the ending is full of surprises!"
 print(preprocess(sample))
 ```
 
+预期输出：
+
+```text
+['movie', 'amazing', 'ending', 'full', 'surprises']
+```
+
+大小写、标点、常见停用词和多余符号被去掉了，真正携带情绪和主题信息的词被保留下来。
+
 ### 这个例子最想让你看到什么？
 
 文本预处理通常不是一个神秘大黑箱，
@@ -179,6 +187,15 @@ sample = "This movie is not good"
 print("keep_not :", preprocess_with_stopwords(sample, stopwords_keep_not))
 print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 ```
+
+预期输出：
+
+```text
+keep_not : ['this', 'movie', 'not', 'good']
+drop_not : ['this', 'movie', 'good']
+```
+
+第二个结果把 `not` 去掉了，意思会被悄悄反转。这正是停用词规则必须根据任务选择的原因。
 
 这个例子很适合初学者，因为它会直接让你看到：
 
@@ -314,6 +331,22 @@ for text in texts:
     print("处理后 :", preprocess(text))
     print("-" * 30)
 ```
+
+预期输出：
+
+```text
+原文   : This course is easy to follow!
+处理后 : ['course', 'easy', 'follow']
+------------------------------
+原文   : The examples are clear and practical.
+处理后 : ['examples', 'are', 'clear', 'practical']
+------------------------------
+原文   : I love the hands-on exercises in this class.
+处理后 : ['i', 'love', 'hands', 'on', 'exercises', 'class']
+------------------------------
+```
+
+把这种前后对照当成习惯。如果重要词消失了，先调整规则，再去训练模型。
 
 ### 这个例子真正值得关注什么？
 
