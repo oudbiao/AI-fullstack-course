@@ -9321,6 +9321,1227 @@ IMAGE_JOBS.extend(
     ]
 )
 
+P0_REMAKE_IMAGE_JOBS = [
+    {
+        "filename": "ch07-token-to-answer-lifecycle.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Token 到答案生命周期",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/00-roadmap.md",
+        "alt": "一个 token 如何参与生成答案：输入 token、上下文窗口、Transformer 层、logits 概率、解码、校验。",
+        "prompt": """
+竖版 9:16 中文教学插画，像课堂分镜和模型工作台，不要白底圆角框。
+标题写清楚：“一个 token 如何变成答案”。
+画面中学习者看着大屏：左上是输入 token 卡片进入 context window，屏幕中间是多层 Transformer 像透明机器堆叠，右侧出现 logits 能量柱和概率候选，下方是 decoder 逐字选词，最后进入 answer check 小面板。
+需要清楚编号和文字锚点：
+① 输入 token：文字切成模型单位
+② 上下文窗口：历史和证据一起占预算
+③ Transformer 层：混合上下文信息
+④ logits / 概率：给下一个 token 打分
+⑤ 解码：选择并拼出答案
+⑥ 校验：检查格式与证据
+底部结论：“生成答案不是一次吐出整段，而是一步步选下一个 token。”
+文字要大、自然、可读；保留 token、context window、Transformer、logits、decoder。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-execution-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Agent 执行回合",
+        "suggested_page": "docs/ch09-agent/index.md",
+        "alt": "Agent 执行闭环：用户目标、状态记忆、计划、工具调用、观察结果、更新状态、停止条件、trace log。",
+        "prompt": """
+竖版 9:16 中文教学插画，必须像一页课堂漫画/控制室分镜，绝对不要白底、不要圆角框、不要纵向表单、不要普通流程图。
+标题写清楚：“Agent 一轮怎么执行”。
+画面是一间 Agent 控制室：学习者坐在中央大屏前监督一个小机器人 Agent。大屏不是列表，而是分成 6 个场景小分镜：
+左上：用户把目标贴到任务板；左中：状态/记忆抽屉打开；中间：Agent 在白板上画下一步计划；右中：工具机械臂拿着参数去调用 API；右下：工具结果作为观察卡片回到桌面；底部：Agent 更新状态，旁边有停止条件信号灯和 trace log 记录本。
+每个场景必须有编号和大号短标签，并配一句很短解释：
+① 目标：要完成什么
+② 记忆：已有信息
+③ 计划：下一步动作
+④ 工具：带参数执行
+⑤ 观察：读回结果
+⑥ 更新：写回状态
+底部结论：“直到完成、失败或超限，trace log 保留每一步。”
+文字清楚可读；保留 Agent、tool、trace log。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-vision-pipeline-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "视觉流水线与失败复盘",
+        "suggested_page": "docs/ch10-computer-vision/index.md",
+        "alt": "视觉项目流水线：raw image、crop/preprocess、模型输出、box/mask/OCR、人工 review、失败复盘。",
+        "prompt": """
+竖版 9:16 中文教学插画，像电脑视觉实验台的分步骤操作，不要白底圆角框。
+标题写清楚：“一张图片如何进入视觉系统”。
+画面从上到下是一张真实街景/商品照片被处理：原图放入工作台，裁剪和预处理在屏幕上发生，模型给出分类、检测框、mask 或 OCR 结果，人工 review 用红笔圈出错误，最后把失败样本放进复盘板。
+需要编号和短说明：
+① Raw image：保留原始输入
+② Crop / preprocess：尺寸、颜色、裁剪
+③ Model output：模型给出预测
+④ Box / mask / OCR：输出形态不同
+⑤ Human review：检查错框、错字、漏检
+⑥ Error review：把失败样本用于下一轮
+底部结论：“视觉项目要保存原图、预测图和失败原因，不能只看一个分数。”
+文字清楚可读；保留 raw image、crop、preprocess、box、mask、OCR。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-text-to-task-pipeline.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "文本到 NLP 任务",
+        "suggested_page": "docs/ch11-nlp/index.md",
+        "alt": "文本进入 NLP 系统：raw document、tokens、embedding、annotation、extraction、summary、retrieval QA、evaluation。",
+        "prompt": """
+竖版 9:16 中文教学插画，像“文本进工厂”的课堂工作台，不要白底流程框。
+标题写清楚：“文本如何变成 NLP 任务输出”。
+画面上方是一叠 raw document、聊天和日志纸张；中间学习者把文本切成 tokens，再放入 embedding 机器变成向量珠；下方分成几个实际产物：标注过的实体、抽取表格、摘要卡片、带来源的 QA 答案、评估记录。
+需要编号和短说明：
+① Raw document：先看文本来源
+② Tokens：切成可处理单位
+③ Embedding：变成数字表示
+④ Annotation：标注标签和字段
+⑤ Extraction：抽取结构化信息
+⑥ Summary：压缩成摘要
+⑦ Retrieval QA：回答必须带来源
+⑧ Evaluation：用错例检查质量
+底部结论：“先定义输出形态，再选择分类、抽取、摘要或问答。”
+文字清楚可读；保留 raw document、tokens、embedding、QA。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-multimodal-workflow-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "多模态工作流",
+        "suggested_page": "docs/ch12-multimodal/index.md",
+        "alt": "多模态工作流：text/PDF、image/screenshot、audio waveform、video frames 进入对齐与理解模块，输出 human review 和 report package。",
+        "prompt": """
+竖版 9:16 中文教学插画，像多模态项目控制台和分镜工作台，不要白底圆角框。
+标题写清楚：“多模态资料如何合成一个结果”。
+画面上方四种输入同时进入工作台：text/PDF 文件、image/screenshot、audio waveform、video frames；中间是对齐与理解模块，把时间线、画面区域、文本证据连起来；下方是 human review 审核区和 report package 交付包。
+需要编号和短说明：
+① Text / PDF：提供文字证据
+② Image / screenshot：提供视觉区域
+③ Audio waveform：提供声音线索
+④ Video frames：提供时间变化
+⑤ Align：把时间、画面、文本对齐
+⑥ Understand：生成跨模态理解
+⑦ Human review：人工确认风险
+⑧ Report package：输出可交付证据包
+底部结论：“多模态不是把文件堆一起，而是对齐、理解、审核后再交付。”
+文字清楚可读；保留 Text/PDF、screenshot、waveform、video frames、Align。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    },
+]
+
+
+def remake_items(*pairs: tuple[str, str]) -> list[dict[str, str]]:
+    return [{"label": label, "detail": detail} for label, detail in pairs]
+
+
+def remake_callouts(
+    boxes: list[tuple[float, float, float, float]],
+    targets: list[tuple[float, float]],
+) -> list[dict[str, Any]]:
+    return [{"box": box, "target": target} for box, target in zip(boxes, targets)]
+
+
+def remake_scene_prompt(scene: str) -> str:
+    return f"""
+Create a vertical 9:16 bitmap teaching illustration for an AI full-stack course.
+The image must feel like a practical classroom comic or production workbench, not a white SVG diagram, not a slide, and not stacked rounded boxes.
+Use a rich illustrated scene with people, screens, tools, data artifacts, arrows, and clear spatial flow. The scene must expose distinct visual regions for each concept so labels and arrows can be anchored to the right object.
+Do not include readable text inside the generated artwork, because exact multilingual labels will be overlaid by the course script.
+Leave some calm negative space near the top and side margins for anchored callouts. Do not reserve a large unrelated text block at the bottom.
+Avoid tiny text, gibberish, watermarks, real brand logos, plain white backgrounds, and generic flowchart boxes.
+
+Scene plan:
+{scene}
+""".strip()
+
+
+def remake_comic_panel_prompt(panels: list[str]) -> str:
+    panel_text = "\n".join(f"Panel {index}: {panel}" for index, panel in enumerate(panels, start=1))
+    return f"""
+Create a vertical 9:16 bitmap teaching comic page for an AI full-stack course.
+Make it look like a real illustrated classroom comic, not SVG, not a whiteboard flowchart, not a slide, not stacked rounded UI cards.
+Use exactly six clear comic panels arranged as a 2-column by 3-row page. Each panel must show one concrete action, with arrows or motion between panels.
+Reserve a small calm caption strip near the bottom of each panel, but do not put readable text in the generated artwork. The course script will place exact multilingual captions.
+Use rich visual storytelling: hands moving cards, machines processing data, screens, evidence sheets, gauges, and visible cause-and-effect. Avoid generic abstract boxes.
+No tiny text, no gibberish, no watermarks, no real brand logos.
+
+Panel plan:
+{panel_text}
+""".strip()
+
+
+def remake_fully_generated_comic_prompt(
+    *,
+    title: str,
+    subtitle: str,
+    panels: list[tuple[str, str, str]],
+    footer: str,
+) -> str:
+    panel_text = "\n".join(
+        f"Panel {index}: visible caption exactly \"{label}\" and short line exactly \"{detail}\". Scene: {scene}"
+        for index, (label, detail, scene) in enumerate(panels, start=1)
+    )
+    return f"""
+Create one complete vertical 9:16 teaching image as a finished bitmap. Do not rely on any post-processing, captions, labels, overlays, SVG, markdown, or external text.
+The image itself must contain all teaching text, drawn naturally as part of the comic page.
+Style: high-quality illustrated classroom comic, six panels arranged 2 columns x 3 rows, rich visual storytelling, practical course illustration, not a whiteboard flowchart, not UI cards, not pasted text boxes.
+
+Visible title at the top must be exactly:
+{title}
+
+Visible subtitle under the title must be exactly:
+{subtitle}
+
+Each panel must show the concept visually and include its own caption inside the panel, close to the visual action:
+{panel_text}
+
+Visible footer at the bottom must be exactly:
+{footer}
+
+Important: text must be large, clean, readable, and integrated with the panel design. The caption must sit near the object it explains. Avoid tiny text, gibberish, watermark, real brand logo, blank white background, and SVG-like diagram style.
+""".strip()
+
+
+def register_remake_job(
+    *,
+    filename: str,
+    title: str,
+    suggested_page: str,
+    alt: str,
+    scene: str,
+    subtitle: str,
+    items: list[dict[str, str]],
+    footer: str,
+    callouts: list[dict[str, Any]] | None = None,
+    prompt: str | None = None,
+    overlay_style: str | None = None,
+    generated_only: bool = False,
+) -> None:
+    overlay: dict[str, Any] | None = None
+    if not generated_only:
+        overlay = {
+            "title": title,
+            "subtitle": subtitle,
+            "items": items,
+            "footer": footer,
+        }
+        if overlay_style:
+            overlay["style"] = overlay_style
+        if callouts:
+            overlay["style"] = "callouts"
+            overlay["callouts"] = callouts
+
+    remake_data = {
+        "filename": filename,
+        "size": "1024x1792",
+        "quality": "high",
+        "title": title,
+        "suggested_page": suggested_page,
+        "alt": alt,
+        "prompt": prompt or remake_scene_prompt(scene),
+        "overlay": overlay,
+    }
+
+    for job in [*IMAGE_JOBS, *P0_REMAKE_IMAGE_JOBS]:
+        if str(job.get("filename")) == filename:
+            job.update(remake_data)
+            return
+    P0_REMAKE_IMAGE_JOBS.append(remake_data)
+
+
+TOKEN_LIFECYCLE_CALLOUTS = remake_callouts(
+    boxes=[
+        (0.04, 0.30, 0.33, 0.085),
+        (0.04, 0.46, 0.33, 0.085),
+        (0.40, 0.31, 0.33, 0.085),
+        (0.63, 0.48, 0.33, 0.085),
+        (0.07, 0.73, 0.34, 0.085),
+        (0.54, 0.73, 0.39, 0.085),
+    ],
+    targets=[
+        (0.55, 0.29),
+        (0.32, 0.57),
+        (0.55, 0.50),
+        (0.88, 0.49),
+        (0.63, 0.67),
+        (0.85, 0.82),
+    ],
+)
+
+TOKEN_LIFECYCLE_PANEL_PROMPT = remake_comic_panel_prompt(
+    [
+        "A hand feeds colorful prompt token cards from a text tray into the model entrance. The action should clearly show text becoming small token units.",
+        "A transparent context window shelf holds recent conversation cards and evidence documents together, with a visible limited space or budget gauge.",
+        "Token cards travel through stacked transformer machinery; attention-like light beams connect distant cards to show context mixing.",
+        "A probability scoreboard shows several candidate next tokens as different-height glowing bars; one candidate is highlighted but not yet chosen.",
+        "A decoder mechanism picks the highlighted token tile and attaches it to a growing answer ribbon, showing one-step-at-a-time generation.",
+        "A reviewer desk checks the answer ribbon against evidence sheets and a format checklist, with pass/warning marks visible as icons only.",
+    ]
+)
+
+TOKEN_LIFECYCLE_GENERATED_PROMPT_EN = remake_fully_generated_comic_prompt(
+    title="How One Token Becomes an Answer",
+    subtitle="Generation repeats one next-token decision at a time.",
+    panels=[
+        ("1 Prompt tokens", "Text becomes model units.", "A hand feeds colorful text fragments into a token tray; the fragments visibly become small token tiles."),
+        ("2 Context window", "History and evidence share budget.", "Conversation cards and evidence sheets sit together inside a limited transparent context shelf with a budget gauge."),
+        ("3 Transformer layers", "Context is mixed layer by layer.", "Token tiles move through stacked transformer machinery; light beams connect related tokens across layers."),
+        ("4 Logits / probability", "Candidates receive scores.", "Several candidate next-token tiles stand beside glowing probability bars with one clearly highest bar."),
+        ("5 Decoder", "One token is chosen and appended.", "A mechanical picker selects the highest-scored token tile and attaches it to a growing answer ribbon."),
+        ("6 Answer check", "Format and evidence are reviewed.", "A reviewer compares the answer ribbon with evidence sheets and a checklist before approving."),
+    ],
+    footer="Think loop: score, choose, append, check.",
+)
+
+TOKEN_LIFECYCLE_GENERATED_PROMPT_ZH = remake_fully_generated_comic_prompt(
+    title="一个 token 如何变成答案",
+    subtitle="生成答案不是一次吐完整段，而是反复决定下一个 token。",
+    panels=[
+        ("1 输入 token", "文字先切成模型单位。", "一只手把彩色文本碎片送入 token 托盘，碎片变成一个个小 token 方块。"),
+        ("2 上下文窗口", "历史和证据共同占预算。", "对话卡片和证据纸张一起放进透明的 context window 架子，旁边有可见预算刻度。"),
+        ("3 Transformer 层", "逐层混合上下文信息。", "token 方块穿过多层透明机器，光线把相关 token 在不同层之间连接起来。"),
+        ("4 logits / 概率", "给候选 token 打分。", "几个候选 token 站在概率柱旁边，其中一个柱子最高并发光。"),
+        ("5 decoder", "选中一个并接到答案后面。", "机械手选中最高分 token，把它接到正在变长的答案纸带后面。"),
+        ("6 答案校验", "检查格式、事实和证据。", "学习者把答案纸带与证据页和格式清单对照，确认后打勾。"),
+    ],
+    footer="记住循环：打分、选择、追加、检查。",
+)
+
+TOKEN_LIFECYCLE_GENERATED_PROMPT_JA = remake_fully_generated_comic_prompt(
+    title="1つの token が答えになるまで",
+    subtitle="回答は一気に出るのではなく、次の token を何度も選ぶ。",
+    panels=[
+        ("1 入力 token", "文章をモデル単位に分ける。", "手が色付きの文章片を token トレイへ入れ、文章片が小さな token タイルに変わる。"),
+        ("2 context window", "履歴と根拠が同じ予算を使う。", "会話カードと根拠資料が透明な context window の棚に入り、横に予算ゲージが見える。"),
+        ("3 Transformer 層", "文脈情報を段階的に混ぜる。", "token タイルが積み重なった transformer 機械を通り、関連 token が光の線で結ばれる。"),
+        ("4 logits / 確率", "候補 token に点数を付ける。", "候補 token が確率バーの横に並び、最も高いバーが光っている。"),
+        ("5 decoder", "1つ選んで回答へ追加する。", "機械のアームが最高点の token を選び、伸びていく回答リボンに追加する。"),
+        ("6 回答チェック", "形式、事実、根拠を確認する。", "学習者が回答リボンを根拠資料とチェックリストで確認し、合格マークを付ける。"),
+    ],
+    footer="ループで考える：採点、選択、追加、確認。",
+)
+
+
+register_remake_job(
+    filename="ch07-token-to-answer-lifecycle-en.png",
+    title="How One Token Becomes an Answer",
+    suggested_page="docs/ch07-llm-principles/index.md",
+    alt="A token generation lifecycle: prompt tokens, context window, transformer layers, logits and probabilities, decoder, and answer check.",
+    scene="A learner watches a model workstation. Prompt token cards enter a context window, pass through transparent transformer layers, produce glowing probability bars, then a decoder assembles the next answer token while a review panel checks evidence and format.",
+    subtitle="Generation is a repeated next-token decision, not one instant paragraph.",
+    items=remake_items(
+        ("Prompt tokens", "Text is split into model units."),
+        ("Context window", "History and evidence share budget."),
+        ("Transformer layers", "Layers mix signals from the context."),
+        ("Logits / probability", "Candidates receive next-token scores."),
+        ("Decoder", "One token is chosen and appended."),
+        ("Answer check", "Format and evidence are reviewed."),
+    ),
+    footer="Read token generation as a loop: score, choose, append, check.",
+    prompt=TOKEN_LIFECYCLE_GENERATED_PROMPT_EN,
+    generated_only=True,
+)
+
+register_remake_job(
+    filename="ch07-token-to-answer-lifecycle.png",
+    title="一个 token 如何变成答案",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/index.md",
+    alt="Token 生成生命周期：输入 token、上下文窗口、Transformer 层、logits 概率、decoder 和答案校验。",
+    scene="学习者站在模型工作台前。输入 token 卡片进入上下文窗口，穿过透明的 Transformer 层，右侧出现概率能量柱，下方 decoder 逐步拼出答案，旁边有证据和格式校验面板。",
+    subtitle="生成答案不是一次吐完整段，而是反复决定下一个 token。",
+    items=remake_items(
+        ("输入 token", "文字先被切成模型单位。"),
+        ("上下文窗口", "历史和证据共同占预算。"),
+        ("Transformer 层", "逐层混合上下文信息。"),
+        ("logits / 概率", "给候选 token 打分。"),
+        ("decoder", "选中一个并接到答案后面。"),
+        ("答案校验", "检查格式、事实和证据。"),
+    ),
+    footer="把生成看成循环：打分、选择、追加、检查。",
+    prompt=TOKEN_LIFECYCLE_GENERATED_PROMPT_ZH,
+    generated_only=True,
+)
+
+register_remake_job(
+    filename="ch07-token-to-answer-lifecycle-ja.png",
+    title="1つの token が答えになるまで",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/index.md",
+    alt="Token 生成の流れ：入力 token、context window、Transformer 層、logits と確率、decoder、回答チェック。",
+    scene="学習者がモデル実験台を見ている。入力 token カードが context window に入り、透明な Transformer 層を通り、右側に確率バーが光り、decoder が次の token を少しずつ足し、証拠と形式の確認パネルがある。",
+    subtitle="回答は一気に出るのではなく、次の token を何度も選ぶ。",
+    items=remake_items(
+        ("入力 token", "文章をモデル単位に分ける。"),
+        ("context window", "履歴と根拠が同じ予算を使う。"),
+        ("Transformer 層", "文脈情報を段階的に混ぜる。"),
+        ("logits / 確率", "候補 token に点数を付ける。"),
+        ("decoder", "1つ選んで回答へ追加する。"),
+        ("回答チェック", "形式、事実、根拠を確認する。"),
+    ),
+    footer="生成は「採点、選択、追加、確認」のループとして読む。",
+    prompt=TOKEN_LIFECYCLE_GENERATED_PROMPT_JA,
+    generated_only=True,
+)
+
+register_remake_job(
+    filename="ch08-async-concurrency-semaphore-timeout-map-en.png",
+    title="Controlled Concurrency: Semaphore + Timeout",
+    suggested_page="docs/ch08-rag/ch04-engineering/01-async-programming.md",
+    alt="Controlled async concurrency: queue tasks, pass through a semaphore gate, call APIs, cancel slow work with timeout, summarize errors, and return stable results.",
+    scene="A backend dispatch room. On the left, uncontrolled requests crowd an API door with red alarms. In the main scene, tasks wait in a queue, pass through a semaphore gate, call an API with only a few workers, timeout slow jobs, and summarize results on a dashboard.",
+    subtitle="Async is not unlimited parallelism; it is controlled pressure.",
+    items=remake_items(
+        ("Task queue", "Collect work before sending it."),
+        ("Semaphore", "Limit work in flight."),
+        ("API call", "Call upstream with bounded pressure."),
+        ("Timeout", "Cancel tasks that hang too long."),
+        ("Error summary", "Group failures by cause."),
+        ("Stable result", "Return partial success clearly."),
+    ),
+    footer="Concurrency is useful only when the failure mode is also designed.",
+)
+
+register_remake_job(
+    filename="ch08-async-concurrency-semaphore-timeout-map.png",
+    title="并发请求如何不把服务打爆",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/01-async-programming.md",
+    alt="受控异步并发：任务排队、Semaphore 限流、API 调用、Timeout 取消慢任务、错误汇总和稳定结果。",
+    scene="后端请求调度室。左侧小场景是无限并发冲向 API 门口并触发红色报警；主画面里任务先排队，通过 Semaphore 限流闸门，少量 worker 调用 API，慢任务被 Timeout 取消，结果汇总到看板。",
+    subtitle="异步不是无限并发，而是把压力控制住。",
+    items=remake_items(
+        ("任务队列", "先收集任务，不直接冲上游。"),
+        ("Semaphore", "限制同时进行的数量。"),
+        ("API 调用", "用可控压力访问服务。"),
+        ("Timeout", "慢任务及时取消。"),
+        ("错误汇总", "按原因记录失败。"),
+        ("稳定结果", "清楚返回成功与失败。"),
+    ),
+    footer="并发设计必须同时设计失败时怎么收口。",
+)
+
+register_remake_job(
+    filename="ch08-async-concurrency-semaphore-timeout-map-ja.png",
+    title="同時実行を Semaphore と Timeout で守る",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/01-async-programming.md",
+    alt="制御された非同期処理：タスクキュー、Semaphore、API 呼び出し、Timeout、エラー集計、安定した結果。",
+    scene="バックエンドのリクエスト管制室。左側では無制限の同時実行が API の入口に殺到し赤い警報が出る。中央ではタスクがキューで待ち、Semaphore のゲートを通り、少数の worker が API を呼び、遅い処理は Timeout で止まり、結果がダッシュボードに集計される。",
+    subtitle="async は無制限並列ではなく、圧力を制御する仕組み。",
+    items=remake_items(
+        ("タスクキュー", "仕事を先に並べる。"),
+        ("Semaphore", "同時実行数を制限する。"),
+        ("API 呼び出し", "上流へ安全な圧力で送る。"),
+        ("Timeout", "遅すぎる処理を止める。"),
+        ("エラー集計", "失敗原因をまとめる。"),
+        ("安定した結果", "成功と失敗を明確に返す。"),
+    ),
+    footer="同時実行は、失敗時の閉じ方まで設計して初めて安定する。",
+)
+
+register_remake_job(
+    filename="ch08-chunk-size-overlap-tradeoff-map-en.png",
+    title="Chunk Size and Overlap Trade-off",
+    suggested_page="docs/ch08-rag/ch01-rag/02-document-processing.md",
+    alt="Chunking trade-off: large chunks keep context but add noise, small chunks improve precision but may split facts, overlap protects boundaries with extra cost.",
+    scene="A RAG document workshop. A long policy document is cut with three tools: large chunks, tiny chunks, and overlapped chunks. Evidence cards show recall, precision, boundary facts, metadata, and token cost as physical gauges.",
+    subtitle="Chunking is a retrieval design choice, not a file-splitting chore.",
+    items=remake_items(
+        ("Large chunks", "More context, more noise."),
+        ("Small chunks", "Sharper matches, facts may split."),
+        ("Overlap", "Protects boundary evidence."),
+        ("Metadata", "Keeps source and section usable."),
+        ("Cost", "More text means more tokens."),
+        ("Audit", "Check citations before indexing."),
+    ),
+    footer="Pick chunk size by evidence quality, not by a magic number.",
+)
+
+register_remake_job(
+    filename="ch08-chunk-size-overlap-tradeoff-map.png",
+    title="Chunk 大小与 overlap 取舍",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/02-document-processing.md",
+    alt="切块取舍：大 chunk 保留上下文但噪声多，小 chunk 更精确但可能切断事实，overlap 保护边界但增加成本。",
+    scene="RAG 文档处理工作台。一份长政策文档被三种工具切分：大 chunk、小 chunk、带 overlap 的 chunk。旁边用证据卡和仪表展示 recall、precision、边界事实、metadata 与 token cost。",
+    subtitle="切块不是机械分文件，而是在设计检索质量。",
+    items=remake_items(
+        ("大 chunk", "上下文多，但噪声也多。"),
+        ("小 chunk", "匹配精确，但事实可能被切断。"),
+        ("overlap", "保护跨边界的信息。"),
+        ("metadata", "保留来源、章节和页码。"),
+        ("成本", "文本越多，token 越多。"),
+        ("审计", "入库前先检查引用是否可追。"),
+    ),
+    footer="按证据质量选 chunk，不要迷信固定数字。",
+)
+
+register_remake_job(
+    filename="ch08-chunk-size-overlap-tradeoff-map-ja.png",
+    title="Chunk サイズと overlap の取捨選択",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/02-document-processing.md",
+    alt="Chunking の取捨選択：大きい chunk は文脈を保つがノイズが増え、小さい chunk は精度が上がるが事実を分断しやすく、overlap は境界を守るがコストが増える。",
+    scene="RAG の文書処理ワークベンチ。長い規約文書を、大きい chunk、小さい chunk、overlap 付き chunk の三つの道具で切る。証拠カードとメーターが recall、precision、境界情報、metadata、token cost を示す。",
+    subtitle="chunking は単なる分割ではなく、検索品質の設計。",
+    items=remake_items(
+        ("大きい chunk", "文脈は残るがノイズも増える。"),
+        ("小さい chunk", "精密だが事実が切れやすい。"),
+        ("overlap", "境界の情報を守る。"),
+        ("metadata", "出典、章、ページを残す。"),
+        ("コスト", "文字量が token 数を増やす。"),
+        ("監査", "索引化前に引用を確認する。"),
+    ),
+    footer="固定値ではなく、証拠の見つかり方で chunk を決める。",
+)
+
+register_remake_job(
+    filename="ch08-llm-api-robust-client-loop-map-en.png",
+    title="Robust LLM API Client",
+    suggested_page="docs/ch08-rag/ch04-engineering/02-llm-api-design.md",
+    alt="A robust LLM API client handles request setup, retry, backoff, parsing, usage logging, request id, and explainable errors.",
+    scene="A production API client control room. A request card enters a sender, recoverable failures go through retry and backoff timers, JSON and text responses are parsed, token usage and latency are logged, and final output returns as either normalized result or explainable error.",
+    subtitle="Production clients must succeed cleanly and fail clearly.",
+    items=remake_items(
+        ("Request", "Build the provider call."),
+        ("Retry", "Retry only recoverable failures."),
+        ("Backoff", "Wait longer after repeated failure."),
+        ("Parse", "Normalize JSON or text."),
+        ("Usage log", "Track tokens, cost, latency."),
+        ("Error return", "Return a useful failure reason."),
+    ),
+    footer="A stable client is part of the product, not just wrapper code.",
+)
+
+register_remake_job(
+    filename="ch08-llm-api-robust-client-loop-map-ja.png",
+    title="堅牢な LLM API クライアント",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/02-llm-api-design.md",
+    alt="堅牢な LLM API クライアント：request、retry、backoff、parse、usage log、request id、説明可能な error return。",
+    scene="本番 API クライアントの管制室。リクエストカードが送信台に入り、復旧可能な失敗だけ retry と backoff タイマーを通り、JSON と text が parse され、token 使用量と latency が記録され、最後は正規化された結果か説明可能な error として返る。",
+    subtitle="本番クライアントは、成功だけでなく失敗も読みやすく返す。",
+    items=remake_items(
+        ("Request", "provider への呼び出しを作る。"),
+        ("Retry", "復旧可能な失敗だけ再試行。"),
+        ("Backoff", "失敗後は間隔を広げる。"),
+        ("Parse", "JSON / text を正規化する。"),
+        ("Usage log", "tokens、費用、latency を記録。"),
+        ("Error return", "失敗理由を分かる形で返す。"),
+    ),
+    footer="安定したクライアントは wrapper ではなく製品品質の一部。",
+)
+
+register_remake_job(
+    filename="ch08-observability-logs-metrics-trace-map-en.png",
+    title="Logs, Metrics, Trace: Read Together",
+    suggested_page="docs/ch08-rag/ch04-engineering/03-logging-monitoring.md",
+    alt="Observability for RAG systems: logs explain what happened, metrics show whether it is abnormal, traces show where the request went.",
+    scene="A RAG incident review room. One bad answer is pinned at the top, and three investigation lenses appear: logs as event notes, metrics as changing gauges, and trace as a glowing path through retrieval, generation, and response.",
+    subtitle="A bad answer needs all three signals, not one screenshot.",
+    items=remake_items(
+        ("Logs", "What happened in this request."),
+        ("Metrics", "Whether the system is abnormal."),
+        ("Trace", "Where the request traveled."),
+        ("request_id", "Connect all evidence."),
+        ("Alert", "Fire only on useful symptoms."),
+        ("Fix", "Use evidence before guessing."),
+    ),
+    footer="Debug one request with logs + metrics + trace together.",
+)
+
+register_remake_job(
+    filename="ch08-observability-logs-metrics-trace-map.png",
+    title="Logs / Metrics / Trace 一起看",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/03-logging-monitoring.md",
+    alt="RAG 可观测性：logs 说明发生了什么，metrics 判断是否异常，trace 看到请求走过哪里。",
+    scene="RAG 事故复盘室。一条坏回答被贴在上方，下面三种调查镜头同时打开：logs 是事件记录，metrics 是波动仪表，trace 是请求穿过 retrieval、generation、response 的发光路径。",
+    subtitle="一个坏回答，不能只靠截图猜原因。",
+    items=remake_items(
+        ("logs", "这次请求发生了什么。"),
+        ("metrics", "系统是否整体异常。"),
+        ("trace", "请求经过了哪些环节。"),
+        ("request_id", "把证据串起来。"),
+        ("alert", "只对有用症状报警。"),
+        ("fix", "先看证据，再改系统。"),
+    ),
+    footer="排查一次请求，要把 logs + metrics + trace 放在一起。",
+)
+
+register_remake_job(
+    filename="ch08-observability-logs-metrics-trace-map-ja.png",
+    title="Logs / Metrics / Trace を一緒に読む",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/03-logging-monitoring.md",
+    alt="RAG の観測性：logs は何が起きたか、metrics は異常かどうか、trace はリクエストの経路を示す。",
+    scene="RAG 障害のレビュー室。悪い回答が上に貼られ、三つの調査レンズが開く。logs はイベントメモ、metrics は変化するメーター、trace は retrieval、generation、response を通る光の経路。",
+    subtitle="悪い回答の原因は、一枚の画面だけでは分からない。",
+    items=remake_items(
+        ("logs", "このリクエストで何が起きたか。"),
+        ("metrics", "全体が異常かどうか。"),
+        ("trace", "どの経路を通ったか。"),
+        ("request_id", "証拠をつなぐ ID。"),
+        ("alert", "役に立つ症状だけ通知。"),
+        ("fix", "推測より証拠から直す。"),
+    ),
+    footer="1つの要求を logs + metrics + trace で同時に見る。",
+)
+
+register_remake_job(
+    filename="ch08-unified-api-provider-gateway-map-en.png",
+    title="Why Use a Unified Provider Gateway",
+    suggested_page="docs/ch08-rag/ch04-engineering/02-llm-api-design.md",
+    alt="A provider gateway hides provider differences behind routing, adapters, fallback, normalized usage, and normalized errors.",
+    scene="A split production architecture scene. The left side shows tangled direct provider wires from app code. The right side shows a clean gateway desk: business request enters gateway, routing chooses provider, adapter converts format, fallback handles failure, and usage/error logs return normalized.",
+    subtitle="Keep provider differences out of business code.",
+    items=remake_items(
+        ("Direct wiring", "Every provider leaks into code."),
+        ("Gateway", "Business uses one entry."),
+        ("Routing", "Choose by cost and availability."),
+        ("Adapter", "Convert provider formats."),
+        ("Fallback", "Switch path on failure."),
+        ("Usage log", "Normalize cost and latency."),
+    ),
+    footer="A gateway turns provider chaos into one stable contract.",
+)
+
+register_remake_job(
+    filename="ch08-unified-api-provider-gateway-map-ja.png",
+    title="統一 Provider Gateway が必要な理由",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/02-llm-api-design.md",
+    alt="Provider gateway は routing、adapter、fallback、usage log、normalized error で provider の違いを業務コードから隠す。",
+    scene="本番アーキテクチャの左右比較。左は業務コードが複数 provider へ直接つながり、線が絡まっている。右は gateway の作業台で、request が入り、routing が provider を選び、adapter が形式変換し、fallback が失敗を受け、usage と error が正規化される。",
+    subtitle="provider の違いを業務コードに漏らさない。",
+    items=remake_items(
+        ("直結", "provider ごとの差がコードに漏れる。"),
+        ("Gateway", "業務側は入口を1つにする。"),
+        ("Routing", "費用と可用性で選ぶ。"),
+        ("Adapter", "provider 形式へ変換する。"),
+        ("Fallback", "失敗時に経路を替える。"),
+        ("Usage log", "費用と latency を統一する。"),
+    ),
+    footer="gateway は provider の混乱を安定した契約に変える。",
+)
+
+register_remake_job(
+    filename="ch08-vector-record-metadata-filter-map-en.png",
+    title="Vector Record + Metadata Filter",
+    suggested_page="docs/ch08-rag/ch01-rag/03-vector-databases.md",
+    alt="A vector record contains id, vector, text, metadata, and score; metadata filters narrow retrieval before top-k evidence is returned.",
+    scene="A vector database inspection desk. A document chunk becomes a vector bead, text card, and metadata tag set. A filter gate accepts section, source, date, and page, then only matching records compete for top-k evidence.",
+    subtitle="Vectors find similarity; metadata keeps retrieval controllable.",
+    items=remake_items(
+        ("id", "Stable record identity."),
+        ("vector", "Numeric meaning representation."),
+        ("text", "Evidence the reader can inspect."),
+        ("metadata", "Source, section, page, date."),
+        ("filter", "Narrow the search space."),
+        ("top-k", "Return ranked evidence."),
+    ),
+    footer="Missing metadata makes filters weak and citations fragile.",
+)
+
+register_remake_job(
+    filename="ch08-vector-record-metadata-filter-map.png",
+    title="向量记录与 metadata 过滤",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/03-vector-databases.md",
+    alt="向量记录包含 id、vector、text、metadata 和 score；metadata filter 先缩小范围，再返回 top-k 证据。",
+    scene="向量数据库检查台。一个文档 chunk 变成向量珠、文本卡和 metadata 标签。过滤闸门读取 section、source、date、page，只让匹配记录进入 top-k 证据排序区。",
+    subtitle="vector 负责相似度，metadata 负责可控检索。",
+    items=remake_items(
+        ("id", "稳定定位一条记录。"),
+        ("vector", "文本含义的数字表示。"),
+        ("text", "可以被人检查的证据。"),
+        ("metadata", "来源、章节、页码、日期。"),
+        ("filter", "先缩小搜索范围。"),
+        ("top-k", "返回排序后的证据。"),
+    ),
+    footer="metadata 缺失，过滤会变弱，引用也会变脆。",
+)
+
+register_remake_job(
+    filename="ch08-vector-record-metadata-filter-map-ja.png",
+    title="Vector record と metadata filter",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/03-vector-databases.md",
+    alt="vector record は id、vector、text、metadata、score を持ち、metadata filter が検索範囲を絞ってから top-k evidence を返す。",
+    scene="ベクトルDBの点検机。文書 chunk が vector の粒、text カード、metadata タグへ変わる。filter ゲートが section、source、date、page を読み、一致する record だけが top-k evidence の順位付けに進む。",
+    subtitle="vector は類似度、metadata は検索の制御を担当する。",
+    items=remake_items(
+        ("id", "record を安定して識別する。"),
+        ("vector", "意味の数値表現。"),
+        ("text", "人が確認できる証拠。"),
+        ("metadata", "出典、章、ページ、日付。"),
+        ("filter", "検索範囲を先に絞る。"),
+        ("top-k", "順位付きの証拠を返す。"),
+    ),
+    footer="metadata が弱いと filter も引用も弱くなる。",
+)
+
+register_remake_job(
+    filename="ch09-agent-boundary-map-en.png",
+    title="Choose the Smallest Useful Agent Boundary",
+    suggested_page="docs/ch09-agent/index.md",
+    alt="Agent boundary choices: fixed workflow, RAG evidence desk, single function call, or autonomous agent loop.",
+    scene="An automation design desk with four lanes. A simple checklist goes through fixed workflow, evidence lookup goes through a RAG desk, one action goes through a single function call, and only multi-step uncertain work enters an autonomous agent loop with a safety boundary.",
+    subtitle="Do not use an agent when a simpler boundary works.",
+    items=remake_items(
+        ("Fixed workflow", "Known steps, repeatable path."),
+        ("RAG desk", "Find evidence first."),
+        ("Function call", "One tool action is enough."),
+        ("Agent loop", "Multi-step uncertain work."),
+        ("Boundary", "Limit tools, budget, and scope."),
+        ("Human stop", "Ask before risky actions."),
+    ),
+    footer="Start with the smallest boundary that can solve the task.",
+)
+
+register_remake_job(
+    filename="ch09-agent-boundary-map.png",
+    title="选择最小可用 Agent 边界",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/index.md",
+    alt="Agent 边界选择：固定流程、RAG 证据台、单次 function call 或自主 Agent loop。",
+    scene="自动化方案设计桌上有四条路线：固定清单走 fixed workflow，需要查证据走 RAG desk，单动作走 function call，只有多步且不确定的任务才进入带安全边界的 autonomous agent loop。",
+    subtitle="能用简单边界解决，就不要一上来用 Agent。",
+    items=remake_items(
+        ("固定流程", "步骤已知、路径稳定。"),
+        ("RAG 证据台", "先找证据再回答。"),
+        ("function call", "一次工具动作就够。"),
+        ("Agent loop", "多步探索才需要。"),
+        ("边界", "限制工具、预算和范围。"),
+        ("人工停机", "高风险动作先确认。"),
+    ),
+    footer="从能完成任务的最小边界开始设计。",
+)
+
+register_remake_job(
+    filename="ch09-agent-boundary-map-ja.png",
+    title="最小で役立つ Agent 境界を選ぶ",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/index.md",
+    alt="Agent 境界の選び方：固定 workflow、RAG evidence desk、single function call、autonomous agent loop。",
+    scene="自動化設計の机に四つのレーンがある。既知の手順は fixed workflow、根拠探しは RAG desk、単発操作は function call、不確実な複数ステップだけが安全境界付きの autonomous agent loop に入る。",
+    subtitle="単純な境界で足りるなら Agent にしない。",
+    items=remake_items(
+        ("固定 workflow", "手順が既知で再現できる。"),
+        ("RAG desk", "先に根拠を探す。"),
+        ("function call", "一回の道具操作で足りる。"),
+        ("Agent loop", "不確実な複数ステップ用。"),
+        ("境界", "tools、予算、範囲を制限。"),
+        ("人の停止", "危険操作は確認する。"),
+    ),
+    footer="解ける最小の境界から設計する。",
+)
+
+AGENT_EXECUTION_CALLOUTS = remake_callouts(
+    boxes=[
+        (0.04, 0.26, 0.32, 0.085),
+        (0.04, 0.43, 0.34, 0.085),
+        (0.36, 0.28, 0.32, 0.085),
+        (0.63, 0.40, 0.33, 0.085),
+        (0.58, 0.58, 0.37, 0.085),
+        (0.10, 0.72, 0.40, 0.085),
+    ],
+    targets=[
+        (0.22, 0.38),
+        (0.44, 0.40),
+        (0.50, 0.46),
+        (0.70, 0.50),
+        (0.82, 0.51),
+        (0.62, 0.74),
+    ],
+)
+
+AGENT_EXECUTION_GENERATED_PROMPT_EN = remake_fully_generated_comic_prompt(
+    title="One Agent Execution Round",
+    subtitle="Each step must be visible, limited, and traceable.",
+    panels=[
+        ("1 Goal", "Define what success means.", "A user places a goal card onto a task board with a clear finish flag and scope boundary."),
+        ("2 State / memory", "Read known facts first.", "The agent opens drawers of notes, prior observations, and remaining steps before acting."),
+        ("3 Plan", "Choose the next safe action.", "The agent sketches one next step on a planning board with a small budget and stop condition meter."),
+        ("4 Tool", "Call a tool with arguments.", "A tool arm sends a structured request card into an API/tool station; arguments are visible as tokens or parameter chips."),
+        ("5 Observation", "Read the result or error.", "A result card returns from the tool station; the agent compares success, error, cost, and latency signals."),
+        ("6 Update / stop", "Continue, retry, or finish.", "The agent writes the new state into a trace log and chooses continue, retry, human review, or done."),
+    ],
+    footer="Trace every round: goal, action, input, observation, result.",
+)
+
+AGENT_EXECUTION_GENERATED_PROMPT_ZH = remake_fully_generated_comic_prompt(
+    title="Agent 一轮怎么执行",
+    subtitle="每一步都要可见、受限、可追踪。",
+    panels=[
+        ("1 目标", "先定义成功标准。", "用户把目标卡贴到任务板上，旁边有完成旗帜和清楚的范围边界。"),
+        ("2 状态 / 记忆", "先读取已知事实。", "Agent 打开记忆抽屉，查看笔记、观察结果和剩余步骤，再决定行动。"),
+        ("3 计划", "只选择下一步安全动作。", "Agent 在计划白板上画出下一步，旁边有预算和停止条件仪表。"),
+        ("4 工具", "带参数调用工具。", "工具机械臂把结构化请求卡送入 API / tool 站，参数像小芯片一样清楚可见。"),
+        ("5 观察", "读取结果或错误。", "工具返回结果卡，Agent 对比成功、错误、成本和延迟信号。"),
+        ("6 更新 / 停止", "继续、重试或完成。", "Agent 把新状态写进 trace log，并选择继续、重试、人工确认或完成。"),
+    ],
+    footer="每轮都留下 trace：目标、动作、输入、观察、结果。",
+)
+
+AGENT_EXECUTION_GENERATED_PROMPT_JA = remake_fully_generated_comic_prompt(
+    title="Agent の1回の実行ラウンド",
+    subtitle="各ステップは見える、制限される、追跡できる必要がある。",
+    panels=[
+        ("1 Goal", "成功条件を先に決める。", "ユーザーが goal カードをタスクボードに貼り、完了フラグと範囲の境界が見える。"),
+        ("2 State / memory", "既知の事実を先に読む。", "Agent が memory 引き出しを開き、メモ、観察結果、残り手順を確認してから動く。"),
+        ("3 Plan", "安全な次の一手を選ぶ。", "Agent が planning board に次の一手を書き、横に予算と停止条件メーターがある。"),
+        ("4 Tool", "引数付きで tool を呼ぶ。", "tool アームが構造化 request カードを API / tool station に送り、引数チップが見える。"),
+        ("5 Observation", "結果または error を読む。", "tool station から result カードが戻り、success、error、cost、latency を確認する。"),
+        ("6 Update / stop", "続行、再試行、完了を選ぶ。", "Agent が新しい state を trace log に書き、続行、retry、人の確認、done を選ぶ。"),
+    ],
+    footer="各ラウンドに trace を残す：goal、action、input、observation、result。",
+)
+
+register_remake_job(
+    filename="ch09-agent-execution-loop-en.png",
+    title="One Agent Execution Round",
+    suggested_page="docs/ch09-agent/index.md",
+    alt="Agent execution loop: user goal, state and memory, plan next step, tool call, observe result, update state, stop condition, and trace log.",
+    scene="An agent control room. A learner supervises a small agent on a large console. The console shows goal intake, memory drawers, a planning board, tool arms calling APIs, observation cards returning results, state update, stop lights, and a trace log notebook.",
+    subtitle="An agent is useful only when each step can be inspected.",
+    items=remake_items(
+        ("Goal", "What should be completed."),
+        ("State / memory", "What is already known."),
+        ("Plan", "Choose the next action."),
+        ("Tool", "Execute with arguments."),
+        ("Observation", "Read result or error."),
+        ("Update / stop", "Continue, retry, or finish."),
+    ),
+    footer="Trace every round: goal, action, input, observation, result.",
+    prompt=AGENT_EXECUTION_GENERATED_PROMPT_EN,
+    generated_only=True,
+)
+
+register_remake_job(
+    filename="ch09-agent-execution-loop.png",
+    title="Agent 一轮怎么执行",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/index.md",
+    alt="Agent 执行闭环：用户目标、状态记忆、计划下一步、工具调用、观察结果、更新状态、停止条件和 trace log。",
+    scene="Agent 控制室。学习者监督一个小型 Agent，大屏上有目标输入、记忆抽屉、计划白板、调用 API 的工具机械臂、返回结果的观察卡、状态更新、停止信号灯和 trace log 记录本。",
+    subtitle="Agent 不是黑箱自动跑，每一步都要能检查。",
+    items=remake_items(
+        ("目标", "要完成什么。"),
+        ("状态 / 记忆", "已经知道什么。"),
+        ("计划", "选择下一步动作。"),
+        ("工具", "带参数执行。"),
+        ("观察", "读取结果或错误。"),
+        ("更新 / 停止", "继续、重试或完成。"),
+    ),
+    footer="每轮都要留下 trace：目标、动作、输入、观察、结果。",
+    prompt=AGENT_EXECUTION_GENERATED_PROMPT_ZH,
+    generated_only=True,
+)
+
+register_remake_job(
+    filename="ch09-agent-execution-loop-ja.png",
+    title="Agent の1回の実行ラウンド",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/index.md",
+    alt="Agent 実行ループ：goal、state / memory、plan、tool call、observation、state update、stop condition、trace log。",
+    scene="Agent 管制室。学習者が小さな Agent を監督し、大きなコンソールには goal 受付、memory 引き出し、planning board、API を呼ぶ tool アーム、observation カード、state update、停止ランプ、trace log ノートが並ぶ。",
+    subtitle="Agent はブラックボックスではなく、各ステップを検査できる必要がある。",
+    items=remake_items(
+        ("Goal", "何を完了するか。"),
+        ("State / memory", "すでに分かっていること。"),
+        ("Plan", "次の行動を選ぶ。"),
+        ("Tool", "引数付きで実行する。"),
+        ("Observation", "結果やエラーを読む。"),
+        ("Update / stop", "続行、再試行、完了。"),
+    ),
+    footer="各ラウンドに trace を残す：goal、action、input、observation、result。",
+    prompt=AGENT_EXECUTION_GENERATED_PROMPT_JA,
+    generated_only=True,
+)
+
+register_remake_job(
+    filename="ch10-vision-pipeline-loop-en.png",
+    title="Vision Pipeline and Failure Review",
+    suggested_page="docs/ch10-computer-vision/index.md",
+    alt="Vision pipeline: raw image, crop and preprocess, model output, box, mask, OCR, human review, error review, and next dataset update.",
+    scene="A computer vision lab. A street or product image enters a workstation, is cropped and preprocessed, then a model produces class, box, mask, and OCR outputs. A reviewer circles mistakes, saves original and prediction images, and adds failed samples to the next dataset board.",
+    subtitle="Save the image, the prediction, and the reason for failure.",
+    items=remake_items(
+        ("Raw image", "Keep the original input."),
+        ("Preprocess", "Resize, crop, normalize."),
+        ("Model output", "Predict labels or regions."),
+        ("Box / mask / OCR", "Different tasks return different shapes."),
+        ("Human review", "Find misses and false positives."),
+        ("Error review", "Feed failures into the next run."),
+    ),
+    footer="Do not trust one score without looking at failed examples.",
+)
+
+register_remake_job(
+    filename="ch10-vision-pipeline-loop-ja.png",
+    title="Vision pipeline と失敗レビュー",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/index.md",
+    alt="Vision pipeline：raw image、crop / preprocess、model output、box、mask、OCR、human review、error review、次の dataset 更新。",
+    scene="コンピュータビジョンの実験室。街や商品の画像がワークステーションに入り、crop と preprocess を通り、model が class、box、mask、OCR を出す。レビュアーが間違いを丸で示し、元画像と予測画像を保存し、失敗サンプルを次の dataset ボードへ入れる。",
+    subtitle="画像、予測、失敗理由をセットで残す。",
+    items=remake_items(
+        ("Raw image", "元の入力を保存する。"),
+        ("Preprocess", "resize、crop、normalize。"),
+        ("Model output", "ラベルや領域を予測する。"),
+        ("Box / mask / OCR", "タスクごとに出力形が違う。"),
+        ("Human review", "漏れと誤検出を探す。"),
+        ("Error review", "失敗例を次回に回す。"),
+    ),
+    footer="スコアだけでなく、失敗例を見て判断する。",
+)
+
+register_remake_job(
+    filename="ch10-vision-task-granularity-ladder-en.png",
+    title="Vision Task Output Granularity",
+    suggested_page="docs/ch10-computer-vision/index.md",
+    alt="Computer vision task granularity ladder: image classification, object detection boxes, segmentation masks, OCR text, and visual question answering.",
+    scene="A visual AI output ladder. One image moves through increasingly detailed output stations: whole-image class label, object boxes, pixel masks, OCR text extraction, and visual question answering with evidence regions.",
+    subtitle="The task should match the output shape you need.",
+    items=remake_items(
+        ("Classification", "One label for the whole image."),
+        ("Detection", "Boxes around objects."),
+        ("Segmentation", "Pixel-level masks."),
+        ("OCR", "Text read from the image."),
+        ("Visual QA", "Answer with visual evidence."),
+        ("Metric", "Evaluate the right output shape."),
+    ),
+    footer="Choose the task by the deliverable, not by model fashion.",
+)
+
+register_remake_job(
+    filename="ch10-vision-task-granularity-ladder.png",
+    title="视觉任务输出粒度",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/index.md",
+    alt="计算机视觉任务粒度：图像分类、目标检测框、分割 mask、OCR 文本和视觉问答。",
+    scene="视觉 AI 输出阶梯。同一张图片依次通过更细的输出站：整图分类标签、目标框、像素级 mask、OCR 文字读取、带视觉证据的问答。",
+    subtitle="先明确需要什么输出形态，再选任务。",
+    items=remake_items(
+        ("分类", "整张图一个标签。"),
+        ("检测", "给目标画 bounding box。"),
+        ("分割", "输出像素级 mask。"),
+        ("OCR", "读出图片里的文字。"),
+        ("视觉问答", "结合图像证据回答。"),
+        ("指标", "按输出形态评估。"),
+    ),
+    footer="按交付物选任务，不要按模型名凑方案。",
+)
+
+register_remake_job(
+    filename="ch10-vision-task-granularity-ladder-ja.png",
+    title="Vision task の出力粒度",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/index.md",
+    alt="コンピュータビジョンの出力粒度：image classification、object detection box、segmentation mask、OCR text、visual QA。",
+    scene="視覚 AI の出力ラダー。一枚の画像が段階的に詳しい出力ステーションを通る。画像全体の class label、object box、pixel mask、OCR text、視覚根拠つきの question answering。",
+    subtitle="必要な出力形を先に決めてからタスクを選ぶ。",
+    items=remake_items(
+        ("Classification", "画像全体に1つのラベル。"),
+        ("Detection", "物体を box で囲む。"),
+        ("Segmentation", "pixel-level mask を出す。"),
+        ("OCR", "画像内の文字を読む。"),
+        ("Visual QA", "画像根拠で答える。"),
+        ("Metric", "出力形に合う指標で見る。"),
+    ),
+    footer="モデル名ではなく、納品物からタスクを選ぶ。",
+)
+
+register_remake_job(
+    filename="ch11-nlp-task-output-map-en.png",
+    title="NLP Task Output Map",
+    suggested_page="docs/ch11-nlp/index.md",
+    alt="NLP tasks by output shape: classification label, entity JSON, summary paragraph, QA answer with source, and comparison score.",
+    scene="A text analysis workbench. The same raw document is routed into different output trays: category label, entity JSON, summary paragraph, QA answer with source card, and comparison score chart. A learner checks the target format before choosing the model.",
+    subtitle="Look at the output shape first, then choose the task code.",
+    items=remake_items(
+        ("Classification", "Return a label."),
+        ("NER / extraction", "Return structured fields."),
+        ("Summary", "Return a shorter paragraph."),
+        ("QA", "Return answer plus source."),
+        ("Similarity", "Return a comparison score."),
+        ("Evaluation", "Check errors by output type."),
+    ),
+    footer="NLP work starts by defining the output contract.",
+)
+
+register_remake_job(
+    filename="ch11-nlp-task-output-map.png",
+    title="NLP 任务输出图",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/index.md",
+    alt="NLP 任务按输出形态区分：分类标签、实体 JSON、摘要段落、带来源的 QA 答案和相似度分数。",
+    scene="文本分析工作台。同一份 raw document 被送到不同输出托盘：分类标签、实体 JSON、摘要段落、带来源卡片的 QA 答案、相似度分数图。学习者先检查目标格式，再选模型任务。",
+    subtitle="先看输出形态，再决定任务代码。",
+    items=remake_items(
+        ("分类", "返回一个标签。"),
+        ("实体 / 抽取", "返回结构化字段。"),
+        ("摘要", "返回更短段落。"),
+        ("QA", "返回答案和来源。"),
+        ("相似度", "返回比较分数。"),
+        ("评估", "按输出类型查错。"),
+    ),
+    footer="NLP 实战从定义输出契约开始。",
+)
+
+register_remake_job(
+    filename="ch11-nlp-task-output-map-ja.png",
+    title="NLP タスク出力マップ",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/index.md",
+    alt="NLP タスクの出力形：classification label、entity JSON、summary paragraph、source 付き QA answer、comparison score。",
+    scene="テキスト分析の作業台。同じ raw document が複数の出力トレイへ分岐する。category label、entity JSON、summary paragraph、source カード付き QA answer、comparison score chart。学習者は model を選ぶ前に target format を確認する。",
+    subtitle="先に出力形を見てから、タスクコードを選ぶ。",
+    items=remake_items(
+        ("Classification", "ラベルを返す。"),
+        ("NER / extraction", "構造化フィールドを返す。"),
+        ("Summary", "短い段落を返す。"),
+        ("QA", "回答と出典を返す。"),
+        ("Similarity", "比較スコアを返す。"),
+        ("Evaluation", "出力タイプ別に誤りを見る。"),
+    ),
+    footer="NLP 実装は出力契約を決めるところから始まる。",
+)
+
+register_remake_job(
+    filename="ch11-text-to-task-pipeline-en.png",
+    title="Text to NLP Task Pipeline",
+    suggested_page="docs/ch11-nlp/index.md",
+    alt="Text to NLP pipeline: raw document, tokens, embedding, annotation, extraction, summary, retrieval QA, and evaluation.",
+    scene="A text factory classroom scene. Raw documents, chats, and logs enter a token cutter, pass through an embedding machine as vector beads, then branch into annotation, extraction table, summary card, retrieval QA with sources, and evaluation board.",
+    subtitle="Define the desired output before choosing the NLP method.",
+    items=remake_items(
+        ("Raw document", "Know where text came from."),
+        ("Tokens", "Split into processable units."),
+        ("Embedding", "Turn meaning into numbers."),
+        ("Annotation", "Mark labels and fields."),
+        ("Extraction", "Create structured records."),
+        ("Summary / QA", "Produce user-facing text."),
+        ("Evaluation", "Use errors to improve."),
+    ),
+    footer="Different NLP tasks share the same input but not the same output.",
+)
+
+register_remake_job(
+    filename="ch11-text-to-task-pipeline.png",
+    title="文本如何变成 NLP 任务输出",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/index.md",
+    alt="文本进入 NLP 系统：raw document、tokens、embedding、annotation、extraction、summary、retrieval QA 和 evaluation。",
+    scene="文本工厂课堂场景。raw documents、聊天和日志进入 token 切分器，通过 embedding 机器变成向量珠，然后分支到 annotation、抽取表格、摘要卡、带来源的 retrieval QA 和 evaluation 看板。",
+    subtitle="先定义想要的输出，再选择 NLP 方法。",
+    items=remake_items(
+        ("raw document", "先看文本来源。"),
+        ("tokens", "切成可处理单位。"),
+        ("embedding", "把语义变成数字。"),
+        ("annotation", "标注标签和字段。"),
+        ("extraction", "生成结构化记录。"),
+        ("summary / QA", "生成面向用户的文本。"),
+        ("evaluation", "用错例继续改进。"),
+    ),
+    footer="同一份文本可以进入不同任务，但输出契约不同。",
+)
+
+register_remake_job(
+    filename="ch11-text-to-task-pipeline-ja.png",
+    title="テキストから NLP タスク出力へ",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/index.md",
+    alt="テキストが NLP システムへ入る流れ：raw document、tokens、embedding、annotation、extraction、summary、retrieval QA、evaluation。",
+    scene="テキスト工場の授業風景。raw documents、チャット、ログが token カッターに入り、embedding machine で vector beads へ変わり、annotation、extraction table、summary card、source 付き retrieval QA、evaluation board に分岐する。",
+    subtitle="欲しい出力を定義してから NLP 手法を選ぶ。",
+    items=remake_items(
+        ("raw document", "テキストの出所を確認する。"),
+        ("tokens", "処理単位に分ける。"),
+        ("embedding", "意味を数値に変える。"),
+        ("annotation", "ラベルと項目を付ける。"),
+        ("extraction", "構造化 record を作る。"),
+        ("summary / QA", "ユーザー向け文章を出す。"),
+        ("evaluation", "誤りから改善する。"),
+    ),
+    footer="同じ入力でも、NLP タスクごとに出力契約は違う。",
+)
+
+register_remake_job(
+    filename="ch12-multimodal-workflow-loop-en.png",
+    title="Multimodal Workflow Loop",
+    suggested_page="docs/ch12-multimodal/index.md",
+    alt="Multimodal workflow: text/PDF, image/screenshot, audio waveform, video frames, alignment, understanding, human review, and report package.",
+    scene="A multimodal project console. Text/PDF files, image screenshots, audio waveforms, and video frames enter a shared alignment table. Time, region, and textual evidence are linked before a model produces understanding, a reviewer checks risk, and a report package is exported.",
+    subtitle="Multiple file types become useful only after alignment and review.",
+    items=remake_items(
+        ("Text / PDF", "Written evidence."),
+        ("Image", "Visual regions."),
+        ("Audio", "Sound clues."),
+        ("Video", "Time-changing frames."),
+        ("Align", "Connect time, region, text."),
+        ("Understand", "Generate cross-modal meaning."),
+        ("Review / export", "Check risk and package evidence."),
+    ),
+    footer="Multimodal work is align, understand, review, then deliver.",
+)
+
+register_remake_job(
+    filename="ch12-multimodal-workflow-loop.png",
+    title="多模态资料如何合成一个结果",
+    suggested_page="i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md",
+    alt="多模态工作流：text/PDF、image/screenshot、audio waveform、video frames、align、understand、human review 和 report package。",
+    scene="多模态项目控制台。Text/PDF 文件、image screenshot、audio waveform、video frames 同时进入对齐工作台。系统把时间、画面区域和文本证据连起来，再生成理解，由人工审核风险，最后导出 report package。",
+    subtitle="多种文件堆在一起还不够，必须先对齐再审核。",
+    items=remake_items(
+        ("Text / PDF", "提供文字证据。"),
+        ("Image", "提供视觉区域。"),
+        ("Audio", "提供声音线索。"),
+        ("Video", "提供时间变化。"),
+        ("Align", "连接时间、区域和文本。"),
+        ("Understand", "形成跨模态理解。"),
+        ("Review / export", "审核风险并打包证据。"),
+    ),
+    footer="多模态流程是：对齐、理解、审核、交付。",
+)
+
+register_remake_job(
+    filename="ch12-multimodal-workflow-loop-ja.png",
+    title="マルチモーダル資料を1つの結果にする",
+    suggested_page="i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md",
+    alt="マルチモーダル workflow：text/PDF、image/screenshot、audio waveform、video frames、align、understand、human review、report package。",
+    scene="マルチモーダル project console。Text/PDF、image screenshot、audio waveform、video frames が同じ alignment table に入り、時間、領域、テキスト根拠が結ばれる。model が理解を作り、reviewer が risk を確認し、report package が export される。",
+    subtitle="複数のファイルは、そろえて確認して初めて使える。",
+    items=remake_items(
+        ("Text / PDF", "文字の根拠。"),
+        ("Image", "視覚的な領域。"),
+        ("Audio", "音の手がかり。"),
+        ("Video", "時間変化する frame。"),
+        ("Align", "時間、領域、文章をつなぐ。"),
+        ("Understand", "横断的な意味を作る。"),
+        ("Review / export", "リスク確認と証拠パッケージ。"),
+    ),
+    footer="マルチモーダルは align、understand、review、deliver の順で進める。",
+)
+
+existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
+IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
+
+IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch08-async-concurrency-semaphore-timeout-map.png": """
+竖版 9:16 中文教学漫画，像后端请求调度室，不要白底流程框。
+标题写清楚：“并发请求如何不把服务打爆”。
+画面左侧对比小分镜是“无限并发崩溃”：请求人群冲向 API 门口，仪表变红；右侧主画面是受控并发：多个请求在队列排队，通过 Semaphore 限流闸门，少量请求进入 API 调用区，慢请求被 timeout 取消，结果和错误汇总到报告板。
+需要编号和短说明：
+① 请求队列：先排队，不一拥而上
+② Semaphore：限制同时进行数量
+③ API 调用：受控访问上游
+④ Timeout：慢任务及时取消
+⑤ Error summary：集中记录失败原因
+⑥ Stable result：吞吐稳定、错误可解释
+底部结论：“并发不是越多越好，受控并发才能稳定。”
+文字清楚可读；保留 Semaphore、API、Timeout。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    "ch08-llm-api-robust-client-loop-map.png": """
+竖版 9:16 中文教学插画，像稳健 API 客户端作战台，不要白底圆角框。
+标题写清楚：“稳健 LLM API 客户端”。
+画面中学习者在控制台处理一次模型请求：请求卡片进入发送台；失败案例区显示网络错误、限流、坏 JSON；系统用 retry/backoff 等待重试；成功后进入 parse/normalize 区；旁边记录 usage、latency、request_id；最后统一返回结果或可解释错误。
+需要编号和短说明：
+① Request：构造请求
+② Retry：只重试可恢复错误
+③ Backoff：失败后拉开间隔
+④ Parse：解析 JSON / text
+⑤ Usage log：记录 tokens 与费用
+⑥ Error return：失败也要可解释
+底部结论：“生产客户端要能成功，也要能优雅失败。”
+文字清楚可读；保留 LLM API、retry、backoff、usage、request_id。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    "ch08-unified-api-provider-gateway-map.png": """
+竖版 9:16 中文教学对比插画，不要白底流程框。
+标题写清楚：“为什么需要统一 Provider 网关”。
+画面左侧是混乱小分镜：业务代码直接接多家 provider，接口、错误、usage 格式各不相同，线缆缠在一起。右侧是统一网关工作台：业务请求先进入 gateway，再由 routing 选择 provider，经 adapter 转成对应格式；失败时 fallback；最后输出 normalized error 和 usage log。
+需要编号和短说明：
+① 混乱直连：每家接口都不同
+② Gateway：业务只接一个入口
+③ Routing：按模型、成本、可用性选择
+④ Adapter：适配不同 provider
+⑤ Fallback：失败时换路
+⑥ Usage log：统一记录成本与延迟
+底部结论：“网关把 provider 差异挡在业务代码外面。”
+文字清楚可读；保留 provider、gateway、routing、adapter、fallback、usage。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    "ch11-seq2seq-chapter-flow.png": """
+竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。
+画面像课堂分镜/工作台，不要白底流程框：一位学习者看着屏幕，左侧是一串输入词卡，经过 Encoder 工作台压成上下文胶囊，右侧 Decoder 像打字机一样逐步吐出输出词卡；旁边有 Attention 聚光灯照回输入词，底部有翻译与摘要两个小成果样本。
+必须有少量大字短标签，中文自然可读：① 输入序列、② Encoder、③ 上下文、④ Decoder、⑤ Attention、⑥ 输出序列。
+加一句短说明：“先读完整输入，再一步步生成输出。”
+文字要大、少、清晰；允许少量英文术语 Encoder、Decoder、Attention。不要密密麻麻的小字，不要乱码，不要真实品牌 logo，不要白底圆角框流程图。
+""".strip(),
+    "ch11-seq2seq-encoder-decoder-bottleneck-map.png": """
+竖版 9:16 中文教学插画，主题标题：“Encoder-Decoder 信息瓶颈”。
+画面是学习者在实验台上观察翻译模型：左上是输入句子词卡排队进入 Encoder 机器，中间只有一个狭窄的“上下文瓶颈”玻璃瓶，里面塞满压缩信息，右侧 Decoder 逐步生成目标词卡。长句子有部分信息从瓶口溢出，用醒目的警示标记表示丢失风险；远处有 Attention 聚光灯作为下一节的解决线索。
+必须有清楚短标签：① 输入、② Encoder、③ 瓶颈、④ Decoder、⑤ 逐步生成、⑥ Attention 缓解。
+加一句短说明：“只靠一个向量，长句信息容易挤丢。”
+文字少而大，中文自然；保留 Encoder、Decoder、Attention。不要白底流程图、不要圆角框堆叠、不要乱码小字。
+""".strip(),
+    "seq2seq-attention-alignment.png": """
+竖版 9:16 中文教学插画，主题标题：“Attention 如何对齐词语”。
+画面像翻译课堂的屏幕分镜：上方是输入词卡队列，下方是 Decoder 正在生成目标词；每生成一步，一个可见聚光灯照向输入中的相关词卡，形成柔和热力带。学习者用笔圈出“当前输出看哪里”。右侧有小型对齐热力板，但不要做成表格幻灯片。
+必须有清楚短标签：① 输入词、② 当前输出、③ 注意力权重、④ 对齐位置、⑤ 动态查看。
+加一句短说明：“每一步生成时，模型重新看最相关的输入位置。”
+文字少、大、可读；术语 Attention 可保留英文。不要白底框图、不要密集小字、不要乱码。
+""".strip(),
+    "ch11-machine-translation-error-analysis-map.png": """
+竖版 9:16 中文教学插画，主题标题：“机器翻译错例复盘”。
+画面是翻译项目评审桌：左侧是源句与参考译文纸张，右侧是模型译文被老师和学习者用彩笔圈出问题；下方把错误样本放入几个实物托盘：漏译、错译、语序、术语、风格。旁边有一个简洁评分仪表，表示机器指标和人工复核要一起看。
+必须有清楚短标签：① 源句、② 参考译文、③ 模型译文、④ 漏译、⑤ 错译、⑥ 术语不一致、⑦ 人工复核。
+加一句短说明：“不要只看顺眼样例，要按错误类型改系统。”
+文字少、大、自然；允许 BLEU / chrF 小标签。不要白底流程框、不要乱码、不要真实品牌 logo。
+""".strip(),
+    "ch11-ctc-deep-speech-asr-map.png": """
+竖版 9:16 中文教学插画，主题标题：“CTC：长音频到短文本”。
+画面像语音识别实验台：上方是一条长音频波形和很多音频帧，小机器人/模型逐帧给出字符候选；中间出现带 blank 的长路径，像一串可折叠纸带；下方学习者把重复字符和 blank 折叠掉，得到短文本结果。突出“帧很多，字更少”的直觉。
+必须有清楚短标签：① 音频帧、② 声学模型、③ CTC 路径、④ blank、⑤ 折叠、⑥ 最终文本。
+加一句短说明：“先允许长路径，再折叠成真正 transcript。”
+文字少、大、可读；保留 CTC、blank、transcript。不要白底流程图、不要圆角框模板、不要乱码小字。
+""".strip(),
+}
+
+for job in IMAGE_JOBS:
+    override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(str(job.get("filename")))
+    if override_prompt and not job.get("overlay"):
+        job["prompt"] = override_prompt
+
+
+def convert_remaining_overlays_to_generated_images() -> None:
+    for job in IMAGE_JOBS:
+        overlay = job.get("overlay")
+        if not overlay:
+            continue
+        items = list(overlay.get("items", []))
+        if not items:
+            job["overlay"] = None
+            continue
+
+        panel_lines = []
+        for index, item in enumerate(items[:6], start=1):
+            label = str(item.get("label", "")).strip()
+            detail = str(item.get("detail", "")).strip()
+            panel_lines.append(
+                f"Panel {index}: visible caption exactly \"{index} {label}\" and short line exactly \"{detail}\". "
+                f"Show this concept as a concrete action or before/after scene directly inside the panel."
+            )
+
+        title = str(overlay.get("title", job.get("title", ""))).strip()
+        subtitle = str(overlay.get("subtitle", "")).strip()
+        footer = str(overlay.get("footer", "")).strip()
+        job["prompt"] = f"""
+Create one complete vertical 9:16 teaching image as a finished bitmap for an AI full-stack course. Do not rely on post-processing, captions, labels, overlays, SVG, markdown, or external text.
+The image itself must contain all teaching text, drawn naturally as part of the illustration.
+Style: high-quality classroom comic or practical workflow illustration, not a whiteboard flowchart, not UI cards, not pasted text boxes, not an SVG-style diagram.
+Visible title at the top must be exactly: {title}
+Visible subtitle under the title must be exactly: {subtitle}
+
+Choose the clearest teaching composition for the topic: comic panels for lifecycles, side-by-side comparison for trade-offs, layered architecture for systems, annotated workbench for data structures, or incident board for debugging. Do not force every topic into six panels. Each text label must sit inside or beside the visual action it explains:
+{chr(10).join(panel_lines)}
+
+Visible footer at the bottom must be exactly: {footer}
+Make the relationship between visual action and teaching text obvious. Text must be readable, short, and integrated with the scene. Avoid tiny text, gibberish, watermarks, real brand logos, blank white background, and generic rounded flowchart boxes.
+""".strip()
+        job["overlay"] = None
+
+
+convert_remaining_overlays_to_generated_images()
+
 
 HOMEPAGE_HISTORY_COMIC_FILENAMES = {
     f"homepage-ai-history-comic-{index:02d}-{slug}.png"
@@ -9533,9 +10754,408 @@ def set_user_readable_permissions(output_path: Path) -> None:
     output_path.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH)
 
 
-def write_generation_errors(report_dir: Path, errors: list[dict[str, str]]) -> None:
-    if not errors:
+def load_overlay_font(size: int, *, bold: bool = False):
+    from PIL import ImageFont
+
+    font_paths = [
+        "/System/Library/Fonts/PingFang.ttc",
+        "/System/Library/Fonts/Hiragino Sans GB.ttc",
+        "/System/Library/Fonts/STHeiti Medium.ttc",
+        "/Library/Fonts/Arial Unicode.ttf",
+        "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+    ]
+    for font_path in font_paths:
+        if Path(font_path).exists():
+            try:
+                return ImageFont.truetype(font_path, size=size, index=1 if bold else 0)
+            except (OSError, TypeError):
+                try:
+                    return ImageFont.truetype(font_path, size=size)
+                except OSError:
+                    continue
+    return ImageFont.load_default()
+
+
+def wrap_overlay_text(draw: Any, text: str, font: Any, max_width: int) -> list[str]:
+    if not text:
+        return []
+
+    if " " in text:
+        lines: list[str] = []
+        current = ""
+        for token in text.split(" "):
+            candidate = token if not current else f"{current} {token}"
+            bbox = draw.textbbox((0, 0), candidate, font=font)
+            if bbox[2] - bbox[0] <= max_width:
+                current = candidate
+                continue
+            if current:
+                lines.append(current)
+            token_bbox = draw.textbbox((0, 0), token, font=font)
+            if token_bbox[2] - token_bbox[0] <= max_width:
+                current = token
+            else:
+                split_lines = wrap_overlay_text(draw, token.replace(" ", ""), font, max_width)
+                lines.extend(split_lines[:-1])
+                current = split_lines[-1] if split_lines else ""
+        if current:
+            lines.append(current)
+        return lines
+
+    lines: list[str] = []
+    current = ""
+    for char in text:
+        candidate = f"{current}{char}"
+        bbox = draw.textbbox((0, 0), candidate, font=font)
+        if bbox[2] - bbox[0] <= max_width or not current:
+            current = candidate
+            continue
+        lines.append(current)
+        current = char
+    if current:
+        lines.append(current)
+    return lines
+
+
+def apply_callout_overlay(image: Any, job: dict[str, Any], overlay: dict[str, Any]) -> Any:
+    from PIL import ImageDraw
+
+    width, height = image.size
+    draw = ImageDraw.Draw(image, "RGBA")
+
+    title = str(overlay.get("title", job.get("title", "")))
+    subtitle = str(overlay.get("subtitle", ""))
+    items = list(overlay.get("items", []))
+    callouts = list(overlay.get("callouts", []))
+    footer = str(overlay.get("footer", ""))
+
+    margin = max(36, width // 22)
+    title_font = load_overlay_font(max(40, width // 18), bold=True)
+    subtitle_font = load_overlay_font(max(22, width // 40))
+    label_font = load_overlay_font(max(20, width // 47), bold=True)
+    detail_font = load_overlay_font(max(17, width // 57))
+    footer_font = load_overlay_font(max(24, width // 39), bold=True)
+
+    top_height = max(150, int(height * 0.125))
+    footer_height = max(74, int(height * 0.055)) if footer else 0
+
+    draw.rectangle((0, 0, width, top_height), fill=(3, 7, 18, 224))
+    draw.rectangle((0, top_height - 4, width, top_height + 2), fill=(56, 189, 248, 220))
+
+    y = 24
+    for line in wrap_overlay_text(draw, title, title_font, width - margin * 2)[:2]:
+        draw.text((margin, y), line, font=title_font, fill=(248, 250, 252, 255))
+        y += title_font.size + 6
+    for line in wrap_overlay_text(draw, subtitle, subtitle_font, width - margin * 2)[:2]:
+        draw.text((margin, y + 2), line, font=subtitle_font, fill=(203, 213, 225, 255))
+        y += subtitle_font.size + 4
+
+    palette = [
+        (96, 165, 250, 255),
+        (52, 211, 153, 255),
+        (251, 191, 36, 255),
+        (196, 181, 253, 255),
+        (248, 113, 113, 255),
+        (45, 212, 191, 255),
+        (244, 114, 182, 255),
+        (129, 140, 248, 255),
+    ]
+
+    for index, item in enumerate(items):
+        if index >= len(callouts):
+            break
+        callout = callouts[index]
+        box = callout.get("box", (0.05, 0.2 + index * 0.1, 0.35, 0.09))
+        target = callout.get("target", (0.5, 0.5))
+        x = int(float(box[0]) * width)
+        y = int(float(box[1]) * height)
+        box_w = int(float(box[2]) * width)
+        box_h = int(float(box[3]) * height)
+        target_x = int(float(target[0]) * width)
+        target_y = int(float(target[1]) * height)
+
+        label = str(item.get("label", ""))
+        detail = str(item.get("detail", ""))
+        color = palette[index % len(palette)]
+        radius = max(18, width // 58)
+        badge_size = max(30, width // 33)
+
+        center_x = x + box_w // 2
+        center_y = y + box_h // 2
+        start_x = x if target_x < center_x else x + box_w
+        start_y = min(max(target_y, y + 10), y + box_h - 10)
+        draw.line((start_x, start_y, target_x, target_y), fill=(*color[:3], 230), width=max(4, width // 180))
+        draw.ellipse(
+            (
+                target_x - badge_size // 3,
+                target_y - badge_size // 3,
+                target_x + badge_size // 3,
+                target_y + badge_size // 3,
+            ),
+            fill=(*color[:3], 238),
+            outline=(255, 255, 255, 230),
+            width=2,
+        )
+
+        draw.rounded_rectangle(
+            (x, y, x + box_w, y + box_h),
+            radius=radius,
+            fill=(3, 7, 18, 218),
+            outline=(*color[:3], 246),
+            width=3,
+        )
+        draw.ellipse((x + 12, y + 13, x + 12 + badge_size, y + 13 + badge_size), fill=color)
+        number_text = str(index + 1)
+        number_bbox = draw.textbbox((0, 0), number_text, font=detail_font)
+        draw.text(
+            (
+                x + 12 + badge_size / 2 - (number_bbox[2] - number_bbox[0]) / 2,
+                y + 13 + badge_size / 2 - (number_bbox[3] - number_bbox[1]) / 2 - 1,
+            ),
+            number_text,
+            font=detail_font,
+            fill=(3, 7, 18, 255),
+        )
+
+        text_x = x + 24 + badge_size
+        max_text_width = box_w - badge_size - 38
+        label_lines = wrap_overlay_text(draw, label, label_font, max_text_width)
+        detail_lines = wrap_overlay_text(draw, detail, detail_font, max_text_width)
+        text_y = y + 12
+        for line in label_lines[:2]:
+            draw.text((text_x, text_y), line, font=label_font, fill=(248, 250, 252, 255))
+            text_y += label_font.size + 2
+        for line in detail_lines[:2]:
+            draw.text((text_x, text_y + 2), line, font=detail_font, fill=(203, 213, 225, 255))
+            text_y += detail_font.size + 2
+
+    if footer:
+        footer_top = height - footer_height
+        draw.rectangle((0, footer_top, width, height), fill=(3, 7, 18, 225))
+        draw.rectangle((margin, footer_top + 12, width - margin, footer_top + 16), fill=(251, 191, 36, 235))
+        footer_y = footer_top + 25
+        for line in wrap_overlay_text(draw, footer, footer_font, width - margin * 2)[:2]:
+            draw.text((margin, footer_y), line, font=footer_font, fill=(254, 249, 195, 255))
+            footer_y += footer_font.size + 4
+
+    return image
+
+
+def apply_comic_panel_overlay(image: Any, job: dict[str, Any], overlay: dict[str, Any]) -> Any:
+    from PIL import ImageDraw
+
+    width, height = image.size
+    draw = ImageDraw.Draw(image, "RGBA")
+
+    title = str(overlay.get("title", job.get("title", "")))
+    subtitle = str(overlay.get("subtitle", ""))
+    items = list(overlay.get("items", []))
+    footer = str(overlay.get("footer", ""))
+
+    margin = max(32, width // 24)
+    gap = max(14, width // 70)
+    title_font = load_overlay_font(max(38, width // 19), bold=True)
+    subtitle_font = load_overlay_font(max(21, width // 43))
+    label_font = load_overlay_font(max(18, width // 54), bold=True)
+    detail_font = load_overlay_font(max(15, width // 66))
+    footer_font = load_overlay_font(max(22, width // 45), bold=True)
+
+    top_height = max(132, int(height * 0.12))
+    footer_height = max(68, int(height * 0.052)) if footer else 0
+    panel_top = top_height + gap
+    panel_bottom = height - footer_height - gap
+    panel_area_height = panel_bottom - panel_top
+    panel_w = (width - margin * 2 - gap) // 2
+    panel_h = (panel_area_height - gap * 2) // 3
+
+    draw.rectangle((0, 0, width, top_height), fill=(3, 7, 18, 226))
+    draw.rectangle((0, top_height - 4, width, top_height + 2), fill=(56, 189, 248, 220))
+    y = 18
+    for line in wrap_overlay_text(draw, title, title_font, width - margin * 2)[:2]:
+        draw.text((margin, y), line, font=title_font, fill=(248, 250, 252, 255))
+        y += title_font.size + 4
+    for line in wrap_overlay_text(draw, subtitle, subtitle_font, width - margin * 2)[:2]:
+        draw.text((margin, y + 2), line, font=subtitle_font, fill=(203, 213, 225, 255))
+        y += subtitle_font.size + 4
+
+    palette = [
+        (96, 165, 250, 255),
+        (52, 211, 153, 255),
+        (251, 191, 36, 255),
+        (196, 181, 253, 255),
+        (248, 113, 113, 255),
+        (45, 212, 191, 255),
+    ]
+
+    for index, item in enumerate(items[:6]):
+        row = index // 2
+        col = index % 2
+        x = margin + col * (panel_w + gap)
+        y = panel_top + row * (panel_h + gap)
+        rect = (x, y, x + panel_w, y + panel_h)
+        color = palette[index % len(palette)]
+        draw.rectangle(rect, outline=(248, 250, 252, 230), width=max(3, width // 260))
+
+        label = str(item.get("label", ""))
+        detail = str(item.get("detail", ""))
+        caption_h = max(72, int(panel_h * 0.24))
+        caption_top = y + panel_h - caption_h
+        draw.rectangle((x, caption_top, x + panel_w, y + panel_h), fill=(3, 7, 18, 218))
+        draw.rectangle((x, caption_top, x + panel_w, caption_top + 4), fill=(*color[:3], 235))
+
+        badge = max(25, width // 38)
+        badge_x = x + 13
+        badge_y = caption_top + 14
+        draw.ellipse((badge_x, badge_y, badge_x + badge, badge_y + badge), fill=color)
+        number_text = str(index + 1)
+        number_bbox = draw.textbbox((0, 0), number_text, font=detail_font)
+        draw.text(
+            (
+                badge_x + badge / 2 - (number_bbox[2] - number_bbox[0]) / 2,
+                badge_y + badge / 2 - (number_bbox[3] - number_bbox[1]) / 2 - 1,
+            ),
+            number_text,
+            font=detail_font,
+            fill=(3, 7, 18, 255),
+        )
+
+        text_x = badge_x + badge + 10
+        max_text_width = panel_w - (text_x - x) - 12
+        text_y = caption_top + 9
+        for line in wrap_overlay_text(draw, label, label_font, max_text_width)[:2]:
+            draw.text((text_x, text_y), line, font=label_font, fill=(248, 250, 252, 255))
+            text_y += label_font.size + 1
+        for line in wrap_overlay_text(draw, detail, detail_font, max_text_width)[:2]:
+            draw.text((text_x, text_y + 1), line, font=detail_font, fill=(203, 213, 225, 255))
+            text_y += detail_font.size + 1
+
+    if footer:
+        footer_top = height - footer_height
+        draw.rectangle((0, footer_top, width, height), fill=(3, 7, 18, 226))
+        draw.rectangle((margin, footer_top + 10, width - margin, footer_top + 14), fill=(251, 191, 36, 235))
+        footer_y = footer_top + 23
+        for line in wrap_overlay_text(draw, footer, footer_font, width - margin * 2)[:2]:
+            draw.text((margin, footer_y), line, font=footer_font, fill=(254, 249, 195, 255))
+            footer_y += footer_font.size + 4
+
+    return image
+
+
+def apply_text_overlay(output_path: Path, job: dict[str, Any]) -> None:
+    overlay = job.get("overlay")
+    if not overlay:
         return
+
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        print(f"Pillow is not installed; skipping text overlay for {job['filename']}", flush=True)
+        return
+
+    image = Image.open(output_path).convert("RGBA")
+    if overlay.get("style") == "comic_panels":
+        image = apply_comic_panel_overlay(image, job, overlay)
+        image.convert("RGB").save(output_path, format="PNG")
+        return
+    if overlay.get("style") == "callouts":
+        image = apply_callout_overlay(image, job, overlay)
+        image.convert("RGB").save(output_path, format="PNG")
+        return
+
+    width, height = image.size
+    draw = ImageDraw.Draw(image, "RGBA")
+
+    title = str(overlay.get("title", job.get("title", "")))
+    subtitle = str(overlay.get("subtitle", ""))
+    items = list(overlay.get("items", []))
+    footer = str(overlay.get("footer", ""))
+
+    margin = max(44, width // 18)
+    title_font = load_overlay_font(max(42, width // 17), bold=True)
+    subtitle_font = load_overlay_font(max(25, width // 34))
+    label_font = load_overlay_font(max(25, width // 37), bold=True)
+    detail_font = load_overlay_font(max(22, width // 45))
+    footer_font = load_overlay_font(max(27, width // 34), bold=True)
+
+    top_height = max(190, int(height * 0.15))
+    bottom_top = int(height * 0.66)
+    footer_height = max(88, int(height * 0.06)) if footer else 0
+
+    draw.rectangle((0, 0, width, top_height), fill=(4, 10, 28, 226))
+    draw.rectangle((0, bottom_top, width, height), fill=(4, 10, 28, 232))
+    draw.rectangle((0, top_height - 5, width, top_height + 2), fill=(56, 189, 248, 205))
+    draw.rectangle((0, bottom_top - 5, width, bottom_top + 2), fill=(52, 211, 153, 205))
+
+    title_lines = wrap_overlay_text(draw, title, title_font, width - margin * 2)
+    y = 34
+    for line in title_lines[:2]:
+        draw.text((margin, y), line, font=title_font, fill=(248, 250, 252, 255))
+        y += title_font.size + 8
+    for line in wrap_overlay_text(draw, subtitle, subtitle_font, width - margin * 2)[:2]:
+        draw.text((margin, y + 4), line, font=subtitle_font, fill=(203, 213, 225, 255))
+        y += subtitle_font.size + 7
+
+    if items:
+        columns = 2 if len(items) > 4 else 1
+        rows = (len(items) + columns - 1) // columns
+        available_height = height - bottom_top - footer_height - 44
+        row_height = max(86, available_height // max(rows, 1))
+        column_width = (width - margin * 2 - (28 if columns == 2 else 0)) // columns
+        palette = [
+            (96, 165, 250, 255),
+            (52, 211, 153, 255),
+            (251, 191, 36, 255),
+            (196, 181, 253, 255),
+            (248, 113, 113, 255),
+            (45, 212, 191, 255),
+            (244, 114, 182, 255),
+            (129, 140, 248, 255),
+        ]
+
+        for index, item in enumerate(items):
+            label = str(item.get("label", ""))
+            detail = str(item.get("detail", ""))
+            col = index % columns
+            row = index // columns
+            x = margin + col * (column_width + 28)
+            y = bottom_top + 28 + row * row_height
+            color = palette[index % len(palette)]
+            marker = max(30, width // 32)
+            draw.ellipse((x, y + 4, x + marker, y + 4 + marker), fill=color)
+            number_text = str(index + 1)
+            number_bbox = draw.textbbox((0, 0), number_text, font=detail_font)
+            draw.text(
+                (
+                    x + marker / 2 - (number_bbox[2] - number_bbox[0]) / 2,
+                    y + 4 + marker / 2 - (number_bbox[3] - number_bbox[1]) / 2 - 1,
+                ),
+                number_text,
+                font=detail_font,
+                fill=(3, 7, 18, 255),
+            )
+            text_x = x + marker + 16
+            max_text_width = column_width - marker - 18
+            label_lines = wrap_overlay_text(draw, label, label_font, max_text_width)
+            draw.text((text_x, y), label_lines[0] if label_lines else label, font=label_font, fill=(248, 250, 252, 255))
+            detail_y = y + label_font.size + 6
+            for detail_line in wrap_overlay_text(draw, detail, detail_font, max_text_width)[:2]:
+                draw.text((text_x, detail_y), detail_line, font=detail_font, fill=(203, 213, 225, 255))
+                detail_y += detail_font.size + 4
+
+    if footer:
+        footer_top = height - footer_height
+        draw.rectangle((0, footer_top, width, height), fill=(2, 6, 23, 238))
+        draw.rectangle((margin, footer_top + 16, width - margin, footer_top + 20), fill=(251, 191, 36, 230))
+        footer_lines = wrap_overlay_text(draw, footer, footer_font, width - margin * 2)
+        footer_y = footer_top + 30
+        for line in footer_lines[:2]:
+            draw.text((margin, footer_y), line, font=footer_font, fill=(254, 249, 195, 255))
+            footer_y += footer_font.size + 6
+
+    image.convert("RGB").save(output_path, format="PNG")
+
+
+def write_generation_errors(report_dir: Path, errors: list[dict[str, str]]) -> None:
     report_dir.mkdir(parents=True, exist_ok=True)
     error_report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -9682,6 +11302,7 @@ def main() -> None:
                         request_timeout=args.request_timeout,
                     )
                 )
+            apply_text_overlay(output_path, job)
             set_user_readable_permissions(output_path)
             print(f"Saved {output_path}", flush=True)
         except Exception as exc:
