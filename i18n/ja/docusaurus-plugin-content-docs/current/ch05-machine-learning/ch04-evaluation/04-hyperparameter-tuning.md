@@ -134,6 +134,8 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 score=0.968 params={'max_depth': None, 'min_samples_leaf': 3, 'n_estimators': 160}
 ```
 
+![ハイパーパラメータ探索実験結果図](/img/course/ch05-hyperparameter-search-result-map-ja.webp)
+
 ## パラメータとハイパーパラメータ
 
 ランダムフォレストは、データから分岐ルールを学びます。学習された分岐ルールは parameters です。

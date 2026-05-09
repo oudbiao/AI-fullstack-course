@@ -149,6 +149,8 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 setosa:0.05 | versicolor:0.88 | virginica:0.07
 ```
 
+![Logistic regression threshold lab result map](/img/course/ch05-logistic-threshold-lab-result-map-en.webp)
+
 ## Read the Pipeline
 
 ![Logistic regression score probability threshold pipeline](/img/course/ch05-logistic-score-probability-threshold-en.webp)

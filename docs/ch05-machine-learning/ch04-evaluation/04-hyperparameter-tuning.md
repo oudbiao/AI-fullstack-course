@@ -134,6 +134,8 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 score=0.968 params={'max_depth': None, 'min_samples_leaf': 3, 'n_estimators': 160}
 ```
 
+![Hyperparameter search result map](/img/course/ch05-hyperparameter-search-result-map-en.webp)
+
 ## Parameters vs Hyperparameters
 
 Random Forest learns split rules from data. Those learned split rules are parameters.

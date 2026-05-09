@@ -99,6 +99,8 @@ first_residual= 30.0
 ridge_poly_rmse= 13.8
 ```
 
+![線形回帰の実験結果図](/img/course/ch05-linear-regression-lab-result-map-ja.webp)
+
 ## 結果を読む
 
 baseline はすべての家に対して学習データの平均値を予測します。RMSE が大きいので、特徴量には情報があると分かります。

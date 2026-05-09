@@ -160,6 +160,8 @@ mean_baseline mae=65.5 rmse=74.9 r2=-0.014
 linear        mae=41.5 rmse=53.4 r2=0.485
 ```
 
+![评估指标阈值与回归结果图](/img/course/ch05-metrics-threshold-regression-result-map.webp)
+
 ## Accuracy 陷阱
 
 baseline 每次都预测多数类：

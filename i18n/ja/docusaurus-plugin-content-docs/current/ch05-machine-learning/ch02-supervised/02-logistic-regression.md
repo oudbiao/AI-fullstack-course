@@ -149,6 +149,8 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 setosa:0.05 | versicolor:0.88 | virginica:0.07
 ```
 
+![ロジスティック回帰しきい値実験結果図](/img/course/ch05-logistic-threshold-lab-result-map-ja.webp)
+
 ## パイプラインを読む
 
 ![ロジスティック回帰のスコアから確率、しきい値判断までの流れ](/img/course/ch05-logistic-score-probability-threshold-ja.webp)

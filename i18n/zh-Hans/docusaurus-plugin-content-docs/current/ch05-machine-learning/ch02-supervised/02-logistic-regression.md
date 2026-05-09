@@ -149,6 +149,8 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 setosa:0.05 | versicolor:0.88 | virginica:0.07
 ```
 
+![逻辑回归阈值实验结果图](/img/course/ch05-logistic-threshold-lab-result-map.webp)
+
 ## 读懂这条流水线
 
 ![逻辑回归从分数到概率再到阈值决策](/img/course/ch05-logistic-score-probability-threshold.webp)

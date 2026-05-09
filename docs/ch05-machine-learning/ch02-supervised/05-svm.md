@@ -128,6 +128,8 @@ C=10.0 gamma=0.1 accuracy=0.960 support_vectors=111
 C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 ```
 
+![SVM kernel scaling lab result map](/img/course/ch05-svm-kernel-scaling-result-map-en.webp)
+
 ## Read the Kernel Result
 
 The curved `make_moons` dataset is intentionally hard for a straight boundary:

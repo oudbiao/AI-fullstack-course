@@ -134,6 +134,8 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 score=0.968 params={'max_depth': None, 'min_samples_leaf': 3, 'n_estimators': 160}
 ```
 
+![超参数搜索实验结果图](/img/course/ch05-hyperparameter-search-result-map.webp)
+
 ## 参数与超参数
 
 随机森林会从数据中学习划分规则，这些学到的规则是 parameters。

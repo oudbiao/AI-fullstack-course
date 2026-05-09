@@ -160,6 +160,8 @@ mean_baseline mae=65.5 rmse=74.9 r2=-0.014
 linear        mae=41.5 rmse=53.4 r2=0.485
 ```
 
+![評価指標しきい値と回帰結果図](/img/course/ch05-metrics-threshold-regression-result-map-ja.webp)
+
 ## Accuracy の罠
 
 baseline は毎回多数派クラスを予測します。

@@ -160,6 +160,8 @@ mean_baseline mae=65.5 rmse=74.9 r2=-0.014
 linear        mae=41.5 rmse=53.4 r2=0.485
 ```
 
+![Evaluation metrics threshold and regression result map](/img/course/ch05-metrics-threshold-regression-result-map-en.webp)
+
 ## The Accuracy Trap
 
 The baseline predicts the majority class every time:

@@ -128,6 +128,8 @@ C=10.0 gamma=0.1 accuracy=0.960 support_vectors=111
 C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 ```
 
+![SVM 核函数与缩放实验结果图](/img/course/ch05-svm-kernel-scaling-result-map.webp)
+
 ## 读懂核函数结果
 
 `make_moons` 是一个弯曲数据集，故意让直线边界吃点亏：

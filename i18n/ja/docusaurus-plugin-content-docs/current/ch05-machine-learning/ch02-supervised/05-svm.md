@@ -128,6 +128,8 @@ C=10.0 gamma=0.1 accuracy=0.960 support_vectors=111
 C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 ```
 
+![SVM kernel と scaling の実験結果図](/img/course/ch05-svm-kernel-scaling-result-map-ja.webp)
+
 ## カーネルの結果を読む
 
 `make_moons` は曲がったデータセットで、直線境界が少し不利になるように作られています。

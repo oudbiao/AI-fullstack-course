@@ -99,6 +99,8 @@ first_residual= 30.0
 ridge_poly_rmse= 13.8
 ```
 
+![Linear regression lab result map](/img/course/ch05-linear-regression-lab-result-map-en.webp)
+
 ## Read the Result
 
 The baseline predicts the training average for every house. Its RMSE is large, so the features matter.

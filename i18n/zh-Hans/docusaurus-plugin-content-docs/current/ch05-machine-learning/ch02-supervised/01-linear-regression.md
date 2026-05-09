@@ -99,6 +99,8 @@ first_residual= 30.0
 ridge_poly_rmse= 13.8
 ```
 
+![线性回归实验结果图](/img/course/ch05-linear-regression-lab-result-map.webp)
+
 ## 读懂结果
 
 baseline 对每套房都预测训练集平均值。它的 RMSE 很大，说明这些特征确实有信息。
