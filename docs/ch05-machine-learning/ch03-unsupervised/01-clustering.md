@@ -136,6 +136,8 @@ hierarchical_lab
 agglomerative_ari= 1.0
 ```
 
+![Clustering lab result interpretation map](/img/course/ch05-clustering-result-interpretation-map-en.webp)
+
 `adjusted_rand_score` uses the hidden synthetic labels only so this teaching lab can verify behavior. In real clustering work, you usually do not have labels, so you rely on metrics, visualization, and business interpretation.
 
 ## K-Means: Choose `K`

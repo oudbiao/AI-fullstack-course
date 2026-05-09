@@ -128,6 +128,8 @@ components=20 reconstruction_mse=0.199
 components=40 reconstruction_mse=0.045
 ```
 
+![PCA 実験結果ダッシュボード](/img/course/ch05-pca-result-dashboard-map-ja.webp)
+
 ## 2 次元結果を読む
 
 digits データセットには 64 個のピクセル特徴量があります。`n_components=2` の PCA は、各画像を 2 つの数値へ圧縮します。

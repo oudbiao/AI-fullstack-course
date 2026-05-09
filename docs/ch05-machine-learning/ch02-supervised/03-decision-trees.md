@@ -141,6 +141,8 @@ max_depth=4    mae=44.4 leaves=14
 max_depth=None mae=48.7 leaves=25
 ```
 
+![Decision tree lab result map](/img/course/ch05-decision-tree-depth-pruning-result-map-en.webp)
+
 ## Read the Output
 
 The first block is the most important part:

@@ -128,6 +128,8 @@ components=20 reconstruction_mse=0.199
 components=40 reconstruction_mse=0.045
 ```
 
+![PCA 实验结果仪表盘](/img/course/ch05-pca-result-dashboard-map.webp)
+
 ## 读懂 2 维结果
 
 digits 数据集有 64 个像素特征。`n_components=2` 的 PCA 会把每张图片压成两个数字：

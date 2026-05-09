@@ -136,6 +136,8 @@ hierarchical_lab
 agglomerative_ari= 1.0
 ```
 
+![聚类实验结果解读图](/img/course/ch05-clustering-result-interpretation-map.webp)
+
 `adjusted_rand_score` 只在这个合成教学数据里使用隐藏标签，方便验证算法行为。真实聚类项目通常没有标签，要靠指标、可视化和业务解释判断。
 
 ## K-Means：选择 `K`

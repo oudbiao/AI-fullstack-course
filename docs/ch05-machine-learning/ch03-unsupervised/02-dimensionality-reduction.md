@@ -128,6 +128,8 @@ components=20 reconstruction_mse=0.199
 components=40 reconstruction_mse=0.045
 ```
 
+![PCA lab result dashboard](/img/course/ch05-pca-result-dashboard-map-en.webp)
+
 ## Read the 2D Result
 
 The digits dataset has 64 pixel features. PCA with `n_components=2` compresses each image into two numbers:

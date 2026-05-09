@@ -141,6 +141,8 @@ max_depth=4    mae=44.4 leaves=14
 max_depth=None mae=48.7 leaves=25
 ```
 
+![决策树实验结果图](/img/course/ch05-decision-tree-depth-pruning-result-map.webp)
+
 ## 读懂输出
 
 第一段最重要：

@@ -141,6 +141,8 @@ max_depth=4    mae=44.4 leaves=14
 max_depth=None mae=48.7 leaves=25
 ```
 
+![決定木の実験結果図](/img/course/ch05-decision-tree-depth-pruning-result-map-ja.webp)
+
 ## 出力を読む
 
 最初のブロックが一番重要です。

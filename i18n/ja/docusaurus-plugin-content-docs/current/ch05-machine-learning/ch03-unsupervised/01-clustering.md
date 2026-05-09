@@ -136,6 +136,8 @@ hierarchical_lab
 agglomerative_ari= 1.0
 ```
 
+![クラスタリング実験結果の読み方](/img/course/ch05-clustering-result-interpretation-map-ja.webp)
+
 `adjusted_rand_score` は、この合成データに隠れたラベルがあるから使っています。実際のクラスタリングでは普通ラベルがないため、指標、可視化、業務上の解釈で判断します。
 
 ## K-Means：`K` を選ぶ
