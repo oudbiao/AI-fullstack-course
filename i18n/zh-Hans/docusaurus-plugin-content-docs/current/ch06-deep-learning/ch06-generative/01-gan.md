@@ -121,6 +121,8 @@ step=200 loss_d=1.460 loss_g=0.835 fake_mean=2.988 fake_std=0.291
 step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
 ```
 
+![1D GAN 实验结果图](/img/course/ch06-gan-1d-distribution-result-map.webp)
+
 不要把最后一行当成“最好”。这更像一个诊断实验：
 
 - 真实样本中心在 `2.0` 附近；

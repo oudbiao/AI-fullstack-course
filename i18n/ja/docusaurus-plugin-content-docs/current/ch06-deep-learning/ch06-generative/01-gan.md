@@ -121,6 +121,8 @@ step=200 loss_d=1.460 loss_g=0.835 fake_mean=2.988 fake_std=0.291
 step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
 ```
 
+![1D GAN 実験結果図](/img/course/ch06-gan-1d-distribution-result-map-ja.webp)
+
 最後の行が一番良い、とは読まないでください。これは診断用の実験です。
 
 - real sample は `2.0` 付近にあります。

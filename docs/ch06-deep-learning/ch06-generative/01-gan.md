@@ -121,6 +121,8 @@ step=200 loss_d=1.460 loss_g=0.835 fake_mean=2.988 fake_std=0.291
 step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
 ```
 
+![1D GAN lab result map](/img/course/ch06-gan-1d-distribution-result-map-en.webp)
+
 Do not read this as “the final line is best.” Read it as a diagnostic exercise:
 
 - real samples are centered near `2.0`;

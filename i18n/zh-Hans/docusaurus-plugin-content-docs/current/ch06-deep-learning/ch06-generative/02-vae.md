@@ -154,6 +154,8 @@ generated_points
 [[1.075, -0.014], [-0.997, -0.001], [-1.118, -0.054], [0.553, 0.041], [0.74, 0.021]]
 ```
 
+![VAE 2D 实验结果图](/img/course/ch06-vae-2d-latent-sample-result-map.webp)
+
 读输出：
 
 - `recon` 下降，说明 decoder 学会了重建 2D 点。

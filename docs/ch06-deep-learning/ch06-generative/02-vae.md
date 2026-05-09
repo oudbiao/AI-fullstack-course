@@ -154,6 +154,8 @@ generated_points
 [[1.075, -0.014], [-0.997, -0.001], [-1.118, -0.054], [0.553, 0.041], [0.74, 0.021]]
 ```
 
+![2D VAE lab result map](/img/course/ch06-vae-2d-latent-sample-result-map-en.webp)
+
 Read the output:
 
 - `recon` drops when the decoder learns to rebuild the 2D points.
