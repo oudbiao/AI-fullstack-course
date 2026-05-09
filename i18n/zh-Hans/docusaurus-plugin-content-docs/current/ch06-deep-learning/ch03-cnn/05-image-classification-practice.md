@@ -204,6 +204,8 @@ pred: vertical
 probs: [1.0, 0.0, 0.0, 0.0]
 ```
 
+![CNN 四分类实验结果图](/img/course/ch06-cnn-four-class-result-map.webp)
+
 ## 读懂输出
 
 | 输出 | 含义 |

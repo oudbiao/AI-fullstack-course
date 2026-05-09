@@ -144,6 +144,8 @@ first_5_pred: [0.323, 0.261, 0.145, -0.025, -0.192]
 first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 ```
 
+![LSTM time-series forecast result map](/img/course/ch06-lstm-forecast-result-curve-map-en.webp)
+
 ## Read the Output
 
 | Output | Meaning |

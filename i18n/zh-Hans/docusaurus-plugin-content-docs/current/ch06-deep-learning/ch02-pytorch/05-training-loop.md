@@ -193,6 +193,8 @@ x=[-1.0, 0.5] -> pred=3.00
 x=[0.0, 0.0] -> pred=4.98
 ```
 
+![PyTorch 训练循环 loss 和 checkpoint 结果图](/img/course/ch06-training-loop-loss-checkpoint-map.webp)
+
 无噪声真实值是 `12`、`3`、`5`，所以预测已经很接近。
 
 ## 逐步拆解

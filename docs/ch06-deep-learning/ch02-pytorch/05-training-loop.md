@@ -193,6 +193,8 @@ x=[-1.0, 0.5] -> pred=3.00
 x=[0.0, 0.0] -> pred=4.98
 ```
 
+![PyTorch training loop loss and checkpoint result map](/img/course/ch06-training-loop-loss-checkpoint-map-en.webp)
+
 The true noiseless values are `12`, `3`, and `5`, so the predictions are close.
 
 ## Step-by-Step Breakdown

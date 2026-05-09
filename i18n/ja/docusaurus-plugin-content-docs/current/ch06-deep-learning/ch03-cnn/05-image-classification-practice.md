@@ -204,6 +204,8 @@ pred: vertical
 probs: [1.0, 0.0, 0.0, 0.0]
 ```
 
+![CNN 4分類実験結果図](/img/course/ch06-cnn-four-class-result-map-ja.webp)
+
 ## 出力を読む
 
 | 出力 | 意味 |

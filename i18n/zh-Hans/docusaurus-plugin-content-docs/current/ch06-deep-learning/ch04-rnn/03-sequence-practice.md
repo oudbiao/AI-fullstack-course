@@ -144,6 +144,8 @@ first_5_pred: [0.323, 0.261, 0.145, -0.025, -0.192]
 first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 ```
 
+![LSTM 时间序列预测结果图](/img/course/ch06-lstm-forecast-result-curve-map.webp)
+
 ## 读懂输出
 
 | 输出 | 含义 |

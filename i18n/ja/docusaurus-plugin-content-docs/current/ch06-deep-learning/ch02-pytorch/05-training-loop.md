@@ -193,6 +193,8 @@ x=[-1.0, 0.5] -> pred=3.00
 x=[0.0, 0.0] -> pred=4.98
 ```
 
+![PyTorch 学習ループの loss と checkpoint 結果図](/img/course/ch06-training-loop-loss-checkpoint-map-ja.webp)
+
 ノイズなしの真の値は `12`、`3`、`5` なので、予測はかなり近いです。
 
 ## ステップごとの分解

@@ -204,6 +204,8 @@ pred: vertical
 probs: [1.0, 0.0, 0.0, 0.0]
 ```
 
+![CNN four-class lab result map](/img/course/ch06-cnn-four-class-result-map-en.webp)
+
 ## Read the Output
 
 | Output | Meaning |
