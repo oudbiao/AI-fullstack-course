@@ -72,11 +72,44 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "suggested_page": "docs/intro/quick-experience.md",
         "alt": "30 分钟 AI 快速体验闭环图：打开 Colab、运行图像识别、体验文本生成、尝试图像生成，然后回到主课程。",
         "prompt": """
-一张竖版课程图解，主题是“30 分钟先体验 AI，再回到系统学习”。
-画面从上到下 5 个步骤：Open Colab、Image recognition、Text generation、Image generation、Back to course path。
-每一步像一张简洁操作卡：复制代码、运行、看输出、换一个输入试试。底部强调不要先背术语，先建立直觉。
-风格清晰、轻量、适合新手开篇；像可跟做的流程漫画，但不要夸张游戏化。
-文字不是主体；标准术语保留英文，例如 Colab、image recognition、text generation、prompt、course path。中文只用短标签。不要乱码小字或真实品牌 logo。
+一张竖版 9:16 中文教学漫画，主题是“30 分钟先体验 AI，再回到系统学习”。
+构图固定：一张连续的学习桌面 + 蜿蜒路线，不要白底圆角卡片堆叠，不要 SVG 信息图，不要纯流程框。五个编号小场景沿着同一条蓝绿色学习路径从上到下连接，像新人跟做的迷你实验路线。
+五个小场景短标签依次是：打开 Colab、运行图像识别、体验文本生成、尝试图像生成、回到主课程。
+每个场景都要用画面教 input -> model -> output：提示词纸片进入模型屏幕，按下运行，右侧出现结果；再改一个词比较输出。不要只贴文字。
+可视元素要具体：学习者、笔记本电脑、狗的图片被识别、文本回复卡片、由提示词生成的湖边小屋图片、最后回到课程地图。
+文字只保留标题、五个步骤名和极短提示；中文必须自然简洁，只有 Colab、AI、prompt 这类关键术语可以保留英文。文字要贴近对应物体、字号大、清楚。不要大段英文说明、不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "intro-quick-experience-loop-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "30-Minute AI Quick Experience Loop",
+        "suggested_page": "docs/intro/quick-experience.md",
+        "alt": "30-minute AI quick experience loop: open Colab, run image recognition, try text generation, try image generation, then return to the main course path.",
+        "prompt": """
+A vertical 9:16 English teaching comic for the first 30-minute AI experience.
+Fixed composition: one continuous learning desk plus a winding path, not a stack of white rounded cards, not an SVG infographic, not a pure flowchart. Five numbered mini-scenes follow the same blue-green learning path from top to bottom.
+Use these five short step labels: Open Colab, Run image recognition, Try text generation, Try image generation, Return to the main course path.
+Each scene must teach input -> model -> output through the drawing: a prompt/input card enters a model screen, a run action happens, a result appears, then one word changes and the learner compares the output. Do not make it a text poster.
+Concrete visuals: learner at a laptop, a dog photo being recognized, a generated text reply card, a lake cabin image generated from a prompt, and the learner returning to a course map.
+Visible text should only be the title, five step names, and very short action notes. Text must be natural English, large, readable, and attached to the object it explains. Avoid tiny text, gibberish, fake UI text, real brand logos, and large white rounded containers.
+""".strip(),
+    },
+    {
+        "filename": "intro-quick-experience-loop-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "30分 AI クイック体験ループ",
+        "suggested_page": "docs/intro/quick-experience.md",
+        "alt": "30分AIクイック体験ループ: Colab を開き、画像認識を実行し、テキスト生成と画像生成を試してから、本編ルートに戻る。",
+        "prompt": """
+AI の最初の 30 分体験を説明する、縦長 9:16 の日本語教材漫画。
+固定構図：連続した学習デスクと曲がる学習ルート。白い角丸カードの積み重ね、SVG 風インフォグラフィック、ただのフローチャートにはしない。5 つの番号付き小場面を、同じ青緑のルートで上から下へつなぐ。
+5 つの短いステップ名は「Colab を開く」「画像認識を実行」「テキスト生成を試す」「画像生成を試す」「本編ルートに戻る」。
+各場面は input -> model -> output を絵で教える。プロンプト/入力カードがモデル画面に入り、実行し、結果が出て、1 語だけ変えて出力を比べる。文字だけのポスターにはしない。
+具体的な画面要素：ノートPCの前の学習者、認識される犬の写真、生成された文章カード、プロンプトから作られる湖畔の小屋画像、最後に講座マップへ戻る学習者。
+画像内の文字はタイトル、5 つのステップ名、ごく短い行動メモだけ。自然な日本語で、大きく読みやすく、対応する物体の近くに置く。細かい文字、文字化け、偽 UI テキスト、実在ロゴ、大きな白い角丸コンテナは禁止。
 """.strip(),
     },
     {
@@ -289,11 +322,44 @@ All visible text must be natural English, short, clear, and integrated into spee
         "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
         "alt": "第 1 章工作台实操路线图：终端、项目骨架、Python 检查脚本、VS Code、Jupyter、Git commit 和证据报告组成完整练习。",
         "prompt": """
-一张 9:16 竖版中文教学流程图，主题是“第 1 章：从空文件夹到可复现 AI 学习工作台”。
-画面从上到下分成 7 个大步骤：open terminal、create ai-learning-lab、write workstation_check.py、run Python check、open VS Code、review in Jupyter、commit evidence。
-每一步都有清晰图标：终端窗口、文件夹树、Python 脚本、报告文件、编辑器面板、Notebook cell、Git commit 节点。
-重点表达这是跟着做的路线，不是概念海报；让新人先看图再照着命令操作。
-文字少而大，中文标签为主，必要技术词保留英文，例如 terminal、Python、VS Code、Jupyter、Git、commit、reports。不要真实品牌 logo，不要乱码小字。
+一张 9:16 竖版中文教学漫画，主题是“第 1 章：从空文件夹到可复现 AI 学习工作台”。
+构图固定：一张连续的工作台 + 蜿蜒证据路线，不要白底圆角框堆叠，不要 SVG 信息图，不要纯流程框。7 个编号小场景沿着同一条蓝绿色路径从上到下连接，像新人跟做的实操路线。
+7 个短标签依次是：打开终端、创建 ai-learning-lab、编写 workstation_check.py、运行 Python 检查、打开 VS Code、在 Jupyter 中查看、提交证据到 Git。
+每个场景都要把 input -> action -> output 画出来：文件夹进入终端，脚本运行后生成 reports，VS Code 和 Jupyter 看同一份结果，最后 Git 留下 commit 和证据包。不要只贴图标。
+可视元素要具体：终端窗口、项目文件夹、Python 脚本、报告文件、编辑器界面、Notebook 结果、Git 提交节点、README 作品集页面。
+文字只保留标题、7 个步骤名和极短提示；中文必须自然简洁，必要技术词可以保留英文，如 Python、VS Code、Jupyter、Git、commit、reports。文字要贴近对应物体，字号大、清楚。不要大段英文说明、不要乱码小字或真实品牌 logo、不要大块白色流程卡。
+""".strip(),
+    },
+    {
+        "filename": "ch01-hands-on-workstation-route-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Chapter 1 Hands-On Workstation Route",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "Chapter 1 hands-on workstation route: terminal, project skeleton, Python check script, VS Code, Jupyter, Git commit, and evidence reports form one complete practice.",
+        "prompt": """
+A vertical 9:16 English teaching comic for Chapter 1: from an empty folder to a reproducible AI learning workstation.
+Fixed composition: one continuous workbench plus a winding evidence path, not a stack of white rounded cards, not an SVG infographic, not a pure flowchart. Seven numbered mini-scenes follow the same blue-green route from top to bottom.
+Use these seven short labels: open terminal, create ai-learning-lab, write workstation_check.py, run the Python check, open VS Code, review in Jupyter, commit evidence to Git.
+Each scene must show input -> action -> output: a folder enters the terminal, the script runs and generates reports, VS Code and Jupyter inspect the same result, and Git leaves a commit plus an evidence pack. Do not make it a text poster.
+Concrete visuals: terminal window, project folder, Python script, report file, editor interface, notebook result, Git commit node, and a README portfolio page.
+Visible text should only be the title, seven step names, and very short action notes. Text must be natural English, large, readable, and attached to the object it explains. Avoid tiny text, gibberish, real brand logos, and large white flow cards.
+""".strip(),
+    },
+    {
+        "filename": "ch01-hands-on-workstation-route-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第1章 ハンズオン作業台ルート",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "第1章ハンズオン作業台ルート: ターミナル、プロジェクト骨格、Python 検査スクリプト、VS Code、Jupyter、Git commit、証拠レポートで 1 つの実習ルートを作る。",
+        "prompt": """
+第1章の実践フローを説明する、縦長 9:16 の日本語教材漫画。
+固定構図：温かい木の作業台、吊り下げた木札のタイトル、曲がりながら進む青緑の証拠ルート。白い角丸カードの積み重ね、SVG 風インフォグラフィック、ただのフローチャートにはしない。7 つの番号付き小場面を、同じ青緑のルートで上から下へつなぐ。英語版と同じく、机の上に実物の道具やファイルが置かれている感じにする。
+7 つの短いラベルは「ターミナルを開く」「ai-learning-lab を作る」「workstation_check.py を書く」「Python 検査を実行」「VS Code を開く」「Jupyter で確認」「Git に証拠を commit」。
+各場面で input -> action -> output を絵で示す。フォルダがターミナルに入り、スクリプトが reports を作り、VS Code と Jupyter が同じ結果を確認し、最後に Git が commit と証拠パックを残す。文字だけのポスターにはしない。
+具体的な画面要素：ターミナル画面、プロジェクトフォルダ、Python スクリプト、レポートファイル、エディタ画面、Notebook の結果、Git commit ノード、README の作品集ページ。
+画像内の文字はタイトル、7 つのステップ名、ごく短い行動メモだけ。自然な日本語で、大きく読みやすく、対応する物体の近くに置く。Python、VS Code、Jupyter、Git、commit、reports などの技術用語は英語表記のままでよい。大きな白いフローカード、文字化け、実在ロゴは禁止。背景の雰囲気は、木の机、ランプ、本、観葉植物がある温かいワークスペースにそろえる。
 """.strip(),
     },
     {
@@ -320,11 +386,11 @@ All visible text must be natural English, short, clear, and integrated into spee
         "alt": "环境、编辑器与 Notebook 协作流程图：同一个项目环境被终端、VS Code 和 Jupyter 共享，脚本生成报告，Notebook 读取报告。",
         "prompt": """
 一张 9:16 竖版中文教学流程图，主题是“同一个项目环境如何连接终端、VS Code 和 Jupyter”。
-画面中心是 ai-learning-lab 项目文件夹，连接到一个 Python interpreter/virtual environment。
+画面中心是 ai-learning-lab 项目文件夹，连接到同一个 Python 解释器 / 虚拟环境。
 左侧是终端运行 src/workstation_check.py，右侧是 VS Code 选择同一个解释器，下方是 Jupyter Notebook 读取 reports/workstation-check.json 并显示结果。
 加入一个错误对比角落：如果 VS Code 或 Jupyter 选错解释器，就出现 import error 或 file not found 警示。
 重点帮助新人理解“不是三个工具各跑各的，而是都应该对齐到同一个项目环境”。
-中文标签为主，保留 VS Code、Jupyter、Python interpreter、reports/workstation-check.json 等技术词。不要真实品牌 logo，不要乱码小字。
+中文标签为主，保留 VS Code、Jupyter、Python 解释器、reports/workstation-check.json 等技术词。不要真实品牌 logo，不要乱码小字。
 """.strip(),
     },
     {
@@ -353,7 +419,7 @@ All visible text must be natural English, short, clear, and integrated into spee
         "prompt": """
 一张 9:16 竖版中文作品集证据包图，主题是“第 1 章完成后应该留下哪些可检查证据”。
 画面中心是 ai-learning-lab 文件夹，里面清楚展示 README.md、src/workstation_check.py、reports/workstation-check.json、reports/workstation-report.md、notes/learning-log.md、screenshots、Git history。
-用箭头说明证据链：run command 生成 reports，reports 进入 README，Git commit 保存版本，learning-log 记录错误和修复。
+用箭头说明证据链：运行命令生成 reports，reports 进入 README，Git commit 保存版本，learning-log 记录错误和修复。
 重点表达“能运行 + 有记录 + 可复现”才是工具章的真实产出。
 中文标签为主，必要文件名和 Git/README/reports 等技术词保留英文。不要真实品牌 logo，不要乱码小字。
 """.strip(),
@@ -1479,9 +1545,9 @@ All visible text must be natural English, short, clear, and integrated into spee
         "prompt": """
 一张竖版作品集证据包图，主题是“跑完数学工作坊后要留下什么，才能证明自己真的会用”。
 画面中心是 ch04_math_workshop_evidence 文件夹，里面有 README.md、vector_similarity.csv、probability_simulation.csv、gradient_descent.csv、math_cards.md、vector_similarity.svg、probability_simulation.svg、gradient_descent.svg。
-每个文件连接到用途：rerun command、similarity evidence、uncertainty evidence、optimization trace、model-language cards、visual review。
-底部展示 reviewer 可以回答三个问题：what was calculated、what changed、what model idea it supports。
-文字不是主体；标准术语保留英文，例如 README.md、CSV、SVG、math_cards.md、reviewer、evidence。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+每个文件连接到用途：重新运行命令、相似度证据、不确定性证据、优化轨迹、模型语言卡片、视觉复盘。
+底部展示 reviewer 可以回答三个问题：计算了什么、发生了什么变化、它支持什么模型概念。
+文字不是主体；标准术语保留英文，例如 README.md、CSV、SVG、math_cards.md、reviewer、evidence。其他说明尽量用中文短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -2219,10 +2285,10 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
         "alt": "机器学习作品集证据包图：README、运行命令、baseline 指标、模型对比、阈值复盘、错误样本、泄漏检查和下一步计划组成可复现交付。",
         "prompt": """
 一张竖版作品集证据包图，主题是“第 5 章项目交付要让别人能复现、能质疑、能继续改”。
-画面像一个打开的项目文件夹和作品集页面，文件夹卡片包括 README、run command、baseline metrics、model comparison、threshold review、error samples、leakage check、next steps。
+画面像一个打开的项目文件夹和作品集页面，文件夹卡片包括 README、运行命令、baseline 指标、模型对比、阈值复盘、错误样本、泄漏检查、下一步计划。
 强调证据不是装饰，而是项目交付的一部分。
 风格专业、干净、有作品集质感，适合放在实操课程末尾。
-文字不是主体；标准术语和文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+文字不是主体；标准术语和文件名保留英文。中文尽量用短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -2882,10 +2948,10 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
         "alt": "深度学习作品集证据包图：运行命令、shape trace、训练日志、loss 曲线、模型对比、checkpoint、复盘样本和下一步计划组成可复现交付。",
         "prompt": """
 一张竖版作品集证据包图，主题是“第 6 章项目交付要让别人能复现、能诊断、能继续改”。
-画面像一个打开的深度学习项目文件夹和作品集页面，文件夹卡片包括 run command、shape trace、training_log.csv、loss_curve.png、model comparison、checkpoint、review samples、debug checklist、next steps。
+画面像一个打开的深度学习项目文件夹和作品集页面，文件夹卡片包括运行命令、shape trace、training_log.csv、loss_curve.png、模型对比、checkpoint、复盘样本、debug 清单、下一步计划。
 强调训练证据不是装饰，而是项目交付的一部分。
 风格专业、干净、有作品集质感，适合放在实操课程末尾。
-文字不是主体；标准术语和文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+文字不是主体；标准术语和文件名保留英文。中文尽量用短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -8856,10 +8922,10 @@ Style: professional course illustration, vertical 9:16, timeline, light comic fe
         "alt": "选修实操作品集证据包图：README、运行命令、指标、失败案例、截图、改进计划和下一步任务组成可展示作品。",
         "prompt": """
 一张适合选修模块收尾练习的竖版作品集证据包图，主题是“完成选修后要留下别人能复现、能检查、能相信的材料”。
-画面像一个整洁的项目文件夹，里面有 README、run command、metrics table、failure cases、dashboard screenshot、next action、commit note 七张卡片。
+画面像一个整洁的项目文件夹，里面有 README、运行命令、指标表、失败案例、dashboard 截图、下一步任务、commit note 七张卡片。
 强调作品集不是只说学过，而是展示代码、输出、评估、风险和下一步改进。
 风格像项目交付清单和教学漫画结合，竖版、分步骤、清楚。
-文字不是主体；标准术语保留英文，例如 README、run command、metrics、failure cases、dashboard、next action、commit。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+文字不是主体；标准术语保留英文，例如 README、metrics、failure cases、dashboard、commit。其他说明尽量用少量中文短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
