@@ -39,7 +39,9 @@
 | `ch02-input-output-flow.png` | Python 输入处理输出流程图 | `docs/ch02-python/ch01-basics/04-io.md` | Python 输入处理输出流程图：input 接收用户输入，程序处理后用 f-string 和 print 展示结果。 |
 | `ch02-modules-package-structure.png` | 模块与包项目结构图 | `docs/ch02-python/ch01-basics/08-modules.md` | 模块与包项目结构图：一个 main.py 拆分为 utils、data、api 等模块，并通过 import 复用。 |
 | `ch02-file-io-serialization-flow.png` | 文件读写与序列化流程图 | `docs/ch02-python/ch02-advanced/03-file-io.md` | 文件读写与序列化流程图：内存中的 Python 数据被序列化写入文件，再读取并还原成对象。 |
-| `ch02-functional-pipeline.png` | 函数式数据流水线图 | `docs/ch02-python/ch02-advanced/04-functional.md` | 函数式数据流水线图：一组数据经过 map 转换、filter 筛选、sorted 排序得到结果。 |
+| `ch02-file-io-serialization-flow-en.png` | File I/O and Serialization Flow | `docs/ch02-python/ch02-advanced/03-file-io.md` | File I/O and serialization flow: Python data in memory is serialized, written to files, then read and restored on the next run. |
+| `ch02-file-io-serialization-flow-ja.png` | ファイル入出力とシリアライズの流れ | `docs/ch02-python/ch02-advanced/03-file-io.md` | ファイル入出力とシリアライズの流れ：メモリ内の Python データをシリアライズしてファイルに保存し、次回起動時に読み込んで復元する。 |
+| `ch02-functional-pipeline.png` | 函数式数据流水线 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch02-python/ch02-advanced/04-functional.md` | Python 函数式数据流水线：学生记录经过 map 清洗、filter 筛选及格、sorted key=lambda 按 score 排序，展示函数作为参数传入。 |
 | `ch02-generator-streaming-data.png` | 生成器流式数据处理图 | `docs/ch02-python/ch02-advanced/05-iterators-generators.md` | 生成器流式数据处理图：生成器一次只产出一个元素，适合大文件、流式数据和训练数据加载。 |
 | `ch02-type-hints-quality-flow.png` | 类型注解与代码质量流程图 | `docs/ch02-python/ch02-advanced/06-type-hints.md` | 类型注解与代码质量流程图：函数输入输出通过类型注解、编辑器提示、格式化和检查工具变得更易维护。 |
 | `ch02-todo-cli-architecture.png` | 命令行任务管理器架构图 | `docs/ch02-python/ch03-projects/01-todo-cli.md` | 命令行任务管理器架构图：用户命令被解析后读取 tasks.json，修改任务列表并保存结果。 |
@@ -50,16 +52,16 @@
 | `ch02-hands-on-json-persistence-flow.png` | JSON 文件持久化流程图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | JSON 文件持久化流程图：Task 对象列表通过 asdict 转成 JSON，写入 tasks.json，下次启动再读回对象。 |
 | `ch02-hands-on-error-debug-map.png` | Python CLI 常见错误与调试地图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | Python CLI 常见错误与调试地图：命令找不到、任务 id 不存在、JSON 损坏、路径错误和空数据分别对应不同检查点。 |
 | `ch02-hands-on-evidence-pack.png` | Python 项目作品集证据包 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | Python 项目作品集证据包：脚本、tasks.json、learning_report.md、终端输出、README 和调试记录共同证明项目可运行。 |
-| `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
-| `ch03-data-analysis-backbone.png` | 数据分析主线闭环 | `docs/ch03-data-analysis/index.md` | 数据分析主线闭环：获取数据、理解字段、清洗异常、转换聚合、可视化探索并服务建模或业务决策。 |
+| `ch03-data-visualization.png` | 数据分析与可视化 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：从原始脏数据开始，经过检查、清洗、汇总、可视化，最后形成带证据的分析结论。 |
+| `ch03-data-analysis-backbone.png` | 数据分析主线闭环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/index.md` | 数据分析主线闭环：读取、检查、清洗、汇总、可视化和解释共同形成可信结论。 |
 | `ch03-pure-python-data-flow.png` | 纯 Python 数据处理痛点图 | `docs/ch03-data-analysis/ch01-warmup/01-pure-python-data.md` | 纯 Python 数据处理痛点图：CSV 解析、字典列表、手写循环、清洗统计和输出结果串成繁琐流程。 |
-| `ch03-numpy-overview-array-engine.png` | NumPy 科学计算引擎图 | `docs/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy 科学计算引擎图：ndarray 作为底层数组能力，支撑 Pandas、可视化、机器学习和深度学习。 |
+| `ch03-numpy-overview-array-engine.png` | NumPy 是数组引擎 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy 科学计算引擎图：ndarray 作为底层数组能力，支撑 Pandas、可视化、机器学习和深度学习。 |
 | `ch03-numpy-indexing-slicing-map.png` | NumPy 索引切片地图 | `docs/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md` | NumPy 索引切片地图：基本索引、切片、布尔索引、花式索引、视图和拷贝帮助选择数组子集。 |
 | `ch03-numpy-reshape-axis-flow.png` | NumPy 变形与轴操作图 | `docs/ch03-data-analysis/ch02-numpy/05-reshaping.md` | NumPy 变形与轴操作图：同一组元素通过 reshape、转置、拼接和分割变成不同数组形状。 |
 | `ch03-numpy-linear-algebra-toolkit.png` | NumPy 线性代数工具箱 | `docs/ch03-data-analysis/ch02-numpy/06-linear-algebra.md` | NumPy 线性代数工具箱：矩阵乘法、点积、范数、解方程、特征值和余弦相似度服务 AI 计算。 |
 | `ch03-numpy-random-statistics-map.png` | NumPy 随机数与统计地图 | `docs/ch03-data-analysis/ch02-numpy/07-random-stats.md` | NumPy 随机数与统计地图：随机种子、分布、抽样、描述统计、相关性和蒙特卡洛模拟组成统计实验流程。 |
-| `ch03-pandas-roadmap.png` | Pandas 数据处理路线图 | `docs/ch03-data-analysis/ch03-pandas/00-roadmap.md` | Pandas 数据处理路线图：读入数据、看结构、选择过滤、清洗、转换、聚合、合并和输出给图表或模型。 |
-| `ch03-pandas-read-write-first-look.png` | Pandas 数据读写初次见面流程 | `docs/ch03-data-analysis/ch03-pandas/02-read-write.md` | Pandas 数据读写初次见面流程：读取文件、检查 info/head/shape、确认编码类型、分块处理和导出结果。 |
+| `ch03-pandas-roadmap.png` | Pandas 数据处理路线 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/00-roadmap.md` | Pandas 数据处理路线图：读入数据、看结构、选择过滤、清洗、转换、聚合、合并和输出给图表或模型。 |
+| `ch03-pandas-read-write-first-look.png` | 读入数据后，先检查 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/02-read-write.md` | Pandas 读写数据首检图：读取 CSV、Excel、JSON 或 SQL 后先检查 head、columns、dtypes、缺失值和行数。 |
 | `ch03-pandas-selection-filter-map.png` | Pandas 数据选择与过滤地图 | `docs/ch03-data-analysis/ch03-pandas/03-selection-filter.md` | Pandas 数据选择与过滤地图：loc、iloc、布尔条件、isin、between、query 帮助从 DataFrame 中挑出目标数据。 |
 | `ch03-pandas-cleaning-workflow.png` | Pandas 数据清洗工作流 | `docs/ch03-data-analysis/ch03-pandas/04-data-cleaning.md` | Pandas 数据清洗工作流：缺失值、重复值、异常值、类型错误和字符串脏数据被检查、记录和修复。 |
 | `ch03-pandas-transform-pipeline.png` | Pandas 数据转换流水线 | `docs/ch03-data-analysis/ch03-pandas/05-data-transform.md` | Pandas 数据转换流水线：映射、替换、apply、派生列、分箱和标准化让原始字段变成可分析特征。 |
@@ -67,32 +69,37 @@
 | `ch03-pandas-time-series-analysis.png` | Pandas 时间序列分析图 | `docs/ch03-data-analysis/ch03-pandas/08-time-series.md` | Pandas 时间序列分析图：日期解析、时间索引、重采样、滑动窗口和趋势对比帮助分析随时间变化的数据。 |
 | `ch03-visualization-roadmap.png` | 数据可视化学习路线图 | `docs/ch03-data-analysis/ch04-visualization/00-roadmap.md` | 数据可视化学习路线图：先明确表达目标，再选择图表、绘图库、标注样式并用于分析或汇报。 |
 | `ch03-plotly-interactive-dashboard.png` | Plotly 交互式仪表盘图 | `docs/ch03-data-analysis/ch04-visualization/03-plotly.md` | Plotly 交互式仪表盘图：筛选器、悬停提示、缩放、动态图表和网页展示帮助探索数据。 |
+| `ch03-plotly-interactive-dashboard-en.png` | Plotly Interactive Dashboard Diagram | `docs/ch03-data-analysis/ch04-visualization/03-plotly.md` | Plotly interactive dashboard diagram: filters, hover tooltips, zoom selection, linked charts, and a web report help users explore data. |
+| `ch03-plotly-interactive-dashboard-ja.png` | Plotly インタラクティブダッシュボード図 | `docs/ch03-data-analysis/ch04-visualization/03-plotly.md` | Plotly インタラクティブダッシュボード図：フィルタ、ホバー表示、ズーム選択、連動更新、Web レポートでデータを探索する。 |
 | `ch03-database-roadmap.png` | 数据库选修学习路线图 | `docs/ch03-data-analysis/ch05-database/00-roadmap.md` | 数据库选修学习路线图：本地文件、关系型数据库、SQL 查询、Python 连接和数据分析协作逐步连接。 |
-| `ch03-relational-database-foundation.png` | 关系型数据库基础图 | `docs/ch03-data-analysis/ch05-database/01-relational-db.md` | 关系型数据库基础图：数据库、表、行、列、主键、外键、索引和权限共同支撑可靠数据管理。 |
+| `ch03-relational-database-foundation.png` | 从表格到可靠数据库 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch05-database/01-relational-db.md` | 关系型数据库基础图：数据库、表、行、列、主键、外键、索引和权限共同支撑可靠数据管理。 |
 | `ch03-python-database-bridge.png` | Python 与数据库协作桥梁图 | `docs/ch03-data-analysis/ch05-database/03-python-db.md` | Python 与数据库协作桥梁图：Python 连接数据库、执行 SQL、取回结果、交给 Pandas 分析并写回数据。 |
-| `ch03-database-design-erd-normalization.png` | 数据库设计与范式图 | `docs/ch03-data-analysis/ch05-database/04-db-design.md` | 数据库设计与范式图：实体拆表、主键外键、范式、索引和查询场景共同减少重复和维护风险。 |
+| `ch03-database-design-erd-normalization.png` | 先分表，再连表，再补索引 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch05-database/04-db-design.md` | 数据库设计与范式图：实体拆表、主键外键、范式、索引和查询场景共同减少重复和维护风险。 |
+| `ch03-study-guide-data-loop-vertical.png` | 数据分析学习指南最小闭环 | `docs/ch03-data-analysis/study-guide.md` | 数据分析学习指南最小闭环：读取数据、检查质量、清洗问题、转换特征、可视化并解释结论。 |
+| `ch03-study-guide-data-loop-vertical-en.png` | Data Analysis Study Loop | `docs/ch03-data-analysis/study-guide.md` | Minimum data analysis study loop: read data, inspect quality, clean problems, transform features, visualize, and explain conclusions. |
+| `ch03-study-guide-data-loop-vertical-ja.png` | データ分析学習ガイドの最小ループ | `docs/ch03-data-analysis/study-guide.md` | データ分析学習ガイドの最小ループ：データを読み、品質を確認し、問題を清掃し、特徴を変換し、可視化して結論を説明する。 |
 | `ch03-hands-on-data-workshop-route.png` | 第 3 章跟做数据工作坊路线图 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 第 3 章跟做数据工作坊路线图：脏 CSV 经过清洗、分组统计、SQLite 查询、图表和报告，形成可复现证据。 |
 | `ch03-hands-on-cleaning-pipeline.png` | 学习日志数据清洗与校验流水线 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 学习日志数据清洗与校验流水线：缺失分钟、负数分钟、重复记录和主题大小写问题被检查、修复或记录。 |
 | `ch03-hands-on-groupby-sql-flow.png` | 分组统计与 SQLite 查询数据流 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 分组统计与 SQLite 查询数据流：清洗后的学习记录按 topic 聚合，并写入 SQLite 用 SQL 查询 Top 主题。 |
 | `ch03-hands-on-chart-report-flow.png` | 图表与报告输出流程 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 图表与报告输出流程：分组统计结果生成 SVG 条形图，并嵌入 HTML 报告形成可检查结论。 |
 | `ch03-hands-on-evidence-pack.png` | 数据分析作品集证据包清单 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 数据分析作品集证据包清单：脚本、原始数据、清洗数据、清洗日志、数据库、图表、报告和复盘说明组成可信交付。 |
 | `ch04-ai-math.png` | AI 数学基础主视觉 | `docs/ch04-ai-math/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |
-| `ch04-ai-math-backbone.png` | AI 数学最小必要主线图 | `docs/ch04-ai-math/index.md` | AI 数学最小必要主线图：线性代数负责表示，概率统计负责不确定性，微积分负责损失和优化。 |
+| `ch04-ai-math-backbone.png` | AI 数学最小闭环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/index.md` | AI 数学最小必要主线：向量和矩阵表示数据，概率描述不确定性，loss 衡量错误，gradient 指导参数更新。 |
 | `ch04-study-guide-math-minimum-loop.png` | AI 数学学习指南最小闭环 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习指南最小闭环：向量矩阵表示数据，概率统计衡量不确定性，导数梯度优化参数。 |
-| `ch04-linear-algebra-chapter-flow.png` | 线性代数章节关系图 | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数章节关系图：现实数据先表示成向量，再堆成矩阵，经过变换找到特征方向并连接 PCA 和神经网络。 |
+| `ch04-linear-algebra-chapter-flow.png` | 线性代数学习路径 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数章节流程：vector、matrix、dot product、matrix multiplication 和 PCA 方向依次说明数据表示与变换。 |
 | `ch04-vector-ai-meaning-map.png` | 向量 AI 含义地图 | `docs/ch04-ai-math/ch01-linear-algebra/01-vectors.md` | 向量 AI 含义地图：现实对象被写成数字向量，通过点积和余弦相似度连接推荐、搜索、RAG 和语义匹配。 |
 | `ch04-matrix-batch-transform-flow.png` | 矩阵批量变换流程图 | `docs/ch04-ai-math/ch01-linear-algebra/02-matrices.md` | 矩阵批量变换流程图：单个样本向量堆成样本矩阵，乘权重矩阵后得到批量输出。 |
 | `ch04-eigen-pca-direction-map.png` | 特征方向与 PCA 地图 | `docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md` | 特征方向与 PCA 地图：矩阵变换中少数方向不改变方向，特征值衡量拉伸倍数，PCA 用它找重要方向。 |
-| `ch04-vector-space-high-level-map.png` | 向量空间高层理解图 | `docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | 向量空间高层理解图：向量、线性无关、基、维度、线性变换和 SVD 串成更高层的线性代数视角。 |
-| `ch04-probability-chapter-flow.png` | 概率统计章节关系图 | `docs/ch04-ai-math/ch02-probability/00-roadmap.md` | 概率统计章节关系图：概率描述事件，分布描述随机现象，统计推断从数据反推规律，信息论衡量不确定性和预测误差。 |
+| `ch04-vector-space-high-level-map.png` | 向量空间高层地图 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | 向量空间高层理解图：basis、span、rank、orthogonal、SVD 和 PCA 共同解释数据空间中的方向与结构。 |
+| `ch04-probability-chapter-flow.png` | 概率统计学习路径 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/00-roadmap.md` | 概率统计章节流程：probability、distribution、inference、entropy、cross-entropy 和 KL divergence 支撑模型置信度与损失。 |
 | `ch04-probability-bayes-update-flow.png` | 概率与贝叶斯更新流程图 | `docs/ch04-ai-math/ch02-probability/01-probability-basics.md` | 概率与贝叶斯更新流程图：事件概率在获得新证据后通过条件概率和贝叶斯法则更新判断。 |
-| `ch04-distribution-random-world-map.png` | 概率分布随机现象地图 | `docs/ch04-ai-math/ch02-probability/02-distributions.md` | 概率分布随机现象地图：很多次随机结果堆起来形成分布，离散分布处理计数标签，连续分布处理噪声误差和连续特征。 |
+| `ch04-distribution-random-world-map.png` | 分布：随机现象的整体形状 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/02-distributions.md` | 概率分布随机现象地图：重复实验形成 Bernoulli、Binomial、Normal、Poisson 等分布形状，并连接到 AI 置信度与损失。 |
 | `ch04-statistical-inference-data-to-parameter.png` | 统计推断从数据到参数图 | `docs/ch04-ai-math/ch02-probability/03-statistical-inference.md` | 统计推断从数据到参数图：观测数据用于估计参数，MLE、MAP、假设检验和 A/B 测试帮助做判断。 |
 | `ch04-information-theory-loss-map.png` | 信息论到损失函数地图 | `docs/ch04-ai-math/ch02-probability/04-information-theory.md` | 信息论到损失函数地图：信息量、熵、交叉熵和 KL 散度连接到分类损失和语言模型训练。 |
 | `ch04-calculus-training-flow.png` | 微积分优化章节关系图 | `docs/ch04-ai-math/ch03-calculus/00-roadmap.md` | 微积分优化章节关系图：导数衡量变化，梯度指明方向，梯度下降更新参数，反向传播高效计算所有梯度。 |
 | `ch04-derivative-change-rate-bridge.png` | 导数变化率桥梁图 | `docs/ch04-ai-math/ch03-calculus/01-derivatives.md` | 导数变化率桥梁图：一个量的变化率连接到梯度、梯度下降和反向传播的优化主线。 |
 | `ch04-gradient-parameter-knobs-map.png` | 偏导与梯度调参旋钮图 | `docs/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient.md` | 偏导与梯度调参旋钮图：固定其他变量只看一个旋钮的影响，所有偏导合成梯度给出整体调整方向。 |
-| `ch04-gradient-descent-iteration-loop.png` | 梯度下降迭代闭环图 | `docs/ch04-ai-math/ch03-calculus/03-gradient-descent.md` | 梯度下降迭代闭环图：当前位置计算梯度，沿负梯度方向走一步，损失变小并重复直到收敛。 |
+| `ch04-gradient-descent-iteration-loop.png` | 梯度下降迭代闭环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch03-calculus/03-gradient-descent.md` | 梯度下降迭代闭环图：计算 gradient，沿负梯度方向按 learning rate 更新参数，重新计算 loss 并重复。 |
 | `ch04-backprop-chain-rule-training-bridge.png` | 反向传播链式法则桥梁图 | `docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md` | 反向传播链式法则桥梁图：前向传播算出输出和损失，损失沿计算图反向传递，用链式法则得到每个参数梯度。 |
 | `eigenvalue-special-directions.png` | 特征向量特殊方向示意图 | `docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md` | 特征向量特殊方向示意图：矩阵变换后方向不变，只发生拉伸或压缩。 |
 | `vector-space-basis-span.png` | 向量空间基向量张成示意图 | `docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | 向量空间基向量张成示意图：基向量通过线性组合覆盖可到达空间。 |
@@ -108,7 +115,7 @@
 | `ch04-hands-on-probability-simulation-flow.png` | 概率模拟与不确定性流程图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 概率模拟与不确定性流程图：true probability、random samples、batch rate、running rate 和 expected probability 展示采样波动。 |
 | `ch04-hands-on-gradient-descent-loop.png` | 梯度下降执行循环图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 梯度下降执行循环图：x 进入 loss function，计算 gradient，乘 learning rate，更新 x 并重复直到 loss 下降。 |
 | `ch04-hands-on-evidence-pack.png` | 第 4 章数学证据包图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 第 4 章数学证据包图：README、vector_similarity.csv、probability_simulation.csv、gradient_descent.csv、math_cards.md 和 SVG 图组成可复盘证据。 |
-| `ch05-machine-learning.png` | 机器学习主视觉 | `docs/ch05-machine-learning/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
+| `ch05-machine-learning.png` | 机器学习项目闭环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/index.md` | 机器学习主视觉：从定义任务、整理 feature 和 label、划分数据、训练 baseline，到评估、查看错误、用 Pipeline 改进并写报告。 |
 | `ch05-modeling-loop-backbone.png` | 机器学习建模主线闭环 | `docs/ch05-machine-learning/index.md` | 机器学习建模主线闭环：业务问题、任务定义、数据准备、baseline、指标评估、特征工程、模型改进和误差分析。 |
 | `ch05-study-guide-project-loop.png` | 机器学习学习指南项目循环 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习指南项目循环：问题、任务定义、数据划分、baseline、指标评估、特征工程、模型改进和误差分析。 |
 | `ch05-basics-chapter-flow.png` | 机器学习基础章节关系图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础章节关系图：Python 数据分析、AI 数学、机器学习基础、sklearn、监督学习、无监督学习、评估与特征工程逐步连接。 |
@@ -130,7 +137,7 @@
 | `ch05-metrics-selection-flow.png` | 评估指标选择流程图 | `docs/ch05-machine-learning/ch04-evaluation/01-metrics.md` | 评估指标选择流程图：先看分类或回归，再看错误代价，选择 Accuracy、Recall、Precision、F1、AUC、RMSE 等指标。 |
 | `ch05-cross-validation-stability-flow.png` | 交叉验证稳定评估流程图 | `docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md` | 交叉验证稳定评估流程图：一次 train/test 划分不稳定，K 折重复评估，分类任务保持类别比例，特殊任务使用特殊切分。 |
 | `ch05-bias-variance-action-map.png` | 偏差方差行动诊断图 | `docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md` | 偏差方差行动诊断图：模型效果不好时先分辨欠拟合还是过拟合，再决定加复杂度、加数据或加正则化。 |
-| `ch05-hyperparameter-tuning-workflow.png` | 超参数调优验证流程图 | `docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | 超参数调优验证流程图：先有 baseline 和验证方式，再选搜索方法、比较参数组合，最后只用测试集做最终评估。 |
+| `ch05-hyperparameter-tuning-workflow.png` | 安全的超参数调优流程 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | 超参数调优验证流程图：先划分 final holdout，在训练折内用 GridSearchCV 或 RandomizedSearchCV 搜索，由 CV score 选择，再最终检查一次。 |
 | `ch05-feature-engineering-chapter-flow.png` | 特征工程章节关系图 | `docs/ch05-machine-learning/ch05-feature-engineering/00-roadmap.md` | 特征工程章节关系图：特征理解、预处理、构造、选择和 Pipeline 逐步把原始数据变成模型容易学习的输入。 |
 | `ch05-feature-understanding-workflow.png` | 特征理解与泄漏检查图 | `docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md` | 特征理解与泄漏检查图：原始表格先识别特征类型、查看缺失分布、分析与目标关系、检查冗余和目标泄漏。 |
 | `ch05-projects-portfolio-loop.png` | 机器学习项目作品集闭环图 | `docs/ch05-machine-learning/ch06-projects/00-roadmap.md` | 机器学习项目作品集闭环图：业务问题、任务定义、数据准备、baseline、评估指标、特征工程、错误分析、结论解释和作品集报告。 |
@@ -158,7 +165,7 @@
 | `ch05-hands-on-rerun-experiment-loop.png` | 机器学习实验复跑闭环图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 机器学习实验复跑闭环图：一次只改一个变量，rerun script，比较 CV/Test 指标，记录 experiment_log，再决定保留或回滚。 |
 | `ch05-hands-on-code-execution-sequence.png` | ML 工作坊代码执行顺序图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | ML 工作坊代码执行顺序图：main 函数依次重置目录、生成数据、划分数据、构建 Pipeline、训练模型、保存报告和打印结果。 |
 | `ch05-hands-on-debug-loop.png` | ML 工作坊常见错误排查闭环图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | ML 工作坊常见错误排查闭环图：先查环境、泄漏、随机种子、类别不平衡、未知类别和阈值，再回到证据文件。 |
-| `ch05-hands-on-portfolio-pack.png` | 机器学习作品集证据包图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 机器学习作品集证据包图：README、运行命令、baseline 指标、模型对比、阈值复盘、错误样本、泄漏检查和下一步计划组成可复现交付。 |
+| `ch05-hands-on-portfolio-pack.png` | 机器学习作品集证据包 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 机器学习作品集证据包：README、config、baseline、模型对比、错误样本、泄漏检查、下一步计划和复跑记录组成可复现项目。 |
 | `ch05-project-report-storyboard.png` | 机器学习项目报告故事板 | `docs/ch05-machine-learning/ch06-projects/00-roadmap.md` | 机器学习项目报告故事板：问题定义、数据说明、baseline、指标、模型对比、错误分析、结论和下一步计划组成作品集报告。 |
 | `ml-basics-roadmap.png` | 机器学习基础学习地图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。 |
 | `math-to-ml-bridge.png` | 数学到机器学习桥梁图 | `docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。 |
@@ -182,7 +189,7 @@
 | `kaggle-submission-loop.png` | Kaggle 竞赛提交闭环图 | `docs/ch05-machine-learning/ch06-projects/04-kaggle.md` | Kaggle 竞赛提交闭环图：读取数据、建立 baseline、交叉验证、生成提交文件和复盘榜单形成训练闭环。 |
 | `ml-study-loop.png` | 机器学习学习循环图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。 |
 | `ml-task-checklist.png` | 机器学习阶段实操清单图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。 |
-| `ch06-deep-learning.png` | 深度学习与 Transformer 主视觉 | `docs/ch06-deep-learning/index.md` | 深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。 |
+| `ch06-deep-learning.png` | 深度学习训练闭环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/index.md` | 深度学习训练闭环：batch data 进入模型，forward 得到预测，loss 衡量误差，backward 计算 gradient，optimizer step 更新参数并记录曲线。 |
 | `ch06-training-loop-backbone.png` | 深度学习训练闭环主线图 | `docs/ch06-deep-learning/index.md` | 深度学习训练闭环主线图：神经网络基础、PyTorch 训练闭环、CNN、RNN、Attention、Transformer 和大模型基础逐步连接。 |
 | `ch06-study-guide-training-loop.png` | 深度学习学习指南训练闭环 | `docs/ch06-deep-learning/study-guide.md` | 深度学习学习指南训练闭环：数据、模型前向传播、损失、反向传播、优化器更新、评估和调参组成学习主线。 |
 | `ch06-nn-basics-chapter-flow.png` | 神经网络基础章节关系图 | `docs/ch06-deep-learning/ch01-nn-basics/00-roadmap.md` | 神经网络基础章节关系图：神经元、激活函数、前向反向传播、优化器、正则化和初始化逐步连接。 |
@@ -236,7 +243,7 @@
 | `ch06-training-diagnosis-dashboard-map.png` | 训练诊断仪表盘排查路线图 | `docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md` | 训练诊断仪表盘排查路线图：先看 train/val 曲线，再看学习率和 batch，继续检查预测分布、梯度、数据和标签。 |
 | `ch10-computer-vision.png` | 计算机视觉主视觉 | `docs/ch10-computer-vision/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |
 | `ch11-nlp.png` | 自然语言处理主视觉 | `docs/ch11-nlp/index.md` | 自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。 |
-| `ch07-llm-principles.png` | 大模型原理主视觉 | `docs/ch07-llm-principles/index.md` | 大模型原理主视觉：Token、Embedding、Transformer、预训练、Prompt、微调和对齐组成能力链路。 |
+| `ch07-llm-principles.png` | 从文字到答案的 LLM 路径 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/index.md` | LLM 原理路径图：文字切成 token，转成 embedding，进入 context window，经 Transformer attention 逐步预测 next token，并用 Prompt、RAG、工具和评估控制输出。 |
 | `ch07-llm-capability-backbone.png` | 大模型能力来源主线图 | `docs/ch07-llm-principles/index.md` | 大模型能力来源主线图：NLP 基础、Token 与 Embedding、Transformer、大规模预训练、Prompt、PEFT、RLHF 和可控应用逐步连接。 |
 | `ch07-study-guide-evolution-line.png` | 大模型学习指南演进线 | `docs/ch07-llm-principles/study-guide.md` | 大模型学习指南演进线：token、embedding、Transformer、预训练、Prompt、微调、对齐和可控应用组成第一遍学习主线。 |
 | `ch07-nlp-crash-chapter-flow.png` | NLP 速成章节关系图 | `docs/ch07-llm-principles/ch01-nlp-crash/00-roadmap.md` | NLP 速成章节关系图：Tokenizer、Embedding、预训练模型速览和 Hugging Face 快速上手组成大模型文本底座。 |
@@ -286,13 +293,13 @@
 | `ch07-hands-on-code-execution-trace.png` | 第 7 章工作坊代码执行顺序图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | 第 7 章工作坊代码执行顺序图：main 依次执行 build_token_trace、evaluate_prompt_versions、build_route_decisions、save_evidence 并打印 STEP 1 到 STEP 4。 |
 | `ch07-hands-on-route-decision-ladder.png` | Prompt、RAG 与微调路线阶梯图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | Prompt、RAG 与微调路线阶梯图：先看失败类型，格式问题用结构化输出，知识问题用 RAG，稳定行为问题再评估微调。 |
 | `ch07-hands-on-portfolio-evidence-pack.png` | 第 7 章作品集证据包图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | 第 7 章作品集证据包图：README、token_trace.json、prompt_eval.csv、route_decisions.json 和 failure_cases.md 组成可复现 LLM 工程证据。 |
-| `ch08-rag-engineering.png` | LLM 应用与 RAG 主视觉 | `docs/ch08-rag/index.md` | LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。 |
+| `ch08-rag-engineering.png` | RAG：先查证据再回答 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/index.md` | RAG 工程闭环：文档切块加 metadata，进入 vector index，按问题检索 top-k evidence，再让 LLM 带 citations 回答并记录 eval/logs。 |
 | `ch08-rag-system-backbone.png` | RAG 应用系统主干图 | `docs/ch08-rag/index.md` | RAG 应用系统主干图：用户问题经过查询改写、向量检索、文档召回、重排、上下文拼接、LLM 生成、引用评估和日志记录。 |
 | `ch08-ragops-improvement-loop.png` | RAGOps 持续改进闭环图 | `docs/ch08-rag/index.md` | RAGOps 持续改进闭环图：文档更新、重新解析、重建索引、固定问题评估、上线监控、失败样本、调整切分检索和效果对比形成循环。 |
 | `ch08-study-guide-four-layer-map.png` | LLM 应用四层学习地图 | `docs/ch08-rag/study-guide.md` | LLM 应用四层学习地图：知识层、模型层、应用层和工程层逐步连接，形成可运行的 RAG 应用。 |
 | `ch08-rag-position-bridge.png` | RAG 在大模型应用中的位置桥接图 | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG 位置桥接图：大模型原理、Prompt、微调、RAG、知识库问答、工具调用和 Agent 逐步连接。 |
 | `ch08-rag-core-chapter-flow.png` | RAG 核心章节学习顺序图 | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG 核心章节学习顺序图：最小闭环、文档解析清洗、Chunk 与元数据、Embedding 与向量库、召回过滤重排、上下文生成、评估优化逐步连接。 |
-| `ch08-rag-data-to-answer-pipeline.png` | RAG 从资料到答案流水线图 | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG 从资料到答案流水线图：原始文档解析清洗切块向量化入库，用户问题向量化检索重排，拼接上下文后由 LLM 生成带来源答案。 |
+| `ch08-rag-data-to-answer-pipeline.png` | 从资料到带证据的回答 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/00-roadmap.md` | RAG 从资料到回答的流水线：load docs、split chunks、metadata、embedding index、retrieve、rerank、context、answer、citations 和 evaluate。 |
 | `ch08-deployment-chapter-flow.png` | 模型部署章节学习顺序图 | `docs/ch08-rag/ch02-deployment/00-roadmap.md` | 模型部署章节学习顺序图：本地模型运行、推理服务、统一 API 入口逐步连接，让模型调用从实验变成稳定接口。 |
 | `ch08-model-serving-decision-map.png` | 模型服务选型决策图 | `docs/ch08-rag/ch02-deployment/00-roadmap.md` | 模型服务选型决策图：效果、延迟、成本、隐私、显存、量化、路由和推理优化共同决定云端、本地或混合部署方式。 |
 | `ch08-app-dev-chapter-flow.png` | LLM 应用开发章节关系图 | `docs/ch08-rag/ch03-app-dev/00-roadmap.md` | LLM 应用开发章节关系图：模型 API、RAG 知识库、工具函数、应用服务、对话系统、用户界面、反馈日志和评估逐步连接。 |
@@ -306,18 +313,18 @@
 | `ch08-workshop-chunk-execution-flow-map.png` | 第八章 RAG 工作坊 chunk_documents 执行顺序图 | `docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md` | RAG 工作坊 chunk_documents 执行顺序图：DOCUMENTS 进入句子切分，按窗口组成 chunk，写入 chunk_id、source、roles 和 text。 |
 | `ch08-workshop-retrieve-permission-branch-map.png` | 第八章 RAG 工作坊 retrieve 权限分支图 | `docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md` | RAG 工作坊 retrieve 权限分支图：query 命中 chunk 后先检查 score，再按 roles 分到 allowed_hits、blocked_hits 或 no_evidence。 |
 | `ch08-workshop-evaluation-pass-fail-flow-map.png` | 第八章 RAG 工作坊 evaluate 评测流转图 | `docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md` | RAG 工作坊 evaluate 评测流转图：EVAL_CASES 逐条运行 rag_answer，检查 status_ok 和 citation_ok，汇总 PASS、FAIL 和 passed 计数。 |
-| `ch08-rag-layer-failure-debug-map.png` | RAG 分层故障定位图 | `docs/ch08-rag/ch01-rag/01-rag-basics.md` | RAG 分层故障定位图：从文档切块、检索召回、上下文拼装到生成回答逐层定位问题。 |
+| `ch08-rag-layer-failure-debug-map.png` | RAG 错答先分层排查 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/rag-basics.md` | RAG 分层故障排查：从 parse、chunk、metadata、top-k、context 到 generation，先确认正确证据是否被切分、召回并进入 context。 |
 | `ch08-chunk-size-overlap-tradeoff-map.png` | Chunk 大小与 overlap 取舍 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/02-document-processing.md` | 切块取舍：大 chunk 保留上下文但噪声多，小 chunk 更精确但可能切断事实，overlap 保护边界但增加成本。 |
 | `ch08-courseware-chunk-metadata-schema-map.png` | 课件知识块元数据 schema 图 | `docs/ch08-rag/ch01-rag/02-document-processing.md` | 课件知识块元数据 schema 图：topic、content_type、source_origin、page_or_slide 等字段支撑概念、例题和练习的稳定组装。 |
 | `ch08-vector-record-metadata-filter-map.png` | 向量记录与 metadata 过滤 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/03-vector-databases.md` | 向量记录包含 id、vector、text、metadata 和 score；metadata filter 先缩小范围，再返回 top-k 证据。 |
 | `ch08-ann-exact-search-tradeoff-map.png` | 精确搜索与 ANN 取舍图 | `docs/ch08-rag/ch01-rag/03-vector-databases.md` | 精确搜索与 ANN 取舍图：精确搜索逐个比较更准但慢，ANN 先缩小候选范围更快但可能牺牲一点最优保证。 |
 | `ch08-hybrid-retrieval-blindspot-map.png` | 关键词检索与向量检索盲区图 | `docs/ch08-rag/ch01-rag/04-retrieval-strategies.md` | 关键词检索与向量检索盲区图：关键词适合精确术语，向量适合同义表达，Hybrid Search 结合两者减少漏召回。 |
-| `ch08-rerank-query-rewrite-funnel-map.png` | Query Rewrite 与 Rerank 双阶段漏斗图 | `docs/ch08-rag/ch01-rag/04-retrieval-strategies.md` | Query Rewrite 与 Rerank 双阶段漏斗图：query rewrite 在检索前改写问题，rerank 在粗召回后精排候选。 |
+| `ch08-rerank-query-rewrite-funnel-map.png` | Query Rewrite 与 Rerank 的位置 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch02-advanced/retrieval-strategies.md` | Query rewrite 与 rerank 对比：query rewrite 在检索前改写问题，rough recall 取候选，rerank 在检索后重排候选，再形成 final context。 |
 | `ch08-rag-optimization-debug-funnel-map.png` | RAG 优化分层排障漏斗图 | `docs/ch08-rag/ch01-rag/05-rag-optimization.md` | RAG 优化分层排障漏斗图：按文档处理、召回、上下文拼装、生成约束和引用检查逐层定位瓶颈。 |
 | `ch08-rag-experiment-eval-loop-map.png` | RAG 优化实验闭环图 | `docs/ch08-rag/ch01-rag/05-rag-optimization.md` | RAG 优化实验闭环图：固定评估集、建立 baseline、一次改一个变量、比较指标和失败样本、决定是否保留。 |
 | `ch08-advanced-rag-architecture-selection-map.png` | 高级 RAG 架构选择图 | `docs/ch08-rag/ch01-rag/06-advanced-rag.md` | 高级 RAG 架构选择图：多知识库用 Router RAG，多步骤问题用 Multi-hop RAG，自主行动用 Agentic RAG，关系链明显时考虑 Graph RAG。 |
 | `ch08-rag-evaluation-layered-dashboard-map.png` | RAG 分层评估仪表盘图 | `docs/ch08-rag/ch01-rag/07-rag-evaluation.md` | RAG 分层评估仪表盘图：检索层、生成层、引用层和系统层分别监控命中率、正确性、faithfulness、延迟和成本。 |
-| `ch08-faithfulness-citation-check-map.png` | Faithfulness 与引用真实性检查图 | `docs/ch08-rag/ch01-rag/07-rag-evaluation.md` | Faithfulness 与引用真实性检查图：把答案拆成关键结论，逐条连接到 evidence，区分 supported 与 unsupported。 |
+| `ch08-faithfulness-citation-check-map.png` | 逐条检查回答是否有证据 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch02-advanced/rag-evaluation.md` | RAG faithful citation 检查图：把回答拆成 claim，逐条连接 evidence 和 citation，区分 supported 与 unsupported，并检查 faithfulness。 |
 | `ch08-local-model-api-decision-map.png` | 本地模型与云 API 部署决策图 | `docs/ch08-rag/ch02-deployment/01-local-models.md` | 本地模型与云 API 部署决策图：隐私、成本、延迟、离线、质量和运维能力共同决定部署路线。 |
 | `ch08-inference-serving-queue-batch-map.png` | 推理服务队列与批处理图 | `docs/ch08-rag/ch02-deployment/02-inference-servers.md` | 推理服务队列与批处理图：请求进入队列，按 batch 合并执行，在 latency 与 throughput 之间做权衡。 |
 | `ch08-unified-api-provider-gateway-map.png` | 统一 API Provider Gateway 图 | `docs/ch08-rag/ch02-deployment/03-unified-api.md` | 统一 API Provider Gateway 图：业务层发统一请求，网关内部处理 provider 适配、模型路由、fallback、日志和成本统计。 |
@@ -333,11 +340,11 @@
 | `ch08-api-contract-error-version-map.png` | API 契约、错误结构与版本管理图 | `docs/ch08-rag/ch04-engineering/02-api-design.md` | API 契约图：request schema、response schema、error object、trace_id 和 version 共同组成稳定服务接口。 |
 | `ch08-observability-logs-metrics-trace-map.png` | Logs / Metrics / Trace 一起看 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/03-logging-monitoring.md` | RAG 可观测性：logs 说明发生了什么，metrics 判断是否异常，trace 看到请求走过哪里。 |
 | `ch08-docker-image-container-compose-map.png` | Docker 镜像、容器与 Compose 部署图 | `docs/ch08-rag/ch04-engineering/04-docker-deployment.md` | Docker 部署图：Dockerfile 构建 image，image 启动 container，Compose 协调 app、vector db、redis 等多个服务。 |
-| `ch08-enterprise-kb-permission-citation-map.png` | 企业知识库权限与引用闭环图 | `docs/ch08-rag/ch05-projects/01-enterprise-kb.md` | 企业知识库权限与引用闭环图：用户权限先过滤候选文档，检索和生成后答案必须带来源引用并记录审计日志。 |
+| `ch08-enterprise-kb-permission-citation-map.png` | 企业知识库先过权限门 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-production/enterprise-kb.md` | 企业知识库权限与引用图：user role 先经过 permission filter，blocked docs 被挡住，allowed docs 才进入 retrieve/rerank，回答带 citations 和 audit log。 |
 | `ch08-rag-finetune-responsibility-split-map.png` | RAG 与微调职责拆分图 | `docs/ch08-rag/ch05-projects/02-domain-rag-finetuning.md` | RAG 与微调职责拆分图：RAG 负责知识更新和来源引用，fine-tuning 负责回答风格、格式稳定和业务口径。 |
 | `ch08-assistant-session-tool-trace-map.png` | 智能助手 session、检索与工具 Trace 图 | `docs/ch08-rag/ch05-projects/03-intelligent-assistant.md` | 智能助手 session、检索与工具 Trace 图：多轮对话中 session state、retrieval、tool call、answer 和 state update 共同形成持续协作闭环。 |
 | `ch08-courseware-assistant-production-line-map.png` | 课件生成助手生产线图 | `docs/ch08-rag/ch05-projects/04-courseware-assistant.md` | 课件生成助手生产线图：PDF/Word/PPT 资料入库，解析成知识块，检索主题和例题，生成 courseware schema，再导出 Word。 |
-| `ch09-agent-systems.png` | AI Agent 系统主视觉 | `docs/ch09-agent/index.md` | AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。 |
+| `ch09-agent-systems.png` | Agent 是受控执行循环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-ai-agents/index.md` | Agent 系统执行循环：goal、state、plan、tool call、observation、memory、trace 和 stop check 共同组成受控执行过程。 |
 | `ch09-agent-vs-workflow-backbone.png` | Agent 与普通应用执行主线图 | `docs/ch09-agent/index.md` | Agent 与普通应用执行主线图：目标、任务理解、计划、工具选择、执行动作、观察结果、重新规划和输出记录组成 Agent 执行闭环。 |
 | `ch09-agentops-control-loop.png` | AgentOps 可控执行闭环图 | `docs/ch09-agent/index.md` | AgentOps 可控执行闭环图：用户目标、任务边界、计划步骤、工具白名单、执行观察、日志成本、高风险判断、人工确认和继续完成组成可控闭环。 |
 | `ch09-study-guide-minimal-agent-loop.png` | 最小 Agent 学习闭环图 | `docs/ch09-agent/study-guide.md` | 最小 Agent 学习闭环图：目标、计划、工具调用、观察结果、更新状态、判断完成和输出结果形成单 Agent 闭环。 |
@@ -392,7 +399,7 @@
 | `ch09-long-term-memory-write-update-policy-map.png` | 长期记忆写入、更新与置信度图 | `docs/ch09-agent/ch04-memory/03-long-term-memory.md` | 长期记忆写入、更新与置信度图：信息先经过写入判断，再带 confidence 和 version 更新，最后按任务检索。 |
 | `ch09-memory-engineering-lifecycle-map.png` | 记忆工程生命周期图 | `docs/ch09-agent/ch04-memory/05-memory-engineering.md` | 记忆工程生命周期图：write、index、retrieve、cleanup、compress 和 privacy control 组成记忆工程闭环。 |
 | `ch09-mcp-host-client-server-message-flow-map.png` | MCP 工具发现与调用消息流图 | `docs/ch09-agent/ch05-mcp/02-mcp-architecture.md` | MCP 工具发现与调用消息流图：Host、Client、Transport、Server 之间先 tools/list，再 tools/call，返回结构化结果。 |
-| `ch09-mcp-server-tool-contract-map.png` | MCP Server 工具契约图 | `docs/ch09-agent/ch05-mcp/03-mcp-server-dev.md` | MCP Server 工具契约图：list_tools、validate args、call_tool、execute logic、normalize result 和 error response 形成服务端契约。 |
+| `ch09-mcp-server-tool-contract-map.png` | MCP Server 是工具契约门卫 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-ai-agents/ch04-mcp/mcp-server.md` | MCP Server 工具契约图：list_tools 暴露 schema，call_tool 带参数进入 validate，通过后 execute，返回 standard result，错误结构化。 |
 | `ch09-langgraph-state-machine-map.png` | LangGraph 状态机与条件边图 | `docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md` | LangGraph 状态机与条件边图：state 在节点间流动，conditional edges 根据状态决定 retrieve、answer、fallback 或 retry。 |
 | `ch09-framework-selection-decision-map.png` | Agent 框架选型决策图 | `docs/ch09-agent/ch06-frameworks/08-framework-selection.md` | Agent 框架选型决策图：根据 stateful flow、knowledge/RAG、role collaboration、prototype speed 和 long-term maintenance 选择框架。 |
 | `ch09-multi-agent-pattern-selection-map.png` | 多 Agent 架构模式选择图 | `docs/ch09-agent/ch07-multi-agent/01-architecture-patterns.md` | 多 Agent 架构模式选择图：supervisor-worker、pipeline、reviewer、peer/group 根据任务分工和控制需求选择。 |
@@ -403,12 +410,12 @@
 | `ch09-agent-observability-trace-span-map.png` | Agent 可观测 Trace Span 图 | `docs/ch09-agent/ch08-eval-safety/05-observability.md` | Agent 可观测 Trace Span 图：一个 request_id 串起 planner、retriever、tool call、LLM、safety 和 final answer 多个 span。 |
 | `ch09-agent-runtime-state-queue-map.png` | Agent 部署架构分层数据流图 | `docs/ch09-agent/ch09-deployment/01-deployment-architecture.md` | Agent 部署架构分层数据流图：API Gateway、Orchestrator、Queue、Worker、Tool Executor、State Store、Trace Metrics 组成生产架构。 |
 | `ch09-agent-persistence-checkpoint-eventlog-map.png` | Agent Checkpoint、Event Log 与恢复图 | `docs/ch09-agent/ch09-deployment/03-persistence-recovery.md` | Agent Checkpoint、Event Log 与恢复图：任务每步写 checkpoint 和 event log，崩溃后按 checkpoint 恢复并用幂等键避免重复副作用。 |
-| `ch09-agent-cost-routing-cache-budget-map.png` | Agent 成本路由、缓存与预算控制图 | `docs/ch09-agent/ch09-deployment/04-cost-optimization.md` | Agent 成本路由、缓存与预算控制图：模型调用、工具调用、缓存命中、重试、上下文长度和预算上限共同决定链路成本。 |
+| `ch09-agent-cost-routing-cache-budget-map.png` | Agent 成本控制路线 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-ai-agents/ch03-production/cost-control.md` | Agent 成本控制图：cache hit、model routing、context trim、tool budget、retry guard 和 large model 路径共同降低任务链成本。 |
 | `ch09-production-readiness-canary-rollback-map.png` | Agent 生产 Readiness、灰度与回滚图 | `docs/ch09-agent/ch09-deployment/05-production-best-practices.md` | Agent 生产 Readiness、灰度与回滚图：metrics、logs、timeout、rate limit、eval suite、canary、rollback、human override、audit log 组成上线检查。 |
 | `ch09-research-assistant-citation-trace-map.png` | 研究助手引用 Trace 图 | `docs/ch09-agent/ch10-projects/01-research-assistant.md` | 研究助手引用 Trace 图：query、retrieve、select sources、summarize claims、attach citations、verify claims 形成可信研究助手。 |
 | `ch09-data-analysis-agent-notebook-loop-map.png` | 数据分析 Agent 可复核工作流图 | `docs/ch09-agent/ch10-projects/02-data-analysis-agent.md` | 数据分析 Agent 可复核工作流图：load data、profile schema、compute statistics、generate insight、suggest chart、write report 构成分析闭环。 |
 | `ch09-multi-agent-dev-team-delivery-map.png` | 多 Agent 开发团队交付闭环图 | `docs/ch09-agent/ch10-projects/03-multi-agent-dev-team.md` | 多 Agent 开发团队交付闭环图：planner 产出 plan，coder 产出 patch，reviewer 产出 issues，tester 产出 test report，失败后回退修复。 |
-| `ch12-multimodal-aigc.png` | AIGC 与多模态主视觉 | `docs/ch12-multimodal/index.md` | AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。 |
+| `ch12-multimodal-aigc.png` | 多模态 AIGC 工作台 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md` | 多模态 AIGC 工作流：PDF、截图、图表、音频、视频和文本变成 structured records，再连接 RAG、Agent、生成编辑、审核和导出。 |
 | `ch10-visual-task-progression-map.png` | 视觉任务输出粒度进阶图 | `docs/ch10-computer-vision/index.md` | 视觉任务输出粒度进阶图：图像基础、OpenCV、图像分类、目标检测、图像分割、OCR 视频 3D 和视觉综合项目由粗到细连接。 |
 | `ch10-study-guide-output-granularity-map.png` | 视觉输出粒度学习指南图 | `docs/ch10-computer-vision/study-guide.md` | 视觉输出粒度学习指南图：图像基础、分类、检测、分割、OCR 视频 3D 按输出粒度逐步升级。 |
 | `ch10-cv-basics-chapter-flow.png` | 视觉基础章节学习顺序图 | `docs/ch10-computer-vision/ch01-cv-basics/00-roadmap.md` | 视觉基础章节学习顺序图：图像是什么、OpenCV 读写查看图像、基础图像处理逐步连接。 |
@@ -425,8 +432,8 @@
 | `ch10-opencv-bgr-coordinate-crop-map.png` | OpenCV BGR、坐标与裁剪顺序图 | `docs/ch10-computer-vision/ch01-cv-basics/02-opencv-basics.md` | OpenCV BGR、坐标与裁剪顺序图：BGR 与 RGB 转换、图像数组先 y 后 x、crop 写作 y1:y2 x1:x2。 |
 | `ch10-image-processing-operation-decision-map.png` | 经典图像处理操作选择图 | `docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md` | 经典图像处理操作选择图：去噪用 blur，高斯滤波，边缘检测，阈值化，形态学开闭运算形成像素规则流水线。 |
 | `ch10-augmentation-invariance-risk-map.png` | 数据增强不变性与语义风险图 | `docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md` | 数据增强不变性与语义风险图：合理变换保持标签，过度旋转裁剪可能破坏语义，检测和分割要同步 box mask。 |
-| `ch10-classification-architecture-evolution-map.png` | 图像分类架构演进与选择图 | `docs/ch10-computer-vision/ch02-classification/02-modern-architectures.md` | 图像分类架构演进与选择图：VGG、ResNet、EfficientNet、ConvNeXt 分别解决深度、可训练性、效率和现代卷积路线。 |
-| `ch10-classification-training-diagnosis-map.png` | 图像分类训练诊断矩阵图 | `docs/ch10-computer-vision/ch02-classification/03-training-tricks.md` | 图像分类训练诊断矩阵图：数据问题、训练问题和评估问题通过 loss 曲线、混淆矩阵、错误样本和泄漏检查定位。 |
+| `ch10-classification-architecture-evolution-map.png` | 分类架构演进不是排行榜 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch02-classification/02-modern-architectures.md` | 图像分类架构演进图：VGG、ResNet、EfficientNet、ConvNeXt 按问题演进排列，并说明初学项目先选 ResNet baseline。 |
+| `ch10-classification-training-diagnosis-map.png` | 分类训练问题诊断 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch02-classification/03-training-tricks.md` | 图像分类训练诊断图：检查 data split、augmentation、loss curves、learning rate、confusion matrix 和 wrong samples，再决定是否换 backbone。 |
 | `ch10-detection-output-iou-error-map.png` | 目标检测输出、IoU 与错误类型图 | `docs/ch10-computer-vision/ch03-detection/01-detection-overview.md` | 目标检测输出、IoU 与错误类型图：class、box、score、IoU、false positive、false negative、localization error 和 duplicate boxes。 |
 | `ch10-classic-detectors-shared-feature-map.png` | R-CNN 家族共享特征演进图 | `docs/ch10-computer-vision/ch03-detection/02-classic-detectors.md` | R-CNN 家族共享特征演进图：R-CNN 每个候选框单独提特征，Fast R-CNN 共享整图特征，Faster R-CNN 学习 proposal。 |
 | `ch10-yolo-threshold-nms-map.png` | YOLO 候选框、阈值与 NMS 图 | `docs/ch10-computer-vision/ch03-detection/03-yolo-series.md` | YOLO 候选框、阈值与 NMS 图：模型输出多个候选框，经 score threshold 和 NMS 去重后得到最终检测框。 |
@@ -447,7 +454,7 @@
 | `ch11-classification-chapter-flow.png` | 文本分类章节学习顺序图 | `docs/ch11-nlp/ch03-classification/00-roadmap.md` | 文本分类章节学习顺序图：传统方法、深度学习方法和分类实战逐步连接。 |
 | `ch11-sequence-labeling-chapter-flow.png` | 序列标注章节学习顺序图 | `docs/ch11-nlp/ch04-sequence-labeling/00-roadmap.md` | 序列标注章节学习顺序图：HMM 历史背景、NER、BiLSTM-CRF 和序列标注实践逐步连接。 |
 | `ch11-hmm-crf-sequence-history-map.png` | HMM CRF 序列标注历史地图 | `docs/ch11-nlp/ch04-sequence-labeling/04-hmm-crf-history.md` | HMM CRF 序列标注历史地图：HMM、Viterbi、CRF、BiLSTM-CRF 和 BERT token classification 逐步连接。 |
-| `ch11-seq2seq-chapter-flow.png` | Seq2Seq 与注意力章节学习顺序图 | `docs/ch11-nlp/ch05-seq2seq/00-roadmap.md` | Seq2Seq 与注意力章节学习顺序图：Encoder-Decoder、Attention、机器翻译和生成任务逐步连接。 |
+| `ch11-seq2seq-chapter-flow.png` | Seq2Seq：输入序列到输出序列 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch05-seq2seq/00-roadmap.md` | Seq2Seq 与 attention 路线图：input sequence 进入 encoder，decoder 逐步生成 output token，attention 回看输入，用于翻译、摘要、改写、对话和纠错。 |
 | `ch11-ctc-deep-speech-asr-map.png` | CTC Deep Speech 语音识别对齐图 | `docs/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md` | CTC Deep Speech 语音识别对齐图：长音频帧经过模型输出带 blank 和重复的路径，再折叠成最终文字。 |
 | `ch11-pretrained-chapter-flow.png` | 预训练语言模型章节学习顺序图 | `docs/ch11-nlp/ch06-pretrained/00-roadmap.md` | 预训练语言模型章节学习顺序图：预训练范式、BERT、GPT、T5 和 Transformers 库逐步连接。 |
 | `ch11-projects-delivery-loop.png` | NLP 项目交付闭环图 | `docs/ch11-nlp/ch07-projects/00-roadmap.md` | NLP 项目交付闭环图：任务定义、标签或 schema、数据样例、模型或 Prompt、评估指标、错误文本、事实检查和项目 README 形成闭环。 |
@@ -510,7 +517,7 @@
 | `courseware-assistant-workflow.png` | 课件生成助手工作流图 | `docs/ch08-rag/ch05-projects/04-courseware-assistant.md` | 课件生成助手工作流图：主题输入、资料检索、例题抽取、结构化生成和 Word 模板导出。 |
 | `agent-tool-trace.png` | Agent 工具调用 Trace 图 | `docs/ch09-agent/ch03-tools/08-multi-tool-practice.md` | Agent 工具调用 Trace 图：计划、工具选择、参数、观察结果和最终回复串成可回放轨迹。 |
 | `agent-guardrails-layers.png` | Agent 护栏分层图 | `docs/ch09-agent/ch08-eval-safety/04-guardrails.md` | Agent 护栏分层图：输入、检索、工具、输出和人工确认构成多层安全边界。 |
-| `diffusion-noise-denoise.png` | 扩散模型加噪去噪图 | `docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md` | 扩散模型加噪去噪图：图像逐步加噪，再从噪声中一步步去噪生成图像。 |
+| `diffusion-noise-denoise.png` | Diffusion：先加噪，再学会去噪 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/01-diffusion-models.md` | 扩散模型加噪去噪图：forward noising 把真实图像逐步变成 noise，training target 学预测噪声，reverse denoising 从 random noise 生成图像。 |
 | `matplotlib-figure-axes.png` | Matplotlib Figure 与 Axes 结构图 | `docs/ch03-data-analysis/ch04-visualization/01-matplotlib.md` | Matplotlib Figure 与 Axes 结构图：画布、子图、坐标轴、标题、图例和数据线之间的关系。 |
 | `seaborn-statistical-plots.png` | Seaborn 统计图选择图 | `docs/ch03-data-analysis/ch04-visualization/02-seaborn.md` | Seaborn 统计图选择图：分布、关系、类别、矩阵和分面图对应不同数据分析问题。 |
 | `sql-table-join-map.png` | SQL 表连接关系图 | `docs/ch03-data-analysis/ch05-database/02-sql-basics.md` | SQL 表连接关系图：用户表、订单表和商品表通过主键外键关联，并通过查询得到分析结果。 |
@@ -665,7 +672,7 @@
 | `ch09-agent-execution-loop.png` | Agent 一轮怎么执行 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/index.md` | Agent 执行闭环：用户目标、状态记忆、计划下一步、工具调用、观察结果、更新状态、停止条件和 trace log。 |
 | `ch10-vision-pipeline-loop.png` | 视觉流水线与失败复盘 | `docs/ch10-computer-vision/index.md` | 视觉项目流水线：raw image、crop/preprocess、模型输出、box/mask/OCR、人工 review、失败复盘。 |
 | `ch11-text-to-task-pipeline.png` | 文本如何变成 NLP 任务输出 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/index.md` | 文本进入 NLP 系统：raw document、tokens、embedding、annotation、extraction、summary、retrieval QA 和 evaluation。 |
-| `ch12-multimodal-workflow-loop.png` | 多模态资料如何合成一个结果 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md` | 多模态工作流：text/PDF、image/screenshot、audio waveform、video frames、align、understand、human review 和 report package。 |
+| `ch12-multimodal-workflow-loop.png` | 多模态项目工作流 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md` | 多模态工作流闭环：Input 记录 source/license/version，Parse align 做 OCR/layout/visual/transcript，保留 refs，再 Understand generate、Review 和 Export。 |
 | `ch07-token-to-answer-lifecycle-en.png` | How One Token Becomes an Answer | `docs/ch07-llm-principles/index.md` | A token generation lifecycle: prompt tokens, context window, transformer layers, logits and probabilities, decoder, and answer check. |
 | `ch07-token-to-answer-lifecycle-ja.png` | 1つの token が答えになるまで | `i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/index.md` | Token 生成の流れ：入力 token、context window、Transformer 層、logits と確率、decoder、回答チェック。 |
 | `ch08-async-concurrency-semaphore-timeout-map-en.png` | Controlled Concurrency: Semaphore + Timeout | `docs/ch08-rag/ch04-engineering/01-async-programming.md` | Controlled async concurrency: queue tasks, pass through a semaphore gate, call APIs, cancel slow work with timeout, summarize errors, and return stable results. |
@@ -695,8 +702,8 @@
 | `ch11-nlp-task-output-map-ja.png` | NLP タスク出力マップ | `i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/index.md` | NLP タスクの出力形：classification label、entity JSON、summary paragraph、source 付き QA answer、comparison score。 |
 | `ch11-text-to-task-pipeline-en.png` | Text to NLP Task Pipeline | `docs/ch11-nlp/index.md` | Text to NLP pipeline: raw document, tokens, embedding, annotation, extraction, summary, retrieval QA, and evaluation. |
 | `ch11-text-to-task-pipeline-ja.png` | テキストから NLP タスク出力へ | `i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/index.md` | テキストが NLP システムへ入る流れ：raw document、tokens、embedding、annotation、extraction、summary、retrieval QA、evaluation。 |
-| `ch12-multimodal-workflow-loop-en.png` | Multimodal Workflow Loop | `docs/ch12-multimodal/index.md` | Multimodal workflow: text/PDF, image/screenshot, audio waveform, video frames, alignment, understanding, human review, and report package. |
-| `ch12-multimodal-workflow-loop-ja.png` | マルチモーダル資料を1つの結果にする | `i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md` | マルチモーダル workflow：text/PDF、image/screenshot、audio waveform、video frames、align、understand、human review、report package。 |
+| `ch12-multimodal-workflow-loop-en.png` | Multimodal Project Workflow | `docs/ch12-multimodal/index.md` | Multimodal workflow loop: Input records source/license/version, Parse align runs OCR/layout/visual/transcript, refs preserve page/region/time, then understand generate, review, and export. |
+| `ch12-multimodal-workflow-loop-ja.png` | マルチモーダルプロジェクトの流れ | `i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md` | マルチモーダル workflow：Input で source/license/version、Parse align で OCR/layout/visual/transcript、refs で page/region/time を残し、Understand generate、Review、Export へ進む。 |
 | `ch01-terminal-pipe-redirection-path-en.png` | Terminal Data Flow | `docs/ch01-tools/ch01-terminal/02-basic-operations.md` | Terminal data flow: pipe sends output to the next command, grep filters text, wc counts lines, redirection saves evidence, and PATH resolves commands. |
 | `ch01-terminal-pipe-redirection-path.png` | 终端数据流 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch01-tools/ch01-terminal/02-basic-operations.md` | 终端数据流图：管道把输出交给下一条命令，grep 过滤文本，wc 计数，重定向保存证据，PATH 解析命令位置。 |
 | `ch01-terminal-pipe-redirection-path-ja.png` | Terminal のデータ流 | `i18n/ja/docusaurus-plugin-content-docs/current/ch01-tools/ch01-terminal/02-basic-operations.md` | Terminal のデータ流：pipe が出力を次のコマンドへ渡し、grep が絞り込み、wc が数え、redirect が保存し、PATH がコマンドを解決する。 |
@@ -730,3 +737,72 @@
 | `ch04-pvalue-null-distribution-en.png` | p-value Under H0 | `docs/ch04-ai-math/ch02-probability/03-statistical-inference.md` | p-value intuition: under H0, simulated no-difference experiments form a distribution, the observed result sits in a tail, and tail area is the p-value. |
 | `ch04-pvalue-null-distribution.png` | 零假设下的 p-value | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/03-statistical-inference.md` | p-value 直觉图：在零假设 H0 下模拟无差异实验形成分布，真实观测结果落在尾部，尾部面积就是 p-value。 |
 | `ch04-pvalue-null-distribution-ja.png` | H0 のもとでの p-value | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/03-statistical-inference.md` | p-value の直感：H0 のもとで無差の実験をシミュレーションして分布を作り、観測結果の尾部面積を p-value として見る。 |
+| `ch02-functional-pipeline-en.png` | Functional Data Pipeline | `docs/ch02-python/ch02-advanced/04-functional.md` | Python functional data pipeline: student records pass through map cleaning, filter for passing scores, sorted key=lambda by score, showing functions passed as arguments. |
+| `ch02-functional-pipeline-ja.png` | 関数型データパイプライン | `i18n/ja/docusaurus-plugin-content-docs/current/ch02-python/ch02-advanced/04-functional.md` | Python 関数型データパイプライン：学生 records を map で整形し、filter で合格点を残し、sorted key=lambda で score 順に並べる。 |
+| `ch03-numpy-overview-array-engine-en.png` | NumPy Is the Array Engine | `docs/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy scientific computing engine diagram: ndarray is the array base supporting Pandas, visualization, machine learning, and deep learning. |
+| `ch03-numpy-overview-array-engine-ja.png` | NumPy は配列エンジン | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy 科学計算エンジン図：ndarray が Pandas、可視化、機械学習、深層学習を支える配列基盤になる。 |
+| `ch03-pandas-roadmap-en.png` | Pandas Data Processing Roadmap | `docs/ch03-data-analysis/ch03-pandas/00-roadmap.md` | Pandas roadmap: read, inspect, select, clean, transform, group, merge, and export data for charts or models. |
+| `ch03-pandas-roadmap-ja.png` | Pandas データ処理ロードマップ | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/00-roadmap.md` | Pandas データ処理ロードマップ：read、inspect、select、clean、transform、group、merge、export。 |
+| `ch03-pandas-read-write-first-look-en.png` | After Reading Data, Check First | `docs/ch03-data-analysis/ch03-pandas/02-read-write.md` | Pandas read/write first-look workflow: load data, then check head, columns, dtypes, missing values, and row count. |
+| `ch03-pandas-read-write-first-look-ja.png` | 読み込んだら、まず確認 | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch03-pandas/02-read-write.md` | Pandas 読み書きの初回確認：読み込み後に head、columns、dtypes、欠損値、行数を確認する。 |
+| `ch03-relational-database-foundation-en.png` | From Spreadsheet to Reliable Database | `docs/ch03-data-analysis/ch05-database/01-relational-db.md` | Relational database foundation: tables, rows, columns, primary keys, foreign keys, indexes, transactions, permissions, and backup. |
+| `ch03-relational-database-foundation-ja.png` | 表計算から信頼できるデータベースへ | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch05-database/01-relational-db.md` | 関係データベース基礎：table、row、column、primary key、foreign key、index、transaction、permission が信頼性を支える。 |
+| `ch03-database-design-erd-normalization-en.png` | Split Tables, Link Them, Then Add Indexes | `docs/ch03-data-analysis/ch05-database/04-db-design.md` | Database design and normalization: split entities into tables, connect them with keys, then add indexes for query paths. |
+| `ch03-database-design-erd-normalization-ja.png` | 表を分け、つなぎ、索引を足す | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/ch05-database/04-db-design.md` | データベース設計と正規化：entity を表に分け、key でつなぎ、index を加えて保守性を上げる。 |
+| `ch03-data-analysis-backbone-en.png` | The Data Analysis Loop | `docs/ch03-data-analysis/index.md` | Data analysis loop: read, inspect, clean, summarize, visualize, and explain to reach trustworthy conclusions. |
+| `ch03-data-analysis-backbone-ja.png` | データ分析のメインループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/index.md` | データ分析のメインループ：read、inspect、clean、summarize、visualize、explain で信頼できる結論へ進む。 |
+| `ch03-data-visualization-en.png` | Data Analysis and Visualization | `docs/ch03-data-analysis/index.md` | Data analysis and visualization: raw messy data is inspected, cleaned, summarized, visualized, and turned into an evidence-backed conclusion. |
+| `ch03-data-visualization-ja.png` | データ分析と可視化 | `i18n/ja/docusaurus-plugin-content-docs/current/ch03-data-analysis/index.md` | データ分析と可視化：乱れた生データを確認、クリーニング、集計、可視化し、証拠つきの結論へ進む。 |
+| `ch04-ai-math-backbone-en.png` | Minimum AI Math Loop | `docs/ch04-ai-math/index.md` | AI math backbone: vectors and matrices represent data, probability describes uncertainty, loss measures error, and gradients update parameters. |
+| `ch04-ai-math-backbone-ja.png` | AI 数学の最小ループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/index.md` | AI 数学の最小ループ：ベクトルと行列がデータを表し、確率が不確かさを表し、loss が誤差を測り、gradient が更新方向を示す。 |
+| `ch04-linear-algebra-chapter-flow-en.png` | Linear Algebra Learning Path | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | Linear algebra chapter flow: vector, matrix, dot product, matrix multiplication, and PCA direction explain representation and transformation. |
+| `ch04-linear-algebra-chapter-flow-ja.png` | 線形代数の学習ルート | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 線形代数章の流れ：vector、matrix、dot product、matrix multiplication、PCA 方向で表現と変換を学ぶ。 |
+| `ch04-vector-space-high-level-map-en.png` | Vector Space High-Level Map | `docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | High-level vector space map: basis, span, rank, orthogonal directions, SVD, and PCA explain structure in data space. |
+| `ch04-vector-space-high-level-map-ja.png` | ベクトル空間の高次マップ | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | ベクトル空間の高次理解：basis、span、rank、orthogonal、SVD、PCA がデータ空間の方向と構造を説明する。 |
+| `ch04-probability-chapter-flow-en.png` | Probability and Statistics Path | `docs/ch04-ai-math/ch02-probability/00-roadmap.md` | Probability and statistics chapter flow: probability, distribution, inference, entropy, cross-entropy, and KL divergence support confidence and loss. |
+| `ch04-probability-chapter-flow-ja.png` | 確率統計の学習ルート | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/00-roadmap.md` | 確率統計章の流れ：probability、distribution、inference、entropy、cross-entropy、KL divergence が confidence と loss を支える。 |
+| `ch04-distribution-random-world-map-en.png` | Distribution: Shape of Randomness | `docs/ch04-ai-math/ch02-probability/02-distributions.md` | Probability distribution map: repeated random outcomes form Bernoulli, Binomial, Normal, and Poisson shapes connected to AI confidence and loss. |
+| `ch04-distribution-random-world-map-ja.png` | 分布：ランダム現象の全体形 | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch02-probability/02-distributions.md` | 確率分布のランダム現象マップ：反復実験が Bernoulli、Binomial、Normal、Poisson の形を作り、AI の confidence と loss につながる。 |
+| `ch04-gradient-descent-iteration-loop-en.png` | Gradient Descent Loop | `docs/ch04-ai-math/ch03-calculus/03-gradient-descent.md` | Gradient descent loop: compute gradient, move opposite it with a learning rate, recompute loss, and repeat until nearly flat. |
+| `ch04-gradient-descent-iteration-loop-ja.png` | 勾配降下の反復ループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch04-ai-math/ch03-calculus/03-gradient-descent.md` | 勾配降下の反復ループ：gradient を計算し、learning rate で負の方向へ更新し、loss を再計算して繰り返す。 |
+| `ch05-machine-learning-en.png` | Machine Learning Project Loop | `docs/ch05-machine-learning/index.md` | Machine learning project loop: define task, prepare features and labels, split data, train baseline, evaluate, inspect errors, improve with Pipeline, and report. |
+| `ch05-machine-learning-ja.png` | 機械学習プロジェクトループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/index.md` | 機械学習プロジェクトループ：task 定義、feature と label、データ分割、baseline、評価、誤り確認、Pipeline 改善、レポート。 |
+| `ch05-hyperparameter-tuning-workflow-en.png` | Safe Hyperparameter Tuning Flow | `docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | Safe hyperparameter tuning workflow: split final holdout first, search train folds with GridSearchCV or RandomizedSearchCV, choose by CV score, and check once. |
+| `ch05-hyperparameter-tuning-workflow-ja.png` | 安全なハイパーパラメータ調整 | `i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | ハイパーパラメータ調整の安全フロー：final holdout を先に分け、train fold 内で GridSearchCV または RandomizedSearchCV を使い、CV score で選ぶ。 |
+| `ch05-hands-on-portfolio-pack-en.png` | Machine Learning Portfolio Evidence Pack | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | Machine learning portfolio evidence pack: README, config, baseline, model comparison, error buckets, leakage check, next steps, and rerun note. |
+| `ch05-hands-on-portfolio-pack-ja.png` | 機械学習ポートフォリオ証拠パック | `i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 機械学習ポートフォリオ証拠パック：README、config、baseline、model comparison、error buckets、leakage check、next steps、rerun note。 |
+| `ch06-deep-learning-en.png` | Deep Learning Training Loop | `docs/ch06-deep-learning/index.md` | Deep learning training loop: batch data enters the model, forward predicts, loss measures error, backward computes gradients, optimizer step updates weights, and curves are logged. |
+| `ch06-deep-learning-ja.png` | 深層学習の訓練ループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/index.md` | 深層学習の訓練ループ：batch data、forward、loss、backward、optimizer step、curves と log。 |
+| `ch07-llm-principles-en.png` | LLM Path from Text to Answer | `docs/ch07-llm-principles/index.md` | LLM principle path: text becomes tokens, embeddings enter a context window, Transformer attention predicts next tokens, and prompt, RAG, tools, and eval control output. |
+| `ch07-llm-principles-ja.png` | 文字から回答までの LLM 経路 | `i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/index.md` | LLM の経路：文字を token にし、embedding と context window を通し、Transformer attention が next token を予測し、Prompt、RAG、tool、eval で制御する。 |
+| `ch08-rag-engineering-en.png` | RAG: Read Evidence Before Answering | `docs/ch08-rag/index.md` | RAG engineering loop: documents become chunks with metadata, enter a vector index, retrieve top-k evidence for a question, answer with citations, and improve through eval logs. |
+| `ch08-rag-engineering-ja.png` | RAG：根拠を読んでから答える | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/index.md` | RAG エンジニアリング：documents を chunks と metadata にし、vector index で top-k evidence を検索し、citations 付き回答と eval logs で改善する。 |
+| `ch08-rag-app-loop.png` | RAG 应用五层闭环 | `i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/index.md` | RAG 应用五层闭环：知识层、检索层、生成层、应用层和运维层通过 eval、log、cost、latency 与 failure 反馈持续改进。 |
+| `ch08-rag-app-loop-en.png` | Five-Layer RAG Application Loop | `docs/ch08-rag/index.md` | Five-layer RAG app loop: knowledge, retrieval, generation, application, and operations use eval, logs, cost, latency, and failures to improve the system. |
+| `ch08-rag-app-loop-ja.png` | RAG アプリの五層ループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/index.md` | RAG アプリ五層ループ：知識層、検索層、生成層、アプリ層、運用層が eval、log、cost、latency、failure で改善する。 |
+| `ch08-rag-data-to-answer-pipeline-en.png` | From Source Material to Evidence-Backed Answer | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG data-to-answer pipeline: load docs, split chunks, add metadata, build embedding index, retrieve, rerank, assemble context, answer, cite, and evaluate. |
+| `ch08-rag-data-to-answer-pipeline-ja.png` | 資料から根拠付き回答へ | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/00-roadmap.md` | RAG の資料から回答まで：load docs、split chunks、metadata、embedding index、retrieve、rerank、context、answer、cite、evaluate。 |
+| `ch08-rerank-query-rewrite-funnel-map-en.png` | Where Query Rewrite and Rerank Happen | `docs/ch08-rag/ch02-advanced/retrieval-strategies.md` | Query rewrite and rerank funnel: rewrite modifies the question before retrieval, rough recall fetches candidates, rerank reorders them, and final context goes to the LLM. |
+| `ch08-rerank-query-rewrite-funnel-map-ja.png` | Query Rewrite と Rerank の位置 | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch02-advanced/retrieval-strategies.md` | Query rewrite と rerank の比較：rewrite は検索前に質問を変え、rough recall で候補を取り、rerank は検索後に候補を並べ替える。 |
+| `ch08-faithfulness-citation-check-map-en.png` | Check Each Answer Claim Against Evidence | `docs/ch08-rag/ch02-advanced/rag-evaluation.md` | RAG faithfulness and citation check: split answer into claims, connect each to evidence and citation, mark supported or unsupported, and verify faithfulness. |
+| `ch08-faithfulness-citation-check-map-ja.png` | 回答の各主張を証拠で確認 | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch02-advanced/rag-evaluation.md` | RAG の faithfulness と citation 確認：回答を claim に分け、evidence と citation へ結び、supported と unsupported を判定する。 |
+| `ch08-enterprise-kb-permission-citation-map-en.png` | Enterprise KB Starts with Permission | `docs/ch08-rag/ch03-production/enterprise-kb.md` | Enterprise knowledge base permission and citation map: user role passes permission filter, blocked docs stay hidden, allowed docs enter retrieve/rerank, and answers include citations and audit logs. |
+| `ch08-enterprise-kb-permission-citation-map-ja.png` | 企業 KB は権限確認から始める | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-production/enterprise-kb.md` | 企業 KB の権限と引用：user role を permission filter に通し、blocked docs を防ぎ、allowed docs だけで retrieve/rerank し、citations と audit log を残す。 |
+| `ch08-rag-layer-failure-debug-map-en.png` | Debug RAG Failures by Layer | `docs/ch08-rag/ch01-rag/rag-basics.md` | RAG layer failure debugging: inspect parse, chunk, metadata, top-k, context, and generation to see whether the right evidence was chunked, retrieved, and included. |
+| `ch08-rag-layer-failure-debug-map-ja.png` | RAG の誤答は層ごとに調べる | `i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/rag-basics.md` | RAG 障害の層別調査：parse、chunk、metadata、top-k、context、generation を見て、正しい証拠が届いたか確認する。 |
+| `ch09-agent-systems-en.png` | An Agent Is a Controlled Execution Loop | `docs/ch09-ai-agents/index.md` | Agent system loop: goal, state, plan, tool call, observation, memory, trace, and stop check form controlled execution. |
+| `ch09-agent-systems-ja.png` | Agent は制御された実行ループ | `i18n/ja/docusaurus-plugin-content-docs/current/ch09-ai-agents/index.md` | Agent システムの実行ループ：goal、state、plan、tool call、observation、memory、trace、stop check。 |
+| `ch09-agent-cost-routing-cache-budget-map-en.png` | Agent Cost Control Route | `docs/ch09-ai-agents/ch03-production/cost-control.md` | Agent cost control route: cache hit, model routing, context trim, tool budget, retry guard, and selective large model use reduce task-chain cost. |
+| `ch09-agent-cost-routing-cache-budget-map-ja.png` | Agent のコスト制御ルート | `i18n/ja/docusaurus-plugin-content-docs/current/ch09-ai-agents/ch03-production/cost-control.md` | Agent コスト制御：cache hit、model routing、context trim、tool budget、retry guard、大きなモデルの限定利用でタスク列費用を下げる。 |
+| `ch09-mcp-server-tool-contract-map-en.png` | MCP Server Is the Tool Contract Gate | `docs/ch09-ai-agents/ch04-mcp/mcp-server.md` | MCP server tool contract: list_tools exposes schema, call_tool sends parameters, validation rejects bad requests, execution runs backend logic, and standard result structures output. |
+| `ch09-mcp-server-tool-contract-map-ja.png` | MCP Server は tool 契約の門番 | `i18n/ja/docusaurus-plugin-content-docs/current/ch09-ai-agents/ch04-mcp/mcp-server.md` | MCP Server の tool 契約：list_tools が schema を公開し、call_tool を validate し、execute 後に standard result と error を返す。 |
+| `ch10-classification-architecture-evolution-map-en.png` | Classification Architectures Are Not a Leaderboard | `docs/ch10-computer-vision/ch02-classification/02-modern-architectures.md` | Image classification architecture evolution map: VGG, ResNet, EfficientNet, and ConvNeXt are shown as problem evolution choices, with ResNet as a beginner baseline. |
+| `ch10-classification-architecture-evolution-map-ja.png` | 分類アーキテクチャは順位表ではない | `i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch02-classification/02-modern-architectures.md` | 画像分類アーキテクチャの進化：VGG、ResNet、EfficientNet、ConvNeXt を問題解決の流れとして示し、初学者は ResNet baseline から始める。 |
+| `ch10-classification-training-diagnosis-map-en.png` | Classification Training Diagnosis | `docs/ch10-computer-vision/ch02-classification/03-training-tricks.md` | Image classification training diagnosis: check data split, augmentation, loss curves, learning rate, confusion matrix, and wrong samples before changing backbone. |
+| `ch10-classification-training-diagnosis-map-ja.png` | 分類訓練の問題診断 | `i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch02-classification/03-training-tricks.md` | 画像分類の訓練診断：data split、augmentation、loss curves、learning rate、confusion matrix、wrong samples を確認してから backbone を変える。 |
+| `ch11-seq2seq-chapter-flow-en.png` | Seq2Seq: Input Sequence to Output Sequence | `docs/ch11-nlp/ch05-seq2seq/00-roadmap.md` | Seq2Seq and attention roadmap: input sequence enters encoder, decoder generates output tokens step by step, attention looks back to input for translation, summarization, rewriting, dialogue, and correction. |
+| `ch11-seq2seq-chapter-flow-ja.png` | Seq2Seq：入力列から出力列へ | `i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch05-seq2seq/00-roadmap.md` | Seq2Seq と attention：input sequence を encoder が読み、decoder が output token を逐次生成し、attention が入力位置を見返す。 |
+| `ch12-multimodal-aigc-en.png` | Multimodal AIGC Workbench | `docs/ch12-multimodal/index.md` | Multimodal AIGC workflow: PDF, screenshot, chart, audio, video, and text become structured records connected to RAG, Agent, generation, review, and export. |
+| `ch12-multimodal-aigc-ja.png` | マルチモーダル AIGC ワークベンチ | `i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md` | マルチモーダル AIGC：PDF、スクリーンショット、図表、音声、動画、テキストを structured records にし、RAG、Agent、生成、review、export へつなぐ。 |
+| `diffusion-noise-denoise-en.png` | Diffusion: Add Noise, Then Learn to Remove It | `docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md` | Diffusion noise and denoise diagram: forward noising turns a real image into noise, training predicts noise, and reverse denoising starts from random noise to generate an image. |
+| `diffusion-noise-denoise-ja.png` | Diffusion：ノイズを足し、取り除くことを学ぶ | `i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/01-diffusion-models.md` | Diffusion のノイズ付与と除去：forward noising で本物画像を noise にし、training target で noise を学び、reverse denoising で random noise から画像を作る。 |
