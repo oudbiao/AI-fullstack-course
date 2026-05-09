@@ -168,6 +168,8 @@ similarity(text 1, text 2): 0.949
 similarity(text 1, text 3): 0.607
 ```
 
+![Tokenizer and embedding lab result map](/img/course/ch07-tokenizer-embedding-lab-result-map-en.webp)
+
 ## How to read the output
 
 ### `tokens` are still human-readable

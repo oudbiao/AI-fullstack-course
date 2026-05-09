@@ -171,6 +171,8 @@ validation: valid
 first era: {'period': '1936-1950', ...}
 ```
 
+![LLM call workbench validation trace](/img/course/ch07-llm-call-workbench-validation-trace-en.webp)
+
 ## What this code is really showing
 
 ### A request is not only a prompt

@@ -168,6 +168,8 @@ similarity(text 1, text 2): 0.949
 similarity(text 1, text 3): 0.607
 ```
 
+![Tokenizer と Embedding 実験結果図](/img/course/ch07-tokenizer-embedding-lab-result-map-ja.webp)
+
 ## 出力の読み方
 
 ### `tokens` はまだ人間が読める

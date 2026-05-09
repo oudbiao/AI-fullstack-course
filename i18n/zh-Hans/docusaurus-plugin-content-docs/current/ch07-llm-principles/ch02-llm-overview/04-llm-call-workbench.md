@@ -171,6 +171,8 @@ validation: valid
 first era: {'period': '1936-1950', ...}
 ```
 
+![LLM 调用工作台校验重试结果图](/img/course/ch07-llm-call-workbench-validation-trace.webp)
+
 ## 这段代码真正想说明什么
 
 ### 请求不只是 Prompt

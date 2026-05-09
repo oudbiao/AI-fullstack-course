@@ -171,6 +171,8 @@ validation: valid
 first era: {'period': '1936-1950', ...}
 ```
 
+![LLM 呼び出しワークベンチ検証リトライ結果図](/img/course/ch07-llm-call-workbench-validation-trace-ja.webp)
+
 ## このコードが本当に示していること
 
 ### リクエストは Prompt だけではない
