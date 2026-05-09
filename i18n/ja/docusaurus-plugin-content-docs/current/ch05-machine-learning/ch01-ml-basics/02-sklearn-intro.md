@@ -153,6 +153,8 @@ weighted avg       0.92      0.92      0.92        38
 reloaded_prediction= setosa
 ```
 
+![sklearn 実験結果の読み方](/img/course/ch05-sklearn-workflow-result-map-ja.webp)
+
 sklearn のバージョンによって、同点のときに選ばれる best model が変わることがあります。それでも問題ありません。重要な証拠は、各モデルが fit、predict、score でき、保存した Pipeline が再読み込み後も予測できることです。
 
 ## Pipeline がよくある失敗を防ぐ理由

@@ -153,6 +153,8 @@ weighted avg       0.92      0.92      0.92        38
 reloaded_prediction= setosa
 ```
 
+![sklearn 实验结果解读图](/img/course/ch05-sklearn-workflow-result-map.webp)
+
 不同 sklearn 版本在分数相同的时候，可能选择不同的最佳模型。这没关系。关键证据是：每个模型都能 fit、predict、score，并且保存后的 Pipeline 重新加载后仍能预测。
 
 ## Pipeline 为什么能避免常见错误

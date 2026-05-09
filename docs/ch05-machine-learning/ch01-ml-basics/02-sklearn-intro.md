@@ -153,6 +153,8 @@ weighted avg       0.92      0.92      0.92        38
 reloaded_prediction= setosa
 ```
 
+![sklearn lab result interpretation map](/img/course/ch05-sklearn-workflow-result-map-en.webp)
+
 Different sklearn versions may break ties differently when two models have the same score. That is fine. The important evidence is: every model fits, predicts, scores, and the saved pipeline can predict after reload.
 
 ## Why Pipeline Prevents a Common Mistake
