@@ -331,6 +331,8 @@ epoch=400 loss=0.0001
 predicted score: 89.31
 ```
 
+![nn.Module ScorePredictor 结果图](/img/course/ch06-nn-module-score-predictor-result-map.webp)
+
 现在它已经是完整的微型 PyTorch 模型：
 
 ```text

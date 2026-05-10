@@ -14824,6 +14824,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-nn-module-score-predictor-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/03-nn-module.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/03-nn-module.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/03-nn-module.md",
+        },
+        "scene": "A PyTorch nn.Module mini project result board based on the ScorePredictor training_lab output. The image must teach how a reusable nn.Module turns two study features into a score prediction through a training loop. Do not draw terminal screenshots, full code blocks, numeric training dataset rows, invented dataset rows, invented sample scores, invented metrics, validation/test split, confusion matrices, gradients, or extra epochs. Important: the input area may show feature name chips only, not a numeric data table. Show the model as a reusable container: ScorePredictor contains nn.Sequential with Linear(2,16), ReLU, Linear(16,1). Show the input features as two chips: study_hours and practice_problems. Show target score scaled by /100 for stable training, without inventing example score values. Show exactly these loss checkpoints: epoch 0 loss=0.4672; epoch 100 loss=0.0003; epoch 200 loss=0.0001; epoch 300 loss=0.0001; epoch 400 loss=0.0001. Show the training loop order: model(X) -> MSELoss -> zero_grad -> backward -> optimizer.step. Show eval prediction with no_grad: input [6.5,7.0] -> predicted score 89.31. Teaching point: nn.Module packages layers and forward logic, while the training loop still controls loss, gradients, optimizer step, eval, and no_grad.",
+        "chapter_context": "The image is inserted after the expected output of the ScorePredictor mini project. Nearby text explains nn.Module, nn.Sequential, forward, model.parameters(), train/eval mode, MSELoss, Adam, and the complete miniature PyTorch training pattern.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows two feature chips, study_hours and practice_problems, plus a target-scaling chip score/100; do not show any numeric training data table or example score rows. Middle section shows the ScorePredictor container interior as Linear(2,16) -> ReLU -> Linear(16,1) and a loop rail: model(X), MSELoss, zero_grad, backward, optimizer.step. Lower section shows a compact loss timeline with exactly five epoch checkpoints and the final eval/no_grad prediction card [6.5,7.0] -> 89.31. Keep values, model layer order, colors, and visual structure identical across zh/en/ja. Use concrete model-lab imagery and readable cards, not SVG-style boxes, pure text, chalkboard-only diagrams, or tiny labels.",
+        "variants": {
+            "zh": {
+                "title": "nn.Module 小项目结果怎么看",
+                "subtitle": "模型类负责前向逻辑，训练循环负责优化步骤。",
+                "items": [
+                    ("输入特征", "study_hours 和 practice_problems 两个特征。"),
+                    ("ScorePredictor", "Linear(2,16) -> ReLU -> Linear(16,1)。"),
+                    ("目标缩放", "score / 100，让这个小实验更稳定。"),
+                    ("训练循环", "model(X) -> loss -> zero_grad -> backward -> step。"),
+                    ("loss", "0.4672 降到 0.0001。"),
+                    ("eval 预测", "[6.5,7.0] -> predicted score=89.31。"),
+                ],
+                "footer": "nn.Module 打包模型，训练控制仍在外部 loop 里。",
+                "alt": "nn.Module ScorePredictor 小项目结果图：两个学习特征进入 Linear-ReLU-Linear 模型，loss 从 epoch 0 到 400 下降，并在 eval/no_grad 下预测 89.31 分。",
+            },
+            "en": {
+                "title": "Reading the nn.Module Mini Project",
+                "subtitle": "The model class defines forward logic; the loop performs optimization.",
+                "items": [
+                    ("input features", "study_hours and practice_problems."),
+                    ("ScorePredictor", "Linear(2,16) -> ReLU -> Linear(16,1)."),
+                    ("target scaling", "score / 100 keeps this tiny lab stable."),
+                    ("training loop", "model(X) -> loss -> zero_grad -> backward -> step."),
+                    ("loss", "Drops from 0.4672 to 0.0001."),
+                    ("eval prediction", "[6.5,7.0] -> predicted score=89.31."),
+                ],
+                "footer": "nn.Module packages the model; training control stays in the outer loop.",
+                "alt": "nn.Module ScorePredictor mini project result map: two study features enter a Linear-ReLU-Linear model, loss drops from epoch 0 to 400, and eval/no_grad predicts score 89.31.",
+            },
+            "ja": {
+                "title": "nn.Module ミニプロジェクト結果を読む",
+                "subtitle": "モデルクラスは forward を定義し、学習ループが最適化する。",
+                "items": [
+                    ("入力特徴量", "study_hours と practice_problems の 2 特徴量。"),
+                    ("ScorePredictor", "Linear(2,16) -> ReLU -> Linear(16,1)。"),
+                    ("目標のスケール", "score / 100 で小さな実験を安定させる。"),
+                    ("学習ループ", "model(X) -> loss -> zero_grad -> backward -> step。"),
+                    ("loss", "0.4672 から 0.0001 へ下がる。"),
+                    ("eval 予測", "[6.5,7.0] -> predicted score=89.31。"),
+                ],
+                "footer": "nn.Module はモデルをまとめ、学習制御は外側の loop に残る。",
+                "alt": "nn.Module ScorePredictor ミニプロジェクト結果図：2つの学習特徴量が Linear-ReLU-Linear モデルに入り、epoch 0 から 400 で loss が下がり、eval/no_grad で 89.31 点を予測する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
