@@ -127,6 +127,8 @@ pred_counts: [0, 12]
 avg_confidence: 0.69
 ```
 
+![Training diagnosis signal result map](/img/course/ch06-training-diagnosis-signal-result-map-en.webp)
+
 The important signal is `pred_counts: [0, 12]`. This initial model predicts class `1` for every sample. During real training, if this pattern persists, check class imbalance, labels, output layer shape, and loss setup.
 
 ## A Troubleshooting Order

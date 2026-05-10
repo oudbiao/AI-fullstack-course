@@ -127,6 +127,8 @@ pred_counts: [0, 12]
 avg_confidence: 0.69
 ```
 
+![学習診断シグナル結果図](/img/course/ch06-training-diagnosis-signal-result-map-ja.webp)
+
 重要な signal は `pred_counts: [0, 12]` です。この初期 model はすべての sample を class `1` と予測しています。実際の訓練でこの pattern が続く場合、class imbalance、labels、output layer shape、loss setup を確認してください。
 
 ## Troubleshooting Order

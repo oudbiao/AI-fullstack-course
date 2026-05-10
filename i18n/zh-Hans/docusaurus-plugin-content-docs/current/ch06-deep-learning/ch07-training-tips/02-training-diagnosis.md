@@ -127,6 +127,8 @@ pred_counts: [0, 12]
 avg_confidence: 0.69
 ```
 
+![训练诊断信号结果图](/img/course/ch06-training-diagnosis-signal-result-map.webp)
+
 最重要的信号是 `pred_counts: [0, 12]`。这个初始模型把所有样本都预测成 class `1`。真实训练中如果这个模式持续存在，就要检查类别不平衡、标签、输出层 shape 和 loss 设置。
 
 ## 排查顺序

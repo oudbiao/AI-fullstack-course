@@ -14934,6 +14934,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-training-diagnosis-signal-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md",
+        },
+        "scene": "A deep learning training diagnosis result board based on the curve_diagnosis and training_signals expected outputs. The image must teach how to turn printed monitoring output into a next debugging action. Do not draw terminal screenshots, full code blocks, invented metrics, invented classes, invented epochs, confusion matrices, dataset counts beyond pred_counts, or extra diagnosis labels. Show three curve pattern cards exactly: underfit_case -> possible_underfitting; overfit_case -> possible_overfitting; unstable_case -> possible_lr_too_high_or_unstable_batches. Use small sketch curves that match the symptoms without adding numeric axes. Show the signal inspection card exactly: loss=0.687; grad_norm=0.445; pred_counts=[0,12]; avg_confidence=0.69. Visually emphasize that pred_counts=[0,12] means class 0 gets zero predictions and class 1 gets all 12 predictions. Teaching point: loss alone is not enough; curves, prediction distribution, and gradients together decide the next check.",
+        "chapter_context": "The image is inserted after the training_signals expected output. Nearby text explains classifying curve patterns, checking gradient norm, prediction distribution, average confidence, and using a troubleshooting order before changing architecture.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section has three curve diagnosis cards in a row or stacked panels: underfit, overfit, unstable, each with the exact output label. Middle section has a signal dashboard with loss, grad_norm, pred_counts, and avg_confidence using the exact values. The pred_counts card should be the visual focus: class 0 empty bucket, class 1 full bucket with 12 tokens. Lower section shows the next-check ladder: predictions -> gradients -> data -> hyperparameters -> model. Keep values, label order, colors, and visual structure identical across zh/en/ja. Use concrete monitoring dashboard imagery, visible gauges, and buckets; avoid SVG-style whiteboard boxes, pure text, terminal screenshots, dense tables, or tiny labels.",
+        "variants": {
+            "zh": {
+                "title": "训练诊断输出怎么读",
+                "subtitle": "先分类曲线症状，再看预测分布和梯度信号。",
+                "items": [
+                    ("underfit_case", "-> possible_underfitting。"),
+                    ("overfit_case", "-> possible_overfitting。"),
+                    ("unstable_case", "-> possible_lr_too_high_or_unstable_batches。"),
+                    ("loss", "0.687：只看它还不够。"),
+                    ("pred_counts", "[0,12]：所有样本都预测成 class 1。"),
+                    ("next check", "继续查 labels、class balance、output shape 和 loss。"),
+                ],
+                "footer": "诊断不是换模型，而是从曲线、预测、梯度和数据逐步定位。",
+                "alt": "训练诊断信号结果图：三类 curve_diagnosis 输出，以及 loss、grad_norm、pred_counts、avg_confidence，突出 pred_counts=[0,12] 的预测坍缩信号。",
+            },
+            "en": {
+                "title": "Reading Training Diagnosis Signals",
+                "subtitle": "Classify curve symptoms, then inspect predictions and gradients.",
+                "items": [
+                    ("underfit_case", "-> possible_underfitting."),
+                    ("overfit_case", "-> possible_overfitting."),
+                    ("unstable_case", "-> possible_lr_too_high_or_unstable_batches."),
+                    ("loss", "0.687: not enough by itself."),
+                    ("pred_counts", "[0,12]: every sample predicts class 1."),
+                    ("next check", "Inspect labels, class balance, output shape, and loss."),
+                ],
+                "footer": "Diagnosis is not model swapping; trace curves, predictions, gradients, and data.",
+                "alt": "Training diagnosis signal result map: curve_diagnosis outputs plus loss, grad_norm, pred_counts, and avg_confidence, highlighting pred_counts=[0,12] as prediction collapse.",
+            },
+            "ja": {
+                "title": "学習診断シグナルを読む",
+                "subtitle": "曲線の症状を分類し、予測分布と勾配を確認する。",
+                "items": [
+                    ("underfit_case", "-> possible_underfitting。"),
+                    ("overfit_case", "-> possible_overfitting。"),
+                    ("unstable_case", "-> possible_lr_too_high_or_unstable_batches。"),
+                    ("loss", "0.687：これだけでは不十分。"),
+                    ("pred_counts", "[0,12]：全サンプルが class 1 予測。"),
+                    ("次の確認", "labels、class balance、output shape、loss を見る。"),
+                ],
+                "footer": "診断はモデル交換ではなく、曲線、予測、勾配、データを順に追うこと。",
+                "alt": "学習診断シグナル結果図：curve_diagnosis の3出力と loss、grad_norm、pred_counts、avg_confidence を示し、pred_counts=[0,12] の予測崩壊を強調する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
