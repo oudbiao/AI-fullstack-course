@@ -104,6 +104,8 @@ step=4 loss=0.0560 pred=0.945
 step=5 loss=0.0478 pred=0.953
 ```
 
+![Forward と Backward 実験結果図](/img/course/ch06-forward-backward-step-result-map-ja.webp)
+
 ## 5 つの手順を読む
 
 ![NumPy から PyTorch への学習ループ対応図](/img/course/ch06-numpy-to-pytorch-training-loop-map-ja.webp)

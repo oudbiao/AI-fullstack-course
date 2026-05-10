@@ -14494,6 +14494,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-forward-backward-step-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md",
+        },
+        "scene": "A PyTorch forward/backward lab result board based on forward_backward_lab.py. The image must teach the exact execution order and how the numbers change, not draw a terminal screenshot. Do not draw full code, invented weights, invented bias values, parameter before/after numbers, invented extra samples, invented metrics, or extra loop steps. Show one training sample x=[1.0,2.0], y=1.0. Show the fixed one-step order: forward prediction_before=0.825, loss_before=0.1927, zero_grad clears old gradients, backward writes weight_grad=[[-0.1753,-0.3505]] and bias_grad=[-0.1753], optimizer.step updates parameters with an arrow or wrench only and no parameter values, prediction_after=0.888, loss_after=0.1183. Show the mini training loop as exactly five markers: step 1 loss=0.1183 pred=0.888; step 2 loss=0.0861 pred=0.918; step 3 loss=0.0678 pred=0.934; step 4 loss=0.0560 pred=0.945; step 5 loss=0.0478 pred=0.953. Teaching point: the prediction moves toward target 1.0 and loss decreases only when backward and optimizer.step run in the correct order.",
+        "chapter_context": "The image is inserted after the expected output of forward_backward_lab.py. Nearby text explains forward propagation, BCELoss, loss.backward filling .grad, optimizer.step changing parameters, and why zero_grad prevents old gradients from accumulating.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows x/y entering a small Linear+Sigmoid model and the before prediction. Middle section is a five-station execution rail: forward, loss, zero_grad, backward gradients, optimizer.step. Each station has only the exact values from the scene; the optimizer.step station must not show any concrete weight or bias values. Lower section shows a compact five-step loss/pred curve moving toward y=1.0 and a warning card: no step means no update; no zero_grad means gradients accumulate. Keep values, station order, arrows, and visual structure identical across zh/en/ja. Use concrete training-lab instrumentation, not SVG-style boxes, pure text, or a terminal screenshot.",
+        "variants": {
+            "zh": {
+                "title": "Forward / Backward 输出怎么读",
+                "subtitle": "按顺序看预测、loss、梯度和参数更新。",
+                "items": [
+                    ("forward", "prediction_before=0.825，目标 y=1.0。"),
+                    ("loss", "loss_before=0.1927：预测还不够接近。"),
+                    ("backward", "weight_grad=[[-0.1753,-0.3505]]，bias_grad=[-0.1753]。"),
+                    ("optimizer.step", "prediction_after=0.888，loss_after=0.1183。"),
+                    ("5 步循环", "loss 从 0.1183 降到 0.0478。"),
+                    ("pred 变化", "pred 从 0.888 升到 0.953，更接近 1。"),
+                ],
+                "footer": "训练不是 print 数字，而是 forward、loss、backward、step 的因果链。",
+                "alt": "Forward 和 Backward 实验结果图：prediction_before、loss_before、梯度、optimizer.step 后 prediction_after，以及五步训练 loss 下降。",
+            },
+            "en": {
+                "title": "Reading Forward / Backward Output",
+                "subtitle": "Follow prediction, loss, gradients, and parameter update in order.",
+                "items": [
+                    ("forward", "prediction_before=0.825, target y=1.0."),
+                    ("loss", "loss_before=0.1927: prediction is not close enough."),
+                    ("backward", "weight_grad=[[-0.1753,-0.3505]], bias_grad=[-0.1753]."),
+                    ("optimizer.step", "prediction_after=0.888, loss_after=0.1183."),
+                    ("5-step loop", "loss drops from 0.1183 to 0.0478."),
+                    ("pred change", "pred rises from 0.888 to 0.953, closer to 1."),
+                ],
+                "footer": "Training is a causal chain: forward, loss, backward, step.",
+                "alt": "Forward and backward lab result map: prediction_before, loss_before, gradients, prediction_after after optimizer.step, and five-step loss decrease.",
+            },
+            "ja": {
+                "title": "Forward / Backward 出力を読む",
+                "subtitle": "予測、loss、勾配、更新を順番に追う。",
+                "items": [
+                    ("forward", "prediction_before=0.825、目標 y=1.0。"),
+                    ("loss", "loss_before=0.1927：予測はまだ十分近くない。"),
+                    ("backward", "weight_grad=[[-0.1753,-0.3505]]、bias_grad=[-0.1753]。"),
+                    ("optimizer.step", "prediction_after=0.888、loss_after=0.1183。"),
+                    ("5-step loop", "loss は 0.1183 から 0.0478 へ下がる。"),
+                    ("pred change", "pred は 0.888 から 0.953 へ上がり、1に近づく。"),
+                ],
+                "footer": "学習は print の数字ではなく、forward、loss、backward、step の因果関係。",
+                "alt": "Forward と Backward 実験結果図：prediction_before、loss_before、勾配、optimizer.step 後の prediction_after、5ステップの loss 低下を読む。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
