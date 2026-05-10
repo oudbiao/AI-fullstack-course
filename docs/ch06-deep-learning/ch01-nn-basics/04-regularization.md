@@ -139,6 +139,8 @@ weight_decay   epochs=87  best_epoch=67  train_loss=0.141 val_loss=0.154 train_a
 both           epochs=101 best_epoch=81  train_loss=0.159 val_loss=0.162 train_acc=0.942 val_acc=0.949
 ```
 
+![Regularization lab result map](/img/course/ch06-regularization-generalization-result-map-en.webp)
+
 ## Read the Result
 
 The plain model has lower training loss:

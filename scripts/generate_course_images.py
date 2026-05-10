@@ -14604,6 +14604,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-regularization-generalization-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch01-nn-basics/04-regularization.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/04-regularization.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/04-regularization.md",
+        },
+        "scene": "A regularization lab result board based on regularization_lab.py. The image must teach why lower training loss is not the same as better generalization. Do not draw full code, invented curves, invented samples, invented metrics, split percentages, train/test percentages, or extra methods. You may show a small two-moons dataset icon with no percentages. Show four result cards using only these exact values: plain epochs=87 best_epoch=67 train_loss=0.141 val_loss=0.155 train_acc=0.945 val_acc=0.931; dropout epochs=101 best_epoch=81 train_loss=0.158 val_loss=0.162 train_acc=0.945 val_acc=0.943; weight_decay epochs=87 best_epoch=67 train_loss=0.141 val_loss=0.154 train_acc=0.948 val_acc=0.931; both epochs=101 best_epoch=81 train_loss=0.159 val_loss=0.162 train_acc=0.942 val_acc=0.949. Highlight the teaching contrast: plain has lower train_loss=0.141 but both has best val_acc=0.949. Show early stopping as two best_epoch markers 67 and 81 on a simple timeline, not a full invented training curve. Teaching point: regularization may accept worse training fit to improve validation behavior.",
+        "chapter_context": "The image is inserted after the expected output of regularization_lab.py. Nearby text explains dropout, weight decay, early stopping, best_epoch, train-validation gap, and why validation accuracy matters more than the lowest training loss.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows a small two-moons dataset icon and the question: train fit versus validation. Do not include split percentages. Middle section has four method cards in this order: plain, dropout, weight_decay, both. Each card shows train_loss, val_loss, train_acc, val_acc, epochs, and best_epoch using the exact values from the scene. Lower section has a comparison arrow: lower train loss versus better validation accuracy, with both marked as best val_acc. Bottom shows early-stopping checkpoint markers at best_epoch 67 and 81 only. Keep values, card order, colors, and visual structure identical across zh/en/ja. Use readable lab evidence cards and small summary bars, not full invented curves, a terminal screenshot, or pure text.",
+        "variants": {
+            "zh": {
+                "title": "正则化实验结果怎么看",
+                "subtitle": "训练集拟合更好，不一定代表验证集表现更好。",
+                "items": [
+                    ("plain", "train_loss=0.141，但 val_acc=0.931。"),
+                    ("dropout", "train_loss=0.158，val_acc=0.943。"),
+                    ("weight_decay", "val_loss=0.154，但 val_acc=0.931。"),
+                    ("both", "train_loss=0.159，但 val_acc=0.949 最好。"),
+                    ("best_epoch", "plain/weight_decay 在 67，dropout/both 在 81。"),
+                    ("generalization", "接受略高训练 loss，换更好验证表现。"),
+                ],
+                "footer": "正则化看的不是训练 loss 最低，而是验证集是否更稳。",
+                "alt": "正则化实验结果图：plain、dropout、weight_decay、both 的 train_loss、val_loss、train_acc、val_acc 对比，突出 both 的 val_acc 最高。",
+            },
+            "en": {
+                "title": "Reading Regularization Lab Results",
+                "subtitle": "A better training fit does not always mean better validation behavior.",
+                "items": [
+                    ("plain", "train_loss=0.141, but val_acc=0.931."),
+                    ("dropout", "train_loss=0.158, val_acc=0.943."),
+                    ("weight_decay", "val_loss=0.154, but val_acc=0.931."),
+                    ("both", "train_loss=0.159, but best val_acc=0.949."),
+                    ("best_epoch", "plain/weight_decay at 67; dropout/both at 81."),
+                    ("generalization", "Accept a higher train loss for better validation."),
+                ],
+                "footer": "Regularization is judged by validation stability, not the lowest training loss.",
+                "alt": "Regularization lab result map: compare plain, dropout, weight_decay, and both train_loss, val_loss, train_acc, val_acc, highlighting both as best validation accuracy.",
+            },
+            "ja": {
+                "title": "正則化実験結果を読む",
+                "subtitle": "訓練への当てはまりが良くても、検証が良いとは限らない。",
+                "items": [
+                    ("plain", "train_loss=0.141、ただし val_acc=0.931。"),
+                    ("dropout", "train_loss=0.158、val_acc=0.943。"),
+                    ("weight_decay", "val_loss=0.154、ただし val_acc=0.931。"),
+                    ("both", "train_loss=0.159、でも val_acc=0.949 が最高。"),
+                    ("best_epoch", "plain/weight_decay は 67、dropout/both は 81。"),
+                    ("generalization", "少し高い train loss で検証性能を上げる。"),
+                ],
+                "footer": "正則化は training loss の最低値ではなく、validation の安定性で判断する。",
+                "alt": "正則化実験結果図：plain、dropout、weight_decay、both の train_loss、val_loss、train_acc、val_acc を比較し、both の val_acc が最高であることを示す。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
