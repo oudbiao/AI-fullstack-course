@@ -166,6 +166,8 @@ prediction: tensor([0, 0])
 loss: 1.319
 ```
 
+![PyTorch logits 順伝播結果図](/img/course/ch06-pytorch-logits-forward-result-map-ja.webp)
+
 shape を丁寧に読みます。
 
 - `X` は `[2, 3]`：2 サンプル、3 特徴量です。

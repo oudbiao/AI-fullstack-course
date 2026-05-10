@@ -14714,6 +14714,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-pytorch-logits-forward-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md",
+        },
+        "scene": "A PyTorch basics lab result board based on the 'From Features to Logits' forward pass. The image must teach how the printed output comes from tensor shapes and operations, not just decorate the page. Do not draw a terminal screenshot, full code block, invented samples, invented weights, invented bias numbers, intermediate X@W numeric tables, extra classes, extra metrics, training loop, gradients, or loss curves. Important: W and b must be drawn as parameter cards with shape only, not with numeric entries. Show the exact shape flow and values: X shape [2,3] with two row tiles [1,2,3] and [4,5,6]; W shape [3,2] as a parameter card with no internal numbers; b shape [2] as a bias card with no internal numbers; operation X @ W + b; logits shape [2,2] with exact rows [2.2100,1.1800] and [4.9100,2.6800]; softmax probabilities [0.737,0.263] and [0.903,0.097]; argmax prediction tensor [0,0]; label tensor y=[0,1]; CrossEntropyLoss receives raw logits, not softmax, and loss=1.319. Visually emphasize only two comparison outcomes: sample 1 predicted class 0 and label 0 so it is correct; sample 2 predicted class 0 and label 1 so it is wrong, making loss nonzero. Critical text rule: all explanatory labels must use the target language except technical terms PyTorch, tensor, logits, softmax, argmax, CrossEntropyLoss, shape, dtype, device, X, W, b, y.",
+        "chapter_context": "The image is inserted after the expected output of the PyTorch basics forward-pass lab. Nearby text explains shape [batch, features], matrix multiplication, bias broadcasting, logits, softmax for readable probabilities, argmax prediction, and CrossEntropyLoss using raw logits.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section is a concrete tensor workbench: X [2,3], W [3,2] parameter card, and b [2] bias card combine into logits [2,2]. W and b cards must show shape only and must not show any numeric weights or bias entries. Middle section shows two sample result lanes with logits, softmax probabilities, predicted class, true label, and exactly one final outcome marker per lane: correct for sample 1, mismatch for sample 2. Lower section shows the CrossEntropyLoss rule with raw logits going into the loss and softmax branching only to readable probabilities. Keep values, lane order, color rhythm, and visual structure identical across zh/en/ja. Use concrete matrix tiles, arrows, gauges, and sample cards; avoid chalkboard-only style, SVG-style whiteboard boxes, dense tables, pure text, or tiny unreadable labels.",
+        "variants": {
+            "zh": {
+                "title": "PyTorch 前向输出怎么读",
+                "subtitle": "从 shape 走到 logits、概率、预测和 loss。",
+                "items": [
+                    ("输入 shape", "X=[2,3]：2 个样本，每个 3 个特征。"),
+                    ("线性层手算", "X @ W + b，W=[3,2]，b=[2]。"),
+                    ("logits", "[2.2100,1.1800]；[4.9100,2.6800]。"),
+                    ("softmax", "概率变成 [0.737,0.263] 和 [0.903,0.097]。"),
+                    ("prediction", "argmax 得到 [0,0]，第二个样本和 y=[0,1] 不一致。"),
+                    ("loss", "CrossEntropyLoss 用 raw logits，loss=1.319。"),
+                ],
+                "footer": "先检查 shape，再解释每个输出数字从哪里来。",
+                "alt": "PyTorch logits 前向结果图：X、W、b 经过矩阵乘法和广播得到 logits，再通过 softmax、argmax 和 CrossEntropyLoss 读出预测与 loss。",
+            },
+            "en": {
+                "title": "Reading a PyTorch Forward Pass",
+                "subtitle": "Trace shape into logits, probabilities, prediction, and loss.",
+                "items": [
+                    ("input shape", "X=[2,3]: 2 samples, 3 features each."),
+                    ("manual linear", "X @ W + b, with W=[3,2] and b=[2]."),
+                    ("logits", "[2.2100,1.1800]; [4.9100,2.6800]."),
+                    ("softmax", "Probabilities become [0.737,0.263] and [0.903,0.097]."),
+                    ("prediction", "argmax gives [0,0]; sample 2 mismatches y=[0,1]."),
+                    ("loss", "CrossEntropyLoss uses raw logits; loss=1.319."),
+                ],
+                "footer": "Check shape first, then explain where each output number comes from.",
+                "alt": "PyTorch logits forward result map: X, W, and b produce logits through matrix multiplication and broadcasting, then softmax, argmax, and CrossEntropyLoss explain prediction and loss.",
+            },
+            "ja": {
+                "title": "PyTorch の順伝播出力を読む",
+                "subtitle": "shape から logits、確率、予測、loss まで追う。",
+                "items": [
+                    ("入力 shape", "X=[2,3]：2 サンプル、各 3 特徴量。"),
+                    ("手計算の線形層", "X @ W + b、W=[3,2]、b=[2]。"),
+                    ("logits", "[2.2100,1.1800]；[4.9100,2.6800]。"),
+                    ("softmax", "確率は [0.737,0.263] と [0.903,0.097]。"),
+                    ("prediction", "argmax は [0,0]、2つ目は y=[0,1] と不一致。"),
+                    ("loss", "CrossEntropyLoss は raw logits を使い、loss=1.319。"),
+                ],
+                "footer": "まず shape を確認し、各出力の数字がどこから来たかを説明する。",
+                "alt": "PyTorch logits 順伝播結果図：X、W、b が行列積と broadcast で logits を作り、softmax、argmax、CrossEntropyLoss で予測と loss を読む。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

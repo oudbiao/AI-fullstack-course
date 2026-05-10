@@ -166,6 +166,8 @@ prediction: tensor([0, 0])
 loss: 1.319
 ```
 
+![PyTorch logits 前向结果图](/img/course/ch06-pytorch-logits-forward-result-map.webp)
+
 仔细读 shape：
 
 - `X` 是 `[2, 3]`：两个样本、三个特征。

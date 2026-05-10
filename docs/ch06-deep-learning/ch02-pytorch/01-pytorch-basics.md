@@ -166,6 +166,8 @@ prediction: tensor([0, 0])
 loss: 1.319
 ```
 
+![PyTorch logits forward result map](/img/course/ch06-pytorch-logits-forward-result-map-en.webp)
+
 Read the shapes carefully:
 
 - `X` is `[2, 3]`: two samples, three features.
