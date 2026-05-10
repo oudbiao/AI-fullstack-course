@@ -119,6 +119,8 @@ int8: 0.0085 MB
 int4: 0.0042 MB
 ```
 
+![Model compression quantization and size result map](/img/course/ch06-model-compression-quant-size-result-map-en.webp)
+
 This is an estimate for parameters only. Real deployed size can also include metadata, tokenizer files, runtime overhead, and engine-specific packaging.
 
 ## Choosing a Path

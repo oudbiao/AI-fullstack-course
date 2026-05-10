@@ -119,6 +119,8 @@ int8: 0.0085 MB
 int4: 0.0042 MB
 ```
 
+![モデル圧縮の量子化誤差とパラメータサイズ結果図](/img/course/ch06-model-compression-quant-size-result-map-ja.webp)
+
 これは parameter size だけの概算です。実際の deploy size には metadata、tokenizer files、runtime overhead、engine-specific packaging も含まれる場合があります。
 
 ## ルートの選び方

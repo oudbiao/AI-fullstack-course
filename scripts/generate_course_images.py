@@ -14989,6 +14989,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-model-compression-quant-size-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch07-training-tips/03-model-compression.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch07-training-tips/03-model-compression.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch07-training-tips/03-model-compression.md",
+        },
+        "scene": "A model compression lab result board based on the quant_error_lab and model_size_lab expected outputs. The image must teach the deployment trade-off: fewer bits reduce parameter memory but more aggressive quantization increases numerical error. Do not draw terminal screenshots, full code blocks, invented latency, invented accuracy, invented hardware, invented task metrics, pass/fail badges, OK badges, deployment-ready labels, extra quantization levels, or extra model layers. Show quantization error as three large result cards with exact text and numbers, not as a numeric axis: original [0.12,-1.87,3.44,-0.03]; q8_like [0.125,-1.875,3.4375,0.0], q8_mae=0.0106; q4_like [0.0,-1.75,3.5,0.0], q4_mae=0.0825. Critical accuracy rule: q4_like must be exactly [0.0,-1.75,3.5,0.0], not [0.25,-1.75,3.25,-0.20] or any other values. Show the model size estimate with exactly: params=8906; fp32=0.0340 MB; fp16=0.0170 MB; int8=0.0085 MB; int4=0.0042 MB. Visually compare q8_like as lower error and q4_like as smaller but higher error. The deployment section must be a to-check checklist only: task metric, latency, runtime. It must not say pass, fail, OK, ready, not ready, deployable, or blocked. Teaching point: this is parameter-size estimate only; real deployment must still measure task metric and latency.",
+        "chapter_context": "The image is inserted after the model_size_lab expected output. Nearby text explains quantization error, model size estimation from parameter count and bits, deployment bottlenecks, and why compression must be judged by size, latency, and task quality together.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows three large result cards: original, q8_like, q4_like, with exact vector values and MAE values; avoid tiny axis labels and do not add per-value error deltas. Middle section shows a parameter-size ladder or shrinking memory blocks for fp32, fp16, int8, int4 using the exact MB values. Lower section is a neutral deployment checklist with three unchecked items only: task metric, latency, runtime. Keep values, order, colors, and visual structure identical across zh/en/ja. Use concrete scales, memory chips, and error gauges; avoid SVG-style boxes, pure text, terminal screenshots, dense tables, pass/fail stamps, OK badges, or tiny labels.",
+        "variants": {
+            "zh": {
+                "title": "模型压缩结果怎么看",
+                "subtitle": "位数越少体积越小，但数值误差也可能变大。",
+                "items": [
+                    ("original", "[0.12,-1.87,3.44,-0.03]。"),
+                    ("q8_like", "MAE=0.0106：误差较小。"),
+                    ("q4_like", "MAE=0.0825：更激进，误差更大。"),
+                    ("params", "8906 个参数。"),
+                    ("size", "fp32 0.0340 MB -> int4 0.0042 MB。"),
+                    ("部署检查", "还要看 task metric、latency 和 runtime。"),
+                ],
+                "footer": "压缩成功不是只看更小，而是更小后任务仍然可用。",
+                "alt": "模型压缩实验结果图：比较 q8_like 与 q4_like 的量化误差，并用 8906 个参数估算 fp32、fp16、int8、int4 的参数体积。",
+            },
+            "en": {
+                "title": "Reading Model Compression Results",
+                "subtitle": "Fewer bits shrink memory, but numerical error can grow.",
+                "items": [
+                    ("original", "[0.12,-1.87,3.44,-0.03]."),
+                    ("q8_like", "MAE=0.0106: smaller error."),
+                    ("q4_like", "MAE=0.0825: more aggressive, more error."),
+                    ("params", "8906 parameters."),
+                    ("size", "fp32 0.0340 MB -> int4 0.0042 MB."),
+                    ("deployment check", "Also verify task metric, latency, and runtime."),
+                ],
+                "footer": "Compression works only when the smaller model still does the task.",
+                "alt": "Model compression result map: compare q8_like and q4_like quantization error, then estimate fp32, fp16, int8, and int4 parameter size for 8906 parameters.",
+            },
+            "ja": {
+                "title": "モデル圧縮結果を読む",
+                "subtitle": "bit 数を減らすと小さくなるが、数値誤差は増えやすい。",
+                "items": [
+                    ("original", "[0.12,-1.87,3.44,-0.03]。"),
+                    ("q8_like", "MAE=0.0106：誤差は小さい。"),
+                    ("q4_like", "MAE=0.0825：より強く、誤差が大きい。"),
+                    ("params", "8906 パラメータ。"),
+                    ("size", "fp32 0.0340 MB -> int4 0.0042 MB。"),
+                    ("deploy 確認", "task metric、latency、runtime も見る。"),
+                ],
+                "footer": "圧縮は小ささだけでなく、タスクがまだ動くかで判断する。",
+                "alt": "モデル圧縮実験結果図：q8_like と q4_like の量子化誤差を比較し、8906 パラメータで fp32、fp16、int8、int4 のサイズを見積もる。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

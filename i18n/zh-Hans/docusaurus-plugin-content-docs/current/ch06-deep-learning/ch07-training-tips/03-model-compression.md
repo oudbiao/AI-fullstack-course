@@ -119,6 +119,8 @@ int8: 0.0085 MB
 int4: 0.0042 MB
 ```
 
+![模型压缩量化误差和参数体积结果图](/img/course/ch06-model-compression-quant-size-result-map.webp)
+
 这只是参数大小估算。真实部署体积还可能包含 metadata、tokenizer 文件、runtime 开销和推理引擎打包格式。
 
 ## 选择压缩路线
