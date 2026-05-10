@@ -14659,6 +14659,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-weight-init-probe-training-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch01-nn-basics/05-weight-init.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/05-weight-init.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/05-weight-init.md",
+        },
+        "scene": "A weight initialization lab result board based on weight_init_lab.py. The image must teach how to read two printed probes: signal survival before training and tiny classifier training results. Do not draw full code, invented curves, invented layers, invented metrics, split percentages, or extra strategies. Signal probe section may show only these four exact result cards: tiny + ReLU first_std=0.0337 last_std=0.0000 last_zero=0.52 last_saturated=0.00; large + Tanh first_std=0.9273 last_std=0.9633 last_zero=0.00 last_saturated=0.84; Xavier + Tanh first_std=0.4872 last_std=0.2276 last_zero=0.00 last_saturated=0.00; He + ReLU first_std=0.8304 last_std=0.6937 last_zero=0.49 last_saturated=0.19. Training probe section may show only these key rows: default start_loss=0.671 end_loss=0.047 val_acc=0.973; zeros start_loss=0.693 end_loss=0.693 val_acc=0.500; large start_loss=20.040 end_loss=0.068 val_acc=0.980; xavier start_loss=0.696 end_loss=0.046 val_acc=0.980; he start_loss=0.924 end_loss=0.053 val_acc=0.980. Teaching point: tiny init kills deep signal, large Tanh saturates, zeros gets stuck at chance accuracy, while default/Xavier/He are usable baselines.",
+        "chapter_context": "The image is inserted after the second expected output of weight_init_lab.py. Nearby text explains signal_probe, training_probe, all-zero symmetry, too-small signal collapse, too-large saturation, Xavier for Tanh, He for ReLU, and PyTorch defaults as a good first baseline.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section is a signal-probe corridor through 8 layers: tiny signal fades, large Tanh saturates, Xavier/Tanh stays controlled, He/ReLU survives with some zeros. Middle section is a training result board for default, zeros, large, xavier, and he; zeros is marked stuck and default/xavier/he marked usable. Lower section has a decision strip: check signal stats first, then check start_loss/end_loss/val_acc. Keep values, card order, colors, and visual structure identical across zh/en/ja. Use concrete meters, signal bars, and training result cards, not a terminal screenshot, full tables, or pure text.",
+        "variants": {
+            "zh": {
+                "title": "权重初始化实验结果怎么看",
+                "subtitle": "先看信号能否穿过深层，再看训练是否从坏起点卡住。",
+                "items": [
+                    ("tiny + ReLU", "last_std=0.0000：深层信号消失。"),
+                    ("large + Tanh", "last_saturated=0.84：大量激活饱和。"),
+                    ("Xavier + Tanh", "last_std=0.2276，饱和为 0。"),
+                    ("He + ReLU", "last_std=0.6937，信号仍能到深层。"),
+                    ("zeros", "end_loss=0.693，val_acc=0.500：卡在随机水平。"),
+                    ("default / xavier / he", "val_acc 约 0.973-0.980，可做 baseline。"),
+                ],
+                "footer": "初始化不是玄学：先查信号，再查训练起点是否卡住。",
+                "alt": "权重初始化实验结果图：signal_probe 比较 tiny、large、Xavier、He 的信号统计，training_probe 显示 zeros 卡住而 default、xavier、he 可用。",
+            },
+            "en": {
+                "title": "Reading Weight Initialization Results",
+                "subtitle": "Check whether signals survive depth, then whether training starts stuck.",
+                "items": [
+                    ("tiny + ReLU", "last_std=0.0000: deep signal disappears."),
+                    ("large + Tanh", "last_saturated=0.84: many activations saturate."),
+                    ("Xavier + Tanh", "last_std=0.2276 with zero saturation."),
+                    ("He + ReLU", "last_std=0.6937, signal still reaches depth."),
+                    ("zeros", "end_loss=0.693, val_acc=0.500: stuck at chance."),
+                    ("default / xavier / he", "val_acc around 0.973-0.980, usable baselines."),
+                ],
+                "footer": "Initialization is not magic: probe signals, then check whether training is stuck.",
+                "alt": "Weight initialization lab result map: signal_probe compares tiny, large, Xavier, and He signal statistics, while training_probe shows zeros stuck and default, xavier, he usable.",
+            },
+            "ja": {
+                "title": "重み初期化の実験結果を読む",
+                "subtitle": "信号が深い層まで届くか、訓練が悪い開始点で止まるかを見る。",
+                "items": [
+                    ("tiny + ReLU", "last_std=0.0000：深い層の信号が消える。"),
+                    ("large + Tanh", "last_saturated=0.84：多くの活性が飽和。"),
+                    ("Xavier + Tanh", "last_std=0.2276、飽和は 0。"),
+                    ("He + ReLU", "last_std=0.6937、信号は深部まで届く。"),
+                    ("zeros", "end_loss=0.693、val_acc=0.500：偶然レベルで止まる。"),
+                    ("default / xavier / he", "val_acc は約 0.973-0.980、baseline に使える。"),
+                ],
+                "footer": "初期化は勘ではない。信号を調べ、訓練が止まるか確認する。",
+                "alt": "重み初期化実験結果図：signal_probe で tiny、large、Xavier、He の信号統計を比較し、training_probe で zeros が止まり default、xavier、he が使えることを見る。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

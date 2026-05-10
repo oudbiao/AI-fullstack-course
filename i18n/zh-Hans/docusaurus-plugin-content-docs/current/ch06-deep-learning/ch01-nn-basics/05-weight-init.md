@@ -280,6 +280,8 @@ xavier   start_loss=0.696 end_loss=0.046 val_acc=0.980
 he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 ```
 
+![权重初始化实验结果图](/img/course/ch06-weight-init-probe-training-result-map.webp)
+
 重点看三件事：
 
 - `zeros` 会卡住，因为隐藏神经元从一开始就是彼此的复制品。

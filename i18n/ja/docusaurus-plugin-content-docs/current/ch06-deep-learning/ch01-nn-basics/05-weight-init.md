@@ -280,6 +280,8 @@ xavier   start_loss=0.696 end_loss=0.046 val_acc=0.980
 he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 ```
 
+![重み初期化実験結果図](/img/course/ch06-weight-init-probe-training-result-map-ja.webp)
+
 見るべきポイント:
 
 - `zeros` は止まります。隠れ層のニューロンが最初から互いのコピーだからです。

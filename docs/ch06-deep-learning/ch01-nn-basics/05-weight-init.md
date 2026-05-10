@@ -280,6 +280,8 @@ xavier   start_loss=0.696 end_loss=0.046 val_acc=0.980
 he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 ```
 
+![Weight initialization lab result map](/img/course/ch06-weight-init-probe-training-result-map-en.webp)
+
 What matters:
 
 - `zeros` stays stuck because hidden neurons begin as identical copies.
