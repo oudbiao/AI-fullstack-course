@@ -24,6 +24,26 @@ You do not need every detail now. Just remember:
 | unreliable answers | evaluation and RAG |
 | uncontrolled actions | Agent traces and permissions |
 
+## The Seven Layers
+
+| Layer | Course chapters | First visible evidence | Deeper question |
+|---|---|---|---|
+| Tools | 1 | A reproducible project folder and Git history | Can another person rerun it? |
+| Python | 2 | Small scripts with clear inputs and outputs | Is the code readable, typed, and testable? |
+| Data | 3 | Clean tables, charts, and notes | Do you know where the data is wrong or biased? |
+| Models | 4-6 | Trained or inspected model experiments | What metric would change your decision? |
+| LLM | 7 | Prompt, tokens, embeddings, Transformer intuition | Which behavior comes from data, decoding, or context? |
+| RAG | 8 | Retrieval trace and answer evaluation | Did the answer use the right evidence? |
+| Agent / delivery | 9-12 | Tool traces, permissions, multimodal demos, deployment notes | What can fail when users, files, and actions are real? |
+
+The course is not a pile of topics. It is a debugging stack. When an AI application behaves badly, the cause may live several layers below the feature you are looking at.
+
+## How To Use The Map
+
+Before starting a project, mark the highest-risk layer. For example, a PDF question-answering app usually fails first in data cleaning and retrieval, not in the chat UI. An automation agent usually fails first in tool permissions, state, and evaluation, not in the prompt wording.
+
+During each chapter, keep one artifact that proves the layer works. Screenshots are useful, but logs, README commands, small datasets, metric tables, and failure notes are stronger because they help you debug later.
+
 Optional background: if you want the history behind these layers, skim the [15-stage AI development map](/appendix/ai-milestones).
 
 Next, choose a learning path.
