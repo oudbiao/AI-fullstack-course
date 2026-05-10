@@ -337,6 +337,8 @@ epoch=2 train_loss=0.3653 val_loss=0.0059
 epoch=3 train_loss=0.1147 val_loss=0.3121
 ```
 
+![DataLoader training result map](/img/course/ch06-dataloader-training-result-map-en.webp)
+
 The full pattern is now visible:
 
 ```text

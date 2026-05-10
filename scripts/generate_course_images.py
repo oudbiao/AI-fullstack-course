@@ -14879,6 +14879,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-dataloader-training-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/04-data-loading.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/04-data-loading.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/04-data-loading.md",
+        },
+        "scene": "A PyTorch DataLoader lab result board that connects the expected outputs from dataset_lab, loader_lab, split_lab, and training_with_loader. The image must teach how samples become batches and then feed a training/validation loop. Do not draw terminal screenshots, full code blocks, numeric training data tables, invented sample rows, invented sample feature values beyond sample 0, invented metrics, confusion matrices, gradients, extra epochs, or extra split sizes. Show dataset inspection exactly: dataset size=8; sample 0 shapes x=(2,) y=(1,); sample 0 values x=[2.0,1.0] y=[0.5500]. All other samples should be abstract tiles with no feature values. Show batching with simple visual groups of 3, 3, and 2 abstract sample tiles, plus one large batch result table. The table must contain exactly these three rows and no alternatives: batch 0 | x_shape=(3,2) | y_shape=(3,1); batch 1 | x_shape=(3,2) | y_shape=(3,1); batch 2 | x_shape=(2,2) | y_shape=(2,1). Critical accuracy rule: batch 2 must show x_shape=(2,2) and y_shape=(2,1), not (3,2) or (3,1). Visually emphasize that the final batch is smaller because 8 is not divisible by 3. Show split with one large split result table containing exactly: train size=6; val size=2; first train batch x_shape=(3,2), y_shape=(3,1); first val batch x_shape=(2,2), y_shape=(2,1). Show the loader training loop order: train_loader batch loop -> model -> loss -> backward -> step, then eval/no_grad validation loop. Show exactly these epoch results: epoch 1 train_loss=0.4641 val_loss=0.6458; epoch 2 train_loss=0.3653 val_loss=0.0059; epoch 3 train_loss=0.1147 val_loss=0.3121. Teaching point: DataLoader controls batch shape and order; validation can jump around on a tiny dataset.",
+        "chapter_context": "The image is inserted after the expected output of the loader-based training lab. Nearby text explains Dataset, DataLoader, batch_size, shuffle, random_split, train/validation loaders, batch loops, model.train(), model.eval(), no_grad, and why validation loss can jump on a tiny dataset.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows Dataset inspection with one sample 0 card, dataset size 8, x_shape=(2,), y_shape=(1,), and x=[2.0,1.0], y=[0.5500]; no full numeric table and no values for other samples. Middle section shows three simple batch groups with only counts 3, 3, and 2, next to a large batch result table with exactly three rows: batch 0 (3,2)/(3,1), batch 1 (3,2)/(3,1), batch 2 (2,2)/(2,1). Do not repeat x_shape/y_shape labels on the small carts themselves. Middle right or below shows a separate split result table with train size 6, val size 2, first train batch (3,2)/(3,1), and first val batch (2,2)/(2,1). Lower section shows the training/validation loop and a three-epoch train_loss/val_loss result board. Keep values, station order, colors, and visual structure identical across zh/en/ja. Use concrete sample trays, batch carts, split gates, and large readable result tables; avoid SVG-style boxes, pure text, chalkboard-only diagrams, dense tables, or tiny labels.",
+        "variants": {
+            "zh": {
+                "title": "DataLoader 运行结果怎么看",
+                "subtitle": "先确认单样本，再看 batch、切分和训练循环。",
+                "items": [
+                    ("Dataset", "size=8，sample 0: x=(2,), y=(1)。"),
+                    ("sample 0", "x=[2.0,1.0]，y=[0.5500]。"),
+                    ("batch_size=3", "batch 0/1 是 (3,2)，最后 batch 是 (2,2)。"),
+                    ("split", "train=6，val=2，验证 batch 不 shuffle。"),
+                    ("训练循环", "train_loader -> model -> loss -> backward -> step。"),
+                    ("loss", "train_loss 下降；val_loss 在小数据集上会抖动。"),
+                ],
+                "footer": "DataLoader 的核心是把样本稳定地变成训练循环能消费的 batch。",
+                "alt": "DataLoader 训练结果图：展示 dataset size、sample 0 shape、batch_size=3 的三个 batch、train/val=6/2 切分，以及三轮 train_loss 和 val_loss。",
+            },
+            "en": {
+                "title": "Reading DataLoader Run Results",
+                "subtitle": "Inspect one sample, then batches, split, and the training loop.",
+                "items": [
+                    ("Dataset", "size=8, sample 0: x=(2,), y=(1)."),
+                    ("sample 0", "x=[2.0,1.0], y=[0.5500]."),
+                    ("batch_size=3", "batches 0/1 are (3,2); last batch is (2,2)."),
+                    ("split", "train=6, val=2, validation does not shuffle."),
+                    ("training loop", "train_loader -> model -> loss -> backward -> step."),
+                    ("loss", "train_loss drops; val_loss can bounce on tiny data."),
+                ],
+                "footer": "DataLoader turns samples into batches the training loop can consume reliably.",
+                "alt": "DataLoader training result map: dataset size, sample 0 shape, three batches with batch_size 3, train/val 6/2 split, and three epochs of train_loss and val_loss.",
+            },
+            "ja": {
+                "title": "DataLoader 実行結果を読む",
+                "subtitle": "1サンプルを確認し、batch、分割、学習ループへ進む。",
+                "items": [
+                    ("Dataset", "size=8、sample 0: x=(2,), y=(1)。"),
+                    ("sample 0", "x=[2.0,1.0]、y=[0.5500]。"),
+                    ("batch_size=3", "batch 0/1 は (3,2)、最後は (2,2)。"),
+                    ("split", "train=6、val=2、検証は shuffle しない。"),
+                    ("学習ループ", "train_loader -> model -> loss -> backward -> step。"),
+                    ("loss", "train_loss は下がり、val_loss は小データで揺れる。"),
+                ],
+                "footer": "DataLoader はサンプルを、学習ループが安定して使える batch に変える。",
+                "alt": "DataLoader 学習結果図：dataset size、sample 0 shape、batch_size 3 の3つの batch、train/val 6/2 分割、3 epoch の train_loss と val_loss を示す。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

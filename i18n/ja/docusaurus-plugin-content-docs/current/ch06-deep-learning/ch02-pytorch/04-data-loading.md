@@ -337,6 +337,8 @@ epoch=2 train_loss=0.3653 val_loss=0.0059
 epoch=3 train_loss=0.1147 val_loss=0.3121
 ```
 
+![DataLoader 学習結果図](/img/course/ch06-dataloader-training-result-map-ja.webp)
+
 これで全体の形が見えます。
 
 ```text
