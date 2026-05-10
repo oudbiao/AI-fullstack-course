@@ -96,6 +96,8 @@ train_size=364 train=0.975 cv=0.917 gap=0.057
 train_size=455 train=0.974 cv=0.919 gap=0.055
 ```
 
+![Bias-variance lab result map](/img/course/ch05-bias-variance-result-map-en.webp)
+
 ## Read the Complexity Lab
 
 The tree becomes more complex as `max_depth` grows:

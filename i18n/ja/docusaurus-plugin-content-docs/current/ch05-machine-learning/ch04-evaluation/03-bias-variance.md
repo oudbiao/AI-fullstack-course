@@ -96,6 +96,8 @@ train_size=364 train=0.975 cv=0.917 gap=0.057
 train_size=455 train=0.974 cv=0.919 gap=0.055
 ```
 
+![バイアス・バリアンス実験結果図](/img/course/ch05-bias-variance-result-map-ja.webp)
+
 ## 複雑度の実験を読む
 
 `max_depth` が大きいほど、木は複雑になります。

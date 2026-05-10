@@ -14329,6 +14329,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch05-bias-variance-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch04-evaluation/03-bias-variance.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch04-evaluation/03-bias-variance.md",
+        },
+        "scene": "A bias-variance lab result board based on bias_variance_lab.py. The image must teach diagnosis from train score, test score, gap, and learning curve. Do not draw a dense terminal log, invented metrics, invented tree split thresholds, leaf sample counts, class probabilities, or tiny node text inside trees. Tree drawings should show only visual depth/branching and leaf count labels from the expected output, not split rules. Show complexity as four tree-depth cards with exactly these values: max_depth=1 train=0.923 test=0.923 gap=-0.001 leaves=2; max_depth=3 train=0.977 test=0.944 gap=0.032 leaves=7; max_depth=5 train=0.995 test=0.937 gap=0.058 leaves=15; max_depth=None train=1.000 test=0.923 gap=0.077 leaves=18. Visually label depth=1 as high bias or too simple, depth=3 as practical middle, and depth=None as high variance or overfit. Show the learning curve as two endpoint cards and one trend line: train_size=91 train=0.989 cv=0.847 gap=0.142; train_size=455 train=0.974 cv=0.919 gap=0.055. Teaching point: as complexity rises, training accuracy can improve while generalization gets worse; as more data is used, the gap shrinks.",
+        "chapter_context": "The image is inserted after the expected output of bias_variance_lab.py. Nearby text explains underfitting, overfitting, train-test gap, model complexity, learning curves, and practical fixes.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows four model-complexity tree cards from shallow to deep with train/test/gap/leaves. Tree sketches must not include split thresholds, sample counts, probabilities, or tiny node text. Middle section has a diagnosis path: too simple, practical middle, memorizes training details. Lower section shows the learning curve endpoints and a shrinking-gap arrow. Keep all values, order, and visual structure identical across zh/en/ja. Use concrete tree and curve imagery, not SVG-style boxes or pure text.",
+        "variants": {
+            "zh": {
+                "title": "偏差方差实验结果怎么看",
+                "subtitle": "看 train、test 和 gap，判断模型是太简单还是太会记训练集。",
+                "items": [
+                    ("depth=1", "train=test=0.923，gap≈0：太简单。"),
+                    ("depth=3", "test=0.944，gap=0.032：中间更稳。"),
+                    ("depth=5", "train=0.995，gap=0.058：开始过拟合。"),
+                    ("depth=None", "train=1.000，test=0.923：记住训练细节。"),
+                    ("learning curve", "数据从 91 到 455，gap 从 0.142 降到 0.055。"),
+                    ("fix", "高方差优先简化模型或增加数据。"),
+                ],
+                "footer": "诊断不是背术语，而是看分数形状：训练、验证和 gap 一起读。",
+                "alt": "偏差方差实验结果图：不同 max_depth 的 train/test/gap/leaves 对比，以及学习曲线 gap 随训练数据增加而缩小。",
+            },
+            "en": {
+                "title": "Reading Bias-Variance Results",
+                "subtitle": "Read train, test, and gap to tell whether the model is too simple or memorizing.",
+                "items": [
+                    ("depth=1", "train=test=0.923, gap≈0: too simple."),
+                    ("depth=3", "test=0.944, gap=0.032: safer middle."),
+                    ("depth=5", "train=0.995, gap=0.058: overfitting begins."),
+                    ("depth=None", "train=1.000, test=0.923: memorizes training details."),
+                    ("learning curve", "Data 91 to 455 shrinks gap from 0.142 to 0.055."),
+                    ("fix", "For high variance, simplify the model or add data."),
+                ],
+                "footer": "Diagnosis is not memorizing terms; read the score shape: train, validation, and gap together.",
+                "alt": "Bias-variance lab result map: compare train/test/gap/leaves across max_depth values and show learning-curve gap shrinking with more data.",
+            },
+            "ja": {
+                "title": "バイアス・バリアンス結果を読む",
+                "subtitle": "train、test、gap を見て、単純すぎるか訓練を覚えすぎか判断する。",
+                "items": [
+                    ("depth=1", "train=test=0.923、gap≈0：単純すぎる。"),
+                    ("depth=3", "test=0.944、gap=0.032：中間が安定。"),
+                    ("depth=5", "train=0.995、gap=0.058：過学習が始まる。"),
+                    ("depth=None", "train=1.000、test=0.923：訓練詳細を記憶。"),
+                    ("learning curve", "データ 91 から 455 で gap は 0.142 から 0.055。"),
+                    ("fix", "high variance ならモデルを簡単にするかデータを増やす。"),
+                ],
+                "footer": "診断は用語暗記ではなく、train、validation、gap の形を一緒に読むこと。",
+                "alt": "バイアス・バリアンス実験結果図：max_depth ごとの train/test/gap/leaves と、データ増加で学習曲線 gap が縮む様子を読む。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

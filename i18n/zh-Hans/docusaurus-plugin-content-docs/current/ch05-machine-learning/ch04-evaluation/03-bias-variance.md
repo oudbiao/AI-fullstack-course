@@ -96,6 +96,8 @@ train_size=364 train=0.975 cv=0.917 gap=0.057
 train_size=455 train=0.974 cv=0.919 gap=0.055
 ```
 
+![偏差方差实验结果图](/img/course/ch05-bias-variance-result-map.webp)
+
 ## 读懂复杂度实验
 
 `max_depth` 越大，树越复杂：
