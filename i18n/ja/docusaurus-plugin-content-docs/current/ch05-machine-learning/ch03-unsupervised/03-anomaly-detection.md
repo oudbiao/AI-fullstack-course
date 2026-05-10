@@ -127,6 +127,8 @@ lof_comparison
 flagged=23 precision=0.870 recall=0.833 f1=0.851
 ```
 
+![異常検知 contamination 実験結果図](/img/course/ch05-anomaly-contamination-result-map-ja.webp)
+
 ## アラートのトレードオフを読む
 
 `contamination` は、モデルがどれくらいのサンプルをアラートにするかに影響します。

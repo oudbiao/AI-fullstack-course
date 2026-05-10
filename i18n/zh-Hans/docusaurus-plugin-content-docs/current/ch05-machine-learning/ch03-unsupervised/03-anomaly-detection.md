@@ -127,6 +127,8 @@ lof_comparison
 flagged=23 precision=0.870 recall=0.833 f1=0.851
 ```
 
+![异常检测 contamination 实验结果图](/img/course/ch05-anomaly-contamination-result-map.webp)
+
 ## 读懂告警取舍
 
 `contamination` 会影响模型预期标记多少样本：

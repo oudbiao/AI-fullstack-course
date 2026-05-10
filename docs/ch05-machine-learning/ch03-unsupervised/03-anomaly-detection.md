@@ -127,6 +127,8 @@ lof_comparison
 flagged=23 precision=0.870 recall=0.833 f1=0.851
 ```
 
+![Anomaly contamination lab result map](/img/course/ch05-anomaly-contamination-result-map-en.webp)
+
 ## Read the Alert Trade-Off
 
 The `contamination` value controls how many samples the model expects to flag:

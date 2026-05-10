@@ -14219,6 +14219,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch05-anomaly-contamination-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md",
+        },
+        "scene": "An anomaly detection lab result board based on anomaly_lab.py. The image must teach the alert trade-off, not simply copy a terminal. Do not draw a confusion matrix, TN/TP cells, sample totals, raw class distribution, precision/recall numeric tables, invented counts, invented score values, or extra contamination ticks. Show a synthetic two-cluster scatter with a contamination dial controlling how many points become alerts; the dial may show only these three numeric tick labels: 0.03, 0.06, 0.12. Show exactly three Isolation Forest result cards with only these exact values: contamination=0.03 flagged=12 f1=0.667 fp=0 fn=12; contamination=0.06 flagged=23 f1=0.809 fp=4 fn=5; contamination=0.12 flagged=46 f1=0.629 fp=24 fn=2. Show score inspection as exactly one suspicious sample card, not a ranked list and not a scale: score=-0.747, true_anomaly=True, with a caption that lower score means more abnormal. Show a small LOF comparison badge with exactly flagged=23 and f1=0.851, labeled local density. Teaching point: lower contamination misses more anomalies, higher contamination creates more false positives, and the best setting depends on review cost.",
+        "chapter_context": "The image is inserted after the expected output of anomaly_lab.py. Nearby text explains contamination, alert thresholds, score inspection, Isolation Forest, LOF, false positives, false negatives, and review capacity.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows normal clusters and anomalies with a contamination dial that has only 0.03, 0.06, and 0.12 as numeric ticks. Middle section has three alert-setting cards for 0.03, 0.06, and 0.12, with flagged, F1, FP, and FN only. Lower section shows exactly one score inspection card with score=-0.747 and true_anomaly=True, plus LOF local-density comparison. Keep all values, card order, and visual structure identical across zh/en/ja. Use concrete alert operations imagery, not SVG-style boxes or pure text.",
+        "variants": {
+            "zh": {
+                "title": "异常检测实验结果怎么看",
+                "subtitle": "contamination 像告警旋钮：报警越多，误报和漏报一起变化。",
+                "items": [
+                    ("contamination=0.03", "flagged=12，FP=0，FN=12，F1=0.667。"),
+                    ("contamination=0.06", "flagged=23，FP=4，FN=5，F1=0.809。"),
+                    ("contamination=0.12", "flagged=46，FP=24，FN=2，F1=0.629。"),
+                    ("score queue", "score=-0.747，true_anomaly=True。"),
+                    ("LOF", "局部密度：flagged=23，F1=0.851。"),
+                    ("trade-off", "复核成本决定旋钮位置。"),
+                ],
+                "footer": "异常检测不是只求最高分，而是在漏报和误报之间设计告警流程。",
+                "alt": "异常检测实验结果图：contamination 0.03、0.06、0.12 的 flagged、FP、FN、F1 对比，score inspection 和 LOF 对比。",
+            },
+            "en": {
+                "title": "Reading Anomaly Lab Results",
+                "subtitle": "contamination acts like an alert dial: more alerts change both misses and false alarms.",
+                "items": [
+                    ("contamination=0.03", "flagged=12, FP=0, FN=12, F1=0.667."),
+                    ("contamination=0.06", "flagged=23, FP=4, FN=5, F1=0.809."),
+                    ("contamination=0.12", "flagged=46, FP=24, FN=2, F1=0.629."),
+                    ("score queue", "score=-0.747, true_anomaly=True."),
+                    ("LOF", "Local density: flagged=23, F1=0.851."),
+                    ("trade-off", "Review cost decides where to set the dial."),
+                ],
+                "footer": "Anomaly detection is not just the highest score; it is an alert workflow between misses and false alarms.",
+                "alt": "Anomaly detection lab result map: compare contamination 0.03, 0.06, and 0.12 flagged, FP, FN, F1, score inspection, and LOF comparison.",
+            },
+            "ja": {
+                "title": "異常検知の実験結果を読む",
+                "subtitle": "contamination はアラートのつまみ。増やすほど見逃しと誤検知が変わる。",
+                "items": [
+                    ("contamination=0.03", "flagged=12、FP=0、FN=12、F1=0.667。"),
+                    ("contamination=0.06", "flagged=23、FP=4、FN=5、F1=0.809。"),
+                    ("contamination=0.12", "flagged=46、FP=24、FN=2、F1=0.629。"),
+                    ("score queue", "score=-0.747、true_anomaly=True。"),
+                    ("LOF", "局所密度：flagged=23、F1=0.851。"),
+                    ("trade-off", "レビューコストでつまみ位置を決める。"),
+                ],
+                "footer": "異常検知は最高スコアだけでなく、見逃しと誤検知の間でアラート運用を設計する。",
+                "alt": "異常検知実験結果図：contamination 0.03、0.06、0.12 の flagged、FP、FN、F1、score inspection、LOF を比較する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
