@@ -127,6 +127,8 @@ x=[1.0, 1.0] prob=0.000 pred=0
 final_loss= 0.0001
 ```
 
+![神经元与 XOR 实验结果图](/img/course/ch06-neuron-xor-run-result-map.webp)
+
 ## 读懂一个神经元
 
 第一段代码计算的是：

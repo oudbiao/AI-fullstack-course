@@ -127,6 +127,8 @@ x=[1.0, 1.0] prob=0.000 pred=0
 final_loss= 0.0001
 ```
 
+![Neuron and XOR lab result map](/img/course/ch06-neuron-xor-run-result-map-en.webp)
+
 ## Read One Neuron
 
 The first part computes:

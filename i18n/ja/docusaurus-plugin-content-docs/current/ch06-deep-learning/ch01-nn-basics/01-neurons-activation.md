@@ -127,6 +127,8 @@ x=[1.0, 1.0] prob=0.000 pred=0
 final_loss= 0.0001
 ```
 
+![ニューロンと XOR 実験結果図](/img/course/ch06-neuron-xor-run-result-map-ja.webp)
+
 ## 1 つのニューロンを読む
 
 最初の部分は次を計算しています。

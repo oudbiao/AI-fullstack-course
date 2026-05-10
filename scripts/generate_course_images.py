@@ -14439,6 +14439,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-neuron-xor-run-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
+        },
+        "scene": "A PyTorch neuron and XOR lab result board based on neuron_mlp_lab.py. The image must teach how the printed output proves two ideas: one artificial neuron computes a weighted score then activation values, while a tiny nonlinear MLP solves XOR. Do not draw a dense terminal log, full code, invented loss curves, invented hidden weights, invented epoch counts, extra sample rows, or extra metrics. Show the single-neuron station with feature chips x=[0.8,0.3,0.5], weight chips w=[0.2,-0.4,0.6], bias b=0.1, formula z=x@w+b, and exact outputs z=0.44, sigmoid=0.608, relu=0.44. Show the XOR station with four input tiles only: [0,0] -> prob=0.000 pred=0; [0,1] -> prob=1.000 pred=1; [1,0] -> prob=1.000 pred=1; [1,1] -> prob=0.000 pred=0; final_loss=0.0001. Visually show why a hidden nonlinear layer helps: the four XOR dots are not separable by one straight line, then a small MLP creates an intermediate feature space where the predictions are correct. Use only the values listed here.",
+        "chapter_context": "The image is inserted after the expected output of neuron_mlp_lab.py. Nearby text explains z=x@w+b, Sigmoid, ReLU, why stacked linear layers need nonlinear activation, and why XOR is a classic test for MLP expressiveness.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section is the single-neuron calculation bench: x chips, w chips, b chip, formula, and three output meters for z, Sigmoid, and ReLU. Middle section is the XOR four-card prediction board with the exact four rows and final_loss. Lower section shows one-line failure for a single straight boundary and success with a small MLP hidden layer. Keep values, panel order, color rhythm, and visual structure identical across zh/en/ja. Use concrete calculation and dot-plot imagery, not a terminal screenshot, SVG-style boxes, or pure text.",
+        "variants": {
+            "zh": {
+                "title": "神经元与 XOR 运行结果怎么读",
+                "subtitle": "先读一个神经元的计算，再看 MLP 为什么能解 XOR。",
+                "items": [
+                    ("单个神经元", "x=[0.8,0.3,0.5]，w=[0.2,-0.4,0.6]，b=0.1。"),
+                    ("线性打分", "z=x@w+b=0.44。"),
+                    ("激活输出", "sigmoid=0.608，relu=0.44。"),
+                    ("XOR 四点", "[0,0]->0，[0,1]->1，[1,0]->1，[1,1]->0。"),
+                    ("Tiny MLP", "隐藏层 + Tanh 让非线性边界可学习。"),
+                    ("final_loss", "0.0001：四个训练点几乎全学会。"),
+                ],
+                "footer": "神经元本身很简单，非线性激活和隐藏层才让网络有表达能力。",
+                "alt": "神经元与 XOR 实验结果图：单个神经元从 x、w、b 得到 z、sigmoid、relu，Tiny MLP 正确预测 XOR 四个输入并达到 final_loss 0.0001。",
+            },
+            "en": {
+                "title": "Reading Neuron and XOR Lab Results",
+                "subtitle": "Read one neuron calculation, then see why an MLP solves XOR.",
+                "items": [
+                    ("single neuron", "x=[0.8,0.3,0.5], w=[0.2,-0.4,0.6], b=0.1."),
+                    ("linear score", "z=x@w+b=0.44."),
+                    ("activation output", "sigmoid=0.608, relu=0.44."),
+                    ("XOR four points", "[0,0]->0, [0,1]->1, [1,0]->1, [1,1]->0."),
+                    ("Tiny MLP", "Hidden layer + Tanh makes a nonlinear boundary learnable."),
+                    ("final_loss", "0.0001: the four training points are nearly solved."),
+                ],
+                "footer": "A neuron is simple; nonlinear activation and hidden layers create expressive power.",
+                "alt": "Neuron and XOR lab result map: one neuron produces z, sigmoid, and relu from x, w, b, while Tiny MLP correctly predicts the four XOR inputs with final_loss 0.0001.",
+            },
+            "ja": {
+                "title": "ニューロンと XOR の実行結果を読む",
+                "subtitle": "1つのニューロン計算から、MLP が XOR を解く理由へ進む。",
+                "items": [
+                    ("単一ニューロン", "x=[0.8,0.3,0.5]、w=[0.2,-0.4,0.6]、b=0.1。"),
+                    ("線形スコア", "z=x@w+b=0.44。"),
+                    ("活性化出力", "sigmoid=0.608、relu=0.44。"),
+                    ("XOR の4点", "[0,0]->0、[0,1]->1、[1,0]->1、[1,1]->0。"),
+                    ("Tiny MLP", "隠れ層 + Tanh で非線形境界を学べる。"),
+                    ("final_loss", "0.0001：4つの訓練点をほぼ解けている。"),
+                ],
+                "footer": "ニューロンは単純だが、非線形活性化と隠れ層が表現力を作る。",
+                "alt": "ニューロンと XOR 実験結果図：x、w、b から z、sigmoid、relu を計算し、Tiny MLP が XOR の4入力を正しく予測して final_loss 0.0001 になる。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
