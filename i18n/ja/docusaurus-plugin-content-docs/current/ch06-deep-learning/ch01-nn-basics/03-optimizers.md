@@ -98,6 +98,8 @@ lr=0.1  final_w=2.322 final_loss=0.1038
 lr=1.1  final_w=20.575 final_loss=345.0386
 ```
 
+![Optimizer 実験結果図](/img/course/ch06-optimizer-lr-result-dashboard-ja.webp)
+
 ## 実験を読む
 
 この loss は次です。

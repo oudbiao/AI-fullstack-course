@@ -14549,6 +14549,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-optimizer-lr-result-dashboard",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch01-nn-basics/03-optimizers.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/03-optimizers.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch01-nn-basics/03-optimizers.md",
+        },
+        "scene": "An optimizer lab result dashboard based on optimizer_lab.py. The image must teach how to read the printed optimizer comparison and learning-rate check, not draw a generic landscape. Do not draw invented trajectories, extra optimizers, extra steps, invented final losses, raw code, terminal logs, dense checkpoint tables, or traffic lights. Show the loss formula loss=(w-2)^2 and start w=5 with target optimum w=2. Optimizer comparison should be a compact evidence board with only these key results: SGD step25 w=2.011 loss=0.0002; Momentum step5 w=0.259 loss=0.8571 and step25 w=2.475 loss=0.0200; Adam step25 w=2.739 loss=0.6569. Learning-rate check must be three large status cards and each card must include both final_w and final_loss exactly: lr=0.01 final_w=4.451 final_loss=6.0085; lr=0.1 final_w=2.322 final_loss=0.1038; lr=1.1 final_w=20.575 final_loss=345.0386. Do not substitute SGD step25 values into the lr=0.1 card. Critical numeric rule: all losses are nonnegative; never put a minus sign before any loss value. Teaching point: SGD with lr=0.1 reaches w≈2 on this simple loss, Momentum overshoots then settles, Adam is not magic here, and too-large LR diverges.",
+        "chapter_context": "The image is inserted after the expected output of optimizer_lab.py. Nearby text explains loss=(w-2)^2, SGD, Momentum, Adam, overshooting, learning-rate sensitivity, and why optimizer choice must be read with LR behavior.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows the simple one-dimensional loss bowl with start w=5 and optimum w=2. Middle section has three optimizer result cards: SGD final checkpoint, Momentum overshoot plus final checkpoint, and Adam final checkpoint. Lower section has three learning-rate status cards, not traffic lights: 0.01 crawls, 0.1 reasonable, 1.1 diverges. Each LR card must visibly show final_w and final_loss. Keep values, lane order, colors, and visual structure identical across zh/en/ja. Use concrete lab chart imagery; no terminal screenshot, dense table, or invented data. Use fewer large numeric cards so every value is readable on mobile.",
+        "variants": {
+            "zh": {
+                "title": "优化器实验结果怎么看",
+                "subtitle": "同一个 loss，optimizer 和 learning rate 会给出完全不同的移动轨迹。",
+                "items": [
+                    ("目标", "loss=(w-2)^2，起点 w=5，最优点 w=2。"),
+                    ("SGD", "step25: w=2.011，loss=0.0002，最接近最优点。"),
+                    ("Momentum", "step5 冲到 w=0.259，说明有 overshoot。"),
+                    ("Adam", "step25: w=2.739，loss=0.6569，不是魔法。"),
+                    ("lr=0.01", "final_w=4.451，final_loss=6.0085：太慢。"),
+                    ("lr=1.1", "final_w=20.575，final_loss=345.0386：发散。"),
+                ],
+                "footer": "先看 learning rate 是否合理，再比较 optimizer 名字。",
+                "alt": "优化器实验结果图：SGD、Momentum、Adam 在 loss=(w-2)^2 上的 w/loss 检查点，以及 lr=0.01、0.1、1.1 的最终结果对比。",
+            },
+            "en": {
+                "title": "Reading Optimizer Lab Results",
+                "subtitle": "On the same loss, optimizer and learning rate create very different moves.",
+                "items": [
+                    ("target", "loss=(w-2)^2, start w=5, optimum w=2."),
+                    ("SGD", "step25: w=2.011, loss=0.0002, closest to optimum."),
+                    ("Momentum", "step5 jumps to w=0.259, showing overshoot."),
+                    ("Adam", "step25: w=2.739, loss=0.6569, not magic here."),
+                    ("lr=0.01", "final_w=4.451, final_loss=6.0085: too slow."),
+                    ("lr=1.1", "final_w=20.575, final_loss=345.0386: diverges."),
+                ],
+                "footer": "Check whether the learning rate is sane before arguing optimizer names.",
+                "alt": "Optimizer lab result dashboard: compare SGD, Momentum, and Adam checkpoints on loss=(w-2)^2 plus final results for lr=0.01, 0.1, and 1.1.",
+            },
+            "ja": {
+                "title": "Optimizer 実験結果を読む",
+                "subtitle": "同じ loss でも、optimizer と learning rate で動き方が大きく変わる。",
+                "items": [
+                    ("目標", "loss=(w-2)^2、開始 w=5、最適点 w=2。"),
+                    ("SGD", "step25: w=2.011、loss=0.0002、最適点に最も近い。"),
+                    ("Momentum", "step5 で w=0.259 まで行き、overshoot を示す。"),
+                    ("Adam", "step25: w=2.739、loss=0.6569、ここでは魔法ではない。"),
+                    ("lr=0.01", "final_w=4.451、final_loss=6.0085：遅すぎる。"),
+                    ("lr=1.1", "final_w=20.575、final_loss=345.0386：発散。"),
+                ],
+                "footer": "optimizer 名を比べる前に、learning rate が妥当かを見る。",
+                "alt": "Optimizer 実験結果図：loss=(w-2)^2 上で SGD、Momentum、Adam の checkpoint と、lr=0.01、0.1、1.1 の final_w/final_loss を比較する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

@@ -98,6 +98,8 @@ lr=0.1  final_w=2.322 final_loss=0.1038
 lr=1.1  final_w=20.575 final_loss=345.0386
 ```
 
+![Optimizer lab result dashboard](/img/course/ch06-optimizer-lr-result-dashboard-en.webp)
+
 ## Read the Experiment
 
 The loss is:

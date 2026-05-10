@@ -98,6 +98,8 @@ lr=0.1  final_w=2.322 final_loss=0.1038
 lr=1.1  final_w=20.575 final_loss=345.0386
 ```
 
+![优化器实验结果图](/img/course/ch06-optimizer-lr-result-dashboard.webp)
+
 ## 读懂实验
 
 这里的 loss 是：
