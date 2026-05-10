@@ -208,6 +208,8 @@ last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
 topic: 返金
 ```
 
+![アシスタントのツール呼び出しと状態 trace 結果図](/img/course/ch08-assistant-tool-state-trace-result-map-ja.webp)
+
 ### この例のいちばん大きな価値は何か？
 
 これは単に「Q&A」をしているのではなく、次の点を表しています。

@@ -15154,6 +15154,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch08-assistant-tool-state-trace-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch05-projects/03-intelligent-assistant.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/03-intelligent-assistant.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/03-intelligent-assistant.md",
+        },
+        "scene": "A course-platform assistant worked-result board based on the assistant_reply expected output. The image must teach how multi-turn state makes the second answer possible. Do not draw terminal screenshots, full code blocks, invented API calls, invented users, invented progress values, invented document ids, embeddings, vector database internals, model names, confidence scores, or extra evaluation metrics. Show exactly two turns, and do not merge or duplicate the two user intents. To prevent language errors, do not write full natural user question sentences in speech bubbles. Use short localized intent labels only: turn 1 is the policy question intent, turn 2 is the eligibility follow-up intent. Turn 1 has user_id=2; retrieval returns the refund policy document; session topic becomes the localized refund topic; last_tool_call is None; answer says refund is available within 7 days if learning progress is below 20% and asks for progress. Turn 2 is the eligibility follow-up; because the stored topic is refund and user_id is 2, the assistant calls get_user_progress(user_id=2); progress is 30%; final answer says the user does not currently meet refund conditions. Critical locale rule: in English visible code output use retrieve(\"refund\"), topic: refund, and last_retrieved_doc: refund policy. In Simplified Chinese visible code output use retrieve(\"退款\"), topic: 退款, and last_retrieved_doc: 退款政策文档. In Japanese visible code output use retrieve(\"返金\"), topic: 返金, and last_retrieved_doc: 返金ポリシー文書. Never use retrieve('refund') in the Chinese or Japanese image. Never invent document ids such as refund_policy-v1, retrieved_doc_1, or 文档#1. Keep code field names such as topic, user_id, last_retrieved_doc, last_tool_call, retrieve, and get_user_progress, but localize all helper labels and explanatory phrases. Do not add English helper labels such as 'turn 1 request', 'session topic update', or 'turn 2 follow-up' in Chinese or Japanese. Show the printed result tokens as localized concepts: last_tool_call: {'name': 'get_user_progress', 'user_id': 2} and the localized topic value. Also show a compact state snapshot with four fields only: topic, user_id, last_retrieved_doc, last_tool_call. Teaching point: retrieval supplies policy knowledge, tool calling supplies user-specific progress, and session state connects turn 2 back to turn 1.",
+        "chapter_context": "The image is inserted after the expected output of the assistant_reply two-turn run. Nearby text explains conversation state, retrieval versus tools, multi-turn context, session snapshots, and why session is more important than the final answer alone.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as the other ch08 result images: cream notebook paper, blue ink dividers, green retrieved-document chips, orange tool-call cards, and a bottom state-rule strip. Top title and subtitle. Upper section shows Turn 1 with user question, the locale-correct retrieve call, refund policy document, and localized session topic update. Middle section shows Turn 2 with follow-up question, get_user_progress(user_id=2), progress gauge at exactly 30%, and final not-eligible answer. Lower section shows printed outputs: last_tool_call and topic, plus a compact session snapshot with topic, user_id, last_retrieved_doc, last_tool_call. Keep turn order, values, field names, colors, and reading path identical across zh/en/ja. Only the code field names may stay English; all non-code helper labels must be in the target language. Use concrete conversation cards, document chips, tool wrench/card, progress gauge, and state ledger; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, invented document ids, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "助手运行 trace 怎么看",
+                "subtitle": "第一轮靠检索，第二轮靠状态触发工具调用。",
+                "items": [
+                    ("第 1 轮", "政策问题命中文档，topic 设为退款。"),
+                    ("检索结果", "retrieve(\"退款\") -> 退款政策文档。"),
+                    ("第 2 轮", "资格追问继承退款主题。"),
+                    ("工具调用", "get_user_progress(user_id=2) -> 30%。"),
+                    ("输出结果", "当前不满足退款条件。"),
+                    ("session 快照", "保存 topic、user_id、last_retrieved_doc、last_tool_call。"),
+                ],
+                "footer": "助手感来自状态、检索和工具调用的闭环。",
+                "alt": "智能助手运行 trace 结果图：两轮退款对话中先检索退款政策，再根据 session topic 调用 get_user_progress(user_id=2)，得到 30% 进度并输出不满足退款条件。",
+            },
+            "en": {
+                "title": "Reading an Assistant Run Trace",
+                "subtitle": "Turn 1 uses retrieval; turn 2 uses state to trigger a tool call.",
+                "items": [
+                    ("turn 1", "Policy question retrieves the document and sets topic=refund."),
+                    ("retrieved doc", "Refund within 7 days if progress is below 20%."),
+                    ("turn 2", "Eligibility follow-up inherits the refund topic."),
+                    ("tool call", "get_user_progress(user_id=2) -> 30%."),
+                    ("result", "The user does not currently meet refund conditions."),
+                    ("session snapshot", "Keep topic, user_id, last_retrieved_doc, last_tool_call."),
+                ],
+                "footer": "Assistant feel comes from a loop of state, retrieval, and tools.",
+                "alt": "Intelligent assistant run trace result map: a two-turn refund dialog first retrieves the refund policy, then uses session topic to call get_user_progress(user_id=2), gets 30% progress, and answers not eligible.",
+            },
+            "ja": {
+                "title": "アシスタント実行 trace を読む",
+                "subtitle": "1ターン目は検索、2ターン目は状態からツール呼び出しへ進む。",
+                "items": [
+                    ("1ターン目", "ポリシー質問で文書に命中し、topic を返金にする。"),
+                    ("検索結果", "retrieve(\"返金\") -> 返金ポリシー文書。"),
+                    ("2ターン目", "資格確認が返金 topic を引き継ぐ。"),
+                    ("ツール呼び出し", "get_user_progress(user_id=2) -> 30%。"),
+                    ("出力結果", "現在は返金条件を満たしていない。"),
+                    ("session スナップショット", "topic、user_id、last_retrieved_doc、last_tool_call を保持。"),
+                ],
+                "footer": "アシスタントらしさは、状態、検索、ツール呼び出しの閉ループから生まれる。",
+                "alt": "インテリジェントアシスタント実行 trace 結果図：2ターンの返金対話で返金ポリシーを検索し、session topic から get_user_progress(user_id=2) を呼び、進捗30%を得て返金条件を満たさないと答える。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

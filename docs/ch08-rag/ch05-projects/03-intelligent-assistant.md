@@ -209,6 +209,8 @@ last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
 topic: refund
 ```
 
+![Assistant tool and state trace result map](/img/course/ch08-assistant-tool-state-trace-result-map-en.webp)
+
 ### What is the most important value of this example?
 
 It is not just doing “Q&A,” but showing:

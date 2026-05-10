@@ -208,6 +208,8 @@ last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
 topic: 退款
 ```
 
+![助手工具调用与状态 trace 结果图](/img/course/ch08-assistant-tool-state-trace-result-map.webp)
+
 ### 这个例子最关键的价值是什么？
 
 它不是只在做“问答”，而是在体现：
