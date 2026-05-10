@@ -289,6 +289,8 @@ print(memory_view)
 {'summary': 'user: 退款政策是什么？ | assistant: 购买后 7 天内且学习进度低于 20% 可退款。', 'recent': [{'role': 'user', 'content': '如果我已经学了 30% 呢？'}, {'role': 'assistant', 'content': '那通常不符合退款条件。'}]}
 ```
 
+![对话历史压缩实验结果图](/img/course/ch08-dialog-history-compaction-result-map.webp)
+
 这仍然是教学版代码，但它训练的是很重要的工程习惯：不要让 prompt 无限增长。最近对话保留准确内容，较早上下文要有意识地摘要。
 
 ---

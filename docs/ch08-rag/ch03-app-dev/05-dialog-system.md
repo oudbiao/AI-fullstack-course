@@ -289,6 +289,8 @@ Expected output:
 {'summary': 'user: What is the refund policy? | assistant: Refunds are available within 7 days if progress is below 20%.', 'recent': [{'role': 'user', 'content': 'What if I have completed 30%?'}, {'role': 'assistant', 'content': 'Then you usually do not qualify.'}]}
 ```
 
+![Dialog history compaction result map](/img/course/ch08-dialog-history-compaction-result-map-en.webp)
+
 This is still a toy example, but it teaches a serious engineering habit: do not let the prompt grow forever. Keep fresh turns precisely, and summarize older context deliberately.
 
 ---

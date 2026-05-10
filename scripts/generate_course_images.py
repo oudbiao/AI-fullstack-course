@@ -15099,6 +15099,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch08-dialog-history-compaction-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/05-dialog-system.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/05-dialog-system.md",
+        },
+        "scene": "A dialog-system worked-result board based on the compact_history expected output. The image must teach how four raw conversation turns become a compact memory view. Do not draw terminal screenshots, full code blocks, invented API calls, invented token numbers, model names, database diagrams, embeddings, vector search, tool calls, or extra conversation turns. Show exactly four original turns in order: user asks refund policy; assistant says refunds are available within 7 days if progress is below 20%; user asks what if progress is 30%; assistant says the user usually does not qualify. Show keep_last=2 as a visible sliding window around the last two turns. Show older turns flowing into one summary strip with the same two older messages joined by a vertical bar. Show recent containing exactly the last two raw message cards. Show the output object as two fields only: summary and recent. Teaching point: old context is summarized deliberately while fresh turns stay exact, so the prompt does not grow forever.",
+        "chapter_context": "The image is inserted after the expected output of compact_history. Nearby text explains that long history increases token cost, slows responses, and accumulates irrelevant context, so real dialog systems keep recent turns precisely and summarize older context deliberately.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as the ch08 RAG evaluation result image: cream notebook paper, blue ink dividers, green retained recent cards, amber summary strip, and a bottom rule strip. Top title and subtitle. Upper section shows a four-turn timeline labeled 1 to 4. Middle section shows a keep_last=2 sliding window selecting turns 3 and 4, while turns 1 and 2 fold into a summary strip. Lower section shows the resulting memory_view with two fields only: summary and recent. Keep turn order, field names, colors, and reading path identical across zh/en/ja. Use concrete message cards, scissors/window markers, folded summary paper, and clear arrows; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "对话历史压缩结果怎么看",
+                "subtitle": "旧轮次做摘要，最近轮次保持原文，prompt 才不会无限长。",
+                "items": [
+                    ("原始历史", "4 轮消息按顺序进入 compact_history。"),
+                    ("keep_last=2", "最后两轮保留为 recent 原文。"),
+                    ("older", "前两轮不丢弃，而是压成 summary。"),
+                    ("summary", "退款政策是什么？ | 7 天内且进度低于 20%。"),
+                    ("recent", "30% 问题和“不符合条件”保留原文。"),
+                    ("工程习惯", "保留有用上下文，而不是无限塞 prompt。"),
+                ],
+                "footer": "多轮对话管理的关键是选择、压缩和保真。",
+                "alt": "对话历史压缩实验结果图：四轮退款对话经过 keep_last=2，前两轮变成 summary，后两轮作为 recent 原文保留。",
+            },
+            "en": {
+                "title": "Reading Dialog History Compaction",
+                "subtitle": "Summarize older turns, keep recent turns exact, and stop prompt growth.",
+                "items": [
+                    ("raw history", "4 turns enter compact_history in order."),
+                    ("keep_last=2", "The last two turns stay as exact recent messages."),
+                    ("older", "The first two turns are folded into summary, not lost."),
+                    ("summary", "refund policy? | 7 days and progress below 20%."),
+                    ("recent", "30% question and “do not qualify” stay exact."),
+                    ("engineering habit", "Keep useful context instead of stuffing the prompt forever."),
+                ],
+                "footer": "Multi-turn management is about selection, compression, and fidelity.",
+                "alt": "Dialog history compaction result map: four refund conversation turns pass through keep_last=2, older turns become summary, and the last two turns remain exact recent messages.",
+            },
+            "ja": {
+                "title": "対話履歴圧縮の結果を読む",
+                "subtitle": "古いターンは要約し、直近ターンは原文で残し、prompt の肥大化を止める。",
+                "items": [
+                    ("元の履歴", "4ターンが順番に compact_history へ入る。"),
+                    ("keep_last=2", "最後の2ターンは recent として原文で残す。"),
+                    ("older", "最初の2ターンは捨てずに summary へ畳む。"),
+                    ("summary", "返金ポリシーは？ | 7日以内かつ進度20%未満。"),
+                    ("recent", "30% の質問と「条件を満たさない」を原文で残す。"),
+                    ("実装習慣", "有用な文脈を残し、prompt に無限投入しない。"),
+                ],
+                "footer": "マルチターン管理の要点は、選択、圧縮、忠実さ。",
+                "alt": "対話履歴圧縮実験結果図：4ターンの返金対話を keep_last=2 に通し、古い2ターンを summary にし、直近2ターンを recent として原文保持する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

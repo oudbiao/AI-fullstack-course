@@ -293,6 +293,8 @@ print(memory_view)
 {'summary': 'user: 返金ポリシーは何ですか？ | assistant: 購入後 7 日以内、かつ学習進度が 20% 未満なら返金可能です。', 'recent': [{'role': 'user', 'content': 'もし 30% 学習済みなら？'}, {'role': 'assistant', 'content': 'その場合、通常は返金条件を満たしません。'}]}
 ```
 
+![対話履歴圧縮実験結果図](/img/course/ch08-dialog-history-compaction-result-map-ja.webp)
+
 これはまだ学習用の例ですが、大事な実装習慣を教えてくれます。prompt を無限に伸ばさず、直近の会話は正確に残し、古い文脈は意図的に要約します。
 
 ---
