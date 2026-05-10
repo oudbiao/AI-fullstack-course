@@ -211,6 +211,8 @@ memory snapshot:
 {'short_term_messages': [{'role': 'user', 'content': '请简洁回答，我想看退款条件'}, {'role': 'assistant', 'content': '订单 ORD-1001 当前学习进度为 12%，符合退款进度条件。退款规则：购买后7天内且学习进度低于20%可申请退款，款项原路返回，通常3...'}, {'role': 'user', 'content': '那多久到账？'}, {'role': 'assistant', 'content': '订单 ORD-1001 当前学习进度为 12%，符合退款进度条件。退款规则：购买后7天内且学习进度低于20%可申请退款，款项原路返回，通常3...'}], 'short_term_state': {'active_workflow': 'refund_workflow', 'order_id': 'ORD-1001'}, 'long_term_profile': {'style': 'concise'}, 'episodic_memory_tail': [{'user_id': 'u_001', 'topic': 'refund', 'summary': "workflow=['读取订单状态', '读取退款政策', '判断是否满足条件', '返回结论和到账说明']; order=ORD-1001; style=concise; result=订单 ORD-1001 当前学习进度为 12%，符合退款进度条件。退款规则：购买后7天内且学习进度低于20%可申请退款，款项原路返回，通常3..."}, {'user_id': 'u_001', 'topic': 'refund', 'summary': "workflow=['读取订单状态', '读取退款政策', '判断是否满足条件', '返回结论和到账说明']; order=ORD-1001; style=concise; result=订单 ORD-1001 当前学习进度为 12%，符合退款进度条件。退款规则：购买后7天内且学习进度低于20%可申请退款，款项原路返回，通常3..."}], 'procedural_memory': {'refund_workflow': ['读取订单状态', '读取退款政策', '判断是否满足条件', '返回结论和到账说明']}}
 ```
 
+![MemoryAgent 四层记忆 snapshot 结果图](/img/course/ch09-memory-four-layer-snapshot-result-map.webp)
+
 ### 这段代码体现了哪四层协作？
 
 1. `short_term_messages`

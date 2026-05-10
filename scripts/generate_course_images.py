@@ -15264,6 +15264,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch09-memory-four-layer-snapshot-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch04-memory/06-memory-practice.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch04-memory/06-memory-practice.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch04-memory/06-memory-practice.md",
+        },
+        "scene": "A MemoryAgent worked-result board based on the memory snapshot expected output. The image must teach how four memory layers cooperate in a real run, but it must avoid business-policy details that the model may invent. Do not draw terminal screenshots, full code blocks, invented users, invented orders, invented progress values other than 12%, invented dates, invented product names, invented order ids, invented thresholds, invented arrival-day ranges, invented policy wording, invented memory layers, vector databases, embeddings, model names, scores, or extra metrics. Use only these exact fixed data points: user_id u_001; order_id ORD-1001; learning progress 12%; style=concise; short_window=4; short_term_messages count=4; active_workflow=refund_workflow; episodic_memory_tail count=2; procedural_memory refund_workflow has 4 steps. Do not write full assistant answer sentences about refund eligibility or arrival time. Use short labels only: round1 asks refund conditions and stores style=concise; round2 asks arrival time and reuses style=concise. Show the snapshot with exactly these fields: short_term_messages count=4; short_term_state active_workflow=refund_workflow and order_id=ORD-1001; long_term_profile style=concise; episodic_memory_tail count=2 with two generic episode cards, both user_id u_001, topic refund, order ORD-1001, style concise; procedural_memory refund_workflow with four steps. Critical locale rule: English visible workflow steps are Read order status, Read refund policy, Determine whether conditions are met, Return the conclusion and arrival time explanation. Chinese visible workflow steps are 读取订单状态, 读取退款政策, 判断是否满足条件, 返回结论和到账说明. Japanese visible workflow steps are 注文状態を読み取る, 返金ポリシーを読み取る, 条件を満たすか判断する, 結論と着金の説明を返す. Keep code field names as code: short_term_messages, short_term_state, long_term_profile, episodic_memory_tail, procedural_memory, active_workflow, refund_workflow, style=concise. Localize helper labels and explanatory phrases. Teaching point: memory is not one blob; each layer has a different job and the second round uses the long-term style preference plus the active workflow state.",
+        "chapter_context": "The image is inserted after the expected output of MemoryAgent.snapshot. Nearby text explains short-term messages, long-term profile, episodic memory, procedural memory, and why the second round stays concise even though the user does not repeat the preference.",
+        "shared_layout": "Vertical 9:16. Warm paper workbook style: cream notebook paper, blue dividers, five large snapshot cards, and a bottom rule strip. Top title and subtitle. Upper section shows two tiny round cards only: round1 -> style=concise is written, round2 -> style=concise is reused; do not write full answer text or policy text. Middle section shows five large snapshot cards: short_term_messages, short_term_state, long_term_profile, episodic_memory_tail, procedural_memory. The episodic_memory_tail card must show exactly two generic episode cards labeled episode 1 and episode 2 with user_id=u_001, topic=refund, order=ORD-1001, style=concise; no dates and no alternate order ids. Lower section shows an arrow from long_term_profile style=concise plus short_term_state active_workflow=refund_workflow into a concise second response label. Keep values, layer names, colors, and reading path identical across zh/en/ja. Use concrete message cards, profile tag, episode logbook, workflow checklist, and state ledger; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, invented dates, invented products, invented order ids, invented thresholds, arrival-day ranges, or policy sentences.",
+        "variants": {
+            "zh": {
+                "title": "四层记忆 snapshot 怎么看",
+                "subtitle": "第二轮还能简洁，是因为偏好和流程都被写进记忆层。",
+                "items": [
+                    ("round1", "退款条件问题写入 style=concise。"),
+                    ("round2", "到账时间问题复用 style=concise。"),
+                    ("short_term_messages", "保留最近 4 条 user/assistant 消息。"),
+                    ("short_term_state", "active_workflow=refund_workflow，order_id=ORD-1001。"),
+                    ("long_term_profile", "style=concise，不用每轮重复说。"),
+                    ("procedural_memory", "退款流程 4 步：读订单、读政策、判断、返回结论。"),
+                ],
+                "footer": "记忆不是一坨上下文，而是各层各管一类事实。",
+                "alt": "MemoryAgent 四层记忆 snapshot 结果图：两轮退款对话后，short_term_messages、short_term_state、long_term_profile、episodic_memory_tail 和 procedural_memory 如何协作。",
+            },
+            "en": {
+                "title": "Reading a Four-Layer Memory Snapshot",
+                "subtitle": "Round 2 stays concise because preference and workflow were written into memory.",
+                "items": [
+                    ("round1", "Refund-condition question writes style=concise."),
+                    ("round2", "Arrival-time question reuses style=concise."),
+                    ("short_term_messages", "Keeps the latest 4 user/assistant messages."),
+                    ("short_term_state", "active_workflow=refund_workflow, order_id=ORD-1001."),
+                    ("long_term_profile", "style=concise, so the user need not repeat it."),
+                    ("procedural_memory", "4 refund steps: order, policy, decision, conclusion."),
+                ],
+                "footer": "Memory is not one blob of context; each layer owns a different kind of fact.",
+                "alt": "MemoryAgent four-layer memory snapshot result map: after two refund turns, short_term_messages, short_term_state, long_term_profile, episodic_memory_tail, and procedural_memory cooperate.",
+            },
+            "ja": {
+                "title": "4層メモリ snapshot を読む",
+                "subtitle": "2回目も簡潔なのは、好みと手順がメモリ層に書かれているから。",
+                "items": [
+                    ("round1", "返金条件の質問で style=concise を書き込む。"),
+                    ("round2", "着金時期の質問で style=concise を再利用する。"),
+                    ("short_term_messages", "直近 4 件の user/assistant メッセージを保持。"),
+                    ("short_term_state", "active_workflow=refund_workflow，order_id=ORD-1001。"),
+                    ("long_term_profile", "style=concise、毎回言い直す必要がない。"),
+                    ("procedural_memory", "返金手順4つ：注文、ポリシー、判断、結論。"),
+                ],
+                "footer": "メモリは一つの文脈の塊ではなく、層ごとに違う事実を担当する。",
+                "alt": "MemoryAgent の4層メモリ snapshot 結果図：2回の返金対話後に short_term_messages、short_term_state、long_term_profile、episodic_memory_tail、procedural_memory が協力する様子。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

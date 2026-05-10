@@ -211,6 +211,8 @@ memory snapshot:
 {'short_term_messages': [{'role': 'user', 'content': 'Please answer briefly, I want to see the refund conditions'}, {'role': 'assistant', 'content': 'Order ORD-1001 currently has a learning progress of 12%, which meets t...'}, {'role': 'user', 'content': 'Then when will it arrive?'}, {'role': 'assistant', 'content': 'Order ORD-1001 currently has a learning progress of 12%, which meets t...'}], 'short_term_state': {'active_workflow': 'refund_workflow', 'order_id': 'ORD-1001'}, 'long_term_profile': {'style': 'concise'}, 'episodic_memory_tail': [{'user_id': 'u_001', 'topic': 'refund', 'summary': "workflow=['Read order status', 'Read refund policy', 'Determine whether conditions are met', 'Return the conclusion and arrival time explanation']; order=ORD-1001; style=concise; result=Order ORD-1001 currently has a learning progress of 12%, which meets t..."}, {'user_id': 'u_001', 'topic': 'refund', 'summary': "workflow=['Read order status', 'Read refund policy', 'Determine whether conditions are met', 'Return the conclusion and arrival time explanation']; order=ORD-1001; style=concise; result=Order ORD-1001 currently has a learning progress of 12%, which meets t..."}], 'procedural_memory': {'refund_workflow': ['Read order status', 'Read refund policy', 'Determine whether conditions are met', 'Return the conclusion and arrival time explanation']}}
 ```
 
+![MemoryAgent four-layer snapshot result map](/img/course/ch09-memory-four-layer-snapshot-result-map-en.webp)
+
 ### What four-layer collaboration does this code demonstrate?
 
 1. `short_term_messages`
