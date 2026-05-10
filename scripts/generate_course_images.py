@@ -15044,6 +15044,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch08-rag-eval-metric-output-ladder-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch01-rag/07-rag-evaluation.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/07-rag-evaluation.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/07-rag-evaluation.md",
+        },
+        "scene": "A RAG evaluation worked-result board based only on the expected outputs in the page. The image must teach that RAG evaluation is a three-step evidence ladder, not one final score. Do not draw terminal screenshots, full code blocks, invented metrics, invented rows, extra questions, MRR, Recall@k, BLEU, F1, hallucination scores, or any numeric values except the ones listed here. Show exactly two evaluation examples. Example 1: question about refund timing; gold_doc is Refund Policy; retrieved_docs are Refund Policy and Learning Order; gold_answer and answer both say a refund can be requested within 7 days after course purchase. Example 2: question about certificate; gold_doc is Certificate Guide; retrieved_docs are Learning Order and Certificate Guide; gold_answer and answer both say a certificate is available after completing the project and passing the test. Show the first check as retrieval Hit@2 with two green match tokens, resulting in Hit@2 = 1.0. Show the second check as answer Exact Match with two matched answer strips, resulting in Exact Match = 1.0. Show the third check as faithfulness: evidence and answer are the same refund sentence, resulting in Supported by evidence: True. Teaching point: first verify the correct document is retrieved, then verify answer correctness, then verify the answer is grounded in evidence.",
+        "chapter_context": "The image is inserted after the expected output of the simplified faithfulness check in the RAG evaluation lesson. Nearby text explains the minimal evaluation dataset, Hit@k, Exact Match, and Faithfulness, and warns that retrieval hit alone cannot prove the final answer is correct.",
+        "shared_layout": "Vertical 9:16. All three language variants must use the same warm paper workbook / hand-annotated study notebook style: cream notebook paper, blue ink dividers, green matched document chips, yellow answer strips, and one bottom rule strip. Do not use a dark dashboard, neon UI, slide deck, or different background in one language. Top title and subtitle. Upper section shows two evaluation example lanes with compact truth-versus-prediction artifacts: gold_doc, retrieved_docs, gold_answer, answer. Middle section is a three-step ladder: Step 1 retrieval Hit@2, Step 2 answer Exact Match, Step 3 faithfulness evidence support. Each step has a visual action: document token match, answer strip match, evidence-to-answer highlight. Lower section has one concise rule strip: evaluate retrieval, answer, and evidence separately. Keep example order, values, colors, and reading path identical across zh/en/ja. Use concrete notebooks, document chips, answer strips, and highlighted evidence; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "RAG 评估输出怎么读",
+                "subtitle": "先看文档有没有召回，再看答案，再看证据支撑。",
+                "items": [
+                    ("样例 1", "退款问题：gold_doc=退款政策，预测命中。"),
+                    ("样例 2", "证书问题：gold_doc=证书说明，Top 2 命中。"),
+                    ("Hit@2", "1.0：两条样例都找到了正确文档。"),
+                    ("Exact Match", "1.0：两条答案都和标准答案一致。"),
+                    ("证据支持", "是否被证据支持: True。"),
+                    ("分开评估", "召回、答案、证据不能混成一个感觉。"),
+                ],
+                "footer": "RAG 评估要沿着 evidence chain 逐层检查。",
+                "alt": "RAG 评估实验结果图：两条评估样例依次检查 Hit@2、Exact Match 和 Faithfulness，显示正确文档召回、答案匹配和证据支持。",
+            },
+            "en": {
+                "title": "Reading RAG Evaluation Output",
+                "subtitle": "Check retrieval first, then answer correctness, then evidence support.",
+                "items": [
+                    ("example 1", "Refund question: gold_doc=Refund Policy, matched."),
+                    ("example 2", "Certificate question: gold_doc=Certificate Guide, hit in Top 2."),
+                    ("Hit@2", "1.0: both examples retrieved the correct document."),
+                    ("Exact Match", "1.0: both answers match the gold answers."),
+                    ("Faithfulness", "Supported by evidence: True."),
+                    ("separate checks", "Do not merge retrieval, answer, and evidence into a feeling."),
+                ],
+                "footer": "RAG evaluation follows the evidence chain one layer at a time.",
+                "alt": "RAG evaluation result map: two evaluation examples checked through Hit@2, Exact Match, and Faithfulness, showing correct document retrieval, answer match, and evidence support.",
+            },
+            "ja": {
+                "title": "RAG 評価出力を読む",
+                "subtitle": "まず検索、次に回答、最後に証拠の支えを見る。",
+                "items": [
+                    ("例 1", "返金質問：gold_doc=返金ポリシー、予測は命中。"),
+                    ("例 2", "証明書質問：gold_doc=証明書の説明、Top 2 で命中。"),
+                    ("Hit@2", "1.0：2例とも正しい文書を取得。"),
+                    ("Exact Match", "1.0：2つの回答が正解と一致。"),
+                    ("証拠の支え", "証拠に支えられているか: True。"),
+                    ("分けて評価", "検索、回答、証拠を雰囲気で混ぜない。"),
+                ],
+                "footer": "RAG 評価は evidence chain を一段ずつ確認する。",
+                "alt": "RAG 評価実験結果図：2つの評価例を Hit@2、Exact Match、Faithfulness の順に確認し、正しい文書検索、回答一致、証拠支援を示す。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

@@ -270,6 +270,8 @@ Expected output:
 Supported by evidence: True
 ```
 
+![RAG evaluation result map](/img/course/ch08-rag-eval-metric-output-ladder-map-en.webp)
+
 Real systems of course do not rely only on string matching, but the idea is correct:
 
 > The answer should be supported by the retrieval evidence as much as possible.

@@ -271,6 +271,8 @@ print("証拠に支えられているか:", faithful)
 証拠に支えられているか: True
 ```
 
+![RAG 評価実験結果図](/img/course/ch08-rag-eval-metric-output-ladder-map-ja.webp)
+
 実際のシステムでは、もちろんこんな文字列比較だけではありません。  
 ただ、考え方としては正しいです。
 

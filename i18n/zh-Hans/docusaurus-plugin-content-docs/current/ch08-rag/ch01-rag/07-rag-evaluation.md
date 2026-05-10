@@ -270,6 +270,8 @@ print("是否被证据支持:", faithful)
 是否被证据支持: True
 ```
 
+![RAG 评估实验结果图](/img/course/ch08-rag-eval-metric-output-ladder-map.webp)
+
 真实系统里当然不会只用这种字符串判断，但思路是对的：
 
 > 回答应该尽量能在检索证据里找到支撑。
