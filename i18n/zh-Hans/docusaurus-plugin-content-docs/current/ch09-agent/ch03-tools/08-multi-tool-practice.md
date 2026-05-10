@@ -225,6 +225,8 @@ answer:
 订单 ORD-1001 当前状态为未发货。未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。 预计退款金额为 314 元。
 ```
 
+![多工具 Agent 订单退款 trace 结果图](/img/course/ch09-multi-tool-order-refund-trace-result-map.webp)
+
 ### 这段代码和前面分散示例最大的差别是什么？
 
 它已经不再是：

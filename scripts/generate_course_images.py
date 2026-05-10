@@ -15209,6 +15209,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch09-multi-tool-order-refund-trace-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch03-tools/08-multi-tool-practice.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/08-multi-tool-practice.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/08-multi-tool-practice.md",
+        },
+        "scene": "A multi-tool Agent worked-result board based on the run_agent(\"ORD-1001\") expected output. The image must teach how state accumulation drives the next tool decision. Do not draw terminal screenshots, full code blocks, invented tools, invented order ids, invented prices, invented statuses, invented fees, invented currency conversions, confidence scores, vector databases, or extra evaluation metrics. Show exactly three tool steps in order. Step 1 get_order_status(order_id=\"ORD-1001\") writes order_info into state: order_id ORD-1001, status localized Not shipped / 未发货 / 未発送, amount 299, shipping_fee 15. Step 2 search_refund_policy(keyword localized refund / 退款 / 返金) writes policy into state: unshipped orders can be refunded directly and money returns in 3 to 7 business days. Step 3 calculator(expression=\"299 + 15\") writes refund_amount=314 into state. Then final answer integrates all three observations: order ORD-1001 is not shipped, refund policy allows direct refund, estimated refund amount is 314 yuan/元/円. Critical locale rule: English image uses status Not shipped, keyword refund, amount 314 yuan. Chinese image uses status 未发货, keyword 退款, amount 314 元. Japanese image uses status 未発送, keyword 返金, amount 314 円. Keep tool names and state field names as code: get_order_status, search_refund_policy, calculator, order_info, policy, refund_amount, trace, state. Localize all helper labels and explanatory phrases. Teaching point: the final answer is not the last tool output; it is the integrated conclusion built from accumulated state.",
+        "chapter_context": "The image is inserted after the expected output of the multi-tool practice. Nearby text explains decision order, state accumulation, multi-tool cooperation, and why the final answer integrates several observations instead of repeating the last observation.",
+        "shared_layout": "Vertical 9:16. Warm paper workbook style: cream notebook paper, blue dividers, green state ledger, orange tool-call cards, and a bottom integration strip. Top title and subtitle. Upper section shows initial state with order_id ORD-1001 and missing order_info / policy / refund_amount. Middle section is a three-step vertical trace: get_order_status -> search_refund_policy -> calculator, each with a tool card, observation card, and state slot being filled. Lower section shows final answer assembly from three state chips: status, policy, refund_amount=314. Bottom rule: final answer integrates accumulated observations. Keep step order, numeric values, tool names, colors, and reading path identical across zh/en/ja. Use concrete order ticket, policy document, calculator, state ledger, and final-answer receipt; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "多工具 Agent trace 怎么看",
+                "subtitle": "每次工具调用都把新观察写入 state，下一步才知道缺什么。",
+                "items": [
+                    ("初始 state", "order_id=ORD-1001，其他信息还缺。"),
+                    ("步骤 1", "get_order_status -> status=未发货，amount=299，shipping_fee=15。"),
+                    ("步骤 2", "search_refund_policy(keyword=\"退款\") -> 未发货可直接退款。"),
+                    ("步骤 3", "calculator(\"299 + 15\") -> refund_amount=314。"),
+                    ("最终回答", "订单未发货，可退款，预计退款金额 314 元。"),
+                    ("关键逻辑", "不是复读最后一个 observation，而是整合 state。"),
+                ],
+                "footer": "多工具协作靠 state 累积事实，再把事实合成结论。",
+                "alt": "多工具 Agent 运行 trace 结果图：get_order_status、search_refund_policy、calculator 三步依次填充 state，最终整合未发货、退款政策和 314 元退款金额。",
+            },
+            "en": {
+                "title": "Reading a Multi-Tool Agent Trace",
+                "subtitle": "Each tool call writes an observation into state, so the next step knows what is missing.",
+                "items": [
+                    ("initial state", "order_id=ORD-1001; order details, policy, and amount are missing."),
+                    ("step 1", "get_order_status -> status=Not shipped, amount=299, shipping_fee=15."),
+                    ("step 2", "search_refund_policy(keyword=\"refund\") -> unshipped orders can refund directly."),
+                    ("step 3", "calculator(\"299 + 15\") -> refund_amount=314."),
+                    ("final answer", "Order is not shipped, refundable, estimated refund amount is 314 yuan."),
+                    ("key logic", "Do not repeat the last observation; integrate state."),
+                ],
+                "footer": "Multi-tool cooperation accumulates facts in state, then composes a conclusion.",
+                "alt": "Multi-tool Agent trace result map: get_order_status, search_refund_policy, and calculator fill state in order, then integrate not shipped status, refund policy, and 314 yuan refund amount.",
+            },
+            "ja": {
+                "title": "マルチツール Agent trace を読む",
+                "subtitle": "各ツール呼び出しが observation を state に書き込み、次に足りないものが分かる。",
+                "items": [
+                    ("初期 state", "order_id=ORD-1001、ほかの情報はまだ不足。"),
+                    ("ステップ 1", "get_order_status -> status=未発送，amount=299，shipping_fee=15。"),
+                    ("ステップ 2", "search_refund_policy(keyword=\"返金\") -> 未発送は直接返金可。"),
+                    ("ステップ 3", "calculator(\"299 + 15\") -> refund_amount=314。"),
+                    ("最終回答", "注文は未発送、返金可能、予想返金額は 314 円。"),
+                    ("重要な論理", "最後の observation を返すのではなく、state を統合する。"),
+                ],
+                "footer": "マルチツール連携は state に事実を蓄積し、結論へ統合する。",
+                "alt": "マルチツール Agent 実行 trace 結果図：get_order_status、search_refund_policy、calculator が順に state を埋め、未発送、返金ポリシー、314円の返金額を統合する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

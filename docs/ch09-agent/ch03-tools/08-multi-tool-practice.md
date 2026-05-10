@@ -225,6 +225,8 @@ answer:
 Order ORD-1001 is currently Not shipped. Unshipped orders can be refunded directly. The money will be returned to the original payment method, usually within 3 to 7 business days. The estimated refund amount is 314 yuan.
 ```
 
+![Multi-tool Agent order refund trace result map](/img/course/ch09-multi-tool-order-refund-trace-result-map-en.webp)
+
 ### What is the biggest difference between this code and the earlier scattered examples?
 
 It is no longer just:
