@@ -14274,6 +14274,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch05-cross-validation-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch04-evaluation/02-cross-validation.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch04-evaluation/02-cross-validation.md",
+        },
+        "scene": "A cross-validation lab result board based on cv_lab.py. The image must teach why one train-test split is a noisy snapshot and why 5-fold CV gives a mean plus variation. Do not draw a terminal log, confusion matrix, invented sample counts, or extra fold numbers. Show the single-split variance as five seed cards with exactly these accuracy values: seed=1 0.965, seed=2 0.972, seed=3 0.986, seed=4 0.972, seed=5 0.979. Show 5-fold CV as five fold cards with exactly these accuracy values: fold=1 0.974, fold=2 0.947, fold=3 0.965, fold=4 0.991, fold=5 0.991. Show the summary card exactly: accuracy=0.974+/-0.017, precision=0.968, recall=0.992, f1=0.979. Show a safe Pipeline lane where StandardScaler is fit inside each training fold, not before CV. Teaching point: a single split can look lucky or unlucky; CV reports average performance and fold-to-fold spread while keeping preprocessing leakage-safe.",
+        "chapter_context": "The image is inserted after the expected output of cv_lab.py. Nearby text explains single split variance, StratifiedKFold, cross_validate, multi-metric summary, and leakage-safe Pipeline.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section compares five single-split seed cards as different snapshots. Middle section shows five CV fold cards rotating through validation folds. Lower section has the mean-plus-variation summary and a leakage-safe Pipeline strip. Keep all values, order, and visual rhythm identical across zh/en/ja. Use concrete evaluation lab imagery, not SVG-style boxes or pure text.",
+        "variants": {
+            "zh": {
+                "title": "交叉验证实验结果怎么看",
+                "subtitle": "单次切分只是一个快照，K-Fold 看平均表现和波动。",
+                "items": [
+                    ("single split", "seed 分数从 0.965 到 0.986。"),
+                    ("fold scores", "5 个 fold 分别检查不同验证集。"),
+                    ("mean", "accuracy=0.974+/-0.017。"),
+                    ("metrics", "precision=0.968，recall=0.992，f1=0.979。"),
+                    ("pipeline", "StandardScaler 在每个训练 fold 内 fit。"),
+                    ("decision", "看均值，也看波动。"),
+                ],
+                "footer": "交叉验证不是多跑几次求好看，而是估计模型在不同数据切片上的稳定性。",
+                "alt": "交叉验证实验结果图：单次切分五个 seed accuracy、五折 CV accuracy、summary 平均和标准差，以及防泄漏 Pipeline。",
+            },
+            "en": {
+                "title": "Reading Cross-Validation Results",
+                "subtitle": "A single split is one snapshot; K-Fold reads mean performance and spread.",
+                "items": [
+                    ("single split", "Seed scores range from 0.965 to 0.986."),
+                    ("fold scores", "Five folds test different validation slices."),
+                    ("mean", "accuracy=0.974+/-0.017."),
+                    ("metrics", "precision=0.968, recall=0.992, f1=0.979."),
+                    ("pipeline", "StandardScaler fits inside each training fold."),
+                    ("decision", "Read both the mean and the variation."),
+                ],
+                "footer": "Cross-validation is not rerunning until it looks good; it estimates stability across data slices.",
+                "alt": "Cross-validation lab result map: single split seed accuracies, five-fold CV accuracies, mean and standard deviation summary, and leakage-safe Pipeline.",
+            },
+            "ja": {
+                "title": "クロスバリデーション結果を読む",
+                "subtitle": "単一分割は一つのスナップショット。K-Fold は平均とばらつきを見る。",
+                "items": [
+                    ("single split", "seed スコアは 0.965 から 0.986。"),
+                    ("fold scores", "5 つの fold が別々の検証部分を見る。"),
+                    ("mean", "accuracy=0.974+/-0.017。"),
+                    ("metrics", "precision=0.968、recall=0.992、f1=0.979。"),
+                    ("pipeline", "StandardScaler は各 training fold 内で fit。"),
+                    ("decision", "平均だけでなく、ばらつきも読む。"),
+                ],
+                "footer": "クロスバリデーションは良い数字を探す再実行ではなく、データ切片ごとの安定性を見積もる方法。",
+                "alt": "クロスバリデーション実験結果図：単一分割の seed accuracy、5-fold CV accuracy、平均と標準偏差、漏洩を防ぐ Pipeline を読む。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

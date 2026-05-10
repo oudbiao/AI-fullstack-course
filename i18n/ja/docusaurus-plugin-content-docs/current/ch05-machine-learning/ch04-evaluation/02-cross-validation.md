@@ -107,6 +107,8 @@ fold=5 accuracy=0.991
 summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 ```
 
+![クロスバリデーション実験結果図](/img/course/ch05-cross-validation-result-map-ja.webp)
+
 ## 1 回の分割だけでは足りない理由
 
 同じモデルでも、ランダム分割が違うとスコアが変わります。

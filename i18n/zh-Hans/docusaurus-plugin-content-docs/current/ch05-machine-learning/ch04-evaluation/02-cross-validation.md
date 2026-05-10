@@ -107,6 +107,8 @@ fold=5 accuracy=0.991
 summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 ```
 
+![交叉验证实验结果图](/img/course/ch05-cross-validation-result-map.webp)
+
 ## 为什么一次切分不够
 
 同一个模型在不同随机切分下分数不同：

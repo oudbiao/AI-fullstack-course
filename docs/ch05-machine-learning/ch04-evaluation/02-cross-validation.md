@@ -107,6 +107,8 @@ fold=5 accuracy=0.991
 summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 ```
 
+![Cross-validation lab result map](/img/course/ch05-cross-validation-result-map-en.webp)
+
 ## Why One Split Is Not Enough
 
 The same model gets different scores with different random splits:
