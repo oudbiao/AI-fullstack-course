@@ -14164,6 +14164,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch05-ensemble-comparison-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md",
+        },
+        "scene": "An ensemble learning comparison lab result board based on ch05_ensemble_lab.py. The code block above the image already lists accuracy, so this teaching image must focus on the F1 ranking, leakage-safe workflow, and feature evidence. Do not write the word accuracy anywhere. Do not draw a dense table, terminal log, confusion matrix, ROC curve, sample counts, vote counts, axis ticks on the four model cards, or invented model names. Show exactly four test result cards as large readable F1 score chips: single_tree f1=0.956 as the baseline tree; random_forest f1=0.967 as many trees voting; gradient_boost f1=0.956 as sequential error correction that does not beat the baseline in this run; stacking_cv f1=0.989 as the winner. Mark stacking_cv as the winner only after showing a visible cv=5 / out-of-fold guard to prevent leakage. Show Random Forest top feature importance bars exactly: worst perimeter=0.146, worst area=0.140, worst concave points=0.109. Teaching point: compare every ensemble against the baseline, read top features as evidence, and trust stacking only when its meta-model uses out-of-fold predictions.",
+        "chapter_context": "The image is inserted after the expected output of ch05_ensemble_lab.py. Nearby text explains single-tree baseline, Random Forest stability, Boosting validation control, leakage-safe stacking, and feature importance.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows the four model F1 result cards on the same holdout test, with a visual winner marker on stacking_cv. Use plain F1 score chips for the four cards, not vertical bars or axis scales, and do not show accuracy values. Middle section shows the three ensemble mechanisms as concrete scenes: forest vote without invented vote totals, boosting error repair without invented sample counts, and stacking with cv=5 out-of-fold prediction tickets flowing to a meta-model. Lower section shows Random Forest top feature importance bars and a caution note that stacking must be leakage-safe. Keep values, model order, and visual rhythm identical across zh/en/ja. Use clear educational illustration, not SVG-style boxes or pure text.",
+        "variants": {
+            "zh": {
+                "title": "集成学习实验结果怎么看",
+                "subtitle": "先和单棵树 baseline 比，再看稳定性、泄漏风险和特征证据。",
+                "items": [
+                    ("single_tree", "baseline：f1=0.956。"),
+                    ("random_forest", "投票更稳：f1=0.967。"),
+                    ("gradient_boost", "本次未超过 baseline：f1=0.956。"),
+                    ("stacking_cv", "cv=5 防泄漏后胜出：f1=0.989。"),
+                    ("top features", "worst perimeter=0.146 是最强证据。"),
+                    ("decision rule", "最高分还要通过泄漏检查。"),
+                ],
+                "footer": "Stacking 赢分数可以看，但先确认它用的是 out-of-fold 预测。",
+                "alt": "集成学习实验结果图：单棵树、随机森林、梯度提升、CV Stacking 的 accuracy/F1 对比，以及随机森林前三个重要特征。",
+            },
+            "en": {
+                "title": "Reading Ensemble Lab Results",
+                "subtitle": "Compare against the single-tree baseline, then check stability, leakage, and feature evidence.",
+                "items": [
+                    ("single_tree", "baseline: f1=0.956."),
+                    ("random_forest", "Voting is steadier: f1=0.967."),
+                    ("gradient_boost", "This run ties the baseline: f1=0.956."),
+                    ("stacking_cv", "cv=5 protects stacking: f1=0.989."),
+                    ("top features", "worst perimeter=0.146 is strongest evidence."),
+                    ("decision rule", "Highest score still needs a leakage check."),
+                ],
+                "footer": "Stacking can win, but only trust it when the meta-model sees out-of-fold predictions.",
+                "alt": "Ensemble learning lab result map: compare single tree, Random Forest, Gradient Boosting, and CV Stacking F1 scores, plus top Random Forest features.",
+            },
+            "ja": {
+                "title": "アンサンブル実験結果を読む",
+                "subtitle": "単一木 baseline と比べ、安定性、リーク、特徴量証拠を確認する。",
+                "items": [
+                    ("single_tree", "baseline：f1=0.956。"),
+                    ("random_forest", "投票で安定：f1=0.967。"),
+                    ("gradient_boost", "この実行では baseline と同等：f1=0.956。"),
+                    ("stacking_cv", "cv=5 でリークを防ぎ勝つ：f1=0.989。"),
+                    ("top features", "worst perimeter=0.146 が最も強い証拠。"),
+                    ("decision rule", "最高スコアでもリーク確認が必要。"),
+                ],
+                "footer": "Stacking は勝てるが、out-of-fold 予測を使う場合だけ信頼する。",
+                "alt": "アンサンブル学習実験結果図：単一木、Random Forest、Gradient Boosting、CV Stacking の F1 と Random Forest の重要特徴量を比較する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

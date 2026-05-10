@@ -106,6 +106,8 @@ top_rf_features=
 - worst concave points: 0.109
 ```
 
+![Ensemble comparison lab result map](/img/course/ch05-ensemble-comparison-result-map-en.webp)
+
 Small score changes across sklearn versions are acceptable. Keep the comparison table and top features as project evidence.
 
 ## Read the Result

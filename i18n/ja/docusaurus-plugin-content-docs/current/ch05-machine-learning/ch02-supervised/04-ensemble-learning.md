@@ -106,6 +106,8 @@ top_rf_features=
 - worst concave points: 0.109
 ```
 
+![アンサンブル学習実験結果図](/img/course/ch05-ensemble-comparison-result-map-ja.webp)
+
 sklearn のバージョンによりスコアが少し変わることがあります。比較表と重要特徴量をプロジェクト証拠として残します。
 
 ## 結果を読む

@@ -106,6 +106,8 @@ top_rf_features=
 - worst concave points: 0.109
 ```
 
+![集成学习实验结果图](/img/course/ch05-ensemble-comparison-result-map.webp)
+
 不同 sklearn 版本分数可能略有变化。保留对比表和重要特征，作为项目证据。
 
 ## 读懂结果
