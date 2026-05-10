@@ -482,6 +482,8 @@ ml_workshop_run/outputs/error_samples.csv
 ml_workshop_run/reports/leakage_check.md
 ```
 
+![ML ワークショップ証拠パック結果図](/img/course/ch05-workshop-evidence-pack-result-map-ja.webp)
+
 ### 生成された証拠ファイルを確認する
 
 スコアを読む前に、まず証拠ファイルが実際に作られているか確認します。

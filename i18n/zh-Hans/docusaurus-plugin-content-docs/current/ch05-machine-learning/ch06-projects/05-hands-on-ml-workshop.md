@@ -482,6 +482,8 @@ ml_workshop_run/outputs/error_samples.csv
 ml_workshop_run/reports/leakage_check.md
 ```
 
+![机器学习工作坊证据包结果图](/img/course/ch05-workshop-evidence-pack-result-map.webp)
+
 ### 检查生成的证据文件
 
 在解释任何分数之前，先确认证据文件确实生成了。

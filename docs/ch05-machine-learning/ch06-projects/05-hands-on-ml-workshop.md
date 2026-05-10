@@ -482,6 +482,8 @@ ml_workshop_run/outputs/error_samples.csv
 ml_workshop_run/reports/leakage_check.md
 ```
 
+![ML workshop evidence pack result map](/img/course/ch05-workshop-evidence-pack-result-map-en.webp)
+
 ### Verify the Generated Evidence
 
 Before interpreting any score, confirm that the evidence files were actually created.

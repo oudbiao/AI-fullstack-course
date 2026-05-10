@@ -14384,6 +14384,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch05-workshop-evidence-pack-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        },
+        "scene": "A hands-on ML workshop evidence-pack result board based on ml_workshop.py. The image must teach how the printed run output turns into an evidence package, not draw a decorative dashboard. Do not draw a dense terminal log, full file tree, full code, invented counts, invented paths, invented metrics, extra model rows, fake sample IDs, fake fp/fn IDs, fake terminal panels, or invented notebook scribbles. Show a project workflow with five concrete stations using the localized label list from this prompt, not the English station names: data prepared, model comparison, threshold decision, error review, and evidence files. Use only these exact values: rows=240, features=6, positive_rate=0.287; dummy_f1=0.000; best_model=Logistic Regression; best_f1=0.821. Model comparison may show only these three rows/cards: Logistic Regression test_f1=0.821 test_recall=0.941 test_auc=0.934; Random Forest test_f1=0.571 test_recall=0.471 test_auc=0.871; Dummy baseline test_f1=0.000 test_recall=0.000 test_auc=0.500. Threshold choice must show exactly: threshold=0.50, precision=0.727, recall=0.941, f1=0.821, flagged=22. Error review must show exactly false_positive=6 and false_negative=1, with track buckets app=2, data=3, model=1, and false_negative data=1. Evidence files should be represented by four file cards only: README.md, model_comparison.csv, error_samples.csv, leakage_check.md. Include a leakage-safety ribbon in the target language; only the technical word Pipeline may remain English. Keep the scene visual: a learner can trace how run output becomes reviewable evidence.",
+        "chapter_context": "The image is inserted after the expected output of python ml_workshop.py and before verifying generated evidence files. Nearby text walks through baseline, model comparison, threshold choice, error buckets, leakage check, and portfolio evidence.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows a dataset tray flowing into model comparison. Middle section has compact model cards and a threshold decision gate. Lower section has error-review sticky notes and four evidence-file cards going into an evidence pack folder. Bottom ribbon shows leakage safety in the target language. Keep all values, station order, and visual structure identical across zh/en/ja. Station labels and explanatory notes must use the target language from the required labels; do not use English section labels in zh/ja except exact model names, metric keys, file names, and Pipeline. Use concrete lab/workbench imagery, not SVG-style boxes, whiteboard-only flowcharts, or pure text. Do not add sample IDs, fp/fn IDs, terminal screens, or extra file cards.",
+        "variants": {
+            "zh": {
+                "title": "机器学习工作坊运行结果怎么读",
+                "subtitle": "把 print 输出变成可复查的模型证据包。",
+                "items": [
+                    ("数据准备", "rows=240，features=6，positive_rate=0.287。"),
+                    ("模型对比", "Logistic Regression 胜出：test_f1=0.821。"),
+                    ("Dummy 基线", "dummy_f1=0.000，先确认基线很弱。"),
+                    ("阈值=0.50", "precision=0.727，recall=0.941，flagged=22。"),
+                    ("错误复盘", "false_positive=6，false_negative=1。"),
+                    ("证据文件", "四个文件支撑报告和复盘。"),
+                ],
+                "footer": "完整实验不止看 best_f1，还要留下对比、阈值、错误样本和防泄漏证据。",
+                "alt": "机器学习工作坊证据包结果图：从 rows、features、positive_rate 到模型对比、threshold、错误复盘和证据文件。",
+            },
+            "en": {
+                "title": "Reading the ML Workshop Run",
+                "subtitle": "Turn print output into a reviewable model evidence pack.",
+                "items": [
+                    ("data prepared", "rows=240, features=6, positive_rate=0.287."),
+                    ("model comparison", "Logistic Regression wins: test_f1=0.821."),
+                    ("dummy baseline", "dummy_f1=0.000 confirms a weak baseline."),
+                    ("threshold=0.50", "precision=0.727, recall=0.941, flagged=22."),
+                    ("error review", "false_positive=6, false_negative=1."),
+                    ("evidence files", "Four files support the report and review."),
+                ],
+                "footer": "A complete experiment records comparison, threshold, errors, and leakage evidence, not just best_f1.",
+                "alt": "ML workshop evidence pack result map: connect rows, features, positive rate, model comparison, threshold, error review, and evidence files.",
+            },
+            "ja": {
+                "title": "ML ワークショップの実行結果を読む",
+                "subtitle": "print 出力を、後で確認できるモデル証拠パックに変える。",
+                "items": [
+                    ("データ準備", "rows=240、features=6、positive_rate=0.287。"),
+                    ("モデル比較", "Logistic Regression が勝つ：test_f1=0.821。"),
+                    ("Dummy 基準", "dummy_f1=0.000 で弱い基準を確認。"),
+                    ("しきい値=0.50", "precision=0.727、recall=0.941、flagged=22。"),
+                    ("エラー確認", "false_positive=6、false_negative=1。"),
+                    ("証拠ファイル", "4 つのファイルで報告と振り返りを支える。"),
+                ],
+                "footer": "完全な実験では best_f1 だけでなく、比較、threshold、誤り、漏洩対策の証拠を残す。",
+                "alt": "ML ワークショップ証拠パック結果図：rows、features、positive_rate からモデル比較、threshold、エラー確認、証拠ファイルまでつなぐ。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
