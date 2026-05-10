@@ -14769,6 +14769,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch06-autograd-two-parameter-fit-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+        },
+        "scene": "A PyTorch autograd lab result board based on the two_parameter_fit output. The image must teach how manual training uses autograd: forward builds y_pred and loss, backward fills gradients, torch.no_grad updates w and b, then zero_ clears gradients for the next epoch. Do not draw terminal screenshots, full code blocks, invented gradient values, invented sample rows, invented metrics, optimizer objects, neural-network layers, or extra epochs. Use only this target rule and these exact checkpoint values: target rule y=2x+1; x=[1,2,3,4]; y_true=[3,5,7,9]; start w=0, b=0, lr=0.05. Checkpoints: epoch 0 loss=41.0000 w=1.7500 b=0.6000; epoch 50 loss=0.0030 w=2.0452 b=0.8672; epoch 100 loss=0.0007 w=2.0212 b=0.9375; epoch 150 loss=0.0001 w=2.0100 b=0.9706; epoch 200 loss=0.0000 w=2.0047 b=0.9862. Show w approaching 2 and b approaching 1, and loss decreasing toward 0. Critical accuracy rule: the page output does not include numeric gradients, so gradient arrows may be shown but no grad numbers may appear.",
+        "chapter_context": "The image is inserted after the expected output of the two_parameter_fit lab. Nearby text explains that backward computes gradients but does not update parameters, torch.no_grad is used for manual updates, zero_ prevents gradient accumulation, and the learned parameters approach w=2 and b=1.",
+        "shared_layout": "Vertical 9:16. Top title and subtitle. Upper section shows the target rule y=2x+1 with four training points. Middle section is a circular manual autograd loop: forward -> loss -> backward gradients -> no_grad update -> zero gradients, with no numeric gradient values. Lower section is a checkpoint board or road map with exactly five epoch markers and the exact loss, w, and b values from the scene. Bottom has a target landing strip where w approaches 2, b approaches 1, and loss approaches 0. Keep values, station order, visual rhythm, and structure identical across zh/en/ja. Use concrete training bench imagery, meters, and trajectory markers; avoid SVG-style boxes, pure text, chalkboard-only diagrams, or tiny labels.",
+        "variants": {
+            "zh": {
+                "title": "Autograd 手写训练结果怎么看",
+                "subtitle": "backward 只算梯度，参数更新要自己执行。",
+                "items": [
+                    ("目标规则", "y=2x+1，起点 w=0，b=0。"),
+                    ("forward", "先用当前 w、b 计算 y_pred 和 loss。"),
+                    ("backward", "把梯度写入 .grad，但不直接改参数。"),
+                    ("no_grad 更新", "w 和 b 在更新后逐步接近 2 和 1。"),
+                    ("zero_", "每轮清空旧梯度，避免累积污染。"),
+                    ("结果", "epoch 200: loss=0.0000，w=2.0047，b=0.9862。"),
+                ],
+                "footer": "Autograd 负责算方向，训练循环负责清梯度和移动参数。",
+                "alt": "Autograd 两参数手写训练结果图：目标 y=2x+1，展示 forward、loss、backward、no_grad 更新、zero_ 清梯度，以及 epoch 0 到 200 的 loss、w、b 变化。",
+            },
+            "en": {
+                "title": "Reading Manual Autograd Training",
+                "subtitle": "backward computes gradients; the loop performs the update.",
+                "items": [
+                    ("target rule", "y=2x+1, start w=0, b=0."),
+                    ("forward", "Use current w and b to compute y_pred and loss."),
+                    ("backward", "Writes gradients into .grad, but does not change parameters."),
+                    ("no_grad update", "w and b move toward 2 and 1 after updates."),
+                    ("zero_", "Clear old gradients each round to avoid accumulation."),
+                    ("result", "epoch 200: loss=0.0000, w=2.0047, b=0.9862."),
+                ],
+                "footer": "Autograd gives direction; the training loop clears gradients and moves parameters.",
+                "alt": "Manual autograd two-parameter training result map: target y=2x+1, showing forward, loss, backward, no_grad update, zero_ gradient clearing, and epoch 0 to 200 loss, w, b changes.",
+            },
+            "ja": {
+                "title": "Autograd 手動学習の結果を読む",
+                "subtitle": "backward は勾配を計算し、更新はループが行う。",
+                "items": [
+                    ("目標ルール", "y=2x+1、開始 w=0、b=0。"),
+                    ("forward", "現在の w と b で y_pred と loss を計算。"),
+                    ("backward", ".grad に勾配を書き込むが、パラメータは変えない。"),
+                    ("no_grad 更新", "更新後、w と b は 2 と 1 に近づく。"),
+                    ("zero_", "毎回古い勾配を消し、累積を防ぐ。"),
+                    ("結果", "epoch 200: loss=0.0000、w=2.0047、b=0.9862。"),
+                ],
+                "footer": "Autograd は方向を出し、学習ループが勾配を消してパラメータを動かす。",
+                "alt": "Autograd の2パラメータ手動学習結果図：目標 y=2x+1、forward、loss、backward、no_grad 更新、zero_ での勾配クリア、epoch 0 から 200 の loss、w、b の変化を示す。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

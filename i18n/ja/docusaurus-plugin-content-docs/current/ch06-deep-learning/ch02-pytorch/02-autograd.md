@@ -212,6 +212,8 @@ epoch=150 loss=0.0001 w=2.0100 b=0.9706
 epoch=200 loss=0.0000 w=2.0047 b=0.9862
 ```
 
+![Autograd 2パラメータ手動学習結果図](/img/course/ch06-autograd-two-parameter-fit-result-map-ja.webp)
+
 パラメータは `w=2` と `b=1` に近づきます。ニューラルネットワークも同じループを使います。ただし、パラメータが 2 個ではなく、何百万個以上になるだけです。
 
 ## `requires_grad`、`no_grad`、`detach`

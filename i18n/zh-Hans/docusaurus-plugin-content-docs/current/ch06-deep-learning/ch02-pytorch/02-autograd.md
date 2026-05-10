@@ -212,6 +212,8 @@ epoch=150 loss=0.0001 w=2.0100 b=0.9706
 epoch=200 loss=0.0000 w=2.0047 b=0.9862
 ```
 
+![Autograd 两参数手写训练结果图](/img/course/ch06-autograd-two-parameter-fit-result-map.webp)
+
 参数会靠近 `w=2` 和 `b=1`。神经网络使用的也是同一个循环，只是参数从两个变成了几百万甚至更多。
 
 ## `requires_grad`、`no_grad` 和 `detach`

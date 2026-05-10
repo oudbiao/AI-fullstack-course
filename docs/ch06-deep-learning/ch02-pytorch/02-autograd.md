@@ -212,6 +212,8 @@ epoch=150 loss=0.0001 w=2.0100 b=0.9706
 epoch=200 loss=0.0000 w=2.0047 b=0.9862
 ```
 
+![Manual autograd two-parameter fit result map](/img/course/ch06-autograd-two-parameter-fit-result-map-en.webp)
+
 The parameters move toward `w=2` and `b=1`. This is the same loop a neural network uses, only with millions of parameters instead of two.
 
 ## `requires_grad`, `no_grad`, and `detach`
