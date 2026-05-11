@@ -11,6 +11,8 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 まず小さく始めます。AI例を1つ体験し、最小環境を準備し、能力マップを見て、第1章へ進みます。
 
+この講座には main line と expansion tracks があります。第1-9章は、ツール、Python、データ、モデル、LLM、RAG、Agent まで進む core path です。第10-12章は、vision、NLP、multimodal/AIGC の specialization tracks です。elective modules は deployment、advanced Python、classic ML などを深掘りする side roads です。
+
 ## 画像に沿って進む
 
 ![30分AIクイック体験ループ](/img/course/intro-quick-experience-loop-ja.webp)
@@ -31,4 +33,4 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 ## 1つのルール
 
-短く読み、動かし、証拠を残す。
+短く読み、動かし、証拠を残す。各 stage の終わりには、他の人が確認できるものを残します。README command、保存した output、metric table、trace、failure note、小さな demo などです。

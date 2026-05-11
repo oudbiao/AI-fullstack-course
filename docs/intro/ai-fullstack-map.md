@@ -12,7 +12,7 @@ keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RA
 Read the picture first. The course is one path:
 
 ```text
-tools -> data -> models -> LLM -> RAG -> Agent -> delivery
+tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
 ```
 
 You do not need every detail now. Just remember:
@@ -34,9 +34,23 @@ You do not need every detail now. Just remember:
 | Models | 4-6 | Trained or inspected model experiments | What metric would change your decision? |
 | LLM | 7 | Prompt, tokens, embeddings, Transformer intuition | Which behavior comes from data, decoding, or context? |
 | RAG | 8 | Retrieval trace and answer evaluation | Did the answer use the right evidence? |
-| Agent / delivery | 9-12 | Tool traces, permissions, multimodal demos, deployment notes | What can fail when users, files, and actions are real? |
+| Agent | 9 | Tool traces, permissions, memory notes, deployment notes | What can fail when users, files, and actions are real? |
+| Specialization / delivery | 10-12 and electives | Vision/NLP/multimodal demos, exported assets, deployment notes | Which domain constraints change the product decision? |
 
 The course is not a pile of topics. It is a debugging stack. When an AI application behaves badly, the cause may live several layers below the feature you are looking at.
+
+## Main Line And Expansion Tracks
+
+Use Chapters 1-9 as the default main line. After Chapter 9, you should be able to build a small LLM/RAG/Agent project with evidence, logs, and a safety boundary.
+
+Then choose Chapters 10-12 by product need:
+
+| Need | Choose | Why |
+|---|---|---|
+| Images, cameras, OCR, detection, segmentation | Chapter 10 Computer Vision | The output is visual: labels, boxes, masks, text, or video events |
+| Text labels, extraction, summaries, linguistic evaluation | Chapter 11 NLP | The output is a text task with labels, fields, spans, or generated text |
+| Images, PDFs, audio, video, creative assets, multimodal RAG | Chapter 12 Multimodal/AIGC | The workflow mixes modalities and needs source, prompt, review, and export records |
+| Deployment, advanced Python, classic ML depth | Electives | The main project needs a specific engineering or algorithmic side skill |
 
 ## How To Use The Map
 

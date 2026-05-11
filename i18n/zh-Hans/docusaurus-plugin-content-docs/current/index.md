@@ -11,6 +11,8 @@ keywords: [AI 全栈课程, AI 学习, AI 新手课程, LLM, RAG, AI Agent]
 
 先简单开始：体验一个 AI 示例，准备最小环境，看懂能力地图，然后进入第 1 章。
 
+课程分为主线和扩展路线。第 1-9 章是从工具、Python、数据、模型、LLM、RAG 到 Agent 的核心主线。第 10-12 章是视觉、NLP、多模态/AIGC 专项路线。选修模块是部署、进阶 Python、经典机器学习等更深的旁支。
+
 ## 跟着图片走
 
 ![30 分钟 AI 快速体验闭环](/img/course/intro-quick-experience-loop.webp)
@@ -31,4 +33,4 @@ keywords: [AI 全栈课程, AI 学习, AI 新手课程, LLM, RAG, AI Agent]
 
 ## 一个规则
 
-短读，跑起来，留证据。
+短读，跑起来，留证据。每个阶段结束时，都应该留下别人能检查的东西：README 命令、保存的输出、指标表、trace、失败笔记，或者一个小 demo。
