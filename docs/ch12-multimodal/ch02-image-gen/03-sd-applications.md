@@ -329,6 +329,12 @@ Edit image: remove the person in the upper right corner -> inpainting_or_img2img
 
 Notice the first line in the function: product routing should normalize user text before matching rules. Otherwise a capitalized request can silently fall into the wrong mode.
 
+![Stable Diffusion application mode output comparison](/img/course/ch12-sd-mode-output-comparison-en.webp)
+
+:::tip Route by required inputs
+A prompt-only request can start from a blank canvas, an image request needs an existing structure, and an inpainting request needs a mask so the product edits the right region.
+:::
+
 This example is very suitable for beginners, because it reminds you that:
 
 - the product layer first needs to determine which creative mode the user is in

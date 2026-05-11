@@ -13891,6 +13891,64 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-sd-mode-output-comparison",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+        },
+        "scene": "A runnable-result comparison visual for the Stable Diffusion application-mode examples. It must teach how input fields route to different creative modes. Show four lanes: 1 text_to_image: prompt only -> generated_image, 2 img2img: rough_sketch.png + prompt -> transformed illustration, 3 inpainting_or_img2img: scene.png + mask.png + prompt -> local edit only, 4 workflow selector: user request text normalized/matched -> mode label. Use these exact request mappings: Make a poster -> text_to_image; Turn this sketch into an illustration -> img2img; Edit image: remove the person in the upper right corner -> inpainting_or_img2img. The teaching point is product routing: which input is required and what area of the image changes. Do not draw generic SD architecture, do not invent extra modes, do not show a terminal screenshot, do not use fake brand UI, and do not create a pure text poster. Do not add decorative sticky notes, random checklists, tiny background text, neon-sign pseudo-text, fake Japanese, fake English, or unrelated course terms.",
+        "chapter_context": "The image is inserted after the expected output of the workflow selector example. Nearby code defines text_to_image_task, img2img_task, inpainting_task, and choose_sd_mode(), then prints the routing result for three user requests. The surrounding prose explains that SD products must choose the right application mode before prompts, parameters, and workflow details.",
+        "shared_layout": "Vertical 9:16. Use the same dark charcoal product-workbench board across zh/en/ja, with the same orange, blue, red, and yellow lane colors. No notebook page style, no side decorations, no extra labels beyond the requested teaching labels. Top title and subtitle. Middle section has three stacked mode lanes with small illustrative thumbnails: prompt-only orange cat output, rough sketch transformed into a clean cyberpunk-style illustration with no readable sign text, and a lake/room scene where a red mask region becomes a wooden table only inside the masked area. Lower section has a workflow selector decision board showing the three exact request -> mode mappings. Each lane highlights required inputs with badges: prompt only / image + prompt / image + mask + prompt. Keep lane order, colors, icons, mapping positions, typography scale, and visual reading path as identical as possible across languages.",
+        "variants": {
+            "zh": {
+                "title": "SD 应用模式输出怎么看",
+                "subtitle": "不同输入字段会把需求路由到不同生成模式。",
+                "items": [
+                    ("text_to_image", "只有 prompt，输出 generated_image。"),
+                    ("img2img", "rough_sketch.png 提供起始结构。"),
+                    ("inpainting", "mask.png 决定只改哪里。"),
+                    ("workflow selector", "用户请求先归一化，再映射 mode。"),
+                    ("做一张海报", "-> text_to_image"),
+                    ("把这张草图变成插画", "-> img2img"),
+                    ("改图：去掉右上角的人", "-> inpainting_or_img2img"),
+                ],
+                "footer": "应用层先判断创作模式，再决定参数和流程。",
+                "alt": "Stable Diffusion 应用模式结果图：prompt only、image plus prompt、image plus mask plus prompt 分别路由到 text_to_image、img2img、inpainting_or_img2img。",
+            },
+            "en": {
+                "title": "Reading SD Application Modes",
+                "subtitle": "Different input fields route a request to different generation modes.",
+                "items": [
+                    ("text_to_image", "Prompt only, output generated_image."),
+                    ("img2img", "rough_sketch.png supplies starting structure."),
+                    ("inpainting", "mask.png tells the model where to edit."),
+                    ("workflow selector", "Normalize the request, then map it to a mode."),
+                    ("Make a poster", "-> text_to_image"),
+                    ("Turn this sketch into an illustration", "-> img2img"),
+                    ("Edit image: remove the person in the upper right corner", "-> inpainting_or_img2img"),
+                ],
+                "footer": "The product layer chooses the creative mode before setting parameters and workflow.",
+                "alt": "Stable Diffusion application mode result map: prompt only, image plus prompt, and image plus mask plus prompt route to text_to_image, img2img, and inpainting_or_img2img.",
+            },
+            "ja": {
+                "title": "SD アプリの mode 出力を読む",
+                "subtitle": "入力 field の違いで、生成 mode が切り替わる。",
+                "items": [
+                    ("text_to_image", "prompt だけで generated_image を作る。"),
+                    ("img2img", "rough_sketch.png が出発構造になる。"),
+                    ("inpainting", "mask.png が編集する場所を示す。"),
+                    ("workflow selector", "request を正規化して mode に写す。"),
+                    ("ポスターを作って", "-> text_to_image"),
+                    ("この草稿をイラストにして", "-> img2img"),
+                    ("画像を修正：右上の人を消して", "-> inpainting_or_img2img"),
+                ],
+                "footer": "product 層は先に創作 mode を選び、その後に parameter と workflow を決める。",
+                "alt": "Stable Diffusion アプリ mode の結果図：prompt だけ、image plus prompt、image plus mask plus prompt が text_to_image、img2img、inpainting_or_img2img に route される。",
+            },
+        },
+    },
+    {
         "slug": "ch12-sd-latent-compression-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
