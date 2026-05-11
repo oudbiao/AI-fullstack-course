@@ -148,6 +148,12 @@ reconstructed shape: (8, 8)
 
 关键看中间那一行：latent 变小了。Stable Diffusion 把主要去噪工作放在这个压缩空间里完成，最后再把 latent 解码回图像空间。
 
+![Stable Diffusion latent 压缩运行结果图](/img/course/ch12-sd-latent-compression-result-map.webp)
+
+:::tip 阅读 shape 检查点
+reconstructed 最后回到 `(8, 8)`，但昂贵的去噪工作可以先放在更小的 `(4, 4)` latent 空间里完成。
+:::
+
 这个例子当然不是 VAE，但它足够帮你抓住最核心的直觉：
 
 - latent 比原图小

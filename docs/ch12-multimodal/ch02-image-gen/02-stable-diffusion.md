@@ -148,6 +148,12 @@ reconstructed shape: (8, 8)
 
 The important observation is the middle line: the latent is smaller. Stable Diffusion spends most denoising work in this compressed space, then decodes the final latent back to image space.
 
+![Stable Diffusion latent compression result map](/img/course/ch12-sd-latent-compression-result-map-en.webp)
+
+:::tip Read the shape checkpoint
+The reconstructed tensor returns to `(8, 8)`, but the expensive denoising work can happen in the smaller `(4, 4)` latent space first.
+:::
+
 Of course, this example is not a VAE, but it is enough to help you grasp the core intuition:
 
 - latent is smaller than the original image

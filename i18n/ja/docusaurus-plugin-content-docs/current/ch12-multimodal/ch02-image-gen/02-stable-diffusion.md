@@ -148,6 +148,12 @@ reconstructed shape: (8, 8)
 
 注目すべきは真ん中の行です。latent は小さくなっています。Stable Diffusion は主なノイズ除去をこの圧縮空間で行い、最後に latent を画像空間へ戻します。
 
+![Stable Diffusion の latent 圧縮結果図](/img/course/ch12-sd-latent-compression-result-map-ja.webp)
+
+:::tip shape チェックポイントを読む
+reconstructed は最後に `(8, 8)` へ戻りますが、重い denoising は先に小さい `(4, 4)` latent 空間で行えます。
+:::
+
 この例はもちろん VAE そのものではありませんが、もっとも大事な直感はつかめます。
 
 - latent は元画像より小さい

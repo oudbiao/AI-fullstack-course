@@ -13891,6 +13891,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-sd-latent-compression-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+        },
+        "scene": "A runnable-result visual for the Stable Diffusion VAE compression/expansion toy example. It must teach how an 8x8 image tensor is compressed by 2x2 average pooling into a 4x4 latent tensor, then expanded by repeat back to an 8x8 reconstructed tensor. Show the exact shape output only: image shape = (8, 8), latent shape = (4, 4), reconstructed shape = (8, 8). Use visual grids, with each 2x2 patch in the 8x8 image flowing into one latent cell, then each latent cell expanding back into a 2x2 block. The teaching point is that Stable Diffusion does most denoising in the smaller latent space, not directly on the large image grid. Do not draw generic Stable Diffusion architecture, do not invent pixel values, do not show a terminal screenshot, and do not claim this toy average pooling is a real VAE.",
+        "chapter_context": "The image is inserted after the expected output of the compression/expansion example. Nearby code creates an 8x8 random image, computes latent = image.reshape(4,2,4,2).mean(axis=(1,3)), reconstructs with np.repeat, and then explains that the middle latent is smaller and is where Stable Diffusion spends most denoising work.",
+        "shared_layout": "Vertical 9:16. Same illustrated lab notebook style across zh/en/ja. Top title and subtitle. Upper section shows three grids in order: 8x8 image space, 4x4 latent sketch board, 8x8 reconstructed space. Middle section zooms into one colored 2x2 patch averaging into one latent cell and repeating back into a 2x2 block. Lower section has a shape checkpoint strip with exactly (8,8) -> (4,4) -> (8,8), and a warning note that this is only an intuition demo, not the full VAE. Keep colors, grid sizes, arrow order, and shape labels identical across languages.",
+        "variants": {
+            "zh": {
+                "title": "VAE 压缩结果怎么看",
+                "subtitle": "把 8x8 图像压到 4x4 latent，再展开回 8x8。",
+                "items": [
+                    ("image space", "原始张量 shape = (8, 8)。"),
+                    ("average pooling", "每个 2x2 patch 汇总成 1 个 latent cell。"),
+                    ("latent space", "中间张量 shape = (4, 4)，更小。"),
+                    ("repeat decode", "每个 latent cell 展开成 2x2 block。"),
+                    ("reconstructed", "输出 shape 回到 (8, 8)。"),
+                    ("why it matters", "主要 denoising 在较小 latent 里做。"),
+                ],
+                "footer": "这个例子不是完整 VAE，但能看懂为什么 latent 空间更省计算。",
+                "alt": "Stable Diffusion latent 压缩运行结果图：8x8 image 经 2x2 pooling 变成 4x4 latent，再 repeat 回 8x8 reconstructed。",
+            },
+            "en": {
+                "title": "Reading VAE Compression Output",
+                "subtitle": "Compress an 8x8 image into a 4x4 latent, then expand back to 8x8.",
+                "items": [
+                    ("image space", "Original tensor shape = (8, 8)."),
+                    ("average pooling", "Each 2x2 patch becomes one latent cell."),
+                    ("latent space", "Middle tensor shape = (4, 4), so it is smaller."),
+                    ("repeat decode", "Each latent cell expands into a 2x2 block."),
+                    ("reconstructed", "Output shape returns to (8, 8)."),
+                    ("why it matters", "Most denoising happens in the smaller latent."),
+                ],
+                "footer": "This is not a full VAE, but it shows why latent space saves compute.",
+                "alt": "Stable Diffusion latent compression result map: an 8x8 image passes through 2x2 pooling into a 4x4 latent, then repeats back to an 8x8 reconstructed grid.",
+            },
+            "ja": {
+                "title": "VAE 圧縮出力を読む",
+                "subtitle": "8x8 image を 4x4 latent に圧縮し、また 8x8 に戻す。",
+                "items": [
+                    ("image space", "元の tensor shape = (8, 8)。"),
+                    ("average pooling", "各 2x2 patch が 1つの latent cell になる。"),
+                    ("latent space", "中間 tensor shape = (4, 4) で、より小さい。"),
+                    ("repeat decode", "各 latent cell を 2x2 block に広げる。"),
+                    ("reconstructed", "出力 shape は (8, 8) に戻る。"),
+                    ("why it matters", "主な denoising は小さい latent で行う。"),
+                ],
+                "footer": "これは完全な VAE ではないが、latent 空間が計算を節約する理由を示す。",
+                "alt": "Stable Diffusion の latent 圧縮結果図：8x8 image が 2x2 pooling で 4x4 latent になり、repeat で 8x8 reconstructed grid に戻る。",
+            },
+        },
+    },
+    {
         "slug": "ch12-diffusion-forward-noise-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
