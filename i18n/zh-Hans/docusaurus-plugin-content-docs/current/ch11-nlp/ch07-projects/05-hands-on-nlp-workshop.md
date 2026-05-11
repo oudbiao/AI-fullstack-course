@@ -524,6 +524,12 @@ summary_outputs: nlp_workshop_run/outputs/summary_outputs.md
 failure_report: nlp_workshop_run/reports/failure_cases.md
 ```
 
+![NLP 工作坊运行结果证据图](/img/course/ch11-workshop-run-metrics-evidence-result-map.webp)
+
+:::tip 阅读运行结果
+终端输出只是这次运行的目录。先打开预测文件、指标文件和失败报告，再判断这个 NLP pipeline 是否真的可用。
+:::
+
 ## Step 3：阅读数据文件
 
 打开 `nlp_workshop_run/data/train_texts.csv`。每一行都有 `label` 和 `text`，这就是监督式文本分类数据集的最小形态。

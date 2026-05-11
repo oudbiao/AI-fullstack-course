@@ -524,6 +524,12 @@ summary_outputs: nlp_workshop_run/outputs/summary_outputs.md
 failure_report: nlp_workshop_run/reports/failure_cases.md
 ```
 
+![NLP workshop run evidence map](/img/course/ch11-workshop-run-metrics-evidence-result-map-en.webp)
+
+:::tip Reading the run result
+The terminal output is only the table of contents for the run. Open the prediction files, metric files, and failure report before deciding whether the pipeline is good.
+:::
+
 ## Step 3: Read the Dataset Files
 
 Open `nlp_workshop_run/data/train_texts.csv`. Each row has a `label` and a `text`. This is the minimum shape of a supervised text classification dataset.

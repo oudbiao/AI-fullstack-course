@@ -20,6 +20,7 @@ import base64
 import http.client
 import json
 import os
+import socket
 import stat
 import textwrap
 import time
@@ -15374,6 +15375,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch11-workshop-run-metrics-evidence-result-map",
+        "pages": {
+            "en": "docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+        },
+        "scene": "An NLP workshop worked-result evidence map based on the expected output after running python nlp_workshop.py. The image must teach how a terminal printout becomes a set of inspectable project artifacts. Do not draw a terminal screenshot, full code blocks, invented datasets, invented metrics, invented model names, invented file names, dashboards, vector databases, or extra evaluation numbers. Use only these exact counts and metrics: train_texts 30, test_texts 12, notes 7, classification_accuracy 0.917 (11/12), retrieval_accuracy 1.000 (7/7), extraction_field_accuracy 0.950 (19/20), failure_cases 3. Show four artifact files exactly: classification_predictions.csv, qa_predictions.jsonl, summary_outputs.md, failure_cases.md. Show the run as a practical evidence loop: dataset counts feed three task checks and one summary artifact; metrics point to the files the learner should inspect; failure_cases=3 becomes the next debugging queue. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except necessary code/file names and metric names; Japanese image uses natural Japanese helper labels except necessary code/file names and metric names. Keep code/file/metric names as code: nlp_workshop.py, classification_accuracy, retrieval_accuracy, extraction_field_accuracy, failure_cases, classification_predictions.csv, qa_predictions.jsonl, summary_outputs.md, failure_cases.md. Teaching point: the real result is not the print text; it is the evidence package you can open, audit, and improve.",
+        "chapter_context": "The image is inserted after the expected output of the hands-on NLP workshop. Nearby text asks learners to open generated dataset files, prediction files, metric reports, and failure_cases.md, then use failures to improve labels, schema, retrieval threshold, and preprocessing.",
+        "shared_layout": "Vertical 9:16. Warm paper workbook style with a project folder desk, colored task lanes, metric stamps, and a bottom improvement queue. Top title and subtitle. Upper section shows run command python nlp_workshop.py producing dataset counts: train_texts 30, test_texts 12, notes 7. Middle section has three large metric cards connected to inspectable files: classification_accuracy 0.917 (11/12) -> classification_predictions.csv; retrieval_accuracy 1.000 (7/7) -> qa_predictions.jsonl; extraction_field_accuracy 0.950 (19/20) -> extraction_predictions.jsonl or schema field check, but also include summary_outputs.md as the summary artifact. Lower section highlights failure_cases=3 -> failure_cases.md -> next fix loop. Keep values, file names, metric order, colors, and reading path identical across zh/en/ja. Use the accepted zh/ja structure: folder desk, stacked colored lanes, large stamps, file cards, one warning stack with 3 cards, and a bottom rule strip. Avoid spiral notebook side tabs, decorative tabs, SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "NLP 工作坊运行结果怎么看",
+                "subtitle": "终端只给摘要，真正要检查的是可打开的证据包。",
+                "items": [
+                    ("运行", "python nlp_workshop.py 生成数据、预测、指标和失败报告。"),
+                    ("数据集", "train_texts=30，test_texts=12，notes=7。"),
+                    ("分类指标", "classification_accuracy=0.917 (11/12)，打开 classification_predictions.csv。"),
+                    ("检索指标", "retrieval_accuracy=1.000 (7/7)，打开 qa_predictions.jsonl。"),
+                    ("抽取指标", "extraction_field_accuracy=0.950 (19/20)，核对字段得分。"),
+                    ("下一步", "failure_cases=3，读 failure_cases.md 决定怎么修。"),
+                ],
+                "footer": "一次实验要留下文件、指标和失败样本，才算可复盘。",
+                "alt": "NLP 工作坊运行结果证据图：脚本输出数据量、分类准确率、检索准确率、抽取字段准确率和 3 个失败案例，并指向可检查的预测文件与失败报告。",
+            },
+            "en": {
+                "title": "NLP Run Evidence Pack",
+                "subtitle": "The terminal is only a summary; the real result is the evidence pack.",
+                "items": [
+                    ("run", "python nlp_workshop.py creates data, predictions, metrics, and failure report."),
+                    ("dataset", "train_texts=30, test_texts=12, notes=7."),
+                    ("classification", "classification_accuracy=0.917 (11/12); inspect classification_predictions.csv."),
+                    ("retrieval QA", "retrieval_accuracy=1.000 (7/7); inspect qa_predictions.jsonl."),
+                    ("extraction", "extraction_field_accuracy=0.950 (19/20); check field scores."),
+                    ("next fix", "failure_cases=3; read failure_cases.md before improving labels or thresholds."),
+                ],
+                "footer": "A useful experiment leaves files, metrics, and failure samples you can audit.",
+                "alt": "NLP workshop run evidence map: the script prints dataset counts, classification accuracy, retrieval accuracy, extraction field accuracy, and 3 failure cases, then points to prediction files and the failure report.",
+            },
+            "ja": {
+                "title": "NLP ワークショップ実行結果を読む",
+                "subtitle": "端末出力は要約だけ。実際の結果は開いて確認できる証拠パック。",
+                "items": [
+                    ("実行", "python nlp_workshop.py がデータ、予測、指標、失敗レポートを作る。"),
+                    ("データセット", "train_texts=30、test_texts=12、notes=7。"),
+                    ("分類指標", "classification_accuracy=0.917 (11/12)。classification_predictions.csv を確認。"),
+                    ("検索 QA", "retrieval_accuracy=1.000 (7/7)。qa_predictions.jsonl を確認。"),
+                    ("情報抽出", "extraction_field_accuracy=0.950 (19/20)。field score を見る。"),
+                    ("次の修正", "failure_cases=3。failure_cases.md を読んで修正点を決める。"),
+                ],
+                "footer": "実験は、ファイル、指標、失敗例を残して初めて見直せる。",
+                "alt": "NLP ワークショップ実行結果の証拠図：スクリプトがデータ件数、分類 accuracy、検索 accuracy、抽出 field accuracy、3件の失敗例を出し、予測ファイルと失敗レポートへつなげる。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
@@ -16196,7 +16252,7 @@ def generate_image_with_http(
             raise RuntimeError(
                 f"Image API request failed with HTTP {exc.code} for {job['filename']}{error_detail}"
             ) from exc
-        except (urllib.error.URLError, TimeoutError, ConnectionResetError, http.client.HTTPException) as exc:
+        except (urllib.error.URLError, TimeoutError, socket.timeout, ConnectionResetError, http.client.HTTPException) as exc:
             if attempt < retries:
                 wait_seconds = 8 * (attempt + 1)
                 print(

@@ -524,6 +524,12 @@ summary_outputs: nlp_workshop_run/outputs/summary_outputs.md
 failure_report: nlp_workshop_run/reports/failure_cases.md
 ```
 
+![NLP ワークショップ実行結果の証拠図](/img/course/ch11-workshop-run-metrics-evidence-result-map-ja.webp)
+
+:::tip 実行結果の読み方
+端末出力は、この実行の目次にすぎません。予測ファイル、指標ファイル、失敗レポートを開いてから、この NLP pipeline が本当に使えるか判断します。
+:::
+
 ## Step 3：データファイルを読む
 
 `nlp_workshop_run/data/train_texts.csv` を開きます。各行には `label` と `text` があります。これが教師ありテキスト分類データセットの最小形です。
