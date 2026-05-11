@@ -14994,6 +14994,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch05-feature-preprocessing-pipeline-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch05-feature-engineering/02-preprocessing.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch05-feature-engineering/02-preprocessing.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch05-feature-engineering/02-preprocessing.md",
+        },
+        "scene": "A runnable-result teaching visual for the feature preprocessing lesson. It must make the code results visible, not repeat the generic pipeline diagram at the top of the page. Show a compact dataset tray labeled 8 rows x 6 columns with fields age, income, amount, city, gender, target; use a few missing-value pins and one large outlier pin instead of drawing a countable full table. Show the printed missing-rate result exactly: age=0.250; income=0.125; city=0.125; gender=0.125; amount=0.000; target=0.000. Show the outlier check for amount with exactly q1=91.25, q3=135.00, upper=200.625, and amount=10000 being flagged as an outlier. Show the leakage-safe preprocessing path: split first, then fit median imputer and StandardScaler on X_train only, transform X_test only, encode city/gender with OneHotEncoder(handle_unknown='ignore'), then feed the transformed features into LogisticRegression. The teaching point is that preprocessing is a reproducible workflow and that fitting on all data before splitting leaks information. Do not draw a full row table whose visible missing cells can be counted against the rate board. Do not draw a decorative table, do not invent accuracy values, do not show a terminal screenshot, and do not add extra columns, algorithms, charts, or fake rows.",
+        "chapter_context": "The image is inserted after the Pipeline code in section 5.5.3 and before Common Mistakes. The page first builds a tiny mixed-type dataset, prints missing_rate, flags amount=10000 as an outlier with an IQR rule, scales numeric columns, encodes categorical columns, then puts numeric and categorical preprocessing into a ColumnTransformer plus Pipeline before LogisticRegression. The prose stresses fitting preprocessors only on training data and warns against preprocessing before train/test split.",
+        "shared_layout": "Vertical 9:16. Use the same dark data-cleaning lab / notebook board style across zh/en/ja, with crisp printed text rather than chalk handwriting. Top title and subtitle. Upper section: compact dataset tray labeled 8 rows x 6 columns, feature chips age/income/amount/city/gender/target, missing-value pins, and one large amount=10000 outlier pin; do not render a full countable table. Middle-left: missing-rate result board with the exact six rates. Middle-right: outlier gate with q1, q3, upper, and amount=10000 flagged. Lower section: split-first safety barrier, then two preprocessing lanes: numeric median imputer + StandardScaler and categorical most_frequent imputer + OneHotEncoder. Both lanes merge into ColumnTransformer -> Pipeline -> LogisticRegression. Bottom ribbon: split first, fit train only, transform test, then model. Keep layout, object positions, values, colors, and reading path identical across languages. Use large clean text attached to the objects; no tiny tables, no pseudo-text wallpaper, no SVG-style white rounded boxes.",
+        "variants": {
+            "zh": {
+                "title": "特征预处理运行结果怎么看",
+                "subtitle": "先切分，再只在训练集 fit；预处理和模型一起进 Pipeline。",
+                "items": [
+                    ("缺失率", "age=0.250；income/city/gender=0.125。"),
+                    ("异常值", "amount=10000 超过 upper=200.625。"),
+                    ("先切分", "不要在全量数据上 fit 预处理器。"),
+                    ("数值列", "median imputer + StandardScaler。"),
+                    ("类别列", "most_frequent + OneHotEncoder。"),
+                    ("Pipeline", "ColumnTransformer 后接 LogisticRegression。"),
+                ],
+                "footer": "预处理的关键不是步骤多，而是每一步都只从训练数据学习。",
+                "alt": "特征预处理运行结果图：显示缺失率、amount=10000 异常值、先切分再 fit、数值列和类别列进入 ColumnTransformer 与 Pipeline。",
+            },
+            "en": {
+                "title": "Reading Feature Preprocessing Results",
+                "subtitle": "Split first, fit only on training data, then keep preprocessing inside Pipeline.",
+                "items": [
+                    ("missing rate", "age=0.250; income/city/gender=0.125."),
+                    ("outlier", "amount=10000 is above upper=200.625."),
+                    ("split first", "Do not fit preprocessors on all data."),
+                    ("numeric lane", "median imputer + StandardScaler."),
+                    ("categorical lane", "most_frequent + OneHotEncoder."),
+                    ("Pipeline", "ColumnTransformer feeds LogisticRegression."),
+                ],
+                "footer": "Preprocessing works when each learned step learns only from training data.",
+                "alt": "Feature preprocessing result map: missing rates, amount=10000 outlier, split-first safety, numeric and categorical lanes feeding ColumnTransformer and Pipeline.",
+            },
+            "ja": {
+                "title": "特徴量前処理の結果を読む",
+                "subtitle": "先に分割し、training data だけで fit して Pipeline に入れる。",
+                "items": [
+                    ("欠損率", "age=0.250、income/city/gender=0.125。"),
+                    ("外れ値", "amount=10000 は upper=200.625 を超える。"),
+                    ("先に分割", "全データで前処理器を fit しない。"),
+                    ("数値列", "median imputer + StandardScaler。"),
+                    ("カテゴリ列", "most_frequent + OneHotEncoder。"),
+                    ("Pipeline", "ColumnTransformer から LogisticRegression へ。"),
+                ],
+                "footer": "前処理の要点は、学習する各 step が training data だけを見ること。",
+                "alt": "特徴量前処理の実行結果図：欠損率、amount=10000 の外れ値、先に分割して fit する流れ、数値列とカテゴリ列を ColumnTransformer と Pipeline に入れる。",
+            },
+        },
+    },
+    {
         "slug": "ch06-neuron-xor-run-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
@@ -16587,6 +16642,143 @@ Critical accuracy rules:
 - Do NOT write English sentences such as "duplicate work", "message drift", "same task", "final decision", "cost grows", or "debug trace".
 - Do NOT include Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "マルチ Agent の調整は、重複、衝突、コスト、観測から見る。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch05-feature-preprocessing-pipeline-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative data poster.
+
+Visible title exactly: "特征预处理运行结果怎么看"
+Visible subtitle exactly: "先切分，再只在训练集 fit；预处理和模型一起进 Pipeline。"
+
+Use a dark data-cleaning lab / notebook board style with crisp printed text, not chalky distorted handwriting. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Upper dataset tray: show "8 行 x 6 列" and feature chips age, income, amount, city, gender, target. Show a few missing-value pins for age/income/city/gender and one large outlier pin "amount=10000". Do not draw a full countable table of rows.
+2. Missing-rate result board must show exactly:
+   - age 0.250
+   - income 0.125
+   - city 0.125
+   - gender 0.125
+   - amount 0.000
+   - target 0.000
+3. Outlier gate must show exactly:
+   - q1=91.25
+   - q3=135.00
+   - upper=200.625
+   - amount=10000 -> flagged
+4. Leakage-safe path must show:
+   - split first
+   - X_train: fit median imputer + StandardScaler
+   - X_test: transform only
+   - city/gender -> OneHotEncoder(handle_unknown='ignore')
+   - ColumnTransformer -> Pipeline -> LogisticRegression
+5. Bottom ribbon exactly: "先切分 -> 训练集 fit -> 测试集 transform -> 模型训练"
+
+Required teaching labels and short notes, all in Simplified Chinese except exact code/API names:
+- "缺失率" near the missing-rate board; note "age=0.250；income/city/gender=0.125。"
+- "异常值" near the outlier gate; note "amount=10000 超过 upper=200.625。"
+- "先切分" near the safety barrier; note "不要在全量数据上 fit 预处理器。"
+- "数值列" near the numeric lane; note "median imputer + StandardScaler。"
+- "类别列" near the categorical lane; note "most_frequent + OneHotEncoder。"
+- "Pipeline" near the final model path; note "ColumnTransformer 后接 LogisticRegression。"
+
+Critical accuracy rules:
+- Do NOT draw a full table with visible rows. The missing-rate board is the source of truth, so the dataset tray should summarize the data rather than list every cell.
+- Spell "StandardScaler" exactly every time. Do not write "StanderdScaler", "Standardscaler", or any typo.
+- Explanatory text must be Simplified Chinese. Allowed English tokens only: age, income, amount, city, gender, target, q1, q3, upper, X_train, X_test, fit, transform, median imputer, StandardScaler, most_frequent, OneHotEncoder, handle_unknown='ignore', ColumnTransformer, Pipeline, LogisticRegression.
+- Do NOT write English sentences, Japanese text, invented scores, invented model accuracy, extra columns, extra algorithms, fake rows, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "预处理的关键不是步骤多，而是每一步都只从训练数据学习。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch05-feature-preprocessing-pipeline-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative data poster.
+
+Visible title exactly: "Reading Feature Preprocessing Results"
+Visible subtitle exactly: "Split first, fit only on training data, then keep preprocessing inside Pipeline."
+
+Use a dark data-cleaning lab / notebook board style with crisp printed text, not chalky distorted handwriting. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Upper dataset tray: show "8 rows x 6 columns" and feature chips age, income, amount, city, gender, target. Show a few missing-value pins for age/income/city/gender and one large outlier pin "amount=10000". Do not draw a full countable table of rows.
+2. Missing-rate result board must show exactly:
+   - age 0.250
+   - income 0.125
+   - city 0.125
+   - gender 0.125
+   - amount 0.000
+   - target 0.000
+3. Outlier gate must show exactly:
+   - q1=91.25
+   - q3=135.00
+   - upper=200.625
+   - amount=10000 -> flagged
+4. Leakage-safe path must show:
+   - split first
+   - X_train: fit median imputer + StandardScaler
+   - X_test: transform only
+   - city/gender -> OneHotEncoder(handle_unknown='ignore')
+   - ColumnTransformer -> Pipeline -> LogisticRegression
+5. Bottom ribbon exactly: "split first -> fit training -> transform test -> train model"
+
+Required teaching labels and short notes:
+- "missing rate" near the missing-rate board; note "age=0.250; income/city/gender=0.125."
+- "outlier" near the outlier gate; note "amount=10000 is above upper=200.625."
+- "split first" near the safety barrier; note "Do not fit preprocessors on all data."
+- "numeric lane" near the numeric lane; note "median imputer + StandardScaler."
+- "categorical lane" near the categorical lane; note "most_frequent + OneHotEncoder."
+- "Pipeline" near the final model path; note "ColumnTransformer feeds LogisticRegression."
+
+Critical accuracy rules:
+- Do NOT draw a full table with visible rows. The missing-rate board is the source of truth, so the dataset tray should summarize the data rather than list every cell.
+- Spell "StandardScaler" exactly every time. Do not write "StanderdScaler", "Standardscaler", or any typo.
+- Do NOT include Chinese text, Japanese text, invented scores, invented model accuracy, extra columns, extra algorithms, fake rows, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "Preprocessing works when each learned step learns only from training data."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch05-feature-preprocessing-pipeline-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative data poster.
+
+Visible title exactly: "特徴量前処理の結果を読む"
+Visible subtitle exactly: "先に分割し、training data だけで fit して Pipeline に入れる。"
+
+Use a dark data-cleaning lab / notebook board style with crisp printed text, not chalky distorted handwriting. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Upper dataset tray: show "8 行 x 6 列" and feature chips age, income, amount, city, gender, target. Show a few missing-value pins for age/income/city/gender and one large outlier pin "amount=10000". Do not draw a full countable table of rows.
+2. Missing-rate result board must show exactly:
+   - age 0.250
+   - income 0.125
+   - city 0.125
+   - gender 0.125
+   - amount 0.000
+   - target 0.000
+3. Outlier gate must show exactly:
+   - q1=91.25
+   - q3=135.00
+   - upper=200.625
+   - amount=10000 -> flagged
+4. Leakage-safe path must show:
+   - split first
+   - X_train: fit median imputer + StandardScaler
+   - X_test: transform only
+   - city/gender -> OneHotEncoder(handle_unknown='ignore')
+   - ColumnTransformer -> Pipeline -> LogisticRegression
+5. Bottom ribbon exactly: "先に分割 -> training で fit -> test を transform -> モデル学習"
+
+Required teaching labels and short notes, in natural Japanese except exact code/API names:
+- "欠損率" near the missing-rate board; note "age=0.250、income/city/gender=0.125。"
+- "外れ値" near the outlier gate; note "amount=10000 は upper=200.625 を超える。"
+- "先に分割" near the safety barrier; note "全データで前処理器を fit しない。"
+- "数値列" near the numeric lane; note "median imputer + StandardScaler。"
+- "カテゴリ列" near the categorical lane; note "most_frequent + OneHotEncoder。"
+- "Pipeline" near the final model path; note "ColumnTransformer から LogisticRegression へ。"
+
+Critical accuracy rules:
+- Do NOT draw a full table with visible rows. The missing-rate board is the source of truth, so the dataset tray should summarize the data rather than list every cell.
+- Spell "StandardScaler" exactly every time. Do not write "StanderdScaler", "Standardscaler", or any typo.
+- Explanatory text must be natural Japanese. Allowed English tokens only: age, income, amount, city, gender, target, q1, q3, upper, X_train, X_test, fit, transform, training data, test, median imputer, StandardScaler, most_frequent, OneHotEncoder, handle_unknown='ignore', ColumnTransformer, Pipeline, LogisticRegression.
+- Do NOT write English explanatory sentences, Chinese text, invented scores, invented model accuracy, extra columns, extra algorithms, fake rows, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "前処理の要点は、学習する各 step が training data だけを見ること。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """

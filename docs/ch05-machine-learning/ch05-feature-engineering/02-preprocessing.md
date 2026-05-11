@@ -163,6 +163,12 @@ model.fit(X_train, y_train)
 print(model.score(X_test, y_test))
 ```
 
+![Feature preprocessing pipeline result map](/img/course/ch05-feature-preprocessing-pipeline-result-map-en.webp)
+
+:::tip Read the result as a leakage check
+The important part is not the number of preprocessing steps. It is that missing-value handling, scaling, and encoding all learn from the training split before touching the test split.
+:::
+
 ## Common Mistakes
 
 The first mistake is standardizing all models. Tree models usually do not need it, and doing it may not bring any benefit. The second mistake is preprocessing before splitting the training and test sets, which causes data leakage. The third mistake is randomly mapping categories to numbers, causing the model to learn a nonexistent order relationship. The fourth mistake is over-cleaning outliers and deleting truly valuable extreme samples.
