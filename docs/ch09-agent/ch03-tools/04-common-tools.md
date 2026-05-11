@@ -378,6 +378,12 @@ Expected output:
 {'user': 'Bob', 'progress': 0.35, 'policy': 'You can apply for a refund within 7 days after purchasing the course', 'can_refund': False}
 ```
 
+![Agent common tool dispatch result map](/img/course/ch09-common-tools-dispatch-result-map-en.webp)
+
+:::tip Read the path, not only the print
+The same registry and dispatcher handle single-tool calls, safety checks, and multi-tool orchestration. When the final decision looks wrong, inspect the call name, arguments, tool result, and guardrail rule in that order.
+:::
+
 ### What does this code really show?
 
 It shows:

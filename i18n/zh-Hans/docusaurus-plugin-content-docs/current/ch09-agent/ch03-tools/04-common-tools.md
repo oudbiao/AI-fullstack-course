@@ -378,6 +378,12 @@ print(refund_eligibility_agent(2))
 {'user': 'Bob', 'progress': 0.35, 'policy': '课程购买后 7 天内可申请退款', 'can_refund': False}
 ```
 
+![Agent 常见工具调度运行结果图](/img/course/ch09-common-tools-dispatch-result-map.webp)
+
+:::tip 看路径，不只看 print
+同一个注册表和调度器既处理单工具调用，也处理安全校验和多工具编排。最终决策不对时，按 call name、arguments、工具结果、护栏规则的顺序排查。
+:::
+
 ### 这段代码真正说明了什么？
 
 它说明：

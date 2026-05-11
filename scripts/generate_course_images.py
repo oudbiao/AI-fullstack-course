@@ -13891,6 +13891,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch09-common-tools-dispatch-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch03-tools/04-common-tools.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/04-common-tools.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/04-common-tools.md",
+        },
+        "scene": "A runnable-result teaching visual for the common Agent tool integration lesson. It must explain the exact code flow, not just show tool categories. Show one unified tool registry with exactly three tools: search_docs, calculator, get_user_status. Show a dispatcher receiving three call envelopes and routing them to the correct tool, with these exact outputs: search_docs/refund -> refund policy text; calculator/12 * 7 -> result 84; get_user_status/user_id 1 -> Alice progress 0.15. Then show the refund_eligibility_agent combining get_user_status plus search_docs to produce exactly two decision cards: Alice progress 0.15 -> can_refund=True; Bob progress 0.35 -> can_refund=False. Include a small safety lane for safe_calculator: 3 * (4 + 5) -> result 27; __import__('os').system('rm -rf /') -> invalid_expression. The teaching point is unified registry, unified dispatcher, safe validation, and tool orchestration. Do not draw a generic list of tool types, do not use a terminal screenshot, do not invent more tools, do not add fake logs, do not draw dense tables, and do not add tiny background text.",
+        "chapter_context": "The image is inserted after the expected output of refund_eligibility_agent in the common tools integration lesson. Earlier code defines TOOLS with search_docs, calculator, and get_user_status; dispatch(call) routes by call['name']; safe_calculator rejects unsafe expressions; refund_eligibility_agent calls user status and refund policy tools together. The prose explains that tools need a unified interface, unified error handling, boundary constraints, and orchestration.",
+        "shared_layout": "Vertical 9:16. Use the same dark engineering control-room style across zh/en/ja. Top title and subtitle. Upper section: three tool registry cards feeding a central dispatcher with three call envelopes. Middle section: the three dispatcher output cards with result 84, refund policy, and Alice progress 0.15. Lower-left: safe calculator gate comparing accepted arithmetic with rejected unsafe code. Lower-right: refund orchestration lane combining user status plus refund policy, then two decision badges for Alice and Bob. Bottom strip: registry + dispatcher + guardrails + orchestration. Keep all icons, route order, values, colors, card positions, and reading path identical across languages. Use large readable text only; no pseudo-code wallpaper.",
+        "variants": {
+            "zh": {
+                "title": "工具注册与调度结果怎么看",
+                "subtitle": "一个统一入口把调用路由到工具，再把结果交给 Agent 决策。",
+                "items": [
+                    ("TOOLS", "search_docs、calculator、get_user_status。"),
+                    ("dispatch", "按 name 找工具，arguments 作为参数。"),
+                    ("calculator", "12 * 7 -> 84。"),
+                    ("safe_calculator", "危险表达式 -> invalid_expression。"),
+                    ("refund agent", "同时查进度和退款政策。"),
+                    ("Alice / Bob", "0.15 -> can_refund=True；0.35 -> False。"),
+                ],
+                "footer": "工具层的关键不是多，而是注册、调度、校验和编排都统一。",
+                "alt": "Agent 常见工具集成运行结果图：TOOLS 注册 search_docs、calculator、get_user_status，dispatch 调用工具，safe_calculator 拦截危险表达式，refund agent 组合工具判断退款。",
+            },
+            "en": {
+                "title": "Reading Tool Registry Dispatch",
+                "subtitle": "One entry point routes calls to tools, then gives results back to the Agent.",
+                "items": [
+                    ("TOOLS", "search_docs, calculator, get_user_status."),
+                    ("dispatch", "Find by name; pass arguments as parameters."),
+                    ("calculator", "12 * 7 -> 84."),
+                    ("safe_calculator", "Unsafe expression -> invalid_expression."),
+                    ("refund agent", "Combines progress and refund policy."),
+                    ("Alice / Bob", "0.15 -> can_refund=True; 0.35 -> False."),
+                ],
+                "footer": "The tool layer works when registry, dispatch, validation, and orchestration share one convention.",
+                "alt": "Agent common tool integration result map: TOOLS registers search_docs, calculator, and get_user_status; dispatch calls tools; safe_calculator blocks unsafe expressions; refund agent combines tools to decide refund eligibility.",
+            },
+            "ja": {
+                "title": "Tool 登録と dispatch の結果を読む",
+                "subtitle": "1つの入口が tool を呼び分け、結果を Agent の判断へ渡す。",
+                "items": [
+                    ("TOOLS", "search_docs、calculator、get_user_status。"),
+                    ("dispatch", "name で tool を選び、arguments を渡す。"),
+                    ("calculator", "12 * 7 -> 84。"),
+                    ("safe_calculator", "危険な式 -> invalid_expression。"),
+                    ("refund agent", "進捗と返金 policy を組み合わせる。"),
+                    ("Alice / Bob", "0.15 -> can_refund=True；0.35 -> False。"),
+                ],
+                "footer": "tool 層は登録、dispatch、検証、orchestration を同じ約束でそろえる。",
+                "alt": "Agent のよく使う tool 統合結果図：TOOLS が search_docs、calculator、get_user_status を登録し、dispatch が tool を呼び、safe_calculator が危険な式を止め、refund agent が複数 tool で返金可否を判断する。",
+            },
+        },
+    },
+    {
         "slug": "ch12-vlm-image-text-retrieval-ranking-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
@@ -15890,6 +15945,126 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch09-common-tools-dispatch-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative sci-fi poster.
+
+Visible title exactly: "工具注册与调度结果怎么看"
+Visible subtitle exactly: "一个统一入口把调用路由到工具，再把结果交给 Agent 决策。"
+
+Use a dark engineering control-room teaching board. The whole image must explain the exact runnable code in the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Top registry shelf: exactly three tool cards named search_docs, calculator, get_user_status.
+2. Center dispatch machine: text "dispatch(call)" and note "按 name 找工具，arguments 作为参数。"
+3. Three output lanes:
+   - search_docs / 退款 -> "课程购买后 7 天内可申请退款"
+   - calculator / 12 * 7 -> "84"
+   - get_user_status / user_id=1 -> "Alice progress 0.15"
+4. Safety gate:
+   - "3 * (4 + 5) -> 27"
+   - "__import__('os').system('rm -rf /') -> invalid_expression"
+5. Refund orchestration panel:
+   - get_user_status + search_docs
+   - visible rule exactly "progress < 0.2 才可退款"
+   - Alice progress 0.15 -> can_refund=True
+   - Bob progress 0.35 -> can_refund=False
+6. Bottom strip: "统一注册 -> 统一调度 -> 安全校验 -> 工具编排"
+
+Required teaching labels and short notes, all in Simplified Chinese except code/tool names:
+- "TOOLS" near the registry; note "search_docs、calculator、get_user_status。"
+- "dispatch" near the routing machine; note "按 name 找工具，arguments 作为参数。"
+- "calculator" near the arithmetic result; note "12 * 7 -> 84。"
+- "safe_calculator" near the guard gate; note "危险表达式 -> invalid_expression。"
+- "refund agent" near the orchestration panel; note "同时查进度和退款政策。"
+- "Alice / Bob" near decisions; note "0.15 -> can_refund=True；0.35 -> False。"
+
+Critical accuracy rules:
+- Do NOT write 30 days, 30%, 0.20 as a refund deadline, or any policy not in the code.
+- The only policy text may mention "7 天内" and the decision rule "progress < 0.2".
+- Do NOT add extra tools, extra users, extra numeric results, fake logs, tiny background text, English explanatory sentences, Japanese text, watermark, or brand logos.
+Visible footer exactly: "工具层的关键不是多，而是注册、调度、校验和编排都统一。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-common-tools-dispatch-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative sci-fi poster.
+
+Visible title exactly: "Reading Tool Registry Dispatch"
+Visible subtitle exactly: "One entry point routes calls to tools, then gives results back to the Agent."
+
+Use a dark engineering control-room teaching board. The whole image must explain the exact runnable code in the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Top registry shelf: exactly three tool cards named search_docs, calculator, get_user_status.
+2. Center dispatch machine: text "dispatch(call)" and note "Find by name; pass arguments as parameters."
+3. Three output lanes:
+   - search_docs / refund -> "You can apply for a refund within 7 days after purchasing the course"
+   - calculator / 12 * 7 -> "84"
+   - get_user_status / user_id=1 -> "Alice progress 0.15"
+4. Safety gate:
+   - "3 * (4 + 5) -> 27"
+   - "__import__('os').system('rm -rf /') -> invalid_expression"
+5. Refund orchestration panel:
+   - get_user_status + search_docs
+   - visible rule exactly "progress < 0.2 can refund"
+   - Alice progress 0.15 -> can_refund=True
+   - Bob progress 0.35 -> can_refund=False
+6. Bottom strip: "registry -> dispatcher -> guardrails -> orchestration"
+
+Required teaching labels and short notes:
+- "TOOLS" near the registry; note "search_docs, calculator, get_user_status."
+- "dispatch" near the routing machine; note "Find by name; pass arguments as parameters."
+- "calculator" near the arithmetic result; note "12 * 7 -> 84."
+- "safe_calculator" near the guard gate; note "Unsafe expression -> invalid_expression."
+- "refund agent" near the orchestration panel; note "Combines progress and refund policy."
+- "Alice / Bob" near decisions; note "0.15 -> can_refund=True; 0.35 -> False."
+
+Critical accuracy rules:
+- Do NOT write 30 days, 30%, progress <= 0.20, or any policy not in the code.
+- The only deadline policy is "within 7 days after purchasing the course"; the decision rule is "progress < 0.2".
+- Do NOT add extra tools, extra users, extra numeric results, fake logs, tiny background text, Chinese text, Japanese text, watermark, or brand logos.
+Visible footer exactly: "The tool layer works when registry, dispatch, validation, and orchestration share one convention."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-common-tools-dispatch-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative sci-fi poster.
+
+Visible title exactly: "Tool 登録と dispatch の結果を読む"
+Visible subtitle exactly: "1つの入口が tool を呼び分け、結果を Agent の判断へ渡す。"
+
+Use a dark engineering control-room teaching board. The whole image must explain the exact runnable code in the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Top registry shelf: exactly three tool cards named search_docs, calculator, get_user_status.
+2. Center dispatch machine: text "dispatch(call)" and note "name で tool を選び、arguments を渡す。"
+3. Three output lanes:
+   - search_docs / 返金 -> "コース購入後 7 日以内に返金申請ができます"
+   - calculator / 12 * 7 -> "84"
+   - get_user_status / user_id=1 -> "Alice progress 0.15"
+4. Safety gate:
+   - "3 * (4 + 5) -> 27"
+   - "__import__('os').system('rm -rf /') -> invalid_expression"
+5. Refund orchestration panel:
+   - get_user_status + search_docs
+   - visible rule exactly "progress < 0.2 なら返金可"
+   - Alice progress 0.15 -> can_refund=True
+   - Bob progress 0.35 -> can_refund=False
+6. Bottom strip: "登録 -> dispatch -> 検証 -> orchestration"
+
+Required teaching labels and short notes, in natural Japanese except code/tool names:
+- "TOOLS" near the registry; note "search_docs、calculator、get_user_status。"
+- "dispatch" near the routing machine; note "name で tool を選び、arguments を渡す。"
+- "calculator" near the arithmetic result; note "12 * 7 -> 84。"
+- "safe_calculator" near the guard gate; note "危険な式 -> invalid_expression。"
+- "refund agent" near the orchestration panel; note "進捗と返金 policy を組み合わせる。"
+- "Alice / Bob" near decisions; note "0.15 -> can_refund=True；0.35 -> False。"
+
+Critical accuracy rules:
+- Do NOT write 30 days, 30%, progress <= 0.20, or any policy not in the code.
+- The only deadline policy is "7 日以内"; the decision rule is "progress < 0.2".
+- Do NOT add extra tools, extra users, extra numeric results, fake logs, tiny background text, Chinese text, English explanatory sentences, watermark, or brand logos.
+Visible footer exactly: "tool 層は登録、dispatch、検証、orchestration を同じ約束でそろえる。"
+All text must be large and readable on a phone.
+""".strip(),
     "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """
 Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
 Topic: Tokenizer to BERT tensor shapes. Use a dark classroom lab-bench illustration, consistent with the Chinese and Japanese companion images, but not a whiteboard flowchart, not SVG style, not rounded-box-only UI, and not a text poster.

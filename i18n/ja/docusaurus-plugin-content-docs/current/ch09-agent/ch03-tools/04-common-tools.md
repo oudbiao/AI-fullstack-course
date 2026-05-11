@@ -380,6 +380,12 @@ print(refund_eligibility_agent(2))
 {'user': 'Bob', 'progress': 0.35, 'policy': 'コース購入後 7 日以内に返金申請ができます', 'can_refund': False}
 ```
 
+![Agent の一般的な tool dispatch 実行結果図](/img/course/ch09-common-tools-dispatch-result-map-ja.webp)
+
+:::tip print だけでなく経路を見る
+同じ登録表と dispatcher が、単独 tool 呼び出し、安全検証、複数 tool の orchestration を扱います。最終判断が違う時は、call name、arguments、tool result、guardrail rule の順に確認します。
+:::
+
 ### このコードが本当に示していること
 
 このコードが示しているのは、
