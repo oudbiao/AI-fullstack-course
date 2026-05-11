@@ -233,6 +233,50 @@ The key point in this example is:
 - Video tasks often naturally need a short time span
 - A correct single-frame judgment does not necessarily mean the whole event judgment is correct
 
+![Reading video sliding-window event results](/img/course/ch10-video-sliding-window-event-result-map-en.webp)
+
+:::tip Reading the window result
+A frame state is only an observation. An event label should come from a time window plus a rule. In this example, `1` means "moving in this frame", while `moving_event` means "enough neighboring frames are moving to count as an event."
+:::
+
+---
+
+## Define the event before choosing the model
+
+A video project becomes much easier to reason about when the event is written as a small contract.
+
+| Decision | Beginner-safe definition | Deeper project definition |
+| --- | --- | --- |
+| What is observed | Each frame is moving or not moving | Frame state includes object ID, region, confidence, and timestamp |
+| When the event starts | Three continuous moving frames | A start rule, an end rule, minimum duration, and allowed interruption |
+| What the system outputs | `moving_event` or `static_or_unclear` | `start_time`, `end_time`, `track_id`, confidence, and evidence frames |
+| What the product can tolerate | Occasional wrong or late labels | False-alarm cost, missed-event cost, maximum alert latency, and review workflow |
+
+The model is only one part of the system. The event rule often decides whether the product feels reliable.
+
+- `window_size` controls how much history the system uses. A larger window is usually steadier, but it reacts later.
+- `stride` controls how often the window moves. A smaller stride reduces delay, but costs more compute.
+- `threshold` controls how strict the event rule is. A higher threshold reduces false alarms, but may miss short actions.
+- Smoothing or hysteresis can keep the label from flipping back and forth when the signal is noisy.
+
+For experienced learners, the useful habit is to keep the event definition separate from the model code. Then you can test the same detections with different window sizes, thresholds, and latency budgets without retraining the model.
+
+---
+
+## Evaluate temporal behavior, not only frame accuracy
+
+Single-frame accuracy answers "was this frame recognized correctly?" A video system also needs to answer "was the event recognized at the right time, for the right target, and without unstable flicker?"
+
+| Symptom | What to inspect | Common fix |
+| --- | --- | --- |
+| ID switches | Track ID timeline around occlusion or crossing | Tune association distance, add appearance features, or use a stronger tracker |
+| Label jitter | Frame labels before and after the event boundary | Add smoothing, hysteresis, or a stricter window rule |
+| Missed short event | Sampling interval versus shortest event duration | Sample more densely, shorten the window, or add a fast trigger path |
+| Late alert | Difference between true start time and predicted start time | Reduce stride, reduce buffering, or use a lighter model |
+| False event from one noisy frame | Raw frame states inside the window | Require consecutive evidence instead of accepting one strong frame |
+
+When you report a video project, include at least one temporal metric, such as event precision/recall, start-time error, end-time error, ID-switch count, or alert latency. This is what separates a demo from an actual video system.
+
 ---
 
 ## The easiest pitfalls to fall into
@@ -247,7 +291,7 @@ This easily loses:
 
 ### Sampling frames too coarsely
 
-If you sample too sparsely, you may miss critical moments.
+If you sample too sparsely, you may miss critical moments. A simple sanity check is to compare the sampling interval with the shortest event you care about. If the event lasts 0.4 seconds and you sample once per second, the system can miss it even when the model is accurate.
 
 ### Only looking at single-frame accuracy, not temporal stability
 
@@ -256,17 +300,21 @@ Real video systems should care more about:
 - Jitter
 - Missed tracking
 - ID switches
+- Event start and end error
+- Alert latency
 
 ## If you turn video analysis into a project, what is most worth showing?
 
 If you want to turn this kind of topic into a portfolio page,
 what is most worth showing usually is not a list of model names,
-but these 4 things:
+but these 6 things:
 
 1. An overall flowchart of frame sampling or temporal modeling
-2. A sample target trajectory or event window illustration
-3. A set of typical failure cases
-4. Why you finally chose the route of “frame sampling / tracking / temporal model”
+2. A clear event definition table
+3. A sample target trajectory or event window illustration
+4. A small temporal metric table
+5. A set of typical failure cases, including false alarms and missed events
+6. Why you finally chose the route of “frame sampling / tracking / temporal model”
 
 This makes it easier for others to see:
 
@@ -295,3 +343,5 @@ The most important thing in this section is to build one judgment:
 2. Why do we say many video systems are actually a combination of “single-frame models + temporal logic”?
 3. What risks can arise if frame sampling is too sparse?
 4. Think about this: which video tasks must explicitly model time rather than only looking at single frames?
+5. Change `window_size` from `3` to `5`. What happens to false alarms and alert delay?
+6. Add a rule that only fires when the event lasts at least two windows. What kind of noisy case does this rule reduce, and what kind of short event might it miss?

@@ -15319,6 +15319,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch10-video-sliding-window-event-result-map",
+        "pages": {
+            "en": "docs/ch10-computer-vision/ch05-advanced/02-video-analysis.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch05-advanced/02-video-analysis.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch05-advanced/02-video-analysis.md",
+        },
+        "scene": "A video-analysis sliding-window worked-result board based on the expected output of the sequence example. The image must teach why temporal event labels need a short window, not a single frame. Do not draw terminal screenshots, full code blocks, invented frames, invented labels, invented thresholds, object detection boxes, people, cameras, extra classes, confidence scores, or extra metrics. Show exactly the sequence [0, 0, 1, 1, 1, 0, 0] where 0 means stationary/static and 1 means moving. Show window_size=3. Show exactly five windows with exact labels: idx 0 [0,0,1] -> static_or_unclear; idx 1 [0,1,1] -> static_or_unclear; idx 2 [1,1,1] -> moving_event; idx 3 [1,1,0] -> static_or_unclear; idx 4 [1,0,0] -> static_or_unclear. Show motion_ratio rule visually: moving_event only when 3 of 3 frames are moving, because threshold is >=0.67 and the page explanation says only the window with three continuous moving frames is labeled as a moving event. Teaching point: a single moving frame is not an event; a temporal window decides the event label.",
+        "chapter_context": "The image is inserted after the expected output of the sliding-window example in video analysis. Nearby text contrasts single-frame labels with temporal event labels and explains that video tasks often need a short time span.",
+        "shared_layout": "Vertical 9:16. Warm paper workbook style. Top title and subtitle. Upper section shows seven frame tiles on a timeline: 0,0,1,1,1,0,0, with static frames gray and moving frames blue/orange. Middle section shows a sliding window of size 3 sweeping across the timeline, producing five result rows with exact idx, window, and label. Emphasize idx 2 [1,1,1] as the only moving_event with a bright highlight; all other windows are muted static_or_unclear. Lower section has a rule strip: single frame is not enough; the window decides the event. Keep values, labels, colors, and reading path identical across zh/en/ja. Use concrete frame strips, window brackets, and result stamps; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "视频滑动窗口结果怎么看",
+                "subtitle": "单帧在动不等于事件成立，要看连续时间窗口。",
+                "items": [
+                    ("sequence", "[0,0,1,1,1,0,0]，0=静止，1=运动。"),
+                    ("window_size", "3：每次看连续 3 帧。"),
+                    ("idx 0", "[0,0,1] -> static_or_unclear。"),
+                    ("idx 2", "[1,1,1] -> moving_event。"),
+                    ("idx 4", "[1,0,0] -> static_or_unclear。"),
+                    ("规则", "只有连续 3 帧都运动，才是 moving_event。"),
+                ],
+                "footer": "视频事件标签来自时间窗口，而不是单独一帧。",
+                "alt": "视频滑动窗口实验结果图：序列 [0,0,1,1,1,0,0] 以 window_size=3 生成五个窗口，只有 idx 2 的 [1,1,1] 被标为 moving_event。",
+            },
+            "en": {
+                "title": "Reading Video Sliding-Window Results",
+                "subtitle": "One moving frame is not an event; inspect a short time window.",
+                "items": [
+                    ("sequence", "[0,0,1,1,1,0,0], 0=stationary, 1=moving."),
+                    ("window_size", "3: inspect three consecutive frames."),
+                    ("idx 0", "[0,0,1] -> static_or_unclear."),
+                    ("idx 2", "[1,1,1] -> moving_event."),
+                    ("idx 4", "[1,0,0] -> static_or_unclear."),
+                    ("rule", "Only three continuous moving frames become moving_event."),
+                ],
+                "footer": "Video event labels come from a time window, not one isolated frame.",
+                "alt": "Video sliding-window result map: sequence [0,0,1,1,1,0,0] with window_size 3 creates five windows, and only idx 2 [1,1,1] is labeled moving_event.",
+            },
+            "ja": {
+                "title": "動画スライディングウィンドウ結果を読む",
+                "subtitle": "1フレームの移動だけではイベントではなく、短い時間窓を見る。",
+                "items": [
+                    ("sequence", "[0,0,1,1,1,0,0]、0=静止、1=移動。"),
+                    ("window_size", "3：連続する3フレームを見る。"),
+                    ("idx 0", "[0,0,1] -> static_or_unclear。"),
+                    ("idx 2", "[1,1,1] -> moving_event。"),
+                    ("idx 4", "[1,0,0] -> static_or_unclear。"),
+                    ("ルール", "3フレーム連続で移動した時だけ moving_event。"),
+                ],
+                "footer": "動画イベントのラベルは、単独フレームではなく時間窓から決まる。",
+                "alt": "動画スライディングウィンドウ実験結果図：sequence [0,0,1,1,1,0,0] を window_size=3 で5つの window にし、idx 2 の [1,1,1] だけを moving_event と判定する。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
