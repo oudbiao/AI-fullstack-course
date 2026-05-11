@@ -32,6 +32,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `safety_review.md` | copyright, portrait rights, sensitive content, factuality, usage boundary |
 | `README.md` | goal, run command, source materials, sample output, limitations |
 
+## Quality Gates
+
+| Gate | Pass condition |
+|---|---|
+| Source trace | Every input and output keeps source, owner or license, version, and page/region/time reference when relevant. |
+| Prompt/version | Candidate outputs link back to prompt, model or tool, reference assets, and selection reason. |
+| Review | Copyright, portrait or voice, sensitive content, factuality, accessibility, and export scope are checked. |
+| Export | README, manifest, selected outputs, rejected outputs, limits, and next fix can be inspected by another person. |
+
 ## Exit Questions
 
 - Can you preserve source references for screenshots, PDFs, images, audio, or video?

@@ -32,6 +32,15 @@ keywords: [NLP チェックリスト, テキスト分類, 情報抽出, BERT, GP
 | `failure_cases.md` | 紛らわしいラベル、欠損フィールド、根拠なし事実、悪い要約 |
 | `README.md` | タスク目標、実行コマンド、入出力、指標、制限 |
 
+## 品質ゲート
+
+| ゲート | 合格条件 |
+|---|---|
+| Label/schema boundary | labels または fields に positive、negative、edge examples がある。 |
+| Baseline | rule、TF-IDF、simple model、LLM baseline が同じ fixed eval cases で動く。 |
+| Factuality | 生成 summary/answer が fluency だけでなく source evidence で確認される。 |
+| Error review | confusion、missing fields、unsupported facts、bad summaries に cause と next test がある。 |
+
 ## 章を出る前の質問
 
 - 生テキストが token とモデル入力になる流れを説明できますか？

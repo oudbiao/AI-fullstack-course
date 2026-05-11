@@ -31,6 +31,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `failure_cases.md` | failed images, possible cause, fix direction |
 | `README.md` | task goal, run command, input/output examples, scenario boundary |
 
+## Quality Gates
+
+| Gate | Pass condition |
+|---|---|
+| Visual trace | Original, processed, prediction, and failure images are saved with matching filenames. |
+| Annotation | Dataset notes define classes, boxes or masks, source, split, and known label uncertainty. |
+| Metric fit | Accuracy/F1, mAP, IoU/Dice, or OCR hit rate matches the task output. |
+| Real-world boundary | Report names lighting, angle, camera or source, latency, image size, and device limits. |
+
 ## Exit Questions
 
 - Can you explain classification, detection, segmentation, and OCR by output shape?

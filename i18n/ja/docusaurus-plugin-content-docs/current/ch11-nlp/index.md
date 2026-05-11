@@ -94,6 +94,14 @@ accuracy=3/3
 
 操作メモ: "the document source field is missing" のような紛らわしいサンプルを追加してください。ルールが失敗したら、原因がラベル重複、キーワード不足、タスク定義の曖昧さのどれかを記録します。BERT、GPT、LLM を使うときも同じ考え方です。
 
+## 深さの段階
+
+| 段階 | 証明できること |
+|---|---|
+| 最低合格 | 固定テキストサンプルで label/rule evaluation を実行し、紛らわしい1例がなぜ失敗するか説明できる。 |
+| 実務準備 | labels または fields を定義し、representation/output を選び、metrics を残し、boundary/failure cases を保存できる。 |
+| 深い確認 | rules、classical NLP、embeddings、fine-tuning、RAG、LLM のどれが最も単純で信頼できる選択か判断できる。 |
+
 ## 出力で NLP タスクを選ぶ
 
 ![NLP タスク出力図](/img/course/ch11-nlp-task-output-map-ja.webp)

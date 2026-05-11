@@ -76,6 +76,14 @@ rag_ready: True
 
 操作メモ: `page`、`region`、`timestamp` フィールドを追加してください。あとで引用できる記録なら、マルチモーダル RAG に入れられます。確認や引用ができないものは、レビュー段階に残します。
 
+## 深さの段階
+
+| 段階 | 証明できること |
+|---|---|
+| 最低合格 | screenshot、image、PDF、audio、video note を、source と uncertainty を含む structured record にできる。 |
+| 実務準備 | source references、Prompt versions、candidate outputs、review decisions、export files を保持できる。 |
+| 深い確認 | multimodal records を RAG または Agent へ接続しつつ、copyright、portrait、sensitive content、factual、latency、cost の境界を守れる。 |
+
 ## マルチモーダルを RAG、Agent、創作ワークフローへ接続する
 
 ![マルチモーダル RAG、Agent、卒業プロジェクト図](/img/course/ch12-multimodal-rag-agent-capstone-map-ja.webp)

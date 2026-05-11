@@ -32,6 +32,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `failure_cases.md` | confusing labels, missing fields, unsupported facts, bad summaries |
 | `README.md` | task goal, run command, input/output, metrics, limitations |
 
+## Quality Gates
+
+| Gate | Pass condition |
+|---|---|
+| Label/schema boundary | Labels or fields include positive, negative, and edge examples. |
+| Baseline | Rule, TF-IDF, simple model, or LLM baseline runs on the same fixed eval cases. |
+| Factuality | Generated summaries or answers are checked against source evidence, not only fluency. |
+| Error review | Confusion, missing fields, unsupported facts, and bad summaries have a cause and next test. |
+
 ## Exit Questions
 
 - Can you explain how raw text becomes tokens and model input?

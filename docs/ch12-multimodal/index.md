@@ -76,6 +76,14 @@ rag_ready: True
 
 Operation tip: add `page`, `region`, or `timestamp` fields. If the record can be cited later, it can enter multimodal RAG. If it cannot be checked or cited, it should stay in review.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can turn one screenshot, image, PDF, audio, or video note into a structured record with source and uncertainty. |
+| Project-ready | You can preserve source references, prompt versions, candidate outputs, review decisions, and export files. |
+| Deeper check | You can connect multimodal records to RAG or Agent while enforcing copyright, portrait, sensitive-content, factual, latency, and cost boundaries. |
+
 ## Connect Multimodal To RAG, Agent, And Creative Work
 
 ![Multimodal RAG Agent capstone map](/img/course/ch12-multimodal-rag-agent-capstone-map-en.webp)

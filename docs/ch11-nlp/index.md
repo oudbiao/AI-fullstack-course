@@ -94,6 +94,14 @@ accuracy=3/3
 
 Operation tip: add a confusing sample such as "the document source field is missing." If the rule system fails, write down whether the problem is label overlap, keyword coverage, or unclear task definition. The same thinking applies when you later use BERT, GPT, or an LLM.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can run label and rule evaluation on fixed text samples and explain why one confusing sample fails. |
+| Project-ready | You can define labels or fields, choose representation and output, keep metrics, and save boundary and failure cases. |
+| Deeper check | You can decide whether rules, classical NLP, embeddings, fine-tuning, RAG, or an LLM is the simplest reliable option. |
+
 ## Choose The NLP Task By Output
 
 ![NLP task output map](/img/course/ch11-nlp-task-output-map-en.webp)

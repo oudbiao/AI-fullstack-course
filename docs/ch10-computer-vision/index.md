@@ -85,6 +85,14 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 Operation tip: change `width`, `height`, or the RGB formula. If the saved image changes, you are already doing image preprocessing. Later sections replace this tiny lab with OpenCV, Pillow, PyTorch, and detection or segmentation models.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can run the pixel lab and explain image size, channels, RGB values, grayscale conversion, and saved output. |
+| Project-ready | You can choose the right task output, keep original, processed, and prediction images, report the right metric, and save failure samples. |
+| Deeper check | You can trace a wrong result to data, annotation, preprocessing, model, threshold, metric, or deployment constraint before changing architecture. |
+
 ## Debug Vision Results
 
 ![Vision pipeline and failure review loop](/img/course/ch10-vision-pipeline-loop-en.webp)

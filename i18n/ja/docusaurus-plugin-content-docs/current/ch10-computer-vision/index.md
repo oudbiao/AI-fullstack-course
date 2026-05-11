@@ -85,6 +85,14 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 操作メモ: `width`、`height`、RGB の式を変えてください。保存画像が変われば、すでに画像前処理をしています。後の章では、この小さなラボを OpenCV、Pillow、PyTorch、検出・セグメンテーションモデルへ置き換えます。
 
+## 深さの段階
+
+| 段階 | 証明できること |
+|---|---|
+| 最低合格 | pixel lab を実行し、画像サイズ、チャンネル、RGB 値、グレー変換、保存出力を説明できる。 |
+| 実務準備 | 出力に合うタスクを選び、元画像、処理画像、予測画像を残し、適切な指標を報告し、失敗例を保存できる。 |
+| 深い確認 | 構造を変える前に、誤りを data、annotation、preprocessing、model、threshold、metric、deployment constraint に切り分けられる。 |
+
 ## 視覚結果をデバッグする
 
 ![視覚パイプラインと失敗レビューのループ](/img/course/ch10-vision-pipeline-loop-ja.webp)
