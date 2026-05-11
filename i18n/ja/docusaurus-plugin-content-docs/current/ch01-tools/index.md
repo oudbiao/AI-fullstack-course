@@ -47,11 +47,14 @@ keywords: [ターミナル, コマンドライン, Git, VS Code, 開発環境, P
 mkdir ai-learning-lab
 cd ai-learning-lab
 python -m venv .venv
+. .venv/bin/activate
+python -c "import sys; print(sys.executable)"
+printf '.venv/\n__pycache__/\n' > .gitignore
 printf 'print("AI learning lab is ready")\n' > hello_ai.py
-printf '# AI Learning Lab\n\nRun with: python hello_ai.py\n' > README.md
+printf '# AI Learning Lab\n\nActivate env: . .venv/bin/activate\nRun with: python hello_ai.py\n' > README.md
 python hello_ai.py
 git init
-git add README.md hello_ai.py
+git add .gitignore README.md hello_ai.py
 git commit -m "init learning lab"
 ```
 
@@ -62,6 +65,16 @@ AI learning lab is ready
 ```
 
 失敗したら、エラーを消さないでください。コマンド、完全な出力、OS、Python バージョン、現在のディレクトリを残します。それも価値のあるプロジェクト証拠です。
+
+Windows PowerShell では `. .venv/bin/activate` の代わりに `.venv\Scripts\Activate.ps1` を使います。手元の環境で `python3` を使う場合は、コマンドと README の `python` をすべて `python3` にそろえてください。
+
+## 深度ラダー
+
+| レベル | 証明できること |
+|---|---|
+| 最低合格 | フォルダを作り、スクリプトを実行し、現在のディレクトリと Python インタプリタを説明できる。 |
+| プロジェクト利用可 | 新しいターミナルから README どおりに再実行でき、`.venv/` が無視され、`git status` には意図した変更だけが出る。 |
+| 深い確認 | PATH、作業ディレクトリ、shell、インタプリタ選択が、別のマシンで結果を変える理由を説明できる。 |
 
 ## よくある失敗
 

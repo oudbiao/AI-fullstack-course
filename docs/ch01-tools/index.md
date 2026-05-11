@@ -47,11 +47,14 @@ Run this in a practice folder. It creates a tiny project, runs it, documents it,
 mkdir ai-learning-lab
 cd ai-learning-lab
 python -m venv .venv
+. .venv/bin/activate
+python -c "import sys; print(sys.executable)"
+printf '.venv/\n__pycache__/\n' > .gitignore
 printf 'print("AI learning lab is ready")\n' > hello_ai.py
-printf '# AI Learning Lab\n\nRun with: python hello_ai.py\n' > README.md
+printf '# AI Learning Lab\n\nActivate env: . .venv/bin/activate\nRun with: python hello_ai.py\n' > README.md
 python hello_ai.py
 git init
-git add README.md hello_ai.py
+git add .gitignore README.md hello_ai.py
 git commit -m "init learning lab"
 ```
 
@@ -62,6 +65,16 @@ AI learning lab is ready
 ```
 
 If the command fails, do not erase the error. Save the command, full output, operating system, Python version, and current directory. That record is useful project evidence.
+
+On Windows PowerShell, use `.venv\Scripts\Activate.ps1` instead of `. .venv/bin/activate`. If your system uses `python3`, replace `python` with `python3` consistently in the commands and README.
+
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can create a folder, run a script, and identify the current directory and Python interpreter. |
+| Project-ready | A fresh terminal can follow your README, `.venv/` is ignored, and `git status` only shows intentional changes. |
+| Deeper check | You can explain why PATH, working directory, shell, and interpreter choice change results across machines. |
 
 ## Common Failures
 

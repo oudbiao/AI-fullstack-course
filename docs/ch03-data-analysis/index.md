@@ -104,6 +104,14 @@ Saved chart: topic_minutes.png
 
 The pass line is not “the chart looks nice.” The pass line is: you can explain which rows changed, why they changed, and how that affects the conclusion.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can read a table, inspect shape/types/missing values, clean obvious problems, and save one chart. |
+| Project-ready | Your report names the question, cleaning rules, summary table, chart, conclusion, limitation, and rerun command. |
+| Deeper check | You can test whether the conclusion changes under another cleaning rule, spot leakage or sampling bias, and explain why a chart type fits the question. |
+
 ## Common Failures
 
 | Symptom | First thing to check | Usual fix |

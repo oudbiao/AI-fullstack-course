@@ -82,6 +82,14 @@ saved 1 task(s)
 
 Run it twice. The second run should print `saved 2 task(s)`. That proves the program can save state and read it back.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can write expressions, conditions, loops, and functions that produce the expected output. |
+| Project-ready | The program can persist data, handle one failure path, and explain its inputs and outputs in a README. |
+| Deeper check | You can separate core logic from file/API boundaries, add type hints where they clarify intent, and test one edge case before changing the code. |
+
 ## Common Failures
 
 | Symptom | First thing to check | Usual fix |

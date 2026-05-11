@@ -47,11 +47,14 @@ keywords: [终端, 命令行, Git, VS Code, 开发环境, Python 环境配置]
 mkdir ai-learning-lab
 cd ai-learning-lab
 python -m venv .venv
+. .venv/bin/activate
+python -c "import sys; print(sys.executable)"
+printf '.venv/\n__pycache__/\n' > .gitignore
 printf 'print("AI learning lab is ready")\n' > hello_ai.py
-printf '# AI Learning Lab\n\nRun with: python hello_ai.py\n' > README.md
+printf '# AI Learning Lab\n\nActivate env: . .venv/bin/activate\nRun with: python hello_ai.py\n' > README.md
 python hello_ai.py
 git init
-git add README.md hello_ai.py
+git add .gitignore README.md hello_ai.py
 git commit -m "init learning lab"
 ```
 
@@ -62,6 +65,16 @@ AI learning lab is ready
 ```
 
 如果失败，不要直接清空错误。保存命令、完整输出、操作系统、Python 版本和当前目录，这些都是有价值的项目证据。
+
+如果使用 Windows PowerShell，把 `. .venv/bin/activate` 换成 `.venv\Scripts\Activate.ps1`。如果你的系统使用 `python3`，就把命令和 README 里的 `python` 统一换成 `python3`。
+
+## 深度阶梯
+
+| 层级 | 你能证明什么 |
+|---|---|
+| 最低通过 | 能创建文件夹、运行脚本，并说清当前目录和 Python 解释器。 |
+| 项目可用 | 从新终端能按 README 重跑，`.venv/` 已被忽略，`git status` 只显示有意修改。 |
+| 深度检查 | 能解释 PATH、工作目录、shell 和解释器选择为什么会让同一命令在不同机器上表现不同。 |
 
 ## 常见失败
 

@@ -30,6 +30,15 @@ If a topic does not help this loop yet, skim it first and return later.
 | I can handle one broken file or bad input | debug note |
 | I can finish the workshop | `ch02_output/` |
 
+## Depth Checks
+
+| Skill | Challenge |
+|---|---|
+| Data choice | Store the same task as a list item and as a dictionary. Explain which one is easier to extend. |
+| Error handling | Break `tasks.json` on purpose, then make the program recover without hiding the error from the user. |
+| Refactoring | Move repeated code into a function whose input and return value can be tested without touching files. |
+| Communication | Write a README command that a new terminal can run without guessing hidden setup steps. |
+
 ## Ready To Continue
 
 Continue to Chapter 3 when your task manager can add a task, save it, reload it, and explain the run command in a README.
