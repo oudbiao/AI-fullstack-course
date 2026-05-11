@@ -94,6 +94,14 @@ Logistic regression
 
 Do not only compare the final scores. Ask: which classes are easy, which are hard, and what error would matter most in the real use case?
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can name the task type, split the data, train a baseline, and read the score. |
+| Project-ready | You can explain why the chosen metric matches the goal, and show one error sample instead of trusting one score. |
+| Deeper check | You can test for leakage, compare two feature choices, and say what would change in a real product or dataset update. |
+
 ## Common Failures
 
 | Symptom | First thing to check | Usual fix |

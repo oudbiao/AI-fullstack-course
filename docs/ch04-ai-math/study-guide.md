@@ -30,6 +30,16 @@ If a formula feels difficult, first ask what model action it supports.
 | I can trace gradient descent step by step | update table |
 | I can finish the final workshop after theory | `ch04_math_workshop_evidence/` |
 
+## Formula-To-Code Checks
+
+| Idea | Concrete check |
+|---|---|
+| Vector | Label each dimension before calculating similarity. |
+| Probability | Name the random variable, possible outcomes, and one event. |
+| Loss | Compute one loss value by hand, then match it with code. |
+| Gradient | Show one parameter before and after an update step. |
+| Learning rate | Try one smaller and one larger value, then explain the loss curve. |
+
 ## Ready To Continue
 
 Continue to Chapter 5 when each math idea maps to a model action: represent data, compare examples, measure uncertainty, measure loss, or update parameters.

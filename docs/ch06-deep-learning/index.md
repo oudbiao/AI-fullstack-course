@@ -87,6 +87,14 @@ Expected shape:
 
 The exact numbers can differ, but the loss should generally move down. If it does, you have seen the training loop work.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can describe forward, loss, backward, and optimizer step in order. |
+| Project-ready | You can run a small PyTorch model, watch loss change, and interpret tensor shapes. |
+| Deeper check | You can overfit one tiny batch on purpose, then explain why that test is useful before training a bigger model. |
+
 ## Common Failures
 
 | Symptom | First thing to check | Usual fix |

@@ -30,6 +30,16 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 | Attention が何を変えたか説明できる | attention メモ |
 | 証拠パックワークショップを完了できる | `deep_learning_workshop_run/` |
 
+## 証拠基準
+
+| 成果物 | 答えるべきこと |
+|---|---|
+| 学習ループメモ | forward、loss、backward、optimizer step で何が起きるか。 |
+| shape trace | モデル内で tensor shape がどう変わるか。 |
+| 曲線画像または CSV | モデルは underfitting、overfitting、順調な改善のどれか。 |
+| attention メモ | Attention は何を増やし、何がまだ難しいか。 |
+| 失敗サンプルメモ | どのサンプルが失敗し、それはデータ、モデル、ラベルのどれを示しているか。 |
+
 ## 次へ進めるサイン
 
 小さなモデルを学習し、ログを保存し、失敗サンプルを確認し、なぜ改善または失敗したかを説明できたら、第 7 章へ進めます。

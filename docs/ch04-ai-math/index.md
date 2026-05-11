@@ -79,6 +79,14 @@ Python vs unrelated: 0.071
 
 The code is small, but the idea returns later in Embeddings, retrieval, recommendation, attention, and RAG.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can run a vector similarity example and explain what each dimension means. |
+| Project-ready | You can connect vector, probability, loss, and gradient to one model action instead of treating them as separate formulas. |
+| Deeper check | You can change one input or learning rate, predict the direction of the result, then verify it with code. |
+
 ## Common Failures
 
 | Symptom | First thing to check | Usual fix |

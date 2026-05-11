@@ -30,6 +30,16 @@ If you do not know which model to use, start with a baseline.
 | I can inspect errors | error samples |
 | I can finish the evidence-pack workshop | `ml_workshop_run/` |
 
+## Evidence Rubric
+
+| Artifact | It should answer |
+|---|---|
+| Problem note | What is the task type, and what counts as success? |
+| Split note | How did you keep test data away from training? |
+| Baseline comparison | What is the minimum score to beat? |
+| Metric note | Why does this metric match the goal better than plain accuracy? |
+| Error note | Which mistakes matter most, and what feature or label issue might explain them? |
+
 ## Ready To Continue
 
 Continue to Chapter 6 when one tabular project includes a baseline, a real model, metrics, error analysis, and a README that another person can rerun.

@@ -30,6 +30,16 @@ If the code feels long, find these six steps first.
 | I can explain what Attention changes | attention note |
 | I can finish the evidence-pack workshop | `deep_learning_workshop_run/` |
 
+## Evidence Rubric
+
+| Artifact | It should answer |
+|---|---|
+| Training-loop note | What happens in forward, loss, backward, and optimizer step? |
+| Shape trace | How do tensor shapes change through the model? |
+| Curve image or CSV | Is the model underfitting, overfitting, or improving steadily? |
+| Attention note | What information does attention add, and what remains hard? |
+| Failure sample note | Which sample fails, and what does that tell you about data, model, or labels? |
+
 ## Ready To Continue
 
 Continue to Chapter 7 when you can train one small model, save the training log, inspect failure cases, and explain why the model improved or failed.
