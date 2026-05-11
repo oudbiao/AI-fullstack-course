@@ -283,6 +283,12 @@ memory epoch=80 loss=0.0001 acc=1.000
 final_acc 1.0
 ```
 
+![LSTM と GRU の記憶実験結果図](/img/course/ch06-lstm-gru-memory-lab-result-map-ja.webp)
+
+:::tip print だけでなく証拠を見る
+gate 値は state の混ざり方を示し、shape 確認は PyTorch API の返り値の約束を示します。記憶曲線は、最初の時間ステップの信号を後ろのノイズまで保てたことを示しています。
+:::
+
 この task は小さいですが、gate 付き recurrent model が存在する理由をよく表しています。後ろにノイズが続いても、有用な初期情報を保つ必要があるからです。
 
 ## LSTM か GRU か

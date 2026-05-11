@@ -13891,6 +13891,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch06-lstm-gru-memory-lab-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
+        },
+        "scene": "A runnable-result teaching visual for the LSTM and GRU lesson. It must turn the printed lab outputs into an interpretable map: scalar LSTM gates update cell memory, scalar GRU gates mix hidden state, PyTorch shapes show the output API difference, and the memory task proves the model preserved the first sequence value through noisy middle steps. Use only exact values from the lesson. Do not invent extra epochs, fake tensor values, model metrics, screenshots, or tiny code text.",
+        "chapter_context": "The image is inserted after the expected output of the memory task in the LSTM and GRU lesson. Nearby code prints scalar_lstm_lab gate values, scalar_gru_lab gate values, LSTM/GRU shape checks, and a memory task where accuracy reaches 1.0 by epoch 40 because the label depends on the first sequence value while later values are noise.",
+        "shared_layout": "Vertical 9:16. Use the same dark sequence-model lab style across zh/en/ja. Top title and subtitle. Four stacked stations: 1 LSTM gate meter panel with forget/input/output gates and c_t/h_t; 2 GRU gate meter panel with update/reset/candidate/h_t; 3 shape contract board showing LSTM returns out plus (h,c) while GRU returns out plus h; 4 memory task lane showing first token determines label, noisy middle tokens, and an accuracy curve rising to 1.000 by epoch 40. Bottom strip: gates -> state API -> memory evidence. Keep station order, colors, value positions, curve points, and reading path identical across languages. Use large readable labels and concrete sequence/tensor visuals, not SVG-style white box diagrams or pure text posters.",
+        "variants": {
+            "zh": {
+                "title": "LSTM / GRU 记忆实验怎么看",
+                "subtitle": "gate 数值、shape API 和记忆任务要一起读。",
+                "items": [
+                    ("LSTM gate", "forget 0.7311；input 0.5498；output 0.6682。"),
+                    ("LSTM state", "c_t=0.9787；h_t=0.5028。"),
+                    ("GRU gate", "update 0.6900；reset 0.4256。"),
+                    ("GRU state", "h_candidate=0.8849；h_t=0.8276。"),
+                    ("shape", "LSTM 有 h 和 c；GRU 只有 h。"),
+                    ("memory task", "acc 0.431 -> 1.000，final_acc 1.0。"),
+                ],
+                "footer": "门控模型的重点是把早期有用信息穿过后面的噪声。",
+                "alt": "LSTM 和 GRU 记忆实验结果图：LSTM gate 计算 c_t 和 h_t，GRU gate 更新 hidden state，shape 检查显示 LSTM 返回 h/c 而 GRU 返回 h，记忆任务准确率升到 1.0。",
+            },
+            "en": {
+                "title": "Reading LSTM / GRU Memory Labs",
+                "subtitle": "Read gate values, shape APIs, and memory-task evidence together.",
+                "items": [
+                    ("LSTM gates", "forget 0.7311; input 0.5498; output 0.6682."),
+                    ("LSTM state", "c_t=0.9787; h_t=0.5028."),
+                    ("GRU gates", "update 0.6900; reset 0.4256."),
+                    ("GRU state", "h_candidate=0.8849; h_t=0.8276."),
+                    ("shape", "LSTM has h and c; GRU has h only."),
+                    ("memory task", "acc 0.431 -> 1.000; final_acc 1.0."),
+                ],
+                "footer": "Gated models matter because useful early information survives later noise.",
+                "alt": "LSTM and GRU memory lab result map: LSTM gates compute c_t and h_t, GRU gates update hidden state, shape checks show LSTM returns h and c while GRU returns h, and memory-task accuracy reaches 1.0.",
+            },
+            "ja": {
+                "title": "LSTM / GRU 記憶実験の読み方",
+                "subtitle": "gate 値、shape API、記憶タスクの証拠を一緒に読む。",
+                "items": [
+                    ("LSTM gate", "forget 0.7311；input 0.5498；output 0.6682。"),
+                    ("LSTM state", "c_t=0.9787；h_t=0.5028。"),
+                    ("GRU gate", "update 0.6900；reset 0.4256。"),
+                    ("GRU state", "h_candidate=0.8849；h_t=0.8276。"),
+                    ("shape", "LSTM は h と c、GRU は h のみ。"),
+                    ("memory task", "acc 0.431 -> 1.000、final_acc 1.0。"),
+                ],
+                "footer": "gate 付きモデルの要点は、有用な初期情報を後ろのノイズまで保つこと。",
+                "alt": "LSTM と GRU の記憶実験結果図：LSTM gate が c_t と h_t を計算し、GRU gate が hidden state を更新し、shape 確認で LSTM は h/c、GRU は h を返し、記憶タスクの accuracy が 1.0 へ上がる。",
+            },
+        },
+    },
+    {
         "slug": "ch09-common-tools-dispatch-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch03-tools/04-common-tools.md",
@@ -16330,6 +16385,158 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch06-lstm-gru-memory-lab-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "LSTM / GRU 记忆实验怎么看"
+Visible subtitle exactly: "gate 数值、shape API 和记忆任务要一起读。"
+
+Use a dark sequence-model lab style with signal meters, state tanks, tensor cubes, and one learning curve. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Top station "LSTM gate":
+   - draw old cell memory flowing through a forget valve, a new candidate write valve, and an output valve.
+   - show exactly "forget=0.7311", "input=0.5498", "output=0.6682".
+   - show a cell state tank labeled exactly "c_t=0.9787".
+   - show an exposed hidden state badge labeled exactly "h_t=0.5028".
+   - show a short teaching note: "保留旧记忆 + 写入新候选".
+2. Second station "GRU gate":
+   - draw one hidden-state stream, not a separate cell-state tank.
+   - show exactly "update=0.6900", "reset=0.4256".
+   - show exactly "h_candidate=0.8849" and "h_t=0.8276".
+   - show a short teaching note: "只用 hidden state 混合旧状态和新候选".
+3. Third station "shape API":
+   - draw x as a sequence tensor labeled exactly "x: (4, 6, 8)".
+   - show LSTM output board with exactly "lstm_out (4,6,16)", "lstm_h (1,4,16)", "lstm_c (1,4,16)".
+   - show GRU output board with exactly "gru_out (4,6,16)", "gru_h (1,4,16)".
+   - add the contrast label exactly "LSTM 返回 (h,c)；GRU 只返回 h".
+4. Bottom station "memory task":
+   - draw a 10-step sequence strip where the first value is highlighted and the middle values are noisy dots.
+   - the highlighted first tile must show exactly "1.0"; do not use 7, 0.73, random decimals, or any other first-token value.
+   - tiles 2 through 9 must be noisy dots without numeric labels; tile 10 can be a question mark.
+   - label the rule exactly "label = 1，因为第 1 个值 > 0".
+   - draw an accuracy curve with exact points: epoch 01 acc 0.431, epoch 20 acc 0.569, epoch 40 acc 1.000, epoch 60 acc 1.000, epoch 80 acc 1.000.
+   - show a result badge exactly "final_acc 1.0".
+
+Required teaching labels, all in Simplified Chinese except code/API terms:
+- "LSTM 门控" with "forget=0.7311；input=0.5498；output=0.6682。"
+- "cell state" with "c_t=0.9787；h_t=0.5028。"
+- "GRU 门控" with "update=0.6900；reset=0.4256。"
+- "hidden state" with "h_candidate=0.8849；h_t=0.8276。"
+- "shape API" with "LSTM 有 out、h、c；GRU 有 out、h。"
+- "记忆证据" with "acc 0.431 -> 1.000；final_acc 1.0。"
+
+Critical accuracy rules:
+- Do NOT invent any other gate values, losses, accuracies, tensor shapes, epochs, labels, metrics, or model names.
+- The memory sequence may show step numbers 1 to 10 and first value 1.0 only; do NOT show a first token value such as 7, 0.73, 0.1, 0.5, or any other random number.
+- Do NOT add English explanatory sentences or Japanese text. Use Chinese for explanatory labels. Code terms such as LSTM, GRU, API, hidden state, cell state, c_t, h_t, forget, input, output, update, reset are allowed.
+- Do NOT write English section labels such as "memory evidence", "result", "old cell memory", or "new candidate"; use Chinese labels such as "记忆证据", "结果", "旧记忆", "新候选".
+- Do NOT show dense code, terminal screenshots, fake notebooks, random small text, decorative-only neural network nodes, or pure text posters.
+- Do NOT make LSTM and GRU look identical: LSTM must show both cell state and hidden state; GRU must show one hidden state stream.
+- Text must be large and readable on a phone.
+Visible footer exactly: "门控模型的价值：让早期有用信息穿过后面的噪声。"
+""".strip(),
+    "ch06-lstm-gru-memory-lab-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading LSTM / GRU Memory Labs"
+Visible subtitle exactly: "Read gate values, shape APIs, and memory-task evidence together."
+
+Use a dark sequence-model lab style with signal meters, state tanks, tensor cubes, and one learning curve. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Top station "LSTM gates":
+   - draw old cell memory flowing through a forget valve, a new candidate write valve, and an output valve.
+   - show exactly "forget=0.7311", "input=0.5498", "output=0.6682".
+   - show a cell state tank labeled exactly "c_t=0.9787".
+   - show an exposed hidden state badge labeled exactly "h_t=0.5028".
+   - show a short teaching note: "keep old memory + write new candidate".
+2. Second station "GRU gates":
+   - draw one hidden-state stream, not a separate cell-state tank.
+   - show exactly "update=0.6900", "reset=0.4256".
+   - show exactly "h_candidate=0.8849" and "h_t=0.8276".
+   - show a short teaching note: "mix old state and new candidate in hidden state".
+3. Third station "shape API":
+   - draw x as a sequence tensor labeled exactly "x: (4, 6, 8)".
+   - show LSTM output board with exactly "lstm_out (4,6,16)", "lstm_h (1,4,16)", "lstm_c (1,4,16)".
+   - show GRU output board with exactly "gru_out (4,6,16)", "gru_h (1,4,16)".
+   - add the contrast label exactly "LSTM returns (h,c); GRU returns h".
+4. Bottom station "memory task":
+   - draw a 10-step sequence strip where the first value is highlighted and the middle values are noisy dots.
+   - the highlighted first tile must show exactly "1.0"; do not use 7, 0.73, random decimals, or any other first-token value.
+   - tiles 2 through 9 must be noisy dots without numeric labels; tile 10 can be a question mark.
+   - label the rule exactly "label = 1 because the 1st value > 0".
+   - draw an accuracy curve with exact points: epoch 01 acc 0.431, epoch 20 acc 0.569, epoch 40 acc 1.000, epoch 60 acc 1.000, epoch 80 acc 1.000.
+   - show a result badge exactly "final_acc 1.0".
+
+Required teaching labels:
+- "LSTM gates" with "forget=0.7311; input=0.5498; output=0.6682."
+- "cell state" with "c_t=0.9787; h_t=0.5028."
+- "GRU gates" with "update=0.6900; reset=0.4256."
+- "hidden state" with "h_candidate=0.8849; h_t=0.8276."
+- "shape API" with "LSTM has out, h, c; GRU has out, h."
+- "memory evidence" with "acc 0.431 -> 1.000; final_acc 1.0."
+
+Critical accuracy rules:
+- Do NOT invent any other gate values, losses, accuracies, tensor shapes, epochs, labels, metrics, or model names.
+- The memory sequence may show step numbers 1 to 10 and first value 1.0 only; do NOT show a first token value such as 7, 0.73, 0.1, 0.5, or any other random number.
+- Do NOT add Simplified Chinese or Japanese text; code terms such as LSTM, GRU, API, hidden state, cell state, c_t, h_t are allowed.
+- Do NOT show dense code, terminal screenshots, fake notebooks, random small text, decorative-only neural network nodes, or pure text posters.
+- Do NOT make LSTM and GRU look identical: LSTM must show both cell state and hidden state; GRU must show one hidden state stream.
+- Text must be large and readable on a phone.
+Visible footer exactly: "Gated models let useful early information survive later noise."
+""".strip(),
+    "ch06-lstm-gru-memory-lab-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "LSTM / GRU 記憶実験の読み方"
+Visible subtitle exactly: "gate 値、shape API、記憶タスクの証拠を一緒に読む。"
+
+Use a dark sequence-model lab style with signal meters, state tanks, tensor cubes, and one learning curve. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Top station "LSTM gate":
+   - draw old cell memory flowing through a forget valve, a new candidate write valve, and an output valve.
+   - show exactly "forget=0.7311", "input=0.5498", "output=0.6682".
+   - show a cell state tank labeled exactly "c_t=0.9787".
+   - show an exposed hidden state badge labeled exactly "h_t=0.5028".
+   - show a short teaching note: "古い記憶を残し、新候補を書き込む".
+2. Second station "GRU gate":
+   - draw one hidden-state stream, not a separate cell-state tank.
+   - show exactly "update=0.6900", "reset=0.4256".
+   - show exactly "h_candidate=0.8849" and "h_t=0.8276".
+   - show a short teaching note: "hidden state で旧状態と新候補を混ぜる".
+3. Third station "shape API":
+   - draw x as a sequence tensor labeled exactly "x: (4, 6, 8)".
+   - show LSTM output board with exactly "lstm_out (4,6,16)", "lstm_h (1,4,16)", "lstm_c (1,4,16)".
+   - show GRU output board with exactly "gru_out (4,6,16)", "gru_h (1,4,16)".
+   - add the contrast label exactly "LSTM は (h,c)；GRU は h を返す".
+4. Bottom station "memory task":
+   - draw a 10-step sequence strip where the first value is highlighted and the middle values are noisy dots.
+   - the highlighted first tile must show exactly "1.0"; do not use 7, 0.73, random decimals, or any other first-token value.
+   - tiles 2 through 9 must be noisy dots without numeric labels; tile 10 can be a question mark.
+   - label the rule exactly "label = 1、第1値が > 0".
+   - draw an accuracy curve with exact points: epoch 01 acc 0.431, epoch 20 acc 0.569, epoch 40 acc 1.000, epoch 60 acc 1.000, epoch 80 acc 1.000.
+   - show a result badge exactly "final_acc 1.0".
+
+Required teaching labels, in natural Japanese except code/API terms:
+- "LSTM gate" with "forget=0.7311；input=0.5498；output=0.6682。"
+- "cell state" with "c_t=0.9787；h_t=0.5028。"
+- "GRU gate" with "update=0.6900；reset=0.4256。"
+- "hidden state" with "h_candidate=0.8849；h_t=0.8276。"
+- "shape API" with "LSTM は out、h、c；GRU は out、h。"
+- "記憶の証拠" with "acc 0.431 -> 1.000；final_acc 1.0。"
+
+Critical accuracy rules:
+- Do NOT invent any other gate values, losses, accuracies, tensor shapes, epochs, labels, metrics, or model names.
+- The memory sequence may show step numbers 1 to 10 and first value 1.0 only; do NOT show a first token value such as 7, 0.73, 0.1, 0.5, or any other random number.
+- Do NOT add Simplified Chinese or English explanatory sentences. Use Japanese for explanatory labels. Code terms such as LSTM, GRU, API, hidden state, cell state, c_t, h_t, forget, input, output, update, reset are allowed.
+- Do NOT write English section labels such as "memory evidence", "result", "old cell memory", or "new candidate"; use Japanese labels such as "記憶の証拠", "結果", "古い記憶", "新候補".
+- Do NOT show dense code, terminal screenshots, fake notebooks, random small text, decorative-only neural network nodes, or pure text posters.
+- Do NOT make LSTM and GRU look identical: LSTM must show both cell state and hidden state; GRU must show one hidden state stream.
+- Text must be large and readable on a phone.
+Visible footer exactly: "gate 付きモデルは、有用な初期情報を後ろのノイズまで保つ。"
+""".strip(),
     "ch06-cnn-architecture-lab-result-map.png": """
 Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
 This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.

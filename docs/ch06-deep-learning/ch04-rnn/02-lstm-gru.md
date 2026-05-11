@@ -283,6 +283,12 @@ memory epoch=80 loss=0.0001 acc=1.000
 final_acc 1.0
 ```
 
+![LSTM and GRU memory lab result map](/img/course/ch06-lstm-gru-memory-lab-result-map-en.webp)
+
+:::tip Read the evidence, not just the printout
+The gate values show how state is mixed, the shape check shows the PyTorch API contract, and the memory curve proves the model learned to keep the first-step signal through later noise.
+:::
+
 This toy task is small, but it captures the reason gated recurrent models exist: the model needs to preserve useful early information through noisy later steps.
 
 ## LSTM or GRU?

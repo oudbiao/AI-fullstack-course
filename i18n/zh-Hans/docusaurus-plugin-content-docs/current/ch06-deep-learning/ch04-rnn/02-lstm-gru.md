@@ -283,6 +283,12 @@ memory epoch=80 loss=0.0001 acc=1.000
 final_acc 1.0
 ```
 
+![LSTM 和 GRU 记忆实验结果图](/img/course/ch06-lstm-gru-memory-lab-result-map.webp)
+
+:::tip 看证据，不只是看 print
+gate 数值说明状态怎样被混合，shape 检查说明 PyTorch API 的返回约定，记忆曲线则证明模型学会了把第一个时间步的信号穿过后面的噪声。
+:::
+
 这个任务很小，但它抓住了门控循环模型存在的原因：模型需要在后面一串噪声步骤中保留有用的早期信息。
 
 ## LSTM 还是 GRU？
