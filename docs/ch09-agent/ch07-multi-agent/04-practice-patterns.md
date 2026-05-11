@@ -273,6 +273,12 @@ draft  : Answer draft: Retrieval result: refunds require both time and progress 
 review : {'approved': True, 'comment': 'The information is fairly complete'}
 ```
 
+![Multi-Agent workflow trace result map](/img/course/ch09-multi-agent-practice-trace-result-map-en.webp)
+
+:::tip Read the handoffs, not just the roles
+The trace matters because each printed row answers a different question: what the planner chose, what material was retrieved, and why the reviewer approved the draft.
+:::
+
 Although this code is small, it already shows the core feel of practical patterns:
 
 - plan first

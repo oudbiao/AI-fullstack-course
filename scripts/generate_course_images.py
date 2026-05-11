@@ -14001,6 +14001,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-multi-agent-practice-trace-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch07-multi-agent/04-practice-patterns.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch07-multi-agent/04-practice-patterns.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch07-multi-agent/04-practice-patterns.md",
+        },
+        "scene": "A runnable-result teaching visual for the Multi-Agent practical patterns lesson. It must explain the small workflow output, not just show role names. Show a query entering planner, planner returning exactly steps ['retrieve', 'write', 'review']; retriever producing the refund-policy material; writer turning it into a draft; reviewer checking the draft for the progress condition and returning approved=True. Also show the earlier practical-pattern idea in a compact side rail: research collaboration expands then synthesizes, writing+review separates generation from correction, development team catches different problem types. The teaching point is that practical Multi-Agent patterns map task shape to collaboration structure, and the tiny code trace demonstrates plan -> execute -> review. Do not draw a generic group portrait, do not add extra agents, do not invent scores, tools, costs, or long logs.",
+        "chapter_context": "The image is inserted immediately after the expected output of the small Multi-Agent workflow example in section 9.7.5. Nearby code defines planner(query), retriever(query), writer(material), reviewer(draft), prints steps, draft, and review, and then explains that the core sequence is plan first, execute next, review afterward. Earlier parts of the same page introduce research collaboration, writing + review, development team mode, and double verification for high-risk tasks.",
+        "shared_layout": "Vertical 9:16. Use the same dark engineering studio / project wall style across zh/en/ja. Top title and subtitle. Main center lane is a concrete trace with four numbered stations: planner, retriever, writer, reviewer. Show the exact three printed output rows as a readable result board at the right or bottom. Use arrows and small evidence badges to show why approved=True: the draft contains both time and progress conditions. Left side rail has three small pattern chips: research, writing+review, development team. Bottom strip: task shape -> roles -> trace -> review decision. Keep station order, layout, colors, values, and reading path identical across languages. Use clear large text; no terminal screenshot, no dense code block, no pseudo-text wallpaper, no white rounded-box-only SVG style.",
+        "variants": {
+            "zh": {
+                "title": "多 Agent 实战工作流怎么看",
+                "subtitle": "先规划，再执行，再评审；输出要能解释每一步。",
+                "items": [
+                    ("steps", "['retrieve', 'write', 'review']"),
+                    ("retriever", "检索结果：退款需满足时间与进度条件。"),
+                    ("writer", "回答草稿：检索结果..."),
+                    ("reviewer", "看到“进度条件” -> approved=True。"),
+                    ("模式选择", "任务形状决定协作结构。"),
+                    ("结果板", "steps / draft / review 三行一起读。"),
+                ],
+                "footer": "多 Agent 的重点不是角色数量，而是职责如何接力。",
+                "alt": "多 Agent 实战工作流结果图：planner 产出 retrieve、write、review 三步，retriever 提供退款条件，writer 生成草稿，reviewer 因草稿包含进度条件而返回 approved=True。",
+            },
+            "en": {
+                "title": "Reading a Multi-Agent Workflow Trace",
+                "subtitle": "Plan first, execute next, review afterward; each output explains a handoff.",
+                "items": [
+                    ("steps", "['retrieve', 'write', 'review']"),
+                    ("retriever", "Retrieval result: refunds require time and progress conditions."),
+                    ("writer", "Answer draft: Retrieval result..."),
+                    ("reviewer", "Sees progress conditions -> approved=True."),
+                    ("pattern choice", "Task shape decides collaboration structure."),
+                    ("result board", "Read steps / draft / review together."),
+                ],
+                "footer": "Multi-Agent value comes from responsibility handoffs, not role count.",
+                "alt": "Multi-Agent workflow trace result map: planner returns retrieve, write, review; retriever provides refund conditions; writer creates a draft; reviewer returns approved=True because the draft contains progress conditions.",
+            },
+            "ja": {
+                "title": "マルチ Agent workflow trace を読む",
+                "subtitle": "まず計画し、次に実行し、最後にレビューする。出力が引き継ぎを説明する。",
+                "items": [
+                    ("steps", "['retrieve', 'write', 'review']"),
+                    ("retriever", "検索結果：返金は時間と進捗の条件を満たす必要があります。"),
+                    ("writer", "回答の下書き：検索結果..."),
+                    ("reviewer", "「進捗の条件」を見て approved=True。"),
+                    ("pattern choice", "タスクの形が協力構造を決める。"),
+                    ("result board", "steps / draft / review を一緒に読む。"),
+                ],
+                "footer": "マルチ Agent の価値は数ではなく、責任の引き継ぎにある。",
+                "alt": "マルチ Agent workflow trace の結果図：planner が retrieve、write、review を返し、retriever が返金条件を出し、writer が下書きを作り、reviewer が進捗条件を見て approved=True を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch12-vlm-image-text-retrieval-ranking-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
@@ -16226,6 +16281,130 @@ Critical accuracy rules:
 - Do NOT invent retry failures, metrics, logs, extra orders, extra topics, extra tools, or extra numeric values.
 - Do NOT include Chinese text, English explanatory sentences except code names and standard terms, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "高度な tool pattern は飾りではなく、繰り返す呼び出し経路を固めること。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-practice-trace-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "多 Agent 实战工作流怎么看"
+Visible subtitle exactly: "先规划，再执行，再评审；输出要能解释每一步。"
+
+Use a dark engineering studio / project wall style. The image must teach the exact runnable Multi-Agent workflow in the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Left side rail: three small pattern chips, exactly:
+   - 研究型：先发散搜集，再统一收敛
+   - 写作+审核：生成和纠错分开
+   - 开发团队：每层捕捉不同问题
+2. Center trace lane with four numbered stations:
+   - 1 planner receives "退款政策是什么？" and returns steps.
+   - 2 retriever returns the refund material.
+   - 3 writer creates the draft.
+   - 4 reviewer checks whether draft contains "进度条件" and returns approved=True.
+3. Result board must show exactly these three output rows:
+   - "steps  : ['retrieve', 'write', 'review']"
+   - "draft  : 回答草稿：检索结果：退款需满足时间与进度条件。"
+   - "review : {'approved': True, 'comment': '信息较完整'}"
+4. Bottom strip exactly: "task shape -> roles -> trace -> review decision"
+
+Required teaching labels and short notes, all in Simplified Chinese except code names:
+- "steps" with "['retrieve', 'write', 'review']"
+- "retriever" with "检索结果：退款需满足时间与进度条件。"
+- "writer" with "回答草稿：检索结果..."
+- "reviewer" with "看到“进度条件” -> approved=True。"
+- "模式选择" with "任务形状决定协作结构。"
+- "结果板" with "steps / draft / review 三行一起读。"
+
+Critical accuracy rules:
+- Do NOT add extra agents, extra steps, scores, tools, costs, latency numbers, fake logs, or different policy conditions.
+- The reviewer decision must be approved=True because the draft contains "进度条件".
+- Explanatory text must be Simplified Chinese. The only allowed English tokens are exact code/role terms: Agent, planner, retriever, writer, reviewer, steps, draft, review, approved=True, True.
+- Do NOT write English sentences such as "planner receives", "returns steps", "creates the draft", "checks whether", "the refund material", or "result board".
+- Station body copy must be Chinese: for example "收到退款政策问题，返回步骤", "返回退款材料", "生成回答草稿", "检查草稿是否包含进度条件".
+- Do NOT include Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "多 Agent 的重点不是角色数量，而是职责如何接力。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-practice-trace-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading a Multi-Agent Workflow Trace"
+Visible subtitle exactly: "Plan first, execute next, review afterward; each output explains a handoff."
+
+Use a dark engineering studio / project wall style. The image must teach the exact runnable Multi-Agent workflow in the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Left side rail: three small pattern chips, exactly:
+   - Research: expand, then synthesize
+   - Writing+review: separate generation from correction
+   - Dev team: each layer catches different issues
+2. Center trace lane with four numbered stations:
+   - 1 planner receives "What is the refund policy?" and returns steps.
+   - 2 retriever returns the refund material.
+   - 3 writer creates the draft.
+   - 4 reviewer checks whether draft contains "progress conditions" and returns approved=True.
+3. Result board must show exactly these three output rows:
+   - "steps  : ['retrieve', 'write', 'review']"
+   - "draft  : Answer draft: Retrieval result: refunds require both time and progress conditions."
+   - "review : {'approved': True, 'comment': 'The information is fairly complete'}"
+4. Bottom strip exactly: "task shape -> roles -> trace -> review decision"
+
+Required teaching labels and short notes:
+- "steps" with "['retrieve', 'write', 'review']"
+- "retriever" with "Retrieval result: refunds require time and progress conditions."
+- "writer" with "Answer draft: Retrieval result..."
+- "reviewer" with "Sees progress conditions -> approved=True."
+- "pattern choice" with "Task shape decides collaboration structure."
+- "result board" with "Read steps / draft / review together."
+
+Critical accuracy rules:
+- Do NOT add extra agents, extra steps, scores, tools, costs, latency numbers, fake logs, or different policy conditions.
+- The reviewer decision must be approved=True because the draft contains "progress conditions".
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "Multi-Agent value comes from responsibility handoffs, not role count."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-practice-trace-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "マルチ Agent workflow trace を読む"
+Visible subtitle exactly: "まず計画し、次に実行し、最後にレビューする。出力が引き継ぎを説明する。"
+
+Use a dark engineering studio / project wall style. The image must teach the exact runnable Multi-Agent workflow in the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Left side rail: three small pattern chips, exactly:
+   - 研究型：広く集めてから統合する
+   - 執筆+レビュー：生成と修正を分ける
+   - 開発チーム：各段階で違う問題を見つける
+2. Center trace lane with four numbered stations:
+   - 1 planner receives "返金ポリシーは何ですか？" and returns steps.
+   - 2 retriever returns the refund material.
+   - 3 writer creates the draft.
+   - 4 reviewer checks whether draft contains "進捗の条件" and returns approved=True.
+3. Result board must show exactly these three output rows:
+   - "steps  : ['retrieve', 'write', 'review']"
+   - "draft  : 回答の下書き：検索結果：返金は時間と進捗の条件を満たす必要があります。"
+   - "review : {'approved': True, 'comment': '情報はかなり揃っています'}"
+4. Bottom strip exactly: "task shape -> roles -> trace -> review decision"
+
+Required teaching labels and short notes, in natural Japanese except code names:
+- "steps" with "['retrieve', 'write', 'review']"
+- "retriever" with "検索結果：返金は時間と進捗の条件を満たす必要があります。"
+- "writer" with "回答の下書き：検索結果..."
+- "reviewer" with "「進捗の条件」を見て approved=True。"
+- "pattern choice" with "タスクの形が協力構造を決める。"
+- "result board" with "steps / draft / review を一緒に読む。"
+
+Critical accuracy rules:
+- Do NOT add extra agents, extra steps, scores, tools, costs, latency numbers, fake logs, or different policy conditions.
+- The reviewer decision must be approved=True because the draft contains "進捗の条件".
+- Explanatory text must be natural Japanese. The only allowed English tokens are exact code/role terms: Agent, planner, retriever, writer, reviewer, steps, draft, review, approved=True, True, workflow trace.
+- Do NOT write English sentences such as "Planner receives", "returns steps", "creates the draft", "checks whether", "the refund material", or "result board".
+- Station body copy must be Japanese: for example "返金ポリシーの質問を受け取り、steps を返す", "返金条件の材料を返す", "回答の下書きを作る", "進捗の条件を確認する".
+ - The label for the output board should be Japanese, such as "結果ボード", not "result board".
+- Do NOT include Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "マルチ Agent の価値は数ではなく、責任の引き継ぎにある。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """

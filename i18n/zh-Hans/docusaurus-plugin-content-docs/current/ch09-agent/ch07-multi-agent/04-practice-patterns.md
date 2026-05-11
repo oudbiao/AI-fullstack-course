@@ -273,6 +273,12 @@ draft  : 回答草稿：检索结果：退款需满足时间与进度条件。
 review : {'approved': True, 'comment': '信息较完整'}
 ```
 
+![多 Agent 实战工作流结果图](/img/course/ch09-multi-agent-practice-trace-result-map.webp)
+
+:::tip 看职责接力，不只是看角色名
+这段 trace 的价值在于每一行回答一个问题：planner 选了什么步骤，retriever 找到了什么材料，reviewer 为什么批准这个草稿。
+:::
+
 这段代码虽然很小，但已经体现了实战模式最核心的味道：
 
 - 先规划
