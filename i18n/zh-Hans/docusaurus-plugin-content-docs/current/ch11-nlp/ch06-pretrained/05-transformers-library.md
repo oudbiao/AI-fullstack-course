@@ -251,6 +251,12 @@ last_hidden_state shape: torch.Size([2, 10, 32])
 
 tokenizer 会把较短句子 padding 到和较长句子一样长，所以 batch 才能变成规整的二维张量。
 
+![Tokenizer 到 BERT 张量形状图](/img/course/ch11-transformers-tokenizer-batch-shape-result-map.webp)
+
+:::tip 阅读 tensor shape
+前两个维度是 batch 大小和 padding 后的序列长度。`last_hidden_state` 再给每个 token 位置补上一条 32 维上下文向量。
+:::
+
 ### 这就是最基础的真实调用链
 
 真正项目里，最常见的底层流程就是：

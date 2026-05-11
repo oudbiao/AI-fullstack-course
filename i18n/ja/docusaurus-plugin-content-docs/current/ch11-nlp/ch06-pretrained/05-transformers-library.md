@@ -255,6 +255,12 @@ last_hidden_state shape: torch.Size([2, 10, 32])
 
 tokenizer は短い文を長い文と同じ長さまで padding します。そのため、batch はきれいな長方形の tensor になります。
 
+![Tokenizer から BERT の tensor 形状図](/img/course/ch11-transformers-tokenizer-batch-shape-result-map-ja.webp)
+
+:::tip tensor shape の読み方
+最初の 2 次元は batch サイズと padding 後の系列長です。`last_hidden_state` は、各 token 位置に 32 次元の文脈ベクトルを足した形になります。
+:::
+
 ### これが基本の本当の呼び出しチェーン
 
 実際のプロジェクトで最もよくある基本フローは、だいたい次の通りです。

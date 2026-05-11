@@ -15430,6 +15430,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch11-transformers-tokenizer-batch-shape-result-map",
+        "pages": {
+            "en": "docs/ch11-nlp/ch06-pretrained/05-transformers-library.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch06-pretrained/05-transformers-library.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch06-pretrained/05-transformers-library.md",
+        },
+        "scene": "A Transformers library runnable-result map based on the tokenizer and minimal BERT examples. The image must teach the real call chain: raw text -> vocab/tokenizer -> input_ids and attention_mask -> padded batch tensor -> BertModel -> last_hidden_state. Do not draw a decorative robot, a terminal screenshot, dense Python code, invented model names, invented dimensions, or a pure flowchart. Use only the exact values from each locale variant. The key concept is that tokenizer output is not just text: it is rectangular tensors plus a mask, and the model returns one 32-dimensional contextual vector per token position.",
+        "chapter_context": "The image is inserted after the three expected outputs in the Transformers library lesson. Nearby text explains offline vocab.txt, token IDs, attention_mask, randomly initialized BertModel, padding, rectangular batch tensors, and last_hidden_state shapes.",
+        "shared_layout": "Vertical 9:16. Use the same teaching lab bench style across zh/en/ja: top shows two raw text strips going into a small vocab/tokenizer machine; upper-middle shows token tiles with [CLS], content tokens, [SEP], and [PAD] where needed; middle shows aligned input_ids row and attention_mask row with zeros clearly muting padding; lower-middle shows the padded rectangular batch tensor shape; bottom shows a compact BERT block emitting last_hidden_state shape and one sentence-vector/pooler note. Keep panel order, colors, arrows, tensor grid positions, and reading path identical across languages. Use concrete token tiles, mask shutters, tensor grids, and model output cubes; avoid SVG-style rounded-box diagrams, pure text posters, dense code, tiny labels, terminal logs, and decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "Tokenizer 到 BERT 张量形状",
+                "subtitle": "文本先进词表和 mask，padding 后才变成模型能吃的矩形 tensor。",
+                "items": [
+                    ("输入文本", "两句：我爱自然语言处理；我爱语言。"),
+                    ("token tiles", "[CLS] 我 爱 自 然 语 言 处 理 [SEP]，短句补 [PAD]。"),
+                    ("input_ids", "长句 ids: [2,5,6,7,8,9,10,11,12,3]。"),
+                    ("attention_mask", "真 token 是 1，[PAD] 位置是 0。"),
+                    ("batch shape", "input_ids shape = torch.Size([2,10])。"),
+                    ("model output", "last_hidden_state shape = torch.Size([2,10,32])。"),
+                ],
+                "footer": "先看懂 ids、mask 和 shape，再接分类头或生成头。",
+                "alt": "Transformers tokenizer 和 BERT 张量形状图：两句中文文本经过词表、token、input_ids、attention_mask 和 padding 后变成 [2,10] batch，BERT 输出 [2,10,32] 的 last_hidden_state。",
+            },
+            "en": {
+                "title": "Tokenizer to BERT Tensor Shapes",
+                "subtitle": "Text becomes token ids plus a mask; padding makes a rectangular tensor.",
+                "items": [
+                    ("raw texts", "Two texts: I love natural language processing; I love language."),
+                    ("token tiles", "[CLS] I love natural language processing [SEP]; short text adds [PAD]."),
+                    ("input_ids", "Long text ids: [2,5,6,7,8,9,3]."),
+                    ("attention_mask", "real tokens are 1; [PAD] positions are 0."),
+                    ("batch shape", "input_ids shape = torch.Size([2,7])."),
+                    ("model output", "last_hidden_state shape = torch.Size([2,7,32])."),
+                ],
+                "footer": "Understand ids, mask, and shape before adding a task head.",
+                "alt": "Transformers tokenizer and BERT tensor shape map: two English texts pass through vocab, tokens, input_ids, attention_mask, and padding to form a [2,7] batch, then BERT returns a [2,7,32] last_hidden_state.",
+            },
+            "ja": {
+                "title": "Tokenizer から BERT の tensor 形状へ",
+                "subtitle": "テキストは token id と mask になり、padding 後に矩形 tensor になる。",
+                "items": [
+                    ("入力テキスト", "2文：我愛自然言語処理、我愛言語。"),
+                    ("token tiles", "[CLS] 我 愛 自 然 言 語 処 理 [SEP]、短い文は [PAD] を足す。"),
+                    ("input_ids", "長い文の ids: [2,5,6,7,8,10,9,11,12,3]。"),
+                    ("attention_mask", "本物の token は 1、[PAD] 位置は 0。"),
+                    ("batch shape", "input_ids shape = torch.Size([2,10])。"),
+                    ("model output", "last_hidden_state shape = torch.Size([2,10,32])。"),
+                ],
+                "footer": "ids、mask、shape を理解してから task head をつなぐ。",
+                "alt": "Transformers tokenizer と BERT の tensor 形状図：2つの日本語例文が語彙、token、input_ids、attention_mask、padding を通って [2,10] batch になり、BERT が [2,10,32] の last_hidden_state を返す。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:
@@ -15447,6 +15502,35 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+Topic: Tokenizer to BERT tensor shapes. Use a dark classroom lab-bench illustration, consistent with the Chinese and Japanese companion images, but not a whiteboard flowchart, not SVG style, not rounded-box-only UI, and not a text poster.
+
+Visible title: "Tokenizer to BERT Tensor Shapes"
+Visible subtitle: "Text becomes token ids plus a mask; padding makes a rectangular tensor."
+
+Show one practical execution path from raw text to BERT output:
+1. Raw text examples:
+   "I love natural language processing"
+   "I love language"
+2. Token tiles:
+   Text 1 tokens exactly: [CLS] I love natural language processing [SEP]
+   Text 2 tokens exactly: [CLS] I love language [SEP] [PAD] [PAD]
+3. input_ids grid, with no other token-id table anywhere:
+   Text 1 row exactly: 2 5 6 7 8 9 3
+   Text 2 row exactly: 2 5 6 8 3 0 0
+4. attention_mask grid:
+   Text 1 row exactly: 1 1 1 1 1 1 1
+   Text 2 row exactly: 1 1 1 1 1 0 0
+5. Shape checkpoint labels:
+   "input_ids shape = torch.Size([2,7])"
+   "attention_mask shape = torch.Size([2,7])"
+   "last_hidden_state shape = torch.Size([2,7,32])"
+6. Final BERT output area: each token position becomes one 32-dimensional context vector.
+
+Visible footer: "Understand ids, mask, and shape before adding a task head."
+Do not draw a vocabulary ID table. Do not write alternate numeric ids such as 4 for I. Do not include Chinese or Japanese text. Keep all text large and readable; avoid tiny text, gibberish, watermarks, and brand logos.
+""".strip(),
     "ch08-async-concurrency-semaphore-timeout-map.png": """
 竖版 9:16 中文教学漫画，像后端请求调度室，不要白底流程框。
 标题写清楚：“并发请求如何不把服务打爆”。

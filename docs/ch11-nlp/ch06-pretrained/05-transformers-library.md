@@ -251,6 +251,12 @@ last_hidden_state shape: torch.Size([2, 7, 32])
 
 The tokenizer padded the shorter sentence to the same length as the longer one. That is why the batch becomes a neat rectangular tensor.
 
+![Tokenizer to BERT tensor shape map](/img/course/ch11-transformers-tokenizer-batch-shape-result-map-en.webp)
+
+:::tip Reading the tensor shapes
+The first two dimensions are the batch size and padded sequence length. The last hidden state adds one 32-dimensional contextual vector for every token position.
+:::
+
 ### This is the most basic real call chain
 
 In real projects, the most common low-level flow is:
