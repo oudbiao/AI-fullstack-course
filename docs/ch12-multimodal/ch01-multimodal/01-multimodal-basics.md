@@ -309,6 +309,12 @@ Query text: round toy
 
 The highest score is the retrieved image. If the top result is wrong, the first place to inspect is whether the two modalities are really aligned in the same feature space.
 
+![Image-text retrieval similarity result map](/img/course/ch12-image-text-retrieval-similarity-result-map-en.webp)
+
+:::tip Reading the retrieval scores
+The filename is not what makes the match work. The text vector and image vector land in the same feature space, and the highest cosine similarity becomes the retrieved result.
+:::
+
 This is the most minimal version of cross-modal retrieval:
 
 - Convert both text and images into vectors

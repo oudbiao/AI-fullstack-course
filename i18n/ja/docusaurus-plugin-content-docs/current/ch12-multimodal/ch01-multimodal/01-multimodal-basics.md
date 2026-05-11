@@ -308,6 +308,12 @@ for text_name, text_vec in texts.items():
 
 最も高いスコアが検索結果です。トップが間違う場合、まず見るべきなのは、画像とテキストが同じ特徴空間で本当に対応づけられているかです。
 
+![画像・テキスト検索 similarity 結果図](/img/course/ch12-image-text-retrieval-similarity-result-map-ja.webp)
+
+:::tip 検索 score を読む
+一致を決めるのは file name ではありません。text vector と image vector が同じ feature space に入り、cosine similarity が最も高いものが検索結果になります。
+:::
+
 これは「クロスモーダル検索」の最小原理版です。
 
 - テキストと画像をどちらもベクトルにする

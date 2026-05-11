@@ -13891,6 +13891,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-image-text-retrieval-similarity-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+        },
+        "scene": "A runnable-result visual for the image-text matching toy example. The image must teach how text vectors and image vectors enter the same 3D feature space, cosine similarity scores are computed, sorted, and the highest score becomes the retrieved image. Show exactly three query lanes and exactly three image candidates. Use these exact scores only: red fruit -> red_apple 0.9953, orange_ball 0.8041, blue_car 0.1357; vehicle -> blue_car 0.9905, orange_ball 0.0744, red_apple 0.0110; round toy -> orange_ball 0.9958, red_apple 0.6785, blue_car 0.2150. The teaching point is shared alignment space, not a terminal printout. Do not draw a generic CLIP poster, real brand logos, dense tables, fake UI, or extra candidate images. Do not invent other scores.",
+        "chapter_context": "The image is inserted after the expected output of the tiny cross-modal retrieval example. Nearby code defines three image vectors and three text vectors, computes cosine_similarity, sorts scores descending, and says the highest score is the retrieved image. The prose stresses that both image and text are converted into vectors and compared in one aligned space.",
+        "shared_layout": "Vertical 9:16. Same illustrated lab notebook across zh/en/ja. Top title and subtitle. Upper section shows a shared 3D feature space with red/round/vehicle axes and three image object pins: apple, car, ball. Middle section shows three query cards flowing through cosine similarity meters. Each query lane highlights the winning candidate with a bright ribbon and displays only the three exact scores. Lower section shows the final top-1 retrieval result for each query and a small error-check note: if top result is wrong, inspect alignment. Keep query order, candidate positions, colors, score meters, arrows, and result strip identical across languages.",
+        "variants": {
+            "zh": {
+                "title": "图文检索结果怎么看",
+                "subtitle": "文本和图片先进入同一个向量空间，再按相似度排序。",
+                "items": [
+                    ("共享向量空间", "图像向量和文本向量用同一组语义轴比较。"),
+                    ("red fruit", "最高分 0.9953，命中 red_apple.jpg。"),
+                    ("vehicle", "最高分 0.9905，命中 blue_car.jpg。"),
+                    ("round toy", "最高分 0.9958，命中 orange_ball.jpg。"),
+                    ("排序规则", "cosine similarity 越大，越靠前。"),
+                    ("排错入口", "命中错了，先查图文是否真的对齐。"),
+                ],
+                "footer": "跨模态检索的核心不是文件名，而是同一空间里的相似度。",
+                "alt": "图文检索相似度结果图：red fruit、vehicle、round toy 三个文本向量与三张图片向量计算 cosine similarity，最高分成为检索命中。",
+            },
+            "en": {
+                "title": "Reading Image-Text Retrieval",
+                "subtitle": "Text and images enter one vector space, then scores are sorted.",
+                "items": [
+                    ("shared vector space", "Image and text vectors use the same semantic axes."),
+                    ("red fruit", "Top score 0.9953 retrieves red_apple.jpg."),
+                    ("vehicle", "Top score 0.9905 retrieves blue_car.jpg."),
+                    ("round toy", "Top score 0.9958 retrieves orange_ball.jpg."),
+                    ("ranking rule", "Larger cosine similarity ranks first."),
+                    ("debug entry", "If top-1 is wrong, inspect alignment first."),
+                ],
+                "footer": "Cross-modal retrieval is about similarity in one shared space, not filenames.",
+                "alt": "Image-text retrieval similarity result map: red fruit, vehicle, and round toy text vectors compare with three image vectors by cosine similarity, and the top score becomes the retrieved image.",
+            },
+            "ja": {
+                "title": "画像・テキスト検索結果を読む",
+                "subtitle": "text と image を同じ vector 空間に置き、score で並べ替える。",
+                "items": [
+                    ("共有 vector 空間", "画像 vector と text vector を同じ意味軸で比べる。"),
+                    ("red fruit", "最高 score 0.9953 で red_apple.jpg を取得。"),
+                    ("vehicle", "最高 score 0.9905 で blue_car.jpg を取得。"),
+                    ("round toy", "最高 score 0.9958 で orange_ball.jpg を取得。"),
+                    ("ranking rule", "cosine similarity が大きいほど上位。"),
+                    ("debug entry", "top-1 が違うなら alignment を先に見る。"),
+                ],
+                "footer": "クロスモーダル検索の本質は、同じ空間での類似度を見ること。",
+                "alt": "画像・テキスト検索の similarity 結果図：red fruit、vehicle、round toy の text vector を3つの image vector と cosine similarity で比べ、最高 score を検索結果にする。",
+            },
+        },
+    },
+    {
         "slug": "ch05-linear-regression-lab-result-map",
         "pages": {
             "en": "docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md",

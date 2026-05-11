@@ -310,6 +310,12 @@ for text_name, text_vec in texts.items():
 
 最高分就是检索命中的图片。如果最高分错了，首先要检查的是图像和文本是否真的对齐到了同一个特征空间里。
 
+![图文检索相似度运行结果图](/img/course/ch12-image-text-retrieval-similarity-result-map.webp)
+
+:::tip 阅读检索分数
+真正起作用的不是文件名，而是文本向量和图像向量进入同一个特征空间后，按 cosine similarity 选出最高分。
+:::
+
 这就是“跨模态检索”的最小原理版：
 
 - 文本和图像都变成向量
