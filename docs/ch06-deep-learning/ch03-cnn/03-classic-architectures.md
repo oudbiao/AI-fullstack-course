@@ -202,6 +202,12 @@ input: (2, 8, 16, 16)
 output: (2, 8, 16, 16)
 ```
 
+![Classic CNN lab result map](/img/course/ch06-cnn-architecture-lab-result-map-en.webp)
+
+:::tip Read architecture labs through numbers
+The three checks answer different questions: parameter count compares design cost, the VGG block shows how channels and spatial size change, and the residual block proves that the shortcut can only be added when shapes line up.
+:::
+
 The most important line is:
 
 ```python

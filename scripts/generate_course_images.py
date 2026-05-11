@@ -15379,6 +15379,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch06-cnn-architecture-lab-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch03-cnn/03-classic-architectures.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch03-cnn/03-classic-architectures.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch03-cnn/03-classic-architectures.md",
+        },
+        "scene": "A classic CNN architecture lab result teaching visual based on the three runnable labs in the lesson. The image must teach how to read the outputs, not just show famous model names. Show exactly three stations. Station 1 compares kernel parameter counts: one 7x7 conv has 12560 parameters; three 3x3 conv layers have 6960 parameters; the teaching point is fewer parameters in this setup plus two extra nonlinear ReLU steps. Station 2 shows the VGG-style block shape flow: input (2, 3, 32, 32) goes through Conv3x3, ReLU, Conv3x3, ReLU, MaxPool2d(2), and output becomes (2, 16, 16, 16); the teaching point is channels 3 to 16 and height/width 32 to 16. Station 3 shows the residual block: input (2, 8, 16, 16), learned_change path, identity shortcut, out = out + identity, output (2, 8, 16, 16); the teaching point is element-wise addition requires matching shapes, and a 1x1 shortcut is used when shapes change. Do not draw a timeline of LeNet/AlexNet/VGG/ResNet only, do not use a terminal screenshot, do not invent accuracy, ImageNet metrics, layer counts, channels, or extra architectures.",
+        "chapter_context": "The image is inserted after the residual block expected output and before the explanation of out = out + identity. The nearby lesson compares stacked small kernels with one large kernel, runs a VGG-style block, then implements a minimal residual block.",
+        "shared_layout": "Vertical 9:16. Use the same dark vision-lab / model-inspection bench style across zh/en/ja. Top title and subtitle. Upper station: two convolution specimens on a scale, one 7x7 card with 12560 and three stacked 3x3 cards with 6960 plus ReLU sparks. Middle station: VGG block conveyor showing input shape (2,3,32,32), two Conv3x3+ReLU modules, MaxPool2d(2), and output shape (2,16,16,16). Lower station: residual block cutaway with learned path and identity shortcut merging at out + identity, shapes unchanged from (2,8,16,16) to (2,8,16,16), with a small 1x1 shortcut warning for shape changes. Keep all values, station order, colors, arrows, and visual structure identical across languages. Use concrete feature-map tiles, kernel windows, channel stacks, and shortcut bridge; avoid SVG-style rounded white boxes, pure flowchart posters, dense tables, tiny labels, and decorative-only CNN imagery.",
+        "variants": {
+            "zh": {
+                "title": "经典 CNN 实验结果怎么看",
+                "subtitle": "把参数量、shape 变化和 residual shortcut 连成一条读图线。",
+                "items": [
+                    ("kernel 参数量", "7x7 conv=12560；三个 3x3 conv=6960。"),
+                    ("VGG block", "输入 (2,3,32,32) -> 输出 (2,16,16,16)。"),
+                    ("shape 读法", "channel 3 -> 16；高宽 32 -> 16。"),
+                    ("ResidualBlock", "输入和输出都是 (2,8,16,16)。"),
+                    ("关键加法", "out = out + identity，shape 必须匹配。"),
+                    ("1x1 shortcut", "shape 改变时用它对齐维度。"),
+                ],
+                "footer": "读 CNN block 时，先看参数和 shape，再看信息是否有 shortcut。",
+                "alt": "经典 CNN 架构实验结果图：比较 7x7 与三个 3x3 卷积参数量，展示 VGG block 的 shape 变化，并说明 ResidualBlock 的 identity shortcut 和 shape 匹配要求。",
+            },
+            "en": {
+                "title": "Reading Classic CNN Lab Results",
+                "subtitle": "Connect parameter count, shape flow, and residual shortcuts.",
+                "items": [
+                    ("kernel params", "7x7 conv=12560; three 3x3 conv=6960."),
+                    ("VGG block", "input (2,3,32,32) -> output (2,16,16,16)."),
+                    ("shape reading", "channels 3 -> 16; height/width 32 -> 16."),
+                    ("ResidualBlock", "input and output both (2,8,16,16)."),
+                    ("key addition", "out = out + identity; shapes must match."),
+                    ("1x1 shortcut", "Align dimensions when shapes change."),
+                ],
+                "footer": "Read a CNN block by checking params and shapes, then whether information has a shortcut.",
+                "alt": "Classic CNN architecture lab result map: compares 7x7 and three 3x3 convolution parameter counts, shows VGG block shape flow, and explains ResidualBlock identity shortcut shape matching.",
+            },
+            "ja": {
+                "title": "古典 CNN 実験結果の読み方",
+                "subtitle": "パラメータ数、shape の流れ、residual shortcut をつなげて読む。",
+                "items": [
+                    ("kernel パラメータ", "7x7 conv=12560；3つの 3x3 conv=6960。"),
+                    ("VGG block", "入力 (2,3,32,32) -> 出力 (2,16,16,16)。"),
+                    ("shape の読み方", "channel 3 -> 16；高さ/幅 32 -> 16。"),
+                    ("ResidualBlock", "入力も出力も (2,8,16,16)。"),
+                    ("重要な加算", "out = out + identity、shape は一致が必要。"),
+                    ("1x1 shortcut", "shape が変わるとき次元をそろえる。"),
+                ],
+                "footer": "CNN block は params と shape を見てから、shortcut の有無を読む。",
+                "alt": "古典 CNN アーキテクチャ実験結果図：7x7 と 3つの 3x3 畳み込みのパラメータ数を比較し、VGG block の shape 変化と ResidualBlock の identity shortcut の shape 一致を説明する。",
+            },
+        },
+    },
+    {
         "slug": "ch06-pytorch-practical-tips-run-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch02-pytorch/06-practical-tips.md",
@@ -16275,6 +16330,147 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch06-cnn-architecture-lab-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "经典 CNN 实验结果怎么看"
+Visible subtitle exactly: "把参数量、shape 变化和 residual shortcut 连成一条读图线。"
+
+Use a dark vision-lab / model-inspection bench style. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Upper station "kernel 参数量":
+   - draw one large 7x7 kernel card on the left and three stacked 3x3 kernel cards on the right.
+   - kernel cards must be empty tiled grids or simple kernel-window icons; do not put numeric weight values inside the grids.
+   - show exactly "7x7 conv = 12560"
+   - show exactly "三个 3x3 conv = 6960"
+   - if any channel labels appear on kernel cards, they must be "in=16" and "out=16"; it is also fine to omit channel labels.
+   - show two small ReLU sparks between the stacked 3x3 layers.
+   - teaching note: "参数更少，还多了非线性步骤".
+2. Middle station "VGG block":
+   - show input feature map shape exactly "(2, 3, 32, 32)"
+   - route through "Conv3x3 -> ReLU -> Conv3x3 -> ReLU -> MaxPool2d(2)"
+   - show output feature map shape exactly "(2, 16, 16, 16)"
+   - teaching note: "channel 3 -> 16；高宽 32 -> 16".
+3. Lower station "ResidualBlock":
+   - show input exactly "(2, 8, 16, 16)"
+   - show a learned_change path and an identity shortcut bridge.
+   - show merge label exactly "out = out + identity"
+   - show output exactly "(2, 8, 16, 16)"
+   - teaching note: "shape 必须匹配；变形时用 1x1 shortcut".
+
+Required teaching labels, all in Simplified Chinese except code terms:
+- "kernel 参数量" with "7x7 conv=12560；三个 3x3 conv=6960。"
+- "VGG block" with "输入 (2,3,32,32) -> 输出 (2,16,16,16)。"
+- "shape 读法" with "channel 3 -> 16；高宽 32 -> 16。"
+- "ResidualBlock" with "输入和输出都是 (2,8,16,16)。"
+- "关键加法" with "out = out + identity，shape 必须匹配。"
+- "1x1 shortcut" with "shape 改变时用它对齐维度。"
+
+Critical accuracy rules:
+- Do NOT write 12544, 6912, 32 channels, output (2,16,32,32), or any changed shape/value.
+- Do NOT write "3 x 3 x 3 = 6960"; write "三个 3x3 conv = 6960".
+- Do NOT write in:3, out:64, input channel 3, output channel 64, or any invented channel count in the kernel parameter station. The code uses Conv2d(16,16) there.
+- Do NOT put numeric kernel weights such as -0.12, 0.05, 1, -1, 2, 0, or any table of learned weights inside the 7x7 or 3x3 kernel grids. The lab prints parameter counts only, not actual weights.
+- The only numbers allowed in the kernel station are 7x7, 3x3, 12560, 6960, and optional in=16/out=16.
+- Do NOT add ImageNet accuracy, LeNet/AlexNet timeline details, fake terminal screenshots, dense tables, English explanatory sentences, Japanese text, watermark, or tiny background text.
+- Text must be large and readable on a phone.
+Visible footer exactly: "读 CNN block 时，先看参数和 shape，再看信息是否有 shortcut。"
+""".strip(),
+    "ch06-cnn-architecture-lab-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading Classic CNN Lab Results"
+Visible subtitle exactly: "Connect parameter count, shape flow, and residual shortcuts."
+
+Use a dark vision-lab / model-inspection bench style. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Upper station "kernel params":
+   - draw one large 7x7 kernel card on the left and three stacked 3x3 kernel cards on the right.
+   - kernel cards must be empty tiled grids or simple kernel-window icons; do not put numeric weight values inside the grids.
+   - show exactly "7x7 conv = 12560"
+   - show exactly "three 3x3 conv = 6960"
+   - if any channel labels appear on kernel cards, they must be "in=16" and "out=16"; it is also fine to omit channel labels.
+   - show two small ReLU sparks between the stacked 3x3 layers.
+   - teaching note: "fewer params, plus extra nonlinear steps".
+2. Middle station "VGG block":
+   - show input feature map shape exactly "(2, 3, 32, 32)"
+   - route through "Conv3x3 -> ReLU -> Conv3x3 -> ReLU -> MaxPool2d(2)"
+   - show output feature map shape exactly "(2, 16, 16, 16)"
+   - teaching note: "channels 3 -> 16; height/width 32 -> 16".
+3. Lower station "ResidualBlock":
+   - show input exactly "(2, 8, 16, 16)"
+   - show a learned_change path and an identity shortcut bridge.
+   - show merge label exactly "out = out + identity"
+   - show output exactly "(2, 8, 16, 16)"
+   - teaching note: "shapes must match; use 1x1 shortcut when shapes change".
+
+Required teaching labels:
+- "kernel params" with "7x7 conv=12560; three 3x3 conv=6960."
+- "VGG block" with "input (2,3,32,32) -> output (2,16,16,16)."
+- "shape reading" with "channels 3 -> 16; height/width 32 -> 16."
+- "ResidualBlock" with "input and output both (2,8,16,16)."
+- "key addition" with "out = out + identity; shapes must match."
+- "1x1 shortcut" with "Align dimensions when shapes change."
+
+Critical accuracy rules:
+- Do NOT write 12544, 6912, 32 channels, output (2,16,32,32), or any changed shape/value.
+- Do NOT write "3 x 3 x 3 = 6960"; write "three 3x3 conv = 6960".
+- Do NOT write in:3, out:64, input channel 3, output channel 64, or any invented channel count in the kernel parameter station. The code uses Conv2d(16,16) there.
+- Do NOT put numeric kernel weights such as -0.12, 0.05, 1, -1, 2, 0, or any table of learned weights inside the 7x7 or 3x3 kernel grids. The lab prints parameter counts only, not actual weights.
+- The only numbers allowed in the kernel station are 7x7, 3x3, 12560, 6960, and optional in=16/out=16.
+- Do NOT add ImageNet accuracy, LeNet/AlexNet timeline details, fake terminal screenshots, dense tables, Chinese text, Japanese text, watermark, or tiny background text.
+- Text must be large and readable on a phone.
+Visible footer exactly: "Read a CNN block by checking params and shapes, then whether information has a shortcut."
+""".strip(),
+    "ch06-cnn-architecture-lab-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "古典 CNN 実験結果の読み方"
+Visible subtitle exactly: "パラメータ数、shape の流れ、residual shortcut をつなげて読む。"
+
+Use a dark vision-lab / model-inspection bench style. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Upper station "kernel パラメータ":
+   - draw one large 7x7 kernel card on the left and three stacked 3x3 kernel cards on the right.
+   - kernel cards must be empty tiled grids or simple kernel-window icons; do not put numeric weight values inside the grids.
+   - show exactly "7x7 conv = 12560"
+   - show exactly "3つの 3x3 conv = 6960"
+   - if any channel labels appear on kernel cards, they must be "in=16" and "out=16"; it is also fine to omit channel labels.
+   - show two small ReLU sparks between the stacked 3x3 layers.
+   - teaching note: "パラメータは少なく、非線形ステップは増える".
+2. Middle station "VGG block":
+   - show input feature map shape exactly "(2, 3, 32, 32)"
+   - route through "Conv3x3 -> ReLU -> Conv3x3 -> ReLU -> MaxPool2d(2)"
+   - show output feature map shape exactly "(2, 16, 16, 16)"
+   - teaching note: "channel 3 -> 16；高さ/幅 32 -> 16".
+3. Lower station "ResidualBlock":
+   - show input exactly "(2, 8, 16, 16)"
+   - show a learned_change path and an identity shortcut bridge.
+   - show merge label exactly "out = out + identity"
+   - show output exactly "(2, 8, 16, 16)"
+   - teaching note: "shape は一致が必要；変わる時は 1x1 shortcut".
+
+Required teaching labels, in natural Japanese except code terms:
+- "kernel パラメータ" with "7x7 conv=12560；3つの 3x3 conv=6960。"
+- "VGG block" with "入力 (2,3,32,32) -> 出力 (2,16,16,16)。"
+- "shape の読み方" with "channel 3 -> 16；高さ/幅 32 -> 16。"
+- "ResidualBlock" with "入力も出力も (2,8,16,16)。"
+- "重要な加算" with "out = out + identity、shape は一致が必要。"
+- "1x1 shortcut" with "shape が変わるとき次元をそろえる。"
+
+Critical accuracy rules:
+- Do NOT write 12544, 6912, 32 channels, output (2,16,32,32), or any changed shape/value.
+- Do NOT write "3 x 3 x 3 = 6960"; write "3つの 3x3 conv = 6960".
+- Do NOT write in:3, out:64, input channel 3, output channel 64, or any invented channel count in the kernel parameter station. The code uses Conv2d(16,16) there.
+- Do NOT put numeric kernel weights such as -0.12, 0.05, 1, -1, 2, 0, or any table of learned weights inside the 7x7 or 3x3 kernel grids. The lab prints parameter counts only, not actual weights.
+- The only numbers allowed in the kernel station are 7x7, 3x3, 12560, 6960, and optional in=16/out=16.
+- Do NOT add ImageNet accuracy, LeNet/AlexNet timeline details, fake terminal screenshots, dense tables, Simplified Chinese text, English explanatory sentences, watermark, or tiny background text.
+- Text must be large and readable on a phone.
+Visible footer exactly: "CNN block は params と shape を見てから、shortcut の有無を読む。"
+""".strip(),
     "ch06-pytorch-practical-tips-run-result-map.png": """
 Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
 This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.

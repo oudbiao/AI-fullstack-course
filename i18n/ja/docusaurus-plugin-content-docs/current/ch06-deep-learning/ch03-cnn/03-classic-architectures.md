@@ -202,6 +202,12 @@ input: (2, 8, 16, 16)
 output: (2, 8, 16, 16)
 ```
 
+![古典 CNN アーキテクチャ実験結果図](/img/course/ch06-cnn-architecture-lab-result-map-ja.webp)
+
+:::tip 数字からアーキテクチャ実験を読む
+3つの確認は別々の問いに答えています。パラメータ数は設計コストを比べ、VGG block は channel と空間サイズの変化を示し、ResidualBlock は shortcut が shape の一致したときだけ足せることを確認します。
+:::
+
 最も重要な行はこれです。
 
 ```python

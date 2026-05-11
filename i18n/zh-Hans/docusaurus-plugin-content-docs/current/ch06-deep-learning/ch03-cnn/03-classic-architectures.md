@@ -202,6 +202,12 @@ input: (2, 8, 16, 16)
 output: (2, 8, 16, 16)
 ```
 
+![经典 CNN 架构实验结果图](/img/course/ch06-cnn-architecture-lab-result-map.webp)
+
+:::tip 用数字读架构实验
+这三个检查回答的是不同问题：参数量比较设计成本，VGG block 显示 channel 和空间尺寸怎么变，ResidualBlock 则证明 shortcut 只有在 shape 对齐时才能相加。
+:::
+
 最重要的一行是：
 
 ```python
