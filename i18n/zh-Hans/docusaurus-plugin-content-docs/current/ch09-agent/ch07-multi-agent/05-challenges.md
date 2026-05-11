@@ -363,6 +363,12 @@ for item in trace:
 | 状态不同步 | 有人基于旧信息继续工作 |
 | 无法调试 | 只看到最终输出，看不到中间过程 |
 
+![多 Agent 挑战控制结果图](/img/course/ch09-multi-agent-challenge-control-result-map.webp)
+
+:::tip 先排查控制信号
+在继续增加 Agent 之前，先看问题是不是来自重复劳动、消息失真、冲突不收敛、成本叠加，或缺少 trace 记录。
+:::
+
 ---
 
 ## 解决思路不是“更复杂”，而是“更清楚”

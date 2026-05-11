@@ -363,6 +363,12 @@ If you are building a multi-Agent system, this checklist is very useful:
 | State desynchronization | Someone keeps working based on old information |
 | Hard to debug | You only see the final output, not the intermediate process |
 
+![Multi-Agent challenge control result map](/img/course/ch09-multi-agent-challenge-control-result-map-en.webp)
+
+:::tip Debug the control signals first
+Before adding more Agents, check whether repeated work, message drift, unresolved conflicts, cost growth, or missing trace data is the real source of instability.
+:::
+
 ---
 
 ## The Solution Is Not “More Complex,” but “Clearer”

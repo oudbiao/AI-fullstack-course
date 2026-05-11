@@ -14056,6 +14056,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-multi-agent-challenge-control-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch07-multi-agent/05-challenges.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch07-multi-agent/05-challenges.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch07-multi-agent/05-challenges.md",
+        },
+        "scene": "A runnable-result teaching visual for the Multi-Agent challenges lesson. It must explain four exact failure-control examples from the page: duplicate retrieval and deduplication, message/protocol drift, conflicting decisions converging to deny with safe bias, and cost/latency plus trace observability. Show exact values: retriever_a and retriever_b both try the same refund-policy task; after assigned-set dedup, retriever_a executes and retriever_b is skipped; policy_agent allow confidence 0.72 conflicts with risk_agent deny confidence 0.88, resolve_with_safe_bias returns deny; total_cost = 0.011 and total_latency_ms = 2500; trace rows planner/decompose/120, retriever/search_docs/350, writer/draft/480. The teaching point is controllability: deduplicate, define protocols, define convergence rules, and record traces. Do not draw a generic warning poster; do not add extra agents, costs, scores, or fake logs.",
+        "chapter_context": "The image is inserted after the practical challenge checklist in section 9.7.6. The page has just shown repeated work, deduplication, message distortion, conflict resolution, cost/latency accumulation, trace logging, and role-boundary drift. Immediately after the insertion point, the page says the solution is not more complexity but clearer messages, division of labor, termination conditions, and observation methods.",
+        "shared_layout": "Vertical 9:16. Use the same dark incident command center / debugging board style across zh/en/ja. Top title and subtitle. Four stacked diagnostic zones: 1 duplicate work with two retrievers colliding on the same task and a dedup gate that skips the second; 2 message drift with two similar message cards and a protocol ruler; 3 conflict convergence with allow 0.72 vs deny 0.88 and safe bias output deny; 4 cost/trace with a cost-latency meter and three trace rows. Bottom strip: dedup -> protocol -> convergence -> observability. Keep zone order, route layout, colors, exact numeric values, and reading path identical across languages. Use large readable text only; no tiny pseudo-logs, no terminal screenshot, no white rounded-box-only SVG style.",
+        "variants": {
+            "zh": {
+                "title": "多 Agent 失控点怎么排查",
+                "subtitle": "问题不是 Agent 不够多，而是系统边界不够清楚。",
+                "items": [
+                    ("重复劳动", "retriever_a 执行；retriever_b 跳过。"),
+                    ("消息失真", "同一 task，detail 不同会带偏结果。"),
+                    ("冲突收敛", "allow 0.72 vs deny 0.88 -> deny。"),
+                    ("成本时延", "total_cost=0.011；latency=2500ms。"),
+                    ("trace", "planner 120 / retriever 350 / writer 480。"),
+                    ("修复方向", "去重、协议、收敛规则、可观测。"),
+                ],
+                "footer": "多 Agent 调优先看重复、冲突、成本、观测四类信号。",
+                "alt": "多 Agent 挑战控制结果图：重复检索通过 assigned 去重，allow 与 deny 冲突用保守规则收敛为 deny，成本时延汇总为 0.011 和 2500ms，并用 trace 定位 planner、retriever、writer。",
+            },
+            "en": {
+                "title": "Debugging Multi-Agent Control Loss",
+                "subtitle": "The issue is rarely too few Agents; it is unclear system boundaries.",
+                "items": [
+                    ("repeated work", "retriever_a executes; retriever_b skips."),
+                    ("message drift", "Same task, different detail changes the result."),
+                    ("conflict rule", "allow 0.72 vs deny 0.88 -> deny."),
+                    ("cost latency", "total_cost=0.011; latency=2500ms."),
+                    ("trace", "planner 120 / retriever 350 / writer 480."),
+                    ("fix direction", "Dedup, protocol, convergence rule, observability."),
+                ],
+                "footer": "Tune Multi-Agent systems by watching repetition, conflict, cost, and observability.",
+                "alt": "Multi-Agent challenge control result map: duplicate retrieval is deduplicated with assigned, allow versus deny converges to deny through safe bias, cost and latency sum to 0.011 and 2500ms, and trace rows locate planner, retriever, and writer.",
+            },
+            "ja": {
+                "title": "マルチ Agent の制御不能を調べる",
+                "subtitle": "問題は Agent の数ではなく、システム境界の曖昧さにある。",
+                "items": [
+                    ("重複作業", "retriever_a は実行；retriever_b は skip。"),
+                    ("メッセージのずれ", "同じ task でも detail が違うと結果がずれる。"),
+                    ("衝突の収束", "allow 0.72 vs deny 0.88 -> deny。"),
+                    ("コストと遅延", "total_cost=0.011；latency=2500ms。"),
+                    ("trace", "planner 120 / retriever 350 / writer 480。"),
+                    ("修正方向", "重複排除、protocol、収束ルール、可観測性。"),
+                ],
+                "footer": "マルチ Agent の調整は、重複、衝突、コスト、観測から見る。",
+                "alt": "マルチ Agent 課題の制御結果図：重複検索を assigned で排除し、allow と deny の衝突を保守ルールで deny に収束させ、cost 0.011 と latency 2500ms を集計し、trace で planner、retriever、writer を特定する。",
+            },
+        },
+    },
+    {
         "slug": "ch12-vlm-image-text-retrieval-ranking-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
@@ -16405,6 +16460,133 @@ Critical accuracy rules:
  - The label for the output board should be Japanese, such as "結果ボード", not "result board".
 - Do NOT include Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "マルチ Agent の価値は数ではなく、責任の引き継ぎにある。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-challenge-control-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative warning poster.
+
+Visible title exactly: "多 Agent 失控点怎么排查"
+Visible subtitle exactly: "问题不是 Agent 不够多，而是系统边界不够清楚。"
+
+Use a dark incident command center / debugging board style. The image must teach the exact runnable outputs from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Zone 1 "重复劳动": show retriever_a and retriever_b both trying "检索退款政策". Then show assigned 去重 gate:
+   - "retriever_a: 执行 检索退款政策"
+   - "retriever_b: 跳过，任务已有人处理"
+   - final tasks_done exactly "[('retriever_a', '检索退款政策')]"
+2. Zone 2 "消息失真": show two cards with same task but different detail:
+   - task=查退款; detail=只看对外政策
+   - task=查退款; detail=包括内部客服规范
+   Show warning: "detail 不同，后续结论会偏移"
+3. Zone 3 "冲突收敛": show:
+   - policy_agent: allow, confidence 0.72
+   - risk_agent: deny, confidence 0.88
+   - safe bias output: deny
+4. Zone 4 "成本 + trace": show:
+   - total_cost = 0.011
+   - total_latency_ms = 2500
+   - trace rows: planner/decompose/120, retriever/search_docs/350, writer/draft/480
+5. Bottom strip exactly: "dedup -> protocol -> convergence -> observability"
+
+Required teaching labels and short notes, all in Simplified Chinese except code names:
+- "重复劳动" with "retriever_a 执行；retriever_b 跳过。"
+- "消息失真" with "同一 task，detail 不同会带偏结果。"
+- "冲突收敛" with "allow 0.72 vs deny 0.88 -> deny。"
+- "成本时延" with "total_cost=0.011；latency=2500ms。"
+- "trace" with "planner 120 / retriever 350 / writer 480。"
+- "修复方向" with "去重、协议、收敛规则、可观测。"
+
+Critical accuracy rules:
+- Do NOT add extra agents, extra decisions, extra costs, extra latency values, fake logs, or different policy conditions.
+- Explanatory text must be Simplified Chinese. The only allowed English tokens are exact code terms: Agent, retriever_a, retriever_b, assigned, tasks_done, task, detail, policy_agent, risk_agent, allow, deny, confidence, safe bias, total_cost, total_latency_ms, trace, planner, decompose, retriever, search_docs, writer, draft, dedup, protocol, convergence, observability.
+- Do NOT write English sentences such as "duplicate work", "message drift", "same task", "final decision", "cost grows", or "debug trace".
+- Do NOT include Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "多 Agent 调优先看重复、冲突、成本、观测四类信号。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-challenge-control-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative warning poster.
+
+Visible title exactly: "Debugging Multi-Agent Control Loss"
+Visible subtitle exactly: "The issue is rarely too few Agents; it is unclear system boundaries."
+
+Use a dark incident command center / debugging board style. The image must teach the exact runnable outputs from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Zone 1 "repeated work": show retriever_a and retriever_b both trying "retrieve refund policy". Then show assigned dedup gate:
+   - "retriever_a: executing retrieve refund policy"
+   - "retriever_b: skipped, task has already been handled"
+   - final tasks_done exactly "[('retriever_a', 'retrieve refund policy')]"
+2. Zone 2 "message drift": show two cards with same task but different detail:
+   - task=check refund; detail=only review public policy
+   - task=check refund; detail=including internal customer service rules
+   Show warning: "Different detail changes the later answer"
+3. Zone 3 "conflict rule": show:
+   - policy_agent: allow, confidence 0.72
+   - risk_agent: deny, confidence 0.88
+   - safe bias output: deny
+4. Zone 4 "cost + trace": show:
+   - total_cost = 0.011
+   - total_latency_ms = 2500
+   - trace rows: planner/decompose/120, retriever/search_docs/350, writer/draft/480
+5. Bottom strip exactly: "dedup -> protocol -> convergence -> observability"
+
+Required teaching labels and short notes:
+- "repeated work" with "retriever_a executes; retriever_b skips."
+- "message drift" with "Same task, different detail changes the result."
+- "conflict rule" with "allow 0.72 vs deny 0.88 -> deny."
+- "cost latency" with "total_cost=0.011; latency=2500ms."
+- "trace" with "planner 120 / retriever 350 / writer 480."
+- "fix direction" with "Dedup, protocol, convergence rule, observability."
+
+Critical accuracy rules:
+- Do NOT add extra agents, extra decisions, extra costs, extra latency values, fake logs, or different policy conditions.
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "Tune Multi-Agent systems by watching repetition, conflict, cost, and observability."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-challenge-control-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative warning poster.
+
+Visible title exactly: "マルチ Agent の制御不能を調べる"
+Visible subtitle exactly: "問題は Agent の数ではなく、システム境界の曖昧さにある。"
+
+Use a dark incident command center / debugging board style. The image must teach the exact runnable outputs from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Zone 1 "重複作業": show retriever_a and retriever_b both trying "返金ポリシーを検索する". Then show assigned dedup gate:
+   - "retriever_a: 返金ポリシーを検索する を実行します"
+   - "retriever_b: スキップしました。タスクはすでに誰かが処理しています"
+   - final tasks_done exactly "[('retriever_a', '返金ポリシーを検索する')]"
+2. Zone 2 "メッセージのずれ": show two cards with same task but different detail:
+   - task=返金を確認する; detail=対外向けポリシーだけを見る
+   - task=返金を確認する; detail=社内のカスタマーサポート規定も含める
+   Show warning: "detail が違うと後続の答えがずれる"
+3. Zone 3 "衝突の収束": show:
+   - policy_agent: allow, confidence 0.72
+   - risk_agent: deny, confidence 0.88
+   - safe bias output: deny
+4. Zone 4 "コスト + trace": show:
+   - total_cost = 0.011
+   - total_latency_ms = 2500
+   - trace rows: planner/decompose/120, retriever/search_docs/350, writer/draft/480
+5. Bottom strip exactly: "dedup -> protocol -> convergence -> observability"
+
+Required teaching labels and short notes, in natural Japanese except code names:
+- "重複作業" with "retriever_a は実行；retriever_b は skip。"
+- "メッセージのずれ" with "同じ task でも detail が違うと結果がずれる。"
+- "衝突の収束" with "allow 0.72 vs deny 0.88 -> deny。"
+- "コストと遅延" with "total_cost=0.011；latency=2500ms。"
+- "trace" with "planner 120 / retriever 350 / writer 480。"
+- "修正方向" with "重複排除、protocol、収束ルール、可観測性。"
+
+Critical accuracy rules:
+- Do NOT add extra agents, extra decisions, extra costs, extra latency values, fake logs, or different policy conditions.
+- Explanatory text must be natural Japanese. The only allowed English tokens are exact code terms: Agent, retriever_a, retriever_b, assigned, tasks_done, task, detail, policy_agent, risk_agent, allow, deny, confidence, safe bias, total_cost, total_latency_ms, trace, planner, decompose, retriever, search_docs, writer, draft, dedup, protocol, convergence, observability, skip.
+- Do NOT write English sentences such as "duplicate work", "message drift", "same task", "final decision", "cost grows", or "debug trace".
+- Do NOT include Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "マルチ Agent の調整は、重複、衝突、コスト、観測から見る。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """
