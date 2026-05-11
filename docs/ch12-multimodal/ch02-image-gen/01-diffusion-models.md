@@ -191,6 +191,12 @@ step 5: [ 0.12  -0.045 -0.466 -0.556]
 
 Run it once and read the rows from top to bottom. The values do not become random immediately; the old signal is weakened while new noise is mixed in, which is exactly the forward diffusion intuition.
 
+![Forward diffusion noise result map](/img/course/ch12-diffusion-forward-noise-result-map-en.webp)
+
+:::tip Read the rows as a process
+Do not treat the printout as six unrelated arrays. Each row is the previous signal after one more controlled noise mix, so the trend matters more than any single number.
+:::
+
 ### What is this code teaching?
 
 It teaches you two very important facts:

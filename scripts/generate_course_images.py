@@ -13891,6 +13891,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-diffusion-forward-noise-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
+        },
+        "scene": "A runnable-result visual for the forward diffusion noise toy example. It must teach that each step keeps 80% of the previous vector and adds new Gaussian noise, so the original four-number signal gradually loses structure instead of instantly becoming random. Show exactly these rows and values only: x0 = [1.0, 0.5, -0.5, -1.0]; step 1 = [0.899, 0.372, -0.270, -0.495]; step 2 = [0.673, 0.251, 0.099, -0.243]; step 3 = [0.444, 0.309, -0.013, -0.287]; step 4 = [0.404, -0.135, -0.355, -0.342]; step 5 = [0.120, -0.045, -0.466, -0.556]. Use a visual signal strip, fading waveform/heat bars, and noise particles around each step. Do not draw a generic diffusion model poster, do not show reverse denoising as the main focus, and do not invent image pixels, formulas, rows, or metrics beyond x = 0.8 * previous + noise.",
+        "chapter_context": "The image is inserted after the expected output of the minimal runnable forward-noise example. Nearby code seeds numpy, starts from a clean 1D vector x0, repeatedly samples noise, computes x = 0.8 * x + noise, and prints rounded vectors. The surrounding prose explains that forward diffusion adds noise step by step so structure becomes harder to see.",
+        "shared_layout": "Vertical 9:16. Same illustrated lab notebook style across zh/en/ja. Top title and subtitle. Upper section shows the formula as a mixing machine: keep 80% previous signal plus add new noise. Middle section is a six-row timeline from x0 to step 5; each row has four value bars/tiles, the exact vector values, and a progressively noisier/fainter signal strip. Lower section has a small diagnosis panel: early steps still preserve sign/shape, later steps drift and structure fades. Keep row order, values, bar directions, colors, and visual reading path identical across languages.",
+        "variants": {
+            "zh": {
+                "title": "扩散前向加噪结果怎么看",
+                "subtitle": "每一步保留 80% 旧信号，再加入新的 noise。",
+                "items": [
+                    ("x0", "[1.0, 0.5, -0.5, -1.0] 是干净信号。"),
+                    ("step 1", "数值还接近原始形状。"),
+                    ("step 3", "正负和幅度开始明显漂移。"),
+                    ("step 5", "结构被 noise 覆盖得更多。"),
+                    ("mixing rule", "x = 0.8 * previous + noise。"),
+                    ("learning target", "反向模型要学会估计这些 noise。"),
+                ],
+                "footer": "前向过程的重点是逐步破坏结构，给反向去噪提供训练任务。",
+                "alt": "扩散前向加噪运行结果图：x0 到 step 5 的四维向量逐步混入 noise，结构逐渐变弱。",
+            },
+            "en": {
+                "title": "Reading Forward Diffusion Noise",
+                "subtitle": "Each step keeps 80% of the old signal and adds new noise.",
+                "items": [
+                    ("x0", "[1.0, 0.5, -0.5, -1.0] is the clean signal."),
+                    ("step 1", "Values still resemble the original shape."),
+                    ("step 3", "Signs and magnitudes begin to drift."),
+                    ("step 5", "Noise covers more of the structure."),
+                    ("mixing rule", "x = 0.8 * previous + noise."),
+                    ("learning target", "The reverse model learns to estimate this noise."),
+                ],
+                "footer": "Forward diffusion gradually damages structure, creating the training task for denoising.",
+                "alt": "Forward diffusion noise result map: a four-value vector from x0 to step 5 mixes in noise step by step, and the original structure weakens.",
+            },
+            "ja": {
+                "title": "Forward Diffusion のノイズ付与結果を読む",
+                "subtitle": "各 step で古い signal を 80% 残し、新しい noise を加える。",
+                "items": [
+                    ("x0", "[1.0, 0.5, -0.5, -1.0] がきれいな signal。"),
+                    ("step 1", "値はまだ元の形に近い。"),
+                    ("step 3", "符号と大きさが少しずつずれる。"),
+                    ("step 5", "構造が noise により多く覆われる。"),
+                    ("mixing rule", "x = 0.8 * previous + noise。"),
+                    ("learning target", "逆向き model はこの noise 推定を学ぶ。"),
+                ],
+                "footer": "前向き過程は構造を段階的に壊し、denoising の訓練課題を作る。",
+                "alt": "Forward diffusion のノイズ付与結果図：x0 から step 5 まで四次元 vector に noise が段階的に混ざり、元の構造が弱くなる。",
+            },
+        },
+    },
+    {
         "slug": "ch12-image-text-retrieval-similarity-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
