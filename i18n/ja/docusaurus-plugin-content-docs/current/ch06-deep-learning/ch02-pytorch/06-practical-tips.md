@@ -265,6 +265,12 @@ restored epoch: 5
 restored best_val: 0.123
 ```
 
+![PyTorch 実用チェックの実行結果図](/img/course/ch06-pytorch-practical-tips-run-result-map-ja.webp)
+
+:::tip これらの確認を訓練の安全網として読む
+4つの小さな実験は別々の小技ではありません。device を選び、乱数を再現可能にし、`backward()` の後で不安定な勾配を clip し、AMP が使えないときは安全に fallback し、復元できる checkpoint を残すための一連の習慣です。
+:::
+
 実プロジェクトでは、次のような安定したパスに保存します。
 
 ```text

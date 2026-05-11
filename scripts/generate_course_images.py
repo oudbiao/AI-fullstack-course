@@ -15379,6 +15379,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch06-pytorch-practical-tips-run-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/06-practical-tips.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/06-practical-tips.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/06-practical-tips.md",
+        },
+        "scene": "A PyTorch practical training engineering result board based on the four runnable labs in the practical tips lesson. The image must teach how the printed outputs become a safe training routine, not just decorate the page. Show exactly these result checks: device_seed_lab uses device mps as the example, same random=True, sample tensor [0.3367, 0.1288, 0.2345]; grad_clip_lab before=38.7677 and after=1.0, with the order zero_grad -> backward -> clip gradients -> optimizer.step; amp_lab uses standard precision on mps, with CUDA AMP shown only as the optional branch; checkpoint_lab restores epoch=5 and best_val=0.123. Show the practical template distinction model.train() for training and model.eval()+torch.no_grad() for validation. The teaching point is that device choice, repeatability, gradient clipping, precision fallback, and checkpoint restore form one training safety net before redesigning the model. Do not draw a terminal screenshot, full code block, generic GPU poster, invented devices, invented metrics, fake loss curves, dense tables, tiny background text, or local-overlay placeholders.",
+        "chapter_context": "The image is inserted after the checkpoint lab expected output in the PyTorch practical tips lesson. The nearby text teaches device selection, random seeds, gradient clipping after backward(), AMP only on CUDA or suitable hardware, checkpoint save/restore, and a memory/stability triage table.",
+        "shared_layout": "Vertical 9:16. Use the same dark practical training-lab style across zh/en/ja. Top title and subtitle. Upper half has four large result stations arranged as a training safety checklist: Device + Seed, Gradient Clip, AMP Fallback, Checkpoint Restore. Lower half has one compact training loop lane: model.train() -> forward/loss -> zero_grad -> backward -> clip -> step, and one validation lane: model.eval() + torch.no_grad() -> validation metric. A side warning strip lists the triage order: reproduce, inspect gradients, reduce batch, restore checkpoint. Keep all station positions, values, icons, colors, and reading path identical across languages. Use concrete workbench objects, meters, seed dice, gradient gauge, precision switch, checkpoint vault, and loop arrows. Avoid SVG-style white rounded boxes, pure flowchart posters, dense terminal screens, and tiny unreadable labels.",
+        "variants": {
+            "zh": {
+                "title": "PyTorch 实用技巧结果怎么看",
+                "subtitle": "训练坏掉前，先确认 device、随机性、梯度和 checkpoint。",
+                "items": [
+                    ("Device + Seed", "示例 device=mps；same random=True。"),
+                    ("sample tensor", "[0.3367, 0.1288, 0.2345]。"),
+                    ("Gradient Clip", "before=38.7677 -> after=1.0。"),
+                    ("AMP fallback", "mps 上使用标准精度；CUDA 才开 AMP。"),
+                    ("Checkpoint", "restored epoch=5；best_val=0.123。"),
+                    ("训练模板", "train() 训练；eval()+no_grad() 验证。"),
+                ],
+                "footer": "先让训练循环可复现、可恢复、可排查，再谈复杂模型。",
+                "alt": "PyTorch 实用技巧运行结果图：device 和 seed 检查、梯度裁剪、AMP 降级、checkpoint 恢复与 train/eval 模板组成训练安全网。",
+            },
+            "en": {
+                "title": "Reading PyTorch Practical Checks",
+                "subtitle": "Before redesigning a model, verify device, randomness, gradients, and checkpoints.",
+                "items": [
+                    ("Device + Seed", "Example device=mps; same random=True."),
+                    ("sample tensor", "[0.3367, 0.1288, 0.2345]."),
+                    ("Gradient Clip", "before=38.7677 -> after=1.0."),
+                    ("AMP fallback", "standard precision on mps; AMP only on CUDA."),
+                    ("Checkpoint", "restored epoch=5; best_val=0.123."),
+                    ("training template", "train() for training; eval()+no_grad() for validation."),
+                ],
+                "footer": "Make the loop repeatable, recoverable, and debuggable before making the model complex.",
+                "alt": "PyTorch practical tips result map: device and seed checks, gradient clipping, AMP fallback, checkpoint restore, and train/eval template form a training safety net.",
+            },
+            "ja": {
+                "title": "PyTorch 実用チェックの結果を読む",
+                "subtitle": "モデルを作り直す前に device、乱数、勾配、checkpoint を確かめる。",
+                "items": [
+                    ("Device + Seed", "例 device=mps；same random=True。"),
+                    ("sample tensor", "[0.3367, 0.1288, 0.2345]。"),
+                    ("Gradient Clip", "before=38.7677 -> after=1.0。"),
+                    ("AMP fallback", "mps では標準精度；CUDA なら AMP。"),
+                    ("Checkpoint", "restored epoch=5；best_val=0.123。"),
+                    ("訓練テンプレート", "train() で訓練；eval()+no_grad() で検証。"),
+                ],
+                "footer": "複雑なモデルの前に、再現・復元・切り分けできる loop にする。",
+                "alt": "PyTorch 実用 tips の実行結果図：device と seed、勾配クリップ、AMP fallback、checkpoint 復元、train/eval テンプレートで訓練の安全網を作る。",
+            },
+        },
+    },
+    {
         "slug": "ch06-pytorch-logits-forward-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md",
@@ -16220,6 +16275,156 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch06-pytorch-practical-tips-run-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "PyTorch 实用技巧结果怎么看"
+Visible subtitle exactly: "训练坏掉前，先确认 device、随机性、梯度和 checkpoint。"
+
+Use a dark practical training-lab workbench style. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Upper-left station "Device + Seed":
+   - show "device_seed_lab"
+   - show "device: mps"
+   - show "same random: True"
+   - show "sample tensor: [0.3367, 0.1288, 0.2345]"
+   - show a seed dice icon and a device selector.
+2. Upper-right station "Gradient Clip":
+   - show the order exactly: "zero_grad -> backward -> clip gradients -> optimizer.step"
+   - show a gradient meter dropping from "before: 38.7677" to "after: 1.0"
+   - the teaching label must say "在 backward() 后裁剪".
+3. Middle-left station "AMP fallback":
+   - show "amp_lab"
+   - show "mps: 标准精度"
+   - show optional branch "CUDA: AMP"
+   - do not claim AMP ran on mps.
+4. Middle-right station "Checkpoint":
+   - show "checkpoint_lab"
+   - show "restored epoch: 5"
+   - show "restored best_val: 0.123"
+   - draw a checkpoint vault or restore arrow.
+5. Lower section "训练/验证模板":
+   - training lane: "model.train() -> forward/loss -> zero_grad -> backward -> clip -> step"
+   - validation lane: "model.eval() + torch.no_grad() -> validation"
+6. Side triage strip:
+   - "复现 -> 查梯度 -> 降 batch -> 恢复 checkpoint"
+
+Required teaching labels and short notes, all in Simplified Chinese except code terms:
+- "Device + Seed" near station 1; note "示例 device=mps；same random=True。"
+- "sample tensor" near station 1; note "[0.3367, 0.1288, 0.2345]。"
+- "Gradient Clip" near station 2; note "before=38.7677 -> after=1.0。"
+- "AMP fallback" near station 3; note "mps 上使用标准精度；CUDA 才开 AMP。"
+- "Checkpoint" near station 4; note "restored epoch=5；best_val=0.123。"
+- "训练模板" near lower section; note "train() 训练；eval()+no_grad() 验证。"
+
+Critical accuracy rules:
+- Do NOT invent a CUDA device for this run; the visible example device is mps.
+- Do NOT write before=3.8, after=0.1, epoch=50, best_val=0.12, or any other changed number.
+- Do NOT show a terminal screenshot, full code block, fake loss curve, dense table, English explanatory sentences, Japanese text, watermark, brand logo, or tiny background text.
+- Text must be large and readable on a phone.
+Visible footer exactly: "先让训练循环可复现、可恢复、可排查，再谈复杂模型。"
+""".strip(),
+    "ch06-pytorch-practical-tips-run-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading PyTorch Practical Checks"
+Visible subtitle exactly: "Before redesigning a model, verify device, randomness, gradients, and checkpoints."
+
+Use a dark practical training-lab workbench style. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Upper-left station "Device + Seed":
+   - show "device_seed_lab"
+   - show "device: mps"
+   - show "same random: True"
+   - show "sample tensor: [0.3367, 0.1288, 0.2345]"
+   - show a seed dice icon and a device selector.
+2. Upper-right station "Gradient Clip":
+   - show the order exactly: "zero_grad -> backward -> clip gradients -> optimizer.step"
+   - show a gradient meter dropping from "before: 38.7677" to "after: 1.0"
+   - the teaching label must say "clip after backward()".
+3. Middle-left station "AMP fallback":
+   - show "amp_lab"
+   - show "mps: standard precision"
+   - show optional branch "CUDA: AMP"
+   - do not claim AMP ran on mps.
+4. Middle-right station "Checkpoint":
+   - show "checkpoint_lab"
+   - show "restored epoch: 5"
+   - show "restored best_val: 0.123"
+   - draw a checkpoint vault or restore arrow.
+5. Lower section "training / validation template":
+   - training lane: "model.train() -> forward/loss -> zero_grad -> backward -> clip -> step"
+   - validation lane: "model.eval() + torch.no_grad() -> validation"
+6. Side triage strip:
+   - "reproduce -> inspect gradients -> reduce batch -> restore checkpoint"
+
+Required teaching labels and short notes:
+- "Device + Seed" near station 1; note "Example device=mps; same random=True."
+- "sample tensor" near station 1; note "[0.3367, 0.1288, 0.2345]."
+- "Gradient Clip" near station 2; note "before=38.7677 -> after=1.0."
+- "AMP fallback" near station 3; note "standard precision on mps; AMP only on CUDA."
+- "Checkpoint" near station 4; note "restored epoch=5; best_val=0.123."
+- "training template" near lower section; note "train() for training; eval()+no_grad() for validation."
+
+Critical accuracy rules:
+- Do NOT invent a CUDA device for this run; the visible example device is mps.
+- Do NOT write before=3.8, after=0.1, epoch=50, best_val=0.12, or any other changed number.
+- Do NOT show a terminal screenshot, full code block, fake loss curve, dense table, Chinese text, Japanese text, watermark, brand logo, or tiny background text.
+- Text must be large and readable on a phone.
+Visible footer exactly: "Make the loop repeatable, recoverable, and debuggable before making the model complex."
+""".strip(),
+    "ch06-pytorch-practical-tips-run-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "PyTorch 実用チェックの結果を読む"
+Visible subtitle exactly: "モデルを作り直す前に device、乱数、勾配、checkpoint を確かめる。"
+
+Use a dark practical training-lab workbench style. The image must teach the exact runnable labs from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Upper-left station "Device + Seed":
+   - show "device_seed_lab"
+   - show "device: mps"
+   - show "same random: True"
+   - show "sample tensor: [0.3367, 0.1288, 0.2345]"
+   - show a seed dice icon and a device selector.
+2. Upper-right station "Gradient Clip":
+   - show the order exactly: "zero_grad -> backward -> clip gradients -> optimizer.step"
+   - show a gradient meter dropping from "before: 38.7677" to "after: 1.0"
+   - the teaching label must say "backward() の後に clip".
+3. Middle-left station "AMP fallback":
+   - show "amp_lab"
+   - show "mps: 標準精度"
+   - show optional branch "CUDA: AMP"
+   - do not claim AMP ran on mps.
+4. Middle-right station "Checkpoint":
+   - show "checkpoint_lab"
+   - show "restored epoch: 5"
+   - show "restored best_val: 0.123"
+   - draw a checkpoint vault or restore arrow.
+5. Lower section "訓練/検証テンプレート":
+   - training lane: "model.train() -> forward/loss -> zero_grad -> backward -> clip -> step"
+   - validation lane: "model.eval() + torch.no_grad() -> validation"
+6. Side triage strip:
+   - "再現 -> 勾配確認 -> batch を下げる -> checkpoint 復元"
+
+Required teaching labels and short notes, in natural Japanese except code terms:
+- "Device + Seed" near station 1; note "例 device=mps；same random=True。"
+- "sample tensor" near station 1; note "[0.3367, 0.1288, 0.2345]。"
+- "Gradient Clip" near station 2; note "before=38.7677 -> after=1.0。"
+- "AMP fallback" near station 3; note "mps では標準精度；CUDA なら AMP。"
+- "Checkpoint" near station 4; note "restored epoch=5；best_val=0.123。"
+- "訓練テンプレート" near lower section; note "train() で訓練；eval()+no_grad() で検証。"
+
+Critical accuracy rules:
+- Do NOT invent a CUDA device for this run; the visible example device is mps.
+- Do NOT write before=3.8, after=0.1, epoch=50, best_val=0.12, or any other changed number.
+- Do NOT show a terminal screenshot, full code block, fake loss curve, dense table, Simplified Chinese text, English explanatory sentences, watermark, brand logo, or tiny background text.
+- Text must be large and readable on a phone.
+Visible footer exactly: "複雑なモデルの前に、再現・復元・切り分けできる loop にする。"
+""".strip(),
     "ch09-common-tools-dispatch-result-map.png": """
 Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
 This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative sci-fi poster.

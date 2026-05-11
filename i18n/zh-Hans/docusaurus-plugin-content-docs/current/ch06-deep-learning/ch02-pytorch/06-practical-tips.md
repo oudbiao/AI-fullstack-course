@@ -265,6 +265,12 @@ restored epoch: 5
 restored best_val: 0.123
 ```
 
+![PyTorch 实用技巧运行结果图](/img/course/ch06-pytorch-practical-tips-run-result-map.webp)
+
+:::tip 把这些检查当成训练安全网
+这四个小实验不是零散技巧，而是一套习惯：选对 device，让随机性可复现，在 `backward()` 后裁剪不稳定梯度，AMP 不可用时安全降级，并保留可恢复的 checkpoint。
+:::
+
 真实项目里通常保存到稳定路径，比如：
 
 ```text

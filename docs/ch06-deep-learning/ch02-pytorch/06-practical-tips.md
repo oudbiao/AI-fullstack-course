@@ -265,6 +265,12 @@ restored epoch: 5
 restored best_val: 0.123
 ```
 
+![PyTorch practical tips run result map](/img/course/ch06-pytorch-practical-tips-run-result-map-en.webp)
+
+:::tip Read the checks as a training safety net
+The four small labs are not separate tricks. They form a habit: choose the device, make randomness repeatable, clip unstable gradients after `backward()`, fall back safely when AMP is unavailable, and keep a checkpoint you can restore.
+:::
+
 For real projects, save to a stable path such as:
 
 ```text
