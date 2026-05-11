@@ -15485,6 +15485,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             },
         },
     },
+    {
+        "slug": "ch11-ctc-valid-paths-collapse-result-map",
+        "pages": {
+            "en": "docs/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md",
+        },
+        "scene": "A CTC runnable-result map based on the alignment-search code that enumerates 4-frame paths. The image must teach why the print output says there are 15 valid paths. Show a small audio/frame strip with four frame slots, the target transcript, exactly three concrete example paths from the code output, the collapse rule that removes blanks and merges repeats, and the final transcript. Important accuracy guard: do not draw an 8-row table, do not invent additional concrete path token sequences, and do not show any path that does not collapse to the target. The remaining 12 valid paths may only appear as abstract unlabeled colored ribbons or a '+12 more valid paths' stack. Do not draw a generic ASR pipeline, dense code, a terminal screenshot, invented probabilities, invented frame counts, or a pure flowchart. The key concept is that CTC does not need one exact frame boundary: many frame-level paths collapse into the same target and their probability is summed during training.",
+        "chapter_context": "The image is inserted after the expected output for the tiny CTC alignment search. Nearby code enumerates product(vocab, repeat=4), filters paths where ctc_collapse(path) equals the target, prints the valid path count 15, then prints the first examples. Nearby prose says the exact list order is not important; the important idea is that many frame-level paths collapse into the same transcript.",
+        "shared_layout": "Vertical 9:16. Use the same practical speech-lab notebook style across zh/en/ja: top title and subtitle; upper section has a 4-frame audio strip labeled frame 1 to frame 4; middle-left shows the target transcript as two large token tiles; middle-right shows exactly three example path ribbons copied from the program output and a separate localized badge: Chinese says '15 条合法路径', English says '15 valid paths', Japanese says '有効な経路 15'. Do not add any other concrete token rows. Lower section shows a collapse machine with two visible rules, remove blank '_' and merge repeats; bottom shows the three labeled paths plus abstract unlabeled localized '+12' ribbons: Chinese '+12 条其他合法路径', English '+12 more valid paths', Japanese '+12 本の有効経路'. Keep panel order, colors, arrows, path stack layout, collapse machine, and final transcript placement identical across languages. Use concrete tokens and path ribbons, not decorative microphones, not SVG-style rounded boxes, not a pure terminal log, not dense tiny text.",
+        "variants": {
+            "zh": {
+                "title": "CTC 合法路径为什么是 15",
+                "subtitle": "4 个帧位置里，很多路径都能折叠成同一个目标文本。",
+                "items": [
+                    ("输入", "vocab = [_, 我, 爱]，target = [我, 爱]。"),
+                    ("路径长度", "product(vocab, repeat=4) 枚举 4 帧候选。"),
+                    ("示例路径", "(_, _, 我, 爱)；(_, 我, _, 爱)；(_, 我, 我, 爱)。"),
+                    ("折叠规则", "先去掉 blank '_'，再合并连续重复 token。"),
+                    ("运行结果", "合法路径数量 = 15。"),
+                    ("训练含义", "CTC 奖励所有能折叠成 target 的路径。"),
+                ],
+                "footer": "重点不是唯一对齐，而是把所有可行对齐一起计入学习。",
+                "alt": "CTC 合法路径运行结果图：4 帧候选路径经过 blank 删除和重复合并，15 条合法路径都折叠成目标文本“我 爱”。",
+            },
+            "en": {
+                "title": "Why CTC Finds 15 Valid Paths",
+                "subtitle": "With 4 frame slots, many paths collapse to the same target text.",
+                "items": [
+                    ("input", "vocab = [_, I, love], target = [I, love]."),
+                    ("path length", "product(vocab, repeat=4) enumerates 4-frame candidates."),
+                    ("example paths", "(_, _, I, love); (_, I, _, love); (_, I, I, love)."),
+                    ("collapse rule", "Remove blank '_' first, then merge repeated tokens."),
+                    ("run result", "number of valid paths = 15."),
+                    ("training meaning", "CTC rewards every path that collapses to the target."),
+                ],
+                "footer": "The lesson is not one perfect alignment; it is summing all valid alignments.",
+                "alt": "CTC valid paths result map: 4-frame candidate paths pass through blank removal and repeat merging, and 15 valid paths all collapse to the target text I love.",
+            },
+            "ja": {
+                "title": "CTC の有効な経路数が 15 になる理由",
+                "subtitle": "4つの frame に、多くの経路が同じ target へ折りたためる。",
+                "items": [
+                    ("入力", "vocab = [_, 私, 好き]、target = [私, 好き]。"),
+                    ("経路の長さ", "product(vocab, repeat=4) が 4 frame 候補を列挙する。"),
+                    ("経路例", "(_, _, 私, 好き)；(_, 私, _, 好き)；(_, 私, 私, 好き)。"),
+                    ("折りたたみ規則", "blank '_' を消し、連続した同じ token をまとめる。"),
+                    ("実行結果", "有効な経路数 = 15。"),
+                    ("学習での意味", "CTC は target に折りたためる全経路を評価する。"),
+                ],
+                "footer": "大事なのは1つの正解アラインメントではなく、有効な経路を合計すること。",
+                "alt": "CTC の有効経路の実行結果図：4 frame の候補経路が blank 削除と重複統合を通り、15 本の有効経路が target text「私 好き」へ折りたたまれる。",
+            },
+        },
+    },
 ]
 
 for experiment_group in EXPERIMENT_RESULT_GROUPS:

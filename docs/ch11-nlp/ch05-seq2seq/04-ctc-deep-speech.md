@@ -174,6 +174,12 @@ number of valid paths: 15
 
 The key result is not the exact list order, but the count and the idea: many frame-level paths can collapse into the same transcript.
 
+![CTC valid paths collapse result map](/img/course/ch11-ctc-valid-paths-collapse-result-map-en.webp)
+
+:::tip Reading the CTC path count
+The `15` is not a score. It is the number of different 4-frame paths that collapse to the same target, so CTC can train without a single hand-labeled frame boundary.
+:::
+
 When beginners first see CTC, the most important realization is:
 
 - The model is allowed to be uncertain about exact frame boundaries
