@@ -180,9 +180,15 @@ print(search_and_summarize("返金"))
 期待される出力：
 
 ```text
-{'keyword': '返金', 'raw': {'source': 'tool', 'value': '返金には 7 日以内で、学習進捗が 20% 未満であることが必要です。'}, 'summary': '要約：返金には 7 日以内で、学習進捗が ...'}
-{'keyword': '返金', 'raw': {'source': 'cache', 'value': '返金には 7 日以内で、学習進捗が 20% 未満であることが必要です。'}, 'summary': '要約：返金には 7 日以内で、学習進捗が ...'}
+{'keyword': '返金', 'raw': {'source': 'tool', 'value': '返金は7日以内かつ学習進捗が20%未満である必要があります。'}, 'summary': '要約：返金は7日以内かつ学習進捗が20%未...'}
+{'keyword': '返金', 'raw': {'source': 'cache', 'value': '返金は7日以内かつ学習進捗が20%未満である必要があります。'}, 'summary': '要約：返金は7日以内かつ学習進捗が20%未...'}
 ```
+
+![高度な tool pattern の実行結果図](/img/course/ch09-advanced-tool-patterns-output-map-ja.webp)
+
+:::tip source を先に見る
+1回目の同じ query は tool から返り、2回目は cache から返ります。後半の例では、いつ batch 化し、いつ「内部資料 + 外部資料」を安定した workflow にまとめるかを見ます。
+:::
 
 ### このコードで一番学ぶべきことは？
 
@@ -354,7 +360,7 @@ print(retrieve_teaching_materials("割引の応用問題"))
 期待される出力：
 
 ```text
-[{'source': 'internal', 'text': '内部資料：割引の応用問題 の要点と例題'}, {'source': 'external', 'text': '外部資料：割引の応用問題 の補足説明'}]
+[{'source': 'internal', 'text': '内部資料：割引の応用問題 の知識点と例題'}, {'source': 'external', 'text': '外部資料：割引の応用問題 の補足説明'}]
 ```
 
 この例の大事な点は、コードがどれだけ複雑かではありません。  

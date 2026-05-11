@@ -13946,6 +13946,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-advanced-tool-patterns-output-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch03-tools/06-advanced-patterns.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/06-advanced-patterns.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/06-advanced-patterns.md",
+        },
+        "scene": "A runnable-result teaching visual for the advanced Agent tool patterns lesson. It must explain exact outputs from the code, not just list pattern names. Show three practical result stations: cache wrapper, batch tool, and composite teaching-material retrieval. Cache station: first call to search_and_summarize uses raw source='tool', second identical call uses source='cache'. Batch station: one get_order_status_batch call receives A001, A002, A009 and returns exactly three statuses. Composite station: retrieve_teaching_materials calls retrieve_internal_docs and retrieve_external_docs, then merge_materials returns two source cards. The teaching point is wrap, enhance, and compose tools into a reusable capability layer. Do not draw a generic decorator poster, do not show dense terminal screenshots, do not invent retry errors, do not add extra tools, metrics, orders, topics, or fake logs.",
+        "chapter_context": "The image is inserted after the expected output of the first composable wrapper example in the advanced tool patterns lesson. The page then explains why caching works for read-only tools, why Search + Summarize is a composite tool, why batch APIs reduce overhead, and why courseware generation should package stable workflows such as retrieve_teaching_materials.",
+        "shared_layout": "Vertical 9:16. Use the same practical dark lab notebook style across zh/en/ja. Top title and subtitle. Upper third: cache wrapper station with two identical refund queries entering search_docs; first lane shows source=tool and summary, second lane shows source=cache and the same summary. Middle third: batch station with three order chips entering one batch call and one result board with exactly A001, A002, A009. Lower third: composite workflow station with internal docs plus external docs flowing into merge_materials and final teaching material pack. Bottom strip: wrap -> enhance -> compose. Keep station order, colors, route layout, values, and visual structure identical across languages. Use concrete workbench objects, call arrows, cache drawer, batch tray, and merged evidence pack; avoid SVG-style white rounded boxes, pure flowchart posters, dense tables, and tiny labels.",
+        "variants": {
+            "zh": {
+                "title": "高级工具模式运行结果怎么看",
+                "subtitle": "先包装，再增强，再把固定流程封成可复用能力。",
+                "items": [
+                    ("cache 第一次", "退款查询 -> source=tool。"),
+                    ("cache 第二次", "同样查询 -> source=cache。"),
+                    ("summary", "总结：退款需满足 7 天内且学习进度低于 ..."),
+                    ("batch", "A001 未发货；A002 已发货；A009 未知订单。"),
+                    ("composite", "内部资料 + 外部资料 -> merge_materials。"),
+                    ("封装价值", "Agent 少管细节，系统更稳、更易测。"),
+                ],
+                "footer": "高级工具模式不是炫技，而是把反复出现的调用路径固化。",
+                "alt": "高级工具模式运行结果图：第一次退款查询来自 tool，第二次来自 cache，批量订单一次返回三条状态，复合工具把内部和外部资料合并成教材材料包。",
+            },
+            "en": {
+                "title": "Reading Advanced Tool Pattern Results",
+                "subtitle": "Wrap first, enhance the call, then package stable workflows.",
+                "items": [
+                    ("cache first call", "refund query -> source=tool."),
+                    ("cache second call", "same query -> source=cache."),
+                    ("summary", "Summary: Refunds require be..."),
+                    ("batch", "A001 Not shipped; A002 Shipped; A009 Unknown order."),
+                    ("composite", "internal docs + external docs -> merge_materials."),
+                    ("why package", "The Agent handles less detail; the system is steadier and easier to test."),
+                ],
+                "footer": "Advanced tool patterns solidify repeated call paths; they are not decoration.",
+                "alt": "Advanced tool pattern result map: first refund query comes from tool, second from cache, one batch order call returns three statuses, and a composite tool merges internal and external materials into a teaching pack.",
+            },
+            "ja": {
+                "title": "高度な tool pattern の結果を読む",
+                "subtitle": "まず包み、呼び出しを強化し、固定フローを再利用できる能力にする。",
+                "items": [
+                    ("cache 1回目", "返金 query -> source=tool。"),
+                    ("cache 2回目", "同じ query -> source=cache。"),
+                    ("summary", "要約：返金は7日以内かつ学習進捗が20%未..."),
+                    ("batch", "A001 未発送；A002 発送済み；A009 不明な注文。"),
+                    ("composite", "内部資料 + 外部資料 -> merge_materials。"),
+                    ("まとめる価値", "Agent が細部を抱えず、安定してテストしやすい。"),
+                ],
+                "footer": "高度な tool pattern は飾りではなく、繰り返す呼び出し経路を固めること。",
+                "alt": "高度な tool pattern の実行結果図：1回目の返金 query は tool から、2回目は cache から返り、batch 注文呼び出しが3件の状態を返し、複合 tool が内部資料と外部資料を教材パックにまとめる。",
+            },
+        },
+    },
+    {
         "slug": "ch12-vlm-image-text-retrieval-ranking-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
@@ -16063,6 +16118,114 @@ Critical accuracy rules:
 - The only deadline policy is "7 日以内"; the decision rule is "progress < 0.2".
 - Do NOT add extra tools, extra users, extra numeric results, fake logs, tiny background text, Chinese text, English explanatory sentences, watermark, or brand logos.
 Visible footer exactly: "tool 層は登録、dispatch、検証、orchestration を同じ約束でそろえる。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-advanced-tool-patterns-output-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "高级工具模式运行结果怎么看"
+Visible subtitle exactly: "先包装，再增强，再把固定流程封成可复用能力。"
+
+Use a practical dark lab notebook / engineering workbench style. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Upper station "cache wrapper": two identical refund query cards enter search_docs.
+   - First call result must show: source=tool
+   - Second call result must show: source=cache
+   - Show summary exactly: "总结：退款需满足 7 天内且学习进度低于 ..."
+   - Show the policy text only as: "退款需满足 7 天内且学习进度低于 20%。"
+2. Middle station "batch tool": one get_order_status_batch call receives exactly A001, A002, A009.
+   - Result board must show exactly: A001 未发货; A002 已发货; A009 未知订单
+3. Lower station "composite tool": retrieve_internal_docs + retrieve_external_docs flow into merge_materials.
+   - Final pack must show exactly two source tags: internal and external
+   - Topic may be "折扣应用题"
+4. Bottom strip exactly: "wrap -> enhance -> compose"
+
+Required teaching labels and short notes, all in Simplified Chinese except code/tool names:
+- "cache 第一次" near the first call; note "退款查询 -> source=tool。"
+- "cache 第二次" near the second call; note "同样查询 -> source=cache。"
+- "summary" near the summary output; note "总结：退款需满足 7 天内且学习进度低于 ..."
+- "batch" near the order tray; note "A001 未发货；A002 已发货；A009 未知订单。"
+- "composite" near the merge station; note "内部资料 + 外部资料 -> merge_materials。"
+- "封装价值" near the final callout; note "Agent 少管细节，系统更稳、更易测。"
+
+Critical accuracy rules:
+- Do NOT invent retry failures, metrics, logs, extra orders, extra topics, extra tools, or extra numeric values.
+- The Chinese phrase must be exactly "退款查询" wherever that concept appears. Never write "退装查询", "退欵查询", "退货查询", or any other near-looking typo.
+- Use clean printed Chinese for labels, not rough handwritten glyphs that make characters ambiguous.
+- Do NOT write English explanatory sentences except code names and standard terms such as Agent, cache, batch, composite, source, tool.
+- Do NOT show a terminal screenshot, dense code, tiny background text, watermark, brand logos, or Japanese text.
+Visible footer exactly: "高级工具模式不是炫技，而是把反复出现的调用路径固化。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-advanced-tool-patterns-output-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading Advanced Tool Pattern Results"
+Visible subtitle exactly: "Wrap first, enhance the call, then package stable workflows."
+
+Use a practical dark lab notebook / engineering workbench style. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Upper station "cache wrapper": two identical refund query cards enter search_docs.
+   - First call result must show: source=tool
+   - Second call result must show: source=cache
+   - Show summary exactly: "Summary: Refunds require be..."
+   - Show the policy text only as: "Refunds require being within 7 days and having a learning progress below 20%."
+2. Middle station "batch tool": one get_order_status_batch call receives exactly A001, A002, A009.
+   - Result board must show exactly: A001 Not shipped; A002 Shipped; A009 Unknown order
+3. Lower station "composite tool": retrieve_internal_docs + retrieve_external_docs flow into merge_materials.
+   - Final pack must show exactly two source tags: internal and external
+   - Topic may be "discount word problems"
+4. Bottom strip exactly: "wrap -> enhance -> compose"
+
+Required teaching labels and short notes:
+- "cache first call" near the first call; note "refund query -> source=tool."
+- "cache second call" near the second call; note "same query -> source=cache."
+- "summary" near the summary output; note "Summary: Refunds require be..."
+- "batch" near the order tray; note "A001 Not shipped; A002 Shipped; A009 Unknown order."
+- "composite" near the merge station; note "internal docs + external docs -> merge_materials."
+- "why package" near the final callout; note "The Agent handles less detail; the system is steadier and easier to test."
+
+Critical accuracy rules:
+- Do NOT invent retry failures, metrics, logs, extra orders, extra topics, extra tools, or extra numeric values.
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "Advanced tool patterns solidify repeated call paths; they are not decoration."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-advanced-tool-patterns-output-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "高度な tool pattern の結果を読む"
+Visible subtitle exactly: "まず包み、呼び出しを強化し、固定フローを再利用できる能力にする。"
+
+Use a practical dark lab notebook / engineering workbench style. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Upper station "cache wrapper": two identical refund query cards enter search_docs.
+   - First call result must show: source=tool
+   - Second call result must show: source=cache
+   - Show summary exactly: "要約：返金は7日以内かつ学習進捗が20%未..."
+   - Show the policy text only as: "返金は7日以内かつ学習進捗が20%未満である必要があります。"
+2. Middle station "batch tool": one get_order_status_batch call receives exactly A001, A002, A009.
+   - Result board must show exactly: A001 未発送; A002 発送済み; A009 不明な注文
+3. Lower station "composite tool": retrieve_internal_docs + retrieve_external_docs flow into merge_materials.
+   - Final pack must show exactly two source tags: internal and external
+   - Topic may be "割引の応用問題"
+4. Bottom strip exactly: "wrap -> enhance -> compose"
+
+Required teaching labels and short notes, in natural Japanese except code/tool names:
+- "cache 1回目" near the first call; note "返金 query -> source=tool。"
+- "cache 2回目" near the second call; note "同じ query -> source=cache。"
+- "summary" near the summary output; note "要約：返金は7日以内かつ学習進捗が20%未..."
+- "batch" near the order tray; note "A001 未発送；A002 発送済み；A009 不明な注文。"
+- "composite" near the merge station; note "内部資料 + 外部資料 -> merge_materials。"
+- "まとめる価値" near the final callout; note "Agent が細部を抱えず、安定してテストしやすい。"
+
+Critical accuracy rules:
+- Do NOT invent retry failures, metrics, logs, extra orders, extra topics, extra tools, or extra numeric values.
+- Do NOT include Chinese text, English explanatory sentences except code names and standard terms, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "高度な tool pattern は飾りではなく、繰り返す呼び出し経路を固めること。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """

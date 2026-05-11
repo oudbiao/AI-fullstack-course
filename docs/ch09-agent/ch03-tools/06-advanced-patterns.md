@@ -184,6 +184,12 @@ Expected output:
 {'keyword': 'refund', 'raw': {'source': 'cache', 'value': 'Refunds require being within 7 days and having a learning progress below 20%.'}, 'summary': 'Summary: Refunds require be...'}
 ```
 
+![Advanced tool pattern result map](/img/course/ch09-advanced-tool-patterns-output-map-en.webp)
+
+:::tip Read the source field first
+The first repeated query reaches the tool, the second comes from cache, and later examples show when to batch calls or package a stable internal-plus-external retrieval workflow.
+:::
+
 ### What Is the Most Important Lesson in This Code?
 
 It shows that the tool layer is not just the “tool itself.”

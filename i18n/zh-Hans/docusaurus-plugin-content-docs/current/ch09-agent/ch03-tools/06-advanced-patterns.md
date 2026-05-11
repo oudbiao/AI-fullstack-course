@@ -180,9 +180,15 @@ print(search_and_summarize("退款"))
 预期输出：
 
 ```text
-{'keyword': '退款', 'raw': {'source': 'tool', 'value': '退款需要在 7 天内且学习进度低于 20%。'}, 'summary': '总结：退款需要在 7 天内且学习进度低于 ...'}
-{'keyword': '退款', 'raw': {'source': 'cache', 'value': '退款需要在 7 天内且学习进度低于 20%。'}, 'summary': '总结：退款需要在 7 天内且学习进度低于 ...'}
+{'keyword': '退款', 'raw': {'source': 'tool', 'value': '退款需满足 7 天内且学习进度低于 20%。'}, 'summary': '总结：退款需满足 7 天内且学习进度低于 ...'}
+{'keyword': '退款', 'raw': {'source': 'cache', 'value': '退款需满足 7 天内且学习进度低于 20%。'}, 'summary': '总结：退款需满足 7 天内且学习进度低于 ...'}
 ```
+
+![高级工具模式运行结果图](/img/course/ch09-advanced-tool-patterns-output-map.webp)
+
+:::tip 先看 source 字段
+第一次重复查询来自 tool，第二次来自 cache；后面的例子继续说明什么时候该批量调用，什么时候该把“内部资料 + 外部资料”封成稳定流程。
+:::
 
 ### 这段代码最值得学的是什么？
 
@@ -354,7 +360,7 @@ print(retrieve_teaching_materials("折扣应用题"))
 预期输出：
 
 ```text
-[{'source': 'internal', 'text': '内部资料：折扣应用题 的重点与例题'}, {'source': 'external', 'text': '外部资料：折扣应用题 的补充说明'}]
+[{'source': 'internal', 'text': '内部资料：折扣应用题 的知识点和例题'}, {'source': 'external', 'text': '外部资料：折扣应用题 的补充说明'}]
 ```
 
 这个示例最重要的价值不是代码多复杂，
