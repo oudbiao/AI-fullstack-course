@@ -116,6 +116,14 @@ Expected output starts like this:
 
 Operation tip: change `make_todo` to a non-whitelisted tool name such as `send_email`. The script should block it. This is the smallest version of a safety boundary.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can run one trace and explain each goal, action, input, observation, and result. |
+| Project-ready | You can define tool schemas, block non-whitelisted tools, set max steps, and save failed traces. |
+| Deeper check | You can decide when a workflow is safer than an Agent, and where human approval belongs for risky actions. |
+
 ## Choose Agent, Workflow, RAG, Or Function Calling
 
 ![Agent boundary map](/img/course/ch09-agent-boundary-map-en.webp)

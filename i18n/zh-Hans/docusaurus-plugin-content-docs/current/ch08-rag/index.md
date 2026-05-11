@@ -109,6 +109,14 @@ answer: Use a fixed evaluation set so every RAG change can be compared against t
 
 操作提示：新增一段文档、提出一个新问题，并在看最终答案前先打印 top-k 片段。如果证据错了，答案就不能信。
 
+## 深度阶梯
+
+| 层级 | 你能证明什么 |
+|---|---|
+| 最低通过 | 能为一个问题打印 chunks、top-k 分数、答案和引用。 |
+| 项目可用 | 能加入 metadata，在检索为空时返回无法回答，并用固定评估集比较改动。 |
+| 深度检查 | 能区分 document、chunking、retrieval、reranking、generation、citation、latency 和 cost 失败。 |
+
 ## 调试回答不好的 RAG
 
 ![RAG 调试阶梯](/img/course/ch08-rag-debug-ladder.webp)

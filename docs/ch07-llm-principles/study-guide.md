@@ -32,6 +32,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) |
 | `README.md` | How to run, what passed, what failed, what to try next |
 
+## Quality Gates
+
+| Gate | Pass condition |
+|---|---|
+| Prompt comparison | Same cases, one changed variable, saved outputs and scores. |
+| Structured output | Parser rejects missing fields or wrong types. |
+| Failure analysis | Each failure has a likely cause: instruction, input, schema, missing knowledge, or safety. |
+| Method choice | Decision table explains why Prompt, RAG, fine-tuning, tools, or Agent comes first. |
+
 ## Exit Questions
 
 - Can you explain token, embedding, attention, context window, pretraining, Prompt, fine-tuning, and alignment without copying definitions?

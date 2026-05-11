@@ -109,6 +109,14 @@ answer: Use a fixed evaluation set so every RAG change can be compared against t
 
 Operation tip: add one new document, ask one new question, and print the top-k chunks before reading the final answer. If the evidence is wrong, the answer cannot be trusted.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can print chunks, top-k scores, answer, and citation for one question. |
+| Project-ready | You can add metadata, handle empty retrieval with a no-answer response, and compare changes on a fixed eval set. |
+| Deeper check | You can separate document, chunking, retrieval, reranking, generation, citation, latency, and cost failures. |
+
 ## Debug Bad RAG Answers
 
 ![RAG debugging ladder](/img/course/ch08-rag-debug-ladder-en.webp)

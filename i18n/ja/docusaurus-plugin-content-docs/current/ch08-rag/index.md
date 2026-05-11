@@ -109,6 +109,14 @@ answer: Use a fixed evaluation set so every RAG change can be compared against t
 
 操作メモ: 文書を1つ追加し、新しい質問を1つ投げ、最終回答を見る前に top-k チャンクを表示してください。証拠が間違っていれば、回答は信用できません。
 
+## 深さの段階
+
+| 段階 | 証明できること |
+|---|---|
+| 最低合格 | 1つの質問について、chunks、top-k scores、answer、citation を表示できる。 |
+| 実務準備 | metadata を追加し、検索結果が空なら回答不能を返し、固定評価セットで変更を比較できる。 |
+| 深い確認 | document、chunking、retrieval、reranking、generation、citation、latency、cost の失敗を分けられる。 |
+
 ## 悪い RAG 回答をデバッグする
 
 ![RAG デバッグ階段](/img/course/ch08-rag-debug-ladder-ja.webp)

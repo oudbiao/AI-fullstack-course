@@ -32,6 +32,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `eval_tasks.csv` | 3-5 fixed tasks with expected outcome and success criteria |
 | `README.md` | run command, trace example, safety example, evaluation result, limitation |
 
+## Quality Gates
+
+| Gate | Pass condition |
+|---|---|
+| Tool schema | Each tool has purpose, parameters, return value, errors, and risk level. |
+| Trace replay | A reviewer can replay why every tool call happened. |
+| Safety boundary | Non-whitelisted or risky actions are blocked or routed to human approval. |
+| Stop control | Max steps and stop conditions prevent loops and cost spikes. |
+
 ## Exit Questions
 
 - Can you explain why an Agent is different from a normal LLM application?

@@ -116,6 +116,14 @@ for item in trace:
 
 操作メモ: `make_todo` をホワイトリスト外の `send_email` などに変えてください。スクリプトはそれをブロックするはずです。これが安全境界の最小版です。
 
+## 深さの段階
+
+| 段階 | 証明できること |
+|---|---|
+| 最低合格 | 1つの trace を実行し、各 goal、action、input、observation、result を説明できる。 |
+| 実務準備 | tool schema を定義し、ホワイトリスト外のツールをブロックし、最大ステップを設定し、失敗 trace を保存できる。 |
+| 深い確認 | ワークフローの方が Agent より安全な場面と、危険な action に人間承認を置く場所を判断できる。 |
+
 ## Agent、ワークフロー、RAG、Function Calling の選び方
 
 ![Agent 境界選択図](/img/course/ch09-agent-boundary-map-ja.webp)

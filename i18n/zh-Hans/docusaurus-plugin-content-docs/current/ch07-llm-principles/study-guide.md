@@ -32,6 +32,15 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 | `llm_stage_workshop_output.txt` | [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) 的输出 |
 | `README.md` | 如何运行、哪些通过、哪些失败、下一步怎么试 |
 
+## 质量闸门
+
+| 闸门 | 通过条件 |
+|---|---|
+| Prompt 对比 | 同一批样本、只改一个变量、保存输出和分数。 |
+| 结构化输出 | 解析器会拒绝缺字段或类型错误。 |
+| 失败分析 | 每个失败都有可能原因：指令、输入、schema、缺少知识或安全边界。 |
+| 方法选择 | 决策表能解释为什么先用 Prompt、RAG、微调、工具或 Agent。 |
+
 ## 离章问题
 
 - 你能不照抄定义，解释 token、embedding、attention、上下文窗口、预训练、Prompt、微调和对齐吗？

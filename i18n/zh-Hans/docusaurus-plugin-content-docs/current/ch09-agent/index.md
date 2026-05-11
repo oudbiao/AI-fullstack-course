@@ -116,6 +116,14 @@ for item in trace:
 
 操作提示：把 `make_todo` 改成白名单外工具名，比如 `send_email`。脚本应该拦截它。这就是安全边界的最小版本。
 
+## 深度阶梯
+
+| 层级 | 你能证明什么 |
+|---|---|
+| 最低通过 | 能运行一条 trace，并解释每个 goal、action、input、observation 和 result。 |
+| 项目可用 | 能定义工具 schema、拦截白名单外工具、设置最大步数，并保存失败 trace。 |
+| 深度检查 | 能判断什么时候工作流比 Agent 更安全，以及高风险动作应该在哪里加入人工确认。 |
+
 ## 选择 Agent、工作流、RAG 还是 Function Calling
 
 ![Agent 边界选择图](/img/course/ch09-agent-boundary-map.webp)

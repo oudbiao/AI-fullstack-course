@@ -33,6 +33,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `rag_app_workshop_output.txt` | output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) |
 | `README.md` | run command, sample question, cited answer, evaluation result, next fix |
 
+## Quality Gates
+
+| Gate | Pass condition |
+|---|---|
+| Citation | Every factual answer cites a chunk, source, and version. |
+| Empty retrieval | System refuses to answer when evidence is missing. |
+| Regression eval | Same questions run before and after each chunking, retrieval, reranking, or prompt change. |
+| Operations | Logs include query, top-k, prompt version, latency, token cost, and failure label. |
+
 ## Exit Questions
 
 - Can you explain why RAG is different from asking a longer Prompt?

@@ -33,6 +33,15 @@ keywords: [RAG チェックリスト, LLM アプリチェックリスト, ベク
 | `rag_app_workshop_output.txt` | [8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./ch05-projects/05-stage-hands-on-workshop.md) の出力 |
 | `README.md` | 実行コマンド、例の質問、引用付き回答、評価結果、次の修正 |
 
+## 品質ゲート
+
+| ゲート | 合格条件 |
+|---|---|
+| 引用 | すべての事実回答が chunk、source、version を引用する。 |
+| 空検索 | 証拠がないとき、システムは回答を拒否する。 |
+| 回帰評価 | chunking、retrieval、reranking、Prompt の変更前後で同じ質問を実行する。 |
+| 運用 | ログに query、top-k、Prompt 版、latency、token cost、失敗ラベルがある。 |
+
 ## 章を出る前の質問
 
 - RAG は「長い Prompt を書く」ことと何が違うか説明できますか？

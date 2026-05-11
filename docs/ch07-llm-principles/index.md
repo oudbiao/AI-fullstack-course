@@ -111,6 +111,14 @@ json: 2/2 cases passed
 
 Operation tip: add one bad case, one longer case, and one output field requirement. If the score changes, write down which prompt change caused it. That habit matters more than a single good-looking answer.
 
+## Depth Ladder
+
+| Level | What you can prove |
+|---|---|
+| Minimum pass | You can explain the token-to-answer path and run a fixed prompt test without a real API. |
+| Project-ready | You can keep inputs fixed, change one prompt or schema variable at a time, validate structured output, and save failures. |
+| Deeper check | You can justify Prompt vs RAG vs fine-tuning vs tools using evidence, not preference, and name the safety boundary. |
+
 ## Choose Prompt, RAG, Fine-tuning, Or Tools
 
 ![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.webp)
