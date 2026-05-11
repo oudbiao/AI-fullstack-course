@@ -238,6 +238,12 @@ house['is_high_floor'] = (house['floor'] >= 15).astype(int)
 print(house.head())
 ```
 
+![特征构造运行结果图](/img/course/ch05-feature-construction-result-map.webp)
+
+:::tip 把构造后的特征当成证据来读
+真正值得保留的新特征，应该有清楚的业务含义、不泄漏目标、维度可控，并且能在验证结果里看到收益。
+:::
+
 ### 为什么领域知识特征经常最值钱？
 
 因为它往往最接近业务问题真正关心的指标。

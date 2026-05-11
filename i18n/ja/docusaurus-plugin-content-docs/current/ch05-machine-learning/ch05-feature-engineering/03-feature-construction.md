@@ -238,6 +238,12 @@ house['is_high_floor'] = (house['floor'] >= 15).astype(int)
 print(house.head())
 ```
 
+![特徴構築の実行結果図](/img/course/ch05-feature-construction-result-map-ja.webp)
+
+:::tip 構築した特徴を証拠として読む
+残す価値のある特徴は、意味が明確で、漏洩せず、次元数が増えすぎず、検証結果で効果を確認できるものです。
+:::
+
 ### なぜドメイン知識の特徴は価値が高いのか？
 
 それは、ビジネスが本当に見たい指標に最も近いからです。  

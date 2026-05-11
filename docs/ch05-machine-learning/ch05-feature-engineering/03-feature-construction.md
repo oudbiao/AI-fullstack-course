@@ -237,6 +237,12 @@ house['is_high_floor'] = (house['floor'] >= 15).astype(int)
 print(house.head())
 ```
 
+![Feature construction result map](/img/course/ch05-feature-construction-result-map-en.webp)
+
+:::tip Read constructed features as evidence
+A useful constructed feature should have a clear meaning, avoid leakage, keep dimensionality under control, and improve validation results before you keep it.
+:::
+
 ### Why Are Domain-Knowledge Features Often the Most Valuable?
 
 Because they are often closest to the metrics the business really cares about.

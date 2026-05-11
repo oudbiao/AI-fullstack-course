@@ -15049,6 +15049,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch05-feature-construction-result-map",
+        "pages": {
+            "en": "docs/ch05-machine-learning/ch05-feature-engineering/03-feature-construction.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch05-feature-engineering/03-feature-construction.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch05-machine-learning/ch05-feature-engineering/03-feature-construction.md",
+        },
+        "scene": "A feature construction runnable-result teaching visual for section 5.5.4. The image must show how the code transforms raw columns into new model-ready signals, not just a pretty feature-engineering poster. Show four concrete workbench stations in the same order as the lesson: polynomial/interaction, time features, group statistics, and domain features. Use only these exact runnable values where numeric output is shown: raw columns x1,x2 become five polynomial columns x1, x2, x1^2, x1 x2, x2^2; row [2,3] becomes [2,3,4,6,9]; feature count 2 -> 5. Time station shows 2024-01-01 has dayofweek=0, is_weekend=0, quarter=1, day_of_year=1, and 2024-01-06 has is_weekend=1. Group-statistics station uses the tiny city/income example: city A mean=20 with deltas -10, 0, +10; city B mean=10 with deltas -5, +5; row count remains 5 after transform. Domain station shows formula cards only: area_per_room=area/rooms, is_new=(age<=5), is_high_floor=(floor>=15). The teaching point is that useful constructed features should be readable, validated, and checked for leakage or feature explosion. Do not draw a terminal screenshot, full code, a dense table, invented model scores, invented cross-validation numbers, or extra algorithms.",
+        "chapter_context": "The image is inserted after the domain-feature code and before the section explaining why domain-knowledge features are valuable. The page has already shown polynomial features, time extraction, group statistics with transform, and domain-knowledge feature design. Nearby prose warns about feature explosion, asks whether the feature has business meaning, and says a project should show raw-vs-new features and score evidence.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark feature-lab style across zh/en/ja. Top title and subtitle. Upper section shows raw field tiles flowing into four stations. Station 1 shows polynomial/interaction conversion with the exact [2,3] -> [2,3,4,6,9] example and 2 -> 5 feature count. Station 2 shows calendar tiles for Jan 1 and Jan 6 with the exact time features. Station 3 shows two city groups with mean lines and delta arrows; make it visual, not a dense table. Station 4 shows housing-domain formula cards and a model-ready feature tray. Bottom ribbon: meaning check, leakage check, validation check. Keep object positions, station order, values, color rhythm, and reading path identical across languages. All text must be large and attached to objects. Avoid SVG-style white rounded boxes, pure flowcharts, decorative posters, tiny pseudo text, and full tables.",
+        "variants": {
+            "zh": {
+                "title": "特征构造输出怎么读",
+                "subtitle": "把原始字段变成更接近问题本质、可验证的新信号。",
+                "items": [
+                    ("多项式/交互", "[2,3] -> [2,3,4,6,9]；特征数 2 -> 5。"),
+                    ("时间特征", "2024-01-01：dayofweek=0，quarter=1。"),
+                    ("周末标记", "2024-01-06：is_weekend=1。"),
+                    ("分组统计", "A 均值 20，B 均值 10；transform 保持 5 行。"),
+                    ("领域特征", "area_per_room、is_new、is_high_floor。"),
+                    ("保留检查", "有业务含义、不过度爆炸、无泄漏、验证有效。"),
+                ],
+                "footer": "特征构造不是多造列，而是造出模型能学、业务能解释的信号。",
+                "alt": "特征构造运行结果图：多项式把 x1 x2 扩成 5 个特征，时间字段拆成周期，分组统计生成相对位置，领域知识生成房产特征。",
+            },
+            "en": {
+                "title": "Reading Feature Construction Output",
+                "subtitle": "Turn raw fields into new signals that are meaningful and testable.",
+                "items": [
+                    ("polynomial / interaction", "[2,3] -> [2,3,4,6,9]; feature count 2 -> 5."),
+                    ("time features", "2024-01-01: dayofweek=0, quarter=1."),
+                    ("weekend flag", "2024-01-06: is_weekend=1."),
+                    ("group statistics", "A mean 20, B mean 10; transform keeps 5 rows."),
+                    ("domain features", "area_per_room, is_new, is_high_floor."),
+                    ("keep check", "Meaningful, not exploding, no leakage, validated."),
+                ],
+                "footer": "Feature construction is not more columns; it is learnable and explainable signal.",
+                "alt": "Feature construction result map: polynomial features expand x1 x2 into five features, time fields become cycles, group statistics create relative position, and domain knowledge creates housing features.",
+            },
+            "ja": {
+                "title": "特徴構築の出力を読む",
+                "subtitle": "元の field を、意味があり検証できる新しい signal に変える。",
+                "items": [
+                    ("多項式/交互", "[2,3] -> [2,3,4,6,9]；特徴数 2 -> 5。"),
+                    ("時間特徴", "2024-01-01：dayofweek=0、quarter=1。"),
+                    ("週末フラグ", "2024-01-06：is_weekend=1。"),
+                    ("グループ統計", "A 平均 20、B 平均 10；transform は 5 行を保つ。"),
+                    ("ドメイン特徴", "area_per_room、is_new、is_high_floor。"),
+                    ("残す判断", "意味がある、増えすぎない、漏洩なし、検証済み。"),
+                ],
+                "footer": "特徴構築は列を増やす作業ではなく、学習でき説明できる signal を作ること。",
+                "alt": "特徴構築の実行結果図：多項式特徴が x1 x2 を5特徴に広げ、時間フィールドを周期に分け、グループ統計で相対位置を作り、ドメイン知識で住宅特徴を作る。",
+            },
+        },
+    },
+    {
         "slug": "ch06-neuron-xor-run-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
@@ -16779,6 +16834,92 @@ Critical accuracy rules:
 - Explanatory text must be natural Japanese. Allowed English tokens only: age, income, amount, city, gender, target, q1, q3, upper, X_train, X_test, fit, transform, training data, test, median imputer, StandardScaler, most_frequent, OneHotEncoder, handle_unknown='ignore', ColumnTransformer, Pipeline, LogisticRegression.
 - Do NOT write English explanatory sentences, Chinese text, invented scores, invented model accuracy, extra columns, extra algorithms, fake rows, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "前処理の要点は、学習する各 step が training data だけを見ること。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch05-feature-construction-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative feature poster.
+
+Visible title exactly: "特征构造输出怎么读"
+Visible subtitle exactly: "把原始字段变成更接近问题本质、可验证的新信号。"
+
+Use a polished dark feature-lab workbench style with crisp printed text. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Top input tray: raw field tiles x1, x2, date, city, income, area, rooms, floor, age.
+2. Station 1 "多项式/交互": show x1,x2 -> x1, x2, x1^2, x1 x2, x2^2; row [2,3] -> [2,3,4,6,9]; feature count 2 -> 5.
+3. Station 2 "时间特征": show calendar 2024-01-01 -> year=2024, month=1, day=1, dayofweek=0, quarter=1, day_of_year=1, is_weekend=0; show calendar 2024-01-06 -> is_weekend=1.
+4. Station 3 "分组统计": show city A income 10,20,30 with mean=20 and deltas -10,0,+10; show city B income 5,15 with mean=10 and deltas -5,+5; visible note "transform 保持 5 行".
+5. Station 4 "领域特征": show housing cards area/rooms -> area_per_room; age<=5 -> is_new; floor>=15 -> is_high_floor.
+6. Bottom ribbon exactly: "业务含义 -> 防泄漏 -> 控制维度 -> 交叉验证"
+
+Required teaching labels and short notes, all in Simplified Chinese except exact code/API names:
+- "多项式/交互" with "[2,3] 变成 [2,3,4,6,9]。"
+- "时间特征" with "把日期拆成周期和位置。"
+- "分组统计" with "看同组中的相对位置。"
+- "领域特征" with "把业务规则变成模型输入。"
+- "保留检查" with "有意义、不过度爆炸、无泄漏、验证有效。"
+
+Critical accuracy rules:
+- Explanatory text must be Simplified Chinese. Allowed English/code tokens only: x1, x2, date, city, income, area, rooms, floor, age, dayofweek, quarter, day_of_year, is_weekend, transform, area_per_room, is_new, is_high_floor.
+- Do NOT write English explanatory sentences, Japanese text, invented model scores, invented CV metrics, extra algorithms, terminal screenshots, dense code, full tables, tiny background text, watermark, or brand logos.
+Visible footer exactly: "特征构造不是多造列，而是造出模型能学、业务能解释的信号。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch05-feature-construction-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative feature poster.
+
+Visible title exactly: "Reading Feature Construction Output"
+Visible subtitle exactly: "Turn raw fields into new signals that are meaningful and testable."
+
+Use a polished dark feature-lab workbench style with crisp printed text. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Top input tray: raw field tiles x1, x2, date, city, income, area, rooms, floor, age.
+2. Station 1 "polynomial / interaction": show x1,x2 -> x1, x2, x1^2, x1 x2, x2^2; row [2,3] -> [2,3,4,6,9]; feature count 2 -> 5.
+3. Station 2 "time features": show calendar 2024-01-01 -> year=2024, month=1, day=1, dayofweek=0, quarter=1, day_of_year=1, is_weekend=0; show calendar 2024-01-06 -> is_weekend=1.
+4. Station 3 "group statistics": show city A income 10,20,30 with mean=20 and deltas -10,0,+10; show city B income 5,15 with mean=10 and deltas -5,+5; visible note "transform keeps 5 rows".
+5. Station 4 "domain features": show housing cards area/rooms -> area_per_room; age<=5 -> is_new; floor>=15 -> is_high_floor.
+6. Bottom ribbon exactly: "business meaning -> leakage check -> dimension control -> cross-validation"
+
+Required teaching labels and short notes:
+- "polynomial / interaction" with "[2,3] becomes [2,3,4,6,9]."
+- "time features" with "Break date into cycle and position."
+- "group statistics" with "Read relative position inside the same group."
+- "domain features" with "Turn business rules into model input."
+- "keep check" with "Meaningful, not exploding, no leakage, validated."
+
+Critical accuracy rules:
+- Do NOT include Chinese text, Japanese text, invented model scores, invented CV metrics, extra algorithms, terminal screenshots, dense code, full tables, tiny background text, watermark, or brand logos.
+Visible footer exactly: "Feature construction is not more columns; it is learnable and explainable signal."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch05-feature-construction-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative feature poster.
+
+Visible title exactly: "特徴構築の出力を読む"
+Visible subtitle exactly: "元の field を、意味があり検証できる新しい signal に変える。"
+
+Use a polished dark feature-lab workbench style with crisp printed text. The image must teach the exact runnable examples from the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Top input tray: raw field tiles x1, x2, date, city, income, area, rooms, floor, age.
+2. Station 1 "多項式/交互": show x1,x2 -> x1, x2, x1^2, x1 x2, x2^2; row [2,3] -> [2,3,4,6,9]; feature count 2 -> 5.
+3. Station 2 "時間特徴": show calendar 2024-01-01 -> year=2024, month=1, day=1, dayofweek=0, quarter=1, day_of_year=1, is_weekend=0; show calendar 2024-01-06 -> is_weekend=1.
+4. Station 3 "グループ統計": show city A income 10,20,30 with mean=20 and deltas -10,0,+10; show city B income 5,15 with mean=10 and deltas -5,+5; visible note "transform は 5 行を保つ".
+5. Station 4 "ドメイン特徴": show housing cards area/rooms -> area_per_room; age<=5 -> is_new; floor>=15 -> is_high_floor.
+6. Bottom ribbon exactly: "業務上の意味 -> 漏洩チェック -> 次元管理 -> 交差検証"
+
+Required teaching labels and short notes, in natural Japanese except exact code tokens:
+- "多項式/交互" with "[2,3] が [2,3,4,6,9] になる。"
+- "時間特徴" with "日付を周期と位置に分ける。"
+- "グループ統計" with "同じグループ内の相対位置を見る。"
+- "ドメイン特徴" with "業務ルールを model input に変える。"
+- "残す判断" with "意味がある、増えすぎない、漏洩なし、検証済み。"
+
+Critical accuracy rules:
+- Explanatory text must be natural Japanese. Allowed English/code tokens only: x1, x2, date, city, income, area, rooms, floor, age, dayofweek, quarter, day_of_year, is_weekend, transform, model input, area_per_room, is_new, is_high_floor.
+- Do NOT write English explanatory sentences, Chinese text, invented model scores, invented CV metrics, extra algorithms, terminal screenshots, dense code, full tables, tiny background text, watermark, or brand logos.
+Visible footer exactly: "特徴構築は列を増やす作業ではなく、学習でき説明できる signal を作ること。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch11-transformers-tokenizer-batch-shape-result-map-en.png": """
