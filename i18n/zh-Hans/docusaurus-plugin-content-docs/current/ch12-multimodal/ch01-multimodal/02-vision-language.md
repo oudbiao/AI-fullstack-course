@@ -181,6 +181,12 @@ for text, text_vec in text_embeddings.items():
 
 如果一个模型学会了好的跨模态对齐，相关图文就会更靠近。
 
+![VLM 图文检索排序结果图](/img/course/ch12-vlm-image-text-retrieval-ranking-result-map.webp)
+
+:::tip 看排序，不是看文件名
+每个文本查询都会变成向量，和所有图片向量计算相似度，然后取 cosine similarity 最高的图片作为结果。如果 top-1 错了，第一件事是检查跨模态对齐。
+:::
+
 ### 一个很适合初学者先记的判断表
 
 | 任务 | VLM 最擅长补哪一块 |
@@ -251,6 +257,12 @@ print(ask_vlm("food_photo", "主题是什么？"))
 像是一个界面截图
 这张图的主题更接近：dessert
 ```
+
+![VQA 图像事实与问题路由结果图](/img/course/ch12-vlm-vqa-feature-question-result-map.webp)
+
+:::tip 把问题类型对到图片事实
+图片记录里有多个事实，但问题决定该取哪一个事实。答错时，常见原因是取错事实，或把问题类型理解错了。
+:::
 
 回答依赖两个输入：图像记录提供视觉事实，用户问题决定应该使用哪一个事实。
 

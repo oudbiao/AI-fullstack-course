@@ -181,6 +181,12 @@ The top result changes with the text query. That is the central idea of image-te
 
 If a model learns good cross-modal alignment, related images and text will be closer to each other.
 
+![VLM image-text retrieval ranking result map](/img/course/ch12-vlm-image-text-retrieval-ranking-result-map-en.webp)
+
+:::tip Read the ranking, not the filename
+Each text query becomes a vector, compares with every image vector, and retrieves the image with the highest cosine similarity. If the top-1 image is wrong, the first suspect is cross-modal alignment.
+:::
+
 ### A beginner-friendly table to remember first
 
 | Task | What VLMs are best at adding |
@@ -251,6 +257,12 @@ Yes, it has text
 It looks like a UI screenshot
 The topic of this image is closer to: dessert
 ```
+
+![VQA feature-question result map](/img/course/ch12-vlm-vqa-feature-question-result-map-en.webp)
+
+:::tip Match question type to image facts
+The image record stores several facts, but the question decides which one matters. A wrong answer often means the system picked the wrong fact or misunderstood the question type.
+:::
 
 The answer depends on both inputs: the image record provides visual facts, while the user question decides which fact should be used.
 

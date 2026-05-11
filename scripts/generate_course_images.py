@@ -13891,6 +13891,116 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-vlm-image-text-retrieval-ranking-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+        },
+        "scene": "A runnable-result teaching visual for the Vision-Language Model image-text retrieval example. It must show how three text queries compare against exactly three image candidates in one aligned vector space, then sort by cosine similarity. Show only these exact rankings and scores: a small cat -> cat_photo 0.9982, cake_photo 0.7041, car_photo 0.1379; a vehicle -> car_photo 0.9944, cake_photo 0.2066, cat_photo 0.1129; a sweet dessert -> cake_photo 0.9978, cat_photo 0.6093, car_photo 0.2937. The teaching point is top-1 retrieval by sorted similarity, not filename matching. Do not draw a generic VLM architecture poster, do not add extra scores or candidates, do not use a terminal screenshot, do not add fake UI, and do not add any VQA content.",
+        "chapter_context": "The image is inserted after the expected output of the minimal image-text retrieval example. Nearby code defines three image embeddings and three text embeddings, computes cosine_similarity, sorts results descending, and prints the score table. The surrounding prose says the top result changes with the text query because both sides are compared in one aligned vector space.",
+        "shared_layout": "Vertical 9:16. Same clean dark lab-board style across zh/en/ja. Top title and subtitle. Main area has exactly three query lanes. Each lane begins with a text-query card, flows into a shared vector-space mini-map, then into a ranked list of exactly three image candidates with large score bars. Use the same icons and colors: cat green, car blue, cake purple/orange. Highlight top-1 with a bright ribbon. Bottom has one diagnosis strip: similarity sorting chooses the top image; wrong top-1 means alignment is poor. Keep lane order, candidate order, score values, bar lengths, colors, and reading path identical across languages. Use large readable text only; no background pseudo-text.",
+        "variants": {
+            "zh": {
+                "title": "VLM 图文检索排序怎么看",
+                "subtitle": "文本和图片进入同一向量空间，再按相似度从高到低排序。",
+                "items": [
+                    ("a small cat", "cat_photo 0.9982 排第一。"),
+                    ("a vehicle", "car_photo 0.9944 排第一。"),
+                    ("a sweet dessert", "cake_photo 0.9978 排第一。"),
+                    ("排序规则", "cosine similarity 越大越靠前。"),
+                    ("top-1", "每个查询取最高分图片作为检索结果。"),
+                    ("排错线索", "如果 top-1 错了，先检查跨模态对齐。"),
+                ],
+                "footer": "图文检索不是看文件名，而是看同一空间里的相似度排序。",
+                "alt": "VLM 图文检索排序结果图：a small cat、a vehicle、a sweet dessert 三个查询分别按 cosine similarity 排序命中 cat_photo、car_photo、cake_photo。",
+            },
+            "en": {
+                "title": "Reading VLM Retrieval Ranking",
+                "subtitle": "Text and images enter one vector space, then sort by similarity.",
+                "items": [
+                    ("a small cat", "cat_photo 0.9982 ranks first."),
+                    ("a vehicle", "car_photo 0.9944 ranks first."),
+                    ("a sweet dessert", "cake_photo 0.9978 ranks first."),
+                    ("ranking rule", "Higher cosine similarity ranks earlier."),
+                    ("top-1", "The highest score becomes the retrieved image."),
+                    ("debug clue", "If top-1 is wrong, inspect cross-modal alignment."),
+                ],
+                "footer": "Image-text retrieval uses similarity ranking in one shared space, not filenames.",
+                "alt": "VLM image-text retrieval ranking result map: a small cat, a vehicle, and a sweet dessert rank image candidates by cosine similarity and retrieve cat_photo, car_photo, and cake_photo.",
+            },
+            "ja": {
+                "title": "VLM 図文検索の順位を読む",
+                "subtitle": "text と image を同じ vector 空間に置き、similarity で並べ替える。",
+                "items": [
+                    ("a small cat", "cat_photo 0.9982 が1位。"),
+                    ("a vehicle", "car_photo 0.9944 が1位。"),
+                    ("a sweet dessert", "cake_photo 0.9978 が1位。"),
+                    ("ranking rule", "cosine similarity が高いほど上位。"),
+                    ("top-1", "最高 score の image が検索結果になる。"),
+                    ("debug clue", "top-1 が違うなら alignment を確認する。"),
+                ],
+                "footer": "図文検索は filename ではなく、共有空間での similarity ranking を見る。",
+                "alt": "VLM の図文検索 ranking 結果図：a small cat、a vehicle、a sweet dessert が cosine similarity で候補画像を並べ、cat_photo、car_photo、cake_photo を取得する。",
+            },
+        },
+    },
+    {
+        "slug": "ch12-vlm-vqa-feature-question-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+        },
+        "scene": "A runnable-result teaching visual for the Vision-Language Model VQA toy example. It must show that answers are selected from image facts according to the user question. Show exactly two image fact cards: screen_error with has_text=True, is_ui=True, topic=error_message; food_photo with has_text=False, is_ui=False, topic=dessert. Show exactly three question-answer lanes from the code: screen_error + Does this image have text? -> Yes, it has text; screen_error + Is it a UI screenshot? -> It looks like a UI screenshot; food_photo + What is the topic? -> The topic of this image is closer to: dessert. Show a small task-type router panel after this: have/has text -> attribute_check; topic/what is -> semantic_qa; look like/looks like -> classification_judgement. The teaching point is that the image record provides facts and the question chooses which fact to use. Do not include image-text retrieval scores, do not invent extra questions or answers, do not use terminal screenshots, do not add fake tiny text, and do not swap semantic_qa with classification_judgement.",
+        "chapter_context": "The image is inserted after the expected output of the visual question answering toy example. Nearby code stores visual facts in image_features, ask_vlm reads one image record and one question, then returns answers based on has_text, is_ui, or topic. The following code classifies question type. The prose says final answers depend on joint reasoning over image plus question.",
+        "shared_layout": "Vertical 9:16. Same clean dark lab-board style across zh/en/ja, matching the retrieval ranking image style. Top title and subtitle. Upper-left section has two large image fact cards: screen_error with three boolean/topic chips, and food_photo with three boolean/topic chips. Main section has three horizontal lanes: image card plus question card, arrow to selected fact chip, arrow to answer card. Each lane has the route tag attribute_check, classification_judgement, or semantic_qa placed correctly. Lower section has a compact router table mapping question wording to route tag. Keep fact cards, route tags, lane order, colors, and reading path identical across languages. Use large readable text only; no background pseudo-text.",
+        "variants": {
+            "zh": {
+                "title": "VQA 输出结果怎么看",
+                "subtitle": "图片提供事实，问题决定取哪一个事实来回答。",
+                "items": [
+                    ("screen_error", "has_text=True, is_ui=True, topic=error_message。"),
+                    ("food_photo", "has_text=False, is_ui=False, topic=dessert。"),
+                    ("有没有文字", "attribute_check -> 有文字。"),
+                    ("是不是界面", "classification_judgement -> 像是一个界面截图。"),
+                    ("主题是什么", "semantic_qa -> 这张图的主题更接近：dessert。"),
+                    ("排错线索", "答错时检查图片事实和问题类型是否对上。"),
+                ],
+                "footer": "VQA 不是只看图，也不是只看问题，而是把两者对齐后取证据。",
+                "alt": "VQA 图像问答结果图：screen_error 和 food_photo 提供视觉事实，三个问题分别路由到 attribute_check、classification_judgement、semantic_qa 并产生答案。",
+            },
+            "en": {
+                "title": "Reading VQA Output",
+                "subtitle": "The image provides facts; the question chooses which fact to use.",
+                "items": [
+                    ("screen_error", "has_text=True, is_ui=True, topic=error_message."),
+                    ("food_photo", "has_text=False, is_ui=False, topic=dessert."),
+                    ("has text?", "attribute_check -> Yes, it has text."),
+                    ("UI screenshot?", "classification_judgement -> It looks like a UI screenshot."),
+                    ("topic?", "semantic_qa -> The topic is closer to: dessert."),
+                    ("debug clue", "When answers are wrong, check image facts and question type."),
+                ],
+                "footer": "VQA is not only seeing the image or reading the question; it aligns both into evidence.",
+                "alt": "VQA visual question answering result map: screen_error and food_photo provide visual facts, three questions route to attribute_check, classification_judgement, and semantic_qa, then produce answers.",
+            },
+            "ja": {
+                "title": "画像QAの出力を読む",
+                "subtitle": "image が事実を持ち、question が使う事実を選ぶ。",
+                "items": [
+                    ("screen_error", "has_text=True, is_ui=True, topic=error_message。"),
+                    ("food_photo", "has_text=False, is_ui=False, topic=dessert。"),
+                    ("文字はありますか", "attribute_check -> 文字があります。"),
+                    ("UIですか", "classification_judgement -> UIのスクリーンショットのようです。"),
+                    ("テーマは何ですか", "semantic_qa -> テーマは dessert に近い。"),
+                    ("debug clue", "答えが違う時は image facts と question type を確認する。"),
+                ],
+                "footer": "画像QAは image だけでも question だけでもなく、両方を evidence として合わせる。",
+                "alt": "画像QAの結果図：screen_error と food_photo が visual facts を持ち、3つの question が attribute_check、classification_judgement、semantic_qa に route されて回答になる。",
+            },
+        },
+    },
+    {
         "slug": "ch12-sd-mode-output-comparison",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md",

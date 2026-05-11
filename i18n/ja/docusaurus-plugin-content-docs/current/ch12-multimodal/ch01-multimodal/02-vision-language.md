@@ -185,6 +185,12 @@ for text, text_vec in text_embeddings.items():
 
 モデルがうまくクロスモーダル整合を学べると、関連する画像と言葉はより近くなります。
 
+![VLM 図文検索 ranking 結果図](/img/course/ch12-vlm-image-text-retrieval-ranking-result-map-ja.webp)
+
+:::tip filename ではなく順位を見る
+各 text query は vector になり、すべての image vector と similarity を計算します。そして cosine similarity が最も高い image を結果にします。top-1 が違うなら、まず cross-modal alignment を確認します。
+:::
+
 ### 初学者がまず覚えるとよい判断表
 
 | タスク | VLM が特に補ってくれる部分 |
@@ -255,6 +261,12 @@ print(ask_vlm("food_photo", "テーマは何ですか？"))
 UIのスクリーンショットのようです
 この画像のテーマは：dessert に近いです
 ```
+
+![画像QAの feature と question の結果図](/img/course/ch12-vlm-vqa-feature-question-result-map-ja.webp)
+
+:::tip question type と image facts を対応させる
+image record には複数の事実がありますが、question が使う事実を決めます。答えが違う時は、違う fact を選んだか、question type を誤解した可能性を疑います。
+:::
 
 答えは 2 つの入力に依存します。画像レコードが視覚的な事実を持ち、ユーザーの質問がどの事実を使うかを決めます。
 
