@@ -312,7 +312,7 @@ passed: 3/3
 
 評価部分はこの図で読みます。`evaluate()` は感覚で回答品質を判定しません。`EVAL_CASES` を 1 件ずつ実行し、`status` と citations を確認して、PASS/FAIL を数えます。`private_block` は citation がなくても PASS です。期待される動きが `blocked_by_permission` だからです。
 
-![RAG ワークショップ evaluate PASS/FAIL フロー図](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-ja.webp)
+![RAG ワークショップ実行結果の証拠図](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-ja.webp)
 
 ## Step 4：パイプラインとしてコードを読む
 

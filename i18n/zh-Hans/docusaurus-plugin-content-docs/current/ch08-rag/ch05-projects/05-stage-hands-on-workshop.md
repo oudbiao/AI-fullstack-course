@@ -312,7 +312,7 @@ passed: 3/3
 
 请用这张图读评估部分。`evaluate()` 不是靠感觉判断答案好坏，而是逐条运行 `EVAL_CASES`，检查 `status`，检查 citations，再统计 PASS/FAIL。注意 `private_block` 没有 citation 也可以 PASS，因为预期行为就是 `blocked_by_permission`。
 
-![RAG 工作坊 evaluate PASS/FAIL 流程图](/img/course/ch08-workshop-evaluation-pass-fail-flow-map.webp)
+![RAG 工作坊运行结果证据图](/img/course/ch08-workshop-evaluation-pass-fail-flow-map.webp)
 
 ## Step 4：像看流水线一样读代码
 

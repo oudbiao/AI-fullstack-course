@@ -312,7 +312,7 @@ If your output matches, you have already completed the minimum Chapter 8 loop: d
 
 Read the evaluation part with this diagram. `evaluate()` does not judge answer quality by feeling; it runs each item in `EVAL_CASES`, checks `status`, checks citations, then counts pass/fail. Notice that `private_block` passes even with no citation because the expected behavior is `blocked_by_permission`.
 
-![RAG workshop evaluation PASS/FAIL flow map](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-en.webp)
+![RAG workshop run evidence map](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-en.webp)
 
 ## Step 4: Read the Code Like a Pipeline
 

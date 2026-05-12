@@ -13954,6 +13954,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch08-workshop-evaluation-pass-fail-flow-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
+        },
+        "scene": "A RAG hands-on workshop run-result evidence map based on the exact expected output of rag_app_workshop.py. The image must help learners understand the real run, not just decorate the evaluation section. Show one concrete evidence chain with four stations: parse and chunk documents, answer with citation, permission/no-evidence checks, and mini evaluation. Use only these exact facts: chunks=4; first_chunk=refund-policy#1 -> Course refund policy; refund answer is answered and cites handbook.md#refund; the answer says refund requests are accepted within 14 days when course completion is less than 20 percent. Critical meaning guard: less than 20 percent means course completion/progress is below 20%; it is NOT refund amount, refund ratio, fee percentage, or money returned. Critical text fidelity guard: copy technical tokens exactly and never localize, romanize, add suffix letters, or add extra punctuation inside them. The exact tokens are chunks=4, refund-policy#1, handbook.md#refund, setup.md#keys, blocked_by_permission, no_evidence, passed=3/3. If a long token does not fit, omit the prefix label and show only the exact status stamp. Show private_question_as_public only if there is enough space; the status must be exactly blocked_by_permission. Show unknown_question only if there is enough space; the status must be exactly no_evidence. Evaluation rows are refund_window PASS with handbook.md#refund, api_key_setup PASS with setup.md#keys, private_block PASS with no citation; passed=3/3. Do not show any FAIL row, 2/3 count, 66.7 percent, invented documents, invented paths, dense terminal screenshots, full code, fake logs, extra metrics, or a generic flowchart.",
+        "chapter_context": "The image appears immediately after the expected output for python3 rag_app_workshop.py and before the prose explaining evaluate(). The page teaches the minimum Chapter 8 loop: documents enter the system, chunks are created, retrieval happens, permission filtering runs, an answer is produced with citation, and evaluation verifies the behavior. The nearby prose emphasizes that private_block passes with no citation because the expected behavior is blocked_by_permission.",
+        "shared_layout": "Vertical 9:16. Use the same polished RAG operations workbench across zh/en/ja: not a corkboard, not a sticker board, not a scrapbook, not sticky-note collage, not taped sticky notes, not pasted labels. Prefer solid instrument panels, glass evidence trays, engraved labels, LED status stamps, source tags, a permission gate, a no-evidence bin, and a final evaluation ledger. Avoid SVG-style white rounded boxes, pure flowcharts, pasted text labels, dense terminal logs, tiny text, or decorative-only scenes. Top title and subtitle. Upper section: documents become 4 chunks, with first_chunk refund-policy#1. Middle section: user refund question connects to answer panel with the facts 14 days and course completion <20%, plus source tag handbook.md#refund; include the meaning guard as a printed inline note on the answer panel, not as a sticky note. Lower-middle section: two diagnostic branches with large status stamps: blocked_by_permission and no_evidence. Bottom section: three-row evaluation ledger with all three PASS and a large passed=3/3 stamp. Keep station order, colors, object positions, values, and reading path identical across languages. Text must be large, clean, and printed directly on the visual objects.",
+        "variants": {
+            "zh": {
+                "title": "RAG 工作坊运行结果怎么看",
+                "subtitle": "把 print 输出读成：chunk、引用回答、权限分支、评估通过。",
+                "items": [
+                    ("解析与切块", "chunks=4；first_chunk=refund-policy#1。"),
+                    ("引用回答", "14 days；课程完成进度 <20%；citation=handbook.md#refund"),
+                    ("权限检查", "blocked_by_permission"),
+                    ("无证据检查", "no_evidence"),
+                    ("评估样例", "refund_window、api_key_setup、private_block 全部 PASS。"),
+                    ("最终结果", "passed=3/3；private_block 没有 citation 也正确。"),
+                ],
+                "footer": "RAG 运行结果要同时看答案、引用、权限和评估，而不是只看一段回复。",
+                "alt": "RAG 工作坊运行结果证据图：chunks=4，退款问题带 handbook.md#refund 引用，private 问题被权限阻断，未知问题返回 no_evidence，三条评估样例 passed=3/3。",
+            },
+            "en": {
+                "title": "Reading the RAG Workshop Run",
+                "subtitle": "Turn print output into chunks, cited answer, safety branches, and evaluation.",
+                "items": [
+                    ("parse and chunk", "chunks=4; first_chunk=refund-policy#1."),
+                    ("cited answer", "14 days; course completion <20%; citation=handbook.md#refund"),
+                    ("permission check", "blocked_by_permission"),
+                    ("no evidence check", "no_evidence"),
+                    ("eval cases", "refund_window, api_key_setup, private_block all PASS."),
+                    ("final result", "passed=3/3; private_block is correct with no citation."),
+                ],
+                "footer": "A RAG run must prove answer, citation, permission behavior, and evaluation together.",
+                "alt": "RAG workshop run evidence map: chunks=4, refund question answers with handbook.md#refund, private question is blocked by permission, unknown question returns no_evidence, and three eval cases pass 3/3.",
+            },
+            "ja": {
+                "title": "RAG ワークショップの実行結果を読む",
+                "subtitle": "print 出力を chunk、引用付き回答、安全分岐、評価として読む。",
+                "items": [
+                    ("解析と chunk", "chunks=4；first_chunk=refund-policy#1。"),
+                    ("引用付き回答", "14 days；受講進捗 <20%；citation=handbook.md#refund"),
+                    ("権限チェック", "blocked_by_permission"),
+                    ("証拠なし", "no_evidence"),
+                    ("評価ケース", "refund_window、api_key_setup、private_block はすべて PASS。"),
+                    ("最終結果", "passed=3/3；private_block は citation なしで正しい。"),
+                ],
+                "footer": "RAG の実行結果は、回答、引用、権限、評価をまとめて確認する。",
+                "alt": "RAG ワークショップ実行結果の証拠図：chunks=4、返金質問は handbook.md#refund を引用し、private 質問は権限でブロック、未知質問は no_evidence、3つの評価ケースが passed=3/3。",
+            },
+        },
+    },
+    {
         "slug": "ch07-structured-output-contract-validation-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch05-prompt/03-structured-output.md",
