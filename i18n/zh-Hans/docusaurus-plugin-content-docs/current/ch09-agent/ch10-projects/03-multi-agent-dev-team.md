@@ -192,6 +192,12 @@ ReviewNote(approved=True, issues=[])
 TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
+![多 Agent 开发团队工件 trace 结果图](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map.webp)
+
+:::tip 读结果
+把输出当成一条工件链来读：`TaskPlan` 定义目标和验收规则，`Patch` 同时改实现和测试文件，`ReviewNote` 是关卡，`TestReport` 是最后证据。
+:::
+
 ### 为什么这个闭环已经很像真实项目？
 
 因为它体现了多 Agent 项目最关键的 3 个点：

@@ -14270,6 +14270,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-multi-agent-dev-team-artifact-trace-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+        },
+        "scene": "A runnable-result teaching visual for the Multi-Agent development team project. It must explain the exact printed artifacts from the role handoff example and the minimal workflow loop. Show four role artifacts in order: TaskPlan, Patch, ReviewNote, TestReport. Show that the first handoff sample has ReviewNote approved=False with issues and TestReport passed=False, while the workflow loop has ReviewNote approved=True and TestReport passed=True because the patch includes both refund.py and test_refund.py. Show the acceptance test: 100 yuan with 20% off / 8折 / 8割引 should become 80. Teaching point: a multi-Agent development team is reliable when every role passes a concrete artifact and the next role reads that artifact, not when roles merely chat. Do not draw a generic team poster, decorative avatars, terminal screenshot, dense code block, extra roles, fake files, model names, productivity metrics, or random chat bubbles.",
+        "chapter_context": "The image is inserted immediately after the expected output of the minimal workflow loop in the Multi-Agent development team project lesson. Nearby code defines dataclasses TaskPlan, Patch, ReviewNote, and TestReport, prints one artifact handoff example, then defines planner, coder, reviewer, and tester. The second run prints a plan for fixing an incorrect refund amount, a patch changing refund.py and test_refund.py, ReviewNote(approved=True, issues=[]), and TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero']). The surrounding prose explains role division, clear artifact handoffs, review-and-test feedback, stage dependencies, and handoff quality.",
+        "shared_layout": "Vertical 9:16. Use the same practical sprint-room / paper artifact workbench style across zh/en/ja. Top title and subtitle. Upper section: one task ticket showing the refund goal and acceptance test. Middle section: four physical artifact cards connected left-to-right or top-to-bottom in order: TaskPlan -> Patch -> ReviewNote -> TestReport. On the Patch card, highlight exactly two files refund.py and test_refund.py. On the Review card, show two small branches: sample handoff rejected with approved=False and issues, and workflow loop approved with approved=True and issues=[]. On the Test card, show passed=True with test_discount_basic and test_discount_zero. Bottom strip: goal -> plan -> patch -> review gate -> test evidence. Keep role order, card positions, colors, values, arrows, and reading path identical across languages. Use concrete ticket, diff sheet, review stamp, test board, and evidence folder objects; avoid SVG-style white rounded-box diagrams, pure text posters, dense terminal logs, tiny fake text, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "多 Agent 开发团队 trace 怎么看",
+                "subtitle": "每个角色交接一个工件，下一个角色读取它再继续。",
+                "items": [
+                    ("任务目标", "修复退款页面金额显示错误。"),
+                    ("验收测试", "100 元打 8 折，结果应为 80 元。"),
+                    ("TaskPlan", "目标、文件、验收标准先写清楚。"),
+                    ("Patch", "改 refund.py，也补 test_refund.py。"),
+                    ("ReviewNote", "样例 rejected；闭环 approved=True。"),
+                    ("TestReport", "passed=True；basic 和 zero 两个测试通过。"),
+                ],
+                "footer": "多 Agent 协作的证据不是聊天多，而是工件能被下一步可靠接住。",
+                "alt": "多 Agent 开发团队 trace 结果图：TaskPlan 定义退款修复目标和验收测试，Patch 修改 refund.py 与 test_refund.py，ReviewNote 从拒绝样例到 approved=True，TestReport 显示两个测试通过。",
+            },
+            "en": {
+                "title": "Reading a Multi-Agent Dev Team Trace",
+                "subtitle": "Each role hands off an artifact that the next role can read.",
+                "items": [
+                    ("task goal", "Fix the incorrect amount display on the refund page."),
+                    ("acceptance test", "100 yuan with 20% off should become 80 yuan."),
+                    ("TaskPlan", "Write the goal, files, and acceptance rule first."),
+                    ("Patch", "Change refund.py and add test_refund.py."),
+                    ("ReviewNote", "Sample rejected; loop returns approved=True."),
+                    ("TestReport", "passed=True; basic and zero tests pass."),
+                ],
+                "footer": "Multi-Agent collaboration is proven by handoff artifacts, not longer chat logs.",
+                "alt": "Multi-Agent development team trace result map: TaskPlan defines the refund fix and acceptance test, Patch changes refund.py and test_refund.py, ReviewNote moves from a rejected sample to approved=True, and TestReport shows two passing tests.",
+            },
+            "ja": {
+                "title": "マルチ Agent 開発 trace の読み方",
+                "subtitle": "各役割が artifact を渡し、次の役割がそれを読んで進む。",
+                "items": [
+                    ("タスク目標", "返金ページの金額表示エラーを修正する。"),
+                    ("受け入れテスト", "100円を8割引にすると、結果は80円。"),
+                    ("TaskPlan", "目標、file、受け入れ条件を先に書く。"),
+                    ("Patch", "refund.py を直し、test_refund.py も加える。"),
+                    ("ReviewNote", "例は rejected；ループは approved=True。"),
+                    ("TestReport", "passed=True；basic と zero のテストが通る。"),
+                ],
+                "footer": "マルチ Agent 協調の証拠は会話量ではなく、引き継げる artifact。",
+                "alt": "マルチ Agent 開発チームの trace 結果図：TaskPlan が返金修正と受け入れテストを定義し、Patch が refund.py と test_refund.py を変更し、ReviewNote が rejected 例から approved=True になり、TestReport が2つのテスト通過を示す。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",
@@ -18248,6 +18303,137 @@ Critical accuracy rules:
 - Do not use English section labels such as "input rows", "group avg", "chart rule", or "raw rows" outside exact code/data tokens; use the localized labels above.
 - Do NOT write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "データ分析 Agent の信頼性は、検証できる中間過程から生まれる。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-dev-team-artifact-trace-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "多 Agent 开发团队 trace 怎么看"
+Visible subtitle exactly: "每个角色交接一个工件，下一个角色读取它再继续。"
+
+Use a practical sprint-room paper artifact workbench style: a task ticket pinned to a cork board, a planner notebook, a diff sheet, a review stamp, a test board with checkmarks, and an evidence folder. The image must teach the exact runnable output from the nearby Multi-Agent development team lesson. Keep the layout, object positions, colors, and reading path visually consistent with the English and Japanese variants.
+
+Required composition:
+1. Top task ticket:
+   - label exactly "任务目标"
+   - text exactly "修复退款页面金额显示错误"
+   - acceptance note exactly "100 元打 8 折 -> 80 元"
+2. Main artifact chain in order:
+   - TaskPlan card: "goal + files + acceptance_test"
+   - Patch card: show exactly "refund.py" and "test_refund.py"
+   - ReviewNote card with two visible branches:
+     branch A: "样例 rejected" and "approved=False"
+     branch B: "闭环通过" and "approved=True, issues=[]"
+   - TestReport card: "passed=True" and "test_discount_basic" and "test_discount_zero"
+3. Add arrows showing the real dependency:
+   TaskPlan -> Patch -> ReviewNote -> TestReport
+4. Bottom strip exactly:
+   "goal -> plan -> patch -> review gate -> test evidence"
+
+Required localized labels and notes:
+- "任务目标" near the top ticket.
+- "验收测试" near the 100 -> 80 note.
+- "TaskPlan" with note "先写清目标、文件、验收标准。"
+- "Patch" with note "改 refund.py，也补 test_refund.py。"
+- "ReviewNote" with note "先看 rejected 样例，再看 approved=True。"
+- "TestReport" with note "passed=True；basic 和 zero 测试通过。"
+
+Critical accuracy rules:
+- Show exactly four role artifacts: TaskPlan, Patch, ReviewNote, TestReport. Do not add product manager, designer, DevOps, security, evaluator, or chat moderator.
+- Show exactly the two files refund.py and test_refund.py. Do not invent other files.
+- The passed workflow must show approved=True and passed=True.
+- The rejected sample must remain a small comparison branch, not the final result.
+- Explanatory text must be Simplified Chinese. Allowed English/code tokens only: Agent, trace, TaskPlan, Patch, ReviewNote, TestReport, goal, files, acceptance_test, refund.py, test_refund.py, approved, issues, passed, test_discount_basic, test_discount_zero, rejected, True, False.
+- Do not write English explanatory sentences, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "多 Agent 协作的证据不是聊天多，而是工件能被下一步可靠接住。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-dev-team-artifact-trace-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading a Multi-Agent Dev Team Trace"
+Visible subtitle exactly: "Each role hands off an artifact that the next role can read."
+
+Use a practical sprint-room paper artifact workbench style: a task ticket pinned to a cork board, a planner notebook, a diff sheet, a review stamp, a test board with checkmarks, and an evidence folder. The image must teach the exact runnable output from the nearby Multi-Agent development team lesson. Keep the layout, object positions, colors, and reading path visually consistent with the Simplified Chinese and Japanese variants.
+
+Required composition:
+1. Top task ticket:
+   - label exactly "task goal"
+   - text exactly "Fix refund amount display"
+   - acceptance note exactly "100 yuan with 20% off -> 80 yuan"
+2. Main artifact chain in order:
+   - TaskPlan card: "goal + files + acceptance_test"
+   - Patch card: show exactly "refund.py" and "test_refund.py"
+   - ReviewNote card with two visible branches:
+     branch A: "sample rejected" and "approved=False"
+     branch B: "workflow pass" and "approved=True, issues=[]"
+   - TestReport card: "passed=True" and "test_discount_basic" and "test_discount_zero"
+3. Add arrows showing the real dependency:
+   TaskPlan -> Patch -> ReviewNote -> TestReport
+4. Bottom strip exactly:
+   "goal -> plan -> patch -> review gate -> test evidence"
+
+Required labels and notes:
+- "task goal" near the top ticket.
+- "acceptance test" near the 100 -> 80 note.
+- "TaskPlan" with note "Write goal, files, acceptance rule first."
+- "Patch" with note "Change refund.py and add test_refund.py."
+- "ReviewNote" with note "Compare rejected sample with approved=True."
+- "TestReport" with note "passed=True; basic and zero tests pass."
+
+Critical accuracy rules:
+- Show exactly four role artifacts: TaskPlan, Patch, ReviewNote, TestReport. Do not add product manager, designer, DevOps, security, evaluator, or chat moderator.
+- Show exactly the two files refund.py and test_refund.py. Do not invent other files.
+- The passed workflow must show approved=True and passed=True.
+- The rejected sample must remain a small comparison branch, not the final result.
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, brand logos, or unrelated chat bubbles.
+Visible footer exactly: "Multi-Agent collaboration is proven by handoff artifacts, not longer chat logs."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-dev-team-artifact-trace-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "マルチ Agent 開発 trace の読み方"
+Visible subtitle exactly: "各役割が artifact を渡し、次の役割がそれを読んで進む。"
+
+Use a practical sprint-room paper artifact workbench style: a task ticket pinned to a cork board, a planner notebook, a diff sheet, a review stamp, a test board with checkmarks, and an evidence folder. The image must teach the exact runnable output from the nearby Multi-Agent development team lesson. Keep the layout, object positions, colors, and reading path visually consistent with the Simplified Chinese and English variants.
+
+Required composition:
+1. Top task ticket:
+   - label exactly "タスク目標"
+   - text exactly "返金ページの金額表示エラーを修正"
+   - acceptance note exactly "100円を8割引 -> 80円"
+2. Main artifact chain in order:
+   - TaskPlan card: "goal + files + acceptance_test"
+   - Patch card: show exactly "refund.py" and "test_refund.py"
+   - ReviewNote card with two visible branches:
+     branch A: "例は rejected" and "approved=False"
+     branch B: "ループ合格" and "approved=True, issues=[]"
+   - TestReport card: "passed=True" and "test_discount_basic" and "test_discount_zero"
+3. Add arrows showing the real dependency:
+   TaskPlan -> Patch -> ReviewNote -> TestReport
+4. Bottom strip exactly:
+   "goal -> plan -> patch -> review gate -> test evidence"
+
+Required localized labels and notes:
+- "タスク目標" near the top ticket.
+- "受け入れテスト" near the 100 -> 80 note.
+- "TaskPlan" with note "目標、file、受け入れ条件を先に書く。"
+- "Patch" with note "refund.py を直し、test_refund.py も加える。"
+- "ReviewNote" with note "rejected 例と approved=True を比べる。"
+- "TestReport" with note "passed=True；basic と zero のテストが通る。"
+
+Critical accuracy rules:
+- Show exactly four role artifacts: TaskPlan, Patch, ReviewNote, TestReport. Do not add product manager, designer, DevOps, security, evaluator, or chat moderator.
+- Show exactly the two files refund.py and test_refund.py. Do not invent other files.
+- The passed workflow must show approved=True and passed=True.
+- The rejected sample must remain a small comparison branch, not the final result.
+- Explanatory text must be natural Japanese. Allowed English/code tokens only: Agent, trace, artifact, TaskPlan, Patch, ReviewNote, TestReport, goal, files, acceptance_test, refund.py, test_refund.py, approved, issues, passed, test_discount_basic, test_discount_zero, rejected, True, False.
+- Do not write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "マルチ Agent 協調の証拠は会話量ではなく、引き継げる artifact。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch09-runtime-circuit-breaker-result-map.png": """

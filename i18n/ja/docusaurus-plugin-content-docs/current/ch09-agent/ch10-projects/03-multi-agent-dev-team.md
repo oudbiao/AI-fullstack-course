@@ -192,6 +192,12 @@ ReviewNote(approved=True, issues=[])
 TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
+![マルチ Agent 開発チームの artifact trace 結果図](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map-ja.webp)
+
+:::tip 結果の読み方
+出力を artifact chain として読みます。`TaskPlan` が目標と受け入れ条件を定義し、`Patch` が実装とテストファイルを変え、`ReviewNote` がゲートになり、`TestReport` が最後の証拠になります。
+:::
+
 ### なぜこのループだけでもかなり実際のプロジェクトに近いのか？
 
 マルチ Agent プロジェクトで本当に大事な3つの点が入っているからです。

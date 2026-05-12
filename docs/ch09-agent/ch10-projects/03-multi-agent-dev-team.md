@@ -192,6 +192,12 @@ ReviewNote(approved=True, issues=[])
 TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
+![Multi-Agent development team artifact trace result map](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map-en.webp)
+
+:::tip Reading the result
+Read the output as an artifact chain: `TaskPlan` defines the goal and acceptance rule, `Patch` changes both the implementation and test file, `ReviewNote` is the gate, and `TestReport` is the final evidence.
+:::
+
 ### Why does this loop already feel like a real project?
 
 Because it captures the three most important things in a multi-Agent project:
