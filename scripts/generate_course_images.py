@@ -14215,6 +14215,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-runtime-circuit-breaker-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/02-runtime-management.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/02-runtime-management.md",
+        },
+        "scene": "A runnable-result teaching visual for the Agent runtime management example. It must explain the exact printed output from the minimal runtime manager: five sequential tasks r1 through r5, retry behavior, metrics, and circuit breaker state. Show r1 succeeds with ok:refund and attempts=1; r2 times out after retry; r3 raises upstream_error after retry; after two consecutive failures the breaker opens; r4 and r5 are rejected as circuit_open. Show metrics exactly: total=5, success=1, timeout=1, error=1, retry=2, rejected_by_breaker=2, latency_ms_total=200.0, avg_latency_ms=200.0, breaker_open=True. Teaching point: runtime management protects the whole system, so failed upstream calls can intentionally stop later calls instead of retrying forever. Do not draw only a generic four-mechanism poster, do not add extra tasks, queues, latencies, costs, model scores, logs, or policies.",
+        "chapter_context": "The image is inserted immediately after the expected output of the runtime manager code. Nearby code defines AgentRuntime with Semaphore, asyncio.wait_for timeout, one retry, failure_streak, breaker_threshold=2, metrics, and summary. The surrounding prose asks readers to pay attention to Semaphore, wait_for, attempt > 0, and breaker_open, then explains how to interpret success rate, timeout rate, retry ratio, rejected_by_breaker, and avg_latency_ms.",
+        "shared_layout": "Vertical 9:16. Use the same practical incident-dashboard / runtime control-room style across zh/en/ja. Top title and subtitle. Main body is a left-to-right or top-to-bottom event timeline with exactly five task cards r1, r2, r3, r4, r5. r1 is green success, r2 orange timeout, r3 red upstream_error, r4 and r5 gray blocked by circuit_open. Between r3 and r4 show a breaker switch flipping open after failure_streak reaches 2. Side panel shows the exact metrics as large readable gauges and counters. Bottom strip is localized per language but has the same five concepts: concurrency limit, timeout, retry once, open breaker, protect system. Keep task order, colors, icons, numeric values, and reading path identical across languages. Use concrete visuals such as stopwatch, retry arrow, breaker lever, metric gauges, and request cards; avoid SVG-style white rounded-box diagrams, terminal screenshots, dense tables, small pseudo-logs, extra charts, timestamps, cooldown clocks, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "运行时熔断结果怎么看",
+                "subtitle": "r2 超时、r3 上游失败后，熔断打开，r4/r5 被主动拒绝。",
+                "items": [
+                    ("r1", "ok:refund；attempts=1；latency=200ms。"),
+                    ("r2", "timeout；重试 1 次后仍失败。"),
+                    ("r3", "upstream_error；连续失败达到 2。"),
+                    ("r4 / r5", "circuit_open；不再打上游。"),
+                    ("metrics", "total=5；success=1；retry=2；rejected=2。"),
+                    ("breaker", "breaker_open=True，保护整体稳定。"),
+                ],
+                "footer": "运行时管理的目标不是硬撑每个请求，而是防止局部故障扩散。",
+                "alt": "Agent 运行时熔断结果图：r1 成功，r2 超时，r3 上游失败，连续失败触发 breaker_open=True，r4 和 r5 被 circuit_open 拒绝，metrics 记录 retry=2 和 rejected_by_breaker=2。",
+            },
+            "en": {
+                "title": "Reading Runtime Circuit Breaker Results",
+                "subtitle": "After r2 times out and r3 fails upstream, the breaker opens and r4/r5 are rejected.",
+                "items": [
+                    ("r1", "ok:refund; attempts=1; latency=200ms."),
+                    ("r2", "timeout; still fails after 1 retry."),
+                    ("r3", "upstream_error; failure streak reaches 2."),
+                    ("r4 / r5", "circuit_open; stop calling upstream."),
+                    ("metrics", "total=5; success=1; retry=2; rejected=2."),
+                    ("breaker", "breaker_open=True protects overall stability."),
+                ],
+                "footer": "Runtime management protects the system from spreading local failures.",
+                "alt": "Agent runtime circuit breaker result map: r1 succeeds, r2 times out, r3 fails upstream, two consecutive failures trigger breaker_open=True, r4 and r5 are rejected with circuit_open, and metrics record retry=2 and rejected_by_breaker=2.",
+            },
+            "ja": {
+                "title": "ランタイムの breaker 結果を読む",
+                "subtitle": "r2 が timeout、r3 が上流失敗になると breaker が開き、r4/r5 を拒否する。",
+                "items": [
+                    ("r1", "ok:refund；attempts=1；latency=200ms。"),
+                    ("r2", "timeout；1回 retry しても失敗。"),
+                    ("r3", "upstream_error；連続失敗が 2 に達する。"),
+                    ("r4 / r5", "circuit_open；上流をもう呼ばない。"),
+                    ("metrics", "total=5；success=1；retry=2；rejected=2。"),
+                    ("breaker", "breaker_open=True で全体の安定性を守る。"),
+                ],
+                "footer": "ランタイム管理は局所的な失敗が全体へ広がるのを防ぐ。",
+                "alt": "Agent ランタイムのサーキットブレーカー結果図：r1 は成功、r2 は timeout、r3 は upstream_error、連続失敗で breaker_open=True となり、r4 と r5 は circuit_open で拒否され、metrics は retry=2 と rejected_by_breaker=2 を記録する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-advanced-tool-patterns-output-map",
         "pages": {
             "en": "docs/ch09-agent/ch03-tools/06-advanced-patterns.md",
@@ -17993,6 +18048,144 @@ Critical accuracy rules:
 - Explanatory text must be natural Japanese. Allowed English/code tokens only: ReAct, trace, thought, action, observation, next step, final answer, Agent, search_policy, calculator, topic, refund, expression, policy.
 - Do NOT write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "ReAct の証拠 chain は最終回答だけでなく trace に残る。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-runtime-circuit-breaker-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "运行时熔断结果怎么看"
+Visible subtitle exactly: "r2 超时、r3 上游失败后，熔断打开，r4/r5 被主动拒绝。"
+
+Use a practical incident-dashboard / runtime control-room style with dark console surfaces, warm warning lights, a clear breaker lever, request cards, retry arrows, stopwatch icons, and metric gauges. The image must teach the exact runnable output from the nearby AgentRuntime example.
+Composition must match the English and Japanese variants:
+1. Main event timeline with exactly five task cards in this order:
+   - r1 refund: green success card with "ok:refund", "attempts=1", and "latency=200ms"
+   - r2 slow: orange timeout card with "timeout" and "retry 1"
+   - r3 fail: red upstream card with "upstream_error" and "failure_streak=2"
+   - breaker switch flips open after r3, label exactly "breaker_open=True"
+   - r4 normal: gray blocked card labeled exactly "r4" with "circuit_open"
+   - r5 after_breaker: gray blocked card labeled exactly "r5" with "circuit_open"
+2. Metrics panel with large counters exactly:
+   - total=5
+   - success=1, spell the metric name exactly as "success"; never "succees", "succes", or other misspelling
+   - timeout=1
+   - error=1
+   - retry=2
+   - rejected_by_breaker=2
+   - latency_ms_total=200.0
+   - avg_latency_ms=200.0
+3. Bottom strip exactly: "限制并发 -> 超时边界 -> 只重试一次 -> 打开熔断 -> 保护系统"
+
+Required teaching labels and short notes, all in Simplified Chinese except exact code/metric tokens:
+- "r1" near the green card; note "ok:refund；attempts=1；latency=200ms。"
+- "r2" near the orange card; note "timeout；重试 1 次后仍失败。"
+- "r3" near the red card; note "upstream_error；连续失败达到 2。"
+- "r4 / r5" near the blocked cards; note "circuit_open；不再打上游。"
+- "metrics" near the gauges; note "total=5；success=1；retry=2；rejected=2。"
+- "breaker" near the lever; note "breaker_open=True，保护整体稳定。"
+
+Critical accuracy rules:
+- Show exactly five tasks r1, r2, r3, r4, r5. Do not add or remove tasks.
+- The top timeline must have separate cards labeled r4 and r5. Do not label either card "r4/r5".
+- r4 and r5 must be blocked by circuit_open, not timeout, not upstream_error, not success.
+- The exact counter rejected_by_breaker must be 2. retry must be 2. avg_latency_ms must be 200.0.
+- Only use numbers from the runnable output: 5, 1, 2, 200.0, 200ms, True, and task ids r1 to r5. Do not add 20%, 50%, >2s, timestamps, cooldowns, queue sizes, upper limits, or health scores.
+- Do not draw extra rate gauges, event logs, cooldown timers, concurrency gauges, status legends, or invented dashboard panels.
+- Explanatory text must be Simplified Chinese. Allowed English/code tokens only: AgentRuntime, Semaphore, wait_for, retry, timeout, upstream_error, circuit_open, breaker_open, metrics, total, success, error, rejected_by_breaker, latency_ms_total, avg_latency_ms.
+- Do NOT write English explanatory sentences, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "运行时管理的目标不是硬撑每个请求，而是防止局部故障扩散。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-runtime-circuit-breaker-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading Runtime Circuit Breaker Results"
+Visible subtitle exactly: "After r2 times out and r3 fails upstream, the breaker opens and r4/r5 are rejected."
+
+Use a practical incident-dashboard / runtime control-room style with dark console surfaces, warm warning lights, a clear breaker lever, request cards, retry arrows, stopwatch icons, and metric gauges. The image must teach the exact runnable output from the nearby AgentRuntime example.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Main event timeline with exactly five task cards in this order:
+   - r1 refund: green success card with "ok:refund", "attempts=1", and "latency=200ms"
+   - r2 slow: orange timeout card with "timeout" and "retry 1"
+   - r3 fail: red upstream card with "upstream_error" and "failure_streak=2"
+   - breaker switch flips open after r3, label exactly "breaker_open=True"
+   - r4 normal: gray blocked card with "circuit_open"
+   - r5 after_breaker: gray blocked card with "circuit_open"
+2. Metrics panel with large counters exactly:
+   - total=5
+   - success=1, spell the metric name exactly as "success"; never "succees", "succes", or any other misspelling
+   - timeout=1
+   - error=1
+   - retry=2
+   - rejected_by_breaker=2
+   - latency_ms_total=200.0
+   - avg_latency_ms=200.0
+3. Bottom strip exactly: "limit concurrency -> timeout -> retry once -> open breaker -> protect system"
+
+Required teaching labels and short notes:
+- "r1" near the green card; note "ok:refund; attempts=1; latency=200ms."
+- "r2" near the orange card; note "timeout; still fails after 1 retry."
+- "r3" near the red card; note "upstream_error; failure streak reaches 2."
+- "r4 / r5" near the blocked cards; note "circuit_open; stop calling upstream."
+- "metrics" near the gauges; note "total=5; success=1; retry=2; rejected=2."
+- "breaker" near the lever; note "breaker_open=True protects overall stability."
+
+Critical accuracy rules:
+- Show exactly five tasks r1, r2, r3, r4, r5. Do not add or remove tasks.
+- r4 and r5 must be blocked by circuit_open, not timeout, not upstream_error, not success.
+- The exact counter rejected_by_breaker must be 2. retry must be 2. avg_latency_ms must be 200.0.
+- Only use numbers from the runnable output: 5, 1, 2, 200.0, 200ms, True, and task ids r1 to r5. Do not add 20%, 50%, >2s, timestamps, cooldowns, queue sizes, upper limits, or health scores.
+- Do not draw extra rate gauges, event logs, cooldown timers, concurrency gauges, status legends, or invented dashboard panels.
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "Runtime management protects the system from spreading local failures."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-runtime-circuit-breaker-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "ランタイムの breaker 結果を読む"
+Visible subtitle exactly: "r2 が timeout、r3 が上流失敗になると breaker が開き、r4/r5 を拒否する。"
+
+Use a practical incident-dashboard / runtime control-room style with dark console surfaces, warm warning lights, a clear breaker lever, request cards, retry arrows, stopwatch icons, and metric gauges. The image must teach the exact runnable output from the nearby AgentRuntime example.
+Composition must match the Simplified Chinese and English variants:
+1. Main event timeline with exactly five task cards in this order:
+   - r1 refund: green success card with "ok:refund", "attempts=1", and "latency=200ms"
+   - r2 slow: orange timeout card with "timeout" and "retry 1"
+   - r3 fail: red upstream card with "upstream_error" and "failure_streak=2"
+   - breaker switch flips open after r3, label exactly "breaker_open=True"
+   - r4 normal: gray blocked card with "circuit_open"
+   - r5 after_breaker: gray blocked card with "circuit_open"
+2. Metrics panel with large counters exactly:
+   - total=5
+   - success=1, spell the metric name exactly as "success"; never "succees", "succes", or any other misspelling
+   - timeout=1
+   - error=1
+   - retry=2
+   - rejected_by_breaker=2
+   - latency_ms_total=200.0
+   - avg_latency_ms=200.0
+3. Bottom strip exactly: "並行制御 -> timeout -> 1回だけ retry -> breaker を開く -> system を守る"
+
+Required teaching labels and short notes, in natural Japanese except exact code/metric tokens:
+- "r1" near the green card; note "ok:refund；attempts=1；latency=200ms。"
+- "r2" near the orange card; note "timeout；1回 retry しても失敗。"
+- "r3" near the red card; note "upstream_error；連続失敗が 2 に達する。"
+- "r4 / r5" near the blocked cards; note "circuit_open；上流をもう呼ばない。"
+- "metrics" near the gauges; note "total=5；success=1；retry=2；rejected=2。"
+- "breaker" near the lever; note "breaker_open=True で全体の安定性を守る。"
+
+Critical accuracy rules:
+- Show exactly five tasks r1, r2, r3, r4, r5. Do not add or remove tasks.
+- r4 and r5 must be blocked by circuit_open, not timeout, not upstream_error, not success.
+- The exact counter rejected_by_breaker must be 2. retry must be 2. avg_latency_ms must be 200.0.
+- Only use numbers from the runnable output: 5, 1, 2, 200.0, 200ms, True, and task ids r1 to r5. Do not add 20%, 50%, >2s, timestamps, cooldowns, queue sizes, upper limits, or health scores.
+- Do not draw extra rate gauges, event logs, cooldown timers, concurrency gauges, status legends, or invented dashboard panels.
+- Explanatory text must be natural Japanese. Allowed English/code tokens only: AgentRuntime, Semaphore, wait_for, retry, timeout, upstream_error, circuit_open, breaker_open, metrics, total, success, error, rejected_by_breaker, latency_ms_total, avg_latency_ms.
+- Do NOT write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "ランタイム管理は局所的な失敗が全体へ広がるのを防ぐ。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch09-advanced-tool-patterns-output-map.png": """

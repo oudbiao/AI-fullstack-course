@@ -201,6 +201,12 @@ metrics:
 breaker_open: True
 ```
 
+![ランタイムの breaker 結果図](/img/course/ch09-runtime-circuit-breaker-result-map-ja.webp)
+
+:::tip 図の見方
+`r1` から `r5` まで順に読みます。最初の request は成功し、次の2つの失敗が1回分の retry を使って breaker を開き、最後の2つの request はシステム全体を守るために意図的に拒否されます。
+:::
+
 ### このコードで特に見るべき箇所はどこか？
 
 - `Semaphore`：並行制御

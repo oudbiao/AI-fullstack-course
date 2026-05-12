@@ -201,6 +201,12 @@ metrics:
 breaker_open: True
 ```
 
+![Runtime circuit breaker result map](/img/course/ch09-runtime-circuit-breaker-result-map-en.webp)
+
+:::tip Reading guide
+Read the timeline from `r1` to `r5`: the first request succeeds, the next two failures consume the single retry budget and open the breaker, and the last two requests are rejected intentionally to protect the system.
+:::
+
 ### Which parts of this code should you pay the most attention to?
 
 - `Semaphore`: concurrency limiting

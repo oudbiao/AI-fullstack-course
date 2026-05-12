@@ -201,6 +201,12 @@ metrics:
 breaker_open: True
 ```
 
+![运行时熔断结果图](/img/course/ch09-runtime-circuit-breaker-result-map.webp)
+
+:::tip 读图提示
+按 `r1` 到 `r5` 的顺序读：第一条请求成功，后两次失败耗掉一次重试并打开熔断，最后两条请求被主动拒绝，用来保护整体系统。
+:::
+
 ### 这段代码最该看哪几处？
 
 - `Semaphore`：并发限制
