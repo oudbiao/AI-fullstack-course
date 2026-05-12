@@ -435,6 +435,8 @@ failure_report: cv_workshop_run/reports/failure_cases.md
 prediction_images: cv_workshop_run/outputs
 ```
 
+![Vision workshop run evidence pack](/img/course/ch10-workshop-run-output-evidence-result-map-en.webp)
+
 The exact decimals can differ slightly across OpenCV builds, but the folder structure and report files should be the same.
 
 ## Step 4: Inspect the Dataset

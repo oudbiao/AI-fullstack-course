@@ -435,6 +435,8 @@ failure_report: cv_workshop_run/reports/failure_cases.md
 prediction_images: cv_workshop_run/outputs
 ```
 
+![ビジョンワークショップ実行結果の証拠図](/img/course/ch10-workshop-run-output-evidence-result-map-ja.webp)
+
 OpenCV のビルドによって小数は少し変わることがありますが、フォルダ構造とレポートファイルは同じになります。
 
 ## Step 4：データセットを確認する

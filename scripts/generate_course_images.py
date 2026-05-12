@@ -16913,6 +16913,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch10-workshop-run-output-evidence-result-map",
+        "pages": {
+            "en": "docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+        },
+        "scene": "A computer-vision workshop worked-result evidence map based on the expected output after running python vision_workshop.py. The image must teach that a terminal printout is only an index into inspectable files and prediction images. Do not draw a terminal screenshot, dense code, invented images, invented labels, invented metrics, extra task types, model names, dashboards, vector databases, or extra evaluation numbers. Use only these exact counts, metrics, and file paths: images 51; labels_csv cv_workshop_run/data/labels.csv; classification_accuracy 1.000 (15/15); mean_box_iou 0.909; mean_mask_iou 0.997; failure_cases 7; predictions_csv cv_workshop_run/reports/predictions.csv; failure_report cv_workshop_run/reports/failure_cases.md; prediction_images cv_workshop_run/outputs. Show one concrete synthetic vision sample as a teaching scene: a simple object image with a class label, a green ground-truth bounding box, an orange predicted bounding box, a translucent mask overlay, and a small failure queue. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except necessary code/file names and metric names; Japanese image uses natural Japanese helper labels except necessary code/file names and metric names. Keep code/file/metric names as code: vision_workshop.py, labels.csv, predictions.csv, failure_cases.md, outputs, classification_accuracy, mean_box_iou, mean_mask_iou, failure_cases. Teaching point: do not trust the printed summary alone; open labels, prediction images, and failure cases to understand what the vision pipeline actually learned.",
+        "chapter_context": "The image is inserted right after the expected output of the hands-on computer-vision workshop. Nearby text says OpenCV decimals may differ, then asks learners to open labels.csv, understand image_path, mask_path, label, split, x1,y1,x2,y2, challenge, and inspect generated prediction images and failure cases.",
+        "shared_layout": "Vertical 9:16. Warm paper lab-workbook style with a project folder desk, a miniature image-inspection board, colored metric stamps, and a bottom debug queue. Top title and subtitle. Upper section shows run command python vision_workshop.py producing dataset evidence: images=51 and labels.csv with tiny readable column chips image_path, mask_path, label, split, bbox, challenge. Middle section has three large task lanes connected to inspectable artifacts: classification_accuracy 1.000 (15/15) -> label check and predictions.csv; mean_box_iou 0.909 -> green truth box versus orange predicted box on a sample image; mean_mask_iou 0.997 -> mask overlay on the same sample. Lower section highlights failure_cases=7 -> failure_cases.md -> next fix loop, with output thumbnails from cv_workshop_run/outputs. Keep values, file names, task order, colors, object positions, and reading path identical across zh/en/ja. Use concrete image thumbnails, boxes, masks, metric stamps, file cards, and arrows; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, collage stickers, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "视觉工作坊运行结果证据图",
+                "subtitle": "终端只给摘要，真正要看 labels、预测图和失败样本。",
+                "items": [
+                    ("运行", "python vision_workshop.py 生成数据、预测图、指标和失败报告。"),
+                    ("数据集", "images=51，打开 cv_workshop_run/data/labels.csv。"),
+                    ("分类", "classification_accuracy=1.000 (15/15)，检查 label 是否对。"),
+                    ("检测", "mean_box_iou=0.909，对比真值框和预测框。"),
+                    ("分割", "mean_mask_iou=0.997，对比真值 mask 和预测 mask。"),
+                    ("排查", "failure_cases=7，读 failure_cases.md 和 outputs。"),
+                ],
+                "footer": "一次视觉实验要同时看类别、框、mask 和失败样本。",
+                "alt": "视觉工作坊运行结果证据图：脚本输出 51 张图像、分类准确率、检测 IoU、分割 IoU 和 7 个失败案例，并指向 labels.csv、predictions.csv、outputs 与 failure_cases.md。",
+            },
+            "en": {
+                "title": "Vision Run Evidence Pack",
+                "subtitle": "The terminal is only a summary; inspect labels, prediction images, and failures.",
+                "items": [
+                    ("run", "python vision_workshop.py creates data, prediction images, metrics, and failure report."),
+                    ("dataset", "images=51; open cv_workshop_run/data/labels.csv."),
+                    ("classification", "classification_accuracy=1.000 (15/15); check whether label is right."),
+                    ("detection", "mean_box_iou=0.909; compare truth box with predicted box."),
+                    ("segmentation", "mean_mask_iou=0.997; compare truth mask with predicted mask."),
+                    ("debug", "failure_cases=7; read failure_cases.md and outputs."),
+                ],
+                "footer": "A vision experiment needs classes, boxes, masks, and failure samples together.",
+                "alt": "Vision workshop run evidence map: the script prints 51 images, classification accuracy, detection IoU, segmentation IoU, and 7 failure cases, then points to labels.csv, predictions.csv, outputs, and failure_cases.md.",
+            },
+            "ja": {
+                "title": "ビジョン実行結果の証拠パック",
+                "subtitle": "端末出力は要約だけ。labels、予測画像、失敗例を開いて確認する。",
+                "items": [
+                    ("実行", "python vision_workshop.py がデータ、予測画像、指標、失敗レポートを作る。"),
+                    ("データセット", "images=51。cv_workshop_run/data/labels.csv を開く。"),
+                    ("分類", "classification_accuracy=1.000 (15/15)。label が正しいか確認。"),
+                    ("検出", "mean_box_iou=0.909。正解 box と予測 box を比べる。"),
+                    ("セグメンテーション", "mean_mask_iou=0.997。正解 mask と予測 mask を比べる。"),
+                    ("デバッグ", "failure_cases=7。failure_cases.md と outputs を読む。"),
+                ],
+                "footer": "ビジョン実験は、クラス、box、mask、失敗例を一緒に見る。",
+                "alt": "ビジョンワークショップ実行結果の証拠図：スクリプトが 51 枚の画像、分類 accuracy、検出 IoU、分割 IoU、7件の失敗例を出し、labels.csv、predictions.csv、outputs、failure_cases.md へつなげる。",
+            },
+        },
+    },
+    {
         "slug": "ch11-workshop-run-metrics-evidence-result-map",
         "pages": {
             "en": "docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",

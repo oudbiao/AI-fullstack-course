@@ -435,6 +435,8 @@ failure_report: cv_workshop_run/reports/failure_cases.md
 prediction_images: cv_workshop_run/outputs
 ```
 
+![视觉工作坊运行结果证据图](/img/course/ch10-workshop-run-output-evidence-result-map.webp)
+
 不同 OpenCV 构建下小数可能略有差异，但文件夹结构和报告文件应该一致。
 
 ## Step 4：检查数据集
