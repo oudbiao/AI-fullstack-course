@@ -376,6 +376,8 @@ ch07_workshop_evidence/failure_cases.md
 ch07_workshop_evidence/README.md
 ```
 
+![第 7 章ワークショップ実行結果の証拠図](/img/course/ch07-workshop-token-prompt-route-result-board-ja.webp)
+
 ## 各ステップの意味
 
 | 出力箇所 | 見るポイント | 対応する章の概念 |

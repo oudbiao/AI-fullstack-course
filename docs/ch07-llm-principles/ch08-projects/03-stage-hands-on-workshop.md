@@ -376,6 +376,8 @@ ch07_workshop_evidence/failure_cases.md
 ch07_workshop_evidence/README.md
 ```
 
+![Chapter 7 workshop run evidence map](/img/course/ch07-workshop-token-prompt-route-result-board-en.webp)
+
 ## What each step means
 
 | Output area | What to observe | Chapter concept |

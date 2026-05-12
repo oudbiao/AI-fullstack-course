@@ -13954,6 +13954,55 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-workshop-token-prompt-route-result-board",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+        },
+        "scene": "A Chapter 7 LLM hands-on workshop run-result evidence console based on the exact expected output of llm_stage_workshop.py. The image must help learners understand what the print output proves, not just decorate the page. Show four connected stations: STEP 1 token and vector trace, STEP 2 prompt version evaluation, STEP 3 solution route check, and STEP 4 evidence files. Use only these exact run facts: case_1 token ids start [3860, 5684, 9523, 2631, 3109, 1613, 4738, 9496]; case_2 and case_3 pass through the same tokenizer/vector pipeline but their numeric ids should be abstract colored id cells without readable digits. Do not print any case_2 or case_3 id numbers anywhere; this avoids teaching the wrong numbers. The case input blocks must contain only case_1, case_2, and case_3 labels; do not write any invented user-input text, sentiment examples, product-experience examples, or natural-language sample prompts. The vector trace should be shown as unlabeled bars only; do not write any vector numbers because only the case_1 token ids need to be readable in this visual. Prompt eval results are v1_goal_only 0/3 passed with invalid_json failures, v2_json_contract 2/3 passed with case_3 missing_fields for confidence and needs_human_review, and v3_json_with_boundary 3/3 passed with none. Route decisions are case_1 -> Prompt first, case_2 -> Structured output, case_3 -> Prompt eval first, then fine-tuning plan. Evidence files are token_trace.json, prompt_eval.csv, route_decisions.json, failure_cases.md, README.md. Critical text fidelity guard: copy technical tokens exactly and never localize, romanize, add suffix letters, or invent extra paths. Exact tokens that must not change: v1_goal_only, v2_json_contract, v3_json_with_boundary, invalid_json, missing_fields, none, Prompt first, Structured output, Prompt eval first, fine-tuning plan, token_trace.json, prompt_eval.csv, route_decisions.json, failure_cases.md, README.md. The word plan is exactly p-l-a-n, four letters; never write plano, plank, plane, or planning. In Station 3, do not add any small route-summary sentence, semicolon list, or caption above the route lanes; if you cannot spell fine-tuning plan exactly, omit that small sentence entirely. Do not draw a terminal screenshot, full code, fake model API, HTTP panel, decorative chatbot, generic flowchart, white rounded-box SVG diagram, pasted notes, metal nameplates, paper labels, or dense tiny table.",
+        "chapter_context": "The image appears immediately after the expected output block for python llm_stage_workshop.py and before the prose table explaining each step. The page teaches that the script is not just printing strings: token traces connect text to ids and vectors, prompt evaluation shows prompt versions becoming testable, route decisions separate Prompt/RAG/structured output/fine-tuning boundaries, and the evidence folder makes the workshop reproducible.",
+        "shared_layout": "Vertical 9:16. Use the same dark LLM lab evidence console across zh/en/ja. Use four full-width horizontal bands stacked from top to bottom, not a side-by-side column layout. No desk props, notebooks, lamps, metal plaques, pinned labels, stickers, pasted notes, paper slips, corkboard, scrapbook, or unrelated decorative objects. Top title and subtitle are printed directly into the console glass. Station 1: three integrated case lanes labeled only case_1, case_2, case_3 flow through tokenizer chips into token id cells and unlabeled vector bars; show one full readable id strip only for case_1: 3860, 5684, 9523, 2631, 3109, 1613, 4738, 9496. For case_2 and case_3, show colored id cells with no digits or only small unreadable dash marks; never copy case_1 ids into case_2 or case_3. No decimal vector numbers anywhere and no natural-language sample text on the case lanes. Station 2: prompt evaluation scoreboard with three thick built-in status bars: v1_goal_only 0/3 red, v2_json_contract 2/3 yellow, v3_json_with_boundary 3/3 green; show only two failure badges invalid_json and missing_fields plus the green badge none. Station 3: route decision switchboard with exactly three large lanes only. Lane labels must be exactly: case_1 -> Prompt first; case_2 -> Structured output; case_3 -> Prompt eval first on the first line and fine-tuning plan on the second line. Do not write a route-summary sentence, semicolon list, repeated caption, or any extra small text in Station 3. The phrase fine-tuning plan may appear only once in Station 3, on the large case_3 destination tile; it must end in plan, not plano. Station 4: evidence folder tray containing token_trace.json, prompt_eval.csv, route_decisions.json, failure_cases.md, README.md. Bottom strip: token trace -> prompt eval -> route decision -> evidence pack. Keep station order, colors, numeric values, object positions, and reading path identical across languages. Use large readable labels printed directly on instruments and folders; no pasted sticky notes, no sticker collage, no tiny terminal text. For Simplified Chinese visible labels, use Chinese for helper words: 分词器, token ids, embedding 向量, 通过, 失败, 注意, 证据文件; English is allowed only for exact code/LLM tokens. For Japanese visible labels, use natural Japanese helper words: token 分割, token ids, embedding ベクトル, 合格, 失敗, 注意, 証拠ファイル; English is allowed only for exact code/LLM tokens.",
+        "variants": {
+            "zh": {
+                "title": "第 7 章工作坊运行结果怎么看",
+                "subtitle": "把 print 输出读成 token 证据、Prompt 评测、路线选择和证据包。",
+                "items": [
+                    ("Token trace", "case_1 ids=[3860,5684,9523,2631,3109,1613,4738,9496]。"),
+                    ("Prompt 评测", "v1=0/3 invalid_json；v2=2/3 missing_fields；v3=3/3 none。"),
+                    ("路线选择", "看右侧三条大路线按钮，理解每个 case 的第一选择。"),
+                    ("证据文件", "token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md、README.md。"),
+                ],
+                "footer": "LLM 项目结果要能解释、能评测、能复盘，而不是只看一段回答。",
+                "alt": "第 7 章 LLM 工作坊运行结果证据图：token trace 用 case_1 展示文本变成 token ids 和向量，Prompt 版本从 0/3 到 3/3，三个 case 分别路由到 Prompt first、Structured output 和 fine-tuning plan，并保存证据文件。",
+            },
+            "en": {
+                "title": "Reading the Chapter 7 Workshop Run",
+                "subtitle": "Turn print output into token evidence, prompt eval, route choices, and evidence files.",
+                "items": [
+                    ("Token trace", "case_1 ids=[3860,5684,9523,2631,3109,1613,4738,9496]."),
+                    ("Prompt eval", "v1=0/3 invalid_json; v2=2/3 missing_fields; v3=3/3 none."),
+                    ("Route choices", "Read the three large route lanes to see each case's first choice."),
+                    ("Evidence files", "token_trace.json, prompt_eval.csv, route_decisions.json, failure_cases.md, README.md."),
+                ],
+                "footer": "An LLM project result should be explainable, evaluated, and reviewable, not just a nice answer.",
+                "alt": "Chapter 7 LLM workshop run evidence map: the case_1 token trace turns text into token ids and vectors, prompt versions improve from 0/3 to 3/3, cases route to Prompt first, Structured output, and fine-tuning plan, and evidence files are saved.",
+            },
+            "ja": {
+                "title": "第 7 章ワークショップ実行結果の読み方",
+                "subtitle": "print 出力を token 証拠、Prompt 評価、ルート選択、証拠ファイルとして読む。",
+                "items": [
+                    ("Token trace", "case_1 ids=[3860,5684,9523,2631,3109,1613,4738,9496]。"),
+                    ("Prompt 評価", "v1=0/3 invalid_json；v2=2/3 missing_fields；v3=3/3 none。"),
+                    ("ルート選択", "右側の3つの大きなルート表示で、各 case の最初の選択を見る。"),
+                    ("証拠ファイル", "token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md、README.md。"),
+                ],
+                "footer": "LLM プロジェクトの結果は、説明でき、評価でき、後で見直せる必要がある。",
+                "alt": "第 7 章 LLM ワークショップ実行結果の証拠図：case_1 の token trace が text を token ids と vector に変え、Prompt 版が 0/3 から 3/3 に改善し、case が Prompt first、Structured output、fine-tuning plan に分岐し、証拠ファイルが保存される。",
+            },
+        },
+    },
+    {
         "slug": "ch08-workshop-evaluation-pass-fail-flow-map",
         "pages": {
             "en": "docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
@@ -16117,11 +16166,11 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
                     ("训练顺序", "先 zero_grad，再 backward，再 step。"),
                 ],
                 "footer": "backward 只把梯度写入 .grad；更新参数要等 optimizer.step()。",
-                "alt": "Autograd .grad 累积实验图：计算图每次重建并释放，.grad 缓冲区会保留；x=3 时第一次 backward 得到 .grad=6.0，第二次未清空累积为 8.0，zero_ 后重新 backward 得到 2.0。",
+                "alt": "Autograd .grad 累积机制图：计算图每次重建并释放，.grad 缓冲区会保留；x=3 时第一次 backward 得到 .grad=6.0，第二次未清空累积为 8.0，zero_ 后重新 backward 得到 2.0。",
             },
             "en": {
-                "title": "Autograd .grad Accumulation Lab",
-                "subtitle": "The graph is temporary; .grad stays and adds until zero_ clears it.",
+                "title": "Autograd .grad Accumulation Mechanism",
+                "subtitle": "The graph is rebuilt each run; .grad stays and adds until zero_ clears it.",
                 "items": [
                     ("input x=3", "requires_grad=True."),
                     ("1st backward", "y1=x**2; current gradient 6.0; .grad=6.0."),
@@ -16130,11 +16179,11 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
                     ("training order", "zero_grad, then backward, then step."),
                 ],
                 "footer": "backward writes gradients into .grad; optimizer.step() updates parameters.",
-                "alt": "Autograd .grad accumulation lab map: the computation graph is rebuilt and released while the .grad buffer persists; at x=3, the first backward gives .grad=6.0, a second backward without clearing accumulates to 8.0, and after zero_ the next backward gives 2.0.",
+                "alt": "Autograd .grad accumulation mechanism map: the computation graph is rebuilt and released while the .grad buffer persists; at x=3, the first backward gives .grad=6.0, a second backward without clearing accumulates to 8.0, and after zero_ the next backward gives 2.0.",
             },
             "ja": {
-                "title": "Autograd .grad 累積実験",
-                "subtitle": "計算グラフは一時的。.grad は zero_ まで残って足される。",
+                "title": "Autograd .grad 累積メカニズム",
+                "subtitle": "計算グラフは毎回作り直す。.grad は zero_ まで残って足される。",
                 "items": [
                     ("入力 x=3", "requires_grad=True。"),
                     ("1回目の backward", "y1=x**2；今回の勾配 6.0；.grad=6.0。"),
@@ -16143,7 +16192,7 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
                     ("学習の順序", "先に zero_grad、次に backward、最後に step。"),
                 ],
                 "footer": "backward は .grad に勾配を書き、optimizer.step() がパラメータを更新する。",
-                "alt": "Autograd .grad 累積実験図：計算グラフは毎回作り直されて解放され、.grad バッファは残る。x=3 で1回目の backward は .grad=6.0、消さずに2回目を行うと 8.0 に累積し、zero_ 後の backward は 2.0 になる。",
+                "alt": "Autograd .grad 累積メカニズム図：計算グラフは毎回作り直されて解放され、.grad バッファは残る。x=3 で1回目の backward は .grad=6.0、消さずに2回目を行うと 8.0 に累積し、zero_ 後の backward は 2.0 になる。",
             },
         },
     },

@@ -376,6 +376,8 @@ ch07_workshop_evidence/failure_cases.md
 ch07_workshop_evidence/README.md
 ```
 
+![第 7 章工作坊运行结果证据图](/img/course/ch07-workshop-token-prompt-route-result-board.webp)
+
 ## 每一步在说明什么
 
 | 输出区域 | 观察重点 | 对应章节概念 |
