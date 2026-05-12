@@ -590,7 +590,7 @@ deep_learning_workshop_run/reports/shape_trace.md
 
 ## 出力を順番に読む
 
-![深層学習の出力ファイルを読む実験室](/img/course/ch06-hands-on-output-reading-lab-ja.webp)
+![深層学習ワークショップ出力証拠図](/img/course/ch06-hands-on-output-reading-lab-ja.webp)
 
 ### まず `shape_trace.md` を見る
 

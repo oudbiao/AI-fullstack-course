@@ -3102,15 +3102,78 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
         "filename": "ch06-hands-on-output-reading-lab.png",
         "size": "1024x1792",
         "quality": "high",
-        "title": "深度学习输出文件阅读实验室图",
+        "title": "深度学习工作坊输出证据图",
         "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
-        "alt": "深度学习输出文件阅读实验室图：shape_trace、training_log、model_comparison、confusion_matrix、error_samples、metrics_summary 和 loss_curve 逐项阅读。",
+        "alt": "深度学习工作坊输出证据图：从数据划分、loss 曲线、Tiny CNN 与 Flatten baseline 对比、混淆矩阵、复盘样本到 checkpoint，逐项理解运行结果。",
         "prompt": """
-一张竖版输出阅读实验室图，主题是“跑完代码后不要只看 accuracy，要逐个读证据文件”。
-画面像一个训练结果实验台，依次打开 shape_trace.md、training_log.csv、model_comparison.csv、confusion_matrix.csv、error_samples.csv、metrics_summary.json、loss_curve.png。
-每个文件旁边有一个短问题：shape 对吗、loss 降了吗、baseline 被超过了吗、哪类混淆了、哪些样本要复盘、最佳模型是谁、曲线是否健康。
-风格清晰、流程式、适合新人跟做后检查输出。
-文字不是主体；文件名和标准术语保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+竖版 9:16 中文教学插画，成品位图，直接由 AI 生成完整文字和画面，不留空白给后期叠字。
+主题是“第 6 章深度学习工作坊：跑完 dl_workshop.py 后怎样读懂真实输出”。这张图插在运行输出之后，必须贴合本页的合成条纹分类实验，不要画 ResNet、猫狗车、通用图片分类或虚构数据。
+
+画面风格：温暖的实验台 / 学习笔记本风格，有真实可看的条纹小图、loss 曲线、混淆矩阵热力格、模型对比卡、checkpoint 文件夹和复盘样本队列。不要白底圆角框堆叠，不要 SVG 风格，不要纯流程框，不要终端截图，不要贴纸拼贴感，不要密集表格。
+
+固定阅读路径从上到下，三语版本构图必须一致：
+1. 顶部标题必须写“深度学习工作坊输出证据”，副标题写“不要只看 accuracy；用文件证据证明模型真的学会了。”
+2. 数据准备区：显示三种合成条纹缩略图：vertical_stripe、horizontal_stripe、diagonal_stripe；显示 train=252、val=84、test=84、classes=3。
+3. 训练曲线区：画两条清楚下降的 loss 曲线，标注 Flatten baseline: 0.8555 -> 0.1929，Tiny CNN: 1.0961 -> 0.0711。
+4. 模型对比区：只显示两张模型卡。Tiny CNN 胜出，best_val_acc=1.000，test_accuracy=1.000；Flatten baseline，best_val_acc=0.929，test_accuracy=0.917。用画面表现 CNN 更适合局部条纹模式。
+5. 混淆矩阵区：三类对角线全亮，数值只写 25、28、31；非对角位置用 0 表示，说明三类没有混淆。
+6. 复盘样本区：显示 error_samples.csv 仍有 review_rows=10；第一张卡写 diagonal_stripe_099，confidence=0.4211，原因是“最低置信度正确样本”。强调全对也要复盘低置信度样本。
+7. checkpoint 区：best_model.pt 指向 Tiny CNN 和三类 class list，旁边有“可重新加载”印章。
+底部总结必须写：“结论来自证据链：数据 -> 曲线 -> 对比 -> 混淆矩阵 -> 复盘样本 -> checkpoint。”
+
+语言规则：中文自然清楚；允许必要英文技术词和文件名，例如 dl_workshop.py、accuracy、loss、Flatten baseline、Tiny CNN、checkpoint、error_samples.csv、vertical_stripe。不要整段英文说明、不要乱码、不要小字、不要伪日文或伪英文。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-output-reading-lab-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Deep Learning Workshop Output Evidence Map",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "Deep learning workshop output evidence map: read the data split, loss curve, Tiny CNN versus Flatten baseline comparison, confusion matrix, review samples, and checkpoint as one evidence chain.",
+        "prompt": """
+Create one vertical 9:16 English teaching illustration as a finished bitmap. Generate the final image directly with text integrated into the scene; do not leave blank space for later text overlay.
+Topic: "Chapter 6 deep learning workshop: how to read the real output after running dl_workshop.py". This image is placed after the run output, so it must match the synthetic stripe classification experiment in the page. Do not draw ResNet, cats, dogs, cars, generic image classification, or invented datasets.
+
+Visual style: warm lab notebook / learning workbench with inspectable stripe thumbnails, loss curves, a confusion-matrix heatmap, model comparison cards, a checkpoint folder, and a review-sample queue. Not a white rounded-box flowchart, not SVG style, not a pure process diagram, not a terminal screenshot, not a sticker collage, not a dense table.
+
+Fixed top-to-bottom reading path, matching the Chinese and Japanese variants:
+1. Visible title exactly: "Deep Learning Workshop Output Evidence". Visible subtitle exactly: "Do not stop at accuracy; prove learning with evidence files."
+2. Data section: show three synthetic stripe thumbnails labeled vertical_stripe, horizontal_stripe, diagonal_stripe; show train=252, val=84, test=84, classes=3.
+3. Training curve section: draw two clearly decreasing loss curves, labeled Flatten baseline: 0.8555 -> 0.1929 and Tiny CNN: 1.0961 -> 0.0711.
+4. Model comparison section: show only two model cards. Tiny CNN wins, best_val_acc=1.000, test_accuracy=1.000. Flatten baseline, best_val_acc=0.929, test_accuracy=0.917. Make the drawing show that CNN matches local stripe patterns better.
+5. Confusion matrix section: three bright diagonal cells with only the numbers 25, 28, 31; off-diagonal positions marked 0, showing no class confusion.
+6. Review samples section: error_samples.csv still has review_rows=10; the first card says diagonal_stripe_099, confidence=0.4211, reason "lowest-confidence correct prediction". Show that even a perfect test run still reviews low-confidence samples.
+7. Checkpoint section: best_model.pt points to Tiny CNN and the three-class list, with a "reloadable" stamp.
+Bottom summary exactly: "Evidence chain: data -> curves -> comparison -> confusion matrix -> review samples -> checkpoint."
+
+Language rules: all explanatory text must be natural English. Keep code/file/metric names exact. Text must be large, short, readable, and attached to the visual object it explains. Avoid gibberish, pseudo-text, tiny labels, non-English helper text, and real brand logos.
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-output-reading-lab-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "深層学習ワークショップ出力証拠図",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "深層学習ワークショップ出力証拠図：データ分割、loss 曲線、Tiny CNN と Flatten baseline の比較、混同行列、復習サンプル、checkpoint を証拠の流れとして読む。",
+        "prompt": """
+縦長 9:16 の日本語教材イラスト。完成したビットマップとして、必要な文字も画面内に直接生成する。後から文字を重ねる前提の空白は作らない。
+テーマは「第 6 章 deep learning workshop：dl_workshop.py 実行後の本当の出力をどう読むか」。この図は実行出力の直後に入るため、ページ本文の合成 stripe 分類実験に必ず合わせる。ResNet、猫、犬、車、一般的な画像分類、架空データは描かない。
+
+画面スタイル：温かい実験ノート / 学習作業台。読み取れる stripe サムネイル、loss 曲線、混同行列ヒートマップ、モデル比較カード、checkpoint フォルダ、復習サンプル列を入れる。白い角丸ボックスのフローチャート、SVG 風、単なる流れ図、ターミナル画面、貼り紙コラージュ、密な表は禁止。
+
+上から下への固定読解ルート。中国語版・英語版と構図をそろえる：
+1. タイトルは正確に「深層学習ワークショップ出力証拠」。サブタイトルは「accuracy だけで止めず、証拠ファイルで学習を確認する。」
+2. データ準備区：3 種の合成 stripe サムネイルを表示し、ラベルは vertical_stripe、horizontal_stripe、diagonal_stripe。見出しは必ず「合成 stripe 分類実験」と書く。train=252、val=84、test=84、classes=3 を表示。
+3. 学習曲線区：2 本のはっきり下降する loss 曲線。Flatten baseline: 0.8555 -> 0.1929、Tiny CNN: 1.0961 -> 0.0711 と書く。
+4. モデル比較区：モデルカードは 2 枚だけ。Tiny CNN が勝つ：best_val_acc=1.000、test_accuracy=1.000。Flatten baseline：best_val_acc=0.929、test_accuracy=0.917。CNN が局所的な stripe パターンに合うことを絵で示す。
+5. 混同行列区：対角線 3 マスを明るくし、数値は 25、28、31 だけ。非対角は 0 として、3 クラスが混ざっていないことを示す。
+6. 復習サンプル区：error_samples.csv に review_rows=10。最初のカードに diagonal_stripe_099、confidence=0.4211、理由「信頼度が最も低い正解サンプル」。全問正解でも低信頼サンプルを確認することを示す。
+7. checkpoint 区：best_model.pt が Tiny CNN と 3 クラス一覧につながり、「再読み込み可能」スタンプを置く。
+最下部のまとめは正確に「証拠の流れ：データ -> 曲線 -> 比較 -> 混同行列 -> 復習サンプル -> checkpoint。」
+
+言語ルール：説明文は自然な日本語。中国語の簡体字を絶対に使わない。特に「分类」は禁止で、必ず日本語の「分類」を使う。必要な英語/code/file/metric 名だけ保持してよい：dl_workshop.py、accuracy、loss、Flatten baseline、Tiny CNN、checkpoint、error_samples.csv、vertical_stripe。文字は大きく短く、説明対象の近くに置く。文字化け、疑似文字、小さすぎる文字、中国語の補助文、英語の長文、実在ロゴは禁止。
 """.strip(),
     },
     {
@@ -15984,48 +16047,48 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/02-autograd.md",
             "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/02-autograd.md",
         },
-        "scene": "A PyTorch autograd training-loop mechanism worked example based on Lab 3. The image must teach the exact runnable example, not a generic training-loop poster. Show x=3 with requires_grad=True. First branch: y1=x**2, y1.backward(), local derivative 6.0, and .grad=6.0. Second branch happens without clearing: y2=2*x, y2.backward(), local derivative 2.0, then the persistent .grad buffer shows 6.0 + 2.0 = 8.0. Third branch: x.grad.zero_() clears the buffer to 0, then y3=2*x, y3.backward(), and .grad=2.0. Visually contrast two lifetimes: the temporary computation graph is rebuilt for the current forward/backward and then disappears; the .grad buffer stays beside the parameter and accumulates until zero_ clears it. Include a compact rule rail for normal training order: optimizer.zero_grad() -> loss.backward() -> optimizer.step(). Teaching point: backward computes gradients and writes/adds them to .grad; it does not update parameters and it does not automatically overwrite old gradients. The artwork must be one cohesive teaching illustration with labels physically integrated into signs, meters, graph wires, and lab objects, not pasted on top.",
+        "scene": "A PyTorch autograd .grad accumulation worked example based on Lab 3. The image title must describe a .grad accumulation lab, not an autograd loop mechanism or a generic training loop. It must teach the exact runnable example. Show x=3 with requires_grad=True. First run: y1=x**2, y1.backward(), local derivative dy1/dx=6.0, and .grad=6.0. Second run happens without clearing: y2=2*x, y2.backward(), local derivative dy2/dx=2.0, then the persistent .grad buffer visibly adds previous 6.0 + current 2.0 and becomes .grad=8.0. Third run: x.grad.zero_() drains the buffer to 0, then y3=2*x runs, dy3/dx=2.0, and the final .grad is 2.0. Visually contrast two lifetimes: the temporary computation graph is rebuilt for the current forward/backward and then disappears; the .grad buffer stays beside the parameter and accumulates until zero_ clears it. Include a small bottom rule for normal training order: optimizer.zero_grad() -> loss.backward() -> optimizer.step(). Teaching point: backward computes gradients and writes/adds them to .grad; it does not update parameters and it does not automatically overwrite old gradients. The artwork must be one cohesive teaching illustration on one surface, not a pasted-label collage.",
         "chapter_context": "The image is inserted immediately after Lab 3: See Gradient Accumulation. The nearby code prints after first backward: 6.0, after second backward: 8.0, and after zero and third backward: 2.0. The nearby explanation says PyTorch accumulates gradients by default, x**2 at x=3 has gradient 6, 2*x has gradient 2, the second backward makes .grad become 6+2=8, and zero_ makes the next gradient start cleanly. The following text explains why normal training uses optimizer.zero_grad(), loss.backward(), optimizer.step().",
-        "shared_layout": "Vertical 9:16. All three language variants use the same cohesive illustrated training workbench, like one physical teaching instrument rather than a collage: a parameter token x=3 on the left, temporary glowing computation-graph rails in the center, and a persistent transparent .grad reservoir on the right. Avoid pasted-label style completely: no sticky notes, tape, cut-out captions, floating label chips, separate title stickers, collage scraps, UI cards, or text boxes that look overlaid after generation. Captions must feel printed or engraved directly into the lane surface, graph rail, gauge face, or reservoir glass. Fixed layout for every language: top title names gradient accumulation, then exactly three horizontal experiment lanes. Lane 1 graph must contain exactly x -> square/**2 -> y1, with derivative formula dy1/dx=2x=6.0 integrated into the glowing rail; do not add any 2*x graph node in lane 1. Lane 1 ends at .grad=6.0. Lane 2 graph must contain exactly x -> multiply by 2 -> y2, derivative dy2/dx=2.0, then the reservoir visibly adds +2.0 to old 6.0 so .grad=8.0; show that this is accumulation, not overwrite. Lane 3 must show two ordered moments in one lane: first zero_ opens a valve and drains the .grad reservoir to 0, then y3=2*x runs with derivative label dy3/dx=2.0, and the final right-side reservoir is refilled to exactly .grad=2.0. The final visual state of lane 3 must be .grad=2.0, not 0.0. Every derivative label must use x as the denominator: dy1/dx, dy2/dx, dy3/dx; never write dy3/dy, dy/dy, or any derivative with y as denominator. The temporary computation graph rails should glow and fade after each backward, while the .grad reservoir remains a solid reusable object across lanes. Bottom rule rail is part of the instrument: zero_grad -> backward -> step. Keep lane order, numeric values, colors, object positions, and reading path identical across zh/en/ja. Use concrete reservoirs, graph rails, arrows, parameter tokens, and eraser/valve action; avoid SVG-style diagrams, white rounded-box flowcharts, blackboard poster style, terminal screenshots, dense code blocks, tiny text, or decorative-only art. Accuracy rule: no extra operation nodes, no invented numbers, no generic loop names, no dy3/dy label, and never leave the third lane's final .grad meter at 0.0.",
+        "shared_layout": "Vertical 9:16. All three language variants use the same clean classroom experiment-bench illustration on one continuous white glass tablet or laminated lab board. The board is divided by printed lane lines into three horizontal experiment lanes. Do not use paper notebook, sticky notes, pinned notes, thumbtacks, tape, separate scraps of paper, floating cards, label chips, sticker labels, clipboard pages, UI cards, caption boxes, metal plaques, collage pieces, or any object that looks pasted on top. Use direct marker writing on the board, printed lane headings, graph lines, arrows, and beaker markings only. Put a reusable transparent .grad beaker on the right of each lane and temporary glowing computation-graph sketches in the center. Text must look written directly on the board surface, printed on the graph line, or marked on the beaker scale. Fixed layout for every language: top title names the .grad accumulation lab, then exactly three horizontal experiment lanes. Lane 1 graph must show three separate large nodes, exactly x -> x**2 -> y1. The central formula label must be exactly dy1/dx=6.0. Do not write dy1/dy anywhere. Do not omit the x**2 node. Lane 1 ends at .grad=6.0. Lane 2 graph must show three separate large nodes, exactly x -> 2*x -> y2. The central formula label must be exactly dy2/dx=2.0. The beaker visibly adds +2.0 to previous 6.0 so .grad=8.0; show that this is accumulation, not overwrite. Lane 3 must show two ordered moments in one lane: first x.grad.zero_() clears the beaker to 0, then a new graph x -> 2*x -> y3 runs with the central formula label exactly dy3/dx=2.0, and the final right-side beaker is refilled to exactly .grad=2.0. The final visual state of lane 3 must be .grad=2.0, not 0.0. Write each derivative formula only once per lane in the central graph area; do not repeat derivative formulas in side notes. Every derivative label must use x as the denominator: dy1/dx, dy2/dx, dy3/dx; never write dy1/dy, dy2/dy, dy3/dy, dy/dy, or any derivative with y as denominator. For Simplified Chinese visible text, all explanatory words must be Chinese; allowed English/code tokens only: Autograd, .grad, requires_grad=True, backward, zero_, zero_grad, optimizer.step(), step, x, y1, y2, y3, x**2, 2*x, dy1/dx, dy2/dx, dy3/dx. Never write English helper phrases such as square, multiply by 2, graph faded, graph active, drains the beaker, input, current, previous, training order, or final gradient in the Chinese image; use Chinese words such as 平方、乘以 2、计算图消散、清空到 0、本轮、上次、训练顺序. For Japanese visible text, all explanatory words must be Japanese; allowed English/code tokens only: Autograd, .grad, requires_grad=True, backward, zero_, zero_grad, optimizer.step(), step, x, y1, y2, y3, x**2, 2*x, dy1/dx, dy2/dx, dy3/dx. Never write English helper words such as drain, graph is temporary, final gradient, training order, current, or previous in the Japanese image; use Japanese words such as 排出、計算グラフは一時的、最終、学習の順序、今回、前回. For Japanese visible labels, use 今回 2.0 and 前回 6.0 for current and previous values; never write 新い. The temporary computation graph should glow and fade after each backward, while the .grad beaker remains a reusable storage object. Beaker scales should be 0, 2, 6, 8, 10 or similarly small gradient values, never a 0-100 scale. Bottom rule strip is part of the same board surface: zero_grad -> backward -> step. Keep lane order, numeric values, colors, object positions, and reading path identical across zh/en/ja. Use concrete beakers, graph rails, arrows, parameter tokens, and drain/refill action; avoid SVG-style diagrams, white rounded-box flowcharts, blackboard poster style, terminal screenshots, dense code blocks, tiny text, industrial pipes, steampunk controls, paper collage, or decorative-only art. Accuracy rule: no extra operation nodes, no invented numbers, no generic loop names, no derivative with y as denominator, no English explanatory helper words in zh/ja images, and never leave the third lane's final .grad meter at 0.0.",
         "variants": {
             "zh": {
-                "title": "Autograd 梯度累积机制",
-                "subtitle": "计算图每次重建，.grad 会一直相加，直到 zero_ 清空。",
+                "title": "Autograd .grad 累积实验",
+                "subtitle": "计算图用完就释放；.grad 会保留并相加，直到 zero_ 清空。",
                 "items": [
                     ("输入 x=3", "requires_grad=True。"),
-                    ("第 1 次 backward", "y1=x**2；dy1/dx=6.0；.grad=6.0。"),
-                    ("第 2 次未清空", "dy2/dx=2.0；旧 6.0 + 新 2.0 = .grad 8.0。"),
-                    ("zero_ 后第 3 次", "先清到 0；dy3/dx=2.0；最终 .grad=2.0。"),
-                    ("训练顺序", "zero_grad -> backward -> step。"),
+                    ("第 1 次 backward", "y1=x**2；本轮梯度 6.0；.grad=6.0。"),
+                    ("第 2 次未清空", "y2=2*x；本轮 2.0 加到上次 6.0；.grad=8.0。"),
+                    ("zero_ 后再算", "先清到 0；y3=2*x；本轮梯度 2.0；.grad=2.0。"),
+                    ("训练顺序", "先 zero_grad，再 backward，再 step。"),
                 ],
-                "footer": "每轮训练先 zero_grad，再 backward，最后 step。",
-                "alt": "Autograd 梯度累积机制图：计算图每次重建，.grad 缓冲区会保留；x=3 时第一次 backward 得到 .grad=6.0，第二次未清空累积为 8.0，zero_ 后重新 backward 得到 2.0。",
+                "footer": "backward 只把梯度写入 .grad；更新参数要等 optimizer.step()。",
+                "alt": "Autograd .grad 累积实验图：计算图每次重建并释放，.grad 缓冲区会保留；x=3 时第一次 backward 得到 .grad=6.0，第二次未清空累积为 8.0，zero_ 后重新 backward 得到 2.0。",
             },
             "en": {
-                "title": "Autograd Gradient Accumulation",
-                "subtitle": "The graph is rebuilt each time; .grad keeps adding until zero_ clears it.",
+                "title": "Autograd .grad Accumulation Lab",
+                "subtitle": "The graph is temporary; .grad stays and adds until zero_ clears it.",
                 "items": [
                     ("input x=3", "requires_grad=True."),
-                    ("1st backward", "y1=x**2; dy1/dx=6.0; .grad=6.0."),
-                    ("2nd, not cleared", "dy2/dx=2.0; old 6.0 + new 2.0 = .grad 8.0."),
-                    ("3rd after zero_", "clear to 0 first; dy3/dx=2.0; final .grad=2.0."),
-                    ("training order", "zero_grad -> backward -> step."),
+                    ("1st backward", "y1=x**2; current gradient 6.0; .grad=6.0."),
+                    ("2nd, not cleared", "y2=2*x; current 2.0 adds to prior 6.0; .grad=8.0."),
+                    ("after zero_, run again", "clear to 0; y3=2*x; current gradient 2.0; .grad=2.0."),
+                    ("training order", "zero_grad, then backward, then step."),
                 ],
-                "footer": "Each training step: zero_grad, then backward, then step.",
-                "alt": "Autograd gradient accumulation map: the computation graph is rebuilt each time while the .grad buffer persists; at x=3, the first backward gives .grad=6.0, a second backward without clearing accumulates to 8.0, and after zero_ the next backward gives 2.0.",
+                "footer": "backward writes gradients into .grad; optimizer.step() updates parameters.",
+                "alt": "Autograd .grad accumulation lab map: the computation graph is rebuilt and released while the .grad buffer persists; at x=3, the first backward gives .grad=6.0, a second backward without clearing accumulates to 8.0, and after zero_ the next backward gives 2.0.",
             },
             "ja": {
-                "title": "Autograd の勾配累積",
-                "subtitle": "計算グラフは毎回作り直され、.grad は zero_ まで足され続ける。",
+                "title": "Autograd .grad 累積実験",
+                "subtitle": "計算グラフは一時的。.grad は zero_ まで残って足される。",
                 "items": [
                     ("入力 x=3", "requires_grad=True。"),
-                    ("1回目の backward", "y1=x**2；dy1/dx=6.0；.grad=6.0。"),
-                    ("2回目、未クリア", "dy2/dx=2.0；古い 6.0 + 新しい 2.0 = .grad 8.0。"),
-                    ("zero_ 後の3回目", "先に 0 へ；dy3/dx=2.0；最終 .grad=2.0。"),
-                    ("学習の順序", "zero_grad -> backward -> step。"),
+                    ("1回目の backward", "y1=x**2；今回の勾配 6.0；.grad=6.0。"),
+                    ("2回目、未クリア", "y2=2*x；今回 2.0 が前回 6.0 に足され、.grad=8.0。"),
+                    ("zero_ 後に再実行", "先に 0 へ；y3=2*x；今回の勾配 2.0；.grad=2.0。"),
+                    ("学習の順序", "先に zero_grad、次に backward、最後に step。"),
                 ],
-                "footer": "各 training step は zero_grad、backward、step の順に進める。",
-                "alt": "Autograd の勾配累積図：計算グラフは毎回作り直され、.grad バッファは残る。x=3 で1回目の backward は .grad=6.0、消さずに2回目を行うと 8.0 に累積し、zero_ 後の backward は 2.0 になる。",
+                "footer": "backward は .grad に勾配を書き、optimizer.step() がパラメータを更新する。",
+                "alt": "Autograd .grad 累積実験図：計算グラフは毎回作り直されて解放され、.grad バッファは残る。x=3 で1回目の backward は .grad=6.0、消さずに2回目を行うと 8.0 に累積し、zero_ 後の backward は 2.0 になる。",
             },
         },
     },

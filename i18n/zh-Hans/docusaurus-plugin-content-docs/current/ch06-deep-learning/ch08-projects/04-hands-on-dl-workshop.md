@@ -590,7 +590,7 @@ deep_learning_workshop_run/reports/shape_trace.md
 
 ## 按顺序读取输出
 
-![深度学习输出文件阅读实验室](/img/course/ch06-hands-on-output-reading-lab.webp)
+![深度学习工作坊输出证据图](/img/course/ch06-hands-on-output-reading-lab.webp)
 
 ### 先看 `shape_trace.md`
 

@@ -590,7 +590,7 @@ deep_learning_workshop_run/reports/shape_trace.md
 
 ## Read the Output Step by Step
 
-![Deep learning output reading lab](/img/course/ch06-hands-on-output-reading-lab-en.webp)
+![Deep learning workshop output evidence map](/img/course/ch06-hands-on-output-reading-lab-en.webp)
 
 ### Start with `shape_trace.md`
 
