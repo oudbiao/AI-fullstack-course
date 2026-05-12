@@ -417,6 +417,12 @@ after : tensor([[0.5000, 2.0000, 4.5000, 8.0000]], grad_fn=<MulBackward0>)
 
 The core of IA3 is not “becoming more complex,” but “making lightweight adjustments only at the most important positions.”
 
+![PEFT mini lab result map](/img/course/ch07-peft-mini-lab-result-map-en.webp)
+
+:::tip Read the printouts as structure
+These short outputs are not just numbers. Adapter shows how few parameters move, Prompt Tuning changes input length, Prefix Tuning changes attention keys, and IA3 changes channel strength by multiplication.
+:::
+
 ---
 
 ## How should you choose?

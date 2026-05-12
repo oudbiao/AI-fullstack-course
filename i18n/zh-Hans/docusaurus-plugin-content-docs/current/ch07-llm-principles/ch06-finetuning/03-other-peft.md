@@ -417,6 +417,12 @@ after : tensor([[0.5000, 2.0000, 4.5000, 8.0000]], grad_fn=<MulBackward0>)
 
 IA3 的核心不是“变复杂”，而是“只在最关键的位置做轻量调节”。
 
+![PEFT 小实验结果图](/img/course/ch07-peft-mini-lab-result-map.webp)
+
+:::tip 把 print 结果读成结构
+这些短输出不是单纯数字。Adapter 说明只有少量参数在动，Prompt Tuning 改输入长度，Prefix Tuning 改 attention key，IA3 用乘法改变通道强度。
+:::
+
 ---
 
 ## 五、到底该怎么选？

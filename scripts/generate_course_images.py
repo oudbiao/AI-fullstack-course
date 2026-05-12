@@ -14001,6 +14001,55 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-peft-mini-lab-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch06-finetuning/03-other-peft.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch06-finetuning/03-other-peft.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch06-finetuning/03-other-peft.md",
+        },
+        "scene": "A runnable-result teaching visual for the PEFT mini labs. It must translate the printed outputs into one visual explanation: Adapter trains only a small inserted branch while the base encoder stays frozen, Prompt Tuning prepends 3 learned soft tokens so sequence length changes from 5 to 8, Prefix Tuning adds 2 trainable attention keys so key count changes from 4 to 6, and IA3 multiplies each channel by a learned scale so [1,2,3,4] becomes [0.5,2,4.5,8]. Do not draw a generic PEFT family poster, a terminal screenshot, a full code block, fake model names, invented metrics, or tiny unreadable tables.",
+        "chapter_context": "The image appears after the IA3 expected output in the PEFT chapter. Nearby code first trains an Adapter classifier with total params 694, trainable params 182, loss 0.7183/acc 0.50 at step 000, then loss 0.0000/acc 1.00 by steps 050-200, and refund/login examples classify correctly. The next short labs print Prompt Tuning length 5 -> 8, Prefix Tuning key count 4 -> 6, and IA3 before tensor [[1.,2.,3.,4.]] after [[0.5000,2.0000,4.5000,8.0000]].",
+        "shared_layout": "Vertical 9:16. Use the same dark model-lab bench style across zh/en/ja. Top title and subtitle. Four stacked stations: 1 Adapter evidence panel showing frozen base, small adapter branch, trainable 182 / total 694, and a tiny curve acc 0.50 -> 1.00; 2 Prompt Tuning panel showing 3 learned vector tokens prepended before 5 input tokens, length 5 -> 8; 3 Prefix Tuning panel showing 2 prefix keys added to 4 layer keys, keys 4 -> 6; 4 IA3 panel showing channel-wise scales 0.5, 1.0, 1.5, 2.0 multiplying 1,2,3,4 into 0.5,2,4.5,8. Bottom strip: freeze most weights, train small knobs, read the printed result as structure. Keep station order, colors, numeric values, object placement, and reading path identical across languages. Use visual objects, arrows, meters, and vectors with large labels; no white rounded-box diagram or pure text poster.",
+        "variants": {
+            "zh": {
+                "title": "PEFT 小实验结果怎么读",
+                "subtitle": "print 的数字对应参数放在哪里、怎么改表示。",
+                "items": [
+                    ("Adapter", "冻结主干；训练 182 / 694 个参数；acc 0.50 -> 1.00。"),
+                    ("Prompt Tuning", "3 个 soft prompt 向量接到 5 个 token 前，长度 5 -> 8。"),
+                    ("Prefix Tuning", "每层 attention 多看 2 个 prefix key，key 数 4 -> 6。"),
+                    ("IA3", "[1,2,3,4] × [0.5,1.0,1.5,2.0] = [0.5,2,4.5,8]。"),
+                ],
+                "footer": "PEFT 的本质：大部分参数冻结，只训练少量可控旋钮。",
+                "alt": "PEFT 小实验结果图：Adapter 只训练 182/694 个参数并把准确率从 0.50 提到 1.00，Prompt Tuning 让长度 5 变 8，Prefix Tuning 让 key 数 4 变 6，IA3 做通道缩放。",
+            },
+            "en": {
+                "title": "How to Read PEFT Mini Labs",
+                "subtitle": "The printed numbers show where parameters live and how representations change.",
+                "items": [
+                    ("Adapter", "Freeze the base; train 182 / 694 params; acc 0.50 -> 1.00."),
+                    ("Prompt Tuning", "Prepend 3 soft-prompt vectors before 5 tokens, length 5 -> 8."),
+                    ("Prefix Tuning", "Add 2 prefix keys to 4 layer keys, key count 4 -> 6."),
+                    ("IA3", "[1,2,3,4] × [0.5,1.0,1.5,2.0] = [0.5,2,4.5,8]."),
+                ],
+                "footer": "PEFT freezes most weights and trains small controllable knobs.",
+                "alt": "PEFT mini lab result map: Adapter trains only 182 of 694 parameters and raises accuracy from 0.50 to 1.00, Prompt Tuning changes length 5 to 8, Prefix Tuning changes key count 4 to 6, and IA3 scales channels.",
+            },
+            "ja": {
+                "title": "PEFT ミニ実験の読み方",
+                "subtitle": "print の数字は、どこを学習し、表現がどう変わるかを示す。",
+                "items": [
+                    ("Adapter", "土台を凍結し、182 / 694 params だけ学習。acc 0.50 -> 1.00。"),
+                    ("Prompt Tuning", "3 個の soft prompt ベクトルを 5 token の前に置き、長さ 5 -> 8。"),
+                    ("Prefix Tuning", "4 個の layer key に 2 個の prefix key を足し、key 数 4 -> 6。"),
+                    ("IA3", "[1,2,3,4] × [0.5,1.0,1.5,2.0] = [0.5,2,4.5,8]。"),
+                ],
+                "footer": "PEFT の本質：多くを凍結し、小さな調整つまみだけを学習する。",
+                "alt": "PEFT ミニ実験の結果図：Adapter は 694 個中 182 個だけを学習して accuracy を 0.50 から 1.00 に上げ、Prompt Tuning は長さ 5 を 8 に、Prefix Tuning は key 数 4 を 6 にし、IA3 は channel をスケールする。",
+            },
+        },
+    },
+    {
         "slug": "ch06-lstm-gru-memory-lab-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
@@ -16777,6 +16826,153 @@ Critical accuracy rules:
 - The exact field name is "needs_human" everywhere, with underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
 - Do not invent fields such as id, name, age, score, status, user_id, message, or data.
 - Do not draw a terminal screenshot, full code block, HTTP API, database, confusion matrix, model metrics, or generic JSON poster.
+""".strip(),
+    "ch07-peft-mini-lab-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "PEFT 小实验结果怎么读"
+Visible subtitle exactly: "print 的数字对应参数放在哪里、怎么改表示。"
+
+Use a dark model-lab bench style with frozen base blocks, small trainable modules, vector tokens, attention key rails, channel sliders, and tiny result meters. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Adapter station:
+   - heading exactly "Adapter"
+   - draw a large frozen base encoder locked in blue and a small orange adapter branch beside it.
+   - show exactly "trainable 182 / total 694"
+   - show a small curve or meter exactly "acc 0.50 -> 1.00"
+   - teaching note exactly "主干冻结，只训练小分支"
+2. Prompt Tuning station:
+   - heading exactly "Prompt Tuning"
+   - draw 3 glowing soft prompt vector tokens placed before 5 normal input tokens.
+   - show exactly "3 soft prompt + 5 tokens"
+   - show exactly "长度 5 -> 8"
+   - teaching note exactly "改输入前缀，不是可读文本"
+3. Prefix Tuning station:
+   - heading exactly "Prefix Tuning"
+   - draw 2 prefix keys added before 4 layer keys inside attention.
+   - show exactly "2 prefix key + 4 layer key"
+   - show exactly "key 数 4 -> 6"
+   - teaching note exactly "改每层 attention 看到的上下文"
+4. IA3 station:
+   - heading exactly "IA3"
+   - draw four channel sliders with scales exactly "0.5", "1.0", "1.5", "2.0"
+   - show exactly "[1,2,3,4] × [0.5,1.0,1.5,2.0] = [0.5,2,4.5,8]"
+   - teaching note exactly "给关键通道乘缩放因子"
+5. Bottom footer exactly:
+   "PEFT 的本质：大部分参数冻结，只训练少量可控旋钮。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: PEFT, print, Adapter, Prompt Tuning, Prefix Tuning, IA3, trainable, total, acc, soft prompt, tokens, prefix key, layer key, attention.
+- Do not add English helper phrases such as input embedding, bottleneck, scaling vector, frozen base, result, success, fail, output.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Adapter numbers must be exactly 182 / 694 and acc 0.50 -> 1.00.
+- Prompt Tuning must show length 5 -> 8, not 8 -> 5.
+- Prefix Tuning must show key count 4 -> 6, not input length.
+- IA3 must show channel multiplication exactly and must not imply adding values.
+- Do not invent epochs, model names, extra metrics, task labels, LoRA, RAG, HTTP APIs, or database tables.
+- Do not draw a terminal screenshot, full code block, generic PEFT poster, or dense table.
+""".strip(),
+    "ch07-peft-mini-lab-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "How to Read PEFT Mini Labs"
+Visible subtitle exactly: "The printed numbers show where parameters live and how representations change."
+
+Use a dark model-lab bench style with frozen base blocks, small trainable modules, vector tokens, attention key rails, channel sliders, and tiny result meters. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Adapter station:
+   - heading exactly "Adapter"
+   - draw a large frozen base encoder locked in blue and a small orange adapter branch beside it.
+   - show exactly "trainable 182 / total 694"
+   - show a small curve or meter exactly "acc 0.50 -> 1.00"
+   - teaching note exactly "freeze base, train small branch"
+2. Prompt Tuning station:
+   - heading exactly "Prompt Tuning"
+   - draw 3 glowing soft prompt vector tokens placed before 5 normal input tokens.
+   - show exactly "3 soft prompt + 5 tokens"
+   - show exactly "length 5 -> 8"
+   - teaching note exactly "input prefix, not readable text"
+3. Prefix Tuning station:
+   - heading exactly "Prefix Tuning"
+   - draw 2 prefix keys added before 4 layer keys inside attention.
+   - show exactly "2 prefix key + 4 layer key"
+   - show exactly "key count 4 -> 6"
+   - teaching note exactly "change what each attention layer sees"
+4. IA3 station:
+   - heading exactly "IA3"
+   - draw four channel sliders with scales exactly "0.5", "1.0", "1.5", "2.0"
+   - show exactly "[1,2,3,4] × [0.5,1.0,1.5,2.0] = [0.5,2,4.5,8]"
+   - teaching note exactly "multiply important channels"
+5. Bottom footer exactly:
+   "PEFT freezes most weights and trains small controllable knobs."
+
+Critical accuracy rules:
+- Adapter numbers must be exactly 182 / 694 and acc 0.50 -> 1.00.
+- Prompt Tuning must show length 5 -> 8, not 8 -> 5.
+- Prefix Tuning must show key count 4 -> 6, not input length.
+- IA3 must show channel multiplication exactly and must not imply adding values.
+- Do not invent epochs, model names, extra metrics, task labels, LoRA, RAG, HTTP APIs, or database tables.
+- Do not draw a terminal screenshot, full code block, generic PEFT poster, or dense table.
+- Text must be large and readable on a phone.
+""".strip(),
+    "ch07-peft-mini-lab-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "PEFT ミニ実験の読み方"
+Visible subtitle exactly: "print の数字は、どこを学習し、表現がどう変わるかを示す。"
+
+Use a dark model-lab bench style with frozen base blocks, small trainable modules, vector tokens, attention key rails, channel sliders, and tiny result meters. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Adapter station:
+   - heading exactly "Adapter"
+   - draw a large frozen base encoder locked in blue and a small orange adapter branch beside it.
+   - show exactly "trainable 182 / total 694"
+   - show a small curve or meter exactly "acc 0.50 -> 1.00"
+   - teaching note exactly "土台を凍結し、小さな分岐だけ学習"
+2. Prompt Tuning station:
+   - heading exactly "Prompt Tuning"
+   - draw 3 glowing soft prompt vector tokens placed before 5 normal input tokens.
+   - show exactly "3 soft prompt + 5 tokens"
+   - show exactly "長さ 5 -> 8"
+   - teaching note exactly "入力前の prefix。読める文章ではない"
+3. Prefix Tuning station:
+   - heading exactly "Prefix Tuning"
+   - draw 2 prefix keys added before 4 layer keys inside attention.
+   - show exactly "2 prefix key + 4 layer key"
+   - show exactly "key 数 4 -> 6"
+   - teaching note exactly "各 attention 層が見る文脈を変える"
+4. IA3 station:
+   - heading exactly "IA3"
+   - draw four channel sliders with scales exactly "0.5", "1.0", "1.5", "2.0"
+   - show exactly "[1,2,3,4] × [0.5,1.0,1.5,2.0] = [0.5,2,4.5,8]"
+   - teaching note exactly "重要 channel にスケール係数を掛ける"
+5. Bottom footer exactly:
+   "PEFT の本質：多くを凍結し、小さな調整つまみだけを学習する。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: PEFT, print, Adapter, Prompt Tuning, Prefix Tuning, IA3, trainable, total, acc, soft prompt, tokens, prefix key, layer key, attention, prefix, channel, スケール.
+- Do not add English helper phrases such as input embedding, bottleneck, scaling vector, frozen base, result, success, fail, output.
+- Do not add decorative English labels or stamps.
+- Do not write the Chinese-style phrase "縮放係数"; use the natural Japanese phrase "スケール係数" instead.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Adapter numbers must be exactly 182 / 694 and acc 0.50 -> 1.00.
+- Prompt Tuning must show length 5 -> 8, not 8 -> 5.
+- Prefix Tuning must show key count 4 -> 6, not input length.
+- IA3 must show channel multiplication exactly and must not imply adding values.
+- Do not invent epochs, model names, extra metrics, task labels, LoRA, RAG, HTTP APIs, or database tables.
+- Do not draw a terminal screenshot, full code block, generic PEFT poster, or dense table.
 """.strip(),
     "ch06-lstm-gru-memory-lab-result-map.png": """
 Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.

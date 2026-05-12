@@ -425,6 +425,12 @@ after : tensor([[0.5000, 2.0000, 4.5000, 8.0000]], grad_fn=<MulBackward0>)
 IA3 の本質は「複雑にすること」ではなく、  
 「最も重要な場所だけを軽く調整すること」です。
 
+![PEFT ミニ実験の結果図](/img/course/ch07-peft-mini-lab-result-map-ja.webp)
+
+:::tip print 結果を構造として読む
+これらの短い出力は、ただの数字ではありません。Adapter は動くパラメータの少なさ、Prompt Tuning は入力長の変化、Prefix Tuning は attention key の変化、IA3 は乗算による channel 強度の変化を示します。
+:::
+
 ---
 
 ## 五、どう選べばよいのか？
