@@ -322,6 +322,12 @@ Expected output:
 (False, 'missing_needs_human')
 ```
 
+![Structured output validation result map](/img/course/ch07-structured-output-validation-result-map-en.webp)
+
+:::tip Read the validator order
+The bad JSON is parseable, but it fails before the confidence type check because `needs_human` is missing. Validation is a sequence of gates, and the first failing gate decides the error code.
+:::
+
 This step is especially important because it changes your system from:
 
 - “the model will probably output something like this”

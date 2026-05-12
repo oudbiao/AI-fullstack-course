@@ -322,6 +322,12 @@ print(validate_output(bad))
 (False, 'missing_needs_human')
 ```
 
+![结构化输出校验结果图](/img/course/ch07-structured-output-validation-result-map.webp)
+
+:::tip 按校验顺序读结果
+bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `confidence` 类型检查就返回 `missing_needs_human`。校验器是一道道关卡，第一处失败决定错误码。
+:::
+
 这一步特别重要，因为它让你的系统从：
 
 - “模型大概会这么输出”

@@ -324,6 +324,12 @@ print(validate_output(bad))
 (False, 'missing_needs_human')
 ```
 
+![構造化出力の検証結果図](/img/course/ch07-structured-output-validation-result-map-ja.webp)
+
+:::tip 検証順序で結果を読む
+bad JSON は解析できますが、`needs_human` が欠けているため `confidence` の型確認へ進む前に `missing_needs_human` を返します。validator は順番に進む gate で、最初の失敗が error code を決めます。
+:::
+
 このステップはとても重要です。なぜなら、システムは次の状態から：
 
 - 「モデルはたぶんこう出力するだろう」

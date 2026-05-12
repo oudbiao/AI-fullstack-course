@@ -13891,6 +13891,116 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-structured-output-contract-validation-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+        },
+        "scene": "A structured-output contract teaching visual for the prompt chapter. It must show one concrete model request becoming a strict JSON contract, a model JSON response, a parser, field/type/range validation gates, and two controlled outcomes: pass to workflow or retry/human review/log sample. The image replaces an old white rounded-box information diagram, so redesign it as a real teaching illustration: a dark API inspection bench with JSON envelopes, schema stencil, validation gauges, and a workflow conveyor. Use the exact nearby contract fields intent, needs_human, and confidence. Do not invent id/name/age fields, HTTP status codes, database tables, extra metrics, model names, or fake logs.",
+        "chapter_context": "The image appears in the section 'Why Do Structured Outputs Still Need Validation?' The prose says that even a good prompt may miss fields, use the wrong type, output extra explanatory text, or produce invalid JSON. Nearby code validates JSON by parsing, checking required fields intent/needs_human/confidence, checking types, then returning True,data or an error code.",
+        "shared_layout": "Vertical 9:16. Use the same dark API contract inspection bench across zh/en/ja. Top title and subtitle. Upper station: a user intent card enters a Prompt contract stencil that lists required JSON fields intent, needs_human, confidence. Middle station: a model output JSON envelope is scanned by JSON parser, field check, type check, and range check gates in that order. Lower-left: pass lane sends the exact valid JSON to workflow. Lower-right: fail lane shows three hazards only: invalid JSON, missing field, wrong type; then retry or human review. Bottom strip: contract -> parse -> validate -> controlled handoff. Keep station order, colors, JSON envelope positions, pass/fail lanes, gate order, and reading path identical across languages. Use large readable labels attached to visual artifacts, not SVG-style white boxes or pure text posters.",
+        "variants": {
+            "zh": {
+                "title": "结构化输出要像合同一样验收",
+                "subtitle": "Prompt 负责约定格式，程序负责解析、校验和回退。",
+                "items": [
+                    ("用户意图", "我想了解退款政策。"),
+                    ("JSON 合同", "必须有 intent、needs_human、confidence。"),
+                    ("模型输出", '{"intent":"refund_policy","needs_human":false,"confidence":0.92}'),
+                    ("校验顺序", "先 parse，再查字段、类型和值域。"),
+                    ("通过", "交给 workflow 继续处理。"),
+                    ("失败", "重试、转人工、记录样本。"),
+                ],
+                "footer": "结构化输出不是看起来像 JSON，而是程序能稳定接住。",
+                "alt": "结构化输出合同与校验图：Prompt 定义 intent、needs_human、confidence 三个字段，模型输出 JSON 后依次经过 parse、字段、类型和值域校验，失败时重试或转人工。",
+            },
+            "en": {
+                "title": "Validate Structured Output Like a Contract",
+                "subtitle": "The prompt defines the shape; code parses, checks, and falls back.",
+                "items": [
+                    ("user intent", "I want to learn about the refund policy."),
+                    ("JSON contract", "Required: intent, needs_human, confidence."),
+                    ("model output", '{"intent":"refund_policy","needs_human":false,"confidence":0.92}'),
+                    ("validation order", "Parse first, then fields, types, and range."),
+                    ("pass", "Send to the workflow."),
+                    ("fail", "Retry, human review, log sample."),
+                ],
+                "footer": "Structured output is not JSON-looking text; it is data code can receive.",
+                "alt": "Structured output contract and validation map: a prompt defines intent, needs_human, and confidence fields, model JSON is parsed and checked for fields, types, and range, and failures retry or route to human review.",
+            },
+            "ja": {
+                "title": "構造化出力は契約として検証する",
+                "subtitle": "Prompt が形を決め、code が解析・確認・フォールバックを担う。",
+                "items": [
+                    ("ユーザー意図", "返金ポリシーについて知りたい。"),
+                    ("JSON 契約", "intent、needs_human、confidence が必須。"),
+                    ("モデル出力", '{"intent":"refund_policy","needs_human":false,"confidence":0.92}'),
+                    ("検証順序", "parse の後、field、type、range を確認。"),
+                    ("合格", "workflow へ渡す。"),
+                    ("失敗", "再試行、人手確認、sample 記録。"),
+                ],
+                "footer": "構造化出力は JSON らしさではなく、code が受け取れること。",
+                "alt": "構造化出力の契約と検証図：Prompt が intent、needs_human、confidence を定義し、model JSON を parse、field、type、range の順に確認し、失敗時は再試行か人手確認へ回す。",
+            },
+        },
+    },
+    {
+        "slug": "ch07-structured-output-validation-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal structured-output validator. It must explain the exact two printed results from validate_output(good) and validate_output(bad). Show two JSON envelopes entering the same validator gates. The good JSON is parseable, has all required fields, passes type checks, and returns True with the parsed dict. The bad JSON is parseable but is missing needs_human, so it fails at the required-field gate before the confidence type check; the returned error is missing_needs_human. Do not draw a generic JSON poster, terminal screenshot, full code block, HTTP API, database, confusion matrix, invented errors, invented fields, or extra metrics.",
+        "chapter_context": "The image is inserted after the expected output of the validation example. The nearby code calls validate_output(good) and validate_output(bad). The validator order is json.loads, required-field loop over intent/needs_human/confidence, then type checks. The bad sample has confidence as a string, but because needs_human is missing, the first failure is missing_needs_human.",
+        "shared_layout": "Vertical 9:16. Use the same dark validator workbench style across zh/en/ja. Top title and subtitle. Upper half: GOOD lane with exact JSON envelope, parse gate, required fields gate, type gates, then the exact printed True result. Lower half: BAD lane with exact JSON envelope, parse gate passes, required-field gate stops at needs_human missing, a dimmed confidence type gate marked not reached, then the exact printed False result. Bottom strip: validators fail at the first failing gate. Keep lane order, gate positions, result cards, warning colors, and reading path identical across languages. Use concrete JSON envelopes, gate lights, and result stamps; no white rounded-box flowchart, no dense code, no tiny text.",
+        "variants": {
+            "zh": {
+                "title": "校验输出要按顺序读",
+                "subtitle": "bad JSON 能解析，但先缺字段，所以错误码不是类型错误。",
+                "items": [
+                    ("good JSON", '{"intent":"refund_policy","needs_human":false,"confidence":0.92}'),
+                    ("good 结果", "(True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})"),
+                    ("bad JSON", '{"intent":"refund_policy","confidence":"high"}'),
+                    ("parse", "能解析成 JSON。"),
+                    ("缺字段", "needs_human 不存在，先返回 missing_needs_human。"),
+                    ("未到达", "confidence 类型检查不会继续执行。"),
+                ],
+                "footer": "校验器是一道道关卡，第一处失败决定返回值。",
+                "alt": "结构化输出校验结果图：good JSON 依次通过 parse、必填字段和类型检查并返回 True；bad JSON 虽能解析，但先缺少 needs_human，所以返回 missing_needs_human。",
+            },
+            "en": {
+                "title": "Read Validator Output in Order",
+                "subtitle": "The bad JSON parses, but the missing field fails before the type check.",
+                "items": [
+                    ("good JSON", '{"intent":"refund_policy","needs_human":false,"confidence":0.92}'),
+                    ("good result", "(True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})"),
+                    ("bad JSON", '{"intent":"refund_policy","confidence":"high"}'),
+                    ("parse", "It is valid JSON."),
+                    ("missing field", "needs_human is absent, so return missing_needs_human."),
+                    ("not reached", "The confidence type check does not run."),
+                ],
+                "footer": "A validator is a sequence of gates; the first failing gate decides the result.",
+                "alt": "Structured output validation result map: good JSON passes parse, required-field, and type checks and returns True; bad JSON parses but misses needs_human, so it returns missing_needs_human before the confidence type check.",
+            },
+            "ja": {
+                "title": "検証結果は順番で読む",
+                "subtitle": "bad JSON は parse できるが、型確認の前に必須 field で止まる。",
+                "items": [
+                    ("good JSON", '{"intent":"refund_policy","needs_human":false,"confidence":0.92}'),
+                    ("good 結果", "(True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})"),
+                    ("bad JSON", '{"intent":"refund_policy","confidence":"high"}'),
+                    ("parse", "JSON として解析できる。"),
+                    ("field 不足", "needs_human がなく、missing_needs_human を返す。"),
+                    ("未到達", "confidence の型確認までは進まない。"),
+                ],
+                "footer": "validator は順番に進む gate。最初の失敗が戻り値を決める。",
+                "alt": "構造化出力の検証結果図：good JSON は parse、必須 field、type check を通り True を返す。bad JSON は parse できるが needs_human がないため missing_needs_human を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch06-lstm-gru-memory-lab-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
@@ -16385,6 +16495,289 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch07-structured-output-contract-validation-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "结构化输出要像合同一样验收"
+Visible subtitle exactly: "Prompt 负责约定格式，程序负责解析、校验和回退。"
+
+Use a dark API contract inspection bench style with metal JSON envelopes, schema stencil, glowing validator gates, green pass conveyor, and red failure lane. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Top-left user intent card:
+   - label exactly "用户意图"
+   - text exactly "我想了解退款政策。"
+2. Top-right Prompt contract stencil:
+   - label exactly "JSON 合同"
+   - show exactly these three required fields, with underscores exactly where written:
+     intent
+     needs_human
+     confidence
+   - teaching note exactly "必须有 intent、needs_human、confidence。"
+3. Middle model output JSON envelope:
+   - label exactly "模型输出"
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","needs_human":false,"confidence":0.92}
+   - Critical: write "needs_human" with the underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
+4. Four validator gates in one horizontal row, numbered exactly:
+   - "1 parse"
+   - "2 字段检查"
+   - "3 类型检查"
+   - "4 值域检查"
+   The gate numbers must be 1, 2, 3, 4 in order. Do not skip number 3. Do not omit the range gate.
+   Add the nearby note exactly "校验顺序：parse -> 字段 -> 类型 -> 值域"
+5. Lower-left pass lane:
+   - heading exactly "通过"
+   - note exactly "交给 workflow 继续处理。"
+   - show the same valid JSON envelope with "needs_human" correctly written.
+6. Lower-right fail lane:
+   - heading exactly "失败"
+   - three hazard tiles exactly "无效 JSON", "缺少字段", "类型错误"
+   - action tiles exactly "重试", "人工审核", "记录样本"
+7. Bottom footer exactly:
+   "结构化输出不是看起来像 JSON，而是程序能稳定接住。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: Prompt, JSON, intent, needs_human, confidence, refund_policy, false, parse, workflow.
+- Do not add English helper phrases such as user intent, field check, type check, range check, pass, fail, controlled handoff.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- The exact field name is "needs_human" everywhere, with underscore. This is the most important rule.
+- Do not invent fields such as id, name, age, score, status, user_id, message, or data.
+- Do not invent HTTP codes, database tables, model names, extra metrics, logs, or fake screenshots.
+- The teaching point must be visible: Prompt contract -> model JSON -> parser -> four validation gates -> pass workflow or retry/human review/log.
+""".strip(),
+    "ch07-structured-output-contract-validation-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Validate Structured Output Like a Contract"
+Visible subtitle exactly: "The prompt defines the shape; code parses, checks, and falls back."
+
+Use a dark API contract inspection bench style with metal JSON envelopes, schema stencil, glowing validator gates, green pass conveyor, and red failure lane. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Top-left user intent card:
+   - label exactly "user intent"
+   - text exactly "I want to learn about the refund policy."
+2. Top-right Prompt contract stencil:
+   - label exactly "JSON contract"
+   - show exactly these three required fields, with underscores exactly where written:
+     intent
+     needs_human
+     confidence
+   - teaching note exactly "Required: intent, needs_human, confidence."
+3. Middle model output JSON envelope:
+   - label exactly "model output"
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","needs_human":false,"confidence":0.92}
+   - Critical: write "needs_human" with the underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
+4. Four validator gates in one horizontal row, numbered exactly:
+   - "1 parse"
+   - "2 field check"
+   - "3 type check"
+   - "4 range check"
+   The gate numbers must be 1, 2, 3, 4 in order. Do not skip number 3. Do not omit the range gate.
+   Add the nearby note exactly "validation order: parse -> fields -> types -> range"
+5. Lower-left pass lane:
+   - heading exactly "pass"
+   - note exactly "Send to the workflow."
+   - show the same valid JSON envelope with "needs_human" correctly written.
+6. Lower-right fail lane:
+   - heading exactly "fail"
+   - three hazard tiles exactly "invalid JSON", "missing field", "wrong type"
+   - action tiles exactly "retry", "human review", "log sample"
+7. Bottom footer exactly:
+   "Structured output is not JSON-looking text; it is data code can receive."
+
+Critical accuracy rules:
+- The exact field name is "needs_human" everywhere, with underscore. This is the most important rule.
+- Do not invent fields such as id, name, age, score, status, user_id, message, or data.
+- Do not invent HTTP codes, database tables, model names, extra metrics, logs, or fake screenshots.
+- The teaching point must be visible: Prompt contract -> model JSON -> parser -> four validation gates -> pass workflow or retry/human review/log.
+- Text must be large and readable on a phone.
+""".strip(),
+    "ch07-structured-output-contract-validation-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "構造化出力は契約として検証する"
+Visible subtitle exactly: "Prompt が形を決め、code が解析・確認・フォールバックを担う。"
+
+Use a dark API contract inspection bench style with metal JSON envelopes, schema stencil, glowing validator gates, green pass conveyor, and red failure lane. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Top-left user intent card:
+   - label exactly "ユーザー意図"
+   - text exactly "返金ポリシーについて知りたい。"
+2. Top-right Prompt contract stencil:
+   - label exactly "JSON 契約"
+   - show exactly these three required fields, with underscores exactly where written:
+     intent
+     needs_human
+     confidence
+   - teaching note exactly "intent、needs_human、confidence が必須。"
+3. Middle model output JSON envelope:
+   - label exactly "モデル出力"
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","needs_human":false,"confidence":0.92}
+   - Critical: write "needs_human" with the underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
+4. Four validator gates in one horizontal row, numbered exactly:
+   - "1 parse"
+   - "2 field 確認"
+   - "3 type 確認"
+   - "4 range 確認"
+   The gate numbers must be 1, 2, 3, 4 in order. Do not skip number 3. Do not omit the range gate.
+   Add the nearby note exactly "検証順序：parse -> field -> type -> range"
+5. Lower-left pass lane:
+   - heading exactly "合格"
+   - note exactly "workflow へ渡す。"
+   - show the same valid JSON envelope with "needs_human" correctly written.
+6. Lower-right fail lane:
+   - heading exactly "失敗"
+   - three hazard tiles exactly "invalid JSON", "field 不足", "type 誤り"
+   - action tiles exactly "再試行", "人手確認", "sample 記録"
+7. Bottom footer exactly:
+   "構造化出力は JSON らしさではなく、code が受け取れること。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: Prompt, code, JSON, intent, needs_human, confidence, refund_policy, false, parse, field, type, range, workflow, invalid JSON, sample, フォールバック.
+- Do not add English helper phrases such as user intent, field check, type check, range check, pass, fail, controlled handoff.
+- Do not add decorative English labels or stamps. Do not write SCHEMA STENCIL, OUTPUT, CUTPUT, PASS, FAIL, MODEL, CHECK, OK, or any other English decoration. Use Japanese headings "合格" and "失敗" instead of PASS/FAIL.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- The exact field name is "needs_human" everywhere, with underscore. This is the most important rule.
+- Do not invent fields such as id, name, age, score, status, user_id, message, or data.
+- Do not invent HTTP codes, database tables, model names, extra metrics, logs, or fake screenshots.
+- The teaching point must be visible: Prompt contract -> model JSON -> parser -> four validation gates -> pass workflow or retry/human review/log.
+""".strip(),
+    "ch07-structured-output-validation-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "校验输出要按顺序读"
+Visible subtitle exactly: "bad JSON 能解析，但先缺字段，所以错误码不是类型错误。"
+
+Use a dark validator workbench style that visually matches the companion structured-output contract image: metal JSON envelopes, glowing gate machines, green good lane, red bad lane, and result cards. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Upper GOOD lane, labeled exactly "good JSON":
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","needs_human":false,"confidence":0.92}
+   - pass through three gates labeled exactly "parse 通过", "必填字段通过", "类型检查通过"
+   - show the result card exactly:
+     (True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})
+2. Lower BAD lane, labeled exactly "bad JSON":
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","confidence":"high"}
+   - first gate labeled exactly "parse 通过"
+   - second gate must stop with a red lock labeled exactly "缺少 needs_human"
+   - third gate must be dimmed and labeled exactly "未到达 confidence 类型检查"
+   - show the result card exactly:
+     (False, 'missing_needs_human')
+3. Bottom footer exactly:
+   "校验器是一道道关卡，第一处失败决定返回值。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: good JSON, bad JSON, JSON, intent, refund_policy, needs_human, confidence, false, high, True, False, missing_needs_human, parse.
+- Do not add English helper phrases such as required fields, type check, output, validator, success, fail, pass, result.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- The bad JSON is valid JSON and parse must pass.
+- The bad lane must fail because "needs_human" is missing.
+- The confidence type check must be shown as not reached, even though confidence is "high".
+- The returned error must be exactly "missing_needs_human".
+- The exact field name is "needs_human" everywhere, with underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
+- Do not invent fields such as id, name, age, score, status, user_id, message, or data.
+- Do not draw a terminal screenshot, full code block, HTTP API, database, confusion matrix, model metrics, or generic JSON poster.
+""".strip(),
+    "ch07-structured-output-validation-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Read Validator Output in Order"
+Visible subtitle exactly: "The bad JSON parses, but the missing field fails before the type check."
+
+Use a dark validator workbench style that visually matches the companion structured-output contract image: metal JSON envelopes, glowing gate machines, green good lane, red bad lane, and result cards. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Upper GOOD lane, labeled exactly "good JSON":
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","needs_human":false,"confidence":0.92}
+   - pass through three gates labeled exactly "parse passed", "required fields passed", "type checks passed"
+   - show the result card exactly:
+     (True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})
+2. Lower BAD lane, labeled exactly "bad JSON":
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","confidence":"high"}
+   - first gate labeled exactly "parse passed"
+   - second gate must stop with a red lock labeled exactly "missing needs_human"
+   - third gate must be dimmed and labeled exactly "confidence type check not reached"
+   - show the result card exactly:
+     (False, 'missing_needs_human')
+3. Bottom footer exactly:
+   "A validator is a sequence of gates; the first failing gate decides the result."
+
+Critical accuracy rules:
+- The bad JSON is valid JSON and parse must pass.
+- The bad lane must fail because "needs_human" is missing.
+- The confidence type check must be shown as not reached, even though confidence is "high".
+- The returned error must be exactly "missing_needs_human".
+- The exact field name is "needs_human" everywhere, with underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
+- Do not invent fields such as id, name, age, score, status, user_id, message, or data.
+- Do not draw a terminal screenshot, full code block, HTTP API, database, confusion matrix, model metrics, or generic JSON poster.
+- Text must be large and readable on a phone.
+""".strip(),
+    "ch07-structured-output-validation-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "検証結果は順番で読む"
+Visible subtitle exactly: "bad JSON は parse できるが、型確認の前に必須 field で止まる。"
+
+Use a dark validator workbench style that visually matches the companion structured-output contract image: metal JSON envelopes, glowing gate machines, green good lane, red bad lane, and result cards. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Upper GOOD lane, labeled exactly "good JSON":
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","needs_human":false,"confidence":0.92}
+   - pass through three gates labeled exactly "parse 通過", "必須 field 通過", "type 確認通過"
+   - show the result card exactly:
+     (True, {'intent': 'refund_policy', 'needs_human': False, 'confidence': 0.92})
+2. Lower BAD lane, labeled exactly "bad JSON":
+   - show exactly this JSON and never alter field names:
+     {"intent":"refund_policy","confidence":"high"}
+   - first gate labeled exactly "parse 通過"
+   - second gate must stop with a red lock labeled exactly "needs_human 不足"
+   - third gate must be dimmed and labeled exactly "confidence type 確認は未到達"
+   - show the result card exactly:
+     (False, 'missing_needs_human')
+3. Bottom footer exactly:
+   "validator は順番に進む gate。最初の失敗が戻り値を決める。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: good JSON, bad JSON, JSON, intent, refund_policy, needs_human, confidence, false, high, True, False, missing_needs_human, parse, field, type, validator, gate.
+- Do not add English helper phrases such as required fields, output, success, fail, pass, result, terminal, check, OK.
+- Do not add decorative English labels or stamps. Keep Japanese labels for explanations.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- The bad JSON is valid JSON and parse must pass.
+- The bad lane must fail because "needs_human" is missing.
+- The confidence type check must be shown as not reached, even though confidence is "high".
+- The returned error must be exactly "missing_needs_human".
+- The exact field name is "needs_human" everywhere, with underscore. Do not write "needs human", "need_human", "needs-human", or "need human".
+- Do not invent fields such as id, name, age, score, status, user_id, message, or data.
+- Do not draw a terminal screenshot, full code block, HTTP API, database, confusion matrix, model metrics, or generic JSON poster.
+""".strip(),
     "ch06-lstm-gru-memory-lab-result-map.png": """
 Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
 This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
