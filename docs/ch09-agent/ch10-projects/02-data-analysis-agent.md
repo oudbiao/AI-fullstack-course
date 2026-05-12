@@ -124,6 +124,12 @@ Expected output:
 {'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service has the highest average order value.'}
 ```
 
+![Data Analysis Agent sales trace result map](/img/course/ch09-data-analysis-sales-trace-result-map-en.webp)
+
+:::tip Reading the result
+Use the image to read the printed dictionary as evidence: raw rows feed grouped averages, the highest average becomes the insight, and the chart rule turns the same fields into a presentation suggestion.
+:::
+
 ### Why is this already very project-like?
 
 Because it does not only do “computation”,

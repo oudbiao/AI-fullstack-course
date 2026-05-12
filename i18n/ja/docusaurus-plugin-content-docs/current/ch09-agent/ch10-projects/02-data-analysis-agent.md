@@ -126,6 +126,12 @@ print(result)
 {'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service の客単価が最も高い。'}
 ```
 
+![データ分析 Agent sales trace 結果図](/img/course/ch09-data-analysis-sales-trace-result-map-ja.webp)
+
+:::tip 図の読み方
+print された辞書を証拠の流れとして読む。元データからカテゴリ平均を作り、最大平均が insight になり、同じフィールドからグラフ提案を決める。
+:::
+
 ### この例がすでにプロジェクトらしい理由
 
 これは「計算」だけをしているのではなく、  

@@ -124,6 +124,12 @@ print(result)
 {'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service 的客单价最高。'}
 ```
 
+![数据分析 Agent 销售 trace 结果图](/img/course/ch09-data-analysis-sales-trace-result-map.webp)
+
+:::tip 读图提示
+把 print 出来的字典当成证据链来读：原始行进入分组均值，最高均值生成 insight，同一组字段再决定图表建议。
+:::
+
 ### 这个例子为什么已经很像项目？
 
 因为它不只做了“计算”，

@@ -14215,6 +14215,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-data-analysis-sales-trace-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch10-projects/02-data-analysis-agent.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/02-data-analysis-agent.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/02-data-analysis-agent.md",
+        },
+        "scene": "A runnable-result teaching visual for the Data Analysis Agent project. It must explain the exact printed outputs from the minimal sales analysis loop, chart recommender, and trace dictionary. Show five input rows: course 299, course 199, book 59, book 79, service 499. Show total_amount = 1135. Show grouped averages exactly: course = 249.0, book = 69.0, service = 499.0. Show the insight that service has the highest average order value / 客单价 / 客単価. Show chart rules exactly: category + amount -> bar_chart, date + amount -> line_chart. Show the trace pack keeping input_rows=5, total_amount=1135, per_category_avg, and insight. Teaching point: trust comes from a reproducible chain of raw rows -> grouped statistics -> insight -> chart suggestion -> trace, not from a one-line print. Do not draw a generic dashboard, decorative BI poster, terminal screenshot, full code block, fake revenue categories, invented dates, extra metrics, model names, or tiny tables.",
+        "chapter_context": "The image is inserted after the expected output of summarize_sales. Nearby code builds a sales list with five rows, computes total_amount, groups amount by category, rounds per_category_avg, chooses the top category as insight, prints result, later prints bar_chart and line_chart from suggest_chart, and finally prints a trace dictionary with input_rows, total_amount, per_category_avg, and insight.",
+        "shared_layout": "Vertical 9:16. Use the same practical dark notebook / analyst workbench style across zh/en/ja. Top title and subtitle. Upper section: one compact sales table with exactly five row cards and the amounts 299, 199, 59, 79, 499. Middle section: group-by conveyor splitting rows into course, book, service bins, with three large average bars labeled course=249.0, book=69.0, service=499.0. Highlight service as the highest average order value. Lower section: chart recommender branch with two field cards, category+amount -> bar_chart and date+amount -> line_chart. Bottom section: trace evidence pack listing input_rows=5, total_amount=1135, per_category_avg, insight. Keep row order, category colors, numeric values, arrows, panel positions, and reading path identical across languages. Use concrete table cards, grouping bins, bars, chart icons, and an evidence envelope; avoid SVG-style white rounded-box diagrams, pure text posters, dense spreadsheets, small fake text, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "数据分析 Agent 输出怎么看",
+                "subtitle": "把 sales 表、分组均值、洞察和图表建议串成可复核 trace。",
+                "items": [
+                    ("input rows", "5 行 sales：course、book、service。"),
+                    ("total_amount", "299+199+59+79+499 = 1135。"),
+                    ("group avg", "course=249.0，book=69.0，service=499.0。"),
+                    ("insight", "service 的客单价最高。"),
+                    ("chart rule", "category+amount -> bar_chart；date+amount -> line_chart。"),
+                    ("trace", "保存 input_rows、total、avg、insight。"),
+                ],
+                "footer": "数据分析 Agent 的可信度来自可复核中间过程，不是只给一句结论。",
+                "alt": "数据分析 Agent 销售 trace 结果图：5 行 sales 先计算 total_amount=1135，再分组得到 course、book、service 均值，service 客单价最高，并生成 bar_chart 和 line_chart 建议。",
+            },
+            "en": {
+                "title": "Reading a Data Analysis Agent Trace",
+                "subtitle": "Connect the sales table, grouped averages, insight, and chart choice as evidence.",
+                "items": [
+                    ("input rows", "5 sales rows: course, book, service."),
+                    ("total_amount", "299+199+59+79+499 = 1135."),
+                    ("group avg", "course=249.0, book=69.0, service=499.0."),
+                    ("insight", "service has the highest average order value."),
+                    ("chart rule", "category+amount -> bar_chart; date+amount -> line_chart."),
+                    ("trace", "Keep input_rows, total, avg, insight."),
+                ],
+                "footer": "A Data Analysis Agent earns trust through traceable intermediate work.",
+                "alt": "Data Analysis Agent sales trace result map: five sales rows produce total_amount=1135, grouped averages for course, book, and service, service has the highest average order value, and chart rules suggest bar_chart and line_chart.",
+            },
+            "ja": {
+                "title": "データ分析 Agent trace の読み方",
+                "subtitle": "sales 表、カテゴリ平均、洞察、グラフ提案を証拠としてつなぐ。",
+                "items": [
+                    ("input rows", "5 行の sales：course、book、service。"),
+                    ("total_amount", "299+199+59+79+499 = 1135。"),
+                    ("group avg", "course=249.0、book=69.0、service=499.0。"),
+                    ("insight", "service の客単価が最も高い。"),
+                    ("chart rule", "category+amount -> bar_chart；date+amount -> line_chart。"),
+                    ("trace", "input_rows、total、avg、insight を残す。"),
+                ],
+                "footer": "データ分析 Agent の信頼性は、検証できる中間過程から生まれる。",
+                "alt": "データ分析 Agent の sales trace 結果図：5 行の sales から total_amount=1135 を計算し、course、book、service の平均を出し、service の客単価が最も高いと判断し、bar_chart と line_chart を提案する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",
@@ -18048,6 +18103,151 @@ Critical accuracy rules:
 - Explanatory text must be natural Japanese. Allowed English/code tokens only: ReAct, trace, thought, action, observation, next step, final answer, Agent, search_policy, calculator, topic, refund, expression, policy.
 - Do NOT write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
 Visible footer exactly: "ReAct の証拠 chain は最終回答だけでなく trace に残る。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-data-analysis-sales-trace-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "数据分析 Agent 输出怎么看"
+Visible subtitle exactly: "把 sales 表、分组均值、洞察和图表建议串成可复核 trace。"
+
+Use a practical paper analyst workbench style on a dark spiral notebook: torn paper notes, a physical sales table, colored grouping trays, one hand-drawn average bar chart, two chart-choice cards, and one trace evidence envelope. The image must teach the exact runnable outputs from the nearby Data Analysis Agent lesson. Keep the layout, object positions, colors, and reading path visually consistent with the English and Japanese variants.
+Composition must match the English and Japanese variants:
+1. Upper-left input table with exactly five row cards in this order:
+   - course 299
+   - course 199
+   - book 59
+   - book 79
+   - service 499
+2. Upper-right short note labeled "输入行" with: "5 行 sales：course、book、service。"
+3. Middle calculation area:
+   - show total_amount exactly as "299+199+59+79+499 = 1135"
+   - group into exactly three bins: course, book, service
+   - show averages exactly: course=249.0, book=69.0, service=499.0
+   - highlight service as highest average order value
+4. Chart recommender lane:
+   - category+amount -> bar_chart
+   - date+amount -> line_chart
+5. Trace evidence pack:
+   - input_rows=5
+   - total_amount=1135
+   - per_category_avg={course:249.0, book:69.0, service:499.0}
+   - insight="service 的客单价最高。"
+6. Bottom strip exactly: "原始行 -> 分组均值 -> 洞察 -> 图表规则 -> trace"
+
+Required teaching labels and short notes, all in Simplified Chinese except exact code/data tokens:
+- "输入行" near the table; note "5 行 sales：course、book、service。"
+- "总额 total_amount" near the sum; note "299+199+59+79+499 = 1135。"
+- "分组均值" near the bars; note "course=249.0，book=69.0，service=499.0。"
+- "洞察 insight" near the highlighted service bar; note "service 的客单价最高。"
+- "图表规则" near the chart cards; note "category+amount -> bar_chart；date+amount -> line_chart。"
+- "trace 证据包" near the envelope; note "保存 input_rows、total、avg、insight。"
+
+Critical accuracy rules:
+- Show exactly five sales rows and exactly three categories. Do not add dates, users, regions, products, percentages, trend lines, dashboards, forecasts, conversion rates, or model scores.
+- Do not change any numeric value: 299, 199, 59, 79, 499, 1135, 249.0, 69.0, 499.0, 5.
+- The insight must say service has the highest average order value / 客单价.
+- Explanatory text must be Simplified Chinese. Allowed English/code tokens only: Agent, sales, course, book, service, input_rows, total_amount, per_category_avg, insight, category, amount, date, bar_chart, line_chart, trace.
+- Do not use English section labels such as "input rows", "group avg", "chart rule", or "raw rows" outside exact code/data tokens; use the localized labels above.
+- Do NOT write English explanatory sentences, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "数据分析 Agent 的可信度来自可复核中间过程，不是只给一句结论。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-data-analysis-sales-trace-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading a Data Analysis Agent Trace"
+Visible subtitle exactly: "Connect the sales table, grouped averages, insight, and chart choice as evidence."
+
+Use a practical paper analyst workbench style on a dark spiral notebook: torn paper notes, a physical sales table, colored grouping trays, one hand-drawn average bar chart, two chart-choice cards, and one trace evidence envelope. The image must teach the exact runnable outputs from the nearby Data Analysis Agent lesson. Keep the layout, object positions, colors, and reading path visually consistent with the Simplified Chinese and Japanese variants.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Upper-left input table with exactly five row cards in this order:
+   - course 299
+   - course 199
+   - book 59
+   - book 79
+   - service 499
+2. Upper-right short note labeled "input rows" with: "5 sales rows: course, book, service."
+3. Middle calculation area:
+   - show total_amount exactly as "299+199+59+79+499 = 1135"
+   - group into exactly three bins: course, book, service
+   - show averages exactly: course=249.0, book=69.0, service=499.0
+   - highlight service as highest average order value
+4. Chart recommender lane:
+   - category+amount -> bar_chart
+   - date+amount -> line_chart
+5. Trace evidence pack:
+   - input_rows=5
+   - total_amount=1135
+   - per_category_avg={course:249.0, book:69.0, service:499.0}
+   - insight="service has the highest average order value."
+6. Bottom strip exactly: "raw rows -> group avg -> insight -> chart rule -> trace"
+
+Required teaching labels and short notes:
+- "input rows" near the table; note "5 sales rows: course, book, service."
+- "total_amount" near the sum; note "299+199+59+79+499 = 1135."
+- "group avg" near the bars; note "course=249.0, book=69.0, service=499.0."
+- "insight" near the highlighted service bar; note "service has the highest average order value."
+- "chart rule" near the chart cards; note "category+amount -> bar_chart; date+amount -> line_chart."
+- "trace" near the envelope; note "Keep input_rows, total, avg, insight."
+
+Critical accuracy rules:
+- Show exactly five sales rows and exactly three categories. Do not add dates, users, regions, products, percentages, trend lines, dashboards, forecasts, conversion rates, or model scores.
+- Do not change any numeric value: 299, 199, 59, 79, 499, 1135, 249.0, 69.0, 499.0, 5.
+- The insight must say service has the highest average order value.
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, brand logos, or unrelated sticky-note slogans.
+Visible footer exactly: "A Data Analysis Agent earns trust through traceable intermediate work."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-data-analysis-sales-trace-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "データ分析 Agent trace の読み方"
+Visible subtitle exactly: "sales 表、カテゴリ平均、洞察、グラフ提案を証拠としてつなぐ。"
+
+Use a practical paper analyst workbench style on a dark spiral notebook: torn paper notes, a physical sales table, colored grouping trays, one hand-drawn average bar chart, two chart-choice cards, and one trace evidence envelope. The image must teach the exact runnable outputs from the nearby Data Analysis Agent lesson. Keep the layout, object positions, colors, and reading path visually consistent with the Simplified Chinese and English variants.
+Composition must match the Simplified Chinese and English variants:
+1. Upper-left input table with exactly five row cards in this order:
+   - course 299
+   - course 199
+   - book 59
+   - book 79
+   - service 499
+2. Upper-right short note labeled "入力行" with: "5 行の sales：course、book、service。"
+3. Middle calculation area:
+   - show total_amount exactly as "299+199+59+79+499 = 1135"
+   - group into exactly three bins: course, book, service
+   - show averages exactly: course=249.0, book=69.0, service=499.0
+   - highlight service as highest average order value
+4. Chart recommender lane:
+   - category+amount -> bar_chart
+   - date+amount -> line_chart
+5. Trace evidence pack:
+   - input_rows=5
+   - total_amount=1135
+   - per_category_avg={course:249.0, book:69.0, service:499.0}
+   - insight="service の客単価が最も高い。"
+6. Bottom strip exactly: "元データ -> カテゴリ平均 -> 洞察 -> グラフ規則 -> trace"
+
+Required teaching labels and short notes, in natural Japanese except exact code/data tokens:
+- "入力行" near the table; note "5 行の sales：course、book、service。"
+- "総額 total_amount" near the sum; note "299+199+59+79+499 = 1135。"
+- "カテゴリ平均" near the bars; note "course=249.0、book=69.0、service=499.0。"
+- "洞察 insight" near the highlighted service bar; note "service の客単価が最も高い。"
+- "グラフ規則" near the chart cards; note "category+amount -> bar_chart；date+amount -> line_chart。"
+- "trace 証拠パック" near the envelope; note "input_rows、total、avg、insight を残す。"
+
+Critical accuracy rules:
+- Show exactly five sales rows and exactly three categories. Do not add dates, users, regions, products, percentages, trend lines, dashboards, forecasts, conversion rates, or model scores.
+- Do not change any numeric value: 299, 199, 59, 79, 499, 1135, 249.0, 69.0, 499.0, 5.
+- The insight must say service has the highest average order value / 客単価.
+- Explanatory text must be natural Japanese. Allowed English/code tokens only: Agent, sales, course, book, service, input_rows, total_amount, per_category_avg, insight, category, amount, date, bar_chart, line_chart, trace.
+- Do not use English section labels such as "input rows", "group avg", "chart rule", or "raw rows" outside exact code/data tokens; use the localized labels above.
+- Do NOT write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "データ分析 Agent の信頼性は、検証できる中間過程から生まれる。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch09-runtime-circuit-breaker-result-map.png": """
