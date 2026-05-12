@@ -385,6 +385,12 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 {'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '割引の基本概念', 'page_or_slide': 2, 'content': '例1：商品の元の価格が 100 元で、8 折にしたらいくらになりますか？', 'content_type': 'example'}
 ```
 
+![文書 chunk メタデータ結果図](/img/course/ch08-doc-chunk-metadata-result-map-ja.webp)
+
+:::tip 図の見方
+見出し行は出力行ではなく、状態更新として読みます。つまり `section_title` だけを更新します。chunk になるのは公式行と例題行で、それぞれが同じ文書メタデータを持って後続の検索に渡されます。
+:::
+
 これが最小限に役立つ投入ループです。各 chunk が内容、構造、出典、ページ、タイプを持つようになると、検索と教材生成はかなり作りやすくなります。
 
 ## スキャン文書でなぜ OCR が必要になるのか？

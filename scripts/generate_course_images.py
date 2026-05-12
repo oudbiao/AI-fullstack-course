@@ -16198,6 +16198,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-doc-chunk-metadata-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch03-app-dev/07-document-parsing.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/07-document-parsing.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/07-document-parsing.md",
+        },
+        "scene": "A document-ingestion worked-result board based only on the build_chunks expected output. The image must teach how simulated page text becomes two knowledge chunks with stable metadata before embedding. Do not draw a terminal screenshot, full code block, vector database internals, embedding numbers, OCR pages, invented documents, invented extra chunks, extra content types, model names, latency metrics, or search results. Show exactly two input pages. Page 1 has a heading and a formula line; the heading updates section_title and is not emitted as a chunk. Page 2 has one example line. Show the output as exactly two chunk cards: math_doc_001_c1 is concept from page_or_slide=1, and math_doc_001_c2 is example from page_or_slide=2. Teaching point: a useful chunk is not just text; it also carries doc_id, source_type, section_title, page_or_slide, and content_type for later retrieval and courseware generation.",
+        "chapter_context": "The image is inserted after the expected output of the hands-on document parsing pipeline. Nearby text explains routing, section detection, metadata, content typing, and why a stable chunk shape makes retrieval and courseware generation easier.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, page thumbnails, a section-title sticky note, two colored chunk cards, metadata tags, and a bottom rule strip. Top title and subtitle. Upper section shows Page 1 and Page 2 entering build_chunks. Middle section shows the heading being captured into section_title, while formula and example lines become emitted chunks. Lower section shows two chunk cards with chunk_id, page_or_slide, content_type, section_title, source_type=docx, and doc_id=math_doc_001. Keep values, field names, order, colors, and reading path identical across zh/en/ja. Use concrete page sheets, arrows, metadata tags, and chunk cards; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "文档 chunk 元数据结果",
+                "subtitle": "页面文本先带上结构和类型，再进入检索系统。",
+                "items": [
+                    ("Page 1", "# 折扣基础概念；公式：折扣 = 原价 × 折扣率。"),
+                    ("章节状态", "标题行更新 section_title，不直接生成 chunk。"),
+                    ("chunk 1", "math_doc_001_c1：page_or_slide=1，content_type=concept。"),
+                    ("Page 2", "例1：商品原价 100 元，打 8 折后是多少元？"),
+                    ("chunk 2", "math_doc_001_c2：page_or_slide=2，content_type=example。"),
+                    ("稳定形状", "每个 chunk 都带 doc_id、source_type、section_title。"),
+                ],
+                "footer": "入库前先保存结构，后面的检索和课件生成才好用。",
+                "alt": "文档 chunk 元数据结果图：两页模拟课件经过 build_chunks 后生成两个知识块，标题更新 section_title，公式块标为 concept，例题块标为 example，并保留 doc_id、source_type 和页码。",
+            },
+            "en": {
+                "title": "Document Chunk Metadata Result",
+                "subtitle": "Page text gains structure and type before retrieval.",
+                "items": [
+                    ("Page 1", "# Basic Discount Concepts; Formula: Discount = Original price x discount rate."),
+                    ("section state", "Heading updates section_title and is not emitted as a chunk."),
+                    ("chunk 1", "math_doc_001_c1: page_or_slide=1, content_type=concept."),
+                    ("Page 2", "Example 1: 100 yuan item, 20% discount, new price?"),
+                    ("chunk 2", "math_doc_001_c2: page_or_slide=2, content_type=example."),
+                    ("stable shape", "Every chunk keeps doc_id, source_type, and section_title."),
+                ],
+                "footer": "Store structure before embedding so retrieval and courseware generation can use it.",
+                "alt": "Document chunk metadata result map: two simulated lesson pages pass through build_chunks and become two knowledge chunks; the heading updates section_title, the formula chunk is concept, the example chunk is example, and doc_id, source_type, and page number stay attached.",
+            },
+            "ja": {
+                "title": "文書 chunk メタデータの結果",
+                "subtitle": "ページ本文に構造と種類を付けてから検索へ渡す。",
+                "items": [
+                    ("Page 1", "# 割引の基本概念；公式：割引 = 元の価格 × 割引率。"),
+                    ("章の状態", "見出し行は section_title を更新し、chunk にはしない。"),
+                    ("chunk 1", "math_doc_001_c1：page_or_slide=1、content_type=concept。"),
+                    ("Page 2", "例1：商品の元の価格が 100 元で、8 折なら？"),
+                    ("chunk 2", "math_doc_001_c2：page_or_slide=2、content_type=example。"),
+                    ("安定した形", "各 chunk が doc_id、source_type、section_title を持つ。"),
+                ],
+                "footer": "投入前に構造を保存すると、検索と教材生成で使いやすい。",
+                "alt": "文書 chunk メタデータ結果図：2ページの模擬教材を build_chunks に通し、見出しで section_title を更新し、公式 chunk を concept、例題 chunk を example として、doc_id、source_type、ページ番号を保持する。",
+            },
+        },
+    },
+    {
         "slug": "ch08-dialog-history-compaction-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
@@ -18571,6 +18626,154 @@ Critical accuracy rules:
 - Show the failed second payload stopping at the missing-fields error only. Do not show a separate doc_format error, because the code returns the missing-fields branch first.
 - Do not invent endpoints, HTTP status codes, extra fields, extra sections, extra trace ids, model names, cost, latency, databases, or server screenshots.
 - The teaching point must be visual: one contract gate sends a complete request to accepted courseware and an incomplete request to a unified error.
+""".strip(),
+    "ch08-doc-chunk-metadata-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "文档 chunk 元数据结果"
+Visible subtitle exactly: "页面文本先带上结构和类型，再进入检索系统。"
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, two page sheets, a section-title sticky note, two colored chunk cards, metadata tags, and a bottom rule strip. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Input pages:
+   - label exactly "Page 1"
+   - show exactly "# 折扣基础概念"
+   - show exactly "公式：折扣 = 原价 × 折扣率"
+   - label exactly "Page 2"
+   - show exactly "例1：商品原价 100 元，打 8 折后是多少元？"
+2. Processing middle:
+   - gate label exactly "build_chunks(doc_id=\"math_doc_001\", source_type=\"docx\")"
+   - sticky note exactly "标题行 -> 更新 section_title"
+   - note exactly "标题不直接生成 chunk"
+   - badge exactly "guess_content_type"
+   - show exactly "公式 -> concept"
+   - show exactly "例1 -> example"
+3. Output chunk cards:
+   - heading exactly "chunk 1"
+   - show exactly "chunk_id=math_doc_001_c1"
+   - show exactly "page_or_slide=1"
+   - show exactly "content_type=concept"
+   - show exactly "section_title=折扣基础概念"
+   - heading exactly "chunk 2"
+   - show exactly "chunk_id=math_doc_001_c2"
+   - show exactly "page_or_slide=2"
+   - show exactly "content_type=example"
+   - show exactly "section_title=折扣基础概念"
+4. Bottom strip:
+   - show exactly "doc_id=math_doc_001"
+   - show exactly "source_type=docx"
+   - footer exactly "入库前先保存结构，后面的检索和课件生成才好用。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: chunk, Page, build_chunks, doc_id, math_doc_001, source_type, docx, section_title, guess_content_type, concept, example, chunk_id, page_or_slide.
+- Do not add English helper phrases such as input pages, processing, output cards, stable shape.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show exactly two output chunks, not three. The heading line only updates section_title and is not emitted as a chunk.
+- Do not invent embedding values, vector database rows, OCR output, extra content types, extra documents, extra pages, model names, or search results.
+- The teaching point must be visual: page lines become chunk cards, and metadata travels with each card.
+""".strip(),
+    "ch08-doc-chunk-metadata-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Document Chunk Metadata Result"
+Visible subtitle exactly: "Page text gains structure and type before retrieval."
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, two page sheets, a section-title sticky note, two colored chunk cards, metadata tags, and a bottom rule strip. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Input pages:
+   - label exactly "Page 1"
+   - show exactly "# Basic Discount Concepts"
+   - show exactly "Formula: Discount = Original price x discount rate"
+   - label exactly "Page 2"
+   - show exactly "Example 1: A 100 yuan item has a 20% discount. What is the new price?"
+2. Processing middle:
+   - gate label exactly "build_chunks(doc_id=\"math_doc_001\", source_type=\"docx\")"
+   - sticky note exactly "heading line -> update section_title"
+   - note exactly "heading is not emitted as a chunk"
+   - badge exactly "guess_content_type"
+   - show exactly "Formula -> concept"
+   - show exactly "Example 1 -> example"
+3. Output chunk cards:
+   - heading exactly "chunk 1"
+   - show exactly "chunk_id=math_doc_001_c1"
+   - show exactly "page_or_slide=1"
+   - show exactly "content_type=concept"
+   - show exactly "section_title=Basic Discount Concepts"
+   - heading exactly "chunk 2"
+   - show exactly "chunk_id=math_doc_001_c2"
+   - show exactly "page_or_slide=2"
+   - show exactly "content_type=example"
+   - show exactly "section_title=Basic Discount Concepts"
+4. Bottom strip:
+   - show exactly "doc_id=math_doc_001"
+   - show exactly "source_type=docx"
+   - footer exactly "Store structure before embedding so retrieval and courseware generation can use it."
+
+Language rules:
+- Explanatory text must be English.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show exactly two output chunks, not three. The heading line only updates section_title and is not emitted as a chunk.
+- Do not invent embedding values, vector database rows, OCR output, extra content types, extra documents, extra pages, model names, or search results.
+- The teaching point must be visual: page lines become chunk cards, and metadata travels with each card.
+""".strip(),
+    "ch08-doc-chunk-metadata-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "文書 chunk メタデータの結果"
+Visible subtitle exactly: "ページ本文に構造と種類を付けてから検索へ渡す。"
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, two page sheets, a section-title sticky note, two colored chunk cards, metadata tags, and a bottom rule strip. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Input pages:
+   - label exactly "Page 1"
+   - show exactly "# 割引の基本概念"
+   - show exactly "公式：割引 = 元の価格 × 割引率"
+   - label exactly "Page 2"
+   - show exactly "例1：商品の元の価格が 100 元で、8 折にしたらいくらになりますか？"
+2. Processing middle:
+   - gate label exactly "build_chunks(doc_id=\"math_doc_001\", source_type=\"docx\")"
+   - sticky note exactly "見出し行 -> section_title を更新"
+   - note exactly "見出しは chunk にしない"
+   - badge exactly "guess_content_type"
+   - show exactly "公式 -> concept"
+   - show exactly "例1 -> example"
+3. Output chunk cards:
+   - heading exactly "chunk 1"
+   - show exactly "chunk_id=math_doc_001_c1"
+   - show exactly "page_or_slide=1"
+   - show exactly "content_type=concept"
+   - show exactly "section_title=割引の基本概念"
+   - heading exactly "chunk 2"
+   - show exactly "chunk_id=math_doc_001_c2"
+   - show exactly "page_or_slide=2"
+   - show exactly "content_type=example"
+   - show exactly "section_title=割引の基本概念"
+4. Bottom strip:
+   - show exactly "doc_id=math_doc_001"
+   - show exactly "source_type=docx"
+   - footer exactly "投入前に構造を保存すると、検索と教材生成で使いやすい。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: chunk, Page, build_chunks, doc_id, math_doc_001, source_type, docx, section_title, guess_content_type, concept, example, chunk_id, page_or_slide.
+- Do not add English helper phrases such as input pages, processing, output cards, stable shape.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show exactly two output chunks, not three. The heading line only updates section_title and is not emitted as a chunk.
+- Do not invent embedding values, vector database rows, OCR output, extra content types, extra documents, extra pages, model names, or search results.
+- The teaching point must be visual: page lines become chunk cards, and metadata travels with each card.
 """.strip(),
     "ch11-seq2seq-chapter-flow.png": """
 竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。

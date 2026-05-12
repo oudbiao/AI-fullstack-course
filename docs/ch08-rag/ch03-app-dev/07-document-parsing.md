@@ -381,6 +381,12 @@ Expected output:
 {'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': 'Basic Discount Concepts', 'page_or_slide': 2, 'content': 'Example 1: A 100 yuan item has a 20% discount. What is the new price?', 'content_type': 'example'}
 ```
 
+![Document chunk metadata result map](/img/course/ch08-doc-chunk-metadata-result-map-en.webp)
+
+:::tip Reading guide
+Read the heading line as state, not as an output row: it updates `section_title`. Only the formula and example lines become chunks, and each chunk keeps the same document metadata for later retrieval.
+:::
+
 This is the smallest useful ingestion loop: every chunk carries content, structure, source, page, and type. Retrieval and courseware generation become much easier once this shape is stable.
 
 ## Why do scanned files bring OCR into the pipeline?

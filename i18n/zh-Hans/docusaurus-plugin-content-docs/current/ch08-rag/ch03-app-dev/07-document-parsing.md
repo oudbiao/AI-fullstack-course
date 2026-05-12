@@ -381,6 +381,12 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 {'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '折扣基础概念', 'page_or_slide': 2, 'content': '例1：商品原价 100 元，打 8 折后是多少元？', 'content_type': 'example'}
 ```
 
+![文档 chunk 元数据结果图](/img/course/ch08-doc-chunk-metadata-result-map.webp)
+
+:::tip 读图提示
+把标题行当成状态更新，而不是输出行：它只更新 `section_title`。真正生成 chunk 的是公式行和例题行，并且每个 chunk 都带着同一份文档元数据，方便后续检索。
+:::
+
 这就是最小可用的入库闭环：每个 chunk 都带着内容、结构、来源、页码和类型。这个形状稳定之后，后面的检索和课件生成都会容易很多。
 
 ## 扫描件为什么会把 OCR 拉进来？
