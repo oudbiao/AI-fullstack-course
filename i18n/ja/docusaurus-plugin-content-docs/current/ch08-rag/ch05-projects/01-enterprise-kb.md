@@ -329,6 +329,12 @@ for case in eval_cases:
 {'query': 'サポートの確認フローは何ですか？', 'expected_doc': 'doc_003', 'got': 'doc_003', 'match': True}
 ```
 
+![企業KB 権限評価の結果図](/img/course/ch08-enterprise-kb-permission-eval-result-map-ja.webp)
+
+:::tip 図の見方
+2行目を権限テストとして見てください。同じ確認フローの質問でも、public だけのユーザーは internal SOP を見られないため `None` になるべきです。3行目は `internal` を許可したときだけ `doc_003` にヒットします。
+:::
+
 ### なぜこの評価が価値が高いのか？
 
 企業ナレッジベースで最も重要な2つのリスクを、そのままカバーできるからです。

@@ -330,6 +330,12 @@ Expected output:
 {'query': 'What is the customer verification process?', 'expected_doc': 'doc_003', 'got': 'doc_003', 'match': True}
 ```
 
+![Enterprise KB permission evaluation result map](/img/course/ch08-enterprise-kb-permission-eval-result-map-en.webp)
+
+:::tip Reading guide
+Read row 2 as the permission test: the same customer-verification question could match the internal SOP, but a public-only user must get `None`. The source cards explain why row 3 passes only when `internal` is allowed.
+:::
+
 ### Why is this kind of evaluation valuable?
 
 Because it directly covers the two most important risks in an enterprise knowledge base:

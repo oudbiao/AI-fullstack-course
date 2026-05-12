@@ -332,6 +332,12 @@ for case in eval_cases:
 {'query': '客服核验流程是什么？', 'expected_doc': 'doc_003', 'got': 'doc_003', 'match': True}
 ```
 
+![企业知识库权限评估结果图](/img/course/ch08-enterprise-kb-permission-eval-result-map.webp)
+
+:::tip 读图提示
+重点看第 2 行：同样是客服核验问题，public 权限不能看到 internal SOP，所以应该得到 `None`。第 3 行只有在允许 `internal` 后才命中 `doc_003`。
+:::
+
 ### 为什么这种评估很值钱？
 
 因为它直接覆盖了企业知识库最关键的两个风险：

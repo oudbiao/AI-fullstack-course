@@ -16253,6 +16253,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-enterprise-kb-permission-eval-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch05-projects/01-enterprise-kb.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/01-enterprise-kb.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/01-enterprise-kb.md",
+        },
+        "scene": "An enterprise knowledge-base worked-result board based only on the answer_with_sources and eval_cases expected outputs. The image must teach how permission filtering, source citation, and evaluation rows work together. Do not draw a terminal screenshot, full code block, vector database internals, embeddings, model names, invented scores, invented documents, invented departments, invented metrics, extra eval rows, HTTP APIs, dashboards, or chat UI. Show three exact evaluation cases: public refund query returns doc_001; public customer-verification query returns None because internal docs are blocked; internal-support customer-verification query returns doc_003. Teaching point: a portfolio-grade enterprise RAG project checks relevance, permission, and source traceability together.",
+        "chapter_context": "The image is inserted after the expected output of the enterprise knowledge-base evaluation loop. Nearby text explains returning answer plus sources, then evaluating whether retrieval is relevant, permissions are correct, and citations are traceable.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, permission badges, green allowed lanes, a red blocked stamp, source cards, and a bottom rule strip. Top title and subtitle. Upper section shows two document cards: doc_001 public refund policy and doc_003 internal customer-support SOP. Middle section shows three query paths with visibility badges: public refund -> doc_001, public verification -> blocked internal -> None, public+internal verification -> doc_003. Lower section shows a compact eval table with expected_doc, got, and match=True for all three rows. Keep values, field names, order, colors, and reading path identical across zh/en/ja. Use concrete access gates, source cards, and checkmarks; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "企业知识库权限评估结果",
+                "subtitle": "同一个问题，要同时检查命中文档、权限范围和来源。",
+                "items": [
+                    ("文档 1", "doc_001：退款政策，visibility=public。"),
+                    ("文档 3", "doc_003：内部客服 SOP，visibility=internal。"),
+                    ("public 退款", "expected_doc=doc_001，got=doc_001，match=True。"),
+                    ("public 核验", "内部 SOP 被拦截，expected_doc=None，got=None。"),
+                    ("internal 核验", "允许 internal 后命中 doc_003。"),
+                    ("来源卡", "答案返回 id、section、department、visibility。"),
+                ],
+                "footer": "企业 RAG 要把相关性、权限、引用一起测。",
+                "alt": "企业知识库权限评估结果图：public 用户查询退款命中 doc_001，public 用户查询客服核验时内部 SOP 被拦截并返回 None，internal 权限查询同一问题命中 doc_003，三条评估均 match=True。",
+            },
+            "en": {
+                "title": "Enterprise KB Permission Eval Result",
+                "subtitle": "Check matched doc, permission scope, and sources together.",
+                "items": [
+                    ("doc 1", "doc_001: Refund Policy, visibility=public."),
+                    ("doc 3", "doc_003: Internal Customer Support SOP, visibility=internal."),
+                    ("public refund", "expected_doc=doc_001, got=doc_001, match=True."),
+                    ("public verification", "internal SOP is blocked; expected_doc=None, got=None."),
+                    ("internal verification", "allowing internal visibility returns doc_003."),
+                    ("source card", "Answer returns id, section, department, visibility."),
+                ],
+                "footer": "Enterprise RAG must test relevance, permission, and citation together.",
+                "alt": "Enterprise knowledge-base permission evaluation result map: a public refund query returns doc_001, a public customer-verification query blocks the internal SOP and returns None, an internal-allowed query returns doc_003, and all three evaluation rows match True.",
+            },
+            "ja": {
+                "title": "企業KB 権限評価の結果",
+                "subtitle": "ヒット文書、権限範囲、出典をまとめて確認する。",
+                "items": [
+                    ("文書 1", "doc_001：返金ポリシー、visibility=public。"),
+                    ("文書 3", "doc_003：社内カスタマーサポートSOP、visibility=internal。"),
+                    ("public 返金", "expected_doc=doc_001、got=doc_001、match=True。"),
+                    ("public 確認", "社内 SOP はブロックされ、expected_doc=None、got=None。"),
+                    ("internal 確認", "internal を許可すると doc_003 にヒット。"),
+                    ("出典カード", "回答は id、section、department、visibility を返す。"),
+                ],
+                "footer": "企業 RAG では関連性、権限、引用を一緒にテストする。",
+                "alt": "企業ナレッジベースの権限評価結果図：public ユーザーの返金質問は doc_001 にヒットし、public の確認フロー質問では社内 SOP がブロックされて None を返し、internal 権限では doc_003 にヒットし、3行すべて match=True になる。",
+            },
+        },
+    },
+    {
         "slug": "ch08-dialog-history-compaction-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
@@ -18774,6 +18829,178 @@ Critical accuracy rules:
 - Show exactly two output chunks, not three. The heading line only updates section_title and is not emitted as a chunk.
 - Do not invent embedding values, vector database rows, OCR output, extra content types, extra documents, extra pages, model names, or search results.
 - The teaching point must be visual: page lines become chunk cards, and metadata travels with each card.
+""".strip(),
+    "ch08-enterprise-kb-permission-eval-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "企业知识库权限评估结果"
+Visible subtitle exactly: "同一个问题，要同时检查命中文档、权限范围和来源。"
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, two document cards, visible permission gates, a green allowed lane, a red blocked stamp, source cards, a compact evaluation ledger, and a bottom rule strip. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Document cards:
+   - card 1 heading exactly "doc_001"
+   - show exactly "退款政策"
+   - show exactly "visibility=public"
+   - card 2 heading exactly "doc_003"
+   - show exactly "内部客服 SOP"
+   - show exactly "visibility=internal"
+2. Three query lanes:
+   - lane 1 label exactly "public 退款"
+   - show exactly "退款规则是什么？"
+   - show exactly "-> doc_001"
+   - lane 2 label exactly "public 核验"
+   - show exactly "客服核验流程是什么？"
+   - show a red stamp exactly "internal 被拦截"
+   - show exactly "-> None"
+   - lane 3 label exactly "public + internal 核验"
+   - show exactly "客服核验流程是什么？"
+   - show exactly "-> doc_003"
+3. Source cards:
+   - show exactly "sources"
+   - show exactly "id"
+   - show exactly "section"
+   - show exactly "department"
+   - show exactly "visibility"
+   - show exactly "doc_001 / 退款政策 / support / public"
+   - show exactly "doc_003 / 内部客服 SOP / internal / internal"
+4. Evaluation ledger:
+   - headings exactly "expected_doc", "got", "match"
+   - row 1 exactly "doc_001 | doc_001 | True"
+   - row 2 exactly "None | None | True"
+   - row 3 exactly "doc_003 | doc_003 | True"
+5. Bottom strip:
+   - footer exactly "企业 RAG 要把相关性、权限、引用一起测。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: doc_001, doc_003, visibility, public, internal, SOP, sources, id, section, department, expected_doc, got, match, True, None, RAG, support.
+- Do not add English helper phrases such as permission eval, source trace, blocked document, query lane.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- A public-only customer-verification query must not see doc_003. It must show internal blocked and output None.
+- The internal-allowed customer-verification query must return doc_003.
+- All three evaluation rows must show match=True.
+- The sources section must not confuse section and department: section is 退款政策 or 内部客服 SOP; department is support or internal.
+- Do not invent extra documents, scores, users, roles, departments, citations, rows, metrics, model names, vector databases, or UI screenshots.
+- The teaching point must be visual: permission scope changes the retrieval result, and the evaluation checks the output against expected_doc.
+""".strip(),
+    "ch08-enterprise-kb-permission-eval-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Enterprise KB Permission Eval Result"
+Visible subtitle exactly: "Check matched doc, permission scope, and sources together."
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, two document cards, visible permission gates, a green allowed lane, a red blocked stamp, source cards, a compact evaluation ledger, and a bottom rule strip. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Document cards:
+   - card 1 heading exactly "doc_001"
+   - show exactly "Refund Policy"
+   - show exactly "visibility=public"
+   - card 2 heading exactly "doc_003"
+   - show exactly "Internal Customer Support SOP"
+   - show exactly "visibility=internal"
+2. Three query lanes:
+   - lane 1 label exactly "public refund"
+   - show exactly "What is the refund policy?"
+   - show exactly "-> doc_001"
+   - lane 2 label exactly "public verification"
+   - show exactly "What is the customer verification process?"
+   - show a red stamp exactly "internal blocked"
+   - show exactly "-> None"
+   - lane 3 label exactly "public + internal verification"
+   - show exactly "What is the customer verification process?"
+   - show exactly "-> doc_003"
+3. Source cards:
+   - show exactly "sources"
+   - show exactly "id"
+   - show exactly "section"
+   - show exactly "department"
+   - show exactly "visibility"
+   - show exactly "doc_001 / Refund Policy / support / public"
+   - show exactly "doc_003 / Internal Customer Support SOP / internal / internal"
+4. Evaluation ledger:
+   - headings exactly "expected_doc", "got", "match"
+   - row 1 exactly "doc_001 | doc_001 | True"
+   - row 2 exactly "None | None | True"
+   - row 3 exactly "doc_003 | doc_003 | True"
+5. Bottom strip:
+   - footer exactly "Enterprise RAG must test relevance, permission, and citation together."
+
+Language rules:
+- Explanatory text must be English.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- A public-only customer-verification query must not see doc_003. It must show internal blocked and output None.
+- The internal-allowed customer-verification query must return doc_003.
+- All three evaluation rows must show match=True.
+- The sources section must not confuse section and department: section is Refund Policy or Internal Customer Support SOP; department is support or internal.
+- Do not invent extra documents, scores, users, roles, departments, citations, rows, metrics, model names, vector databases, or UI screenshots.
+- The teaching point must be visual: permission scope changes the retrieval result, and the evaluation checks the output against expected_doc.
+""".strip(),
+    "ch08-enterprise-kb-permission-eval-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "企業KB 権限評価の結果"
+Visible subtitle exactly: "ヒット文書、権限範囲、出典をまとめて確認する。"
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, two document cards, visible permission gates, a green allowed lane, a red blocked stamp, source cards, a compact evaluation ledger, and a bottom rule strip. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Document cards:
+   - card 1 heading exactly "doc_001"
+   - show exactly "返金ポリシー"
+   - show exactly "visibility=public"
+   - card 2 heading exactly "doc_003"
+   - show exactly "社内カスタマーサポートSOP"
+   - show exactly "visibility=internal"
+2. Three query lanes:
+   - lane 1 label exactly "public 返金"
+   - show exactly "返金ルールは何ですか？"
+   - show exactly "-> doc_001"
+   - lane 2 label exactly "public 確認"
+   - show exactly "サポートの確認フローは何ですか？"
+   - show a red stamp exactly "internal をブロック"
+   - show exactly "-> None"
+   - lane 3 label exactly "public + internal 確認"
+   - show exactly "サポートの確認フローは何ですか？"
+   - show exactly "-> doc_003"
+3. Source cards:
+   - show exactly "sources"
+   - show exactly "id"
+   - show exactly "section"
+   - show exactly "department"
+   - show exactly "visibility"
+   - show exactly "doc_001 / 返金ポリシー / support / public"
+   - show exactly "doc_003 / 社内カスタマーサポートSOP / internal / internal"
+4. Evaluation ledger:
+   - headings exactly "expected_doc", "got", "match"
+   - row 1 exactly "doc_001 | doc_001 | True"
+   - row 2 exactly "None | None | True"
+   - row 3 exactly "doc_003 | doc_003 | True"
+5. Bottom strip:
+   - footer exactly "企業 RAG では関連性、権限、引用を一緒にテストする。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: KB, doc_001, doc_003, visibility, public, internal, SOP, sources, id, section, department, expected_doc, got, match, True, None, RAG, support.
+- Do not add English helper phrases such as permission eval, source trace, blocked document, query lane.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- A public-only customer-verification query must not see doc_003. It must show internal blocked and output None.
+- The internal-allowed customer-verification query must return doc_003.
+- All three evaluation rows must show match=True.
+- The sources section must not confuse section and department: section is 返金ポリシー or 社内カスタマーサポートSOP; department is support or internal.
+- Do not invent extra documents, scores, users, roles, departments, citations, rows, metrics, model names, vector databases, or UI screenshots.
+- The teaching point must be visual: permission scope changes the retrieval result, and the evaluation checks the output against expected_doc.
 """.strip(),
     "ch11-seq2seq-chapter-flow.png": """
 竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。
