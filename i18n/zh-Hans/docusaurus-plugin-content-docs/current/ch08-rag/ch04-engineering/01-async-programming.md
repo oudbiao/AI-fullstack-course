@@ -447,6 +447,12 @@ print(asyncio.run(handle_request("退款政策是什么", 1)))
 LLM 回复: 请根据以下信息回答：知识库结果: 退款政策是什么，用户状态：{'user_id': 1, 'progress': 0.15}
 ```
 
+![异步上下文收集运行结果图](/img/course/ch08-async-context-gather-result-map.webp)
+
+:::tip 读图提示
+从上方两条并行线往下读：`search_kb()` 和 `get_user_status()` 同时等待，`gather` 合并两个输出，然后 `call_llm()` 才使用组合后的上下文。
+:::
+
 这个例子已经很像真实后端：
 
 - 前半段并发取上下文

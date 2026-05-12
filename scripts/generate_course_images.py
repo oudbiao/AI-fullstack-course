@@ -16088,6 +16088,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-async-context-gather-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch04-engineering/01-async-programming.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/01-async-programming.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/01-async-programming.md",
+        },
+        "scene": "An async backend worked-result board based on the handle_request expected output. The image must teach that asyncio.gather runs the knowledge-base lookup and user-status lookup at the same time, then the combined context is sent to call_llm. Do not draw a terminal screenshot, full code block, generic event-loop poster, invented APIs, invented users, invented progress values, extra retrievers, model names, or latency metrics beyond the page delays 0.3, 0.2, and 0.4. Show exactly two concurrent context tasks: search_kb(query) with delay 0.3 and get_user_status(user_id=1) with delay 0.2. Show the gathered outputs feeding one prompt assembly tray, then call_llm delay 0.4, then the final answer card. Teaching point: async does not make call_llm itself faster; it removes idle waiting while collecting context.",
+        "chapter_context": "The image is inserted after the expected output of the real-system-like async example. Nearby text explains that context gathering is the most valuable place for concurrency in a knowledge-base-driven courseware assistant: first gather knowledge-base result and user status concurrently, then send everything to the model together.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, two colored parallel task lanes, a gather clamp, a prompt assembly tray, and a final answer card. Top title and subtitle. Upper section shows two horizontal lanes starting together: search_kb(query) wait 0.3 and get_user_status(user_id=1) wait 0.2. Middle section shows asyncio.gather merging the two exact outputs into prompt/context. Lower section shows call_llm wait 0.4 and the final answer card. Bottom strip: concurrent context first, model call second. Keep task order, values, colors, and reading path identical across zh/en/ja. Use concrete timers, cards, and arrows; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "异步收集上下文的运行结果",
+                "subtitle": "知识库和用户状态同时等待，合并后再交给 LLM。",
+                "items": [
+                    ("并发任务 1", "search_kb(\"退款政策是什么\")，等待 0.3 秒。"),
+                    ("并发任务 2", "get_user_status(user_id=1)，等待 0.2 秒。"),
+                    ("gather 输出", "知识库结果 + {'user_id': 1, 'progress': 0.15}。"),
+                    ("Prompt 组装", "把知识库结果和用户状态放进同一个上下文。"),
+                    ("LLM 调用", "call_llm 等待 0.4 秒后生成回复。"),
+                    ("运行含义", "并发优化的是收集上下文时的干等。"),
+                ],
+                "footer": "先并发收集上下文，再统一调用模型。",
+                "alt": "异步上下文收集运行结果图：search_kb 和 get_user_status 并发等待，经 asyncio.gather 合并后组装 prompt，再调用 LLM 生成包含知识库结果和用户状态的回复。",
+            },
+            "en": {
+                "title": "Async Context Gathering Result",
+                "subtitle": "KB lookup and user status wait together, then feed one LLM call.",
+                "items": [
+                    ("task 1", "search_kb(\"What is the refund policy?\") waits 0.3s."),
+                    ("task 2", "get_user_status(user_id=1) waits 0.2s."),
+                    ("gather output", "KB result + {'user_id': 1, 'progress': 0.15}."),
+                    ("prompt assembly", "Put KB result and user status into one context."),
+                    ("LLM call", "call_llm waits 0.4s, then returns the answer."),
+                    ("meaning", "Concurrency removes idle waiting during context gathering."),
+                ],
+                "footer": "Gather context concurrently, then call the model once.",
+                "alt": "Async context gathering result map: search_kb and get_user_status wait concurrently, asyncio.gather merges both outputs into a prompt, then the LLM answer uses both the knowledge-base result and user status.",
+            },
+            "ja": {
+                "title": "非同期で文脈を集める結果",
+                "subtitle": "KB 検索とユーザー状態を同時に待ち、まとめて LLM へ渡す。",
+                "items": [
+                    ("並行タスク 1", "search_kb(\"返金ポリシーは何ですか\") が 0.3 秒待つ。"),
+                    ("並行タスク 2", "get_user_status(user_id=1) が 0.2 秒待つ。"),
+                    ("gather 出力", "KB 結果 + {'user_id': 1, 'progress': 0.15}。"),
+                    ("Prompt 組み立て", "KB 結果とユーザー状態を同じ文脈に入れる。"),
+                    ("LLM 呼び出し", "call_llm が 0.4 秒待ち、回答を返す。"),
+                    ("意味", "並行化は文脈収集中の待ち時間を減らす。"),
+                ],
+                "footer": "文脈を並行して集めてから、モデルを1回呼び出す。",
+                "alt": "非同期の文脈収集結果図：search_kb と get_user_status を並行して待ち、asyncio.gather で結果をまとめ、知識ベース結果とユーザー状態を含む prompt で LLM を呼び出す。",
+            },
+        },
+    },
+    {
         "slug": "ch08-dialog-history-compaction-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
@@ -18189,6 +18244,139 @@ Do not draw a vocabulary ID table. Do not write alternate numeric ids such as 4 
 ⑥ Usage log：统一记录成本与延迟
 底部结论：“网关把 provider 差异挡在业务代码外面。”
 文字清楚可读；保留 provider、gateway、routing、adapter、fallback、usage。不要密集小字、乱码、水印、真实品牌 logo。
+""".strip(),
+    "ch08-async-context-gather-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "异步收集上下文的运行结果"
+Visible subtitle exactly: "知识库和用户状态同时等待，合并后再交给 LLM。"
+
+Use a warm paper workbook style with cream notebook paper, blue dividers, two colored parallel task lanes, small timer dials, a visible asyncio.gather clamp, a prompt assembly tray, and a final answer card. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Two parallel lanes must start at the same vertical level.
+   - left lane label exactly "并发任务 1"
+   - show exactly: search_kb("退款政策是什么")
+   - timer exactly: "等待 0.3 秒"
+   - output exactly: "知识库结果: 退款政策是什么"
+   - right lane label exactly "并发任务 2"
+   - show exactly: get_user_status(user_id=1)
+   - timer exactly: "等待 0.2 秒"
+   - output exactly: "{'user_id': 1, 'progress': 0.15}"
+2. Middle merge station:
+   - label exactly "asyncio.gather"
+   - note exactly "两个结果一起返回"
+3. Prompt assembly tray:
+   - label exactly "Prompt 组装"
+   - note exactly "知识库结果 + 用户状态 -> 同一个上下文"
+4. Lower LLM station:
+   - label exactly "call_llm"
+   - timer exactly "等待 0.4 秒"
+5. Final answer card:
+   - heading exactly "最终输出"
+   - show a compact answer line exactly: "LLM 回复：请根据知识库结果和用户状态回答"
+6. Bottom footer exactly:
+   "先并发收集上下文，再统一调用模型。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: search_kb, get_user_status, user_id, progress, asyncio.gather, Prompt, LLM, call_llm.
+- Do not add English helper phrases such as task, output, wait, gather result, prompt assembly, final answer.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show only two concurrent context tasks: search_kb and get_user_status.
+- Do not invent extra tools, databases, retrievers, model names, user ids, progress values, latency numbers, or metrics.
+- The teaching point must be visual: the two waits overlap, gather merges the outputs, and only then call_llm runs.
+""".strip(),
+    "ch08-async-context-gather-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Async Context Gathering Result"
+Visible subtitle exactly: "KB lookup and user status wait together, then feed one LLM call."
+
+Use a warm paper workbook style with cream notebook paper, blue dividers, two colored parallel task lanes, small timer dials, a visible asyncio.gather clamp, a prompt assembly tray, and a final answer card. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Two parallel lanes must start at the same vertical level.
+   - left lane label exactly "task 1"
+   - show exactly: search_kb("What is the refund policy?")
+   - timer exactly: "wait 0.3s"
+   - output exactly: "knowledge base result: What is the refund policy?"
+   - right lane label exactly "task 2"
+   - show exactly: get_user_status(user_id=1)
+   - timer exactly: "wait 0.2s"
+   - output exactly: "{'user_id': 1, 'progress': 0.15}"
+2. Middle merge station:
+   - label exactly "asyncio.gather"
+   - note exactly "both results return together"
+3. Prompt assembly tray:
+   - label exactly "prompt assembly"
+   - note exactly "KB result + user status -> one context"
+4. Lower LLM station:
+   - label exactly "call_llm"
+   - timer exactly "wait 0.4s"
+5. Final answer card:
+   - heading exactly "final output"
+   - show a compact answer line exactly: "LLM response: answer using KB result and user status"
+6. Bottom footer exactly:
+   "Gather context concurrently, then call the model once."
+
+Language rules:
+- All explanatory text must be English.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show only two concurrent context tasks: search_kb and get_user_status.
+- Do not invent extra tools, databases, retrievers, model names, user ids, progress values, latency numbers, or metrics.
+- The teaching point must be visual: the two waits overlap, gather merges the outputs, and only then call_llm runs.
+""".strip(),
+    "ch08-async-context-gather-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "非同期で文脈を集める結果"
+Visible subtitle exactly: "KB 検索とユーザー状態を同時に待ち、まとめて LLM へ渡す。"
+
+Use a warm paper workbook style with cream notebook paper, blue dividers, two colored parallel task lanes, small timer dials, a visible asyncio.gather clamp, a prompt assembly tray, and a final answer card. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Two parallel lanes must start at the same vertical level.
+   - left lane label exactly "並行タスク 1"
+   - show exactly: search_kb("返金ポリシーは何ですか")
+   - timer exactly: "0.3 秒待つ"
+   - output exactly: "ナレッジベース結果: 返金ポリシーは何ですか"
+   - right lane label exactly "並行タスク 2"
+   - show exactly: get_user_status(user_id=1)
+   - timer exactly: "0.2 秒待つ"
+   - output exactly: "{'user_id': 1, 'progress': 0.15}"
+2. Middle merge station:
+   - label exactly "asyncio.gather"
+   - note exactly "2つの結果を一緒に返す"
+3. Prompt assembly tray:
+   - label exactly "Prompt 組み立て"
+   - note exactly "KB 結果 + ユーザー状態 -> 1つの文脈"
+4. Lower LLM station:
+   - label exactly "call_llm"
+   - timer exactly "0.4 秒待つ"
+5. Final answer card:
+   - heading exactly "最終出力"
+   - show a compact answer line exactly: "LLM 応答：KB 結果とユーザー状態で答える"
+6. Bottom footer exactly:
+   "文脈を並行して集めてから、モデルを1回呼び出す。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: KB, search_kb, get_user_status, user_id, progress, asyncio.gather, Prompt, LLM, call_llm.
+- Do not add English helper phrases such as task, output, wait, gather result, prompt assembly, final answer.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show only two concurrent context tasks: search_kb and get_user_status.
+- Do not invent extra tools, databases, retrievers, model names, user ids, progress values, latency numbers, or metrics.
+- The teaching point must be visual: the two waits overlap, gather merges the outputs, and only then call_llm runs.
 """.strip(),
     "ch11-seq2seq-chapter-flow.png": """
 竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。

@@ -447,6 +447,12 @@ Expected output:
 LLM response: Please answer based on the following information: knowledge base result: What is the refund policy?, user status: {'user_id': 1, 'progress': 0.15}
 ```
 
+![Async context gathering result map](/img/course/ch08-async-context-gather-result-map-en.webp)
+
+:::tip Reading guide
+Read the picture from the two upper lanes downward: `search_kb()` and `get_user_status()` wait at the same time, `gather` merges their outputs, and only then `call_llm()` uses the combined context.
+:::
+
 This example already looks very much like a real backend:
 
 - The first half gathers context concurrently

@@ -457,6 +457,12 @@ print(asyncio.run(handle_request("返金ポリシーは何ですか", 1)))
 LLM 応答: 次の情報をもとに回答してください: ナレッジベース結果: 返金ポリシーは何ですか、ユーザー状態: {'user_id': 1, 'progress': 0.15}
 ```
 
+![非同期の文脈収集結果図](/img/course/ch08-async-context-gather-result-map-ja.webp)
+
+:::tip 図の見方
+上の2本の並行レーンから下へ読みます。`search_kb()` と `get_user_status()` が同時に待ち、`gather` が2つの出力をまとめ、その後で `call_llm()` が組み立てた文脈を使います。
+:::
+
 この例は、実際のバックエンドにかなり近いです。
 
 - 前半でコンテキストを並行取得する
