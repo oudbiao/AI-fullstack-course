@@ -15978,6 +15978,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch06-autograd-gradient-lifecycle-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+        },
+        "scene": "A PyTorch autograd gradient-accumulation worked example based on Lab 3. The image must teach the exact runnable example, not a generic training-loop poster. Show x=3 with requires_grad=True. First branch: y1=x**2, y1.backward(), local derivative 6.0, and .grad=6.0. Second branch happens without clearing: y2=2*x, y2.backward(), local derivative 2.0, then the .grad buffer shows 6.0 + 2.0 = 8.0. Third branch: x.grad.zero_() clears the buffer to 0, then y3=2*x, y3.backward(), and .grad=2.0. Visually contrast two lifetimes: the temporary computation graph is created for the current forward/backward and then is gone; the .grad buffer persists and accumulates until zero_ clears it. Include a small rule strip for normal training order: optimizer.zero_grad() -> loss.backward() -> optimizer.step(). Teaching point: backward computes gradients and writes/adds them to .grad; it does not update parameters and it does not automatically overwrite old gradients. The artwork must be one cohesive teaching illustration with labels painted or engraved into the scene, not pasted on top.",
+        "chapter_context": "The image is inserted immediately after Lab 3: See Gradient Accumulation. The nearby code prints after first backward: 6.0, after second backward: 8.0, and after zero and third backward: 2.0. The nearby explanation says PyTorch accumulates gradients by default, x**2 at x=3 has gradient 6, 2*x has gradient 2, the second backward makes .grad become 6+2=8, and zero_ makes the next gradient start cleanly. The following text explains why normal training uses optimizer.zero_grad(), loss.backward(), optimizer.step().",
+        "shared_layout": "Vertical 9:16. All three language variants use the same cohesive classroom experiment board style, like a single dark lab chalkboard photographed from above. Use chalk lines, engraved meter labels, and integrated annotations drawn directly on the board. Do not use sticky notes, tape, cut-out paper captions, pasted label chips, floating stickers, collage scraps, or text boxes that look overlaid after the image was made. Fixed layout for every language: left column has the same x=3 parameter token, center column has the computation graph, right column has the same vertical .grad reservoir meter, repeated across three horizontal lanes. Lane 1 graph must contain exactly x -> square/**2 -> y1, with derivative formula dy1/dx=2x=6.0 as a separate annotation; do not add any 2*x graph node in lane 1. Lane 1 ends at .grad=6.0. Lane 2 graph must contain exactly x -> multiply by 2 -> y2, derivative dy2/dx=2.0, then add +2.0 to old 6.0 so .grad=8.0, with a clear warning that it is not overwritten. Lane 3 first shows zero_ erasing the .grad reservoir to 0, then the graph x -> multiply by 2 -> y3, derivative dy3/dx=2.0, and .grad=2.0. The temporary computation graph should appear as ghost chalk drawings that fade after each backward, while the .grad reservoir remains solid across lanes. Bottom rule strip is painted into the same board: zero_grad -> backward -> step. Keep lane order, numeric values, colors, object positions, and reading path identical across zh/en/ja. Use concrete reservoirs, graph traces, arrows, and eraser action; avoid SVG-style diagrams, white rounded-box flowcharts, terminal screenshots, dense code blocks, tiny text, or decorative-only art. Accuracy rule: no extra operation nodes, no invented numbers, no generic loop names.",
+        "variants": {
+            "zh": {
+                "title": "Autograd 梯度累积与清零",
+                "subtitle": "第二次 backward 会把 2 加到旧的 6 上，不会自动覆盖。",
+                "items": [
+                    ("输入", "x=3，requires_grad=True。"),
+                    ("第一次 backward", "y1=x**2，.grad=6.0。"),
+                    ("未清空再 backward", "y2=2*x，新梯度 2.0 加到旧的 6.0。"),
+                    ("累积结果", ".grad=8.0，不是覆盖。"),
+                    ("zero_", "先把 .grad 清成 0。"),
+                    ("重新计算", "y3=2*x，.grad=2.0。"),
+                ],
+                "footer": "每轮训练先 zero_grad，再 backward，最后 step。",
+                "alt": "Autograd 梯度累积与清零结果图：x=3 时第一次 backward 得到 .grad=6.0，第二次未清空会累积为 8.0，zero_ 后重新 backward 得到 2.0。",
+            },
+            "en": {
+                "title": "Autograd Gradient Accumulation",
+                "subtitle": "The second backward adds 2 to the old 6 instead of overwriting it.",
+                "items": [
+                    ("input", "x=3, requires_grad=True."),
+                    ("first backward", "y1=x**2 gives .grad=6.0."),
+                    ("no clear before next", "y2=2*x adds a new 2.0 to the old 6.0."),
+                    ("accumulated result", ".grad=8.0, not overwritten."),
+                    ("zero_", "Clear .grad back to 0 first."),
+                    ("recompute", "y3=2*x gives .grad=2.0."),
+                ],
+                "footer": "Each training step: zero_grad, then backward, then step.",
+                "alt": "Autograd gradient accumulation result map: at x=3, the first backward gives .grad=6.0, a second backward without clearing accumulates to 8.0, and after zero_ the next backward gives 2.0.",
+            },
+            "ja": {
+                "title": "Autograd の勾配累積とクリア",
+                "subtitle": "2回目の backward は古い 6 に 2 を足し、自動で上書きしない。",
+                "items": [
+                    ("入力", "x=3、requires_grad=True。"),
+                    ("1回目の backward", "y1=x**2 で .grad=6.0。"),
+                    ("消さずに次へ", "y2=2*x の新しい 2.0 が古い 6.0 に足される。"),
+                    ("累積結果", ".grad=8.0、上書きではない。"),
+                    ("zero_", "まず .grad を 0 に戻す。"),
+                    ("再計算", "y3=2*x で .grad=2.0。"),
+                ],
+                "footer": "各 training step は zero_grad、backward、step の順に進める。",
+                "alt": "Autograd の勾配累積とクリア結果図：x=3 で1回目の backward は .grad=6.0、消さずに2回目を行うと 8.0 に累積し、zero_ 後の backward は 2.0 になる。",
+            },
+        },
+    },
+    {
         "slug": "ch06-autograd-two-parameter-fit-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch02-pytorch/02-autograd.md",

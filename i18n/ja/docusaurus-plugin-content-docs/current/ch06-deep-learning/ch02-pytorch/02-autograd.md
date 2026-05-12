@@ -153,7 +153,7 @@ after zero and third backward: 2.0
 - 2 回目の backward 後、`.grad` は `6 + 2 = 8` になる。
 - `zero_()` の後は、次の勾配がきれいな状態から始まる。
 
-![PyTorch autograd 勾配ライフサイクル図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.webp)
+![PyTorch autograd 勾配累積とクリア図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.webp)
 
 通常の学習コードで次の順番を使うのはこのためです。
 
