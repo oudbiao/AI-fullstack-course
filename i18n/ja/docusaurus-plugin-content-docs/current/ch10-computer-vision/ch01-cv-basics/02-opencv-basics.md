@@ -289,6 +289,8 @@ print("opencv_info_card.png を保存しました")
 opencv_info_card.png を保存しました
 ```
 
+![OpenCV 基本操作の保存結果図](/img/course/ch10-opencv-saved-outputs-result-map-ja.webp)
+
 ---
 
 ## 八、初学者によくある誤解

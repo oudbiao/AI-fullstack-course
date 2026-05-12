@@ -153,7 +153,7 @@ Why:
 - after the second backward, `.grad` becomes `6 + 2 = 8`;
 - after `zero_()`, the next gradient starts cleanly.
 
-![PyTorch autograd gradient accumulation and zeroing diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.webp)
+![Autograd loop mechanism and gradient accumulation diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.webp)
 
 In normal training code, this is why each iteration uses:
 

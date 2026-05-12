@@ -288,6 +288,8 @@ print("已保存 opencv_info_card.png")
 已保存 opencv_info_card.png
 ```
 
+![OpenCV 基础代码保存结果图](/img/course/ch10-opencv-saved-outputs-result-map.webp)
+
 ---
 
 ## 八、初学者常见误区

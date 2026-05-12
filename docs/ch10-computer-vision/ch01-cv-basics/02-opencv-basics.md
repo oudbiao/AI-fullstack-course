@@ -288,6 +288,8 @@ Expected output:
 Saved opencv_info_card.png
 ```
 
+![OpenCV saved output result map](/img/course/ch10-opencv-saved-outputs-result-map-en.webp)
+
 ---
 
 ## Common beginner mistakes
