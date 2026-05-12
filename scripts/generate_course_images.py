@@ -16143,6 +16143,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-courseware-api-contract-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch04-engineering/02-api-design.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/02-api-design.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch04-engineering/02-api-design.md",
+        },
+        "scene": "A courseware generation API contract worked-result board based only on the handle_generate expected output. The image must teach that a service contract validates the request first, then returns either the same structured success envelope or the same structured error envelope. Do not draw terminal screenshots, full code blocks, FastAPI server screenshots, HTTP status codes, database diagrams, model names, invented endpoints, invented trace ids, invented fields, extra validation rules, cost numbers, latency numbers, or extra sections. Show exactly two input payload cards. Success payload has all five required fields and returns trace_id trace_courseware_001, status accepted, and courseware with title, audience, format, and exactly three sections. Failure payload has only topic and doc_format=pdf; the first validation result shown is missing fields: audience, style, exercise_count. Do not also show the doc_format error for the second payload, because the code returns missing fields first. Teaching point: happy path and error path share trace_id and contract shape, so callers can handle both.",
+        "chapter_context": "The image is inserted after the expected output of the pure-Python courseware generation API contract exercise. Nearby text explains that serviceization is about defining a stable boundary: request validation, success response, error response, traceability, and expansion from chat to a courseware generation endpoint.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, green success lane, red-orange error lane, validator stamp, service contract ledger, and a bottom rule strip. Top title and subtitle. Upper section shows REQUIRED_FIELDS checklist with topic, audience, doc_format, style, exercise_count. Middle section splits into two lanes: success payload goes through validate_generate_request and handle_generate to a structured courseware card; failure payload goes through the same validation gate and stops at the error card. Lower section highlights the common contract fields: trace_id, status or error, and predictable nested object. Keep values, field names, order, colors, and reading path identical across zh/en/ja. Use concrete request cards, validation gate, output envelopes, section cards, and error stamp; avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "课件生成 API 契约结果",
+                "subtitle": "先校验必填字段，再返回成功结构或统一错误结构。",
+                "items": [
+                    ("必填字段", "topic、audience、doc_format、style、exercise_count。"),
+                    ("成功输入", "折扣应用题 + 小学高年级 + word + 课堂讲解 + 3。"),
+                    ("成功输出", "status=accepted，courseware 含 3 个章节。"),
+                    ("失败输入", "只有 topic 和 doc_format=pdf。"),
+                    ("失败输出", "缺少字段：audience、style、exercise_count。"),
+                    ("共同契约", "两条路径都有 trace_id=trace_courseware_001。"),
+                ],
+                "footer": "服务接口要同时设计 happy path 和 error path。",
+                "alt": "课件生成 API 契约结果图：完整请求通过校验后返回 accepted 和三段 courseware，不完整请求返回缺少 audience、style、exercise_count 的统一错误。",
+            },
+            "en": {
+                "title": "Courseware API Contract Result",
+                "subtitle": "Validate required fields first, then return success or a unified error.",
+                "items": [
+                    ("required fields", "topic, audience, doc_format, style, exercise_count."),
+                    ("success input", "Discount word problems + upper elementary + word + classroom explanation + 3."),
+                    ("success output", "status=accepted; courseware has 3 sections."),
+                    ("failure input", "Only topic and doc_format=pdf."),
+                    ("failure output", "missing fields: audience, style, exercise_count."),
+                    ("shared contract", "Both paths keep trace_id=trace_courseware_001."),
+                ],
+                "footer": "A service API must design the happy path and the error path together.",
+                "alt": "Courseware API contract result map: a complete request validates and returns accepted courseware with three sections, while an incomplete request returns a unified missing-fields error for audience, style, and exercise_count.",
+            },
+            "ja": {
+                "title": "教材生成 API 契約の結果",
+                "subtitle": "必須項目を先に検証し、成功構造か統一エラーを返す。",
+                "items": [
+                    ("必須項目", "topic、audience、doc_format、style、exercise_count。"),
+                    ("成功入力", "割引の応用問題 + 小学校高学年 + word + 授業解説 + 3。"),
+                    ("成功出力", "status=accepted、courseware は3つの章を含む。"),
+                    ("失敗入力", "topic と doc_format=pdf だけ。"),
+                    ("失敗出力", "不足フィールド：audience、style、exercise_count。"),
+                    ("共通契約", "両方の経路に trace_id=trace_courseware_001。"),
+                ],
+                "footer": "サービス API は happy path と error path を同時に設計する。",
+                "alt": "教材生成 API 契約結果図：完全なリクエストは検証を通って3章の courseware を accepted で返し、不完全なリクエストは audience、style、exercise_count の不足エラーを返す。",
+            },
+        },
+    },
+    {
         "slug": "ch08-dialog-history-compaction-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
@@ -18378,6 +18433,145 @@ Critical accuracy rules:
 - Do not invent extra tools, databases, retrievers, model names, user ids, progress values, latency numbers, or metrics.
 - The teaching point must be visual: the two waits overlap, gather merges the outputs, and only then call_llm runs.
 """.strip(),
+    "ch08-courseware-api-contract-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "课件生成 API 契约结果"
+Visible subtitle exactly: "先校验必填字段，再返回成功结构或统一错误结构。"
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, a green success lane, a red-orange error lane, a validator stamp, output envelopes, section cards, and a bottom rule strip. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Top checklist:
+   - heading exactly "REQUIRED_FIELDS"
+   - checklist exactly: topic, audience, doc_format, style, exercise_count
+2. Middle split into two lanes with the same validation gate:
+   - green lane label exactly "成功输入"
+   - show exactly: topic=折扣应用题
+   - show exactly: audience=小学高年级
+   - show exactly: doc_format=word
+   - show exactly: style=课堂讲解
+   - show exactly: exercise_count=3
+   - gate label exactly "validate_generate_request -> True"
+   - output heading exactly "成功输出"
+   - output exactly: trace_id=trace_courseware_001
+   - output exactly: status=accepted
+   - courseware sections exactly: 知识点回顾, 例题讲解, 课堂练习
+   - red-orange lane label exactly "失败输入"
+   - show exactly: topic=折扣应用题
+   - show exactly: doc_format=pdf
+   - gate label exactly "validate_generate_request -> False"
+   - output heading exactly "统一错误"
+   - output exactly: code=INVALID_ARGUMENT
+   - output exactly: 缺少字段：audience, style, exercise_count
+3. Lower rule strip:
+   - show exactly: trace_id 贯穿两条路径
+   - footer exactly: "服务接口要同时设计 happy path 和 error path。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: API, REQUIRED_FIELDS, topic, audience, doc_format, style, exercise_count, validate_generate_request, True, False, trace_id, trace_courseware_001, status, accepted, courseware, code, INVALID_ARGUMENT, happy path, error path, word, pdf.
+- Do not add English helper phrases such as success input, failure output, missing fields, shared contract.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show the failed second payload stopping at the missing-fields error only. Do not show a separate doc_format error, because the code returns the missing-fields branch first.
+- Do not invent endpoints, HTTP status codes, extra fields, extra sections, extra trace ids, model names, cost, latency, databases, or server screenshots.
+- The teaching point must be visual: one contract gate sends a complete request to accepted courseware and an incomplete request to a unified error.
+""".strip(),
+    "ch08-courseware-api-contract-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Courseware API Contract Result"
+Visible subtitle exactly: "Validate required fields first, then return success or a unified error."
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, a green success lane, a red-orange error lane, a validator stamp, output envelopes, section cards, and a bottom rule strip. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Top checklist:
+   - heading exactly "REQUIRED_FIELDS"
+   - checklist exactly: topic, audience, doc_format, style, exercise_count
+2. Middle split into two lanes with the same validation gate:
+   - green lane label exactly "success input"
+   - show exactly: topic=Discount word problems
+   - show exactly: audience=Upper elementary school
+   - show exactly: doc_format=word
+   - show exactly: style=classroom explanation
+   - show exactly: exercise_count=3
+   - gate label exactly "validate_generate_request -> True"
+   - output heading exactly "success output"
+   - output exactly: trace_id=trace_courseware_001
+   - output exactly: status=accepted
+   - courseware sections exactly: Knowledge Review, Example Explanation, Classroom Practice
+   - red-orange lane label exactly "failure input"
+   - show exactly: topic=Discount word problems
+   - show exactly: doc_format=pdf
+   - gate label exactly "validate_generate_request -> False"
+   - output heading exactly "unified error"
+   - output exactly: code=INVALID_ARGUMENT
+   - output exactly: missing fields: audience, style, exercise_count
+3. Lower rule strip:
+   - show exactly: trace_id follows both paths
+   - footer exactly: "A service API must design the happy path and the error path together."
+
+Language rules:
+- Explanatory text must be English.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show the failed second payload stopping at the missing-fields error only. Do not show a separate doc_format error, because the code returns the missing-fields branch first.
+- Do not invent endpoints, HTTP status codes, extra fields, extra sections, extra trace ids, model names, cost, latency, databases, or server screenshots.
+- The teaching point must be visual: one contract gate sends a complete request to accepted courseware and an incomplete request to a unified error.
+""".strip(),
+    "ch08-courseware-api-contract-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "教材生成 API 契約の結果"
+Visible subtitle exactly: "必須項目を先に検証し、成功構造か統一エラーを返す。"
+
+Use a warm paper workbook style matching the ch08 companion images: cream notebook paper, blue dividers, a green success lane, a red-orange error lane, a validator stamp, output envelopes, section cards, and a bottom rule strip. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Top checklist:
+   - heading exactly "REQUIRED_FIELDS"
+   - checklist exactly: topic, audience, doc_format, style, exercise_count
+2. Middle split into two lanes with the same validation gate:
+   - green lane label exactly "成功入力"
+   - show exactly: topic=割引の応用問題
+   - show exactly: audience=小学校高学年
+   - show exactly: doc_format=word
+   - show exactly: style=授業解説
+   - show exactly: exercise_count=3
+   - gate label exactly "validate_generate_request -> True"
+   - output heading exactly "成功出力"
+   - output exactly: trace_id=trace_courseware_001
+   - output exactly: status=accepted
+   - courseware sections exactly: 知識ポイント確認, 例題解説, 授業内演習
+   - red-orange lane label exactly "失敗入力"
+   - show exactly: topic=割引の応用問題
+   - show exactly: doc_format=pdf
+   - gate label exactly "validate_generate_request -> False"
+   - output heading exactly "統一エラー"
+   - output exactly: code=INVALID_ARGUMENT
+   - output exactly: 不足フィールド：audience, style, exercise_count
+3. Lower rule strip:
+   - show exactly: trace_id は両方の経路を通る
+   - footer exactly: "サービス API は happy path と error path を同時に設計する。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: API, REQUIRED_FIELDS, topic, audience, doc_format, style, exercise_count, validate_generate_request, True, False, trace_id, trace_courseware_001, status, accepted, courseware, code, INVALID_ARGUMENT, happy path, error path, word, pdf.
+- Do not add English helper phrases such as success input, failure output, missing fields, shared contract.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- Show the failed second payload stopping at the missing-fields error only. Do not show a separate doc_format error, because the code returns the missing-fields branch first.
+- Do not invent endpoints, HTTP status codes, extra fields, extra sections, extra trace ids, model names, cost, latency, databases, or server screenshots.
+- The teaching point must be visual: one contract gate sends a complete request to accepted courseware and an incomplete request to a unified error.
+""".strip(),
     "ch11-seq2seq-chapter-flow.png": """
 竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。
 画面像课堂分镜/工作台，不要白底流程框：一位学习者看着屏幕，左侧是一串输入词卡，经过 Encoder 工作台压成上下文胶囊，右侧 Decoder 像打字机一样逐步吐出输出词卡；旁边有 Attention 聚光灯照回输入词，底部有翻译与摘要两个小成果样本。
@@ -18525,6 +18719,7 @@ def selected_jobs(only: list[str] | None) -> list[dict[str, Any]]:
 def write_manifest(report_dir: Path, jobs: list[dict[str, Any]]) -> None:
     report_dir.mkdir(parents=True, exist_ok=True)
     manifest = report_dir / "manifest.md"
+    output_dir = DEFAULT_OUTPUT_DIR
     lines = ["# AI 全栈课程配图清单", ""]
     lines.append("这些图片由 `scripts/generate_course_images.py` 生成，Markdown 页面使用 `/img/course/...` 引用。")
     lines.append("")
@@ -18533,7 +18728,11 @@ def write_manifest(report_dir: Path, jobs: list[dict[str, Any]]) -> None:
     lines.append("| 文件 | 用途 | 建议插入页面 | Alt 文案 |")
     lines.append("|---|---|---|---|")
     for job in IMAGE_JOBS:
-        lines.append(f"| `{job['filename']}` | {job['title']} | `{job['suggested_page']}` | {job['alt']} |")
+        filename = str(job["filename"])
+        png_path = output_dir / filename
+        webp_path = png_path.with_suffix(".webp")
+        manifest_filename = webp_path.name if webp_path.exists() and not png_path.exists() else filename
+        lines.append(f"| `{manifest_filename}` | {job['title']} | `{job['suggested_page']}` | {job['alt']} |")
     lines.append("")
     manifest.write_text("\n".join(lines), encoding="utf-8")
 

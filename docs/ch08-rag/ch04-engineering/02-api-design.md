@@ -456,6 +456,12 @@ Expected output:
 {'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "missing fields: ['audience', 'style', 'exercise_count']"}}
 ```
 
+![Courseware API contract result map](/img/course/ch08-courseware-api-contract-result-map-en.webp)
+
+:::tip Reading guide
+Follow the two lanes through the same validation gate. The complete payload becomes `status=accepted` courseware, while the incomplete payload stops at a unified `INVALID_ARGUMENT` error before business logic runs.
+:::
+
 This exercise is useful because it forces you to design success and failure together. A service is not ready just because it can return a happy-path answer.
 
 ## Common mistakes beginners make most often

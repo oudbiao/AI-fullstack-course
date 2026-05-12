@@ -456,6 +456,12 @@ print(handle_generate({"topic": "折扣应用题", "doc_format": "pdf"}))
 {'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "缺少字段：['audience', 'style', 'exercise_count']"}}
 ```
 
+![课件生成 API 契约结果图](/img/course/ch08-courseware-api-contract-result-map.webp)
+
+:::tip 读图提示
+顺着两条路径穿过同一个校验门看：完整 payload 会变成 `status=accepted` 的 courseware，不完整 payload 会在业务逻辑前停在统一的 `INVALID_ARGUMENT` 错误。
+:::
+
 这个练习有用，是因为它逼你同时设计成功和失败。服务不是只会返回 happy path 就算准备好了。
 
 ## 初学者最常踩的坑

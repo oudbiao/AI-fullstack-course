@@ -456,6 +456,12 @@ print(handle_generate({"topic": "割引の応用問題", "doc_format": "pdf"}))
 {'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "不足フィールド：['audience', 'style', 'exercise_count']"}}
 ```
 
+![教材生成 API 契約結果図](/img/course/ch08-courseware-api-contract-result-map-ja.webp)
+
+:::tip 図の見方
+2つの経路を同じ検証ゲートに通して読みます。完全な payload は `status=accepted` の courseware になり、不完全な payload はビジネスロジックの前で統一された `INVALID_ARGUMENT` エラーに止まります。
+:::
+
 この練習が役立つのは、成功と失敗を同時に設計する必要があるからです。happy path の返却だけでは、サービスが準備できたとは言えません。
 
 ## 初学者がよくつまずくポイント
