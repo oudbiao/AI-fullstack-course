@@ -245,6 +245,12 @@ final answer:
 未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻り、通常 3〜7 営業日で着金します。 この注文の予想返金額は 314 円です。
 ```
 
+![ReAct 返金ツール trace 結果図](/img/course/ch09-react-refund-tool-trace-result-map-ja.webp)
+
+:::tip 図の見方
+この図は trace の台帳として読んでください。1つ目の observation は返金ポリシー、2つ目の observation は計算結果を与え、最終回答は最後の tool 出力だけでなく両方を統合します。
+:::
+
 ### このコードはどう読むべき？
 
 次の順で読むのがおすすめです：

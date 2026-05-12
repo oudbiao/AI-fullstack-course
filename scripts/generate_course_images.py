@@ -14160,6 +14160,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-react-refund-tool-trace-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch02-reasoning/03-react.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch02-reasoning/03-react.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch02-reasoning/03-react.md",
+        },
+        "scene": "A runnable-result teaching visual for the ReAct refund assistant example. It must explain the exact printed trace from run_react, not a generic ReAct loop. Show one user question, exactly two tool steps in order, and one final answer assembled from both observations. Step 1: thought decides to confirm the refund policy, action search_policy, args topic=refund, observation is the localized refund policy. Step 2: thought decides to calculate 299 + 15, action calculator, args expression=299 + 15, observation 314. Final answer combines policy plus estimated refund amount 314 yuan/元/円. Teaching point: ReAct alternates thought, action, observation, and the next action depends on prior observation. Do not draw a generic loop only, terminal screenshot, full code block, extra tools, extra steps, model scores, policy conditions not in code, or tiny logs.",
+        "chapter_context": "The image is inserted immediately after the expected output of the minimal ReAct closed-loop example. Nearby code defines search_policy, calculator, policy, TOOLS, and run_react. The output prints two trace dictionaries and the final answer. The lesson then explains that readers should inspect policy, TOOLS, and run_react, and that trace matters because it records evidence for each tool step.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook / practical Agent trace board style across zh/en/ja. Top title and subtitle. Upper section: one user question card with both refund policy and 299 + 15 amount request. Middle section: two numbered trace stations only. Each station has three linked cards: thought, action+args, observation. Step 1 is search_policy before Step 2 calculator. Lower section: final answer receipt assembled from two state chips: policy observation and amount=314. Bottom strip: thought -> action -> observation -> next step -> final answer. Keep station order, colors, icons, numeric values, tool names, card positions, and reading path identical across languages. Use concrete objects such as policy document, calculator, trace ledger, and final receipt; avoid SVG-style white rounded-box diagrams, pure text posters, dense terminal logs, small gibberish, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "ReAct 退款工具 trace 怎么看",
+                "subtitle": "先查政策，再计算金额，最后把两条 observation 合成回答。",
+                "items": [
+                    ("用户问题", "退款规则是什么？订单金额 299 + 15 最终会退多少？"),
+                    ("步骤 1", "search_policy(topic=\"refund\") -> 未发货订单可直接申请退款。"),
+                    ("observation 1", "款项原路返回，通常 3 到 7 个工作日到账。"),
+                    ("步骤 2", "calculator(expression=\"299 + 15\") -> 314。"),
+                    ("最终回答", "未发货可退款；本单预计退款金额为 314 元。"),
+                    ("关键逻辑", "下一步 action 依赖上一轮 observation。"),
+                ],
+                "footer": "ReAct 的证据链来自 trace，而不是只看最后一句回答。",
+                "alt": "ReAct 退款工具 trace 结果图：先调用 search_policy 得到退款政策，再调用 calculator 计算 299+15=314，最后组合政策和金额形成答案。",
+            },
+            "en": {
+                "title": "Reading a ReAct Refund Tool Trace",
+                "subtitle": "Check policy first, calculate amount next, then combine both observations.",
+                "items": [
+                    ("user question", "What is the refund policy? How much is 299 + 15?"),
+                    ("step 1", "search_policy(topic=\"refund\") -> unshipped orders can refund directly."),
+                    ("observation 1", "Return to original payment method in 3 to 7 business days."),
+                    ("step 2", "calculator(expression=\"299 + 15\") -> 314."),
+                    ("final answer", "Refundable if unshipped; estimated refund amount is 314 yuan."),
+                    ("key logic", "The next action depends on the previous observation."),
+                ],
+                "footer": "The ReAct evidence chain lives in the trace, not only in the final answer.",
+                "alt": "ReAct refund tool trace result map: first call search_policy to get the refund policy, then call calculator for 299+15=314, then combine policy and amount in the final answer.",
+            },
+            "ja": {
+                "title": "ReAct 返金ツール trace を読む",
+                "subtitle": "先にポリシーを確認し、次に金額を計算し、2つの observation をまとめる。",
+                "items": [
+                    ("ユーザー質問", "返金ルールは何ですか？299 + 15 の返金額はいくらですか？"),
+                    ("ステップ 1", "search_policy(topic=\"refund\") -> 未発送の注文は返金申請できる。"),
+                    ("observation 1", "元の支払い方法へ戻り、通常 3〜7 営業日で着金。"),
+                    ("ステップ 2", "calculator(expression=\"299 + 15\") -> 314。"),
+                    ("最終回答", "未発送なら返金可；予想返金額は 314 円。"),
+                    ("重要な論理", "次の action は前の observation に依存する。"),
+                ],
+                "footer": "ReAct の証拠 chain は最終回答だけでなく trace に残る。",
+                "alt": "ReAct 返金ツール trace 結果図：まず search_policy で返金ポリシーを取得し、次に calculator で 299+15=314 を計算し、最後にポリシーと金額をまとめて回答する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-advanced-tool-patterns-output-map",
         "pages": {
             "en": "docs/ch09-agent/ch03-tools/06-advanced-patterns.md",
@@ -17810,6 +17865,134 @@ Critical accuracy rules:
 - The only deadline policy is "7 日以内"; the decision rule is "progress < 0.2".
 - Do NOT add extra tools, extra users, extra numeric results, fake logs, tiny background text, Chinese text, English explanatory sentences, watermark, or brand logos.
 Visible footer exactly: "tool 層は登録、dispatch、検証、orchestration を同じ約束でそろえる。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-react-refund-tool-trace-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "ReAct 退款工具 trace 怎么看"
+Visible subtitle exactly: "先查政策，再计算金额，最后把两条 observation 合成回答。"
+
+Use a warm paper workbook / practical Agent trace board style with cream notebook paper, blue dividers, orange tool-call cards, green observation stamps, a small calculator, a policy document, and a final receipt. The image must teach the exact runnable ReAct example in the nearby lesson.
+Composition must match the English and Japanese variants:
+1. Top user question card:
+   - "退款规则是什么？"
+   - "订单金额 299 + 15 最终会退多少？"
+2. Trace station 1:
+   - thought: "先确认退款政策"
+   - action: search_policy
+   - args: topic="refund"
+   - observation exactly: "未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。"
+3. Trace station 2:
+   - thought: "根据政策后计算金额"
+   - action: calculator
+   - args: expression="299 + 15"
+   - observation exactly: "314"
+4. Final answer receipt:
+   - "未发货订单可直接申请退款"
+   - "本单预计退款金额为 314 元"
+5. Bottom strip exactly: "thought -> action -> observation -> next step -> final answer"
+
+Required teaching labels and short notes, all in Simplified Chinese except exact code/tool names:
+- "用户问题" near the top card; note "退款规则 + 299 + 15。"
+- "步骤 1" near station 1; note "search_policy(topic=\"refund\")。"
+- "observation 1" near policy document; note "3 到 7 个工作日到账。"
+- "步骤 2" near station 2; note "calculator(expression=\"299 + 15\")。"
+- "最终回答" near receipt; note "政策 + 金额 = 314 元。"
+- "关键逻辑" near the trace arrow; note "下一步 action 依赖上一轮 observation。"
+
+Critical accuracy rules:
+- Show exactly two tool steps: search_policy first, calculator second.
+- Do NOT add extra tools, scores, retries, shipping fees, order ids, progress percentages, alternative refund policies, or extra steps.
+- Explanatory text must be Simplified Chinese. Allowed English/code tokens only: ReAct, trace, thought, action, observation, next step, final answer, Agent, search_policy, calculator, topic, refund, expression.
+- Do NOT write English explanatory sentences, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "ReAct 的证据链来自 trace，而不是只看最后一句回答。"
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-react-refund-tool-trace-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "Reading a ReAct Refund Tool Trace"
+Visible subtitle exactly: "Check policy first, calculate amount next, then combine both observations."
+
+Use a warm paper workbook / practical Agent trace board style with cream notebook paper, blue dividers, orange tool-call cards, green observation stamps, a small calculator, a policy document, and a final receipt. The image must teach the exact runnable ReAct example in the nearby lesson.
+Composition must match the Simplified Chinese and Japanese variants:
+1. Top user question card:
+   - "What is the refund policy?"
+   - "For 299 + 15, how much will be refunded?"
+2. Trace station 1:
+   - thought: "Confirm the refund policy first"
+   - action: search_policy
+   - args: topic="refund"
+   - observation exactly: "Unshipped orders can be refunded directly. The amount will be returned to the original payment method, usually within 3 to 7 business days."
+3. Trace station 2:
+   - thought: "Now calculate the refund amount"
+   - action: calculator
+   - args: expression="299 + 15"
+   - observation exactly: "314"
+4. Final answer receipt:
+   - "Unshipped orders can be refunded directly"
+   - "Estimated refund amount: 314 yuan"
+5. Bottom strip exactly: "thought -> action -> observation -> next step -> final answer"
+
+Required teaching labels and short notes:
+- "user question" near the top card; note "refund policy + 299 + 15."
+- "step 1" near station 1; note "search_policy(topic=\"refund\")."
+- "observation 1" near policy document; note "3 to 7 business days."
+- "step 2" near station 2; note "calculator(expression=\"299 + 15\")."
+- "final answer" near receipt; note "policy + amount = 314 yuan."
+- "key logic" near the trace arrow; note "The next action depends on the previous observation."
+
+Critical accuracy rules:
+- Show exactly two tool steps: search_policy first, calculator second.
+- Do NOT add extra tools, scores, retries, shipping fees, order ids, progress percentages, alternative refund policies, or extra steps.
+- Do NOT include Chinese text, Japanese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "The ReAct evidence chain lives in the trace, not only in the final answer."
+All text must be large and readable on a phone.
+""".strip(),
+    "ch09-react-refund-tool-trace-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "ReAct 返金ツール trace を読む"
+Visible subtitle exactly: "先にポリシーを確認し、次に金額を計算し、2つの observation をまとめる。"
+
+Use a warm paper workbook / practical Agent trace board style with cream notebook paper, blue dividers, orange tool-call cards, green observation stamps, a small calculator, a policy document, and a final receipt. The image must teach the exact runnable ReAct example in the nearby lesson.
+Composition must match the Simplified Chinese and English variants:
+1. Top user question card:
+   - "返金ルールは何ですか？"
+   - "299 + 15 の返金額はいくらですか？"
+2. Trace station 1:
+   - thought: "まず返金ポリシーを確認する"
+   - action: search_policy
+   - args: topic="refund"
+   - observation exactly: "未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻り、通常 3〜7 営業日で着金します。"
+3. Trace station 2:
+   - thought: "次に返金額を計算する"
+   - action: calculator
+   - args: expression="299 + 15"
+   - observation exactly: "314"
+4. Final answer receipt:
+   - "未発送の注文は返金申請できます"
+   - "予想返金額：314 円"
+5. Bottom strip exactly: "thought -> action -> observation -> next step -> final answer"
+
+Required teaching labels and short notes, in natural Japanese except exact code/tool names:
+- "ユーザー質問" near the top card; note "返金ルール + 299 + 15。"
+- "ステップ 1" near station 1; note "search_policy(topic=\"refund\")。"
+- "observation 1" near policy document; note "通常 3〜7 営業日で着金。"
+- "ステップ 2" near station 2; note "calculator(expression=\"299 + 15\")。"
+- "最終回答" near receipt; note "policy + 金額 = 314 円。"
+- "重要な論理" near the trace arrow; note "次の action は前の observation に依存する。"
+
+Critical accuracy rules:
+- Show exactly two tool steps: search_policy first, calculator second.
+- Do NOT add extra tools, scores, retries, shipping fees, order ids, progress percentages, alternative refund policies, or extra steps.
+- Explanatory text must be natural Japanese. Allowed English/code tokens only: ReAct, trace, thought, action, observation, next step, final answer, Agent, search_policy, calculator, topic, refund, expression, policy.
+- Do NOT write English explanatory sentences, Chinese text, terminal screenshots, dense code, tiny background text, watermark, or brand logos.
+Visible footer exactly: "ReAct の証拠 chain は最終回答だけでなく trace に残る。"
 All text must be large and readable on a phone.
 """.strip(),
     "ch09-advanced-tool-patterns-output-map.png": """

@@ -245,6 +245,12 @@ final answer:
 未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。 本单预计退款金额为 314 元。
 ```
 
+![ReAct 退款工具 trace 结果图](/img/course/ch09-react-refund-tool-trace-result-map.webp)
+
+:::tip 读图提示
+把图当成一份 trace 账本来读：第一次 observation 给出退款政策，第二次 observation 给出计算金额，最终回答要整合两者，而不是只复读最后一个工具结果。
+:::
+
 ### 这段代码最应该怎么读？
 
 建议按这个顺序：

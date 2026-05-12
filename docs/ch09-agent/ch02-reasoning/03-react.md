@@ -245,6 +245,12 @@ final answer:
 Unshipped orders can be refunded directly. The amount will be returned to the original payment method, usually within 3 to 7 business days. The estimated refund amount for this order is 314 yuan.
 ```
 
+![ReAct refund tool trace result map](/img/course/ch09-react-refund-tool-trace-result-map-en.webp)
+
+:::tip Reading guide
+Read the image as a trace ledger: the first observation supplies the refund policy, the second observation supplies the calculated amount, and the final answer combines both instead of repeating only the last tool output.
+:::
+
 ### How should you read this code?
 
 It is recommended to read it in this order:
