@@ -16308,6 +16308,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-domain-rag-finetune-eval-diagnosis-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch05-projects/02-domain-rag-finetuning.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/02-domain-rag-finetuning.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch05-projects/02-domain-rag-finetuning.md",
+        },
+        "scene": "A domain RAG plus fine-tuning worked-result board based only on the retriever, combined answer, evaluation, and layer-diagnosis expected outputs. The image must teach how RAG retrieves changing policy knowledge, the simulated fine-tuned layer formats the answer in business style, evaluation checks retrieval_hit and answer_ok, and diagnosis assigns failures to the right layer. Do not draw a generic architecture diagram, terminal screenshot, full code block, vector database internals, model names, training curves, invented scores, invented documents, invented questions, invented metrics, APIs, dashboards, or chat UI. Teaching point: RAG adds knowledge, fine-tuning or prompt adds behavior, and the eval tells which layer to fix.",
+        "chapter_context": "The image is inserted after the expected output of the integrated RAG plus fine-tuning evaluation and diagnosis drill. Nearby text explains that RAG solves what the system knows, fine-tuning solves how it answers, and failures should be diagnosed by layer.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, policy cards, two conveyor lanes labeled RAG layer and behavior layer, green eval checkmarks, amber diagnosis sticky notes, and a bottom rule strip. Top title and subtitle. Upper section shows a refund question entering a retriever and returning top-2 docs: doc1 policy and doc3 support rule. Middle section shows the answer style card: policy first, conclusion second, with the concrete refund condition. Lower section shows a two-row eval ledger: refund -> doc1 True True, certificate -> doc2 True True. Bottom section shows three diagnosis sticky notes: RAG, fine-tuning or prompt, grounding. Keep values, field names, order, colors, and reading path identical across zh/en/ja. Avoid SVG-style whiteboard boxes, pure text posters, dense terminal logs, tiny labels, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "RAG+微调组合结果图",
+                "subtitle": "RAG 找知识，微调/提示词稳定回答方式。",
+                "items": [
+                    ("问题", "退款条件是什么？"),
+                    ("检索 top-2", "doc1 退款政策；doc3 客服处理规范。"),
+                    ("回答层", "先政策后结论：7 天内且进度低于 20%。"),
+                    ("评估 1", "退款条件 -> doc1；retrieval_hit=True；answer_ok=True。"),
+                    ("评估 2", "证书如何获得 -> doc2；retrieval_hit=True；answer_ok=True。"),
+                    ("分层诊断", "RAG 修检索；微调/提示词修格式；grounding 修引用。"),
+                ],
+                "footer": "组合系统要同时测知识命中、回答格式和故障归因。",
+                "alt": "RAG+微调组合结果图：退款问题先由检索器命中 doc1 和 doc3，再由回答层输出先政策后结论的退款条件，评估表同时检查 retrieval_hit 与 answer_ok，并用分层诊断区分 RAG、微调提示词和 grounding 问题。",
+            },
+            "en": {
+                "title": "RAG + Fine-tuning Result Map",
+                "subtitle": "RAG finds knowledge; fine-tuning or prompts stabilize behavior.",
+                "items": [
+                    ("question", "What are the refund conditions?"),
+                    ("top-2 retrieval", "doc1 Refund Policy; doc3 Customer support rule."),
+                    ("answer layer", "policy first, conclusion second: 7 days and progress below 20%."),
+                    ("eval 1", "refund conditions -> doc1; retrieval_hit=True; answer_ok=True."),
+                    ("eval 2", "certificate question -> doc2; retrieval_hit=True; answer_ok=True."),
+                    ("layer diagnosis", "RAG fixes retrieval; fine-tuning/prompt fixes format; grounding fixes citations."),
+                ],
+                "footer": "A combined system tests knowledge hit, answer format, and failure ownership.",
+                "alt": "RAG plus fine-tuning result map: a refund question retrieves doc1 and doc3, the answer layer outputs policy-first refund conditions, the eval table checks retrieval_hit and answer_ok, and the diagnosis area separates RAG, fine-tuning prompt, and grounding problems.",
+            },
+            "ja": {
+                "title": "RAG+微調整 結果マップ",
+                "subtitle": "RAG は知識を探し、微調整/プロンプトは答え方を安定させる。",
+                "items": [
+                    ("質問", "返金条件は何ですか？"),
+                    ("検索 top-2", "doc1 返金ポリシー；doc3 サポート対応規範。"),
+                    ("回答層", "先にポリシー、後で結論：7 日以内かつ進捗 20% 未満。"),
+                    ("評価 1", "返金条件 -> doc1；retrieval_hit=True；answer_ok=True。"),
+                    ("評価 2", "修了証の質問 -> doc2；retrieval_hit=True；answer_ok=True。"),
+                    ("層別診断", "RAG は検索、微調整/プロンプトは形式、grounding は引用を直す。"),
+                ],
+                "footer": "組み合わせ型では、知識ヒット、回答形式、失敗の担当層を一緒に見る。",
+                "alt": "RAG と微調整の統合結果図：返金質問で doc1 と doc3 を検索し、回答層がポリシー先行の返金条件を出し、評価表で retrieval_hit と answer_ok を確認し、診断欄で RAG、微調整プロンプト、grounding の問題を切り分ける。",
+            },
+        },
+    },
+    {
         "slug": "ch08-dialog-history-compaction-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
@@ -19001,6 +19056,151 @@ Critical accuracy rules:
 - The sources section must not confuse section and department: section is 返金ポリシー or 社内カスタマーサポートSOP; department is support or internal.
 - Do not invent extra documents, scores, users, roles, departments, citations, rows, metrics, model names, vector databases, or UI screenshots.
 - The teaching point must be visual: permission scope changes the retrieval result, and the evaluation checks the output against expected_doc.
+""".strip(),
+    "ch08-domain-rag-finetune-eval-diagnosis-result-map.png": """
+Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "RAG+微调组合结果图"
+Visible subtitle exactly: "RAG 找知识，微调/提示词稳定回答方式。"
+
+Use a warm paper workbook style matching the ch08 result images: cream notebook paper, blue dividers, policy cards, two conveyor lanes, green eval checkmarks, amber diagnosis sticky notes, small hand-drawn icons, and a bottom rule strip. The composition must match the English and Japanese variants.
+
+Required layout, top to bottom:
+1. Question and retrieval lane:
+   - label exactly "问题"
+   - show exactly "退款条件是什么？"
+   - lane label exactly "RAG 层"
+   - show exactly "retrieve(top_k=2)"
+   - output card 1 exactly "doc1 退款政策：7 天内且进度低于 20%"
+   - output card 2 exactly "doc3 客服处理规范：先政策后结论"
+2. Answer behavior lane:
+   - lane label exactly "回答层"
+   - show exactly "reasoning_style=先政策后结论"
+   - show exactly "根据现行退款政策，购买后 7 天内且学习进度低于 20% 的用户可申请退款。"
+   - show exactly "evidence = doc1 + doc3"
+3. Evaluation ledger:
+   - section heading exactly "最小评估"
+   - table headings exactly "question", "gold_doc", "retrieval_hit", "answer_ok"
+   - row 1 exactly "退款条件是什么 | doc1 | True | True"
+   - row 2 exactly "证书如何获得 | doc2 | True | True"
+4. Layer diagnosis sticky notes:
+   - section heading exactly "分层诊断"
+   - sticky 1 exactly "RAG：正确文档没有进 top-2 -> 改检索"
+   - sticky 2 exactly "微调/提示词：格式不稳定 -> 补样例或 schema"
+   - sticky 3 exactly "grounding：引用和事实不一致 -> 做句子级证据检查"
+5. Bottom strip:
+   - footer exactly "组合系统要同时测知识命中、回答格式和故障归因。"
+
+Language rules:
+- Explanatory text must be Simplified Chinese.
+- Allowed English/code tokens only: RAG, top_k, retrieve, doc1, doc2, doc3, reasoning_style, evidence, question, gold_doc, retrieval_hit, answer_ok, True, schema, grounding.
+- Do not add English helper phrases such as result map, knowledge layer, behavior layer, eval board, failure owner.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- RAG retrieves doc1 and doc3 for the refund question. Do not swap doc ids.
+- The answer condition must include both "7 天内" and "学习进度低于 20%".
+- The evaluation table must have exactly two rows and both retrieval_hit and answer_ok must be True.
+- The diagnosis section must keep the layer ownership: RAG fixes retrieval, 微调/提示词 fixes format, grounding fixes citation/evidence mismatch.
+- Do not invent extra documents, scores, users, roles, model names, training curves, vector database diagrams, HTTP APIs, extra eval rows, or fake screenshots.
+- The teaching point must be visual: question -> retrieved evidence -> policy-first answer -> eval ledger -> layer diagnosis.
+""".strip(),
+    "ch08-domain-rag-finetune-eval-diagnosis-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "RAG + Fine-tuning Result Map"
+Visible subtitle exactly: "RAG finds knowledge; fine-tuning or prompts stabilize behavior."
+
+Use a warm paper workbook style matching the ch08 result images: cream notebook paper, blue dividers, policy cards, two conveyor lanes, green eval checkmarks, amber diagnosis sticky notes, small hand-drawn icons, and a bottom rule strip. The composition must match the Simplified Chinese and Japanese variants.
+
+Required layout, top to bottom:
+1. Question and retrieval lane:
+   - label exactly "question"
+   - show exactly "What are the refund conditions?"
+   - lane label exactly "RAG layer"
+   - show exactly "retrieve(top_k=2)"
+   - output card 1 exactly "doc1 Refund Policy: 7 days and progress below 20%"
+   - output card 2 exactly "doc3 Customer support rule: policy first, conclusion second"
+2. Answer behavior lane:
+   - lane label exactly "answer layer"
+   - show exactly "reasoning_style=policy first, conclusion second"
+   - show exactly "According to the current refund policy, users may request a refund within 7 days of purchase if their learning progress is below 20%."
+   - show exactly "evidence = doc1 + doc3"
+3. Evaluation ledger:
+   - section heading exactly "minimal evaluation"
+   - table headings exactly "question", "gold_doc", "retrieval_hit", "answer_ok"
+   - row 1 exactly "refund conditions | doc1 | True | True"
+   - row 2 exactly "certificate question | doc2 | True | True"
+4. Layer diagnosis sticky notes:
+   - section heading exactly "layer diagnosis"
+   - sticky 1 exactly "RAG: correct doc not in top-2 -> improve retrieval"
+   - sticky 2 exactly "fine-tuning/prompt: format unstable -> add examples or schema"
+   - sticky 3 exactly "grounding: citation and facts diverge -> sentence-level evidence checks"
+5. Bottom strip:
+   - footer exactly "A combined system tests knowledge hit, answer format, and failure ownership."
+
+Language rules:
+- Explanatory text must be English.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- RAG retrieves doc1 and doc3 for the refund question. Do not swap doc ids.
+- The answer condition must include both "within 7 days" and "progress is below 20%".
+- The evaluation table must have exactly two rows and both retrieval_hit and answer_ok must be True.
+- The diagnosis section must keep the layer ownership: RAG fixes retrieval, fine-tuning/prompt fixes format, grounding fixes citation/evidence mismatch.
+- Do not invent extra documents, scores, users, roles, model names, training curves, vector database diagrams, HTTP APIs, extra eval rows, or fake screenshots.
+- The teaching point must be visual: question -> retrieved evidence -> policy-first answer -> eval ledger -> layer diagnosis.
+""".strip(),
+    "ch08-domain-rag-finetune-eval-diagnosis-result-map-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.
+
+Visible title exactly: "RAG+微調整 結果マップ"
+Visible subtitle exactly: "RAG は知識を探し、微調整/プロンプトは答え方を安定させる。"
+
+Use a warm paper workbook style matching the ch08 result images: cream notebook paper, blue dividers, policy cards, two conveyor lanes, green eval checkmarks, amber diagnosis sticky notes, small hand-drawn icons, and a bottom rule strip. The composition must match the Simplified Chinese and English variants.
+
+Required layout, top to bottom:
+1. Question and retrieval lane:
+   - label exactly "質問"
+   - show exactly "返金条件は何ですか？"
+   - lane label exactly "RAG 層"
+   - show exactly "retrieve(top_k=2)"
+   - output card 1 exactly "doc1 返金ポリシー：7 日以内かつ進捗 20% 未満"
+   - output card 2 exactly "doc3 サポート対応規範：先にポリシー、後で結論"
+2. Answer behavior lane:
+   - lane label exactly "回答層"
+   - show exactly "reasoning_style=先にポリシー、後で結論"
+   - show exactly "現行の返金ポリシーによると、購入後 7 日以内かつ学習進捗が 20% 未満のユーザーは返金を申請できます。"
+   - show exactly "evidence = doc1 + doc3"
+3. Evaluation ledger:
+   - section heading exactly "最小評価"
+   - table headings exactly "question", "gold_doc", "retrieval_hit", "answer_ok"
+   - row 1 exactly "返金条件 | doc1 | True | True"
+   - row 2 exactly "修了証の質問 | doc2 | True | True"
+4. Layer diagnosis sticky notes:
+   - section heading exactly "層別診断"
+   - sticky 1 exactly "RAG：正しい文書が top-2 に入らない -> 検索を改善"
+   - sticky 2 exactly "微調整/プロンプト：形式が不安定 -> 例か schema を追加"
+   - sticky 3 exactly "grounding：引用と事実がずれる -> 文単位の根拠チェック"
+5. Bottom strip:
+   - footer exactly "組み合わせ型では、知識ヒット、回答形式、失敗の担当層を一緒に見る。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed English/code tokens only: RAG, top_k, retrieve, doc1, doc2, doc3, reasoning_style, evidence, question, gold_doc, retrieval_hit, answer_ok, True, schema, grounding.
+- Do not add English helper phrases such as result map, knowledge layer, behavior layer, eval board, failure owner.
+- Text must be large and readable on a phone.
+
+Critical accuracy rules:
+- RAG retrieves doc1 and doc3 for the refund question. Do not swap doc ids.
+- The answer condition must include both "7 日以内" and "学習進捗が 20% 未満".
+- The evaluation table must have exactly two rows and both retrieval_hit and answer_ok must be True.
+- The diagnosis section must keep the layer ownership: RAG fixes retrieval, 微調整/プロンプト fixes format, grounding fixes citation/evidence mismatch.
+- Do not invent extra documents, scores, users, roles, model names, training curves, vector database diagrams, HTTP APIs, extra eval rows, or fake screenshots.
+- The teaching point must be visual: question -> retrieved evidence -> policy-first answer -> eval ledger -> layer diagnosis.
 """.strip(),
     "ch11-seq2seq-chapter-flow.png": """
 竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。

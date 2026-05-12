@@ -358,6 +358,12 @@ fine-tuning / prompt: Correct document is retrieved but answer format is unstabl
 grounding: Answer cites one source but uses facts from another -> Add citation checks and sentence-level evidence
 ```
 
+![RAG plus fine-tuning result map](/img/course/ch08-domain-rag-finetune-eval-diagnosis-result-map-en.webp)
+
+:::tip Reading guide
+Read the picture from top to bottom: the RAG layer decides whether the right documents are available, the answer layer decides whether the policy is stated in the required style, and the diagnosis notes tell you which layer to fix when a row fails.
+:::
+
 ---
 
 ## Common pitfalls for beginners
