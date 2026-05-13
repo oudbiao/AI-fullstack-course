@@ -10769,8 +10769,9 @@ def register_svg_replacement_group(
     shared_layout: str,
     variants: dict[str, dict[str, Any]],
     callouts: list[dict[str, Any]],
+    suffixes: dict[str, str] | None = None,
 ) -> None:
-    suffix = {"zh": "", "en": "-en", "ja": "-ja"}
+    suffix = suffixes or {"zh": "", "en": "-en", "ja": "-ja"}
     for locale, data in variants.items():
         register_remake_job(
             filename=f"{slug}{suffix[locale]}.png",
@@ -11607,6 +11608,65 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
                 ],
                 "footer": "repo を読むときは、まず中心の流れを見つけて wrapper の役割を判断する。",
                 "alt": "Hugging Face API 名の読み方：pipeline、AutoTokenizer、DataCollator、AutoModel、task head、logits、Trainer を text から tokenizer、batch、model.forward への中心の流れに対応づける。",
+            },
+        },
+    },
+    {
+        "slug": "ch07-tokenizer-embedding-lab",
+        "suffixes": {"zh": "-zh", "en": "-en", "ja": "-ja"},
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch01-nlp-crash/05-tokenizer-embedding-lab.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/05-tokenizer-embedding-lab.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/05-tokenizer-embedding-lab.md",
+        },
+        "scene": "A Chapter 7 tokenizer and embedding lab preview image. The visual must teach the runnable experiment before the learner reads the code: three short raw texts enter a tokenizer, become abstract token segments, abstract input_id chips, and attention_mask states, then an embedding lookup turns IDs into small 3D direction arrows, content-token vectors are averaged into a sentence vector, and cosine similarity shows text 1 is closer to text 2 than text 3. Use only the three lesson texts as raw input tickets: please help reset password, reset password, refund order. Do not draw exact token sequences or exact input_id rows in this preview, because the exact print output is shown in the later result map. Show the idea only: max_length=6 creates six slots; shorter texts have PAD slots; attention_mask ignores PAD slots. No vocabulary shelf, no token ID numbers, no vector coordinates, no model names, no 768-dimensional vectors, no probability scores, no UI strings, and no extra sample sentences.",
+        "chapter_context": "This image appears at the top of 7.1.6 Tokenizer and Embedding Lab. The page then defines a tiny vocabulary, tokenizes three texts, builds input_ids and attention_mask, looks up 3D embeddings, averages non-special tokens, and prints cosine similarities. The expected output later shows text1 vs text2 = 0.949 and text1 vs text3 = 0.607. The goal is to make learners see how human text becomes model-readable IDs and then vectors before comparing meaning.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark LLM lab workbench across zh/en/ja, visually compatible with the later result-map image but less dense. Top title and subtitle. Station 1 at the top: three raw text tickets with exactly the three lesson texts, stacked as text 1, text 2, text 3. Station 2: tokenizer machine outputs three rows of abstract segmented chips. Critical rule: token rows must not contain word labels such as please/help/reset/password/refund/order and must not contain exact token order. Use only three large legend chips: content token, special token, PAD, localized naturally. Station 3: input_ids and attention_mask trays; draw clean six-slot rows for each text and label max_length=6, PAD ignored by mask. Critical fidelity rule: input_ids rows contain abstract colored chips only, no digits, no words, no [CLS]/[SEP]/[PAD] text, no dashes. attention_mask rows show active versus ignored visual states only, no 1/0 digits. Station 4: embedding lookup converts abstract ID chips into 3D direction arrows, then averages content tokens only; special tokens and PAD are visibly excluded before averaging. Do not write numeric vector coordinates. Station 5 at the bottom: semantic map with text 1 and text 2 close, text 3 farther, plus two large similarity badges 0.949 and 0.607. Keep station order, object positions, colors, three raw text tickets, similarity numbers, and reading path identical across languages. Use sparse large localized labels attached to objects. Exact raw text strings and code terms may stay in English. Avoid anime lab characters, cute decorative robots, white rounded-box infographic style, pure flowchart boxes, dense tables, terminal screenshots, long code blocks, small fake text, invented IDs, invented token sequences, invented vector values, vocabulary shelves with numeric IDs, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "从文本到向量的实验路线",
+                "subtitle": "Tokenizer 先把词变成 ID，embedding 再把 ID 变成可比较的方向。",
+                "items": [
+                    ("raw text", "三句话保持不变，才方便比较。"),
+                    ("Tokenizer", "切成 token，并补上 [CLS]、[SEP]、[PAD]。"),
+                    ("input_ids", "抽象色块代表模型可读编号。"),
+                    ("attention_mask", "[PAD] 位置用 0 忽略。"),
+                    ("embedding lookup", "每个 ID 查到一个 3D 向量。"),
+                    ("average", "只平均内容词，不平均特殊 token。"),
+                    ("cosine similarity", "0.949 比 0.607 更接近。"),
+                ],
+                "footer": "先看 ID 和 mask 是否对，再把句向量拿去比较语义方向。",
+                "alt": "Tokenizer 与 Embedding 实验路线图：三句文本经过 tokenizer、input_ids、attention_mask、embedding lookup 和内容词平均，最后用 cosine similarity 比较 0.949 与 0.607。",
+            },
+            "en": {
+                "title": "Text-to-Vector Lab Route",
+                "subtitle": "Tokenizer turns words into IDs; embedding turns IDs into comparable directions.",
+                "items": [
+                    ("raw text", "Keep the three sentences fixed for comparison."),
+                    ("Tokenizer", "Split into tokens and add [CLS], [SEP], [PAD]."),
+                    ("input_ids", "Abstract chips stand for model-readable IDs."),
+                    ("attention_mask", "PAD positions are ignored with 0."),
+                    ("embedding lookup", "Each ID looks up one 3D vector."),
+                    ("average", "Average content words only, not special tokens."),
+                    ("cosine similarity", "0.949 is closer than 0.607."),
+                ],
+                "footer": "Check IDs and masks first, then compare sentence-vector directions.",
+                "alt": "Tokenizer and embedding lab route: three texts become tokens, input_ids, attention_mask, embedding lookup, averaged content-token vectors, and cosine similarity scores 0.949 and 0.607.",
+            },
+            "ja": {
+                "title": "テキストからベクトルへの実験ルート",
+                "subtitle": "Tokenizer が語を ID にし、embedding が ID を比較できる方向に変える。",
+                "items": [
+                    ("raw text", "3つの文を固定すると比較しやすい。"),
+                    ("Tokenizer", "token に分け、[CLS]、[SEP]、[PAD] を足す。"),
+                    ("input_ids", "抽象 chip が model 用 ID を表す。"),
+                    ("attention_mask", "[PAD] 位置は 0 で無視する。"),
+                    ("embedding lookup", "各 ID から 3D ベクトルを取り出す。"),
+                    ("average", "特殊 token ではなく内容語だけを平均する。"),
+                    ("cosine similarity", "0.949 は 0.607 より近い。"),
+                ],
+                "footer": "まず ID と mask を確認し、その後で文ベクトルの方向を比べる。",
+                "alt": "Tokenizer と Embedding 実験ルート：3つの文が tokens、input_ids、attention_mask、embedding lookup、内容語平均を通り、cosine similarity 0.949 と 0.607 を比較する。",
             },
         },
     },
@@ -14178,6 +14238,7 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
         shared_layout=direct_group["shared_layout"],
         variants=direct_group["variants"],
         callouts=[],
+        suffixes=direct_group.get("suffixes"),
     )
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
