@@ -187,6 +187,8 @@ for i, chunk in enumerate(chunks):
 [chunk 6] まず Python、データ分析、機械学習を学び、その後に深層学習と大規模モデルの段階へ進むのがおすすめです
 ```
 
+![Overlap 分割の出力結果図](/img/course/ch08-chunk-overlap-output-result-map-ja.webp)
+
 この出力は、素朴な分割の限界も見せています。見出しが本文にくっつき、句読点が消えることがあります。本番では source offset を残し、インデックス投入前に chunk audit を行います。
 
 ---

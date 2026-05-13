@@ -187,6 +187,8 @@ for i, chunk in enumerate(chunks):
 [chunk 6] 建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段
 ```
 
+![Overlap 切块输出结果图](/img/course/ch08-chunk-overlap-output-result-map.webp)
+
 这段输出也暴露了朴素切块的真实局限：标题会和正文粘在一起，标点可能被清掉。生产项目里要保留 source offset，并在入库前做 chunk 抽查。
 
 ---

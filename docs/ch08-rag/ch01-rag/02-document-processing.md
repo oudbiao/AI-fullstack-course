@@ -185,6 +185,8 @@ Chunking result:
 [chunk 6] It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models
 ```
 
+![Overlap chunking output result map](/img/course/ch08-chunk-overlap-output-result-map-en.webp)
+
 This output also shows a real limitation of naive chunking: headings can stick to nearby content, and punctuation may be stripped. In production, keep source offsets and run a small chunk audit before indexing.
 
 ---

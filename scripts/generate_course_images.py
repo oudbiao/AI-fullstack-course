@@ -18128,6 +18128,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-chunk-overlap-output-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch01-rag/02-document-processing.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/02-document-processing.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/02-document-processing.md",
+        },
+        "scene": "A RAG document-processing worked-result image based only on the chunk_sentences expected output in section 8.1.2. The image must teach why chunk_size=2 and overlap=1 produces seven chunks from seven sentence units. Do not draw a generic RAG pipeline, embedding database, terminal screenshot, full code block, invented chunk sizes, invented scores, vector math, or a decorative document poster. Show exactly the algorithm: start=0, end=start+2, join two neighboring sentence units, append chunk, then start += chunk_size - overlap. Since chunk_size=2 and overlap=1, the window moves forward by one sentence each time. Show the sentence rail as seven units S0 to S6. Show at least chunks 0, 1, 2, 3, 5, and 6 as concrete output cards, and show chunk 4 as a short middle card if space allows. The important values are chunk_size=2, overlap=1, stride=1, output chunks=7. The teaching point is that overlap preserves boundary context, but naive splitting also glues headings to neighboring content and can strip punctuation.",
+        "chapter_context": "The image is inserted after the expected output of the Chunking with overlap code. Nearby text explains that information can land on a chunk boundary, overlap reduces the chance that context gets cut off, and the output shows a limitation of naive chunking: headings can stick to nearby content and punctuation may be stripped. Production systems should keep source offsets and audit chunks before indexing.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, seven sentence cards on a rail, a transparent two-card sliding window, an overlap stitch marker, output chunk cards, and a bottom audit warning. Do not use a dark dashboard, neon UI, white rounded-box infographic, pure flowchart, terminal screenshot, or text poster. Top title and subtitle. Upper station shows seven sentence units S0 through S6; S0 is the refund heading, S1 is the refund rule, S2 is the after-7-days rule, S3 is the certificate heading, S4 is the certificate rule, S5 is the learning-order heading, S6 is the learning-order rule. Middle station shows chunk_size=2, overlap=1, stride=1, with a two-card window sliding S0+S1, then S1+S2, then S2+S3. Lower station shows output chunk cards labeled chunk 0 through chunk 6; the first three and last two must be readable enough to verify the repeated boundary sentence. Bottom station shows a warning: headings can stick to content, punctuation may be stripped, keep source offsets and audit chunks. Keep object positions, colors, rail order, window motion, chunk labels, and reading path identical across zh/en/ja. Use large localized labels attached to artifacts; code tokens chunk_size, overlap, stride, chunk, source offset may stay in English notation. Avoid fake tiny text, invented values, SVG-style boxes, extra English explanation in zh/ja variants, and any output count other than 7.",
+        "variants": {
+            "zh": {
+                "title": "Overlap 切块输出为什么有 7 块",
+                "subtitle": "chunk_size=2、overlap=1 时，窗口每次只向前滑 1 句。",
+                "items": [
+                    ("句子轨道", "S0 到 S6 共 7 个句子单元。"),
+                    ("窗口大小", "chunk_size=2：每个 chunk 拼相邻两句。"),
+                    ("重叠设置", "overlap=1：下一块会保留上一块的后一句。"),
+                    ("步长", "stride=1，所以窗口按 S0+S1、S1+S2、S2+S3 滑动。"),
+                    ("输出", "chunk 0 到 chunk 6，一共 7 块。"),
+                    ("抽查风险", "标题会粘正文，标点可能被清掉；保留 source offset 并做 chunk audit。"),
+                ],
+                "footer": "Overlap 保护边界上下文，但不能替代切块质量检查。",
+                "alt": "Overlap 切块输出结果图：7 个句子单元在 chunk_size=2、overlap=1 下以 stride=1 滑动，生成 chunk 0 到 chunk 6，并提示标题粘正文、标点丢失和 source offset 抽查风险。",
+            },
+            "en": {
+                "title": "Why Overlap Chunking Outputs 7 Chunks",
+                "subtitle": "With chunk_size=2 and overlap=1, the window moves forward one sentence at a time.",
+                "items": [
+                    ("sentence rail", "S0 through S6 are 7 sentence units."),
+                    ("window size", "chunk_size=2 joins two neighboring sentences."),
+                    ("overlap", "overlap=1 keeps the previous chunk's last sentence."),
+                    ("stride", "stride=1, so the window slides S0+S1, S1+S2, S2+S3."),
+                    ("output", "chunk 0 through chunk 6: 7 chunks total."),
+                    ("audit risk", "Headings can stick to content and punctuation may vanish; keep source offsets and audit chunks."),
+                ],
+                "footer": "Overlap protects boundary context, but it does not replace chunk-quality checks.",
+                "alt": "Overlap chunking output result map: seven sentence units slide with chunk_size=2 and overlap=1, creating chunk 0 through chunk 6, while warning about headings sticking to content, stripped punctuation, and source-offset audits.",
+            },
+            "ja": {
+                "title": "Overlap 分割で 7 chunk になる理由",
+                "subtitle": "chunk_size=2、overlap=1 では、窓が 1 文ずつ前へ動く。",
+                "items": [
+                    ("文のレール", "S0 から S6 まで、7 個の文単位。"),
+                    ("窓の大きさ", "chunk_size=2：隣り合う 2 文を 1 chunk にする。"),
+                    ("重なり", "overlap=1：前の chunk の最後の文を次にも残す。"),
+                    ("stride", "stride=1 なので、S0+S1、S1+S2、S2+S3 と滑る。"),
+                    ("出力", "chunk 0 から chunk 6 まで、合計 7 個。"),
+                    ("監査リスク", "見出しが本文にくっつき、句読点が消えることがある。source offset と chunk audit を残す。"),
+                ],
+                "footer": "Overlap は境界の文脈を守るが、chunk 品質チェックの代わりにはならない。",
+                "alt": "Overlap 分割の出力結果図：7 個の文単位を chunk_size=2、overlap=1、stride=1 で滑らせ、chunk 0 から chunk 6 を作り、見出しの結合、句読点消失、source offset 監査の注意点を示す。",
+            },
+        },
+    },
+    {
         "slug": "ch08-async-context-gather-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch04-engineering/01-async-programming.md",
