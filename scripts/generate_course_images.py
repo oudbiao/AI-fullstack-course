@@ -14066,6 +14066,58 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-tokenizer-wordpiece-run-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",
+        },
+        "scene": "A Chapter 7 tokenizer lab run-result teaching image based on the exact runnable code in section 7.1.2. Show how the print output should be read as a pipeline, not as plain console text. The worked example must connect split_wordpiece(), encode(), tokens, input_ids, attention_mask, padding, truncation, and real Hugging Face batch shape. Use the lesson facts: transformers splits into transform, ##er, ##s; tokenization splits into token, ##ization; [PAD] has id 0 and mask 0; max_length=6 drops refund policy evidence; the real tokenizer batch has keys input_ids, token_type_ids, attention_mask and shape [2,10].",
+        "chapter_context": "The image is inserted after the expected output for Lab 3 in 7.1.2 Tokenization and Tokenizer. Nearby labs first build a tiny WordPiece-style tokenizer, print tokens/input_ids/attention_mask for three examples, then force max_length=6 to show truncation risk, then inspect a real Hugging Face tokenizer. The page teaches that tokenizer output is the contract between human text and model tensors.",
+        "shared_layout": "Vertical 9:16. Use the same polished tokenizer inspection bench across zh/en/ja, not a white rounded-box infographic, not a pure terminal screenshot, and not a dense table. Top title and subtitle. Station 1 shows a small WordPiece workbench: the word transformers enters split_wordpiece() and becomes transform + ##er + ##s; tokenization becomes token + ##ization. Station 2 shows encode(): add [CLS]/[SEP], look up IDs, then create attention_mask with [PAD] id 0 and mask 0. Station 3 shows truncation risk: max_length=6 keeps [CLS] please help reset password [SEP] and the lost evidence chips refund policy evidence fall into a red cut bin. Station 4 shows real tokenizer inspection: batch keys input_ids, token_type_ids, attention_mask and shape [2,10], with a note to inspect the tokenizer attached to the actual model. Keep station order, object positions, colors, values, and reading path identical across languages. Use sparse large localized labels attached to the visual objects. Code tokens may stay in English. Avoid fake tiny text, invented token IDs, fake model logos, pasted sticky notes, and decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "Tokenizer 运行结果怎么读",
+                "subtitle": "把 tokens、input_ids、mask 和截断看成一条可检查的数据路线。",
+                "items": [
+                    ("split_wordpiece()", "transformers -> transform + ##er + ##s。"),
+                    ("encode()", "加 [CLS]/[SEP]，再查表变成 input_ids。"),
+                    ("attention_mask", "[PAD] 的 id 是 0，mask 也是 0。"),
+                    ("truncation", "max_length=6 会丢掉 refund policy evidence。"),
+                    ("真实 tokenizer", "keys: input_ids, token_type_ids, attention_mask；shape=[2,10]。"),
+                ],
+                "footer": "不要只看 print；检查每一步是否还保留了任务需要的信息。",
+                "alt": "Tokenizer 运行结果图：WordPiece 把 transformers 拆成 transform、##er、##s，encode 加结构 token 并生成 input_ids 和 attention_mask，截断会丢掉 refund policy evidence，真实 tokenizer 输出 batch keys 和 shape。",
+            },
+            "en": {
+                "title": "Reading Tokenizer Run Output",
+                "subtitle": "Treat tokens, input_ids, masks, and truncation as an inspectable data path.",
+                "items": [
+                    ("split_wordpiece()", "transformers -> transform + ##er + ##s."),
+                    ("encode()", "Add [CLS]/[SEP], then look up input_ids."),
+                    ("attention_mask", "[PAD] has id 0 and mask 0."),
+                    ("truncation", "max_length=6 drops refund policy evidence."),
+                    ("real tokenizer", "keys: input_ids, token_type_ids, attention_mask; shape=[2,10]."),
+                ],
+                "footer": "Do not only read print output; check which information survives each step.",
+                "alt": "Tokenizer run output map: WordPiece splits transformers into transform, ##er, ##s; encode adds structure tokens and creates input_ids and attention_mask; truncation drops refund policy evidence; a real tokenizer exposes batch keys and shape.",
+            },
+            "ja": {
+                "title": "Tokenizer 実行結果の読み方",
+                "subtitle": "tokens、input_ids、mask、truncation を確認できるデータ経路として読む。",
+                "items": [
+                    ("split_wordpiece()", "transformers -> transform + ##er + ##s。"),
+                    ("encode()", "[CLS]/[SEP] を足し、input_ids を引く。"),
+                    ("attention_mask", "[PAD] の id は 0、mask も 0。"),
+                    ("truncation", "max_length=6 で refund policy evidence が落ちる。"),
+                    ("本物の tokenizer", "keys: input_ids, token_type_ids, attention_mask；shape=[2,10]。"),
+                ],
+                "footer": "print を眺めるだけでなく、各段階で必要情報が残るか確認する。",
+                "alt": "Tokenizer 実行結果図：WordPiece が transformers を transform、##er、##s に分け、encode が構造 token を足して input_ids と attention_mask を作り、truncation が refund policy evidence を落とし、本物の tokenizer では batch keys と shape を確認する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-workshop-token-prompt-route-result-board",
         "pages": {
             "en": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
@@ -17813,6 +17865,85 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch07-tokenizer-wordpiece-run-result-map.png": """
+生成一张 9:16 竖版简体中文教学位图，用于第 7 章 7.1.2“分词与 Tokenizer”的实验结果解释。
+这是 AI 直接生成的最终图。不要本地叠字、不要 SVG、不要白底圆角框信息图、不要纯流程框、不要终端截图、不要贴一堆文字。
+
+教学目标：读者先看图就能理解三段代码输出的运行逻辑，而不是只看到 print。画面必须把 split_wordpiece()、encode()、tokens、input_ids、attention_mask、padding、truncation、真实 Hugging Face tokenizer 的 batch keys/shape 串成一条可检查的数据路线。数字必须忠于本节代码，不能编造 ID。
+
+统一风格：深色 tokenizer 检查实验台，像一台可以打开看的文本到张量机器。使用发光 token 芯片、词表抽屉、ID 数字槽、mask 灯、截断剪刀、真实 tokenizer 扫描仪。中英日三版必须保持同一镜头、同一 4 个站点顺序、同一物体位置和配色节奏。画面要漂亮，但每个物件都必须服务教学。
+
+固定版式，从上到下 4 个站点：
+1. “WordPiece 切分”：左侧输入词 transformers，进入 split_wordpiece() 机械台，输出 transform + ##er + ##s；另一条小样例 tokenization -> token + ##ization。
+2. “encode() 输出”：使用本节手写 VOCAB 的真实输出。主样例必须是 Transformers refund policy：tokens 是 [CLS], transform, ##er, ##s, refund, policy, [SEP], [PAD], [PAD], [PAD]；input_ids 是 [2,8,9,10,4,5,3,0,0,0]；attention_mask 是 [1,1,1,1,1,1,1,0,0,0]。旁边说明 [PAD] id=0，mask=0。
+3. “截断风险”：max_length=6 的红色剪刀只留下 [CLS] please help reset password [SEP]；被剪掉的 refund policy evidence 三个芯片落进红色“丢失证据”盒。
+4. “真实 tokenizer 检查”：一个 Hugging Face tokenizer 扫描仪输出 keys: input_ids, token_type_ids, attention_mask；shape=[2,10]；旁边标“检查实际模型自带 tokenizer”。
+
+只使用这些大而清楚的文字和数字：
+标题“Tokenizer 运行结果怎么读”
+副标题“tokens、input_ids、mask 和截断是一条可检查的数据路线”
+WordPiece 切分 / transformers -> transform + ##er + ##s / tokenization -> token + ##ization
+encode() / [CLS] / [SEP] / input_ids / attention_mask
+[2,8,9,10,4,5,3,0,0,0] / [1,1,1,1,1,1,1,0,0,0] / [PAD] id=0 / mask=0
+max_length=6 / refund policy evidence / 丢失证据
+真实 tokenizer / keys: input_ids, token_type_ids, attention_mask / shape=[2,10]
+页脚“不要只看 print；检查每一步是否还保留任务需要的信息。”
+
+准确性规则：绝对不要写 101、102、12345、6789、BERT 风格假 ID，除非只在真实 tokenizer 区域写 shape=[2,10]。如果空间不够，优先省略数字槽，也不要编造数字。中文规则：除 Tokenizer、tokens、input_ids、attention_mask、padding、truncation、WordPiece、split_wordpiece()、encode()、[CLS]、[SEP]、[PAD]、id、mask、max_length、refund policy evidence、Hugging Face、tokenizer、keys、token_type_ids、shape、print 外，其余解释文字必须是自然简体中文。不要英文说明句、日文、乱码、小字、品牌 logo 或无关背景文字。
+""".strip(),
+    "ch07-tokenizer-wordpiece-run-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 7 section 7.1.2, "Tokenization and Tokenizer."
+This is the final AI-generated image. Do not rely on local text overlay, SVG, markdown, or later editing. Do not create a white rounded-box infographic, pure flowchart, terminal screenshot, dense table, or text poster.
+
+Teaching goal: before reading the code, the learner should understand how the three labs' printed outputs connect: split_wordpiece(), encode(), tokens, input_ids, attention_mask, padding, truncation, and real Hugging Face tokenizer batch keys/shape. The image must teach the runtime logic, not decorate the page. Numeric IDs must match the lesson's tiny VOCAB; do not invent IDs.
+
+Unified style: a dark tokenizer inspection workbench, like an open machine that turns text into tensors. Use glowing token chips, a vocabulary drawer, ID number slots, mask lights, truncation scissors, and a real-tokenizer scanner. The Simplified Chinese, English, and Japanese versions must keep the same camera angle, four-station order, object positions, and color rhythm.
+
+Fixed layout, four stations from top to bottom:
+1. "WordPiece split": the word transformers enters a split_wordpiece() mechanism and exits as transform + ##er + ##s; a smaller side example shows tokenization -> token + ##ization.
+2. "encode() output": use the exact output from the lesson's tiny VOCAB. Main sample is Transformers refund policy. Tokens are [CLS], transform, ##er, ##s, refund, policy, [SEP], [PAD], [PAD], [PAD]. input_ids must appear as ten large number chips: 2, 8, 9, 10, 4, 5, 3, 0, 0, 0. attention_mask must appear as ten large number chips directly under them: 1, 1, 1, 1, 1, 1, 1, 0, 0, 0. Do not draw index numbers 0 through 9 under the chips because they can be confused with mask values. Mask lights show that [PAD] has id=0 and attention_mask=0.
+3. "truncation risk": red max_length=6 scissors keep only [CLS] please help reset password [SEP]; the lost chips refund policy evidence fall into a red "lost evidence" bin.
+4. "real tokenizer inspection": a Hugging Face tokenizer scanner outputs keys: input_ids, token_type_ids, attention_mask; shape=[2,10]; side label says "inspect the tokenizer attached to the actual model".
+
+Visible text must be sparse, large, and exactly educational:
+Title: "Reading Tokenizer Run Output"
+Subtitle: "tokens, input_ids, masks, and truncation form an inspectable data path"
+"WordPiece split" / "transformers -> transform + ##er + ##s" / "tokenization -> token + ##ization"
+"encode()" / "[CLS]" / "[SEP]" / "input_ids" / "attention_mask"
+"[2,8,9,10,4,5,3,0,0,0]" / "[1,1,1,1,1,1,1,0,0,0]" / "[PAD] id=0" / "mask=0"
+"max_length=6" / "refund policy evidence" / "lost evidence"
+"real tokenizer" / "keys: input_ids, token_type_ids, attention_mask" / "shape=[2,10]"
+Footer: "Do not only read print output; check which information survives each step."
+
+Accuracy rules: never write 101, 102, 12345, 6789, or BERT-style fake IDs in the tiny-tokenizer section. Never add position index labels 0,1,2,3,4,5,6,7,8,9 under the mask row. The attention_mask row must show value chips 1,1,1,1,1,1,1,0,0,0. If there is not enough space, omit extra decorations rather than invent or add ambiguous numbers. Text rules: all explanatory text must be clean readable English. Code tokens may appear exactly as above. Do not include Chinese, Japanese, gibberish, tiny background text, fake token IDs beyond the listed values, brand logos, or unrelated writing.
+""".strip(),
+    "ch07-tokenizer-wordpiece-run-result-map-ja.png": """
+第 7 章 7.1.2「トークン化と Tokenizer」で使う、縦長 9:16 の日本語教材ビットマップを 1 枚生成してください。
+これは AI が直接生成する最終画像です。ローカルの文字重ね、SVG、Markdown、後処理に依存しないでください。白い角丸ボックスのインフォグラフィック、ただのフローチャート、ターミナル画面、密な表、文字だけのポスターは禁止です。
+
+教材の目的：コードを読む前に、3つの実験の print 出力がどうつながるか分かる画像にする。split_wordpiece()、encode()、tokens、input_ids、attention_mask、padding、truncation、本物の Hugging Face tokenizer の batch keys/shape を、1本の確認できるデータ経路として見せてください。数字はこの節の小さな VOCAB と一致させ、ID を作り話にしないでください。
+
+統一スタイル：暗い tokenizer 点検ベンチ。テキストを tensor に変える機械を開いて見るような構図。発光する token チップ、語彙引き出し、ID スロット、mask ランプ、truncation のハサミ、本物 tokenizer スキャナーを使う。中国語版・英語版・日本語版は、同じカメラ角度、同じ4つのステーション順、同じ物体配置、同じ配色にする。
+
+固定レイアウト。上から下へ4つのステーション：
+1. 「WordPiece 分割」：transformers が split_wordpiece() 装置に入り、transform + ##er + ##s として出る。小さな例として tokenization -> token + ##ization も置く。
+2. 「encode() 出力」：この節の手書き VOCAB の実際の出力を使う。主例は Transformers refund policy。tokens は [CLS], transform, ##er, ##s, refund, policy, [SEP], [PAD], [PAD], [PAD]。input_ids は [2,8,9,10,4,5,3,0,0,0]。attention_mask は [1,1,1,1,1,1,1,0,0,0]。mask ランプで [PAD] の id=0、attention_mask=0 を示す。
+3. 「truncation リスク」：赤い max_length=6 のハサミが [CLS] please help reset password [SEP] だけを残す。落ちた refund policy evidence チップは赤い「失われた証拠」箱へ入る。
+4. 「本物の tokenizer 確認」：Hugging Face tokenizer スキャナーが keys: input_ids, token_type_ids, attention_mask；shape=[2,10] を出す。横に「実際のモデル付属 tokenizer を確認」と書く。
+
+画像内の文字は少なく大きく、次の教材文字を使う：
+タイトル「Tokenizer 実行結果の読み方」
+サブタイトル「tokens、input_ids、mask、truncation は確認できるデータ経路」
+WordPiece 分割 / transformers -> transform + ##er + ##s / tokenization -> token + ##ization
+encode() / [CLS] / [SEP] / input_ids / attention_mask
+[2,8,9,10,4,5,3,0,0,0] / [1,1,1,1,1,1,1,0,0,0] / [PAD] id=0 / mask=0
+max_length=6 / refund policy evidence / 失われた証拠
+本物の tokenizer / keys: input_ids, token_type_ids, attention_mask / shape=[2,10]
+フッター「print を眺めるだけでなく、各段階で必要情報が残るか確認する。」
+
+正確性ルール：小さな tokenizer の場所に 101、102、12345、6789、BERT 風の偽 ID を絶対に書かない。スペースが足りない場合は、余分な数字欄を省き、数字を作らない。文字ルール：Tokenizer、tokens、input_ids、attention_mask、padding、truncation、WordPiece、split_wordpiece()、encode()、[CLS]、[SEP]、[PAD]、id、mask、max_length、refund policy evidence、Hugging Face、tokenizer、keys、token_type_ids、shape、print はそのまま使ってよい。それ以外の説明文は自然な日本語にしてください。中国語、英語の説明文、文字化け、小さすぎる背景文字、ブランド logo、無関係な文字は禁止です。
+追加の厳密ルール：1番目の WordPiece 分割では「transformers -> transform + ##er + ##s」だけを表示し、末尾に 7、10、ID、数字、記号を追加しない。単独の 7 を画面のどこにも置かない。
+""".strip(),
     "imagenet-cnn-evolution.png": """
 生成一张 9:16 竖版简体中文教学位图，AI 直接生成最终图，不要本地叠字、SVG、白板、白底圆角框、便签、终端截图、真实品牌 logo。
 

@@ -233,6 +233,8 @@ torch.Size([2, 10])
 [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
 ```
 
+![Tokenizer 実行結果図](/img/course/ch07-tokenizer-wordpiece-run-result-map-ja.webp)
+
 正確な分割は tokenizer によって変わります。だからこそ、実際に使うモデルに付属する tokenizer を必ず確認します。
 
 ## 覚えておきたい用語

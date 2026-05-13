@@ -233,6 +233,8 @@ torch.Size([2, 10])
 [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
 ```
 
+![Tokenizer 运行结果图](/img/course/ch07-tokenizer-wordpiece-run-result-map.webp)
+
 不同 tokenizer 的具体切法可能不同。这正是重点：永远检查你实际使用的模型自带 tokenizer。
 
 ## 值得记住的术语

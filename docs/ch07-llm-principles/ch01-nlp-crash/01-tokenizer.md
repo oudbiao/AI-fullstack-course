@@ -233,6 +233,8 @@ torch.Size([2, 10])
 [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
 ```
 
+![Tokenizer run output result map](/img/course/ch07-tokenizer-wordpiece-run-result-map-en.webp)
+
 The exact split can differ across tokenizers. That is the point: always inspect the tokenizer that belongs to the model you actually use.
 
 ## Terms Worth Knowing
