@@ -236,6 +236,8 @@ epoch= 80, train_loss=0.0655, val_loss=0.1415, val_acc=98.3%
 epoch=100, train_loss=0.0687, val_loss=0.1370, val_acc=98.3%
 ```
 
+![PyTorch 月牙数据损失曲线与决策边界结果图](/img/course/ch06-pytorch-moons-loss-boundary-result-map.webp)
+
 如果你的数字有轻微差异也没关系。关键是验证准确率要明显高于随机猜测。
 
 ## 绘制损失曲线

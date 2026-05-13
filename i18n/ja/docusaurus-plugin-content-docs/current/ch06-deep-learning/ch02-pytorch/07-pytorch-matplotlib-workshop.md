@@ -236,6 +236,8 @@ epoch= 80, train_loss=0.0655, val_loss=0.1415, val_acc=98.3%
 epoch=100, train_loss=0.0687, val_loss=0.1370, val_acc=98.3%
 ```
 
+![PyTorch moons の損失曲線と決定境界の結果図](/img/course/ch06-pytorch-moons-loss-boundary-result-map-ja.webp)
+
 数値が少し違っても問題ありません。大事なのは、検証 accuracy がランダム予測より明らかに高くなることです。
 
 ## 損失曲線を描く

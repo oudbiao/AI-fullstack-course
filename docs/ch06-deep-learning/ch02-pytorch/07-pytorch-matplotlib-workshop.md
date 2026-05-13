@@ -236,6 +236,8 @@ epoch= 80, train_loss=0.0655, val_loss=0.1415, val_acc=98.3%
 epoch=100, train_loss=0.0687, val_loss=0.1370, val_acc=98.3%
 ```
 
+![PyTorch moons loss curve and decision boundary result map](/img/course/ch06-pytorch-moons-loss-boundary-result-map-en.webp)
+
 If your exact numbers are slightly different, that is fine. The important sign is that validation accuracy rises clearly above random guessing.
 
 ## Plot the Loss Curve

@@ -16090,6 +16090,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch06-pytorch-moons-loss-boundary-result-map",
+        "pages": {
+            "en": "docs/ch06-deep-learning/ch02-pytorch/07-pytorch-matplotlib-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/07-pytorch-matplotlib-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch06-deep-learning/ch02-pytorch/07-pytorch-matplotlib-workshop.md",
+        },
+        "scene": "A PyTorch + Matplotlib mini-project run-result teaching visual for the Two Moons classifier. The image must explain what the expected print output, loss curve, and decision boundary prove together. It must not be a generic workflow poster or a pretty abstract moon illustration. Show the exact experiment: make_moons with n_samples=600, noise=0.18, random_state=42; TensorDataset split into train=480 and validation=120; DataLoader batch_size=64; model MoonClassifier with Linear(2,32), ReLU, Linear(32,32), ReLU, Linear(32,2); training order forward -> loss -> zero_grad -> backward -> step; final validation accuracy 98.3%. The teaching point is that print metrics alone are not enough: the learner should read the dataset geometry, falling loss, and curved decision boundary as one evidence chain. Do not draw a terminal screenshot, full code block, fake IDE, fake dashboard, invented epochs, invented accuracy, invented classes, invented axes labels beyond x1/x2, old SVG white rounded boxes, pure flowchart, or dense tiny table.",
+        "chapter_context": "The image is inserted after the expected output of the Train and Validate section and before the text says exact numbers may differ. Nearby code first plots the Two Moons dataset, converts NumPy arrays to tensors, builds TensorDataset and DataLoader, defines MoonClassifier, trains for 100 epochs, prints six checkpoints, then plots the loss curve and decision boundary. Expected checkpoints: epoch 1 train_loss=0.5568 val_loss=0.3786 val_acc=84.2%; epoch 20 train_loss=0.0755 val_loss=0.1064 val_acc=98.3%; epoch 40 train_loss=0.0719 val_loss=0.1260 val_acc=98.3%; epoch 60 train_loss=0.0657 val_loss=0.1290 val_acc=98.3%; epoch 80 train_loss=0.0655 val_loss=0.1415 val_acc=98.3%; epoch 100 train_loss=0.0687 val_loss=0.1370 val_acc=98.3%. The following sections explain how to read the loss curve and the decision boundary.",
+        "shared_layout": "Vertical 9:16. All three language variants must use the same clean educational Matplotlib lab notebook style: one open course notebook page on a desk, not separate pasted cards. Top title and subtitle. Upper station: Two Moons dataset scatter with two interleaving moon-shaped point clouds, labeled x1 and x2, plus a clear note that a straight line is not enough. Middle station: data and model path with compact visual chips for 600 samples, train 480, validation 120, batch 64, and model 2 -> 32 -> 32 -> 2. Lower-left station: loss curve with train_loss and val_loss dropping quickly then flattening; include six large epoch ticks only: 1, 20, 40, 60, 80, 100. Lower-right station: decision boundary panel with a curved boundary wrapping around the moons and a large final badge val_acc=98.3%. Bottom strip: data shape -> tensor batches -> training curve -> decision boundary. Keep dataset shape, model chips, curve shape, final accuracy badge, colors, and reading path identical across zh/en/ja. Use large readable labels directly printed on the notebook page and plotted objects; no sticky-note collage, no pasted labels, no white rounded-box flowchart, no terminal screenshots, no tiny text. For Simplified Chinese, explanatory labels must be natural Chinese except code tokens. For Japanese, explanatory labels must be natural Japanese except code tokens. Allowed code tokens across all languages: PyTorch, Matplotlib, TensorDataset, DataLoader, MoonClassifier, make_moons, train_loss, val_loss, val_acc, batch_size, x1, x2, forward, loss, zero_grad, backward, step.",
+        "variants": {
+            "zh": {
+                "title": "Two Moons 训练结果怎么看",
+                "subtitle": "把数据形状、loss 曲线和决策边界连成一条证据链。",
+                "items": [
+                    ("数据形状", "600 个二维点，月牙形类别不能用直线分开。"),
+                    ("数据切分", "train=480，val=120，batch_size=64。"),
+                    ("模型结构", "MoonClassifier: 2 -> 32 -> 32 -> 2。"),
+                    ("训练节奏", "forward -> loss -> zero_grad -> backward -> step。"),
+                    ("loss 曲线", "train_loss 与 val_loss 快速下降后趋稳。"),
+                    ("决策边界", "曲线贴合两个月牙，val_acc=98.3%。"),
+                ],
+                "footer": "看到边界真的学会月牙形，print 数字才有几何意义。",
+                "alt": "PyTorch 月牙数据损失曲线与决策边界结果图：展示 Two Moons 数据、TensorDataset 与 DataLoader 切分、MoonClassifier 训练 loss 曲线和 98.3% 验证准确率的曲线决策边界。",
+            },
+            "en": {
+                "title": "Reading the Two Moons Run",
+                "subtitle": "Connect data geometry, loss curves, and the decision boundary as one evidence chain.",
+                "items": [
+                    ("data geometry", "600 two-dimensional points; a straight line is not enough."),
+                    ("data split", "train=480, val=120, batch_size=64."),
+                    ("model shape", "MoonClassifier: 2 -> 32 -> 32 -> 2."),
+                    ("training rhythm", "forward -> loss -> zero_grad -> backward -> step."),
+                    ("loss curves", "train_loss and val_loss drop quickly, then flatten."),
+                    ("decision boundary", "Curved boundary follows the moons; val_acc=98.3%."),
+                ],
+                "footer": "The printed numbers become meaningful when the boundary matches the moon geometry.",
+                "alt": "PyTorch moons loss curve and decision boundary result map: Two Moons data, TensorDataset and DataLoader split, MoonClassifier training loss curves, and a curved decision boundary with 98.3% validation accuracy.",
+            },
+            "ja": {
+                "title": "Two Moons 実行結果の読み方",
+                "subtitle": "データ形状、loss 曲線、決定境界を1つの証拠として読む。",
+                "items": [
+                    ("データ形状", "600 個の2次元点。直線だけでは分けにくい。"),
+                    ("データ分割", "train=480、val=120、batch_size=64。"),
+                    ("モデル構造", "MoonClassifier: 2 -> 32 -> 32 -> 2。"),
+                    ("学習の流れ", "forward -> loss -> zero_grad -> backward -> step。"),
+                    ("loss 曲線", "train_loss と val_loss が早く下がり、その後安定。"),
+                    ("決定境界", "曲線が月形に沿い、val_acc=98.3%。"),
+                ],
+                "footer": "境界が月形に合って初めて、print の数字に幾何的な意味が出る。",
+                "alt": "PyTorch moons の損失曲線と決定境界の結果図：Two Moons データ、TensorDataset と DataLoader の分割、MoonClassifier の loss 曲線、98.3% 検証 accuracy の曲線決定境界を示す。",
+            },
+        },
+    },
+    {
         "slug": "ch06-pytorch-practical-tips-run-result-map",
         "pages": {
             "en": "docs/ch06-deep-learning/ch02-pytorch/06-practical-tips.md",
