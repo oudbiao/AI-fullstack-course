@@ -304,7 +304,7 @@ step=06 shard=shard_02 batch=['doc_8']
 
 - データ順序が十分にシャッフルされているか
 - 複数 worker で重複読み込みしていないか
-- 断点再開が一貫しているか
+- 中断後の再開が一貫しているか
 
 だからこそ、データパイプライン自体を丁寧に設計する必要があります。
 
@@ -359,6 +359,8 @@ step=1 tokens/s=20480
 step=2 tokens/s=21005
 step=3 tokens/s=10503
 ```
+
+![事前学習 throughput 変動の実行結果図](/img/course/ch07-pretraining-throughput-jitter-result-map-ja.webp)
 
 第3ステップだけ明らかに落ちているなら、  
 エンジニアリング上は次をさらに調べる必要があります。

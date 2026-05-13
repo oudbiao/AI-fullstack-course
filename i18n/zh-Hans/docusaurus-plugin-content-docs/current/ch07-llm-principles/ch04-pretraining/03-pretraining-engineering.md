@@ -366,6 +366,8 @@ step=2 tokens/s=21005
 step=3 tokens/s=10503
 ```
 
+![预训练吞吐抖动运行结果图](/img/course/ch07-pretraining-throughput-jitter-result-map.webp)
+
 如果你看到第 3 步明显掉下去，
 工程上就要继续追：
 

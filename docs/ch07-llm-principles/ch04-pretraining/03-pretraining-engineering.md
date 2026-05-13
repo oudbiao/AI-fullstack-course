@@ -364,6 +364,8 @@ step=2 tokens/s=21005
 step=3 tokens/s=10503
 ```
 
+![Pretraining throughput jitter result map](/img/course/ch07-pretraining-throughput-jitter-result-map-en.webp)
+
 If you see step 3 drop significantly,
 engineers need to keep digging:
 

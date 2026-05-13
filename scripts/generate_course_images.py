@@ -14904,6 +14904,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-pretraining-throughput-jitter-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+        },
+        "scene": "A Chapter 7 pretraining engineering run-result teaching image based on the exact throughput log example in 7.4.4. The image must teach how to read the printed tokens/s drop as an engineering signal, not draw a generic performance dashboard. Use only these exact lab facts: step_logs are step 1 tokens=8192 seconds=0.40, step 2 tokens=8192 seconds=0.39, step 3 tokens=8192 seconds=0.78. The printed output is step=1 tokens/s=20480, step=2 tokens/s=21005, step=3 tokens/s=10503. The calculation is tokens / seconds. The teaching point is that step 3 takes about twice as long, so tokens/s drops by about half; engineers then ask whether the bottleneck is I/O, shard switching, dataloader, or compute. Do not invent extra steps, GPU counts, loss values, batch sizes, dollar costs, throughput targets, or monitoring tools.",
+        "chapter_context": "The image is inserted after the expected output of the simple throughput log code in 7.4.4 Pretraining Engineering. Nearby prose says unstable step time wastes resources, can make learning-rate schedules, checkpoint intervals, and budget estimates drift, and engineers should investigate whether a drop comes from I/O or compute.",
+        "shared_layout": "Vertical 9:16. Same dark pretraining operations-console teaching illustration across zh/en/ja, visually related to the shard-resume image but focused on throughput diagnosis, not a white rounded-box infographic, not a pure chart, not a terminal screenshot, not a text poster. Top title and subtitle. Use four large numbered stations with phone-readable labels. Station 1: three step log tiles with exact inputs: step 1 tokens 8192 seconds 0.40, step 2 tokens 8192 seconds 0.39, step 3 tokens 8192 seconds 0.78. Station 2: formula machine tokens / seconds feeding three gauges. Station 3: result gauges or bars with exact outputs: step=1 tokens/s=20480, step=2 tokens/s=21005, step=3 tokens/s=10503; step 3 must be visibly red and about half-height compared with step 1/2. Station 4: diagnostic fork with two main paths I/O path and compute path, plus small localized suspects dataloader, shard switching, I/O jitter, worker imbalance. Bottom rule strip: throughput is a training-plan signal, not only a cost number. Keep station order, object positions, colors, inputs, formula, printed output values, and reading path identical across languages. Code tokens, step, tokens, seconds, tokens/s, dataloader, shard, I/O, compute may stay in English notation. In zh variant, every explanatory sentence and helper label must be natural Chinese except exact code/engineering tokens. In ja variant, every explanatory sentence and helper label must be natural Japanese except exact code/engineering tokens; avoid Chinese-only wording. Avoid fake tiny text, invented metrics, generic server art, dense spreadsheets, local text overlay style, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "吞吐突然掉半，应该怎么看",
+                "subtitle": "同样 8192 tokens，第 3 步耗时变长，tokens/s 立刻掉下来。",
+                "items": [
+                    ("输入日志", "step 1: 8192 / 0.40s；step 2: 8192 / 0.39s；step 3: 8192 / 0.78s。"),
+                    ("计算", "tokens/s = tokens / seconds。"),
+                    ("输出", "step=1 20480；step=2 21005；step=3 10503。"),
+                    ("信号", "第 3 步耗时约翻倍，吞吐约掉半。"),
+                    ("排查", "继续问：是 I/O、shard 切换、dataloader，还是 compute？"),
+                    ("影响", "吞吐不稳会让 checkpoint 周期、预算和训练节奏一起漂。"),
+                ],
+                "footer": "吞吐不是只看成本；它会影响训练计划和工程稳定性。",
+                "alt": "预训练吞吐抖动运行结果图：step 1 和 step 2 处理 8192 tokens 约 0.4 秒，输出 20480 和 21005 tokens/s；step 3 用 0.78 秒，输出 10503 tokens/s，提示需要排查 I/O、shard 切换、dataloader 或 compute。",
+            },
+            "en": {
+                "title": "Reading a Sudden Throughput Drop",
+                "subtitle": "Same 8192 tokens, longer step time, lower tokens per second.",
+                "items": [
+                    ("input logs", "step 1: 8192 / 0.40s; step 2: 8192 / 0.39s; step 3: 8192 / 0.78s."),
+                    ("calculation", "tokens/s = tokens / seconds."),
+                    ("output", "step=1 20480; step=2 21005; step=3 10503."),
+                    ("signal", "Step 3 takes about twice as long, so throughput drops by about half."),
+                    ("diagnosis", "Ask whether it is I/O, shard switching, dataloader, or compute."),
+                    ("impact", "Unstable throughput can shift checkpoint cadence, budget, and training rhythm."),
+                ],
+                "footer": "Throughput is not only a cost number; it is a training-plan stability signal.",
+                "alt": "Pretraining throughput jitter result map: step 1 and step 2 process 8192 tokens in about 0.4 seconds and print 20480 and 21005 tokens/s, while step 3 takes 0.78 seconds and prints 10503 tokens/s, pointing to I/O, shard switching, dataloader, or compute diagnosis.",
+            },
+            "ja": {
+                "title": "Throughput が急に半分へ落ちたら",
+                "subtitle": "同じ 8192 tokens でも、step 時間が伸びると tokens/s は下がる。",
+                "items": [
+                    ("入力ログ", "step 1: 8192 / 0.40s；step 2: 8192 / 0.39s；step 3: 8192 / 0.78s。"),
+                    ("計算", "tokens/s = tokens / seconds。"),
+                    ("出力", "step=1 20480；step=2 21005；step=3 10503。"),
+                    ("信号", "step 3 は約 2 倍かかり、throughput は約半分になる。"),
+                    ("調査", "I/O、shard 切り替え、dataloader、compute のどこかを見る。"),
+                    ("影響", "throughput が揺れると checkpoint 周期、予算、学習リズムもずれる。"),
+                ],
+                "footer": "throughput は cost だけでなく、学習計画の安定性を示す信号です。",
+                "alt": "事前学習 throughput 変動の実行結果図：step 1 と step 2 は 8192 tokens を約 0.4 秒で処理して 20480 と 21005 tokens/s を出し、step 3 は 0.78 秒かかって 10503 tokens/s となるため、I/O、shard 切り替え、dataloader、compute を調べる必要がある。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",
