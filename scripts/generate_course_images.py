@@ -14298,6 +14298,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-bigram-autocomplete-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch02-llm-overview/01-development-history.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/01-development-history.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/01-development-history.md",
+        },
+        "scene": "A Chapter 7 Bigram language-model run-result teaching image based on the exact runnable Counter/defaultdict code in section 7.2.2. The image must teach how the printed autocomplete output comes from counting adjacent word pairs in the four-sentence corpus, not draw a generic AI history poster. Use only these exact corpus sentences: I like learning AI; I like learning Python; You like learning NLP; I like doing projects. The code splits each sentence into tokens, zips neighboring tokens, increments next_word_counter[current_word][next_word] by 1, and suggest_next(word) returns candidates.most_common(). The exact counts to teach are: I -> like happens 3 times; like -> learning happens 3 times and like -> doing happens 1 time; learning -> AI, Python, and NLP each happen 1 time; You -> like happens 1 time. The exact printed outputs are Common words after I: [('like', 3)], Common words after like: [('learning', 3), ('doing', 1)], and Common words after learning: [('AI', 1), ('Python', 1), ('NLP', 1)]. The teaching point is that this feels like autocomplete because the model ranks the next word by observed frequency, but it only sees one previous word, sparse combinations are weak, and it has no sentence meaning representation. Do not invent probabilities, neural network layers, embeddings, hidden states, token ids, extra sentences, translated corpus strings, or different output values.",
+        "chapter_context": "The image is inserted after the expected output of the Bigram language model lab in 7.2.2 LLM development history. Nearby prose says the statistical language-model era predicts the next word from observed frequency, then explains three limits: it only looks one word back, rare combinations have weak statistics, and it has no semantic representation of the sentence.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark autocomplete counting lab across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: four corpus sentence cards with the exact English code strings; keep these strings unchanged in every language because they are the code data. A tokenizer split rail breaks each sentence into word chips. Middle station: adjacent-pair conveyor shows pair tickets moving into a defaultdict(Counter) tally shelf. The shelf must visibly count only these important pairs: I -> like x3, like -> learning x3, like -> doing x1, learning -> AI x1, learning -> Python x1, learning -> NLP x1, You -> like x1. Lower station: suggest_next(word) lookup console with three query chips I, like, learning and three large output receipts showing exactly [('like', 3)], [('learning', 3), ('doing', 1)], and [('AI', 1), ('Python', 1), ('NLP', 1)]. Bottom station: three limitation badges: one-word memory, sparse counts, no sentence meaning. Keep station order, object positions, colors, counts, output order, and reading path identical across languages. Use sparse large localized labels attached to physical objects; code strings, Python symbols, and output tuples may stay in English notation. Avoid dense paragraphs, tiny fake text, translated corpus strings, invented counts, invented probabilities, old SVG information-box style, local text overlay style, decorative robots, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "Bigram 自动补全结果怎么来",
+                "subtitle": "把句子切成相邻词对，Counter 会把下一词按出现次数排序。",
+                "items": [
+                    ("语料句子", "四句英文是代码里的原始 corpus，不翻译。"),
+                    ("切成词对", "zip(tokens[:-1], tokens[1:]) 只看相邻两个词。"),
+                    ("计数货架", "I -> like 记 3 次；like -> learning 记 3 次；like -> doing 记 1 次。"),
+                    ("查询输出", "suggest_next('like') 先返回 learning，再返回 doing。"),
+                    ("主要限制", "只看前一个词，稀有组合弱，也没有句子语义。"),
+                ],
+                "footer": "Bigram 的直觉：不是理解句子，而是把“某词后面常跟什么”数出来。",
+                "alt": "Bigram 自动补全运行结果图：四句 corpus 被切成相邻词对，defaultdict(Counter) 统计 I 后面 like 出现 3 次、like 后面 learning 出现 3 次和 doing 出现 1 次，再由 suggest_next 返回三行输出。",
+            },
+            "en": {
+                "title": "Where Bigram Autocomplete Comes From",
+                "subtitle": "Split sentences into neighboring word pairs, then Counter ranks the next word by frequency.",
+                "items": [
+                    ("corpus sentences", "The four English lines are the exact code data."),
+                    ("make word pairs", "zip(tokens[:-1], tokens[1:]) looks at adjacent words only."),
+                    ("counting shelf", "I -> like counts 3; like -> learning counts 3; like -> doing counts 1."),
+                    ("lookup output", "suggest_next('like') returns learning first, then doing."),
+                    ("main limits", "One-word memory, sparse counts, and no sentence meaning."),
+                ],
+                "footer": "Bigram intuition: it does not understand the sentence; it counts what usually follows a word.",
+                "alt": "Bigram autocomplete result map: four corpus sentences are split into adjacent word pairs, defaultdict(Counter) counts I to like three times and like to learning three times plus doing once, then suggest_next returns the three printed outputs.",
+            },
+            "ja": {
+                "title": "Bigram 補完結果はどう生まれるか",
+                "subtitle": "文を隣り合う単語ペアに分け、Counter が次の単語を頻度順に並べる。",
+                "items": [
+                    ("corpus 文", "4 つの英文は code の元データなので翻訳しない。"),
+                    ("単語ペア化", "zip(tokens[:-1], tokens[1:]) は隣同士だけを見る。"),
+                    ("カウント棚", "I -> like は 3 回；like -> learning は 3 回；like -> doing は 1 回。"),
+                    ("lookup 出力", "suggest_next('like') は learning を先に、doing を次に返す。"),
+                    ("主な限界", "1 語前だけを見る、rare な組み合わせに弱い、文の意味は持たない。"),
+                ],
+                "footer": "Bigram の直感：文を理解するのではなく、「この単語の後によく来る語」を数える。",
+                "alt": "Bigram 補完の実行結果図：4 つの corpus 文を隣接単語ペアに分け、defaultdict(Counter) が I から like を 3 回、like から learning を 3 回と doing を 1 回数え、suggest_next が 3 行の出力を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

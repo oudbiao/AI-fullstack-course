@@ -93,6 +93,8 @@ Common words after like    : [('learning', 3), ('doing', 1)]
 Common words after learning: [('AI', 1), ('Python', 1), ('NLP', 1)]
 ```
 
+![Bigram language model result map](/img/course/ch07-bigram-autocomplete-result-map-en.webp)
+
 This already feels like autocomplete. But it has three obvious limits:
 
 - it only looks one word back;

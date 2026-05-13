@@ -93,6 +93,8 @@ Common words after like    : [('learning', 3), ('doing', 1)]
 Common words after learning: [('AI', 1), ('Python', 1), ('NLP', 1)]
 ```
 
+![Bigram 自动补全运行结果图](/img/course/ch07-bigram-autocomplete-result-map.webp)
+
 这已经有点像自动补全，但缺点也很明显：
 
 - 只看前一个词；

@@ -93,6 +93,8 @@ Common words after like    : [('learning', 3), ('doing', 1)]
 Common words after learning: [('AI', 1), ('Python', 1), ('NLP', 1)]
 ```
 
+![Bigram 補完の実行結果図](/img/course/ch07-bigram-autocomplete-result-map-ja.webp)
+
 これは autocomplete に少し似ています。しかし限界も明確です。
 
 - 1 つ前の単語しか見ない。
