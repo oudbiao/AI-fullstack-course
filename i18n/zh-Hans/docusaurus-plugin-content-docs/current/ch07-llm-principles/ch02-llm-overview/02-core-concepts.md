@@ -183,6 +183,8 @@ Output representations:
  [0.752 0.752]]
 ```
 
+![Attention 混合运行结果图](/img/course/ch07-attention-mixing-result-map.webp)
+
 暂时不用背公式，先记住机制：
 
 ```text

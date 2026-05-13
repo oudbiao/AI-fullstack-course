@@ -183,6 +183,8 @@ Output representations:
  [0.752 0.752]]
 ```
 
+![Attention mixing result map](/img/course/ch07-attention-mixing-result-map-en.webp)
+
 You do not need to memorize the formula yet. Keep the mechanism:
 
 ```text

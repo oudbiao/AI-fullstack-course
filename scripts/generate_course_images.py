@@ -14460,6 +14460,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-attention-mixing-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        },
+        "scene": "A Chapter 7 attention run-result teaching image based on the exact runnable NumPy code in section 7.2.3 Lab 3. The image must teach how the printed attention scores, weights, and output representations relate to each other, not draw a generic Transformer poster. Use only these exact lab facts: X has three 2D token vectors token 1=[1.0,0.0], token 2=[0.0,1.0], token 3=[1.0,1.0]. Q=K=V=X. scores = Q @ K.T and scaled_scores = scores / sqrt(2). The printed Attention scores matrix is [[0.707,0.000,0.707],[0.000,0.707,0.707],[0.707,0.707,1.414]]. The printed Attention weights matrix is [[0.401,0.198,0.401],[0.198,0.401,0.401],[0.248,0.248,0.503]]. The printed Output representations matrix is [[0.802,0.599],[0.599,0.802],[0.752,0.752]]. The teaching point is compare relevance, normalize weights row by row, then mix value vectors; token 3 attends most to itself because [1,1] matches both dimensions. Do not invent words, sentence examples, heads, layers, positional encoding, hidden dimensions, probability values, or different matrices.",
+        "chapter_context": "The image is inserted after Lab 3 expected output in 7.2.3 Core Concepts of Large Models. Nearby prose says learners do not need to memorize the formula yet; they should keep the mechanism: compare relevance -> normalize weights -> mix value vectors.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark attention-mixing lab across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: three token vector tiles show token 1=[1,0], token 2=[0,1], token 3=[1,1]. Use colored vector arrows on a tiny 2D coordinate pad so the vectors are visual, not just text. Middle-left station: a compare-relevance grid shows the exact Attention scores matrix with brighter cells for 0.707 and the brightest cell for 1.414. Middle-right station: a row-wise softmax lens turns each score row into the exact Attention weights matrix; show row 1 weights 0.401/0.198/0.401, row 2 weights 0.198/0.401/0.401, row 3 weights 0.248/0.248/0.503. Lower station: three mixing bowls or vector blend rails show each output vector as a weighted mix of V=X, then print the exact Output representations matrix [[0.802,0.599],[0.599,0.802],[0.752,0.752]]. Highlight token 3 row: it keeps the largest self weight 0.503 and blends both dimensions. Bottom rule strip: compare relevance, normalize weights, mix values. Keep station order, object positions, colors, numeric values, matrix row/column order, and reading path identical across languages. Use sparse large localized labels attached to physical objects. Python notation, matrix values, Q/K/V, and token vector numbers may stay in English notation. Avoid fake tiny text, invented token words, full Transformer architecture, many heads, dense equations, old SVG information-box style, decorative robots, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "Attention 输出矩阵怎么读",
+                "subtitle": "先比较 token 相关性，再把每一行归一化成权重，最后混合 V 向量。",
+                "items": [
+                    ("输入向量", "token1=[1,0]，token2=[0,1]，token3=[1,1]。"),
+                    ("scores", "Q @ K.T / sqrt(2) 得到三行相关性分数。"),
+                    ("weights", "每一行单独 softmax，所以每行权重加起来是 1。"),
+                    ("mix V", "weights @ V 把原始向量按相关性重新混合。"),
+                    ("token3", "[1,1] 同时匹配两个维度，自身权重最高 0.503。"),
+                    ("核心机制", "compare relevance -> normalize weights -> mix value vectors。"),
+                ],
+                "footer": "先看矩阵的行：每一行都表示“这个 token 要从其他 token 拿多少信息”。",
+                "alt": "Attention 混合运行结果图：三个输入向量 [1,0]、[0,1]、[1,1] 经过相关性打分、逐行 softmax 权重和 weights @ V 混合，得到 scores、weights、output 三个矩阵，并说明 token3 自身权重 0.503 最高。",
+            },
+            "en": {
+                "title": "Reading the Attention Output Matrix",
+                "subtitle": "Compare token relevance, normalize each row into weights, then mix the V vectors.",
+                "items": [
+                    ("input vectors", "token1=[1,0], token2=[0,1], token3=[1,1]."),
+                    ("scores", "Q @ K.T / sqrt(2) creates three rows of relevance scores."),
+                    ("weights", "Softmax runs row by row, so every row sums to 1."),
+                    ("mix V", "weights @ V remixes the original vectors by relevance."),
+                    ("token3", "[1,1] matches both dimensions, so its self weight is largest at 0.503."),
+                    ("core mechanism", "compare relevance -> normalize weights -> mix value vectors."),
+                ],
+                "footer": "Read by rows: each row says how much information this token takes from every token.",
+                "alt": "Attention mixing result map: three input vectors [1,0], [0,1], and [1,1] become relevance scores, row-wise softmax weights, and weights @ V output vectors, with token3 keeping the largest self weight 0.503.",
+            },
+            "ja": {
+                "title": "Attention 出力行列の読み方",
+                "subtitle": "token の関連度を比べ、各行を weight に normalize し、V vector を混ぜる。",
+                "items": [
+                    ("入力 vector", "token1=[1,0]、token2=[0,1]、token3=[1,1]。"),
+                    ("scores", "Q @ K.T / sqrt(2) で 3 行の relevance scores を作る。"),
+                    ("weights", "softmax は行ごとにかかるので、各行の合計は 1。"),
+                    ("mix V", "weights @ V が元の vector を関連度で混ぜ直す。"),
+                    ("token3", "[1,1] は両方の次元に合うため、自分への weight 0.503 が最大。"),
+                    ("中心機構", "compare relevance -> normalize weights -> mix value vectors。"),
+                ],
+                "footer": "行で読む：各行は「この token が各 token からどれだけ情報を取るか」を表す。",
+                "alt": "Attention mixing の実行結果図：3 つの入力 vector [1,0]、[0,1]、[1,1] が relevance scores、行ごとの softmax weights、weights @ V の output vectors になり、token3 の self weight 0.503 が最大であることを示す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

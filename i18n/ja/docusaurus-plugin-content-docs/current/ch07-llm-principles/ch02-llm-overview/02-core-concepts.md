@@ -183,6 +183,8 @@ Output representations:
  [0.752 0.752]]
 ```
 
+![Attention mixing の実行結果図](/img/course/ch07-attention-mixing-result-map-ja.webp)
+
 今は式を暗記しなくて大丈夫です。仕組みを覚えます。
 
 ```text
