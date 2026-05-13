@@ -215,6 +215,8 @@ kv share : 4 query heads per KV group
 ffn style: SwiGLU
 ```
 
+![現代 decoder block 検査結果図](/img/course/ch07-modern-decoder-inspection-result-map-ja.webp)
+
 ### 出力の読み方
 
 - `LayerNorm` は平均を中心に値を整えます。`RMSNorm` は主に全体の大きさをそろえます。

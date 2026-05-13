@@ -217,6 +217,8 @@ kv share : 4 query heads per KV group
 ffn style: SwiGLU
 ```
 
+![现代 decoder block 检查结果图](/img/course/ch07-modern-decoder-inspection-result-map.webp)
+
 ### 怎么读这个输出？
 
 - `LayerNorm` 会围绕均值重新居中；`RMSNorm` 更像是在缩放整体幅度。

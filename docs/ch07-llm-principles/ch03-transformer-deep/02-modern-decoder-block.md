@@ -216,6 +216,8 @@ kv share : 4 query heads per KV group
 ffn style: SwiGLU
 ```
 
+![Modern decoder block inspection result map](/img/course/ch07-modern-decoder-inspection-result-map-en.webp)
+
 ### How to read the output
 
 - `LayerNorm` recenters values around their mean; `RMSNorm` mostly rescales their magnitude.

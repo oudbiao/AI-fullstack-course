@@ -14680,6 +14680,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-modern-decoder-inspection-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
+        },
+        "scene": "A Chapter 7 modern LLM decoder block inspection run-result teaching image based on the exact runnable Python code in section 7.3.3. The image must teach how the printed values connect architecture terms to measurable behavior, not draw a generic Transformer poster. Use only these exact lab facts: activation=[2.0,-1.0,0.5,3.0]. LayerNorm output is exactly [0.577,-1.402,-0.412,1.237]. RMSNorm output is exactly [1.06,-0.53,0.265,1.589]. decoder_config has norm=RMSNorm, position=RoPE, query_heads=32, kv_heads=8, ffn=SwiGLU. The printed kv share is exactly 4 query heads per KV group. The teaching point is: LayerNorm recenters then rescales, RMSNorm mainly rescales vector magnitude, RoPE enters around Q/K attention positions, GQA is visible from 32 query heads sharing 8 KV heads, and SwiGLU means the FFN has a gate path. Do not invent extra tensors, model names, attention probabilities, token words, loss curves, benchmark scores, or different numeric values.",
+        "chapter_context": "The image is inserted after the expected output of the tiny decoder-block inspection in 7.3.3 Original Transformer vs Modern LLM Decoder. Nearby prose explains pre-norm, RMSNorm, RoPE, GQA/MQA, and SwiGLU, then tells learners to read model code by looking for rms_norm, rotary_emb, q_proj/k_proj/v_proj, num_key_value_heads, gate_proj/up_proj/down_proj. The image should turn the print output into an architecture-reading checklist.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark model-inspection workbench across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Use four large numbered stations with generous spacing and phone-readable labels. Station 1: an activation vector [2.0,-1.0,0.5,3.0] enters two parallel measurement lanes. The LayerNorm lane visibly subtracts the mean and rescales, ending with [0.577,-1.402,-0.412,1.237]. The RMSNorm lane visibly measures vector magnitude and rescales, ending with [1.06,-0.53,0.265,1.589]. Station 2: a decoder config card with four physical dials or badges: RMSNorm, RoPE, query_heads=32, kv_heads=8, ffn=SwiGLU. Station 3: GQA sharing scene: 32 query heads grouped into 8 K/V groups, with a clear bracket showing 4 query heads per KV group. Station 4: a modern block checkpoint: RoPE attached near Q/K attention, RMSNorm before sublayers, SwiGLU gate in FFN; a final printed receipt shows exactly position: RoPE, kv share: 4 query heads per KV group, ffn style: SwiGLU. Bottom rule strip: read printed values as model-code clues, not decoration. Keep station order, object positions, colors, numeric values, head grouping, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens, LayerNorm, RMSNorm, RoPE, GQA, MQA, SwiGLU, query_heads, kv_heads, and exact printed outputs may stay in English notation. Avoid fake tiny text, generic full Transformer stacks, decorative robots, invented matrices, invented token examples, local text overlay style, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "现代 Decoder 检查输出怎么读",
+                "subtitle": "把打印值连回 RMSNorm、RoPE、GQA 和 SwiGLU，而不是只背名词。",
+                "items": [
+                    ("activation", "输入向量是 [2.0,-1.0,0.5,3.0]。"),
+                    ("LayerNorm", "先减均值再缩放，输出 [0.577,-1.402,-0.412,1.237]。"),
+                    ("RMSNorm", "主要按整体幅度缩放，输出 [1.06,-0.53,0.265,1.589]。"),
+                    ("RoPE", "位置信息进入 Q/K attention 计算附近。"),
+                    ("GQA", "32 个 query heads 共享 8 个 K/V 组，也就是每组 4 个 query heads。"),
+                    ("SwiGLU", "FFN 不只变换特征，还用 gate 控制通过强度。"),
+                ],
+                "footer": "读现代 LLM 代码时，把 norm、position、KV head、FFN gate 当成检查点。",
+                "alt": "现代 decoder block 检查结果图：activation 向量分别经过 LayerNorm 和 RMSNorm 得到两组输出，并把 RoPE、32 query heads 与 8 KV heads 的 GQA 共享、SwiGLU FFN gate 对应到打印结果。",
+            },
+            "en": {
+                "title": "Reading a Modern Decoder Inspection Output",
+                "subtitle": "Connect the printed values to RMSNorm, RoPE, GQA, and SwiGLU instead of memorizing names.",
+                "items": [
+                    ("activation", "The input vector is [2.0,-1.0,0.5,3.0]."),
+                    ("LayerNorm", "Subtract the mean and rescale, producing [0.577,-1.402,-0.412,1.237]."),
+                    ("RMSNorm", "Mostly rescale by vector magnitude, producing [1.06,-0.53,0.265,1.589]."),
+                    ("RoPE", "Position information enters near Q/K attention calculation."),
+                    ("GQA", "32 query heads share 8 K/V groups, so each group serves 4 query heads."),
+                    ("SwiGLU", "The FFN transforms features and uses a gate to control what passes."),
+                ],
+                "footer": "When reading modern LLM code, treat norm, position, KV heads, and FFN gate as checkpoints.",
+                "alt": "Modern decoder block inspection result map: an activation vector goes through LayerNorm and RMSNorm to produce two printed outputs, while RoPE, GQA sharing from 32 query heads to 8 KV heads, and the SwiGLU FFN gate are connected to the printed config.",
+            },
+            "ja": {
+                "title": "現代 Decoder 検査出力の読み方",
+                "subtitle": "出力値を RMSNorm、RoPE、GQA、SwiGLU に結びつけ、名前だけで覚えない。",
+                "items": [
+                    ("activation", "入力 vector は [2.0,-1.0,0.5,3.0]。"),
+                    ("LayerNorm", "平均を引いてから scaling し、[0.577,-1.402,-0.412,1.237] を出す。"),
+                    ("RMSNorm", "主に vector の大きさで scaling し、[1.06,-0.53,0.265,1.589] を出す。"),
+                    ("RoPE", "位置情報は Q/K の attention 計算付近に入る。"),
+                    ("GQA", "32 query heads が 8 個の K/V group を共有し、1 group あたり 4 query heads。"),
+                    ("SwiGLU", "FFN は特徴を変換し、gate で通す強さも制御する。"),
+                ],
+                "footer": "現代 LLM code を読む時は、norm、position、KV heads、FFN gate を確認点にする。",
+                "alt": "現代 decoder block の検査結果図：activation vector を LayerNorm と RMSNorm に通して 2 種類の出力を示し、RoPE、32 query heads と 8 KV heads の GQA 共有、SwiGLU FFN gate を出力設定と結びつける。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",
