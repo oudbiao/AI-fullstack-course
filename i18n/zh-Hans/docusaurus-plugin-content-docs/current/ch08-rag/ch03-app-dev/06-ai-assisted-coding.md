@@ -131,6 +131,8 @@ Ran 3 tests in ...
 OK
 ```
 
+![AI 辅助编程测试运行结果图](/img/course/ch08-ai-coding-test-run-result-map.webp)
+
 你要建立的是这个习惯：模型可以生成函数草稿，但测试负责定义草稿是否合格。真实项目里，每发现一个 bug 或漏掉的需求，就补一个测试。
 
 ## 调试时提供完整上下文

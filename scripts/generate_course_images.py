@@ -18238,6 +18238,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-ai-coding-test-run-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch03-app-dev/06-ai-assisted-coding.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/06-ai-assisted-coding.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/06-ai-assisted-coding.md",
+        },
+        "scene": "An AI-assisted programming worked-result image based only on the split_markdown_by_heading unittest example in section 8.3.7. The image must teach how tests turn an AI-generated draft into verifiable behavior. Do not draw a generic AI coding lifecycle, IDE screenshot, terminal screenshot, full code block, fake GitHub UI, model mascot, unrelated code, or decorative laptop scene. Show exactly one function draft named split_markdown_by_heading feeding three test probes: boundary error raises ValueError chunk_too_large when max_chars is too small, heading preservation keeps '# Refund/退款/返金' with its policy text, and heading split returns two chunks with the second starting with '## Detail/细节/詳細'. Show the test runner producing exactly three ok stamps and final OK. Teaching point: the model can draft code, but the test suite defines what acceptable behavior means.",
+        "chapter_context": "The image is inserted after the expected unittest output in the AI-assisted programming lesson. Nearby prose says that after AI generates code, learners should read the diff, run tests, and run a real example. The code defines split_markdown_by_heading, three SplitMarkdownTests, and unittest.main(verbosity=2). The expected output shows three test methods passing and OK.",
+        "shared_layout": "Vertical 9:16. Use the same warm practical workbook style as ch08 result images: cream notebook paper, blue dividers, a code draft sheet, three physical test probes, a test runner stamp machine, and a final acceptance receipt. Top title and subtitle. Upper section shows the AI code draft sheet labeled split_markdown_by_heading(markdown, max_chars=800). Middle section has exactly three numbered test cards connected to the draft: 1 too-large chunk -> ValueError chunk_too_large; 2 preserve heading -> first chunk keeps heading plus policy text; 3 split by heading -> 2 chunks and second starts with detail heading. Lower section shows a runner output board with three green ok stamps and one large OK receipt. Bottom rule strip: AI drafts code; tests define acceptance. Keep card order, object positions, colors, values, and reading path identical across zh/en/ja. Use localized explanatory labels; code tokens may stay in English: split_markdown_by_heading, unittest, ValueError, chunk_too_large, max_chars, ok, OK. Avoid old SVG-style white rounded boxes, pure text posters, dense terminal logs, fake unreadable text, and extra English explanatory sentences in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "AI 生成代码怎样被测试验收",
+                "subtitle": "不是看代码像不像对，而是让 3 个测试定义行为。",
+                "items": [
+                    ("函数草稿", "split_markdown_by_heading(markdown, max_chars=800)。"),
+                    ("测试 1", "chunk 太长时抛出 ValueError: chunk_too_large。"),
+                    ("测试 2", "保留 '# 退款' 和政策正文。"),
+                    ("测试 3", "遇到 '## 细节' 切成 2 个 chunk。"),
+                    ("运行结果", "3 个测试全部 ok，最终 OK。"),
+                    ("验收含义", "模型写草稿，测试决定是否合格。"),
+                ],
+                "footer": "AI 代码进入项目之前，先让测试给出证据。",
+                "alt": "AI 辅助编程测试运行结果图：split_markdown_by_heading 草稿经过三个 unittest，分别验证过长报错、保留退款标题、按细节标题切成两个 chunk，最终三个 ok 并得到 OK。",
+            },
+            "en": {
+                "title": "How Tests Accept AI-Generated Code",
+                "subtitle": "Do not trust the draft by appearance; let three tests define behavior.",
+                "items": [
+                    ("function draft", "split_markdown_by_heading(markdown, max_chars=800)."),
+                    ("test 1", "Too-large chunk raises ValueError: chunk_too_large."),
+                    ("test 2", "Keep '# Refund' with its policy text."),
+                    ("test 3", "'## Detail' splits the document into 2 chunks."),
+                    ("runner result", "All 3 tests are ok, final OK."),
+                    ("acceptance meaning", "The model drafts code; tests decide whether it passes."),
+                ],
+                "footer": "Before AI code enters a project, make tests produce evidence.",
+                "alt": "AI-assisted coding test run result map: the split_markdown_by_heading draft passes three unittest checks for too-large errors, preserving the refund heading, and splitting by the detail heading into two chunks, ending with three ok stamps and OK.",
+            },
+            "ja": {
+                "title": "AI 生成コードをテストで受け入れる",
+                "subtitle": "見た目ではなく、3 つのテストで挙動を決める。",
+                "items": [
+                    ("関数草案", "split_markdown_by_heading(markdown, max_chars=800)。"),
+                    ("テスト 1", "chunk が長すぎると ValueError: chunk_too_large。"),
+                    ("テスト 2", "'# 返金' とポリシー本文を保つ。"),
+                    ("テスト 3", "'## 詳細' で 2 つの chunk に分かれる。"),
+                    ("実行結果", "3 つのテストがすべて ok、最後は OK。"),
+                    ("受け入れの意味", "モデルは草案を書く。合格はテストが決める。"),
+                ],
+                "footer": "AI のコードを入れる前に、テストで根拠を出す。",
+                "alt": "AI 支援コーディングのテスト実行結果図：split_markdown_by_heading の草案が 3 つの unittest を通り、長すぎる chunk のエラー、返金見出しの保持、詳細見出しで 2 chunk に分割することを確認し、3 つの ok と OK で終わる。",
+            },
+        },
+    },
+    {
         "slug": "ch08-async-context-gather-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch04-engineering/01-async-programming.md",

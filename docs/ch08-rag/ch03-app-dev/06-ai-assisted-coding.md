@@ -131,6 +131,8 @@ Ran 3 tests in ...
 OK
 ```
 
+![AI-assisted coding test run result map](/img/course/ch08-ai-coding-test-run-result-map-en.webp)
+
 This is the habit you want to build: the model can draft the function, but the tests define whether the draft is acceptable. For a real project, add one more test whenever you find a bug or a missed requirement.
 
 ## Provide Full Context When Debugging
