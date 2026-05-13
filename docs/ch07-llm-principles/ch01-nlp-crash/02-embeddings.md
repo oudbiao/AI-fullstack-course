@@ -187,6 +187,8 @@ bank in finance: [0.8, 0.4, 0.7]
 bank in river  : [0.3, 0.75, 0.4]
 ```
 
+![Embedding lab output result map](/img/course/ch07-embedding-cosine-retrieval-context-result-map-en.webp)
+
 This is not a real Transformer. It is a memory hook: the same token can end up with different representations after context is mixed in.
 
 ## Project Uses

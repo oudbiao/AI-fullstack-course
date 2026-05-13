@@ -14066,6 +14066,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-embedding-cosine-retrieval-context-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
+        },
+        "scene": "A Chapter 7 embedding lab run-result teaching image based on the exact runnable code in section 7.1.3. Show how to read the print output as geometry, retrieval ranking, and contextual movement instead of isolated numbers. Use only these exact lab facts: cosine refund vs return = 1.0, refund vs password = 0.293, password vs reset = 1.0. The query is reset password. Ranked retrieval output is B password reset 1.000, C banana return 0.335, A refund policy 0.333. Contextual bank simulation: base bank [0.50,0.50,0.50] plus finance_context [0.30,-0.10,0.20] gives [0.8,0.4,0.7]; base bank plus river_context [-0.20,0.25,-0.10] gives [0.3,0.75,0.4]. The teaching point is that dense vectors make meaning comparable, ranking is just sorted cosine scores, mean pooling can create near-miss results, and contextual vectors can move the same token.",
+        "chapter_context": "The image is inserted after the expected output for the contextual representation simulation in 7.1.3. Nearby labs first compare cosine similarity for a toy embedding table, then average token vectors for a tiny semantic retriever, then simulate how the same word bank moves under finance versus river context. The page teaches the learner to interpret numeric print output as a geometric and ranking process.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark semantic-geometry lab board across zh/en/ja, not a white rounded-box infographic, not a pure terminal screenshot, and not a dense table. Top title and subtitle. Upper station: a 2D semantic map with four large colored word pins: refund and return close together, password and reset close together, and a long distance line from refund to password labeled 0.293. Middle station: a query vector arrow from reset+password enters a ranking rail; three document carts sort vertically with exact scores: B password reset 1.000 at top, C banana return 0.335 just above A refund policy 0.333, with a small caution marker that close numbers can be misleading. Lower station: the token bank starts at a central vector point, then two colored context forces push it to finance [0.8,0.4,0.7] and river [0.3,0.75,0.4]. Bottom rule strip: cosine compares direction, ranking sorts scores, context can move a token. Keep station order, object positions, colors, values, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens and numeric arrays may stay in English notation. Avoid fake tiny text, invented scores, invented vector dimensions, pasted sticky notes, decorative-only space scenes, and generic SVG flowchart style.",
+        "variants": {
+            "zh": {
+                "title": "Embedding 实验结果怎么读",
+                "subtitle": "把 cosine、检索排序和上下文移动看成同一套向量几何。",
+                "items": [
+                    ("cosine", "refund-return=1.0，password-reset=1.0，refund-password=0.293。"),
+                    ("语义空间", "相近方向表示用法相关，不代表词义完全相同。"),
+                    ("query", "reset password 先变成 query vector。"),
+                    ("排序结果", "B password reset 1.000；C banana return 0.335；A refund policy 0.333。"),
+                    ("mean pooling 限制", "C 和 A 分数很近，要看 top-k 与错误样本。"),
+                    ("上下文移动", "bank -> [0.8,0.4,0.7] 或 [0.3,0.75,0.4]。"),
+                ],
+                "footer": "不要只看 print 数字；看向量距离、排序分差和上下文是否改变含义。",
+                "alt": "Embedding 实验结果图：cosine similarity 把 refund-return 与 password-reset 放近，query reset password 按相似度排序文档，并展示 bank 在金融和河岸上下文中的向量变化。",
+            },
+            "en": {
+                "title": "Reading Embedding Lab Output",
+                "subtitle": "Cosine scores, retrieval ranking, and context movement are one vector story.",
+                "items": [
+                    ("cosine", "refund-return=1.0, password-reset=1.0, refund-password=0.293."),
+                    ("semantic space", "Nearby directions mean related usage, not identical meaning."),
+                    ("query", "reset password becomes a query vector first."),
+                    ("ranking", "B password reset 1.000; C banana return 0.335; A refund policy 0.333."),
+                    ("mean pooling limit", "C and A are very close; inspect top-k and false positives."),
+                    ("context movement", "bank -> [0.8,0.4,0.7] or [0.3,0.75,0.4]."),
+                ],
+                "footer": "Do not only read print numbers; inspect distances, score margins, and context shifts.",
+                "alt": "Embedding lab result map: cosine similarity places refund-return and password-reset close, query reset password ranks documents by similarity, and bank moves to finance or river vectors under context.",
+            },
+            "ja": {
+                "title": "Embedding 実験結果の読み方",
+                "subtitle": "cosine、検索順位、文脈による移動を同じ vector の話として読む。",
+                "items": [
+                    ("cosine", "refund-return=1.0、password-reset=1.0、refund-password=0.293。"),
+                    ("意味空間", "方向が近いとは、使われ方が近いという意味。完全な同義ではない。"),
+                    ("query", "reset password はまず query vector になる。"),
+                    ("順位", "B password reset 1.000、C banana return 0.335、A refund policy 0.333。"),
+                    ("mean pooling の限界", "C と A は僅差。top-k と誤検出を見る。"),
+                    ("文脈で移動", "bank -> [0.8,0.4,0.7] または [0.3,0.75,0.4]。"),
+                ],
+                "footer": "print の数字だけでなく、距離、スコア差、文脈変化を見る。",
+                "alt": "Embedding 実験結果図：cosine similarity が refund-return と password-reset を近く置き、query reset password が類似度で文書を順位付けし、bank が金融と川岸の文脈で別の vector へ移動する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-tokenizer-wordpiece-run-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",

@@ -187,6 +187,8 @@ bank in finance: [0.8, 0.4, 0.7]
 bank in river  : [0.3, 0.75, 0.4]
 ```
 
+![Embedding 实验结果图](/img/course/ch07-embedding-cosine-retrieval-context-result-map.webp)
+
 这不是一个真实 Transformer，只是帮助记忆：同一个 token 混入上下文后，可以得到不同表示。
 
 ## 项目里怎么用
