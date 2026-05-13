@@ -200,6 +200,8 @@ step=05 shard=shard_02 batch=['doc_6', 'doc_7']
 step=06 shard=shard_02 batch=['doc_8']
 ```
 
+![Pretraining shard resume result map](/img/course/ch07-pretraining-shard-resume-result-map-en.webp)
+
 ### Why is this code more educational than just listing a few shard names?
 
 Because it corresponds to one of the most realistic problems in pretraining:

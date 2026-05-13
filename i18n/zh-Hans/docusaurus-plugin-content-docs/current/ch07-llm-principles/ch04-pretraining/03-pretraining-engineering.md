@@ -200,6 +200,8 @@ step=05 shard=shard_02 batch=['doc_6', 'doc_7']
 step=06 shard=shard_02 batch=['doc_8']
 ```
 
+![预训练分片恢复运行结果图](/img/course/ch07-pretraining-shard-resume-result-map.webp)
+
 ### 这段代码为什么比“列几个 shard 名字”有教学价值？
 
 因为它对应了预训练里最真实的一个问题：

@@ -14849,6 +14849,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-pretraining-shard-resume-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+        },
+        "scene": "A Chapter 7 pretraining engineering run-result teaching image based on the exact runnable sharding + resume Python example in 7.4.4. The image must teach how saved data position lets training resume at the correct document, not draw a generic checkpoint poster. Use only these exact lab facts: three shards shard_00=[doc_0,doc_1,doc_2], shard_01=[doc_3,doc_4,doc_5], shard_02=[doc_6,doc_7,doc_8], batch_size=2. First run prints step=01 shard_00 batch=[doc_0,doc_1], step=02 shard_00 batch=[doc_2], step=03 shard_01 batch=[doc_3,doc_4], then simulate crash and save state {'shard_index':1,'sample_index':2,'global_step':3}. Resume starts from that state and prints step=04 shard_01 batch=[doc_5], step=05 shard_02 batch=[doc_6,doc_7], step=06 shard_02 batch=[doc_8]. The teaching point is: checkpoint recovery must save data position as well as model progress; otherwise a run may repeat doc_3/doc_4 or skip doc_5. Do not invent extra shards, docs, workers, GPUs, optimizer values, loss curves, throughput numbers, or different steps.",
+        "chapter_context": "The image is inserted after the expected output of the sharding + resume code in 7.4.4 Pretraining Engineering. Nearby prose explains that pretraining is a long-running system, data shards are streamed, checkpointing must include model params, optimizer state, global step count, and data reading position, and saving only model parameters can cause duplicate or skipped batches after recovery.",
+        "shared_layout": "Vertical 9:16. Same dark pretraining operations-control-room teaching illustration across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, not a text poster. Top title and subtitle. Use four large numbered stations with phone-readable labels. Station 1: shard warehouse with exactly three shelves: shard_00 has doc_0 doc_1 doc_2, shard_01 has doc_3 doc_4 doc_5, shard_02 has doc_6 doc_7 doc_8. Station 2: first-run conveyor with batch_size=2 and step cards exactly: step 01 -> doc_0+doc_1, step 02 -> doc_2, step 03 -> doc_3+doc_4. Put a red crash marker after step 03. Station 3: checkpoint capsule showing exactly shard_index=1, sample_index=2, global_step=3, with pointers to shard_01 and the next unread document doc_5. Station 4: resume conveyor showing exactly step 04 -> doc_5, step 05 -> doc_6+doc_7, step 06 -> doc_8. Add two warning side cards: bad resume repeats doc_3/doc_4; bad resume skips doc_5. Bottom rule strip: save data position, not just model parameters. Keep station order, object positions, doc labels, step numbers, saved state values, colors, and reading path identical across languages. Code tokens, shard_00, shard_01, shard_02, doc_0, step=01, batch_size=2, shard_index, sample_index, global_step may stay in English notation. In zh variant, use natural Chinese for every helper label and explanatory sentence; do not use English helper labels such as first run, resume, saved state, later output, or risk unless they are exact code tokens. In ja variant, use natural Japanese for every helper label and explanatory sentence; never write the Chinese-only word 断点, and do not use Chinese helper labels such as 保存 without Japanese grammar. Avoid fake tiny text, invented metrics, generic datacenter art, dense tables, terminal screenshots, local text overlay style, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "分片训练怎么从断点恢复",
+                "subtitle": "恢复不只靠模型参数，还要记住读到哪个 shard 和哪个 sample。",
+                "items": [
+                    ("分片", "shard_00: doc_0-doc_2；shard_01: doc_3-doc_5；shard_02: doc_6-doc_8。"),
+                    ("首次运行", "step 01 读 doc_0+doc_1；step 02 读 doc_2；step 03 读 doc_3+doc_4。"),
+                    ("保存 state", "shard_index=1，sample_index=2，global_step=3。"),
+                    ("恢复运行", "下一步必须从 shard_01 的 doc_5 接着读。"),
+                    ("后续输出", "step 04 doc_5；step 05 doc_6+doc_7；step 06 doc_8。"),
+                    ("风险", "只保存模型参数，可能重复 doc_3/doc_4，或跳过 doc_5。"),
+                ],
+                "footer": "可恢复训练 = 模型进度 + optimizer 状态 + 数据读取位置。",
+                "alt": "预训练分片恢复运行结果图：首次运行读到 step 03 后保存 shard_index=1、sample_index=2、global_step=3，恢复运行从 shard_01 的 doc_5 继续，避免重复 doc_3/doc_4 或跳过 doc_5。",
+            },
+            "en": {
+                "title": "Resuming a Sharded Pretraining Stream",
+                "subtitle": "Recovery needs the data position, not only model parameters.",
+                "items": [
+                    ("shards", "shard_00: doc_0-doc_2; shard_01: doc_3-doc_5; shard_02: doc_6-doc_8."),
+                    ("first run", "step 01 reads doc_0+doc_1; step 02 reads doc_2; step 03 reads doc_3+doc_4."),
+                    ("saved state", "shard_index=1, sample_index=2, global_step=3."),
+                    ("resume", "The next batch must start at doc_5 inside shard_01."),
+                    ("later output", "step 04 doc_5; step 05 doc_6+doc_7; step 06 doc_8."),
+                    ("risk", "Model-only checkpoints may repeat doc_3/doc_4 or skip doc_5."),
+                ],
+                "footer": "Recoverable training = model progress + optimizer state + data read position.",
+                "alt": "Pretraining shard resume result map: after first run stops at step 03, the saved state shard_index=1, sample_index=2, global_step=3 makes resume continue from doc_5 in shard_01, avoiding repeated doc_3/doc_4 or skipped doc_5.",
+            },
+            "ja": {
+                "title": "Shard 学習をチェックポイントから再開する",
+                "subtitle": "再開には model parameter だけでなく、どの shard のどの sample まで読んだかが必要。",
+                "items": [
+                    ("shard", "shard_00: doc_0-doc_2；shard_01: doc_3-doc_5；shard_02: doc_6-doc_8。"),
+                    ("最初の実行", "step 01 は doc_0+doc_1、step 02 は doc_2、step 03 は doc_3+doc_4 を読む。"),
+                    ("state を保存", "shard_index=1、sample_index=2、global_step=3。"),
+                    ("再開", "次は shard_01 の doc_5 から読む必要がある。"),
+                    ("続きの出力", "step 04 doc_5；step 05 doc_6+doc_7；step 06 doc_8。"),
+                    ("リスク", "model だけ保存すると doc_3/doc_4 を重複したり、doc_5 を飛ばしたりする。"),
+                ],
+                "footer": "再開できる学習 = model の進捗 + optimizer 状態 + data 読み取り位置。",
+                "alt": "事前学習 shard 再開の実行結果図：step 03 で止まったあと shard_index=1、sample_index=2、global_step=3 を保存し、再開時は shard_01 の doc_5 から続けるため、doc_3/doc_4 の重複や doc_5 のスキップを避けられる。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

@@ -200,6 +200,8 @@ step=05 shard=shard_02 batch=['doc_6', 'doc_7']
 step=06 shard=shard_02 batch=['doc_8']
 ```
 
+![事前学習 shard 再開の実行結果図](/img/course/ch07-pretraining-shard-resume-result-map-ja.webp)
+
 ### なぜこのコードは「shard 名を並べるだけ」より学習価値があるのか？
 
 これは事前学習でいちばん現実的な問題に対応しているからです。
