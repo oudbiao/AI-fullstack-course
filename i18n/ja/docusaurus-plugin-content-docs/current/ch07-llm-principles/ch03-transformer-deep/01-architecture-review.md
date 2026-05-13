@@ -285,6 +285,8 @@ block output:
 [4.366, 4.752, 1.153]
 ```
 
+![最小 Transformer block 実行結果図](/img/course/ch07-transformer-block-run-result-map-ja.webp)
+
 ### このコードを読むときは、まず 4 つの場所に注目する
 
 最も重要なのは次の 4 か所です。

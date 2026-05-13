@@ -284,6 +284,8 @@ block output:
 [4.366, 4.752, 1.153]
 ```
 
+![最小 Transformer block 运行结果图](/img/course/ch07-transformer-block-run-result-map.webp)
+
 ### 读这段代码时，先盯住四个位置
 
 最关键的地方只有四处：

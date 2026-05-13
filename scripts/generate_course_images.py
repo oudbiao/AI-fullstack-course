@@ -14625,6 +14625,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-transformer-block-run-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+        },
+        "scene": "A Chapter 7 minimal Transformer block run-result teaching image based on the exact runnable pure-Python code in section 7.3.2. The image must teach how to read the printed attention weights and block output from the code path, not draw a generic Transformer architecture poster. Use only these exact lab facts: three input token vectors are token1=[1.0,0.0,1.0], token2=[0.0,1.0,1.0], token3=[1.0,1.0,0.0]. Q, K, and V are made by projection machines, but do not show any Q/K/V numeric matrix because it is easy to misread and not printed by the code. The score loop uses dot(q,k)/sqrt(2) only when j <= i, otherwise -10**9 as a causal mask. Show only this exact printed attention weights matrix: row1 [1.0,0.0,0.0], row2 [0.413,0.587,0.0], row3 [0.456,0.225,0.32]. The contexts are visual weighted mixes of V, not extra numeric matrices. Then residual adds the original token vector back. FFN applies W1 -> ReLU -> W2 independently per token. Show only this exact printed block_output matrix: row1 [3.75,3.5,1.5], row2 [3.897,4.294,2.566], row3 [4.366,4.752,1.153]. The teaching point is: attention decides how much each row takes from earlier tokens, residual keeps the original signal, FFN performs per-token nonlinear processing, and the final output is not just the attention matrix. Do not invent extra numeric matrices, extra heads, layers, token words, position encodings, logits, probabilities, gradients, training curves, or different matrix values.",
+        "chapter_context": "The image is inserted after the expected output of the minimal Transformer block code in 7.3.2 Architecture Review. Nearby prose says learners should focus on four places: Q/K/V generation, scores computation, weighted sum after softmax, and residual connection plus FFN. It also explains the causal mask line j <= i and the division of labor: attention aggregates context while FFN digests information.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark computation workbench across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Use exactly five large numbered stations, with generous spacing and phone-readable text. Station 1: three input vector tiles labeled token1=[1.0,0.0,1.0], token2=[0.0,1.0,1.0], token3=[1.0,1.0,0.0], flowing into three projection machines labeled Q, K, V, with no numeric Q/K/V matrices. Station 2: one attention weights heatmap with exactly the 3x3 rows [1.0,0.0,0.0], [0.413,0.587,0.0], [0.456,0.225,0.32]; future masked cells are dim. Station 3: three visual mixing rails show weighted V blending as colored streams; no extra numeric vectors are printed here. Station 4: a residual bridge adds the original token signal back, then a compact FFN machine labeled W1 -> ReLU -> W2 processes each token independently; no invented numeric matrices. Station 5: a final block_output receipt shows exactly [3.75,3.5,1.5], [3.897,4.294,2.566], [4.366,4.752,1.153]. Bottom rule strip: attention mixes across tokens; residual preserves signal; FFN processes each token; output is the combined block state. Keep station order, object positions, colors, matrix row/column order, numeric values, and reading path identical across languages. Use sparse large localized labels attached to physical objects. Code tokens, Q/K/V, W1, ReLU, W2, matrix numbers, and Python notation may stay in English notation. Avoid fake tiny text, full model stack posters, decorative robots, invented token words, extra numeric tables, old SVG information-box style, local text overlay style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "最小 Transformer Block 输出怎么来",
+                "subtitle": "attention 先混合上下文，残差保留原输入，FFN 再做逐 token 加工。",
+                "items": [
+                    ("输入向量", "三个 token 向量先投影出 Q / K / V。"),
+                    ("causal scores", "j <= i 的位置参与打分，未来位置被 mask。"),
+                    ("attention weights", "每一行说明当前 token 从哪些 token 拿信息。"),
+                    ("mix V", "weights 加权混合 V，得到上下文表示。"),
+                    ("residual + FFN", "原向量先加回去，再经过 W1 -> ReLU -> W2。"),
+                    ("block_output", "最终输出是 attention、残差和 FFN 合并后的状态。"),
+                ],
+                "footer": "读结果时先看行：一行就是一个 token 的一次 block 更新。",
+                "alt": "最小 Transformer block 运行结果图：三个输入向量生成 Q/K/V，causal mask 后得到 attention weights 三行，再混合 V、加残差、经过 W1 ReLU W2，输出三行 block_output 数值。",
+            },
+            "en": {
+                "title": "Where the Minimal Transformer Block Output Comes From",
+                "subtitle": "Attention mixes context, residual keeps the input signal, and FFN processes each token.",
+                "items": [
+                    ("input vectors", "Three token vectors are projected into Q / K / V."),
+                    ("causal scores", "Positions with j <= i are scored; future positions are masked."),
+                    ("attention weights", "Each row says which tokens the current token takes information from."),
+                    ("mix V", "Weights mix V into a context representation."),
+                    ("residual + FFN", "The original vector is added back, then W1 -> ReLU -> W2 runs."),
+                    ("block_output", "The final output combines attention, residual, and FFN processing."),
+                ],
+                "footer": "Read by rows: one row is one token's block update.",
+                "alt": "Minimal Transformer block run result map: three input vectors produce Q/K/V, causal mask produces three attention weight rows, V is mixed, residual is added, W1 ReLU W2 runs, and the final block_output rows are shown.",
+            },
+            "ja": {
+                "title": "最小 Transformer Block の出力はどう生まれるか",
+                "subtitle": "attention が文脈を混ぜ、残差が入力を残し、FFN が token ごとに加工する。",
+                "items": [
+                    ("入力 vector", "3 つの token vector から Q / K / V を作る。"),
+                    ("causal scores", "j <= i の位置だけを score し、未来位置は mask する。"),
+                    ("attention weights", "各行は現在 token がどの token から情報を取るかを表す。"),
+                    ("mix V", "weights で V を重み付き混合し、文脈表現にする。"),
+                    ("residual + FFN", "元の vector を足し戻し、W1 -> ReLU -> W2 を通す。"),
+                    ("block_output", "最終出力は attention、残差、FFN を合わせた状態。"),
+                ],
+                "footer": "行で読む：1 行は 1 つの token の block 更新。",
+                "alt": "最小 Transformer block の実行結果図：3 つの入力 vector から Q/K/V を作り、causal mask 後に attention weights の 3 行を得て、V を混ぜ、残差を足し、W1 ReLU W2 を通して block_output の 3 行を出す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

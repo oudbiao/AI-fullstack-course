@@ -282,6 +282,8 @@ block output:
 [4.366, 4.752, 1.153]
 ```
 
+![Minimal Transformer block run result map](/img/course/ch07-transformer-block-run-result-map-en.webp)
+
 ### When reading this code, focus on four places first
 
 There are only four key parts:
