@@ -64,6 +64,8 @@ Candidate token=university, probability=0.026
 Most likely next token: capital
 ```
 
+![Next-token softmax result map](/img/course/ch07-next-token-softmax-result-map-en.webp)
+
 Real models do this over a very large vocabulary. The principle is the same: output scores, convert to probabilities, choose the next token.
 
 ## Context Window Is a Budget

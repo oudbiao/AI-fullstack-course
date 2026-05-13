@@ -14350,6 +14350,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-next-token-softmax-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        },
+        "scene": "A Chapter 7 next-token prediction run-result teaching image based on the exact runnable softmax code in section 7.2.3 Lab 1. The image must teach how the printed probabilities are produced from logits and why the next token is capital, not draw a generic LLM loop poster. Use only these exact lab facts: context is Beijing is China's; candidate tokens are capital, city, university; logits are 4.0, 2.0, 0.5; stable softmax subtracts the max logit, exponentiates, normalizes, and produces probabilities capital 0.858, city 0.116, university 0.026; np.argmax chooses capital; the printed final line is Most likely next token: capital. The teaching point is that real LLMs repeat the same scoring-to-probability-to-choice mechanism over a huge vocabulary. Do not invent extra tokens, extra probabilities, geographic explanations, token ids, embeddings, attention weights, model names, API vendors, or a full terminal screenshot.",
+        "chapter_context": "The image is inserted after Lab 1 expected output in 7.2.3 Core Concepts of Large Models. Nearby prose says a model repeats context -> logits -> probabilities -> choose next token -> append token -> repeat. This lab makes that loop concrete with three candidate tokens and one softmax calculation.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark next-token scoring workbench across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: a context card shows exactly Beijing is China's and feeds into three candidate token lanes labeled capital, city, university. Middle station: each lane carries its raw logit as a large meter: capital 4.0, city 2.0, university 0.5. Next station: a softmax machine shows three physical steps with minimal labels: subtract max 4.0, exp, normalize. Do not write dense equations; show the transformation as gauges or liquid levels. Lower station: probability bars show exactly capital 0.858, city 0.116, university 0.026, with capital visually dominant. Final station: argmax selector stamps Most likely next token: capital and appends capital to the context. Bottom rule strip: logits are raw scores; softmax turns scores into probabilities; argmax or sampling chooses one token; the loop repeats. Keep station order, object positions, colors, numeric values, output order, and reading path identical across languages. Use sparse large localized labels attached to physical objects. The exact context string, candidate token strings, Python terms, and printed output may stay in English notation. Avoid fake tiny text, invented numeric values, probability pie charts with wrong proportions, dense formulas, decorative robots, city photos, flags, map imagery, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "下一个 token 为什么选 capital",
+                "subtitle": "logits 不是概率；softmax 会把分数压成可比较的概率分布。",
+                "items": [
+                    ("context", "Beijing is China's。"),
+                    ("候选 token", "capital、city、university。"),
+                    ("logits", "原始分数是 4.0、2.0、0.5。"),
+                    ("softmax", "先减最大值，再 exp，再归一化。"),
+                    ("概率", "capital 0.858；city 0.116；university 0.026。"),
+                    ("选择", "np.argmax 选中 capital，并把它接到 context 后面。"),
+                ],
+                "footer": "真实 LLM 只是把这条路径扩展到巨大词表，并一轮一轮重复。",
+                "alt": "Next-token softmax 运行结果图：context 是 Beijing is China's，三个候选 token 的 logits 为 4.0、2.0、0.5，softmax 得到 capital 0.858、city 0.116、university 0.026，argmax 选择 capital。",
+            },
+            "en": {
+                "title": "Why the Next Token Is capital",
+                "subtitle": "Logits are not probabilities; softmax turns raw scores into a comparable distribution.",
+                "items": [
+                    ("context", "Beijing is China's."),
+                    ("candidate tokens", "capital, city, university."),
+                    ("logits", "Raw scores are 4.0, 2.0, and 0.5."),
+                    ("softmax", "Subtract the max, exponentiate, then normalize."),
+                    ("probabilities", "capital 0.858; city 0.116; university 0.026."),
+                    ("choice", "np.argmax selects capital and appends it to the context."),
+                ],
+                "footer": "A real LLM expands this path to a huge vocabulary and repeats it token by token.",
+                "alt": "Next-token softmax result map: context is Beijing is China's, candidate logits are 4.0, 2.0, and 0.5, softmax gives capital 0.858, city 0.116, and university 0.026, so argmax chooses capital.",
+            },
+            "ja": {
+                "title": "次の token が capital になる理由",
+                "subtitle": "logits は probability ではない。softmax が raw scores を比較できる分布に変える。",
+                "items": [
+                    ("context", "Beijing is China's。"),
+                    ("候補 token", "capital、city、university。"),
+                    ("logits", "raw scores は 4.0、2.0、0.5。"),
+                    ("softmax", "max を引き、exp を取り、normalize する。"),
+                    ("probabilities", "capital 0.858；city 0.116；university 0.026。"),
+                    ("選択", "np.argmax が capital を選び、context に追加する。"),
+                ],
+                "footer": "実際の LLM はこの経路を巨大な vocabulary に広げ、token ごとに繰り返す。",
+                "alt": "Next-token softmax の実行結果図：context は Beijing is China's、3 つの候補 token の logits は 4.0、2.0、0.5、softmax で capital 0.858、city 0.116、university 0.026 になり、argmax が capital を選ぶ。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

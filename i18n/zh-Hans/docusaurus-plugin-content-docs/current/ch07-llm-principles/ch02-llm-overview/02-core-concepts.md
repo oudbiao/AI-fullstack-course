@@ -64,6 +64,8 @@ Candidate token=university, probability=0.026
 Most likely next token: capital
 ```
 
+![Next-token softmax 运行结果图](/img/course/ch07-next-token-softmax-result-map.webp)
+
 真实模型会在很大的词表上做这件事。原则一样：输出分数，转成概率，再选择下一个 token。
 
 ## Context Window 是预算

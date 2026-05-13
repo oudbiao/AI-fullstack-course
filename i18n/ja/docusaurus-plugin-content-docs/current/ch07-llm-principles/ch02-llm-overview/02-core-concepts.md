@@ -64,6 +64,8 @@ Candidate token=university, probability=0.026
 Most likely next token: capital
 ```
 
+![Next-token softmax の実行結果図](/img/course/ch07-next-token-softmax-result-map-ja.webp)
+
 実際のモデルは非常に大きな vocabulary 上でこれを行います。原理は同じです。scores を出し、probabilities に変換し、次の token を選びます。
 
 ## Context Window は予算
