@@ -153,7 +153,7 @@ after zero and third backward: 2.0
 - 2 回目の backward 後、`.grad` は `6 + 2 = 8` になる。
 - `zero_()` の後は、次の勾配がきれいな状態から始まる。
 
-![Autograd .grad 累積実験図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.webp)
+![Autograd の勾配累積メカニズム図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.webp)
 
 通常の学習コードで次の順番を使うのはこのためです。
 

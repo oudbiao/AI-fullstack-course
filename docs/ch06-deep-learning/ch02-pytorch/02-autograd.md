@@ -153,7 +153,7 @@ Why:
 - after the second backward, `.grad` becomes `6 + 2 = 8`;
 - after `zero_()`, the next gradient starts cleanly.
 
-![Autograd .grad accumulation lab diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.webp)
+![Autograd gradient accumulation mechanism diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.webp)
 
 In normal training code, this is why each iteration uses:
 

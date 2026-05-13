@@ -153,7 +153,7 @@ after zero and third backward: 2.0
 - 第二次 backward 后，`.grad` 变成 `6 + 2 = 8`；
 - 调用 `zero_()` 后，下一个梯度会从干净状态开始。
 
-![Autograd .grad 累积实验图](/img/course/ch06-autograd-gradient-lifecycle-map.webp)
+![Autograd 梯度累积机制图](/img/course/ch06-autograd-gradient-lifecycle-map.webp)
 
 正常训练代码因此会使用：
 
