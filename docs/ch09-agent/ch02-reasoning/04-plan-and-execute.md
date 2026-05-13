@@ -267,6 +267,8 @@ final report:
 This week, a total of 5 support tickets were handled. The most frequent issue was refund, appearing 3 times. It is recommended to prioritize improving the refund workflow and FAQ copy.
 ```
 
+![Plan-and-Execute support report run result map](/img/course/ch09-plan-execute-support-report-result-map-en.webp)
+
 ### What is the most important value of this code?
 
 It clearly separates two things:

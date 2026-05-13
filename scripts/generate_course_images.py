@@ -15873,6 +15873,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-plan-execute-support-report-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch02-reasoning/04-plan-and-execute.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch02-reasoning/04-plan-and-execute.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch02-reasoning/04-plan-and-execute.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal Plan-and-Execute customer support weekly report example. It must explain the exact printed plan, trace, context handoff, and final report, not a generic planner diagram. Show the user goal, exactly four planned steps in order: load_tickets, count_intents, find_top_intent, draft_report. Show exactly five tickets as input, with intent counts refund=3, password=1, address=1. Show the shared context growing after each step: tickets, intent_counts, top_intent=refund, report. Show the trace ledger with one output per task. Show the final report saying 5 tickets were handled, refund was most frequent, appearing 3 times, and the refund workflow/FAQ should be improved. Teaching point: Plan-and-Execute is not just for step in plan; each step writes a concrete result into context for the next step.",
+        "chapter_context": "The image is inserted immediately after the expected output of the runnable Plan-and-Execute example. Nearby code defines tickets, planner, executor, context, trace, and loops over the plan. The expected output prints plan, trace, and final report. The following prose explains that the code separates planning from execution and that context is the shared state carrying tickets, intent_counts, top_intent, and report.",
+        "shared_layout": "Vertical 9:16. Use the same warm practical Agent trace board style across zh/en/ja: notebook paper, route cards, context drawer, trace ledger, and final report sheet. Top title and subtitle. Upper section: user goal and four numbered plan cards in order. Middle section: executor conveyor that reads five ticket chips and writes context after each step. Use a visible context drawer with four shelves: tickets=5, intent_counts={refund:3,password:1,address:1}, top_intent=refund, report=ready. Lower section: trace ledger with four rows matching the task names and outputs. Bottom section: final report receipt. Keep step order, counts, arrows, object positions, colors, and reading path identical across languages. Use large localized labels. Code tokens that may stay English: planner, executor, context, trace, load_tickets, count_intents, find_top_intent, draft_report, refund, password, address. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense terminal logs, tiny fake text, decorative business dashboards, and extra invented metrics.",
+        "variants": {
+            "zh": {
+                "title": "Plan-and-Execute 周报运行结果",
+                "subtitle": "先拆 4 个步骤，再让 executor 把每步结果写进 context。",
+                "items": [
+                    ("用户目标", "生成本周售后问题周报。"),
+                    ("计划步骤", "load_tickets -> count_intents -> find_top_intent -> draft_report。"),
+                    ("输入工单", "共 5 条：refund 3 条，password 1 条，address 1 条。"),
+                    ("context 交接", "tickets -> intent_counts -> top_intent=refund -> report。"),
+                    ("trace 输出", "每个 task 记录一个真实 output。"),
+                    ("最终报告", "本周 5 条工单；refund 出现 3 次；优先优化退款流程和 FAQ。"),
+                ],
+                "footer": "Plan-and-Execute 的关键是计划、执行、状态交接和最终汇总都能被复查。",
+                "alt": "Plan-and-Execute 周报运行结果图：planner 生成 4 个步骤，executor 依次读取 5 条售后工单并更新 context，trace 记录每步输出，最终报告指出 refund 出现 3 次。",
+            },
+            "en": {
+                "title": "Plan-and-Execute Report Run Result",
+                "subtitle": "Split four steps first, then executor writes each result into context.",
+                "items": [
+                    ("user goal", "Generate this week's customer support report."),
+                    ("plan steps", "load_tickets -> count_intents -> find_top_intent -> draft_report."),
+                    ("input tickets", "5 total: refund 3, password 1, address 1."),
+                    ("context handoff", "tickets -> intent_counts -> top_intent=refund -> report."),
+                    ("trace output", "Each task records one real output."),
+                    ("final report", "5 tickets handled; refund appears 3 times; improve refund workflow and FAQ."),
+                ],
+                "footer": "Plan-and-Execute is useful when plan, execution, state handoff, and final summary are reviewable.",
+                "alt": "Plan-and-Execute support report run result map: planner creates four steps, executor reads five support tickets and updates context, trace records each output, and the final report says refund appears three times.",
+            },
+            "ja": {
+                "title": "Plan-and-Execute 週報の実行結果",
+                "subtitle": "先に 4 手順へ分け、executor が各結果を context に書き込む。",
+                "items": [
+                    ("ユーザー目標", "今週のサポート問題の週報を作る。"),
+                    ("計画手順", "load_tickets -> count_intents -> find_top_intent -> draft_report。"),
+                    ("入力チケット", "合計 5 件：refund 3 件、password 1 件、address 1 件。"),
+                    ("context 引き継ぎ", "tickets -> intent_counts -> top_intent=refund -> report。"),
+                    ("trace 出力", "各 task が実際の output を 1 つずつ記録。"),
+                    ("最終レポート", "5 件対応；refund が 3 回；返金手順と FAQ を優先改善。"),
+                ],
+                "footer": "Plan-and-Execute は、計画、実行、状態引き継ぎ、最終要約を見直せる形にする。",
+                "alt": "Plan-and-Execute 週報の実行結果図：planner が 4 手順を作り、executor が 5 件のサポートチケットを読み込んで context を更新し、trace が各出力を記録し、最終レポートで refund が 3 回と示す。",
+            },
+        },
+    },
+    {
         "slug": "ch09-data-analysis-sales-trace-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch10-projects/02-data-analysis-agent.md",

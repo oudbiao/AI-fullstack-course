@@ -268,6 +268,8 @@ final report:
 今週は合計 5 件のサポートチケットを対応しました。最も多かった問題は refund で、3 回ありました。まずは refund の手順と FAQ 文を改善することをおすすめします。
 ```
 
+![Plan-and-Execute 週報の実行結果図](/img/course/ch09-plan-execute-support-report-result-map-ja.webp)
+
 ### このコードでいちばん大事な点は何か？
 
 次の2つをはっきり分けていることです。

@@ -267,6 +267,8 @@ final report:
 本周共处理 5 条售后工单。最高频问题是 refund，出现 3 次。建议优先优化 refund 流程和 FAQ 文案。
 ```
 
+![Plan-and-Execute 周报运行结果图](/img/course/ch09-plan-execute-support-report-result-map.webp)
+
 ### 这段代码最关键的价值是什么？
 
 它清楚分开了两件事：
