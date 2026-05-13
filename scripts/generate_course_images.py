@@ -14066,6 +14066,55 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-pretrained-shared-foundation-heads-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models.md",
+        },
+        "scene": "A Chapter 7 pretrained language model lab run-result teaching image based on the exact runnable code in section 7.1.4. Show how to read the print output as one shared foundation encoder reused by two task-specific heads. Use only these exact lab facts: encode(text) averages the toy word vectors; intent_head classifies refund order as refund_intent 0.760 and reset password as password_intent 0.654; sentiment_head classifies great refund as positive 0.579 and bad refund as negative 0.536. The teaching point is that the reusable foundation produces the representation, then different heads turn the same representation style into different product decisions. Do not display any vector numeric arrays, equations, weight formulas, hidden-state numbers, or invented scores; represent vectors only as unlabeled glowing bars, dots, or bundled light paths.",
+        "chapter_context": "The image is inserted after the expected output of the Shared Foundation + Two Task Heads lab in 7.1.4. Nearby text says encode() is the shared foundation, intent_head and sentiment_head are task-specific adapters, the foundation is reused while only the final decision layer changes, and real models use learned parameters instead of hand-written vectors. The page also compares prompt improvement, RAG, task heads, LoRA, and full fine-tuning as adaptation paths.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark pretrained-model lab console across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: four short input chips enter one shared encode(text) foundation engine; show a vector glow coming out of the shared engine, with a small note that it averages toy word vectors. The vector glow must be abstract only: bars, dots, or light bundles with no numeric array and no formula. Middle station splits into two large task-head instruments that share the same vector style: intent_head on the left and sentiment_head on the right. intent_head has two result lanes: refund order -> refund_intent 0.760 and reset password -> password_intent 0.654. sentiment_head has two result lanes: great refund -> positive 0.579 and bad refund -> negative 0.536. Lower station shows the engineering choice with three large icon panels only: keep foundation, train or swap small head, evaluate evidence. Do not draw a right-side list of tiny adaptation buttons, because small labels are error-prone. Bottom rule strip: shared foundation -> task head -> evaluated decision. Keep station order, object positions, colors, numeric values, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens and the four probability values may stay in English notation. Avoid fake tiny text, invented labels, invented probabilities, invented vector numbers, equations, formulas, dense tables, pasted sticky notes, decorative robots, misspelled technical words, and old SVG information-box style.",
+        "variants": {
+            "zh": {
+                "title": "共享基础模型 + 两个任务头",
+                "subtitle": "同一个 encode() 表示，被不同 head 读成不同产品决策。",
+                "items": [
+                    ("共享 encode()", "把文本平均成 toy vector，作为可复用基础。"),
+                    ("intent_head", "refund order -> refund_intent 0.760；reset password -> password_intent 0.654。"),
+                    ("sentiment_head", "great refund -> positive 0.579；bad refund -> negative 0.536。"),
+                    ("适配判断", "先保留基础，替换或训练小 head，再用评估决定是否需要 RAG/LoRA/微调。"),
+                ],
+                "footer": "预训练模型的价值：不重新学习语言，而是复用 foundation，再接任务证据。",
+                "alt": "预训练语言模型实验结果图：四个输入先经过共享 encode() 基础表示，再分别进入 intent_head 和 sentiment_head，得到 refund_intent、password_intent、positive、negative 的概率结果，并说明先复用 foundation 再适配任务头。",
+            },
+            "en": {
+                "title": "Shared Foundation + Two Heads",
+                "subtitle": "The same encode() representation is read by different heads for different product decisions.",
+                "items": [
+                    ("shared encode()", "Average text into a toy vector that acts as the reusable foundation."),
+                    ("intent_head", "refund order -> refund_intent 0.760; reset password -> password_intent 0.654."),
+                    ("sentiment_head", "great refund -> positive 0.579; bad refund -> negative 0.536."),
+                    ("adaptation choice", "Keep the foundation, swap or train a small head, then use evaluation to decide on RAG/LoRA/fine-tuning."),
+                ],
+                "footer": "Pretraining value: do not relearn language; reuse the foundation and attach task evidence.",
+                "alt": "Pretrained language model lab result map: four inputs pass through the shared encode() foundation representation, then branch into intent_head and sentiment_head to produce refund_intent, password_intent, positive, and negative probability results.",
+            },
+            "ja": {
+                "title": "共有 foundation + 2 つの head",
+                "subtitle": "同じ encode() 表現を、別々の head が異なる product 判断として読む。",
+                "items": [
+                    ("共有 encode()", "text を toy vector に平均し、再利用できる foundation にする。"),
+                    ("intent_head", "refund order -> refund_intent 0.760；reset password -> password_intent 0.654。"),
+                    ("sentiment_head", "great refund -> positive 0.579；bad refund -> negative 0.536。"),
+                    ("適応の判断", "foundation を保ち、小さな head を替える/訓練する。評価で RAG/LoRA/fine-tuning を判断する。"),
+                ],
+                "footer": "pretraining の価値：言語を学び直さず、foundation を再利用して task の証拠を接続する。",
+                "alt": "事前学習済み言語モデルの実験結果図：4 つの入力が共有 encode() foundation 表現を通り、intent_head と sentiment_head に分岐して refund_intent、password_intent、positive、negative の確率結果を出す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-embedding-cosine-retrieval-context-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",

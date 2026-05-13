@@ -115,6 +115,8 @@ sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 
 sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
 ```
 
+![Shared foundation heads result map](/img/course/ch07-pretrained-shared-foundation-heads-result-map-en.webp)
+
 Read it like this:
 
 - `encode()` is the shared foundation.

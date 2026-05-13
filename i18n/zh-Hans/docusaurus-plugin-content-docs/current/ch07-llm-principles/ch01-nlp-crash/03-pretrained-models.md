@@ -115,6 +115,8 @@ sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 
 sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
 ```
 
+![共享基础模型任务头结果图](/img/course/ch07-pretrained-shared-foundation-heads-result-map.webp)
+
 这样读：
 
 - `encode()` 是共享基础；
