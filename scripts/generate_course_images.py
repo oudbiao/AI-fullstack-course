@@ -18073,6 +18073,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-rag-debug-output-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch01-rag/01-rag-basics.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/01-rag-basics.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch01-rag/01-rag-basics.md",
+        },
+        "scene": "A RAG minimal debug-output worked-result image based only on the debug_rag expected output in section 8.1.1. The image must teach what the learner can inspect before connecting a real LLM: the user query, retrieved document titles and contents, the final context assembled from hits, and the answer instruction that must keep sources. Do not draw a generic RAG architecture, vector-database poster, terminal screenshot, full code block, model vendor, embedding math, invented scores, invented chunk ids, API call, chat UI, or extra retrieval results. Use exactly top_k=2 and show that the first hit is the key refund evidence. For the English variant, the expected output has only one retrieved document: Refund Policy. For the Simplified Chinese variant, the output has two retrieved documents: 退款政策 and 证书说明. For the Japanese variant, the output has two retrieved documents: 返金ポリシー and 学習方法. Keep the visual structure identical across languages by drawing the second slot as an empty/not-used debug slot in English and as an extra context/noise slot in Chinese and Japanese. Teaching point: a RAG project is debuggable only when the retrieval process and final context are visible, not just the final answer.",
+        "chapter_context": "The image is inserted after the expected output of the Minimal RAG Debug Output code. Nearby prose says this function is not final product code; it is a debugging tool. Real projects should keep logs with query, retrieved_chunks, scores, context_length, answer, and source_refs. The nearby checklist emphasizes making each layer visible: prepare materials, retrieve chunks, assemble context, generate answer, and record logs.",
+        "shared_layout": "Vertical 9:16. Use the same warm paper workbook style as other ch08 result images: cream notebook paper, blue dividers, physical query card, two retrieved document trays, a context assembly strip, answer instruction receipt, and a bottom debug-log checklist. Do not use a dark dashboard, neon UI, white rounded-box infographic, pure flowchart, terminal screenshot, or text poster. Top title and subtitle. Upper station shows one query card entering retrieve(query, top_k=2). Middle station shows two retrieved document slots: slot 1 is the refund policy hit and is highlighted green; slot 2 stays gray in English as no second strong hit, while Chinese and Japanese use the same slot for the extra hit. Next station stitches the hit contents into one Final context tape; the refund sentence must be visibly carried forward. Lower station shows the answer instruction receipt with a source badge. Bottom station shows a compact debug log checklist: query, retrieved_chunks, scores, context_length, answer, source_refs. Keep object positions, colors, reading path, slot count, and source badge placement identical across zh/en/ja. Use large localized labels attached to the artifacts; code tokens such as RAG, top_k, context, query, scores, source_refs may stay in English notation. Avoid tiny paragraph text, fake unreadable characters, decorative-only documents, old SVG information-box style, and extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "RAG 调试输出怎么读",
+                "subtitle": "先看系统查到了什么，再看哪些内容被放进 context。",
+                "items": [
+                    ("用户问题", "课程多久内可以退款？"),
+                    ("retrieve(top_k=2)", "打印命中的标题和内容，不只看最终回答。"),
+                    ("命中 1", "退款政策：7 天内且进度低于 20% 可申请退款。"),
+                    ("命中 2", "证书说明：作为额外上下文，也要能被看见。"),
+                    ("最终上下文", "把命中文档内容拼给模型，来源要能追踪。"),
+                    ("调试日志", "至少保留 query、retrieved_chunks、scores、context_length、answer、source_refs。"),
+                ],
+                "footer": "RAG 先要可观察，才谈得上优化。",
+                "alt": "RAG 最小调试输出结果图：用户问题进入 retrieve top_k=2，命中退款政策和证书说明，退款证据被拼入最终 context，日志保留 query、retrieved_chunks、scores、context_length、answer 和 source_refs。",
+            },
+            "en": {
+                "title": "Reading Minimal RAG Debug Output",
+                "subtitle": "Inspect what was retrieved before trusting the final answer.",
+                "items": [
+                    ("user question", "How long after purchase can I get a refund?"),
+                    ("retrieve(top_k=2)", "Print hit titles and content, not only the final answer."),
+                    ("hit 1", "Refund Policy: within 7 days and progress below 20%."),
+                    ("slot 2", "No second strong hit in this run; keep the slot visible."),
+                    ("final context", "Pass the retrieved content to the model with traceable sources."),
+                    ("debug log", "Keep query, retrieved_chunks, scores, context_length, answer, source_refs."),
+                ],
+                "footer": "Make RAG observable before you try to optimize it.",
+                "alt": "Minimal RAG debug output result map: the user question enters retrieve top_k=2, Refund Policy is the key hit, the refund evidence becomes final context, and the debug log keeps query, retrieved_chunks, scores, context_length, answer, and source_refs.",
+            },
+            "ja": {
+                "title": "RAG の最小デバッグ出力を読む",
+                "subtitle": "最終回答の前に、何が検索されたかを確認する。",
+                "items": [
+                    ("ユーザーの質問", "講座は何日以内なら返金できますか？"),
+                    ("retrieve(top_k=2)", "命中したタイトルと内容を出し、最終回答だけにしない。"),
+                    ("命中 1", "返金ポリシー：7 日以内、進捗 20% 未満なら返金申請。"),
+                    ("命中 2", "学習方法：追加文脈として見えるようにする。"),
+                    ("最終コンテキスト", "命中文書の内容を model に渡し、出典を追えるようにする。"),
+                    ("デバッグログ", "query、retrieved_chunks、scores、context_length、answer、source_refs を残す。"),
+                ],
+                "footer": "RAG はまず観察できてから、改善できる。",
+                "alt": "RAG の最小デバッグ出力結果図：ユーザー質問が retrieve top_k=2 に入り、返金ポリシーと学習方法に命中し、返金根拠が最終コンテキストへ入り、query、retrieved_chunks、scores、context_length、answer、source_refs をログに残す。",
+            },
+        },
+    },
+    {
         "slug": "ch08-async-context-gather-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch04-engineering/01-async-programming.md",

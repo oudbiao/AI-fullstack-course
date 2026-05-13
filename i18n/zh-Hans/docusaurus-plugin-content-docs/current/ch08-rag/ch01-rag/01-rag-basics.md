@@ -607,6 +607,8 @@ debug_rag("课程多久内可以退款？")
 回答: 请根据上面的命中文档组织答案，并保留来源。
 ```
 
+![RAG 最小调试输出结果图](/img/course/ch08-rag-debug-output-result-map.webp)
+
 这个函数不是最终产品代码，而是调试工具。真实项目里，你至少应该在日志中保留这些字段：`query`、`retrieved_chunks`、`scores`、`context_length`、`answer`、`source_refs`。
 
 ## 典型失败样本分析

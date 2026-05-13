@@ -610,6 +610,8 @@ debug_rag("講座は何日以内なら返金できますか？")
 回答: 上の命中文書に基づいて答えを組み立て、出典を残してください。
 ```
 
+![RAG 最小デバッグ出力の結果図](/img/course/ch08-rag-debug-output-result-map-ja.webp)
+
 この関数は最終製品のコードではなく、デバッグ用のツールです。実際のプロジェクトでは、少なくともログに次のフィールドを残すべきです：`query`、`retrieved_chunks`、`scores`、`context_length`、`answer`、`source_refs`。
 
 ## 典型的な失敗例の分析

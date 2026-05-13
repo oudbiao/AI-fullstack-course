@@ -604,6 +604,8 @@ Final context: Within 7 days after course purchase, if your learning progress is
 Answer: Please organize your answer based on the retrieved documents above and keep the sources.
 ```
 
+![Minimal RAG debug output result map](/img/course/ch08-rag-debug-output-result-map-en.webp)
+
 This function is not final product code; it is a debugging tool. In a real project, you should at least keep these fields in the logs: `query`, `retrieved_chunks`, `scores`, `context_length`, `answer`, `source_refs`.
 
 ## Typical Failure Sample Analysis
