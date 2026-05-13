@@ -14058,6 +14058,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-prompt-eval-version-result-board",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch05-prompt/05-prompt-evaluation-lab.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/05-prompt-evaluation-lab.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/05-prompt-evaluation-lab.md",
+        },
+        "scene": "A prompt evaluation lab run-result board based on the exact expected output of run_eval(). The image must teach why a prompt that returns a human-readable label can still fail a product evaluation. Show three prompt version cards entering the same evaluation machine. The evaluator requires machine-readable JSON-like data with label and reason fields. v1_goal_only outputs only plain labels positive/negative, so all three cases fail the parseable-output contract. v2_json_format adds the required JSON-like shape and passes all cases. v3_with_examples also passes all cases and is ready for boundary-case expansion. Use only these exact run facts: v1_goal_only pass_rate 0%, failures case_001, case_002, case_003, reason Output is not parseable JSON-like data.; v2_json_format pass_rate 100%, failures []; v3_with_examples pass_rate 100%, failures []. Do not invent model names, API calls, hidden metrics, confusion matrices, extra prompt versions, full code blocks, dense terminal logs, screenshots, or fake sample reviews.",
+        "chapter_context": "The image appears immediately after the expected output of the prompt evaluation lab and before the prose explaining how to read v1, v2, and v3. The page teaches that prompt engineering should be evaluated as an output contract: v1 may classify the sentiment correctly for a human, but the downstream program still fails because it cannot parse label and reason. v2 fixes the format contract, and v3 adds examples for boundary cases.",
+        "shared_layout": "Vertical 9:16. Use the same polished prompt QA lab bench across zh/en/ja. Top title and subtitle. Upper section: three test cases case_001, case_002, case_003 enter an evaluator that checks JSON-like data with two required fields label and reason. Middle section: three large version lanes in order: v1_goal_only, v2_json_format, v3_with_examples. v1 lane is red, shows plain label chips positive and negative, pass_rate 0%, and a failure tray with exactly three case chips case_001, case_002, case_003 plus the exact reason Output is not parseable JSON-like data. v2 lane is green, shows JSON-like output with label and reason, pass_rate 100%, failures []. v3 lane is green, shows example-guided boundary checks, pass_rate 100%, failures []. Bottom section: a small fix ladder from task only -> output contract -> boundary examples. Bottom strip: score tells which version wins; failure notes tell what to fix. Keep lane order, colors, case chips, score positions, fix ladder, and reading path identical across languages. Use large readable labels printed directly on lab instruments and result boards; avoid white rounded-box SVG diagrams, pure text posters, pasted notes, dense tables, or terminal screenshots.",
+        "variants": {
+            "zh": {
+                "title": "Prompt 评测结果要看失败原因",
+                "subtitle": "v1 人能看懂，但程序不能解析；v2 和 v3 才满足输出契约。",
+                "items": [
+                    ("测试用例", "case_001、case_002、case_003 进入同一个评测器。"),
+                    ("评测契约", "输出必须能解析出 label 和 reason。"),
+                    ("v1_goal_only", "pass_rate 0%；3 个格式失败。"),
+                    ("失败原因", "Output is not parseable JSON-like data."),
+                    ("v2_json_format", "pass_rate 100%；failures []。"),
+                    ("v3_with_examples", "pass_rate 100%；可继续补边界样例。"),
+                ],
+                "footer": "分数告诉你哪个版本更好，失败记录告诉你下一步修什么。",
+                "alt": "Prompt 评测版本结果图：v1_goal_only 只有 plain label，三个 case 因不能解析 JSON-like data 全部失败；v2_json_format 和 v3_with_examples 都达到 100% pass_rate。",
+            },
+            "en": {
+                "title": "Read Prompt Eval by Failure Reason",
+                "subtitle": "v1 is readable to people, but v2 and v3 satisfy the output contract.",
+                "items": [
+                    ("test cases", "case_001, case_002, case_003 enter the same evaluator."),
+                    ("eval contract", "Output must expose label and reason."),
+                    ("v1_goal_only", "pass_rate 0%; three format failures."),
+                    ("failure reason", "Output is not parseable JSON-like data."),
+                    ("v2_json_format", "pass_rate 100%; failures []."),
+                    ("v3_with_examples", "pass_rate 100%; ready for boundary cases."),
+                ],
+                "footer": "The score shows which version wins; failure notes show what to fix next.",
+                "alt": "Prompt evaluation version result board: v1_goal_only returns plain labels and all three cases fail because the output is not parseable JSON-like data, while v2_json_format and v3_with_examples reach 100% pass_rate.",
+            },
+            "ja": {
+                "title": "Prompt 評価は失敗理由まで読む",
+                "subtitle": "v1 は人には読めるが、v2 と v3 は出力契約を満たす。",
+                "items": [
+                    ("テストケース", "case_001、case_002、case_003 が同じ evaluator に入る。"),
+                    ("評価契約", "出力から label と reason を読める必要がある。"),
+                    ("v1_goal_only", "pass_rate 0%；形式失敗が 3 件。"),
+                    ("失敗理由", "Output is not parseable JSON-like data."),
+                    ("v2_json_format", "pass_rate 100%；failures []。"),
+                    ("v3_with_examples", "pass_rate 100%；境界例を追加しやすい。"),
+                ],
+                "footer": "score は勝った版を示し、失敗記録は次の修正点を示す。",
+                "alt": "Prompt 評価バージョンの結果図：v1_goal_only は plain label だけを返し、3 ケースすべてが JSON-like data として解析できず失敗する。v2_json_format と v3_with_examples は pass_rate 100% に到達する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-structured-output-contract-validation-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch05-prompt/03-structured-output.md",
@@ -17481,6 +17536,55 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch07-prompt-eval-version-result-board-ja.png": """
+Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
+This is the final AI-generated image. Do not rely on local text overlay, SVG, markdown, or later editing.
+Do not create a white rounded-box flowchart, a pure text poster, a pasted-note collage, or a decorative scene.
+
+Visible title exactly:
+"Prompt 評価は失敗理由まで読む"
+
+Visible subtitle exactly:
+"v1 は人には読めるが、v2 と v3 は出力契約を満たす。"
+
+Use a polished prompt QA lab bench style, like a real evaluator machine with score lights, result trays, and a fix ladder. Match the Simplified Chinese and English variants in layout: top evaluator, three vertical result lanes, and bottom fix ladder.
+
+Required layout and visible labels:
+1. Top section:
+   - heading "テストケース"
+   - case chips exactly "case_001", "case_002", "case_003"
+   - evaluator heading "評価契約"
+   - note "出力から label と reason を読める必要がある。"
+2. Red v1 lane:
+   - version label exactly "v1_goal_only"
+   - score exactly "pass_rate 0%"
+   - note "形式失敗が 3 件。"
+   - output chips "positive" and "negative"
+   - failure tray with exactly "case_001", "case_002", "case_003"
+   - localized reason in large Japanese text: "JSON-like として解析できない。"
+   - if you include the English code phrase, it must be exactly "Output is not parseable JSON-like data." with the r in parseable. Never write "paseable".
+3. Green v2 lane:
+   - version label exactly "v2_json_format"
+   - score exactly "pass_rate 100%"
+   - note "failures []"
+   - show a simple JSON-like output with exact field names "label" and "reason"
+4. Green v3 lane:
+   - version label exactly "v3_with_examples"
+   - score exactly "pass_rate 100%"
+   - note "境界例を追加しやすい。"
+   - show boundary example checks, then "failures []"
+5. Bottom fix ladder:
+   - step 1 "task only"
+   - step 2 "output contract"
+   - step 3 "boundary examples"
+   - footer exactly "score は勝った版を示し、失敗記録は次の修正点を示す。"
+
+Language rules:
+- Explanatory text must be natural Japanese.
+- Allowed technical tokens: Prompt, JSON-like, label, reason, pass_rate, failures, v1_goal_only, v2_json_format, v3_with_examples, case_001, case_002, case_003, positive, negative, task only, output contract, boundary examples.
+- No Chinese text, no fake Japanese, no gibberish, no tiny unreadable table text.
+- Make the teaching point obvious: v1 may look useful to a human but fails because the program cannot parse label and reason; v2/v3 pass because the output contract is satisfied.
+""".strip(),
     "ch07-structured-output-contract-validation-map.png": """
 Create one complete vertical 9:16 Simplified Chinese teaching bitmap for an AI full-stack course.
 This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a decorative poster.

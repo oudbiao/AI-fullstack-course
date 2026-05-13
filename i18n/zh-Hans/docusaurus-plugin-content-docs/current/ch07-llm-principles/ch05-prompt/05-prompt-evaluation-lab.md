@@ -179,6 +179,8 @@ pass_rate: 100%
 failures : []
 ```
 
+![Prompt 评测版本通过率与失败原因结果图](/img/course/ch07-prompt-eval-version-result-board.webp)
+
 ## 怎样读结果
 
 ### v1 可能分类正确，但仍然不满足产品要求

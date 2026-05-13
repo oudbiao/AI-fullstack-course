@@ -179,6 +179,8 @@ pass_rate: 100%
 failures : []
 ```
 
+![Prompt 評価バージョンの合格率と失敗理由の結果図](/img/course/ch07-prompt-eval-version-result-board-ja.webp)
+
 ## 結果の読み方
 
 ### v1 は分類が合っていても、プロダクト要件を満たさないことがある

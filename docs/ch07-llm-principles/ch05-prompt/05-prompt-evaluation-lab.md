@@ -179,6 +179,8 @@ pass_rate: 100%
 failures : []
 ```
 
+![Prompt evaluation version pass rate and failure result board](/img/course/ch07-prompt-eval-version-result-board-en.webp)
+
 ## How to read the result
 
 ### v1 may classify correctly but still fail the product requirement
