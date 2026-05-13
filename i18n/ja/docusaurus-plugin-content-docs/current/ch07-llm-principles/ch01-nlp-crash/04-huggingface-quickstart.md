@@ -143,6 +143,8 @@ torch.Size([2, 6])
 torch.Size([2, 6, 768])
 ```
 
+![Hugging Face shape 出力結果図](/img/course/ch07-huggingface-batch-shape-forward-result-map-ja.webp)
+
 ここでは pretrained weights を持つモデルを使います。流れは同じですが、tokenizer、config、weights は Hub から来ており、互いに一致している必要があります。
 
 ## 実コードを読むためのオブジェクト地図

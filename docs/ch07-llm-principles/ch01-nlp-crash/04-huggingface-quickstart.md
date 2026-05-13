@@ -143,6 +143,8 @@ torch.Size([2, 6])
 torch.Size([2, 6, 768])
 ```
 
+![Hugging Face shape output result map](/img/course/ch07-huggingface-batch-shape-forward-result-map-en.webp)
+
 Now the model has pretrained weights. The workflow is the same, but the tokenizer, config, and weights come from the Hub and must match each other.
 
 ## Object Map for Reading Real Code

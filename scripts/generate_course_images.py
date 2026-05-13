@@ -14066,6 +14066,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-huggingface-batch-shape-forward-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",
+        },
+        "scene": "A Chapter 7 Hugging Face quickstart run-result teaching image based on the exact runnable code in section 7.1.5. The image must teach how to read the printed tensor shapes as the tokenizer-to-model contract, not just display a pretty model diagram. Use only these exact lab facts: the two input texts are exactly please help reset password and refund order; Lab 1 uses a tiny random BertConfig with hidden_size=32 and max_length=6. Its print output is input_ids shape (2, 6), attention_mask shape (2, 6), last_hidden_state shape (2, 6, 32), and pooler_output shape (2, 32). Lab 2 uses bert-base-uncased from_pretrained, batch keys are input_ids, token_type_ids, attention_mask, batch input_ids shape is torch.Size([2, 6]), and last_hidden_state is torch.Size([2, 6, 768]). The teaching point is that the first dimension is batch size, the second is sequence length, and the third is hidden size; the workflow stays the same while the pretrained model changes hidden size and supplies real weights. Do not invent any other input sentence, token string, token id, score, model name, or output value.",
+        "chapter_context": "The image is inserted after Lab 2 expected shape-level output in 7.1.5 Hugging Face Quick Start. Nearby text first explains the core chain text -> tokenizer -> input_ids / attention_mask -> model.forward -> hidden states / logits / generated tokens. Lab 1 runs the workflow without downloaded weights using BertConfig, then Lab 2 repeats the same workflow with AutoTokenizer and AutoModel from a real model repo. The page teaches learners to debug by inspecting batch keys and tensor shapes before blaming the model.",
+        "shared_layout": "Vertical 9:16. Use the same polished Hugging Face tensor inspection bench across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: two text tickets enter tokenizer / encode(); the tickets must show only the exact code inputs please help reset password and refund order, or the neutral labels text 1 and text 2 if space is tight. Do not translate these two code input strings and do not add any other natural-language sample sentence. The tickets become a stacked batch slab labeled input_ids and attention_mask. Draw the slab as a 2 by 6 grid with abstract colored cells only. Critical fidelity rule: do not write token strings inside the grid, do not write integer token IDs, and do not write attention_mask 0/1 values, because a single wrong token or mask teaches the wrong code. The grid should teach only the shape: 2 rows and 6 columns. Add callouts that 2 means two texts and 6 means padded or truncated sequence length. Middle station: Lab 1 random BertConfig model body with a clearly marked hidden_size=32 dial. Show last_hidden_state as a 2 x 6 x 32 tensor block and pooler_output as a 2 x 32 sheet; connect each dimension visually to batch, tokens, and hidden channels. Lower station: Lab 2 pretrained bert-base-uncased model body with matched tokenizer + model repo badges. Show keys input_ids, token_type_ids, attention_mask and the output block torch.Size([2, 6, 768]); make the 768 channel depth visibly deeper than 32. Bottom rule strip: same batch path, matching tokenizer/model, read shapes before debugging. Keep station order, object positions, colors, numeric values, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens, model names, and exact shapes may stay in English notation. Avoid fake tiny text, invented token ids, invented input sentences, invented token labels in grids, invented attention mask values, invented extra shapes, wrong probability values, fake logos, decorative robots, pasted sticky notes, dense tables, local text overlay style, and old SVG information-box style.",
+        "variants": {
+            "zh": {
+                "title": "Hugging Face shape 输出怎么读",
+                "subtitle": "同一条 tokenizer -> batch -> model 路线，先读维度再排查模型。",
+                "items": [
+                    ("两段文本", "batch 维度是 2。"),
+                    ("max_length=6", "每段被 pad 或截断到 6 个 token。"),
+                    ("随机 BERT", "hidden_size=32，所以 last_hidden_state 是 (2, 6, 32)。"),
+                    ("pooler_output", "每段文本一个向量，所以是 (2, 32)。"),
+                    ("预训练 BERT", "bert-base-uncased 输出 torch.Size([2, 6, 768])。"),
+                    ("调试习惯", "先看 batch.keys() 和 shape，再改模型逻辑。"),
+                ],
+                "footer": "shape 是 tokenizer 和 model 的接口契约：batch、seq_len、hidden_size 都要对上。",
+                "alt": "Hugging Face shape 输出结果图：两段文本经过 tokenizer 形成 input_ids 和 attention_mask 的 2 x 6 batch，随机 BERT 因 hidden_size=32 输出 (2,6,32) 和 (2,32)，预训练 bert-base-uncased 输出 [2,6,768]。",
+            },
+            "en": {
+                "title": "Reading Hugging Face Shape Output",
+                "subtitle": "Follow tokenizer -> batch -> model, then debug dimensions before model logic.",
+                "items": [
+                    ("two texts", "The batch dimension is 2."),
+                    ("max_length=6", "Each sequence is padded or truncated to 6 tokens."),
+                    ("random BERT", "hidden_size=32, so last_hidden_state is (2, 6, 32)."),
+                    ("pooler_output", "One vector per text, so the shape is (2, 32)."),
+                    ("pretrained BERT", "bert-base-uncased outputs torch.Size([2, 6, 768])."),
+                    ("debug habit", "Inspect batch.keys() and shapes before changing model logic."),
+                ],
+                "footer": "Shapes are the tokenizer-model contract: batch, seq_len, and hidden_size must line up.",
+                "alt": "Hugging Face shape output result map: two texts become a 2 by 6 input_ids and attention_mask batch, random BERT with hidden_size 32 outputs (2,6,32) and (2,32), and pretrained bert-base-uncased outputs [2,6,768].",
+            },
+            "ja": {
+                "title": "Hugging Face shape 出力の読み方",
+                "subtitle": "tokenizer -> batch -> model を追い、model logic の前に次元を確認する。",
+                "items": [
+                    ("2 文", "batch 次元は 2。"),
+                    ("max_length=6", "各文は 6 token に padding または truncation される。"),
+                    ("ランダム BERT", "hidden_size=32 なので last_hidden_state は (2, 6, 32)。"),
+                    ("pooler_output", "文ごとに 1 vector なので shape は (2, 32)。"),
+                    ("pretrained BERT", "bert-base-uncased は torch.Size([2, 6, 768]) を出す。"),
+                    ("デバッグ習慣", "model logic を変える前に batch.keys() と shape を見る。"),
+                ],
+                "footer": "shape は tokenizer と model の契約です。batch、seq_len、hidden_size をそろえます。",
+                "alt": "Hugging Face shape 出力結果図：2 文が tokenizer で input_ids と attention_mask の 2 x 6 batch になり、hidden_size 32 のランダム BERT は (2,6,32) と (2,32) を出し、pretrained bert-base-uncased は [2,6,768] を出す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-pretrained-shared-foundation-heads-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models.md",

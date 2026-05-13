@@ -143,6 +143,8 @@ torch.Size([2, 6])
 torch.Size([2, 6, 768])
 ```
 
+![Hugging Face shape 输出结果图](/img/course/ch07-huggingface-batch-shape-forward-result-map.webp)
+
 这时模型拥有预训练权重。流程还是同一条，只是 tokenizer、config 和 weights 都来自 Hub，并且必须彼此匹配。
 
 ## 读真实代码时的对象地图
