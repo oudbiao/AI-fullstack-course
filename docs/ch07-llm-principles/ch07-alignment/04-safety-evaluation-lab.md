@@ -176,6 +176,8 @@ pass_rate: 100%
 failures : []
 ```
 
+![Safety evaluation policy version pass rate and failure result board](/img/course/ch07-safety-eval-version-result-board-en.webp)
+
 ## How to read the result
 
 ### Too permissive is not safe

@@ -176,6 +176,8 @@ pass_rate: 100%
 failures : []
 ```
 
+![安全评测策略版本通过率与失败原因结果图](/img/course/ch07-safety-eval-version-result-board.webp)
+
 ## 怎么看结果
 
 ### 太宽松并不安全

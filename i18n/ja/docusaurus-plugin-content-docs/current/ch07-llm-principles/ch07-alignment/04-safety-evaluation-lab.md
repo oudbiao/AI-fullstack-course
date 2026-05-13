@@ -176,6 +176,8 @@ pass_rate: 100%
 failures : []
 ```
 
+![安全評価ポリシーバージョンの合格率と失敗理由の結果図](/img/course/ch07-safety-eval-version-result-board-ja.webp)
+
 ## 結果の読み方
 
 ### 緩すぎるのは安全ではない
