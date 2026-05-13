@@ -18293,6 +18293,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-template-payload-render-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+        },
+        "scene": "A template-document-generation worked-result image based only on the validate_payload and render_markdown_handout expected output in section 8.3.9. The image must teach how a structured template payload becomes a rendered Markdown handout only after required fields pass validation. Do not draw a generic template pipeline, Word UI screenshot, terminal screenshot, full code block, docx icon collage, invented fields, extra sections, AI model, vector database, or decorative documents. Show exactly seven required fields: title, target_audience, teaching_goal, concept_block, example_block, exercise_block, source_block. Show the validator returning exactly (True, 'ok'), then the renderer filling a handout with title, audience, goal, Knowledge Review, Example Explanation, Classroom Practice, and Sources. Teaching point: field validation catches empty documents before export, and rendering is a deterministic step after structure is ready.",
+        "chapter_context": "The image is inserted immediately after the expected output of the Validate Template Fields Before Rendering hands-on example. Nearby code defines REQUIRED_FIELDS, validate_payload, render_markdown_handout, a payload dict, and prints validate_payload(payload) followed by the rendered Markdown handout. The surrounding prose says this simple check is the difference between a demo and an engineering pipeline.",
+        "shared_layout": "Vertical 9:16. Use a warm practical workbook style consistent with ch08 result images: cream notebook paper, blue dividers, a template-payload tray, seven field checkboxes, a validator gate stamp, a renderer press, and a final handout page. Top title and subtitle. Upper section shows payload field cards with the exact seven field names. Middle section shows validate_payload gate stamping True, 'ok' because every required field is present. Lower section shows render_markdown_handout producing a formatted handout page with four visible sections: title/audience/goal header, knowledge review, example explanation, classroom practice, and sources. Bottom rule strip: validate fields before rendering/export. Keep field order, object positions, colors, and reading path identical across zh/en/ja. Use large localized labels. Code/template tokens may stay in English: template payload, validate_payload, render_markdown_handout, REQUIRED_FIELDS, title, target_audience, teaching_goal, concept_block, example_block, exercise_block, source_block, True, ok. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense terminal logs, tiny fake text, and extra English explanatory sentences in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "模板字段校验后的渲染结果",
+                "subtitle": "先确认 7 个必填字段都有值，再生成讲义正文。",
+                "items": [
+                    ("必填字段", "title、target_audience、teaching_goal、concept_block、example_block、exercise_block、source_block。"),
+                    ("校验结果", "validate_payload(payload) -> (True, 'ok')。"),
+                    ("标题区", "折扣应用题讲解；适用对象：小学高年级。"),
+                    ("知识点", "折扣 = 原价 × 折扣率。"),
+                    ("例题和练习", "100 元打 8 折；80 元打 7 折。"),
+                    ("工程含义", "字段缺失时要在渲染前失败。"),
+                ],
+                "footer": "结构字段先合格，模板渲染才可靠。",
+                "alt": "模板字段校验渲染结果图：七个必填字段进入 validate_payload 并返回 True ok，再由 render_markdown_handout 渲染出标题、适用对象、教学目标、知识点、例题、练习和来源。",
+            },
+            "en": {
+                "title": "Rendered Result After Payload Validation",
+                "subtitle": "Confirm seven required fields before generating the handout body.",
+                "items": [
+                    ("required fields", "title, target_audience, teaching_goal, concept_block, example_block, exercise_block, source_block."),
+                    ("validation result", "validate_payload(payload) -> (True, 'ok')."),
+                    ("header", "Discount Word Problem Explanation; audience: Upper elementary school."),
+                    ("knowledge", "Discount = original price x discount rate."),
+                    ("example and practice", "100 yuan with 20% off; 80 yuan with 30% off."),
+                    ("engineering meaning", "Missing fields should fail before rendering."),
+                ],
+                "footer": "Structure passes first; template rendering becomes reliable.",
+                "alt": "Template payload validation render result map: seven required fields enter validate_payload and return True ok, then render_markdown_handout renders the title, audience, goal, knowledge review, example, practice, and sources.",
+            },
+            "ja": {
+                "title": "Payload 検証後の描画結果",
+                "subtitle": "7 つの必須項目を確認してから、教材本文を作る。",
+                "items": [
+                    ("必須項目", "title、target_audience、teaching_goal、concept_block、example_block、exercise_block、source_block。"),
+                    ("検証結果", "validate_payload(payload) -> (True, 'ok')。"),
+                    ("見出し", "割引の文章題の解説；対象者：小学校高学年。"),
+                    ("知識", "割引 = 定価 × 割引率。"),
+                    ("例題と演習", "100 円の 2割引；80 円の 3割引。"),
+                    ("実装上の意味", "項目不足は描画前に失敗させる。"),
+                ],
+                "footer": "構造項目が先に合格してこそ、テンプレート描画は安定する。",
+                "alt": "Template payload 検証後の描画結果図：7 つの必須項目が validate_payload に入り True ok を返し、render_markdown_handout がタイトル、対象者、学習目標、知識確認、例題、演習、参照元を描画する。",
+            },
+        },
+    },
+    {
         "slug": "ch08-async-context-gather-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch04-engineering/01-async-programming.md",

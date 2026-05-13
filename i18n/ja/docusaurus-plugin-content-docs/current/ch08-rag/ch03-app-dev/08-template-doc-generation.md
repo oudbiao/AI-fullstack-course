@@ -133,7 +133,7 @@ print(courseware)
 最小のオブジェクトにさらに2層ほど足すのがおすすめです。
 
 - ページ単位または章単位の順番
-- テンプレート字段へのマッピング
+- テンプレート項目へのマッピング
 
 より安定した課件 schema には、少なくとも次の項目があるとよいです。
 
@@ -141,7 +141,7 @@ print(courseware)
 |---|---|
 | `title` | 文書タイトル |
 | `audience` | 対象者 |
-| `teaching_goal` | 教学目標 |
+| `teaching_goal` | 学習目標 |
 | `sections` | 本文構造 |
 | `source_refs` | 参照元 |
 | `template_version` | どのテンプレートを使うか |
@@ -207,15 +207,15 @@ print(result)
 - テンプレート化の核心はライブラリではない
 - 「先に構造を作り、それをテンプレートに当てる」ことが本質である
 
-## テンプレート字段はどう設計するべきか？
+## テンプレート項目はどう設計するべきか？
 
-この種のシステムを初めて作るときは、テンプレート字段を明示的に書き出すのがおすすめです。
+この種のシステムを初めて作るときは、テンプレート項目を明示的に書き出すのがおすすめです。
 
-| テンプレート字段 | 対応する内容 |
+| テンプレート項目 | 対応する内容 |
 |---|---|
 | `{title}` | 課件タイトル |
 | `{target_audience}` | 対象者 |
-| `{teaching_goal}` | 教学目標 |
+| `{teaching_goal}` | 学習目標 |
 | `{concept_block}` | 知識ポイントの確認 |
 | `{example_block}` | 例題の解説 |
 | `{exercise_block}` | 授業内演習 |
@@ -244,7 +244,7 @@ print(result)
 1. コンテンツの構造
 2. 文書のレイアウト
 
-## 最小の「構造オブジェクト -> テンプレート字段」変換例
+## 最小の「構造オブジェクト -> テンプレート項目」変換例
 
 ```python
 def to_template_payload(courseware):
@@ -276,7 +276,7 @@ print(payload)
 この小さな例で、初心者が特に気をつけたいのは次の点です。
 
 - 構造オブジェクトとテンプレートオブジェクトは同じとは限らない
-- その間に「字段整理」の層があることが多い
+- その間に「項目整理」の層があることが多い
 
 ![構造化課件からテンプレート描画への図](/img/course/ch08-template-schema-to-render-map-ja.webp)
 
@@ -284,9 +284,9 @@ print(payload)
 モデルに直接「Word を書かせる」のではありません。まず courseware schema を出力し、次に template payload に整理し、最後に docx/pptx の描画層へ渡します。こうすると、形式エラーと内容エラーを切り分けて調べやすくなります。
 :::
 
-## 実践：描画前にテンプレート字段を検証する
+## 実践：描画前にテンプレート項目を検証する
 
-データを `python-docx`、`docxtpl`、`python-pptx` に渡す前に、template payload に必須字段がそろっているか確認します。そうすれば、出力後に Word 文書の半分が空だったと気づく事態を避けやすくなります。
+データを `python-docx`、`docxtpl`、`python-pptx` に渡す前に、template payload に必須項目がそろっているか確認します。そうすれば、出力後に Word 文書の半分が空だったと気づく事態を避けやすくなります。
 
 ```python
 REQUIRED_FIELDS = [
@@ -303,7 +303,7 @@ REQUIRED_FIELDS = [
 def validate_payload(payload):
     missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
     if missing:
-        return False, f"不足字段：{missing}"
+        return False, f"不足項目：{missing}"
     return True, "ok"
 
 
@@ -315,7 +315,7 @@ def render_markdown_handout(payload):
     return f"""# {payload['title']}
 
 対象者：{payload['target_audience']}
-教学目標：{payload['teaching_goal']}
+学習目標：{payload['teaching_goal']}
 
 ## 知識ポイントの確認
 {payload['concept_block']}
@@ -352,7 +352,7 @@ print(render_markdown_handout(payload))
 # 割引の文章題の解説
 
 対象者：小学校高学年
-教学目標：割引の基本計算方法を理解する
+学習目標：割引の基本計算方法を理解する
 
 ## 知識ポイントの確認
 - 割引 = 定価 × 割引率
@@ -368,9 +368,11 @@ print(render_markdown_handout(payload))
 
 ```
 
-この検証は小さいですが、demo と実装パイプラインの差を表します。描画処理は、必須の構造化字段が足りないときに早い段階で失敗するべきです。
+![Template payload 検証後の描画結果図](/img/course/ch08-template-payload-render-result-map-ja.webp)
 
-## なぜこの層は Prompt / 结构化出力と強く関係するのか？
+この検証は小さいですが、demo と実装パイプラインの差を表します。描画処理は、必須の構造化項目が足りないときに早い段階で失敗するべきです。
+
+## なぜこの層は Prompt / 構造化出力と強く関係するのか？
 
 通常はモデルにまず次のようなものを出力させます。
 
@@ -397,7 +399,7 @@ print(render_markdown_handout(payload))
 こうすると、次のことを先に証明しやすくなります。
 
 - 構造オブジェクトが安定している
-- テンプレート字段が安定している
+- テンプレート項目が安定している
 - 出力パイプラインが安定している
 
 ## 初心者がそのまま真似できる生成順序
@@ -445,8 +447,8 @@ print(render_markdown_handout(payload))
 
 ## まとめ
 
-- テンプレート化文書生成で最も重要なのは、まず安定した schema を定義し、その次にテンプレート字段を定義すること
-- 「構造オブジェクト -> 字段整理 -> テンプレート描画」の3層を分けると、システムはかなり安定する
+- テンプレート化文書生成で最も重要なのは、まず安定した schema を定義し、その次にテンプレート項目を定義すること
+- 「構造オブジェクト -> 項目整理 -> テンプレート描画」の3層を分けると、システムはかなり安定する
 - 初めて作るときは、Word の単一テンプレート出力をまず通すほうが、Word と PPT を同時に作るより安定しやすい
 
 ## この節でいちばん持ち帰ってほしいこと

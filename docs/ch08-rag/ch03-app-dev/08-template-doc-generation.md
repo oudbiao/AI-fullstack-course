@@ -366,6 +366,8 @@ Source: internal knowledge base + external supplemental materials
 
 ```
 
+![Template payload validation render result map](/img/course/ch08-template-payload-render-result-map-en.webp)
+
 This check is simple, but it is the difference between a demo and an engineering pipeline: every rendering step should fail early when required structured fields are missing.
 
 ## Why Is This Layer Closely Related to Prompt / Structured Output?
