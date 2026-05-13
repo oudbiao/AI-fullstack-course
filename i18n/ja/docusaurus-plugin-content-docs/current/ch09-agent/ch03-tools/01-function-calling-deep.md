@@ -333,6 +333,8 @@ for q in queries:
 --------------------------------------------------
 ```
 
+![Function Calling 閉ループの実行結果図](/img/course/ch09-function-calling-closed-loop-result-map-ja.webp)
+
 この例は、単に `tool_call` を表示するだけのものより、実際のシステムにかなり近いです。
 
 ---

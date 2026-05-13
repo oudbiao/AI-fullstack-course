@@ -333,6 +333,8 @@ for q in queries:
 --------------------------------------------------
 ```
 
+![Function Calling 闭环运行结果图](/img/course/ch09-function-calling-closed-loop-result-map.webp)
+
 这个示例已经比“单纯打印 tool_call”更接近真实系统。
 
 ---

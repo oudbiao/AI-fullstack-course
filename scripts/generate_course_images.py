@@ -14327,6 +14327,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-function-calling-closed-loop-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch03-tools/01-function-calling-deep.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/01-function-calling-deep.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/01-function-calling-deep.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal Function Calling closed-loop example in Chapter 9. It must explain the exact expected print output as a working tool-call pipeline, not as a generic tool diagram. Show exactly three independent lanes: refund lane, certificate lane, calculate lane. Each lane has one user question, one model output dictionary, one validation gate, and one result. Never merge certificate with calculate. Never put 60 in the certificate lane. Never put certificate text in the calculate lane. Use only these exact tools: search_course_policy and calculate. The first two lanes must route to search_course_policy; the third lane must route to calculate and output 60. The validator must show True ok for all three lanes. Do not draw a terminal screenshot, full code block, generic chatbot, generic agent poster, fake API provider, HTTP panel, old SVG rounded-box flowchart, dense table, pasted stickers, random file names, fake trace ids, fake timestamps, invented tools, invented results, invented policy wording, or tiny decorative text.",
+        "chapter_context": "The image appears immediately after the expected output of the complete closed-loop Function Calling example. Nearby code defines search_course_policy, calculate, validate_tool_call, dispatch, and mock_model. The printed output shows three user questions, each model output dictionary, validation result True ok, and tool execution result. The next paragraph says this is closer to a real system than simply printing tool_call. The visual must help a learner understand that a printed dictionary becomes an executable, validated call envelope.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark practical engineering workbench across zh/en/ja. Make the layout look like one physical learning board with three aligned lanes, not separate pasted cards. Top title and subtitle. Then four stations connected left-to-right in each lane: 1 user question, 2 mock_model call envelope, 3 validate_tool_call gate, 4 dispatch result receipt. Keep the three lanes aligned and in this exact order with these exact lane names: refund, certificate, calculate. Lane 1 refund: one refund question -> exact dictionary fields name=search_course_policy and keyword=refund/退款/返金 -> True ok -> refund result only. Lane 2 certificate: one certificate question -> exact dictionary fields name=search_course_policy and keyword=certificate/证书/証明書 -> True ok -> certificate result only. Lane 3 calculate: one calculate question -> exact dictionary fields name=calculate and expression='12 * (3 + 2)' -> True ok -> result 60 only. Critical locale keyword rule: the English image must show keyword=refund and keyword=certificate; the Simplified Chinese image must show keyword=退款 and keyword=证书; the Japanese image must show keyword=返金 and keyword=証明書. Never write keyword=refund or keyword=certificate in the Japanese image, and never write keyword=返金 or keyword=証明書 in the English image. Accuracy guards: certificate lane must not mention math, calculate, or 60; calculate lane must not mention certificate; the left question card in each lane must contain only that lane's one question, not all three questions. Use engraved console labels, tool sockets, bright validation gate, and result receipts that are part of the same workbench; avoid pasted sticky notes, paper scraps, white rounded boxes, UI cards, decorative signboards, and collage style. Keep lane order, object positions, colors, and reading path identical across languages. Locale rule: English explanatory labels use natural English only; Simplified Chinese explanatory labels use natural Chinese except code/tool tokens; Japanese explanatory labels use natural Japanese except code/tool tokens. Code/tool tokens that must stay exact: mock_model, validate_tool_call, dispatch, search_course_policy, calculate, name, arguments, keyword, expression, True ok. If dictionary text becomes too long, show it as a large simplified envelope with these exact fields only; never invent extra keys.",
+        "variants": {
+            "zh": {
+                "title": "Function Calling 闭环运行结果怎么看",
+                "subtitle": "把 print 输出读成：用户问题、模型调用、schema 校验、工具执行。",
+                "items": [
+                    ("退款 lane", "问题：退款政策是什么？ -> keyword=退款 -> True ok。"),
+                    ("退款结果", "课程购买后 7 天内且学习进度低于 20% 可申请退款。"),
+                    ("证书 lane", "问题：证书怎么拿？ -> keyword=证书 -> True ok。"),
+                    ("证书结果", "完成所有必修项目并通过结课测试后可获得证书。"),
+                    ("计算 lane", "问题：计算 12 * (3 + 2) -> expression -> True ok。"),
+                    ("计算结果", "dispatch 调用 calculate，结果只显示 60。"),
+                ],
+                "footer": "Function Calling 的关键是受控调用闭环，而不是把字典打印出来。",
+                "alt": "Function Calling 闭环运行结果图：三条用户问题先由 mock_model 变成 name 和 arguments，再经过 validate_tool_call 校验，dispatch 调用 search_course_policy 或 calculate，最终得到退款政策、证书政策和 60。",
+            },
+            "en": {
+                "title": "Reading a Function Calling Closed Loop",
+                "subtitle": "Turn print output into query, model call, schema check, and tool result.",
+                "items": [
+                    ("refund lane", "Question: What is the refund policy? -> keyword=refund -> True ok."),
+                    ("refund result", "Refund within 7 days after purchase if progress is below 20%."),
+                    ("certificate lane", "Question: How do I get a certificate? -> keyword=certificate -> True ok."),
+                    ("certificate result", "Certificate after all required items and the final assessment."),
+                    ("calculate lane", "Question: calculate 12 * (3 + 2) -> expression -> True ok."),
+                    ("math result", "dispatch calls calculate; result shows only 60."),
+                ],
+                "footer": "Function Calling matters because the call loop is controlled, not because a dict is printed.",
+                "alt": "Function Calling closed-loop result map: three user queries become name and arguments through mock_model, pass validate_tool_call, dispatch calls search_course_policy or calculate, and returns refund policy, certificate policy, and 60.",
+            },
+            "ja": {
+                "title": "Function Calling 閉ループの実行結果を読む",
+                "subtitle": "print 出力を、質問、モデル呼び出し、schema 検証、tool 結果として読む。",
+                "items": [
+                    ("返金 lane", "質問：返金ポリシーは何ですか？ -> keyword=返金 -> True ok。"),
+                    ("返金結果", "コース購入後 7 日以内で、進捗が 20% 未満なら返金申請が可能。"),
+                    ("証明書 lane", "質問：証明書はどうやってもらえますか？ -> keyword=証明書 -> True ok。"),
+                    ("証明書結果", "必修項目を完了し、修了テストに合格すると証明書を取得。"),
+                    ("計算 lane", "質問：計算 12 * (3 + 2) -> expression -> True ok。"),
+                    ("計算結果", "dispatch が calculate を呼び、結果は 60 だけ。"),
+                ],
+                "footer": "Function Calling の要点は、辞書表示ではなく制御された呼び出し閉ループ。",
+                "alt": "Function Calling 閉ループの実行結果図：3つの質問が mock_model で name と arguments になり、validate_tool_call を通過し、dispatch が search_course_policy または calculate を呼び、返金ポリシー、証明書ポリシー、60 を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch09-react-refund-tool-trace-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch02-reasoning/03-react.md",

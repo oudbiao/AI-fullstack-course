@@ -333,6 +333,8 @@ Tool execution result: 60
 --------------------------------------------------
 ```
 
+![Function Calling closed-loop run result map](/img/course/ch09-function-calling-closed-loop-result-map-en.webp)
+
 This example is already much closer to a real system than simply printing `tool_call`.
 
 ---
