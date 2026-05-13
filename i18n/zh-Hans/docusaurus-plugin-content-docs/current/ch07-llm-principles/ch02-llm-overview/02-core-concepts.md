@@ -124,6 +124,8 @@ temperature=2.0
   Guangzhou: 0.1629
 ```
 
+![Temperature 采样运行结果图](/img/course/ch07-temperature-sampling-result-map.webp)
+
 这样理解：
 
 - temperature 越低，最高分选项越占优势；

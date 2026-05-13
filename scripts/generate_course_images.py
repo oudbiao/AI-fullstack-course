@@ -14405,6 +14405,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-temperature-sampling-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        },
+        "scene": "A Chapter 7 temperature sampling run-result teaching image based on the exact runnable softmax_with_temperature code in section 7.2.3 Lab 2. The image must teach how temperature changes the probability distribution shape, not draw a generic creativity poster. Use only these exact lab facts: tokens are Beijing, Shanghai, Guangzhou; logits are 3.0, 1.5, 0.5; the function computes scaled = logits / temperature, then softmax. For temperature 0.5, probabilities are Beijing 0.9465, Shanghai 0.0471, Guangzhou 0.0064. For temperature 1.0, probabilities are Beijing 0.7662, Shanghai 0.1710, Guangzhou 0.0629. For temperature 2.0, probabilities are Beijing 0.5685, Shanghai 0.2686, Guangzhou 0.1629. The teaching point is lower temperature sharpens the distribution, higher temperature flattens it, and higher temperature means more diverse rather than smarter or more factual. Do not invent extra tokens, sampling results, random draws, city facts, token ids, model names, API settings, or other probability values.",
+        "chapter_context": "The image is inserted after Lab 2 expected output in 7.2.3 Core Concepts of Large Models. Nearby prose says lower temperature makes the top choice dominate, higher temperature makes lower-ranked tokens more likely, and higher temperature does not mean smarter, only more diverse. The page recommends lower values for factual support and code fixes, and higher values for brainstorming or alternatives.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark sampling-control workbench across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: one shared logits rack shows Beijing=3.0, Shanghai=1.5, Guangzhou=0.5 feeding into three temperature dials labeled 0.5, 1.0, 2.0. Middle station: three parallel softmax chambers show the scaled-score effect: low temperature stretches gaps, normal temperature keeps them, high temperature compresses gaps. Use simple bars or sliders, not dense equations. Lower station: three probability panels with identical token order and exact numbers. Panel T=0.5: Beijing 0.9465, Shanghai 0.0471, Guangzhou 0.0064, with Beijing almost filling the bar. Panel T=1.0: Beijing 0.7662, Shanghai 0.1710, Guangzhou 0.0629. Panel T=2.0: Beijing 0.5685, Shanghai 0.2686, Guangzhou 0.1629, with a visibly flatter distribution. Bottom station: practical setting badges: factual/extraction/code fix -> lower; brainstorming/naming/alternatives -> higher; diversity is not truth. Keep station order, object positions, colors, numeric values, token order, and reading path identical across languages. Use sparse large localized labels attached to physical objects. Code tokens, city token strings, and exact probability numbers may stay in English notation. Avoid fake tiny text, invented percentages, invented sampled winners, city photos, flags, maps, dice-only gambling metaphors, dense equations, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "Temperature 怎样改变采样",
+                "subtitle": "同一组 logits，除以不同 temperature，会得到不同形状的概率分布。",
+                "items": [
+                    ("同一组 logits", "Beijing=3.0，Shanghai=1.5，Guangzhou=0.5。"),
+                    ("temperature=0.5", "分布变尖：Beijing 0.9465，几乎垄断。"),
+                    ("temperature=1.0", "保持常规 softmax：Beijing 0.7662。"),
+                    ("temperature=2.0", "分布变平：Shanghai 和 Guangzhou 的机会变大。"),
+                    ("实操判断", "事实、抽取、代码修复先低温；头脑风暴和多方案可稍高。"),
+                    ("常见误解", "temperature 高不是更聪明，只是更多样。"),
+                ],
+                "footer": "temperature 调的是选择空间的形状，不是答案真实性。",
+                "alt": "Temperature 采样运行结果图：同一组 logits 3.0、1.5、0.5 在 temperature 0.5、1.0、2.0 下分别得到尖锐、正常、更平的概率分布，说明低温更稳定，高温更多样但不等于更真实。",
+            },
+            "en": {
+                "title": "How Temperature Changes Sampling",
+                "subtitle": "The same logits divided by different temperatures create different probability shapes.",
+                "items": [
+                    ("same logits", "Beijing=3.0, Shanghai=1.5, Guangzhou=0.5."),
+                    ("temperature=0.5", "Sharper distribution: Beijing 0.9465 almost dominates."),
+                    ("temperature=1.0", "Normal softmax: Beijing 0.7662."),
+                    ("temperature=2.0", "Flatter distribution: Shanghai and Guangzhou become more likely."),
+                    ("practical choice", "Use lower values for facts, extraction, and code fixes; slightly higher for brainstorming."),
+                    ("common trap", "Higher temperature is more diverse, not smarter."),
+                ],
+                "footer": "Temperature changes the shape of the choice space, not the truth of the answer.",
+                "alt": "Temperature sampling result map: the same logits 3.0, 1.5, and 0.5 produce sharper, normal, and flatter probability distributions at temperatures 0.5, 1.0, and 2.0, showing lower temperature is steadier while higher temperature is more diverse.",
+            },
+            "ja": {
+                "title": "Temperature が sampling をどう変えるか",
+                "subtitle": "同じ logits でも、temperature で割ると probability の形が変わる。",
+                "items": [
+                    ("同じ logits", "Beijing=3.0、Shanghai=1.5、Guangzhou=0.5。"),
+                    ("temperature=0.5", "鋭い分布：Beijing 0.9465 がほぼ支配する。"),
+                    ("temperature=1.0", "通常の softmax：Beijing 0.7662。"),
+                    ("temperature=2.0", "平らな分布：Shanghai と Guangzhou も選ばれやすい。"),
+                    ("実務判断", "事実、抽出、code fix は低め。brainstorm は少し高めも使う。"),
+                    ("よくある誤解", "高い temperature は多様という意味で、賢いという意味ではない。"),
+                ],
+                "footer": "temperature が変えるのは選択空間の形であり、答えの真実性ではない。",
+                "alt": "Temperature sampling の実行結果図：同じ logits 3.0、1.5、0.5 が temperature 0.5、1.0、2.0 で鋭い、通常、平らな probability distribution になり、低温は安定、高温は多様だが真実性ではないことを示す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

@@ -124,6 +124,8 @@ temperature=2.0
   Guangzhou: 0.1629
 ```
 
+![Temperature sampling result map](/img/course/ch07-temperature-sampling-result-map-en.webp)
+
 Interpretation:
 
 - lower temperature makes the top choice dominate;

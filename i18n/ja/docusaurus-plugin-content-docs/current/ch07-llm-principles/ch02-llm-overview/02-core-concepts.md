@@ -124,6 +124,8 @@ temperature=2.0
   Guangzhou: 0.1629
 ```
 
+![Temperature sampling の実行結果図](/img/course/ch07-temperature-sampling-result-map-ja.webp)
+
 読み方：
 
 - temperature が低いほど top choice が支配的になる。
