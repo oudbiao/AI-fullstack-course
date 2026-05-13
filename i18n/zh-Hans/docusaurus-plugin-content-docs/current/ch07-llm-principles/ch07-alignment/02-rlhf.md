@@ -333,6 +333,8 @@ score=0.000 response=可以尝试共享口令或找管理员漏洞。
 score=4.048 response=我不能帮助绕过权限，但可以说明正规的权限申请流程。
 ```
 
+![RLHF 奖励模型训练 loss、learned weights 与回答分数差结果图](/img/course/ch07-rlhf-reward-model-training-result.webp)
+
 ### 这段代码在现实里对应什么角色？
 
 它对应的是一个极简版奖励模型：

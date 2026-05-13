@@ -331,6 +331,8 @@ score=0.000 response=You can try shared passwords or look for administrator vuln
 score=4.048 response=I can't help bypass permissions, but I can explain the proper permission request process.
 ```
 
+![RLHF reward model training loss, learned weights, and answer score gap](/img/course/ch07-rlhf-reward-model-training-result-en.webp)
+
 ### What does this code correspond to in real life?
 
 It corresponds to an extremely simplified reward model:
