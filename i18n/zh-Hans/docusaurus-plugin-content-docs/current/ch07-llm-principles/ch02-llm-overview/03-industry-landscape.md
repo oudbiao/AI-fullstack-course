@@ -243,6 +243,8 @@ open_source_70b -> 7.0
 cloud_api_model -> 6.8
 ```
 
+![模型选型评分运行结果图](/img/course/ch07-model-selection-score-result-map.webp)
+
 你可以把 `weights` 改掉，模拟不同公司的不同偏好。
 
 ---

@@ -14515,6 +14515,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-model-selection-score-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch02-llm-overview/03-industry-landscape.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/03-industry-landscape.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/03-industry-landscape.md",
+        },
+        "scene": "A Chapter 7 model-selection scoring run-result teaching image based on the exact runnable weighted-score code in section 7.2.4. The image must teach how the printed ranking comes from multiplying model criteria by requirement weights, not draw a generic AI industry poster. Use only these exact model rows and values: cloud_api_model quality 9, cost 4, latency 8, control 4; open_source_8b quality 6, cost 9, latency 7, control 9; open_source_70b quality 8, cost 5, latency 5, control 9. Use only these exact weights: quality 0.4, cost 0.2, latency 0.2, control 0.2. The exact weighted scores are open_source_8b 7.4, open_source_70b 7.0, cloud_api_model 6.8, sorted descending. The teaching point is do not ask which model is strongest first; choose based on the product requirement weights, and changing weights can change the winner. Do not invent real vendor names, benchmark claims, model release dates, prices, token costs, extra dimensions, or different scores.",
+        "chapter_context": "The image is inserted after the expected output of the small scoring script in 7.2.4 Industry Landscape. Nearby prose says the example is not choosing a real latest model; it practices scoring based on requirements. The page explains common selection dimensions such as quality, cost, latency, controllability, multimodal needs, and tool capability.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark model-selection decision table across zh/en/ja, not a white rounded-box infographic, not a pure spreadsheet screenshot, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: a requirement weight console with four sliders: quality 0.4, cost 0.2, latency 0.2, control 0.2. Middle station: three model score cards in rows with four colored criterion gauges each. Row 1 cloud_api_model: 9,4,8,4. Row 2 open_source_8b: 6,9,7,9. Row 3 open_source_70b: 8,5,5,9. Next station: weighted-sum calculation ribbons show each row's core arithmetic compactly: cloud_api_model 3.6+0.8+1.6+0.8=6.8; open_source_8b 2.4+1.8+1.4+1.8=7.4; open_source_70b 3.2+1.0+1.0+1.8=7.0. Lower station: sorted podium output shows exactly open_source_8b -> 7.4, open_source_70b -> 7.0, cloud_api_model -> 6.8. Highlight open_source_8b winning because high cost score and control score matter under these weights, not because it is universally best. Bottom rule strip: requirements choose weights, weights choose ranking, change weights to test another company. Keep station order, object positions, colors, numeric values, model names, criterion order, and output order identical across languages. Use sparse large localized labels attached to visual objects. Code keys, model names, and exact output lines may stay in English notation. Avoid fake tiny text, invented model names, real company logos, price charts, benchmark claims, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "模型选型分数怎么排出来",
+                "subtitle": "先把产品需求变成权重，再用同一把尺子给候选模型打分。",
+                "items": [
+                    ("需求权重", "quality 0.4；cost 0.2；latency 0.2；control 0.2。"),
+                    ("cloud_api_model", "9*0.4 + 4*0.2 + 8*0.2 + 4*0.2 = 6.8。"),
+                    ("open_source_8b", "6*0.4 + 9*0.2 + 7*0.2 + 9*0.2 = 7.4。"),
+                    ("open_source_70b", "8*0.4 + 5*0.2 + 5*0.2 + 9*0.2 = 7.0。"),
+                    ("排序输出", "open_source_8b -> 7.4；open_source_70b -> 7.0；cloud_api_model -> 6.8。"),
+                    ("选型原则", "赢家来自当前权重，不是永远最强。"),
+                ],
+                "footer": "先问“我需要什么”，再看“哪个模型在这些权重下更合适”。",
+                "alt": "模型选型评分运行结果图：quality、cost、latency、control 四个权重分别为 0.4、0.2、0.2、0.2，三个模型按加权和得到 open_source_8b 7.4、open_source_70b 7.0、cloud_api_model 6.8，并说明权重变化会改变排名。",
+            },
+            "en": {
+                "title": "How the Model Ranking Is Scored",
+                "subtitle": "Turn product requirements into weights, then score every candidate with the same ruler.",
+                "items": [
+                    ("requirement weights", "quality 0.4; cost 0.2; latency 0.2; control 0.2."),
+                    ("cloud_api_model", "9*0.4 + 4*0.2 + 8*0.2 + 4*0.2 = 6.8."),
+                    ("open_source_8b", "6*0.4 + 9*0.2 + 7*0.2 + 9*0.2 = 7.4."),
+                    ("open_source_70b", "8*0.4 + 5*0.2 + 5*0.2 + 9*0.2 = 7.0."),
+                    ("sorted output", "open_source_8b -> 7.4; open_source_70b -> 7.0; cloud_api_model -> 6.8."),
+                    ("selection rule", "The winner fits the current weights; it is not universally strongest."),
+                ],
+                "footer": "Ask what you need first, then ask which model fits those weighted needs.",
+                "alt": "Model-selection scoring result map: quality, cost, latency, and control weights are 0.4, 0.2, 0.2, and 0.2, producing weighted scores open_source_8b 7.4, open_source_70b 7.0, and cloud_api_model 6.8, with ranking driven by weights.",
+            },
+            "ja": {
+                "title": "モデル選定スコアの並び方",
+                "subtitle": "product requirement を weight にし、同じ基準で候補 model を採点する。",
+                "items": [
+                    ("要件 weight", "quality 0.4；cost 0.2；latency 0.2；control 0.2。"),
+                    ("cloud_api_model", "9*0.4 + 4*0.2 + 8*0.2 + 4*0.2 = 6.8。"),
+                    ("open_source_8b", "6*0.4 + 9*0.2 + 7*0.2 + 9*0.2 = 7.4。"),
+                    ("open_source_70b", "8*0.4 + 5*0.2 + 5*0.2 + 9*0.2 = 7.0。"),
+                    ("sorted output", "open_source_8b -> 7.4；open_source_70b -> 7.0；cloud_api_model -> 6.8。"),
+                    ("選定ルール", "勝者は現在の weight に合う model。常に最強という意味ではない。"),
+                ],
+                "footer": "先に「何が必要か」を決め、その weight に合う model を選ぶ。",
+                "alt": "モデル選定スコアの実行結果図：quality、cost、latency、control の weight は 0.4、0.2、0.2、0.2 で、weighted score は open_source_8b 7.4、open_source_70b 7.0、cloud_api_model 6.8 になり、ランキングは weight に依存する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

@@ -243,6 +243,8 @@ open_source_70b -> 7.0
 cloud_api_model -> 6.8
 ```
 
+![モデル選定スコアの実行結果図](/img/course/ch07-model-selection-score-result-map-ja.webp)
+
 `weights` を変えることで、会社ごとの重視点の違いを再現できます。
 
 ---

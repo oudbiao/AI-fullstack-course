@@ -243,6 +243,8 @@ open_source_70b -> 7.0
 cloud_api_model -> 6.8
 ```
 
+![Model-selection scoring result map](/img/course/ch07-model-selection-score-result-map-en.webp)
+
 You can change `weights` to simulate different preferences in different companies.
 
 ---
