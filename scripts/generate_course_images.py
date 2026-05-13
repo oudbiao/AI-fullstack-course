@@ -14735,6 +14735,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-local-attention-window-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        },
+        "scene": "A Chapter 7 efficient attention run-result teaching image based on the exact runnable Python code in section 7.3.5. The image must teach why global attention has more pairs, why local attention reduces pairs, and why outputs change. Use only these exact lab facts: values=[0.2,0.1,0.0,0.8,0.9,0.7,0.1,0.0]. There are 8 token positions 0 through 7. Global attention uses window=None, so every token sees all 8 positions and prints full pairs: 64. Local attention uses window=2, so each token sees only positions from i-2 to i+2 clipped at boundaries and prints local pairs: 34. For token 4, full neighbors are exactly [0,1,2,3,4,5,6,7], local neighbors are exactly [2,3,4,5,6]. The printed full outputs are exactly [0.376,0.363,0.35,0.457,0.47,0.443,0.363,0.35]. The printed local outputs are exactly [0.101,0.285,0.4,0.604,0.615,0.592,0.44,0.267]. The teaching point is: limiting visibility reduces pair count but changes the weighted average because far-away values are no longer available. Do not invent extra tokens, different values, attention weights, model layers, GPU charts, speedup percentages, or different output numbers.",
+        "chapter_context": "The image is inserted after the expected output of the global versus local attention example in 7.3.5 Efficient Attention Mechanisms. Nearby prose says efficient attention is not free speedup: it trades efficiency against visibility range. The page later discusses KV cache, MQA/GQA, and FlashAttention, so this image should focus only on the runnable local-window experiment.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark attention laboratory across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Use four large numbered stations with phone-readable labels. Station 1: an 8-position value rail with bars or beads labeled 0..7 and values 0.2,0.1,0.0,0.8,0.9,0.7,0.1,0.0. Station 2: split-screen visibility comparison. Global side shows token 4 connected to all positions 0..7 and a full 8 by 8 pair grid summarized as full pairs=64. Local side shows token 4 connected only to positions 2..6 with a highlighted window radius 2 and a clipped-window pair counter summarized as local pairs=34. Station 3: output comparison strip with two aligned curves or bars for the exact full outputs and local outputs; highlight token 4 changing from 0.47 to 0.615. Station 4: trade-off balance: fewer pairs means less computation, but narrower visibility changes the result; far-away positions 0,1,7 are shown outside token 4's local window. Bottom rule strip: local attention saves pair work by narrowing who can be seen; it changes outputs because the weighted average has fewer inputs. Keep station order, object positions, colors, value rail, token numbers, pair counts, output values, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens, full pairs, local pairs, window=2, token 4, and exact numeric arrays may stay in English notation. Avoid fake tiny text, generic GPU performance posters, invented attention weights, dense tables, decorative robots, local text overlay style, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "局部 attention 输出为什么变",
+                "subtitle": "window=2 少算了 pair，但 token 能看的范围也变窄了。",
+                "items": [
+                    ("values", "8 个位置的值是 [0.2,0.1,0.0,0.8,0.9,0.7,0.1,0.0]。"),
+                    ("global", "每个 token 看全部 8 个位置，所以 full pairs=64。"),
+                    ("local", "window=2 只看附近位置，边界裁剪后 local pairs=34。"),
+                    ("token 4", "全局看 [0,1,2,3,4,5,6,7]；局部只看 [2,3,4,5,6]。"),
+                    ("output", "token 4 从 full 0.47 变成 local 0.615。"),
+                    ("代价", "减少 pair 不是免费：远处信息被拿掉，结果会改变。"),
+                ],
+                "footer": "高效 attention 的核心权衡：更少计算，换来更窄可见范围。",
+                "alt": "局部 attention 运行结果图：8 个 value 位置中，global attention 得到 full pairs=64，window=2 的 local attention 得到 local pairs=34，token 4 从看 0 到 7 变成只看 2 到 6，并导致输出从 0.47 变为 0.615。",
+            },
+            "en": {
+                "title": "Why Local Attention Changes the Output",
+                "subtitle": "window=2 processes fewer pairs, but each token sees a narrower range.",
+                "items": [
+                    ("values", "The 8 positions are [0.2,0.1,0.0,0.8,0.9,0.7,0.1,0.0]."),
+                    ("global", "Every token sees all 8 positions, so full pairs=64."),
+                    ("local", "window=2 keeps nearby positions only, clipped at edges, so local pairs=34."),
+                    ("token 4", "Global sees [0,1,2,3,4,5,6,7]; local sees only [2,3,4,5,6]."),
+                    ("output", "Token 4 changes from full 0.47 to local 0.615."),
+                    ("cost", "Fewer pairs are not free: far-away information is removed, so results change."),
+                ],
+                "footer": "Efficient attention trade-off: less computation for a narrower visibility range.",
+                "alt": "Local attention run result map: across 8 value positions, global attention prints full pairs 64, window=2 local attention prints local pairs 34, token 4 changes from seeing positions 0 through 7 to seeing only 2 through 6, and its output changes from 0.47 to 0.615.",
+            },
+            "ja": {
+                "title": "Local attention で出力が変わる理由",
+                "subtitle": "window=2 は pair を減らすが、token が見られる範囲も狭くなる。",
+                "items": [
+                    ("values", "8 位置の値は [0.2,0.1,0.0,0.8,0.9,0.7,0.1,0.0]。"),
+                    ("global", "各 token が 8 位置すべてを見るので full pairs=64。"),
+                    ("local", "window=2 は近くの位置だけを見て、端は切り詰めるので local pairs=34。"),
+                    ("token 4", "global は [0,1,2,3,4,5,6,7]、local は [2,3,4,5,6] だけを見る。"),
+                    ("output", "token 4 は full 0.47 から local 0.615 に変わる。"),
+                    ("代償", "pair を減らす代わりに、遠い情報が消えて結果も変わる。"),
+                ],
+                "footer": "効率的 attention の核心：計算を減らす代わりに、見える範囲が狭くなる。",
+                "alt": "Local attention の実行結果図：8 個の value 位置で global attention は full pairs=64、window=2 の local attention は local pairs=34 となり、token 4 は 0 から 7 まで見る状態から 2 から 6 だけを見る状態に変わり、出力も 0.47 から 0.615 に変化する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

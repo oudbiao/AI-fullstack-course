@@ -222,6 +222,8 @@ full outputs : [0.376, 0.363, 0.35, 0.457, 0.47, 0.443, 0.363, 0.35]
 local outputs: [0.101, 0.285, 0.4, 0.604, 0.615, 0.592, 0.44, 0.267]
 ```
 
+![局部 attention 窗口运行结果图](/img/course/ch07-local-attention-window-result-map.webp)
+
 ### 这段代码到底对应了什么直觉？
 
 它告诉你两件特别关键的事：

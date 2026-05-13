@@ -220,6 +220,8 @@ full outputs : [0.376, 0.363, 0.35, 0.457, 0.47, 0.443, 0.363, 0.35]
 local outputs: [0.101, 0.285, 0.4, 0.604, 0.615, 0.592, 0.44, 0.267]
 ```
 
+![Local attention window result map](/img/course/ch07-local-attention-window-result-map-en.webp)
+
 ### What intuition does this code actually represent?
 
 It tells you two especially important things:
