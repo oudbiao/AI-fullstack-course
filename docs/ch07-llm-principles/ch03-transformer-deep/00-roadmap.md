@@ -39,6 +39,8 @@ Expected output:
 ['allow', 'allow', 'allow', 'allow']
 ```
 
+![Causal mask run result map](/img/course/ch07-causal-mask-result-map-en.webp)
+
 Generation uses this "no future peeking" rule: a token can attend to earlier tokens, but not future tokens.
 
 ## Learn in This Order

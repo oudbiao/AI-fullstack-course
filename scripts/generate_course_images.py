@@ -14570,6 +14570,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch07-causal-mask-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        },
+        "scene": "A Chapter 7 causal mask run-result teaching image based on the exact runnable Python code in section 7.3.1. The image must teach how the nested loops produce the printed 4 by 4 allow/block mask and why decoder-only generation cannot look at future tokens. Use only these exact lab facts: seq_len=4. The outer loop is query_pos from 0 to 3. The inner loop is key_pos from 0 to 3. The condition is key_pos <= query_pos. If true append allow, otherwise append block. The exact printed rows are ['allow','block','block','block'], ['allow','allow','block','block'], ['allow','allow','allow','block'], ['allow','allow','allow','allow']. The teaching point is read one row at a time: row 0 can only see token 0, row 1 can see token 0 and token 1, row 2 can see tokens 0 to 2, and row 3 can see all previous tokens plus itself. The upper-right future cells are blocked to prevent training from peeking at tokens that are not available during generation. Do not invent probabilities, attention scores, hidden states, token words, neural layers, softmax values, or a different matrix.",
+        "chapter_context": "The image is inserted after the expected output of the causal mask builder in 7.3.1 Transformer Deep Dive Roadmap. Nearby prose says generation uses this no-future-peeking rule: a token can attend to earlier tokens, but not future tokens.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark decoder-mask teaching board across zh/en/ja, not a white rounded-box infographic, not a pure flowchart, not a terminal screenshot, and not a text poster. Top title and subtitle. Upper station: four token positions on a left-to-right generation rail, labeled token 0, token 1, token 2, token 3. Middle station: a large 4x4 mask grid with query_pos rows and key_pos columns. Lower-left triangle including the diagonal is green/blue and labeled allow; upper-right future cells are red/dim and labeled block. Add a bright row scanner for query_pos=2 showing it can read key_pos 0,1,2 but blocks key_pos 3. Lower station: a compact code-loop mini scene with outer loop query_pos and inner loop key_pos feeding the grid, plus a printed-output receipt with the exact four rows. Bottom rule strip: each row is what the current token may see; block future cells; generation matches training. Keep station order, object positions, colors, matrix row/column order, allow/block strings, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens, query_pos, key_pos, allow, block, and the exact printed rows may stay in English notation. Avoid fake tiny text, dense paragraphs, random token words, full Transformer architecture, old SVG information-box style, decorative robots, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "Causal Mask 输出怎么读",
+                "subtitle": "每一行表示当前 token 能看哪些 key_pos；未来格子必须 block。",
+                "items": [
+                    ("seq_len=4", "一共有 token 0 到 token 3 四个位置。"),
+                    ("循环条件", "key_pos <= query_pos 时写入 allow，否则写入 block。"),
+                    ("query_pos=2", "只能看 key_pos 0、1、2；key_pos 3 是未来，必须 block。"),
+                    ("输出矩阵", "下三角含对角线是 allow，上三角未来区域是 block。"),
+                    ("生成约束", "训练时不能偷看未来，否则生成时规则会不一致。"),
+                    ("读法", "按行读：这一行就是当前 token 的可见范围。"),
+                ],
+                "footer": "causal mask 的核心：当前 token 只能看过去和自己。",
+                "alt": "Causal mask 运行结果图：seq_len=4 时，query_pos 行和 key_pos 列组成 4x4 矩阵，条件 key_pos <= query_pos 产生下三角 allow、未来位置 block，并突出 query_pos=2 只能看 0、1、2。",
+            },
+            "en": {
+                "title": "How to Read the Causal Mask Output",
+                "subtitle": "Each row says which key_pos the current token may see; future cells must be blocked.",
+                "items": [
+                    ("seq_len=4", "There are four positions: token 0 through token 3."),
+                    ("loop condition", "Write allow when key_pos <= query_pos; otherwise write block."),
+                    ("query_pos=2", "It can see key_pos 0, 1, 2; key_pos 3 is future and must block."),
+                    ("output matrix", "The lower triangle plus diagonal is allow; the upper future area is block."),
+                    ("generation rule", "Training must not peek at future tokens, or inference will not match."),
+                    ("reading habit", "Read by rows: one row is the visible range for the current token."),
+                ],
+                "footer": "Causal mask rule: the current token sees only the past and itself.",
+                "alt": "Causal mask run result map: with seq_len=4, query_pos rows and key_pos columns form a 4x4 matrix where key_pos <= query_pos creates lower-triangle allow cells and future block cells, highlighting query_pos=2 seeing only 0, 1, and 2.",
+            },
+            "ja": {
+                "title": "Causal Mask 出力の読み方",
+                "subtitle": "各行は現在の token が見られる key_pos を表し、未来セルは block する。",
+                "items": [
+                    ("seq_len=4", "位置は token 0 から token 3 までの 4 つ。"),
+                    ("loop 条件", "key_pos <= query_pos なら allow、それ以外は block。"),
+                    ("query_pos=2", "key_pos 0、1、2 は見える。key_pos 3 は未来なので block。"),
+                    ("出力行列", "対角線を含む下三角は allow、右上の未来領域は block。"),
+                    ("生成の制約", "訓練時に未来を見ると、生成時の条件とずれてしまう。"),
+                    ("読み方", "行ごとに読む：その行が現在 token の可視範囲。"),
+                ],
+                "footer": "causal mask の核心：現在 token は過去と自分だけを見る。",
+                "alt": "Causal mask の実行結果図：seq_len=4 で query_pos の行と key_pos の列から 4x4 行列を作り、key_pos <= query_pos により下三角が allow、未来位置が block になり、query_pos=2 は 0、1、2 だけを見られることを示す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

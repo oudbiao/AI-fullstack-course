@@ -39,6 +39,8 @@ for row in mask:
 ['allow', 'allow', 'allow', 'allow']
 ```
 
+![Causal mask 运行结果图](/img/course/ch07-causal-mask-result-map.webp)
+
 生成任务使用这种“不看未来”的规则：一个 token 可以看前面的 token，但不能看未来 token。
 
 ## 按这个顺序学

@@ -39,6 +39,8 @@ for row in mask:
 ['allow', 'allow', 'allow', 'allow']
 ```
 
+![Causal mask 実行結果図](/img/course/ch07-causal-mask-result-map-ja.webp)
+
 生成ではこの「未来を見ない」ルールを使います。token は前の token を見られますが、未来 token は見られません。
 
 ## この順番で学ぶ
