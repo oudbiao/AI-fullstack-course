@@ -395,6 +395,8 @@ Execution result: {'result': 27}
 ----------------------------------------
 ```
 
+![Function Calling weather and calculator result map](/img/course/ch08-function-calling-weather-calculator-result-map-en.webp)
+
 This example is already very close to the skeleton of a real system.
 
 ---

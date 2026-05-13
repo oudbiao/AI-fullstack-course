@@ -18183,6 +18183,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch08-function-calling-weather-calculator-result-map",
+        "pages": {
+            "en": "docs/ch08-rag/ch03-app-dev/03-function-calling.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/03-function-calling.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/03-function-calling.md",
+        },
+        "scene": "A Function Calling worked-result image based only on the weather-and-calculator teaching example in section 8.3.3. The image must teach how two user queries become two different tool calls and execution results. Do not draw a generic Function Calling architecture, terminal screenshot, full code block, API vendor, chat UI, database, vector search, extra tools, retries, validation errors, or invented outputs. Show exactly two lanes. Lane 1 is weather: user query asks about Beijing weather, mock_llm_tool_selector returns name=get_weather and arguments city=Beijing, dispatch routes to get_weather, execution result is temperature 22 and condition sunny. Lane 2 is calculator: user query asks to calculate 3 * (4 + 5), selector returns name=calculate and arguments expression='3 * (4 + 5)', dispatch routes to calculate and safe_calculate, execution result is result 27. Teaching point: the model chooses a structured call envelope, but normal program code executes it and returns a concrete result.",
+        "chapter_context": "The image is inserted immediately after the expected output of the weather-and-calculator Function Calling example. Nearby code defines mock_llm_tool_selector, safe_calculate, get_weather, calculate, dispatch, and two queries. The printed output shows the original user query, the tool call dictionary, and the execution result for each lane. The following sentence says the example is close to a real system skeleton.",
+        "shared_layout": "Vertical 9:16. Use a warm practical workbook style consistent with ch08 result images: cream paper, blue dividers, two clear horizontal lanes, a selector booth, a dispatch switch, a weather station, a calculator desk, and final result receipts. Top title and subtitle. Lane 1: user query card -> selector envelope with name=get_weather and city=Beijing -> dispatch switch -> weather station receipt with 22 and sunny. Lane 2: user query card -> selector envelope with name=calculate and expression='3 * (4 + 5)' -> dispatch switch -> calculator receipt with 27. Add one bottom rule strip: model selects the tool; program executes it. Keep both lanes, object positions, colors, exact values, and reading path identical across zh/en/ja. Use large localized labels attached to objects. Code/tool tokens that may stay in English: Function Calling, mock_llm_tool_selector, dispatch, get_weather, calculate, safe_calculate, name, arguments, city, expression, result. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense logs, tiny fake text, unrelated decorative scenes, and extra English explanatory sentences in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "Function Calling 两条运行路径",
+                "subtitle": "同一个 dispatch，把天气问题和计算问题送到不同工具。",
+                "items": [
+                    ("天气输入", "北京今天天气怎么样"),
+                    ("工具调用", "name=get_weather，city=Beijing。"),
+                    ("天气结果", "temperature=22，condition=sunny。"),
+                    ("计算输入", "计算 3 * (4 + 5)"),
+                    ("工具调用", "name=calculate，expression='3 * (4 + 5)'。"),
+                    ("计算结果", "result=27。"),
+                ],
+                "footer": "模型选择工具，程序执行工具并返回结果。",
+                "alt": "Function Calling 天气和计算器运行结果图：天气问题被 selector 转成 get_weather 调用并返回 22 和 sunny，计算问题被转成 calculate 调用并返回 27。",
+            },
+            "en": {
+                "title": "Two Function Calling Execution Paths",
+                "subtitle": "One dispatch function routes weather and math to different tools.",
+                "items": [
+                    ("weather input", "What is the weather like in Beijing today"),
+                    ("tool call", "name=get_weather, city=Beijing."),
+                    ("weather result", "temperature=22, condition=sunny."),
+                    ("math input", "calculate 3 * (4 + 5)"),
+                    ("tool call", "name=calculate, expression='3 * (4 + 5)'."),
+                    ("math result", "result=27."),
+                ],
+                "footer": "The model selects the tool; the program executes it and returns the result.",
+                "alt": "Function Calling weather and calculator result map: the weather query becomes a get_weather call and returns 22 and sunny, while the math query becomes a calculate call and returns 27.",
+            },
+            "ja": {
+                "title": "Function Calling の 2 つの実行経路",
+                "subtitle": "同じ dispatch が、天気と計算を別々の tool へ送る。",
+                "items": [
+                    ("天気入力", "北京今天天気はどうですか"),
+                    ("tool call", "name=get_weather、city=Beijing。"),
+                    ("天気結果", "temperature=22、condition=sunny。"),
+                    ("計算入力", "計算 3 * (4 + 5)"),
+                    ("tool call", "name=calculate、expression='3 * (4 + 5)'。"),
+                    ("計算結果", "result=27。"),
+                ],
+                "footer": "モデルが tool を選び、プログラムが実行して結果を返す。",
+                "alt": "Function Calling の天気と計算機の実行結果図：天気の質問は get_weather 呼び出しになり 22 と sunny を返し、計算の質問は calculate 呼び出しになり 27 を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch08-async-context-gather-result-map",
         "pages": {
             "en": "docs/ch08-rag/ch04-engineering/01-async-programming.md",

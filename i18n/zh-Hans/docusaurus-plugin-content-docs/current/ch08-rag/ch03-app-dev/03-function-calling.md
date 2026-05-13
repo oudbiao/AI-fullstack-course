@@ -395,6 +395,8 @@ for q in queries:
 ----------------------------------------
 ```
 
+![Function Calling 天气和计算器运行结果图](/img/course/ch08-function-calling-weather-calculator-result-map.webp)
+
 这个例子已经非常接近真实系统的骨架了。
 
 ---

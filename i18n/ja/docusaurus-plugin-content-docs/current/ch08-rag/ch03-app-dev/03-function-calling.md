@@ -397,6 +397,8 @@ for q in queries:
 ----------------------------------------
 ```
 
+![Function Calling の天気と計算機の実行結果図](/img/course/ch08-function-calling-weather-calculator-result-map-ja.webp)
+
 この例は、実際のシステムの骨組みにかなり近いです。
 
 ---
