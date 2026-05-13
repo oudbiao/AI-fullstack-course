@@ -403,6 +403,8 @@ print("best checkpoint =", best)
 best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 ```
 
+![微调运行证据图：串联数据拆分、assistant-only loss mask、训练计划输出和 checkpoint 选择](/img/course/ch07-finetuning-practice-data-mask-schedule-result.webp)
+
 ### 为什么要特别关心 effective batch size？
 
 因为你真正每次参数更新看到的样本数，不只是：

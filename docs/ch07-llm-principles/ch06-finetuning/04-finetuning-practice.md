@@ -403,6 +403,8 @@ Expected output:
 best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 ```
 
+![Fine-tuning run evidence board showing data splitting, assistant-only loss mask, training plan outputs, and checkpoint selection](/img/course/ch07-finetuning-practice-data-mask-schedule-result-en.webp)
+
 ### Why should you pay special attention to effective batch size?
 
 Because the number of samples the model actually sees for each parameter update is not just:

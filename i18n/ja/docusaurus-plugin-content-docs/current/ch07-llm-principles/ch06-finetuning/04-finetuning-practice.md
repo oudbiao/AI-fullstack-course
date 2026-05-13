@@ -405,6 +405,8 @@ print("best checkpoint =", best)
 best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 ```
 
+![微調整の実行証拠図：data split、assistant-only loss mask、学習計画出力、checkpoint 選択をつなげて示す](/img/course/ch07-finetuning-practice-data-mask-schedule-result-ja.webp)
+
 ### なぜ effective batch size を特に気にするのか？
 
 実際に 1 回のパラメータ更新で見ているサンプル数は、  
