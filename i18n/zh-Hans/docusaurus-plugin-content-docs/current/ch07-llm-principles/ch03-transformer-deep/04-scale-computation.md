@@ -198,6 +198,8 @@ rough params: 9.87B
 kv cache    : 1.50 GB
 ```
 
+![模型规模估算运行结果图](/img/course/ch07-scale-estimator-result-map.webp)
+
 ### 这段代码最值得带走的点是什么？
 
 第一点：

@@ -198,6 +198,8 @@ rough params: 9.87B
 kv cache    : 1.50 GB
 ```
 
+![モデル規模見積もり実行結果図](/img/course/ch07-scale-estimator-result-map-ja.webp)
+
 ### このコードでいちばん大事なポイントは？
 
 1つ目：

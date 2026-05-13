@@ -198,6 +198,8 @@ rough params: 9.87B
 kv cache    : 1.50 GB
 ```
 
+![Model scale estimator result map](/img/course/ch07-scale-estimator-result-map-en.webp)
+
 ### What is the most important takeaway from this code?
 
 First:
