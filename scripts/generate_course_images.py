@@ -14243,6 +14243,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch07-llm-route-decision-result-map",
+        "pages": {
+            "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        },
+        "scene": "A Chapter 7 LLM overview route-decision run-result teaching image based on the exact runnable if/elif code in section 7.2.1. The image must teach the code execution path, not draw a generic LLM architecture poster. Use only these exact request flags: needs_private_docs=True, needs_tool_action=False, needs_repeated_style=False. The branch order is exactly: first check needs_tool_action; if True choose Agent. Because it is False, skip Agent. Next check needs_private_docs; because it is True, choose RAG and stop. The needs_repeated_style branch is not reached because elif stops at the first true branch. The printed output is exactly recommended_route: RAG. The product lesson is to choose the smallest route that solves the actual need: prompt for simple known tasks, RAG for private or changing cited knowledge, Agent for tool use or multi-step action, and fine-tuning for repeated behavior/style/format adaptation. Do not invent model names, API vendors, token counts, costs, charts, terminal screenshots, full code blocks, extra flags, extra branches, or alternative route outputs.",
+        "chapter_context": "The image is inserted after the expected output of the route-decision code in 7.2.1 LLM Overview Roadmap. Nearby prose says this is not a full architecture decision; it trains the habit of choosing the smallest route that solves the actual product need. The surrounding table lists prompt, RAG, Agent, and fine-tuning with their use cases.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark product-routing workbench across zh/en/ja, not a white rounded-box infographic and not a pure flowchart. Top title and subtitle. Upper station: one request card with exactly three large flag toggles: needs_tool_action=False, needs_private_docs=True, needs_repeated_style=False. Middle station: an if/elif decision rail with three gates in order. Gate 1 checks needs_tool_action and visibly skips the Agent route because the flag is False. Gate 2 checks needs_private_docs and lights up the RAG route because the flag is True. Gate 3 for needs_repeated_style is present but dimmed as not reached. Lower station: four route docks prompt, RAG, Agent, fine-tuning; RAG receives the request and gets a bright selected badge, while the others stay inactive. Bottom station: output receipt shows recommended_route: RAG and a compact product rule strip: private knowledge plus citations -> RAG; tool action -> Agent; repeated style -> fine-tuning; simple task -> prompt. Keep flag order, gate order, selected route, colors, badge positions, and reading path identical across languages. Use large readable localized labels attached to the physical toggles, gates, and route docks. Code tokens and the exact output may stay in English notation. Avoid decorative robots, vendor logos, dense paragraphs, terminal screenshots, pasted sticky notes, tiny fake text, old SVG information-box style, and any extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "路线判断输出为什么是 RAG",
+                "subtitle": "按 if/elif 顺序读布尔条件，第一处 True 就决定路线。",
+                "items": [
+                    ("request flags", "needs_tool_action=False；needs_private_docs=True；needs_repeated_style=False。"),
+                    ("第 1 关", "needs_tool_action 为 False，所以跳过 Agent。"),
+                    ("第 2 关", "needs_private_docs 为 True，选择 RAG。"),
+                    ("第 3 关", "elif 已经命中，needs_repeated_style 不再执行。"),
+                    ("输出", "recommended_route: RAG。"),
+                    ("产品判断", "私有或会变化的知识需要引用时，用 RAG。"),
+                ],
+                "footer": "先选能解决问题的最小路线，再谈更复杂的架构。",
+                "alt": "LLM 路线判断运行结果图：request flags 中 needs_tool_action 为 False，needs_private_docs 为 True，所以 if/elif 第二关选择 RAG，并输出 recommended_route: RAG。",
+            },
+            "en": {
+                "title": "Why the Route Output Is RAG",
+                "subtitle": "Read the Boolean flags in if/elif order; the first True branch wins.",
+                "items": [
+                    ("request flags", "needs_tool_action=False; needs_private_docs=True; needs_repeated_style=False."),
+                    ("gate 1", "needs_tool_action is False, so skip Agent."),
+                    ("gate 2", "needs_private_docs is True, so choose RAG."),
+                    ("gate 3", "elif already matched, so needs_repeated_style is not reached."),
+                    ("output", "recommended_route: RAG."),
+                    ("product choice", "Use RAG when private or changing knowledge needs citations."),
+                ],
+                "footer": "Choose the smallest route that solves the need before designing a larger architecture.",
+                "alt": "LLM route-decision run result map: needs_tool_action is False, needs_private_docs is True, so the if/elif code chooses RAG and prints recommended_route: RAG.",
+            },
+            "ja": {
+                "title": "route 出力が RAG になる理由",
+                "subtitle": "if/elif の順に Boolean を読み、最初の True が route を決める。",
+                "items": [
+                    ("request flags", "needs_tool_action=False；needs_private_docs=True；needs_repeated_style=False。"),
+                    ("第1ゲート", "needs_tool_action は False なので Agent を飛ばす。"),
+                    ("第2ゲート", "needs_private_docs は True なので RAG を選ぶ。"),
+                    ("第3ゲート", "elif は命中済みなので needs_repeated_style へ進まない。"),
+                    ("出力", "recommended_route: RAG。"),
+                    ("product 判断", "私有・変化する知識に citation が必要なら RAG。"),
+                ],
+                "footer": "大きな設計の前に、要件を満たす最小 route を選ぶ。",
+                "alt": "LLM route 判断の実行結果図：needs_tool_action は False、needs_private_docs は True なので if/elif の第2分岐で RAG を選び、recommended_route: RAG を出力する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-huggingface-batch-shape-forward-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",

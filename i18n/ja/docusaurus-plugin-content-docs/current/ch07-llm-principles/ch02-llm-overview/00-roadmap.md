@@ -49,6 +49,8 @@ print("recommended_route:", route)
 recommended_route: RAG
 ```
 
+![LLM route 判断の実行結果図](/img/course/ch07-llm-route-decision-result-map-ja.webp)
+
 これは完全な設計判断ではありません。実際のプロダクト要件を満たす最小ルートを選ぶ練習です。
 
 ## この順番で学ぶ

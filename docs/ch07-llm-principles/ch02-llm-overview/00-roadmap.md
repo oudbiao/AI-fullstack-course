@@ -49,6 +49,8 @@ Expected output:
 recommended_route: RAG
 ```
 
+![LLM route decision run result map](/img/course/ch07-llm-route-decision-result-map-en.webp)
+
 This is not a full architecture decision. It is the habit: choose the smallest route that solves the actual product need.
 
 ## Learn in This Order

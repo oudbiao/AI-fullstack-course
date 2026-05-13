@@ -49,6 +49,8 @@ print("recommended_route:", route)
 recommended_route: RAG
 ```
 
+![LLM 路线判断运行结果图](/img/course/ch07-llm-route-decision-result-map.webp)
+
 这不是完整架构决策，只是在训练习惯：选择能解决实际产品问题的最小路线。
 
 ## 按这个顺序学
