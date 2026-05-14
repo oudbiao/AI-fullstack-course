@@ -190,6 +190,8 @@ event types:
 ['step_started', 'step_completed', 'step_started', 'step_failed', 'step_started', 'step_completed', 'step_started', 'step_completed']
 ```
 
+![Agent Checkpoint Recovery Result Map](/img/course/ch09-agent-checkpoint-recovery-result-map-en.webp)
+
 ### What is the most important thing to learn from this example?
 
 It connects the three most important pieces in the recovery path:

@@ -190,6 +190,8 @@ event types:
 ['step_started', 'step_completed', 'step_started', 'step_failed', 'step_started', 'step_completed', 'step_started', 'step_completed']
 ```
 
+![Agent Checkpoint 復元実行結果図](/img/course/ch09-agent-checkpoint-recovery-result-map-ja.webp)
+
 ### この例で特に学ぶべきことは何か？
 
 復元の流れで最も重要な3つをつないでいます。

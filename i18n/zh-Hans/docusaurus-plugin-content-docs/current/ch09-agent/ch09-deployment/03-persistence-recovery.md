@@ -190,6 +190,8 @@ event types:
 ['step_started', 'step_completed', 'step_started', 'step_failed', 'step_started', 'step_completed', 'step_started', 'step_completed']
 ```
 
+![Agent Checkpoint 恢复运行结果图](/img/course/ch09-agent-checkpoint-recovery-result-map.webp)
+
 ### 这个示例最值得学什么？
 
 它把恢复链路里最关键的三件事串起来了：

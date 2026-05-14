@@ -16585,6 +16585,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-agent-checkpoint-recovery-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch09-deployment/03-persistence-recovery.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/03-persistence-recovery.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/03-persistence-recovery.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal Agent checkpoint recovery workflow. It must explain the exact printed output from WorkflowRunner, not draw a generic persistence poster. Show the first run starts at current_index=0, completes load_data, writes a checkpoint with current_index=1 and completed_steps=['load_data'], then crashes on summarize with crash_on_summarize. Show the restored run loading that checkpoint, continuing with summarize and write_report, and producing final completed_steps ['load_data', 'summarize', 'write_report'] plus the final report. Show the event log sequence as evidence: step_started, step_completed, step_started, step_failed, step_started, step_completed, step_started, step_completed. Teaching point: recovery is stateful continuation from the latest checkpoint, while event logs explain what happened before the crash. Do not invent databases, queues, task IDs, retries, costs, timestamps, cloud services, extra steps, side effects, or alternative event names.",
+        "chapter_context": "The image is inserted immediately after the expected output of the first runnable checkpoint + recovery example in 9.9.4 Persistence and Recovery. Nearby code defines TASK_PLAN = ['load_data', 'summarize', 'write_report'], writes a deep-copied checkpoint after each successful step, records event_log entries for step_started, step_failed, and step_completed, intentionally crashes on summarize, then runs again from runner.last_checkpoint. The surrounding prose says the important pieces are step-level checkpointing, event logs for failures, and continuing from the previous checkpoint after restart.",
+        "shared_layout": "Vertical 9:16. Use the same practical recovery workbench style across zh/en/ja, like a task runner console opened into a physical teaching diagram. Top title and subtitle. Main body has two stacked execution lanes: first run lane and restored run lane. First lane: start current_index=0 -> load_data completes -> checkpoint drawer stores current_index=1 and completed_steps=['load_data'] -> summarize hits a red crash marker crash_on_summarize. Second lane: restart loads the checkpoint, resumes at summarize, then write_report, and ends with completed_steps=['load_data','summarize','write_report'] plus a final report slip. Right side or bottom: an event log ribbon with exactly eight event chips in order: started, completed, started, failed, started, completed, started, completed, with the failed chip aligned to summarize. Bottom insight strip: checkpoint tells where to resume; event log tells what happened; recovery continues, it does not restart from zero. Keep lane order, event count, colors, values, and reading path identical across languages. Code tokens that may stay English: Agent, WorkflowRunner, TASK_PLAN, checkpoint, event_log, current_index, completed_steps, load_data, summarize, write_report, crash_on_summarize, step_started, step_completed, step_failed. Use large readable localized labels and short localized report text. Avoid terminal screenshots, dense Python dictionaries, old SVG-style white rounded boxes, pure flowchart posters, decorative-only backup icons, tiny pseudo-text, and unrelated English or Japanese text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "Checkpoint 恢复结果怎么看",
+                "subtitle": "第一次在 summarize 崩溃，第二次从 current_index=1 接着跑。",
+                "items": [
+                    ("第一次运行", "load_data 完成，写入 checkpoint。"),
+                    ("checkpoint", "current_index=1；completed_steps=['load_data']。"),
+                    ("崩溃点", "summarize -> crash_on_summarize。"),
+                    ("恢复运行", "载入 checkpoint，不从零重跑。"),
+                    ("最终状态", "load_data -> summarize -> write_report 全部完成。"),
+                    ("event_log", "started, completed, started, failed, started, completed, started, completed。"),
+                ],
+                "footer": "checkpoint 负责恢复位置，event_log 负责解释崩溃前发生了什么。",
+                "alt": "Agent checkpoint 恢复运行结果图：第一次运行在 load_data 后保存 current_index=1 的 checkpoint，并在 summarize 崩溃；恢复运行从 checkpoint 接着执行 summarize 和 write_report，event_log 记录八个事件。",
+            },
+            "en": {
+                "title": "Reading Checkpoint Recovery Results",
+                "subtitle": "The first run crashes at summarize; the second run resumes from current_index=1.",
+                "items": [
+                    ("first run", "load_data completes, then checkpoint is saved."),
+                    ("checkpoint", "current_index=1; completed_steps=['load_data']."),
+                    ("crash point", "summarize -> crash_on_summarize."),
+                    ("restored run", "load checkpoint; do not restart from zero."),
+                    ("final state", "load_data -> summarize -> write_report all complete."),
+                    ("event_log", "started, completed, started, failed, started, completed, started, completed."),
+                ],
+                "footer": "checkpoint tells where to resume; event_log explains what happened before the crash.",
+                "alt": "Agent checkpoint recovery result map: the first run saves a checkpoint after load_data with current_index=1 and crashes at summarize; the restored run resumes with summarize and write_report, while event_log records eight events.",
+            },
+            "ja": {
+                "title": "Checkpoint 復元結果の読み方",
+                "subtitle": "最初は summarize で落ち、次は current_index=1 から続ける。",
+                "items": [
+                    ("最初の実行", "load_data が完了し、checkpoint を保存する。"),
+                    ("checkpoint", "current_index=1；completed_steps=['load_data']。"),
+                    ("クラッシュ点", "summarize -> crash_on_summarize。"),
+                    ("復元実行", "checkpoint を読み込み、ゼロからやり直さない。"),
+                    ("最終状態", "load_data -> summarize -> write_report が完了。"),
+                    ("event_log", "started, completed, started, failed, started, completed, started, completed。"),
+                ],
+                "footer": "checkpoint は再開位置、event_log はクラッシュ前に起きたことを示す。",
+                "alt": "Agent checkpoint 復元実行結果図：最初の実行は load_data 後に current_index=1 の checkpoint を保存し、summarize でクラッシュする。復元実行は checkpoint から summarize と write_report を続け、event_log に8つのイベントを残す。",
+            },
+        },
+    },
+    {
         "slug": "ch09-agent-cache-savings-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
