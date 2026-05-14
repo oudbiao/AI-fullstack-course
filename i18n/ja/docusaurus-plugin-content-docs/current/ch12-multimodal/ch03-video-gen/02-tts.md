@@ -197,6 +197,8 @@ print(tts_pipeline)
 
 重要なのは中間層です。多くの TTS システムでは、テキストがまず音響表現になり、そのあと実際に再生できる音声へ変換されます。
 
+![TTS の mel spectrogram から waveform への実行結果図](/img/course/ch12-tts-pipeline-mel-to-waveform-result-map-ja.webp)
+
 この例はあくまで構造のイメージですが、すでに次のことがわかります。
 
 - テキストは直接音になるわけではない

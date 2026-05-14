@@ -14573,6 +14573,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-tts-pipeline-mel-to-waveform-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch03-video-gen/02-tts.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/02-tts.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/02-tts.md",
+        },
+        "scene": "A Chapter 12 TTS run-result teaching image based on the exact tts_pipeline dictionary example. The image must teach why the printed structure is input -> intermediate mel_spectrogram -> output waveform, and why text does not become playable audio in one direct step. Do not invent ASR, microphones, music production, speaker controls, voice cloning, APIs, dashboards, extra model names, terminal screenshots, or decorative audio posters. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code tokens; Japanese image uses natural Japanese helper labels except exact code tokens. Exact code/data tokens may stay as code: TTS, tts_pipeline, input, intermediate, mel_spectrogram, output, waveform, vocoder, text.",
+        "chapter_context": "Inserted after the expected output of the tts_pipeline example in 12.3.3 Text-to-Speech. Nearby prose says the intermediate layer is the key: many TTS systems first turn text into an acoustic representation, then generate playable audio. The illustration should make the printed dictionary readable as a concrete audio-generation path.",
+        "shared_layout": "Vertical 9:16. Use a polished semi-realistic audio lab teaching scene with a dark workbench, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative soundwave poster. Top title and subtitle. Upper station shows the localized input sentence as a small script card. Middle station shows a large mel spectrogram heatmap with time and frequency axes, clearly labeled as intermediate / mel_spectrogram. Lower station shows a waveform track feeding a speaker, clearly labeled output / waveform. Add a small blocked direct shortcut from text to waveform to explain why the middle layer matters, and a green checked route through mel_spectrogram. Keep the same lab perspective, object positions, color coding, reading path, blocked shortcut, green route, spectrogram shape, waveform shape, and speaker placement across zh/en/ja. Use large sparse localized labels attached to the concrete cards, heatmap, route, and waveform. Avoid dense paragraphs, tiny fake text, random non-locale text, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond exact code tokens.",
+        "variants": {
+            "zh": {
+                "title": "TTS 先生成声学表示",
+                "subtitle": "文本不会直接变声音，中间先变成 mel_spectrogram。",
+                "items": [
+                    ("输入", "input：你好，欢迎来到 AI 全栈课程。"),
+                    ("中间层", "intermediate = mel_spectrogram。"),
+                    ("频率热力图", "把“怎么说”画成时间和频率。"),
+                    ("输出", "output = waveform，才是可播放音频。"),
+                    ("错误捷径", "text -> waveform 直接生成更难稳定。"),
+                    ("学习重点", "声学表示让 TTS 更容易建模。"),
+                ],
+                "footer": "先建声学蓝图，再合成真正的波形。",
+                "alt": "TTS 文本到 mel_spectrogram 再到 waveform 的运行结果图：input 文本先变成中间声学表示 mel_spectrogram，再由 vocoder 生成可播放的 waveform。",
+            },
+            "en": {
+                "title": "TTS Builds a Mel Spectrogram First",
+                "subtitle": "Text does not become audio directly; it first becomes a mel_spectrogram.",
+                "items": [
+                    ("input", "input: Hello, welcome to the AI full-stack course."),
+                    ("intermediate", "intermediate = mel_spectrogram."),
+                    ("frequency heatmap", "Shows how speech changes over time and frequency."),
+                    ("output", "output = waveform, the playable audio."),
+                    ("bad shortcut", "text -> waveform is harder to keep stable."),
+                    ("learning point", "The acoustic representation makes TTS easier to model."),
+                ],
+                "footer": "Build the acoustic blueprint, then synthesize the waveform.",
+                "alt": "TTS pipeline mel spectrogram to waveform result map: input text becomes an intermediate mel_spectrogram before the vocoder creates playable waveform audio.",
+            },
+            "ja": {
+                "title": "TTS は先に音響表現を作る",
+                "subtitle": "テキストは直接音声にならず、まず mel_spectrogram になる。",
+                "items": [
+                    ("入力", "input：こんにちは、AI フルスタックコースへようこそ。"),
+                    ("中間層", "intermediate = mel_spectrogram。"),
+                    ("周波数の熱量図", "時間と周波数で「どう話すか」を表す。"),
+                    ("出力", "output = waveform、再生できる音声。"),
+                    ("危ない近道", "text -> waveform は安定させにくい。"),
+                    ("学習ポイント", "音響表現があると TTS をモデル化しやすい。"),
+                ],
+                "footer": "音響の設計図を作ってから、波形を合成する。",
+                "alt": "TTS の mel spectrogram から waveform への実行結果図：input テキストが中間音響表現 mel_spectrogram になり、その後 vocoder が再生可能な waveform を生成する。",
+            },
+        },
+    },
+    {
         "slug": "ch12-creative-platform-asset-bundle-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
@@ -21280,6 +21335,73 @@ Every label must sit near the object it explains, with large readable text suita
 7. 下部の短文は完全に：「動画生成では、隣り合う frame 同士を自然につなぐ必要がある。」
 
 文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
+    "ch12-tts-pipeline-mel-to-waveform-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.3.3 TTS 中 tts_pipeline 字典代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字贴图，不要只画漂亮声波。
+
+可见标题必须完全写为：“TTS 先生成声学表示”
+可见副标题必须完全写为：“文本不会直接变声音，中间先变成 mel_spectrogram。”
+
+教学目标：读者先看图就能理解 print 输出里的结构为什么是 input -> intermediate -> output。代码中 input 是“你好，欢迎来到 AI 全栈课程。”，intermediate 是 mel_spectrogram，output 是 waveform。重点是：TTS 通常先把文本变成声学表示，再由 vocoder 合成可播放波形；不要让读者以为文字会一步直接变成声音。
+
+三语版本必须同构：同一个半写实深色 audio lab 教学场景、同一张输入文本卡、同一个 mel spectrogram 热力图、同一条 waveform、同一个红色禁止捷径和绿色正确路径、同一个 speaker 位置。中文图只能用自然中文解释，允许保留这些代码/技术词：TTS、tts_pipeline、input、intermediate、mel_spectrogram、output、waveform、vocoder、text。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方左侧画输入文本卡，必须写清楚：“input：你好，欢迎来到 AI 全栈课程。” 卡片像脚本纸，但不要画终端。
+3. 从输入卡到中间层画绿色箭头，箭头旁写：“先变成声学表示”。
+4. 中央画一个大的彩色 mel spectrogram 热力图，必须有清楚的时间轴和频率轴，旁边必须写：“intermediate = mel_spectrogram”。热力图要像真实声学图，不是文字框。
+5. 从 mel spectrogram 到下方 waveform 画绿色箭头，箭头旁写：“vocoder 合成波形”。
+6. 下方画 waveform 轨道连接到 speaker，必须写：“output = waveform，可播放音频”。
+7. 右侧画一条红色被禁止的虚线捷径，从 text 直接到 waveform，旁边写：“text -> waveform 直接生成更难稳定”。
+8. 底部短句必须完全写为：“先建声学蓝图，再合成真正的波形。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、密集代码、录音麦克风、音乐制作软件界面或无关装饰。
+""".strip(),
+    "ch12-tts-pipeline-mel-to-waveform-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.3.3 TTS, the tts_pipeline dictionary result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no text-only poster, and no decorative soundwave-only image.
+
+Visible title exactly: “TTS Builds a Mel Spectrogram First”
+Visible subtitle exactly: “Text does not become audio directly; it first becomes a mel_spectrogram.”
+Important spelling guard: the title must say “Spectrogram First”. Do not write “Acoustic Man”, “Acoustic Map”, “Mel Man”, or any other variant.
+
+Teaching goal: the learner should understand why the printed structure is input -> intermediate -> output. In the code, input is “Hello, welcome to the AI full-stack course.”, intermediate is mel_spectrogram, and output is waveform. The key point is that TTS usually turns text into an acoustic representation first, then a vocoder synthesizes playable waveform audio; learners should not think text becomes sound in one direct step.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark audio lab teaching scene, the same input text card, the same mel spectrogram heatmap, the same waveform track, the same red blocked shortcut and green correct route, and the same speaker position. Use natural English. Code/technical tokens must be spelled exactly where useful: TTS, tts_pipeline, input, intermediate, mel_spectrogram, output, waveform, vocoder, text.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper left shows the input text card, clearly writing: “input: Hello, welcome to the AI full-stack course.” The card may look like a script sheet, but not a terminal.
+3. A green arrow goes from the input card to the middle layer, labeled: “first build the acoustic representation”.
+4. Center shows a large colorful mel spectrogram heatmap with clear time and frequency axes. Beside it, write: “intermediate = mel_spectrogram”. The heatmap must look like an acoustic map, not a text box.
+5. A green arrow goes from the mel spectrogram to the lower waveform, labeled: “vocoder synthesizes waveform”.
+6. Lower area shows a waveform track connected to a speaker, clearly labeled: “output = waveform, playable audio”.
+7. Right side shows a red blocked dashed shortcut from text directly to waveform, labeled: “text -> waveform is harder to keep stable”.
+8. Bottom sentence exactly: “Build the acoustic blueprint, then synthesize the waveform.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, dense code, recording microphones, music production software UI, or unrelated decoration.
+""".strip(),
+    "ch12-tts-pipeline-mel-to-waveform-result-map-ja.png": """
+第12章 12.3.3 TTS にある tts_pipeline 辞書の実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、文字だけのポスター、ただのきれいな波形は禁止。
+
+可視タイトルは完全に：「TTS は先に音響表現を作る」
+可視サブタイトルは完全に：「テキストは直接音声にならず、まず mel_spectrogram になる。」
+
+学習目標：print 出力の構造が input -> intermediate -> output になる理由を一目で理解できるようにする。コードでは input が「こんにちは、AI フルスタックコースへようこそ。」、intermediate が mel_spectrogram、output が waveform。重要なのは、TTS は通常、テキストをまず音響表現に変換し、そのあと vocoder が再生可能な波形を合成すること。テキストが一段階で直接音になるという誤解を避ける。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 audio lab 教材シーン、同じ入力テキストカード、同じ mel spectrogram 熱量図、同じ waveform、同じ赤い禁止ショートカットと緑の正しい経路、同じ speaker 位置。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：TTS、tts_pipeline、input、intermediate、mel_spectrogram、output、waveform、vocoder、text。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 左上に入力テキストカードを描き、必ず書く：「input：こんにちは、AI フルスタックコースへようこそ。」 カードは台本用紙のように見せてよいが、端末画面にはしない。
+3. 入力カードから中間層へ緑の矢印を引き、横に書く：「先に音響表現を作る」。
+4. 中央に大きな色付きの mel spectrogram 熱量図を描く。時間軸と周波数軸を読みやすく入れる。横に必ず書く：「intermediate = mel_spectrogram」。熱量図は音響図に見えること。文字箱だけにしない。
+5. mel spectrogram から下の waveform へ緑の矢印を引き、横に書く：「vocoder が波形を合成」。
+6. 下部に waveform トラックを speaker につなぎ、必ず書く：「output = waveform、再生できる音声」。
+7. 右側に赤い禁止の点線ショートカットを描く。text から waveform へ直接向かう線をバツ印で止め、横に書く：「text -> waveform は安定させにくい」。
+8. 下部の短文は完全に：「音響の設計図を作ってから、波形を合成する。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、密集したコード、録音マイク、音楽制作ソフト画面、無関係な装飾は禁止。
 """.strip(),
     "ch12-multimodal-feature-fusion-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.1 多模态基础中“融合”NumPy 例子的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要泛泛画“多模态很酷”。

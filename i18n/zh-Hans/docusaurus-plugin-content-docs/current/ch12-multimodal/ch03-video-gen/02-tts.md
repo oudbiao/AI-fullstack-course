@@ -198,6 +198,8 @@ print(tts_pipeline)
 
 关键是中间层。很多 TTS 系统会先把文本变成声学表示，再由后续模块生成真正能播放的音频。
 
+![TTS 文本到 mel_spectrogram 再到 waveform 的运行结果图](/img/course/ch12-tts-pipeline-mel-to-waveform-result-map.webp)
+
 这个例子虽然只是结构示意，但它已经说明：
 
 - 文本不是直接变成声音

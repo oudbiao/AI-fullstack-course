@@ -198,6 +198,8 @@ Expected output:
 
 The important part is the intermediate layer. In many TTS systems, text first becomes an acoustic representation, and only then becomes actual audio.
 
+![TTS pipeline mel spectrogram to waveform result map](/img/course/ch12-tts-pipeline-mel-to-waveform-result-map-en.webp)
+
 Although this example is only a structural illustration, it already shows:
 
 - Text does not become sound directly
