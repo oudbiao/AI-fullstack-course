@@ -453,6 +453,8 @@ safety_review: multimodal_workshop_run/reports/safety_review.md
 export_preview: multimodal_workshop_run/outputs/export_preview.html
 ```
 
+![workshop 実行結果の証拠パッケージ図](/img/course/ch12-workshop-run-evidence-package-result-map-ja.webp)
+
 ## Step 3：Brief と Prompt 記録を確認する
 
 `inputs/creative_brief.json` を開きます。これは構造化されたユーザー要件です。topic、audience、goal、tone、deliverables、constraints が入っています。

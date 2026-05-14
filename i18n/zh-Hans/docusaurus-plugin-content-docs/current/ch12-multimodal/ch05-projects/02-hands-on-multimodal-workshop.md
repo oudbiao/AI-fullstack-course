@@ -453,6 +453,8 @@ safety_review: multimodal_workshop_run/reports/safety_review.md
 export_preview: multimodal_workshop_run/outputs/export_preview.html
 ```
 
+![workshop 运行结果证据包图](/img/course/ch12-workshop-run-evidence-package-result-map.webp)
+
 ## Step 3：检查 Brief 和 Prompt 记录
 
 打开 `inputs/creative_brief.json`。这是结构化后的用户需求：主题、受众、目标、语气、交付物和约束。

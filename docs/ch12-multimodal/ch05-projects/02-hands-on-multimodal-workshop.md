@@ -453,6 +453,8 @@ safety_review: multimodal_workshop_run/reports/safety_review.md
 export_preview: multimodal_workshop_run/outputs/export_preview.html
 ```
 
+![Workshop evidence package result map](/img/course/ch12-workshop-run-evidence-package-result-map-en.webp)
+
 ## Step 3: Inspect the Brief and Prompt Records
 
 Open `inputs/creative_brief.json`. This is the user requirement in structured form: topic, audience, goal, tone, deliverables, and constraints.

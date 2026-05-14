@@ -14573,6 +14573,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-workshop-run-evidence-package-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+        },
+        "scene": "A Chapter 12 multimodal workshop run-result teaching image based on the exact complete script in 12.5.3. The image must teach what the terminal print means by showing the generated evidence package, not a generic AIGC poster and not the local SVG assets themselves. The script creates multimodal_workshop_run with inputs, prompts, assets, outputs, reports, and README. It writes creative_brief.json, prompt_plan.json, prompt_versions.md, three baseline SVG scene assets, storyboard.json, timeline.csv, content_package.json, export_preview.html, asset_manifest.csv, safety_review.md, failure_cases.md, and README.md. The printed output is exactly scenes/assets/storyboard summary: deliverables 4, svg_assets 3, storyboard_scenes 3, review_passed 2/3, failure_cases 1, and the files to inspect are prompt_plan, asset_manifest, safety_review, export_preview. Teaching point: the important result is not the SVG pictures; it is a reproducible project package with prompts, assets, review records, export preview, and one intentionally caught failure. Do not draw a terminal screenshot, do not imitate the generated SVG style, do not show a white rounded-box flowchart, do not invent extra files, models, APIs, reviewers, scores, video frames, audio waveforms, dates, costs, or dashboards. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/file tokens; Japanese image uses natural Japanese helper labels except exact code/file tokens. Exact code/file tokens may stay as code: multimodal_workshop_run, creative_brief.json, prompt_plan.json, prompt_versions.md, scene_01.svg, scene_02.svg, scene_03.svg, storyboard.json, timeline.csv, content_package.json, export_preview.html, asset_manifest.csv, safety_review.md, failure_cases.md, README.md, review_passed, failure_cases.",
+        "chapter_context": "The image is inserted after the expected output of the hands-on multimodal workshop. Nearby prose says the most important result is not the SVG itself: every generated asset should have a prompt, source record, review result, export boundary, and failure note. The following sections ask learners to inspect the brief, prompt records, assets, storyboard, review files, export preview, and failure report.",
+        "shared_layout": "Vertical 9:16. Use a warm paper project-audit workbook style with a visible folder tree, evidence strings, asset thumbnails, review stamps, export preview card, and failure report tray. Do not use the old SVG information-box style, white rounded-box flowchart, terminal screenshot, pure text poster, sticker collage, or decorative creative poster. Top title and subtitle. Upper station shows the run command launching multimodal_workshop_run and a small terminal receipt with only the five key counts: deliverables=4, svg_assets=3, storyboard_scenes=3, review_passed=2/3, failure_cases=1. Middle station shows four connected evidence shelves in order: inputs/brief, prompts/versions, assets/storyboard, reports/export. Show each shelf with concrete file cards from the script. The three scene SVG cards should look like rough baseline placeholders, not polished final images, to reinforce that the proof is the workflow. Lower station links asset_manifest.csv and safety_review.md to a review gate, then routes the failing scene to failure_cases.md and the passing package to export_preview.html. Bottom rule strip says the portfolio artifact is reproducible because prompt, asset, review, export, and failure records all exist. Keep shelf order, file names, counts, review gate, failure tray, export card, colors, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete folders and files. Avoid dense paragraphs, tiny fake text, random English in zh/ja variants beyond exact file/code tokens, and any extra file not created by the script.",
+        "variants": {
+            "zh": {
+                "title": "把 workshop 输出读成证据包",
+                "subtitle": "print 只是入口，真正要检查的是 prompts、assets、reports 和 export。",
+                "items": [
+                    ("运行", "python multimodal_workshop.py -> multimodal_workshop_run。"),
+                    ("计数", "svg_assets=3，storyboard_scenes=3，review_passed=2/3。"),
+                    ("Prompt 证据", "prompt_plan.json 和 prompt_versions.md 记录生成依据。"),
+                    ("资产链路", "scene_01.svg 到 scene_03.svg 进入 storyboard.json 和 timeline.csv。"),
+                    ("审核", "asset_manifest.csv + safety_review.md 说明能否导出。"),
+                    ("失败样本", "failure_cases.md 记录 1 个故意触发的问题。"),
+                ],
+                "footer": "作品集项目要交付可复现证据包，不只是好看的图片。",
+                "alt": "多模态 workshop 运行结果证据包图：脚本生成 multimodal_workshop_run，包含 brief、prompt 记录、三个 SVG baseline、storyboard、timeline、asset_manifest、safety_review、export_preview 和一个 failure_cases 失败样本。",
+            },
+            "en": {
+                "title": "Read the Workshop Output as Evidence",
+                "subtitle": "The printout is only the entry point; inspect prompts, assets, reports, and export.",
+                "items": [
+                    ("run", "python multimodal_workshop.py -> multimodal_workshop_run."),
+                    ("counts", "svg_assets=3, storyboard_scenes=3, review_passed=2/3."),
+                    ("prompt evidence", "prompt_plan.json and prompt_versions.md record generation intent."),
+                    ("asset chain", "scene_01.svg through scene_03.svg feed storyboard.json and timeline.csv."),
+                    ("review", "asset_manifest.csv + safety_review.md decide export readiness."),
+                    ("failure sample", "failure_cases.md records 1 intentionally caught issue."),
+                ],
+                "footer": "A portfolio project ships a reproducible evidence package, not just pretty images.",
+                "alt": "Multimodal workshop run-result evidence package map: the script creates multimodal_workshop_run with brief, prompt records, three SVG baselines, storyboard, timeline, asset_manifest, safety_review, export_preview, and one failure_cases sample.",
+            },
+            "ja": {
+                "title": "workshop 出力を証拠パッケージとして読む",
+                "subtitle": "print は入口だけ。prompts、assets、reports、export を確認する。",
+                "items": [
+                    ("実行", "python multimodal_workshop.py -> multimodal_workshop_run。"),
+                    ("件数", "svg_assets=3、storyboard_scenes=3、review_passed=2/3。"),
+                    ("Prompt 証拠", "prompt_plan.json と prompt_versions.md が生成意図を残す。"),
+                    ("資産のつながり", "scene_01.svg から scene_03.svg が storyboard.json と timeline.csv に入る。"),
+                    ("レビュー", "asset_manifest.csv + safety_review.md で export 可否を見る。"),
+                    ("失敗サンプル", "failure_cases.md に意図的に検出した問題 1 件を残す。"),
+                ],
+                "footer": "portfolio project は、きれいな画像だけでなく再現可能な証拠を出す。",
+                "alt": "マルチモーダル workshop の実行結果証拠パッケージ図：script が multimodal_workshop_run を作り、brief、prompt 記録、3つの SVG baseline、storyboard、timeline、asset_manifest、safety_review、export_preview、1件の failure_cases を残す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
