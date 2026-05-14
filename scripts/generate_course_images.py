@@ -16530,6 +16530,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-agent-cost-estimator-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/04-cost-optimization.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/04-cost-optimization.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal Agent cost estimator. It must explain exactly why baseline_cost is 0.0501 and optimized_cost is 0.01584, not draw a generic cost-saving poster. Show baseline_task with two large_model calls: 1800 input + 300 output costs 0.027, 1400 input + 220 output costs 0.0206, plus tool calls search_api 0.002 and vector_retrieval 0.0005, total 0.0501. Show optimized_task with one small_model call 700 input + 120 output costs 0.00094, one large_model call 900 input + 180 output costs 0.0144, plus vector_retrieval 0.0005, total 0.01584. Teaching point: cost optimization changes the task chain, not only the price label on one model. Do not invent extra tools, calls, retries, prices, savings percentages, budgets, charts, APIs, dates, model names, or alternative totals.",
+        "chapter_context": "The image is inserted immediately after the expected output of the cost estimator code in 9.9.5 Cost Optimization. Nearby prose says Agent cost is a task-chain bill composed of model token cost, tool call cost, retrieval, retries, and long context. The code compares baseline_task and optimized_task and prints baseline_cost = 0.0501 and optimized_cost = 0.01584, then asks which model calls are expensive, which tools add cost, and why optimization drops the total.",
+        "shared_layout": "Vertical 9:16. Use the same practical finance-lab / engineering cost workbench style across zh/en/ja. Top title and subtitle. Main body has two parallel lanes with identical structure: baseline_task on the left/top with warm warning color, optimized_task on the right/bottom with cool improvement color. Each lane shows two model-call trays and one tool-call tray feeding a visible calculator. Baseline tray values: large_model 1800 in + 300 out -> 0.027; large_model 1400 in + 220 out -> 0.0206; search_api -> 0.002; vector_retrieval -> 0.0005; total -> 0.0501. Optimized tray values: small_model 700 in + 120 out -> 0.00094; large_model 900 in + 180 out -> 0.0144; vector_retrieval -> 0.0005; total -> 0.01584. Middle or bottom insight board: the saved money comes from routing simple work to small_model, shorter context, and removing one search_api call. Bottom strip: task chain -> per-step cost -> total -> optimize the chain. Keep lane order, formulas, numeric values, colors, and reading path identical across languages. Code tokens that may stay English: Agent, baseline_task, optimized_task, small_model, large_model, input_tokens, output_tokens, search_api, vector_retrieval, baseline_cost, optimized_cost. Avoid tiny pseudo-text, dense code screenshots, pure tables, old SVG-style rounded boxes, generic piggy-bank art, unrelated English/Japanese text in zh images, and any total other than 0.0501 or 0.01584.",
+        "variants": {
+            "zh": {
+                "title": "Agent 成本估算结果怎么看",
+                "subtitle": "不是只换便宜模型，而是看整条任务链每一步花了多少钱。",
+                "items": [
+                    ("baseline_task", "两次 large_model：0.027 + 0.0206。"),
+                    ("baseline tools", "search_api=0.002，vector_retrieval=0.0005。"),
+                    ("baseline_cost", "0.027 + 0.0206 + 0.002 + 0.0005 = 0.0501。"),
+                    ("optimized_task", "small_model=0.00094，large_model=0.0144。"),
+                    ("optimized tools", "只保留 vector_retrieval=0.0005。"),
+                    ("optimized_cost", "0.00094 + 0.0144 + 0.0005 = 0.01584。"),
+                ],
+                "footer": "优化来自链路变化：小模型先筛、上下文变短、少一次 search_api。",
+                "alt": "Agent 成本估算结果图：baseline_task 由两次 large_model、search_api 和 vector_retrieval 累加为 0.0501，optimized_task 通过 small_model 路由、较短上下文和少一次 search_api 降到 0.01584。",
+            },
+            "en": {
+                "title": "Reading the Agent Cost Estimator",
+                "subtitle": "The bill changes because the task chain changes, not because one price label changed.",
+                "items": [
+                    ("baseline_task", "two large_model calls: 0.027 + 0.0206."),
+                    ("baseline tools", "search_api=0.002, vector_retrieval=0.0005."),
+                    ("baseline_cost", "0.027 + 0.0206 + 0.002 + 0.0005 = 0.0501."),
+                    ("optimized_task", "small_model=0.00094, large_model=0.0144."),
+                    ("optimized tools", "keep only vector_retrieval=0.0005."),
+                    ("optimized_cost", "0.00094 + 0.0144 + 0.0005 = 0.01584."),
+                ],
+                "footer": "Savings come from routing, shorter context, and removing one search_api call.",
+                "alt": "Agent cost estimator result map: baseline_task adds two large_model calls, search_api, and vector_retrieval to 0.0501, while optimized_task uses small_model routing, shorter context, and one fewer search_api call to reach 0.01584.",
+            },
+            "ja": {
+                "title": "Agent コスト見積もりの読み方",
+                "subtitle": "単価だけでなく、タスク全体の流れを変えると請求額が下がる。",
+                "items": [
+                    ("baseline_task", "2回の large_model：0.027 + 0.0206。"),
+                    ("baseline tools", "search_api=0.002、vector_retrieval=0.0005。"),
+                    ("baseline_cost", "0.027 + 0.0206 + 0.002 + 0.0005 = 0.0501。"),
+                    ("optimized_task", "small_model=0.00094、large_model=0.0144。"),
+                    ("optimized tools", "vector_retrieval=0.0005 だけ残す。"),
+                    ("optimized_cost", "0.00094 + 0.0144 + 0.0005 = 0.01584。"),
+                ],
+                "footer": "節約は、小モデルでの振り分け、短い context、search_api 1回削減から生まれる。",
+                "alt": "Agent コスト見積もり結果図：baseline_task は2回の large_model、search_api、vector_retrieval を足して 0.0501 になり、optimized_task は small_model ルーティング、短い context、search_api 1回削減で 0.01584 になる。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",

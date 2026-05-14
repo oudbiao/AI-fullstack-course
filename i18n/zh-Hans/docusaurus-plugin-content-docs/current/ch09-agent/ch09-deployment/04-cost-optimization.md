@@ -161,6 +161,8 @@ baseline_cost = 0.0501
 optimized_cost = 0.01584
 ```
 
+![Agent 成本估算结果图](/img/course/ch09-agent-cost-estimator-result-map.webp)
+
 ### 这段代码最想让你看到什么？
 
 不是某个具体价格，

@@ -162,6 +162,8 @@ baseline_cost = 0.0501
 optimized_cost = 0.01584
 ```
 
+![Agent コスト見積もり結果図](/img/course/ch09-agent-cost-estimator-result-map-ja.webp)
+
 ### このコードでまず見てほしいポイント
 
 特定の価格そのものではなく、  

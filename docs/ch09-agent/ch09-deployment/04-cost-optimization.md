@@ -161,6 +161,8 @@ baseline_cost = 0.0501
 optimized_cost = 0.01584
 ```
 
+![Agent cost estimator result map](/img/course/ch09-agent-cost-estimator-result-map-en.webp)
+
 ### What is this code mainly trying to show you?
 
 Not a specific price,
