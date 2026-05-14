@@ -14243,6 +14243,116 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch10-image-processing-pipeline-output-montage",
+        "pages": {
+            "en": "docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch01-cv-basics/03-image-processing.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch01-cv-basics/03-image-processing.md",
+        },
+        "scene": "A classic image-processing pipeline worked-result board based on the runnable OpenCV code in the lesson. The image must teach what the four saved output files look like and why the order matters, not show a generic computer-vision poster. Use only the exact pipeline from the page: processing_original.png is read as grayscale; GaussianBlur produces processing_pipeline_smoothed.png; threshold at 100 produces processing_pipeline_binary.png; morphology close fills small gaps and produces processing_pipeline_cleaned.png; Canny produces processing_pipeline_edges.png. Show a simple synthetic object silhouette with visible noise in the original, a smoother gray version, a black/white binary mask, a cleaned mask with gaps filled, and thin edge contours. Do not draw a terminal screenshot, full code block, invented algorithms, invented file names, neural network layers, model names, dashboards, cameras, photos, or decorative stock scenes. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except necessary code/API/file names; Japanese image uses natural Japanese helper labels except necessary code/API/file names. Keep code/file/API names as code: GaussianBlur, threshold=100, morphology close, Canny, processing_original.png, processing_pipeline_smoothed.png, processing_pipeline_binary.png, processing_pipeline_cleaned.png, processing_pipeline_edges.png. Teaching point: each saved image is evidence for one transformation, and debugging means opening the intermediate files instead of trusting the final print line.",
+        "chapter_context": "The image is inserted after the expected output of the combined pipeline in 10.1.3 Image Processing. Nearby text explains that real tasks combine grayscale input, denoising, thresholding, morphology cleanup, and edge extraction. The code writes four files and only prints that the full processing pipeline results have been saved, so the illustration should make those hidden outputs visible.",
+        "shared_layout": "Vertical 9:16. Warm paper lab-workbook style with five concrete image thumbnails connected by arrows. Top title and subtitle. Use a single left-to-right or top-to-bottom pipeline: original grayscale input -> smoothed -> binary -> cleaned -> edges. Each station must show a visible before/after image thumbnail, one short localized purpose label, and the exact saved filename. Keep the same object silhouette, file names, station order, arrow colors, and reading path identical across zh/en/ja. Use large sparse text near the matching thumbnail. Avoid SVG-style white rounded boxes, pure flowcharts, pure text posters, dense terminal logs, tiny labels, stickers, dark dashboards, or decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "图像处理流水线结果怎么读",
+                "subtitle": "每一步都会留下可打开的中间图，不要只看 print。",
+                "items": [
+                    ("输入", "processing_original.png：带噪声的灰度图。"),
+                    ("去噪", "GaussianBlur -> processing_pipeline_smoothed.png。"),
+                    ("二值化", "threshold=100 -> processing_pipeline_binary.png。"),
+                    ("清理形状", "morphology close -> processing_pipeline_cleaned.png。"),
+                    ("找边缘", "Canny -> processing_pipeline_edges.png。"),
+                    ("调试方法", "哪一步错，就先打开对应中间图。"),
+                ],
+                "footer": "经典图像处理要按输出文件逐步复盘。",
+                "alt": "图像处理流水线运行结果图：原始灰度图经过 GaussianBlur、threshold、morphology close 和 Canny，分别保存 smoothed、binary、cleaned、edges 四个中间结果。",
+            },
+            "en": {
+                "title": "Reading Image Processing Pipeline Results",
+                "subtitle": "Each step leaves an inspectable image; do not trust only the print line.",
+                "items": [
+                    ("input", "processing_original.png: noisy grayscale object."),
+                    ("denoise", "GaussianBlur -> processing_pipeline_smoothed.png."),
+                    ("binarize", "threshold=100 -> processing_pipeline_binary.png."),
+                    ("clean shape", "morphology close -> processing_pipeline_cleaned.png."),
+                    ("find edges", "Canny -> processing_pipeline_edges.png."),
+                    ("debug habit", "Open the intermediate image where the pipeline first breaks."),
+                ],
+                "footer": "Review classic image processing one output file at a time.",
+                "alt": "Image processing pipeline result map: a grayscale input passes through GaussianBlur, threshold, morphology close, and Canny, saving smoothed, binary, cleaned, and edges outputs.",
+            },
+            "ja": {
+                "title": "画像処理パイプライン結果を読む",
+                "subtitle": "各ステップは確認できる中間画像を残す。print だけで終わらない。",
+                "items": [
+                    ("入力", "processing_original.png：ノイズ付きグレースケール画像。"),
+                    ("ノイズ除去", "GaussianBlur -> processing_pipeline_smoothed.png。"),
+                    ("二値化", "threshold=100 -> processing_pipeline_binary.png。"),
+                    ("形を整える", "morphology close -> processing_pipeline_cleaned.png。"),
+                    ("エッジ検出", "Canny -> processing_pipeline_edges.png。"),
+                    ("デバッグ", "壊れた段階の中間画像を先に開く。"),
+                ],
+                "footer": "古典的画像処理は、出力ファイルごとに順番に見直す。",
+                "alt": "画像処理パイプラインの実行結果図：グレースケール入力が GaussianBlur、threshold、morphology close、Canny を通り、smoothed、binary、cleaned、edges を保存する。",
+            },
+        },
+    },
+    {
+        "slug": "ch10-ocr-region-text-reading-order-result-map",
+        "pages": {
+            "en": "docs/ch10-computer-vision/ch05-advanced/03-ocr.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch05-advanced/03-ocr.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch10-computer-vision/ch05-advanced/03-ocr.md",
+        },
+        "scene": "An OCR minimal-pipeline run-result teaching image based on the exact runnable code in Chapter 10.5.4. The image must make the printed regions and texts visual, not show a generic OCR poster. Use only the exact data from the page: image_blocks contains two blocks. Block 1 has box (0, 0, 50, 20) and pixels/text INV-001. Block 2 has box (0, 30, 80, 50) and pixels/text TOTAL 299. detect_text_regions returns the two boxes. recognize_text returns each box with its text. Show why detection answers where the text is, recognition answers what the text says, and reading order uses the box positions to read top before bottom. Do not invent extra fields, invoice numbers, dates, currencies, OCR models, confidence scores, vendors, camera scenes, tables, dashboards, screenshots, terminal logs, or full code blocks. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except code/data tokens; Japanese image uses natural Japanese helper labels except code/data tokens. Exact code/data tokens may stay as code: regions, texts, box, text, INV-001, TOTAL 299, (0, 0, 50, 20), (0, 30, 80, 50).",
+        "chapter_context": "The image is inserted after the expected output of the minimal OCR pipeline in 10.5.4 OCR Text Recognition. The nearby code prints regions and texts, then the prose explains that the first line is the detection result and the second line is the recognition result. The illustration should turn the print output into a readable document-analysis scene so learners can understand the run result even without executing the code.",
+        "shared_layout": "Vertical 9:16. Use a polished document-analysis desk style with one invoice sheet and colored bounding boxes, not a white rounded-box SVG infographic and not a pure flowchart. Top title and subtitle. Main area has the same invoice sheet on the left with exactly two highlighted text regions: blue box around INV-001 at the top, green box around TOTAL 299 below it. Right side has exactly three stacked evidence panels: 1 Detection returns boxes, 2 Recognition attaches text, 3 Reading order reads top box before bottom box. Bottom has one short caution strip: bad detection makes later recognition unreliable. Keep the invoice position, two boxes, panel order, colors, arrows, and reading path identical across zh/en/ja. Use large sparse localized text attached to the concrete boxes and panels. Avoid decorative-only OCR scanners, dense paragraphs, tiny fake text, old SVG information-box style, extra English in zh/ja variants, and any data not present in the code.",
+        "variants": {
+            "zh": {
+                "title": "OCR 输出怎么从 print 变成证据",
+                "subtitle": "regions 说明字在哪里，texts 说明每个框里读到了什么。",
+                "items": [
+                    ("检测", "regions -> 两个 box 坐标。"),
+                    ("上方框", "(0, 0, 50, 20) -> INV-001。"),
+                    ("下方框", "(0, 30, 80, 50) -> TOTAL 299。"),
+                    ("识别", "texts 把 box 和 text 配成一对。"),
+                    ("阅读顺序", "先读 y 更小的上方框，再读下方框。"),
+                    ("排错", "框切错，后面再强也难补救。"),
+                ],
+                "footer": "OCR 先定位文字，再读取文字，最后整理顺序。",
+                "alt": "OCR 最小流水线运行结果图：regions 给出 INV-001 和 TOTAL 299 的两个 box，texts 把每个 box 和识别出的 text 配对，并按从上到下的阅读顺序理解。",
+            },
+            "en": {
+                "title": "Turning OCR Print Output into Evidence",
+                "subtitle": "regions says where the text is; texts says what each box contains.",
+                "items": [
+                    ("detection", "regions -> two box coordinates."),
+                    ("top box", "(0, 0, 50, 20) -> INV-001."),
+                    ("bottom box", "(0, 30, 80, 50) -> TOTAL 299."),
+                    ("recognition", "texts pairs each box with text."),
+                    ("reading order", "Read the smaller y box first, then the lower box."),
+                    ("debug", "If the crop is wrong, recognition cannot fully recover."),
+                ],
+                "footer": "OCR locates text, reads text, then organizes order.",
+                "alt": "OCR minimal pipeline result map: regions returns two boxes for INV-001 and TOTAL 299, texts pairs each box with recognized text, and reading order follows top to bottom.",
+            },
+            "ja": {
+                "title": "OCR の print 出力を証拠に変える",
+                "subtitle": "regions は文字の場所、texts は各 box の中身を示す。",
+                "items": [
+                    ("検出", "regions -> 2つの box 座標。"),
+                    ("上の枠", "(0, 0, 50, 20) -> INV-001。"),
+                    ("下の枠", "(0, 30, 80, 50) -> TOTAL 299。"),
+                    ("認識", "texts は box と text を組にする。"),
+                    ("読む順番", "y が小さい上の枠を先に読み、次に下の枠を読む。"),
+                    ("デバッグ", "切り出しを間違えると、後段だけでは直しにくい。"),
+                ],
+                "footer": "OCR は文字を探し、読み取り、順序を整える。",
+                "alt": "OCR の最小パイプライン実行結果図：regions が INV-001 と TOTAL 299 の2つの box を返し、texts が各 box と認識 text を組にし、上から下へ読む順序で理解する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
@@ -20179,6 +20289,222 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch10-image-processing-pipeline-output-montage.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 10 章 10.1.3 图像处理流水线代码运行结果。
+这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴满代码。
+
+可见标题必须完全写为："图像处理流水线结果怎么读"
+可见副标题必须完全写为："每一步都会留下可打开的中间图，不要只看 print。"
+
+教学目标：读者一眼看懂这段代码保存了哪些图片，以及每张图片证明了哪一步处理。画面必须像纸质实验记录页，展示同一个简单灰度物体从噪声输入逐步变成平滑图、二值 mask、清理后的 mask、边缘轮廓。
+
+中英日三版必须同构：同一张纵向实验记录页、同一五行布局、同一物体轮廓、同一箭头位置、同一颜色节奏。不要把英文版改成网格，不要把日文版改成单列海报，不要增减步骤。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 中间恰好五行步骤，从上到下排列，每行都包含：
+   - 左侧大号步骤编号 1-5
+   - 中间一张清晰 1:1 输出缩略图
+   - 右侧一条短说明和文件名
+3. 五张缩略图必须展示同一物体的真实变化：
+   - 第 1 行：processing_original.png，带噪声的灰度物体
+   - 第 2 行：processing_pipeline_smoothed.png，经过 GaussianBlur 后更平滑
+   - 第 3 行：processing_pipeline_binary.png，threshold=100 后黑白二值 mask
+   - 第 4 行：processing_pipeline_cleaned.png，morphology close 填补小空隙后的 mask
+   - 第 5 行：processing_pipeline_edges.png，Canny 得到细边缘轮廓
+4. 右下角小调试提示卡写："调试：哪一步错，就先打开对应中间图。"
+5. 底部页脚必须完全写为："经典图像处理要按输出文件逐步复盘。"
+
+每行可见文字必须是：
+1 输入：processing_original.png，带噪声的灰度图。
+2 去噪：GaussianBlur -> processing_pipeline_smoothed.png。
+3 二值化：threshold=100 -> processing_pipeline_binary.png。
+4 清理形状：morphology close -> processing_pipeline_cleaned.png。
+5 找边缘：Canny -> processing_pipeline_edges.png。
+
+准确性规则：
+- 中文说明必须是简体中文；只允许保留这些技术 token：print、GaussianBlur、threshold=100、morphology close、Canny 和上述文件名。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo、额外文件名、神经网络、相机照片、模型名称或 dashboard。
+- 文字要少、大、清楚，手机上能读。缩略图要清晰，不能糊。
+""".strip(),
+    "ch10-image-processing-pipeline-output-montage-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 10.1.3 image-processing pipeline results.
+This is the final AI-generated image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not make a pure flowchart, do not show a terminal screenshot, and do not paste code.
+
+Visible title exactly: "Reading Image Processing Pipeline Results"
+Visible subtitle exactly: "Each step leaves an inspectable image; do not trust only the print line."
+
+Teaching goal: a reader should immediately understand which image files the code saves and what each saved file proves. Make the page look like a paper lab notebook showing the same simple grayscale object moving from noisy input to smoothed image, binary mask, cleaned mask, and edge contour.
+
+The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical lab notebook, same five-row layout, same object silhouette, same arrow placement, same color rhythm. Do not change this English version into a grid. Do not add or remove steps.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Center has exactly five rows from top to bottom. Every row contains:
+   - large step number 1-5 on the left
+   - one clear square output thumbnail in the middle
+   - one short explanation and filename on the right
+3. The five thumbnails must show the same object's real transformation:
+   - Row 1: processing_original.png, noisy grayscale object
+   - Row 2: processing_pipeline_smoothed.png, smoother after GaussianBlur
+   - Row 3: processing_pipeline_binary.png, black/white mask after threshold=100
+   - Row 4: processing_pipeline_cleaned.png, morphology close fills small gaps
+   - Row 5: processing_pipeline_edges.png, Canny produces thin edge contours
+4. Bottom-right small debug card exactly: "Debug: open the intermediate image where the pipeline first breaks."
+5. Visible footer exactly: "Review classic image processing one output file at a time."
+
+Visible row text must be:
+1 input: processing_original.png, noisy grayscale image.
+2 denoise: GaussianBlur -> processing_pipeline_smoothed.png.
+3 binarize: threshold=100 -> processing_pipeline_binary.png.
+4 clean shape: morphology close -> processing_pipeline_cleaned.png.
+5 find edges: Canny -> processing_pipeline_edges.png.
+
+Accuracy rules:
+- English text only, except code/API/file tokens.
+- Do not include Chinese text, Japanese text, gibberish, tiny background text, watermark, brand logo, extra filenames, neural networks, camera photos, model names, or dashboards.
+- Text must be sparse, large, clean, and readable on a phone. Thumbnails must be sharp, not blurry.
+""".strip(),
+    "ch10-image-processing-pipeline-output-montage-ja.png": """
+第 10 章 10.1.3 の画像処理パイプライン実行結果を説明する、完成済みの 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。あとから文字を重ねるための空白を残さないでください。SVG 風、白い角丸ボックスの情報図、純粋なフローチャート、ターミナルスクリーンショット、コードの貼り付けは禁止です。
+
+可視タイトルは完全に："画像処理パイプライン結果を読む"
+可視サブタイトルは完全に："各ステップは確認できる中間画像を残す。print だけで終わらない。"
+
+教学目標：このコードがどの画像ファイルを保存し、それぞれがどの処理を証明するのかを一目で理解できること。紙の実験ノートのようなページにし、同じ単純なグレースケール物体が、ノイズ付き入力、平滑化画像、二値 mask、整理された mask、エッジ輪郭へ変化する様子を示してください。
+
+中国語・英語・日本語版は必ず同じ構造：同じ縦長の実験ノート、同じ5行レイアウト、同じ物体のシルエット、同じ矢印位置、同じ色のリズム。日本語版だけ単列ポスターにしないでください。ステップを増減しないでください。
+
+固定版式：
+1. 上部にタイトルとサブタイトル。
+2. 中央に上から下へ、ちょうど5行のステップ。各行は必ず次を含む：
+   - 左に大きいステップ番号 1-5
+   - 中央に鮮明な正方形の出力サムネイル1枚
+   - 右に短い説明とファイル名
+3. 5枚のサムネイルは同じ物体の変化を示す：
+   - 1行目：processing_original.png、ノイズ付きグレースケール画像
+   - 2行目：processing_pipeline_smoothed.png、GaussianBlur 後に滑らか
+   - 3行目：processing_pipeline_binary.png、threshold=100 後の白黒 mask
+   - 4行目：processing_pipeline_cleaned.png、morphology close で小さなすき間を埋める
+   - 5行目：processing_pipeline_edges.png、Canny による細いエッジ輪郭
+4. 右下の小さなデバッグカードは完全に："デバッグ：壊れた段階の中間画像を先に開く。"
+5. 下部フッターは完全に："古典的画像処理は、出力ファイルごとに順番に見直す。"
+
+各行の可視文字は：
+1 入力：processing_original.png、ノイズ付きグレースケール画像。
+2 ノイズ除去：GaussianBlur -> processing_pipeline_smoothed.png。
+3 二値化：threshold=100 -> processing_pipeline_binary.png。
+4 形を整える：morphology close -> processing_pipeline_cleaned.png。
+5 エッジ検出：Canny -> processing_pipeline_edges.png。
+
+正確性ルール：
+- 日本語説明を使う。コード/API/ファイル名 token はそのまま残してよい。
+- 中国語、英語の説明文、乱码、小さい背景文字、watermark、brand logo、余分なファイル名、ニューラルネット、カメラ写真、モデル名、dashboard を入れない。
+- 文字は少なく、大きく、スマホで読めること。サムネイルは鮮明で、ぼかさない。
+""".strip(),
+    "ch10-ocr-region-text-reading-order-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 10 章 10.5.4 OCR 最小流水线代码运行结果。
+这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴满代码。
+
+可见标题必须完全写为："OCR 输出怎么从 print 变成证据"
+可见副标题必须完全写为："regions 说明字在哪里，texts 说明每个框里读到了什么。"
+
+教学目标：读者一眼看懂这段代码的两行 print：
+regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
+texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
+图必须把 print 变成可观察证据：检测阶段只给两个框，识别阶段把每个框和文字配对，阅读顺序按 y 坐标从上到下。
+
+中英日三版必须同构：同一张竖版文档分析桌、同一发票纸张、同一两个框、同一三个证据面板、同一箭头颜色和位置。不要把英文版改成 dashboard，不要把日文版改成漫画，不要增减数据。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 左侧是一张浅色发票纸，只允许有两个大文字：
+   - 上方文字 INV-001，被蓝色框圈住，旁边标注 box (0, 0, 50, 20)
+   - 下方文字 TOTAL 299，被绿色框圈住，旁边标注 box (0, 30, 80, 50)
+3. 右侧三个纵向证据面板：
+   - 面板 1 标题："1 检测：得到两个 box"
+   - 面板 2 标题："2 识别：box + text 配对"
+   - 面板 3 标题："3 顺序：先上后下"
+4. 面板 2 必须显示两条清楚配对：
+   - (0, 0, 50, 20) -> INV-001
+   - (0, 30, 80, 50) -> TOTAL 299
+5. 底部警示条必须完全写为："框切错，后面再强也难补救。"
+6. 页脚必须完全写为："OCR 先定位文字，再读取文字，最后整理顺序。"
+
+准确性规则：
+- 中文说明必须是简体中文；只允许保留这些代码/数据 token：regions、texts、box、text、INV-001、TOTAL 299 和两个坐标。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo、额外发票字段、日期、金额符号、confidence、OCR 模型名、API 供应商、相机或扫描仪装饰。
+- 文字要少、大、清楚，手机上能读。两个框和两条配对必须非常清晰，不能糊。
+""".strip(),
+    "ch10-ocr-region-text-reading-order-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 10.5.4 minimal OCR pipeline results.
+This is the final AI-generated image. Do not leave blank space for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not make a pure flowchart, do not show a terminal screenshot, and do not paste code.
+
+Visible title exactly: "Turning OCR Print Output into Evidence"
+Visible subtitle exactly: "regions says where the text is; texts says what each box contains."
+
+Teaching goal: a reader should immediately understand the two print lines in the runnable code:
+regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
+texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
+The image must turn the print output into observable evidence: detection only returns two boxes, recognition pairs each box with text, and reading order follows y position from top to bottom.
+
+The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical document-analysis desk, same invoice sheet, same two boxes, same three evidence panels, same arrow colors and positions. Do not turn the English version into a dashboard. Do not add or remove data.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Left side is a light invoice sheet with only two large text values:
+   - top text INV-001, circled by a blue box, labeled box (0, 0, 50, 20)
+   - lower text TOTAL 299, circled by a green box, labeled box (0, 30, 80, 50)
+3. Right side has three vertical evidence panels:
+   - Panel 1 title: "1 Detection: two boxes"
+   - Panel 2 title: "2 Recognition: box + text"
+   - Panel 3 title: "3 Order: top before bottom"
+4. Panel 2 must show two clear pairs:
+   - (0, 0, 50, 20) -> INV-001
+   - (0, 30, 80, 50) -> TOTAL 299
+5. Bottom caution strip exactly: "If the crop is wrong, recognition cannot fully recover."
+6. Visible footer exactly: "OCR locates text, reads text, then organizes order."
+
+Accuracy rules:
+- English text only, except exact code/data tokens: regions, texts, box, text, INV-001, TOTAL 299, and the two coordinates.
+- Do not include Chinese text, Japanese text, gibberish, tiny background text, watermark, brand logo, extra invoice fields, dates, currency symbols, confidence scores, OCR model names, API vendors, cameras, or scanners.
+- Text must be sparse, large, clean, and readable on a phone. The two boxes and two pairs must be sharp, not blurry.
+""".strip(),
+    "ch10-ocr-region-text-reading-order-result-map-ja.png": """
+第 10 章 10.5.4 の最小 OCR パイプライン実行結果を説明する、完成済みの 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。あとから文字を重ねるための空白を残さないでください。SVG 風、白い角丸ボックスの情報図、純粋なフローチャート、ターミナルスクリーンショット、コードの貼り付けは禁止です。
+
+可視タイトルは完全に："OCR の print 出力を証拠に変える"
+可視サブタイトルは完全に："regions は文字の場所、texts は各 box の中身を示す。"
+
+教学目標：実行コードの2行の print を一目で理解できること：
+regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
+texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
+画像は print を観察できる証拠に変える必要があります。検出段階は2つの box だけを返し、認識段階は各 box と text を組にし、読む順番は y 座標に従って上から下へ進むことを示してください。
+
+中国語・英語・日本語版は必ず同じ構造：同じ縦長の文書分析デスク、同じ請求書用紙、同じ2つの枠、同じ3つの証拠パネル、同じ矢印色と位置。日本語版だけ漫画や dashboard にしないでください。データを増減しないでください。
+
+固定版式：
+1. 上部にタイトルとサブタイトル。
+2. 左側は明るい請求書用紙。大きな文字は2つだけ：
+   - 上の文字 INV-001 を青い枠で囲み、box (0, 0, 50, 20) と表示
+   - 下の文字 TOTAL 299 を緑の枠で囲み、box (0, 30, 80, 50) と表示
+3. 右側に縦並びの3つの証拠パネル：
+   - パネル1タイトル："1 検出：2つの box"
+   - パネル2タイトル："2 認識：box + text"
+   - パネル3タイトル："3 順序：上から下"
+4. パネル2には2つの対応をはっきり表示：
+   - (0, 0, 50, 20) -> INV-001
+   - (0, 30, 80, 50) -> TOTAL 299
+5. 下部の注意バーは完全に："切り出しを間違えると、後段だけでは直しにくい。"
+6. 下部フッターは完全に："OCR は文字を探し、読み取り、順序を整える。"
+
+正確性ルール：
+- 日本語説明を使う。コード/データ token として regions、texts、box、text、INV-001、TOTAL 299、2つの座標はそのまま残してよい。
+- 中国語、英語の説明文、乱码、小さい背景文字、watermark、brand logo、余分な請求書項目、日付、通貨記号、confidence、OCR モデル名、API vendor、カメラ、スキャナを入れない。
+- 文字は少なく、大きく、スマホで読めること。2つの枠と2つの対応は鮮明で、ぼかさない。
+""".strip(),
     "ch09-multi-agent-artifact-handoff-anatomy-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于 AI 全栈课程第 9 章多 Agent 开发团队项目。
 这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python dataclass 输出整段贴满画面。

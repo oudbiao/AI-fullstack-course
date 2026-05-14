@@ -320,6 +320,8 @@ print("処理フロー全体の結果を保存しました")
 処理フロー全体の結果を保存しました
 ```
 
+![画像処理パイプラインの実行結果比較図](/img/course/ch10-image-processing-pipeline-output-montage-ja.webp)
+
 ---
 
 ## 八、なぜ今でも古典的な手法を学ぶの？

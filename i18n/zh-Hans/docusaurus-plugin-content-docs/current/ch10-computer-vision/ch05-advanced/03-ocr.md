@@ -116,6 +116,8 @@ regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
 texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
 ```
 
+![OCR 检测框、识别文本和阅读顺序运行结果图](/img/course/ch10-ocr-region-text-reading-order-result-map.webp)
+
 第一行是检测结果：文字区域在哪里。第二行是识别结果：每个检测到的区域里写了什么。
 
 ### 这个例子最关键的地方是什么？

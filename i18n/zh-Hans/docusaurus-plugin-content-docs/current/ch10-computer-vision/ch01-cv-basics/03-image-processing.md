@@ -320,6 +320,8 @@ print("完整处理流程结果已保存")
 完整处理流程结果已保存
 ```
 
+![图像处理流水线运行结果对照图](/img/course/ch10-image-processing-pipeline-output-montage.webp)
+
 ---
 
 ## 八、这些经典方法为什么今天还要学？

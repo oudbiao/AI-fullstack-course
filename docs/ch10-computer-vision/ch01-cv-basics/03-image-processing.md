@@ -320,6 +320,8 @@ Expected output:
 The full processing pipeline results have been saved
 ```
 
+![Image processing pipeline output montage](/img/course/ch10-image-processing-pipeline-output-montage-en.webp)
+
 ---
 
 ## Why do we still learn these classic methods today?

@@ -116,6 +116,8 @@ regions: [(0, 0, 50, 20), (0, 30, 80, 50)]
 texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'text': 'TOTAL 299'}]
 ```
 
+![OCR region text and reading order result map](/img/course/ch10-ocr-region-text-reading-order-result-map-en.webp)
+
 The first line is the detection result: where text regions are. The second line is the recognition result: what each detected region says.
 
 ### What Is the Most Important Part of This Example?
