@@ -42,6 +42,8 @@ shot_3: 10s | final assistant screen | voice: The answer is clearer and easier t
 total_seconds: 30
 ```
 
+![Video shot plan timeline result map](/img/course/ch12-video-shot-plan-timeline-result-map-en.webp)
+
 This is already a useful video-generation brief, even before calling a real video model.
 
 ## Learn in This Order

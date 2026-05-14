@@ -14463,6 +14463,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-video-shot-plan-timeline-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch03-video-gen/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/00-roadmap.md",
+        },
+        "scene": "A Chapter 12 video-generation roadmap run-result teaching image based on the exact Python shots loop in the lesson. The image must teach how a list of shot dictionaries turns into a reviewable 30-second timeline, not show a generic video production poster. Use only these exact data values from the code: shot_1 is 8s, visual problem screenshot, voice Many course questions repeat.; shot_2 is 12s, visual RAG pipeline diagram, voice Retrieval adds sources before the model answers.; shot_3 is 10s, visual final assistant screen, voice The answer is clearer and easier to verify.; total_seconds is 30. Teaching point: the loop prints one line per shot, then sums the seconds; this is already a useful video-generation brief before calling a real video model. Do not invent extra shots, models, video frames, subtitles, costs, frame rates, APIs, render buttons, music tracks, or extra durations. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except code/data tokens and the exact English visual/voice strings from the code; Japanese image uses natural Japanese helper labels except code/data tokens and the exact English visual/voice strings from the code. Exact code/data tokens may stay as code: shots, seconds, visual, voice, shot_1, shot_2, shot_3, total_seconds.",
+        "chapter_context": "The image is inserted after the expected output of the 30-second asset-plan code in 12.3.1 Video and Speech Roadmap. Nearby prose explains that video and speech generation adds time: you organize script, shots, narration, timing, subtitles, motion, and review on a timeline. The illustration should make the print output readable as a concrete timeline artifact.",
+        "shared_layout": "Vertical 9:16. Use a polished storyboard planning notebook style, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative film poster. Top title and subtitle. Upper station shows the input list named shots as three compact dictionary cards. Middle station shows the for-loop as a mechanical reader that emits exactly three timeline tickets. Lower station is a 30-second horizontal/vertical timeline split into three proportional segments: 8s, 12s, 10s. Each segment has a concrete mini-scene thumbnail matching the visual field and a narration strip matching the voice field. Bottom receipt shows total_seconds: 30 and a short rule: every generated media asset needs a place on the timeline. Keep shot order, duration proportions, visual thumbnails, colors, receipt position, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete objects. Avoid dense paragraphs, tiny fake text, unrelated UI, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond the exact code data.",
+        "variants": {
+            "zh": {
+                "title": "把 shots 列表读成 30 秒时间线",
+                "subtitle": "循环不是只 print，它把每个素材放到可审核的时间位置。",
+                "items": [
+                    ("输入", "shots 里有 3 个镜头字典。"),
+                    ("循环", "for index, shot 会逐条打印 shot_1 到 shot_3。"),
+                    ("镜头 1", "8s：problem screenshot；voice 是课程问题重复。"),
+                    ("镜头 2", "12s：RAG pipeline diagram；voice 是检索先补证据。"),
+                    ("镜头 3", "10s：final assistant screen；voice 是答案更清楚。"),
+                    ("合计", "total_seconds: 30。"),
+                ],
+                "footer": "视频生成先做时间线 brief，再调用模型。",
+                "alt": "视频 shot plan 运行结果图：shots 列表的三个字典被 for 循环打印成 shot_1、shot_2、shot_3，并按 8 秒、12 秒、10 秒组成 total_seconds 为 30 的时间线。",
+            },
+            "en": {
+                "title": "Reading shots as a 30-Second Timeline",
+                "subtitle": "The loop does more than print: it places each asset on a reviewable timeline.",
+                "items": [
+                    ("input", "shots contains 3 shot dictionaries."),
+                    ("loop", "for index, shot prints shot_1 through shot_3."),
+                    ("shot 1", "8s: problem screenshot; voice explains repeated course questions."),
+                    ("shot 2", "12s: RAG pipeline diagram; voice explains retrieval evidence."),
+                    ("shot 3", "10s: final assistant screen; voice explains a clearer answer."),
+                    ("sum", "total_seconds: 30."),
+                ],
+                "footer": "Plan the timeline brief before calling a video model.",
+                "alt": "Video shot plan result map: three dictionaries in shots are printed by the for loop as shot_1, shot_2, and shot_3, then placed into an 8 second, 12 second, and 10 second timeline totaling 30 seconds.",
+            },
+            "ja": {
+                "title": "shots を 30 秒タイムラインとして読む",
+                "subtitle": "loop は print だけでなく、各素材をレビュー可能な時間位置へ置く。",
+                "items": [
+                    ("入力", "shots には 3 つの shot 辞書がある。"),
+                    ("loop", "for index, shot が shot_1 から shot_3 を順に出力する。"),
+                    ("shot 1", "8s：problem screenshot；voice は質問の繰り返しを説明。"),
+                    ("shot 2", "12s：RAG pipeline diagram；voice は検索で根拠を足すことを説明。"),
+                    ("shot 3", "10s：final assistant screen；voice は答えが明確になることを説明。"),
+                    ("合計", "total_seconds: 30。"),
+                ],
+                "footer": "動画モデルを呼ぶ前に、まず timeline brief を作る。",
+                "alt": "動画 shot plan の実行結果図：shots の3つの辞書を for loop が shot_1、shot_2、shot_3 として出力し、8秒、12秒、10秒の timeline に置いて total_seconds 30 にする。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",

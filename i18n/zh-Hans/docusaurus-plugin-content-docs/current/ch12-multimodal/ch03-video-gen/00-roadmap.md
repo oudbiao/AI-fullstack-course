@@ -42,6 +42,8 @@ shot_3: 10s | final assistant screen | voice: The answer is clearer and easier t
 total_seconds: 30
 ```
 
+![视频 shot plan 时间线运行结果图](/img/course/ch12-video-shot-plan-timeline-result-map.webp)
+
 即使还没有调用真实视频模型，这已经是一个可用的视频生成 brief。
 
 ## 按这个顺序学

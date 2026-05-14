@@ -42,6 +42,8 @@ shot_3: 10s | final assistant screen | voice: The answer is clearer and easier t
 total_seconds: 30
 ```
 
+![動画 shot plan タイムライン実行結果図](/img/course/ch12-video-shot-plan-timeline-result-map-ja.webp)
+
 実際の動画モデルを呼ぶ前でも、これは使える動画生成 brief になります。
 
 ## この順番で学ぶ
