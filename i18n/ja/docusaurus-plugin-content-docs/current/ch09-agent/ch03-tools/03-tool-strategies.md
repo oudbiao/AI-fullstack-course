@@ -321,6 +321,8 @@ for q in ["北京の天気はどうですか", "天気を調べて", "計算 9 +
 計算 9 + 8 -> {'type': 'tool_result', 'content': {'result': 17}}
 ```
 
+![ツール戦略のルーティングと実行結果図](/img/course/ch09-tool-strategy-routing-execution-result-map-ja.webp)
+
 このコードが本当に教えているのは次のことです。
 
 > ツール呼び出し戦略は、1 行の `if` ではなく、「判断 + 分岐 + 実行 + フォールバック」の連なりとして設計するものです。

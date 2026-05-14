@@ -317,6 +317,8 @@ for q in ["北京天气怎么样", "帮我查天气", "计算 9 + 8"]:
 计算 9 + 8 -> {'type': 'tool_result', 'content': {'result': 17}}
 ```
 
+![工具策略路由与执行结果图](/img/course/ch09-tool-strategy-routing-execution-result-map.webp)
+
 这段代码真正教的是：
 
 > 工具调用策略不是一行 `if`，而是“判断 + 分流 + 执行 + 兜底”的链路设计。

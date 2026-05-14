@@ -15928,6 +15928,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-tool-strategy-routing-execution-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch03-tools/03-tool-strategies.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/03-tool-strategies.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch03-tools/03-tool-strategies.md",
+        },
+        "scene": "A runnable-result teaching visual for the Agent tool-calling strategy examples. It must explain the exact printed outputs from route_query and execute_strategy, not a generic tool strategy poster. Show the strategy layer reading several user queries, deciding no_tool / tool / ask_user / fallback, validating whether parameters are enough, then executing weather or calculator only when a tool call is actually justified. The minimal routing examples must include exactly four route_query cases: summarize/rewrite goes to action=no_tool with reason pure text task; Beijing weather goes to action=tool with tool=weather and city Beijing; weather with missing city goes to action=ask_user with a clarification question; calculate 12 * 7 goes to action=tool with tool=calculator and expression 12 * 7. The execution-loop examples must include exactly three execute_strategy cases: Beijing weather returns type=tool_result with city Beijing, temperature 22, condition sunny; missing-city weather returns type=question asking for the city; calculate 9 + 8 returns type=tool_result with result 17. Teaching point: a tool strategy is decision + routing + parameter sufficiency + execution + fallback, not simply a single if statement or always calling tools. Critical text accuracy: spell the technical token calculator exactly everywhere; never write ealculator, calcu1ator, caIculator, calculater, or any distorted variant. Do not add local shell commands, rg commands, python check scripts, filenames, fake logs, fake terminal snippets, barcode-like code panels, or tiny decorative code. The image should have only the teaching labels and short notes required below, plus the exact code tokens in the notes.",
+        "chapter_context": "The image is inserted after the expected output of execute_strategy in the tool-calling strategy lesson. Nearby code defines route_query, safe_calculate, get_weather, calculate, and execute_strategy. The prose explains that not every input should be sent to a tool, missing parameters should trigger a question, and a mature strategy saves tool calls when a direct text answer is better.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark practical engineering workbench across zh/en/ja. Top title and subtitle. Upper section: four query cards entering a strategy router with four decision stamps: no_tool, weather tool, ask_user, calculator tool. Middle section: a parameter checkpoint gate that clearly shows Beijing weather passes because city=Beijing, missing-city weather stops and asks a question, and calculate passes because expression is present. Lower section: execute_strategy result board with exactly three receipt cards: weather result 22 sunny, question asking for city, calculator result 17. Bottom strip: need? -> route -> check parameters -> execute or ask -> fallback. Keep card order, object positions, colors, numeric values, tool names, and reading path identical across languages. Use concrete query cards, router switch, parameter gate, weather gauge, calculator, question bubble, and result receipts. Avoid old SVG-style white rounded-box diagrams, pure text posters, terminal screenshots, dense tables, tiny logs, decorative dashboards, invented tools, local command snippets, filenames, barcode code panels, or extra small text.",
+        "variants": {
+            "zh": {
+                "title": "工具策略运行结果怎么看",
+                "subtitle": "先判断需不需要工具，再检查参数，最后才执行或追问。",
+                "items": [
+                    ("route_query", "4 个输入分成 no_tool、weather、ask_user、calculator。"),
+                    ("不调用", "总结/改写属于纯文本任务，直接 no_tool。"),
+                    ("参数足够", "北京天气 -> tool=weather，city=北京。"),
+                    ("参数不足", "帮我查天气 -> 先问：你想查哪个城市？"),
+                    ("执行结果", "北京天气 -> 22 sunny；计算 9 + 8 -> 17。"),
+                    ("核心策略", "判断 + 分流 + 参数校验 + 执行/兜底。"),
+                ],
+                "footer": "成熟的 Agent 不是能调工具就调，而是知道何时该停、该问、该执行。",
+                "alt": "工具调用策略运行结果图：route_query 把总结、北京天气、缺城市天气和计算请求分流为 no_tool、tool、ask_user、calculator，execute_strategy 再返回天气结果、追问城市或计算结果 17。",
+            },
+            "en": {
+                "title": "Reading Tool Strategy Run Results",
+                "subtitle": "Decide if a tool is needed, check parameters, then execute or ask.",
+                "items": [
+                    ("route_query", "4 inputs split into no_tool, weather, ask_user, calculator."),
+                    ("no call", "Summarize/rewrite is pure text, so no_tool."),
+                    ("enough params", "Beijing weather -> tool=weather, city=Beijing."),
+                    ("missing params", "Check the weather -> ask: which city?"),
+                    ("execution", "Beijing weather -> 22 sunny; calculate 9 + 8 -> 17."),
+                    ("strategy chain", "Decision + routing + parameter check + execution/fallback."),
+                ],
+                "footer": "A mature Agent does not call tools whenever possible; it knows when to stop, ask, or execute.",
+                "alt": "Tool-calling strategy run result map: route_query sends summarize, Beijing weather, missing-city weather, and calculation requests to no_tool, tool, ask_user, and calculator, while execute_strategy returns weather, a clarification question, or result 17.",
+            },
+            "ja": {
+                "title": "ツール戦略の実行結果を読む",
+                "subtitle": "ツールが必要かを判断し、パラメータを確認してから実行または質問する。",
+                "items": [
+                    ("route_query", "4つの入力を no_tool、weather、ask_user、calculator に分ける。"),
+                    ("呼ばない", "要約/書き換えは純テキストなので no_tool。"),
+                    ("十分な情報", "北京の天気 -> tool=weather、city=北京。"),
+                    ("情報不足", "天気を調べて -> 先に都市を確認する。"),
+                    ("実行結果", "北京の天気 -> 22 sunny；計算 9 + 8 -> 17。"),
+                    ("戦略の連鎖", "判断 + 分岐 + パラメータ確認 + 実行/フォールバック。"),
+                ],
+                "footer": "成熟した Agent は、止まる・尋ねる・実行する時を選ぶ。",
+                "alt": "ツール呼び出し戦略の実行結果図：route_query が要約、北京の天気、都市不足の天気、計算依頼を no_tool、tool、ask_user、calculator に分け、execute_strategy が天気結果、確認質問、計算結果 17 を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch09-data-analysis-sales-trace-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch10-projects/02-data-analysis-agent.md",

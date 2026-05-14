@@ -319,6 +319,8 @@ Help me check the weather -> {'type': 'question', 'content': "Which city's weath
 Calculate 9 + 8 -> {'type': 'tool_result', 'content': {'result': 17}}
 ```
 
+![Tool strategy routing and execution result map](/img/course/ch09-tool-strategy-routing-execution-result-map-en.webp)
+
 What this code really teaches is:
 
 > Tool calling strategy is not a single `if` statement, but a chain of "decision + routing + execution + fallback."
