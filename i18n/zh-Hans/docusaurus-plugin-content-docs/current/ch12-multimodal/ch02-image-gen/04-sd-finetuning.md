@@ -136,6 +136,8 @@ print(textual_inversion)
 {'new_token': '<my_style>', 'meaning': '一种特定视觉风格', 'learned_object': 'token embedding'}
 ```
 
+![Textual Inversion token embedding 运行结果图](/img/course/ch12-textual-inversion-token-embedding-result-map.webp)
+
 关键看 `learned_object`：Textual Inversion 主要学习一个新 token 的 embedding，所以它轻量，但控制能力也有限。
 
 ### 它适合什么？

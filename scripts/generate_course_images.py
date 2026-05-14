@@ -14683,6 +14683,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-textual-inversion-token-embedding-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+        },
+        "scene": "A Chapter 12 Stable Diffusion fine-tuning run-result teaching image based on the exact Textual Inversion minimal example. The code creates textual_inversion = {new_token: <my_style>, meaning: a specific visual style, learned_object: token embedding}, then prints that dictionary. The image must teach what the printed dictionary means inside the model: Textual Inversion does not retrain the whole image model; it learns one new token embedding that lets the prompt call a specific style or concept. Teaching point: new_token is the trigger word, meaning is the human description, learned_object is the actual learned embedding, and the method is light but limited. Do not confuse this with LoRA, DreamBooth, ControlNet, full fine-tuning, diffusion steps, model APIs, cost dashboards, terminal screenshots, or a pure dictionary poster. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens. Exact code/data tokens may stay as code: Textual Inversion, textual_inversion, new_token, <my_style>, meaning, learned_object, token embedding, prompt, embedding, Stable Diffusion.",
+        "chapter_context": "The image is inserted after the expected output of the Textual Inversion minimal example in 12.2.4 Stable Diffusion fine-tuning. Nearby prose says Textual Inversion is the lightest route because it mainly learns a new embedding for a token. The following section compares it with LoRA, whose base model stays shared while a small adapter carries customization.",
+        "shared_layout": "Vertical 9:16. Use a polished paper lab-notebook style with one printed dictionary card, a new token badge, a small embedding-vector drawer, a prompt encoder slot, and two output style swatches. Do not use old SVG information-box style, white rounded-box flowchart, pure text poster, terminal screenshot, or decorative AI art poster. Top title and subtitle. Upper station shows the printed dictionary card with exactly new_token=<my_style>, meaning=specific visual style, learned_object=token embedding. Middle station shows the <my_style> token badge sliding into a vector drawer labeled token embedding, then plugging into a prompt encoder word shelf. Lower station shows Stable Diffusion still shared and unchanged, while the new token can call a style in the prompt. A small limit sign says it is light but limited. Bottom rule strip explains that Textual Inversion adds a callable concept word, not a full new model. Keep the board style, station order, token badge, embedding drawer, prompt encoder, unchanged model, limit sign, colors, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete objects. Avoid dense paragraphs, tiny fake text, random English in zh/ja variants beyond exact code/data tokens, and any parameters not printed by the code.",
+        "variants": {
+            "zh": {
+                "title": "Textual Inversion 学到的是什么",
+                "subtitle": "print 里的 learned_object 指向一个新的 token embedding。",
+                "items": [
+                    ("new_token", "<my_style> 是新触发词。"),
+                    ("meaning", "它代表一种特定视觉风格。"),
+                    ("learned_object", "真正学到的是 token embedding。"),
+                    ("接入位置", "embedding 进入 prompt 编码，不改整套模型。"),
+                    ("效果", "轻量、快速，但控制范围有限。"),
+                ],
+                "footer": "Textual Inversion 是给模型加一个可调用的概念词。",
+                "alt": "Textual Inversion token embedding 运行结果图：print 输出中的 new_token、meaning 和 learned_object 分别对应触发词、含义和实际学到的 token embedding。",
+            },
+            "en": {
+                "title": "What Textual Inversion Learns",
+                "subtitle": "The printed learned_object points to a new token embedding.",
+                "items": [
+                    ("new_token", "<my_style> is the new trigger word."),
+                    ("meaning", "It names a specific visual style."),
+                    ("learned_object", "The learned part is the token embedding."),
+                    ("insertion point", "The embedding enters prompt encoding, not the whole model."),
+                    ("effect", "Light and fast, but limited in control."),
+                ],
+                "footer": "Textual Inversion adds a callable concept word, not a full new model.",
+                "alt": "Textual Inversion token embedding result map: the printed new_token, meaning, and learned_object correspond to the trigger word, human meaning, and the token embedding actually learned.",
+            },
+            "ja": {
+                "title": "Textual Inversion が学ぶもの",
+                "subtitle": "出力の learned_object は、新しい token embedding を指す。",
+                "items": [
+                    ("new_token", "<my_style> は新しい trigger word。"),
+                    ("meaning", "特定の視覚スタイルを表す。"),
+                    ("learned_object", "実際に学ぶのは token embedding。"),
+                    ("入る場所", "embedding は prompt encoding に入り、モデル全体は変えない。"),
+                    ("効果", "軽くて速いが、制御範囲は限定的。"),
+                ],
+                "footer": "Textual Inversion は、モデル全体ではなく呼び出せる概念語を足す。",
+                "alt": "Textual Inversion token embedding 実行結果図：print 出力の new_token、meaning、learned_object が、trigger word、人間向けの意味、実際に学ぶ token embedding に対応する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
@@ -20619,6 +20671,73 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-textual-inversion-token-embedding-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.4 Textual Inversion 极简代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯字典海报。
+
+可见标题必须完全写为：“Textual Inversion 学到的是什么”
+可见副标题必须完全写为：“print 里的 learned_object 指向一个新的 token embedding。”
+
+教学目标：读者先看图就能理解 print 出来的字典不是普通文本，而是在说明 Textual Inversion 的真实学习对象。new_token 是触发词，meaning 是人类解释，learned_object 才是模型实际学到的 token embedding。它把一个新 embedding 接入 prompt 编码，让 Stable Diffusion 能被 <my_style> 调用；它轻量，但控制范围有限。
+
+三语版本必须同构：同一张纵向纸质实验笔记、同一阅读顺序、同一物体位置、同一颜色节奏。中文图只能用自然中文解释，允许保留这些代码/技术词：Textual Inversion、print、new_token、<my_style>、meaning、learned_object、token embedding、embedding、prompt、Stable Diffusion。除这些固定词外，不要出现英文解释标签。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方是一张 print 输出卡，清楚写三行：new_token=<my_style>、meaning=一种特定视觉风格、learned_object=token embedding。
+3. 中部左侧把 <my_style> 画成一个醒目的触发词标签，旁边中文说明：“新触发词”。
+4. 中部中央是一个小型向量抽屉，里面是少量彩色向量条，标签写 token embedding；旁边中文说明：“真正学到的是这里”。
+5. 中部右侧是 prompt 编码槽，<my_style> 标签带着 embedding 插进去；旁边中文说明：“进入 prompt 编码”。
+6. 下方画一个保持共享、不被重训的 Stable Diffusion 模型底座；只允许 token embedding 这条小线接入，不要画成全模型重训。
+7. 下方右侧画两张小风格结果缩略图，表现同一风格被触发；旁边有小提示“轻量，但控制有限”。
+8. 底部短句必须完全写为：“Textual Inversion 是给模型加一个可调用的概念词。”
+
+画面要像真实课堂实验记录：纸张、便签、向量抽屉、编码槽、模型底座、样例缩略图都要具体。每个文字必须贴近它解释的视觉对象，字号大、少而清楚。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、额外模型名、LoRA、DreamBooth、ControlNet、API、价格、评分或日期。
+""".strip(),
+    "ch12-textual-inversion-token-embedding-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.4, the minimal Textual Inversion code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, and no dictionary-only poster.
+
+Visible title exactly: “What Textual Inversion Learns”
+Visible subtitle exactly: “The printed learned_object points to a new token embedding.”
+
+Teaching goal: the learner should understand that the printed dictionary explains the real learning target of Textual Inversion. new_token is the trigger word, meaning is the human description, and learned_object is the token embedding actually learned. A new embedding enters prompt encoding so Stable Diffusion can be called with <my_style>. It is light, but limited in control.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: same vertical paper lab notebook, same reading order, same object positions, same color rhythm. Use natural English. Code/technical tokens must be spelled exactly where useful: Textual Inversion, print, new_token, <my_style>, meaning, learned_object, token embedding, embedding, prompt, Stable Diffusion.
+Critical spelling rule: write learned_object with an underscore every time; write token embedding as two words; write <my_style> exactly with angle brackets and underscore; never write <my-style>, my style, learned object, or token-embedding.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area is a printed output card with exactly three rows: new_token=<my_style>, meaning=a specific visual style, learned_object=token embedding.
+3. Middle-left shows <my_style> as a clear trigger-word tag; note: “new trigger word”.
+4. Middle-center shows a small vector drawer with a few colored vector bars, labeled token embedding; note: “this is the learned part”.
+5. Middle-right shows a prompt encoder slot where the <my_style> tag carries the embedding into prompt encoding; note: “enters prompt encoding”.
+6. Lower area shows a shared, unchanged Stable Diffusion base model. Only the small token embedding line plugs in; do not show full-model retraining.
+7. Lower-right shows two small style-result thumbnails where the same style is triggered; note: “light, but limited control”.
+8. Bottom sentence exactly: “Textual Inversion adds a callable concept word, not a full new model.”
+
+Make it look like a concrete classroom lab record with paper, sticky notes, vector drawer, encoder slot, model base, and sample thumbnails. Every label must sit near the object it explains, with large readable text. Avoid gibberish, tiny paragraphs, random non-English text, fake UI filler, watermark, brand logo, extra model names, LoRA, DreamBooth, ControlNet, APIs, costs, scores, or dates.
+""".strip(),
+    "ch12-textual-inversion-token-embedding-result-map-ja.png": """
+第12章 12.2.4 の Textual Inversion 極小コードの実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、辞書だけのポスターは禁止。
+
+可視タイトルは完全に：「Textual Inversion が学ぶもの」
+可視サブタイトルは完全に：「出力の learned_object は、新しい token embedding を指す。」
+
+学習目標：print された辞書が、Textual Inversion の本当の学習対象を示していると一目で分かること。new_token は trigger word、meaning は人間向けの説明、learned_object が実際に学ぶ token embedding。新しい embedding が prompt encoding に入り、Stable Diffusion は <my_style> で呼び出せる。軽量だが、制御範囲は限定的。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ縦型の紙の実験ノート、同じ読み順、同じ物体位置、同じ色のリズム。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：Textual Inversion、print、new_token、<my_style>、meaning、learned_object、token embedding、embedding、prompt、prompt encoding、Stable Diffusion、trigger word。コード語以外の英語説明ラベルは出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に print 出力カードを置き、3行を明確に書く：new_token=<my_style>、meaning=特定の視覚スタイル、learned_object=token embedding。
+3. 中央左に <my_style> を目立つ trigger word タグとして描く。短い説明：「新しい trigger word」。
+4. 中央に小さな vector drawer を描き、少数の色付きベクトルバーを入れる。ラベルは token embedding。短い説明：「実際に学ぶ部分」。
+5. 中央右に prompt encoding のスロットを描き、<my_style> タグが embedding を持って差し込まれる。短い説明：「prompt encoding に入る」。
+6. 下部に共有された、変更されない Stable Diffusion の土台を描く。token embedding の小さな線だけが接続する。モデル全体を再学習しているように描かない。
+7. 右下に同じスタイルが呼び出された小さな結果サムネイルを2枚描く。短い説明：「軽いが制御は限定的」。
+8. 下部の短文は完全に：「Textual Inversion は、モデル全体ではなく呼び出せる概念語を足す。」
+
+紙、付箋、vector drawer、encoding slot、モデル土台、サンプルサムネイルを使った具体的な授業記録にしてください。文字は説明対象の近くに置き、大きく読みやすく、短くする。文字化け、小さな段落、ランダムな中国語、偽 UI 文字、水印、実在ロゴ、余計なモデル名、LoRA、DreamBooth、ControlNet、API、価格、点数、日付は禁止。
+""".strip(),
     "ch12-image-prompt-record-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.1 “建一个提示词记录”的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要终端截图，不要纯 JSON 海报。
 

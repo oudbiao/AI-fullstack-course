@@ -136,6 +136,8 @@ Expected output:
 {'new_token': '<my_style>', 'meaning': 'a specific visual style', 'learned_object': 'token embedding'}
 ```
 
+![Textual Inversion token embedding result map](/img/course/ch12-textual-inversion-token-embedding-result-map-en.webp)
+
 The key is `learned_object`: Textual Inversion mainly learns a new embedding for a token, so it is light but limited.
 
 ### What is it good for?

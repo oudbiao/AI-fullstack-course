@@ -138,6 +138,8 @@ print(textual_inversion)
 {'new_token': '<my_style>', 'meaning': '特定の視覚スタイル', 'learned_object': 'token embedding'}
 ```
 
+![Textual Inversion token embedding 実行結果図](/img/course/ch12-textual-inversion-token-embedding-result-map-ja.webp)
+
 注目すべきは `learned_object` です。Textual Inversion は主に新しい token の embedding を学ぶため、軽量ですが制御力は限定的です。
 
 ### どんなときに向いている？
