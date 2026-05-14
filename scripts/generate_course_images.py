@@ -16035,6 +16035,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-memory-engine-cleanup-retrieval-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch04-memory/05-memory-engineering.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch04-memory/05-memory-engineering.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch04-memory/05-memory-engineering.md",
+        },
+        "scene": "A runnable-result teaching visual for the MemoryEngine lifecycle and retrieval example. It must explain the exact printed output, not a generic memory architecture poster. Show MemoryEngine(short_window=3) writing exactly three long memories: id=1 user preference with importance 0.95, id=2 temporary debug flag with importance 0.2 and ttl_steps=1, and id=3 refund policy with importance 0.9. Then show one tick followed by cleanup removing only id=2 because its ttl_steps expired. Then show retrieve(query, top_k=2) ranking the two surviving memories by relevance plus importance plus freshness. Critical output accuracy: before cleanup has 3 memories; after cleanup has only id=1 and id=3. English retrieval order and scores are id=1 score=1.5141 then id=3 score=1.5127. Chinese retrieval order and scores are id=1 score=2.0641 then id=3 score=2.0627. Japanese retrieval order and scores are id=3 score=3.1627 then id=1 score=0.9641. Teaching point: useful long-term memory is controlled by write policy, lifecycle cleanup, and retrieval scoring; it is not keeping every string forever. Do not invent vector databases, external storage, privacy rules, document sources, extra memories, extra scores, terminal commands, files, full dictionaries, or fake logs.",
+        "chapter_context": "The image is inserted immediately after the expected output of the MemoryEngine example in 9.4.6 Memory Engineering. Nearby code writes three long memories, prints before cleanup, advances one step, calls cleanup, prints after cleanup, then retrieves top_k=2 memories for a refund-policy concise-style query. The following prose explains that writing is controlled by importance, tags, and deduplication; retrieval is not pure similarity; and ttl_steps plus cleanup prevent uncontrolled growth.",
+        "shared_layout": "Vertical 9:16. Use the same warm practical memory-engine workbench across zh/en/ja: a runtime desk, three memory cards, a cleanup gate, a survivor shelf, and a retrieval scoring board. Top title and subtitle. Upper section: write_long_memory creates exactly three cards with visible badges: id=1 preference/style importance=0.95; id=2 debug ttl_steps=1 importance=0.2; id=3 refund/policy importance=0.9. Middle section: before cleanup count is 3, tick advances one step, cleanup() crosses out and removes only the id=2 debug card, after cleanup count is 2. Lower section: retrieve(query, top_k=2) sends the localized query into a scoring board and shows the two exact result receipts with ids and scores for that locale. Bottom strip: write policy + lifecycle cleanup + retrieval scoring = usable memory loop. Keep the physical layout, colors, step order, and reading path identical across languages; only localized text and the locale-specific output scores/order may differ. Use large localized labels attached to concrete objects, not a terminal screenshot. Code tokens that may stay English: MemoryEngine, write_long_memory, importance, tags, ttl_steps=1, tick, cleanup(), retrieve(), query, top_k=2, score, id=1, id=2, id=3, preference, style, debug, refund, policy, freshness. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense logs, tiny fake text, invented stores, vector DB icons, privacy banners, decorative-only memory imagery, and unrelated English/Japanese pseudo-text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "记忆引擎清理与检索结果",
+                "subtitle": "先写入 3 条记忆，cleanup 删除过期 debug，再按查询打分取 top_k。",
+                "items": [
+                    ("写入记忆", "id=1 用户偏好 importance=0.95；id=2 临时调试 ttl_steps=1；id=3 退款政策 importance=0.9。"),
+                    ("cleanup 前", "long_memories 共有 3 条。"),
+                    ("过期清理", "tick 后 cleanup() 只移除 id=2 debug。"),
+                    ("cleanup 后", "只剩 id=1 用户偏好和 id=3 退款政策。"),
+                    ("retrieve", "查询“简洁风格 + 退款政策”，top_k=2。"),
+                    ("结果排序", "id=1 score=2.0641；id=3 score=2.0627。"),
+                ],
+                "footer": "可用的记忆系统靠写入策略、生命周期和检索评分闭环，而不是全量保存。",
+                "alt": "记忆引擎清理与检索结果图：三条 long memory 写入后，ttl_steps=1 的 debug 记忆在 cleanup 中被移除，retrieve 根据简洁风格和退款政策查询返回 id=1 与 id=3。",
+            },
+            "en": {
+                "title": "Memory Engine Cleanup and Retrieval",
+                "subtitle": "Write 3 memories, let cleanup remove expired debug, then rank top_k results.",
+                "items": [
+                    ("write memories", "id=1 preference importance=0.95; id=2 debug ttl_steps=1; id=3 refund policy importance=0.9."),
+                    ("before cleanup", "long_memories contains 3 items."),
+                    ("expire and clean", "After tick, cleanup() removes only id=2 debug."),
+                    ("after cleanup", "Only id=1 user preference and id=3 refund policy remain."),
+                    ("retrieve", "Query asks for concise style plus refund policy, top_k=2."),
+                    ("result order", "id=1 score=1.5141; id=3 score=1.5127."),
+                ],
+                "footer": "Useful memory needs write policy, lifecycle cleanup, and retrieval scoring, not storing everything forever.",
+                "alt": "Memory engine cleanup and retrieval result map: three long memories are written, the ttl_steps=1 debug memory is removed by cleanup, and retrieve returns id 1 and id 3 for a concise refund-policy query.",
+            },
+            "ja": {
+                "title": "メモリエンジンの整理と検索結果",
+                "subtitle": "3件の記憶を書き、期限切れ debug を cleanup し、top_k を順位付けする。",
+                "items": [
+                    ("記憶を書き込む", "id=1 ユーザーの好み importance=0.95；id=2 debug ttl_steps=1；id=3 返金ポリシー importance=0.9。"),
+                    ("cleanup 前", "long_memories には 3 件ある。"),
+                    ("期限切れを整理", "tick 後の cleanup() は id=2 debug だけを削除する。"),
+                    ("cleanup 後", "id=1 ユーザーの好みと id=3 返金ポリシーだけが残る。"),
+                    ("retrieve", "「簡潔なスタイル + 返金ポリシー」を query にして top_k=2。"),
+                    ("結果の順序", "id=3 score=3.1627；id=1 score=0.9641。"),
+                ],
+                "footer": "使える記憶は、書き込み方針・ライフサイクル・検索スコアリングの閉ループで保つ。",
+                "alt": "メモリエンジンの整理と検索結果図：3 件の long memory を書き込み、ttl_steps=1 の debug 記憶を cleanup で削除し、簡潔な返金ポリシー query で id=3 と id=1 を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch09-tool-strategy-routing-execution-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch03-tools/03-tool-strategies.md",

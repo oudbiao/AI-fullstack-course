@@ -302,6 +302,8 @@ retrieval:
 1 0.9641 ユーザーの好み: 回答は簡潔に、最大3点まで
 ```
 
+![メモリエンジンの整理と検索結果図](/img/course/ch09-memory-engine-cleanup-retrieval-result-map-ja.webp)
+
 ### このコードで特に学ぶべき3点
 
 1. 書き込みは無条件ではない  

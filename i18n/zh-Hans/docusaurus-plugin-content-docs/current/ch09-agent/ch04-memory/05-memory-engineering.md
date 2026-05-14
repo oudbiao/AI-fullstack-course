@@ -302,6 +302,8 @@ retrieval:
 3 2.0627 退款政策关键点: 7天内且学习进度低于20%
 ```
 
+![记忆引擎清理与检索结果图](/img/course/ch09-memory-engine-cleanup-retrieval-result-map.webp)
+
 ### 这段代码最值得学的三点
 
 1. 写入不是无条件

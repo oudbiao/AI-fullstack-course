@@ -295,6 +295,8 @@ retrieval:
 3 1.5127 Key refund policy points: within 7 days and learning progress below 20%
 ```
 
+![Memory engine cleanup and retrieval result map](/img/course/ch09-memory-engine-cleanup-retrieval-result-map-en.webp)
+
 ### The three most important things to learn from this code
 
 1. Writing is not unconditional
