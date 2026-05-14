@@ -18232,6 +18232,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-multimodal-feature-fusion-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+        },
+        "scene": "A Chapter 12 multimodal feature-fusion run-result teaching image based on the exact NumPy concatenation example. The code defines image_feature = [0.8, 0.7, 0.2], text_feature = [0.6, 0.2, 0.1], then fused_feature = concatenate([image_feature, text_feature]) and prints a 6-dimensional fused vector. The image must teach why the result shape is (6,): the 3 image evidence dimensions are kept and the 3 text evidence dimensions are appended. The teaching point is complementary evidence in one decision pipeline, not a terminal output screenshot or a generic multimodal poster. Do not draw a white rounded-box flowchart, SVG-style infographic, dense table, or pure text poster.",
+        "chapter_context": "The image is inserted after the expected output of the tiny fusion example in 12.1.1 Multimodal Basics. Nearby prose explains product recommendation: the image may reveal style, the text may reveal purpose, and looking at both together gives a more complete understanding. The paragraph after the output says the fused vector has 6 dimensions because it keeps 3 image dimensions and appends 3 text dimensions.",
+        "shared_layout": "Vertical 9:16. Use the same semi-realistic dark teaching-lab workbench across zh/en/ja: a product card at the top, a blue image-feature strip with exactly three large value chips, a green text-feature strip with exactly three large value chips, both strips entering a visible concatenate rail, and a bottom 6-slot fused_feature strip where the first three slots retain the image color and the last three slots retain the text color. Include a clear shape=(6,) badge and one concise purpose note. Keep object positions, colors, chip order, arrows, product card, concatenate rail, shape badge, and reading path identical across languages. Labels must sit beside the concrete feature chips, not as a detached text block.",
+        "variants": {
+            "zh": {
+                "title": "融合后向量为什么是 6 维",
+                "subtitle": "3 个图像特征 + 3 个文本特征，拼接成一个 fused_feature。",
+                "items": [
+                    ("图像特征", "亮度 0.8、红色程度 0.7、圆形程度 0.2。"),
+                    ("文本特征", "时尚感 0.6、运动感 0.2、商务感 0.1。"),
+                    ("concatenate", "不是平均掉信息，而是把两条证据接起来。"),
+                    ("fused_feature", "[0.8, 0.7, 0.2, 0.6, 0.2, 0.1]。"),
+                    ("shape", "(6,) = 前 3 维来自图片，后 3 维来自文本。"),
+                ],
+                "footer": "融合的目标是把互补信息放进同一条判断链路。",
+                "alt": "多模态特征融合运行结果图：3 个图像特征与 3 个文本特征通过 concatenate 拼接成 6 维 fused_feature。",
+            },
+            "en": {
+                "title": "Why the Fused Vector Has 6 Dimensions",
+                "subtitle": "3 image features plus 3 text features concatenate into one fused_feature.",
+                "items": [
+                    ("Image features", "brightness 0.8, redness 0.7, roundness 0.2."),
+                    ("Text features", "fashion 0.6, sporty 0.2, business 0.1."),
+                    ("concatenate", "Do not average evidence away; append both signals."),
+                    ("fused_feature", "[0.8, 0.7, 0.2, 0.6, 0.2, 0.1]."),
+                    ("shape", "(6,) = first 3 from image, last 3 from text."),
+                ],
+                "footer": "Fusion keeps complementary evidence in one decision pipeline.",
+                "alt": "Multimodal feature fusion result map: 3 image features and 3 text features concatenate into a 6-dimensional fused_feature.",
+            },
+            "ja": {
+                "title": "融合後 vector が 6 次元になる理由",
+                "subtitle": "3つの画像特徴 + 3つのテキスト特徴を結合して fused_feature にする。",
+                "items": [
+                    ("画像特徴", "明るさ 0.8、赤さ 0.7、丸さ 0.2。"),
+                    ("テキスト特徴", "おしゃれ感 0.6、スポーツ感 0.2、ビジネス感 0.1。"),
+                    ("concatenate", "情報を平均で消さず、2つの証拠を後ろにつなぐ。"),
+                    ("fused_feature", "[0.8, 0.7, 0.2, 0.6, 0.2, 0.1]。"),
+                    ("shape", "(6,) = 前半3つは画像、後半3つはテキスト。"),
+                ],
+                "footer": "融合の目的は、補い合う証拠を同じ判断の流れに入れること。",
+                "alt": "マルチモーダル特徴融合の実行結果図：3つの画像特徴と3つのテキスト特徴を concatenate し、6次元の fused_feature にする。",
+            },
+        },
+    },
+    {
         "slug": "ch12-image-text-retrieval-similarity-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
@@ -20943,6 +20995,93 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-multimodal-feature-fusion-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.1 多模态基础中“融合”NumPy 例子的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要泛泛画“多模态很酷”。
+
+可见标题必须完全写为：“融合后向量为什么是 6 维”
+可见副标题必须完全写为：“3 个图像特征 + 3 个文本特征，拼接成一个 fused_feature。”
+
+教学目标：读者先看图就能理解代码输出为什么是 shape=(6,)。代码里 image_feature = [0.8, 0.7, 0.2]，text_feature = [0.6, 0.2, 0.1]，fused_feature 是把两组向量 concatenate 后得到 [0.8, 0.7, 0.2, 0.6, 0.2, 0.1]。图必须说明：前 3 维保留图像证据，后 3 维保留文本证据，融合不是把信息平均掉，而是把互补信息放入同一条判断链路。
+
+三语版本必须同构：同一个半写实深色教学实验台风格、同一张商品卡、同样两条特征轨道、同样 6 个最终向量槽、同样颜色编码、同样箭头和 shape=(6,) 标记。不要中文是 UI 面板、英文是白板、日文是写实桌面。中文图只能用自然中文解释，允许保留这些代码/技术词：image_feature、text_feature、fused_feature、concatenate、shape、Fusion。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张“商品推荐”卡片，里面有鞋/包等商品草图和短标签“图片看风格，文字看用途”。
+3. 中部左侧画蓝色“图像特征”轨道，必须有三个大值块：
+   亮度 0.8
+   红色程度 0.7
+   圆形程度 0.2
+4. 中部右侧画绿色“文本特征”轨道，必须有三个大值块：
+   时尚感 0.6
+   运动感 0.2
+   商务感 0.1
+5. 两条轨道进入一个机械式拼接轨道，标签写“concatenate：接起来，不平均”。
+6. 下方画一条 6 格 fused_feature 向量条，前 3 格保持蓝色，后 3 格保持绿色，数字必须按顺序写：
+   0.8 | 0.7 | 0.2 | 0.6 | 0.2 | 0.1
+7. 右下角有醒目的徽章：“shape = (6,)”。
+8. 底部短句必须完全写为：“融合的目标是把互补信息放进同一条判断链路。”
+
+所有文字必须贴近对应物体，字号大，适合手机阅读。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、真实公司名、价格、日期、终端界面、密集代码或无关装饰。
+""".strip(),
+    "ch12-multimodal-feature-fusion-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.1.1 Multimodal Basics, the NumPy fusion example result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no pure text poster, and no generic “multimodal is cool” artwork.
+
+Visible title exactly: “Why the Fused Vector Has 6 Dimensions”
+Visible subtitle exactly: “3 image features plus 3 text features concatenate into one fused_feature.”
+
+Teaching goal: the learner should understand why the printed result has shape=(6,). The code defines image_feature = [0.8, 0.7, 0.2], text_feature = [0.6, 0.2, 0.1], and fused_feature as concatenate([image_feature, text_feature]), producing [0.8, 0.7, 0.2, 0.6, 0.2, 0.1]. The image must show that the first 3 dimensions keep image evidence, the last 3 dimensions keep text evidence, and fusion does not average evidence away; it puts complementary evidence into one decision pipeline.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark teaching-lab workbench style, the same product card, the same two feature rails, the same 6 final vector slots, the same color coding, the same arrows, and the same shape=(6,) badge. Do not make English a whiteboard while Chinese is a UI panel or Japanese is a realistic desk. Use natural English. Code/technical tokens must be spelled exactly where useful: image_feature, text_feature, fused_feature, concatenate, shape, Fusion.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one “product recommendation” card with a simple shoe/bag sketch and a short label: “image sees style, text sees purpose”.
+3. Middle-left shows a blue “Image features” rail with exactly three large value chips:
+   brightness 0.8
+   redness 0.7
+   roundness 0.2
+4. Middle-right shows a green “Text features” rail with exactly three large value chips:
+   fashion 0.6
+   sporty 0.2
+   business 0.1
+5. Both rails enter a mechanical joining rail labeled “concatenate: append, do not average”.
+6. Lower area shows one 6-slot fused_feature vector strip. First 3 slots stay blue, last 3 slots stay green, and the numbers must be in this order:
+   0.8 | 0.7 | 0.2 | 0.6 | 0.2 | 0.1
+7. Lower-right has a clear badge: “shape = (6,)”.
+8. Bottom sentence exactly: “Fusion keeps complementary evidence in one decision pipeline.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, tiny background text, random non-English text, watermark, brand logo, real company names, prices, dates, terminal UI, dense code, or unrelated decoration.
+""".strip(),
+    "ch12-multimodal-feature-fusion-result-map-ja.png": """
+第12章 12.1.1 マルチモーダル基礎にある「融合」NumPy 例の実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、文字だけのポスター、ただの「マルチモーダルはすごい」絵は禁止。
+
+可視タイトルは完全に：「融合後 vector が 6 次元になる理由」
+可視サブタイトルは完全に：「3つの画像特徴 + 3つのテキスト特徴を結合して fused_feature にする。」
+
+学習目標：print された結果がなぜ shape=(6,) になるのかを一目で理解できるようにする。コードでは image_feature = [0.8, 0.7, 0.2]、text_feature = [0.6, 0.2, 0.1]、fused_feature は concatenate([image_feature, text_feature]) で [0.8, 0.7, 0.2, 0.6, 0.2, 0.1] になる。図では、前半3次元が画像の証拠、後半3次元がテキストの証拠を保ち、融合は情報を平均で消すのではなく、補い合う証拠を同じ判断の流れに入れることだと示す。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色教材ラボ作業台、同じ商品カード、同じ2本の特徴レール、同じ6個の最終 vector スロット、同じ色分け、同じ矢印、同じ shape=(6,) バッジ。中国語版だけ UI panel、英語版だけ白板、日本語版だけ実写机のようにしない。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：image_feature、text_feature、fused_feature、concatenate、shape、Fusion。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に「商品推薦」カードを描き、靴/バッグなどの商品スケッチと短いラベル「画像は見た目、テキストは用途を見る」を入れる。
+3. 中央左に青い「画像特徴」レールを描き、必ず3つの大きな値チップを入れる：
+   明るさ 0.8
+   赤さ 0.7
+   丸さ 0.2
+4. 中央右に緑の「テキスト特徴」レールを描き、必ず3つの大きな値チップを入れる：
+   おしゃれ感 0.6
+   スポーツ感 0.2
+   ビジネス感 0.1
+5. 2本のレールを機械的な結合レールへ入れ、ラベルは「concatenate：平均せず、後ろにつなぐ」。
+6. 下部に6スロットの fused_feature vector 条を描く。前半3スロットは青、後半3スロットは緑のままにし、数字は必ずこの順序：
+   0.8 | 0.7 | 0.2 | 0.6 | 0.2 | 0.1
+7. 右下に目立つバッジ：「shape = (6,)」。
+8. 下部の短文は完全に：「融合の目的は、補い合う証拠を同じ判断の流れに入れること。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、小さな背景文字、ランダムな中国語や英語説明、水印、実在ロゴ、実在会社名、価格、日付、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
     "ch12-sd-poster-workflow-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.4 SD 应用里 poster_workflow 代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 字典原样贴成表格，不要只画一张漂亮海报。
 

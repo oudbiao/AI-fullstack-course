@@ -211,6 +211,8 @@ Fused features: [0.8 0.7 0.2 0.6 0.2 0.1]
 Fused feature shape: (6,)
 ```
 
+![Multimodal feature fusion result map](/img/course/ch12-multimodal-feature-fusion-result-map-en.webp)
+
 The fused vector has 6 dimensions because it keeps the 3 image dimensions and appends the 3 text dimensions. This is only a toy method, but it makes the core idea visible.
 
 Real models are of course much more complex than this, but the idea of “combining information from multiple sources” is exactly this.
