@@ -429,6 +429,8 @@ unknown_topic: PASS (no_evidence)
 passed: 3/3
 ```
 
+![Agent workshop run trace and evaluation result map](/img/course/ch09-agent-workshop-run-trace-eval-result-map-en.webp)
+
 If your output matches, you have completed the minimum Chapter 9 loop: the Agent receives a goal, searches evidence, creates a plan, blocks an unsafe publish action, writes trace logs, and evaluates fixed cases.
 
 ## Step 4: Inspect the Trace File

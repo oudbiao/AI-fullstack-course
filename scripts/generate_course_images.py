@@ -16310,6 +16310,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-agent-workshop-run-trace-eval-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+        },
+        "scene": "A runnable-result teaching visual for the Chapter 9 hands-on Agent workshop. It must explain the exact Step 3 output, not a generic Agent poster. Show the whole minimum loop as three connected run panels: Step 1 safe learning-planning Agent completes, Step 2 high-risk action is blocked, and Step 3 mini evaluation passes all three fixed cases. Exact values must be visible and correct: status=completed, final_tasks=3, first_action=search_course, trace_file=logs/agent_traces.jsonl, status=blocked_by_approval, blocked_tool=publish_report, safe_learning_plan PASS(completed), publish_without_approval PASS(blocked_by_approval), unknown_topic PASS(no_evidence), passed=3/3. Teaching point: the workshop is not only a printout; it proves a controllable Agent loop with evidence search, planning, safety blocking, trace logging, and repeatable evaluation. Do not invent extra tools, extra eval cases, dashboards, URLs, APIs, model names, task counts, file names, metrics, shell commands, or full JSON logs.",
+        "chapter_context": "The image is inserted immediately after the expected output of python3 agent_workshop.py in 9.10.5 Hands-On Workshop. Nearby prose says the Agent receives a goal, searches evidence, creates a plan, blocks an unsafe publish action, writes trace logs, and evaluates fixed cases. The next section separately inspects the trace JSONL file, so this image should focus on understanding the Step 3 run output as one coherent result.",
+        "shared_layout": "Vertical 9:16. Use the same practical AgentOps workshop console style across zh/en/ja: dark classroom lab desk, one central Agent loop, trace file evidence tag, safety gate, and evaluation scorecard. Top title and subtitle. Upper section: Step 1 green path from goal card to Agent loop to search_course first_action, three final task cards, trace_file=logs/agent_traces.jsonl, and status=completed. Middle section: Step 2 orange/red path from a publish goal to a safety approval gate that blocks publish_report and prints status=blocked_by_approval. Lower section: Step 3 evaluation scorecard with exactly three rows and large PASS badges: safe_learning_plan -> completed, publish_without_approval -> blocked_by_approval, unknown_topic -> no_evidence, plus a final score badge passed=3/3. Bottom strip shows the minimum Agent loop: goal -> evidence -> plan -> safety gate -> trace -> eval. Keep section order, colors, icons, tokens, score values, and reading path identical across languages. Use concrete cards, gates, receipts, and check stamps rather than a terminal screenshot. Code tokens that may stay English: Agent, AgentOps, status, completed, final_tasks, first_action, search_course, trace_file, logs/agent_traces.jsonl, blocked_by_approval, blocked_tool, publish_report, PASS, safe_learning_plan, publish_without_approval, unknown_topic, no_evidence, passed=3/3. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense logs, tiny fake text, invented metrics, extra tasks, extra tools, code blocks, URLs, QR codes, and unrelated English or Japanese pseudo-text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "Agent 工作坊运行结果怎么看",
+                "subtitle": "一次运行同时验证：能规划、会拦截、可复盘、能评测。",
+                "items": [
+                    ("Step 1", "status=completed；final_tasks=3；first_action=search_course。"),
+                    ("trace 证据", "运行写入 trace_file=logs/agent_traces.jsonl。"),
+                    ("Step 2", "publish_report 被安全门拦截。"),
+                    ("拦截状态", "status=blocked_by_approval；blocked_tool=publish_report。"),
+                    ("Step 3", "safe_learning_plan、publish_without_approval、unknown_topic 全部 PASS。"),
+                    ("总分", "passed=3/3，最小 Agent 闭环通过。"),
+                ],
+                "footer": "看懂这张图，就能把 print 输出映射到 Agent 的控制闭环。",
+                "alt": "Agent 工作坊运行 trace 与评测结果图：Step 1 完成学习规划并写入 trace，Step 2 拦截 publish_report，Step 3 三个固定评测全部 PASS，最终 passed=3/3。",
+            },
+            "en": {
+                "title": "Reading the Agent Workshop Run",
+                "subtitle": "One run proves planning, blocking, trace evidence, and evaluation.",
+                "items": [
+                    ("Step 1", "status=completed; final_tasks=3; first_action=search_course."),
+                    ("trace evidence", "The run writes trace_file=logs/agent_traces.jsonl."),
+                    ("Step 2", "publish_report is stopped by the safety gate."),
+                    ("blocked state", "status=blocked_by_approval; blocked_tool=publish_report."),
+                    ("Step 3", "safe_learning_plan, publish_without_approval, and unknown_topic all PASS."),
+                    ("score", "passed=3/3, so the minimum Agent loop works."),
+                ],
+                "footer": "Map the print output to the Agent control loop: goal, evidence, plan, safety, trace, eval.",
+                "alt": "Agent workshop run trace and evaluation result map: Step 1 completes the learning plan and writes a trace, Step 2 blocks publish_report, Step 3 passes all three fixed evaluations, and the final score is passed=3/3.",
+            },
+            "ja": {
+                "title": "Agent ワークショップ実行結果の読み方",
+                "subtitle": "1回の実行で、計画、ブロック、trace、評価を確認する。",
+                "items": [
+                    ("Step 1", "status=completed；final_tasks=3；first_action=search_course。"),
+                    ("trace 証拠", "実行は trace_file=logs/agent_traces.jsonl を書く。"),
+                    ("Step 2", "publish_report は安全ゲートで止まる。"),
+                    ("ブロック状態", "status=blocked_by_approval；blocked_tool=publish_report。"),
+                    ("Step 3", "safe_learning_plan、publish_without_approval、unknown_topic がすべて PASS。"),
+                    ("スコア", "passed=3/3、最小 Agent ループが通った。"),
+                ],
+                "footer": "print 出力を、goal・evidence・plan・safety・trace・eval の制御ループへ対応づける。",
+                "alt": "Agent ワークショップの実行 trace と評価結果図：Step 1 が学習計画を完了して trace を書き、Step 2 が publish_report をブロックし、Step 3 の3つの固定評価がすべて PASS になり、最後は passed=3/3 となる。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",

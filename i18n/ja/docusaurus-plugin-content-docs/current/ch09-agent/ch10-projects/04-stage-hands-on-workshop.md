@@ -429,6 +429,8 @@ unknown_topic: PASS (no_evidence)
 passed: 3/3
 ```
 
+![Agent ワークショップの実行 trace と評価結果図](/img/course/ch09-agent-workshop-run-trace-eval-result-map-ja.webp)
+
 出力が一致すれば、第 9 章の最小ループはもう動いています。Agent は目標を受け取り、証拠を検索し、計画を作り、安全でない公開操作を止め、trace ログを書き、固定ケースで評価できています。
 
 ## Step 4：Trace ファイルを確認する

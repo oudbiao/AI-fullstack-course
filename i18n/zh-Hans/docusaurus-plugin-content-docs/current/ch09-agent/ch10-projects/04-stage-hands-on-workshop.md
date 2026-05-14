@@ -429,6 +429,8 @@ unknown_topic: PASS (no_evidence)
 passed: 3/3
 ```
 
+![Agent 工作坊运行 trace 与评测结果图](/img/course/ch09-agent-workshop-run-trace-eval-result-map.webp)
+
 如果你的输出一致，说明你已经完成第 9 章最小闭环：Agent 接收目标、检索证据、生成计划、拦截不安全发布动作、写入 trace 日志，并用固定用例评估。
 
 ## Step 4：检查 Trace 文件
