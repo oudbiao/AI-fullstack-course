@@ -48,6 +48,8 @@ package_ready: True
 assets: title, cover_prompt, video_script, review_checklist
 ```
 
+![最小内容包状态验收运行结果图](/img/course/ch12-package-state-readiness-result-map.webp)
+
 如果缺少这个状态结构，项目就容易像 demo，而不是产品。
 
 ## 先从工作坊开始

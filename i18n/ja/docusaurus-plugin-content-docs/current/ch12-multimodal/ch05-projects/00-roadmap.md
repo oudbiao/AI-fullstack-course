@@ -48,6 +48,8 @@ package_ready: True
 assets: title, cover_prompt, video_script, review_checklist
 ```
 
+![最小パッケージ状態の実行結果図](/img/course/ch12-package-state-readiness-result-map-ja.webp)
+
 この状態構造がないと、プロジェクトはプロダクトではなくデモに見えやすくなります。
 
 ## まずワークショップから始める

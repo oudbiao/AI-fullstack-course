@@ -14845,6 +14845,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-package-state-readiness-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch05-projects/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/00-roadmap.md",
+        },
+        "scene": "A Chapter 12 capstone roadmap run-result teaching image based on the exact minimum package-state Python code. The image must teach why printed output package_ready: True and assets: title, cover_prompt, video_script, review_checklist means a product-ready package state rather than a demo. Use only the exact code data: brief topic is RAG mini course, audience is new learners; package has brief_ready=True, assets has four items title, cover_prompt, video_script, review_checklist, has_versions=True, has_review=True; readiness formula is brief_ready and has_versions and has_review and len(assets) >= 4. Do not invent model APIs, costs, dashboards, extra assets, export formats, dates, reviewers, or project metrics. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens. Exact code/data tokens may stay as code: brief, package, brief_ready, assets, has_versions, has_review, len(assets) >= 4, package_ready, True, title, cover_prompt, video_script, review_checklist, RAG mini course, new learners.",
+        "chapter_context": "The image is inserted after the expected output of the Build the Minimum Package State example in 12.5.1. Nearby prose says that if this state is missing, the project looks like a demo instead of a product. The illustration should make the print output readable as a readiness gate for a creative content package.",
+        "shared_layout": "Vertical 9:16. Use a polished project-readiness evidence board or workbench, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative product poster. Top title and subtitle. Upper station shows a brief card with topic RAG mini course and audience new learners. Middle station shows four asset cards or shelves: title, cover_prompt, video_script, review_checklist. Right or center station shows three green check switches: brief_ready=True, has_versions=True, has_review=True, plus a counter len(assets) >= 4. Lower station shows a readiness gate opening into a content package. Bottom receipt shows exactly package_ready: True and assets: title, cover_prompt, video_script, review_checklist. Bottom rule explains that without this state the project is only a demo. Keep composition, object positions, colors, check switches, asset order, receipt position, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete objects. Avoid dense paragraphs, tiny fake text, random non-locale text, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond exact code/data tokens.",
+        "variants": {
+            "zh": {
+                "title": "读懂最小内容包状态",
+                "subtitle": "不是有几张素材就够，而是 brief、版本、审核和资产都齐。",
+                "items": [
+                    ("brief", "topic=RAG mini course，audience=new learners。"),
+                    ("资产清单", "assets 有 4 项：title、cover_prompt、video_script、review_checklist。"),
+                    ("brief_ready", "brief_ready=True，说明需求已确认。"),
+                    ("版本记录", "has_versions=True，说明输出可比较。"),
+                    ("审核记录", "has_review=True，说明能进入交付检查。"),
+                    ("验收公式", "全部为 True 且 len(assets) >= 4 -> package_ready=True。"),
+                ],
+                "footer": "有状态结构的内容包才像产品，不只是 demo。",
+                "alt": "最小内容包状态运行结果图：brief 已确认，assets 有 title、cover_prompt、video_script、review_checklist 四项，has_versions 和 has_review 都为 True，因此 package_ready 为 True。",
+            },
+            "en": {
+                "title": "Read the Minimum Package State",
+                "subtitle": "Assets alone are not enough; brief, versions, review, and asset list must all exist.",
+                "items": [
+                    ("brief", "topic=RAG mini course, audience=new learners."),
+                    ("asset list", "assets has 4 items: title, cover_prompt, video_script, review_checklist."),
+                    ("brief_ready", "brief_ready=True means the requirement is confirmed."),
+                    ("version record", "has_versions=True means outputs can be compared."),
+                    ("review record", "has_review=True means the package can enter delivery review."),
+                    ("acceptance formula", "All True and len(assets) >= 4 -> package_ready=True."),
+                ],
+                "footer": "A content package with state feels like a product, not just a demo.",
+                "alt": "Minimum package state readiness result map: brief is confirmed, assets contains title, cover_prompt, video_script, and review_checklist, has_versions and has_review are True, so package_ready is True.",
+            },
+            "ja": {
+                "title": "最小パッケージ状態を読む",
+                "subtitle": "素材だけでは不十分。brief、version、review、assets がそろう必要がある。",
+                "items": [
+                    ("brief", "topic=RAG mini course、audience=new learners。"),
+                    ("assets 一覧", "assets は title、cover_prompt、video_script、review_checklist の4件。"),
+                    ("brief_ready", "brief_ready=True は要件確認済みを示す。"),
+                    ("version 記録", "has_versions=True は出力を比較できることを示す。"),
+                    ("review 記録", "has_review=True は納品チェックへ進めることを示す。"),
+                    ("受け入れ式", "すべて True かつ len(assets) >= 4 -> package_ready=True。"),
+                ],
+                "footer": "状態構造がある content package は、demo ではなく product に近づく。",
+                "alt": "最小パッケージ状態の実行結果図：brief が確認済みで、assets に title、cover_prompt、video_script、review_checklist の4項目があり、has_versions と has_review が True のため package_ready が True になる。",
+            },
+        },
+    },
+    {
         "slug": "ch12-workshop-run-evidence-package-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
@@ -21423,6 +21478,87 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-package-state-readiness-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.5.1 “建一个最小内容包状态”的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只是漂亮项目海报。
+
+可见标题必须完全写为：“读懂最小内容包状态”
+可见副标题必须完全写为：“不是有几张素材就够，而是 brief、版本、审核和资产都齐。”
+
+教学目标：读者先看图就能理解为什么 print 输出是 package_ready: True，以及 assets: title, cover_prompt, video_script, review_checklist。代码中 brief 的 topic 是 RAG mini course，audience 是 new learners；package 里 brief_ready=True，assets 有 4 项，has_versions=True，has_review=True。ready 的判断是 brief_ready and has_versions and has_review and len(assets) >= 4。重点是：这不是普通 print，而是判断项目是否从 demo 变成产品化内容包的状态闸门。
+
+三语版本必须同构：同一个半写实深色 project-readiness evidence board，同一张 brief 卡，同样 4 张资产卡，同样 3 个绿色检查开关，同样 len(assets) >= 4 计数器，同样打开的 readiness gate，同样底部 receipt。中文图只能用自然中文解释，允许保留这些代码/技术词：brief、package、brief_ready、assets、has_versions、has_review、len(assets) >= 4、package_ready、True、title、cover_prompt、video_script、review_checklist、RAG mini course、new learners。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张 brief 卡，必须写清楚：“topic：RAG mini course”和“audience：new learners”，旁边中文短标：“需求已对齐”。
+3. 中间画 4 张真实资产卡或资产架，顺序必须是：title、cover_prompt、video_script、review_checklist。每张卡旁边用中文短标说明它在内容包里负责什么：标题、封面提示词、视频脚本、审核清单。
+4. 右侧或中间画三个绿色检查开关，必须写：
+   brief_ready=True
+   has_versions=True
+   has_review=True
+5. 在资产架旁画计数器，必须写：“len(assets) >= 4” 和 “4/4”。
+6. 下方画一个打开的 readiness gate，门牌写：“全部满足 -> package_ready=True”。闸门后方是一只可交付内容包文件夹，不要画成泛泛 dashboard。
+7. 底部 receipt 必须逐行清楚写：
+   package_ready: True
+   assets: title, cover_prompt, video_script, review_checklist
+8. 底部短句必须完全写为：“有状态结构的内容包才像产品，不只是 demo。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、复杂仪表盘、终端界面、密集代码或无关装饰。
+""".strip(),
+    "ch12-package-state-readiness-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.5.1 “Build the Minimum Package State”, the code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no Python-code poster, and no decorative project poster.
+
+Visible title exactly: “Read the Minimum Package State”
+Visible subtitle exactly: “Assets alone are not enough; brief, versions, review, and asset list must all exist.”
+
+Teaching goal: the learner should understand why the print output is package_ready: True and assets: title, cover_prompt, video_script, review_checklist. In the code, the brief topic is RAG mini course and audience is new learners; package has brief_ready=True, four assets, has_versions=True, and has_review=True. The ready check is brief_ready and has_versions and has_review and len(assets) >= 4. The key point is that this is not just a print line. It is a readiness gate that tells whether the project is becoming a product-like content package instead of a demo.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark project-readiness evidence board, the same brief card, the same four asset cards, the same three green check switches, the same len(assets) >= 4 counter, the same open readiness gate, and the same bottom receipt. Use natural English. Code/data tokens must be spelled exactly where useful: brief, package, brief_ready, assets, has_versions, has_review, len(assets) >= 4, package_ready, True, title, cover_prompt, video_script, review_checklist, RAG mini course, new learners.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one brief card, clearly writing: “topic: RAG mini course” and “audience: new learners”, with the nearby label “requirement confirmed”.
+3. Middle area shows four concrete asset cards or shelves in this exact order: title, cover_prompt, video_script, review_checklist. Each card has a short English label explaining its role: title, cover prompt, video script, review checklist.
+4. Right or center area shows three green check switches, exactly:
+   brief_ready=True
+   has_versions=True
+   has_review=True
+5. Beside the asset shelf, show a counter that says: “len(assets) >= 4” and “4/4”.
+6. Lower area shows an open readiness gate. The gate plate says: “all conditions pass -> package_ready=True”. Behind the gate is a deliverable content-package folder, not a generic dashboard.
+7. Bottom receipt must clearly show these exact lines:
+   package_ready: True
+   assets: title, cover_prompt, video_script, review_checklist
+8. Bottom sentence exactly: “A content package with state feels like a product, not just a demo.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, complex dashboards, terminal UI, dense code, or unrelated decoration.
+""".strip(),
+    "ch12-package-state-readiness-result-map-ja.png": """
+第12章 12.5.1「最小パッケージ状態を作る」にあるコード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードのポスター、ただのきれいなプロジェクトポスターは禁止。
+
+可視タイトルは完全に：「最小パッケージ状態を読む」
+可視サブタイトルは完全に：「素材だけでは不十分。brief、version、review、assets がそろう必要がある。」
+
+学習目標：print 出力が package_ready: True と assets: title, cover_prompt, video_script, review_checklist になる理由を一目で理解できるようにする。コードでは brief の topic が RAG mini course、audience が new learners。package には brief_ready=True、4つの assets、has_versions=True、has_review=True がある。ready の判定は brief_ready and has_versions and has_review and len(assets) >= 4。重要なのは、これはただの print ではなく、プロジェクトが demo から product らしい content package へ近づいたかを見る readiness gate であること。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 project-readiness evidence board、同じ brief カード、同じ4つの asset カード、同じ3つの緑チェック、同じ len(assets) >= 4 カウンター、同じ開いた readiness gate、同じ下部 receipt。説明文は自然な日本語にする。以下のコード/データ語は必要な場所で英語のまま使ってよい：brief、package、brief_ready、assets、has_versions、has_review、len(assets) >= 4、package_ready、True、title、cover_prompt、video_script、review_checklist、RAG mini course、new learners。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に brief カードを描き、必ず「topic：RAG mini course」と「audience：new learners」と書く。近くに日本語で「要件確認済み」。
+3. 中央に4つの具体的な asset カードまたは棚を描く。順序は必ず：title、cover_prompt、video_script、review_checklist。各カードの横に短い日本語で役割を書く：タイトル、表紙プロンプト、動画台本、レビューリスト。
+4. 右側または中央に3つの緑チェックを描き、必ず書く：
+   brief_ready=True
+   has_versions=True
+   has_review=True
+5. asset 棚の横にカウンターを置き、必ず「len(assets) >= 4」と「4/4」と書く。
+6. 下部に開いた readiness gate を描く。門札には「すべて満たす -> package_ready=True」と書く。門の先には納品できる content package フォルダを描き、一般的な dashboard にはしない。
+7. 下部 receipt には必ず次の2行を清楚に書く：
+   package_ready: True
+   assets: title, cover_prompt, video_script, review_checklist
+8. 下部の短文は完全に：「状態構造がある content package は、demo ではなく product に近づく。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、複雑な dashboard、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
     "ch12-visual-record-rag-ready-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章首页“第一个可运行循环：结构化视觉输入”的 ch12_visual_record.py 运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮多模态海报。
 

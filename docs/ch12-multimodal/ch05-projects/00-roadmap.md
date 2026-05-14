@@ -48,6 +48,8 @@ package_ready: True
 assets: title, cover_prompt, video_script, review_checklist
 ```
 
+![Minimum package state readiness result map](/img/course/ch12-package-state-readiness-result-map-en.webp)
+
 If this state is missing, the project will look like a demo instead of a product.
 
 ## Start with the Workshop
