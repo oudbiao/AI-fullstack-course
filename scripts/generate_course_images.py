@@ -18388,6 +18388,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-multimodal-fallback-no-text-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+        },
+        "scene": "A Chapter 12 multimodal app fallback run-result teaching image based on the exact safe_multimodal_reply toy code. The input is image_info = {type: screenshot, has_text: False} and the user asks what error is shown. Because no useful text was recognized, the system must not hallucinate an error; it should return a fallback asking for a clearer, complete screenshot. The teaching point is failure-scenario design: good multimodal products detect insufficient evidence and guide the user instead of forcing a wrong answer. Do not draw a terminal screenshot, dense Python code, generic chatbot poster, pure warning sign, white rounded-box flowchart, or pure text poster.",
+        "chapter_context": "The image is inserted after the expected output of safe_multimodal_reply in 12.1.3 Multimodal Applications. Nearby prose says mature systems add low-confidence warnings, manual review entries, source display, and asking for additional images when recognition fails. It also says a good fallback prompt can be more valuable than forcing out a wrong answer.",
+        "shared_layout": "Vertical 9:16. Use the same semi-realistic dark QA triage workbench across zh/en/ja: top shows a blurry cropped screenshot card with an unreadable error area, not a terminal; beside it are evidence chips type=screenshot, has_text=False, question mentions error. Middle shows a safety gate with two checks: enough text? no; user asks error? yes. The gate routes away from a red crossed-out hallucination answer and toward a green fallback response. Bottom shows the final reply card asking for a clearer complete screenshot, plus the rule: insufficient evidence should trigger fallback, not guessing. Keep screenshot card, two checks, crossed-out guess lane, fallback lane, colors, order, and answer-card positions identical across languages. Text must be sparse, large, and attached to the object it explains.",
+        "variants": {
+            "zh": {
+                "title": "失败兜底比硬猜更安全",
+                "subtitle": "图里没识别到文字时，系统应该要求补图，而不是编答案。",
+                "items": [
+                    ("输入图像", "type=screenshot，has_text=False。"),
+                    ("用户问题", "“这是什么错误？”"),
+                    ("危险路径", "硬猜错误 -> 可能误导用户。"),
+                    ("安全路径", "返回清晰截图请求。"),
+                    ("产品习惯", "证据不足时先兜底。"),
+                ],
+                "footer": "好系统会承认看不清，并引导用户补充证据。",
+                "alt": "多模态失败兜底结果图：截图无法识别足够文字且用户询问错误时，系统拒绝硬猜并要求上传更清晰完整的截图。",
+            },
+            "en": {
+                "title": "Fallback Is Safer Than Guessing",
+                "subtitle": "When no text is recognized, ask for a clearer image instead of inventing an answer.",
+                "items": [
+                    ("image input", "type=screenshot, has_text=False."),
+                    ("user question", "“What error is this?”"),
+                    ("danger path", "guess an error -> may mislead the user."),
+                    ("safe path", "request a clearer screenshot."),
+                    ("product habit", "fallback when evidence is insufficient."),
+                ],
+                "footer": "A good system admits low evidence and guides the user to add it.",
+                "alt": "Multimodal fallback result map: when a screenshot has no recognized text and the user asks about an error, the system avoids guessing and asks for a clearer complete screenshot.",
+            },
+            "ja": {
+                "title": "推測よりフォールバックが安全",
+                "subtitle": "文字を認識できないときは、答えを作らず鮮明な画像を求める。",
+                "items": [
+                    ("入力画像", "type=screenshot、has_text=False。"),
+                    ("ユーザー質問", "「これは何のエラーですか」"),
+                    ("危険な経路", "エラーを推測 -> ユーザーを誤らせる。"),
+                    ("安全な経路", "鮮明な screenshot を依頼。"),
+                    ("製品設計", "根拠不足ならフォールバック。"),
+                ],
+                "footer": "よいシステムは見えないことを認め、証拠の追加へ導く。",
+                "alt": "マルチモーダルのフォールバック結果図：スクリーンショットから十分な文字を認識できずエラーを聞かれたとき、推測せず鮮明で全体が写ったスクリーンショットを求める。",
+            },
+        },
+    },
+    {
         "slug": "ch12-image-text-retrieval-similarity-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
@@ -21366,6 +21418,102 @@ Every label must sit near the object it explains, with large readable text suita
    出力：この靴はスポーティーな印象なので、通勤シーンにはあまり合わないかもしれません。
 7. 中央または下部に分岐ルールをはっきり入れる：「category=shoes の後、user_text を見る。」
 8. 下部の短文は完全に：「画像は商品の見た目を出し、ユーザー文が利用場面を決める。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコードは禁止。
+""".strip(),
+    "ch12-multimodal-fallback-no-text-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.3 多模态应用中 safe_multimodal_reply 代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴 Python 代码，不要只画一个警告图标。
+
+可见标题必须完全写为：“失败兜底比硬猜更安全”
+可见副标题必须完全写为：“图里没识别到文字时，系统应该要求补图，而不是编答案。”
+
+教学目标：读者先看图就能理解 print(safe_multimodal_reply(...)) 为什么输出兜底提示。代码输入是 image_info = {"type": "screenshot", "has_text": False}，用户问题是“这是什么错误”。因为图里没有识别到足够文字，系统不应该编造错误类型，而应该要求用户上传更清晰、完整的截图。图必须说明：多模态产品需要失败场景设计；证据不足时，好的系统会承认看不清并引导补充证据。
+
+三语版本必须同构：同一个半写实深色 QA 分诊工作台、同一张模糊/截断的截图卡、同样 evidence 芯片、同样安全闸门、同样红色“硬猜”被拦截路径、同样绿色兜底回复路径、同样底部规则栏。不要中文是 UI 面板、英文是漫画、日文是写实客服场景。中文图只能用自然中文解释，允许保留这些代码/技术词：safe_multimodal_reply、image_info、type、screenshot、has_text、False、error。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张模糊且被裁切的截图卡，像登录错误页面但错误文字不可读。旁边短标签：“看不清的截图”。不要随机小字。
+3. 截图旁边画 evidence 芯片，必须写：
+   type = screenshot
+   has_text = False
+   用户问题：这是什么错误？
+4. 中间画“安全闸门”，有两个清楚检查：
+   是否识别到文字？否
+   用户在问错误？是
+5. 左侧红色路径画一个被拦截的错误答案气泡，必须写：
+   硬猜：可能是 401？
+   风险：误导用户
+   这条路径要有明显的叉号或停止标记。
+6. 右侧绿色路径画系统回复卡，必须写：
+   兜底回复：
+   这张图里没有识别到足够文字，请上传更清晰的完整截图。
+7. 右侧路径要有清晰动作图标：上传清晰截图、放大镜重新识别、检查清单。不能只有文字框。
+8. 底部短句必须完全写为：“好系统会承认看不清，并引导用户补充证据。”
+
+所有文字必须贴近对应物体，字号大，适合手机阅读。不要乱码、随机英文、日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、终端界面或密集代码。
+""".strip(),
+    "ch12-multimodal-fallback-no-text-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.1.3 Multimodal Applications, the safe_multimodal_reply code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no pasted Python code, and no image that is only a warning icon.
+
+Visible title exactly: “Fallback Is Safer Than Guessing”
+Visible subtitle exactly: “When no text is recognized, ask for a clearer image instead of inventing an answer.”
+
+Teaching goal: the learner should understand why print(safe_multimodal_reply(...)) returns a fallback prompt. The input is image_info = {"type": "screenshot", "has_text": False}, and the user asks “What error is this?” Because not enough text was recognized, the system should not invent an error type; it should ask the user to upload a clearer, complete screenshot. The image must show that multimodal products need failure-scenario design: when evidence is insufficient, a good system admits it cannot see clearly and guides the user to provide better evidence.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark QA triage workbench, the same blurry/cropped screenshot card, the same evidence chips, the same safety gate, the same red blocked guessing path, the same green fallback response path, and the same bottom rule bar. Do not make English a cartoon while Chinese is a UI panel or Japanese is a realistic support scene. Use natural English. Code/technical tokens must be spelled exactly where useful: safe_multimodal_reply, image_info, type, screenshot, has_text, False, error.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one blurry cropped screenshot card, like a login error page but with unreadable error text. Beside it, a short tag: “unclear screenshot”. No random tiny text.
+3. Next to the screenshot, show evidence chips:
+   type = screenshot
+   has_text = False
+   user question: What error is this?
+4. Middle shows a “safety gate” with two clear checks:
+   text recognized? no
+   user asks about error? yes
+5. Left red path shows a blocked wrong-answer bubble and must say:
+   Guess: maybe 401?
+   Risk: misleads the user
+   This path must have a clear cross or stop mark.
+6. Right green path shows the system response card and must say:
+   Fallback reply:
+   Not enough text was recognized in this image. Please upload a clearer, complete screenshot.
+7. Right path needs concrete action icons: upload clearer screenshot, magnifier retry, checklist. Not text boxes only.
+8. Bottom sentence exactly: “A good system admits low evidence and guides the user to add it.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, terminal UI, or dense code.
+""".strip(),
+    "ch12-multimodal-fallback-no-text-result-map-ja.png": """
+第12章 12.1.3 マルチモーダルアプリにある safe_multimodal_reply コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードの貼り付け、警告アイコンだけの画像は禁止。
+
+可視タイトルは完全に：「推測よりフォールバックが安全」
+可視サブタイトルは完全に：「文字を認識できないときは、答えを作らず鮮明な画像を求める。」
+
+学習目標：print(safe_multimodal_reply(...)) がなぜフォールバック文を返すのかを一目で理解できるようにする。入力は image_info = {"type": "screenshot", "has_text": False} で、ユーザー質問は「これは何のエラーですか」。十分な文字が認識できないため、システムはエラー種類を作って答えるのではなく、より鮮明で全体が写ったスクリーンショットを求めるべき。画像は、マルチモーダル製品には失敗場面の設計が必要であり、根拠が足りないときは見えないことを認めて証拠追加へ導く、という点を示す。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 QA トリアージ作業台、同じぼやけた/切れた screenshot カード、同じ evidence チップ、同じ安全ゲート、同じ赤い「推測」ブロック経路、同じ緑のフォールバック返信経路、同じ下部ルールバー。中国語版だけ UI panel、英語版だけ漫画、日本語版だけ実写サポート場面のようにしない。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：safe_multimodal_reply、image_info、type、screenshot、has_text、False、error。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部にぼやけて一部が切れた screenshot カードを描く。ログインエラー画面のように見えるが、エラー文字は読めない。横に短いラベル「見えにくい screenshot」。ランダムな小字は禁止。
+3. screenshot の横に evidence チップを置き、必ず書く：
+   type = screenshot
+   has_text = False
+   ユーザー質問：これは何のエラーですか
+4. 中央に「安全ゲート」を描き、2つの確認をはっきり入れる：
+   文字を認識できた？いいえ
+   ユーザーはエラーを質問？はい
+5. 左の赤い経路には、ブロックされた誤回答の吹き出しを描き、必ず書く：
+   推測：401 かも？
+   リスク：ユーザーを誤らせる
+   この経路には明確なバツ印または停止マークを入れる。
+6. 右の緑の経路には、システム返信カードを描き、必ず書く：
+   フォールバック返信：
+   この画像では十分な文字が認識できませんでした。より鮮明で全体が写ったスクリーンショットをアップロードしてください。
+7. 右の経路には、鮮明な screenshot のアップロード、虫眼鏡で再認識、チェックリストのような具体的 action icon を入れる。文字枠だけにしない。
+8. 下部の短文は完全に：「よいシステムは見えないことを認め、証拠の追加へ導く。」
 
 文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコードは禁止。
 """.strip(),

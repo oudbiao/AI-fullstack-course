@@ -255,6 +255,8 @@ Expected output:
 Not enough text was recognized in this image. Please upload a clearer, complete screenshot.
 ```
 
+![Multimodal fallback result map](/img/course/ch12-multimodal-fallback-no-text-result-map-en.webp)
+
 Often, a good fallback prompt is more valuable than forcing out a wrong answer.
 
 ---
