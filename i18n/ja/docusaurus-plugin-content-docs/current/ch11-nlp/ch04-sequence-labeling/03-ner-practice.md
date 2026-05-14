@@ -188,6 +188,8 @@ pred : [('佐藤花子', 'NAME'), ('Java', 'SKILL')]
 miss : [('京都大学', 'SCHOOL')]
 ```
 
+![NER gold pred miss の漏れ確認図](/img/course/ch11-ner-gold-pred-miss-result-map-ja.webp)
+
 2つ目のサンプルでは学校エンティティを見逃しています。だから NER プロジェクトでは、token ラベルだけでなく復元されたエンティティを確認する必要があります。
 
 ### なぜこのコードが「プロジェクトの最小閉ループ」なのか？

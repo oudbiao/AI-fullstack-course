@@ -145,6 +145,8 @@ accuracy: 0.75
 {'text': '返金の請求書はどう発行しますか', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 17, 'invoice': 17, 'password': 11}}
 ```
 
+![テキスト分類 baseline のエラー実行結果図](/img/course/ch11-text-classification-baseline-error-result-map-ja.webp)
+
 最後のサンプルは、あえて曖昧にしています。`返金` と `請求書` の手がかりが同時に出るため、単純な baseline では同点になり、先に登録された `refund` が選ばれます。
 
 ### この例に価値がある理由

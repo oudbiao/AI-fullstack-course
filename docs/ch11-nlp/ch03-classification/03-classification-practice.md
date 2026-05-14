@@ -172,6 +172,8 @@ accuracy: 0.75
 {'text': 'Can I get a refund invoice?', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 2, 'invoice': 2, 'password': 0}}
 ```
 
+![Text classification baseline error result map](/img/course/ch11-text-classification-baseline-error-result-map-en.webp)
+
 The last sample is intentionally ambiguous. The baseline sees both `refund` and `invoice`, ties on score, and chooses the first matching class. That gives you a useful error case to inspect instead of pretending the baseline is perfect.
 
 ### Why is this example valuable?

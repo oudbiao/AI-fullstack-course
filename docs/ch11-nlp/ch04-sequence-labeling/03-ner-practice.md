@@ -188,6 +188,8 @@ pred : [('Li Si', 'NAME'), ('Java', 'SKILL')]
 miss : [('Peking University', 'SCHOOL')]
 ```
 
+![NER gold pred miss result map](/img/course/ch11-ner-gold-pred-miss-result-map-en.webp)
+
 The second sample misses the school entity. That is exactly why NER projects should inspect recovered entities, not only token-level labels.
 
 ### Why is this code the “minimal project loop”?

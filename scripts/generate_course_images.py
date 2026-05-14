@@ -14353,6 +14353,116 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch11-text-classification-baseline-error-result-map",
+        "pages": {
+            "en": "docs/ch11-nlp/ch03-classification/03-classification-practice.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch03-classification/03-classification-practice.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch03-classification/03-classification-practice.md",
+        },
+        "scene": "A Chapter 11 text-classification baseline run-result teaching image based on the exact keyword classifier output in the lesson. The image must teach how to read accuracy, per-sample score dictionaries, and the intentionally ambiguous error case, not show a generic NLP poster. Use the exact four test rows for each locale. English rows: How do I handle a refund? gold refund pred refund scores refund 2 invoice 0 password 0; When will the e-invoice be issued? gold invoice pred invoice scores refund 0 invoice 4 password 0; How long does it take to reset a password? gold password pred password scores refund 0 invoice 0 password 3; Can I get a refund invoice? gold invoice pred refund scores refund 2 invoice 2 password 0. Chinese rows: 退款怎么处理 gold refund pred refund scores refund 6 invoice 1 password 2; 电子发票什么时候开 gold invoice pred invoice scores refund 1 invoice 12 password 1; 重置密码需要多久 gold password pred password scores refund 2 invoice 0 password 6; 退款申请发票怎么开 gold invoice pred refund scores refund 8 invoice 7 password 2. Japanese rows: 返金はどう処理されますか gold refund pred refund scores refund 17 invoice 10 password 12; 電子請求書はいつ発行されますか gold invoice pred invoice scores refund 13 invoice 21 password 10; パスワード再設定にはどれくらいかかりますか gold password pred password scores refund 15 invoice 17 password 29; 返金の請求書はどう発行しますか gold invoice pred refund scores refund 17 invoice 17 password 11. Accuracy is 0.75 in all locales. The last row is the learning point: overlapping refund and invoice cues cause the baseline to predict refund even though the gold label is invoice. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except code/label tokens; Japanese image uses natural Japanese helper labels except code/label tokens. Exact label tokens may stay as code: refund, invoice, password, gold, pred, scores, accuracy.",
+        "chapter_context": "The image is inserted after the expected output of the keyword-counting baseline in 11.3.4 Text Classification Practice. Nearby prose explains that the last sample is intentionally ambiguous and gives a useful error case. The illustration should make the long print output readable as a score table and error-analysis workflow.",
+        "shared_layout": "Vertical 9:16. Use a polished model-evaluation notebook style with four sample rows and visible score bars, not a white rounded-box SVG infographic and not a pure text poster. Top title and subtitle. Under the title show one accuracy gauge reading 0.75 = 3/4 correct. Main area has four horizontal result cards with the same order as the printed output. Each card includes the sample text, gold label chip, pred label chip, and three score bars for refund, invoice, password. The first three rows have a calm check mark; the fourth row is highlighted in red/amber as the error case. Bottom station shows the practical lesson: before upgrading the model, clarify whether mixed refund-invoice requests belong to invoice, refund, or a separate mixed-intent label. Keep row order, score-bar order, highlight position, colors, and reading path identical across zh/en/ja. Use large localized labels and sparse text. Avoid terminal screenshots, dense raw dictionaries, tiny labels, fake paragraphs, dashboards, robots, decorative-only scenes, old SVG information-box style, and extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "从 baseline 输出读出错例",
+                "subtitle": "accuracy=0.75 不够，最后一条明细告诉你标签边界哪里模糊。",
+                "items": [
+                    ("总分", "accuracy: 0.75，4 条里对 3 条。"),
+                    ("样本 1", "退款怎么处理 -> gold refund，pred refund。"),
+                    ("样本 2", "电子发票什么时候开 -> gold invoice，pred invoice。"),
+                    ("样本 3", "重置密码需要多久 -> gold password，pred password。"),
+                    ("错例", "退款申请发票怎么开：gold invoice，pred refund。"),
+                    ("原因", "refund=8、invoice=7，关键词强烈重叠。"),
+                ],
+                "footer": "先澄清混合意图标签，再考虑换模型。",
+                "alt": "文本分类 baseline 错例运行结果图：accuracy 为 0.75，前三条预测正确，最后一条退款申请发票样本因 refund 与 invoice 分数接近而被预测成 refund，提示需要先澄清标签边界。",
+            },
+            "en": {
+                "title": "Reading Baseline Output for Error Cases",
+                "subtitle": "accuracy=0.75 is not enough; the last detail row shows the fuzzy label boundary.",
+                "items": [
+                    ("score", "accuracy: 0.75, 3 correct out of 4."),
+                    ("sample 1", "How do I handle a refund? -> gold refund, pred refund."),
+                    ("sample 2", "When will the e-invoice be issued? -> gold invoice, pred invoice."),
+                    ("sample 3", "How long does it take to reset a password? -> gold password, pred password."),
+                    ("error", "Can I get a refund invoice? gold invoice, pred refund."),
+                    ("reason", "refund=2 and invoice=2 tie; the first class wins."),
+                ],
+                "footer": "Clarify mixed-intent labels before upgrading the model.",
+                "alt": "Text classification baseline error result map: accuracy is 0.75, the first three predictions are correct, and the refund invoice sample is predicted as refund instead of invoice because overlapping keyword scores reveal a fuzzy label boundary.",
+            },
+            "ja": {
+                "title": "baseline 出力からエラーを読む",
+                "subtitle": "accuracy=0.75 だけでは足りない。最後の行がラベル境界の曖昧さを示す。",
+                "items": [
+                    ("総合", "accuracy: 0.75、4件中3件が正解。"),
+                    ("サンプル1", "返金はどう処理されますか -> gold refund、pred refund。"),
+                    ("サンプル2", "電子請求書はいつ発行されますか -> gold invoice、pred invoice。"),
+                    ("サンプル3", "パスワード再設定にはどれくらいかかりますか -> gold password、pred password。"),
+                    ("エラー", "返金の請求書はどう発行しますか：gold invoice、pred refund。"),
+                    ("理由", "refund=17 と invoice=17 が同点で、先の class が選ばれる。"),
+                ],
+                "footer": "モデルを強くする前に、混合意図ラベルを決める。",
+                "alt": "テキスト分類 baseline のエラー実行結果図：accuracy は 0.75、最初の3件は正解し、返金と請求書が重なる最後のサンプルは invoice ではなく refund と予測され、ラベル境界の確認が必要だと分かる。",
+            },
+        },
+    },
+    {
+        "slug": "ch11-ner-gold-pred-miss-result-map",
+        "pages": {
+            "en": "docs/ch11-nlp/ch04-sequence-labeling/03-ner-practice.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch04-sequence-labeling/03-ner-practice.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch04-sequence-labeling/03-ner-practice.md",
+        },
+        "scene": "A Chapter 11 NER practice run-result teaching image based on the exact gold / pred / miss output in the lesson. The image must teach entity-level error analysis, not show a generic NER poster. Use the exact two samples for each locale. English sample 1: tokens Zhang San graduated from Tsinghua University, familiar with Python and PyTorch; gold and pred both contain ('Zhang San', 'NAME'), ('Tsinghua University', 'SCHOOL'), ('Python', 'SKILL'), ('PyTorch', 'SKILL'), miss is empty. English sample 2: tokens Li Si is from Peking University, knows Java; gold contains ('Li Si', 'NAME'), ('Peking University', 'SCHOOL'), ('Java', 'SKILL'); pred contains ('Li Si', 'NAME'), ('Java', 'SKILL'); miss contains ('Peking University', 'SCHOOL'). Chinese sample 1: 张三, 清华大学, Python, PyTorch all match and miss is empty. Chinese sample 2: 李四 and Java match but 北京大学 SCHOOL is missing. Japanese sample 1: 田中太郎, 東京大学, Python, PyTorch all match and miss is empty. Japanese sample 2: 佐藤花子 and Java match but 京都大学 SCHOOL is missing. Teaching point: NER projects should compare recovered entities, not only token labels; the miss list names the business-level entity that disappeared. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except code/entity-label tokens; Japanese image uses natural Japanese helper labels except code/entity-label tokens. Exact code/entity-label tokens may stay as code: tokens, gold, pred, miss, NAME, SCHOOL, SKILL, Python, PyTorch, Java.",
+        "chapter_context": "The image is inserted after the expected output of the minimal NER project loop in 11.4.4 NER Practice. Nearby code decodes BIO tags into entities, prints tokens/gold/pred/miss for two samples, and the prose says the second sample misses the school entity. The illustration should turn the print output into a visual entity-audit board so learners understand the run result even without executing the code.",
+        "shared_layout": "Vertical 9:16. Use a polished entity-audit notebook style with two concrete text strips and colored entity highlights, not a white rounded-box SVG infographic and not a pure text poster. Top title and subtitle. Main body has two stacked sample lanes. Sample 1 is green and marked all matched: the person, school, and two skills are highlighted in both gold and pred, and miss is empty. Sample 2 is amber/red: the gold lane highlights person, school, skill; the pred lane highlights only person and skill; the missing school entity is circled or pulled into a red miss drawer. Right or lower evidence area has three compact columns: gold entities, pred entities, miss. Bottom lesson strip says entity-level comparison catches business-visible misses. Keep sample order, lane order, entity colors, miss highlight position, and reading path identical across zh/en/ja. Use large localized labels and sparse text attached to the highlighted entities. Avoid terminal screenshots, raw dense Python lists, tiny pseudo-text, decorative robots, old SVG information-box style, dashboards, and extra English explanation in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "NER 漏实体要看 gold / pred / miss",
+                "subtitle": "第二条不是少了一个 token，而是漏掉了 SCHOOL 实体。",
+                "items": [
+                    ("样本 1", "张三、清华大学、Python、PyTorch 全部命中；miss=[]。"),
+                    ("gold", "李四、北京大学、Java。"),
+                    ("pred", "李四、Java。"),
+                    ("miss", "('北京大学', 'SCHOOL')。"),
+                    ("判断", "按复原实体比较，不只看 token 标签。"),
+                    ("项目习惯", "先复原实体，再做错误分析。"),
+                ],
+                "footer": "NER 的关键输出是实体是否真的被抽出来。",
+                "alt": "NER gold pred miss 漏实体运行结果图：第一条样本全部命中，第二条样本 gold 有北京大学 SCHOOL，pred 只剩李四和 Java，miss 明确指出北京大学这个学校实体漏掉了。",
+            },
+            "en": {
+                "title": "NER Errors Live in gold / pred / miss",
+                "subtitle": "The second sample misses a SCHOOL entity, not just one token.",
+                "items": [
+                    ("sample 1", "Zhang San, Tsinghua University, Python, PyTorch all match; miss=[]."),
+                    ("gold", "Li Si, Peking University, Java."),
+                    ("pred", "Li Si, Java."),
+                    ("miss", "('Peking University', 'SCHOOL')."),
+                    ("decision", "Compare recovered entities, not only token labels."),
+                    ("project habit", "Recover entities first, then analyze errors."),
+                ],
+                "footer": "The key NER output is whether the entity was actually extracted.",
+                "alt": "NER gold pred miss result map: the first sample fully matches, while in the second sample gold contains Peking University as SCHOOL, pred keeps only Li Si and Java, and miss explicitly names the missing school entity.",
+            },
+            "ja": {
+                "title": "NER の漏れは gold / pred / miss で見る",
+                "subtitle": "2つ目は token ではなく SCHOOL エンティティを漏らしている。",
+                "items": [
+                    ("サンプル1", "田中太郎、東京大学、Python、PyTorch はすべて一致；miss=[]。"),
+                    ("gold", "佐藤花子、京都大学、Java。"),
+                    ("pred", "佐藤花子、Java。"),
+                    ("miss", "('京都大学', 'SCHOOL')。"),
+                    ("判断", "token ラベルだけでなく、復元された entity で比べる。"),
+                    ("実務の癖", "先に entity を復元し、それから error analysis を行う。"),
+                ],
+                "footer": "NER で重要なのは、entity が本当に抽出されたかどうか。",
+                "alt": "NER gold pred miss の漏れ確認図：1つ目のサンプルはすべて一致し、2つ目のサンプルでは gold に京都大学 SCHOOL があるが pred には佐藤花子と Java だけが残り、miss が学校エンティティの漏れを示す。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
@@ -20504,6 +20614,189 @@ texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'te
 - 日本語説明を使う。コード/データ token として regions、texts、box、text、INV-001、TOTAL 299、2つの座標はそのまま残してよい。
 - 中国語、英語の説明文、乱码、小さい背景文字、watermark、brand logo、余分な請求書項目、日付、通貨記号、confidence、OCR モデル名、API vendor、カメラ、スキャナを入れない。
 - 文字は少なく、大きく、スマホで読めること。2つの枠と2つの対応は鮮明で、ぼかさない。
+""".strip(),
+    "ch11-text-classification-baseline-error-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 11 章 11.3.4 文本分类 baseline 运行结果。
+这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴满原始字典输出。
+
+可见标题必须完全写为："从 baseline 输出读出错例"
+可见副标题必须完全写为："accuracy=0.75 不够，最后一条明细告诉你标签边界哪里模糊。"
+
+教学目标：读者一眼看懂四条测试样本里前三条正确，最后一条是刻意保留的错例。图必须解释关键词 baseline 如何根据分数选择类别，以及为什么“退款申请发票怎么开”应该触发标签边界讨论。
+
+中英日三版必须同构：同一张竖版评估笔记页、同一 accuracy 仪表、同一四行样本卡、同一分数条顺序、同一最后一行错例高亮。不要把英文版改成 dashboard，不要把日文版改成漫画，不要增减样本。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 顶部下方一个清楚的总分仪表："accuracy 0.75 = 3/4 正确"
+3. 中部恰好四行样本卡，每行都包含：
+   - 样本文本
+   - gold 标签
+   - pred 标签
+   - 三条分数条，顺序必须是 refund、invoice、password
+4. 前三行用绿色对勾；第四行用红橙色高亮并标注"错例"。
+5. 四行必须使用这些值：
+   - 退款怎么处理：gold refund，pred refund，scores refund 6 / invoice 1 / password 2
+   - 电子发票什么时候开：gold invoice，pred invoice，scores refund 1 / invoice 12 / password 1
+   - 重置密码需要多久：gold password，pred password，scores refund 2 / invoice 0 / password 6
+   - 退款申请发票怎么开：gold invoice，pred refund，scores refund 8 / invoice 7 / password 2
+6. 底部分析卡必须完全写为："先澄清混合意图标签，再考虑换模型。"
+
+准确性规则：
+- 中文说明必须是简体中文；只允许保留这些代码/标签 token：accuracy、gold、pred、scores、refund、invoice、password。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo、额外样本、额外分数、神经网络、机器人、dashboard。
+- 文字要少、大、清楚，手机上能读。分数条要清楚，不能糊。
+""".strip(),
+    "ch11-text-classification-baseline-error-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 11.3.4 text-classification baseline results.
+This is the final AI-generated image. Do not leave blank space for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not make a pure flowchart, do not show a terminal screenshot, and do not paste raw dictionary output.
+
+Visible title exactly: "Reading Baseline Output for Error Cases"
+Visible subtitle exactly: "accuracy=0.75 is not enough; the last detail row shows the fuzzy label boundary."
+
+Teaching goal: a reader should immediately see that the first three test samples are correct and the fourth sample is the intentionally useful error case. The image must explain how the keyword baseline chooses by scores and why "Can I get a refund invoice?" should trigger a label-boundary discussion.
+
+The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical evaluation notebook, same accuracy gauge, same four sample cards, same score-bar order, same final-row error highlight. Do not turn the English version into a dashboard. Do not add or remove samples.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Below the title, a clear overall gauge: "accuracy 0.75 = 3/4 correct"
+3. Main area has exactly four sample cards. Each row contains:
+   - sample text
+   - gold label
+   - pred label
+   - three score bars ordered refund, invoice, password
+4. First three rows use green check marks; the fourth row uses a red/amber highlight labeled "error".
+5. Four rows must use these exact values:
+   - How do I handle a refund?: gold refund, pred refund, scores refund 2 / invoice 0 / password 0
+   - When will the e-invoice be issued?: gold invoice, pred invoice, scores refund 0 / invoice 4 / password 0
+   - How long does it take to reset a password?: gold password, pred password, scores refund 0 / invoice 0 / password 3
+   - Can I get a refund invoice?: gold invoice, pred refund, scores refund 2 / invoice 2 / password 0
+6. Bottom analysis card exactly: "Clarify mixed-intent labels before upgrading the model."
+
+Accuracy rules:
+- English text only, except exact code/label tokens: accuracy, gold, pred, scores, refund, invoice, password.
+- Do not include Chinese text, Japanese text, gibberish, tiny background text, watermark, brand logo, extra samples, extra scores, neural networks, robots, or dashboards.
+- Text must be sparse, large, clean, and readable on a phone. Score bars must be sharp, not blurry.
+""".strip(),
+    "ch11-text-classification-baseline-error-result-map-ja.png": """
+第 11 章 11.3.4 のテキスト分類 baseline 実行結果を説明する、完成済みの 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。あとから文字を重ねるための空白を残さないでください。SVG 風、白い角丸ボックスの情報図、純粋なフローチャート、ターミナルスクリーンショット、raw dictionary 出力の貼り付けは禁止です。
+
+可視タイトルは完全に："baseline 出力からエラーを読む"
+可視サブタイトルは完全に："accuracy=0.75 だけでは足りない。最後の行がラベル境界の曖昧さを示す。"
+
+教学目標：4つのテストサンプルのうち、最初の3つは正解で、4つ目が意図的に残した有用なエラーケースだと一目で分かること。キーワード baseline が score に基づいて class を選ぶ仕組みと、「返金の請求書はどう発行しますか」がラベル境界の議論を促す理由を示してください。
+
+中国語・英語・日本語版は必ず同じ構造：同じ縦長の評価ノート、同じ accuracy メーター、同じ4行のサンプルカード、同じ score bar 順序、同じ最後の行のエラー強調。日本語版だけ dashboard や漫画にしないでください。サンプルを増減しないでください。
+
+固定版式：
+1. 上部にタイトルとサブタイトル。
+2. タイトル下に明確な総合メーター："accuracy 0.75 = 3/4 正解"
+3. 中央にちょうど4行のサンプルカード。各行は必ず次を含む：
+   - サンプル文
+   - gold ラベル
+   - pred ラベル
+   - refund、invoice、password の順に3本の score bar
+4. 最初の3行は緑のチェック。4行目は赤橙色で強調し、"エラー" と表示。
+5. 4行は必ず次の値を使う：
+   - 返金はどう処理されますか：gold refund、pred refund、scores refund 17 / invoice 10 / password 12
+   - 電子請求書はいつ発行されますか：gold invoice、pred invoice、scores refund 13 / invoice 21 / password 10
+   - パスワード再設定にはどれくらいかかりますか：gold password、pred password、scores refund 15 / invoice 17 / password 29
+   - 返金の請求書はどう発行しますか：gold invoice、pred refund、scores refund 17 / invoice 17 / password 11
+6. 下部の分析カードは完全に："モデルを強くする前に、混合意図ラベルを決める。"
+
+正確性ルール：
+- 日本語説明を使う。コード/ラベル token として accuracy、gold、pred、scores、refund、invoice、password はそのまま残してよい。
+- 中国語、英語の説明文、乱码、小さい背景文字、watermark、brand logo、余分なサンプル、余分な score、ニューラルネット、ロボット、dashboard を入れない。
+- 文字は少なく、大きく、スマホで読めること。score bar は鮮明で、ぼかさない。
+""".strip(),
+    "ch11-ner-gold-pred-miss-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 11 章 11.4.4 NER 实体恢复练习的运行结果。
+这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python list 输出整段贴满画面。
+
+可见标题必须完全写为："NER 漏实体要看 gold / pred / miss"
+可见副标题必须完全写为："第二条不是少了一个 token，而是漏掉了 SCHOOL 实体。"
+
+教学目标：读者一眼看懂 `decode_entities` 之后为什么要比较复原实体。第一条样本全部命中，第二条样本的 `gold` 有北京大学这个 SCHOOL 实体，但 `pred` 漏掉了它，所以 `miss` 明确显示 `('北京大学', 'SCHOOL')`。图片必须让学生看到实体级错误，而不是只看到 token 标签。
+
+中英日三版必须同构：同一张竖版实体审计笔记页、同一上下两条样本、同一 gold/pred/miss 三栏、同一颜色和缺失高亮位置。不要把英文版改成 dashboard，不要把日文版改成漫画，不要增减样本。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 中部有恰好两条样本轨道：
+   - 样本 1 用绿色状态："全部命中"，文本中高亮 张三(NAME)、清华大学(SCHOOL)、Python(SKILL)、PyTorch(SKILL)，旁边写 `miss=[]`。
+   - 样本 2 用红橙色状态："漏掉学校"，文本中高亮 李四(NAME)、北京大学(SCHOOL)、Java(SKILL)。
+3. 样本 2 下方必须有三栏证据：
+   - gold：李四 NAME；北京大学 SCHOOL；Java SKILL
+   - pred：李四 NAME；Java SKILL
+   - miss：('北京大学', 'SCHOOL')
+4. 北京大学这个实体必须被明显圈出或用断裂箭头指向 miss；不要把它画成普通背景文字。
+5. 底部分析卡必须完全写为："按复原实体比较，不只看 token 标签。"
+6. 底部页脚必须完全写为："NER 的关键输出是实体是否真的被抽出来。"
+
+准确性规则：
+- 中文说明必须是简体中文；只允许保留这些代码/标签 token：tokens、gold、pred、miss、NAME、SCHOOL、SKILL、Python、PyTorch、Java、decode_entities、token。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo、额外实体、额外样本、概率、模型名称、神经网络、dashboard。
+- 文字要少、大、清楚，手机上能读。实体高亮和 miss 抽屉必须清楚，不能糊。
+""".strip(),
+    "ch11-ner-gold-pred-miss-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 11.4.4 NER entity-recovery run results.
+This is the final AI-generated image. Do not leave blank space for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not make a pure flowchart, do not show a terminal screenshot, and do not paste raw Python list output.
+
+Visible title exactly: "NER Errors Live in gold / pred / miss"
+Visible subtitle exactly: "The second sample misses a SCHOOL entity, not just one token."
+
+Teaching goal: a reader should immediately understand why the code compares recovered entities after `decode_entities`. Sample 1 fully matches. In sample 2, `gold` contains Peking University as a SCHOOL entity, but `pred` misses it, so `miss` explicitly shows `('Peking University', 'SCHOOL')`. The image must show entity-level error analysis, not just token labels.
+
+The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical entity-audit notebook, same two sample lanes, same gold/pred/miss evidence columns, same colors and missing-entity highlight position. Do not turn the English version into a dashboard. Do not add or remove samples.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Main body has exactly two sample lanes:
+   - Sample 1 uses green status: "all matched", highlighting Zhang San (NAME), Tsinghua University (SCHOOL), Python (SKILL), PyTorch (SKILL), with `miss=[]` beside it.
+   - Sample 2 uses red/amber status: "school missed", highlighting Li Si (NAME), Peking University (SCHOOL), Java (SKILL).
+3. Under sample 2, show exactly three evidence columns:
+   - gold: Li Si NAME; Peking University SCHOOL; Java SKILL
+   - pred: Li Si NAME; Java SKILL
+   - miss: ('Peking University', 'SCHOOL')
+4. Peking University must be visibly circled or connected with a broken arrow into miss; do not leave it as ordinary background text.
+5. Bottom analysis card exactly: "Compare recovered entities, not only token labels."
+6. Visible footer exactly: "The key NER output is whether the entity was actually extracted."
+
+Accuracy rules:
+- English text only, except exact code/entity-label tokens: tokens, gold, pred, miss, NAME, SCHOOL, SKILL, Python, PyTorch, Java, decode_entities, token.
+- Do not include Chinese text, Japanese text, gibberish, tiny background text, watermark, brand logo, extra entities, extra samples, probabilities, model names, neural networks, or dashboards.
+- Text must be sparse, large, clean, and readable on a phone. Entity highlights and the miss drawer must be sharp, not blurry.
+""".strip(),
+    "ch11-ner-gold-pred-miss-result-map-ja.png": """
+第 11 章 11.4.4 の NER エンティティ復元結果を説明する、完成済みの 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。あとから文字を重ねるための空白を残さないでください。SVG 風、白い角丸ボックスの情報図、純粋なフローチャート、ターミナルスクリーンショット、Python list 出力の貼り付けは禁止です。
+
+可視タイトルは完全に："NER の漏れは gold / pred / miss で見る"
+可視サブタイトルは完全に："2つ目は token ではなく SCHOOL エンティティを漏らしている。"
+
+教学目標：`decode_entities` の後で復元された entity を比較する理由が一目で分かること。サンプル1はすべて一致。サンプル2では `gold` に 京都大学 という SCHOOL entity があるが、`pred` はそれを漏らすので、`miss` が `('京都大学', 'SCHOOL')` を明示する。token ラベルだけでなく entity-level error analysis を見せてください。
+
+中国語・英語・日本語版は必ず同じ構造：同じ縦長の entity audit notebook、同じ2つの sample lane、同じ gold/pred/miss の3列、同じ色と missing entity の強調位置。日本語版だけ dashboard や漫画にしないでください。サンプルを増減しないでください。
+
+固定版式：
+1. 上部にタイトルとサブタイトル。
+2. 中央にちょうど2つの sample lane：
+   - サンプル1は緑の状態："すべて一致"。田中太郎(NAME)、東京大学(SCHOOL)、Python(SKILL)、PyTorch(SKILL) を強調し、横に `miss=[]` を表示。
+   - サンプル2は赤橙色の状態："学校を見逃し"。佐藤花子(NAME)、京都大学(SCHOOL)、Java(SKILL) を強調。
+3. サンプル2の下に3つの evidence column を表示：
+   - gold：佐藤花子 NAME；京都大学 SCHOOL；Java SKILL
+   - pred：佐藤花子 NAME；Java SKILL
+   - miss：('京都大学', 'SCHOOL')
+4. 京都大学は必ず丸で囲むか、壊れた矢印で miss へつなぐ。普通の背景文字にしない。
+5. 下部の分析カードは完全に："token ラベルだけでなく、復元された entity で比べる。"
+6. 下部フッターは完全に："NER で重要なのは、entity が本当に抽出されたかどうか。"
+
+正確性ルール：
+- 日本語説明を使う。コード/ラベル token として tokens、gold、pred、miss、NAME、SCHOOL、SKILL、Python、PyTorch、Java、decode_entities、token、entity はそのまま残してよい。
+- 中国語、英語の説明文、乱码、小さい背景文字、watermark、brand logo、余分な entity、余分な sample、確率、モデル名、ニューラルネット、dashboard を入れない。
+- 文字は少なく、大きく、スマホで読めること。entity highlight と miss drawer は鮮明で、ぼかさない。
 """.strip(),
     "ch09-multi-agent-artifact-handoff-anatomy-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于 AI 全栈课程第 9 章多 Agent 开发团队项目。

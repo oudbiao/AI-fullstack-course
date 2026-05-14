@@ -189,6 +189,8 @@ pred : [('李四', 'NAME'), ('Java', 'SKILL')]
 miss : [('北京大学', 'SCHOOL')]
 ```
 
+![NER gold pred miss 漏实体运行结果图](/img/course/ch11-ner-gold-pred-miss-result-map.webp)
+
 第二条样本漏掉了学校实体。这正说明 NER 项目不能只看 token 标签，而要看最终恢复出来的实体。
 
 ### 这段代码为什么是“项目最小闭环”？

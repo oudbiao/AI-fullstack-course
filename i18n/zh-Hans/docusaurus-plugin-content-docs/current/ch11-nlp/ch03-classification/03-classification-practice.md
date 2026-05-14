@@ -145,6 +145,8 @@ accuracy: 0.75
 {'text': '退款申请发票怎么开', 'gold': 'invoice', 'pred': 'refund', 'scores': {'refund': 8, 'invoice': 7, 'password': 2}}
 ```
 
+![文本分类 baseline 错例运行结果图](/img/course/ch11-text-classification-baseline-error-result-map.webp)
+
 最后一条是刻意保留的模糊样本：它既有 `退款`，又有 `发票`。关键词 baseline 会偏向退款类，这正好给你一个可以分析的错误案例。
 
 ### 这个示例为什么有价值？
