@@ -15928,6 +15928,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-mcp-client-discovery-call-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch05-mcp/04-mcp-client-integration.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch05-mcp/04-mcp-client-integration.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch05-mcp/04-mcp-client-integration.md",
+        },
+        "scene": "A runnable-result teaching visual for the MCP Client integration lesson. It must explain the exact visible behavior of the code examples, not a generic MCP poster. Show the client first discovering server tools with list_tools, then storing the returned tools, then choosing search_docs for the refund-policy query, then calling the server and receiving the search result, then safe_call wrapping success and unknown_tool failure, and finally discover_once reusing the cached tool list instead of rediscovering. Teaching point: an MCP Client is a stable consumption layer with discovery, selection, arguments, results, failure handling, and caching; it is not a passive relay. Use the exact tool names search_docs and get_weather, exact error token unknown_tool, and exact cache behavior where the second discover_once uses the stored list. Strict output accuracy: the search_docs call result must be only the simple lesson output, such as Search result: refund policy or the localized equivalent; do not invent refund deadlines, application rules, counts, source paths, /docs links, file names, policy details, or extra document content. Do not add fake servers, extra tools, terminal commands, local filenames, barcode strips, QR codes, decorative code, or dense tiny receipt text.",
+        "chapter_context": "The image is inserted after the expected output of the cached discover_once example in 9.5.5 MCP Client Integration. Earlier code prints list_tools output, a minimal client discover/call result, choose_tool decision for a refund policy query, safe_call success and bad_tool fallback, then two identical discover_once outputs. Nearby prose says the client discovers, selects, organizes arguments, receives results, handles errors, and can cache tool lists.",
+        "shared_layout": "Vertical 9:16. Use the same practical MCP client workbench style across zh/en/ja: dark desk, client console as a central operator, server tool shelf on the left, cache drawer on the right, and result receipts at the bottom. Top title and subtitle. Upper section: server tool shelf exposes exactly two tool cards: search_docs and get_weather. The client performs list_tools/discover and copies both cards into its local tools tray. Middle section: a refund policy query enters choose_tool, selecting search_docs with the localized query text. Then call_tool returns one plain search-result receipt, with no policy body. Lower section: safe_call splits into a green success receipt and an orange fallback receipt for bad_tool/unknown_tool. Bottom-right: discover_once cache drawer shows first call fills the cache and second call reuses the same list. Keep object positions, step order, tool names, values, colors, and reading path identical across languages. Use large localized labels attached to concrete objects, with only short exact output snippets. Code tokens that may stay English: MCP Client, MCP Server, list_tools, discover, choose_tool, call_tool, safe_call, discover_once, search_docs, get_weather, bad_tool, unknown_tool, query, refund policy, ok, data, fallback, cache. Avoid old SVG-style white rounded-box diagrams, pure text posters, terminal screenshots, dense tables, tiny logs, fake shell commands, invented tools, invented policy text, file paths, barcode strips, QR codes, and decorative-only network art.",
+        "variants": {
+            "zh": {
+                "title": "MCP Client 运行闭环",
+                "subtitle": "先发现工具，再选择、调用、兜底，并缓存工具列表。",
+                "items": [
+                    ("发现工具", "list_tools -> search_docs、get_weather。"),
+                    ("本地 tools", "client.discover() 把工具列表保存起来。"),
+                    ("选择工具", "退款政策 -> choose_tool -> search_docs。"),
+                    ("调用结果", "query=退款政策 -> 检索结果: 退款政策。"),
+                    ("错误兜底", "bad_tool -> unknown_tool -> fallback。"),
+                    ("缓存发现", "discover_once 第一次填充，第二次复用同一份工具列表。"),
+                ],
+                "footer": "成熟的 MCP Client 是稳定消费层：发现、选择、参数、结果、失败和缓存都要管。",
+                "alt": "MCP Client 运行闭环图：client 先发现 search_docs 和 get_weather，再为退款政策选择 search_docs 并调用成功，safe_call 兜住 bad_tool 错误，discover_once 复用缓存工具列表。",
+            },
+            "en": {
+                "title": "MCP Client Run Loop",
+                "subtitle": "Discover tools, choose, call, handle failure, and cache the list.",
+                "items": [
+                    ("discover tools", "list_tools -> search_docs, get_weather."),
+                    ("local tools", "client.discover() stores the tool list."),
+                    ("choose tool", "refund policy -> choose_tool -> search_docs."),
+                    ("call result", "query=refund policy -> Search result: refund policy."),
+                    ("error fallback", "bad_tool -> unknown_tool -> fallback."),
+                    ("cached discovery", "discover_once fills once, then reuses the same tool list."),
+                ],
+                "footer": "A mature MCP Client is a consumption layer: discovery, selection, arguments, results, failure, and cache.",
+                "alt": "MCP Client run loop map: the client discovers search_docs and get_weather, selects search_docs for a refund policy query, calls it successfully, wraps a bad_tool failure with safe_call, and reuses the cached tool list with discover_once.",
+            },
+            "ja": {
+                "title": "MCP Client の実行ループ",
+                "subtitle": "ツールを発見し、選び、呼び、失敗を受け止め、一覧をキャッシュする。",
+                "items": [
+                    ("ツール発見", "list_tools -> search_docs、get_weather。"),
+                    ("ローカル tools", "client.discover() がツール一覧を保持する。"),
+                    ("ツール選択", "返金ポリシー -> choose_tool -> search_docs。"),
+                    ("呼び出し結果", "query=返金ポリシー -> 検索結果: 返金ポリシー。"),
+                    ("エラー処理", "bad_tool -> unknown_tool -> fallback。"),
+                    ("発見のキャッシュ", "discover_once は初回に保存し、2回目は同じ一覧を再利用する。"),
+                ],
+                "footer": "成熟した MCP Client は、発見・選択・引数・結果・失敗・キャッシュをまとめる利用層。",
+                "alt": "MCP Client の実行ループ図：client が search_docs と get_weather を発見し、返金ポリシーでは search_docs を選んで呼び出し、safe_call が bad_tool の失敗を受け止め、discover_once がキャッシュしたツール一覧を再利用する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-tool-strategy-routing-execution-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch03-tools/03-tool-strategies.md",

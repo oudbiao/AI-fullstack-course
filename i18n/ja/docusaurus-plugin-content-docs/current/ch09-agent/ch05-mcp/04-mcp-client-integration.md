@@ -302,6 +302,8 @@ print(cached_client.discover_once())
 [{'name': 'search_docs', 'description': 'コース文書を検索する'}, {'name': 'get_weather', 'description': '天気を調べる'}]
 ```
 
+![MCP Client の発見、呼び出し、キャッシュ結果図](/img/course/ch09-mcp-client-discovery-call-result-map-ja.webp)
+
 これはとても単純ですが、次のことを表しています。
 
 > client は単なる「中継器」ではなく、状態を持ち、最適化できる。

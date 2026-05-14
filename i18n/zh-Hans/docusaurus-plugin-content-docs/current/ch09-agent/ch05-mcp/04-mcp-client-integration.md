@@ -302,6 +302,8 @@ print(cached_client.discover_once())
 [{'name': 'search_docs', 'description': '搜索课程文档'}, {'name': 'get_weather', 'description': '查询天气'}]
 ```
 
+![MCP Client 发现调用与缓存结果图](/img/course/ch09-mcp-client-discovery-call-result-map.webp)
+
 这虽然简单，但已经体现出：
 
 > client 也不只是“转发器”，它本身也有状态和优化空间。

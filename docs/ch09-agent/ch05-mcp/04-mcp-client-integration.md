@@ -302,6 +302,8 @@ Expected output:
 [{'name': 'search_docs', 'description': 'Search course documents'}, {'name': 'get_weather', 'description': 'Query the weather'}]
 ```
 
+![MCP Client discovery call and cache result map](/img/course/ch09-mcp-client-discovery-call-result-map-en.webp)
+
 Although simple, it already shows:
 
 > The client is not just a “relay”; it also has state and room for optimization.
