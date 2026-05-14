@@ -244,6 +244,8 @@ for asset in assets:
 {'id': 'voice_v1', 'type': 'voice', 'parent': None}
 ```
 
+![资产 parent 版本关系运行结果图](/img/course/ch12-asset-parent-version-lineage-result-map.webp)
+
 `parent` 是最小可用的版本字段。它告诉你某个资产是新分支，还是从之前的资产改出来的。
 
 这个示例很适合初学者，因为它会帮助你先建立一个平台思维：

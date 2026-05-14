@@ -242,6 +242,8 @@ for asset in assets:
 {'id': 'voice_v1', 'type': 'voice', 'parent': None}
 ```
 
+![asset parent バージョン関係の実行結果図](/img/course/ch12-asset-parent-version-lineage-result-map-ja.webp)
+
 `parent` は最小限のバージョン管理フィールドです。そのアセットが新しい枝なのか、以前のアセットから派生したものなのかを示します。
 
 この例は初心者にとても向いています。なぜなら、まず次の考え方を身につけやすいからです。

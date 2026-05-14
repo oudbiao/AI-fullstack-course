@@ -14845,6 +14845,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-asset-parent-version-lineage-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/01-creative-platform.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/01-creative-platform.md",
+        },
+        "scene": "A Chapter 12 creative-platform run-result teaching image based on the exact minimal asset version-management code. The image must teach how the printed dictionaries become a version lineage map: img_v1 is a root image asset with parent None, img_v2 is an image asset derived from img_v1, and voice_v1 is a separate root voice asset with parent None. This is not a generic asset-management poster and not a flowchart of a whole platform. Use only the exact code/data tokens: assets, id, type, parent, img_v1, img_v2, voice_v1, image, voice, None. Do not invent extra assets, timestamps, users, model names, costs, review scores, dashboards, folders, APIs, video/audio processing steps, or UI features. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens.",
+        "chapter_context": "The image is inserted after the expected output of the minimal version-management example in 12.5.2 Creative Platform. Nearby prose says parent is the minimum versioning field: it tells whether an asset starts a new branch or was derived from an earlier asset. The illustration should make the three print lines readable as a parent-child asset lineage board.",
+        "shared_layout": "Vertical 9:16. Use a polished semi-realistic dark creative-archive evidence board, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, not a local-text-overlay style, and not a decorative poster. Top title and subtitle. Upper station shows exactly three printed dictionary slips entering an archive table. Middle station shows a lineage board with three asset cards: img_v1 as the root image card, img_v2 as the edited/derived image card with a clear arrow from img_v1 and label parent='img_v1', and voice_v1 as a separate root voice card with no incoming arrow and label parent=None. Use two distinct lanes: image lane and voice lane. Lower station shows a small rule board: parent=None starts a new branch; parent='img_v1' means derived from img_v1. Bottom receipt repeats the three printed records compactly. Keep object positions, lanes, arrows, colors, rule board, receipt position, and reading path identical across zh/en/ja. Use large sparse localized labels attached to the concrete cards, arrows, and receipt. Avoid dense paragraphs, tiny fake text, random non-locale text, old SVG information-box style, extra English explanation in zh/ja variants beyond exact code tokens, and any assets not in the code.",
+        "variants": {
+            "zh": {
+                "title": "用 parent 看懂资产版本关系",
+                "subtitle": "print 的三行字典，其实在画一张资产谱系图。",
+                "items": [
+                    ("img_v1", "type=image，parent=None：图片分支的起点。"),
+                    ("img_v2", "type=image，parent=img_v1：从 img_v1 改出来。"),
+                    ("voice_v1", "type=voice，parent=None：语音分支的起点。"),
+                    ("箭头含义", "只有 img_v1 -> img_v2 有父子关系。"),
+                    ("平台思维", "资产不是孤立文件，要能追溯来源。"),
+                    ("验收", "看 parent 字段能判断新分支还是派生版本。"),
+                ],
+                "footer": "最小版本字段 parent，让资产从 print 变成可追踪关系。",
+                "alt": "资产 parent 版本关系运行结果图：img_v1 是 parent None 的图片起点，img_v2 的 parent 是 img_v1，voice_v1 是单独的语音起点，因此只有 img_v1 到 img_v2 构成派生关系。",
+            },
+            "en": {
+                "title": "Use parent to Read Asset Versions",
+                "subtitle": "The three printed dictionaries form an asset lineage map.",
+                "items": [
+                    ("img_v1", "type=image, parent=None: root of the image branch."),
+                    ("img_v2", "type=image, parent=img_v1: derived from img_v1."),
+                    ("voice_v1", "type=voice, parent=None: root of the voice branch."),
+                    ("arrow meaning", "Only img_v1 -> img_v2 is a parent-child link."),
+                    ("platform mindset", "Assets are not isolated files; their source must be traceable."),
+                    ("acceptance", "The parent field tells root branch vs derived version."),
+                ],
+                "footer": "The minimum parent field turns print output into traceable asset lineage.",
+                "alt": "Asset parent version lineage result map: img_v1 is an image root with parent None, img_v2 has parent img_v1, voice_v1 is a separate voice root, so only img_v1 to img_v2 is a derived relationship.",
+            },
+            "ja": {
+                "title": "parent で asset version を読む",
+                "subtitle": "print の3行は、asset の系譜図として読める。",
+                "items": [
+                    ("img_v1", "type=image、parent=None：画像分岐の起点。"),
+                    ("img_v2", "type=image、parent=img_v1：img_v1 から派生。"),
+                    ("voice_v1", "type=voice、parent=None：音声分岐の起点。"),
+                    ("矢印の意味", "親子関係は img_v1 -> img_v2 だけ。"),
+                    ("platform の考え方", "asset は孤立ファイルではなく、出所を追跡する。"),
+                    ("確認点", "parent で新しい枝か派生版かを判断する。"),
+                ],
+                "footer": "最小の parent フィールドで、print が追跡可能な関係に変わる。",
+                "alt": "asset parent バージョン関係の実行結果図：img_v1 は parent None の画像起点、img_v2 の parent は img_v1、voice_v1 は別の音声起点なので、img_v1 から img_v2 だけが派生関係になる。",
+            },
+        },
+    },
+    {
         "slug": "ch12-package-state-readiness-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch05-projects/00-roadmap.md",
@@ -21478,6 +21533,108 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-asset-parent-version-lineage-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.5.2 “创意平台”里最小版本管理示例的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只是漂亮资产管理海报。
+
+可见标题必须完全写为：“用 parent 看懂资产版本关系”
+可见副标题必须完全写为：“print 的三行字典，其实在画一张资产谱系图。”
+
+教学目标：读者先看图就能理解三行 print 输出不是孤立文本，而是资产之间的版本关系。代码里只有三个资产：
+1. {"id": "img_v1", "type": "image", "parent": None}
+2. {"id": "img_v2", "type": "image", "parent": "img_v1"}
+3. {"id": "voice_v1", "type": "voice", "parent": None}
+重点是：parent=None 表示新分支起点；parent='img_v1' 表示这个资产是从 img_v1 派生出来的。只有 img_v1 -> img_v2 有父子箭头，voice_v1 是单独的语音分支起点。
+
+三语版本必须同构：同一个半写实深色 creative-archive evidence board，同样三张字典纸条，同样两个泳道 image lane / voice lane，同样三张 asset 卡，同样 img_v1 -> img_v2 箭头，同样 parent 规则板，同样底部 receipt。中文图只能用自然中文解释，允许保留这些代码/数据词：assets、id、type、parent、img_v1、img_v2、voice_v1、image、voice、None。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画三张从 print 输出来的字典纸条，文字必须清楚包含：
+   id: img_v1, type: image, parent: None
+   id: img_v2, type: image, parent: img_v1
+   id: voice_v1, type: voice, parent: None
+3. 中间画一块资产谱系板，分成两个明确泳道：图片分支、语音分支。
+4. 图片分支里画 img_v1 资产卡，旁边写：“parent=None：图片分支起点”。再画 img_v2 资产卡，必须有从 img_v1 指向 img_v2 的清楚箭头，箭头标签写：“parent=img_v1：从上一版改出”。
+5. 语音分支里画 voice_v1 资产卡，旁边写：“parent=None：语音分支起点”。voice_v1 不要连到 img_v1 或 img_v2。
+6. 下方画一块规则板，必须写：
+   parent=None -> 新分支
+   parent=某个 id -> 派生版本
+7. 底部 receipt 必须紧凑写出三行：
+   img_v1 | image | parent None
+   img_v2 | image | parent img_v1
+   voice_v1 | voice | parent None
+8. 底部短句必须完全写为：“最小版本字段 parent，让资产从 print 变成可追踪关系。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、复杂 dashboard、文件夹树、额外资产、终端界面、密集代码或无关装饰。
+""".strip(),
+    "ch12-asset-parent-version-lineage-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.5.2 “Creative Platform”, the minimal version-management code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no Python-code poster, and no decorative asset-management poster.
+
+Visible title exactly: “Use parent to Read Asset Versions”
+Visible subtitle exactly: “The three printed dictionaries form an asset lineage map.”
+
+Teaching goal: the learner should understand that the three print lines are not isolated text. They describe asset version relationships. The code has only three assets:
+1. {"id": "img_v1", "type": "image", "parent": None}
+2. {"id": "img_v2", "type": "image", "parent": "img_v1"}
+3. {"id": "voice_v1", "type": "voice", "parent": None}
+Key point: parent=None means a new branch root; parent='img_v1' means the asset is derived from img_v1. Only img_v1 -> img_v2 has a parent-child arrow. voice_v1 is a separate root of the voice branch.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark creative-archive evidence board, the same three dictionary slips, the same two lanes image lane / voice lane, the same three asset cards, the same img_v1 -> img_v2 arrow, the same parent rule board, and the same bottom receipt. Use natural English. Code/data tokens must be spelled exactly where useful: assets, id, type, parent, img_v1, img_v2, voice_v1, image, voice, None.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows three dictionary slips coming from print output. The text must clearly include:
+   id: img_v1, type: image, parent: None
+   id: img_v2, type: image, parent: img_v1
+   id: voice_v1, type: voice, parent: None
+3. Middle area shows one asset lineage board with two clear lanes: image branch and voice branch.
+4. In the image branch, draw an img_v1 asset card with label: “parent=None: image branch root”. Then draw an img_v2 asset card with a clear arrow from img_v1 to img_v2. The arrow label says: “parent=img_v1: derived from the previous version”.
+5. In the voice branch, draw a voice_v1 asset card with label: “parent=None: voice branch root”. voice_v1 must not connect to img_v1 or img_v2.
+6. Lower area shows a rule board with exactly:
+   parent=None -> new branch
+   parent=some id -> derived version
+7. Bottom receipt must compactly show three lines:
+   img_v1 | image | parent None
+   img_v2 | image | parent img_v1
+   voice_v1 | voice | parent None
+8. Bottom sentence exactly: “The minimum parent field turns print output into traceable asset lineage.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, complex dashboards, folder trees, extra assets, terminal UI, dense code, or unrelated decoration.
+""".strip(),
+    "ch12-asset-parent-version-lineage-result-map-ja.png": """
+第12章 12.5.2「Creative Platform」にある最小バージョン管理コードの実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードのポスター、ただのきれいな asset 管理ポスターは禁止。
+
+可視タイトルは完全に：「parent で asset version を読む」
+可視サブタイトルは完全に：「print の3行は、asset の系譜図として読める。」
+
+学習目標：3行の print 出力が孤立した文字ではなく、asset の version 関係を表していることを一目で理解できるようにする。コードにある asset は次の3つだけ：
+1. {"id": "img_v1", "type": "image", "parent": None}
+2. {"id": "img_v2", "type": "image", "parent": "img_v1"}
+3. {"id": "voice_v1", "type": "voice", "parent": None}
+重要点：parent=None は新しい分岐の起点、parent='img_v1' は img_v1 から派生した asset を意味する。親子の矢印があるのは img_v1 -> img_v2 だけ。voice_v1 は別の音声分岐の起点。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 creative-archive evidence board、同じ3枚の辞書メモ、同じ2つの lane（image lane / voice lane）、同じ3枚の asset カード、同じ img_v1 -> img_v2 矢印、同じ parent ルール板、同じ下部 receipt。説明文は自然な日本語にする。以下のコード/データ語は必要な場所で英語のまま使ってよい：assets、id、type、parent、img_v1、img_v2、voice_v1、image、voice、None。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に print 出力から来た3枚の辞書メモを描く。文字は必ず読みやすく、次を含める：
+   id: img_v1, type: image, parent: None
+   id: img_v2, type: image, parent: img_v1
+   id: voice_v1, type: voice, parent: None
+3. 中央に asset 系譜ボードを描き、2つの明確な lane に分ける：画像分岐、音声分岐。
+4. 画像分岐には img_v1 の asset カードを描き、横に「parent=None：画像分岐の起点」と書く。次に img_v2 の asset カードを描き、img_v1 から img_v2 への明確な矢印を置く。矢印ラベルは「parent=img_v1：前の版から派生」。
+5. 音声分岐には voice_v1 の asset カードを描き、横に「parent=None：音声分岐の起点」と書く。voice_v1 を img_v1 や img_v2 につなげない。
+6. 下部にルール板を描き、必ず書く：
+   parent=None -> 新しい分岐
+   parent=ある id -> 派生版
+7. 下部 receipt には3行をコンパクトに書く：
+   img_v1 | image | parent None
+   img_v2 | image | parent img_v1
+   voice_v1 | voice | parent None
+8. 下部の短文は完全に：「最小の parent フィールドで、print が追跡可能な関係に変わる。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、複雑な dashboard、フォルダ tree、余分な asset、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
     "ch12-package-state-readiness-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.5.1 “建一个最小内容包状态”的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只是漂亮项目海报。
 

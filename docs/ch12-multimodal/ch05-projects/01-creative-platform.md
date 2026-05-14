@@ -245,6 +245,8 @@ Expected output:
 {'id': 'voice_v1', 'type': 'voice', 'parent': None}
 ```
 
+![Asset parent version lineage result map](/img/course/ch12-asset-parent-version-lineage-result-map-en.webp)
+
 `parent` is the minimum versioning field. It tells you whether an asset starts a new branch or was derived from an earlier asset.
 
 This example is great for beginners because it helps you build a platform mindset first:
