@@ -188,6 +188,8 @@ print(match_product(product_image_feature, "上班通勤穿合适吗"))
 这双鞋偏运动风，通勤场景可能不是最佳匹配。
 ```
 
+![图文商品助手运行结果图](/img/course/ch12-product-feature-intent-routing-result-map.webp)
+
 这类图文协同，在电商、推荐、客服里都很常见。
 
 ---

@@ -188,6 +188,8 @@ print(match_product(product_image_feature, "会社への通勤で履いても大
 この靴はスポーティーな印象なので、通勤シーンにはあまり合わないかもしれません。
 ```
 
+![画像テキスト商品アシスタントの実行結果図](/img/course/ch12-product-feature-intent-routing-result-map-ja.webp)
+
 このような画像とテキストの協調は、EC、レコメンド、客服でとてもよく使われます。
 
 ---

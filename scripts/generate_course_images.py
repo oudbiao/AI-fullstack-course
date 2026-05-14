@@ -18336,6 +18336,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-product-feature-intent-routing-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+        },
+        "scene": "A Chapter 12 multimodal product-assistant run-result teaching image based on the exact toy code. The code simulates product_image_feature = {color: white, style: sport, category: shoes}. The assistant combines image features with the user_text. If the user asks for running shoes, the sporty shoe image is a good recommendation; if the user asks about office commuting, the same image is probably not the best match. The teaching point is that image features alone do not decide the answer; user intent changes the recommendation logic. Do not draw a terminal screenshot, dense Python code, generic e-commerce poster, pure shoe advertisement, white rounded-box flowchart, or pure text poster.",
+        "chapter_context": "The image is inserted after the expected output of the small image-text product assistant in 12.1.3 Multimodal Applications. Nearby prose says the example simulates using image features plus text requirements together, and that this kind of image-text collaboration is common in e-commerce, recommendation systems, and customer support.",
+        "shared_layout": "Vertical 9:16. Use the same semi-realistic dark product-debug workbench across zh/en/ja: top shows one white sporty shoe product card; beside it are extracted image_feature chips color=white, style=sport, category=shoes. Middle shows a routing lens labeled user_text / user need that sends the same shoe into exactly two decision lanes. Lane 1 is running intent and returns recommended; lane 2 is commute/office intent and returns not best match. Include concrete icons: runner track for lane 1, office door or briefcase for lane 2. Bottom shows the rule: image sees appearance, text provides purpose, recommendation needs both. Keep shoe, feature chips, two lanes, icons, colors, order, and answer-card positions identical across languages. Text must be sparse, large, and attached to the object it explains.",
+        "variants": {
+            "zh": {
+                "title": "商品助手要同时看图和需求",
+                "subtitle": "同一双运动鞋，跑步需求和通勤需求会得到不同判断。",
+                "items": [
+                    ("图像特征", "color=white，style=sport，category=shoes。"),
+                    ("用户需求 1", "“适合跑步吗？” -> 推荐运动场景。"),
+                    ("用户需求 2", "“适合通勤吗？” -> 提醒不是最佳匹配。"),
+                    ("关键分支", "category 是 shoes 后，再看 user_text。"),
+                    ("推荐逻辑", "图片给外观，文本给用途。"),
+                ],
+                "footer": "图像只给商品样子，用户文本决定推荐场景。",
+                "alt": "图文商品助手运行结果图：白色运动鞋的 image_feature 与跑步或通勤 user_text 结合，分别输出推荐或不匹配判断。",
+            },
+            "en": {
+                "title": "A Product Assistant Needs Image and Need",
+                "subtitle": "The same sporty shoe is judged differently for running and commuting.",
+                "items": [
+                    ("image_feature", "color=white, style=sport, category=shoes."),
+                    ("User need 1", "“Good for running?” -> recommend sporty use."),
+                    ("User need 2", "“Good for commuting?” -> not the best match."),
+                    ("branch rule", "After category is shoes, inspect user_text."),
+                    ("recommendation logic", "The image gives appearance; text gives purpose."),
+                ],
+                "footer": "Images show what the product looks like; user text decides the scenario.",
+                "alt": "Image-text product assistant result map: a white sporty shoe image_feature combines with running or commuting user_text and returns either a recommendation or a mismatch judgment.",
+            },
+            "ja": {
+                "title": "商品アシスタントは画像と要望を両方見る",
+                "subtitle": "同じスポーツ靴でも、ランニングと通勤では判断が変わる。",
+                "items": [
+                    ("画像特徴", "color=white、style=sport、category=shoes。"),
+                    ("要望 1", "「ランニング向き？」-> スポーツ用途として推薦。"),
+                    ("要望 2", "「通勤向き？」-> 最適とは限らない。"),
+                    ("分岐ルール", "category が shoes なら、次に user_text を見る。"),
+                    ("推薦ロジック", "画像は見た目、text は用途を出す。"),
+                ],
+                "footer": "画像は商品の見た目を出し、ユーザー文が利用場面を決める。",
+                "alt": "画像テキスト商品アシスタントの実行結果図：白いスポーツ靴の image_feature とランニング/通勤の user_text を組み合わせ、推薦または不一致判断を返す。",
+            },
+        },
+    },
+    {
         "slug": "ch12-image-text-retrieval-similarity-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
@@ -21221,6 +21273,99 @@ Every label must sit near the object it explains, with large readable text suita
    回答：API Key、ログイン状態、権限設定を先に確認。
 7. 2つの経路には対応する図像を入れる：左は虫眼鏡/エラー特定、右は工具/チェックリスト。文字枠だけにしない。
 8. 下部の短文は完全に：「視覚/OCR が事実を出し、質問が答えの切り口を決める。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコードは禁止。
+""".strip(),
+    "ch12-product-feature-intent-routing-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.3 多模态应用中“图文商品助手”代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴 Python 代码，不要做成商品广告海报。
+
+可见标题必须完全写为：“商品助手要同时看图和需求”
+可见副标题必须完全写为：“同一双运动鞋，跑步需求和通勤需求会得到不同判断。”
+
+教学目标：读者先看图就能理解 print(match_product(...)) 的两行输出为什么不同。代码里 product_image_feature 是 color=white、style=sport、category=shoes。函数先确认 category 是 shoes，再看 user_text：如果用户要跑步，就输出适合跑步相关推荐；如果用户问通勤，就输出这双鞋偏运动风、可能不是最佳匹配。图必须说明：图片特征给出外观和类别，用户文本给出用途，推荐判断需要两者共同决定。
+
+三语版本必须同构：同一个半写实深色产品调试工作台、同一张白色运动鞋商品卡、同样 image_feature 芯片、同样 user_text 分流镜头、同样两条判断路径、同样底部规则栏。不要中文是 UI 面板、英文是漫画、日文是写实商店场景。中文图只能用自然中文解释，允许保留这些代码/技术词：image_feature、user_text、color、style、category、shoes、sport。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张商品卡：白色运动鞋，不要品牌 logo，不要价格。旁边短标签：“图片看到外观”。
+3. 商品卡旁边画三个 image_feature 芯片，必须写：
+   color = white
+   style = sport
+   category = shoes
+4. 中间画一个“user_text / 用户需求”分流镜头，把同一双鞋送入两条路径。
+5. 左侧路径用跑道/跑步图标，必须写：
+   用户需求：适合跑步吗？
+   判断：适合运动场景推荐
+   输出：这张图更像运动鞋，适合推荐跑步相关商品。
+6. 右侧路径用办公门/公文包图标，必须写：
+   用户需求：适合通勤吗？
+   判断：不是最佳匹配
+   输出：这双鞋偏运动风，通勤场景可能不是最佳匹配。
+7. 中间或下方必须有一条清楚的分支规则：“category=shoes 后，再看 user_text。”
+8. 底部短句必须完全写为：“图像只给商品样子，用户文本决定推荐场景。”
+
+所有文字必须贴近对应物体，字号大，适合手机阅读。不要乱码、随机英文、日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、终端界面或密集代码。
+""".strip(),
+    "ch12-product-feature-intent-routing-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.1.3 Multimodal Applications, the image-text product assistant code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no pasted Python code, and no product advertisement poster.
+
+Visible title exactly: “A Product Assistant Needs Image and Need”
+Visible subtitle exactly: “The same sporty shoe is judged differently for running and commuting.”
+
+Teaching goal: the learner should understand why the two print(match_product(...)) outputs are different. The code has product_image_feature as color=white, style=sport, category=shoes. The function first confirms category is shoes, then inspects user_text: if the user asks for running, the sporty shoe is a good recommendation; if the user asks about commuting, the same shoe may not be the best match. The image must show that image features provide appearance and category, while user text provides purpose, and the recommendation needs both.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark product-debug workbench, the same white sporty shoe product card, the same image_feature chips, the same user_text routing lens, the same two decision paths, and the same bottom rule bar. Do not make English a cartoon while Chinese is a UI panel or Japanese is a realistic shop scene. Use natural English. Code/technical tokens must be spelled exactly where useful: image_feature, user_text, color, style, category, shoes, sport.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one product card: white sporty shoes, no brand logo, no price. Beside it, a short tag: “image sees appearance”.
+3. Next to the product card, show exactly three image_feature chips:
+   color = white
+   style = sport
+   category = shoes
+4. Middle shows a “user_text / user need” routing lens that sends the same shoe into two paths.
+5. Left path uses a running track / runner icon and must say:
+   User need: Good for running?
+   Judgment: recommend sporty use
+   Output: This image looks more like sports shoes, so it may be suitable for running-related recommendations.
+6. Right path uses an office door / briefcase icon and must say:
+   User need: Good for commuting?
+   Judgment: not the best match
+   Output: These shoes have a sporty style and may not be the best match for a commuting scenario.
+7. Middle or lower area must show the branch rule: “After category=shoes, inspect user_text.”
+8. Bottom sentence exactly: “Images show what the product looks like; user text decides the scenario.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, terminal UI, or dense code.
+""".strip(),
+    "ch12-product-feature-intent-routing-result-map-ja.png": """
+第12章 12.1.3 マルチモーダルアプリにある「画像テキスト商品アシスタント」コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードの貼り付け、商品広告ポスターは禁止。
+
+可視タイトルは完全に：「商品アシスタントは画像と要望を両方見る」
+可視サブタイトルは完全に：「同じスポーツ靴でも、ランニングと通勤では判断が変わる。」
+
+学習目標：2つの print(match_product(...)) の出力がなぜ違うのかを一目で理解できるようにする。コードでは product_image_feature は color=white、style=sport、category=shoes。関数はまず category が shoes であることを確認し、次に user_text を見る。ユーザーがランニング向けを求めればスポーツ用途として推薦し、通勤について聞けば同じ靴でも最適とは限らないと返す。画像特徴は見た目とカテゴリを出し、ユーザー文は用途を出し、推薦判断は両方で決まることを示す。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色製品デバッグ作業台、同じ白いスポーツ靴の商品カード、同じ image_feature チップ、同じ user_text ルーティングレンズ、同じ2本の判断経路、同じ下部ルールバー。中国語版だけ UI panel、英語版だけ漫画、日本語版だけ実写店舗のようにしない。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：image_feature、user_text、color、style、category、shoes、sport。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に商品カードを描く：白いスポーツ靴、ブランド logo なし、価格なし。横に短いラベル「画像は見た目を見る」。
+3. 商品カードの横に3つの image_feature チップを置き、必ず書く：
+   color = white
+   style = sport
+   category = shoes
+4. 中央に「user_text / ユーザー要望」ルーティングレンズを描き、同じ靴を2つの経路へ送る。
+5. 左の経路はランニングトラック/走者 icon を使い、必ず書く：
+   ユーザー要望：ランニング向き？
+   判断：スポーツ用途として推薦
+   出力：この画像はスポーツシューズに見えるので、ランニング関連の商品をおすすめしやすいです。
+6. 右の経路はオフィス扉/ブリーフケース icon を使い、必ず書く：
+   ユーザー要望：通勤向き？
+   判断：最適とは限らない
+   出力：この靴はスポーティーな印象なので、通勤シーンにはあまり合わないかもしれません。
+7. 中央または下部に分岐ルールをはっきり入れる：「category=shoes の後、user_text を見る。」
+8. 下部の短文は完全に：「画像は商品の見た目を出し、ユーザー文が利用場面を決める。」
 
 文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコードは禁止。
 """.strip(),

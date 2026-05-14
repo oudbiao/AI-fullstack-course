@@ -188,6 +188,8 @@ This image looks more like sports shoes, so it may be suitable for running-relat
 These shoes have a sporty style and may not be the best match for a commuting scenario.
 ```
 
+![Image-text product assistant result map](/img/course/ch12-product-feature-intent-routing-result-map-en.webp)
+
 This kind of image-text collaboration is very common in e-commerce, recommendation systems, and customer support.
 
 ---
