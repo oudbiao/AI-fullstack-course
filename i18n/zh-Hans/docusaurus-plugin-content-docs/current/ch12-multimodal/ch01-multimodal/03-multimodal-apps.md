@@ -119,6 +119,8 @@ print(multimodal_assistant(image_info, "怎么解决？"))
 这更像鉴权失败问题，优先检查 API Key、登录状态或权限配置。
 ```
 
+![多模态截图助手 OCR 与问题角度运行结果图](/img/course/ch12-screenshot-assistant-ocr-question-result-map.webp)
+
 这个小例子已经是一个真实产品模式：先读取视觉/OCR 状态，再根据用户问题的角度回答。
 
 这个例子虽然是玩具版，但已经体现了多模态应用的真实味道：

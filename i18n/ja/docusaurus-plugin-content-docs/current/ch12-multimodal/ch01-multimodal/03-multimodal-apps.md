@@ -119,6 +119,8 @@ print(multimodal_assistant(image_info, "どうやって解決しますか？"))
 これは認証失敗の問題に見えます。まず API Key、ログイン状態、または権限設定を確認しましょう。
 ```
 
+![マルチモーダル screenshot assistant の OCR と質問角度の実行結果図](/img/course/ch12-screenshot-assistant-ocr-question-result-map-ja.webp)
+
 この小さな例は、すでに実際の製品パターンになっています。まず視覚/OCR の状態を読み、次にユーザーの質問の角度に合わせて答えます。
 
 この例はおもちゃ版ですが、すでにマルチモーダルアプリの実際の雰囲気が出ています。

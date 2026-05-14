@@ -18284,6 +18284,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-screenshot-assistant-ocr-question-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+        },
+        "scene": "A Chapter 12 multimodal screenshot-assistant run-result teaching image based on the exact toy code. The code simulates image_info = {type: screenshot, has_text: True, ocr_text: Error 401 Unauthorized, dominant_area: login_page}. The assistant first checks screenshot + OCR state, then uses the user's question angle to choose one of two replies: identify the core error, or give a fix path about API Key, login status, and permissions. The image must teach that multimodal applications combine visual/OCR state with the user question; the same screenshot can produce different useful answers depending on the question. Do not draw a terminal screenshot, dense Python code, generic chatbot poster, white rounded-box flowchart, or pure text poster.",
+        "chapter_context": "The image is inserted after the expected output of the toy screenshot assistant in 12.1.3 Multimodal Applications. Nearby prose says this is already a real product pattern: first read the visual/OCR state, then answer from the angle requested by the user. It emphasizes that the image provides visual context, OCR provides text content, and the user question determines the answer angle.",
+        "shared_layout": "Vertical 9:16. Use the same semi-realistic dark product-debug desk across zh/en/ja: top shows a laptop screenshot with a login panel and a clear Error 401 Unauthorized banner; beside it are extracted state chips type=screenshot, has_text=True, ocr_text=Error 401 Unauthorized, dominant_area=login_page. Middle shows a routing lens labeled user question angle splitting into exactly two conversation lanes. Lane 1 asks what error this is and returns the core error; lane 2 asks how to fix it and returns a fix checklist: API Key, login status, permission settings. Bottom shows the rule: image/OCR gives facts, question chooses the answer angle. Keep laptop, OCR chips, two lanes, icons, colors, order, and answer-card positions identical across languages. Text must be sparse, large, and attached to the object it explains.",
+        "variants": {
+            "zh": {
+                "title": "截图助手不是只读 OCR",
+                "subtitle": "同一张 401 截图，会因为问题角度输出不同答案。",
+                "items": [
+                    ("图像状态", "type=screenshot，dominant_area=login_page。"),
+                    ("OCR 事实", "has_text=True，读到 Error 401 Unauthorized。"),
+                    ("问题 1", "“这是什么错误？” -> 回答核心错误。"),
+                    ("问题 2", "“怎么解决？” -> 给出检查路径。"),
+                    ("修复路径", "优先检查 API Key、登录状态、权限配置。"),
+                ],
+                "footer": "视觉/OCR 提供事实，用户问题决定回答角度。",
+                "alt": "多模态截图助手运行结果图：同一张 Error 401 Unauthorized 登录截图，结合用户问题分别输出错误识别和修复建议。",
+            },
+            "en": {
+                "title": "A Screenshot Assistant Reads More Than OCR",
+                "subtitle": "The same 401 screenshot answers differently when the question changes.",
+                "items": [
+                    ("image state", "type=screenshot, dominant_area=login_page."),
+                    ("OCR fact", "has_text=True, reads Error 401 Unauthorized."),
+                    ("Question 1", "“What error is this?” -> identify the core error."),
+                    ("Question 2", "“How do I fix it?” -> return a fix path."),
+                    ("fix path", "Check API Key, login status, permission settings."),
+                ],
+                "footer": "Vision/OCR supplies facts; the user question chooses the answer angle.",
+                "alt": "Multimodal screenshot assistant result map: the same Error 401 Unauthorized login screenshot produces an error-identification answer or a fix suggestion depending on the user question.",
+            },
+            "ja": {
+                "title": "スクリーンショット助手は OCR だけではない",
+                "subtitle": "同じ 401 画面でも、質問の切り口で答えが変わる。",
+                "items": [
+                    ("画像状態", "type=screenshot、dominant_area=login_page。"),
+                    ("OCR の事実", "has_text=True、Error 401 Unauthorized を読む。"),
+                    ("質問 1", "「これは何のエラー？」-> 主なエラーを答える。"),
+                    ("質問 2", "「どう解決する？」-> 確認手順を返す。"),
+                    ("修復手順", "API Key、ログイン状態、権限設定を確認。"),
+                ],
+                "footer": "視覚/OCR が事実を出し、質問が答えの切り口を決める。",
+                "alt": "マルチモーダル screenshot assistant の実行結果図：同じ Error 401 Unauthorized のログイン画面が、質問に応じてエラー識別または修復提案になる。",
+            },
+        },
+    },
+    {
         "slug": "ch12-image-text-retrieval-similarity-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
@@ -21081,6 +21133,96 @@ Every label must sit near the object it explains, with large readable text suita
 8. 下部の短文は完全に：「融合の目的は、補い合う証拠を同じ判断の流れに入れること。」
 
 文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、小さな背景文字、ランダムな中国語や英語説明、水印、実在ロゴ、実在会社名、価格、日付、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
+    "ch12-screenshot-assistant-ocr-question-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.3 多模态应用中“截图助手”代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴 Python 代码，不要只画一个聊天机器人。
+
+可见标题必须完全写为：“截图助手不是只读 OCR”
+可见副标题必须完全写为：“同一张 401 截图，会因为问题角度输出不同答案。”
+
+教学目标：读者先看图就能理解 print(multimodal_assistant(...)) 的两行输出为什么不同。代码里 image_info 是截图，has_text=True，ocr_text 是 Error 401 Unauthorized，dominant_area 是 login_page。助手先读取视觉/OCR 状态，再根据用户问题角度回答：问“这是什么错误？”就返回核心错误；问“怎么解决？”就给出 API Key、登录状态、权限配置的排查路径。
+
+三语版本必须同构：同一个半写实深色产品调试工作台、同一台笔记本电脑、同一个登录页错误截图、同样 OCR 提取芯片、同样两条问答分支、同样底部规则栏。不要中文是 UI 面板、英文是漫画、日文是写实客服场景。中文图只能用自然中文解释，允许保留这些代码/技术词：OCR、VLM、API Key、Error 401 Unauthorized、type、has_text、ocr_text、dominant_area、login_page。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一台笔记本电脑，屏幕是登录页，必须有醒目的错误条：“Error 401 Unauthorized”。不要随机小字。
+3. 电脑旁边画四个 OCR/状态芯片：
+   type = screenshot
+   has_text = True
+   ocr_text = Error 401 Unauthorized
+   dominant_area = login_page
+4. 中间画一个“问题角度”分流镜头，把同一张截图分成两条问答路径。
+5. 左侧路径必须写：
+   用户问：这是什么错误？
+   回答：截图中的核心错误是 401 Unauthorized。
+6. 右侧路径必须写：
+   用户问：怎么解决？
+   回答：先检查 API Key、登录状态、权限配置。
+7. 两条路径旁边都要有对应图标：左侧是放大镜/错误定位，右侧是扳手/检查清单。不要只有文字框。
+8. 底部短句必须完全写为：“视觉/OCR 提供事实，用户问题决定回答角度。”
+
+所有文字必须贴近对应物体，字号大，适合手机阅读。不要乱码、随机英文、日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、终端界面或密集代码。
+""".strip(),
+    "ch12-screenshot-assistant-ocr-question-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.1.3 Multimodal Applications, the screenshot-assistant code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no pasted Python code, and no decorative chatbot-only scene.
+
+Visible title exactly: “A Screenshot Assistant Reads More Than OCR”
+Visible subtitle exactly: “The same 401 screenshot answers differently when the question changes.”
+
+Teaching goal: the learner should understand why the two print(multimodal_assistant(...)) outputs are different. The code has image_info as a screenshot, has_text=True, ocr_text as Error 401 Unauthorized, and dominant_area as login_page. The assistant first reads the visual/OCR state, then chooses the answer by the user question angle: “What error is this?” returns the core error; “How do I fix it?” returns a fix path for API Key, login status, and permission settings.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark product-debug workbench, the same laptop, the same login-page error screenshot, the same OCR/state chips, the same two question-answer branches, and the same bottom rule bar. Do not make English a cartoon while Chinese is a UI panel or Japanese is a realistic support scene. Use natural English. Code/technical tokens must be spelled exactly where useful: OCR, VLM, API Key, Error 401 Unauthorized, type, has_text, ocr_text, dominant_area, login_page.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one laptop. The screen is a login page with a clear error banner: “Error 401 Unauthorized”. No random tiny text.
+3. Beside the laptop, show four OCR/state chips:
+   type = screenshot
+   has_text = True
+   ocr_text = Error 401 Unauthorized
+   dominant_area = login_page
+4. Middle shows a “question angle” routing lens that splits the same screenshot into two answer paths.
+5. Left path must say:
+   User asks: What error is this?
+   Answer: The core error is 401 Unauthorized.
+6. Right path must say:
+   User asks: How do I fix it?
+   Answer: Check API Key, login status, permission settings first.
+7. Each path must have a matching action icon: magnifier/error locating on the left, wrench/checklist on the right. Not text boxes only.
+8. Bottom sentence exactly: “Vision/OCR supplies facts; the user question chooses the answer angle.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, terminal UI, or dense code.
+""".strip(),
+    "ch12-screenshot-assistant-ocr-question-result-map-ja.png": """
+第12章 12.1.3 マルチモーダルアプリにある「スクリーンショット助手」コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードの貼り付け、ただのチャットボット絵は禁止。
+
+可視タイトルは完全に：「スクリーンショット助手は OCR だけではない」
+可視サブタイトルは完全に：「同じ 401 画面でも、質問の切り口で答えが変わる。」
+
+学習目標：2つの print(multimodal_assistant(...)) の出力がなぜ違うのかを一目で理解できるようにする。コードでは image_info は screenshot、has_text=True、ocr_text は Error 401 Unauthorized、dominant_area は login_page。助手はまず視覚/OCR 状態を読み、次にユーザーの質問の切り口で答えを選ぶ。「これは何のエラー？」なら主なエラーを返し、「どう解決する？」なら API Key、ログイン状態、権限設定の確認手順を返す。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色製品デバッグ作業台、同じノートPC、同じログイン画面のエラー screenshot、同じ OCR/状態チップ、同じ2本の質問回答分岐、同じ下部ルールバー。中国語版だけ UI panel、英語版だけ漫画、日本語版だけ実写サポート場面のようにしない。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：OCR、VLM、API Key、Error 401 Unauthorized、type、has_text、ocr_text、dominant_area、login_page。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に1台のノートPCを描く。画面はログインページで、必ずはっきりしたエラー帯「Error 401 Unauthorized」を置く。ランダムな小字は禁止。
+3. PC の横に4つの OCR/状態チップを置く：
+   type = screenshot
+   has_text = True
+   ocr_text = Error 401 Unauthorized
+   dominant_area = login_page
+4. 中央に「質問の切り口」ルーティングレンズを描き、同じ screenshot を2つの回答経路へ分ける。
+5. 左の経路は必ず書く：
+   ユーザー質問：これは何のエラー？
+   回答：主なエラーは 401 Unauthorized。
+6. 右の経路は必ず書く：
+   ユーザー質問：どう解決する？
+   回答：API Key、ログイン状態、権限設定を先に確認。
+7. 2つの経路には対応する図像を入れる：左は虫眼鏡/エラー特定、右は工具/チェックリスト。文字枠だけにしない。
+8. 下部の短文は完全に：「視覚/OCR が事実を出し、質問が答えの切り口を決める。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコードは禁止。
 """.strip(),
     "ch12-sd-poster-workflow-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.4 SD 应用里 poster_workflow 代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 字典原样贴成表格，不要只画一张漂亮海报。

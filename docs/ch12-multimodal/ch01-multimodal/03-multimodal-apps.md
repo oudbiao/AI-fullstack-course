@@ -119,6 +119,8 @@ The core error in the screenshot is: 401 Unauthorized.
 This looks like an authentication failure. Check the API Key, login status, or permission settings first.
 ```
 
+![Multimodal screenshot assistant OCR-question result map](/img/course/ch12-screenshot-assistant-ocr-question-result-map-en.webp)
+
 This small example is already a real product pattern: first read the visual/OCR state, then answer from the angle requested by the user.
 
 Even though this is a toy example, it already reflects the real feel of multimodal applications:
