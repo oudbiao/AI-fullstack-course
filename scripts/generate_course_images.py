@@ -18501,6 +18501,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-sd-text-encoder-embedding-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+        },
+        "scene": "A runnable-result teaching visual for the Stable Diffusion text encoder toy example. It must teach the exact printed dictionary: prompt plus embedding_shape = (77, 768). The key concept is that U-Net cannot consume natural language directly, so the prompt must first become numeric semantic vectors. Show only this chain: prompt sentence -> tokenizer/text encoder -> 77 token slots -> 768-dimensional semantic vectors -> condition plug into U-Net. Do not draw a generic cat poster, decorative AI art, terminal screenshot, full code block, dense matrix of fake tiny numbers, white rounded-box SVG infographic, or pure text poster. Do not claim the toy shape is the exact production CLIP shape beyond the lesson placeholder. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except necessary code/technical tokens; Japanese image uses natural Japanese helper labels except necessary code/technical tokens. Exact code/technical tokens may stay as code: prompt, text encoder, tokenizer, embedding_shape, token, vector, U-Net, (77, 768), orange cat, window.",
+        "chapter_context": "The image is inserted after the expected output of the text_condition dictionary in 12.2.3 Stable Diffusion Architecture. Nearby prose explains that U-Net processes numeric tensors and cannot directly understand a prompt like an orange cat sitting by the window. The text encoder turns language conditions into numeric conditions that the image generation pipeline can consume. After the output, the lesson says the exact dimensions are less important than understanding that the prompt first becomes vectors and the visual backbone later uses these vectors.",
+        "shared_layout": "Vertical 9:16. Same polished illustrated lab notebook / diffusion workshop style across zh/en/ja. Top title and subtitle. Upper-left shows one prompt paper with a small orange cat by a window sketch; the localized prompt sentence is printed clearly on that paper. Center shows a tokenizer/text encoder machine that turns the sentence into a row of exactly 77 token slots, with only a few slots visually filled and the rest represented by small clean ticks, not dense unreadable text. Right side shows a semantic vector board with one token expanding into 768-dimensional coordinate bars, using a large readable label (77, 768). Lower-right shows a U-Net workbench receiving the embedding as a numeric condition plug. Bottom receipt strip shows exactly: prompt + embedding_shape=(77, 768). Include a small warning note that the shape is a placeholder but the habit is real. Keep prompt paper, encoder, 77 slots, 768 vector board, U-Net plug, colors, and reading path identical across zh/en/ja. Use large sparse localized text attached to concrete objects. Avoid small fake letters, random non-locale text, English-only labels in zh/ja variants except technical tokens, and any local-text-overlay look.",
+        "variants": {
+            "zh": {
+                "title": "文本编码器输出什么",
+                "subtitle": "prompt 先变成 (77, 768) 的语义向量，U-Net 才能使用。",
+                "items": [
+                    ("prompt", "一只坐在窗边的橘猫。"),
+                    ("文本编码器", "把自然语言翻译成数值条件。"),
+                    ("77 个 token 位置", "句子被整理成固定长度的 token 槽。"),
+                    ("768 维向量", "每个 token 用一组数字表达语义。"),
+                    ("embedding_shape", "(77, 768) 是给图像模块使用的条件形状。"),
+                    ("接入 U-Net", "后续 denoising 会参考这些文本条件。"),
+                ],
+                "footer": "prompt 不是直接喂给 U-Net，而是先变成可计算的 embedding。",
+                "alt": "Stable Diffusion 文本编码器 embedding 运行结果图：prompt 先经过文本编码器，变成 (77, 768) 的语义向量，再作为数值条件接入 U-Net。",
+            },
+            "en": {
+                "title": "Reading Text Encoder Embeddings",
+                "subtitle": "The prompt becomes a (77, 768) semantic condition before U-Net can use it.",
+                "items": [
+                    ("prompt", "an orange cat sitting by the window."),
+                    ("text encoder", "Translates natural language into numeric conditions."),
+                    ("77 token slots", "The sentence is organized into a fixed token layout."),
+                    ("768-d vector", "Each token is represented by a semantic number vector."),
+                    ("embedding_shape", "(77, 768) is the condition shape passed to image modules."),
+                    ("into U-Net", "Later denoising steps refer to these text conditions."),
+                ],
+                "footer": "The prompt is not fed directly to U-Net; it becomes computable embeddings first.",
+                "alt": "Stable Diffusion text encoder embedding result map: the prompt passes through the text encoder, becomes a (77, 768) semantic vector condition, and then connects to U-Net.",
+            },
+            "ja": {
+                "title": "Text Encoder の embedding を読む",
+                "subtitle": "prompt は先に (77, 768) の意味ベクトルになり、U-Net が使える条件になる。",
+                "items": [
+                    ("prompt", "窓辺に座るオレンジ色の猫。"),
+                    ("テキストエンコーダー", "自然言語を数値条件へ変換する。"),
+                    ("77 個の token 枠", "文を固定長の token 枠に整理する。"),
+                    ("768 次元ベクトル", "各 token を意味を持つ数字の並びで表す。"),
+                    ("embedding_shape", "(77, 768) は画像モジュールへ渡す条件の形。"),
+                    ("U-Net へ接続", "後の denoising はこのテキスト条件を参照する。"),
+                ],
+                "footer": "prompt は U-Net へ直接渡さず、先に計算できる embedding に変換する。",
+                "alt": "Stable Diffusion の text encoder embedding 実行結果図：prompt がテキストエンコーダーを通り、(77, 768) の意味ベクトル条件になって U-Net に接続される。",
+            },
+        },
+    },
+    {
         "slug": "ch12-sd-cross-attention-fusion-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
@@ -21585,6 +21640,31 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-sd-text-encoder-embedding-result-map-ja.png": """
+1024x1792 の縦長 9:16、日本語の教育用ビットマップを直接生成してください。後から文字を載せる前提にしないでください。白い角丸ボックスの SVG 風インフォグラフィック、暗い SF ダッシュボード、端末スクリーンショット、コードを貼っただけの画像、装飾だけの猫ポスターは禁止です。
+
+同じグループの中国語版・英語版と統一感のある「明るい紙の実験ノート / diffusion workshop」風にしてください。生成内容は Stable Diffusion の text encoder 例です。U-Net は自然言語を直接使えないので、prompt を先に数値の semantic vectors / embedding に変換する、という1点を直感的に教えます。
+
+画面上の日本語は自然で、大きく、少なく、読みやすくしてください。必要な技術語だけ英語のまま使用可：prompt, text encoder, tokenizer, embedding_shape, token, vector, U-Net, denoising, (77, 768)。
+
+固定レイアウト:
+1. 上部タイトルを大きく: 「Text Encoder の embedding を読む」
+2. その下に副題: 「prompt は先に (77, 768) の意味ベクトルになり、U-Net が使える条件になる。」
+3. 左上に紙の prompt カード。窓辺のオレンジ色の猫の小さな絵と、明確な文: 「窓辺に座るオレンジ色の猫。」
+4. 中央に機械としての「テキストエンコーダー」。説明は「自然言語を数値条件へ変換する。」
+5. 下部中央に「77 個の token 枠」。文が固定長の token 枠に整理される様子を、0,1,2...76 の枠で見せる。小さすぎる文字は禁止。
+6. 右上に「768 次元ベクトル」。1つの token が 768 個の数値方向を持つことを、棒や座標の絵で見せる。大きく「(77, 768)」と表示する。
+7. 右下に U-Net の小さな作業台。「U-Net へ接続」「後の denoising はこのテキスト条件を参照する。」と書く。
+8. 下部の receipt に「prompt + embedding_shape=(77, 768)」を大きく表示。
+9. 注意メモ: 「形状は例用のプレースホルダーですが、この形で扱う習慣は本物です。」
+10. 最下部フッター: 「prompt は U-Net へ直接渡さず、先に計算できる embedding に変換する。」
+
+教育上の必須表現:
+- prompt -> text encoder -> 77 token slots -> 768-dimensional vector -> condition plug into U-Net の流れを矢印で明確にする。
+- 画像そのものが概念を説明すること。文字だけのポスターにしない。
+- 英語だけの説明文や意味不明な疑似日本語、細かい数字の羅列、読めない小字を入れない。
+- 色、位置、読み順は中国語版・英語版と同じ明るい紙ノート調に近づける。
+""".strip(),
     "ch12-vlm-question-type-router-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.3 “视觉语言模型”里“先判断任务类型”示例的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮 VLM 海报。
 

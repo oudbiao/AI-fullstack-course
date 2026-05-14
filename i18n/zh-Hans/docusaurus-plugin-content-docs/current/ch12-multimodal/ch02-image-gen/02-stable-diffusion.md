@@ -198,6 +198,8 @@ print(text_condition)
 {'prompt': '一只坐在窗边的橘猫', 'embedding_shape': (77, 768)}
 ```
 
+![Stable Diffusion 文本编码器 embedding 运行结果图](/img/course/ch12-sd-text-encoder-embedding-result-map.webp)
+
 这里的维度只是示意，但习惯是真实的：图像模块使用文本之前，prompt 必须先变成数值向量。
 
 这里最重要的不是具体维度，而是理解：

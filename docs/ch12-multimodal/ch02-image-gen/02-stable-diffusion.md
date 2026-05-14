@@ -196,6 +196,8 @@ Expected output:
 {'prompt': 'an orange cat sitting by the window', 'embedding_shape': (77, 768)}
 ```
 
+![Stable Diffusion text encoder embedding result map](/img/course/ch12-sd-text-encoder-embedding-result-map-en.webp)
+
 The shape is only a placeholder, but the habit is real: before image modules can use text, the prompt must become numeric vectors.
 
 The most important thing here is not the exact dimensions, but understanding that:

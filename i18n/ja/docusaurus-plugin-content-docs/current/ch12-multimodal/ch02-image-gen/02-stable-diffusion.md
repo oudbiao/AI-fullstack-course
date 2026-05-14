@@ -196,6 +196,8 @@ print(text_condition)
 {'prompt': '窓辺に座るオレンジ色の猫', 'embedding_shape': (77, 768)}
 ```
 
+![Stable Diffusion text encoder embedding 実行結果図](/img/course/ch12-sd-text-encoder-embedding-result-map-ja.webp)
+
 ここでの形状はあくまで例ですが、考え方は実務でも同じです。画像モジュールがテキストを使う前に、prompt は数値ベクトルへ変換されます。
 
 ここで大事なのは具体的な次元数ではなく、次の点です。
