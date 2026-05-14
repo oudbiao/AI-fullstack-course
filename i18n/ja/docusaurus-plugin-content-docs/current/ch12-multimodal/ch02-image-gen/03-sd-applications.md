@@ -300,6 +300,8 @@ print(poster_workflow)
 {'task': 'ポスター生成', 'inputs': {'prompt': 'テクノロジー会議のポスター、青いネオン風', 'style_preset': 'futuristic', 'negative_prompt': 'ぼやけ, 低解像度, 文字の崩れ', 'num_images': 4}, 'steps': ['プロンプトを組み立てる', 'バッチサンプリングする', '候補画像を選ぶ', '後処理する']}
 ```
 
+![Stable Diffusion のポスター workflow 実行結果図](/img/course/ch12-sd-poster-workflow-result-map-ja.webp)
+
 この記録は、単一の prompt よりも製品ワークフローに近い形です。依頼内容、制約、候補数、確認手順を残すことで、結果を再現しやすくなります。
 
 この例で最も大事なのは、次の点です。

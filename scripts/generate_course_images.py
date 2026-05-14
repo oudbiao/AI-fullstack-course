@@ -17957,6 +17957,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-sd-poster-workflow-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+        },
+        "scene": "A runnable-result visual for the poster_workflow example in Stable Diffusion applications. It must teach why a product workflow records more than one prompt: task, prompt, style preset, negative prompt, candidate count, batch sampling, filtering, post-processing, and final export. Show the exact input idea from the code: poster generation, tech conference poster with blue neon style, futuristic style preset, negative prompt for blurry / low resolution / distorted text, and num_images = 4. The visual must make the print output understandable as a reusable product record, not as a pretty single generated poster. Do not draw a terminal screenshot, pure dictionary table, generic SD architecture, fake brand UI, random decorative poster, dense code, white rounded-box flowchart, or pure text poster.",
+        "chapter_context": "The image is inserted after the expected output of the poster_workflow dictionary example in 12.2.4 SD Applications. Nearby prose says real SD products are model + parameter panel + workflow, and that this record captures the brief, constraints, number of candidates, and review steps needed to reliably produce an acceptable result.",
+        "shared_layout": "Vertical 9:16. Use the same product workbench storyboard style across zh/en/ja, with a dark creative desk, paper notes, candidate thumbnails, and a clear left-to-right/top-to-bottom reading path. Top title and subtitle. Upper section shows an input brief panel with prompt, style_preset, negative_prompt, and num_images=4. Middle section shows four candidate poster thumbnails generated as a batch; one is highlighted as selected, two are rejected for blur or bad text, and one is decent but not final. Lower section shows post-processing tools cleaning typography and contrast, then a final export poster. Bottom rule strip explains that stability comes from a repeatable workflow, not one lucky prompt. Keep object positions, thumbnail count, selection marks, rejected reasons, color rhythm, and reading path identical across languages.",
+        "variants": {
+            "zh": {
+                "title": "海报工作流结果怎么看",
+                "subtitle": "产品层记录需求、约束、候选数量和审核步骤。",
+                "items": [
+                    ("task", "海报生成。"),
+                    ("prompt", "科技会议海报，蓝色霓虹风格。"),
+                    ("style_preset", "futuristic。"),
+                    ("negative_prompt", "模糊 / 低清晰度 / 畸形文字。"),
+                    ("num_images", "一次生成 4 张候选图。"),
+                    ("steps", "构造提示词 -> 批量采样 -> 筛选候选图 -> 后处理。"),
+                ],
+                "footer": "稳定结果来自可复现流程，不是只赌一次 prompt。",
+                "alt": "Stable Diffusion 海报工作流运行结果图：需求、style_preset、negative_prompt 和 4 张候选图经过筛选与后处理，导出最终海报。",
+            },
+            "en": {
+                "title": "Reading a Poster Workflow Record",
+                "subtitle": "A product workflow keeps the brief, constraints, candidates, and review steps.",
+                "items": [
+                    ("task", "poster generation."),
+                    ("prompt", "Tech conference poster, blue neon style."),
+                    ("style_preset", "futuristic."),
+                    ("negative_prompt", "blurry / low resolution / distorted text."),
+                    ("num_images", "generate 4 candidates at once."),
+                    ("steps", "Construct prompt -> Batch sampling -> Filter candidates -> Post-process."),
+                ],
+                "footer": "Stable output comes from a repeatable workflow, not one lucky prompt.",
+                "alt": "Stable Diffusion poster workflow result map: brief, style_preset, negative_prompt, and 4 candidate images go through filtering and post-processing before final poster export.",
+            },
+            "ja": {
+                "title": "ポスター workflow 記録を読む",
+                "subtitle": "製品層は依頼、制約、候補数、確認手順を残す。",
+                "items": [
+                    ("task", "ポスター生成。"),
+                    ("prompt", "テクノロジー会議のポスター、青いネオン風。"),
+                    ("style_preset", "futuristic。"),
+                    ("negative_prompt", "ぼやけ / 低解像度 / 文字の崩れ。"),
+                    ("num_images", "候補を 4 枚まとめて生成。"),
+                    ("steps", "プロンプトを組み立てる -> バッチ生成 -> 候補を選ぶ -> 後処理。"),
+                ],
+                "footer": "安定した結果は、再現できる workflow から生まれる。",
+                "alt": "Stable Diffusion のポスター workflow 実行結果図：依頼、style_preset、negative_prompt、4枚の候補画像を選別と後処理につなげ、最終ポスターを書き出す。",
+            },
+        },
+    },
+    {
         "slug": "ch12-sd-latent-compression-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
@@ -20888,6 +20943,81 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-sd-poster-workflow-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.4 SD 应用里 poster_workflow 代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 字典原样贴成表格，不要只画一张漂亮海报。
+
+可见标题必须完全写为：“海报工作流结果怎么看”
+可见副标题必须完全写为：“产品层记录需求、约束、候选数量和审核步骤。”
+
+教学目标：读者先看图就能理解 print(poster_workflow) 为什么比一个 prompt 更有产品价值。图必须说明：工作流记录 task、prompt、style_preset、negative_prompt、num_images=4，以及四个步骤：构造提示词、批量采样、筛选候选图、后处理。重点是“可复现地得到用户可接受结果”，不是炫耀单张生图。
+
+三语版本必须同构：同一个半写实深蓝 neon 产品工作台面板、同一组四张候选海报缩略图、同一个选中标记、同样两个淘汰原因、同一个后处理区域、同一张最终导出海报。三语都必须是同一种数字工作台教学插画风格，不要中文是 UI 面板、英文是写实桌面照片、日文是机械工作室。不要纸夹、咖啡杯、便签、真实摄影桌面、随机背景小字或额外装饰物。中文图只能用自然中文解释，允许保留这些代码/技术词：Stable Diffusion、prompt、style_preset、negative_prompt、num_images、workflow、futuristic、batch。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方左侧画“需求卡”，清楚写：“task：海报生成”。
+3. 上方右侧画“参数面板”，必须有四行并靠近对应图标：
+   prompt：科技会议海报，蓝色霓虹风格
+   style_preset：futuristic
+   negative_prompt：模糊 / 低清晰度 / 畸形文字
+   num_images：4 张候选图
+4. 中间画批量采样结果：四张小海报缩略图排成 2x2。缩略图都像科技会议海报，但不要有乱码小字。海报缩略图上的可读大字必须是中文，例如“科技会议”“创新未来”，不要出现 FUTURE、TECH、SUMMIT 这类英文海报标题。第一张标“模糊，淘汰”，第二张标“文字变形，淘汰”，第三张标“可用候选”，第四张有醒目的“选中”标记。
+5. 下方画四步流水线，必须写：构造提示词 -> 批量采样 -> 筛选候选图 -> 后处理。每一步要有对应动作图标，不要只有文字框。
+6. 右下画最终导出海报，旁边有“导出最终图”标签，表现经过后处理后文字更清楚、构图更稳定。
+7. 底部短句必须完全写为：“稳定结果来自可复现流程，不是只赌一次 prompt。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、终端界面或密集代码。
+""".strip(),
+    "ch12-sd-poster-workflow-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.4 SD Applications, the poster_workflow code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no pasted Python dictionary table, and no single decorative poster as the whole image.
+
+Visible title exactly: “Reading a Poster Workflow Record”
+Visible subtitle exactly: “A product workflow keeps the brief, constraints, candidates, and review steps.”
+
+Teaching goal: the learner should understand why print(poster_workflow) has more product value than one prompt. The image must explain that the workflow records task, prompt, style_preset, negative_prompt, num_images=4, and the four steps: Construct prompt, Batch sampling, Filter candidates, Post-process. The point is repeatably producing an acceptable result, not showing off one pretty generated image.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark-blue neon product workbench panel, the same four poster candidate thumbnails, the same selected mark, the same two rejection reasons, the same post-processing area, and the same final exported poster. All three language versions must share one digital workbench teaching-illustration style; do not make English a realistic tabletop photo while the other languages are UI panels. No paper clips, coffee cups, sticky notes, realistic desk photography, random tiny background text, or extra decorative props. Use natural English. Code/technical tokens must be spelled exactly where useful: Stable Diffusion, prompt, style_preset, negative_prompt, num_images, workflow, futuristic, batch.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper-left shows a “brief card” with exactly: “task: poster generation”.
+3. Upper-right shows a “parameter panel” with four rows near matching icons:
+   prompt: Tech conference poster, blue neon style
+   style_preset: futuristic
+   negative_prompt: blurry / low resolution / distorted text
+   num_images: 4 candidates
+4. Middle shows batch sampling output: four small poster thumbnails in a 2x2 grid. Each thumbnail should look like a tech conference poster, but no gibberish tiny text. Readable poster words must be natural English, such as “TECH CONFERENCE” and “BUILD THE FUTURE”. First label: “blurry, reject”; second label: “bad text, reject”; third label: “usable candidate”; fourth has a clear “selected” mark.
+5. Lower section shows the four-step workflow: Construct prompt -> Batch sampling -> Filter candidates -> Post-process. Each step needs a visible action icon, not just text boxes.
+6. Lower-right shows the final exported poster with a label “export final image”, showing clearer typography and steadier composition after post-processing.
+7. Bottom sentence exactly: “Stable output comes from a repeatable workflow, not one lucky prompt.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, tiny background text, random non-English text, watermark, brand logo, real company names, prices, dates, unrelated model names, terminal UI, or dense code.
+""".strip(),
+    "ch12-sd-poster-workflow-result-map-ja.png": """
+第12章 12.2.4 SD の応用にある poster_workflow コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python 辞書をそのまま貼った表、画像全体がただのきれいなポスターになる構成は禁止。
+
+可視タイトルは完全に：「ポスター workflow 記録を読む」
+可視サブタイトルは完全に：「製品層は依頼、制約、候補数、確認手順を残す。」
+
+学習目標：print(poster_workflow) が、1つの prompt より製品として価値を持つ理由を一目で分かるようにする。画像は workflow が task、prompt、style_preset、negative_prompt、num_images=4、そして4つの手順「プロンプトを組み立てる」「バッチ生成」「候補を選ぶ」「後処理」を記録することを説明する。重要なのは、きれいな1枚を見せることではなく、ユーザーが受け入れられる結果を再現しやすくすること。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の濃紺 neon 製品ワークベンチ panel、同じ4枚の候補ポスター縮小図、同じ選択マーク、同じ2つの却下理由、同じ後処理エリア、同じ最終書き出しポスター。3言語版は同じデジタル作業台の教材イラスト風にし、英語版だけ実写の机、日本語版だけ機械工房のようにしない。紙クリップ、コーヒー、付箋、実写机、ランダムな背景小字、余分な装飾物は禁止。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：Stable Diffusion、prompt、style_preset、negative_prompt、num_images、workflow、futuristic、batch。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 左上に「依頼カード」を描き、必ず「task：ポスター生成」と書く。
+3. 右上に「パラメータパネル」を描き、4行を対応する小さな図像の近くに置く：
+   prompt：テクノロジー会議のポスター、青いネオン風
+   style_preset：futuristic
+   negative_prompt：ぼやけ / 低解像度 / 文字の崩れ
+   num_images：候補 4 枚
+4. 中央にバッチ生成結果を描く：4枚の小さなポスター候補を 2x2 に並べる。すべてテクノロジー会議ポスターらしくするが、読めない小字は入れない。ポスター縮小図の読める大きな文字は日本語にし、例えば「テック会議」「未来を創る」と書く。TECH CONFERENCE、INNOVATE THE FUTURE など英語のポスター見出しは禁止。1枚目に「ぼやけ、却下」、2枚目に「文字崩れ、却下」、3枚目に「使える候補」、4枚目にはっきり「選択」マークを付ける。
+5. 下部に4手順の workflow を描き、必ず書く：プロンプトを組み立てる -> バッチ生成 -> 候補を選ぶ -> 後処理。各手順には動作を示す図像を入れ、文字枠だけにしない。
+6. 右下に最終書き出しポスターを描き、ラベルは「最終画像を書き出す」。後処理後に文字が読みやすく、構図が安定したことを示す。
+7. 下部の短文は完全に：「安定した結果は、再現できる workflow から生まれる。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、小さな背景文字、ランダムな中国語や英語説明、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコードは禁止。
+""".strip(),
     "ch12-sd-cross-attention-fusion-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.3 Stable Diffusion 架构中 cross-attention 代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要只画漂亮猫图。
 

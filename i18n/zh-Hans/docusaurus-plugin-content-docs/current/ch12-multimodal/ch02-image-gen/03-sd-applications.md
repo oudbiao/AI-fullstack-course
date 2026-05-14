@@ -296,6 +296,8 @@ print(poster_workflow)
 {'task': '海报生成', 'inputs': {'prompt': '科技会议海报，蓝色霓虹风格', 'style_preset': 'futuristic', 'negative_prompt': '模糊, 低清晰度, 畸形文字', 'num_images': 4}, 'steps': ['构造提示词', '批量采样', '筛选候选图', '后处理']}
 ```
 
+![Stable Diffusion 海报工作流运行结果图](/img/course/ch12-sd-poster-workflow-result-map.webp)
+
 这条记录故意比单个 prompt 更像产品流程：它同时记录需求、约束、候选数量和审核步骤，方便稳定复现和迭代。
 
 这个例子最重要的意义是：

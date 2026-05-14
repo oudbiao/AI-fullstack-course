@@ -295,6 +295,8 @@ Expected output:
 {'task': 'poster generation', 'inputs': {'prompt': 'Tech conference poster, blue neon style', 'style_preset': 'futuristic', 'negative_prompt': 'blurry, low resolution, distorted text', 'num_images': 4}, 'steps': ['Construct the prompt', 'Batch sampling', 'Filter candidate images', 'Post-process']}
 ```
 
+![Stable Diffusion poster workflow result map](/img/course/ch12-sd-poster-workflow-result-map-en.webp)
+
 This record is deliberately more product-like than a single prompt. It captures the brief, constraints, number of candidates, and review steps needed to make the result repeatable.
 
 The most important meaning of this example is:
