@@ -14518,6 +14518,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-creative-platform-asset-bundle-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/01-creative-platform.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch05-projects/01-creative-platform.md",
+        },
+        "scene": "A Chapter 12 creative-platform project run-result teaching image based on the exact AssetBundle workflow code in the lesson. The image must teach how three user requests become one project bundle with two image assets, one voice asset, and three log records, not show a generic creative-platform poster. The code creates an AssetBundle with images, voices, logs, and metadata. run_creative_project loops over three requests, calls route_task, appends a log item, then stores the generated asset in the correct bundle list. The printed output is exactly image_count: 2, voice_count: 1, log_count: 3, tasks: ['image_generation', 'image_editing', 'tts'], latest_image_is_edit: True. Teaching point: the tasks line proves this is one coordinated platform workflow rather than three unrelated generation calls. Do not invent extra requests, assets, models, costs, review scores, API vendors, video steps, export files, or UI dashboards. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code tokens; Japanese image uses natural Japanese helper labels except exact code tokens. Exact code/data tokens may stay as code: AssetBundle, route_task, images, voices, logs, metadata, image_generation, image_editing, tts, image_count, voice_count, log_count, tasks, latest_image_is_edit, True.",
+        "chapter_context": "The image is inserted after the expected output of the creative platform workflow in 12.5.2 Creative Platform. Nearby prose says the important check is the tasks line: the same project contains a first image, an edited image version, and one voice asset instead of three unrelated generation calls. The illustration should make the print output visible as an asset-bundle board.",
+        "shared_layout": "Vertical 9:16. Use a polished creative-studio evidence board style with a visible project table and asset shelves, not a white rounded-box SVG infographic, not a pure flowchart, not a decorative poster, and not a terminal screenshot. Top title and subtitle. Upper station shows exactly three localized user request cards entering route_task. Middle station is a router rail with three branches in order: image_generation, image_editing, tts. The first request creates image v1 and goes into the images shelf; the second request uses image v1, creates an edited image v2, and also goes into the images shelf; the third request creates a brand voice asset and goes into the voices shelf. A logs ledger records three rows in the same order. Bottom receipt shows exactly image_count=2, voice_count=1, log_count=3, tasks=[image_generation, image_editing, tts], latest_image_is_edit=True. Keep request order, branch order, asset shelves, log ledger, receipt position, colors, and reading path identical across zh/en/ja. Use large sparse localized labels attached to the concrete cards, shelves, and receipt. Avoid dense paragraphs, tiny fake text, unrelated screens, sticker style, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond exact code tokens.",
+        "variants": {
+            "zh": {
+                "title": "创意平台输出要看资产包",
+                "subtitle": "三次请求进入同一个 AssetBundle，而不是三次孤立调用。",
+                "items": [
+                    ("请求 1", "做一张科技大会海报 -> image_generation。"),
+                    ("请求 2", "改图：深蓝背景和发光效果 -> image_editing。"),
+                    ("请求 3", "生成宣传配音 -> tts。"),
+                    ("资产包", "images 有首图和改图，共 2 个。"),
+                    ("日志", "logs 记录 3 个 task_type。"),
+                    ("验收", "latest_image_is_edit=True。"),
+                ],
+                "footer": "平台项目的价值在于资产、日志和版本关系都能被检查。",
+                "alt": "创意平台 AssetBundle 运行结果图：三条请求分别路由到 image_generation、image_editing 和 tts，生成两个图片资产、一个语音资产、三条日志，并通过 latest_image_is_edit=True 验证最后图片是编辑版本。",
+            },
+            "en": {
+                "title": "Read the Creative Platform Bundle",
+                "subtitle": "Three requests enter one AssetBundle, not three isolated calls.",
+                "items": [
+                    ("request 1", "Create a tech conference poster -> image_generation."),
+                    ("request 2", "Edit the image with deep blue glow -> image_editing."),
+                    ("request 3", "Generate a promotional voiceover -> tts."),
+                    ("asset bundle", "images contains first image and edited image: 2 total."),
+                    ("log ledger", "logs records 3 task_type rows."),
+                    ("acceptance", "latest_image_is_edit=True."),
+                ],
+                "footer": "A platform project is inspectable through assets, logs, and version links.",
+                "alt": "Creative platform AssetBundle result map: three requests route to image_generation, image_editing, and tts, producing two image assets, one voice asset, three log rows, and latest_image_is_edit True.",
+            },
+            "ja": {
+                "title": "Creative Platform の bundle を読む",
+                "subtitle": "3つの依頼は別々の呼び出しではなく、1つの AssetBundle に入る。",
+                "items": [
+                    ("依頼 1", "テックカンファレンスのポスター -> image_generation。"),
+                    ("依頼 2", "濃い青の背景と発光効果 -> image_editing。"),
+                    ("依頼 3", "宣伝音声を生成 -> tts。"),
+                    ("アセット束", "images には初期画像と編集画像、合計 2 個。"),
+                    ("ログ", "logs は 3 行の task_type を記録する。"),
+                    ("確認", "latest_image_is_edit=True。"),
+                ],
+                "footer": "Platform project は、assets、logs、version link で検査できる。",
+                "alt": "Creative platform の AssetBundle 実行結果図：3つの依頼が image_generation、image_editing、tts にルーティングされ、2つの画像アセット、1つの音声アセット、3つのログ行を生成し、latest_image_is_edit=True を確認する。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",

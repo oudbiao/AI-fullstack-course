@@ -195,6 +195,8 @@ tasks: ['image_generation', 'image_editing', 'tts']
 latest_image_is_edit: True
 ```
 
+![创意平台 AssetBundle 运行结果图](/img/course/ch12-creative-platform-asset-bundle-result-map.webp)
+
 关键看 `tasks` 这一行：同一个项目里现在有首张图、改图版本和配音资产，而不是三次彼此无关的生成调用。
 
 ### 这个版本比前一版强在哪？

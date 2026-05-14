@@ -193,6 +193,8 @@ tasks: ['image_generation', 'image_editing', 'tts']
 latest_image_is_edit: True
 ```
 
+![Creative Platform AssetBundle 実行結果図](/img/course/ch12-creative-platform-asset-bundle-result-map-ja.webp)
+
 重要なのは `tasks` の行です。同じプロジェクトの中に、最初の画像、編集後の画像バージョン、音声アセットが入り、単なる3つの独立した生成ではなくなります。
 
 ### この版が前の版より優れている点

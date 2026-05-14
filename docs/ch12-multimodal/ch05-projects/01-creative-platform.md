@@ -196,6 +196,8 @@ tasks: ['image_generation', 'image_editing', 'tts']
 latest_image_is_edit: True
 ```
 
+![Creative platform AssetBundle result map](/img/course/ch12-creative-platform-asset-bundle-result-map-en.webp)
+
 The important check is the `tasks` line. The same project now contains one first image, one edited image version, and one voice asset, instead of three unrelated generation calls.
 
 ### What Makes This Version Stronger Than the Previous One?
