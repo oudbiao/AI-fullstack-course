@@ -253,6 +253,8 @@ Expected output:
 
 This is the practical input shape you should remember: a TTS request usually contains the sentence and the speaking controls together.
 
+![TTS control parameters result map](/img/course/ch12-tts-control-knobs-result-map-en.webp)
+
 ### What is this example showing?
 
 It is showing a very important beginner idea:

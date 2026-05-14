@@ -14628,6 +14628,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-tts-control-knobs-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch03-video-gen/02-tts.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/02-tts.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/02-tts.md",
+        },
+        "scene": "A Chapter 12 TTS run-result teaching image based on the exact tts_config dictionary example. The image must teach that the printed dictionary is not just text: it is a TTS request containing text plus speaker, speed, and emotion control conditions. Do not invent voice cloning, user profiles, recording microphones, ASR, music production, extra parameters, API vendors, score dashboards, terminal screenshots, or decorative voice posters. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code tokens; Japanese image uses natural Japanese helper labels except exact code tokens. Exact code/data tokens may stay as code: TTS, tts_config, text, speaker, female_voice_01, speed, 1.0, emotion, neutral, style.",
+        "chapter_context": "Inserted after the expected output of the tts_config example in 12.3.3 Text-to-Speech. Nearby prose says a practical TTS request usually contains the sentence and speaking controls together, and the key beginner idea is that TTS input is not just text but also conditions for how to speak. The illustration should make the printed dictionary readable as a controllable voice request.",
+        "shared_layout": "Vertical 9:16. Use a polished semi-realistic voice-control workbench scene, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative audio poster. Top title and subtitle. Upper station shows the localized text line as a script card. Middle station shows three large physical control knobs or sliders labeled speaker, speed, emotion; speaker is set to female_voice_01, speed to 1.0, emotion to neutral. Lower station shows one TTS request console/card summarizing tts_config and a resulting waveform/speaker output. Include a small contrast cue: text alone is incomplete; text plus controls is the actual request. Keep the same object positions, knob order, colors, reading path, output waveform, and contrast cue across zh/en/ja. Use large sparse localized labels attached to concrete controls and output. Avoid dense paragraphs, tiny fake text, random non-locale text, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond exact code tokens.",
+        "variants": {
+            "zh": {
+                "title": "TTS 输入不只是文本",
+                "subtitle": "text 加 speaker、speed、emotion 才是一条可控请求。",
+                "items": [
+                    ("文本", "text：欢迎来到课程学习。"),
+                    ("说话人", "speaker = female_voice_01。"),
+                    ("语速", "speed = 1.0，保持正常速度。"),
+                    ("情绪", "emotion = neutral，语气中性。"),
+                    ("实际请求", "tts_config 把句子和控制条件放在一起。"),
+                    ("学习重点", "控制条件决定“怎么说”。"),
+                ],
+                "footer": "先看控制旋钮，再听到可控的 TTS 输出。",
+                "alt": "TTS 控制参数运行结果图：tts_config 不只包含 text，还把 speaker、speed 和 emotion 作为控制条件一起送入 TTS 请求，用来决定怎么说。",
+            },
+            "en": {
+                "title": "TTS Uses Text Plus Controls",
+                "subtitle": "text plus speaker, speed, and emotion becomes one controllable request.",
+                "items": [
+                    ("text", "text: Welcome to the course."),
+                    ("speaker", "speaker = female_voice_01."),
+                    ("speed", "speed = 1.0 keeps normal pace."),
+                    ("emotion", "emotion = neutral keeps a neutral tone."),
+                    ("real request", "tts_config stores the sentence and controls together."),
+                    ("learning point", "Control conditions decide how to speak."),
+                ],
+                "footer": "Read the control knobs before listening to the TTS output.",
+                "alt": "TTS control parameters result map: tts_config contains not only text but also speaker, speed, and emotion conditions that define how the TTS request should speak.",
+            },
+            "ja": {
+                "title": "TTS 入力はテキストだけではない",
+                "subtitle": "text に speaker、speed、emotion を足して、制御できる依頼になる。",
+                "items": [
+                    ("テキスト", "text：コース学習へようこそ。"),
+                    ("話者", "speaker = female_voice_01。"),
+                    ("速さ", "speed = 1.0、通常の速さ。"),
+                    ("感情", "emotion = neutral、中立の口調。"),
+                    ("実際の依頼", "tts_config が文と制御条件を一緒に持つ。"),
+                    ("学習ポイント", "制御条件が「どう話すか」を決める。"),
+                ],
+                "footer": "制御つまみを読んでから、TTS 出力を聞く。",
+                "alt": "TTS 制御パラメータの実行結果図：tts_config は text だけでなく speaker、speed、emotion も制御条件として含み、TTS がどう話すかを決める。",
+            },
+        },
+    },
+    {
         "slug": "ch12-creative-platform-asset-bundle-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
@@ -21402,6 +21457,82 @@ Every label must sit near the object it explains, with large readable text suita
 8. 下部の短文は完全に：「音響の設計図を作ってから、波形を合成する。」
 
 文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、密集したコード、録音マイク、音楽制作ソフト画面、無関係な装飾は禁止。
+""".strip(),
+    "ch12-tts-control-knobs-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.3.3 TTS 中 tts_config 字典代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字贴图，不要只画漂亮人物或声波。
+
+可见标题必须完全写为：“TTS 输入不只是文本”
+可见副标题必须完全写为：“text 加 speaker、speed、emotion 才是一条可控请求。”
+
+教学目标：读者先看图就能理解 print 输出的字典为什么包含 text、speaker、speed、emotion。代码中 text 是“欢迎来到课程学习。”，speaker 是 female_voice_01，speed 是 1.0，emotion 是 neutral。重点是：TTS 请求通常同时传入“说什么”和“怎么说”，控制条件决定音色、语速和语气。
+
+三语版本必须同构：同一个半写实深色 voice-control workbench、同一张输入文本卡、同样三个大控制旋钮/滑杆、同样 tts_config 请求卡、同样输出 waveform 和 speaker、同样左侧“text alone 不完整”和右侧“text + controls 可控”的对比提示。中文图只能用自然中文解释，允许保留这些代码/技术词：TTS、tts_config、text、speaker、female_voice_01、speed、1.0、emotion、neutral。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张脚本卡，必须写清楚：“text：欢迎来到课程学习。” 不要画终端。
+3. 中间从左到右画三个真实旋钮或滑杆：
+   speaker = female_voice_01
+   speed = 1.0
+   emotion = neutral
+   每个控制旁边要用短中文写它决定什么，例如“换音色”“调语速”“定语气”。
+4. 右下画一张 tts_config 请求卡，把 text、speaker、speed、emotion 四项合在同一个请求里。
+5. 下方画 waveform 和 speaker，表示这条请求生成可控语音输出。
+6. 加一个对比提示：左边灰色小卡写“只有 text：不完整”；右边绿色小卡写“text + 控制条件：知道怎么说”。
+7. 底部短句必须完全写为：“先看控制旋钮，再听到可控的 TTS 输出。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、密集代码、语音克隆、录音麦克风、音乐制作软件界面或无关装饰。
+""".strip(),
+    "ch12-tts-control-knobs-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.3.3 TTS, the tts_config dictionary result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no text-only poster, and no decorative person-or-soundwave-only image.
+
+Visible title exactly: “TTS Uses Text Plus Controls”
+Visible subtitle exactly: “text plus speaker, speed, and emotion becomes one controllable request.”
+Important spelling guard: the title must say exactly “TTS Uses Text Plus Controls”. Do not write “Teyt”, “Controis”, “Conrols”, or any altered spelling.
+
+Teaching goal: the learner should understand why the printed dictionary contains text, speaker, speed, and emotion. In the code, text is “Welcome to the course.”, speaker is female_voice_01, speed is 1.0, and emotion is neutral. The key point is that a TTS request usually sends both what to say and how to say it; control conditions decide voice, pace, and tone.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark voice-control workbench, the same input text card, the same three large physical knobs/sliders, the same tts_config request card, the same output waveform and speaker, and the same contrast cue between “text alone is incomplete” and “text + controls is controllable”. Use natural English. Code/technical tokens must be spelled exactly where useful: TTS, tts_config, text, speaker, female_voice_01, speed, 1.0, emotion, neutral.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows a script card, clearly writing: “text: Welcome to the course.” Do not draw a terminal.
+3. Middle area shows three real physical knobs or sliders from left to right:
+   speaker = female_voice_01
+   speed = 1.0
+   emotion = neutral
+   Each control has a short nearby label: “voice timbre”, “pace”, “tone”.
+4. Lower right shows one tts_config request card combining text, speaker, speed, and emotion in the same request.
+5. Bottom shows a waveform and speaker, representing controllable speech output from that request.
+6. Add a contrast cue: a gray mini card says “text alone: incomplete”; a green mini card says “text + controls: knows how to speak”.
+7. Bottom sentence exactly: “Read the control knobs before listening to the TTS output.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, dense code, voice cloning, recording microphones, music production software UI, or unrelated decoration.
+""".strip(),
+    "ch12-tts-control-knobs-result-map-ja.png": """
+第12章 12.3.3 TTS にある tts_config 辞書の実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、文字だけのポスター、ただの人物や波形だけのきれいな絵は禁止。
+
+可視タイトルは完全に：「TTS 入力はテキストだけではない」
+可視サブタイトルは完全に：「text に speaker、speed、emotion を足して、制御できる依頼になる。」
+
+学習目標：print 出力の辞書に text、speaker、speed、emotion が含まれる理由を一目で理解できるようにする。コードでは text が「コース学習へようこそ。」、speaker が female_voice_01、speed が 1.0、emotion が neutral。重要なのは、TTS リクエストでは「何を話すか」と「どう話すか」を一緒に渡すこと。制御条件が音色、速さ、口調を決める。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 voice-control workbench、同じ入力テキストカード、同じ3つの大きなつまみ/スライダー、同じ tts_config リクエストカード、同じ出力 waveform と speaker、同じ「text だけでは不完全」と「text + controls なら制御できる」の対比。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：TTS、tts_config、text、speaker、female_voice_01、speed、1.0、emotion、neutral。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に台本カードを描き、必ず書く：「text：コース学習へようこそ。」 端末画面にはしない。
+3. 中央に、左から右へ3つの本物のつまみまたはスライダーを描く：
+   speaker = female_voice_01
+   speed = 1.0
+   emotion = neutral
+   各制御の横に短い日本語ラベルを置く：「音色」「速さ」「口調」。
+4. 右下に tts_config リクエストカードを描き、text、speaker、speed、emotion の4項目が同じ依頼に入ることを見せる。
+5. 下部に waveform と speaker を描き、この依頼から制御可能な音声出力が出ることを示す。
+6. 対比表示を入れる：灰色の小カードに「text だけ：不完全」、緑の小カードに「text + 制御条件：どう話すかが分かる」と書く。
+7. 下部の短文は完全に：「制御つまみを読んでから、TTS 出力を聞く。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、密集したコード、音声クローン、録音マイク、音楽制作ソフト画面、無関係な装飾は禁止。
 """.strip(),
     "ch12-multimodal-feature-fusion-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.1 多模态基础中“融合”NumPy 例子的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要泛泛画“多模态很酷”。

@@ -253,6 +253,8 @@ print(tts_config)
 
 这是你应该记住的实用输入形态：TTS 请求通常会把句子和“怎么说”的控制参数放在一起。
 
+![TTS 控制参数运行结果图](/img/course/ch12-tts-control-knobs-result-map.webp)
+
 ### 这个例子在展示什么？
 
 它在展示一个很重要的初学者概念：
