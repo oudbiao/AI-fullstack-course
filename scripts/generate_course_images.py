@@ -16365,6 +16365,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-research-assistant-citation-eval-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch10-projects/01-research-assistant.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/01-research-assistant.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/01-research-assistant.md",
+        },
+        "scene": "A runnable-result teaching visual for the Chapter 9 research assistant project. It must explain the exact print outputs from summarize_with_citations() and the minimal evaluation loop, not a generic RAG or citation poster. Show one query 'rag retrieval citation trust' entering keyword retrieval, two selected source cards d1 and d3, two summary claim cards tied back to those sources, and then an evaluation board with exactly two cases. Exact values must be visible and correct: first run returns source_id d1 with claim 'RAG can improve factual grounding by retrieving external evidence.' and source_id d3 with claim 'Users trust generated summaries more when each claim is tied to an explicit source.' Evaluation case 1 query='rag retrieval grounding' has hit_ids=['d1','d2'] and overlap=['d1','d2']; case 2 query='citation trust summary' has hit_ids=['d3'] and overlap=['d3']. Teaching point: a trustworthy research assistant is judged by traceable claims and measurable citation overlap, not by a smooth-looking paragraph. Do not invent papers, URLs, authors, years, abstracts, score decimals, model names, extra docs, extra eval cases, metrics, terminal commands, or long paragraphs.",
+        "chapter_context": "The image is inserted after the expected output of the minimal eval_cases loop in 9.10.2 Intelligent Research Assistant. Earlier in the same section, the code defines docs d1, d2, d3, retrieves by keyword overlap, summarizes hits as claim plus source_id plus source_title, then evaluates by comparing hit_ids with expected_source_ids. Nearby prose emphasizes that every conclusion must trace back to a source and that projects should show query, retrieval results, summary items, citation sources, and evaluation.",
+        "shared_layout": "Vertical 9:16. Use the same practical research desk / evidence board style across zh/en/ja: dark desk, query card, three small document cards, selected evidence pins, claim cards, citation strings, and an evaluation score board. Top title and subtitle. Upper section: query card 'rag retrieval citation trust' sends keywords to retrieval; d1 and d3 are lit as selected, d2 remains dim for this first query. Middle section: two claim cards. Claim card 1 connects to source_id=d1 and title 'RAG improves factual grounding'; claim card 2 connects to source_id=d3 and title 'Citations increase user trust'. Lower section: evaluation board with two exact rows: query rag retrieval grounding -> hit_ids [d1,d2] -> overlap [d1,d2], and query citation trust summary -> hit_ids [d3] -> overlap [d3]. Bottom strip: query -> retrieve -> summarize -> cite -> compare overlap. Keep object positions, source ids, row order, values, colors, and reading path identical across languages. Use short localized labels around concrete evidence objects. Code tokens and exact English claims/source titles may stay English because they are the printed data. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense dictionaries, tiny fake text, decorative library scenes, invented article metadata, and unrelated English or Japanese pseudo-text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "研究助手结果怎么验可信",
+                "subtitle": "不是只看摘要顺不顺，而是看 claim 是否回到 source，评估是否命中。",
+                "items": [
+                    ("输入查询", "rag retrieval citation trust。"),
+                    ("检索命中", "d1 和 d3 被选中，d2 在本次查询中不输出。"),
+                    ("摘要 1", "claim -> source_id=d1；RAG improves factual grounding。"),
+                    ("摘要 2", "claim -> source_id=d3；Citations increase user trust。"),
+                    ("评估 1", "rag retrieval grounding -> hit_ids=[d1,d2]，overlap=[d1,d2]。"),
+                    ("评估 2", "citation trust summary -> hit_ids=[d3]，overlap=[d3]。"),
+                ],
+                "footer": "可信研究助手要能展示：查询、命中文档、摘要 claim、引用来源、overlap 评估。",
+                "alt": "研究助手引用与评估结果图：查询 rag retrieval citation trust 命中 d1 和 d3，两条摘要分别连接到 source_id，评估用 hit_ids 与 expected_source_ids 的 overlap 验证 d1/d2 和 d3 命中。",
+            },
+            "en": {
+                "title": "Checking a Research Assistant Result",
+                "subtitle": "Trust comes from claims tied to sources and overlap measured by fixed eval cases.",
+                "items": [
+                    ("input query", "rag retrieval citation trust."),
+                    ("retrieval hits", "d1 and d3 are selected; d2 is not returned for this query."),
+                    ("summary 1", "claim -> source_id=d1; RAG improves factual grounding."),
+                    ("summary 2", "claim -> source_id=d3; Citations increase user trust."),
+                    ("eval 1", "rag retrieval grounding -> hit_ids=[d1,d2], overlap=[d1,d2]."),
+                    ("eval 2", "citation trust summary -> hit_ids=[d3], overlap=[d3]."),
+                ],
+                "footer": "Show the trace: query, retrieved docs, summary claims, citation sources, and overlap.",
+                "alt": "Research assistant citation and evaluation result map: query rag retrieval citation trust returns d1 and d3, each summary claim is linked to a source_id, and two eval cases compare hit_ids with expected_source_ids through overlap.",
+            },
+            "ja": {
+                "title": "研究アシスタント結果の信頼性を見る",
+                "subtitle": "自然な要約だけでなく、claim が source に戻り、固定評価で当たるかを見る。",
+                "items": [
+                    ("入力 query", "rag retrieval citation trust。"),
+                    ("検索結果", "d1 と d3 を選び、この query では d2 は出力しない。"),
+                    ("要約 1", "claim -> source_id=d1；RAG improves factual grounding。"),
+                    ("要約 2", "claim -> source_id=d3；Citations increase user trust。"),
+                    ("評価 1", "rag retrieval grounding -> hit_ids=[d1,d2]、overlap=[d1,d2]。"),
+                    ("評価 2", "citation trust summary -> hit_ids=[d3]、overlap=[d3]。"),
+                ],
+                "footer": "信頼できる研究助手は、query、検索文書、claim、source、overlap を見せる。",
+                "alt": "研究アシスタントの引用と評価結果図：query rag retrieval citation trust が d1 と d3 を返し、各 summary claim が source_id に接続され、2つの評価ケースが hit_ids と expected_source_ids の overlap を確認する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",

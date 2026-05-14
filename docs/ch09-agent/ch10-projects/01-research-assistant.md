@@ -216,6 +216,8 @@ Expected output:
 {'query': 'citation trust summary', 'hit_ids': ['d3'], 'overlap': ['d3']}
 ```
 
+![Research assistant citation and evaluation result map](/img/course/ch09-research-assistant-citation-eval-result-map-en.webp)
+
 ---
 
 ## The easiest pitfalls to fall into

@@ -216,6 +216,8 @@ for case in eval_cases:
 {'query': 'citation trust summary', 'hit_ids': ['d3'], 'overlap': ['d3']}
 ```
 
+![研究助手引用与评估结果图](/img/course/ch09-research-assistant-citation-eval-result-map.webp)
+
 ---
 
 ## 最容易踩的坑

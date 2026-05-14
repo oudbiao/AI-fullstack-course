@@ -218,6 +218,8 @@ for case in eval_cases:
 {'query': 'citation trust summary', 'hit_ids': ['d3'], 'overlap': ['d3']}
 ```
 
+![研究アシスタントの引用と評価結果図](/img/course/ch09-research-assistant-citation-eval-result-map-ja.webp)
+
 ---
 
 ## いちばんハマりやすい落とし穴
