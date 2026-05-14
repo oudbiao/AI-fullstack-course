@@ -121,6 +121,8 @@ ReviewNote(approved=False, issues=['Unclear variable naming', 'Incomplete edge c
 TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
+![Multi-Agent artifact handoff result map](/img/course/ch09-multi-agent-artifact-handoff-anatomy-result-map-en.webp)
+
 ### What is the most important part of this example?
 
 It shows that what a multi-Agent project should really demonstrate is not plain chat logs,

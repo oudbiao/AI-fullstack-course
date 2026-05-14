@@ -16255,6 +16255,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-multi-agent-artifact-handoff-anatomy-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+        },
+        "scene": "A runnable-result teaching visual for the first artifact handoff example in the Multi-Agent development team project. It must explain the exact four printed dataclass objects before the workflow loop: TaskPlan, Patch, ReviewNote, and TestReport. Show that the print output is not just text: it is a handoff contract. TaskPlan carries the refund goal, files, and acceptance test; Patch carries the changed files; ReviewNote carries approved=False and two issues; TestReport carries passed=False and two test cases. Teaching point: the rejected review and failed test report are useful evidence because they show what the next role must fix. Do not draw the later successful loop, approved=True, passed=True, extra roles, generic team avatars, a terminal screenshot, dense code, fake files, model names, or random chat bubbles.",
+        "chapter_context": "The image is inserted immediately after the first expected output block in the Multi-Agent development team project lesson. Nearby code defines dataclasses TaskPlan, Patch, ReviewNote, and TestReport, creates one plan for fixing an incorrect refund amount display, one patch that changes refund.py and test_refund.py, one ReviewNote with approved=False and issues about naming and edge case tests, one TestReport with passed=False and cases test_discount_basic and test_discount_zero, then prints all four objects. The surrounding prose explains that multi-Agent projects should demonstrate handoff artifacts, task status, and result verification instead of plain chat logs.",
+        "shared_layout": "Vertical 9:16. Use the same practical sprint-room artifact workbench style across zh/en/ja, not a white rounded-box infographic and not a pure text poster. Top title and subtitle. Upper section: one task ticket showing the refund goal, files refund.py and test_refund.py, and the acceptance test. Middle section: four large physical artifact sheets in order: TaskPlan -> Patch -> ReviewNote -> TestReport. ReviewNote must be visibly orange/red with approved=False and two issue flags; TestReport must be visibly red with passed=False and two test case rows. Lower section: a repair queue arrow from ReviewNote/TestReport back to Patch, teaching that failed artifacts guide the next iteration. Bottom rule strip: conversation optional, artifacts are the contract. Keep role order, sheet positions, colors, values, arrows, and reading path identical across languages. Use concrete ticket, diff paper, review stamp, test board, and evidence folder objects; avoid SVG-style white rounded boxes, dense terminal logs, tiny background text, fake UI chrome, or decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "看懂工件交接，不看聊天热闹",
+                "subtitle": "四个 print 对象组成项目 trace，失败状态也在提供线索。",
+                "items": [
+                    ("TaskPlan", "目标、文件、验收标准先写清。"),
+                    ("Patch", "改 refund.py，并补 test_refund.py。"),
+                    ("ReviewNote", "approved=False，问题是命名和边界测试。"),
+                    ("TestReport", "passed=False，basic 和 zero 测试未过。"),
+                    ("修复队列", "失败工件告诉下一轮该改哪里。"),
+                    ("交接规则", "聊天可有可无，工件才是契约。"),
+                ],
+                "footer": "先看工件里的状态和证据，再判断多 Agent 是否可靠。",
+                "alt": "多 Agent 工件交接结果图：TaskPlan 写明退款目标、refund.py 与 test_refund.py 和验收测试，Patch 交出修改文件，ReviewNote 显示 approved=False 与两个问题，TestReport 显示 passed=False 与两个测试用例，并指向下一轮修复。",
+            },
+            "en": {
+                "title": "Artifact Handoff, Not Chat Logs",
+                "subtitle": "Four printed objects form a project trace, including failure evidence.",
+                "items": [
+                    ("TaskPlan", "Write the goal, files, and acceptance rule first."),
+                    ("Patch", "Change refund.py and add test_refund.py."),
+                    ("ReviewNote", "approved=False; naming and edge tests need work."),
+                    ("TestReport", "passed=False; basic and zero tests still fail."),
+                    ("repair queue", "Failed artifacts tell the next loop what to fix."),
+                    ("handoff rule", "Conversation is optional; artifacts are the contract."),
+                ],
+                "footer": "Read artifact status and evidence before judging collaboration quality.",
+                "alt": "Multi-Agent artifact handoff result map: TaskPlan states the refund goal, refund.py, test_refund.py, and acceptance test; Patch hands off changed files; ReviewNote shows approved=False with two issues; TestReport shows passed=False with two test cases and feeds the repair queue.",
+            },
+            "ja": {
+                "title": "会話ログではなく artifact を読む",
+                "subtitle": "4つの print object が project trace になり、失敗状態も手がかりになる。",
+                "items": [
+                    ("TaskPlan", "目標、file、受け入れ条件を先に書く。"),
+                    ("Patch", "refund.py を直し、test_refund.py も加える。"),
+                    ("ReviewNote", "approved=False；命名と境界テストが課題。"),
+                    ("TestReport", "passed=False；basic と zero がまだ失敗。"),
+                    ("修復キュー", "失敗 artifact が次に直す場所を示す。"),
+                    ("引き継ぎ規則", "会話より、artifact が契約になる。"),
+                ],
+                "footer": "協調品質は、artifact の状態と証拠を見て判断する。",
+                "alt": "マルチ Agent artifact 引き継ぎ結果図：TaskPlan が返金目標、refund.py と test_refund.py、受け入れテストを示し、Patch が変更ファイルを渡し、ReviewNote が approved=False と2つの課題を示し、TestReport が passed=False と2つのテストケースを示して次の修復へつなぐ。",
+            },
+        },
+    },
+    {
         "slug": "ch09-multi-agent-dev-team-artifact-trace-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
@@ -20124,6 +20179,137 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch09-multi-agent-artifact-handoff-anatomy-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于 AI 全栈课程第 9 章多 Agent 开发团队项目。
+这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python dataclass 输出整段贴满画面。
+
+可见标题必须完全写为："看懂工件交接，不看聊天热闹"
+可见副标题必须完全写为："四个 print 对象组成项目 trace，失败状态也在提供线索。"
+
+教学目标：读者先看图就能理解第一段 print 输出为什么重要。画面必须把四个对象画成可交接的实体工件，而不是聊天记录：
+TaskPlan -> Patch -> ReviewNote -> TestReport。
+ReviewNote 的 approved=False 和 TestReport 的 passed=False 不是“程序坏了”，而是暴露下一轮要修复的问题。
+
+统一风格：真实 sprint room / 代码评审桌。深色桌面、纸质任务票、diff 纸张、审查印章、测试看板、证据文件夹；中英日三版同构：同一镜头、同一顺序、同一物件位置、同一颜色节奏。画面要漂亮，但每个物件都必须服务教学。
+必须采用统一四列工件台布局：顶部标题和任务票，画面中部横向四列分别是 TaskPlan、Patch、ReviewNote、TestReport，底部是一条从失败状态回到 Patch 的修复箭头和页脚。不要改成纵向堆叠、左侧编号栏、看板墙主视觉、装饰文件夹特写或漫画分镜。中文图中背景装饰也不要出现英文句子或英文文件夹标签，只有代码/术语 token 可保留。
+
+固定版式：
+1. 顶部任务票：
+   - "TaskPlan"
+   - "目标：修复退款金额显示"
+   - "文件：refund.py + test_refund.py"
+   - "验收：100 元，8 折 -> 80 元"
+2. 中间四个大工件从上到下或左到右串联：
+   - "TaskPlan" 卡：目标、文件、验收标准
+   - "Patch" 卡：修复折扣逻辑 + 补测试
+   - "ReviewNote" 卡：醒目橙红色，必须写清 "approved=False"，旁边两张问题贴纸："命名不清"、"边界测试不足"
+   - "TestReport" 卡：醒目红色，必须写清 "passed=False"，两行用例："test_discount_basic"、"test_discount_zero"
+3. 从 ReviewNote 和 TestReport 画一条回到 Patch 的修复箭头，标签："下一轮修复"
+4. 底部规则条必须写："聊天可有可无，工件才是契约。"
+
+必要教学标签，必须清楚可读，并贴近对应物件：
+- "TaskPlan：先写清目标、文件、验收标准。"
+- "Patch：改 refund.py，并补 test_refund.py。"
+- "ReviewNote：approved=False，问题是命名和边界测试。"
+- "TestReport：passed=False，basic 和 zero 测试未过。"
+- "失败工件告诉下一轮该改哪里。"
+
+准确性规则：
+- 只能有四个核心工件：TaskPlan、Patch、ReviewNote、TestReport。不要加入 PM、Designer、DevOps、安全、评估器等额外角色。
+- 只能出现两个文件：refund.py、test_refund.py。不要发明其它文件名。
+- 这张图讲第一段失败/未通过工件交接，不能出现 approved=True 或 passed=True。
+- 中文说明必须是简体中文；允许保留这些代码/术语 token：Agent、trace、print、TaskPlan、Patch、ReviewNote、TestReport、refund.py、test_refund.py、approved=False、passed=False、test_discount_basic、test_discount_zero、basic、zero。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo。
+底部页脚必须完全写为："先看工件里的状态和证据，再判断多 Agent 是否可靠。"
+所有文字必须大、少、清楚，手机上能读。
+""".strip(),
+    "ch09-multi-agent-artifact-handoff-anatomy-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course.
+This is a finished AI-generated teaching image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, do not create a terminal screenshot, and do not paste a dense dataclass dump.
+
+Visible title exactly: "Artifact Handoff, Not Chat Logs"
+Visible subtitle exactly: "Four printed objects form a project trace, including failure evidence."
+
+Teaching goal: a reader should understand why the first printed output block matters. Draw the four objects as concrete handoff artifacts, not as chat:
+TaskPlan -> Patch -> ReviewNote -> TestReport.
+ReviewNote approved=False and TestReport passed=False are not random failures; they reveal what the next loop must fix.
+
+Unified style: practical sprint-room code review table. Dark desk, paper task ticket, diff sheet, review stamp, test board, evidence folder. The Simplified Chinese, English, and Japanese variants must be structurally identical: same camera angle, same order, same object positions, same color rhythm. The image should be attractive, but every object must teach the lesson.
+Use one shared four-column artifact workbench layout: title and task ticket at the top, four horizontal center columns labeled TaskPlan, Patch, ReviewNote, TestReport, then one repair arrow from the failed states back to Patch and the footer at the bottom. Do not switch to a vertical stack, a left-side numbered rail, a Kanban-wall main scene, a folder close-up, or comic panels.
+
+Fixed layout:
+1. Top task ticket:
+   - "TaskPlan"
+   - "goal: refund amount display"
+   - "files: refund.py + test_refund.py"
+   - "acceptance: 100 yuan, 20% off -> 80 yuan"
+2. Four large artifacts connected in order:
+   - "TaskPlan" card: goal, files, acceptance rule
+   - "Patch" card: fix discount logic + add tests
+   - "ReviewNote" card: strong orange/red, must show "approved=False", with two issue stickers: "naming unclear" and "edge tests missing"
+   - "TestReport" card: strong red, must show "passed=False", with two rows: "test_discount_basic" and "test_discount_zero"
+3. Draw a repair arrow from ReviewNote and TestReport back to Patch, labeled: "next repair loop"
+4. Bottom rule strip exactly: "Conversation is optional; artifacts are the contract."
+
+Required teaching labels, large and readable near the matching object:
+- "TaskPlan: write goal, files, and acceptance rule first."
+- "Patch: change refund.py and add test_refund.py."
+- "ReviewNote: approved=False points to naming and edge tests."
+- "TestReport: passed=False means basic and zero tests still fail."
+- "Failed artifacts tell the next loop what to fix."
+
+Accuracy rules:
+- Show exactly four core artifacts: TaskPlan, Patch, ReviewNote, TestReport. Do not add PM, designer, DevOps, security, evaluator, or extra roles.
+- Show exactly two files: refund.py and test_refund.py. Do not invent other filenames.
+- This image teaches the first failed/not-passed handoff block; do not show approved=True or passed=True.
+- Do not include Chinese text, Japanese text, gibberish, tiny background text, watermark, brand logos, or unrelated chat bubbles.
+Visible footer exactly: "Read artifact status and evidence before judging collaboration quality."
+All text must be sparse, large, and readable on a phone.
+""".strip(),
+    "ch09-multi-agent-artifact-handoff-anatomy-result-map-ja.png": """
+AI フルスタック講座のために、完成済みの 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。あとから文字を重ねるための空白を残さないでください。SVG 風、白い角丸ボックスの情報図、純粋なフローチャート、ターミナルスクリーンショット、dataclass 出力の密集貼り付けは禁止です。
+
+可視タイトルは完全に："会話ログではなく artifact を読む"
+可視サブタイトルは完全に："4つの print object が project trace になり、失敗状態も手がかりになる。"
+
+教学目標：読者が最初の print 出力ブロックの意味を一目で理解できること。4つの object を、会話ではなく実際に引き継がれる artifact として描く：
+TaskPlan -> Patch -> ReviewNote -> TestReport。
+ReviewNote の approved=False と TestReport の passed=False は「壊れた結果」ではなく、次のループで直す場所を示す証拠である。
+
+統一スタイル：実用的な sprint room / code review table。暗い机、紙のタスク票、diff 用紙、レビュー印、テスト看板、証拠フォルダ。中国語・英語・日本語版は同じ構造：同じカメラ角度、同じ順序、同じ物体位置、同じ色のリズム。美しいが、すべての物体が学習に役立つこと。
+必ず共通の4列 artifact workbench レイアウトにする：上部にタイトルとタスク票、中央に TaskPlan、Patch、ReviewNote、TestReport の4列、下部に失敗状態から Patch へ戻る修復矢印とフッター。縦積み、左側番号レール、Kanban 壁を主役にする構図、ファイルフォルダの大きな装飾、漫画分割は禁止。日本語版の背景装飾にも英語の説明文や英語フォルダラベルを入れない。許可された code token だけ英語のまま使う。
+
+固定レイアウト：
+1. 上部タスク票：
+   - "TaskPlan"
+   - "目標：返金金額表示の修正"
+   - "ファイル：refund.py + test_refund.py"
+   - "受け入れ：100円、8割引 -> 80円"
+2. 中央の4つの大きな artifact を順に接続：
+   - "TaskPlan" カード：目標、file、受け入れ条件
+   - "Patch" カード：割引ロジック修正 + テスト追加
+   - "ReviewNote" カード：オレンジ/赤で目立たせ、必ず "approved=False" を表示。課題付箋は "命名が不明確"、"境界テスト不足"
+   - "TestReport" カード：赤で目立たせ、必ず "passed=False" を表示。2行の case は "test_discount_basic"、"test_discount_zero"
+3. ReviewNote と TestReport から Patch へ戻る修復矢印を描き、ラベルは "次の修復ループ"
+4. 下部ルール帯は完全に："会話より、artifact が契約になる。"
+
+必要な教学ラベル。対応する物体の近くに、大きく読みやすく配置：
+- "TaskPlan：目標、file、受け入れ条件を先に書く。"
+- "Patch：refund.py を直し、test_refund.py も加える。"
+- "ReviewNote：approved=False は命名と境界テストを示す。"
+- "TestReport：passed=False は basic と zero がまだ失敗。"
+- "失敗 artifact が次に直す場所を示す。"
+
+正確性ルール：
+- 中心 artifact は TaskPlan、Patch、ReviewNote、TestReport の4つだけ。PM、designer、DevOps、security、evaluator などを追加しない。
+- ファイルは refund.py と test_refund.py の2つだけ。他のファイル名を作らない。
+- この画像は最初の失敗/未通過の handoff block を説明する。approved=True や passed=True を表示しない。
+- 日本語説明は自然な日本語にする。許可する英語/code token は Agent、trace、print、object、artifact、TaskPlan、Patch、ReviewNote、TestReport、refund.py、test_refund.py、approved=False、passed=False、test_discount_basic、test_discount_zero、basic、zero。
+- 英語の説明文、中国語、乱码、小さな背景文字、透かし、ブランド logo は入れない。
+可視フッターは完全に："協調品質は、artifact の状態と証拠を見て判断する。"
+すべての文字は少なく、大きく、スマホで読めること。
+""".strip(),
     "ch09-canary-route-bucket-result-map.png": """
 生成一张 9:16 竖版简体中文教学位图，用于第 9 章 9.9.6 Agent 生产最佳实践中的灰度路由实验。
 这是 AI 直接生成的最终图片。不要本地叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码密集贴满画面。
