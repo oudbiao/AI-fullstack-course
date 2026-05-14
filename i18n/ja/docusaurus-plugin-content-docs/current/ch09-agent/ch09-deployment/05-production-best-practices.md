@@ -237,6 +237,8 @@ req-003 -> stable_agent
 req-004 -> stable_agent
 ```
 
+![Agent canary ルート結果図](/img/course/ch09-canary-route-bucket-result-map-ja.webp)
+
 このコードはシンプルですが、次のことを示しています。
 
 - 段階的リリースは難しいものではない

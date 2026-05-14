@@ -235,6 +235,8 @@ req-003 -> stable_agent
 req-004 -> stable_agent
 ```
 
+![Agent canary route result map](/img/course/ch09-canary-route-bucket-result-map-en.webp)
+
 Although this code is simple, it shows that:
 
 - Canary rollout is not mysterious

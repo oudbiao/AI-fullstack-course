@@ -199,7 +199,7 @@ print(readiness_check(deployment_config))
 
 ## 灰度发布为什么对 Agent 尤其重要？
 
-### 因为 Agent 的问题 often 是概率性的
+### 因为 Agent 的问题往往是概率性的
 
 有些问题不会在本地固定复现，
 而是在真实流量里才暴露，例如：
@@ -234,6 +234,8 @@ req-002 -> new_agent
 req-003 -> stable_agent
 req-004 -> stable_agent
 ```
+
+![Agent 灰度路由结果图](/img/course/ch09-canary-route-bucket-result-map.webp)
 
 这段代码虽然简单，但它体现了：
 

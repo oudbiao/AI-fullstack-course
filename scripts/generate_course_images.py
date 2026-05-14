@@ -16805,6 +16805,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-canary-route-bucket-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch09-deployment/05-production-best-practices.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/05-production-best-practices.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/05-production-best-practices.md",
+        },
+        "scene": "A runnable-result teaching visual for the canary rollout traffic routing example in Agent production best practices. It must explain the exact route_request(request_id, canary_ratio=0.2) output, not draw a generic deployment diagram. Show canary_ratio 0.2 becoming a threshold of 20 on a 0-99 bucket line. Show the bucket formula sum(ord(c) for request_id) % 100. Show exactly four request cards: req-001 has bucket 18 and routes to new_agent; req-002 has bucket 19 and routes to new_agent; req-003 has bucket 20 and routes to stable_agent because the comparison is bucket < 20, not <= 20; req-004 has bucket 21 and routes to stable_agent. Teaching point: canary rollout is deterministic controlled traffic allocation, and boundary conditions matter. Do not invent other request ids, percentages, random sampling, A/B statistics, users, dashboards, metrics, regions, dates, vendors, or different outputs.",
+        "chapter_context": "The image is inserted immediately after the expected output of route_request() in 9.9.6 Production Best Practices. Nearby code computes bucket = sum(ord(c) for c in request_id) % 100 and returns new_agent only when bucket < canary_ratio * 100. The surrounding prose says canary rollout is controlled traffic allocation, not a mysterious deployment ritual.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark release-control / traffic-routing workbench style across zh/en/ja, compatible with the preceding readiness check image but focused on routing. Top title and subtitle. Upper section shows canary_ratio=0.2 -> threshold=20 on a 0-99 bucket ruler, with a bright green new_agent zone from 0 to 19 and a blue stable_agent zone from 20 to 99. Middle section shows the formula bucket = sum(ord(c)) % 100 as a small machine. Lower section shows four request cards moving through the machine to the ruler: req-001 -> bucket 18 -> new_agent, req-002 -> bucket 19 -> new_agent, req-003 -> bucket 20 -> stable_agent, req-004 -> bucket 21 -> stable_agent. Highlight the boundary: bucket 20 is not in canary because the code uses < 20. Bottom insight strip: canary rollout is controlled allocation; keep stable_agent as fallback. Keep request order, bucket values, boundary marker, colors, and reading path identical across languages. Code tokens that may stay English: Agent, canary_ratio, threshold, bucket, request_id, route_request, ord, req-001, req-002, req-003, req-004, new_agent, stable_agent, True, False, < 20. Use large readable localized explanation labels. Avoid terminal screenshots, raw dense Python code, old SVG-style white rounded boxes, pure flowcharts, tiny pseudo-text, decorative dashboards, unrelated English or Japanese text in zh images, and any output other than the four exact routes.",
+        "variants": {
+            "zh": {
+                "title": "灰度路由结果怎么看",
+                "subtitle": "canary_ratio=0.2 把 bucket 0-19 分给 new_agent，其余留给 stable_agent。",
+                "items": [
+                    ("阈值", "0.2 * 100 = 20；代码条件是 bucket < 20。"),
+                    ("公式", "bucket = sum(ord(c)) % 100。"),
+                    ("req-001", "bucket=18，进入 new_agent。"),
+                    ("req-002", "bucket=19，进入 new_agent。"),
+                    ("req-003", "bucket=20，不小于 20，所以进入 stable_agent。"),
+                    ("req-004", "bucket=21，进入 stable_agent。"),
+                ],
+                "footer": "灰度不是随机感觉，而是可复现的受控流量分配。",
+                "alt": "Agent 灰度路由结果图：canary_ratio 0.2 形成 bucket 小于 20 的新版本通道，req-001 和 req-002 进入 new_agent，req-003 与 req-004 保持 stable_agent。",
+            },
+            "en": {
+                "title": "Reading Canary Route Results",
+                "subtitle": "canary_ratio=0.2 sends buckets 0-19 to new_agent and the rest to stable_agent.",
+                "items": [
+                    ("threshold", "0.2 * 100 = 20; the code checks bucket < 20."),
+                    ("formula", "bucket = sum(ord(c)) % 100."),
+                    ("req-001", "bucket=18, routed to new_agent."),
+                    ("req-002", "bucket=19, routed to new_agent."),
+                    ("req-003", "bucket=20, not less than 20, so stable_agent."),
+                    ("req-004", "bucket=21, routed to stable_agent."),
+                ],
+                "footer": "Canary rollout is reproducible controlled allocation, not a vague feeling.",
+                "alt": "Agent canary route result map: canary_ratio 0.2 creates a new-agent lane for buckets below 20, so req-001 and req-002 route to new_agent while req-003 and req-004 stay on stable_agent.",
+            },
+            "ja": {
+                "title": "Canary ルート結果の読み方",
+                "subtitle": "canary_ratio=0.2 は bucket 0-19 を new_agent、残りを stable_agent に送る。",
+                "items": [
+                    ("しきい値", "0.2 * 100 = 20。条件は bucket < 20。"),
+                    ("式", "bucket = sum(ord(c)) % 100。"),
+                    ("req-001", "bucket=18 なので new_agent。"),
+                    ("req-002", "bucket=19 なので new_agent。"),
+                    ("req-003", "bucket=20 は 20 未満ではないので stable_agent。"),
+                    ("req-004", "bucket=21 なので stable_agent。"),
+                ],
+                "footer": "Canary は感覚ではなく、再現できる制御された traffic allocation。",
+                "alt": "Agent canary ルート結果図：canary_ratio 0.2 により bucket が20未満の通路だけが new_agent となり、req-001 と req-002 は new_agent、req-003 と req-004 は stable_agent に残る。",
+            },
+        },
+    },
+    {
         "slug": "ch09-agent-cache-savings-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
@@ -20069,6 +20124,129 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch09-canary-route-bucket-result-map.png": """
+生成一张 9:16 竖版简体中文教学位图，用于第 9 章 9.9.6 Agent 生产最佳实践中的灰度路由实验。
+这是 AI 直接生成的最终图片。不要本地叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码密集贴满画面。
+
+教学目标：读者先看图就能理解 route_request(request_id, canary_ratio=0.2) 的四行 print 结果为什么是：req-001 和 req-002 进入 new_agent，req-003 和 req-004 留在 stable_agent。必须解释 bucket 计算、20% 阈值和边界条件 bucket < 20。
+
+统一风格：深色发布控制室 / traffic routing 工作台，和前一张 readiness 图风格协调，但画面重点是路由轨道和 bucket 尺。中英日三版必须同构：同一镜头、同一上下顺序、同一 request 顺序、同一颜色节奏。画面要漂亮，但每个物件必须帮助学习。
+
+固定版式：
+1. 顶部标题“灰度路由结果怎么看”，副标题“canary_ratio=0.2：bucket 0-19 进入 new_agent，其余留在 stable_agent。”
+2. 上方画一条 0-99 的 bucket 尺。0-19 是绿色 new_agent 区，20-99 是蓝色 stable_agent 区。在 20 位置放一条明显边界线，写“条件是 bucket < 20，不是 <= 20”。
+3. 中间是公式机器，只显示：bucket = sum(ord(c)) % 100；threshold = 20。
+4. 下方四张请求卡，必须按顺序显示：
+   - req-001 -> bucket=18 -> new_agent
+   - req-002 -> bucket=19 -> new_agent
+   - req-003 -> bucket=20 -> stable_agent
+   - req-004 -> bucket=21 -> stable_agent
+5. 底部决策带：灰度发布 = 可复现的受控流量分配；stable_agent 保留兜底。
+
+只使用这些大而清楚的文字：
+灰度路由结果怎么看
+canary_ratio=0.2：bucket 0-19 进入 new_agent，其余留在 stable_agent
+bucket = sum(ord(c)) % 100
+threshold = 20
+bucket < 20
+不是 <= 20
+req-001 bucket=18 new_agent
+req-002 bucket=19 new_agent
+req-003 bucket=20 stable_agent
+req-004 bucket=21 stable_agent
+0-19 新版本
+20-99 稳定版本
+灰度不是随机感觉，而是可复现的受控流量分配。
+
+准确性规则：
+- 只能显示这四个 request_id、这四个 bucket 值、这四个输出，不能改数字。
+- req-003 的 bucket=20 必须进入 stable_agent，因为条件是 < 20。
+- 不要添加 A/B 统计、随机抽样、地域、用户画像、百分比图表、额外请求、团队、人名、日期、产品 logo。
+- 中文说明必须是自然简体中文。除 Agent、canary_ratio、bucket、request_id、route_request、ord、new_agent、stable_agent 等代码/术语外，不要英文说明句、日文、乱码、小字或无关背景文字。
+""".strip(),
+    "ch09-canary-route-bucket-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 9 section 9.9.6 Agent Production Best Practices.
+This is the final AI-generated image. Do not rely on local text overlay. Do not imitate SVG. Do not make a white rounded-box infographic, pure flowchart, terminal screenshot, dense Python code poster, or decorative dashboard.
+
+Teaching goal: before reading the code, the learner should understand why route_request(request_id, canary_ratio=0.2) prints req-001 and req-002 as new_agent, while req-003 and req-004 stay on stable_agent. The image must teach bucket calculation, the 20% threshold, and the boundary condition bucket < 20.
+
+Unified style: a dark release control room / traffic routing workbench, visually compatible with the preceding readiness image, but focused on route lanes and a bucket ruler. The Simplified Chinese, English, and Japanese versions must keep the same camera angle, vertical order, request order, object positions, and color rhythm.
+
+Fixed layout:
+1. Top title "Reading Canary Route Results" and subtitle "canary_ratio=0.2: buckets 0-19 go to new_agent; the rest stay on stable_agent."
+2. Upper section is a 0-99 bucket ruler. 0-19 is a green new_agent zone, 20-99 is a blue stable_agent zone. Put a clear boundary line at 20 and label it "bucket < 20, not <= 20".
+3. Middle formula machine shows only: bucket = sum(ord(c)) % 100; threshold = 20.
+4. Lower section has exactly four request cards in order:
+   - req-001 -> bucket=18 -> new_agent
+   - req-002 -> bucket=19 -> new_agent
+   - req-003 -> bucket=20 -> stable_agent
+   - req-004 -> bucket=21 -> stable_agent
+5. Bottom decision strip: canary rollout = reproducible controlled traffic allocation; stable_agent remains the fallback.
+
+Use only these large readable teaching texts:
+Reading Canary Route Results
+canary_ratio=0.2: buckets 0-19 go to new_agent; the rest stay on stable_agent
+bucket = sum(ord(c)) % 100
+threshold = 20
+bucket < 20
+not <= 20
+req-001 bucket=18 new_agent
+req-002 bucket=19 new_agent
+req-003 bucket=20 stable_agent
+req-004 bucket=21 stable_agent
+0-19 new version
+20-99 stable version
+Canary rollout is reproducible controlled allocation, not a vague feeling.
+
+Accuracy rules:
+- Show only these four request_ids, four bucket values, and four outputs. Do not change the numbers.
+- req-003 with bucket=20 must route to stable_agent because the condition is < 20.
+- Do not add A/B statistics, random sampling, regions, personas, extra requests, teams, people, dates, product logos, or unrelated metrics.
+- All explanatory text must be natural English. Do not include Chinese, Japanese, gibberish, tiny background text, unrelated labels, or brand logos.
+""".strip(),
+    "ch09-canary-route-bucket-result-map-ja.png": """
+第 9 章 9.9.6「Agent 本番環境のベストプラクティス」で使う、縦長 9:16 の日本語教材ビットマップを 1 枚生成してください。
+これは AI が直接生成する最終画像です。ローカル文字重ね、SVG、白い角丸ボックスのインフォグラフィック、ただのフローチャート、ターミナル画面、Python コードを密に貼ったポスター、装飾だけの dashboard は禁止です。
+
+教材の目的：コードを読む前に、route_request(request_id, canary_ratio=0.2) の print 結果で、req-001 と req-002 が new_agent、req-003 と req-004 が stable_agent になる理由を理解できるようにする。bucket 計算、20% のしきい値、bucket < 20 という境界条件を説明する。
+
+統一スタイル：暗い release control room / traffic routing workbench。直前の readiness 図と雰囲気を合わせつつ、route lane と bucket ruler を主役にする。中国語版・英語版・日本語版は、同じカメラ角度、同じ縦の順序、同じ request 順序、同じ物体配置、同じ配色にする。
+
+固定レイアウト：
+1. 上部タイトル「Canary ルート結果の読み方」、サブタイトル「canary_ratio=0.2：0-19 は新バージョン、20-99 は安定バージョン。」
+2. 上部に 0-99 の bucket ruler。0-19 は緑の新バージョン zone、20-99 は青の安定バージョン zone。20 の位置に明確な境界線を置き、「bucket < 20、<= 20 ではない」と書く。
+3. 中央の式マシンには、bucket = sum(ord(c)) % 100；threshold = 20 だけを表示。
+4. 下部に4つの request card を必ずこの順序で表示：
+   - req-001 -> bucket=18 -> new_agent
+   - req-002 -> bucket=19 -> new_agent
+   - req-003 -> bucket=20 -> stable_agent
+   - req-004 -> bucket=21 -> stable_agent
+5. 最下部の判断帯：Canary = 再現できる制御されたトラフィック配分；stable_agent を fallback として残す。
+
+画像内の文字は少なく大きく、次の教材文字を使う：
+Canary ルート結果の読み方
+canary_ratio=0.2：0-19 は新バージョン、20-99 は安定バージョン
+bucket = sum(ord(c)) % 100
+threshold = 20
+bucket < 20
+<= 20 ではない
+req-001 bucket=18 new_agent
+req-002 bucket=19 new_agent
+req-003 bucket=20 stable_agent
+req-004 bucket=21 stable_agent
+0-19 新バージョン
+20-99 安定バージョン
+Canary は感覚ではなく、再現できる制御されたトラフィック配分。
+
+正確性ルール：
+- この4つの request_id、この4つの bucket 値、この4つの出力だけを表示する。数字を変えない。
+- bucket=20 の req-003 は必ず stable_agent。条件が < 20 だから。
+- A/B 統計、random sampling、地域、persona、追加 request、team、人名、日付、product logo、無関係な metrics を入れない。
+- 説明文は自然な日本語にする。Agent、canary_ratio、bucket、request_id、route_request、ord、new_agent、stable_agent などの code/technical token はそのままでよい。中国語、英語の説明文、文字化け、小さすぎる背景文字、無関係な label、brand logo は禁止です。
+- コード用語は一字一句正確に描く。特に request card と最下部に出す stable_agent を stable_agento、stable agent、stable-agent、stable_agnet のように変形しない。new_agent も同様に変形しない。
+- サブタイトルと bucket ruler の領域名では stable_agent を使わず、「安定バージョン」と書く。new_agent も領域名では使わず、「新バージョン」と書く。
+- 背景の小さな英語 UI 文字やダミーテキストは入れない。読ませる文字は上のリストだけにする。
+""".strip(),
     "ch09-production-readiness-check-result-map.png": """
 生成一张 9:16 竖版简体中文教学位图，用于第 9 章 9.9.6 Agent 生产最佳实践中的 readiness_check 实验。
 这是 AI 直接生成的最终图片。不要本地叠字，不要 SVG，不要白底圆角框信息图，不要纯流程图，不要终端截图，不要把 Python 字典原样密集贴满画面。
