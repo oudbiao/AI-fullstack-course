@@ -121,6 +121,8 @@ print(pipeline)
 
 可以把它当作检查清单。任何一环太弱，最终数字人都会显得不可信，即使其他环节都能跑通。
 
+![数字人 pipeline list 运行结果图](/img/course/ch12-digital-human-pipeline-list-result-map.webp)
+
 这个简单列表最重要的作用是让你看到：
 
 > 数字人不是一个单一黑盒，而是一个链路系统。

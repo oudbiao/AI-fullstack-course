@@ -14683,6 +14683,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-digital-human-pipeline-list-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch03-video-gen/03-digital-human.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/03-digital-human.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/03-digital-human.md",
+        },
+        "scene": "A Chapter 12 digital-human run-result teaching image based on the exact Python list output pipeline = ['text', 'tts', 'lip_sync', 'avatar_render']. The image must teach that the printed list is a four-stage production pipeline, not a single black-box video model. Do not invent extra modules, APIs, vendors, recording studios, complex metrics, model names, dashboards, terminal screenshots, or a decorative avatar poster. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code tokens; Japanese image uses natural Japanese helper labels except exact code tokens. Exact code/data tokens may stay as code: pipeline, text, tts, lip_sync, avatar_render, TTS, avatar.",
+        "chapter_context": "Inserted after the expected output of the pipeline list example in 12.3.4 Digital Human Technology. Nearby prose says to treat the list as a checklist: if any stage is weak, the final digital human feels less believable. The illustration should make the print output readable as a stage-by-stage production line.",
+        "shared_layout": "Vertical 9:16. Use a polished semi-realistic dark digital-human production bench, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative person portrait. Top title and subtitle. Four stacked or stepped stations follow the exact list order: text script card -> TTS voice waveform/speaker -> lip_sync mouth-motion rig -> avatar_render final screen. Each station has one concrete artifact and one short localized label explaining what that stage decides. A small left-side print-output strip shows ['text', 'tts', 'lip_sync', 'avatar_render'] being read as a checklist. Bottom warning band shows that a weak stage breaks believability. Keep station order, object positions, colors, reading path, output avatar screen, and warning band identical across zh/en/ja. Use large sparse localized labels attached to concrete objects. Avoid dense paragraphs, tiny fake text, random non-locale text, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond exact code tokens.",
+        "variants": {
+            "zh": {
+                "title": "pipeline 不是黑盒",
+                "subtitle": "text -> tts -> lip_sync -> avatar_render 是数字人的检查清单。",
+                "items": [
+                    ("text", "先决定要说什么。"),
+                    ("tts", "把脚本变成语音。"),
+                    ("lip_sync", "让嘴型跟上声音。"),
+                    ("avatar_render", "把角色渲染成视频画面。"),
+                    ("检查重点", "任何一环弱，整体都会不可信。"),
+                ],
+                "footer": "把 list 当成四个工位，而不是一行 print。",
+                "alt": "数字人 pipeline list 运行结果图：text、tts、lip_sync、avatar_render 不是普通字符串列表，而是数字人从脚本到语音、口型再到角色渲染的四个检查工位。",
+            },
+            "en": {
+                "title": "Read the Pipeline List",
+                "subtitle": "text -> tts -> lip_sync -> avatar_render is the digital-human checklist.",
+                "items": [
+                    ("text", "Decides what to say."),
+                    ("tts", "Turns the script into speech."),
+                    ("lip_sync", "Keeps the mouth matched to audio."),
+                    ("avatar_render", "Renders the character into video frames."),
+                    ("check", "One weak stage breaks believability."),
+                ],
+                "footer": "Read the list as four workstations, not just one print line.",
+                "alt": "Digital human pipeline list result map: text, tts, lip_sync, and avatar_render are not just strings, but four checklist stages from script to speech, mouth motion, and final character rendering.",
+            },
+            "ja": {
+                "title": "pipeline を連鎖で読む",
+                "subtitle": "text -> tts -> lip_sync -> avatar_render はデジタルヒューマンの確認リスト。",
+                "items": [
+                    ("text", "何を話すかを決める。"),
+                    ("tts", "台本を音声に変える。"),
+                    ("lip_sync", "口の動きを音声に合わせる。"),
+                    ("avatar_render", "キャラクターを動画 frame に描く。"),
+                    ("確認点", "1つ弱い段階があると不自然になる。"),
+                ],
+                "footer": "list を1行の print ではなく、4つの工位として読む。",
+                "alt": "デジタルヒューマン pipeline list の実行結果図：text、tts、lip_sync、avatar_render は単なる文字列ではなく、台本から音声、口形、キャラクターレンダリングへ進む4つの確認段階である。",
+            },
+        },
+    },
+    {
         "slug": "ch12-creative-platform-asset-bundle-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
@@ -21533,6 +21585,78 @@ Every label must sit near the object it explains, with large readable text suita
 7. 下部の短文は完全に：「制御つまみを読んでから、TTS 出力を聞く。」
 
 文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、密集したコード、音声クローン、録音マイク、音楽制作ソフト画面、無関係な装飾は禁止。
+""".strip(),
+    "ch12-digital-human-pipeline-list-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.3.4 数字人技术中 pipeline 列表代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮数字人头像。
+
+可见标题必须完全写为：“pipeline 不是黑盒”
+可见副标题必须完全写为：“text -> tts -> lip_sync -> avatar_render 是数字人的检查清单。”
+
+教学目标：读者先看图就能理解 print 输出的 ['text', 'tts', 'lip_sync', 'avatar_render'] 不是普通字符串列表，而是数字人从脚本到语音、口型再到最终画面的四个工位。重点是：任何一环太弱，最终数字人都会不可信。
+
+三语版本必须同构：同一个半写实深色 digital-human production bench、同一条左侧 print-output 小条、同样四个工位、同样最终 avatar 视频画面、同样底部故障提示。中文图只能用自然中文解释，允许保留这些代码/技术词：pipeline、text、tts、lip_sync、avatar_render、TTS、avatar。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 左侧竖向小条显示 print 输出，把四个 token 分成四行写清楚：'text'、'tts'、'lip_sync'、'avatar_render'，旁边短标：“把 list 当检查清单”。重要拼写约束：avatar_render 必须是一个完整 token，中间只有下划线，绝对不要写成 avatar, render、avatar render、avatar-rander 或 avata_render。
+3. 主体从上到下或阶梯式画四个真实工位，顺序必须是：
+   text：脚本卡，写“说什么”
+   tts：声波和 speaker，写“变成语音”
+   lip_sync：嘴型轨道和音频节拍对齐，写“嘴型跟上”
+   avatar_render：角色预览屏，写“渲染视频”
+4. 四个工位之间用清楚的能量线或轨道连接，但不要画成简单白底流程框。
+5. 底部警示带必须写：“一环弱，整体就不可信。”
+6. 底部短句必须完全写为：“把 list 当成四个工位，而不是一行 print。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、密集代码、复杂仪表盘、录音棚照片或无关装饰。
+""".strip(),
+    "ch12-digital-human-pipeline-list-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.3.4 Digital Human Technology, the pipeline list result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no Python-code poster, and no decorative avatar-only portrait.
+
+Visible title exactly: “Read the Pipeline List”
+Visible subtitle exactly: “text -> tts -> lip_sync -> avatar_render is the digital-human checklist.”
+
+Teaching goal: the learner should understand why the printed output ['text', 'tts', 'lip_sync', 'avatar_render'] is not just a list of strings. It is a four-workstation production path from script to speech, mouth motion, and final rendered character video. The key point is that one weak stage can make the whole digital human feel unbelievable.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark digital-human production bench, the same left-side print-output strip, the same four workstations, the same final avatar video screen, and the same bottom failure warning. Use natural English. Code/technical tokens must be spelled exactly where useful: pipeline, text, tts, lip_sync, avatar_render, TTS, avatar.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Left vertical mini strip shows the print output clearly: “['text', 'tts', 'lip_sync', 'avatar_render']”, with the nearby label: “read list as checklist”.
+3. Main body shows four realistic workstations from top to bottom or in a stepped path, exactly in this order:
+   text: script card, label “what to say”
+   tts: waveform and speaker, label “turn into speech”
+   lip_sync: mouth-shape track aligned with audio beats, label “mouth keeps up”
+   avatar_render: character preview screen, label “render video”
+4. Connect the four workstations with a clear glowing track or energy line, but do not make simple white flowchart boxes.
+5. Bottom warning band must say: “one weak stage breaks believability”.
+6. Bottom sentence exactly: “Read the list as four workstations, not just one print line.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, dense code, complex dashboards, recording-studio photos, or unrelated decoration.
+""".strip(),
+    "ch12-digital-human-pipeline-list-result-map-ja.png": """
+第12章 12.3.4 デジタルヒューマン技術にある pipeline list の実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードのポスター、ただのきれいな avatar 肖像は禁止。
+
+可視タイトルは完全に：「pipeline を連鎖で読む」
+可視サブタイトルは完全に：「text -> tts -> lip_sync -> avatar_render はデジタルヒューマンの確認リスト。」
+
+学習目標：print 出力の ['text', 'tts', 'lip_sync', 'avatar_render'] が単なる文字列 list ではないと一目で理解できるようにする。これは台本から音声、口形、最終的なキャラクター動画へ進む4つの工位である。重要なのは、1つの段階が弱いだけで全体が不自然になること。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 digital-human production bench、同じ左側 print-output 小帯、同じ4つの工位、同じ最終 avatar 動画画面、同じ下部の失敗警告。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：pipeline、text、tts、lip_sync、avatar_render、TTS、avatar。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 左側の縦長小帯に print 出力をはっきり書く：「['text', 'tts', 'lip_sync', 'avatar_render']」、横に短く「list を確認リストとして読む」。
+3. 主体は上から下、または階段状に4つの実物感ある工位を描く。順序は必ず：
+   text：台本カード、「何を話すか」
+   tts：波形と speaker、「音声に変える」
+   lip_sync：音声拍に合った口形トラック、「口が追従」
+   avatar_render：キャラクターのプレビュー画面、「動画を描く」
+4. 4つの工位を光る軌道やエネルギー線でつなぐ。ただし白い単純なフローチャート箱にはしない。
+5. 下部の警告帯には必ず：「1つ弱い段階があると不自然になる」
+6. 下部の短文は完全に：「list を1行の print ではなく、4つの工位として読む。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、密集したコード、複雑な dashboard、録音スタジオ写真、無関係な装飾は禁止。
 """.strip(),
     "ch12-multimodal-feature-fusion-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.1 多模态基础中“融合”NumPy 例子的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要泛泛画“多模态很酷”。

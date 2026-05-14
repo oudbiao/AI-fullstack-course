@@ -121,6 +121,8 @@ Expected output:
 
 Treat this as a checklist. If any stage is weak, the final digital human will feel less believable even if the other stages work.
 
+![Digital human pipeline list result map](/img/course/ch12-digital-human-pipeline-list-result-map-en.webp)
+
 The most important thing about this simple list is that it lets you see:
 
 > A digital human is not a single black box, but a chain system.
