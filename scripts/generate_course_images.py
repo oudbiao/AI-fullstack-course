@@ -18281,6 +18281,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-vlm-question-type-router-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+        },
+        "scene": "A Chapter 12 VLM run-result teaching image based on the exact minimal question-type classifier code. The image must teach that a vision-language system should first identify what kind of question the user is asking before choosing which visual facts to use. Show exactly three question cards and exactly three output route tags from the code: Does this image have text? -> attribute_check; What is the topic? -> semantic_qa; Does this look like a UI screenshot? -> classification_judgement. For Chinese and Japanese variants use the localized question strings from the localized pages while keeping the same three route tags. Do not include image-text retrieval scores, do not invent answer text, do not draw a generic VLM architecture, do not use terminal screenshots, and do not show a pure text poster.",
+        "chapter_context": "The image is inserted after the expected output of the minimal first-identify-the-task-type example in 12.1.3 Vision-Language Models. Nearby prose says the image record provides visual facts, while the user question decides which fact should be used. The illustration should make the print output readable as a question-intent router.",
+        "shared_layout": "Vertical 9:16. Use a polished dark vision-language triage desk or routing board, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative AI poster. Top title and subtitle. Upper station shows one shared image-evidence card with three possible fact shelves: text present, topic, screenshot-like category. Middle station shows three question cards entering a VLM question router. Each lane highlights the trigger words, then exits to one of three route badges: attribute_check, semantic_qa, classification_judgement. Lower station shows what each route will look for in the image record: attribute_check checks a property, semantic_qa reads topic meaning, classification_judgement judges visual category. Bottom receipt repeats exactly the three printed mappings. Keep lane order, route colors, evidence shelves, receipt position, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete objects. Avoid dense paragraphs, tiny fake text, random non-locale text, extra English explanation in zh/ja variants beyond exact code tokens, and any route or question not in the code.",
+        "variants": {
+            "zh": {
+                "title": "先判断 VLM 问题类型",
+                "subtitle": "同一张图，不同问法会走不同取证路线。",
+                "items": [
+                    ("这张图有没有文字？", "触发属性检查 -> attribute_check。"),
+                    ("主题是什么？", "触发语义问答 -> semantic_qa。"),
+                    ("这像不像界面截图？", "触发类别判断 -> classification_judgement。"),
+                    ("取证点", "先判问题类型，再选择图片事实。"),
+                    ("排错线索", "答错时先看 route 是否选错。"),
+                ],
+                "footer": "VLM 不只是看图，还要先听懂用户在问哪一类问题。",
+                "alt": "VLM 问题类型路由运行结果图：这张图有没有文字路由到 attribute_check，主题是什么路由到 semantic_qa，这像不像界面截图路由到 classification_judgement。",
+            },
+            "en": {
+                "title": "Identify the VLM Question Type First",
+                "subtitle": "The same image can need different evidence paths for different questions.",
+                "items": [
+                    ("Does this image have text?", "property check -> attribute_check."),
+                    ("What is the topic?", "semantic question -> semantic_qa."),
+                    ("Does this look like a UI screenshot?", "category judgement -> classification_judgement."),
+                    ("evidence choice", "Classify the question before selecting image facts."),
+                    ("debug clue", "When answers are wrong, check whether the route was wrong first."),
+                ],
+                "footer": "A VLM must not only see the image; it must understand what kind of question was asked.",
+                "alt": "VLM question type router result map: Does this image have text routes to attribute_check, What is the topic routes to semantic_qa, and Does this look like a UI screenshot routes to classification_judgement.",
+            },
+            "ja": {
+                "title": "VLM はまず質問タイプを判定する",
+                "subtitle": "同じ image でも、question によって使う evidence path が変わる。",
+                "items": [
+                    ("この画像に文字はありますか？", "属性チェック -> attribute_check。"),
+                    ("テーマは何ですか？", "意味の質問 -> semantic_qa。"),
+                    ("UIのスクリーンショットっぽいですか？", "カテゴリ判断 -> classification_judgement。"),
+                    ("evidence 選択", "質問タイプを判定してから image facts を選ぶ。"),
+                    ("debug clue", "答えが違う時は、まず route の選択を見る。"),
+                ],
+                "footer": "VLM は image を見るだけでなく、どの種類の question かを理解する。",
+                "alt": "VLM の question type router 実行結果図：この画像に文字はありますか は attribute_check、テーマは何ですか は semantic_qa、UIのスクリーンショットっぽいですか は classification_judgement に route される。",
+            },
+        },
+    },
+    {
         "slug": "ch12-sd-mode-output-comparison",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
@@ -21533,6 +21585,117 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-vlm-question-type-router-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.3 “视觉语言模型”里“先判断任务类型”示例的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮 VLM 海报。
+
+可见标题必须完全写为：“先判断 VLM 问题类型”
+可见副标题必须完全写为：“同一张图，不同问法会走不同取证路线。”
+
+教学目标：读者先看图就能理解三行 print 输出代表一个 VLM question router。VLM 不是直接回答所有问题，而是先判断用户问题属于哪一类，再去图片记录里选择对应事实。代码中的三条映射必须完全清楚：
+这张图有没有文字？ -> attribute_check
+主题是什么？ -> semantic_qa
+这像不像界面截图？ -> classification_judgement
+
+三语版本必须同构：同一个深色 vision-language triage desk，同一张 image evidence 卡，同样三个事实架，同样三个 question 卡，同样三条彩色路线，同样三个 route badge，同样底部 receipt。中文图只能用自然中文解释，允许保留这些代码/技术词：VLM、question、router、route、image、facts、attribute_check、semantic_qa、classification_judgement。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张 image evidence 卡，旁边有三个事实架，必须写中文标签：“是否有文字”、“主题含义”、“是否像界面截图”。
+3. 中间画一个 VLM question router 工作台，三个问题卡从左进入：
+   这张图有没有文字？
+   主题是什么？
+   这像不像界面截图？
+4. 每条路线要高亮触发词：有没有文字、主题、像不像。
+5. 三条路线分别输出到三个大 badge，必须写：
+   attribute_check
+   semantic_qa
+   classification_judgement
+6. 每个 badge 下方放一句中文解释：
+   attribute_check：检查某个属性是否存在
+   semantic_qa：读取图像主题含义
+   classification_judgement：判断视觉类别
+7. 底部 receipt 必须逐行清楚写：
+   这张图有没有文字？ -> attribute_check
+   主题是什么？ -> semantic_qa
+   这像不像界面截图？ -> classification_judgement
+8. 底部短句必须完全写为：“VLM 不只是看图，还要先听懂用户在问哪一类问题。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文解释、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、图文检索分数、答案文本、复杂 dashboard、终端界面、密集代码或无关装饰。
+""".strip(),
+    "ch12-vlm-question-type-router-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.1.3 “Vision-Language Models”, the “first identify the task type” code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no Python-code poster, and no decorative VLM poster.
+
+Visible title exactly: “Identify the VLM Question Type First”
+Visible subtitle exactly: “The same image can need different evidence paths for different questions.”
+
+Teaching goal: the learner should understand that the three print lines form a VLM question router. The VLM should not answer every question the same way. It first identifies the type of user question, then selects the matching visual facts from the image record. The three mappings from the code must be completely clear:
+Does this image have text? -> attribute_check
+What is the topic? -> semantic_qa
+Does this look like a UI screenshot? -> classification_judgement
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same dark vision-language triage desk, the same image evidence card, the same three evidence shelves, the same three question cards, the same three colored routes, the same three route badges, and the same bottom receipt. Use natural English. Code/technical tokens must be spelled exactly where useful: VLM, question, router, route, image, facts, attribute_check, semantic_qa, classification_judgement.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one image evidence card with three evidence shelves labeled: text presence, topic meaning, screenshot-like category.
+3. Middle area shows a VLM question router workbench. Three question cards enter from the left:
+   Does this image have text?
+   What is the topic?
+   Does this look like a UI screenshot?
+4. Each route highlights its trigger words: have text, topic, look like.
+5. The three routes output to three large badges, exactly:
+   attribute_check
+   semantic_qa
+   classification_judgement
+6. Under each badge, add one short English explanation:
+   attribute_check: check whether a property exists
+   semantic_qa: read topic meaning from the image
+   classification_judgement: judge the visual category
+7. Bottom receipt must clearly show:
+   Does this image have text? -> attribute_check
+   What is the topic? -> semantic_qa
+   Does this look like a UI screenshot? -> classification_judgement
+8. Bottom sentence exactly: “A VLM must not only see the image; it must understand what kind of question was asked.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, image-retrieval scores, answer text, complex dashboards, terminal UI, dense code, or unrelated decoration.
+""".strip(),
+    "ch12-vlm-question-type-router-result-map-ja.png": """
+第12章 12.1.3「視覚言語モデル」にある「まずタスク種類を判断する」コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードのポスター、ただのきれいな VLM ポスターは禁止。
+
+可視タイトルは完全に：「VLM はまず質問タイプを判定する」
+可視サブタイトルは完全に：「同じ image でも、question によって使う evidence path が変わる。」
+
+学習目標：3行の print 出力が VLM question router を表していることを一目で理解できるようにする。VLM はすべての質問に同じように答えるのではなく、まずユーザーの question type を判定し、その後 image record から対応する facts を選ぶ。コードの3つの対応を必ず明確に示す：
+この画像に文字はありますか？ -> attribute_check
+テーマは何ですか？ -> semantic_qa
+UIのスクリーンショットっぽいですか？ -> classification_judgement
+
+中国語版、英語版、日本語版は同じ構造にする：同じ暗色 vision-language triage desk、同じ image evidence カード、同じ3つの evidence 棚、同じ3つの question カード、同じ3本の色付き route、同じ3つの route badge、同じ下部 receipt。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：VLM、question、router、route、image、facts、attribute_check、semantic_qa、classification_judgement。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に image evidence カードを1枚描き、横に3つの evidence 棚を置く。日本語ラベルは必ず：「文字の有無」、「テーマの意味」、「UIらしさ」。
+3. 中央に VLM question router の作業台を描く。左から3枚の question カードが入る：
+   この画像に文字はありますか？
+   テーマは何ですか？
+   UIのスクリーンショットっぽいですか？
+4. 各 route で trigger 語を強調する：文字、テーマ、スクリーンショットっぽい。
+5. 3本の route は3つの大きな badge に出る。必ず書く：
+   attribute_check
+   semantic_qa
+   classification_judgement
+6. 各 badge の下に短い日本語説明を置く：
+   attribute_check：属性があるかを見る
+   semantic_qa：画像のテーマ意味を読む
+   classification_judgement：視覚カテゴリを判断する
+7. 下部 receipt には必ず3行を明確に書く：
+   この画像に文字はありますか？ -> attribute_check
+   テーマは何ですか？ -> semantic_qa
+   UIのスクリーンショットっぽいですか？ -> classification_judgement
+8. 下部の短文は完全に：「VLM は image を見るだけでなく、どの種類の question かを理解する。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、画像検索スコア、回答文、複雑な dashboard、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
     "ch12-asset-parent-version-lineage-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.5.2 “创意平台”里最小版本管理示例的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只是漂亮资产管理海报。
 

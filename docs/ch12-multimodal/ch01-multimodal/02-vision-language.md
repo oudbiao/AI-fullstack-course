@@ -297,6 +297,8 @@ What is the topic? -> semantic_qa
 Does this look like a UI screenshot? -> classification_judgement
 ```
 
+![VLM question type router result map](/img/course/ch12-vlm-question-type-router-result-map-en.webp)
+
 This example is great for beginners because it reminds you:
 
 - A vision-language system also needs to first judge what kind of question the user is asking

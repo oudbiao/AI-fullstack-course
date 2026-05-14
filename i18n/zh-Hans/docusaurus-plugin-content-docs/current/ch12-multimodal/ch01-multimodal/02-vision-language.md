@@ -297,6 +297,8 @@ for question in ["这张图有没有文字？", "主题是什么？", "这像不
 这像不像界面截图？ -> classification_judgement
 ```
 
+![VLM 问题类型路由运行结果图](/img/course/ch12-vlm-question-type-router-result-map.webp)
+
 这个示例很适合初学者，因为它会提醒你：
 
 - 视觉语言系统也需要先判断用户到底在问哪一类问题
