@@ -248,6 +248,8 @@ Expected output:
 {'messages': [{'role': 'user', 'content': 'I want to check the refund policy'}, {'role': 'assistant', 'content': 'Are you more concerned about the time limit or the conditions?'}, {'role': 'user', 'content': 'First, let’s look at the time limit'}], 'state': {'goal': 'Determine refund eligibility', 'topic': 'refund policy'}}
 ```
 
+![Short-term memory snapshot result map](/img/course/ch09-short-term-memory-snapshot-result-map-en.webp)
+
 ### What Makes This Example Better Than “Just Storing Message History”?
 
 Because it splits short-term memory into two layers:

@@ -15983,6 +15983,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-short-term-memory-snapshot-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch04-memory/02-short-term-memory.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch04-memory/02-short-term-memory.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch04-memory/02-short-term-memory.md",
+        },
+        "scene": "A runnable-result teaching visual for the ShortTermMemory.snapshot() example. It must explain the exact behavior of the code, not a generic memory poster. Show ShortTermMemory(max_messages=3) receiving three add_message calls, update_state adding goal and topic, and snapshot returning a two-layer package: messages plus state. Show the message window as recent chat cards retained verbatim, and show the state drawer separately with goal and topic. Teaching point: short-term memory is a compact working package for the current task; recent messages preserve local conversation detail while structured state preserves task intent. Use the exact values from the code example for each locale. Critical accuracy: the three message roles are user, assistant, user in that order; do not label all cards as user. Spell these words correctly when used: these, messages, snapshot, ShortTermMemory, max_messages, update_state. Do not show invented refund rules, deadlines, percentages, external tools, databases, long terminal logs, full dictionaries, or policy details. Avoid making it look like long-term memory or vector search.",
+        "chapter_context": "The image is inserted immediately after the expected output of the ShortTermMemory manager example in 9.4.3 Short-Term Memory. Nearby code defines add_message trimming messages to the last max_messages entries, update_state merging goal and topic, and snapshot returning {'messages': self.messages, 'state': self.state}. The following prose explains that this is stronger than only storing message history because it splits short-term memory into text context and structured state.",
+        "shared_layout": "Vertical 9:16. Use the same warm practical Agent notebook style across zh/en/ja: a small runtime desk, a three-slot message window, a state drawer, and a final snapshot folder. Top title and subtitle. Upper section: three chat cards enter ShortTermMemory(max_messages=3) in order, labeled role=user, role=assistant, role=user. Middle section: two operations are visible: add_message keeps exactly three recent cards, update_state writes goal and topic into a separate drawer. Lower section: snapshot() opens into two clearly separated compartments, messages with the three retained chat cards and state with goal plus topic. Bottom strip: recent messages + task state -> next Agent step. Keep card order, role order, values, object positions, colors, arrows, and reading path identical across languages. Use large localized labels attached to concrete objects. Code tokens that may stay English: ShortTermMemory, max_messages=3, add_message, update_state, snapshot(), messages, state, goal, topic, Agent. Avoid old SVG-style white rounded-box diagrams, pure text posters, terminal screenshots, dense dictionaries, tiny fake text, decorative brains, database vaults, vector search imagery, invented policy details, or extra output values.",
+        "variants": {
+            "zh": {
+                "title": "短期记忆 snapshot 怎么看",
+                "subtitle": "最近消息保留原文，任务状态单独保存。",
+                "items": [
+                    ("输入消息", "我想查退款政策 -> 你更关心时间范围还是条件？ -> 先看时间范围。"),
+                    ("消息窗口", "max_messages=3，所以 snapshot 只带这 3 条。"),
+                    ("状态更新", "update_state 写入 goal=判断退款资格，topic=退款政策。"),
+                    ("snapshot 输出", "messages 放聊天原文，state 放任务目标和主题。"),
+                    ("下一步", "Agent 继续回答时同时看到对话细节和任务意图。"),
+                ],
+                "footer": "短期记忆不是全量历史，而是当前任务需要的工作包。",
+                "alt": "短期记忆 snapshot 结果图：ShortTermMemory 保留三条最近消息，update_state 写入判断退款资格和退款政策，snapshot 输出 messages 与 state 两层。",
+            },
+            "en": {
+                "title": "Reading a Short-Term Memory Snapshot",
+                "subtitle": "Recent messages stay verbatim while task state is stored separately.",
+                "items": [
+                    ("input messages", "I want to check the refund policy -> time limit or conditions? -> First, time limit."),
+                    ("message window", "max_messages=3, so snapshot carries exactly these 3 turns."),
+                    ("state update", "update_state writes goal=Determine refund eligibility, topic=refund policy."),
+                    ("snapshot output", "messages keeps chat text; state keeps task goal and topic."),
+                    ("next step", "The Agent sees both conversation detail and task intent."),
+                ],
+                "footer": "Short-term memory is not the full history; it is the working package for the current task.",
+                "alt": "Short-term memory snapshot result map: ShortTermMemory keeps three recent messages, update_state writes Determine refund eligibility and refund policy, and snapshot outputs messages plus state.",
+            },
+            "ja": {
+                "title": "短期記憶 snapshot の読み方",
+                "subtitle": "直近メッセージは原文で残し、タスク状態は別に保持する。",
+                "items": [
+                    ("入力メッセージ", "返金ポリシーを調べたいです -> 期間の条件と条件？ -> まず期間の条件です。"),
+                    ("メッセージ窓", "max_messages=3 なので、snapshot はこの 3 件だけを持つ。"),
+                    ("状態更新", "update_state が goal=返金資格の判断、topic=返金ポリシー を書く。"),
+                    ("snapshot 出力", "messages は会話原文、state はタスク目標とテーマを保持。"),
+                    ("次の一手", "Agent は会話の細部とタスク意図を同時に見られる。"),
+                ],
+                "footer": "短期記憶は全履歴ではなく、現在のタスクに必要な作業パッケージ。",
+                "alt": "短期記憶 snapshot 結果図：ShortTermMemory が直近 3 件のメッセージを残し、update_state が返金資格の判断と返金ポリシーを書き、snapshot が messages と state を出力する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-tool-strategy-routing-execution-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch03-tools/03-tool-strategies.md",

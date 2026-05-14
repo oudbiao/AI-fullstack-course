@@ -248,6 +248,8 @@ print(memory.snapshot())
 {'messages': [{'role': 'user', 'content': '返金ポリシーを調べたいです'}, {'role': 'assistant', 'content': '期間の条件と条件のどちらが気になりますか？'}, {'role': 'user', 'content': 'まず期間の条件です'}], 'state': {'goal': '返金資格の判断', 'topic': '返金ポリシー'}}
 ```
 
+![短期記憶 snapshot 結果図](/img/course/ch09-short-term-memory-snapshot-result-map-ja.webp)
+
 ### この例が「履歴を保存するだけ」より強いのはなぜ？
 
 短期記憶を2層に分けているからです。

@@ -248,6 +248,8 @@ print(memory.snapshot())
 {'messages': [{'role': 'user', 'content': '我想查退款政策'}, {'role': 'assistant', 'content': '你更关心时间范围还是条件？'}, {'role': 'user', 'content': '先看时间范围'}], 'state': {'goal': '判断退款资格', 'topic': '退款政策'}}
 ```
 
+![短期记忆 snapshot 结果图](/img/course/ch09-short-term-memory-snapshot-result-map.webp)
+
 ### 这个例子真正比“只存历史消息”强在哪里？
 
 因为它把短期记忆拆成了两层：
