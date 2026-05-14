@@ -267,6 +267,8 @@ print("total_cost =", total_cost)
 total_cost = 0.004
 ```
 
+![Agent キャッシュ節約結果図](/img/course/ch09-agent-cache-savings-result-map-ja.webp)
+
 このコードはとてもシンプルですが、実際の開発で大事なことをよく表しています。
 
 - 頻繁に繰り返されるリクエストをキャッシュしないと、ずっとお金を使い続ける

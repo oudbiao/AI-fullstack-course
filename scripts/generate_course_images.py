@@ -16585,6 +16585,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-agent-cache-savings-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/04-cost-optimization.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/04-cost-optimization.md",
+        },
+        "scene": "A runnable-result teaching visual for the cache savings example in Agent cost optimization. It must explain exactly how four queries produce only two paid API calls and total_cost = 0.004, not draw a generic cache icon poster. Show the exact query order for each language: first repeated policy query is a cache miss and costs 0.002; second identical policy query is a cache hit and costs 0.0; certificate rules query is a different key so it is a miss and costs 0.002; final policy query is a hit and costs 0.0. Show the cache dictionary or cache drawer gaining two keys: refund policy / certificate rules in English, 退款政策 / 证书规则 in Chinese, 返金ポリシー / 証明書ルール in Japanese. Teaching point: caching saves repeated read-only lookups; it does not make new keys free. Do not invent extra queries, prices, TTLs, databases, users, APIs, model calls, latency charts, retry events, or any total other than 0.004.",
+        "chapter_context": "The image is inserted immediately after the expected output of cached_lookup() in 9.9.5 Cost Optimization. Nearby code initializes cache = {}, returns {'source': 'cache', 'cost': 0.0} for repeated queries, otherwise records the key and returns {'source': 'api', 'cost': 0.002}. The expected output has four lines and total_cost = 0.004. Nearby prose says high-frequency repeated requests burn money if you do not cache them.",
+        "shared_layout": "Vertical 9:16. Use the same practical request-counter / cache-workbench style across zh/en/ja. Top title and subtitle. Main body is a numbered four-step conveyor with request cards flowing into a cache drawer and then either a paid API meter or a free cache lane. Step 1: policy query -> MISS -> source=api -> cost 0.002 -> cache stores policy key. Step 2: same policy query -> HIT -> source=cache -> cost 0.0. Step 3: certificate rules query -> MISS because it is a new key -> source=api -> cost 0.002 -> cache stores certificate key. Step 4: policy query again -> HIT -> source=cache -> cost 0.0. Side or bottom receipt adds 0.002 + 0 + 0.002 + 0 = 0.004. Bottom insight strip: repeated read-only query -> cache hit -> no extra API cost; new key -> still paid once. Keep query order, hit/miss colors, numbers, cost math, and layout identical across languages. Code tokens that may stay English: Agent, cache, source=api, source=cache, cost, total_cost, HIT, MISS, cached_lookup. Use localized query text and localized explanation labels. Avoid tiny pseudo-text, terminal screenshots, old SVG-style rounded boxes, pure text posters, decorative cloud-only scenes, and unrelated English/Japanese text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "缓存节省结果怎么看",
+                "subtitle": "四次查询里只有两个新 key 需要付费，重复查询直接命中 cache。",
+                "items": [
+                    ("第 1 次", "退款政策 -> MISS -> source=api；cost=0.002。"),
+                    ("第 2 次", "退款政策 -> HIT -> source=cache；cost=0.0。"),
+                    ("第 3 次", "证书规则 -> 新 key，MISS；cost=0.002。"),
+                    ("第 4 次", "退款政策 -> HIT；cost=0.0。"),
+                    ("cache", "已保存：退款政策、证书规则。"),
+                    ("total_cost", "0.002 + 0 + 0.002 + 0 = 0.004。"),
+                ],
+                "footer": "缓存省的是重复只读查询；新问题第一次仍然要付一次成本。",
+                "alt": "Agent 缓存节省结果图：四次查询中退款政策第一次走 API、第二次和第四次走 cache，证书规则作为新 key 走 API，成本相加为 total_cost 0.004。",
+            },
+            "en": {
+                "title": "Reading Cache Savings",
+                "subtitle": "Four lookups create only two paid API calls because repeated keys hit cache.",
+                "items": [
+                    ("lookup 1", "refund policy -> MISS -> source=api; cost=0.002."),
+                    ("lookup 2", "refund policy -> HIT -> source=cache; cost=0.0."),
+                    ("lookup 3", "certificate rules -> new key, MISS; cost=0.002."),
+                    ("lookup 4", "refund policy -> HIT; cost=0.0."),
+                    ("cache", "stored keys: refund policy, certificate rules."),
+                    ("total_cost", "0.002 + 0 + 0.002 + 0 = 0.004."),
+                ],
+                "footer": "Caching saves repeated read-only lookups; a new key is still paid once.",
+                "alt": "Agent cache savings result map: four lookups make the first refund policy call use the API, the second and fourth refund policy calls hit cache, certificate rules is a new key and uses the API, and total_cost is 0.004.",
+            },
+            "ja": {
+                "title": "キャッシュ節約結果の読み方",
+                "subtitle": "4回の検索でも、有料 API 呼び出しは新しい key の2回だけになる。",
+                "items": [
+                    ("1回目", "返金ポリシー -> MISS -> source=api；cost=0.002。"),
+                    ("2回目", "返金ポリシー -> HIT -> source=cache；cost=0.0。"),
+                    ("3回目", "証明書ルール -> 新しい key なので MISS；cost=0.002。"),
+                    ("4回目", "返金ポリシー -> HIT；cost=0.0。"),
+                    ("cache", "保存済み key：返金ポリシー、証明書ルール。"),
+                    ("total_cost", "0.002 + 0 + 0.002 + 0 = 0.004。"),
+                ],
+                "footer": "キャッシュが節約するのは繰り返しの read-only 検索で、新しい key は一度だけ有料になる。",
+                "alt": "Agent キャッシュ節約結果図：4回の検索で返金ポリシーの1回目は API、2回目と4回目は cache、証明書ルールは新しい key として API を使い、total_cost は 0.004 になる。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",

@@ -266,6 +266,8 @@ refund policy -> {'source': 'cache', 'cost': 0.0}
 total_cost = 0.004
 ```
 
+![Agent cache savings result map](/img/course/ch09-agent-cache-savings-result-map-en.webp)
+
 Although this code is simple, it already reflects one core fact in real engineering:
 
 - If you do not cache high-frequency repeated requests, you will keep burning money

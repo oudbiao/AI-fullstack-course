@@ -266,6 +266,8 @@ print("total_cost =", total_cost)
 total_cost = 0.004
 ```
 
+![Agent 缓存节省结果图](/img/course/ch09-agent-cache-savings-result-map.webp)
+
 这段代码虽然简单，但已经非常接近真实工程的一个核心事实：
 
 - 高频重复请求不做缓存，会持续烧钱
