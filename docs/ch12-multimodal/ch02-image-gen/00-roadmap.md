@@ -57,6 +57,8 @@ Expected output:
 }
 ```
 
+![Image generation prompt record result map](/img/course/ch12-image-prompt-record-result-map-en.webp)
+
 If you cannot reproduce the prompt record, you cannot reliably improve the image.
 
 ## Learn in This Order

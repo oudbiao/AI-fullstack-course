@@ -14628,6 +14628,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-image-prompt-record-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+        },
+        "scene": "A Chapter 12 image-generation roadmap run-result teaching image based on the exact prompt-record code. The image must teach how the printed JSON becomes a reusable image-production record, not show a generic prompt engineering poster. The code builds brief = {topic: RAG basics, audience: beginners, style: clean editorial cover}, then creates prompt = clean editorial cover for RAG basics, friendly visual metaphor for beginners, clear layout. The record stores mode=text-to-image, prompt, negative_prompt=blurry, watermark, unreadable text, seed=42, and review=[legibility, copyright, brand safety]. Teaching point: if you cannot reproduce mode, prompt, negative prompt, seed, and review checks, you cannot reliably improve the image. Do not invent model names, API vendors, costs, candidate images, extra parameters, camera settings, dashboards, dates, or reviewer scores. Do not draw a terminal screenshot or a pure JSON poster. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens. Exact code/data tokens may stay as code: brief, topic, audience, style, record, mode, prompt, negative_prompt, seed, review, text-to-image, RAG basics, beginners, clean editorial cover, blurry, watermark, unreadable text, legibility, copyright, brand safety.",
+        "chapter_context": "The image is inserted after the expected output of Build a Prompt Record in 12.2.1 Image Generation Roadmap. Nearby prose says image generation is a workflow, not a single prompt, and that the first habit is to log what was requested, which mode was used, which seed or parameters shaped the result, and what must be reviewed before export.",
+        "shared_layout": "Vertical 9:16. Use a polished paper production-board style with a real prompt worksheet, seed tag, negative-prompt hazard strip, review checklist stamps, and a small output cover mockup. Do not use old SVG information-box style, white rounded-box flowchart, pure text poster, terminal screenshot, or decorative gallery. Top title and subtitle. Upper station shows the brief card with exactly topic=RAG basics, audience=beginners, style=clean editorial cover. Middle station shows a prompt assembly table where these three fields combine into one prompt line. Right side shows a mode selector badge text-to-image and a seed tag 42. Lower station shows a negative_prompt hazard strip blocking blurry, watermark, unreadable text, then a three-item review checklist: legibility, copyright, brand safety. Bottom station shows one reusable record clipboard feeding a simple cover mockup and an improvement loop arrow. Keep the same board style, station order, field names, seed tag, checklist order, colors, and reading path identical across zh/en/ja. Use large sparse localized labels attached to the concrete cards, tags, and checklist. Avoid dense paragraphs, tiny fake text, random English in zh/ja variants beyond exact code/data tokens, and any parameter not printed by the code.",
+        "variants": {
+            "zh": {
+                "title": "把 JSON 输出读成提示词记录",
+                "subtitle": "可复现的图像生成，靠 record 而不是靠记忆。",
+                "items": [
+                    ("brief", "topic、audience、style 给 prompt 提供材料。"),
+                    ("prompt", "三段需求合成一条可复用提示词。"),
+                    ("mode", "text-to-image 说明这次从文本生成图像。"),
+                    ("seed", "seed=42 让同一设置更容易复盘。"),
+                    ("negative_prompt", "排除 blurry、watermark、unreadable text。"),
+                    ("review", "legibility、copyright、brand safety 是导出前检查。"),
+                ],
+                "footer": "没有 record，就很难稳定改图、比较候选图或复现结果。",
+                "alt": "图像生成 prompt record 运行结果图：brief 组合成 prompt，record 保存 mode、negative_prompt、seed 和 review 检查，用来复现和改进输出。",
+            },
+            "en": {
+                "title": "Read JSON Output as a Prompt Record",
+                "subtitle": "Reproducible image generation depends on the record, not memory.",
+                "items": [
+                    ("brief", "topic, audience, and style supply the prompt ingredients."),
+                    ("prompt", "Three requirements become one reusable prompt line."),
+                    ("mode", "text-to-image means this run starts from text."),
+                    ("seed", "seed=42 makes the same setup easier to inspect."),
+                    ("negative_prompt", "Block blurry, watermark, and unreadable text."),
+                    ("review", "legibility, copyright, and brand safety are export checks."),
+                ],
+                "footer": "Without a record, improving, comparing, or reproducing images becomes guesswork.",
+                "alt": "Image generation prompt record result map: brief fields combine into a prompt, while record stores mode, negative_prompt, seed, and review checks for reproducible improvement.",
+            },
+            "ja": {
+                "title": "JSON 出力を Prompt 記録として読む",
+                "subtitle": "再現できる画像生成は、記憶ではなく record で支える。",
+                "items": [
+                    ("brief", "topic、audience、style が prompt の材料になる。"),
+                    ("prompt", "3つの要件を 1本の再利用できる prompt にする。"),
+                    ("mode", "text-to-image はテキストから画像を作る run を示す。"),
+                    ("seed", "seed=42 は同じ設定を後で確認しやすくする。"),
+                    ("negative_prompt", "blurry、watermark、unreadable text を避ける。"),
+                    ("review", "legibility、copyright、brand safety は export 前の確認。"),
+                ],
+                "footer": "record がなければ、改善、比較、再現は勘に頼ることになる。",
+                "alt": "画像生成の Prompt record 実行結果図：brief の項目が prompt になり、record が mode、negative_prompt、seed、review チェックを保存して再現と改善に使う。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
@@ -20564,6 +20619,73 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-image-prompt-record-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.1 “建一个提示词记录”的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要终端截图，不要纯 JSON 海报。
+
+可见标题必须完全写为：“把 JSON 输出读成提示词记录”
+可见副标题必须完全写为：“可复现的图像生成，靠 record 而不是靠记忆。”
+
+教学目标：读者先看图就能理解 print 出来的 JSON 不是普通日志，而是一份可复现的图像生成 record：brief 里的 topic、audience、style 先合成 prompt；mode、negative_prompt、seed、review 决定如何复现、排除问题、导出前检查。
+
+三语版本必须同构：同一块竖向纸质制作板、同一阅读顺序、同一颜色节奏、同一物体位置。中文图只能用自然中文解释，允许保留这些代码/数据词：JSON、record、brief、topic、audience、style、prompt、mode、text-to-image、seed=42、negative_prompt、blurry、watermark、unreadable text、review、legibility、copyright、brand safety、RAG basics、beginners、clean editorial cover。除这些固定代码/数据词外，不要出现英文解释标签，尤其不要写 improvement loop；底部循环标签必须写“改进循环”。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方左侧是一张 brief 工作纸，清楚列出 topic=RAG basics、audience=beginners、style=clean editorial cover；旁边中文说明“给 prompt 提供材料”。
+3. 中部是 prompt 组装区，用三张材料卡合成一条 prompt：“clean editorial cover for RAG basics, friendly visual metaphor for beginners, clear layout”；旁边中文说明“三段需求合成一条可复用提示词”。
+4. 右侧是 mode 徽章 text-to-image 和 seed=42 吊牌；中文说明“从文本生成图像”“同一设置更容易复盘”。
+5. 下方是 negative_prompt 警示带，阻止 blurry、watermark、unreadable text；旁边中文说明“先排除常见坏结果”。
+6. 下方右侧是 review 检查清单：legibility、copyright、brand safety；盖章“检查通过”。
+7. 最底部是 record 剪贴板，保存 mode、prompt、negative_prompt、seed、review，并用箭头连到一张 RAG basics 封面小样；回环箭头标签必须是“改进循环”。
+8. 底部短句必须完全写为：“没有 record，就很难稳定改图、比较候选图或复现结果。”
+
+画面要像真实教学实验记录：纸张、便签、夹板、箭头、审核章、输出封面小样都要具体。每个文字必须贴近它解释的视觉对象，字号大、少而清楚。不要随机英文、不要乱码、不要小字段落、不要真实品牌 logo、不要增加模型名/API/价格/评分/日期。
+""".strip(),
+    "ch12-image-prompt-record-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.1 “Build a Prompt Record”. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no terminal screenshot, and no pure JSON poster.
+
+Visible title exactly: “Read JSON Output as a Prompt Record”
+Visible subtitle exactly: “Reproducible image generation depends on the record, not memory.”
+
+Teaching goal: the learner should understand that the printed JSON is a reusable image-generation record. The brief fields topic, audience, and style become a prompt; mode, negative_prompt, seed, and review make the run reproducible, inspectable, and safer before export.
+
+The Chinese, English, and Japanese versions must be structurally identical: same vertical paper production board, same reading order, same object positions, same color rhythm. Use natural English. Code/data tokens must appear exactly where useful: JSON, record, brief, topic, audience, style, prompt, mode, text-to-image, seed=42, negative_prompt, blurry, watermark, unreadable text, review, legibility, copyright, brand safety, RAG basics, beginners, clean editorial cover.
+Critical spelling rule: every visible parameter name must be exact. Write negative_prompt with an underscore every time; never write negative-prompt, negative prompt, or negativeprompt. Write seed=42 exactly, not seed-42. Keep JSON letters as J S O N, not J S 0 N.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper-left brief worksheet listing topic=RAG basics, audience=beginners, style=clean editorial cover; note: “supplies prompt ingredients”.
+3. Middle prompt assembly area where three material cards combine into one prompt: “clean editorial cover for RAG basics, friendly visual metaphor for beginners, clear layout”; note: “three requirements become one reusable prompt”.
+4. Right side mode badge text-to-image and seed=42 tag; notes: “starts from text” and “same setup is easier to inspect”.
+5. Lower negative_prompt hazard strip blocking blurry, watermark, unreadable text; note: “block common bad outputs”.
+6. Lower-right review checklist: legibility, copyright, brand safety; approved stamp.
+7. Bottom record clipboard stores mode, prompt, negative_prompt, seed, review, then feeds a small RAG basics cover mockup; loop arrow label must be “improvement loop”.
+8. Bottom sentence exactly: “Without a record, improving, comparing, or reproducing images becomes guesswork.”
+
+Make it a concrete teaching lab record with paper sheets, sticky notes, clipboard, arrows, approval stamp, and output cover mockup. Every label must sit near the visual object it explains, with large readable text. Avoid gibberish, tiny paragraphs, fake UI filler, real brand logos, extra model names, API vendors, costs, scores, or dates.
+""".strip(),
+    "ch12-image-prompt-record-result-map-ja.png": """
+第12章 12.2.1「Prompt 記録を作る」の実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、端末スクリーンショット、JSON だけのポスターは禁止。
+
+可視タイトルは完全に：「JSON 出力を Prompt 記録として読む」
+可視サブタイトルは完全に：「再現できる画像生成は、記憶ではなく record で支える。」
+
+学習目標：print された JSON はただのログではなく、再利用できる画像生成 record だと一目で分かること。brief の topic、audience、style が prompt になり、mode、negative_prompt、seed、review が再現、問題回避、export 前確認を支える。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ縦型の紙の制作ボード、同じ読み順、同じ物体位置、同じ色のリズム。説明文は自然な日本語にする。以下のコード/データ語は必要な場所で英語のまま使ってよい：JSON、record、brief、topic、audience、style、prompt、mode、text-to-image、seed=42、negative_prompt、blurry、watermark、unreadable text、review、legibility、copyright、brand safety、RAG basics、beginners、clean editorial cover。コード語以外の英語説明ラベルは出さない。下部のループ矢印ラベルは必ず「改善ループ」と書く。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 左上に brief ワークシート。topic=RAG basics、audience=beginners、style=clean editorial cover を明記。短い説明：「prompt の材料になる」。
+3. 中央に prompt 組み立てエリア。3枚の材料カードが 1本の prompt「clean editorial cover for RAG basics, friendly visual metaphor for beginners, clear layout」になる。短い説明：「3つの要件を再利用できる prompt にする」。
+4. 右側に mode バッジ text-to-image と seed=42 タグ。説明：「テキストから生成」「同じ設定を後で確認しやすい」。
+5. 下部に negative_prompt の警告帯。blurry、watermark、unreadable text をブロック。説明：「悪い出力を先に避ける」。
+6. 右下に review チェックリスト：legibility、copyright、brand safety。承認スタンプ。
+7. 最下部に record クリップボード。mode、prompt、negative_prompt、seed、review を保存し、RAG basics の表紙サンプルへ矢印でつなぐ。回り込む矢印のラベルは必ず「改善ループ」。
+8. 下部の短文は完全に：「record がなければ、改善、比較、再現は勘に頼ることになる。」
+
+紙、付箋、クリップボード、矢印、承認スタンプ、出力表紙サンプルを使った具体的な授業記録にしてください。文字は説明対象の近くに置き、大きく読みやすく、短くする。文字化け、小さな段落、偽 UI 文字、実在ロゴ、余計なモデル名/API/価格/点数/日付は禁止。
+""".strip(),
     "ch10-image-processing-pipeline-output-montage.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 10 章 10.1.3 图像处理流水线代码运行结果。
 这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴满代码。

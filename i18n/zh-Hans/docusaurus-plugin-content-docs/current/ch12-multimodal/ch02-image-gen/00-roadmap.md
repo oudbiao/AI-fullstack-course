@@ -57,6 +57,8 @@ print(json.dumps(record, indent=2))
 }
 ```
 
+![图像生成提示词记录运行结果图](/img/course/ch12-image-prompt-record-result-map.webp)
+
 如果提示词记录无法复现，后面就很难稳定改图。
 
 ## 按这个顺序学

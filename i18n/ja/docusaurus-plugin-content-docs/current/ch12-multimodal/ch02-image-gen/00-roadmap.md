@@ -57,6 +57,8 @@ print(json.dumps(record, indent=2))
 }
 ```
 
+![画像生成 Prompt 記録の実行結果図](/img/course/ch12-image-prompt-record-result-map-ja.webp)
+
 プロンプト記録を再現できなければ、画像を安定して改善することも難しくなります。
 
 ## この順番で学ぶ
