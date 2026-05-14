@@ -14735,6 +14735,58 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-lora-adapter-shared-base-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+        },
+        "scene": "A Chapter 12 Stable Diffusion fine-tuning run-result teaching image based on the exact LoRA simple example. The code prints base_model = stable_diffusion_base, then prints lora_adapter = {target: attention blocks / U-Net blocks, size: small, effect: adds style or subject control capability}. The image must teach what the printed base_model and adapter dictionary mean in engineering: the base model stays shared and unchanged, while a small LoRA adapter attaches to target attention/U-Net blocks and carries customization. Teaching point: LoRA is popular because one large base model can reuse many small adapters, reducing storage and making style or subject switching practical. Do not confuse this with Textual Inversion, DreamBooth, ControlNet, full fine-tuning, prompt-only tricks, diffusion noise steps, model APIs, cost dashboards, terminal screenshots, or a pure dictionary poster. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens. Exact code/data tokens may stay as code: LoRA, base_model, stable_diffusion_base, lora_adapter, target, attention blocks / U-Net blocks, U-Net, size, small, effect, adapter, Stable Diffusion.",
+        "chapter_context": "The image is inserted after the expected output of the LoRA simple example in 12.2.4 Stable Diffusion fine-tuning. Nearby prose says the engineering reason LoRA is popular is that the base model stays shared, and the small adapter carries customization. The following lines explain that LoRA is practical for one base model with many style or character adapters.",
+        "shared_layout": "Vertical 9:16. Use a polished paper engineering workbench style with one printed output receipt, a heavy shared base-model block, a small detachable LoRA adapter cartridge, target module sockets labeled attention blocks / U-Net blocks, and a shelf of alternative adapter cartridges. Do not use old SVG information-box style, white rounded-box flowchart, pure text poster, terminal screenshot, or decorative AI art poster. Top title and subtitle. Upper station shows the printed output receipt with stable_diffusion_base and lora_adapter fields: target=attention blocks / U-Net blocks, size=small, effect=style or subject control. Middle station shows the shared Stable Diffusion base as a large locked machine that is not copied. A small LoRA adapter cartridge plugs into attention/U-Net sockets and lights up style/subject control. Lower station shows several tiny adapters on a shelf swapping into the same base model, reinforcing low storage cost and maintainability. Bottom rule strip explains that LoRA keeps the base shared and moves customization into a small adapter. Keep the workbench style, station order, adapter cartridge, target sockets, shared base, adapter shelf, colors, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete objects. Avoid dense paragraphs, tiny fake text, random English in zh/ja variants beyond exact code/data tokens, and any parameters not printed by the code.",
+        "variants": {
+            "zh": {
+                "title": "LoRA 输出为什么是小适配器",
+                "subtitle": "base_model 保持共享，lora_adapter 承载定制能力。",
+                "items": [
+                    ("base_model", "stable_diffusion_base 是共享底座。"),
+                    ("target", "adapter 挂到 attention blocks / U-Net blocks。"),
+                    ("size", "small 表示只保存小增量。"),
+                    ("effect", "附加风格或主体控制能力。"),
+                    ("工程价值", "一个底座可以切换多个 adapter。"),
+                ],
+                "footer": "LoRA 不复制整套模型，而是把定制能力放进小 adapter。",
+                "alt": "LoRA adapter 运行结果图：base_model 输出 stable_diffusion_base，lora_adapter 的 target 指向 attention blocks / U-Net blocks，small adapter 承载风格或主体控制能力。",
+            },
+            "en": {
+                "title": "Why LoRA Output Is a Small Adapter",
+                "subtitle": "base_model stays shared; lora_adapter carries customization.",
+                "items": [
+                    ("base_model", "stable_diffusion_base is the shared foundation."),
+                    ("target", "The adapter attaches to attention blocks / U-Net blocks."),
+                    ("size", "small means only a small delta is stored."),
+                    ("effect", "Adds style or subject control capability."),
+                    ("engineering value", "One base can swap many adapters."),
+                ],
+                "footer": "LoRA does not copy the full model; customization lives in a small adapter.",
+                "alt": "LoRA adapter result map: base_model prints stable_diffusion_base, while lora_adapter targets attention blocks / U-Net blocks and a small adapter carries style or subject control capability.",
+            },
+            "ja": {
+                "title": "LoRA 出力が小さな adapter になる理由",
+                "subtitle": "base_model は共有し、lora_adapter がカスタマイズを持つ。",
+                "items": [
+                    ("base_model", "stable_diffusion_base は共有の土台。"),
+                    ("target", "adapter は attention blocks / U-Net blocks に付く。"),
+                    ("size", "small は小さな差分だけ保存するという意味。"),
+                    ("effect", "スタイルや主体の制御能力を追加する。"),
+                    ("実務上の価値", "1つの土台で複数の adapter を切り替えられる。"),
+                ],
+                "footer": "LoRA はモデル全体をコピーせず、小さな adapter にカスタマイズ能力を持たせる。",
+                "alt": "LoRA adapter 実行結果図：base_model は stable_diffusion_base を出力し、lora_adapter の target は attention blocks / U-Net blocks を指し、小さな adapter がスタイルや主体の制御能力を持つ。",
+            },
+        },
+    },
+    {
         "slug": "ch07-llm-route-decision-result-map",
         "pages": {
             "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
@@ -20737,6 +20789,73 @@ Make it look like a concrete classroom lab record with paper, sticky notes, vect
 8. 下部の短文は完全に：「Textual Inversion は、モデル全体ではなく呼び出せる概念語を足す。」
 
 紙、付箋、vector drawer、encoding slot、モデル土台、サンプルサムネイルを使った具体的な授業記録にしてください。文字は説明対象の近くに置き、大きく読みやすく、短くする。文字化け、小さな段落、ランダムな中国語、偽 UI 文字、水印、実在ロゴ、余計なモデル名、LoRA、DreamBooth、ControlNet、API、価格、点数、日付は禁止。
+""".strip(),
+    "ch12-lora-adapter-shared-base-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.4 LoRA 简单代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯字典海报。
+
+可见标题必须完全写为：“LoRA 输出为什么是小适配器”
+可见副标题必须完全写为：“base_model 保持共享，lora_adapter 承载定制能力。”
+
+教学目标：读者先看图就能理解两行 print 的工程含义。base_model 输出 stable_diffusion_base，表示大模型底座共享且不复制；lora_adapter 是小增量，target 指向 attention blocks / U-Net blocks，size=small，effect 是附加风格或主体控制能力。LoRA 的价值是一个基础模型可以挂多个小 adapter，低成本切换。
+
+三语版本必须同构：同一张纵向纸质工程笔记、同一手绘墨线+水彩风格、同一阅读顺序、同一物体位置、同一颜色节奏。三语都必须像同一位老师画的教学笔记，不要中文版做成海报、英文版做成照片、日文版做成素描。不要真实摄影质感，不要真实人脸或动物照片。中文图只能用自然中文解释，允许保留这些代码/技术词：LoRA、print、base_model、stable_diffusion_base、lora_adapter、target、attention blocks / U-Net blocks、U-Net、size=small、effect、adapter、Stable Diffusion。除这些固定词外，不要出现英文解释标签。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方是一张 print 输出单，清楚写：stable_diffusion_base；以及 lora_adapter 三行：target=attention blocks / U-Net blocks、size=small、effect=附加风格或主体控制能力。
+3. 中部是一个很大的 Stable Diffusion 共享底座机器，标签写：“共享底座，不复制整套模型”。
+4. 机器右侧暴露两个插槽：attention blocks 和 U-Net blocks。一个小 LoRA adapter 插卡插进插槽，旁边中文说明：“小增量挂到目标模块”。
+5. adapter 插卡上必须写 lora_adapter 和 size=small。
+6. 下方画一排三个小 adapter 卡匣，分别代表不同风格/主体可以切换；中文说明：“一个底座，多个 adapter”。
+7. 右下角画两张小结果缩略图，表现同一个简单物体被不同 adapter 改成不同风格；不要画真人、人脸、猫狗或真实照片。
+8. 底部短句必须完全写为：“LoRA 不复制整套模型，而是把定制能力放进小 adapter。”
+
+画面要像真实工程教学记录：纸质输出单、底座机器、插槽、adapter 卡匣、结果缩略图都要具体，但整体必须是清晰手绘教学插画。每个文字必须贴近它解释的视觉对象，字号大、少而清楚。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、额外模型名、Textual Inversion、DreamBooth、ControlNet、API、价格、评分或日期。
+""".strip(),
+    "ch12-lora-adapter-shared-base-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.4, the simple LoRA code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, and no dictionary-only poster.
+
+Visible title exactly: “Why LoRA Output Is a Small Adapter”
+Visible subtitle exactly: “base_model stays shared; lora_adapter carries customization.”
+
+Teaching goal: the learner should understand the engineering meaning of the two print lines. base_model prints stable_diffusion_base, so the large base model is shared and not copied. lora_adapter is a small delta: target points to attention blocks / U-Net blocks, size=small, and effect is style or subject control capability. LoRA is useful because one base model can swap many small adapters at low storage cost.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: same vertical paper engineering notebook, same ink-line plus watercolor teaching style, same reading order, same object positions, same color rhythm. All three variants must look like the same teacher drew the same lesson in three languages. Do not make one variant a poster, another a photorealistic workshop photo, and another a sketch. Do not use photorealism, real human faces, or animal photos. Use natural English. Code/technical tokens must be spelled exactly where useful: LoRA, print, base_model, stable_diffusion_base, lora_adapter, target, attention blocks / U-Net blocks, U-Net, size=small, effect, adapter, Stable Diffusion.
+Critical spelling rule: write lora_adapter with an underscore every time; write base_model with an underscore; write stable_diffusion_base with underscores; write U-Net with a hyphen and capital U and N; write size=small exactly.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area is a print output receipt showing stable_diffusion_base, then lora_adapter with three rows: target=attention blocks / U-Net blocks, size=small, effect=adds style or subject control capability.
+3. Middle area is a large Stable Diffusion shared-base machine labeled “shared base, no full-model copy”.
+4. The machine exposes two sockets: attention blocks and U-Net blocks. A small LoRA adapter cartridge plugs into them; note: “small delta attaches to target modules”.
+5. The adapter cartridge must visibly say lora_adapter and size=small.
+6. Lower area shows a shelf of three small adapter cartridges for different styles or subjects; note: “one base, many adapters”.
+7. Lower-right shows two small result thumbnails where the same simple object is changed into different styles by different adapters; do not show real people, faces, dogs, cats, or photorealistic photos.
+8. Bottom sentence exactly: “LoRA does not copy the full model; customization lives in a small adapter.”
+
+Make it look like a concrete hand-drawn engineering teaching record with a paper output receipt, base machine, sockets, adapter cartridges, and result thumbnails. Every label must sit near the object it explains, with large readable text. Avoid gibberish, tiny paragraphs, random non-English text, fake UI filler, watermark, brand logo, extra model names, Textual Inversion, DreamBooth, ControlNet, APIs, costs, scores, or dates.
+""".strip(),
+    "ch12-lora-adapter-shared-base-result-map-ja.png": """
+第12章 12.2.4 の LoRA 簡単コードの実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、辞書だけのポスターは禁止。
+
+可視タイトルは完全に：「LoRA 出力が小さな adapter になる理由」
+可視サブタイトルは完全に：「base_model は共有し、lora_adapter がカスタマイズを持つ。」
+
+学習目標：2行の print が示す実務上の意味を一目で理解できること。base_model は stable_diffusion_base を出力するので、大きな土台モデルは共有され、コピーされない。lora_adapter は小さな差分で、target は attention blocks / U-Net blocks、size=small、effect はスタイルや主体の制御能力を追加すること。LoRA の価値は、1つの土台モデルに複数の小さな adapter を低コストで切り替えられる点。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ縦型の紙のエンジニアリングノート、同じインク線+水彩の教材スタイル、同じ読み順、同じ物体位置、同じ色のリズム。3つの言語版は、同じ先生が同じ授業を3言語で描いたように見えること。ある版だけポスター、別の版だけ写真、別の版だけ素描にしない。写真風、実在の人の顔、動物写真は禁止。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：LoRA、print、base_model、stable_diffusion_base、lora_adapter、target、attention blocks / U-Net blocks、U-Net、size=small、effect、adapter、Stable Diffusion。コード語以外の英語説明ラベルは出さない。中国語の単語「定制能力」は絶対に使わず、「カスタマイズ能力」と書く。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に print 出力レシートを置き、stable_diffusion_base と、lora_adapter の3行を明確に書く：target=attention blocks / U-Net blocks、size=small、effect=スタイルや主体の制御能力を追加する。
+3. 中央に大きな Stable Diffusion の共有土台マシンを描き、ラベルは「共有土台、モデル全体はコピーしない」。
+4. マシンの右側に attention blocks と U-Net blocks の2つのソケットを見せる。小さな LoRA adapter カートリッジがそこへ差し込まれる。短い説明：「小さな差分を対象モジュールに付ける」。
+5. adapter カートリッジには lora_adapter と size=small を必ず書く。
+6. 下部に3つの小さな adapter カートリッジを棚に並べ、別のスタイルや主体へ切り替えられることを示す。短い説明：「1つの土台、複数の adapter」。
+7. 右下に、同じ単純な物体が別の adapter で違うスタイルになる小さな結果サムネイルを2枚描く。実在人物、顔、猫、犬、写真風の画像は描かない。
+8. 下部の短文は完全に：「LoRA はモデル全体をコピーせず、小さな adapter にカスタマイズ能力を持たせる。」
+
+紙の出力レシート、土台マシン、ソケット、adapter カートリッジ、結果サムネイルを使った具体的な手描きの実務教材にしてください。文字は説明対象の近くに置き、大きく読みやすく、短くする。文字化け、小さな段落、ランダムな中国語、偽 UI 文字、水印、実在ロゴ、余計なモデル名、Textual Inversion、DreamBooth、ControlNet、API、価格、点数、日付は禁止。
 """.strip(),
     "ch12-image-prompt-record-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.1 “建一个提示词记录”的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要终端截图，不要纯 JSON 海报。

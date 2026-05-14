@@ -190,6 +190,8 @@ stable_diffusion_base
 {'target': 'attention blocks / U-Net blocks', 'size': 'small', 'effect': 'adds style or subject control capability'}
 ```
 
+![LoRA adapter shared base result map](/img/course/ch12-lora-adapter-shared-base-result-map-en.webp)
+
 This is the engineering reason LoRA is popular: the base model stays shared, and the small adapter carries the customization.
 
 ### Why is it especially practical in engineering?

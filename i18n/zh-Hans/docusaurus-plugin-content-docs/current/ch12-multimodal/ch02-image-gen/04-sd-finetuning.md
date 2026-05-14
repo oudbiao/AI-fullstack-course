@@ -190,6 +190,8 @@ stable_diffusion_base
 {'target': 'attention blocks / U-Net blocks', 'size': 'small', 'effect': '附加风格或主体控制能力'}
 ```
 
+![LoRA adapter 共享底座运行结果图](/img/course/ch12-lora-adapter-shared-base-result-map.webp)
+
 这就是 LoRA 流行的工程原因：基础模型保持共享，小适配器负责承载定制能力。
 
 ### 为什么它工程上特别实用？

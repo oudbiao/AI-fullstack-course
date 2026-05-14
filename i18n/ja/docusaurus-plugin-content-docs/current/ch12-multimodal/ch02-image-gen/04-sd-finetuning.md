@@ -194,6 +194,8 @@ stable_diffusion_base
 {'target': 'attention blocks / U-Net blocks', 'size': 'small', 'effect': 'スタイルや主体の制御能力を追加する'}
 ```
 
+![LoRA adapter 共有土台の実行結果図](/img/course/ch12-lora-adapter-shared-base-result-map-ja.webp)
+
 これが LoRA が実務で人気な理由です。ベースモデルは共有したまま、小さなアダプタがカスタマイズ能力を持ちます。
 
 ### なぜ実務で特に便利なのか？
