@@ -252,6 +252,8 @@ for item in ranked:
 {'name': '単一画像から動画と3Dへ', 'product_value': 8, 'engineering_cost': 9, 'stability': 5, 'score': 3.7}
 ```
 
+![画像生成 trend 優先度スコアの実行結果図](/img/course/ch12-image-trend-priority-score-result-map-ja.webp)
+
 ここでの重みは標準解ではありません。大事なのは、「この流れは面白そう」を、価値・コスト・安定性に分解して判断する練習です。
 
 ### このコードが伝えたいことは？

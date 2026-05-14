@@ -251,6 +251,8 @@ for item in ranked:
 {'name': '从单图走向视频与3D', 'product_value': 8, 'engineering_cost': 9, 'stability': 5, 'score': 3.7}
 ```
 
+![图像生成趋势优先级评分运行结果图](/img/course/ch12-image-trend-priority-score-result-map.webp)
+
 这里的权重不是标准答案。真正要练的是：把“这个趋势很酷”拆成价值、成本、稳定性三个维度来判断。
 
 ### 这段代码想传达什么？

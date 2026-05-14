@@ -14683,6 +14683,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-image-trend-priority-score-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/05-latest-progress.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/05-latest-progress.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/05-latest-progress.md",
+        },
+        "scene": "A Chapter 12 image-generation latest-progress run-result teaching image based on the exact trend priority scoring code. The code ranks four trends by score = product_value * 0.5 + stability * 0.3 - engineering_cost * 0.2. The printed order is stronger controllable editing score 6.0, faster sampling score 5.7, unified multimodal input score 4.2, and from single images to video and 3D score 3.7. The image must teach how the formula turns a cool-sounding trend list into a practical product decision, not show a generic frontier trend poster. Teaching point: high product value helps, stability helps, engineering cost subtracts, so the best first direction is not simply the flashiest one. Do not draw a terminal screenshot, raw dictionary dump, generic radar chart, fake benchmark dashboard, white rounded-box flowchart, model leaderboard, paper list, API vendor comparison, dates, costs in dollars, or invented scores. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens. Exact code/data tokens may stay as code: trends, score, product_value, engineering_cost, stability, ranked.",
+        "chapter_context": "The image is inserted after the expected output of the trend priority example in 12.2.5 Latest Progress in Image Generation. Nearby prose says the purpose is not to simulate a paper benchmark, but to build the habit of judging product value, engineering cost, and workflow/stability instead of chasing whatever sounds coolest.",
+        "shared_layout": "Vertical 9:16. Use a polished paper product-strategy lab notebook style with a weighted scoring balance, four trend cards, and a ranked podium. Do not use old SVG information-box style, white rounded-box flowchart, pure text poster, terminal screenshot, or decorative AIGC poster. Top title and subtitle. Upper station shows the formula as a physical scale: product value weight 0.5 and stability weight 0.3 lift the score upward, engineering cost weight 0.2 pulls downward. Middle station shows exactly four trend cards with three visible meter chips for product value, engineering cost, and stability. Lower station shows a ranked podium or decision board with exactly the printed order and scores: controllable editing 6.0, faster sampling 5.7, multimodal input 4.2, video + 3D 3.7. Bottom rule strip says to choose the first learning/practice direction by value, cost, and stability, not by hype. Keep the notebook style, formula scale, four-card order, ranking order, colors, score numbers, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete cards, scales, and ranking slots. Avoid dense paragraphs, tiny fake text, random English in zh/ja variants beyond exact code/data tokens, and any trend or score not printed by the code.",
+        "variants": {
+            "zh": {
+                "title": "趋势优先级不是看谁最酷",
+                "subtitle": "score = 产品价值*0.5 + 稳定性*0.3 - 工程成本*0.2。",
+                "items": [
+                    ("评分规则", "产品价值和稳定性加分，工程成本扣分。"),
+                    ("第 1 名", "更强可控编辑：score 6.0。"),
+                    ("第 2 名", "更快采样：score 5.7。"),
+                    ("第 3 名", "统一多模态输入：score 4.2。"),
+                    ("第 4 名", "视频与 3D：score 3.7。"),
+                    ("学习策略", "先学高价值、够稳定、成本可控的方向。"),
+                ],
+                "footer": "把“很酷”拆成价值、成本、稳定性，再决定先做什么。",
+                "alt": "图像生成趋势优先级评分运行结果图：四个趋势按 product_value、engineering_cost 和 stability 加权后排序，可控编辑 6.0 排第一，更快采样 5.7 第二，多模态输入和视频 3D 排在后面。",
+            },
+            "en": {
+                "title": "Trend Priority Is Not Just Hype",
+                "subtitle": "score = product value*0.5 + stability*0.3 - engineering cost*0.2.",
+                "items": [
+                    ("scoring rule", "Product value and stability add points; engineering cost subtracts."),
+                    ("rank 1", "stronger controllable editing: score 6.0."),
+                    ("rank 2", "faster sampling: score 5.7."),
+                    ("rank 3", "unified multimodal input: score 4.2."),
+                    ("rank 4", "video + 3D: score 3.7."),
+                    ("learning strategy", "Start with high value, enough stability, and manageable cost."),
+                ],
+                "footer": "Turn \"cool\" into value, cost, and stability before choosing what to practice.",
+                "alt": "Image generation trend priority scoring result map: four trends are ranked by weighted product_value, engineering_cost, and stability, with controllable editing first at 6.0, faster sampling second at 5.7, and multimodal input plus video 3D lower.",
+            },
+            "ja": {
+                "title": "Trend 優先度は派手さだけで決めない",
+                "subtitle": "score = 製品価値*0.5 + 安定性*0.3 - 工程コスト*0.2。",
+                "items": [
+                    ("採点規則", "製品価値と安定性は加点、工程コストは減点。"),
+                    ("1位", "より強い制御編集：score 6.0。"),
+                    ("2位", "より速いサンプリング：score 5.7。"),
+                    ("3位", "統一されたマルチモーダル入力：score 4.2。"),
+                    ("4位", "動画 + 3D：score 3.7。"),
+                    ("学習戦略", "価値が高く、安定し、コストが扱える方向から始める。"),
+                ],
+                "footer": "「面白そう」を価値、コスト、安定性に分けてから優先度を決める。",
+                "alt": "画像生成 trend 優先度スコアの実行結果図：4つの trend を product_value、engineering_cost、stability で重み付けし、制御編集 6.0 が1位、高速サンプリング 5.7 が2位、マルチモーダル入力と動画 3D が後に続く。",
+            },
+        },
+    },
+    {
         "slug": "ch12-textual-inversion-token-embedding-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
@@ -20723,6 +20778,90 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-image-trend-priority-score-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.5 “趋势优先级”代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要原样贴字典输出。
+
+可见标题必须完全写为：“趋势优先级不是看谁最酷”
+可见副标题必须完全写为：“score = 产品价值*0.5 + 稳定性*0.3 - 工程成本*0.2。”
+
+教学目标：读者先看图就能理解这段 print 输出为什么这样排序。score 不是“哪个趋势听起来最厉害”，而是把 product_value、engineering_cost、stability 三个维度加权：产品价值和稳定性把分数往上推，工程成本把分数往下拉。最后更强可控编辑得分 6.0 排第一，更快采样 5.7 排第二，统一多模态输入 4.2，视频与 3D 3.7。
+
+三语版本必须同构：同一张纵向纸质产品策略实验笔记、同一手绘墨线+水彩风格、同一阅读顺序、同一物体位置、同一颜色节奏。中文图只能用自然中文解释，允许保留这些代码/技术词：trends、score、product_value、engineering_cost、stability、ranked。除这些固定词外，不要出现英文解释标签。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一台清楚的加权评分天平或评分机器，必须有三个大旋钮：产品价值 0.5、稳定性 0.3、工程成本 -0.2。画面要明确表达前两个加分，工程成本扣分。小数点必须清楚可见：稳定性必须写成 0.3，不能写成 03、0 3、O3 或 0-3；产品价值必须写成 0.5；工程成本必须写成 -0.2。
+3. 中部画四张趋势卡，每张卡都有三枚可读指标芯片：
+   - 更强可控编辑：产品价值 10、工程成本 7、稳定性 8
+   - 更快采样：产品价值 9、工程成本 6、稳定性 8
+   - 统一多模态输入：产品价值 8、工程成本 8、稳定性 6
+   - 视频与 3D：产品价值 8、工程成本 9、稳定性 5
+4. 下方画排名板，顺序必须完全是：
+   1 更强可控编辑，score 6.0
+   2 更快采样，score 5.7
+   3 统一多模态输入，score 4.2
+   4 视频与 3D，score 3.7
+5. 第一名旁边加教学批注：“不是最炫，而是价值高、稳定性够、成本还可控。”
+6. 底部短句必须完全写为：“把“很酷”拆成价值、成本、稳定性，再决定先做什么。”
+
+每个文字必须贴近它解释的视觉对象，字号大、少而清楚，适合手机阅读。所有可见数字必须和代码输出一致，尤其 0.5、0.3、-0.2、6.0、5.7、4.2、3.7 的小数点不能丢。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、额外趋势、额外分数、真实论文榜单、API、价格、日期、模型名或公司名。
+""".strip(),
+    "ch12-image-trend-priority-score-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.5, the trend priority scoring code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, and no raw dictionary poster.
+
+Visible title exactly: “Trend Priority Is Not Just Hype”
+Visible subtitle exactly: “score = product value*0.5 + stability*0.3 - engineering cost*0.2.”
+
+Teaching goal: the learner should understand why the printed ranking has this order. The score is not “which trend sounds coolest.” It weights product_value, engineering_cost, and stability: product value and stability raise the score, while engineering cost lowers it. The final ranking is stronger controllable editing score 6.0, faster sampling score 5.7, unified multimodal input score 4.2, and video + 3D score 3.7.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: same vertical paper product-strategy lab notebook, same ink-line plus watercolor teaching style, same reading order, same object positions, same color rhythm. Use natural English. Code/technical tokens must be spelled exactly where useful: trends, score, product_value, engineering_cost, stability, ranked.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows a clear weighted scoring balance or scoring machine with exactly three large knobs: product value 0.5, stability 0.3, engineering cost -0.2. The first two visibly add points; engineering cost visibly subtracts points. Decimal points must be clearly visible: write stability as 0.3, never 03, 0 3, O3, or 0-3; write product value as 0.5; write engineering cost as -0.2.
+3. Middle area shows exactly four trend cards, each with three readable metric chips:
+   - stronger controllable editing: product value 10, engineering cost 7, stability 8
+   - faster sampling: product value 9, engineering cost 6, stability 8
+   - unified multimodal input: product value 8, engineering cost 8, stability 6
+   - video + 3D: product value 8, engineering cost 9, stability 5
+4. Lower area shows a ranking board in exactly this order:
+   1 stronger controllable editing, score 6.0
+   2 faster sampling, score 5.7
+   3 unified multimodal input, score 4.2
+   4 video + 3D, score 3.7
+5. Add one teaching note near rank 1: “Not the flashiest; high value, stable enough, manageable cost.”
+6. Bottom sentence exactly: “Turn \"cool\" into value, cost, and stability before choosing what to practice.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. All visible numbers must match the code output; especially keep the decimal points in 0.5, 0.3, -0.2, 6.0, 5.7, 4.2, and 3.7. Avoid gibberish, tiny background text, random non-English text, watermark, brand logo, extra trends, extra scores, real paper leaderboards, APIs, prices, dates, model names, or company names.
+""".strip(),
+    "ch12-image-trend-priority-score-result-map-ja.png": """
+第12章 12.2.5 の「トレンド優先度」コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、辞書出力だけのポスターは禁止。
+
+可視タイトルは完全に：「Trend 優先度は派手さだけで決めない」
+可視サブタイトルは完全に：「score = 製品価値*0.5 + 安定性*0.3 - 工程コスト*0.2。」
+
+学習目標：print 出力の並び順がなぜそうなるのか、一目で分かること。score は「いちばん派手に聞こえる trend」ではなく、product_value、engineering_cost、stability を重み付けする。製品価値と安定性は score を上げ、工程コストは score を下げる。最終順位は、より強い制御編集 score 6.0、より速いサンプリング score 5.7、統一されたマルチモーダル入力 score 4.2、動画 + 3D score 3.7。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ縦型の紙の製品戦略実験ノート、同じインク線+水彩の教材スタイル、同じ読み順、同じ物体位置、同じ色のリズム。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：trends、score、product_value、engineering_cost、stability、ranked。コード語以外の英語説明ラベルは出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に重み付き採点の天秤、または採点マシンを描き、3つの大きなつまみを必ず入れる：製品価値 0.5、安定性 0.3、工程コスト -0.2。前2つは加点、工程コストは減点だと視覚的に分かること。小数点は必ず見えるように書く：安定性は 0.3 と書き、03、0 3、O3、0-3 にしない。製品価値は 0.5、工程コストは -0.2 と書く。
+3. 中央に4枚の trend カードを描き、それぞれに3つの読みやすい指標チップを付ける：
+   - より強い制御編集：製品価値 10、工程コスト 7、安定性 8
+   - より速いサンプリング：製品価値 9、工程コスト 6、安定性 8
+   - 統一されたマルチモーダル入力：製品価値 8、工程コスト 8、安定性 6
+   - 動画 + 3D：製品価値 8、工程コスト 9、安定性 5
+4. 下部に順位ボードを描き、順序は完全に：
+   1 より強い制御編集，score 6.0
+   2 より速いサンプリング，score 5.7
+   3 統一されたマルチモーダル入力，score 4.2
+   4 動画 + 3D，score 3.7
+5. 1位の近くに短い授業メモ：「派手さではなく、価値が高く、安定し、コストが扱える。」
+6. 下部の短文は完全に：「「面白そう」を価値、コスト、安定性に分けてから優先度を決める。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。見える数字はコード出力と一致させ、特に 0.5、0.3、-0.2、6.0、5.7、4.2、3.7 の小数点を落とさない。文字化け、小さな背景文字、ランダムな中国語や英語説明、水印、実在ロゴ、余分な trend、余分な score、論文ランキング、API、価格、日付、モデル名、会社名は禁止。
+""".strip(),
     "ch12-textual-inversion-token-embedding-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.4 Textual Inversion 极简代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯字典海报。
 

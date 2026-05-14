@@ -251,6 +251,8 @@ Expected output:
 {'name': 'from single images to video and 3D', 'product_value': 8, 'engineering_cost': 9, 'stability': 5, 'score': 3.7}
 ```
 
+![Image generation trend priority scoring result map](/img/course/ch12-image-trend-priority-score-result-map-en.webp)
+
 The exact weights are not universal. The practical lesson is to turn “this trend feels exciting” into a small scoring rule that includes value, cost, and stability.
 
 ### What is this code trying to convey?
