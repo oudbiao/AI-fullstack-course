@@ -16420,6 +16420,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-multi-agent-state-handoff-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch07-multi-agent/06-multi-agent-practice.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch07-multi-agent/06-multi-agent-practice.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch07-multi-agent/06-multi-agent-practice.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal multi-agent collaboration flow. It must explain the exact printed state output from multi_agent_system(), not a generic multi-agent poster. Show one user query entering a shared state object, then four role stations fill exactly four fields in order: planner writes plan, retriever writes evidence, writer writes draft, reviewer writes review. Exact teaching values must be visible: query, plan with four steps, evidence containing refund within 7 days and learning progress below 20%, draft that prefixes the evidence with Summary or the localized equivalent, and review {'approved': True, 'comment': ...}. Teaching point: Multi-Agent is not merely multiple functions; the key is controlled state handoff where each role reads the previous field and writes its own field. Do not invent extra agents, extra policies, extra dates, task IDs, APIs, model names, dashboards, scores, charts, terminal commands, or logs.",
+        "chapter_context": "The image is inserted after the expected output of multi_agent_system() in 9.7.7 Practice: Multi-Agent Collaboration System. Nearby code creates a state dict with query, plan, evidence, draft, and review; planner_agent creates a four-step plan, retriever_agent reads the first plan item and returns refund policy evidence, writer_agent turns the evidence into a summary, reviewer_agent approves when the draft contains 7 days and 20%. The surrounding prose says the key is state transition and each role is responsible for only one part.",
+        "shared_layout": "Vertical 9:16. Use the same practical shared-state workbench style across zh/en/ja: a dark project board with a central state clipboard and four role stations around it. Top title and subtitle. Upper-left: user query card. Center: shared state object with five slots query, plan, evidence, draft, review; empty slots become filled as arrows move through the roles. Main path with exact role station names in this order: planner_agent, retriever_agent, writer_agent, reviewer_agent. Planner writes a four-step plan, Retriever pulls refund policy evidence, Writer produces draft summary, Reviewer checks two badges '7 days' and '20%' and stamps approved=True. Right side or lower section: compact printed-output receipt showing the same field order. Bottom strip: query -> planner -> retriever -> writer -> reviewer -> state. Keep role order, state field order, colors, slot positions, exact condition tokens, and reading path identical across languages. Use localized labels and short localized output snippets. Code tokens that may stay English: Multi-Agent, state, query, plan, evidence, draft, review, planner_agent, retriever_agent, writer_agent, reviewer_agent, approved=True, 7 days, 20%. Accuracy guard for the Chinese variant: the retriever role is 检索者 only; never write 检察者, 监察者, 审查者, or any police/legal role word. Accuracy guard for the Japanese variant: write natural Japanese labels, not Chinese role labels. Avoid old SVG-style white rounded-box diagrams, pure flowcharts, terminal screenshots, dense dictionaries, tiny pseudo-text, decorative-only people chatting, and unrelated English or Japanese pseudo-text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "多 Agent 状态交接结果怎么看",
+                "subtitle": "每个角色只写自己的字段，shared state 把工作接起来。",
+                "items": [
+                    ("query", "请帮我总结退款政策的关键条件。"),
+                    ("plan", "检索退款政策 -> 整理关键条件 -> 撰写总结 -> 审核输出。"),
+                    ("evidence", "课程购买后 7 天内，且学习进度低于 20% 可退款。"),
+                    ("draft", "总结：把 evidence 变成用户可读回答。"),
+                    ("review", "{'approved': True, 'comment': '关键信息完整'}。"),
+                    ("核心", "Planner、Retriever、Writer、Reviewer 通过 state 交接，而不是各说各话。"),
+                ],
+                "footer": "读这段 print 时，要看 state 字段是怎样被一步步填满的。",
+                "alt": "多 Agent 状态交接结果图：query 进入 shared state，planner 写入四步 plan，retriever 写入 7 天和 20% 的退款 evidence，writer 生成 draft，reviewer 检查后 approved=True。",
+            },
+            "en": {
+                "title": "Reading Multi-Agent State Handoff",
+                "subtitle": "Each role writes one field, and shared state carries the work forward.",
+                "items": [
+                    ("query", "Please summarize the key conditions of the refund policy."),
+                    ("plan", "retrieve refund policy -> organize key conditions -> write summary -> review output."),
+                    ("evidence", "Refund within 7 days if learning progress is below 20%."),
+                    ("draft", "Summary: turns the evidence into a user-facing answer."),
+                    ("review", "{'approved': True, 'comment': 'Key information is complete'}."),
+                    ("core idea", "Planner, Retriever, Writer, and Reviewer hand off through state."),
+                ],
+                "footer": "Read the printout as a state object being filled step by step.",
+                "alt": "Multi-Agent state handoff result map: the query enters shared state, planner writes a four-step plan, retriever writes refund evidence with 7 days and 20%, writer creates the draft, and reviewer approves it.",
+            },
+            "ja": {
+                "title": "マルチ Agent 状態引き継ぎの読み方",
+                "subtitle": "各役割が自分の field を書き、shared state が作業をつなぐ。",
+                "items": [
+                    ("query", "返金ポリシーの重要な条件をまとめてください。"),
+                    ("plan", "返金ポリシーを検索 -> 重要条件を整理 -> 要約作成 -> レビュー。"),
+                    ("evidence", "購入後 7 日以内、かつ学習進捗が 20% 未満なら返金可能。"),
+                    ("draft", "要約：evidence をユーザー向け回答にする。"),
+                    ("review", "{'approved': True, 'comment': '重要情報がそろっています'}。"),
+                    ("中心", "Planner、Retriever、Writer、Reviewer は state を通じて引き継ぐ。"),
+                ],
+                "footer": "この print は、state の field が順に埋まる様子として読む。",
+                "alt": "マルチ Agent の状態引き継ぎ結果図：query が shared state に入り、planner が4手順の plan を書き、retriever が7日以内と20%未満の refund evidence を入れ、writer が draft を作り、reviewer が approved=True にする。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",

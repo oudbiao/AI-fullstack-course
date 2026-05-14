@@ -155,6 +155,8 @@ draft -> 总结：课程购买后 7 天内且学习进度低于 20% 可申请退
 review -> {'approved': True, 'comment': '关键信息完整'}
 ```
 
+![多 Agent 状态交接结果图](/img/course/ch09-multi-agent-state-handoff-result-map.webp)
+
 ### 这段代码已经说明了什么？
 
 它已经说明：

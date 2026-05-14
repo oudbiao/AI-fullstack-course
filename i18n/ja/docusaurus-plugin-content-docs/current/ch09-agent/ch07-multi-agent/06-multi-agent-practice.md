@@ -155,6 +155,8 @@ draft -> 要約：コース購入後 7 日以内、かつ学習進捗が 20% 未
 review -> {'approved': True, 'comment': '重要情報がそろっています'}
 ```
 
+![マルチ Agent の状態引き継ぎ結果図](/img/course/ch09-multi-agent-state-handoff-result-map-ja.webp)
+
 ### このコードから分かることは？
 
 このコードから分かるのは、次の点です。

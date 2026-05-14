@@ -155,6 +155,8 @@ draft -> Summary: You can apply for a refund within 7 days after purchase, provi
 review -> {'approved': True, 'comment': 'Key information is complete'}
 ```
 
+![Multi-Agent state handoff result map](/img/course/ch09-multi-agent-state-handoff-result-map-en.webp)
+
 ### What Does This Code Already Show?
 
 It already shows that:
