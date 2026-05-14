@@ -267,6 +267,8 @@ print(fusion)
 現在の画像 latent 特徴 が更新するときに オレンジ色の猫 + 窓辺 + 夕日 を参照する
 ```
 
+![Stable Diffusion の cross-attention 融合結果図](/img/course/ch12-sd-cross-attention-fusion-result-map-ja.webp)
+
 この文を cross-attention の役割として読んでください。latent は盲目的にノイズ除去されるのではなく、更新のたびにテキスト条件を参照します。
 
 これはただの文字の例ですが、本質はすでに表しています。

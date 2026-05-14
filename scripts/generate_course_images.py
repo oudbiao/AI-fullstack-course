@@ -18012,6 +18012,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-sd-cross-attention-fusion-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+        },
+        "scene": "A runnable-result visual for the Stable Diffusion cross-attention toy example. It must teach the printed fusion sentence: latent features do not denoise blindly; while they update, they refer to semantic signals from the prompt. Show the exact conceptual inputs only: latent_feature = current image latent features; text_feature = orange cat + window + sunset; fusion output = current image latent features updates while referring to orange cat + window + sunset. For Chinese and Japanese, use the localized equivalents from the page. The teaching point is cross-attention as the bridge from prompt semantics into latent denoising, not a generic image generation poster. Do not draw a terminal screenshot, dense code, pure text poster, white rounded-box flowchart, random pretty cat picture, or fake UI.",
+        "chapter_context": "The image is inserted after the expected output of the cross-attention toy example in 12.2.3 Stable Diffusion Architecture. Nearby prose says latent is not denoised blindly; it keeps checking the text condition while updating. It contrasts self-attention as looking at yourself with cross-attention as image looking at text.",
+        "shared_layout": "Vertical 9:16. Use the same illustrated lab notebook style across zh/en/ja. Top title and subtitle. Upper-left shows a noisy latent grid with several colored image patches labeled as current latent features. Upper-right shows three prompt token cards: orange cat, window, sunset, each with a simple icon-like scene cue. Middle shows a cross-attention lens or bridge: arrows from latent patches ask the text token cards which semantics matter; token cards send colored guidance rays back into the latent grid. Lower section shows the fusion result sentence as a large readable strip, plus a before/after mini scene: before = blind denoising with a question mark, after = denoising guided by cat/window/sunset semantics. Bottom rule strip says cross-attention lets image updates reference text conditions. Keep latent grid position, token card order, attention bridge, color mapping, and reading path identical across languages.",
+        "variants": {
+            "zh": {
+                "title": "cross-attention 让 latent 参考 prompt",
+                "subtitle": "latent 更新时，不只看自己，也看文本条件。",
+                "items": [
+                    ("latent_feature", "当前图像 latent 特征。"),
+                    ("text_feature", "橘猫 + 窗边 + 夕阳。"),
+                    ("attention bridge", "每个图像 patch 查询相关文本 token。"),
+                    ("fusion output", "当前图像 latent 特征 在更新时参考 橘猫 + 窗边 + 夕阳。"),
+                    ("self-attention", "只在图像内部找关系。"),
+                    ("cross-attention", "把文本语义接进图像去噪。"),
+                ],
+                "footer": "prompt 不是贴在旁边的说明，而是在每步去噪中提供条件。",
+                "alt": "Stable Diffusion cross-attention 运行结果图：当前图像 latent 特征在更新时参考橘猫、窗边、夕阳等文本条件。",
+            },
+            "en": {
+                "title": "Reading Cross-Attention Fusion",
+                "subtitle": "The latent update looks at text conditions instead of denoising blindly.",
+                "items": [
+                    ("latent_feature", "current image latent features."),
+                    ("text_feature", "orange cat + window + sunset."),
+                    ("attention bridge", "Each image patch queries relevant text tokens."),
+                    ("fusion output", "current image latent features updates while referring to orange cat + window + sunset."),
+                    ("self-attention", "Finds relationships inside the image state."),
+                    ("cross-attention", "Injects text semantics into denoising."),
+                ],
+                "footer": "The prompt is not a caption beside the image; it conditions each denoising update.",
+                "alt": "Stable Diffusion cross-attention fusion result map: current image latent features update while referring to text conditions such as orange cat, window, and sunset.",
+            },
+            "ja": {
+                "title": "Cross-Attention の融合結果を読む",
+                "subtitle": "latent 更新は自分だけでなく、テキスト条件も参照する。",
+                "items": [
+                    ("latent_feature", "現在の画像 latent 特徴。"),
+                    ("text_feature", "オレンジ色の猫 + 窓辺 + 夕日。"),
+                    ("attention bridge", "各 image patch が関連する text token を問い合わせる。"),
+                    ("fusion output", "現在の画像 latent 特徴 が更新するときに オレンジ色の猫 + 窓辺 + 夕日 を参照する。"),
+                    ("self-attention", "画像状態の内部関係を見る。"),
+                    ("cross-attention", "テキスト意味を denoising に注入する。"),
+                ],
+                "footer": "prompt は横にある説明文ではなく、各 denoising 更新の条件になる。",
+                "alt": "Stable Diffusion の cross-attention 融合結果図：現在の画像 latent 特徴が更新するときに、オレンジ色の猫、窓辺、夕日などのテキスト条件を参照する。",
+            },
+        },
+    },
+    {
         "slug": "ch12-diffusion-forward-noise-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
@@ -20833,6 +20888,78 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-sd-cross-attention-fusion-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.3 Stable Diffusion 架构中 cross-attention 代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要只画漂亮猫图。
+
+可见标题必须完全写为：“cross-attention 让 latent 参考 prompt”
+可见副标题必须完全写为：“latent 更新时，不只看自己，也看文本条件。”
+
+教学目标：读者先看图就能理解代码输出这句话的含义：
+“当前图像 latent 特征 在更新时参考 橘猫 + 窗边 + 夕阳”
+图必须说明：latent_feature 是当前图像的噪声特征；text_feature 是 prompt 被编码后的语义 token；cross-attention 像一座桥，让每个 latent patch 在去噪更新时去查询相关文本 token，再把语义指引送回 latent。
+
+三语版本必须同构：同一张纸质 Stable Diffusion 实验笔记、同一手绘墨线+水彩风格、同一阅读顺序、同一物体位置、同一颜色节奏。中文图只能用自然中文解释，允许保留这些代码/技术词：cross-attention、latent、prompt、token、patch、self-attention、text_feature、latent_feature、U-Net、denoising。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 左上画一个带噪的 4x4 latent 网格，标签写：“当前图像 latent 特征”。网格里有几个彩色 patch，但不要画成最终猫图。
+3. 右上画三个 prompt token 卡片，顺序必须是：橘猫、窗边、夕阳。每张卡有一个简单图标和大字标签。
+4. 中间画一座 cross-attention 透镜或桥。必须画箭头：latent patch 查询 token；token 把彩色语义光线送回 latent。每条颜色要对应 token：橘猫=橙色，窗边=蓝色，夕阳=红金色。
+5. 下方画“融合输出”大条幅，必须清楚写：
+   当前图像 latent 特征 在更新时参考 橘猫 + 窗边 + 夕阳
+6. 底部做一个小对比：左边“盲目去噪？”有问号和模糊 patch；右边“有文本条件”显示 patch 被橘猫、窗边、夕阳三种语义引导。
+7. 底部短句必须完全写为：“prompt 不是旁边的说明，而是每步去噪的条件。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、额外公式、额外数组、真实模型名、公司名、价格、日期或终端界面。
+""".strip(),
+    "ch12-sd-cross-attention-fusion-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.3 Stable Diffusion Architecture, the cross-attention code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no pure text poster, and no random pretty cat picture.
+
+Visible title exactly: “Reading Cross-Attention Fusion”
+Visible subtitle exactly: “The latent update looks at text conditions instead of denoising blindly.”
+
+Teaching goal: the learner should understand the code output sentence:
+“current image latent features updates while referring to orange cat + window + sunset”
+The image must explain that latent_feature is the current noisy image state; text_feature is prompt semantics encoded as tokens; cross-attention is the bridge that lets each latent patch query relevant text tokens during denoising, then sends semantic guidance back into the latent.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: same paper Stable Diffusion lab notebook, same ink-line plus watercolor teaching style, same reading order, same object positions, same color rhythm. Use natural English. Code/technical tokens must be spelled exactly where useful: cross-attention, latent, prompt, token, patch, self-attention, text_feature, latent_feature, U-Net, denoising.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper-left shows a noisy 4x4 latent grid labeled “current image latent features”. Include several colored patches, but do not draw a finished cat image.
+3. Upper-right shows three prompt token cards in this order: orange cat, window, sunset. Each card has a simple icon-like cue and a large readable label.
+4. Middle shows a cross-attention lens or bridge. Draw arrows: latent patch queries tokens; tokens send colored semantic rays back to the latent. Color mapping: orange cat = orange, window = blue, sunset = red-gold.
+5. Lower section shows a large “fusion output” strip with exactly:
+   current image latent features updates while referring to orange cat + window + sunset
+6. Bottom mini comparison: left side “blind denoising?” with question mark and blurry patches; right side “text-conditioned” where patches are guided by orange cat, window, and sunset semantics.
+7. Bottom sentence exactly: “The prompt is not a caption; it conditions each denoising step.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, tiny background text, random non-English text, watermark, brand logo, extra formulas, extra arrays, real model names, company names, prices, dates, or terminal UI.
+""".strip(),
+    "ch12-sd-cross-attention-fusion-result-map-ja.png": """
+第12章 12.2.3 Stable Diffusion アーキテクチャの cross-attention コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、文字だけのポスター、ただのきれいな猫画像は禁止。
+
+可視タイトルは完全に：「Cross-Attention の融合結果を読む」
+可視サブタイトルは完全に：「latent 更新は自分だけでなく、テキスト条件も参照する。」
+
+学習目標：コード出力の次の文の意味が一目で分かること。
+「現在の画像 latent 特徴 が更新するときに オレンジ色の猫 + 窓辺 + 夕日 を参照する」
+画像は次を説明する：latent_feature は現在のノイズ混じり画像状態、text_feature は prompt が token として符号化された意味情報、cross-attention は各 latent patch が denoising 中に関連する text token を問い合わせ、その意味ガイドを latent に戻す橋である。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ紙の Stable Diffusion 実験ノート、同じインク線+水彩の教材スタイル、同じ読み順、同じ物体位置、同じ色のリズム。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：cross-attention、latent、prompt、token、patch、self-attention、text_feature、latent_feature、U-Net、denoising。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 左上にノイズ混じりの 4x4 latent grid を描き、ラベルは「現在の画像 latent 特徴」。いくつかの色つき patch を入れるが、完成した猫画像にはしない。
+3. 右上に3つの prompt token カードを描く。順序は必ず：オレンジ色の猫、窓辺、夕日。各カードには小さな図像と大きく読みやすいラベルを置く。
+4. 中央に cross-attention のレンズまたは橋を描く。矢印を必ず描く：latent patch が token に問い合わせる；token が色つき意味光線を latent に戻す。色対応：オレンジ色の猫=オレンジ、窓辺=青、夕日=赤金色。
+5. 下部に「融合出力」の大きな帯を描き、必ず次を清楚に書く：
+   現在の画像 latent 特徴 が更新するときに オレンジ色の猫 + 窓辺 + 夕日 を参照する
+6. 底部に小さな比較を描く：左は「盲目的な denoising？」で疑問符とぼやけた patch；右は「テキスト条件あり」で、patch がオレンジ色の猫、窓辺、夕日の意味に誘導される。
+7. 下部の短文は完全に：「prompt は横の説明文ではなく、各 denoising step の条件になる。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、小さな背景文字、ランダムな中国語や英語説明、水印、実在ロゴ、余分な数式、余分な配列、実在モデル名、会社名、価格、日付、端末 UI は禁止。
+""".strip(),
     "ch12-diffusion-noise-prediction-target-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.1 “扩散模型学习目标”代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 NumPy 输出贴成表格。
 

@@ -267,6 +267,8 @@ Expected output:
 current image latent features updates while referring to orange cat + window + sunset
 ```
 
+![Stable Diffusion cross-attention fusion result map](/img/course/ch12-sd-cross-attention-fusion-result-map-en.webp)
+
 Read this sentence as the role of cross-attention: the latent is not denoised blindly; it keeps checking the text condition while it updates.
 
 Although this is only a textual illustration, it captures the essence:

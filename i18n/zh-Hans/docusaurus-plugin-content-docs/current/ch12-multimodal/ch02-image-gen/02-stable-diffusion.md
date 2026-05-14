@@ -269,6 +269,8 @@ print(fusion)
 当前图像 latent 特征 在更新时参考 橘猫 + 窗边 + 夕阳
 ```
 
+![Stable Diffusion cross-attention 运行结果图](/img/course/ch12-sd-cross-attention-fusion-result-map.webp)
+
 可以把这句话当作 cross-attention 的职责：latent 不是盲目去噪，而是一边更新一边参考文本条件。
 
 虽然只是文字示意，但它已经抓住本质：
