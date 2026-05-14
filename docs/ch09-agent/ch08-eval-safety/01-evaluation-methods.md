@@ -158,6 +158,8 @@ average_steps: 7.0
 tool_failure_rate: 50%
 ```
 
+![Agent evaluation metrics result map](/img/course/ch09-agent-eval-metrics-result-map-en.webp)
+
 This is already enough to answer a practical question:
 
 > Did the new Prompt really improve the Agent, or did it only make the answer look nicer?

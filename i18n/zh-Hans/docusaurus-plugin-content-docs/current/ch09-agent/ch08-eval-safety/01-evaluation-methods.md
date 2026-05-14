@@ -158,6 +158,8 @@ average_steps: 7.0
 tool_failure_rate: 50%
 ```
 
+![Agent 评估指标结果图](/img/course/ch09-agent-eval-metrics-result-map.webp)
+
 这已经足够回答一个很实际的问题：
 
 > 新 Prompt 真的让 Agent 变强了，还是只是让回答看起来更好看？

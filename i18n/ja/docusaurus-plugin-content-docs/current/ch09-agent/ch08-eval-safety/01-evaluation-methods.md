@@ -158,6 +158,8 @@ average_steps: 7.0
 tool_failure_rate: 50%
 ```
 
+![Agent 評価指標の結果図](/img/course/ch09-agent-eval-metrics-result-map-ja.webp)
+
 これだけでも、実務上かなり重要な問いに答えられます。
 
 > 新しい Prompt は本当に Agent を改善したのか、それとも回答の見た目をよくしただけなのか？

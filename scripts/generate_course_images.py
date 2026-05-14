@@ -16475,6 +16475,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-agent-eval-metrics-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch08-eval-safety/01-evaluation-methods.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch08-eval-safety/01-evaluation-methods.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch08-eval-safety/01-evaluation-methods.md",
+        },
+        "scene": "A runnable-result teaching visual for the Agent evaluation metrics script. It must explain exactly how two saved evaluation runs become four printed metrics, not draw a generic scorecard poster. Show run rag_review_001 as success=True, human_score=4, steps=5, two tool calls both ok=True, cost_usd=0.08. Show run rag_review_002 as success=False, human_score=2, steps=9, two search_docs tool calls both ok=False, cost_usd=0.19. Then show the aggregation math: success_rate = 1/2 = 50%, average_score = (4+2)/2 = 3.0/5, average_steps = (5+9)/2 = 7.0, tool_failure_rate = 2 failed tool calls / 4 total tool calls = 50%. Teaching point: fixed replay records let a team compare prompt versions with evidence instead of judging by answer polish. Do not invent extra runs, tools, scores, costs, charts, dates, model names, APIs, safety events, or alternative metric values.",
+        "chapter_context": "The image is inserted immediately after the expected output of the small metrics script in 9.8.2 Agent Evaluation Methods. Nearby prose says Agent evaluation should save task_success, steps, tool_calls, safety_events, cost_usd, and main_issue; then it asks whether the new Prompt really improved the Agent or only made the answer look nicer. The exact printed output is success_rate: 50%, average_score: 3.0/5, average_steps: 7.0, tool_failure_rate: 50%.",
+        "shared_layout": "Vertical 9:16. Use the same practical evaluation lab bench style across zh/en/ja, not a white rounded-box infographic, not a pure table screenshot, and not a decorative dashboard. Top title and subtitle. Upper section: two large replay cards side by side or stacked, labeled rag_review_001 and rag_review_002, with success/failure stamps, human_score, steps, tool call chips, and cost_usd. Middle section: four metric machines or calculation trays, each visibly connects the two runs to the exact formula and output: 1/2 -> 50%, (4+2)/2 -> 3.0/5, (5+9)/2 -> 7.0, 2 failed / 4 tool calls -> 50%. Lower section: decision board comparing prompt versions with evidence, including a warning that nicer wording is not enough if tool_failure_rate stays high. Bottom strip: replay records -> aggregate metrics -> compare prompt -> choose fix. Keep run order, formulas, numeric values, colors, and reading path identical across languages. Use large readable localized labels attached to the cards and metric trays. Code tokens that may stay English: Agent, Prompt, task_success, human_score, steps, tool_calls, cost_usd, success_rate, average_score, average_steps, tool_failure_rate, rag_review_001, rag_review_002, ok=True, ok=False. Avoid tiny pseudo-text, dense JSON, invented numbers, terminal screenshots, old SVG-style white box diagrams, and unrelated English helper sentences in zh/ja variants.",
+        "variants": {
+            "zh": {
+                "title": "Agent 评估输出怎么算出来",
+                "subtitle": "两条 replay 记录汇总成四个指标，用证据判断 Prompt 是否真的变好。",
+                "items": [
+                    ("rag_review_001", "成功；score=4；steps=5；2 个 tool_calls 都 ok=True。"),
+                    ("rag_review_002", "失败；score=2；steps=9；2 个 search_docs 都 ok=False。"),
+                    ("success_rate", "1 / 2 = 50%。"),
+                    ("average_score", "(4 + 2) / 2 = 3.0/5。"),
+                    ("average_steps", "(5 + 9) / 2 = 7.0。"),
+                    ("tool_failure_rate", "2 次失败 / 4 次调用 = 50%。"),
+                ],
+                "footer": "评估不是看答案顺不顺眼，而是看固定样本、trace 和指标有没有变好。",
+                "alt": "Agent 评估指标结果图：两条 replay 记录汇总出 success_rate 50%、average_score 3.0/5、average_steps 7.0 和 tool_failure_rate 50%，用于判断 Prompt 是否真的改善。",
+            },
+            "en": {
+                "title": "How Agent Evaluation Metrics Are Computed",
+                "subtitle": "Two replay records become four metrics, so Prompt changes can be judged with evidence.",
+                "items": [
+                    ("rag_review_001", "success; score=4; steps=5; two tool_calls are ok=True."),
+                    ("rag_review_002", "failure; score=2; steps=9; two search_docs calls are ok=False."),
+                    ("success_rate", "1 / 2 = 50%."),
+                    ("average_score", "(4 + 2) / 2 = 3.0/5."),
+                    ("average_steps", "(5 + 9) / 2 = 7.0."),
+                    ("tool_failure_rate", "2 failed / 4 tool calls = 50%."),
+                ],
+                "footer": "Evaluation checks fixed samples, traces, and metrics, not just nicer-looking answers.",
+                "alt": "Agent evaluation metrics result map: two replay records aggregate into success_rate 50%, average_score 3.0/5, average_steps 7.0, and tool_failure_rate 50% to judge whether a Prompt really improved.",
+            },
+            "ja": {
+                "title": "Agent 評価指標の計算を読む",
+                "subtitle": "2つの replay 記録を4つの指標に集計し、Prompt の改善を根拠で見る。",
+                "items": [
+                    ("rag_review_001", "成功；score=4；steps=5；2つの tool_calls は ok=True。"),
+                    ("rag_review_002", "失敗；score=2；steps=9；2つの search_docs は ok=False。"),
+                    ("success_rate", "1 / 2 = 50%。"),
+                    ("average_score", "(4 + 2) / 2 = 3.0/5。"),
+                    ("average_steps", "(5 + 9) / 2 = 7.0。"),
+                    ("tool_failure_rate", "失敗 2 回 / tool call 4 回 = 50%。"),
+                ],
+                "footer": "評価では、答えの見た目だけでなく、固定サンプル、trace、指標を見る。",
+                "alt": "Agent 評価指標の結果図：2つの replay 記録から success_rate 50%、average_score 3.0/5、average_steps 7.0、tool_failure_rate 50% を集計し、Prompt が本当に改善したかを判断する。",
+            },
+        },
+    },
+    {
         "slug": "ch09-runtime-circuit-breaker-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",
