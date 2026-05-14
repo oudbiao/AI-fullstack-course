@@ -74,6 +74,8 @@ uncertainty_count: 1
 rag_ready: True
 ```
 
+![Visual record RAG-ready result map](/img/course/ch12-visual-record-rag-ready-result-map-en.webp)
+
 Operation tip: add `page`, `region`, or `timestamp` fields. If the record can be cited later, it can enter multimodal RAG. If it cannot be checked or cited, it should stay in review.
 
 ## Depth Ladder

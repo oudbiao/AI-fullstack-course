@@ -14243,6 +14243,61 @@ for direct_group in DIRECT_TRIPLET_GROUPS:
 
 EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-visual-record-rag-ready-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/index.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/index.md",
+        },
+        "scene": "A Chapter 12 multimodal index run-result teaching image based on the exact ch12_visual_record.py script. The image must teach why the print output source: course-slide-01.png, visible_text_count: 4, uncertainty_count: 1, rag_ready: True proves that a screenshot has become a structured, checkable multimodal record. Use only the exact data from the page: source course-slide-01.png, content_type course screenshot, visible_text list with RAGOps, evaluation set, Trace, cost monitoring, objects list with flowchart and table, uncertainty list with small text in the lower-right corner is unclear, next_step write into the multimodal RAG index for the course Q&A assistant to cite, required_fields source/content_type/visible_text/objects/uncertainty/next_step, and rag_ready = not missing and bool(visible_text). Do not invent extra screenshots, models, APIs, OCR engines, scores, documents, citations, vector databases, dashboards, dates, or terminal screenshots. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/technical tokens; Japanese image uses natural Japanese helper labels except exact code/technical tokens. Exact code/technical tokens may stay as code: visual_record, source, content_type, visible_text, objects, uncertainty, next_step, required_fields, missing, rag_ready, True, RAG, RAGOps, Trace, course-slide-01.png, page, region, timestamp.",
+        "chapter_context": "Inserted after the expected output of the First Runnable Loop in Chapter 12 index. Nearby prose explains that after a model or human reads an image, the result must become a structured, checkable record. The operation tip says to add page, region, or timestamp; records that can be cited later can enter multimodal RAG, while records that cannot be checked or cited should stay in review.",
+        "shared_layout": "Vertical 9:16. Use the same polished semi-realistic dark evidence-desk / multimodal QA lab across zh/en/ja, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a local-text-overlay style. Top title and subtitle. Upper station shows one concrete screenshot card labeled course-slide-01.png, with four highlighted visible text chips: RAGOps, evaluation set, Trace, cost monitoring; include a small flowchart/table sketch and a warning loupe on the lower-right unclear text. Middle station turns the screenshot into a structured visual_record clipboard with fields source, visible_text[4], objects, uncertainty[1], next_step. Right station checks required_fields with all fields present and missing = empty. Lower station has a RAG-ready gate that opens only because missing is empty and visible_text has 4 items. Bottom receipt shows exactly source: course-slide-01.png, visible_text_count: 4, uncertainty_count: 1, rag_ready: True. Add a small side note that page / region / timestamp should be added before indexing. Keep screenshot position, chips, clipboard, checklist, gate, receipt, colors, and reading path identical across zh/en/ja. Use large sparse localized text attached to concrete artifacts. Avoid dense paragraphs, tiny fake text, random non-locale text, decorative-only AIGC art, or extra English explanation in zh/ja variants beyond exact code/technical tokens.",
+        "variants": {
+            "zh": {
+                "title": "读懂视觉记录输出",
+                "subtitle": "截图先变成可检查记录，才适合进入多模态 RAG。",
+                "items": [
+                    ("截图来源", "source = course-slide-01.png。"),
+                    ("可见文字", "visible_text 有 4 项：RAGOps、evaluation set、Trace、cost monitoring。"),
+                    ("不确定点", "uncertainty[1]：右下角小字不清楚。"),
+                    ("字段检查", "required_fields 全部存在，missing 为空。"),
+                    ("进入 RAG", "rag_ready=True，因为有来源、有文字、可复查。"),
+                    ("补强引用", "入库前补 page / region / timestamp。"),
+                ],
+                "footer": "能检查、能引用的视觉记录，才进入多模态 RAG。",
+                "alt": "视觉记录运行结果图：截图 course-slide-01.png 被整理成 visual_record，visible_text 有 4 项，uncertainty 有 1 项，required_fields 没有缺失，因此 rag_ready 为 True，并提醒补充 page、region 或 timestamp。",
+            },
+            "en": {
+                "title": "Read the Visual Record Output",
+                "subtitle": "A screenshot must become a checkable record before multimodal RAG.",
+                "items": [
+                    ("screenshot source", "source = course-slide-01.png."),
+                    ("visible text", "visible_text has 4 items: RAGOps, evaluation set, Trace, cost monitoring."),
+                    ("uncertainty", "uncertainty[1]: small lower-right text is unclear."),
+                    ("field check", "All required_fields exist, so missing is empty."),
+                    ("enter RAG", "rag_ready=True because source and visible text can be reviewed."),
+                    ("stronger citation", "Add page / region / timestamp before indexing."),
+                ],
+                "footer": "Only checkable, citable visual records should enter multimodal RAG.",
+                "alt": "Visual record result map: screenshot course-slide-01.png becomes visual_record with 4 visible_text items, 1 uncertainty item, no missing required_fields, rag_ready True, and a reminder to add page, region, or timestamp.",
+            },
+            "ja": {
+                "title": "視覚記録の出力を読む",
+                "subtitle": "スクリーンショットは、確認できる記録にしてから RAG へ入れる。",
+                "items": [
+                    ("画像の出典", "source = course-slide-01.png。"),
+                    ("見える文字", "visible_text は 4 件：RAGOps、evaluation set、Trace、cost monitoring。"),
+                    ("不確実な点", "uncertainty[1]：右下の小さい文字が不明。"),
+                    ("項目確認", "required_fields は全部あり、missing は空。"),
+                    ("RAG へ進める", "rag_ready=True。出典と文字を確認できる。"),
+                    ("引用を強化", "index 前に page / region / timestamp を足す。"),
+                ],
+                "footer": "確認でき、引用できる視覚記録だけをマルチモーダル RAG へ入れる。",
+                "alt": "視覚記録の実行結果図：course-slide-01.png が visual_record になり、visible_text は4件、uncertainty は1件、required_fields の欠落がないため rag_ready が True になり、page、region、timestamp の追加を促す。",
+            },
+        },
+    },
+    {
         "slug": "ch10-image-processing-pipeline-output-montage",
         "pages": {
             "en": "docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md",
@@ -21368,6 +21423,105 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-visual-record-rag-ready-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章首页“第一个可运行循环：结构化视觉输入”的 ch12_visual_record.py 运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮多模态海报。
+
+可见标题必须完全写为：“读懂视觉记录输出”
+可见副标题必须完全写为：“截图先变成可检查记录，才适合进入多模态 RAG。”
+
+教学目标：读者先看图就能理解为什么 print 输出是 source: course-slide-01.png、visible_text_count: 4、uncertainty_count: 1、rag_ready: True。代码里 visual_record 包含 source、content_type、visible_text、objects、uncertainty、next_step；required_fields 全部存在，所以 missing 为空；visible_text 有 4 项，所以 rag_ready=True。重点是：截图不是直接丢进 RAG，必须先变成有来源、有可见文字、有不确定点、能复查的结构化记录。
+
+三语版本必须同构：同一个半写实深色 evidence-desk / multimodal QA lab、同一张截图卡、同样 4 个可见文字高亮、同样 visual_record 结构化夹板、同样 required_fields 检查、同样 RAG-ready 闸门、同样底部 print receipt。中文图只能用自然中文解释，允许保留这些代码/技术词：visual_record、source、content_type、visible_text、objects、uncertainty、next_step、required_fields、missing、rag_ready、True、RAG、RAGOps、Trace、course-slide-01.png、page、region、timestamp。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画一张具体截图卡，文件名必须写：“course-slide-01.png”。截图里要像课程幻灯片，有小流程图和表格草图。
+3. 截图上方或旁边必须有 4 个清楚高亮芯片，文字必须是：RAGOps、evaluation set、Trace、cost monitoring。旁边用中文短标：“visible_text 有 4 项”。
+4. 截图右下角画放大镜和警示标记，写：“uncertainty[1]：右下角小字不清楚”。
+5. 中间把截图转成一个 visual_record 夹板，夹板上用大字列出：
+   source
+   visible_text[4]
+   objects：flowchart、table
+   uncertainty[1]
+   next_step
+6. 右侧画 required_fields 检查区，6 个字段全部打勾，并写：“missing = 空”。
+7. 下方画一个打开的 RAG-ready 闸门，条件牌写：“有来源 + 有文字 + 可复查 -> rag_ready=True”。
+8. 底部 receipt 必须逐行清楚写：
+   source: course-slide-01.png
+   visible_text_count: 4
+   uncertainty_count: 1
+   rag_ready: True
+9. 侧边小提示写：“入库前补 page / region / timestamp”。
+10. 底部短句必须完全写为：“能检查、能引用的视觉记录，才进入多模态 RAG。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、随机日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、复杂仪表盘、终端界面、密集代码或无关装饰。
+""".strip(),
+    "ch12-visual-record-rag-ready-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for the Chapter 12 index “First Runnable Loop: Structure A Visual Input”, the ch12_visual_record.py result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no Python-code poster, and no decorative multimodal poster.
+
+Visible title exactly: “Read the Visual Record Output”
+Visible subtitle exactly: “A screenshot must become a checkable record before multimodal RAG.”
+
+Teaching goal: the learner should understand why the print output is source: course-slide-01.png, visible_text_count: 4, uncertainty_count: 1, rag_ready: True. The code visual_record contains source, content_type, visible_text, objects, uncertainty, and next_step. All required_fields exist, so missing is empty; visible_text has 4 items, so rag_ready=True. The key point is that a screenshot should not be dumped into RAG directly. It first needs a source, visible text, uncertainty, and a structure that can be reviewed.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark evidence-desk / multimodal QA lab, the same screenshot card, the same 4 visible-text highlights, the same visual_record clipboard, the same required_fields check, the same RAG-ready gate, and the same bottom print receipt. Use natural English. Code/technical tokens must be spelled exactly where useful: visual_record, source, content_type, visible_text, objects, uncertainty, next_step, required_fields, missing, rag_ready, True, RAG, RAGOps, Trace, course-slide-01.png, page, region, timestamp.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows one concrete screenshot card. The filename must read: “course-slide-01.png”. The screenshot should look like a course slide with a small flowchart and table sketch.
+3. On or beside the screenshot, show exactly 4 clear highlight chips: RAGOps, evaluation set, Trace, cost monitoring. Add the nearby English label: “visible_text has 4 items”.
+4. On the lower-right of the screenshot, show a magnifier and warning marker labeled: “uncertainty[1]: lower-right small text is unclear”.
+5. Middle area turns the screenshot into a visual_record clipboard. The clipboard must list in large text:
+   source
+   visible_text[4]
+   objects: flowchart, table
+   uncertainty[1]
+   next_step
+6. Right side shows a required_fields check area. All 6 fields have check marks, and it says: “missing = empty”.
+7. Lower area shows an open RAG-ready gate. Its condition plate says: “source + text + reviewable -> rag_ready=True”.
+8. Bottom receipt must clearly show these exact lines:
+   source: course-slide-01.png
+   visible_text_count: 4
+   uncertainty_count: 1
+   rag_ready: True
+9. Side note says: “add page / region / timestamp before indexing”.
+10. Bottom sentence exactly: “Only checkable, citable visual records should enter multimodal RAG.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, complex dashboards, terminal UI, dense code, or unrelated decoration.
+""".strip(),
+    "ch12-visual-record-rag-ready-result-map-ja.png": """
+第12章トップ「最初に動かすループ：視覚入力を構造化する」にある ch12_visual_record.py の実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードのポスター、ただのきれいなマルチモーダルポスターは禁止。
+
+可視タイトルは完全に：「視覚記録の出力を読む」
+可視サブタイトルは完全に：「スクリーンショットは、確認できる記録にしてから RAG へ入れる。」
+
+学習目標：print 出力が source: course-slide-01.png、visible_text_count: 4、uncertainty_count: 1、rag_ready: True になる理由を一目で理解できるようにする。コードでは visual_record に source、content_type、visible_text、objects、uncertainty、next_step がある。required_fields がすべて存在するため missing は空で、visible_text が 4 件あるため rag_ready=True になる。重要なのは、スクリーンショットを RAG に直接入れるのではなく、出典、見える文字、不確実な点、確認できる構造を先に作ること。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 evidence-desk / multimodal QA lab、同じ screenshot カード、同じ4つの visible_text ハイライト、同じ visual_record クリップボード、同じ required_fields 確認、同じ RAG-ready ゲート、同じ下部 print receipt。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：visual_record、source、content_type、visible_text、objects、uncertainty、next_step、required_fields、missing、rag_ready、True、RAG、RAGOps、Trace、course-slide-01.png、page、region、timestamp。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に具体的な screenshot カードを描く。ファイル名は必ず「course-slide-01.png」。中身はコーススライドらしく、小さな flowchart と table のスケッチを入れる。
+3. screenshot の上または横に、4つのはっきりしたハイライトチップを置く。文字は必ず：RAGOps、evaluation set、Trace、cost monitoring。近くに日本語で「visible_text は 4 件」と書く。
+4. screenshot 右下に虫眼鏡と警告マークを描き、「uncertainty[1]：右下の小さい文字が不明」と書く。
+5. 中央で screenshot を visual_record クリップボードへ変換する。クリップボードには大きく次を並べる：
+   source
+   visible_text[4]
+   objects：flowchart、table
+   uncertainty[1]
+   next_step
+6. 右側に required_fields 確認エリアを描く。6項目すべてにチェックを付け、「missing = 空」と書く。
+7. 下部に開いた RAG-ready ゲートを描く。条件札には「出典 + 文字 + 確認可能 -> rag_ready=True」と書く。
+8. 下部 receipt には必ず次の4行を清楚に書く：
+   source: course-slide-01.png
+   visible_text_count: 4
+   uncertainty_count: 1
+   rag_ready: True
+9. 側面メモに「index 前に page / region / timestamp を足す」と書く。
+10. 下部の短文は完全に：「確認でき、引用できる視覚記録だけをマルチモーダル RAG へ入れる。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、複雑な dashboard、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
     "ch12-video-frames-to-clips-adjacency-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.3.2 视频生成技术中 frames 到 clips 的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮胶片。
 

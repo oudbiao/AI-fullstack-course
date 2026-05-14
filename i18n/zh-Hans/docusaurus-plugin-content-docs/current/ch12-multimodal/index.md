@@ -74,6 +74,8 @@ uncertainty_count: 1
 rag_ready: True
 ```
 
+![视觉记录 RAG-ready 运行结果图](/img/course/ch12-visual-record-rag-ready-result-map.webp)
+
 操作提示：增加 `page`、`region` 或 `timestamp` 字段。如果这条记录之后能被引用，就可以进入多模态 RAG；如果无法检查或引用，就应该留在审核阶段。
 
 ## 深度阶梯

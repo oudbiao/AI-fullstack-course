@@ -74,6 +74,8 @@ uncertainty_count: 1
 rag_ready: True
 ```
 
+![視覚記録 RAG-ready 実行結果図](/img/course/ch12-visual-record-rag-ready-result-map-ja.webp)
+
 操作メモ: `page`、`region`、`timestamp` フィールドを追加してください。あとで引用できる記録なら、マルチモーダル RAG に入れられます。確認や引用ができないものは、レビュー段階に残します。
 
 ## 深さの段階
