@@ -338,6 +338,8 @@ Expected output:
 {'error': 'missing_query'}
 ```
 
+![MCP Server validation result map](/img/course/ch09-mcp-server-validation-result-map-en.webp)
+
 ### What is better about this version than the previous one?
 
 It already has:

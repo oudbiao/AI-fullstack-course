@@ -15983,6 +15983,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-mcp-server-validation-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch05-mcp/03-mcp-server-dev.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch05-mcp/03-mcp-server-dev.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch05-mcp/03-mcp-server-dev.md",
+        },
+        "scene": "A runnable-result teaching visual for the BetterMCPServer example. It must explain the exact printed output, not a generic MCP contract poster. Show one server exposing search_docs through list_tools, then two call_tool paths: a valid call with name search_docs and arguments containing query returns a certificate result, while an invalid call with arguments containing wrong instead of query fails validation and returns error missing_query. Also show the earlier minimal validation behavior as a small gate: validate_search_docs({'query': ...}) -> (True, 'ok') and validate_search_docs({'query_text': ...}) -> (False, 'missing_query'). Teaching point: an MCP Server is responsible for tool listing, parameter validation, real execution, unified result shape, and structured errors. Critical output accuracy: the only tool is search_docs; the only schema field is query type string; the successful BetterMCPServer result must be the short exact certificate answer for each locale; the failed call returns exactly {'error': 'missing_query'}. The success receipt must not contain any invented dashboard steps, PDF downloads, generate certificate buttons, final assessments, extra course requirements, extra policy details, refund deadlines, or procedural rules. Do not invent get_weather, external clients, databases, network protocol details, URLs, file paths, terminal commands, fake logs, or extra error codes.",
+        "chapter_context": "The image is inserted immediately after the expected output of the BetterMCPServer example in 9.5.4 MCP Server Development. Nearby code first lists the search_docs tool, then call_tool uses a small knowledge base, then validate_search_docs rejects a missing query field, and the final BetterMCPServer combines list_tools, validate, call_tool, successful certificate retrieval, and missing_query error return.",
+        "shared_layout": "Vertical 9:16. Use the same practical MCP server workshop style across zh/en/ja: a server bench in the center, a tool catalog shelf at the top, a validation gate in the middle, and two output receipts at the bottom. Top title and subtitle. Upper section: list_tools exposes exactly one tool card: name=search_docs, description localized, parameters: query string. Middle section: two argument envelopes enter validate(): the valid envelope has query and receives ok; the invalid envelope has wrong or query_text and is stamped missing_query. Lower section: call_tool splits into two paths. Green path: search_docs plus localized certificate query goes through execution and returns only the short localized certificate result specified in that locale's item list. Orange path: search_docs plus wrong field is blocked by validation and returns {'error': 'missing_query'}. Bottom strip: list tools + validate args + execute logic + standard result/error = reliable server boundary. Keep the physical layout, path order, colors, schema, tool name, error token, and reading path identical across languages. Use large localized labels attached to concrete objects, not a terminal screenshot. Code tokens that may stay English: MCP Server, BetterMCPServer, list_tools, call_tool, validate, search_docs, query, string, wrong, query_text, ok, missing_query, result, error. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense dictionaries, tiny fake text, extra tools, get_weather, external database icons, invented policy details, filenames, URLs, QR codes, and unrelated English/Japanese pseudo-text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "MCP Server 校验与返回结果",
+                "subtitle": "Server 先公布工具契约，再挡住错误参数，只执行合法调用。",
+                "items": [
+                    ("list_tools", "只暴露 search_docs；参数必须是 query: string。"),
+                    ("合法参数", "{'query': '证书怎么获得'} -> (True, 'ok')。"),
+                    ("错误参数", "{'wrong': '证书怎么获得'} -> missing_query。"),
+                    ("成功调用", "call_tool('search_docs', query) 只返回：完成所有项目并通过测试后可获得证书。"),
+                    ("失败调用", "缺少 query 时统一返回 {'error': 'missing_query'}。"),
+                    ("工程职责", "列工具、校验参数、执行逻辑、统一结果和错误。"),
+                ],
+                "footer": "MCP Server 是能力边界：client 给错参数时，server 要把错误变成稳定结构。",
+                "alt": "MCP Server 校验与返回结果图：list_tools 暴露 search_docs 和 query 字段，合法证书查询返回结果，wrong 参数被 validate 挡住并返回 missing_query。",
+            },
+            "en": {
+                "title": "MCP Server Validation Results",
+                "subtitle": "The server publishes the tool contract, blocks bad arguments, and executes only valid calls.",
+                "items": [
+                    ("list_tools", "Expose only search_docs; the parameter must be query: string."),
+                    ("valid args", "{'query': 'How do I get a certificate?'} -> (True, 'ok')."),
+                    ("bad args", "{'wrong': 'How do I get a certificate?'} -> missing_query."),
+                    ("success call", "call_tool('search_docs', query) returns only: You can receive a certificate after completing all projects and passing the tests."),
+                    ("failed call", "Missing query returns {'error': 'missing_query'}."),
+                    ("server duties", "List tools, validate args, execute logic, standardize result and error."),
+                ],
+                "footer": "An MCP Server is the capability boundary: bad client arguments become stable structured errors.",
+                "alt": "MCP Server validation result map: list_tools exposes search_docs and the query field, a valid certificate query returns a result, and a wrong argument is blocked by validate with missing_query.",
+            },
+            "ja": {
+                "title": "MCP Server の検証と返却結果",
+                "subtitle": "Server はツール契約を公開し、不正な引数を止め、正しい呼び出しだけ実行する。",
+                "items": [
+                    ("list_tools", "公開するのは search_docs だけ。引数は query: string。"),
+                    ("正しい引数", "{'query': '証明書はどうやって取得しますか'} -> (True, 'ok')。"),
+                    ("不正な引数", "{'wrong': '証明書はどうやって取得しますか'} -> missing_query。"),
+                    ("成功呼び出し", "call_tool('search_docs', query) は「すべてのプロジェクトを完了し、テストに合格すると証明書を取得できます。」だけを返す。"),
+                    ("失敗呼び出し", "query がない時は {'error': 'missing_query'} を返す。"),
+                    ("server の責務", "ツール一覧、引数検証、実行、結果とエラーの統一。"),
+                ],
+                "footer": "MCP Server は能力の境界：client の不正な引数を安定した構造化エラーに変える。",
+                "alt": "MCP Server の検証と返却結果図：list_tools が search_docs と query フィールドを公開し、正しい証明書 query は結果を返し、wrong 引数は validate により missing_query で止まる。",
+            },
+        },
+    },
+    {
         "slug": "ch09-short-term-memory-snapshot-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch04-memory/02-short-term-memory.md",

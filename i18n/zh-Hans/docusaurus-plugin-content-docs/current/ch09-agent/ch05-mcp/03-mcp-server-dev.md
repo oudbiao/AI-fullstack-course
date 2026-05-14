@@ -338,6 +338,8 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 {'error': 'missing_query'}
 ```
 
+![MCP Server 校验与返回结果图](/img/course/ch09-mcp-server-validation-result-map.webp)
+
 ### 这个版本比上一版强在哪？
 
 它已经具备了：
