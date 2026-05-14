@@ -112,6 +112,8 @@ for step in trace:
 {'request_id': 'req_rag_review_001', 'step_id': 3, 'node': 'generator', 'input_summary': "['RAG には分割、ベクトル化、検索、生成、引用チェックが含まれる']", 'output_summary': 'おすすめの復習順は、基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り です。', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 120}
 ```
 
+![Agent trace schema 実行結果図](/img/course/ch09-agent-observability-trace-schema-result-map-ja.webp)
+
 この例で大事なのは、コードが複雑なことではありません。各ステップを検査できるオブジェクトにしていることです。今後 LangGraph、LlamaIndex、CrewAI を使う場合でも、自分で関数を書く場合でも、土台には同じような軌跡が残っているべきです。
 
 ## 問題を調べるときは trace をどう見るか

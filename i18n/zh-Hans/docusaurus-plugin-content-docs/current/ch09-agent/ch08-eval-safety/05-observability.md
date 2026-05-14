@@ -112,6 +112,8 @@ for step in trace:
 {'request_id': 'req_rag_review_001', 'step_id': 3, 'node': 'generator', 'input_summary': "['RAG 包含切分、向量化、检索、生成和引用检查']", 'output_summary': '建议按：基础概念 -> 检索优化 -> 评估集 -> 项目复盘来复习。', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 120}
 ```
 
+![Agent trace schema 运行结果图](/img/course/ch09-agent-observability-trace-schema-result-map.webp)
+
 这个例子最重要的不是代码复杂度，而是它把每一步都变成可检查对象。后面无论你用 LangGraph、LlamaIndex、CrewAI，还是自己写函数，底层都应该保留类似轨迹。
 
 ## 排查问题时怎么看 trace

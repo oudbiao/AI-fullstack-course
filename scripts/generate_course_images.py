@@ -16695,6 +16695,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-agent-observability-trace-schema-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch08-eval-safety/05-observability.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch08-eval-safety/05-observability.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch08-eval-safety/05-observability.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal Agent trace schema example. It must explain the exact printed answer and the three trace dictionaries, not draw a generic observability dashboard. Show request_id req_rag_review_001 tying together exactly three TraceStep objects: step_id 1 node=planner turns the user query into a plan; step_id 2 node=retriever uses the RAG review query and returns one retrieved document summary; step_id 3 node=generator uses the retrieved docs to produce the final review order and is the only step with cost_tokens=120. All three statuses are ok and all latency_ms values are 0. Teaching point: the final answer is not enough; each step becomes an inspectable object with request_id, step_id, node, input_summary, output_summary, status, latency_ms, and cost_tokens. Do not invent extra spans, tools, dashboards, logs, platforms, errors, retries, costs, latency values, source ids, timelines, users, or alternate answers.",
+        "chapter_context": "The image is inserted immediately after the expected output of the minimal trace schema example in 9.8.6 Agent Observability. Nearby code defines a TraceStep dataclass, appends planner, retriever, and generator steps, prints the final answer, then prints each step dictionary. The surrounding prose emphasizes that every step should become an inspectable object, and that debugging should check planner, retriever/tool result, and generator use before changing the prompt.",
+        "shared_layout": "Vertical 9:16. Use the same practical trace inspection workbench style across zh/en/ja: a single request card at the top with request_id=req_rag_review_001, then three large stacked trace cards connected by one colored request_id thread. Card 1 planner: input user query -> output plan, status ok, latency_ms=0, cost_tokens=0. Card 2 retriever: input RAG review -> output one retrieved RAG document summary, status ok, latency_ms=0, cost_tokens=0. Card 3 generator: input retrieved docs -> output final review order, status ok, latency_ms=0, cost_tokens=120. On the side, show a small final-answer panel and a debugging checklist: check plan -> check retrieval -> check generator usage. Bottom insight strip: final answer shows result; trace explains the process. Keep card order, request_id thread, exact numeric fields, and reading path identical across languages. Code tokens that may stay English: Agent, TraceStep, trace, request_id, req_rag_review_001, step_id, node, planner, retriever, generator, input_summary, output_summary, status, ok, latency_ms, cost_tokens, RAG, request_id thread. Use large readable localized explanatory labels and short localized content from each language's code sample. Avoid terminal screenshots, raw dense dictionary dumps, fake charts, old SVG-style white rounded boxes, pure flowchart posters, tiny pseudo-text, decorative dashboards, and unrelated English or Japanese text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "Trace 运行结果怎么看",
+                "subtitle": "同一个 request_id 把 planner、retriever、generator 三步串起来。",
+                "items": [
+                    ("最终回答", "基础概念 -> 检索优化 -> 评估集 -> 项目复盘。"),
+                    ("step 1 planner", "输入：帮我准备 RAG 阶段复习；输出：先检索课程文档，再生成复习计划。"),
+                    ("step 2 retriever", "输入：RAG 复习；输出：RAG 包含切分、向量化、检索、生成和引用检查。"),
+                    ("step 3 generator", "使用检索结果生成复习顺序；cost_tokens=120。"),
+                    ("共同字段", "status=ok；latency_ms=0；request_id=req_rag_review_001。"),
+                    ("排查顺序", "先看计划，再看检索，最后看生成有没有用资料。"),
+                ],
+                "footer": "最终回答只说明结果；trace 才说明过程。",
+                "alt": "Agent trace schema 运行结果图：同一个 request_id 串起 planner、retriever、generator 三个 TraceStep，前两步 cost_tokens 为 0，generator 生成最终复习顺序并消耗 120 tokens。",
+            },
+            "en": {
+                "title": "Reading Trace Schema Results",
+                "subtitle": "One request_id links planner, retriever, and generator into an inspectable path.",
+                "items": [
+                    ("final answer", "fundamentals -> retrieval optimization -> evaluation set -> project retrospective."),
+                    ("step 1 planner", "Input: prepare for the RAG phase review; output: retrieve course docs, then generate a plan."),
+                    ("step 2 retriever", "Input: RAG review; output: RAG includes chunking, vectorization, retrieval, generation, and citation checks."),
+                    ("step 3 generator", "Uses retrieved docs to make the review order; cost_tokens=120."),
+                    ("shared fields", "status=ok; latency_ms=0; request_id=req_rag_review_001."),
+                    ("debug order", "Check the plan, then retrieval, then whether generation used the docs."),
+                ],
+                "footer": "The final answer shows the result; the trace explains the process.",
+                "alt": "Agent trace schema run result map: one request_id links planner, retriever, and generator TraceStep objects; the first two steps cost zero tokens, and the generator produces the final review order with cost_tokens 120.",
+            },
+            "ja": {
+                "title": "Trace 実行結果の読み方",
+                "subtitle": "1つの request_id が planner、retriever、generator をつなぐ。",
+                "items": [
+                    ("最終回答", "基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り。"),
+                    ("step 1 planner", "入力：RAG の復習準備；出力：コース文書を検索して復習計画を作る。"),
+                    ("step 2 retriever", "入力：RAG の復習；出力：分割、ベクトル化、検索、生成、引用チェック。"),
+                    ("step 3 generator", "検索結果を使って復習順を作る；cost_tokens=120。"),
+                    ("共通フィールド", "status=ok；latency_ms=0；request_id=req_rag_review_001。"),
+                    ("調査順序", "まず計画、次に検索、最後に生成が資料を使ったかを見る。"),
+                ],
+                "footer": "最終回答は結果だけを示し、trace は過程を説明する。",
+                "alt": "Agent trace schema 実行結果図：同じ request_id が planner、retriever、generator の3つの TraceStep をつなぎ、最初の2ステップは cost_tokens 0、generator は最終復習順を生成して 120 tokens を使う。",
+            },
+        },
+    },
+    {
         "slug": "ch09-agent-cache-savings-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
@@ -19959,6 +20014,114 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch09-agent-observability-trace-schema-result-map.png": """
+生成一张 9:16 竖版简体中文教学位图，用于第 9 章 9.8.6 Agent 可观测性中的最小 trace schema 实验。
+这是 AI 直接生成的最终图片。不要本地叠字，不要 SVG，不要白底圆角框信息图，不要纯流程图，不要终端截图，不要把 Python 字典原样密集贴满画面。
+
+教学目标：读者先看图就能理解 print 出来的 final answer 只说明结果，trace 才能解释 planner、retriever、generator 三步如何串起来。图片必须服务本节代码：TraceStep dataclass、run_agent()、answer、trace、asdict(step)。
+
+统一风格：深色 trace 检查工作台，像把一次 Agent 请求拆开审查。中英日三版必须同构：同一镜头、同一上下顺序、同一 request_id 线、同一颜色节奏。画面要漂亮，但每个物件必须能帮助学习。
+
+固定版式：
+1. 顶部是一张请求卡，必须写清：request_id=req_rag_review_001。旁边写“同一个 request_id 串起三步”。
+2. 中间左侧从上到下三张大 trace 卡，由一条发光 request_id 线连接：
+   - step 1 planner：输入“帮我准备 RAG 阶段复习”；输出“先检索课程文档，再生成复习计划”；显示 status=ok、latency_ms=0、cost_tokens=0。
+   - step 2 retriever：输入“RAG 复习”；输出“RAG 包含切分、向量化、检索、生成和引用检查”；显示 status=ok、latency_ms=0、cost_tokens=0。
+   - step 3 generator：输入“retrieved docs”；输出“最终复习顺序”；显示 status=ok、latency_ms=0、cost_tokens=120。
+3. 右侧上方是“最终回答”纸条：基础概念 -> 检索优化 -> 评估集 -> 项目复盘。
+4. 右侧下方是“排查顺序”检查板：1 看计划；2 看检索；3 看生成有没有用资料。
+5. 底部是对比带：最终回答 = 结果；trace = 过程。
+
+只使用这些大而清楚的文字：
+标题“Trace 运行结果怎么看”
+副标题“同一个 request_id 把 planner、retriever、generator 三步串起来”
+request_id=req_rag_review_001
+step 1 planner / 输入 / 输出 / status=ok / latency_ms=0 / cost_tokens=0
+step 2 retriever / 输入 / 输出 / status=ok / latency_ms=0 / cost_tokens=0
+step 3 generator / 输入 / 输出 / status=ok / latency_ms=0 / cost_tokens=120
+最终回答 / 基础概念 -> 检索优化 -> 评估集 -> 项目复盘
+排查顺序 / 看计划 / 看检索 / 看生成有没有用资料
+页脚“最终回答只说明结果；trace 才说明过程。”
+
+准确性规则：
+- 字段名必须拼写为 latency_ms，绝对不要写 latecny_ms、latency_ns、latency-ms 或其他变体。
+- request_id 必须是 req_rag_review_001，不能多写 0、1 或改名。
+- 只能有三个步骤：planner、retriever、generator。不要添加 tool、dashboard、retry、error、source id、用户头像、日志平台或额外 span。
+- 不要把完整 Python 字典大段贴图。每张卡只画输入、输出、status、latency_ms、cost_tokens 这几个可读字段。
+- 中文说明必须是自然简体中文。除 Agent、TraceStep、trace、request_id、planner、retriever、generator、input、output、status、ok、latency_ms、cost_tokens、RAG、retrieved docs 等代码/术语外，不要英文说明句、日文、乱码、小字或无关背景文字。
+""".strip(),
+    "ch09-agent-observability-trace-schema-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 9 section 9.8.6 Agent Observability.
+This is the final AI-generated image. Do not rely on local text overlay. Do not imitate SVG. Do not make a white rounded-box infographic, pure flowchart, terminal screenshot, dense Python dictionary poster, or decorative dashboard.
+
+Teaching goal: before reading the code, the learner should understand that the printed final answer only shows the result, while the trace explains how planner, retriever, and generator formed that result. The image must teach the exact nearby code: TraceStep dataclass, run_agent(), answer, trace, and asdict(step).
+
+Unified style: a dark trace inspection workbench, as if one Agent request is opened for review. The Simplified Chinese, English, and Japanese versions must keep the same camera angle, vertical order, request_id thread, object positions, and color rhythm.
+
+Fixed layout:
+1. Top request card with exactly: request_id=req_rag_review_001. Add a short helper label: "one request_id links three steps".
+2. Middle-left has three large trace cards connected by one glowing request_id thread:
+   - step 1 planner: input "Help me prepare for the RAG phase review"; output "retrieve course docs, then generate a review plan"; show status=ok, latency_ms=0, cost_tokens=0.
+   - step 2 retriever: input "RAG review"; output "chunking, vectorization, retrieval, generation, citation checks"; show status=ok, latency_ms=0, cost_tokens=0.
+   - step 3 generator: input "retrieved docs"; output "final review order"; show status=ok, latency_ms=0, cost_tokens=120.
+3. Upper-right final answer note: fundamentals -> retrieval optimization -> evaluation set -> project retrospective.
+4. Lower-right debug order board: 1 check plan; 2 check retrieval; 3 check generator used docs.
+5. Bottom comparison strip: final answer = result; trace = process.
+
+Use only these large readable teaching texts:
+Title: "Reading Trace Schema Results"
+Subtitle: "One request_id links planner, retriever, and generator into an inspectable path"
+request_id=req_rag_review_001
+step 1 planner / input / output / status=ok / latency_ms=0 / cost_tokens=0
+step 2 retriever / input / output / status=ok / latency_ms=0 / cost_tokens=0
+step 3 generator / input / output / status=ok / latency_ms=0 / cost_tokens=120
+final answer / fundamentals -> retrieval optimization -> evaluation set -> project retrospective
+debug order / check plan / check retrieval / check generator used docs
+Footer: "The final answer shows the result; the trace explains the process."
+
+Accuracy rules:
+- The field name must be exactly latency_ms. Never write latecny_ms, latency_ns, latency-ms, or any variant.
+- request_id must be exactly req_rag_review_001. Do not add extra zeros or rename it.
+- Show exactly three steps: planner, retriever, generator. Do not add tools, dashboards, retries, errors, source ids, user avatars, logging platforms, or extra spans.
+- Do not paste full Python dictionaries. Each trace card should show only readable input, output, status, latency_ms, and cost_tokens badges.
+- All explanatory text must be natural English. Do not include Chinese, Japanese, gibberish, tiny background text, unrelated labels, or brand logos.
+""".strip(),
+    "ch09-agent-observability-trace-schema-result-map-ja.png": """
+第 9 章 9.8.6「Agent の可観測性」で使う、縦長 9:16 の日本語教材ビットマップを 1 枚生成してください。
+これは AI が直接生成する最終画像です。ローカル文字重ね、SVG、白い角丸ボックスのインフォグラフィック、ただのフローチャート、ターミナル画面、Python 辞書を密に貼ったポスター、装飾だけの dashboard は禁止です。
+
+教材の目的：コードを読む前に、print された最終回答は結果だけを示し、trace が planner、retriever、generator の3段階を説明することが分かる画像にする。対象コードは TraceStep dataclass、run_agent()、answer、trace、asdict(step)。
+
+統一スタイル：暗い trace 点検ワークベンチ。1つの Agent リクエストを開いて確認する構図。中国語版・英語版・日本語版は、同じカメラ角度、同じ縦の順序、同じ request_id の線、同じ物体配置、同じ配色にする。
+
+固定レイアウト：
+1. 上部に request card。必ず request_id=req_rag_review_001 と書く。近くに「1つの request_id が3段階をつなぐ」と書く。
+2. 中央左に、発光する request_id の線でつながった3枚の大きな trace card：
+   - step 1 planner：入力「RAG の復習準備」；出力「コース文書を検索して復習計画を作る」；status=ok、latency_ms=0、cost_tokens=0。
+   - step 2 retriever：入力「RAG の復習」；出力「分割、ベクトル化、検索、生成、引用チェック」；status=ok、latency_ms=0、cost_tokens=0。
+   - step 3 generator：入力「retrieved docs」；出力「最終復習順」；status=ok、latency_ms=0、cost_tokens=120。
+3. 右上に「最終回答」メモ：基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り。
+4. 右下に「調査順序」ボード：1 計画を見る；2 検索を見る；3 生成が資料を使ったか見る。
+5. 下部に対比帯：最終回答 = 結果；trace = 過程。
+
+画像内の文字は少なく大きく、次の教材文字を使う：
+タイトル「Trace 実行結果の読み方」
+サブタイトル「1つの request_id が planner、retriever、generator をつなぐ」
+request_id=req_rag_review_001
+step 1 planner / 入力 / 出力 / status=ok / latency_ms=0 / cost_tokens=0
+step 2 retriever / 入力 / 出力 / status=ok / latency_ms=0 / cost_tokens=0
+step 3 generator / 入力 / 出力 / status=ok / latency_ms=0 / cost_tokens=120
+最終回答 / 基礎概念 -> 検索最適化 -> 評価セット -> プロジェクト振り返り
+調査順序 / 計画を見る / 検索を見る / 生成が資料を使ったか見る
+フッター「最終回答は結果だけを示し、trace は過程を説明する。」
+
+正確性ルール：
+- field 名は必ず latency_ms。latecny_ms、latency_ns、latency-ms などの誤字を絶対に書かない。
+- request_id は必ず req_rag_review_001。0 や 1 を余分に足したり、名前を変えたりしない。
+- step は planner、retriever、generator の3つだけ。tool、dashboard、retry、error、source id、user avatar、logging platform、余分な span を追加しない。
+- 完全な Python 辞書を大きく貼らない。各 trace card は入力、出力、status、latency_ms、cost_tokens の読みやすい badge だけにする。
+- 説明文は自然な日本語にする。Agent、TraceStep、trace、request_id、planner、retriever、generator、input、output、status、ok、latency_ms、cost_tokens、RAG、retrieved docs などの code/technical token はそのままでよい。中国語、英語の説明文、文字化け、小さすぎる背景文字、無関係な label、brand logo は禁止です。
+""".strip(),
     "ch07-tokenizer-wordpiece-run-result-map.png": """
 生成一张 9:16 竖版简体中文教学位图，用于第 7 章 7.1.2“分词与 Tokenizer”的实验结果解释。
 这是 AI 直接生成的最终图。不要本地叠字、不要 SVG、不要白底圆角框信息图、不要纯流程框、不要终端截图、不要贴一堆文字。

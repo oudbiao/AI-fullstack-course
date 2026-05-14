@@ -112,6 +112,8 @@ I suggest reviewing in this order: fundamentals -> retrieval optimization -> eva
 {'request_id': 'req_rag_review_001', 'step_id': 3, 'node': 'generator', 'input_summary': "['RAG includes chunking, vectorization, retrieval, generation, and citation checks']", 'output_summary': 'I suggest reviewing in this order: fundamentals -> retrieval optimization -> evaluation set -> project retrospective.', 'status': 'ok', 'latency_ms': 0, 'cost_tokens': 120}
 ```
 
+![Agent trace schema run result map](/img/course/ch09-agent-observability-trace-schema-result-map-en.webp)
+
 The most important thing in this example is not the code complexity, but that it turns every step into an inspectable object. Later, whether you use LangGraph, LlamaIndex, CrewAI, or write functions yourself, the underlying system should preserve a similar trace.
 
 ## How to inspect traces when debugging problems
