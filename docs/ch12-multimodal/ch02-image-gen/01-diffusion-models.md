@@ -287,6 +287,8 @@ noise = [ 0.2 -0.1  0.3]
 noisy = [ 1.1  -0.55  1.02]
 ```
 
+![Diffusion noise-prediction training target result map](/img/course/ch12-diffusion-noise-prediction-target-result-map-en.webp)
+
 In training, `clean` and `noise` are both known because you created the noisy sample yourself. That is why diffusion training can turn image generation into a supervised “predict the added noise” task.
 
 If the model learns to predict `noise` from `x_noisy`,

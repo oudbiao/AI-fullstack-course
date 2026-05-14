@@ -289,6 +289,8 @@ noise = [ 0.2 -0.1  0.3]
 noisy = [ 1.1  -0.55  1.02]
 ```
 
+![扩散 noise 预测训练目标运行结果图](/img/course/ch12-diffusion-noise-prediction-target-result-map.webp)
+
 训练时 `clean` 和 `noise` 都是已知的，因为带噪样本就是你自己构造出来的。所以扩散训练可以被组织成一个“从带噪样本预测已添加噪声”的监督学习任务。
 
 如果模型学会了从 `x_noisy` 预测 `noise`，

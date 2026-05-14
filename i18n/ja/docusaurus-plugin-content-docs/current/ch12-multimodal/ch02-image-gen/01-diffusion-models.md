@@ -287,6 +287,8 @@ noise = [ 0.2 -0.1  0.3]
 noisy = [ 1.1  -0.55  1.02]
 ```
 
+![Diffusion の noise 予測学習 target 実行結果図](/img/course/ch12-diffusion-noise-prediction-target-result-map-ja.webp)
+
 学習時には `clean` も `noise` も既知です。ノイズ付きサンプルは自分で作っているからです。だから拡散モデルの学習は、「ノイズ付きサンプルから、加えたノイズを予測する」教師あり学習として組み立てられます。
 
 もしモデルが `x_noisy` から `noise` を予測できるようになれば、  

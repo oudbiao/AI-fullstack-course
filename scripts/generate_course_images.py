@@ -18067,6 +18067,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-diffusion-noise-prediction-target-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
+        },
+        "scene": "A Chapter 12 diffusion training-objective run-result teaching image based on the exact clean/noise/noisy toy code. The code defines x_clean = [1.0, -0.5, 0.8], noise = [0.2, -0.1, 0.3], and x_noisy = 0.9 * x_clean + noise, printing clean, noise, and noisy = [1.1, -0.55, 1.02]. The image must teach that diffusion training knows both the clean sample and the added noise because the training pipeline created the noisy sample; therefore the supervised target is predicting noise from x_noisy, not directly drawing the whole final image. Do not draw a generic diffusion poster, terminal screenshot, raw NumPy table, white rounded-box flowchart, or beautiful but unrelated denoising picture. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code/data tokens; Japanese image uses natural Japanese helper labels except exact code/data tokens. Exact code/data tokens may stay as code: clean, noise, noisy, x_clean, x_noisy, predict noise.",
+        "chapter_context": "The image is inserted after the expected output of the minimal learning-objective example in 12.2.1 Diffusion Models. Nearby prose says that clean and noise are both known because the noisy sample is constructed by us, so diffusion training can become a supervised task: predict the added noise from the noisy sample.",
+        "shared_layout": "Vertical 9:16. Use a polished paper signal-lab notebook style with three vector strips, a mixing machine, and a supervised-learning target badge. Do not use old SVG information-box style, white rounded-box flowchart, pure text poster, terminal screenshot, or decorative image-generation poster. Top title and subtitle. Upper station shows clean signal chips [1.0, -0.5, 0.8] and noise chips [0.2, -0.1, 0.3] entering a mixer labeled 0.9 * clean + noise. Middle station shows the output noisy chips [1.1, -0.55, 1.02]. Lower station shows a model looking at x_noisy and trying to predict noise, with the known noise strip as the answer key/target. Bottom rule strip says the training target is known added noise, not the entire correct image. Keep chip order, values, arrows, target badge, colors, and reading path identical across zh/en/ja. Use large sparse localized labels attached to the concrete chips and model path.",
+        "variants": {
+            "zh": {
+                "title": "扩散训练目标不是直接画图",
+                "subtitle": "clean 和 noise 都已知，所以监督目标是 predict noise。",
+                "items": [
+                    ("clean", "[1.0, -0.5, 0.8] 是干净样本。"),
+                    ("noise", "[0.2, -0.1, 0.3] 是我们主动加入的噪声。"),
+                    ("mix", "x_noisy = 0.9 * clean + noise。"),
+                    ("noisy", "[1.1, -0.55, 1.02] 是带噪样本。"),
+                    ("target", "模型看 x_noisy，学习预测 noise。"),
+                    ("why supervised", "答案 noise 是已知标签。"),
+                ],
+                "footer": "扩散训练先学会找出噪声，推理时才能一步步去噪。",
+                "alt": "扩散 noise 预测训练目标运行结果图：clean 与已知 noise 混合成 noisy，模型从 x_noisy 预测 noise，因为 noise 是训练时主动加入的监督标签。",
+            },
+            "en": {
+                "title": "Diffusion Training Does Not Learn to Draw Directly",
+                "subtitle": "clean and noise are known, so the supervised target is predict noise.",
+                "items": [
+                    ("clean", "[1.0, -0.5, 0.8] is the clean sample."),
+                    ("noise", "[0.2, -0.1, 0.3] is the noise we added."),
+                    ("mix", "x_noisy = 0.9 * clean + noise."),
+                    ("noisy", "[1.1, -0.55, 1.02] is the noisy sample."),
+                    ("target", "The model sees x_noisy and learns to predict noise."),
+                    ("why supervised", "The answer noise is a known label."),
+                ],
+                "footer": "Diffusion first learns to find noise, so inference can remove it step by step.",
+                "alt": "Diffusion noise-prediction training target result map: clean and known noise mix into noisy, and the model predicts noise from x_noisy because noise is the supervised label added during training.",
+            },
+            "ja": {
+                "title": "Diffusion 学習は直接描画ではない",
+                "subtitle": "clean と noise は既知なので、教師あり target は predict noise。",
+                "items": [
+                    ("clean", "[1.0, -0.5, 0.8] がきれいな sample。"),
+                    ("noise", "[0.2, -0.1, 0.3] は自分で加えた noise。"),
+                    ("mix", "x_noisy = 0.9 * clean + noise。"),
+                    ("noisy", "[1.1, -0.55, 1.02] が noise 付き sample。"),
+                    ("target", "model は x_noisy を見て noise を予測する。"),
+                    ("why supervised", "答えの noise は既知の label。"),
+                ],
+                "footer": "Diffusion は先に noise を見つける学習をし、推論で少しずつ取り除く。",
+                "alt": "Diffusion の noise 予測学習 target 実行結果図：clean と既知の noise を混ぜて noisy を作り、noise は学習時に加えた教師 label なので、model は x_noisy から noise を予測する。",
+            },
+        },
+    },
+    {
         "slug": "ch12-image-text-retrieval-similarity-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
@@ -20778,6 +20833,75 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-diffusion-noise-prediction-target-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.1 “扩散模型学习目标”代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 NumPy 输出贴成表格。
+
+可见标题必须完全写为：“扩散训练目标不是直接画图”
+可见副标题必须完全写为：“clean 和 noise 都已知，所以监督目标是 predict noise。”
+
+教学目标：读者先看图就能理解三行 print 的真正含义。训练时我们自己构造带噪样本：clean 和 noise 都是已知的，x_noisy = 0.9 * clean + noise，所以模型不是直接学习整张图的正确样子，而是看 x_noisy，学习预测已加入的 noise。
+
+三语版本必须同构：同一张纸质 signal lab 笔记、同一手绘墨线+水彩风格、同一阅读顺序、同一物体位置、同一颜色节奏。中文图只能用自然中文解释，允许保留这些代码/技术词：clean、noise、noisy、x_clean、x_noisy、predict noise、target、label、Diffusion。除这些固定词外，不要出现英文说明句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画两个输入信号条：clean 和 noise。必须用大号芯片清楚写出：
+   clean [1.0, -0.5, 0.8]
+   noise [0.2, -0.1, 0.3]
+3. 中间画一台混合机器，标签必须写：“x_noisy = 0.9 * clean + noise”。机器要表现 0.9 倍 clean 与 noise 相加，不要画成随机魔法。
+4. 混合机器输出一个 noisy 信号条，必须大号写出：
+   noisy [1.1, -0.55, 1.02]
+5. 下方画监督学习小实验台：模型只看到 x_noisy，箭头指向“预测 noise”；旁边有答案卡“已知标签：noise [0.2, -0.1, 0.3]”。画面要表达这个标签是训练时主动加入的噪声。
+6. 底部短句必须完全写为：“先学会找出噪声，推理时才能一步步去噪。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。所有数字必须和代码输出一致，尤其 -0.5、-0.1、-0.55、1.02 的负号和小数点不能丢。不要随机英文、日文、乱码、小字背景、水印、品牌 logo、额外公式、额外数组、真实模型名、公司名、价格、日期或终端界面。
+""".strip(),
+    "ch12-diffusion-noise-prediction-target-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.2.1, the diffusion learning-objective code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, and no pasted NumPy table.
+
+Visible title exactly: “Diffusion Training Does Not Learn to Draw Directly”
+Visible subtitle exactly: “clean and noise are known, so the supervised target is predict noise.”
+
+Teaching goal: the learner should understand what the three printed rows mean. During training we create the noisy sample ourselves: clean and noise are both known, x_noisy = 0.9 * clean + noise, so the model is not directly learning the correct whole image. It sees x_noisy and learns to predict the added noise.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: same paper signal-lab notebook, same ink-line plus watercolor teaching style, same reading order, same object positions, same color rhythm. Use natural English. Code/technical tokens must be spelled exactly where useful: clean, noise, noisy, x_clean, x_noisy, predict noise, target, label, Diffusion.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows two input signal strips: clean and noise. Use large chips with exactly:
+   clean [1.0, -0.5, 0.8]
+   noise [0.2, -0.1, 0.3]
+3. Middle area shows a mixing machine labeled exactly: “x_noisy = 0.9 * clean + noise”. The drawing should show 0.9 times clean plus noise, not random magic.
+4. The mixer outputs one noisy signal strip with large text exactly:
+   noisy [1.1, -0.55, 1.02]
+5. Lower area shows a supervised-learning bench: the model only sees x_noisy, an arrow points to “predict noise”, and an answer card says “known label: noise [0.2, -0.1, 0.3]”. Make clear that this label is the noise added by the training pipeline.
+6. Bottom sentence exactly: “First learn to find noise; then inference can remove it step by step.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. All visible numbers must match the code output; especially keep the minus signs and decimals in -0.5, -0.1, -0.55, and 1.02. Avoid gibberish, tiny background text, random non-English text, watermark, brand logo, extra formulas, extra arrays, real model names, company names, prices, dates, or terminal UI.
+""".strip(),
+    "ch12-diffusion-noise-prediction-target-result-map-ja.png": """
+第12章 12.2.1 の「Diffusion の学習目標」コード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、NumPy 出力を貼っただけの表は禁止。
+
+可視タイトルは完全に：「Diffusion 学習は直接描画ではない」
+可視サブタイトルは完全に：「clean と noise は既知なので、教師あり target は predict noise。」
+
+学習目標：3行の print が何を意味するか一目で分かること。学習時には、noise 付き sample を自分で作る。clean と noise はどちらも既知で、x_noisy = 0.9 * clean + noise。だから model は正しい画像全体を直接学ぶのではなく、x_noisy を見て、加えた noise を予測する。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ紙の signal lab ノート、同じインク線+水彩の教材スタイル、同じ読み順、同じ物体位置、同じ色のリズム。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：clean、noise、noisy、x_clean、x_noisy、predict noise、target、label、Diffusion。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に2本の入力 signal strip を描く：clean と noise。大きなチップで必ず次を書く：
+   clean [1.0, -0.5, 0.8]
+   noise [0.2, -0.1, 0.3]
+3. 中央に混合マシンを描き、ラベルは完全に：「x_noisy = 0.9 * clean + noise」。0.9 倍の clean に noise を足すことが見えるようにし、ランダムな魔法の絵にしない。
+4. 混合マシンの出力として noisy signal strip を描き、大きく必ず次を書く：
+   noisy [1.1, -0.55, 1.02]
+5. 下部に教師あり学習の実験台を描く：model は x_noisy だけを見る。矢印は「noise を予測」へ向かう。横の答えカードに「既知 label：noise [0.2, -0.1, 0.3]」と書く。この label は学習パイプラインが加えた noise だと分かるようにする。
+6. 下部の短文は完全に：「先に noise を見つける学習をし、推論で少しずつ取り除く。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。見える数字はコード出力と一致させ、特に -0.5、-0.1、-0.55、1.02 のマイナス記号と小数点を落とさない。文字化け、小さな背景文字、ランダムな中国語や英語説明、水印、実在ロゴ、余分な数式、余分な配列、実在モデル名、会社名、価格、日付、端末 UI は禁止。
+""".strip(),
     "ch12-image-trend-priority-score-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.2.5 “趋势优先级”代码的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要原样贴字典输出。
 
