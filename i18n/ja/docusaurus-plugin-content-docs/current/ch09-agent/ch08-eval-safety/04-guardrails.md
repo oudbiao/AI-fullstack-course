@@ -255,6 +255,8 @@ print(knowledge_guard(sample_2))
 {'allow': False, 'reason': 'external_cannot_override_internal'}
 ```
 
+![Agent Guardrails 実行結果図](/img/course/ch09-agent-guardrails-run-result-map-ja.webp)
+
 この例は初心者に向いています。なぜなら、次の点が見えやすいからです。
 
 - ガードレールは「文章」だけを審査しているわけではない

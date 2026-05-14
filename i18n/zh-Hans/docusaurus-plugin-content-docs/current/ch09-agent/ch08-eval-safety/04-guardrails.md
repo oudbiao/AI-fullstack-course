@@ -258,6 +258,8 @@ print(knowledge_guard(sample_2))
 {'allow': False, 'reason': 'external_cannot_override_internal'}
 ```
 
+![Agent Guardrails 运行结果图](/img/course/ch09-agent-guardrails-run-result-map.webp)
+
 这个例子很适合新人，因为它会帮助你看到：
 
 - 护栏并不只是在审“文本”

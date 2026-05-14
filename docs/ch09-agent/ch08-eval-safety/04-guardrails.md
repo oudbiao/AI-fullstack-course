@@ -256,6 +256,8 @@ Expected output:
 {'allow': False, 'reason': 'external_cannot_override_internal'}
 ```
 
+![Agent Guardrails Run Result Map](/img/course/ch09-agent-guardrails-run-result-map-en.webp)
+
 This example is useful for beginners because it helps you see that:
 
 - Guardrails are not only checking “text”
