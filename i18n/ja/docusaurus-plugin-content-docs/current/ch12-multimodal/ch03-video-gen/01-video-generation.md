@@ -169,6 +169,8 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 
 `clips` は隠れた要件を見える形にしています。単独のフレームが良いだけでなく、隣り合うフレームのつながりも自然でなければなりません。
 
+![動画 frames から clips への隣接関係の実行結果図](/img/course/ch12-video-frames-to-clips-adjacency-result-map-ja.webp)
+
 ### この例は何を教えているのか？
 
 この例が教えているのは次の点です。

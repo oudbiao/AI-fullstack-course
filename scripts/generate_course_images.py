@@ -14518,6 +14518,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-video-frames-to-clips-adjacency-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch03-video-gen/01-video-generation.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/01-video-generation.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch03-video-gen/01-video-generation.md",
+        },
+        "scene": "A Chapter 12 video-generation run-result teaching image based on the exact frames-to-clips Python list-comprehension example. The image must teach how frames ['f1', 'f2', 'f3', 'f4'] become adjacent clip pairs [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')] and why video generation must model adjacency. Do not invent frames, durations, models, cameras, fps, extra clips, APIs, dashboards, terminal screenshots, or a decorative film poster. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except exact code tokens; Japanese image uses natural Japanese helper labels except exact code tokens. Exact code/data tokens may stay as code: frames, clips, f1, f2, f3, f4, (f1, f2), (f2, f3), (f3, f4), temporal consistency, motion continuity.",
+        "chapter_context": "Inserted after the expected output of the Minimal Frames to Clip example in 12.3.2 Video Generation Technology. Nearby prose says clips makes the hidden requirement visible: adjacent pairs must feel connected, not just standalone frames. The illustration should make the print output readable as a concrete temporal-adjacency artifact.",
+        "shared_layout": "Vertical 9:16. Use a polished storyboard adjacency lab style, not a white rounded-box SVG infographic, not a pure flowchart, not a terminal screenshot, and not a decorative film poster. Top title and subtitle. Upper station shows four frame cards f1, f2, f3, f4 in a time strip with the same simple subject moving left to right; identity, color, and background stay consistent. Middle station shows a sliding two-frame window that reads adjacent pairs. Lower station shows exactly three clip cards: (f1, f2), (f2, f3), (f3, f4), each with a continuity link band. Bottom contrast strip: independent frames create flicker risk; adjacent clips support temporal consistency. Keep frame order, sliding-window position, clip order, colors, subject identity, and reading path identical across zh/en/ja. Use large sparse localized labels attached to concrete cards, windows, and links. Avoid dense paragraphs, tiny fake text, unrelated video UI, old SVG information-box style, local text overlay style, and extra English explanation in zh/ja variants beyond exact code tokens.",
+        "variants": {
+            "zh": {
+                "title": "frames 怎么变成 clips",
+                "subtitle": "视频不是 4 张独立图片，而是 3 段相邻关系。",
+                "items": [
+                    ("输入", "frames = [f1, f2, f3, f4]。"),
+                    ("滑动窗口", "每次取当前帧和下一帧。"),
+                    ("clip 1", "(f1, f2)：检查第一段连接。"),
+                    ("clip 2", "(f2, f3)：检查中间连接。"),
+                    ("clip 3", "(f3, f4)：检查最后连接。"),
+                    ("学习重点", "帧间一致性来自相邻关系建模。"),
+                ],
+                "footer": "视频生成要让每一对相邻帧连得自然。",
+                "alt": "视频 frames 到 clips 相邻关系运行结果图：frames 列表 f1 到 f4 通过滑动窗口变成 (f1, f2)、(f2, f3)、(f3, f4)，强调视频生成要建模相邻帧连接。",
+            },
+            "en": {
+                "title": "How frames Become clips",
+                "subtitle": "A video is not 4 isolated images; it is 3 adjacent links.",
+                "items": [
+                    ("input", "frames = [f1, f2, f3, f4]."),
+                    ("sliding window", "Take the current frame and the next frame."),
+                    ("clip 1", "(f1, f2): check the first connection."),
+                    ("clip 2", "(f2, f3): check the middle connection."),
+                    ("clip 3", "(f3, f4): check the final connection."),
+                    ("learning point", "Temporal consistency comes from modeling adjacency."),
+                ],
+                "footer": "Video generation must make each adjacent pair connect naturally.",
+                "alt": "Video frames-to-clips adjacency result map: frames f1 through f4 become (f1, f2), (f2, f3), and (f3, f4) through a sliding window, emphasizing adjacent-frame modeling.",
+            },
+            "ja": {
+                "title": "frames から clips への読み方",
+                "subtitle": "動画は4枚の独立画像ではなく、3つの隣接リンクでできている。",
+                "items": [
+                    ("入力", "frames = [f1, f2, f3, f4]。"),
+                    ("スライド窓", "現在の frame と次の frame を組にする。"),
+                    ("clip 1", "(f1, f2)：最初のつながりを見る。"),
+                    ("clip 2", "(f2, f3)：中央のつながりを見る。"),
+                    ("clip 3", "(f3, f4)：最後のつながりを見る。"),
+                    ("学習ポイント", "隣接関係をモデル化して時間的一貫性を保つ。"),
+                ],
+                "footer": "動画生成では、隣り合う frame 同士を自然につなぐ必要がある。",
+                "alt": "動画 frames から clips への隣接関係の実行結果図：frames の f1 から f4 がスライド窓で (f1, f2)、(f2, f3)、(f3, f4) になり、隣接 frame の modeling が重要だと示す。",
+            },
+        },
+    },
+    {
         "slug": "ch12-creative-platform-asset-bundle-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
@@ -21151,6 +21206,81 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch12-video-frames-to-clips-adjacency-result-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.3.2 视频生成技术中 frames 到 clips 的代码运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要把 Python 代码贴成海报，不要只画漂亮胶片。
+
+可见标题必须完全写为：“frames 怎么变成 clips”
+可见副标题必须完全写为：“视频不是 4 张独立图片，而是 3 段相邻关系。”
+
+教学目标：读者先看图就能理解 print 输出中 clips 为什么是 [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]。代码里 frames = [f1, f2, f3, f4]，list comprehension 每次取当前帧和下一帧，所以形成三个相邻片段。重点是：视频生成要建模相邻帧连接，不能只把每一帧当作独立样本。
+
+三语版本必须同构：同一个半写实深色 storyboard adjacency lab、同一条四帧时间带、同一个滑动两帧窗口、同样三个 clip 卡片、同样底部对比条。中文图只能用自然中文解释，允许保留这些代码/技术词：frames、clips、f1、f2、f3、f4、clip、temporal consistency。除这些固定词外，不要出现英文解释句。
+
+固定版式：
+1. 顶部标题和副标题。
+2. 上方画四张连续 frame 卡，顺序必须是 f1、f2、f3、f4。同一个小角色或物体从左到右轻微移动，颜色和身份保持一致。
+3. 四张 frame 卡下方写清楚：“输入：frames = [f1, f2, f3, f4]”。
+4. 中间画一个发光的“两帧滑动窗口”，窗口先覆盖 f1-f2，再用半透明轨迹提示移动到 f2-f3、f3-f4。旁边必须写：“每次取当前帧和下一帧”。
+5. 下方画三个 clip 结果卡，必须按顺序写：
+   clip 1： (f1, f2)
+   clip 2： (f2, f3)
+   clip 3： (f3, f4)
+   每张卡都要有一条连接带，表示检查两帧之间是否自然。
+6. 底部做小对比：左边“独立帧”配闪烁/断裂符号；右边“相邻 clips”配连续运动轨迹。
+7. 底部短句必须完全写为：“视频生成要让每一对相邻帧连得自然。”
+
+所有文字必须靠近对应物体，字号大，适合手机阅读。不要乱码、随机英文、日文、小字背景、水印、品牌 logo、真实公司名、价格、日期、无关模型名、终端界面、密集代码或无关装饰。
+""".strip(),
+    "ch12-video-frames-to-clips-adjacency-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 12 section 12.3.2 Video Generation Technology, the frames-to-clips code result. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, no Python-code poster, and no decorative filmstrip-only image.
+
+Visible title exactly: “How frames Become clips”
+Visible subtitle exactly: “A video is not 4 isolated images; it is 3 adjacent links.”
+
+Teaching goal: the learner should understand why the printed clips output is [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]. In the code, frames = [f1, f2, f3, f4], and the list comprehension takes the current frame plus the next frame each time, forming three adjacent clips. The key point is that video generation must model adjacent-frame connections, not treat each frame as an independent sample.
+
+The Simplified Chinese, English, and Japanese versions must be structurally identical: the same semi-realistic dark storyboard adjacency lab, the same four-frame time strip, the same sliding two-frame window, the same three clip cards, and the same bottom comparison strip. Use natural English. Code/technical tokens must be spelled exactly where useful: frames, clips, f1, f2, f3, f4, clip, temporal consistency.
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper area shows four continuous frame cards in this exact order: f1, f2, f3, f4. The same small character or object moves slightly left to right; identity and color stay consistent.
+3. Under the frame cards, clearly write: “input: frames = [f1, f2, f3, f4]”.
+4. Middle shows a glowing “two-frame sliding window”. The window covers f1-f2 first, then translucent motion trails show it moving to f2-f3 and f3-f4. Beside it, write: “take the current frame and the next frame”.
+5. Lower area shows three clip result cards, exactly in order:
+   clip 1: (f1, f2)
+   clip 2: (f2, f3)
+   clip 3: (f3, f4)
+   Each card must include a link band showing that the connection between the two frames is being checked.
+6. Bottom mini comparison: left side “independent frames” with flicker/broken symbols; right side “adjacent clips” with a continuous motion trail.
+7. Bottom sentence exactly: “Video generation must make each adjacent pair connect naturally.”
+
+Every label must sit near the object it explains, with large readable text suitable for mobile. Avoid gibberish, random non-English text, tiny background text, watermark, brand logo, real company names, prices, dates, unrelated model names, terminal UI, dense code, or unrelated decoration.
+""".strip(),
+    "ch12-video-frames-to-clips-adjacency-result-map-ja.png": """
+第12章 12.3.2 ビデオ生成技術にある frames から clips へのコード実行結果を説明する、完成済みの 9:16 縦長日本語教材ビットマップを生成してください。AI が直接最終画像を生成すること。後から文字を載せる余白、SVG 風、白い角丸ボックス型インフォグラフィック、純粋なフローチャート、端末スクリーンショット、Python コードのポスター、ただのきれいなフィルム帯は禁止。
+
+可視タイトルは完全に：「frames から clips への読み方」
+可視サブタイトルは完全に：「動画は4枚の独立画像ではなく、3つの隣接リンクでできている。」
+
+学習目標：print 出力の clips がなぜ [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')] になるのかを一目で理解できるようにする。コードでは frames = [f1, f2, f3, f4] で、list comprehension が毎回「現在の frame と次の frame」を取るため、3つの隣接 clip ができる。重要なのは、動画生成では各 frame を独立サンプルとして扱うのではなく、隣り合う frame のつながりをモデル化する必要があること。
+
+中国語版、英語版、日本語版は同じ構造にする：同じ半写実の暗色 storyboard adjacency lab、同じ4 frame の時間帯、同じ2 frame スライド窓、同じ3つの clip カード、同じ下部比較バー。説明文は自然な日本語にする。以下のコード/技術語は必要な場所で英語のまま使ってよい：frames、clips、f1、f2、f3、f4、clip、temporal consistency。コード語以外の英語説明文は出さない。
+
+固定レイアウト：
+1. 上部にタイトルとサブタイトル。
+2. 上部に4枚の連続 frame カードを描く。順序は必ず f1、f2、f3、f4。同じ小さな人物または物体が左から右へ少しずつ動き、色と同一性は保つ。
+3. frame カードの下に必ず書く：「入力：frames = [f1, f2, f3, f4]」。
+4. 中央に光る「2 frame スライド窓」を描く。窓は最初 f1-f2 を覆い、半透明の移動軌跡で f2-f3、f3-f4 へ動くことを示す。横に必ず書く：「現在の frame と次の frame を組にする」。
+5. 下部に3つの clip 結果カードを描き、必ず順序通りに書く：
+   clip 1： (f1, f2)
+   clip 2： (f2, f3)
+   clip 3： (f3, f4)
+   各カードには、2つの frame のつながりを確認する連結帯を入れる。
+6. 底部に小さな比較を入れる：左は「独立した frame」でちらつき/断裂記号、右は「隣接 clips」で連続した動きの軌跡。
+7. 下部の短文は完全に：「動画生成では、隣り合う frame 同士を自然につなぐ必要がある。」
+
+文字は説明対象の近くに置き、大きく読みやすく、スマホで読めること。文字化け、ランダムな中国語や英語説明、小さな背景文字、水印、実在ロゴ、実在会社名、価格、日付、無関係なモデル名、端末 UI、密集したコード、無関係な装飾は禁止。
+""".strip(),
     "ch12-multimodal-feature-fusion-result-map.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于第 12 章 12.1.1 多模态基础中“融合”NumPy 例子的运行结果。必须是 AI 直接生成的最终图片；不要留空给后期叠字，不要 SVG 风格，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要纯文字海报，不要泛泛画“多模态很酷”。
 

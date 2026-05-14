@@ -168,6 +168,8 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 
 The `clips` list makes the hidden requirement visible: the model must make each adjacent pair feel connected, not only make each frame look good alone.
 
+![Video frames-to-clips adjacency result map](/img/course/ch12-video-frames-to-clips-adjacency-result-map-en.webp)
+
 ### What is this example teaching?
 
 It is teaching you that:

@@ -168,6 +168,8 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 
 `clips` 把隐藏要求显出来了：模型不能只让单帧看起来不错，还要让每一对相邻帧连得自然。
 
+![视频 frames 到 clips 相邻关系运行结果图](/img/course/ch12-video-frames-to-clips-adjacency-result-map.webp)
+
 ### 这个例子在教什么？
 
 它在教你：
