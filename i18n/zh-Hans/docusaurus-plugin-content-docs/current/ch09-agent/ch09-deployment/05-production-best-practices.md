@@ -168,6 +168,8 @@ print(readiness_check(deployment_config))
 {'ready': True, 'missing_required': [], 'warnings': ['missing_rate_limit', 'missing_human_override']}
 ```
 
+![Agent readiness 检查结果图](/img/course/ch09-production-readiness-check-result-map.webp)
+
 ### 这个示例最重要的启发是什么？
 
 它提醒你：

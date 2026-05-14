@@ -168,6 +168,8 @@ print(readiness_check(deployment_config))
 {'ready': True, 'missing_required': [], 'warnings': ['missing_rate_limit', 'missing_human_override']}
 ```
 
+![Agent readiness チェック結果図](/img/course/ch09-production-readiness-check-result-map-ja.webp)
+
 ### この例から得られる最も重要な気づきは？
 
 この例が教えてくれるのは、次のことです。

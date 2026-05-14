@@ -16750,6 +16750,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch09-production-readiness-check-result-map",
+        "pages": {
+            "en": "docs/ch09-agent/ch09-deployment/05-production-best-practices.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/05-production-best-practices.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch09-agent/ch09-deployment/05-production-best-practices.md",
+        },
+        "scene": "A runnable-result teaching visual for the minimal production readiness checker in Agent deployment best practices. It must explain the exact printed dictionary, not draw a generic launch checklist. Show deployment_config entering readiness_check(config). Required gates pass because metrics, structured logs, timeout, retry policy, eval suite, canary rollout, rollback plan, and audit log are True, so missing_required is an empty list and ready is True. Two non-blocking warning flags remain because has_rate_limit is False and has_human_override is False, producing warnings ['missing_rate_limit', 'missing_human_override']. Teaching point: ready=True means required launch blockers are cleared, but warnings still name risks to fix before or during rollout; readiness is checkable conditions, not a feeling. Do not invent extra flags, scores, percentages, environments, teams, vendors, dashboards, dates, or different warning names.",
+        "chapter_context": "The image is inserted immediately after the expected output of readiness_check(deployment_config) in 9.9.6 Production Best Practices. Nearby code defines deployment_config with ten booleans, required contains eight keys, missing_required collects required keys that are False, warnings collects missing_rate_limit and missing_human_override, and ready is True when there are no missing required keys. The surrounding prose says production readiness is not a feeling but a set of checkable conditions, and explicitly listing missing items changes the discussion from vague confidence to concrete launch decisions.",
+        "shared_layout": "Vertical 9:16. Use the same polished dark release-room / launch-gate workbench across zh/en/ja. Top title and subtitle. Upper station: deployment_config card with ten switch rows; eight required rows are green True, rate_limit and human_override are amber False. Middle station: readiness_check gate with two lanes: required checks and warning checks. Required lane shows eight green stamps and outputs missing_required=[] -> ready=True. Warning lane shows two amber flags: missing_rate_limit and missing_human_override. Right or lower station: printed result dictionary summarized as ready=True, missing_required=[], warnings=[missing_rate_limit, missing_human_override]. Bottom decision strip: launch is not blocked by required checks, but rollout must handle rate limit and human override risk. Keep switch order, booleans, warning names, object positions, colors, and reading path identical across languages. Code tokens that may stay English: Agent, deployment_config, readiness_check, True, False, ready, missing_required, warnings, has_metrics, has_structured_logs, has_timeout, has_retry_policy, has_rate_limit, has_eval_suite, has_canary_rollout, has_rollback_plan, has_human_override, has_audit_log, missing_rate_limit, missing_human_override. Use large readable localized explanation labels and avoid raw dense Python dictionaries, terminal screenshots, old SVG-style white rounded boxes, pure text posters, tiny pseudo-text, decorative dashboards, and unrelated English or Japanese text in zh images.",
+        "variants": {
+            "zh": {
+                "title": "Readiness 检查结果怎么看",
+                "subtitle": "必需项全通过，所以 ready=True；两个 warning 仍要处理。",
+                "items": [
+                    ("required", "8 个必需开关都是 True。"),
+                    ("missing_required", "没有阻塞项：[]。"),
+                    ("ready", "ready=True 表示可以进入受控发布。"),
+                    ("warning 1", "has_rate_limit=False -> missing_rate_limit。"),
+                    ("warning 2", "has_human_override=False -> missing_human_override。"),
+                    ("上线判断", "不靠感觉；看可检查条件和剩余风险。"),
+                ],
+                "footer": "ready=True 不是零风险，而是“必需项过关，警告项要跟进”。",
+                "alt": "Agent 生产 readiness 检查结果图：readiness_check 读取 deployment_config，8 个必需项通过得到 missing_required 空列表和 ready True，同时因为 rate limit 与 human override 为 False 产生两个 warning。",
+            },
+            "en": {
+                "title": "Reading Readiness Check Results",
+                "subtitle": "Required checks pass, so ready=True; two warnings still need action.",
+                "items": [
+                    ("required", "All 8 required switches are True."),
+                    ("missing_required", "No launch blockers: []."),
+                    ("ready", "ready=True means controlled rollout can start."),
+                    ("warning 1", "has_rate_limit=False -> missing_rate_limit."),
+                    ("warning 2", "has_human_override=False -> missing_human_override."),
+                    ("launch decision", "Use checkable conditions and remaining risks, not feelings."),
+                ],
+                "footer": "ready=True is not zero risk; it means required gates passed and warnings need follow-up.",
+                "alt": "Agent production readiness check result map: readiness_check reads deployment_config, eight required checks pass to produce missing_required empty list and ready True, while rate limit and human override being False create two warnings.",
+            },
+            "ja": {
+                "title": "Readiness チェック結果の読み方",
+                "subtitle": "必須 checks は通過したので ready=True。ただし warning は2つ残る。",
+                "items": [
+                    ("required", "8つの必須 switch はすべて True。"),
+                    ("missing_required", "ブロッカーはない：[]。"),
+                    ("ready", "ready=True は制御された rollout に進めるという意味。"),
+                    ("warning 1", "has_rate_limit=False -> missing_rate_limit。"),
+                    ("warning 2", "has_human_override=False -> missing_human_override。"),
+                    ("リリース判断", "感覚ではなく、確認できる条件と残リスクで判断する。"),
+                ],
+                "footer": "ready=True は無リスクではなく、必須 gate 通過と warning の残りを示す。",
+                "alt": "Agent 本番 readiness チェックの結果図：readiness_check が deployment_config を読み、8つの必須項目が通過して missing_required は空、ready は True になり、rate limit と human override が False のため2つの warning が残る。",
+            },
+        },
+    },
+    {
         "slug": "ch09-agent-cache-savings-result-map",
         "pages": {
             "en": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
@@ -20014,6 +20069,150 @@ existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
 IMAGE_JOB_PROMPT_OVERRIDES = {
+    "ch09-production-readiness-check-result-map.png": """
+生成一张 9:16 竖版简体中文教学位图，用于第 9 章 9.9.6 Agent 生产最佳实践中的 readiness_check 实验。
+这是 AI 直接生成的最终图片。不要本地叠字，不要 SVG，不要白底圆角框信息图，不要纯流程图，不要终端截图，不要把 Python 字典原样密集贴满画面。
+
+教学目标：读者先看图就能理解 print 出来的结果：ready=True 是因为 8 个 required 检查都通过，missing_required=[]；但 has_rate_limit=False 和 has_human_override=False 仍产生两个 warnings。图片必须服务本节代码：deployment_config、readiness_check(config)、required、warnings、ready。
+
+统一风格：深色发布控制室 / launch gate 教学插画，像一次上线前检查。中英日三版必须同构：同一镜头、同一上下顺序、同一开关顺序、同一颜色节奏。画面要漂亮，但每个物件必须帮助学习。
+
+固定版式：
+1. 顶部标题“Readiness 检查结果怎么看”，副标题“必需项全通过，所以 ready=True；两个 warning 仍要处理。”
+2. 左上是 deployment_config 开关板，必须按这个顺序显示：has_metrics=True、has_structured_logs=True、has_timeout=True、has_retry_policy=True、has_rate_limit=False、has_eval_suite=True、has_canary_rollout=True、has_rollback_plan=True、has_human_override=False、has_audit_log=True。True 用绿色，False 用琥珀色。
+3. 中间是 readiness_check 检查门，分两条通道：
+   - required 通道：8 个必需项盖绿色通过章，输出 missing_required=[]，ready=True。
+   - warnings 通道：两个琥珀旗帜，missing_rate_limit、missing_human_override。
+4. 右侧是“输出解读”结果板，只总结三行：ready=True；missing_required=[]；warnings=[missing_rate_limit, missing_human_override]。
+5. 底部是决策带：必需项过关 -> 可进入受控发布；warning -> 上线前/灰度中跟进。
+
+只使用这些大而清楚的文字：
+Readiness 检查结果怎么看
+必需项全通过，所以 ready=True；两个 warning 仍要处理。
+deployment_config
+has_metrics=True
+has_structured_logs=True
+has_timeout=True
+has_retry_policy=True
+has_rate_limit=False
+has_eval_suite=True
+has_canary_rollout=True
+has_rollback_plan=True
+has_human_override=False
+has_audit_log=True
+required / 8 项通过
+missing_required=[]
+ready=True
+warnings
+missing_rate_limit
+missing_human_override
+输出解读
+可进入受控发布
+警告项要跟进
+ready=True 不是零风险，而是“必需项过关，警告项要跟进”。
+
+准确性规则：
+- ready 必须是 True；missing_required 必须是 []；warnings 必须只包含 missing_rate_limit 和 missing_human_override。
+- 只能有 10 个 config 开关，不能添加安全评分、百分比、环境名、团队、人名、日期、产品 logo 或额外 warning。
+- 不要把完整 Python 字典大段贴图。用开关板、检查门、结果板来解释。
+- 中文说明必须是自然简体中文。除 Agent、deployment_config、readiness_check、True、False、ready、missing_required、warnings、has_* 字段、missing_rate_limit、missing_human_override、launch gate 等代码/术语外，不要英文说明句、日文、乱码、小字或无关背景文字。
+""".strip(),
+    "ch09-production-readiness-check-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 9 section 9.9.6 Agent Production Best Practices.
+This is the final AI-generated image. Do not rely on local text overlay. Do not imitate SVG. Do not make a white rounded-box infographic, pure flowchart, terminal screenshot, dense Python dictionary poster, or decorative dashboard.
+
+Teaching goal: before reading the code, the learner should understand the printed result: ready=True because all 8 required checks pass and missing_required=[]; has_rate_limit=False and has_human_override=False still create two warnings. The image must teach the exact nearby code: deployment_config, readiness_check(config), required, warnings, and ready.
+
+Unified style: a dark release control room / launch gate teaching illustration. The Simplified Chinese, English, and Japanese versions must keep the same camera angle, vertical order, switch order, object positions, and color rhythm.
+
+Fixed layout:
+1. Top title "Reading Readiness Check Results" and subtitle "Required checks pass, so ready=True; two warnings still need action."
+2. Upper-left deployment_config switch board in exactly this order: has_metrics=True, has_structured_logs=True, has_timeout=True, has_retry_policy=True, has_rate_limit=False, has_eval_suite=True, has_canary_rollout=True, has_rollback_plan=True, has_human_override=False, has_audit_log=True. Use green for True and amber for False.
+3. Middle readiness_check gate with two lanes:
+   - required lane: eight green pass stamps, then missing_required=[], ready=True.
+   - warnings lane: two amber flags, missing_rate_limit and missing_human_override.
+4. Right result interpretation board with only three summary rows: ready=True; missing_required=[]; warnings=[missing_rate_limit, missing_human_override].
+5. Bottom decision strip: required gates passed -> controlled rollout can start; warnings -> follow up before launch or during canary.
+
+Use only these large readable teaching texts:
+Reading Readiness Check Results
+Required checks pass, so ready=True; two warnings still need action.
+deployment_config
+has_metrics=True
+has_structured_logs=True
+has_timeout=True
+has_retry_policy=True
+has_rate_limit=False
+has_eval_suite=True
+has_canary_rollout=True
+has_rollback_plan=True
+has_human_override=False
+has_audit_log=True
+required / 8 passed
+missing_required=[]
+ready=True
+warnings
+missing_rate_limit
+missing_human_override
+result reading
+controlled rollout can start
+warnings need follow-up
+ready=True is not zero risk; required gates passed and warnings need follow-up.
+
+Accuracy rules:
+- ready must be True; missing_required must be []; warnings must contain only missing_rate_limit and missing_human_override.
+- Show exactly 10 config switches. Do not add safety scores, percentages, environment names, teams, people, dates, product logos, or extra warnings.
+- Do not paste the full Python dictionary. Teach with switches, a check gate, and a result board.
+- All explanatory text must be natural English. Do not include Chinese, Japanese, gibberish, tiny background text, unrelated labels, or brand logos.
+""".strip(),
+    "ch09-production-readiness-check-result-map-ja.png": """
+第 9 章 9.9.6「Agent 本番環境のベストプラクティス」で使う、縦長 9:16 の日本語教材ビットマップを 1 枚生成してください。
+これは AI が直接生成する最終画像です。ローカル文字重ね、SVG、白い角丸ボックスのインフォグラフィック、ただのフローチャート、ターミナル画面、Python 辞書を密に貼ったポスター、装飾だけの dashboard は禁止です。
+
+教材の目的：コードを読む前に、print 結果の意味が分かるようにする。ready=True は 8つの required check が通り、missing_required=[] だから。has_rate_limit=False と has_human_override=False はまだ2つの warnings を作る。対象コードは deployment_config、readiness_check(config)、required、warnings、ready。
+
+統一スタイル：暗い release control room / launch gate の教材イラスト。中国語版・英語版・日本語版は、同じカメラ角度、同じ縦の順序、同じ switch 順序、同じ物体配置、同じ配色にする。
+
+固定レイアウト：
+1. 上部タイトル「Readiness チェック結果の読み方」、サブタイトル「必須 checks は通過したので ready=True。ただし warning は2つ残る。」
+2. 左上に deployment_config の switch board。必ずこの順序で表示：has_metrics=True、has_structured_logs=True、has_timeout=True、has_retry_policy=True、has_rate_limit=False、has_eval_suite=True、has_canary_rollout=True、has_rollback_plan=True、has_human_override=False、has_audit_log=True。True は緑、False は琥珀色。
+3. 中央に readiness_check gate。2つの lane：
+   - required lane：8つの緑 pass stamp、出力は missing_required=[]、ready=True。
+   - warnings lane：2つの琥珀 flag、missing_rate_limit、missing_human_override。
+4. 右側に「結果の読み方」ボード。3行だけ：ready=True；missing_required=[]；warnings=[missing_rate_limit, missing_human_override]。
+5. 下部の判断帯：必須 gate 通過 -> 制御された rollout に進める；warning -> リリース前または canary 中に対応。
+
+画像内の文字は少なく大きく、次の教材文字を使う：
+Readiness チェック結果の読み方
+必須 checks は通過したので ready=True。ただし warning は2つ残る。
+deployment_config
+has_metrics=True
+has_structured_logs=True
+has_timeout=True
+has_retry_policy=True
+has_rate_limit=False
+has_eval_suite=True
+has_canary_rollout=True
+has_rollback_plan=True
+has_human_override=False
+has_audit_log=True
+required / 8項目通過
+missing_required=[]
+ready=True
+warnings
+missing_rate_limit
+missing_human_override
+結果の読み方
+制御された rollout に進める
+warning は対応が必要
+ready=True は無リスクではなく、必須 gate 通過と warning の残りを示す。
+
+正確性ルール：
+- ready は必ず True。missing_required は必ず []。warnings は missing_rate_limit と missing_human_override だけ。
+- config switch は10個だけ。安全スコア、percentage、環境名、team、人名、日付、product logo、追加 warning を入れない。
+- 完全な Python 辞書を大きく貼らない。switch board、check gate、result board で説明する。
+- 説明文は自然な日本語にする。Agent、deployment_config、readiness_check、True、False、ready、missing_required、warnings、has_* field、missing_rate_limit、missing_human_override、launch gate などの code/technical token はそのままでよい。中国語、英語の説明文、文字化け、小さすぎる背景文字、無関係な label、brand logo は禁止です。
+""".strip(),
     "ch09-agent-observability-trace-schema-result-map.png": """
 生成一张 9:16 竖版简体中文教学位图，用于第 9 章 9.8.6 Agent 可观测性中的最小 trace schema 实验。
 这是 AI 直接生成的最终图片。不要本地叠字，不要 SVG，不要白底圆角框信息图，不要纯流程图，不要终端截图，不要把 Python 字典原样密集贴满画面。

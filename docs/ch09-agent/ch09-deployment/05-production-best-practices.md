@@ -168,6 +168,8 @@ Expected output:
 {'ready': True, 'missing_required': [], 'warnings': ['missing_rate_limit', 'missing_human_override']}
 ```
 
+![Agent readiness check result map](/img/course/ch09-production-readiness-check-result-map-en.webp)
+
 ### What is the most important takeaway from this example?
 
 It reminds you that:
