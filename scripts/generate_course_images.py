@@ -14133,6 +14133,61 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-multimodal-chapter-flow",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+        },
+        "scene": "A Chapter 12.1 roadmap teaching image for multimodal basics. It must teach the exact first mental model from the page: multimodal AI is not just chatting with an image. Raw media such as a slide screenshot, text note, audio, and video first become a structured, checkable observation record. Show the course example screenshot with visible slide words RAG, Embedding, Vector DB, the source file rag-slide.png, modalities image/text, visible_text, next_step, and uncertainty for unreadable tiny footer text. Then show how the learner follows the section order: understand modalities and fields, learn alignment and fusion, study vision-language models, then build multimodal apps that hand records to RAG, review, or Agent workflows. The learner should be able to look at the image before reading the page and know why the course starts from records and uncertainty instead of from attractive generation demos. Keep all technical words short and large; do not write long prose on sticky notes, blackboards, film frames, or background papers.",
+        "chapter_context": "This image appears at the top of the Chapter 12.1 roadmap. The page says multimodal AI should convert images, text, audio, and video into structured observations, align them with a task, and connect the result to retrieval, review, creation, or automation. The runnable example builds a simulated vision record with source rag-slide.png, modalities image and text, visible_text values RAG, Embedding, Vector DB, next_step connect this image evidence to the retrieval index, and uncertainty that small footer text is unreadable. The pass criteria are: one image or screenshot becomes structured text; uncertainty is marked; the result can enter RAG, review, or Agent workflow.",
+        "shared_layout": "Vertical 9:16. Use one fixed composition for all three variants: a dark slate multimodal evidence desk viewed from above, with realistic paper, metal trays, cables, and colored gates. Do not change the camera angle, color palette, number of boards, or object positions between languages. Top title and subtitle. Upper third: exactly four raw-media tiles in this order and same positions: slide screenshot, text note, audio wave, video frames. The slide screenshot contains exactly three big words on separate lines: RAG, Embedding, Vector DB. Add one small blurred footer mark under a magnifying glass with a large localized unclear label. Center: one large structured observation clipboard. Keep the clipboard sparse: left column field names only source, modalities, visible_text, next_step, uncertainty; right column shows rag-slide.png, image/text, RAG / Embedding / Vector DB, index, unclear footer. Do not write long sentences inside the clipboard. Side callout notes show the six required teaching labels and short notes. Lower middle: four physical learning stations in order: modalities and fields, alignment/fusion, vision-language model, app engineering. Bottom: exactly three destination gates in order: RAG, review, Agent. Keep raw-media order, clipboard field order, route order, destination gate order, colors, and reading path identical across languages. Use large localized labels attached to concrete objects. The only visible English in zh/ja variants may be exact technical tokens: RAG, Embedding, Vector DB, source, modalities, visible_text, next_step, uncertainty, Agent, alignment/fusion, VLM, rag-slide.png, image/text. Avoid tiny paragraphs, extra checklist rows, fake code blocks, terminal screenshots, generic classroom scenes, unlocalized English explanations in Chinese or Japanese, pseudo text, watermarks, old SVG style, white information cards, sticky-note collage style, and any local text overlay look.",
+        "variants": {
+            "zh": {
+                "title": "多模态基础：从输入到可用记录",
+                "subtitle": "先把图、文、音视频变成可检查观察，再接入任务。",
+                "items": [
+                    ("输入模态", "图片、文本、音频、视频先保留来源。"),
+                    ("可见证据", "RAG、Embedding、Vector DB 被记录下来。"),
+                    ("结构化记录", "source、modalities、visible_text、next_step、uncertainty。"),
+                    ("不确定点", "小字看不清，要标记而不是猜。"),
+                    ("学习顺序", "模态表示 -> 对齐融合 -> 视觉语言模型 -> 应用工程。"),
+                    ("下一步", "送入 RAG、审核或 Agent 工作流。"),
+                ],
+                "footer": "先留下可检查记录，再让模型理解或生成。",
+                "alt": "多模态基础路线图：截图、文本、音频和视频先变成结构化观察记录，记录 RAG、Embedding、Vector DB、不确定点和 next_step，再进入模态表示、对齐融合、视觉语言模型、应用工程和 RAG、审核、Agent 工作流。",
+            },
+            "en": {
+                "title": "Multimodal Basics: From Input to Usable Record",
+                "subtitle": "Turn media into checkable observations before connecting tasks.",
+                "items": [
+                    ("input modalities", "Keep source for image, text, audio, and video."),
+                    ("visible evidence", "Record RAG, Embedding, Vector DB from the slide."),
+                    ("structured record", "source, modalities, visible_text, next_step, uncertainty."),
+                    ("uncertainty", "Mark unreadable footer text instead of guessing."),
+                    ("learning order", "modalities -> alignment/fusion -> VLM -> app engineering."),
+                    ("next step", "Send the record to RAG, review, or Agent workflow."),
+                ],
+                "footer": "Make the record checkable first; then ask models to understand or generate.",
+                "alt": "Multimodal basics roadmap: screenshot, text, audio, and video become a structured observation record with RAG, Embedding, Vector DB, uncertainty, and next_step before the learner studies modalities, alignment fusion, vision-language models, app engineering, and RAG, review, Agent workflows.",
+            },
+            "ja": {
+                "title": "マルチモーダル基礎：入力から使える記録へ",
+                "subtitle": "メディアを確認できる観察にしてから、タスクへつなぐ。",
+                "items": [
+                    ("入力モダリティ", "画像、テキスト、音声、動画の source を残す。"),
+                    ("見える証拠", "RAG、Embedding、Vector DB を記録する。"),
+                    ("構造化記録", "source、modalities、visible_text、next_step、uncertainty。"),
+                    ("不確実点", "読めない小字は推測せずに印をつける。"),
+                    ("学ぶ順番", "モダリティ -> alignment/fusion -> VLM -> アプリ工程。"),
+                    ("次の行き先", "RAG、review、Agent workflow へ送る。"),
+                ],
+                "footer": "まず確認できる記録を作り、それから理解や生成へ進む。",
+                "alt": "マルチモーダル基礎の流れ：スクリーンショット、テキスト、音声、動画を構造化された観察記録にし、RAG、Embedding、Vector DB、不確実点、next_step を残してから、モダリティ、alignment/fusion、VLM、アプリ工程、RAG、review、Agent workflow へ進む。",
+            },
+        },
+    },
+    {
         "slug": "ch12-multimodal-workflow-loop",
         "pages": {
             "en": "docs/ch12-multimodal/index.md",
