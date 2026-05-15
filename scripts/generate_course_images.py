@@ -14173,6 +14173,61 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-sd-application-mode-selector-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+        },
+        "scene": "A Chapter 12 Stable Diffusion application-mode selection teaching image. The visual must teach how to choose the right generation or editing route from the user's goal and available input artifacts, not merely list mode names. Show a practical creative workbench where a product request is sorted into six routes: generate from scratch with text-to-image, transform a reference with img2img, repair a masked region with inpainting, preserve pose/line/depth/style with ControlNet or style control, produce alternatives with batch generation, and choose the final deliverable with human review and export. The learner should see what input each mode needs, what output it creates, and why choosing the mode before prompt tuning makes the workflow stable.",
+        "chapter_context": "This image appears at the top of the Stable Diffusion applications page and in the image-generation roadmap. The nearby lesson says Stable Diffusion is used for posters, concept art, app assets, e-commerce images, storyboards, and creative ideation. It emphasizes selecting the mode from the task first: no source image uses text-to-image, a reference image uses img2img, a local region plus mask uses inpainting, structural constraints use ControlNet or style control, product work often needs batch candidates, and final output still needs human review.",
+        "shared_layout": "Vertical 9:16. Use the same polished creative production workbench across zh/en/ja, not a white rounded-box infographic and not a pure flowchart. Top title and subtitle. Upper third: four concrete user request cards clipped to a brief board: new poster, transform a sketch or reference image, replace a masked area, and keep pose or layout. Middle: six mode stations arranged on a decision rail with real artifacts beside each station: a prompt note becoming a poster thumbnail, a reference image becoming a revised thumbnail, a photo with a visible mask patch, a pose or line/depth guide feeding ControlNet, a small grid of candidate outputs, and a reviewer choosing the final export. Bottom: a simple rule strip linking input material to route choice. Keep station order, object positions, colors, and reading path identical across languages. Use large readable localized labels attached to visual objects. Avoid old SVG style, white rounded cards, dense UI panels, pure text posters, terminal screenshots, tiny labels, random background text, brand logos, and decorative-only scenes.",
+        "variants": {
+            "zh": {
+                "title": "Stable Diffusion 应用模式怎么选",
+                "subtitle": "先看用户目标和输入材料，再决定生成或编辑路线。",
+                "items": [
+                    ("从零生成", "只有 prompt，就走 text-to-image。"),
+                    ("参考图改造", "image + prompt，用 img2img 保留大方向。"),
+                    ("局部修复", "image + mask + prompt，用 inpainting 改局部。"),
+                    ("保持结构", "姿态、线稿或深度，用 ControlNet 控制。"),
+                    ("批量候选", "一次出多张，让产品和设计比较。"),
+                    ("人工审核", "选最佳结果，记录版本，再 export。"),
+                ],
+                "footer": "先选对模式，后面的 prompt、参数和工作流才稳定。",
+                "alt": "Stable Diffusion 应用模式选择图：根据用户目标和输入材料，把从零生成、参考图改造、局部修复、结构控制、批量候选和人工审核导出映射到对应工作流。",
+            },
+            "en": {
+                "title": "Choosing a Stable Diffusion Mode",
+                "subtitle": "Start from the user goal and input artifacts, then choose the route.",
+                "items": [
+                    ("from scratch", "Only a prompt means text-to-image."),
+                    ("reference edit", "image + prompt uses img2img to keep direction."),
+                    ("local repair", "image + mask + prompt uses inpainting."),
+                    ("keep structure", "Pose, line, or depth guides use ControlNet."),
+                    ("batch candidates", "Generate several options for product review."),
+                    ("human review", "Pick the best version, record it, then export."),
+                ],
+                "footer": "Choose the mode first; prompts, parameters, and workflow become steadier.",
+                "alt": "Stable Diffusion application mode selector: map the user goal and input artifacts to text-to-image, img2img, inpainting, ControlNet structure control, batch candidates, and human review export.",
+            },
+            "ja": {
+                "title": "Stable Diffusion のモード選び",
+                "subtitle": "ユーザーの目的と入力素材を見て、生成か編集かを決める。",
+                "items": [
+                    ("ゼロから生成", "prompt だけなら text-to-image。"),
+                    ("参照画像を改造", "image + prompt なら img2img で方向性を保つ。"),
+                    ("局所修復", "image + mask + prompt なら inpainting。"),
+                    ("構造を保つ", "pose、line、depth は ControlNet で制御。"),
+                    ("候補を量産", "複数案を出して product review で比べる。"),
+                    ("人が確認", "最良版を選び、version を記録して export。"),
+                ],
+                "footer": "先に mode を選ぶと、prompt、parameter、workflow が安定する。",
+                "alt": "Stable Diffusion の応用モード選択：ユーザー目的と入力素材から text-to-image、img2img、inpainting、ControlNet、候補生成、人による review と export へ対応づける。",
+            },
+        },
+    },
+    {
         "slug": "diffusion-noise-denoise",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
