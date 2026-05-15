@@ -11441,6 +11441,61 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-image-gen-chapter-flow",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+        },
+        "scene": "A Chapter 12.2.1 image generation roadmap teaching image. It must teach the actual page workflow, not a generic model diagram or a pretty AI art poster: define the brief, build a prompt record, choose text-to-image mode for the first loop, record seed and negative_prompt, generate three candidates, review legibility/copyright/brand safety, then export evidence. Use the exact runnable example idea from the page: topic RAG basics, audience beginners, style clean editorial cover, mode text-to-image, negative_prompt blurry/watermark/unreadable text, seed 42, review list legibility/copyright/brand safety. The learner should understand that image generation is a reproducible workflow with records and review, not a one-line prompt.",
+        "chapter_context": "This image appears at the beginning of 12.2.1 Image Generation Roadmap. The page says image generation is a workflow: intent, prompt records, parameters, optional controls, candidate comparison, and review. The code creates brief = topic RAG basics, audience beginners, style clean editorial cover, then record = mode text-to-image, prompt, negative_prompt blurry/watermark/unreadable text, seed 42, review [legibility, copyright, brand safety]. The pass check asks learners to write a prompt record, explain the selected generation mode, save three candidate notes, and mark at least one review risk before export.",
+        "shared_layout": "Vertical 9:16. Use the same polished semi-realistic image-generation studio across zh/en/ja, not a white rounded-box SVG infographic, not a pure flowchart, not a local text overlay, and not a decorative fantasy image. Top title and subtitle. Upper station: a brief board with exactly three fields in order: topic = RAG basics, audience = beginners, style = clean editorial cover. Middle station: a prompt record clipboard connected to the brief, with readable fields in this order: mode, prompt, negative_prompt, seed, review. Show mode = text-to-image, seed = 42, negative_prompt blocks blur/watermark/unreadable text, review has legibility/copyright/brand safety. Beside it, a mode selector has five large physical buttons in this order: text-to-image selected, image-to-image, inpainting, ControlNet, LoRA; grey the later modes as not selected for this first loop. Lower station: a candidate wall with exactly three generated cover thumbnails for RAG basics, each with one short note; the selected final thumbnail must pass a magnifier check for legibility plus copyright and brand safety stamps. Bottom learning path uses six stepping stones in order: Diffusion, Stable Diffusion, Applications/control, LoRA/fine-tuning, Latest progress, Workflow review. Bottom pass-check receipt says prompt record + mode choice + 3 candidate notes + review risk. Keep station order, mode order, candidate count, learning-path order, colors, camera angle, and reading path identical across languages. Use large localized labels attached to concrete objects. The only visible English allowed in zh/ja variants may be exact code/technical tokens: RAG basics, text-to-image, image-to-image, inpainting, ControlNet, LoRA, Diffusion, Stable Diffusion, seed, negative_prompt, prompt, mode, review, legibility, copyright, brand safety. Avoid dense paragraphs, random English helper text in zh/ja, Japanese/English gibberish, fake small UI filler, old white-card diagram style, pure text poster, and blurry labels.",
+        "variants": {
+            "zh": {
+                "title": "把图像生成变成可复现工作流",
+                "subtitle": "先记录 brief、prompt、mode、seed 和审核点，再比较候选图。",
+                "items": [
+                    ("brief", "topic=RAG basics，audience=beginners，style=clean editorial cover。"),
+                    ("prompt 记录", "把目标、受众和风格合成一条可复用提示词。"),
+                    ("参数", "mode=text-to-image，seed=42，negative_prompt 先挡掉常见坏结果。"),
+                    ("模式选择", "从零生成先选 text-to-image；有参考图再换其他模式。"),
+                    ("候选比较", "保存 3 张候选图备注，不只看第一张。"),
+                    ("导出前审核", "检查清晰度、版权风险、品牌安全。"),
+                ],
+                "footer": "没有 record，就很难稳定改图、比较候选或复现结果。",
+                "alt": "图像生成路线图：先写 brief 和 prompt 记录，选择 text-to-image，记录 seed 和 negative_prompt，生成三张 RAG basics 候选图，检查 legibility、copyright、brand safety，再按 Diffusion、Stable Diffusion、应用控制、LoRA 微调、最新进展、工作流复盘的顺序学习。",
+            },
+            "en": {
+                "title": "Turn Image Generation into a Reproducible Workflow",
+                "subtitle": "Record the brief, prompt, mode, seed, and review risks before choosing an output.",
+                "items": [
+                    ("brief", "topic=RAG basics, audience=beginners, style=clean editorial cover."),
+                    ("prompt record", "Combine goal, audience, and style into one reusable prompt."),
+                    ("parameters", "mode=text-to-image, seed=42, negative_prompt blocks common failures."),
+                    ("mode choice", "Start from text-to-image; switch modes when references or edits exist."),
+                    ("candidate review", "Save notes for 3 candidate images, not just the first output."),
+                    ("before export", "Check legibility, copyright risk, and brand safety."),
+                ],
+                "footer": "Without a record, stable iteration, comparison, and reproduction become guesswork.",
+                "alt": "Image generation roadmap: write a brief and prompt record, choose text-to-image, record seed and negative_prompt, generate three RAG basics candidates, check legibility, copyright, and brand safety, then learn Diffusion, Stable Diffusion, applications and control, LoRA fine-tuning, latest progress, and workflow review in order.",
+            },
+            "ja": {
+                "title": "画像生成を再現できるワークフローにする",
+                "subtitle": "brief、prompt、mode、seed、レビュー項目を記録してから候補を比べる。",
+                "items": [
+                    ("brief", "topic=RAG basics、audience=beginners、style=clean editorial cover。"),
+                    ("prompt 記録", "目的、読者、スタイルを再利用できる prompt にまとめる。"),
+                    ("パラメータ", "mode=text-to-image、seed=42、negative_prompt で失敗例を先に避ける。"),
+                    ("モード選択", "最初は text-to-image。参考画像や修正があれば別モードに切り替える。"),
+                    ("候補比較", "最初の 1 枚だけでなく、3 枚の候補メモを残す。"),
+                    ("出力前レビュー", "読みやすさ、著作権リスク、ブランド安全性を確認する。"),
+                ],
+                "footer": "record がないと、安定した改善、比較、再現が難しくなる。",
+                "alt": "画像生成ロードマップ：brief と prompt 記録を書き、text-to-image を選び、seed と negative_prompt を残し、RAG basics の候補画像を 3 枚生成して legibility、copyright、brand safety を確認し、Diffusion、Stable Diffusion、応用と制御、LoRA 微調整、最新動向、ワークフローレビューの順に学ぶ。",
+            },
+        },
+    },
+    {
         "slug": "ch05-house-price-residual-review-map",
         "pages": {
             "en": "docs/ch05-machine-learning/ch06-projects/01-house-price.md",
