@@ -14228,6 +14228,58 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-sd-finetuning-route-choice-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+        },
+        "scene": "A Chapter 12 Stable Diffusion fine-tuning route-choice teaching image. The visual must teach that fine-tuning routes are chosen by the thing the learner wants to control: a new concept trigger word, a swappable style or domain adapter, or a dedicated subject that must stay consistent. Show one shared base Stable Diffusion workbench feeding exactly three distinct training stations: Textual Inversion adds a new token embedding to the prompt vocabulary drawer; LoRA mounts a small adapter cartridge onto attention or U-Net modules without copying the base model; DreamBooth uses a small subject sample board to push the model toward stronger subject identity, with a clear overfitting caution. The learner should understand what each method changes and when to choose it before reading the tables below. Do not add command lines, sample prompts, training commands, example output panels, extra comparison tables, cost charts, numeric scales, or extra mini-lessons.",
+        "chapter_context": "This image appears at the top of section 12.2.5 Image Generation Fine-tuning and in the image-generation roadmap. The nearby prose says not to start with full training. First decide whether the goal is a new concept trigger word, a plug-and-play style adapter, or consistency for a dedicated subject. The page then explains Textual Inversion as learning a new token representation, LoRA as a low-cost adapter attached to a shared base model, and DreamBooth as stronger but heavier subject-specific adaptation that can overfit.",
+        "shared_layout": "Vertical 9:16. Use the same polished teaching-lab illustration across zh/en/ja, not a white rounded-box infographic, not a selection matrix, and not a pure flowchart. Top title and subtitle. Upper section shows a goal sorting tray with exactly three goal cards: concept word, style or domain, dedicated subject. Center shows one shared base Stable Diffusion engine, with exactly three route stations branching from it in a physical workshop scene. Route 1 Textual Inversion: one trigger-token tag slides into one vocabulary or embedding drawer before the prompt encoder. Route 2 LoRA: one small adapter cartridge plugs into visible attention / U-Net slots while the base engine stays locked and shared. Route 3 DreamBooth: one curated subject sample board feeds a stronger identity tuner with one overfit warning gauge. Lower section has only two wide rule plates: practical decision rule and avoid full training first. Keep route order, object positions, colors, station count, rule-plate count, and reading path identical across languages. Use large readable localized labels attached to the object they explain. The only visible text should be the title, subtitle, the three route names, the five required item labels with their short notes, and the footer. Avoid tables of scores, tiny paragraphs, fake UI filler, terminal screenshots, old SVG styling, dense white cards, random background text, watermarks, real brand logos, command lines, sample prompts, code snippets, training commands, example output panels, extra comparison tables, numeric scales, and unrelated decorative scenes.",
+        "variants": {
+            "zh": {
+                "title": "图像微调先选目标",
+                "subtitle": "先问你要改概念词、风格适配器，还是专属主体。",
+                "items": [
+                    ("Textual Inversion", "学一个新 token embedding，适合轻量概念词。"),
+                    ("LoRA", "小 adapter 插到 attention / U-Net，底座模型保持共享。"),
+                    ("DreamBooth", "用主体样本强化一致性，更重且要防过拟合。"),
+                    ("选择规则", "词选 Textual Inversion；多风格选 LoRA；强主体选 DreamBooth。"),
+                    ("不要一上来全量训练", "先判断目标，再决定训练代价。"),
+                ],
+                "footer": "微调路线不是谁更流行，而是谁刚好改到你的目标层。",
+                "alt": "图像生成微调路线选择图：按目标选择 Textual Inversion、LoRA 或 DreamBooth，分别对应新概念词、小 adapter 和专属主体一致性，并提醒先判断目标再决定训练代价。",
+            },
+            "en": {
+                "title": "Choose the Fine-Tuning Target First",
+                "subtitle": "Decide whether you need a concept word, style adapter, or dedicated subject.",
+                "items": [
+                    ("Textual Inversion", "Learns one new token embedding for a light concept word."),
+                    ("LoRA", "A small adapter plugs into attention / U-Net while the base stays shared."),
+                    ("DreamBooth", "Subject samples strengthen identity; heavier and easier to overfit."),
+                    ("decision rule", "Word: Textual Inversion. Many styles: LoRA. Strong subject: DreamBooth."),
+                    ("avoid full training first", "Pick the goal before paying the training cost."),
+                ],
+                "footer": "The best route is not the trendiest one; it is the layer that matches your target.",
+                "alt": "Image generation fine-tuning route selector: choose Textual Inversion, LoRA, or DreamBooth by target, mapping them to a new concept word, a small adapter, or dedicated subject consistency.",
+            },
+            "ja": {
+                "title": "画像微調整は目標から選ぶ",
+                "subtitle": "概念語、style adapter、専用主体のどれを変えたいかを見る。",
+                "items": [
+                    ("Textual Inversion", "新しい token embedding を学び、軽い概念語に向く。"),
+                    ("LoRA", "小さな adapter を attention / U-Net に挿し、土台は共有する。"),
+                    ("DreamBooth", "主体サンプルで一貫性を強める。重く、過学習に注意。"),
+                    ("選び方", "語なら Textual Inversion、多数の style なら LoRA、強い主体なら DreamBooth。"),
+                    ("最初から全量学習しない", "目標を決めてから学習コストを選ぶ。"),
+                ],
+                "footer": "流行ではなく、変えたい層に合う微調整ルートを選ぶ。",
+                "alt": "画像生成の微調整ルート選択図：目標に応じて Textual Inversion、LoRA、DreamBooth を選び、新しい概念語、小さな adapter、専用主体の一貫性として整理する。",
+            },
+        },
+    },
+    {
         "slug": "diffusion-noise-denoise",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
