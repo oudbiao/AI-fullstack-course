@@ -11386,6 +11386,61 @@ for svg_group in SVG_REPLACEMENT_GROUPS:
 
 DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "ch12-multimodal-system-backbone",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+        },
+        "scene": "A Chapter 12.1.1 roadmap teaching image for multimodal foundations. It must teach the actual page habit: do not just upload an image and chat; turn each modality into structured observations, record visible evidence and uncertainty, then route the result into RAG, review, creation, or Agent automation. Use the exact runnable example idea from the page: a course slide screenshot named rag-slide.png contains visible text RAG, Embedding, Vector DB; a small footer is unreadable; next_step sends extracted text to the retrieval index. Also show that text, image, audio, and video can follow the same backbone, but the central lesson is evidence -> uncertainty -> structured record -> workflow.",
+        "chapter_context": "This image appears in 12.1.1 after the chapter learning flow and alignment/fusion images. The page says useful multimodal systems turn images, text, audio, or video into structured observations, align them with the task, then send the result into retrieval, review, creation, or automation. The nearby code builds a record with source rag-slide.png, modalities image/text, visible_text [RAG, Embedding, Vector DB], next_step send extracted text to retrieval index, and uncertainty small footer text is unreadable. The pass check asks students to turn an image or screenshot into structured text, mark uncertainty, and explain how the result enters RAG, review, or Agent workflows.",
+        "shared_layout": "Vertical 9:16. Use the same realistic multimodal evidence desk across zh/en/ja, not a white rounded-box SVG, not a generic four-modality poster, and not a pure flowchart. Top title and subtitle. Upper station: four modality input tiles arranged around one physical desk in this order: text note, image screenshot rag-slide.png, audio waveform, video frames. The image screenshot must be the highlighted concrete example, showing a simple course slide with three large visible labels: RAG, Embedding, Vector DB, plus one blurred tiny footer area. Middle station: an observation scanner extracts evidence into three large chips RAG, Embedding, Vector DB, and one warning chip for unreadable footer. Next station: a structured record clipboard with exact fields source, modalities, visible_text, uncertainty, next_step; show source = rag-slide.png, modalities = image + text, visible_text has 3 items, uncertainty has 1 item, next_step points to retrieval index. Lower station: a routing board sends the record to four doors in order: RAG index, human review, creation brief, Agent action. Add a small pass-check stamp saying structured text + uncertainty + next workflow. Keep modality order, screenshot content, field order, routing doors, colors, camera angle, and reading path identical across languages. Use large localized labels attached to concrete objects. The only visible English allowed in zh/ja variants may be exact code/technical tokens: RAG, Embedding, Vector DB, rag-slide.png, source, modalities, visible_text, uncertainty, next_step, RAG index, Agent. Avoid dense paragraphs, random English labels in zh/ja, pseudo text, tiny UI filler, decorative-only AI art, old white-card infographic style, and local text overlay look.",
+        "variants": {
+            "zh": {
+                "title": "多模态先变成可检查记录",
+                "subtitle": "看见什么、哪里不确定、下一步去哪，都要写进结构化结果。",
+                "items": [
+                    ("多模态输入", "文本、图片、音频、视频都进入同一条证据链。"),
+                    ("可见证据", "rag-slide.png 里读到 RAG、Embedding、Vector DB。"),
+                    ("不确定性", "右下角小字不可读，先标记 uncertainty。"),
+                    ("结构化记录", "source、modalities、visible_text、uncertainty、next_step。"),
+                    ("下一步", "把 extracted text 送入 RAG index。"),
+                    ("通过标准", "结构化文本 + 不确定性 + 工作流去向。"),
+                ],
+                "footer": "多模态系统的骨架，是把画面变成能复查、能引用、能流转的记录。",
+                "alt": "多模态系统主干教学图：文本、图片、音频、视频进入证据链，rag-slide.png 截图中提取 RAG、Embedding、Vector DB，同时标记右下角小字不可读，生成包含 source、modalities、visible_text、uncertainty、next_step 的结构化记录，并路由到 RAG index、人审、创作 brief 或 Agent action。",
+            },
+            "en": {
+                "title": "Multimodal Starts as a Checkable Record",
+                "subtitle": "What is visible, what is uncertain, and where it goes next must be structured.",
+                "items": [
+                    ("modality inputs", "Text, image, audio, and video enter one evidence chain."),
+                    ("visible evidence", "rag-slide.png yields RAG, Embedding, Vector DB."),
+                    ("uncertainty", "The tiny lower-right footer is unreadable, so mark uncertainty."),
+                    ("structured record", "source, modalities, visible_text, uncertainty, next_step."),
+                    ("next step", "Send extracted text into the RAG index."),
+                    ("pass check", "Structured text + uncertainty + next workflow."),
+                ],
+                "footer": "The backbone is turning media into records that can be reviewed, cited, and routed.",
+                "alt": "Multimodal system backbone teaching image: text, image, audio, and video enter an evidence chain; rag-slide.png exposes RAG, Embedding, and Vector DB while the small footer is marked unreadable; the system writes source, modalities, visible_text, uncertainty, and next_step into a structured record and routes it to RAG index, human review, creation brief, or Agent action.",
+            },
+            "ja": {
+                "title": "マルチモーダルは確認できる記録から始める",
+                "subtitle": "見えたもの、不確かな所、次の行き先を構造化して残す。",
+                "items": [
+                    ("入力モダリティ", "テキスト、画像、音声、動画を同じ証拠の流れに入れる。"),
+                    ("見える証拠", "rag-slide.png から RAG、Embedding、Vector DB を読む。"),
+                    ("不確実性", "右下の小さい文字は読めないので uncertainty に残す。"),
+                    ("構造化記録", "source、modalities、visible_text、uncertainty、next_step。"),
+                    ("次の行き先", "抽出した text を RAG index へ送る。"),
+                    ("通過条件", "構造化テキスト + 不確実性 + 次の workflow。"),
+                ],
+                "footer": "骨格は、メディアを確認でき、引用でき、流せる記録に変えること。",
+                "alt": "マルチモーダルシステムの骨格教学図：テキスト、画像、音声、動画が証拠の流れに入り、rag-slide.png から RAG、Embedding、Vector DB を抽出し、右下の小さい文字を unreadable として uncertainty に残し、source、modalities、visible_text、uncertainty、next_step を持つ構造化記録にして、RAG index、人のレビュー、制作 brief、Agent action へ送る。",
+            },
+        },
+    },
+    {
         "slug": "ch05-house-price-residual-review-map",
         "pages": {
             "en": "docs/ch05-machine-learning/ch06-projects/01-house-price.md",
