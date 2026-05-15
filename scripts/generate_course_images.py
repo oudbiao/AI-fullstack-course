@@ -11386,6 +11386,61 @@ for svg_group in SVG_REPLACEMENT_GROUPS:
 
 DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
     {
+        "slug": "multimodal-alignment-fusion",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+        },
+        "scene": "A Chapter 12.1.2 teaching image for multimodal alignment and fusion. It must teach the exact lesson intuition: alignment means image and text representations with the same meaning move close together in a shared embedding space; fusion means complementary signals are combined so the system can make a more complete judgment. Use one concrete runnable-toy context from the page: a red apple photo, a blue car photo, an orange ball photo, and three text queries red fruit, vehicle, round toy. Show image encoder and text encoder producing vectors, a shared space where matching pairs are physically close and mismatches are far away, then a fusion bench where image features plus text features become one 6-dimensional fused vector for a downstream task. The learner should understand why CLIP-style alignment comes before retrieval, VQA, captioning, or app tasks. Do not draw a generic four-modality cloud or old SVG flowchart.",
+        "chapter_context": "This image appears at the start of 12.1.2 Fundamentals of Multimodal Learning and is also referenced from the roadmap. The page introduces modality, fusion, alignment, CLIP, shared semantic space, and a runnable toy image-text matching example. The code defines image vectors for red_apple.jpg, blue_car.jpg, orange_ball.jpg and text vectors for red fruit, vehicle, round toy; cosine similarity retrieves the closest image. Earlier fusion code concatenates image_feature [0.8, 0.7, 0.2] and text_feature [0.6, 0.2, 0.1] into a 6-dimensional fused_feature. The picture should help students see that filenames do not match directly; vectors from different modalities must land in the same feature space, then fusion uses complementary evidence.",
+        "shared_layout": "Vertical 9:16. Use the same realistic teaching lab workbench across zh/en/ja, not a white rounded-box infographic, not a UI card stack, and not a pure vector flowchart. Top title and subtitle. Upper third: left side has three physical image cards in order: red apple, blue car, orange ball. Right side has three text query cards in order: red fruit, vehicle, round toy. Between them are two compact machines labeled image encoder and text encoder. Center: a dark shared embedding map with three colored clusters. Put each matching image marker and text marker close together: red apple near red fruit, blue car near vehicle, orange ball near round toy. Put one crossed-out far mismatch marker to show what bad alignment looks like. Add one large similarity meter pointing to the closest pair. Lower third: a fusion bench combines two feature strips from one product example: image feature [0.8, 0.7, 0.2] plus text feature [0.6, 0.2, 0.1] into fused vector length 6, then sends it to a small decision output. Bottom: four task doors in order: retrieval, VQA, captioning, app task. Keep object order, clusters, feature values, doors, colors, camera angle, and reading path identical across languages. Use large localized labels attached to concrete objects. The only visible English allowed in zh/ja variants may be exact technical tokens: CLIP, image encoder, text encoder, embedding space, cosine similarity, red_apple.jpg, blue_car.jpg, orange_ball.jpg, red fruit, vehicle, round toy, VQA, app task, vector, feature. Avoid extra small labels, fake paragraphs, random English UI text in zh/ja, unlocalized explanations, pseudo text, terminal screenshots, dense code blocks, decorative-only robots, old SVG style, and any local text overlay look.",
+        "variants": {
+            "zh": {
+                "title": "对齐让图文说同一件事",
+                "subtitle": "先把同义图文放近，再融合互补信息做任务。",
+                "items": [
+                    ("图像输入", "red_apple、blue_car、orange_ball 先变成图像向量。"),
+                    ("文本输入", "red fruit、vehicle、round toy 也变成文本向量。"),
+                    ("共享空间", "同义图文靠近，错配样本远离。"),
+                    ("cosine similarity", "最高分就是检索命中。"),
+                    ("融合", "图像特征 + 文本特征 -> 6 维 fused vector。"),
+                    ("下游任务", "检索、VQA、图像描述、应用任务都依赖这层对齐。"),
+                ],
+                "footer": "多模态不是把文件堆在一起，而是先对齐语义，再融合证据。",
+                "alt": "多模态对齐与融合图：red_apple、blue_car、orange_ball 图像向量和 red fruit、vehicle、round toy 文本向量进入共享 embedding space，同义图文靠近，用 cosine similarity 检索，再把图像特征和文本特征融合成 6 维向量供下游任务使用。",
+            },
+            "en": {
+                "title": "Alignment Makes Image and Text Agree",
+                "subtitle": "Move matching meanings close first, then fuse complementary evidence.",
+                "items": [
+                    ("image input", "red_apple, blue_car, orange_ball become image vectors."),
+                    ("text input", "red fruit, vehicle, round toy become text vectors too."),
+                    ("shared space", "Matching meanings move close; mismatches stay far."),
+                    ("cosine similarity", "The highest score is the retrieved match."),
+                    ("fusion", "Image features + text features -> 6-D fused vector."),
+                    ("downstream tasks", "Retrieval, VQA, captioning, and app tasks depend on alignment."),
+                ],
+                "footer": "Multimodal learning is not file stacking; align meaning, then fuse evidence.",
+                "alt": "Multimodal alignment and fusion: red_apple, blue_car, and orange_ball image vectors and red fruit, vehicle, and round toy text vectors enter a shared embedding space, matching meanings move close, cosine similarity retrieves the closest match, and image plus text features fuse into a 6-dimensional vector for downstream tasks.",
+            },
+            "ja": {
+                "title": "対応づけで画像とテキストをそろえる",
+                "subtitle": "同じ意味を近づけてから、補い合う情報を融合する。",
+                "items": [
+                    ("画像入力", "red_apple、blue_car、orange_ball を画像 vector にする。"),
+                    ("テキスト入力", "red fruit、vehicle、round toy もテキスト vector にする。"),
+                    ("共有空間", "同じ意味は近く、誤対応は遠くに置く。"),
+                    ("cosine similarity", "最も高い score が検索結果になる。"),
+                    ("融合", "画像特徴 + テキスト特徴 -> 6 次元 fused vector。"),
+                    ("下流タスク", "検索、VQA、画像説明、app task はこの対応づけに依存する。"),
+                ],
+                "footer": "マルチモーダルはファイルを重ねることではなく、意味をそろえて証拠を融合すること。",
+                "alt": "マルチモーダルのアラインメントと融合：red_apple、blue_car、orange_ball の画像 vector と red fruit、vehicle、round toy のテキスト vector が共有 embedding space に入り、同じ意味が近づき、cosine similarity で検索し、画像特徴とテキスト特徴を 6 次元の fused vector にする。",
+            },
+        },
+    },
+    {
         "slug": "imagenet-cnn-evolution",
         "pages": {
             "en": "docs/ch06-deep-learning/ch03-cnn/03-classic-architectures.md",
