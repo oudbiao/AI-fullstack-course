@@ -313,6 +313,8 @@ clean latent
 decode to image
 ```
 
+![Stable Diffusion の5ステップ主流程実行結果図](/img/course/ch12-sd-main-workflow-result-map-ja.webp)
+
 各行が何を受け取り、何を出すのか説明できれば、Stable Diffusion の多くのワークフローをデバッグするための実用的な地図ができています。
 
 これが Stable Diffusion のもっとも重要な主線です。

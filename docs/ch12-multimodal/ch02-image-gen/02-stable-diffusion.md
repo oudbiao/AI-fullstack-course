@@ -313,6 +313,8 @@ clean latent
 decode to image
 ```
 
+![Stable Diffusion five-step main workflow result map](/img/course/ch12-sd-main-workflow-result-map-en.webp)
+
 If you can explain what each line consumes and produces, you already have the practical mental model needed to debug most Stable Diffusion workflows.
 
 This is the most important main workflow of Stable Diffusion.

@@ -18611,6 +18611,61 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "ch12-sd-main-workflow-result-map",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+        },
+        "scene": "A runnable-result teaching visual for the Stable Diffusion five-line workflow print output. It must teach what each printed line consumes and produces, not show a generic text-to-image poster. Use only the exact workflow from the page: prompt -> text encoder; latent noise; U-Net denoise with text condition; clean latent; decode to image. Show the prompt becoming a numeric text condition, random latent noise as a noisy grid, U-Net denoising under the text condition, a cleaner latent, and VAE Decoder producing a final image. Do not invent extra pipeline stages, samplers, schedulers, CFG, CLIP details, APIs, dashboards, terminal screenshots, or a large code block. Do not make a pure flowchart, white rounded-box SVG infographic, or decorative-only cat image. Critical locale rule: English image uses natural English helper labels; Chinese image uses natural Chinese helper labels except necessary code/technical tokens; Japanese image uses natural Japanese helper labels except necessary code/technical tokens. Exact technical tokens may stay as code: prompt, text encoder, latent noise, U-Net, denoise, text condition, clean latent, VAE Decoder, decode to image.",
+        "chapter_context": "The image is inserted after the expected output of the five-step workflow loop in 12.2.3 Stable Diffusion Architecture. Nearby prose says that if learners can explain what each line consumes and produces, they have the practical mental model needed to debug most Stable Diffusion workflows. Earlier sections introduced VAE compression, text encoder embeddings, U-Net denoising, and cross-attention.",
+        "shared_layout": "Vertical 9:16. Use the same bright illustrated lab notebook / diffusion workshop style across zh/en/ja, not dark dashboard style. Top title and subtitle. Main body is a five-station conveyor path with concrete objects, numbered 1 to 5: prompt paper enters text encoder; latent noise grid is initialized; U-Net machine receives both noisy latent and text condition plug, then denoises step by step; cleaner latent board appears; VAE Decoder turns the clean latent into an image card. Each station must show one short localized action label, one input/output mini badge, and the exact printed line. Bottom diagnostic strip asks the learner to name consume -> produce for each row. Keep station order, colors, arrows, object positions, and reading path identical across zh/en/ja. Use large sparse text near the matching object. Avoid tiny fake text, random non-locale words, overly long image height feel, or a poster that only shows the final generated image.",
+        "variants": {
+            "zh": {
+                "title": "Stable Diffusion 主流程怎么读",
+                "subtitle": "把 5 行 print 当成 input -> process -> output 的调试地图。",
+                "items": [
+                    ("1 prompt -> text encoder", "输入文字，产出 text condition。"),
+                    ("2 latent noise", "从随机 latent 噪声开始生成。"),
+                    ("3 U-Net denoise", "U-Net 同时看 noise 和 text condition。"),
+                    ("4 clean latent", "多步去噪后得到更干净的 latent。"),
+                    ("5 decode to image", "VAE Decoder 把 latent 还原成图像。"),
+                    ("调试提问", "每一行都问：消耗什么？产出什么？"),
+                ],
+                "footer": "这 5 行就是排查文生图流程的最小地图。",
+                "alt": "Stable Diffusion 五步主流程运行结果图：prompt 进入 text encoder，生成 latent noise，U-Net 在文本条件下去噪，得到 clean latent，再由 VAE Decoder 解码成图像。",
+            },
+            "en": {
+                "title": "Reading the Stable Diffusion Main Flow",
+                "subtitle": "Treat the 5 printed lines as an input -> process -> output debug map.",
+                "items": [
+                    ("1 prompt -> text encoder", "Input text, output text condition."),
+                    ("2 latent noise", "Generation starts from random latent noise."),
+                    ("3 U-Net denoise", "U-Net reads both noise and text condition."),
+                    ("4 clean latent", "After many steps, the latent becomes cleaner."),
+                    ("5 decode to image", "VAE Decoder turns the latent into an image."),
+                    ("debug question", "For each line ask: what is consumed, what is produced?"),
+                ],
+                "footer": "These 5 lines are the smallest map for debugging text-to-image workflows.",
+                "alt": "Stable Diffusion five-step main workflow result map: prompt enters the text encoder, latent noise is initialized, U-Net denoises with text condition, clean latent is obtained, and VAE Decoder decodes it into an image.",
+            },
+            "ja": {
+                "title": "Stable Diffusion の主な流れを読む",
+                "subtitle": "5 行の print を input -> process -> output のデバッグ地図として読む。",
+                "items": [
+                    ("1 prompt -> text encoder", "文字を受け取り、text condition を作る。"),
+                    ("2 latent noise", "生成はランダムな latent noise から始まる。"),
+                    ("3 U-Net denoise", "U-Net は noise と text condition の両方を見る。"),
+                    ("4 clean latent", "何度も denoise して、よりきれいな latent にする。"),
+                    ("5 decode to image", "VAE Decoder が latent を画像に戻す。"),
+                    ("デバッグの問い", "各行で「何を消費し、何を作るか」を確認する。"),
+                ],
+                "footer": "この 5 行が、text-to-image workflow を調べる最小の地図になる。",
+                "alt": "Stable Diffusion の5ステップ主流程実行結果図：prompt が text encoder に入り、latent noise から始まり、U-Net が text condition 付きで denoise し、clean latent を得て、VAE Decoder が画像へ decode する。",
+            },
+        },
+    },
+    {
         "slug": "ch12-diffusion-forward-noise-result-map",
         "pages": {
             "en": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",

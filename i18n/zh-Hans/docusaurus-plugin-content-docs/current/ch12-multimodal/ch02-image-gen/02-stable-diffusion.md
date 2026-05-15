@@ -315,6 +315,8 @@ clean latent
 decode to image
 ```
 
+![Stable Diffusion 五步主流程运行结果图](/img/course/ch12-sd-main-workflow-result-map.webp)
+
 如果你能说清每一行消耗什么、产出什么，就已经具备调试大多数 Stable Diffusion 工作流的实用心智模型。
 
 这就是 Stable Diffusion 的最重要主线。
