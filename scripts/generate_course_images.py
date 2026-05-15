@@ -11441,6 +11441,61 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
         },
     },
     {
+        "slug": "vision-language-model-architecture",
+        "pages": {
+            "en": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+            "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+        },
+        "scene": "A Chapter 12.1.3 teaching image for Vision-Language Models. It must teach the actual page idea: a VLM is not just sending an image to a chatbot; the image is encoded into visual features, the user's question is parsed as a task, a bridge aligns both streams, and the answer is generated from both. Use concrete runnable examples from the page: image-text retrieval with cat_photo, car_photo, cake_photo and text queries a small cat, a vehicle, a sweet dessert; and VQA with screen_error image facts has_text, is_ui, topic. Show how the question selects which image fact matters. The learner should understand the roles of image encoder, text/language module, bridge module, task router, and answer head before reading the code.",
+        "chapter_context": "This image appears at the start of 12.1.3 Vision-Language Models. The page says beginners often think VLM means feeding in an image and making the model say something, but the better understanding is putting image information and text questions into the same reasoning chain. The page introduces image encoder, text module, bridge module, retrieval, answer, description, UI understanding, and document screenshot QA. The runnable examples show image-text retrieval with cat_photo/car_photo/cake_photo and text queries, then VQA with screen_error facts has_text=True, is_ui=True, topic=error_message; questions ask whether the image has text, whether it is a UI screenshot, and the topic.",
+        "shared_layout": "Vertical 9:16. Use the same realistic VLM debugging workbench across zh/en/ja, not a white rounded-box architecture slide and not a pure flowchart. Top title and subtitle. Upper left: one screenshot card named screen_error showing a dark app error dialog with a readable short error banner, plus exactly three fact tags: has_text true, is_ui true, topic error_message. Upper right: one user question notebook with exactly three question tabs in this order: has text?, is UI?, topic? Middle: three physical modules in order from left to right: image encoder, bridge / alignment, language module. The image encoder turns the screenshot into visual feature chips. The text path turns the user question into a question intent chip. The bridge joins visual features and question intent into one reasoning tray. Add a small task router beside the bridge with three labeled routes and exact mapping: has text? -> attribute_check; is UI? -> classification_judgement; topic? -> semantic_qa. Lower middle: answer console must have exactly three rows with exact route and output mapping: has text? -> attribute_check -> yes / has_text true; is UI? -> classification_judgement -> yes / is_ui true; topic? -> semantic_qa -> error_message / topic. Do not swap these route names. Do not add a second VQA example in the answer console. Bottom strip: a separate retrieval mini-panel with cat_photo, car_photo, cake_photo and text queries, showing top-1 matches by cosine similarity, then four task doors in order: retrieval, VQA, captioning, UI understanding. Keep object order, modules, screenshot facts, router mappings, answer rows, retrieval mini-panel, task doors, colors, camera angle, and reading path identical across languages. Use large localized labels attached to concrete objects. The only visible English allowed in zh/ja variants may be exact technical tokens: VLM, image encoder, text module, bridge, alignment, visual features, question intent, has_text, is_ui, topic, screen_error, cat_photo, car_photo, cake_photo, a small cat, a vehicle, a sweet dessert, attribute_check, semantic_qa, classification_judgement, cosine similarity, top-1, UI, VQA. Avoid fake code blocks, tiny terminal output, generic chat bubbles, unlocalized English explanations in zh/ja, white information-card style, dense model architecture boxes, pseudo text, and any local text overlay look.",
+        "variants": {
+            "zh": {
+                "title": "VLM 把图像和问题接成一条推理链",
+                "subtitle": "图像先变成事实，问题决定该用哪一类事实。",
+                "items": [
+                    ("图像编码器", "把 screen_error 变成 visual features。"),
+                    ("文本模块", "把用户问题变成 question intent。"),
+                    ("桥接 / 对齐", "让图像事实和问题意图在同一推理托盘里汇合。"),
+                    ("任务路由", "attribute_check、semantic_qa、classification_judgement。"),
+                    ("回答依据", "has_text、is_ui、topic 由问题选择。"),
+                    ("检索支线", "cat_photo、car_photo、cake_photo 用 cosine similarity 选 top-1。"),
+                ],
+                "footer": "VLM 的关键不是会看图，而是把图像和语言放进同一套理解流程。",
+                "alt": "视觉语言模型架构教学图：screen_error 截图经过图像编码器得到 visual features，用户问题经过文本模块得到 question intent，bridge 对齐二者，任务路由选择 attribute_check、semantic_qa 或 classification_judgement，再依据 has_text、is_ui、topic 输出答案，并展示 cat_photo、car_photo、cake_photo 的图文检索支线。",
+            },
+            "en": {
+                "title": "A VLM Turns Image and Question into One Reasoning Chain",
+                "subtitle": "The image becomes facts; the question chooses which facts matter.",
+                "items": [
+                    ("image encoder", "Turns screen_error into visual features."),
+                    ("text module", "Turns the user question into question intent."),
+                    ("bridge / alignment", "Joins image facts and question intent in one reasoning tray."),
+                    ("task router", "attribute_check, semantic_qa, classification_judgement."),
+                    ("answer basis", "has_text, is_ui, topic are selected by the question."),
+                    ("retrieval side path", "cat_photo, car_photo, cake_photo use cosine similarity for top-1."),
+                ],
+                "footer": "The key to a VLM is not just seeing images; it puts image and language in one process.",
+                "alt": "Vision-language model teaching architecture: a screen_error screenshot goes through an image encoder to visual features, the user question goes through the text module to question intent, the bridge aligns both, a task router chooses attribute_check, semantic_qa, or classification_judgement, answers use has_text, is_ui, and topic, and a retrieval side path ranks cat_photo, car_photo, and cake_photo by cosine similarity.",
+            },
+            "ja": {
+                "title": "VLM は画像と質問を1つの推論の流れに入れる",
+                "subtitle": "画像は事実になり、質問が使う事実を決める。",
+                "items": [
+                    ("画像エンコーダー", "screen_error を visual features にする。"),
+                    ("テキストモジュール", "ユーザー質問を question intent にする。"),
+                    ("bridge / alignment", "画像の事実と質問意図を同じ推論トレイで合わせる。"),
+                    ("タスクルーター", "attribute_check、semantic_qa、classification_judgement。"),
+                    ("回答の根拠", "has_text、is_ui、topic を質問に合わせて選ぶ。"),
+                    ("検索の支線", "cat_photo、car_photo、cake_photo を cosine similarity で top-1 にする。"),
+                ],
+                "footer": "VLM の鍵は画像を見ることだけでなく、画像と言語を同じ理解の流れに入れること。",
+                "alt": "視覚言語モデルの教学図：screen_error のスクリーンショットが画像エンコーダーで visual features になり、質問がテキストモジュールで question intent になり、bridge で対応づけられ、task router が attribute_check、semantic_qa、classification_judgement を選び、has_text、is_ui、topic に基づいて答える。cat_photo、car_photo、cake_photo の検索支線も cosine similarity で示す。",
+            },
+        },
+    },
+    {
         "slug": "imagenet-cnn-evolution",
         "pages": {
             "en": "docs/ch06-deep-learning/ch03-cnn/03-classic-architectures.md",
