@@ -22424,6 +22424,91 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-llm-capability-stack",
+    pages={
+        "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+    },
+    scene=(
+        "An LLM capability-stack teaching image for the first overview page. "
+        "The image must teach that useful LLM applications are built from layers, not by choosing a model name alone. "
+        "Show a concrete layered workshop: foundation layer with data scale plus Transformer plus pretraining; "
+        "control layer with SFT and alignment shaping behavior; access layer with API and context window; "
+        "application layer with Prompt, RAG, Agent, fine-tuning, monitoring, and multimodal as product routes. "
+        "Make each layer explain what question it answers: What can the model know? How is behavior controlled? "
+        "How do we call it safely? Which route adds the missing product capability? End with a diagnosis board: "
+        "knowledge missing -> RAG, action needed -> Agent, behavior repeated -> fine-tuning, simple task -> Prompt. "
+        "The learner should see why capability, context, cost, latency, privacy, and route fit are checked together."
+    ),
+    chapter_context=(
+        "This image appears immediately after the first LLM route overview image and before the route table. "
+        "The page says to look at the capability stack first, then decide when Prompt, RAG, Agent, or fine-tuning is a better route. "
+        "The pass check asks the learner to explain a model choice using capability, context, cost, latency, data privacy, and route fit. "
+        "Do not make another model-history poster or a vendor ecosystem map; make a practical stack-reading image."
+    ),
+    shared_layout=(
+        "Vertical 9:16. Use the same warm industrial classroom workbench style across zh/en/ja, compatible with the previous LLM route image, "
+        "not a white rounded-card infographic, not a slide deck, not a dense architecture diagram, and not a pure flowchart. "
+        "Top title and subtitle. Four stacked physical shelves from bottom to top: 1 foundation shelf, 2 control shelf, 3 access shelf, 4 application shelf. "
+        "Bottom foundation shelf has three large objects in order: data scale storage, Transformer engine, pretraining furnace; show them feeding upward. "
+        "Control shelf has SFT tuning sliders and alignment safety gate shaping behavior. Access shelf has API doorway, context window gauge, and cost/latency meters. "
+        "Application shelf has four route stations in order: Prompt, RAG, Agent, fine-tuning, plus two small side tools: monitoring and multimodal. "
+        "At the right side, place a diagnosis board with four rows. The row order is fixed, but the visible row text must be localized from the required teaching labels below: row 1 chooses Prompt for a simple known task, row 2 chooses RAG for private or changing knowledge, row 3 chooses Agent for tools or steps, row 4 chooses fine-tuning for repeated behavior or format. "
+        "Do not write the English phrases simple known task, private/changing knowledge, tools/steps, or repeated behavior/format in the Simplified Chinese or Japanese images. Use localized wording there, with only the route tokens Prompt, RAG, Agent, fine-tuning kept as technical terms. "
+        "Use arrows to show that foundation capability, control, access limits, and application route must be read together. "
+        "Keep shelf order, route order, diagnosis row order, object placement, colors, camera angle, and reading path identical across languages. "
+        "Use large localized labels attached to concrete objects. The only visible English allowed in zh/ja variants may be exact code/technical tokens: LLM, data scale, Transformer, pretraining, SFT, alignment, API, context window, cost, latency, Prompt, RAG, Agent, fine-tuning, monitoring, multimodal. "
+        "Avoid dense paragraphs, fake tiny UI text, vendor names, random English helper text in zh/ja, old SVG style, white card stacks, and local text overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "先读大模型能力栈",
+            "subtitle": "能力、控制、调用限制和应用路线要一起判断。",
+            "items": [
+                ("底座层", "data scale、Transformer、pretraining 决定通用能力从哪里来。"),
+                ("控制层", "SFT 和 alignment 把能力约束成可用行为。"),
+                ("调用层", "API、context window、cost、latency 决定能否放进产品。"),
+                ("应用层", "Prompt、RAG、Agent、fine-tuning 补齐不同缺口。"),
+                ("诊断", "简单任务 -> Prompt；知识缺口 -> RAG；行动缺口 -> Agent；行为缺口 -> fine-tuning。"),
+                ("选择", "不是只问模型强不强，还要问产品缺哪一层。"),
+            ],
+            "footer": "能力栈的读法：底座给能力，控制给边界，调用给成本，应用路线补缺口。",
+            "alt": "大模型能力栈教学图：底座层由 data scale、Transformer 和 pretraining 提供能力，控制层用 SFT 和 alignment 约束行为，调用层检查 API、context window、cost 和 latency，应用层按缺口选择 Prompt、RAG、Agent 或 fine-tuning。",
+        },
+        "en": {
+            "title": "Read the LLM Capability Stack",
+            "subtitle": "Capability, control, access limits, and product route move together.",
+            "items": [
+                ("foundation", "data scale, Transformer, and pretraining create general capability."),
+                ("control", "SFT and alignment shape capability into usable behavior."),
+                ("access", "API, context window, cost, and latency decide product fit."),
+                ("application", "Prompt, RAG, Agent, and fine-tuning fill different gaps."),
+                ("diagnosis", "Simple task -> Prompt; knowledge gap -> RAG; action gap -> Agent; behavior gap -> fine-tuning."),
+                ("choice", "Do not ask only whether the model is strong; ask which layer is missing."),
+            ],
+            "footer": "Stack reading: foundation gives capability, control gives boundaries, access gives cost, routes fill gaps.",
+            "alt": "LLM capability stack teaching image: data scale, Transformer, and pretraining create the foundation; SFT and alignment control behavior; API, context window, cost, and latency shape access; Prompt, RAG, Agent, and fine-tuning fill product gaps.",
+        },
+        "ja": {
+            "title": "LLM 能力スタックを読む",
+            "subtitle": "能力、制御、呼び出し制約、プロダクトルートを一緒に見る。",
+            "items": [
+                ("基盤層", "data scale、Transformer、pretraining が汎用能力を作る。"),
+                ("制御層", "SFT と alignment が能力を使える振る舞いに整える。"),
+                ("呼び出し層", "API、context window、cost、latency が製品適性を決める。"),
+                ("応用層", "Prompt、RAG、Agent、fine-tuning が別々の不足を補う。"),
+                ("診断", "単純なタスク -> Prompt、知識不足 -> RAG、行動不足 -> Agent、振る舞い不足 -> fine-tuning。"),
+                ("選択", "モデルの強さだけでなく、不足している層を問う。"),
+            ],
+            "footer": "読み方：基盤は能力、制御は境界、呼び出しはコスト、応用ルートは不足を補う。",
+            "alt": "LLM 能力スタックの教育図：data scale、Transformer、pretraining が基盤能力を作り、SFT と alignment が振る舞いを制御し、API、context window、cost、latency が呼び出し条件を決め、Prompt、RAG、Agent、fine-tuning がプロダクトの不足を補う。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
