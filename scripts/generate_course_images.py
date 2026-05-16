@@ -22998,6 +22998,99 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-modern-decoder-block-comparison",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching comparison for original Transformer blocks versus modern LLM decoder blocks. "
+        "The image must teach the evolution in architecture details, not merely place two flowcharts on a white page. "
+        "Left side: the early Transformer block keeps the classic sequence Attention -> Add & Norm -> FeedForward -> Add & Norm, "
+        "uses post-norm, absolute or sinusoidal position at the input, ordinary Multi-Head Attention, and a simple ReLU-style FFN. "
+        "Right side: the modern decoder block uses pre-norm, RMSNorm before attention and FFN, RoPE near Q/K attention positions, "
+        "GQA/MQA to share K/V cache, and a SwiGLU gated FFN. "
+        "The teaching point is that the core idea stays the same, but the engineering details changed for depth, long context, inference memory, and stronger FFN behavior."
+    ),
+    chapter_context=(
+        "The page first says modern LLM decoder blocks are not a line-by-line copy of the 2017 Transformer. "
+        "It tells learners to read the two pipelines as a story: the original block made Transformer work, while modern decoder blocks keep the same attention/FFN/residual idea "
+        "but change normalization, position handling, K/V sharing, and FFN design for LLM scale. "
+        "The following sections explain pre-norm, RMSNorm, RoPE, GQA/MQA, and SwiGLU one by one."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic engineering museum/workbench style consistent with the new ch07 images, not a white rounded-card infographic, "
+        "not a pure flowchart, not a simple table, and not a local text-overlay look. Use one identical composition for zh/en/ja: same camera angle, same two-machine positions, same colors, same callout locations, and same reading path. "
+        "Top: localized title and one short subtitle. Center: two transparent decoder-block machines facing each other across a comparison bridge. "
+        "Left machine is labeled early Transformer and shows four large physical stations in this exact order: Attention, Add & Norm, FeedForward, Add & Norm. "
+        "Make the left machine visibly post-norm: normalization gauges appear after the residual plus joints. Add an input position ribbon labeled sinusoidal / absolute position. "
+        "Show ordinary Multi-Head Attention as many separate K/V cartridges, and a simple ReLU FFN drawer. "
+        "Right machine is labeled modern decoder block and shows six physical stations in this exact order: RMSNorm, Attention, Add, RMSNorm, FeedForward, Add. "
+        "Make the right machine visibly pre-norm: RMSNorm gauges appear before Attention and FeedForward. Place a RoPE rotation wheel directly on the Q/K path inside Attention. "
+        "Show GQA/MQA as many query heads sharing fewer K/V cartridges. Show SwiGLU as a two-path FFN with one candidate path and one gate path joining before the output. "
+        "Between the machines, place four upgrade badges with icons, not just boxes: pre-norm for deeper training, RoPE for position inside attention, GQA/MQA for smaller KV cache, SwiGLU for gated FFN expressiveness. "
+        "Bottom: a compact lesson rail says the core idea is unchanged: token communication by attention, per-token transform by FFN, information preservation by residual paths; the details changed for scale. "
+        "Use sparse, large, readable localized labels attached to concrete objects. Technical tokens may remain in English where appropriate: Transformer, LLM, decoder block, Attention, Add & Norm, FeedForward, RMSNorm, RoPE, GQA/MQA, KV cache, Multi-Head Attention, ReLU, SwiGLU, residual, token. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not use English phrases like deeper training, long context, inference memory, expressiveness, original block, modern block, or upgrade unless they are listed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid fake UI filler, unreadable tiny text, pseudo text, white SVG card layout, decorative robots, vendor logos, and any station order different from the lesson."
+    ),
+    variants={
+        "zh": {
+            "title": "原始 Transformer 到现代 Decoder 的变化",
+            "subtitle": "核心仍是 attention、FFN、residual；工程细节为规模而改变。",
+            "items": [
+                ("早期 Transformer", "Attention -> Add & Norm -> FeedForward -> Add & Norm。"),
+                ("post-norm", "归一化在 residual 相加之后。"),
+                ("现代 decoder block", "RMSNorm -> Attention -> Add -> RMSNorm -> FeedForward -> Add。"),
+                ("pre-norm", "先稳定输入，再进入 attention 或 FFN。"),
+                ("RoPE", "把位置信息旋进 Q/K 的 attention 计算。"),
+                ("GQA/MQA", "让多个 query heads 共享更少 K/V，减轻 KV cache。"),
+                ("SwiGLU", "FFN 多一条 gate 路径，控制哪些特征更强。"),
+                ("为什么改变", "为了更深训练、更长上下文、更省推理内存。"),
+            ],
+            "footer": "不要只背名词：看每个改动解决了哪个规模问题。",
+            "alt": "原始 Transformer 与现代 LLM decoder 对比图：左侧早期 block 是 Attention、Add & Norm、FeedForward、Add & Norm，右侧现代 decoder 是 RMSNorm、Attention、Add、RMSNorm、FeedForward、Add，并用 RoPE、GQA/MQA、SwiGLU 说明位置、KV cache 和 FFN gate 的变化。",
+        },
+        "en": {
+            "title": "From Original Transformer to Modern Decoder",
+            "subtitle": "The core stays attention, FFN, and residual; the details changed for scale.",
+            "items": [
+                ("early Transformer", "Attention -> Add & Norm -> FeedForward -> Add & Norm."),
+                ("post-norm", "Normalization happens after the residual add."),
+                ("modern decoder block", "RMSNorm -> Attention -> Add -> RMSNorm -> FeedForward -> Add."),
+                ("pre-norm", "Stabilize the input before attention or FFN."),
+                ("RoPE", "Rotate position information into Q/K attention calculation."),
+                ("GQA/MQA", "Many query heads share fewer K/V groups to reduce KV cache."),
+                ("SwiGLU", "The FFN adds a gate path to control which features pass strongly."),
+                ("why it changed", "For deeper training, longer context, and cheaper inference memory."),
+            ],
+            "footer": "Do not memorize names only: ask which scale problem each change solves.",
+            "alt": "Original Transformer versus modern LLM decoder comparison: the early block is Attention, Add and Norm, FeedForward, Add and Norm, while the modern decoder is RMSNorm, Attention, Add, RMSNorm, FeedForward, Add, with RoPE, GQA/MQA, and SwiGLU explaining position, KV cache, and FFN gate changes.",
+        },
+        "ja": {
+            "title": "元の Transformer から現代 Decoder への変化",
+            "subtitle": "中心は attention、FFN、residual のまま。細部は scale のために変わる。",
+            "items": [
+                ("初期 Transformer", "Attention -> Add & Norm -> FeedForward -> Add & Norm。"),
+                ("post-norm", "正規化は residual を足した後に置く。"),
+                ("現代 decoder block", "RMSNorm -> Attention -> Add -> RMSNorm -> FeedForward -> Add。"),
+                ("pre-norm", "attention や FFN の前に入力を安定させる。"),
+                ("RoPE", "位置情報を Q/K の attention 計算に回転として入れる。"),
+                ("GQA/MQA", "多くの query heads が少ない K/V を共有し、KV cache を軽くする。"),
+                ("SwiGLU", "FFN に gate 経路を足し、強く通す特徴を制御する。"),
+                ("変化の理由", "深い学習、長い context、推論 memory を扱うため。"),
+            ],
+            "footer": "名前だけで覚えず、各変更がどの scale 問題を解くかを見る。",
+            "alt": "元の Transformer と現代 LLM decoder の比較図：初期 block は Attention、Add & Norm、FeedForward、Add & Norm、現代 decoder は RMSNorm、Attention、Add、RMSNorm、FeedForward、Add で、RoPE、GQA/MQA、SwiGLU が位置、KV cache、FFN gate の変化を示す。",
+        },
+    },
+    callouts=[],
+    suffixes={"zh": "-zh", "en": "-en", "ja": "-ja"},
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
