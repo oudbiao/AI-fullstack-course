@@ -22916,6 +22916,88 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-transformer-block-dataflow-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for the Transformer block architecture review. "
+        "The image must teach how one block updates token representations, matching the surrounding lesson and the minimal code example: "
+        "tokens enter as continuous representations; Self-Attention lets tokens exchange context; residual add keeps the original signal; "
+        "LayerNorm stabilizes values; FFN processes each token independently; the second residual and LayerNorm produce updated token states. "
+        "The learner should be able to read the picture before reading the code and understand why the code calculates attention weights, mixes V, adds a residual, "
+        "runs W1/ReLU/W2, and returns block_output. This is not a generic Transformer poster."
+    ),
+    chapter_context=(
+        "The page says a Transformer block is like discussion plus organization: attention listens to related context, FFN digests information, residual preserves the original signal, "
+        "and LayerNorm keeps values stable. The runnable code creates tokens, Q/K/V, causal attention scores, softmax weights, a mixed context vector, a residual connection, and an FFN output. "
+        "Nearby text tells learners to follow the data flow instead of memorizing a diagram."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic engineering classroom cutaway style consistent with the new ch07 images, not a white rounded-card infographic, not a pure flowchart, "
+        "not a pasted text poster, and not a local text-overlay look. Use one identical composition for zh/en/ja: same camera angle, same token rail, same colors, same object positions, and same reading path. "
+        "Top: localized title and one short subtitle. Center: a full-height transparent Transformer block machine with a left-to-right token representation rail. "
+        "Show exactly three input token tiles h1 h2 h3 entering the block as small vectors, then seven visible stations in this order: token representations, Self-Attention context exchange, Residual add original, LayerNorm stabilize, FFN per-token MLP, Residual add, LayerNorm output. "
+        "At the Self-Attention station, draw communication beams among h1 h2 h3 and a small Q/K/V lens so the learner sees tokens exchange information. "
+        "At each Residual station, draw a bypass bridge carrying the original signal around the module and adding it back with a plus joint. "
+        "At each LayerNorm station, draw gauges returning uneven bars to a stable range. "
+        "At the FFN station, draw three parallel per-token MLP drawers, one for each token, with no cross-token arrows, to show FFN processes each token independently after attention. "
+        "Right side: output tiles h1' h2' h3' leave the block. Bottom: a four-part rule strip explaining the reading habit: attention exchanges context; residual preserves signal; LayerNorm stabilizes numbers; FFN digests each token. "
+        "Use sparse, large, readable localized labels attached to concrete parts. Technical tokens may remain in English where appropriate: Transformer, token, Self-Attention, Residual, LayerNorm, FFN, Q/K/V, MLP, vector, h1, h2, h3, block_output. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not use English phrases like context exchange, add original, stabilize, per-token processing, output representations, or dataflow. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid fake UI filler, unreadable tiny text, pseudo text, decorative robots, vendor logos, and any module order different from the lesson."
+    ),
+    variants={
+        "zh": {
+            "title": "一层 Block 怎样更新 token 表示",
+            "subtitle": "Attention 先交流，Residual 保留，LayerNorm 稳定，FFN 再加工。",
+            "items": [
+                ("token 表示", "输入不是文字，而是连续向量 h1、h2、h3。"),
+                ("Self-Attention", "不同 token 先交换上下文信息。"),
+                ("Residual", "把原始信号加回来，避免被新计算覆盖。"),
+                ("LayerNorm", "把数值拉回稳定范围。"),
+                ("FFN", "每个 token 独立做非线性加工。"),
+                ("输出表示", "一层 block 结束后得到 h1'、h2'、h3'。"),
+            ],
+            "footer": "顺着数据流读 block：交流、保留、稳定、加工。",
+            "alt": "Transformer block 数据流教学图：h1、h2、h3 token 表示依次经过 Self-Attention、Residual、LayerNorm、FFN、Residual 和 LayerNorm，得到更新后的 token 状态。",
+        },
+        "en": {
+            "title": "How One Block Updates Token Representations",
+            "subtitle": "Attention communicates, residual preserves, LayerNorm stabilizes, and FFN processes.",
+            "items": [
+                ("token representations", "The input is continuous vectors h1, h2, h3, not raw words."),
+                ("Self-Attention", "Tokens exchange context with other tokens."),
+                ("Residual", "Add the original signal back so new computation does not erase it."),
+                ("LayerNorm", "Pull values back into a stable range."),
+                ("FFN", "Process each token independently with a nonlinear MLP."),
+                ("output representations", "One block returns updated states h1', h2', h3'."),
+            ],
+            "footer": "Read the block by following data flow: exchange, preserve, stabilize, process.",
+            "alt": "Transformer block dataflow teaching image: h1, h2, and h3 token representations pass through Self-Attention, Residual, LayerNorm, FFN, Residual, and LayerNorm to produce updated token states.",
+        },
+        "ja": {
+            "title": "1 層の Block が token 表現を更新する流れ",
+            "subtitle": "Attention で交流し、Residual で残し、LayerNorm で安定させ、FFN で加工する。",
+            "items": [
+                ("token 表現", "入力は生の単語ではなく、連続 vector h1、h2、h3。"),
+                ("Self-Attention", "token 同士が context 情報を交換する。"),
+                ("Residual", "元の信号を足し戻し、新しい計算だけで上書きしない。"),
+                ("LayerNorm", "値を安定した範囲に戻す。"),
+                ("FFN", "各 token を独立に非線形 MLP で加工する。"),
+                ("出力表現", "1 層の block 後に h1'、h2'、h3' を得る。"),
+            ],
+            "footer": "block はデータの流れで読む：交流、保持、安定、加工。",
+            "alt": "Transformer block のデータフロー教育図：h1、h2、h3 の token 表現が Self-Attention、Residual、LayerNorm、FFN、Residual、LayerNorm を通り、更新後の token 状態になる。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
