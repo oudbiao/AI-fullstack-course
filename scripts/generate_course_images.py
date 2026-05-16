@@ -55,7 +55,7 @@ DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "static" / "img" / "course"
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "reports" / "course-images"
 DEFAULT_MODEL = os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-2")
 DEFAULT_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://cliproxy.airoads.org/v1")
-DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "180"))
+DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "600"))
 DEFAULT_IMAGE_RETRIES = int(os.environ.get("OPENAI_IMAGE_RETRIES", "2"))
 FALLBACK_PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAFgwJ/lLwVRwAAAABJRU5ErkJggg=="
 
@@ -22993,6 +22993,92 @@ register_svg_replacement_group(
             ],
             "footer": "block はデータの流れで読む：交流、保持、安定、加工。",
             "alt": "Transformer block のデータフロー教育図：h1、h2、h3 の token 表現が Self-Attention、Residual、LayerNorm、FFN、Residual、LayerNorm を通り、更新後の token 状態になる。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
+    slug="ch07-moe-token-routing-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for Mixture of Experts. "
+        "The image must teach the surrounding lesson's key point: MoE does not change the self-attention information-flow rule; "
+        "it changes which FFN experts do the computation for each token. "
+        "Show several token tiles entering a router, the router scoring expert FFNs, top-k selection gates opening only a few experts per token, "
+        "selected expert outputs combining back into token outputs, and a small load-balance warning where one expert can become overloaded. "
+        "The learner should understand total parameters versus active compute from the picture before reading the term table."
+    ),
+    chapter_context=(
+        "The page first compares Encoder-only, Decoder-only, and Encoder-Decoder, then introduces MoE as a scaling strategy. "
+        "The text says MoE is not primarily changing who can attend to whom; instead, each token enters a router, the router scores multiple Expert FFNs, "
+        "only the top-k experts are activated for that token, and outputs are combined. "
+        "The term table explains Router, Top-k, load balance, Expert FFN, and active compute."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic engineering classroom cutaway style consistent with the new ch07 images, not a white rounded-card infographic, "
+        "not a pure flowchart, not a small-text poster, and not a local text-overlay look. Use one identical composition for zh/en/ja: same camera angle, same router machine, same expert pool positions, same colors, same token paths, and same reading order. "
+        "Top: localized title and one short subtitle. Center: a transparent MoE routing machine viewed like a physical training lab. "
+        "Start with four large token tiles on the left, each with a different color and short content mark. The tiles enter a glowing Router console in the middle. "
+        "Above the Router, draw clear score meters for Expert 1 through Expert 4. For each token, only two gates open as the top-k route; unselected experts stay dimmed. "
+        "On the right, draw four Expert FFN workbenches as different specialist stations, not as plain boxes. Selected experts light up and process copies of the token; inactive experts remain gray. "
+        "Below the experts, draw a Combine mixer that merges the selected expert outputs back into final output token tiles. "
+        "Add a small diagnostic corner with two mini-scenes: a balanced route where token dots spread across experts, and an overload route where too many dots pile onto one expert. "
+        "Bottom: a compact lesson rail shows total parameters as the whole expert warehouse, and active compute as only the lit expert path for one token. "
+        "Use sparse, large, readable localized labels attached to concrete parts. Technical tokens may remain in English where appropriate: MoE, token, Router, Top-k, Expert FFN, Dense FFN, active compute, total parameters, load balance, combine. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not use English phrases like selected experts run, inactive experts sleep, bigger model, or routing stability beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid fake UI filler, unreadable tiny text, pseudo text, decorative robots, vendor logos, and any picture that suggests every token runs through every expert."
+    ),
+    variants={
+        "zh": {
+            "title": "MoE：每个 token 只激活部分专家",
+            "subtitle": "总参数可以很大，但一次前向只走 top-k 专家。",
+            "items": [
+                ("token 输入", "每个 token 先进入 Router。"),
+                ("Router 打分", "给多个 Expert FFN 计算路线分数。"),
+                ("Top-k 选择", "只打开得分最高的少数专家。"),
+                ("Expert FFN", "被选中的专家实际参与计算。"),
+                ("Combine", "把专家输出合并成新的 token 表示。"),
+                ("负载均衡", "避免所有 token 都挤到同一专家。"),
+                ("激活计算量", "一次只计算亮起的路径，不是全部参数。"),
+            ],
+            "footer": "读 MoE 时先问：这个 token 到底走了哪些专家？",
+            "alt": "MoE token 路由教学图：token 进入 Router，Router 给多个 Expert FFN 打分，Top-k 只激活少数专家，专家输出再 Combine；图中对比总参数和实际激活计算，并提示负载均衡风险。",
+        },
+        "en": {
+            "title": "MoE: Each Token Activates Only Some Experts",
+            "subtitle": "Total parameters can be huge, while one forward pass uses only top-k experts.",
+            "items": [
+                ("token input", "Each token first enters the Router."),
+                ("Router scores", "Scores several Expert FFNs for the route."),
+                ("Top-k choice", "Only the highest-scoring experts open."),
+                ("Expert FFN", "Selected experts do the actual computation."),
+                ("Combine", "Merge expert outputs into a new token state."),
+                ("load balance", "Avoid sending all tokens to one expert."),
+                ("active compute", "Compute only the lit path, not all parameters."),
+            ],
+            "footer": "When reading MoE, ask: which experts did this token actually use?",
+            "alt": "MoE token routing teaching image: tokens enter a Router, the Router scores multiple Expert FFNs, Top-k activates only a few experts, outputs are combined, and the image contrasts total parameters with active compute while showing load-balance risk.",
+        },
+        "ja": {
+            "title": "MoE：token ごとに一部の expert だけを動かす",
+            "subtitle": "総パラメータは大きくても、1 回の前向き計算は top-k expert だけ。",
+            "items": [
+                ("token 入力", "各 token はまず Router に入る。"),
+                ("Router の採点", "複数の Expert FFN に経路スコアを付ける。"),
+                ("Top-k 選択", "高得点の少数 expert だけを開く。"),
+                ("Expert FFN", "選ばれた expert が実際に計算する。"),
+                ("Combine", "expert 出力を合わせて新しい token 表現にする。"),
+                ("負荷分散", "すべての token が同じ expert に偏らないようにする。"),
+                ("active compute", "光った経路だけを計算し、全パラメータは使わない。"),
+            ],
+            "footer": "MoE はまず問う：この token はどの expert を実際に使ったか？",
+            "alt": "MoE の token ルーティング教育図：token が Router に入り、Router が複数の Expert FFN にスコアを付け、Top-k で少数の expert だけを動かし、出力を Combine する。総パラメータと active compute の違い、負荷分散リスクも示す。",
         },
     },
     callouts=[],
