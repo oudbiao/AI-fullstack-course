@@ -14684,9 +14684,9 @@ DIRECT_TRIPLET_GROUPS: list[dict[str, Any]] = [
             "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch11-nlp/ch05-seq2seq/00-roadmap.md",
             "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch11-nlp/ch05-seq2seq/00-roadmap.md",
         },
-        "scene": "A Seq2Seq generation bridge. An input sentence enters an encoder that creates a compact representation. A decoder then generates output tokens one by one. Attention beams connect each output step back to useful input tokens. Around the bridge, show common tasks: translation, summarization, rewriting, dialogue, and correction. Also show a bottleneck warning when the decoder cannot look back enough.",
+        "scene": "A hand-drawn classroom lecture-note teaching image for the Seq2Seq generation bridge. It must help learners understand that an input token sequence enters an encoder, becomes a context representation, then a decoder generates output tokens one by one while attention looks back to useful input positions. Show the concrete example I love NLP -> J'aime le NLP, plus small task chips for translation, summarization, rewriting, dialogue, and correction. The picture should feel like a clear lined-paper study note, not a generic neural-network poster.",
         "chapter_context": "This image appears in the Seq2Seq roadmap. The text says Seq2Seq handles tasks where both input and output are sequences: translation, summarization, rewriting, dialogue, and error correction. It says generation happens step by step, and attention helps the decoder look back at useful input positions.",
-        "shared_layout": "Vertical 9:16. Top input sequence. Middle encoder-decoder bridge with attention lines from decoder steps back to input tokens. Side task badges for translation, summary, rewrite, dialogue, correction. Bottom bottleneck warning and modern LLM bridge note. Keep token positions and attention lines identical across zh/en/ja.",
+        "shared_layout": "Vertical 9:16 hand-drawn classroom lecture note on subtle lined paper. Keep Chinese, English, and Japanese structurally identical: same title position, same input token cards at the top, same encoder block on the left, same context capsule in the center, same decoder block on the right, same three output token cards, same three attention spotlight lines from decoder steps back to input tokens, same five task chips, and same bottom warning strip. Use large sparse localized labels attached directly to the visual objects. Do not make a white rounded-box SVG infographic, dense dashboard, terminal screenshot, decorative robot scene, or pure text poster. Avoid fake small text and extra English in zh/ja variants except technical tokens such as Seq2Seq, Encoder, Decoder, Attention, token, LLM.",
         "variants": {
             "zh": {
                 "title": "Seq2Seq：输入序列到输出序列",
@@ -30919,11 +30919,106 @@ Critical accuracy rules:
 - The teaching point must be visual: question -> retrieved evidence -> policy-first answer -> eval ledger -> layer diagnosis.
 """.strip(),
     "ch11-seq2seq-chapter-flow.png": """
-竖版 9:16 中文教学插画，主题标题必须清楚写在画面上方：“Seq2Seq 学习路线”。
-画面像课堂分镜/工作台，不要白底流程框：一位学习者看着屏幕，左侧是一串输入词卡，经过 Encoder 工作台压成上下文胶囊，右侧 Decoder 像打字机一样逐步吐出输出词卡；旁边有 Attention 聚光灯照回输入词，底部有翻译与摘要两个小成果样本。
-必须有少量大字短标签，中文自然可读：① 输入序列、② Encoder、③ 上下文、④ Decoder、⑤ Attention、⑥ 输出序列。
-加一句短说明：“先读完整输入，再一步步生成输出。”
-文字要大、少、清晰；允许少量英文术语 Encoder、Decoder、Attention。不要密密麻麻的小字，不要乱码，不要真实品牌 logo，不要白底圆角框流程图。
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 11 章 11.5.1 Seq2Seq 路线图。
+这是 AI 直接生成的最终图片。不要留空给后期叠字，不要 SVG，不要白底圆角框信息图，不要纯流程框，不要终端截图，不要贴满文字。
+
+整体风格：手绘课堂讲义 / 横线笔记纸教学图，像老师在笔记纸上画给初学者看的清晰图。线条可以手绘但必须干净，文字必须大而清楚。
+中英日三版必须同构：同一张竖版横线笔记纸、同一输入词卡位置、同一 Encoder、同一上下文胶囊、同一 Decoder、同一输出词卡、同一 Attention 聚光线、同一任务标签位置、同一底部警示条。不要让某一种语言变成横版、dashboard、漫画海报或不同构图。
+
+可见标题必须完全写为："Seq2Seq：输入序列到输出序列"
+可见副标题必须完全写为："编码输入，逐步解码输出，Attention 帮助回看关键信息。"
+
+固定版式：
+1. 顶部是标题和副标题。
+2. 上半部分是一条从左到右的生成桥梁：
+   - 左侧输入词卡必须是："I"、"love"、"NLP"
+   - 输入旁边标注："输入序列"
+   - 中间左侧是机器/模块："Encoder"
+   - 正中是胶囊："上下文"
+   - 中间右侧是机器/模块："Decoder"
+   - 右侧输出词卡必须是："J'aime"、"le"、"NLP"
+   - 输出旁边标注："输出序列"
+3. 从 Decoder 每个输出步骤画三条柔和 Attention 聚光线回到输入词卡，旁边标注："Attention：每一步回看相关输入"
+4. 中部有三个步骤短签：
+   - "1 读完整输入"
+   - "2 压成上下文"
+   - "3 一个 token 一个 token 生成"
+5. 下部有五个小任务标签，顺序必须是："翻译"、"摘要"、"改写"、"对话"、"纠错"
+6. 底部警示条必须完全写为："只靠一个向量会丢信息，Attention 缓解长句瓶颈。"
+7. 页脚必须完全写为："现代生成模型仍保留逐步生成和注意力回看的核心直觉。"
+
+准确性规则：
+- 中文说明必须是简体中文；只允许保留这些英文技术 token：Seq2Seq、Encoder、Decoder、Attention、token、LLM、I、love、NLP、J'aime、le。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo、额外例句、复杂公式、Transformer 架构细节、真实软件界面。
+- 读者必须能从图上学到：输入输出长度可以不同，decoder 逐步生成，Attention 每一步回看输入位置。
+""".strip(),
+    "ch11-seq2seq-chapter-flow-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 11.5.1 Seq2Seq roadmap.
+This is the final AI-generated image. Do not leave blank space for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not make a pure flowchart, do not show a terminal screenshot, and do not paste dense text.
+
+Overall style: hand-drawn classroom lecture note on lined notebook paper, as if a teacher drew a clean study guide for beginners. The linework may feel hand-drawn, but the text must be large and crisp.
+The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical lined-paper page, same input token positions, same Encoder, same context capsule, same Decoder, same output tokens, same Attention spotlight lines, same task-chip positions, and same bottom warning strip. Do not turn any language into a landscape diagram, dashboard, poster, or different composition.
+
+Visible title exactly: "Seq2Seq: Input Sequence to Output Sequence"
+Visible subtitle exactly: "Encode input, decode step by step, and use Attention to look back."
+
+Fixed layout:
+1. Top title and subtitle.
+2. Upper half shows one left-to-right generation bridge:
+   - left input token cards exactly: "I", "love", "NLP"
+   - label near the input: "input sequence"
+   - middle-left machine/module: "Encoder"
+   - center capsule: "context"
+   - middle-right machine/module: "Decoder"
+   - right output token cards exactly: "J'aime", "le", "NLP"
+   - label near the output: "output sequence"
+3. Draw three soft Attention spotlight lines from decoder output steps back to input token cards, with label: "Attention: each step looks back"
+4. Middle has three short step stickers:
+   - "1 read the full input"
+   - "2 compress into context"
+   - "3 generate one token at a time"
+5. Lower section has five task chips in this order: "translation", "summary", "rewrite", "dialogue", "correction"
+6. Bottom warning strip exactly: "One vector can lose information; Attention reduces the long-sentence bottleneck."
+7. Visible footer exactly: "Modern generation still keeps the intuition of stepwise output and looking back."
+
+Accuracy rules:
+- English text only, except the exact tokens Seq2Seq, Encoder, Decoder, Attention, token, LLM, I, love, NLP, J'aime, le.
+- Do not include Chinese text, Japanese text, gibberish, tiny background text, watermark, brand logo, extra examples, complex formulas, Transformer architecture details, or real software UI.
+- A learner must understand from the picture that input and output lengths can differ, the decoder generates step by step, and Attention looks back at input positions at each step.
+""".strip(),
+    "ch11-seq2seq-chapter-flow-ja.png": """
+第 11 章 11.5.1 Seq2Seq ロードマップ用の、完成済み 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。あとから文字を重ねる空白を残さないでください。SVG 風、白い角丸ボックス情報図、純粋なフローチャート、ターミナル画面、文字だらけのポスターは禁止です。
+
+全体スタイル：手描きの講義ノート / 横線入りノート紙の教学図。先生が初学者に説明するために描いた、きれいで読みやすい学習ノートにしてください。線は手描き感があってよいが、文字は大きく鮮明に。
+中国語・英語・日本語版は必ず同じ構造：同じ縦長横線ノート、同じ入力 token の位置、同じ Encoder、同じ文脈カプセル、同じ Decoder、同じ出力 token、同じ Attention スポットライト線、同じタスクラベル位置、同じ下部注意バー。日本語版だけ横長図、dashboard、漫画ポスター、別構図にしないでください。
+
+可視タイトルは完全に："Seq2Seq：入力列から出力列へ"
+可視サブタイトルは完全に："入力を encode し、一歩ずつ decode し、Attention で見返す。"
+
+固定版式：
+1. 上部にタイトルとサブタイトル。
+2. 上半分は左から右への生成ブリッジ：
+   - 左の入力 token カードは正確に："I"、"love"、"NLP"
+   - 入力の近くにラベル："入力列"
+   - 中央左の機械/モジュール："Encoder"
+   - 中央のカプセル："文脈"
+   - 中央右の機械/モジュール："Decoder"
+   - 右の出力 token カードは正確に："J'aime"、"le"、"NLP"
+   - 出力の近くにラベル："出力列"
+3. Decoder の各出力ステップから入力 token へ、3本の柔らかい Attention スポットライト線を描き、ラベル："Attention：各ステップで入力を見返す"
+4. 中央に3つの短いステップ付箋：
+   - "1 入力全体を読む"
+   - "2 文脈に圧縮"
+   - "3 1 token ずつ生成"
+5. 下部に5つのタスクラベルをこの順番で置く："翻訳"、"要約"、"書き換え"、"対話"、"訂正"
+6. 下部注意バーは完全に："1つのベクトルだけでは情報が落ちる。Attention が長文のボトルネックを和らげる。"
+7. 下部フッターは完全に："現代の生成にも、逐次生成と見返す直感が残っている。"
+
+正確性ルール：
+- 日本語説明を使う。技術 token として Seq2Seq、Encoder、Decoder、Attention、token、LLM、I、love、NLP、J'aime、le はそのまま残してよい。
+- 中国語、英語の説明文、乱码、小さい背景文字、watermark、brand logo、余分な例文、複雑な数式、Transformer 詳細、実在ソフト UI を入れない。
+- 学習者が図だけで、入力と出力の長さは違ってよいこと、decoder が一歩ずつ生成すること、Attention が各ステップで入力位置を見返すことを理解できるようにしてください。
 """.strip(),
     "ch11-seq2seq-encoder-decoder-bottleneck-map.png": """
 竖版 9:16 中文教学插画，主题标题：“Encoder-Decoder 信息瓶颈”。
