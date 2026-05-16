@@ -23731,6 +23731,85 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-pretraining-data-governance-funnel",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+    },
+    scene=(
+        "A Chapter 7.4.2 teaching image placed after a Mermaid data pipeline and before a reading guide. "
+        "It must teach the key idea: not all internet text is suitable for direct training. "
+        "A learner should see that data governance is an active value filter: it keeps patterns worth learning and rejects noise, duplicates, risk, contamination, and bad mixtures before training starts."
+    ),
+    chapter_context=(
+        "The nearby text says the pipeline makes 'data matters' concrete: every step changes what the model can learn, what it leans toward, and what mistakes it is likely to make. "
+        "The reading guide says to read from 'there is a lot of raw data' to 'there is only a small amount of trainable corpus', and that cleaning, deduplication, risk filtering, contamination control, and mixing decide which patterns are worth learning."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm lined notebook paper, dark navy marker, with blue, green, orange, purple, and red accents. "
+        "Use the same composition for zh/en/ja. "
+        "Top title and one short subtitle. "
+        "Main image: a large transparent funnel drawn like a classroom demonstration. At the wide top, pour in messy raw web/books/code/forum/docs cards. At each funnel layer, draw a named filter gate: cleaning, dedup, quality filter, privacy/copyright risk, contamination control, and mixture ratio. "
+        "Beside each layer, show what is rejected: ads and garbled text, duplicate mirrors, low-quality boilerplate, personal data and copyright risk, benchmark answers and eval samples, and over-dominant source type. "
+        "At the narrow bottom, output a smaller clean corpus version box with version tag, source recipe, filter log, and audit notes. An arrow feeds a base model foundation. "
+        "Add a side comparison scale: raw pile is large/noisy/cheap; trainable corpus is smaller/cleaner/traceable/more valuable. "
+        "Add one red warning: if eval samples pass the contamination gate, scores can become fake. "
+        "Bottom rule strip: governance is where engineers decide what the model is allowed to learn. "
+        "This must not look like a horizontal corporate infographic, not a dashboard, not a white rounded-card SVG flow, not a pure text poster, and not a decorative data factory. "
+        "Use sparse, large, readable localized labels attached to illustrated objects. Technical tokens may stay in English where useful: raw web, cleaning, dedup, quality filter, privacy, copyright, contamination, eval set, mixture ratio, corpus version, base model. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except technical tokens. "
+        "For Japanese, explanatory phrases must be natural Japanese except technical tokens. "
+        "Avoid pseudo text, tiny labels, fake brand logos, dense tables, and unrelated robot characters."
+    ),
+    variants={
+        "zh": {
+            "title": "数据治理漏斗：不是所有文本都能训练",
+            "subtitle": "从“大而乱”的原始资料，筛成“小而可控”的训练语料版本。",
+            "items": [
+                ("清洗", "广告、乱码和破碎页面先出局。"),
+                ("去重", "镜像站、复制粘贴和重复模板不要反复学。"),
+                ("质量过滤", "低价值 boilerplate 会浪费 token 和算力。"),
+                ("风险控制", "隐私、版权和敏感来源必须可追踪。"),
+                ("污染控制", "benchmark 答案和 eval set 不能漏进训练。"),
+                ("配比", "web/book/code/chat 比例会改变模型倾向。"),
+            ],
+            "footer": "数据治理不是清洁工序，而是在替模型决定哪些模式值得学习。",
+            "alt": "预训练数据治理漏斗教学图：原始 web、书籍、代码、论坛和文档进入漏斗，经过清洗、去重、质量过滤、隐私版权风险控制、contamination 控制和 mixture ratio 配比，拒绝广告乱码、重复镜像、低质模板、隐私版权风险、benchmark 答案和 eval set 泄漏，最后输出带版本、配方和过滤日志的训练语料版本。",
+        },
+        "en": {
+            "title": "Data Governance Funnel: Not Every Text Should Train",
+            "subtitle": "Turn a large noisy source pile into a smaller, controlled, traceable corpus version.",
+            "items": [
+                ("cleaning", "Ads, garbled text, and broken pages leave first."),
+                ("dedup", "Mirrors, copy-paste pages, and repeated templates should not be learned again and again."),
+                ("quality filter", "Low-value boilerplate wastes tokens and compute."),
+                ("risk control", "Privacy, copyright, and sensitive sources must be traceable."),
+                ("contamination control", "Benchmark answers and eval sets must not leak into training."),
+                ("mixture ratio", "The web/book/code/chat recipe changes the model's bias and capability."),
+            ],
+            "footer": "Governance is not cleanup only; it is where engineers decide which patterns are worth learning.",
+            "alt": "Pretraining data governance funnel teaching image: raw web, books, code, forums, and docs enter a funnel with cleaning, deduplication, quality filter, privacy and copyright risk control, contamination control, and mixture ratio, rejecting ads, garbled text, duplicate mirrors, low-quality boilerplate, privacy and copyright risk, benchmark answers, and eval set leakage, then outputting a corpus version with recipe and filter log.",
+        },
+        "ja": {
+            "title": "データガバナンス漏斗：すべての text が学習向きではない",
+            "subtitle": "大きく雑多な原材料を、小さく制御できる corpus version に変える。",
+            "items": [
+                ("清掃", "広告、文字化け、壊れたページを最初に除く。"),
+                ("重複除去", "ミラー、コピー、繰り返しテンプレートを何度も学ばせない。"),
+                ("品質フィルタ", "低価値 boilerplate は token と計算を浪費する。"),
+                ("リスク管理", "個人情報、著作権、センシティブな source を追跡可能にする。"),
+                ("contamination 管理", "benchmark の答えや eval set を学習に漏らさない。"),
+                ("配合比", "web/book/code/chat の配合がモデルの傾向と能力を変える。"),
+            ],
+            "footer": "ガバナンスは清掃だけではない。何を学ばせる価値があるかを決める工程です。",
+            "alt": "事前学習データガバナンス漏斗の教育図：raw web、書籍、code、forum、docs が漏斗に入り、清掃、重複除去、品質フィルタ、個人情報と著作権のリスク管理、contamination 管理、mixture ratio の配合を通り、広告、文字化け、重複ミラー、低品質テンプレート、個人情報や著作権リスク、benchmark の答え、eval set の漏れを除外し、配方と filter log 付きの corpus version を出力する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
