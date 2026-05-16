@@ -55,7 +55,7 @@ DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "static" / "img" / "course"
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "reports" / "course-images"
 DEFAULT_MODEL = os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-2")
 DEFAULT_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://cliproxy.airoads.org/v1")
-DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "600"))
+DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "1200"))
 DEFAULT_IMAGE_RETRIES = int(os.environ.get("OPENAI_IMAGE_RETRIES", "2"))
 FALLBACK_PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAFgwJ/lLwVRwAAAABJRU5ErkJggg=="
 
@@ -23327,6 +23327,167 @@ register_svg_replacement_group(
             ],
             "footer": "この設計は推論で保存する K/V を減らす。長い context が無料になるわけではない。",
             "alt": "KV cache と MHA/GQA/MQA の教育図：式 kv_units では num_kv_heads だけが変わり、MHA は 32 組の K/V で 67108864、GQA は 8 組で 16777216、MQA は 1 組で 2097152 になり、K/V 共有による cache 節約と多様性の取捨選択を示す。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
+    slug="ch07-scale-cost-knobs-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for model-scale cost knobs. "
+        "It must teach that model cost is not explained by the label 7B or 70B alone. "
+        "Cost grows through several knobs that interact: layers, hidden size, context length, batch size, and kv heads. "
+        "Hidden size often affects parameters and compute roughly quadratically; layers multiply the block cost; context length and batch size push activation memory and inference KV cache; kv heads directly affect KV cache. "
+        "The learner should understand that increasing several knobs together can make training and inference pressure jump sharply."
+    ),
+    chapter_context=(
+        "The page follows a runnable estimator script that prints small and large model estimates: small is about 1.31B params and 768.00 MB KV cache, while large is about 9.87B params and 1.50 GB KV cache. "
+        "It then explains that the large model is not just a simple doubling because layers, hidden size, and seq_len grow together. "
+        "The diagram should help learners read layers, hidden size, context length, batch size, and kv heads as cost knobs, especially hidden_size^2 and KV cache terms."
+    ),
+    shared_layout=(
+        "Vertical 9:16, hand-drawn classroom handout on warm lined notebook paper, using dark navy marker lines with blue, green, and orange accents. "
+        "It should feel like a careful teacher's board note: lively, visual, and precise, not a white rounded-card infographic, not a flat SVG diagram, not a pure text poster, and not a local text-overlay look. "
+        "Use one identical composition for zh/en/ja: same four numbered bands, same icons, same arrows, same colors, same reading path. "
+        "Top: large localized title and one short subtitle. "
+        "Band 1: a small-to-large model recipe comparison with two hand-drawn columns: small model and large model. Show the exact changes layers 24 -> 48, hidden 2048 -> 4096, seq_len 4096 -> 8192, kv heads 16 -> 8. "
+        "Band 2: five large physical knobs drawn as notebook doodles: layers, hidden size, context length, batch size, kv heads. Draw thick marker arrows from each knob to the cost it changes. "
+        "layers points to block cost and activation memory; hidden size points through a squared gear labeled hidden_size^2 to params and FLOPs; context length points to KV cache and latency; batch size points to activation memory, throughput, and concurrency memory; kv heads points directly to KV cache. "
+        "Band 3: two result meters with visible before/after jumps: params 1.31B -> 9.87B, and KV cache 768 MB -> 1.50 GB. Make the jump obvious with taller bars and not just labels. "
+        "Band 4: a bottom decision strip saying the practical rule: do not plan only by model name or parameter count; inspect which knob grows and which workload it stresses. "
+        "Use sparse, large, readable localized labels attached to objects. Technical tokens may remain in English where appropriate: layers, hidden size, hidden_size^2, context length, batch size, kv heads, params, FLOPs, activation memory, KV cache, latency, throughput, concurrency memory, 1.31B, 9.87B, 768 MB, 1.50 GB. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid pseudo text, tiny unreadable labels, spreadsheet screenshots, decorative dashboards without teaching content, top-or-bottom text pasted onto unrelated artwork, and any claim that parameter count alone determines cost."
+    ),
+    variants={
+        "zh": {
+            "title": "模型成本不是只看参数量",
+            "subtitle": "layers、hidden size、context、batch、kv heads 会一起放大压力。",
+            "items": [
+                ("layers", "层数会把每层 block 成本乘上去。"),
+                ("hidden_size^2", "hidden size 常按平方影响参数和 FLOPs。"),
+                ("context length", "上下文变长会推高 KV cache 和延迟。"),
+                ("batch size", "batch 影响吞吐，也会吃更多显存。"),
+                ("kv heads", "直接改变推理时 KV cache 的规模。"),
+                ("例子", "1.31B -> 9.87B，768 MB -> 1.50 GB。"),
+            ],
+            "footer": "规划规模时，不只问几 B 参数；要问哪个旋钮正在变大。",
+            "alt": "模型规模成本旋钮教学图：layers、hidden size、context length、batch size、kv heads 五个旋钮分别推高 params、FLOPs、activation memory、KV cache、latency 和 throughput，并用 1.31B 到 9.87B、768 MB 到 1.50 GB 说明规模叠加效应。",
+        },
+        "en": {
+            "title": "Model Cost Is More Than Parameter Count",
+            "subtitle": "Layers, hidden size, context, batch, and kv heads amplify pressure together.",
+            "items": [
+                ("layers", "More layers multiply the per-block cost."),
+                ("hidden_size^2", "Hidden size often affects params and FLOPs quadratically."),
+                ("context length", "Longer context raises KV cache and latency."),
+                ("batch size", "Batch improves throughput but consumes more memory."),
+                ("kv heads", "Directly changes inference KV cache size."),
+                ("example", "1.31B -> 9.87B, 768 MB -> 1.50 GB."),
+            ],
+            "footer": "When planning scale, do not ask only how many B; ask which knob is growing.",
+            "alt": "Model scale cost knobs teaching image: layers, hidden size, context length, batch size, and kv heads each push params, FLOPs, activation memory, KV cache, latency, and throughput, with examples from 1.31B to 9.87B and 768 MB to 1.50 GB.",
+        },
+        "ja": {
+            "title": "モデルコストは parameter 数だけでは決まらない",
+            "subtitle": "layers、hidden size、context、batch、kv heads が一緒に負荷を増やす。",
+            "items": [
+                ("layers", "層数は block ごとのコストを掛け合わせる。"),
+                ("hidden_size^2", "hidden size は params と FLOPs に二乗で効きやすい。"),
+                ("context length", "長い context は KV cache と latency を増やす。"),
+                ("batch size", "batch は throughput を上げるが memory も使う。"),
+                ("kv heads", "推論時の KV cache サイズを直接変える。"),
+                ("例", "1.31B -> 9.87B、768 MB -> 1.50 GB。"),
+            ],
+            "footer": "scale を考える時は、何 B かだけでなく、どのノブが増えるかを見る。",
+            "alt": "モデル規模のコストノブ教育図：layers、hidden size、context length、batch size、kv heads の5つが params、FLOPs、activation memory、KV cache、latency、throughput に影響し、1.31B から 9.87B、768 MB から 1.50 GB の例で負荷の増え方を示す。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
+    slug="ch07-train-inference-cost-split-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for why training cost and inference cost are different workloads. "
+        "It must teach that a model being trainable does not mean it is easy to deploy. "
+        "Training is dominated by parameters, gradients, optimizer states, intermediate activations, large batches, updates, and throughput. "
+        "Inference is dominated by KV cache, request latency, throughput under concurrency, batch sizing, context length, kv heads, and cache quantization. "
+        "The learner should be able to point to the diagram and explain which bottleneck belongs to training and which belongs to inference."
+    ),
+    chapter_context=(
+        "The page first lists common training bottlenecks: model parameters, gradients, optimizer states, intermediate activations, mixed precision, gradient checkpointing, tensor/data parallelism, and activation memory. "
+        "It then lists inference bottlenecks: KV cache, throughput, latency per request, GPU memory under concurrency, batch size, context length, kv heads, and cache quantization. "
+        "Nearby prose says training is large batches and continuous updates, while inference is real-time responses, cache accumulation, and latency sensitivity."
+    ),
+    shared_layout=(
+        "Vertical 9:16, hand-drawn classroom handout on warm lined notebook paper, using dark navy marker lines with blue, green, orange, and red accents. "
+        "It should feel like a careful teacher's annotated worksheet: concrete, visual, and easy to review on mobile, not a white rounded-card infographic, not a flat SVG diagram, not a pure text poster, and not a local text-overlay look. "
+        "Use one identical composition for zh/en/ja: same four numbered bands, same side-by-side left/right structure, same icons, same colors, same reading path. "
+        "Top: large localized title and one short subtitle. "
+        "Band 1: split the page into two hand-drawn work scenes. Left is a training factory loop: data batch enters, forward pass, backward pass, optimizer update, weights change, and a big throughput-first conveyor. Right is an inference service counter: user requests arrive, tokens are decoded step by step, KV cache grows, and latency clocks tick. "
+        "Band 2: draw two memory stacks. Training stack contains params, gradients, optimizer states, activations, and checkpoint. Inference stack contains params, KV cache, request queue, concurrency memory, and batching. "
+        "Band 3: draw two tool shelves. Training tools are mixed precision, gradient checkpointing, tensor/data parallelism, and activation memory control. Inference tools are batch size, context length, kv heads, cache quantization, latency, and throughput. "
+        "Band 4: bottom warning rule with a balance scale: trainable does not mean easy to deploy. Choose the optimization by first naming the workload and bottleneck. "
+        "Use sparse, large, readable localized labels attached to objects. Technical tokens may remain in English where appropriate: training, inference, parameters, params, gradients, optimizer states, activations, checkpoint, mixed precision, gradient checkpointing, tensor parallelism, data parallelism, activation memory, KV cache, latency, throughput, concurrency, batch size, context length, kv heads, cache quantization, token. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid pseudo text, tiny unreadable labels, terminal screenshots, decorative servers without logic, top-or-bottom text pasted onto unrelated artwork, and any claim that training and inference share the same bottleneck."
+    ),
+    variants={
+        "zh": {
+            "title": "能训练，不等于好部署",
+            "subtitle": "训练期和推理期是两种 workload，卡点完全不同。",
+            "items": [
+                ("训练循环", "大 batch -> forward -> backward -> optimizer update。"),
+                ("训练显存", "params、gradients、optimizer states、activations 一起占空间。"),
+                ("训练工具", "mixed precision、gradient checkpointing、tensor/data parallelism。"),
+                ("推理服务", "请求实时到达，token 逐步生成，KV cache 不断累积。"),
+                ("推理显存", "KV cache、concurrency、batching 会决定上线压力。"),
+                ("推理工具", "调 batch、context length、kv heads，并考虑 cache quantization。"),
+            ],
+            "footer": "先判断 workload，再找瓶颈；不要把训练经验直接套到部署。",
+            "alt": "训练期与推理期成本对比教学图：训练循环关注 params、gradients、optimizer states、activations 和更新吞吐，推理服务关注 KV cache、latency、throughput、concurrency、batch size、context length、kv heads 和 cache quantization，说明能训练不等于好部署。",
+        },
+        "en": {
+            "title": "Trainable Does Not Mean Easy To Deploy",
+            "subtitle": "Training and inference are different workloads with different bottlenecks.",
+            "items": [
+                ("training loop", "large batch -> forward -> backward -> optimizer update."),
+                ("training memory", "params, gradients, optimizer states, and activations all consume space."),
+                ("training tools", "mixed precision, gradient checkpointing, tensor/data parallelism."),
+                ("inference service", "requests arrive live, tokens decode step by step, and KV cache grows."),
+                ("inference memory", "KV cache, concurrency, and batching shape deployment pressure."),
+                ("inference tools", "tune batch, context length, kv heads, and cache quantization."),
+            ],
+            "footer": "Name the workload first, then find the bottleneck; do not copy training assumptions into deployment.",
+            "alt": "Training versus inference cost teaching image: training loop focuses on params, gradients, optimizer states, activations, and update throughput, while inference service focuses on KV cache, latency, throughput, concurrency, batch size, context length, kv heads, and cache quantization, showing why trainable does not mean easy to deploy.",
+        },
+        "ja": {
+            "title": "学習できることと、デプロイしやすいことは別",
+            "subtitle": "学習と推論は違う workload で、詰まりどころも違う。",
+            "items": [
+                ("学習ループ", "大きな batch -> forward -> backward -> optimizer update。"),
+                ("学習メモリ", "params、gradients、optimizer states、activations が同時に場所を使う。"),
+                ("学習の道具", "mixed precision、gradient checkpointing、tensor/data parallelism。"),
+                ("推論サービス", "request がリアルタイムに来て、token を順に生成し、KV cache が増える。"),
+                ("推論メモリ", "KV cache、concurrency、batching がデプロイ負荷を決める。"),
+                ("推論の道具", "batch、context length、kv heads、cache quantization を調整する。"),
+            ],
+            "footer": "まず workload を分けて、次に bottleneck を探す。学習側の前提をそのまま deployment に持ち込まない。",
+            "alt": "学習時と推論時のコスト比較教育図：学習ループは params、gradients、optimizer states、activations、更新 throughput を重視し、推論サービスは KV cache、latency、throughput、concurrency、batch size、context length、kv heads、cache quantization を重視するため、学習できることとデプロイしやすいことは別だと示す。",
         },
     },
     callouts=[],
