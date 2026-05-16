@@ -23651,6 +23651,86 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="pretraining-data-pipeline",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+    },
+    scene=(
+        "A Chapter 7.4.2 opening teaching image for pretraining data. "
+        "It must teach why raw internet-scale text is not directly trainable and how a data pipeline turns messy sources into a controlled training corpus. "
+        "The nearby text contrasts high-quality reading materials with repeated ads, clickbait, copied webpages, and messy comments. "
+        "It also says the hard part is not just finding more text, but deciding what to find, clean, mix, deduplicate, and protect from contamination."
+    ),
+    chapter_context=(
+        "This image appears immediately under the title of the pretraining data lesson, before a section overview. "
+        "Later on the page, the learner sees a Mermaid pipeline: raw data from web/books/code/forums, cleaning, deduplication, risk control, data mixture, training corpus version, and pretrained model foundation. "
+        "The image should preview that whole lesson in a visual way for mobile readers."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm lined notebook paper, using dark navy marker and restrained blue, green, orange, purple, and red accents. "
+        "Use identical composition for zh/en/ja. "
+        "Top title and one short subtitle. "
+        "Main visual: a left-to-right but vertically stacked pipeline with five big stations connected by thick hand-drawn arrows. "
+        "Station 1 RAW SOURCES: messy pile of webpages, books, code files, forum posts, papers, and chat logs, with noisy items like spam, copies, garbled text, and benchmark answers mixed in. "
+        "Station 2 CLEAN + DEDUP: workers or tools remove ads, broken text, duplicate mirrors, and low-value boilerplate; show rejects falling into a trash tray. "
+        "Station 3 RISK + CONTAMINATION CHECK: show privacy/copyright shield and a red benchmark leak alarm, with evaluation samples blocked from entering training. "
+        "Station 4 MIX + TOKENIZE + PACK: show recipe bowls or sliders for web/book/code/chat proportions, then token strips packed into training samples. "
+        "Station 5 VERSIONED TRAINING CORPUS: a labeled dataset box with version tag v1/v2 feeds a base model foundation. "
+        "Add a small before/after contrast: raw data is large and messy; training corpus is smaller, traceable, and more useful. "
+        "Bottom rule strip: data quality shapes the model foundation more than simply adding more text. "
+        "This must feel like a teacher's notebook explanation, not a white-box SVG pipeline, not a dark dashboard, not a dense UI mockup, and not a pure text poster. "
+        "Use only large, readable localized labels attached to objects. Technical tokens may remain in English where useful: raw data, cleaning, dedup, contamination, benchmark, tokenization, data mixture, corpus version, base model. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens. "
+        "Avoid pseudo text, tiny paragraphs, random unreadable code, vendor logos, and decorative robots."
+    ),
+    variants={
+        "zh": {
+            "title": "预训练数据流水线：从原始资料到训练样本",
+            "subtitle": "不是把互联网直接喂给模型，而是先筛、清、去重、控风险、配比和版本化。",
+            "items": [
+                ("原始资料", "网页、书籍、代码、论坛和论文混在一起，也夹着垃圾和重复。"),
+                ("清洗去重", "去掉广告、乱码、镜像复制和低价值模板。"),
+                ("风险检查", "隐私、版权、benchmark 泄漏和 contamination 要挡在训练外。"),
+                ("混合打包", "按 web/book/code/chat 比例采样，再 tokenization 和切分。"),
+                ("训练语料版本", "留下可追踪的 corpus version，才方便复现实验和解释分数变化。"),
+            ],
+            "footer": "更多文本不等于更好模型；可控、干净、可追踪的数据才决定底座质量。",
+            "alt": "预训练数据流水线教学图：原始网页、书籍、代码、论坛和论文先经过清洗去重，过滤广告、乱码、重复和低质模板，再做隐私版权与 benchmark contamination 检查，按 web、book、code、chat 比例混合，经过 tokenization 和切分打包，形成可追踪的训练语料版本并喂给基座模型。",
+        },
+        "en": {
+            "title": "Pretraining Data Pipeline: Raw Sources to Training Samples",
+            "subtitle": "Do not feed the internet directly; filter, clean, deduplicate, control risk, mix, and version it first.",
+            "items": [
+                ("raw sources", "Web pages, books, code, forums, and papers arrive with spam and repeated copies."),
+                ("clean + dedup", "Remove ads, garbled text, mirrored pages, and low-value boilerplate."),
+                ("risk check", "Privacy, copyright, benchmark leakage, and contamination stay out of training."),
+                ("mix + pack", "Sample web/book/code/chat by ratio, then tokenize and pack into examples."),
+                ("corpus version", "A traceable corpus version makes experiments reproducible and score changes explainable."),
+            ],
+            "footer": "More text is not automatically better; controlled, clean, traceable data shapes the model foundation.",
+            "alt": "Pretraining data pipeline teaching image: raw web pages, books, code, forums, and papers go through cleaning and deduplication to remove ads, garbled text, duplicates, and low-value templates, then privacy, copyright, benchmark leakage, and contamination checks, then web book code chat mixture, tokenization and packing, producing a traceable training corpus version for the base model.",
+        },
+        "ja": {
+            "title": "事前学習データパイプライン：原材料から学習サンプルへ",
+            "subtitle": "internet をそのまま入れず、先に選別、清掃、重複除去、リスク管理、配合、version 化を行う。",
+            "items": [
+                ("原材料", "Web ページ、書籍、code、forum、論文には spam や重複コピーも混ざる。"),
+                ("清掃と重複除去", "広告、文字化け、ミラー、低価値テンプレートを取り除く。"),
+                ("リスク確認", "個人情報、著作権、benchmark リーク、contamination を学習外に出す。"),
+                ("配合と梱包", "web/book/code/chat の比率でサンプリングし、tokenization と分割を行う。"),
+                ("corpus version", "追跡できる version があると、実験再現と score 変化の説明ができる。"),
+            ],
+            "footer": "text が多いだけでは良いモデルにならない。制御され、清潔で、追跡できるデータが基盤を決める。",
+            "alt": "事前学習データパイプラインの教育図：Web ページ、書籍、code、forum、論文などの raw sources を清掃と重複除去に通し、広告、文字化け、重複、低価値テンプレートを取り除き、個人情報、著作権、benchmark リーク、contamination を確認し、web、book、code、chat の比率で混合し、tokenization と分割で追跡可能な training corpus version を作り、基盤モデルに入れる。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
