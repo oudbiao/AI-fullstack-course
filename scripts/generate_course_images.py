@@ -23810,6 +23810,79 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-pretraining-objective-comparison-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/02-pretraining-methods.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/02-pretraining-methods.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/02-pretraining-methods.md",
+    },
+    scene=(
+        "A Chapter 7.4.3 teaching image placed immediately after runnable code that transforms one sentence into three pretraining objective samples. "
+        "It must visually explain the actual code output: the same token list 'transformer models learn patterns from large text corpora' becomes Causal LM shifted labels, Masked LM blanks at positions 2 and 5, and Span Corruption with <extra_id_0>. "
+        "The image should teach that the objective is the daily practice task, and daily practice shapes the model's later ability profile."
+    ),
+    chapter_context=(
+        "The nearby text asks learners to focus on: what the input became, what labels ask the model to learn, and why the same sentence can become different training tasks. "
+        "The reading guide says Causal LM trains next-token continuation, Masked LM trains filling blanks from both sides, and Span Corruption trains recovering missing spans."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm lined notebook paper, dark navy marker, with blue for Causal LM, green for Masked LM, purple for Span Corruption, and red for label arrows. "
+        "Use identical composition for zh/en/ja. "
+        "Top title and one short subtitle. "
+        "At the top, draw one horizontal token strip: transformer | models | learn | patterns | from | large | text | corpora. "
+        "Then split into three stacked lesson panels, not side-by-side. "
+        "Panel 1 CAUSAL LM: show input strip missing the final token and label strip shifted one step right. Use arrows from each input token to the next label: transformer -> models, models -> learn, learn -> patterns, ... text -> corpora. Add note: cannot see future; predicts next token. "
+        "Panel 2 MASKED LM: show the same sentence with learn and large replaced by [MASK]. Show labels as position 2 = learn and position 5 = large. Add note: uses left and right context. "
+        "Panel 3 SPAN CORRUPTION: show input as transformer models <extra_id_0> large text corpora, and target as <extra_id_0> learn patterns from <extra_id_1>. Add note: restores a missing span, useful for text-to-text repair. "
+        "At the bottom, draw a small ability profile row: continuation/generation, bidirectional understanding, text transformation. "
+        "This must look like a teacher walking through the code output with colored markers, not a white rounded-card SVG infographic, not a decorative robot poster, not a dark dashboard, and not a pure text table. "
+        "Use sparse, readable localized labels. Keep exact technical tokens in English: Causal LM, Masked LM, Span Corruption, next-token, [MASK], <extra_id_0>, <extra_id_1>, transformer, models, learn, patterns, from, large, text, corpora, GPT, BERT, T5. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens. "
+        "Avoid pseudo text, tiny labels, invented token sequences, and spelling errors in the exact code tokens."
+    ),
+    variants={
+        "zh": {
+            "title": "同一句话，三种预训练练习题",
+            "subtitle": "看输入怎么变、labels 学什么，就能看懂 GPT、BERT、T5 的能力差异。",
+            "items": [
+                ("Causal LM", "输入看前文，labels 右移一位；练 next-token 续写。"),
+                ("Masked LM", "把 learn 和 large 换成 [MASK]；练左右文补空。"),
+                ("Span Corruption", "把 learn patterns from 整段替换成 <extra_id_0>；练恢复片段。"),
+                ("能力倾向", "练什么题，长期就更擅长什么能力。"),
+            ],
+            "footer": "目标不是名字差异，而是训练样本和 labels 的组织方式不同。",
+            "alt": "预训练目标对比教学图：同一句 transformer models learn patterns from large text corpora 被构造成 Causal LM、Masked LM 和 Span Corruption 三种训练样本。Causal LM 把 labels 右移一位练 next-token，Masked LM 用 [MASK] 替换 learn 和 large 并从左右文恢复，Span Corruption 用 <extra_id_0> 替换 learn patterns from 并在 target 中恢复整个片段。",
+        },
+        "en": {
+            "title": "One Sentence, Three Pretraining Practice Tasks",
+            "subtitle": "Look at how inputs change and what labels teach to see why GPT, BERT, and T5 differ.",
+            "items": [
+                ("Causal LM", "Input sees the past; labels shift right by one; practice next-token continuation."),
+                ("Masked LM", "Replace learn and large with [MASK]; practice filling blanks from both sides."),
+                ("Span Corruption", "Replace learn patterns from with <extra_id_0>; practice recovering a span."),
+                ("ability profile", "What the model practices every day is what it gradually becomes good at."),
+            ],
+            "footer": "The real difference is not the name; it is how samples and labels are organized.",
+            "alt": "Pretraining objective comparison teaching image: the sentence transformer models learn patterns from large text corpora becomes Causal LM, Masked LM, and Span Corruption samples. Causal LM shifts labels one token to practice next-token prediction, Masked LM replaces learn and large with MASK and recovers them from both sides, and Span Corruption replaces learn patterns from with extra_id_0 and recovers the full span in the target.",
+        },
+        "ja": {
+            "title": "同じ文から3種類の事前学習タスクへ",
+            "subtitle": "input の変わり方と labels の役割を見ると、GPT、BERT、T5 の違いが見える。",
+            "items": [
+                ("Causal LM", "前文だけを見て、labels を1つ右にずらす。next-token の続きを練習する。"),
+                ("Masked LM", "learn と large を [MASK] に置き換え、左右の文脈から埋める。"),
+                ("Span Corruption", "learn patterns from を <extra_id_0> に置き換え、欠けた span を復元する。"),
+                ("能力の傾向", "毎日解く練習問題が、モデルの得意分野を作る。"),
+            ],
+            "footer": "違いは名前ではなく、サンプルと labels の作り方にあります。",
+            "alt": "事前学習目標の比較教育図：transformer models learn patterns from large text corpora という同じ文が Causal LM、Masked LM、Span Corruption の3種類の学習サンプルになる。Causal LM は labels を1 token 右にずらして next-token を練習し、Masked LM は learn と large を [MASK] にして左右の文脈から復元し、Span Corruption は learn patterns from を <extra_id_0> にして target で span 全体を復元する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
