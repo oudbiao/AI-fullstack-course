@@ -23085,6 +23085,89 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-architecture-mask-task-fit-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for architecture variants and attention masks. "
+        "The image must teach why Encoder-only, Decoder-only, and Encoder-Decoder fit different tasks by showing who can see whom. "
+        "Use the runnable code context: full_mask means every position sees every other position; causal_mask means each position sees only the past and itself; "
+        "cross_attention_map means decoder output positions can read the fully encoded input while still generating causally. "
+        "The learner should understand the printed 1/0 masks, the information-flow rule, and the task fit before reading the rest of the page."
+    ),
+    chapter_context=(
+        "The page explains three classic structures: Encoder-only reads the whole input bidirectionally and fits classification/matching/extraction; "
+        "Decoder-only generates one token at a time and must not peek at future tokens; "
+        "Encoder-Decoder first encodes the input, then decodes the output using the input representation, fitting translation and summarization. "
+        "The code prints full_mask, causal_mask, and cross_attention_map, then says task suitability is essentially whether information-flow constraints match the task."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic classroom lab style consistent with the new ch07 images, not a white rounded-card infographic, not a simple table, "
+        "not a flat SVG diagram, and not a local text-overlay look. Use one identical composition for zh/en/ja: same three stacked learning stations, same colors, same token positions, same matrix shapes, and same reading path. "
+        "Top: localized title and one short subtitle. Center: three large stacked stations, each showing a different 'who can see whom' rule with concrete tokens and a mask result. "
+        "Station 1 Encoder-only: draw five input token tiles around a round discussion table. Bidirectional beams connect tokens both ways. Beside it, draw a 5x5 full green mask matrix where every cell is lit. Attach a task badge for classification and an example label BERT. "
+        "Station 2 Decoder-only: draw a writer moving left to right on a one-way timeline. Future tokens are behind locked glass, past tokens are visible. Beside it, draw a lower-triangular blue causal mask matrix with future cells blocked. Attach a task badge for generation and an example label GPT. "
+        "Station 3 Encoder-Decoder: draw a source document fully read by an encoder on the left, then a decoder writing output tokens on the right. A cross-attention bridge connects each output token to the encoded input, while output future tokens remain locked. Beside it, draw a source-to-target cross-attention grid plus a small causal output mask. Attach a task badge for translation / summarization and an example label T5. "
+        "Bottom: a compact lesson rail with the rule: task fit comes from matching what the task needs to what the mask allows. "
+        "Use sparse, large, readable localized labels attached to concrete parts. Technical tokens may remain in English where appropriate: Encoder-only, Decoder-only, Encoder-Decoder, attention mask, causal mask, cross-attention, token, BERT, GPT, T5, classification, generation, translation, summarization, full_mask, causal_mask. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not use English explanation phrases beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid fake UI filler, unreadable tiny text, pseudo text, decorative robots, vendor logos, and any incorrect mask pattern."
+    ),
+    variants={
+        "zh": {
+            "title": "信息流约束决定任务适配",
+            "subtitle": "先看谁能看谁，再判断适合什么任务。",
+            "items": [
+                ("Encoder-only", "每个 token 都能看完整输入。"),
+                ("full mask", "矩阵全亮，适合理解整句。"),
+                ("Decoder-only", "当前 token 只能看过去和自己。"),
+                ("causal mask", "未来位置被挡住，适合逐步生成。"),
+                ("Encoder-Decoder", "先读完整输入，再因果生成输出。"),
+                ("cross-attention", "输出 token 可以看输入表示。"),
+                ("任务适配", "分类看全局，生成防偷看，翻译先读再写。"),
+            ],
+            "footer": "选架构时先问：这个任务允许模型看到哪些信息？",
+            "alt": "架构 mask 与任务适配教学图：Encoder-only 使用 full mask 看完整输入，适合分类；Decoder-only 使用 causal mask 只能看过去，适合生成；Encoder-Decoder 先编码输入，再通过 cross-attention 生成输出，适合翻译和摘要。",
+        },
+        "en": {
+            "title": "Information Flow Determines Task Fit",
+            "subtitle": "First ask who can see whom, then choose the architecture.",
+            "items": [
+                ("Encoder-only", "Every token can read the full input."),
+                ("full mask", "All cells are open, good for whole-sentence understanding."),
+                ("Decoder-only", "The current token can read only past and self."),
+                ("causal mask", "Future positions are blocked, good for step-by-step generation."),
+                ("Encoder-Decoder", "Read the full input first, then generate output causally."),
+                ("cross-attention", "Output tokens can read the encoded input."),
+                ("task fit", "Classification reads globally; generation avoids peeking; translation reads then writes."),
+            ],
+            "footer": "When choosing an architecture, ask: what information may the model see?",
+            "alt": "Architecture mask and task-fit teaching image: Encoder-only uses a full mask to read the full input for classification, Decoder-only uses a causal mask to read only the past for generation, and Encoder-Decoder encodes input then uses cross-attention to generate output for translation and summarization.",
+        },
+        "ja": {
+            "title": "情報の流れが task 適合を決める",
+            "subtitle": "まず誰が誰を見られるかを見て、構造を選ぶ。",
+            "items": [
+                ("Encoder-only", "各 token が入力全体を読める。"),
+                ("full mask", "全セルが開き、文全体の理解に向く。"),
+                ("Decoder-only", "現在の token は過去と自分だけを読める。"),
+                ("causal mask", "未来位置を隠し、一歩ずつ生成する。"),
+                ("Encoder-Decoder", "入力を先に読み、その後に出力を因果的に生成する。"),
+                ("cross-attention", "出力 token がエンコード済み入力を読める。"),
+                ("task 適合", "分類は全体を見る。生成は未来を見ない。翻訳は読んでから書く。"),
+            ],
+            "footer": "構造を選ぶ前に問う：model はどの情報を見てよいか？",
+            "alt": "アーキテクチャの mask と task 適合の教育図：Encoder-only は full mask で入力全体を読み分類に向き、Decoder-only は causal mask で過去だけを読み生成に向き、Encoder-Decoder は入力をエンコードして cross-attention で出力を生成し翻訳や要約に向く。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
