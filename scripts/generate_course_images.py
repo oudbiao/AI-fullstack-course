@@ -23494,6 +23494,87 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-pretraining-chapter-flow",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+    },
+    scene=(
+        "A Chapter 7 roadmap teaching image for pretraining. "
+        "It must teach the chapter relationship, not merely show an AI model poster. "
+        "The learner should understand this path: raw text is governed as data, an objective turns text into prediction practice, engineering runs training at scale and survives failures, evaluation checks capability and contamination risk, then the pretrained base model supports Prompt, fine-tuning, RAG, and Agent applications. "
+        "The image should connect directly to the nearby table: data asks what text enters training, objective asks what prediction task creates learning signal, engineering asks how scale/checkpoint/logs/failures are handled, and evaluation asks what the model can do and where it fails."
+    ),
+    chapter_context=(
+        "This image appears immediately after the 7.4.1 roadmap intro. "
+        "The page says pretraining first teaches broad language patterns, then gives the engineering view: clean data, choose an objective, train at scale, track risk. "
+        "The next image is the data/objective/engineering triangle, and the page then shows a small next-token pair code example."
+    ),
+    shared_layout=(
+        "Vertical 9:16, hand-drawn classroom roadmap on warm lined notebook paper, using dark navy marker with blue, green, orange, and purple accents. "
+        "It should look like a teacher's first-page study map, not a white rounded-card infographic, not a flat SVG diagram, not a pure text poster, not a local text-overlay look, and not a decorative AI machine. "
+        "Use one identical composition for zh/en/ja: same five numbered stations, same arrows, same output model, same app branches, same colors, same reading path. "
+        "Top: large localized title and one short subtitle. "
+        "Station 1: a messy raw-text pile with web pages, books, code, forums, and papers. A filter stamp turns it into governed training corpus; show contamination risk as a red warning item kept out. "
+        "Station 2: a practice worksheet showing next-token pairs like AI -> learns -> from -> text, plus a masked/span practice card. This station teaches that the objective creates the learning signal. "
+        "Station 3: an engineering workbench with data shards, streaming dataloader conveyor, checkpoint notebook, logs, and resume lever. This station teaches stable long-running training. "
+        "Station 4: an evaluation desk comparing capability checks with contamination/leakage checks. Show the evaluation set separated from training data. "
+        "Station 5: a pretrained base model notebook in the center-bottom, with four branches to Prompt, fine-tuning, RAG, and Agent. "
+        "Bottom rule strip: data decides what can be learned, objective decides the practice, engineering decides whether training completes, evaluation checks what is real. "
+        "Use sparse, large, readable localized labels attached to objects. Technical tokens may remain in English where appropriate: pretraining, data, objective, engineering, evaluation, next-token, checkpoint, logs, contamination, Prompt, fine-tuning, RAG, Agent, AI -> learns -> from -> text. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid pseudo text, tiny unreadable labels, model hype claims, real vendor logos, generic datacenter art, and any implication that pretraining is only parameter count."
+    ),
+    variants={
+        "zh": {
+            "title": "预训练路线图：数据、目标、工程、评估",
+            "subtitle": "先把文本变成可训练样本，再把训练过程变成可恢复系统。",
+            "items": [
+                ("数据", "哪些文本进入训练？哪些污染和低质内容要过滤？"),
+                ("目标", "next-token、mask、span 练习决定学习信号。"),
+                ("工程", "shard、dataloader、checkpoint、logs 让长训练能跑完。"),
+                ("评估", "能力测试和 contamination 检查要分开看。"),
+                ("基座模型", "预训练完成后，再进入 Prompt、fine-tuning、RAG、Agent。"),
+                ("学习顺序", "先数据，再目标，再工程，最后看评估是否可信。"),
+            ],
+            "footer": "预训练不是“喂更多文本”这么简单；它是数据、练习、系统和风险控制的闭环。",
+            "alt": "预训练路线图教学图：原始文本经过数据治理，预训练目标把文本变成 next-token、mask 和 span 练习，工程系统用 shard、dataloader、checkpoint 和 logs 保持训练，评估检查能力与 contamination，最后得到支持 Prompt、fine-tuning、RAG 和 Agent 的基座模型。",
+        },
+        "en": {
+            "title": "Pretraining Roadmap: Data, Objective, Engineering, Evaluation",
+            "subtitle": "Turn text into trainable practice, then turn training into a recoverable system.",
+            "items": [
+                ("data", "Which text enters training, and which noise or contamination must be filtered?"),
+                ("objective", "Next-token, mask, and span practice create the learning signal."),
+                ("engineering", "Shards, dataloader, checkpoints, and logs keep long training running."),
+                ("evaluation", "Capability tests and contamination checks must stay separated."),
+                ("base model", "After pretraining, the base model supports Prompt, fine-tuning, RAG, and Agent."),
+                ("study order", "Study data, then objective, then engineering, then whether evaluation is trustworthy."),
+            ],
+            "footer": "Pretraining is not just feeding more text; it is a loop of data, practice, systems, and risk control.",
+            "alt": "Pretraining roadmap teaching image: raw text goes through data governance, objectives turn text into next-token, mask, and span practice, engineering uses shards, dataloader, checkpoints, and logs to keep training running, evaluation checks capability and contamination, and the base model supports Prompt, fine-tuning, RAG, and Agent.",
+        },
+        "ja": {
+            "title": "事前学習ロードマップ：データ、目的、工程、評価",
+            "subtitle": "text を学習できる練習に変え、学習を再開できる system にする。",
+            "items": [
+                ("データ", "どの text を学習に入れ、どの noise や contamination を除外するか。"),
+                ("目的", "next-token、mask、span の練習が学習信号を作る。"),
+                ("工程", "shard、dataloader、checkpoint、logs で長い学習を走らせる。"),
+                ("評価", "能力テストと contamination チェックを分けて見る。"),
+                ("基盤モデル", "事前学習後、Prompt、fine-tuning、RAG、Agent に進む。"),
+                ("学習順序", "データ、目的、工程、評価の信頼性という順で読む。"),
+            ],
+            "footer": "事前学習は text を増やすだけではない。データ、練習、system、risk control の循環です。",
+            "alt": "事前学習ロードマップの教育図：raw text をデータガバナンスに通し、objective が next-token、mask、span の練習を作り、engineering が shard、dataloader、checkpoint、logs で学習を支え、evaluation が capability と contamination を確認し、基盤モデルが Prompt、fine-tuning、RAG、Agent に進む。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
