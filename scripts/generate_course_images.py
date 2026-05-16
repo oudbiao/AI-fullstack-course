@@ -24655,6 +24655,252 @@ register_svg_replacement_group(
     suffixes={"zh": "-zh", "en": "-en", "ja": "-ja"},
 )
 
+def _course_qa_prompt(
+    *,
+    locale: str,
+    visible_title: str,
+    visible_subtitle: str,
+    teaching_goal: str,
+    fixed_layout: str,
+    required_labels: str,
+    footer: str,
+    allowed_tokens: str,
+) -> str:
+    language_rules = {
+        "zh": (
+            "Visible explanatory text must be natural Simplified Chinese. "
+            f"Only these technical/code tokens may remain in English or symbols: {allowed_tokens}. "
+            "Do not add English explanatory sentences, Japanese text, pseudo text, or tiny filler."
+        ),
+        "en": (
+            "Visible explanatory text must be natural English. "
+            f"Use these technical/code tokens exactly where useful: {allowed_tokens}. "
+            "Do not add Chinese, Japanese, pseudo text, or tiny filler."
+        ),
+        "ja": (
+            "Visible explanatory text must be natural Japanese. "
+            f"Only these technical/code tokens may remain in English or symbols: {allowed_tokens}. "
+            "Do not add Chinese labels, English explanatory sentences, pseudo text, or tiny filler."
+        ),
+    }
+    return f"""
+Create one complete vertical 9:16 teaching bitmap for an AI full-stack course. This must be the final image generated directly by AI: no blank space for later text overlay, no SVG style, no white rounded-box infographic, no pure flowchart, no terminal screenshot, and no text-only poster.
+
+Style: hand-drawn classroom handout / horizontal lined notebook paper teaching diagram. Use dark navy marker outlines with blue, green, orange, purple, and red accents. Make it attractive, but the main goal is teaching. The Simplified Chinese, English, and Japanese versions must be structurally identical: same page layout, same stations, same arrows, same colors, same bottom takeaway.
+
+Visible title exactly: "{visible_title}"
+Visible subtitle exactly: "{visible_subtitle}"
+
+Teaching goal: {teaching_goal}
+
+Fixed layout:
+{fixed_layout}
+
+Required visible labels and values:
+{required_labels}
+
+Bottom takeaway exactly: "{footer}"
+
+Language and accuracy rules: {language_rules[locale]}
+All text must be large, sparse, and attached to the object it explains. Avoid gibberish, random small Japanese/English, dense paragraphs, decorative-only scenes, fake UI text, vendor logos, watermarks, and anything that looks like old SVG information boxes.
+""".strip()
+
+
+COURSE_QA_PROMPTS: dict[str, str] = {
+    "ch05-modeling-loop-backbone.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="机器学习建模闭环",
+        visible_subtitle="先定义任务，再用证据改进模型。",
+        teaching_goal="读者先看图就能理解第 5 章首页的主线：define task -> split data -> train baseline -> evaluate -> inspect errors -> improve。图要像一个可复盘项目看板，而不是算法名字海报。",
+        fixed_layout="从上到下画一条可回环的项目路线。1 任务定义：业务问题变成 feature、label、metric。2 数据切分：train/test 分开并贴上 leakage 警示。3 baseline：先跑 Dummy 或简单模型。4 评估板：metric、confusion matrix 或 residual。5 错误分析：把错误样本放进 buckets。6 改进与报告：feature、model、threshold 下一轮实验，并回到评估板。",
+        required_labels="任务定义、feature、label、metric、train/test split、leakage check、baseline、evaluate、error buckets、improve、report card、next experiment。",
+        footer="baseline 先跑通，metric 和错误样本决定下一步。",
+        allowed_tokens="feature, label, metric, train/test split, leakage check, baseline, evaluate, error buckets, improve, report card",
+    ),
+    "ch05-modeling-loop-backbone-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Machine Learning Modeling Loop",
+        visible_subtitle="Define the task first, then improve with evidence.",
+        teaching_goal="A learner should understand the Chapter 5 loop before reading code: define task -> split data -> train baseline -> evaluate -> inspect errors -> improve. The image should feel like a reviewable project board, not an algorithm-name poster.",
+        fixed_layout="Draw one looping project route from top to bottom. 1 Task definition: turn the business question into feature, label, metric. 2 Data split: separate train/test and add a leakage warning. 3 Baseline: run Dummy or a simple model first. 4 Evaluation board: metric, confusion matrix or residual. 5 Error review: put wrong cases into buckets. 6 Improve and report: feature, model, threshold as the next experiment, looping back to evaluation.",
+        required_labels="task definition, feature, label, metric, train/test split, leakage check, baseline, evaluate, error buckets, improve, report card, next experiment.",
+        footer="Run the baseline first; metrics and error samples decide the next step.",
+        allowed_tokens="feature, label, metric, train/test split, leakage check, baseline, evaluate, error buckets, improve, report card",
+    ),
+    "ch05-modeling-loop-backbone-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="機械学習モデリングの閉ループ",
+        visible_subtitle="先にタスクを定義し、証拠でモデルを改善する。",
+        teaching_goal="第5章の主線 define task -> split data -> train baseline -> evaluate -> inspect errors -> improve を、コード前に理解できる図にする。アルゴリズム名のポスターではなく、再現できるプロジェクト看板として見せる。",
+        fixed_layout="上から下へ回り込むプロジェクトルートを描く。1 タスク定義：業務問題を feature、label、metric に変える。2 データ分割：train/test を分け、leakage 警告を置く。3 baseline：Dummy または単純モデルを先に走らせる。4 評価板：metric、confusion matrix または residual。5 エラー分析：誤りを buckets に分ける。6 改善と報告：feature、model、threshold を次の実験として評価板へ戻す。",
+        required_labels="タスク定義、feature、label、metric、train/test split、leakage check、baseline、evaluate、error buckets、improve、report card、next experiment。",
+        footer="baseline を先に走らせ、metric とエラー例で次を決める。",
+        allowed_tokens="feature, label, metric, train/test split, leakage check, baseline, evaluate, error buckets, improve, report card",
+    ),
+    "ch05-math-to-ml-training-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="数学如何进入训练循环",
+        visible_subtitle="X、w、loss、gradient 都对应一个建模动作。",
+        teaching_goal="把第 4 章数学对象映射到第 5 章建模动作：线代组织数据和参数，概率统计定义不确定性和 loss，微积分给出 gradient 和 update。",
+        fixed_layout="左侧三条彩色工具轨道汇入中央训练循环。轨道一：线性代数，样本向量 x、特征矩阵 X、参数 w。轨道二：概率统计，prediction uncertainty、loss、metric。轨道三：微积分，gradient、learning rate、update。中央循环按顺序画 data matrix X -> prediction X@w+b -> loss -> gradient -> update w,b -> evaluation，再回到下一轮。",
+        required_labels="线性代数、样本向量 x、特征矩阵 X、参数 w、概率统计、不确定性、loss、metric、微积分、gradient、lr、update、prediction X@w+b、evaluation。",
+        footer="看到公式时，先问它在训练循环里负责哪一步。",
+        allowed_tokens="x, X, w, b, X@w+b, prediction, loss, metric, gradient, lr, update, evaluation",
+    ),
+    "ch05-math-to-ml-training-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="How Math Enters the Training Loop",
+        visible_subtitle="X, w, loss, and gradient each map to a modeling action.",
+        teaching_goal="Map the math from Chapter 4 into modeling actions in Chapter 5: linear algebra organizes data and parameters, probability/statistics define uncertainty and loss, and calculus gives gradient and update direction. Critical spelling: write gradient exactly as g-r-a-d-i-e-n-t everywhere; never write aradient, gradiant, gardient, or any distorted word.",
+        fixed_layout="Left side: three colored tool lanes feed into a central training loop. Lane 1: linear algebra with sample vector x, feature matrix X, parameter w. Lane 2: probability/statistics with prediction uncertainty, loss, metric. Lane 3: calculus with gradient, learning rate, update. Center loop in this order: data matrix X -> prediction X@w+b -> loss -> gradient -> update w,b -> evaluation, then back to the next round.",
+        required_labels="linear algebra, sample vector x, feature matrix X, parameter w, probability/statistics, uncertainty, loss, metric, calculus, gradient, lr, update, prediction X@w+b, evaluation.",
+        footer="When you see a formula, ask which training-loop step it serves.",
+        allowed_tokens="x, X, w, b, X@w+b, prediction, loss, metric, gradient, lr, update, evaluation",
+    ),
+    "ch05-math-to-ml-training-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="数学が訓練ループに入る場所",
+        visible_subtitle="X、w、loss、gradient はそれぞれモデル作成の動作に対応する。",
+        teaching_goal="第4章の数学を第5章のモデル作成の動作へ対応させる。線形代数はデータとパラメータを整理し、確率統計は不確実性と loss を定義し、微積分は gradient と update 方向を与える。重要な表記規則：gradient は必ず gradient と書き、gradiant、aradient、gardient などに崩さない。",
+        fixed_layout="左側の3本の色付き道具レーンが中央の訓練ループへ入る。レーン1：線形代数、サンプルベクトル x、特徴行列 X、パラメータ w。レーン2：確率統計、予測の不確実性、loss、metric。レーン3：微積分、gradient、learning rate、update。中央ループは data matrix X -> prediction X@w+b -> loss -> gradient -> update w,b -> evaluation の順で、次の周回へ戻る。",
+        required_labels="線形代数、サンプルベクトル x、特徴行列 X、パラメータ w、確率統計、不確実性、loss、metric、微積分、gradient、lr、update、prediction X@w+b、evaluation。",
+        footer="数式を見たら、訓練ループのどの一歩かを先に見る。",
+        allowed_tokens="x, X, w, b, X@w+b, prediction, loss, metric, gradient, lr, update, evaluation",
+    ),
+    "ch06-training-loop-backbone.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="深度学习训练闭环",
+        visible_subtitle="每个 batch 都经历 forward、loss、backward、optimizer step。",
+        teaching_goal="让读者在第 6 章首页先看懂训练代码骨架：batch data -> model forward -> loss -> backward gradients -> optimizer step -> curves/checkpoint。",
+        fixed_layout="画一个循环工作台。左上 DataLoader 推出 batch/tensor。中上 model forward 机器输出 y_pred。右上 loss 仪表比较 y_pred 和 y_true。右下 backward 箭头把 gradients 送回每层参数。中下 optimizer.step() 扳手更新 weights。左下 log curves/checkpoint 记录 loss 曲线、accuracy 曲线和保存点，然后回到下一批 batch。",
+        required_labels="batch data、tensor、model forward、y_pred、y_true、loss、backward、gradients、optimizer.step()、weights update、curves、checkpoint、next batch。",
+        footer="训练循环不是神秘长代码，而是同一批步骤反复执行。",
+        allowed_tokens="batch data, tensor, model forward, y_pred, y_true, loss, backward, gradients, optimizer.step(), weights, curves, checkpoint",
+    ),
+    "ch06-training-loop-backbone-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Deep Learning Training Loop",
+        visible_subtitle="Every batch goes through forward, loss, backward, optimizer step.",
+        teaching_goal="Let the learner understand the Chapter 6 training-code skeleton before reading code: batch data -> model forward -> loss -> backward gradients -> optimizer step -> curves/checkpoint.",
+        fixed_layout="Draw one looping workbench. Upper left: DataLoader sends out batch/tensor. Upper middle: model forward machine outputs y_pred. Upper right: loss meter compares y_pred with y_true. Lower right: backward arrows send gradients back to layer parameters. Lower middle: optimizer.step() wrench updates weights. Lower left: log curves/checkpoint records loss curve, accuracy curve, and save point, then loops back to the next batch.",
+        required_labels="batch data, tensor, model forward, y_pred, y_true, loss, backward, gradients, optimizer.step(), weights update, curves, checkpoint, next batch.",
+        footer="A training loop is not mysterious long code; it repeats the same steps.",
+        allowed_tokens="batch data, tensor, model forward, y_pred, y_true, loss, backward, gradients, optimizer.step(), weights, curves, checkpoint",
+    ),
+    "ch06-training-loop-backbone-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="深層学習の訓練ループ",
+        visible_subtitle="各 batch は forward、loss、backward、optimizer step を通る。",
+        teaching_goal="第6章のコードを読む前に、batch data -> model forward -> loss -> backward gradients -> optimizer step -> curves/checkpoint という訓練骨格を理解できる図にする。",
+        fixed_layout="ひとつの循環する作業台を描く。左上：DataLoader が batch/tensor を出す。上中央：model forward の機械が y_pred を出す。右上：loss メーターが y_pred と y_true を比べる。右下：backward 矢印が gradients を各層パラメータへ戻す。下中央：optimizer.step() のレンチが weights を更新する。左下：log curves/checkpoint が loss 曲線、accuracy 曲線、保存点を記録し、次の batch へ戻る。",
+        required_labels="batch data、tensor、model forward、y_pred、y_true、loss、backward、gradients、optimizer.step()、weights update、curves、checkpoint、next batch。",
+        footer="訓練ループは謎の長いコードではなく、同じ手順の反復。",
+        allowed_tokens="batch data, tensor, model forward, y_pred, y_true, loss, backward, gradients, optimizer.step(), weights, curves, checkpoint",
+    ),
+    "ch06-ml-to-dl-bridge-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="从 ML 到 DL：主线没有断",
+        visible_subtitle="保留任务、split、loss、评估；新增 tensor、layers、autograd、GPU。",
+        teaching_goal="解释第 6 章不是推翻第 5 章，而是在经典 ML 的建模思维上打开训练内部结构。",
+        fixed_layout="左侧画经典 ML 工作台：task、train/test split、features、baseline、metric。中间画保留的共享骨架：data -> prediction -> loss -> evaluate -> improve。右侧画深度学习发动机：tensor batch、layers、activation、autograd、optimizer、GPU。用桥把左侧 feature engineering 连接到右侧 representation learning，并强调评估和错误分析仍然保留。",
+        required_labels="经典 ML、task、train/test split、features、baseline、metric、共享主线、prediction、loss、evaluate、improve、深度学习、tensor、layers、activation、autograd、optimizer、GPU、representation learning。",
+        footer="深度学习换了内部引擎，但项目闭环仍然要保留。",
+        allowed_tokens="ML, DL, task, train/test split, features, baseline, metric, prediction, loss, evaluate, improve, tensor, layers, activation, autograd, optimizer, GPU, representation learning",
+    ),
+    "ch06-ml-to-dl-bridge-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="From ML to DL: The Loop Continues",
+        visible_subtitle="Keep task, split, loss, evaluation; add tensor, layers, autograd, GPU.",
+        teaching_goal="Explain that Chapter 6 does not discard Chapter 5. It opens the inside of training while keeping the same modeling habits.",
+        fixed_layout="Left side: classic ML workbench with task, train/test split, features, baseline, metric. Center: shared skeleton kept across both: data -> prediction -> loss -> evaluate -> improve. Right side: deep learning engine with tensor batch, layers, activation, autograd, optimizer, GPU. A bridge connects feature engineering to representation learning, while evaluation and error review remain in place.",
+        required_labels="classic ML, task, train/test split, features, baseline, metric, shared loop, prediction, loss, evaluate, improve, deep learning, tensor, layers, activation, autograd, optimizer, GPU, representation learning.",
+        footer="Deep learning changes the engine, but the project loop still matters.",
+        allowed_tokens="ML, DL, task, train/test split, features, baseline, metric, prediction, loss, evaluate, improve, tensor, layers, activation, autograd, optimizer, GPU, representation learning",
+    ),
+    "ch06-ml-to-dl-bridge-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="ML から DL へ：主線はつながる",
+        visible_subtitle="task、split、loss、評価を保ち、tensor、layers、autograd、GPU を足す。",
+        teaching_goal="第6章は第5章を捨てるのではなく、同じ建模習慣を保ったまま訓練の内部を開くことを説明する。",
+        fixed_layout="左側に古典 ML の作業台：task、train/test split、features、baseline、metric。中央に共通して残る骨格：data -> prediction -> loss -> evaluate -> improve。右側に深層学習エンジン：tensor batch、layers、activation、autograd、optimizer、GPU。feature engineering から representation learning へ橋をかけ、評価とエラー分析は残す。",
+        required_labels="古典 ML、task、train/test split、features、baseline、metric、共通ループ、prediction、loss、evaluate、improve、深層学習、tensor、layers、activation、autograd、optimizer、GPU、representation learning。",
+        footer="深層学習は内部エンジンを変えるが、プロジェクト閉ループは残る。",
+        allowed_tokens="ML, DL, task, train/test split, features, baseline, metric, prediction, loss, evaluate, improve, tensor, layers, activation, autograd, optimizer, GPU, representation learning",
+    ),
+    "ch10-augmentation-invariance-risk-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="数据增强：先判断语义是否保留",
+        visible_subtitle="增强不是越强越好，label、box、mask 要一起变。",
+        teaching_goal="服务 10.2.2 数据增强正文：解释增强要尊重任务语义，6/9 旋转可能改 label，检测和分割必须同步更新 box 和 mask。",
+        fixed_layout="顶部画一张原始样本卡。左侧安全区：轻微 crop、flip、color jitter，箭头到 label preserved。中间风险区：数字 6 被旋转成 9、关键区域被裁掉，箭头到 semantic-breaking。右侧同步区：同一张检测/分割图像经过 resize/flip 后，box 和 mask 跟着移动。底部画一个决策门：分类看 label 是否仍成立；检测看 box 是否同步；分割看 mask 是否同步。",
+        required_labels="original sample、safe transform、crop、flip、color jitter、label preserved、semantic-breaking、6 -> 9、box sync、mask sync、classification、detection、segmentation。",
+        footer="只增强模型应该忽略的变化，不要破坏标签含义。",
+        allowed_tokens="original sample, safe transform, crop, flip, color jitter, label preserved, semantic-breaking, 6, 9, box, mask, classification, detection, segmentation",
+    ),
+    "ch10-augmentation-invariance-risk-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Data Augmentation: Check Semantic Safety First",
+        visible_subtitle="Stronger is not always better; label, box, and mask must move together.",
+        teaching_goal="Serve the 10.2.2 data augmentation lesson: augmentation must respect task semantics; rotating 6/9 can change the label; detection and segmentation must update boxes and masks with the image.",
+        fixed_layout="Top: one original sample card. Left safe zone: mild crop, flip, color jitter, arrow to label preserved. Middle risk zone: digit 6 rotated into 9 and an important region cropped away, arrow to semantic-breaking. Right sync zone: the same detection/segmentation image after resize/flip, with box and mask moving together. Bottom decision gate: classification asks whether label still holds; detection asks whether box moved; segmentation asks whether mask moved.",
+        required_labels="original sample, safe transform, crop, flip, color jitter, label preserved, semantic-breaking, 6 -> 9, box sync, mask sync, classification, detection, segmentation.",
+        footer="Augment only changes the model should ignore; never break label meaning.",
+        allowed_tokens="original sample, safe transform, crop, flip, color jitter, label preserved, semantic-breaking, 6, 9, box, mask, classification, detection, segmentation",
+    ),
+    "ch10-augmentation-invariance-risk-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="データ拡張：意味が保たれるか先に見る",
+        visible_subtitle="強ければ良いわけではない。label、box、mask は一緒に動かす。",
+        teaching_goal="10.2.2 データ拡張の本文に合わせ、拡張はタスク意味を守る必要があることを示す。6/9 の回転は label を変え得る。検出とセグメンテーションでは box と mask も画像と同期する。",
+        fixed_layout="上部に original sample カード。左の安全ゾーン：軽い crop、flip、color jitter から label preserved へ。中央のリスクゾーン：数字 6 が 9 に回転し、重要領域が切り落とされ semantic-breaking へ。右の同期ゾーン：同じ detection/segmentation 画像が resize/flip され、box と mask も一緒に移動する。下部の判断ゲート：classification は label がまだ正しいか、detection は box が動いたか、segmentation は mask が動いたかを見る。",
+        required_labels="original sample、safe transform、crop、flip、color jitter、label preserved、semantic-breaking、6 -> 9、box sync、mask sync、classification、detection、segmentation。",
+        footer="モデルが無視すべき変化だけを増やし、label の意味は壊さない。",
+        allowed_tokens="original sample, safe transform, crop, flip, color jitter, label preserved, semantic-breaking, 6, 9, box, mask, classification, detection, segmentation",
+    ),
+}
+
+
+COURSE_QA_IMAGE_JOB_META = [
+    ("ch05-modeling-loop-backbone.png", "机器学习建模闭环", "docs/ch05-machine-learning/index.md", "机器学习建模闭环：任务定义、数据切分、baseline、评估、错误分析和改进形成可复盘项目循环。"),
+    ("ch05-modeling-loop-backbone-en.png", "Machine Learning Modeling Loop", "docs/ch05-machine-learning/index.md", "Machine learning modeling loop: task definition, data split, baseline, evaluation, error review, and improvement form one reviewable project cycle."),
+    ("ch05-modeling-loop-backbone-ja.png", "機械学習モデリングの閉ループ", "docs/ch05-machine-learning/index.md", "機械学習モデリングの閉ループ：タスク定義、データ分割、baseline、評価、エラー分析、改善が再現できるプロジェクト循環になる。"),
+    ("ch05-math-to-ml-training-map.png", "数学如何进入训练循环", "docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md", "数学到机器学习训练地图：线代、概率统计和微积分分别进入 X、loss、gradient 和 update。"),
+    ("ch05-math-to-ml-training-map-en.png", "How Math Enters the Training Loop", "docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md", "Math to machine learning training map: linear algebra, probability/statistics, and calculus enter X, loss, gradient, and update."),
+    ("ch05-math-to-ml-training-map-ja.png", "数学が訓練ループに入る場所", "docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md", "数学から機械学習への訓練マップ：線形代数、確率統計、微積分が X、loss、gradient、update に入る。"),
+    ("ch06-training-loop-backbone.png", "深度学习训练闭环", "docs/ch06-deep-learning/index.md", "深度学习训练闭环：batch data、forward、loss、backward、optimizer step、curves 和 checkpoint 形成循环。"),
+    ("ch06-training-loop-backbone-en.png", "Deep Learning Training Loop", "docs/ch06-deep-learning/index.md", "Deep learning training loop: batch data, forward, loss, backward, optimizer step, curves, and checkpoint form one loop."),
+    ("ch06-training-loop-backbone-ja.png", "深層学習の訓練ループ", "docs/ch06-deep-learning/index.md", "深層学習の訓練ループ：batch data、forward、loss、backward、optimizer step、curves、checkpoint が循環する。"),
+    ("ch06-ml-to-dl-bridge-map.png", "从 ML 到 DL：主线没有断", "docs/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge.md", "从机器学习到深度学习桥接图：保留任务、切分、loss 和评估，并新增 tensor、layers、autograd 与 GPU。"),
+    ("ch06-ml-to-dl-bridge-map-en.png", "From ML to DL: The Loop Continues", "docs/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge.md", "Bridge from machine learning to deep learning: keep task, split, loss, and evaluation while adding tensor, layers, autograd, and GPU."),
+    ("ch06-ml-to-dl-bridge-map-ja.png", "ML から DL へ：主線はつながる", "docs/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge.md", "機械学習から深層学習への橋渡し：task、split、loss、評価を保ち、tensor、layers、autograd、GPU を加える。"),
+    ("ch10-augmentation-invariance-risk-map.png", "数据增强语义安全图", "docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md", "数据增强语义安全图：安全变换保留 label，过强旋转或裁剪会破坏语义，box 和 mask 必须同步。"),
+    ("ch10-augmentation-invariance-risk-map-en.png", "Data Augmentation Semantic Safety Map", "docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md", "Data augmentation semantic safety map: safe transforms preserve labels, strong rotations or crops can break meaning, and boxes and masks must sync."),
+    ("ch10-augmentation-invariance-risk-map-ja.png", "データ拡張の意味安全マップ", "docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md", "データ拡張の意味安全マップ：安全な変換は label を保ち、強すぎる回転や crop は意味を壊し、box と mask は同期する。"),
+]
+
+
+existing_course_qa_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, suggested_page, alt in COURSE_QA_IMAGE_JOB_META:
+    if filename not in existing_course_qa_filenames:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": suggested_page,
+                "alt": alt,
+                "prompt": COURSE_QA_PROMPTS[filename],
+            }
+        )
+        existing_course_qa_filenames.add(filename)
+
+for job in IMAGE_JOBS:
+    course_qa_prompt = COURSE_QA_PROMPTS.get(str(job.get("filename")))
+    if course_qa_prompt and not job.get("overlay"):
+        job["prompt"] = course_qa_prompt
+
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
