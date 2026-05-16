@@ -22669,6 +22669,88 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-llm-industry-landscape-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch02-llm-overview/03-industry-landscape.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/03-industry-landscape.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/03-industry-landscape.md",
+    },
+    scene=(
+        "A direct teaching illustration for the LLM industry-landscape page. "
+        "The image must teach that an AI product is not just a model leaderboard: "
+        "a model layer provides the engine, a platform layer makes it callable, observable, and deployable, "
+        "and an application layer turns capability into a user workflow. "
+        "Also show that open-source and closed-source API routes are tradeoffs, not good versus bad: "
+        "open-source gives control and private deployment but needs operations; closed-source API is faster to launch "
+        "but has API cost, less control, and privacy limits. End with the practical decision rule: choose by task, cost, latency, privacy, control, and operations."
+    ),
+    chapter_context=(
+        "The page starts with a map and a tip: read it as a stack. It then explains model layer, platform layer, "
+        "application layer, open-source versus closed-source, and system capability. Later it says model choice should check "
+        "quality, cost, latency, controllability, multimodal, and tool capability. The surrounding text warns beginners not to choose by leaderboard only. "
+        "The image should prepare the learner to read the stack and the route tradeoff before the tables and scoring script."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic classroom/workbench style consistent with the other ch07 LLM images, not a white rounded-card infographic, "
+        "not a dense vendor ecosystem poster, not a pure flowchart, and not a text poster. Use the same composition, colors, camera angle, object placement, and reading path for zh/en/ja. "
+        "Top: large localized title and one short subtitle. Center: a three-level physical product-building tower. Bottom level is the model layer engine with visible parts for model architecture, training data, training compute, and capability. "
+        "Middle level is the platform layer as roads, power, and control panels with exactly five stations: API/inference, vector database, monitoring, evaluation, Agent workflow. "
+        "Top level is the application layer as a user-facing workspace with exactly four product doors in order: AI search, customer service, coding assistant, teaching assistant. "
+        "Left side: an open-source route workbench shows a modifiable engine, self-host/private deployment, fine-tuning wrench, and operations burden. "
+        "Right side: a closed-source API route counter shows plug-and-play launch speed, API bill meter, lower control dial, and privacy boundary. "
+        "Bottom: one decision console with six large gauges in this fixed order: quality, cost, latency, control, privacy, operations. Add a crossed-out trophy or leaderboard-only sign to show the beginner mistake. "
+        "Use arrows to show layer dependency: model -> platform -> application, then route decision -> product fit. "
+        "Use sparse, large, readable localized labels attached to concrete objects. Keep exact technical tokens in English where appropriate: LLM, API, RAG, Agent, vector database, monitoring, evaluation, fine-tuning. "
+        "In Simplified Chinese and Japanese, do not add English explanatory sentences beyond those technical tokens. Avoid fake vendor logos, random English helper text in zh/ja, tiny UI filler, dense paragraphs, old SVG style, and local text-overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "把大模型产业读成三层栈",
+            "subtitle": "模型、平台、应用和路线取舍一起决定产品能力。",
+            "items": [
+                ("模型层", "提供 engine：架构、数据、算力、能力。"),
+                ("平台层", "让模型可调用、可观察、可部署。"),
+                ("应用层", "把能力变成用户能完成的 workflow。"),
+                ("开源路线", "控制更强，可私有部署，但运维更重。"),
+                ("闭源 API", "上线更快，但成本、隐私和控制受限制。"),
+                ("选型", "同时看质量、成本、时延、控制、隐私、运维。"),
+            ],
+            "footer": "不要只看排行榜；先看产品缺哪一层、哪种取舍最合适。",
+            "alt": "大模型产业格局教学图：模型层提供 engine，平台层提供 API、vector database、monitoring、evaluation 和 Agent workflow，应用层形成 AI search、customer service、coding assistant、teaching assistant；开源和闭源 API 按质量、成本、时延、控制、隐私、运维做取舍。",
+        },
+        "en": {
+            "title": "Read the LLM Industry as a Stack",
+            "subtitle": "Models, platforms, applications, and route tradeoffs shape product capability.",
+            "items": [
+                ("model layer", "Provides the engine: architecture, data, compute, capability."),
+                ("platform layer", "Makes models callable, observable, and deployable."),
+                ("application layer", "Turns capability into a user workflow."),
+                ("open-source route", "More control and private deployment, but heavier operations."),
+                ("closed-source API", "Faster launch, but cost, privacy, and control limits."),
+                ("selection", "Check quality, cost, latency, control, privacy, operations together."),
+            ],
+            "footer": "Do not choose by leaderboard only; ask which layer and tradeoff fit the product.",
+            "alt": "LLM industry landscape teaching image: model layer provides the engine, platform layer provides API, vector database, monitoring, evaluation, and Agent workflow, application layer creates AI search, customer service, coding assistant, and teaching assistant; open-source and closed-source API routes are compared by quality, cost, latency, control, privacy, and operations.",
+        },
+        "ja": {
+            "title": "LLM 産業を三層スタックで読む",
+            "subtitle": "モデル、プラットフォーム、応用、ルートの取捨選択が製品能力を決める。",
+            "items": [
+                ("モデル層", "engine を作る：アーキテクチャ、データ、計算資源、能力。"),
+                ("プラットフォーム層", "モデルを呼び出せ、観測でき、運用できる形にする。"),
+                ("応用層", "能力をユーザーの workflow に変える。"),
+                ("オープンソース", "制御と私有配置に強いが、運用負荷が重い。"),
+                ("クローズド API", "立ち上げは速いが、cost、privacy、control に制約。"),
+                ("選定", "品質、cost、latency、control、privacy、operations を同時に見る。"),
+            ],
+            "footer": "ランキングだけで選ばない。製品に合う層と取捨選択を見る。",
+            "alt": "LLM 産業構造の教育図：モデル層が engine を提供し、プラットフォーム層が API、vector database、monitoring、evaluation、Agent workflow を支え、応用層が AI search、customer service、coding assistant、teaching assistant を作る。オープンソースとクローズド API を品質、cost、latency、control、privacy、operations で比較する。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
