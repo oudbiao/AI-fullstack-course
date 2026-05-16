@@ -22836,6 +22836,86 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-transformer-cost-task-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+    },
+    scene=(
+        "A direct teaching illustration for the Transformer information-flow, computation-cost, and task-fit map. "
+        "The image must teach that a Transformer is not just a stack of layers: tokens flow through attention and FFN, "
+        "causal masking controls what can be read, context length drives attention cost, KV cache changes generation cost, "
+        "and encoder, decoder, and encoder-decoder variants fit different task shapes."
+    ),
+    chapter_context=(
+        "This image appears immediately after the Transformer deep-dive roadmap image and before a causal-mask coding example. "
+        "The surrounding page says learners should understand why decoder-only models need a causal mask, why attention gets expensive as context grows, "
+        "and why KV cache helps generation. It also tells them to study architecture review, modern decoder block, model variants, efficient attention, and scale computation."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic engineering training board, matching the new ch07 transformer-deep-chapter-flow style but clearly a separate teaching panel. "
+        "Do not create a white rounded-card infographic, small landscape poster, dense table, pure flowchart, UI card stack, or SVG-style diagram. "
+        "Use one identical composition for zh/en/ja. Top: localized title and one short subtitle. "
+        "Center: a large triangular diagnostic board with three physical corners connected by thick glowing pipes. "
+        "Corner 1, left: information flow. Show token tiles t1 t2 t3 t4 entering Attention, a causal-mask shutter blocking future tokens, then FFN and residual/normalization. "
+        "Corner 2, right: computation cost. Show a context-length slider from short to long, rising attention-cost and memory/latency gauges, and a KV cache lever that reduces per-token work during generation. "
+        "Corner 3, bottom: task fit. Show three small machines: encoder for understand/classify, decoder for generate, encoder-decoder for transform/summarize/translate. "
+        "In the very center, show the learner decision question: when a model behaves badly, check flow, cost, and task fit together. "
+        "Add one tiny worked example strip: query position 3 can read positions 1-3 but not 4, then long context raises cost, then KV cache reuses past key/value. "
+        "Use sparse, large labels only. Keep allowed technical tokens in English where appropriate: Transformer, token, Attention, causal mask, FFN, residual, normalization, context length, KV cache, encoder, decoder, encoder-decoder, memory, latency, throughput. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not use English phrases like information flow, compute cost, task fit, learning path, or architecture review. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese strings or English explanatory sentences beyond allowed technical tokens. "
+        "Avoid fake vendor logos, filler UI text, tiny unreadable labels, pseudo text, and local text-overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "同时看信息流、成本和任务",
+            "subtitle": "调试 Transformer 时，不只看结构图。",
+            "items": [
+                ("信息流", "token 经过 Attention、FFN、残差和归一化。"),
+                ("causal mask", "当前位置只能读过去和自己，不能看未来。"),
+                ("计算成本", "context length 变长会推高 memory 和 latency。"),
+                ("KV cache", "复用过去 key/value，降低逐 token 生成成本。"),
+                ("任务适配", "encoder、decoder、encoder-decoder 适合不同任务。"),
+                ("一起检查", "坏结果可能来自读取范围、成本压力或模型形态。"),
+            ],
+            "footer": "先问：信息怎么流、成本在哪里涨、任务形态是否匹配？",
+            "alt": "Transformer 信息流、计算成本与任务适配教学图：token 经过 Attention、causal mask、FFN、残差和归一化；context length 推高 memory 与 latency；KV cache 复用 key/value；encoder、decoder 和 encoder-decoder 适合不同任务。",
+        },
+        "en": {
+            "title": "Check Flow, Cost, and Task Fit Together",
+            "subtitle": "Debug a Transformer by reading more than the block diagram.",
+            "items": [
+                ("information flow", "tokens pass through Attention, FFN, residual, and normalization."),
+                ("causal mask", "A position reads past/self tokens, not future tokens."),
+                ("compute cost", "Longer context length raises memory and latency pressure."),
+                ("KV cache", "Reuses past key/value states to lower per-token generation cost."),
+                ("task fit", "encoder, decoder, and encoder-decoder fit different tasks."),
+                ("check together", "Bad behavior may come from read range, cost pressure, or model shape."),
+            ],
+            "footer": "Ask: how does information flow, where does cost rise, and does the task shape fit?",
+            "alt": "Transformer flow, computation cost, and task fit teaching image: tokens pass through Attention, causal mask, FFN, residual, and normalization; context length raises memory and latency; KV cache reuses key/value states; encoder, decoder, and encoder-decoder fit different tasks.",
+        },
+        "ja": {
+            "title": "情報の流れ、cost、task 適合を一緒に見る",
+            "subtitle": "Transformer の調整では、構造図だけを見ない。",
+            "items": [
+                ("情報の流れ", "token は Attention、FFN、残差、正規化を通る。"),
+                ("causal mask", "現在位置は過去と自分だけを読み、未来は読まない。"),
+                ("計算 cost", "context length が長いほど memory と latency の圧力が増える。"),
+                ("KV cache", "過去の key/value を再利用し、token ごとの生成 cost を下げる。"),
+                ("task 適合", "encoder、decoder、encoder-decoder は別々の task に向く。"),
+                ("一緒に確認", "悪い結果は読み取り範囲、cost、モデル形態から起きる。"),
+            ],
+            "footer": "まず問う：情報はどう流れ、どこで cost が増え、task 形は合うか？",
+            "alt": "Transformer の情報フロー、計算コスト、task 適合の教育図：token が Attention、causal mask、FFN、残差、正規化を通り、context length が memory と latency を増やし、KV cache が key/value を再利用し、encoder、decoder、encoder-decoder が別々の task に対応する。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
