@@ -27081,54 +27081,149 @@ Text rules: all text must be clean, readable English. Allowed code tokens includ
 
 言語ルール：説明文は自然な日本語にしてください。使用してよい技術語は API、Prompt、cases、prompt、toy_model()、validate_json()、JSON、SDK、plain、teacher、json、gradient descent、RAG、beginner、intermediate、topic、level、summary、next_step、PASS、simulator です。「Prompt 工程」のような中国語表現は禁止。中国語文、文字化け、小さすぎる文字、ブランド logo、無関係な背景文字を入れないでください。
 """.strip(),
-    "ch07-prompt-eval-version-result-board-ja.png": """
-Create one complete vertical 9:16 Japanese teaching bitmap for an AI full-stack course.
-This is the final AI-generated image. Do not rely on local text overlay, SVG, markdown, or later editing.
-Do not create a white rounded-box flowchart, a pure text poster, a pasted-note collage, or a decorative scene.
+    "ch07-prompt-eval-version-result-board.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于 AI 全栈课程第 7 章 Prompt 评测实验室。
+这是 AI 直接生成的最终图片，不要依赖本地叠字、SVG、Markdown 或后期编辑。不要做白底圆角框信息图，不要做纯文字海报，不要贴终端截图。
+
+画面风格：手绘课堂讲义 / 横线笔记纸教学图。像老师在横线笔记纸上用深蓝笔、橙色警示笔、绿色通过章画出的实验复盘。中英日三版必须同构：同一镜头、同一上下顺序、同一三条版本跑道、同一颜色节奏。画面可以漂亮，但每一块都必须解释代码运行结果。
+
+画面标题必须写：
+"Prompt 评测要看失败原因"
+
+副标题必须写：
+"v1 人能看懂，但程序不能解析；v2 和 v3 才满足输出契约。"
+
+固定版式和必须出现的内容：
+1. 顶部是“固定测试样例”区：
+   - 标题 "固定测试样例"
+   - 三个样例芯片按顺序写：case_001、case_002、case_003
+   - 旁边画一个评测器，标题 "评测契约"
+   - 评测器里写："输出必须有 label 和 reason"
+   - 用小箭头说明 "同一批样例跑三个 Prompt 版本"
+2. 中间第一条红色跑道：
+   - 版本名 "v1_goal_only"
+   - 分数 "pass_rate 0%"
+   - 大结论 "只返回 positive / negative"
+   - 画两枚输出标签：positive、negative
+   - 画失败托盘，里面只有 case_001、case_002、case_003
+   - 失败原因必须写成大字："不是 JSON-like，程序读不到 label 和 reason"
+3. 中间第二条绿色跑道：
+   - 版本名 "v2_json_format"
+   - 分数 "pass_rate 100%"
+   - 大结论 "加上输出契约"
+   - 画一个简单 JSON 输出卡，字段名必须是 label 和 reason
+   - 写 "failures []"
+4. 中间第三条绿色/蓝色跑道：
+   - 版本名 "v3_with_examples"
+   - 分数 "pass_rate 100%"
+   - 大结论 "再加入边界示例"
+   - 画两张边界样例卡：clear/practical -> positive；too fast/lost -> negative
+   - 写 "failures []"
+5. 底部是修复阶梯：
+   - 三级阶梯按顺序写：只说任务 -> 输出契约 -> 边界示例
+   - 页脚必须写："分数告诉你哪个版本更好，失败记录告诉你下一步修什么。"
+
+语言规则：
+- 解释性文字必须是自然简体中文。
+- 允许保留这些代码/技术词：Prompt, JSON-like, label, reason, pass_rate, failures, v1_goal_only, v2_json_format, v3_with_examples, case_001, case_002, case_003, positive, negative, clear/practical, too fast/lost。
+- 不要加入其他英文说明句，不要日文，不要乱码，不要密集小字。
+- 教学重点必须直观：v1 看似有用，但下游程序无法解析；v2/v3 因为满足输出契约而通过。
+""".strip(),
+    "ch07-prompt-eval-version-result-board-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course Prompt Evaluation Lab.
+This is the final AI-generated image. Do not rely on local text overlay, SVG, markdown, or later editing. Do not create a white rounded-box infographic, pure text poster, or terminal screenshot.
+
+Visual style: hand-drawn classroom handout on lined notebook paper. It should look like a teacher's experiment recap drawn with dark blue ink, orange warning marks, and green pass stamps. The Simplified Chinese, English, and Japanese variants must share the same camera angle, vertical order, three result lanes, object positions, and color rhythm. Every region must explain the code result.
 
 Visible title exactly:
-"Prompt 評価は失敗理由まで読む"
+"Prompt Eval Reads the Failure Reason"
 
 Visible subtitle exactly:
-"v1 は人には読めるが、v2 と v3 は出力契約を満たす。"
+"v1 is readable to people, but v2 and v3 satisfy the output contract."
 
-Use a polished prompt QA lab bench style, like a real evaluator machine with score lights, result trays, and a fix ladder. Match the Simplified Chinese and English variants in layout: top evaluator, three vertical result lanes, and bottom fix ladder.
-
-Required layout and visible labels:
-1. Top section:
-   - heading "テストケース"
-   - case chips exactly "case_001", "case_002", "case_003"
-   - evaluator heading "評価契約"
-   - note "出力から label と reason を読める必要がある。"
-2. Red v1 lane:
-   - version label exactly "v1_goal_only"
-   - score exactly "pass_rate 0%"
-   - note "形式失敗が 3 件。"
-   - output chips "positive" and "negative"
-   - failure tray with exactly "case_001", "case_002", "case_003"
-   - localized reason in large Japanese text: "JSON-like として解析できない。"
-   - if you include the English code phrase, it must be exactly "Output is not parseable JSON-like data." with the r in parseable. Never write "paseable".
-3. Green v2 lane:
-   - version label exactly "v2_json_format"
-   - score exactly "pass_rate 100%"
-   - note "failures []"
-   - show a simple JSON-like output with exact field names "label" and "reason"
-4. Green v3 lane:
-   - version label exactly "v3_with_examples"
-   - score exactly "pass_rate 100%"
-   - note "境界例を追加しやすい。"
-   - show boundary example checks, then "failures []"
+Fixed layout and required visible content:
+1. Top fixed-test area:
+   - heading "fixed test cases"
+   - three case chips in order: case_001, case_002, case_003
+   - an evaluator with heading "eval contract"
+   - inside the evaluator write: "output must include label and reason"
+   - small arrow note: "same cases run through three Prompt versions"
+2. First middle lane, red:
+   - version name "v1_goal_only"
+   - score "pass_rate 0%"
+   - big conclusion "only returns positive / negative"
+   - two output chips: positive, negative
+   - failure tray containing only case_001, case_002, case_003
+   - failure reason in large text: "not JSON-like; code cannot read label or reason"
+3. Second middle lane, green:
+   - version name "v2_json_format"
+   - score "pass_rate 100%"
+   - big conclusion "adds the output contract"
+   - a simple JSON output card with exact field names label and reason
+   - text "failures []"
+4. Third middle lane, green/blue:
+   - version name "v3_with_examples"
+   - score "pass_rate 100%"
+   - big conclusion "adds boundary examples"
+   - two boundary example cards: clear/practical -> positive; too fast/lost -> negative
+   - text "failures []"
 5. Bottom fix ladder:
-   - step 1 "task only"
-   - step 2 "output contract"
-   - step 3 "boundary examples"
-   - footer exactly "score は勝った版を示し、失敗記録は次の修正点を示す。"
+   - three steps in order: task only -> output contract -> boundary examples
+   - footer exactly: "The score shows which version wins; failure notes show what to fix next."
 
 Language rules:
-- Explanatory text must be natural Japanese.
-- Allowed technical tokens: Prompt, JSON-like, label, reason, pass_rate, failures, v1_goal_only, v2_json_format, v3_with_examples, case_001, case_002, case_003, positive, negative, task only, output contract, boundary examples.
-- No Chinese text, no fake Japanese, no gibberish, no tiny unreadable table text.
-- Make the teaching point obvious: v1 may look useful to a human but fails because the program cannot parse label and reason; v2/v3 pass because the output contract is satisfied.
+- Explanatory text must be natural English.
+- Allowed code/technical tokens: Prompt, JSON-like, label, reason, pass_rate, failures, v1_goal_only, v2_json_format, v3_with_examples, case_001, case_002, case_003, positive, negative, clear/practical, too fast/lost.
+- No Chinese text, no Japanese text, no gibberish, no tiny unreadable table text.
+- Make the teaching point obvious: v1 can look useful but downstream code cannot parse it; v2/v3 pass because the output contract is satisfied.
+""".strip(),
+    "ch07-prompt-eval-version-result-board-ja.png": """
+AI フルスタック講座の Prompt 評価ラボで使う、縦長 9:16 の日本語教材ビットマップを 1 枚生成してください。
+これは AI が直接生成する最終画像です。ローカルの文字重ね、SVG、Markdown、後処理に依存しないでください。白い角丸ボックスのインフォグラフィック、文字だけのポスター、ターミナル画面は禁止。
+
+画面スタイル：手描きの授業プリント / 横罫ノート紙の教材図。濃い青のペン、オレンジの警告、緑の合格スタンプで先生が実験結果を整理したように描く。中国語版・英語版・日本語版は、同じカメラ角度、同じ縦順、同じ3本の結果レーン、同じ配置、同じ色のリズムにする。すべての領域がコードの実行結果を説明すること。
+
+画面タイトルは正確に：
+"Prompt 評価は失敗理由まで読む"
+
+サブタイトルは正確に：
+"v1 は人には読めるが、v2 と v3 は出力契約を満たす。"
+
+固定レイアウトと必須表示内容：
+1. 上部の固定テスト領域：
+   - 見出し "固定テストケース"
+   - case chip をこの順で書く：case_001、case_002、case_003
+   - 評価器の見出し "評価契約"
+   - 評価器の中に "出力には label と reason が必要"
+   - 小さな矢印メモ "同じケースを3つの Prompt 版で実行"
+2. 中央1本目の赤いレーン：
+   - version 名 "v1_goal_only"
+   - score "pass_rate 0%"
+   - 大きな結論 "positive / negative だけを返す"
+   - 出力チップ positive、negative
+   - 失敗トレイには case_001、case_002、case_003 だけを入れる
+   - 失敗理由を大きく："JSON-like ではなく、code が label と reason を読めない"
+3. 中央2本目の緑レーン：
+   - version 名 "v2_json_format"
+   - score "pass_rate 100%"
+   - 大きな結論 "出力契約を追加"
+   - simple JSON output card を描き、field 名は label と reason
+   - text "failures []"
+4. 中央3本目の緑/青レーン：
+   - version 名 "v3_with_examples"
+   - score "pass_rate 100%"
+   - 大きな結論 "境界例を追加"
+   - 境界例カードを2枚：clear/practical -> positive；too fast/lost -> negative
+   - text "failures []"
+5. 下部の修正階段：
+   - 3段を順に書く：task only -> output contract -> boundary examples
+   - フッターは正確に："score は勝った版を示し、失敗記録は次の修正点を示す。"
+
+言語ルール：
+- 説明文は自然な日本語。
+- 使用してよい code/technical token：Prompt, JSON-like, label, reason, pass_rate, failures, v1_goal_only, v2_json_format, v3_with_examples, case_001, case_002, case_003, positive, negative, clear/practical, too fast/lost, task only, output contract, boundary examples。
+- 中国語を入れない。不要な英語説明文を入れない。文字化けや読めない小字を入れない。
+- 教学ポイントを明確にする：v1 は役に立ちそうでも下流 code が解析できない。v2/v3 は出力契約を満たすので合格する。
 """.strip(),
     "ch07-safety-eval-version-result-board.png": """
 生成一张完整的 9:16 竖版简体中文教学位图，用于 AI 全栈课程。
