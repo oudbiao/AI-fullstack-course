@@ -22751,6 +22751,91 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-transformer-deep-chapter-flow",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+    },
+    scene=(
+        "A direct teaching illustration for the Transformer deep-dive roadmap. "
+        "The image must teach the learner how to enter this mini-chapter: start from attention and a causal mask, "
+        "look inside a modern decoder block, compare architecture variants, then connect efficient attention and KV cache "
+        "to context length, memory, latency, throughput, fine-tuning, deployment, and production cost. "
+        "This is a roadmap for debugging LLM behavior, not a decorative history map."
+    ),
+    chapter_context=(
+        "The page says this chapter looks inside the Transformer enough to debug LLM behavior and understand why context length, attention, KV cache, and model variants matter. "
+        "It then builds a causal mask with seq_len=4 and says generation uses the no-future-peeking rule. "
+        "The learner should see the order: architecture review, modern decoder block, model variants, efficient attention, scale and computation."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic engineering classroom style consistent with the other ch07 images, not a square roadmap, not a white rounded-card infographic, "
+        "not a pure flowchart, and not a dense text poster. Use the same composition, colors, camera angle, object placement, and reading path for zh/en/ja. "
+        "All three images must use one identical composition: a full-height transparent decoder machine in the center, attention and causal-mask panels on the left, cost and cache console on the right, and a five-stop learning rail at the bottom. "
+        "Do not add a desk, notebook, coffee cup, scattered papers, background sticky notes, extra chalkboard formulas, or any decorative classroom clutter that changes the layout between languages. "
+        "Top: large localized title and one short subtitle. Center: a transparent modern decoder block cutaway with exactly five physical stations in order: token input, self-attention with causal mask, FFN, residual + normalization, next-token output. "
+        "Left side: an attention lens and a 4x4 causal-mask plate show past/self cells allowed and future cells blocked. "
+        "Right side: a cost console connects context length to attention cost, memory, latency, throughput, and KV cache savings. "
+        "Bottom: a learning path rail with five stops in this exact order, fully localized for the target language: architecture review, decoder block, model variants, efficient attention, scale cost. "
+        "For Simplified Chinese, write those five rail labels exactly as: 架构回顾、decoder block、模型变体、高效 Attention、规模成本. "
+        "For English, write those five rail labels exactly as: architecture review, decoder block, model variants, efficient attention, scale cost. "
+        "For Japanese, write those five rail labels exactly as: アーキテクチャレビュー、decoder block、モデル変種、効率的な Attention、スケール cost. "
+        "Add small side doors for fine-tuning and deployment only as downstream engineering places, not as main stops; localize those side-door labels too. "
+        "Use arrows to show information flow through the decoder block and a separate loop showing generated token -> next input. "
+        "Use sparse, large, readable localized labels attached to concrete objects. Keep exact technical tokens in English where appropriate: Attention, causal mask, Transformer, decoder block, FFN, residual, normalization, KV cache, context length, memory, latency, throughput. "
+        "In Simplified Chinese, do not write English labels such as architecture review, model variants, efficient attention, scale cost, learning path, fine-tuning, or deployment unless that exact token is listed above as allowed. "
+        "In Japanese, do not write Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid fake vendor logos, random English helper text in zh/ja, tiny UI filler, dense paragraphs, old SVG style, and local text-overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "Transformer 深入先看这条线",
+            "subtitle": "从 Attention 到 decoder block，再连接成本、缓存和部署。",
+            "items": [
+                ("Attention", "让当前 token 读取相关上下文。"),
+                ("causal mask", "生成时不能偷看未来 token。"),
+                ("decoder block", "self-attention、FFN、residual、normalization 串成主干。"),
+                ("KV cache", "复用过去的 key/value，降低逐 token 生成成本。"),
+                ("模型变体", "encoder、decoder、encoder-decoder 适合不同任务。"),
+                ("规模成本", "context length 会推高 memory、latency 和 throughput 压力。"),
+            ],
+            "footer": "读 Transformer，不只看结构，也要看 mask、cache 和成本。",
+            "alt": "Transformer 深入章节路线图：从 Attention 和 causal mask 进入 decoder block，理解 self-attention、FFN、residual、normalization，再连接 KV cache、模型变体、context length、memory、latency、throughput 和部署成本。",
+        },
+        "en": {
+            "title": "Transformer Deep Dive Reading Line",
+            "subtitle": "From Attention to decoder block, then cost, cache, and deployment.",
+            "items": [
+                ("Attention", "Lets the current token read relevant context."),
+                ("causal mask", "Generation must not peek at future tokens."),
+                ("decoder block", "self-attention, FFN, residual, and normalization form the backbone."),
+                ("KV cache", "Reuses past key/value states to lower per-token generation cost."),
+                ("model variants", "encoder, decoder, and encoder-decoder fit different tasks."),
+                ("scale cost", "context length increases pressure on memory, latency, and throughput."),
+            ],
+            "footer": "Read Transformer as structure plus mask, cache, and cost.",
+            "alt": "Transformer deep-dive roadmap: attention and causal mask lead into a decoder block with self-attention, FFN, residual, and normalization, then connect to KV cache, model variants, context length, memory, latency, throughput, and deployment cost.",
+        },
+        "ja": {
+            "title": "Transformer 深掘りの読み筋",
+            "subtitle": "Attention から decoder block へ進み、cost、cache、deployment につなげる。",
+            "items": [
+                ("Attention", "現在の token が関連する context を読む。"),
+                ("causal mask", "生成時は未来 token を見ない。"),
+                ("decoder block", "self-attention、FFN、residual、normalization が主軸になる。"),
+                ("KV cache", "過去の key/value を再利用し、token ごとの生成 cost を下げる。"),
+                ("モデル変種", "encoder、decoder、encoder-decoder は別々の task に向く。"),
+                ("スケール cost", "context length は memory、latency、throughput の圧力を上げる。"),
+            ],
+            "footer": "Transformer は構造だけでなく、mask、cache、cost も一緒に読む。",
+            "alt": "Transformer 深掘りロードマップ：Attention と causal mask から decoder block に入り、self-attention、FFN、residual、normalization を理解し、KV cache、モデル変種、context length、memory、latency、throughput、deployment cost に接続する。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
