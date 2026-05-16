@@ -31048,6 +31048,231 @@ Accuracy rules:
 加一句短说明：“先允许长路径，再折叠成真正 transcript。”
 文字少、大、可读；保留 CTC、blank、transcript。不要白底流程图、不要圆角框模板、不要乱码小字。
 """.strip(),
+    "ch06-autograd-gradient-lifecycle-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 6 章 6.2.4 Autograd 梯度累积实验。
+这是 AI 直接生成的最终图片：不要后期叠字，不要 SVG，不要白底圆角框信息图，不要仪表盘贴图，不要终端截图，不要纯文字海报。
+
+整体风格：手绘课堂讲义 / 横线笔记纸教学图，像老师在笔记纸上逐步推导实验结果。画面要漂亮但首先要能教会读者，文字必须大而清楚。中文、英文、日文三版必须同构：同一张竖版横线笔记纸、同一三条执行轨道、同一 x.grad 记忆格、同一底部训练顺序条。
+
+教学目标：读者看图就明白为什么第二次 backward 会看到旧梯度。核心规则：backward 把本次梯度加到 .grad；zero_ 清空旧值；optimizer.step() 才更新参数。
+
+可见标题必须完全写为："Autograd 梯度累积机制"
+可见副标题必须完全写为："backward 会把本次梯度加进 x.grad；清空后才重新开始。"
+
+固定版式，从上到下三条横向执行轨道：
+1. 左侧固定画同一个叶子张量卡："x = 3" 和 "requires_grad=True"。右侧固定是一列持续存在的记忆格："x.grad 记忆格"。
+2. 第 1 轨道：
+   - 步骤标签："第 1 步"
+   - 算式："y1 = x**2"
+   - 大标签："本次梯度 6.0"
+   - 右侧结果格必须写："x.grad = 6.0"
+3. 第 2 轨道：
+   - 步骤标签："第 2 步：不清空"
+   - 算式："y2 = 2*x"
+   - 大标签："本次梯度 2.0"
+   - 右侧结果格必须写："旧 6.0 + 新 2.0 = x.grad 8.0"
+4. 第 3 轨道：
+   - 步骤标签："第 3 步：先 zero_"
+   - 先画橡皮擦把 x.grad 清到 0
+   - 算式："y3 = 2*x"
+   - 大标签："本次梯度 2.0"
+   - 右侧结果格必须写："x.grad = 2.0"
+5. 底部训练顺序条必须完全写为："训练循环顺序：zero_grad -> backward -> step"
+6. 页脚必须完全写为："先清旧梯度，再反向传播，再更新参数。"
+
+准确性规则：
+- 最终结果不能写成 x.grad=0，必须是 x.grad=2.0。
+- 不要写 dy/dx、分式导数、Stage、old、new、clear、memory、training order 等英文说明词。
+- 中文说明必须是自然简体中文；只允许保留 Autograd、x.grad、.grad、requires_grad=True、backward、zero_、zero_grad、optimizer.step()、step、x、y1、y2、y3、x**2、2*x 这些技术 token。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo 或无关装饰。
+""".strip(),
+    "ch06-autograd-gradient-lifecycle-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 6.2.4 Autograd gradient accumulation.
+This is the final AI-generated image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not create a dashboard collage, a terminal screenshot, or a pure text poster.
+
+Overall style: hand-drawn classroom lecture note on lined notebook paper, as if a teacher is deriving the lab result step by step. It should look attractive, but the teaching logic is the priority. The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical lined-paper page, same three execution rails, same x.grad memory column, same bottom training-order strip.
+
+Teaching goal: the learner should understand why the second backward sees the old gradient. Core rule: backward adds this run's gradient into .grad; zero_ clears the old value; optimizer.step() is what updates parameters.
+
+Visible title exactly: "Autograd Gradient Accumulation"
+Visible subtitle exactly: "backward adds this run's gradient into x.grad; clearing starts fresh."
+
+Fixed layout, three horizontal execution rails from top to bottom:
+1. On the left, draw the same leaf tensor card in every rail: "x = 3" and "requires_grad=True". On the right, keep one persistent memory column labeled "x.grad memory".
+2. Rail 1:
+   - step label: "Step 1"
+   - formula: "y1 = x**2"
+   - large label: "this gradient 6.0"
+   - right result cell exactly: "x.grad = 6.0"
+3. Rail 2:
+   - step label: "Step 2: no clear"
+   - formula: "y2 = 2*x"
+   - large label: "this gradient 2.0"
+   - right result cell exactly: "old 6.0 + new 2.0 = x.grad 8.0"
+4. Rail 3:
+   - step label: "Step 3: zero_ first"
+   - draw an eraser clearing x.grad to 0 before the new run
+   - formula: "y3 = 2*x"
+   - large label: "this gradient 2.0"
+   - right result cell exactly: "x.grad = 2.0"
+5. Bottom training-order strip exactly: "training loop order: zero_grad -> backward -> step"
+6. Visible footer exactly: "Clear old gradients, run backward, then update parameters."
+
+Accuracy rules:
+- The final result must be x.grad=2.0, never x.grad=0.
+- Do not write dy/dx, derivative fractions, extra equations, fake tensors, terminal logs, or code blocks.
+- English text only, plus the exact technical tokens Autograd, x.grad, .grad, requires_grad=True, backward, zero_, zero_grad, optimizer.step(), step, x, y1, y2, y3, x**2, 2*x.
+- No Chinese, Japanese, gibberish, tiny background text, watermark, brand logo, or decorative filler.
+""".strip(),
+    "ch06-autograd-gradient-lifecycle-map-ja.png": """
+第 6 章 6.2.4 Autograd の勾配累積実験で使う、完成済み 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。後から文字を重ねる空白を残さないでください。SVG 風、白い角丸ボックス情報図、dashboard 風の貼り絵、ターミナル画面、文字だけのポスターは禁止です。
+
+全体スタイル：手描きの講義ノート / 横線入りノート紙の教学図。先生が実験結果を順番に説明するように、きれいで読みやすく描く。中国語・英語・日本語版は必ず同じ構造：同じ縦長横線ノート、同じ3本の実行レール、同じ x.grad 記憶欄、同じ下部の学習順序バー。
+
+教材の目的：2回目の backward が古い勾配を見る理由を理解させる。基本規則：backward は今回の勾配を .grad に足す。zero_ は古い値を消す。optimizer.step() がパラメータを更新する。
+
+可視タイトルは完全に："Autograd の勾配累積"
+可視サブタイトルは完全に："backward は今回の勾配を x.grad に足す。消すと新しく始められる。"
+
+固定版式。上から下へ3本の横レール：
+1. 左側には同じ葉 tensor カードを毎回描く："x = 3" と "requires_grad=True"。右側にはずっと残る記憶欄："x.grad 記憶欄"。
+2. 1本目：
+   - 手順ラベル："手順 1"
+   - 式："y1 = x**2"
+   - 大きなラベル："今回の勾配 6.0"
+   - 右の結果欄は正確に："x.grad = 6.0"
+3. 2本目：
+   - 手順ラベル："手順 2：消さない"
+   - 式："y2 = 2*x"
+   - 大きなラベル："今回の勾配 2.0"
+   - 右の結果欄は正確に："前回 6.0 + 今回 2.0 = x.grad 8.0"
+4. 3本目：
+   - 手順ラベル："手順 3：先に zero_"
+   - 消しゴムで x.grad を 0 にしてから新しい計算へ進む
+   - 式："y3 = 2*x"
+   - 大きなラベル："今回の勾配 2.0"
+   - 右の結果欄は正確に："x.grad = 2.0"
+5. 下部の学習順序バーは完全に："学習ループの順序：zero_grad -> backward -> step"
+6. フッターは完全に："古い勾配を消し、backward し、それからパラメータを更新する。"
+
+正確性ルール：
+- 最終結果を x.grad=0 にしない。必ず x.grad=2.0。
+- dy/dx、分数の導関数、余分な式、偽 tensor、ターミナルログ、コードブロックを書かない。
+- 日本語説明を使う。技術 token として Autograd、x.grad、.grad、requires_grad=True、backward、zero_、zero_grad、optimizer.step()、step、x、y1、y2、y3、x**2、2*x はそのまま残してよい。
+- 中国語、英語の説明文、文字化け、小さい背景文字、watermark、brand logo、無関係な装飾は禁止。
+""".strip(),
+    "imagenet-cnn-evolution.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 6 章 6.3.4 经典 CNN 演进。
+这是 AI 直接生成的最终图片：不要后期叠字，不要 SVG，不要白底圆角框信息图，不要科幻 dashboard，不要终端截图，不要纯文字海报。
+
+整体风格：手绘课堂讲义 / 横线笔记纸教学图，像老师用彩笔在笔记纸上讲“每个架构解决了什么问题”。画面要清晰、漂亮、手机可读。中文、英文、日文三版必须同构：同一竖版横线笔记纸、同一四段站点、同一颜色、同一箭头路线、同一底部总结。
+
+教学目标：读者先看图就知道经典 CNN 不是背名字，而是四次工程瓶颈修复：LeNet 证明骨架可行，AlexNet 解决规模训练，VGG 用重复小 block 整理深度，ResNet 用残差路径缓解深层训练。
+
+可见标题必须完全写为："经典 CNN 演进"
+可见副标题必须完全写为："每一代都解决一个训练瓶颈。"
+
+固定版式：从上到下四个大站点，每个站点都要有左侧问题、中央机制、右侧学到的设计思想。
+1. LeNet：
+   - 左侧画手写数字图片
+   - 中央画 "Conv -> Pool -> FC"
+   - 画小 filter 扫局部区域并生成 feature map
+   - 右侧标签："骨架可行"、"局部感受野"、"权重共享"
+2. AlexNet：
+   - 左侧画大规模图片样本墙
+   - 中央画无品牌 GPU 计算架、"ReLU" 开关、"Dropout" 保护网
+   - 右侧标签："规模化训练"、"深 CNN 可用"
+3. VGG：
+   - 左侧画同一图像 patch
+   - 中央画三个重复的 "3 x 3 block"，感受野光圈逐步变大
+   - 右侧标签："block 可复用"、"感受野变大"
+4. ResNet：
+   - 左侧画很深的层堆
+   - 中央画绿色 shortcut bridge，必须标 "F(x)+x"
+   - 画梯度箭头绕过深层再相加
+   - 右侧标签："残差路径"、"梯度更容易流动"
+5. 底部总结条必须完全写为："读经典架构：先问它解决了什么瓶颈。"
+
+准确性规则：
+- CNN 必须拼写为 CNN，绝对不要写 CNNE、CMM、CKN 或其他变体。
+- 中文说明必须是自然简体中文；只允许保留 LeNet、AlexNet、VGG、ResNet、CNN、Conv、Pool、FC、GPU、ReLU、Dropout、block、feature map、F(x)+x 这些技术 token。
+- 不要出现英文解释句、日文、乱码、小字背景、水印、品牌 logo、真实硬件品牌或无关装饰。
+""".strip(),
+    "imagenet-cnn-evolution-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 6.3.4 Classic CNN Architectures.
+This is the final AI-generated image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box infographic, do not create a sci-fi dashboard, a terminal screenshot, or a pure text poster.
+
+Overall style: hand-drawn classroom lecture note on lined notebook paper, as if a teacher uses colored pens to explain which bottleneck each architecture solved. The image should be clear, attractive, and readable on a phone. The Simplified Chinese, English, and Japanese variants must be structurally identical: same vertical lined-paper page, same four stations, same colors, same arrow route, same bottom summary.
+
+Teaching goal: the learner should see that classic CNNs are not name trivia. They are four engineering fixes: LeNet proves the skeleton works, AlexNet solves scaled training, VGG organizes depth with repeated small blocks, and ResNet uses residual paths to make very deep training easier.
+
+Visible title exactly: "Classic CNN Evolution"
+Visible subtitle exactly: "Each generation fixes one training bottleneck."
+
+Fixed layout: four large stations from top to bottom. Each station has a problem on the left, mechanism in the center, and design lesson on the right.
+1. LeNet:
+   - left: a handwritten digit image
+   - center: "Conv -> Pool -> FC"
+   - draw a small filter scanning a local patch and producing a feature map
+   - right labels: "skeleton works", "local receptive field", "weight sharing"
+2. AlexNet:
+   - left: a large wall of generic image samples
+   - center: a brand-free GPU compute rack, a "ReLU" switch, and a "Dropout" safety net
+   - right labels: "scaled training", "deep CNN works"
+3. VGG:
+   - left: the same image patch
+   - center: three repeated "3 x 3 block" modules, with the receptive-field spotlight growing step by step
+   - right labels: "reusable block", "larger receptive field"
+4. ResNet:
+   - left: a very deep layer stack
+   - center: a green shortcut bridge labeled exactly "F(x)+x"
+   - draw a gradient arrow bypassing depth and joining the main path
+   - right labels: "residual path", "gradients flow easier"
+5. Bottom summary strip exactly: "Read a classic architecture by asking which bottleneck it solved."
+
+Accuracy rules:
+- CNN must be spelled exactly CNN. Never write CNNE, CMM, CKN, or any other variant.
+- English text only, plus the exact technical tokens LeNet, AlexNet, VGG, ResNet, CNN, Conv, Pool, FC, GPU, ReLU, Dropout, block, feature map, F(x)+x.
+- Do not include Chinese, Japanese, gibberish, tiny background text, watermark, brand logo, real hardware brand names, or unrelated decoration.
+""".strip(),
+    "imagenet-cnn-evolution-ja.png": """
+第 6 章 6.3.4 古典的な CNN アーキテクチャで使う、完成済み 9:16 縦長日本語教学ビットマップを1枚生成してください。
+これは AI が直接生成する最終画像です。後から文字を重ねる空白を残さないでください。SVG 風、白い角丸ボックス情報図、SF dashboard、ターミナル画面、文字だけのポスターは禁止です。
+
+全体スタイル：手描きの講義ノート / 横線入りノート紙の教学図。先生が色ペンで「各 architecture がどのボトルネックを解いたか」を説明するように描く。スマホでも読める、きれいで明快な図にする。中国語・英語・日本語版は必ず同じ構造：同じ縦長横線ノート、同じ4つの station、同じ色、同じ矢印、同じ下部まとめ。
+
+教材の目的：古典 CNN は名前暗記ではなく、4つの工学的な修正だと分かるようにする。LeNet は骨格を成立させ、AlexNet はスケールした学習を実用化し、VGG は繰り返しの小さな block で深さを整理し、ResNet は残差経路で深い学習を楽にする。
+
+可視タイトルは完全に："古典 CNN の進化"
+可視サブタイトルは完全に："各世代は1つの学習ボトルネックを直す。"
+
+固定版式。上から下へ4つの大きな station。各 station は左に問題、中央に仕組み、右に学ぶ設計思想を置く。
+1. LeNet：
+   - 左：手書き数字画像
+   - 中央："Conv -> Pool -> FC"
+   - 小さな filter が局所 patch を走査し、feature map を作る
+   - 右ラベル："骨格が成立"、"局所受容野"、"重み共有"
+2. AlexNet：
+   - 左：一般的な画像サンプルの大きな壁
+   - 中央：ブランドなしの GPU 計算ラック、"ReLU" スイッチ、"Dropout" 保護ネット
+   - 右ラベル："スケール学習"、"深い CNN が実用化"
+3. VGG：
+   - 左：同じ画像 patch
+   - 中央：3つの繰り返し "3 x 3 block"、受容野の光が段階的に広がる
+   - 右ラベル："block を再利用"、"受容野が広がる"
+4. ResNet：
+   - 左：とても深い層スタック
+   - 中央：緑の shortcut bridge。必ず "F(x)+x" と書く
+   - 勾配矢印が深層を迂回して主経路に合流する
+   - 右ラベル："残差経路"、"勾配が流れやすい"
+5. 下部まとめバーは完全に："古典アーキテクチャは、解いたボトルネックから読む。"
+
+正確性ルール：
+- CNN は必ず CNN と綴る。CNNE、CMM、CKN などの誤記は禁止。
+- 日本語説明を使う。技術 token として LeNet、AlexNet、VGG、ResNet、CNN、Conv、Pool、FC、GPU、ReLU、Dropout、block、feature map、F(x)+x はそのまま残してよい。
+- 中国語、英語の説明文、文字化け、小さい背景文字、watermark、brand logo、実在ハードウェアブランド、無関係な装飾は禁止。
+""".strip(),
 }
 
 for job in IMAGE_JOBS:
