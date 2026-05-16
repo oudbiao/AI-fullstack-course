@@ -24210,6 +24210,84 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-advanced-prompt-technique-decision-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch05-prompt/02-advanced-prompting.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/02-advanced-prompting.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/02-advanced-prompting.md",
+    },
+    scene=(
+        "A Chapter 7.5.3 advanced Prompt techniques teaching image. "
+        "The image must teach the decision habit from the lesson: do not stack every advanced technique; first diagnose the failure symptom, then add the one Prompt layer that directly fixes it, and test whether it helped. "
+        "It should make few-shot, role/style constraints, step-by-step constraints, self-check, and schema/validation feel like practical tools selected for specific failures, not decorative technique names."
+    ),
+    chapter_context=(
+        "The page says advanced Prompt techniques are not fancier wording; they are better fit for the task. "
+        "It explains common symptoms: blurry label boundaries, inconsistent output style, multi-step tasks, missing conditions, and wrong output format. "
+        "It maps these to techniques: few-shot examples, role/style guide, step-by-step constraints, checklist/self-check, and schema/validation. "
+        "Later sections warn not to stack techniques randomly; tune Prompt in layers, add one change at a time, compare versions, and observe whether the output becomes more stable."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm horizontal lined notebook paper, using dark navy marker outlines with blue, green, orange, purple, and red accents. "
+        "Use the same composition for zh/en/ja: a learner's diagnostic desk, not a white card infographic. "
+        "Top: localized title and one short subtitle. "
+        "Upper third: draw a messy model output tray with five visible failure symptoms as large sticky notes: blurry label boundary, inconsistent style, multi-step confusion, missed condition, wrong format. "
+        "Middle third: show a toolkit shelf with five matching tools, each connected to exactly one symptom by a colored thread: few-shot examples, role/style guide, step-by-step plan, checklist/self-check, schema/validation. "
+        "Lower third: show a controlled experiment strip: v1 baseline, add one layer, same test cases, compare pass/fail. Make the added layer highlighted, and show other tools staying unused so learners see that not every trick is stacked. "
+        "Bottom: a small warning stamp says to match the symptom before adding tricks. "
+        "Use sparse, large, readable localized labels attached to objects. Technical tokens may stay in English where useful: Prompt, few-shot, zero-shot, role prompting, self-check, output_format, JSON, schema, validation, test cases, v1, v2, pass/fail. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens; do not write English explanatory sentences. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens; do not add Chinese labels or English explanatory sentences beyond required technical tokens. "
+        "Avoid pseudo text, tiny handwriting, random English/Japanese filler, dense tables, rounded-box flowchart style, pure text poster, local text-overlay look, vendor logos, and any message that longer Prompt is automatically better."
+    ),
+    variants={
+        "zh": {
+            "title": "高级 Prompt 技巧：先看症状，再选一层",
+            "subtitle": "不要把技巧全堆上去；先诊断问题，再做小实验。",
+            "items": [
+                ("标签边界模糊", "先补 few-shot，让模型模仿判断样例。"),
+                ("风格不一致", "补角色或风格约束，限定语气和边界。"),
+                ("多步骤混乱", "拆成 step-by-step，显式写出顺序。"),
+                ("总漏条件", "加入 self-check，输出前检查约束。"),
+                ("格式不稳", "用 schema/validation 固定输出形状。"),
+                ("一次只改一层", "同一批 test cases 对比 v1 和 v2。"),
+            ],
+            "footer": "高级 Prompt 的核心不是复杂，而是匹配失败症状。",
+            "alt": "高级 Prompt 技巧选择教学图：先看失败症状，如标签边界模糊、风格不一致、多步骤混乱、漏条件和格式不稳，再分别选择 few-shot、角色或风格约束、step-by-step、self-check、schema/validation，并用同一批 test cases 对比只改一层的 v1 和 v2。",
+        },
+        "en": {
+            "title": "Advanced Prompting: Diagnose, Then Add One Layer",
+            "subtitle": "Do not stack tricks; match the failure symptom and test it.",
+            "items": [
+                ("blurry label boundary", "Add few-shot so the model can imitate examples."),
+                ("inconsistent style", "Add role or style constraints to set tone and boundary."),
+                ("multi-step confusion", "Use a step-by-step plan to make the order explicit."),
+                ("missing conditions", "Add self-check before the final answer."),
+                ("unstable format", "Use schema/validation to lock the output shape."),
+                ("change one layer", "Compare v1 and v2 on the same test cases."),
+            ],
+            "footer": "Advanced Prompting is not complexity; it is fit to the failure symptom.",
+            "alt": "Advanced Prompt technique decision teaching image: diagnose failure symptoms such as blurry label boundary, inconsistent style, multi-step confusion, missing conditions, and unstable format, then choose few-shot, role or style constraints, step-by-step, self-check, or schema validation, and compare v1 and v2 with one changed layer on the same test cases.",
+        },
+        "ja": {
+            "title": "高度な Prompt：症状を見て一層だけ足す",
+            "subtitle": "技巧を重ねすぎず、失敗症状に合わせて小さく試す。",
+            "items": [
+                ("ラベル境界が曖昧", "few-shot を足し、判断例を真似させる。"),
+                ("文体がそろわない", "役割や style 制約で語調と境界を決める。"),
+                ("手順が混乱する", "step-by-step で順番を明示する。"),
+                ("条件を落とす", "self-check で出力前に制約を確認する。"),
+                ("形式が不安定", "schema/validation で出力の形を固定する。"),
+                ("一度に一層だけ", "同じ test cases で v1 と v2 を比べる。"),
+            ],
+            "footer": "高度な Prompt の核心は、複雑さではなく失敗症状への適合。",
+            "alt": "高度な Prompt 技巧の選択図：ラベル境界が曖昧、文体がそろわない、手順が混乱する、条件を落とす、形式が不安定といった失敗症状を先に見て、few-shot、役割や style 制約、step-by-step、self-check、schema/validation を選び、同じ test cases で一層だけ変えた v1 と v2 を比較する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
