@@ -22333,6 +22333,97 @@ for experiment_group in EXPERIMENT_RESULT_GROUPS:
         callouts=[],
     )
 
+register_svg_replacement_group(
+    slug="ch07-llm-overview-chapter-flow",
+    pages={
+        "en": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+    },
+    scene=(
+        "An LLM overview route-selection worked example for the first roadmap page. "
+        "The image must teach the habit from the nearby table and code: read the product need, "
+        "then choose the smallest route that solves it. Use one concrete request card with "
+        "needs_private_docs=True, needs_tool_action=False, needs_repeated_style=False, then show "
+        "the four route doors in priority order: Prompt, RAG, Agent, fine-tuning. Prompt is bypassed "
+        "because the answer needs private or changing documents. RAG is selected because private docs "
+        "must be cited. Agent is not selected because no tool action is needed. Fine-tuning is not selected "
+        "because repeated behavior or style is not the problem. End with the same route result: recommended_route = RAG. "
+        "The learner should understand the conditional code before reading it."
+    ),
+    chapter_context=(
+        "This image appears under 'Look at the Capability Stack First' in 7.2.1. The page says LLM overview is "
+        "not a model-name list; it helps decide what a large model can do, what it costs, and when Prompt, RAG, "
+        "Agent, or fine-tuning is better. The table says prompt when the model already knows enough and the task "
+        "is simple; RAG when private or changing knowledge must be cited; Agent when tools or steps are required; "
+        "fine-tuning when behavior, style, or format needs repeated adaptation. The nearby runnable code sets "
+        "needs_private_docs=True, needs_tool_action=False, needs_repeated_style=False and prints recommended_route: RAG."
+    ),
+    shared_layout=(
+        "Vertical 9:16. Use the same polished route-decision classroom workbench across zh/en/ja, not a white "
+        "rounded-box infographic, not a model-history map, and not a pure flowchart. Top title and subtitle. "
+        "Upper station: one product request card with three large switch chips in this exact order: "
+        "needs_private_docs=True, needs_tool_action=False, needs_repeated_style=False. Middle station: four physical "
+        "route doors on a decision rail in this exact order: Prompt, RAG, Agent, fine-tuning. Show Prompt as skipped "
+        "because model knowledge alone is not enough, show RAG as selected with a green evidence-document conveyor "
+        "and citation tag, show Agent as dimmed because no tool/action is needed, and show fine-tuning as dimmed "
+        "because behavior/style is not the issue. Lower station: a compact conditional ladder matching the code order "
+        "needs_tool_action -> Agent, needs_private_docs -> RAG, needs_repeated_style -> fine-tuning, else -> prompt, "
+        "with the active path landing on recommended_route = RAG. Bottom rule strip: choose the smallest route that "
+        "solves the product need. Keep route order, switch values, selected RAG lane, dimmed lanes, colors, camera "
+        "angle, and reading path identical across languages. Use large localized labels attached to concrete objects. "
+        "The only visible English allowed in zh/ja variants may be exact code/technical tokens: LLM, Prompt, RAG, "
+        "Agent, fine-tuning, needs_private_docs=True, needs_tool_action=False, needs_repeated_style=False, "
+        "recommended_route = RAG. Avoid fake tiny UI text, model/provider names, dense paragraphs, old SVG style, "
+        "white card stacks, random English helper text in zh/ja, and local text overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "LLM 路线怎么选",
+            "subtitle": "先读产品需求，再选能解决问题的最小路线。",
+            "items": [
+                ("需求", "私有资料要引用；不用工具；不需要长期改风格。"),
+                ("Prompt", "模型已足够懂、任务简单时才直接用。"),
+                ("RAG", "选中：知识在私有文档里，答案需要证据来源。"),
+                ("Agent", "不用：这次没有工具调用或多步行动。"),
+                ("fine-tuning", "不用：问题不是长期行为或格式不稳定。"),
+                ("结果", "recommended_route = RAG。"),
+            ],
+            "footer": "规则：能用 Prompt 就别加系统；知识不在模型里先 RAG；要行动才 Agent；行为长期不稳再微调。",
+            "alt": "LLM 路线选择教学图：根据 needs_private_docs=True、needs_tool_action=False、needs_repeated_style=False 的产品请求，依次判断 Prompt、RAG、Agent 和 fine-tuning，最终选择 recommended_route = RAG。",
+        },
+        "en": {
+            "title": "Choose the LLM Route",
+            "subtitle": "Read the product need first, then choose the smallest useful route.",
+            "items": [
+                ("request", "Private docs need citation; no tool action; no repeated style issue."),
+                ("Prompt", "Use it only when model knowledge is enough and the task is simple."),
+                ("RAG", "Selected: the missing knowledge lives in private documents."),
+                ("Agent", "Not needed: this case does not require tools or multi-step action."),
+                ("fine-tuning", "Not needed: the problem is not repeated behavior or format drift."),
+                ("result", "recommended_route = RAG."),
+            ],
+            "footer": "Rule: prompt if enough, RAG for missing knowledge, Agent for actions, fine-tune for repeated behavior.",
+            "alt": "LLM route selection teaching image: a request with needs_private_docs=True, needs_tool_action=False, and needs_repeated_style=False is checked against Prompt, RAG, Agent, and fine-tuning, and the selected result is recommended_route = RAG.",
+        },
+        "ja": {
+            "title": "LLM ルートの選び方",
+            "subtitle": "まず要件を読み、最小で役立つルートを選ぶ。",
+            "items": [
+                ("要件", "私有文書を引用したい。tool 行動なし。文体の反復問題なし。"),
+                ("Prompt", "モデル知識だけで足り、タスクが単純なときに使う。"),
+                ("RAG", "選択：不足知識が私有文書にあり、根拠が必要。"),
+                ("Agent", "不要：今回は tool 利用や多段行動がない。"),
+                ("fine-tuning", "不要：長期的な振る舞いや形式の問題ではない。"),
+                ("結果", "recommended_route = RAG。"),
+            ],
+            "footer": "原則：足りるなら Prompt、知識不足は RAG、行動が必要なら Agent、反復行動は fine-tuning。",
+            "alt": "LLM ルート選択の教育図：needs_private_docs=True、needs_tool_action=False、needs_repeated_style=False の要件を Prompt、RAG、Agent、fine-tuning に照らして判断し、recommended_route = RAG を選ぶ。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
