@@ -22509,6 +22509,87 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-next-token-generation-loop-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+    },
+    scene=(
+        "A direct teaching illustration for the first core-concepts page of the LLM chapter. "
+        "The image must teach the real loop behind text generation: the model does not write a full answer at once; "
+        "it reads the current context, scores candidate next tokens as logits, converts scores to probabilities with softmax, "
+        "uses sampling or argmax controls such as temperature and top-p to choose one token, appends that token back into the context, "
+        "then repeats the same loop. Include the concrete nearby example phrase Beijing is China's ... and show candidate tokens such as "
+        "capital, city, and university with different score/probability bars. The learner should understand the sequence before reading the code."
+    ),
+    chapter_context=(
+        "The page section explains Next-token Prediction and a softmax lab. Nearby code uses context = \"Beijing is China's\", "
+        "candidates capital/city/university, logits [4.0, 2.0, 0.5], softmax probabilities about 0.858/0.116/0.026, "
+        "and selected next_token = capital. The image appears before the code and should prepare the reader to understand why generation is a loop."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic classroom-lab style with a tangible generation machine, not a white rounded-card infographic, "
+        "not a slide, not a pure flowchart, and not a text poster. Use the same composition, colors, camera angle, object placement, and reading path "
+        "for zh/en/ja. Top: large localized title and one short subtitle. Upper-left: a glowing context window strip containing exactly four large tiles: "
+        "Beijing | is | China's | ... . Bottom append strip contains exactly Beijing | is | China's | ... | capital . Do not add The, China, Beijing again, "
+        "or any other words to the token strips. Center: a Transformer engine reads the context; light paths connect token tiles to the engine. Right of the engine: "
+        "a logits scoreboard with three large candidate bars in the fixed order capital, city, university. Below it: a softmax conversion dial turns raw scores "
+        "into probability bars. Lower-right: sampling controls labeled temperature and top-p sit beside a hand or selector choosing the next token capital. "
+        "Bottom: the chosen token tile is physically appended back into the context strip, with a thick loop arrow returning to the top and a visible repeat marker. "
+        "Make the one-token-at-a-time idea visually obvious: only one token tile leaves the selector per loop, while the answer ribbon grows by one tile. "
+        "Use sparse, large, readable localized labels attached to objects. Keep exact technical tokens in English where appropriate: context, Transformer, logits, "
+        "softmax, temperature, top-p, next token, append, token. In Simplified Chinese and Japanese, do not add extra English explanatory sentences beyond these "
+        "technical tokens and the example candidates. No fake UI microtext, random gibberish, dense paragraphs, vendor names, or local text-overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "Next-token 生成循环",
+            "subtitle": "模型每次只选择一个 token，再把它放回 context。",
+            "items": [
+                ("context", "当前文字和历史先进入窗口。"),
+                ("Transformer", "读取 token 之间的关系。"),
+                ("logits", "给 capital、city、university 打原始分。"),
+                ("softmax", "把分数变成 probability。"),
+                ("采样", "temperature / top-p 决定选择方式。"),
+                ("append", "选中的 token 回到 context，继续下一轮。"),
+            ],
+            "footer": "答案不是一次吐出整段，而是一轮轮选择 next token。",
+            "alt": "Next-token 生成循环教学图：context 进入 Transformer，输出 logits，经 softmax 变成 probability，用 temperature 和 top-p 选择一个 next token，再 append 回 context 继续生成。",
+        },
+        "en": {
+            "title": "Next-Token Generation Loop",
+            "subtitle": "The model chooses one token, appends it to context, then repeats.",
+            "items": [
+                ("context", "Current text and history enter the window."),
+                ("Transformer", "Reads relationships between tokens."),
+                ("logits", "Scores capital, city, and university."),
+                ("softmax", "Turns scores into probability."),
+                ("sampling", "temperature / top-p shape the choice."),
+                ("append", "The chosen token returns to context for the next loop."),
+            ],
+            "footer": "An answer is built one next token at a time, not emitted all at once.",
+            "alt": "Next-token generation loop teaching image: context enters the Transformer, logits become probability through softmax, temperature and top-p help choose one next token, and append returns it to context for another loop.",
+        },
+        "ja": {
+            "title": "Next-token 生成ループ",
+            "subtitle": "モデルは 1 token を選び、context に戻して繰り返す。",
+            "items": [
+                ("context", "現在の文と履歴が窓に入る。"),
+                ("Transformer", "token 同士の関係を読む。"),
+                ("logits", "capital、city、university を原始スコアにする。"),
+                ("softmax", "スコアを probability に変える。"),
+                ("サンプリング", "temperature / top-p が選び方を調整する。"),
+                ("append", "選ばれた token が context に戻り、次のループへ進む。"),
+            ],
+            "footer": "答えは一度に全文ではなく、next token を一つずつ積み上げる。",
+            "alt": "Next-token 生成ループの教育図：context が Transformer に入り、logits が softmax で probability になり、temperature と top-p で next token を選び、append で context に戻して生成を続ける。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
