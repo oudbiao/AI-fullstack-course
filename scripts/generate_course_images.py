@@ -23168,6 +23168,171 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-efficient-attention-bottleneck-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for efficient attention bottlenecks. "
+        "The image must teach that ordinary self-attention with long contexts creates O(n^2) pair pressure; "
+        "training memory pressure often comes from attention matrices, activations, and memory IO; "
+        "inference pressure often comes from the growing KV cache; FlashAttention optimizes memory IO without changing who can see whom; "
+        "sliding or local attention reduces who sees whom; MQA and GQA reduce stored K/V; linear attention changes the formula and may trade expressiveness or effectiveness. "
+        "The learner should identify the bottleneck first, then route to a suitable method."
+    ),
+    chapter_context=(
+        "The page explains that efficient attention is not one magic trick. "
+        "It asks learners to separate three bottlenecks: O(n^2) pair growth when context length increases, KV cache growth during inference, and memory IO or activation pressure during training. "
+        "The nearby code and text compare local attention windows, KV cache estimates, MQA/GQA, FlashAttention, and linear attention. "
+        "The lesson warns learners not to memorize method names without asking what bottleneck each method addresses."
+    ),
+    shared_layout=(
+        "Vertical 9:16, polished cinematic engineering diagnosis workbench, not a white rounded-card infographic, not a flat SVG flowchart, "
+        "not a pure text poster, and not a local text-overlay look. Use one identical composition for zh/en/ja: same four stacked stations, same camera angle, same colors, same icons, same routing arrows, same reading path. "
+        "Top: localized title and one short subtitle. Station 1: ordinary attention pair explosion, with a 4k to 8k context rail and an attention pair grid visibly expanding about four times; place the label O(n^2) on the expanding grid. "
+        "Station 2: a bottleneck diagnosis board with three large physical gauges: long context pair count, KV cache during inference, and memory IO / activation traffic during training. "
+        "Station 3: a method-routing workshop with four different tools, not identical boxes: sliding/local attention narrows the visible window; MQA/GQA shows many query heads sharing fewer K/V shelves; FlashAttention shows tiled blocks staying in fast memory; linear attention shows a formula lab with a tradeoff warning. "
+        "Station 4: split training versus inference lanes. Training lane points to attention matrix, activations, memory IO, and FlashAttention. Inference lane points to KV cache, MQA, and GQA. "
+        "Bottom: a compact rule rail: do not memorize names; first locate the bottleneck, then choose the route. "
+        "Use sparse, large, readable localized labels attached to concrete visual objects. Technical tokens may remain in English where appropriate: O(n^2), KV cache, memory IO, FlashAttention, sliding/local attention, MQA, GQA, linear attention, training, inference, attention matrix, activation. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid pseudo text, tiny unreadable words, fake code dumps, decorative sci-fi dashboards without teaching content, and any claim that one method solves every bottleneck."
+    ),
+    variants={
+        "zh": {
+            "title": "高效 attention 先诊断瓶颈",
+            "subtitle": "上下文、KV cache、memory IO 是三类不同问题。",
+            "items": [
+                ("O(n^2)", "上下文从 4k 到 8k，pair 压力接近 4 倍。"),
+                ("长上下文", "先问是不是“谁看谁”太多。"),
+                ("KV cache", "推理越聊越长，K/V 存储越大。"),
+                ("memory IO", "FlashAttention 主要减少搬数据和中间写回。"),
+                ("sliding/local", "缩小可见窗口，减少 pair。"),
+                ("MQA/GQA", "共享 K/V，降低推理缓存。"),
+                ("选择路线", "先定位瓶颈，再选方法；它们不是同一种优化。"),
+            ],
+            "footer": "高效 attention 是工程取舍：改可见范围、改 K/V 存储，或改计算实现。",
+            "alt": "高效 attention 瓶颈诊断教学图：普通 attention 的 O(n^2) pair 压力、推理 KV cache、训练 memory IO 三类瓶颈分别对应 sliding/local attention、MQA/GQA、FlashAttention 和 linear attention 等路线。",
+        },
+        "en": {
+            "title": "Diagnose Efficient Attention Bottlenecks",
+            "subtitle": "Context length, KV cache, and memory IO are different problems.",
+            "items": [
+                ("O(n^2)", "4k to 8k context can push pair work close to 4x."),
+                ("long context", "Ask whether too many tokens can see too many tokens."),
+                ("KV cache", "During inference, longer chats store more K/V."),
+                ("memory IO", "FlashAttention mainly reduces data movement and intermediate writes."),
+                ("sliding/local", "Narrow the visible window to reduce pairs."),
+                ("MQA/GQA", "Share K/V to shrink inference cache."),
+                ("route choice", "Find the bottleneck first; these methods optimize different things."),
+            ],
+            "footer": "Efficient attention is a trade-off: change visibility, K/V storage, or compute implementation.",
+            "alt": "Efficient attention bottleneck diagnosis teaching image: ordinary attention O(n squared) pair pressure, inference KV cache, and training memory IO are routed to different methods such as sliding or local attention, MQA/GQA, FlashAttention, and linear attention.",
+        },
+        "ja": {
+            "title": "効率的 attention は瓶頸から診断する",
+            "subtitle": "context length、KV cache、memory IO は別々の問題。",
+            "items": [
+                ("O(n^2)", "4k から 8k へ伸びると pair 作業は約 4 倍に近づく。"),
+                ("長い context", "まず「誰が誰を見るか」が多すぎないかを見る。"),
+                ("KV cache", "推論では会話が長いほど K/V 保存が増える。"),
+                ("memory IO", "FlashAttention は主にデータ移動と中間書き戻しを減らす。"),
+                ("sliding/local", "見える window を狭め、pair を減らす。"),
+                ("MQA/GQA", "K/V を共有して推論 cache を小さくする。"),
+                ("経路選択", "先に瓶頸を特定する。各方法は別の問題を最適化する。"),
+            ],
+            "footer": "効率的 attention は取捨選択：可視範囲、K/V 保存、計算実装のどれを変えるか。",
+            "alt": "効率的 attention の瓶頸診断教育図：通常 attention の O(n^2) pair 圧力、推論時の KV cache、学習時の memory IO を分け、sliding/local attention、MQA/GQA、FlashAttention、linear attention などの経路へ結び付ける。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
+    slug="ch07-kv-cache-mqa-gqa-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+    },
+    scene=(
+        "A direct Chapter 7 teaching illustration for MHA, GQA, MQA, and KV cache. "
+        "It must teach the runnable estimate: kv_units = num_kv_heads * head_dim * seq_len * 2. "
+        "For seq_len=8192 and head_dim=128, MHA with 32 KV heads produces 67108864 units, GQA with 8 KV heads produces 16777216 units, and MQA with 1 KV head produces 2097152 units. "
+        "The concept is that query heads can be many while K/V heads can be fewer; sharing saves inference cache but trades off per-head K/V diversity."
+    ),
+    chapter_context=(
+        "The page explains MHA, GQA, and MQA as a practical way to reduce inference KV cache. "
+        "The nearby code computes kv_units from num_kv_heads, head_dim, seq_len, and the factor 2 for K and V, then prints MHA, GQA, and MQA estimates. "
+        "The learner should understand that seq_len and head_dim stay constant in the example, while num_kv_heads changes from 32 to 8 to 1."
+    ),
+    shared_layout=(
+        "Vertical 9:16, polished cinematic model-inspection workbench, not a white rounded-card infographic, not a flat SVG diagram, "
+        "not a pure text poster, and not a local text-overlay look. Use one identical composition for zh/en/ja: same three comparison lanes, same formula station, same cache shelves, same colors, same reading path. "
+        "Top: localized title and one short subtitle. Station 1: a formula conveyor with kv_units = num_kv_heads * head_dim * seq_len * 2; highlight only num_kv_heads as the variable that changes, while seq_len=8192 and head_dim=128 remain pinned constants. "
+        "Station 2: three large horizontal lanes labeled MHA, GQA, and MQA. MHA lane shows 32 query heads and 32 separate K/V cartridges with the largest cache bar and exact output 67108864. "
+        "GQA lane shows 32 query heads grouped into 8 groups sharing 8 K/V cartridges with a medium cache bar and exact output 16777216. "
+        "MQA lane shows many query heads sharing 1 K/V cartridge with the smallest cache bar and exact output 2097152. "
+        "Station 3: an inference memory storehouse where K/V shelves shrink from MHA to GQA to MQA. "
+        "Station 4: a tradeoff gauge: lower cache and more sharing on one side, less per-head K/V diversity on the other side. "
+        "Bottom: a compact rule rail saying that MHA/GQA/MQA save stored K/V during inference, not the attention matrix itself. "
+        "Use sparse, large, readable localized labels attached to concrete visual objects. Technical tokens may remain in English where appropriate: MHA, GQA, MQA, query heads, KV heads, KV cache, K/V, seq_len, head_dim, kv_units, 8192, 128, 67108864, 16777216, 2097152. "
+        "Critical spelling rule: the middle method label is exactly GQA with the letter Q; never write GOA, G0A, G0Q, or any other variant. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Avoid pseudo text, unreadable tiny numbers, decorative chip art without the three lanes, or any incorrect numeric result."
+    ),
+    variants={
+        "zh": {
+            "title": "Query head 很多，K/V 可以更少",
+            "subtitle": "MHA、GQA、MQA 的差别主要体现在推理 KV cache。",
+            "items": [
+                ("公式", "kv_units = num_kv_heads * head_dim * seq_len * 2。"),
+                ("MHA", "32 个 query heads 对应 32 组 K/V，cache 最大。"),
+                ("GQA", "32 个 query heads 分成 8 组共享 K/V。"),
+                ("MQA", "很多 query heads 共享 1 组 K/V，cache 最小。"),
+                ("运行结果", "67108864 -> 16777216 -> 2097152。"),
+                ("取舍", "共享越多越省缓存，但 K/V 表达也更集中。"),
+            ],
+            "footer": "MHA/GQA/MQA 优化的是推理时要存多少 K/V，而不是让上下文免费变长。",
+            "alt": "KV cache 与 MHA/GQA/MQA 教学图：公式 kv_units 中只改变 num_kv_heads，MHA 用 32 组 K/V 得到 67108864，GQA 用 8 组得到 16777216，MQA 用 1 组得到 2097152，并说明共享 K/V 的缓存收益和表达取舍。",
+        },
+        "en": {
+            "title": "More Query Heads, Fewer K/V Heads",
+            "subtitle": "MHA, GQA, and MQA mainly change inference KV cache size.",
+            "items": [
+                ("formula", "kv_units = num_kv_heads * head_dim * seq_len * 2."),
+                ("MHA", "32 query heads keep 32 K/V sets, so cache is largest."),
+                ("GQA", "32 query heads form 8 groups that share K/V."),
+                ("MQA", "Many query heads share 1 K/V set, so cache is smallest."),
+                ("run result", "67108864 -> 16777216 -> 2097152."),
+                ("trade-off", "More sharing saves cache, but K/V diversity becomes tighter."),
+            ],
+            "footer": "MHA/GQA/MQA optimize how much K/V inference stores; they do not make long context free.",
+            "alt": "KV cache teaching image for MHA, GQA, and MQA: the formula changes only num_kv_heads, MHA uses 32 K/V sets for 67108864, GQA uses 8 sets for 16777216, MQA uses 1 set for 2097152, and the image explains the cache saving and diversity tradeoff.",
+        },
+        "ja": {
+            "title": "Query head は多く、K/V head は少なくできる",
+            "subtitle": "MHA、GQA、MQA の主な違いは推論時の KV cache。",
+            "items": [
+                ("公式", "kv_units = num_kv_heads * head_dim * seq_len * 2。"),
+                ("MHA", "32 query heads が 32 組の K/V を持ち、cache が最大。"),
+                ("GQA", "32 query heads を 8 group に分けて K/V を共有する。"),
+                ("MQA", "多くの query heads が 1 組の K/V を共有し、cache が最小。"),
+                ("実行結果", "67108864 -> 16777216 -> 2097152。"),
+                ("取捨選択", "共有が多いほど cache は減るが、K/V の多様性は小さくなる。"),
+            ],
+            "footer": "この設計は推論で保存する K/V を減らす。長い context が無料になるわけではない。",
+            "alt": "KV cache と MHA/GQA/MQA の教育図：式 kv_units では num_kv_heads だけが変わり、MHA は 32 組の K/V で 67108864、GQA は 8 組で 16777216、MQA は 1 組で 2097152 になり、K/V 共有による cache 節約と多様性の取捨選択を示す。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
