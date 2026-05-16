@@ -24047,6 +24047,89 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-prompt-spec-three-layer-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+    },
+    scene=(
+        "A Chapter 7.5.2 teaching image for Prompt basics. "
+        "It must explain the three-layer task specification behind a stable prompt: task goal, output format, and constraints. "
+        "The learner should see a vague request become a checkable prompt_spec, then see what breaks when the constraints layer is missing, and how adding the missing layer makes the output stable. "
+        "This image is reused from the roadmap and the Prompt basics page, so it must teach the concept directly without depending on surrounding prose."
+    ),
+    chapter_context=(
+        "Nearby code defines prompt_spec with task, output_format, and constraints, then prints it. "
+        "The next code defines prompt_checklist with task_defined True, output_format_defined True, and constraints_defined False, then returns the next fix: add boundaries and constraints. "
+        "The text says many prompts that look good have a clearer task specification behind them, and the reading guide says beginners should confirm task goal, output format, and constraint boundaries before adding role setting or advanced tricks. "
+        "The final example contrasts a vague prompt 'Please analyze the following text' with a clear sentiment-classification prompt that only outputs positive or negative with no extra explanation."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm horizontal lined notebook paper, using dark navy marker outlines with blue, green, orange, and red accents. "
+        "Use the same composition for zh/en/ja: top title, left vague prompt, center three-layer specification board, right model output comparison, bottom checklist/fix path. "
+        "Do not create a white rounded-card flowchart, slide deck, UI card stack, pure text poster, SVG-style icon grid, or local text-overlay look. "
+        "Upper-left: draw a messy sticky note containing a vague request such as 'analyze this text' in the target language. Mark it with question marks and drifting arrows. "
+        "Center: draw one large prompt_spec clipboard with exactly three stacked layers. Layer 1 has a target flag for task goal. Layer 2 has a shaped output tray for output_format. Layer 3 has a safety rail for constraints. "
+        "Make the three layers feel like parts of one specification, not separate decorative cards. "
+        "Right: draw a small LLM workbench receiving the complete spec and producing a clean answer card. Show the clean answer is stable because it has a known task, known allowed labels, and no extra explanation. "
+        "Lower-left: draw the incomplete checklist from the code: task_defined checked, output_format_defined checked, constraints_defined missing. "
+        "Lower-center: draw the next_fix arrow pointing specifically to the missing constraints layer. "
+        "Lower-right: draw a before/after mini comparison: vague output wanders across summary/rewrite/classify, while clear output chooses exactly positive or negative. "
+        "Bottom rule strip: stable Prompt starts from task, output format, and constraints before role setting or advanced tricks. "
+        "Use sparse, large, readable localized labels attached to the objects. Technical tokens may stay in English where useful: Prompt, prompt_spec, prompt_checklist, task, output_format, constraints, LLM, positive, negative. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens; do not write English explanatory sentences. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens; do not add Chinese labels or English explanatory sentences beyond required technical tokens. "
+        "Avoid pseudo text, tiny handwriting, random English/Japanese filler, decorative-only model art, vendor logos, dense paragraphs, and any impression that Prompt quality is just fancy wording."
+    ),
+    variants={
+        "zh": {
+            "title": "Prompt 三层任务规格：先写清，再谈技巧",
+            "subtitle": "任务目标、输出格式、约束边界少一层，结果就容易漂移。",
+            "items": [
+                ("模糊请求", "“请分析这段文本”会让模型猜任务。"),
+                ("任务目标", "明确要做什么：例如情感分类。"),
+                ("输出格式", "固定输出集合：positive 或 negative。"),
+                ("约束边界", "禁止额外解释，不补充原文外信息。"),
+                ("检查表", "task 和 output_format 已有，constraints 缺失。"),
+                ("下一步修复", "先补约束，再尝试高级 Prompt 技巧。"),
+            ],
+            "footer": "稳定 Prompt = 任务目标 + 输出格式 + 约束边界。",
+            "alt": "Prompt 三层任务规格教学图：模糊请求先被拆成任务目标、输出格式和约束边界三层 prompt_spec，检查表显示 task 和 output_format 已有但 constraints 缺失，修复后模型输出能稳定限定为 positive 或 negative。",
+        },
+        "en": {
+            "title": "Three-Layer Prompt Spec: Be Clear Before Tricks",
+            "subtitle": "If task, output format, or constraints are missing, the result drifts.",
+            "items": [
+                ("vague request", "\"Please analyze this text\" makes the model guess the task."),
+                ("task goal", "State what to do: for example sentiment classification."),
+                ("output format", "Fix the allowed labels: positive or negative."),
+                ("constraints", "No extra explanation and no facts beyond the source."),
+                ("checklist", "task and output_format exist; constraints are missing."),
+                ("next fix", "Add constraints before trying advanced Prompt tricks."),
+            ],
+            "footer": "Stable Prompt = task goal + output format + constraints.",
+            "alt": "Three-layer prompt specification teaching image: a vague request is decomposed into task goal, output format, and constraints in a prompt_spec, the checklist shows task and output_format present but constraints missing, and the fixed prompt makes the model output only positive or negative.",
+        },
+        "ja": {
+            "title": "Prompt 三層仕様：テクニックの前に明確化する",
+            "subtitle": "タスク、出力形式、制約のどれかが抜けると、結果はぶれやすい。",
+            "items": [
+                ("曖昧な依頼", "「この文章を分析して」は、モデルにタスクを推測させる。"),
+                ("タスク目標", "何をするかを明確にする。例：感情分類。"),
+                ("出力形式", "許可する出力を固定する：positive または negative。"),
+                ("制約境界", "余分な説明を出さず、原文外の情報を足さない。"),
+                ("チェックリスト", "task と output_format はあるが、constraints が不足。"),
+                ("次の修正", "高度な Prompt 技法の前に、まず制約を足す。"),
+            ],
+            "footer": "安定した Prompt = タスク目標 + 出力形式 + 制約境界。",
+            "alt": "Prompt 三層仕様の教育図：曖昧な依頼をタスク目標、出力形式、制約境界の三層 prompt_spec に分解し、チェックリストでは task と output_format はあるが constraints が不足していることを示し、修正後はモデル出力を positive または negative に安定して限定できる。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
