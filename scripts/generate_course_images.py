@@ -23965,6 +23965,88 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-prompt-chapter-flow",
+    pages={
+        "en": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+    },
+    scene=(
+        "A Chapter 7.5.1 opening teaching image for prompt engineering. "
+        "It must make the nearby roadmap idea concrete: prompt engineering is the interface contract between an application/user need and the model. "
+        "The learner should see how a vague request becomes a reusable prompt contract with task, context, output_format, and constraints, then becomes a model call, structured output, validation evidence, and an iteration loop. "
+        "The image should help a beginner understand the whole chapter order before reading details: prompt basics, advanced prompting, structured output, prompt practice, and evaluation lab."
+    ),
+    chapter_context=(
+        "This image appears under 'See the Prompt Loop First'. The page says the goal is not to write a clever sentence; the goal is to make one model call predictable, parseable, testable, and easy to improve. "
+        "The runnable script immediately below checks a prompt_contract with task, context, output_format, and constraints, then prints ready, fields, and test_case_count. "
+        "The page later says to keep the input set fixed, change one prompt layer at a time, and explain improvement with evidence instead of feeling."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm horizontal lined notebook paper, using dark navy marker outlines with blue, green, orange, and red accents. "
+        "Use the same composition for zh/en/ja: a left-to-right bridge from a messy user request into a clean prompt contract, then into an LLM call, structured result, validation checklist, and iteration arrow. "
+        "Do not create a white rounded-card flowchart, slide deck, UI card stack, pure text poster, SVG-style icon grid, or local text-overlay look. "
+        "Top: large localized title and one short subtitle. "
+        "Upper-left: draw a messy sticky note from a user/application with a vague request. Next to it, show a hand sorting the request into a clean contract sheet. "
+        "Center: make the prompt contract the main object. Draw one large clipboard divided into four physically distinct slots: task, context, output_format, constraints. Put simple visual objects in each slot: target flag for task, source document for context, JSON/table shape for output_format, red boundary rail for constraints. "
+        "Right-center: draw the LLM as a compact workbench or engine receiving the contract, not as a decorative robot. "
+        "Lower-right: show the output becoming a structured JSON/table receipt that an application can parse. "
+        "Lower-left: show three fixed test cases and a validation checklist with pass/fail marks. "
+        "Bottom: draw one iteration arrow back to the contract with a note that only one layer changes each time. "
+        "Add a thin chapter path rail with five small stops: basics, advanced, structured output, practice, evaluation. Keep this rail visual and compact. "
+        "Use sparse, large, readable localized labels attached to the objects. Technical tokens may stay in English where useful: Prompt, LLM, task, context, output_format, constraints, JSON, Markdown, test cases, validation. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens; do not write English explanatory sentences. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens; do not add Chinese labels or English explanatory sentences beyond required technical tokens. "
+        "Avoid pseudo text, tiny handwriting, random English/Japanese filler, decorative-only model art, vendor logos, dense paragraphs, and any implication that prompt engineering is only wording style."
+    ),
+    variants={
+        "zh": {
+            "title": "Prompt 工程路线图：从模糊需求到可测试调用",
+            "subtitle": "不是写一句妙语，而是设计可复用的任务合约。",
+            "items": [
+                ("用户需求", "先把含糊请求变成明确任务。"),
+                ("任务合约", "task、context、output_format、constraints 四层写清楚。"),
+                ("模型调用", "Prompt 把应用目标交给 LLM。"),
+                ("结构化输出", "JSON、表格或 Markdown 要能被程序解析。"),
+                ("验证", "用固定 test cases 检查格式、事实和边界。"),
+                ("迭代", "每次只改一层 Prompt，用证据比较版本。"),
+            ],
+            "footer": "Prompt 工程 = 任务合约 + 可解析输出 + 可重复评测。",
+            "alt": "Prompt 工程路线图教学图：模糊用户需求被整理成 task、context、output_format、constraints 四层任务合约，再进入 LLM 调用，输出 JSON 或表格等可解析结果，并用固定 test cases 做验证后迭代。",
+        },
+        "en": {
+            "title": "Prompt Engineering Roadmap: From Vague Need to Testable Call",
+            "subtitle": "It is not clever wording; it is a reusable task contract.",
+            "items": [
+                ("user need", "Turn a vague request into a clear task first."),
+                ("task contract", "Write task, context, output_format, and constraints clearly."),
+                ("model call", "The Prompt carries the application goal into the LLM."),
+                ("structured output", "JSON, tables, or Markdown must be parseable by code."),
+                ("validation", "Use fixed test cases to check format, facts, and boundaries."),
+                ("iteration", "Change one Prompt layer at a time and compare with evidence."),
+            ],
+            "footer": "Prompt engineering = task contract + parseable output + repeatable evaluation.",
+            "alt": "Prompt engineering roadmap teaching image: a vague user need is organized into a four-part contract with task, context, output_format, and constraints, then sent to an LLM call, returned as parseable JSON or table output, validated with fixed test cases, and iterated with evidence.",
+        },
+        "ja": {
+            "title": "Prompt Engineering ロードマップ：曖昧な依頼からテスト可能な呼び出しへ",
+            "subtitle": "気の利いた一文ではなく、再利用できるタスク契約を設計する。",
+            "items": [
+                ("ユーザー要望", "まず曖昧な依頼を明確なタスクにする。"),
+                ("タスク契約", "task、context、output_format、constraints をはっきり書く。"),
+                ("モデル呼び出し", "Prompt がアプリの目的を LLM に渡す。"),
+                ("構造化出力", "JSON、表、Markdown は code で解析できる形にする。"),
+                ("検証", "固定した test cases で形式、事実、境界を確認する。"),
+                ("反復", "毎回 1 つの Prompt 層だけを変え、証拠で比較する。"),
+            ],
+            "footer": "Prompt Engineering = タスク契約 + 解析可能な出力 + 繰り返せる評価。",
+            "alt": "Prompt Engineering ロードマップの教育図：曖昧なユーザー要望を task、context、output_format、constraints の4層タスク契約に整理し、LLM 呼び出しへ渡し、JSON や表の解析可能な出力を受け取り、固定した test cases で検証して証拠にもとづき反復する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
