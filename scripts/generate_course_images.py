@@ -22590,6 +22590,85 @@ register_svg_replacement_group(
     callouts=[],
 )
 
+register_svg_replacement_group(
+    slug="ch07-context-window-budget-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+    },
+    scene=(
+        "A direct teaching illustration for the context window section of the LLM core concepts page. "
+        "The image must teach that a context window is a finite token budget, not infinite memory. "
+        "Show a fixed-capacity workbench or transparent suitcase labeled context window. Inside it, five visible budget blocks must share the same space: "
+        "system prompt, chat history, retrieved evidence, user question, and answer space. "
+        "Show that long documents must be selected, compressed, or chunked; RAG must reserve space for evidence and the final answer; "
+        "chat history should be summarized or trimmed when it stops helping; and bigger context helps only if the right information is placed inside it."
+    ),
+    chapter_context=(
+        "The page gives the formula system prompt + chat history + retrieved evidence + user question + answer space <= context window. "
+        "The surrounding bullets explain selected/compressed/chunked long documents, reserving answer space, trimming chat history, and placing the right information in the window. "
+        "The image appears after the formula and before the temperature lab, so it should make the token-budget tradeoff visible before the learner runs more sampling code."
+    ),
+    shared_layout=(
+        "Vertical 9:16, warm cinematic classroom-lab style compatible with the nearby next-token loop image, not a white rounded-card infographic, "
+        "not a pure flowchart, not a slide deck, and not a text poster. Use the same composition, colors, camera angle, object placement, and reading path for zh/en/ja. "
+        "Top: large localized title and one short subtitle. Center: one large transparent context window container like a measuring suitcase or lab workbench with a clear capacity gauge. "
+        "Inside the container, place five large colored physical blocks in this exact order from top to bottom: system prompt, chat history, retrieved evidence, user question, answer space. "
+        "Show the blocks fitting under a visible token budget line using the formula <= context window. "
+        "Left side: long document pages enter a chunking/compression cutter; only selected evidence chunks go into the retrieved evidence block while extra pages remain outside. "
+        "Right side: an overflowing chat-history ribbon and extra document pages press against the window edge, with a warning sign for overflow/truncation risk. "
+        "Bottom: a small planner scale shows the tradeoff: more evidence leaves less answer space, and more chat history leaves less room for useful evidence. "
+        "Use sparse, large, readable localized labels attached to objects. Keep exact technical tokens in English where appropriate: context window, system prompt, chat history, retrieved evidence, user question, answer space, token budget, RAG, chunk, compression, truncation. "
+        "In Simplified Chinese and Japanese, do not add extra English explanatory sentences beyond these technical tokens. No fake UI microtext, random gibberish, dense paragraphs, vendor names, or local text-overlay look."
+    ),
+    variants={
+        "zh": {
+            "title": "Context window 是预算",
+            "subtitle": "所有输入和输出空间共享同一段 token 容量。",
+            "items": [
+                ("system prompt", "规则先占一部分预算。"),
+                ("chat history", "历史太长就要总结或裁剪。"),
+                ("retrieved evidence", "RAG 只放最相关证据块。"),
+                ("user question", "当前问题也会占用 token。"),
+                ("answer space", "必须预留模型输出空间。"),
+                ("truncation", "超出容量会被挤出窗口。"),
+            ],
+            "footer": "大 context 不是无限记忆；只有放进正确信息才有用。",
+            "alt": "Context window token 预算教学图：system prompt、chat history、retrieved evidence、user question 和 answer space 共同占用有限 context window，长文档需要 chunk 或 compression，超出会产生 truncation 风险。",
+        },
+        "en": {
+            "title": "Context Window Is a Budget",
+            "subtitle": "Inputs and output space share one finite token capacity.",
+            "items": [
+                ("system prompt", "Rules consume budget first."),
+                ("chat history", "Long history should be summarized or trimmed."),
+                ("retrieved evidence", "RAG only inserts the most relevant chunks."),
+                ("user question", "The current request also costs tokens."),
+                ("answer space", "Reserve room for the model output."),
+                ("truncation", "Overflow gets pushed out of the window."),
+            ],
+            "footer": "A larger context is useful only when the right information is inside it.",
+            "alt": "Context window token budget teaching image: system prompt, chat history, retrieved evidence, user question, and answer space share a finite context window; long documents need chunking or compression, and overflow risks truncation.",
+        },
+        "ja": {
+            "title": "Context window は予算",
+            "subtitle": "入力と出力余白は、同じ token 容量を共有する。",
+            "items": [
+                ("system prompt", "ルールが先に予算を使う。"),
+                ("chat history", "長い履歴は要約または削る。"),
+                ("retrieved evidence", "RAG は関連度の高い chunk だけ入れる。"),
+                ("user question", "現在の質問も token を使う。"),
+                ("answer space", "モデル出力の余白を残す。"),
+                ("truncation", "容量を超えると窓の外へ押し出される。"),
+            ],
+            "footer": "大きな context は、正しい情報を入れたときだけ役に立つ。",
+            "alt": "Context window の token 予算を説明する教育図：system prompt、chat history、retrieved evidence、user question、answer space が有限の context window を共有し、長文書は chunk や compression が必要で、超過すると truncation の危険がある。",
+        },
+    },
+    callouts=[],
+)
+
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 IMAGE_JOBS.extend(job for job in P0_REMAKE_IMAGE_JOBS if job["filename"] not in existing_filenames)
 
