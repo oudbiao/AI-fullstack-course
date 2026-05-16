@@ -24130,6 +24130,86 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-prompt-iteration-loop",
+    pages={
+        "en": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+    },
+    scene=(
+        "A Chapter 7.5.1 roadmap teaching image for prompt iteration and evaluation. "
+        "It must show that prompt engineering improves by a controlled experiment loop: keep test cases fixed, compare prompt versions on the same inputs, score with the same rubric, record failures, then change exactly one prompt layer for the next version. "
+        "The image should prepare learners for the later Prompt Practice and Evaluation Lab sections, where v1/v2/v3 prompt versions are compared by pass rate and failure notes."
+    ),
+    chapter_context=(
+        "The roadmap pass check says learners should keep the input set fixed, change one prompt layer at a time, and explain why the new version is better with evidence instead of feeling. "
+        "The Prompt Practice page says prompt debugging should feel like engineering, not guessing: prepare test cases, change only one layer at a time, run the same cases again, compare pass/fail results, and record the prompt version and failure samples. "
+        "The evaluation lab uses TEST_CASES, PROMPT_VERSIONS, score_output, pass_rate, and failures to show that a human-readable answer can still fail if it is not parseable JSON-like data."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm horizontal lined notebook paper, using dark navy marker outlines with blue, green, orange, and red accents. "
+        "Use the same composition for zh/en/ja: a circular lab bench loop with four major stations and a small regression guard. "
+        "Do not create a white rounded-card flowchart, slide deck, UI card stack, pure text poster, SVG-style icon grid, or local text-overlay look. "
+        "Top: large localized title and one short subtitle. "
+        "Station 1 upper-left: fixed test cases pinned to a board. Draw exactly three test cards: case_001 positive review, case_002 lost/too fast review, case_003 code does not run review. Make it clear these inputs stay fixed. "
+        "Station 2 upper-right: prompt versions as three stacked recipe cards: v1_goal_only, v2_json_format, v3_with_examples. Show one highlighted change between versions, not all layers changing at once. "
+        "Station 3 lower-right: evaluation runner. Draw the same cases running through each version into a scoring table with format_ok, label_ok, reason_ok, and pass/fail marks. "
+        "Station 4 lower-left: evidence report. Draw a pass-rate bar or scoreboard where v1 fails format and v2/v3 pass, plus a failure note that says the next fix is based on evidence. "
+        "Regression guard: draw old test cases being kept in a small lockbox or folder so a new prompt cannot break them silently. "
+        "Bottom loop arrow: failure note points back to exactly one prompt layer, such as output_format or examples. "
+        "Use sparse, large, readable localized labels attached to concrete objects. Technical tokens may stay in English where useful: Prompt, test cases, v1_goal_only, v2_json_format, v3_with_examples, JSON, rubric, pass_rate, failure note, regression, format_ok, label_ok, reason_ok. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens; do not write English explanatory sentences. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens; do not add Chinese labels or English explanatory sentences beyond required technical tokens. "
+        "Avoid pseudo text, tiny handwriting, random English/Japanese filler, decorative-only lab art, vendor logos, dense paragraphs, and any message that prompt iteration is judged by feeling."
+    ),
+    variants={
+        "zh": {
+            "title": "Prompt 迭代闭环：固定测试，用证据改一层",
+            "subtitle": "不要凭感觉换说法；像实验一样比较版本。",
+            "items": [
+                ("固定 test cases", "同一批输入反复跑，避免幸运样例。"),
+                ("版本对比", "v1、v2、v3 只改变一个 Prompt 层。"),
+                ("统一评分", "用同一份 rubric 检查格式、标签和理由。"),
+                ("pass_rate", "用通过率比较版本，而不是凭感觉。"),
+                ("failure note", "记录失败原因，指向下一次修复。"),
+                ("regression", "旧样例保留，防止新 Prompt 破坏旧能力。"),
+            ],
+            "footer": "Prompt 调试 = 固定输入 + 同一评分 + 单层修改 + 失败证据。",
+            "alt": "Prompt 迭代测试闭环教学图：固定 test cases 在 v1、v2、v3 三个 Prompt 版本上重复运行，用同一 rubric 检查 format_ok、label_ok 和 reason_ok，比较 pass_rate，记录 failure note，并把下一次修改限定到一个 Prompt 层，同时保留旧样例防止 regression。",
+        },
+        "en": {
+            "title": "Prompt Iteration Loop: Fixed Tests, Evidence, One Layer",
+            "subtitle": "Do not rewrite by feeling; compare versions like an experiment.",
+            "items": [
+                ("fixed test cases", "Run the same inputs again and avoid lucky examples."),
+                ("version compare", "v1, v2, and v3 change only one Prompt layer."),
+                ("same rubric", "Check format, label, and reason with the same rules."),
+                ("pass_rate", "Compare versions by pass rate, not by feeling."),
+                ("failure note", "Record why it failed and point to the next fix."),
+                ("regression", "Keep old cases so a new Prompt cannot break old behavior."),
+            ],
+            "footer": "Prompt debugging = fixed inputs + same scoring + one-layer change + failure evidence.",
+            "alt": "Prompt iteration test loop teaching image: fixed test cases run across v1, v2, and v3 prompt versions, the same rubric checks format_ok, label_ok, and reason_ok, pass_rate compares versions, failure notes guide the next one-layer prompt change, and old cases are kept to prevent regression.",
+        },
+        "ja": {
+            "title": "Prompt 反復ループ：固定テストと証拠で一層だけ直す",
+            "subtitle": "感覚で言い換えず、実験のようにバージョンを比べる。",
+            "items": [
+                ("固定 test cases", "同じ入力を何度も走らせ、偶然の成功を避ける。"),
+                ("バージョン比較", "v1、v2、v3 では Prompt 層を一つだけ変える。"),
+                ("同じ rubric", "形式、ラベル、理由を同じ基準で確認する。"),
+                ("pass_rate", "感覚ではなく通過率でバージョンを比べる。"),
+                ("failure note", "失敗理由を記録し、次の修正へつなげる。"),
+                ("regression", "古いケースを残し、新しい Prompt が壊さないか見る。"),
+            ],
+            "footer": "Prompt デバッグ = 固定入力 + 同じ採点 + 一層変更 + 失敗証拠。",
+            "alt": "Prompt 反復テスト閉ループの教育図：固定した test cases を v1、v2、v3 の Prompt バージョンで繰り返し実行し、同じ rubric で format_ok、label_ok、reason_ok を確認し、pass_rate で比較し、failure note から次の一層変更を決め、古いケースを残して regression を防ぐ。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
