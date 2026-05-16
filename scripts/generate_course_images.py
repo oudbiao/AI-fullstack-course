@@ -24879,6 +24879,149 @@ COURSE_QA_IMAGE_JOB_META = [
 ]
 
 
+COURSE_QA_PROMPTS.update(
+    {
+        "intro-quick-experience-loop.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="30 分钟 AI 快速体验闭环",
+            visible_subtitle="输入、模型、输出、检查：先跑通一次再学术语。",
+            teaching_goal="服务 intro/quick-experience 页面。读者要先看懂：一次 AI 体验不是看一条答案，而是给输入、得到输出、改一个条件、比较变化，并留下证据。",
+            fixed_layout="画一张竖向横线笔记纸路线图，5 个连续小场景由一条青绿色箭头连接。1 无代码试一问：把“新手”改成“开发者”，比较回答。2 可选 Colab：上传或读取一张狗照片，image classifier 输出标签和分数。3 读结果：按分数排序的 label/confidence 小榜单。4 检查变化：结构、词汇、例子、限制各用一个放大镜标出。5 留笔记并进入第 1 章：Input tried、Output observed、One change、What changed。",
+            required_labels="输入 input、模型 model、输出 output、检查 inspect、改一个条件、比较两次输出、Colab 可选、label、confidence、记录证据、进入第 1 章。",
+            footer="不要只看一次输出；改一个条件、比较结果、留下证据。",
+            allowed_tokens="input, model, output, inspect, Colab, label, confidence, Input tried, Output observed, One change, What changed, AI, RAG",
+        ),
+        "intro-quick-experience-loop-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="30-Minute AI Quick Experience Loop",
+            visible_subtitle="Input, model, output, inspect: run it once before memorizing terms.",
+            teaching_goal="Serve the intro/quick-experience page. The learner should understand that an AI trial is not one answer: give input, get output, change one condition, compare the change, and keep evidence.",
+            fixed_layout="Draw a vertical lined-notebook route map. Five connected mini-scenes follow one teal arrow. 1 No-code try: change 'beginner' to 'developer' and compare answers. 2 Optional Colab: load a dog photo, image classifier returns labels and scores. 3 Read result: a ranked label/confidence mini-board. 4 Inspect change: structure, vocabulary, examples, limitation are marked with magnifiers. 5 Keep one note and enter Chapter 1: Input tried, Output observed, One change, What changed.",
+            required_labels="input, model, output, inspect, change one condition, compare two outputs, optional Colab, label, confidence, evidence note, enter Chapter 1.",
+            footer="Do not trust one output; change one condition, compare, and keep evidence.",
+            allowed_tokens="input, model, output, inspect, Colab, label, confidence, Input tried, Output observed, One change, What changed, AI, RAG",
+        ),
+        "intro-quick-experience-loop-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="30分 AI クイック体験ループ",
+            visible_subtitle="入力、モデル、出力、確認：用語より先に一度動かす。",
+            teaching_goal="intro/quick-experience ページに合わせる。AI 体験は1つの答えを見るだけではなく、入力を渡し、出力を受け取り、条件を1つ変え、変化を比較し、証拠を残す流れだと分かる図にする。",
+            fixed_layout="縦長の横線ノート紙ルート図。5つの小場面を青緑の矢印でつなぐ。1 ノーコードで試す：「初心者」を「開発者」に変えて回答を比べる。2 任意の Colab：犬の写真を読み、image classifier がラベルとスコアを出す。3 結果を読む：label/confidence の順位表。4 変化を確認：構成、語彙、例、限界を虫眼鏡で見る。5 メモを残して第1章へ：試した入力、観察した出力、変えた条件、出力の変化。",
+            required_labels="入力 input、モデル model、出力 output、確認 inspect、条件を1つ変える、2つの出力を比較、任意の Colab、label、confidence、証拠メモ、第1章へ。",
+            footer="1回の出力だけで判断せず、条件を変えて比較し、証拠を残す。",
+            allowed_tokens="input, model, output, inspect, Colab, label, confidence, AI, RAG",
+        ),
+        "ch01-cli-automation-workflow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="命令行最小自动化循环",
+            visible_subtitle="进入文件夹、运行命令、读输出、修下一步。",
+            teaching_goal="服务 1.1.1 命令行入门。读者要明白 CLI 不是黑盒，而是能复制、能保存证据、能重复运行的小循环。",
+            fixed_layout="竖向路线从上到下。1 当前文件夹：pwd 和 ls 像地图标出你在哪里。2 创建并进入练习目录：mkdir ai-cli-practice、cd ai-cli-practice。3 生成并运行脚本：hello_terminal.py 进入 python 命令，终端出现 hello from terminal。4 读输出和文件列表：输出气泡与 ls 结果并排。5 保存证据并修下一步：把完整 command + output 贴到 learning-log，然后用上箭头 rerun。",
+            required_labels="当前文件夹、pwd、ls、mkdir、cd、python hello_terminal.py、命令 command、输出 output、可重复证据、learning-log、rerun。",
+            footer="命令行的价值不是酷，而是 command 和 output 可以复现。",
+            allowed_tokens="CLI, pwd, ls, mkdir, cd, python, hello_terminal.py, command, output, learning-log, rerun",
+        ),
+        "ch01-cli-automation-workflow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Command Line Minimal Automation Loop",
+            visible_subtitle="Enter a folder, run a command, read output, fix the next step.",
+            teaching_goal="Serve the 1.1.1 command-line lesson. The learner should see that CLI is not a black box; it is a copyable, evidence-producing, repeatable loop.",
+            fixed_layout="Vertical route from top to bottom. 1 Current folder: pwd and ls act like a map. 2 Create and enter a practice folder: mkdir ai-cli-practice, cd ai-cli-practice. 3 Create and run a script: hello_terminal.py goes into the python command, and terminal prints hello from terminal. 4 Read output and file list: output bubble and ls result side by side. 5 Save evidence and fix next step: paste full command + output into learning-log, then use Up Arrow to rerun.",
+            required_labels="current folder, pwd, ls, mkdir, cd, python hello_terminal.py, command, output, repeatable evidence, learning-log, rerun.",
+            footer="The CLI is useful because command and output can be reproduced.",
+            allowed_tokens="CLI, pwd, ls, mkdir, cd, python, hello_terminal.py, command, output, learning-log, rerun",
+        ),
+        "ch01-cli-automation-workflow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="コマンドライン最小自動化ループ",
+            visible_subtitle="フォルダに入り、実行し、出力を読み、次を直す。",
+            teaching_goal="1.1.1 コマンドライン入門に合わせる。CLI は黒い箱ではなく、コピーでき、証拠を残せて、同じ手順を繰り返せる小さなループだと分かる図にする。",
+            fixed_layout="縦方向のルート。1 現在のフォルダ：pwd と ls が地図のように場所を示す。2 練習フォルダを作って入る：mkdir ai-cli-practice、cd ai-cli-practice。3 スクリプトを作って実行：hello_terminal.py が python コマンドへ入り、terminal に hello from terminal が出る。4 出力とファイル一覧を読む：出力バブルと ls 結果を並べる。5 証拠を残して次を直す：command + output を learning-log に貼り、上矢印で rerun。",
+            required_labels="現在のフォルダ、pwd、ls、mkdir、cd、python hello_terminal.py、command、output、再現できる証拠、learning-log、rerun。",
+            footer="CLI の価値は、command と output を再現できること。",
+            allowed_tokens="CLI, pwd, ls, mkdir, cd, python, hello_terminal.py, command, output, learning-log, rerun",
+        ),
+        "ch01-vscode-workspace-flow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="VS Code 是项目工作台",
+            visible_subtitle="打开整个文件夹，再选择解释器、运行、调试和提交。",
+            teaching_goal="服务 1.3.2 VS Code 配置。读者要从图中知道 VS Code 不是单个文件编辑器，而是把文件树、Python 解释器、内置终端、调试和 Git 变更放在同一工作区。",
+            fixed_layout="画一个竖向项目工作台。顶部是项目文件夹 ai-learning-lab 被 code . 打开。中间左侧文件树，右侧代码编辑区。中间横向标出 Python: Select Interpreter，把 interpreter 连接到内置 terminal。下一层显示运行 python hello.py、读取输出、设置断点。底部是 Git 变更面板：查看 diff、stage、commit。旁边放一个错误示意：只打开单个文件会找不到项目路径，修复箭头指向“打开整个文件夹”。",
+            required_labels="打开整个项目文件夹、code .、文件树、代码编辑区、Python: Select Interpreter、interpreter、内置 terminal、run、breakpoint、Git diff、stage、commit。",
+            footer="先选对项目和解释器，后面的运行错误会少很多。",
+            allowed_tokens="VS Code, code ., Python: Select Interpreter, interpreter, terminal, run, breakpoint, Git, diff, stage, commit",
+        ),
+        "ch01-vscode-workspace-flow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="VS Code Is a Project Workbench",
+            visible_subtitle="Open the whole folder, then choose interpreter, run, debug, commit.",
+            teaching_goal="Serve the 1.3.2 VS Code configuration page. The learner should see that VS Code is not a single-file editor; it brings the file tree, Python interpreter, integrated terminal, debugger, and Git changes into one workspace.",
+            fixed_layout="Draw a vertical project workbench. Top: project folder ai-learning-lab opened with code .. Middle left: file tree; middle right: code editor. Across the center, Python: Select Interpreter connects the interpreter to the integrated terminal. Next layer: run python hello.py, read output, set breakpoint. Bottom: Git changes panel with diff, stage, commit. Add one mistake corner: opening a single file causes project path problems, with a repair arrow to 'open the whole folder'.",
+            required_labels="open whole project folder, code ., file tree, code editor, Python: Select Interpreter, interpreter, integrated terminal, run, breakpoint, Git diff, stage, commit.",
+            footer="Choose the right project and interpreter first; many run errors disappear.",
+            allowed_tokens="VS Code, code ., Python: Select Interpreter, interpreter, terminal, run, breakpoint, Git, diff, stage, commit",
+        ),
+        "ch01-vscode-workspace-flow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="VS Code はプロジェクト作業台",
+            visible_subtitle="フォルダ全体を開き、interpreter、実行、debug、commit へ進む。",
+            teaching_goal="1.3.2 VS Code 設定ページに合わせる。VS Code は単一ファイルの編集器ではなく、ファイルツリー、Python interpreter、内蔵 terminal、debugger、Git 変更を同じ workspace にまとめる作業台だと分かる図にする。",
+            fixed_layout="縦長のプロジェクト作業台。上部に code . で開いた ai-learning-lab フォルダ。中央左にファイルツリー、右にコード編集エリア。中央に Python: Select Interpreter を置き、interpreter を内蔵 terminal へつなぐ。次の段に python hello.py の実行、出力確認、breakpoint。下部に Git 変更パネル：diff、stage、commit。横に失敗例：単一ファイルだけ開くとプロジェクトパスを見失う、修正矢印は「フォルダ全体を開く」へ。",
+            required_labels="フォルダ全体を開く、code .、ファイルツリー、コード編集、Python: Select Interpreter、interpreter、内蔵 terminal、run、breakpoint、Git diff、stage、commit。",
+            footer="先に正しい project と interpreter を選ぶと、実行エラーが減る。",
+            allowed_tokens="VS Code, code ., Python: Select Interpreter, interpreter, terminal, run, breakpoint, Git, diff, stage, commit",
+        ),
+        "ch01-jupyter-kernel-state.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="Jupyter：Cell 顺序和 Kernel 状态",
+            visible_subtitle="Cell 可以分段运行，但变量留在 Kernel 记忆里。",
+            teaching_goal="服务 1.3.3 Jupyter Notebook。读者要明白 Cell 运行顺序会影响结果，Kernel 保存变量状态；乱序运行时要 Restart & Run All。",
+            fixed_layout="画一个竖向 Notebook 页面。左侧是三格 Cell：Cell 1 定义 name/year，Cell 2 使用变量 print，Cell 3 画图。每个 Cell 的 Shift+Enter 箭头流入中间 Kernel memory 云朵，云朵里有 name、year、data。右侧是输出区域 Out[1]、Out[2]、plot。下方画一个红色错误现场：先运行 Cell 2 导致 NameError。修复路径：Run Cell 1 -> Run Cell 2；或者 Restart Kernel -> Run All。",
+            required_labels="Cell 1 定义变量、Cell 2 使用变量、Cell 3 画图、Shift+Enter、Kernel memory、变量状态、Out[ ]、NameError、Restart Kernel、Run All。",
+            footer="Notebook 不是从上到下自动重算；Kernel 记住你实际运行过的顺序。",
+            allowed_tokens="Jupyter, Cell, Shift+Enter, Kernel memory, Out[ ], NameError, Restart Kernel, Run All, name, year, data",
+        ),
+        "ch01-jupyter-kernel-state-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Jupyter: Cell Order and Kernel State",
+            visible_subtitle="Cells run in pieces, but variables stay in kernel memory.",
+            teaching_goal="Serve the 1.3.3 Jupyter Notebook page. The learner should understand that cell execution order changes results and the kernel keeps variable state; when order is confusing, use Restart & Run All.",
+            fixed_layout="Draw a vertical notebook page. Left side: three cells: Cell 1 defines name/year, Cell 2 uses variables with print, Cell 3 plots data. Each Shift+Enter arrow flows into a central Kernel memory cloud containing name, year, data. Right side: output areas Out[1], Out[2], plot. Bottom: red mistake scene where running Cell 2 first causes NameError. Repair path: Run Cell 1 -> Run Cell 2; or Restart Kernel -> Run All.",
+            required_labels="Cell 1 define variables, Cell 2 use variables, Cell 3 plot, Shift+Enter, Kernel memory, variable state, Out[ ], NameError, Restart Kernel, Run All.",
+            footer="A notebook does not automatically recompute top to bottom; the kernel remembers what actually ran.",
+            allowed_tokens="Jupyter, Cell, Shift+Enter, Kernel memory, Out[ ], NameError, Restart Kernel, Run All, name, year, data",
+        ),
+        "ch01-jupyter-kernel-state-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="Jupyter：Cell 順序と Kernel 状態",
+            visible_subtitle="Cell は分けて実行できるが、変数は Kernel に残る。",
+            teaching_goal="1.3.3 Jupyter Notebook ページに合わせる。Cell の実行順序で結果が変わり、Kernel が変数状態を保持すること、混乱したら Restart & Run All を使うことが分かる図にする。",
+            fixed_layout="縦長の Notebook ページ。左側に3つの Cell：Cell 1 は name/year を定義、Cell 2 は変数を print、Cell 3 は data を plot。各 Cell の Shift+Enter 矢印が中央の Kernel memory 雲へ入り、雲の中に name、year、data がある。右側に Out[1]、Out[2]、plot。下部に赤い失敗場面：先に Cell 2 を実行して NameError。修正ルート：Cell 1 を実行 -> Cell 2 を実行、または Restart Kernel -> Run All。",
+            required_labels="Cell 1 変数を定義、Cell 2 変数を使う、Cell 3 図を作る、Shift+Enter、Kernel memory、変数状態、Out[ ]、NameError、Restart Kernel、Run All。",
+            footer="Notebook は上から自動再計算しない。Kernel は実際に実行した順序を覚える。",
+            allowed_tokens="Jupyter, Cell, Shift+Enter, Kernel memory, Out[ ], NameError, Restart Kernel, Run All, name, year, data",
+        ),
+    }
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("intro-quick-experience-loop.png", "30 分钟 AI 快速体验闭环", "docs/intro/quick-experience.md", "30 分钟 AI 快速体验闭环：输入、模型、输出、检查、改变条件并记录证据。"),
+        ("intro-quick-experience-loop-en.png", "30-Minute AI Quick Experience Loop", "docs/intro/quick-experience.md", "30-minute AI quick experience loop: input, model, output, inspect, change one condition, and keep evidence."),
+        ("intro-quick-experience-loop-ja.png", "30分 AI クイック体験ループ", "docs/intro/quick-experience.md", "30分 AI クイック体験ループ：入力、モデル、出力、確認、条件変更、証拠メモ。"),
+        ("ch01-cli-automation-workflow.png", "命令行最小自动化循环", "docs/ch01-tools/ch01-terminal/01-why-cli.md", "命令行最小自动化循环：进入文件夹、运行命令、读输出、保存证据并重跑。"),
+        ("ch01-cli-automation-workflow-en.png", "Command Line Minimal Automation Loop", "docs/ch01-tools/ch01-terminal/01-why-cli.md", "Command line minimal automation loop: enter a folder, run a command, read output, save evidence, and rerun."),
+        ("ch01-cli-automation-workflow-ja.png", "コマンドライン最小自動化ループ", "docs/ch01-tools/ch01-terminal/01-why-cli.md", "コマンドライン最小自動化ループ：フォルダに入り、実行し、出力を読み、証拠を残して再実行する。"),
+        ("ch01-vscode-workspace-flow.png", "VS Code 是项目工作台", "docs/ch01-tools/ch03-devenv/02-vscode.md", "VS Code 项目工作台：打开整个文件夹、选择解释器、运行、调试并提交 Git。"),
+        ("ch01-vscode-workspace-flow-en.png", "VS Code Is a Project Workbench", "docs/ch01-tools/ch03-devenv/02-vscode.md", "VS Code project workbench: open the whole folder, choose interpreter, run, debug, and commit Git changes."),
+        ("ch01-vscode-workspace-flow-ja.png", "VS Code はプロジェクト作業台", "docs/ch01-tools/ch03-devenv/02-vscode.md", "VS Code プロジェクト作業台：フォルダ全体を開き、interpreter を選び、実行、debug、Git commit へ進む。"),
+        ("ch01-jupyter-kernel-state.png", "Jupyter：Cell 顺序和 Kernel 状态", "docs/ch01-tools/ch03-devenv/03-jupyter.md", "Jupyter Cell 和 Kernel 状态图：Cell 分段运行，变量留在 Kernel 记忆里，乱序时用 Restart 与 Run All。"),
+        ("ch01-jupyter-kernel-state-en.png", "Jupyter: Cell Order and Kernel State", "docs/ch01-tools/ch03-devenv/03-jupyter.md", "Jupyter cell order and kernel state: cells run in pieces, variables stay in kernel memory, and confusing order calls for Restart and Run All."),
+        ("ch01-jupyter-kernel-state-ja.png", "Jupyter：Cell 順序と Kernel 状態", "docs/ch01-tools/ch03-devenv/03-jupyter.md", "Jupyter Cell と Kernel 状態：Cell は分けて実行でき、変数は Kernel に残り、混乱したら Restart と Run All を使う。"),
+    ]
+)
+
+
 existing_course_qa_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
 for filename, title, suggested_page, alt in COURSE_QA_IMAGE_JOB_META:
     if filename not in existing_course_qa_filenames:
