@@ -23883,6 +23883,88 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-pretraining-engineering-production-line",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+    },
+    scene=(
+        "A Chapter 7.4.4 opening teaching image for pretraining engineering. "
+        "It must visually explain the nearby analogy: pretraining is not running a script once, but operating a long-running production line. "
+        "Data shards are the raw-material warehouse, a streaming dataloader is the conveyor belt, GPU workers are the training stations, checkpoint is the progress save point, logs and throughput meters are the control panel, and resume is restarting safely after a power outage or crash. "
+        "The learner should understand the key rule before reading the code: stable pretraining requires data position, training progress, checkpoint, and throughput signals to stay connected."
+    ),
+    chapter_context=(
+        "This image appears after the lesson explains why pretraining changes from writing a model to building a system: data is large, training time is long, and failure cost is high. "
+        "The reading guide says shards are raw material warehouses, streaming dataloader is the conveyor belt, checkpoint is progress save, and resume is restarting after a power outage. "
+        "The following runnable example shows sharding plus resume with shard_index, sample_index, and global_step, then the page explains throughput stability through tokens/s, step time, data wait time, and GPU utilization."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm horizontal lined notebook paper, using dark navy marker outlines with blue, green, orange, and red accents. "
+        "Use the same composition for zh/en/ja: one connected pretraining line from top-left to bottom-right, with numbered stations and a visible crash/resume branch. "
+        "Do not create a realistic factory render, dark dashboard, white rounded-card flowchart, flat SVG diagram, pure text poster, or local text-overlay look. "
+        "Top: large localized title and one short subtitle. "
+        "Station 1: draw a raw-text warehouse with three labeled shard crates: shard_00, shard_01, shard_02. Show doc_0...doc_8 cards inside crates so the later resume logic has a concrete source. "
+        "Station 2: draw a streaming dataloader conveyor picking the next batch from the current shard. Use a big arrow from shard crates onto the belt, and show a batch card such as doc_3 + doc_4. "
+        "Station 3: draw GPU worker stations consuming batches and updating a simple training notebook. Show global_step as a large counter, not tiny UI text. "
+        "Station 4: draw a checkpoint vault/notebook that saves exactly three recovery coordinates: shard_index, sample_index, global_step. Make this the main teaching focus. "
+        "Station 5: draw a red crash/power-outage symbol on the conveyor, then a resume lever reconnecting to the next unused doc card, not to the beginning. Show the avoided mistakes as two crossed-out mini paths: repeat old batch and skip next batch. "
+        "Station 6: draw a small throughput/logs strip with tokens/s, step time, data wait, GPU use as large gauges; connect it back to the line as a stability monitor. "
+        "Bottom rule strip: pretraining engineering asks whether the run can stay fed, resume at the right place, and keep stable throughput for a long time. "
+        "Use sparse, large, readable localized labels attached to the objects. Technical tokens may stay in English where useful: pretraining, shard, dataloader, batch, checkpoint, resume, global_step, shard_index, sample_index, tokens/s, step time, data wait, GPU. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens; do not write English explanatory sentences. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens; do not add Chinese labels or English explanatory sentences beyond required technical tokens. "
+        "Avoid pseudo text, unreadable tiny handwriting, generic robot decoration, vendor logos, random factory details, and any implication that checkpoint only saves model parameters."
+    ),
+    variants={
+        "zh": {
+            "title": "预训练工程：让长训练像产线一样稳定",
+            "subtitle": "关键不是跑一次，而是中断后能从正确位置继续。",
+            "items": [
+                ("数据分片", "shard_00、shard_01、shard_02 像原材料仓库。"),
+                ("流式读取", "dataloader 只把当前 batch 送上训练线。"),
+                ("训练进度", "global_step 记录已经走到第几步。"),
+                ("checkpoint", "同时保存 shard_index、sample_index、global_step。"),
+                ("resume", "故障后接着读下一个未用样本，不重读也不跳过。"),
+                ("吞吐监控", "tokens/s、step time、data wait、GPU 利用率一起看。"),
+            ],
+            "footer": "长训练的稳定性 = 数据位置 + 训练进度 + checkpoint + 吞吐信号一起对齐。",
+            "alt": "预训练工程生产线教学图：数据分片像原材料仓库，streaming dataloader 把 batch 送到 GPU worker，checkpoint 保存 shard_index、sample_index 和 global_step，crash 后通过 resume 从下一个未用样本继续，并用 tokens/s、step time、data wait 和 GPU 利用率监控吞吐稳定性。",
+        },
+        "en": {
+            "title": "Pretraining Engineering: Keep the Long Run Stable",
+            "subtitle": "The goal is not one successful run; it is resuming from the right place after failure.",
+            "items": [
+                ("data shards", "shard_00, shard_01, and shard_02 act like raw-material warehouses."),
+                ("streaming read", "The dataloader sends only the current batch onto the training line."),
+                ("training progress", "global_step records how far the run has moved."),
+                ("checkpoint", "Save shard_index, sample_index, and global_step together."),
+                ("resume", "After a crash, read the next unused sample: no repeats, no skips."),
+                ("throughput monitor", "Watch tokens/s, step time, data wait, and GPU utilization together."),
+            ],
+            "footer": "Stable long training = data position + training progress + checkpoint + throughput signals aligned.",
+            "alt": "Pretraining engineering production-line teaching image: data shards act like warehouses, a streaming dataloader sends batches to GPU workers, checkpoints save shard_index, sample_index, and global_step, resume continues from the next unused sample after a crash, and tokens/s, step time, data wait, and GPU utilization monitor throughput stability.",
+        },
+        "ja": {
+            "title": "事前学習エンジニアリング：長い学習を安定して回す",
+            "subtitle": "1回動くことではなく、故障後に正しい位置から再開できることが大事。",
+            "items": [
+                ("データ分割", "shard_00、shard_01、shard_02 は原材料倉庫のように働く。"),
+                ("ストリーミング読み込み", "dataloader は現在の batch だけを学習ラインへ送る。"),
+                ("学習進捗", "global_step がどこまで進んだかを記録する。"),
+                ("checkpoint", "shard_index、sample_index、global_step を一緒に保存する。"),
+                ("resume", "故障後は次の未使用サンプルから読む。重複も飛ばしも避ける。"),
+                ("スループット監視", "tokens/s、step time、data wait、GPU 利用率を一緒に見る。"),
+            ],
+            "footer": "長い学習の安定性 = データ位置 + 学習進捗 + checkpoint + throughput 信号の整合。",
+            "alt": "事前学習エンジニアリングの生産ライン教育図：データ分割は倉庫のように働き、streaming dataloader が batch を GPU worker に送り、checkpoint が shard_index、sample_index、global_step を保存し、crash 後の resume が次の未使用サンプルから再開し、tokens/s、step time、data wait、GPU 利用率でスループットの安定性を見る。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
