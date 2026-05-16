@@ -23575,6 +23575,82 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-pretraining-data-objective-engineering-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+    },
+    scene=(
+        "A Chapter 7 teaching image that zooms into the pretraining triangle from the nearby roadmap table. "
+        "It must teach why data, objective, engineering, and evaluation are different controls, and how each one changes the final model. "
+        "The learner should be able to look at the image and explain: data decides what the model can learn, objective decides what practice creates the learning signal, engineering decides whether training can finish and recover, and evaluation decides whether the measured progress is real or contaminated."
+    ),
+    chapter_context=(
+        "This image appears directly after the pretraining roadmap image and directly before a table with four questions: "
+        "data asks what text enters training and what must be filtered; objective asks what prediction task creates learning signal; "
+        "engineering asks how scale, checkpoints, logs, and failures are handled; evaluation asks what the model can do and where it fails. "
+        "The following code example creates next-token pairs AI -> learns -> from -> text."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm lined notebook paper, using dark navy marker and controlled blue, green, orange, purple, and red accents. "
+        "Use the same composition for zh/en/ja: a central notebook labeled pretrained base model, with four large numbered control panels arranged around it like a practical diagnostic board. "
+        "Panel 1 DATA: show a pile of web/book/code/forum text entering a sieve; the sieve keeps clean diverse corpus and rejects duplicates, private data, low quality spam, and contamination. Draw a ceiling gauge to teach that data quality sets the upper bound. "
+        "Panel 2 OBJECTIVE: show the same sentence token strip becoming practice cards: next-token, mask, and span. Draw a teacher pointing at the target token to teach that the objective creates the learning signal. "
+        "Panel 3 ENGINEERING: show data shards feeding a dataloader belt into GPU workers, with checkpoint, logs, and resume lever. Draw a broken run repaired by resume to teach that engineering determines whether long training completes. "
+        "Panel 4 EVALUATION: show a separated held-out eval folder, capability checklist, and contamination alarm. Draw a fake high score crossed out when eval leaks into training. "
+        "Arrows from the four panels meet at the central base model. At the bottom, draw a small cause-effect strip with four short rules. "
+        "This must feel like a teacher explaining a systems diagram at a desk, not a dark dashboard, not an SVG icon board, not a white rounded-card flowchart, not a pure text poster, and not a local text-overlay composition. "
+        "Use sparse but useful localized labels, large and readable. Technical tokens may stay in English where useful: data, objective, engineering, evaluation, next-token, mask, span, shard, dataloader, checkpoint, logs, resume, contamination, held-out eval, base model. "
+        "For Simplified Chinese, all explanatory phrases should be Chinese except those technical tokens. "
+        "For Japanese, all explanatory phrases should be natural Japanese except those technical tokens. "
+        "Avoid pseudo text, tiny unreadable handwriting, fake UI dashboards, random math, vendor logos, and unrelated AI robot decoration."
+    ),
+    variants={
+        "zh": {
+            "title": "预训练四个控制杆：数据、目标、工程、评估",
+            "subtitle": "同一个模型，四个控制点会改变它学到什么、怎么学、能否训完、结果是否可信。",
+            "items": [
+                ("数据", "进训练的文本决定能力上限；低质、重复、隐私和 contamination 要拦下。"),
+                ("目标", "next-token、mask、span 把文本变成可学习的练习。"),
+                ("工程", "shard、dataloader、checkpoint、logs、resume 让长训练不断线。"),
+                ("评估", "held-out eval 要和训练数据隔离，否则高分可能是假象。"),
+                ("因果关系", "好数据 + 合适目标 + 稳定工程 + 可信评估，才有可靠基座模型。"),
+            ],
+            "footer": "不要只问参数多不多；先问四个控制杆有没有各自做好。",
+            "alt": "预训练数据、目标、工程、评估四个控制杆教学图：数据筛选决定能力上限，目标把文本变成 next-token、mask 和 span 练习，工程用 shard、dataloader、checkpoint、logs 和 resume 支撑长训练，评估用隔离的 held-out eval 检查能力并防止 contamination。",
+        },
+        "en": {
+            "title": "Four Pretraining Controls: Data, Objective, Engineering, Evaluation",
+            "subtitle": "The same model changes when you change what it sees, how it practices, how it runs, and how you measure it.",
+            "items": [
+                ("data", "Training text sets the ceiling; filter low quality, duplicates, private data, and contamination."),
+                ("objective", "Next-token, mask, and span tasks turn text into learnable practice."),
+                ("engineering", "Shards, dataloader, checkpoints, logs, and resume keep long training alive."),
+                ("evaluation", "Held-out eval must stay separate, or a high score may be fake."),
+                ("cause effect", "Good data plus the right objective plus stable engineering plus trustworthy evaluation creates a reliable base model."),
+            ],
+            "footer": "Do not only ask how many parameters; first ask whether each control is doing its job.",
+            "alt": "Teaching image of four pretraining controls: data filtering sets the capability ceiling, objectives turn text into next-token, mask, and span practice, engineering uses shards, dataloader, checkpoints, logs, and resume for long training, and isolated held-out evaluation checks capability while preventing contamination.",
+        },
+        "ja": {
+            "title": "事前学習の4つの制御：データ、目的、工程、評価",
+            "subtitle": "同じモデルでも、何を見るか、どう練習するか、どう走らせるか、どう測るかで結果が変わる。",
+            "items": [
+                ("データ", "学習に入る text が上限を決める。低品質、重複、個人情報、contamination を除外する。"),
+                ("目的", "next-token、mask、span の課題が text を学べる練習に変える。"),
+                ("工程", "shard、dataloader、checkpoint、logs、resume で長い学習を止めずに進める。"),
+                ("評価", "held-out eval は学習データから分離する。混ざると高得点が錯覚になる。"),
+                ("因果関係", "良いデータ、適切な目的、安定した工程、信頼できる評価で基盤モデルが育つ。"),
+            ],
+            "footer": "parameter 数だけを見ない。まず4つの制御が働いているかを見る。",
+            "alt": "事前学習の4つの制御を説明する教育図：データのフィルタリングが能力の上限を決め、目的が text を next-token、mask、span の練習に変え、工程が shard、dataloader、checkpoint、logs、resume で長い学習を支え、分離した held-out eval が capability を測り contamination を防ぐ。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-modern-decoder-block-comparison",
     pages={
         "en": "docs/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block.md",
