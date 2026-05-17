@@ -7256,15 +7256,18 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
     },
     {
         "filename": "self-attention-qkv.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "Self-Attention QKV 结构图",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Self-Attention QKV 实验手算图",
         "suggested_page": "docs/ch06-deep-learning/ch05-transformer/01-attention-mechanism.md",
-        "alt": "Self-Attention QKV 结构图：Query、Key、Value 计算相关性并汇总上下文信息。",
+        "alt": "Self-Attention QKV 实验手算图：用 scores、weights 和 output 展示 QK^T、softmax 与 weighted sum。",
         "prompt": """
-一张适合 Transformer 课程的教学结构图，主题是“Self-Attention 的 QKV”。
-画面表现多个 token 生成 Query、Key、Value，Query 和 Key 计算相关性权重，再加权汇总 Value 得到上下文表示。
-风格现代、清晰、适合教学，不要出现真实品牌 logo，不要生成难以阅读的小字。
+一张适合 Transformer 课程的竖向手绘课堂讲义图，主题是“Self-Attention 的 Q/K/V 实验手算”。
+必须完全对应课程中的 attention_lab 代码输出：X = [[1,0],[0,1],[1,1]]，Q=K=V=X，d_k=2。
+画面按 3 步教学：1 score = Q @ K.T，显示 scores 矩阵 [[1,0,1],[0,1,1],[1,1,2]]；2 scaled by sqrt(d_k) 后对每行做 softmax，显示 weights 矩阵 [[0.401,0.198,0.401],[0.198,0.401,0.401],[0.248,0.248,0.503]]；3 output = weights @ V，显示 output 矩阵 [[0.802,0.599],[0.599,0.802],[0.752,0.752]]。
+画面也要用 token 小人、向量卡片和不同粗细箭头解释 Query 问、Key 匹配、Value 提供内容；第 3 个 query 的权重要特别标出 0.248、0.248、0.503，最粗箭头指向第 3 个 Value。
+不要显示额外的 scaled_scores 中间数值；如果必须画缩放，只写“/sqrt(d_k)”作为操作。不要把任何矩阵省略成更短向量。
+风格为“手绘课堂讲义 / 横线笔记纸教学图”，信息清楚但不要密集小字，不要白底圆角框堆叠，不要纯文字贴图，不要生成任何额外数值、乱码或错误语言。
 """.strip(),
     },
     {
@@ -25137,33 +25140,33 @@ COURSE_QA_PROMPTS.update(
         ),
         "self-attention-qkv.png": _course_qa_prompt(
             locale="zh",
-            visible_title="Self-Attention 的 Q/K/V 怎么工作",
-            visible_subtitle="Query 提问，Key 匹配，Value 提供内容。",
-            teaching_goal="服务 Attention Mechanism 的 Q/K/V 小节。读者要看懂 self-attention 不是普通平均，而是每个 token 用 Query 找相关 Key，再按权重读取 Value 形成上下文表示。",
-            fixed_layout="竖向横线笔记纸课堂类比图。顶部是一排 token 卡片，每张卡都拆出三张小卡：Q、K、V。中间聚焦一个查询 token，用放大镜画 Query 线连到所有 Key，旁边有相似度分数小条和 softmax 权重热力条。右侧画 Value 笔记本被不同粗细的权重线拉进一个 context vector 混合杯。底部画输出 token 表示，标注“带上下文的新表示”。必须用画面展示权重粗细，不要只画框。",
-            required_labels="token、Q / Query、K / Key、V / Value、similarity score、softmax weights、weighted sum、context vector、带上下文的新表示、不是平均读取。",
-            footer="Attention = 用 Query 找 Key，再按权重读取 Value。",
-            allowed_tokens="token, Q, Query, K, Key, V, Value, similarity score, softmax weights, weighted sum, context vector, Attention",
+            visible_title="Self-Attention 的 Q/K/V 实验手算",
+            visible_subtitle="同一组 X 同时当 Q、K、V：score → softmax → weighted sum。",
+            teaching_goal="服务 Attention Mechanism 的 Lab 1。图片必须帮助读者把代码输出和公式 Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V 对上：Q@K.T 得到 scores，按行 softmax 得到 weights，再用 weights@V 得到 output。所有矩阵数值必须来自正文输出，不得改写或发明。",
+            fixed_layout="竖向“手绘课堂讲义 / 横线笔记纸教学图”。顶部画 3 个 token 向量卡：x1=[1,0]、x2=[0,1]、x3=[1,1]，旁边写 Q=K=V=X、d_k=2。中段分成三条清晰步骤：Step 1 score = Q @ K.T，显示 scores 矩阵 [[1,0,1],[0,1,1],[1,1,2]]；Step 2 /sqrt(d_k) + row softmax，显示 weights 矩阵 [[0.401,0.198,0.401],[0.198,0.401,0.401],[0.248,0.248,0.503]]；Step 3 output = weights @ V，显示 output 矩阵 [[0.802,0.599],[0.599,0.802],[0.752,0.752]]。右侧或下方用小人、向量卡、放大镜和箭头解释 Query 问、Key 匹配、Value 提供内容；第 3 个 query 的三条权重线必须标 0.248、0.248、0.503，最粗箭头指向第 3 个 Value。不要只是矩阵海报，要让画面展示“权重读取 Value”。严禁显示额外的 scaled_scores 数值或把第一行缩放成两个数；如果画缩放，只写“/sqrt(d_k)”这个操作。",
+            required_labels="x1=[1,0]、x2=[0,1]、x3=[1,1]、Q=K=V=X、d_k=2、score = Q @ K.T、scores、/sqrt(d_k)、row softmax、weights、output = weights @ V、Query 问、Key 匹配、Value 内容、weighted sum、0.248、0.248、0.503。",
+            footer="看懂这组输出：scores 决定注意力，weights 决定从哪些 Value 读内容。",
+            allowed_tokens="token, Q, Query, K, Key, V, Value, X, d_k, score, scores, Q @ K.T, sqrt, row softmax, weights, output, weights @ V, weighted sum, Attention",
         ),
         "self-attention-qkv-en.png": _course_qa_prompt(
             locale="en",
-            visible_title="How Q/K/V Works in Self-Attention",
-            visible_subtitle="Query asks, Key matches, Value provides content.",
-            teaching_goal="Serve the Q/K/V section in Attention Mechanism. The learner should understand that self-attention is not a plain average: each token uses Query to find related Keys, then reads Values by weights to form a context-aware representation.",
-            fixed_layout="Vertical lined-notebook classroom analogy. Top: a row of token cards, each split into three mini-cards: Q, K, V. Middle: focus on one query token; draw its Query line with a magnifier connecting to all Keys. Beside it, show similarity score bars and a softmax weight heat strip. Right: Value notebooks are pulled by different-thickness weighted lines into one context vector mixing cup. Bottom: output token representation labeled context-aware representation. The picture must show different weight thicknesses, not just boxes.",
-            required_labels="token, Q / Query, K / Key, V / Value, similarity score, softmax weights, weighted sum, context vector, context-aware representation, not a plain average.",
-            footer="Attention = use Query to find Keys, then read Values by weight.",
-            allowed_tokens="token, Q, Query, K, Key, V, Value, similarity score, softmax weights, weighted sum, context vector, Attention",
+            visible_title="Self-Attention Q/K/V Lab by Hand",
+            visible_subtitle="The same X acts as Q, K, and V: score → softmax → weighted sum.",
+            teaching_goal="Serve Attention Mechanism Lab 1. The image must tie the exact code output to Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V: Q@K.T creates scores, row softmax creates weights, and weights@V creates output. Every matrix value must come from the lesson output; do not rewrite or invent values.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. Top: three token vector cards: x1=[1,0], x2=[0,1], x3=[1,1], with Q=K=V=X and d_k=2. Middle has three clear steps: Step 1 score = Q @ K.T, show scores matrix [[1,0,1],[0,1,1],[1,1,2]]; Step 2 /sqrt(d_k) + row softmax, show weights matrix [[0.401,0.198,0.401],[0.198,0.401,0.401],[0.248,0.248,0.503]]; Step 3 output = weights @ V, show output matrix [[0.802,0.599],[0.599,0.802],[0.752,0.752]]. On the side or bottom, use small token figures, vector cards, a magnifier, and arrows to explain Query asks, Key matches, Value provides content. For the third query, label three weight arrows 0.248, 0.248, 0.503, with the thickest arrow pointing to the third Value. Do not make it only a matrix poster; the drawing must show weighted reading from Values. Do not display extra scaled_scores numbers or shorten any matrix into a two-value vector; if scaling is shown, label only the operation /sqrt(d_k).",
+            required_labels="x1=[1,0], x2=[0,1], x3=[1,1], Q=K=V=X, d_k=2, score = Q @ K.T, scores, /sqrt(d_k), row softmax, weights, output = weights @ V, Query asks, Key matches, Value content, weighted sum, 0.248, 0.248, 0.503.",
+            footer="Read the output: scores decide attention; weights decide which Values are read.",
+            allowed_tokens="token, Q, Query, K, Key, V, Value, X, d_k, score, scores, Q @ K.T, sqrt, row softmax, weights, output, weights @ V, weighted sum, Attention",
         ),
         "self-attention-qkv-ja.png": _course_qa_prompt(
             locale="ja",
-            visible_title="Self-Attention の Q/K/V の働き",
-            visible_subtitle="Query が問い、Key が照合し、Value が内容を渡す。",
-            teaching_goal="Attention Mechanism の Q/K/V 節に合わせる。self-attention は単純平均ではなく、各 token が Query で関連する Key を探し、重みに従って Value を読み、文脈付き表現を作ることを理解できる図にする。",
-            fixed_layout="縦長の横線ノート紙の课堂類比図。上部に token カード列を置き、各カードから Q、K、V の3枚の小カードを出す。中央で1つの query token に注目し、Query の線を虫眼鏡付きで全 Key へつなぐ。横に similarity score の小バーと softmax weights の熱バーを置く。右側では Value のノートが太さの違う重み線で context vector の混合カップへ引き込まれる。下部に出力 token 表現を置き、「文脈付き表現」とラベルする。重みの太さを画面で示し、箱だけにしない。",
-            required_labels="token、Q / Query、K / Key、V / Value、similarity score、softmax weights、weighted sum、context vector、文脈付き表現、単純平均ではない。",
-            footer="Attention = Query で Key を探し、重みに従って Value を読む。",
-            allowed_tokens="token, Q, Query, K, Key, V, Value, similarity score, softmax weights, weighted sum, context vector, Attention",
+            visible_title="Self-Attention の Q/K/V 実験を手計算",
+            visible_subtitle="同じ X を Q、K、V として使う：score → softmax → weighted sum。",
+            teaching_goal="Attention Mechanism の Lab 1 に合わせる。図はコード出力と Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V を対応させる。Q@K.T が scores、行ごとの softmax が weights、weights@V が output になることを示す。すべての行列値は本文の出力そのままにし、変更や創作をしない。",
+            fixed_layout="縦長の「手描き授業プリント / 横線ノート紙」教学図。上部に3つの token ベクトルカード：x1=[1,0]、x2=[0,1]、x3=[1,1] を置き、Q=K=V=X、d_k=2 と書く。中央は3つの手順：Step 1 score = Q @ K.T、scores 行列 [[1,0,1],[0,1,1],[1,1,2]] を表示；Step 2 /sqrt(d_k) + row softmax、weights 行列 [[0.401,0.198,0.401],[0.198,0.401,0.401],[0.248,0.248,0.503]] を表示；Step 3 output = weights @ V、output 行列 [[0.802,0.599],[0.599,0.802],[0.752,0.752]] を表示。横または下に小さな token 人物、ベクトルカード、虫眼鏡、矢印を使い、Query が問い、Key が照合し、Value が内容を渡すことを描く。3番目の query では矢印に 0.248、0.248、0.503 と書き、最も太い矢印を3番目の Value に向ける。行列だけのポスターにせず、「重みに従って Value を読む」様子を絵で示す。scaled_scores の余分な数値は表示しない。行列を2値ベクトルに短縮しない。縮放を描く場合は /sqrt(d_k) の操作名だけにする。",
+            required_labels="x1=[1,0]、x2=[0,1]、x3=[1,1]、Q=K=V=X、d_k=2、score = Q @ K.T、scores、/sqrt(d_k)、row softmax、weights、output = weights @ V、Query が問う、Key が照合、Value の内容、weighted sum、0.248、0.248、0.503。",
+            footer="出力の読み方：scores が注意先を決め、weights が読む Value を決める。",
+            allowed_tokens="token, Q, Query, K, Key, V, Value, X, d_k, score, scores, Q @ K.T, sqrt, row softmax, weights, output, weights @ V, weighted sum, Attention",
         ),
         "transformer-block-architecture.png": _course_qa_prompt(
             locale="zh",
