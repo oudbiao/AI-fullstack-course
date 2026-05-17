@@ -26123,6 +26123,36 @@ COURSE_QA_PROMPTS.update(
             footer="ルールは万能モデルではない。既知の1種類の誤りを、説明できる改善に変える。",
             allowed_tokens="sentiment_baseline, with_negation, positive_words, negative_words, score, token, clear and practical course, messy and confusing pace, not recommended, positive, negative, pred, gold, flip, recommended +3 -> -3, negation, sarcasm, mixed sentiment",
         ),
+        "ch06-generative-checkpoint-selection-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="生成项目如何选择 checkpoint",
+            visible_subtitle="质量高还不够；多样性低会提示 collapse 风险。",
+            teaching_goal="服务 6.8.4 generative_review_dashboard.py 的 expected output。读者即使不能运行代码，也要看懂四个 checkpoint 如何从 print 输出变成选择证据：epoch 1/10 还在 review，epoch 30 同时满足 quality>=0.6 和 diversity>=0.55，所以 status=candidate 并被选中；epoch 60 quality=0.75 更高，但 diversity=0.48 低于阈值，因此仍然 review，不应只选最漂亮样本。",
+            fixed_layout="竖向横线笔记纸实验结果图，三语必须同构。顶部画老师把 generation_review print 输出整理成评审板，不要画终端截图，不要画完整代码。第1区标题“① 四个 checkpoint”。画四张小样本卡，必须准确写：epoch 001 quality=0.20 diversity=0.80 status=review；epoch 010 quality=0.45 diversity=0.72 status=review；epoch 030 quality=0.68 diversity=0.60 status=candidate；epoch 060 quality=0.75 diversity=0.48 status=review。第2区标题“② 双阈值门”。画两道门：quality >= 0.60 和 diversity >= 0.55；只有同时通过才是 candidate。第3区标题“③ 为什么选 30”。把 epoch 30 用绿色标出：quality 0.68 过线、diversity 0.60 过线、selected_epoch: 30。第4区标题“④ 为什么不选 60”。把 epoch 60 用橙色警示：quality 0.75 过线，但 diversity 0.48 低于 0.55，旁边画重复样本或模式坍塌风险，标签 mode collapse risk。底部证据包写 samples by checkpoint、failure samples、diversity notes、quality notes、final selection rule。不要写 FID、accuracy、loss 曲线、额外 epoch、额外指标或未在正文出现的分数。",
+            required_labels="① 四个 checkpoint、epoch 001、quality=0.20、diversity=0.80、status=review、epoch 010、quality=0.45、diversity=0.72、status=review、epoch 030、quality=0.68、diversity=0.60、status=candidate、epoch 060、quality=0.75、diversity=0.48、status=review、② 双阈值门、quality >= 0.60、diversity >= 0.55、③ 为什么选 30、selected_epoch: 30、④ 为什么不选 60、mode collapse risk、samples by checkpoint、failure samples、diversity notes、quality notes、final selection rule。",
+            footer="生成项目不是挑最漂亮一张，而是用质量、多样性和失败样本一起做决定。",
+            allowed_tokens="generation_review, checkpoint, epoch, quality, diversity, status, review, candidate, selected_epoch: 30, quality >= 0.60, diversity >= 0.55, mode collapse risk, samples by checkpoint, failure samples, diversity notes, quality notes, final selection rule",
+        ),
+        "ch06-generative-checkpoint-selection-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Choosing a Generative Checkpoint",
+            visible_subtitle="High quality is not enough; low diversity signals collapse risk.",
+            teaching_goal="Serve the expected output of generative_review_dashboard.py in 6.8.4. Even without running the code, learners should understand how the four checkpoint print lines become selection evidence: epochs 1 and 10 remain review, epoch 30 passes both quality>=0.6 and diversity>=0.55 so status=candidate and is selected, while epoch 60 has higher quality=0.75 but diversity=0.48 below threshold, so it stays review. A generative project must not choose only the prettiest sample.",
+            fixed_layout="Vertical lined-notebook experiment result map. The three language versions must be structurally identical. Top: a teacher turns the generation_review print output into a review board; do not draw a terminal screenshot and do not draw the full code. Section 1 title “① Four checkpoints”. Draw four sample cards and write exactly: epoch 001 quality=0.20 diversity=0.80 status=review; epoch 010 quality=0.45 diversity=0.72 status=review; epoch 030 quality=0.68 diversity=0.60 status=candidate; epoch 060 quality=0.75 diversity=0.48 status=review. Section 2 title “② Two-threshold gate”. Draw two gates: quality >= 0.60 and diversity >= 0.55; only passing both becomes candidate. Section 3 title “③ Why epoch 30 wins”. Highlight epoch 30 in green: quality 0.68 passes, diversity 0.60 passes, selected_epoch: 30. Section 4 title “④ Why not epoch 60”. Mark epoch 60 in orange: quality 0.75 passes, but diversity 0.48 is below 0.55; draw repeated samples or collapse risk, labeled mode collapse risk. Bottom evidence pack: samples by checkpoint, failure samples, diversity notes, quality notes, final selection rule. Do not write FID, accuracy, loss curves, extra epochs, extra metrics, or scores not present in the lesson.",
+            required_labels="① Four checkpoints, epoch 001, quality=0.20, diversity=0.80, status=review, epoch 010, quality=0.45, diversity=0.72, status=review, epoch 030, quality=0.68, diversity=0.60, status=candidate, epoch 060, quality=0.75, diversity=0.48, status=review, ② Two-threshold gate, quality >= 0.60, diversity >= 0.55, ③ Why epoch 30 wins, selected_epoch: 30, ④ Why not epoch 60, mode collapse risk, samples by checkpoint, failure samples, diversity notes, quality notes, final selection rule.",
+            footer="Do not pick the prettiest sample; decide with quality, diversity, and failures together.",
+            allowed_tokens="generation_review, checkpoint, epoch, quality, diversity, status, review, candidate, selected_epoch: 30, quality >= 0.60, diversity >= 0.55, mode collapse risk, samples by checkpoint, failure samples, diversity notes, quality notes, final selection rule",
+        ),
+        "ch06-generative-checkpoint-selection-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="生成 checkpoint の選び方",
+            visible_subtitle="quality が高いだけでは不十分。diversity 低下は collapse の警告。",
+            teaching_goal="6.8.4 の generative_review_dashboard.py の期待出力に合わせる。コードを実行できない読者でも、4つの checkpoint の print が選択証拠になる流れを理解できる図にする：epoch 1/10 は review、epoch 30 は quality>=0.6 と diversity>=0.55 の両方を満たすため status=candidate で選ばれる。epoch 60 は quality=0.75 と高いが diversity=0.48 が閾値より低いため review のまま。生成 project では最もきれいな sample だけを選ばない。",
+            fixed_layout="縦長の横線ノート紙の実験結果図。三語版は同じ構造にする。上部：先生が generation_review の print 出力を評価ボードへ整理する場面。terminal screenshot や完全な code は描かない。第1区タイトル「① 4つの checkpoint」。4枚の sample card を描き、正確に書く：epoch 001 quality=0.20 diversity=0.80 status=review；epoch 010 quality=0.45 diversity=0.72 status=review；epoch 030 quality=0.68 diversity=0.60 status=candidate；epoch 060 quality=0.75 diversity=0.48 status=review。第2区タイトル「② 2つの閾値ゲート」。2つの gate を描く：quality >= 0.60 と diversity >= 0.55。両方を通ったものだけ candidate。第3区タイトル「③ なぜ epoch 30 を選ぶか」。epoch 30 を緑で強調：quality 0.68 は通過、diversity 0.60 も通過、selected_epoch: 30。第4区タイトル「④ なぜ epoch 60 ではないか」。epoch 60 をオレンジの注意にする：quality 0.75 は通過、しかし diversity 0.48 は 0.55 未満。横に repeated samples または collapse risk を描き、mode collapse risk とラベル。下部の evidence pack：samples by checkpoint、failure samples、diversity notes、quality notes、final selection rule。FID、accuracy、loss 曲線、余分な epoch、余分な metric、本文にない score は書かない。",
+            required_labels="① 4つの checkpoint、epoch 001、quality=0.20、diversity=0.80、status=review、epoch 010、quality=0.45、diversity=0.72、status=review、epoch 030、quality=0.68、diversity=0.60、status=candidate、epoch 060、quality=0.75、diversity=0.48、status=review、② 2つの閾値ゲート、quality >= 0.60、diversity >= 0.55、③ なぜ epoch 30 を選ぶか、selected_epoch: 30、④ なぜ epoch 60 ではないか、mode collapse risk、samples by checkpoint、failure samples、diversity notes、quality notes、final selection rule。",
+            footer="一番きれいな sample だけで選ばない。quality、diversity、failure を一緒に読む。",
+            allowed_tokens="generation_review, checkpoint, epoch, quality, diversity, status, review, candidate, selected_epoch: 30, quality >= 0.60, diversity >= 0.55, mode collapse risk, samples by checkpoint, failure samples, diversity notes, quality notes, final selection rule",
+        ),
     }
 )
 
@@ -26157,6 +26187,9 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-sentiment-negation-result-map.png",
     "ch06-sentiment-negation-result-map-en.png",
     "ch06-sentiment-negation-result-map-ja.png",
+    "ch06-generative-checkpoint-selection-result-map.png",
+    "ch06-generative-checkpoint-selection-result-map-en.png",
+    "ch06-generative-checkpoint-selection-result-map-ja.png",
 }
 
 COURSE_QA_IMAGE_JOB_META.extend(
@@ -26170,6 +26203,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch06-sentiment-negation-result-map.png", "否定词如何修正情感预测", "docs/ch06-deep-learning/ch08-projects/02-sentiment-analysis.md", "情感分析否定词修正结果图：关键词 baseline 将 not recommended 错判 positive，negation rule 把 recommended +3 翻转为 -3 并修正为 negative。"),
         ("ch06-sentiment-negation-result-map-en.png", "How Negation Fixes Sentiment", "docs/ch06-deep-learning/ch08-projects/02-sentiment-analysis.md", "Sentiment negation result map: the keyword baseline mispredicts not recommended as positive, then the negation rule flips recommended +3 to -3 and fixes the prediction to negative."),
         ("ch06-sentiment-negation-result-map-ja.png", "否定語で感情予測を直す", "docs/ch06-deep-learning/ch08-projects/02-sentiment-analysis.md", "感情分析の否定語修正図：keyword baseline は not recommended を positive と誤判定し、negation rule が recommended +3 を -3 に反転して negative に直す。"),
+        ("ch06-generative-checkpoint-selection-result-map.png", "生成项目如何选择 checkpoint", "docs/ch06-deep-learning/ch08-projects/03-generative-practice.md", "生成项目 checkpoint 选择结果图：epoch 30 同时通过 quality 和 diversity 阈值，epoch 60 因 diversity 低而提示 mode collapse 风险。"),
+        ("ch06-generative-checkpoint-selection-result-map-en.png", "Choosing a Generative Checkpoint", "docs/ch06-deep-learning/ch08-projects/03-generative-practice.md", "Generative checkpoint selection result map: epoch 30 passes both quality and diversity thresholds, while epoch 60 has low diversity and signals mode collapse risk."),
+        ("ch06-generative-checkpoint-selection-result-map-ja.png", "生成 checkpoint の選び方", "docs/ch06-deep-learning/ch08-projects/03-generative-practice.md", "生成 checkpoint 選択結果図：epoch 30 は quality と diversity の両方の閾値を通り、epoch 60 は diversity が低く mode collapse risk を示す。"),
     ]
 )
 

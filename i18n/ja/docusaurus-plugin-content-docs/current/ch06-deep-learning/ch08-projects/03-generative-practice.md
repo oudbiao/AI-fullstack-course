@@ -83,6 +83,8 @@ epoch=060 quality=0.75 diversity=0.48 status=review
 selected_epoch: 30
 ```
 
+![生成モデル checkpoint 評価結果図](/img/course/ch06-generative-checkpoint-selection-result-map-ja.webp)
+
 なぜ epoch 60 を選ばないのでしょうか。quality は高いですが diversity が低いからです。良い生成 project は、最もきれいな 1 枚だけを選びません。
 
 ## 保存するもの

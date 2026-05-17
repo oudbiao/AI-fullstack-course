@@ -83,6 +83,8 @@ epoch=060 quality=0.75 diversity=0.48 status=review
 selected_epoch: 30
 ```
 
+![Checkpoint review result map for generative models](/img/course/ch06-generative-checkpoint-selection-result-map-en.webp)
+
 Why not pick epoch 60? Because quality is higher but diversity is lower. A good generative project does not select only the prettiest sample.
 
 ## What to Save
