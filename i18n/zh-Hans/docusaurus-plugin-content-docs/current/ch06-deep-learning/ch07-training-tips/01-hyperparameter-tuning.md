@@ -118,6 +118,8 @@ lr=10 train_loss=0.280 val_loss=0.291 val_acc=0.883
 best_lr: 1.0
 ```
 
+![学习率 sweep 输出结果图](/img/course/ch06-lr-sweep-result-map.webp)
+
 仔细读：
 
 - `0.001` 和 `0.01` 对这个预算太慢；

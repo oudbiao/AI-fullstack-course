@@ -118,6 +118,8 @@ lr=10 train_loss=0.280 val_loss=0.291 val_acc=0.883
 best_lr: 1.0
 ```
 
+![LR sweep output result map](/img/course/ch06-lr-sweep-result-map-en.webp)
+
 Read it carefully:
 
 - `0.001` and `0.01` are too slow for this budget.

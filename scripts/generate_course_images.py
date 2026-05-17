@@ -25913,6 +25913,36 @@ COURSE_QA_PROMPTS.update(
             footer="まず曲線を読む。最小後の悪化が、次の行動の根拠になる。",
             allowed_tokens="val_loss=[0.62,0.51,0.48,0.49,0.53], epoch, val_loss, lowest, min(), scanner, best_epoch=3, best_val_loss=0.48, best_epoch: 3, best_val_loss: 0.48, action: stop or reduce learning rate if validation keeps worsening, early stop, reduce learning rate",
         ),
+        "ch06-lr-sweep-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="看学习率 sweep 输出",
+            visible_subtitle="训练 loss 变小不等于最好，还是要看验证集。",
+            teaching_goal="服务 6.7.2 的 lr_sweep 结果。读者不用真正跑代码，也能从图上看出五个 learning rate 的 train loss、val loss 和 val_acc 如何变化，以及为什么 best_lr 是 1.0 而不是单纯看训练 loss 最小值。",
+            fixed_layout="竖向横线笔记纸教学图。三语版本必须共用同一个蓝图：上部是实验表格，中间是 lr -> train_loss / val_loss / val_acc 的变化曲线，右侧是 best_lr 结论卡，底部是选择原则。上部画一张手写实验表，五行必须精确写出 lr=0.001、0.01、0.1、1、10 对应的 train_loss、val_loss、val_acc。中间画三条对比：train_loss 下降曲线、val_loss 下降后回升的曲线、val_acc 由低到高再回落的曲线。突出 lr=1.0 的点是 best。右侧画输出收据，三行必须是 lr_sweep、best_lr: 1.0、choose by validation loss。底部画一个小结：0.001 和 0.01 太慢，0.1 和 1.0 表现好，10 变差；不要画不存在的额外分数，不要画白底圆角卡片堆叠。",
+            required_labels="lr_sweep、lr=0.001、lr=0.01、lr=0.1、lr=1、lr=10、train_loss=0.763、0.675、0.340、0.053、0.280、val_loss=0.733、0.663、0.373、0.072、0.291、val_acc=0.450、0.533、0.967、0.983、0.883、best_lr: 1.0、choose by validation loss、0.001、0.01、0.1、1.0、10.0。",
+            footer="先看验证集证据；训练 loss 低，不一定是更好的参数。",
+            allowed_tokens="lr_sweep, lr=0.001, lr=0.01, lr=0.1, lr=1, lr=10, train_loss=0.763, 0.675, 0.340, 0.053, 0.280, val_loss=0.733, 0.663, 0.373, 0.072, 0.291, val_acc=0.450, 0.533, 0.967, 0.983, 0.883, best_lr: 1.0, choose by validation loss, validation loss, training loss",
+        ),
+        "ch06-lr-sweep-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Reading the LR Sweep Output",
+            visible_subtitle="Lower training loss is not enough; validation still decides.",
+            teaching_goal="Serve the 6.7.2 lr_sweep result. The learner should be able to see the five learning rates, their train loss, val loss, and val_acc, and understand why best_lr is 1.0 instead of picking the smallest training loss.",
+            fixed_layout="Vertical lined-notebook teaching diagram. All three language versions must share the same blueprint: top is an experiment table, middle is lr -> train_loss / val_loss / val_acc trend lines, right is a best_lr conclusion card, and bottom is the decision rule. Top: a hand-written experiment table with five exact rows for lr=0.001, 0.01, 0.1, 1, and 10, including train_loss, val_loss, and val_acc. Middle: draw three comparison lines, one for train_loss dropping, one for val_loss dropping then rising, and one for val_acc rising then falling. Highlight the lr=1.0 point as best. Right side: an output receipt with exactly three lines: lr_sweep, best_lr: 1.0, choose by validation loss. Bottom: summary callout saying 0.001 and 0.01 are too slow, 0.1 and 1.0 work well, and 10 gets worse; do not invent extra scores and do not stack white rounded cards.",
+            required_labels="lr_sweep, lr=0.001, lr=0.01, lr=0.1, lr=1, lr=10, train_loss=0.763, 0.675, 0.340, 0.053, 0.280, val_loss=0.733, 0.663, 0.373, 0.072, 0.291, val_acc=0.450, 0.533, 0.967, 0.983, 0.883, best_lr: 1.0, choose by validation loss, 0.001, 0.01, 0.1, 1.0, 10.0.",
+            footer="Check validation evidence first; a lower training loss does not automatically mean better parameters.",
+            allowed_tokens="lr_sweep, lr=0.001, lr=0.01, lr=0.1, lr=1, lr=10, train_loss=0.763, 0.675, 0.340, 0.053, 0.280, val_loss=0.733, 0.663, 0.373, 0.072, 0.291, val_acc=0.450, 0.533, 0.967, 0.983, 0.883, best_lr: 1.0, choose by validation loss, validation loss, training loss",
+        ),
+        "ch06-lr-sweep-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="LR sweep の出力を読む",
+            visible_subtitle="train loss が下がるだけでは足りない。validation を見る。",
+            teaching_goal="6.7.2 の lr_sweep 結果に合わせる。5 つの learning rate、train loss、val loss、val_acc を見て、なぜ best_lr が 1.0 なのかを、実行せずに理解できるようにする。",
+            fixed_layout="縦長の横線ノート紙の教学図。三語版は同じ設計にする：上部は実験表、中央は lr -> train_loss / val_loss / val_acc の変化線、右は best_lr 結論カード、下部は選び方のルール。上部に手書きの実験表を描き、lr=0.001、0.01、0.1、1、10 の5行に train_loss、val_loss、val_acc を正確に書く。中央に3本の比較線を描く。train_loss は下がり続け、val_loss は下がった後に上がり、val_acc は上がった後に少し下がる。lr=1.0 の点を best として強調する。右側の output receipt は3行だけ：lr_sweep、best_lr: 1.0、choose by validation loss。下部に 0.001 と 0.01 は遅すぎる、0.1 と 1.0 は良い、10 は悪化するという要約を入れ、余計な点数や白い角丸カードの山は描かない。",
+            required_labels="lr_sweep、lr=0.001、lr=0.01、lr=0.1、lr=1、lr=10、train_loss=0.763、0.675、0.340、0.053、0.280、val_loss=0.733、0.663、0.373、0.072、0.291、val_acc=0.450、0.533、0.967、0.983、0.883、best_lr: 1.0、choose by validation loss、0.001、0.01、0.1、1.0、10.0。",
+            footer="まず validation の証拠を見る。train loss が低いだけでは、良い設定とは限らない。",
+            allowed_tokens="lr_sweep, lr=0.001, lr=0.01, lr=0.1, lr=1, lr=10, train_loss=0.763, 0.675, 0.340, 0.053, 0.280, val_loss=0.733, 0.663, 0.373, 0.072, 0.291, val_acc=0.450, 0.533, 0.967, 0.983, 0.883, best_lr: 1.0, choose by validation loss, validation loss, training loss",
+        ),
     }
 )
 
@@ -25926,6 +25956,9 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-training-tips-first-loop-result-map.png",
     "ch06-training-tips-first-loop-result-map-en.png",
     "ch06-training-tips-first-loop-result-map-ja.png",
+    "ch06-lr-sweep-result-map.png",
+    "ch06-lr-sweep-result-map-en.png",
+    "ch06-lr-sweep-result-map-ja.png",
 }
 
 COURSE_QA_IMAGE_JOB_META.extend(
@@ -25946,6 +25979,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch06-training-tips-first-loop-result-map.png", "读第一段 loss 输出", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "训练技巧首个 loss 输出图：val_loss 最低点在 epoch 3，best_epoch 和 best_val_loss 来自 min() 扫描，后续恶化提示停止或降低学习率。"),
         ("ch06-training-tips-first-loop-result-map-en.png", "Reading the First Loss Output", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "First training-tips loss output map: val_loss reaches its minimum at epoch 3, min() gives best_epoch and best_val_loss, and later worsening suggests stopping or lowering the learning rate."),
         ("ch06-training-tips-first-loop-result-map-ja.png", "最初の loss 出力を読む", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "最初の loss 出力図：val_loss の最小は epoch 3。min() が best_epoch と best_val_loss を返し、悪化が続けば停止か学習率低下を考える。"),
+        ("ch06-lr-sweep-result-map.png", "看学习率 sweep 输出", "docs/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning.md", "学习率 sweep 结果图：五个 lr 的 train_loss、val_loss、val_acc 一眼可见，best_lr=1.0 由验证集证据决定。"),
+        ("ch06-lr-sweep-result-map-en.png", "Reading the LR Sweep Output", "docs/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning.md", "LR sweep result map: the five learning rates, their train_loss, val_loss, and val_acc, make best_lr=1.0 obvious from validation evidence."),
+        ("ch06-lr-sweep-result-map-ja.png", "LR sweep の出力を読む", "docs/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning.md", "LR sweep の結果図：5 つの learning rate の train_loss、val_loss、val_acc を見て、validation の証拠から best_lr=1.0 を決める。"),
     ]
 )
 

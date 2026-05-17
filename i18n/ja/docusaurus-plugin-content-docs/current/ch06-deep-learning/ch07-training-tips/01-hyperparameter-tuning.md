@@ -118,6 +118,8 @@ lr=10 train_loss=0.280 val_loss=0.291 val_acc=0.883
 best_lr: 1.0
 ```
 
+![LR sweep 出力結果図](/img/course/ch06-lr-sweep-result-map-ja.webp)
+
 読み方：
 
 - `0.001` と `0.01` は、この budget では遅すぎます。
