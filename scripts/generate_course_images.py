@@ -23,9 +23,11 @@ import os
 import socket
 import stat
 import textwrap
+import threading
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -25125,6 +25127,142 @@ COURSE_QA_PROMPTS.update(
     }
 )
 
+COURSE_QA_PROMPTS.update(
+    {
+        "ch07-llm-overview-chapter-flow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="LLM 概览：能力、成本、产品适配",
+            visible_subtitle="先看能力栈，再决定用 Prompt、RAG、Agent 还是微调。",
+            teaching_goal="服务 7.2.1 LLM Overview Roadmap 的开篇图。读者要先理解本节不是在做单次路线推荐，而是在建立 LLM 能力栈：基础训练、上下文与 token 预算、成本和延迟、隐私边界，以及四条常见产品路线 Prompt、RAG、Agent、fine-tuning。",
+            fixed_layout="竖向横线笔记纸教学图。顶部是能力栈，不是路线门：1 数据规模 + Transformer + pretraining 打底。2 模型能力层：context window、token budget、temperature、latency/cost。3 应用路线层：Prompt、RAG、Agent、fine-tuning 四个可选工具箱，每个配一个小场景图，不要把 RAG 画成唯一答案。4 产品适配检查板：capability、context、cost、latency、privacy、route fit。5 底部学习顺序：history -> core concepts -> industry map -> API workbench。整体像老师在课堂讲义上画的学习地图，箭头清楚，标签大。",
+            required_labels="LLM、Transformer、pretraining、context window、token budget、temperature、latency、cost、privacy、Prompt、RAG、Agent、fine-tuning、capability、context、route fit、history、core concepts、industry map、API workbench。",
+            footer="先看模型能做什么、代价是什么，再选择产品路线。",
+            allowed_tokens="LLM, Transformer, pretraining, Prompt, RAG, Agent, fine-tuning, context window, token budget, temperature, latency, cost, privacy, API, capability, route fit",
+        ),
+        "ch07-llm-overview-chapter-flow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="LLM Overview: Capability, Cost, Product Fit",
+            visible_subtitle="Read the capability stack before choosing Prompt, RAG, Agent, or fine-tuning.",
+            teaching_goal="Serve the opening image for 7.2.1 LLM Overview Roadmap. The learner should see that this section is not a one-off route recommendation. It builds the LLM capability stack: training foundation, context and token budget, cost and latency, privacy boundary, and four common product routes: Prompt, RAG, Agent, and fine-tuning.",
+            fixed_layout="Vertical lined-notebook teaching map. The top is a capability stack, not decision doors: 1 foundation with data scale + Transformer + pretraining. 2 model capability layer: context window, token budget, temperature, latency/cost. 3 application route layer: Prompt, RAG, Agent, fine-tuning as four option toolboxes, each with a tiny use scene; do not make RAG the only answer. 4 product-fit checklist: capability, context, cost, latency, privacy, route fit. 5 bottom learning order: history -> core concepts -> industry map -> API workbench. Make it look like a classroom handout, with clear arrows and large labels.",
+            required_labels="LLM, Transformer, pretraining, context window, token budget, temperature, latency, cost, privacy, Prompt, RAG, Agent, fine-tuning, capability, context, route fit, history, core concepts, industry map, API workbench.",
+            footer="Know what the model can do and what it costs before choosing a product route.",
+            allowed_tokens="LLM, Transformer, pretraining, Prompt, RAG, Agent, fine-tuning, context window, token budget, temperature, latency, cost, privacy, API, capability, route fit",
+        ),
+        "ch07-llm-overview-chapter-flow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="LLM 概観：能力、コスト、プロダクト適合",
+            visible_subtitle="Prompt、RAG、Agent、fine-tuning を選ぶ前に能力スタックを見る。",
+            teaching_goal="7.2.1 LLM Overview Roadmap の冒頭図に合わせる。この節は一回の route 判定ではなく、LLM の能力スタックを理解するためのものだと伝える。基礎訓練、context と token 予算、cost と latency、privacy 境界、Prompt、RAG、Agent、fine-tuning の4つの製品ルートを見渡せる図にする。",
+            fixed_layout="縦長の横線ノート紙教材図。上部は route の扉ではなく能力スタック。1 基礎：data scale + Transformer + pretraining。2 モデル能力層：context window、token budget、temperature、latency/cost。3 アプリ経路層：Prompt、RAG、Agent、fine-tuning の4つの道具箱、それぞれ小さな利用場面を添える。RAG を唯一の答えにしない。4 プロダクト適合チェック板：capability、context、cost、latency、privacy、route fit。5 下部に学習順序：history -> core concepts -> industry map -> API workbench。授業プリント風に、矢印とラベルを大きく明確にする。",
+            required_labels="LLM、Transformer、pretraining、context window、token budget、temperature、latency、cost、privacy、Prompt、RAG、Agent、fine-tuning、capability、context、route fit、history、core concepts、industry map、API workbench。",
+            footer="モデルの能力とコストを見てから、製品ルートを選ぶ。",
+            allowed_tokens="LLM, Transformer, pretraining, Prompt, RAG, Agent, fine-tuning, context window, token budget, temperature, latency, cost, privacy, API, capability, route fit",
+        ),
+        "ch08-llmops-trace-loop.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="LLMOps Trace 复盘闭环",
+            visible_subtitle="同一个 request_id 串起检索、Prompt、模型、格式和成本。",
+            teaching_goal="服务 8.4 工程化 Roadmap 中的 LLMOps loop 和 trace readiness check。读者要看懂 trace 不是漂亮 dashboard，而是出错后能定位是哪一层的问题：检索没命中、prompt_version 变了、model_ms 太高、format_ok 失败或 cost_usd 超限。",
+            fixed_layout="竖向横线笔记纸复盘图。顶部画一次用户请求，贴上 request_id。中间是一条清楚的流水线：request -> retrieval_hits -> prompt_version -> model_ms -> format_ok -> answer。每一站都把同一个 request_id 贴在小票上。右侧画 trace log 账本，字段大而清楚：request_id、prompt_version、retrieval_hits、model_ms、format_ok、cost_usd。底部是复盘闭环：eval 发现答案差 -> 找到失败站点 -> rollback 或改 prompt/retriever -> 再跑 trace_ready=True。不要画暗色控制台，不要密集小表。",
+            required_labels="request_id、retrieval_hits、prompt_version、model_ms、format_ok、cost_usd、trace log、eval、rollback、trace_ready=True、检索、Prompt、模型、格式校验、答案。",
+            footer="Trace 的价值是把一次回答拆开，能复盘、能回滚、能改进。",
+            allowed_tokens="LLMOps, request_id, prompt_version, retrieval_hits, model_ms, format_ok, cost_usd, trace_ready, rollback, eval, Prompt",
+        ),
+        "ch08-llmops-trace-loop-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="LLMOps Trace Review Loop",
+            visible_subtitle="One request_id connects retrieval, prompt, model, format, and cost.",
+            teaching_goal="Serve the LLMOps loop and trace readiness check in the Chapter 8 engineering roadmap. The learner should see that a trace is not a pretty dashboard. It lets the team locate the failing layer after a bad answer: retrieval missed, prompt_version changed, model_ms is too high, format_ok failed, or cost_usd exceeded the limit.",
+            fixed_layout="Vertical lined-notebook review diagram. Top: one user request with a request_id sticker. Middle: a clear pipeline: request -> retrieval_hits -> prompt_version -> model_ms -> format_ok -> answer. Every station carries the same request_id on a small receipt. Right side: trace log ledger with large readable fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, cost_usd. Bottom review loop: eval finds a weak answer -> locate the failing station -> rollback or improve prompt/retriever -> rerun with trace_ready=True. Avoid dark console UI and dense tiny tables.",
+            required_labels="request_id, retrieval_hits, prompt_version, model_ms, format_ok, cost_usd, trace log, eval, rollback, trace_ready=True, retrieval, Prompt, model, format check, answer.",
+            footer="A trace splits one answer into parts so you can review, roll back, and improve.",
+            allowed_tokens="LLMOps, request_id, prompt_version, retrieval_hits, model_ms, format_ok, cost_usd, trace_ready, rollback, eval, Prompt",
+        ),
+        "ch08-llmops-trace-loop-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="LLMOps Trace 復習ループ",
+            visible_subtitle="同じ request_id が検索、Prompt、モデル、形式、コストをつなぐ。",
+            teaching_goal="第8章エンジニアリング Roadmap の LLMOps loop と trace readiness check に合わせる。trace はきれいな dashboard ではなく、悪い回答の後にどの層が原因かを見つけるためのものだと分かる図にする。検索失敗、prompt_version の変更、model_ms の増加、format_ok 失敗、cost_usd 超過を見分けられることが重要。",
+            fixed_layout="縦長の横線ノート紙の復習図。上部にユーザー request を描き、request_id のシールを貼る。中央は明確な pipeline：request -> retrieval_hits -> prompt_version -> model_ms -> format_ok -> answer。各ステーションに同じ request_id の小票を付ける。右側に trace log 台帳を置き、大きな項目で request_id、prompt_version、retrieval_hits、model_ms、format_ok、cost_usd を表示する。下部は復習ループ：eval が弱い回答を見つける -> 失敗したステーションを特定 -> rollback または prompt/retriever を改善 -> trace_ready=True で再実行。暗い console や細かい表にしない。",
+            required_labels="request_id、retrieval_hits、prompt_version、model_ms、format_ok、cost_usd、trace log、eval、rollback、trace_ready=True、検索、Prompt、モデル、形式チェック、回答。",
+            footer="Trace は一つの回答を分解し、復習、rollback、改善を可能にする。",
+            allowed_tokens="LLMOps, request_id, prompt_version, retrieval_hits, model_ms, format_ok, cost_usd, trace_ready, rollback, eval, Prompt",
+        ),
+        "ch09-production-runtime-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="Agent 生产运行闭环",
+            visible_subtitle="上线不只会回答，还要有状态、追踪、成本限制和回滚。",
+            teaching_goal="服务 9.9 Deployment Roadmap 的 Runtime Loop。读者要看懂生产环境里的 Agent runtime 如何从 API 入口接收请求，调用模型和工具，写入 state_store 与 trace_log，用 cost_limit 控制开销，并在 rollback=False 时暴露上线风险。",
+            fixed_layout="竖向横线笔记纸生产运行图。顶部是用户请求进入 api_entry。中间是 Agent runtime 工作台：planner、model call、tool call 三个小齿轮协作。左侧连接 state_store，说明记住任务状态；右侧连接 trace_log，说明记录每一步证据；上方有 cost_limit 仪表，超过会停下。底部输出 result。旁边画一条红色风险支路：rollback=False -> 不能快速回退 -> 上线前必须改成 rollback plan。下方放 readiness receipt：api_entry OK、state_store OK、trace_log OK、cost_limit OK、rollback missing。不要画复杂 dashboard。",
+            required_labels="api_entry、Agent runtime、planner、model call、tool call、state_store、trace_log、cost_limit、result、rollback=False、rollback plan、readiness、上线风险。",
+            footer="生产闭环 = 入口、运行、状态、追踪、成本上限、回滚方案。",
+            allowed_tokens="Agent, API, api_entry, runtime, planner, model call, tool call, state_store, trace_log, cost_limit, result, rollback=False, rollback plan, readiness",
+        ),
+        "ch09-production-runtime-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Agent Production Runtime Loop",
+            visible_subtitle="Production needs state, traces, cost limits, and rollback, not just answers.",
+            teaching_goal="Serve the Runtime Loop in the 9.9 Deployment Roadmap. The learner should understand how a production Agent runtime receives requests through an API entry, calls models and tools, writes to state_store and trace_log, controls spend with cost_limit, and exposes launch risk when rollback=False.",
+            fixed_layout="Vertical lined-notebook production runtime diagram. Top: user request enters api_entry. Middle: Agent runtime workbench with three cooperating gears: planner, model call, tool call. Left connection to state_store explains task state memory. Right connection to trace_log explains evidence for every step. Top has a cost_limit gauge that stops runaway spend. Bottom outputs result. Side red risk branch: rollback=False -> cannot recover quickly -> must add rollback plan before launch. Bottom readiness receipt: api_entry OK, state_store OK, trace_log OK, cost_limit OK, rollback missing. Avoid complex dashboards.",
+            required_labels="api_entry, Agent runtime, planner, model call, tool call, state_store, trace_log, cost_limit, result, rollback=False, rollback plan, readiness, launch risk.",
+            footer="Production loop = entry, runtime, state, trace, cost limit, rollback plan.",
+            allowed_tokens="Agent, API, api_entry, runtime, planner, model call, tool call, state_store, trace_log, cost_limit, result, rollback=False, rollback plan, readiness",
+        ),
+        "ch09-production-runtime-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="Agent 本番ランタイムの閉ループ",
+            visible_subtitle="本番は回答だけでなく、状態、trace、コスト上限、rollback が必要。",
+            teaching_goal="9.9 Deployment Roadmap の Runtime Loop に合わせる。本番 Agent runtime が API entry から request を受け、model と tool を呼び、state_store と trace_log に書き、cost_limit で費用を制御し、rollback=False のときにリリースリスクが出ることを理解できる図にする。",
+            fixed_layout="縦長の横線ノート紙の本番ランタイム図。上部で user request が api_entry に入る。中央に Agent runtime 作業台：planner、model call、tool call の3つの歯車が協力する。左に state_store を接続し、タスク状態を覚えると説明する。右に trace_log を接続し、各ステップの証拠を残すと説明する。上部に cost_limit メーターを置き、超過時は止まる。下部に result。横に赤いリスク枝：rollback=False -> すぐ戻せない -> 本番前に rollback plan が必要。下に readiness receipt：api_entry OK、state_store OK、trace_log OK、cost_limit OK、rollback missing。複雑な dashboard にしない。",
+            required_labels="api_entry、Agent runtime、planner、model call、tool call、state_store、trace_log、cost_limit、result、rollback=False、rollback plan、readiness、本番リスク。",
+            footer="本番閉ループ = 入口、実行、状態、trace、コスト上限、rollback plan。",
+            allowed_tokens="Agent, API, api_entry, runtime, planner, model call, tool call, state_store, trace_log, cost_limit, result, rollback=False, rollback plan, readiness",
+        ),
+        "ch09-mcp-capability-bridge.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="MCP 能力桥：Server 暴露，Client 调用",
+            visible_subtitle="工具、资源、提示词先被列出，再被模型应用安全调用。",
+            teaching_goal="服务 9.5 MCP Roadmap 的边界图。读者要看懂 MCP 不是一个神秘 Agent，而是一条能力桥：MCP Server 明确暴露 tools、resources、prompts，MCP Client 发现这些能力，模型应用再按权限调用 search_docs 并拿回 observation。",
+            fixed_layout="竖向横线笔记纸能力桥图。左侧是外部能力仓库，分三层：tools: search_docs；resources: course://ch09-agent；prompts: study_plan。中间是 MCP Server 桥墩，写 server_ready=True。桥上有权限闸门：allowed tool? can_call=True。右侧是 MCP Client + model app，先 list_tools / discover，再发出 call search_docs(query)，收到 observation，最后进入 agent decision。底部放边界提醒：模型不直接碰外部系统，先通过 MCP 合约。不要画成纯框图，加入桥、闸门、请求小票和观察结果。",
+            required_labels="MCP Server、MCP Client、tools、resources、prompts、search_docs、course://ch09-agent、study_plan、server_ready=True、can_call=True、list_tools、discover、observation、agent decision、权限闸门。",
+            footer="MCP 把外部能力变成可发现、可授权、可追踪的调用。",
+            allowed_tokens="MCP Server, MCP Client, tools, resources, prompts, search_docs, course://ch09-agent, study_plan, server_ready, can_call, list_tools, discover, observation, agent decision",
+        ),
+        "ch09-mcp-capability-bridge-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="MCP Capability Bridge: Server Exposes, Client Calls",
+            visible_subtitle="Tools, resources, and prompts are listed before the model app calls them safely.",
+            teaching_goal="Serve the boundary image in the 9.5 MCP Roadmap. The learner should understand that MCP is not a mysterious Agent. It is a capability bridge: the MCP Server explicitly exposes tools, resources, and prompts; the MCP Client discovers them; the model app calls search_docs under permission and receives an observation.",
+            fixed_layout="Vertical lined-notebook capability bridge. Left side: external capability shelf with three layers: tools: search_docs; resources: course://ch09-agent; prompts: study_plan. Middle: MCP Server bridge pillar labeled server_ready=True. On the bridge, draw a permission gate: allowed tool? can_call=True. Right side: MCP Client + model app; first list_tools / discover, then call search_docs(query), receive observation, then agent decision. Bottom boundary reminder: the model does not touch external systems directly; it goes through the MCP contract. Avoid pure boxes; include a bridge, gate, request receipt, and observation card.",
+            required_labels="MCP Server, MCP Client, tools, resources, prompts, search_docs, course://ch09-agent, study_plan, server_ready=True, can_call=True, list_tools, discover, observation, agent decision, permission gate.",
+            footer="MCP turns outside capability into discoverable, authorized, traceable calls.",
+            allowed_tokens="MCP Server, MCP Client, tools, resources, prompts, search_docs, course://ch09-agent, study_plan, server_ready, can_call, list_tools, discover, observation, agent decision",
+        ),
+        "ch09-mcp-capability-bridge-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="MCP 能力ブリッジ：Server が公開し、Client が呼ぶ",
+            visible_subtitle="tools、resources、prompts を列挙してから、model app が安全に呼び出す。",
+            teaching_goal="9.5 MCP Roadmap の境界図に合わせる。MCP は謎の Agent ではなく能力ブリッジだと分かる図にする。MCP Server が tools、resources、prompts を明示的に公開し、MCP Client が発見し、model app が権限の下で search_docs を呼び、observation を受け取る。",
+            fixed_layout="縦長の横線ノート紙の能力ブリッジ図。左側は外部能力棚で3層：tools: search_docs、resources: course://ch09-agent、prompts: study_plan。中央は MCP Server の橋脚で server_ready=True と書く。橋の上に権限ゲート：allowed tool? can_call=True。右側は MCP Client + model app。まず list_tools / discover、次に call search_docs(query)、observation を受け取り、最後に agent decision。下部に境界メモ：モデルは外部システムを直接触らず、MCP contract を通る。純粋な箱図ではなく、橋、ゲート、request 票、observation カードを入れる。",
+            required_labels="MCP Server、MCP Client、tools、resources、prompts、search_docs、course://ch09-agent、study_plan、server_ready=True、can_call=True、list_tools、discover、observation、agent decision、権限ゲート。",
+            footer="MCP は外部能力を、発見可能、認可可能、追跡可能な呼び出しに変える。",
+            allowed_tokens="MCP Server, MCP Client, tools, resources, prompts, search_docs, course://ch09-agent, study_plan, server_ready, can_call, list_tools, discover, observation, agent decision",
+        ),
+    }
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("ch08-llmops-trace-loop-en.png", "LLMOps Trace Review Loop", "docs/ch08-rag/ch04-engineering/00-roadmap.md", "LLMOps trace review loop: one request_id connects retrieval, prompt, model, format, and cost so a bad answer can be debugged."),
+        ("ch08-llmops-trace-loop-ja.png", "LLMOps Trace 復習ループ", "docs/ch08-rag/ch04-engineering/00-roadmap.md", "LLMOps trace 復習ループ：同じ request_id が検索、Prompt、モデル、形式、コストをつなぎ、悪い回答を復習できる。"),
+        ("ch09-production-runtime-map-en.png", "Agent Production Runtime Loop", "docs/ch09-agent/ch09-deployment/00-roadmap.md", "Agent production runtime loop: API entry, runtime, state store, trace log, cost limit, result, and rollback readiness."),
+        ("ch09-production-runtime-map-ja.png", "Agent 本番ランタイムの閉ループ", "docs/ch09-agent/ch09-deployment/00-roadmap.md", "Agent 本番ランタイム閉ループ：API entry、runtime、state_store、trace_log、cost_limit、result、rollback readiness。"),
+        ("ch09-mcp-capability-bridge-en.png", "MCP Capability Bridge: Server Exposes, Client Calls", "docs/ch09-agent/ch05-mcp/00-roadmap.md", "MCP capability bridge: server exposes tools, resources, and prompts; client discovers and calls search_docs through the MCP contract."),
+        ("ch09-mcp-capability-bridge-ja.png", "MCP 能力ブリッジ：Server が公開し、Client が呼ぶ", "docs/ch09-agent/ch05-mcp/00-roadmap.md", "MCP 能力ブリッジ：Server が tools、resources、prompts を公開し、Client が search_docs を MCP contract 経由で呼ぶ。"),
+    ]
+)
+
 COURSE_QA_IMAGE_JOB_META.extend(
     [
         ("ch02-input-output-flow.png", "程序的最小闭环：输入、处理、输出", "docs/ch02-python/ch01-basics/04-io.md", "程序的最小闭环：input 返回字符串，经过类型转换和计算，再用 f-string 与 print 输出。"),
@@ -31930,6 +32068,23 @@ Make the relationship between visual action and teaching text obvious. Text must
 convert_remaining_overlays_to_generated_images()
 
 
+def apply_final_prompt_overrides() -> None:
+    """Apply prompt maps after all late job appenders have run."""
+    for job in IMAGE_JOBS:
+        if job.get("overlay"):
+            continue
+        filename = str(job.get("filename"))
+        course_qa_prompt = COURSE_QA_PROMPTS.get(filename)
+        if course_qa_prompt:
+            job["prompt"] = course_qa_prompt
+        override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(filename)
+        if override_prompt:
+            job["prompt"] = override_prompt
+
+
+apply_final_prompt_overrides()
+
+
 HOMEPAGE_HISTORY_COMIC_FILENAMES = {
     f"homepage-ai-history-comic-{index:02d}-{slug}.png"
     for index, slug in [
@@ -31971,6 +32126,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--continue-on-error", action="store_true", help="Keep generating remaining images and write an error report.")
     parser.add_argument("--ensure-placeholders", action="store_true", help="Create local preview PNG files for all planned images.")
     parser.add_argument("--http-fallback", action="store_true", help="Use the built-in HTTP client instead of the openai Python package.")
+    parser.add_argument(
+        "--parallel-per-key",
+        action="store_true",
+        help="Generate concurrently using OPENAI_API_KEY, OPENAI_API_KEY_2, OPENAI_API_KEY_3, ... from the environment.",
+    )
     return parser.parse_args()
 
 
@@ -32560,6 +32720,15 @@ def write_generation_errors(report_dir: Path, errors: list[dict[str, str]]) -> N
     )
 
 
+def available_api_keys() -> list[str]:
+    keys: list[str] = []
+    for name in ["OPENAI_API_KEY", *[f"OPENAI_API_KEY_{index}" for index in range(2, 11)]]:
+        value = os.environ.get(name)
+        if value and value not in keys:
+            keys.append(value)
+    return keys
+
+
 def generate_image_with_http(
     api_key: str,
     base_url: str,
@@ -32628,11 +32797,68 @@ def generate_image_with_http(
     raise RuntimeError("Image API response did not include data[0].b64_json.")
 
 
+def generate_one_job(
+    *,
+    job: dict[str, Any],
+    output_dir: Path,
+    api_key: str,
+    args: argparse.Namespace,
+    client: Any | None = None,
+    generated_backgrounds: dict[str, bytes] | None = None,
+    background_lock: threading.Lock | None = None,
+) -> None:
+    output_path = output_dir / job["filename"]
+    if output_path.exists() and output_path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n") and not args.overwrite:
+        print(f"Skipping existing valid PNG: {job['filename']} (use --overwrite to regenerate)", flush=True)
+        return
+
+    print(f"Generating {job['filename']}...", flush=True)
+    background_key = str(job.get("background_key") or "")
+    if background_key and generated_backgrounds is not None and background_lock is not None:
+        with background_lock:
+            cached_image = generated_backgrounds.get(background_key)
+        if cached_image is not None:
+            output_path.write_bytes(cached_image)
+            apply_text_overlay(output_path, job)
+            set_user_readable_permissions(output_path)
+            print(f"Saved {output_path}", flush=True)
+            return
+
+    if client:
+        result = client.images.generate(
+            model=args.model,
+            prompt=job["prompt"],
+            **({} if job.get("size") == "default" else {"size": job["size"]}),
+            **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
+        )
+        image_base64 = result.data[0].b64_json
+        image_bytes = base64.b64decode(image_base64)
+    else:
+        image_bytes = generate_image_with_http(
+            api_key=api_key,
+            base_url=args.base_url,
+            model=args.model,
+            job=job,
+            retries=args.retries,
+            request_timeout=args.request_timeout,
+        )
+
+    if background_key and generated_backgrounds is not None and background_lock is not None:
+        with background_lock:
+            generated_backgrounds[background_key] = image_bytes
+    output_path.write_bytes(image_bytes)
+    apply_text_overlay(output_path, job)
+    set_user_readable_permissions(output_path)
+    print(f"Saved {output_path}", flush=True)
+
+
 def main() -> None:
     args = parse_args()
     output_dir = Path(args.output_dir)
     report_dir = Path(args.report_dir)
     jobs = selected_jobs(args.only)
+    api_keys = available_api_keys()
+    worker_count = min(len(api_keys), len(jobs)) if args.parallel_per_key else 1
 
     print(f"model: {args.model}", flush=True)
     print(f"base_url: {args.base_url}", flush=True)
@@ -32641,6 +32867,8 @@ def main() -> None:
     print(f"request_timeout: {args.request_timeout}s", flush=True)
     print(f"retries: {args.retries}", flush=True)
     print(f"jobs: {len(jobs)}", flush=True)
+    print(f"api_keys: {len(api_keys)}", flush=True)
+    print(f"workers: {worker_count}", flush=True)
 
     if args.ensure_placeholders:
         ensure_selected_placeholders(output_dir, jobs, overwrite=args.overwrite)
@@ -32653,14 +32881,14 @@ def main() -> None:
             print(f"DRY RUN: {job['filename']} ({job['size']}, {job['quality']}) - {job['title']}", flush=True)
         return
 
-    if not os.environ.get("OPENAI_API_KEY"):
+    if not api_keys:
         raise SystemExit("OPENAI_API_KEY is not set. Set it in your local shell before generating images.")
 
     ensure_output_dir(output_dir)
     write_manifest(report_dir, jobs)
 
     client = None
-    if args.http_fallback:
+    if args.http_fallback or worker_count > 1:
         print("Using the built-in HTTP fallback.", flush=True)
     else:
         try:
@@ -32668,52 +32896,56 @@ def main() -> None:
         except ImportError as exc:
             print("The Python package `openai` is not installed; using the built-in HTTP fallback.", flush=True)
         else:
-            client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, timeout=args.request_timeout)
+            client = OpenAI(api_key=api_keys[0], base_url=args.base_url, timeout=args.request_timeout)
 
     errors: list[dict[str, str]] = []
     generated_backgrounds: dict[str, bytes] = {}
-    for job in jobs:
-        output_path = output_dir / job["filename"]
-        if output_path.exists() and output_path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n") and not args.overwrite:
-            print(f"Skipping existing valid PNG: {job['filename']} (use --overwrite to regenerate)", flush=True)
-            continue
-        print(f"Generating {job['filename']}...", flush=True)
-        try:
-            background_key = str(job.get("background_key") or "")
-            if background_key and background_key in generated_backgrounds:
-                output_path.write_bytes(generated_backgrounds[background_key])
-            else:
-                if client:
-                    result = client.images.generate(
-                        model=args.model,
-                        prompt=job["prompt"],
-                        **({} if job.get("size") == "default" else {"size": job["size"]}),
-                        **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
-                    )
-                    image_base64 = result.data[0].b64_json
-                    image_bytes = base64.b64decode(image_base64)
-                else:
-                    image_bytes = generate_image_with_http(
-                        api_key=os.environ["OPENAI_API_KEY"],
-                        base_url=args.base_url,
-                        model=args.model,
-                        job=job,
-                        retries=args.retries,
-                        request_timeout=args.request_timeout,
-                    )
-                if background_key:
-                    generated_backgrounds[background_key] = image_bytes
-                output_path.write_bytes(image_bytes)
-            apply_text_overlay(output_path, job)
-            set_user_readable_permissions(output_path)
-            print(f"Saved {output_path}", flush=True)
-        except Exception as exc:
-            errors.append({"filename": job["filename"], "error": str(exc)})
-            write_generation_errors(report_dir, errors)
-            if args.continue_on_error:
-                print(f"Failed {job['filename']}: {exc}", flush=True)
-                continue
-            raise
+    background_lock = threading.Lock()
+    if worker_count > 1:
+        with ThreadPoolExecutor(max_workers=worker_count) as executor:
+            future_to_job = {
+                executor.submit(
+                    generate_one_job,
+                    job=job,
+                    output_dir=output_dir,
+                    api_key=api_keys[index % len(api_keys)],
+                    args=args,
+                    client=None,
+                    generated_backgrounds=generated_backgrounds,
+                    background_lock=background_lock,
+                ): job
+                for index, job in enumerate(jobs)
+            }
+            for future in as_completed(future_to_job):
+                job = future_to_job[future]
+                try:
+                    future.result()
+                except Exception as exc:
+                    errors.append({"filename": job["filename"], "error": str(exc)})
+                    write_generation_errors(report_dir, errors)
+                    if args.continue_on_error:
+                        print(f"Failed {job['filename']}: {exc}", flush=True)
+                        continue
+                    raise
+    else:
+        for job in jobs:
+            try:
+                generate_one_job(
+                    job=job,
+                    output_dir=output_dir,
+                    api_key=api_keys[0],
+                    args=args,
+                    client=client,
+                    generated_backgrounds=generated_backgrounds,
+                    background_lock=background_lock,
+                )
+            except Exception as exc:
+                errors.append({"filename": job["filename"], "error": str(exc)})
+                write_generation_errors(report_dir, errors)
+                if args.continue_on_error:
+                    print(f"Failed {job['filename']}: {exc}", flush=True)
+                    continue
+                raise
 
     write_generation_errors(report_dir, errors)
     if errors:
