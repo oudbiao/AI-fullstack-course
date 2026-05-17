@@ -50,6 +50,8 @@ value_range: -0.863 0.695
 
 This is not a real generator yet. It shows the core shape idea: small latent vectors can be decoded into larger outputs.
 
+![Tiny decoder run result map](/img/course/ch06-generative-tiny-decoder-result-map-en.webp)
+
 ## Learn in This Order
 
 | Order | Read | What to focus on |

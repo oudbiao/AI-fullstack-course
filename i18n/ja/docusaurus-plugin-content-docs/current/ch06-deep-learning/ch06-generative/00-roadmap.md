@@ -50,6 +50,8 @@ value_range: -0.863 0.695
 
 これはまだ本物の生成器ではありません。小さな latent vector をより大きな出力へデコードできる、という形の直感を見ています。
 
+![小さな decoder の実行結果図](/img/course/ch06-generative-tiny-decoder-result-map-ja.webp)
+
 ## この順番で学ぶ
 
 | 順番 | 読む | まず見ること |

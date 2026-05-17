@@ -25606,6 +25606,49 @@ COURSE_QA_IMAGE_JOB_META.extend(
     ]
 )
 
+COURSE_QA_PROMPTS.update(
+    {
+        "ch06-generative-tiny-decoder-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="极小 decoder 运行结果",
+            visible_subtitle="latent 从 (2,4) 进入 Linear(4,6)，输出变成 (2,6)。",
+            teaching_goal="服务 6.6.1 生成模型路线图的 generative_first_loop.py。读者要看懂 print 输出不是孤立数字：torch.manual_seed(0) 固定一次输入，latent 有 2 行、每行 4 个隐藏特征；Linear(4,6) 把每行映射成 6 个输出特征；Tanh 把数值压到接近 -1 到 1，所以这次 value_range 是 -0.863 到 0.695。图必须强调这还不是真正生成器，只是在演示生成模型的最小形状直觉。不能画真实图像生成、GAN、VAE、训练 loss 或不存在的样本。",
+            fixed_layout="竖向横线笔记纸教学图，像老师手绘运行结果讲义。顶部是标题和副标题。第一段画输入形状格子：2 个 latent rows，每行 4 个蓝色空特征格，只表示 shape，不在格子里写任何样本数值；旁边写 latent_shape: (2, 4) 和 torch.manual_seed(0)。第二段画 decoder 小机器，内部只有两站：Linear(4,6) 扩展特征数，Tanh 把输出压到 -1..1；箭头要清楚显示每一行独立通过同一个 decoder。第三段画输出形状格子：2 行、每行 6 个绿色/橙色空输出格，只表示 shape，不在格子里写任何样本数值；旁边写 generated_shape: (2, 6)。第四段画一个水平 value meter，从 -1 到 1，中间标出本次真实范围 -0.863 到 0.695。底部放一张结果小票，小票标题可写 print 输出，但小票内容必须只包含下面三行，不能多也不能少：latent_shape: (2, 4)；generated_shape: (2, 6)；value_range: -0.863 0.695。torch.manual_seed(0) 只能放在第一段输入附近，绝对不要放进结果小票。最底部写 takeaway，强调小 latent code 被 decoder 映射成更大的 generated output，后续仍要 review。绝对不要增加输入矩阵数值、输出矩阵数值或任何别的样本数值；不要写满代码、不要画 terminal 截图。",
+            required_labels="torch.manual_seed(0)、latent rows=2、features=4、latent_shape: (2, 4)、decoder、Linear(4,6)、Tanh、-1..1、generated rows=2、features=6、generated_shape: (2, 6)、value_range: -0.863 0.695、不是完整生成器、review output。",
+            footer="先理解形状：小 latent code 经过 decoder，变成更大的 generated output。",
+            allowed_tokens="torch.manual_seed(0), latent, decoder, Linear(4,6), Tanh, latent_shape, generated_shape, value_range, (2, 4), (2, 6), -0.863, 0.695, -1, 1, generated output, review",
+        ),
+        "ch06-generative-tiny-decoder-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Tiny Decoder Run Result",
+            visible_subtitle="latent enters Linear(4,6) as (2,4), then output becomes (2,6).",
+            teaching_goal="Serve the 6.6.1 generative_first_loop.py example. The learner should see that the print output is evidence, not isolated numbers: torch.manual_seed(0) fixes one input; latent has 2 rows and 4 hidden features per row; Linear(4,6) maps each row to 6 output features; Tanh squashes values near -1 to 1, so this run reports value_range -0.863 to 0.695. The image must stress that this is not a real generator yet; it is the smallest shape intuition for generation. Do not draw real image generation, GAN, VAE, training loss, or invented samples.",
+            fixed_layout="Vertical lined-notebook teaching diagram, like a hand-drawn run-result sheet. Top: title and subtitle. Band 1 shows input shape cells: 2 latent rows, each with 4 blue empty feature cells, used only to show shape; do not write any sample values inside the cells. Label it latent_shape: (2, 4) and torch.manual_seed(0). Band 2 shows a decoder machine with only two stations: Linear(4,6) expands feature count and Tanh squashes output into -1..1; arrows must show each row passes through the same decoder independently. Band 3 shows output shape cells: 2 rows, each with 6 green/orange empty output cells, used only to show shape; do not write any sample values inside the cells. Label it generated_shape: (2, 6). Band 4 shows a horizontal value meter from -1 to 1, with this run's real range marked -0.863 to 0.695. Bottom includes a result receipt. The receipt may have the label print output, but the receipt body must contain exactly these three lines and no other line: latent_shape: (2, 4); generated_shape: (2, 6); value_range: -0.863 0.695. Put torch.manual_seed(0) only near the input band, never inside the result receipt. The final takeaway says that a small latent code is mapped by the decoder into a larger generated output, then later needs review. Absolutely do not add input matrix values, output matrix values, or any invented sample numbers; do not paste full code, and do not draw a terminal screenshot.",
+            required_labels="torch.manual_seed(0), latent rows=2, features=4, latent_shape: (2, 4), decoder, Linear(4,6), Tanh, -1..1, generated rows=2, features=6, generated_shape: (2, 6), value_range: -0.863 0.695, not a full generator, review output.",
+            footer="Read the shape first: a small latent code becomes a larger generated output through the decoder.",
+            allowed_tokens="torch.manual_seed(0), latent, decoder, Linear(4,6), Tanh, latent_shape, generated_shape, value_range, (2, 4), (2, 6), -0.863, 0.695, -1, 1, generated output, review",
+        ),
+        "ch06-generative-tiny-decoder-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="小さな decoder の実行結果",
+            visible_subtitle="latent は (2,4) で Linear(4,6) に入り、出力は (2,6) になる。",
+            teaching_goal="6.6.1 の generative_first_loop.py に合わせる。print 出力は孤立した数字ではなく実行証拠だと分かる図にする：torch.manual_seed(0) で入力を固定し、latent は 2 行で各行 4 個の隠れ特徴を持つ。Linear(4,6) は各行を 6 個の出力特徴へ写し、Tanh は値を -1 から 1 付近へ圧縮する。そのため今回の value_range は -0.863 から 0.695。この図は本物の生成器ではなく、生成モデルの最小の shape 直感を示す。実画像生成、GAN、VAE、training loss、存在しない sample は描かない。",
+            fixed_layout="縦長の横線ノート紙の教学図。先生が手描きした実行結果シートのようにする。上部にタイトルと副題。第1段は入力 shape セル：2つの latent rows、各行に青い空の特徴セルを4つ、shape だけを示す。セルの中にはサンプル数値を絶対に書かない。横に latent_shape: (2, 4) と torch.manual_seed(0)。第2段は decoder 小機械で、内部は2駅だけ：Linear(4,6) が特徴数を広げ、Tanh が出力を -1..1 に圧縮する。各行が同じ decoder を独立に通る矢印を明確に描く。第3段は出力 shape セル：2行、各行6個の緑/橙の空出力セル、shape だけを示す。セルの中にはサンプル数値を書かない。横に generated_shape: (2, 6)。第4段は -1 から 1 の横向き value meter で、今回の実際の範囲 -0.863 から 0.695 を示す。下部に結果レシートを置く。レシート見出しは print 出力でよいが、レシート本文は次の3行だけにする。余計な行を入れない：latent_shape: (2, 4)；generated_shape: (2, 6)；value_range: -0.863 0.695。torch.manual_seed(0) は第1段の入力近くにだけ置き、結果レシートには絶対に入れない。最下部の takeaway は、小さな latent code が decoder で大きな generated output になり、後で review が必要という点。入力行列値、出力行列値、存在しないサンプル数値を足さない。全文コードを貼らない。terminal screenshot にしない。",
+            required_labels="torch.manual_seed(0)、latent rows=2、features=4、latent_shape: (2, 4)、decoder、Linear(4,6)、Tanh、-1..1、generated rows=2、features=6、generated_shape: (2, 6)、value_range: -0.863 0.695、本物の生成器ではない、review output。",
+            footer="まず shape を読む：小さな latent code が decoder を通り、大きな generated output になる。",
+            allowed_tokens="torch.manual_seed(0), latent, decoder, Linear(4,6), Tanh, latent_shape, generated_shape, value_range, (2, 4), (2, 6), -0.863, 0.695, -1, 1, generated output, review",
+        ),
+    }
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("ch06-generative-tiny-decoder-result-map.png", "极小 decoder 运行结果", "docs/ch06-deep-learning/ch06-generative/00-roadmap.md", "极小 decoder 运行结果图：latent (2,4) 经过 Linear(4,6) 和 Tanh 变成 generated (2,6)，并显示 value_range。"),
+        ("ch06-generative-tiny-decoder-result-map-en.png", "Tiny Decoder Run Result", "docs/ch06-deep-learning/ch06-generative/00-roadmap.md", "Tiny decoder run result map: latent (2,4) passes through Linear(4,6) and Tanh to become generated (2,6), with value_range shown."),
+        ("ch06-generative-tiny-decoder-result-map-ja.png", "小さな decoder の実行結果", "docs/ch06-deep-learning/ch06-generative/00-roadmap.md", "小さな decoder 実行結果図：latent (2,4) が Linear(4,6) と Tanh を通り generated (2,6) になり、value_range を示す。"),
+    ]
+)
+
 COURSE_QA_IMAGE_JOB_META.extend(
     [
         ("ch02-input-output-flow.png", "程序的最小闭环：输入、处理、输出", "docs/ch02-python/ch01-basics/04-io.md", "程序的最小闭环：input 返回字符串，经过类型转换和计算，再用 f-string 与 print 输出。"),

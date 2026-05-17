@@ -50,6 +50,8 @@ value_range: -0.863 0.695
 
 这还不是真正的生成器，只是展示核心形状直觉：小的 latent vector 可以被解码成更大的输出。
 
+![极小 decoder 运行结果图](/img/course/ch06-generative-tiny-decoder-result-map.webp)
+
 ## 按这个顺序学
 
 | 顺序 | 阅读 | 先抓住什么 |
