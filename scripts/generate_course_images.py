@@ -33181,7 +33181,116 @@ CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS: dict[str, str] = {
     ),
 }
 
+CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS = {
+    "ch07-llm-call-workbench-validation-trace.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="LLM 调用工作台：校验与重试",
+        visible_subtitle="同一段请求先预算，再校验，失败后按原因重试。",
+        teaching_goal=(
+            "服务第 7 章 7.2.4 的 llm_call_workbench.py。图片必须解释真实代码输出："
+            "payload 如何控制模型调用，第一次假响应缺少 summary 导致 schema validation 失败，"
+            "第二次通过更强的必填字段说明和更低 temperature 修复。只能画 AI history / Turing Test 这个课程例子，"
+            "不要画战争史、七七事变、日本侵华、世界大战或任何无关历史事件。"
+        ),
+        fixed_layout=(
+            "手绘横线课堂讲义，竖向 5 个教学区。1 顶部画一张预算尺：CONTEXT_LIMIT=4096，"
+            "used input≈36，max_output_tokens=600，remaining=3460，model=gpt-5.5。"
+            "2 左侧 payload 夹板：model、instructions、input、text.format=json_object、max_output_tokens、temperature=0.3。"
+            "3 中间 Attempt 1 输出卡：period: 1950s；key_event: Turing Test；summary 槽位空着并标注 缺失；"
+            "validator 红章写 validation: era_0_missing_['summary']。4 Retry patch 卡：写 Do not omit any required field. "
+            "和 temperature=0.1，箭头说明“只修复失败原因”。5 Attempt 2 结果卡：validation=valid，first era 只写这三行："
+            "period: 1936-1950；key_event: Turing machine and Turing Test；summary: AI became a testable question. "
+            "底部 4 个小图标依次是 parse JSON、check schema、diagnose cause、retry with change。"
+        ),
+        required_labels=(
+            "预算、payload、Attempt 1、summary 缺失、validation: era_0_missing_['summary']、Retry patch、"
+            "Do not omit any required field.、temperature=0.1、Attempt 2、validation=valid、period: 1936-1950、"
+            "key_event: Turing machine and Turing Test、summary: AI became a testable question.、parse JSON、check schema、"
+            "diagnose cause、retry with change。禁止出现：七七事变、日本、战争、World War、Japan、war。"
+        ),
+        footer="漂亮回答不是工作流；能 parse、validate、按原因 retry 才可靠。",
+        allowed_tokens=(
+            "LLM, Prompt, Token, payload, model, instructions, input, text.format=json_object, "
+            "max_output_tokens, temperature, CONTEXT_LIMIT, used input, remaining, gpt-5.5, Attempt 1, "
+            "Attempt 2, period, key_event, summary, Turing Test, Turing machine and Turing Test, "
+            "AI became a testable question., validation, era_0_missing_['summary'], Do not omit any required field., "
+            "parse JSON, check schema, diagnose cause, retry with change"
+        ),
+    ),
+    "ch07-llm-call-workbench-validation-trace-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="LLM Call Workbench: Validate and Retry",
+        visible_subtitle="One request is budgeted, checked, then retried for a specific cause.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.2.4 and the real llm_call_workbench.py output. The image must explain how "
+            "payload controls a model call, why the first fake response fails schema validation because summary is missing, "
+            "and how the retry fixes that cause with stricter required-field instructions and lower temperature. Only draw the "
+            "AI history / Turing Test course example; do not draw war history, Japan, World War, or unrelated timeline events."
+        ),
+        fixed_layout=(
+            "Hand-drawn lined classroom handout, vertical with 5 teaching zones. 1 Top budget ruler: CONTEXT_LIMIT=4096, "
+            "used input≈36, max_output_tokens=600, remaining=3460, model=gpt-5.5. "
+            "2 Left payload clipboard: model, instructions, input, text.format=json_object, max_output_tokens, temperature=0.3. "
+            "3 Middle Attempt 1 output card: period: 1950s; key_event: Turing Test; summary slot visibly empty and labeled MISSING; "
+            "validator red stamp says validation: era_0_missing_['summary']. 4 Retry patch card: Do not omit any required field. "
+            "and temperature=0.1, with an arrow saying fix only the failed cause. 5 Attempt 2 result card: validation=valid, "
+            "first era with exactly these three lines: period: 1936-1950; key_event: Turing machine and Turing Test; "
+            "summary: AI became a testable question. Bottom four icons: parse JSON, check schema, diagnose cause, retry with change."
+        ),
+        required_labels=(
+            "budget, payload, Attempt 1, summary MISSING, validation: era_0_missing_['summary'], Retry patch, "
+            "Do not omit any required field., temperature=0.1, Attempt 2, validation=valid, period: 1936-1950, "
+            "key_event: Turing machine and Turing Test, summary: AI became a testable question., parse JSON, check schema, "
+            "diagnose cause, retry with change. Forbidden text or imagery: Japan, war, World War, invasion, unrelated history events."
+        ),
+        footer="A pretty answer is not a workflow; parse, validate, and retry for the cause.",
+        allowed_tokens=(
+            "LLM, Prompt, Token, payload, model, instructions, input, text.format=json_object, "
+            "max_output_tokens, temperature, CONTEXT_LIMIT, used input, remaining, gpt-5.5, Attempt 1, "
+            "Attempt 2, period, key_event, summary, Turing Test, Turing machine and Turing Test, "
+            "AI became a testable question., validation, era_0_missing_['summary'], Do not omit any required field., "
+            "parse JSON, check schema, diagnose cause, retry with change"
+        ),
+    ),
+    "ch07-llm-call-workbench-validation-trace-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="LLM 呼び出しワークベンチ：検証と retry",
+        visible_subtitle="同じ request を予算化し、検証し、原因に合わせて retry する。",
+        teaching_goal=(
+            "第 7 章 7.2.4 の llm_call_workbench.py に使う。画像は実際のコード出力を説明する："
+            "payload が呼び出しを制御し、1 回目の fake response は summary が欠けて schema validation に失敗し、"
+            "2 回目は必須フィールド指示を強め temperature を下げて修復する。AI history / Turing Test の教材例だけを描く。"
+            "戦争史、日本、世界大戦、無関係な timeline event は描かない。"
+        ),
+        fixed_layout=(
+            "手描きの横線ノート教材、縦 5 つの教学ゾーン。1 上部の予算定規：CONTEXT_LIMIT=4096、"
+            "used input≈36、max_output_tokens=600、remaining=3460、model=gpt-5.5。"
+            "2 左側の payload クリップボード：model、instructions、input、text.format=json_object、max_output_tokens、temperature=0.3。"
+            "3 中央の Attempt 1 出力カード：period: 1950s；key_event: Turing Test；summary 欄を空にして 欠落 と示す；"
+            "validator の赤い判子に validation: era_0_missing_['summary']。4 Retry patch カード：Do not omit any required field. "
+            "と temperature=0.1、矢印で「失敗原因だけを直す」。5 Attempt 2 結果カード：validation=valid、first era は次の 3 行だけ："
+            "period: 1936-1950；key_event: Turing machine and Turing Test；summary: AI became a testable question. "
+            "下部の 4 アイコンは parse JSON、check schema、diagnose cause、retry with change。"
+        ),
+        required_labels=(
+            "予算、payload、Attempt 1、summary 欠落、validation: era_0_missing_['summary']、Retry patch、"
+            "Do not omit any required field.、temperature=0.1、Attempt 2、validation=valid、period: 1936-1950、"
+            "key_event: Turing machine and Turing Test、summary: AI became a testable question.、parse JSON、check schema、"
+            "diagnose cause、retry with change。禁止：日本、戦争、World War、Japan、war、無関係な歴史イベント。"
+        ),
+        footer="きれいな回答だけでは workflow ではない。parse、validate、原因別 retry で信頼できる。",
+        allowed_tokens=(
+            "LLM, Prompt, Token, payload, model, instructions, input, text.format=json_object, "
+            "max_output_tokens, temperature, CONTEXT_LIMIT, used input, remaining, gpt-5.5, Attempt 1, "
+            "Attempt 2, period, key_event, summary, Turing Test, Turing machine and Turing Test, "
+            "AI became a testable question., validation, era_0_missing_['summary'], Do not omit any required field., "
+            "parse JSON, check schema, diagnose cause, retry with change"
+        ),
+    ),
+}
+
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 
 CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dl-workshop-route-en.png", "Chapter 6 PyTorch Workshop Route", "Chapter 6 PyTorch workshop route map for the 16x16 stripe classification evidence-pack project."),
