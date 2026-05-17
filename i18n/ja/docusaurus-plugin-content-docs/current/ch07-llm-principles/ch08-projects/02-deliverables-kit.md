@@ -112,14 +112,14 @@ project/
 次のように書きます。
 
 ```md
-# Failure Case: JSON field missing
+# 失敗ケース：JSON フィールド不足
 
-- Phenomenon: The output sometimes adds extra text before the JSON object.
-- Clues: This happens more often on long prompts.
-- Suspected cause: The prompt does not strongly constrain the output format.
-- Investigation: Compare prompt versions and inspect the raw outputs.
-- Fix action: Add a strict schema reminder and a short example.
-- Regression check: Run the same fixed test cases again.
+- 現象：出力が JSON オブジェクトの前に余計な説明文を付けることがある。
+- 手がかり：長い Prompt のときに起きやすい。
+- 推定原因：Prompt が出力形式を十分強く制約していない。
+- 調査方法：Prompt バージョンを比較し、raw output を確認する。
+- 修正アクション：厳密な schema reminder と短い例を追加する。
+- 回帰確認：同じ固定テストケースをもう一度実行する。
 ```
 
 この 1 つのメモは、10 枚のスクリーンショットより価値があることもあります。

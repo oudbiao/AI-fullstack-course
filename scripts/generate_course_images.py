@@ -34145,6 +34145,112 @@ CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS = {
     ),
 }
 
+CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS = {
+    "ch07-domain-finetune-baseline-coverage-result-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="baseline 覆盖率运行结果",
+        visible_subtitle="通用回答很礼貌，但没有命中政策点；检索回答覆盖 3/3。",
+        teaching_goal=(
+            "服务第 7 章 7.8.2 垂直领域微调项目代码。图片必须对应中文 expected output："
+            "question 为 订单还没发货，可以直接退款吗？；generic coverage=0.0；retrieval coverage=1.0；"
+            "SFT sample 由 system、user、assistant 三条 message 组成，intent=refund_unshipped。"
+            "让无法运行代码的读者也能看懂 raw_records、baseline 对比、coverage 检查和 SFT 样本结构。"
+        ),
+        fixed_layout=(
+            "竖版手绘课堂讲义 / 横线笔记纸风格，三语版必须同构。不是终端截图，不是白底圆角框 SVG 风。"
+            "上方画一张 raw_records[0] 订单售后卡片：question、policy points、expected answer 三块，旁边有小放大镜。"
+            "中间画两条并排回答泳道：左边红橙色 generic_baseline，写“一般可以申请退款，具体以订单状态为准。”，"
+            "旁边用 3 个空框显示 未发货、原路、3到7工作日 全部未命中，并标 coverage=0.0；"
+            "右边绿色 retrieval_baseline，写“可以。未发货可直接退款，款项原路退回，通常 3 到 7 个工作日到账。”，"
+            "旁边 3 个勾选框显示 未发货、原路、3到7工作日 全部命中，并标 coverage=1.0。"
+            "下方画 SFT sample 装配夹板：system、user、assistant 三张便签进入 messages 列表；"
+            "再画 intent=refund_unshipped 与 policy_points 贴纸。"
+            "最底部画 output receipt 四行：question、generic coverage=0.0、retrieval coverage=1.0、sft_sample=messages + intent + policy_points。"
+        ),
+        required_labels=(
+            "raw_records[0]、question: 订单还没发货，可以直接退款吗？、policy points、未发货、原路、3到7工作日、"
+            "generic_baseline、coverage=0.0、0/3 命中、retrieval_baseline、coverage=1.0、3/3 命中、"
+            "SFT sample、messages、system、user、assistant、intent=refund_unshipped、policy_points、"
+            "通用回答缺政策点、检索回答覆盖全部政策点。"
+        ),
+        footer="先把 baseline 跑出来，再用政策点证明领域回答是否真的更好。",
+        allowed_tokens=(
+            "baseline, coverage, raw_records[0], question, policy points, generic_baseline, retrieval_baseline, "
+            "SFT sample, messages, system, user, assistant, intent=refund_unshipped, policy_points"
+        ),
+    ),
+    "ch07-domain-finetune-baseline-coverage-result-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Baseline Coverage Result",
+        visible_subtitle="The generic answer is polite but misses the required policy points.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.8.2 domain fine-tuning project code. The image must match the English expected output: "
+            "question is My order hasn’t shipped yet. Can I refund it directly?; generic coverage=0.0; retrieval coverage=1.0; "
+            "the SFT sample has system, user, assistant messages and intent=refund_unshipped. "
+            "Help readers who cannot run the code understand raw_records, baseline comparison, coverage checking, and SFT sample shape."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language variants must use the same structure. "
+            "Do not make a terminal screenshot, a corporate dashboard, or a white rounded-box SVG infographic. "
+            "Use very large neat handwriting. Spell every label carefully. The phrase must be written exactly as '3 to 7 business days' everywhere; never write daus, dayz, bussiness, or any fake small text. "
+            "Top: draw one raw_records[0] e-commerce support card with question, policy points, and expected answer, plus a small magnifier. "
+            "Middle: draw two side-by-side answer lanes. Left red-orange lane is generic_baseline with the exact compact answer: "
+            "In general, you can request a refund, depending on the order status. "
+            "Show three empty boxes for not shipped, original payment method, 3 to 7 business days, and label coverage=0.0 and 0/3 matched. "
+            "Right green lane is retrieval_baseline with the exact compact answer: "
+            "Yes. Not shipped -> direct refund; original payment method; 3 to 7 business days. "
+            "Show three checked boxes for not shipped, original payment method, 3 to 7 business days, and label coverage=1.0 and 3/3 matched. "
+            "Bottom: draw an SFT sample clipboard where system, user, and assistant sticky notes enter a messages list; "
+            "add stickers intent=refund_unshipped and policy_points. "
+            "Final output receipt has four lines: question, generic coverage=0.0, retrieval coverage=1.0, sft_sample=messages + intent + policy_points."
+        ),
+        required_labels=(
+            "raw_records[0], question: My order hasn’t shipped yet. Can I refund it directly?, policy points, not shipped, original payment method, "
+            "3 to 7 business days, generic_baseline, coverage=0.0, 0/3 matched, retrieval_baseline, coverage=1.0, 3/3 matched, "
+            "SFT sample, messages, system, user, assistant, intent=refund_unshipped, policy_points, "
+            "generic answer misses policy points, retrieval answer covers all policy points."
+        ),
+        footer="Run a baseline first, then prove improvement with required policy points.",
+        allowed_tokens=(
+            "baseline, coverage, raw_records[0], question, policy points, generic_baseline, retrieval_baseline, "
+            "SFT sample, messages, system, user, assistant, intent=refund_unshipped, policy_points"
+        ),
+    ),
+    "ch07-domain-finetune-baseline-coverage-result-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="baseline coverage の実行結果",
+        visible_subtitle="汎用回答は丁寧でも、必須ポリシー点を落とすことがある。",
+        teaching_goal=(
+            "第 7 章 7.8.2 垂直領域ファインチューニング project のコードに使う。画像は日本語ページの expected output に合わせる："
+            "question は 注文がまだ発送されていませんが、そのまま返金できますか？；generic coverage=0.0；retrieval coverage=1.0；"
+            "SFT sample は system、user、assistant の messages と intent=refund_unshipped を持つ。"
+            "コードを実行できない読者にも raw_records、baseline 比較、coverage チェック、SFT sample の形を見せる。"
+        ),
+        fixed_layout=(
+            "縦の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。terminal screenshot や白い角丸 SVG 図にはしない。"
+            "上部：raw_records[0] の EC サポートカードを描き、question、policy points、expected answer の 3 つを見せる。小さな虫眼鏡も描く。"
+            "中央：2 本の回答レーンを横に並べる。左の赤橙レーンは generic_baseline、回答は「一般的には返金申請は可能です。詳細は注文状況によります。」、"
+            "未発送、元の支払い方法、3〜7 営業日の 3 つを空欄にして、coverage=0.0、0/3 命中と書く。"
+            "右の緑レーンは retrieval_baseline、回答は「未発送なら返金申請、元の支払い方法へ返金、通常 3〜7 営業日で反映。」、"
+            "未発送、元の支払い方法、3〜7 営業日の 3 つをチェック済みにして、coverage=1.0、3/3 命中と書く。"
+            "下部：SFT sample のクリップボードを描き、system、user、assistant の付箋が messages リストへ入る。"
+            "intent=refund_unshipped と policy_points の貼り紙を添える。"
+            "最下部の output receipt は 4 行：question、generic coverage=0.0、retrieval coverage=1.0、sft_sample=messages + intent + policy_points。"
+        ),
+        required_labels=(
+            "raw_records[0]、question: 注文がまだ発送されていませんが、そのまま返金できますか？、policy points、未発送、元の支払い方法、3〜7 営業日、"
+            "generic_baseline、coverage=0.0、0/3 命中、retrieval_baseline、coverage=1.0、3/3 命中、"
+            "SFT sample、messages、system、user、assistant、intent=refund_unshipped、policy_points、"
+            "汎用回答はポリシー点を落とす、検索回答は全ポリシー点をカバー。"
+        ),
+        footer="先に baseline を動かし、必須ポリシー点で改善を証明する。",
+        allowed_tokens=(
+            "baseline, coverage, raw_records[0], question, policy points, generic_baseline, retrieval_baseline, "
+            "SFT sample, messages, system, user, assistant, intent=refund_unshipped, policy_points, EC"
+        ),
+    ),
+}
+
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)
@@ -34154,6 +34260,7 @@ IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_PRACTICE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_DATA_LABELING_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS)
 
 CH07_DATA_LABELING_REMAKE_META = [
     (
@@ -34245,6 +34352,40 @@ for job in IMAGE_JOBS:
     if str(job.get("filename")) in CH07_ALIGNMENT_FORCE_DEFAULT_SIZE_FILENAMES:
         job["size"] = DEFAULT_COURSE_IMAGE_SIZE
         job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+
+CH07_DOMAIN_FINETUNE_RESULT_REMAKE_META = [
+    (
+        "ch07-domain-finetune-baseline-coverage-result-map.png",
+        "baseline 覆盖率运行结果图",
+        "垂直领域微调 baseline 覆盖率运行结果图：通用回答 coverage=0.0，检索回答 coverage=1.0，SFT sample 由 messages、intent、policy_points 组成。",
+    ),
+    (
+        "ch07-domain-finetune-baseline-coverage-result-map-en.png",
+        "Baseline Coverage Result Map",
+        "Domain fine-tuning baseline coverage result map showing generic coverage=0.0, retrieval coverage=1.0, and an SFT sample with messages, intent, and policy_points.",
+    ),
+    (
+        "ch07-domain-finetune-baseline-coverage-result-map-ja.png",
+        "baseline coverage の実行結果図",
+        "generic coverage=0.0、retrieval coverage=1.0、messages、intent、policy_points を持つ SFT sample を示す垂直領域ファインチューニング結果図。",
+    ),
+]
+
+existing_filenames_for_ch07_domain_finetune_result = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_DOMAIN_FINETUNE_RESULT_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_domain_finetune_result:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch08-projects/01-domain-finetuning.md",
+                "alt": alt,
+                "prompt": CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_domain_finetune_result.add(filename)
 
 CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dl-workshop-route-en.png", "Chapter 6 PyTorch Workshop Route", "Chapter 6 PyTorch workshop route map for the 16x16 stripe classification evidence-pack project."),

@@ -206,6 +206,8 @@ retrieval: Yes. If the order has not shipped yet, you can request a refund direc
 sft_sample: {'messages': [{'role': 'system', 'content': 'You are an e-commerce after-sales policy assistant. Please answer user questions politely, accurately, and in accordance with platform rules.'}, {'role': 'user', 'content': 'My order hasn’t shipped yet. Can I refund it directly?'}, {'role': 'assistant', 'content': 'Yes. If the order has not shipped yet, you can request a refund directly. The payment will be returned to the original payment method, and it usually arrives within 3 to 7 business days.'}], 'intent': 'refund_unshipped', 'policy_points': ['Unshipped orders can be refunded directly', 'Refunds are returned to the original payment method', 'It usually takes 3 to 7 business days']}
 ```
 
+![Domain fine-tuning baseline coverage result map](/img/course/ch07-domain-finetune-baseline-coverage-result-map-en.webp)
+
 The point is not that this tiny retrieval baseline is production-ready. The point is to make the comparison visible: a generic answer sounds polite but misses required policy details, while a domain-aware answer can be checked against a fixed list of required points.
 
 ### Why is this example more valuable than a pure “project plan” object?
