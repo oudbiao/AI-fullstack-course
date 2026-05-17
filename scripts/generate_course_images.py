@@ -7651,15 +7651,18 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
     },
     {
         "filename": "transformer-block-architecture.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "Transformer Block 架构图",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Transformer Block 运行剖面图",
         "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
-        "alt": "Transformer Block 架构图：注意力、残差连接、LayerNorm 和前馈网络组成一个可堆叠模块。",
+        "alt": "Transformer Block 运行剖面图：用 PyTorch block_parts 和 encoder_shape_lab 输出解释 attention、residual、Norm 与 FFN。",
         "prompt": """
-一张适合 Transformer 架构课程的教学结构图，主题是“一个 Transformer Block 的内部结构”。
-画面表现 token embedding 进入 self-attention、残差连接、LayerNorm、前馈网络，再堆叠成多层模型，并对比 encoder 和 decoder 路线。
-风格工程化、清晰、适合新手拆解复杂架构，不要出现真实品牌 logo，不要生成难以阅读的小字。
+一张适合 Transformer 架构课程的竖向手绘课堂讲义图，主题是“一个 PyTorch TransformerEncoderLayer 如何保持 shape、改写表示”。
+必须完全对应本节代码：d_model=16，nhead=4，dim_feedforward=32，batch_first=True，norm_first=True，dropout=0.0。
+画面展示输入 tokens shape (2, 6, 16) 进入 block，经过 Pre-Norm、MultiheadAttention（4 heads）、residual Add、Pre-Norm、FFN 16->32->16、residual Add，输出仍是 (2, 6, 16)，但标注 changed=True、表示被上下文改写。
+必须包含一个小的“inspect output”便签，照抄这些行：block_parts；MultiheadAttention；linear1: (32, 16)；linear2: (16, 32)；norm_first: True；norm: LayerNorm。
+画面要解释部件职责：attention 让 token 互相看见，residual 保留旧信息，LayerNorm 稳定数值，FFN 对每个 token 独立加工，position info 提供顺序线索。
+风格为“手绘课堂讲义 / 横线笔记纸教学图”，不要旧式 SVG 信息框，不要纯流程框，不要发明额外输出数值，不要出现乱码或错误语言。
 """.strip(),
     },
     {
@@ -25170,33 +25173,33 @@ COURSE_QA_PROMPTS.update(
         ),
         "transformer-block-architecture.png": _course_qa_prompt(
             locale="zh",
-            visible_title="Transformer Block：保持形状，改变表示",
-            visible_subtitle="[batch, seq_len, d_model] 进来，带上下文地出去。",
-            teaching_goal="服务 Transformer Architecture 的 block 小节。读者要看懂一个 block 的职责：attention 让 token 交流，residual 保留信息，Norm 稳定训练，FFN 对每个 token 做非线性变换，输入输出形状保持一致以便堆叠。",
-            fixed_layout="竖向横线笔记纸结构剖面图。底部输入是一张 token embedding 矩阵，标 [batch, seq_len, d_model]。第一层是 Multi-Head Self-Attention 工作台，画 token 之间互相连线，旁边写“跨 token 交流”。一条 residual skip 桥绕过 attention 后汇入 Add，再经过 Norm 稳定器。第二层是 FFN 工坊，画每个 token 单独通过两层小网络，旁边写“逐 token 变换”。再画 residual + Add + Norm，顶部输出仍是 [batch, seq_len, d_model]，但颜色更丰富并标“context-aware”。左侧画 position info 进入 attention。最上方画多个 block 堆叠的小塔。",
-            required_labels="[batch, seq_len, d_model]、token embedding、Multi-Head Self-Attention、跨 token 交流、residual、Add、Norm、FFN、逐 token 变换、position info、context-aware、stack blocks。",
-            footer="Block 可堆叠的关键：形状不变，表示更懂上下文。",
-            allowed_tokens="Transformer Block, [batch, seq_len, d_model], token embedding, Multi-Head Self-Attention, residual, Add, Norm, FFN, position info, context-aware, stack blocks",
+            visible_title="Transformer Block：shape 不变，表示被改写",
+            visible_subtitle="PyTorch EncoderLayer：输入 (2, 6, 16)，输出仍是 (2, 6, 16)，但 changed=True。",
+            teaching_goal="服务 Transformer Architecture 的首图和 Lab 1/Lab 4。读者要把 block_parts 输出和 encoder_shape_lab 输出连起来：TransformerEncoderLayer 由 MultiheadAttention、LayerNorm、FFN 与 residual 组成；外层 shape 保持，token 表示内容被上下文改写。所有输出文本和 shape 必须照正文，不得发明。",
+            fixed_layout="竖向“手绘课堂讲义 / 横线笔记纸教学图”。底部画输入 token 矩阵 tokens，标 input: (2, 6, 16)、[batch, seq_len, d_model]、batch_first=True。主流程自下而上：1 Pre-Norm，因为 norm_first=True；2 MultiheadAttention 工作台，画 6 个 token 互相连线，标 nhead=4、d_model=16、跨 token 交流；3 residual skip 桥绕过 attention 汇入 Add，标保留旧信息；4 再次 Pre-Norm；5 FFN 工坊，画每个 token 单独通过 linear1 16→32、GELU、linear2 32→16，标 dim_feedforward=32；6 第二条 residual + Add；顶部输出 token 矩阵，标 output: (2, 6, 16)、changed: True、context-aware。左侧画 position info 给 token 加顺序标签。右侧贴一张“inspect output”便签，必须逐行写：block_parts；MultiheadAttention；linear1: (32, 16)；linear2: (16, 32)；norm_first: True；norm: LayerNorm。顶部画小塔 stack blocks，说明能堆叠是因为 shape 不变。不要画 encoder/decoder 对比，因为本图聚焦 EncoderLayer。",
+            required_labels="input: (2, 6, 16)、output: (2, 6, 16)、changed: True、[batch, seq_len, d_model]、batch_first=True、norm_first=True、Pre-Norm、MultiheadAttention、nhead=4、d_model=16、residual、Add、LayerNorm、FFN、linear1: (32, 16)、linear2: (16, 32)、dim_feedforward=32、position info、context-aware、stack blocks。",
+            footer="Block 的关键不是改变 shape，而是在同样 shape 里写入上下文。",
+            allowed_tokens="TransformerEncoderLayer, input, output, changed, True, [batch, seq_len, d_model], batch_first, norm_first, Pre-Norm, MultiheadAttention, nhead, d_model, residual, Add, LayerNorm, FFN, linear1, linear2, dim_feedforward, position info, context-aware, stack blocks",
         ),
         "transformer-block-architecture-en.png": _course_qa_prompt(
             locale="en",
-            visible_title="Transformer Block: Same Shape, Richer Representation",
-            visible_subtitle="[batch, seq_len, d_model] goes in and comes out context-aware.",
-            teaching_goal="Serve the Transformer Architecture block section. The learner should understand what one block does: attention lets tokens communicate, residual keeps information, Norm stabilizes training, FFN transforms each token nonlinearly, and input/output shape stays the same so blocks can stack.",
-            fixed_layout="Vertical lined-notebook cutaway diagram. Bottom input is a token embedding matrix labeled [batch, seq_len, d_model]. First layer: Multi-Head Self-Attention workbench with token-to-token links, labeled cross-token communication. A residual skip bridge bypasses attention and joins at Add, then passes through a Norm stabilizer. Second layer: FFN workshop where each token separately passes through a two-layer mini-network, labeled per-token transform. Then residual + Add + Norm. Top output is still [batch, seq_len, d_model], but colored richer and labeled context-aware. Left side: position info enters attention. Very top: a small tower of stacked blocks.",
-            required_labels="[batch, seq_len, d_model], token embedding, Multi-Head Self-Attention, cross-token communication, residual, Add, Norm, FFN, per-token transform, position info, context-aware, stack blocks.",
-            footer="A block can stack because shape stays the same while representation improves.",
-            allowed_tokens="Transformer Block, [batch, seq_len, d_model], token embedding, Multi-Head Self-Attention, residual, Add, Norm, FFN, position info, context-aware, stack blocks",
+            visible_title="Transformer Block: Same Shape, Rewritten Representation",
+            visible_subtitle="PyTorch EncoderLayer: input (2, 6, 16), output (2, 6, 16), changed=True.",
+            teaching_goal="Serve the Transformer Architecture opening image and Lab 1/Lab 4. The learner should connect the block_parts output and encoder_shape_lab output: TransformerEncoderLayer contains MultiheadAttention, LayerNorm, FFN, and residual paths; the outer shape stays the same while token representations are rewritten by context. All output text and shapes must match the lesson exactly; do not invent values.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. Bottom: input token matrix tokens labeled input: (2, 6, 16), [batch, seq_len, d_model], batch_first=True. Main flow goes upward: 1 Pre-Norm because norm_first=True; 2 MultiheadAttention workbench with 6 tokens linked to each other, labeled nhead=4, d_model=16, cross-token communication; 3 residual skip bridge bypasses attention and joins Add, labeled keeps old signal; 4 another Pre-Norm; 5 FFN workshop where each token independently goes through linear1 16→32, GELU, linear2 32→16, labeled dim_feedforward=32; 6 second residual + Add; top output token matrix labeled output: (2, 6, 16), changed: True, context-aware. Left side: position info adds order tags to tokens. Right side: a sticky note titled inspect output, with exact lines: block_parts; MultiheadAttention; linear1: (32, 16); linear2: (16, 32); norm_first: True; norm: LayerNorm. Top: small stack blocks tower, explaining blocks can stack because shape stays same. Do not draw encoder/decoder comparison; this image focuses on EncoderLayer.",
+            required_labels="input: (2, 6, 16), output: (2, 6, 16), changed: True, [batch, seq_len, d_model], batch_first=True, norm_first=True, Pre-Norm, MultiheadAttention, nhead=4, d_model=16, residual, Add, LayerNorm, FFN, linear1: (32, 16), linear2: (16, 32), dim_feedforward=32, position info, context-aware, stack blocks.",
+            footer="A block does not change the shape; it rewrites meaning inside the same shape.",
+            allowed_tokens="TransformerEncoderLayer, input, output, changed, True, [batch, seq_len, d_model], batch_first, norm_first, Pre-Norm, MultiheadAttention, nhead, d_model, residual, Add, LayerNorm, FFN, linear1, linear2, dim_feedforward, position info, context-aware, stack blocks",
         ),
         "transformer-block-architecture-ja.png": _course_qa_prompt(
             locale="ja",
-            visible_title="Transformer Block：形状は保ち、表現を濃くする",
-            visible_subtitle="[batch, seq_len, d_model] が入り、文脈付きで出る。",
-            teaching_goal="Transformer Architecture の block 節に合わせる。1つの block の役割を理解できる図にする：attention は token 同士を通信させ、residual は情報を保ち、Norm は訓練を安定させ、FFN は各 token を非線形変換し、入力と出力の shape は同じなので積み重ねられる。",
-            fixed_layout="縦長の横線ノート紙の構造断面図。下部入力は token embedding 行列で、[batch, seq_len, d_model] と書く。第一層は Multi-Head Self-Attention 作業台。token 同士の線を描き、「token 間通信」とラベルする。residual skip の橋が attention を迂回して Add に合流し、その後 Norm 安定器を通る。第二層は FFN 工房。各 token が個別に2層の小ネットワークを通り、「token ごとの変換」とラベルする。さらに residual + Add + Norm。上部出力は同じ [batch, seq_len, d_model] だが色を豊かにし、context-aware と書く。左側に position info が attention へ入る。最上部に stacked blocks の小さな塔を描く。",
-            required_labels="[batch, seq_len, d_model]、token embedding、Multi-Head Self-Attention、token 間通信、residual、Add、Norm、FFN、token ごとの変換、position info、context-aware、stack blocks。",
-            footer="Block を積める理由：shape は同じまま、表現だけが文脈を持つ。",
-            allowed_tokens="Transformer Block, [batch, seq_len, d_model], token embedding, Multi-Head Self-Attention, residual, Add, Norm, FFN, position info, context-aware, stack blocks",
+            visible_title="Transformer Block：shape は同じ、表現は書き換わる",
+            visible_subtitle="PyTorch EncoderLayer：input (2, 6, 16)、output (2, 6, 16)、changed=True。",
+            teaching_goal="Transformer Architecture の冒頭図と Lab 1/Lab 4 に合わせる。block_parts 出力と encoder_shape_lab 出力をつなげて理解できる図にする：TransformerEncoderLayer は MultiheadAttention、LayerNorm、FFN、residual で構成され、外側の shape は同じまま token 表現だけが文脈で書き換わる。出力文字と shape は本文どおりにし、値を作らない。",
+            fixed_layout="縦長の「手描き授業プリント / 横線ノート紙」教学図。下部に入力 token 行列 tokens を描き、input: (2, 6, 16)、[batch, seq_len, d_model]、batch_first=True と書く。主フローは下から上へ：1 Pre-Norm、理由は norm_first=True；2 MultiheadAttention 作業台、6つの token が相互につながる、nhead=4、d_model=16、token 間通信；3 residual skip の橋が attention を迂回して Add に合流、旧情報を保つ；4 もう一度 Pre-Norm；5 FFN 工房、各 token が独立に linear1 16→32、GELU、linear2 32→16 を通る、dim_feedforward=32；6 2本目の residual + Add；上部の出力 token 行列に output: (2, 6, 16)、changed: True、context-aware と書く。左側に position info が token に順序ラベルを足す様子。右側に「inspect output」付箋を置き、必ず次を逐行で書く：block_parts；MultiheadAttention；linear1: (32, 16)；linear2: (16, 32)；norm_first: True；norm: LayerNorm。上部に小さな stack blocks の塔を置き、shape が変わらないので積めると示す。encoder/decoder 比較は描かない。この図は EncoderLayer に集中する。",
+            required_labels="input: (2, 6, 16)、output: (2, 6, 16)、changed: True、[batch, seq_len, d_model]、batch_first=True、norm_first=True、Pre-Norm、MultiheadAttention、nhead=4、d_model=16、residual、Add、LayerNorm、FFN、linear1: (32, 16)、linear2: (16, 32)、dim_feedforward=32、position info、context-aware、stack blocks。",
+            footer="Block は shape を変えず、同じ shape の中身を書き換える。",
+            allowed_tokens="TransformerEncoderLayer, input, output, changed, True, [batch, seq_len, d_model], batch_first, norm_first, Pre-Norm, MultiheadAttention, nhead, d_model, residual, Add, LayerNorm, FFN, linear1, linear2, dim_feedforward, position info, context-aware, stack blocks",
         ),
     }
 )
