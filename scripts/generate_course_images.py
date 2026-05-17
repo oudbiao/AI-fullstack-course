@@ -3483,11 +3483,11 @@ Language rules: all explanatory text must be natural English. Keep code/file/met
     },
     {
         "filename": "ch06-gan-adversarial-balance-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "GAN 对抗训练平衡与模式崩塌图",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "GAN 平衡诊断：太强、太弱、塌缩",
         "suggested_page": "docs/ch06-deep-learning/ch06-generative/01-gan.md",
-        "alt": "GAN 对抗训练平衡与模式崩塌图：Generator 生成假样本，Discriminator 区分真假，二者需要保持平衡，否则可能反馈不足或 mode collapse。",
+        "alt": "GAN 平衡诊断图：判别器过强、过弱或生成器样本塌缩时，训练信号会失衡，需要同时看样本和指标。",
         "prompt": """
 一张解释 GAN 对抗训练的教学图，主题是“生成器和判别器像两个同时进步的对手”。
 画面左侧 Generator 从 noise 生成 fake samples，右侧 Discriminator 同时看 real samples 和 fake samples 并给出反馈；中间有平衡秤表示二者不能一边倒。角落展示 mode collapse：生成器只重复少数样本。
@@ -7843,11 +7843,11 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
     },
     {
         "filename": "gan-adversarial-loop.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "GAN 生成器判别器对抗图",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "GAN 两次更新：先训练 D，再训练 G",
         "suggested_page": "docs/ch06-deep-learning/ch06-generative/01-gan.md",
-        "alt": "GAN 生成器判别器对抗图：生成器尝试造假样本，判别器尝试分辨真假，双方一起进步。",
+        "alt": "GAN 两次更新机制图：先用 real 和 fake.detach() 训练判别器 D，再固定 D 的反馈训练生成器 G。",
         "prompt": """
 一张适合生成模型课程的教学图，主题是“GAN 的生成器与判别器博弈”。
 画面表现生成器从随机噪声制造样本，判别器同时看到真实样本和生成样本并判断真假，反馈信号推动生成器改进。
@@ -25646,6 +25646,90 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch06-generative-tiny-decoder-result-map.png", "极小 decoder 运行结果", "docs/ch06-deep-learning/ch06-generative/00-roadmap.md", "极小 decoder 运行结果图：latent (2,4) 经过 Linear(4,6) 和 Tanh 变成 generated (2,6)，并显示 value_range。"),
         ("ch06-generative-tiny-decoder-result-map-en.png", "Tiny Decoder Run Result", "docs/ch06-deep-learning/ch06-generative/00-roadmap.md", "Tiny decoder run result map: latent (2,4) passes through Linear(4,6) and Tanh to become generated (2,6), with value_range shown."),
         ("ch06-generative-tiny-decoder-result-map-ja.png", "小さな decoder の実行結果", "docs/ch06-deep-learning/ch06-generative/00-roadmap.md", "小さな decoder 実行結果図：latent (2,4) が Linear(4,6) と Tanh を通り generated (2,6) になり、value_range を示す。"),
+    ]
+)
+
+COURSE_QA_PROMPTS.update(
+    {
+        "gan-adversarial-loop.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="GAN 两次更新：先训练 D，再训练 G",
+            visible_subtitle="D 看 real 和 fake；G 要让 D 说 real。",
+            teaching_goal="服务 6.6.2 GAN 的开场图和后面的 practical loop。读者要先看懂 GAN 不是一条普通前向链路，而是每一轮分成两次优化：先训练 Discriminator D 区分 real_batch 和 fake=G(z).detach()，此时梯度不能回到 Generator G；再固定 D 的判别反馈训练 Generator G，让 D 把 G(z) 判成 real。图还要提前埋下 fake_mean、fake_std、mode collapse 诊断直觉，但不能编造实验数值。",
+            fixed_layout="竖向横线笔记纸教学图，像老师手绘一页 GAN 机制讲义。顶部标题和副标题。上方小区画三个角色：noise z、Generator G、Discriminator D，旁边画 real data mound centered near 2.0 和 fake samples，不要画真实照片样本。中间分成两条大横向步骤带。第一条写 Step 1 / Train D：real_batch 进入 D，标签 real -> 1；noise z 进入 G 得到 fake = G(z).detach()，fake 进入 D，标签 fake -> 0；在 fake 到 G 的反向路径上画红色剪刀或 stop sign，标明 .detach() stops gradient to G；结尾只更新 D，用高亮箭头写 update D only / 不改 G。第二条写 Step 2 / Train G：noise z -> G(z) -> D，目标 target=1，让 D says real；这里画 D 像固定裁判只给 feedback，结尾高亮 update G，D 不更新。底部画诊断小仪表，不要数值：loss_d、loss_g、fake_mean、fake_std 四个表盘；旁边画 fake_std 太小导致 samples 聚成一团，并标 mode collapse。整张图要像机制图，不是漂亮角色海报。",
+            required_labels="Step 1、Train D、real_batch、real -> 1、z、Generator G、fake = G(z).detach()、fake -> 0、Discriminator D、.detach() stops gradient to G、update D only、不改 G、Step 2、Train G、G(z)、target=1、D says real、feedback、update G、loss_d、loss_g、fake_mean、fake_std、mode collapse。",
+            footer="GAN 每轮分两次更新：D 学会分辨，G 借 D 的反馈改进。",
+            allowed_tokens="GAN, Step 1, Step 2, Train D, Train G, real_batch, real, fake, z, Generator G, Discriminator D, G(z), fake = G(z).detach(), .detach(), target=1, D says real, update D only, update G, feedback, loss_d, loss_g, fake_mean, fake_std, mode collapse",
+        ),
+        "gan-adversarial-loop-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="GAN Two Updates: Train D, Then Train G",
+            visible_subtitle="D judges real and fake; G learns to make D say real.",
+            teaching_goal="Serve the opening image and practical loop of 6.6.2 GAN. The learner should understand that GAN training is not one normal forward chain; each round has two optimizations: first train Discriminator D to separate real_batch from fake=G(z).detach(), with the gradient stopped before Generator G; then keep D as a judge and train Generator G so D classifies G(z) as real. The image should also introduce the diagnostic intuition of fake_mean, fake_std, and mode collapse without inventing experiment values.",
+            fixed_layout="Vertical lined-notebook classroom handout. Top title and subtitle. Upper mini-area shows three roles: noise z, Generator G, Discriminator D, plus a real data mound centered near 2.0 and fake samples; do not draw realistic sample photos. Middle has two large horizontal step bands. First band is Step 1 / Train D: real_batch goes into D with label real -> 1; noise z goes into G to make fake = G(z).detach(), fake goes into D with label fake -> 0; draw red scissors or a stop sign on the backward path from fake to G and label .detach() stops gradient to G; the band ends with update D only, and G frozen. Second band is Step 2 / Train G: noise z -> G(z) -> D, target=1, make D says real; draw D as a fixed judge giving feedback only, and end with update G while D is not updated. Bottom diagnostic strip has four gauges with no numeric values: loss_d, loss_g, fake_mean, fake_std; beside it show fake_std too small causing samples to clump, labeled mode collapse. The whole image must teach the mechanism, not become a character poster.",
+            required_labels="Step 1, Train D, real_batch, real -> 1, z, Generator G, fake = G(z).detach(), fake -> 0, Discriminator D, .detach() stops gradient to G, update D only, G frozen, Step 2, Train G, G(z), target=1, D says real, feedback, update G, loss_d, loss_g, fake_mean, fake_std, mode collapse.",
+            footer="Each GAN round has two updates: D learns to tell, G improves from D's feedback.",
+            allowed_tokens="GAN, Step 1, Step 2, Train D, Train G, real_batch, real, fake, z, Generator G, Discriminator D, G(z), fake = G(z).detach(), .detach(), target=1, D says real, update D only, update G, feedback, loss_d, loss_g, fake_mean, fake_std, mode collapse",
+        ),
+        "gan-adversarial-loop-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="GAN の2回更新：先に D、次に G",
+            visible_subtitle="D は real/fake を見分け、G は D に real と言わせる。",
+            teaching_goal="6.6.2 GAN の導入図と practical loop に合わせる。GAN は通常の一方向 forward ではなく、各 round が2つの最適化に分かれると分かる図にする。先に Discriminator D を訓練し、real_batch と fake=G(z).detach() を見分ける。このとき gradient は Generator G に戻さない。次に D を judge として固定し、D が G(z) を real と判定するように Generator G を訓練する。fake_mean、fake_std、mode collapse の診断直感も入れるが、実験数値は捏造しない。",
+            fixed_layout="縦長の横線ノート紙の教学図。先生が手描きした GAN 仕組み講義のようにする。上部にタイトルと副題。上の小エリアに3つの役割：noise z、Generator G、Discriminator D、さらに 2.0 付近を中心にした real data の山と fake samples を描く。実写サンプルは描かない。中央は2本の大きな横向き手順帯。1本目は Step 1 / Train D：real_batch が D に入り、label は real -> 1。noise z が G に入り fake = G(z).detach() を作り、その fake が D に入り、label は fake -> 0。fake から G へ戻る逆向き経路に赤いハサミまたは stop sign を描き、.detach() stops gradient to G と示す。最後は update D only とし、G は更新しない。2本目は Step 2 / Train G：noise z -> G(z) -> D、target=1、D says real を目指す。D は固定 judge として feedback だけを出し、最後は update G、D は更新しない。下部は診断メーターで数値なし：loss_d、loss_g、fake_mean、fake_std。隣に fake_std が小さすぎて samples が固まる絵を描き、mode collapse とラベルする。キャラクターポスターではなく、機構が分かる図にする。",
+            required_labels="Step 1、Train D、real_batch、real -> 1、z、Generator G、fake = G(z).detach()、fake -> 0、Discriminator D、.detach() stops gradient to G、update D only、G は更新しない、Step 2、Train G、G(z)、target=1、D says real、feedback、update G、loss_d、loss_g、fake_mean、fake_std、mode collapse。",
+            footer="GAN の各 round は2回更新：D が見分け、G は D の feedback で改善する。",
+            allowed_tokens="GAN, Step 1, Step 2, Train D, Train G, real_batch, real, fake, z, Generator G, Discriminator D, G(z), fake = G(z).detach(), .detach(), target=1, D says real, update D only, update G, feedback, loss_d, loss_g, fake_mean, fake_std, mode collapse",
+        ),
+    }
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("gan-adversarial-loop-en.png", "GAN Two Updates: Train D, Then Train G", "docs/ch06-deep-learning/ch06-generative/01-gan.md", "GAN two-update mechanism: first train D with real and fake.detach(), then train G from D feedback."),
+        ("gan-adversarial-loop-ja.png", "GAN の2回更新：先に D、次に G", "docs/ch06-deep-learning/ch06-generative/01-gan.md", "GAN の2回更新図：先に real と fake.detach() で D を訓練し、次に D の feedback で G を訓練する。"),
+    ]
+)
+
+COURSE_QA_PROMPTS.update(
+    {
+        "ch06-gan-adversarial-balance-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="GAN 平衡诊断：太强、太弱、塌缩",
+            visible_subtitle="G 和 D 要互相逼近，任何一边失衡都会让证据变差。",
+            teaching_goal="服务 6.6.2 GAN 在开场机制后关于对抗训练难点的说明。读者要理解：GAN 不是追求某一方赢，而是 Generator G 和 Discriminator D 互相提供有用梯度。D 太强时 G 得不到可学习反馈；D 太弱时 fake 也会被放过；G 输出太单一时出现 mode collapse。图要把“动态平衡”和“需要看样本分布、fake_mean、fake_std、loss”的诊断思路讲清楚。",
+            fixed_layout="竖向横线笔记纸教学图，延续 GAN 两次更新图的手绘课堂讲义风格。顶部画一座平衡秤，左盘是 Generator G，右盘是 Discriminator D，中间写 useful feedback zone。秤旁边画循环箭头：G 造 fake，D 判断 real/fake，feedback 回到 G。中部画三个并排诊断病例卡，但不要白底圆角信息框，要像老师手绘病历夹。病例 1：D too strong，D 几乎总能指出 fake，G 的梯度很弱，画灰色断续反馈线。病例 2：D too weak，D 把 real/fake 都混淆，画混乱问号和错误箭头。病例 3：mode collapse，G 只吐出一团重复 fake samples，fake_std 太小，虽然个别样本像 real 但多样性低。底部画诊断 checklist：sample inspection、fake_mean near real center、fake_std not too small、loss_d/loss_g trends。不要出现真实照片、动物样本、长公式、捏造数值或终端输出。",
+            required_labels="Generator G、Discriminator D、useful feedback zone、G makes fake、D judges real/fake、feedback to G、D too strong、gradient too weak、D too weak、confused judge、mode collapse、repeated fake samples、fake_std too small、sample inspection、fake_mean、real center、fake_std、loss_d/loss_g trends。",
+            footer="GAN 诊断不能只看谁赢；要看反馈是否有用、样本是否多样。",
+            allowed_tokens="GAN, Generator G, Discriminator D, useful feedback zone, fake, real/fake, feedback, D too strong, gradient, D too weak, mode collapse, fake_std, fake_mean, real center, loss_d/loss_g, sample inspection",
+        ),
+        "ch06-gan-adversarial-balance-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="GAN Balance Diagnosis: Too Strong, Too Weak, Collapsed",
+            visible_subtitle="G and D should pressure each other; imbalance weakens the evidence.",
+            teaching_goal="Serve the 6.6.2 GAN explanation after the opening mechanism. The learner should understand that GANs do not aim for one side to win; Generator G and Discriminator D must exchange useful gradients. If D is too strong, G receives little learnable feedback. If D is too weak, fake samples pass too easily. If G repeats one pattern, mode collapse appears. The image must teach dynamic balance and the diagnostic habit of checking sample distribution, fake_mean, fake_std, and losses together.",
+            fixed_layout="Vertical lined-notebook classroom handout, matching the previous GAN two-update image. Top: a balance scale. Left pan is Generator G, right pan is Discriminator D, center label useful feedback zone. Around the scale draw a loop arrow: G makes fake, D judges real/fake, feedback returns to G. Middle: three side-by-side diagnostic case sheets, hand-drawn like teacher notes rather than white rounded infoboxes. Case 1: D too strong, D almost always catches fake, G gets very weak gradients; draw a faded broken feedback line. Case 2: D too weak, D confuses real and fake; draw question marks and wrong arrows. Case 3: mode collapse, G outputs a clump of repeated fake samples, fake_std too small; a few samples may look real but diversity is low. Bottom: diagnostic checklist: sample inspection, fake_mean near real center, fake_std not too small, loss_d/loss_g trends. Do not use real photos, animal samples, long formulas, invented numeric values, or terminal output.",
+            required_labels="Generator G, Discriminator D, useful feedback zone, G makes fake, D judges real/fake, feedback to G, D too strong, gradient too weak, D too weak, confused judge, mode collapse, repeated fake samples, fake_std too small, sample inspection, fake_mean, real center, fake_std, loss_d/loss_g trends.",
+            footer="GAN diagnosis is not about who wins; check useful feedback and sample diversity.",
+            allowed_tokens="GAN, Generator G, Discriminator D, useful feedback zone, fake, real/fake, feedback, D too strong, gradient, D too weak, mode collapse, fake_std, fake_mean, real center, loss_d/loss_g, sample inspection",
+        ),
+        "ch06-gan-adversarial-balance-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="GAN バランス診断：強すぎ、弱すぎ、崩壊",
+            visible_subtitle="G と D は互いに圧をかける。崩れると証拠が弱くなる。",
+            teaching_goal="6.6.2 GAN の導入機構の後にある対抗訓練の難しさに合わせる。GAN は片方が勝つことを目指すのではなく、Generator G と Discriminator D が有用な gradient を交換する必要がある。D が強すぎると G は学べる feedback をほとんど得られない。D が弱すぎると fake が簡単に通る。G が同じ型だけを出すと mode collapse になる。sample distribution、fake_mean、fake_std、loss を一緒に見る診断習慣を教える図にする。",
+            fixed_layout="縦長の横線ノート紙の教学図。前の GAN 2回更新図と同じ手描き講義スタイルにする。上部に天秤を描く。左皿は Generator G、右皿は Discriminator D、中央に useful feedback zone。天秤の周りに循環矢印：G makes fake、D judges real/fake、feedback to G。中央に3つの診断ケースシートを横並びで描く。白い角丸情報箱ではなく、先生の手描き病歴カードのようにする。ケース1：D too strong。D がほぼ always fake を見破り、G の gradient が弱すぎる。薄い途切れた feedback 線を描く。ケース2：D too weak。D が real/fake を混同する。疑問符と誤った矢印を描く。ケース3：mode collapse。G が同じような fake samples の塊だけを出し、fake_std too small。少し real らしく見えても多様性が低い。下部に診断 checklist：sample inspection、fake_mean near real center、fake_std not too small、loss_d/loss_g trends。実写写真、動物サンプル、長い数式、捏造数値、terminal 出力は入れない。",
+            required_labels="Generator G、Discriminator D、useful feedback zone、G makes fake、D judges real/fake、feedback to G、D too strong、gradient too weak、D too weak、confused judge、mode collapse、repeated fake samples、fake_std too small、sample inspection、fake_mean、real center、fake_std、loss_d/loss_g trends。",
+            footer="GAN 診断は勝敗ではない。有用な feedback と sample diversity を見る。",
+            allowed_tokens="GAN, Generator G, Discriminator D, useful feedback zone, fake, real/fake, feedback, D too strong, gradient, D too weak, mode collapse, fake_std, fake_mean, real center, loss_d/loss_g, sample inspection",
+        ),
+    }
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("ch06-gan-adversarial-balance-map-en.png", "GAN Balance Diagnosis: Too Strong, Too Weak, Collapsed", "docs/ch06-deep-learning/ch06-generative/01-gan.md", "GAN balance diagnosis: D too strong, D too weak, and mode collapse show why samples, fake_mean, fake_std, and losses must be checked together."),
+        ("ch06-gan-adversarial-balance-map-ja.png", "GAN バランス診断：強すぎ、弱すぎ、崩壊", "docs/ch06-deep-learning/ch06-generative/01-gan.md", "GAN バランス診断図：D too strong、D too weak、mode collapse を通じて sample、fake_mean、fake_std、loss を一緒に読む。"),
     ]
 )
 
