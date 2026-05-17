@@ -25726,6 +25726,110 @@ COURSE_QA_PROMPTS.update(
     }
 )
 
+COURSE_QA_PROMPTS.update(
+    {
+        "vae-latent-space-flow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="VAE：从输入点到可采样分布",
+            visible_subtitle="encoder 输出 mu/logvar，sample z 后 decoder 重建。",
+            teaching_goal="服务 6.6.3 VAE 开头的流程表。读者先看图就要理解：VAE 不是把输入压成一个固定 latent 点，而是用 encoder 输出 mu 和 logvar 描述一个小区域；再用 reparameterization 生成 z，让梯度仍能回到 mu/std；decoder 用 z 重建输入或生成新点。",
+            fixed_layout="竖向横线笔记纸教学图，像老师用蓝色和橙色笔在课堂讲义上画机制。上到下四个编号站点。1 输入 x：画两簇 2D 训练点，中心分别接近 [1,0] 和 [-1,0]，高亮一个输入点 x。2 Encoder：画一个小神经网络工位，输出两张标签 mu 和 logvar；旁边写“不是一个固定点”。3 Reparameterize：画一个椭圆概率云，中心是 mu，宽度来自 std；把 eps 像随机骰子一样注入，公式写 z = mu + eps * std，并用绿色梯度箭头回到 mu/std。4 Decoder：z 进入 decoder，输出 reconstructed x；另一路 random z 进入 decoder，输出 generated point。底部做一个小对比：Autoencoder = one point，VAE = small region + KL smoothing。不要画动物、人脸、风景、银河、照片或抽象装饰。",
+            required_labels="输入 x、2D 点簇、Encoder、mu、logvar、不是一个固定点、std = exp(0.5 * logvar)、eps ~ N(0,1)、z = mu + eps * std、梯度回到 mu/std、Decoder、reconstructed x、random z、generated point、Autoencoder: one point、VAE: small region、KL smoothing。",
+            footer="VAE 的关键不是加噪声，而是学一个可采样、可反传的 latent 区域。",
+            allowed_tokens="VAE, x, 2D, Encoder, mu, logvar, std = exp(0.5 * logvar), eps ~ N(0,1), z = mu + eps * std, Decoder, reconstructed x, random z, generated point, Autoencoder, one point, small region, KL, latent",
+        ),
+        "vae-latent-space-flow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="VAE: From Input Point to Samplable Distribution",
+            visible_subtitle="The encoder outputs mu/logvar, samples z, then the decoder rebuilds.",
+            teaching_goal="Serve the opening flow table in 6.6.3 VAE. The learner should understand that a VAE does not compress each input into one fixed latent point. The encoder outputs mu and logvar to describe a small latent region; reparameterization creates z while keeping gradients connected to mu/std; the decoder uses z for reconstruction or generation.",
+            fixed_layout="Vertical lined-notebook classroom handout, drawn with navy, blue, green, and orange marker. Four numbered stations from top to bottom. 1 Input x: two 2D training clusters centered near [1,0] and [-1,0], with one highlighted input point x. 2 Encoder: a small neural-network workbench outputs two tags, mu and logvar; nearby note says not one fixed point. 3 Reparameterize: an oval probability cloud, center mu, width from std; inject eps as a random dice token, write z = mu + eps * std, and draw green gradient arrows back to mu/std. 4 Decoder: z enters the decoder and produces reconstructed x; a second path random z enters the decoder and produces generated point. Bottom mini-comparison: Autoencoder = one point, VAE = small region + KL smoothing. Do not draw animals, faces, landscapes, galaxies, photos, or decorative abstract art.",
+            required_labels="input x, 2D point clusters, Encoder, mu, logvar, not one fixed point, std = exp(0.5 * logvar), eps ~ N(0,1), z = mu + eps * std, gradients return to mu/std, Decoder, reconstructed x, random z, generated point, Autoencoder: one point, VAE: small region, KL smoothing.",
+            footer="The key is not noise; VAE learns a samplable latent region that still supports backprop.",
+            allowed_tokens="VAE, x, 2D, Encoder, mu, logvar, std = exp(0.5 * logvar), eps ~ N(0,1), z = mu + eps * std, Decoder, reconstructed x, random z, generated point, Autoencoder, one point, small region, KL, latent",
+        ),
+        "vae-latent-space-flow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="VAE：入力点から sample できる分布へ",
+            visible_subtitle="encoder が mu/logvar を出し、z を sample して decoder が再構成する。",
+            teaching_goal="6.6.3 VAE 冒頭の流れ表に合わせる。VAE は入力を 1 つの固定 latent 点に圧縮するのではなく、encoder が mu と logvar で小さな latent 領域を表す。reparameterization で z を作り、勾配は mu/std に戻れる。decoder は z から reconstruction または generation を行う。",
+            fixed_layout="縦長の横線ノート紙の手描き講義図。濃紺、青、緑、オレンジのペンで描く。上から下へ4つの番号付き station。1 入力 x：2つの 2D training clusters を描き、中心は [1,0] と [-1,0] 付近。1つの入力点 x を強調する。2 Encoder：小さな neural network の工房から mu と logvar の2つの札を出す。横に「固定点ではない」と書く。3 Reparameterize：楕円の確率雲を描き、中心は mu、幅は std。eps をランダムなサイコロとして入れ、z = mu + eps * std を書く。緑の勾配矢印を mu/std に戻す。4 Decoder：z が decoder に入り reconstructed x を出す。別ルートで random z が decoder に入り generated point を出す。下部に小さな比較：Autoencoder = one point、VAE = small region + KL smoothing。動物、顔、風景、銀河、写真、装飾だけの抽象画は入れない。",
+            required_labels="入力 x、2D point clusters、Encoder、mu、logvar、固定点ではない、std = exp(0.5 * logvar)、eps ~ N(0,1)、z = mu + eps * std、勾配は mu/std へ戻る、Decoder、reconstructed x、random z、generated point、Autoencoder: one point、VAE: small region、KL smoothing。",
+            footer="VAE の鍵は noise ではなく、sample できて backprop できる latent 領域を学ぶこと。",
+            allowed_tokens="VAE, x, 2D, Encoder, mu, logvar, std = exp(0.5 * logvar), eps ~ N(0,1), z = mu + eps * std, Decoder, reconstructed x, random z, generated point, Autoencoder, one point, small region, KL, latent, sample, backprop",
+        ),
+        "ch06-vae-latent-continuity-sampling-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="VAE：连续 latent space 怎么帮生成",
+            visible_subtitle="KL 把点云整理成可采样区域，插值才不容易掉进空洞。",
+            teaching_goal="服务 VAE 与普通 autoencoder 的差异说明。读者要理解：普通 autoencoder 可能把样本编码成分散孤岛，随机取点容易落在无意义空洞；VAE 用 KL 压力把 latent space 推向平滑 prior，让相邻的 z 解码出连续变化的 2D 点。",
+            fixed_layout="竖向横线笔记纸教学图。上半部分左右对比：左边 Autoencoder latent 是几个孤立小点，中间有红色空洞；右边 VAE latent 是两片柔和概率云，周围有 N(0,1) prior 的淡灰圆。中间画一条 interpolation path，用 5 个点从左云走到右云，箭头依次通过 z1、z2、z3、z4、z5。右侧接一个 Decoder 小工位，输出 5 个逐渐移动的 2D points，从 [-1,0] 附近平滑过渡到 [1,0] 附近。下方画 beta / KL 压力滑杆：太小 = messy islands；合适 = smooth + reconstruct；太大 = squeezed latent, recon worse。不要画星空、风景、杯子、猫狗、人脸或漂亮但无关的生成样本。",
+            required_labels="Autoencoder latent、孤立点、空洞、VAE latent、概率云、N(0,1) prior、sample z、interpolation path、z1、z2、z3、z4、z5、Decoder、2D points、[-1,0] -> [1,0]、beta / KL、太小：messy islands、合适：smooth + reconstruct、太大：recon worse。",
+            footer="连续 latent space 的价值：随机采样和插值更像训练数据。",
+            allowed_tokens="VAE, Autoencoder, latent, N(0,1), prior, sample z, interpolation path, z1, z2, z3, z4, z5, Decoder, 2D points, [-1,0], [1,0], beta, KL, messy islands, smooth + reconstruct, recon worse",
+        ),
+        "ch06-vae-latent-continuity-sampling-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="VAE: Why Continuous Latent Space Helps",
+            visible_subtitle="KL organizes clouds into samplable regions, so interpolation avoids holes.",
+            teaching_goal="Serve the comparison between VAE and a normal autoencoder. The learner should understand that a regular autoencoder may encode samples as scattered islands, so random z can land in meaningless holes. VAE uses KL pressure to push latent space toward a smooth prior, so nearby z values decode into smoothly changing 2D points.",
+            fixed_layout="Vertical lined-notebook classroom handout. Upper half side-by-side comparison: left Autoencoder latent has isolated dots with red holes between them; right VAE latent has two soft probability clouds inside a pale N(0,1) prior circle. Center: an interpolation path with five dots moving from the left cloud to the right cloud, arrows labeled z1, z2, z3, z4, z5. Right side connects to a Decoder workbench that outputs five 2D points moving smoothly from near [-1,0] to near [1,0]. Bottom: beta / KL pressure slider with three zones: too small = messy islands; good zone = smooth + reconstruct; too large = squeezed latent, recon worse. Do not draw star fields, landscapes, cups, cats, dogs, faces, or pretty but unrelated samples.",
+            required_labels="Autoencoder latent, isolated dots, holes, VAE latent, probability clouds, N(0,1) prior, sample z, interpolation path, z1, z2, z3, z4, z5, Decoder, 2D points, [-1,0] -> [1,0], beta / KL, too small: messy islands, good: smooth + reconstruct, too large: recon worse.",
+            footer="Continuous latent space matters because random sampling and interpolation stay data-like.",
+            allowed_tokens="VAE, Autoencoder, latent, N(0,1), prior, sample z, interpolation path, z1, z2, z3, z4, z5, Decoder, 2D points, [-1,0], [1,0], beta, KL, messy islands, smooth + reconstruct, recon worse",
+        ),
+        "ch06-vae-latent-continuity-sampling-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="VAE：連続 latent space が生成を助ける理由",
+            visible_subtitle="KL が点群を sample しやすい領域に整え、interpolation の穴を減らす。",
+            teaching_goal="VAE と通常の autoencoder の違いに合わせる。通常の autoencoder は sample を散らばった島として encode し、random z が意味のない穴に落ちることがある。VAE は KL の圧力で latent space を滑らかな prior に近づけ、近い z が滑らかに変化する 2D point へ decode されることを理解させる。",
+            fixed_layout="縦長の横線ノート紙の教学図。上半分は左右比較。左は Autoencoder latent：孤立した点と赤い holes。右は VAE latent：2つの柔らかい probability clouds と淡い N(0,1) prior の円。中央に interpolation path を描き、左の雲から右の雲へ5つの点が進む。矢印に z1、z2、z3、z4、z5。右側の Decoder 工房につなげ、5つの 2D points が [-1,0] 付近から [1,0] 付近へ滑らかに移動する。下部に beta / KL pressure の slider：小さすぎ = messy islands、適切 = smooth + reconstruct、大きすぎ = recon worse。星空、風景、カップ、猫、犬、顔、関係ない綺麗な sample は描かない。",
+            required_labels="Autoencoder latent、孤立点、holes、VAE latent、probability clouds、N(0,1) prior、sample z、interpolation path、z1、z2、z3、z4、z5、Decoder、2D points、[-1,0] -> [1,0]、beta / KL、小さすぎ：messy islands、適切：smooth + reconstruct、大きすぎ：recon worse。",
+            footer="連続 latent space は、random sampling と interpolation を data-like に保つ。",
+            allowed_tokens="VAE, Autoencoder, latent, N(0,1), prior, sample z, interpolation path, z1, z2, z3, z4, z5, Decoder, 2D points, [-1,0], [1,0], beta, KL, messy islands, smooth + reconstruct, recon worse, random sampling, data-like",
+        ),
+        "ch06-vae-2d-latent-sample-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="VAE 2D 实验结果怎么看",
+            visible_subtitle="把 print 变成三件证据：误差下降、KL 受控、随机 z 生成合理点。",
+            teaching_goal="服务 tiny_vae_2d.py 的预期输出。读者即使不运行代码，也能看懂输出为什么说明模型在学：recon 从 0.5903 降到 0.0244；KL 到 0.7138 但没有归零；loss 降到 0.0601；generated_points 是 random z 经 decoder 得到的 5 个点，不是复制训练数据。",
+            fixed_layout="竖向横线笔记纸实验报告，必须使用精确输出值，不要发明额外 epoch、坐标或指标。顶部画输入数据：两簇 2D training points，中心接近 [1,0] 和 [-1,0]。旁边画简化 VAE 流程：Encoder -> mu/logvar -> z = mu + eps*std -> Decoder。中部是一张手绘 print evidence 表，只写四行：epoch=001 recon=0.5903 kl=0.0293 loss=0.5917；epoch=050 recon=0.0335 kl=0.9007 loss=0.0785；epoch=100 recon=0.0261 kl=0.8229 loss=0.0673；epoch=200 recon=0.0244 kl=0.7138 loss=0.0601。右侧画三条小趋势：recon down、KL controlled、loss down。下半部画 generated_points 的放大坐标带：x 轴范围 -1.3 到 1.2，y 轴只放大 -0.08 到 0.06，所有点都贴近 y=0 的水平线，不要画到高处。只画并标出这五个点：[1.075,-0.014]、[-0.997,-0.001]、[-1.118,-0.054]、[0.553,0.041]、[0.74,0.021]。底部画 random z -> decoder -> generated_points，并写 not copied。严禁把 KL=0.7138 写成 loss，严禁新增点或改坐标，严禁把 [1.075,-0.014] 画成 y 很高的点。",
+            required_labels="2D training points、Encoder、mu/logvar、z = mu + eps*std、Decoder、print evidence、epoch=001 recon=0.5903 kl=0.0293 loss=0.5917、epoch=050 recon=0.0335 kl=0.9007 loss=0.0785、epoch=100 recon=0.0261 kl=0.8229 loss=0.0673、epoch=200 recon=0.0244 kl=0.7138 loss=0.0601、recon down、KL controlled、loss down、generated_points、[1.075,-0.014]、[-0.997,-0.001]、[-1.118,-0.054]、[0.553,0.041]、[0.74,0.021]、random z -> decoder、not copied。",
+            footer="看 VAE 输出时，把数值趋势、KL 压力和生成点位置一起读。",
+            allowed_tokens="VAE, 2D, training points, Encoder, mu/logvar, z = mu + eps*std, Decoder, print evidence, epoch, recon, kl, loss, recon down, KL controlled, loss down, generated_points, random z, not copied",
+        ),
+        "ch06-vae-2d-latent-sample-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Reading 2D VAE Lab Results",
+            visible_subtitle="Turn print output into three clues: recon drops, KL stays controlled, random z decodes.",
+            teaching_goal="Serve the expected output of tiny_vae_2d.py. Even if learners cannot run the code, they should see why the output means the model is learning: recon drops from 0.5903 to 0.0244; KL reaches 0.7138 without collapsing to zero; loss drops to 0.0601; generated_points are five points decoded from random z, not copied from training data.",
+            fixed_layout="Vertical lined-notebook lab report. Use exact output values only; do not invent extra epochs, coordinates, or metrics. Top: input data with two 2D training clusters centered near [1,0] and [-1,0]. Beside it draw the compact VAE flow: Encoder -> mu/logvar -> z = mu + eps*std -> Decoder. Middle: a hand-drawn print evidence table with exactly four rows: epoch=001 recon=0.5903 kl=0.0293 loss=0.5917; epoch=050 recon=0.0335 kl=0.9007 loss=0.0785; epoch=100 recon=0.0261 kl=0.8229 loss=0.0673; epoch=200 recon=0.0244 kl=0.7138 loss=0.0601. Right side: three tiny trends labeled recon down, KL controlled, loss down. Lower half: draw generated_points as a zoomed coordinate strip: x axis from -1.3 to 1.2, y axis enlarged only from -0.08 to 0.06, so every dot sits very close to the y=0 horizontal line. Plot and label exactly these five dots only: [1.075,-0.014], [-0.997,-0.001], [-1.118,-0.054], [0.553,0.041], [0.74,0.021]. Bottom: random z -> decoder -> generated_points, with the note not copied. Never write KL=0.7138 as the loss. Do not add dots or change coordinates. Never place [1.075,-0.014] high above the x axis.",
+            required_labels="2D training points, Encoder, mu/logvar, z = mu + eps*std, Decoder, print evidence, epoch=001 recon=0.5903 kl=0.0293 loss=0.5917, epoch=050 recon=0.0335 kl=0.9007 loss=0.0785, epoch=100 recon=0.0261 kl=0.8229 loss=0.0673, epoch=200 recon=0.0244 kl=0.7138 loss=0.0601, recon down, KL controlled, loss down, generated_points, [1.075,-0.014], [-0.997,-0.001], [-1.118,-0.054], [0.553,0.041], [0.74,0.021], random z -> decoder, not copied.",
+            footer="Read VAE output by combining numeric trends, KL pressure, and generated point locations.",
+            allowed_tokens="VAE, 2D, training points, Encoder, mu/logvar, z = mu + eps*std, Decoder, print evidence, epoch, recon, kl, loss, recon down, KL controlled, loss down, generated_points, random z, not copied",
+        ),
+        "ch06-vae-2d-latent-sample-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="2D VAE 実験結果の読み方",
+            visible_subtitle="print を3つの証拠に変える：recon 低下、KL 制御、random z の decode。",
+            teaching_goal="tiny_vae_2d.py の期待出力に合わせる。コードを実行できない読者でも、recon が 0.5903 から 0.0244 に下がる、KL が 0.7138 で 0 に潰れていない、loss が 0.0601 まで下がる、generated_points は training data のコピーではなく random z から decode された5点だと分かるようにする。",
+            fixed_layout="縦長の横線ノート紙の実験レポート。正確な出力値だけを使い、epoch、座標、metric を追加しない。上部：入力データとして2つの 2D training clusters を描く。中心は [1,0] と [-1,0] 付近。その横に簡潔な VAE flow：Encoder -> mu/logvar -> z = mu + eps*std -> Decoder。中央：手描きの print evidence 表。行は必ず4行だけ：epoch=001 recon=0.5903 kl=0.0293 loss=0.5917；epoch=050 recon=0.0335 kl=0.9007 loss=0.0785；epoch=100 recon=0.0261 kl=0.8229 loss=0.0673；epoch=200 recon=0.0244 kl=0.7138 loss=0.0601。右側に3つの小さな trend：recon down、KL controlled、loss down。下半分：generated_points を拡大した座標帯として描く。x 軸は -1.3 から 1.2、y 軸は -0.08 から 0.06 だけに拡大し、すべての点を y=0 の水平線の近くに置く。5つの点だけを描いて label： [1.075,-0.014]、[-0.997,-0.001]、[-1.118,-0.054]、[0.553,0.041]、[0.74,0.021]。下部：random z -> decoder -> generated_points と not copied の注意。KL=0.7138 を loss として書かない。点や座標を追加・変更しない。[1.075,-0.014] を x 軸から高く離して描かない。",
+            required_labels="2D training points、Encoder、mu/logvar、z = mu + eps*std、Decoder、print evidence、epoch=001 recon=0.5903 kl=0.0293 loss=0.5917、epoch=050 recon=0.0335 kl=0.9007 loss=0.0785、epoch=100 recon=0.0261 kl=0.8229 loss=0.0673、epoch=200 recon=0.0244 kl=0.7138 loss=0.0601、recon down、KL controlled、loss down、generated_points、[1.075,-0.014]、[-0.997,-0.001]、[-1.118,-0.054]、[0.553,0.041]、[0.74,0.021]、random z -> decoder、not copied。",
+            footer="VAE 出力は、数値の trend、KL の圧力、生成点の位置を合わせて読む。",
+            allowed_tokens="VAE, 2D, training points, Encoder, mu/logvar, z = mu + eps*std, Decoder, print evidence, epoch, recon, kl, loss, recon down, KL controlled, loss down, generated_points, random z, not copied",
+        ),
+    }
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("vae-latent-space-flow-en.png", "VAE: From Input Point to Samplable Distribution", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE flow: encoder outputs mu/logvar, reparameterization samples z while gradients return to mu/std, and decoder reconstructs or generates from z."),
+        ("vae-latent-space-flow-ja.png", "VAE：入力点から sample できる分布へ", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE の流れ：encoder が mu/logvar を出し、reparameterization が z を sample し、勾配は mu/std に戻り、decoder が再構成または生成する。"),
+        ("ch06-vae-latent-continuity-sampling-map-en.png", "VAE: Why Continuous Latent Space Helps", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE continuous latent space map: KL smooths probability clouds so sampling and interpolation avoid holes and decode to data-like 2D points."),
+        ("ch06-vae-latent-continuity-sampling-map-ja.png", "VAE：連続 latent space が生成を助ける理由", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE の連続 latent space 図：KL が probability clouds を滑らかにし、sampling と interpolation が holes を避けて data-like な 2D points に decode される。"),
+    ]
+)
+
 COURSE_QA_IMAGE_JOB_META.extend(
     [
         ("ch06-gan-adversarial-balance-map-en.png", "GAN Balance Diagnosis: Too Strong, Too Weak, Collapsed", "docs/ch06-deep-learning/ch06-generative/01-gan.md", "GAN balance diagnosis: D too strong, D too weak, and mode collapse show why samples, fake_mean, fake_std, and losses must be checked together."),
