@@ -33289,8 +33289,118 @@ CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS = {
     ),
 }
 
+CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS = {
+    "ch07-pretraining-objective-comparison-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="三种预训练目标怎么改输入",
+        visible_subtitle="看输入怎么被改写，才能看懂 label 要预测什么。",
+        teaching_goal=(
+            "服务第 7 章 7.4.3 的 pretraining-objectives 代码。图片必须和真实代码输出一致，"
+            "尤其 Masked LM 的 mask_positions=[2,5] 是 Python 0-based 索引：index 2 对应 learn，index 5 对应 large。"
+            "不要画 1 到 8 的编号行造成误解。读者先看图就能理解 Causal LM 预测下一个 token，"
+            "Masked LM 只预测被 mask 的位置，Span corruption 用 sentinel 表示连续被挖掉的片段。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，三语版本同构。顶部画原始 token 条："
+            "transformer | models | learn | patterns | from | large | text | corpora。"
+            "在原始 token 条正上方只画一个 Python 0-based 索引尺：0 1 2 3 4 5 6 7；"
+            "把 2 号 learn 和 5 号 large 用橙色圈出，并写“Python 0-based 索引”。禁止出现 1 2 3 4 5 6 7 8 的编号行。"
+            "下面分三块。第一块 Causal LM：左边输入条为 transformer, models, learn, patterns, from, large, text；"
+            "右边 label 条为 models, learn, patterns, from, large, text, corpora；用一格向右错位箭头说明预测下一个 token。"
+            "第二块 Masked LM：输入条为 transformer, models, [MASK], patterns, from, [MASK], text, corpora；"
+            "旁边只写 labels: {2:'learn', 5:'large'}，并用两根箭头从 [MASK] 回指 index 2 learn 和 index 5 large。"
+            "第三块 Span Corruption：输入条为 transformer, models, <extra_id_0>, large, text, corpora；"
+            "target 条为 <extra_id_0>, learn, patterns, from, <extra_id_1>；画一个被挖走的连续片段 learn patterns from。"
+            "底部加小结：同一段文本，训练目标不同，模型要猜的答案也不同。"
+        ),
+        required_labels=(
+            "原始 tokens、Python 0-based 索引、Causal LM、输入、label、预测下一个 token、Masked LM、"
+            "[MASK]、labels: {2:'learn', 5:'large'}、Span Corruption、<extra_id_0>、<extra_id_1>、target、"
+            "transformer、models、learn、patterns、from、large、text、corpora。禁止 1-8 编号行、乱码、小字、无关英文解释句。"
+        ),
+        footer="同一段文本，训练目标不同，模型要猜的答案也不同。",
+        allowed_tokens=(
+            "Python, 0-based, token, tokens, Causal LM, Masked LM, Span Corruption, input, label, labels, target, "
+            "transformer, models, learn, patterns, from, large, text, corpora, [MASK], "
+            "{2:'learn', 5:'large'}, <extra_id_0>, <extra_id_1>"
+        ),
+    ),
+    "ch07-pretraining-objective-comparison-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="How Three Pretraining Objectives Rewrite Input",
+        visible_subtitle="See how the input changes, then the labels make sense.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.4.3 and the real pretraining-objectives code output. The image must match the code exactly. "
+            "For Masked LM, mask_positions=[2,5] uses Python 0-based indexes: index 2 is learn and index 5 is large. "
+            "Do not draw a 1-to-8 numbering row that conflicts with the code. Learners should understand that Causal LM predicts the next token, "
+            "Masked LM predicts only masked positions, and span corruption uses sentinel tokens for a removed continuous span."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "At the top, draw the original token strip: transformer | models | learn | patterns | from | large | text | corpora. "
+            "Above it draw exactly one Python 0-based index ruler: 0 1 2 3 4 5 6 7; circle index 2 learn and index 5 large in orange, "
+            "and write Python 0-based index. Forbidden: any 1 2 3 4 5 6 7 8 numbering row. "
+            "Below are three stacked panels. Panel 1 Causal LM: input strip is transformer, models, learn, patterns, from, large, text; "
+            "label strip is models, learn, patterns, from, large, text, corpora; show a one-cell shift arrow for predict next token. "
+            "Panel 2 Masked LM: input strip is transformer, models, [MASK], patterns, from, [MASK], text, corpora; "
+            "write labels: {2:'learn', 5:'large'} and draw two arrows from the [MASK] slots back to index 2 learn and index 5 large. "
+            "Panel 3 Span Corruption: input strip is transformer, models, <extra_id_0>, large, text, corpora; "
+            "target strip is <extra_id_0>, learn, patterns, from, <extra_id_1>; draw the removed continuous span learn patterns from. "
+            "Bottom takeaway: same text, different objective, different answer to predict."
+        ),
+        required_labels=(
+            "Original tokens, Python 0-based index, Causal LM, input, label, predict next token, Masked LM, [MASK], "
+            "labels: {2:'learn', 5:'large'}, Span Corruption, <extra_id_0>, <extra_id_1>, target, transformer, models, "
+            "learn, patterns, from, large, text, corpora. Forbidden: 1-to-8 numbering row, gibberish, tiny text, unrelated non-English explanation."
+        ),
+        footer="Same text, different objective, different answer to predict.",
+        allowed_tokens=(
+            "Python, 0-based, token, tokens, Causal LM, Masked LM, Span Corruption, input, label, labels, target, "
+            "transformer, models, learn, patterns, from, large, text, corpora, [MASK], "
+            "{2:'learn', 5:'large'}, <extra_id_0>, <extra_id_1>"
+        ),
+    ),
+    "ch07-pretraining-objective-comparison-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="3つの事前学習目標は入力をどう変えるか",
+        visible_subtitle="入力の変わり方を見ると、label の意味が分かる。",
+        teaching_goal=(
+            "第 7 章 7.4.3 の pretraining-objectives コードに使う。画像は実際のコード出力と一致させる。"
+            "Masked LM の mask_positions=[2,5] は Python 0-based index で、index 2 は learn、index 5 は large。"
+            "コードと矛盾する 1 から 8 の番号行を描かない。Causal LM は次の token を予測し、"
+            "Masked LM は mask された位置だけを予測し、Span corruption は sentinel token で連続 span を表すことを理解させる。"
+        ),
+        fixed_layout=(
+            "手描きの授業講義 / 横線ノート紙の教材図、縦 9:16、三語版で同構。上部に original token strip を描く："
+            "transformer | models | learn | patterns | from | large | text | corpora。"
+            "その真上に Python 0-based index の定規だけを描く：0 1 2 3 4 5 6 7；"
+            "index 2 の learn と index 5 の large をオレンジで囲み、「Python 0-based index（0 始まり）」と書く。"
+            "1 2 3 4 5 6 7 8 の番号行は禁止。下に 3 つのパネル。"
+            "1つ目 Causal LM：input strip は transformer, models, learn, patterns, from, large, text；"
+            "label strip は models, learn, patterns, from, large, text, corpora；1 マス右にずれる矢印で次の token を予測することを示す。"
+            "2つ目 Masked LM：input strip は transformer, models, [MASK], patterns, from, [MASK], text, corpora；"
+            "labels: {2:'learn', 5:'large'} と書き、[MASK] から index 2 learn と index 5 large へ矢印を戻す。"
+            "3つ目 Span Corruption：input strip は transformer, models, <extra_id_0>, large, text, corpora；"
+            "target strip は <extra_id_0>, learn, patterns, from, <extra_id_1>；消えた連続 span learn patterns from を描く。"
+            "下部まとめ：同じ文でも、学習目標が違うと予測する答えが変わる。"
+        ),
+        required_labels=(
+            "original tokens、Python 0-based index（0 始まり）、Causal LM、input、label、次の token を予測、Masked LM、"
+            "[MASK]、labels: {2:'learn', 5:'large'}、Span Corruption、<extra_id_0>、<extra_id_1>、target、"
+            "transformer、models、learn、patterns、from、large、text、corpora。禁止：1-8 の番号行、文字化け、小字、無関係な英語説明文。"
+        ),
+        footer="同じ文でも、学習目標が違うと予測する答えが変わる。",
+        allowed_tokens=(
+            "Python, 0-based, index, token, tokens, Causal LM, Masked LM, Span Corruption, input, label, labels, target, "
+            "transformer, models, learn, patterns, from, large, text, corpora, [MASK], "
+            "{2:'learn', 5:'large'}, <extra_id_0>, <extra_id_1>"
+        ),
+    ),
+}
+
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)
 
 CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dl-workshop-route-en.png", "Chapter 6 PyTorch Workshop Route", "Chapter 6 PyTorch workshop route map for the 16x16 stripe classification evidence-pack project."),
