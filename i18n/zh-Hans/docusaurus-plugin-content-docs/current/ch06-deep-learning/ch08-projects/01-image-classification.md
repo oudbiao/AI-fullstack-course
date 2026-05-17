@@ -168,6 +168,8 @@ accuracy: 0.75
 errors: [{'gold': 'dog', 'pred': 'cat'}]
 ```
 
+![图像分类 prototype baseline 结果图](/img/course/ch06-image-classification-prototype-result-map.webp)
+
 读这个错误：
 
 - 最后一个 `dog` 样本更接近 `cat` prototype；

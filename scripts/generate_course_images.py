@@ -26063,6 +26063,36 @@ COURSE_QA_PROMPTS.update(
             footer="進捗はレビュー可能にする。先に証拠を残し、次の実験を選ぶ。",
             allowed_tokens="task: image classification, baseline_accuracy=0.71, current_accuracy=0.82, 0.82 - 0.71 = 0.11, improvement: 0.11, failure_case_count: 5, next_step: inspect confused classes and add augmentation, confused classes, add augmentation, next experiment, baseline, metric delta, failure cases, next step",
         ),
+        "ch06-image-classification-prototype-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="原型基线输出怎么读",
+            visible_subtitle="把 print 输出读成：最近原型、混淆矩阵、唯一错误样本。",
+            teaching_goal="服务 6.8.2 image_project_baseline.py 的 expected output。读者即使不能运行代码，也要看懂 prototype baseline 的运行逻辑：先从 train_data 算出 cat/dog/rabbit 三个 prototype，再用 L1 distance 选最近类别，最后一条 gold=dog 因为离 cat prototype 最近而预测为 cat。图必须严格使用正文输出的数值：prototypes、四条 prediction、confusion_matrix、accuracy=0.75、errors=[{'gold':'dog','pred':'cat'}]。",
+            fixed_layout="竖向横线笔记纸实验结果图。三语必须同构：同样的五个横向教学区、同样的猫/狗/兔小图、同样的距离条、同样的矩阵位置和底部行动路径。顶部画老师把 print 输出转成评估板，不要画终端截图，不要画完整代码。第1区标题必须是“① 原型表”。三行准确写：cat [0.85,0.75,0.45]；dog [0.65,0.45,0.85]；rabbit [0.45,0.85,0.25]。第2区标题必须是“② 最近原型判定”。画 4 个 validation 样本小卡，前三个打绿色勾：cat -> cat、dog -> dog、rabbit -> rabbit；第四个红框：真实 dog -> 预测 cat。第四个旁边画距离条，必须写 cat=0.09、dog=0.87、rabbit=0.67，并标出 最近 = cat。第3区标题必须是“③ confusion_matrix”。行列顺序都必须是 cat、dog、rabbit，矩阵值必须是 cat [1,0,0]、dog [1,1,0]、rabbit [0,0,1]，把 dog 行 cat 列的 1 标红，写 dog -> cat。第4区标题必须是“④ 结果收据”。写 accuracy: 0.75 和 errors: [{'gold':'dog','pred':'cat'}]。第5区标题必须是“⑤ 下一步”。底部行动路径只用中文：查看 dog 样本 -> 检查背景/姿态/标签 -> 增加数据或修正标签。不要写 CNN 结果、训练曲线、92%、89.7%、0.93、额外类别或额外错误。不要出现英文解释词如 inspect、check、result receipt、prototype table、action path；只有代码 token 可保持英文。",
+            required_labels="① 原型表、cat [0.85,0.75,0.45]、dog [0.65,0.45,0.85]、rabbit [0.45,0.85,0.25]、② 最近原型判定、cat -> cat、dog -> dog、rabbit -> rabbit、真实 dog -> 预测 cat、cat=0.09、dog=0.87、rabbit=0.67、最近 = cat、③ confusion_matrix、cat [1,0,0]、dog [1,1,0]、rabbit [0,0,1]、dog -> cat、④ 结果收据、accuracy: 0.75、errors: [{'gold':'dog','pred':'cat'}]、⑤ 下一步、查看 dog 样本、检查背景/姿态/标签、增加数据或修正标签。",
+            footer="不要只看 accuracy；错误样本会告诉你下一步查哪里。",
+            allowed_tokens="print, prototype, train_data, validation, L1, cat, dog, rabbit, cat -> cat, dog -> dog, rabbit -> rabbit, confusion_matrix, accuracy: 0.75, errors: [{'gold':'dog','pred':'cat'}], gold, pred",
+        ),
+        "ch06-image-classification-prototype-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Reading Prototype Baseline Output",
+            visible_subtitle="Look at nearest prototype, confusion matrix, and the one error case.",
+            teaching_goal="Serve the expected output of image_project_baseline.py in 6.8.2. Even without running the code, learners should understand the prototype baseline: compute one prototype for cat/dog/rabbit from train_data, use L1 distance to choose the nearest class, and see that the final gold=dog sample is predicted as cat because it is nearest to the cat prototype. The image must strictly use the output values in the text: prototypes, four predictions, confusion_matrix, accuracy=0.75, and errors=[{'gold':'dog','pred':'cat'}].",
+            fixed_layout="Vertical lined-notebook experiment result map. The three language versions must be structurally identical: the same five horizontal teaching bands, same cat/dog/rabbit icons, same distance bars, same matrix location, and same bottom action path. Top: a teacher turns print output into an evaluation board; do not draw a terminal screenshot and do not draw the full code. Section 1 title exactly: “① Prototype table”. Three rows exactly: cat [0.85,0.75,0.45]; dog [0.65,0.45,0.85]; rabbit [0.45,0.85,0.25]. Section 2 title exactly: “② Nearest prototype”. Draw 4 validation sample cards. First three have green checks: cat -> cat, dog -> dog, rabbit -> rabbit. Fourth card is the red focus: gold dog -> pred cat. Beside it draw distance bars with exact values cat=0.09, dog=0.87, rabbit=0.67, and label nearest = cat. Section 3 title exactly: “③ confusion_matrix”. Both row and column order must be cat, dog, rabbit. Values must be cat [1,0,0], dog [1,1,0], rabbit [0,0,1]. Highlight the dog row, cat column value 1 in red and label dog -> cat. Section 4 title exactly: “④ Result receipt”. Write accuracy: 0.75 and errors: [{'gold':'dog','pred':'cat'}]. Section 5 title exactly: “⑤ Next action”. Bottom action path: inspect dog sample -> check background/pose/label -> add data or fix labels. Do not write CNN results, training curves, 92%, 89.7%, 0.93, extra classes, or extra errors.",
+            required_labels="① Prototype table, cat [0.85,0.75,0.45], dog [0.65,0.45,0.85], rabbit [0.45,0.85,0.25], ② Nearest prototype, cat -> cat, dog -> dog, rabbit -> rabbit, gold dog -> pred cat, cat=0.09, dog=0.87, rabbit=0.67, nearest = cat, ③ confusion_matrix, cat [1,0,0], dog [1,1,0], rabbit [0,0,1], dog -> cat, ④ Result receipt, accuracy: 0.75, errors: [{'gold':'dog','pred':'cat'}], ⑤ Next action, inspect dog sample, check background/pose/label, add data or fix labels.",
+            footer="Do not stop at accuracy; the error case tells you what to inspect next.",
+            allowed_tokens="Prototype table, L1 distance, cat, dog, rabbit, cat -> cat, dog -> dog, rabbit -> rabbit, gold dog -> pred cat, nearest = cat, confusion_matrix, accuracy: 0.75, errors: [{'gold':'dog','pred':'cat'}], background, pose, label, add data, fix labels",
+        ),
+        "ch06-image-classification-prototype-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="原型ベースライン出力の読み方",
+            visible_subtitle="print 出力を、最近 prototype・confusion_matrix・1つのエラーとして読む。",
+            teaching_goal="6.8.2 の image_project_baseline.py の expected output に合わせる。コードを実行できない読者でも、prototype baseline の流れを理解できる図にする：train_data から cat/dog/rabbit の prototype を計算し、L1 distance で最も近い class を選び、最後の gold=dog sample は cat prototype に最も近いので cat と予測される。本文出力の数値だけを使う：prototypes、4つの prediction、confusion_matrix、accuracy=0.75、errors=[{'gold':'dog','pred':'cat'}]。",
+            fixed_layout="縦長の横線ノート紙の実験結果図。三語版は同じ構造にする：同じ5本の横方向 teaching band、同じ猫/犬/うさぎの小アイコン、同じ距離バー、同じ matrix の位置、同じ下部 action path。上部：先生が print 出力を評価ボードへ整理する場面。terminal screenshot や完全な code は描かない。第1区タイトルは必ず「① prototype 表」。3行を正確に書く：cat [0.85,0.75,0.45]；dog [0.65,0.45,0.85]；rabbit [0.45,0.85,0.25]。第2区タイトルは必ず「② 最近 prototype 判定」。4つの validation sample card を描く。最初の3つは緑チェック：cat -> cat、dog -> dog、rabbit -> rabbit。4つ目を赤で強調：正解 dog -> 予測 cat。その横に距離バーを描き、cat=0.09、dog=0.87、rabbit=0.67 と正確に書き、最近 = cat と示す。第3区タイトルは必ず「③ confusion_matrix」。行列順はどちらも cat、dog、rabbit。値は必ず cat [1,0,0]、dog [1,1,0]、rabbit [0,0,1]。dog 行 cat 列の 1 を赤くし、dog -> cat と書く。第4区タイトルは必ず「④ 結果レシート」。accuracy: 0.75 と errors: [{'gold':'dog','pred':'cat'}] を書く。第5区タイトルは必ず「⑤ 次の一手」。下部 action path は自然な日本語：dog サンプル確認 -> 背景/姿勢/ラベル確認 -> データ追加またはラベル修正。CNN 結果、training curves、92%、89.7%、0.93、余分な class、余分な error は書かない。inspect、check、result receipt、action path などの英語説明語は出さない。code token だけ英語可。",
+            required_labels="① prototype 表、cat [0.85,0.75,0.45]、dog [0.65,0.45,0.85]、rabbit [0.45,0.85,0.25]、② 最近 prototype 判定、cat -> cat、dog -> dog、rabbit -> rabbit、正解 dog -> 予測 cat、cat=0.09、dog=0.87、rabbit=0.67、最近 = cat、③ confusion_matrix、cat [1,0,0]、dog [1,1,0]、rabbit [0,0,1]、dog -> cat、④ 結果レシート、accuracy: 0.75、errors: [{'gold':'dog','pred':'cat'}]、⑤ 次の一手、dog サンプル確認、背景/姿勢/ラベル確認、データ追加またはラベル修正。",
+            footer="accuracy だけで止まらない。error case が次に見る場所を教える。",
+            allowed_tokens="print, prototype, train_data, validation, L1, cat, dog, rabbit, cat -> cat, dog -> dog, rabbit -> rabbit, confusion_matrix, accuracy: 0.75, errors: [{'gold':'dog','pred':'cat'}], gold, pred",
+        ),
     }
 )
 
@@ -26091,6 +26121,9 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-project-evidence-record-result-map.png",
     "ch06-project-evidence-record-result-map-en.png",
     "ch06-project-evidence-record-result-map-ja.png",
+    "ch06-image-classification-prototype-result-map.png",
+    "ch06-image-classification-prototype-result-map-en.png",
+    "ch06-image-classification-prototype-result-map-ja.png",
 }
 
 COURSE_QA_IMAGE_JOB_META.extend(
@@ -26098,6 +26131,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch06-project-evidence-record-result-map.png", "把项目输出变成证据记录", "docs/ch06-deep-learning/ch08-projects/00-roadmap.md", "深度学习项目证据记录图：baseline_accuracy=0.71 到 current_accuracy=0.82，改进 0.11，5 个失败样本和下一步增强形成可复盘证据。"),
         ("ch06-project-evidence-record-result-map-en.png", "Turn Project Output into Evidence", "docs/ch06-deep-learning/ch08-projects/00-roadmap.md", "Deep learning project evidence record: baseline_accuracy=0.71 to current_accuracy=0.82, improvement 0.11, five failure samples, and the next augmentation step form reviewable evidence."),
         ("ch06-project-evidence-record-result-map-ja.png", "プロジェクト出力を証拠記録にする", "docs/ch06-deep-learning/ch08-projects/00-roadmap.md", "深層学習プロジェクト証拠記録：baseline_accuracy=0.71 から current_accuracy=0.82、改善 0.11、5つの失敗例、次の augmentation がレビュー可能な証拠になる。"),
+        ("ch06-image-classification-prototype-result-map.png", "Prototype Baseline 输出怎么读", "docs/ch06-deep-learning/ch08-projects/01-image-classification.md", "图像分类 prototype baseline 结果图：三类 prototype、L1 distance、dog -> cat 唯一错误、confusion matrix 和 accuracy=0.75。"),
+        ("ch06-image-classification-prototype-result-map-en.png", "Reading Prototype Baseline Output", "docs/ch06-deep-learning/ch08-projects/01-image-classification.md", "Image classification prototype baseline result map: three prototypes, L1 distance, the single dog -> cat error, confusion matrix, and accuracy=0.75."),
+        ("ch06-image-classification-prototype-result-map-ja.png", "Prototype Baseline 出力の読み方", "docs/ch06-deep-learning/ch08-projects/01-image-classification.md", "画像分類 prototype baseline 結果図：3つの prototype、L1 distance、唯一の dog -> cat error、confusion matrix、accuracy=0.75。"),
     ]
 )
 

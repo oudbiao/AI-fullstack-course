@@ -168,6 +168,8 @@ accuracy: 0.75
 errors: [{'gold': 'dog', 'pred': 'cat'}]
 ```
 
+![Prototype baseline result map for image classification](/img/course/ch06-image-classification-prototype-result-map-en.webp)
+
 Read the error:
 
 - the last `dog` sample is closer to the `cat` prototype;

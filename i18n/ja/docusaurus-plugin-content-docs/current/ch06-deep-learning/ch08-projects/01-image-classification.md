@@ -168,6 +168,8 @@ accuracy: 0.75
 errors: [{'gold': 'dog', 'pred': 'cat'}]
 ```
 
+![画像分類 prototype baseline 結果図](/img/course/ch06-image-classification-prototype-result-map-ja.webp)
+
 error の読み方：
 
 - 最後の `dog` sample は `cat` prototype に近いです。
