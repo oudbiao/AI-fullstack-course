@@ -47,6 +47,8 @@ failure_case_count: 5
 next_step: inspect confused classes and add augmentation
 ```
 
+![Deep learning project evidence record result map](/img/course/ch06-project-evidence-record-result-map-en.webp)
+
 This is the project habit: every improvement needs a baseline, metric, failure evidence, and next step.
 
 ## Learn in This Order

@@ -47,6 +47,8 @@ failure_case_count: 5
 next_step: inspect confused classes and add augmentation
 ```
 
+![深層学習プロジェクト証拠記録結果図](/img/course/ch06-project-evidence-record-result-map-ja.webp)
+
 これがプロジェクト習慣です。改善には baseline、指標、失敗証拠、次の一手が必要です。
 
 ## この順番で学ぶ

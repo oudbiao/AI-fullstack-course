@@ -26033,6 +26033,36 @@ COURSE_QA_PROMPTS.update(
             footer="圧縮は小ささだけでなく、タスクがまだ動くかで判断する。",
             allowed_tokens="original, q8_like, q4_like, MAE=0.0106, MAE=0.0825, params=8906, params * bits / 8, fp32=0.0340 MB, fp16=0.0170 MB, int8=0.0085 MB, int4=0.0042 MB, task metric, latency, runtime, deploy",
         ),
+        "ch06-project-evidence-record-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="把项目输出变成证据记录",
+            visible_subtitle="baseline、current、失败案例和下一步要写在同一张证据板上。",
+            teaching_goal="服务 6.8.1 Deep Learning Projects Roadmap 的 dl_project_evidence_first_loop.py。读者即使不能运行代码，也要看懂 expected output 如何从 evidence 字典来：task 是 image classification，baseline_accuracy=0.71，current_accuracy=0.82，improvement=0.11，failure_case_count=5，next_step 是 inspect confused classes and add augmentation。图要说明深度学习项目不是只训练，而是保留 baseline、指标变化、失败证据和下一步。",
+            fixed_layout="竖向横线笔记纸教学图，三语必须同构。顶部画老师把 evidence 字典和四行 print 输出整理成项目证据板，不要画终端截图，不要画完整代码。左上是任务卡：task: image classification，旁边画一个图像分类小模型把图片分到类。右上是准确率改进刻度尺，必须写 baseline_accuracy=0.71、current_accuracy=0.82，并用箭头标出 0.82 - 0.71 = 0.11；不要写百分号以外的新数值，不要写 accuracy=0.93。中部是 output receipt，必须只有四行：task: image classification；improvement: 0.11；failure_case_count: 5；next_step: inspect confused classes and add augmentation。下部左侧画 exactly 5 张失败样本小卡，标 1 到 5，不要发明类别名。下部右侧画 next action path：confused classes -> add augmentation -> next experiment。最底部画证据包闭环：baseline、metric delta、failure cases、next step 四个夹板连成圈。",
+            required_labels="task: image classification、baseline_accuracy=0.71、current_accuracy=0.82、0.82 - 0.71 = 0.11、improvement: 0.11、failure_case_count: 5、next_step: inspect confused classes and add augmentation、失败样本 1、失败样本 2、失败样本 3、失败样本 4、失败样本 5、confused classes、add augmentation、next experiment、baseline、metric delta、failure cases、next step。",
+            footer="项目进步要能被复盘：先保留证据，再决定下一轮实验。",
+            allowed_tokens="task: image classification, baseline_accuracy=0.71, current_accuracy=0.82, 0.82 - 0.71 = 0.11, improvement: 0.11, failure_case_count: 5, next_step: inspect confused classes and add augmentation, confused classes, add augmentation, next experiment, baseline, metric delta, failure cases, next step",
+        ),
+        "ch06-project-evidence-record-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Turn Project Output into Evidence",
+            visible_subtitle="Keep baseline, current score, failure cases, and next step on one board.",
+            teaching_goal="Serve dl_project_evidence_first_loop.py in 6.8.1 Deep Learning Projects Roadmap. Even without running the code, learners should see how the expected output comes from the evidence dictionary: task is image classification, baseline_accuracy=0.71, current_accuracy=0.82, improvement=0.11, failure_case_count=5, and next_step is inspect confused classes and add augmentation. The image should teach that a deep learning project is not just training; it keeps baseline, metric change, failure evidence, and next action.",
+            fixed_layout="Vertical lined-notebook teaching diagram. The three language versions must be structurally identical. Top: a teacher turns the evidence dictionary and four print lines into a project evidence board; do not draw a terminal screenshot and do not draw the full code. Upper left: task card: task: image classification, with a small image-classification model sorting pictures into classes. Upper right: accuracy improvement ruler with exact labels baseline_accuracy=0.71, current_accuracy=0.82, and an arrow labeled 0.82 - 0.71 = 0.11; do not invent another accuracy value such as 0.93. Middle: output receipt with exactly four lines only: task: image classification; improvement: 0.11; failure_case_count: 5; next_step: inspect confused classes and add augmentation. Lower left: exactly 5 failure sample cards labeled 1 through 5; do not invent class names. Lower right: next action path: confused classes -> add augmentation -> next experiment. Bottom: evidence-pack loop with four clipboards: baseline, metric delta, failure cases, next step.",
+            required_labels="task: image classification, baseline_accuracy=0.71, current_accuracy=0.82, 0.82 - 0.71 = 0.11, improvement: 0.11, failure_case_count: 5, next_step: inspect confused classes and add augmentation, failure sample 1, failure sample 2, failure sample 3, failure sample 4, failure sample 5, confused classes, add augmentation, next experiment, baseline, metric delta, failure cases, next step.",
+            footer="Project progress should be reviewable: keep evidence first, then choose the next experiment.",
+            allowed_tokens="task: image classification, baseline_accuracy=0.71, current_accuracy=0.82, 0.82 - 0.71 = 0.11, improvement: 0.11, failure_case_count: 5, next_step: inspect confused classes and add augmentation, confused classes, add augmentation, next experiment, baseline, metric delta, failure cases, next step",
+        ),
+        "ch06-project-evidence-record-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="プロジェクト出力を証拠記録にする",
+            visible_subtitle="baseline、current score、失敗例、次の一手を1枚の証拠板に残す。",
+            teaching_goal="6.8.1 Deep Learning Projects Roadmap の dl_project_evidence_first_loop.py に合わせる。コードを実行できない読者でも、expected output が evidence 辞書から来ることを理解できるようにする：task は image classification、baseline_accuracy=0.71、current_accuracy=0.82、improvement=0.11、failure_case_count=5、next_step は inspect confused classes and add augmentation。深層学習プロジェクトは訓練だけではなく、baseline、metric の変化、失敗証拠、次の一手を残すものだと教える。",
+            fixed_layout="縦長の横線ノート紙の教学図。三語版は同じ構造にする。上部：先生が evidence 辞書と4行の print 出力を project evidence board に整理する場面。terminal screenshot や完全な code は描かない。左上：task card：task: image classification。小さな画像分類モデルが画像を class に分ける絵を添える。右上：accuracy improvement のものさし。必ず baseline_accuracy=0.71、current_accuracy=0.82、矢印 0.82 - 0.71 = 0.11 を書く。0.93 など存在しない accuracy は書かない。中央：output receipt は4行だけ：task: image classification；improvement: 0.11；failure_case_count: 5；next_step: inspect confused classes and add augmentation。左下：失敗サンプルカードを exactly 5 枚、1 から 5 まで番号付きで描く。class 名は発明しない。右下：next action path：confused classes -> add augmentation -> next experiment。最下部：証拠パックの閉ループとして baseline、metric delta、failure cases、next step の4つの clipboards をつなぐ。",
+            required_labels="task: image classification、baseline_accuracy=0.71、current_accuracy=0.82、0.82 - 0.71 = 0.11、improvement: 0.11、failure_case_count: 5、next_step: inspect confused classes and add augmentation、失敗サンプル 1、失敗サンプル 2、失敗サンプル 3、失敗サンプル 4、失敗サンプル 5、confused classes、add augmentation、next experiment、baseline、metric delta、failure cases、next step。",
+            footer="進捗はレビュー可能にする。先に証拠を残し、次の実験を選ぶ。",
+            allowed_tokens="task: image classification, baseline_accuracy=0.71, current_accuracy=0.82, 0.82 - 0.71 = 0.11, improvement: 0.11, failure_case_count: 5, next_step: inspect confused classes and add augmentation, confused classes, add augmentation, next experiment, baseline, metric delta, failure cases, next step",
+        ),
     }
 )
 
@@ -26058,7 +26088,18 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-model-compression-quant-size-result-map.png",
     "ch06-model-compression-quant-size-result-map-en.png",
     "ch06-model-compression-quant-size-result-map-ja.png",
+    "ch06-project-evidence-record-result-map.png",
+    "ch06-project-evidence-record-result-map-en.png",
+    "ch06-project-evidence-record-result-map-ja.png",
 }
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("ch06-project-evidence-record-result-map.png", "把项目输出变成证据记录", "docs/ch06-deep-learning/ch08-projects/00-roadmap.md", "深度学习项目证据记录图：baseline_accuracy=0.71 到 current_accuracy=0.82，改进 0.11，5 个失败样本和下一步增强形成可复盘证据。"),
+        ("ch06-project-evidence-record-result-map-en.png", "Turn Project Output into Evidence", "docs/ch06-deep-learning/ch08-projects/00-roadmap.md", "Deep learning project evidence record: baseline_accuracy=0.71 to current_accuracy=0.82, improvement 0.11, five failure samples, and the next augmentation step form reviewable evidence."),
+        ("ch06-project-evidence-record-result-map-ja.png", "プロジェクト出力を証拠記録にする", "docs/ch06-deep-learning/ch08-projects/00-roadmap.md", "深層学習プロジェクト証拠記録：baseline_accuracy=0.71 から current_accuracy=0.82、改善 0.11、5つの失敗例、次の augmentation がレビュー可能な証拠になる。"),
+    ]
+)
 
 COURSE_QA_IMAGE_JOB_META.extend(
     [

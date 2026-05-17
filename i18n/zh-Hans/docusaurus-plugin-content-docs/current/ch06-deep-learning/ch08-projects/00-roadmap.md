@@ -47,6 +47,8 @@ failure_case_count: 5
 next_step: inspect confused classes and add augmentation
 ```
 
+![深度学习项目证据记录结果图](/img/course/ch06-project-evidence-record-result-map.webp)
+
 这就是项目习惯：每次改进都要有 baseline、指标、失败证据和下一步。
 
 ## 按这个顺序学
