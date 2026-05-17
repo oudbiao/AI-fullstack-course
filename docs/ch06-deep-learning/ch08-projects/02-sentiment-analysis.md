@@ -131,6 +131,8 @@ with_negation
 {'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'not recommended'}
 ```
 
+![Negation rule result map for sentiment analysis](/img/course/ch06-sentiment-negation-result-map-en.webp)
+
 What this teaches:
 
 - the baseline is explainable because every token changes the score;

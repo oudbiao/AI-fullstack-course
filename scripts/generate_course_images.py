@@ -26093,6 +26093,36 @@ COURSE_QA_PROMPTS.update(
             footer="accuracy だけで止まらない。error case が次に見る場所を教える。",
             allowed_tokens="print, prototype, train_data, validation, L1, cat, dog, rabbit, cat -> cat, dog -> dog, rabbit -> rabbit, confusion_matrix, accuracy: 0.75, errors: [{'gold':'dog','pred':'cat'}], gold, pred",
         ),
+        "ch06-sentiment-negation-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="否定词如何修正情感预测",
+            visible_subtitle="同一句 not recommended，规则前后分数从 +3 变成 -3。",
+            teaching_goal="服务 6.8.3 sentiment_project_baseline.py 的 expected output。读者即使不能运行代码，也要看懂关键词 baseline 的运行逻辑：tokenize 后用 positive_words 与 negative_words 做加减分，baseline 把 not recommended 错判为 positive，因为 recommended 得 +3；加入否定词规则后，not 让下一个有分数的 token 翻转，recommended 从 +3 变成 -3，预测改为 negative。图必须严格使用正文输出的三条 validation 结果和 before/after 分数。",
+            fixed_layout="竖向横线笔记纸实验结果图。三语必须同构：同样的四个横向教学区、同样的 token 小卡、同样的分数秤、同样的 before/after 对比、同样的底部错误分桶。顶部画老师把 sentiment_baseline 和 with_negation 两段 print 输出转成评估板，不要画终端截图，不要画完整代码。第1区标题“① 关键词计分”。画两个词袋：positive_words 和 negative_words；保留正文词：clear、practical、recommended、messy、confusing、unclear。写规则：score = positive count - negative count。第2区标题“② baseline 输出”。画三条 validation 句子结果，必须准确：clear and practical course -> positive score=3；messy and confusing pace -> negative score=-3；not recommended -> pred positive score=3，并把第三条标红“错误：gold negative”。第3区标题“③ 否定词翻转”。画 token 流 not -> recommended；not 打开 flip 开关；recommended 原本 +3，被翻转为 -3；最终 pred negative score=-3。第4区标题“④ with_negation 输出”。再次画三条结果，必须准确：positive score=3、negative score=-3、not recommended -> negative score=-3，第三条变绿。底部错误分桶：negation fixed；sarcasm 和 mixed sentiment 仍需记录，不要声称全部解决。不要写 accuracy、CNN、Transformer 结果、额外分数或额外样本。",
+            required_labels="① 关键词计分、positive_words、negative_words、score = positive count - negative count、clear、practical、recommended、messy、confusing、unclear、② baseline 输出、clear and practical course -> positive score=3、messy and confusing pace -> negative score=-3、not recommended -> pred positive score=3、gold negative、③ 否定词翻转、not、flip 开关、recommended +3 -> -3、④ with_negation 输出、not recommended -> negative score=-3、negation fixed、sarcasm、mixed sentiment、仍需记录。",
+            footer="规则不是万能模型；它只把一个已知错误类型变成可解释改进。",
+            allowed_tokens="sentiment_baseline, with_negation, positive_words, negative_words, score, token, clear and practical course, messy and confusing pace, not recommended, positive, negative, pred, gold, flip, recommended +3 -> -3, negation, sarcasm, mixed sentiment",
+        ),
+        "ch06-sentiment-negation-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="How Negation Fixes Sentiment",
+            visible_subtitle="The same not recommended flips from +3 to -3 after the rule.",
+            teaching_goal="Serve the expected output of sentiment_project_baseline.py in 6.8.3. Even without running the code, learners should understand the keyword baseline: tokenize text, score with positive_words minus negative_words, and see that baseline predicts not recommended as positive because recommended contributes +3. With the negation rule, not flips the next scored token, turning recommended from +3 into -3, so prediction becomes negative. Use exactly the three validation outputs and before/after scores from the text.",
+            fixed_layout="Vertical lined-notebook experiment result map. The three language versions must be structurally identical: same four horizontal teaching bands, same token cards, same score scale, same before/after contrast, same bottom error buckets. Top: a teacher turns the sentiment_baseline and with_negation print blocks into an evaluation board; do not draw a terminal screenshot and do not draw the full code. Section 1 title “① Keyword scoring”. Draw two word bags: positive_words and negative_words; keep text words from the lesson: clear, practical, recommended, messy, confusing, unclear. Write rule: score = positive count - negative count. Section 2 title “② Baseline output”. Draw exactly three validation sentence results: clear and practical course -> positive score=3; messy and confusing pace -> negative score=-3; not recommended -> pred positive score=3, and mark the third in red as “error: gold negative”. Section 3 title “③ Negation flip”. Draw token flow not -> recommended; not turns on a flip switch; recommended was +3 and becomes -3; final pred negative score=-3. Section 4 title “④ with_negation output”. Draw the three results again: positive score=3, negative score=-3, not recommended -> negative score=-3, with the third now green. Bottom error buckets: negation fixed; sarcasm and mixed sentiment still need to be recorded. Do not write accuracy, CNN, Transformer results, extra scores, or extra samples.",
+            required_labels="① Keyword scoring, positive_words, negative_words, score = positive count - negative count, clear, practical, recommended, messy, confusing, unclear, ② Baseline output, clear and practical course -> positive score=3, messy and confusing pace -> negative score=-3, not recommended -> pred positive score=3, gold negative, ③ Negation flip, not, flip switch, recommended +3 -> -3, ④ with_negation output, not recommended -> negative score=-3, negation fixed, sarcasm, mixed sentiment, still record.",
+            footer="A rule is not a universal model; it turns one known error type into an explainable improvement.",
+            allowed_tokens="sentiment_baseline, with_negation, positive_words, negative_words, score, token, clear and practical course, messy and confusing pace, not recommended, positive, negative, pred, gold, flip, recommended +3 -> -3, negation, sarcasm, mixed sentiment",
+        ),
+        "ch06-sentiment-negation-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="否定語で感情予測を直す",
+            visible_subtitle="同じ not recommended が、ルール後に +3 から -3 へ反転する。",
+            teaching_goal="6.8.3 の sentiment_project_baseline.py の expected output に合わせる。コードを実行できない読者でも、keyword baseline の流れを理解できる図にする：tokenize した後、positive_words と negative_words の差で score を出す。baseline は recommended の +3 に引っぱられて not recommended を positive と誤判定する。negation rule を入れると、not が次の score 付き token を反転し、recommended は +3 から -3 になり、予測は negative になる。本文の3つの validation output と before/after score だけを使う。",
+            fixed_layout="縦長の横線ノート紙の実験結果図。三語版は同じ構造にする：同じ4本の横方向 teaching band、同じ token card、同じ score scale、同じ before/after 対比、同じ下部 error bucket。上部：先生が sentiment_baseline と with_negation の print 出力を評価ボードへ整理する場面。terminal screenshot や完全な code は描かない。第1区タイトル「① キーワード採点」。2つの単語袋 positive_words と negative_words を描く。本文語彙 clear、practical、recommended、messy、confusing、unclear を使う。規則を書く：score = positive count - negative count。第2区タイトル「② baseline 出力」。validation 3文の結果を正確に描く：clear and practical course -> positive score=3；messy and confusing pace -> negative score=-3；not recommended -> pred positive score=3。3つ目を赤で「誤り：gold negative」と示す。第3区タイトル「③ 否定語 flip」。token の流れ not -> recommended を描く。not が flip スイッチを入れ、recommended は +3 から -3 に反転し、最終 pred negative score=-3。第4区タイトル「④ with_negation 出力」。3つの結果を再掲し、positive score=3、negative score=-3、not recommended -> negative score=-3、3つ目を緑にする。下部 error bucket：negation fixed；sarcasm と mixed sentiment はまだ記録が必要。accuracy、CNN、Transformer 結果、余分な score、余分な sample は書かない。",
+            required_labels="① キーワード採点、positive_words、negative_words、score = positive count - negative count、clear、practical、recommended、messy、confusing、unclear、② baseline 出力、clear and practical course -> positive score=3、messy and confusing pace -> negative score=-3、not recommended -> pred positive score=3、gold negative、③ 否定語 flip、not、flip スイッチ、recommended +3 -> -3、④ with_negation 出力、not recommended -> negative score=-3、negation fixed、sarcasm、mixed sentiment、まだ記録。",
+            footer="ルールは万能モデルではない。既知の1種類の誤りを、説明できる改善に変える。",
+            allowed_tokens="sentiment_baseline, with_negation, positive_words, negative_words, score, token, clear and practical course, messy and confusing pace, not recommended, positive, negative, pred, gold, flip, recommended +3 -> -3, negation, sarcasm, mixed sentiment",
+        ),
     }
 )
 
@@ -26124,6 +26154,9 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-image-classification-prototype-result-map.png",
     "ch06-image-classification-prototype-result-map-en.png",
     "ch06-image-classification-prototype-result-map-ja.png",
+    "ch06-sentiment-negation-result-map.png",
+    "ch06-sentiment-negation-result-map-en.png",
+    "ch06-sentiment-negation-result-map-ja.png",
 }
 
 COURSE_QA_IMAGE_JOB_META.extend(
@@ -26134,6 +26167,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch06-image-classification-prototype-result-map.png", "Prototype Baseline 输出怎么读", "docs/ch06-deep-learning/ch08-projects/01-image-classification.md", "图像分类 prototype baseline 结果图：三类 prototype、L1 distance、dog -> cat 唯一错误、confusion matrix 和 accuracy=0.75。"),
         ("ch06-image-classification-prototype-result-map-en.png", "Reading Prototype Baseline Output", "docs/ch06-deep-learning/ch08-projects/01-image-classification.md", "Image classification prototype baseline result map: three prototypes, L1 distance, the single dog -> cat error, confusion matrix, and accuracy=0.75."),
         ("ch06-image-classification-prototype-result-map-ja.png", "Prototype Baseline 出力の読み方", "docs/ch06-deep-learning/ch08-projects/01-image-classification.md", "画像分類 prototype baseline 結果図：3つの prototype、L1 distance、唯一の dog -> cat error、confusion matrix、accuracy=0.75。"),
+        ("ch06-sentiment-negation-result-map.png", "否定词如何修正情感预测", "docs/ch06-deep-learning/ch08-projects/02-sentiment-analysis.md", "情感分析否定词修正结果图：关键词 baseline 将 not recommended 错判 positive，negation rule 把 recommended +3 翻转为 -3 并修正为 negative。"),
+        ("ch06-sentiment-negation-result-map-en.png", "How Negation Fixes Sentiment", "docs/ch06-deep-learning/ch08-projects/02-sentiment-analysis.md", "Sentiment negation result map: the keyword baseline mispredicts not recommended as positive, then the negation rule flips recommended +3 to -3 and fixes the prediction to negative."),
+        ("ch06-sentiment-negation-result-map-ja.png", "否定語で感情予測を直す", "docs/ch06-deep-learning/ch08-projects/02-sentiment-analysis.md", "感情分析の否定語修正図：keyword baseline は not recommended を positive と誤判定し、negation rule が recommended +3 を -3 に反転して negative に直す。"),
     ]
 )
 

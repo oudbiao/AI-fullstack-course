@@ -131,6 +131,8 @@ with_negation
 {'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'not recommended'}
 ```
 
+![情感分析否定词规则结果图](/img/course/ch06-sentiment-negation-result-map.webp)
+
 这段代码教你：
 
 - baseline 可解释，因为每个 token 都会改变分数；

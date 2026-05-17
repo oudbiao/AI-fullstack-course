@@ -131,6 +131,8 @@ with_negation
 {'gold': 'negative', 'pred': 'negative', 'score': -3, 'text': 'not recommended'}
 ```
 
+![感情分析の否定語ルール結果図](/img/course/ch06-sentiment-negation-result-map-ja.webp)
+
 この code で学ぶこと：
 
 - baseline は、各 token が score を変えるので説明しやすい。
