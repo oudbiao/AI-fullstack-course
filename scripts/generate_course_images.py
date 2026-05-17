@@ -26003,6 +26003,36 @@ COURSE_QA_PROMPTS.update(
             footer="最初にモデルを替えない。曲線、予測、勾配、データを順に追う。",
             allowed_tokens="curve_diagnosis, underfit_case, overfit_case, unstable_case, possible_underfitting, possible_overfitting, possible_lr_too_high_or_unstable_batches, training_signals, loss=0.687, grad_norm=0.445, pred_counts=[0,12], avg_confidence=0.69, class 0, class 1, predictions, gradients, data, hyperparameters, model, labels, class balance, output shape, architecture last",
         ),
+        "ch06-model-compression-quant-size-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="模型压缩结果怎么看",
+            visible_subtitle="位数越少体积越小，但数值误差也可能变大。",
+            teaching_goal="服务 6.7.4 模型压缩的两个实验输出。读者即使不运行代码，也能看懂 quant_error_lab 中 q8_like 比 q4_like 误差小，而 q4_like 更激进；同时看懂 model_size_lab 如何用 params=8906 和位宽估算 fp32、fp16、int8、int4 参数体积。图必须强调：这只是参数大小估算，部署前还要测 task metric、latency 和 runtime。",
+            fixed_layout="竖向横线笔记纸教学图，三语必须同构。顶部画一个老师把两段 print 输出变成实验讲义，不要画终端截图。上半部分是三张大结果卡，顺序固定：original、q8_like、q4_like。每张卡都画四个竖向数值柱或刻度尺，并写清精确数组。original 必须是 [0.12,-1.87,3.44,-0.03]。q8_like 必须是 [0.125,-1.875,3.4375,0.0]，旁边误差表盘在低位，写 MAE=0.0106。q4_like 必须是 [0.0,-1.75,3.5,0.0]，旁边误差表盘更高，写 MAE=0.0825。中部画参数体积阶梯：params=8906，旁边写公式 params * bits / 8；四块内存芯片从大到小依次为 fp32=0.0340 MB、fp16=0.0170 MB、int8=0.0085 MB、int4=0.0042 MB。底部画部署检查夹板，只有三个未勾选项目：task metric、latency、runtime。不要写 pass、OK、ready、成功部署、准确率提升或任何不存在的指标。",
+            required_labels="original、[0.12,-1.87,3.44,-0.03]、q8_like、[0.125,-1.875,3.4375,0.0]、MAE=0.0106、误差较小、q4_like、[0.0,-1.75,3.5,0.0]、MAE=0.0825、更激进，误差更大、params=8906、params * bits / 8、fp32=0.0340 MB、fp16=0.0170 MB、int8=0.0085 MB、int4=0.0042 MB、部署检查、task metric、latency、runtime。",
+            footer="压缩成功不是只看更小，而是更小后任务仍然可用。",
+            allowed_tokens="original, q8_like, q4_like, MAE=0.0106, MAE=0.0825, params=8906, params * bits / 8, fp32=0.0340 MB, fp16=0.0170 MB, int8=0.0085 MB, int4=0.0042 MB, task metric, latency, runtime",
+        ),
+        "ch06-model-compression-quant-size-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Reading Model Compression Results",
+            visible_subtitle="Fewer bits shrink memory, but numerical error can grow.",
+            teaching_goal="Serve the two lab outputs in 6.7.4 Model Compression. Even without running the code, learners should see that q8_like has less quantization error than q4_like, while q4_like is more aggressive; and they should see how model_size_lab estimates fp32, fp16, int8, and int4 parameter memory from params=8906 and bit width. The image must stress that this is parameter-size estimate only, and real deployment still needs task metric, latency, and runtime checks.",
+            fixed_layout="Vertical lined-notebook teaching diagram. The three language versions must be structurally identical. Top: a teacher turns two print outputs into a lab handout; do not draw a terminal screenshot. Upper half: three large result cards in fixed order: original, q8_like, q4_like. Each card draws four vertical value bars or measuring sticks and shows the exact vector. original must be [0.12,-1.87,3.44,-0.03]. q8_like must be [0.125,-1.875,3.4375,0.0], with a low error gauge and MAE=0.0106. q4_like must be [0.0,-1.75,3.5,0.0], with a higher error gauge and MAE=0.0825. Middle: parameter-size ladder: params=8906, formula params * bits / 8, and four shrinking memory chips in order fp32=0.0340 MB, fp16=0.0170 MB, int8=0.0085 MB, int4=0.0042 MB. Bottom: deployment checklist clipboard with exactly three unchecked items: task metric, latency, runtime. Do not write pass, OK, ready, deployment success, accuracy improved, or any invented metric.",
+            required_labels="original, [0.12,-1.87,3.44,-0.03], q8_like, [0.125,-1.875,3.4375,0.0], MAE=0.0106, smaller error, q4_like, [0.0,-1.75,3.5,0.0], MAE=0.0825, more aggressive, more error, params=8906, params * bits / 8, fp32=0.0340 MB, fp16=0.0170 MB, int8=0.0085 MB, int4=0.0042 MB, deployment check, task metric, latency, runtime.",
+            footer="Compression works only when the smaller model still does the task.",
+            allowed_tokens="original, q8_like, q4_like, MAE=0.0106, MAE=0.0825, params=8906, params * bits / 8, fp32=0.0340 MB, fp16=0.0170 MB, int8=0.0085 MB, int4=0.0042 MB, task metric, latency, runtime, deployment check",
+        ),
+        "ch06-model-compression-quant-size-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="モデル圧縮結果を読む",
+            visible_subtitle="bit 数を減らすと小さくなるが、数値誤差は増えやすい。",
+            teaching_goal="6.7.4 モデル圧縮の2つの実験出力に合わせる。コードを実行できない読者でも、quant_error_lab で q8_like は q4_like より誤差が小さく、q4_like はより強い量子化であること、model_size_lab で params=8906 と bit 幅から fp32、fp16、int8、int4 の parameter memory を見積もることを理解できる図にする。これは parameter size の概算であり、実 deployment では task metric、latency、runtime も測る必要があると示す。",
+            fixed_layout="縦長の横線ノート紙の教学図。三語版は同じ構造にする。上部：先生が2つの print 出力を実験 handout に変える場面。terminal screenshot は描かない。上半分：3つの大きな結果カード。順序は固定：original、q8_like、q4_like。各カードに4本の縦棒または測定棒を描き、正確な vector を大きく表示する。original は必ず [0.12,-1.87,3.44,-0.03]。q8_like は必ず [0.125,-1.875,3.4375,0.0]、低い error gauge と MAE=0.0106 を置く。q4_like は必ず [0.0,-1.75,3.5,0.0]、より高い error gauge と MAE=0.0825 を置く。中央：parameter-size ladder。params=8906、式 params * bits / 8、4つの小さくなる memory chip を fp32=0.0340 MB、fp16=0.0170 MB、int8=0.0085 MB、int4=0.0042 MB の順に描く。下部：deployment check の clipboard。未チェック項目は task metric、latency、runtime の3つだけ。pass、OK、ready、deployment success、accuracy improved、存在しない metric は書かない。",
+            required_labels="original、[0.12,-1.87,3.44,-0.03]、q8_like、[0.125,-1.875,3.4375,0.0]、MAE=0.0106、誤差は小さい、q4_like、[0.0,-1.75,3.5,0.0]、MAE=0.0825、より強く、誤差が大きい、params=8906、params * bits / 8、fp32=0.0340 MB、fp16=0.0170 MB、int8=0.0085 MB、int4=0.0042 MB、deploy 確認、task metric、latency、runtime。",
+            footer="圧縮は小ささだけでなく、タスクがまだ動くかで判断する。",
+            allowed_tokens="original, q8_like, q4_like, MAE=0.0106, MAE=0.0825, params=8906, params * bits / 8, fp32=0.0340 MB, fp16=0.0170 MB, int8=0.0085 MB, int4=0.0042 MB, task metric, latency, runtime, deploy",
+        ),
     }
 )
 
@@ -26025,6 +26055,9 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-training-diagnosis-signal-result-map.png",
     "ch06-training-diagnosis-signal-result-map-en.png",
     "ch06-training-diagnosis-signal-result-map-ja.png",
+    "ch06-model-compression-quant-size-result-map.png",
+    "ch06-model-compression-quant-size-result-map-en.png",
+    "ch06-model-compression-quant-size-result-map-ja.png",
 }
 
 COURSE_QA_IMAGE_JOB_META.extend(
