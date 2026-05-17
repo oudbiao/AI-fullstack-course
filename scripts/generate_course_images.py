@@ -4110,8 +4110,8 @@ Language rules: all explanatory text must be natural English. Keep code/file/met
     },
     {
         "filename": "ch07-data-labeling-flywheel-review-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
+        "size": "1024x1792",
+        "quality": "high",
         "title": "数据标注质检与飞轮回流图",
         "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/05-data-labeling.md",
         "alt": "数据标注飞轮图：标注一致性、Cohen kappa、低置信度和线上失败样本进入复核队列，再回流训练集和评估集。",
@@ -33569,10 +33569,404 @@ CH07_FINETUNING_REMAKE_PROMPTS = {
     ),
 }
 
+CH07_PEFT_PLACEMENT_REMAKE_PROMPTS = {
+    "ch07-peft-placement-family-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="PEFT 把可训练部分放在哪里",
+        visible_subtitle="同一个冻结底座，四种方法只移动很小一块。",
+        teaching_goal=(
+            "服务第 7 章 7.6.4 其他 PEFT 方法。图片必须把正文表格和类比图形化："
+            "Prompt Tuning 把 soft prompt 放在输入 embedding 前；Prefix Tuning 在每层 attention 的 KV prefix 放参数；"
+            "Adapter 在层间插入 bottleneck 小模块；IA3 只学习通道缩放系数。"
+            "让读者先看图建立位置感，再读代码和表格。"
+        ),
+        fixed_layout=(
+            "竖版手绘课堂讲义 / 横线笔记纸风格，三语版必须同构。画一条从左到右的简化模型剖面："
+            "输入 token -> input embedding -> Transformer layer -> 输出。主模型用浅灰大轮廓和锁图标表示 frozen base。"
+            "在同一张模型剖面上用 4 个彩色编号标注可训练位置："
+            "1 Prompt Tuning：在 input embedding 前画 3 个紫色 soft prompt token，旁边写 输入前。"
+            "2 Prefix Tuning：在 attention 的 K/V 轨道前画 2 个绿色 prefix key/value，旁边写 每层 KV 前缀。"
+            "3 Adapter：在两个层块之间画橙色 bottleneck 小旁路，旁边写 层间小模块。"
+            "4 IA3：在 attention/FFN 通道旁画蓝色缩放旋钮 g1 g2 g3，旁边写 通道缩放。"
+            "下半部分画四张小方法卡，每张只写两行：放置位置 + 最适合的直觉。"
+            "底部画一个选择提醒条：先问它改输入、改每层上下文、改层间，还是改通道强度。"
+        ),
+        required_labels=(
+            "PEFT、frozen base、Prompt Tuning、soft prompt、输入前、Prefix Tuning、KV prefix、每层 KV 前缀、"
+            "Adapter、bottleneck、层间小模块、IA3、scaling、通道缩放、input embedding、Transformer layer、"
+            "位置不同，成本、表达力和切换方式就不同。"
+        ),
+        footer="先看可训练参数放哪里，再判断成本、表达力和切换方式。",
+        allowed_tokens=(
+            "PEFT, frozen base, Prompt Tuning, soft prompt, Prefix Tuning, KV prefix, Adapter, bottleneck, "
+            "IA3, scaling, input embedding, Transformer layer, attention, FFN, g1, g2, g3"
+        ),
+    ),
+    "ch07-peft-placement-family-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Where PEFT Puts Trainable Parts",
+        visible_subtitle="One frozen base, four ways to move only a small piece.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.6.4 Other PEFT Methods. The image must visualize the table and analogy in the text: "
+            "Prompt Tuning puts soft prompts before input embedding; Prefix Tuning adds trainable KV prefixes in each attention layer; "
+            "Adapter inserts a bottleneck module between layers; IA3 learns channel scaling factors. "
+            "Readers should get location intuition before reading the code and table."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language variants must use the same structure. "
+            "Draw one left-to-right simplified model cross-section: input tokens -> input embedding -> Transformer layer -> output. "
+            "Show the main model as a large light-gray outline with lock icons labeled frozen base. "
+            "Mark 4 colored numbered trainable locations on the same model: "
+            "1 Prompt Tuning: draw 3 purple soft prompt tokens before input embedding, labeled before input. "
+            "2 Prefix Tuning: draw 2 green prefix key/value blocks before the K/V rails in attention, labeled KV prefix in every layer. "
+            "3 Adapter: draw an orange bottleneck side branch between two layer blocks, labeled between-layer module. "
+            "4 IA3: draw blue scaling knobs g1 g2 g3 beside attention/FFN channels, labeled channel scaling. "
+            "Lower half: four small method cards, each with exactly two lines: placement + best intuition. "
+            "Bottom reminder strip: ask whether it changes input, per-layer context, between-layer path, or channel strength."
+        ),
+        required_labels=(
+            "PEFT, frozen base, Prompt Tuning, soft prompt, before input, Prefix Tuning, KV prefix, every layer, "
+            "Adapter, bottleneck, between-layer module, IA3, scaling, channel scaling, input embedding, Transformer layer, "
+            "Different locations mean different cost, expressiveness, and switching behavior."
+        ),
+        footer="First locate the trainable part, then judge cost, expressiveness, and switching.",
+        allowed_tokens=(
+            "PEFT, frozen base, Prompt Tuning, soft prompt, before input, Prefix Tuning, KV prefix, every layer, "
+            "Adapter, bottleneck, between-layer module, IA3, scaling, channel scaling, input embedding, "
+            "Transformer layer, attention, FFN, g1, g2, g3"
+        ),
+    ),
+    "ch07-peft-placement-family-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="PEFT は学習部分をどこに置くか",
+        visible_subtitle="同じ frozen base に、四つの小さな動かし方がある。",
+        teaching_goal=(
+            "第 7 章 7.6.4 その他の PEFT 手法に使う。本文の表と比喩を図にする："
+            "Prompt Tuning は soft prompt を input embedding の前に置く。Prefix Tuning は各 attention 層の KV prefix に学習可能部分を置く。"
+            "Adapter は層間に bottleneck 小モジュールを差し込む。IA3 は channel scaling 係数だけを学習する。"
+            "読者がコードと表を見る前に、位置の感覚を持てるようにする。"
+        ),
+        fixed_layout=(
+            "縦の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "左から右へ簡略化した model 断面を描く：input tokens -> input embedding -> Transformer layer -> output。"
+            "main model は薄いグレーの大きな輪郭と lock icon で frozen base と示す。"
+            "同じ model 断面上に 4 つの色付き番号で学習可能位置を示す："
+            "1 Prompt Tuning：input embedding の前に紫の soft prompt token を 3 個描き、入力前 とラベル。"
+            "2 Prefix Tuning：attention の K/V レールの前に緑の prefix key/value を 2 個描き、各層の KV prefix とラベル。"
+            "3 Adapter：2 つの層ブロックの間にオレンジの bottleneck 小さな横道を描き、層間小モジュール とラベル。"
+            "4 IA3：attention/FFN channel の横に青い scaling つまみ g1 g2 g3 を描き、channel scaling とラベル。"
+            "下半分に 4 枚の小さな方法カードを描く。各カードは二行だけ：配置場所 + 直感。"
+            "下部の注意バー：入力を変えるのか、各層の文脈を変えるのか、層間経路を変えるのか、channel 強度を変えるのかを先に問う。"
+        ),
+        required_labels=(
+            "PEFT、frozen base、Prompt Tuning、soft prompt、入力前、Prefix Tuning、KV prefix、各層、"
+            "Adapter、bottleneck、層間小モジュール、IA3、scaling、channel scaling、input embedding、Transformer layer、"
+            "置く場所が変わると、cost、表現力、切り替え方も変わる。"
+        ),
+        footer="まず学習部分の場所を見てから、cost・表現力・切り替え方を判断する。",
+        allowed_tokens=(
+            "PEFT, frozen base, Prompt Tuning, soft prompt, Prefix Tuning, KV prefix, Adapter, bottleneck, "
+            "IA3, scaling, channel scaling, input embedding, Transformer layer, attention, FFN, g1, g2, g3, cost"
+        ),
+    ),
+}
+
+CH07_FINETUNING_PRACTICE_REMAKE_PROMPTS = {
+    "ch07-finetuning-practice-data-mask-schedule-result.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="微调实战先看运行证据",
+        visible_subtitle="从 raw_samples 到 messages，再把 mask、steps、checkpoint 连起来复核。",
+        teaching_goal=(
+            "服务第 7 章 7.6.5 微调工程实践。图片必须严格对应两段代码和 expected output："
+            "raw_samples 转成 messages；random.seed(42) 后按 customer_id 分组切分，train size=3、val size=2，"
+            "first train example 是 customer_id C002；assistant-only loss mask 输出 [0, 0, 1]；"
+            "训练计划输出 effective_batch_size=32、steps_per_epoch=100、total_steps=300、warmup_steps=9；"
+            "checkpoint 100/200/300 的 val_loss 与 format_acc 必须精确。"
+        ),
+        fixed_layout=(
+            "竖版手绘课堂讲义 / 横线笔记纸风格，三语版必须同构。像老师把两段 print 输出画成一页可复核证据表，"
+            "不要深色金属仪表盘，不要 terminal screenshot，不要虚构客户或类别。"
+            "上半部分画数据流水线：左侧 raw_samples 有 5 条记录，清楚标出 C001、C001、C002、C003、C004；"
+            "中间箭头 to_chat_record(row)；右侧 messages 三层卡 system / user / assistant。"
+            "在右侧放大第一条 train example，必须写 customer_id: C002，并用简短气泡写 user: 忘记密码、assistant: 点击忘记密码重置。"
+            "中部画按 customer_id 分组切分闸门：C003、C002、C004 进入 train tray；C001 进入 val tray。"
+            "必须大字写 train size = 3、val size = 2，并画一条红色 guardrail：同一 customer_id 不能跨 train/val。"
+            "下半部分左侧画 assistant-only loss mask：system token 灰色 0，user token 灰色 0，assistant token 绿色 1；"
+            "必须显示 print -> [0, 0, 1]，旁边写 只训练 assistant 回答。"
+            "下半部分右侧画训练计划计算尺：输入 micro_batch_size=4、gradient_accumulation=8、num_gpus=1、epochs=3；"
+            "输出 effective_batch_size=32、steps_per_epoch=100、total_steps=300、warmup_steps=9。"
+            "底部画 checkpoint 选择板，三行数字精确：ckpt 100 val_loss 1.82 format_acc 0.61；"
+            "ckpt 200 val_loss 1.35 format_acc 0.78；ckpt 300 val_loss 1.31 format_acc 0.74。"
+            "ckpt 300 盖绿色章 best by val_loss；ckpt 200 旁边黄色提醒 format_acc 更高，也要复核。"
+        ),
+        required_labels=(
+            "raw_samples、C001、C001、C002、C003、C004、to_chat_record(row)、messages、system、user、assistant、"
+            "first train example、customer_id: C002、按 customer_id 切分、train: C003 C002 C004、val: C001、"
+            "train size = 3、val size = 2、同一 customer_id 不能跨 train/val、assistant-only loss mask、"
+            "print -> [0, 0, 1]、只训练 assistant 回答、micro_batch_size=4、gradient_accumulation=8、num_gpus=1、epochs=3、"
+            "effective_batch_size=32、steps_per_epoch=100、total_steps=300、warmup_steps=9、"
+            "ckpt 100 val_loss 1.82 format_acc 0.61、ckpt 200 val_loss 1.35 format_acc 0.78、"
+            "ckpt 300 val_loss 1.31 format_acc 0.74、best by val_loss、format_acc 更高，也要复核。"
+        ),
+        footer="微调不是只跑 train，而是先确认数据、mask、步数和验证指标都可信。",
+        allowed_tokens=(
+            "raw_samples, C001, C002, C003, C004, to_chat_record(row), messages, system, user, assistant, "
+            "first train example, customer_id, train, val, assistant-only loss mask, print, micro_batch_size, "
+            "gradient_accumulation, num_gpus, epochs, effective_batch_size, steps_per_epoch, total_steps, "
+            "warmup_steps, ckpt, val_loss, format_acc, best by val_loss"
+        ),
+    ),
+    "ch07-finetuning-practice-data-mask-schedule-result-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Fine-Tuning Practice Starts with Run Evidence",
+        visible_subtitle="Connect records, masks, steps, and checkpoints before trusting training.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.6.5 Fine-Tuning Engineering Practice. The image must exactly match the two code blocks "
+            "and expected outputs: raw_samples become messages; random.seed(42) split by customer_id gives train size=3, val size=2, "
+            "first train example is customer_id C002; assistant-only loss mask produces 15 zeros and 7 ones; "
+            "training plan outputs effective_batch_size=32, steps_per_epoch=100, total_steps=300, warmup_steps=9; "
+            "checkpoint 100/200/300 values must be exact."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language variants must be structurally identical. "
+            "It should look like a teacher turned two print outputs into a reviewable evidence page. "
+            "No dark metal dashboard, no terminal screenshot, no invented customers or class names. "
+            "Upper half: draw a data pipeline. Left raw_samples contains five records labeled C001, C001, C002, C003, C004. "
+            "Middle arrow to_chat_record(row). Right side: messages stack with system / user / assistant. "
+            "Zoom the first train example and write customer_id: C002, with short bubbles user: forgot password, assistant: click Forgot Password to reset. "
+            "Middle: draw a split-by-customer_id gate. C003, C002, C004 go into the train tray; C001 goes into the val tray. "
+            "Write large train size = 3 and val size = 2. Add a red guardrail: one customer cannot cross train/val. "
+            "Lower-left: assistant-only loss mask. system and user strips are gray 0 tokens; assistant strip is green 1 tokens. "
+            "Show exactly 15 zeros -> 7 ones and mask = [0 x15, 1 x7]. Add note: only assistant answer tokens train. "
+            "Lower-right: training plan ruler. Inputs: micro_batch_size=4, gradient_accumulation=8, num_gpus=1, epochs=3. "
+            "Outputs: effective_batch_size=32, steps_per_epoch=100, total_steps=300, warmup_steps=9. "
+            "Bottom: checkpoint selection board with three exact rows: ckpt 100 val_loss 1.82 format_acc 0.61; "
+            "ckpt 200 val_loss 1.35 format_acc 0.78; ckpt 300 val_loss 1.31 format_acc 0.74. "
+            "Stamp ckpt 300 with best by val_loss. Put yellow note near ckpt 200: higher format_acc, still review."
+        ),
+        required_labels=(
+            "raw_samples, C001, C001, C002, C003, C004, to_chat_record(row), messages, system, user, assistant, "
+            "first train example, customer_id: C002, split by customer_id, train: C003 C002 C004, val: C001, "
+            "train size = 3, val size = 2, one customer cannot cross train/val, assistant-only loss mask, "
+            "15 zeros -> 7 ones, mask = [0 x15, 1 x7], only assistant answer tokens train, micro_batch_size=4, "
+            "gradient_accumulation=8, num_gpus=1, epochs=3, effective_batch_size=32, steps_per_epoch=100, "
+            "total_steps=300, warmup_steps=9, ckpt 100 val_loss 1.82 format_acc 0.61, "
+            "ckpt 200 val_loss 1.35 format_acc 0.78, ckpt 300 val_loss 1.31 format_acc 0.74, "
+            "best by val_loss, higher format_acc, still review."
+        ),
+        footer="Fine-tuning is not just train(); verify data, masks, steps, and validation evidence.",
+        allowed_tokens=(
+            "raw_samples, C001, C002, C003, C004, to_chat_record(row), messages, system, user, assistant, "
+            "first train example, customer_id, train, val, assistant-only loss mask, 15 zeros, 7 ones, "
+            "mask = [0 x15, 1 x7], micro_batch_size, gradient_accumulation, num_gpus, epochs, "
+            "effective_batch_size, steps_per_epoch, total_steps, warmup_steps, ckpt, val_loss, format_acc, best by val_loss"
+        ),
+    ),
+    "ch07-finetuning-practice-data-mask-schedule-result-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="微調整実践は実行証拠から読む",
+        visible_subtitle="records、mask、steps、checkpoint をつなげて確認する。",
+        teaching_goal=(
+            "第 7 章 7.6.5 微調整工程実践に使う。画像は2つのコードと期待出力に厳密に合わせる："
+            "raw_samples が messages になる。random.seed(42) 後、customer_id ごとに分割し、train size=3、val size=2、"
+            "first train example は customer_id C002。assistant-only loss mask の出力は [0, 0, 1]。"
+            "学習計画の出力は effective_batch_size=32、steps_per_epoch=100、total_steps=300、warmup_steps=9。"
+            "checkpoint 100/200/300 の val_loss と format_acc は正確に表示する。"
+        ),
+        fixed_layout=(
+            "縦の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "先生が2つの print 出力をレビュー可能な証拠表に変えたように描く。"
+            "暗い金属 dashboard、terminal screenshot、存在しない顧客や class 名は禁止。"
+            "上半分：data pipeline を描く。左の raw_samples に5件の record：C001、C001、C002、C003、C004。"
+            "中央矢印 to_chat_record(row)。右に messages stack：system / user / assistant。"
+            "first train example を拡大し、customer_id: C002 と書く。短い吹き出しで user: パスワード忘れ、assistant: 再設定案内。"
+            "中央：customer_id 分割ゲート。C003、C002、C004 は train tray、C001 は val tray に入れる。"
+            "大きく train size = 3、val size = 2。赤い guardrail：同じ customer_id を train/val にまたがせない。"
+            "下半分左：assistant-only loss mask。system token は灰色 0、user token は灰色 0、assistant token は緑 1。"
+            "必ず print -> [0, 0, 1] と表示し、assistant 回答だけを学習 と書く。"
+            "下半分右：学習計画ものさし。入力 micro_batch_size=4、gradient_accumulation=8、num_gpus=1、epochs=3。"
+            "出力 effective_batch_size=32、steps_per_epoch=100、total_steps=300、warmup_steps=9。"
+            "下部：checkpoint 選択ボード。3行を正確に：ckpt 100 val_loss 1.82 format_acc 0.61；"
+            "ckpt 200 val_loss 1.35 format_acc 0.78；ckpt 300 val_loss 1.31 format_acc 0.74。"
+            "ckpt 300 に best by val_loss の緑スタンプ。ckpt 200 の横に黄色メモ：format_acc は高い、要確認。"
+        ),
+        required_labels=(
+            "raw_samples、C001、C001、C002、C003、C004、to_chat_record(row)、messages、system、user、assistant、"
+            "first train example、customer_id: C002、customer_id で分割、train: C003 C002 C004、val: C001、"
+            "train size = 3、val size = 2、同じ customer_id を train/val にまたがせない、assistant-only loss mask、"
+            "print -> [0, 0, 1]、assistant 回答だけを学習、micro_batch_size=4、gradient_accumulation=8、num_gpus=1、epochs=3、"
+            "effective_batch_size=32、steps_per_epoch=100、total_steps=300、warmup_steps=9、"
+            "ckpt 100 val_loss 1.82 format_acc 0.61、ckpt 200 val_loss 1.35 format_acc 0.78、"
+            "ckpt 300 val_loss 1.31 format_acc 0.74、best by val_loss、format_acc は高い、要確認。"
+        ),
+        footer="微調整は train だけでなく、data、mask、step、validation 証拠を確認する作業。",
+        allowed_tokens=(
+            "raw_samples, C001, C002, C003, C004, to_chat_record(row), messages, system, user, assistant, "
+            "first train example, customer_id, train, val, assistant-only loss mask, print, micro_batch_size, "
+            "gradient_accumulation, num_gpus, epochs, effective_batch_size, steps_per_epoch, total_steps, "
+            "warmup_steps, ckpt, val_loss, format_acc, best by val_loss, data, mask, step, validation"
+        ),
+    ),
+}
+
+CH07_DATA_LABELING_REMAKE_PROMPTS = {
+    "ch07-data-labeling-flywheel-review-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="数据标注：先复核边界，再回流训练",
+        visible_subtitle="agreement=0.6、kappa=0.167 说明只看一致率还不够。",
+        teaching_goal=(
+            "服务第 7 章 7.6.6 数据标注与数据飞轮。图片必须严格对应正文代码和 expected output："
+            "records 有 id 1-5；输出 agreement=0.6、kappa=0.167；review queue 按 confidence 从低到高是 "
+            "id=5 confidence=0.47 labels=(good,bad)、id=4 confidence=0.51 labels=(good,good)、"
+            "id=3 confidence=0.52 labels=(bad,good)。"
+            "图要帮助读者理解：低置信样本、双人标注不一致、线上失败样本进入复核，复核后变成下一轮 train/eval 数据。"
+        ),
+        fixed_layout=(
+            "竖版手绘课堂讲义 / 横线笔记纸风格，三语版必须同构。不要白底圆角框堆叠，不要企业风 SVG 信息图。"
+            "画成一页数据质检老师批注。上半部分左侧是 5 张样本小票，必须标出 id 1、2、3、4、5；"
+            "在每张小票上用 A/B 两个标注员小圆章显示 labels：id1 good/good，id2 bad/bad，id3 bad/good，id4 good/good，id5 good/bad；"
+            "每张旁边画置信度小仪表：0.93、0.91、0.52、0.51、0.47。"
+            "上半部分右侧画质检计算板：agreement = 3/5 = 0.6；kappa = 0.167；"
+            "旁边用小天平表示 kappa 会扣除碰巧一致，写 不只看 agreement。"
+            "中部画一个醒目的 review queue 传送带，排序必须从左到右："
+            "id=5 0.47 good/bad；id=4 0.51 good/good；id=3 0.52 bad/good。"
+            "用两种入口箭头进入队列：标注员不一致、模型低置信度 < 0.6；再加一个线上失败样本入口。"
+            "下半部分画数据飞轮，不是普通圆圈：复核 -> 改标注规范 -> 清洗/去重 -> 难例池 -> train set + eval set -> 再评估/上线 -> 收集失败样本 -> 回到复核。"
+            "train set 和 eval set 要画成两个不同文件夹，避免误解只回到训练。"
+            "底部红色提醒条：飞轮不是多收集样本，而是把暴露边界的问题持续回流。"
+        ),
+        required_labels=(
+            "records id 1-5、label_a、label_b、model_confidence、id1 good/good 0.93、id2 bad/bad 0.91、"
+            "id3 bad/good 0.52、id4 good/good 0.51、id5 good/bad 0.47、agreement = 3/5 = 0.6、"
+            "kappa = 0.167、不只看 agreement、review queue、id=5 0.47 good/bad、id=4 0.51 good/good、"
+            "id=3 0.52 bad/good、标注员不一致、低置信度 < 0.6、线上失败样本、复核、改标注规范、"
+            "清洗/去重、难例池、train set、eval set、再评估/上线、飞轮不是多收集样本。"
+        ),
+        footer="先把边界样本复核清楚，再让高价值数据回到训练和评估。",
+        allowed_tokens=(
+            "records, id, label_a, label_b, model_confidence, good, bad, agreement, kappa, review queue, "
+            "train set, eval set"
+        ),
+    ),
+    "ch07-data-labeling-flywheel-review-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Data Labeling: Review Boundaries, Then Feed Back",
+        visible_subtitle="agreement=0.6 and kappa=0.167 show why agreement alone is not enough.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.6.6 Data Labeling and the Data Flywheel. The image must exactly match the code "
+            "and expected output: records id 1-5; agreement=0.6; kappa=0.167; review queue sorted by confidence is "
+            "id=5 confidence=0.47 labels=(good,bad), id=4 confidence=0.51 labels=(good,good), "
+            "id=3 confidence=0.52 labels=(bad,good). "
+            "Teach that low-confidence samples, annotator disagreement, and online failures should go to review, then become next-round train/eval data."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language variants must use the same structure. "
+            "Do not make a stack of white rounded cards or a corporate SVG infographic. "
+            "Make it look like a data quality teacher's annotated worksheet. Upper-left: five sample receipts labeled id 1, 2, 3, 4, 5. "
+            "Each receipt must show A/B annotator stamps: id1 good/good, id2 bad/bad, id3 bad/good, id4 good/good, id5 good/bad. "
+            "Draw a confidence gauge beside each: 0.93, 0.91, 0.52, 0.51, 0.47. "
+            "Upper-right: quality calculation board: agreement = 3/5 = 0.6; kappa = 0.167. "
+            "Add a small balance scale showing kappa subtracts chance agreement, with the note agreement alone is not enough. "
+            "Middle: a prominent review queue conveyor belt, ordered left to right exactly as: "
+            "id=5 0.47 good/bad; id=4 0.51 good/good; id=3 0.52 bad/good. "
+            "Show three input arrows into the queue: annotators disagree, model confidence < 0.6, online failure sample. "
+            "Lower half: draw a real data flywheel, not a generic circle: review -> update guideline -> clean/dedup -> hard-example pool -> train set + eval set -> re-evaluate/deploy -> collect failures -> back to review. "
+            "Draw train set and eval set as two distinct folders so readers see data goes to both training and evaluation. "
+            "Bottom red reminder strip: the flywheel is not collecting more data; it feeds boundary-exposing problems back."
+        ),
+        required_labels=(
+            "records id 1-5, label_a, label_b, model_confidence, id1 good/good 0.93, id2 bad/bad 0.91, "
+            "id3 bad/good 0.52, id4 good/good 0.51, id5 good/bad 0.47, agreement = 3/5 = 0.6, "
+            "kappa = 0.167, agreement alone is not enough, review queue, id=5 0.47 good/bad, "
+            "id=4 0.51 good/good, id=3 0.52 bad/good, annotators disagree, confidence < 0.6, "
+            "online failure sample, review, update guideline, clean/dedup, hard-example pool, train set, eval set, "
+            "re-evaluate/deploy, the flywheel is not collecting more data."
+        ),
+        footer="Review boundary samples first, then feed high-value data back into training and evaluation.",
+        allowed_tokens=(
+            "records, id, label_a, label_b, model_confidence, good, bad, agreement, kappa, review queue, "
+            "confidence, online failure sample, review, update guideline, clean/dedup, hard-example pool, "
+            "train set, eval set, re-evaluate, deploy"
+        ),
+    ),
+    "ch07-data-labeling-flywheel-review-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="データラベリング：境界を復核してから回流する",
+        visible_subtitle="agreement=0.6、kappa=0.167。agreement だけでは足りない。",
+        teaching_goal=(
+            "第 7 章 7.6.6 データラベリングとデータフライホイールに使う。画像は本文コードと期待出力に厳密に合わせる："
+            "records は id 1-5。出力は agreement=0.6、kappa=0.167。review queue は confidence の低い順に "
+            "id=5 confidence=0.47 labels=(good,bad)、id=4 confidence=0.51 labels=(good,good)、"
+            "id=3 confidence=0.52 labels=(bad,good)。"
+            "低信頼度サンプル、ラベラー不一致、オンライン失敗サンプルを review に送り、次ラウンドの train/eval data に変えることを教える。"
+        ),
+        fixed_layout=(
+            "縦の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "白い角丸カードの積み重ねや企業風 SVG インフォグラフィックは禁止。データ品質の先生が添削した worksheet にする。"
+            "上半分左：5 枚の sample 伝票を描き、id 1、2、3、4、5 を必ず示す。"
+            "各伝票に A/B 2人のラベラー stamp を置く：id1 good/good、id2 bad/bad、id3 bad/good、id4 good/good、id5 good/bad。"
+            "各伝票の横に confidence メーター：0.93、0.91、0.52、0.51、0.47。"
+            "上半分右：品質計算ボード：agreement = 3/5 = 0.6；kappa = 0.167。"
+            "小さな天秤で kappa は偶然一致を差し引くと示し、agreement だけでは足りない と書く。"
+            "中央：目立つ review queue のベルトコンベアを描く。左から右の順番は厳密に："
+            "id=5 0.47 good/bad；id=4 0.51 good/good；id=3 0.52 bad/good。"
+            "queue への入口矢印は 3 本：ラベラー不一致、confidence < 0.6、オンライン失敗サンプル。"
+            "下半分：普通の丸い loop ではなく実務の data flywheel を描く：review -> guideline 更新 -> clean/dedup -> hard example pool -> train set + eval set -> 再評価/再デプロイ -> 失敗サンプル収集 -> review に戻る。"
+            "train set と eval set は別フォルダとして描き、学習だけでなく評価にも戻ることを明確にする。"
+            "下部の赤い注意バー：flywheel は sample を増やすことではなく、境界を露出する問題を戻すこと。"
+        ),
+        required_labels=(
+            "records id 1-5、label_a、label_b、model_confidence、id1 good/good 0.93、id2 bad/bad 0.91、"
+            "id3 bad/good 0.52、id4 good/good 0.51、id5 good/bad 0.47、agreement = 3/5 = 0.6、"
+            "kappa = 0.167、agreement だけでは足りない、review queue、id=5 0.47 good/bad、"
+            "id=4 0.51 good/good、id=3 0.52 bad/good、ラベラー不一致、confidence < 0.6、"
+            "オンライン失敗サンプル、review、guideline 更新、clean/dedup、hard example pool、train set、eval set、"
+            "再評価/再デプロイ、flywheel は sample を増やすことではない。"
+        ),
+        footer="境界サンプルを先に復核し、高価値データを training と evaluation に戻す。",
+        allowed_tokens=(
+            "records, id, label_a, label_b, model_confidence, good, bad, agreement, kappa, review queue, "
+            "confidence, review, guideline, clean/dedup, hard example pool, train set, eval set, flywheel, sample"
+        ),
+    ),
+}
+
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PEFT_PLACEMENT_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_PRACTICE_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_DATA_LABELING_REMAKE_PROMPTS)
+
+CH07_DATA_LABELING_REMAKE_META = [
+    (
+        "ch07-data-labeling-flywheel-review-map-en.png",
+        "Data Labeling Quality Check and Flywheel Feedback Map",
+        "Data labeling quality map showing agreement=0.6, kappa=0.167, review queue ids 5, 4, 3, and data flywheel feedback into train and eval sets.",
+    ),
+    (
+        "ch07-data-labeling-flywheel-review-map-ja.png",
+        "データラベリング品質チェックとフライホイール回流図",
+        "agreement=0.6、kappa=0.167、review queue の id 5、4、3、train/eval への回流を示すデータラベリング品質図。",
+    ),
+]
+
+existing_filenames_for_ch07_data_labeling = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_DATA_LABELING_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_data_labeling:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/05-data-labeling.md",
+                "alt": alt,
+                "prompt": CH07_DATA_LABELING_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_data_labeling.add(filename)
 
 CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dl-workshop-route-en.png", "Chapter 6 PyTorch Workshop Route", "Chapter 6 PyTorch workshop route map for the 16x16 stripe classification evidence-pack project."),
@@ -33643,6 +34037,35 @@ for filename, title, alt in CH07_FINETUNING_REMAKE_META:
             }
         )
         existing_filenames_for_ch07_finetuning.add(filename)
+
+CH07_PEFT_PLACEMENT_REMAKE_META = [
+    (
+        "ch07-peft-placement-family-map-en.png",
+        "Where PEFT Puts Trainable Parts",
+        "PEFT placement map showing Prompt Tuning before input, Prefix Tuning in KV prefixes, Adapter between layers, and IA3 channel scaling.",
+    ),
+    (
+        "ch07-peft-placement-family-map-ja.png",
+        "PEFT は学習部分をどこに置くか",
+        "Prompt Tuning、Prefix Tuning、Adapter、IA3 が学習可能部分を置く位置を示す PEFT 配置図。",
+    ),
+]
+
+existing_filenames_for_ch07_peft_placement = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_PEFT_PLACEMENT_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_peft_placement:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/03-other-peft.md",
+                "alt": alt,
+                "prompt": CH07_PEFT_PLACEMENT_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_peft_placement.add(filename)
 
 for job in IMAGE_JOBS:
     override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(str(job.get("filename")))
