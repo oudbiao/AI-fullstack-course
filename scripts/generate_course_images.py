@@ -33931,6 +33931,220 @@ CH07_DATA_LABELING_REMAKE_PROMPTS = {
     ),
 }
 
+CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS = {
+    "ch07-alignment-chapter-flow.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="对齐路线图：能力 ≠ 行为可靠",
+        visible_subtitle="预训练给能力，微调改任务，对齐决定该不该做。",
+        teaching_goal=(
+            "服务第 7 章 7.7.1 对齐路线图。图片必须纠正旧图里章节名不准的问题，"
+            "并直接对应页面文字和代码：pretraining 提供 broad language ability，finetuning adapts task behavior，"
+            "alignment 负责 helpful、honest、safe；安全决策案例是 request=delete the production database without confirmation、"
+            "has_permission=False，输出 action: refuse_and_escalate 和 score_dimensions: helpful, honest, harmless。"
+        ),
+        fixed_layout=(
+            "竖版手绘课堂讲义 / 横线笔记纸风格，三语版必须同构。不要写 CHAPTER 1，不要做企业风 SVG 信息图。"
+            "顶部画一个公司控制台场景：一个模型助手站在终端前，红色高危按钮写 delete production database，旁边有权限牌 has_permission=False。"
+            "第一段横向因果带：pretraining -> broad language ability；finetuning -> task behavior；alignment -> behavior boundary。"
+            "用三种不同图标让读者看懂区别：书堆代表预训练知识，扳手代表任务适配，红绿交通闸门代表行为边界。"
+            "中部画 H/H/S 三个大仪表：Helpful=解释更安全下一步，Honest=说明缺少权限，Harmless=拒绝破坏性动作。"
+            "右侧画决策闸门：if has_permission=False -> action: refuse_and_escalate；若有权限才 proceed_with_confirmation。"
+            "底部画学习顺序地图，四个路标：1 对齐问题、2 RLHF、3 DPO / RLAIF、4 安全评估实验。"
+            "最底部画一张小测试收据，必须出现 score_dimensions: helpful, honest, harmless。"
+        ),
+        required_labels=(
+            "能力 ≠ 行为可靠、pretraining、broad language ability、finetuning、task behavior、alignment、behavior boundary、"
+            "delete production database、has_permission=False、Helpful、解释更安全下一步、Honest、说明缺少权限、"
+            "Harmless、拒绝破坏性动作、action: refuse_and_escalate、proceed_with_confirmation、"
+            "score_dimensions: helpful, honest, harmless、对齐问题、RLHF、DPO / RLAIF、安全评估实验。"
+        ),
+        footer="对齐不是让模型更会说，而是让系统知道该帮、该停、该升级。",
+        allowed_tokens=(
+            "pretraining, broad language ability, finetuning, task behavior, alignment, behavior boundary, "
+            "delete production database, has_permission=False, Helpful, Honest, Harmless, action: refuse_and_escalate, "
+            "proceed_with_confirmation, score_dimensions: helpful, honest, harmless, RLHF, DPO, RLAIF"
+        ),
+    ),
+    "ch07-alignment-chapter-flow-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Alignment Roadmap: Capability ≠ Reliable Behavior",
+        visible_subtitle="Pretraining gives ability; finetuning adapts tasks; alignment decides what should happen.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.7.1 Alignment Roadmap. The image must replace the old inaccurate chapter-roadmap image "
+            "and directly match the page text and code: pretraining gives broad language ability, finetuning adapts task behavior, "
+            "alignment targets helpful, honest, safe behavior. The safety case is request=delete the production database without confirmation, "
+            "has_permission=False, output action: refuse_and_escalate and score_dimensions: helpful, honest, harmless."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language variants must be structurally identical. "
+            "Do not write CHAPTER 1. Do not make a corporate SVG infographic. "
+            "Top scene: a company console where a model assistant stands in front of a terminal. A red risky button says delete production database, and a permission badge says has_permission=False. "
+            "First horizontal cause strip: pretraining -> broad language ability; finetuning -> task behavior; alignment -> behavior boundary. "
+            "Use three concrete icons: books for pretraining knowledge, wrench for task adaptation, red/green traffic gate for behavior boundary. "
+            "Middle: three large H/H/S gauges: Helpful=explain safer next step, Honest=say permission is missing, Harmless=refuse destructive action. "
+            "Right side: decision gate: if has_permission=False -> action: refuse_and_escalate; only with permission -> proceed_with_confirmation. "
+            "Bottom: learning-order map with four road signs: 1 Alignment problems, 2 RLHF, 3 DPO / RLAIF, 4 Safety evaluation lab. "
+            "Very bottom: small test receipt that must include score_dimensions: helpful, honest, harmless."
+        ),
+        required_labels=(
+            "Capability ≠ reliable behavior, pretraining, broad language ability, finetuning, task behavior, alignment, behavior boundary, "
+            "delete production database, has_permission=False, Helpful, explain safer next step, Honest, say permission is missing, "
+            "Harmless, refuse destructive action, action: refuse_and_escalate, proceed_with_confirmation, "
+            "score_dimensions: helpful, honest, harmless, Alignment problems, RLHF, DPO / RLAIF, Safety evaluation lab."
+        ),
+        footer="Alignment is not more fluent talk; it decides when to help, stop, or escalate.",
+        allowed_tokens=(
+            "pretraining, broad language ability, finetuning, task behavior, alignment, behavior boundary, "
+            "delete production database, has_permission=False, Helpful, Honest, Harmless, action: refuse_and_escalate, "
+            "proceed_with_confirmation, score_dimensions: helpful, honest, harmless, RLHF, DPO, RLAIF"
+        ),
+    ),
+    "ch07-alignment-chapter-flow-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="Alignment ロードマップ：能力 ≠ 信頼できる行動",
+        visible_subtitle="事前学習は能力を与え、微調整はタスクに合わせ、alignment は行動を決める。",
+        teaching_goal=(
+            "第 7 章 7.7.1 Alignment ロードマップに使う。古い章名の不正確な画像を置き換え、"
+            "本文とコードに直接合わせる：pretraining は broad language ability、finetuning は task behavior、"
+            "alignment は helpful、honest、safe な行動を扱う。安全判断ケースは request=delete the production database without confirmation、"
+            "has_permission=False、出力 action: refuse_and_escalate と score_dimensions: helpful, honest, harmless。"
+        ),
+        fixed_layout=(
+            "縦の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "CHAPTER 1 と書かない。企業風 SVG インフォグラフィックにしない。"
+            "上部：会社の control console を描く。model assistant が terminal の前に立ち、赤い高リスク button に delete production database、横の permission badge に has_permission=False と書く。"
+            "最初の横帯：pretraining -> broad language ability；finetuning -> task behavior；alignment -> behavior boundary。"
+            "3 つの具体アイコンを使う：本の山は pretraining knowledge、レンチは task adaptation、赤緑の traffic gate は behavior boundary。"
+            "中央：H/H/S の大きな gauge を 3 つ描く：Helpful=より安全な次手順を説明、Honest=権限不足を伝える、Harmless=破壊的操作を拒否。"
+            "右側：decision gate。if has_permission=False -> action: refuse_and_escalate；permission がある場合だけ proceed_with_confirmation。"
+            "下部：学習順序マップ、4 つの標識：1 Alignment 問題、2 RLHF、3 DPO / RLAIF、4 安全評価ラボ。"
+            "最下部：小さな test receipt に score_dimensions: helpful, honest, harmless を必ず入れる。"
+        ),
+        required_labels=(
+            "能力 ≠ 信頼できる行動、pretraining、broad language ability、finetuning、task behavior、alignment、behavior boundary、"
+            "delete production database、has_permission=False、Helpful、より安全な次手順を説明、Honest、権限不足を伝える、"
+            "Harmless、破壊的操作を拒否、action: refuse_and_escalate、proceed_with_confirmation、"
+            "score_dimensions: helpful, honest, harmless、Alignment 問題、RLHF、DPO / RLAIF、安全評価ラボ。"
+        ),
+        footer="alignment は流暢さではなく、助ける・止める・エスカレーションする判断を作る。",
+        allowed_tokens=(
+            "pretraining, broad language ability, finetuning, task behavior, alignment, behavior boundary, "
+            "delete production database, has_permission=False, Helpful, Honest, Harmless, action: refuse_and_escalate, "
+            "proceed_with_confirmation, score_dimensions: helpful, honest, harmless, RLHF, DPO, RLAIF, permission, test receipt"
+        ),
+    ),
+}
+
+CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS = {
+    "ch07-alignment-minimal-evaluator-result-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="最小对齐评估器：三维打分再分流",
+        visible_subtitle="同一回答要同时看 helpful、safe、honest。",
+        teaching_goal=(
+            "服务第 7 章 7.7.2 最小对齐评估器代码。图片必须对应中文页面的 expected output 和 routing cases："
+            "三个样本总分分别是 3、1、2；第三个样本 helpful=0 是因为 action_words 没有命中“建议查官方”。"
+            "图要让无法运行代码的读者也能看到评估过程、分数原因和系统下一步动作。"
+        ),
+        fixed_layout=(
+            "竖版手绘课堂讲义 / 横线笔记纸风格，三语版必须同构但分数按各语言代码输出。"
+            "画成一页评估老师批改表，不要终端截图，不要纯表格。"
+            "安全硬规则：危险样本的 response 区域只能写 危险回答（细节已隐去），并用红色遮挡条表示被拦截内容；"
+            "绝对不要写扫描、抓包、默认密码、暴力破解、绕过、入侵步骤或任何可执行攻击细节。"
+            "上半部分三条样本进入 evaluator："
+            "1 密码重置请求，response 有可执行安全步骤，三盏绿灯 helpful=1 safe=1 honest=1 total=3。"
+            "2 危险网络入侵请求，response 只显示 危险回答（细节已隐去），红色警报；评分 helpful=0 safe=0 honest=1 total=1。"
+            "3 2026 Q1 营收未知事实，response 承认不确定并建议查官方；评分 helpful=0 safe=1 honest=1 total=2；"
+            "旁边画放大镜写 action_words 未命中，所以 helpful=0。"
+            "中部画三个 rubric checker：helpful、safe、honest 分别检查动作、危险边界、不确定性。"
+            "下半部分画 routing switch，四个输出通道按顺序：normal_help -> answer；unsafe_request -> refuse；uncertain_fact -> answer_with_uncertainty；policy_sensitive -> escalate_or_review。"
+            "底部结论条：先多维评分，再决定系统动作。"
+        ),
+        required_labels=(
+            "prompt、response、helpful、safe、honest、total、密码重置请求、helpful=1 safe=1 honest=1 total=3、"
+            "危险网络入侵请求、危险回答（细节已隐去）、helpful=0 safe=0 honest=1 total=1、危险警报、"
+            "2026 Q1 营收未知事实、helpful=0 safe=1 honest=1 total=2、action_words 未命中、"
+            "rubric checker、refusal_words、danger_words、action_words、uncertainty_words、routing switch、"
+            "normal_help -> answer、unsafe_request -> refuse、uncertain_fact -> answer_with_uncertainty、policy_sensitive -> escalate_or_review。"
+        ),
+        footer="对齐评估先看多维约束，再决定回答、拒绝、不确定回答或升级复核。",
+        allowed_tokens=(
+            "prompt, response, helpful, safe, honest, total, Wi-Fi, action_words, rubric, refusal_words, "
+            "danger_words, uncertainty_words, routing switch, normal_help -> answer, unsafe_request -> refuse, "
+            "uncertain_fact -> answer_with_uncertainty, policy_sensitive -> escalate_or_review"
+        ),
+    ),
+    "ch07-alignment-minimal-evaluator-result-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Minimal Alignment Evaluator: Score, Then Route",
+        visible_subtitle="Every answer is checked across helpful, safe, and honest.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.7.2 minimal alignment evaluator code. The image must match the English expected output and routing cases. "
+            "The three sample totals are 3, 1, 3. The image should show the evaluation process, score reasons, and next system action without reproducing operationally harmful details."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language variants must use the same structure, but scores must match each locale's code output. "
+            "Make it an evaluator teacher's marked worksheet, not a terminal screenshot and not a pure table. "
+            "Hard safety rule: in the unsafe sample response area, write only Unsafe answer (details hidden) and draw redacted red bars for blocked content; "
+            "never write scanning, packet capture, default password, brute force, bypass, intrusion steps, or any actionable attack details. "
+            "Upper half: three samples flow into evaluator. "
+            "1 Password reset request: response gives a safe action; score helpful=1 safe=1 honest=1 total=3. "
+            "2 Unsafe network intrusion request: response only says Unsafe answer (details hidden); red alarm; score helpful=0 safe=0 honest=1 total=1. "
+            "3 Unknown 2026 Q1 revenue fact: response says not sure and check official announcement; score helpful=1 safe=1 honest=1 total=3. "
+            "Middle: three rubric checkers: helpful, safe, honest for action usefulness, danger boundary, and uncertainty. "
+            "Lower half: routing switch with four channels in order: normal_help -> answer; unsafe_request -> refuse; uncertain_fact -> answer_with_uncertainty; policy_sensitive -> escalate_or_review. "
+            "Bottom conclusion strip: score first, then decide the system action."
+        ),
+        required_labels=(
+            "prompt, response, helpful, safe, honest, total, password reset request, helpful=1 safe=1 honest=1 total=3, "
+            "unsafe network intrusion request, Unsafe answer (details hidden), helpful=0 safe=0 honest=1 total=1, danger alarm, "
+            "unknown 2026 Q1 revenue fact, helpful=1 safe=1 honest=1 total=3, uncertainty, "
+            "rubric checker, refusal_words, danger_words, action_words, uncertainty_words, routing switch, "
+            "normal_help -> answer, unsafe_request -> refuse, uncertain_fact -> answer_with_uncertainty, policy_sensitive -> escalate_or_review."
+        ),
+        footer="Alignment evaluation checks multiple constraints, then routes to answer, refuse, uncertainty, or review.",
+        allowed_tokens=(
+            "prompt, response, helpful, safe, honest, total, Wi-Fi, Q1 2026, rubric, refusal_words, "
+            "danger_words, action_words, uncertainty_words, routing switch, normal_help -> answer, unsafe_request -> refuse, "
+            "uncertain_fact -> answer_with_uncertainty, policy_sensitive -> escalate_or_review"
+        ),
+    ),
+    "ch07-alignment-minimal-evaluator-result-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="最小 Alignment 評価器：採点してから振り分ける",
+        visible_subtitle="回答は helpful、safe、honest の三面で見る。",
+        teaching_goal=(
+            "第 7 章 7.7.2 の最小 alignment 評価器コードに使う。画像は日本語ページの期待出力と routing cases に合わせる。"
+            "3 つの sample total は 3、1、3。コードを実行できない読者にも、評価プロセス、採点理由、次の system action が見えるようにする。"
+        ),
+        fixed_layout=(
+            "縦の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。ただし score は各言語コードの出力に合わせる。"
+            "評価の先生が添削した worksheet にする。terminal screenshot や純表は禁止。"
+            "安全ルール：危険 sample の response 欄は 危険な回答（詳細は非表示） だけを書き、赤い伏せ字バーで遮断内容を示す。"
+            "scan、packet capture、default password、brute force、bypass、侵入手順など、実行可能な攻撃詳細は絶対に書かない。"
+            "上半分：3 つの sample が evaluator に入る。"
+            "1 パスワード再設定 request：response は安全な手順を示す；score helpful=1 safe=1 honest=1 total=3。"
+            "2 危険な network intrusion request：response は 危険な回答（詳細は非表示） だけ；赤いアラーム；score helpful=0 safe=0 honest=1 total=1。"
+            "3 2026 Q1 売上高の unknown fact：response は確信がないと言い公式確認を促す；score helpful=1 safe=1 honest=1 total=3。"
+            "中央：3 つの rubric checker。helpful、safe、honest が action、有害境界、不確実性を見る。"
+            "下半分：routing switch、4 つの出力 channel を順番通りに：normal_help -> answer；unsafe_request -> refuse；uncertain_fact -> answer_with_uncertainty；policy_sensitive -> escalate_or_review。"
+            "下部の結論バー：先に採点し、次の system action を決める。"
+        ),
+        required_labels=(
+            "prompt、response、helpful、safe、honest、total、パスワード再設定 request、helpful=1 safe=1 honest=1 total=3、"
+            "危険な network intrusion request、危険な回答（詳細は非表示）、helpful=0 safe=0 honest=1 total=1、危険アラーム、"
+            "2026 Q1 売上高 unknown fact、helpful=1 safe=1 honest=1 total=3、uncertainty、"
+            "rubric checker、refusal_words、danger_words、action_words、uncertainty_words、routing switch、"
+            "normal_help -> answer、unsafe_request -> refuse、uncertain_fact -> answer_with_uncertainty、policy_sensitive -> escalate_or_review。"
+        ),
+        footer="alignment 評価は複数制約を見てから、回答・拒否・不確実回答・review に振り分ける。",
+        allowed_tokens=(
+            "prompt, response, helpful, safe, honest, total, Wi-Fi, 2026, Q1, uncertainty, rubric, refusal_words, "
+            "danger_words, action_words, uncertainty_words, routing switch, normal_help -> answer, unsafe_request -> refuse, "
+            "uncertain_fact -> answer_with_uncertainty, policy_sensitive -> escalate_or_review, review"
+        ),
+    ),
+}
+
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)
@@ -33938,6 +34152,8 @@ IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PEFT_PLACEMENT_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_PRACTICE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_DATA_LABELING_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS)
 
 CH07_DATA_LABELING_REMAKE_META = [
     (
@@ -33967,6 +34183,68 @@ for filename, title, alt in CH07_DATA_LABELING_REMAKE_META:
             }
         )
         existing_filenames_for_ch07_data_labeling.add(filename)
+
+CH07_ALIGNMENT_REMAKE_META = [
+    (
+        "ch07-alignment-chapter-flow-en.png",
+        "Alignment Roadmap: Capability Is Not Reliable Behavior",
+        "Alignment roadmap showing pretraining ability, finetuning task behavior, H/H/S gauges, and refuse_and_escalate safety decision.",
+        "docs/ch07-llm-principles/ch07-alignment/00-roadmap.md",
+        CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS,
+    ),
+    (
+        "ch07-alignment-chapter-flow-ja.png",
+        "Alignment ロードマップ：能力と信頼できる行動は違う",
+        "pretraining の能力、finetuning の task behavior、H/H/S gauge、refuse_and_escalate safety decision を示す alignment ロードマップ。",
+        "docs/ch07-llm-principles/ch07-alignment/00-roadmap.md",
+        CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS,
+    ),
+    (
+        "ch07-alignment-minimal-evaluator-result-map.png",
+        "最小对齐评估器运行结果图",
+        "最小对齐评估器结果图：三个样本的 helpful/safe/honest 分数、中文第三例 helpful=0，以及四种 routing action。",
+        "docs/ch07-llm-principles/ch07-alignment/01-alignment-problem.md",
+        CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS,
+    ),
+    (
+        "ch07-alignment-minimal-evaluator-result-map-en.png",
+        "Minimal Alignment Evaluator Result Map",
+        "Minimal alignment evaluator result map showing three sample scores and four routing actions.",
+        "docs/ch07-llm-principles/ch07-alignment/01-alignment-problem.md",
+        CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS,
+    ),
+    (
+        "ch07-alignment-minimal-evaluator-result-map-ja.png",
+        "最小 Alignment 評価器の結果図",
+        "3 つの sample score と 4 つの routing action を示す最小 alignment 評価器の結果図。",
+        "docs/ch07-llm-principles/ch07-alignment/01-alignment-problem.md",
+        CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS,
+    ),
+]
+
+existing_filenames_for_ch07_alignment = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt, suggested_page, prompt_map in CH07_ALIGNMENT_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_alignment:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": suggested_page,
+                "alt": alt,
+                "prompt": prompt_map[filename],
+            }
+        )
+        existing_filenames_for_ch07_alignment.add(filename)
+
+CH07_ALIGNMENT_FORCE_DEFAULT_SIZE_FILENAMES = set(CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS) | set(
+    CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS
+)
+for job in IMAGE_JOBS:
+    if str(job.get("filename")) in CH07_ALIGNMENT_FORCE_DEFAULT_SIZE_FILENAMES:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
 
 CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dl-workshop-route-en.png", "Chapter 6 PyTorch Workshop Route", "Chapter 6 PyTorch workshop route map for the 16x16 stripe classification evidence-pack project."),

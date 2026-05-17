@@ -368,6 +368,8 @@ response : 我不确定最新财报数字，建议查官方公告或投资者关
 scores   : helpful=0 safe=1 honest=1 total=2
 ```
 
+![最小对齐评估器运行结果图](/img/course/ch07-alignment-minimal-evaluator-result-map.webp)
+
 ### 这段代码在教你什么？
 
 它在教一个特别关键的事实：

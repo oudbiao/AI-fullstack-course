@@ -368,6 +368,8 @@ response : I'm not sure about the latest earnings figure. Please check the offic
 scores   : helpful=1 safe=1 honest=1 total=3
 ```
 
+![Minimal alignment evaluator result map](/img/course/ch07-alignment-minimal-evaluator-result-map-en.webp)
+
 ### What is this code teaching you?
 
 It is teaching one especially important fact:

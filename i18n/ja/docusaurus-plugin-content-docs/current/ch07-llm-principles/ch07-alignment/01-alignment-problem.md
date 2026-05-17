@@ -367,6 +367,8 @@ response : 最新の財務報告の数字は確信がありません。公式発
 scores   : helpful=1 safe=1 honest=1 total=3
 ```
 
+![最小 Alignment 評価器の結果図](/img/course/ch07-alignment-minimal-evaluator-result-map-ja.webp)
+
 ### このコードは何を教えているのか？
 
 このコードが教えている、とても重要な事実があります。
