@@ -33398,9 +33398,181 @@ CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS = {
     ),
 }
 
+CH07_FINETUNING_REMAKE_PROMPTS = {
+    "ch07-finetuning-chapter-flow.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="微调不是万能按钮",
+        visible_subtitle="Prompt 调用能力，fine-tuning 用数据塑造稳定行为。",
+        teaching_goal=(
+            "服务第 7 章 7.6.1 微调导读页。图片必须帮助读者判断微调边界："
+            "pretraining 获得通用能力，Prompt 在不改参数的情况下调用能力，fine-tuning 用任务数据塑造稳定行为。"
+            "同时说明：RAG 更适合补私有事实，Prompt 更适合一次性格式控制，fine-tuning 更适合反复出现的稳定行为。"
+        ),
+        fixed_layout=(
+            "竖版横线笔记纸，从上到下四个教学站。1 pretraining：画书本、代码和对话样本进入大模型底座，标签“学到通用能力”。"
+            "2 Prompt：画任务卡插入模型旁边，参数锁保持关闭，标签“参数不变，只改变指令”。"
+            "3 fine-tuning：画少量高质量样本卡调三个旋钮：风格、格式、约束，标签“用任务数据调行为”。"
+            "4 领域任务：画稳定输出表单和领域助手，标签“更稳定的格式、语气、固定任务模式”。"
+            "右侧画一个边界判断小黑板，只能有三行，不能多一行：缺私有知识 -> RAG；一次性格式 -> Prompt；反复稳定行为 -> fine-tuning。"
+            "边界小黑板底部不要再重复写 RAG、Prompt 或 fine-tuning，也不要增加第四种方案。"
+            "底部画 baseline + validation + failure log 三张票据，说明训练前先留下对照证据。"
+        ),
+        required_labels=(
+            "pretraining、学到通用能力、Prompt、参数不变、fine-tuning、任务数据、风格、格式、约束、"
+            "领域任务、格式稳定、固定任务模式、RAG、私有知识、baseline、validation、failure log。"
+        ),
+        footer="先问：缺知识、缺格式，还是缺长期稳定行为？",
+        allowed_tokens="pretraining, Prompt, fine-tuning, RAG, baseline, validation, failure log, domain task, behavior",
+    ),
+    "ch07-finetuning-chapter-flow-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Fine-Tuning Is Not a Magic Button",
+        visible_subtitle="Prompting uses capability; fine-tuning shapes stable behavior with data.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.6.1. The image must teach the boundary of fine-tuning: "
+            "pretraining gives general capability, Prompt uses capability without changing parameters, and fine-tuning uses task data to shape stable behavior. "
+            "Also show that RAG is usually better for private facts, Prompt is better for one-off format control, and fine-tuning is better for repeated stable behavior."
+        ),
+        fixed_layout=(
+            "Vertical lined notebook paper with four teaching stations from top to bottom. 1 pretraining: books, code, and dialogue samples enter a foundation model, labeled general capability. "
+            "2 Prompt: a task card plugs into the model while a parameter lock stays closed, labeled parameters unchanged, instructions changed. "
+            "3 fine-tuning: high-quality sample cards tune three knobs: style, format, constraints, labeled task data shapes behavior. "
+            "4 domain task: stable output form and domain assistant, labeled stable format, tone, repeated task pattern. "
+            "Right-side boundary board has exactly three rows and no extra row: private facts -> RAG; one-off format -> Prompt; repeated stable behavior -> fine-tuning. "
+            "Do not repeat RAG, Prompt, or fine-tuning at the bottom of the boundary board, and do not add a fourth option. "
+            "Bottom shows three evidence tickets: baseline, validation, failure log, meaning compare before training."
+        ),
+        required_labels=(
+            "pretraining, general capability, Prompt, parameters unchanged, fine-tuning, task data, style, format, constraints, "
+            "domain task, stable format, repeated task pattern, RAG, private facts, baseline, validation, failure log."
+        ),
+        footer="Ask first: missing knowledge, missing format, or long-term stable behavior?",
+        allowed_tokens="pretraining, Prompt, fine-tuning, RAG, baseline, validation, failure log, domain task, behavior",
+    ),
+    "ch07-finetuning-chapter-flow-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="微調整は万能ボタンではない",
+        visible_subtitle="Prompt は能力を呼び出し、fine-tuning はデータで安定した振る舞いを形づくる。",
+        teaching_goal=(
+            "第 7 章 7.6.1 に使う。fine-tuning の境界を教える："
+            "pretraining は汎用能力を作り、Prompt は parameter を変えずに能力を呼び出し、fine-tuning は task data で安定した振る舞いを形づくる。"
+            "さらに、私有知識は RAG、一回限りの形式指定は Prompt、反復する安定行動は fine-tuning が向くことを示す。"
+        ),
+        fixed_layout=(
+            "縦の横線ノート紙、上から下へ 4 つの教学ステーション。1 pretraining：本、code、対話 sample が foundation model に入り、汎用能力 とラベル。"
+            "2 Prompt：task card が model に差し込まれ、parameter lock は閉じたまま。ラベルは parameter は不変、指示だけ変更。"
+            "3 fine-tuning：高品質 sample card が 3 つのつまみ style、format、constraints を調整し、task data が振る舞いを調整 とラベル。"
+            "4 domain task：安定した出力 form と domain assistant、ラベルは安定した format、語調、反復 task pattern。"
+            "右側の境界ボードは三行だけにする。余分な行は禁止：私有知識 -> RAG；一回限りの形式 -> Prompt；反復する安定行動 -> fine-tuning。"
+            "境界ボードの下部で RAG、Prompt、fine-tuning をもう一度繰り返さない。第四の選択肢も追加しない。"
+            "下部に baseline、validation、failure log の 3 枚の証拠 ticket を描き、訓練前に比較証拠を残すことを示す。"
+        ),
+        required_labels=(
+            "pretraining、汎用能力、Prompt、parameter は不変、fine-tuning、task data、style、format、constraints、"
+            "domain task、安定した format、反復 task pattern、RAG、私有知識、baseline、validation、failure log。"
+        ),
+        footer="最初に問う：知識不足か、形式不足か、長期的に安定した振る舞いか。",
+        allowed_tokens="pretraining, Prompt, fine-tuning, RAG, baseline, validation, failure log, domain task, behavior, parameter, task data, style, format, constraints",
+    ),
+    "ch07-finetuning-decision-loop.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="微调决策闭环",
+        visible_subtitle="先判断、再准备数据，最后和 baseline 比。",
+        teaching_goal=(
+            "服务第 7 章 7.6.1 的 route check 小练习。图片必须直接解释代码中的当前条件："
+            "private_facts=False、format_drift=True、stable_task=True、labeled_examples=120，"
+            "因此 route 是 fine-tuning candidate；但训练前至少需要 prompt baseline、validation set、failure log。"
+        ),
+        fixed_layout=(
+            "竖版横线笔记纸，不要纯流程框。画一张实战决策工单，从上到下 7 步。"
+            "1 问题分诊：private_facts? 当前 False，旁边灰色支路写 True 时先做 RAG。"
+            "2 候选判断：format_drift=True、stable_task=True、labeled_examples=120，用绿色圈出“满足候选条件”。"
+            "3 定义任务和 metric。4 准备 train / validation / test，并画 leakage check 放大镜。"
+            "5 选择 LoRA / QLoRA / PEFT。6 train + validate，并和 Prompt / RAG baseline 对比。"
+            "7 上线判断：更稳、更准、成本可接受才 deploy；否则回到样本、方法或阈值。"
+            "底部票据必须写 route: fine-tuning candidate；minimum_before_training: prompt baseline + validation set + failure log。"
+        ),
+        required_labels=(
+            "private_facts=False、format_drift=True、stable_task=True、labeled_examples=120、RAG first、"
+            "fine-tuning candidate、metric、train / validation / test、leakage check、LoRA、QLoRA、PEFT、"
+            "Prompt / RAG baseline、deploy、iterate、route: fine-tuning candidate、"
+            "minimum_before_training: prompt baseline + validation set + failure log。"
+        ),
+        footer="微调不是先训练再看效果，而是先有候选理由和对照证据。",
+        allowed_tokens=(
+            "private_facts=False, format_drift=True, stable_task=True, labeled_examples=120, RAG first, "
+            "fine-tuning candidate, metric, train, validation, test, leakage check, LoRA, QLoRA, PEFT, "
+            "Prompt, baseline, deploy, iterate, route, minimum_before_training, prompt baseline, validation set, failure log"
+        ),
+    ),
+    "ch07-finetuning-decision-loop-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Fine-Tuning Decision Loop",
+        visible_subtitle="Triage first, prepare data, then compare with a baseline.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.6.1 and the route-check exercise. The image must directly explain the current code values: "
+            "private_facts=False, format_drift=True, stable_task=True, labeled_examples=120. "
+            "Therefore the route is fine-tuning candidate, but training needs a prompt baseline, validation set, and failure log first."
+        ),
+        fixed_layout=(
+            "Vertical lined notebook paper, not a pure flowchart. Draw a practical decision work order with 7 steps from top to bottom. "
+            "1 Problem triage: private_facts? current False; a gray side path says if True, use RAG first. "
+            "2 Candidate check: format_drift=True, stable_task=True, labeled_examples=120, circled in green as candidate conditions met. "
+            "3 Define task and metric. 4 Prepare train / validation / test with a leakage check magnifier. "
+            "5 Choose LoRA / QLoRA / PEFT. 6 train + validate, compare with Prompt / RAG baseline. "
+            "7 Deployment decision: deploy only if more stable, more accurate, and cost acceptable; otherwise iterate data, method, or threshold. "
+            "Bottom receipt must say route: fine-tuning candidate; minimum_before_training: prompt baseline + validation set + failure log."
+        ),
+        required_labels=(
+            "private_facts=False, format_drift=True, stable_task=True, labeled_examples=120, RAG first, "
+            "fine-tuning candidate, metric, train / validation / test, leakage check, LoRA, QLoRA, PEFT, "
+            "Prompt / RAG baseline, deploy, iterate, route: fine-tuning candidate, "
+            "minimum_before_training: prompt baseline + validation set + failure log."
+        ),
+        footer="Fine-tuning starts with a reason and comparison evidence, not with training first.",
+        allowed_tokens=(
+            "private_facts=False, format_drift=True, stable_task=True, labeled_examples=120, RAG first, "
+            "fine-tuning candidate, metric, train, validation, test, leakage check, LoRA, QLoRA, PEFT, "
+            "Prompt, baseline, deploy, iterate, route, minimum_before_training, prompt baseline, validation set, failure log"
+        ),
+    ),
+    "ch07-finetuning-decision-loop-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="微調整の判断ループ",
+        visible_subtitle="まず分診し、データを準備し、最後に baseline と比べる。",
+        teaching_goal=(
+            "第 7 章 7.6.1 の route check 練習に使う。画像はコードの現在条件を直接説明する："
+            "private_facts=False、format_drift=True、stable_task=True、labeled_examples=120。"
+            "そのため route は fine-tuning candidate だが、訓練前に prompt baseline、validation set、failure log が必要。"
+        ),
+        fixed_layout=(
+            "縦の横線ノート紙、純粋な flowchart にしない。実務の判断ワークオーダーとして上から下へ 7 ステップを描く。"
+            "1 問題分診：private_facts? 現在 False。灰色の横道に True ならまず RAG と書く。"
+            "2 候補判定：format_drift=True、stable_task=True、labeled_examples=120 を緑で囲み、候補条件を満たす と示す。"
+            "3 task と metric を定義。4 train / validation / test を準備し、leakage check の虫眼鏡を描く。"
+            "5 LoRA / QLoRA / PEFT を選ぶ。6 train + validate し、Prompt / RAG baseline と比較。"
+            "7 deploy 判断：より安定、より正確、cost 許容なら deploy；そうでなければ data、method、threshold を iterate。"
+            "下部の receipt は必ず route: fine-tuning candidate；minimum_before_training: prompt baseline + validation set + failure log と書く。"
+        ),
+        required_labels=(
+            "private_facts=False、format_drift=True、stable_task=True、labeled_examples=120、RAG first、"
+            "fine-tuning candidate、metric、train / validation / test、leakage check、LoRA、QLoRA、PEFT、"
+            "Prompt / RAG baseline、deploy、iterate、route: fine-tuning candidate、"
+            "minimum_before_training: prompt baseline + validation set + failure log。"
+        ),
+        footer="微調整は、まず候補理由と比較証拠をそろえてから始める。",
+        allowed_tokens=(
+            "private_facts=False, format_drift=True, stable_task=True, labeled_examples=120, RAG first, "
+            "fine-tuning candidate, metric, train, validation, test, leakage check, LoRA, QLoRA, PEFT, "
+            "Prompt, baseline, deploy, iterate, route, minimum_before_training, prompt baseline, validation set, failure log, cost, data, method, threshold"
+        ),
+    ),
+}
+
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_REMAKE_PROMPTS)
 
 CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dl-workshop-route-en.png", "Chapter 6 PyTorch Workshop Route", "Chapter 6 PyTorch workshop route map for the 16x16 stripe classification evidence-pack project."),
@@ -33432,6 +33604,45 @@ for filename, title, alt in CH06_HANDS_ON_WORKSHOP_REMAKE_META:
             }
         )
         existing_filenames_for_ch06_hands_on.add(filename)
+
+CH07_FINETUNING_REMAKE_META = [
+    (
+        "ch07-finetuning-chapter-flow-en.png",
+        "Fine-Tuning Is Not a Magic Button",
+        "Fine-tuning boundary map: pretraining, Prompt, fine-tuning, RAG boundary, baseline, validation, and failure log.",
+    ),
+    (
+        "ch07-finetuning-chapter-flow-ja.png",
+        "微調整は万能ボタンではない",
+        "fine-tuning の境界図：pretraining、Prompt、fine-tuning、RAG 境界、baseline、validation、failure log。",
+    ),
+    (
+        "ch07-finetuning-decision-loop-en.png",
+        "Fine-Tuning Decision Loop",
+        "Fine-tuning route-check decision loop based on private_facts=False, format_drift=True, stable_task=True, labeled_examples=120.",
+    ),
+    (
+        "ch07-finetuning-decision-loop-ja.png",
+        "微調整の判断ループ",
+        "private_facts=False、format_drift=True、stable_task=True、labeled_examples=120 に基づく fine-tuning route check。",
+    ),
+]
+
+existing_filenames_for_ch07_finetuning = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_FINETUNING_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_finetuning:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/00-roadmap.md",
+                "alt": alt,
+                "prompt": CH07_FINETUNING_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_finetuning.add(filename)
 
 for job in IMAGE_JOBS:
     override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(str(job.get("filename")))

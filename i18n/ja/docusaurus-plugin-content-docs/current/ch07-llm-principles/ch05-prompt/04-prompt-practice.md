@@ -1,7 +1,7 @@
 ---
 title: "7.5.5 Prompt 工学の実践"
 sidebar_position: 18
-description: "悪い prompt から良い prompt へ。書き換え、制約、サンプル設計、出力制御を систем的に練習して、Prompt を実際のタスクに活かします。"
+description: "悪い prompt から良い prompt へ。書き換え、制約、サンプル設計、出力制御を体系的に練習して、Prompt を実際のタスクに活かします。"
 keywords: [prompt engineering, few-shot, instruction design, prompt practice, output control]
 ---
 
