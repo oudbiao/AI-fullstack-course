@@ -25943,6 +25943,66 @@ COURSE_QA_PROMPTS.update(
             footer="まず validation の証拠を見る。train loss が低いだけでは、良い設定とは限らない。",
             allowed_tokens="lr_sweep, lr=0.001, lr=0.01, lr=0.1, lr=1, lr=10, train_loss=0.763, 0.675, 0.340, 0.053, 0.280, val_loss=0.733, 0.663, 0.373, 0.072, 0.291, val_acc=0.450, 0.533, 0.967, 0.983, 0.883, best_lr: 1.0, choose by validation loss, validation loss, training loss",
         ),
+        "training-curve-diagnosis.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="从 loss 曲线诊断训练问题",
+            visible_subtitle="先看 train/val 的形状和间距，再决定该查哪里。",
+            teaching_goal="服务 6.7.3 训练诊断小节开头。读者先看图就能把 loss 曲线形状和四类训练问题对应起来：正常收敛、欠拟合、过拟合、学习率过大/批次不稳定。图要帮助后面的 diagnose(train, val) 代码：不是看单个点，而是看整体趋势、train/val 间距、验证曲线是否反弹、曲线是否剧烈震荡。",
+            fixed_layout="竖向横线笔记纸教学图，同一张纸分成四个大面板。顶部画一个老师用放大镜看 train loss 和 val loss 两条线。四个面板按固定顺序排列：1 正常收敛，2 欠拟合，3 过拟合，4 学习率过大/不稳定。每个面板都画一张清楚的小曲线图，蓝线是 train loss，橙线是 val loss，x 轴 epoch，y 轴 loss。正常收敛：两条线平滑下降并稳定，间距小。欠拟合：train 和 val 都停在高位，早早变平。过拟合：train 继续下降，val 先降后升，间距变大。学习率过大/不稳定：两条线大幅上下震荡，不收敛。每个面板下方只放两个短标签：症状和第一检查项。底部画一个诊断尺：shape -> gap -> rebound -> oscillation -> first check。",
+            required_labels="train loss、val loss、epoch、loss、1 正常收敛、症状：两条线下降并稳定、先检查：继续记录指标、2 欠拟合、症状：train/val 都高、先检查：模型容量或学习率、3 过拟合、症状：train 降，val 反弹、先检查：正则化/数据泄漏、4 学习率过大/不稳定、症状：loss 剧烈震荡、先检查：降低 LR 或检查 batch、shape -> gap -> rebound -> oscillation -> first check。",
+            footer="训练诊断先读曲线形状；再看预测、梯度和数据。",
+            allowed_tokens="train loss, val loss, epoch, loss, LR, batch, shape, gap, rebound, oscillation, first check",
+        ),
+        "training-curve-diagnosis-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Diagnose Training from Loss Curves",
+            visible_subtitle="Read train/val shape and gap before choosing the next check.",
+            teaching_goal="Serve the opening of 6.7.3 Training Diagnosis. Learners should map loss curve shapes to four common problems: normal convergence, underfitting, overfitting, and learning rate too high or unstable batches. The image supports the later diagnose(train, val) code: do not read one point; read the trend, the train/val gap, validation rebound, and oscillation.",
+            fixed_layout="Vertical lined-notebook teaching diagram. Split one notebook page into four large panels. At the top, draw a teacher using a magnifier to inspect train loss and val loss. The four panels must use this exact order: 1 normal convergence, 2 underfitting, 3 overfitting, 4 LR too high / unstable. Each panel has one clear mini curve chart: blue line is train loss, orange line is val loss, x axis epoch, y axis loss. Normal convergence: both lines drop smoothly and stabilize with a small gap. Underfitting: train and val stay high and flatten early. Overfitting: train keeps dropping, val drops then rebounds, gap widens. LR too high / unstable: both lines oscillate wildly and do not settle. Under each panel place only two short notes: symptom and first check. Bottom: draw a diagnosis ruler: shape -> gap -> rebound -> oscillation -> first check.",
+            required_labels="train loss, val loss, epoch, loss, 1 normal convergence, symptom: both drop and settle, first check: keep logging metrics, 2 underfitting, symptom: train/val both high, first check: model capacity or learning rate, 3 overfitting, symptom: train down, val rebounds, first check: regularization/leakage, 4 LR too high / unstable, symptom: loss oscillates, first check: lower LR or inspect batches, shape -> gap -> rebound -> oscillation -> first check.",
+            footer="Diagnose curves first; then inspect predictions, gradients, and data.",
+            allowed_tokens="train loss, val loss, epoch, loss, LR, batch, shape, gap, rebound, oscillation, first check, model capacity, learning rate, regularization/leakage",
+        ),
+        "training-curve-diagnosis-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="loss 曲線で学習問題を診断する",
+            visible_subtitle="train/val の形と差を読んでから、次の確認を選ぶ。",
+            teaching_goal="6.7.3 学習診断の導入に合わせる。loss 曲線の形から、正常収束、学習不足、過学習、学習率が大きすぎる/ batch が不安定、という4つの問題を対応づける。後続の diagnose(train, val) コードを助ける図にする。1点だけではなく、全体 trend、train/val の gap、validation の rebound、oscillation を読むことを教える。",
+            fixed_layout="縦長の横線ノート紙の教学図。1枚のノートを4つの大きな panel に分ける。上部に先生が虫眼鏡で train loss と val loss の2本線を見る場面を描く。4 panel の順序は固定：1 正常収束、2 学習不足、3 過学習、4 学習率が大きすぎる/不安定。各 panel は見やすい小さな curve chart。青線は train loss、オレンジ線は val loss、x 軸 epoch、y 軸 loss。正常収束：2本が滑らかに下がって安定し、gap が小さい。学習不足：train と val が高いまま早く平らになる。過学習：train は下がり続け、val は一度下がってから rebound し、gap が広がる。学習率が大きすぎる/不安定：2本が大きく oscillation し、落ち着かない。各 panel の下は短い2行だけ：症状と最初の確認。下部に診断ものさし：shape -> gap -> rebound -> oscillation -> first check。",
+            required_labels="train loss、val loss、epoch、loss、1 正常収束、症状：2本が下がって安定、最初の確認：metric を記録継続、2 学習不足、症状：train/val が両方高い、最初の確認：モデル容量または学習率、3 過学習、症状：train 低下、val rebound、最初の確認：正則化/リーク、4 学習率が大きすぎる/不安定、症状：loss が大きく振動、最初の確認：LR を下げるか batch 確認、shape -> gap -> rebound -> oscillation -> first check。",
+            footer="まず曲線の形を診断し、その後で予測、勾配、データを見る。",
+            allowed_tokens="train loss, val loss, epoch, loss, LR, batch, shape, gap, rebound, oscillation, first check, metric",
+        ),
+        "ch06-training-diagnosis-signal-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="训练诊断输出怎么读",
+            visible_subtitle="loss 不够；把曲线、预测分布和梯度一起看。",
+            teaching_goal="服务 6.7.3 的两个实验输出。读者即使不运行代码，也能看懂 curve_diagnosis 的三行 print 如何把曲线分成欠拟合、过拟合、不稳定；也能看懂 training_signals 里 loss=0.687 不能单独说明问题，而 pred_counts=[0,12] 暴露所有样本都预测成 class 1，需要继续查 labels、class balance、output shape 和 loss。",
+            fixed_layout="竖向横线笔记纸实验诊断图，三语必须同构。顶部画一个老师把 print 输出变成诊断板，不要画终端截图。上半部分是三张曲线病例卡，顺序固定：underfit_case、overfit_case、unstable_case。每张卡左侧画小曲线，右侧写精确输出标签。重要拼写规则：必须写 curve_diagnosis，绝不能写成 curve_diaginosis、Curve_diaginosis 或任何变体。underfit_case 的曲线 train/val 都高位变平；overfit_case 是 train 下降、val 反弹；unstable_case 是两条线大幅震荡。中间是 signal dashboard 四格：loss=0.687、grad_norm=0.445、pred_counts=[0,12]、avg_confidence=0.69。pred_counts 必须最大最醒目：画 class 0 空桶标 0，class 1 满桶装 12 个样本标 12，并写“所有样本 -> class 1”。avg_confidence=0.69 旁边只能写“中等信心，不代表正确”，不要写“偏高”“很高”或“安全”。下半部分画排查阶梯：predictions -> gradients -> data -> hyperparameters -> model。旁边用红笔标注：先查 labels、class balance、output shape、loss；不要马上换 architecture。不要新增 accuracy、epoch、confusion matrix 或不存在的类。",
+            required_labels="curve_diagnosis、underfit_case -> possible_underfitting、overfit_case -> possible_overfitting、unstable_case -> possible_lr_too_high_or_unstable_batches、training_signals、loss=0.687、grad_norm=0.445、pred_counts=[0,12]、avg_confidence=0.69、中等信心，不代表正确、class 0、0、class 1、12、所有样本 -> class 1、predictions、gradients、data、hyperparameters、model、labels、class balance、output shape、loss、architecture last。",
+            footer="诊断不是先换模型；先追曲线、预测、梯度和数据。",
+            allowed_tokens="curve_diagnosis, underfit_case, overfit_case, unstable_case, possible_underfitting, possible_overfitting, possible_lr_too_high_or_unstable_batches, training_signals, loss=0.687, grad_norm=0.445, pred_counts=[0,12], avg_confidence=0.69, class 0, class 1, predictions, gradients, data, hyperparameters, model, labels, class balance, output shape, architecture last",
+        ),
+        "ch06-training-diagnosis-signal-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Reading Training Diagnosis Signals",
+            visible_subtitle="Loss is not enough; combine curves, predictions, and gradients.",
+            teaching_goal="Serve the two lab outputs in 6.7.3. Even without running the code, learners should see how the three curve_diagnosis print lines classify curves as underfitting, overfitting, or unstable; and how training_signals shows that loss=0.687 is not enough by itself while pred_counts=[0,12] reveals every sample is predicted as class 1, so the next checks are labels, class balance, output shape, and loss.",
+            fixed_layout="Vertical lined-notebook experiment diagnosis diagram. The three language versions must be structurally identical. Top: a teacher turns print output into a diagnosis board; do not draw a terminal screenshot. Upper section: three curve case cards in fixed order: underfit_case, overfit_case, unstable_case. Each card has a small curve sketch on the left and the exact output label on the right. underfit_case has train/val high and flat; overfit_case has train dropping while val rebounds; unstable_case has both lines oscillating strongly. Middle: a four-cell signal dashboard: loss=0.687, grad_norm=0.445, pred_counts=[0,12], avg_confidence=0.69. pred_counts must be the largest focus: draw class 0 as an empty bucket labeled 0, class 1 as a full bucket with 12 samples labeled 12, and write “all samples -> class 1”. Lower section: troubleshooting ladder: predictions -> gradients -> data -> hyperparameters -> model. Add a red note: check labels, class balance, output shape, and loss first; do not jump to architecture. Do not invent accuracy, epochs, confusion matrix, or extra classes.",
+            required_labels="curve_diagnosis, underfit_case -> possible_underfitting, overfit_case -> possible_overfitting, unstable_case -> possible_lr_too_high_or_unstable_batches, training_signals, loss=0.687, grad_norm=0.445, pred_counts=[0,12], avg_confidence=0.69, class 0, 0, class 1, 12, all samples -> class 1, predictions, gradients, data, hyperparameters, model, labels, class balance, output shape, loss, architecture last.",
+            footer="Do not swap models first; trace curves, predictions, gradients, and data.",
+            allowed_tokens="curve_diagnosis, underfit_case, overfit_case, unstable_case, possible_underfitting, possible_overfitting, possible_lr_too_high_or_unstable_batches, training_signals, loss=0.687, grad_norm=0.445, pred_counts=[0,12], avg_confidence=0.69, class 0, class 1, predictions, gradients, data, hyperparameters, model, labels, class balance, output shape, architecture last",
+        ),
+        "ch06-training-diagnosis-signal-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="学習診断シグナルを読む",
+            visible_subtitle="loss だけでは足りない。曲線、予測、勾配を合わせて見る。",
+            teaching_goal="6.7.3 の2つの実験出力に合わせる。コードを実行できない読者でも、curve_diagnosis の3行 print が曲線を学習不足、過学習、不安定に分類すること、training_signals では loss=0.687 だけでは判断できず、pred_counts=[0,12] が全サンプル class 1 予測という崩れを示すこと、次に labels、class balance、output shape、loss を確認することを理解できる図にする。",
+            fixed_layout="縦長の横線ノート紙の実験診断図。三語版は同じ構造にする。上部：先生が print 出力を診断板に変える場面。terminal screenshot は描かない。上半分：3つの曲線ケース card。順序は固定：underfit_case、overfit_case、unstable_case。各 card の左に小さな curve、右に正確な output label。underfit_case は train/val が高く平ら、overfit_case は train が下がり val が rebound、unstable_case は2本が大きく oscillation。中央：4分割 signal dashboard：loss=0.687、grad_norm=0.445、pred_counts=[0,12]、avg_confidence=0.69。pred_counts を最大の焦点にする。class 0 は空 bucket に 0、class 1 は12個の sample が入った満杯 bucket に 12 と描き、「全サンプル -> class 1」と書く。下半分：確認階段 predictions -> gradients -> data -> hyperparameters -> model。赤いメモで labels、class balance、output shape、loss を先に確認、architecture へ飛ばない、と示す。accuracy、追加 epoch、confusion matrix、余分な class は入れない。",
+            required_labels="curve_diagnosis、underfit_case -> possible_underfitting、overfit_case -> possible_overfitting、unstable_case -> possible_lr_too_high_or_unstable_batches、training_signals、loss=0.687、grad_norm=0.445、pred_counts=[0,12]、avg_confidence=0.69、class 0、0、class 1、12、全サンプル -> class 1、predictions、gradients、data、hyperparameters、model、labels、class balance、output shape、loss、architecture last。",
+            footer="最初にモデルを替えない。曲線、予測、勾配、データを順に追う。",
+            allowed_tokens="curve_diagnosis, underfit_case, overfit_case, unstable_case, possible_underfitting, possible_overfitting, possible_lr_too_high_or_unstable_batches, training_signals, loss=0.687, grad_norm=0.445, pred_counts=[0,12], avg_confidence=0.69, class 0, class 1, predictions, gradients, data, hyperparameters, model, labels, class balance, output shape, architecture last",
+        ),
     }
 )
 
@@ -25959,6 +26019,12 @@ COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
     "ch06-lr-sweep-result-map.png",
     "ch06-lr-sweep-result-map-en.png",
     "ch06-lr-sweep-result-map-ja.png",
+    "training-curve-diagnosis.png",
+    "training-curve-diagnosis-en.png",
+    "training-curve-diagnosis-ja.png",
+    "ch06-training-diagnosis-signal-result-map.png",
+    "ch06-training-diagnosis-signal-result-map-en.png",
+    "ch06-training-diagnosis-signal-result-map-ja.png",
 }
 
 COURSE_QA_IMAGE_JOB_META.extend(
@@ -25982,6 +26048,8 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch06-lr-sweep-result-map.png", "看学习率 sweep 输出", "docs/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning.md", "学习率 sweep 结果图：五个 lr 的 train_loss、val_loss、val_acc 一眼可见，best_lr=1.0 由验证集证据决定。"),
         ("ch06-lr-sweep-result-map-en.png", "Reading the LR Sweep Output", "docs/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning.md", "LR sweep result map: the five learning rates, their train_loss, val_loss, and val_acc, make best_lr=1.0 obvious from validation evidence."),
         ("ch06-lr-sweep-result-map-ja.png", "LR sweep の出力を読む", "docs/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning.md", "LR sweep の結果図：5 つの learning rate の train_loss、val_loss、val_acc を見て、validation の証拠から best_lr=1.0 を決める。"),
+        ("training-curve-diagnosis-en.png", "Reading Loss Curves for Training Diagnosis", "docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md", "Training curve diagnosis chart: normal convergence, underfitting, overfitting, and unstable learning rate patterns connect loss curves to the first debugging action."),
+        ("training-curve-diagnosis-ja.png", "loss 曲線で学習問題を診断する", "docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md", "学習曲線診断図：正常収束、学習不足、過学習、学習率が大きすぎる振動を loss 曲線と最初の確認に結びつける。"),
     ]
 )
 
