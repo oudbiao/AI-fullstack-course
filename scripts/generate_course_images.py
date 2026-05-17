@@ -25821,12 +25821,131 @@ COURSE_QA_PROMPTS.update(
     }
 )
 
+COURSE_QA_PROMPTS.update(
+    {
+        "ch06-training-tips-chapter-flow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="训练技巧路线图：先诊断",
+            visible_subtitle="一次只改一个变量，用证据决定下一步。",
+            teaching_goal="服务 6.7.1 训练技巧路线图。读者先看图就能知道本小节不是堆技巧，而是从训练现象出发，按 hyperparameter tuning、monitoring、diagnosis、compression、deployment prep 的顺序选择动作。",
+            fixed_layout="竖向横线笔记纸教学图。三语版本必须使用同一个蓝图：上方训练工作台，中间左侧 1-5 号路线，右侧症状速查表，底部重点句。顶部画一个小模型训练工作台：batch -> model -> loss -> backward -> optimizer -> metrics，但可在旁边用中文解释“批次、模型、反传、指标”。中间画一条编号诊断路线，不要画白底圆角流程框。1 超参数调优：学习率、batch size、优化器三个旋钮。2 训练监控：训练 loss 与验证 loss 两条曲线。3 诊断优先：症状卡片指向先检查。4 模型压缩：剪枝、量化、蒸馏三把工具。5 部署准备：延迟、内存、安全检查三个检查点。右侧放一张小型症状速查表，必须用中文写：训练 loss 高 -> 模型/LR/数据；训练好验证差 -> 过拟合/泄漏/增强；loss 不稳定 -> LR/batch/梯度；太慢 -> batch/device/模型大小；部署太重 -> 压缩。",
+            required_labels="训练工作台、批次、模型、loss、反向传播、优化器、指标、1 超参数调优、学习率、batch size、优化器、2 训练监控、训练 loss、验证 loss、3 诊断优先、症状、先检查、4 模型压缩、剪枝、量化、蒸馏、5 部署准备、延迟、内存、安全检查、训练 loss 高、训练好验证差、loss 不稳定、太慢、部署太重。",
+            footer="先诊断，再选一个动作；不要一次改完整个系统。",
+            allowed_tokens="batch, model, loss, backward, optimizer, metrics, batch size, LR, device, model/LR/data",
+        ),
+        "ch06-training-tips-chapter-flow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Training Tips Roadmap: Diagnose First",
+            visible_subtitle="Change one variable at a time and let evidence choose the next step.",
+            teaching_goal="Serve the 6.7.1 Training Tips Roadmap. The learner should see that the section is not a bag of tricks; it starts from training symptoms and chooses actions through hyperparameter tuning, monitoring, diagnosis, compression, and deployment prep.",
+            fixed_layout="Vertical lined-notebook teaching diagram. All three language versions must follow the same blueprint: top training workbench, middle-left 1-5 route, right symptom quick table, bottom takeaway. Top: a small model-training workbench: batch -> model -> loss -> backward -> optimizer -> metrics. Middle: one numbered diagnosis route, not white rounded flow boxes. 1 Hyperparameter tuning: three knobs for learning rate, batch size, optimizer. 2 Training monitoring: train loss and val loss curves. 3 Diagnosis first: symptom cards point to first check. 4 Model compression: pruning, quantization, distillation tools. 5 Deployment prep: latency, memory, safety check. Right side: a small symptom quick table: training loss high -> model/LR/data; training good val bad -> overfitting/leakage/augmentation; unstable loss -> LR/batch/gradients; too slow -> batch/device/model size; too heavy -> compression.",
+            required_labels="training workbench, batch, model, loss, backward, optimizer, metrics, 1 hyperparameter tuning, learning rate, batch size, optimizer, 2 training monitoring, train loss, val loss, 3 diagnosis first, symptom, first check, 4 model compression, pruning, quantization, distillation, 5 deployment prep, latency, memory, safety check, training loss high, training good val bad, unstable loss, too slow, too heavy.",
+            footer="Diagnose first, then choose one action; do not rewrite the whole system at once.",
+            allowed_tokens="batch, model, loss, backward, optimizer, metrics, learning rate, batch size, train loss, val loss, symptom, first check, pruning, quantization, distillation, latency, memory, safety check, training loss high, training good val bad, unstable loss, too slow, too heavy, model/LR/data, overfitting/leakage/augmentation, LR/batch/gradients, batch/device/model size, compression",
+        ),
+        "ch06-training-tips-chapter-flow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="学習 Tips ロードマップ：先に診断",
+            visible_subtitle="一度に変えるのは1つ。証拠で次の一手を選ぶ。",
+            teaching_goal="6.7.1 学習 Tips ロードマップに合わせる。この小節は Tips の寄せ集めではなく、学習中の症状から出発し、hyperparameter tuning、monitoring、diagnosis、compression、deployment prep の順に行動を選ぶものだと分かる図にする。",
+            fixed_layout="縦長の横線ノート紙の教学図。三語版は必ず同じ設計にする：上部は学習作業台、中央左は 1-5 のルート、右は症状早見表、下部は takeaway。上部に小さなモデル学習の作業台：batch -> model -> loss -> backward -> optimizer -> metrics。ただし横に日本語で「batch、model、逆伝播、指標」を説明する。中央に番号付き診断ルートを1本描く。白い角丸 flow box にはしない。1 ハイパーパラメータ調整：学習率、batch size、optimizer の3つのつまみ。2 学習監視：train loss と val loss の2本の曲線。3 先に診断：症状カードが最初の確認へ向かう。4 モデル圧縮：枝刈り、量子化、蒸留の道具。5 デプロイ準備：latency、memory、安全確認の確認点。右側の症状早見表は日本語で書く：training loss が高い -> model/LR/data；training は良いが val が悪い -> 過学習/リーク/augmentation；loss が不安定 -> LR/batch/勾配；遅すぎる -> batch/device/モデルサイズ；重すぎる -> 圧縮。",
+            required_labels="学習作業台、batch、model、loss、逆伝播、optimizer、metrics、1 ハイパーパラメータ調整、学習率、batch size、optimizer、2 学習監視、train loss、val loss、3 先に診断、症状、最初の確認、4 モデル圧縮、枝刈り、量子化、蒸留、5 デプロイ準備、latency、memory、安全確認、training loss が高い、training は良いが val が悪い、loss が不安定、遅すぎる、重すぎる。",
+            footer="先に診断し、1つの行動を選ぶ。全体を一度に変えない。",
+            allowed_tokens="batch, model, loss, backward, optimizer, metrics, batch size, train loss, val loss, LR, device, model/LR/data, augmentation, latency, memory",
+        ),
+        "ch06-training-diagnosis-dashboard-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="训练诊断板：先看证据",
+            visible_subtitle="曲线、分布、梯度和数据样本一起看，最后才换模型。",
+            teaching_goal="服务 6.7.1 和后续训练诊断小节。图要把“看证据再行动”的顺序讲清楚：先读 train/val curves，再检查 learning rate、batch、prediction distribution、gradient health 和 data/label，最后才考虑 architecture。",
+            fixed_layout="竖向横线笔记纸诊断板，像老师手绘病例板。顶部画一个医生放大镜检查训练曲线。左侧第一栏是 loss curves：normal、overfit、underfit、unstable 四个小曲线。中间第二栏是训练设置：learning rate slider、batch size、optimizer note。第三栏是模型证据：prediction distribution histogram、grad norm meter。右侧第四栏是数据证据：data samples、label check、leakage check。底部画决策路径：fix data/settings -> rerun -> compare curves -> architecture last。不要放真实仪表盘截图，不要堆白色 UI 卡片，不要写未出现的准确率数值。",
+            required_labels="训练诊断板、train loss、val loss、normal、overfit、underfit、unstable、learning rate、batch size、optimizer、prediction distribution、grad norm、data samples、label check、leakage check、fix data/settings、rerun、compare curves、architecture last。",
+            footer="多数训练问题先查数据和设置；architecture 是最后的旋钮。",
+            allowed_tokens="train loss, val loss, normal, overfit, underfit, unstable, learning rate, batch size, optimizer, prediction distribution, grad norm, data samples, label check, leakage check, fix data/settings, rerun, compare curves, architecture last",
+        ),
+        "ch06-training-diagnosis-dashboard-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Training Diagnosis Board: Read Evidence First",
+            visible_subtitle="Curves, distributions, gradients, and data samples come before changing the model.",
+            teaching_goal="Serve 6.7.1 and the later Training Diagnosis section. The image must teach the evidence-first order: read train/val curves, then inspect learning rate, batch, prediction distribution, gradient health, and data/label issues, and only then consider architecture.",
+            fixed_layout="Vertical lined-notebook diagnosis board, drawn like teacher case notes. Top: a doctor-style magnifier inspecting training curves. Left column is loss curves: normal, overfit, underfit, unstable as four tiny curves. Middle column is training settings: learning rate slider, batch size, optimizer note. Third column is model evidence: prediction distribution histogram, grad norm meter. Right column is data evidence: data samples, label check, leakage check. Bottom decision path: fix data/settings -> rerun -> compare curves -> architecture last. Do not show a real dashboard screenshot, do not stack white UI cards, and do not invent accuracy values.",
+            required_labels="training diagnosis board, train loss, val loss, normal, overfit, underfit, unstable, learning rate, batch size, optimizer, prediction distribution, grad norm, data samples, label check, leakage check, fix data/settings, rerun, compare curves, architecture last.",
+            footer="Most training problems ask for data and settings first; architecture is the last knob.",
+            allowed_tokens="train loss, val loss, normal, overfit, underfit, unstable, learning rate, batch size, optimizer, prediction distribution, grad norm, data samples, label check, leakage check, fix data/settings, rerun, compare curves, architecture last",
+        ),
+        "ch06-training-diagnosis-dashboard-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="学習診断ボード：先に証拠を見る",
+            visible_subtitle="曲線、分布、勾配、data samples を見てからモデルを変える。",
+            teaching_goal="6.7.1 と後続の学習診断小節に合わせる。train/val curves を読み、learning rate、batch、prediction distribution、gradient health、data/label を確認し、最後に architecture を考えるという証拠優先の順序を教える。",
+            fixed_layout="縦長の横線ノート紙の診断ボード。先生の手描き症例ノートのように描く。上部は医師風の虫眼鏡が学習曲線を確認する場面。左列は loss curves：normal、overfit、underfit、unstable の4つの小曲線。中央列は学習設定：learning rate slider、batch size、optimizer note。第3列はモデル証拠：prediction distribution histogram、grad norm meter。右列はデータ証拠：data samples、label check、leakage check。下部は判断経路：fix data/settings -> rerun -> compare curves -> architecture last。実際の dashboard screenshot、白い UI card の山、存在しない accuracy 数値は入れない。",
+            required_labels="学習診断ボード、train loss、val loss、normal、overfit、underfit、unstable、learning rate、batch size、optimizer、prediction distribution、grad norm、data samples、label check、leakage check、fix data/settings、rerun、compare curves、architecture last。",
+            footer="多くの学習問題は data と settings から見る。architecture は最後のつまみ。",
+            allowed_tokens="train loss, val loss, normal, overfit, underfit, unstable, learning rate, batch size, optimizer, prediction distribution, grad norm, data samples, label check, leakage check, fix data/settings, rerun, compare curves, architecture last, data, settings",
+        ),
+        "ch06-training-tips-first-loop-result-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="读第一段 loss 输出",
+            visible_subtitle="val_loss 的最低点是 epoch 3，后面变差就该停或降学习率。",
+            teaching_goal="服务 6.7.1 的 tiny loss log 代码。读者即使不运行代码，也能看懂 min(range(...), key=val_loss.__getitem__) 如何找到最小验证损失，以及为什么输出 best_epoch=3、best_val_loss=0.48。",
+            fixed_layout="竖向横线笔记纸教学图。顶部画代码旁的 val_loss 列表，五个格子必须分别写 epoch 1:0.62、epoch 2:0.51、epoch 3:0.48、epoch 4:0.49、epoch 5:0.53。中间画一条验证 loss 折线，x 轴 epoch 1..5，y 轴 val_loss，epoch 3 的 0.48 用绿色圈出并标 lowest。旁边画 min() 扫描器从列表上扫过，箭头指向 best_epoch=3 和 best_val_loss=0.48。右侧画 output receipt，必须三行：best_epoch: 3；best_val_loss: 0.48；action: stop or reduce learning rate if validation keeps worsening。底部画策略分叉：val_loss 继续上升 -> early stop 或 reduce learning rate；不要画训练准确率、混淆矩阵或其他不存在的数值。",
+            required_labels="val_loss=[0.62,0.51,0.48,0.49,0.53]、epoch 1:0.62、epoch 2:0.51、epoch 3:0.48、epoch 4:0.49、epoch 5:0.53、lowest、min() scanner、best_epoch=3、best_val_loss=0.48、best_epoch: 3、best_val_loss: 0.48、action: stop or reduce learning rate if validation keeps worsening、early stop、reduce learning rate。",
+            footer="先读曲线：最低点之后持续变差，下一步才有依据。",
+            allowed_tokens="val_loss=[0.62,0.51,0.48,0.49,0.53], epoch, val_loss, lowest, min(), scanner, best_epoch=3, best_val_loss=0.48, best_epoch: 3, best_val_loss: 0.48, action: stop or reduce learning rate if validation keeps worsening, early stop, reduce learning rate",
+        ),
+        "ch06-training-tips-first-loop-result-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="Reading the First Loss Output",
+            visible_subtitle="The lowest val_loss is epoch 3; later worsening suggests stopping or lowering LR.",
+            teaching_goal="Serve the tiny loss log code in 6.7.1. Even without running the code, learners should see how min(range(...), key=val_loss.__getitem__) finds the minimum validation loss and why the output is best_epoch=3 and best_val_loss=0.48.",
+            fixed_layout="Vertical lined-notebook teaching diagram. Top: draw the val_loss list beside a code note, with five boxes exactly: epoch 1:0.62, epoch 2:0.51, epoch 3:0.48, epoch 4:0.49, epoch 5:0.53. Middle: draw one validation-loss line chart with x axis epoch 1..5 and y axis val_loss. Circle epoch 3 at 0.48 in green and label lowest. Beside it, draw a min() scanner moving across the list, with arrows to best_epoch=3 and best_val_loss=0.48. Right side: an output receipt with exactly three lines: best_epoch: 3; best_val_loss: 0.48; action: stop or reduce learning rate if validation keeps worsening. Bottom: strategy fork: val_loss keeps rising -> early stop or reduce learning rate. Do not draw training accuracy, confusion matrix, or any extra invented values.",
+            required_labels="val_loss=[0.62,0.51,0.48,0.49,0.53], epoch 1:0.62, epoch 2:0.51, epoch 3:0.48, epoch 4:0.49, epoch 5:0.53, lowest, min() scanner, best_epoch=3, best_val_loss=0.48, best_epoch: 3, best_val_loss: 0.48, action: stop or reduce learning rate if validation keeps worsening, early stop, reduce learning rate.",
+            footer="Read the curve first: worsening after the minimum gives the next action a reason.",
+            allowed_tokens="val_loss=[0.62,0.51,0.48,0.49,0.53], epoch, val_loss, lowest, min(), scanner, best_epoch=3, best_val_loss=0.48, best_epoch: 3, best_val_loss: 0.48, action: stop or reduce learning rate if validation keeps worsening, early stop, reduce learning rate, LR",
+        ),
+        "ch06-training-tips-first-loop-result-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="最初の loss 出力を読む",
+            visible_subtitle="val_loss の最小は epoch 3。悪化が続けば停止か学習率を下げる。",
+            teaching_goal="6.7.1 の tiny loss log コードに合わせる。コードを実行できない読者でも、min(range(...), key=val_loss.__getitem__) が最小の validation loss を探し、best_epoch=3 と best_val_loss=0.48 が出る理由を見て理解できるようにする。",
+            fixed_layout="縦長の横線ノート紙の教学図。上部にコードメモの横で val_loss のリストを描く。5つの box は必ず epoch 1:0.62、epoch 2:0.51、epoch 3:0.48、epoch 4:0.49、epoch 5:0.53。中央に validation loss の折れ線を1本描く。x 軸は epoch 1..5、y 軸は val_loss。epoch 3 の 0.48 を緑で丸く囲み lowest と書く。横に min() scanner がリストを走査する様子を描き、best_epoch=3 と best_val_loss=0.48 へ矢印を向ける。右側に output receipt を置き、3行だけ書く：best_epoch: 3；best_val_loss: 0.48；action: stop or reduce learning rate if validation keeps worsening。下部に判断分岐：val_loss が上がり続ける -> early stop または reduce learning rate。training accuracy、confusion matrix、存在しない追加数値は描かない。",
+            required_labels="val_loss=[0.62,0.51,0.48,0.49,0.53]、epoch 1:0.62、epoch 2:0.51、epoch 3:0.48、epoch 4:0.49、epoch 5:0.53、lowest、min() scanner、best_epoch=3、best_val_loss=0.48、best_epoch: 3、best_val_loss: 0.48、action: stop or reduce learning rate if validation keeps worsening、early stop、reduce learning rate。",
+            footer="まず曲線を読む。最小後の悪化が、次の行動の根拠になる。",
+            allowed_tokens="val_loss=[0.62,0.51,0.48,0.49,0.53], epoch, val_loss, lowest, min(), scanner, best_epoch=3, best_val_loss=0.48, best_epoch: 3, best_val_loss: 0.48, action: stop or reduce learning rate if validation keeps worsening, early stop, reduce learning rate",
+        ),
+    }
+)
+
+COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES = {
+    "ch06-training-tips-chapter-flow.png",
+    "ch06-training-tips-chapter-flow-en.png",
+    "ch06-training-tips-chapter-flow-ja.png",
+    "ch06-training-diagnosis-dashboard-map.png",
+    "ch06-training-diagnosis-dashboard-map-en.png",
+    "ch06-training-diagnosis-dashboard-map-ja.png",
+    "ch06-training-tips-first-loop-result-map.png",
+    "ch06-training-tips-first-loop-result-map-en.png",
+    "ch06-training-tips-first-loop-result-map-ja.png",
+}
+
 COURSE_QA_IMAGE_JOB_META.extend(
     [
         ("vae-latent-space-flow-en.png", "VAE: From Input Point to Samplable Distribution", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE flow: encoder outputs mu/logvar, reparameterization samples z while gradients return to mu/std, and decoder reconstructs or generates from z."),
         ("vae-latent-space-flow-ja.png", "VAE：入力点から sample できる分布へ", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE の流れ：encoder が mu/logvar を出し、reparameterization が z を sample し、勾配は mu/std に戻り、decoder が再構成または生成する。"),
         ("ch06-vae-latent-continuity-sampling-map-en.png", "VAE: Why Continuous Latent Space Helps", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE continuous latent space map: KL smooths probability clouds so sampling and interpolation avoid holes and decode to data-like 2D points."),
         ("ch06-vae-latent-continuity-sampling-map-ja.png", "VAE：連続 latent space が生成を助ける理由", "docs/ch06-deep-learning/ch06-generative/02-vae.md", "VAE の連続 latent space 図：KL が probability clouds を滑らかにし、sampling と interpolation が holes を避けて data-like な 2D points に decode される。"),
+    ]
+)
+
+COURSE_QA_IMAGE_JOB_META.extend(
+    [
+        ("ch06-training-tips-chapter-flow-en.png", "Training Tips Roadmap: Diagnose First", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "Training tips roadmap: start from symptoms, read curves and settings, then choose tuning, diagnosis, compression, or deployment prep."),
+        ("ch06-training-tips-chapter-flow-ja.png", "学習 Tips ロードマップ：先に診断", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "学習 Tips ロードマップ：症状から始め、曲線と設定を読み、調整、診断、圧縮、デプロイ準備を選ぶ。"),
+        ("ch06-training-diagnosis-dashboard-map-en.png", "Training Diagnosis Board: Read Evidence First", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "Training diagnosis board: read train/val curves, settings, prediction distribution, gradient health, and data checks before changing architecture."),
+        ("ch06-training-diagnosis-dashboard-map-ja.png", "学習診断ボード：先に証拠を見る", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "学習診断ボード：architecture を変える前に train/val curves、settings、prediction distribution、grad norm、data checks を読む。"),
+        ("ch06-training-tips-first-loop-result-map.png", "读第一段 loss 输出", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "训练技巧首个 loss 输出图：val_loss 最低点在 epoch 3，best_epoch 和 best_val_loss 来自 min() 扫描，后续恶化提示停止或降低学习率。"),
+        ("ch06-training-tips-first-loop-result-map-en.png", "Reading the First Loss Output", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "First training-tips loss output map: val_loss reaches its minimum at epoch 3, min() gives best_epoch and best_val_loss, and later worsening suggests stopping or lowering the learning rate."),
+        ("ch06-training-tips-first-loop-result-map-ja.png", "最初の loss 出力を読む", "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md", "最初の loss 出力図：val_loss の最小は epoch 3。min() が best_epoch と best_val_loss を返し、悪化が続けば停止か学習率低下を考える。"),
     ]
 )
 
@@ -25887,6 +26006,9 @@ for job in IMAGE_JOBS:
     course_qa_prompt = COURSE_QA_PROMPTS.get(str(job.get("filename")))
     if course_qa_prompt and not job.get("overlay"):
         job["prompt"] = course_qa_prompt
+    if str(job.get("filename")) in COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
 
 
 existing_filenames = {str(job.get("filename")) for job in IMAGE_JOBS}
@@ -32651,6 +32773,9 @@ def apply_final_prompt_overrides() -> None:
         course_qa_prompt = COURSE_QA_PROMPTS.get(filename)
         if course_qa_prompt:
             job["prompt"] = course_qa_prompt
+        if filename in COURSE_QA_FORCE_DEFAULT_SIZE_FILENAMES:
+            job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+            job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
         override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(filename)
         if override_prompt:
             job["prompt"] = override_prompt

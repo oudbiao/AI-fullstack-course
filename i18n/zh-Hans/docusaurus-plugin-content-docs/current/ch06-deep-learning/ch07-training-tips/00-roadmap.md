@@ -44,6 +44,8 @@ best_val_loss: 0.48
 action: stop or reduce learning rate if validation keeps worsening
 ```
 
+![训练技巧首段 loss 输出结果图](/img/course/ch06-training-tips-first-loop-result-map.webp)
+
 加技巧之前，先读曲线。一段简单日志通常已经能告诉你下一步该试什么。
 
 ## 按这个顺序学

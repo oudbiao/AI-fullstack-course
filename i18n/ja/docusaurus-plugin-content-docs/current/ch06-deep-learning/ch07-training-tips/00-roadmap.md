@@ -44,6 +44,8 @@ best_val_loss: 0.48
 action: stop or reduce learning rate if validation keeps worsening
 ```
 
+![学習 Tips 最初の loss 出力結果図](/img/course/ch06-training-tips-first-loop-result-map-ja.webp)
+
 工夫を足す前に曲線を読みます。単純なログでも、次に試すことが見える場合が多いです。
 
 ## この順番で学ぶ

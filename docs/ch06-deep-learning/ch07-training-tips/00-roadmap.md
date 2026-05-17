@@ -44,6 +44,8 @@ best_val_loss: 0.48
 action: stop or reduce learning rate if validation keeps worsening
 ```
 
+![Training tips first loss output result map](/img/course/ch06-training-tips-first-loop-result-map-en.webp)
+
 Before adding tricks, read the curve. A simple log often tells you what to try next.
 
 ## Learn in This Order
