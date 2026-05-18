@@ -17117,9 +17117,9 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
             "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
         },
-        "scene": "A Chapter 7 embedding lab run-result teaching image based on the exact runnable code in section 7.1.3. Show how to read the print output as geometry, retrieval ranking, and contextual movement instead of isolated numbers. Use only these exact lab facts: cosine refund vs return = 1.0, refund vs password = 0.293, password vs reset = 1.0. The query is reset password. Ranked retrieval output is B password reset 1.000, C banana return 0.335, A refund policy 0.333. Contextual bank simulation: base bank [0.50,0.50,0.50] plus finance_context [0.30,-0.10,0.20] gives [0.8,0.4,0.7]; base bank plus river_context [-0.20,0.25,-0.10] gives [0.3,0.75,0.4]. The teaching point is that dense vectors make meaning comparable, ranking is just sorted cosine scores, mean pooling can create near-miss results, and contextual vectors can move the same token.",
+        "scene": "A Chapter 7 embedding lab run-result teaching image based on the exact runnable code in section 7.1.3. Use a hand-drawn classroom handout on lined notebook paper, with clear marker ink, simple icons, and large readable code-token chips. The image must help learners read the print output as geometry, retrieval ranking, and contextual movement instead of isolated numbers. Use only these exact lab facts: cosine refund vs return = 1.0, refund vs password = 0.293, password vs reset = 1.0. The query is reset password. Ranked retrieval output is B password reset 1.000, C banana return 0.335, A refund policy 0.333. Contextual bank simulation: base bank [0.50,0.50,0.50] plus finance_context [0.30,-0.10,0.20] gives [0.8,0.4,0.7]; base bank plus river_context [-0.20,0.25,-0.10] gives [0.3,0.75,0.4]. Quiet accuracy rule for generation: every occurrence of password must be spelled exactly password; never write passwrod, passward, passwd, pasword, or any other variant. Do not draw a spelling-warning note in the image. The teaching point is that dense vectors make meaning comparable, ranking is just sorted cosine scores, mean pooling can create near-miss results, and contextual vectors can move the same token.",
         "chapter_context": "The image is inserted after the expected output for the contextual representation simulation in 7.1.3. Nearby labs first compare cosine similarity for a toy embedding table, then average token vectors for a tiny semantic retriever, then simulate how the same word bank moves under finance versus river context. The page teaches the learner to interpret numeric print output as a geometric and ranking process.",
-        "shared_layout": "Vertical 9:16. Use the same polished dark semantic-geometry lab board across zh/en/ja, not a white rounded-box infographic, not a pure terminal screenshot, and not a dense table. Top title and subtitle. Upper station: a 2D semantic map with four large colored word pins: refund and return close together, password and reset close together, and a long distance line from refund to password labeled 0.293. Middle station: a query vector arrow from reset+password enters a ranking rail; three document carts sort vertically with exact scores: B password reset 1.000 at top, C banana return 0.335 just above A refund policy 0.333, with a small caution marker that close numbers can be misleading. Lower station: the token bank starts at a central vector point, then two colored context forces push it to finance [0.8,0.4,0.7] and river [0.3,0.75,0.4]. Bottom rule strip: cosine compares direction, ranking sorts scores, context can move a token. Keep station order, object positions, colors, values, and reading path identical across languages. Use sparse large localized labels attached to visual objects. Code tokens and numeric arrays may stay in English notation. Avoid fake tiny text, invented scores, invented vector dimensions, pasted sticky notes, decorative-only space scenes, and generic SVG flowchart style.",
+        "shared_layout": "Vertical 9:16. Same hand-drawn classroom handout style across zh/en/ja: lined notebook paper, marker outlines, simple colored arrows, small sketched objects, and large readable labels attached directly to the objects. Not a white rounded-box SVG infographic, not a dark dashboard, not a pure terminal screenshot, and not a dense table. Top title and subtitle. Panel 1, cosine map: four large word pins on a 2D semantic map. refund and return sit close together with label refund-return=1.0. password and reset sit close together with label password-reset=1.0. A long distance line connects refund to password with label refund-password=0.293. Panel 2, retrieval ranking: a hand-drawn query arrow labeled query = reset password flows into three stacked result cards. The cards must read exactly B password reset 1.000, C banana return 0.335, and A refund policy 0.333, in that order from top to bottom. Add one small caution icon beside C and A to show their scores are close. Panel 3, context shift: the token bank starts at a central vector point, then two colored context arrows move it to finance [0.8,0.4,0.7] and river [0.3,0.75,0.4]. Bottom rule strip: cosine compares direction, ranking sorts scores, context can move a token. Keep panel order, object positions, colors, values, and reading path identical across languages. Code tokens and numeric arrays may stay in English notation. Avoid fake tiny text, invented scores, invented vector dimensions, pasted sticky notes, decorative-only space scenes, local text overlay style, and generic SVG flowchart style.",
         "variants": {
             "zh": {
                 "title": "Embedding 实验结果怎么读",
@@ -36077,7 +36077,7 @@ def available_api_keys() -> list[str]:
 
 
 def generate_image_with_http(
-    api_key: str,
+    api_keys: list[str],
     base_url: str,
     model: str,
     job: dict[str, Any],
@@ -36085,6 +36085,8 @@ def generate_image_with_http(
     request_timeout: int,
 ) -> bytes:
     """Generate one image through an OpenAI-compatible HTTP endpoint."""
+    if not api_keys:
+        raise RuntimeError("No API key is available for image generation.")
     endpoint = f"{base_url.rstrip('/')}/images/generations"
     payload = {
         "model": model,
@@ -36094,61 +36096,75 @@ def generate_image_with_http(
         payload["size"] = job["size"]
     if job.get("quality") != "default":
         payload["quality"] = job["quality"]
-    request = urllib.request.Request(
-        endpoint,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-type": "application/json",
-            "Accept": "*/*",
-            "User-Agent": "curl/8.7.1",
-        },
-        method="POST",
-    )
-    for attempt in range(retries + 1):
-        try:
-            with urllib.request.urlopen(request, timeout=request_timeout) as response:
-                response_data = json.loads(response.read().decode("utf-8"))
-                break
-        except urllib.error.HTTPError as exc:
-            error_body = exc.read().decode("utf-8", errors="replace").strip()
-            error_detail = f": {error_body[:500]}" if error_body else ""
-            if exc.code in {408, 429, 500, 502, 503, 504, 524} and attempt < retries:
-                wait_seconds = 8 * (attempt + 1)
-                print(
-                    f"Image API returned HTTP {exc.code} for {job['filename']}; "
-                    f"retrying in {wait_seconds}s...{error_detail}",
-                    flush=True,
-                )
-                time.sleep(wait_seconds)
-                continue
-            raise RuntimeError(
-                f"Image API request failed with HTTP {exc.code} for {job['filename']}{error_detail}"
-            ) from exc
-        except (urllib.error.URLError, TimeoutError, socket.timeout, ConnectionResetError, http.client.HTTPException) as exc:
-            if attempt < retries:
-                wait_seconds = 8 * (attempt + 1)
-                print(
-                    f"Image API network error for {job['filename']}; retrying in {wait_seconds}s...",
-                    flush=True,
-                )
-                time.sleep(wait_seconds)
-                continue
-            raise RuntimeError(f"Image API network error for {job['filename']}.") from exc
-    else:
-        raise RuntimeError(f"Image API request failed for {job['filename']}.")
-
-    image_data = response_data.get("data", [{}])[0]
-    if image_data.get("b64_json"):
-        return base64.b64decode(image_data["b64_json"])
-    raise RuntimeError("Image API response did not include data[0].b64_json.")
+    last_error = f"Image API request failed for {job['filename']}."
+    retryable_codes = {408, 429, 500, 502, 503, 504, 524}
+    for key_index, api_key in enumerate(api_keys):
+        for attempt in range(retries + 1):
+            request = urllib.request.Request(
+                endpoint,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-type": "application/json",
+                    "Accept": "*/*",
+                    "User-Agent": "curl/8.7.1",
+                },
+                method="POST",
+            )
+            try:
+                with urllib.request.urlopen(request, timeout=request_timeout) as response:
+                    response_data = json.loads(response.read().decode("utf-8"))
+                image_data = response_data.get("data", [{}])[0]
+                if image_data.get("b64_json"):
+                    return base64.b64decode(image_data["b64_json"])
+                raise RuntimeError("Image API response did not include data[0].b64_json.")
+            except urllib.error.HTTPError as exc:
+                error_body = exc.read().decode("utf-8", errors="replace").strip()
+                error_detail = f": {error_body[:500]}" if error_body else ""
+                last_error = f"Image API request failed with HTTP {exc.code} for {job['filename']}{error_detail}"
+                if exc.code in retryable_codes and attempt < retries:
+                    wait_seconds = 8 * (attempt + 1)
+                    print(
+                        f"Image API returned HTTP {exc.code} for {job['filename']}; "
+                        f"retrying in {wait_seconds}s...{error_detail}",
+                        flush=True,
+                    )
+                    time.sleep(wait_seconds)
+                    continue
+                if exc.code in retryable_codes and key_index + 1 < len(api_keys):
+                    print(
+                        f"Image API returned HTTP {exc.code} for {job['filename']}; "
+                        "switching to another configured key.",
+                        flush=True,
+                    )
+                    break
+                raise RuntimeError(last_error) from exc
+            except (urllib.error.URLError, TimeoutError, socket.timeout, ConnectionResetError, http.client.HTTPException) as exc:
+                last_error = f"Image API network error for {job['filename']}."
+                if attempt < retries:
+                    wait_seconds = 8 * (attempt + 1)
+                    print(
+                        f"Image API network error for {job['filename']}; retrying in {wait_seconds}s...",
+                        flush=True,
+                    )
+                    time.sleep(wait_seconds)
+                    continue
+                if key_index + 1 < len(api_keys):
+                    print(
+                        f"Image API network error for {job['filename']}; "
+                        "switching to another configured key.",
+                        flush=True,
+                    )
+                    break
+                raise RuntimeError(last_error) from exc
+    raise RuntimeError(last_error)
 
 
 def generate_one_job(
     *,
     job: dict[str, Any],
     output_dir: Path,
-    api_key: str,
+    api_keys: list[str],
     args: argparse.Namespace,
     client: Any | None = None,
     generated_backgrounds: dict[str, bytes] | None = None,
@@ -36182,7 +36198,7 @@ def generate_one_job(
         image_bytes = base64.b64decode(image_base64)
     else:
         image_bytes = generate_image_with_http(
-            api_key=api_key,
+            api_keys=api_keys,
             base_url=args.base_url,
             model=args.model,
             job=job,
@@ -36235,7 +36251,7 @@ def main() -> None:
     write_manifest(report_dir, jobs)
 
     client = None
-    if args.http_fallback or worker_count > 1:
+    if args.http_fallback or worker_count > 1 or len(api_keys) > 1:
         print("Using the built-in HTTP fallback.", flush=True)
     else:
         try:
@@ -36255,7 +36271,7 @@ def main() -> None:
                     generate_one_job,
                     job=job,
                     output_dir=output_dir,
-                    api_key=api_keys[index % len(api_keys)],
+                    api_keys=api_keys[index % len(api_keys) :] + api_keys[: index % len(api_keys)],
                     args=args,
                     client=None,
                     generated_backgrounds=generated_backgrounds,
@@ -36280,7 +36296,7 @@ def main() -> None:
                 generate_one_job(
                     job=job,
                     output_dir=output_dir,
-                    api_key=api_keys[0],
+                    api_keys=api_keys,
                     args=args,
                     client=client,
                     generated_backgrounds=generated_backgrounds,
