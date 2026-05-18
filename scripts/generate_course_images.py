@@ -26236,6 +26236,41 @@ COURSE_QA_PROMPTS.update(
     }
 )
 
+COURSE_QA_PROMPTS.update(
+    {
+        "ch09-langgraph-state-machine-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="LangGraph：由 state 决定下一站",
+            visible_subtitle="链式流程固定往前走；图式流程读 state[\"next\"] 再选择边。",
+            teaching_goal="服务 9.6.3 LangChain / LangGraph。读者要先看图就能理解本节两段代码的差别：SimpleChain 固定执行 normalize_query -> retrieve_docs -> format_answer；图式例子用 state = {query, next} 作为流动记录，while loop 每轮读取 state[\"next\"]，依次执行 plan、retrieve、answer，或在不匹配时走 fallback。图片必须贴合本页的退款政策示例和 print 输出，不要画抽象框架海报。",
+            fixed_layout="竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。顶部标题和副标题。第一段左侧画一条很短的固定链路：用户问题进入 SimpleChain，经过 normalize_query、retrieve_docs、format_answer 三个齿轮，得到答案“根据资料：课程购买后 7 天内可退款”；旁边标注固定下一步。第一段右侧画一个提醒牌：适合线性、少分支、快速原型。第二段是主图：画一个会在节点间传递的 state 夹板，初始内容必须写 query=\"退款政策是什么\" 和 next=\"plan\"。夹板先到 plan 节点，条件判断 if refund / if 退款：是则把 next 改成 retrieve；否则把 next 改成 fallback。主路径是 plan -> retrieve -> answer -> END；retrieve 节点给 state 增加 docs=[\"课程购买后 7 天内可退款\"]，answer 节点给 state 增加 answer=\"根据资料：课程购买后 7 天内可退款\" 并设置 next=None。备用路径从 plan 到 fallback，fallback 设置 answer=\"当前没有找到匹配的流程\" 和 next=None。第三段画 while loop 小转轮：读取 state[\"next\"] -> 调 nodes[current] -> 打印 current -> state。右侧放三张 print 小票，内容要短且和真实输出一致：plan -> next=retrieve；retrieve -> next=answer, docs=退款规则；answer -> next=None, answer=根据资料。底部画 checkpoint / trace 便签，说明复杂流程可恢复和调试。不要画复杂真实 LangGraph API、不要写完整代码、不要 terminal 截图、不要旧式白底圆角流程框。",
+            required_labels="SimpleChain、normalize_query、retrieve_docs、format_answer、固定下一步、state、query=\"退款政策是什么\"、next=\"plan\"、state[\"next\"]、while loop、nodes[current]、plan、if 退款、conditional edge、retrieve、docs=[\"课程购买后 7 天内可退款\"]、answer、next=None、fallback、checkpoint、trace、plan -> next=retrieve、retrieve -> next=answer、answer -> next=None。",
+            footer="当下一步取决于当前 state，就该把流程画成 graph，而不是继续硬串 chain。",
+            allowed_tokens="LangGraph, LangChain, SimpleChain, normalize_query, retrieve_docs, format_answer, state, query, next, state[\"next\"], while loop, nodes[current], plan, retrieve, answer, fallback, conditional edge, checkpoint, trace, END, graph, chain, docs, next=None",
+        ),
+        "ch09-langgraph-state-machine-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="LangGraph: State Chooses the Next Stop",
+            visible_subtitle="A chain moves forward in a fixed order; a graph reads state[\"next\"] before choosing an edge.",
+            teaching_goal="Serve 9.6.3 LangChain / LangGraph. Learners should understand the difference between the two code examples before reading the code: SimpleChain always runs normalize_query -> retrieve_docs -> format_answer; the graph-style example carries state = {query, next}, and the while loop reads state[\"next\"] each round to run plan, retrieve, answer, or fallback. The image must match this page's refund-policy example and print output, not become a generic framework poster.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. Top title and subtitle. Section 1 on the left shows a short fixed chain: user question enters SimpleChain, passes through three gear stations normalize_query, retrieve_docs, format_answer, then produces the answer \"According to the materials: You can request a refund within 7 days after purchasing the course.\" Label it fixed next step. Next to it, show a small note: good for linear flow, few branches, quick prototype. Section 2 is the main graph: draw a state clipboard traveling between nodes. The initial clipboard must show query=\"What is the refund policy\" and next=\"plan\". The clipboard first reaches the plan node; a condition if refund changes next to retrieve, otherwise next becomes fallback. Main path is plan -> retrieve -> answer -> END. The retrieve node adds docs=[\"refund within 7 days\"] to state. The answer node adds answer=\"According to the materials...\" and sets next=None. The backup path goes from plan to fallback; fallback sets answer=\"No matching workflow was found\" and next=None. Section 3 shows a small while loop wheel: read state[\"next\"] -> call nodes[current] -> print current -> state. On the right, place three short print receipts matching the real output: plan -> next=retrieve; retrieve -> next=answer, docs=refund policy; answer -> next=None, answer=According to the materials. Bottom includes checkpoint / trace sticky notes explaining recovery and debugging in complex flows. Do not show complex real LangGraph API, full code, terminal screenshots, or old white rounded flowchart boxes.",
+            required_labels="SimpleChain, normalize_query, retrieve_docs, format_answer, fixed next step, state, query=\"What is the refund policy\", next=\"plan\", state[\"next\"], while loop, nodes[current], plan, if refund, conditional edge, retrieve, docs=[\"refund within 7 days\"], answer, next=None, fallback, checkpoint, trace, plan -> next=retrieve, retrieve -> next=answer, answer -> next=None.",
+            footer="When the next step depends on state, draw a graph instead of forcing another chain.",
+            allowed_tokens="LangGraph, LangChain, SimpleChain, normalize_query, retrieve_docs, format_answer, state, query, next, state[\"next\"], while loop, nodes[current], plan, retrieve, answer, fallback, conditional edge, checkpoint, trace, END, graph, chain, docs, next=None",
+        ),
+        "ch09-langgraph-state-machine-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="LangGraph：state が次の行き先を決める",
+            visible_subtitle="chain は固定順に進む。graph は state[\"next\"] を読んで edge を選ぶ。",
+            teaching_goal="9.6.3 LangChain / LangGraph に合わせる。コードを読む前に、2つの例の違いが分かる図にする：SimpleChain は normalize_query -> retrieve_docs -> format_answer を固定順で実行する。一方、graph 型の例では state = {query, next} を持ち回り、while loop が毎回 state[\"next\"] を読んで plan、retrieve、answer、または fallback を実行する。図はこのページの返金ポリシー例と print 出力に合わせ、一般的な framework ポスターにしない。",
+            fixed_layout="縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。上部にタイトルと副題。第1段の左側に短い固定 chain を描く：ユーザー質問が SimpleChain に入り、normalize_query、retrieve_docs、format_answer の3つの歯車を通り、答え「資料によると：コース購入後 7 日以内なら返金できます」を出す。横に固定の次ステップと書く。隣に小さなメモ：直線的、分岐が少ない、素早い prototype に向く。第2段は主図：node 間を移動する state クリップボードを描く。初期内容は必ず query=\"返金ポリシーは何ですか\" と next=\"plan\"。クリップボードがまず plan node に入り、条件 if 返金 なら next を retrieve に変え、違う場合は fallback に変える。主経路は plan -> retrieve -> answer -> END。retrieve node は state に docs=[\"コース購入後 7 日以内なら返金できます\"] を追加する。answer node は answer=\"資料によると...\" を追加し next=None にする。予備経路は plan から fallback へ進み、fallback は answer=\"対応するフローが見つかりません\" と next=None を設定する。第3段に while loop の小さな輪を描く：state[\"next\"] を読む -> nodes[current] を呼ぶ -> current -> state を print。右側に実際の出力に合う短い print レシートを3枚置く：plan -> next=retrieve；retrieve -> next=answer, docs=返金ルール；answer -> next=None, answer=資料によると。下部に checkpoint / trace の付箋を置き、複雑な flow で復元と debug がしやすいことを示す。複雑な本物の LangGraph API、全文コード、terminal screenshot、古い白い角丸 flowchart は描かない。",
+            required_labels="SimpleChain、normalize_query、retrieve_docs、format_answer、固定の次ステップ、state、query=\"返金ポリシーは何ですか\"、next=\"plan\"、state[\"next\"]、while loop、nodes[current]、plan、if 返金、conditional edge、retrieve、docs=[\"コース購入後 7 日以内なら返金できます\"]、answer、next=None、fallback、checkpoint、trace、plan -> next=retrieve、retrieve -> next=answer、answer -> next=None。",
+            footer="次の行き先が現在の state で決まるなら、chain ではなく graph として描く。",
+            allowed_tokens="LangGraph, LangChain, SimpleChain, normalize_query, retrieve_docs, format_answer, state, query, next, state[\"next\"], while loop, nodes[current], plan, retrieve, answer, fallback, conditional edge, checkpoint, trace, END, graph, chain, docs, next=None, prototype, debug",
+        ),
+    }
+)
+
 COURSE_QA_IMAGE_JOB_META.extend(
     [
         ("ch08-llmops-trace-loop-en.png", "LLMOps Trace Review Loop", "docs/ch08-rag/ch04-engineering/00-roadmap.md", "LLMOps trace review loop: one request_id connects retrieval, prompt, model, format, and cost so a bad answer can be debugged."),
@@ -26247,6 +26282,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch09-mcp-ecosystem-network-map.png", "MCP 生态：从一次调用到能力网络", "docs/ch09-agent/ch05-mcp/05-mcp-ecosystem.md", "MCP 生态能力网络图：多个 Client、多个 Server 和 filesystem/database/browser connectors 共用统一工具目录、描述和调用协议，降低新增参与者成本。"),
         ("ch09-mcp-ecosystem-network-map-en.png", "MCP Ecosystem: From One Call to a Capability Network", "docs/ch09-agent/ch05-mcp/05-mcp-ecosystem.md", "MCP ecosystem capability network map: multiple clients, servers, and filesystem/database/browser connectors share one tool catalog, description format, and invocation contract to lower onboarding cost."),
         ("ch09-mcp-ecosystem-network-map-ja.png", "MCP エコシステム：単発呼び出しから能力ネットワークへ", "docs/ch09-agent/ch05-mcp/05-mcp-ecosystem.md", "MCP エコシステム能力ネットワーク図：複数 client、server、filesystem/database/browser connector が統一 tool catalog、description、invocation 契約を共有し、参加コストを下げる。"),
+        ("ch09-langgraph-state-machine-map.png", "LangGraph：由 state 决定下一站", "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md", "LangGraph 状态机教学图：SimpleChain 固定链路与 state[\"next\"] 驱动的 plan、retrieve、answer、fallback 图式流程对比。"),
+        ("ch09-langgraph-state-machine-map-en.png", "LangGraph: State Chooses the Next Stop", "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md", "LangGraph state-machine teaching map: a fixed SimpleChain path compared with a state[\"next\"] driven graph through plan, retrieve, answer, and fallback."),
+        ("ch09-langgraph-state-machine-map-ja.png", "LangGraph：state が次の行き先を決める", "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md", "LangGraph 状態機械の教学図：固定 SimpleChain と、state[\"next\"] が plan、retrieve、answer、fallback を選ぶ graph flow の比較。"),
     ]
 )
 
