@@ -34682,6 +34682,114 @@ for filename, title, alt in CH07_PEFT_PLACEMENT_REMAKE_META:
         )
         existing_filenames_for_ch07_peft_placement.add(filename)
 
+CH07_SOLUTION_CHOICE_MAP_REMAKE_PROMPTS = {
+    "ch07-solution-choice-map.png": """
+生成一张完整的 9:16 竖版简体中文教学位图，用于第 7 章首页“小模型效果不好时，选择 Prompt、RAG、微调还是工具”的课程段落。
+这必须是 AI 直接生成的最终图，图片内文字自然融入画面；不要留白给本地叠字，不要 SVG 风格，不要白底圆角框堆叠，不要纯流程框，不要纯文字海报，不要终端截图，不要漂亮但空泛的机器人海报。
+
+风格：手绘课堂讲义 / 横线笔记纸教学图，信息量高但移动端可读。中英日三版必须同构：同一张横线笔记纸、同一个“失败诊断工作台”、同一条从低成本修复到更高成本方案的升级路径、同一组五个失败症状和五个解决路线。可以有小机器人助教，但它必须在做诊断，不是装饰。
+
+教学目标：读者看图就能学到正文里的判断习惯：LLM 输出弱时，不要直接微调；先用固定样本定位失败类型，再选择最小可行修复。图必须和正文表格一致：回答风格含糊 -> Prompt；需要 JSON/表格 -> schema + parser validation；缺私有或新事实 -> RAG；需要反复遵守领域行为 -> fine-tuning/LoRA；需要外部动作 -> tools/Agent。
+
+固定版式：
+1. 顶部标题必须写：“大模型效果不好，先定位失败”
+2. 副标题必须写：“按失败类型选择最小修复：Prompt、schema、RAG、微调或工具。”
+3. 上方画一个“失败输出”夹板，里面只放三条短故障标签：风格含糊、字段漏掉、事实缺失。旁边写“先固定样本，不要凭感觉改”。
+4. 中间是一个诊断工作台，画五条从左到右或从上到下的诊断路线，每条必须是具体场景，不是空框：
+   - 模糊回答：一张含糊回答纸被红笔圈出，进入 Prompt + examples 修复区。
+   - JSON 不稳：一个 JSON 合同板通过 parser validation 检查门，显示字段和类型被勾选。
+   - 缺私有知识：文件抽屉和检索灯把 docs 送进 RAG 证据台。
+   - 行为要长期稳定：一叠高质量样本和 eval cases 进入 fine-tuning / LoRA 训练台，旁边标“有证据再升级”。
+   - 需要外部动作：API 扳手和工具调用路线进入 tools / Agent 执行台。
+5. 右侧画一条“成本/风险阶梯”：Prompt 最低，schema 辅助，RAG 查证据，微调要数据，tools/Agent 要边界。阶梯不要做成纯文字列表，每级要有小物件。
+6. 底部红色重点条必须写：“不要先微调；先用固定样本证明问题在哪里。”
+
+文字规则：除 LLM、Prompt、schema、JSON、parser validation、RAG、docs、fine-tuning、LoRA、eval cases、API、tools、Agent 等技术词外，解释文字必须是自然简体中文。不要英文解释句，不要日文，不要乱码，不要密集小字，不要真实品牌 logo。所有标签必须靠近它解释的物体，字体大且清楚。
+""".strip(),
+    "ch07-solution-choice-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for the Chapter 7 opening section about choosing Prompt, RAG, fine-tuning, or tools when an LLM result is weak.
+This must be the final AI-generated image with text naturally integrated into the drawing. Do not leave blank areas for local text overlay. No SVG style, no stacked white rounded cards, no pure flowchart boxes, no text poster, no terminal screenshot, and no pretty but generic robot poster.
+
+Style: hand-drawn classroom lecture note on lined notebook paper, high information density but readable on mobile. The Simplified Chinese, English, and Japanese versions must be structurally identical: the same lined paper, the same failure-diagnosis workbench, the same escalation path from low-cost fixes to higher-cost options, and the same five failure symptoms with five solution routes. A small teaching robot may appear only if it is actively diagnosing, not decorating.
+
+Teaching goal: the learner should understand the habit from the surrounding table before reading it closely: when an LLM output is weak, do not jump straight to fine-tuning. First keep test cases fixed, diagnose the failure type, then choose the smallest useful fix. The image must match the exact table logic: vague style -> Prompt; JSON/table output -> schema + parser validation; missing private or fresh facts -> RAG; repeated domain behavior -> fine-tuning/LoRA; external action -> tools/Agent.
+
+Fixed layout:
+1. Top title exactly: “When an LLM Fails, Diagnose First”
+2. Subtitle exactly: “Pick the smallest fix: Prompt, schema, RAG, fine-tuning, or tools.”
+3. At the top, draw a “failed output” clipboard with only three short fault tags: vague style, missing field, missing fact. Beside it write: “freeze cases first, do not guess.”
+4. Middle: a diagnostic workbench with five concrete routes, arranged consistently left-to-right or top-to-bottom. Each route must be a scene, not an empty box:
+   - Vague answer: a blurry answer sheet circled in red enters the Prompt + examples repair area.
+   - Unstable JSON: a JSON contract board passes through a parser validation gate with fields and types checked.
+   - Missing private knowledge: a document drawer and retrieval lamp send docs into a RAG evidence desk.
+   - Behavior must stay stable: a stack of high-quality examples and eval cases enters a fine-tuning / LoRA training bench, with “escalate with evidence” nearby.
+   - External action needed: an API wrench and tool-call path go into a tools / Agent execution bench.
+5. Right side: draw a cost/risk ladder: Prompt lowest, schema assists, RAG checks evidence, fine-tuning needs data, tools/Agent need boundaries. Do not make it a pure text list; every rung needs a small object.
+6. Bottom red emphasis strip exactly: “Do not fine-tune first; prove the failure with fixed cases.”
+
+Text rules: Use natural English. Technical tokens may appear exactly as LLM, Prompt, schema, JSON, parser validation, RAG, docs, fine-tuning, LoRA, eval cases, API, tools, Agent. Avoid fake words, tiny handwriting, dense paragraphs, real brand logos, and unrelated filler text. Every label must sit near the object it explains, with clear large lettering.
+""".strip(),
+    "ch07-solution-choice-map-ja.png": """
+第 7 章冒頭の「LLM の結果が弱い時に Prompt、RAG、微調整、ツールのどれを選ぶか」という本文に使う、縦長 9:16 の日本語教学ビットマップを1枚生成する。
+これは AI が直接生成する完成画像で、文字は絵の中に自然に入れる。後から文字を重ねる余白を作らない。SVG 風、白い角丸カードの積み重ね、純粋なフローチャート、文字だけのポスター、端末スクリーンショット、きれいなだけのロボットポスターは禁止。
+
+スタイル：横線ノート紙の手描き课堂講義図。情報量は高いがモバイルで読める。中国語・英語・日本語の三版は同じ構造にする：同じ横線紙、同じ「失敗診断ワークベンチ」、同じ低コスト修正から高コスト案への段階、同じ5つの失敗症状と5つの解決ルート。小さなロボット先生を置いてもよいが、必ず診断作業をしていること。装飾にしない。
+
+教学目標：読者が本文表を見る前に、次の判断習慣を理解できるようにする。LLM の出力が弱い時、すぐ微調整へ進まない。まず固定ケースで失敗タイプを診断し、最小の修正を選ぶ。図は本文表と一致する必要がある：回答の書き方が曖昧 -> Prompt；JSON/表が必要 -> schema + parser validation；私有情報や新しい事実が足りない -> RAG；分野行動を繰り返し守る -> fine-tuning/LoRA；外部操作が必要 -> tools/Agent。
+
+固定レイアウト：
+1. 上部タイトルは正確に「LLM が弱い時は先に診断」
+2. サブタイトルは正確に「最小の修正を選ぶ：Prompt、schema、RAG、微調整、tools。」
+3. 上部に「失敗出力」のクリップボードを描き、短い故障タグを3つだけ入れる：曖昧な文体、項目漏れ、事実不足。横に「まず固定ケース、勘で変えない」と書く。
+4. 中央は診断ワークベンチ。5つの具体的なルートを左から右、または上から下に並べる。各ルートは空の箱ではなく場面にする：
+   - 曖昧な回答：赤ペンで囲まれた曖昧回答の紙が Prompt + examples の修正区へ入る。
+   - JSON が不安定：JSON 契約ボードが parser validation ゲートを通り、項目と型がチェックされる。
+   - 社内知識や新しい事実が足りない：文書引き出しと検索ライトが docs を RAG 証拠デスクへ送る。
+   - 行動を長期安定させたい：高品質例と eval cases の束が fine-tuning / LoRA 訓練台へ入り、「証拠があってから上げる」と添える。
+   - 外部操作が必要：API レンチと tool call の道が tools / Agent 実行台へ入る。
+5. 右側に「コスト/リスク階段」を描く：Prompt が最下段、schema が補助、RAG は証拠確認、微調整はデータが必要、tools/Agent は境界が必要。純粋な文字リストにせず、各段に小物を置く。
+6. 下部の赤い強調帯は正確に「最初から微調整しない。固定ケースで失敗箇所を証明する。」
+
+日本語の厳格ルール：説明文は自然な日本語にする。中国語由来の不自然な語を使わない。特に「字段」「证拠」「机」「私有知識」は禁止し、それぞれ「項目」「証拠」「デスク」「社内知識」または「非公開知識」と書く。LLM、Prompt、schema、JSON、parser validation、RAG、docs、fine-tuning、LoRA、eval cases、API、tools、Agent などの技術語は英語のままでよい。英語の長い説明文、文字化け、小さすぎる文字、密な段落、実在ブランドロゴ、無関係な背景文字は禁止。すべてのラベルは対応する物体の近くに置き、大きく読みやすくする。
+""".strip(),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_SOLUTION_CHOICE_MAP_REMAKE_PROMPTS)
+
+CH07_SOLUTION_CHOICE_MAP_REMAKE_META = [
+    (
+        "ch07-solution-choice-map.png",
+        "大模型失败诊断与方案选择图",
+        "大模型效果不好时，先用固定样本定位失败类型，再选择 Prompt、schema、RAG、微调或工具。",
+    ),
+    (
+        "ch07-solution-choice-map-en.png",
+        "LLM failure diagnosis and route choice map",
+        "When an LLM result is weak, diagnose the failure with fixed cases before choosing Prompt, schema, RAG, fine-tuning, or tools.",
+    ),
+    (
+        "ch07-solution-choice-map-ja.png",
+        "LLM 失敗診断とルート選択図",
+        "LLM の結果が弱い時、固定ケースで失敗タイプを診断してから Prompt、schema、RAG、微調整、tools を選ぶ。",
+    ),
+]
+
+existing_filenames_for_ch07_solution_choice = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_SOLUTION_CHOICE_MAP_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_solution_choice:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/index.md",
+                "alt": alt,
+                "prompt": CH07_SOLUTION_CHOICE_MAP_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_solution_choice.add(filename)
+
 for job in IMAGE_JOBS:
     override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(str(job.get("filename")))
     if override_prompt and not job.get("overlay"):
