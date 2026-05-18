@@ -131,6 +131,13 @@ print("batch_x shape:", batch_x.shape)
 print("batch_y shape:", batch_y.shape)
 ```
 
+Expected output:
+
+```text
+batch_x shape: torch.Size([64, 2])
+batch_y shape: torch.Size([64])
+```
+
 Why this matters:
 
 - `batch_size=64` means the model updates after seeing 64 samples
@@ -160,6 +167,20 @@ class MoonClassifier(nn.Module):
 
 model = MoonClassifier()
 print(model)
+```
+
+Expected output:
+
+```text
+MoonClassifier(
+  (net): Sequential(
+    (0): Linear(in_features=2, out_features=32, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=32, out_features=32, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
 ```
 
 Important detail:

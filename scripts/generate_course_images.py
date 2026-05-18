@@ -20962,7 +20962,7 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
         },
         "scene": "A classic CNN architecture lab result teaching visual based on the three runnable labs in the lesson. The image must teach how to read the outputs, not just show famous model names. Show exactly three stations. Station 1 compares kernel parameter counts: one 7x7 conv has 12560 parameters; three 3x3 conv layers have 6960 parameters; the teaching point is fewer parameters in this setup plus two extra nonlinear ReLU steps. Station 2 shows the VGG-style block shape flow: input (2, 3, 32, 32) goes through Conv3x3, ReLU, Conv3x3, ReLU, MaxPool2d(2), and output becomes (2, 16, 16, 16); the teaching point is channels 3 to 16 and height/width 32 to 16. Station 3 shows the residual block: input (2, 8, 16, 16), learned_change path, identity shortcut, out = out + identity, output (2, 8, 16, 16); the teaching point is element-wise addition requires matching shapes, and a 1x1 shortcut is used when shapes change. Do not draw a timeline of LeNet/AlexNet/VGG/ResNet only, do not use a terminal screenshot, do not invent accuracy, ImageNet metrics, layer counts, channels, or extra architectures.",
         "chapter_context": "The image is inserted after the residual block expected output and before the explanation of out = out + identity. The nearby lesson compares stacked small kernels with one large kernel, runs a VGG-style block, then implements a minimal residual block.",
-        "shared_layout": "Vertical 9:16. Use the same dark vision-lab / model-inspection bench style across zh/en/ja. Top title and subtitle. Upper station: two convolution specimens on a scale, one 7x7 card with 12560 and three stacked 3x3 cards with 6960 plus ReLU sparks. Middle station: VGG block conveyor showing input shape (2,3,32,32), two Conv3x3+ReLU modules, MaxPool2d(2), and output shape (2,16,16,16). Lower station: residual block cutaway with learned path and identity shortcut merging at out + identity, shapes unchanged from (2,8,16,16) to (2,8,16,16), with a small 1x1 shortcut warning for shape changes. Keep all values, station order, colors, arrows, and visual structure identical across languages. Use concrete feature-map tiles, kernel windows, channel stacks, and shortcut bridge; avoid SVG-style rounded white boxes, pure flowchart posters, dense tables, tiny labels, and decorative-only CNN imagery.",
+        "shared_layout": "Vertical 9:16. Use the same hand-drawn classroom handout on lined notebook paper style across zh/en/ja, like a teacher's annotated lab notes with marker arrows, small sketched tensors, and readable numbers. Top title and subtitle. Upper station: two convolution specimens on a simple balance scale, one 7x7 kernel sketch with 12560 and three stacked 3x3 kernel sketches with 6960 plus two ReLU spark marks. Middle station: VGG block as a hand-drawn conveyor showing input shape (2,3,32,32), two Conv3x3+ReLU modules, MaxPool2d(2), and output shape (2,16,16,16). Lower station: residual block drawn as a shortcut bridge: learned path above, identity path below, merge at out + identity, shapes unchanged from (2,8,16,16) to (2,8,16,16), plus a small 1x1 shortcut note for shape changes. Keep all values, station order, colors, arrows, and visual structure identical across languages. Use concrete feature-map tiles, kernel windows, channel stacks, and shortcut bridge; avoid dark sci-fi panels, pasted UI cards, SVG-style rounded white boxes, pure flowchart posters, dense tables, tiny labels, and decorative-only CNN imagery.",
         "variants": {
             "zh": {
                 "title": "经典 CNN 实验结果怎么看",
@@ -30415,7 +30415,7 @@ This is a finished AI-generated teaching image. Do not leave blank areas for lat
 Visible title exactly: "经典 CNN 实验结果怎么看"
 Visible subtitle exactly: "把参数量、shape 变化和 residual shortcut 连成一条读图线。"
 
-Use a dark vision-lab / model-inspection bench style. The image must teach the exact runnable labs from the nearby lesson.
+Use a hand-drawn classroom handout / lined notebook paper style, like a teacher's annotated lab notes. Use marker arrows, sketched tensor blocks, large readable values, and a warm classroom palette. Do not use a dark sci-fi dashboard, game UI panel, pasted UI card, or old SVG information-box style. The image must teach the exact runnable labs from the nearby lesson.
 Composition must match the English and Japanese variants:
 1. Upper station "kernel 参数量":
    - draw one large 7x7 kernel card on the left and three stacked 3x3 kernel cards on the right.
@@ -30462,7 +30462,7 @@ This is a finished AI-generated teaching image. Do not leave blank areas for lat
 Visible title exactly: "Reading Classic CNN Lab Results"
 Visible subtitle exactly: "Connect parameter count, shape flow, and residual shortcuts."
 
-Use a dark vision-lab / model-inspection bench style. The image must teach the exact runnable labs from the nearby lesson.
+Use a hand-drawn classroom handout / lined notebook paper style, like a teacher's annotated lab notes. Use marker arrows, sketched tensor blocks, large readable values, and a warm classroom palette. Do not use a dark sci-fi dashboard, game UI panel, pasted UI card, or old SVG information-box style. The image must teach the exact runnable labs from the nearby lesson.
 Composition must match the Simplified Chinese and Japanese variants:
 1. Upper station "kernel params":
    - draw one large 7x7 kernel card on the left and three stacked 3x3 kernel cards on the right.
@@ -30509,7 +30509,7 @@ This is a finished AI-generated teaching image. Do not leave blank areas for lat
 Visible title exactly: "古典 CNN 実験結果の読み方"
 Visible subtitle exactly: "パラメータ数、shape の流れ、residual shortcut をつなげて読む。"
 
-Use a dark vision-lab / model-inspection bench style. The image must teach the exact runnable labs from the nearby lesson.
+Use a hand-drawn classroom handout / lined notebook paper style, like a teacher's annotated lab notes. Use marker arrows, sketched tensor blocks, large readable values, and a warm classroom palette. Do not use a dark sci-fi dashboard, game UI panel, pasted UI card, or old SVG information-box style. The image must teach the exact runnable labs from the nearby lesson.
 Composition must match the Simplified Chinese and English variants:
 1. Upper station "kernel パラメータ":
    - draw one large 7x7 kernel card on the left and three stacked 3x3 kernel cards on the right.

@@ -131,6 +131,13 @@ print("batch_x shape:", batch_x.shape)
 print("batch_y shape:", batch_y.shape)
 ```
 
+期待される出力：
+
+```text
+batch_x shape: torch.Size([64, 2])
+batch_y shape: torch.Size([64])
+```
+
 なぜ重要か：
 
 - `batch_size=64` は、64 サンプルごとにモデルを更新するという意味
@@ -160,6 +167,20 @@ class MoonClassifier(nn.Module):
 
 model = MoonClassifier()
 print(model)
+```
+
+期待される出力：
+
+```text
+MoonClassifier(
+  (net): Sequential(
+    (0): Linear(in_features=2, out_features=32, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=32, out_features=32, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
 ```
 
 大切な点：

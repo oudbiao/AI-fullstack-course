@@ -131,6 +131,13 @@ print("batch_x shape:", batch_x.shape)
 print("batch_y shape:", batch_y.shape)
 ```
 
+预期输出：
+
+```text
+batch_x shape: torch.Size([64, 2])
+batch_y shape: torch.Size([64])
+```
+
 为什么这一步重要：
 
 - `batch_size=64` 表示模型每看 64 个样本更新一次
@@ -160,6 +167,20 @@ class MoonClassifier(nn.Module):
 
 model = MoonClassifier()
 print(model)
+```
+
+预期输出：
+
+```text
+MoonClassifier(
+  (net): Sequential(
+    (0): Linear(in_features=2, out_features=32, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=32, out_features=32, bias=True)
+    (3): ReLU()
+    (4): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
 ```
 
 重要细节：
