@@ -35343,6 +35343,136 @@ for filename, title, alt in CH09_SHORT_TERM_MEMORY_WINDOW_REMAKE_META:
         )
         existing_filenames_for_ch09_short_term_memory_window.add(filename)
 
+CH09_LONG_TERM_MEMORY_POLICY_REMAKE_PROMPTS = {
+    "ch09-long-term-memory-write-update-policy-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="长期记忆：难点不是存，而是更新",
+        visible_subtitle="先判断是否值得长期保留，再用 confidence、version 和检索策略控制档案。",
+        teaching_goal=(
+            "服务第 9 章 9.4.4 长期记忆。读者要先看图理解：long-term memory 不是聊天记录备份箱，"
+            "而是稳定、可复用、可更新的用户/项目档案。图必须贴合正文代码："
+            "`response_style` 从 detailed(0.4) 被 concise(0.9) 覆盖，`language=zh` 保留，读取时按 user_id 聚合成 profile，"
+            "并且当前任务只取相关字段。"
+        ),
+        fixed_layout=(
+            "竖向手绘课堂讲义 / 横线笔记纸，三语版本必须同构。"
+            "顶部画两个篮子：短期篮子放“这次先短一点、今天心情不好”，长期档案柜放“长期喜欢中文、项目是退款助手、喜欢表格”。"
+            "中间画 5 步写入/更新路径，必须是场景化图而不是纯框图："
+            "1 write policy 门卫：判断稳定、可复用、是否明确；"
+            "2 confidence 量表：detailed 0.4 低，concise 0.9 高；"
+            "3 upsert 档案卡：同一个 key=response_style，新高置信值覆盖旧值；"
+            "4 version/update 贴纸：v1 detailed -> v2 concise，保留更新时间；"
+            "5 task-aware retrieval：回答当前任务时只取 response_style 和 language，不把所有档案塞进 context。"
+            "底部画可运行输出小票：u_001 profile = {'response_style':'concise','language':'zh'}；u_002 profile = {'response_style':'table'}。"
+            "右侧画红色反例：一次临时要求被永久写入，导致档案污染。"
+            "不要企业仪表盘、白底圆角框堆叠、纯文字海报、密集小字或旧 SVG 风格。"
+        ),
+        required_labels=(
+            "长期记忆、写入策略、稳定、可复用、confidence、version、upsert、冲突更新、按用户隔离、"
+            "task-aware retrieval、response_style、detailed 0.4、concise 0.9、language=zh、不要存临时波动。"
+        ),
+        footer="长期记忆保存稳定档案，并随新证据更新，而不是囤积全部聊天历史。",
+        allowed_tokens=(
+            "Agent, long-term memory, write policy, confidence, version, upsert, user_id, response_style, detailed, concise, language=zh, task-aware retrieval, context"
+        ),
+    ),
+    "ch09-long-term-memory-write-update-policy-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Long-Term Memory: Updating Is the Hard Part",
+        visible_subtitle="Decide what deserves long-term storage, then control profiles with confidence, versions, and retrieval.",
+        teaching_goal=(
+            "Serve Chapter 9 section 9.4.4 on long-term memory. Learners should understand that long-term memory is not a chat-history backup box. "
+            "It is a stable, reusable, and updatable user/project profile. The image must match the runnable code: "
+            "`response_style` changes from detailed(0.4) to concise(0.9), `language=zh` is retained, records are aggregated by user_id into a profile, "
+            "and only task-relevant fields are retrieved."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. "
+            "Top: draw two baskets: a short-term basket with 'keep this one short' and 'bad mood today', and a long-term archive cabinet with 'prefers Chinese', 'refund assistant project', and 'likes tables'. "
+            "Middle: draw a 5-step write/update path as concrete scenes, not pure boxes: "
+            "1 write policy gatekeeper: check stable, reusable, and explicit; "
+            "2 confidence scale: detailed 0.4 is low, concise 0.9 is high; "
+            "3 upsert profile card: same key=response_style, new high-confidence value overwrites the old one; "
+            "4 version/update stickers: v1 detailed -> v2 concise, keep updated time; "
+            "5 task-aware retrieval: for the current response, retrieve only response_style and language, not the whole archive into context. "
+            "Bottom: draw the runnable output receipt: u_001 profile = {'response_style':'concise','language':'zh'}; u_002 profile = {'response_style':'table'}. "
+            "Right side: red counterexample where a one-time temporary request is written permanently and pollutes the profile. "
+            "Avoid corporate dashboards, stacked white rounded cards, pure text posters, dense tiny text, and old SVG style."
+        ),
+        required_labels=(
+            "long-term memory, write policy, stable, reusable, confidence, version, upsert, conflict update, user isolation, "
+            "task-aware retrieval, response_style, detailed 0.4, concise 0.9, language=zh, do not store temporary fluctuations."
+        ),
+        footer="Long-term memory keeps stable profiles and updates them with evidence; it does not hoard all chat history.",
+        allowed_tokens=(
+            "Agent, long-term memory, write policy, confidence, version, upsert, user_id, response_style, detailed, concise, language=zh, task-aware retrieval, context"
+        ),
+    ),
+    "ch09-long-term-memory-write-update-policy-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="長期記憶：難しいのは保存ではなく更新",
+        visible_subtitle="長期保存すべきかを判断し、confidence、version、検索で profile を制御する。",
+        teaching_goal=(
+            "第 9 章 9.4.4 長期記憶に合わせる。長期記憶はチャット履歴のバックアップ箱ではなく、"
+            "安定し、再利用でき、更新できるユーザー/プロジェクト profile だと示す。本文の実行例に合わせ、"
+            "`response_style` が detailed(0.4) から concise(0.9) に更新され、`language=ja` が残り、user_id ごとに profile として集約され、"
+            "現在のタスクに関係する項目だけを取り出すことを視覚化する。"
+        ),
+        fixed_layout=(
+            "縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "上部に 2 つのかごを描く：短期かごには「今回は短めに」「今日は気分がよくない」、長期の档案棚には「日本語が好き」「返金アシスタントのプロジェクト」「表が好き」。"
+            "中央に 5 ステップの書き込み/更新パスを、具体的な場面として描く。純粋な箱だけにしない："
+            "1 write policy の門番：安定しているか、再利用できるか、明示的かを確認；"
+            "2 confidence のメーター：detailed 0.4 は低い、concise 0.9 は高い；"
+            "3 upsert の profile カード：同じ key=response_style では、新しい高信頼値が古い値を上書き；"
+            "4 version/update の付箋：v1 detailed -> v2 concise、更新時刻を残す；"
+            "5 task-aware retrieval：現在の回答では response_style と language だけを取り出し、すべての档案を context に入れない。"
+            "下部に実行出力のレシートを描く：u_001 profile = {'response_style':'concise','language':'ja'}；u_002 profile = {'response_style':'table'}。"
+            "右側に赤い反例：一度きりの一時要望を永久保存して profile が汚れる。"
+            "企業 dashboard、白い角丸カードの山、文字だけのポスター、細かすぎる文字、古い SVG 風は避ける。"
+        ),
+        required_labels=(
+            "長期記憶、書き込み戦略、安定、再利用可能、confidence、version、upsert、衝突更新、ユーザー別に分離、"
+            "task-aware retrieval、response_style、detailed 0.4、concise 0.9、language=ja、一時的な揺れを保存しない。"
+        ),
+        footer="長期記憶は安定した profile を保存し、新しい証拠で更新する。全履歴をため込むものではない。",
+        allowed_tokens=(
+            "Agent, long-term memory, write policy, confidence, version, upsert, user_id, response_style, detailed, concise, language=ja, task-aware retrieval, context"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH09_LONG_TERM_MEMORY_POLICY_REMAKE_PROMPTS)
+
+CH09_LONG_TERM_MEMORY_POLICY_REMAKE_META = [
+    (
+        "ch09-long-term-memory-write-update-policy-map-en.png",
+        "Long-Term Memory: Updating Is the Hard Part",
+        "Long-term memory teaching map showing write policy, confidence, upsert updates, version history, user-isolated profiles, and task-aware retrieval.",
+    ),
+    (
+        "ch09-long-term-memory-write-update-policy-map-ja.png",
+        "長期記憶：難しいのは保存ではなく更新",
+        "長期記憶で write policy、confidence、upsert 更新、version 履歴、ユーザー別 profile、task-aware retrieval を示す教学図。",
+    ),
+]
+
+existing_filenames_for_ch09_long_term_memory_policy = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH09_LONG_TERM_MEMORY_POLICY_REMAKE_META:
+    if filename not in existing_filenames_for_ch09_long_term_memory_policy:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch09-agent/ch04-memory/03-long-term-memory.md",
+                "alt": alt,
+                "prompt": CH09_LONG_TERM_MEMORY_POLICY_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch09_long_term_memory_policy.add(filename)
+
 CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_META = [
     (
         "agent-system-architecture-en.png",
