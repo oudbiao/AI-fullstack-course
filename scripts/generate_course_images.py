@@ -23669,16 +23669,19 @@ register_svg_replacement_group(
         "The lesson warns learners not to memorize method names without asking what bottleneck each method addresses."
     ),
     shared_layout=(
-        "Vertical 9:16, polished cinematic engineering diagnosis workbench, not a white rounded-card infographic, not a flat SVG flowchart, "
-        "not a pure text poster, and not a local text-overlay look. Use one identical composition for zh/en/ja: same four stacked stations, same camera angle, same colors, same icons, same routing arrows, same reading path. "
-        "Top: localized title and one short subtitle. Station 1: ordinary attention pair explosion, with a 4k to 8k context rail and an attention pair grid visibly expanding about four times; place the label O(n^2) on the expanding grid. "
+        "Vertical 9:16 hand-drawn classroom handout on subtle lined notebook paper, rich but legible, like a teacher's annotated lesson sheet. "
+        "Do not make a white rounded-card infographic, flat SVG flowchart, pure text poster, local text-overlay look, or decorative sci-fi dashboard. "
+        "Use one identical composition for zh/en/ja: same four stacked stations, same camera angle, same colors, same icons, same routing arrows, same reading path. "
+        "Top: localized title and one short subtitle written as large marker lettering. Station 1: ordinary attention pair explosion, with a 4k to 8k context rail and a hand-drawn attention pair grid visibly expanding about four times; place the label O(n^2) on the expanding grid. "
         "Station 2: a bottleneck diagnosis board with three large physical gauges: long context pair count, KV cache during inference, and memory IO / activation traffic during training. "
-        "Station 3: a method-routing workshop with four different tools, not identical boxes: sliding/local attention narrows the visible window; MQA/GQA shows many query heads sharing fewer K/V shelves; FlashAttention shows tiled blocks staying in fast memory; linear attention shows a formula lab with a tradeoff warning. "
+        "Station 3: a method-routing workshop with four different illustrated tools, not identical boxes: sliding/local attention narrows the visible window with a movable window ruler; MQA/GQA shows many query heads sharing fewer K/V shelves; FlashAttention shows tiled blocks staying in fast memory; linear attention shows a formula lab with a tradeoff warning. "
         "Station 4: split training versus inference lanes. Training lane points to attention matrix, activations, memory IO, and FlashAttention. Inference lane points to KV cache, MQA, and GQA. "
         "Bottom: a compact rule rail: do not memorize names; first locate the bottleneck, then choose the route. "
         "Use sparse, large, readable localized labels attached to concrete visual objects. Technical tokens may remain in English where appropriate: O(n^2), KV cache, memory IO, FlashAttention, sliding/local attention, MQA, GQA, linear attention, training, inference, attention matrix, activation. "
-        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens. "
-        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens. "
+        "Spelling is critical: whenever this concept appears, write exactly 'sliding/local attention' or exactly 'sliding/local'. Never write siliding, slidding, slideing, or any misspelled variant. "
+        "Spelling is also critical for activation: write exactly 'activation', never 'activity'. If the Chinese or Japanese image needs this idea, prefer localized wording for activation traffic or activation memory instead of English. "
+        "For Simplified Chinese, explanatory words must be Chinese; do not write English explanatory phrases beyond the allowed technical tokens, and do not write 'during inference', 'during training', or 'activity traffic'. Use Chinese labels such as 推理时, 训练时, 激活流量, 中间激活. "
+        "For Japanese, explanatory words must be Japanese; do not add Chinese labels or English explanatory sentences beyond the allowed technical tokens, and do not write 'during inference', 'during training', or 'activity traffic'. Use Japanese labels such as 推論時, 学習時, activation メモリ, 中間 activation. "
         "Avoid pseudo text, tiny unreadable words, fake code dumps, decorative sci-fi dashboards without teaching content, and any claim that one method solves every bottleneck."
     ),
     variants={
