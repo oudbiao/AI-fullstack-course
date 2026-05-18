@@ -107,7 +107,15 @@ print("sklearn 权重:", round(float(sk_model.coef_[0]), 2))
 print("学习 6 小时的预测分数:", round(float(sk_model.predict([[6.0]])[0]), 2))
 ```
 
-你会得到一条直线模型，过程非常顺滑。
+期望输出：
+
+```text
+sklearn 截距: 45.0
+sklearn 权重: 7.0
+学习 6 小时的预测分数: 87.0
+```
+
+你会得到一条直线模型，过程非常顺滑：`fit()` 已经帮你找到 `score = 7 * hours + 45` 这条线。
 
 ### 用 PyTorch 训练同一个任务
 
@@ -150,6 +158,27 @@ print("PyTorch 截距:", round(bias, 2))
 print("PyTorch 权重:", round(weight, 2))
 print("学习 6 小时的预测分数:", round(pred_6, 2))
 ```
+
+期望输出：
+
+```text
+epoch=   0, loss=4031.2007
+epoch= 200, loss=72.9774
+epoch= 400, loss=18.8304
+epoch= 600, loss=4.8588
+epoch= 800, loss=1.2537
+PyTorch 截距: 43.67
+PyTorch 权重: 7.37
+学习 6 小时的预测分数: 87.88
+```
+
+![sklearn 与 PyTorch 输出对齐图](/img/course/ch06-sklearn-pytorch-result-comparison-map.webp)
+
+这张图要从上往下读：
+
+- `sklearn` 在这个小数据集上直接拟合出精确直线，并预测 `87.0`
+- `PyTorch` 从随机参数出发，通过训练循环不断降低 loss，最后靠近同一条线
+- 关键差异不是谁更高级，而是谁把训练过程摊开给你看、让你能控制
 
 ---
 

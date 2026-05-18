@@ -107,7 +107,15 @@ print("sklearn の重み:", round(float(sk_model.coef_[0]), 2))
 print("6時間勉強したときの予測点数:", round(float(sk_model.predict([[6.0]])[0]), 2))
 ```
 
-きれいな直線モデルが得られ、流れもとてもスムーズです。
+期待される出力：
+
+```text
+sklearn の切片: 45.0
+sklearn の重み: 7.0
+6時間勉強したときの予測点数: 87.0
+```
+
+きれいな直線モデルが得られ、流れもとてもスムーズです。`fit()` がすでに `score = 7 * hours + 45` という直線を見つけています。
 
 ### PyTorch で同じタスクを訓練する
 
@@ -150,6 +158,27 @@ print("PyTorch の切片:", round(bias, 2))
 print("PyTorch の重み:", round(weight, 2))
 print("6時間勉強したときの予測点数:", round(pred_6, 2))
 ```
+
+期待される出力：
+
+```text
+epoch=   0, loss=4031.2007
+epoch= 200, loss=72.9774
+epoch= 400, loss=18.8304
+epoch= 600, loss=4.8588
+epoch= 800, loss=1.2537
+PyTorch の切片: 43.67
+PyTorch の重み: 7.37
+6時間勉強したときの予測点数: 87.88
+```
+
+![sklearn と PyTorch の出力比較図](/img/course/ch06-sklearn-pytorch-result-comparison-map-ja.webp)
+
+この図は上から下へ読みます。
+
+- `sklearn` はこの小さなデータでは直線をそのまま見つけ、`87.0` を予測する
+- `PyTorch` はランダムなパラメータから始まり、訓練ループで loss を下げながら同じ直線に近づく
+- 大事なのはどちらが上級かではなく、訓練の中身をどこまで見て制御できるか
 
 ---
 

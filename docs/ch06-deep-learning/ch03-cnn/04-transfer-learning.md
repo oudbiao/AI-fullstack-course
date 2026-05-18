@@ -247,6 +247,14 @@ finetune epoch=20 loss=0.4096 acc=1.000
 finetune_val_acc 1.0
 ```
 
+![Transfer learning lab result map](/img/course/ch06-transfer-learning-lab-result-map-en.webp)
+
+Read the result in three passes:
+
+- `pretrain` proves the tiny backbone can extract reusable line-pattern features.
+- `trainable_after_freeze` is the safety check: the backbone stays frozen and only the new head updates.
+- `head_only_val_acc=0.875` is already useful, and `finetune_val_acc=1.0` shows that gently unfreezing the last convolution helped on this validation set.
+
 ## What the Lab Teaches
 
 | Stage | What happened | Practical meaning |

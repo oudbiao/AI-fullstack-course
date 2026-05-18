@@ -107,7 +107,15 @@ print("sklearn weight:", round(float(sk_model.coef_[0]), 2))
 print("Predicted score for 6 hours of study:", round(float(sk_model.predict([[6.0]])[0]), 2))
 ```
 
-You will get a straight-line model, and the process is very smooth.
+Expected output:
+
+```text
+sklearn intercept: 45.0
+sklearn weight: 7.0
+Predicted score for 6 hours of study: 87.0
+```
+
+You get a straight-line model, and the process is very smooth: `fit()` has already found the line `score = 7 * hours + 45`.
 
 ### Train the same task with PyTorch
 
@@ -150,6 +158,27 @@ print("PyTorch intercept:", round(bias, 2))
 print("PyTorch weight:", round(weight, 2))
 print("Predicted score for 6 hours of study:", round(pred_6, 2))
 ```
+
+Expected output:
+
+```text
+epoch=   0, loss=4031.2007
+epoch= 200, loss=72.9774
+epoch= 400, loss=18.8304
+epoch= 600, loss=4.8588
+epoch= 800, loss=1.2537
+PyTorch intercept: 43.67
+PyTorch weight: 7.37
+Predicted score for 6 hours of study: 87.88
+```
+
+![sklearn and PyTorch output comparison](/img/course/ch06-sklearn-pytorch-result-comparison-map-en.webp)
+
+Read the picture from top to bottom:
+
+- `sklearn` gives an exact line for this tiny dataset, then directly predicts `87.0`
+- `PyTorch` starts from random parameters, repeatedly lowers loss, and ends near the same line
+- The important difference is not the destination, but how much of the training process you can see and control
 
 ---
 

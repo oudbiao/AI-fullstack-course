@@ -247,6 +247,14 @@ finetune epoch=20 loss=0.4096 acc=1.000
 finetune_val_acc 1.0
 ```
 
+![迁移学习实验结果图](/img/course/ch06-transfer-learning-lab-result-map.webp)
+
+这张图分三步读：
+
+- `pretrain` 说明 tiny backbone 已经能提取可复用的线条特征。
+- `trainable_after_freeze` 是安全检查：backbone 保持冻结，只有新的 head 更新。
+- `head_only_val_acc=0.875` 已经可用，而 `finetune_val_acc=1.0` 说明只轻微解冻最后卷积层，在这个验证集上确实有帮助。
+
 ## 这个实验说明了什么
 
 | 阶段 | 发生了什么 | 实践含义 |

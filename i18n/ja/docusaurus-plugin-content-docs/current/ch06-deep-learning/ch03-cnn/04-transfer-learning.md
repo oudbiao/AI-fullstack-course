@@ -247,6 +247,14 @@ finetune epoch=20 loss=0.4096 acc=1.000
 finetune_val_acc 1.0
 ```
 
+![転移学習実験結果図](/img/course/ch06-transfer-learning-lab-result-map-ja.webp)
+
+この図は 3 段階で読みます。
+
+- `pretrain` は、tiny backbone が再利用できる線パターン特徴を抽出できたことを示します。
+- `trainable_after_freeze` は安全確認です。backbone は freeze されたままで、新しい head だけが更新されます。
+- `head_only_val_acc=0.875` でもすでに有用で、`finetune_val_acc=1.0` は最後の畳み込み層を軽く解凍したことが、この検証セットでは効いたことを示します。
+
 ## この実験から分かること
 
 | 段階 | 何が起きたか | 実践上の意味 |
