@@ -33790,6 +33790,127 @@ CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS: dict[str, str] = {
         footer="同じ batch 手順で安定させると、デバッグしやすくなる。",
         allowed_tokens="model.train(), batch images/labels, optimizer.zero_grad(set_to_none=True), logits = model(images), CrossEntropyLoss, loss.backward(), clip_grad_norm_(max_norm=2.0), optimizer.step(), history, model.eval(), torch.no_grad(), val_loss, val_acc, save best_state, validation",
     ),
+    "ch06-hands-on-portfolio-pack.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="作品集证据包怎么交付",
+        visible_subtitle="让别人能复现、诊断、继续改，而不是只看一张好看的图。",
+        teaching_goal=(
+            "服务 6.8.5 的 Turn This Into a Portfolio Project 和 Portfolio Checklist。"
+            "图片必须贴合 dl_workshop.py 的真实输出，解释一个深度学习小项目交付时应该保存哪些证据文件。"
+            "这节真实数据是 synthetic stripe dataset，类别只能是 vertical_stripe、horizontal_stripe、diagonal_stripe。"
+            "不要画封面、奖牌、通用作品集页面、猫狗分类、花朵数据集、车辆、鞋子、鸟类、照片缩略图或不存在的文件。"
+        ),
+        fixed_layout=(
+            "竖版横线笔记纸教学图，像老师把项目交付物逐项圈出来。三语版结构一致。"
+            "从上到下画 6 个证据站点，每个站点都要有具体文件图标和用途："
+            "1 复现入口：run command 卡片写 python dl_workshop.py，箭头进入一个文件夹，文件夹可见标签只写 输出文件夹。"
+            "不要在图中写 deep_learning_workshop_run 或任何 deep-learning-workshop-run 变体；真实路径已经在正文代码块里，图只表达输出文件夹这个概念。"
+            "2 输入和 shape：shape_trace.md 回答 batch/channel/height/width 是否正确。"
+            "3 训练证据：training_log.csv 和 loss_curve.png 回答 loss 是否下降。"
+            "4 模型选择：model_comparison.csv 连接 Flatten baseline 与 Tiny CNN，只说明 baseline vs CNN，不写额外分数。"
+            "5 诊断队列：confusion_matrix.csv 与 error_samples.csv 进入 review samples 夹板，夹板里只画三张条纹小卡：vertical_stripe、horizontal_stripe、diagonal_stripe，表现为竖条纹、横条纹、斜条纹。"
+            "review samples 里绝对不要画猫、狗、车、鞋、鸟、衣服、花、船、飞机、杯子、人物或照片。"
+            "6 可交付包：best_model.pt、debug_checklist.md、experiment_notes.md、README.md 与 next steps 合成一个 evidence pack。"
+            "底部画一只交付信封，上面只写 reproducible、diagnosable、improvable 三个章。"
+            "CSV、曲线、矩阵图标内不要填虚构表格数字；不要出现 dashboard 或终端截图。"
+        ),
+        required_labels=(
+            "python dl_workshop.py、输出文件夹、shape_trace.md、batch/channel/height/width、"
+            "training_log.csv、loss_curve.png、loss 是否下降、model_comparison.csv、Flatten baseline、Tiny CNN、baseline vs CNN、"
+            "confusion_matrix.csv、error_samples.csv、review samples、vertical_stripe、horizontal_stripe、diagonal_stripe、"
+            "best_model.pt、debug_checklist.md、experiment_notes.md、README.md、"
+            "next steps、evidence pack、reproducible、diagnosable、improvable。"
+        ),
+        footer="作品集不是截图合集；它是别人能复现、诊断、继续改的证据包。",
+        allowed_tokens=(
+            "python dl_workshop.py, 输出文件夹, vertical_stripe, horizontal_stripe, diagonal_stripe, "
+            "shape_trace.md, batch, channel, height, width, "
+            "training_log.csv, loss_curve.png, model_comparison.csv, Flatten baseline, Tiny CNN, baseline vs CNN, "
+            "confusion_matrix.csv, error_samples.csv, review samples, best_model.pt, debug_checklist.md, experiment_notes.md, "
+            "README.md, next steps, evidence pack, reproducible, diagnosable, improvable"
+        ),
+    ),
+    "ch06-hands-on-portfolio-pack-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="How to Deliver an Evidence Pack",
+        visible_subtitle="Let someone reproduce, diagnose, and improve it, not just admire one image.",
+        teaching_goal=(
+            "Serve the Turn This Into a Portfolio Project and Portfolio Checklist sections in 6.8.5. "
+            "The image must match the real outputs from dl_workshop.py and teach which evidence files a small deep learning project should ship. "
+            "The real dataset in this lesson is a synthetic stripe dataset; the only classes are vertical_stripe, horizontal_stripe, and diagonal_stripe. "
+            "Do not draw a cover page, trophy, generic portfolio site, cat/dog classifier, flower dataset, vehicles, shoes, birds, photo thumbnails, or nonexistent files."
+        ),
+        fixed_layout=(
+            "Vertical lined-notebook teaching handout, as if a teacher is circling the required deliverables. "
+            "The three language variants must share the same structure. "
+            "Draw 6 evidence stations from top to bottom, each with concrete file icons and a purpose: "
+            "1 Reproduce entry: a run command card says python dl_workshop.py and points to a folder whose visible label is only output folder. "
+            "Do not write deep_learning_workshop_run or any deep-learning-workshop-run variant in the image; the exact path is already shown in the surrounding code block, and this image should teach the output-folder concept. "
+            "2 Input and shape: shape_trace.md answers whether batch/channel/height/width are correct. "
+            "3 Training evidence: training_log.csv and loss_curve.png answer whether loss went down. "
+            "4 Model choice: model_comparison.csv connects Flatten baseline and Tiny CNN; explain baseline vs CNN only, with no extra scores. "
+            "5 Diagnosis queue: confusion_matrix.csv and error_samples.csv flow into a review samples clipboard. On that clipboard draw only three stripe sample cards labeled vertical_stripe, horizontal_stripe, diagonal_stripe, shown as vertical, horizontal, and diagonal stripe patterns. "
+            "Never draw cats, dogs, cars, shoes, birds, clothes, flowers, boats, planes, cups, people, or photographs in review samples. "
+            "6 Deliverable pack: best_model.pt, debug_checklist.md, experiment_notes.md, README.md, and next steps enter one evidence pack folder. "
+            "At the bottom, draw a delivery envelope stamped only reproducible, diagnosable, improvable. "
+            "Do not fill CSV, curve, or matrix icons with invented table numbers; do not show a dashboard or terminal screenshot."
+        ),
+        required_labels=(
+            "python dl_workshop.py, output folder, shape_trace.md, batch/channel/height/width, "
+            "training_log.csv, loss_curve.png, did loss go down?, model_comparison.csv, Flatten baseline, Tiny CNN, baseline vs CNN, "
+            "confusion_matrix.csv, error_samples.csv, review samples, vertical_stripe, horizontal_stripe, diagonal_stripe, "
+            "best_model.pt, debug_checklist.md, experiment_notes.md, README.md, "
+            "next steps, evidence pack, reproducible, diagnosable, improvable."
+        ),
+        footer="A portfolio is not a screenshot gallery; it is evidence someone can rerun, diagnose, and improve.",
+        allowed_tokens=(
+            "python dl_workshop.py, output folder, vertical_stripe, horizontal_stripe, diagonal_stripe, "
+            "shape_trace.md, batch, channel, height, width, "
+            "training_log.csv, loss_curve.png, model_comparison.csv, Flatten baseline, Tiny CNN, baseline vs CNN, "
+            "confusion_matrix.csv, error_samples.csv, review samples, best_model.pt, debug_checklist.md, experiment_notes.md, "
+            "README.md, next steps, evidence pack, reproducible, diagnosable, improvable"
+        ),
+    ),
+    "ch06-hands-on-portfolio-pack-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="証拠パックの提出方法",
+        visible_subtitle="他人が再現・診断・改善できる形で渡す。見栄えだけで終わらせない。",
+        teaching_goal=(
+            "6.8.5 の Turn This Into a Portfolio Project と Portfolio Checklist に使う。"
+            "dl_workshop.py の実際の出力に合わせ、小さな深層学習 project が保存すべき証拠ファイルを教える。"
+            "この lesson の本当の dataset は synthetic stripe dataset で、class は vertical_stripe、horizontal_stripe、diagonal_stripe だけ。"
+            "表紙、トロフィー、一般的な portfolio site、猫犬分類、花 dataset、車、靴、鳥、写真サムネイル、存在しないファイルは描かない。"
+        ),
+        fixed_layout=(
+            "縦長の横線ノート紙の教材図。先生が提出物を赤ペンで確認するように描く。三語版は同じ構造にする。"
+            "上から下へ 6 つの証拠 station を描き、各 station には具体的な file icon と用途を置く："
+            "1 再現入口：run command カードに python dl_workshop.py と書き、見える label が 出力フォルダ だけのフォルダへ矢印。"
+            "画像内には deep_learning_workshop_run や deep-learning-workshop-run のような path 文字列を書かない。正確な path は周囲の code block にあり、この図は出力フォルダの概念を教える。"
+            "2 入力と shape：shape_trace.md が batch/channel/height/width が正しいかを答える。"
+            "3 学習証拠：training_log.csv と loss_curve.png が loss が下がったかを答える。"
+            "4 model 選択：model_comparison.csv が Flatten baseline と Tiny CNN をつなぐ。baseline vs CNN だけを説明し、余分な score は書かない。"
+            "5 診断キュー：confusion_matrix.csv と error_samples.csv が review samples のクリップボードへ入る。クリップボードには vertical_stripe、horizontal_stripe、diagonal_stripe の 3 枚の stripe sample card だけを描き、縦縞、横縞、斜め縞で見せる。"
+            "review samples に猫、犬、車、靴、鳥、服、花、船、飛行機、カップ、人物、写真を絶対に描かない。"
+            "6 提出パック：best_model.pt、debug_checklist.md、experiment_notes.md、README.md、next steps が evidence pack フォルダに入る。"
+            "下部に提出用封筒を描き、reproducible、diagnosable、improvable の 3 つの stamp だけを書く。"
+            "CSV、curve、matrix のアイコン内に架空の表数字を書かない。dashboard や terminal screenshot は描かない。"
+        ),
+        required_labels=(
+            "python dl_workshop.py、出力フォルダ、shape_trace.md、batch/channel/height/width、"
+            "training_log.csv、loss_curve.png、loss は下がったか、model_comparison.csv、Flatten baseline、Tiny CNN、baseline vs CNN、"
+            "confusion_matrix.csv、error_samples.csv、review samples、vertical_stripe、horizontal_stripe、diagonal_stripe、"
+            "best_model.pt、debug_checklist.md、experiment_notes.md、README.md、"
+            "next steps、evidence pack、reproducible、diagnosable、improvable。"
+        ),
+        footer="portfolio は screenshot 集ではない。再現・診断・改善できる証拠パックである。",
+        allowed_tokens=(
+            "python dl_workshop.py, 出力フォルダ, vertical_stripe, horizontal_stripe, diagonal_stripe, "
+            "shape_trace.md, batch, channel, height, width, "
+            "training_log.csv, loss_curve.png, model_comparison.csv, Flatten baseline, Tiny CNN, baseline vs CNN, "
+            "confusion_matrix.csv, error_samples.csv, review samples, best_model.pt, debug_checklist.md, experiment_notes.md, "
+            "README.md, next steps, evidence pack, reproducible, diagnosable, improvable, portfolio, screenshot"
+        ),
+    ),
 }
 
 CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS = {
@@ -35011,6 +35132,8 @@ CH06_HANDS_ON_WORKSHOP_REMAKE_META = [
     ("ch06-hands-on-dataset-dataloader-batch-flow-ja.png", "Dataset は sample を取り、DataLoader は batch を作る", "stripe images、labels、sample_ids、shuffle、batch_size=32 の StripeDataset と DataLoader batch flow。"),
     ("ch06-hands-on-training-loop-anatomy-en.png", "Update Order for Every Batch", "PyTorch training loop anatomy for train mode, zero_grad, forward, CrossEntropyLoss, backward, gradient clipping, optimizer step, and validation."),
     ("ch06-hands-on-training-loop-anatomy-ja.png", "各 batch の更新順序", "train mode、zero_grad、forward、CrossEntropyLoss、backward、gradient clipping、optimizer step、validation の PyTorch training loop 解剖図。"),
+    ("ch06-hands-on-portfolio-pack-en.png", "How to Deliver an Evidence Pack", "Portfolio evidence pack map for rerunnable, diagnosable, and improvable deep learning project delivery."),
+    ("ch06-hands-on-portfolio-pack-ja.png", "証拠パックの提出方法", "再現・診断・改善できる深層学習 project 提出のための証拠パック図。"),
 ]
 
 existing_filenames_for_ch06_hands_on = {str(job.get("filename")) for job in IMAGE_JOBS}
