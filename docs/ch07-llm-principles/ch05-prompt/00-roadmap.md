@@ -47,6 +47,8 @@ fields: task, context, output_format, constraints
 test_case_count: 3
 ```
 
+![Prompt contract check result map](/img/course/ch07-prompt-contract-check-result-map-en.webp)
+
 If `ready` is `False`, fix the prompt brief before you try more examples. A vague prompt produces vague debugging.
 
 ## Learn in This Order

@@ -24698,6 +24698,87 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-prompt-contract-check-result-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+    },
+    scene=(
+        "A Chapter 7.5.1 worked-result teaching image for the exact prompt_contract check code in the nearby lesson. "
+        "The code defines prompt_contract with exactly four present fields: task, context, output_format, constraints. "
+        "If you show field values, they must match the code exactly: task='Extract chapter metadata'; context='One course markdown file'; output_format=['chapter','goals','prerequisites','risks']; constraints=['return JSON only','mark missing facts as null']. "
+        "It defines required = ['task', 'context', 'output_format', 'constraints'], computes missing as the empty list, then prints exactly: ready: True; fields: task, context, output_format, constraints; test_case_count: 3. "
+        "The image must teach that the script is not calling an LLM yet; it is checking whether the prompt brief is complete enough to test. "
+        "Do not invent model responses, evaluation scores, API calls, extra fields, JSON output examples, hidden metrics, or extra terminal lines."
+    ),
+    chapter_context=(
+        "The image appears immediately after the expected output of the Prompt contract check in 7.5.1. "
+        "The prose says that before calling any LLM, learners should describe the prompt as a contract: task, context, output format, and constraints. "
+        "If ready is False, they should fix the prompt brief before trying more examples. The surrounding chapter later teaches structured outputs and evaluation, but this image should stay focused on the current script."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom lecture note on warm horizontal lined notebook paper, dark navy marker outlines, blue for required fields, green for pass/ready, orange for test cases, and red only for the small missing-field warning. "
+        "Use the same composition for zh/en/ja: top title, then four numbered teaching zones from top to bottom. "
+        "Do not create a white rounded-card SVG infographic, generic flowchart, terminal screenshot, UI dashboard, pure text poster, pasted note board, or local text-overlay look. "
+        "Zone 1: draw one prompt_contract clipboard with exactly four large slots in this order: task, context, output_format, constraints. Each slot has a concrete icon from the code: target flag, course markdown file, list of output fields, and boundary rail. If a slot shows its value, use only the exact values from the code listed in the scene. "
+        "Zone 2: draw the required checklist with exactly the same four names and four green checks. Next to it, draw a small empty tray labeled missing = [] to show no required field is absent. "
+        "Zone 3: draw a result printer or paper output panel with exactly three output lines: ready: True; fields: task, context, output_format, constraints; test_case_count: 3. Keep these lines readable and do not add any other output. "
+        "Zone 4: draw a practical rule strip using the localized wording from the variant items only; do not write the English phrases 'complete contract -> ready to test' or 'missing field -> fix the brief before more examples' in the Chinese or Japanese image. The missing-field branch should be small and hypothetical, not the current result. "
+        "Bottom footer: this check proves the prompt has a testable brief, not that the model answer is good. "
+        "Use sparse, large localized labels attached to objects. Technical/code tokens may stay in English: prompt_contract, required, missing, ready, fields, test_case_count, task, context, output_format, constraints, LLM, JSON, Markdown. "
+        "For Simplified Chinese, explanatory phrases must be natural Chinese except those code/technical tokens; do not write English explanatory sentences. "
+        "For Japanese, explanatory phrases must be natural Japanese except those code/technical tokens; do not add Chinese text or English explanatory sentences beyond required tokens. "
+        "Avoid pseudo text, tiny handwriting, random filler, fake model names, fake JSON data, and any claim that ready=True means the LLM result is correct."
+    ),
+    variants={
+        "zh": {
+            "title": "Prompt 合约检查：先确认能不能测试",
+            "subtitle": "四个必填字段都在，missing 为空，所以 ready=True。",
+            "items": [
+                ("prompt_contract", "task、context、output_format、constraints 四格都填上。"),
+                ("字段值", "task 是 Extract chapter metadata，context 是 One course markdown file。"),
+                ("required 检查", "逐项查四个字段，缺失清单是 missing = []。"),
+                ("运行结果", "ready: True；fields 列出四个字段；test_case_count: 3。"),
+                ("教学含义", "这一步只证明任务简报完整，还没有证明模型回答好。"),
+                ("下一步", "如果 ready=False，先补合约，再继续加样例或调 Prompt。"),
+            ],
+            "footer": "Prompt 进入 LLM 前，先把任务、上下文、格式和约束变成可检查的合约。",
+            "alt": "Prompt 合约检查运行结果图：prompt_contract 里 task、context、output_format、constraints 四个必填字段都存在，required 检查得到 missing=[]，所以输出 ready: True、fields: task, context, output_format, constraints、test_case_count: 3。",
+        },
+        "en": {
+            "title": "Prompt Contract Check: Is It Testable Yet?",
+            "subtitle": "All four required fields exist, missing is empty, so ready=True.",
+            "items": [
+                ("prompt_contract", "task, context, output_format, and constraints are all filled."),
+                ("field values", "task is Extract chapter metadata; context is One course markdown file."),
+                ("required check", "Check the four names one by one; the missing tray is missing = []."),
+                ("run result", "ready: True; fields lists the four fields; test_case_count: 3."),
+                ("teaching meaning", "This proves the brief is complete, not that the model answer is good."),
+                ("next step", "If ready=False, fix the contract before adding examples or tuning the Prompt."),
+            ],
+            "footer": "Before a Prompt reaches the LLM, make task, context, format, and constraints checkable.",
+            "alt": "Prompt contract check result map: prompt_contract contains the four required fields task, context, output_format, and constraints; the required check produces missing=[], so the script prints ready: True, fields: task, context, output_format, constraints, and test_case_count: 3.",
+        },
+        "ja": {
+            "title": "Prompt 契約チェック：テストできる状態か",
+            "subtitle": "4つの必須 field がそろい、missing は空なので ready=True。",
+            "items": [
+                ("prompt_contract", "task、context、output_format、constraints の4枠が埋まっている。"),
+                ("field 値", "task は Extract chapter metadata、context は One course markdown file。"),
+                ("required チェック", "4つの名前を順に確認し、missing = [] になる。"),
+                ("実行結果", "ready: True；fields は4つの field；test_case_count: 3。"),
+                ("学ぶ意味", "これはブリーフがそろった証拠で、モデル回答の良さではない。"),
+                ("次の手順", "ready=False なら、例を増やす前に契約を直す。"),
+            ],
+            "footer": "LLM に渡す前に、task、context、format、constraints を確認可能な契約にする。",
+            "alt": "Prompt 契約チェックの実行結果図：prompt_contract には task、context、output_format、constraints の4つの必須 field があり、required チェックで missing=[] になるため、ready: True、fields: task, context, output_format, constraints、test_case_count: 3 を出力する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-prompt-chapter-flow",
     pages={
         "en": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",

@@ -47,6 +47,8 @@ fields: task, context, output_format, constraints
 test_case_count: 3
 ```
 
+![Prompt 契約チェックの実行結果図](/img/course/ch07-prompt-contract-check-result-map-ja.webp)
+
 `ready` が `False` なら、追加例を試す前にタスクブリーフを直します。曖昧な Prompt は、曖昧なデバッグを生みます。
 
 ## この順番で学ぶ

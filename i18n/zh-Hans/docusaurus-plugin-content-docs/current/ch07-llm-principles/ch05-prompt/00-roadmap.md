@@ -47,6 +47,8 @@ fields: task, context, output_format, constraints
 test_case_count: 3
 ```
 
+![Prompt 合约检查运行结果图](/img/course/ch07-prompt-contract-check-result-map.webp)
+
 如果 `ready` 是 `False`，先补完整任务简报，再继续试更多样例。模糊的 Prompt 会带来模糊的调试。
 
 ## 按这个顺序学
