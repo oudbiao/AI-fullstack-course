@@ -115,6 +115,8 @@ print(tasks)
 [{'owner': 'researcher', 'task': '返金ポリシーを探す'}, {'owner': 'writer', 'task': '要約を書く'}, {'owner': 'reviewer', 'task': '要約を確認する'}]
 ```
 
+![CrewAI の役割とタスクの流れ](/img/course/ch09-crewai-team-roles-flow-ja.webp)
+
 ### この例が本当に表していることは？
 
 この例が表しているのは次のことです。

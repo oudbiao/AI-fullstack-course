@@ -26273,6 +26273,36 @@ COURSE_QA_PROMPTS.update(
 
 COURSE_QA_PROMPTS.update(
     {
+        "ch09-crewai-team-roles-flow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="CrewAI：先组团队，再分任务",
+            visible_subtitle="Agent 是成员，Task 是工作，Crew 把角色和交接顺序组织起来。",
+            teaching_goal="服务 9.6.5 CrewAI 的最小 crew 示例。读者要能从图中直接理解代码里的 crew 列表和 tasks 列表不是普通配置，而是在表达一个小团队的分工：researcher 查找退款政策，writer 写总结，reviewer 检查遗漏条件。图要贴合本页代码和 print 输出，帮助读者理解 CrewAI 与 LangGraph 的差异：CrewAI 的入口是角色、目标和任务交接，而不是先画 state edge。",
+            fixed_layout="竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。顶部标题和副标题。第一段画一个小团队桌面：三名成员围着同一张任务单，分别是 researcher、writer、reviewer；每个人旁边只放短标签：检索退款政策、整理成总结、检查遗漏条件。第二段画 crew 列表像成员名册，三张小名牌必须写 role 和 goal，对应代码中的三项；旁边画 tasks 列表像待办板，三张任务卡必须写 owner 和 task，并用颜色线连接 owner=researcher 到 查找退款政策，owner=writer 到 撰写总结，owner=reviewer 到 检查总结。第三段画协作流水：researcher 输出“材料：7 天内 + 进度限制”，交给 writer 输出“总结草稿”，再交给 reviewer 盖章“条件完整/需补充”。第四段放两张短 print 证据小票：print(crew) 显示角色名册；print(tasks) 显示任务分配。小票内容要短，不要塞完整长列表。右侧放一个对比便签：LangGraph 先问 state 和 edge；CrewAI 先问 team 和 responsibility。底部强调：当任务像多人协作时，先建角色通常更自然。不要画旧式白底圆角框堆叠，不要画真实 CrewAI API，不要终端截图，不要全文代码。",
+            required_labels="CrewAI、Agent、Task、Crew、researcher、writer、reviewer、role、goal、owner、task、检索退款政策、整理成总结、检查遗漏条件、查找退款政策、撰写总结、检查总结、材料、总结草稿、条件完整、print(crew)、print(tasks)、team、responsibility、state、edge。",
+            footer="像团队一样思考：谁负责什么，成果如何交给下一位。",
+            allowed_tokens="CrewAI, Agent, Task, Crew, researcher, writer, reviewer, role, goal, owner, task, print(crew), print(tasks), team, responsibility, LangGraph, state, edge",
+        ),
+        "ch09-crewai-team-roles-flow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="CrewAI: Build the Team, Then Assign the Work",
+            visible_subtitle="Agent is the member, Task is the work, Crew organizes roles and handoffs.",
+            teaching_goal="Serve the minimal crew example in 9.6.5 CrewAI. The learner should see that the crew list and tasks list are not random configuration; they express a small team's division of labor: researcher finds the refund policy, writer writes the summary, reviewer checks missing conditions. The image must match this page's code and print output, and help learners understand the difference from LangGraph: CrewAI starts from roles, goals, and task handoffs rather than drawing state edges first.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. Top title and subtitle. Section 1 shows a small team table: three members around one task sheet, labeled researcher, writer, reviewer; each member has one short label: retrieve refund policy, organize summary, check missing conditions. Section 2 shows the crew list as a team roster: three name cards must show role and goal matching the code; beside it, show the tasks list as a kanban board: three task cards must show owner and task, with colored lines connecting owner=researcher to find the refund policy, owner=writer to write the summary, and owner=reviewer to check the summary. Section 3 shows the collaboration pipeline: researcher outputs \"material: 7 days + progress limit\", hands it to writer who outputs \"summary draft\", then reviewer stamps \"conditions complete / revise\". Section 4 places two short print evidence receipts: print(crew) shows the role roster; print(tasks) shows task assignment. Keep receipts short; do not paste the full long lists. On the right, add a comparison note: LangGraph asks state and edge first; CrewAI asks team and responsibility first. Footer emphasizes that when the task feels like collaboration, roles are often the natural starting point. No old white rounded boxes, no real CrewAI API, no terminal screenshot, no full code.",
+            required_labels="CrewAI, Agent, Task, Crew, researcher, writer, reviewer, role, goal, owner, task, retrieve refund policy, organize summary, check missing conditions, find the refund policy, write the summary, check the summary, material, summary draft, conditions complete, print(crew), print(tasks), team, responsibility, state, edge.",
+            footer="Think like a team: who owns what, and where does the work go next?",
+            allowed_tokens="CrewAI, Agent, Task, Crew, researcher, writer, reviewer, role, goal, owner, task, print(crew), print(tasks), team, responsibility, LangGraph, state, edge",
+        ),
+        "ch09-crewai-team-roles-flow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="CrewAI：先にチームを作り、次に仕事を割り振る",
+            visible_subtitle="Agent はメンバー、Task は仕事、Crew は役割と受け渡しをまとめる。",
+            teaching_goal="9.6.5 CrewAI の最小 crew 例に合わせる。読者が、crew list と tasks list はただの設定ではなく、小さなチームの分担を表していると分かる図にする：researcher が返金ポリシーを探し、writer が要約を書き、reviewer が条件の抜けを確認する。図はこのページのコードと print 出力に合わせ、LangGraph との違いも分かるようにする：CrewAI は state edge を先に描くのではなく、役割、目標、タスクの受け渡しから入る。",
+            fixed_layout="縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。上部にタイトルと副題。第1段は小さなチーム机：3人のメンバーが同じタスク用紙を囲み、researcher、writer、reviewer とラベル付けする。各メンバーの横には短いラベルだけを書く：返金ポリシーを調べる、要約にまとめる、条件の抜けを確認する。第2段は crew list をメンバー名簿として描く：3枚の名札に role と goal を書き、コードの3項目に対応させる。横に tasks list をタスク板として描く：3枚のタスクカードに owner と task を書き、owner=researcher から 返金ポリシーを探す、owner=writer から 要約を書く、owner=reviewer から 要約を確認する へ色線でつなぐ。第3段は協働パイプライン：researcher が「材料：7日以内 + 進捗制限」を出し、writer に渡して「要約下書き」になり、reviewer が「条件OK / 修正」と判定する。第4段に短い print 証拠レシートを2枚置く：print(crew) は役割名簿、print(tasks) はタスク割り当てを示す。長い list 全文は貼らず短くする。右側に比較メモ：LangGraph は state と edge を先に問う；CrewAI は team と responsibility を先に問う。下部では、タスクが協働に見えるなら役割から始めるのが自然だと強調する。古い白い角丸箱、本物の CrewAI API、terminal screenshot、全文コードは描かない。",
+            required_labels="CrewAI、Agent、Task、Crew、researcher、writer、reviewer、role、goal、owner、task、返金ポリシーを調べる、要約にまとめる、条件の抜けを確認する、返金ポリシーを探す、要約を書く、要約を確認する、材料、要約下書き、条件OK、print(crew)、print(tasks)、team、responsibility、state、edge。",
+            footer="チームとして考える：誰が何を担当し、成果を次にどう渡すか。",
+            allowed_tokens="CrewAI, Agent, Task, Crew, researcher, writer, reviewer, role, goal, owner, task, print(crew), print(tasks), team, responsibility, LangGraph, state, edge",
+        ),
         "ch09-llamaindex-query-engine-flow.png": _course_qa_prompt(
             locale="zh",
             visible_title="LlamaIndex：从文档到可查询答案",
@@ -26323,6 +26353,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch09-llamaindex-query-engine-flow.png", "LlamaIndex：从文档到可查询答案", "docs/ch09-agent/ch06-frameworks/03-llamaindex.md", "LlamaIndex 查询引擎流程图：Document、Node、Index、Retriever、Query Engine 如何把 doc1 退款规则组织成 answer 和 source。"),
         ("ch09-llamaindex-query-engine-flow-en.png", "LlamaIndex: From Documents to a Queryable Answer", "docs/ch09-agent/ch06-frameworks/03-llamaindex.md", "LlamaIndex query-engine flow: Document, Node, Index, Retriever, and Query Engine turn the doc1 refund policy into answer and source."),
         ("ch09-llamaindex-query-engine-flow-ja.png", "LlamaIndex：文書から問い合わせ可能な答えへ", "docs/ch09-agent/ch06-frameworks/03-llamaindex.md", "LlamaIndex Query Engine の流れ：Document、Node、Index、Retriever、Query Engine が doc1 の返金ルールを answer と source に整える。"),
+        ("ch09-crewai-team-roles-flow.png", "CrewAI：先组团队，再分任务", "docs/ch09-agent/ch06-frameworks/04-crewai.md", "CrewAI 团队角色流程图：researcher、writer、reviewer 如何通过 crew 名册和 tasks 看板完成退款政策总结。"),
+        ("ch09-crewai-team-roles-flow-en.png", "CrewAI: Build the Team, Then Assign the Work", "docs/ch09-agent/ch06-frameworks/04-crewai.md", "CrewAI team roles flow: researcher, writer, and reviewer use a crew roster and tasks board to produce a refund-policy summary."),
+        ("ch09-crewai-team-roles-flow-ja.png", "CrewAI：先にチームを作り、次に仕事を割り振る", "docs/ch09-agent/ch06-frameworks/04-crewai.md", "CrewAI チーム役割フロー：researcher、writer、reviewer が crew 名簿と tasks ボードで返金ポリシー要約を作る。"),
     ]
 )
 

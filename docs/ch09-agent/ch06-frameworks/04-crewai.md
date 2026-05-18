@@ -115,6 +115,8 @@ Expected output:
 [{'owner': 'researcher', 'task': 'find the refund policy'}, {'owner': 'writer', 'task': 'write the summary'}, {'owner': 'reviewer', 'task': 'check the summary'}]
 ```
 
+![CrewAI team roles and tasks flow](/img/course/ch09-crewai-team-roles-flow-en.webp)
+
 ### What Does This Example Really Express?
 
 It expresses this:

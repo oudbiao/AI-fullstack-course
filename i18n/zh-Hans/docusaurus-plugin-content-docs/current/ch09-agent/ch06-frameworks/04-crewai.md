@@ -115,6 +115,8 @@ print(tasks)
 [{'owner': 'researcher', 'task': '查找退款政策'}, {'owner': 'writer', 'task': '撰写总结'}, {'owner': 'reviewer', 'task': '检查总结'}]
 ```
 
+![CrewAI 团队角色与任务流](/img/course/ch09-crewai-team-roles-flow.webp)
+
 ### 这个例子真正表达了什么？
 
 它表达的是：
