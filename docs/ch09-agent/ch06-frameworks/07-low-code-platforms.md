@@ -106,6 +106,8 @@ Expected output:
 {'trigger': 'user_message', 'steps': ['classify_intent', 'retrieve_docs', 'generate_answer']}
 ```
 
+![Low-Code Platforms: First Make the Flow Clear](/img/course/ch09-low-code-process-whiteboard-en.webp)
+
 ### What Does This Example Really Show?
 
 It shows the core of low-code thinking:

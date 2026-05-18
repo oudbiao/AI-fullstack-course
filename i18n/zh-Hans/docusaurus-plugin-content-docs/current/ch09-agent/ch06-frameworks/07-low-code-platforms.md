@@ -106,6 +106,8 @@ print(workflow)
 {'trigger': 'user_message', 'steps': ['classify_intent', 'retrieve_docs', 'generate_answer']}
 ```
 
+![低代码平台：先把流程画清楚](/img/course/ch09-low-code-process-whiteboard.webp)
+
 ### 这个例子真正体现了什么？
 
 它体现的是低代码思维的核心：

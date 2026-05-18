@@ -130,6 +130,8 @@ Expected output:
 {'agent': 'weather_assistant', 'tool': 'get_weather', 'result': 'Beijing is sunny and 22 degrees right now'}
 ```
 
+![OpenAI Agents SDK: Agent, Tool, Runner Split the Work](/img/course/ch09-openai-agents-sdk-runner-flow-en.webp)
+
 ### Why does this code feel very “SDK-like”?
 
 Because it clearly separates three things:

@@ -105,6 +105,8 @@ print(workflow)
 {'trigger': 'user_message', 'steps': ['classify_intent', 'retrieve_docs', 'generate_answer']}
 ```
 
+![ローコードプラットフォーム：まず流れを見えるようにする](/img/course/ch09-low-code-process-whiteboard-ja.webp)
+
 ### この例は何を本当に表していますか？
 
 これは、ローコード思考の核心を表しています。

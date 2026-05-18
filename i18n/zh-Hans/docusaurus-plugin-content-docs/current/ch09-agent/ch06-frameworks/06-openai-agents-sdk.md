@@ -130,6 +130,8 @@ print(runner.run(assistant, "get_weather", city="北京"))
 {'agent': 'weather_assistant', 'tool': 'get_weather', 'result': '北京 当前晴天 22 度'}
 ```
 
+![OpenAI Agents SDK：Agent、Tool、Runner 分工](/img/course/ch09-openai-agents-sdk-runner-flow.webp)
+
 ### 这段代码为什么很有“SDK 感”？
 
 因为它已经把三件事明确拆开了：
