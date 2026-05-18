@@ -34994,6 +34994,129 @@ IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_ROADMAP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_EVALUATOR_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS)
 
+CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_PROMPTS = {
+    "agent-system-architecture.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="Agent 系统架构：不是一个模型",
+        visible_subtitle="目标、状态、工具、记忆、护栏和 Trace 组成执行闭环。",
+        teaching_goal=(
+            "服务第 9 章 9.1.4 系统架构小节。读者要先看图理解：Agent 系统不是只把 prompt 发给模型，"
+            "而是把用户目标拆成计划，让 LLM 做决策，通过 Tool/API 改变外部世界，再把 observation 写回 state、memory 和 trace。"
+            "图要帮助后面的 planner、tools、memory、guardrail 和 trace 代码建立模块边界。"
+        ),
+        fixed_layout=(
+            "竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。顶部画一张“用户目标”任务单进入中间的 Agent 控制台。"
+            "中心是一个清楚的闭环：Planner 计划器 -> LLM 决策台 -> Tool/API 调用台 -> 外部环境 -> observation 观察结果 -> State 状态板 -> 下一步决策。"
+            "左侧画 Memory 记忆抽屉，与 State 状态板双向连接，表示读写历史和偏好。"
+            "右侧画 Guardrails 护栏，像两道检查门，一道在 Tool/API 调用前，一道在 Final answer 前。"
+            "底部画 Trace/Observability 记录本，每一轮都留下 step、tool、observation、error、cost 的短标签。"
+            "最下方画 Eval 评估板和 Final answer 出口，箭头回到下一轮改进。"
+            "画面可以有小机器人助教，但它必须拿着架构清单做讲解，不要当装饰。"
+            "不要画白底圆角框堆叠、企业仪表盘、纯流程框、终端截图或密集代码。"
+        ),
+        required_labels=(
+            "用户目标、Planner 计划器、LLM 决策、Tool/API 调用、外部环境、observation 观察结果、"
+            "State 状态、Memory 记忆、Guardrails 护栏、Trace/Observability、step、tool、observation、error、cost、"
+            "Eval 评估、Final answer、目标 -> 计划 -> 行动 -> 观察 -> 更新状态 -> 下一步。"
+        ),
+        footer="先画清楚数据流和边界，再写 Agent 代码。",
+        allowed_tokens=(
+            "Agent, Planner, LLM, Tool/API, API, observation, State, Memory, Guardrails, Trace/Observability, "
+            "step, tool, error, cost, Eval, Final answer"
+        ),
+    ),
+    "agent-system-architecture-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Agent System Architecture: Not One Model",
+        visible_subtitle="Goal, state, tools, memory, guardrails, and trace form the execution loop.",
+        teaching_goal=(
+            "Serve Chapter 9 section 9.1.4 on system architecture. Learners should see that an Agent system is not just a prompt sent to a model: "
+            "the user goal becomes a plan, the LLM chooses actions, Tool/API calls affect the outside world, and observations update state, memory, and trace. "
+            "The image should make the module boundaries concrete before the planner, tools, memory, guardrail, and trace code."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. "
+            "Top: draw a user goal task card entering the central Agent control desk. "
+            "Center: draw one clear loop: Planner -> LLM decision desk -> Tool/API call bench -> external environment -> observation -> State board -> next decision. "
+            "Left: draw a Memory drawer connected both ways with the State board, showing history and preferences being read and written. "
+            "Right: draw Guardrails as two inspection gates, one before Tool/API calls and one before Final answer. "
+            "Bottom: draw a Trace/Observability notebook where every turn leaves short tags: step, tool, observation, error, cost. "
+            "Lowest area: draw an Eval board and a Final answer exit, with an arrow back to improvement. "
+            "A small robot tutor is allowed only if it is pointing to the architecture checklist, not decorative. "
+            "Do not draw stacked white rounded cards, a corporate dashboard, pure flowchart boxes, terminal screenshots, or dense code."
+        ),
+        required_labels=(
+            "user goal, Planner, LLM decision, Tool/API call, external environment, observation, State, Memory, Guardrails, "
+            "Trace/Observability, step, tool, observation, error, cost, Eval, Final answer, goal -> plan -> act -> observe -> update state -> next step."
+        ),
+        footer="Draw the data flow and boundaries before writing Agent code.",
+        allowed_tokens=(
+            "Agent, Planner, LLM, Tool/API, API, observation, State, Memory, Guardrails, Trace/Observability, "
+            "step, tool, error, cost, Eval, Final answer"
+        ),
+    ),
+    "agent-system-architecture-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="Agent システム構成：モデルだけではない",
+        visible_subtitle="目標、状態、Tool、記憶、ガードレール、Trace が実行ループを作る。",
+        teaching_goal=(
+            "第 9 章 9.1.4 システム構成に合わせる。Agent システムは prompt をモデルへ送るだけではなく、"
+            "ユーザー目標を計画に分け、LLM が行動を選び、Tool/API が外部環境へ作用し、observation が state、memory、trace に戻ることを見せる。"
+            "後続の planner、tools、memory、guardrail、trace のコードを読む前に、モジュール境界を理解できる図にする。"
+        ),
+        fixed_layout=(
+            "縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。上部に「ユーザー目標」のタスクカードが中央の Agent 制御台へ入る。"
+            "中央は明確な閉ループ：Planner -> LLM 判断台 -> Tool/API 呼び出し台 -> 外部環境 -> observation -> State ボード -> 次の判断。"
+            "左側に Memory の引き出しを描き、State ボードと双方向につないで、履歴や好みを読み書きすることを示す。"
+            "右側に Guardrails を 2 つの検査ゲートとして描く。1 つは Tool/API 呼び出し前、もう 1 つは Final answer 前。"
+            "下部に Trace/Observability の記録ノートを描き、各 turn に step、tool、observation、error、cost の短いタグが残る。"
+            "最下部に Eval 評価ボードと Final answer 出口を描き、改善へ戻る矢印を置く。"
+            "小さなロボット講師は、構成チェックリストを指している場合だけ入れてよい。装飾にはしない。"
+            "白い角丸カードの山、企業 dashboard、純粋な flowchart、terminal screenshot、密集 code は描かない。"
+        ),
+        required_labels=(
+            "ユーザー目標、Planner、LLM 判断、Tool/API 呼び出し、外部環境、observation、State、Memory、Guardrails、"
+            "Trace/Observability、step、tool、observation、error、cost、Eval、Final answer、目標 -> 計画 -> 行動 -> 観察 -> 状態更新 -> 次の一手。"
+        ),
+        footer="Agent コードを書く前に、data flow と境界を描く。",
+        allowed_tokens=(
+            "Agent, Planner, LLM, Tool/API, API, observation, State, Memory, Guardrails, Trace/Observability, "
+            "step, tool, error, cost, Eval, Final answer, data flow"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_PROMPTS)
+
+CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_META = [
+    (
+        "agent-system-architecture-en.png",
+        "Agent System Architecture: Not One Model",
+        "Agent system architecture map showing goal, Planner, LLM decision, Tool/API calls, external environment, observation, State, Memory, Guardrails, Trace/Observability, Eval, and Final answer as one execution loop.",
+    ),
+    (
+        "agent-system-architecture-ja.png",
+        "Agent システム構成：モデルだけではない",
+        "目標、Planner、LLM 判断、Tool/API、外部環境、observation、State、Memory、Guardrails、Trace/Observability、Eval、Final answer を一つの実行ループとして示す Agent システム構成図。",
+    ),
+]
+
+existing_filenames_for_ch09_agent_architecture = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_META:
+    if filename not in existing_filenames_for_ch09_agent_architecture:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch09-agent/ch01-agent-basics/04-system-architecture.md",
+                "alt": alt,
+                "prompt": CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch09_agent_architecture.add(filename)
+
 CH07_DATA_LABELING_REMAKE_META = [
     (
         "ch07-data-labeling-flywheel-review-map-en.png",
