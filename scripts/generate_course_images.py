@@ -34757,6 +34757,161 @@ Text rules: Use natural English. Technical tokens may appear exactly as LLM, Pro
 
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_SOLUTION_CHOICE_MAP_REMAKE_PROMPTS)
 
+CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_PROMPTS = {
+    "ch07-llm-call-workbench-zh.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="LLM 调用工作台",
+        visible_subtitle="把 prompt 变成可预算、可校验、可重试的请求。",
+        teaching_goal=(
+            "服务第 7 章 7.2.5 的 llm_call_workbench.py。图片必须匹配本页真实代码和输出，"
+            "作为读者运行代码前的工作台总览。必须展示一个离线 LLM 调用不是聊天窗口，而是 user task -> payload -> token budget "
+            "-> model response -> validator -> retry / parsed result 的工程流程。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸，竖版 9:16，三语版本同构。顶部是一张工程工作台，不是 dashboard 截图。"
+            "1 左上画任务卡：input: Explain AI history with simple language.；instructions: Return valid JSON only；timeline era must include period, key_event, summary。"
+            "2 中上画 payload 夹板，只列 6 个字段：model=gpt-5.5、instructions、input、text.format=json_object、max_output_tokens=600、temperature=0.3。"
+            "3 右上画 token 预算尺，必须精确显示 CONTEXT_LIMIT=4096、used input=36、output cap=600、remaining=3460。"
+            "4 中央画请求流水线：build_payload -> fake model -> parse JSON -> validate_timeline。每个节点都要画成工作物件，"
+            "如夹板、模型机器、JSON 文件、校验门，不能只是空框。"
+            "5 下半部画两条结果路径：左侧失败路径必须精确使用第一次假响应，不要使用成功结果。Attempt 1 只画一行："
+            "period=1950s；key_event=Turing Test；summary 槽位空着，红色标签写 era_0_missing_['summary']。"
+            "禁止在 Attempt 1 里写 1936-1950、Turing machine and Turing Test 或 AI became a testable question；这些只属于 Attempt 2 和底部证据条。"
+            "右侧修复路径是 Retry patch，写 lower temperature to 0.1 和 require every field，然后到 Attempt 2 valid。"
+            "6 底部画 parsed timeline 证据条，只写 first era: period 1936-1950；key_event Turing machine and Turing Test；summary AI became a testable question.。"
+        ),
+        required_labels=(
+            "LLM 调用工作台、input、instructions、Return valid JSON only、period、key_event、summary、payload、"
+            "model=gpt-5.5、text.format=json_object、max_output_tokens=600、temperature=0.3、CONTEXT_LIMIT=4096、"
+            "used input=36、output cap=600、remaining=3460、build_payload、fake model、parse JSON、validate_timeline、"
+            "Attempt 1、period=1950s、key_event=Turing Test、summary 缺失、era_0_missing_['summary']、Retry patch、temperature=0.1、Attempt 2 valid、"
+            "period 1936-1950、Turing machine and Turing Test、AI became a testable question."
+        ),
+        footer="LLM 工程不是只问一句；要预算、约束输出、校验，再按原因重试。",
+        allowed_tokens=(
+            "LLM, prompt, input, instructions, Return valid JSON only, period, key_event, summary, payload, "
+            "model=gpt-5.5, text.format=json_object, max_output_tokens=600, temperature=0.3, CONTEXT_LIMIT=4096, "
+            "used input=36, output cap=600, remaining=3460, build_payload, fake model, parse JSON, validate_timeline, "
+            "Attempt 1, period=1950s, key_event=Turing Test, era_0_missing_['summary'], Retry patch, temperature=0.1, Attempt 2 valid, "
+            "period 1936-1950, Turing machine and Turing Test, AI became a testable question."
+        ),
+    ),
+    "ch07-llm-call-workbench-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="LLM Call Workbench",
+        visible_subtitle="Turn a prompt into a budgeted, validated, retryable request.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.2.5 and the real llm_call_workbench.py code. The image must match this page's "
+            "actual code and output, as an overview before learners run the code. It must show that an offline LLM call is not a chat window; "
+            "it is user task -> payload -> token budget -> model response -> validator -> retry / parsed result."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on horizontal lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "The top is an engineering workbench, not a dashboard screenshot. "
+            "1 Upper left task card: input: Explain AI history with simple language.; instructions: Return valid JSON only; "
+            "timeline era must include period, key_event, summary. "
+            "2 Upper middle payload clipboard with exactly 6 fields: model=gpt-5.5, instructions, input, text.format=json_object, max_output_tokens=600, temperature=0.3. "
+            "3 Upper right token budget ruler, with exact values CONTEXT_LIMIT=4096, used input=36, output cap=600, remaining=3460. "
+            "4 Center request pipeline: build_payload -> fake model -> parse JSON -> validate_timeline. Draw each node as a concrete work object, "
+            "such as clipboard, model machine, JSON file, validation gate; not empty boxes. "
+            "5 Lower half has two result paths: the left failure path must use the exact first fake response, not the successful result. "
+            "Attempt 1 shows only one row: period=1950s; key_event=Turing Test; summary slot empty, with red label era_0_missing_['summary']. "
+            "Forbidden inside Attempt 1: 1936-1950, Turing machine and Turing Test, AI became a testable question; those belong only to Attempt 2 and the bottom evidence strip. "
+            "right repair path is Retry patch with lower temperature to 0.1 and require every field, then Attempt 2 valid. "
+            "6 Bottom parsed timeline evidence strip: first era only, with period 1936-1950; key_event Turing machine and Turing Test; summary AI became a testable question."
+        ),
+        required_labels=(
+            "LLM Call Workbench, input, instructions, Return valid JSON only, period, key_event, summary, payload, "
+            "model=gpt-5.5, text.format=json_object, max_output_tokens=600, temperature=0.3, CONTEXT_LIMIT=4096, "
+            "used input=36, output cap=600, remaining=3460, build_payload, fake model, parse JSON, validate_timeline, "
+            "Attempt 1, period=1950s, key_event=Turing Test, summary missing, era_0_missing_['summary'], Retry patch, temperature=0.1, Attempt 2 valid, "
+            "period 1936-1950, Turing machine and Turing Test, AI became a testable question."
+        ),
+        footer="LLM engineering is not just asking once; budget, constrain output, validate, then retry for the cause.",
+        allowed_tokens=(
+            "LLM, prompt, input, instructions, Return valid JSON only, period, key_event, summary, payload, "
+            "model=gpt-5.5, text.format=json_object, max_output_tokens=600, temperature=0.3, CONTEXT_LIMIT=4096, "
+            "used input=36, output cap=600, remaining=3460, build_payload, fake model, parse JSON, validate_timeline, "
+            "Attempt 1, period=1950s, key_event=Turing Test, era_0_missing_['summary'], Retry patch, temperature=0.1, Attempt 2 valid, "
+            "period 1936-1950, Turing machine and Turing Test, AI became a testable question."
+        ),
+    ),
+    "ch07-llm-call-workbench-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="LLM 呼び出しワークベンチ",
+        visible_subtitle="prompt を、予算化・検証・retry できる request にする。",
+        teaching_goal=(
+            "第 7 章 7.2.5 の llm_call_workbench.py に使う。画像はこのページの実際のコードと出力に合わせ、"
+            "コード実行前の全体像として働く。オフライン LLM 呼び出しは chat 窓ではなく、user task -> payload -> token budget "
+            "-> model response -> validator -> retry / parsed result という工程だと示す。"
+        ),
+        fixed_layout=(
+            "手描きの横線ノート教材、縦 9:16、中国語・英語版と同じ構造。上部は engineering workbench で、dashboard screenshot にしない。"
+            "1 左上の task card：input: Explain AI history with simple language.；instructions: Return valid JSON only；"
+            "timeline era must include period, key_event, summary。"
+            "2 上中央の payload クリップボードは 6 項目だけ：model=gpt-5.5、instructions、input、text.format=json_object、max_output_tokens=600、temperature=0.3。"
+            "3 右上の token 予算定規に、正確な値として CONTEXT_LIMIT=4096、used input=36、output cap=600、remaining=3460 を示す。"
+            "4 中央の request pipeline：build_payload -> fake model -> parse JSON -> validate_timeline。各ノードはクリップボード、モデル装置、JSON ファイル、検証ゲートなどの具体物として描き、空箱だけにしない。"
+            "5 下半分は二つの結果パス。左の失敗パスは必ず 1 回目の fake response を使い、成功結果を使わない。"
+            "Attempt 1 は 1 行だけ：period=1950s；key_event=Turing Test；summary 欄を空にし、赤ラベルで era_0_missing_['summary']。"
+            "Attempt 1 の中に 1936-1950、Turing machine and Turing Test、AI became a testable question を書くことは禁止。これらは Attempt 2 と最下部の証拠帯だけに使う。"
+            "右の修復パスは Retry patch、lower temperature to 0.1 と require every field を示し、Attempt 2 valid へ進む。"
+            "6 最下部の parsed timeline 証拠帯には first era だけを書く：period 1936-1950；key_event Turing machine and Turing Test；summary AI became a testable question.。"
+        ),
+        required_labels=(
+            "LLM 呼び出しワークベンチ、input、instructions、Return valid JSON only、period、key_event、summary、payload、"
+            "model=gpt-5.5、text.format=json_object、max_output_tokens=600、temperature=0.3、CONTEXT_LIMIT=4096、"
+            "used input=36、output cap=600、remaining=3460、build_payload、fake model、parse JSON、validate_timeline、"
+            "Attempt 1、period=1950s、key_event=Turing Test、summary 欠落、era_0_missing_['summary']、Retry patch、temperature=0.1、Attempt 2 valid、"
+            "period 1936-1950、Turing machine and Turing Test、AI became a testable question."
+        ),
+        footer="LLM 工程は一度聞くだけではない。予算化し、出力を制約し、検証し、原因に合わせて retry する。",
+        allowed_tokens=(
+            "LLM, prompt, input, instructions, Return valid JSON only, period, key_event, summary, payload, "
+            "model=gpt-5.5, text.format=json_object, max_output_tokens=600, temperature=0.3, CONTEXT_LIMIT=4096, "
+            "used input=36, output cap=600, remaining=3460, build_payload, fake model, parse JSON, validate_timeline, "
+            "Attempt 1, period=1950s, key_event=Turing Test, era_0_missing_['summary'], Retry patch, temperature=0.1, Attempt 2 valid, "
+            "period 1936-1950, Turing machine and Turing Test, AI became a testable question."
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_PROMPTS)
+
+CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_META = [
+    (
+        "ch07-llm-call-workbench-zh.png",
+        "LLM 调用工作台总览",
+        "LLM 调用工作台图：任务、payload、token 预算、解析校验、失败原因重试和可用时间线结果。",
+    ),
+    (
+        "ch07-llm-call-workbench-en.png",
+        "LLM Call Workbench Overview",
+        "LLM call workbench overview showing task, payload, token budget, parse validation, cause-aware retry, and usable timeline result.",
+    ),
+    (
+        "ch07-llm-call-workbench-ja.png",
+        "LLM 呼び出しワークベンチ概要",
+        "task、payload、token 予算、parse validation、原因に合わせた retry、使える timeline result を示す LLM 呼び出しワークベンチ図。",
+    ),
+]
+
+existing_filenames_for_ch07_llm_call_workbench_main = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_llm_call_workbench_main:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch02-llm-overview/04-llm-call-workbench.md",
+                "alt": alt,
+                "prompt": CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_llm_call_workbench_main.add(filename)
+
 CH07_SOLUTION_CHOICE_MAP_REMAKE_META = [
     (
         "ch07-solution-choice-map.png",
