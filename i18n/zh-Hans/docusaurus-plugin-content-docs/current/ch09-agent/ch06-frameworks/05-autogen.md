@@ -155,6 +155,8 @@ for turn in conversation:
 {'from': 'reviewer', 'to': 'coder', 'content': '请补充非法输入处理'}
 ```
 
+![AutoGen 消息反馈循环](/img/course/ch09-autogen-message-feedback-loop.webp)
+
 这个例子已经很像很多 AutoGen 教学场景里的工作流骨架了。
 
 ---

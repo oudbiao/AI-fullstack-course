@@ -155,6 +155,8 @@ for turn in conversation:
 {'from': 'reviewer', 'to': 'coder', 'content': '不正な入力の処理を追加してください'}
 ```
 
+![AutoGen のメッセージフィードバックループ](/img/course/ch09-autogen-message-feedback-loop-ja.webp)
+
 この例は、多くの AutoGen 教材で見かけるワークフローの骨組みにかなり近いです。
 
 ---

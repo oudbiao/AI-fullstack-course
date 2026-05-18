@@ -26303,6 +26303,36 @@ COURSE_QA_PROMPTS.update(
             footer="チームとして考える：誰が何を担当し、成果を次にどう渡すか。",
             allowed_tokens="CrewAI, Agent, Task, Crew, researcher, writer, reviewer, role, goal, owner, task, print(crew), print(tasks), team, responsibility, LangGraph, state, edge",
         ),
+        "ch09-autogen-message-feedback-loop.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="AutoGen：对话回合推动任务",
+            visible_subtitle="消息不是聊天记录而已；它决定谁做事、谁执行、谁反馈、何时停止。",
+            teaching_goal="服务 9.6.6 AutoGen 的两个纯 Python 示例。图要把第一段 messages.append(msg) 的核心和第二段 code execution conversation 合在一起讲清楚：协作单位是 message，字段是 from、to、content；planner 把需求发给 coder；coder 把 def discount(price): return price * 0.7 发给 executor；executor 运行后给 reviewer 结果 discount(100)=70；reviewer 再要求 coder 补非法输入处理。图还要显示 AutoGen 风格的工程风险：如果没有 max_turns、role boundary、stop condition，对话会继续转圈。",
+            fixed_layout="竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。顶部标题和副标题。第一段画 messages 列表像一条时间轴，每条消息都是小信封，信封上必须有 from、to、content 三个字段，不要写完整长文本。第二段画四个角色围成对话回路：planner -> coder -> executor -> reviewer -> coder。planner 气泡写“请写折扣函数”；coder 气泡写 `def discount(price): return price * 0.7`；executor 小运行台写 `discount(100)=70`；reviewer 红笔反馈“补非法输入处理”。第三段画 print 输出证据，像四张简短回合小票：1 planner->coder、2 coder->executor、3 executor->reviewer、4 reviewer->coder；小票内容必须对应本页输出，但要短。第四段画控制护栏：max_turns=4、role boundary、stop condition、trace；旁边画一个失控循环被刹车截停，标注“否则：重复讨论 / 轮数失控”。底部放一个区别便签：CrewAI 像任务分配表；AutoGen 像带护栏的工作群聊。不要画旧式白底圆角框堆叠，不要 terminal screenshot，不要全文代码，不要虚构额外运行结果。",
+            required_labels="AutoGen、message、from、to、content、messages.append(msg)、planner、coder、executor、reviewer、def discount(price): return price * 0.7、discount(100)=70、非法输入处理、print(turn)、max_turns=4、role boundary、stop condition、trace、重复讨论、轮数失控、CrewAI、工作群聊。",
+            footer="对话可以自然，但停止条件必须明确。",
+            allowed_tokens="AutoGen, message, from, to, content, messages.append(msg), planner, coder, executor, reviewer, def discount(price): return price * 0.7, discount(100)=70, print(turn), max_turns=4, role boundary, stop condition, trace, CrewAI",
+        ),
+        "ch09-autogen-message-feedback-loop-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="AutoGen: Conversation Turns Move the Task",
+            visible_subtitle="Messages are not just chat history; they decide who works, who runs, who reviews, and when to stop.",
+            teaching_goal="Serve the two pure Python examples in 9.6.6 AutoGen. The image must combine the core idea of messages.append(msg) with the code execution conversation: the collaboration unit is a message with from, to, and content; planner asks coder for work; coder sends def discount(price): return price * 0.7 to executor; executor runs it and sends discount(100)=70 to reviewer; reviewer asks coder to add invalid input handling. The image must also show the engineering risk of the AutoGen style: without max_turns, role boundary, and stop condition, the conversation can loop too long.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. Top title and subtitle. Section 1 draws the messages list as a timeline; each message is a small envelope with exactly three fields: from, to, content. Do not paste long full text. Section 2 draws four roles in a feedback loop: planner -> coder -> executor -> reviewer -> coder. planner bubble says \"write discount function\"; coder bubble says `def discount(price): return price * 0.7`; executor run bench says `discount(100)=70`; reviewer red-pen feedback says \"add invalid input handling\". Section 3 shows print evidence as four short turn receipts: 1 planner->coder, 2 coder->executor, 3 executor->reviewer, 4 reviewer->coder; the receipt content must match this page's output but stay short. Section 4 shows control guardrails: max_turns=4, role boundary, stop condition, trace; beside it draw an out-of-control loop being stopped by a brake, labeled \"otherwise: repeated discussion / too many rounds\". Bottom comparison note: CrewAI is like a task assignment sheet; AutoGen is like a work group chat with guardrails. No old white rounded boxes, no terminal screenshot, no full code, no invented extra run result.",
+            required_labels="AutoGen, message, from, to, content, messages.append(msg), planner, coder, executor, reviewer, def discount(price): return price * 0.7, discount(100)=70, invalid input handling, print(turn), max_turns=4, role boundary, stop condition, trace, repeated discussion, too many rounds, CrewAI, work group chat.",
+            footer="Conversation can feel natural, but the stop condition must be explicit.",
+            allowed_tokens="AutoGen, message, from, to, content, messages.append(msg), planner, coder, executor, reviewer, def discount(price): return price * 0.7, discount(100)=70, print(turn), max_turns=4, role boundary, stop condition, trace, CrewAI",
+        ),
+        "ch09-autogen-message-feedback-loop-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="AutoGen：対話のターンがタスクを進める",
+            visible_subtitle="message は会話ログだけではない。誰が作業し、誰が実行し、誰が確認し、いつ止めるかを決める。",
+            teaching_goal="9.6.6 AutoGen の2つの純粋な Python 例に合わせる。messages.append(msg) の核心と code execution conversation を1枚で説明する：協調の単位は from、to、content を持つ message。planner が coder に依頼し、coder が executor に def discount(price): return price * 0.7 を送り、executor が実行して discount(100)=70 を reviewer に送り、reviewer が coder に不正入力処理の追加を求める。AutoGen スタイルの実務リスクも示す：max_turns、role boundary、stop condition がないと会話が長く回り続ける。",
+            fixed_layout="縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。上部にタイトルと副題。第1段は messages list を時間軸として描く。各 message は小さな封筒で、from、to、content の3フィールドだけを入れる。長い全文は貼らない。第2段は4つの役割をフィードバック回路として描く：planner -> coder -> executor -> reviewer -> coder。planner の吹き出しは「割引関数を書いて」、coder の吹き出しは `def discount(price): return price * 0.7`、executor の実行台は `discount(100)=70`、reviewer の赤ペン feedback は「不正入力処理を追加」。第3段は print 証拠を4枚の短い turn レシートにする：1 planner->coder、2 coder->executor、3 executor->reviewer、4 reviewer->coder。内容は本ページの出力に合わせるが短くする。第4段は制御ガード：max_turns=4、role boundary、stop condition、trace。横に暴走ループがブレーキで止まる絵を描き、「そうしないと：議論の繰り返し / ターン数過多」と書く。下部の比較メモ：CrewAI はタスク割り当て表に近い；AutoGen はガード付きの仕事用 group chat に近い。古い白い角丸箱、terminal screenshot、全文コード、存在しない追加実行結果は描かない。",
+            required_labels="AutoGen、message、from、to、content、messages.append(msg)、planner、coder、executor、reviewer、def discount(price): return price * 0.7、discount(100)=70、不正入力処理、print(turn)、max_turns=4、role boundary、stop condition、trace、議論の繰り返し、ターン数過多、CrewAI、group chat。",
+            footer="対話は自然でよいが、終了条件は必ず明確にする。",
+            allowed_tokens="AutoGen, message, from, to, content, messages.append(msg), planner, coder, executor, reviewer, def discount(price): return price * 0.7, discount(100)=70, print(turn), max_turns=4, role boundary, stop condition, trace, CrewAI, group chat",
+        ),
         "ch09-llamaindex-query-engine-flow.png": _course_qa_prompt(
             locale="zh",
             visible_title="LlamaIndex：从文档到可查询答案",
@@ -26356,6 +26386,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch09-crewai-team-roles-flow.png", "CrewAI：先组团队，再分任务", "docs/ch09-agent/ch06-frameworks/04-crewai.md", "CrewAI 团队角色流程图：researcher、writer、reviewer 如何通过 crew 名册和 tasks 看板完成退款政策总结。"),
         ("ch09-crewai-team-roles-flow-en.png", "CrewAI: Build the Team, Then Assign the Work", "docs/ch09-agent/ch06-frameworks/04-crewai.md", "CrewAI team roles flow: researcher, writer, and reviewer use a crew roster and tasks board to produce a refund-policy summary."),
         ("ch09-crewai-team-roles-flow-ja.png", "CrewAI：先にチームを作り、次に仕事を割り振る", "docs/ch09-agent/ch06-frameworks/04-crewai.md", "CrewAI チーム役割フロー：researcher、writer、reviewer が crew 名簿と tasks ボードで返金ポリシー要約を作る。"),
+        ("ch09-autogen-message-feedback-loop.png", "AutoGen：对话回合推动任务", "docs/ch09-agent/ch06-frameworks/05-autogen.md", "AutoGen 消息反馈循环图：message 的 from/to/content 如何连接 planner、coder、executor、reviewer，并用 max_turns 与 stop condition 控制轮数。"),
+        ("ch09-autogen-message-feedback-loop-en.png", "AutoGen: Conversation Turns Move the Task", "docs/ch09-agent/ch06-frameworks/05-autogen.md", "AutoGen message feedback loop: from/to/content messages connect planner, coder, executor, reviewer, with max_turns and stop condition guardrails."),
+        ("ch09-autogen-message-feedback-loop-ja.png", "AutoGen：対話のターンがタスクを進める", "docs/ch09-agent/ch06-frameworks/05-autogen.md", "AutoGen message feedback loop：from/to/content が planner、coder、executor、reviewer をつなぎ、max_turns と stop condition でターン数を制御する。"),
     ]
 )
 

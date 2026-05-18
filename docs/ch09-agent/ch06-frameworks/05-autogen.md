@@ -155,6 +155,8 @@ Expected output:
 {'from': 'reviewer', 'to': 'coder', 'content': 'Please add invalid input handling'}
 ```
 
+![AutoGen message feedback loop](/img/course/ch09-autogen-message-feedback-loop-en.webp)
+
 This example already looks very similar to the workflow skeleton in many AutoGen tutorials.
 
 ---
