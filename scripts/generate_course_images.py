@@ -24779,6 +24779,86 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="prompt-before-after",
+    pages={
+        "en": "docs/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+    },
+    scene=(
+        "A Chapter 7.5.2 opening teaching image for Prompt basics. "
+        "It must explain the exact beginner lesson in the nearby text: a vague prompt makes the model guess, while a clearer prompt specifies the task, output format, and constraints. "
+        "The image should prepare learners to read the rest of the section, where Prompt is explained as a task brief rather than a magic phrase."
+    ),
+    chapter_context=(
+        "The page first says Prompt engineering is not fancy wording or a magic phrase; it is task expression. "
+        "The bad example is a vague request like 'Please handle this content for me.' "
+        "The clearer example asks the model to summarize content into three bullet points in the target language, with each point under 20 characters, and not to add information beyond the source. "
+        "The text then teaches three layers: task goal, output format, constraints. "
+        "The image must use this same idea, not a UX-writing or product-copy example."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom handout on warm horizontal lined notebook paper, using dark navy marker outlines with blue, green, orange, and red accents. "
+        "Use the same composition for zh/en/ja: top title, left bad prompt scene, center repair bench with three missing/added layers, right good prompt scene, bottom learning rule. "
+        "Do not create a white rounded-card flowchart, slide deck, product UI mockup, pure text poster, SVG-style icon grid, or local text-overlay look. "
+        "Top: large localized title and one short subtitle. "
+        "Left side: draw a learner handing the LLM a messy sticky note. The note contains the bad prompt in the target language. Around the LLM, draw three question bubbles showing it does not know the task, format, or boundary. Show the result as a scattered answer pile that could be summary, rewrite, or classification. "
+        "Center: draw a repair bench where the vague request is split into three physical tools: a target flag for task goal, a bullet-list tray for output format, and a guardrail for constraints. This must be the main teaching action. "
+        "Right side: draw the learner handing the LLM a clean assignment card. The card shows the clearer prompt in the target language. Show the output as exactly three neat bullet slips, and show a small source book icon to indicate no added facts. "
+        "Bottom: draw a three-item checklist: task clear, format clear, constraints clear. Add a compact rule strip saying that clearer Prompt comes from clearer specification, not magic wording. "
+        "All visible text must be sparse, large, readable, and attached to the object it explains. Technical tokens may stay in English where useful: Prompt, LLM, task, format, constraints. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except those technical tokens. "
+        "For Japanese, explanatory phrases must be natural Japanese except those technical tokens. "
+        "Avoid pseudo text, tiny handwriting, random filler language, decorative-only robot art, dense paragraphs, vendor logos, and any implication that role setting or fancy wording is the core lesson."
+    ),
+    variants={
+        "zh": {
+            "title": "从模糊 Prompt 到清晰任务",
+            "subtitle": "先说清做什么、怎么输出、不能越过什么边界。",
+            "items": [
+                ("坏 Prompt", "“帮我处理一下这段内容。”"),
+                ("模型在猜", "总结？改写？分类？长度多少？"),
+                ("任务目标", "请总结下面内容。"),
+                ("输出格式", "3 条中文要点，每条不超过 20 字。"),
+                ("约束条件", "不要补充原文之外的信息。"),
+                ("稳定输出", "三条要点清楚、可检查、少跑偏。"),
+            ],
+            "footer": "Prompt 变稳，不靠神秘措辞，而靠任务规格更清楚。",
+            "alt": "Prompt 改写前后对比教学图：模糊请求让模型猜任务、格式和边界；清晰 Prompt 明确总结任务、三条中文要点和不补充原文外信息，输出更稳定。",
+        },
+        "en": {
+            "title": "From Vague Prompt to Clear Task",
+            "subtitle": "State what to do, how to output it, and what boundary to keep.",
+            "items": [
+                ("bad Prompt", "\"Please handle this content for me.\""),
+                ("model guesses", "Summarize? rewrite? classify? how long?"),
+                ("task goal", "Summarize the following content."),
+                ("output format", "3 English bullet points, each under 20 characters."),
+                ("constraints", "Do not add information beyond the source."),
+                ("stable output", "Three clear, checkable points with less drift."),
+            ],
+            "footer": "A Prompt becomes stable through clearer specification, not magic wording.",
+            "alt": "Bad-to-good Prompt comparison teaching image: a vague request makes the model guess the task, format, and boundary; a clear Prompt specifies summarization, three English bullet points, and no extra source facts, producing a more stable output.",
+        },
+        "ja": {
+            "title": "曖昧な Prompt から明確なタスクへ",
+            "subtitle": "何をするか、どう出すか、越えてはいけない境界を先に書く。",
+            "items": [
+                ("悪い Prompt", "「この内容をちょっと処理してください。」"),
+                ("モデルが推測", "要約？書き換え？分類？長さは？"),
+                ("タスク目標", "以下の内容を要約してください。"),
+                ("出力形式", "日本語の要点を 3 つ、各 20 文字以内。"),
+                ("制約条件", "原文にない情報は追加しない。"),
+                ("安定した出力", "3 つの要点が明確で、確認しやすい。"),
+            ],
+            "footer": "Prompt は不思議な言葉ではなく、仕様を明確にすると安定する。",
+            "alt": "悪い Prompt から良い Prompt への比較教育図：曖昧な依頼ではモデルがタスク、形式、境界を推測するが、明確な Prompt では要約、日本語の要点3つ、原文外情報を追加しない制約を指定し、出力が安定する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="ch07-prompt-chapter-flow",
     pages={
         "en": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",
