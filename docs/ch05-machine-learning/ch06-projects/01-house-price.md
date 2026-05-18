@@ -346,13 +346,25 @@ errors = pd.DataFrame({
 errors["abs_error"] = (errors["y_true"] - errors["y_pred"]).abs()
 errors["bucket"] = pd.cut(errors["y_true"], bins=[0, 2, 4, 6], labels=["low", "mid", "high"])
 
-print(errors.groupby("bucket")["abs_error"].mean())
+print(errors.groupby("bucket", observed=False)["abs_error"].mean())
+```
+
+Expected output:
+
+```text
+bucket
+low     0.2
+mid     0.6
+high    1.1
+Name: abs_error, dtype: float64
 ```
 
 This example is very suitable for beginners because it helps you build one key habit first:
 
 - Don’t only look at the overall average error
 - Also look at which kinds of samples are easier to get wrong
+
+In this tiny example, the high-price bucket has the largest average error. That does not prove every real house-price model will fail on high-price homes, but it shows exactly how Step 5 turns a scatter plot into an improvement question: which bucket should we investigate next?
 
 ---
 

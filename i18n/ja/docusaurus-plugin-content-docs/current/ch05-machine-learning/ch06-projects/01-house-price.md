@@ -349,13 +349,25 @@ errors = pd.DataFrame({
 errors["abs_error"] = (errors["y_true"] - errors["y_pred"]).abs()
 errors["bucket"] = pd.cut(errors["y_true"], bins=[0, 2, 4, 6], labels=["low", "mid", "high"])
 
-print(errors.groupby("bucket")["abs_error"].mean())
+print(errors.groupby("bucket", observed=False)["abs_error"].mean())
+```
+
+期待される出力：
+
+```text
+bucket
+low     0.2
+mid     0.6
+high    1.1
+Name: abs_error, dtype: float64
 ```
 
 この例は初学者にとても役立ちます。大事なのは次の習慣を作ることです。
 
 - 誤差は全体平均だけで見ない
 - どの種類のサンプルで外れやすいかも見る
+
+この小さな例では、`high` 価格帯の平均誤差が最も大きくなります。これは、すべての住宅価格モデルが高価格帯で失敗するという意味ではありません。Step 5 の使い方、つまり散布図で見えた現象を「次にどの bucket を調べるか」という改善質問へ変える練習です。
 
 ---
 

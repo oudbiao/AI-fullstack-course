@@ -346,13 +346,25 @@ errors = pd.DataFrame({
 errors["abs_error"] = (errors["y_true"] - errors["y_pred"]).abs()
 errors["bucket"] = pd.cut(errors["y_true"], bins=[0, 2, 4, 6], labels=["low", "mid", "high"])
 
-print(errors.groupby("bucket")["abs_error"].mean())
+print(errors.groupby("bucket", observed=False)["abs_error"].mean())
+```
+
+预期输出：
+
+```text
+bucket
+low     0.2
+mid     0.6
+high    1.1
+Name: abs_error, dtype: float64
 ```
 
 这个例子很适合初学者，因为它会帮助你先建立一个关键习惯：
 
 - 误差不是只看总体均值
 - 还要看哪一类样本更容易错
+
+在这个最小例子里，`high` 价格桶的平均误差最大。它不是在断言所有房价模型都会错在高价房，而是在示范 Step 5 的真正用法：把散点图里的现象变成下一轮要调查的问题。
 
 ---
 

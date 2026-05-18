@@ -183,6 +183,28 @@ print(classification_report(y_test, y_pred, target_names=['留存', '流失']))
 print(f"AUC: {roc_auc_score(y_test, rf_weighted.predict_proba(X_test)[:,1]):.4f}")
 ```
 
+这个固定随机种子的示例输出类似这样：
+
+```text
+数据形状: (5000, 16)
+流失比例: 15.3%
+流失客户: 765, 留存客户: 4235
+
+带类别权重的随机森林:
+              precision    recall  f1-score   support
+
+          留存       0.95      1.00      0.97       847
+          流失       0.97      0.73      0.83       153
+
+    accuracy                           0.95      1000
+   macro avg       0.96      0.86      0.90      1000
+weighted avg       0.96      0.95      0.95      1000
+
+AUC: 0.9681
+```
+
+读这段输出时，要和上面的图一起看：`accuracy` 很高，但真正的业务问题在 `流失` 这一行。`recall=0.73` 说明模型仍然漏掉了一部分真实流失客户。如果漏掉流失客户代价更高，下一步不一定是“换更大的模型”，也可能是复查阈值、调整类别权重，或用 SMOTE Pipeline 做对比。
+
 ### Step 2.1 为什么不要一开始就上 SMOTE
 
 更稳的顺序通常是：

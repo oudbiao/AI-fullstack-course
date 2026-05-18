@@ -183,6 +183,28 @@ print(classification_report(y_test, y_pred, target_names=['Retained', 'Churn']))
 print(f"AUC: {roc_auc_score(y_test, rf_weighted.predict_proba(X_test)[:,1]):.4f}")
 ```
 
+Example output from this fixed random seed:
+
+```text
+Data shape: (5000, 16)
+Churn rate: 15.3%
+Churn customers: 765, Retained customers: 4235
+
+Random Forest with class weights:
+              precision    recall  f1-score   support
+
+    Retained       0.95      1.00      0.97       847
+       Churn       0.97      0.73      0.83       153
+
+    accuracy                           0.95      1000
+   macro avg       0.96      0.86      0.90      1000
+weighted avg       0.96      0.95      0.95      1000
+
+AUC: 0.9681
+```
+
+Read this output with the diagram above: accuracy is high, but the key business question is the `Churn` row. A recall of `0.73` means the model still misses some customers who truly churn. If missed churn is expensive, the next experiment is not simply “try a bigger model”; it may be a threshold review, a different class-weight setting, or a SMOTE pipeline comparison.
+
 ### Step 2.1 Why you should not jump straight to SMOTE
 
 A more stable order is usually:
