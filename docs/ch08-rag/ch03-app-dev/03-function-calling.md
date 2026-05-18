@@ -51,7 +51,7 @@ This may look usable, but it is actually fragile:
 
 - The format may not be stable
 - Parameter names may be wrong
-- The city name may be written as “Beijing” or “Beijing”
+- The city name may be written as “Beijing”, “beijing”, or “Beijing City”
 - It may even output a lot of extra explanation
 
 ### What is the real problem?

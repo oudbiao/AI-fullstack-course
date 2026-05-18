@@ -228,8 +228,13 @@ def answer_with_rag(query):
     if not hits:
         return "No sufficiently relevant information was found in the knowledge base."
 
+    best = hits[0]
     context = "\\n".join([f"- {doc['title']}: {doc['content']}" for doc in hits])
-    return f"Based on the retrieval results from the knowledge base:\\n{context}\\n\\nAnswer: Please prioritize the policy above."
+    return (
+        f"Based on the retrieval results from the knowledge base:\\n{context}"
+        f"\\n\\nAnswer draft: {best['content']}"
+        f"\\nSource: {best['title']}"
+    )
 
 query = "How long after purchase can I get a refund?"
 print(answer_with_rag(query))
@@ -241,7 +246,8 @@ Expected output:
 Based on the retrieval results from the knowledge base:
 - Refund Policy: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
 
-Answer: Please prioritize the policy above.
+Answer draft: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
+Source: Refund Policy
 ```
 
 Although simplified, this example already fully shows the structure of RAG.
@@ -395,19 +401,22 @@ User question: How do I get a completion certificate?
 Based on the retrieval results from the knowledge base:
 - Certificate Info: After completing all required items and passing the course completion test, you can receive a course completion certificate.
 
-Answer: Please prioritize the policy above.
+Answer draft: After completing all required items and passing the course completion test, you can receive a course completion certificate.
+Source: Certificate Info
 ==================================================
 User question: Which fundamentals should I complete first?
 Based on the retrieval results from the knowledge base:
 - Learning Approach: The course supports stage-by-stage learning. It is recommended to first complete Python, data analysis, and machine learning fundamentals.
 
-Answer: Please prioritize the policy above.
+Answer draft: The course supports stage-by-stage learning. It is recommended to first complete Python, data analysis, and machine learning fundamentals.
+Source: Learning Approach
 ==================================================
 User question: Can I get a refund?
 Based on the retrieval results from the knowledge base:
 - Refund Policy: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
 
-Answer: Please prioritize the policy above.
+Answer draft: Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund.
+Source: Refund Policy
 ```
 
 This is the smallest prototype of many AI Q&A products.

@@ -210,21 +210,19 @@ RAG でも同じです。
 
 ```python
 def rewrite_query(query):
-    replacements = {
-        "講座をやめたい": "返金したい",
-        "コースをやめてもいい？": "返金できますか？",
-        "証明書を取りたい": "証明書を取得したい",
-        "講座をやめる": "返金",
-        "コースをやめる": "返金",
-        "証明書を取る": "証明書",
-        "卒業証書": "証明書"
+    rewrite_rules = {
+        "講座をやめたい": "返金条件 講座キャンセル",
+        "コースをやめてもいい": "返金条件 講座キャンセル",
+        "この場合、まだ返金できますか": "返金条件 購入日 学習進捗",
+        "証明書を取りたい": "証明書条件 プロジェクト完了 テスト合格",
+        "卒業証書": "証明書条件 プロジェクト完了 テスト合格",
     }
-    new_query = query
-    for old, new in replacements.items():
-        new_query = new_query.replace(old, new)
-    return new_query
+    for phrase, retrieval_query in rewrite_rules.items():
+        if phrase in query:
+            return retrieval_query
+    return query
 
-queries = ["講座をやめたい", "証明書を取りたい", "コースをやめてもいい？"]
+queries = ["講座をやめたい", "証明書を取りたい", "この場合、まだ返金できますか？"]
 
 for q in queries:
     print(q, "->", rewrite_query(q))
@@ -233,10 +231,12 @@ for q in queries:
 期待される出力：
 
 ```text
-講座をやめたい -> 返金したい
-証明書を取りたい -> 証明書を取得したい
-コースをやめてもいい？ -> 返金できますか？
+講座をやめたい -> 返金条件 講座キャンセル
+証明書を取りたい -> 証明書条件 プロジェクト完了 テスト合格
+この場合、まだ返金できますか？ -> 返金条件 購入日 学習進捗
 ```
+
+書き換え後のクエリは、きれいな自然文である必要はありません。検索しやすいキーワードのまとまりにすることが目的です。
 
 実際のシステムでは、query rewrite を LLM が担当することもあります。
 

@@ -210,18 +210,24 @@ At this point, the system often rewrites the question into something more suitab
 
 ```python
 def rewrite_query(query):
-    replacements = {
-        "drop a course": "refund",
-        "cancel the course": "refund",
-        "earn a certificate": "certificate",
-        "graduation certificate": "certificate"
+    rewrite_rules = {
+        "drop a course": "refund policy course cancellation",
+        "cancel the course": "refund policy course cancellation",
+        "refund in my case": "refund eligibility purchase date learning progress",
+        "earn a certificate": "certificate requirements course completion test",
+        "graduation certificate": "certificate requirements course completion test",
     }
-    new_query = query
-    for old, new in replacements.items():
-        new_query = new_query.replace(old, new)
-    return new_query
+    lowered = query.lower()
+    for phrase, retrieval_query in rewrite_rules.items():
+        if phrase in lowered:
+            return retrieval_query
+    return query
 
-queries = ["How do I drop a course?", "I want to earn a certificate", "Can I cancel the course?"]
+queries = [
+    "How do I drop a course?",
+    "I want to earn a certificate",
+    "Can I still refund in my case?",
+]
 
 for q in queries:
     print(q, "->", rewrite_query(q))
@@ -230,10 +236,12 @@ for q in queries:
 Expected output:
 
 ```text
-How do I drop a course? -> How do I refund?
-I want to earn a certificate -> I want to certificate
-Can I cancel the course? -> Can I refund?
+How do I drop a course? -> refund policy course cancellation
+I want to earn a certificate -> certificate requirements course completion test
+Can I still refund in my case? -> refund eligibility purchase date learning progress
 ```
+
+Notice that the rewritten query does not have to be a beautiful natural sentence. Its job is to become a better retrieval phrase.
 
 In real systems, query rewrite may be done by an LLM.
 

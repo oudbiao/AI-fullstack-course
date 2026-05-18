@@ -210,20 +210,19 @@ RAG 也是一样。
 
 ```python
 def rewrite_query(query):
-    replacements = {
-        "怎么退课": "怎么退款",
-        "我想拿证": "我想要证书",
-        "退课": "退款",
-        "退掉课程": "退款",
-        "拿证": "证书",
-        "毕业证": "证书"
+    rewrite_rules = {
+        "怎么退课": "退款政策 课程取消",
+        "退掉课程": "退款政策 课程取消",
+        "我这个情况还能退吗": "退款条件 购买时间 学习进度",
+        "我想拿证": "证书要求 完成项目 通过测试",
+        "毕业证": "证书要求 完成项目 通过测试",
     }
-    new_query = query
-    for old, new in replacements.items():
-        new_query = new_query.replace(old, new)
-    return new_query
+    for phrase, retrieval_query in rewrite_rules.items():
+        if phrase in query:
+            return retrieval_query
+    return query
 
-queries = ["怎么退课", "我想拿证", "退掉课程可以吗"]
+queries = ["怎么退课", "我想拿证", "我这个情况还能退吗"]
 
 for q in queries:
     print(q, "->", rewrite_query(q))
@@ -232,10 +231,12 @@ for q in queries:
 预期输出：
 
 ```text
-怎么退课 -> 怎么退款
-我想拿证 -> 我想要证书
-退掉课程可以吗 -> 退款可以吗
+怎么退课 -> 退款政策 课程取消
+我想拿证 -> 证书要求 完成项目 通过测试
+我这个情况还能退吗 -> 退款条件 购买时间 学习进度
 ```
+
+注意，改写后的查询不一定要是一句漂亮的自然语言。它的任务是变成更适合检索的关键词组合。
 
 真实系统里，query rewrite 可能由 LLM 来完成。
 
