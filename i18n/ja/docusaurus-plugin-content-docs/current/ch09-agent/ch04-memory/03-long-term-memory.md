@@ -317,7 +317,7 @@ u_002 profile: {'response_style': 'table'}
 
 ```python
 facts = [
-    {"text": "以後はできるだけ中国語で", "stability": "high", "target": "long_term"},
+    {"text": "以後はできるだけ日本語で", "stability": "high", "target": "long_term"},
     {"text": "今回は少し短めに", "stability": "low", "target": "short_term"},
 ]
 
@@ -328,7 +328,7 @@ for fact in facts:
 期待される出力：
 
 ```text
-{'text': '以後はできるだけ中国語で', 'stability': 'high', 'target': 'long_term'}
+{'text': '以後はできるだけ日本語で', 'stability': 'high', 'target': 'long_term'}
 {'text': '今回は少し短めに', 'stability': 'low', 'target': 'short_term'}
 ```
 
@@ -359,7 +359,7 @@ def select_relevant_profile(profile, query):
     if "回答" in query or "スタイル" in query:
         if "response_style" in profile:
             selected["response_style"] = profile["response_style"]
-    if "中国語" in query or "言語" in query:
+    if "日本語" in query or "言語" in query:
         if "language" in profile:
             selected["language"] = profile["language"]
     return selected

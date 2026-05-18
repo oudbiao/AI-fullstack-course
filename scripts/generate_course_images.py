@@ -35088,6 +35088,130 @@ CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_PROMPTS = {
 
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_PROMPTS)
 
+CH09_MEMORY_LAYER_SELECTION_REMAKE_PROMPTS = {
+    "ch09-memory-layer-selection-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="记忆分层选择：这条信息放哪里？",
+        visible_subtitle="当前任务、稳定偏好、具体经历、可复用流程，要进入不同记忆层。",
+        teaching_goal=(
+            "服务第 9 章 9.4.2 记忆系统概述。读者要先看图理解：Agent 记忆不是把全部历史塞进上下文，"
+            "而是判断每条信息应该进入 short-term、long-term、episodic 或 procedural memory。"
+            "图必须贴合正文表格：短期记忆像工作台，长期记忆像档案库，情景记忆像任务经历记录，程序记忆像操作手册。"
+        ),
+        fixed_layout=(
+            "竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。"
+            "顶部画一个输入托盘，里面有 4 张信息卡：本次退款问题、长期偏好、一次失败经历、已验证流程。"
+            "中间画四个清楚的区域而不是纯流程框："
+            "1 短期记忆=当前工作台，放最近对话、当前目标、临时工具结果；"
+            "2 长期记忆=档案抽屉，放稳定偏好、用户背景、项目背景；"
+            "3 情景记忆=案例日志本，放某次任务发生了什么和结果；"
+            "4 程序记忆=操作手册，放可复用步骤和 SOP。"
+            "每张输入卡用箭头放入正确区域，并在旁边画一个红色反例小角落：不要全塞进 context。"
+            "底部画 Agent 助教拿着选择检查表：当前任务？稳定可复用？具体经历？可复用流程？"
+            "不要画白底圆角框堆叠、企业仪表盘、纯文字海报、密集小字或旧 SVG 风格。"
+        ),
+        required_labels=(
+            "输入信息、短期记忆、当前工作台、长期记忆、档案抽屉、情景记忆、案例日志、程序记忆、操作手册、"
+            "最近对话、当前目标、稳定偏好、项目背景、发生了什么、可复用步骤、不要全塞进 context、选择检查表。"
+        ),
+        footer="先判断信息类型，再决定写入哪一层记忆。",
+        allowed_tokens=(
+            "Agent, short-term memory, long-term memory, episodic memory, procedural memory, context, SOP"
+        ),
+    ),
+    "ch09-memory-layer-selection-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Memory Layer Selection: Where Should This Go?",
+        visible_subtitle="Current task, stable preference, concrete episode, and reusable workflow belong in different layers.",
+        teaching_goal=(
+            "Serve Chapter 9 section 9.4.2 on memory system overview. Learners should see that Agent memory is not stuffing all history into context. "
+            "Each piece of information should be routed to short-term, long-term, episodic, or procedural memory. "
+            "The image must match the section table: short-term memory is a workbench, long-term memory is an archive, episodic memory is a case log, and procedural memory is an operation manual."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. "
+            "Top: draw an input tray with 4 information cards: this refund question, long-term preference, one failed episode, validated workflow. "
+            "Middle: draw four concrete zones, not pure flow boxes: "
+            "1 short-term memory = current workbench, holding recent messages, current goal, temporary tool result; "
+            "2 long-term memory = archive drawer, holding stable preference, user background, project background; "
+            "3 episodic memory = case logbook, holding what happened in one task and its result; "
+            "4 procedural memory = operation manual, holding reusable steps and SOP. "
+            "Route each input card into the correct zone with arrows, and add a small red counterexample corner: do not stuff everything into context. "
+            "Bottom: draw a robot tutor holding a selection checklist: current task? stable and reusable? concrete episode? reusable workflow? "
+            "Do not draw stacked white rounded cards, a corporate dashboard, a pure text poster, tiny dense text, or old SVG style."
+        ),
+        required_labels=(
+            "input information, short-term memory, current workbench, long-term memory, archive drawer, episodic memory, case log, procedural memory, operation manual, "
+            "recent messages, current goal, stable preference, project background, what happened, reusable steps, do not stuff everything into context, selection checklist."
+        ),
+        footer="Classify the information first, then choose the memory layer.",
+        allowed_tokens=(
+            "Agent, short-term memory, long-term memory, episodic memory, procedural memory, context, SOP"
+        ),
+    ),
+    "ch09-memory-layer-selection-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="記憶階層の選び方：これはどこに置く？",
+        visible_subtitle="現在のタスク、安定した好み、具体的な経験、再利用できる手順は別の層に置く。",
+        teaching_goal=(
+            "第 9 章 9.4.2 記憶システム概説に合わせる。Agent の記憶は全履歴を context に詰め込むことではなく、"
+            "情報ごとに short-term、long-term、episodic、procedural memory のどこへ置くかを判断することだと示す。"
+            "本文の表に合わせ、短期記憶は作業台、長期記憶は収納庫、エピソード記憶はケースログ、手続き記憶は操作マニュアルとして見せる。"
+        ),
+        fixed_layout=(
+            "縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "上部に入力トレイを描き、4 枚の情報カードを入れる：今回の返金質問、長期的な好み、1 回の失敗経験、検証済みフロー。"
+            "中央に 4 つの具体的な領域を描く。純粋な flowchart box にしない："
+            "1 短期記憶=現在の作業台。最近の会話、現在の目標、一時的な tool 結果を置く；"
+            "2 長期記憶=収納引き出し。安定した好み、ユーザー背景、プロジェクト背景を置く；"
+            "3 エピソード記憶=ケースログ。あるタスクで何が起き、結果がどうだったかを置く；"
+            "4 手続き記憶=操作マニュアル。再利用できる手順と SOP を置く。"
+            "各入力カードを正しい領域へ矢印で入れ、右下に赤い反例コーナーを置く：すべてを context に詰め込まない。"
+            "下部にロボット講師が選択チェックリストを持つ：現在のタスク？安定して再利用可能？具体的な経験？再利用できる手順？"
+            "白い角丸カードの山、企業 dashboard、文字だけのポスター、細かすぎる文字、古い SVG 風は避ける。"
+        ),
+        required_labels=(
+            "入力情報、短期記憶、現在の作業台、長期記憶、収納引き出し、エピソード記憶、ケースログ、手続き記憶、操作マニュアル、"
+            "最近の会話、現在の目標、安定した好み、プロジェクト背景、何が起きたか、再利用できる手順、context に全部詰め込まない、選択チェックリスト。"
+        ),
+        footer="まず情報の種類を見分けてから、書き込む記憶層を選ぶ。",
+        allowed_tokens=(
+            "Agent, short-term memory, long-term memory, episodic memory, procedural memory, context, SOP"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH09_MEMORY_LAYER_SELECTION_REMAKE_PROMPTS)
+
+CH09_MEMORY_LAYER_SELECTION_REMAKE_META = [
+    (
+        "ch09-memory-layer-selection-map-en.png",
+        "Memory Layer Selection: Where Should This Go?",
+        "Memory layer selection map showing how current task details, stable preferences, concrete episodes, and reusable workflows route to short-term, long-term, episodic, and procedural memory.",
+    ),
+    (
+        "ch09-memory-layer-selection-map-ja.png",
+        "記憶階層の選び方：これはどこに置く？",
+        "現在のタスク、安定した好み、具体的な経験、再利用できる手順を short-term、long-term、episodic、procedural memory に振り分ける記憶階層選択図。",
+    ),
+]
+
+existing_filenames_for_ch09_memory_layer_selection = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH09_MEMORY_LAYER_SELECTION_REMAKE_META:
+    if filename not in existing_filenames_for_ch09_memory_layer_selection:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch09-agent/ch04-memory/01-memory-overview.md",
+                "alt": alt,
+                "prompt": CH09_MEMORY_LAYER_SELECTION_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch09_memory_layer_selection.add(filename)
+
 CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_META = [
     (
         "agent-system-architecture-en.png",
