@@ -105,6 +105,8 @@ print(ecosystem)
 {'clients': ['IDE 助手', '桌面 Agent', '企业工作台'], 'servers': ['文件系统 server', '数据库 server', '浏览器 server'], 'connectors': ['filesystem', 'database', 'browser']}
 ```
 
+![MCP 生态能力网络图](/img/course/ch09-mcp-ecosystem-network-map.webp)
+
 这段代码虽然简单，但它说明了生态里的三层：
 
 - 谁来用

@@ -26203,6 +26203,36 @@ COURSE_QA_PROMPTS.update(
             footer="MCP は外部能力を、発見可能、認可可能、追跡可能な呼び出しに変える。",
             allowed_tokens="MCP Server, MCP Client, tools, resources, prompts, search_docs, course://ch09-agent, study_plan, server_ready, can_call, list_tools, discover, observation, agent decision",
         ),
+        "ch09-mcp-ecosystem-network-map.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="MCP 生态：从一次调用到能力网络",
+            visible_subtitle="多客户端、多 server、多 connector 共用同一套协议，新增能力接入成本才会下降。",
+            teaching_goal="服务 9.5.6 MCP 生态与实践。读者要看懂正文中的 ecosystem 字典不是普通列表，而是在说明 MCP 的生态价值：IDE 助手、桌面 Agent、企业工作台等多个 client，可以通过统一 MCP protocol 使用文件系统 server、数据库 server、浏览器 server；filesystem、database、browser connector 把异构能力接入同一套工具目录、描述和调用流程。图要强调一对一 demo 价值有限，生态网络才会降低新增参与者成本。",
+            fixed_layout="竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。左上角放一个小反例角落：one-off integration，三个杂乱私有 adapter/glue code 分别接 file、database、browser，线缆打结，说明只做一次调用会越接越乱。主区域是能力网络：左侧三张 client 角色卡，分别是 IDE 助手、桌面 Agent、企业工作台；中间画一条统一协议环或桥，标签 MCP protocol / unified contract，桥上放三枚印章：统一工具目录、统一描述、统一调用；右侧是三个 MCP server 工作台：文件系统 server、数据库 server、浏览器 server。每个 server 下方对应 connector 色带：filesystem、database、browser。下半部分画新增参与者接入：新 client 或新 server 只要读同一份 contract 就能加入，旁边用下降箭头表示 onboarding cost 降低。右下角画治理检查板：权限、审计、配额、版本、质量。底部总结要把生态价值和兼容性连起来。不要画白底圆角框堆叠、纯流程框、复杂网络海报、品牌 logo 或密集小字。",
+            required_labels="多个 Client、多个 Server、connectors、MCP protocol、统一工具目录、统一描述、统一调用、filesystem、database、browser、IDE 助手、桌面 Agent、企业工作台、文件系统 server、数据库 server、浏览器 server、兼容性、治理、权限、审计、配额、版本、新增参与者成本下降。",
+            footer="MCP 的生态价值来自共同契约：接入越多，复用越多，新增成本越低。",
+            allowed_tokens="MCP, Client, Server, connector, connectors, MCP protocol, unified contract, IDE, Agent, filesystem, database, browser, adapter, glue code, onboarding cost",
+        ),
+        "ch09-mcp-ecosystem-network-map-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="MCP Ecosystem: From One Call to a Capability Network",
+            visible_subtitle="Many clients, servers, and connectors share one contract, so adding capabilities gets cheaper.",
+            teaching_goal="Serve 9.5.6 MCP Ecosystem and Practice. Learners should see that the ecosystem dictionary is not just a list. It explains MCP's ecosystem value: IDE assistants, desktop Agents, and enterprise workspaces can use file system servers, database servers, and browser servers through one MCP protocol; filesystem, database, and browser connectors bring heterogeneous capabilities into the same tool catalog, description format, and invocation flow. Emphasize that one-to-one demos have limited value, while an ecosystem network lowers the cost of adding new participants.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. Upper-left small counterexample corner: one-off integration with three tangled private adapter/glue-code cables separately connecting file, database, and browser, showing that one-time calls become messy. Main area is a capability network: left side has three client role cards: IDE assistant, desktop Agent, enterprise workspace; center has one unified protocol ring or bridge labeled MCP protocol / unified contract, with three stamps on the bridge: unified tool catalog, unified descriptions, unified invocation; right side has three MCP server workbenches: file system server, database server, browser server. Under each server, draw connector bands: filesystem, database, browser. Lower section shows onboarding a new participant: a new client or new server reads the same contract and joins, with a downward arrow for lower onboarding cost. Lower-right governance checklist: permission, audit, quota, version, quality. Bottom takeaway links ecosystem value to compatibility. Avoid stacked white rounded boxes, pure flowchart boxes, complex decorative network posters, brand logos, and dense tiny text.",
+            required_labels="multiple clients, multiple servers, connectors, MCP protocol, unified contract, unified tool catalog, unified descriptions, unified invocation, filesystem, database, browser, IDE assistant, desktop Agent, enterprise workspace, file system server, database server, browser server, compatibility, governance, permission, audit, quota, version, lower onboarding cost.",
+            footer="MCP's ecosystem value comes from a shared contract: more adoption, more reuse, lower onboarding cost.",
+            allowed_tokens="MCP, Client, Server, connector, connectors, MCP protocol, unified contract, IDE, Agent, filesystem, database, browser, adapter, glue code, onboarding cost",
+        ),
+        "ch09-mcp-ecosystem-network-map-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="MCP エコシステム：単発呼び出しから能力ネットワークへ",
+            visible_subtitle="複数の client、server、connector が同じ契約を使うと、新しい能力を接続しやすくなる。",
+            teaching_goal="9.5.6 MCP エコシステムと実践に合わせる。本文の ecosystem 辞書は単なる一覧ではなく、MCP のエコシステム価値を示していると分かる図にする。IDE アシスタント、デスクトップ Agent、企業ワークベンチなど複数の client が、1 つの MCP protocol を通じてファイルシステム server、データベース server、ブラウザ server を使える。filesystem、database、browser の connector が異種の能力を同じ tool catalog、description、invocation flow に接続する。一対一の demo は価値が限定的で、エコシステムネットワークになると新しい参加者の接続コストが下がることを強調する。",
+            fixed_layout="縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。左上に小さな悪い例：one-off integration。file、database、browser に別々の private adapter / glue code のケーブルが絡まって接続され、単発呼び出しだけでは接続が乱れることを示す。主領域は能力ネットワーク。左側に3つの client 役割カード：IDE アシスタント、デスクトップ Agent、企業ワークベンチ。中央に統一 protocol の輪または橋を描き、MCP protocol / unified contract と表示し、橋の上に3つの印：統一 tool catalog、統一 description、統一 invocation。右側に3つの MCP server 作業台：ファイルシステム server、データベース server、ブラウザ server。各 server の下に connector の帯：filesystem、database、browser。下部は新しい参加者の接続：新しい client または server が同じ contract を読めば参加でき、下降矢印で onboarding cost が下がることを示す。右下に governance チェック板：権限、監査、quota、version、品質。最下部でエコシステム価値と互換性を結ぶ。白い角丸箱の山、純粋な flowchart、装飾だけの複雑ネットワーク、brand logo、細かすぎる文字は避ける。",
+            required_labels="複数 client、複数 server、connectors、MCP protocol、unified contract、統一 tool catalog、統一 description、統一 invocation、filesystem、database、browser、IDE アシスタント、デスクトップ Agent、企業ワークベンチ、ファイルシステム server、データベース server、ブラウザ server、互換性、ガバナンス、権限、監査、quota、version、参加コスト低下。",
+            footer="MCP のエコシステム価値は共通契約から生まれる：接続が増えるほど再利用が増え、参加コストは下がる。",
+            allowed_tokens="MCP, Client, Server, client, server, connector, connectors, MCP protocol, unified contract, tool catalog, description, invocation, IDE, Agent, filesystem, database, browser, adapter, glue code, onboarding cost",
+        ),
     }
 )
 
@@ -26214,6 +26244,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch09-production-runtime-map-ja.png", "Agent 本番ランタイムの閉ループ", "docs/ch09-agent/ch09-deployment/00-roadmap.md", "Agent 本番ランタイム閉ループ：API entry、runtime、state_store、trace_log、cost_limit、result、rollback readiness。"),
         ("ch09-mcp-capability-bridge-en.png", "MCP Capability Bridge: Server Exposes, Client Calls", "docs/ch09-agent/ch05-mcp/00-roadmap.md", "MCP capability bridge: server exposes tools, resources, and prompts; client discovers and calls search_docs through the MCP contract."),
         ("ch09-mcp-capability-bridge-ja.png", "MCP 能力ブリッジ：Server が公開し、Client が呼ぶ", "docs/ch09-agent/ch05-mcp/00-roadmap.md", "MCP 能力ブリッジ：Server が tools、resources、prompts を公開し、Client が search_docs を MCP contract 経由で呼ぶ。"),
+        ("ch09-mcp-ecosystem-network-map.png", "MCP 生态：从一次调用到能力网络", "docs/ch09-agent/ch05-mcp/05-mcp-ecosystem.md", "MCP 生态能力网络图：多个 Client、多个 Server 和 filesystem/database/browser connectors 共用统一工具目录、描述和调用协议，降低新增参与者成本。"),
+        ("ch09-mcp-ecosystem-network-map-en.png", "MCP Ecosystem: From One Call to a Capability Network", "docs/ch09-agent/ch05-mcp/05-mcp-ecosystem.md", "MCP ecosystem capability network map: multiple clients, servers, and filesystem/database/browser connectors share one tool catalog, description format, and invocation contract to lower onboarding cost."),
+        ("ch09-mcp-ecosystem-network-map-ja.png", "MCP エコシステム：単発呼び出しから能力ネットワークへ", "docs/ch09-agent/ch05-mcp/05-mcp-ecosystem.md", "MCP エコシステム能力ネットワーク図：複数 client、server、filesystem/database/browser connector が統一 tool catalog、description、invocation 契約を共有し、参加コストを下げる。"),
     ]
 )
 

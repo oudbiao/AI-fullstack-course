@@ -105,6 +105,8 @@ Expected output:
 {'clients': ['IDE assistant', 'desktop Agent', 'enterprise workspace'], 'servers': ['file system server', 'database server', 'browser server'], 'connectors': ['filesystem', 'database', 'browser']}
 ```
 
+![MCP ecosystem capability network map](/img/course/ch09-mcp-ecosystem-network-map-en.webp)
+
 Although this code is simple, it shows the three layers in the ecosystem:
 
 - who uses it

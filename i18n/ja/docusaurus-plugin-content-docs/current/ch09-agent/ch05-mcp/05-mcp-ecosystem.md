@@ -105,6 +105,8 @@ print(ecosystem)
 {'clients': ['IDE アシスタント', 'デスクトップ Agent', '企業ワークベンチ'], 'servers': ['ファイルシステム server', 'データベース server', 'ブラウザ server'], 'connectors': ['filesystem', 'database', 'browser']}
 ```
 
+![MCP エコシステム能力ネットワーク図](/img/course/ch09-mcp-ecosystem-network-map-ja.webp)
+
 このコードはとてもシンプルですが、エコシステムの 3 層を示しています。
 
 - 誰が使うのか
