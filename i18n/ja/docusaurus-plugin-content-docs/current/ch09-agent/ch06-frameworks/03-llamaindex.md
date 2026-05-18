@@ -235,6 +235,8 @@ print(query_engine("返金ポリシーは何ですか"))
 {'answer': 'コース購入後 7 日以内かつ学習進捗が 20% 未満の場合は返金可能です。', 'source': 'doc1'}
 ```
 
+![LlamaIndex 文書から問い合わせ可能な答えへの流れ](/img/course/ch09-llamaindex-query-engine-flow-ja.webp)
+
 この例が教えてくれるのは：
 
 > 検索は途中段階にすぎず、最終的には結果をユーザー向けの問い合わせ口としてまとめる層が必要だということです。 

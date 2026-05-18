@@ -26271,6 +26271,41 @@ COURSE_QA_PROMPTS.update(
     }
 )
 
+COURSE_QA_PROMPTS.update(
+    {
+        "ch09-llamaindex-query-engine-flow.png": _course_qa_prompt(
+            locale="zh",
+            visible_title="LlamaIndex：从文档到可查询答案",
+            visible_subtitle="Document 先变 Node，再进 Index；Retriever 找回证据，Query Engine 组织答案。",
+            teaching_goal="服务 9.6.4 LlamaIndex 的纯 Python 例子。读者即使不能运行代码，也要能看懂三段 print 输出如何连起来：documents 有 doc1 退款规则和 doc2 证书规则；nodes 是适合检索的小知识单元；TfidfVectorizer 把 node_texts 变成 index_matrix；retrieve(\"退款政策是什么\") 用 query_vec 与 index_matrix 算 cosine_similarity，best_idx 选中 doc1；query_engine 最后返回 answer 和 source。图必须贴合本页数据和输出，不要画泛泛的 RAG 海报。",
+            fixed_layout="竖向手绘课堂讲义 / 横线笔记纸。三语版本必须同构。顶部标题和副标题。第一段画两张原始 Document 卡片：doc1 写“课程购买后 7 天内且学习进度低于 20% 可退款。”，doc2 写“完成所有项目并通过测试后可获得证书。”；箭头进入 Node 切分台，输出两张 Node 小卡，字段必须有 doc_id 和 text。第二段画 Index 仓库：node_texts 进入 TfidfVectorizer，形成 index_matrix；用货架或向量格表示，不要写不存在的矩阵数值。第三段画 Retriever 放大镜：用户 query=\"退款政策是什么\" 变成 query_vec，与 index_matrix 做 cosine_similarity；画两个分数条但不要写具体分数，doc1 条更长，标 best_idx -> doc1。第四段画 Query Engine 柜台：拿到 doc1 后包装成结果小票，必须清楚写 answer=\"课程购买后 7 天内且学习进度低于 20% 可退款。\" 和 source=\"doc1\"。右侧可放三张短 print 证据小票：nodes list；retrieve -> doc1；query_engine -> answer + source。底部强调：检索只是中间层，最终要把证据组织成面向用户的查询接口。不要 terminal screenshot、不要全文代码、不要真实 LlamaIndex API、不要旧式白底圆角框。",
+            required_labels="Document、Node、Index、Retriever、Query Engine、doc1、doc2、doc_id、text、node_texts、TfidfVectorizer、index_matrix、query=\"退款政策是什么\"、query_vec、cosine_similarity、best_idx -> doc1、answer、source=\"doc1\"、nodes list、retrieve -> doc1、query_engine -> answer + source。",
+            footer="知识系统的质量，常常取决于证据怎么被切分、索引、找回和交付。",
+            allowed_tokens="LlamaIndex, Document, Node, Index, Retriever, Query Engine, doc1, doc2, doc_id, text, node_texts, TfidfVectorizer, index_matrix, query, query_vec, cosine_similarity, best_idx, answer, source, nodes list, retrieve, query_engine",
+        ),
+        "ch09-llamaindex-query-engine-flow-en.png": _course_qa_prompt(
+            locale="en",
+            visible_title="LlamaIndex: From Documents to a Queryable Answer",
+            visible_subtitle="Document becomes Node, Node enters Index; Retriever finds evidence, Query Engine formats the answer.",
+            teaching_goal="Serve the pure Python example in 9.6.4 LlamaIndex. A learner who cannot run the code should still understand how the three print outputs connect: documents contain doc1 refund policy and doc2 certificate policy; nodes are smaller knowledge units for retrieval; TfidfVectorizer turns node_texts into index_matrix; retrieve(\"What is the refund policy?\") builds query_vec, compares it with index_matrix using cosine_similarity, and best_idx selects doc1; query_engine returns answer and source. The image must match this page's data and output, not become a generic RAG poster.",
+            fixed_layout="Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must be structurally identical. Top title and subtitle. Section 1 shows two raw Document cards: doc1 says \"You can request a refund within 7 days after purchase if your learning progress is below 20%.\" and doc2 says \"You can receive a certificate after completing all projects and passing the test.\" An arrow leads into a Node splitting table, producing two Node cards with doc_id and text fields. Section 2 shows an Index warehouse: node_texts enter TfidfVectorizer and become index_matrix; use shelves or vector cells, but do not invent matrix values. Section 3 shows a Retriever magnifier: user query=\"What is the refund policy?\" becomes query_vec and is compared with index_matrix by cosine_similarity; draw two score bars with no numeric scores, make doc1 longer, label best_idx -> doc1. Section 4 shows a Query Engine counter: after receiving doc1 it wraps the result into a receipt that clearly says answer=\"You can request a refund within 7 days after purchase if your learning progress is below 20%.\" and source=\"doc1\". On the right, place three short print evidence receipts: nodes list; retrieve -> doc1; query_engine -> answer + source. Bottom emphasizes that retrieval is the middle layer; the final layer turns evidence into a user-facing query interface. No terminal screenshot, no full code, no real LlamaIndex API, no old white rounded boxes.",
+            required_labels="Document, Node, Index, Retriever, Query Engine, doc1, doc2, doc_id, text, node_texts, TfidfVectorizer, index_matrix, query=\"What is the refund policy?\", query_vec, cosine_similarity, best_idx -> doc1, answer, source=\"doc1\", nodes list, retrieve -> doc1, query_engine -> answer + source.",
+            footer="Knowledge-system quality often depends on how evidence is split, indexed, retrieved, and delivered.",
+            allowed_tokens="LlamaIndex, Document, Node, Index, Retriever, Query Engine, doc1, doc2, doc_id, text, node_texts, TfidfVectorizer, index_matrix, query, query_vec, cosine_similarity, best_idx, answer, source, nodes list, retrieve, query_engine",
+        ),
+        "ch09-llamaindex-query-engine-flow-ja.png": _course_qa_prompt(
+            locale="ja",
+            visible_title="LlamaIndex：文書から問い合わせ可能な答えへ",
+            visible_subtitle="Document は Node になり Index へ。Retriever が証拠を探し、Query Engine が答えを整える。",
+            teaching_goal="9.6.4 LlamaIndex の純粋な Python 例に合わせる。コードを実行できない読者でも、3つの print 出力がどうつながるか分かる図にする：documents には doc1 の返金ルールと doc2 の修了証ルールがある。nodes は検索しやすい小さな知識単位。TfidfVectorizer が node_texts を index_matrix に変える。retrieve(\"返金ポリシーは何ですか\") は query_vec を作り、index_matrix と cosine_similarity で比べ、best_idx が doc1 を選ぶ。query_engine は最後に answer と source を返す。図はこのページのデータと出力に合わせ、一般的な RAG ポスターにしない。",
+            fixed_layout="縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。上部にタイトルと副題。第1段は2枚の元 Document カード：doc1 に「コース購入後 7 日以内かつ学習進捗が 20% 未満の場合は返金可能です。」、doc2 に「すべてのプロジェクトを完了し、テストに合格すると修了証が取得できます。」と書く。矢印で Node 分割台に入り、doc_id と text を持つ2枚の Node カードになる。第2段は Index 倉庫：node_texts が TfidfVectorizer に入り index_matrix になる。棚や vector セルで表し、存在しない matrix 数値は書かない。第3段は Retriever の虫眼鏡：user query=\"返金ポリシーは何ですか\" が query_vec になり、index_matrix と cosine_similarity で比べられる。2本の score bar を描くが具体的な数値は書かず、doc1 を長くして best_idx -> doc1 と示す。第4段は Query Engine カウンター：doc1 を受け取り、結果レシートに answer=\"コース購入後 7 日以内かつ学習進捗が 20% 未満の場合は返金可能です。\" と source=\"doc1\" を明確に書く。右側に短い print 証拠レシートを3枚置く：nodes list；retrieve -> doc1；query_engine -> answer + source。下部では、検索は中間層で、最後は証拠をユーザー向けの問い合わせ口に整えることを強調する。terminal screenshot、全文コード、本物の LlamaIndex API、古い白い角丸箱は描かない。",
+            required_labels="Document、Node、Index、Retriever、Query Engine、doc1、doc2、doc_id、text、node_texts、TfidfVectorizer、index_matrix、query=\"返金ポリシーは何ですか\"、query_vec、cosine_similarity、best_idx -> doc1、answer、source=\"doc1\"、nodes list、retrieve -> doc1、query_engine -> answer + source。",
+            footer="知識システムの品質は、証拠をどう分割し、索引化し、探し、届けるかで決まる。",
+            allowed_tokens="LlamaIndex, Document, Node, Index, Retriever, Query Engine, doc1, doc2, doc_id, text, node_texts, TfidfVectorizer, index_matrix, query, query_vec, cosine_similarity, best_idx, answer, source, nodes list, retrieve, query_engine",
+        ),
+    }
+)
+
 COURSE_QA_IMAGE_JOB_META.extend(
     [
         ("ch08-llmops-trace-loop-en.png", "LLMOps Trace Review Loop", "docs/ch08-rag/ch04-engineering/00-roadmap.md", "LLMOps trace review loop: one request_id connects retrieval, prompt, model, format, and cost so a bad answer can be debugged."),
@@ -26285,6 +26320,9 @@ COURSE_QA_IMAGE_JOB_META.extend(
         ("ch09-langgraph-state-machine-map.png", "LangGraph：由 state 决定下一站", "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md", "LangGraph 状态机教学图：SimpleChain 固定链路与 state[\"next\"] 驱动的 plan、retrieve、answer、fallback 图式流程对比。"),
         ("ch09-langgraph-state-machine-map-en.png", "LangGraph: State Chooses the Next Stop", "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md", "LangGraph state-machine teaching map: a fixed SimpleChain path compared with a state[\"next\"] driven graph through plan, retrieve, answer, and fallback."),
         ("ch09-langgraph-state-machine-map-ja.png", "LangGraph：state が次の行き先を決める", "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md", "LangGraph 状態機械の教学図：固定 SimpleChain と、state[\"next\"] が plan、retrieve、answer、fallback を選ぶ graph flow の比較。"),
+        ("ch09-llamaindex-query-engine-flow.png", "LlamaIndex：从文档到可查询答案", "docs/ch09-agent/ch06-frameworks/03-llamaindex.md", "LlamaIndex 查询引擎流程图：Document、Node、Index、Retriever、Query Engine 如何把 doc1 退款规则组织成 answer 和 source。"),
+        ("ch09-llamaindex-query-engine-flow-en.png", "LlamaIndex: From Documents to a Queryable Answer", "docs/ch09-agent/ch06-frameworks/03-llamaindex.md", "LlamaIndex query-engine flow: Document, Node, Index, Retriever, and Query Engine turn the doc1 refund policy into answer and source."),
+        ("ch09-llamaindex-query-engine-flow-ja.png", "LlamaIndex：文書から問い合わせ可能な答えへ", "docs/ch09-agent/ch06-frameworks/03-llamaindex.md", "LlamaIndex Query Engine の流れ：Document、Node、Index、Retriever、Query Engine が doc1 の返金ルールを answer と source に整える。"),
     ]
 )
 

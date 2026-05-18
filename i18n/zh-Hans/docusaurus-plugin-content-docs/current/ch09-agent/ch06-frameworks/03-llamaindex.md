@@ -235,6 +235,8 @@ print(query_engine("退款政策是什么"))
 {'answer': '课程购买后 7 天内且学习进度低于 20% 可退款。', 'source': 'doc1'}
 ```
 
+![LlamaIndex 从文档到查询答案的流程图](/img/course/ch09-llamaindex-query-engine-flow.webp)
+
 这个例子在教你：
 
 > 检索只是中间层，最终还需要有一层把结果组织成面向用户的查询接口。

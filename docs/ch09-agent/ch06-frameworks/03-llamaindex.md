@@ -235,6 +235,8 @@ Expected output:
 {'answer': 'You can request a refund within 7 days after purchase if your learning progress is below 20%.', 'source': 'doc1'}
 ```
 
+![LlamaIndex query engine flow from documents to answer](/img/course/ch09-llamaindex-query-engine-flow-en.webp)
+
 This example is teaching you:
 
 > Retrieval is only the middle layer. In the end, you still need a layer that organizes the result into a user-facing query interface.
