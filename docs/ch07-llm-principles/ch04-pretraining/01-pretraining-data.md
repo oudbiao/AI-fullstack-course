@@ -293,6 +293,8 @@ kept docs:
 source mix: Counter({'web': 1, 'book': 1, 'forum': 1})
 ```
 
+![Data cleaning result map](/img/course/ch07-pretraining-data-cleaning-result-map-en.webp)
+
 ### What steps in real engineering does this code correspond to?
 
 Although it is very small, it corresponds to the most common actions in a pretraining pipeline:
@@ -431,6 +433,8 @@ Expected output:
  ('book', 'book_1'),
  ('code', 'code_1')]
 ```
+
+![Source mix sampling result map](/img/course/ch07-pretraining-source-mix-sampling-result-map-en.webp)
 
 This code is reminding you that:
 

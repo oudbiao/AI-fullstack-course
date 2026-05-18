@@ -24134,6 +24134,89 @@ register_svg_replacement_group(
 )
 
 register_svg_replacement_group(
+    slug="ch07-pretraining-next-token-pairs-result-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+    },
+    scene=(
+        "A Chapter 7 worked-result teaching image for the exact next-token pair code in the nearby lesson. "
+        "Use only this input list: tokens = [\"AI\", \"learns\", \"from\", \"text\"]. "
+        "Show the exact operation pairs = list(zip(tokens[:-1], tokens[1:])). "
+        "Show exactly three created pairs: (AI, learns), (learns, from), (from, text). "
+        "Show exactly this terminal output, with no extra lines: AI -> learns; learns -> from; from -> text. "
+        "Teach that the left token is the source/input and the right token is the next-token target. "
+        "Teach that this tiny toy sample is the same shape that real pretraining repeats over massive governed text. "
+        "Do not invent probabilities, loss values, hidden states, gradients, token IDs, extra words, or extra output."
+    ),
+    chapter_context=(
+        "This image appears in 7.4.1 after a small Python code block that creates next-token pairs. "
+        "The code is exactly: tokens = [\"AI\", \"learns\", \"from\", \"text\"]; pairs = list(zip(tokens[:-1], tokens[1:])); "
+        "then for source, target in pairs: print(f\"{source} -> {target}\"). "
+        "The expected output is exactly three lines: AI -> learns, learns -> from, from -> text. "
+        "The surrounding text says this tiny example is the shape of next-token prediction and real pretraining expands it to massive text with careful data governance."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom note on warm lined notebook paper, dark navy marker, blue source tokens, orange target tokens, green operation arrows, and a small terminal panel. "
+        "Use the same composition for zh/en/ja: top title, then four numbered teaching zones arranged from top to bottom. "
+        "Zone 1: a token strip with exactly four cards in order: AI, learns, from, text. "
+        "Zone 2: two shifted rows: source row contains exactly AI, learns, from; target row contains exactly learns, from, text. Draw the one-position shift clearly. "
+        "Zone 3: three large paired training cards: source AI -> target learns, source learns -> target from, source from -> target text. "
+        "Zone 4: a terminal/result panel with exactly three output lines: AI -> learns, learns -> from, from -> text, plus a small rule strip that says the target is the next token. "
+        "Make the visual feel like a teacher explaining the output of a Python snippet on paper: code fragment, arrows, sample cards, terminal result, and one practical rule. "
+        "This must not look like a white rounded-card SVG infographic, not a UI dashboard, not a decorative robot poster, not a pure text poster, and not locally overlaid text. "
+        "All labels must be large and readable on a phone. The token words AI, learns, from, text and the code expression zip(tokens[:-1], tokens[1:]) must remain exactly in English/code notation in all languages. "
+        "If you write tokens[:-1] or tokens[1:], spell the word tokens exactly: t-o-k-e-n-s. Never write tokems, tokenms, tokehs, or any other misspelling. "
+        "For Simplified Chinese, explanatory phrases must be natural Chinese except code and token words. "
+        "For Japanese, explanatory phrases must be natural Japanese except code and token words. "
+        "Avoid pseudo text, tiny notes, fake extra output, invented token IDs, and any change to the three printed lines."
+    ),
+    variants={
+        "zh": {
+            "title": "next-token 样本是怎样生成的",
+            "subtitle": "把同一句话错开一格，就得到 source -> target 训练样本。",
+            "items": [
+                ("输入 tokens", "只用 AI, learns, from, text 四个 token。"),
+                ("错开一格", "tokens[:-1] 做 source，tokens[1:] 做 target。"),
+                ("zip 配对", "每张卡都是一个 next-token 练习。"),
+                ("运行结果", "print 输出三行 source -> target。"),
+                ("记住", "模型学的是：看到左边，预测右边。"),
+            ],
+            "footer": "小例子看懂后，再把同样形状扩展到海量、治理过的文本。",
+            "alt": "next-token 样本创建运行结果图：输入 tokens 为 AI、learns、from、text，tokens[:-1] 和 tokens[1:] 错开一格后 zip 成三个样本，终端输出 AI -> learns、learns -> from、from -> text，说明模型看到 source 后预测下一个 target。",
+        },
+        "en": {
+            "title": "How Next-Token Samples Are Made",
+            "subtitle": "Shift the same sentence by one position to create source -> target practice.",
+            "items": [
+                ("input tokens", "Use only AI, learns, from, text."),
+                ("shift by one", "tokens[:-1] becomes source; tokens[1:] becomes target."),
+                ("zip pairs", "Each card is one next-token practice item."),
+                ("run result", "print emits three source -> target lines."),
+                ("remember", "The model sees the left side and predicts the right side."),
+            ],
+            "footer": "Once the toy shape is clear, scale the same shape to massive governed text.",
+            "alt": "Next-token sample creation result map: input tokens are AI, learns, from, text; tokens[:-1] and tokens[1:] shift by one position and zip into three samples; the terminal prints AI -> learns, learns -> from, and from -> text, showing that the model sees the source and predicts the next target.",
+        },
+        "ja": {
+            "title": "next-token サンプルの作り方",
+            "subtitle": "同じ文を1つずらすと source -> target の練習になる。",
+            "items": [
+                ("入力 tokens", "AI, learns, from, text の4つだけを使う。"),
+                ("1つずらす", "tokens[:-1] が source、tokens[1:] が target。"),
+                ("zip で組にする", "各カードが next-token の練習になる。"),
+                ("実行結果", "print は source -> target を3行出す。"),
+                ("覚えること", "モデルは左を見て、右の次 token を予測する。"),
+            ],
+            "footer": "小さな形を理解してから、同じ形を管理された大量 text に広げる。",
+            "alt": "next-token サンプル作成の実行結果図：入力 tokens は AI、learns、from、text で、tokens[:-1] と tokens[1:] を1つずらして zip し、AI -> learns、learns -> from、from -> text の3行を出力する。モデルは source を見て次の target を予測する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
     slug="pretraining-data-pipeline",
     pages={
         "en": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
@@ -24287,6 +24370,173 @@ register_svg_replacement_group(
             ],
             "footer": "ガバナンスは清掃だけではない。何を学ばせる価値があるかを決める工程です。",
             "alt": "事前学習データガバナンス漏斗の教育図：raw web、書籍、code、forum、docs が漏斗に入り、清掃、重複除去、品質フィルタ、個人情報と著作権のリスク管理、contamination 管理、mixture ratio の配合を通り、広告、文字化け、重複ミラー、低品質テンプレート、個人情報や著作権リスク、benchmark の答え、eval set の漏れを除外し、配方と filter log 付きの corpus version を出力する。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
+    slug="ch07-pretraining-data-cleaning-result-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+    },
+    scene=(
+        "A Chapter 7.4.2 worked-result teaching image for the exact data cleaning code in the nearby lesson. "
+        "The code starts with exactly six raw_docs, then normalize(), exact dedup using seen, quality_ok(), and Counter(source). "
+        "Teach the process and the result, not just a pretty filter picture. "
+        "Show these six decisions in order: reject coupon/ad spam, keep the first Python web sample, keep the transformer book sample, reject the lowercase Python web sample as an exact duplicate after normalization, keep the forum password/SMS sample, reject repeated laughter because repeated_char_ratio is too high. "
+        "Show the exact result summary: kept docs are web=1, book=1, forum=1; source mix is Counter({'web': 1, 'book': 1, 'forum': 1}). "
+        "Do not invent extra samples, counts, sources, percentages, or model scores. "
+        "If drawing terminal text, do not change the source labels web/book/forum or the source mix counts."
+    ),
+    chapter_context=(
+        "This image appears immediately after the expected output of the first runnable data cleaning example. "
+        "The code normalizes text to lowercase, removes repeated coupon spam, removes exact duplicates after normalization, filters repeated laughter, and keeps one web Python doc, one book transformer doc, and one forum password/SMS doc. "
+        "The surrounding text asks learners to connect the code to text normalization, exact deduplication, low-quality sample filtering, and source distribution statistics."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom worksheet on warm lined notebook paper, dark navy marker, with green keep stamps, red reject stamps, blue source labels, and orange warning notes. "
+        "Use the same composition for zh/en/ja: top title and subtitle; then a left-to-right but vertically stacked cleaning lane with six numbered document cards; each card enters normalize + seen + quality_ok checks; green kept cards flow to a clean_docs box; red rejected cards fall into a reject tray with the reason. "
+        "At the bottom, draw a result board with exactly three source chips: web 1, book 1, forum 1, and the exact code-style summary Counter({'web': 1, 'book': 1, 'forum': 1}). "
+        "Also show a tiny rule strip: normalize before dedup; filter low-value text before training; count source mix after cleaning. "
+        "This must look like a teacher debugging the code output on paper, not a white rounded-card SVG infographic, not a pure terminal screenshot, not a dashboard, not a decorative robot poster, and not a local text-overlay composition. "
+        "Use only large readable labels. Do not write full long paragraphs on cards; use exact short sample snippets that match the nearby raw_docs language. "
+        "For English, sample snippets may include 'coupon', 'Python is a programming language', 'transformer architecture', 'password reset by SMS', and 'hahahahaha'. "
+        "For English, do not invent marketing text such as GET 50% OFF, CLICK HERE, coupon code, SAVE50, or TODAY. The ad card must come from the actual lesson sample 'Click to claim a coupon!!!'. "
+        "For English, the sixth card must be source forum with text 'hahahahaha', not source web. "
+        "Do not show invented numeric repeated_char_ratio values; use pass/fail or 'too high' labels instead. "
+        "For Simplified Chinese, sample snippets may include '点击领取优惠券', 'Python is a programming language', 'transformer architecture', '我忘记密码了', and '哈哈哈哈哈哈'. "
+        "For Japanese, sample snippets may include 'クリックしてクーポン', 'Python is a programming language', 'transformer architecture', 'パスワードを忘れました', and 'はははははは'. "
+        "Technical/code tokens may remain in English: normalize(), seen, quality_ok(), exact dedup, repeated_char_ratio, clean_docs, Counter, web, book, forum. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except code/source tokens. For Japanese, explanatory phrases must be natural Japanese except code/source tokens. "
+        "Avoid pseudo text, tiny unreadable notes, wrong counts, new categories, percentages, or any source mix other than web 1, book 1, forum 1."
+    ),
+    variants={
+        "zh": {
+            "title": "数据清洗代码：每条样本为什么留下或丢弃",
+            "subtitle": "同一段代码同时做 normalize、去重、质量过滤和 source mix 统计。",
+            "items": [
+                ("拒绝广告", "点击领取优惠券 -> coupon/广告噪声。"),
+                ("保留 web", "Python 文档第一次出现，进入 clean_docs。"),
+                ("保留 book", "transformer 文档质量高，进入 clean_docs。"),
+                ("拒绝重复", "小写后的 Python 文档已在 seen 中。"),
+                ("保留 forum", "密码重置样本通过质量检查。"),
+                ("拒绝低质", "哈哈哈哈哈哈 -> repeated_char_ratio 过高。"),
+                ("结果", "Counter({'web': 1, 'book': 1, 'forum': 1})。"),
+            ],
+            "footer": "先判定每条样本，再统计留下来的来源；数据工程就是这些具体判断的累积。",
+            "alt": "数据清洗运行结果图：六条 raw_docs 经过 normalize、seen 去重和 quality_ok 过滤，广告和哈哈样本被拒绝，重复 Python 样本被去重，最终保留 web、book、forum 各一条，source mix 为 Counter({'web': 1, 'book': 1, 'forum': 1})。",
+        },
+        "en": {
+            "title": "Data Cleaning Code: Why Each Sample Stays Or Leaves",
+            "subtitle": "One small script runs normalize, dedup, quality filtering, and source mix counting.",
+            "items": [
+                ("reject ad", "coupon sample -> spam/noise."),
+                ("keep web", "First Python doc enters clean_docs."),
+                ("keep book", "Transformer doc is useful and kept."),
+                ("reject duplicate", "Lowercased Python doc is already in seen."),
+                ("keep forum", "Password reset sample passes quality_ok()."),
+                ("reject low value", "hahahahaha -> repeated_char_ratio too high."),
+                ("result", "Counter({'web': 1, 'book': 1, 'forum': 1})."),
+            ],
+            "footer": "Judge each sample first, then count what remains; data engineering is many concrete decisions.",
+            "alt": "Data cleaning result map: six raw_docs pass through normalize, seen deduplication, and quality_ok filtering; ad and laughter samples are rejected, duplicate Python sample is removed, and the final clean_docs keep one web, one book, and one forum sample with source mix Counter({'web': 1, 'book': 1, 'forum': 1}).",
+        },
+        "ja": {
+            "title": "データ清掃コード：各サンプルを残す理由・捨てる理由",
+            "subtitle": "小さな script が normalize、重複排除、品質フィルタ、source mix 集計を行う。",
+            "items": [
+                ("広告を除外", "クーポン文 -> spam/noise。"),
+                ("web を残す", "最初の Python 文書は clean_docs に入る。"),
+                ("book を残す", "transformer 文書は有用なので残す。"),
+                ("重複を除外", "小文字化後の Python 文書は seen にある。"),
+                ("forum を残す", "パスワード reset 文は quality_ok() を通る。"),
+                ("低価値を除外", "はははははは -> repeated_char_ratio が高い。"),
+                ("結果", "Counter({'web': 1, 'book': 1, 'forum': 1})。"),
+            ],
+            "footer": "各サンプルを判断してから、残った source を数える。データ工程は具体的判断の積み重ねです。",
+            "alt": "データ清掃の実行結果図：6件の raw_docs が normalize、seen による重複排除、quality_ok フィルタを通り、広告と笑いだけのサンプルは除外され、重複した Python サンプルも除外され、web、book、forum が各1件残り、source mix は Counter({'web': 1, 'book': 1, 'forum': 1}) になる。",
+        },
+    },
+    callouts=[],
+)
+
+register_svg_replacement_group(
+    slug="ch07-pretraining-source-mix-sampling-result-map",
+    pages={
+        "en": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+    },
+    scene=(
+        "A Chapter 7.4.2 worked-result teaching image for the exact mixture-based sampling code in the nearby lesson. "
+        "The code uses random.seed(42), datasets web/book/code, mix = {'web': 0.5, 'book': 0.2, 'code': 0.3}, sample_source() with cumulative probability, then 20 draws. "
+        "Teach how probability ranges produce source choices and how the printed tuple list should be read as a sampled source distribution. "
+        "The exact source sequence from the nearby expected output is: book, code, web, web, code, book, web, web, web, code, web, web, code, book, web, code, web, web, book, code. "
+        "The exact derived counts are web=10, code=6, book=4. The target recipe is web 50%, book 20%, code 30%, and this 20-draw result matches 10/4/6. "
+        "Do not invent a different random seed, source order, source sequence, source count, dataset name, item name, probability, percentage, or sample size."
+    ),
+    chapter_context=(
+        "This image appears immediately after the pprint(draws) expected output. "
+        "The surrounding lesson explains that data mixing is not throwing all data together; the sampling strategy itself is part of training design. "
+        "The code output is long and easy to skim past, so the image should convert that output into a visual source sequence, counts, and the idea of cumulative probability."
+    ),
+    shared_layout=(
+        "Vertical 9:16 hand-drawn classroom worksheet on warm lined notebook paper, dark navy marker, with blue web chips, green book chips, orange code chips, and red caution notes. "
+        "Use identical composition for zh/en/ja. "
+        "Top title and one short subtitle. "
+        "Panel 1: draw a probability ruler from 0.0 to 1.0 split into exact ranges: web 0.0-0.5, book 0.5-0.7, code 0.7-1.0. Show a small arrow labeled random.random() falls into a range, then source is selected. "
+        "The probability ruler example must match the first draw under random.seed(42): show r approximately 0.64 falling in the book range, so selected source = book and draw #1 is book. Do not show r=0.26 or selected source=web on the probability ruler. "
+        "Panel 2: draw three source jars labeled web, book, code with tiny item cards web_1/web_2/web_3, book_1/book_2, code_1/code_2. Show that after source selection, random.choice picks an item inside that jar. "
+        "If Panel 2 shows the first concrete selected item, it must be book_1, because the first printed tuple is ('book', 'book_1'). Do not show book_2 as the first selected item. It is also acceptable to show only a generic 'item from book bucket' card without a concrete item id. "
+        "Panel 3: draw exactly 20 numbered draw chips in this exact source order, split across two readable rows of ten: 1 book, 2 code, 3 web, 4 web, 5 code, 6 book, 7 web, 8 web, 9 web, 10 code; 11 web, 12 web, 13 code, 14 book, 15 web, 16 code, 17 web, 18 web, 19 book, 20 code. "
+        "Panel 4: result board with exact counts web 10, book 4, code 6, plus target recipe web 50%, book 20%, code 30%. Add note that with 20 draws the count is a sampled result, not a new dataset size. "
+        "Do not write all 20 tuple item names as dense tiny text; the nearby code block already has the tuple list. Use the source sequence and counts to teach the output. "
+        "Do not draw a dashed box containing the full tuple list. Do not draw a terminal transcript. Do not draw a large code block. Do not include any item-level list beyond the three tiny jar labels and the optional first item book_1. "
+        "If you include any code snippet at all, keep it to one or two exact short fragments from the lesson only, such as random.seed(42) and mix = {'web': 0.5, 'book': 0.2, 'code': 0.3}. Never invent or expand pseudocode. "
+        "This must look like a teacher translating printed output into an understandable sampling map, not a white rounded-card SVG infographic, not a dashboard, not a pure text poster, not a decorative robot poster, and not a local text-overlay composition. "
+        "Use only large readable labels. Technical/code tokens may stay in English: random.seed(42), random.random(), random.choice, mix, web, book, code, web_1, web_2, web_3, book_1, book_2, code_1, code_2, source, draw. "
+        "For Simplified Chinese, explanatory phrases must be Chinese except code/source tokens. For Japanese, explanatory phrases must be natural Japanese except code/source tokens. "
+        "Avoid pseudo text, tiny labels, wrong order, wrong counts, wrong source colors, or percentages other than web 50%, book 20%, code 30%."
+    ),
+    variants={
+        "zh": {
+            "title": "source mix 采样：把一串输出读成分布",
+            "subtitle": "先按 mix 选来源，再在来源内部 random.choice 选样本。",
+            "items": [
+                ("概率尺", "0.0-0.5 选 web，0.5-0.7 选 book，0.7-1.0 选 code。"),
+                ("两步抽样", "先选 source，再从对应数据桶里选 item。"),
+                ("20 次结果", "输出序列折算为 web 10、book 4、code 6。"),
+                ("训练含义", "source mix 是训练设计的一部分，会改变模型长期看到什么。"),
+            ],
+            "footer": "pprint 输出不是随机噪声；它是在展示 mix 配方如何变成训练样本流。",
+            "alt": "source mix 采样运行结果图：random.seed(42) 下，mix 为 web 0.5、book 0.2、code 0.3，先用 random.random 的累计概率选来源，再用 random.choice 从 web、book、code 数据桶中选样本。20 次抽样来源序列为 book、code、web、web、code、book、web、web、web、code、web、web、code、book、web、code、web、web、book、code，最终计数 web 10、book 4、code 6。",
+        },
+        "en": {
+            "title": "Source Mix Sampling: Read The Printed List As A Distribution",
+            "subtitle": "First choose a source from mix, then random.choice picks an item inside that source.",
+            "items": [
+                ("probability ruler", "0.0-0.5 selects web, 0.5-0.7 selects book, 0.7-1.0 selects code."),
+                ("two-step draw", "Choose source first, then choose an item from that source bucket."),
+                ("20-draw result", "The printed sequence becomes web 10, book 4, code 6."),
+                ("training meaning", "Source mix is part of training design because it changes what the model sees."),
+            ],
+            "footer": "The pprint output is not random clutter; it shows how a mixture recipe becomes a training stream.",
+            "alt": "Source mix sampling result map: with random.seed(42), mix is web 0.5, book 0.2, code 0.3. random.random selects a source by cumulative probability, then random.choice picks an item from the selected web, book, or code bucket. The 20 source draws are book, code, web, web, code, book, web, web, web, code, web, web, code, book, web, code, web, web, book, code, giving counts web 10, book 4, code 6.",
+        },
+        "ja": {
+            "title": "source mix サンプリング：出力リストを分布として読む",
+            "subtitle": "まず mix で source を選び、その source の中から random.choice で item を選ぶ。",
+            "items": [
+                ("確率ものさし", "0.0-0.5 は web、0.5-0.7 は book、0.7-1.0 は code。"),
+                ("2段階の抽選", "先に source を選び、次にその bucket から item を選ぶ。"),
+                ("20回の結果", "出力列は web 10、book 4、code 6 に整理できる。"),
+                ("学習上の意味", "source mix はモデルが長期的に何を見るかを変える学習設計です。"),
+            ],
+            "footer": "pprint の出力はただの羅列ではなく、配合レシピが学習ストリームになる様子です。",
+            "alt": "source mix サンプリングの実行結果図：random.seed(42) で mix は web 0.5、book 0.2、code 0.3。random.random が累積確率で source を選び、random.choice が選ばれた web、book、code の bucket から item を選ぶ。20回の source 列は book、code、web、web、code、book、web、web、web、code、web、web、code、book、web、code、web、web、book、code で、集計は web 10、book 4、code 6 になる。",
         },
     },
     callouts=[],

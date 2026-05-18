@@ -40,6 +40,8 @@ learns -> from
 from -> text
 ```
 
+![Next-token pair creation result map](/img/course/ch07-pretraining-next-token-pairs-result-map-en.webp)
+
 This tiny example is the shape of next-token prediction. Real pretraining repeats this over massive text with careful data governance.
 
 ## Learn in This Order

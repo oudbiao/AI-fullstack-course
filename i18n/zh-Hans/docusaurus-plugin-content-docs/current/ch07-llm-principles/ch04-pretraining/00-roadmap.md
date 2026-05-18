@@ -40,6 +40,8 @@ learns -> from
 from -> text
 ```
 
+![next-token 样本创建运行结果图](/img/course/ch07-pretraining-next-token-pairs-result-map.webp)
+
 这个小例子就是 next-token prediction 的形状。真实预训练会把它扩展到海量文本，并配合严格的数据治理。
 
 ## 按这个顺序学

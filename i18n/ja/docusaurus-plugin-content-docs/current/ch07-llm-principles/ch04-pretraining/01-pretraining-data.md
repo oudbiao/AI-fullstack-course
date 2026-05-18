@@ -292,6 +292,8 @@ kept docs:
 source mix: Counter({'web': 1, 'book': 1, 'forum': 1})
 ```
 
+![データ清掃の実行結果図](/img/course/ch07-pretraining-data-cleaning-result-map-ja.webp)
+
 ### このコードは、実際の現場ではどの工程に対応するのか？
 
 とても小さいですが、事前学習パイプラインでよくある次の処理に対応しています。
@@ -430,6 +432,8 @@ pprint(draws)
  ('book', 'book_1'),
  ('code', 'code_1')]
 ```
+
+![source mix サンプリングの実行結果図](/img/course/ch07-pretraining-source-mix-sampling-result-map-ja.webp)
 
 このコードが伝えているのは、次のことです。
 

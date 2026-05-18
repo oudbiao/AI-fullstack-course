@@ -292,6 +292,8 @@ kept docs:
 source mix: Counter({'web': 1, 'book': 1, 'forum': 1})
 ```
 
+![数据清洗运行结果图](/img/course/ch07-pretraining-data-cleaning-result-map.webp)
+
 ### 这段代码在真实工程里对应哪几步？
 
 它虽然很小，但对应的是预训练管道里最常见的动作：
@@ -430,6 +432,8 @@ pprint(draws)
  ('book', 'book_1'),
  ('code', 'code_1')]
 ```
+
+![source mix 采样运行结果图](/img/course/ch07-pretraining-source-mix-sampling-result-map.webp)
 
 这段代码在提醒你：
 

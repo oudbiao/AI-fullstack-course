@@ -40,6 +40,8 @@ learns -> from
 from -> text
 ```
 
+![next-token ペア作成の実行結果図](/img/course/ch07-pretraining-next-token-pairs-result-map-ja.webp)
+
 この小さな例が next-token prediction の形です。本物の事前学習では、これを巨大なテキストと厳密なデータガバナンスに広げます。
 
 ## この順番で学ぶ
