@@ -36164,6 +36164,611 @@ CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_PROMPTS = {
 
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_PROMPTS)
 
+CH07_PROMPT_EVALUATION_LAB_REMAKE_PROMPTS = {
+    "ch07-prompt-evaluation-lab-zh.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="Prompt 评测实验室",
+        visible_subtitle="固定 cases、同一 rubric，一次只改一层 Prompt。",
+        teaching_goal=(
+            "服务第 7 章 7.5.6 Prompt Evaluation Lab 的真实代码。图片必须让读者运行代码前就看懂："
+            "同一批 TEST_CASES 依次经过 v1_goal_only、v2_json_format、v3_with_examples；fake_model() 不调用 API；"
+            "score_output() 只认可 dict 且包含 label、reason；最后用 pass_rate 和 failures 判断下一次修哪里。"
+            "所有分数、失败原因必须和页面 expected output 一致。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，三语版本同构。不要画终端截图、白底圆角框堆叠或漂亮但空泛的机器人。"
+            "从上到下四个教学站："
+            "1 顶部固定样例夹：画 TEST_CASES 被锁住，三张样例卡只写 case_001、case_002、case_003；旁边标“输入不变”。"
+            "2 中部三条 Prompt 版本跑道：v1_goal_only、v2_json_format、v3_with_examples 都进入同一个 fake_model() 小机器；机器旁边必须有红色标志“NO API”。"
+            "3 右侧评分门 score_output()：画 parse dict、check label、check reason 三个检查点；强调输出契约是 label + reason。"
+            "4 下部结果板必须精确显示三行：v1_goal_only pass_rate 0% failures case_001 case_002 case_003；"
+            "v2_json_format pass_rate 100% failures []；v3_with_examples pass_rate 100% failures []。"
+            "在 v1 失败托盘旁写大字原因：“不是 JSON-like，无法读取 label 和 reason”。"
+            "底部画改进阶梯：只说目标 -> 加输出契约 -> 加边界示例。"
+        ),
+        required_labels=(
+            "TEST_CASES、case_001、case_002、case_003、输入不变、v1_goal_only、v2_json_format、v3_with_examples、"
+            "fake_model()、NO API、score_output()、parse dict、check label、check reason、label + reason、"
+            "pass_rate 0%、pass_rate 100%、failures case_001 case_002 case_003、failures []、"
+            "不是 JSON-like，无法读取 label 和 reason、只说目标、加输出契约、加边界示例。"
+        ),
+        footer="分数告诉你哪个版本更好，失败记录告诉你下一步修什么。",
+        allowed_tokens=(
+            "Prompt, cases, rubric, TEST_CASES, case_001, case_002, case_003, v1_goal_only, v2_json_format, "
+            "v3_with_examples, fake_model(), NO API, score_output(), parse dict, check label, check reason, "
+            "label, reason, label + reason, pass_rate, failures, JSON-like"
+        ),
+    ),
+    "ch07-prompt-evaluation-lab-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Prompt Evaluation Lab",
+        visible_subtitle="Fixed cases, one rubric, one changed Prompt layer.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.5.6 and its real Prompt Evaluation Lab code. Before running the code, learners must understand: "
+            "the same TEST_CASES run through v1_goal_only, v2_json_format, and v3_with_examples; fake_model() does not call an API; "
+            "score_output() accepts only a dict containing label and reason; pass_rate plus failures decide the next Prompt fix. "
+            "All scores and failure reasons must match the page's expected output."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "Do not make a terminal screenshot, white rounded-box stack, or decorative robot poster. Four teaching stations from top to bottom: "
+            "1 Top fixed-case folder: TEST_CASES locked, with exactly three sample cards: case_001, case_002, case_003; note inputs stay fixed. "
+            "2 Middle three Prompt version lanes: v1_goal_only, v2_json_format, v3_with_examples all feed into the same fake_model() machine; add a red NO API badge. "
+            "3 Right scoring gate score_output(): three checkpoints parse dict, check label, check reason; highlight the output contract label + reason. "
+            "4 Bottom result board with exactly three rows: v1_goal_only pass_rate 0% failures case_001 case_002 case_003; "
+            "v2_json_format pass_rate 100% failures []; v3_with_examples pass_rate 100% failures []. "
+            "Next to the v1 failure tray, write the large failure reason: not JSON-like; cannot read label or reason. "
+            "Bottom improvement ladder: task only -> output contract -> boundary examples."
+        ),
+        required_labels=(
+            "TEST_CASES, case_001, case_002, case_003, inputs stay fixed, v1_goal_only, v2_json_format, v3_with_examples, "
+            "fake_model(), NO API, score_output(), parse dict, check label, check reason, label + reason, "
+            "pass_rate 0%, pass_rate 100%, failures case_001 case_002 case_003, failures [], "
+            "not JSON-like; cannot read label or reason, task only, output contract, boundary examples."
+        ),
+        footer="Scores show which version wins; failure notes show what to fix next.",
+        allowed_tokens=(
+            "Prompt, cases, rubric, TEST_CASES, case_001, case_002, case_003, v1_goal_only, v2_json_format, "
+            "v3_with_examples, fake_model(), NO API, score_output(), parse dict, check label, check reason, "
+            "label, reason, label + reason, pass_rate, failures, JSON-like, task only, output contract, boundary examples"
+        ),
+    ),
+    "ch07-prompt-evaluation-lab-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="Prompt 評価ラボ",
+        visible_subtitle="固定 cases、同じ rubric、変える Prompt 層は1つだけ。",
+        teaching_goal=(
+            "第 7 章 7.5.6 Prompt Evaluation Lab の実コードに合わせる。コード実行前に、同じ TEST_CASES を "
+            "v1_goal_only、v2_json_format、v3_with_examples に通し、fake_model() は API を呼ばず、"
+            "score_output() は label と reason を持つ dict だけを合格にし、pass_rate と failures で次の Prompt 修正を決めると理解できる図にする。"
+            "点数と失敗理由はページの expected output と一致させる。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。"
+            "terminal screenshot、白い角丸 box の山、装飾だけの robot poster は禁止。上から下へ4つの教学ステーション："
+            "1 上部の固定 case フォルダ：TEST_CASES をロックし、case_001、case_002、case_003 の3枚カードだけを置く。横に「入力は固定」。"
+            "2 中央の3本 Prompt 版レーン：v1_goal_only、v2_json_format、v3_with_examples が同じ fake_model() 小型機械へ入る。赤い NO API バッジを付ける。"
+            "3 右側の採点ゲート score_output()：parse dict、check label、check reason の3つの検査点。出力契約は label + reason と強調する。"
+            "4 下部の結果板は3行を正確に：v1_goal_only pass_rate 0% failures case_001 case_002 case_003；"
+            "v2_json_format pass_rate 100% failures []；v3_with_examples pass_rate 100% failures []。"
+            "v1 の失敗トレイ横に大きく失敗理由を書く：「JSON-like ではなく、label と reason を読めない」。"
+            "下部の改善階段：目的だけ -> 出力契約 -> 境界例。"
+        ),
+        required_labels=(
+            "TEST_CASES、case_001、case_002、case_003、入力は固定、v1_goal_only、v2_json_format、v3_with_examples、"
+            "fake_model()、NO API、score_output()、parse dict、check label、check reason、label + reason、"
+            "pass_rate 0%、pass_rate 100%、failures case_001 case_002 case_003、failures []、"
+            "JSON-like ではなく、label と reason を読めない、目的だけ、出力契約、境界例。"
+        ),
+        footer="score は勝った版を示し、失敗記録は次の修正点を示す。",
+        allowed_tokens=(
+            "Prompt, cases, rubric, TEST_CASES, case_001, case_002, case_003, v1_goal_only, v2_json_format, "
+            "v3_with_examples, fake_model(), NO API, score_output(), parse dict, check label, check reason, "
+            "label, reason, label + reason, pass_rate, failures, JSON-like, score"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PROMPT_EVALUATION_LAB_REMAKE_PROMPTS)
+
+CH07_FINETUNING_ALIGNMENT_PIPELINE_REMAKE_PROMPTS = {
+    "finetuning-alignment-pipeline.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="从基础模型到领域助手",
+        visible_subtitle="微调不是一次训练，而是数据、训练、评估、反馈的闭环。",
+        teaching_goal=(
+            "服务第 7 章 7.6.2 微调概述。读者看图后应能理解：微调主要塑造稳定任务/风格/领域行为，"
+            "不是把最新知识硬塞进模型；工程上先准备任务数据，再用 SFT 或 LoRA/QLoRA 训练少量适配能力，"
+            "用验证集检查格式、风格、任务成功率和安全风险，部署后继续收集失败样本回到数据。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，三语版本同构。不要做白底圆角框堆叠、旧 SVG 流程框或密集小字看板。"
+            "从上到下画一条可回环的工作台路线："
+            "1 顶部左侧是基础模型大脑，只标“基础模型”；旁边有三个问题票据：知识缺失、格式不稳、风格漂移。"
+            "2 诊断分流：知识缺失指向小旁路 RAG/检索，格式不稳指向 Prompt/结构化输出，只有风格漂移和稳定任务进入微调候选。"
+            "3 中部训练工作台：任务样本、标签、失败记录进入 SFT；旁边有 LoRA/QLoRA 适配器插片，标 PEFT 只训练少量参数。"
+            "4 右侧评估门：验证集检查格式、风格、任务成功率、安全；不合格返回数据清洗和补样本。"
+            "5 底部输出是领域助手，用短场景“课程答疑助手”表示；部署监控把用户反馈和失败样本画成箭头回到任务数据。"
+        ),
+        required_labels=(
+            "基础模型、知识缺失、格式不稳、风格漂移、先判断问题类型、RAG/检索、Prompt/结构化输出、微调候选、"
+            "任务样本、标签、失败记录、SFT、LoRA/QLoRA、PEFT、少量参数、验证集、格式、风格、任务成功率、安全、"
+            "领域助手、课程答疑助手、用户反馈、失败样本、回到数据。"
+        ),
+        footer="先诊断问题，再决定是否动参数；上线后用失败样本继续改进。",
+        allowed_tokens=(
+            "RAG, Prompt, SFT, LoRA, QLoRA, PEFT, validation set, task, style, safety, feedback"
+        ),
+    ),
+    "finetuning-alignment-pipeline-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="From Base Model to Domain Assistant",
+        visible_subtitle="Finetuning is a data, training, evaluation, and feedback loop.",
+        teaching_goal=(
+            "Serve Chapter 7 section 7.6.2 Finetuning Overview. The image should teach that finetuning mainly shapes stable "
+            "task, style, or domain behavior; it is not the first answer for fresh knowledge. Engineering flow: prepare task data, "
+            "train with SFT or a LoRA/QLoRA PEFT adapter, evaluate format, style, task success, and safety on a validation set, then "
+            "collect failures after deployment and loop them back into data."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "No old SVG flowchart, white rounded-box stack, or dense tiny dashboard. Draw one looping workbench route from top to bottom: "
+            "1 Top-left base model brain labeled Base model; nearby three issue tickets: missing knowledge, unstable format, style drift. "
+            "2 Diagnosis split: missing knowledge goes to a small RAG/retrieval side path; unstable format goes to Prompt/structured output; only style drift plus stable task enters finetuning candidate. "
+            "3 Middle training bench: task examples, labels, and failure log feed SFT; beside it a LoRA/QLoRA adapter insert labeled PEFT trains few parameters. "
+            "4 Right evaluation gate: validation set checks format, style, task success, and safety; failed checks return to data cleanup and more examples. "
+            "5 Bottom output is a domain assistant, with the short scenario Course Q&A assistant; deployment monitoring sends user feedback and failure cases back to task data."
+        ),
+        required_labels=(
+            "Base model, missing knowledge, unstable format, style drift, diagnose problem type, RAG/retrieval, Prompt/structured output, finetuning candidate, "
+            "task examples, labels, failure log, SFT, LoRA/QLoRA, PEFT, few parameters, validation set, format, style, task success, safety, "
+            "domain assistant, Course Q&A assistant, user feedback, failure cases, back to data."
+        ),
+        footer="Diagnose first, then decide whether to change parameters; use failures after launch to improve.",
+        allowed_tokens=(
+            "RAG, Prompt, SFT, LoRA, QLoRA, PEFT, validation set, task, style, safety, feedback"
+        ),
+    ),
+    "finetuning-alignment-pipeline-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="基礎モデルから領域アシスタントへ",
+        visible_subtitle="微調整は一度の学習ではなく、データ・学習・評価・フィードバックの循環。",
+        teaching_goal=(
+            "第 7 章 7.6.2 微調整の概要に使う。微調整は主に安定したタスク、スタイル、領域での振る舞いを形づくるもので、"
+            "新しい知識を入れる最初の手段ではないと伝える。工程として、タスクデータを準備し、SFT または LoRA/QLoRA の PEFT アダプタで学習し、"
+            "検証セットで形式、スタイル、タスク成功、安全を確認し、公開後の失敗例をデータへ戻す流れを見せる。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。古い SVG 流れ図、白い角丸 box の山、細かい dashboard は禁止。"
+            "上から下へ回り込む作業台ルートを描く："
+            "1 左上は基礎モデルの脳で、ラベルは「基礎モデル」。横に3つの問題票：知識不足、形式が不安定、スタイルのずれ。"
+            "2 診断分岐：知識不足は小さな RAG/検索 の脇道へ、形式が不安定なら Prompt/構造化出力へ、スタイルのずれと安定タスクだけ微調整候補へ進む。"
+            "3 中央の学習作業台：タスク例、ラベル、失敗記録が SFT に入る。横に LoRA/QLoRA アダプタを差し込み、PEFT は少量パラメータだけ学習と示す。"
+            "4 右側の評価ゲート：検証セットで形式、スタイル、タスク成功、安全を確認。不合格ならデータ整理と例の追加へ戻る。"
+            "5 下部の出力は領域アシスタント。短い場面「講座QAアシスタント」を置き、公開後モニタリングからユーザー反応と失敗例がタスクデータへ戻る矢印を描く。"
+        ),
+        required_labels=(
+            "基礎モデル、知識不足、形式が不安定、スタイルのずれ、問題タイプを診断、RAG/検索、Prompt/構造化出力、微調整候補、"
+            "タスク例、ラベル、失敗記録、SFT、LoRA/QLoRA、PEFT、少量パラメータ、検証セット、形式、スタイル、タスク成功、安全、"
+            "領域アシスタント、講座QAアシスタント、ユーザー反応、失敗例、データへ戻す。"
+        ),
+        footer="まず問題を診断し、パラメータを変えるべきか決める。公開後の失敗例で改善を続ける。",
+        allowed_tokens=(
+            "RAG, Prompt, SFT, LoRA, QLoRA, PEFT, validation set, task, style, safety, feedback, QA"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_FINETUNING_ALIGNMENT_PIPELINE_REMAKE_PROMPTS)
+
+CH07_FINETUNING_ALIGNMENT_PIPELINE_REMAKE_META = [
+    (
+        "finetuning-alignment-pipeline.png",
+        "微调与对齐总流程图",
+        "微调与对齐总流程图：先诊断知识、格式、风格问题，再用任务数据、SFT、LoRA/QLoRA、验证集和反馈闭环构建领域助手。",
+    ),
+    (
+        "finetuning-alignment-pipeline-en.png",
+        "Finetuning and Alignment Pipeline",
+        "Finetuning and alignment pipeline showing problem diagnosis, task data, SFT, LoRA/QLoRA, validation checks, deployment, and feedback for a domain assistant.",
+    ),
+    (
+        "finetuning-alignment-pipeline-ja.png",
+        "微調整とアラインメントの全体フロー",
+        "問題診断、タスクデータ、SFT、LoRA/QLoRA、検証、公開、フィードバックで領域アシスタントを作る微調整とアラインメントの全体フロー。",
+    ),
+]
+
+existing_filenames_for_ch07_finetuning_alignment = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_FINETUNING_ALIGNMENT_PIPELINE_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_finetuning_alignment:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/01-finetuning-overview.md",
+                "alt": alt,
+                "prompt": CH07_FINETUNING_ALIGNMENT_PIPELINE_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_finetuning_alignment.add(filename)
+
+CH07_ALIGNMENT_HHH_TENSION_REMAKE_PROMPTS = {
+    "ch07-alignment-hhh-tension-guardrail-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="HHH 对齐不是一句口号",
+        visible_subtitle="Helpful、Honest、Harmless 要在真实请求里一起权衡。",
+        teaching_goal=(
+            "服务第 7 章对齐问题。读者看图后要理解：对齐不是让模型永远回答或永远拒绝，而是在安全求助、事实不确定、危险请求、"
+            "过度拒绝等场景里同时检查 helpful、honest、harmless。应用落地还需要 policy、评测、guardrails、人工复核和日志回放形成机制。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，三语版本同构。不要画旧 SVG 三角图、白底圆角框堆叠或纯文字海报。"
+            "所有文字都要像课堂板书一样大而清楚，不要小字、伪文字或额外说明。"
+            "1 上半部画一个 HHH 三角跷跷板/张力装置，三个顶点的标签必须准确写成 Helpful、Honest、Harmless，中间是 policy slider。"
+            "2 三角四周只放四张请求卡：安全求助、不确定事实、危险请求、过度拒绝检查；每张卡只配一个短动作标签：能帮就帮、不确定就说明、危险就拒绝、不要误拒。"
+            "3 中部画三根彩色拉力绳，让 Helpful、Honest、Harmless 同时拉住同一个回答机器人，表现三者要平衡。"
+            "4 下部画落地机制流水线，五个站点只写：policy、eval rubric、guardrails、human review、logs/replay。每个站点用具体图标表达，不要空框。"
+            "5 最底部画三格红色风险提醒，只写：危险顺从、过度拒绝、编造。"
+        ),
+        required_labels=(
+            "HHH、Helpful、Honest、Harmless、安全求助、不确定事实、危险请求、过度拒绝检查、能帮就帮、不确定就说明、"
+            "危险就拒绝、不要误拒、policy、eval rubric、guardrails、human review、logs/replay、危险顺从、过度拒绝、编造。"
+        ),
+        footer="对齐要靠可测试的机制：该帮、该承认不确定、该拒绝，都要被测出来。",
+        allowed_tokens=(
+            "HHH, Helpful, Honest, Harmless, policy, eval rubric, guardrails, human review, logs/replay, helpful, honest, harmless"
+        ),
+    ),
+    "ch07-alignment-hhh-tension-guardrail-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="HHH Alignment Is Not a Slogan",
+        visible_subtitle="Helpful, Honest, and Harmless must be balanced on real requests.",
+        teaching_goal=(
+            "Serve Chapter 7 alignment problem. Learners should see that alignment is not always answering or always refusing. "
+            "It means checking helpful, honest, and harmless behavior across safe help, uncertain facts, harmful requests, and over-refusal cases. "
+            "Production needs policy, evaluation rubric, guardrails, human review, and log replay as mechanisms."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "Do not draw an old SVG triangle, white rounded-box stack, or text-only poster. "
+            "All text must look like large classroom lettering. Do not add tiny text, pseudo text, or extra explanations. "
+            "1 Upper half: draw an HHH triangle seesaw/tension device. The three vertex labels must be spelled exactly: Helpful, Honest, Harmless. Put a policy slider in the center. "
+            "2 Around the triangle, place only four request cards: safe help, uncertain fact, harmful request, over-refusal check. Each card has one short action label only: help, disclose uncertainty, refuse harm, do not over-refuse. "
+            "3 Middle: draw three colored tension ropes pulling one answer robot, showing that Helpful, Honest, and Harmless must balance at the same time. "
+            "4 Lower: draw a production mechanism pipeline with exactly five station labels: policy, eval rubric, guardrails, human review, logs/replay. Use concrete icons, not empty boxes. "
+            "5 Bottom: draw three red risk tiles labeled only: unsafe compliance, over-refusal, fabrication."
+        ),
+        required_labels=(
+            "HHH, Helpful, Honest, Harmless, safe help, uncertain fact, harmful request, over-refusal check, help, disclose uncertainty, "
+            "refuse harm, do not over-refuse, policy, eval rubric, guardrails, human review, logs/replay, unsafe compliance, over-refusal, fabrication."
+        ),
+        footer="Alignment needs testable mechanisms: help, uncertainty, and refusal must all be measured.",
+        allowed_tokens=(
+            "HHH, Helpful, Honest, Harmless, policy, eval rubric, guardrails, human review, logs/replay, helpful, honest, harmless"
+        ),
+    ),
+    "ch07-alignment-hhh-tension-guardrail-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="HHH Alignment は合言葉ではない",
+        visible_subtitle="Helpful、Honest、Harmless を実際の依頼で同時に調整する。",
+        teaching_goal=(
+            "第 7 章の alignment problem に使う。alignment は常に答えることでも常に拒否することでもなく、"
+            "安全な依頼、不確実な事実、危険な依頼、過剰拒否のケースで helpful、honest、harmless を同時に見ることだと示す。"
+            "実運用では policy、eval rubric、guardrails、human review、logs/replay が必要だと伝える。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。古い SVG 三角図、白い角丸 box の山、文字だけの poster は禁止。"
+            "文字は授業の板書のように大きく読みやすくする。小字、疑似文字、余分な説明は入れない。"
+            "1 上半分に HHH の三角シーソー / 張力装置を描く。3頂点のラベルは正確に Helpful、Honest、Harmless。中央に policy slider。"
+            "2 三角の周りに4枚だけ依頼カードを置く：安全な依頼、不確実な事実、危険な依頼、過剰拒否チェック。各カードは短い行動ラベルだけ：助ける、不確実と明示、拒否する、誤拒否しない。"
+            "3 中央に3本の色付きロープを描き、1体の回答ロボットを同時に引く。Helpful、Honest、Harmless の同時バランスを見せる。"
+            "4 下部に実運用メカニズムの流れを描く。5つの駅ラベルだけ：policy、eval rubric、guardrails、human review、logs/replay。具体的な道具アイコンで表す。"
+            "5 最下部に赤いリスク3枚だけ：危険な追従、過剰拒否、作り話。"
+        ),
+        required_labels=(
+            "HHH、Helpful、Honest、Harmless、安全な依頼、不確実な事実、危険な依頼、過剰拒否チェック、助ける、"
+            "不確実と明示、拒否する、誤拒否しない、policy、eval rubric、guardrails、human review、logs/replay、"
+            "危険な追従、過剰拒否、作り話。"
+        ),
+        footer="Alignment は測れる仕組みで作る。助ける、不確実性を認める、拒否する場面をすべて測る。",
+        allowed_tokens=(
+            "HHH, Helpful, Honest, Harmless, policy, eval rubric, guardrails, human review, logs/replay, helpful, honest, harmless"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_ALIGNMENT_HHH_TENSION_REMAKE_PROMPTS)
+
+CH07_ALIGNMENT_HHH_TENSION_REMAKE_META = [
+    (
+        "ch07-alignment-hhh-tension-guardrail-map-en.png",
+        "Helpful Honest Harmless alignment tension map",
+        "HHH alignment tension map showing safe help, uncertainty, harmful requests, over-refusal, and the policy, evaluation, guardrail, review, and log replay mechanisms.",
+    ),
+    (
+        "ch07-alignment-hhh-tension-guardrail-map-ja.png",
+        "Helpful Honest Harmless 対立図",
+        "安全な依頼、不確実な事実、危険な依頼、過剰拒否と、policy、評価、guardrails、review、log replay の仕組みを示す HHH 対立図。",
+    ),
+]
+
+existing_filenames_for_ch07_hhh_tension = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_ALIGNMENT_HHH_TENSION_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_hhh_tension:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch07-alignment/01-alignment-problem.md",
+                "alt": alt,
+                "prompt": CH07_ALIGNMENT_HHH_TENSION_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_hhh_tension.add(filename)
+
+CH07_RLHF_REWARD_RESULT_REMAKE_PROMPTS = {
+    "ch07-rlhf-reward-model-training-result.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="Reward Model 学到的是偏好差值",
+        visible_subtitle="把 chosen 拉高、把 rejected 拉低，loss 才会下降。",
+        teaching_goal=(
+            "服务第 7 章 RLHF 奖励模型最小实验。图片必须和页面 expected output 完全一致，让读者看懂："
+            "偏好对先变成 chosen/rejected 特征，训练使用 diff_vector = chosen - rejected，loss 下降后得到 learned weights，"
+            "最后 Reward Model 给安全替代更高分；它只打分，不生成回答。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，三语版本同构。不要画终端截图、PPO 全流程、白底圆角框堆叠或危险操作细节。"
+            "1 顶部是三组偏好对抽屉：safe_task、unsafe_task、uncertain_fact。每组只画 chosen 绿卡和 rejected 红卡的短标签，不写长回答。"
+            "2 左中是特征抽取器 features(example, response)，五个特征芯片必须是 safe_helpful、refusal_bonus、honesty_bonus、danger_penalty、overclaim_penalty。"
+            "3 中央是差值天平，必须写 diff_vector = chosen - rejected，绿色 chosen 盘被拉高，红色 rejected 盘被压低。"
+            "4 右中是 loss 下降曲线，必须显示 epoch 000: 0.6931、epoch 100: 0.0441、epoch 200: 0.0217，并标 avg_loss 下降。"
+            "5 下中是 learned weights 面板，必须精确显示 [4.048, 4.048, 2.381, 0.0, 2.381]。"
+            "6 底部是 unsafe_task 测试评分：红卡写危险候选 score=0.000，绿卡写安全替代 score=4.048。旁边写 Reward Model 只打分，不生成回答。"
+        ),
+        required_labels=(
+            "safe_task、unsafe_task、uncertain_fact、chosen、rejected、features(example, response)、safe_helpful、refusal_bonus、honesty_bonus、"
+            "danger_penalty、overclaim_penalty、diff_vector = chosen - rejected、epoch 000: 0.6931、epoch 100: 0.0441、epoch 200: 0.0217、"
+            "avg_loss 下降、learned weights、[4.048, 4.048, 2.381, 0.0, 2.381]、危险候选、score=0.000、安全替代、score=4.048。"
+        ),
+        footer="奖励模型像学出来的裁判：给 prompt-response 对打分，本身不生成回答。",
+        allowed_tokens=(
+            "Reward Model, RLHF, chosen, rejected, loss, avg_loss, epoch, features(example, response), diff_vector, "
+            "safe_task, unsafe_task, uncertain_fact, safe_helpful, refusal_bonus, honesty_bonus, danger_penalty, "
+            "overclaim_penalty, learned weights, score, prompt-response"
+        ),
+    ),
+    "ch07-rlhf-reward-model-training-result-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Reward Model Learns Preference Gaps",
+        visible_subtitle="Raise chosen, lower rejected, and the loss falls.",
+        teaching_goal=(
+            "Serve the Chapter 7 minimal RLHF reward model experiment. The image must match the page's expected output exactly. "
+            "Learners should see that preference pairs become chosen/rejected features, training uses diff_vector = chosen - rejected, "
+            "loss falls into learned weights, and the Reward Model scores the safe alternative higher. It scores; it does not generate."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "Do not draw a terminal screenshot, full PPO pipeline, white rounded-box stack, or unsafe procedural details. "
+            "1 Top: three preference-pair drawers: safe_task, unsafe_task, uncertain_fact. Each drawer only shows short chosen green card and rejected red card labels, not long answers. "
+            "2 Middle-left: feature extractor features(example, response), with five feature chips exactly safe_helpful, refusal_bonus, honesty_bonus, danger_penalty, overclaim_penalty. "
+            "3 Center: difference scale labeled diff_vector = chosen - rejected; green chosen tray rises, red rejected tray lowers. "
+            "4 Middle-right: falling loss curve showing epoch 000: 0.6931, epoch 100: 0.0441, epoch 200: 0.0217, with label avg_loss falls. "
+            "5 Lower-middle: learned weights panel showing exactly [4.048, 4.048, 2.381, 0.0, 2.381]. "
+            "6 Bottom: unsafe_task test scoring: red card bad candidate score=0.000, green card safe alternative score=4.048. Side note: Reward Model scores; it does not generate."
+        ),
+        required_labels=(
+            "safe_task, unsafe_task, uncertain_fact, chosen, rejected, features(example, response), safe_helpful, refusal_bonus, honesty_bonus, "
+            "danger_penalty, overclaim_penalty, diff_vector = chosen - rejected, epoch 000: 0.6931, epoch 100: 0.0441, epoch 200: 0.0217, "
+            "avg_loss falls, learned weights, [4.048, 4.048, 2.381, 0.0, 2.381], bad candidate, score=0.000, safe alternative, score=4.048."
+        ),
+        footer="A reward model is a learned judge: it scores prompt-response pairs; it does not generate.",
+        allowed_tokens=(
+            "Reward Model, RLHF, chosen, rejected, loss, avg_loss, epoch, features(example, response), diff_vector, "
+            "safe_task, unsafe_task, uncertain_fact, safe_helpful, refusal_bonus, honesty_bonus, danger_penalty, "
+            "overclaim_penalty, learned weights, score, prompt-response"
+        ),
+    ),
+    "ch07-rlhf-reward-model-training-result-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="Reward Model は嗜好差を学ぶ",
+        visible_subtitle="chosen を高く、rejected を低くして、loss を下げる。",
+        teaching_goal=(
+            "第 7 章の最小 RLHF 報酬モデル実験に使う。画像はページの expected output と完全に合わせる。"
+            "嗜好ペアが chosen/rejected の特徴になり、diff_vector = chosen - rejected で学習し、loss が下がって learned weights になり、"
+            "Reward Model が安全な代替を高く採点することを示す。Reward Model は採点するだけで生成しない。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。terminal screenshot、PPO 全体図、白い角丸 box の山、危険手順の詳細は禁止。"
+            "1 上部は3つの嗜好ペア引き出し：safe_task、unsafe_task、uncertain_fact。各引き出しは chosen の緑カードと rejected の赤カードの短いラベルだけにし、長い回答文を書かない。"
+            "2 中央左は特徴抽出器 features(example, response)。5つの特徴チップは必ず safe_helpful、refusal_bonus、honesty_bonus、danger_penalty、overclaim_penalty。"
+            "3 中央は差分天秤。必ず diff_vector = chosen - rejected と書き、緑の chosen 皿が上がり、赤の rejected 皿が下がる。"
+            "4 中央右は loss 低下曲線。epoch 000: 0.6931、epoch 100: 0.0350、epoch 200: 0.0173 を正確に表示し、avg_loss が下がると書く。"
+            "5 下中央は learned weights 面板。正確に [4.048, 2.381, 2.381, 2.381, 2.381] と表示。"
+            "6 下部は unsafe_task テスト採点：赤カードは悪い候補 score=0.000、緑カードは安全な代替 score=2.381。横に Reward Model は採点するだけで生成しないと書く。"
+        ),
+        required_labels=(
+            "safe_task、unsafe_task、uncertain_fact、chosen、rejected、features(example, response)、safe_helpful、refusal_bonus、honesty_bonus、"
+            "danger_penalty、overclaim_penalty、diff_vector = chosen - rejected、epoch 000: 0.6931、epoch 100: 0.0350、epoch 200: 0.0173、"
+            "avg_loss が下がる、learned weights、[4.048, 2.381, 2.381, 2.381, 2.381]、悪い候補、score=0.000、安全な代替、score=2.381。"
+        ),
+        footer="Reward model は学習済みの採点者：prompt-response に点を付けるが、自分では生成しない。",
+        allowed_tokens=(
+            "Reward Model, RLHF, chosen, rejected, loss, avg_loss, epoch, features(example, response), diff_vector, "
+            "safe_task, unsafe_task, uncertain_fact, safe_helpful, refusal_bonus, honesty_bonus, danger_penalty, "
+            "overclaim_penalty, learned weights, score, prompt-response"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_RLHF_REWARD_RESULT_REMAKE_PROMPTS)
+
+CH07_DPO_SHORTCUT_RESULT_REMAKE_PROMPTS = {
+    "ch07-dpo-rlhf-shortcut-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="DPO 直接拉开 chosen / rejected",
+        visible_subtitle="不用先学 Reward Model，也能让偏好边距变大、loss 下降。",
+        teaching_goal=(
+            "服务第 7 章 DPO 最小示例。读者看图后要理解：RLHF 是 preference pairs -> Reward Model -> PPO 的长链，"
+            "而 DPO 直接比较 policy_margin 与 ref_margin；当 chosen logp 提高、rejected logp 降低时，"
+            "baseline loss=0.5774 会降到 improved loss=0.4214。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，三语版本同构。不要旧 SVG 风格、白底圆角框堆叠或纯道路装饰图。"
+            "1 顶部用两条路线对比：左侧 RLHF 长链只写 preference pairs -> Reward Model -> PPO -> Policy update；右侧 DPO 短链只写 chosen/rejected -> policy margin。"
+            "2 中部画三张偏好对卡片：safe_task、unsafe_task、uncertain_fact，每张都有绿色 chosen 和红色 rejected。"
+            "3 中部核心公式区写两行：policy_margin = policy_chosen_logp - policy_rejected_logp；ref_margin = ref_chosen_logp - ref_rejected_logp。用天平表现 policy_margin 要比 ref_margin 更偏向 chosen。"
+            "4 右侧画手动改动箭头：policy_chosen_logp +0.6 向上，policy_rejected_logp -0.2 向下。"
+            "5 下部画结果板，必须精确显示 baseline loss = 0.5774、improved loss = 0.4214，并用下降箭头连接。"
+            "6 最底部画一句结论：DPO 把「chosen 比 rejected 更好」直接写进训练目标。"
+        ),
+        required_labels=(
+            "RLHF 长链、DPO 短链、preference pairs、Reward Model、PPO、Policy update、chosen/rejected、policy margin、"
+            "safe_task、unsafe_task、uncertain_fact、chosen、rejected、policy_margin = policy_chosen_logp - policy_rejected_logp、"
+            "ref_margin = ref_chosen_logp - ref_rejected_logp、policy_chosen_logp +0.6、policy_rejected_logp -0.2、"
+            "baseline loss = 0.5774、improved loss = 0.4214。"
+        ),
+        footer="DPO 的捷径不是少学一点，而是直接优化偏好边距。",
+        allowed_tokens=(
+            "DPO, RLHF, Reward Model, PPO, Policy update, preference pairs, chosen, rejected, policy margin, "
+            "policy_margin, ref_margin, policy_chosen_logp, policy_rejected_logp, ref_chosen_logp, ref_rejected_logp, "
+            "safe_task, unsafe_task, uncertain_fact, baseline loss, improved loss"
+        ),
+    ),
+    "ch07-dpo-rlhf-shortcut-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="DPO Pulls Chosen Away From Rejected",
+        visible_subtitle="Skip the Reward Model step, enlarge the preference margin, and the loss falls.",
+        teaching_goal=(
+            "Serve the Chapter 7 minimal DPO example. Learners should see that RLHF is the long chain preference pairs -> Reward Model -> PPO, "
+            "while DPO directly compares policy_margin with ref_margin. When chosen logp rises and rejected logp falls, "
+            "baseline loss=0.5774 becomes improved loss=0.4214."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "Do not draw old SVG style, white rounded-box stacks, or a decorative road map. "
+            "1 Top: compare two routes. Left RLHF long path has only these labels: preference pairs -> Reward Model -> PPO -> Policy update. Right DPO shortcut has only: chosen/rejected -> policy margin. "
+            "2 Middle: draw three preference pair cards: safe_task, unsafe_task, uncertain_fact. Each card has a green chosen card and a red rejected card. "
+            "3 Core formula zone: write two lines: policy_margin = policy_chosen_logp - policy_rejected_logp; ref_margin = ref_chosen_logp - ref_rejected_logp. Use a balance scale to show policy_margin should lean more toward chosen than ref_margin. "
+            "4 Right: draw manual change arrows: policy_chosen_logp +0.6 goes up, policy_rejected_logp -0.2 goes down. "
+            "5 Lower result board: show exactly baseline loss = 0.5774 and improved loss = 0.4214 with a downward arrow. "
+            "6 Bottom takeaway: DPO writes 'chosen is better than rejected' directly into the training objective."
+        ),
+        required_labels=(
+            "RLHF long path, DPO shortcut, preference pairs, Reward Model, PPO, Policy update, chosen/rejected, policy margin, "
+            "safe_task, unsafe_task, uncertain_fact, chosen, rejected, policy_margin = policy_chosen_logp - policy_rejected_logp, "
+            "ref_margin = ref_chosen_logp - ref_rejected_logp, policy_chosen_logp +0.6, policy_rejected_logp -0.2, "
+            "baseline loss = 0.5774, improved loss = 0.4214."
+        ),
+        footer="DPO's shortcut is not learning less; it directly optimizes the preference margin.",
+        allowed_tokens=(
+            "DPO, RLHF, Reward Model, PPO, Policy update, preference pairs, chosen, rejected, policy margin, "
+            "policy_margin, ref_margin, policy_chosen_logp, policy_rejected_logp, ref_chosen_logp, ref_rejected_logp, "
+            "safe_task, unsafe_task, uncertain_fact, baseline loss, improved loss"
+        ),
+    ),
+    "ch07-dpo-rlhf-shortcut-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="DPO は chosen と rejected の差を広げる",
+        visible_subtitle="Reward Model を挟まず、嗜好の余白を広げて loss を下げる。",
+        teaching_goal=(
+            "第 7 章の最小 DPO 例に使う。RLHF は preference pairs -> Reward Model -> PPO の長い流れで、"
+            "DPO は policy_margin と ref_margin を直接比べることを示す。chosen の logp を上げ、rejected の logp を下げると、"
+            "baseline loss=0.5774 が improved loss=0.4214 へ下がる。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。古い SVG 風、白い角丸 box の山、飾りだけの道路図は禁止。"
+            "1 上部で2つのルートを比較。左の RLHF 長い流れは preference pairs -> Reward Model -> PPO -> Policy update だけを書く。右の DPO 近道は chosen/rejected -> policy margin だけを書く。"
+            "2 中央に3枚の嗜好ペアカード：safe_task、unsafe_task、uncertain_fact。各カードには緑の chosen と赤の rejected を置く。"
+            "3 中央の式エリアに2行を書く：policy_margin = policy_chosen_logp - policy_rejected_logp；ref_margin = ref_chosen_logp - ref_rejected_logp。天秤で policy_margin が ref_margin より chosen 側へ傾く様子を見せる。"
+            "4 右側に手動変更の矢印：policy_chosen_logp +0.6 は上へ、policy_rejected_logp -0.2 は下へ。"
+            "5 下部の結果ボードに baseline loss = 0.5774、improved loss = 0.4214 を正確に表示し、下降矢印でつなぐ。"
+            "6 最下部の結論：DPO は「chosen は rejected より良い」を学習目標へ直接入れる。"
+        ),
+        required_labels=(
+            "RLHF 長い流れ、DPO 近道、preference pairs、Reward Model、PPO、Policy update、chosen/rejected、policy margin、"
+            "safe_task、unsafe_task、uncertain_fact、chosen、rejected、policy_margin = policy_chosen_logp - policy_rejected_logp、"
+            "ref_margin = ref_chosen_logp - ref_rejected_logp、policy_chosen_logp +0.6、policy_rejected_logp -0.2、"
+            "baseline loss = 0.5774、improved loss = 0.4214。"
+        ),
+        footer="DPO の近道は学ぶ量を減らすことではなく、嗜好の差を直接最適化すること。",
+        allowed_tokens=(
+            "DPO, RLHF, Reward Model, PPO, Policy update, preference pairs, chosen, rejected, policy margin, "
+            "policy_margin, ref_margin, policy_chosen_logp, policy_rejected_logp, ref_chosen_logp, ref_rejected_logp, "
+            "safe_task, unsafe_task, uncertain_fact, baseline loss, improved loss"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_DPO_SHORTCUT_RESULT_REMAKE_PROMPTS)
+
+CH07_DPO_SHORTCUT_RESULT_REMAKE_META = [
+    (
+        "ch07-dpo-rlhf-shortcut-map-en.png",
+        "DPO preference margin shortcut result map",
+        "DPO result map showing the RLHF long chain, the DPO shortcut, policy and reference margins, chosen/rejected log probability changes, and loss falling from 0.5774 to 0.4214.",
+    ),
+    (
+        "ch07-dpo-rlhf-shortcut-map-ja.png",
+        "DPO 嗜好差ショートカット結果図",
+        "RLHF の長い流れ、DPO の近道、policy/ref margin、chosen/rejected の log probability 変更、loss が 0.5774 から 0.4214 へ下がることを示す図。",
+    ),
+]
+
+existing_filenames_for_ch07_dpo_shortcut = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_DPO_SHORTCUT_RESULT_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_dpo_shortcut:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch07-alignment/03-alternative-methods.md",
+                "alt": alt,
+                "prompt": CH07_DPO_SHORTCUT_RESULT_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_dpo_shortcut.add(filename)
+
+CH07_PROMPT_EVALUATION_LAB_REMAKE_META = [
+    (
+        "ch07-prompt-evaluation-lab-zh.png",
+        "Prompt 评测实验室总览",
+        "Prompt 评测实验室图：固定 TEST_CASES，三个 Prompt 版本，不调用 API 的 fake_model()，score_output() 输出契约，以及 0%/100% 的真实结果。",
+    ),
+    (
+        "ch07-prompt-evaluation-lab-en.png",
+        "Prompt Evaluation Lab Overview",
+        "Prompt evaluation lab overview showing fixed TEST_CASES, three Prompt versions, fake_model() without API calls, the score_output() contract, and the real 0%/100% results.",
+    ),
+    (
+        "ch07-prompt-evaluation-lab-ja.png",
+        "Prompt 評価ラボ概要",
+        "固定 TEST_CASES、3つの Prompt 版、API を呼ばない fake_model()、score_output() の出力契約、0%/100% の実結果を示す Prompt 評価ラボ図。",
+    ),
+]
+
+existing_filenames_for_ch07_prompt_evaluation_lab = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_PROMPT_EVALUATION_LAB_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_prompt_evaluation_lab:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch05-prompt/05-prompt-evaluation-lab.md",
+                "alt": alt,
+                "prompt": CH07_PROMPT_EVALUATION_LAB_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_prompt_evaluation_lab.add(filename)
+
 CH07_LLM_CALL_WORKBENCH_MAIN_REMAKE_META = [
     (
         "ch07-llm-call-workbench-zh.png",

@@ -90,7 +90,7 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 | 用語 | 初心者向けの意味 | この節での役割 |
 |---|---|---|
 | LLM | Large Language Model、大規模言語モデル。token を1つずつ予測しながら文章を生成するモデル | このプロジェクトでは、LLM の領域タスクでの振る舞いを調整する |
-| Prompt | 推論時にモデルへ渡す指示、文脈、制約 | 训练より低コストなので、最初の baseline になる |
+| Prompt | 推論時にモデルへ渡す指示、文脈、制約 | 追加学習より低コストなので、最初の baseline になる |
 | RAG | Retrieval-Augmented Generation、回答前に外部資料を検索してから生成する方法 | 最新知識や社内資料が足りないときに役立つ |
 | ファインチューニング | タスク専用サンプルでモデルを追加学習すること | 文体、形式、判断パターンを安定させたいときに価値がある |
 | SFT | Supervised Fine-Tuning、整理済みの入力/出力例で行う教師あり微調整 | モデルに「良い回答の形」を教える |
