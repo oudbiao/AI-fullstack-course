@@ -2912,16 +2912,59 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
     },
     {
         "filename": "ch06-transformer-global-context-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
+        "size": "1024x1792",
+        "quality": "high",
         "title": "Transformer 全局上下文建模图",
         "suggested_page": "docs/ch06-deep-learning/ch05-transformer/00-roadmap.md",
         "alt": "Transformer 全局上下文建模图：输入序列经过词向量和位置编码，Self-Attention 建立位置关系，前馈网络、残差和归一化稳定训练，堆叠成 Transformer。",
         "prompt": """
-一张适合 Transformer 学习主线的全局上下文图，主题是“每个 token 都能看向相关 token”。
-画面表现输入序列变成 embedding 和 positional encoding，进入 Self-Attention 建立全局关系，再经过 feed-forward、residual、LayerNorm，多个 block 堆叠形成 Transformer，支撑预训练语言模型。
-风格像 token 网络和深度模块堆叠结合，强调关系、上下文和稳定训练。
-文字不是主体；标准术语和变量保留英文，例如 token、embedding、positional encoding、Self-Attention、FFN、residual、LayerNorm。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+一张竖版 9:16 中文教学图，风格是“手绘课堂讲义 / 横线笔记纸”，主题是“Transformer 如何把每个 token 放进全局上下文”。
+画面必须像老师在笔记纸上一步步讲，不要白底圆角框堆叠，不要旧 SVG 信息图，不要纯流程框，不要暗色科幻仪表盘。
+固定结构从上到下 5 段，所有文字必须自然中文，只有 token、embedding、positional encoding、Self-Attention、FFN、residual、LayerNorm、block 这些必要术语保留英文：
+1. 输入 token 列：画 5 个 token 小纸片排成一行，并标注“每个位置先只是局部符号”。
+2. embedding + 位置编码：把 token 变成向量条，再叠加位置刻度，标注“词义 + 顺序”。
+3. Self-Attention 全局关联：画每个 token 向相关 token 拉出粗细不同的注意力线，标注“不是只看邻居，而是按权重看全局”。
+4. Transformer block：画 attention 结果进入 Add/residual、LayerNorm、FFN、再 Add/residual、LayerNorm 的手绘流水线，标注“形状保持，表示被精炼”。
+5. 预训练语言模型：画多个 block 堆叠后输出下一个 token 概率小柱图，标注“堆叠后学会预测与生成”。
+底部一句红笔提醒：“核心：全局关联 + 残差归一化 + 堆叠训练”。文字要大、清楚、贴近对应画面；不要出现英文段落、乱码小字、真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-global-context-map-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Transformer Global Context Map",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/00-roadmap.md",
+        "alt": "Transformer global context map: input tokens become embeddings plus positional encoding, Self-Attention builds global relations, feed-forward layers, residual paths, and normalization stabilize stacked Transformer blocks.",
+        "prompt": """
+A vertical 9:16 English teaching image in a hand-drawn classroom handout style on lined notebook paper. Topic: “How a Transformer puts each token into global context.”
+It must feel like a teacher explaining step by step on paper. Avoid old SVG infographic style, white rounded-box stacks, pure flowchart boxes, dark sci-fi dashboards, and text-only posters.
+Use the same 5-section vertical structure as the Chinese and Japanese versions. Keep visible text natural English and concise. Technical terms to show: token, embedding, positional encoding, Self-Attention, FFN, residual, LayerNorm, block.
+1. Input token row: draw 5 token slips in a row with the note “each position starts as a local symbol.”
+2. embedding + positional encoding: turn tokens into vector bars, then add position marks; label “meaning + order.”
+3. Self-Attention global links: draw weighted attention lines from each token to relevant tokens, thicker for stronger weights; label “not just neighbors: weighted global context.”
+4. Transformer block: hand-drawn pipeline from attention output to Add/residual, LayerNorm, FFN, Add/residual, LayerNorm; label “same shape, refined representation.”
+5. Pretrained language model: stack several blocks and output a next-token probability mini chart; label “stacked blocks learn prediction and generation.”
+Bottom red-ink reminder: “Core idea: global links + residual normalization + stacked training.” Text must be large, readable, and attached to the visual element it explains. No gibberish, tiny UI text, fake brand logos, or dense paragraphs.
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-global-context-map-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Transformer グローバル文脈マップ",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/00-roadmap.md",
+        "alt": "Transformer グローバル文脈マップ：入力 token が embedding と positional encoding になり、Self-Attention が全体の関係を作り、FFN、residual、LayerNorm、block の積み重ねで表現を更新する。",
+        "prompt": """
+横線ノート紙に先生が描いたような、縦長 9:16 の日本語教材図。テーマは「Transformer が各 token をグローバル文脈に入れる流れ」。
+手順を上から下へ説明する授業プリント風にする。古い SVG 風の情報図、白い角丸ボックスの羅列、純粋なフローチャート、暗いSFダッシュボード、文字だけのポスターは禁止。
+中国語版・英語版と同じ 5 段構成にする。日本語は自然で短くし、必要な専門語だけ token、embedding、positional encoding、Self-Attention、FFN、residual、LayerNorm、block として残す。
+1. 入力 token 列：5枚の token 紙片を横に並べ、「各位置は最初、局所的な記号」と添える。
+2. embedding + 位置エンコード：token をベクトル棒に変え、位置目盛りを足し、「意味 + 順序」と示す。
+3. Self-Attention の全体関係：各 token から関連する token へ太さの違う注意線を引き、「隣だけでなく、重みで全体を見る」と示す。
+4. Transformer block：attention 出力から Add/residual、LayerNorm、FFN、Add/residual、LayerNorm へ進む手描きパイプラインを描き、「形は保ち、表現を磨く」と示す。
+5. 事前学習済み言語モデル：複数 block を積み、次 token 確率の小さな棒グラフを出し、「積み重ねで予測と生成を学ぶ」と示す。
+下部に赤ペンの一言：「要点：全体関係 + 残差正規化 + 積み重ね学習」。文字は大きく読みやすく、対応する絵の近くに置く。文字化け、小さすぎるUI文字、架空ブランドロゴ、長い段落は禁止。
 """.strip(),
     },
     {
@@ -3455,16 +3498,59 @@ Language rules: all explanatory text must be natural English. Keep code/file/met
     },
     {
         "filename": "ch06-transformer-block-role-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
+        "size": "1024x1792",
+        "quality": "high",
         "title": "Transformer Block 组件职责图",
         "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
         "alt": "Transformer Block 组件职责图：Attention 混合上下文，Residual 保留原信息，LayerNorm 稳定数值，FFN 对每个位置再加工。",
         "prompt": """
-一张解释 Transformer Block 组件职责的教学图，主题是“Transformer 不只有 attention，而是一套可堆深的结构”。
-画面中心是一个 Encoder Block，被拆成四个职责模块：Self-Attention 负责上下文交流，Residual 负责保留原信息和梯度通道，LayerNorm 负责稳定数值，FFN 负责逐位置再加工；箭头展示数据流。
-风格像透明机器结构图，每个模块像不同功能的齿轮或工位。
-文字不是主体；中文短标签为主，标准术语保留英文，例如 Self-Attention、Residual、LayerNorm、FFN、Encoder Block。不要整张图全英文，不要乱码小字或真实品牌 logo。
+一张竖版 9:16 中文教学图，风格是“手绘课堂讲义 / 横线笔记纸”，主题是“Transformer Block 不只是 attention，而是 4 个职责一起让深层模型稳定工作”。
+不要透明机器舱、旧 SVG 信息图、白底圆角框堆叠、纯流程框或文字海报。画面要像老师在纸上拆解一层 Encoder Block。
+固定结构从上到下，注意只有四个职责编号，输入和堆叠总结不要编号：
+顶部未编号：画一行 token 表示进入 Encoder Block，标注外层 shape `[batch, seq_len, d_model]` 保持不变。
+职责 1 Self-Attention：画 token 之间互相连线，短标签“跨 token 交流：混合上下文”。
+职责 2 Residual：画一条红色 shortcut 绕过模块，与更新量 `f(x)` 相加，短标签“保留旧信息，也给 gradient 通道”。
+职责 3 LayerNorm：画一排忽高忽低的数值条被整理成稳定尺度，短标签“每个 token 内部做归一化，数值更稳”。
+职责 4 FFN：画每个 token 各自通过同一条小 MLP 路径，短标签“逐位置加工，不改变 seq_len”。
+底部未编号：画多个 Encoder Block 堆叠，提醒“可堆深：shape 不变，表示变强”。中文必须自然；只保留必要术语 Self-Attention、Residual、LayerNorm、FFN、Encoder Block、shape、token、gradient、MLP。文字要大而清楚，贴近画面；不要英文段落、乱码小字、真实品牌 logo。严禁把“输入”画成第 1 个职责，严禁出现 5 个职责编号。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-block-role-map-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Transformer Block Component Roles",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
+        "alt": "Transformer Block component roles: Self-Attention mixes context, Residual preserves information and gradients, LayerNorm stabilizes values, and FFN reprocesses each position.",
+        "prompt": """
+A vertical 9:16 English teaching image in a hand-drawn classroom handout style on lined notebook paper. Topic: “A Transformer Block is not only attention: four roles make deep stacks trainable.”
+Avoid transparent machine-chamber art, old SVG infographic style, white rounded-box stacks, pure flowchart boxes, and text-only posters. It should look like a teacher decomposing one Encoder Block on paper.
+Use this fixed top-to-bottom structure. Important: only the four roles are numbered; the input row and stack summary are unnumbered:
+Unnumbered top: a row of token representations enters an Encoder Block; label the outer shape `[batch, seq_len, d_model]` stays the same.
+Role 1 Self-Attention: tokens draw links to other tokens; short label “cross-token communication: mix context.”
+Role 2 Residual: a red shortcut skips around the module and adds to update `f(x)`; short label “preserve old information and gradient path.”
+Role 3 LayerNorm: uneven feature bars become stable scaled bars; short label “normalize inside each token; stabilize values.”
+Role 4 FFN: each token independently passes through the same small MLP path; short label “per-position processing; seq_len unchanged.”
+Unnumbered bottom: several Encoder Blocks stacked vertically, with the reminder “Stackable: same shape, stronger representation.” Use natural English, large readable labels attached to visuals. Technical terms may include Self-Attention, Residual, LayerNorm, FFN, Encoder Block, shape, token, gradient, MLP. No gibberish, tiny UI text, real brand logos, or dense paragraphs. Do not number the input row as role 1, and do not show five numbered roles.
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-block-role-map-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Transformer Block コンポーネント役割図",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
+        "alt": "Transformer Block コンポーネント役割図：Self-Attention が文脈を混ぜ、Residual が情報と勾配を残し、LayerNorm が値を安定させ、FFN が各位置を加工する。",
+        "prompt": """
+横線ノート紙に先生が描いたような、縦長 9:16 の日本語教材図。テーマは「Transformer Block は attention だけではなく、4つの役割で深いモデルを安定させる」。
+透明な機械室風、古い SVG 風情報図、白い角丸ボックスの羅列、純粋なフローチャート、文字だけのポスターは禁止。1つの Encoder Block を授業プリントで分解するように描く。
+上から下へ次の固定構成。重要：番号を付けるのは4つの役割だけ。入力列と積み重ねまとめには番号を付けない：
+番号なし上部：token 表現の列が Encoder Block に入る。外側の shape `[batch, seq_len, d_model]` は変わらないと示す。
+役割 1 Self-Attention：token 同士に線を引き、「token 間で文脈を混ぜる」と短く示す。
+役割 2 Residual：赤い shortcut が module を迂回して `f(x)` と足される。「古い情報と gradient の道を残す」と示す。
+役割 3 LayerNorm：ばらついた特徴量バーが安定した尺度に整う。「各 token 内で正規化し、値を安定させる」と示す。
+役割 4 FFN：各 token が同じ小さな MLP 経路を独立に通る。「位置ごとに加工し、seq_len は変えない」と示す。
+番号なし下部：複数の Encoder Block を縦に積み、「積み重ね可能：同じ shape、より強い表現」とまとめる。日本語は自然で読みやすく、必要な専門語だけ Self-Attention、Residual、LayerNorm、FFN、Encoder Block、shape、token、gradient、MLP として残す。文字は大きく、対応する絵の近くに置く。文字化け、小さすぎるUI文字、実在ブランドロゴ、長い段落は禁止。入力列を役割1として番号付けしない。5つの番号付き役割を描かない。
 """.strip(),
     },
     {
