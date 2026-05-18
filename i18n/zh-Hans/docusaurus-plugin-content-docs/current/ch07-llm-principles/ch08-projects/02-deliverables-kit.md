@@ -134,8 +134,6 @@ project/
 
 如果这三个问题都很容易回答，这个项目就适合放进作品集或团队评审。
 
-![项目交付材料包](/img/course/ch07-project-deliverables-kit-zh.webp)
-
 ## 最终检查清单
 
 在关闭项目之前，检查这些项目：

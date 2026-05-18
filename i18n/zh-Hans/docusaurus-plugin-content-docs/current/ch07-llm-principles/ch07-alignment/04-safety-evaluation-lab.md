@@ -42,7 +42,7 @@ keywords: [对齐安全, HHH, 拒答边界, 评测, 护栏]
 | 安全样例 | 专门用来测试风险行为的问题 | 让评测保持一致 |
 | 失败记录 | 记录哪里错了、为什么错了 | 把错误变成下一步修复方向 |
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-zh.webp)
+![Helpful Honest Harmless 对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.webp)
 
 ## 跑一个完全离线的评测循环
 

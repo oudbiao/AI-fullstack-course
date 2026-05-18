@@ -134,8 +134,6 @@ The handoff should let another person answer three questions quickly:
 
 If those three questions are easy to answer, the project is ready for a portfolio or a team review.
 
-![Project Deliverables Kit](/img/course/ch07-project-deliverables-kit-en.webp)
-
 ## Final checklist
 
 Before you close the project, check these items:
