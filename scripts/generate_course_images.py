@@ -35212,6 +35212,137 @@ for filename, title, alt in CH09_MEMORY_LAYER_SELECTION_REMAKE_META:
         )
         existing_filenames_for_ch09_memory_layer_selection.add(filename)
 
+CH09_SHORT_TERM_MEMORY_WINDOW_REMAKE_PROMPTS = {
+    "ch09-short-term-memory-window-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="短期记忆：当前任务的工作台",
+        visible_subtitle="上下文窗口有限，所以只保留最近消息、任务状态、临时结果和摘要。",
+        teaching_goal=(
+            "服务第 9 章 9.4.3 短期记忆。读者要先看图理解：short-term memory 不是长期画像，"
+            "而是为了完成当前任务，在有限 context window 里保留最有用的信息。图必须贴合正文代码："
+            "max_messages=3 的滑动窗口、task_state 里的 goal/last_tool/latest_policy_result，以及 summary + recent_messages 的组合。"
+        ),
+        fixed_layout=(
+            "竖向手绘课堂讲义 / 横线笔记纸，三语版本必须同构。"
+            "顶部画一个有限容量的 model context window，旁边有 token 预算刻度，明确不是无限盒子。"
+            "中间分成左右对比：左侧红色错误做法：把 157 轮历史、旧工具结果、无关证书问题、配置碎片全部塞进 context，"
+            "画出爆满、重点被埋、成本升高。右侧绿色正确做法："
+            "1 recent messages：只保留最近 3 条对话，画出旧消息被滑出窗口；"
+            "2 task state：小白板写 goal=判断退款资格、last_tool=search_policy、latest_policy_result=7天内且进度低于20%；"
+            "3 temporary results：只挂当前步骤需要的工具结果；"
+            "4 summary memory：把更早历史压成一段短摘要；"
+            "5 drop noise：无关证书问题和旧细节放进回收篮。"
+            "底部画一个最终打包进入 context 的轻量包：recent messages + state + summary，并标注 focus 高、token 低。"
+            "不要画企业仪表盘、白底圆角框堆叠、纯文字海报、密集小字或旧 SVG 风格。"
+        ),
+        required_labels=(
+            "短期记忆、当前任务、context window、最近 3 条消息、滑动窗口、task state、goal、last_tool、"
+            "latest_policy_result、临时结果、摘要记忆、丢掉噪声、token 成本、重点不被埋。"
+        ),
+        footer="短期记忆不是记住全部历史，而是在有限上下文里维持当前任务连贯。",
+        allowed_tokens=(
+            "Agent, short-term memory, context window, max_messages=3, task_state, goal, last_tool, "
+            "latest_policy_result, summary, recent_messages, token"
+        ),
+    ),
+    "ch09-short-term-memory-window-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Short-Term Memory: Workbench for the Current Task",
+        visible_subtitle="The context window is limited, so keep recent messages, task state, temporary results, and a summary.",
+        teaching_goal=(
+            "Serve Chapter 9 section 9.4.3 on short-term memory. Learners should understand that short-term memory is not a long-term user profile. "
+            "It keeps the most useful information for the current task inside a limited context window. The diagram must match the runnable examples: "
+            "a sliding window with max_messages=3, task_state with goal/last_tool/latest_policy_result, and the summary + recent_messages package."
+        ),
+        fixed_layout=(
+            "Vertical hand-drawn classroom handout on lined notebook paper. The three language versions must share the same structure. "
+            "Top: draw a limited model context window with a token budget gauge, making it clear this is not an infinite box. "
+            "Middle: split into two sides. Left red wrong approach: stuff 157 turns of history, old tool results, unrelated certificate questions, and config scraps into context; "
+            "show overflow, buried focus, and rising cost. Right green correct approach: "
+            "1 recent messages: keep only the last 3 conversation turns and show older messages sliding out; "
+            "2 task state: a small board with goal=determine refund eligibility, last_tool=search_policy, latest_policy_result=within 7 days and progress below 20%; "
+            "3 temporary results: pin only the tool result needed for the current step; "
+            "4 summary memory: compress older history into one short summary; "
+            "5 drop noise: unrelated certificate questions and stale details go to a trash bin. "
+            "Bottom: draw the lightweight package that enters context: recent messages + state + summary, labeled high focus and low tokens. "
+            "Avoid corporate dashboards, stacked white rounded cards, pure text posters, dense tiny text, and old SVG style."
+        ),
+        required_labels=(
+            "short-term memory, current task, context window, last 3 messages, sliding window, task state, goal, last_tool, "
+            "latest_policy_result, temporary results, summary memory, drop noise, token cost, focus stays visible."
+        ),
+        footer="Short-term memory is not preserving all history; it keeps the current task coherent inside limited context.",
+        allowed_tokens=(
+            "Agent, short-term memory, context window, max_messages=3, task_state, goal, last_tool, "
+            "latest_policy_result, summary, recent_messages, token"
+        ),
+    ),
+    "ch09-short-term-memory-window-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="短期記憶：現在のタスクの作業台",
+        visible_subtitle="context window は有限。直近メッセージ、task state、一時結果、要約だけを残す。",
+        teaching_goal=(
+            "第 9 章 9.4.3 短期記憶に合わせる。短期記憶は長期ユーザープロフィールではなく、"
+            "現在のタスクに必要な情報を限られた context window に収める設計だと示す。"
+            "本文の実行例に合わせ、max_messages=3 の sliding window、goal/last_tool/latest_policy_result を持つ task_state、"
+            "summary + recent_messages の組み合わせを視覚化する。"
+        ),
+        fixed_layout=(
+            "縦長の手描き授業プリント / 横線ノート紙。三語版は同じ構造にする。"
+            "上部に容量が限られた model context window と token 予算メーターを描き、無限の箱ではないと示す。"
+            "中央は左右比較。左の赤い悪い例：157 ターンの履歴、古い tool 結果、関係ない証明書質問、設定メモをすべて context に詰め込み、"
+            "あふれる、重要点が埋もれる、コストが上がる様子を描く。右の緑の良い例："
+            "1 recent messages：直近 3 件だけ残し、古いメッセージが外へ滑り出る；"
+            "2 task state：小さなボードに goal=返金資格を判断、last_tool=search_policy、latest_policy_result=7日以内かつ進捗20%未満；"
+            "3 temporary results：現在の手順に必要な tool 結果だけを留める；"
+            "4 summary memory：古い履歴を短い要約に圧縮する；"
+            "5 drop noise：関係ない証明書質問や古い細部は捨てる。"
+            "下部に context へ入る軽いパッケージを描く：recent messages + state + summary。focus 高、token 低と示す。"
+            "企業 dashboard、白い角丸カードの山、文字だけのポスター、細かすぎる文字、古い SVG 風は避ける。"
+        ),
+        required_labels=(
+            "短期記憶、現在のタスク、context window、直近 3 件、sliding window、task state、goal、last_tool、"
+            "latest_policy_result、一時結果、要約記憶、ノイズを捨てる、token コスト、重要点が見える。"
+        ),
+        footer="短期記憶は全履歴の保存ではなく、有限の context で現在のタスクを一貫させる仕組み。",
+        allowed_tokens=(
+            "Agent, short-term memory, context window, max_messages=3, task_state, goal, last_tool, "
+            "latest_policy_result, summary, recent_messages, token"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH09_SHORT_TERM_MEMORY_WINDOW_REMAKE_PROMPTS)
+
+CH09_SHORT_TERM_MEMORY_WINDOW_REMAKE_META = [
+    (
+        "ch09-short-term-memory-window-map-en.png",
+        "Short-Term Memory: Workbench for the Current Task",
+        "Short-term memory teaching map showing a limited context window, recent 3-message sliding window, task state, temporary results, summary memory, and noise dropping.",
+    ),
+    (
+        "ch09-short-term-memory-window-map-ja.png",
+        "短期記憶：現在のタスクの作業台",
+        "有限の context window に、直近 3 件の sliding window、task state、一時結果、要約記憶を入れ、ノイズを捨てる短期記憶の教学図。",
+    ),
+]
+
+existing_filenames_for_ch09_short_term_memory_window = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH09_SHORT_TERM_MEMORY_WINDOW_REMAKE_META:
+    if filename not in existing_filenames_for_ch09_short_term_memory_window:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch09-agent/ch04-memory/02-short-term-memory.md",
+                "alt": alt,
+                "prompt": CH09_SHORT_TERM_MEMORY_WINDOW_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch09_short_term_memory_window.add(filename)
+
 CH09_AGENT_SYSTEM_ARCHITECTURE_REMAKE_META = [
     (
         "agent-system-architecture-en.png",
