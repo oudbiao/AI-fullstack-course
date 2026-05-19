@@ -73,6 +73,14 @@ Universal layout and typography rules:
 - If content does not fit, reduce visible text, split the idea into clear teaching zones, or leave more whitespace. Never solve crowding by shrinking text into unreadable filler.
 - Preserve natural diagram geometry: circles remain circles, arrows remain clean, charts and tables are not vertically warped.
 """.strip()
+VERTICAL_REFINEMENT_INSTRUCTIONS = """
+Vertical refinement override for course QA:
+- Output a native 1024x1792 vertical teaching image, not a stretched or cropped version of a landscape composition.
+- Redesign the layout as stacked teaching zones, a vertical route, a ladder, or a dashboard column flow.
+- Keep visible labels short, large, and natural in the target language. Do not include tiny filler text, gibberish, mixed wrong-language labels, watermarks, fake metrics, or real brand logos.
+- Avoid concrete numeric scores, percentages, costs, latency, accuracy, reward values, benchmark values, matrix cell values, or dashboard readings unless the prompt provides exact lesson values. Use qualitative labels, icons, and symbolic bars instead.
+- Preserve the original teaching intent and filenames, but simplify crowded details instead of shrinking text.
+""".strip()
 IMAGE_JOBS: list[dict[str, Any]] = [
     {
         "filename": "intro-quick-experience-loop.png",
@@ -37311,8 +37319,50 @@ CH06_VERTICAL_REFINEMENT_PROMPTS = {
 """.strip(),
 }
 
+CH07_VERTICAL_REFINEMENT_PROMPTS = {
+    "ch07-rlhf-reward-kl-loop-map.png": """
+生成一张竖版 9:16 简体中文教学位图，用于第 7 章 RLHF 奖励模型与 KL 约束讲解。
+必须是重新设计的竖版课堂讲义，不是把横图拉长。禁止拉伸、压扁、挤窄文字、箭头、圆形、卡片或曲线。
+
+风格：清爽课堂白板 / 手绘系统图 / 专业教材图，留白充足，文字短而大。
+
+从上到下 5 个教学区：
+1. SFT model 产生两个候选回答，只用抽象卡片表示，不写完整事实答案。
+2. Preference pairs：chosen / rejected 两张卡片，使用对勾、叉号和短标签，不写分数。
+3. Reward Model：把偏好信号变成方向箭头，标签只写“higher reward direction”，不要任何数字。
+4. Policy update + PPO：策略模型沿着奖励方向小步更新，画短箭头和安全边界。
+5. Reference model + KL penalty：参考模型在旁边拉住更新幅度，标签只写“lower drift / stay close”。
+
+底部一句：Reward 推动改进，KL 防止偏离太远。
+可以保留术语：SFT、Preference、Reward Model、Policy、PPO、Reference Model、KL penalty、chosen、rejected。
+严禁出现任何具体 reward 分数、百分比、坐标轴刻度、dashboard 数值、性能指标、样例打分或随机数字。只用定性标签、图标和无数字条形。
+不要真实品牌 logo、水印、长段文字、乱码小字。
+""".strip(),
+    "ch07-lora-qlora-low-rank-memory-map.png": """
+生成一张竖版 9:16 简体中文教学位图，用于第 7 章 LoRA / QLoRA 低秩适配与显存压力讲解。
+必须是重新设计的竖版课堂讲义，不是把横图拉长。禁止拉伸、压扁、挤窄矩阵、箭头、文字或图标。
+
+风格：手绘课堂笔记 / 白板矩阵图 / 专业教材图，浅色背景，模块清楚，文字少而大。
+
+从上到下 5 个教学区：
+1. Frozen base weights W：画一个大的冻结矩阵，带锁图标，只写“frozen W”。
+2. LoRA adapters：在旁边画两个小矩阵 A 和 B，箭头表示只训练 adapter。
+3. Low-rank update：画 ΔW = B × A 的示意箭头，用颜色叠加到 W 上，保持矩阵格子自然比例。
+4. QLoRA：画“quantized frozen base + train adapters”的竖向组合，用小方块和锁图标表示，不填随机矩阵数字。
+5. Memory pressure：三条无数字的定性条形，只写“full fine-tune: high”“LoRA: lower”“QLoRA: lowest”，不要百分比。
+
+底部一句：冻结大模型，只训练小适配器。
+可以保留术语：LoRA、QLoRA、frozen W、A、B、ΔW、adapter、quantized base、memory pressure。
+严禁出现任何具体百分比、参数量、显存 GB、压缩率、随机矩阵单元数值、性能分数或 dashboard 数字。只用定性标签、锁图标、箭头和无数字条形。
+不要真实品牌 logo、水印、长段文字、乱码小字。
+""".strip(),
+}
+
 for job in IMAGE_JOBS:
-    refinement_prompt = CH06_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
+    refinement_prompt = (
+        CH06_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
+        or CH07_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
+    )
     if refinement_prompt:
         job["prompt"] = refinement_prompt
         job["size"] = DEFAULT_COURSE_IMAGE_SIZE
@@ -37334,6 +37384,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ensure-placeholders", action="store_true", help="Create local preview PNG files for all planned images.")
     parser.add_argument("--http-fallback", action="store_true", help="Use the built-in HTTP client instead of the openai Python package.")
     parser.add_argument(
+        "--force-vertical",
+        action="store_true",
+        help="Force selected jobs to render as native 1024x1792 vertical course images for QA refinement.",
+    )
+    parser.add_argument(
         "--parallel-per-key",
         action="store_true",
         help="Generate concurrently using OPENAI_API_KEY, OPENAI_API_KEY_2, OPENAI_API_KEY_3, ... from the environment.",
@@ -37350,6 +37405,13 @@ def selected_jobs(only: list[str] | None) -> list[dict[str, Any]]:
     if missing:
         raise SystemExit(f"Unknown image filename(s): {', '.join(sorted(missing))}")
     return jobs
+
+
+def force_vertical_jobs(jobs: list[dict[str, Any]]) -> None:
+    for job in jobs:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+        job["prompt"] = f"{job['prompt']}\n\n{VERTICAL_REFINEMENT_INSTRUCTIONS}"
 
 
 def write_manifest(report_dir: Path, jobs: list[dict[str, Any]]) -> None:
@@ -38080,6 +38142,8 @@ def main() -> None:
     output_dir = Path(args.output_dir)
     report_dir = Path(args.report_dir)
     jobs = selected_jobs(args.only)
+    if args.force_vertical:
+        force_vertical_jobs(jobs)
     api_keys = available_api_keys()
     worker_count = min(len(api_keys), len(jobs)) if args.parallel_per_key else 1
 

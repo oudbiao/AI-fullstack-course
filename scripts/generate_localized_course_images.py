@@ -22,12 +22,15 @@ from typing import Any
 
 from generate_course_images import (
     DEFAULT_BASE_URL,
+    DEFAULT_COURSE_IMAGE_QUALITY,
+    DEFAULT_COURSE_IMAGE_SIZE,
     DEFAULT_IMAGE_RETRIES,
     DEFAULT_MODEL,
     DEFAULT_OUTPUT_DIR,
     DEFAULT_REPORT_DIR,
     DEFAULT_REQUEST_TIMEOUT,
     IMAGE_JOBS,
+    VERTICAL_REFINEMENT_INSTRUCTIONS,
     available_api_keys,
     generate_image_with_http,
     set_user_readable_permissions,
@@ -200,6 +203,11 @@ def main() -> int:
     parser.add_argument("--retries", type=int, default=DEFAULT_IMAGE_RETRIES)
     parser.add_argument("--continue-on-error", action="store_true")
     parser.add_argument("--ignore-pending", action="store_true")
+    parser.add_argument(
+        "--force-vertical",
+        action="store_true",
+        help="Force selected localized jobs to render as native 1024x1792 vertical course images for QA refinement.",
+    )
     parser.add_argument("--parallel-per-key", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -230,6 +238,10 @@ def main() -> int:
             job = derived_job_for(target, args.locale, jobs, alt_map)
         except Exception as exc:
             return target, str(exc)
+        if args.force_vertical:
+            job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+            job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+            job["prompt"] = f"{job['prompt']}\n\n{VERTICAL_REFINEMENT_INSTRUCTIONS}"
 
         if args.dry_run:
             print(f"DRY RUN: {target} ({job.get('size')}, {job.get('quality')})", flush=True)
