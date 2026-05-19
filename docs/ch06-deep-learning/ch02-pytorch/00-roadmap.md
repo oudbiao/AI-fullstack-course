@@ -62,6 +62,18 @@ The key PyTorch habit is visible here: compute loss, call `backward()`, update w
 | 7 | [6.2.8 Practical Tips](./06-practical-tips.md) | shape, device, seed, debugging |
 | 8 | [6.2.9 PyTorch Workshop](./07-pytorch-matplotlib-workshop.md) | run and visualize a tiny model |
 
+## Evidence to Keep
+
+Keep one PyTorch loop note:
+
+```text
+tensor_check: shape, dtype, device
+autograd_check: loss.backward() fills gradients
+module_check: named_parameters() shows trainable tensors
+loader_check: one batch matches model and loss
+loop_check: train/eval losses are logged separately
+```
+
 ## Pass Check
 
 You pass this roadmap when you can read a PyTorch loop and locate these five things: data batch, model output, loss, `backward()`, and optimizer update.

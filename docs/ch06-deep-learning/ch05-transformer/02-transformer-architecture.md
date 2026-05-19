@@ -335,6 +335,47 @@ Original Transformer proved the block pattern.
 Modern LLM decoders changed the block so very deep generation models train and infer efficiently.
 ```
 
+## Bridge to LLMs: From Block Output to Next Token
+
+A Transformer block does not directly "answer" the user. It rewrites token representations. A decoder-only LLM stacks many such blocks, then maps the final representation to vocabulary scores.
+
+```text
+tokens
+-> embeddings + position
+-> repeated decoder blocks
+-> final hidden states
+-> vocabulary logits
+-> next-token choice
+```
+
+Read the last two steps carefully:
+
+| Step | Plain meaning | Why it matters in Chapter 7 |
+|---|---|---|
+| vocabulary logits | one score for each possible next token | this is where the model ranks possible continuations |
+| decoding | choose or sample the next token from those scores | temperature, top-p, and stop rules change visible behavior |
+
+So the bridge is:
+
+```text
+Chapter 6: how blocks rewrite representations.
+Chapter 7: how rewritten representations become generated text.
+```
+
+This also explains why prompts matter. A prompt changes the input tokens and context, which changes the hidden states, which changes the next-token scores.
+
+## Evidence to Keep
+
+Keep one Transformer block card:
+
+```text
+block_shape: [batch, seq_len, d_model] stays the same
+content_change: token representations become context-aware
+stability_parts: residual + norm
+token_parts: attention mixes positions, FFN transforms each position
+generation_bridge: final hidden state -> vocabulary logits -> next token
+```
+
 ## Common Mistakes
 
 | Mistake | Fix |

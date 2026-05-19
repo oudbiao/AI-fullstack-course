@@ -159,6 +159,20 @@ first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 
 这次 LSTM 超过了 naive baseline（`0.0030` vs `0.0115`）。这很重要：一个模型至少应该打过简单 baseline，才值得继续信任。
 
+## 留下的证据
+
+序列预测要保存 baseline 对比：
+
+```text
+window_size: 16
+split_rule: train first 80%, validate later 20%
+naive_val_mse: 0.0115
+model_val_mse: 0.0030
+plot_check: predictions do not merely lag or flatten
+```
+
+最重要的证据不是 LSTM loss 很低，而是它在不泄漏未来数据的前提下，打过了一个简单诚实的 baseline。
+
 ## 为什么使用梯度裁剪？
 
 RNN 风格模型有时会出现较大梯度。这一行会限制总梯度范数：

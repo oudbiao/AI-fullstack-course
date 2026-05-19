@@ -56,6 +56,18 @@ action: stop or reduce learning rate if validation keeps worsening
 | 2 | [6.7.3 训练诊断](./02-training-diagnosis.md) | loss 曲线、过拟合、不稳定 |
 | 3 | [6.7.4 模型压缩](./03-model-compression.md) | 更小、更快、更适合部署的模型 |
 
+## 留下的证据
+
+训练技巧小章结束后，保留一条诊断决策记录：
+
+```text
+visible_symptom: what did the curve or output show?
+first_check: data, shape, gradient, or validation split
+one_change: which single setting changed?
+before_after: metric or artifact comparison
+decision: keep, tune, rollback, or investigate
+```
+
 ## 通过标准
 
 能看一条训练/验证曲线，并带理由选择一个下一步动作，就算通过。

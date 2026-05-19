@@ -51,6 +51,21 @@ next_step: inspect confused classes and add augmentation
 
 これがプロジェクト習慣です。改善には baseline、指標、失敗証拠、次の一手が必要です。
 
+## 残す証拠
+
+別の学習者が再実行し、レビューできる形で project をまとめます。
+
+```text
+run_command: exact command that reproduces the result
+dataset_note: where data came from and how it was split
+baseline: first simple score or behavior
+current_result: current metric plus success samples
+failure_cases: at least three wrong or weak examples
+next_step: one change justified by the failures
+```
+
+これで project は一度きりの demo ではなくなります。よい第6章 project は、再現でき、点検でき、改善できます。
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 提出するもの |
@@ -63,6 +78,18 @@ next_step: inspect confused classes and add augmentation
 ## プロジェクト成果物基準
 
 少なくとも1つのプロジェクトで、`README.md`、実行コマンド、データセットメモ、モデル概要、loss 曲線またはログ、指標表、予測サンプル、失敗例、次の計画を残します。
+
+## 失敗チェック
+
+プロジェクト完了と言う前に、次を答えます。
+
+```text
+baseline: what simple method did this beat?
+metric: what number proves improvement?
+sample_success: which predictions look correct?
+sample_failure: which predictions still fail?
+debug_next: what would you change first, and why?
+```
 
 ## 合格ライン
 

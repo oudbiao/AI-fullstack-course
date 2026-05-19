@@ -179,6 +179,20 @@ loss_after= 0.1183
 
 That is training in miniature: parameters changed, the prediction improved, and loss decreased.
 
+## Evidence to Keep
+
+Save one before/after record:
+
+```text
+prediction_before: 0.825
+loss_before: 0.1927
+gradient_seen: weight_grad and bias_grad are not None
+prediction_after: 0.888
+loss_after: 0.1183
+```
+
+This proves the full training step happened. If any one line is missing, debug in this order: forward output, loss, gradient, optimizer update.
+
 ## Practical Debugging Checklist
 
 | Symptom | Likely cause | Fix |

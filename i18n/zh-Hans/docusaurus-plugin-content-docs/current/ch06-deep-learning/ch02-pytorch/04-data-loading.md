@@ -345,6 +345,21 @@ epoch=3 train_loss=0.1147 val_loss=0.3121
 Dataset -> DataLoader -> batch loop -> model -> loss -> backward -> step -> validation loop
 ```
 
+## 留下的证据
+
+每次开始新的训练项目之前，都保存一条 batch 检查记录：
+
+```text
+one_sample_x_shape: ...
+one_sample_y_shape: ...
+batch_x_shape: ...
+batch_y_shape: ...
+first_layer_expected_input: ...
+loss_expected_target_shape: ...
+```
+
+如果这条记录正确，大多数 DataLoader 问题会在训练开始前就被解决。
+
 ## 选择 `batch_size`
 
 | batch size | 优点 | 取舍 |

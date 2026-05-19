@@ -48,6 +48,20 @@ action: stop or reduce learning rate if validation keeps worsening
 
 工夫を足す前に曲線を読みます。単純なログでも、次に試すことが見える場合が多いです。
 
+## 残す証拠
+
+この小章の終わりには、診断にもとづく意思決定記録を 1 つ残します。
+
+```text
+visible_symptom: what did the curve or output show?
+first_check: data, shape, gradient, or validation split
+one_change: which single setting changed?
+before_after: metric or artifact comparison
+decision: keep, tune, rollback, or investigate
+```
+
+目的は、学習の変更を戻せる形にすることです。5 つを同時に変えて良くなっても、どれが効いたのかは分かりません。
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |

@@ -258,6 +258,19 @@ If you can explain these three questions clearly, then the bridge has been built
 
 ---
 
+## Evidence to Keep
+
+Save a side-by-side note:
+
+```text
+sklearn: fit() hides parameter updates
+pytorch: I write model, loss, backward, optimizer step
+same_goal: minimize error and validate on held-out data
+new_responsibility: inspect shape, gradient, device, and checkpoint
+```
+
+The point is not that PyTorch is "more advanced." The point is that PyTorch makes the training mechanism visible enough for custom deep learning systems.
+
 ## Exercises
 
 1. Change the study time and scores in the example above to your own data, then train once with `sklearn` and once with `PyTorch`.

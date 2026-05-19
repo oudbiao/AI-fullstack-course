@@ -153,6 +153,21 @@ teacher logits or outputs -> student learns labels + teacher behavior
 
 task metric と latency なしに「int8 が動いた」とだけ報告しないでください。小さいことは、自動的に良いことではありません。
 
+## 残す証拠
+
+圧縮結果は before/after report として保存します。
+
+```text
+baseline_size:
+compressed_size:
+baseline_latency:
+compressed_latency:
+baseline_metric:
+compressed_metric:
+runtime_hardware:
+decision: keep, tune, or reject compression
+```
+
 ## よくある間違い
 
 | 間違い | 直し方 |

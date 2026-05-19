@@ -172,6 +172,19 @@ lr=1.0 在 quick sweep 中验证集 loss 最好。
 下一步：固定 lr=1.0，比较 batch_size=32 和 64。
 ```
 
+## 留下的证据
+
+保留一张调参决策卡：
+
+```text
+question: which single variable was tested?
+fixed: data split, seed, model, optimizer family, training budget
+changed: learning rate values
+selection_metric: validation loss or validation accuracy
+best_setting: lr=1.0 in the quick sweep
+next_experiment: one local refinement, not many knobs at once
+```
+
 ## 诊断模式
 
 | 现象 | 可能原因 | 下一组实验 |

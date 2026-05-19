@@ -266,6 +266,20 @@ finetune_val_acc 1.0
 
 微调并不自动更好。如果目标数据很少，或者学习率太大，它可能过拟合，也可能破坏预训练特征。判断标准永远是验证集，而不是训练 loss。
 
+## 留下的证据
+
+迁移学习实验要保留这条决策记录：
+
+```text
+frozen_check: which layers have requires_grad=False
+head_result: validation score after training only the new head
+finetune_result: validation score after unfreezing later layers
+decision: keep frozen or fine-tune based on validation, not training loss
+risk_note: data size, domain mismatch, preprocessing mismatch
+```
+
+这样迁移学习就不是“套一个大模型”，而是可控的工程流程。
+
 ## 真实项目流程
 
 1. 在碰模型之前，先切好 train/validation/test。

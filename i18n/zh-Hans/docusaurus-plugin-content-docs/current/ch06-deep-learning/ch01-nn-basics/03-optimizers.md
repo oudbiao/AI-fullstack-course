@@ -142,6 +142,20 @@ lr=1.1  final_w=20.575 final_loss=345.0386
 
 太大：训练发散。
 
+## 留下的证据
+
+在笔记里保留一张 optimizer 对比表：
+
+```text
+same_loss: (w - 2)^2
+same_start: w = 5
+sgd_result: approaches w = 2 with lr=0.1
+momentum_result: moves faster but overshoots
+bad_lr_result: lr=1.1 diverges
+```
+
+这比背 optimizer 名字更有用。它说明真正的规则：梯度给方向，optimizer 设置决定移动的幅度和方式。
+
 ## 优化器直觉
 
 | 优化器 | 直觉 | 适合先用在 |

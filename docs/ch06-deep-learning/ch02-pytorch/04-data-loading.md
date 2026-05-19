@@ -345,6 +345,21 @@ The full pattern is now visible:
 Dataset -> DataLoader -> batch loop -> model -> loss -> backward -> step -> validation loop
 ```
 
+## Evidence to Keep
+
+Save one batch inspection before every new training project:
+
+```text
+one_sample_x_shape: ...
+one_sample_y_shape: ...
+batch_x_shape: ...
+batch_y_shape: ...
+first_layer_expected_input: ...
+loss_expected_target_shape: ...
+```
+
+If this record is correct, most DataLoader problems are already gone before training starts.
+
 ## Choosing `batch_size`
 
 | Batch size | Strength | Tradeoff |

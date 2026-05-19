@@ -313,6 +313,19 @@ bias: (4,)
 3. `out_channels` 会创建多少个 feature map？
 4. `kernel_size`、`stride`、`padding` 会怎样改变 `H` 和 `W`？
 
+## 留下的证据
+
+每个卷积实验都保存一条 shape 方程：
+
+```text
+input_shape: [N, C_in, H, W]
+kernel: [C_out, C_in, kH, kW]
+output_shape: [N, C_out, H_out, W_out]
+meaning: C_out feature maps scan local regions
+```
+
+如果这条记录清楚，卷积就会变成 shape 和局部模式操作，而不是神秘图像层。
+
 ## 常见错误
 
 | 错误 | 为什么有问题 | 修复 |

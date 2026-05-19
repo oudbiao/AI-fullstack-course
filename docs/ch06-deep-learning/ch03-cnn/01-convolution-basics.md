@@ -313,6 +313,19 @@ When you read any `Conv2d`, ask:
 3. How many feature maps does `out_channels` create?
 4. How do `kernel_size`, `stride`, and `padding` change `H` and `W`?
 
+## Evidence to Keep
+
+For every convolution lab, save one shape equation:
+
+```text
+input_shape: [N, C_in, H, W]
+kernel: [C_out, C_in, kH, kW]
+output_shape: [N, C_out, H_out, W_out]
+meaning: C_out feature maps scan local regions
+```
+
+If this record is clear, convolution becomes a shape-and-pattern operation rather than a mysterious image layer.
+
 ## Common Mistakes
 
 | Mistake | Why it hurts | Fix |

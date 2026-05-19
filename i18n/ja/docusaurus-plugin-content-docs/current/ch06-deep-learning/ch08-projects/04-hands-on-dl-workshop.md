@@ -96,6 +96,20 @@ deep_learning_workshop_run/
   README.md
 ```
 
+## 残す証拠
+
+このワークショップが完了したとき、folder 自体が完全な training loop を証明できる必要があります。
+
+```text
+shape_trace: one batch shape and logits shape
+training_log: train and validation curves
+model_comparison: baseline vs CNN
+confusion_matrix: class-level errors
+error_samples: concrete failures to inspect
+checkpoint: best model can be restored
+README: command, metrics, limitations, next step
+```
+
 ### 実行前に用語を確認する
 
 - **Tensor**：多次元配列。このワークショップでは、1 つの画像 batch の shape は `(batch, channel, height, width)` です。

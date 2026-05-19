@@ -159,6 +159,20 @@ first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 
 The LSTM beats the naive baseline in this run (`0.0030` vs `0.0115`). That matters: a model should beat a simple baseline before you trust it.
 
+## Evidence to Keep
+
+For sequence forecasting, keep a baseline comparison:
+
+```text
+window_size: 16
+split_rule: train first 80%, validate later 20%
+naive_val_mse: 0.0115
+model_val_mse: 0.0030
+plot_check: predictions do not merely lag or flatten
+```
+
+The most important evidence is not that the LSTM has a low loss. It is that it beats a simple, honest baseline without leaking future data.
+
 ## Why Use Gradient Clipping?
 
 RNN-style models can sometimes produce large gradients. This line caps the total gradient norm:

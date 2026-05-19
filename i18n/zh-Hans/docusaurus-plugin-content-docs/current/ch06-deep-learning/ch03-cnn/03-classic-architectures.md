@@ -241,6 +241,20 @@ out = out + identity
 
 许多现代 CNN backbone 和混合视觉模型仍然继承这些思想，即使名字和 block 看起来更新。
 
+## 留下的证据
+
+做一张架构记忆卡：
+
+```text
+LeNet: conv feature extractor + classifier head
+AlexNet: scale, GPU, ReLU, regularization
+VGG: repeated small 3x3 blocks
+ResNet: shortcut path makes depth trainable
+code_clue: residual block uses out + identity
+```
+
+这是工程上真正值得记住的历史层级。你不需要先背下每个模型的层数，才开始读现代 backbone。
+
 ## 常见错误
 
 | 错误 | 更好的看法 |

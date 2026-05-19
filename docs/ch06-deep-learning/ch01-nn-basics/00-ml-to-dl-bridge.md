@@ -253,3 +253,30 @@ So the most important takeaways are:
 - Know what new capability deep learning really adds
 - Know why backpropagation and PyTorch appear
 - Know that Station 5 and Station 6 still share the same modeling skeleton
+
+## Evidence to Keep
+
+Write a five-line bridge note before continuing:
+
+```text
+old_skill: I can train and evaluate sklearn models.
+same_skeleton: data -> model -> loss/metric -> improvement -> error analysis.
+new_capability: neural networks learn representations, not only final prediction rules.
+new_control: PyTorch exposes forward, backward, optimizer, device, and checkpoint logic.
+next_action: run one tiny neural network and explain why loss changes.
+```
+
+If this note feels clear, Chapter 6 will feel like an expansion of your existing modeling workflow rather than a reset.
+
+## Expected Result
+
+After this bridge page, your output is a mental model, not a Python file:
+
+```text
+I can explain what stays the same from sklearn to PyTorch.
+I can explain what becomes more explicit in PyTorch.
+I can point to one reason representation learning matters.
+I can describe why Chapter 6 prepares me for Transformer and LLMs.
+```
+
+If you cannot say those four lines yet, reread the bridge before jumping into CNN, RNN, or Transformer architecture names.

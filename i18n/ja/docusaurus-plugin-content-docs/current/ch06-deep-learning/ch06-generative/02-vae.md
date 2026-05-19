@@ -162,6 +162,19 @@ generated_points
 - `kl` は 0 になる必要はありません。latent space を滑らかな prior に近づける圧力です。
 - `generated_points` はランダムな `z` から decode したもので、訓練データを直接コピーしたものではありません。
 
+## 残す証拠
+
+VAE 実行では、この再構成と latent の記録を残します。
+
+```text
+encoder_outputs: mu and logvar
+sampling_rule: z = mu + eps * std
+reconstruction_signal: recon decreases from 0.5903 to 0.0244
+regularization_signal: KL stays nonzero and controlled
+generation_check: decoder can map random z to plausible 2D points
+tradeoff: reconstruction quality vs smooth latent space
+```
+
 ## VAE、Autoencoder、GAN
 
 | モデル | 何を学ぶか | 強み | よくある弱点 |

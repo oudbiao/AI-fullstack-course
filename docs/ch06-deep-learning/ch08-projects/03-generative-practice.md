@@ -122,6 +122,19 @@ best-looking single sample != best project checkpoint
 | challenge | compare VAE, GAN, or diffusion-style outputs |
 | portfolio | clear story: data, model, samples, failures, next step |
 
+## Evidence to Keep
+
+A generative project should leave this minimum evidence:
+
+```text
+checkpoint_samples: fixed-seed samples across epochs
+quality_note: what improved visually
+diversity_note: whether outputs repeat
+failure_sample: blurry, broken, collapsed, or unrealistic output
+selection_rule: why this checkpoint was kept
+next_action: data, objective, architecture, or sampling change
+```
+
 ## Common Mistakes
 
 | Mistake | Fix |

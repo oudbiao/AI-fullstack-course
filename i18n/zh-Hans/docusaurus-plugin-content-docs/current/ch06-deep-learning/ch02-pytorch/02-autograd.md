@@ -296,6 +296,20 @@ forward -> loss -> zero_grad -> backward -> step
 
 有些代码会把 `zero_grad` 放在 forward 之前，但核心规则一样：下一次更新前清掉旧梯度。
 
+## 留下的证据
+
+保留一条 autograd trace：
+
+```text
+loss_requires_grad: True
+parameter_requires_grad: True
+grad_after_backward: not None
+update_rule: backward computes gradients, optimizer or manual code updates values
+safe_logging: store loss.item() or tensor.detach()
+```
+
+这可以避免最常见的误解：`backward()` 不是更新参数。它只负责填充梯度。
+
 ## 练习
 
 1. 把实验 4 改成学习 `y = 3x - 2`。`w` 和 `b` 应该接近什么？

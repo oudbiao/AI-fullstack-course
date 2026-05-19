@@ -56,6 +56,18 @@ attention_shape: (1, 4, 4)
 | 1 | [6.5.2 Attention Mechanism](./01-attention-mechanism.md) | QKV, attention weights, masking |
 | 2 | [6.5.3 Transformer Architecture](./02-transformer-architecture.md) | block structure, residuals, feed-forward layers |
 
+## Evidence to Keep
+
+Keep one attention bridge note:
+
+```text
+tokens_shape: [batch, seq_len, embed_dim]
+attention_shape: [batch, query_position, key_position]
+qkv_meaning: Q/K match, V carries content
+mask_reason: generation cannot see future tokens
+llm_bridge: decoder blocks turn token context into next-token logits
+```
+
 ## Pass Check
 
 You pass this roadmap when you can read the attention weight shape, explain why attention gives global context, and connect masks to text generation.

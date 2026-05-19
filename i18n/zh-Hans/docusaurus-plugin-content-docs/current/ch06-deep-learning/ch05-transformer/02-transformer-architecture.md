@@ -335,6 +335,47 @@ output: (2, 3, 16)
 现代 LLM decoder 调整了 block，让超深生成模型更容易训练和推理。
 ```
 
+## 通往 LLM 的桥：从 block 输出到下一个 token
+
+Transformer block 不会直接“回答”用户。它做的是重写 token 表示。Decoder-only LLM 会堆叠很多这样的 block，最后把最终表示映射成词表分数。
+
+```text
+tokens
+-> embeddings + position
+-> repeated decoder blocks
+-> final hidden states
+-> vocabulary logits
+-> next-token choice
+```
+
+最后两步要认真读：
+
+| 步骤 | 通俗含义 | 为什么第 7 章会用到 |
+|---|---|---|
+| vocabulary logits | 给每个可能的下一个 token 一个分数 | 模型在这里排序所有可能续写 |
+| decoding | 从这些分数里选择或采样下一个 token | temperature、top-p、停止规则会改变可见行为 |
+
+所以桥接关系是：
+
+```text
+第 6 章：block 怎样重写表示。
+第 7 章：重写后的表示怎样变成生成文本。
+```
+
+这也解释了为什么 Prompt 重要。Prompt 会改变输入 token 和上下文，进而改变 hidden states，最后改变 next-token 分数。
+
+## 留下的证据
+
+保留一张 Transformer block 卡片：
+
+```text
+block_shape: [batch, seq_len, d_model] stays the same
+content_change: token representations become context-aware
+stability_parts: residual + norm
+token_parts: attention mixes positions, FFN transforms each position
+generation_bridge: final hidden state -> vocabulary logits -> next token
+```
+
 ## 常见错误
 
 | 错误 | 修复 |

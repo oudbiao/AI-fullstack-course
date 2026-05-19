@@ -157,6 +157,19 @@ both train_loss=0.159 val_acc=0.949
 
 That is the point of regularization. You may accept a slightly worse training fit to get better generalization.
 
+## Evidence to Keep
+
+For regularization, do not save only the lowest training loss. Save the tradeoff:
+
+```text
+plain: lower train_loss, lower validation accuracy
+regularized: slightly higher train_loss, better validation accuracy
+decision: choose the model with better validation behavior
+next_probe: change dropout or weight_decay one at a time
+```
+
+The important mental turn is this: deep learning optimization is not "make train loss smallest." It is "make future performance more reliable."
+
 ## Dropout
 
 `nn.Dropout(0.25)` randomly drops activations during training:

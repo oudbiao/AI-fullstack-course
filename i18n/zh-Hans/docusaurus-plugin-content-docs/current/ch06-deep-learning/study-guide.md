@@ -19,6 +19,22 @@ batch 数据 -> 模型前向 -> 损失 -> 反向传播梯度 -> 优化器更新 
 
 如果代码看起来很长，先找出这六步。
 
+## 预期最终输出
+
+第 6 章结束时，你应该留下一个小证据文件夹，而不只是读完笔记：
+
+```text
+deep_learning_evidence/
+  shape_trace.txt
+  training_log.csv
+  loss_curve.png
+  best_checkpoint_note.md
+  attention_note.md
+  failure_sample_note.md
+```
+
+如果这个文件夹还没有出现，即使页面都读完了，第 6 章也还没有真正完成。
+
 ## 练习清单
 
 | 检查项 | 证据 |
@@ -39,6 +55,19 @@ batch 数据 -> 模型前向 -> 损失 -> 反向传播梯度 -> 优化器更新 
 | 曲线图片或 CSV | 模型是在欠拟合、过拟合，还是稳定变好？ |
 | attention 说明 | Attention 增加了什么信息，还有什么依然困难？ |
 | 失败样本记录 | 哪个样本失败了，这说明数据、模型还是标签哪里有问题？ |
+
+## 留下的证据
+
+离开第 6 章前，保留一个紧凑证据包：
+
+```text
+shape_trace: one model with printed tensor shapes
+training_log: train and validation loss over time
+best_checkpoint: how the best model was selected
+attention_note: Q/K/V, mask, and next-token bridge
+failure_sample: one wrong or weak prediction with next action
+project_folder: runnable evidence pack or README
+```
 
 ## 可以继续的信号
 

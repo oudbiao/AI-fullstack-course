@@ -317,6 +317,19 @@ plt.show()
 
 This picture is usually the moment when PyTorch starts to feel concrete: the model is no longer just printing numbers; you can see how it divides the space.
 
+## Evidence to Keep
+
+Save these four artifacts from the workshop:
+
+```text
+data_plot: shows the original class pattern
+loss_curve: shows whether training and validation improve together
+decision_boundary: shows what the model learned geometrically
+failure_note: one case where the boundary or validation curve looks wrong
+```
+
+If you can explain all four, this workshop has become a training evidence pack rather than a copied notebook.
+
 ## Common Errors and Fixes
 
 | Symptom | Likely cause | Fix |

@@ -268,6 +268,19 @@ Use the tradeoff like this:
 
 Modern CNN classifiers often use GAP because it reduces overfitting risk and makes the head smaller.
 
+## Evidence to Keep
+
+Keep one CNN shape trace:
+
+```text
+input: [batch, channels, height, width]
+after_conv: channels change, spatial size follows padding/stride
+after_pool: height and width shrink
+before_head: flattened size or GAP output is known
+logits: [batch, num_classes]
+head_choice: Flatten for location-specific detail, GAP for compact classifier
+```
+
 ## Common Mistakes
 
 | Mistake | Symptom | Fix |

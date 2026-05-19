@@ -291,6 +291,19 @@ The gate values show how state is mixed, the shape check shows the PyTorch API c
 
 This toy task is small, but it captures the reason gated recurrent models exist: the model needs to preserve useful early information through noisy later steps.
 
+## Evidence to Keep
+
+Keep one gated-memory note:
+
+```text
+lstm_state: returns hidden state h and cell state c
+gru_state: returns hidden state h only
+gate_meaning: values near 0 block, values near 1 pass
+memory_task: label depends on the first time step
+result: final_acc reaches 1.0 on the toy memory task
+limit: validate on held-out sequences before trusting the architecture
+```
+
 ## LSTM or GRU?
 
 | Situation | Good starting point |

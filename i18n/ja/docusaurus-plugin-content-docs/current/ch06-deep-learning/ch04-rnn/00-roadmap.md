@@ -57,6 +57,18 @@ hidden_shape: (1, 2, 4)
 | 2 | [6.4.3 LSTM と GRU](./02-lstm-gru.md) | ゲート、長期依存、記憶制御 |
 | 3 | [6.4.4 系列モデリング実践](./03-sequence-practice.md) | スライディングウィンドウ、train/eval ループ |
 
+## 残す証拠
+
+この小章を学んだら、次の sequence shape メモを残します。
+
+```text
+input_shape: [batch, seq_len, features]
+hidden_state: rolling memory, not exact storage
+rnn_output: one representation per time step
+final_hidden: compressed sequence summary
+long_context_limit: use LSTM/GRU or attention when plain RNN forgets
+```
+
 ## 合格ライン
 
 `[batch, seq_len, features]` を読め、hidden state を流れていく記憶として説明でき、LSTM/GRU が長期依存のために導入されたことを説明できれば合格です。

@@ -159,6 +159,20 @@ first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 
 この実行では、LSTM は naive baseline を上回っています（`0.0030` vs `0.0115`）。これは重要です。信頼する前に、モデルはまず単純な baseline に勝つべきです。
 
+## 残す証拠
+
+系列予測では baseline 比較を保存します。
+
+```text
+window_size: 16
+split_rule: chronological, first 80% train and last 20% validation
+baseline: naive last-value predictor
+baseline_val_mse: 0.0115
+model_val_mse: 0.0030
+sample_check: first_5_pred follows first_5_true direction and scale
+failure_to_check: lag, flatline, missed peaks, noisy prediction
+```
+
 ## なぜ Gradient Clipping を使うのか
 
 RNN 系のモデルでは、勾配が大きくなることがあります。この行は全体の勾配 norm を制限します。

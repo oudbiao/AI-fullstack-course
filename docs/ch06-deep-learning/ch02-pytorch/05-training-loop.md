@@ -197,6 +197,44 @@ x=[0.0, 0.0] -> pred=4.98
 
 The true noiseless values are `12`, `3`, and `5`, so the predictions are close.
 
+## How to Read the Output
+
+Do not only check whether the script finished. Read the output as evidence:
+
+| Output | What it proves | What it does not prove |
+|---|---|---|
+| `train_loss` goes down | the model can fit the training data | the model generalizes |
+| `val_loss` goes down | the learned pattern works on held-out samples | the split is representative of the real world |
+| `best_val` is restored | the final prediction uses the best validation checkpoint | the last epoch was best |
+| predictions near `12`, `3`, `5` | the model learned the synthetic rule | the same model will work on messy real data |
+
+For course notes or a portfolio, keep a tiny evidence pack:
+
+```text
+task: synthetic regression
+data: 240 samples, 2 features, target ~= 3*x1 + 2*x2 + 5
+best_val: 0.0734
+prediction_check: [12.05, 3.00, 4.98] close to [12, 3, 5]
+failure_to_try_next: increase noise to 1.0 and compare validation loss
+```
+
+This habit matters later. Fine-tuning, RAG evaluation, and Agent evaluation all use the same pattern: **run, measure, save evidence, change one thing, compare again**.
+
+## Evidence to Keep
+
+For a training loop, the minimum evidence is not a final score. Keep the loop trace:
+
+```text
+device: cpu, mps, or cuda
+train_val_split: 192 train samples, 48 validation samples
+loss_log: epoch 1, 20, 40, 60, 80 train_loss and val_loss
+best_checkpoint: best_val and whether best_state was restored
+prediction_probe: three test predictions compared with the noiseless targets
+debug_order: shape -> dtype -> device -> loss -> gradient -> update -> validation
+```
+
+This evidence lets someone else decide whether the model learned, overfit, failed to update, or only looked good on the last printed epoch.
+
 ## Step-by-Step Breakdown
 
 | Step | Code | Why it exists |

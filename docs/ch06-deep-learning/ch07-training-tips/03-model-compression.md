@@ -153,6 +153,23 @@ teacher logits or outputs -> student learns labels + teacher behavior
 
 Never report “int8 works” without task metric and latency. Smaller is not automatically better.
 
+## Evidence to Keep
+
+Save compression results as a before/after report:
+
+```text
+baseline_size:
+compressed_size:
+baseline_latency:
+compressed_latency:
+baseline_metric:
+compressed_metric:
+runtime_hardware:
+decision: keep, tune, or reject compression
+```
+
+This protects you from a common mistake: reducing file size while making the actual product slower or less accurate.
+
 ## Common Mistakes
 
 | Mistake | Fix |

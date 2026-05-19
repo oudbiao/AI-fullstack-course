@@ -130,6 +130,20 @@ step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
 - `fake_std` 很小时，要警惕多样性不足；
 - GAN 的 loss 曲线通常不能脱离样本观察来解释。
 
+## 留下的证据
+
+GAN 运行时，不要只保存 loss：
+
+```text
+real_distribution: center and spread of real samples
+fake_mean_over_time: whether generated samples move toward the target
+fake_std_over_time: diversity signal, possible collapse warning
+sample_snapshot: generated examples at multiple steps
+diagnosis: stable, oscillating, collapsed, or still weak
+```
+
+这是 GAN 的核心习惯：用样本和多样性判断这场博弈，而不是只看最后一个 loss 数字。
+
 ## 什么是 Mode Collapse
 
 Mode collapse 指 generator 找到一种狭窄技巧骗过 discriminator，然后反复生成非常相似的样本。

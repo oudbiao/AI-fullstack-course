@@ -181,6 +181,19 @@ XOR has only four rows:
 
 A straight line cannot separate these labels. That is why a single-layer perceptron fails. A small MLP succeeds because it creates intermediate hidden features before the final decision.
 
+## Evidence to Keep
+
+Keep this tiny result card:
+
+```text
+single_neuron: z = x @ w + b, activation changes the signal
+xor_result: [0, 1, 1, 0] recovered by a tiny MLP
+core_reason: nonlinear hidden layers create intermediate features
+failure_probe: remove hidden activation and compare final_loss
+```
+
+The important proof is not that the toy model memorized four rows. The important proof is that nonlinearity changes what a stack of layers can represent.
+
 ## Practical Debugging Checklist
 
 | Symptom | Likely cause | Fix |

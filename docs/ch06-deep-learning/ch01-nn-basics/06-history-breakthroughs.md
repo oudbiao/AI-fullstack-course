@@ -102,3 +102,30 @@ You are ready to move on when you can answer:
 - Why did Attention become the bridge to modern large language models?
 
 If your answer begins with “because the previous model could not...”, you are reading the history in the right way.
+
+## Evidence to Keep
+
+Turn the timeline into a small memory sketch. Use four boxes:
+
+```text
+box_1: one neuron learns a linear rule
+box_2: XOR shows why hidden nonlinear layers matter
+box_3: backprop makes multi-layer learning practical
+box_4: attention lets tokens connect directly at scale
+```
+
+This page is optional, but the sketch is useful. It gives you a compact story for why Chapter 6 moves from neurons to Transformer instead of listing architectures at random.
+
+## Expected Result
+
+The expected output is a cause-and-effect timeline, not memorized dates:
+
+```text
+perceptron -> XOR shows the limit
+XOR -> hidden nonlinear layers matter
+deep layers -> backprop and gradient flow matter
+long sequences -> gates and attention matter
+Transformer -> scalable context modeling for LLMs
+```
+
+Use this as the memory hook whenever an architecture name starts to feel like an isolated fact.

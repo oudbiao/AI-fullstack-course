@@ -59,6 +59,18 @@ value_range: -0.863 0.695
 | 1 | [6.6.2 GAN](./01-gan.md) | generator、discriminator、对抗平衡 |
 | 2 | [6.6.3 VAE](./02-vae.md) | encoder、decoder、潜在空间 |
 
+## 留下的证据
+
+保留一条生成结果复盘笔记：
+
+```text
+latent_shape: what compact code enters the generator/decoder
+output_shape: what sample-like object comes out
+quality_check: does it look plausible or reconstruct well?
+diversity_check: are outputs varied, or collapsing?
+trust_rule: generated output always needs review
+```
+
 ## 通过标准
 
 能解释预测标签和生成样本的区别，并说明为什么生成结果需要审查而不能盲信，就算通过。

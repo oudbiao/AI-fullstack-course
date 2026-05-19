@@ -62,6 +62,18 @@ for step in range(1, 5):
 | 7 | [6.2.8 実践 Tips](./06-practical-tips.md) | shape、device、seed、デバッグ |
 | 8 | [6.2.9 PyTorch ワークショップ](./07-pytorch-matplotlib-workshop.md) | 小さなモデルを動かして可視化する |
 
+## 残す証拠
+
+PyTorch ループのメモを 1 つ残します。
+
+```text
+tensor_check: shape, dtype, device
+autograd_check: loss.backward() fills gradients
+module_check: named_parameters() shows trainable tensors
+loader_check: one batch matches model and loss
+loop_check: train/eval losses are logged separately
+```
+
 ## 合格ライン
 
 PyTorch ループを読み、データ batch、モデル出力、loss、`backward()`、optimizer 更新の5つを見つけられれば合格です。

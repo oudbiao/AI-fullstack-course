@@ -142,6 +142,20 @@ Reasonable: training approaches the optimum.
 
 Too large: training diverges.
 
+## Evidence to Keep
+
+Keep one optimizer comparison table in your notes:
+
+```text
+same_loss: (w - 2)^2
+same_start: w = 5
+sgd_result: approaches w = 2 with lr=0.1
+momentum_result: moves faster but overshoots
+bad_lr_result: lr=1.1 diverges
+```
+
+This evidence is more useful than memorizing optimizer names. It shows the real rule: gradients give direction, while optimizer settings decide the size and style of movement.
+
 ## Optimizer Intuition
 
 | Optimizer | Intuition | Good first use |

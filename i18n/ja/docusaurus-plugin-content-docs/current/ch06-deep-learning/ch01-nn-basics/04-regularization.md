@@ -157,6 +157,19 @@ both train_loss=0.159 val_acc=0.949
 
 これが正則化のポイントです。training fit が少し悪くなっても、汎化が良くなるなら価値があります。
 
+## 残す証拠
+
+正則化では、最低の training loss だけを保存しないでください。トレードオフを残します。
+
+```text
+plain: lower train_loss, lower validation accuracy
+regularized: slightly higher train_loss, better validation accuracy
+decision: choose the model with better validation behavior
+next_probe: change dropout or weight_decay one at a time
+```
+
+ここで大切なのは、深層学習の最適化は「training loss を最小にすること」だけではなく、「将来の性能をより信頼できるものにすること」だと理解することです。
+
 ## Dropout
 
 `nn.Dropout(0.25)` は、訓練中に活性化をランダムに落とします。

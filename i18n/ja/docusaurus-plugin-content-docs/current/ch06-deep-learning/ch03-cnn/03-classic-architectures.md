@@ -241,6 +241,20 @@ out = out + identity
 
 現代的な CNN backbone やハイブリッドなビジョンモデルでも、名前や block が新しく見えるだけで、これらの考え方を受け継いでいることが多いです。
 
+## 残す証拠
+
+アーキテクチャ記憶カードを 1 つ作ります。
+
+```text
+LeNet: conv feature extractor + classifier head
+AlexNet: scale, GPU, ReLU, regularization
+VGG: repeated small 3x3 blocks
+ResNet: shortcut path makes depth trainable
+code_clue: residual block uses out + identity
+```
+
+これは、実務で本当に覚える価値のある歴史の粒度です。現代的な backbone を読む前に、すべての layer 数を暗記する必要はありません。
+
 ## よくあるミス
 
 | ミス | よりよい見方 |

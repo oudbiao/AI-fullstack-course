@@ -241,6 +241,20 @@ You may not start a modern project from LeNet or AlexNet, but their ideas still 
 
 Modern CNN backbones and hybrid vision models still reuse these ideas, even when the names and blocks look newer.
 
+## Evidence to Keep
+
+Make one architecture memory card:
+
+```text
+LeNet: conv feature extractor + classifier head
+AlexNet: scale, GPU, ReLU, regularization
+VGG: repeated small 3x3 blocks
+ResNet: shortcut path makes depth trainable
+code_clue: residual block uses out + identity
+```
+
+This is the level of history worth remembering for engineering. You do not need to memorize every layer count before you can read a modern backbone.
+
 ## Common Mistakes
 
 | Mistake | Better view |

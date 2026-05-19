@@ -181,6 +181,19 @@ XOR 只有四行：
 
 一条直线无法把这些标签分开，所以单层感知机会失败。小型 MLP 能成功，是因为它先创建了中间隐藏特征，再做最终判断。
 
+## 留下的证据
+
+保留这张极小结果卡：
+
+```text
+single_neuron: z = x @ w + b, activation changes the signal
+xor_result: [0, 1, 1, 0] recovered by a tiny MLP
+core_reason: nonlinear hidden layers create intermediate features
+failure_probe: remove hidden activation and compare final_loss
+```
+
+重要证据不是这个玩具模型记住了四行数据，而是非线性会改变多层网络能表达的模式。
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |

@@ -142,6 +142,20 @@ lr=1.1  final_w=20.575 final_loss=345.0386
 
 大きすぎる：発散する。
 
+## 残す証拠
+
+ノートには optimizer 比較を 1 つ残します。
+
+```text
+same_loss: (w - 2)^2
+same_start: w = 5
+sgd_result: approaches w = 2 with lr=0.1
+momentum_result: moves faster but overshoots
+bad_lr_result: lr=1.1 diverges
+```
+
+これは optimizer 名を暗記するより役立ちます。勾配は方向を与え、optimizer の設定は動く大きさと動き方を決める、という本質を示すからです。
+
 ## オプティマイザの直感
 
 | オプティマイザ | 直感 | 最初に使いやすい場面 |

@@ -122,6 +122,19 @@ selected_epoch: 30
 | challenge | 比较 VAE、GAN 或 diffusion-style 输出 |
 | portfolio | 清楚故事：data、model、samples、failures、next step |
 
+## 留下的证据
+
+生成项目至少留下这些证据：
+
+```text
+checkpoint_samples: fixed-seed samples across epochs
+quality_note: what improved visually
+diversity_note: whether outputs repeat
+failure_sample: blurry, broken, collapsed, or unrealistic output
+selection_rule: why this checkpoint was kept
+next_action: data, objective, architecture, or sampling change
+```
+
 ## 常见错误
 
 | 错误 | 修复 |

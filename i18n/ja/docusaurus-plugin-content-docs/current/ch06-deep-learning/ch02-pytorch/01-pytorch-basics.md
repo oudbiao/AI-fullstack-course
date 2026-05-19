@@ -324,6 +324,20 @@ logits: [batch, classes], float32
 labels: [batch], int64 / long
 ```
 
+## 残す証拠
+
+次へ進む前に、小さな tensor 点検メモを保存します。
+
+```text
+input_shape: [batch, features]
+logits_shape: [batch, classes]
+label_shape: [batch]
+label_dtype: torch.long for CrossEntropyLoss
+device_check: model and data are on the same device
+```
+
+これは後の PyTorch コードを最速でデバッグする方法です。初期の多くのエラーは、長い stack trace の中に隠れた shape、dtype、device、broadcasting の問題です。
+
 ## 練習
 
 1. 実験 2 の `X` を 2 サンプルから 3 サンプルに変えてください。どの shape が変わり、どの shape は変わりませんか？

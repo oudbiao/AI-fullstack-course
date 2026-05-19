@@ -313,6 +313,19 @@ bias: (4,)
 3. `out_channels` は何枚の feature map を作るか。
 4. `kernel_size`、`stride`、`padding` は `H` と `W` をどう変えるか。
 
+## 残す証拠
+
+畳み込み実験ごとに shape equation を 1 つ保存します。
+
+```text
+input_shape: [N, C_in, H, W]
+kernel: [C_out, C_in, kH, kW]
+output_shape: [N, C_out, H_out, W_out]
+meaning: C_out feature maps scan local regions
+```
+
+この記録が分かれば、畳み込みは謎の画像 layer ではなく、shape と局所パターンの操作として読めます。
+
 ## よくあるミス
 
 | ミス | なぜ困るか | 修正 |

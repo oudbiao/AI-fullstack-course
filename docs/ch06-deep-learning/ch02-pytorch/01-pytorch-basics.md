@@ -324,6 +324,20 @@ logits: [batch, classes], float32
 labels: [batch], int64 / long
 ```
 
+## Evidence to Keep
+
+Before moving on, save a small tensor inspection note:
+
+```text
+input_shape: [batch, features]
+logits_shape: [batch, classes]
+label_shape: [batch]
+label_dtype: torch.long for CrossEntropyLoss
+device_check: model and data are on the same device
+```
+
+This is the fastest way to debug later PyTorch code. Most early errors are shape, dtype, device, or broadcasting errors hiding behind a long stack trace.
+
 ## Exercises
 
 1. Change `X` in Lab 2 from two samples to three samples. Which shapes change, and which shapes stay the same?

@@ -57,6 +57,18 @@ feature_shape: (1, 8, 32, 32)
 | 4 | [6.3.5 転移学習](./04-transfer-learning.md) | backbone 凍結、fine-tuning |
 | 5 | [6.3.6 画像分類実践](./05-image-classification-practice.md) | データセット、学習、予測例 |
 
+## 残す証拠
+
+CNN shape メモを 1 つ残します。
+
+```text
+input: [batch, channels, height, width]
+conv_output: out_channels becomes new feature maps
+spatial_change: stride/padding/pooling change height and width
+classifier_bridge: conv features eventually become class logits
+transfer_choice: freeze first, fine-tune only if validation improves
+```
+
 ## 合格ライン
 
 入力画像形状と特徴マップ形状の間で何が変わったか、そして小規模データセットで学習済み CNN backbone が役立つ理由を説明できれば合格です。

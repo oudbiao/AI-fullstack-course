@@ -13,7 +13,9 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import queue
 import re
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -26,6 +28,7 @@ from generate_course_images import (
     DEFAULT_REPORT_DIR,
     DEFAULT_REQUEST_TIMEOUT,
     IMAGE_JOBS,
+    available_api_keys,
     generate_image_with_http,
     set_user_readable_permissions,
 )
@@ -44,6 +47,7 @@ Create the English localized final image for this course illustration.
 All user-facing labels, captions, bubbles, and callouts in the image must be clear natural English.
 Keep standard technical terms, code identifiers, formulas, API names, and model names in English as appropriate.
 If the source prompt asks for Chinese labels, replace those labels with English.
+Recompose the page vertically; do not stretch, squeeze, or warp the source image or its text. If the localized text is too long, shorten labels while keeping the same teaching meaning.
 Avoid dense tiny text, gibberish, watermark, and real brand logos.
 """.strip(),
     "ja": """
@@ -51,6 +55,7 @@ Avoid dense tiny text, gibberish, watermark, and real brand logos.
 画像内の見出し、ラベル、吹き出し、注釈は自然な日本語にしてください。
 標準的な技術用語、コード、数式、API 名、モデル名は必要に応じて英語表記のまま残してください。
 元のプロンプトに中国語ラベル指定がある場合は、日本語ラベルに置き換えてください。
+縦長ページとして再構成してください。元画像や文字を縦方向に引き伸ばしたり、横幅を圧縮したり、歪ませたりしないでください。日本語ラベルが長すぎる場合は、意味を保ったまま短くしてください。
 小さすぎる文字、文字化け、透かし、実在ブランドロゴは禁止です。
 """.strip(),
 }
@@ -195,6 +200,7 @@ def main() -> int:
     parser.add_argument("--retries", type=int, default=DEFAULT_IMAGE_RETRIES)
     parser.add_argument("--continue-on-error", action="store_true")
     parser.add_argument("--ignore-pending", action="store_true")
+    parser.add_argument("--parallel-per-key", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     if args.limit != 1 and not args.allow_batch:
@@ -211,33 +217,33 @@ def main() -> int:
     print(f"base_url: {args.base_url}", flush=True)
     print(f"targets: {len(targets)}", flush=True)
     print(f"pending_file: {args.pending_file}", flush=True)
+    api_keys = available_api_keys()
+    worker_count = min(len(api_keys), len(targets)) if args.parallel_per_key and targets else 1
+    print(f"api_keys: {len(api_keys)}", flush=True)
+    print(f"workers: {worker_count}", flush=True)
 
     successes: set[str] = set()
     errors: list[dict[str, str]] = []
 
-    for target in targets:
+    def generate_target(target: str, request_api_keys: list[str]) -> tuple[str, str | None]:
         try:
             job = derived_job_for(target, args.locale, jobs, alt_map)
         except Exception as exc:
-            errors.append({"filename": target, "error": str(exc)})
-            print(f"Failed to prepare {target}: {exc}", flush=True)
-            if args.continue_on_error:
-                continue
-            break
+            return target, str(exc)
 
         if args.dry_run:
             print(f"DRY RUN: {target} ({job.get('size')}, {job.get('quality')})", flush=True)
-            continue
+            return target, None
 
-        if not os.environ.get("OPENAI_API_KEY"):
-            raise SystemExit("OPENAI_API_KEY is not set.")
+        if not request_api_keys:
+            return target, "OPENAI_API_KEY is not set."
 
         output_path = output_dir / target
         print(f"Generating {target}...", flush=True)
         try:
             output_path.write_bytes(
                 generate_image_with_http(
-                    api_key=os.environ["OPENAI_API_KEY"],
+                    api_keys=request_api_keys,
                     base_url=args.base_url,
                     model=args.model,
                     job=job,
@@ -246,7 +252,6 @@ def main() -> int:
                 )
             )
             set_user_readable_permissions(output_path)
-            successes.add(target)
             append_progress(
                 report_dir,
                 {
@@ -256,11 +261,9 @@ def main() -> int:
                     "status": "generated",
                 },
             )
-            remove_successes_from_pending(Path(args.pending_file), successes)
             print(f"Saved {output_path}", flush=True)
+            return target, None
         except Exception as exc:
-            error = {"filename": target, "error": str(exc)}
-            errors.append(error)
             append_progress(
                 report_dir,
                 {
@@ -271,9 +274,57 @@ def main() -> int:
                     "error": str(exc),
                 },
             )
-            print(f"Failed {target}: {exc}", flush=True)
-            if not args.continue_on_error:
-                break
+            return target, str(exc)
+
+    if worker_count > 1 and not args.dry_run:
+        target_queue: queue.Queue[str] = queue.Queue()
+        for target in targets:
+            target_queue.put(target)
+
+        result_lock = threading.Lock()
+        stop_event = threading.Event()
+
+        def key_worker(worker_index: int, api_key: str) -> None:
+            while not stop_event.is_set():
+                try:
+                    target = target_queue.get_nowait()
+                except queue.Empty:
+                    return
+                try:
+                    print(f"worker {worker_index + 1}: {target}", flush=True)
+                    target, error = generate_target(target, [api_key])
+                    with result_lock:
+                        if error:
+                            errors.append({"filename": target, "error": error})
+                            print(f"Failed {target}: {error}", flush=True)
+                            if not args.continue_on_error:
+                                stop_event.set()
+                        else:
+                            successes.add(target)
+                finally:
+                    target_queue.task_done()
+
+        threads = [
+            threading.Thread(target=key_worker, args=(index, api_key), daemon=False)
+            for index, api_key in enumerate(api_keys[:worker_count])
+        ]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
+
+        remove_successes_from_pending(Path(args.pending_file), successes)
+    else:
+        for target in targets:
+            target, error = generate_target(target, api_keys)
+            if error:
+                errors.append({"filename": target, "error": error})
+                print(f"Failed {target}: {error}", flush=True)
+                if not args.continue_on_error:
+                    break
+            else:
+                successes.add(target)
+                remove_successes_from_pending(Path(args.pending_file), successes)
 
     print(json.dumps({"successes": len(successes), "errors": errors}, ensure_ascii=False, indent=2), flush=True)
     return 1 if errors and not args.continue_on_error else 0

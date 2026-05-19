@@ -172,6 +172,19 @@ quick sweep では lr=1.0 が最も良い validation loss。
 次は lr=1.0 を固定し、batch_size=32 と 64 を比較する。
 ```
 
+## 残す証拠
+
+tuning decision card を 1 つ残します。
+
+```text
+question: which single variable was tested?
+fixed: data split, seed, model, optimizer family, training budget
+changed: learning rate values
+selection_metric: validation loss or validation accuracy
+best_setting: lr=1.0 in the quick sweep
+next_experiment: one local refinement, not many knobs at once
+```
+
 ## 診断パターン
 
 | パターン | ありそうな原因 | 次の実験 |

@@ -66,6 +66,19 @@ relu_output: 3.35
 | 6 | [6.1.7 权重初始化](./05-weight-init.md) | 稳定起点 |
 | 7 | [6.1.8 可选历史背景](./06-history-breakthroughs.md) | backprop、CNN、RNN、Attention、Transformer 为什么出现 |
 
+## 留下的证据
+
+学完 6.1 后，保留一条四行短笔记：
+
+```text
+one_layer: input @ weights + bias
+nonlinearity: activation lets stacked layers model curved patterns
+training: forward -> loss -> backward -> optimizer step
+debug_first: check shape, loss, gradient, update
+```
+
+这条笔记会成为本章后续学习 PyTorch、CNN、RNN 和 Transformer 的随身地图。
+
 ## 通过标准
 
 能把一层解释成 `input @ weights + bias`，说清激活函数做什么，并把 loss、梯度、优化器连成一个训练闭环，就算通过。

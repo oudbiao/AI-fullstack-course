@@ -253,3 +253,30 @@ flowchart LR
 - 深層学習で本当に新しくなる能力が何かがわかる
 - なぜ逆伝播と PyTorch が出てくるのかがわかる
 - 第5ステーションと第6ステーションが、実は同じモデリング骨格を共有しているとわかる
+
+## 残す証拠
+
+次へ進む前に、5 行の橋渡しメモを書きます。
+
+```text
+old_skill: I can train and evaluate sklearn models.
+same_skeleton: data -> model -> loss/metric -> improvement -> error analysis.
+new_capability: neural networks learn representations, not only final prediction rules.
+new_control: PyTorch exposes forward, backward, optimizer, device, and checkpoint logic.
+next_action: run one tiny neural network and explain why loss changes.
+```
+
+このメモが自分の言葉で説明できれば、第 6 章は最初からやり直しではなく、既存のモデリング手順の拡張として読めます。
+
+## 期待される結果
+
+このページの出力は Python ファイルではなく、心の中のモデルです。
+
+```text
+I can explain what stays the same from sklearn to PyTorch.
+I can explain what becomes more explicit in PyTorch.
+I can point to one reason representation learning matters.
+I can describe why Chapter 6 prepares me for Transformer and LLMs.
+```
+
+この4行をまだ説明できないなら、CNN、RNN、Transformer の名前へ進む前に、この橋渡しを読み直します。

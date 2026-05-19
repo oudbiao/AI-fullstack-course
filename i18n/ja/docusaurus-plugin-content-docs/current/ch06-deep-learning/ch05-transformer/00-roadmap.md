@@ -56,6 +56,18 @@ attention_shape: (1, 4, 4)
 | 1 | [6.5.2 Attention 機構](./01-attention-mechanism.md) | QKV、attention 重み、mask |
 | 2 | [6.5.3 Transformer アーキテクチャ](./02-transformer-architecture.md) | block 構造、残差、feed-forward 層 |
 
+## 残す証拠
+
+Attention bridge note を 1 つ作ります。
+
+```text
+tokens: positions in a sequence
+attention_shape: [batch, query_position, key_position]
+qkv_meaning: query asks, key matches, value carries content
+mask_reason: generation must not look at future tokens
+llm_bridge: decoder blocks turn context into next-token scores
+```
+
 ## 合格ライン
 
 attention 重みの形を読み、attention がなぜグローバル文脈を持てるかを説明し、mask をテキスト生成と結びつけられれば合格です。

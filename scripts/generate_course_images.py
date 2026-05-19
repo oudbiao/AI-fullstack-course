@@ -20,6 +20,7 @@ import base64
 import http.client
 import json
 import os
+import queue
 import socket
 import stat
 import textwrap
@@ -27,7 +28,6 @@ import threading
 import time
 import urllib.error
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -66,6 +66,13 @@ FALLBACK_PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQ
 # Use landscape only by adding an explicit `allow_landscape: True` to a job.
 DEFAULT_COURSE_IMAGE_SIZE = "1024x1792"
 DEFAULT_COURSE_IMAGE_QUALITY = "high"
+UNIVERSAL_IMAGE_QUALITY_RULES = """
+Universal layout and typography rules:
+- If the asset is vertical, recompose the teaching layout for a vertical page. Never stretch, squeeze, warp, or anisotropically scale a landscape design into a tall image.
+- Keep text at normal human proportions. Do not make letters tall, narrow, compressed, slanted by distortion, or unevenly stretched.
+- If content does not fit, reduce visible text, split the idea into clear teaching zones, or leave more whitespace. Never solve crowding by shrinking text into unreadable filler.
+- Preserve natural diagram geometry: circles remain circles, arrows remain clean, charts and tables are not vertically warped.
+""".strip()
 IMAGE_JOBS: list[dict[str, Any]] = [
     {
         "filename": "intro-quick-experience-loop.png",
@@ -37231,6 +37238,86 @@ for job in IMAGE_JOBS:
         job["size"] = DEFAULT_COURSE_IMAGE_SIZE
         job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
 
+CH06_VERTICAL_REFINEMENT_PROMPTS = {
+    "ch06-study-guide-training-loop.png": """
+生成一张竖版 9:16 简体中文教学位图，用于第 6 章深度学习学习指南。
+必须是重新设计的竖版课堂讲义，不是把横图拉长。禁止拉伸、压扁、挤窄文字、箭头、圆形编号或图标。
+
+风格：手绘课堂笔记 / 白板流程图 / 专业教材图，温暖但克制，像老师在黑板旁解释“先抓住训练闭环”。不要做可爱海报，不要塞满装饰。
+
+从上到下画一条清晰训练循环，编号必须严格连续，只能是 1 到 8，不能跳号、重复或出现 9、10、11、12：
+1. 数据 data：样本与标签进入 batch。
+2. 模型 model：网络接收输入。
+3. 前向 forward：得到 prediction。
+4. 损失 loss：prediction 与 label 比较。
+5. 反向 backward：计算 gradient。
+6. 参数更新 optimizer.step：更新 parameters。
+7. 评估 eval：只画检查表和曲线，不写任何具体 accuracy、loss、F1 等数值。
+8. 下一轮实验 next experiment：只改一个变量，再回到数据或模型。
+
+顶部一句：第一遍先理解训练闭环。
+底部一句：先会读懂循环，再逐步加模型和长代码。
+可以保留术语：data、batch、model、forward、prediction、loss、label、backward、gradient、optimizer.step、parameters、eval、next experiment。
+不要出现虚构指标数值、真实品牌 logo、水印、长段文字、乱码小字。
+""".strip(),
+    "ch06-transformer-chapter-flow.png": """
+生成一张竖版 9:16 简体中文教学位图，用于第 6 章 Transformer 导读页。
+必须是重新设计的竖版课堂讲义，不是把横图拉长。禁止拉伸、压扁、挤窄任何文字、圆形、箭头、表格或模块。不要暗色科幻海报，不要仪表盘，不要旧 SVG 风格，不要白色圆角卡片堆。
+
+风格：手绘课堂笔记 / 横线笔记纸 / 白板流程图，专业教材感，留白充足，文字少而大。
+
+从上到下 5 个教学区：
+1. 旧瓶颈：RNN 按顺序传递，画长链和“长距离依赖、难并行”两个短标签。
+2. 转折：Attention 让 token 直接连接相关 token，画 5 个 token 之间的注意力线。
+3. 机制：Q/K/V 三个角色，用极短标签“Q 问什么、K 匹配谁、V 带内容”。
+4. 模块：Transformer block，只画 Self-Attention、Add&Norm、FFN、Add&Norm，标注“形状保持，表示更新”。
+5. 通向 LLM：多个 block 堆叠，输出 next token 概率，标注“预测下一个 token”。
+
+底部一句：Transformer = 全局关联 + 并行训练 + 堆叠表示。
+只保留必要术语：RNN、Attention、Q/K/V、Self-Attention、Transformer block、FFN、LLM、next token。不要生成虚构数值、长段文字、乱码小字、真实品牌 logo。
+""".strip(),
+    "ch06-projects-portfolio-loop.png": """
+生成一张竖版 9:16 简体中文教学位图，用于第 6 章深度学习项目路线图。
+必须是重新设计的竖版课堂讲义，不是把横图拉长。禁止拉伸、压扁、挤窄文字或图形。内容多就减少文字和分区，不要塞满。
+
+风格：手绘课堂项目看板 / 横线笔记纸 / 白板流程图，清爽、专业、可复盘。
+
+从上到下 4 个教学区：
+1. 能力底座：PyTorch、CNN、RNN、Transformer、Generative，只画小图标和短标签，不写指标。
+2. 三类项目：图像分类、文本情感、生成实践。每类只画一个小场景，不出现动物照片、随机商品图或虚构结果分数。
+3. 证据产物：loss_curve.png、metric_table.csv、confusion_matrix.csv、error_samples.md、model_report.md、README.md，以文件夹/便签形式排成证据链。
+4. 复盘问题：baseline 是什么？哪里失败？下一步改什么？用三个大问号便签表示。
+
+底部一句：项目完成 = 可复现 + 可解释 + 可继续改进。
+不要出现 Acc、F1、Params、FID、PPL 等虚构数值；不要真实品牌 logo、水印、长段文字、乱码小字。
+""".strip(),
+    "ch06-deep-learning-project-cycle.png": """
+生成一张竖版 9:16 简体中文教学位图，用于第 6 章深度学习项目复盘闭环。
+必须是重新设计的竖版流程，不是把横图拉长。禁止拉伸、压扁、挤窄文字、箭头、表格或图标。
+
+风格：手绘课堂讲义 / 横线笔记纸 / 白板流程图，像老师在讲“项目怎么闭环”。
+
+从上到下画一条闭环路线：
+1. 定义任务：input、label、metric。
+2. 准备数据：dataset note、train/val/test split、leakage check。
+3. 喂给模型：Dataset -> DataLoader -> batch shape。
+4. 训练循环：forward -> loss -> backward -> optimizer.step。
+5. 验证与 checkpoint：val loss / metric、best checkpoint。
+6. 错误分析与下一轮：failure cases -> one change -> rerun。
+7. 打包输出：README、run command、evidence folder、next step。
+
+底部一句：每次只改一件事，用证据决定下一轮。
+可以保留术语：Dataset、DataLoader、batch shape、checkpoint、README、run command。不要虚构指标数值、密集段落、乱码小字或真实品牌 logo。
+""".strip(),
+}
+
+for job in IMAGE_JOBS:
+    refinement_prompt = CH06_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
+    if refinement_prompt:
+        job["prompt"] = refinement_prompt
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate course images and save them under static/img/course.")
@@ -37863,7 +37950,7 @@ def generate_image_with_http(
     endpoint = f"{base_url.rstrip('/')}/images/generations"
     payload = {
         "model": model,
-        "prompt": job["prompt"],
+        "prompt": f"{job['prompt']}\n\n{UNIVERSAL_IMAGE_QUALITY_RULES}",
     }
     if job.get("size") != "default":
         payload["size"] = job["size"]
@@ -37963,7 +38050,7 @@ def generate_one_job(
     if client:
         result = client.images.generate(
             model=args.model,
-            prompt=job["prompt"],
+            prompt=f"{job['prompt']}\n\n{UNIVERSAL_IMAGE_QUALITY_RULES}",
             **({} if job.get("size") == "default" else {"size": job["size"]}),
             **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
         )
@@ -38038,31 +38125,48 @@ def main() -> None:
     generated_backgrounds: dict[str, bytes] = {}
     background_lock = threading.Lock()
     if worker_count > 1:
-        with ThreadPoolExecutor(max_workers=worker_count) as executor:
-            future_to_job = {
-                executor.submit(
-                    generate_one_job,
-                    job=job,
-                    output_dir=output_dir,
-                    api_keys=api_keys[index % len(api_keys) :] + api_keys[: index % len(api_keys)],
-                    args=args,
-                    client=None,
-                    generated_backgrounds=generated_backgrounds,
-                    background_lock=background_lock,
-                ): job
-                for index, job in enumerate(jobs)
-            }
-            for future in as_completed(future_to_job):
-                job = future_to_job[future]
+        job_queue: queue.Queue[dict[str, Any]] = queue.Queue()
+        for job in jobs:
+            job_queue.put(job)
+
+        result_lock = threading.Lock()
+        stop_event = threading.Event()
+
+        def key_worker(worker_index: int, api_key: str) -> None:
+            while not stop_event.is_set():
                 try:
-                    future.result()
+                    job = job_queue.get_nowait()
+                except queue.Empty:
+                    return
+                try:
+                    print(f"worker {worker_index + 1}: {job['filename']}", flush=True)
+                    generate_one_job(
+                        job=job,
+                        output_dir=output_dir,
+                        api_keys=[api_key],
+                        args=args,
+                        client=None,
+                        generated_backgrounds=generated_backgrounds,
+                        background_lock=background_lock,
+                    )
                 except Exception as exc:
-                    errors.append({"filename": job["filename"], "error": str(exc)})
-                    write_generation_errors(report_dir, errors)
-                    if args.continue_on_error:
-                        print(f"Failed {job['filename']}: {exc}", flush=True)
-                        continue
-                    raise
+                    with result_lock:
+                        errors.append({"filename": job["filename"], "error": str(exc)})
+                        write_generation_errors(report_dir, errors)
+                    print(f"Failed {job['filename']}: {exc}", flush=True)
+                    if not args.continue_on_error:
+                        stop_event.set()
+                finally:
+                    job_queue.task_done()
+
+        threads = [
+            threading.Thread(target=key_worker, args=(index, api_key), daemon=False)
+            for index, api_key in enumerate(api_keys[:worker_count])
+        ]
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
     else:
         for job in jobs:
             try:

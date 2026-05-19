@@ -195,6 +195,19 @@ README は具体的にします。
 - model が正解した例と間違えた例。
 - next-step plan。
 
+## 残す証拠
+
+sentiment project では、最低限この evidence を残します。
+
+```text
+label_rules: positive and negative boundaries
+baseline: keyword or TF-IDF baseline
+known_failure: negation, sarcasm, or mixed sentiment
+fix_attempt: one targeted rule or model change
+error_buckets: grouped wrong predictions
+next_action: data labeling, features, or model upgrade
+```
+
 ## よくある間違い
 
 | 間違い | 直し方 |

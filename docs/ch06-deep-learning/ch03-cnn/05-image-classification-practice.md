@@ -218,6 +218,19 @@ probs: [1.0, 0.0, 0.0, 0.0]
 
 The confusion matrix is read row by row: rows are true labels, columns are predicted labels. Off-diagonal numbers are mistakes.
 
+## Evidence to Keep
+
+Save one classification run card:
+
+```text
+data_shape: train and validation tensor shapes
+model_shape: input -> features -> logits
+metric: validation accuracy and loss
+confusion_matrix: rows=true, cols=pred
+sample_prediction: true label, predicted label, probabilities
+next_probe: more noise, fewer samples, new class, or real image split
+```
+
 ## Why Use GAP Here?
 
 The model uses `AdaptiveAvgPool2d((1, 1))`, also called Global Average Pooling in this context. It turns `[N, 32, H, W]` into `[N, 32, 1, 1]`.

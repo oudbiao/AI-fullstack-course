@@ -59,6 +59,18 @@ This is not a real generator yet. It shows the core shape idea: small latent vec
 | 1 | [6.6.2 GAN](./01-gan.md) | generator, discriminator, adversarial balance |
 | 2 | [6.6.3 VAE](./02-vae.md) | encoder, decoder, latent space |
 
+## Evidence to Keep
+
+Keep one generation review note:
+
+```text
+latent_shape: what compact code enters the generator/decoder
+output_shape: what sample-like object comes out
+quality_check: does it look plausible or reconstruct well?
+diversity_check: are outputs varied, or collapsing?
+trust_rule: generated output always needs review
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain the difference between predicting a label and generating a sample, and describe why generated outputs need review rather than blind trust.

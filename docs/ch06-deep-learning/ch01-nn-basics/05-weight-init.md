@@ -288,6 +288,19 @@ What matters:
 - `large` starts with a huge loss, which is a warning sign even if this small model later recovers.
 - `default`, `xavier`, and `he` all work here; that is exactly why defaults are a good first baseline.
 
+## Evidence to Keep
+
+Save one initialization probe record:
+
+```text
+bad_start: zeros stays near random accuracy because symmetry is not broken
+warning_start: large begins with very high loss
+usable_start: default/xavier/he train normally on this task
+next_probe: make the network deeper and compare which strategy becomes fragile
+```
+
+This evidence teaches the real lesson: initialization is not decoration. It controls whether signals and gradients begin in a usable range.
+
 ## Debugging Checklist
 
 When training is broken in the first few epochs, check in this order:

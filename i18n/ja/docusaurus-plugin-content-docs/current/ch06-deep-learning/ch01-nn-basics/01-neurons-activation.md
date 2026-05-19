@@ -181,6 +181,19 @@ XOR は 4 行だけです。
 
 直線 1 本では、このラベルを分けられません。だから単層パーセプトロンは失敗します。小さな MLP が成功するのは、最終判断の前に中間の隠れ特徴を作れるからです。
 
+## 残す証拠
+
+次の小さな結果カードを残します。
+
+```text
+single_neuron: z = x @ w + b, activation changes the signal
+xor_result: [0, 1, 1, 0] recovered by a tiny MLP
+core_reason: nonlinear hidden layers create intermediate features
+failure_probe: remove hidden activation and compare final_loss
+```
+
+重要なのは、toy model が 4 行を覚えたことではありません。非線形性によって、層を重ねたモデルが表現できる形が変わることです。
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |

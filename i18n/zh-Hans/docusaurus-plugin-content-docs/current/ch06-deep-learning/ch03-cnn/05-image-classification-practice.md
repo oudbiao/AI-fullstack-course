@@ -218,6 +218,19 @@ probs: [1.0, 0.0, 0.0, 0.0]
 
 混淆矩阵按行读：行是真实标签，列是预测标签。非对角线数字就是错误。
 
+## 留下的证据
+
+保存一张分类运行卡：
+
+```text
+data_shape: train and validation tensor shapes
+model_shape: input -> features -> logits
+metric: validation accuracy and loss
+confusion_matrix: rows=true, cols=pred
+sample_prediction: true label, predicted label, probabilities
+next_probe: more noise, fewer samples, new class, or real image split
+```
+
 ## 为什么这里用 GAP？
 
 模型使用 `AdaptiveAvgPool2d((1, 1))`，在这里可以理解为 Global Average Pooling。它把 `[N, 32, H, W]` 变成 `[N, 32, 1, 1]`。

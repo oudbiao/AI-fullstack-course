@@ -179,6 +179,20 @@ loss_after= 0.1183
 
 これが訓練の縮小版です。パラメータが変わり、予測が改善し、loss が下がりました。
 
+## 残す証拠
+
+before/after の記録を 1 つ保存します。
+
+```text
+prediction_before: 0.825
+loss_before: 0.1927
+gradient_seen: weight_grad and bias_grad are not None
+prediction_after: 0.888
+loss_after: 0.1183
+```
+
+これは学習 step 全体が実際に起きた証拠です。どれかが欠けている場合は、forward output、loss、gradient、optimizer update の順で確認します。
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |

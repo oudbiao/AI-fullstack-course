@@ -102,3 +102,30 @@ keywords: [深層学習の歴史, パーセプトロン, XOR, 逆伝播, LSTM, A
 - Attention はなぜ現代の大規模言語モデルへの橋になったのか？
 
 答えが「前のモデルでは……できなかったから」から始まるなら、歴史をよい読み方で読めています。
+
+## 残す証拠
+
+タイムラインを小さな記憶スケッチに変えます。4 コマで描いてください。
+
+```text
+box_1: one neuron learns a linear rule
+box_2: XOR shows why hidden nonlinear layers matter
+box_3: backprop makes multi-layer learning practical
+box_4: attention lets tokens connect directly at scale
+```
+
+このページは任意ですが、このスケッチは役立ちます。第 6 章がなぜニューロンから Transformer へ進むのかを、ランダムなアーキテクチャ名の列ではなく、1 つの流れとして覚えられます。
+
+## 期待される結果
+
+ここでの期待出力は、年号の暗記ではなく、原因と結果の流れです。
+
+```text
+perceptron -> XOR shows the limit
+XOR -> hidden nonlinear layers matter
+deep layers -> backprop and gradient flow matter
+long sequences -> gates and attention matter
+Transformer -> scalable context modeling for LLMs
+```
+
+アーキテクチャ名が孤立した事実に見えたら、この流れに戻して考えます。

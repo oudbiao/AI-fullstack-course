@@ -277,6 +277,19 @@ For real projects, save to a stable path such as:
 checkpoints/best_model.pt
 ```
 
+## Evidence to Keep
+
+For every PyTorch project, keep a short run-safety note:
+
+```text
+device: cpu/cuda/mps and model/data match
+seed: set before debugging
+grad_norm: measured before and after clipping when unstable
+precision: AMP used only when supported, fallback works
+checkpoint: model_state_dict, optimizer_state_dict, epoch, best_val
+debug_order: batch -> shape -> device -> loss -> gradients -> update -> validation
+```
+
 ## Memory and Stability Triage
 
 | Symptom | First response | Next response |

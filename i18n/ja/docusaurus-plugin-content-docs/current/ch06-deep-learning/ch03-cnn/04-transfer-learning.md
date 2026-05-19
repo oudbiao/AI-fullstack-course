@@ -266,6 +266,20 @@ finetune_val_acc 1.0
 
 Fine-tuning は自動的に良くなるものではありません。ターゲットデータが少なすぎたり、学習率が大きすぎたりすると、過学習したり事前学習特徴を壊したりします。判断基準は常に検証結果であり、training loss だけではありません。
 
+## 残す証拠
+
+転移学習実験では、この判断記録を残します。
+
+```text
+frozen_check: which layers have requires_grad=False
+head_result: validation score after training only the new head
+finetune_result: validation score after unfreezing later layers
+decision: keep frozen or fine-tune based on validation, not training loss
+risk_note: data size, domain mismatch, preprocessing mismatch
+```
+
+これにより、転移学習は「大きなモデルを使う」だけではなく、管理された engineering workflow になります。
+
 ## 実プロジェクトの流れ
 
 1. モデルに触る前に、train/validation/test を分ける。

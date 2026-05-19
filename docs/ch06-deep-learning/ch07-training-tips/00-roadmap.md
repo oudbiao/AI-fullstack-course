@@ -48,6 +48,20 @@ action: stop or reduce learning rate if validation keeps worsening
 
 Before adding tricks, read the curve. A simple log often tells you what to try next.
 
+## Evidence to Keep
+
+After this mini-chapter, keep one diagnosis decision record:
+
+```text
+visible_symptom: what did the curve or output show?
+first_check: data, shape, gradient, or validation split
+one_change: which single setting changed?
+before_after: metric or artifact comparison
+decision: keep, tune, rollback, or investigate
+```
+
+The point is to make training changes reversible. If you change five things and the run improves, you still do not know which change helped.
+
 ## Learn in This Order
 
 | Order | Read | What to practice |

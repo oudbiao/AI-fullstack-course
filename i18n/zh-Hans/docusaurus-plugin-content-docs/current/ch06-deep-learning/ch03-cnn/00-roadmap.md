@@ -57,6 +57,18 @@ feature_shape: (1, 8, 32, 32)
 | 4 | [6.3.5 迁移学习](./04-transfer-learning.md) | 冻结骨干、微调 |
 | 5 | [6.3.6 图像分类实战](./05-image-classification-practice.md) | 数据集、训练、预测样例 |
 
+## 留下的证据
+
+保留一条 CNN shape 笔记：
+
+```text
+input: [batch, channels, height, width]
+conv_output: out_channels becomes new feature maps
+spatial_change: stride/padding/pooling change height and width
+classifier_bridge: conv features eventually become class logits
+transfer_choice: freeze first, fine-tune only if validation improves
+```
+
 ## 通过标准
 
 能解释输入图像形状和特征图形状之间发生了什么变化，并知道为什么小数据集常复用预训练 CNN 骨干，就算通过。

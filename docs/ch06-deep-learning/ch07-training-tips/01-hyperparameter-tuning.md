@@ -172,6 +172,19 @@ lr=1.0 gives the best validation loss in the quick sweep.
 Next: keep lr=1.0 fixed and compare batch_size=32 vs 64.
 ```
 
+## Evidence to Keep
+
+Keep one tuning decision card:
+
+```text
+question: which single variable was tested?
+fixed: data split, seed, model, optimizer family, training budget
+changed: learning rate values
+selection_metric: validation loss or validation accuracy
+best_setting: lr=1.0 in the quick sweep
+next_experiment: one local refinement, not many knobs at once
+```
+
 ## Diagnosis Patterns
 
 | Pattern | Likely cause | Next experiment |

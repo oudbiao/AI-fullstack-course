@@ -11,6 +11,12 @@ keywords: [deep learning, PyTorch, neural network, CNN, RNN, Transformer, Attent
 
 Chapter 6 has one job: help you understand **how a model learns from loss, gradients, and repeated training steps**.
 
+## Where You Are In The Main Route
+
+You have already trained sklearn models and judged them with metrics and error samples. This chapter opens the training loop: tensors carry data, a model produces predictions, loss measures error, backpropagation computes gradients, and the optimizer updates parameters.
+
+This is the last model-foundation chapter before LLMs. The goal is not to master every architecture before moving on. The goal is to understand training, shapes, attention, and Transformer blocks well enough that Chapter 7 no longer feels like magic.
+
 ## See The Training Loop
 
 ![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.webp)
@@ -25,18 +31,26 @@ Do not start by chasing large models. First make a small model train, log what h
 
 ## Learning Order And Task List
 
-Use this table as both the chapter guide and the task sheet.
+Use this table as both the chapter guide and the task sheet. Follow the core path first: **6.1 -> 6.2 -> 6.5 -> 6.8**. Treat CNN, RNN, generative models, and training tips as extensions you return to when a project needs them.
 
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
 | [6.1 Neural Network Basics](ch01-nn-basics/00-roadmap.md) | Understand neurons, activations, forward/backward pass, optimizers, regularization, and initialization | One hand-written training-loop explanation |
 | [6.2 PyTorch](ch02-pytorch/00-roadmap.md) | Practice tensors, autograd, `nn.Module`, Dataset, DataLoader, and a minimal training loop | One runnable PyTorch script |
+| [6.5 Transformer](ch05-transformer/00-roadmap.md) | Learn Query, Key, Value, self-attention, positional encoding, and Transformer blocks | One attention input/output diagram |
+| [6.8 Projects](ch08-projects/00-roadmap.md) and [6.8.5 Workshop](ch08-projects/04-hands-on-dl-workshop.md) | Build a PyTorch evidence pack before larger image, sentiment, or generative projects | Logs, curves, checkpoint, shape trace, README |
 | [6.3 CNN](ch03-cnn/00-roadmap.md) | Use image classification to connect data shape, convolution, pooling, and transfer learning | Shape notes and one image-classification run |
 | [6.4 RNN](ch04-rnn/00-roadmap.md) | Learn why sequence data needs memory and how LSTM/GRU helped before Transformer | One sequence-model note |
-| [6.5 Transformer](ch05-transformer/00-roadmap.md) | Learn Query, Key, Value, self-attention, positional encoding, and Transformer blocks | One attention input/output diagram |
 | [6.1.8 Optional DL History](ch01-nn-basics/06-history-breakthroughs.md) | Skim why backprop, CNN, RNN, Attention, and Transformer appeared after you know the main loop | A short “why this architecture exists” note |
 | [6.6 Generative Models](ch06-generative/00-roadmap.md) and [6.7 Training Tips](ch07-training-tips/00-roadmap.md) | Treat as extensions after the training loop is stable | One tuning or diagnosis note |
-| [6.8 Projects](ch08-projects/00-roadmap.md) and [6.8.5 Workshop](ch08-projects/04-hands-on-dl-workshop.md) | Build a PyTorch evidence pack before larger image, sentiment, or generative projects | Logs, curves, checkpoint, shape trace, README |
+
+## Core Path, Extensions, And Depth
+
+| Layer | What to study now | How to use it |
+|---|---|---|
+| Required core | Tensor shape, autograd, `nn.Module`, Dataset/DataLoader, training loop, validation curve, Attention, Transformer | These become the mental model for tokens, context, and LLM behavior in Chapter 7 |
+| Optional extension | CNN, RNN, GAN/VAE, compression, advanced tuning | Return here when an image, sequence, generative, or deployment project needs the extra depth |
+| Depth challenge | Overfit one tiny batch on purpose, then explain what that proves and what it does not prove | This makes later training failures easier to debug |
 
 Key terms for this chapter:
 
@@ -86,6 +100,28 @@ Expected shape:
 ```
 
 The exact numbers can differ, but the loss should generally move down. If it does, you have seen the training loop work.
+
+## Evidence to Keep
+
+For the chapter entry, keep a small starting record before moving deeper:
+
+```text
+first_loop_ran: the tiny PyTorch loop printed four loss lines
+loss_direction: loss generally moved down
+core_path: 6.1 -> 6.2 -> 6.5 -> 6.8
+next_debug_step: if loss does not move, check shape, loss, gradients, and optimizer step
+```
+
+This turns the first example into a checkpoint. You are not trying to master all architectures yet; you are proving the training loop is no longer invisible.
+
+## Bridge To Chapter 7
+
+Before entering LLMs, make sure the following connections are clear:
+
+- Chapter 4 vectors become token embeddings and retrieval embeddings.
+- Chapter 5 metrics and error samples become prompt evaluation and RAG evaluation.
+- This chapter's Attention and Transformer blocks become the token-to-answer path.
+- Training updates parameters, but inference uses the trained parameters to generate outputs.
 
 ## Depth Ladder
 

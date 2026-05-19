@@ -182,6 +182,29 @@ state keys: ['net.0.weight', 'net.0.bias', 'net.2.weight', 'net.2.bias']
 
 不要把训练逻辑写进 `forward()`。Loss、`backward()`、`optimizer.step()` 属于训练循环，不属于模型定义。
 
+## 怎样读模型
+
+检查一个 `nn.Module` 时，分三层读：
+
+| 层级 | 问题 | 证据 |
+|---|---|---|
+| structure | 有哪些层，顺序是什么？ | `print(model)` |
+| parameters | 哪些 tensor 会被训练？ | `named_parameters()` |
+| behavior | `forward()` 对一个 batch 返回什么？ | 一次输入/输出 shape 检查 |
+
+这三层都清楚后，模型就不再是黑箱。它只是一个带可训练 tensor 和明确 forward 路径的 Python 对象。
+
+## 留下的证据
+
+读完一个 `nn.Module`，保留这三条检查：
+
+```text
+structure: print(model)
+parameters: named_parameters() with shapes
+behavior: one input batch -> output shape
+boundary: forward() only maps inputs to outputs
+```
+
 ## `train()` 和 `eval()` 是模式开关
 
 `model.train()` 不会自动跑训练循环，`model.eval()` 也不会自动跑验证。它们切换的是 Dropout、BatchNorm 等层的行为。

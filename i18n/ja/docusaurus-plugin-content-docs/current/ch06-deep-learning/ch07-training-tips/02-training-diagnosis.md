@@ -155,6 +155,19 @@ architecture を変える前に、この順番で確認します。
 | gradient statistics | instability を早く見つける |
 | data split version | leakage や drift を検出する |
 
+## 残す証拠
+
+診断ごとに、symptom-to-action note を残します。
+
+```text
+curve_pattern: underfit, overfit, unstable, collapse, or unclear
+prediction_signal: class counts and confidence
+gradient_signal: norm plus NaN/Inf check
+data_check: labels, split, leakage, preprocessing
+chosen_action: one targeted next experiment
+success_rule: what metric or artifact will prove the fix worked
+```
+
 ## 診断から Action へ
 
 | Diagnosis | 最初の action |

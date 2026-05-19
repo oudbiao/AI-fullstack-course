@@ -195,6 +195,19 @@ Keep the README concrete:
 - examples the model gets right and wrong;
 - next-step plan.
 
+## Evidence to Keep
+
+A sentiment project should leave this minimum evidence:
+
+```text
+label_rules: positive and negative boundaries
+baseline: keyword or TF-IDF baseline
+known_failure: negation, sarcasm, or mixed sentiment
+fix_attempt: one targeted rule or model change
+error_buckets: grouped wrong predictions
+next_action: data labeling, features, or model upgrade
+```
+
 ## Common Mistakes
 
 | Mistake | Fix |

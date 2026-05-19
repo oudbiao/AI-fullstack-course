@@ -125,6 +125,107 @@ Read the three steps:
 | normalize | `softmax(...)` | convert scores into weights that sum to 1 |
 | mix | `weights @ V` | combine token content according to weights |
 
+## Lab 1B: Q/K/V Are Learned Views, Not Three Copies
+
+The hand-computation lab used `Q = K = V = X` so the math stayed visible. A real Transformer usually learns three projection matrices:
+
+```text
+Q = XW_q
+K = XW_k
+V = XW_v
+```
+
+That means the same token representation can be viewed three ways:
+
+- `Q`: what this position is trying to find;
+- `K`: what this position offers as a match target;
+- `V`: what content this position contributes if selected.
+
+Run this small version:
+
+```python
+import numpy as np
+
+X = np.array(
+    [
+        [1.0, 0.0],
+        [0.0, 1.0],
+        [1.0, 1.0],
+    ]
+)
+
+W_q = np.array([[1.0, 0.5], [0.0, 1.0]])
+W_k = np.array([[0.5, 1.0], [1.0, 0.0]])
+W_v = np.array([[1.0, -0.5], [0.5, 1.0]])
+
+Q = X @ W_q
+K = X @ W_k
+V = X @ W_v
+
+scores = Q @ K.T / np.sqrt(Q.shape[1])
+
+
+def softmax(row):
+    e = np.exp(row - row.max())
+    return e / e.sum()
+
+
+weights = np.apply_along_axis(softmax, 1, scores)
+output = weights @ V
+
+print("projection_lab")
+for name, value in [("Q", Q), ("K", K), ("V", V), ("weights", weights), ("output", output)]:
+    print(name)
+    print(np.round(value, 3))
+```
+
+Expected output:
+
+```text
+projection_lab
+Q
+[[1.  0.5]
+ [0.  1. ]
+ [1.  1.5]]
+K
+[[0.5 1. ]
+ [1.  0. ]
+ [1.5 1. ]]
+V
+[[ 1.  -0.5]
+ [ 0.5  1. ]
+ [ 1.5  0.5]]
+weights
+[[0.248 0.248 0.503]
+ [0.401 0.198 0.401]
+ [0.284 0.14  0.576]]
+output
+[[1.128 0.376]
+ [1.102 0.198]
+ [1.218 0.286]]
+```
+
+Read the evidence:
+
+- `Q`, `K`, and `V` now differ even though they came from the same `X`.
+- The attention weights are computed from `Q` and `K`.
+- The final output mixes `V`, not the original `X`.
+
+This is the main reason Q/K/V should not be memorized as three variable names. They are three learned views that separate **matching** from **content mixing**.
+
+## Evidence to Keep
+
+Keep one attention trace:
+
+```text
+score_rule: Q @ K.T / sqrt(d_k)
+weights_rule: softmax turns scores into rows that sum to 1
+output_rule: weights @ V mixes value vectors
+qkv_rule: Q/K decide matching, V carries content
+mask_rule: blocked positions receive near-zero attention
+llm_bridge: causal attention lets generation use past tokens only
+```
+
 ## Why Divide by `sqrt(d_k)`?
 
 The Transformer formula is:
@@ -277,15 +378,16 @@ Use attention weights as a debugging and inspection tool, not as complete causal
 ## Exercises
 
 1. Change the third token in Lab 1 to `[2.0, 0.0]`. How do weights change?
-2. Extend the mask lab to a `4 x 4` matrix.
-3. Change `num_heads` from `2` to `1` in Lab 3. Which shapes stay the same?
-4. Explain why attention is easier than a plain RNN for long-distance token interactions.
-5. Describe one case where attention weights are useful but not a full explanation.
+2. In Lab 1B, change only `W_v`. Which printed values change, and which stay the same?
+3. Extend the mask lab to a `4 x 4` matrix.
+4. Change `num_heads` from `2` to `1` in Lab 3. Which shapes stay the same?
+5. Explain why attention is easier than a plain RNN for long-distance token interactions.
+6. Describe one case where attention weights are useful but not a full explanation.
 
 ## Key Takeaways
 
 - Attention lets tokens directly select relevant context.
-- Q/K/V split scoring from content retrieval.
+- Q/K/V are learned views that split matching from content retrieval.
 - Scaled dot-product attention is score, softmax, weighted sum.
 - Causal masks prevent future peeking in generation.
 - Multi-head attention views relationships from several subspaces.

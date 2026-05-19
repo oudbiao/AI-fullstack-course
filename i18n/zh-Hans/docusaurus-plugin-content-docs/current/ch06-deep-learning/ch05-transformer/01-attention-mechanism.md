@@ -125,6 +125,107 @@ output
 | 归一化 | `softmax(...)` | 把分数变成和为 1 的权重 |
 | 混合 | `weights @ V` | 按权重组合 token 内容 |
 
+## Lab 1B：Q/K/V 是学出来的视角，不是三份拷贝
+
+手算实验里用了 `Q = K = V = X`，是为了让数学过程更容易看清。真实 Transformer 通常会学习三组投影矩阵：
+
+```text
+Q = XW_q
+K = XW_k
+V = XW_v
+```
+
+这表示同一个 token 表示会被看成三种视角：
+
+- `Q`：这个位置想找什么；
+- `K`：这个位置提供什么匹配线索；
+- `V`：如果被选中，这个位置贡献什么内容。
+
+运行这个小版本：
+
+```python
+import numpy as np
+
+X = np.array(
+    [
+        [1.0, 0.0],
+        [0.0, 1.0],
+        [1.0, 1.0],
+    ]
+)
+
+W_q = np.array([[1.0, 0.5], [0.0, 1.0]])
+W_k = np.array([[0.5, 1.0], [1.0, 0.0]])
+W_v = np.array([[1.0, -0.5], [0.5, 1.0]])
+
+Q = X @ W_q
+K = X @ W_k
+V = X @ W_v
+
+scores = Q @ K.T / np.sqrt(Q.shape[1])
+
+
+def softmax(row):
+    e = np.exp(row - row.max())
+    return e / e.sum()
+
+
+weights = np.apply_along_axis(softmax, 1, scores)
+output = weights @ V
+
+print("projection_lab")
+for name, value in [("Q", Q), ("K", K), ("V", V), ("weights", weights), ("output", output)]:
+    print(name)
+    print(np.round(value, 3))
+```
+
+预期输出：
+
+```text
+projection_lab
+Q
+[[1.  0.5]
+ [0.  1. ]
+ [1.  1.5]]
+K
+[[0.5 1. ]
+ [1.  0. ]
+ [1.5 1. ]]
+V
+[[ 1.  -0.5]
+ [ 0.5  1. ]
+ [ 1.5  0.5]]
+weights
+[[0.248 0.248 0.503]
+ [0.401 0.198 0.401]
+ [0.284 0.14  0.576]]
+output
+[[1.128 0.376]
+ [1.102 0.198]
+ [1.218 0.286]]
+```
+
+读证据：
+
+- `Q`、`K`、`V` 来自同一个 `X`，但现在已经不同。
+- 注意力权重由 `Q` 和 `K` 计算出来。
+- 最终输出混合的是 `V`，不是原始的 `X`。
+
+这就是为什么不要把 Q/K/V 只背成三个变量名。它们是三种学出来的视角，把**匹配**和**内容混合**分开。
+
+## 留下的证据
+
+保留一条 attention trace：
+
+```text
+score_rule: Q @ K.T / sqrt(d_k)
+weights_rule: softmax turns scores into rows that sum to 1
+output_rule: weights @ V mixes value vectors
+qkv_rule: Q/K decide matching, V carries content
+mask_rule: blocked positions receive near-zero attention
+llm_bridge: causal attention lets generation use past tokens only
+```
+
 ## 为什么要除以 `sqrt(d_k)`？
 
 Transformer 里的公式是：
@@ -277,15 +378,16 @@ Attention 权重很有用，但不要过度解读。
 ## 练习
 
 1. 把实验 1 的第三个 token 改成 `[2.0, 0.0]`，weights 怎么变？
-2. 把 mask 实验扩展成 `4 x 4` 矩阵。
-3. 把实验 3 的 `num_heads` 从 `2` 改成 `1`，哪些 shape 不变？
-4. 解释为什么 attention 比普通 RNN 更容易建模远距离 token 交互。
-5. 描述一个 attention 权重有帮助但不是完整解释的场景。
+2. 在 Lab 1B 中，只修改 `W_v`。哪些打印值会变，哪些会保持不变？
+3. 把 mask 实验扩展成 `4 x 4` 矩阵。
+4. 把实验 3 的 `num_heads` 从 `2` 改成 `1`，哪些 shape 不变？
+5. 解释为什么 attention 比普通 RNN 更容易建模远距离 token 交互。
+6. 描述一个 attention 权重有帮助但不是完整解释的场景。
 
 ## 小结
 
 - Attention 让 token 直接选择相关上下文。
-- Q/K/V 把打分和内容检索分开。
+- Q/K/V 是学出来的视角，把匹配和内容检索分开。
 - Scaled dot-product attention 是打分、softmax、加权求和。
 - Causal mask 防止生成任务偷看未来。
 - Multi-head attention 从多个子空间查看关系。

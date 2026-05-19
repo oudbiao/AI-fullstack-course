@@ -296,6 +296,20 @@ forward -> loss -> zero_grad -> backward -> step
 
 一部のコードでは `zero_grad` を forward の前に置きますが、核心は同じです。次の更新前に古い勾配を消します。
 
+## 残す証拠
+
+autograd trace を 1 つ残します。
+
+```text
+loss_requires_grad: True
+parameter_requires_grad: True
+grad_after_backward: not None
+update_rule: backward computes gradients, optimizer or manual code updates values
+safe_logging: store loss.item() or tensor.detach()
+```
+
+これは最もよくある誤解を防ぎます。`backward()` は更新ではありません。勾配を埋めるだけです。
+
 ## 練習
 
 1. 実験 4 を `y = 3x - 2` を学ぶように変えてください。`w` と `b` は何に近づくべきですか？

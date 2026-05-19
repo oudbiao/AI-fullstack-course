@@ -57,6 +57,18 @@ Read this as two sequences, three steps each, five features per step. The GRU re
 | 2 | [6.4.3 LSTM and GRU](./02-lstm-gru.md) | gates, long dependency, memory control |
 | 3 | [6.4.4 Sequence Practice](./03-sequence-practice.md) | sliding windows, train/eval loop |
 
+## Evidence to Keep
+
+Keep one sequence shape note:
+
+```text
+input: [batch, seq_len, features]
+outputs: one hidden representation per step
+hidden: compressed rolling memory
+gate_reason: LSTM/GRU help preserve or discard information
+baseline: compare sequence model against a simple naive rule
+```
+
 ## Pass Check
 
 You pass this roadmap when you can read `[batch, seq_len, features]`, explain hidden state as rolling memory, and know why LSTM/GRU were introduced for longer dependencies.

@@ -162,6 +162,20 @@ Read the output:
 - `kl` does not need to become zero. It is a pressure toward a smooth latent prior.
 - `generated_points` are decoded from random `z`, not copied directly from training data.
 
+## Evidence to Keep
+
+For a VAE run, keep this record:
+
+```text
+recon_trend: reconstruction loss decreases
+kl_trend: KL stays nonzero but controlled
+sample_check: generated_points come from random z
+tradeoff: better reconstruction <-> smoother latent space
+next_probe: change KL weight and compare samples
+```
+
+This evidence is what separates a VAE from a plain autoencoder: the latent space should be usable for sampling, not only reconstruction.
+
 ## VAE vs Autoencoder vs GAN
 
 | Model | Learns | Strength | Typical weakness |

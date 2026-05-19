@@ -19,6 +19,22 @@ batch data -> model forward -> loss -> backward gradients -> optimizer step -> c
 
 If the code feels long, find these six steps first.
 
+## Expected Final Output
+
+By the end of Chapter 6, your visible output should be a small evidence folder, not only finished reading notes:
+
+```text
+deep_learning_evidence/
+  shape_trace.txt
+  training_log.csv
+  loss_curve.png
+  best_checkpoint_note.md
+  attention_note.md
+  failure_sample_note.md
+```
+
+If this folder is missing, the chapter is not finished yet, even if every page has been read.
+
 ## Practice Checklist
 
 | Check | Evidence |
@@ -39,6 +55,19 @@ If the code feels long, find these six steps first.
 | Curve image or CSV | Is the model underfitting, overfitting, or improving steadily? |
 | Attention note | What information does attention add, and what remains hard? |
 | Failure sample note | Which sample fails, and what does that tell you about data, model, or labels? |
+
+## Evidence to Keep
+
+Before leaving Chapter 6, keep one compact evidence pack:
+
+```text
+shape_trace: one model with printed tensor shapes
+training_log: train and validation loss over time
+best_checkpoint: how the best model was selected
+attention_note: Q/K/V, mask, and next-token bridge
+failure_sample: one wrong or weak prediction with next action
+project_folder: runnable evidence pack or README
+```
 
 ## Ready To Continue
 

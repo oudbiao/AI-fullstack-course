@@ -155,6 +155,19 @@ This order is deliberately boring. That is why it works.
 | gradient statistics | catch instability early |
 | data split version | detect leakage or drift |
 
+## Evidence to Keep
+
+Every diagnosis should leave a symptom-to-action note:
+
+```text
+curve_pattern: underfit, overfit, unstable, collapse, or unclear
+prediction_signal: class counts and confidence
+gradient_signal: norm plus NaN/Inf check
+data_check: labels, split, leakage, preprocessing
+chosen_action: one targeted next experiment
+success_rule: what metric or artifact will prove the fix worked
+```
+
 ## Diagnosis to Action
 
 | Diagnosis | First action |

@@ -56,6 +56,18 @@ attention_shape: (1, 4, 4)
 | 1 | [6.5.2 Attention 机制](./01-attention-mechanism.md) | QKV、attention 权重、mask |
 | 2 | [6.5.3 Transformer 架构](./02-transformer-architecture.md) | block 结构、残差、前馈层 |
 
+## 留下的证据
+
+保留一条 attention 桥接笔记：
+
+```text
+tokens_shape: [batch, seq_len, embed_dim]
+attention_shape: [batch, query_position, key_position]
+qkv_meaning: Q/K match, V carries content
+mask_reason: generation cannot see future tokens
+llm_bridge: decoder blocks turn token context into next-token logits
+```
+
 ## 通过标准
 
 能读懂 attention 权重形状，解释为什么 attention 带来全局上下文，并把 mask 和文本生成联系起来，就算通过。

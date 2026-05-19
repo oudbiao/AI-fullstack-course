@@ -11,6 +11,12 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 
 第 6 章只解决一件事：理解模型怎样通过**损失、梯度和反复训练步骤**学会东西。
 
+## 你在主线中的位置
+
+你已经训练过 sklearn 模型，并用指标和错误样本判断过结果。这一章会打开训练循环：tensor 承载数据，模型产生预测，loss 衡量错误，反向传播计算梯度，优化器更新参数。
+
+这是进入大模型前最后一个模型基础章节。目标不是先掌握所有架构再继续，而是把训练、shape、Attention 和 Transformer block 理解到足够程度，让第 7 章不再像魔法。
+
 ## 先看训练闭环
 
 ![深度学习训练闭环主图](/img/course/ch06-training-loop-backbone.webp)
@@ -25,18 +31,26 @@ batch 数据 -> 模型前向 -> 损失 -> 反向传播梯度 -> 优化器更新 
 
 ## 学习顺序与任务表
 
-下面这一张表同时作为本章学习指南和任务清单。
+下面这一张表同时作为本章学习指南和任务清单。优先走核心路径：**6.1 -> 6.2 -> 6.5 -> 6.8**。CNN、RNN、生成模型和训练技巧作为扩展，在项目需要时再回来。
 
 | 页面 | 跟着做 | 留下的证据 |
 |---|---|---|
 | [6.1 神经网络基础](ch01-nn-basics/00-roadmap.md) | 理解神经元、激活函数、前向/反向传播、优化器、正则化和初始化 | 一份手写训练闭环说明 |
 | [6.2 PyTorch](ch02-pytorch/00-roadmap.md) | 练习 tensor、autograd、`nn.Module`、Dataset、DataLoader 和最小训练循环 | 一个可运行 PyTorch 脚本 |
+| [6.5 Transformer](ch05-transformer/00-roadmap.md) | 学 Query、Key、Value、自注意力、位置编码和 Transformer block | 一张 attention 输入/输出图 |
+| [6.8 项目](ch08-projects/00-roadmap.md) 和 [6.8.5 工作坊](ch08-projects/04-hands-on-dl-workshop.md) | 在图像、情感或生成项目之前，先做 PyTorch 证据包 | 日志、曲线、checkpoint、shape trace、README |
 | [6.3 CNN](ch03-cnn/00-roadmap.md) | 用图像分类理解数据形状、卷积、池化和迁移学习 | shape 记录和一次图像分类运行 |
 | [6.4 RNN](ch04-rnn/00-roadmap.md) | 理解序列数据为什么需要记忆，以及 LSTM/GRU 在 Transformer 前解决了什么 | 一条序列模型说明 |
-| [6.5 Transformer](ch05-transformer/00-roadmap.md) | 学 Query、Key、Value、自注意力、位置编码和 Transformer block | 一张 attention 输入/输出图 |
 | [6.1.8 可选深度学习历史](ch01-nn-basics/06-history-breakthroughs.md) | 学完主训练闭环后，再浏览 backprop、CNN、RNN、Attention、Transformer 为什么出现 | 一条“这个架构为什么存在”的说明 |
 | [6.6 生成模型](ch06-generative/00-roadmap.md) 和 [6.7 训练技巧](ch07-training-tips/00-roadmap.md) | 在训练闭环稳定后作为扩展学习 | 一条调参或诊断记录 |
-| [6.8 项目](ch08-projects/00-roadmap.md) 和 [6.8.5 工作坊](ch08-projects/04-hands-on-dl-workshop.md) | 在图像、情感或生成项目之前，先做 PyTorch 证据包 | 日志、曲线、checkpoint、shape trace、README |
+
+## 必修主线、扩展和深度挑战
+
+| 层级 | 现在学什么 | 怎么使用 |
+|---|---|---|
+| 必修核心 | Tensor shape、autograd、`nn.Module`、Dataset/DataLoader、训练循环、验证曲线、Attention、Transformer | 这些会成为第 7 章理解 token、上下文和大模型行为的心智模型 |
+| 可选扩展 | CNN、RNN、GAN/VAE、模型压缩、进阶调参 | 遇到图像、序列、生成或部署项目需要时再回来 |
+| 深度挑战 | 故意过拟合一个极小 batch，再解释它证明了什么、不能证明什么 | 让后续训练失败更容易定位 |
 
 本章常见术语：
 
@@ -86,6 +100,28 @@ for epoch in range(20):
 ```
 
 具体数字可能不同，但 loss 应该整体下降。只要下降，你就看到了训练闭环在工作。
+
+## 留下的证据
+
+进入后续内容前，先保留一条小的起点记录：
+
+```text
+first_loop_ran: the tiny PyTorch loop printed four loss lines
+loss_direction: loss generally moved down
+core_path: 6.1 -> 6.2 -> 6.5 -> 6.8
+next_debug_step: if loss does not move, check shape, loss, gradients, and optimizer step
+```
+
+这会把第一个例子变成检查点。你现在不是要立刻掌握所有架构，而是先证明训练循环已经不再是黑盒。
+
+## 通往第 7 章的桥
+
+进入大模型前，先确认下面这些连接是清楚的：
+
+- 第 4 章的向量会变成 token embedding 和检索 embedding。
+- 第 5 章的指标和错误样本会变成 Prompt 评估和 RAG 评估。
+- 本章的 Attention 和 Transformer block 会变成从 token 到答案的路径。
+- 训练会更新参数，而推理会使用训练好的参数生成输出。
 
 ## 深度阶梯
 

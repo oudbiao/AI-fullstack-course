@@ -215,6 +215,18 @@ truth: [1, 0, 1, 0]
 
 这个例子很小，但它是完整 RNN 闭环：序列 tensor、循环层、最终 hidden 表示、分类器、loss、optimizer 和预测。
 
+## 留下的证据
+
+保存一条 RNN 运行笔记：
+
+```text
+sequence_shape: [batch, seq_len, input_size]
+rnn_output_shape: [batch, seq_len, hidden_size]
+final_state_used: out[:, -1, :] or hidden
+task_result: predictions match truth on the toy task
+limitation: plain hidden state is compressed memory, not perfect memory
+```
+
 ## 普通 RNN 卡在哪里
 
 ![RNN 隐藏状态滚动记忆图](/img/course/ch06-rnn-hidden-state-rolling-memory-map.webp)

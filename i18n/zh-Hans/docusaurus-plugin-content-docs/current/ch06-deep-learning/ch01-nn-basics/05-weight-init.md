@@ -288,6 +288,19 @@ he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 - `large` 初始 loss 很大，即使这个小模型后来能恢复，也是一种警告。
 - `default`、`xavier` 和 `he` 在这里都能工作，这也说明默认值适合做第一版 baseline。
 
+## 留下的证据
+
+保存一条初始化探针记录：
+
+```text
+bad_start: zeros stays near random accuracy because symmetry is not broken
+warning_start: large begins with very high loss
+usable_start: default/xavier/he train normally on this task
+next_probe: make the network deeper and compare which strategy becomes fragile
+```
+
+这条证据会教会真正的重点：初始化不是装饰，它决定了信号和梯度一开始是否处在可用范围。
+
 ## 排错清单
 
 如果训练前几轮就明显不对，按这个顺序查：

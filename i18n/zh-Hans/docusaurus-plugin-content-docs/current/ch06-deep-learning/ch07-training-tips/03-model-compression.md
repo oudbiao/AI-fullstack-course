@@ -153,6 +153,23 @@ teacher logits 或输出 -> student 学标签 + teacher 行为
 
 不要只报告“int8 可以跑”。没有任务指标和延迟，大小变小不代表成功。
 
+## 留下的证据
+
+压缩结果要保存为 before/after 报告：
+
+```text
+baseline_size:
+compressed_size:
+baseline_latency:
+compressed_latency:
+baseline_metric:
+compressed_metric:
+runtime_hardware:
+decision: keep, tune, or reject compression
+```
+
+这能避免一个常见错误：文件变小了，但真实产品反而更慢或更不准。
+
 ## 常见错误
 
 | 错误 | 修复 |

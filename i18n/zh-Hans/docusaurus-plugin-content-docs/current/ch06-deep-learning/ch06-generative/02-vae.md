@@ -162,6 +162,20 @@ generated_points
 - `kl` 不需要变成 0。它是把 latent space 推向平滑先验的压力。
 - `generated_points` 是从随机 `z` 解码出来的，不是直接复制训练数据。
 
+## 留下的证据
+
+VAE 运行时保留这条记录：
+
+```text
+recon_trend: reconstruction loss decreases
+kl_trend: KL stays nonzero but controlled
+sample_check: generated_points come from random z
+tradeoff: better reconstruction <-> smoother latent space
+next_probe: change KL weight and compare samples
+```
+
+这条证据说明 VAE 不只是普通 autoencoder：latent space 应该能用于采样，而不只是重建。
+
 ## VAE、Autoencoder 与 GAN
 
 | 模型 | 学什么 | 优点 | 常见弱点 |

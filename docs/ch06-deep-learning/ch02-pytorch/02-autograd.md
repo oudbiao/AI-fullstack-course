@@ -296,6 +296,20 @@ forward -> loss -> zero_grad -> backward -> step
 
 Some code uses `zero_grad` before forward, but the key rule is the same: clear old gradients before the next update.
 
+## Evidence to Keep
+
+Keep one autograd trace:
+
+```text
+loss_requires_grad: True
+parameter_requires_grad: True
+grad_after_backward: not None
+update_rule: backward computes gradients, optimizer or manual code updates values
+safe_logging: store loss.item() or tensor.detach()
+```
+
+This prevents the most common misconception: `backward()` is not the update. It only fills gradients.
+
 ## Exercises
 
 1. Change Lab 4 to learn `y = 3x - 2`. What should `w` and `b` approach?

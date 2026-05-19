@@ -179,6 +179,20 @@ loss_after= 0.1183
 
 这就是训练的缩小版：参数变了，预测改善了，loss 降低了。
 
+## 留下的证据
+
+保存一条前后对比记录：
+
+```text
+prediction_before: 0.825
+loss_before: 0.1927
+gradient_seen: weight_grad and bias_grad are not None
+prediction_after: 0.888
+loss_after: 0.1183
+```
+
+这能证明完整训练步骤真的发生了。如果其中某一行缺失，就按这个顺序排查：forward 输出、loss、gradient、optimizer update。
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |

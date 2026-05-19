@@ -122,6 +122,19 @@ best-looking single sample != best project checkpoint
 | challenge | VAE、GAN、diffusion-style outputs の比較 |
 | portfolio | data、model、samples、failures、next step の clear story |
 
+## 残す証拠
+
+generative project では、最低限この evidence を残します。
+
+```text
+checkpoint_samples: fixed-seed samples across epochs
+quality_note: what improved visually
+diversity_note: whether outputs repeat
+failure_sample: blurry, broken, collapsed, or unrealistic output
+selection_rule: why this checkpoint was kept
+next_action: data, objective, architecture, or sampling change
+```
+
 ## よくある間違い
 
 | 間違い | 直し方 |

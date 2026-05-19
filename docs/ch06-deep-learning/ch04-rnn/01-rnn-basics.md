@@ -215,6 +215,18 @@ truth: [1, 0, 1, 0]
 
 This is small, but it is a complete RNN loop: sequence tensor, recurrent layer, final hidden representation, classifier, loss, optimizer, and predictions.
 
+## Evidence to Keep
+
+Save one RNN run note:
+
+```text
+sequence_shape: [batch, seq_len, input_size]
+rnn_output_shape: [batch, seq_len, hidden_size]
+final_state_used: out[:, -1, :] or hidden
+task_result: predictions match truth on the toy task
+limitation: plain hidden state is compressed memory, not perfect memory
+```
+
 ## Where Plain RNNs Struggle
 
 ![RNN hidden-state rolling memory diagram](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.webp)

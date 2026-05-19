@@ -19,6 +19,22 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 
 コードが長く見えるときは、まずこの 6 ステップを探します。
 
+## 期待される最終出力
+
+第6章の終わりには、読書メモだけでなく、小さな証拠フォルダが残っている状態にします。
+
+```text
+deep_learning_evidence/
+  shape_trace.txt
+  training_log.csv
+  loss_curve.png
+  best_checkpoint_note.md
+  attention_note.md
+  failure_sample_note.md
+```
+
+このフォルダがなければ、ページを読み終えていても、第6章はまだ完了ではありません。
+
 ## 練習チェックリスト
 
 | チェック | 証拠 |
@@ -39,6 +55,19 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 | 曲線画像または CSV | モデルは underfitting、overfitting、順調な改善のどれか。 |
 | attention メモ | Attention は何を増やし、何がまだ難しいか。 |
 | 失敗サンプルメモ | どのサンプルが失敗し、それはデータ、モデル、ラベルのどれを示しているか。 |
+
+## 残す証拠
+
+第 6 章を終える前に、compact evidence pack を 1 つ残します。
+
+```text
+shape_trace: one model with printed tensor shapes
+training_log: train and validation loss over time
+best_checkpoint: how the best model was selected
+attention_note: Q/K/V, mask, and next-token bridge
+failure_sample: one wrong or weak prediction with next action
+project_folder: runnable evidence pack or README
+```
 
 ## 次へ進めるサイン
 

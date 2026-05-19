@@ -266,6 +266,20 @@ Read the result in three passes:
 
 Fine-tuning is not automatically better. It can overfit or destroy pretrained features if the target data is tiny or the learning rate is too high. Always judge by validation results, not by the training loss alone.
 
+## Evidence to Keep
+
+For a transfer-learning experiment, keep this decision record:
+
+```text
+frozen_check: which layers have requires_grad=False
+head_result: validation score after training only the new head
+finetune_result: validation score after unfreezing later layers
+decision: keep frozen or fine-tune based on validation, not training loss
+risk_note: data size, domain mismatch, preprocessing mismatch
+```
+
+This turns transfer learning from "use a big model" into a controlled engineering workflow.
+
 ## Real Project Workflow
 
 1. Split data into train/validation/test before touching the model.

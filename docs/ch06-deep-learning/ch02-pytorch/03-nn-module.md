@@ -182,6 +182,18 @@ Responsibilities:
 
 Keep training logic out of `forward()`. Loss, `backward()`, and `optimizer.step()` belong to the training loop, not to the model definition.
 
+## How to Read the Model
+
+When you inspect an `nn.Module`, read it at three levels:
+
+| Level | Question | Evidence |
+|---|---|---|
+| structure | what layers exist and in what order? | `print(model)` |
+| parameters | which tensors will be trained? | `named_parameters()` |
+| behavior | what does `forward()` return for one batch? | one input/output shape check |
+
+If all three are clear, the model is no longer a black box. It is a Python object with trainable tensors and an explicit forward path.
+
 ## `train()` and `eval()` Are Mode Switches
 
 `model.train()` does not run the training loop, and `model.eval()` does not run validation. They switch the behavior of layers such as Dropout and BatchNorm.
@@ -338,6 +350,20 @@ This is now a complete miniature PyTorch model:
 ```text
 data -> model -> loss -> zero_grad -> backward -> optimizer.step -> eval prediction
 ```
+
+## Evidence to Keep
+
+For this page, save evidence that the model object is understandable, not just runnable:
+
+```text
+structure_check: print(model) or write the layer order
+parameter_check: named_parameters() with shape for each trainable tensor
+state_dict_keys: checkpoint keys that would be saved
+mode_probe: train outputs differ, eval outputs match for DropoutProbe
+mini_project_result: loss decreases and predicted score is near the expected range
+```
+
+This proves you can inspect a PyTorch model before trusting a training run. If a later project fails, these same checks tell you whether the problem is model structure, parameter registration, mode switching, or training logic.
 
 ## Sequential or Custom Module?
 

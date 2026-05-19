@@ -288,6 +288,19 @@ he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 - `large` は初期 loss が非常に大きく、この小さなモデルが後で回復しても警告サインです。
 - `default`、`xavier`、`he` はここではどれも動きます。だからこそデフォルトは最初の baseline に向いています。
 
+## 残す証拠
+
+初期化プローブの記録を 1 つ保存します。
+
+```text
+bad_start: zeros stays near random accuracy because symmetry is not broken
+warning_start: large begins with very high loss
+usable_start: default/xavier/he train normally on this task
+next_probe: make the network deeper and compare which strategy becomes fragile
+```
+
+この証拠が教える本質は、初期化は飾りではないということです。信号と勾配が、最初から使える範囲にあるかどうかを左右します。
+
 ## デバッグチェックリスト
 
 最初の数 epoch で明らかにおかしいときは、次の順番で確認します。

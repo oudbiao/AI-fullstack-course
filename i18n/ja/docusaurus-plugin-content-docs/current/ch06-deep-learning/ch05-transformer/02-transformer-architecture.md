@@ -335,6 +335,47 @@ output: (2, 3, 16)
 現代 LLM decoder は、その block を超深い生成モデル向けに訓練しやすく、推論しやすくした。
 ```
 
+## LLM への橋：block 出力から次の token へ
+
+Transformer block は、ユーザーに直接「答える」わけではありません。token 表現を書き換えます。Decoder-only LLM はこの block を何層も積み、最後の表現を語彙スコアへ写します。
+
+```text
+tokens
+-> embeddings + position
+-> repeated decoder blocks
+-> final hidden states
+-> vocabulary logits
+-> next-token choice
+```
+
+最後の 2 つの手順を丁寧に読みます。
+
+| 手順 | やさしい意味 | 第 7 章で重要な理由 |
+|---|---|---|
+| vocabulary logits | 次に来る可能性のある各 token へのスコア | モデルはここで続き候補を順位づけする |
+| decoding | そのスコアから次の token を選ぶ、またはサンプリングする | temperature、top-p、停止ルールが見える挙動を変える |
+
+橋渡しはこうです。
+
+```text
+第 6 章：block が表現をどう書き換えるか。
+第 7 章：書き換えられた表現がどう生成テキストになるか。
+```
+
+これにより Prompt が重要な理由も分かります。Prompt は入力 token と文脈を変え、それが hidden states を変え、最終的に next-token score を変えます。
+
+## 残す証拠
+
+Transformer block card を 1 つ残します。
+
+```text
+block_shape: [batch, seq_len, d_model] stays the same
+content_change: token representations become context-aware
+stability_parts: residual + norm
+token_parts: attention mixes positions, FFN transforms each position
+generation_bridge: final hidden state -> vocabulary logits -> next token
+```
+
 ## よくある間違い
 
 | 間違い | 直し方 |

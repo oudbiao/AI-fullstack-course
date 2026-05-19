@@ -218,6 +218,19 @@ probs: [1.0, 0.0, 0.0, 0.0]
 
 混同行列は行ごとに読みます。行が真のラベル、列が予測ラベルです。対角線以外の数が誤分類です。
 
+## 残す証拠
+
+分類実行カードを 1 つ保存します。
+
+```text
+data_shape: train and validation tensor shapes
+model_shape: input -> features -> logits
+metric: validation accuracy and loss
+confusion_matrix: rows=true, cols=pred
+sample_prediction: true label, predicted label, probabilities
+next_probe: more noise, fewer samples, new class, or real image split
+```
+
 ## なぜここで GAP を使うのか
 
 モデルは `AdaptiveAvgPool2d((1, 1))` を使っています。この文脈では Global Average Pooling と考えてよいです。`[N, 32, H, W]` を `[N, 32, 1, 1]` に変えます。

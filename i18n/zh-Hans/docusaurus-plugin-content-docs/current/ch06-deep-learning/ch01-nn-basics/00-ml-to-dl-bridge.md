@@ -253,3 +253,30 @@ flowchart LR
 - 知道深度学习真正新增的能力是什么
 - 知道为什么会出现反向传播和 PyTorch
 - 知道第 5 站和第 6 站其实仍然共享一套建模骨架
+
+## 留下的证据
+
+继续学习前，写一条五行桥接笔记：
+
+```text
+old_skill: I can train and evaluate sklearn models.
+same_skeleton: data -> model -> loss/metric -> improvement -> error analysis.
+new_capability: neural networks learn representations, not only final prediction rules.
+new_control: PyTorch exposes forward, backward, optimizer, device, and checkpoint logic.
+next_action: run one tiny neural network and explain why loss changes.
+```
+
+如果这条笔记说得清楚，第 6 章就会像原有建模流程的扩展，而不是重新开始。
+
+## 预期结果
+
+读完这页后，你的输出是一套心智模型，而不是一个 Python 文件：
+
+```text
+I can explain what stays the same from sklearn to PyTorch.
+I can explain what becomes more explicit in PyTorch.
+I can point to one reason representation learning matters.
+I can describe why Chapter 6 prepares me for Transformer and LLMs.
+```
+
+如果这四句话还说不出来，先回看这座桥，再进入 CNN、RNN 或 Transformer 架构名词。

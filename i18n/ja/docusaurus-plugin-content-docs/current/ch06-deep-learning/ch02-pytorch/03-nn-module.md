@@ -182,6 +182,18 @@ state keys: ['net.0.weight', 'net.0.bias', 'net.2.weight', 'net.2.bias']
 
 学習ロジックを `forward()` に入れないでください。Loss、`backward()`、`optimizer.step()` は training loop の仕事であり、モデル定義の仕事ではありません。
 
+## モデルをどう読むか
+
+`nn.Module` を確認するときは、3 つの層で読みます。
+
+| 層 | 問い | 証拠 |
+|---|---|---|
+| structure | どんな layer が、どんな順番であるか？ | `print(model)` |
+| parameters | どの tensor が訓練されるか？ | `named_parameters()` |
+| behavior | `forward()` は 1 batch に何を返すか？ | 入力/出力 shape の確認 |
+
+この 3 つが分かれば、モデルはもう black box ではありません。trainable tensor と明示的な forward path を持つ Python object です。
+
 ## `train()` と `eval()` はモード切り替え
 
 `model.train()` は学習ループを実行しません。`model.eval()` も検証を実行しません。これらは Dropout や BatchNorm などの層の動作を切り替えます。
@@ -338,6 +350,20 @@ predicted score: 89.31
 ```text
 data -> model -> loss -> zero_grad -> backward -> optimizer.step -> eval prediction
 ```
+
+## 残す証拠
+
+このページでは、モデルが動くだけでなく、理解して点検できる証拠を残します。
+
+```text
+structure_check: print(model) or write the layer order
+parameter_check: named_parameters() with shape for each trainable tensor
+state_dict_keys: checkpoint keys that would be saved
+mode_probe: train outputs differ, eval outputs match for DropoutProbe
+mini_project_result: loss decreases and predicted score is near the expected range
+```
+
+これにより、学習実行を信じる前に PyTorch モデルを点検できます。後の project が失敗したときも、同じ確認で model structure、parameter registration、mode switching、training logic のどこを見るべきか分かります。
 
 ## Sequential とカスタム Module の使い分け
 

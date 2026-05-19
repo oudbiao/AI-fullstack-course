@@ -258,6 +258,19 @@ PyTorch 权重: 7.37
 
 ---
 
+## 留下的证据
+
+保存一条左右对照笔记：
+
+```text
+sklearn: fit() hides parameter updates
+pytorch: I write model, loss, backward, optimizer step
+same_goal: minimize error and validate on held-out data
+new_responsibility: inspect shape, gradient, device, and checkpoint
+```
+
+重点不是 PyTorch “更高级”，而是 PyTorch 把训练机制显式展开，让你能构建自定义深度学习系统。
+
 ## 练习
 
 1. 把上面例子里的学习时长和分数改成你自己的数据，再分别用 `sklearn` 和 `PyTorch` 训练一次。

@@ -324,6 +324,20 @@ logits: [batch, classes], float32
 labels: [batch], int64 / long
 ```
 
+## 留下的证据
+
+继续前，保存一条小的 tensor 检查笔记：
+
+```text
+input_shape: [batch, features]
+logits_shape: [batch, classes]
+label_shape: [batch]
+label_dtype: torch.long for CrossEntropyLoss
+device_check: model and data are on the same device
+```
+
+这是后面调试 PyTorch 代码最快的方法。大多数早期错误都是 shape、dtype、device 或 broadcasting 错误，只是被长长的报错堆栈藏起来了。
+
 ## 练习
 
 1. 把实验 2 里的 `X` 从两个样本改成三个样本。哪些 shape 会变，哪些不会变？

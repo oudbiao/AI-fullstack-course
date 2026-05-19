@@ -195,6 +195,19 @@ errors: [{'gold': 'dog', 'pred': 'cat'}]
 - 6 到 12 个正确和错误样本；
 - 下一步计划。
 
+## 留下的证据
+
+图像分类项目至少留下这些证据：
+
+```text
+label_rules: how classes are defined
+split_rule: train/val/test and leakage prevention
+baseline: simple CNN or transfer-learning baseline
+metric: accuracy plus confusion matrix
+error_case: one wrong prediction with likely cause
+next_action: data, augmentation, model, or split change
+```
+
 ## 常见错误
 
 | 错误 | 修复 |

@@ -277,6 +277,19 @@ restored best_val: 0.123
 checkpoints/best_model.pt
 ```
 
+## 残す証拠
+
+すべての PyTorch project で、短い実行安全メモを残します。
+
+```text
+device: cpu/cuda/mps and model/data match
+seed: set before debugging
+grad_norm: measured before and after clipping when unstable
+precision: AMP used only when supported, fallback works
+checkpoint: model_state_dict, optimizer_state_dict, epoch, best_val
+debug_order: batch -> shape -> device -> loss -> gradients -> update -> validation
+```
+
 ## メモリと安定性の切り分け
 
 | 症状 | 最初の対応 | 次の対応 |

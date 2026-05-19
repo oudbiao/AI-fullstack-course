@@ -96,6 +96,20 @@ deep_learning_workshop_run/
   README.md
 ```
 
+## Evidence to Keep
+
+The workshop is complete when the folder proves the full training loop:
+
+```text
+shape_trace: one batch shape and logits shape
+training_log: train and validation curves
+model_comparison: baseline vs CNN
+confusion_matrix: class-level errors
+error_samples: concrete failures to inspect
+checkpoint: best model can be restored
+README: command, metrics, limitations, next step
+```
+
 ### Terms to Decode Before Running
 
 - **Tensor**: a multi-dimensional array. In this workshop, one image batch has shape `(batch, channel, height, width)`.

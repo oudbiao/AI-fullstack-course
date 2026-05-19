@@ -195,6 +195,19 @@ For a real CNN project, keep:
 - 6 to 12 correct and wrong examples;
 - next-step plan.
 
+## Evidence to Keep
+
+An image classification project should leave this minimum evidence:
+
+```text
+label_rules: how classes are defined
+split_rule: train/val/test and leakage prevention
+baseline: simple CNN or transfer-learning baseline
+metric: accuracy plus confusion matrix
+error_case: one wrong prediction with likely cause
+next_action: data, augmentation, model, or split change
+```
+
 ## Common Mistakes
 
 | Mistake | Fix |

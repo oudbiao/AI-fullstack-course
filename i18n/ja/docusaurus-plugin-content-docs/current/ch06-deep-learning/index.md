@@ -11,6 +11,12 @@ keywords: [深層学習, PyTorch, ニューラルネットワーク, CNN, RNN, T
 
 第 6 章の目的は 1 つです。モデルが**損失、勾配、反復する学習ステップ**によってどう学ぶのかを理解することです。
 
+## メインルートでの位置
+
+ここまでに sklearn モデルを学習し、指標とエラーサンプルで結果を判断しました。この章では学習ループを開きます。tensor がデータを運び、モデルが予測を作り、loss が誤りを測り、逆伝播が勾配を計算し、optimizer がパラメータを更新します。
+
+ここは LLM に入る前の最後のモデル基礎章です。すべての構造を完全に習得してから進む必要はありません。学習、shape、Attention、Transformer block を十分に理解し、第 7 章が魔法に見えない状態にすることが目標です。
+
 ## まず学習ループを見る
 
 ![深層学習トレーニングループのメイン図](/img/course/ch06-training-loop-backbone-ja.webp)
@@ -25,18 +31,26 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 
 ## 学習順序とタスクリスト
 
-この表を、本章の学習ガイド兼タスクリストとして使います。
+この表を、本章の学習ガイド兼タスクリストとして使います。まず中核ルート **6.1 -> 6.2 -> 6.5 -> 6.8** を進みます。CNN、RNN、生成モデル、学習テクニックは、プロジェクトで必要になったときに戻る拡張として扱います。
 
 | ページ | 手を動かすこと | 残す証拠 |
 |---|---|---|
 | [6.1 ニューラルネットワーク基礎](ch01-nn-basics/00-roadmap.md) | ニューロン、活性化、forward/backward、optimizer、正則化、初期化を理解する | 手書きの学習ループ説明 |
 | [6.2 PyTorch](ch02-pytorch/00-roadmap.md) | tensor、autograd、`nn.Module`、Dataset、DataLoader、最小学習ループを練習する | 実行できる PyTorch スクリプト |
+| [6.5 Transformer](ch05-transformer/00-roadmap.md) | Query、Key、Value、self-attention、位置エンコーディング、Transformer block を学ぶ | attention の入出力図 |
+| [6.8 プロジェクト](ch08-projects/00-roadmap.md) と [6.8.5 ワークショップ](ch08-projects/04-hands-on-dl-workshop.md) | 画像、感情分析、生成プロジェクトの前に PyTorch 証拠パックを作る | ログ、曲線、checkpoint、shape trace、README |
 | [6.3 CNN](ch03-cnn/00-roadmap.md) | 画像分類でデータ形状、畳み込み、プーリング、転移学習をつなげる | shape メモと画像分類の実行結果 |
 | [6.4 RNN](ch04-rnn/00-roadmap.md) | 系列データに記憶が必要な理由、LSTM/GRU が Transformer 前に解いた問題を理解する | 系列モデルメモ |
-| [6.5 Transformer](ch05-transformer/00-roadmap.md) | Query、Key、Value、self-attention、位置エンコーディング、Transformer block を学ぶ | attention の入出力図 |
 | [6.1.8 任意の深層学習史](ch01-nn-basics/06-history-breakthroughs.md) | 主な学習ループを理解してから、backprop、CNN、RNN、Attention、Transformer がなぜ現れたかを読む | 「この構造がある理由」のメモ |
 | [6.6 生成モデル](ch06-generative/00-roadmap.md) と [6.7 学習テクニック](ch07-training-tips/00-roadmap.md) | 学習ループが安定してから拡張として扱う | チューニングまたは診断メモ |
-| [6.8 プロジェクト](ch08-projects/00-roadmap.md) と [6.8.5 ワークショップ](ch08-projects/04-hands-on-dl-workshop.md) | 画像、感情分析、生成プロジェクトの前に PyTorch 証拠パックを作る | ログ、曲線、checkpoint、shape trace、README |
+
+## 必修ルート、拡張、深掘り
+
+| 層 | いま学ぶこと | どう使うか |
+|---|---|---|
+| 必修コア | Tensor shape、autograd、`nn.Module`、Dataset/DataLoader、学習ループ、検証曲線、Attention、Transformer | 第 7 章で token、文脈、LLM の振る舞いを理解するための心内モデルになります |
+| 任意の拡張 | CNN、RNN、GAN/VAE、圧縮、発展的な調整 | 画像、系列、生成、デプロイのプロジェクトで必要になったときに戻ります |
+| 深掘り課題 | ごく小さい batch を意図的に過学習させ、それが何を証明し、何を証明しないか説明する | 後の学習失敗をデバッグしやすくします |
 
 本章でよく使う用語：
 
@@ -86,6 +100,28 @@ for epoch in range(20):
 ```
 
 具体的な数値は環境で変わることがありますが、loss はおおむね下がるはずです。下がれば、学習ループが動いていることを確認できています。
+
+## 残す証拠
+
+先へ進む前に、小さな開始記録を残します。
+
+```text
+first_loop_ran: the tiny PyTorch loop printed four loss lines
+loss_direction: loss generally moved down
+core_path: 6.1 -> 6.2 -> 6.5 -> 6.8
+next_debug_step: if loss does not move, check shape, loss, gradients, and optimizer step
+```
+
+これは最初の例を checkpoint にします。ここで全 architecture を一気に覚える必要はありません。まず学習ループが見えるようになったことを証明します。
+
+## 第 7 章への橋
+
+LLM に入る前に、次のつながりを確認してください。
+
+- 第 4 章のベクトルは token embedding と検索 embedding になります。
+- 第 5 章の指標とエラーサンプルは Prompt 評価と RAG 評価になります。
+- 本章の Attention と Transformer block は token から回答までの経路になります。
+- 学習はパラメータを更新しますが、推論は学習済みパラメータを使って出力を生成します。
 
 ## 深度ラダー
 

@@ -26,7 +26,7 @@ This file is for future agents. It is not course content.
   - `OPENAI_API_KEY`
   - `OPENAI_API_KEY_2`
   - `OPENAI_API_KEY_3`
-- Prefer parallel generation when the script supports it.
+- Prefer parallel generation when the script supports it. Treat each API key as one worker lane: one active image request per key. When a key finishes its image, that same lane should immediately take the next queued image; do not wait for all keys in the batch to finish before starting the next work item.
 - For long jobs, allow a long timeout budget (about 1200s).
 - Prefer direct AI-generated teaching images.
 - Do not fake the result by generating a background and then pasting text on top.
@@ -34,10 +34,34 @@ This file is for future agents. It is not course content.
 - Prefer hand-drawn classroom notes / lined notebook / whiteboard teaching styles when the topic fits.
 - If a topic is too abstract, use an analogy, sequence, state change, comparison, or error-repair image.
 - If one vertical image is too crowded, split the concept into two or more vertical images.
+- Prefer vertical teaching images for core lessons, especially step-by-step flows, phone-first reading, and hard concepts that need stacked explanation.
+- Vertical image work must be a real vertical recomposition, not a stretched landscape image. Reject images with tall/narrow/compressed lettering, warped circles, squeezed tables, distorted arrows, or text made unreadable to fit the page.
+- Generated images must stay in a temporary review location until they pass QA. Only replace course assets after checking dimensions, readability, language, layout pressure, concept match, and absence of stretching/warping.
+- Image generation is a candidate step, not acceptance. A generated file is not allowed into `static/img/course` or Markdown references until it passes QA.
+- For every generated or regenerated course image, inspect it before adoption. At minimum check: correct aspect ratio, no forced stretch, readable large text, natural language for the locale, no tiny filler/gibberish, no fake brand/logo/watermark, no invented metrics or output values, and a clear match to the nearby lesson/code/output.
+- If the image fails QA, regenerate or simplify. Do not “settle” for stretched text, crowded diagrams, decorative posters, wrong language, hallucinated numbers, or unrelated imagery.
+- If a concept is too dense for one vertical page, split it into two images or reduce visible text. Never solve density by shrinking or distorting text.
+- Result-map images must not invent values. They must match the real code/output shown nearby, or use nonnumeric schematic labels when the page does not provide exact numbers.
+- Chapter/project route images should not look like marketing posters. Prefer reviewable teaching artifacts: route maps, evidence chains, debugging order, before/after comparison, output-reading notes, or project checklists.
+- For abstract or hard-to-remember ideas, prefer analogy images that make the mental model visible before the formal terms.
+- For important historical turning points, algorithm evolution, or "why this changed the field" moments, use multi-panel hand-drawn comics when they improve memory and pacing.
 - Keep the image content tightly tied to the chapter context and the actual code/output shown nearby.
 - Do not change outputs just to make the image easier to draw.
 - If Chinese text is used, keep it natural Chinese. Allow English terms only when they are real technical terms.
 - For multilingual image sets, keep the visual style consistent across EN, ZH, and JA.
+
+## Course structure rules
+
+- Keep the default learner route embedded in the course flow rather than relying on learners to read a separate recommended-route page first.
+- Do not move major chapters unless explicitly requested. The current default route is tools -> Python -> data -> math -> ML -> DL/Transformer -> LLM -> RAG -> Agent -> specializations.
+- Chapter index pages should act as navigation stations: what the learner already knows, what this chapter solves, the core path, optional extensions, depth challenge, evidence to keep, and the next chapter bridge.
+- For model-foundation chapters 4-6, keep the learning practical: runnable code, visible output, metrics/curves/errors, and a bridge into Chapter 7 LLMs.
+- Treat "beginner-friendly" as "easy first action, clear evidence, and recoverable failure," not shallow content.
+- For Chapters 6-9, preserve the core/extension split in sidebar labels and chapter indexes:
+  - Chapter 6 core path: 6.1 -> 6.2 -> 6.5 -> 6.8.
+  - Chapter 7 core path: 7.1 -> 7.2 -> 7.5 -> 7.8.
+  - Chapter 8 core path: 8.1 -> 8.3 -> 8.4 -> 8.5, with deployment/API serving as an extension.
+  - Chapter 9 core single-Agent path: 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10; MCP, frameworks, multi-agent, and deployment operations are advanced/elective after the single-Agent loop is stable.
 
 ## Quality bar
 
@@ -55,6 +79,14 @@ This file is for future agents. It is not course content.
 - If relevant, run the Docker build flow too.
 - Open the local site in the browser and inspect the affected chapters directly.
 - Check mobile layout, image height, text pressure, chapter pacing, and language switching.
+
+## Current optimization status
+
+- 2026-05-19: Intro, Chapters 1-12, electives, and appendix have been optimized across English, Simplified Chinese, and Japanese.
+- 2026-05-19: Chapter 6 vertical image refinement is in progress. Current handoff is `reports/course-images/ch06-vertical-refine/HANDOFF.md`. Generated candidates are in `tmp/ch06-vertical-images/`; they are not yet official assets unless separately converted into `static/img/course/*.webp` after QA.
+- Latest pass focused on Chapters 1-5. Every page in `ch01-tools`, `ch02-python`, `ch03-data-analysis`, `ch04-ai-math`, and `ch05-machine-learning` now has a localized evidence section, image reference, code block, and expected output/result cue.
+- Chapter index pages for Chapters 1-5 now include output-reading guidance so beginners know how to interpret terminal output, files, metrics, and plots.
+- Latest verification passed: markdown fences, internal links, sidebars, course structure, image refs, `git diff --check`, and `npm run build`. Image audit reported `course_image_refs=2957 missing=0 unused=0`.
 
 ## Practical notes
 

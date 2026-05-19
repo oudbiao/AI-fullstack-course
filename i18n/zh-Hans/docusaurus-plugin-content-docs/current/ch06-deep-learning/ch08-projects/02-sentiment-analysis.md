@@ -195,6 +195,19 @@ README 要具体：
 - 模型做对和做错的例子；
 - 下一步计划。
 
+## 留下的证据
+
+情感分析项目至少留下这些证据：
+
+```text
+label_rules: positive and negative boundaries
+baseline: keyword or TF-IDF baseline
+known_failure: negation, sarcasm, or mixed sentiment
+fix_attempt: one targeted rule or model change
+error_buckets: grouped wrong predictions
+next_action: data labeling, features, or model upgrade
+```
+
 ## 常见错误
 
 | 错误 | 修复 |

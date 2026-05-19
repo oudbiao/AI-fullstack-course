@@ -57,6 +57,18 @@ hidden_shape: (1, 2, 4)
 | 2 | [6.4.3 LSTM 与 GRU](./02-lstm-gru.md) | 门控、长依赖、记忆控制 |
 | 3 | [6.4.4 序列建模实战](./03-sequence-practice.md) | 滑动窗口、训练/评估循环 |
 
+## 留下的证据
+
+保留一条序列 shape 笔记：
+
+```text
+input: [batch, seq_len, features]
+outputs: one hidden representation per step
+hidden: compressed rolling memory
+gate_reason: LSTM/GRU help preserve or discard information
+baseline: compare sequence model against a simple naive rule
+```
+
 ## 通过标准
 
 能读懂 `[batch, seq_len, features]`，把 hidden state 解释成滚动记忆，并知道 LSTM/GRU 是为长依赖而引入，就算通过。

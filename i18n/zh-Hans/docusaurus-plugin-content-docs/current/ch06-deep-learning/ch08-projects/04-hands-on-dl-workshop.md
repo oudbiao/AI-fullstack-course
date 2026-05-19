@@ -96,6 +96,20 @@ deep_learning_workshop_run/
   README.md
 ```
 
+## 留下的证据
+
+这个工作坊完成时，文件夹本身应该能证明完整训练闭环：
+
+```text
+shape_trace: one batch shape and logits shape
+training_log: train and validation curves
+model_comparison: baseline vs CNN
+confusion_matrix: class-level errors
+error_samples: concrete failures to inspect
+checkpoint: best model can be restored
+README: command, metrics, limitations, next step
+```
+
 ### 运行前先解码几个术语
 
 - **Tensor**：多维数组。本工作坊里，一个图像 batch 的 shape 是 `(batch, channel, height, width)`。

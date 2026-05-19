@@ -317,6 +317,19 @@ plt.show()
 
 这张图通常是 PyTorch 开始变得具体的时刻：模型不再只是打印数字，你能看到它如何划分空间。
 
+## 留下的证据
+
+从工作坊保存四个产物：
+
+```text
+data_plot: shows the original class pattern
+loss_curve: shows whether training and validation improve together
+decision_boundary: shows what the model learned geometrically
+failure_note: one case where the boundary or validation curve looks wrong
+```
+
+如果你能解释这四个产物，这个工作坊就不再只是复制 notebook，而是一个训练证据包。
+
 ## 常见错误与修复
 
 | 现象 | 可能原因 | 修复方式 |

@@ -102,3 +102,30 @@ keywords: [深度学习历史, 感知器, XOR, 反向传播, LSTM, AlexNet, ResN
 - 为什么 Attention 会成为现代大语言模型的桥？
 
 如果你的回答是从“因为上一代模型不能……”开始，说明你正在用正确方式读历史。
+
+## 留下的证据
+
+把时间线变成一张小记忆草图。画四格：
+
+```text
+box_1: one neuron learns a linear rule
+box_2: XOR shows why hidden nonlinear layers matter
+box_3: backprop makes multi-layer learning practical
+box_4: attention lets tokens connect directly at scale
+```
+
+这页是可选背景，但这张草图很有用。它能说明为什么第 6 章会从神经元一路走到 Transformer，而不是随机罗列架构名词。
+
+## 预期结果
+
+这里的预期输出不是背年份，而是能写出因果链：
+
+```text
+perceptron -> XOR shows the limit
+XOR -> hidden nonlinear layers matter
+deep layers -> backprop and gradient flow matter
+long sequences -> gates and attention matter
+Transformer -> scalable context modeling for LLMs
+```
+
+当架构名字开始像孤立事实时，就用这条链把它们重新串起来。

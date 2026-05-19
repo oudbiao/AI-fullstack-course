@@ -130,6 +130,20 @@ Do not read this as “the final line is best.” Read it as a diagnostic exerci
 - `fake_std` becoming very small is a warning sign for low diversity;
 - GAN loss curves can be hard to interpret without sample inspection.
 
+## Evidence to Keep
+
+For a GAN run, save more than loss:
+
+```text
+real_distribution: center and spread of real samples
+fake_mean_over_time: whether generated samples move toward the target
+fake_std_over_time: diversity signal, possible collapse warning
+sample_snapshot: generated examples at multiple steps
+diagnosis: stable, oscillating, collapsed, or still weak
+```
+
+This is the central GAN habit: judge the game by samples and diversity, not by one final loss number.
+
 ## What Is Mode Collapse?
 
 Mode collapse means the generator finds one narrow trick that fools the discriminator, then keeps producing very similar samples.

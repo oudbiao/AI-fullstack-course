@@ -59,6 +59,18 @@ value_range: -0.863 0.695
 | 1 | [6.6.2 GAN](./01-gan.md) | generator、discriminator、敵対的バランス |
 | 2 | [6.6.3 VAE](./02-vae.md) | encoder、decoder、潜在空間 |
 
+## 残す証拠
+
+生成レビュー メモを 1 つ残します。
+
+```text
+latent_input: random or encoded compact vector
+decoder_output: generated sample or reconstruction
+review_needed: generation quality is not proven by loss alone
+gan_focus: realism and diversity can fight each other
+vae_focus: reconstruction and latent smoothness trade off
+```
+
 ## 合格ライン
 
 ラベル予測とサンプル生成の違いを説明し、生成結果を盲信せずレビューが必要な理由を言えれば合格です。

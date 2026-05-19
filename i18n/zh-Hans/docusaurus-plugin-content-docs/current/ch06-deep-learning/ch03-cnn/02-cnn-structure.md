@@ -268,6 +268,19 @@ gap head    : 170
 
 现代 CNN 分类器经常用 GAP，因为它能降低过拟合风险，并让 head 更小。
 
+## 留下的证据
+
+保留一条 CNN shape trace：
+
+```text
+input: [batch, channels, height, width]
+after_conv: channels change, spatial size follows padding/stride
+after_pool: height and width shrink
+before_head: flattened size or GAP output is known
+logits: [batch, num_classes]
+head_choice: Flatten for location-specific detail, GAP for compact classifier
+```
+
 ## 常见错误
 
 | 错误 | 现象 | 修复 |

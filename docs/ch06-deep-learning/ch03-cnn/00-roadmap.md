@@ -57,6 +57,18 @@ Read the shape as `[batch, channels, height, width]`. The convolution changed `3
 | 4 | [6.3.5 Transfer Learning](./04-transfer-learning.md) | frozen backbone, fine-tuning |
 | 5 | [6.3.6 Image Classification Practice](./05-image-classification-practice.md) | dataset, training, prediction examples |
 
+## Evidence to Keep
+
+Keep one CNN shape note:
+
+```text
+input: [batch, channels, height, width]
+conv_output: out_channels becomes new feature maps
+spatial_change: stride/padding/pooling change height and width
+classifier_bridge: conv features eventually become class logits
+transfer_choice: freeze first, fine-tune only if validation improves
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain what changed between input image shape and feature map shape, and why pretrained CNN backbones are useful for small datasets.

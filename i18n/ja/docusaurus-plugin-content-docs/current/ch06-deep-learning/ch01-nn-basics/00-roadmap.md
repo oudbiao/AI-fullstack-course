@@ -66,6 +66,19 @@ relu_output: 3.35
 | 6 | [6.1.7 重み初期化](./05-weight-init.md) | 安定した開始点 |
 | 7 | [6.1.8 任意の歴史背景](./06-history-breakthroughs.md) | backprop、CNN、RNN、Attention、Transformer がなぜ現れたか |
 
+## 残す証拠
+
+6.1 の終わりに、次の 4 行メモを残します。
+
+```text
+one_layer: input @ weights + bias
+nonlinearity: activation lets stacked layers model curved patterns
+training: forward -> loss -> backward -> optimizer step
+debug_first: check shape, loss, gradient, update
+```
+
+このメモは、後で PyTorch、CNN、RNN、Transformer を読むときの小さな地図になります。
+
 ## 合格ライン
 
 1つの層を `input @ weights + bias` として説明し、活性化が何をするかを言え、loss、勾配、オプティマイザを1つの学習ループとしてつなげられれば合格です。

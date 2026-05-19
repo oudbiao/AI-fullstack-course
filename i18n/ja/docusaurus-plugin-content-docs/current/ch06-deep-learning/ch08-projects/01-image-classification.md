@@ -195,6 +195,19 @@ error の読み方：
 - 6 から 12 個の correct/wrong examples。
 - next-step plan。
 
+## 残す証拠
+
+画像分類 project では、最低限この evidence を残します。
+
+```text
+label_rules: how classes are defined
+split_rule: train/val/test and leakage prevention
+baseline: simple CNN or transfer-learning baseline
+metric: accuracy plus confusion matrix
+error_case: one wrong prediction with likely cause
+next_action: data, augmentation, model, or split change
+```
+
 ## よくある間違い
 
 | 間違い | 直し方 |

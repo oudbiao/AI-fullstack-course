@@ -62,6 +62,18 @@ for step in range(1, 5):
 | 7 | [6.2.8 实用技巧](./06-practical-tips.md) | shape、device、seed、调试 |
 | 8 | [6.2.9 PyTorch 工作坊](./07-pytorch-matplotlib-workshop.md) | 运行并可视化小模型 |
 
+## 留下的证据
+
+保留一条 PyTorch 循环笔记：
+
+```text
+tensor_check: shape, dtype, device
+autograd_check: loss.backward() fills gradients
+module_check: named_parameters() shows trainable tensors
+loader_check: one batch matches model and loss
+loop_check: train/eval losses are logged separately
+```
+
 ## 通过标准
 
 能读懂一个 PyTorch 循环，并定位数据 batch、模型输出、loss、`backward()` 和 optimizer 更新这五件事，就算通过。

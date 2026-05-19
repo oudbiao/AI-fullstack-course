@@ -157,6 +157,19 @@ both train_loss=0.159 val_acc=0.949
 
 这就是正则化的重点。你可能接受稍差的训练拟合，换取更好的泛化。
 
+## 留下的证据
+
+学习正则化时，不要只保存最低训练 loss。要保存取舍关系：
+
+```text
+plain: lower train_loss, lower validation accuracy
+regularized: slightly higher train_loss, better validation accuracy
+decision: choose the model with better validation behavior
+next_probe: change dropout or weight_decay one at a time
+```
+
+这里最重要的观念转变是：深度学习优化不是“让训练 loss 最小”，而是“让未来表现更可靠”。
+
 ## Dropout
 
 `nn.Dropout(0.25)` 会在训练时随机丢弃一部分激活：

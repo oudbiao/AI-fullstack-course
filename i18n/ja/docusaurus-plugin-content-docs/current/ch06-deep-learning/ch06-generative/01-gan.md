@@ -130,6 +130,19 @@ step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
 - `fake_std` がとても小さい場合、多様性不足に注意します。
 - GAN の loss は、sample の確認なしでは解釈しにくいです。
 
+## 残す証拠
+
+GAN 実行では loss だけでなく、生成分布のメモを残します。
+
+```text
+real_center: about 2.0
+step_001: fake_mean=0.025, fake_std=0.117
+step_300: fake_mean=1.384, fake_std=0.056
+diagnosis: final line is not automatically best
+collapse_signal: fake_std becomes very small
+review_rule: compare samples/distribution, not loss alone
+```
+
 ## Mode Collapse とは
 
 Mode collapse は、generator が discriminator をだませる狭いパターンを見つけ、その似た sample ばかりを作る状態です。

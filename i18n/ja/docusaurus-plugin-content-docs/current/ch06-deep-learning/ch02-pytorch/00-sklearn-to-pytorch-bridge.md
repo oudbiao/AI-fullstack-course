@@ -259,6 +259,19 @@ PyTorch の重み: 7.37
 
 ---
 
+## 残す証拠
+
+左右比較のメモを保存します。
+
+```text
+sklearn: fit() hides parameter updates
+pytorch: I write model, loss, backward, optimizer step
+same_goal: minimize error and validate on held-out data
+new_responsibility: inspect shape, gradient, device, and checkpoint
+```
+
+大事なのは、PyTorch が「より高度」だということではありません。PyTorch は訓練の仕組みを見えるようにし、カスタム深層学習システムを作れるようにする道具です。
+
 ## 練習
 
 1. 上の例の学習時間と点数を自分のデータに変えて、それぞれ `sklearn` と `PyTorch` で 1 回ずつ訓練してみましょう。

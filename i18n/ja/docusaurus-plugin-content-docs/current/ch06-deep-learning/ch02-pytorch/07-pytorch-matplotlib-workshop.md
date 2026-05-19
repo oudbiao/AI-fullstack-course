@@ -317,6 +317,19 @@ plt.show()
 
 この図を見ると、PyTorch がかなり具体的に感じられます。モデルは数字を出すだけではなく、空間をどう分けているかを見せてくれます。
 
+## 残す証拠
+
+ワークショップから 4 つの成果物を保存します。
+
+```text
+data_plot: shows the original class pattern
+loss_curve: shows whether training and validation improve together
+decision_boundary: shows what the model learned geometrically
+failure_note: one case where the boundary or validation curve looks wrong
+```
+
+この 4 つを説明できれば、ワークショップは copied notebook ではなく、訓練の証拠パックになります。
+
 ## よくあるエラーと直し方
 
 | 現象 | よくある原因 | 直し方 |

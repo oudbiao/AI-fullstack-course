@@ -155,6 +155,19 @@ avg_confidence: 0.69
 | 梯度统计 | 早发现不稳定 |
 | 数据划分版本 | 查泄漏或漂移 |
 
+## 留下的证据
+
+每次诊断都留下一条“症状到动作”笔记：
+
+```text
+curve_pattern: underfit, overfit, unstable, collapse, or unclear
+prediction_signal: class counts and confidence
+gradient_signal: norm plus NaN/Inf check
+data_check: labels, split, leakage, preprocessing
+chosen_action: one targeted next experiment
+success_rule: what metric or artifact will prove the fix worked
+```
+
 ## 从诊断到动作
 
 | 诊断 | 第一动作 |

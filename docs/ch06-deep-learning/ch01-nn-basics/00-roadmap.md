@@ -66,6 +66,19 @@ If the linear output were negative, ReLU would turn it into `0`. That small gate
 | 6 | [6.1.7 Weight Initialization](./05-weight-init.md) | stable starting points |
 | 7 | [6.1.8 Optional History](./06-history-breakthroughs.md) | why backprop, CNN, RNN, Attention, and Transformer appeared |
 
+## Evidence to Keep
+
+By the end of 6.1, keep one short note with these four lines:
+
+```text
+one_layer: input @ weights + bias
+nonlinearity: activation lets stacked layers model curved patterns
+training: forward -> loss -> backward -> optimizer step
+debug_first: check shape, loss, gradient, update
+```
+
+This note becomes the pocket map for PyTorch, CNN, RNN, and Transformer later in Chapter 6.
+
 ## Pass Check
 
 You pass this roadmap when you can explain one layer as `input @ weights + bias`, describe what an activation does, and connect loss, gradient, and optimizer into one training loop.
