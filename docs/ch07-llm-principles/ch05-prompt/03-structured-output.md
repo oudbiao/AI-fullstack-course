@@ -471,6 +471,18 @@ The clearer the failure samples, the easier regression testing becomes later. In
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: required fields and allowed types
+parser: output is parsed, not trusted visually
+valid_case: one output accepted by validation
+invalid_case: missing field or wrong type rejected
+repair_rule: retry, fallback, or ask for clarification
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing JSON syntax, but understanding:

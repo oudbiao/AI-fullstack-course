@@ -330,6 +330,18 @@ Prompt 工学にも評価が必要だからです。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+baseline_prompt: first version and failure
+changed_variable: one prompt dimension changed at a time
+score: simple pass/fail or rubric result
+failure_bucket: instruction, context, format, or ambiguity
+next_iteration: one concrete edit to try
+```
+
 ## まとめ
 
 この節で一番大事なのは、Prompt 技巧をたくさん覚えることではありません。  

@@ -386,6 +386,18 @@ MoE の本質的な変化は次の点です。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+encoder_only: bidirectional understanding tasks
+decoder_only: causal generation and chat models
+encoder_decoder: read one sequence and generate another
+choice_rule: architecture follows task and serving pattern
+misread_to_avoid: variant names are not simple quality rankings
+```
+
 ## まとめ
 
 この節で最も大事なのは、名前を覚えることではありません。  

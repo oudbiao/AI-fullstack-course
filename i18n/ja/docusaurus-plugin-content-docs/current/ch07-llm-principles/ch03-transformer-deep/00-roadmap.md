@@ -30,7 +30,7 @@ for row in mask:
     print(row)
 ```
 
-出力：
+期待される出力：
 
 ```text
 ['allow', 'block', 'block', 'block']
@@ -52,6 +52,18 @@ for row in mask:
 | 3 | [7.3.4 モデル変種](./02-model-variants.md) | encoder、decoder、encoder-decoder |
 | 4 | [7.3.5 効率的 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、長い context |
 | 5 | [7.3.6 スケールと計算](./04-scale-computation.md) | コスト、遅延、メモリ |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+block_contract: [batch, seq, d_model] in and out
+mask_check: causal mask blocks future positions
+kv_cache_reason: inference reuses past keys and values
+compute_note: attention cost grows with sequence length
+bridge: these details explain latency and context limits in apps
+```
 
 ## 合格ライン
 

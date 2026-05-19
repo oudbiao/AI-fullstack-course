@@ -250,6 +250,18 @@ ffn style: SwiGLU
 
 这些名字就是概念图和真实 LLM 实现之间的桥。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+pre_norm: normalization before attention/FFN for stability
+rmsnorm: scale normalization used in many modern decoders
+rope: position enters attention through rotation
+gqa_mqa: fewer KV heads reduce cache pressure
+swiglu: gated FFN improves capacity at scale
+```
+
 ## 总结
 
 现代 LLM decoder block 不是在否定原始 Transformer。

@@ -421,6 +421,18 @@ FlashAttention 的关键思路是：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+cost_source: ordinary attention stores or computes seq_len x seq_len interactions
+approach: sparse, linear, FlashAttention, or KV cache depending on bottleneck
+kv_cache: speeds decoding but consumes memory
+hardware_note: algorithm benefit depends on runtime/kernel support
+decision: measure latency/memory before changing architecture
+```
+
 ## 小结
 
 这节最重要的不是记住一串方法名，

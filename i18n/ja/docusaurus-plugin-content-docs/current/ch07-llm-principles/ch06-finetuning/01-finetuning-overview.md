@@ -334,6 +334,18 @@ peft trainable_params = 5000000
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+problem_type: behavior adaptation, format, tone, or domain routine
+not_for: missing facts that RAG should supply
+cost_map: full fine-tune vs PEFT vs prompting
+eval_baseline: pre-finetune behavior recorded
+go_no_go: enough quality data and stable evaluation
+```
+
 ## まとめ
 
 この節で最も重要なのは、微調整をデフォルトの動作として考えるのではなく、次のように理解することです。

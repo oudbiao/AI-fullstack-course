@@ -329,6 +329,18 @@ Getting one example right does not mean the prompt is stable.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+baseline_prompt: first version and failure
+changed_variable: one prompt dimension changed at a time
+score: simple pass/fail or rubric result
+failure_bucket: instruction, context, format, or ambiguity
+next_iteration: one concrete edit to try
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing how many Prompt techniques you know, but building this habit:

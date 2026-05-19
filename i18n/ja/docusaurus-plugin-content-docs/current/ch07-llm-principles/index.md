@@ -13,6 +13,12 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 モデル名を暗記するところから始めなくて大丈夫です。まず操作できるループを押さえます。文章は token になり、token はベクトルになり、Transformer が文脈から次の token を予測し、その結果を Prompt、構造化出力、RAG、微調整、ツールで制御します。
 
+## メインルートでの位置
+
+ここからは、第 4-6 章のモデル基礎を言語モデルの場面で使います。ベクトルは embedding になり、評価の習慣は Prompt と出力の評価になり、Transformer の直感は token から回答までの経路になります。
+
+この章は、モデルを理解する段階から LLM アプリケーションを作る段階への橋です。第 8 章では外部文書と検索を加え、第 9 章では目標に沿ったツール利用と追跡できる行動を加えます。
+
 ## まず全体の流れを見る
 
 ![Token から回答までの流れ](/img/course/ch07-token-to-answer-lifecycle-ja.webp)
@@ -31,17 +37,25 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 ## 学習順序とタスク表
 
-フルワークショップは最後に置きます。まず心の中の地図を作り、そのあと実験を一通り動かします。
+フルワークショップは最後に置きます。まず心の中の地図を作り、そのあと実験を一通り動かします。先に中核アプリケーションルート **7.1 -> 7.2 -> 7.5 -> 7.8** を進みます。7.3、7.4、7.6、7.7 は、挙動、コスト、学習判断を説明したいときの深掘り章として使います。
 
 | 手順 | 読む内容 | 手を動かすこと | 残す証拠 |
 |---|---|---|---|
 | 7.1 | NLP 速習 | tokenizer と embedding の例を動かす | token、ベクトル、文脈を説明するメモ |
 | 7.2 | LLM 概観と発展史 | 規模、データ、指示チューニング、整合が挙動を変えた場所を印づける | タイムラインまたは能力マップ |
-| 7.3-7.4 | Transformer と事前学習 | 暗記ではなく直感をつかむ | attention、文脈、学習目標を説明する図 |
 | 7.5 | Prompt エンジニアリング | 固定入力で複数の Prompt 版を比べる | Prompt 版、出力、スコア、失敗例 |
+| 7.8 | ステージプロジェクト | [7.8.4 実践：第 7 章フルワークショップ](./ch08-projects/03-stage-hands-on-workshop.md) を動かす | ターミナル出力、合格率、README メモ |
+| 7.3-7.4 | Transformer と事前学習 | 暗記ではなく直感をつかむ | attention、文脈、学習目標を説明する図 |
 | 7.6 | 微調整 | Prompt、RAG、微調整のどれを使うか判断する | 短い判断表 |
 | 7.7 | 整合 | 失敗パターンと安全境界を確認する | 安全・評価チェックリスト |
-| 7.8 | ステージプロジェクト | [7.8.4 実践：第 7 章フルワークショップ](./ch08-projects/03-stage-hands-on-workshop.md) を動かす | ターミナル出力、合格率、README メモ |
+
+## 必修ルート、拡張、深掘り
+
+| 層 | いま学ぶこと | どう使うか |
+|---|---|---|
+| 必修コア | Tokenization、embedding、コンテキストウィンドウ、LLM API 呼び出し、Prompt テスト、構造化出力、基本的な安全確認 | RAG と Agent アプリケーションへ進む前の最小スキルです |
+| 任意の拡張 | Transformer 内部、事前学習の詳細、微調整、整合の歴史 | モデル挙動、コスト、適応方法により深い説明が必要なときに戻ります |
+| 深掘り課題 | 固定評価セットを保ち、Prompt/schema/model 設定を 1 つだけ変え、失敗例を保存する | LLM 利用を demo からエンジニアリングループへ変えます |
 
 ## 最初に動かすループ：API なしで Prompt を試す
 
@@ -152,3 +166,15 @@ LLM の結果が弱いとき、すぐ微調整へ進まないでください。
 - フルワークショップを動かし、短い README に結果を記録できる。
 
 印刷用チェックリストは [7.0 学習チェックリスト](./study-guide.md) を使ってください。プロジェクトから始めたい場合は [7.8.4 実践：第 7 章フルワークショップ](./ch08-projects/03-stage-hands-on-workshop.md) へ進みます。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+token_path: text -> tokens -> embeddings -> Transformer context -> next token
+core_route: 7.1 -> 7.2 -> 7.5 -> 7.8 first
+fixed_cases: prompt tests use the same inputs before comparing changes
+method_choice: Prompt, RAG, fine-tuning, tools, or Agent chosen by evidence
+chapter_bridge: Chapter 8 adds retrieval and application architecture
+```

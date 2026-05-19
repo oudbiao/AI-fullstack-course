@@ -397,6 +397,18 @@ context length を伸ばすと、次の利点があります。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+params: rough parameter estimate and major contributors
+training_cost: forward + backward + optimizer state
+inference_cost: prefill, decode, KV cache, output length
+bottleneck: memory, latency, throughput, or quality
+decision: choose smaller model, quantization, batching, or retrieval by evidence
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、あるモデルが何 B かを覚えることではありません。  

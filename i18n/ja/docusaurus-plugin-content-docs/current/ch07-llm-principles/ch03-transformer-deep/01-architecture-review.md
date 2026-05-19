@@ -443,6 +443,18 @@ FFN は非常に重要な非線形特徴変換を担当しています。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+input_contract: token embeddings plus position information
+attention_role: mix information across positions
+ffn_role: transform each position independently
+stability_parts: residual plus norm
+output_bridge: hidden state becomes vocabulary logits
+```
+
 ## まとめ
 
 この節で最も重要なのは、構造図をもう一度覚えることではありません。  

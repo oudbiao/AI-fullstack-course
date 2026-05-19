@@ -419,6 +419,18 @@ It is more like an efficient implementation technique.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+cost_source: ordinary attention stores or computes seq_len x seq_len interactions
+approach: sparse, linear, FlashAttention, or KV cache depending on bottleneck
+kv_cache: speeds decoding but consumes memory
+hardware_note: algorithm benefit depends on runtime/kernel support
+decision: measure latency/memory before changing architecture
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing a list of method names,

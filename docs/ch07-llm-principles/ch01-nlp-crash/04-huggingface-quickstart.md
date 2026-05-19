@@ -173,6 +173,18 @@ When reading a repository, map unfamiliar names back to the core chain:
 - `AutoModel` outputs representations; task-specific classes output task logits.
 - If CUDA memory fails, reduce batch size, sequence length, or model size before changing code logic.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+objects: tokenizer, model, config, pipeline or manual forward pass
+offline_run: toy workflow output is saved
+real_model_optional: model id and task are recorded if downloaded
+shape_or_score: one output tensor shape or prediction score
+debug_note: model path, device, and tokenizer/model mismatch checked
+```
+
 ## Exercises
 
 1. Change `max_length` in Lab 1 from `6` to `4`. Which token gets truncated?

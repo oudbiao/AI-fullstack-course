@@ -510,6 +510,18 @@ Don’t forget that success also depends heavily on:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+method_family: adapters, prefix/prompt tuning, IA3, or LoRA-like route
+changed_part: which parameters or prompts are trained
+fit: when this method is appropriate
+tradeoff: quality, memory, latency, and engineering complexity
+decision: compare against LoRA and prompt baseline
+```
+
 ## Summary
 
 What you should take away from this section is not the four names, but one main thread:

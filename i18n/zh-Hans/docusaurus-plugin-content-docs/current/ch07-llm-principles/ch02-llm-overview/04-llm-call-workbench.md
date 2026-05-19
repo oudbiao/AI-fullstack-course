@@ -173,6 +173,21 @@ first era: {'period': '1936-1950', ...}
 
 ![LLM 调用工作台校验重试结果图](/img/course/ch07-llm-call-workbench-validation-trace.webp)
 
+## 如何读输出
+
+把终端输出当成工程 trace 来读，而不是 demo 文本。
+
+| 行 | 它证明什么 | 如果不对先看哪里 |
+|---|---|---|
+| `used input tokens estimate` | 请求有可度量的输入预算 | 检查 system 指令、历史和 retrieved context |
+| `remaining output room` | 仍然给回答留了生成空间 | 缩短 context 或降低预期输出长度 |
+| `request model` | 本次运行记录了使用的模型/配置 | 每次 eval 都保存模型名和关键参数 |
+| `validation: era_0_missing_['summary']` | validator 抓到了具体 schema 失败 | 修 schema 指令或加 repair step |
+| `retry fix` | retry 是针对失败原因修改请求，而不是盲目重试 | 记录改了什么，保证流程可复现 |
+| `validation: valid` | 输出通过了程序契约 | 仍然要复查事实质量和来源要求 |
+
+真实应用里，要把这段 trace 连同 prompt version、model name、temperature、max output tokens、schema version、failure reason 一起保存。没有记录，“更好的回答”很难复现。
+
 ## 这段代码真正想说明什么
 
 ### 请求不只是 Prompt
@@ -253,6 +268,18 @@ print(response.output_parsed.model_dump())
 :::
 
 如果你的账号或部署使用其他已批准模型，可以设置 `OPENAI_MODEL`。示例保留模型名可配置，避免课程代码永远绑定一个固定默认值。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+request: prompt, parameters, and expected output contract
+response: raw output and parsed/validated result
+controls: temperature, max output, schema, or stop rule
+failure_case: invalid, vague, unsafe, or off-task output
+real_api_note: replace toy_model only after offline loop is stable
+```
 
 ## 练习方式
 

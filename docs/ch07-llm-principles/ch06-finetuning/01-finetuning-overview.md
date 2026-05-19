@@ -328,6 +328,18 @@ In this way, it will be easier later to explain:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+problem_type: behavior adaptation, format, tone, or domain routine
+not_for: missing facts that RAG should supply
+cost_map: full fine-tune vs PEFT vs prompting
+eval_baseline: pre-finetune behavior recorded
+go_no_go: enough quality data and stable evaluation
+```
+
 ## Summary
 
 The most important thing in this section is not to treat finetuning as the default action, but to understand:

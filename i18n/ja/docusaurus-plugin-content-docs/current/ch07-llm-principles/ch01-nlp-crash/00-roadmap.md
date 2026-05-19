@@ -34,7 +34,7 @@ print("ids:", ids)
 print("unique_tokens:", len(vocab))
 ```
 
-出力：
+期待される出力：
 
 ```text
 tokens: ['rag', 'retrieves', 'evidence', 'before', 'answering']
@@ -53,6 +53,18 @@ unique_tokens: 5
 | 3 | [7.1.4 事前学習済みモデル](./03-pretrained-models.md) | モデル能力をロードして再利用する |
 | 4 | [7.1.5 Hugging Face クイックスタート](./04-huggingface-quickstart.md) | pipeline、model card、ローカル実行 |
 | 5 | [7.1.6 Tokenizer と Embedding ラボ](./05-tokenizer-embedding-lab.md) | token とベクトルを確認する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+text_path: raw text -> tokens -> ids -> embeddings
+token_risk: long input can hit context or cost limits
+embedding_use: similarity can support retrieval but is not reasoning
+model_bridge: pretrained model = shared foundation plus task behavior
+next_action: run tokenizer and embedding labs before Prompt work
+```
 
 ## 合格ライン
 

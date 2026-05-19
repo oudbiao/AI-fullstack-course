@@ -60,6 +60,18 @@ The point is not that this script is an alignment algorithm. It gives you a tiny
 | 3 | Alternative methods | Explain why DPO/RLAIF can be cheaper or simpler in some setups |
 | 4 | Safety evaluation lab | Score fixed cases for helpfulness, honesty, and safety boundaries |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+boundary: helpful, honest, safe behavior definition
+risk_case: one output that is fluent but unsafe or misaligned
+evaluation: fixed safety cases and expected decisions
+method_map: SFT, RLHF, DPO, constitutional or eval guardrail
+bridge: app reliability includes safety boundaries, not only capability
+```
+
 ## Pass Check
 
 You pass this chapter when you can explain the difference between capability and behavior, and when you can build a small behavior comparison log instead of judging one answer by impression.

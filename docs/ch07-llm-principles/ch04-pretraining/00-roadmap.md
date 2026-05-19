@@ -52,6 +52,18 @@ This tiny example is the shape of next-token prediction. Real pretraining repeat
 | 2 | [7.4.3 Pretraining Methods](./02-pretraining-methods.md) | next-token prediction, loss, scaling |
 | 3 | [7.4.4 Pretraining Engineering](./03-pretraining-engineering.md) | distributed training, checkpoints, monitoring |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+triangle: data, objective, and engineering all matter
+sample_pairs: next-token training pairs from one sentence
+data_risk: contamination, duplication, or low-quality mixture
+objective_note: objective shapes behavior and architecture fit
+engineering_note: sharding, resume, throughput, and monitoring
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain how data, objective, and engineering each affect the final model, and why contamination can make evaluation misleading.

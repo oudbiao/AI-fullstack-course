@@ -484,3 +484,15 @@ ls ch07_workshop_evidence
 - [ ] ファインチューニングは通常、Prompt 評価と安定した失敗証拠の後に検討する理由を説明できる。
 
 5 つすべてを確認できれば、第 7 章を概念の読み物ではなく、実行できるエンジニアリングループに変えられています。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+workshop_output: terminal result saved
+prompt_eval: pass rate across fixed cases
+structured_output: schema validation result
+failure_log: failed case and likely cause
+readme: what passed, what failed, and what to try next
+```

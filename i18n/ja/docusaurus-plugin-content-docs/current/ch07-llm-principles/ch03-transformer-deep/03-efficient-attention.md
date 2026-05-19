@@ -424,6 +424,18 @@ FlashAttention の核心は次の通りです。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+cost_source: ordinary attention stores or computes seq_len x seq_len interactions
+approach: sparse, linear, FlashAttention, or KV cache depending on bottleneck
+kv_cache: speeds decoding but consumes memory
+hardware_note: algorithm benefit depends on runtime/kernel support
+decision: measure latency/memory before changing architecture
+```
+
 ## まとめ
 
 この節で最も大切なのは、方法名をたくさん覚えることではありません。  

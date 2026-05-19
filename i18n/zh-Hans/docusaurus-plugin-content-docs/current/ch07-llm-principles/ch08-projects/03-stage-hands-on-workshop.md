@@ -484,3 +484,15 @@ ls ch07_workshop_evidence
 - [ ] 我能解释为什么微调通常应该放在 Prompt 评测和稳定失败证据之后。
 
 如果五项都能勾上，你就已经把第 7 章从概念章节变成了一条可运行的工程闭环。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+workshop_output: terminal result saved
+prompt_eval: pass rate across fixed cases
+structured_output: schema validation result
+failure_log: failed case and likely cause
+readme: what passed, what failed, and what to try next
+```

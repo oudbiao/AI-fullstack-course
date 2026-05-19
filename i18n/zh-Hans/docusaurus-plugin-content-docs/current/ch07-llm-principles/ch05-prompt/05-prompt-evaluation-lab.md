@@ -227,6 +227,18 @@ failures : []
 
 如果变量一起变，你就很难解释结果。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+eval_cases: fixed input set
+prompt_versions: baseline and improved prompt
+score_table: pass rate or rubric score
+failure_note: one failed output with likely cause
+next_step: add harder cases or connect a real model
+```
+
 ## 练习任务
 
 1. 增加两个测试样例：一个非常短的输入，一个长的混合评价输入。

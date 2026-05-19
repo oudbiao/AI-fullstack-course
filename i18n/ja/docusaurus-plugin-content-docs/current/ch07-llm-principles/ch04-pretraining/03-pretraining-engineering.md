@@ -417,6 +417,18 @@ step=3 tokens/s=10503
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+shards: data split and resume point
+throughput: tokens/sec or batch progress estimate
+checkpoint: what is saved and when resume happens
+failure_mode: crash, duplicated shard, slow input, or metric drift
+ops_note: pretraining is a data/compute system, not only model code
+```
+
 ## まとめ
 
 この節で最も大事なのは、分散学習の用語をたくさん覚えることではなく、  

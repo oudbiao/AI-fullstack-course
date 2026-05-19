@@ -511,6 +511,18 @@ This table is worth putting into your project notes, because it shows that you d
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+data_sources: source types and mixture rationale
+cleaning_result: one before/after cleaning example
+dedup_check: duplicate or near-duplicate risk noted
+contamination_check: eval leakage risk documented
+quality_rule: data quality is part of model capability
+```
+
 ## The most common pitfalls in pretraining data
 
 ### Mistake 1: More data is always better

@@ -221,6 +221,18 @@ failures : []
 3. 更清晰的拒答措辞
 4. 更完整的评测覆盖
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+safety_cases: fixed prompts across risk categories
+expected_behavior: answer, refuse, redirect, or ask clarification
+score: pass/fail plus reason
+failure_note: one unsafe or over-refusing case
+next_action: policy edit, prompt guardrail, eval expansion, or model change
+```
+
 ## 总结
 
 对齐不只是写政策。

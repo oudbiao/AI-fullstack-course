@@ -484,3 +484,15 @@ Open `failure_cases.md` first. It tells you why `v1` is not machine-readable and
 - [ ] I can explain why fine-tuning should usually come after prompt evaluation and clear failure evidence.
 
 If all five are checked, you have turned Chapter 7 from a concept chapter into a runnable engineering loop.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+workshop_output: terminal result saved
+prompt_eval: pass rate across fixed cases
+structured_output: schema validation result
+failure_log: failed case and likely cause
+readme: what passed, what failed, and what to try next
+```

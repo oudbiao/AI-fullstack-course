@@ -227,6 +227,18 @@ failures : []
 
 変数をまとめて変えると、結果を説明できなくなります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+eval_cases: fixed input set
+prompt_versions: baseline and improved prompt
+score_table: pass rate or rubric score
+failure_note: one failed output with likely cause
+next_step: add harder cases or connect a real model
+```
+
 ## 練習タスク
 
 1. テストケースを 2 つ追加する。1 つは非常に短い入力、もう 1 つは長い混合レビュー入力にする。

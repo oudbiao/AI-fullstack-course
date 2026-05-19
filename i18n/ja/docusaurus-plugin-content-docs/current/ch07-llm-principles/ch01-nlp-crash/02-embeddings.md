@@ -209,6 +209,18 @@ bank in river  : [0.3, 0.75, 0.4]
 - 同じデータで static、sentence、contextual embedding を比較する。
 - 多言語プロジェクトでは、言語間ペアを実測してからモデルを信頼する。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+vectors: at least three text embeddings or toy vectors
+similarity_check: closest pair and score
+retrieval_result: top match for one query
+limitation: averaging or similarity misses context/negation/order
+next_use: this becomes retrieval evidence in Chapter 8
+```
+
 ## 練習
 
 1. `banana` を `password` に近づけると、検索はどう壊れるか。

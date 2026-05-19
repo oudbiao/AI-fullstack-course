@@ -146,6 +146,20 @@ project/
 - スクリーンショットやグラフがあるか
 - 次の計画が書かれているか
 
+期待される結果：他の人がこのパッケージを開き、コマンドを実行し、例と評価表を確認し、不足した文脈を質問しなくても次の行動を理解できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+folder: prompts, evals, outputs, data notes, README
+run_command: how someone reproduces the result
+metric_table: baseline and improved result
+failure_notes: known weak cases and next actions
+review_ready: another person can inspect evidence without asking you
+```
+
 ## まとめ
 
 良い LLM プロジェクトは、動くだけのスクリプトではありません。

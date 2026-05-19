@@ -446,6 +446,18 @@ print(next_fix(prompt_checklist))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: one clear instruction
+context: relevant facts supplied to the model
+constraints: audience, length, style, forbidden behavior
+output_format: bullets, JSON, table, or answer schema
+comparison: vague prompt vs improved prompt output saved
+```
+
 ## 小结
 
 这一节最重要的不是记住“Prompt”这个词，而是理解：

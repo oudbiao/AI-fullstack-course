@@ -61,6 +61,18 @@ Change one value at a time and rerun it. For example, set `private_facts` to `Tr
 | 4 | Finetuning practice | Prepare train/validation examples and one run command |
 | 5 | Data labeling | Audit samples for format, duplicates, leakage, and edge cases |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+decision: why prompt/RAG/tooling is not enough
+data_shape: instruction, input, output, metadata
+method: full finetune, LoRA, QLoRA, or other PEFT
+eval_set: fixed cases before training starts
+risk: overfitting, style drift, safety regression, or cost
+```
+
 ## Pass Check
 
 You pass this chapter when you can say why finetuning is worth trying, show the baseline it beats, and keep a validation set that was not used for training.

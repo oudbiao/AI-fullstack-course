@@ -173,6 +173,21 @@ first era: {'period': '1936-1950', ...}
 
 ![LLM 呼び出しワークベンチ検証リトライ結果図](/img/course/ch07-llm-call-workbench-validation-trace-ja.webp)
 
+## 出力をどう読むか
+
+terminal output は demo transcript ではなく、engineering trace として読みます。
+
+| 行 | 何を証明するか | おかしいときに見る場所 |
+|---|---|---|
+| `used input tokens estimate` | request の input budget が測れている | system instructions、history、retrieved context を確認する |
+| `remaining output room` | answer を生成する余白が残っている | context を短くするか、期待する output size を下げる |
+| `request model` | 実行で使った model/config が記録されている | eval run ごとに model name と主要 parameters を保存する |
+| `validation: era_0_missing_['summary']` | validator が具体的な schema failure を捕まえた | schema instruction を直すか repair step を入れる |
+| `retry fix` | retry が失敗原因を変えており、同じ request を繰り返していない | 何を変えたか記録し、workflow を再現可能にする |
+| `validation: valid` | output が program contract を通過した | factual quality と source requirements は別途確認する |
+
+実アプリでは、この trace を prompt version、model name、temperature、max output tokens、schema version、failure reason と一緒に保存します。その記録がないと、「良くなった answer」は再現しにくくなります。
+
 ## このコードが本当に示していること
 
 ### リクエストは Prompt だけではない
@@ -253,6 +268,18 @@ print(response.output_parsed.model_dump())
 :::
 
 アカウントやデプロイで別の承認済みモデルを使う場合は `OPENAI_MODEL` を設定してください。モデル名を設定可能にしておくことで、教材コードを固定の既定値に縛られにくくします。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+request: prompt, parameters, and expected output contract
+response: raw output and parsed/validated result
+controls: temperature, max output, schema, or stop rule
+failure_case: invalid, vague, unsafe, or off-task output
+real_api_note: replace toy_model only after offline loop is stable
+```
 
 ## 練習方法
 

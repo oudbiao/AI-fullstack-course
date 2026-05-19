@@ -221,6 +221,18 @@ Then test:
 3. Better refusal wording
 4. Better evaluation coverage
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+safety_cases: fixed prompts across risk categories
+expected_behavior: answer, refuse, redirect, or ask clarification
+score: pass/fail plus reason
+failure_note: one unsafe or over-refusing case
+next_action: policy edit, prompt guardrail, eval expansion, or model change
+```
+
 ## Summary
 
 Alignment is not only about writing policies.

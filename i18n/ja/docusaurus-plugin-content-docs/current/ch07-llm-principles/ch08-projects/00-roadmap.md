@@ -40,7 +40,7 @@ print("next_route:", "RAG" if project["rag_needed"] else "Prompt")
 print("fine_tune_now:", project["finetune_needed"])
 ```
 
-出力：
+期待される出力：
 
 ```text
 task: classify course questions
@@ -63,6 +63,20 @@ fine_tune_now: False
 
 先にガイド付きで動かしたい場合は、自分のドメインプロジェクトを設計する前に [7.8.4 実践：第 7 章フルワークショップ](./03-stage-hands-on-workshop.md) を実行してください。
 
+## 判断ルール：手法を選ぶ前に失敗を名づける
+
+capstone project では、「RAG」や「fine-tuning」が高度に見えるから使う、という形にしません。まず dominant failure を言語化します。
+
+| 主な失敗 | 最初に試すルート | 必要な証拠 |
+|---|---|---|
+| モデルが答えの source を知らない | RAG | retrieval document が answer を支えている |
+| output format が崩れる | Structured output + validation | parser pass rate が改善する |
+| instruction が曖昧 | Prompt iteration | 同じ cases が 1 つの prompt change で改善する |
+| 多くの cases で同じ behavior error が繰り返される | fine-tuning / LoRA candidate | 十分な labeled examples と held-out eval cases |
+| task が external action を必要とする | Tool / Agent route | tool call trace と recovery behavior |
+
+この表は project を method showcase ではなく、engineering decision にします。
+
 ## プロジェクト成果物基準
 
 | 成果物 | 最低基準 | 強いポートフォリオ版 |
@@ -72,6 +86,18 @@ fine_tune_now: False
 | 評価 | 明確な合否ルール | スコア、失敗タイプ統計、回帰メモを追加 |
 | Prompt/データ記録 | Prompt バージョンまたはサンプル形式を保存 | schema 検証、データ品質チェック、安全メモを追加 |
 | 発表素材 | 動作を証明するスクリーンショットまたは短い GIF | なぜ現在のルートが代替案より良いか説明 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_choice: Prompt, RAG, fine-tuning, or hybrid route
+baseline: simplest working method first
+evaluation: fixed cases and scoring rule
+deliverable: README, prompts, outputs, failures, decision log
+bridge: Chapter 8 turns this into retrieval-backed applications
+```
 
 ## 合格ライン
 

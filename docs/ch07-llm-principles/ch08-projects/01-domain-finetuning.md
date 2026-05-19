@@ -303,6 +303,18 @@ It makes the project feel solid and well-grounded, rather than based only on sub
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+scope: narrow domain behavior and target users
+data: examples, label rules, and quality checks
+baseline: prompt/RAG result before fine-tuning
+eval: domain cases, failure samples, and safety cases
+portfolio: decision table plus reproducible run instructions
+```
+
 ## The most common pitfalls
 
 ### Starting with a broad topic

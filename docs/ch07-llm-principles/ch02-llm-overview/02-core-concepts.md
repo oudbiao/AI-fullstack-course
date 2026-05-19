@@ -85,6 +85,21 @@ Practical consequences:
 - Chat history should be summarized or trimmed when it stops helping.
 - Bigger context helps only if the right information is placed inside it.
 
+### Context Is a Working Desk, Not a Knowledge Base
+
+A useful analogy is a desk. A bigger desk lets you place more notes in front of the model, but it does not guarantee the right note is present, correct, or used at the right moment.
+
+This distinction matters in applications:
+
+| Misunderstanding | Better Engineering View |
+|---|---|
+| “The context window is large, so the model remembers everything.” | Context only contains what you place in the current request. |
+| “Put the whole document in the prompt.” | Select the relevant parts and leave room for reasoning and output. |
+| “If the answer is wrong, just use a larger context.” | First check retrieval quality, evidence placement, and output validation. |
+| “Chat history is memory.” | History is just previous text until you summarize, trim, or store it deliberately. |
+
+This is the bridge into Chapter 8. RAG is not just “more text in the prompt”; it is the practice of choosing the right evidence before the model answers.
+
 ## Lab 2: Temperature Changes Sampling
 
 ```python
@@ -210,6 +225,18 @@ compare relevance -> normalize weights -> mix value vectors
 - Temperature controls diversity, not truth.
 - Attention weights are useful intuition, but not a complete explanation of reasoning.
 - Pretraining gives capability; product reliability still needs data, evaluation, and controls.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+next_token: one probability or sampling example
+context_budget: prompt + retrieved text + output all compete for space
+temperature_effect: deterministic vs more diverse output compared
+attention_note: relevance-weighted mixing is not factual proof
+failure_probe: fluent answer can still be wrong
+```
 
 ## Exercises
 

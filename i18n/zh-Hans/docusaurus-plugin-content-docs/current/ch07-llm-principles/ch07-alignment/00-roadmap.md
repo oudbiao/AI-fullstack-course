@@ -60,6 +60,18 @@ score_dimensions: helpful, honest, harmless
 | 3 | 替代方法 | 解释为什么 DPO/RLAIF 在某些场景更简单或成本更低 |
 | 4 | 安全评测实验室 | 用固定案例评估有帮助、诚实和安全边界 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+boundary: helpful, honest, safe behavior definition
+risk_case: one output that is fluent but unsafe or misaligned
+evaluation: fixed safety cases and expected decisions
+method_map: SFT, RLHF, DPO, constitutional or eval guardrail
+bridge: app reliability includes safety boundaries, not only capability
+```
+
 ## 通过标准
 
 如果你能解释“能力”和“行为”的区别，并能建立一个小型行为对比日志，而不是只凭一个回答的观感判断，就通过了本章。

@@ -146,6 +146,20 @@ project/
 - 是否有截图或图表
 - 是否写了后续计划
 
+预期结果：别人打开这个包后，可以运行命令、检查示例和评测表，并在不追问缺失上下文的情况下理解下一步动作。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+folder: prompts, evals, outputs, data notes, README
+run_command: how someone reproduces the result
+metric_table: baseline and improved result
+failure_notes: known weak cases and next actions
+review_ready: another person can inspect evidence without asking you
+```
+
 ## 总结
 
 一个好的大模型项目，不只是一个能跑的脚本。

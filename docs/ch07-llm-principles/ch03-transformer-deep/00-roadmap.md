@@ -53,6 +53,18 @@ Generation uses this "no future peeking" rule: a token can attend to earlier tok
 | 4 | [7.3.5 Efficient Attention](./03-efficient-attention.md) | KV cache, MQA/GQA, long context |
 | 5 | [7.3.6 Scale and Computation](./04-scale-computation.md) | cost, latency, memory |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+block_contract: [batch, seq, d_model] in and out
+mask_check: causal mask blocks future positions
+kv_cache_reason: inference reuses past keys and values
+compute_note: attention cost grows with sequence length
+bridge: these details explain latency and context limits in apps
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain why decoder-only models need a causal mask, why attention gets expensive as context grows, and why KV cache helps generation.

@@ -471,6 +471,18 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: required fields and allowed types
+parser: output is parsed, not trusted visually
+valid_case: one output accepted by validation
+invalid_case: missing field or wrong type rejected
+repair_rule: retry, fallback, or ask for clarification
+```
+
 ## 小结
 
 这一节最重要的不是记住 JSON 语法，而是理解：

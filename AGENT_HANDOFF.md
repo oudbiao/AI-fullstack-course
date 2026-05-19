@@ -83,7 +83,8 @@ This file is for future agents. It is not course content.
 ## Current optimization status
 
 - 2026-05-19: Intro, Chapters 1-12, electives, and appendix have been optimized across English, Simplified Chinese, and Japanese.
-- 2026-05-19: Chapter 6 vertical image refinement is in progress. Current handoff is `reports/course-images/ch06-vertical-refine/HANDOFF.md`. Generated candidates are in `tmp/ch06-vertical-images/`; they are not yet official assets unless separately converted into `static/img/course/*.webp` after QA.
+- 2026-05-19: Chapter 6 vertical image refinement is complete and committed as `f7b70382` (`Refine ch06 content and vertical course images`). QA report and handoff are in `reports/course-images/ch06-vertical-refine/`; 30 approved candidate PNGs were converted to official `static/img/course/*.webp` assets.
+- 2026-05-19: Chapter 7 refinement is in validation. English, Simplified Chinese, and Japanese `ch07-llm-principles` each have 44 pages with image references, code blocks, evidence sections, and expected-output/result cues. Image references are WebP-only and all referenced course assets exist. Small follow-up edits added explicit expected-result wording to `ch08-projects/02-deliverables-kit.md`, `study-guide.md`, and Japanese roadmap output labels.
 - Latest pass focused on Chapters 1-5. Every page in `ch01-tools`, `ch02-python`, `ch03-data-analysis`, `ch04-ai-math`, and `ch05-machine-learning` now has a localized evidence section, image reference, code block, and expected output/result cue.
 - Chapter index pages for Chapters 1-5 now include output-reading guidance so beginners know how to interpret terminal output, files, metrics, and plots.
 - Latest verification passed: markdown fences, internal links, sidebars, course structure, image refs, `git diff --check`, and `npm run build`. Image audit reported `course_image_refs=2957 missing=0 unused=0`.

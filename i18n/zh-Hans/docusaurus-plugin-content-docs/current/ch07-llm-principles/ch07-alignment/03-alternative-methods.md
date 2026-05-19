@@ -442,6 +442,18 @@ AI feedback 便宜，不代表完全免费。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+method: DPO, constitutional revision, RLAIF, or rejection sampling
+training_signal: pairwise preference, critique, or filtered sample
+benefit: simpler pipeline, less RL complexity, or clearer policy
+limitation: still depends on data, policy, and evaluation quality
+decision: choose method based on available feedback and risk
+```
+
 ## 小结
 
 这一节最重要的主线是：

@@ -454,6 +454,18 @@ That way, people will more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+objective: causal LM, masked LM, or seq2seq objective
+training_sample: input and target constructed from same text
+architecture_fit: objective matched to encoder/decoder pattern
+behavior_effect: what the objective teaches the model to do
+limitation: pretraining objective is not the same as instruction following
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing the abbreviations `CLM / MLM / Span Corruption`,

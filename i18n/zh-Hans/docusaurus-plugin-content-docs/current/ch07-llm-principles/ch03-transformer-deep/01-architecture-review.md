@@ -437,6 +437,18 @@ Transformer 是一套 block 设计，不是一个孤立公式。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_contract: token embeddings plus position information
+attention_role: mix information across positions
+ffn_role: transform each position independently
+stability_parts: residual plus norm
+output_bridge: hidden state becomes vocabulary logits
+```
+
 ## 小结
 
 这节最重要的不是再记一遍结构图，

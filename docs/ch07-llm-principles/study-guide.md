@@ -32,6 +32,18 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) |
 | `README.md` | How to run, what passed, what failed, what to try next |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_versions: at least three versions for one task
+eval_cases: fixed inputs with scores and failure notes
+schema_check: structured output is parsed and validated
+method_choice: Prompt/RAG/fine-tuning/tools decision is written down
+exit_proof: workshop output plus README notes
+```
+
 ## Quality Gates
 
 | Gate | Pass condition |
@@ -40,6 +52,8 @@ Use this page as a printable checklist. If you need the full explanation, return
 | Structured output | Parser rejects missing fields or wrong types. |
 | Failure analysis | Each failure has a likely cause: instruction, input, schema, missing knowledge, or safety. |
 | Method choice | Decision table explains why Prompt, RAG, fine-tuning, tools, or Agent comes first. |
+
+Expected result: your Chapter 7 folder contains prompt versions, fixed eval cases, parser/schema checks, failure notes, workshop output, and a README that explains the method choice.
 
 ## Exit Questions
 

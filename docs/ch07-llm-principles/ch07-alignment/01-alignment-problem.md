@@ -531,6 +531,18 @@ Then it will be easier for others to see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+intent_gap: user wants one thing, model optimizes another signal
+failure_case: harmful, deceptive, overconfident, or non-compliant output
+policy_boundary: what should be allowed, refused, or redirected
+eval_case: one prompt and expected safe behavior
+engineering_view: alignment is measured behavior, not a slogan
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing a few acronyms,

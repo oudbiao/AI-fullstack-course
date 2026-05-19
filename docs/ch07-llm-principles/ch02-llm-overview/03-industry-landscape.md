@@ -274,6 +274,18 @@ Understanding the industry landscape can help you more clearly see which kind of
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_choice: closed, open, hosted, or self-deployed option
+decision_factors: quality, latency, privacy, cost, ecosystem
+system_capability: model + data + product + eval + ops
+risk_note: vendor lock-in, compliance, or deployment constraint
+evidence: one model-selection table for a real use case
+```
+
 ## Common beginner mistakes
 
 ### Only looking at leaderboards

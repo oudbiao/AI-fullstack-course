@@ -433,6 +433,18 @@ but about continuously turning the most valuable failed samples into high-qualit
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+label_rule: task definition and allowed outputs
+quality_check: duplicate, conflict, empty, or vague label count
+guideline: one rule that resolves ambiguity
+flywheel: model failure -> label fix -> retrain/evaluate
+risk: bad labels teach bad behavior more efficiently
+```
+
 ## Summary
 
 The most important conclusion in this section is:

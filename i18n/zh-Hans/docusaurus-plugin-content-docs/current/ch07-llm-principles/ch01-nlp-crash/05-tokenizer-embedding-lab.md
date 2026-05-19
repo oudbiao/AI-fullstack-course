@@ -216,6 +216,18 @@ embedding table 会把每个 ID 变成向量。
 
 这就是语义搜索、检索和 RAG 的最小直觉。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+token_trace: text, tokens, ids, and length
+embedding_trace: vector or similarity output
+retrieval_demo: query, top match, and score
+failure_note: one case where similarity is misleading
+next_probe: change text length, language, or wording and compare
+```
+
 ## 练习任务
 
 1. 给 `vocab` 和 `embedding_table` 增加新词 `invoice`。

@@ -42,7 +42,7 @@ print("action:", action)
 print("score_dimensions:", ", ".join(checks))
 ```
 
-出力：
+期待される出力：
 
 ```text
 action: refuse_and_escalate
@@ -59,6 +59,18 @@ score_dimensions: helpful, honest, harmless
 | 2 | RLHF | SFT、報酬モデル、強化学習のループを描く |
 | 3 | 代替手法 | DPO/RLAIF が一部の構成で安く、簡単になる理由を説明する |
 | 4 | 安全評価ラボ | 固定ケースで helpfulness、honesty、安全境界を採点する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+boundary: helpful, honest, safe behavior definition
+risk_case: one output that is fluent but unsafe or misaligned
+evaluation: fixed safety cases and expected decisions
+method_map: SFT, RLHF, DPO, constitutional or eval guardrail
+bridge: app reliability includes safety boundaries, not only capability
+```
 
 ## 合格ライン
 

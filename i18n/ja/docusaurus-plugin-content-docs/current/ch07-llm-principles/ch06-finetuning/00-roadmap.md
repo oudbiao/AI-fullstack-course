@@ -42,7 +42,7 @@ print("route:", route)
 print("minimum_before_training:", ["prompt baseline", "validation set", "failure log"])
 ```
 
-出力：
+期待される出力：
 
 ```text
 route: fine-tuning candidate
@@ -60,6 +60,18 @@ minimum_before_training: ['prompt baseline', 'validation set', 'failure log']
 | 3 | その他の PEFT | フル微調整だけが選択肢ではないと理解する |
 | 4 | 微調整実践 | 訓練/検証サンプルと 1 つの実行コマンドを用意する |
 | 5 | データラベリング | 形式、重複、リーク、境界例を点検する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+decision: why prompt/RAG/tooling is not enough
+data_shape: instruction, input, output, metadata
+method: full finetune, LoRA, QLoRA, or other PEFT
+eval_set: fixed cases before training starts
+risk: overfitting, style drift, safety regression, or cost
+```
 
 ## 合格ライン
 

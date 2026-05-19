@@ -54,6 +54,18 @@ Real tokenizers are smarter, but this shows the main idea: text must become stab
 | 4 | [7.1.5 Hugging Face Quickstart](./04-huggingface-quickstart.md) | pipeline, model card, local run |
 | 5 | [7.1.6 Tokenizer and Embedding Lab](./05-tokenizer-embedding-lab.md) | inspect tokens and vectors |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+text_path: raw text -> tokens -> ids -> embeddings
+token_risk: long input can hit context or cost limits
+embedding_use: similarity can support retrieval but is not reasoning
+model_bridge: pretrained model = shared foundation plus task behavior
+next_action: run tokenizer and embedding labs before Prompt work
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain why raw text needs tokenization, why embeddings are vectors, and why pretrained models are reused instead of trained from zero.

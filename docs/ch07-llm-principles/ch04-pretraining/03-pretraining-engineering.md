@@ -421,6 +421,18 @@ which in turn affects overall results and experiment rhythm.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+shards: data split and resume point
+throughput: tokens/sec or batch progress estimate
+checkpoint: what is saved and when resume happens
+failure_mode: crash, duplicated shard, slow input, or metric drift
+ops_note: pretraining is a data/compute system, not only model code
+```
+
 ## Summary
 
 The most important thing in this section is not to memorize distributed training jargon,

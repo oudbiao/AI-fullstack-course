@@ -159,6 +159,18 @@ model capability != model behavior
 - Transformer 让规模化变得可行；
 - 对齐、RAG、工具调用把模型变成系统。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+timeline: n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment
+turning_point: what Transformer changed about context mixing
+scale_note: data and compute changed capability but not reliability alone
+bigram_lab: one output sample and its limitation
+memory_hook: history is a sequence of solved bottlenecks
+```
+
 ## 练习
 
 1. 给 bigram 语料增加两句话，观察推荐词如何变化。

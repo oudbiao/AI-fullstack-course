@@ -351,6 +351,18 @@ What you really need to remember is:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+base_model: frozen base stays mostly unchanged
+lora_params: rank, target modules, trainable parameter count
+qlora_reason: quantized base reduces memory pressure
+eval_delta: before/after score or failure change
+risk: adapter quality depends heavily on data quality
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing the acronyms, but understanding:

@@ -159,6 +159,18 @@ The practical lesson is:
 - Transformer made scale practical;
 - alignment, RAG, and tools turned models into systems.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+timeline: n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment
+turning_point: what Transformer changed about context mixing
+scale_note: data and compute changed capability but not reliability alone
+bigram_lab: one output sample and its limitation
+memory_hook: history is a sequence of solved bottlenecks
+```
+
 ## Exercises
 
 1. Add two sentences to the bigram corpus and observe how suggestions change.

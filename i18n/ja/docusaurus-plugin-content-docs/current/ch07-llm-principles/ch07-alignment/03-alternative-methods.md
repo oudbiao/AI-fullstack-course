@@ -442,6 +442,18 @@ AI feedback は安いですが、完全に無料ではありません。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+method: DPO, constitutional revision, RLAIF, or rejection sampling
+training_signal: pairwise preference, critique, or filtered sample
+benefit: simpler pipeline, less RL complexity, or clearer policy
+limitation: still depends on data, policy, and evaluation quality
+decision: choose method based on available feedback and risk
+```
+
 ## まとめ
 
 この節で最も重要な主線は次のとおりです。

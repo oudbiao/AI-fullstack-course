@@ -260,6 +260,18 @@ When a prompt behaves strangely, inspect the tokenizer before blaming the model:
 - Verify padding side and `attention_mask` when batching decoder models.
 - Compare Chinese, English, code, and emoji-heavy inputs; their token counts can differ sharply.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+sample_text: one English/CJK/code-like example
+tokens: printed token list and token count
+truncation_case: what was cut and why it matters
+product_risk: cost, context limit, or lost instruction
+debug_action: inspect tokenization before blaming the model
+```
+
 ## Exercises
 
 1. Remove `transform` from `VOCAB`. What happens to `Transformers refund policy`?

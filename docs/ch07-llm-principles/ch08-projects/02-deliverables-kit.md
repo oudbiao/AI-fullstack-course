@@ -146,6 +146,20 @@ Before you close the project, check these items:
 - screenshots or charts are present
 - next-step plan is written
 
+Expected result: another person can open the package, run the command, inspect the examples and evaluation table, and understand the next action without asking you for missing context.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+folder: prompts, evals, outputs, data notes, README
+run_command: how someone reproduces the result
+metric_table: baseline and improved result
+failure_notes: known weak cases and next actions
+review_ready: another person can inspect evidence without asking you
+```
+
 ## Summary
 
 A good LLM project is not just a working script.

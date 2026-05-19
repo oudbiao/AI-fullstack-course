@@ -216,6 +216,18 @@ embedding table が各 ID をベクトルに変えます。
 
 これが、意味検索、検索、RAG の最小の直感です。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+token_trace: text, tokens, ids, and length
+embedding_trace: vector or similarity output
+retrieval_demo: query, top match, and score
+failure_note: one case where similarity is misleading
+next_probe: change text length, language, or wording and compare
+```
+
 ## 練習課題
 
 1. `vocab` と `embedding_table` に `invoice` を追加する。

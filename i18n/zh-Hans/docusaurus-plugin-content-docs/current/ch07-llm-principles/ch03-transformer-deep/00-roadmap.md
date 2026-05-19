@@ -53,6 +53,18 @@ for row in mask:
 | 4 | [7.3.5 高效 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、长上下文 |
 | 5 | [7.3.6 规模与计算](./04-scale-computation.md) | 成本、延迟、显存 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+block_contract: [batch, seq, d_model] in and out
+mask_check: causal mask blocks future positions
+kv_cache_reason: inference reuses past keys and values
+compute_note: attention cost grows with sequence length
+bridge: these details explain latency and context limits in apps
+```
+
 ## 通过标准
 
 能解释 decoder-only 模型为什么需要 causal mask、为什么上下文变长会让 attention 变贵，以及 KV cache 为什么能帮助生成，就算通过。

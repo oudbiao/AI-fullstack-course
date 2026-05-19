@@ -61,6 +61,18 @@ minimum_before_training: ['prompt baseline', 'validation set', 'failure log']
 | 4 | 微调实战 | 准备训练/验证样本和一条运行命令 |
 | 5 | 数据标注 | 检查格式、重复、泄漏和边界样本 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+decision: why prompt/RAG/tooling is not enough
+data_shape: instruction, input, output, metadata
+method: full finetune, LoRA, QLoRA, or other PEFT
+eval_set: fixed cases before training starts
+risk: overfitting, style drift, safety regression, or cost
+```
+
 ## 通过标准
 
 如果你能说明为什么微调值得尝试，展示它击败的基线，并保留没有参与训练的验证集，就通过了本章。

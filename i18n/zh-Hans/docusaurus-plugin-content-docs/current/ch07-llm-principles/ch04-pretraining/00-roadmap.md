@@ -52,6 +52,18 @@ from -> text
 | 2 | [7.4.3 预训练方法](./02-pretraining-methods.md) | next-token prediction、loss、scaling |
 | 3 | [7.4.4 预训练工程](./03-pretraining-engineering.md) | 分布式训练、checkpoint、监控 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+triangle: data, objective, and engineering all matter
+sample_pairs: next-token training pairs from one sentence
+data_risk: contamination, duplication, or low-quality mixture
+objective_note: objective shapes behavior and architecture fit
+engineering_note: sharding, resume, throughput, and monitoring
+```
+
 ## 通过标准
 
 能解释数据、目标和工程分别如何影响最终模型，并知道数据污染为什么会让评估误导人，就算通过。

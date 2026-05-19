@@ -328,6 +328,18 @@ peft trainable_params = 5000000
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+problem_type: behavior adaptation, format, tone, or domain routine
+not_for: missing facts that RAG should supply
+cost_map: full fine-tune vs PEFT vs prompting
+eval_baseline: pre-finetune behavior recorded
+go_no_go: enough quality data and stable evaluation
+```
+
 ## 小结
 
 这一节最重要的不是把微调理解成一个默认动作，而是理解：

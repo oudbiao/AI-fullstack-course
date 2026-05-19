@@ -159,6 +159,18 @@ model capability != model behavior
 - Transformer は scale を実用化した。
 - alignment、RAG、tool calling が model を system に変えた。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+timeline: n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment
+turning_point: what Transformer changed about context mixing
+scale_note: data and compute changed capability but not reliability alone
+bigram_lab: one output sample and its limitation
+memory_hook: history is a sequence of solved bottlenecks
+```
+
 ## 練習
 
 1. bigram corpus に 2 文を追加し、suggestion がどう変わるか見る。

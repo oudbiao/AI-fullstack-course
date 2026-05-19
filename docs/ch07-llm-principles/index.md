@@ -13,6 +13,12 @@ This chapter answers one practical question: **when a user sends text to an LLM,
 
 Do not start by memorizing model names. Start with the loop you can operate: text becomes tokens, tokens become vectors, the Transformer predicts the next token from context, and you control the result with Prompt, structured output, RAG, fine-tuning, or tools.
 
+## Where You Are In The Main Route
+
+You are now using the model foundations from Chapters 4-6 in a language-model setting. Vectors become embeddings, the evaluation habit becomes prompt and output evaluation, and Transformer intuition becomes the token-to-answer path.
+
+This chapter is the bridge from understanding models to building LLM applications. Chapter 8 will add external documents and retrieval; Chapter 9 will add goal-directed tool use and traceable actions.
+
 ## See the Whole Loop First
 
 ![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.webp)
@@ -31,17 +37,25 @@ Use this picture as the map for the whole chapter.
 
 ## Learning Order And Task List
 
-The workshop belongs at the end. First build the mental model, then run the full experiment.
+The workshop belongs at the end. First build the mental model, then run the full experiment. Follow the core application path first: **7.1 -> 7.2 -> 7.5 -> 7.8**. Use 7.3, 7.4, 7.6, and 7.7 as deeper model-adaptation chapters when you need to explain behavior, cost, or training choices.
 
 | Step | Read | Do | Evidence to keep |
 |---|---|---|---|
 | 7.1 | NLP crash course | Run tokenizer and embedding examples | Notes that explain token, vector, and context |
 | 7.2 | LLM overview and history | Mark where scale, data, instruction tuning, and alignment changed model behavior | One timeline or capability map |
-| 7.3-7.4 | Transformer and pretraining | Read for intuition, not memorization | A diagram that explains attention, context, and training objective |
 | 7.5 | Prompt engineering | Compare prompt versions with fixed inputs | Prompt versions, outputs, scores, failures |
+| 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) | Terminal output, pass rate, README notes |
+| 7.3-7.4 | Transformer and pretraining | Read for intuition, not memorization | A diagram that explains attention, context, and training objective |
 | 7.6 | Fine-tuning | Decide whether a task needs Prompt, RAG, or fine-tuning | A short decision table |
 | 7.7 | Alignment | Check failure modes and safety boundaries | A safety/evaluation checklist |
-| 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) | Terminal output, pass rate, README notes |
+
+## Core Path, Extensions, And Depth
+
+| Layer | What to study now | How to use it |
+|---|---|---|
+| Required core | Tokenization, embeddings, context window, LLM API call, prompt testing, structured output, basic safety checks | These are the minimum skills before RAG and Agent applications |
+| Optional extension | Transformer internals, pretraining details, fine-tuning, alignment history | Return here when model behavior, cost, or adaptation choices need deeper explanation |
+| Depth challenge | Keep a fixed eval set, change one prompt/schema/model setting, and save failures | This turns LLM usage from a demo into an engineering loop |
 
 ## First Runnable Loop: Prompt Testing Without an API
 
@@ -140,6 +154,18 @@ When an LLM result is weak, do not jump straight to fine-tuning.
 - Asking for structured output without validating it: a JSON-looking answer can still be invalid.
 - Fine-tuning too early: many problems should start with Prompt, RAG, tools, or product logic.
 - Reading Transformer details before seeing any output loop: the theory becomes hard to anchor.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+token_path: text -> tokens -> embeddings -> Transformer context -> next token
+core_route: 7.1 -> 7.2 -> 7.5 -> 7.8 first
+fixed_cases: prompt tests use the same inputs before comparing changes
+method_choice: Prompt, RAG, fine-tuning, tools, or Agent chosen by evidence
+chapter_bridge: Chapter 8 adds retrieval and application architecture
+```
 
 ## Pass Check
 

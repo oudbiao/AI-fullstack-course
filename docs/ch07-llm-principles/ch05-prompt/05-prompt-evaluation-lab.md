@@ -227,6 +227,18 @@ Do not change all of these at once:
 
 If too many variables change together, you cannot explain the result.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+eval_cases: fixed input set
+prompt_versions: baseline and improved prompt
+score_table: pass rate or rubric score
+failure_note: one failed output with likely cause
+next_step: add harder cases or connect a real model
+```
+
 ## Practice tasks
 
 1. Add two more test cases: one very short input and one long mixed-review input.

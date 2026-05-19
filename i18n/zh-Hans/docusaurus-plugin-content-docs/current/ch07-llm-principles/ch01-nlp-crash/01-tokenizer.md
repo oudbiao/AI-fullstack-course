@@ -260,6 +260,18 @@ Prompt 表现异常时，先检查 tokenizer，再怀疑模型：
 - 批处理 decoder 模型时确认 padding 方向和 `attention_mask`；
 - 对比中文、英文、代码、emoji 输入，它们的 token 数可能差很多。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+sample_text: one English/CJK/code-like example
+tokens: printed token list and token count
+truncation_case: what was cut and why it matters
+product_risk: cost, context limit, or lost instruction
+debug_action: inspect tokenization before blaming the model
+```
+
 ## 练习
 
 1. 从 `VOCAB` 删除 `transform`，观察 `Transformers refund policy` 会怎样。

@@ -446,6 +446,18 @@ After finishing this section, you can use the following table to check yourself:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: one clear instruction
+context: relevant facts supplied to the model
+constraints: audience, length, style, forbidden behavior
+output_format: bullets, JSON, table, or answer schema
+comparison: vague prompt vs improved prompt output saved
+```
+
 ## Summary
 
 The most important thing in this section is not to memorize the word “Prompt,” but to understand:

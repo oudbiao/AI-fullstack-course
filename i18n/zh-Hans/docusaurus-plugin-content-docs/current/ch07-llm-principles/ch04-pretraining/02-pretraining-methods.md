@@ -454,6 +454,18 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+objective: causal LM, masked LM, or seq2seq objective
+training_sample: input and target constructed from same text
+architecture_fit: objective matched to encoder/decoder pattern
+behavior_effect: what the objective teaches the model to do
+limitation: pretraining objective is not the same as instruction following
+```
+
 ## 小结
 
 这一节最重要的，不是背下 `CLM / MLM / Span Corruption` 这几个缩写，

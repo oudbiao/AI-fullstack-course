@@ -541,6 +541,18 @@ That way, others can more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+stages: SFT -> reward model -> policy optimization
+preference_pair: chosen vs rejected answer
+reward_signal: what the reward model learns to score
+ppo_reason: optimize behavior against learned preference signal
+risk: reward hacking or preference data bias
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing the acronym PPO,

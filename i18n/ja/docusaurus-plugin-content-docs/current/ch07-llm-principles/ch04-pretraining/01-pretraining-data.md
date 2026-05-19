@@ -539,6 +539,18 @@ pprint(draws)
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+data_sources: source types and mixture rationale
+cleaning_result: one before/after cleaning example
+dedup_check: duplicate or near-duplicate risk noted
+contamination_check: eval leakage risk documented
+quality_rule: data quality is part of model capability
+```
+
 ## まとめ
 
 この節で最も重要なのは、いくつかのデータソース名を覚えることではなく、次の判断を身につけることです。

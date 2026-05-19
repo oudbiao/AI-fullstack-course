@@ -62,6 +62,18 @@ recommended_route: RAG
 | 3 | [7.2.4 产业图谱](./03-industry-landscape.md) | 模型/供应商选择记录 |
 | 4 | [7.2.5 LLM 调用工作台](./04-llm-call-workbench.md) | 一条请求/响应记录 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+capability_stack: tokens, context, pretraining, instruction, alignment
+cost_check: context length and output length affect cost/latency
+product_fit: choose model behavior by task need, not hype
+evaluation_loop: fixed cases, score, failure note
+next_action: connect overview to prompt testing in 7.5
+```
+
 ## 通过标准
 
 能从能力、上下文、成本、延迟、数据隐私和路线适配解释一次模型选择，就算通过。

@@ -520,6 +520,18 @@ IA3 の本質は「複雑にすること」ではなく、
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+method_family: adapters, prefix/prompt tuning, IA3, or LoRA-like route
+changed_part: which parameters or prompts are trained
+fit: when this method is appropriate
+tradeoff: quality, memory, latency, and engineering complexity
+decision: compare against LoRA and prompt baseline
+```
+
 ## まとめ
 
 この節で本当に持ち帰るべきなのは 4 つの名前ではなく、1 本の主線です。

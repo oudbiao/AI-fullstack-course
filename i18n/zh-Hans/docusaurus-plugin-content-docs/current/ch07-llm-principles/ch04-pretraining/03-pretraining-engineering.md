@@ -423,6 +423,18 @@ step=3 tokens/s=10503
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+shards: data split and resume point
+throughput: tokens/sec or batch progress estimate
+checkpoint: what is saved and when resume happens
+failure_mode: crash, duplicated shard, slow input, or metric drift
+ops_note: pretraining is a data/compute system, not only model code
+```
+
 ## 小结
 
 这节最重要的不是记住多少分布式术语，

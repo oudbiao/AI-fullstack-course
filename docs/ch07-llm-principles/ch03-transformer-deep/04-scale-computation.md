@@ -370,6 +370,18 @@ model planning easily turns into the illusion that â€œbigger is always better.â€
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+params: rough parameter estimate and major contributors
+training_cost: forward + backward + optimizer state
+inference_cost: prefill, decode, KV cache, output length
+bottleneck: memory, latency, throughput, or quality
+decision: choose smaller model, quantization, batching, or retrieval by evidence
+```
+
 ## Common Misconceptions
 
 ### Misconception 1: If the parameter count is large, the result must be good

@@ -351,6 +351,18 @@ print(choose_peft_route(constraints))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+base_model: frozen base stays mostly unchanged
+lora_params: rank, target modules, trainable parameter count
+qlora_reason: quantized base reduces memory pressure
+eval_delta: before/after score or failure change
+risk: adapter quality depends heavily on data quality
+```
+
 ## 小结
 
 这一节最重要的不是背缩写，而是理解：

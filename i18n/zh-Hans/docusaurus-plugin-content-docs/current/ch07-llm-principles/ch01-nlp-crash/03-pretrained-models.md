@@ -154,6 +154,18 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 - **过度适配：**微调可能改善一个行为，同时损伤其他能力。
 - **评估缺口：**演示 prompt 好看，不代表边界样本可靠。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+foundation: what the pretrained model already knows
+task_head: which part is task-specific
+adaptation_path: prompt, feature use, fine-tune, or PEFT
+eval_case: one example that proves transfer worked or failed
+risk: pretrained behavior is broad, not automatically aligned to your task
+```
+
 ## 练习
 
 1. 给实验添加 `topic_head`，标签为 `account_topic` 和 `commerce_topic`。

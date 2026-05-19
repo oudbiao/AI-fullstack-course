@@ -249,6 +249,18 @@ Look for the real components:
 
 These names are the bridge between the concept diagram and real LLM implementation.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pre_norm: normalization before attention/FFN for stability
+rmsnorm: scale normalization used in many modern decoders
+rope: position enters attention through rotation
+gqa_mqa: fewer KV heads reduce cache pressure
+swiglu: gated FFN improves capacity at scale
+```
+
 ## Summary
 
 Modern LLM decoder blocks are not a rejection of the original Transformer.

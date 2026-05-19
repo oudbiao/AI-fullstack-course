@@ -531,6 +531,18 @@ flowchart LR
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+intent_gap: user wants one thing, model optimizes another signal
+failure_case: harmful, deceptive, overconfident, or non-compliant output
+policy_boundary: what should be allowed, refused, or redirected
+eval_case: one prompt and expected safe behavior
+engineering_view: alignment is measured behavior, not a slogan
+```
+
 ## 小结
 
 这一节最重要的不是记住几个缩写，

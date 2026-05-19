@@ -291,6 +291,18 @@ cloud_api_model -> 6.8
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_choice: closed, open, hosted, or self-deployed option
+decision_factors: quality, latency, privacy, cost, ecosystem
+system_capability: model + data + product + eval + ops
+risk_note: vendor lock-in, compliance, or deployment constraint
+evidence: one model-selection table for a real use case
+```
+
 ## 小结
 
 这一节最重要的认识是：

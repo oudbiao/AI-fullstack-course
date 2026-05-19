@@ -382,6 +382,18 @@ MoE 的核心变化在于：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+encoder_only: bidirectional understanding tasks
+decoder_only: causal generation and chat models
+encoder_decoder: read one sequence and generate another
+choice_rule: architecture follows task and serving pattern
+misread_to_avoid: variant names are not simple quality rankings
+```
+
 ## 小结
 
 这一节最重要的不是记名字，

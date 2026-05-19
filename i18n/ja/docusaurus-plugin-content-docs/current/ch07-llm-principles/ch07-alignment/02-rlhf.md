@@ -536,6 +536,18 @@ RLHF は最優先ではないかもしれません。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+stages: SFT -> reward model -> policy optimization
+preference_pair: chosen vs rejected answer
+reward_signal: what the reward model learns to score
+ppo_reason: optimize behavior against learned preference signal
+risk: reward hacking or preference data bias
+```
+
 ## まとめ
 
 この節で最も大事なのは、PPO という略語を覚えることではありません。  

@@ -524,6 +524,18 @@ flowchart LR
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+intent_gap: user wants one thing, model optimizes another signal
+failure_case: harmful, deceptive, overconfident, or non-compliant output
+policy_boundary: what should be allowed, refused, or redirected
+eval_case: one prompt and expected safe behavior
+engineering_view: alignment is measured behavior, not a slogan
+```
+
 ## まとめ
 
 この節で最も大事なのは、いくつかの略語を覚えることではありません。  

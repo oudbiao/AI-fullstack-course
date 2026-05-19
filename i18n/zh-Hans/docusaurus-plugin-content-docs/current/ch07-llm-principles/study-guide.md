@@ -41,6 +41,8 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 | 失败分析 | 每个失败都有可能原因：指令、输入、schema、缺少知识或安全边界。 |
 | 方法选择 | 决策表能解释为什么先用 Prompt、RAG、微调、工具或 Agent。 |
 
+预期结果：你的第 7 章文件夹里有 Prompt 版本、固定评测样本、解析器/schema 检查、失败笔记、工作坊输出，以及说明方法选择的 README。
+
 ## 离章问题
 
 - 你能不照抄定义，解释 token、embedding、attention、上下文窗口、预训练、Prompt、微调和对齐吗？
@@ -50,3 +52,15 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 - 你能说明什么时候“长期行为适配”才可能值得微调吗？
 
 如果答案都是可以，就进入第 8 章。第 8 章会把这些概念接到真实 LLM 应用和 RAG 系统里。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_versions: at least three versions for one task
+eval_cases: fixed inputs with scores and failure notes
+schema_check: structured output is parsed and validated
+method_choice: Prompt/RAG/fine-tuning/tools decision is written down
+exit_proof: workshop output plus README notes
+```

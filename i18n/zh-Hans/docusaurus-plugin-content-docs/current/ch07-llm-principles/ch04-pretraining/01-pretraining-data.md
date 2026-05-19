@@ -536,6 +536,18 @@ pprint(draws)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+data_sources: source types and mixture rationale
+cleaning_result: one before/after cleaning example
+dedup_check: duplicate or near-duplicate risk noted
+contamination_check: eval leakage risk documented
+quality_rule: data quality is part of model capability
+```
+
 ## 小结
 
 这节课最重要的不是背几个数据来源名称，

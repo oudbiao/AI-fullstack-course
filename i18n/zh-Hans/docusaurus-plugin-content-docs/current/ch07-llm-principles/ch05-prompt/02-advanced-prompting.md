@@ -364,6 +364,18 @@ Prompt 调优本质上也应该是实验过程。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+technique: few-shot, role, step constraint, self-check, or decomposition
+fixed_cases: same test inputs before/after change
+improvement: score or failure reduction
+risk: overlong, conflicting, or overfit prompt
+decision: keep only techniques that improve evidence
+```
+
 ## 小结
 
 这一节最重要的不是背几个技巧名字，而是理解：

@@ -216,6 +216,18 @@ That is why this distinction matters:
 
 This is the smallest intuition behind semantic search, retrieval, and RAG.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+token_trace: text, tokens, ids, and length
+embedding_trace: vector or similarity output
+retrieval_demo: query, top match, and score
+failure_note: one case where similarity is misleading
+next_probe: change text length, language, or wording and compare
+```
+
 ## Practice tasks
 
 1. Add a new word `invoice` to `vocab` and `embedding_table`.

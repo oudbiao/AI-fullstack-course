@@ -63,6 +63,20 @@ fine_tune_now: False
 
 如果想先跟着做，可以先运行 [7.8.4 实操：完整第 7 章工作坊](./03-stage-hands-on-workshop.md)，再设计自己的领域项目。
 
+## 决策规则：先命名失败，再选择方法
+
+结课项目不应该因为“RAG”或“微调”听起来高级就直接使用。先说清楚主要失败是什么。
+
+| 主要失败 | 更好的第一路线 | 需要的证据 |
+|---|---|---|
+| 模型不知道答案来源 | RAG | 检索到的文档支持答案 |
+| 输出格式漂移 | Structured output + validation | Parser 通过率改善 |
+| 指令本身含糊 | Prompt 迭代 | 同一批案例在一次 prompt 修改后变好 |
+| 大量案例里反复出现同类行为错误 | 微调 / LoRA 候选 | 足够标注样本和保留评估集 |
+| 任务需要外部动作 | Tool / Agent 路线 | 工具调用 trace 和失败恢复行为 |
+
+这张表能防止项目变成方法展示，而是变成工程决策。
+
 ## 项目交付物标准
 
 | 交付物 | 最低标准 | 更强的作品集版本 |
@@ -72,6 +86,18 @@ fine_tune_now: False
 | 评估 | 明确通过/失败规则 | 增加评分、失败类型统计和回归记录 |
 | Prompt/数据记录 | 保存 Prompt 版本或样本格式 | 增加 schema 校验、数据质量检查和安全说明 |
 | 展示材料 | 截图或短 GIF 证明能运行 | 说明为什么当前路线优于其他选择 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_choice: Prompt, RAG, fine-tuning, or hybrid route
+baseline: simplest working method first
+evaluation: fixed cases and scoring rule
+deliverable: README, prompts, outputs, failures, decision log
+bridge: Chapter 8 turns this into retrieval-backed applications
+```
 
 ## 通过标准
 

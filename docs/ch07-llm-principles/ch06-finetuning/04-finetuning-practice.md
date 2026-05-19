@@ -549,6 +549,18 @@ training completion is usually only a midpoint, not the finish line.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataset_sample: raw record and formatted training example
+split: train/validation/test or holdout rule
+baseline: prompt-only output before training
+monitor: loss, validation score, and failure examples
+release_check: quality, safety, rollback, and README notes
+```
+
 ## Summary
 
 The most important thing in this lesson is not to memorize what a certain config file looks like,

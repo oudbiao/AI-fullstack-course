@@ -62,6 +62,18 @@ This is not a full architecture decision. It is the habit: choose the smallest r
 | 3 | [7.2.4 Industry Landscape](./03-industry-landscape.md) | model/provider selection notes |
 | 4 | [7.2.5 LLM Call Workbench](./04-llm-call-workbench.md) | one request/response record |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+capability_stack: tokens, context, pretraining, instruction, alignment
+cost_check: context length and output length affect cost/latency
+product_fit: choose model behavior by task need, not hype
+evaluation_loop: fixed cases, score, failure note
+next_action: connect overview to prompt testing in 7.5
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain one model choice in terms of capability, context, cost, latency, data privacy, and route fit.

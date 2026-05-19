@@ -360,6 +360,18 @@ This makes it easier for others to see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+technique: few-shot, role, step constraint, self-check, or decomposition
+fixed_cases: same test inputs before/after change
+improvement: score or failure reduction
+risk: overlong, conflicting, or overfit prompt
+decision: keep only techniques that improve evidence
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing a few technique names, but understanding:

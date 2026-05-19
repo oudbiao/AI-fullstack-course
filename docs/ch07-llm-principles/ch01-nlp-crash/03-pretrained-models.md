@@ -154,6 +154,18 @@ The decision is engineering, not ideology. Choose the smallest change that passe
 - **Over-adaptation:** fine-tuning can improve one behavior while damaging others.
 - **Evaluation gaps:** a demo prompt can look good while edge cases fail.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+foundation: what the pretrained model already knows
+task_head: which part is task-specific
+adaptation_path: prompt, feature use, fine-tune, or PEFT
+eval_case: one example that proves transfer worked or failed
+risk: pretrained behavior is broad, not automatically aligned to your task
+```
+
 ## Exercises
 
 1. Add a `topic_head` to the lab with labels `account_topic` and `commerce_topic`.

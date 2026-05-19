@@ -154,6 +154,18 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 - **Over-adaptation:** fine-tuning で一部は良くなり、別の能力が落ちることがある。
 - **Evaluation gaps:** デモ prompt は良くても、境界ケースで失敗することがある。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+foundation: what the pretrained model already knows
+task_head: which part is task-specific
+adaptation_path: prompt, feature use, fine-tune, or PEFT
+eval_case: one example that proves transfer worked or failed
+risk: pretrained behavior is broad, not automatically aligned to your task
+```
+
 ## 練習
 
 1. 実験に `topic_head` を追加し、`account_topic` と `commerce_topic` を分類する。

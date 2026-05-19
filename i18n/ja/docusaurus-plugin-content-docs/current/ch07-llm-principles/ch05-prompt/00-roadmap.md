@@ -39,7 +39,7 @@ print("fields:", ", ".join(required))
 print("test_case_count:", 3)
 ```
 
-出力：
+期待される出力：
 
 ```text
 ready: True
@@ -60,6 +60,18 @@ test_case_count: 3
 | 3 | 構造化出力 | プログラムで解析できる JSON、表、Markdown を作る |
 | 4 | Prompt 実践 | 同じ固定入力で Prompt バージョンを比較する |
 | 5 | 評価ラボ | 合格率、失敗タイプ、次の変更を記録する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+prompt_contract: task, context, constraints, output format
+fixed_cases: same inputs used across prompt versions
+schema_check: structured output validated by parser
+failure_note: prompt failure grouped by cause
+bridge: Chapter 8 adds retrieved context to this loop
+```
 
 ## 合格ライン
 

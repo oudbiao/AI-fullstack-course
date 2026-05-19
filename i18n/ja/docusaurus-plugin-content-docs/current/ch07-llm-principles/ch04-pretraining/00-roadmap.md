@@ -32,7 +32,7 @@ for source, target in pairs:
     print(f"{source} -> {target}")
 ```
 
-出力：
+期待される出力：
 
 ```text
 AI -> learns
@@ -51,6 +51,18 @@ from -> text
 | 1 | [7.4.2 事前学習データ](./01-pretraining-data.md) | ソース、フィルタリング、重複除去、汚染 |
 | 2 | [7.4.3 事前学習手法](./02-pretraining-methods.md) | next-token prediction、loss、scaling |
 | 3 | [7.4.4 事前学習エンジニアリング](./03-pretraining-engineering.md) | 分散学習、checkpoint、監視 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+triangle: data, objective, and engineering all matter
+sample_pairs: next-token training pairs from one sentence
+data_risk: contamination, duplication, or low-quality mixture
+objective_note: objective shapes behavior and architecture fit
+engineering_note: sharding, resume, throughput, and monitoring
+```
 
 ## 合格ライン
 

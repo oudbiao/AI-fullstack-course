@@ -291,6 +291,18 @@ cloud_api_model -> 6.8
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+model_choice: closed, open, hosted, or self-deployed option
+decision_factors: quality, latency, privacy, cost, ecosystem
+system_capability: model + data + product + eval + ops
+risk_note: vendor lock-in, compliance, or deployment constraint
+evidence: one model-selection table for a real use case
+```
+
 ## まとめ
 
 この節で最も大切な理解は次の通りです。

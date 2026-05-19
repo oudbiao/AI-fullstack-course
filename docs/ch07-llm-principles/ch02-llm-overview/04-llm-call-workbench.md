@@ -173,6 +173,21 @@ first era: {'period': '1936-1950', ...}
 
 ![LLM call workbench validation trace](/img/course/ch07-llm-call-workbench-validation-trace-en.webp)
 
+## How to read the output
+
+Read the terminal output as an engineering trace, not as a demo transcript.
+
+| Line | What it proves | What to do if it looks wrong |
+|---|---|---|
+| `used input tokens estimate` | The request has a measurable input budget | Inspect system instructions, history, and retrieved context |
+| `remaining output room` | The answer still has space to be generated | Shorten context or lower the expected output size |
+| `request model` | The run records which model/config was used | Save model name and key parameters with every eval run |
+| `validation: era_0_missing_['summary']` | The validator catches a specific schema failure | Fix the schema instruction or add a repair step |
+| `retry fix` | Retry changes the cause of failure, not just repeats the same request | Log what changed so the workflow is reproducible |
+| `validation: valid` | The output passed the program contract | Still review factual quality and source requirements |
+
+For a real application, save this trace with the prompt version, model name, temperature, max output tokens, schema version, and failure reason. Without that record, a “better answer” is hard to reproduce.
+
 ## What this code is really showing
 
 ### A request is not only a prompt
@@ -261,6 +276,18 @@ Set `OPENAI_MODEL` if your account or deployment uses a different approved model
 3. Add a `source_refs` field to every era and require it in validation.
 4. Lower `max_output_tokens` and explain what product problem this simulates.
 5. Write a one-page note: which part is prompt design, which part is API payload design, and which part is application reliability?
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+request: prompt, parameters, and expected output contract
+response: raw output and parsed/validated result
+controls: temperature, max output, schema, or stop rule
+failure_case: invalid, vague, unsafe, or off-task output
+real_api_note: replace toy_model only after offline loop is stable
+```
 
 ## Summary
 

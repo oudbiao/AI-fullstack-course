@@ -329,6 +329,18 @@ for case in test_cases:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+baseline_prompt: first version and failure
+changed_variable: one prompt dimension changed at a time
+score: simple pass/fail or rubric result
+failure_bucket: instruction, context, format, or ambiguity
+next_iteration: one concrete edit to try
+```
+
 ## 小结
 
 这一节最重要的不是背多少 Prompt 技巧，而是建立这样一个习惯：

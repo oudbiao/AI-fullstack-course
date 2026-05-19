@@ -43,7 +43,7 @@ else:
 print("recommended_route:", route)
 ```
 
-出力：
+期待される出力：
 
 ```text
 recommended_route: RAG
@@ -61,6 +61,18 @@ recommended_route: RAG
 | 2 | [7.2.3 コア概念](./02-core-concepts.md) | context、token、temperature、遅延、コスト |
 | 3 | [7.2.4 業界地図](./03-industry-landscape.md) | モデル/プロバイダ選択メモ |
 | 4 | [7.2.5 LLM 呼び出しワークベンチ](./04-llm-call-workbench.md) | 1つの request/response 記録 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+capability_stack: tokens, context, pretraining, instruction, alignment
+cost_check: context length and output length affect cost/latency
+product_fit: choose model behavior by task need, not hype
+evaluation_loop: fixed cases, score, failure note
+next_action: connect overview to prompt testing in 7.5
+```
 
 ## 合格ライン
 

@@ -543,6 +543,18 @@ RLHF 最容易让人误会成：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+stages: SFT -> reward model -> policy optimization
+preference_pair: chosen vs rejected answer
+reward_signal: what the reward model learns to score
+ppo_reason: optimize behavior against learned preference signal
+risk: reward hacking or preference data bias
+```
+
 ## 小结
 
 这一节最重要的不是记住 PPO 这个缩写，

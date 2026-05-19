@@ -442,6 +442,18 @@ The most useful habit is to connect method choice with evaluation:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+method: DPO, constitutional revision, RLAIF, or rejection sampling
+training_signal: pairwise preference, critique, or filtered sample
+benefit: simpler pipeline, less RL complexity, or clearer policy
+limitation: still depends on data, policy, and evaluation quality
+decision: choose method based on available feedback and risk
+```
+
 ## Summary
 
 The most important main idea in this section is:

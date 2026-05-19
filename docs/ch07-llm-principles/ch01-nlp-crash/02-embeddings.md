@@ -209,6 +209,18 @@ This is not a real Transformer. It is a memory hook: the same token can end up w
 - Compare static, sentence, and contextual embeddings for the same data.
 - For multilingual projects, test cross-language pairs before assuming the embedding model aligns languages well.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+vectors: at least three text embeddings or toy vectors
+similarity_check: closest pair and score
+retrieval_result: top match for one query
+limitation: averaging or similarity misses context/negation/order
+next_use: this becomes retrieval evidence in Chapter 8
+```
+
 ## Exercises
 
 1. Move `banana` closer to `password` in the toy table. How does retrieval break?

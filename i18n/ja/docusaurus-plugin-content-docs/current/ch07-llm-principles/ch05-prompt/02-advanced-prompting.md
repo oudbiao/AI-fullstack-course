@@ -362,6 +362,18 @@ Prompt の改善は、本質的には実験のプロセスでもあります。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+technique: few-shot, role, step constraint, self-check, or decomposition
+fixed_cases: same test inputs before/after change
+improvement: score or failure reduction
+risk: overlong, conflicting, or overfit prompt
+decision: keep only techniques that improve evidence
+```
+
 ## まとめ
 
 この節で最も大切なのは、いくつかの技巧名を覚えることではなく、次の点を理解することです。

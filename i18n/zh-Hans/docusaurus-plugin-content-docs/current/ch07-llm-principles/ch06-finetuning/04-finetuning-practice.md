@@ -549,6 +549,18 @@ best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataset_sample: raw record and formatted training example
+split: train/validation/test or holdout rule
+baseline: prompt-only output before training
+monitor: loss, validation score, and failure examples
+release_check: quality, safety, rollback, and README notes
+```
+
 ## 小结
 
 这节最重要的不是记住某个配置文件长什么样，

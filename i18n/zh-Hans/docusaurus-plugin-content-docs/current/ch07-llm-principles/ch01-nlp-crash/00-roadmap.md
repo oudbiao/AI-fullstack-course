@@ -54,6 +54,18 @@ unique_tokens: 5
 | 4 | [7.1.5 Hugging Face 快速上手](./04-huggingface-quickstart.md) | pipeline、model card、本地运行 |
 | 5 | [7.1.6 Tokenizer 与 Embedding 实验](./05-tokenizer-embedding-lab.md) | 检查 token 和向量 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+text_path: raw text -> tokens -> ids -> embeddings
+token_risk: long input can hit context or cost limits
+embedding_use: similarity can support retrieval but is not reasoning
+model_bridge: pretrained model = shared foundation plus task behavior
+next_action: run tokenizer and embedding labs before Prompt work
+```
+
 ## 通过标准
 
 能解释为什么原始文本需要分词、为什么 embedding 是向量、为什么预训练模型通常复用而不是从零训练，就算通过。

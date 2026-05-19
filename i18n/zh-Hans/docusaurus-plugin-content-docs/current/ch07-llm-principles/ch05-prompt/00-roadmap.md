@@ -61,6 +61,18 @@ test_case_count: 3
 | 4 | Prompt 实战 | 在同一批固定输入上比较 Prompt 版本 |
 | 5 | 评测实验室 | 记录通过率、失败类型和下一次修改 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_contract: task, context, constraints, output format
+fixed_cases: same inputs used across prompt versions
+schema_check: structured output validated by parser
+failure_note: prompt failure grouped by cause
+bridge: Chapter 8 adds retrieved context to this loop
+```
+
 ## 通过标准
 
 如果你能固定输入集，每次只改一个 Prompt 层，并用证据说明新版本为什么更好，而不是凭感觉判断，就通过了本章。

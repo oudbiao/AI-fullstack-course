@@ -209,6 +209,18 @@ bank in river  : [0.3, 0.75, 0.4]
 - 对同一批数据比较 static、sentence、contextual embedding。
 - 多语言项目要先测跨语言样本，不要默认 embedding model 已经对齐语言。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+vectors: at least three text embeddings or toy vectors
+similarity_check: closest pair and score
+retrieval_result: top match for one query
+limitation: averaging or similarity misses context/negation/order
+next_use: this becomes retrieval evidence in Chapter 8
+```
+
 ## 练习
 
 1. 把 `banana` 移到更接近 `password` 的位置，观察检索如何出错。

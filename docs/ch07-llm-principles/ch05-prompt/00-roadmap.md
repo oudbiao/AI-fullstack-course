@@ -61,6 +61,18 @@ If `ready` is `False`, fix the prompt brief before you try more examples. A vagu
 | 4 | Prompt practice | Compare prompt versions on the same fixed inputs |
 | 5 | Evaluation lab | Record pass rate, failure type, and the next prompt change |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_contract: task, context, constraints, output format
+fixed_cases: same inputs used across prompt versions
+schema_check: structured output validated by parser
+failure_note: prompt failure grouped by cause
+bridge: Chapter 8 adds retrieved context to this loop
+```
+
 ## Pass Check
 
 You pass this chapter when you can keep the input set fixed, change one prompt layer at a time, and explain why the new version is better with evidence instead of a feeling.

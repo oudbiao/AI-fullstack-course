@@ -173,6 +173,18 @@ torch.Size([2, 6, 768])
 - `AutoModel` 输出表示；任务专用类会输出任务 logits。
 - CUDA 内存报错时，先降 batch size、sequence length 或 model size，再怀疑代码逻辑。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+objects: tokenizer, model, config, pipeline or manual forward pass
+offline_run: toy workflow output is saved
+real_model_optional: model id and task are recorded if downloaded
+shape_or_score: one output tensor shape or prediction score
+debug_note: model path, device, and tokenizer/model mismatch checked
+```
+
 ## 练习
 
 1. 把实验 1 的 `max_length` 从 `6` 改成 `4`，哪个 token 被截掉？

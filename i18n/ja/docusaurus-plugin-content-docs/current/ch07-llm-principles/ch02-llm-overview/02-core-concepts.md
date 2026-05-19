@@ -85,6 +85,21 @@ system prompt + chat history + retrieved evidence + user question + answer space
 - chat history は役に立たなくなったら要約または削る。
 - 大きな context は、正しい情報を入れたときだけ役に立つ。
 
+### Context は知識ベースではなく作業机
+
+作業机の比喩が役に立ちます。大きな机なら多くの資料をモデルの前に置けますが、正しい資料が置かれていること、資料自体が正しいこと、モデルが適切な瞬間に使うことまでは保証しません。
+
+この違いはアプリケーションで重要です。
+
+| 誤解 | よりよい engineering view |
+|---|---|
+| 「context window が大きいから、モデルは全部覚えている」 | Context にあるのは、その request に入れた内容だけです。 |
+| 「文書全体を prompt に入れればよい」 | 関連部分を選び、reasoning と output の余白を残します。 |
+| 「答えが間違ったら大きな context にすればよい」 | まず retrieval quality、evidence placement、output validation を確認します。 |
+| 「chat history は memory である」 | history は過去の text であり、意図的に要約・削除・保存して初めて管理された memory になります。 |
+
+これが第 8 章 RAG への橋です。RAG は「prompt にもっと文字を入れる」ことではなく、モデルが答える前に正しい evidence を選ぶ practice です。
+
 ## 実験 2：Temperature が sampling を変える
 
 ```python
@@ -210,6 +225,18 @@ compare relevance -> normalize weights -> mix value vectors
 - temperature は diversity を調整するが、truth を保証しない。
 - attention weights は直感に役立つが、reasoning の完全な説明ではない。
 - pretraining は capability を与える。product reliability には data、evaluation、controls が必要。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+next_token: one probability or sampling example
+context_budget: prompt + retrieved text + output all compete for space
+temperature_effect: deterministic vs more diverse output compared
+attention_note: relevance-weighted mixing is not factual proof
+failure_probe: fluent answer can still be wrong
+```
 
 ## 練習
 

@@ -473,6 +473,18 @@ JSON がきれいでも、その後の処理を直接動かせなければ、構
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: required fields and allowed types
+parser: output is parsed, not trusted visually
+valid_case: one output accepted by validation
+invalid_case: missing field or wrong type rejected
+repair_rule: retry, fallback, or ask for clarification
+```
+
 ## まとめ
 
 この節で最も大事なのは、JSON の文法を覚えることではなく、次の点を理解することです。

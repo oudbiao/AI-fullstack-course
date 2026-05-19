@@ -221,6 +221,18 @@ failures : []
 3. より明確な拒否表現
 4. もっと広い評価カバレッジ
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+safety_cases: fixed prompts across risk categories
+expected_behavior: answer, refuse, redirect, or ask clarification
+score: pass/fail plus reason
+failure_note: one unsafe or over-refusing case
+next_action: policy edit, prompt guardrail, eval expansion, or model change
+```
+
 ## まとめ
 
 アライメントは、方針を書くことだけではありません。

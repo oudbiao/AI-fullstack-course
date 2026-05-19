@@ -382,6 +382,18 @@ This changes both training and deployment complexity.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+encoder_only: bidirectional understanding tasks
+decoder_only: causal generation and chat models
+encoder_decoder: read one sequence and generate another
+choice_rule: architecture follows task and serving pattern
+misread_to_avoid: variant names are not simple quality rankings
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing names,

@@ -173,6 +173,18 @@ torch.Size([2, 6, 768])
 - `AutoModel` は表現を返す。task-specific class は task logits を返す。
 - CUDA memory error では、まず batch size、sequence length、model size を下げる。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+objects: tokenizer, model, config, pipeline or manual forward pass
+offline_run: toy workflow output is saved
+real_model_optional: model id and task are recorded if downloaded
+shape_or_score: one output tensor shape or prediction score
+debug_note: model path, device, and tokenizer/model mismatch checked
+```
+
 ## 練習
 
 1. 実験 1 の `max_length` を `6` から `4` に変える。どの token が切られるか。

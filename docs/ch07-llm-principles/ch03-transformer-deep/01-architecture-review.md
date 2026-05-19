@@ -435,6 +435,18 @@ True understanding also includes:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_contract: token embeddings plus position information
+attention_role: mix information across positions
+ffn_role: transform each position independently
+stability_parts: residual plus norm
+output_bridge: hidden state becomes vocabulary logits
+```
+
 ## Summary
 
 The most important thing in this lesson is not to memorize the diagram again,

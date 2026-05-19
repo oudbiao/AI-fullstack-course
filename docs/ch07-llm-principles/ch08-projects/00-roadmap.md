@@ -63,6 +63,32 @@ If your project cannot fill these fields, keep the project smaller. A clear comp
 
 If you want a guided starter, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./03-stage-hands-on-workshop.md) before designing your own domain project.
 
+## Decision Rule: Name the Failure Before Choosing the Method
+
+The capstone should not say “we used RAG” or “we fine-tuned” just because the method sounds advanced. First name the dominant failure.
+
+| Dominant failure | Better first route | Evidence you need |
+|---|---|---|
+| The model does not know the answer source | RAG | Retrieved document supports the answer |
+| The output format drifts | Structured output + validation | Parser pass rate improves |
+| The instruction is vague | Prompt iteration | Same cases improve after one prompt change |
+| The behavior repeats incorrectly across many cases | Fine-tuning / LoRA candidate | Enough labeled examples and held-out eval cases |
+| The task needs external action | Tool / Agent route | Tool call trace and recovery behavior |
+
+This one table keeps the project from becoming a method showcase. It turns it into an engineering decision.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_choice: Prompt, RAG, fine-tuning, or hybrid route
+baseline: simplest working method first
+evaluation: fixed cases and scoring rule
+deliverable: README, prompts, outputs, failures, decision log
+bridge: Chapter 8 turns this into retrieval-backed applications
+```
+
 ## Project Deliverable Standards
 
 | Deliverable | Minimum Standard | Stronger Portfolio Version |
