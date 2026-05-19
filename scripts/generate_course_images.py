@@ -4406,6 +4406,8 @@ Unnumbered bottom: several Encoder Blocks stacked vertically, with the reminder 
 一张适合第八章学习指南的四层学习地图，主题是“LLM 应用不是只调接口，而是四层系统”。
 画面用清晰分层表现知识层、模型层、应用层和工程层：文档与向量库、LLM 与 Embedding、对话与工具、API 日志部署评估。
 风格像课程分层地图，温和、清楚、对新人友好。
+不要画 Docker 鲸鱼图标、Kubernetes 舵轮、云厂商 logo、GitHub logo 或任何近似真实品牌标识；deployment 只能用抽象包裹箱、服务器节点、容器方块和状态灯表现。
+不要写具体百分比、分数、成本、延迟、端口号、版本号或样本数；evaluation、logs、monitoring 只能用抽象趋势线、空白刻度、状态点或无数字图表表现。
 文字不是主体；标准术语保留英文，例如 LLM、Embedding、RAG、API、logs、deployment、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -4532,6 +4534,8 @@ Unnumbered bottom: several Encoder Blocks stacked vertically, with the reminder 
 一张适合 LLM 工程化导读页的章节学习顺序图，主题是“从能跑到能上线、能排障、能维护”。
 画面表现 async/concurrency、API design、logging/monitoring、Docker deployment 逐步连接，并回到评估和告警。
 风格像工程升级路线和系统运行仪表盘结合，新手友好。
+不要画 Docker 鲸鱼图标、Kubernetes 舵轮、Redis 标志、云厂商 logo、GitHub logo 或任何近似真实品牌标识；Docker deployment 只能用抽象容器方块、包裹箱、服务器节点和运行状态灯表现。
+不要写具体端口号、成本、延迟、百分比、版本号或环境变量值；仪表盘只用抽象刻度和状态点。
 文字不是主体；标准术语保留英文，例如 async、concurrency、API design、logging、monitoring、Docker、deployment、alert。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -4788,6 +4792,7 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合 RAG 评估章节的分层仪表盘图，主题是“RAG 评估不能只看最终答案”。
 画面分成 retrieval、generation、citation、system 四层，每层有代表指标：Recall@K、MRR、Correctness、Faithfulness、citation_ok、latency、cost、failure rate。
 风格像数据仪表盘和教学分层图结合。
+不要写任何具体分数、百分比、金额、耗时或样本数；指标只能用名称、空白刻度、抽象趋势线或无数字状态点表示。
 文字不是主体；标准术语保留英文，例如 Recall@K、MRR、Correctness、Faithfulness、citation_ok、latency、cost。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -4830,6 +4835,7 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合高性能推理服务课程的系统图，主题是“能跑模型不等于能服务流量”。
 画面表现 requests 进入 queue，scheduler 合成 batch，model server 执行，responses 返回；旁边展示 latency、throughput、batch size、timeout、concurrency 的拉扯。
 风格像后厨出餐和服务调度面板结合。
+不要写任何具体延迟、吞吐量、batch size 数值、timeout 数值或并发数；只用 high/low、fast/slow、small/large、balanced 这类抽象标签或无数字仪表。
 文字不是主体；标准术语保留英文，例如 queue、scheduler、batch、model server、latency、throughput、concurrency、timeout。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -4900,6 +4906,9 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合 HuggingFace 生态深入页的分层图，主题是“HuggingFace 不只是模型仓库”。
 画面从 Datasets 到 Tokenizers、Models、Pipelines、Hub 分层连接，表现数据处理、输入编码、模型计算、任务封装和共享协作。
 不要使用真实 logo，用抽象生态平台表现。
+不要画 HuggingFace 官方抱脸 emoji/logo、品牌吉祥物或任何近似品牌标识；可以把 HuggingFace 作为技术名词文字出现，但图形元素必须是抽象平台、数据层、模型层和协作节点。
+不要写具体向量数值、token id、概率、score、样本编号、数据集大小或模型指标；embedding、tokenization 和 model output 只用点阵、彩色 token 块、箭头、占位块或 `embedding`、`tokens`、`output` 等抽象标签表现。
+中文版本不要写完整英文句子，除 HuggingFace 和标准技术术语外用自然中文短标签。
 文字不是主体；标准术语保留英文，例如 Datasets、Tokenizers、Models、Pipelines、Hub、model card、inference。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -4914,6 +4923,7 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合多轮对话系统的状态管理图，主题是“有 history 不等于有 state”。
 画面展示 chat history 进入 state manager，提炼出 topic、slots、last retrieved doc、last_tool_result、summary，再决定 ask clarification、call tool 或 answer。
 风格像客服工作台和状态机结合，清晰直观。
+不要写具体发票号、订单号、城市、姓名、地址、金额、日期、商品编号或任何虚构业务数据；chat history 只能用抽象短句或占位标签，例如 `user message`、`assistant asks`、`slot value`、`tool result`。
 文字不是主体；标准术语保留英文，例如 history、state manager、topic、slots、summary、tool result、clarification。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -5012,6 +5022,9 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合 Docker 部署章节的概念图，主题是“容器化把应用和运行环境标准化”。
 画面展示 Dockerfile -> image -> container 的关系，旁边用 Docker Compose 编排 app service、vector db、redis、logs，并标出 environment variables 和 health check。
 风格像部署蓝图和服务编排图结合。
+不要画 Docker 鲸鱼图标、Kubernetes 舵轮、Redis 官方立方体标志或任何近似真实品牌 logo；可以把 Docker、Docker Compose、redis 作为技术名词文字出现，但图标必须使用抽象容器方块、服务节点、数据库圆柱和日志流。
+redis/cache 服务必须画成普通数据库圆柱或缓存节点，不能用红色堆叠方块、红色立方体、官方风格徽标或任何品牌式图案。
+不要写具体端口号、环境变量值、数据库 URL、secret、IP、版本号或完整代码片段；如果需要表现配置，只用 `PORT`、`MODEL_NAME`、`ENV_VAR`、`CMD`、`health check` 这类占位标签。
 文字不是主体；标准术语保留英文，例如 Dockerfile、image、container、Docker Compose、environment variables、health check、vector db、redis。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
@@ -8108,6 +8121,7 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合大模型应用开发课程的流程图，主题是“Function Calling 如何让模型调用工具”。
 画面表现用户请求进入模型，模型根据工具 schema 选择函数并生成结构化参数，应用执行函数，返回观察结果，再由模型整合最终回答。
 重点突出 schema、参数校验、工具结果和最终回复之间的边界，风格清晰、工程化。
+不要写具体业务结果、城市、天气、库存、商品 ID、金额、分数或虚构数值；工具结果和最终回答只用 `tool_result`、`validated result`、`observation`、`final answer` 这类抽象占位标签表现。
 不要出现真实品牌 logo，不要生成复杂小字或乱码文字。
 """.strip(),
     },
