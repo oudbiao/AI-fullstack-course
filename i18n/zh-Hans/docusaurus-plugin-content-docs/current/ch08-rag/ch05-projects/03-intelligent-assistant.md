@@ -15,7 +15,7 @@ keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calli
 - 能记住上下文
 - 能在必要时调用工具
 
-所以这节更接近一个**产品雏形项目**，而不是单轮问答 demo。
+所以这节更接近一个**产品雏形项目**，而不是单轮问答演示。
 :::
 
 ## 学习目标
@@ -376,7 +376,7 @@ for case in eval_cases:
 这样别人会更容易感觉到：
 
 - 你做的是一个持续协作系统
-- 不只是多轮聊天 demo
+- 不只是多轮聊天演示
 
 ---
 
@@ -399,7 +399,7 @@ project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+交付物：README、运行命令、截图/日志、下一步
 ```
 
 ## 小结

@@ -64,7 +64,7 @@ failure_cases: at least three wrong or weak examples
 next_step: one change justified by the failures
 ```
 
-这样项目就不会停留在一次性 demo。好的第 6 章项目应该可复现、可检查、可继续改进。
+这样项目就不会停留在一次性演示。好的第 6 章项目应该可复现、可检查、可继续改进。
 
 ## 按这个顺序学
 
@@ -91,7 +91,7 @@ sample_failure: which predictions still fail?
 debug_next: what would you change first, and why?
 ```
 
-如果不能展示失败，项目还只是 demo，不是学习作品。
+如果不能展示失败，项目还只是演示，不是学习作品。
 
 ## 通过标准
 

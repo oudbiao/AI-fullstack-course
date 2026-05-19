@@ -16,7 +16,7 @@ keywords: [inference server, batching, throughput, latency, queue, serving]
 
 > **モデルが本番環境で安定してリクエストをさばけるか。**
 
-プロジェクトが demo から production に進むとき、最初に本当に壁にぶつかりやすいのも、ここです。
+プロジェクトがデモから本番環境に進むとき、最初に本当に壁にぶつかりやすいのも、ここです。
 :::
 
 ## 学習目標
@@ -96,11 +96,11 @@ flowchart LR
 
 ## 二、まず最重要の2つの用語を分けよう
 
-### Latency
+### レイテンシ（Latency）
 
 1回のリクエストにどれくらい待つか。
 
-### Throughput
+### スループット（Throughput）
 
 単位時間あたりにどれくらいのリクエストを処理できるか。
 

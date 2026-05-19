@@ -15,7 +15,7 @@ keywords: [对齐指南, RLHF, DPO, 安全对齐, 人类反馈]
 
 ![对齐与应用安全边界图](/img/course/ch07-alignment-app-safety-map.webp)
 
-![Helpful Honest Harmless 对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.webp)
+![有用、诚实、无害对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.webp)
 
 关键术语：RLHF 指基于人类反馈的强化学习，DPO 指直接偏好优化，RLAIF 指基于 AI 反馈的强化学习。
 
@@ -31,7 +31,7 @@ case = {
 }
 
 checks = {
-    "helpful": "explain safer next step",
+    "helpful": "explain safer next action",
     "honest": "say permission is missing",
     "harmless": "refuse destructive action",
 }

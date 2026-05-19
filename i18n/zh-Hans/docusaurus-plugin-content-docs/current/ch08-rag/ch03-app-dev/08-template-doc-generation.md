@@ -368,7 +368,7 @@ print(render_markdown_handout(payload))
 
 ![模板字段校验渲染结果图](/img/course/ch08-template-payload-render-result-map.webp)
 
-这个检查很简单，但它体现了 demo 和工程管线的区别：每个渲染步骤都应该在缺少必填结构字段时尽早失败。
+这个检查很简单，但它体现了演示和工程管线的区别：每个渲染步骤都应该在缺少必填结构字段时尽早失败。
 
 ## 为什么这一层和 Prompt / 结构化输出强相关？
 

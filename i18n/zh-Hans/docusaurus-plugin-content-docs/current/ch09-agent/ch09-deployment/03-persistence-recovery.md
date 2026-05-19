@@ -366,7 +366,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 > **Agent 的持久化与恢复，不是简单把结果写盘，而是围绕 checkpoint、事件日志和幂等机制，让任务在失败后还能安全继续。**
 
 只要这条链路设计清楚，
-系统就从“偶尔能跑”的 demo，走向“失败后仍能继续”的生产系统。
+系统就从“偶尔能跑”的演示，走向“失败后仍能继续”的生产系统。
 
 ---
 

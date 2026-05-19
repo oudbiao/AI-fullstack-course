@@ -148,7 +148,7 @@ for item in result:
 {'claim': 'Users trust generated summaries more when each claim is tied to an explicit source.', 'source_id': 'd3', 'source_title': 'Citations increase user trust'}
 ```
 
-### この例が「project skeleton の dataclass」より価値があるのはなぜ？
+### この例が「プロジェクト骨組みの dataclass」より価値があるのはなぜ？
 
 それは、研究アシスタントで最も重要な製品特性がすでに表れているからです。
 
@@ -245,16 +245,16 @@ for case in eval_cases:
 
 ### ページを4カラムで見せる
 
-- Query
-- Retrieved sources
-- Structured summary
-- Citations
+- クエリ（Query）
+- 検索された情報源（Retrieved sources）
+- 構造化要約（Structured summary）
+- 引用（Citations）
 
 ### 5〜10個の固定評価問題を用意する
 
 こうすると、次の比較を安定して見せられます。
 
-- before / after
+- 前後比較（before / after）
 - 検索戦略の変更
 - 要約戦略の改善
 
@@ -370,7 +370,7 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+成果物：README、実行コマンド、trace スクリーンショット/ログ、次の一手
 ```
 
 ## まとめ

@@ -54,23 +54,23 @@ HuggingFace 更像一个围绕模型使用的完整生态：
 
 ## 先把生态的几个关键层分清
 
-### Tokenizers
+### 分词器（Tokenizers）
 
 负责把文本变成模型可吃的 token。
 
-### Models
+### 模型（Models）
 
 负责真正的前向计算。
 
-### Datasets
+### 数据集（Datasets）
 
 负责组织和处理训练 / 评估数据。
 
-### Pipelines
+### 流水线（Pipelines）
 
 负责把常见任务包装成一键调用接口。
 
-### Hub
+### 模型中心（Hub）
 
 负责：
 

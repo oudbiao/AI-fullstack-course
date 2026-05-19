@@ -20,17 +20,17 @@ keywords: [Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agen
 | 能力 | 你要实现什么 | 为什么重要 |
 |---|---|---|
 | 目标输入 | 接受 “prepare an AgentOps review plan” 这类用户目标 | Agent 面向目标行动，不只是回答一次问题 |
-| Planner | 根据当前状态决定下一步动作 | 规划是从目标走向工具调用的桥 |
-| Tool schema | 校验必填字段、类型和未知参数 | 糟糕 schema 会导致错误工具调用 |
+| 规划器（Planner） | 根据当前状态决定下一步动作 | 规划是从目标走向工具调用的桥 |
+| 工具 schema（Tool schema） | 校验必填字段、类型和未知参数 | 糟糕 schema 会导致错误工具调用 |
 | 权限门 | 没有批准时拦截模拟的 `publish_report` 动作 | 真实 Agent 不能静默执行高风险动作 |
 | Trace 日志 | 保存 `thought`、`action`、`arguments`、`observation`、`next_decision` | 排障需要过程证据 |
-| 评估 | 固定测试成功、审批拦截、无证据三类情况 | 只有一次成功 Demo 不够 |
+| 评估 | 固定测试成功、审批拦截、无证据三类情况 | 只有一次成功演示不够 |
 
 :::tip 学习节奏
 请按顺序完成：先看图，复制代码，运行，对比输出，检查 trace，再读解释。不要一开始就做多 Agent 框架。先把一个 Agent 做到可观察、可控制。
 :::
 
-## Step 0：写代码前先看懂 Agent 循环
+## 步骤 0：写代码前先看懂 Agent 循环
 
 ![Agent 行动闭环与 Trace 图](/img/course/ch09-agent-action-loop-trace-map.webp)
 
@@ -45,7 +45,7 @@ Agent 不是“加了工具的聊天机器人”。在这个工作坊里，Agent
 
 新人最重要的观念是：Agent 出错时，不要只看最终回答。先看 trace。trace 会告诉你问题来自规划、工具 schema、权限、观察结果处理，还是停止条件。
 
-## Step 1：创建一个小项目目录
+## 步骤 1：创建一个小项目目录
 
 打开终端运行：
 
@@ -57,7 +57,7 @@ touch agent_workshop.py
 
 你只需要 Python 3.10 或更新版本。第一个脚本不需要任何第三方包。
 
-## Step 2：复制完整离线 Agent 脚本
+## 步骤 2：复制完整离线 Agent 脚本
 
 ![Agent 工作坊工具 Schema 与权限门](/img/course/ch09-workshop-tool-schema-permission-map.webp)
 
@@ -401,7 +401,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## Step 3：运行并对比输出
+## 步骤 3：运行并对比输出
 
 运行：
 
@@ -433,7 +433,7 @@ passed: 3/3
 
 如果你的输出一致，说明你已经完成第 9 章最小闭环：Agent 接收目标、检索证据、生成计划、拦截不安全发布动作、写入 trace 日志，并用固定用例评估。
 
-## Step 4：检查 Trace 文件
+## 步骤 4：检查 Trace 文件
 
 ![Agent 工作坊 Trace JSONL 复盘图](/img/course/ch09-workshop-trace-jsonl-replay-map.webp)
 
@@ -473,7 +473,7 @@ head -n 1 logs/agent_traces.jsonl | python3 -m json.tool
 
 如果你修改了资料，`score` 和返回数据可能不同，但关键字段应该稳定：`run_id`、`step`、`thought`、`action`、`arguments`、`observation` 和 `next_decision`。
 
-## Step 5：像 Agent 流水线一样读代码
+## 步骤 5：像 Agent 流水线一样读代码
 
 按这个顺序读脚本：
 
@@ -485,11 +485,11 @@ head -n 1 logs/agent_traces.jsonl | python3 -m json.tool
 | `call_tool()` | 执行前先做 schema 和权限检查 | 副作用之前先做安全 |
 | `choose_next_step()` | search、plan、publish、finish 分支 | 这是一个极小 planner |
 | `run_agent()` | 状态、trace 行、停止行为 | Agent 循环在这里 |
-| `EVAL_CASES` | 固定任务的预期状态 | 评估把 Demo 变成可重复检查 |
+| `EVAL_CASES` | 固定任务的预期状态 | 评估把演示变成可重复检查 |
 
 这个脚本故意做成确定性流程。它暂时不追求“聪明”，而是训练控制骨架：以后换成更强模型或框架，也不应该丢掉这个骨架。
 
-## Step 6：理解权限分支
+## 步骤 6：理解权限分支
 
 ![工具安全权限、沙箱与审计图](/img/course/ch09-tool-safety-permission-sandbox-map.webp)
 
@@ -516,9 +516,9 @@ risky = run_agent(
 )
 ```
 
-再次运行脚本。高风险用例应该从 `blocked_by_approval` 变成 `completed`。这条规则很重要：不要为了让 Demo 通过而删除安全检查，而是在合适的地方加入明确批准。
+再次运行脚本。高风险用例应该从 `blocked_by_approval` 变成 `completed`。这条规则很重要：不要为了让演示通过而删除安全检查，而是在合适的地方加入明确批准。
 
-## Step 7：把评估当成计分卡读
+## 步骤 7：把评估当成计分卡读
 
 ![Agent 工作坊评估计分卡图](/img/course/ch09-workshop-evaluation-scorecard-map.webp)
 
@@ -532,19 +532,19 @@ risky = run_agent(
 
 以后你改进 Agent 时，请保留这些用例。新增用例，而不是替换旧用例。回归测试能防止 Agent 项目变成一次性表演。
 
-## Step 8：练习任务
+## 步骤 8：练习任务
 
 按顺序完成：
 
 | 难度 | 任务 | 通过标准 |
 |---|---|---|
-| Easy | 新增一条 MCP 相关课程资料 | 包含 `MCP` 的目标能检索到它并引用来源 |
-| Standard | 给 `run_agent()` 新增 `max_steps` 参数 | 循环 planner 会以 `stopped_max_steps` 停止 |
-| Standard | 在 `EVAL_CASES` 里加入 `validation_error` | 错误参数类型会在执行前被抓住 |
-| Challenge | 按 `run_id` 分文件保存 trace | 不用读完整日志也能复盘单次运行 |
-| Challenge | 用模型调用替换 `choose_next_step()` | 现有评估用例仍然通过 |
+| 入门 | 新增一条 MCP 相关课程资料 | 包含 `MCP` 的目标能检索到它并引用来源 |
+| 标准 | 给 `run_agent()` 新增 `max_steps` 参数 | 循环 planner 会以 `stopped_max_steps` 停止 |
+| 标准 | 在 `EVAL_CASES` 里加入 `validation_error` | 错误参数类型会在执行前被抓住 |
+| 挑战 | 按 `run_id` 分文件保存 trace | 不用读完整日志也能复盘单次运行 |
+| 挑战 | 用模型调用替换 `choose_next_step()` | 现有评估用例仍然通过 |
 
-## Step 9：可选 OpenAI Agents SDK 升级
+## 步骤 9：可选 OpenAI Agents SDK 升级
 
 ![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.webp)
 
@@ -624,5 +624,5 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+交付物：README、运行命令、trace 截图/日志、下一步
 ```

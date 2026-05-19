@@ -41,10 +41,10 @@ keywords: [multi-agent project, planner, retriever, writer, reviewer, workflow, 
 
 システム内部の役割：
 
-- Planner：タスクを分解する
-- Retriever：資料を探す
-- Writer：要約を書く
-- Reviewer：結果を確認する
+- プランナー（Planner）：タスクを分解する
+- 検索担当（Retriever）：資料を探す
+- 執筆担当（Writer）：要約を書く
+- レビュー担当（Reviewer）：結果を確認する
 
 このタスクが向いている理由は、自然に分担しやすく、しかも各役割の責任がはっきりしているからです。
 
@@ -74,7 +74,7 @@ print(knowledge_base)
 
 ## 4つの Agent を定義する
 
-### Planner
+### プランナー（Planner）
 
 ```python
 def planner_agent(user_query):
@@ -83,7 +83,7 @@ def planner_agent(user_query):
     return ["関連資料を検索する", "要約を作成する", "出力をレビューする"]
 ```
 
-### Retriever
+### 検索担当（Retriever）
 
 ```python
 def retriever_agent(task):
@@ -92,14 +92,14 @@ def retriever_agent(task):
     return "資料が見つかりませんでした"
 ```
 
-### Writer
+### 執筆担当（Writer）
 
 ```python
 def writer_agent(evidence):
     return f"要約：{evidence}"
 ```
 
-### Reviewer
+### レビュー担当（Reviewer）
 
 ```python
 def reviewer_agent(draft):

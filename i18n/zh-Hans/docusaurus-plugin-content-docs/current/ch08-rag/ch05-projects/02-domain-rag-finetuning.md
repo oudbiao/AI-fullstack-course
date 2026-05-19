@@ -335,7 +335,7 @@ for item in eval_data:
 证书如何获得 retrieval_hit= True answer_ok= True
 ```
 
-这已经比“只看看 Demo 像不像”前进很多了。
+这已经比“只看看演示像不像”前进很多了。
 
 ## 增加一个小型分层诊断练习
 
@@ -393,7 +393,7 @@ project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+交付物：README、运行命令、截图/日志、下一步
 ```
 
 ## 小结
@@ -419,7 +419,7 @@ deliverable: README, run command, screenshots/logs, next step
 | 失败样本 | 简单记录错误 | 区分检索失败、生成失败、引用失败、格式失败 |
 | README | 能说明怎么运行 | 有架构图、运行命令、示例输入输出、指标和下一步计划 |
 
-这张表的重点是让项目从“技术 Demo”升级成“可解释作品”。别人看你的项目时，不只看它有没有答对，还会看你是否知道系统为什么答对、为什么答错、怎么继续改。
+这张表的重点是让项目从“技术演示”升级成“可解释作品”。别人看你的项目时，不只看它有没有答对，还会看你是否知道系统为什么答对、为什么答错、怎么继续改。
 
 ## 一个推荐的项目目录结构
 

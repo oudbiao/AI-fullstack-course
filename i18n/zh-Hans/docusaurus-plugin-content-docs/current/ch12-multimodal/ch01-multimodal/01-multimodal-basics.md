@@ -72,7 +72,7 @@ keywords: [多模态, multimodal, 图文, 语音, 视频, 融合]
 
 所以 CLIP 对很多初学者最有吸引力的地方在于：
 
-> **它让“图文真的能互相理解”这件事，第一次显得不只是 Demo，而像一条稳定技术路线。**
+> **它让“图文真的能互相理解”这件事，第一次显得不只是演示，而像一条稳定技术路线。**
 
 ---
 
@@ -382,11 +382,23 @@ for text_name, text_vec in texts.items():
 不一定。
 如果额外模态质量差，反而可能引入噪声。
 
-### 只看酷炫 Demo，不看对齐问题
+### 只看酷炫演示，不看对齐问题
 
 多模态真正难的地方，往往就在对齐和融合。
 
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```
 
 ## 小结
 

@@ -373,7 +373,7 @@ agent 也可能：
 
 ## 工程上怎么让 ReAct 更稳？
 
-### 让 action schema 足够清楚
+### 让动作 schema 足够清楚
 
 工具描述越清楚，
 agent 越不容易乱调。

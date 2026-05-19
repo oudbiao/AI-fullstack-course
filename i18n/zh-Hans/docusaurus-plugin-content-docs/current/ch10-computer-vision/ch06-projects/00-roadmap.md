@@ -45,7 +45,7 @@ task: helmet detection
 presentable: True
 ```
 
-如果项目没有标注规则或失败案例，它仍然只是 Demo，不是作品集项目。
+如果项目没有标注规则或失败案例，它仍然只是演示，不是作品集项目。
 
 ## 按这个顺序学
 
@@ -73,3 +73,15 @@ presentable: True
 ## 通过标准
 
 如果你的视觉项目可复现，有清晰数据和标注规则，报告合适指标，并展示模型在哪里失败，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```

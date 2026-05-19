@@ -16,7 +16,7 @@ keywords: [inference server, batching, throughput, latency, queue, serving]
 
 > **模型能不能在线上稳定扛住请求。**
 
-这也是很多项目从 demo 走向生产时，第一次真正撞墙的地方。
+这也是很多项目从演示走向生产时，第一次真正撞墙的地方。
 :::
 
 ## 学习目标
@@ -92,11 +92,11 @@ flowchart LR
 
 ## 二、先分清两个最重要的词
 
-### Latency
+### 延迟（Latency）
 
 一次请求要等多久。
 
-### Throughput
+### 吞吐量（Throughput）
 
 单位时间能处理多少请求。
 

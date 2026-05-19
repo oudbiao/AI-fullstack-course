@@ -8,7 +8,7 @@ keywords: [logging, monitoring, tracing, metrics, observability, LLM ops]
 # 8.4.4 日志与监控
 
 :::tip 本节定位
-很多 LLM 应用本地 Demo 跑起来都不错，但一到线上就会暴露一个问题：
+很多 LLM 应用本地演示跑起来都不错，但一到线上就会暴露一个问题：
 
 > **出了问题，你根本不知道是哪里坏了。**
 

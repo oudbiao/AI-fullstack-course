@@ -34,10 +34,10 @@ keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 
 とても安定した最小ループには、普通は次の4つだけあれば十分です。
 
-- planner
-- coder
-- reviewer
-- tester
+- プランナー（planner）
+- 実装担当（coder）
+- レビュー担当（reviewer）
+- テスト担当（tester）
 
 この4種類の役割があれば、次の流れを十分に示せます。
 
@@ -231,10 +231,10 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 たとえば次のような流れです。
 
 - タスク目標
-- plan
-- patch
-- review issues
-- test report
+- 計画（plan）
+- パッチ（patch）
+- レビュー指摘（review issues）
+- テストレポート（test report）
 
 ### 1回の失敗からの巻き戻し
 
@@ -285,7 +285,7 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+成果物：README、実行コマンド、trace スクリーンショット/ログ、次の一手
 ```
 
 ## まとめ
@@ -315,4 +315,4 @@ deliverable: README, run command, trace screenshot/log, next step
 1. ワークフローに `ops_agent` を追加して、どの段階に接続すべきか考えてみましょう。
 2. 考えてみましょう：なぜマルチ Agent プロジェクトでは「統一されたアーティファクト形式」が「役割が会話できること」より大事なのか？
 3. reviewer が patch をよく差し戻す場合、どの層を優先して改善すべきでしょうか？
-4. このプロジェクトを demo ページにするなら、いちばん見せたい完全な trace はどれですか？
+4. このプロジェクトをデモページにするなら、いちばん見せたい完全な trace はどれですか？

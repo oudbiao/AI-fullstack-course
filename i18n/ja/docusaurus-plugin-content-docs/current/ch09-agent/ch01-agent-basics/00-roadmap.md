@@ -1,13 +1,13 @@
 ---
-title: "9.1.1 Agent 基礎ロードマップ：Goal、State、Action"
+title: "9.1.1 Agent 基礎ロードマップ：目標、状態、行動"
 sidebar_position: 0
 description: "Agent 基礎の短い実践ロードマップ：Agent、chatbot、workflow を区別し、最小の goal-state-action loop を作る。"
 keywords: [Agent guide, intelligent agent guide, Agent system architecture, tool calling, Agent loop]
 ---
 
-# 9.1.1 Agent 基礎ロードマップ：Goal、State、Action
+# 9.1.1 Agent 基礎ロードマップ：目標、状態、行動
 
-Agent はモデル名ではありません。Goal に向かって、model、tools、state、memory、feedback をまとめる system pattern です。
+Agent はモデル名ではありません。目標に向かって、モデル、ツール、状態、記憶、フィードバックをまとめるシステムパターンです。
 
 ## まず single-Agent loop を見る
 
@@ -45,7 +45,7 @@ steps: plan -> search_docs -> summarize
 done: True
 ```
 
-demo が goal、state、action、observation、stop condition を示せないなら、まず LLM app と呼び、Agent とは呼ばないほうが正確です。
+デモが目標、状態、行動、観察、停止条件を示せないなら、まず LLM アプリと呼び、Agent とは呼ばないほうが正確です。
 
 ## この順番で学ぶ
 
@@ -53,9 +53,9 @@ demo が goal、state、action、observation、stop condition を示せないな
 |---|---|---|
 | 1 | Agent とは何か | chatbot、workflow、RAG app、Agent を比較する |
 | 2 | 発展史 | なぜ LLM が Agent systems を再び注目させたか理解する |
-| 3 | 能力レベル | answer、retrieve、tool use、plan、memory、collaboration を同じ ladder に置く |
-| 4 | System architecture | goal、state、planner、tools、memory、observation、executor を描く |
-| 5 | RL から Agent への突破 | action、reward、feedback、planning をつなげる |
+| 3 | 能力レベル | 回答、検索、ツール利用、計画、記憶、協調を同じ段階表に置く |
+| 4 | システムアーキテクチャ | 目標、状態、プランナー、ツール、記憶、観察、実行器を描く |
+| 5 | RL から Agent への突破 | 行動、報酬、フィードバック、計画をつなげる |
 
 ## 残す証拠
 

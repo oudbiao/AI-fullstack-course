@@ -370,7 +370,7 @@ print(render_markdown_handout(payload))
 
 ![Template payload 検証後の描画結果図](/img/course/ch08-template-payload-render-result-map-ja.webp)
 
-この検証は小さいですが、demo と実装パイプラインの差を表します。描画処理は、必須の構造化項目が足りないときに早い段階で失敗するべきです。
+この検証は小さいですが、デモと実装パイプラインの差を表します。描画処理は、必須の構造化項目が足りないときに早い段階で失敗するべきです。
 
 ## なぜこの層は Prompt / 構造化出力と強く関係するのか？
 

@@ -21,7 +21,7 @@ keywords: [机器学习项目指南, 房价预测, 客户流失, 用户分群, K
 问题 -> 数据 -> baseline -> 指标 -> 改进 -> 失败样本 -> 报告
 ```
 
-不要一开始就冲复杂模型。没有 baseline、指标和失败分析的项目，只是一次 demo 运行。
+不要一开始就冲复杂模型。没有 baseline、指标和失败分析的项目，只是一次演示性运行。
 
 ## 保留一份实验记录
 
@@ -72,3 +72,15 @@ next_step: inspect failure cases before adding more models
 ## 通过标准
 
 能说清：我如何定义任务、用了什么 baseline、信任哪个指标、哪里变好了、模型在哪里失败、下一步做什么，就算通过。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```

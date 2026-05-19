@@ -86,11 +86,11 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 - 更快原型速度
 - 更稳的长期维护
 
-### 项目现在是 demo 还是长期系统？
+### 项目现在是演示还是长期系统？
 
 这个区别非常关键。
 
-- demo 更看重搭得快
+- 演示更看重搭得快
 - 长期系统更看重结构清晰和可维护
 
 ---
@@ -104,7 +104,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 ![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.webp)
 
 :::tip 读图提示
-选框架时先不要问“哪个最火”，而要问任务更像哪一类：复杂状态流、知识检索、角色协作、快速 Demo，还是长期可维护系统。图中的分叉就是选型依据。
+选框架时先不要问“哪个最火”，而要问任务更像哪一类：复杂状态流、知识检索、角色协作、快速演示，还是长期可维护系统。图中的分叉就是选型依据。
 :::
 
 ```python
@@ -239,9 +239,9 @@ crewai -> 6.4
 
 这几乎是最常见的误区。
 
-### 看 demo 最炫
+### 看演示最炫
 
-demo 好看，不代表适合长期系统。
+演示好看，不代表适合长期系统。
 
 ### 还没想清任务结构，就先选框架
 

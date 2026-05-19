@@ -1,13 +1,13 @@
 ---
-title: "7.7.1 Alignment ロードマップ：Helpful、Honest、Safe"
+title: "7.7.1 アライメントロードマップ：有用性、誠実性、安全性"
 sidebar_position: 0
 description: "LLM Alignment の短い実践ロードマップ：RLHF、DPO、行動境界、固定ケースによる安全評価を理解する。"
 keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 ---
 
-# 7.7.1 Alignment ロードマップ：Helpful、Honest、Safe
+# 7.7.1 アライメントロードマップ：有用性、誠実性、安全性
 
-事前学習は広い言語能力を与え、微調整はタスク行動に適応させます。Alignment は、人に対してモデルがどう振る舞うべきかを扱います：助けられるときは helpful、根拠がないときは honest、境界を越えるときは safe です。
+事前学習は広い言語能力を与え、微調整はタスク行動に適応させます。アライメントは、人に対してモデルがどう振る舞うべきかを扱います：助けられるときは有用に、根拠がないときは誠実に、境界を越えるときは安全に振る舞うことです。
 
 ## まず安全境界を見る
 
@@ -15,7 +15,7 @@ keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 
 ![アライメントとアプリケーションの安全境界図](/img/course/ch07-alignment-app-safety-map-ja.webp)
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-ja.webp)
+![有用性、誠実性、無害性のアライメント対立図](/img/course/ch07-alignment-hhh-tension-guardrail-map-ja.webp)
 
 重要語：RLHF は reinforcement learning from human feedback、DPO は direct preference optimization、RLAIF は reinforcement learning from AI feedback です。
 
@@ -31,7 +31,7 @@ case = {
 }
 
 checks = {
-    "helpful": "explain safer next step",
+    "helpful": "explain safer next action",
     "honest": "say permission is missing",
     "harmless": "refuse destructive action",
 }

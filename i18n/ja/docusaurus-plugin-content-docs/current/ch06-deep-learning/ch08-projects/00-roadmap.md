@@ -64,7 +64,7 @@ failure_cases: at least three wrong or weak examples
 next_step: one change justified by the failures
 ```
 
-これで project は一度きりの demo ではなくなります。よい第6章 project は、再現でき、点検でき、改善できます。
+これでプロジェクトは一度きりのデモではなくなります。よい第6章プロジェクトは、再現でき、点検でき、改善できます。
 
 ## この順番で学ぶ
 

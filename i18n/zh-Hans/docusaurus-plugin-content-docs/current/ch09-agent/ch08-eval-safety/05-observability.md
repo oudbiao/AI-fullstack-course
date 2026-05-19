@@ -52,14 +52,14 @@ flowchart TD
 
 ## 四类最重要的观测对象
 
-日志回答“发生了什么事件”，例如开始检索、调用工具、工具报错。指标回答“整体趋势怎样”，例如平均耗时、成功率、token 成本、工具失败率。Trace 回答“这次请求完整链路怎么走”，例如每一步输入、输出、状态变化。Replay 回答“能不能复现失败”，也就是保留足够上下文让你重新运行或人工分析。
+日志回答“发生了什么事件”，例如开始检索、调用工具、工具报错。指标回答“整体趋势怎样”，例如平均耗时、成功率、token 成本、工具失败率。追踪记录回答“这次请求完整链路怎么走”，例如每一步输入、输出、状态变化。回放回答“能不能复现失败”，也就是保留足够上下文让你重新运行或人工分析。
 
 | 类型 | 关注点 | 典型字段 |
 |---|---|---|
-| Logs | 单个事件 | timestamp、level、event、message |
-| Metrics | 聚合趋势 | success_rate、latency_ms、cost、tool_error_rate |
-| Trace | 请求链路 | request_id、step_id、node、input、output、status |
-| Replay | 复现失败 | 原始输入、检索结果、工具返回、模型参数、最终输出 |
+| 日志（Logs） | 单个事件 | timestamp、level、event、message |
+| 指标（Metrics） | 聚合趋势 | success_rate、latency_ms、cost、tool_error_rate |
+| 追踪记录（Trace） | 请求链路 | request_id、step_id、node、input、output、status |
+| 回放（Replay） | 复现失败 | 原始输入、检索结果、工具返回、模型参数、最终输出 |
 
 ## 一个最小 trace schema
 

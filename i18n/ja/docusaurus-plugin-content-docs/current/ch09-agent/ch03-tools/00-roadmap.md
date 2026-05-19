@@ -1,27 +1,27 @@
 ---
-title: "9.3.1 Tools ロードマップ：Schema、Permission、Observation"
+title: "9.3.1 ツールロードマップ：スキーマ、権限、観察"
 sidebar_position: 0
-description: "Agent tools の短い実践ロードマップ：schema を設計し、arguments を検証し、tool calls を routing し、observations を記録し、境界を守る。"
+description: "Agent ツールの短い実践ロードマップ：スキーマを設計し、引数を検証し、ツール呼び出しをルーティングし、観察を記録し、境界を守る。"
 keywords: [Tools overview, Function Calling, Tool Use, Code Agent, Agent tools]
 ---
 
-# 9.3.1 Tools ロードマップ：Schema、Permission、Observation
+# 9.3.1 ツールロードマップ：スキーマ、権限、観察
 
-Tools は Agent を言語から action に進めます。tools が多いほど強いわけではありません。曖昧な tools は誤呼び出し、不安全な行動、loop、cost leak を生みます。
+ツールは Agent を言語から行動へ進めます。ツールが多いほど強いわけではありません。曖昧なツールは誤呼び出し、不安全な行動、ループ、コスト漏れを生みます。
 
-## まず action boundary を見る
+## まず行動境界を見る
 
-![Agent tool action layer map](/img/course/ch09-tools-action-layer-map-ja.webp)
+![Agent ツール行動レイヤー図](/img/course/ch09-tools-action-layer-map-ja.webp)
 
 ![Agent tools 章の学習順序図](/img/course/ch09-tools-chapter-flow-ja.webp)
 
-![Agent controlled tool-calling closed loop diagram](/img/course/ch09-tool-control-loop-ja.webp)
+![Agent の制御付きツール呼び出し閉ループ図](/img/course/ch09-tool-control-loop-ja.webp)
 
-Tool calling は常に制御します：tool を選ぶ、arguments を検証する、permission を確認する、実行する、観察する、次の step を決める。
+ツール呼び出しは常に制御します：ツールを選ぶ、引数を検証する、権限を確認する、実行する、観察する、次のステップを決める。
 
-## Tool schema check を動かす
+## ツールスキーマチェックを動かす
 
-どの tool call も、実行前に schema を使います。
+どのツール呼び出しも、実行前にスキーマを使います。
 
 ```python
 tool_call = {
@@ -50,21 +50,21 @@ can_execute: True
 observation_needed: True
 ```
 
-tool 実行後、Agent は結果を observe して summarize しなければなりません。失敗した tool を成功したふりで進めないでください。
+ツール実行後、Agent は結果を観察して要約しなければなりません。失敗したツールを成功したふりで進めないでください。
 
 ## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| 1 | Function Calling | モデルの intent を structured action に変える |
-| 2 | Tool descriptions | 目的、入力、制約、例、失敗モードを書く |
-| 3 | Tool strategy | tool order、fallback、timeout、stop rule を選ぶ |
-| 4 | Tool safety | permission、sandbox、audit、human confirmation を追加する |
-| 5 | Multi-tool practice | 成功 call と失敗 call の trace を記録する |
+| 1 | Function Calling | モデルの意図を構造化された行動に変える |
+| 2 | ツール説明 | 目的、入力、制約、例、失敗モードを書く |
+| 3 | ツール戦略 | ツール順序、fallback、timeout、stop rule を選ぶ |
+| 4 | ツール安全 | 権限、sandbox、audit、human confirmation を追加する |
+| 5 | 複数ツール実践 | 成功呼び出しと失敗呼び出しの trace を記録する |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 tool_contract: name, description, input schema, output schema
@@ -76,6 +76,6 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 
 ## 合格ライン
 
-tool trace を読み、失敗が planning、parameterization、execution、observation、permission control のどこで起きたか判断できれば、この章は合格です。
+ツール trace を読み、失敗が計画、パラメータ化、実行、観察、権限制御のどこで起きたか判断できれば、この章は合格です。
 
-出口ミニプロジェクトは learning assistant です：3 tool schemas、5 test calls、1 failed-call record、printable trace を含めます。
+出口ミニプロジェクトは学習アシスタントです：3 つのツールスキーマ、5 つのテスト呼び出し、1 つの失敗呼び出し記録、出力可能な trace を含めます。

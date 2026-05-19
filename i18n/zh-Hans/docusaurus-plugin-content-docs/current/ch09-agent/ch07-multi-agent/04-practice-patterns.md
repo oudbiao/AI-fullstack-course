@@ -60,9 +60,9 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ### 典型分工
 
-- Planner：拆问题
-- Researcher：检索资料
-- Synthesizer：整合结果
+- 规划者（Planner）：拆问题
+- 研究者（Researcher）：检索资料
+- 整合者（Synthesizer）：整合结果
 
 ### 适合什么任务？
 
@@ -115,9 +115,9 @@ print(answer)
 
 分工通常是：
 
-- Writer：先写初稿
-- Reviewer：检查问题
-- Reviser：按意见修订
+- 撰写者（Writer）：先写初稿
+- 审核者（Reviewer）：检查问题
+- 修订者（Reviser）：按意见修订
 
 ### 为什么这个模式特别常见？
 
@@ -176,10 +176,10 @@ print(final)
 
 例如：
 
-- PM / Planner：定义需求
-- Coder：写实现
-- Reviewer：做代码检查
-- Tester：验证结果
+- 产品经理 / 规划者（PM / Planner）：定义需求
+- 开发者（Coder）：写实现
+- 审核者（Reviewer）：做代码检查
+- 测试者（Tester）：验证结果
 
 ### 为什么这个模式在 AI coding 场景里很常见？
 

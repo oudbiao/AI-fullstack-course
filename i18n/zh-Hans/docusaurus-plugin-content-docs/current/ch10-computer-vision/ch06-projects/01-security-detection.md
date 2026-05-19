@@ -8,7 +8,7 @@ keywords: [security detection, surveillance, alerting, tracking, false alarm, vi
 # 10.6.2 项目：智能安防系统
 
 :::tip 本节定位
-安防项目很容易做成“检测到人就画框”的 demo。
+安防项目很容易做成“检测到人就画框”的演示。
 但真正能交付的安防系统，关注的通常不是框本身，而是：
 
 - 告警准不准
@@ -59,7 +59,7 @@ keywords: [security detection, surveillance, alerting, tracking, false alarm, vi
 5. 评估告警质量
 6. 展示成功与失败案例
 
-如果只做前两步，那更像模型 demo；
+如果只做前两步，那更像模型演示；
 做到后面几步，才更像一个系统项目。
 
 ### 一张更像真实系统的告警闭环图
@@ -283,7 +283,7 @@ print(alert_fatigue(alerts_per_hour))
 4. 一条连续视频片段中的告警轨迹
 5. 误报 / 漏报 / 重复报警分析
 
-这样它就不再像“检测 demo”，而更像完整安防系统。
+这样它就不再像“检测演示”，而更像完整安防系统。
 
 ### 第一次做这类项目时，最稳的默认顺序
 
@@ -316,7 +316,7 @@ print(alert_fatigue(alerts_per_hour))
 3. 误报和漏报主要来自哪里
 4. 你的系统边界是什么
 
-这会让项目更像真实业务系统，而不是一个视觉 demo。
+这会让项目更像真实业务系统，而不是一个视觉演示。
 
 ---
 
@@ -329,6 +329,18 @@ print(alert_fatigue(alerts_per_hour))
 ### 只展示成功视频
 
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
 
 ## 小结
 

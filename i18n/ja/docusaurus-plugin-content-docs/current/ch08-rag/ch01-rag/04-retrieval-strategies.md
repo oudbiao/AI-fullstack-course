@@ -250,19 +250,19 @@ Query Rewrite は検索の前に行い、ユーザーの質問を探しやすく
 
 ## 六、ほかにはどんな検索強化戦略があるのか？
 
-### Multi-query
+### マルチクエリ（Multi-query）
 
 1 つの質問を複数の言い換えに変えて、それぞれ検索し、結果をまとめます。
 
-### Metadata filter
+### メタデータフィルター（Metadata filter）
 
 まず業務条件で範囲を絞ってから、意味検索を行います。
 
-### Parent-child retrieval
+### 親子チャンク検索（Parent-child retrieval）
 
 まず小さな chunk を検索し、そのあとでより大きなまとまりや元の段落に戻ります。
 
-### Self-query retrieval
+### 自己クエリ検索（Self-query retrieval）
 
 モデル自身に、必要なフィルター条件や検索フィールドを判断させます。
 

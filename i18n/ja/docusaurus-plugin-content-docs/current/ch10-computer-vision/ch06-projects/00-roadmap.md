@@ -45,7 +45,7 @@ task: helmet detection
 presentable: True
 ```
 
-annotation rule や failure case がない project は、まだ demo であり portfolio project ではありません。
+アノテーションルールや失敗ケースがないプロジェクトは、まだデモであり作品集プロジェクトではありません。
 
 ## この順番で学ぶ
 
@@ -73,3 +73,15 @@ project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeli
 ## 合格ライン
 
 vision project が再現可能で、明確な data and annotation rules、適切な metrics、model failure の例を持っていれば、この章は合格です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```

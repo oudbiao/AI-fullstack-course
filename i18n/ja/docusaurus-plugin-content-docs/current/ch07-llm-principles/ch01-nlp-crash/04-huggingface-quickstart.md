@@ -155,7 +155,7 @@ torch.Size([2, 6, 768])
 
 | 名前 | どう考えるか |
 |---|---|
-| `pipeline` | tokenizer + model の高レベル demo wrapper |
+| `pipeline` | tokenizer + model の高レベルなデモ用ラッパー |
 | `AutoTokenizer` | model repo に合う tokenizer class を読み込む |
 | `AutoModel` | task head なしの base model を読み込む |
 | `AutoModelForSequenceClassification` | base model + classification head |
@@ -191,7 +191,7 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 2. `hidden_size=64` に変える。どの output shape が変わるか。
 3. 3 つ目の文を追加し、batch 次元が `2` から `3` になることを確認する。
 4. 実験 2 で `AutoModel` を `AutoModelForSequenceClassification` に替える。どの新しい field が出るか。
-5. `pipeline()` が demo に便利でも、batch shape のデバッグに不十分な理由を説明する。
+5. `pipeline()` がデモに便利でも、バッチ形状のデバッグに不十分な理由を説明する。
 
 ## まとめ
 

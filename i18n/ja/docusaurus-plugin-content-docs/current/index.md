@@ -33,4 +33,4 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 ## 1つのルール
 
-短く読み、動かし、証拠を残す。各 stage の終わりには、他の人が確認できるものを残します。README command、保存した output、metric table、trace、failure note、小さな demo などです。
+短く読み、動かし、証拠を残す。各ステージの終わりには、他の人が確認できるものを残します。README コマンド、保存した出力、指標表、trace、失敗メモ、小さなデモなどです。

@@ -31,14 +31,14 @@ keywords: [LLM API, Responses API, Token 预算, JSON 校验, 结构化输出, A
 |---|---|---|
 | API | Application Programming Interface，软件调用另一个服务的标准接口 | 程序把请求发给模型服务，并接收响应 |
 | SDK | Software Development Kit，把 API 调用封装成更好用的代码库 | 可选真实 API 示例会使用官方 Python SDK |
-| Endpoint | 接收请求的 URL 路径 | 现代 OpenAI 文本 API 端点是 `/v1/responses` |
-| Payload | 发送给 API 的 JSON 请求体 | 包含模型名、指令、输入、输出设置和约束 |
+| 端点（Endpoint） | 接收请求的 URL 路径 | 现代 OpenAI 文本 API 端点是 `/v1/responses` |
+| 载荷（Payload） | 发送给 API 的 JSON 请求体 | 包含模型名、指令、输入、输出设置和约束 |
 | Token 预算 | 上下文窗口里可用的空间 | 系统规则、历史消息、用户输入、检索材料和输出空间都会竞争它 |
 | JSON | 程序容易解析的结构化数据格式 | 我们要求模型返回时间线对象，而不是自由段落 |
-| Schema | JSON 应该长什么样的约定 | 告诉程序哪些字段必须存在、字段类型是什么 |
-| Validation | 程序对输出做校验 | 捕捉缺字段、类型错误和无效 JSON |
-| Retry | 在可控失败后重试 | 有价值的重试会修复原因，例如加强 Schema 约束 |
-| Latency | 请求耗时 | 上下文越长、输出越长，通常延迟越高 |
+| 结构约束 | JSON 应该长什么样的约定 | 告诉程序哪些字段必须存在、字段类型是什么 |
+| 校验 | 程序对输出做校验 | 捕捉缺字段、类型错误和无效 JSON |
+| 重试（Retry） | 在可控失败后重试 | 有价值的重试会修复原因，例如加强 schema 约束 |
+| 延迟（Latency） | 请求耗时 | 上下文越长、输出越长，通常延迟越高 |
 
 ## 先跑离线工作台
 
@@ -175,7 +175,7 @@ first era: {'period': '1936-1950', ...}
 
 ## 如何读输出
 
-把终端输出当成工程 trace 来读，而不是 demo 文本。
+把终端输出当成工程 trace 来读，而不是演示文本。
 
 | 行 | 它证明什么 | 如果不对先看哪里 |
 |---|---|---|
@@ -190,9 +190,9 @@ first era: {'period': '1936-1950', ...}
 
 ## 这段代码真正想说明什么
 
-### 请求不只是 Prompt
+### 请求不只是提示词（Prompt）
 
-Payload 里包含 `model`、`instructions`、`input`、`text.format`、`max_output_tokens` 和 `temperature`。很多新人只会改 Prompt 文本，但真实 LLM 工程还会控制输出长度、格式、随机性和校验方式。
+载荷（Payload）里包含 `model`、`instructions`、`input`、`text.format`、`max_output_tokens` 和 `temperature`。很多新人只会改提示词文本，但真实 LLM 工程还会控制输出长度、格式、随机性和校验方式。
 
 ### Token 预算是产品约束
 

@@ -50,7 +50,7 @@ assets: title, cover_prompt, video_script, review_checklist
 
 ![最小内容包状态验收运行结果图](/img/course/ch12-package-state-readiness-result-map.webp)
 
-如果缺少这个状态结构，项目就容易像 demo，而不是产品。
+如果缺少这个状态结构，项目就容易像演示，而不是产品。
 
 ## 先从工作坊开始
 
@@ -69,3 +69,15 @@ assets: title, cover_prompt, video_script, review_checklist
 ## 通过标准
 
 项目能接收 brief，生成结构化创意内容包，保存版本，执行审核，并导出别人可以检查的 Markdown 或 JSON，就算通过本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```

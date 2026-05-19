@@ -80,7 +80,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 状態、記憶、コンテキスト
 
-### State：今のタスクがどこまで進んだか
+### 状態（State）：今のタスクがどこまで進んだか
 
 状態には通常、次のような情報を記録します。
 
@@ -92,7 +92,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 これは「長期記憶」とは別物です。  
 どちらかというと、今のタスクの作業スペースのようなものです。
 
-### Memory：回をまたいで何を保持するか
+### 記憶（Memory）：回をまたいで何を保持するか
 
 記憶は、より次のような内容に関係します。
 
@@ -372,9 +372,9 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 これはたいてい、デバッグ難易度を一気に上げてしまいます。
 
-### State と Memory を同じものとして扱う
+### 状態と記憶を同じものとして扱う
 
-State は今のタスク寄り、Memory はタスクをまたいだ蓄積寄りです。
+状態は今のタスク寄り、記憶はタスクをまたいだ蓄積寄りです。
 
 ### ログと再現機構がない
 

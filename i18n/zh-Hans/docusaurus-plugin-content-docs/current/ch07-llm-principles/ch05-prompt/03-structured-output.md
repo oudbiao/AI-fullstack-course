@@ -97,10 +97,10 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 | 术语 | 直白解释 | 实际作用 |
 |---|---|---|
 | JSON | 由对象、数组、字符串、数字、布尔值和 null 组成的轻量数据格式 | 让模型输出能被程序用 `json.loads()` 解析 |
-| Schema | 输出应有的形状，包括字段名、字段类型、可选值和必填字段 | 它是 Prompt 和下游程序之间的契约 |
-| Field | 一个有名字的数据项，例如 `intent` 或 `confidence` | 字段名稳定，后端代码才能不用猜就读取结果 |
-| Validation | 程序检查输出是否可解析、字段是否完整、类型是否正确 | 在坏输出破坏后续流程前拦住它 |
-| Enum | 固定可选值集合，例如 `refund_policy / certificate / other` | 防止模型发明很多相似但不一致的标签 |
+| 结构约束 | 输出应有的形状，包括字段名、字段类型、可选值和必填字段 | 它是 Prompt 和下游程序之间的契约 |
+| 字段（Field） | 一个有名字的数据项，例如 `intent` 或 `confidence` | 字段名稳定，后端代码才能不用猜就读取结果 |
+| 校验 | 程序检查输出是否可解析、字段是否完整、类型是否正确 | 在坏输出破坏后续流程前拦住它 |
+| 枚举（Enum） | 固定可选值集合，例如 `refund_policy / certificate / other` | 防止模型发明很多相似但不一致的标签 |
 
 ---
 
@@ -351,12 +351,12 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 粗略地说：
 
 - **结构化输出**：更广泛，重点是“结果格式稳定”
-- **Function Calling**：更进一步，重点是“输出的是工具调用意图”
+- **函数调用（Function Calling）**：更进一步，重点是“输出的是工具调用意图”
 
 例如：
 
 - 结构化输出：输出分类结果 JSON
-- Function Calling：输出 `{name, arguments}` 去调工具
+- 函数调用（Function Calling）：输出 `{name, arguments}` 去调工具
 
 所以可以理解成：
 
@@ -408,7 +408,7 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 
 ### 不做解析与校验
 
-很多 demo 看起来能跑，但一接程序就崩，问题通常出在这里。
+很多演示看起来能跑，但一接程序就崩，问题通常出在这里。
 
 ### 输出结构和业务流程脱节
 

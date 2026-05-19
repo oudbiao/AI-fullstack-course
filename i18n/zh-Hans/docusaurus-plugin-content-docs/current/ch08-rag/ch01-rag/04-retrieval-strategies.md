@@ -250,19 +250,19 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 
 ## 六、还有哪些常见检索增强策略？
 
-### Multi-query
+### 多查询检索（Multi-query）
 
 把一个问题改写成多个等价问法，再分别检索，合并结果。
 
-### Metadata filter
+### 元数据过滤（Metadata filter）
 
 先按业务条件缩小范围，再做语义检索。
 
-### Parent-child retrieval
+### 父子块检索（Parent-child retrieval）
 
 先检索小 chunk，再回到更大块或原文段落。
 
-### Self-query retrieval
+### 自查询检索（Self-query retrieval）
 
 让模型自动判断需要哪些过滤条件和检索字段。
 

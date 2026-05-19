@@ -36,13 +36,13 @@ keywords: [对齐安全, HHH, 拒答边界, 评测, 护栏]
 
 | 术语 | 通俗解释 | 为什么重要 |
 |---|---|---|
-| HHH | Helpful、Honest、Harmless | 记住对齐的三个目标 |
+| HHH | 有用、诚实、无害（Helpful、Honest、Harmless） | 记住对齐的三个目标 |
 | 拒答边界 | 安全帮助和危险帮助之间的界线 | 防止模型太宽松或太保守 |
 | 过度拒绝 | 本来安全的问题也拒绝 | 让模型看起来安全，但不好用 |
 | 安全样例 | 专门用来测试风险行为的问题 | 让评测保持一致 |
 | 失败记录 | 记录哪里错了、为什么错了 | 把错误变成下一步修复方向 |
 
-![Helpful Honest Harmless 对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.webp)
+![有用、诚实、无害对齐张力图](/img/course/ch07-alignment-hhh-tension-guardrail-map.webp)
 
 ## 跑一个完全离线的评测循环
 

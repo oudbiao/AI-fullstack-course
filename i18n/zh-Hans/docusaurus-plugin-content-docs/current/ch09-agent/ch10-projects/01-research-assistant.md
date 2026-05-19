@@ -243,16 +243,16 @@ for case in eval_cases:
 
 ### 页面上分四栏展示
 
-- Query
-- Retrieved sources
-- Structured summary
-- Citations
+- 查询（Query）
+- 检索来源（Retrieved sources）
+- 结构化总结（Structured summary）
+- 引用（Citations）
 
 ### 准备 5~10 个固定评估问题
 
 这样你可以稳定展示：
 
-- before / after
+- 前后对比（before / after）
 - 检索策略变更
 - 总结策略改进
 
@@ -364,7 +364,7 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
 ## 小结

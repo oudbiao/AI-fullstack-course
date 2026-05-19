@@ -79,7 +79,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 状态、记忆和上下文
 
-### State：当前任务进行到哪
+### 状态（State）：当前任务进行到哪
 
 状态通常记录：
 
@@ -91,7 +91,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 这和“长期记忆”不是一回事。
 它更像当前任务的工作区。
 
-### Memory：跨回合保留什么
+### 记忆（Memory）：跨回合保留什么
 
 记忆更偏向：
 

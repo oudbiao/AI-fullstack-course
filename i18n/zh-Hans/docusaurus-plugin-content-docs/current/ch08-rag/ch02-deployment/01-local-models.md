@@ -297,9 +297,9 @@ print(suggest_runtime(constraints))
 
 ## 五、一个最小本地推理流程示意
 
-### 为什么先用 mock runtime？
+### 为什么先用模拟运行时？
 
-这里我们先不用真实大模型，而是写一个 mock runtime，目的是把“加载 -> 推理 -> 返回”的运行逻辑看清楚。
+这里我们先不用真实大模型，而是写一个模拟运行时（mock runtime），目的是把“加载 -> 推理 -> 返回”的运行逻辑看清楚。
 
 ```python
 class LocalModelRuntime:

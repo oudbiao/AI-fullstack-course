@@ -1,27 +1,27 @@
 ---
-title: "9.10.1 プロジェクトロードマップ：Traceable Agent を作る"
+title: "9.10.1 プロジェクトロードマップ：追跡可能な Agent を作る"
 sidebar_position: 0
-description: "第 9 章 projects の短い実践ロードマップ：goals、plans、tools、memory、traces、safety、evaluation、deployment evidence を持つ Agent portfolio project を作る。"
-keywords: [Agent Project Guide, research assistant, data analysis Agent, multi-Agent project, Agent portfolio]
+description: "第 9 章プロジェクトの短い実践ロードマップ：目標、計画、ツール、メモリ、trace、安全、評価、デプロイ証拠を備えた Agent ポートフォリオを作る。"
+keywords: [Agent プロジェクトガイド, リサーチアシスタント, データ分析 Agent, Multi-Agent プロジェクト, Agent ポートフォリオ]
 ---
 
-# 9.10.1 プロジェクトロードマップ：Traceable Agent を作る
+# 9.10.1 プロジェクトロードマップ：追跡可能な Agent を作る
 
-Agent project portfolio は、1 つの final model answer ではなく、traceable execution loop を見せるべきです。
+Agent のポートフォリオでは、最終回答だけでなく、追跡可能な実行ループを見せるべきです。
 
-## まず project loop を見る
+## まずプロジェクトの流れを見る
 
-![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-ja.webp)
+![Agent 総合プロジェクトロードマップ](/img/course/ch09-projects-route-map-ja.webp)
 
-![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-ja.webp)
+![Agent プロジェクト学習順序図](/img/course/ch09-project-learning-order-map-ja.webp)
 
-![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-ja.webp)
+![Agent プロジェクト提出ループ図](/img/course/ch09-project-delivery-loop-ja.webp)
 
-loop は、goal、plan、tool call、observation、state update、failure handling、stop decision、final output、evaluation です。
+このループは、目標、計画、ツール呼び出し、観察、状態更新、失敗処理、停止判断、最終出力、評価で構成されます。
 
-## Agent evidence check を動かす
+## Agent の証拠チェックを動かす
 
-portfolio-ready と呼ぶ前に、このチェックを使います。
+ポートフォリオに載せられる状態と呼ぶ前に、このチェックを使います。
 
 ```python
 project = {
@@ -51,45 +51,45 @@ portfolio_ready: True
 evidence: goal, trace, tools, failure, eval
 ```
 
-ここが `False` なら、Agent roles を増やす前に evidence を改善します。
+ここが `False` なら、Agent の役割を増やす前に証拠を改善します。
 
 ## この順番で学ぶ
 
 | 手順 | プロジェクト | 本当に鍛える力 |
 |---|---|---|
-| 1 | Research assistant | retrieval、citation、summarization、trustworthy output |
-| 2 | Data analysis Agent | Python tool calls、table analysis、charts、interpretation |
-| 3 | Multi-Agent development team | role division、handoff、review loop、merge ownership |
-| 4 | Hands-on workshop | 最小 traceable single-Agent baseline |
+| 1 | リサーチアシスタント | 検索、引用、要約、信頼できる出力 |
+| 2 | データ分析 Agent | Python ツール呼び出し、表分析、チャート、解釈 |
+| 3 | Multi-Agent 開発チーム | 役割分担、handoff、レビューループ、merge 所有権 |
+| 4 | ハンズオンワークショップ | 最小の追跡可能な単一 Agent baseline |
 
-project を広げる前に、[9.10.5 実践：Traceable Single-Agent Assistant を作る](./04-stage-hands-on-workshop.md) を実行します。
+プロジェクトを広げる前に、[9.10.5 実践：追跡可能な単一 Agent アシスタントを作る](./04-stage-hands-on-workshop.md) を実行します。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+成果物：README、実行コマンド、trace スクリーンショット/ログ、次の一手
 ```
 
 ## プロジェクト成果物基準
 
 | 成果物 | 最低要件 | 強いポートフォリオ版 |
 |---|---|---|
-| README | goal、run command、dependencies、examples | architecture、trade-offs、cost、safety、retrospective を追加 |
-| Architecture | model、tools、memory、state、evaluation、safety | deployment boundary と human handoff を追加 |
-| Tool list | callable tools、input/output schema、failures | permission rules と sandbox notes を追加 |
-| Execution trace | plan、action、observation、replan、stop | replayable JSONL logs を追加 |
-| Failure case | 1 件以上の real failure | 3 件の cause、fix、regression check を追加 |
-| Evaluation set | fixed tasks と pass/fail rules | baseline、metrics、comparison experiments を追加 |
-| Deployment note | local run 方法 | API entry、environment variables、monitoring、rollback を追加 |
+| README | 目標、実行コマンド、依存関係、例 | アーキテクチャ、トレードオフ、コスト、安全性、ふりかえりを追加 |
+| アーキテクチャ | モデル、ツール、記憶、状態、評価、安全性 | 配置境界と人への引き継ぎを追加 |
+| ツール一覧 | 呼び出せるツール、input/output schema、失敗 | 権限ルールと sandbox メモを追加 |
+| 実行追跡 | 計画、行動、観察、再計画、停止 | 再生可能な JSONL ログを追加 |
+| 失敗ケース | 1 件以上の実際の失敗 | 3 件の原因、修正、回帰チェックを追加 |
+| 評価セット | 固定タスクと pass/fail rules | baseline、metrics、comparison experiments を追加 |
+| デプロイメモ | ローカル実行方法 | API entry、environment variables、monitoring、rollback を追加 |
 
 ## 合格ライン
 
 別の開発者が Agent run を replay し、各 tool call と observation を inspect し、なぜ stop したか理解し、少なくとも 1 件の failure analysis を見られれば、この章は合格です。
 
-basic version は single-Agent project で十分です。memory、MCP、multi-Agent collaboration、deployment は、trace と evaluation loop が固まってから追加します。
+基本版は単一 Agent プロジェクトで十分です。memory、MCP、Multi-Agent 協調、デプロイは、trace と評価ループが固まってから追加します。

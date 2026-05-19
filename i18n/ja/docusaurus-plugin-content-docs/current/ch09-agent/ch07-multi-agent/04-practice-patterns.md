@@ -62,9 +62,9 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ### 典型的な分担
 
-- Planner：問題を分解する
-- Researcher：資料を調べる
-- Synthesizer：結果を統合する
+- プランナー（Planner）：問題を分解する
+- 調査担当（Researcher）：資料を調べる
+- 統合担当（Synthesizer）：結果を統合する
 
 ### どんなタスクに向いているか？
 
@@ -117,9 +117,9 @@ print(answer)
 
 分担は通常、次のようになります。
 
-- Writer：まず下書きを書く
-- Reviewer：問題点を確認する
-- Reviser：指摘に従って修正する
+- 執筆担当（Writer）：まず下書きを書く
+- レビュー担当（Reviewer）：問題点を確認する
+- 修正担当（Reviser）：指摘に従って修正する
 
 ### なぜこのパターンは特によく使われるのか？
 
@@ -178,10 +178,10 @@ print(final)
 
 たとえば、次のような役割です。
 
-- PM / Planner：要件を定義する
-- Coder：実装を書く
-- Reviewer：コードをチェックする
-- Tester：結果を検証する
+- PM / プランナー（PM / Planner）：要件を定義する
+- 実装担当（Coder）：実装を書く
+- レビュー担当（Reviewer）：コードをチェックする
+- テスト担当（Tester）：結果を検証する
 
 ### なぜ AI coding の場面でよく使われるのか？
 

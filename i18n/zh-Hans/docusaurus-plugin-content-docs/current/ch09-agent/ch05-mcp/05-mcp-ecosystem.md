@@ -11,7 +11,7 @@ keywords: [MCP ecosystem, connectors, tooling ecosystem, protocol adoption, prac
 学到这里，MCP 已经不该只是一个“协议名词”了。
 这一节我们要看的是更大的问题：
 
-> **当 MCP 不只是一个 demo，而变成很多工具和很多客户端共同遵循的方式时，会形成怎样的生态？**
+> **当 MCP 不只是一个演示，而变成很多工具和很多客户端共同遵循的方式时，会形成怎样的生态？**
 
 这是 MCP 真正有意思的地方。
 :::

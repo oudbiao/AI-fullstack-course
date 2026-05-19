@@ -62,7 +62,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 ## 先把几个最重要的概念分清
 
-### Document
+### 文档（Document）
 
 最原始的知识单元。
 例如：
@@ -71,20 +71,20 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 - 一份 PDF
 - 一段网页内容
 
-### Node
+### 节点（Node）
 
 Document 被切分后的更小单位。
 在很多知识系统里，真正拿去做检索的往往不是整篇文档，而是更细粒度的 node。
 
-### Index
+### 索引（Index）
 
 把这些 node 组织成可查询结构的方式。
 
-### Retriever
+### 检索器（Retriever）
 
 负责根据用户查询，把相关 node 找回来。
 
-### Query Engine
+### 查询引擎（Query Engine）
 
 把“查询 -> 检索 -> 组织结果”整成更完整的一层。
 

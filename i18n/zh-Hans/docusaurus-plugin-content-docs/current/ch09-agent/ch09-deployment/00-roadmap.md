@@ -71,4 +71,4 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 
 ## 通过标准
 
-如果一个本地 Agent Demo 能变成小服务，包含 API 入口、状态持久化、trace 日志、错误响应、成本记录和部署说明，就通过了本章。
+如果一个本地 Agent 演示能变成小服务，包含 API 入口、状态持久化、trace 日志、错误响应、成本记录和部署说明，就通过了本章。

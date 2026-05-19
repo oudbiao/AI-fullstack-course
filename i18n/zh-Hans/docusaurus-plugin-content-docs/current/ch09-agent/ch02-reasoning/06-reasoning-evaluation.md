@@ -388,7 +388,7 @@ eval_action: compare against expected result and revise the plan
 > **推理系统要同时评估最终答案、过程质量、工具使用和成本效率，然后根据具体短板做针对性优化。**
 
 当你真正按这条闭环做迭代时，
-Agent 系统才会从“偶尔能跑”的 demo，走向“能解释、能改进、能上线”的系统。
+Agent 系统才会从“偶尔能跑”的演示，走向“能解释、能改进、能上线”的系统。
 
 ---
 

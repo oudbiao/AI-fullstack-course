@@ -34,10 +34,10 @@ keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 
 一个很稳的最小闭环通常只需要：
 
-- planner
-- coder
-- reviewer
-- tester
+- 规划者（planner）
+- 开发者（coder）
+- 审核者（reviewer）
+- 测试者（tester）
 
 这四类角色已经足够展示：
 
@@ -231,10 +231,10 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 例如：
 
 - 任务目标
-- plan
-- patch
-- review issues
-- test report
+- 计划（plan）
+- 补丁（patch）
+- 审核问题（review issues）
+- 测试报告（test report）
 
 ### 一次失败回退
 
@@ -283,7 +283,7 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
 ## 小结
@@ -313,4 +313,4 @@ deliverable: README, run command, trace screenshot/log, next step
 1. 给工作流加一个 `ops_agent`，思考它应该接在哪一步。
 2. 想一想：为什么多 Agent 项目里“统一工件格式”比“角色会聊天”更重要？
 3. 如果 reviewer 经常打回 patch，应该优先优化哪一层？
-4. 如果把这个项目做成 demo 页面，你最想展示哪一条完整 trace？
+4. 如果把这个项目做成演示页面，你最想展示哪一条完整 trace？

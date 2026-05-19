@@ -74,4 +74,4 @@ eval_action: compare multi-agent result against single-agent baseline
 
 ## 通过标准
 
-如果一个 2 到 3 个 Agent 的 Demo 有可追踪输入、输出、交接、最终负责人，并能说明为什么它优于单 Agent，就通过了本章。
+如果一个 2 到 3 个 Agent 的演示有可追踪输入、输出、交接、最终负责人，并能说明为什么它优于单 Agent，就通过了本章。

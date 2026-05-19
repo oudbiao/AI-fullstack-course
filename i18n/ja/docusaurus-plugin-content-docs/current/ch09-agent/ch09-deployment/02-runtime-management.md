@@ -10,7 +10,7 @@ keywords: [runtime management, concurrency, timeout, retry, circuit breaker, met
 ![Agent ランタイム管理の保護図](/img/course/ch09-runtime-management-protection-map-ja.webp)
 
 :::tip この節の位置づけ
-ローカルの demo は、「1回動けば成功」と考えてよいことが多いです。  
+ローカルのデモは、「1回動けば成功」と考えてよいことが多いです。
 でも、本番システムの要求はまったく違います。
 
 - ピーク時でも動く

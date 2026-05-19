@@ -13,7 +13,7 @@ keywords: [dialog system, multi-turn, conversation state, memory, turn managemen
 - 维护一个 `history`
 - 把历史一起塞给模型
 
-这能做出最基础 demo，但离一个真正可用的对话系统还有很远。
+这能做出最基础的演示，但离一个真正可用的对话系统还有很远。
 
 这一节的重点，就是把“多轮对话”这件事拆清楚。
 :::
@@ -346,7 +346,7 @@ print(session)
 | history | 之前说过的话 |
 | topic | 现在主要在聊什么 |
 | slot | 当前任务还缺哪些关键信息 |
-| tool state | 工具是否已经调用、结果是否已拿到 |
+| 工具状态（tool state） | 工具是否已经调用、结果是否已拿到 |
 
 这个表非常适合初学者，因为它能把“多轮对话的复杂性”拆成几个清楚的箱子。
 
@@ -354,11 +354,11 @@ print(session)
 
 ## 对话系统常见的几类状态
 
-### topic state
+### 主题状态（topic state）
 
 当前到底在聊什么。
 
-### slot state
+### 槽位状态（slot state）
 
 哪些关键信息已经知道，哪些还缺。
 
@@ -367,7 +367,7 @@ print(session)
 - 城市已知 / 未知
 - 日期已知 / 未知
 
-### tool state
+### 工具状态（tool state）
 
 哪些工具已经调过，哪些结果已经拿到。
 

@@ -65,11 +65,11 @@ keywords: [OpenAI Agents SDK, agent runtime, tools, runner, sdk, agent abstracti
 
 ## 几个最关键的抽象对象
 
-### Agent
+### 智能体（Agent）
 
 一个带着目标和工具集合的智能体单元。
 
-### Tool
+### 工具（Tool）
 
 Agent 可以调用的外部能力，例如：
 
@@ -77,7 +77,7 @@ Agent 可以调用的外部能力，例如：
 - 计算
 - 文件访问
 
-### Runner / Runtime
+### 运行器 / 运行时（Runner / Runtime）
 
 这个特别重要。
 它通常负责：

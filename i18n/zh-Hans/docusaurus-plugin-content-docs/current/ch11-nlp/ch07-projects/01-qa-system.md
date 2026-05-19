@@ -21,7 +21,7 @@ keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project
 - 检索
 - 拒答策略
 
-但要让它像“项目”，而不只是“能回答几句”的 demo，关键在于：
+但要让它像“项目”，而不只是“能回答几句”的演示，关键在于：
 
 > **知识边界、检索质量、拒答机制和评估方式都要讲清楚。**
 :::
@@ -89,7 +89,7 @@ flowchart LR
 3. 再补拒答机制
 4. 最后再做评估和展示
 
-这样项目会更像“可解释系统”，而不是“碰巧答对几句”的 demo。
+这样项目会更像“可解释系统”，而不是“碰巧答对几句”的演示。
 
 ### 为什么问答系统特别适合训练“系统边界感”？
 
@@ -391,6 +391,18 @@ accuracy = 1.0
 
 - 你做的是一个系统
 - 不是只拼了几条 FAQ
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
 
 ## 小结
 

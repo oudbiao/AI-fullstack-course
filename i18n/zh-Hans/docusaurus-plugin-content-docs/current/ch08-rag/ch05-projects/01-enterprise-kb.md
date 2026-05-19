@@ -164,7 +164,7 @@ doc_003 | internal | 内部客服 SOP
 - 它属于哪个业务域
 - 回答时来源怎么展示
 
-这也是企业项目和普通问答 demo 的根本差异。
+这也是企业项目和普通问答演示的根本差异。
 
 ---
 
@@ -389,7 +389,7 @@ project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+交付物：README、运行命令、截图/日志、下一步
 ```
 
 ## 小结

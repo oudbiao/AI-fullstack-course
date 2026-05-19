@@ -208,7 +208,7 @@ print(digital_human_request)
 - 输入不只是文本
 - 系统还需要角色、语音风格和表现方式
 
-这就是数字人项目为什么天然更像“产品系统”，而不是单一模型 demo。
+这就是数字人项目为什么天然更像“产品系统”，而不是单一模型演示。
 
 ---
 
@@ -325,9 +325,21 @@ print(workflow)
 这样别人会更容易看出：
 
 - 你理解的是数字人系统工程
-- 不只是视频生成 demo
+- 不只是视频生成演示
 
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
 
 ## 小结
 
