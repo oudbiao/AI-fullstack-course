@@ -374,5 +374,125 @@
   "sidebar.courseSidebar.category.A Appendix": {
     "message": "A 附录",
     "description": "The label for category 'A Appendix' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.1 Neural Network Foundations (Core)": {
+    "message": "6.1 神经网络基础（核心）",
+    "description": "The label for category '6.1 Neural Network Foundations (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.2 PyTorch Framework (Core)": {
+    "message": "6.2 PyTorch 框架（核心）",
+    "description": "The label for category '6.2 PyTorch Framework (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.3 CNN for Images (Extension)": {
+    "message": "6.3 面向图像的 CNN（拓展）",
+    "description": "The label for category '6.3 CNN for Images (Extension)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.4 RNN and Sequence Models (Extension)": {
+    "message": "6.4 RNN 与序列模型（拓展）",
+    "description": "The label for category '6.4 RNN and Sequence Models (Extension)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.5 Attention and Transformer (Core Bridge)": {
+    "message": "6.5 注意力与 Transformer（核心衔接）",
+    "description": "The label for category '6.5 Attention and Transformer (Core Bridge)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.6 Generative Models (Extension)": {
+    "message": "6.6 生成模型（拓展）",
+    "description": "The label for category '6.6 Generative Models (Extension)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.6.8 Stage Projects (Core Evidence)": {
+    "message": "6.8 阶段项目（核心成果）",
+    "description": "The label for category '6.8 Stage Projects (Core Evidence)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.1 NLP Crash Course (Core)": {
+    "message": "7.1 NLP 快速入门（核心）",
+    "description": "The label for category '7.1 NLP Crash Course (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.2 LLM Overview (Core)": {
+    "message": "7.2 大模型概览（核心）",
+    "description": "The label for category '7.2 LLM Overview (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.3 Transformer Internals (Deep Dive)": {
+    "message": "7.3 Transformer 内部机制（深入）",
+    "description": "The label for category '7.3 Transformer Internals (Deep Dive)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.4 Pretraining (Deep Dive)": {
+    "message": "7.4 预训练（深入）",
+    "description": "The label for category '7.4 Pretraining (Deep Dive)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.5 Prompting and Evaluation (Core)": {
+    "message": "7.5 提示词与评估（核心）",
+    "description": "The label for category '7.5 Prompting and Evaluation (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.6 Fine-Tuning (Deep Dive)": {
+    "message": "7.6 微调（深入）",
+    "description": "The label for category '7.6 Fine-Tuning (Deep Dive)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.7 Alignment and Safety (Deep Dive)": {
+    "message": "7.7 对齐与安全（深入）",
+    "description": "The label for category '7.7 Alignment and Safety (Deep Dive)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.7.8 Stage Project (Core Evidence)": {
+    "message": "7.8 阶段项目（核心成果）",
+    "description": "The label for category '7.8 Stage Project (Core Evidence)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.1 RAG: Retrieval-Augmented Generation (Core)": {
+    "message": "8.1 RAG：检索增强生成（核心）",
+    "description": "The label for category '8.1 RAG: Retrieval-Augmented Generation (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.2 Model Deployment and Unified APIs (Extension)": {
+    "message": "8.2 模型部署与统一 API（拓展）",
+    "description": "The label for category '8.2 Model Deployment and Unified APIs (Extension)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.3 LLM Application Development (Core App Shell)": {
+    "message": "8.3 大模型应用开发（核心应用框架）",
+    "description": "The label for category '8.3 LLM Application Development (Core App Shell)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.4 Engineering Practices (Core / Extension)": {
+    "message": "8.4 工程实践（核心 / 拓展）",
+    "description": "The label for category '8.4 Engineering Practices (Core / Extension)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.8.5 Stage Project (Core Evidence)": {
+    "message": "8.5 阶段项目（核心成果）",
+    "description": "The label for category '8.5 Stage Project (Core Evidence)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.1 Agent Basics (Core)": {
+    "message": "9.1 Agent 基础（核心）",
+    "description": "The label for category '9.1 Agent Basics (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.2 Reasoning and Planning (Core)": {
+    "message": "9.2 推理与规划（核心）",
+    "description": "The label for category '9.2 Reasoning and Planning (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.3 Tools (Core)": {
+    "message": "9.3 工具（核心）",
+    "description": "The label for category '9.3 Tools (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.4 Memory (Core)": {
+    "message": "9.4 记忆（核心）",
+    "description": "The label for category '9.4 Memory (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.5 MCP (Advanced / Elective)": {
+    "message": "9.5 MCP（进阶 / 选修）",
+    "description": "The label for category '9.5 MCP (Advanced / Elective)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.6 Agent Frameworks (Advanced / Elective)": {
+    "message": "9.6 Agent 框架（进阶 / 选修）",
+    "description": "The label for category '9.6 Agent Frameworks (Advanced / Elective)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.7 Multi-Agent Systems (Advanced / Elective)": {
+    "message": "9.7 多 Agent 系统（进阶 / 选修）",
+    "description": "The label for category '9.7 Multi-Agent Systems (Advanced / Elective)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.8 Evaluation and Safety (Core)": {
+    "message": "9.8 评估与安全（核心）",
+    "description": "The label for category '9.8 Evaluation and Safety (Core)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.9 Deployment and Operations (Advanced)": {
+    "message": "9.9 部署与运维（进阶）",
+    "description": "The label for category '9.9 Deployment and Operations (Advanced)' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.9.10 Stage Project (Core Evidence)": {
+    "message": "9.10 阶段项目（核心成果）",
+    "description": "The label for category '9.10 Stage Project (Core Evidence)' in sidebar 'courseSidebar'"
   }
 }

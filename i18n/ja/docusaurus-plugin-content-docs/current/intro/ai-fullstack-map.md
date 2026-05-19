@@ -50,7 +50,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | images、cameras、OCR、detection、segmentation | Chapter 10 Computer Vision | output が labels、boxes、masks、text、video events などの visual result になる |
 | text labels、extraction、summaries、linguistic evaluation | Chapter 11 NLP | output が labels、fields、spans、generated text などの text task になる |
 | images、PDFs、audio、video、creative assets、multimodal RAG | Chapter 12 Multimodal/AIGC | modalities が混ざり、source、prompt、review、export records が必要になる |
-| deployment、advanced Python、classic ML depth | Electives | main project に特定の engineering または algorithmic side skill が必要になる |
+| デプロイ、Python 上級、古典的 ML の深掘り | 選択モジュール | メインプロジェクトに特定の engineering または algorithmic side skill が必要になる |
 
 ## マップの使い方
 

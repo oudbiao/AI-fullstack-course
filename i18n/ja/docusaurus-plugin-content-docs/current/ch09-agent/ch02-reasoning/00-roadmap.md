@@ -54,7 +54,7 @@ checkpoint: check citations
 | 2 | Chain reasoning | 中間 state と self-check point を作る |
 | 3 | ReAct | thought、action、observation、next step を交互に行う |
 | 4 | Plan-and-Execute | タスクが大きいとき planning と execution を分ける |
-| 5 | Advanced planning | dependency、priority、rollback、replan を扱う |
+| 5 | 高度な計画 | dependency、priority、rollback、replan を扱う |
 | 6 | Reasoning evaluation | final result、path quality、failure type を採点する |
 
 ## 残す証拠
