@@ -539,6 +539,18 @@ print(tool_result(False, error="timeout", retryable=True))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## 小结
 
 这一节最重要的不是会写一个 `{"name": ..., "arguments": ...}`，而是理解：

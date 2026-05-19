@@ -172,6 +172,18 @@ tool_failure_rate: 50%
 
 第一个误区是只测成功样例。第二个误区是只看最终答案，不看执行轨迹。第三个误区是没有固定评估集，每次凭感觉判断。第四个误区是把模型评估和系统评估混在一起，忽略工具、状态、权限和成本。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## 练习
 
 1. 为“学习规划 Agent”设计 10 条评估任务。

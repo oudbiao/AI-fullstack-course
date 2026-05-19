@@ -44,7 +44,7 @@ print("launch_ok:", launch_ok)
 print("scorecard:", "task, tools, safety, trace, cost")
 ```
 
-出力：
+期待される出力：
 
 ```text
 launch_ok: True
@@ -62,6 +62,18 @@ scorecard: task, tools, safety, trace, cost
 | 3 | Safety and alignment | prompt injection、over-permission、leakage、hallucination を識別する |
 | 4 | Guardrails | input filter、output validation、permissions、human confirmation を追加する |
 | 5 | Observability | logs、traces、errors、latency、cost、failure reason を保存する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
 
 ## 合格ライン
 

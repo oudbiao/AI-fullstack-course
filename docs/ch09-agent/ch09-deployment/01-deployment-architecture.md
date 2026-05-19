@@ -389,6 +389,18 @@ This makes it easier for others to see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## Summary
 
 What matters most in this section is not memorizing how many infrastructure names there are,

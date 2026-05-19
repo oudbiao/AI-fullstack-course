@@ -302,6 +302,18 @@ total_cost = 0.004
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## 小结
 
 这节最重要的是建立一个全链路成本观：

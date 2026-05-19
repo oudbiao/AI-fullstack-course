@@ -136,6 +136,18 @@ Benchmarks are easy to overfit. A system may perform very well on fixed tasks, b
 
 Start with general benchmarks to build intuition about capability, then use a custom evaluation set to validate project quality. Every time you change the Prompt, switch models, modify the tool schema, or add a retrieval strategy, run the same evaluation set again. That way, you can tell whether the change improved performance, made it worse, or only changed the output style.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## Common Mistakes
 
 The first mistake is treating benchmark scores as production quality. The second is only testing normal tasks and not testing failures or boundary cases. The third is having too few evaluation samples and judging the system based on a few demos. The fourth is not saving historical results, which makes version comparison impossible.

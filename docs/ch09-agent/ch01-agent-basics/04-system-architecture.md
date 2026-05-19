@@ -376,6 +376,18 @@ Once the system fails, you can only guess.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
+
 ## Summary
 
 The most important takeaway from this section is:

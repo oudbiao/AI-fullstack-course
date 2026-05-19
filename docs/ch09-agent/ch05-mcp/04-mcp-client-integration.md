@@ -310,6 +310,18 @@ Although simple, it already shows:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
+
 ## Common pitfalls in client integration
 
 ### Being able to call, but not choose

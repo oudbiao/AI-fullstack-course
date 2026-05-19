@@ -37,7 +37,7 @@ print("can_call:", client_request in server["tools"])
 print("boundary:", "server exposes, client calls")
 ```
 
-出力：
+期待される出力：
 
 ```text
 server_ready: True
@@ -56,6 +56,18 @@ boundary が曖昧だと、permissions と debugging も曖昧になります。
 | 3 | Server development | 1 つの capability を明確な input、output、errors で包む |
 | 4 | Client integration | Server capabilities を安全に discover/call する |
 | 5 | Ecosystem | MCP を IDE、database、browser、knowledge base、Agent につなげる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
 
 ## 合格ライン
 

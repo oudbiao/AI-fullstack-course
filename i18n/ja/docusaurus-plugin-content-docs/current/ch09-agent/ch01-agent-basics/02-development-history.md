@@ -18,6 +18,10 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 より広い AI の流れを見たい場合は、[A.3 AI 発展史：15 段階と重要論文](/appendix/ai-milestones) と合わせて読むと理解しやすくなります。この節では Agent の流れだけに絞ります。
 
+![スクリプトから現代の LLM Agent までのシステム系譜図](/img/course/appendix-agent-system-lineage-map-ja.webp)
+
+この図は下から上へ読むとわかりやすいです。固定スクリプトは安定したタスクを処理し、ワークフローは構造を加え、ツールを使う LLM システムは判断を加え、現代の Agent は目標・ツール・記憶・フィードバックループをまとめて扱い始めます。
+
 ---
 
 ## Agent の前にも、自動化はすでに存在していた
@@ -343,6 +347,18 @@ ChatGPT や LLM は、Agent を新しい段階へ進めたにすぎません。
 実際の開発では、「賢く聞こえること」よりも、制御しやすさのほうが重要なことが多いです。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
 
 ## まとめ
 

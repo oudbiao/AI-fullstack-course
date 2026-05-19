@@ -18,6 +18,10 @@ After completing this section, you will be able to:
 
 If you want a broader AI timeline, read this page together with [A.3 AI Development History: 15 Stages and Key Papers](/appendix/ai-milestones). This section focuses only on the Agent thread.
 
+![Agent system lineage map from scripts to modern LLM agents](/img/course/appendix-agent-system-lineage-map-en.webp)
+
+Read this image from bottom to top: fixed scripts solve stable tasks, workflows add structure, tool-using LLM systems add judgment, and modern Agents begin to manage goals, tools, memory, and feedback loops together.
+
 ---
 
 ## Before Agents, automation already existed
@@ -341,6 +345,18 @@ Many rule systems and workflows are still the main force in industry today.
 In real engineering, controllability is often more important than “sounding smarter.”
 
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
 
 ## Summary
 

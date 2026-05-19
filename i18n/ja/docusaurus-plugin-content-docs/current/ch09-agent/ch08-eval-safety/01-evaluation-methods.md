@@ -168,6 +168,20 @@ tool_failure_rate: 50%
 
 評価の目的は点数をつけることではなく、改善につなげることです。ツール選択ミスが多いなら、まずツール説明とルーティング戦略を見直します。計画がよく不完全になるなら、まず Planning Prompt や状態表現を改善します。コストが高すぎるなら、ループ呼び出しやコンテキストが長すぎないか確認します。安全上の問題が多いなら、権限、確認、拒否の戦略を追加します。
 
+期待される結果：固定評価セット、スコアカード、trace、失敗理由をそろえ、Prompt や tool 設計の変更が実際に改善だったかを説明できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## よくある誤解
 
 1つ目の誤解は、成功例だけを測ることです。2つ目の誤解は、最終回答だけを見て実行軌跡を見ないことです。3つ目の誤解は、固定された評価セットがなく、毎回なんとなく判断してしまうことです。4つ目の誤解は、モデル評価とシステム評価を混同し、ツール、状態、権限、コストを見落とすことです。

@@ -337,6 +337,18 @@ Agent 同士が提案し合い、協議します。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## 練習
 
 1. タスク分配の例に `planner` Agent を追加し、実行順序を決める役割を持たせてみましょう。

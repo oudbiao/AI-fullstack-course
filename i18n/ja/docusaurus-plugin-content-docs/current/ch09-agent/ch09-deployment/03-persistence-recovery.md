@@ -326,6 +326,20 @@ summary だけを保存して、次の情報を保存していないとします
 
 ---
 
+期待される結果：checkpoint、event log、冪等性、復旧位置を設計し、失敗後でも重複副作用を避けて安全に続行できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## よくある誤解
 
 ### 誤解1：データベースがあれば「復元可能」である

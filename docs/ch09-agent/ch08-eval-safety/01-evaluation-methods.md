@@ -168,6 +168,18 @@ This is already enough to answer a practical question:
 
 The purpose of evaluation is not scoring itself, but guiding improvement. If tool selection mistakes are common, improve tool descriptions and routing strategy first. If plans are often incomplete, improve the planning Prompt or state representation first. If costs are too high, check for repeated tool calls or overly long context. If safety issues are common, add permission checks, confirmation steps, and refusal policies.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## Common Misconceptions
 
 The first mistake is testing only successful cases. The second is looking only at the final answer and ignoring the execution trace. The third is not having a fixed evaluation set and judging by intuition every time. The fourth is mixing model evaluation with system evaluation and ignoring tools, state, permissions, and cost.

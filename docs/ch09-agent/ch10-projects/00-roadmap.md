@@ -64,6 +64,18 @@ If this says `False`, improve the evidence before adding more Agent roles.
 
 Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands-on-workshop.md) before expanding the project.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
+
 ## Project Deliverable Standards
 
 | Deliverable | Minimum Requirement | Stronger Portfolio Version |

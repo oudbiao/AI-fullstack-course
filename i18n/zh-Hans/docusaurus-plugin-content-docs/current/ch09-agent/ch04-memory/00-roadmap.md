@@ -58,6 +58,18 @@ count: 2
 | 4 | 情节记忆与程序记忆 | 区分发生过什么和下次怎么做 |
 | 5 | 记忆工程 | 设计写入、检索、更新、过期和删除规则 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
+
 ## 通过标准
 
 如果你能解释为什么“记更多”不等于“表现更好”，就通过了本章。

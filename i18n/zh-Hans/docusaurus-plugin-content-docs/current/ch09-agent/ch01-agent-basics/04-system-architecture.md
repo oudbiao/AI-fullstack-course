@@ -376,6 +376,18 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
+
 ## 小结
 
 这一节最重要的认识是：

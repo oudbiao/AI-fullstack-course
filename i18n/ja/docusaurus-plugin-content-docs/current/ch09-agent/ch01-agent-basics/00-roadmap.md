@@ -37,7 +37,7 @@ print("steps:", " -> ".join(state["steps"]))
 print("done:", state["done"])
 ```
 
-出力：
+期待される出力：
 
 ```text
 goal: summarize RAG citation rules
@@ -56,6 +56,18 @@ demo が goal、state、action、observation、stop condition を示せないな
 | 3 | 能力レベル | answer、retrieve、tool use、plan、memory、collaboration を同じ ladder に置く |
 | 4 | System architecture | goal、state、planner、tools、memory、observation、executor を描く |
 | 5 | RL から Agent への突破 | action、reward、feedback、planning をつなげる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
 
 ## 合格ライン
 

@@ -138,3 +138,17 @@ Agent 不是“让模型自由发挥”这么简单。
 
 TD-Gammon、DQN 和 AlphaGo 的故事告诉我们：
 真正强的智能系统，通常都不是只会回答问题，而是能在环境里行动，并根据反馈修正策略。
+
+预期结果：你能说明行动、反馈、规划和安全约束怎样把 TD-Gammon、DQN、AlphaGo 与可回放的 LLM Agent 设计连接起来。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```

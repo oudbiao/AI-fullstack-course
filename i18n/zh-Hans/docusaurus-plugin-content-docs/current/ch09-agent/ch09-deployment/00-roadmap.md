@@ -57,6 +57,18 @@ missing: ['rollback']
 | 4 | 成本优化 | 追踪模型调用、工具调用、缓存、批处理、路由 |
 | 5 | 生产实践 | 加入监控、告警、灰度发布、回滚和权限 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## 通过标准
 
 如果一个本地 Agent Demo 能变成小服务，包含 API 入口、状态持久化、trace 日志、错误响应、成本记录和部署说明，就通过了本章。

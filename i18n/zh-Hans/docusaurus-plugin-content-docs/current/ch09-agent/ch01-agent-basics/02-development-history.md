@@ -18,6 +18,10 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 如果想看更完整的 AI 时间线，可以把本节和 [A.3 AI 发展史：15 个阶段与关键论文](/appendix/ai-milestones) 放在一起读。本节只聚焦 Agent 这条线。
 
+![从脚本到现代 LLM Agent 的系统演进图](/img/course/appendix-agent-system-lineage-map.webp)
+
+读这张图时可以从下往上看：固定脚本解决稳定任务，工作流增加结构，带工具的大模型系统增加判断能力，现代 Agent 才开始把目标、工具、记忆和反馈循环放在一起管理。
+
 ---
 
 ## Agent 之前，自动化早就存在了
@@ -341,6 +345,18 @@ ChatGPT 和 LLM 只是让 Agent 进入了新阶段。
 真实工程里，可控往往比“听起来更聪明”更重要。
 
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
 
 ## 小结
 

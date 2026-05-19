@@ -57,6 +57,18 @@ checkpoint: check citations
 | 5 | 高级规划 | 处理依赖、优先级、回滚和重规划 |
 | 6 | 推理评估 | 评估最终结果、路径质量和失败类型 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_goal: what the agent is trying to solve
+plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
+observation: what changed after each action
+failure_check: hallucinated step, stale observation, loop, or unverified conclusion
+eval_action: compare against expected result and revise the plan
+```
+
 ## 通过标准
 
 如果你能说明一个计划为什么失败：拆解差、工具选错、观察过期、缺少检查点或最终验证太弱，就通过了本章。

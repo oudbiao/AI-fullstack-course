@@ -322,6 +322,18 @@ MCP の重要な価値の 1 つは、次の考え方です：
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
+
 ## まとめ
 
 この節で最も重要なのは、「プロトコル」という言葉を覚えることではなく、次を理解することです：

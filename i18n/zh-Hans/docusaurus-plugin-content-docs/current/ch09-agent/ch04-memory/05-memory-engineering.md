@@ -378,6 +378,18 @@ retrieval:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
+
 ## 小结
 
 这节最重要的不是再记几个“记忆类型名词”，

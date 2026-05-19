@@ -282,6 +282,20 @@ print(knowledge_guard(sample_2))
 
 ---
 
+期待される結果：入力、tool、出力、確認フローに分けて guardrail を置き、変更後に回帰テストで抜け漏れを確認できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## よくある間違い
 
 ### ガードを出力側にだけ置く

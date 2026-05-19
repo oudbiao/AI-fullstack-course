@@ -539,6 +539,18 @@ This is also the key dividing line between Function Calling demos and real Agent
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## Summary
 
 The most important thing in this section is not learning to write `{"name": ..., "arguments": ...}`, but understanding that:

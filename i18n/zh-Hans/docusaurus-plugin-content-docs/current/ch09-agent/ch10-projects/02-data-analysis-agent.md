@@ -322,6 +322,18 @@ print(trace)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
+
 ## 小结
 
 这节最重要的是建立一个作品级判断：

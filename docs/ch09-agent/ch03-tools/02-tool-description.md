@@ -376,6 +376,18 @@ The benefits of a unified return structure are:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## Common pitfalls in tool descriptions
 
 ### Mistake 1: A clear function signature is enough

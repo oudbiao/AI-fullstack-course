@@ -276,6 +276,20 @@ breaker_open: True
 
 ---
 
+期待される結果：並行数、タイムアウト、リトライ、サーキットブレーカーを設定し、成功率だけでなく全体の安定性を守れる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## よくある誤解
 
 ### 誤解1：並行数は多いほどよい

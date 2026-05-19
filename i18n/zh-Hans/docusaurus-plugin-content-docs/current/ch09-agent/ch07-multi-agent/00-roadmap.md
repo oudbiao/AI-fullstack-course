@@ -60,6 +60,18 @@ final_owner: reviewer
 | 4 | 协调 | 追踪负责人、队列、冲突规则和聚合方式 |
 | 5 | 实战与风险 | 衡量成本、循环、重复工作和角色越权 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## 通过标准
 
 如果一个 2 到 3 个 Agent 的 Demo 有可追踪输入、输出、交接、最终负责人，并能说明为什么它优于单 Agent，就通过了本章。

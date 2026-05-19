@@ -294,6 +294,18 @@ LlamaIndex のような抽象化のほうが、たいてい扱いやすいです
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
+
 ## まとめ
 
 この節で一番大事なのは、LlamaIndex の API を覚えることではなく、次を理解することです。

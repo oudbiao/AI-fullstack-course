@@ -361,6 +361,18 @@ print(audit_log("u_001", "search_docs", {"keyword": "返金"}, result))
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## よくある誤解
 
 ### 誤解 1：ツールの安全性はリリース前に付け足せばいい

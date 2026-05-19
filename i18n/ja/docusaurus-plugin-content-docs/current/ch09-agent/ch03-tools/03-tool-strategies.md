@@ -418,6 +418,18 @@ for q in ["北京の天気はどうですか", "天気を調べて", "計算 9 +
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## まとめ
 
 この節で最も大事なのは、「どのツールを使えるか」を知ることではなく、次を理解することです。

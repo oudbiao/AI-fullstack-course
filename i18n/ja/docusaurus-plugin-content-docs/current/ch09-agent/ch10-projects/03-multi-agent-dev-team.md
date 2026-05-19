@@ -274,6 +274,20 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 
 ---
 
+期待される結果：各 role の入力と出力、共有 artifact、失敗時の巻き戻しを trace に残し、マルチ Agent が単なる会話ではなく工程として動くことを示せる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、作品レベルの判断基準を持つことです。

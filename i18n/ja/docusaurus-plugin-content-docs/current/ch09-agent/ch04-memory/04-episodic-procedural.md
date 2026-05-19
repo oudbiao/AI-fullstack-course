@@ -28,6 +28,10 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 - 実行できるサンプルを通して「経験から手順を抽出する」最小の流れを理解する
 - ある情報を episode として保存すべきか workflow として保存すべきかを判断できるようにする
 
+![Agent の記憶レイヤー選択マップ](/img/course/ch09-memory-layer-selection-map-ja.webp)
+
+この図は判断の補助として使えます。短期状態は現在の実行を支え、長期記憶は安定した事実を保存し、エピソード記憶は具体的な経験を残し、手続き記憶は再利用できる方法を蓄積します。
+
 ---
 
 ## エピソード記憶とは何か？
@@ -272,6 +276,18 @@ episode に向いているのは、次のような記録です。
 そうしないと、それは「経験」ではなく「古い経験」になってしまいます。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
 
 ## まとめ
 

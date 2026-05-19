@@ -301,6 +301,18 @@ That is the engineering value of a protocol.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
+
 ## Common beginner mistakes
 
 ### Thinking MCP is a specific tool library

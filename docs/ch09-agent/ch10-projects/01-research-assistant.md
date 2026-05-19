@@ -355,6 +355,18 @@ Putting these failure cases into the project will show engineering ability much 
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
+
 ## Summary
 
 The most important idea in this section is to establish a portfolio-grade judgment:

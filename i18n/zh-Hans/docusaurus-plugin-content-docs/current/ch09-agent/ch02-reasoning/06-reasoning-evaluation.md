@@ -368,6 +368,18 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_goal: what the agent is trying to solve
+plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
+observation: what changed after each action
+failure_check: hallucinated step, stale observation, loop, or unverified conclusion
+eval_action: compare against expected result and revise the plan
+```
+
 ## 小结
 
 这节最重要的，不是多记几个指标名，

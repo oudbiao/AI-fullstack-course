@@ -313,6 +313,18 @@ In real engineering work, this is often a more balanced choice.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## Common pitfalls for beginners
 
 ### Only assigning work, without designing the finish

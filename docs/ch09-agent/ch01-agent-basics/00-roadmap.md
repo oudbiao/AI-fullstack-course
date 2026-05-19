@@ -57,6 +57,18 @@ If a demo cannot show goal, state, action, observation, and stop condition, call
 | 4 | System architecture | Draw goal, state, planner, tools, memory, observation, executor |
 | 5 | RL to Agent breakthroughs | Connect action, reward, feedback, and planning |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
+
 ## Pass Check
 
 You pass this chapter when you can draw one single-Agent loop and explain why single-Agent stability comes before multi-Agent collaboration.

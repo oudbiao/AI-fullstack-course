@@ -614,3 +614,15 @@ python3 agent_sdk_upgrade.py
 - OpenAI Agents SDK が何を置き換え、どの責任がまだアプリ側に残るか説明できる。
 
 この小さなプロジェクトは、第 9 章の baseline として残しておきましょう。後で MCP、LangGraph、CrewAI、AutoGen、デプロイ、マルチ Agent システムが出てきたら、このスクリプトに戻って比較します。フレームワークがどこを置き換えたのか、どの境界はまだ自分で守る必要があるのかを確認するためです。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```

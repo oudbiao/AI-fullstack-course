@@ -303,6 +303,18 @@ That is also why advanced planning often relies on:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_goal: what the agent is trying to solve
+plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
+observation: what changed after each action
+failure_check: hallucinated step, stale observation, loop, or unverified conclusion
+eval_action: compare against expected result and revise the plan
+```
+
 ## Common pitfalls in engineering practice
 
 ### Mistake 1: Thinking that drawing the dependency graph solves everything

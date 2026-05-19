@@ -360,6 +360,18 @@ retrieval:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
+
 ## よくある誤解
 
 ### 誤解1：メモリは多いほど賢い

@@ -352,6 +352,18 @@ review: {'approved': True, 'comment': '关键信息已覆盖'}
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## 小结
 
 这一节最重要的不是背模式名字，而是理解：

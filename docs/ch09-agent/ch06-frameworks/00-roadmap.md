@@ -63,6 +63,18 @@ Framework choice should be written into the README as a trade-off, not hidden in
 | 4 | CrewAI / AutoGen | Compare role collaboration and multi-Agent conversation |
 | 5 | Framework selection | Write a decision table and a no-framework baseline |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
+
 ## Pass Check
 
 You pass this chapter when you can implement the same small task with plain functions and with one framework, then explain which version is easier to debug and why.

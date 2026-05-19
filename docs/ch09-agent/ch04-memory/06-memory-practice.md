@@ -288,6 +288,18 @@ but in reality the answers do not change at all.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
+
 ## Summary
 
 The most important thing in this section is to turn the “complete memory system” into an executable closed loop:

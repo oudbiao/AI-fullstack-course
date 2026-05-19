@@ -386,6 +386,18 @@ print(shared_state)
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## まとめ
 
 この節で最も大切なのは、「message passing、event bus、shared state」という言葉を覚えることではなく、次を理解することです。

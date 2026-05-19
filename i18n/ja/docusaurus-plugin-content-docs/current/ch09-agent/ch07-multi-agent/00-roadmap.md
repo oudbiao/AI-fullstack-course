@@ -38,7 +38,7 @@ for name, job in agents.items():
 print("final_owner:", final_owner)
 ```
 
-出力：
+期待される出力：
 
 ```text
 agent_count: 3
@@ -59,6 +59,18 @@ final_owner: reviewer
 | 3 | Communication | message format、shared state、handoff rule を定義する |
 | 4 | Coordination | owner、queue、conflict rule、aggregation を追跡する |
 | 5 | Practice and risks | cost、loops、duplicated work、role overreach を測る |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
 
 ## 合格ライン
 

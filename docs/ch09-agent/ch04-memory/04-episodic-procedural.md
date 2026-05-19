@@ -28,6 +28,10 @@ In one sentence:
 - Use a runnable example to understand the smallest loop of “extracting a workflow from experience”
 - Learn how to judge whether a piece of information is better stored as an episode or as a workflow
 
+![Agent memory layer selection map](/img/course/ch09-memory-layer-selection-map-en.webp)
+
+Use this map as a decision aid: short-term state helps with the current run, long-term memory stores stable facts, episodic memory keeps concrete experiences, and procedural memory keeps reusable methods.
+
 ---
 
 ## What exactly is episodic memory?
@@ -244,6 +248,18 @@ Procedural memory can also act as a “don’t improvise” mechanism.
 For high-risk tasks, for example, the system may only be allowed to follow approved workflows.
 
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
 
 ## Common pitfalls
 

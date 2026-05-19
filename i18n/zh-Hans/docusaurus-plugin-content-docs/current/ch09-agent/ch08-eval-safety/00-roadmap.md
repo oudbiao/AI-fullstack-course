@@ -63,6 +63,18 @@ scorecard: task, tools, safety, trace, cost
 | 4 | Guardrails | 加入输入过滤、输出校验、权限和人工确认 |
 | 5 | 可观测性 | 保存日志、trace、错误、延迟、成本和失败原因 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## 通过标准
 
 如果每次 Agent 运行都能通过目标、计划、工具调用、观察、最终回答、安全规则、成本和失败原因进行复盘，就通过了本章。

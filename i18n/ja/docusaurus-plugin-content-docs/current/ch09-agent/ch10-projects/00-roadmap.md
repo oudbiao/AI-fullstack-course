@@ -44,7 +44,7 @@ print("portfolio_ready:", ready)
 print("evidence:", "goal, trace, tools, failure, eval")
 ```
 
-出力：
+期待される出力：
 
 ```text
 portfolio_ready: True
@@ -63,6 +63,18 @@ evidence: goal, trace, tools, failure, eval
 | 4 | Hands-on workshop | 最小 traceable single-Agent baseline |
 
 project を広げる前に、[9.10.5 実践：Traceable Single-Agent Assistant を作る](./04-stage-hands-on-workshop.md) を実行します。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
 
 ## プロジェクト成果物基準
 

@@ -57,6 +57,18 @@ If the boundary is vague, permissions and debugging will be vague too.
 | 4 | Client integration | Discover and call server capabilities safely |
 | 5 | Ecosystem | Connect MCP to IDEs, databases, browsers, knowledge bases, and Agents |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
+
 ## Pass Check
 
 You pass this chapter when you can draw the Host-Client-Server relationship and explain what the Server exposes, what the Client calls, and where permissions are checked.

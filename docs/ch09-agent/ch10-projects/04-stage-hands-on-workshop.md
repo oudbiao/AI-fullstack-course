@@ -614,3 +614,15 @@ You have completed this Chapter 9 hands-on workshop when you can:
 - Explain what the OpenAI Agents SDK replaces and what responsibilities still belong to your application code.
 
 Keep this small project as your Chapter 9 baseline. When later pages introduce MCP, LangGraph, CrewAI, AutoGen, deployment, or multi-Agent systems, compare them back to this script: what part did the framework replace, and what boundary still belongs to you?
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```

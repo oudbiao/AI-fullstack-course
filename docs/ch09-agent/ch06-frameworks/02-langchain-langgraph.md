@@ -343,6 +343,18 @@ When complexity is not high, a chain-based approach can actually be clearer.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
+
 ## Common beginner mistakes
 
 ### Learning a bunch of framework APIs before understanding task structure

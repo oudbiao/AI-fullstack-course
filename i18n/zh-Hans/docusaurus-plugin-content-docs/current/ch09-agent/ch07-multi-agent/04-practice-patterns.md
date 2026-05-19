@@ -340,6 +340,18 @@ review : {'approved': True, 'comment': '信息较完整'}
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## 小结
 
 这一节最重要的不是背“研究型”“开发型”这些标签，而是理解：

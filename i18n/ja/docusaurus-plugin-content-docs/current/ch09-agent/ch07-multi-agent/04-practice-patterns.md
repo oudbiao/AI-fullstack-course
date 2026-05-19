@@ -348,6 +348,18 @@ review : {'approved': True, 'comment': '情報はかなり揃っています'}
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## まとめ
 
 この節で最も大切なのは、「研究型」「開発型」といったラベルを覚えることではなく、次を理解することです。

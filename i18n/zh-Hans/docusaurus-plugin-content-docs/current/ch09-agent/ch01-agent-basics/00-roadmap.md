@@ -57,6 +57,18 @@ done: True
 | 4 | 系统架构 | 画出目标、状态、规划器、工具、记忆、观察和执行器 |
 | 5 | RL 到 Agent 的突破 | 连接行动、奖励、反馈和规划 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```
+
 ## 通过标准
 
 如果你能画出一个单 Agent 闭环，并解释为什么单 Agent 稳定性要先于多 Agent 协作，就通过了本章。

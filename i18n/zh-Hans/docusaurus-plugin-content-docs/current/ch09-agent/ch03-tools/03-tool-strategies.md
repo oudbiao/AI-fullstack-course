@@ -412,6 +412,18 @@ for q in ["北京天气怎么样", "帮我查天气", "计算 9 + 8"]:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## 小结
 
 这一节最重要的不是知道“可以调哪些工具”，而是理解：

@@ -60,6 +60,18 @@ If two roles produce the same output, merge them. If nobody owns the final decis
 | 4 | Coordination | Track owner, queue, conflict rule, and aggregation |
 | 5 | Practice and risks | Measure cost, loops, duplicated work, and role overreach |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## Pass Check
 
 You pass this chapter when a 2 to 3 Agent demo has traceable inputs, outputs, handoffs, final ownership, and a clear reason why it beats a single Agent.

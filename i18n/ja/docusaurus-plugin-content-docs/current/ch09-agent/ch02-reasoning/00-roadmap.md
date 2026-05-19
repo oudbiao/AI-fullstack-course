@@ -33,7 +33,7 @@ for index, step in enumerate(plan, start=1):
 print("checkpoint:", plan[-1])
 ```
 
-出力：
+期待される出力：
 
 ```text
 task: prepare a cited RAG demo answer
@@ -56,6 +56,18 @@ checkpoint: check citations
 | 4 | Plan-and-Execute | タスクが大きいとき planning と execution を分ける |
 | 5 | Advanced planning | dependency、priority、rollback、replan を扱う |
 | 6 | Reasoning evaluation | final result、path quality、failure type を採点する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_goal: what the agent is trying to solve
+plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
+observation: what changed after each action
+failure_check: hallucinated step, stale observation, loop, or unverified conclusion
+eval_action: compare against expected result and revise the plan
+```
 
 ## 合格ライン
 

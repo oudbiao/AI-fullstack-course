@@ -62,6 +62,18 @@ After the tool runs, the Agent must observe and summarize the result. Never let 
 | 4 | Tool safety | Add permission, sandbox, audit, and human confirmation |
 | 5 | Multi-tool practice | Record trace for successful and failed calls |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## Pass Check
 
 You pass this chapter when you can read a tool trace and tell whether the failure happened in planning, parameterization, execution, observation, or permission control.

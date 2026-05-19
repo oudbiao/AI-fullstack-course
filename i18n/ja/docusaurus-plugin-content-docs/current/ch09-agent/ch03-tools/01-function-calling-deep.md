@@ -540,6 +540,18 @@ print(tool_result(False, error="timeout", retryable=True))
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## まとめ
 
 この節で最も大事なのは、`{"name": ..., "arguments": ...}` を書けるようになることではありません。理解すべきなのは次のことです。

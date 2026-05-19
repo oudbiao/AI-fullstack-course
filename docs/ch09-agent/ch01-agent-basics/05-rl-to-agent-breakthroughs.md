@@ -138,3 +138,17 @@ It is more like a system that constantly balances the following:
 
 The stories of TD-Gammon, DQN, and AlphaGo tell us:
 truly strong intelligent systems are usually not just good at answering questions—they can act in an environment and adjust their strategy based on feedback.
+
+Expected result: you can explain how action, feedback, planning, and safety constraints connect TD-Gammon, DQN, AlphaGo, and a traceable LLM Agent design.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+agent_boundary: how this differs from chatbot or fixed workflow
+goal_state_action: goal, current state, next action, observation
+architecture_parts: planner, tools, memory, guardrails, evaluator
+failure_check: over-autonomy, vague goal, missing state, or no trace
+next_action: build the smallest traceable single-agent loop
+```

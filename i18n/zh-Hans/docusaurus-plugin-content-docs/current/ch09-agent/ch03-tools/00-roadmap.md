@@ -62,6 +62,18 @@ observation_needed: True
 | 4 | 工具安全 | 加入权限、沙箱、审计和人工确认 |
 | 5 | 多工具实战 | 记录成功和失败调用 trace |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## 通过标准
 
 如果你能阅读工具 trace，并判断失败发生在规划、参数、执行、观察还是权限控制，就通过了本章。

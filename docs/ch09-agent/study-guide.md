@@ -32,6 +32,18 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `eval_tasks.csv` | 3-5 fixed tasks with expected outcome and success criteria |
 | `README.md` | run command, trace example, safety example, evaluation result, limitation |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+single_agent_trace: one complete goal-plan-action-observation loop
+tool_contract: schema, permission, error behavior, and observation
+memory_note: what is written, retrieved, forgotten, or updated
+eval_note: success score, safety check, and failure reason
+project_readme: run command, trace, limitations, and next action
+```
+
 ## Quality Gates
 
 | Gate | Pass condition |
@@ -40,6 +52,8 @@ Use this page as a printable checklist. If you need the full explanation, return
 | Trace replay | A reviewer can replay why every tool call happened. |
 | Safety boundary | Non-whitelisted or risky actions are blocked or routed to human approval. |
 | Stop control | Max steps and stop conditions prevent loops and cost spikes. |
+
+Expected result: your Chapter 9 project folder contains tool schemas, replayable traces, safety boundaries, fixed eval tasks, failure notes, and a README that explains why the design stays single-Agent until the loop is reliable.
 
 ## Exit Questions
 

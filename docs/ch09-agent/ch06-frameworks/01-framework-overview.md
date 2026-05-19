@@ -24,6 +24,10 @@ This lesson is not about picking sides or memorizing framework names. It is abou
 - Know what frameworks usually save you from, and what they make you lose
 - Build an initial perspective for choosing frameworks
 
+![Agent frameworks position map](/img/course/ch09-frameworks-position-map-en.webp)
+
+Read this map as a trade-off view: lower-level frameworks give more control, higher-level frameworks reduce setup cost, and retrieval-oriented frameworks are stronger when the system is centered on documents and knowledge.
+
 ---
 
 ## Why do we need Agent frameworks?
@@ -249,6 +253,18 @@ First ask these questions:
 If you can answer these questions, framework comparison becomes much clearer.
 
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
 
 ## Common pitfalls for beginners
 

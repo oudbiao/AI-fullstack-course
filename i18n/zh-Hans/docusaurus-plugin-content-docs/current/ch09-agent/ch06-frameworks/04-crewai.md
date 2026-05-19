@@ -284,6 +284,18 @@ review  : {'approved': True, 'comment': '关键信息较完整'}
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
+
 ## 小结
 
 这一节最重要的不是学会某个框架的类名，而是理解：

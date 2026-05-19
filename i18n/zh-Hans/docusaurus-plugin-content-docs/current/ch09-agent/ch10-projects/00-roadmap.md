@@ -76,6 +76,18 @@ evidence: goal, trace, tools, failure, eval
 | 评估集 | 固定任务和通过/失败规则 | 增加基线、指标和对比实验 |
 | 部署说明 | 如何本地运行 | 增加 API 入口、环境变量、监控和回滚 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
+
 ## 通过标准
 
 如果另一个开发者能重放你的 Agent 运行，检查每次工具调用和观察，理解它为什么停止，并看到至少一个失败分析，就通过了本章。

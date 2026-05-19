@@ -389,6 +389,20 @@ flowchart LR
 
 ---
 
+期待される結果：接入、編排、実行、状態、観測の層を分け、1本のリクエストがどこで判断され、どこで実行され、どこに状態を書くか説明できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、たくさんの基盤技術名を覚えることではなく、  

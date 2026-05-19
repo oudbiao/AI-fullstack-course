@@ -397,6 +397,18 @@ server が分かりやすいほど、client 側は拡張しやすくなり、ツ
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
+
 ## 練習
 
 1. `BetterMCPServer` に `get_weather(city)` ツールを追加してください。

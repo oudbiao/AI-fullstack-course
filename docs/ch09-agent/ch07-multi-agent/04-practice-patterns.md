@@ -340,6 +340,18 @@ If you do not know why one pattern is better than another, system iteration will
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+roles: owner, worker, reviewer, or specialist responsibilities
+message_contract: artifact, request, response, and handoff state
+coordination: routing, task split, conflict resolution, and final owner
+failure_check: duplicated work, lost context, no accountable owner, or message loop
+eval_action: compare multi-agent result against single-agent baseline
+```
+
 ## Summary
 
 The most important point in this section is not memorizing labels like “research-oriented” or “development-oriented,” but understanding:

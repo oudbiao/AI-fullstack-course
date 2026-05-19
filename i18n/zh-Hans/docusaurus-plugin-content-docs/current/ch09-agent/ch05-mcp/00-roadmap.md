@@ -57,6 +57,18 @@ boundary: server exposes, client calls
 | 4 | Client 集成 | 安全发现并调用 Server 能力 |
 | 5 | 生态 | 把 MCP 和 IDE、数据库、浏览器、知识库、Agent 连接起来 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+capability: resource, prompt, or tool exposed by server
+contract: schema, transport, permissions, and error shape
+call_trace: discovery, invocation, response, and failure handling
+failure_check: incompatible schema, missing auth, unsafe tool, or server error
+integration_action: validate server contract before adding autonomy
+```
+
 ## 通过标准
 
 如果你能画出 Host-Client-Server 关系，并解释 Server 暴露什么、Client 调用什么、权限在哪里检查，就通过了本章。

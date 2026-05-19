@@ -57,6 +57,18 @@ If the system cannot roll back or recover, do not call it production-ready.
 | 4 | Cost optimization | Track model calls, tool calls, caching, batching, routing |
 | 5 | Production practices | Add monitoring, alerts, canary release, rollback, permissions |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## Pass Check
 
 You pass this chapter when a local Agent demo becomes a small service with API entry, state persistence, trace logs, error responses, cost records, and deployment instructions.

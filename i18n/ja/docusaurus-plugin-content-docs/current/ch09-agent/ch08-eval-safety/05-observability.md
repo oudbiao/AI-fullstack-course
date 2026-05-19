@@ -140,6 +140,18 @@ Agent の出力品質が低いとき、すぐに Prompt を直さないでくだ
 
 さらに大事なのは、ツールを可観測性のすべてだと思わないことです。プラットフォームを使っていても、イベント名がバラバラだったり、フィールドが不足していたり、request_id が全体を通してつながっていなかったりすると、問題の切り分けはやはり難しくなります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
+
 ## よくある誤解
 
 1つ目の誤解は、最終回答だけを記録すれば十分だと思うことです。最終回答は結果しか示さず、過程は示しません。2つ目の誤解は、自然言語のログだけを出して構造化フィールドを残さないことです。これだと後で集計や絞り込みがしにくくなります。3つ目の誤解は、エラー時だけ記録すればよいと思うことです。成功例も同じくらい重要です。成功と失敗の流れを比較する必要があるからです。4つ目の誤解は、コスト指標を持たないことです。これだとシステムは動いても、長期的には続けられません。
@@ -227,6 +239,8 @@ logs/
 ```
 
 各ファイルには request_id を必ず入れてください。そうすると、同じ request_id を使って、1回のユーザーリクエストをモデル呼び出し、検索、ツール実行、安全確認まで一気につなげられます。
+
+期待される結果：request_id で LLM、検索、tool、safety のログをつなげ、失敗がどの層で起きたかを trace から説明できる状態です。
 
 ---
 

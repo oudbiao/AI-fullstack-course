@@ -58,6 +58,18 @@ If a memory is not useful, current, permitted, and retrievable, it can hurt the 
 | 4 | Episodic and procedural memory | Separate what happened from how to do it next time |
 | 5 | Memory engineering | Design write, retrieve, update, expire, and delete rules |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
+
 ## Pass Check
 
 You pass this chapter when you can explain why “remember more” is not the same as “perform better.”

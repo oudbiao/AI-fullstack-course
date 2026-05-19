@@ -41,6 +41,8 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 | 安全边界 | 白名单外或高风险动作会被拦截，或转入人工确认。 |
 | 停止控制 | 最大步数和停止条件能防止循环与成本失控。 |
 
+预期结果：你的第 9 章项目文件夹里有工具 schema、可回放 trace、安全边界、固定评测任务、失败笔记，以及说明为什么在闭环可靠前保持单 Agent 的 README。
+
 ## 离章问题
 
 - 你能说明 Agent 和普通 LLM 应用的区别吗？
@@ -50,3 +52,15 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 - 你能解释为什么多 Agent 应该在单 Agent 可靠之后再做吗？
 
 如果答案都是可以，就继续下一方向：部署、多模态 Agent，或课程最终项目。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+single_agent_trace: one complete goal-plan-action-observation loop
+tool_contract: schema, permission, error behavior, and observation
+memory_note: what is written, retrieved, forgotten, or updated
+eval_note: success score, safety check, and failure reason
+project_readme: run command, trace, limitations, and next action
+```

@@ -358,6 +358,18 @@ patch が小さいほど、次のことがしやすくなります。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## まとめ
 
 この節で最も大事なのは、コード Agent を「コードが書けるモデル」として理解することではなく、  

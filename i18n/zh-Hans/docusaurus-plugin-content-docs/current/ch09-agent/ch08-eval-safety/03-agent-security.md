@@ -146,7 +146,21 @@ flowchart TD
 
 这些样例可以放进 Agent 项目的评估集中。通过安全测试，不代表系统绝对安全，但至少能避免最常见、最明显的越界行为。
 
+预期结果：你的 Agent 会拒绝不安全请求，把外部指令当作不可信内容，高风险动作进入确认流程，并为每个接受、拒绝或失败的动作留下审计记录。
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+eval_cases: fixed tasks and expected safe behavior
+scorecard: task success, tool correctness, trace quality, safety
+guardrail: policy, permission, validation, or human confirmation
+failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
+next_action: add case, guardrail, log, rollback, or refusal path
+```
 
 ## 练习
 

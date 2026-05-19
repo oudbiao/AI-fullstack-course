@@ -299,6 +299,20 @@ total_cost = 0.004
 
 ---
 
+期待される結果：モデル単価だけでなく、context 長、tool 呼び出し、cache、retry、失敗率を含めてタスク全体のコストを説明できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime: queues, workers, state store, tool services, and model endpoint
+persistence: checkpoints, event log, memory store, and recovery path
+ops_signal: latency, cost, error rate, trace coverage, and saturation
+failure_check: stuck run, duplicate action, partial failure, or runaway cost
+recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+```
+
 ## まとめ
 
 この節で最も大事なのは、全体の流れでコストを見ることです。

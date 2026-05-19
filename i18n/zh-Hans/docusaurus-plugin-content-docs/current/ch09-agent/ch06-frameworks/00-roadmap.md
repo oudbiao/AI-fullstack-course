@@ -63,6 +63,18 @@ reason: choose the smallest abstraction that exposes state
 | 4 | CrewAI / AutoGen | 比较角色协作和多 Agent 对话 |
 | 5 | 框架选择 | 写出决策表和无框架基线 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
+
 ## 通过标准
 
 如果你能用普通函数和一个框架实现同一个小任务，并解释哪一版更容易调试、为什么，就通过了本章。

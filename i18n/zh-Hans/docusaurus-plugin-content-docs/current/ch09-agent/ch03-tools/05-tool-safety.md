@@ -383,6 +383,18 @@ print(audit_log("u_001", "search_docs", {"keyword": "退款"}, result))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+tool_contract: name, description, input schema, output schema
+permission: what the tool is allowed to read or change
+call_trace: arguments, result, error, retry or fallback
+failure_check: wrong tool, bad arguments, unsafe action, or missing observation
+safety_action: validate, confirm, sandbox, rate-limit, or rollback
+```
+
 ## 小结
 
 这节最重要的，不是背下几种错误码，

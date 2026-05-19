@@ -24,6 +24,10 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 知道框架通常在替你省什么、又让你失去什么
 - 建立初步的框架选型视角
 
+![Agent 框架定位图](/img/course/ch09-frameworks-position-map.webp)
+
+读这张图时可以把它看成取舍图：越底层的框架控制力越强，越高层的框架启动成本越低，偏检索的框架更适合以文档和知识为中心的系统。
+
 ---
 
 ## 为什么需要 Agent 框架？
@@ -265,6 +269,18 @@ answer -> {'query': '退款政策是什么', 'docs': ['退款政策'], 'answer':
 框架只是组织方式，不是系统质量保证。
 
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+problem_shape: workflow graph, retrieval app, role team, or experiment
+framework_choice: what abstraction it adds and what control it hides
+trace: state, node, tool call, message, or run id
+failure_check: framework magic hides state, retries, or permissions
+decision: choose framework only after the single-agent loop is clear
+```
 
 ## 小结
 

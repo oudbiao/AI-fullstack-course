@@ -332,6 +332,18 @@ for item in timeline:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_goal: what the agent is trying to solve
+plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
+observation: what changed after each action
+failure_check: hallucinated step, stale observation, loop, or unverified conclusion
+eval_action: compare against expected result and revise the plan
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、`DAG` という言葉を覚えることではありません。  

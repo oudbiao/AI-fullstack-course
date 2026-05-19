@@ -28,6 +28,10 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 - 通过可运行示例看懂“从经历提炼流程”的最小闭环
 - 学会判断一条信息更适合存成 episode 还是 workflow
 
+![Agent 记忆层选择图](/img/course/ch09-memory-layer-selection-map.webp)
+
+可以把这张图当成判断工具：短期状态服务当前运行，长期记忆存稳定事实，情景记忆保留具体经历，程序记忆沉淀可复用的方法。
+
 ---
 
 ## 情景记忆到底是什么？
@@ -272,6 +276,18 @@ episode 更适合：
 否则它会从“经验”变成“过期经验”。
 
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+memory_type: short-term, long-term, episodic, or procedural
+write_rule: when memory is created or updated
+retrieve_rule: query, relevance, recency, and permission check
+failure_check: stale memory, privacy leak, contradiction, or over-retrieval
+cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+```
 
 ## 小结
 

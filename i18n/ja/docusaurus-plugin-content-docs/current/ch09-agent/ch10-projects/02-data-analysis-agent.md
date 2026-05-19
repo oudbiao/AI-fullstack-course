@@ -323,6 +323,20 @@ print(trace)
 
 ---
 
+期待される結果：元データ、中間計算、洞察、グラフ提案、エラーケースを1本の trace として示し、分析結果を検証できる状態です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: what the agent should accomplish and what it must not do
+baseline: single-agent loop before adding advanced features
+trace_pack: goal, plan, tool calls, observations, memory, evaluation
+failure_log: one failed or unsafe run with root cause
+deliverable: README, run command, trace screenshot/log, next step
+```
+
 ## まとめ
 
 この節で最も大事なのは、作品レベルの判断軸を作ることです。
