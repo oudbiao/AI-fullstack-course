@@ -265,8 +265,8 @@
 | `ch07-finetuning-decision-loop.webp` | 微调决策与评估闭环图 | `docs/ch07-llm-principles/ch06-finetuning/00-roadmap.md` | 微调决策与评估闭环图：判断是否需要微调、定义任务和评估标准、准备样本、选择 LoRA/QLoRA/PEFT、训练验证、对比 Prompt/RAG 基线并决定上线。 |
 | `ch07-alignment-chapter-flow.webp` | 大模型对齐章节关系图 | `docs/ch07-llm-principles/ch07-alignment/00-roadmap.md` | 大模型对齐章节关系图：预训练、指令微调、人类反馈、RLHF/DPO、安全边界和可靠应用逐步连接。 |
 | `ch07-alignment-app-safety-map.webp` | 对齐与应用安全边界图 | `docs/ch07-llm-principles/ch07-alignment/00-roadmap.md` | 对齐与应用安全边界图：模型对齐让模型更愿意遵循指令、承认不确定和遵守安全边界，并连接 Prompt 应用、RAG 引用和 Agent 工具权限。 |
-| `ch07-projects-route-map.webp` | 大模型综合项目路线图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型综合项目路线图：领域任务、Prompt baseline、失败分析、Prompt 优化、RAG、微调、评估对比和项目展示组成方案选择闭环。 |
-| `ch07-project-method-choice-loop.webp` | 大模型项目方法选择闭环图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型项目方法选择闭环图：任务定义、数据样例、baseline、失败分析、方法选择、实现方案、评估对比、结论取舍和作品集输出组成项目闭环。 |
+| `ch07-projects-route-map.webp` | 大模型项目路线选择教学图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型项目路线选择图：从小领域任务、固定 cases、Prompt baseline、失败日志和 Prompt v2 结果，判断下一步选择 RAG 而不是立即微调。 |
+| `ch07-project-method-choice-loop.webp` | 大模型项目方法选择闭环图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型项目方法选择闭环图：从小领域任务、固定 cases、Prompt baseline、失败日志、方法岔路、评估和交付，跑完一个可复盘项目。 |
 | `ch07-tokenizer-granularity-tradeoff-map.webp` | Tokenizer 粒度取舍图 | `docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md` | Tokenizer 粒度取舍图：字符级、词级和子词级在序列长度、OOV 风险、词表大小和语义粒度之间做取舍。 |
 | `ch07-tokenizer-inputids-mask-length-map.webp` | Tokenizer 到 input_ids 与 attention_mask 图 | `docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md` | Tokenizer 到张量图：原文经过 tokenization、special tokens、input_ids、padding、attention_mask 和 truncation 变成可批处理张量。 |
 | `ch07-embedding-onehot-dense-map.webp` | One-hot 到 dense embedding 语义空间图 | `docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md` | One-hot 到 dense embedding 对比图：One-hot 只能区分身份，dense embedding 把语义相近词放到相近向量空间位置。 |
@@ -1535,3 +1535,7 @@
 | `ch07-solution-choice-map.webp` | 大模型失败诊断与方案选择图 | `docs/ch07-llm-principles/index.md` | 大模型效果不好时，先用固定样本定位失败类型，再选择 Prompt、schema、RAG、微调或工具。 |
 | `ch07-solution-choice-map-en.webp` | LLM failure diagnosis and route choice map | `docs/ch07-llm-principles/index.md` | When an LLM result is weak, diagnose the failure with fixed cases before choosing Prompt, schema, RAG, fine-tuning, or tools. |
 | `ch07-solution-choice-map-ja.webp` | LLM 失敗診断とルート選択図 | `docs/ch07-llm-principles/index.md` | LLM の結果が弱い時、固定ケースで失敗タイプを診断してから Prompt、schema、RAG、微調整、tools を選ぶ。 |
+| `ch07-projects-route-map-en.webp` | LLM project route choice teaching map | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | LLM project route choice map showing a small domain task, fixed cases, Prompt baseline, failure log, Prompt v2 improvement, and the evidence-based choice of RAG instead of immediate fine-tuning. |
+| `ch07-projects-route-map-ja.webp` | LLM プロジェクト進路選択教材図 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 小さな領域タスク、固定 cases、Prompt baseline、失敗ログ、Prompt v2 の改善から、すぐ微調整せず RAG を選ぶことを示す LLM プロジェクト進路選択図。 |
+| `ch07-project-method-choice-loop-en.webp` | LLM project method selection loop | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | LLM project method selection loop: a small domain task, fixed cases, Prompt baseline, failure log, method fork, evaluation, and handoff evidence form one reproducible project. |
+| `ch07-project-method-choice-loop-ja.webp` | LLM プロジェクト手法選択ループ | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | LLM プロジェクト手法選択ループ：小さな領域タスク、固定 cases、Prompt baseline、失敗ログ、方法分岐、評価、引き渡し証拠で再現可能なプロジェクトを回す。 |

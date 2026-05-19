@@ -4331,11 +4331,12 @@ Unnumbered bottom: several Encoder Blocks stacked vertically, with the reminder 
         "suggested_page": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
         "alt": "第 7 章作品集证据包图：README、token_trace.json、prompt_eval.csv、route_decisions.json 和 failure_cases.md 组成可复现 LLM 工程证据。",
         "prompt": """
-一张竖版作品集证据包图，主题是“跑完工作坊后要留下什么，别人才能复现你的判断”。
-画面中心是 ch07_workshop_evidence 文件夹，里面清楚展示 README.md、token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md 五个文件。
-每个文件连到一个用途：how to run、token evidence、prompt scorecard、method choice、failure review。
-底部展示 reviewer 看证据包后能回答三个问题：what was tested、what failed、what changes next。
-文字不是主体；标准术语保留英文，例如 README.md、token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md、reviewer。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+一张竖版手绘课堂讲义 / 横线笔记纸教学图，主题是“跑完工作坊后要留下什么，别人才能复现你的判断”。
+整张图要和 ch07-projects-route-map、ch07-project-method-choice-loop 保持同一套手绘课堂风格：横线笔记纸背景、粗黑描边、蓝绿橙少量强调色、像老师在讲义上圈重点一样清楚，但不是白底圆角框信息图，不要 SVG 感，不要纯文字海报，不要密集小字。
+画面中心是一个大文件夹或证据盒，标签清楚写着 ch07_workshop_evidence。文件夹前方摆出五张手写文件卡片：README.md、token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md。每张卡片旁边只放一行用途短句，说明它分别记录 how to run、token evidence、prompt scorecard、method choice、failure review。
+右侧放一张小小的结果收据或评分条，清楚写出 baseline_pass_rate 0.62 -> prompt_v2_pass_rate 0.78、improvement 0.16、next_route RAG、fine_tune_now False，像课堂笔记里的结论摘要。
+底部放 reviewer 检查条，只有三个问题：what was tested、what failed、what changes next。让读者一眼明白这不是装饰图，而是证明项目可信的证据包。
+文字不是主体；标准术语保留英文，例如 README.md、token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md、reviewer、baseline_pass_rate、prompt_v2_pass_rate、next_route、fine_tune_now。其他说明可用少量自然中文短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -36836,6 +36837,301 @@ for filename, title, alt in CH07_SOLUTION_CHOICE_MAP_REMAKE_META:
             }
         )
         existing_filenames_for_ch07_solution_choice.add(filename)
+
+CH07_PROJECT_ROUTE_MAP_REMAKE_PROMPTS = {
+    "ch07-projects-route-map.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="大模型项目路线怎么选",
+        visible_subtitle="先用固定样本证明问题，再决定 Prompt、RAG 或微调。",
+        teaching_goal=(
+            "服务第 7.8.1 综合项目路线页。读者看图后应能把页面里的最小项目代码串起来："
+            "从一个小领域任务开始，先跑 Prompt baseline，用同一组 cases 记录失败，再根据失败原因选择下一条路线。"
+            "必须体现页面输出：baseline_pass_rate=0.62、prompt_v2_pass_rate=0.78、improvement=0.16、next_route=RAG、fine_tune_now=False。"
+            "重点不是装饰性路线图，而是让学习者理解为什么此时不直接微调。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，中英日三语同构。不要旧 SVG 风格、白底圆角框堆叠、纯流程框或漂亮但无教学含义的道路图。"
+            "1 顶部画一个小领域任务台：任务是 classify course questions；旁边有 10 个固定 cases 卡片和一个小标签：one small domain task。"
+            "2 第二段画 Prompt baseline 实验台：左侧 baseline prompt，右侧同一批 cases，结果牌必须写 baseline_pass_rate = 0.62。"
+            "3 第三段画失败日志分拣盘，分成四个可见桶：知识缺口、输出格式漂移、任务边界不清、评估样本太少。桶里只放短卡片，不写长段落。"
+            "4 第四段画 Prompt v2 改进后对比：prompt_v2_pass_rate = 0.78，improvement = 0.16，用上升箭头连接 baseline。"
+            "5 第五段是路线选择岔路口，三扇门保持同位置：继续 Prompt、RAG、fine-tuning。RAG 门高亮；fine-tuning 门贴上 not yet。必须写 next_route = RAG 和 fine_tune_now = False。"
+            "6 底部画 evidence pack 文件夹，里面露出 README、run command、fixed cases、failure log、next step。底部结论说明：不要凭感觉微调，先用证据选路线。"
+        ),
+        required_labels=(
+            "classify course questions、10 fixed cases、Prompt baseline、baseline_pass_rate = 0.62、失败日志、知识缺口、"
+            "输出格式漂移、任务边界不清、评估样本太少、Prompt v2、prompt_v2_pass_rate = 0.78、improvement = 0.16、"
+            "继续 Prompt、RAG、fine-tuning、not yet、next_route = RAG、fine_tune_now = False、evidence pack、README、run command、fixed cases、failure log、next step。"
+        ),
+        footer="不要从“想微调”开始；先用固定证据证明下一步。",
+        allowed_tokens=(
+            "classify course questions, fixed cases, Prompt, Prompt baseline, baseline_pass_rate, prompt_v2_pass_rate, "
+            "improvement, RAG, fine-tuning, not yet, next_route, fine_tune_now, False, evidence pack, README, run command, failure log, next step"
+        ),
+    ),
+    "ch07-projects-route-map-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Choosing an LLM Project Route",
+        visible_subtitle="Prove the problem with fixed cases before choosing Prompt, RAG, or fine-tuning.",
+        teaching_goal=(
+            "Serve the Chapter 7.8.1 project roadmap page. Learners should connect the minimal project code: "
+            "start with a small domain task, run a Prompt baseline, keep the same cases, record failures, then choose the next route from evidence. "
+            "The visual must include the page output exactly: baseline_pass_rate=0.62, prompt_v2_pass_rate=0.78, improvement=0.16, next_route=RAG, fine_tune_now=False. "
+            "The point is not a decorative route map; it is why the project does not jump straight to fine-tuning."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. "
+            "Do not draw old SVG style, white rounded-box stacks, pure flow boxes, or a pretty road map without teaching value. "
+            "1 Top: draw a small domain task desk. The task is classify course questions; beside it show 10 fixed cases cards and a small tag: one small domain task. "
+            "2 Second section: Prompt baseline lab bench. Left side baseline prompt, right side the same cases, result badge exactly baseline_pass_rate = 0.62. "
+            "3 Third section: failure log sorter with four visible buckets: knowledge gap, output format drift, unclear task boundary, too few eval cases. Use only short cards, no paragraphs. "
+            "4 Fourth section: Prompt v2 improvement comparison. Show prompt_v2_pass_rate = 0.78 and improvement = 0.16, with an upward arrow from baseline. "
+            "5 Fifth section: route-choice fork with three doors in the same positions: keep Prompt, RAG, fine-tuning. Highlight the RAG door; place a not yet note on the fine-tuning door. Show next_route = RAG and fine_tune_now = False exactly. "
+            "6 Bottom: evidence pack folder with README, run command, fixed cases, failure log, next step visible. Bottom takeaway says not to fine-tune by instinct; choose the route with evidence."
+        ),
+        required_labels=(
+            "classify course questions, 10 fixed cases, Prompt baseline, baseline_pass_rate = 0.62, failure log, knowledge gap, "
+            "output format drift, unclear task boundary, too few eval cases, Prompt v2, prompt_v2_pass_rate = 0.78, improvement = 0.16, "
+            "keep Prompt, RAG, fine-tuning, not yet, next_route = RAG, fine_tune_now = False, evidence pack, README, run command, fixed cases, failure log, next step."
+        ),
+        footer="Do not start from 'let's fine-tune'; prove the next step with fixed evidence.",
+        allowed_tokens=(
+            "classify course questions, fixed cases, Prompt, Prompt baseline, baseline_pass_rate, prompt_v2_pass_rate, "
+            "improvement, RAG, fine-tuning, not yet, next_route, fine_tune_now, False, evidence pack, README, run command, failure log, next step"
+        ),
+    ),
+    "ch07-projects-route-map-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="LLM プロジェクトの進路を選ぶ",
+        visible_subtitle="固定 cases で問題を証明してから Prompt、RAG、微調整を選ぶ。",
+        teaching_goal=(
+            "第 7.8.1 の総合プロジェクト導入ページに使う。学習者が最小プロジェクトのコードをつなげて理解できるようにする："
+            "小さな領域タスクから始め、Prompt baseline を走らせ、同じ cases で失敗を記録し、失敗理由から次の進路を選ぶ。"
+            "ページの出力 baseline_pass_rate=0.62、prompt_v2_pass_rate=0.78、improvement=0.16、next_route=RAG、fine_tune_now=False を必ず正確に入れる。"
+            "飾りのロードマップではなく、なぜここで直接 fine-tuning しないのかを理解させる。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。古い SVG 風、白い角丸 box の山、純粋な flow box、きれいなだけの道路図は禁止。"
+            "1 上部に小さな領域タスクの作業台を描く。タスクは classify course questions。横に 10 fixed cases のカードと one small domain task の小ラベルを置く。"
+            "2 2段目は Prompt baseline の実験台。左に baseline prompt、右に同じ cases、結果バッジに baseline_pass_rate = 0.62 を正確に書く。"
+            "3 3段目は失敗ログの仕分け台。4つの visible bucket：知識ギャップ、出力形式のずれ、タスク境界が曖昧、評価 cases が少ない。短いカードだけにし、長文を書かない。"
+            "4 4段目は Prompt v2 改善の比較。prompt_v2_pass_rate = 0.78 と improvement = 0.16 を表示し、baseline から上向き矢印でつなぐ。"
+            "5 5段目は進路選択の分岐。3つの扉を同じ位置に置く：Prompt 継続、RAG、fine-tuning。RAG の扉を強調し、fine-tuning の扉には not yet を貼る。next_route = RAG と fine_tune_now = False を必ず表示する。"
+            "6 下部は evidence pack フォルダ。README、run command、fixed cases、failure log、next step が見える。結論は、勘で微調整せず証拠で進路を選ぶ、にする。"
+        ),
+        required_labels=(
+            "classify course questions、10 fixed cases、Prompt baseline、baseline_pass_rate = 0.62、失敗ログ、知識ギャップ、"
+            "出力形式のずれ、タスク境界が曖昧、評価 cases が少ない、Prompt v2、prompt_v2_pass_rate = 0.78、improvement = 0.16、"
+            "Prompt 継続、RAG、fine-tuning、not yet、next_route = RAG、fine_tune_now = False、evidence pack、README、run command、fixed cases、failure log、next step。"
+        ),
+        footer="「微調整したい」から始めない。固定した証拠で次の一手を決める。",
+        allowed_tokens=(
+            "classify course questions, fixed cases, Prompt, Prompt baseline, baseline_pass_rate, prompt_v2_pass_rate, "
+            "improvement, RAG, fine-tuning, not yet, next_route, fine_tune_now, False, evidence pack, README, run command, failure log, next step"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PROJECT_ROUTE_MAP_REMAKE_PROMPTS)
+
+CH07_PROJECT_ROUTE_MAP_REMAKE_META = [
+    (
+        "ch07-projects-route-map.png",
+        "大模型项目路线选择教学图",
+        "大模型项目路线选择图：从小领域任务、固定 cases、Prompt baseline、失败日志和 Prompt v2 结果，判断下一步选择 RAG 而不是立即微调。",
+    ),
+    (
+        "ch07-projects-route-map-en.png",
+        "LLM project route choice teaching map",
+        "LLM project route choice map showing a small domain task, fixed cases, Prompt baseline, failure log, Prompt v2 improvement, and the evidence-based choice of RAG instead of immediate fine-tuning.",
+    ),
+    (
+        "ch07-projects-route-map-ja.png",
+        "LLM プロジェクト進路選択教材図",
+        "小さな領域タスク、固定 cases、Prompt baseline、失敗ログ、Prompt v2 の改善から、すぐ微調整せず RAG を選ぶことを示す LLM プロジェクト進路選択図。",
+    ),
+]
+
+ch07_project_route_meta_by_filename = {
+    filename: {"title": title, "alt": alt}
+    for filename, title, alt in CH07_PROJECT_ROUTE_MAP_REMAKE_META
+}
+existing_filenames_for_ch07_project_route = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_PROJECT_ROUTE_MAP_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_project_route:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch08-projects/00-roadmap.md",
+                "alt": alt,
+                "prompt": CH07_PROJECT_ROUTE_MAP_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_project_route.add(filename)
+
+for job in IMAGE_JOBS:
+    filename = str(job.get("filename"))
+    route_meta = ch07_project_route_meta_by_filename.get(filename)
+    if route_meta:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+        job["suggested_page"] = "docs/ch07-llm-principles/ch08-projects/00-roadmap.md"
+        job["title"] = route_meta["title"]
+        job["alt"] = route_meta["alt"]
+        job.pop("allow_landscape", None)
+
+CH07_PROJECT_METHOD_CHOICE_LOOP_REMAKE_PROMPTS = {
+    "ch07-project-method-choice-loop.png": _course_qa_prompt(
+        locale="zh",
+        visible_title="项目方法选择闭环",
+        visible_subtitle="先诊断失败，再选最小修复，最后留下证据。",
+        teaching_goal=(
+            "服务第 7.8.1 项目路线页的第二张图。读者看图后应理解完整项目不是一张路线海报，而是一个可复盘的闭环："
+            "先定义小领域任务、准备固定样本、跑 Prompt baseline、记录失败、选择最小修复、实现、评估、写结论、打包证据。"
+            "图必须和正文代码/输出一致：task=classify course questions、baseline_pass_rate=0.62、prompt_v2_pass_rate=0.78、improvement=0.16、next_route=RAG、fine_tune_now=False。"
+            "重点是项目如何真正跑完，而不是装饰性的流程图。"
+        ),
+        fixed_layout=(
+            "手绘课堂讲义 / 横线笔记纸教学图，竖版 9:16，中英日三语同构。不要旧 SVG 风格、白底圆角框堆叠、纯流程框或漂亮但无教学含义的项目海报。"
+            "1 顶部是项目起点台：小领域任务卡写 classify course questions，旁边放 10 个固定 cases。"
+            "2 第二段是 baseline 台：同一组 cases 进入 Prompt baseline，输出卡片写 baseline_pass_rate = 0.62。"
+            "3 第三段是失败日志板：分成四个可见桶，知识缺口、输出格式漂移、任务边界不清、评估样本太少。"
+            "4 第四段是方法岔路：Prompt、RAG、fine-tuning 三扇门同位置，RAG 高亮，fine_tuning 门贴 not yet，并写 next_route = RAG、fine_tune_now = False。"
+            "5 第五段是实现台：Prompt v2 改进卡和小型检索或样本整理台并列，强调一次只改一个变量。"
+            "6 第六段是评估板：用固定 test cases 对比 baseline 和 new method，写 prompt_v2_pass_rate = 0.78、improvement = 0.16。"
+            "7 第七段是交付台：README、run command、screenshots、failure cases、next step 组成 evidence pack 文件夹。"
+            "8 底部横条是最终 print receipt，逐行写 task、improvement、next_route、fine_tune_now，像代码输出一样清楚。"
+        ),
+        required_labels=(
+            "classify course questions、10 fixed cases、Prompt baseline、baseline_pass_rate = 0.62、失败日志、知识缺口、"
+            "输出格式漂移、任务边界不清、评估样本太少、Prompt v2、prompt_v2_pass_rate = 0.78、improvement = 0.16、"
+            "Prompt、RAG、fine-tuning、not yet、next_route = RAG、fine_tune_now = False、README、run command、screenshots、failure cases、next step、evidence pack、task、improvement。"
+        ),
+        footer="先跑小项目、先留失败证据、再决定下一步。",
+        allowed_tokens=(
+            "classify course questions, fixed cases, Prompt, Prompt baseline, baseline_pass_rate, prompt_v2_pass_rate, "
+            "improvement, RAG, fine-tuning, not yet, next_route, fine_tune_now, False, evidence pack, README, run command, screenshots, failure cases, next step"
+        ),
+    ),
+    "ch07-project-method-choice-loop-en.png": _course_qa_prompt(
+        locale="en",
+        visible_title="Project Method Selection Loop",
+        visible_subtitle="Diagnose the failure first, then pick the smallest fix and keep the evidence.",
+        teaching_goal=(
+            "Serve the second image on the Chapter 7 project roadmap page. Learners should see that a real project is not a decorative route poster but a reproducible loop: "
+            "define a small domain task, prepare fixed cases, run a Prompt baseline, record failures, choose the smallest fix, implement, evaluate, write the conclusion, and package evidence. "
+            "The visual must match the page code/output exactly: task=classify course questions, baseline_pass_rate=0.62, prompt_v2_pass_rate=0.78, improvement=0.16, next_route=RAG, fine_tune_now=False. "
+            "The emphasis is on how the project is actually finished."
+        ),
+        fixed_layout=(
+            "Hand-drawn classroom handout on lined notebook paper, vertical 9:16, structurally identical across zh/en/ja. Do not draw old SVG style, white rounded-box stacks, pure flow boxes, or a pretty project poster without teaching value. "
+            "1 Top: a project start desk. The task card says classify course questions; beside it are 10 fixed cases cards. "
+            "2 Second section: baseline bench. The same cases enter the Prompt baseline, and the result card says baseline_pass_rate = 0.62. "
+            "3 Third section: failure log board with four visible buckets: knowledge gap, output format drift, unclear task boundary, too few eval cases. "
+            "4 Fourth section: method fork. Prompt, RAG, and fine-tuning doors sit in the same positions, RAG is highlighted, the fine-tuning door says not yet, and the route labels read next_route = RAG and fine_tune_now = False. "
+            "5 Fifth section: implementation desk. Prompt v2 improvement sits beside a small retrieval or sample-organization bench, with the reminder to change one variable at a time. "
+            "6 Sixth section: evaluation board. Fixed test cases compare baseline and new method, with prompt_v2_pass_rate = 0.78 and improvement = 0.16. "
+            "7 Seventh section: handoff desk. README, run command, screenshots, failure cases, and next step form an evidence pack folder. "
+            "8 Bottom strip: a final print receipt, line by line, for task, improvement, next_route, and fine_tune_now, so it looks like code output."
+        ),
+        required_labels=(
+            "classify course questions, 10 fixed cases, Prompt baseline, baseline_pass_rate = 0.62, failure log, knowledge gap, "
+            "output format drift, unclear task boundary, too few eval cases, Prompt v2, prompt_v2_pass_rate = 0.78, improvement = 0.16, "
+            "Prompt, RAG, fine-tuning, not yet, next_route = RAG, fine_tune_now = False, README, run command, screenshots, failure cases, next step, evidence pack, task, improvement."
+        ),
+        footer="Run the small project first, keep the failure evidence, then choose the next step.",
+        allowed_tokens=(
+            "classify course questions, fixed cases, Prompt, Prompt baseline, baseline_pass_rate, prompt_v2_pass_rate, "
+            "improvement, RAG, fine-tuning, not yet, next_route, fine_tune_now, False, evidence pack, README, run command, screenshots, failure cases, next step"
+        ),
+    ),
+    "ch07-project-method-choice-loop-ja.png": _course_qa_prompt(
+        locale="ja",
+        visible_title="プロジェクト手法選択ループ",
+        visible_subtitle="まず失敗を診断し、最小の修正を選び、証拠を残す。",
+        teaching_goal=(
+            "第 7.8.1 プロジェクト導入ページの 2 枚目として使う。学習者が、実際のプロジェクトは装飾的なロードマップではなく再現可能なループだと理解できるようにする："
+            "小さな領域タスクを定義し、固定ケースを準備し、Prompt baseline を実行し、失敗を記録し、最小修正を選び、実装し、評価し、結論を書き、証拠をまとめる。"
+            "図は本文コード/出力と完全に一致させる：task=classify course questions、baseline_pass_rate=0.62、prompt_v2_pass_rate=0.78、improvement=0.16、next_route=RAG、fine_tune_now=False。"
+            "重要なのは、プロジェクトをどう終わらせ、どう証拠化するかである。"
+        ),
+        fixed_layout=(
+            "手描き授業プリント / 横線ノート紙の教材図、縦 9:16、中国語・英語版と同じ構造。古い SVG 風、白い角丸 box の山、純粋な flow box、見た目だけのプロジェクトポスターは禁止。"
+            "1 上部はプロジェクト開始台。task カードに classify course questions と書き、横に 10 fixed cases を置く。"
+            "2 2 段目は baseline 台。同じ cases が Prompt baseline に入り、結果カードに baseline_pass_rate = 0.62 と書く。"
+            "3 3 段目は failure log ボード。4 つの見える bucket：knowledge gap、output format drift、unclear task boundary、too few eval cases。"
+            "4 4 段目は方法分岐。Prompt、RAG、fine-tuning の扉を同じ位置に置き、RAG を強調し、fine-tuning の扉に not yet を貼り、next_route = RAG と fine_tune_now = False を表示する。"
+            "5 5 段目は実装台。Prompt v2 の改善カードと、小さな retrieval または sample organization 台を並べ、1 つずつ変えることを示す。"
+            "6 6 段目は評価ボード。固定 test cases で baseline と new method を比較し、prompt_v2_pass_rate = 0.78 と improvement = 0.16 を書く。"
+            "7 7 段目は引き渡し台。README、run command、screenshots、failure cases、next step で evidence pack フォルダを作る。"
+            "8 最下部の横帯は最終 print receipt。task、improvement、next_route、fine_tune_now を 1 行ずつ書き、コード出力のように見せる。"
+        ),
+        required_labels=(
+            "classify course questions、10 fixed cases、Prompt baseline、baseline_pass_rate = 0.62、failure log、knowledge gap、"
+            "output format drift、unclear task boundary、too few eval cases、Prompt v2、prompt_v2_pass_rate = 0.78、improvement = 0.16、"
+            "Prompt、RAG、fine-tuning、not yet、next_route = RAG、fine_tune_now = False、README、run command、screenshots、failure cases、next step、evidence pack、task、improvement。"
+        ),
+        footer="小さいプロジェクトを先に回し、失敗証拠を残してから次を選ぶ。",
+        allowed_tokens=(
+            "classify course questions, fixed cases, Prompt, Prompt baseline, baseline_pass_rate, prompt_v2_pass_rate, "
+            "improvement, RAG, fine-tuning, not yet, next_route, fine_tune_now, False, evidence pack, README, run command, screenshots, failure cases, next step"
+        ),
+    ),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PROJECT_METHOD_CHOICE_LOOP_REMAKE_PROMPTS)
+
+CH07_PROJECT_METHOD_CHOICE_LOOP_REMAKE_META = [
+    (
+        "ch07-project-method-choice-loop.png",
+        "大模型项目方法选择闭环图",
+        "大模型项目方法选择闭环图：从小领域任务、固定 cases、Prompt baseline、失败日志、方法岔路、评估和交付，跑完一个可复盘项目。",
+    ),
+    (
+        "ch07-project-method-choice-loop-en.png",
+        "LLM project method selection loop",
+        "LLM project method selection loop: a small domain task, fixed cases, Prompt baseline, failure log, method fork, evaluation, and handoff evidence form one reproducible project.",
+    ),
+    (
+        "ch07-project-method-choice-loop-ja.png",
+        "LLM プロジェクト手法選択ループ",
+        "LLM プロジェクト手法選択ループ：小さな領域タスク、固定 cases、Prompt baseline、失敗ログ、方法分岐、評価、引き渡し証拠で再現可能なプロジェクトを回す。",
+    ),
+]
+
+ch07_project_method_choice_loop_meta_by_filename = {
+    filename: {"title": title, "alt": alt}
+    for filename, title, alt in CH07_PROJECT_METHOD_CHOICE_LOOP_REMAKE_META
+}
+existing_filenames_for_ch07_project_method_choice_loop = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH07_PROJECT_METHOD_CHOICE_LOOP_REMAKE_META:
+    if filename not in existing_filenames_for_ch07_project_method_choice_loop:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch07-llm-principles/ch08-projects/00-roadmap.md",
+                "alt": alt,
+                "prompt": CH07_PROJECT_METHOD_CHOICE_LOOP_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch07_project_method_choice_loop.add(filename)
+
+for job in IMAGE_JOBS:
+    filename = str(job.get("filename"))
+    method_choice_meta = ch07_project_method_choice_loop_meta_by_filename.get(filename)
+    if method_choice_meta:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+        job["suggested_page"] = "docs/ch07-llm-principles/ch08-projects/00-roadmap.md"
+        job["title"] = method_choice_meta["title"]
+        job["alt"] = method_choice_meta["alt"]
+        job.pop("allow_landscape", None)
 
 for job in IMAGE_JOBS:
     override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(str(job.get("filename")))
