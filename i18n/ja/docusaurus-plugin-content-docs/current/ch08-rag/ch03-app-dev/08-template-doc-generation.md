@@ -445,6 +445,18 @@ print(render_markdown_handout(payload))
 - あなたが理解しているのはテンプレート化生成である
 - 単に「モデルに長文を書かせている」わけではない
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## まとめ
 
 - テンプレート化文書生成で最も重要なのは、まず安定した schema を定義し、その次にテンプレート項目を定義すること

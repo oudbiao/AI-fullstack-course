@@ -163,6 +163,18 @@ OK
 
 第一个误区是把 AI 输出当成权威答案。第二个误区是不提供项目上下文，导致模型生成和现有架构不兼容的代码。第三个误区是不看 diff，只要能跑就接受。第四个误区是让模型一次改太多文件，导致很难定位问题。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## 练习
 
 1. 让模型为一个已有函数生成 3 个 pytest 测试，再人工检查是否覆盖边界。

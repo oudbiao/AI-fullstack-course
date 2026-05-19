@@ -61,6 +61,18 @@ The route can change, but the application contract should stay stable.
 | 2 | Inference servers | Expose model calls through a service endpoint |
 | 3 | Unified API | Keep one application interface for multiple providers |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+runtime_choice: local model, inference server, or unified API
+request_contract: endpoint, payload, output format, and error shape
+latency_or_cost: one measured or estimated number
+failure_check: timeout, memory pressure, model mismatch, or version drift
+rollback_plan: fallback model, retry policy, or traffic switch
+```
+
 ## Pass Check
 
 You pass this chapter when you can explain where the model runs, how the app calls it, what can fail, and what metrics you watch: latency, cost, errors, rate limits, and fallback behavior.

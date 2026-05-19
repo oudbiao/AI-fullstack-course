@@ -159,6 +159,18 @@ OK
 
 プロジェクトで AI 支援コーディングを使ったなら、次のような内容を記録するとよいです。モデルに与えた重要な Prompt、初回出力の問題点、どのようにテストして修正したか、最終コードと初版の違い。これらは単に「AI を使いました」と書くより、エンジニアリング力をよく示せます。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## よくある誤解
 
 1 つ目の誤解は、AI の出力を権威ある正解だと思い込むことです。2 つ目は、プロジェクトの文脈を与えず、既存のアーキテクチャと合わないコードを生成させてしまうことです。3 つ目は、diff を見ずに「動くから OK」としてしまうことです。4 つ目は、モデルに一度に多くのファイルを変更させて、問題の特定を難しくしてしまうことです。

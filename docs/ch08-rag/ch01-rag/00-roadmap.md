@@ -61,6 +61,18 @@ If the top source is unrelated, do not tune the final prompt first. Check docume
 | 5 | Optimization and advanced RAG | Debug poor recall, poor ranking, and weak context |
 | 6 | RAG evaluation | Test answer correctness, citation support, and no-answer behavior |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## Pass Check
 
 You pass this chapter when you can build a minimal knowledge-base Q&A loop that prints retrieved chunks, answer text, and source citations for at least 10 fixed questions.

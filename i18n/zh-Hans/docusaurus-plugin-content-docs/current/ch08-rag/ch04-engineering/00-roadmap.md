@@ -57,6 +57,18 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 | 3 | 日志与监控 | 记录 Prompt 版本、检索命中、延迟、成本和失败 |
 | 4 | Docker 部署 | 用可复现运行说明打包应用 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
+
 ## 通过标准
 
 如果你的最小应用有运行命令、API 合约、错误处理、日志和一次记录下来的失败排查，就通过了本章。

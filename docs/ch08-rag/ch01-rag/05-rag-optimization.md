@@ -131,10 +131,17 @@ def pack_context(chunks, max_chars=60):
         total += len(text)
     return packed
 
-selected = pack_context(chunks, max_chars=60)
+selected = pack_context(chunks, max_chars=130)
 print("Chunks finally packed into the context:")
 for c in selected:
     print("-", c)
+```
+
+Expected output:
+
+```text
+Chunks finally packed into the context:
+- Refund policy: Within 7 days of purchase and if learning progress is below 20%, you can get a refund.
 ```
 
 This is the simplest form of “context budget management.”
@@ -201,6 +208,14 @@ for cfg in configs:
     print(cfg, "-> evaluation score", fake_scores[key])
 ```
 
+Expected output:
+
+```text
+{'chunk_size': 200, 'top_k': 3} -> evaluation score 0.78
+{'chunk_size': 400, 'top_k': 3} -> evaluation score 0.71
+{'chunk_size': 200, 'top_k': 5} -> evaluation score 0.74
+```
+
 Although this is toy data, it expresses an important engineering habit:
 **Optimization should rely on comparison experiments, not intuition.**
 
@@ -264,6 +279,18 @@ You can compress this into one sentence:
 This table is especially useful for beginners because it pushes “optimization” back down into several layers that can actually be inspected.
 
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
 
 ## Common beginner mistakes
 

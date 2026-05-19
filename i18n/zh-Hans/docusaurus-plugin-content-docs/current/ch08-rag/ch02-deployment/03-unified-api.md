@@ -423,6 +423,18 @@ for q in ["帮我总结这段话", "退款政策是什么？"]:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+runtime_choice: local model, inference server, or unified API
+request_contract: endpoint, payload, output format, and error shape
+latency_or_cost: one measured or estimated number
+failure_check: timeout, memory pressure, model mismatch, or version drift
+rollback_plan: fallback model, retry policy, or traffic switch
+```
+
 ## 小结
 
 这一节最重要的不是写出一个 `UnifiedClient`，而是理解：

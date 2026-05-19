@@ -393,6 +393,18 @@ for hit in hits:
 
 検索改善のポイントは、一度で完璧な戦略を見つけることではなく、変更ごとに記録があり、指標があり、失敗サンプルがある状態にすることです。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## まとめ
 
 この節で最も大切な理解は次の通りです。

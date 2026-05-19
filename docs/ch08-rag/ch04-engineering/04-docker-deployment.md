@@ -419,6 +419,18 @@ Only prune what you no longer need. In team or CI environments, it is safer to c
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing Docker commands, but understanding:

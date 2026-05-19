@@ -458,6 +458,18 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 - 你理解的是知识入库链路
 - 不只是会“读文件”
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## 小结
 
 - 文档解析真正要解决的是“把文件变成结构化知识对象”

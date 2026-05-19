@@ -377,6 +377,18 @@ for case in eval_cases:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## まとめ
 
 この節で最も大事なのは、作品レベルの見方を持つことです。

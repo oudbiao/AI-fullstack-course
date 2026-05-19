@@ -355,6 +355,18 @@ This makes it very hard to truly understand where the system bottleneck is.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+runtime_choice: local model, inference server, or unified API
+request_contract: endpoint, payload, output format, and error shape
+latency_or_cost: one measured or estimated number
+failure_check: timeout, memory pressure, model mismatch, or version drift
+rollback_plan: fallback model, retry policy, or traffic switch
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing a specific inference-serving term, but understanding:

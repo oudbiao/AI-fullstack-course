@@ -544,3 +544,15 @@ You have completed this Chapter 8 hands-on workshop when you can:
 - Explain which part you would replace first when moving to embeddings, a vector database, or a real model API.
 
 Keep this small project as your Chapter 8 baseline. When later pages introduce LangChain, vector databases, deployment, monitoring, or Agent, compare them back to this script: what part did the framework replace, and what responsibility still belongs to your application code?
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```

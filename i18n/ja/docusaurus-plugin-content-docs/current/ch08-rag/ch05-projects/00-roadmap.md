@@ -46,7 +46,7 @@ print("project_type:", project["project_type"])
 print("evidence:", "docs, eval, citations, failures")
 ```
 
-出力：
+期待される出力：
 
 ```text
 ready: True
@@ -67,6 +67,18 @@ evidence: docs, eval, citations, failures
 | 5 | フル実践ワークショップ | 実 API や DB を足す前の最小再現ループ |
 
 ガイド付き baseline が必要なら、[8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./05-stage-hands-on-workshop.md) から始めます。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
 
 ## プロジェクト成果物基準
 

@@ -62,6 +62,18 @@ Never execute tool calls directly from model text. Validate tool name, argument 
 | 5 | Dialogue systems | Store session state, slots, memory, and user feedback |
 | 6 | Document and template apps | Turn parsing, extraction, and generation into modules |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## Pass Check
 
 You pass this chapter when you can build a small assistant loop that handles one API call, one optional tool call, one structured output, and one error path.

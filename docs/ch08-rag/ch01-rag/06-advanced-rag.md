@@ -291,6 +291,18 @@ Without evaluation, you cannot tell whether the upgrade is a real improvement or
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## Summary
 
 The most important takeaway from this section is:

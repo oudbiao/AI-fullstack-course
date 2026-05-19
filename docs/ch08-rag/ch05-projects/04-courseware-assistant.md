@@ -414,6 +414,18 @@ This makes it easier for others to see that:
 
 It is recommended to complete the basic version first. Do not pursue a large, all-in-one solution from the beginning. With each version upgrade, be sure to write into the README what new capability was added, how it was verified, and what problems still remain.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## Summary
 
 - The core of this project is the complete pipeline of “document knowledge -> structured courseware -> template export”

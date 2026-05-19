@@ -380,6 +380,18 @@ for case in eval_cases:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## 小结
 
 这节最重要的是建立一个作品级判断：

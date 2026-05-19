@@ -13,6 +13,12 @@ Chapter 7 explained how an LLM produces text. Chapter 8 turns that model into a 
 
 Think of RAG as "read before answering." The model should not guess from memory when the answer must come from your course notes, company documents, product manuals, or private knowledge base.
 
+## Where You Are In The Main Route
+
+You have already learned how to control an LLM response with prompts, structured output, and evaluation habits. This chapter adds external knowledge: documents must be parsed, chunked, retrieved, cited, and tested before the answer is trusted.
+
+This is the bridge from "the model can answer" to "the application can answer from the right evidence." Chapter 9 will reuse this evidence habit, but the system will also choose tools, act, observe, and leave an execution trace.
+
 ## See the RAG Application Loop
 
 ![RAG application loop](/img/course/ch08-rag-app-loop-en.webp)
@@ -29,15 +35,23 @@ Use this loop as the chapter map.
 
 ## Learning Order And Task List
 
-Do the workshop after the basics. First make the retrieval chain visible; then replace simple parts with stronger components.
+Do the workshop after the basics. First make the retrieval chain visible; then wrap it as an application. Follow the core path first: **8.1 -> 8.3 -> 8.4 -> 8.5**. Use 8.2 when you need local serving, unified APIs, or deployment choices.
 
 | Step | Read | Do | Evidence to keep |
 |---|---|---|---|
 | 8.1 | RAG basics, document processing, retrieval, evaluation | Build a tiny document-to-answer loop | chunks, top-k output, cited answer |
-| 8.2 | Deployment and unified APIs | Understand cloud API, local model, and unified calling layer | one calling note or config comparison |
 | 8.3 | LLM app development | Wrap the RAG loop with API, tools, dialog, or document parsing | request/response sample and error path |
 | 8.4 | Engineering practices | Add async, logging, monitoring, API design, or Docker notes | logs, config, deployment checklist |
 | 8.5 | Stage project | Run [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) | workshop output, one added doc, one added eval case |
+| 8.2 | Deployment and unified APIs | Understand cloud API, local model, and unified calling layer | one calling note or config comparison |
+
+## Core Path, Extensions, And Depth
+
+| Layer | What to study now | How to use it |
+|---|---|---|
+| Required core | Document parsing, chunk metadata, top-k retrieval, citations, no-answer handling, fixed evaluation set, request/response logs | These are the minimum skills for trustworthy knowledge-grounded LLM apps |
+| Optional extension | Local model serving, unified APIs, LangChain/LlamaIndex, advanced RAG, Docker deployment | Return here when the project needs scale, framework integration, or operations depth |
+| Depth challenge | Keep the same evaluation questions, change one retrieval or chunking variable, and compare cited answers | This prevents "it feels better" RAG tuning |
 
 ## First Runnable Loop: Tiny RAG Without a Framework
 
@@ -138,6 +152,18 @@ When the answer is bad, locate the failing layer before changing the model.
 - Letting the model answer when retrieval is empty. A useful RAG app must say "I do not know from the provided sources."
 - Forgetting metadata. Without source, page, section, and version, citations and debugging become weak.
 - Optimizing by feeling. Use the same evaluation questions every time you change chunking, retrieval, reranking, or Prompt.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+core_route: 8.1 -> 8.3 -> 8.4 -> 8.5 first
+rag_loop: ingest -> chunk -> embed -> retrieve -> generate -> cite -> evaluate
+app_loop: API call, state, tool/function, document parsing, output validation
+ops_loop: async, API contract, logging, monitoring, deployment
+bridge: Chapter 9 turns reliable app actions into traceable Agent workflows
+```
 
 ## Pass Check
 

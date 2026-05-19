@@ -445,6 +445,18 @@ doc_001_chunk_02 ok
 
 選定は「どれが一番流行っているか」ではなく、データ量、更新頻度、フィルタ要件、デプロイ方法、保守コストから考えましょう。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## まとめ
 
 この節で最も大切な理解は次の通りです。

@@ -487,6 +487,18 @@ It is a good idea to record the results in a fixed format every time you try a c
 
 If you do not know where to start, it is recommended to use “heading hierarchy + sliding window” as your baseline, and then adjust based on an evaluation set.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## Summary
 
 The most important takeaway from this lesson is:

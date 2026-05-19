@@ -484,6 +484,18 @@ print(handle_generate({"topic": "割引の応用問題", "doc_format": "pdf"}))
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
+
 ## まとめ
 
 この節で最も大事なのは、インターフェースを動かすことそのものではなく、次を理解することです。

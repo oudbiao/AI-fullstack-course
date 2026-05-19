@@ -484,6 +484,18 @@ print(handle_generate({"topic": "折扣应用题", "doc_format": "pdf"}))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
+
 ## 小结
 
 这一节最重要的不是把接口跑起来，而是理解：

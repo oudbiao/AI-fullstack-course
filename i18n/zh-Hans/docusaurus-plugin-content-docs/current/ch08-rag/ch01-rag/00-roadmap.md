@@ -61,6 +61,18 @@ eval.md 1
 | 5 | 优化与高级 RAG | 排查召回差、排序差和上下文弱的问题 |
 | 6 | RAG 评估 | 测试回答正确性、引用支撑和无答案处理 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## 通过标准
 
 如果你能为至少 10 个固定问题构建一个最小知识库问答闭环，并打印检索分块、回答文本和来源引用，就通过了本章。

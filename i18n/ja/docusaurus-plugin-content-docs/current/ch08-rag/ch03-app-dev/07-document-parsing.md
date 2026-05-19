@@ -468,6 +468,18 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 - あなたは知識投入の流れを理解している
 - 単に「ファイルを読む」だけではない
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## まとめ
 
 - 文書解析の本当の目的は、「ファイルを構造化された知識オブジェクトに変えること」

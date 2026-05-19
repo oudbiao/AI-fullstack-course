@@ -43,7 +43,7 @@ print("contract:", "/v1/chat/completions")
 print("watch:", "latency, cost, errors")
 ```
 
-出力：
+期待される出力：
 
 ```text
 route: local model or private endpoint
@@ -60,6 +60,18 @@ watch: latency, cost, errors
 | 1 | ローカルモデル | 1 つのローカル/ private モデルを読み込み、制約を記録する |
 | 2 | 推論サービス | モデル呼び出しを service endpoint として公開する |
 | 3 | 統一 API | 複数 provider に対して 1 つのアプリ interface を保つ |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime_choice: local model, inference server, or unified API
+request_contract: endpoint, payload, output format, and error shape
+latency_or_cost: one measured or estimated number
+failure_check: timeout, memory pressure, model mismatch, or version drift
+rollback_plan: fallback model, retry policy, or traffic switch
+```
 
 ## 合格ライン
 

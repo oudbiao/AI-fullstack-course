@@ -544,3 +544,15 @@ python3 ask_with_openai.py
 - 能说清楚未来接 embedding、向量数据库或真实模型 API 时，应该先替换哪一部分。
 
 请把这个小项目保留下来，作为第 8 章的 baseline。后面遇到 LangChain、向量数据库、部署、监控或 Agent 时，都可以回头对照这个脚本：框架替你做了哪一部分，哪些责任仍然属于你的应用代码？
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```

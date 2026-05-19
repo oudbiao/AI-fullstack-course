@@ -467,6 +467,18 @@ question,gold_doc,gold_answer,retrieved_docs,answer,citation_ok,failure_type,not
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## 小结
 
 这一节最重要的认识是：

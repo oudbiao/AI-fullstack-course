@@ -443,6 +443,18 @@ print(render_markdown_handout(payload))
 - 你理解的是模板化生成
 - 不只是“让模型写长文”
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## 小结
 
 - 模板化文档生成最关键的是先定义稳定 schema，再定义模板字段

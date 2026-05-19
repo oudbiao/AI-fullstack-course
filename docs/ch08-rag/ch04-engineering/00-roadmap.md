@@ -57,6 +57,18 @@ If these fields are missing, debugging becomes guesswork. Add logs before adding
 | 3 | Logging and monitoring | Record prompt version, retrieval hits, latency, cost, and failures |
 | 4 | Docker deployment | Package the app with reproducible run instructions |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
+
 ## Pass Check
 
 You pass this chapter when your minimal app has a run command, API contract, error handling, logs, and one documented failure investigation.

@@ -494,6 +494,18 @@ for chunk in chunks_with_meta:
 
 どこから始めればいいか迷ったら、まず「見出し階層 + スライディングウィンドウ」を baseline にして、評価用データセットに合わせて調整するのがおすすめです。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## まとめ
 
 この節でいちばん大事なのは次の理解です。

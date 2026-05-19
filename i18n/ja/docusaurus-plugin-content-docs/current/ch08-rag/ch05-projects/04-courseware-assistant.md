@@ -411,6 +411,18 @@ def generate_courseware(topic):
 
 まずは基礎版を完成させるのがおすすめです。最初から何でも入れようとしないでください。バージョンを1つ上げるたびに、「何が新しくできたか、どう検証したか、まだ何が課題か」を README に書き足しましょう。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## まとめ
 
 - このプロジェクトの核心は、「文書知識 -> 構造化された課件 -> テンプレート出力」という完全な流れです

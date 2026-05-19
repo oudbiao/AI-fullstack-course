@@ -62,6 +62,18 @@ dispatch: search_docs
 | 5 | 对话系统 | 保存会话状态、槽位、记忆和用户反馈 |
 | 6 | 文档与模板应用 | 把解析、抽取和生成拆成模块 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## 通过标准
 
 如果你能构建一个小助手闭环，包含一次 API 调用、一个可选工具调用、一个结构化输出和一条错误路径，就通过了本章。

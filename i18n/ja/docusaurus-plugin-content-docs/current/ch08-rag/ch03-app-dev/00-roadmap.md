@@ -42,7 +42,7 @@ print("validation_ok:", validation_ok)
 print("dispatch:", tool if validation_ok else "block")
 ```
 
-出力：
+期待される出力：
 
 ```text
 validation_ok: True
@@ -61,6 +61,18 @@ dispatch: search_docs
 | 4 | Hugging Face エコシステム | hosted、local、browser-side モデルの適性を判断する |
 | 5 | 対話システム | session state、slots、memory、user feedback を保存する |
 | 6 | 文書とテンプレートアプリ | parsing、extraction、generation を module に分ける |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
 
 ## 合格ライン
 

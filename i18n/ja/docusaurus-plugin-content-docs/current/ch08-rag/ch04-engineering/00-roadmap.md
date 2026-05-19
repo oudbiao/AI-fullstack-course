@@ -39,7 +39,7 @@ print("trace_ready:", all(field in trace for field in required))
 print("debug_fields:", ", ".join(required))
 ```
 
-出力：
+期待される出力：
 
 ```text
 trace_ready: True
@@ -56,6 +56,18 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 | 2 | API 設計 | request/response schema と error code を定義する |
 | 3 | ログと監視 | prompt version、retrieval hits、latency、cost、failures を記録する |
 | 4 | Docker デプロイ | 再現可能な実行手順でアプリを package する |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
 
 ## 合格ライン
 

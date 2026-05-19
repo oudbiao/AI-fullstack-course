@@ -80,6 +80,18 @@ evidence: docs, eval, citations, failures
 | 评估 | 固定问题和通过/失败规则 | 增加基线、指标和回归测试 |
 | 部署说明 | 如何运行和需要哪些环境变量 | 增加 Docker、监控和降级说明 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## 通过标准
 
 如果项目能带引用回答、展示检索日志、处理空检索、保留评估案例，并解释至少一个失败，就通过了本章。

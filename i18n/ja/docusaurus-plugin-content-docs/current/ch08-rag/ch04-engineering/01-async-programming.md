@@ -502,6 +502,18 @@ LLM 応答: 次の情報をもとに回答してください: ナレッジベー
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+service_contract: endpoint, input schema, output schema, error schema
+run_signal: latency, throughput, logs, health check, or container status
+observability: request id, trace id, structured log, or metric
+failure_check: timeout, retry storm, missing log, deployment mismatch
+ops_action: backoff, queue, alert, rollout, or rollback
+```
+
 ## まとめ
 
 この節で一番大事なのは、`async` / `await` の構文を暗記することではなく、次を理解することです。

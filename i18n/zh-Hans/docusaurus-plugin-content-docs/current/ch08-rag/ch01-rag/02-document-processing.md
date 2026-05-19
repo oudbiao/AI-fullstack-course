@@ -489,6 +489,18 @@ for chunk in chunks_with_meta:
 
 如果你不知道从哪里开始，建议先用“标题层级 + 滑动窗口”作为 baseline，再根据评估集调整。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## 小结
 
 这节课最关键的认识是：

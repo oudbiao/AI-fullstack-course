@@ -444,6 +444,18 @@ doc_001_chunk_02 ok
 
 选型不要从“哪个最流行”开始，而要从数据量、更新频率、过滤需求、部署方式和维护成本开始。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## 小结
 
 这一节最关键的认识是：

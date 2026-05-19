@@ -649,6 +649,18 @@ debug_rag("课程多久内可以退款？")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## 练习
 
 1. 给 `documents` 再加两条文档，试着查询新的问题。

@@ -33,6 +33,18 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `rag_app_workshop_output.txt` | output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) |
 | `README.md` | run command, sample question, cited answer, evaluation result, next fix |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+rag_eval_set: fixed questions with expected evidence
+retrieval_trace: query, chunks, scores, selected evidence
+answer_trace: cited answer and unsupported claim check
+app_trace: request, response, validation, logs
+project_readme: run command, metrics, failures, next action
+```
+
 ## Quality Gates
 
 | Gate | Pass condition |
@@ -41,6 +53,8 @@ Use this page as a printable checklist. If you need the full explanation, return
 | Empty retrieval | System refuses to answer when evidence is missing. |
 | Regression eval | Same questions run before and after each chunking, retrieval, reranking, or prompt change. |
 | Operations | Logs include query, top-k, prompt version, latency, token cost, and failure label. |
+
+Expected result: your Chapter 8 project folder contains chunks, retrieval logs, fixed eval questions, cited answers, failure labels, app logs, and a README that explains the next retrieval or generation fix.
 
 ## Exit Questions
 

@@ -443,6 +443,18 @@ That way, others can more easily see:
 - that you understand template-based generation
 - not just “having the model write long text”
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## Summary
 
 - The most important thing in template-based document generation is to define a stable schema first, then define template fields

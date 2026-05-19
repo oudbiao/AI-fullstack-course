@@ -42,6 +42,8 @@ keywords: [RAG チェックリスト, LLM アプリチェックリスト, ベク
 | 回帰評価 | chunking、retrieval、reranking、Prompt の変更前後で同じ質問を実行する。 |
 | 運用 | ログに query、top-k、Prompt 版、latency、token cost、失敗ラベルがある。 |
 
+期待される結果：第 8 章のプロジェクトフォルダに、chunks、検索ログ、固定評価質問、引用付き回答、失敗ラベル、アプリログ、次の検索または生成の修正を説明する README がそろっている状態です。
+
 ## 章を出る前の質問
 
 - RAG は「長い Prompt を書く」ことと何が違うか説明できますか？
@@ -51,3 +53,15 @@ keywords: [RAG チェックリスト, LLM アプリチェックリスト, ベク
 - 同じ評価質問で2つの RAG 版を比較できますか？
 
 答えがすべて「はい」なら、第 9 章へ進みます。第 9 章では、システムを「回答生成」から、計画し、ツールを呼び、失敗から回復できる Agent へ発展させます。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+rag_eval_set: fixed questions with expected evidence
+retrieval_trace: query, chunks, scores, selected evidence
+answer_trace: cited answer and unsupported claim check
+app_trace: request, response, validation, logs
+project_readme: run command, metrics, failures, next action
+```

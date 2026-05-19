@@ -428,6 +428,18 @@ for q in ["この文章を要約して", "返金ポリシーは何ですか？"]
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime_choice: local model, inference server, or unified API
+request_contract: endpoint, payload, output format, and error shape
+latency_or_cost: one measured or estimated number
+failure_check: timeout, memory pressure, model mismatch, or version drift
+rollback_plan: fallback model, retry policy, or traffic switch
+```
+
 ## まとめ
 
 この節で最も大事なのは、`UnifiedClient` を書くことではなく、次を理解することです。

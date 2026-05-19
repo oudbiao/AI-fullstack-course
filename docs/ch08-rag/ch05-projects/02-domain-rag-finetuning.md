@@ -366,6 +366,18 @@ Read the picture from top to bottom: the RAG layer decides whether the right doc
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## Common pitfalls for beginners
 
 ### Using fine-tuning to solve knowledge update problems

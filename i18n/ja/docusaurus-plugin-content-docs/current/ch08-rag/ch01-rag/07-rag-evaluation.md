@@ -469,6 +469,18 @@ question,gold_doc,gold_answer,retrieved_docs,answer,citation_ok,failure_type,not
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## まとめ
 
 この節で最も大事なポイントは次の通りです。

@@ -395,6 +395,18 @@ for hit in hits:
 
 检索优化的关键不是一次找到完美策略，而是让每次改动都有记录、有指标、有失败样本。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
+
 ## 小结
 
 这节课最关键的认识是：

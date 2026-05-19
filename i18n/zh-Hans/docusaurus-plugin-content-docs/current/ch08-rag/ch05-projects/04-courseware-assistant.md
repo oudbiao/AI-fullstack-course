@@ -414,6 +414,18 @@ def generate_courseware(topic):
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## 小结
 
 - 这个项目最核心的是“文档知识 -> 结构化课件 -> 模板导出”的完整链路

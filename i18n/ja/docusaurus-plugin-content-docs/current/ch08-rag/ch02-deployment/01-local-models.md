@@ -451,6 +451,18 @@ small-local-model を読み込みました
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+runtime_choice: local model, inference server, or unified API
+request_contract: endpoint, payload, output format, and error shape
+latency_or_cost: one measured or estimated number
+failure_check: timeout, memory pressure, model mismatch, or version drift
+rollback_plan: fallback model, retry policy, or traffic switch
+```
+
 ## まとめ
 
 この節でいちばん大切なのは、いくつかのモデル名を覚えることではなく、次のような安定した感覚を持つことです。

@@ -544,3 +544,15 @@ python3 ask_with_openai.py
 - embedding、ベクトルデータベース、実モデル API に進むとき、どの部分を最初に置き換えるべきか説明できる。
 
 この小さなプロジェクトは、第 8 章の baseline として残しておきましょう。後で LangChain、ベクトルデータベース、デプロイ、監視、Agent が出てきたとき、このスクリプトに戻って比較します。フレームワークがどの責任を置き換えたのか、どの責任はまだアプリ側に残っているのかを確認するためです。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```

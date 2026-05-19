@@ -159,6 +159,18 @@ Requiring the “smallest possible fix” is important. It helps prevent the mod
 
 If you use AI-assisted programming in a project, you can record: the key Prompt you gave the model, the problems in the model’s first output, how you tested and fixed it, and how the final code differs from the first draft. This shows engineering ability much better than simply saying “I used AI.”
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+request: input, state, tools/context, and expected output contract
+validated_output: parser/schema or business-rule check result
+trace: model call, tool/function call, document parse, or dialogue state
+failure_check: invalid format, missing field, stale state, or wrong tool
+next_action: prompt, schema, state, API, or parsing improvement
+```
+
 ## Common Mistakes
 
 The first mistake is treating AI output as an authoritative answer. The second mistake is not providing project context, which leads the model to generate code that is incompatible with the existing architecture. The third mistake is not checking the diff and accepting anything that runs. The fourth mistake is asking the model to change too many files at once, which makes it hard to locate the problem.

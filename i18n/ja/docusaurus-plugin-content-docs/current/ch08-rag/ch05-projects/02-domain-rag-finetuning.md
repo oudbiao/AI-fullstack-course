@@ -384,6 +384,18 @@ grounding: 回答は A を引用しているが、事実は B から来ている
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## まとめ
 
 この節で一番大事なのは、RAG と微調整という2つの言葉を並べることではありません。大事なのは、次を理解することです。

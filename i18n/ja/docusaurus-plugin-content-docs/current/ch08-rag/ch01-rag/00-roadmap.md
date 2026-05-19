@@ -41,7 +41,7 @@ for chunk in sorted(chunks, key=score, reverse=True)[:2]:
     print(chunk["source"], score(chunk))
 ```
 
-出力：
+期待される出力：
 
 ```text
 rag.md 2
@@ -60,6 +60,18 @@ eval.md 1
 | 4 | 検索戦略 | キーワード、ベクトル、ハイブリッド、filter、rerank を比較する |
 | 5 | 最適化と高度な RAG | recall 不足、ranking 不良、弱い context を調べる |
 | 6 | RAG 評価 | 回答正しさ、引用根拠、no-answer 動作をテストする |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+query: one user question or test case
+retrieved_chunks: chunk ids, scores, and source titles
+answer: final response with citation or source note
+failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
+next_action: chunking, embedding, reranking, prompt, or eval change
+```
 
 ## 合格ライン
 

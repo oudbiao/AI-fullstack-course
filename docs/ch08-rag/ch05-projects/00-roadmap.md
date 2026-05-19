@@ -68,6 +68,18 @@ If `ready` is `False`, do not add another feature yet. Complete the evidence loo
 
 If you need a guided baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md).
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: user task and business boundary
+baseline: simplest prompt/RAG/app version first
+evaluation: fixed cases, retrieval evidence, answer quality, and citation check
+failure_log: at least one failed case with likely cause
+deliverable: README, run command, screenshots/logs, next step
+```
+
 ## Project Deliverable Standards
 
 | Deliverable | Minimum Requirement | Stronger Portfolio Version |
