@@ -358,6 +358,18 @@ This makes it easier for others to feel that:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```
+
 ## Summary
 
 The key takeaway from this section is to develop a portfolio-level judgment:
@@ -384,3 +396,13 @@ It is recommended to finish the basic version first. Do not chase a big, everyth
 2. Why does a creative platform rely more on asset management than a single-step generation feature?
 3. If image and voice styles are always inconsistent, would you attribute the problem to routing, prompts, or the asset layer? Why?
 4. If you put this project in your portfolio, which 5 modules are most worth showing on the homepage?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `video_scripts` should be generated after the brief and asset plan are stable. It can contain scene id, narration, visual direction, duration, required assets, and review status so the video workflow stays connected to the same manifest.
+2. A creative platform depends on asset management because generation creates many versions, rejected candidates, prompts, rights notes, and review decisions. Without asset records, the team cannot reproduce or safely reuse the work.
+3. If image and voice styles are inconsistent, first check the asset layer because style definitions may not be shared. Then check routing and prompts to see whether the right generator and style instructions were applied.
+4. The five strongest homepage modules are usually brief intake, asset manifest/versioning, generation workflow, safety/review dashboard, and final export or portfolio preview.
+
+</details>

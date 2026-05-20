@@ -406,6 +406,18 @@ This makes it easier for others to see that:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing a few application names, but understanding:
@@ -422,3 +434,13 @@ Once you look at it from a workflow perspective, it becomes much easier to under
 2. Think about why real SD products usually support generating multiple candidate images at once.
 3. Explain in your own words why we say SD products are more like a “workbench” than “one model button.”
 4. If you were building an e-commerce product image tool, which type of SD application would you need more? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Text-to-image: generate campaign concept images from a brief. Image-to-image: turn a rough sketch into a polished visual. Inpainting: replace only a damaged product background while keeping the product unchanged.
+2. Real products generate multiple candidates because prompts are underspecified and image quality is partly stochastic. Candidate sets give users choice and make review, ranking, and iteration possible.
+3. It is a workbench because useful output usually involves prompts, seeds, negative prompts, reference images, editing masks, style controls, upscaling, safety checks, and human selection. The model is only one part of that loop.
+4. For e-commerce, image-to-image and inpainting are often more important than pure text-to-image because the product identity must stay fixed. Text-to-image is useful for ideation, but product pages need controlled edits and consistent assets.
+
+</details>

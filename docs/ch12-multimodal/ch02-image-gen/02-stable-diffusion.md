@@ -351,6 +351,18 @@ Clear module responsibilities make it easier for an ecosystem to grow.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## Common misconceptions
 
 ### Thinking Stable Diffusion is just “one big black box”
@@ -388,3 +400,13 @@ Once you understand this main line, text-to-image applications, image editing, a
 2. Think about it: why do the text encoder and cross-attention need to exist at the same time?
 3. If you replace the U-Net with a small ordinary network, why is the result usually much worse?
 4. Summarize in your own words: what are the responsibilities of the VAE, U-Net, and text encoder?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Stable Diffusion works in latent space because pixel space is large and expensive. A VAE compresses the image into a smaller representation where denoising is cheaper while still preserving the main visual structure.
+2. The text encoder turns words into guidance vectors; cross-attention lets the denoising network look at those vectors while deciding what to change. Without the encoder there is no semantic condition, and without cross-attention the condition is hard to inject at the right spatial moments.
+3. U-Net is useful because it combines local details with larger spatial context through downsampling, upsampling, and skip connections. A small ordinary network usually loses either fine detail or global structure.
+4. The VAE compresses and reconstructs images, the U-Net performs iterative denoising in latent space, and the text encoder converts the prompt into conditioning information that guides the denoising process.
+
+</details>

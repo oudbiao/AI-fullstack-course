@@ -72,3 +72,15 @@ print(json.dumps(record, indent=2))
 ## 通過条件
 
 プロンプト記録を書き、選んだ生成モードを説明し、3 つの候補メモを残し、出力前に少なくとも 1 つのレビューリスクを記録できれば、この章は通過です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```

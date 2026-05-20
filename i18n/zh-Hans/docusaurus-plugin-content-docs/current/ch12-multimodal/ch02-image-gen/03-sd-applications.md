@@ -434,3 +434,13 @@ Expected_output: selected image/version record plus rejected-candidate notes
 2. 想一想：为什么真实 SD 产品通常会支持一次生成多张候选图？
 3. 用自己的话解释：为什么说 SD 产品更像“工作台”，而不是“一个模型按钮”？
 4. 如果你要做电商产品图，你会更需要哪类 SD 应用形态？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Text-to-image 可以根据营销 brief 生成概念图；image-to-image 可以把粗草图变成精细视觉稿；inpainting 可以只替换受损商品背景，同时保持商品本身不变。
+2. 真实产品通常一次生成多个候选图，因为 prompt 往往不够完整，图像质量也带有随机性。候选集能让用户选择，也方便评审、排序和迭代。
+3. 它更像 workbench，是因为有用输出通常需要 prompt、seed、negative prompt、参考图、编辑 mask、风格控制、放大、安全检查和人工选择。模型只是循环中的一部分。
+4. 电商场景里，image-to-image 和 inpainting 往往比纯 text-to-image 更重要，因为商品身份必须保持稳定。text-to-image 适合创意发散，但商品页更需要可控编辑和一致资产。
+
+</details>

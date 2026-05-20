@@ -14,7 +14,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 :::
 
 :::tip この節の位置づけ
-「最新の進展」のような授業は、内容が空っぽになりやすいです。  
+「最新の進展」のような授業は、内容が空っぽになりやすいです。
 モデル名を並べるだけでは、しばらくすると古くなりますし、トレンドを叫ぶだけでは、なかなか本当に学べる内容になりません。
 
 より価値があるのは、ここ数年ずっと成り立っていて、これからも続いていきそうな主線をつかむことです。
@@ -40,7 +40,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ### 名前はすぐ変わるが、土台の方向性は少しゆっくり変わるから
 
-画像生成分野は変化がとても速いです。  
+画像生成分野は変化がとても速いです。
 もし次のようなことだけ覚えていると、
 
 - どのモデルが最近話題か
@@ -87,7 +87,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - より高品質な蒸留
 - より速いサンプリング経路
 
-つまり、画像生成は単なる「オフラインでゆっくり描くもの」ではなく、  
+つまり、画像生成は単なる「オフラインでゆっくり描くもの」ではなく、
 次第に次のようなものに近づいています。
 
 - インタラクティブ生成
@@ -137,7 +137,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ### なぜ「上手に描ける」より「制御できる」ほうが製品能力に近いのか？
 
-コンテンツ制作では、1回の見本画像だけを見ればよいわけではありません。  
+コンテンツ制作では、1回の見本画像だけを見ればよいわけではありません。
 本当に重要なのは次の点です。
 
 - 再現できること
@@ -160,7 +160,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - レイアウト
 - 領域プロンプト
 
-つまり、生成モデルは「テキストから画像へ」だけのものではなく、  
+つまり、生成モデルは「テキストから画像へ」だけのものではなく、
 視覚インタラクションシステムに近づいています。
 
 ### 出力ももはや単一画像だけではない
@@ -172,7 +172,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 - レイヤー分割された素材
 - UI / 商品画像 / デザイン案の補助
 
-そのため、画像生成は次第に独立した1つの分野ではなく、  
+そのため、画像生成は次第に独立した1つの分野ではなく、
 より大きな「マルチモーダルなコンテンツ生成」へと合流しています。
 
 ### なぜこの線に注目する価値があるのか？
@@ -214,7 +214,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 ## 六、まずは「トレンド優先度」の小さな例を動かしてみよう
 
-以下の例は、実際の論文評価を再現するものではありません。  
+以下の例は、実際の論文評価を再現するものではありません。
 むしろ、次のような実用的な習慣を身につけるためのものです。
 
 - 「いちばんかっこよく聞こえる」方向だけを見ない
@@ -311,7 +311,7 @@ for item in ranked:
 
 ### 誤解2：最先端ならすぐ学ぶべき
 
-そうとは限りません。  
+そうとは限りません。
 前線にある方向の中には、まだ製品化や実装までの距離があるものもあります。
 
 ### 誤解3：画像生成は画質だけ見ればよい
@@ -324,14 +324,26 @@ for item in ranked:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## まとめ
 
-この節で最も大事なのは、すぐ古くなるモデル一覧を覚えることではなく、  
+この節で最も大事なのは、すぐ古くなるモデル一覧を覚えることではなく、
 もっと安定した枠組みを作ることです。
 
 > **画像生成のここ数年の安定した進化の方向は、より速いサンプリング、より強い制御編集、より統一されたマルチモーダル入力、そして単一画像から完全なコンテンツワークフローへ進むことです。**
 
-この4本の主線がはっきりしていれば、  
+この4本の主線がはっきりしていれば、
 今後この分野を追いかけるときも、「誰が新しいモデルを出したか」という断片的な印象だけで終わりません。
 
 ---
@@ -342,3 +354,13 @@ for item in ranked:
 2. もし自分がECの商品画像システムを作るなら、どの主線が最も重要でしょうか？ なぜですか？
 3. なぜ「制御編集」は、しばしば「画質をもう少し上げる」ことよりも製品能力に近いと言えるのでしょうか？
 4. 次に画像生成の新しい論文を読むとき、まずどの2つの質問をしますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. よい順位付けは製品目的によって変わります。消費者向けの創作ツールなら controllable editing が最上位になりやすく、基盤技術ならコストと速度、プロ向けメディアなら一貫性とレビューしやすさが重要になりがちです。
+2. EC では、制御された編集と同一性保持が特に重要です。商品画像では商品本体を保ちながら背景、スタイル、サイズ、場面を変える必要があるため、制御不能な品質向上より信頼できる編集の方が価値があります。
+3. controllable editing は製品能力です。ユーザーが正確な変更を依頼し、版を比較し、アセットの一貫性を保てるからです。小さな一般的品質向上は workflow 上では見えにくい一方、制御性はユーザーが安全にできることを変えます。
+4. 新しい論文を読むときは、まず「どんな新しいユーザー行動を可能にしたか」を問います。次に、実製品でのコスト、遅延、制御性、失敗モード、評価方法を確認します。demo 画像だけで判断しません。
+
+</details>

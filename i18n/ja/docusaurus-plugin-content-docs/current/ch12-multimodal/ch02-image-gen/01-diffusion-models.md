@@ -94,7 +94,7 @@ flowchart LR
 
 ### 本当の難しさはどこにあるのか？
 
-理由は、画像空間があまりにも大きいからです。  
+理由は、画像空間があまりにも大きいからです。
 適当にピクセルを並べると、ほとんどは「自然な画像」ではなく、ただのノイズに見えます。
 
 つまり、生成モデルが本当に学ばなければならないのは次です。
@@ -291,7 +291,7 @@ noisy = [ 1.1  -0.55  1.02]
 
 学習時には `clean` も `noise` も既知です。ノイズ付きサンプルは自分で作っているからです。だから拡散モデルの学習は、「ノイズ付きサンプルから、加えたノイズを予測する」教師あり学習として組み立てられます。
 
-もしモデルが `x_noisy` から `noise` を予測できるようになれば、  
+もしモデルが `x_noisy` から `noise` を予測できるようになれば、
 推論時に少しずつノイズを取り除けるようになります。
 
 ---
@@ -389,6 +389,18 @@ GAN はどちらかというと、
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## まとめ
 
 この節で最も重要なのは、数式を暗記することではなく、この主線をつかむことです。
@@ -411,3 +423,13 @@ GAN はどちらかというと、
 2. 自分の言葉で説明してみましょう。なぜ拡散モデルの学習は「直接絵を描く」のではなく、「ノイズ除去を学ぶ」に近いのでしょうか？
 3. 考えてみましょう。なぜ拡散モデルは、一発生成の方法より遅いことが多いのでしょうか？
 4. 誰かに拡散モデルを説明するとしたら、「まず汚してからきれいにする」という比喩をどう使いますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 減衰係数が大きいほど構造は長く残り、小さいほど早く消えます。この実験から、denoising モデルが各ノイズ段階でどれだけ信号が残っているかを学ぶ必要があることが分かります。
+2. 学習時のモデルは、多くの場合「ノイズ付きサンプル + ノイズ量または時刻条件」を受け取り、ノイズやきれいな方向を予測します。つまり、一度で絵を描くのではなく、修復の連続手順を学んでいます。
+3. diffusion が遅くなりやすいのは、生成が反復的だからです。多くの denoising ステップでサンプルを更新します。一方、one-shot 型の方法は 1 回の forward pass で出力を作ろうとします。
+4. たとえるなら、まず制御されたノイズで画像を汚した状態を見せ、その後で少しずつきれいにする方法を学ばせます。生成時はほぼノイズから始め、学んだ清掃ルールを何度も適用して、一貫した画像へ近づけます。
+
+</details>

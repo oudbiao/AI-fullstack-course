@@ -342,6 +342,18 @@ overtrust -> 用户对系统能力产生错误信任
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## 小结
 
 这一节最重要的不是背几个风险名词，而是理解：
@@ -358,3 +370,13 @@ overtrust -> 用户对系统能力产生错误信任
 2. 想一想：为什么“模型像人”会提升用户错误信任的风险？
 3. 用自己的话解释：为什么高风险场景更适合“模型辅助 + 人类确认”？
 4. 试着把一个伦理风险转写成一个具体工程问题，例如“日志脱敏”“权限控制”或“人工审批”。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 有用回答应把每类风险转成证据和控制措施。例如人脸编辑应用可能需要按肤色做偏差测试，并为上传、保存和删除设置隐私控制。
+2. 类人输出会增加信任，因为用户会把社会互动预期套到系统上。他们可能误以为模型真正理解、记住或验证了更多内容。
+3. 高风险场景需要人类确认，因为模型可以辅助起草或检测，但责任、上下文判断和最终批准应由负责任的人承担。
+4. 当伦理风险被写成需求时，它就变成工程工作：日志匿名化、按角色限制访问、记录同意、高风险导出前人工审批，或阻止不安全 prompt。
+
+</details>

@@ -62,3 +62,15 @@ checks: voice authorization, synthetic content label
 ## 通過条件
 
 1 つの AIGC ワークフローにリスクチェックリストを追加し、拒否、制限、レビュー、出力可能の判断を説明できれば、この章は通過です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```

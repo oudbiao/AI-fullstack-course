@@ -80,14 +80,14 @@ VLM は、次のような存在だと考えられます。
 
 - 画像も見られて、問題文も見られる助手
 
-もし画像は見られても質問の意味がわからなければ、  
+もし画像は見られても質問の意味がわからなければ、
 言えるのはせいぜい
 
 - 「画像にはこんなものがありそう」
 
 までです。
 
-もし質問は読めても画像が見られなければ、  
+もし質問は読めても画像が見られなければ、
 こういう問いには答えられません。
 
 - 「この画像の中で実際に何が起きているの？」
@@ -417,6 +417,18 @@ VLM は、次の2つの難しさを同時に越える必要があるからです
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```
+
 ## まとめ
 
 この節でいちばん大事な一文は次のとおりです。
@@ -432,3 +444,12 @@ VLM は、次の2つの難しさを同時に越える必要があるからです
 1. 図文検索の例のベクトルを変更して、`cake_photo` を `a sweet dessert` にもっと近づけてみましょう。
 2. おもちゃ版の `ask_vlm()` に、もう1つ質問タイプを追加してみましょう。たとえば「この画像は生活写真っぽいですか、それともソフトウェアの UI っぽいですか？」です。
 3. 考えてみましょう。ユーザーがぼやけたスクリーンショットをアップロードした場合、VLM はどの段階で間違えやすいでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 期待される結果は、デザートらしい共有次元を高めたり無関係な次元を下げたりすると、`cake_photo` が `a sweet dessert` に対して上位になることです。無関係な写真まで上位になるなら、その玩具ベクトル空間は概念をうまく分けられていません。
+2. `ask_vlm()` には、場面タイプを判定する分岐を追加できます。自然物、光、カメラらしい構図があれば `real-life photo`、ウィンドウ、メニュー、アイコン、密な文字配置があれば `software interface` を返す、という形です。
+3. ぼやけたスクリーンショットでは、OCR が文字を落とし、UI 要素検出が失敗し、検索が違うヘルプ文書を拾い、最後の回答が弱い証拠を断定しすぎる可能性があります。信頼度が低い場合は、より鮮明な画像を求めるべきです。
+
+</details>

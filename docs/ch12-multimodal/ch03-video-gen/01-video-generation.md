@@ -340,6 +340,18 @@ In this way, others can more easily see that:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
+
 ## Summary
 
 The most important thing in this section is not to remember the name of a particular approach, but to build a stable intuition:
@@ -356,3 +368,13 @@ That is the fundamental reason it is harder than image generation and also more 
 2. Think about this: if every frame in a video looks good on its own, but the sequence feels jumpy when played together, which layer has gone wrong?
 3. Why do we say that many video generation systems are essentially “multi-module workflows”?
 4. If you were building a short-video generation product, would you prioritize single-frame quality or temporal consistency first? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Video adds time. The system must keep identity, motion, camera, lighting, and scene state consistent across frames, not merely make one good image.
+2. If each frame looks good but playback feels jumpy, the temporal consistency layer is failing. Motion, object persistence, or camera trajectory is not coherent across the sequence.
+3. Many systems become multi-module workflows because prompt understanding, keyframe generation, motion control, interpolation, upscaling, audio, editing, and review each solve different problems.
+4. For most short-video products, temporal consistency should be prioritized early. A slightly less beautiful but stable clip is usually more usable than a high-quality frame sequence that flickers or changes identity.
+
+</details>

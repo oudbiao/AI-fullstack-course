@@ -330,6 +330,18 @@ The most important things to remember first are:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
+
 ## Common mistakes beginners make
 
 ### Thinking TTS just means “reading text aloud”
@@ -386,3 +398,13 @@ Once you understand this main idea, video avatars, dubbing systems, and voice as
 2. Think about why many TTS systems treat “speaker, speaking speed, and emotion” as input too.
 3. If you are building a real-time voice assistant, why would TTS latency become a key engineering metric?
 4. In your own words, explain what problem the acoustic model and the vocoder are each more like solving.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. TTS must predict pronunciation, pauses, rhythm, emphasis, emotion, and acoustic shape. Reading characters one by one would ignore prosody and would sound unnatural.
+2. Speaker, speed, and emotion are inputs because the same text can be spoken in many valid ways. These controls let the system match a product role, accessibility need, or conversational state.
+3. Voice assistants are interactive, so high latency breaks turn-taking. Even if the voice quality is good, users feel the system is slow when the response cannot start quickly.
+4. The acoustic model maps text or linguistic features to a speech representation such as mel spectrograms. The vocoder turns that representation into an audible waveform.
+
+</details>

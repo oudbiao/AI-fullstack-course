@@ -50,3 +50,25 @@ Use this page as a printable checklist. If you need the full explanation, return
 - Can you package the result as a final portfolio or capstone demo?
 
 If the answer is yes, the course has a complete end-to-end path: foundations, data, models, LLM apps, Agents, and multimodal product workflows.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Yes means every non-text input has a source, owner, version, and review status, not just a final file.
+- A good structured record contains extracted content, modality metadata, confidence or review notes, and a stable link back to the source artifact.
+- Generated outputs should be tied to prompt versions, candidate ids, selected/rejected decisions, and reviewer notes so iteration is explainable.
+- Before external release, check factual grounding, consent and rights, privacy, sensitive content, safety policy, and whether a human approved high-risk material.
+- A portfolio-ready package should include the brief, manifest, prompts, selected assets, rejected cases, review checklist, final export, and a README that explains the workflow.
+
+</details>
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```

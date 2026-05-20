@@ -347,6 +347,18 @@ Once the two are combined, the complexity naturally becomes higher.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```
+
 ## Common Multimodal Paths Today
 
 ### Dual-tower retrieval path
@@ -414,3 +426,12 @@ If we compress it into one sentence, it is:
 1. Modify the image and text vectors above and observe how the matching ranking changes.
 2. Design your own toy vector space for “food / vehicles / animals.”
 3. Think about why a “screenshot of an error + a question in text” is more suitable for a multimodal system than error text alone.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A good check is whether the top match changes for the right reason. If the image vector moves closer to the text vector on the same meaning dimensions, its ranking should rise; if it only changes on an unrelated dimension, the ranking should stay similar.
+2. One simple toy space is `sweet/salty`, `moving/static`, and `living/non-living`. Fruit can sit near sweet and living, vehicles near moving and non-living, and animals near moving and living. The important part is not the exact numbers, but whether nearby points share useful meaning.
+3. The screenshot carries layout, color, error position, button state, and visual context that plain copied text loses. A multimodal system can combine those visual clues with the user's question, so it can answer what is wrong and where the user should look next.
+
+</details>

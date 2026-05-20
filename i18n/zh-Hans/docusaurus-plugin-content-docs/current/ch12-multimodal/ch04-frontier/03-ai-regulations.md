@@ -320,6 +320,18 @@ print(compliance_config)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## 小结
 
 这一节最重要的不是背法规条文，而是理解：
@@ -336,3 +348,13 @@ print(compliance_config)
 2. 想一想：为什么“可追溯性”会成为很多 AI 合规讨论里的核心词？
 3. 用自己的话解释：为什么说风险分级会直接影响系统设计？
 4. 试着把“合规”翻译成三个你能落到系统里的具体技术要求。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 实用需求清单可以包括：记录训练或输入数据来源、保留不可随意篡改的审计日志、按角色设置权限，以及高风险操作或外部发布前必须有人类确认。
+2. 可追溯性重要，是因为团队需要还原是哪份数据、哪个 prompt、哪个模型版本、哪个用户动作和哪次审批产生了输出。没有轨迹，调试和问责都会很弱。
+3. 风险分类会直接改变系统设计：低风险功能可能只需要轻量披露，高风险功能则需要更严格的日志、访问控制、评审、回退和人类批准。
+4. 三个可实现的技术需求是：保存 prompt/model/version 日志；对敏感操作做权限检查；高风险生成结果发布前必须经过人工审批。
+
+</details>

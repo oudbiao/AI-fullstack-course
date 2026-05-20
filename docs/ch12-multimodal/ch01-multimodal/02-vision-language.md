@@ -380,6 +380,18 @@ If you only give these tasks to a text model, the information is incomplete.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```
+
 ## Common beginner mistakes
 
 ### Thinking VLM just means “feed images to GPT”
@@ -430,3 +442,12 @@ This is also the key step for multimodal systems to move from “can see” to �
 1. Modify the vectors in the image-text retrieval example so that `cake_photo` is closer to `a sweet dessert`.
 2. Add another question type to the toy `ask_vlm()`, such as “Does this image look more like a real-life photo or a software interface?”
 3. Think about this: if the user uploads a blurry screenshot, which parts of the VLM pipeline might fail?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The expected result is that `cake_photo` should rank higher for `a sweet dessert` after you increase the shared dessert-like dimensions or reduce dimensions that make it look unrelated. If unrelated photos also rise, the toy space is not separating concepts well.
+2. A reasonable new branch for `ask_vlm()` is a broad scene-type question: return `real-life photo` when the visual record has natural objects, lighting, or camera-like framing, and `software interface` when it has windows, menus, icons, or dense text layout.
+3. A blurry screenshot can fail at several layers: OCR may miss text, object detection may miss UI elements, retrieval may fetch the wrong help document, and the final answer may overstate weak evidence. The system should ask for a clearer image when confidence is low.
+
+</details>

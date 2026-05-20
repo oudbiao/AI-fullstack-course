@@ -433,6 +433,18 @@ real_time_generation -> 优先看它是否改变用户入口
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## 小结
 
 这一节最重要的不是记住某几个方向，而是建立一个判断趋势的方式：
@@ -456,3 +468,14 @@ real_time_generation -> 优先看它是否改变用户入口
 3. 用自己的话解释：为什么未来 AIGC 的竞争越来越像“系统竞争”，而不只是“模型竞争”？
 4. 如果你要判断一个趋势是否值得长期跟，最先会问哪两个问题？
 5. 找一个具体产品，判断它主要押注的是多模态、实时生成、端侧化，还是工作流化。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 扎实的分析应说明能力提升、成本曲线、交互变化和工作流影响。例如实时语音视频生成只有在延迟、控制和评审都适合产品流程时，才真正有价值。
+2. 多模态改变的是入口，因为用户可以从截图、照片、语音、文档或视频开始，而不必先把所有信息翻译成文本。
+3. 竞争越来越像系统竞争，是因为用户价值来自模型、工具、记忆、检索、UI、权限、评审、成本控制和部署可靠性的组合。
+4. 先问这个趋势是否解锁了一个会反复发生的用户工作流；再问成本、延迟、质量、安全和集成是否足以支撑真实使用。
+5. 好的产品判断应把可见产品行为连接到一个主要押注。例如移动端创意助手可能押注多模态和工作流化，本地助手可能押注端侧部署。
+
+</details>

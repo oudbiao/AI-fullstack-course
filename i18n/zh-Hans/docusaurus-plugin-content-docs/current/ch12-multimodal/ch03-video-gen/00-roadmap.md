@@ -57,3 +57,15 @@ total_seconds: 30
 ## 通过标准
 
 你能把一个主题拆成包含镜头、旁白、时长、字幕、风险备注和导出要求的时间线，就算通过本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```

@@ -62,3 +62,15 @@ checks: voice authorization, synthetic content label
 ## 通过标准
 
 你能给一个 AIGC 工作流加上风险检查表，并解释哪些情况拒绝、限制、审核或允许导出，就算通过本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```

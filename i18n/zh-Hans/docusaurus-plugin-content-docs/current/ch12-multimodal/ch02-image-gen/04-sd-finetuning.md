@@ -355,6 +355,18 @@ DreamBooth 很常见的目标是：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## 小结
 
 这一节最重要的不是背 DreamBooth、LoRA、Textual Inversion 这些名字，而是理解：
@@ -371,3 +383,13 @@ DreamBooth 很常见的目标是：
 2. 想一想：如果你只想给模型加一个风格 trigger word，为什么不一定需要 DreamBooth？
 3. 如果你要长期维护很多风格版本，为什么 LoRA 特别有工程价值？
 4. 为什么说图像生成微调的评估，比文本分类更依赖人工感知判断？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Textual Inversion 更像新增一个 token embedding；LoRA 更像给模型层外挂一个小型可拆卸技能补丁；DreamBooth 更像用更直接的样例教模型记住某个具体主体或身份。
+2. 如果只是想增加一个风格触发词，Textual Inversion 或 LoRA 可能已经足够，因为你并不需要深度改写模型对具体主体的认识。
+3. 从工程角度看，LoRA 很有价值，因为不同风格版本可以作为小文件保存、组合、切换、评审和回滚，而不必维护很多完整模型副本。
+4. 图像生成质量包含风格一致性、构图、身份保持、瑕疵和用户偏好。这些判断高度视觉化且带主观性，所以自动指标不像文本分类那样足够可靠。
+
+</details>

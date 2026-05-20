@@ -364,6 +364,18 @@ print(tts_config)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
+
 ## 小结
 
 这一节最重要的不是记住某个 TTS 模型名字，而是建立这个直觉：
@@ -386,3 +398,13 @@ print(tts_config)
 2. 想一想：为什么很多 TTS 系统会把“说话人、语速、情绪”也当作输入？
 3. 如果你在做实时语音助手，为什么 TTS 延迟会成为关键工程指标？
 4. 用自己的话说明：声学模型和 vocoder 分别更像在解决什么问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. TTS 需要预测发音、停顿、节奏、重音、情绪和声学形态。逐字朗读会忽略韵律，听起来很不自然。
+2. 说话人、语速和情绪也是输入，因为同一句文本可以有很多合理读法。这些控制项能让系统匹配产品角色、无障碍需求或对话状态。
+3. 语音助手是交互系统，延迟过高会破坏轮流对话。即使音质很好，如果声音不能快速开始，用户也会感觉系统很慢。
+4. 声学模型把文本或语言特征映射成语音表示，例如 mel spectrogram；vocoder 再把这个表示转换成可听的 waveform。
+
+</details>

@@ -54,6 +54,18 @@ This is already a useful video-generation brief, even before calling a real vide
 | 2 | TTS | Turn narration into speech settings and subtitle text |
 | 3 | Digital humans | Track face, voice, lip sync, consent, and safety boundaries |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
+
 ## Pass Check
 
 You pass this chapter when you can turn one topic into a timeline with shots, narration, durations, subtitles, risk notes, and export requirements.

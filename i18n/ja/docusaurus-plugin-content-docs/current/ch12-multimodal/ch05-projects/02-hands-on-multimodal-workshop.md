@@ -42,7 +42,7 @@ multimodal_workshop_run/
 
 一番大事なのは SVG そのものではありません。各生成資産に Prompt、出典記録、レビュー結果、書き出し境界、失敗メモが残ることです。
 
-## Step 0：プロダクトループを読む
+## ステップ 0：プロダクトループを読む
 
 実践ループは次の通りです。
 
@@ -54,7 +54,7 @@ multimodal_workshop_run/
 6. HTML プレビューと content package を書き出す。
 7. 次の改善のために失敗例を保存する。
 
-## Step 1：フォルダとスクリプトを作る
+## ステップ 1：フォルダとスクリプトを作る
 
 ```bash
 mkdir multimodal-workshop
@@ -67,7 +67,7 @@ source .venv/bin/activate
 
 ![Prompt から資産バージョン記録への図](/img/course/ch12-workshop-prompt-asset-version-map-ja.webp)
 
-## Step 2：完全なスクリプトを実行する
+## ステップ 2：完全なスクリプトを実行する
 
 ```python
 from __future__ import annotations
@@ -455,13 +455,13 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ![workshop 実行結果の証拠パッケージ図](/img/course/ch12-workshop-run-evidence-package-result-map-ja.webp)
 
-## Step 3：Brief と Prompt 記録を確認する
+## ステップ 3：Brief と Prompt 記録を確認する
 
 `inputs/creative_brief.json` を開きます。これは構造化されたユーザー要件です。topic、audience、goal、tone、deliverables、constraints が入っています。
 
 次に `prompts/prompt_plan.json` と `prompts/prompt_versions.md` を開きます。実際の AIGC プロジェクトでは、画像や動画を生成したあとに Prompt を失ってはいけません。Prompt もプロジェクト証拠の一部です。
 
-## Step 4：資産と storyboard を確認する
+## ステップ 4：資産と storyboard を確認する
 
 ブラウザで `assets/scene_01.svg`、`assets/scene_02.svg`、`assets/scene_03.svg` を開きます。これはスクリプトで生成した基線 SVG 素材で、ワークフロー上では生成資産として扱います。
 
@@ -469,34 +469,34 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ![レビューと書き出しワークフロー図](/img/course/ch12-workshop-review-export-map-ja.webp)
 
-## Step 5：レビュー関連ファイルを読む
+## ステップ 5：レビュー関連ファイルを読む
 
 `reports/asset_manifest.csv` を開きます。各行には次が入っています。
 
 | フィールド | 意味 |
 |---|---|
 | `source` | 資産の出どころ |
-| `license` | この demo で使えるか |
+| `license` | このデモで使えるか |
 | `contrast_ratio` | テキストが十分に読めるか |
 | `passed` | 書き出しへ進めるか |
 
 次に `reports/safety_review.md` を開きます。このファイルには、著作権、肖像権、コンテンツ安全性、書き出し境界を記録します。
 
-## Step 6：書き出しプレビューを開く
+## ステップ 6：書き出しプレビューを開く
 
 ブラウザで `outputs/export_preview.html` を開きます。完全なアプリではありませんが、creative requirement から書き出し可能な package まで進めたことを示せます。
 
 実際に発展させるときは、次を置き換えられます。
 
-| Baseline モジュール | 実プロジェクトでの置き換え |
+| ベースラインモジュール | 実プロジェクトでの置き換え |
 |---|---|
 | 基線 SVG 素材 | 画像生成 API またはローカル画像モデル |
 | Storyboard JSON | 動画生成ワークフロー |
 | コピー文 | LLM 生成コピーと人間レビュー |
-| Safety checklist | 人間レビューとポリシーチェック |
+| 安全チェックリスト | 人間レビューとポリシーチェック |
 | HTML preview | フロントエンドのクリエイティブワークスペース |
 
-## Step 7：失敗レポートを読む
+## ステップ 7：失敗レポートを読む
 
 ![マルチモーダル失敗例デバッグマップ](/img/course/ch12-workshop-failure-debug-map-ja.webp)
 
@@ -509,6 +509,18 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 3. 実在人物やブランドのリスクはないか。
 4. 生成内容は読めて、書き出し可能か。
 5. 公開前に人間が確認すべき内容を書いているか。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```
 
 ## よくあるエラー
 
@@ -528,6 +540,16 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 4. 好きな画像モデルで生成した画像を 1 つの SVG と置き換える。ただし manifest と review ファイルは同じ形で残す。
 5. 意図的にリスクのある資産を追加し、それが `failure_cases.md` に入ることを確認する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `scene_02` は、foreground/background contrast が他の scene と同じ review rule を満たし、その変更が manifest に記録されていれば合格です。
+2. `scene_04` は storyboard に追加し、id、目的、duration/order、必要 assets、prompt version、review result を持たせます。そうすることで timeline が再現可能になります。
+3. `manual_reviewer` は README のメモだけではなく safety review record に入れます。誰がレビューしたか、またはどの role が承認したかを示すべきです。
+4. SVG を置き換える場合も、同じ manifest entry、source/prompt record、selected output path、review files を保つ必要があります。
+5. 意図的に危険な asset は静かに通過してはいけません。よい結果は、理由、risk category、next action とともに `failure_cases.md` に記録されることです。
+
+</details>
 ## 完了基準
 
 このワークショップを終えたら、次を説明できるようになってください。

@@ -304,6 +304,18 @@ Once you understand these three clearly, then go after more frontier areas such 
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## Common misunderstandings
 
 ### Misunderstanding 1: Latest progress means the latest model name
@@ -343,3 +355,13 @@ you won’t be left with only fragmented impressions like “who released anothe
 2. Think about this: if you were building an e-commerce product image system, which thread would matter most? Why?
 3. Why is “controllable editing” often more like a product capability than “improving image quality a little more”?
 4. When you read a new image generation paper next time, which two questions will you ask first?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A strong ranking should depend on the product goal. For consumer creative tools, controllable editing may rank first; for infrastructure, cost and speed may rank first; for professional media, consistency and reviewability often matter most.
+2. In e-commerce, controlled editing and identity consistency usually matter most. Product images must preserve the item while changing background, style, size, or scene, so uncontrolled quality improvement is less useful than reliable edits.
+3. Controllable editing is a product capability because it lets users ask for precise changes, compare versions, and keep assets consistent. A small generic quality gain may be invisible in the workflow, but controllability changes what the user can safely do.
+4. First ask what new user action the paper enables. Then ask what the cost, latency, control, failure mode, and evaluation method look like in a real product rather than only on demo images.
+
+</details>

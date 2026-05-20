@@ -345,6 +345,18 @@ That way, others can more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## Summary
 
 The most important takeaway from this section is not memorizing a few risk terms, but understanding:
@@ -361,3 +373,13 @@ Only when you see risk as a combined issue of “model + data + system + users�
 2. Think about why “the model sounds human” increases the risk of misplaced user trust.
 3. Explain in your own words why high-risk scenarios are better suited to “model assistance + human confirmation.”
 4. Try rewriting an ethical risk into a concrete engineering problem, such as “log anonymization,” “access control,” or “manual approval.”
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A useful answer should turn each risk into evidence and control. For example, a face-editing app may need bias tests across skin tones and privacy controls for uploads, retention, and deletion.
+2. Human-like output increases trust because users apply social expectations to the system. They may assume the model understands, remembers, or verifies more than it actually does.
+3. High-risk scenarios need human confirmation because the model can assist with drafting or detection, but accountability, context judgment, and final approval should remain with a responsible person.
+4. Ethical risk becomes engineering work when it is expressed as a requirement: anonymize logs, restrict access by role, record consent, add manual approval for high-risk exports, or block unsafe prompts.
+
+</details>

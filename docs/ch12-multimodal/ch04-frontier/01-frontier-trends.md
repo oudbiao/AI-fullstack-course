@@ -412,6 +412,18 @@ Then others will more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## Common mistakes beginners make
 
 ### Treating “trend” as “recent buzzwords”
@@ -456,3 +468,14 @@ Once you start looking at new trends through these dimensions, you will no longe
 3. In your own words, explain why future AIGC competition is increasingly like “system competition,” not just “model competition.”
 4. If you want to judge whether a trend is worth following in the long term, what are the first two questions you would ask?
 5. Find a specific product and judge whether it is mainly betting on multimodality, real-time generation, on-device deployment, or workflow-ization.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A solid analysis names the capability improvement, the cost curve, the interaction change, and the workflow impact. For example, real-time voice-video generation matters only if latency, control, and review fit the product workflow.
+2. Multimodality changes the entry point because users can start from a screenshot, photo, voice note, document, or video rather than translating everything into text first.
+3. Competition becomes system competition because user value depends on models, tools, memory, retrieval, UI, permissions, review, cost control, and deployment reliability working together.
+4. First ask whether the trend unlocks a repeated user workflow. Then ask whether cost, latency, quality, safety, and integration are good enough for real use.
+5. A good product judgment should connect visible product behavior to one main bet. For instance, a mobile creative assistant may be betting on multimodality and workflow-ization, while a local assistant may be betting on on-device deployment.
+
+</details>

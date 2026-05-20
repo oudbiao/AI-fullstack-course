@@ -69,3 +69,15 @@ assets: title, cover_prompt, video_script, review_checklist
 ## 通過条件
 
 プロジェクトが brief を受け取り、構造化されたクリエイティブパッケージを作り、バージョンを残し、レビューを通し、他の人が確認できる Markdown または JSON を出力できれば、この章は通過です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```

@@ -113,7 +113,7 @@ Stable Diffusion における VAE の主な役割は次の通りです。
 
 ### なぜこのステップがとても重要なのか？
 
-なぜなら、もし拡散を元の画像空間で直接行うと、コストが高すぎるからです。  
+なぜなら、もし拡散を元の画像空間で直接行うと、コストが高すぎるからです。
 VAE は、より小さく、より抽象的な中間空間を提供します。
 
 イメージとしては、次のように考えられます。
@@ -372,6 +372,18 @@ Stable Diffusion は次の用途に自然に向いています。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、用語を覚えることではなく、次の流れをつかむことです。
@@ -388,3 +400,13 @@ Stable Diffusion は次の用途に自然に向いています。
 2. 考えてみましょう：なぜテキストエンコーダーと cross-attention は両方とも必要なのですか？
 3. U-Net を普通の小さなネットワークに置き換えると、なぜ通常は性能がかなり悪くなるのでしょうか？
 4. 自分の言葉でまとめてください：VAE、U-Net、テキストエンコーダーはそれぞれ何を担当していますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. Stable Diffusion が latent space で動くのは、pixel space が大きく計算コストも高いからです。VAE が画像を小さな表現に圧縮し、主要な視覚構造を保ちながら denoising を安くします。
+2. text encoder は言葉をガイド用ベクトルに変換し、cross-attention は denoising network が何を変えるか決めるときにそのベクトルを参照できるようにします。encoder がなければ意味条件がなく、cross-attention がなければ適切な空間位置に条件を入れにくくなります。
+3. U-Net は downsampling、upsampling、skip connections によって、細部と広い空間文脈を同時に扱えます。小さな普通のネットワークでは、細部か全体構造のどちらかを失いやすくなります。
+4. VAE は画像の圧縮と復元、U-Net は latent space での反復 denoising、text encoder は prompt を条件情報に変換して denoising を導く役割を持ちます。
+
+</details>

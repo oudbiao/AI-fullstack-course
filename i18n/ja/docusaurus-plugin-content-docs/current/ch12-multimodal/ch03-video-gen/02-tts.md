@@ -73,7 +73,7 @@ TTS は次のように考えると理解しやすいです。
 
 ### 単純に文字を1つずつ読むだけではない
 
-もし文字を1文字ずつ機械的に読んだら、結果はたいていとても不自然になります。  
+もし文字を1文字ずつ機械的に読んだら、結果はたいていとても不自然になります。
 自然な音声には、「文字の内容」以上の情報がたくさん含まれています。たとえば：
 
 - 句切り
@@ -348,7 +348,7 @@ print(tts_config)
 よく見せるべきなのは、次のようなことです。
 
 - 「文字を音声に変えました」
-  
+
 ではなく、次の点です。
 
 1. テキストがどのように TTS の流れに入るか
@@ -362,6 +362,18 @@ print(tts_config)
 - 単に吹き替え API を呼んだだけではない
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
 
 ## まとめ
 
@@ -385,3 +397,13 @@ print(tts_config)
 2. 考えてみましょう：なぜ多くの TTS システムでは「話者、話す速さ、感情」も入力として扱うのでしょうか？
 3. リアルタイム音声アシスタントを作るとしたら、なぜ TTS の遅延が重要な工程指標になるのでしょうか？
 4. 自分の言葉で説明してみましょう：音響モデルと vocoder は、それぞれ何を解決するものに近いですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. TTS は発音、間、リズム、強調、感情、音響的な形を予測する必要があります。文字を 1 つずつ読むだけでは prosody が失われ、不自然に聞こえます。
+2. 話者、速度、感情も入力になるのは、同じ文でも妥当な読み方が複数あるからです。これらの制御によって、製品の役割、アクセシビリティ要件、会話状態に合わせられます。
+3. 音声アシスタントは対話的なので、遅延が大きいと turn-taking が崩れます。音質が良くても、返答がすぐ始まらないとユーザーは遅いと感じます。
+4. acoustic model はテキストや言語特徴を mel spectrogram などの音声表現へ写像します。vocoder はその表現を可聴な waveform に変換します。
+
+</details>

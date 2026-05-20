@@ -67,6 +67,18 @@ This tiny record is enough to practice the product shape before you connect a re
 | 2 | Alignment and fusion | Explain how image evidence connects to text tasks |
 | 3 | Multimodal applications | Build a screenshot or document understanding record |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```
+
 ## Pass Check
 
 You pass this chapter when you can turn one image or screenshot into structured text, mark uncertainty, and explain how the result enters a RAG, review, or Agent workflow.

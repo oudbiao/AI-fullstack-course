@@ -302,7 +302,7 @@ for asset in assets:
 因为这样别人能看到：
 
 - 这是工作流系统
-- 不是单次生成 demo
+- 不是单次生成演示
 
 ### 如果你第一次做这类项目，最稳的默认顺序
 
@@ -357,6 +357,18 @@ for asset in assets:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```
+
 ## 小结
 
 这节最重要的是建立一个作品级判断：
@@ -383,3 +395,13 @@ for asset in assets:
 2. 为什么创意平台比单步生成功能更依赖资产管理？
 3. 如果图像和配音风格总不一致，你会把问题归到路由、提示词，还是资产层？为什么？
 4. 如果你把这个项目放进作品集，首页最值得展示哪 5 个模块？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `video_scripts` 应在 brief 和资产计划稳定后生成。它可以包含 scene id、旁白、视觉方向、时长、所需资产和评审状态，这样视频工作流仍然连接到同一份 manifest。
+2. 创意平台依赖资产管理，是因为生成会产生很多版本、被拒候选、prompt、版权说明和评审决策。没有资产记录，团队就无法复现，也无法安全复用。
+3. 如果图像和语音风格总是不一致，先检查资产层，因为共享风格定义可能没有统一；然后再检查 routing 和 prompts，看是否调用了正确生成器并传入了正确风格指令。
+4. 作品集首页最值得展示的 5 个模块通常是 brief 输入、资产 manifest/版本管理、生成工作流、安全/评审面板，以及最终导出或作品预览。
+
+</details>

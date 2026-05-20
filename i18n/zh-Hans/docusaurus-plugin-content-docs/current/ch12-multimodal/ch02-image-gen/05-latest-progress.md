@@ -325,6 +325,18 @@ for item in ranked:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## 小结
 
 这节最重要的，不是给你一串会过时的模型名单，
@@ -343,3 +355,13 @@ for item in ranked:
 2. 想一想：如果你做的是电商商品图系统，哪条主线最重要？为什么？
 3. 为什么说“可控编辑”往往比“再提高一点画质”更像产品能力？
 4. 下次读图像生成新论文时，你会先问哪两个问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合理排序应取决于产品目标。面向消费者的创意工具里，可控编辑可能排第一；面向基础设施时，成本和速度可能排第一；面向专业媒体时，一致性和可审查性通常最关键。
+2. 电商里，可控编辑和身份一致性通常最重要。商品图必须保持商品本体不变，同时修改背景、风格、尺寸或场景，所以可靠编辑比泛泛提高画质更有价值。
+3. 可控编辑是一种产品能力，因为它让用户提出精确修改、比较版本，并保持资产一致。小幅通用画质提升可能在工作流里不明显，但可控性会改变用户能安全完成的事情。
+4. 读新论文时先问：它让用户多做了什么新动作？再问：放到真实产品里，成本、延迟、控制能力、失败模式和评估方法分别是什么，而不只看 demo 图。
+
+</details>

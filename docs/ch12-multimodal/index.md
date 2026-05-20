@@ -78,6 +78,13 @@ rag_ready: True
 
 Operation tip: add `page`, `region`, or `timestamp` fields. If the record can be cited later, it can enter multimodal RAG. If it cannot be checked or cited, it should stay in review.
 
+### How to read this output
+
+- `source` proves where the visual record came from.
+- `visible_text_count` shows how much text was extracted or observed.
+- `uncertainty_count` is not a weakness; it is the part that should stay reviewable.
+- `rag_ready=True` means the record has enough structure to be cited later, not that the visual understanding is automatically correct.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -99,6 +106,18 @@ Multimodal is not separate from the main track.
 | Prompt | create image, voice, storyboard, and review prompts with version records |
 | Engineering | track assets, licenses, reviews, export files, latency, and cost |
 | Capstone | build a multimodal learning assistant or creative workspace |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```
 
 ## Common Failures
 

@@ -70,3 +70,15 @@ print(json.dumps(record, indent=2))
 ## 通过标准
 
 你能把一张图片或截图转成结构化文本，标记不确定性，并解释结果如何进入 RAG、审核或 Agent 工作流，就算通过本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```

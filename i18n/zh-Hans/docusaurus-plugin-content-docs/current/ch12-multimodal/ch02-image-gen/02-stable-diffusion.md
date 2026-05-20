@@ -374,6 +374,18 @@ Stable Diffusion 天然很适合做：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## 小结
 
 这一节最重要的不是记住名词，而是抓住这条主线：
@@ -390,3 +402,13 @@ Stable Diffusion 天然很适合做：
 2. 想一想：为什么文本编码器和 cross-attention 必须同时存在？
 3. 如果把 U-Net 换成普通小网络，为什么效果通常会很差？
 4. 用自己的话总结：VAE、U-Net、文本编码器各自负责什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Stable Diffusion 在 latent space 中工作，是因为像素空间太大、计算成本太高。VAE 会把图像压缩成更小的表示，让去噪更便宜，同时尽量保留主要视觉结构。
+2. 文本编码器把文字变成引导向量；cross-attention 让去噪网络在决定如何修改图像时读取这些向量。没有文本编码器就没有语义条件，没有 cross-attention 就很难在合适的空间位置注入条件。
+3. U-Net 的价值在于通过下采样、上采样和 skip connections 同时保留局部细节与大范围空间上下文。普通小网络通常会丢掉细节或整体结构。
+4. VAE 负责压缩和重建图像，U-Net 负责在 latent space 中逐步去噪，文本编码器负责把 prompt 转成条件信息，用来引导去噪过程。
+
+</details>

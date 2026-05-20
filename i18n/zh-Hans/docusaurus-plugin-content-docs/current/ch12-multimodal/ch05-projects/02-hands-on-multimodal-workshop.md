@@ -42,7 +42,7 @@ multimodal_workshop_run/
 
 最重要的结果不是 SVG 本身，而是每个生成资产都有 Prompt、来源记录、审核结果、导出边界和失败说明。
 
-## Step 0：先看懂产品闭环
+## 步骤 0：先看懂产品闭环
 
 实操闭环是：
 
@@ -54,7 +54,7 @@ multimodal_workshop_run/
 6. 导出 HTML 预览和内容包。
 7. 保存失败案例，供下一轮迭代。
 
-## Step 1：创建文件夹和脚本
+## 步骤 1：创建文件夹和脚本
 
 ```bash
 mkdir multimodal-workshop
@@ -67,7 +67,7 @@ source .venv/bin/activate
 
 ![Prompt 到资产版本记录图](/img/course/ch12-workshop-prompt-asset-version-map.webp)
 
-## Step 2：运行完整脚本
+## 步骤 2：运行完整脚本
 
 ```python
 from __future__ import annotations
@@ -455,13 +455,13 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ![workshop 运行结果证据包图](/img/course/ch12-workshop-run-evidence-package-result-map.webp)
 
-## Step 3：检查 Brief 和 Prompt 记录
+## 步骤 3：检查 Brief 和 Prompt 记录
 
 打开 `inputs/creative_brief.json`。这是结构化后的用户需求：主题、受众、目标、语气、交付物和约束。
 
 再打开 `prompts/prompt_plan.json` 和 `prompts/prompt_versions.md`。真实 AIGC 项目不能在图片或视频生成后丢掉 Prompt。Prompt 本身就是项目证据的一部分。
 
-## Step 4：检查资产和分镜
+## 步骤 4：检查资产和分镜
 
 用浏览器打开 `assets/scene_01.svg`、`assets/scene_02.svg` 和 `assets/scene_03.svg`。它们是脚本生成的基线 SVG 素材，在工作流里扮演“生成结果”的角色。
 
@@ -469,34 +469,34 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ![审核与导出流程图](/img/course/ch12-workshop-review-export-map.webp)
 
-## Step 5：阅读审核文件
+## 步骤 5：阅读审核文件
 
 打开 `reports/asset_manifest.csv`。每一行记录：
 
 | 字段 | 含义 |
 |---|---|
 | `source` | 资产来源 |
-| `license` | 资产是否能用于这个 demo |
+| `license` | 资产是否能用于这个演示 |
 | `contrast_ratio` | 文本是否足够可读 |
 | `passed` | 是否可以进入导出 |
 
 然后打开 `reports/safety_review.md`。这个文件用于记录版权、人像权、内容安全和导出边界。
 
-## Step 6：打开导出预览
+## 步骤 6：打开导出预览
 
 用浏览器打开 `outputs/export_preview.html`。它不是完整应用，但能证明项目已经从创意需求走到可导出的内容包。
 
 真实升级时，可以替换这些模块：
 
-| Baseline 模块 | 真实项目替换 |
+| 基线模块 | 真实项目替换 |
 |---|---|
 | 基线 SVG 素材 | 图像生成 API 或本地图像模型 |
 | Storyboard JSON | 视频生成工作流 |
 | 文案文本 | LLM 生成文案加人工审核 |
-| Safety checklist | 人工审核加策略检查 |
+| 安全检查表 | 人工审核加策略检查 |
 | HTML preview | 前端创意工作台 |
 
-## Step 7：阅读失败报告
+## 步骤 7：阅读失败报告
 
 ![多模态失败样本排查图](/img/course/ch12-workshop-failure-debug-map.webp)
 
@@ -509,6 +509,18 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 3. 资产是否有人像或品牌风险？
 4. 生成内容是否可读、可导出？
 5. 项目是否写明发布前必须人工确认的内容？
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```
 
 ## 常见错误
 
@@ -528,6 +540,16 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 4. 用你喜欢的图像模型生成一张图替换某个 SVG，但保留同样的 manifest 和 review 文件。
 5. 新增一个故意有风险的资产，确认它进入 `failure_cases.md`。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `scene_02` 通过的标准是前景/背景对比度满足其他场景使用的同一条评审规则，并且 manifest 记录了这次修改。
+2. `scene_04` 应加入 storyboard，包含 id、用途、时长/顺序、所需资产、prompt 版本和评审结果，这样时间线才可复现。
+3. `manual_reviewer` 应写入安全评审记录，而不是只放在 README 备注里。它应说明是谁评审，或哪个角色批准了资产。
+4. 替换 SVG 可以，但生成图必须保留同一份 manifest 入口、来源/prompt 记录、选中输出路径和评审文件。
+5. 故意加入的高风险资产不应静默通过。好的结果是它进入 `failure_cases.md`，并写清原因、风险类别和下一步处理。
+
+</details>
 ## 完成标准
 
 完成本练习后，你应该能解释：

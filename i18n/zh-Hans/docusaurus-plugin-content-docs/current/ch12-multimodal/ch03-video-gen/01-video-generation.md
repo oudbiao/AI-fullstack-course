@@ -342,6 +342,18 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
+
 ## 小结
 
 这一节最重要的不是记住某条路线的名字，而是建立一个稳定直觉：
@@ -358,3 +370,13 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 2. 想一想：如果一段视频每一帧单看都很好，但连起来很跳，这说明哪一层出了问题？
 3. 为什么说很多视频生成系统本质上更像“多模块工作流”？
 4. 如果你要做一个短视频生成产品，你会更优先优化单帧质量还是时间一致性？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 视频比图像多了时间维度。系统不仅要生成一张好图，还要让身份、动作、镜头、光照和场景状态在多个帧之间保持一致。
+2. 如果单帧都好看，但播放时跳动，出问题的是时间一致性层。动作、对象持续性或镜头轨迹在序列中不连贯。
+3. 很多视频生成系统会变成多模块工作流，因为 prompt 理解、关键帧生成、运动控制、插帧、放大、音频、编辑和评审分别解决不同问题。
+4. 对多数短视频产品来说，应优先保证时间一致性。略微不那么精致但稳定的片段，通常比单帧漂亮却闪烁、身份漂移的序列更可用。
+
+</details>

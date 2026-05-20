@@ -69,6 +69,18 @@ If you cannot reproduce the prompt record, you cannot reliably improve the image
 | 2 | Stable Diffusion parts | Map text encoder, U-Net, VAE, and latent space |
 | 3 | Applications and control | Compare text-to-image, image-to-image, inpainting, ControlNet, LoRA |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## Pass Check
 
 You pass this chapter when you can write a prompt record, explain which generation mode you chose, save 3 candidate notes, and mark at least one review risk before export.

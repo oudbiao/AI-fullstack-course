@@ -70,3 +70,15 @@ print(json.dumps(record, indent=2))
 ## 通過条件
 
 1 枚の画像またはスクリーンショットを構造化テキストに変え、不確実性を記録し、その結果が RAG、レビュー、Agent ワークフローへどう入るか説明できれば、この章は通過です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```

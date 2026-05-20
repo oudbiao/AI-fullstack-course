@@ -59,6 +59,18 @@ This is not legal advice. It is an engineering checklist that makes product risk
 | 2 | Ethics and safety | Map copyright, portrait, voice, bias, and misinformation risks |
 | 3 | Regulations | Convert rules into input checks, review steps, labels, and logs |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## Pass Check
 
 You pass this chapter when you can add a risk checklist to one AIGC workflow and explain which cases are blocked, restricted, reviewed, or ready to export.

@@ -286,6 +286,18 @@ Then it is usually more cost-effective to first build a strong pure-text pipelin
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
+structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
+fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
+failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
+Expected_output: structured record that can be cited or reviewed later
+```
+
 ## Common Beginner Misconceptions
 
 ### Thinking multimodal applications must directly use the most complex model
@@ -322,3 +334,12 @@ Truly useful multimodal products often win through system design, not just the m
 1. Add another error type to the toy screenshot assistant, such as `404 Not Found`.
 2. Add another image attribute to the product assistant, such as `material`, and extend the matching logic.
 3. Think about this: if the user uploads a blurry screenshot, how should the system prompt the user to provide more information?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A useful `404 Not Found` branch should identify the missing route or resource, then suggest checks such as URL path, server route registration, deployment rewrite rules, and whether the backend is running.
+2. Add `material` as an attribute only if the visual signal can support it. For example, `cotton`, `leather`, or `metal` can be useful for product matching, but the assistant should mark it as uncertain when the image is low resolution or stylized.
+3. The prompt should ask for one or two concrete missing signals instead of saying only “image unclear.” For example: “Please upload a sharper screenshot that includes the full error message and browser address bar.” That keeps the recovery path actionable.
+
+</details>

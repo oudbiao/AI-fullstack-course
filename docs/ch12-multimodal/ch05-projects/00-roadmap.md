@@ -66,6 +66,18 @@ Run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./02-han
 | Safety review | Copyright, portrait, voice, sensitive content, export label |
 | Failure note | One real failure case and the next fix |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+brief: user goal, audience, assets, constraints, and export format
+artifacts: source files, prompts, generated candidates, selected output, and rejected versions
+review: factual check, copyright/portrait/sensitive-content check, and human decision
+integration: RAG record, Agent trace, creative package, storyboard, or export preview
+Expected_output: reproducible asset package with README, review checklist, and failure notes
+```
+
 ## Pass Check
 
 You pass this chapter when your project can accept a brief, produce a structured creative package, keep versions, run review, and export Markdown or JSON that another person can inspect.

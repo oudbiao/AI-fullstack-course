@@ -327,6 +327,18 @@ That way, others can more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
+
 ## Summary
 
 The most important thing in this section is not to memorize the phrase "digital human," but to understand that:
@@ -343,3 +355,13 @@ The real difficulty is not just generating a video, but making these modules fin
 2. Think about it: in a digital human system, why is lip sync especially critical?
 3. If you wanted to build an educational virtual instructor, which modules would be essential?
 4. Explain in your own words: why do many digital human products care more about "stability and cost" than extreme realism?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A digital human combines generation, identity control, speech, facial motion, lip sync, interaction state, and safety. Ordinary video generation does not necessarily need to respond as a stable persona.
+2. Lip sync is critical because humans notice mouth-audio mismatch immediately. Even small mismatches make the character feel fake and reduce trust.
+3. An educational virtual instructor needs script or dialogue generation, TTS, avatar rendering, lip sync, lesson state, retrieval or curriculum grounding, safety review, and analytics for learner progress.
+4. Stability and cost matter because digital humans are often used repeatedly in long sessions. A slightly less realistic but reliable and affordable system is easier to deploy than an expensive system that fails unpredictably.
+
+</details>

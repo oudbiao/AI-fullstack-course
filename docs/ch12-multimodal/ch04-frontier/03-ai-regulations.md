@@ -320,6 +320,18 @@ This makes it easier for others to see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
+engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
+test_case: one realistic input/output case that exercises the rule
+failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
+Expected_output: review checklist or product requirement translated into engineering action
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing legal text, but understanding:
@@ -336,3 +348,13 @@ Once you start looking at the problem this way, compliance is no longer “a ter
 2. Think about why “traceability” has become a core term in many AI compliance discussions.
 3. Explain in your own words why risk classification directly affects system design.
 4. Try translating “compliance” into three specific technical requirements that you can implement in a system.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A practical requirement list might include documented training or input data sources, immutable audit logs, role-based permissions, and human confirmation before high-risk actions or external publication.
+2. Traceability matters because teams need to reconstruct what data, prompt, model version, user action, and approval produced an output. Without that trail, debugging and accountability are weak.
+3. Risk classification changes the system because low-risk features may need lightweight disclosure, while high-risk features may need stricter logging, access control, review, fallback, and human approval.
+4. Three implementable requirements are: keep prompt/model/version logs, enforce permission checks on sensitive operations, and require manual approval for risky generated outputs before release.
+
+</details>

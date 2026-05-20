@@ -355,6 +355,18 @@ That way, others can more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing the names DreamBooth, LoRA, and Textual Inversion, but understanding:
@@ -371,3 +383,13 @@ Once you build that judgment, it will be much easier to understand specific trai
 2. Think about this: if you only want to add a style trigger word to the model, why might you not need DreamBooth?
 3. If you need to maintain many style versions over the long term, why is LoRA especially valuable from an engineering perspective?
 4. Why is evaluation in image generation fine-tuning more dependent on human perceptual judgment than text classification?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Textual Inversion is more like adding a new token embedding, LoRA is more like adding a small detachable skill patch to model layers, and DreamBooth is more like teaching the model a specific subject or identity with more direct examples.
+2. If you only need a style trigger word, Textual Inversion or LoRA may be enough because you are not trying to deeply rewrite the model's subject knowledge.
+3. LoRA is valuable operationally because style versions can be stored, combined, swapped, reviewed, and rolled back as small files instead of maintaining many full model copies.
+4. Image generation quality includes style fidelity, composition, identity preservation, artifacts, and user preference. Those judgments are visual and subjective, so automatic metrics alone are weaker than in text classification.
+
+</details>

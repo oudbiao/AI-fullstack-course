@@ -385,6 +385,18 @@ This also leads directly to the next section:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## Summary
 
 The most important thing in this section is not memorizing formulas, but grasping this main thread:
@@ -407,3 +419,13 @@ As long as this intuition is stable, the structure of Stable Diffusion will feel
 2. Explain in your own words: why is diffusion model training more like “learning denoising” rather than “learning to draw directly”?
 3. Think about why diffusion models are usually slower than one-shot generation methods.
 4. If you were explaining diffusion models to someone else, how would you use the analogy of “first dirty it, then clean it” to describe them?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A larger decay coefficient preserves structure for longer; a smaller one destroys it faster. This lets you see why the denoising model must learn how much signal remains at each noise level.
+2. During training, the model is usually shown a noisy sample plus a noise/time condition and learns to predict the noise or the clean direction. It is therefore learning a sequence of repair steps, not drawing a finished image from scratch in one move.
+3. Diffusion is slower because generation is iterative. The model repeatedly updates the sample over many denoising steps, while one-shot methods try to produce the output in a single forward pass.
+4. The analogy is: training first teaches the system how images look after being dirtied by controlled noise, then teaches it to clean them gradually. Generation starts from mostly noise and repeatedly applies the learned cleaning rule until a coherent image appears.
+
+</details>

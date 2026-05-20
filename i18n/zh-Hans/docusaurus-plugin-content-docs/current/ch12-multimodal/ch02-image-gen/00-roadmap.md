@@ -72,3 +72,15 @@ print(json.dumps(record, indent=2))
 ## 通过标准
 
 你能写出提示词记录，解释为什么选择某种生成模式，保存 3 个候选图备注，并在导出前标记至少 1 个审核风险，就算通过本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```

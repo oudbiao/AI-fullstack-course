@@ -387,6 +387,18 @@ GAN 更像：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+prompt_record: prompt, negative requirements, reference, seed/model, and version number
+candidate_outputs: generated or simulated results with selection reason
+technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
+failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
+Expected_output: selected image/version record plus rejected-candidate notes
+```
+
 ## 小结
 
 这一节最重要的不是背公式，而是抓住这条主线：
@@ -409,3 +421,13 @@ GAN 更像：
 2. 用自己的话解释：为什么说扩散模型训练更像“学去噪”，而不是“直接学画图”？
 3. 想一想：为什么扩散模型通常会比一步生成的方法更慢？
 4. 如果你要向别人解释扩散模型，怎么用“先弄脏再洗干净”的类比去讲？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 衰减系数越大，结构保留越久；系数越小，结构消失越快。这个实验能帮助你看到：去噪模型必须理解每个噪声级别还剩多少信号。
+2. 训练时，模型通常看到“带噪样本 + 噪声/时间条件”，学习预测噪声或还原方向。因此它学的是一连串修复步骤，而不是一次性从零画出完整图片。
+3. 扩散模型通常更慢，因为生成是迭代过程。模型需要经过多步去噪不断更新样本，而 one-shot 方法尝试一次前向计算直接产生结果。
+4. 可以这样解释：训练先让系统看到图片被可控噪声弄脏后的样子，再学习如何逐步清理。生成时从近似噪声开始，反复应用学到的清理规则，直到出现连贯图像。
+
+</details>

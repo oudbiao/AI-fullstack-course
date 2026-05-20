@@ -57,3 +57,15 @@ total_seconds: 30
 ## 通過条件
 
 1 つのテーマを、ショット、ナレーション、尺、字幕、リスクメモ、出力要件を含むタイムラインに分解できれば、この章は通過です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+storyboard: scene list, duration, camera/voice/subtitle/timing notes
+asset_list: images, audio, voice, captions, clips, and source/license fields
+sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
+failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
+Expected_output: storyboard or timeline artifact with review notes
+```
