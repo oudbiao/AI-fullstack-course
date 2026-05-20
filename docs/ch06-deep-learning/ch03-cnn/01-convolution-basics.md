@@ -344,6 +344,17 @@ If this record is clear, convolution becomes a shape-and-pattern operation rathe
 4. Change `out_channels=16` in the channel lab. Which shapes change?
 5. Convert an image-like tensor from `[N, H, W, C]` to `[N, C, H, W]` with `permute`.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing the kernel changes which local pattern is emphasized. Edge-like kernels, averaging kernels, and sharpening kernels produce visibly different output maps.
+2. Manual computation should multiply the selected `2 x 2` patch element by element with the kernel and sum the results. If it differs, recheck row and column position.
+3. Reducing stride from `2` to `1` makes the kernel move one pixel at a time, so the output becomes spatially larger.
+4. Changing `out_channels` changes the number of produced feature maps. The batch size and spatial dimensions follow the input, kernel, stride, and padding settings.
+5. Use `x = x.permute(0, 3, 1, 2)` for `[N, H, W, C] -> [N, C, H, W]`. PyTorch convolution layers expect channels before height and width.
+
+</details>
+
 ## Key Takeaways
 
 - Convolution preserves local spatial structure better than early flattening.

@@ -192,6 +192,17 @@ For real neural networks, Adam or AdamW is often a practical starting point. For
 4. Print `w.grad` each step to connect gradients with updates.
 5. Plot `w` over steps for each optimizer.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A smaller learning rate should move more slowly; a moderate one should converge faster; a very large one may bounce around or diverge.
+2. Lower momentum usually reduces overshooting, but it can also remove useful acceleration. Compare both the path of `w` and the final loss.
+3. `AdamW` often behaves like Adam on this toy problem, but its weight decay is decoupled from the adaptive update. That distinction matters more in larger models.
+4. `w.grad` points in the direction that would increase loss, so the optimizer usually moves parameters against that gradient. The update size depends on optimizer state and learning rate.
+5. The `w` plot should show whether the optimizer crawls, heads smoothly to the optimum, overshoots, or oscillates. This is easier to trust than a single final number.
+
+</details>
+
 ## Pass Check
 
 You are done when you can explain:

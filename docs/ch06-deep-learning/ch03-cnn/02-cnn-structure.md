@@ -299,6 +299,17 @@ head_choice: Flatten for location-specific detail, GAP for compact classifier
 4. Add a `BatchNorm2d(8)` after `conv1`; verify that the shape stays unchanged.
 5. Write down the shape after every line for an RGB `64 x 64` input.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. If `conv2` outputs `32` channels, later layers that expect `16` channels must change too, especially the classifier input size or any next convolution.
+2. With `AdaptiveAvgPool2d((1, 1))`, the classifier receives one value per channel. If the last feature map has `16` channels, `Linear(16, 10)` is the right head.
+3. Removing pooling keeps spatial dimensions larger, so the flattened vector grows. Predicting this before running is the main shape-debugging skill.
+4. `BatchNorm2d(8)` normalizes the 8 channels from `conv1`; it does not change batch, channel count, height, or width.
+5. For RGB input, the first channel dimension is `3`. After that, each convolution changes channels and each pooling/stride changes spatial size. A line-by-line shape trace should make every classifier dimension explainable.
+
+</details>
+
 ## Key Takeaways
 
 - A CNN is a feature extractor plus a classifier head.

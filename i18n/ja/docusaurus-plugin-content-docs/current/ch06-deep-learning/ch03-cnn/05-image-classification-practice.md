@@ -285,6 +285,17 @@ next_probe: more noise, fewer samples, new class, or real image split
 4. 四角い枠など、もう 1 クラス追加する。
 5. 誤分類があれば、検証セットの最初の 5 件を表示する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. noise が増えるとクラス境界が曖昧になり、検証精度は下がりやすくなります。誤分類例もより重要な診断材料になります。
+2. クラスあたり 10 件では訓練データに合わせることはできても、検証結果は大きく揺れやすくなります。
+3. `Flatten` 後の入力次元は最後の feature map の `C x H x W` です。まず shape を表示してから `Linear` を設定します。
+4. 新クラスを追加するなら、生成関数、label map、モデル出力次元、評価コードをまとめて更新します。
+5. 誤分類は true label、predicted label、サンプル index を一緒に表示します。noise、クラス類似、容量不足のどれが原因か考えます。
+
+</details>
+
 ## まとめ
 
 - 完整な画像分類ループには、データ、ラベル、分割、モデル、loss、指標、誤分類分析が含まれる。

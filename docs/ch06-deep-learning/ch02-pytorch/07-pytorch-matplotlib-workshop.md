@@ -346,6 +346,16 @@ If you can explain all four, this workshop has become a training evidence pack r
 3. Change the optimizer from `Adam` to `SGD`. Compare the loss curve.
 4. Add a third hidden layer and check whether validation loss improves or overfits.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Hidden size `16` may produce a simpler boundary; `64` can fit a more flexible boundary but may overfit. Use validation loss and the boundary plot together.
+2. Higher noise should make the classes overlap more. Expect lower validation accuracy, a less clean boundary, or more uncertain samples near the class border.
+3. `SGD` often needs a more careful learning rate and may converge more slowly than Adam. A slower curve is not a bug if validation keeps improving.
+4. A third hidden layer is useful only if validation improves. If train loss improves but validation gets worse, the extra layer is memorizing noise.
+
+</details>
+
 ## Passing Standard
 
 After finishing this workshop, you should be able to explain a complete PyTorch workflow in your own words:

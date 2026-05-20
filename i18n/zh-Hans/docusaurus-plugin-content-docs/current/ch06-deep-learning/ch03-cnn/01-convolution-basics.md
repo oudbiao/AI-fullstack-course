@@ -344,6 +344,17 @@ meaning: C_out feature maps scan local regions
 4. 把 channel lab 里的 `out_channels` 改成 `16`，哪些 shape 会变？
 5. 用 `permute` 把图像样式张量从 `[N, H, W, C]` 转成 `[N, C, H, W]`。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 改 kernel 就是在改变模型关注的局部模式。边缘、平滑、锐化等 kernel 会让输出图呈现完全不同的响应。
+2. `out[1, 0]` 来自输入窗口 `[1, 2; 4, 5]` 与 kernel 逐元素相乘再求和；手算结果应该和程序打印值一致。
+3. `stride=1` 会让窗口移动更密，输出空间尺寸通常变大。用公式 `floor((W - K + 2P) / S) + 1` 验证。
+4. `out_channels=16` 会改变卷积输出的 channel 维度，也会影响下一层接收的 `in_channels`。
+5. PyTorch 卷积默认使用 `[N, C, H, W]`。从图像库常见格式转换时使用 `x.permute(0, 3, 1, 2)`。
+
+</details>
+
 ## 小结
 
 - 卷积比过早 flatten 更能保留局部空间结构。

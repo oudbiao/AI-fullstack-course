@@ -321,6 +321,17 @@ risk_note: data size, domain mismatch, preprocessing mismatch
 4. 解冻最后一个卷积后，只打印可训练参数名。
 5. 解释什么时候 GAP 加小 head 比大型 `Flatten` head 更合适。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 新类别需要同步修改标签生成、类别数、分类头输出维度和评估展示。图案应和原类别有可区分特征。
+2. 数据更多时，只训 head 通常更稳定，也可能带来更好泛化；是否明显提升取决于目标域和预训练特征是否接近。
+3. `0.05` 对 backbone 往往过大，可能破坏已有特征，表现为 loss 抖动、验证集下降或训练不稳定。
+4. 只打印 `requires_grad=True` 的参数即可确认解冻范围，避免不小心训练整段 backbone。
+5. GAP 加小 head 参数少、对输入尺寸更稳，适合小数据迁移；大型 `Flatten` head 更容易过拟合。
+
+</details>
+
 ## 小结
 
 - 迁移学习复用视觉特征，而不是从零重新学一切。

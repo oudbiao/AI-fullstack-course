@@ -346,6 +346,16 @@ failure_note: one case where the boundary or validation curve looks wrong
 3. optimizer を `Adam` から `SGD` に変え、損失曲線を比較する。
 4. 3 つ目の hidden layer を追加し、validation loss が改善するか過学習するか確認する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. hidden size が小さいと境界は単純になり、大きいと複雑な境界を作れます。検証 loss と境界の滑らかさを一緒に見ます。
+2. noise を増やすとクラスが重なり、訓練 loss も検証 loss も下がりにくくなります。境界はより不確かになります。
+3. SGD は Adam より学習率設定に敏感です。曲線が遅い、振動する、または途中で止まる可能性があります。
+4. 層を増やすと容量は増えますが、validation loss が悪化するなら過学習です。改善した場合も seed を変えて再確認します。
+
+</details>
+
 ## 到達基準
 
 このワークショップを終えたら、完整な PyTorch ワークフローを自分の言葉で説明できるようになりましょう。

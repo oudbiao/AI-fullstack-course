@@ -219,6 +219,17 @@ next_probe: change KL weight and compare samples
 4. 把 decoder 里的 `ReLU` 换成 `Tanh`。训练还能收敛吗？
 5. 解释为什么即使 GAN 或 diffusion 图像更锐利，VAE 仍然适合学习 latent-space 直觉。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. KL 权重为 0 时，模型更像普通 autoencoder，重建可能更好，但 latent 分布更不规整，随机采样质量可能变差。
+2. KL 权重过大时，latent 会更贴近先验，但 decoder 可用信息变少，重建通常会变差。
+3. 如果 latent space 学得平滑，沿线解码应逐渐变化；突然跳变说明表示空间不够连续。
+4. `Tanh` 会改变激活范围和梯度行为，可能仍能收敛，但需要注意输出尺度是否与数据范围匹配。
+5. VAE 把重建、采样和连续 latent 表示放在同一个框架里，适合理解表示学习和生成模型的概率直觉。
+
+</details>
+
 ## 小结
 
 - VAE 学的是 latent 分布，而不只是固定 code。

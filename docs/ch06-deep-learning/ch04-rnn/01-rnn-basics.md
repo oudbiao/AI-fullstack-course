@@ -260,6 +260,17 @@ This is why LSTM and GRU add gates: they give the model a better way to keep, up
 4. Use `out.mean(dim=1)` instead of `out[:, -1, :]` in the classifier. Does it still learn?
 5. Explain why a very long sentence is hard for a plain RNN.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A larger `W_h` makes the previous hidden state carry more strongly into the next step. It may preserve memory better, but it can also amplify instability.
+2. Increasing `hidden_size` changes the last dimension of RNN outputs and hidden states. The classifier input dimension must match the new hidden size.
+3. Increasing/decreasing sequences are still order-dependent, so the RNN should learn if the pattern is clear and labels are generated consistently.
+4. Mean pooling can work when evidence is spread across the sequence. Last-state pooling is better when the final hidden state is expected to summarize the full history.
+5. A plain RNN repeatedly compresses old information into one hidden state. Over long sequences, useful early signals can fade or be overwritten.
+
+</details>
+
 ## Key Takeaways
 
 - RNNs are for ordered data where earlier steps affect later interpretation.

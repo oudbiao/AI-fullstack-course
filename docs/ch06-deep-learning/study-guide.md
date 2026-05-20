@@ -46,6 +46,20 @@ If this folder is missing, the chapter is not finished yet, even if every page h
 | I can explain what Attention changes | attention note |
 | I can finish the evidence-pack workshop | `deep_learning_workshop_run/` |
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+Use this checklist as a self-review rubric:
+
+1. A training-loop note should explain forward pass, loss, backward pass, and optimizer step without copying code line by line.
+2. A valid PyTorch script should run from a clean folder and print at least one shape, loss, or metric that proves it executed.
+3. A useful shape trace should include batch size, channel/feature dimensions, and the point where tensors enter the classifier or loss.
+4. A curve artifact should support a diagnosis: improving, underfitting, overfitting, unstable, or unclear.
+5. An attention note should explain what Q/K/V and masking change compared with earlier sequence models.
+6. A finished evidence pack should be rerunnable and should contain enough artifacts for someone else to understand the result.
+
+</details>
+
 ## Evidence Rubric
 
 | Artifact | It should answer |

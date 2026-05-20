@@ -193,6 +193,17 @@ For modern image generation projects, diffusion models are often more stable and
 4. Print `fake_std` every 25 steps and mark possible collapse points.
 5. Explain why GAN output quality cannot be judged from one loss number.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. If training works, `fake_mean` should move toward the new real data center. It may lag or oscillate because the discriminator is changing too.
+2. Lower learning rate often makes training smoother but slower. If both networks learn too slowly, the generated distribution may barely move.
+3. A larger hidden size can help capacity, but it can also make the game more sensitive. Stability depends on the balance between generator and discriminator.
+4. Very small `fake_std` is a warning sign for mode collapse: the generator is producing similar samples even if they look plausible to the discriminator.
+5. GAN losses describe a moving game, not a fixed supervised objective. Inspect generated samples, diversity, mean/std, and trends together.
+
+</details>
+
 ## Key Takeaways
 
 - GAN training is a moving two-player game.

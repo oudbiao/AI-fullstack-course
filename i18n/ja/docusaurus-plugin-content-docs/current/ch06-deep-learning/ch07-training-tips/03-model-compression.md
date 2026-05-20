@@ -16,16 +16,16 @@ keywords: [model compression, quantization, pruning, distillation, deployment, m
 - quantization、pruning、distillation を「何を変えるか」で説明できる。
 - parameter count と numeric precision から model size を見積もれる。
 - 小さな例で quantization error を測れる。
-- deployment bottleneck から compression path を選べる。
+- deployment bottleneck から圧縮ルートを選べる。
 - model size だけで圧縮を評価しないようになる。
 
 ---
 
-## Deployment Bottleneck から始める
+## デプロイ上のボトルネックから始める
 
 ![モデル圧縮のトレードオフ図](/img/course/ch06-model-compression-tradeoff-ja.webp)
 
-| Bottleneck | まず考える方法 | 理由 |
+| ボトルネック | まず考える方法 | 理由 |
 |---|---|---|
 | memory が大きすぎる | quantization | parameter count は同じでも、1 値あたりの bit を減らせる |
 | weight/channel に冗長性がある | pruning | ほとんど貢献しない structure を取り除く |
@@ -186,9 +186,20 @@ decision: keep, tune, or reject compression
 4. size、latency、throughput、metric を含む before/after report template を書いてください。
 5. structured pruning が unstructured pruning より deploy しやすい理由を説明してください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `scale=32` はより細かく量子化できるため MAE が下がる可能性があります。ただし weight distribution と scaling の設計に依存します。
+2. Linear layer の parameter 数は `in_features x out_features + bias` で計算し、層ごとに足します。model size は dtype の byte 数も掛けます。
+3. latency が問題なら、distillation、小さい architecture、operator fusion、batching、structured pruning などを優先します。ファイルサイズ削減だけでは速くなりません。
+4. report には圧縮前後の size、latency、throughput、主要 metric、hardware、測定方法を入れます。
+5. structured pruning は channel、head、layer などを丸ごと削るため、通常の hardware で速度向上に結びつきやすいです。unstructured sparsity は専用 kernel が必要です。
+
+</details>
+
 ## まとめ
 
-- 圧縮は deployment constraints から始まります。
+- 圧縮はデプロイ制約から始まります。
 - Quantization は numeric precision を変えます。
 - Pruning は model structure を変えます。
 - Distillation は training process を変えます。

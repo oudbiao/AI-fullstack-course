@@ -211,6 +211,17 @@ This proves the full training step happened. If any one line is missing, debug i
 4. Add another sample to `x` and `y`, then verify shapes.
 5. Print model weights before and after `optimizer.step()`.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `lr=0.05` usually updates more slowly, while `lr=1.0` may improve quickly or overshoot. The loss curve is the evidence, not the learning rate number alone.
+2. If `optimizer.zero_grad()` is removed, gradients accumulate across backward calls. The printed gradients become a sum of old and new signals instead of the current batch signal.
+3. `BCEWithLogitsLoss` expects raw logits and applies the numerically stable sigmoid-plus-BCE calculation internally. Keeping an explicit `Sigmoid` would apply that squashing twice.
+4. After adding a sample, the first dimension of `x`, `y`, predictions, and loss input must still match. Shape mismatches usually mean the data and target were not expanded together.
+5. After `optimizer.step()`, at least one weight or bias should change. If nothing changes, check `requires_grad`, `loss.backward()`, the optimizer parameter list, and the learning rate.
+
+</details>
+
 ## Pass Check
 
 You are done when you can explain:

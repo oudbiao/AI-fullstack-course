@@ -196,6 +196,17 @@ success_rule: what metric or artifact will prove the fix worked
 4. Write one next action for each diagnosis in Lab 1.
 5. Save a CSV-style log with `epoch,train_loss,val_loss,val_acc`.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A `good_case` should show train and validation loss both decreasing, with validation accuracy improving or staying stable. It is the reference pattern for healthy training.
+2. With 3 classes, `torch.bincount(preds, minlength=3)` should report three bins. The classifier output and labels must also use three classes.
+3. `has_nan_grad` should scan parameter gradients after `backward()`. If any gradient is non-finite, stop and inspect learning rate, loss, input scale, and labels.
+4. Underfitting needs capacity, time, or learning-rate checks; overfitting needs regularization or more data; instability needs smaller LR or clipping; collapse needs label/output/loss checks.
+5. A CSV log should let you reconstruct the curve later. At minimum, each row needs epoch, train loss, validation loss, and validation accuracy.
+
+</details>
+
 ## Key Takeaways
 
 - Symptoms are not root causes.

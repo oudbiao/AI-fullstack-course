@@ -15,7 +15,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 - カーブから underfitting、overfitting、不安定な訓練を分類できる。
 - prediction distribution と gradient norm を確認できる。
-- 繰り返し使える troubleshooting order を使える。
+- 繰り返し使えるトラブルシューティング順序を使える。
 - evidence から次の実験を 1 つ決められる。
 - 各 training run で何を保存すべきか分かる。
 
@@ -131,7 +131,7 @@ avg_confidence: 0.69
 
 重要な signal は `pred_counts: [0, 12]` です。この初期 model はすべての sample を class `1` と予測しています。実際の訓練でこの pattern が続く場合、class imbalance、labels、output layer shape、loss setup を確認してください。
 
-## Troubleshooting Order
+## トラブルシューティングの順序
 
 architecture を変える前に、この順番で確認します。
 
@@ -164,19 +164,19 @@ curve_pattern: underfit, overfit, unstable, collapse, or unclear
 prediction_signal: class counts and confidence
 gradient_signal: norm plus NaN/Inf check
 data_check: labels, split, leakage, preprocessing
-chosen_action: one targeted next experiment
+選ぶ行動：次に行う 1 つの狙いを絞った実験
 success_rule: what metric or artifact will prove the fix worked
 ```
 
-## 診断から Action へ
+## 診断から次の行動へ
 
-| Diagnosis | 最初の action |
+| 診断 | 最初の行動 |
 |---|---|
-| possible underfitting | LR を適度に上げる、長く訓練する、capacity を増やす、labels を確認する |
-| possible overfitting | early stopping、強めの regularization、data 追加、augmentation |
-| unstable training | LR を下げる、batch を増やす、gradient clipping |
-| prediction collapse | class balance、target encoding、output shape、loss function を確認する |
-| data pipeline issue | sample batch を表示し、preprocessing と split を確認する |
+| 欠学習の可能性 | LR を適度に上げる、長く訓練する、capacity を増やす、labels を確認する |
+| 過学習の可能性 | early stopping、強めの regularization、data 追加、augmentation |
+| 学習が不安定 | LR を下げる、batch を増やす、gradient clipping |
+| 予測の塌縮 | class balance、target encoding、output shape、loss function を確認する |
+| data pipeline 問題 | sample batch を表示し、preprocessing と split を確認する |
 
 ## よくある間違い
 
@@ -196,10 +196,21 @@ success_rule: what metric or artifact will prove the fix worked
 4. 実験 1 の各 diagnosis について、次の action を 1 つ書いてください。
 5. `epoch,train_loss,val_loss,val_acc` 形式の CSV 風 log を保存してください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `good_case` は train loss が下がり、val loss も下がるか安定し、val acc が上がる履歴です。訓練と汎化が同時に改善しています。
+2. 3 class では `torch.bincount(labels, minlength=3)` のように、出現しない class も数えられる形にします。
+3. `has_nan_grad` は各 parameter の `p.grad` を見て、`torch.isnan(p.grad).any()` を確認します。見つけたら batch と step を記録します。
+4. 過学習なら data、regularization、early stopping、過小適合なら容量や訓練時間、不安定なら learning rate と数値問題を疑います。
+5. CSV 風 log は曲線描画、実験比較、原因調査に使えます。最低限 epoch、train loss、val loss、val acc を揃えます。
+
+</details>
+
 ## まとめ
 
 - 症状は根本原因ではありません。
 - カーブは最初の診断画面です。
 - 予測と勾配は、loss が隠す失敗を見せてくれます。
 - data check は architecture change より先です。
-- 良い診断は、最後に 1 つの targeted next experiment へ落ちます。
+- 良い診断は、最後に 1 つの狙いを絞った次の実験へ落ちます。

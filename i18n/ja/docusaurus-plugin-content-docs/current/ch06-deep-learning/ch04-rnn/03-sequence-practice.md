@@ -237,6 +237,17 @@ plt.show()
 4. `np.cos(t * 0.12)` などの 2 つ目の feature を追加する。
 5. 予測値を次の window に戻して使う rolling forecast を実装する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 大きい window は長い履歴を見られますが、学習は難しくなります。検証 MSE は実行結果で比較し、訓練 MSE だけで判断しません。
+2. GRU は LSTM よりパラメータが少なく、速いことが多いです。タスクが単純なら曲線は近くなる場合があります。
+3. gradient clipping を外すと、loss の spike や発散が起きることがあります。長い系列や大きい学習率で特に目立ちます。
+4. feature を 2 つにすると入力の最後の次元が 2 になります。モデルの `input_size` も合わせて変更します。
+5. rolling forecast は自分の予測誤差を次の入力に戻すため、先の時刻ほど drift しやすくなります。実運用に近い検証です。
+
+</details>
+
 ## まとめ
 
 - Sliding window は連続系列を教師あり学習サンプルに変える。

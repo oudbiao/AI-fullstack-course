@@ -346,6 +346,16 @@ failure_note: one case where the boundary or validation curve looks wrong
 3. 把优化器从 `Adam` 改成 `SGD`，比较损失曲线。
 4. 增加第三个隐藏层，观察验证 loss 是改善还是过拟合。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. hidden size 为 `16` 时边界可能更简单；`64` 能拟合更灵活的边界，但也更可能过拟合。要把 validation loss 和边界图一起看。
+2. 噪声变大后，两类样本重叠更多。常见现象是 validation accuracy 下降、边界不再干净，或者边界附近样本更不确定。
+3. `SGD` 往往需要更仔细调学习率，收敛可能比 Adam 慢。只要 validation 仍在改善，曲线慢不等于代码错。
+4. 第三个隐藏层只有在验证集改善时才有价值。如果 train loss 更低但 validation 更差，说明额外层可能在记噪声。
+
+</details>
+
 ## 通过标准
 
 完成本节后，你应该能用自己的话解释完整 PyTorch 工作流：

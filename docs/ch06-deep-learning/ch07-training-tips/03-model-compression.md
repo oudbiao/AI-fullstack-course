@@ -188,6 +188,17 @@ This protects you from a common mistake: reducing file size while making the act
 4. Write a before/after report template with size, latency, throughput, and metric.
 5. Explain why structured pruning is usually easier to deploy than unstructured pruning.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Increasing `scale` to `32` usually reduces quantization error because values are represented with finer steps. Verify with MAE instead of guessing.
+2. A third `Linear` layer adds both weight and bias parameters. Recompute each layer as `in_features * out_features + out_features`.
+3. If memory is acceptable but latency is too high, start with quantization, batching/runtime optimization, or distillation. Pruning helps only if the deployment runtime can exploit it.
+4. A useful report compares `model_size`, `latency_p50/p95`, `throughput`, `task_metric`, hardware, batch size, and the exact compression method.
+5. Structured pruning removes whole channels, heads, or blocks, so common runtimes can speed it up. Unstructured sparsity often needs special kernels to become faster.
+
+</details>
+
 ## Key Takeaways
 
 - Compression starts from deployment constraints.

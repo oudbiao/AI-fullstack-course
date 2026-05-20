@@ -192,6 +192,17 @@ GAN は今でも学ぶ価値があります。adversarial learning、distributio
 4. 25 step ごとに `fake_std` を表示し、collapse らしい点を記録してください。
 5. GAN の出力品質を 1 つの loss だけで判断できない理由を説明してください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 学習がうまく進むなら、`fake_mean` は新しい real data の中心に近づきます。動かない場合は generator と discriminator のバランスを疑います。
+2. 小さい学習率は滑らかになりやすい一方で遅くなります。短い step 数ではまだ分布に届かないことがあります。
+3. hidden size を増やすと容量は増えますが、GAN の安定性が自動的に上がるわけではありません。学習率や discriminator の強さも効きます。
+4. `fake_std` が長く 0 に近い場合は、似た出力ばかり生成する collapse の兆候です。
+5. GAN の loss は対戦相手の強さにも左右されます。サンプル、平均、分散、多様性を合わせて見ないと品質判断はできません。
+
+</details>
+
 ## まとめ
 
 - GAN 訓練は変化し続ける 2 人ゲームです。

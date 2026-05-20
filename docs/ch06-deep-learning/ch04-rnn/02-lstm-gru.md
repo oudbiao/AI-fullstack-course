@@ -334,6 +334,17 @@ In practice, compare validation results. Architecture names are less important t
 4. Increase `seq_len` from `10` to `30`. Does training become harder?
 5. Explain why GRU has fewer states than LSTM but can still work well.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `sigmoid(-1.0)` is smaller than `sigmoid(1.0)`, so less previous cell memory is kept. `c_t` should rely more on the new candidate.
+2. If the label depends on the last value, the task is usually easier because the model does not need to preserve early information for many steps.
+3. GRU returns an output sequence and final hidden state; LSTM returns an output sequence plus `(h_n, c_n)`. The classifier must unpack the LSTM tuple correctly.
+4. Longer sequences can make training harder because memory must be preserved longer and gradients travel through more steps.
+5. GRU combines memory control into a lighter state design. It can work well when the task does not need the extra separation between cell state and hidden state.
+
+</details>
+
 ## Key Takeaways
 
 - LSTM and GRU add gates to control memory flow.

@@ -167,7 +167,7 @@ bias_grad= [-0.1753]
 
 梯度告诉 optimizer：如果改变某个参数，loss 会怎样变化。PyTorch 中你不需要手推每个梯度；autograd 会在前向过程中构建计算图，并在反向时使用它。
 
-## Optimizer Step
+## 优化器更新
 
 执行 `optimizer.step()` 后，预测更接近目标：
 
@@ -210,6 +210,17 @@ loss_after: 0.1183
 3. 把 `nn.BCELoss()` 换成 `nn.BCEWithLogitsLoss()`，同时移除 `nn.Sigmoid()`。
 4. 给 `x` 和 `y` 增加一个样本，检查 shape。
 5. 在 `optimizer.step()` 前后打印模型权重。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `lr=0.05` 通常更新更慢；`lr=1.0` 可能快速下降，也可能越过合适区域。证据应该来自 loss 曲线，而不是学习率数字本身。
+2. 如果移除 `optimizer.zero_grad()`，梯度会跨多次 backward 累积。打印出的梯度不再代表当前 batch，而是旧信号和新信号的和。
+3. `BCEWithLogitsLoss` 需要原始 logits，并在内部做数值稳定的 sigmoid 加 BCE。若外面还保留 `Sigmoid`，就等于重复压缩了一次。
+4. 增加样本后，`x`、`y`、预测值和 loss 输入的第一维必须一致。shape 不匹配通常说明数据和目标没有一起扩展。
+5. `optimizer.step()` 后，至少应该有某些 weight 或 bias 发生变化。如果完全没变，检查 `requires_grad`、`loss.backward()`、optimizer 的参数列表和学习率。
+
+</details>
 
 ## 过关检查
 

@@ -273,6 +273,17 @@ code_clue: residual block uses out + identity
 4. channel 数が違うと `out + identity` が失敗する理由を説明する。
 5. 現代的な CNN backbone を 1 つ選び、どの古典的アイデアをまだ使っているかを確認する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. LeNet は畳み込みによる視覚認識の原型、AlexNet は大規模深層 CNN、VGG は小さな畳み込みの積み重ね、ResNet は residual connection による深層化です。
+2. `ResidualBlock(16)` にするなら、入力 tensor の channel も 16 にする必要があります。畳み込みと残差加算の両方で shape が合う必要があります。
+3. `3 x 3` 畳み込みを 1 つ削ると、パラメータ数と非線形変換の回数が減ります。padding/stride が同じなら空間サイズは多くの場合変わりません。
+4. `out + identity` は要素ごとの加算なので、shape が完全に一致する必要があります。channel が違う場合は projection や `1 x 1` 畳み込みで合わせます。
+5. 現代的な CNN でも、局所畳み込み、channel 拡張、正規化、residual connection、GAP head などの古典的アイデアが残っています。
+
+</details>
+
 ## まとめ
 
 - 古典的な CNN は、名前のリストではなく設計の進化です。

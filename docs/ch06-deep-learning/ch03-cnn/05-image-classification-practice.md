@@ -285,6 +285,17 @@ The workflow is the same. The tooling becomes more serious.
 4. Add one more class, such as a square border.
 5. Print the first five wrong validation examples if any exist.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Higher noise usually lowers validation accuracy and creates more borderline mistakes. The error examples are more informative than the metric alone.
+2. With only `10` samples per class, the model may still fit training data but validation becomes less reliable. Expect higher variance across seeds.
+3. `Linear` must receive `channels * height * width` after the final convolution stack. Print the feature shape once and compute the flattened size from that.
+4. Adding a class requires new data generation, a new label, and changing the final output dimension to the new number of classes.
+5. Wrong examples should be inspected for pattern overlap, label bugs, or systematic confusion. A useful note says what to try next, not only that the model was wrong.
+
+</details>
+
 ## Key Takeaways
 
 - A complete image classification loop includes data, labels, split, model, loss, metrics, and error inspection.

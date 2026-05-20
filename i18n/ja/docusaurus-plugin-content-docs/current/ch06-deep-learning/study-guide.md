@@ -46,6 +46,20 @@ deep_learning_evidence/
 | Attention が何を変えたか説明できる | attention メモ |
 | 証拠パックワークショップを完了できる | `deep_learning_workshop_run/` |
 
+<details>
+<summary>参考解答と解説</summary>
+
+このチェックリストの目的は、概念を暗記することではなく、確認できる学習証拠を残すことです。
+
+1. 学習ループメモでは、forward、loss、backward、optimizer の 4 ステップと、それぞれが何を変えるかを説明します。
+2. 最小 PyTorch スクリプトは単独で実行でき、data、model、loss、optimizer、training loop を含んでいる必要があります。
+3. shape trace は入力、主要な中間層、出力を含め、batch、channel、sequence などの意味を説明できる形にします。
+4. 曲線画像または CSV は、過学習、過小適合、learning rate の不安定さ、data issue を診断するために使います。
+5. Attention メモでは、文脈に応じて情報を動的に選ぶ仕組みを説明します。式だけでは不十分です。
+6. 証拠パックには code、run log、plot、振り返りを含め、他の人が結論を再現できるようにします。
+
+</details>
+
 ## 証拠基準
 
 | 成果物 | 答えるべきこと |

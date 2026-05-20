@@ -237,6 +237,17 @@ But the workflow stays the same: define windows, protect time order, compare bas
 4. Add a second feature, such as `np.cos(t * 0.12)`.
 5. Implement a rolling forecast that feeds predictions back into the next window.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A very small window can miss useful context; a very large window may add optimization cost. The best choice is the one with lower validation MSE and stable plots.
+2. GRU may train slightly faster because it has a lighter state design. Whether it is better must be judged by validation MSE and forecast shape.
+3. Without clipping, training may still work on this small task, but spikes or `nan` gradients become more likely as the model or sequence length grows.
+4. Adding a second feature changes `input_size` from `1` to `2` and each window must include both features. The target definition should stay clear.
+5. Rolling forecasts compound errors because each prediction becomes part of the next input. Compare one-step validation with rolling validation to see this drift.
+
+</details>
+
 ## Key Takeaways
 
 - Sliding windows turn a continuous sequence into supervised learning samples.

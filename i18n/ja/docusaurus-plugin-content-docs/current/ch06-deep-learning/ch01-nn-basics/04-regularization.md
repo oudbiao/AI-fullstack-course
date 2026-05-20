@@ -227,6 +227,17 @@ Early stopping は、validation が最も良い checkpoint を保持し、valida
 4. `val_loss` が改善したときに best model state を保存してください。
 5. validation 時に `model.eval()` を外し、何が変わるか説明してください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. dropout が小さいと効果は弱く、大きすぎると学習に必要な信号まで落ちます。`0.5` 前後は差を観察しやすい設定です。
+2. weight decay を大きくすると重みが抑えられますが、大きすぎると underfitting になります。
+3. train loss と validation loss を並べると、過学習、過小適合、学習停滞を区別しやすくなります。
+4. best model state は `val_loss` が最小のときに保存します。最後の epoch が最良とは限りません。
+5. `model.eval()` を外すと dropout や batch norm が訓練モードのまま動き、検証結果が揺れたり不公平になったりします。
+
+</details>
+
 ## 合格チェック
 
 次を説明できれば、この節はクリアです。

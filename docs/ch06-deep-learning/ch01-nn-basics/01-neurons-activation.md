@@ -212,6 +212,17 @@ The important proof is not that the toy model memorized four rows. The important
 4. Remove the hidden activation and explain why the model becomes weaker.
 5. Add one more hidden layer and compare final loss.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With only 2 hidden units, XOR may still learn, but it becomes less reliable because the network has very little room to build intermediate features.
+2. `ReLU` can work, but the result depends more on initialization and learning rate. `Tanh` often behaves smoothly on this tiny centered XOR example.
+3. A healthy curve should trend downward with small noise. If it stays flat, check learning rate, activation, target shape, and whether `optimizer.step()` is running.
+4. Without a hidden activation, stacked linear layers collapse into one linear transformation. XOR is not linearly separable, so the model loses the key ability it needs.
+5. One more hidden layer can help, but it is not automatically better. Compare final loss and stability; if training becomes harder, the extra depth is adding optimization cost.
+
+</details>
+
 ## Pass Check
 
 You are done when you can explain:

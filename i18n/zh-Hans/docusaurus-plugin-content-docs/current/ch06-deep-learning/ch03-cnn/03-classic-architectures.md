@@ -273,6 +273,17 @@ code_clue: residual block uses out + identity
 4. 解释为什么通道数不同时，`out + identity` 会失败。
 5. 选择一个现代 CNN backbone，指出它仍然使用了哪些经典思想。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. LeNet 证明卷积可用于视觉识别；AlexNet 推动深度 CNN 规模化；VGG 展示小卷积堆叠；ResNet 用残差连接训练更深网络。
+2. 改成 `ResidualBlock(16)` 后，输入 tensor 的通道维也要是 16，否则卷积和残差相加都会 shape 不匹配。
+3. 删除一个 `3 x 3` 卷积会降低参数量和非线性层数；如果 padding/stride 不变，空间尺寸通常不变。
+4. `out + identity` 是逐元素相加，两个 tensor 必须形状一致。通道数不同需要 projection 或 `1 x 1` 卷积对齐。
+5. 现代 CNN 仍常使用局部卷积、通道扩张、归一化、残差连接、GAP head 等经典思想。
+
+</details>
+
 ## 小结
 
 - 经典 CNN 是设计演进，不是模型名字列表。

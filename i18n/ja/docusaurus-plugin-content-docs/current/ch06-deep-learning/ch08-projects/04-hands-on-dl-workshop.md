@@ -35,14 +35,14 @@ keywords: [PyTorch 実践, 深層学習学習ループ, Dataset, DataLoader, CNN
 
 | 第 6 章の考え方 | プロジェクトでやること |
 |---|---|
-| Tensor shape | 学習前に `(batch, channel, height, width)` を追跡する |
+| テンソル形状 | 学習前に `(batch, channel, height, width)` を追跡する |
 | Dataset | 画像、ラベル、sample id をカスタム `Dataset` で包む |
 | DataLoader | 学習データを batch 化し、shuffle する |
-| Baseline | まず `Flatten + Linear` モデルを学習する |
+| ベースライン | まず `Flatten + Linear` モデルを学習する |
 | CNN | 小さな畳み込みネットワークを学習する |
-| Training loop | `zero_grad -> forward -> loss -> backward -> step` を実行する |
-| Validation | 検証 accuracy で最良モデルを選ぶ |
-| Evidence | ログ、曲線、エラー、checkpoint、README を保存する |
+| 学習ループ | `zero_grad -> forward -> loss -> backward -> step` を実行する |
+| 検証 | 検証 accuracy で最良モデルを選ぶ |
+| 証拠 | ログ、曲線、エラー、checkpoint、README を保存する |
 
 ![PyTorch shape とデータ分割のガードレール](/img/course/ch06-hands-on-shape-split-guardrail-ja.webp)
 
@@ -107,7 +107,7 @@ model_comparison: baseline vs CNN
 confusion_matrix: class-level errors
 error_samples: concrete failures to inspect
 checkpoint: best model can be restored
-README: command, metrics, limitations, next step
+README：コマンド、指標、制限、次の一手
 ```
 
 ### 実行前に用語を確認する

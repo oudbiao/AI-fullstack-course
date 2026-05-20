@@ -227,6 +227,17 @@ Early stopping means: keep the best validation checkpoint and stop after validat
 4. Save the best model state when `val_loss` improves.
 5. Remove `model.eval()` during validation and explain what changes.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `dropout=0.1` is mild, `0.5` is strong but common, and `0.7` may underfit because too much signal is removed during training.
+2. Small weight decay can improve validation loss; too much weight decay can force weights toward zero and hurt both train and validation performance.
+3. If train loss falls while validation loss rises, you are likely seeing overfitting. If both stay high, the model is probably underfitting or optimization is failing.
+4. The best checkpoint should be selected by validation loss, not by the last epoch. This protects you from keeping a model after it has started to overfit.
+5. Without `model.eval()`, dropout and some normalization layers keep training behavior during validation, making validation results noisy or biased.
+
+</details>
+
 ## Pass Check
 
 You are done when you can explain:

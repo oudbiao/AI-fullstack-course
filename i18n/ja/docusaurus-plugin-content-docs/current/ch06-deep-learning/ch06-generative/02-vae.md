@@ -218,6 +218,17 @@ tradeoff: reconstruction quality vs smooth latent space
 4. decoder の `ReLU` を `Tanh` に変えてください。訓練はまだ収束しますか。
 5. GAN や diffusion の画像がより sharp に見えても、VAE が latent-space intuition に役立つ理由を説明してください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. KL weight が 0 だと普通の autoencoder に近づき、再構成は良くなることがありますが、latent distribution は整いにくくなります。
+2. KL weight が大きいと latent は prior に近づきますが、decoder が使える情報が減り、reconstruction は悪くなりやすいです。
+3. 良い latent space なら、線上の decode 結果は滑らかに変化します。急な変化は表現空間が不連続なサインです。
+4. `Tanh` は activation range と勾配の性質を変えます。収束する場合もありますが、出力スケールとデータ範囲を確認します。
+5. VAE は reconstruction、sampling、連続的な latent 表現を同じ枠組みで扱えるため、生成モデルの確率的な直感を学ぶのに向いています。
+
+</details>
+
 ## まとめ
 
 - VAE は固定 code ではなく latent distribution を学びます。

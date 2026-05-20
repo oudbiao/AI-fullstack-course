@@ -865,6 +865,18 @@ deep_learning_workshop_run/reports/experiment_notes.md
 
 The important habit is not getting a better score every time. It is changing one variable, rerunning cleanly, and explaining the result with evidence.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+A strong rerun note should identify exactly one changed variable, then compare artifacts rather than memory:
+
+1. If `BATCH_SIZE` changed, compare training speed, curve smoothness, and validation accuracy. Larger batches may be smoother but not always better.
+2. If the CNN learning rate changed, compare whether the loss curve descends, oscillates, or stalls. A lower loss in the first epoch is not enough evidence.
+3. If epoch count changed, check whether validation loss improved or began to overfit. More epochs are useful only when validation evidence supports them.
+4. The final note should name the next action, such as keeping the default, testing one nearby value, or reverting because validation got worse.
+
+</details>
+
 ### Portfolio Checklist
 
 Before calling a Chapter 6 project done, make sure you have:

@@ -227,6 +227,17 @@ early stopping 的意思是：保存验证集表现最好的 checkpoint，如果
 4. 当 `val_loss` 提升时保存最佳模型状态。
 5. 验证时移除 `model.eval()`，解释发生了什么。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `dropout=0.1` 比较温和，`0.5` 较强但常见，`0.7` 可能让模型欠拟合，因为训练时丢掉了太多信号。
+2. 小的 weight decay 可能改善验证 loss；过大的 weight decay 会把权重压得太小，训练和验证表现都可能变差。
+3. 如果 train loss 下降而 validation loss 上升，通常是过拟合；如果两者都很高，可能是欠拟合或优化失败。
+4. 最佳 checkpoint 应该按 validation loss 选择，而不是直接用最后一个 epoch。这样可以避免保留已经开始过拟合的模型。
+5. 不调用 `model.eval()` 时，dropout 和部分 normalization 层仍保持训练行为，验证结果会更噪或有偏差。
+
+</details>
+
 ## 过关检查
 
 你能解释下面几点，就完成本节：

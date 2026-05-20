@@ -164,7 +164,7 @@ curve_pattern: underfit, overfit, unstable, collapse, or unclear
 prediction_signal: class counts and confidence
 gradient_signal: norm plus NaN/Inf check
 data_check: labels, split, leakage, preprocessing
-chosen_action: one targeted next experiment
+选择动作：一个有针对性的下一轮实验
 success_rule: what metric or artifact will prove the fix worked
 ```
 
@@ -196,10 +196,21 @@ success_rule: what metric or artifact will prove the fix worked
 4. 为实验 1 的每种诊断写一个下一步动作。
 5. 保存一个 CSV 风格日志：`epoch,train_loss,val_loss,val_acc`。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `good_case` 应该表现为 train loss 下降、val loss 下降或持平、val acc 上升，说明训练和泛化同步改善。
+2. 三分类时可使用 `torch.bincount(labels, minlength=3)`，确保没有出现的类别也有计数位置。
+3. `has_nan_grad` 可以遍历参数的 `p.grad`，检查 `torch.isnan(p.grad).any()`，发现后立刻停止训练并记录 batch。
+4. 过拟合时优先加数据、正则或早停；欠拟合时增大模型或训练更久；不稳定时先查学习率和数值问题。
+5. CSV 日志能让训练过程可追踪，也方便画曲线和比较不同实验。
+
+</details>
+
 ## 小结
 
 - 现象不是根因。
 - 曲线是第一诊断界面。
 - 预测和梯度能暴露 loss 隐藏的问题。
 - 查数据要早于改架构。
-- 好诊断最后应该落到一个有针对性的下一组实验。
+- 好诊断最后应该落到一个有针对性的下一轮实验。

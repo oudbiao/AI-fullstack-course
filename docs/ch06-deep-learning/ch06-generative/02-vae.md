@@ -219,6 +219,17 @@ You tune that tradeoff with the KL weight, often called `beta` in beta-VAE.
 4. Replace `ReLU` with `Tanh` in the decoder. Does training still converge?
 5. Explain why VAE is useful for learning latent-space intuition even when GAN or diffusion produces sharper images.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With KL weight `0.0`, the model behaves more like a plain autoencoder. Reconstruction may improve, but the latent space can become less smooth and harder to sample.
+2. With KL weight `0.5`, the latent space is pushed harder toward the prior. Reconstruction may get blurrier or less accurate because the model gives up detail for regularity.
+3. Smooth changes along the decoded line indicate that nearby latent points map to related outputs. Sudden jumps suggest a poorly organized latent space.
+4. `Tanh` can converge, but activation scale changes. Watch reconstruction loss and generated samples rather than assuming it is better or worse.
+5. VAE makes the tradeoff between reconstruction and latent regularity explicit, which is excellent for understanding representation learning and later diffusion ideas.
+
+</details>
+
 ## Key Takeaways
 
 - VAE learns a latent distribution, not just a fixed code.

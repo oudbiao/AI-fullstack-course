@@ -321,6 +321,17 @@ For real images, also match the preprocessing expected by the pretrained weights
 4. Print only trainable parameter names after unfreezing the last convolution.
 5. Explain when GAP plus a small head is preferable to a large `Flatten` head.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A fourth synthetic class needs a pattern that is visually distinct, a new label index, and a classifier head with one more output unit.
+2. More target samples should make head-only training stronger because the new head sees more examples. Still compare validation accuracy, not only train accuracy.
+3. `0.05` is usually too large for fine-tuning a reused backbone. Expect unstable loss or damaged pretrained features.
+4. After unfreezing only the last convolution, the printed trainable names should include the classifier head plus that last convolution, not the whole backbone.
+5. GAP plus a small head is preferable when you want fewer parameters, better shape flexibility, and lower overfitting risk. A large `Flatten` head is fragile on small data.
+
+</details>
+
 ## Key Takeaways
 
 - Transfer learning reuses visual features instead of relearning everything from scratch.

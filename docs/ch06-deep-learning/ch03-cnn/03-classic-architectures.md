@@ -273,6 +273,17 @@ This is the level of history worth remembering for engineering. You do not need 
 4. Explain why `out + identity` fails if channel counts differ.
 5. Pick a modern CNN backbone and identify which classic ideas it still uses.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. LeNet established the early CNN skeleton; AlexNet proved CNNs could scale; VGG made repeated small kernels systematic; ResNet made very deep networks easier to optimize.
+2. If the block uses `16` channels, the input tensor must also have `16` channels or the block needs a projection layer to match dimensions.
+3. Removing one `3 x 3` convolution reduces depth, parameters, and nonlinear transformations. The output spatial size can stay the same if padding and stride are unchanged.
+4. `out + identity` is elementwise addition, so batch, channel, height, and width must match. Different channel counts require a projection such as `1 x 1` convolution.
+5. Modern backbones still reuse classic ideas: local kernels, repeated blocks, normalization, residual paths, scaling depth/width, and compact classifier heads.
+
+</details>
+
 ## Key Takeaways
 
 - Classic CNNs are a design evolution, not a name list.

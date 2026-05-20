@@ -344,6 +344,17 @@ meaning: C_out feature maps scan local regions
 4. channel lab の `out_channels` を `16` に変える。どの shape が変わるか。
 5. `permute` を使って、画像風 tensor を `[N, H, W, C]` から `[N, C, H, W]` に変換する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. kernel を変えることは、注目する局所パターンを変えることです。edge、smoothing、sharpening などで出力は大きく変わります。
+2. `out[1, 0]` は入力 window `[1, 2; 4, 5]` と kernel の要素積を足した値です。手計算と出力が一致するはずです。
+3. `stride=1` では window が細かく動くため、空間方向の出力サイズは通常大きくなります。公式 `floor((W - K + 2P) / S) + 1` で確認します。
+4. `out_channels=16` にすると、畳み込み出力の channel 次元が変わり、次の層の `in_channels` にも影響します。
+5. PyTorch の畳み込みは `[N, C, H, W]` を期待します。画像ライブラリ風の形式からは `x.permute(0, 3, 1, 2)` を使います。
+
+</details>
+
 ## まとめ
 
 - 畳み込みは、早すぎる flatten よりも局所的な空間構造を保ちやすい。

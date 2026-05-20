@@ -167,7 +167,7 @@ bias_grad= [-0.1753]
 
 勾配は、あるパラメータを変えると loss がどう変わるかを optimizer に伝えます。PyTorch では、すべての勾配を手で導出する必要はありません。autograd が forward 中に計算グラフを作り、backward で使います。
 
-## Optimizer Step
+## オプティマイザ更新
 
 `optimizer.step()` のあと、予測は目標に近づきます。
 
@@ -210,6 +210,17 @@ loss_after: 0.1183
 3. `nn.BCELoss()` を `nn.BCEWithLogitsLoss()` に変え、`nn.Sigmoid()` を外してください。
 4. `x` と `y` にもう 1 サンプル追加し、shape を確認してください。
 5. `optimizer.step()` の前後でモデル重みを表示してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `lr=0.05` は更新が遅くなり、`lr=1.0` は速く下がることもありますが、振動や発散のリスクが上がります。
+2. `zero_grad()` を消すと、PyTorch の勾配は step ごとに累積します。意図しない大きな更新になり、loss が不安定になります。
+3. `BCEWithLogitsLoss` は sigmoid と BCE を数値的に安定な形でまとめたものです。モデル出力は logit のまま渡します。
+4. サンプルを追加すると batch 次元が変わります。`x` と `y` の先頭次元が同じであることを確認します。
+5. `optimizer.step()` の後に重みが変わっていれば、backward で得た勾配が実際のパラメータ更新に使われています。
+
+</details>
 
 ## 合格チェック
 

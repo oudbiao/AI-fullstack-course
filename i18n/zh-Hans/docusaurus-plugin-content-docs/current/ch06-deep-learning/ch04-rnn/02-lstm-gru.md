@@ -334,6 +334,17 @@ limit: validate on held-out sequences before trusting the architecture
 4. 把 `seq_len` 从 `10` 增加到 `30`，训练会不会更难？
 5. 解释为什么 GRU 状态更少，但很多任务仍然效果不错。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `sigmoid(-1.0)` 小于 `sigmoid(1.0)`，门值更小，写入或保留到 `c_t` 的信息也会减少。
+2. 如果标签主要依赖最后一个值，任务通常更容易，因为模型不必跨很多时间步保留早期信息。
+3. LSTM 会返回 `output, (h_n, c_n)`，GRU 返回 `output, h_n`。分类器取最后状态时要处理这个 API 差异。
+4. `seq_len=30` 会增加反向传播路径，训练更慢，也更容易暴露长期依赖问题。
+5. GRU 用更少的门合并记忆与输出状态，参数更少、训练更快，在许多中等长度序列任务上足够有效。
+
+</details>
+
 ## 小结
 
 - LSTM 和 GRU 用 gate 控制记忆流。

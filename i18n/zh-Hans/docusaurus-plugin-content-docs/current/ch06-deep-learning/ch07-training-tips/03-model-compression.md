@@ -188,6 +188,17 @@ decision: keep, tune, or reject compression
 4. 写一个压缩前后报告模板，包含 size、latency、throughput 和 metric。
 5. 解释为什么结构化剪枝通常比非结构化剪枝更容易部署。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `scale=32` 通常量化更细，MAE 可能下降，但具体取决于权重分布和缩放方式。
+2. 新增 Linear 层后，参数量按 `in_features x out_features + bias` 逐层相加，再乘以 dtype 字节数估算大小。
+3. 如果瓶颈是速度，应优先考虑蒸馏、小模型结构、算子融合、批量策略或结构化剪枝，而不只是减小文件体积。
+4. 报告应包含压缩前后 size、latency、throughput、核心指标、硬件环境和测量方法。
+5. 结构化剪枝删除通道、头或层，更容易映射到真实硬件加速；非结构化稀疏需要专门 kernel 才能真正变快。
+
+</details>
+
 ## 小结
 
 - 压缩从部署约束开始。

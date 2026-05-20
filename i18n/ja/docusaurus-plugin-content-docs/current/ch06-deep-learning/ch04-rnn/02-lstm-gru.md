@@ -334,6 +334,17 @@ limit: validate on held-out sequences before trusting the architecture
 4. `seq_len` を `10` から `30` に増やす。学習は難しくなるか。
 5. GRU は状態が少ないのに、多くのタスクでうまく動く理由を説明する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `sigmoid(-1.0)` は `sigmoid(1.0)` より小さいため、書き込みや保持の量が減り、`c_t` への影響も弱くなります。
+2. ラベルが最後の値に依存するなら、長期記憶があまり必要ないため、通常は簡単になります。
+3. LSTM は `output, (h_n, c_n)` を返し、GRU は `output, h_n` を返します。分類器ではこの API 差を処理します。
+4. `seq_len=30` は backpropagation の経路を長くし、学習を遅く、難しくしやすいです。
+5. GRU は門を少なくして状態を単純化しています。パラメータが少なく速く、長期依存が極端でないタスクでは十分なことが多いです。
+
+</details>
+
 ## まとめ
 
 - LSTM と GRU は gate で記憶の流れを制御する。

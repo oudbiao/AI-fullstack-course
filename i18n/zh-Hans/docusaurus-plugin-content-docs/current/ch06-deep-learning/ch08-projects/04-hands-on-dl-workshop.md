@@ -35,14 +35,14 @@ keywords: [PyTorch 实操, 深度学习训练循环, Dataset, DataLoader, CNN, l
 
 | 第 6 章知识点 | 在项目里要做什么 |
 |---|---|
-| Tensor shape | 训练前追踪 `(batch, channel, height, width)` |
+| 张量形状 | 训练前追踪 `(batch, channel, height, width)` |
 | Dataset | 用自定义 `Dataset` 包装图像、标签和 sample id |
 | DataLoader | 对训练数据做 batch 和 shuffle |
-| Baseline | 先训练 `Flatten + Linear` 模型 |
+| 基线 | 先训练 `Flatten + Linear` 模型 |
 | CNN | 训练一个小型卷积网络 |
-| Training loop | 跑 `zero_grad -> forward -> loss -> backward -> step` |
-| Validation | 用验证准确率选择最佳模型 |
-| Evidence | 保存日志、曲线、错误、checkpoint 和 README |
+| 训练循环 | 跑 `zero_grad -> forward -> loss -> backward -> step` |
+| 验证 | 用验证准确率选择最佳模型 |
+| 证据 | 保存日志、曲线、错误、checkpoint 和 README |
 
 ![PyTorch shape 与数据划分护栏](/img/course/ch06-hands-on-shape-split-guardrail.webp)
 
@@ -107,7 +107,7 @@ model_comparison: baseline vs CNN
 confusion_matrix: class-level errors
 error_samples: concrete failures to inspect
 checkpoint: best model can be restored
-README: command, metrics, limitations, next step
+README：命令、指标、限制和下一步
 ```
 
 ### 运行前先解码几个术语

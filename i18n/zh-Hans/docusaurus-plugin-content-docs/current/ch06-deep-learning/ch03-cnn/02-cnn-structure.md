@@ -299,6 +299,17 @@ head_choice: Flatten for location-specific detail, GAP for compact classifier
 4. 在 `conv1` 后加入 `BatchNorm2d(8)`，确认 shape 不变。
 5. 针对 RGB `64 x 64` 输入，手写每一层后的 shape。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `conv2` 输出变成 32 个通道后，后面的分类头输入维度必须同步修改；如果还有下一层卷积，它的 `in_channels` 也要改。
+2. GAP 分类头会把空间尺寸压成 `1 x 1`，所以 `Linear` 只依赖通道数，结构更不容易被输入尺寸卡住。
+3. 删除 pooling 会让特征图空间尺寸更大，`Flatten` 后的特征数也随之增加。先算 shape 再改 `Linear`。
+4. `BatchNorm2d(8)` 对每个通道做归一化，不改变 batch、channel、height、width 的形状。
+5. 形状追踪应按 `conv/pool/conv/pool/head` 顺序写清楚。最重要的是确认 channel 变化和空间尺寸变化分别发生在哪一层。
+
+</details>
+
 ## 小结
 
 - CNN 是 feature extractor 加 classifier head。

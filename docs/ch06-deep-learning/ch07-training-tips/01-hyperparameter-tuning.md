@@ -213,6 +213,17 @@ next_experiment: one local refinement, not many knobs at once
 4. Write a decision line for the next experiment after the LR sweep.
 5. Explain why tuning is easier when each experiment answers one question.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `lr=0.3` may be near a useful high region; `lr=3.0` is likely too aggressive. The exact answer depends on validation loss and stability.
+2. With only `10` steps, a learning rate that starts fast may look best even if it later becomes unstable. Short budgets can bias the sweep.
+3. A seed column reveals whether the result is stable or lucky. If two seeds disagree strongly, repeat before making a major decision.
+4. A good decision line names one next experiment, such as "refine around `lr=0.1` with three seeds and 80 steps."
+5. One-question experiments are easier to interpret. If you change learning rate, model size, and data at once, you cannot tell which change mattered.
+
+</details>
+
 ## Key Takeaways
 
 - Tuning is controlled experiment design, not guessing.

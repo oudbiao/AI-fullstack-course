@@ -46,6 +46,20 @@ deep_learning_evidence/
 | 能解释 Attention 改变了什么 | attention 说明 |
 | 能完成证据包工作坊 | `deep_learning_workshop_run/` |
 
+<details>
+<summary>参考答案与讲解</summary>
+
+这张清单的目标不是让你背概念，而是确认你能留下可检查的学习证据：
+
+1. 训练闭环说明应包含 forward、loss、backward、optimizer 四步，并说明每一步改变了什么。
+2. 最小 PyTorch 脚本应能独立运行，至少包含数据、模型、loss、optimizer 和训练循环。
+3. Shape trace 要覆盖输入、关键中间层和输出，能解释 batch、channel、sequence 等维度含义。
+4. 曲线或 CSV 应能支持诊断，例如过拟合、欠拟合、学习率不稳定或数据问题。
+5. Attention 说明应讲清楚它如何让模型按上下文动态选择信息，而不只是写出公式。
+6. 证据包工作坊应包含代码、运行日志、图表和复盘说明，方便别人复现你的结论。
+
+</details>
+
 ## 证据标准
 
 | 产物 | 应该回答什么 |
