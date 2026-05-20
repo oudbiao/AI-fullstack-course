@@ -37372,10 +37372,102 @@ CH07_VERTICAL_REFINEMENT_PROMPTS = {
 """.strip(),
 }
 
+CH09_VERTICAL_COMMON_CONSTRAINTS = """
+共同 QA 硬约束：
+- 原生 1024x1792 竖版重构；不得把横图拉伸成长图，不得压扁、挤窄或扭曲文字、箭头、圆形、表格、代码块或图标。
+- 这是一张教学位图，不是营销海报；画面要像课堂白板、工程工作台、项目看板或笔记本讲义，留白充足，文字少而大。
+- 禁止真实样式密钥、token、API Key、sk-、Bearer、密码、邮箱、URL、IP。
+- 禁止具体日期、年份、时间戳、耗时、任务号、订单号、用户 ID、UUID、哈希串、文件路径、真实日志行。
+- 禁止百分比、十进制数、金额、样本值、指标值、测试数量、覆盖率、图表刻度、dashboard 数值、表格数据和可能被误认为真实输出的内容。
+- 如需示例，只能使用占位符和定性标签，例如 [REDACTED]、task_ID、message_ID、source_A、claim_A、trace_ID、checkpoint_ID、artifact_ID、status: pending/done/pass/fail、low/medium/high。
+- 可以保留真实技术术语，但不要出现乱码小字、随机英文/日文 filler、品牌 logo、水印或纯装饰背景。
+""".strip()
+
+
+def ch09_vertical_prompt(topic: str, layout: str, allowed_terms: str, placeholders: str) -> str:
+    return f"""
+生成一张竖版 9:16 简体中文教学位图，用于第 9 章 Agent 课程。
+
+主题：{topic}
+
+画面安排：
+{layout}
+
+可以保留术语：{allowed_terms}
+只能使用这些占位符或同类抽象标签：{placeholders}
+
+{CH09_VERTICAL_COMMON_CONSTRAINTS}
+""".strip()
+
+
+CH09_VERTICAL_REFINEMENT_PROMPTS = {
+    "ch09-agent-security-prompt-injection-risk-map.png": ch09_vertical_prompt(
+        "Prompt Injection 与工具风险隔离：外部文档可以是资料，但不能变成指令。",
+        "从上到下画：untrusted content / prompt injection、system boundary、secret redaction、permission check -> human approval -> safe tool lane、audit log 字段名。",
+        "prompt injection、system boundary、secret redaction、permission check、human approval、audit log、high-risk tool",
+        "[REDACTED]、secret_FIELD、tool_NAME、request_ID、audit_ENTRY",
+    ),
+    "ch09-agent-persistence-checkpoint-eventlog-map.png": ch09_vertical_prompt(
+        "Checkpoint、Event Log 与恢复：长任务要能从失败处继续。",
+        "从上到下画：step A/B/C、checkpoint_ID、event log 字段 event_type/state_delta/status、crash -> resume、idempotency_KEY -> final state。",
+        "checkpoint、event log、crash、resume、idempotency key、side effect、final state",
+        "checkpoint_ID、event_ID、idempotency_KEY、task_ID、state_SNAPSHOT、status: pending/done",
+    ),
+    "ch09-code-agent-sandbox-review-map.png": ch09_vertical_prompt(
+        "代码 Agent 的 Read -> Plan -> Patch -> Sandbox -> Tests -> Review -> Repair -> Accept 闭环。",
+        "从上到下画：Read context、plan_NOTE、抽象 diff 色块 patch_SNIPPET、Sandbox run、pass/fail 图标、review_NOTE -> repair_STEP -> accepted delivery。",
+        "Read、Plan、Patch、Sandbox、Tests、Review、Repair、Accept、diff、test report",
+        "patch_SNIPPET、test_CASE、review_NOTE、repair_STEP、status: pass/fail",
+    ),
+    "ch09-data-analysis-agent-notebook-loop-map.png": ch09_vertical_prompt(
+        "数据分析 Agent 的可复核 notebook 工作流。",
+        "从上到下画：dataset_PLACEHOLDER、field_A/field_B/field_C、清理规则便签、summary_CARD、无刻度无数值图表、trace table 列名 step/artifact/check。",
+        "load data、profile schema、clean data、compute statistics、insight、suggest chart、write report、trace",
+        "dataset_PLACEHOLDER、field_A、field_B、artifact_ID、chart_SKETCH、trace_ROW",
+    ),
+    "ch09-memory-chapter-flow.png": ch09_vertical_prompt(
+        "记忆服务任务，不是越多越智能。",
+        "从上到下画：memory types、short-term context、long-term memory、episodic memory 的 story_CARD、procedural memory、retrieval/update/forgetting/safety check 回路。",
+        "memory types、short-term context、long-term memory、episodic、procedural、retrieval、update、safety check",
+        "memory_CARD、profile_NOTE、workflow_STEP、short、long、low、medium、high、recent、stable、temporary",
+    ),
+    "ch09-memory-engineering-lifecycle-map.png": ch09_vertical_prompt(
+        "记忆系统更像图书馆，不是储物间。",
+        "从上到下画生命周期闭环：write -> index -> retrieve -> cleanup -> compress -> privacy control -> review；右侧可画 freshness/importance/privacy 三条无数字定性条。",
+        "write、index、retrieve、cleanup、compress、privacy control、TTL、importance",
+        "memory_ITEM、index_KEY、privacy_RULE、short/long、low/medium/high、keep/review/forget",
+    ),
+    "ch09-multi-agent-communication-contract-map.png": ch09_vertical_prompt(
+        "多 Agent 不能只靠随意对话，必须有可追踪消息结构。",
+        "从上到下画：sender -> receiver、message contract 字段 sender/receiver/type/task_ID/payload/status/retry_count、message passing、shared state、event bus。",
+        "sender、receiver、message type、task_id、payload、status、retry_count、event bus、shared state",
+        "task_ID、message_ID、order_ID、state_KEY、payload_OBJECT、retry_COUNT",
+    ),
+    "ch09-project-delivery-loop.png": ch09_vertical_prompt(
+        "作品集展示的是可追踪执行闭环，不是一次模型输出。",
+        "从上到下画项目交付闭环：task input -> plan list -> execution steps -> tool call logs -> observations -> failure handling -> final output -> evaluation review -> demo；日志面板只显示字段名 step/tool/observation/status。",
+        "plan list、execution steps、tool call logs、observations、failure handling、evaluation review、deployment、demo、README",
+        "task_INPUT、plan_ITEM、tool_CALL、observation_NOTE、artifact_ID、status: pass/fail",
+    ),
+    "ch09-reasoning-eval-failure-taxonomy-map.png": ch09_vertical_prompt(
+        "答案错误背后可能是意图、计划、工具、观察、停止条件或最终表达出错。",
+        "画失败归因漏斗和 trace evidence 板，六层为 intent、plan quality、tool choice、observation use、stop condition、final answer；全部使用抽象任务。",
+        "intent、plan quality、tool choice、observation、stop condition、final answer、trace evidence",
+        "user_INTENT、plan_STEP、tool_NAME、observation_NOTE、stop_RULE、answer_DRAFT、trace_CARD",
+    ),
+    "ch09-research-assistant-citation-trace-map.png": ch09_vertical_prompt(
+        "可信研究助手的每条 claim 都要回到 source。",
+        "从上到下画：query、retrieve、Source A/B/C、Claim A/B/C、[A]/[B]/[C] 连线、verify claims；不得出现作者、年份、页码、DOI、URL 或论文题名。",
+        "query、retrieve、sources、claims、citations、verify、failure cases、trace",
+        "Source A、Source B、Source C、Claim A、Claim B、Claim C、citation_A、trace_ID",
+    ),
+}
+
 for job in IMAGE_JOBS:
     refinement_prompt = (
         CH06_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
         or CH07_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
+        or CH09_VERTICAL_REFINEMENT_PROMPTS.get(str(job.get("filename")))
     )
     if refinement_prompt:
         job["prompt"] = refinement_prompt
