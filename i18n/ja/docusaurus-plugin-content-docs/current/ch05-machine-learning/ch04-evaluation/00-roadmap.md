@@ -48,6 +48,18 @@ mean_accuracy: 0.933
 
 1つのスコアはスナップショットです。複数 fold を見ると、信頼できるほど安定しているかがわかります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |
@@ -60,3 +72,12 @@ mean_accuracy: 0.933
 ## 合格ライン
 
 タスクに合う指標を選び、スコア安定性チェックを1つ説明し、評価方法が信頼できない段階で急いでチューニングしなければ合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. モデル調整の前に、タスク目標とミスのコストから指標を選びます。
+2. 交差検証は、分割を変えてもスコアが安定するかを確認します。たまたま良かった 1 回の分割だけでは十分な証拠になりません。
+3. 最終 test set で調整してはいけません。比較記録には baseline、指標、検証方法、結果、次の判断を残します。
+
+</details>

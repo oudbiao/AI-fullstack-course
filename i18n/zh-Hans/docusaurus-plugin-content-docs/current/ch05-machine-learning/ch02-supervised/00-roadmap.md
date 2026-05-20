@@ -67,3 +67,24 @@ first_prediction: 137.9
 ## 通过标准
 
 能判断一个有标签任务是回归还是分类，能跑一个 baseline，并能解释模型可能失败的一个原因，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 标签是连续数值时，先按回归处理；标签是类别时，先按分类处理。
+2. baseline 可以是简单线性/逻辑模型，也可以是 dummy 规则。它的作用是定义复杂模型至少要超过的分数。
+3. 常见失败原因包括特征太弱、目标泄漏、类别不平衡、缩放不当、过拟合，以及指标和真实目标不匹配。
+
+</details>
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```

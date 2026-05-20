@@ -209,3 +209,24 @@ score = metric(y_test, pred)
 | 流れが乱れやすい | sklearn / Pipeline | 再現可能なモデリングプロジェクトを作る |
 
 この節を学んだあとで線形回帰、決定木、集成学習、評価を見直すと、より分かりやすくなります。これらの技術は突然出てきた名前ではなく、機械学習の歴史の中で何度も現れた現実の問題を解決するために生まれたものだと分かるはずです。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. ここで大切なのは年号暗記ではありません。各ブレークスルーを、不確実性、数値予測、分類境界、非線形ルール、単一モデルの不安定さ、工程の乱れといった問題に結びつけることです。
+2. よい自己チェックは、歴史上の考え方を現在の学習習慣に結びつけます。たとえば train/test 分割、baseline 比較、Pipeline、エラー分析です。
+3. あるアルゴリズムがなぜ生まれたか説明できないときは、表に戻って「どんな実務上の困りごとを解いたのか」と言い換えます。
+
+</details>

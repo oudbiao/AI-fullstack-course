@@ -209,3 +209,24 @@ The history of machine learning is not just a list of “old algorithms,” but 
 | Workflows become messy easily | sklearn / Pipeline | Build reproducible modeling projects |
 
 After finishing this section, when you study linear regression, decision trees, ensemble learning, and evaluation, it will be easier to understand: these technologies did not suddenly appear as isolated terms. They were all introduced to solve real problems that kept reappearing throughout the history of machine learning.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The goal is not to memorize dates. The useful answer connects each breakthrough to the problem it solved: uncertainty, numeric prediction, classification boundaries, nonlinear rules, unstable models, or messy workflows.
+2. A strong self-check can map one historical idea to a current course habit, such as train/test split, baseline comparison, Pipeline, or error analysis.
+3. If you cannot explain why an algorithm appeared, return to the table and restate it as a practical modeling need.
+
+</details>

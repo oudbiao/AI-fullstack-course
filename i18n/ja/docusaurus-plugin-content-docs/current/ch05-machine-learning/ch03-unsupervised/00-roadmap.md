@@ -51,6 +51,18 @@ inertia: 43.44
 
 クラスタリングが返すのはグループ番号であり、人間にとっての意味ではありません。グラフ、特徴量の要約、ドメイン解釈が必要です。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |
@@ -62,3 +74,12 @@ inertia: 43.44
 ## 合格ライン
 
 探している構造を説明し、教師なしモデルを1つ動かし、出力を絶対的な真実として扱わず慎重な解釈を書ければ合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 教師なし学習の出力は、構造についての仮説であり、検証済みの答えではありません。
+2. よい解釈には、図または特徴量要約、構造への慎重な名前付け、不確実性についての一言が含まれます。
+3. 最初に確認する失敗点は、スケーリング、恣意的なクラスタ数、ノイズの多い次元、数値上は異常でも文脈上は普通なアラートです。
+
+</details>

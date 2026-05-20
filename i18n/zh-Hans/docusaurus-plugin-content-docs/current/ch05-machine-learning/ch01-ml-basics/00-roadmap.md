@@ -75,3 +75,24 @@ prediction_count: 30
 ## 通过标准
 
 能说出任务类型，识别 `X` 和 `y`，解释为什么要划分训练集/测试集，并保留一个 baseline 分数作为证据，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `X` 是特征矩阵：行是样本，列是模型可使用的输入。`y` 是标签或目标，也就是模型要学习预测的答案。
+2. 训练集/测试集划分很重要，因为测试集模拟新数据。如果模型训练时看到了测试信息，分数就不能证明泛化能力。
+3. 一份合格 baseline 记录应包含任务类型、划分方式、模型、指标，以及一句可能失败的原因。
+
+</details>
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```

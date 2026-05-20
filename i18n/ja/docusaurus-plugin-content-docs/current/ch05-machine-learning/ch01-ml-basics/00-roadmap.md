@@ -62,6 +62,18 @@ prediction_count: 30
 
 これが最小の有用な機械学習ループです。先に分割し、学習データだけで学習し、テストデータで評価します。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |
@@ -75,3 +87,12 @@ prediction_count: 30
 ## 合格ライン
 
 タスク種別を言える、`X` と `y` を識別できる、train/test 分割の理由を説明できる、baseline スコアを証拠として残せるなら合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `X` は特徴量行列です。行はサンプル、列はモデルが使える入力です。`y` はラベルまたは target で、モデルが予測する答えです。
+2. train/test 分割が重要なのは、test set が新しいデータの代わりになるからです。学習中に test 情報が入ると、そのスコアは汎化の証拠ではなくなります。
+3. 合格する baseline 記録には、タスク種別、分割設定、モデル、指標、そして失敗しうる理由を 1 文で残します。
+
+</details>

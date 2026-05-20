@@ -412,3 +412,25 @@ flowchart LR
 
 这样你会最明显地感受到“数学真的开始在模型里工作了”。
 :::
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 线性代数给出问题的共同形状：`X` 保存样本，`w` 保存可学习权重，`X @ w + b` 把特征变成预测。
+2. 概率统计定义不确定性和损失：它告诉你概率代表什么、预测错多少、不同结果怎样比较。
+3. 微积分给出更新方向：梯度告诉优化器参数应该往哪里移动，才能让损失下降。
+4. 后面读公式时，先判断它属于数据、参数、预测、损失、梯度还是更新，而不是先害怕符号。
+
+</details>

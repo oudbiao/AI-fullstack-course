@@ -412,3 +412,25 @@ After reading this page, the best next steps are:
 
 This is the easiest way to feel that “math has really started working inside the model.”
 :::
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Linear algebra gives the shared shape of the problem: `X` stores samples, `w` stores learnable weights, and `X @ w + b` turns features into predictions.
+2. Probability and statistics define uncertainty and loss: they tell you what a probability means, how wrong a prediction is, and how to compare outcomes.
+3. Calculus supplies the update direction: gradients tell the optimizer how parameters should move to reduce loss.
+4. When reading formulas later, first locate the role: data, parameter, prediction, loss, gradient, or update.
+
+</details>

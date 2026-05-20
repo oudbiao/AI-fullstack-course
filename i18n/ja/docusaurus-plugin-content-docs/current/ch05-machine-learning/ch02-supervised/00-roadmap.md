@@ -54,6 +54,18 @@ first_prediction: 137.9
 
 スコアが完璧でなくても価値があります。baseline は、後のモデルや特徴量改善がどこを超えるべきかを教えてくれます。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 比較すること |
@@ -67,3 +79,12 @@ first_prediction: 137.9
 ## 合格ライン
 
 ラベル付きタスクが回帰か分類かを判断でき、baseline を1つ動かし、モデルが失敗しそうな理由を1つ説明できれば合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. ラベルが連続値なら回帰から始めます。ラベルがクラスなら分類から始めます。
+2. baseline は単純な線形/ロジスティックモデルでも、dummy ルールでもかまいません。複雑なモデルが超えるべき基準点を作ることが目的です。
+3. よくある失敗理由は、弱い特徴量、target リーク、クラス不均衡、スケーリング不足、過学習、実目的と合わない指標です。
+
+</details>

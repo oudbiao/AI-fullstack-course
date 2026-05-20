@@ -70,6 +70,18 @@ training_accuracy: 1.0
 
 このデータは小さすぎるため、本物の評価には使えません。ここで見るのは、前処理とモデルを一緒に運ぶ流れです。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |
@@ -83,3 +95,12 @@ training_accuracy: 1.0
 ## 合格ライン
 
 特徴量タイプを列挙し、前処理 Pipeline を1つ作り、train/test の流れの外で前処理するとリークにつながる理由を説明できれば合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. まず特徴量タイプ、欠損値、スケール差、カテゴリ数、target リークの可能性を列挙します。
+2. 前処理は `Pipeline` または `ColumnTransformer` に入れます。train/test に同じ変換を適用しつつ、test 情報の混入を避けられます。
+3. 有用な特徴量変更には、変換後の列、スコア変化、エラーサンプルの変化、またはその特徴量を採用しない理由といった前後証拠が必要です。
+
+</details>

@@ -59,6 +59,27 @@ Clustering gives group IDs, not human meaning. You still need charts, feature su
 | 2 | [5.3.3 Dimensionality Reduction](./02-dimensionality-reduction.md) | PCA, visualization, compression |
 | 3 | [5.3.4 Anomaly Detection](./03-anomaly-detection.md) | outliers, thresholds, alert evidence |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain what structure you are looking for, run one unsupervised model, and write one cautious interpretation instead of treating the output as absolute truth.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. In unsupervised learning, the model output is a hypothesis about structure, not a verified answer.
+2. A good interpretation includes a plot or feature summary, a cautious label for the discovered structure, and one uncertainty note.
+3. First failure checks are scaling, arbitrary cluster count, noisy dimensions, and alerts that look unusual numerically but are normal in the scenario.
+
+</details>

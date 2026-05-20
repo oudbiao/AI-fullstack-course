@@ -62,3 +62,24 @@ inertia: 43.44
 ## 通过标准
 
 能解释你想寻找哪种结构，能跑一个无监督模型，并写出一句谨慎解释，而不是把输出当成绝对真相，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 在无监督学习里，模型输出的是“可能存在的结构”，不是已经验证过的答案。
+2. 好的解释应包含图表或特征汇总、对结构的谨慎命名，以及一句不确定性说明。
+3. 最先检查的失败点包括缩放问题、簇数随意、噪声维度过多，以及数值上异常但场景里正常的告警。
+
+</details>
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```

@@ -80,6 +80,27 @@ This tiny dataset is too small for real evaluation. The point is the workflow: p
 | 4 | [5.5.5 Feature Selection](./04-feature-selection.md) | remove noise, redundancy, leakage |
 | 5 | [5.5.6 Pipeline](./05-pipeline.md) | reproducible preprocessing and training |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## Pass Check
 
 You pass this roadmap when you can list feature types, build one preprocessing Pipeline, and explain why preprocessing outside the train/test workflow can cause leakage.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Start by listing feature types, missing values, scale differences, categorical cardinality, and possible target leakage.
+2. Preprocessing should live inside a `Pipeline` or `ColumnTransformer` so train and test data receive the same learned transformation without leaking information.
+3. A useful feature change includes before/after evidence: transformed columns, score change, error sample change, or a reason to reject the feature.
+
+</details>

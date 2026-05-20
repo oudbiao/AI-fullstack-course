@@ -72,6 +72,27 @@ This is the smallest useful machine learning loop: split first, train only on th
 | 4 | [5.1.5 Machine Learning History](./04-history-breakthroughs.md) | why major algorithms appeared |
 | 5 | [5.1.6 sklearn and Matplotlib Workshop](./05-sklearn-matplotlib-workshop.md) | run, plot, explain a baseline |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## Pass Check
 
 You pass this roadmap when you can name the task type, identify `X` and `y`, explain why train/test split matters, and keep one baseline score as evidence.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `X` is the feature matrix: rows are samples and columns are inputs the model can use. `y` is the label or target the model learns to predict.
+2. Train/test split matters because the test set simulates new data. If the model sees test information during training, the score is no longer evidence of generalization.
+3. A passing baseline record should include the task type, split settings, model, metric, and one sentence about what could still fail.
+
+</details>

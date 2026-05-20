@@ -209,3 +209,24 @@ score = metric(y_test, pred)
 | 流程容易混乱 | sklearn / Pipeline | 做可复现建模项目 |
 
 学完这一节后，再去看线性回归、决策树、集成学习和评估，你会更容易明白：这些技术不是突然出现的名词，而是在解决机器学习历史上反复出现的真实问题。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 这里不是背年份，而是把每个突破和它解决的问题连起来：不确定性、数值预测、分类边界、非线性规则、单模型不稳定、流程混乱等。
+2. 好的自查答案应能把一个历史思想连接到当前课程习惯，例如训练/测试划分、baseline 对比、Pipeline 或错误分析。
+3. 如果说不出某个算法为什么出现，就回到表格，把它改写成一个实际建模需求。
+
+</details>

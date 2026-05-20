@@ -64,6 +64,27 @@ The score is not perfect, and that is useful. A baseline tells you where later m
 | 4 | [5.2.5 Ensemble Learning](./04-ensemble-learning.md) | bagging, boosting, stronger tabular models |
 | 5 | [5.2.6 Support Vector Machines](./05-svm.md) | margin, boundary, classic classifier intuition |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## Pass Check
 
 You pass this roadmap when you can decide whether a labeled task is regression or classification, run one baseline, and explain one reason the model may fail.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. If the label is a continuous value, start with regression. If it is a class, start with classification.
+2. The baseline can be a simple linear/logistic model or a dummy rule. Its purpose is to define the score a more complex model must beat.
+3. Common failure reasons include weak features, target leakage, class imbalance, poor scaling, overfitting, and choosing a metric that does not match the real goal.
+
+</details>

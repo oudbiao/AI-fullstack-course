@@ -11,6 +11,12 @@ keywords: [machine learning, Scikit-learn, supervised learning, unsupervised lea
 
 Chapter 5 has one job: help you turn a data problem into **a trainable, evaluable, improvable machine learning project**.
 
+## Where You Are In The Main Route
+
+You have already learned how data becomes numbers and how loss and gradients explain model improvement. This chapter makes those ideas practical: define a prediction problem, build a baseline, choose a metric, inspect errors, and improve only when evidence says the change helped.
+
+This is the bridge from math intuition to model engineering. Chapter 6 will keep the same evidence habit, but the model will become a neural network trained with tensors and backpropagation.
+
 ## See The Modeling Loop
 
 ![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.webp)
@@ -36,6 +42,14 @@ Use this table as both the chapter guide and the task sheet.
 | [5.4 Evaluation](ch04-evaluation/00-roadmap.md) | Choose metrics, use cross-validation, diagnose bias/variance, tune carefully | Metric choice and error samples |
 | [5.5 Feature Engineering](ch05-feature-engineering/00-roadmap.md) | Handle missing values, categories, scaling, feature construction, feature selection, and Pipeline | Feature processing log and leakage check |
 | [5.6 Projects](ch06-projects/00-roadmap.md) and [5.6.6 Workshop](ch06-projects/05-hands-on-ml-workshop.md) | Build a reproducible evidence pack before larger house-price, churn, segmentation, or Kaggle work | README, model comparison, errors, and next-step plan |
+
+## Core Path, Extensions, And Depth
+
+| Layer | What to study now | How to use it |
+|---|---|---|
+| Required core | Task type, train/test split, baseline, metric, error samples, leakage check, Pipeline | These become the evaluation habits for LLM prompts, RAG retrieval, and Agent behavior later |
+| Optional extension | Extra classic algorithms, ML history, Kaggle-style iteration | Return here when a project needs broader algorithm comparison or competition workflow |
+| Depth challenge | Keep the data and metric fixed, change one feature or model choice, then explain the before/after errors | This prevents model shopping without evidence |
 
 Key terms for this chapter:
 
@@ -94,6 +108,13 @@ Logistic regression
 
 Do not only compare the final scores. Ask: which classes are easy, which are hard, and what error would matter most in the real use case?
 
+### How to read this output
+
+- The baseline tells you what a naive model can do before learning useful patterns.
+- Logistic regression should beat the baseline, but the class-level precision and recall matter more than one headline score.
+- If one class has poor recall, inspect those missed examples before changing the model.
+- Keep the split, metric, and failure samples fixed when comparing the next experiment.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -101,6 +122,18 @@ Do not only compare the final scores. Ask: which classes are easy, which are har
 | Minimum pass | You can name the task type, split the data, train a baseline, and read the score. |
 | Project-ready | You can explain why the chosen metric matches the goal, and show one error sample instead of trusting one score. |
 | Deeper check | You can test for leakage, compare two feature choices, and say what would change in a real product or dataset update. |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+modeling_loop: data, features, model, metric, error review, and next experiment
+artifact: code, score, chart, pipeline, or project README
+failure_check: leakage, metric mismatch, unstable split, overfitting, or unclear business target
+next_action: one controlled experiment rather than many parameter changes
+Expected_output: reproducible ML evidence that prepares for deep learning
+```
 
 ## Common Failures
 
@@ -121,5 +154,16 @@ Move to Chapter 6 when you can answer these five questions:
 - Which metric matches the goal, and when is accuracy misleading?
 - How did you check for leakage?
 - What does the model do well, what does it do poorly, and what would you improve next?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Decide the task from the target: categories mean classification, numbers mean regression, no labels usually means clustering or anomaly detection.
+2. The baseline is the simplest reproducible model or rule. A real model only matters if it beats that baseline under the same split and metric.
+3. Choose the metric from the cost of mistakes. Accuracy is misleading when classes are imbalanced or when one error type is much more expensive.
+4. Check leakage by asking whether any feature contains target, future, test-set, or human-review information that would not exist at prediction time.
+5. A good next step names one weakness, one evidence sample, and one controlled change rather than changing many knobs at once.
+
+</details>
 
 For a printable checklist, use [5.0 Study Guide and Task Sheet](./study-guide.md). The next chapter moves from sklearn models into neural networks and deep learning training.
