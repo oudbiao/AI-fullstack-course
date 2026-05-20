@@ -259,7 +259,7 @@ flowchart TD
 - [8.3.6 对话系统与多轮管理](../ch03-app-dev/05-dialog-system.md)
 - [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
 
-## 固定格式课件最小 schema 应该长什么样？
+## 固定格式课件最小 结构约束 应该长什么样？
 
 对这个项目来说，最值得先定清楚的，不是模型名，
 而是“课件长什么样”。
@@ -328,7 +328,7 @@ def generate_courseware(topic):
 1. 读内部知识
 2. 查外部补充
 3. 合并与排序
-4. 生成固定 schema
+4. 生成固定 结构约束
 5. 导出文档
 
 ![课件生成助手生产线图](/img/course/ch08-courseware-assistant-production-line-map.webp)
@@ -374,7 +374,7 @@ def generate_courseware(topic):
 1. 一上来就让模型自由写完整文档
 2. 不区分内部资料和外部资料的优先级
 3. 没有保存来源，后面没法追溯
-4. 没有固定 schema，导致模板渲染层很脆
+4. 没有固定 结构约束，导致模板渲染层很脆
 5. 生成效果不好时，不知道是检索错了还是模板错了
 
 所以真正更稳的开发思路是：
@@ -423,13 +423,13 @@ project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+交付物：README、运行命令、截图/日志、下一步
 ```
 
 ## 小结
 
 - 这个项目最核心的是“文档知识 -> 结构化课件 -> 模板导出”的完整链路
-- schema 和来源策略，往往比一开始选哪家模型更重要
+- 结构约束 和来源策略，往往比一开始选哪家模型更重要
 - 第一次做时，先把内部资料版工作流做稳，再补外部资料和 Agent 化会更现实
 
 ## 这节最该带走什么

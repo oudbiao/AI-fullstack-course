@@ -12,7 +12,7 @@ keywords: [MCP, Model Context Protocol, tool protocol, client-server, JSON-RPC]
 :::tip 本节定位
 前面你已经学过：
 
-- Function Calling
+- 函数调用
 - 工具集成
 - Agent 系统架构
 
@@ -212,11 +212,11 @@ print(response)
 
 ---
 
-## MCP 和 Function Calling 有什么关系？
+## MCP 和 函数调用 有什么关系？
 
 这两个概念很容易混在一起。
 
-### Function Calling 更像“模型层的结构化调用能力”
+### 函数调用 更像“模型层的结构化调用能力”
 
 它关注的是：
 
@@ -242,7 +242,7 @@ print(response)
 
 所以更准确地说：
 
-> Function Calling 解决“模型怎样发出结构化调用”，MCP 解决“系统怎样标准化接工具”。
+> 函数调用 解决“模型怎样发出结构化调用”，MCP 解决“系统怎样标准化接工具”。
 
 它们可以一起用，但不等价。
 
@@ -313,7 +313,7 @@ print(response)
 不会。
 协议解决的是接入层，调用策略、权限、评估仍然要你自己做。
 
-### 把 MCP 和 Function Calling 混成一个概念
+### 把 MCP 和 函数调用 混成一个概念
 
 两者相关，但层次不同。
 
@@ -346,4 +346,4 @@ integration_action: validate server contract before adding autonomy
 1. 用自己的话解释 client、server、tool、transport 分别在扮演什么角色。
 2. 想一想：为什么“工具发现”这件事本身就值得被协议化？
 3. 如果你的系统只有 2 个固定工具，为什么暂时不一定要上 MCP？
-4. 用自己的话说明：MCP 和 Function Calling 的区别是什么？
+4. 用自己的话说明：MCP 和 函数调用 的区别是什么？

@@ -116,7 +116,7 @@ flowchart LR
 - 统一请求结构
 - 统一响应结构
 - 统一错误处理
-- 统一日志与 trace
+- 统一日志与 追踪
 
 ### 一个最小统一请求结构
 
@@ -166,9 +166,9 @@ print(response)
 
 | 层 | 这一层最该统一什么 |
 |---|---|
-| 请求 | query / model / provider / 参数格式 |
+| 请求 | 查询 / model / provider / 参数格式 |
 | 响应 | answer / usage / error |
-| 日志 | trace_id / provider / latency / token |
+| 日志 | 追踪_id / provider / 延迟 / token |
 | 错误 | error_code / message / retryable |
 
 这个表很适合新人，因为它能把“统一 API”从一个抽象名词重新拉回成几类可见对象。
@@ -277,7 +277,7 @@ print(client.chat("provider_b", "退款政策是什么？", "demo-2"))
 所以像这些能力都很适合长在这里：
 
 - token / 成本统计
-- trace 和日志
+- 追踪 和日志
 - provider fallback
 - 模型路由
 
@@ -389,7 +389,7 @@ for q in ["帮我总结这段话", "退款政策是什么？"]:
 | 系统现象 | 统一 API 层更适合先补什么 |
 |---|---|
 | provider 越来越多 | 请求 / 响应统一 |
-| 日志越来越难看懂 | trace 和统一日志 |
+| 日志越来越难看懂 | 追踪 和统一日志 |
 | 成本不好统计 | usage 统一 |
 | 模型切换太痛苦 | 路由和 fallback |
 

@@ -59,7 +59,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 只要这 6 步清楚，这个项目就很有作品集价值。
 
-![研究助手引用 Trace 图](/img/course/ch09-research-assistant-citation-trace-map.webp)
+![研究助手引用 追踪 图](/img/course/ch09-research-assistant-citation-trace-map.webp)
 
 :::tip 读图提示
 研究助手最重要的不是“总结很流畅”，而是 claim 能回到 source。读图时按 retrieve、select、summarize、cite、verify 这条链路检查每条结论是否有证据。
@@ -70,7 +70,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 对新人来说，更稳的顺序通常是：
 
 1. 先把主题范围收窄
-2. 再做最简单检索 baseline
+2. 再做最简单检索 基线
 3. 再补结构化总结
 4. 最后再补引用校验和失败案例展示
 
@@ -243,7 +243,7 @@ for case in eval_cases:
 
 ### 页面上分四栏展示
 
-- 查询（Query）
+- 查询（查询）
 - 检索来源（Retrieved sources）
 - 结构化总结（Structured summary）
 - 引用（Citations）
@@ -283,10 +283,10 @@ for case in eval_cases:
 |---|---|---|
 | 目标定义 | 能输入研究主题 | 明确适用范围、资料来源和不支持的任务 |
 | 工具清单 | 至少有检索或读取工具 | 写清工具用途、参数、返回值和权限边界 |
-| 执行 trace | 打印检索和总结过程 | 保存每一步 action、arguments、observation、next_decision |
+| 执行 追踪 | 打印检索和总结过程 | 保存每一步 action、arguments、observation、next_decision |
 | 引用检查 | 每条摘要带来源 | 每个关键 claim 都能回到具体来源片段 |
 | 失败恢复 | 工具失败时给出错误 | 区分空结果、超时、引用不支持、总结漏点 |
-| 评估记录 | 准备少量测试问题 | 有固定评估集、baseline、失败样本和改进记录 |
+| 评估记录 | 准备少量测试问题 | 有固定评估集、基线、失败样本和改进记录 |
 | 安全边界 | 不自动执行高风险动作 | 明确只读工具、人工确认、最大步数和成本限制 |
 
 这张表会让项目从“能总结资料”升级成“可信、可追踪、可复盘的 Agent 系统”。
@@ -310,7 +310,7 @@ for case in eval_cases:
 ## 4. 运行方式
 给出安装依赖、准备数据、运行示例和评估命令。
 
-## 5. 示例 Trace
+## 5. 示例追踪
 展示一次完整执行过程，而不只是最终答案。
 
 ## 6. 评估结果
@@ -322,7 +322,7 @@ for case in eval_cases:
 
 README 最好让别人不用读源码，也能看懂系统做了什么、怎么验证、哪里还不可靠。
 
-## 一个最小 Agent Trace 示例
+## 一个最小 Agent 追踪 示例
 
 ```text
 goal: 总结 RAG 和长上下文模型的差异
@@ -345,8 +345,8 @@ final: 返回 2 条可信摘要，并标记 1 条需要人工复核
 
 | 失败类型 | 现象 | 可能原因 | 改进方向 |
 |---|---|---|---|
-| 检索漏召回 | 关键资料没进入候选 | query 太窄、关键词不匹配、top-k 太小 | query rewrite、混合检索、扩大候选后 rerank |
-| 阅读不完整 | 命中文档对，但漏掉关键段落 | chunk 太小或 context packing 不合理 | parent-child retrieval、调整上下文拼装 |
+| 检索漏召回 | 关键资料没进入候选 | 查询 太窄、关键词不匹配、top-k 太小 | 查询改写、混合检索、扩大候选后 rerank |
+| 阅读不完整 | 命中文档对，但漏掉关键段落 | chunk 太小或 上下文组装 不合理 | parent-child retrieval、调整上下文拼装 |
 | 总结过度概括 | 摘要听起来对，但丢限制条件 | prompt 没要求保留条件 | 要求输出 claim、condition、source 三元组 |
 | 引用不支持 | claim 和 source 对不上 | 模型自由发挥或引用拼接错误 | citation check、逐条 claim 验证 |
 | 循环调用 | Agent 一直检索不停止 | 缺少停止条件 | 最大步数、无新增信息时停止 |
@@ -387,7 +387,7 @@ failure_log: one failed or unsafe run with root cause
 
 ## 练习
 
-1. 给示例再加一篇文档，让某个 query 出现“相关文档竞争”。
+1. 给示例再加一篇文档，让某个 查询 出现“相关文档竞争”。
 2. 想一想：为什么研究助手里“引用准确性”比普通问答更关键？
 3. 如果某条总结很好看但来源对不上，你会算它成功吗？为什么？
 4. 如果你把这个项目做成作品集，首页最该展示哪 4 块？

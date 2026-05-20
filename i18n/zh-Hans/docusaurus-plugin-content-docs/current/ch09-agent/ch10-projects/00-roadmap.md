@@ -70,8 +70,8 @@ evidence: goal, trace, tools, failure, eval
 |---|---|---|
 | README | 目标、运行命令、依赖、示例 | 增加架构、取舍、成本、安全和复盘 |
 | 架构 | 模型、工具、记忆、状态、评估、安全 | 增加部署边界和人工交接 |
-| 工具清单 | 可调用工具、输入/输出 schema、失败情况 | 增加权限规则和沙箱说明 |
-| 执行 trace | 计划、行动、观察、重规划、停止 | 增加可重放 JSONL 日志 |
+| 工具清单 | 可调用工具、输入/输出 结构约束、失败情况 | 增加权限规则和沙箱说明 |
+| 执行 追踪 | 计划、行动、观察、重规划、停止 | 增加可重放 JSONL 日志 |
 | 失败案例 | 至少 1 个真实失败 | 增加 3 个案例，包含原因、修复、回归检查 |
 | 评估集 | 固定任务和通过/失败规则 | 增加基线、指标和对比实验 |
 | 部署说明 | 如何本地运行 | 增加 API 入口、环境变量、监控和回滚 |
@@ -85,7 +85,7 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
 ## 通过标准

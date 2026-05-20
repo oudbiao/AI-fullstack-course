@@ -70,10 +70,10 @@ fine_tune_now: False
 | 主要失败 | 更好的第一路线 | 需要的证据 |
 |---|---|---|
 | 模型不知道答案来源 | RAG | 检索到的文档支持答案 |
-| 输出格式漂移 | Structured output + validation | Parser 通过率改善 |
+| 输出格式漂移 | 结构化输出 + 校验 | 解析器通过率改善 |
 | 指令本身含糊 | Prompt 迭代 | 同一批案例在一次 prompt 修改后变好 |
 | 大量案例里反复出现同类行为错误 | 微调 / LoRA 候选 | 足够标注样本和保留评估集 |
-| 任务需要外部动作 | Tool / Agent 路线 | 工具调用 trace 和失败恢复行为 |
+| 任务需要外部动作 | Tool / Agent 路线 | 工具调用 追踪 和失败恢复行为 |
 
 这张表能防止项目变成方法展示，而是变成工程决策。
 
@@ -84,7 +84,7 @@ fine_tune_now: False
 | README | 目标、运行命令、模型或 API 选择、输入/输出样例 | 增加方案取舍、成本说明、评估和复盘 |
 | 样例 | 至少 10 个固定案例 | 对比 Prompt、RAG、微调或规则方案 |
 | 评估 | 明确通过/失败规则 | 增加评分、失败类型统计和回归记录 |
-| Prompt/数据记录 | 保存 Prompt 版本或样本格式 | 增加 schema 校验、数据质量检查和安全说明 |
+| Prompt/数据记录 | 保存 Prompt 版本或样本格式 | 增加 结构约束 校验、数据质量检查和安全说明 |
 | 展示材料 | 截图或短 GIF 证明能运行 | 说明为什么当前路线优于其他选择 |
 
 ## 留下的证据
@@ -95,7 +95,7 @@ fine_tune_now: False
 project_choice: Prompt, RAG, fine-tuning, or hybrid route
 baseline: simplest working method first
 evaluation: fixed cases and scoring rule
-deliverable: README, prompts, outputs, failures, decision log
+交付物：README、prompts、outputs、failures、decision log
 bridge: Chapter 8 turns this into retrieval-backed applications
 ```
 

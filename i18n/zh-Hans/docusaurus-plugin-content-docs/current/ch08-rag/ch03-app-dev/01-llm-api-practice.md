@@ -342,7 +342,7 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 - 鉴权
 - 模型切换
 - token 成本统计
-- 日志与 trace
+- 日志与 追踪
 - timeout
 - provider 适配层
 
@@ -384,7 +384,7 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 | 重试策略 | 只对临时错误重试，且有最大次数 | 防止无限重试和成本失控 |
 | 错误结构 | 失败时返回统一 error 对象 | 上层业务能稳定处理失败 |
 | usage 记录 | 记录 token、模型名、耗时 | 后续才能分析成本和性能 |
-| 原始输出保留 | 保存 raw output 或关键 trace | 出错时能复盘模型到底返回了什么 |
+| 原始输出保留 | 保存 raw output 或关键 追踪 | 出错时能复盘模型到底返回了什么 |
 
 这张表的重点是让 API 层成为“稳定接口”，而不是散落在代码里的若干次模型请求。后面的 RAG、结构化输出、Function Calling 和 Agent 都会依赖这一层。
 

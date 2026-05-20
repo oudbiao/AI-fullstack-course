@@ -112,7 +112,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 工程上常常会持续盯：
 
 - tokens/s
-- step time
+- 步骤 time
 - data wait time
 - GPU 利用率
 
@@ -257,7 +257,7 @@ step=06 shard=shard_02 batch=['doc_8']
 - 更方便故障恢复
 - 更方便版本管理
 
-### 分片还能帮助多 worker 并行
+### 分片还能帮助多 工作进程 并行
 
 多卡或多 worker 训练时，
 可以让不同 worker：
@@ -272,8 +272,8 @@ step=06 shard=shard_02 batch=['doc_8']
 如果某些 shard 特别大、某些特别小，
 就容易出现：
 
-- 某些 worker 很快读完
-- 某些 worker 一直拖后腿
+- 某些 工作进程 很快读完
+- 某些 工作进程 一直拖后腿
 
 最终表现成：
 
@@ -304,7 +304,7 @@ step=06 shard=shard_02 batch=['doc_8']
 例如：
 
 - 数据顺序是否打乱充分
-- 多 worker 是否重复读
+- 多 工作进程 是否重复读
 - 断点恢复是否一致
 
 这也是为什么数据管道本身要设计得很严谨。
@@ -321,7 +321,7 @@ step=06 shard=shard_02 batch=['doc_8']
 - dataloader 太慢
 - shard 切换成本高
 - I/O 抖动
-- worker 负载不均
+- 工作进程 负载不均
 
 这会直接拖慢总训练时间。
 

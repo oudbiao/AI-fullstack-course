@@ -1,40 +1,40 @@
 ---
-title: "9.5.4 MCP Server 开发"
+title: "9.5.4 MCP 服务器开发"
 sidebar_position: 27
-description: "从工具描述、参数校验、结果返回到最小 server 结构，理解一个 MCP Server 到底应该怎样暴露能力。"
+description: "从工具描述、参数校验、结果返回到最小服务器结构，理解一个 MCP 服务器到底应该怎样暴露能力。"
 keywords: [MCP server, tool server, schema, tool exposure, server development]
 ---
 
-# 9.5.4 MCP Server 开发
+# 9.5.4 MCP 服务器开发
 
 :::tip 本节定位
 前两节我们已经知道：
 
 - MCP 要解决什么问题
-- MCP 架构里 client 和 server 各自负责什么
+- MCP 架构里客户端和服务器各自负责什么
 
-这一节开始真正落地 server 视角，回答：
+这一节开始真正落地服务器视角，回答：
 
-> **如果我要自己写一个 MCP Server，我到底应该从哪里开始？**
+> **如果我要自己写一个 MCP 服务器，我到底应该从哪里开始？**
 :::
 
 ## 学习目标
 
-- 理解 MCP Server 的最小职责边界
+- 理解 MCP 服务器的最小职责边界
 - 学会定义工具描述、参数结构和调用入口
-- 理解为什么 server 开发的重点是“暴露能力”，而不是“把业务逻辑写死”
+- 理解为什么服务器开发的重点是“暴露能力”，而不是“把业务逻辑写死”
 - 看懂一个最小可运行的 Mock MCP Server
 
 ---
 
-## MCP Server 真正在做什么？
+## MCP 服务器真正在做什么？
 
 ### 它不是“另一个普通后端”
 
 普通后端往往直接面向业务接口。
-而 MCP Server 更像：
+而 MCP 服务器更像：
 
-> **把已有能力整理成一组可被 client 发现和调用的工具。**
+> **把已有能力整理成一组可被客户端发现和调用的工具。**
 
 所以它的核心关注点通常是：
 
@@ -45,12 +45,12 @@ keywords: [MCP server, tool server, schema, tool exposure, server development]
 
 ### 一个直觉类比
 
-MCP Server 很像一个有前台的工具库管理员：
+MCP 服务器很像一个有前台的工具库管理员：
 
 - 客户端来问“你这里有什么工具”
-- Server 列出能力清单
+- 服务器列出能力清单
 - 客户端再说“我要用哪个”
-- Server 按约定执行并返回结果
+- 服务器按约定执行并返回结果
 
 这和“直接把所有业务函数散着写”非常不一样。
 
@@ -151,18 +151,18 @@ print(good_tool)
 
 - 工具边界更清楚
 - 参数语义更清楚
-- client 更容易正确使用
+- 客户端更容易正确使用
 
 ---
 
-## Server 的最小两项能力：列工具 + 调工具
+## 服务器的最小两项能力：列工具 + 调工具
 
-一个最小可用的 MCP Server，通常至少要能：
+一个最小可用的 MCP 服务器，通常至少要能：
 
 1. 列出可用工具
 2. 接受某个工具调用
 
-### 先写一个最小 Server
+### 先写一个最小服务器
 
 ```python
 class MockMCPServer:
@@ -233,13 +233,13 @@ print(server.call_tool("search_docs", {"query": "退款政策是什么"}))
 {'result': '课程购买后 7 天内且学习进度低于 20% 可退款。'}
 ```
 
-这已经是一个非常清楚的最小 server 骨架了。
+这已经是一个非常清楚的最小服务器骨架了。
 
 ---
 
-## 参数校验为什么是 server 的责任之一？
+## 参数校验为什么是服务器的责任之一？
 
-### 因为 client 或模型都可能给错参数
+### 因为客户端或模型都可能给错参数
 
 例如：
 
@@ -247,7 +247,7 @@ print(server.call_tool("search_docs", {"query": "退款政策是什么"}))
 bad_call = {"query_text": "退款政策"}
 ```
 
-如果 server 直接执行，就可能报错或产生奇怪行为。
+如果服务器直接执行，就可能报错或产生奇怪行为。
 
 ### 一个最小校验版本
 
@@ -272,18 +272,18 @@ print(validate_search_docs({"query_text": "退款政策"}))
 
 ### 为什么这一步一定不能省？
 
-因为 server 是能力边界守门人。
-如果 server 不校验，整个工具系统就很难稳定。
+因为服务器是能力边界守门人。
+如果服务器不校验，整个工具系统就很难稳定。
 
-![MCP Server 工具契约图](/img/course/ch09-mcp-server-tool-contract-map.webp)
+![MCP 服务器工具契约图](/img/course/ch09-mcp-server-tool-contract-map.webp)
 
 :::tip 读图提示
-把 MCP Server 看成工具契约的守门人：它不仅暴露 list_tools，还要校验 call_tool 的参数、执行真实逻辑、统一返回结果，并把错误变成 client 能理解的结构。
+把 MCP 服务器看成工具契约的守门人：它不仅暴露 list_tools，还要校验 call_tool 的参数、执行真实逻辑、统一返回结果，并把错误变成客户端能理解的结构。
 :::
 
 ---
 
-## 一个更完整的最小 Server 版本
+## 一个更完整的最小服务器版本
 
 ```python
 class BetterMCPServer:
@@ -338,7 +338,7 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 {'error': 'missing_query'}
 ```
 
-![MCP Server 校验与返回结果图](/img/course/ch09-mcp-server-validation-result-map.webp)
+![MCP 服务器校验与返回结果图](/img/course/ch09-mcp-server-validation-result-map.webp)
 
 ### 这个版本比上一版强在哪？
 
@@ -349,11 +349,11 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 - 统一调用入口
 - 统一错误返回
 
-这已经非常接近真实工程里 server 的核心职责。
+这已经非常接近真实工程里服务器的核心职责。
 
 ---
 
-## MCP Server 开发里最常见的坑
+## MCP 服务器开发里最常见的坑
 
 ### 把业务逻辑和协议逻辑混在一起
 
@@ -366,7 +366,7 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 ### 工具粒度太粗或太细
 
 - 太粗：一个工具什么都干
-- 太细：client 调用复杂度爆炸
+- 太细：客户端调用复杂度爆炸
 
 ### 返回结构不统一
 
@@ -374,16 +374,16 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 
 ---
 
-## 怎么判断一个 MCP Server 设计得够不够好？
+## 怎么判断一个 MCP 服务器设计得够不够好？
 
 可以先问四个问题：
 
-1. client 能不能清楚知道有哪些工具
+1. 客户端能不能清楚知道有哪些工具
 2. 参数要求是不是明确
 3. 错误返回是不是统一
 4. 加新工具时结构会不会越来越乱
 
-如果这四个问题都答得比较稳，server 设计通常就已经不错了。
+如果这四个问题都答得比较稳，服务器设计通常就已经不错了。
 
 ---
 
@@ -403,9 +403,9 @@ integration_action: validate server contract before adding autonomy
 
 这一节最重要的不是“把一个类写出来”，而是理解：
 
-> **MCP Server 的本质，是把一组可执行能力，用清晰可发现、可校验、可调用的方式暴露出来。**
+> **MCP 服务器的本质，是把一组可执行能力，用清晰可发现、可校验、可调用的方式暴露出来。**
 
-server 做得越清楚，client 侧越容易扩展，整个工具生态也越容易做大。
+服务器做得越清楚，客户端侧越容易扩展，整个工具生态也越容易做大。
 
 ---
 
@@ -414,4 +414,4 @@ server 做得越清楚，client 侧越容易扩展，整个工具生态也越容
 1. 给 `BetterMCPServer` 再增加一个 `get_weather(city)` 工具。
 2. 为这个新工具补上参数校验逻辑。
 3. 想一想：工具粒度太粗和太细，各自会带来什么问题？
-4. 用自己的话解释：为什么说 MCP Server 开发的核心不只是“执行工具”，更是“暴露清晰边界”？
+4. 用自己的话解释：为什么说 MCP 服务器开发的核心不只是“执行工具”，更是“暴露清晰边界”？

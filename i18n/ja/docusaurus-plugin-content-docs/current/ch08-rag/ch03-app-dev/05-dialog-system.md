@@ -530,7 +530,7 @@ print(next_question(state))
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 request: input, state, tools/context, and expected output contract

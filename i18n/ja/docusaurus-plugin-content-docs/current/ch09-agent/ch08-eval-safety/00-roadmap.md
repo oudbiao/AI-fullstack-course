@@ -1,27 +1,27 @@
 ---
-title: "9.8.1 Evaluation and Safety ロードマップ：Score、Guard、Trace"
+title: "9.8.1 評価と安全ロードマップ：採点、防御、Trace"
 sidebar_position: 0
-description: "Agent evaluation and safety の短い実践ロードマップ：outcome と process を評価し、guardrails を追加し、traces を記録し、risks をレビューする。"
+description: "Agent 評価と安全の短い実践ロードマップ：結果と過程を評価し、ガードレールを追加し、trace を記録し、リスクをレビューする。"
 keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk]
 ---
 
-# 9.8.1 Evaluation and Safety ロードマップ：Score、Guard、Trace
+# 9.8.1 評価と安全ロードマップ：採点、防御、トレース
 
-Agent は動くだけでは不十分です。成功したか、process は安全だったか、failure がどこで起きたかを知る必要があります。
+Agent は動くだけでは不十分です。成功したか、過程は安全だったか、失敗がどこで起きたかを知る必要があります。
 
-## まず guardrail stack を見る
+## まずガードレールの層を見る
 
-![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-ja.webp)
+![Agent ガードレール層の図](/img/course/agent-guardrails-layers-ja.webp)
 
 ![Agent evaluation and safety 章の学習フロー](/img/course/ch09-eval-safety-chapter-flow-ja.webp)
 
-![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-ja.webp)
+![Agent リスクデバッグ閉ループ図](/img/course/ch09-agent-risk-debug-loop-ja.webp)
 
-Evaluation は system が有効かを示します。Safety は system が何をしてよいかを決めます。Observability はどこで壊れたかを示します。
+評価はシステムが有効かを示します。安全はシステムが何をしてよいかを決めます。観測性はどこで壊れたかを示します。
 
-## Launch scorecard check を動かす
+## リリース用スコアカードチェックを動かす
 
-final output と execution process の両方を評価します。
+最終出力と実行過程の両方を評価します。
 
 ```python
 run = {
@@ -51,21 +51,21 @@ launch_ok: True
 scorecard: task, tools, safety, trace, cost
 ```
 
-滑らかな final answer だけでは十分な evidence ではありません。replayable tasks と process traces を残します。
+滑らかな最終回答だけでは十分な証拠ではありません。再生可能なタスクと過程 trace を残します。
 
 ## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| 1 | Evaluation methods | result evaluation と process evaluation を分ける |
-| 2 | Benchmarks | public benchmarks は reference として使い、product replacement にしない |
-| 3 | Safety and alignment | prompt injection、over-permission、leakage、hallucination を識別する |
-| 4 | Guardrails | input filter、output validation、permissions、human confirmation を追加する |
-| 5 | Observability | logs、traces、errors、latency、cost、failure reason を保存する |
+| 1 | 評価方法 | 結果評価と過程評価を分ける |
+| 2 | ベンチマーク | 公開ベンチマークは参考として使い、製品評価の代替にしない |
+| 3 | 安全とアラインメント | prompt injection、過剰権限、漏えい、hallucination を識別する |
+| 4 | ガードレール | 入力フィルター、出力検証、権限、人間による確認を追加する |
+| 5 | 観測性 | ログ、トレース、エラー、レイテンシ、コスト、失敗理由を保存する |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 eval_cases: fixed tasks and expected safe behavior
@@ -77,6 +77,6 @@ next_action: add case, guardrail, log, rollback, or refusal path
 
 ## 合格ライン
 
-すべての Agent run を、goal、plan、tool calls、observations、final answer、safety rule、cost、failure reason からレビューできれば、この章は合格です。
+すべての Agent 実行を、目標、計画、ツール呼び出し、観察、最終回答、安全ルール、コスト、失敗理由からレビューできれば、この章は合格です。
 
-出口ミニプロジェクトは、10〜20 task の evaluation set と、少なくとも 3 つの safety rules です。
+出口ミニプロジェクトは、10〜20 件のタスクを含む評価セットと、少なくとも 3 つの安全ルールです。

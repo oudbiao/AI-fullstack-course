@@ -17,9 +17,9 @@ keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, 
 
 ![LLM アプリケーションプロジェクトのデリバリーループ図](/img/course/ch08-project-delivery-loop-ja.webp)
 
-プロジェクトは「ベクトルデータベースをつなぐ」だけではありません。文書、chunks、検索、context、回答、引用、logs、評価、改善の traceable loop です。
+プロジェクトは「ベクトルデータベースをつなぐ」だけではありません。文書、チャンク、検索、文脈、回答、引用、ログ、評価、改善をつなぐ追跡可能なループです。
 
-## プロジェクト readiness チェックを動かす
+## プロジェクト準備チェックを動かす
 
 プロジェクト完了前に、この checklist を使います。
 
@@ -60,7 +60,7 @@ evidence: docs, eval, citations, failures
 
 | 手順 | プロジェクト | 本当に鍛える力 |
 |---|---|---|
-| 1 | 企業またはコース知識ベース | 検索、権限、引用、traceable answers |
+| 1 | 企業またはコース知識ベース | 検索、権限、引用、トレースable answers |
 | 2 | 知的アシスタント | 検索、session state、tool calling を product feature にする |
 | 3 | RAG + 微調整システム | 知識不足と振る舞い不安定を分ける |
 | 4 | 教材生成助手 | 文書解析、構造化出力、template rendering |
@@ -70,14 +70,14 @@ evidence: docs, eval, citations, failures
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```
 
 ## プロジェクト成果物基準
@@ -87,9 +87,9 @@ deliverable: README, run command, screenshots/logs, next step
 | README | 目的、実行コマンド、依存関係、例 | アーキテクチャ図、設計 trade-off、コスト、振り返りを追加 |
 | 知識ベースサンプル | raw documents、chunks、metadata、source fields | 権限ルール、document version、更新メモを追加 |
 | 検索ログ | matched passages、scores、ranking | failure type statistics と before/after comparison を追加 |
-| 回答引用 | 最終回答が支援ソースを表示 | citation faithfulness checks を追加 |
+| 回答引用 | 最終回答が支援ソースを表示 | citation 忠実性 checks を追加 |
 | 失敗ケース | 少なくとも 1 件の失敗を記録 | 3 件以上の原因、修正、regression check を追加 |
-| 評価 | 固定質問と pass/fail rules | baseline、metrics、regression testing を追加 |
+| 評価 | 固定質問と pass/fail rules | ベースライン、メトリクス、regression testing を追加 |
 | デプロイメモ | 実行方法と必要な環境変数 | Docker、monitoring、fallback notes を追加 |
 
 ## 合格ライン

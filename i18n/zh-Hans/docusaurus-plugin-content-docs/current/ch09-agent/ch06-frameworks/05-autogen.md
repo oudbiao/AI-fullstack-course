@@ -35,9 +35,9 @@ keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code executio
 
 AutoGen 风格更像在问：
 
-- planner 应该怎么给 coder 发任务？
-- coder 写完后怎么把结果交给 reviewer？
-- reviewer 的反馈又怎样继续推动下一轮？
+- 规划者应该怎么给编码者发任务？
+- 编码者写完后怎么把结果交给审核者？
+- 审核者的反馈又怎样继续推动下一轮？
 
 也就是说，它把系统抽象成：
 
@@ -200,8 +200,8 @@ for turn in conversation:
 
 如果你不给每个角色明确边界，就可能出现：
 
-- planner 开始写代码
-- reviewer 开始做检索
+- 规划者开始写代码
+- 审核者开始做检索
 
 结果角色分工越来越乱。
 
@@ -275,7 +275,7 @@ AutoGen 更强调：
 
 如果你真的要把 AutoGen 风格系统做深，最好尽早补上：
 
-- trace
+- 追踪记录
 - 轮数上限
 - 角色权限边界
 - 失败回退
@@ -315,7 +315,7 @@ decision: choose framework only after the single-agent loop is clear
 
 ## 练习
 
-1. 设计一个 `planner -> coder -> reviewer` 的 3 角色消息流。
+1. 设计一个 `规划者 -> 编码者 -> 审核者` 的 3 角色消息流。
 2. 想一想：为什么 AutoGen 风格任务特别容易出现“聊太多轮”的问题？
 3. 用自己的话解释：AutoGen 和 CrewAI 的核心区别是什么？
 4. 如果你的任务需要强状态机控制，你还会优先选这种对话式抽象吗？为什么？

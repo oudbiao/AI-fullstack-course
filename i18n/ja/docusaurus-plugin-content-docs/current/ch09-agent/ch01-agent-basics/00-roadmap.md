@@ -51,7 +51,7 @@ done: True
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| 1 | Agent とは何か | chatbot、workflow、RAG app、Agent を比較する |
+| 1 | Agent とは何か | chatbot、ワークフロー、RAG app、Agent を比較する |
 | 2 | 発展史 | なぜ LLM が Agent systems を再び注目させたか理解する |
 | 3 | 能力レベル | 回答、検索、ツール利用、計画、記憶、協調を同じ段階表に置く |
 | 4 | システムアーキテクチャ | 目標、状態、プランナー、ツール、記憶、観察、実行器を描く |
@@ -59,7 +59,7 @@ done: True
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 agent_boundary: how this differs from chatbot or fixed workflow

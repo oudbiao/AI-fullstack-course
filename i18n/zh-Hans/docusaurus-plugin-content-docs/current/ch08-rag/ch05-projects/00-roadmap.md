@@ -89,7 +89,7 @@ project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+交付物：README、运行命令、截图/日志、下一步
 ```
 
 ## 通过标准

@@ -7,12 +7,12 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 # 9.3.9 实战：多工具协作 Agent
 
-![Agent 工具调用 Trace 图](/img/course/agent-tool-trace.webp)
+![Agent 工具调用 追踪 图](/img/course/agent-tool-trace.webp)
 
 :::tip 本节定位
 前面几节我们已经分别讲了：
 
-- 工具 schema
+- 工具 结构约束
 - 调用策略
 - 常见工具
 - 安全与高级模式
@@ -225,7 +225,7 @@ answer:
 订单 ORD-1001 当前状态为未发货。未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。 预计退款金额为 314 元。
 ```
 
-![多工具 Agent 订单退款 trace 结果图](/img/course/ch09-multi-tool-order-refund-trace-result-map.webp)
+![多工具 Agent 订单退款 追踪 结果图](/img/course/ch09-multi-tool-order-refund-trace-result-map.webp)
 
 ### 这段代码和前面分散示例最大的差别是什么？
 
@@ -327,7 +327,7 @@ answer:
 这样系统就不只是“能跑”，
 而是“能测”。
 
-### 第四步：把 trace 可视化
+### 第四步：把 追踪 可视化
 
 如果你把工具调用轨迹展示出来，
 这个项目会非常适合做作品集演示。
@@ -358,7 +358,7 @@ answer:
 
 多工具系统更该看：
 
-- trace 是否合理
+- 追踪 是否合理
 - 工具是否必要
 - observation 是否被正确整合
 

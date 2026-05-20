@@ -34,10 +34,10 @@ keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 
 一个很稳的最小闭环通常只需要：
 
-- 规划者（planner）
-- 开发者（coder）
-- 审核者（reviewer）
-- 测试者（tester）
+- 规划者
+- 开发者（编码者）
+- 审核者
+- 测试者
 
 这四类角色已经足够展示：
 
@@ -194,7 +194,7 @@ ReviewNote(approved=True, issues=[])
 TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
-![多 Agent 开发团队工件 trace 结果图](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map.webp)
+![多 Agent 开发团队工件 追踪 结果图](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map.webp)
 
 :::tip 读结果
 把输出当成一条工件链来读：`TaskPlan` 定义目标和验收规则，`Patch` 同时改实现和测试文件，`ReviewNote` 是关卡，`TestReport` 是最后证据。
@@ -208,7 +208,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 2. 明确工件交接
 3. 基于评审与测试的回路
 
-### 如果 reviewer 不通过，为什么 tester 就不该继续？
+### 如果审核者不通过，为什么测试者就不该继续？
 
 这说明多 Agent 系统不是“人人都并行做自己的”，
 而是要尊重：
@@ -226,7 +226,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 
 ## 作品级项目最该展示什么？
 
-### 一条完整任务 trace
+### 一条完整任务 追踪
 
 例如：
 
@@ -241,9 +241,9 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 这会非常有说服力。
 例如：
 
-- reviewer 打回
-- coder 二次修复
-- tester 重新验证
+- 审核者打回
+- 编码者 二次修复
+- 测试者重新验证
 
 ### 清楚的角色边界
 
@@ -312,5 +312,5 @@ failure_log: one failed or unsafe run with root cause
 
 1. 给工作流加一个 `ops_agent`，思考它应该接在哪一步。
 2. 想一想：为什么多 Agent 项目里“统一工件格式”比“角色会聊天”更重要？
-3. 如果 reviewer 经常打回 patch，应该优先优化哪一层？
-4. 如果把这个项目做成演示页面，你最想展示哪一条完整 trace？
+3. 如果审核者经常打回 patch，应该优先优化哪一层？
+4. 如果把这个项目做成演示页面，你最想展示哪一条完整 追踪？

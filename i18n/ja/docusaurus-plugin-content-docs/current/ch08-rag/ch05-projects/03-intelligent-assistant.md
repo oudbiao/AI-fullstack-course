@@ -15,7 +15,7 @@ keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calli
 - 文脈を覚えられる
 - 必要なときにツールを呼び出せる
 
-そのため、この節は単なる単発Q&A demo というより、**プロダクトのたたき台**に近い内容です。
+そのため、この節は単なる単発Q&Aデモというより、**プロダクトのたたき台**に近い内容です。
 :::
 
 ## 学習目標
@@ -78,7 +78,7 @@ flowchart LR
 - アシスタントは1回答えるだけではない
 - 1ターンずつ対話しながら、状態と行動を更新し続ける
 
-![スマートアシスタントの session、検索、ツールの Trace 図](/img/course/ch08-assistant-session-tool-trace-map-ja.webp)
+![スマートアシスタントの session、検索、ツールの トレース 図](/img/course/ch08-assistant-session-tool-trace-map-ja.webp)
 
 :::tip 図の読み方
 マルチターンアシスタントの trace では、少なくとも4つを見るとよいです。session に何が残っているか、検索で何がヒットしたか、ツールが呼ばれたか、回答後に状態がどう更新されたか、です。これで、ただの FAQ ではないことを示せます。
@@ -208,7 +208,7 @@ last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
 topic: 返金
 ```
 
-![アシスタントのツール呼び出しと状態 trace 結果図](/img/course/ch08-assistant-tool-state-trace-result-map-ja.webp)
+![アシスタントのツール呼び出しと状態 トレース 結果図](/img/course/ch08-assistant-tool-state-trace-result-map-ja.webp)
 
 ### この例のいちばん大きな価値は何か？
 
@@ -315,7 +315,7 @@ for case in eval_cases:
 
 ## どうやってこのプロジェクトを作品レベルのページにするか？
 
-### 1つの完全な対話 trace を見せる
+### 1つの完全な対話 トレース を見せる
 
 たとえば、次の流れです。
 
@@ -342,14 +342,14 @@ for case in eval_cases:
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```
 
 ## よくある落とし穴
@@ -374,7 +374,7 @@ deliverable: README, run command, screenshots/logs, next step
 
 強調すべきなのは、次の5つです。
 
-1. 完全なマルチターン対話 trace
+1. 完全なマルチターン対話 トレース
 2. どのターンで検索が走ったか
 3. どのターンでツール呼び出しが起きたか
 4. session 状態がどう変化したか
@@ -383,14 +383,14 @@ deliverable: README, run command, screenshots/logs, next step
 こうすると、見る人は次のことを感じやすくなります。
 
 - これは継続的に協力するシステムだ
-- 単なるマルチターンチャット demo ではない
+- 単なるマルチターンチャットデモではない
 
 ---
 
 ## プロジェクト提出時にあるとよいもの
 
 - システムの流れ図
-- 完全なマルチターン対話 trace
+- 完全なマルチターン対話 トレース
 - ツール呼び出しの成功例 / 失敗例
 - 「聞き返すべき場面 / 止まるべき場面」の例
 - 今後どう拡張するかの説明

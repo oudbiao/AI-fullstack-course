@@ -58,12 +58,12 @@ watch: latency, cost, errors
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
 | 1 | ローカルモデル | 1 つのローカル/ private モデルを読み込み、制約を記録する |
-| 2 | 推論サービス | モデル呼び出しを service endpoint として公開する |
+| 2 | 推論サービス | モデル呼び出しを service エンドポイント として公開する |
 | 3 | 統一 API | 複数 provider に対して 1 つのアプリ interface を保つ |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 runtime_choice: local model, inference server, or unified API

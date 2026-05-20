@@ -34,7 +34,7 @@ keywords: [production best practices, rollout, canary, rollback, observability, 
 - 理解生产环境里最关键的发布与运维原则
 - 学会设计最小上线前检查清单
 - 理解灰度、回滚、告警和人工接管的作用
-- 通过可运行示例建立生产 readiness 检查思路
+- 通过可运行示例建立生产就绪检查思路
 
 ---
 
@@ -42,7 +42,7 @@ keywords: [production best practices, rollout, canary, rollback, observability, 
 
 ### 功能正确只是最基础的一层
 
-生产 readiness 至少还包括：
+生产就绪至少还包括：
 
 - 是否可观测
 - 是否可回滚
@@ -109,7 +109,7 @@ Agent 系统的不确定性通常比普通 CRUD 更高。
 
 ---
 
-## 先跑一个最小 readiness 检查器
+## 先跑一个最小就绪检查器
 
 下面这个示例会模拟一套上线前检查。
 它不会直接部署服务，而是回答：
@@ -168,16 +168,16 @@ print(readiness_check(deployment_config))
 {'ready': True, 'missing_required': [], 'warnings': ['missing_rate_limit', 'missing_human_override']}
 ```
 
-![Agent readiness 检查结果图](/img/course/ch09-production-readiness-check-result-map.webp)
+![Agent 就绪检查结果图](/img/course/ch09-production-readiness-check-result-map.webp)
 
 ### 这个示例最重要的启发是什么？
 
 它提醒你：
 
-- 生产 readiness 不是一种感觉
+- 生产就绪不是一种感觉
 - 而是一组可检查条件
 
-![Agent 生产 Readiness、灰度与回滚图](/img/course/ch09-production-readiness-canary-rollback-map.webp)
+![Agent 生产就绪、灰度与回滚图](/img/course/ch09-production-readiness-canary-rollback-map.webp)
 
 :::tip 读图提示
 这张图可以当上线前检查清单：metrics、logs、timeout、rate limit、eval suite、canary、rollback、human override 和 audit log，缺一个都要知道风险在哪里。
@@ -350,7 +350,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 
 这节最重要的是建立一个生产观：
 
-> **Agent 的生产 readiness，不是“功能跑通”就结束，而是必须同时具备灰度、回滚、告警、审计和人工接管这些保障机制。**
+> **Agent 的生产就绪，不是“功能跑通”就结束，而是必须同时具备灰度、回滚、告警、审计和人工接管这些保障机制。**
 
 只有这些机制在，系统才配得上“生产环境”这四个字。
 
@@ -358,7 +358,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 
 ## 练习
 
-1. 根据你现在的项目，列一版自己的 readiness 配置表，看看缺哪些项。
+1. 根据你现在的项目，列一版自己的就绪配置表，看看缺哪些项。
 2. 为什么说灰度发布对 Agent 比对静态页面更重要？
 3. 如果某个高风险工具调用开始异常增多，你会优先做告警、熔断，还是人工接管？为什么？
 4. 想一想：回滚为什么不只是“把代码切回上一个版本”？

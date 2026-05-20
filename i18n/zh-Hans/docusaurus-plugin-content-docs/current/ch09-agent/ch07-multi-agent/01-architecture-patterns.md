@@ -25,7 +25,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 - 理解什么时候真的需要多 Agent
 - 分清几种最常见的多 Agent 架构模式
-- 看懂 supervisor、pipeline、reviewer 等模式的优缺点
+- 看懂监督者-执行者、流水线、评审等模式的优缺点
 - 用一个小型示例感受不同模式的组织方式
 
 ---
@@ -59,19 +59,19 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ## 先看最常见的几种模式
 
-### Supervisor-Worker 模式
+### 监督者-执行者模式
 
-一个监督者（supervisor）负责：
+一个监督者负责：
 
 - 拆任务
 - 分配任务
 - 汇总结果
 
-其他 worker 负责具体执行。
+其他执行者负责具体执行。
 
 这是最常见也最好理解的模式之一。
 
-### Pipeline 模式
+### 流水线模式
 
 每个 Agent 只负责固定阶段：
 
@@ -81,13 +81,13 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 它更像流水线。
 
-### Reviewer 模式
+### 评审模式
 
 一个 Agent 负责生成，另一个专门负责检查或评审。
 
 这在代码、文档、报告生成里特别常见。
 
-### Group / Peer 模式
+### 同伴协作模式
 
 多个 Agent 相对平等地协商。
 
@@ -95,7 +95,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## Supervisor-Worker：最值得先学的模式
+## 监督者-执行者：最值得先学的模式
 
 ### 为什么它很常见？
 
@@ -143,23 +143,23 @@ writer <- 撰写总结 (负责生成最终文本)
 
 缺点：
 
-- supervisor 可能成为瓶颈
+- 监督者可能成为瓶颈
 - 如果拆任务质量差，后面全都会受影响
 
 ---
 
-## Pipeline 模式：像工厂流水线一样协作
+## 流水线模式：像工厂流水线一样协作
 
-### 它和 supervisor 模式的区别
+### 它和监督者-执行者模式的区别
 
-supervisor 模式强调“一个中心调度”。
-pipeline 模式更强调“任务按固定阶段流动”。
+监督者-执行者模式强调“一个中心调度”。
+流水线模式更强调“任务按固定阶段流动”。
 
 例如：
 
-1. Retriever Agent 找资料
-2. Filter Agent 过滤噪声
-3. Writer Agent 生成答案
+1. 检索者找资料
+2. 过滤者过滤噪声
+3. 撰写者生成答案
 
 ### 一个最小示例
 
@@ -208,7 +208,7 @@ print(step3)
 
 ---
 
-## Reviewer 模式：生成和检查分离
+## 评审模式：生成和检查分离
 
 ### 为什么这个模式很实用？
 
@@ -253,7 +253,7 @@ review: {'approved': True, 'comment': '关键信息已覆盖'}
 
 ---
 
-## Peer / Group 模式：多个 Agent 平等协作
+## 同伴协作模式：多个 Agent 平等协作
 
 ### 看起来很自由，但也更难控
 
@@ -273,7 +273,7 @@ review: {'approved': True, 'comment': '关键信息已覆盖'}
 ![多 Agent 架构模式选择图](/img/course/ch09-multi-agent-pattern-selection-map.webp)
 
 :::tip 读图提示
-读这张图时，先看任务有没有天然分工：需要中心调度就选 supervisor-worker，阶段固定就选 pipeline，需要质量检查就加 reviewer，需要多视角讨论才考虑 peer/group。
+读这张图时，先看任务有没有天然分工：需要中心调度就选监督者-执行者，阶段固定就选流水线，需要质量检查就加评审，需要多视角讨论才考虑同伴协作。
 :::
 
 ### 什么时候考虑它？
@@ -310,25 +310,25 @@ review: {'approved': True, 'comment': '关键信息已覆盖'}
 
 优先考虑：
 
-- Pipeline 模式
+- 流水线模式
 
 ### 如果任务需要中心拆分和调度
 
 优先考虑：
 
-- Supervisor-Worker 模式
+- 监督者-执行者模式
 
 ### 如果任务需要强评审和复核
 
 优先考虑：
 
-- Writer-Reviewer 模式
+- 撰写-评审模式
 
 ### 如果任务本身就是多视角讨论
 
 才考虑：
 
-- Peer / Group 模式
+- 同伴协作模式
 
 所以最重要的不是“哪种模式更高级”，而是：
 
@@ -377,7 +377,7 @@ eval_action: compare multi-agent result against single-agent baseline
 
 ## 练习
 
-1. 用自己的话解释 supervisor、pipeline、reviewer 三种模式的区别。
+1. 用自己的话解释监督者-执行者、流水线、评审三种模式的区别。
 2. 想一想：如果你要做“自动研究报告”，哪种模式最适合先落地？为什么？
 3. 设计一个“检索 -> 写作 -> 审核”的三 Agent 流水线。
 4. 思考：为什么说多 Agent 架构首先是组织问题，而不是模型数量问题？

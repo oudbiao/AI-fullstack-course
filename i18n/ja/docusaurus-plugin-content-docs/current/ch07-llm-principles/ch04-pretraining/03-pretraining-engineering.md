@@ -98,7 +98,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 
 - モデルパラメータ
 - optimizer の状態
-- 全体の step 数
+- 全体の ステップ 数
 - データの読み取り位置
 
 これが揃って初めて、中断後に混乱せずに再開できます。
@@ -112,7 +112,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 エンジニアリングでは、よく次の指標を追います。
 
 - tokens/s
-- step time
+- ステップ time
 - data wait time
 - GPU 利用率
 
@@ -257,7 +257,7 @@ step=06 shard=shard_02 batch=['doc_8']
 - 障害復旧しやすい
 - バージョン管理しやすい
 
-### 分割は複数 worker の並列処理にも役立つ
+### 分割は複数 ワーカー の並列処理にも役立つ
 
 複数 GPU や複数 worker で学習するときは、  
 それぞれに次のような役割を持たせられます。
@@ -272,8 +272,8 @@ step=06 shard=shard_02 batch=['doc_8']
 一部の shard が極端に大きく、別の shard が小さいと、  
 次のようなことが起こりやすくなります。
 
-- すぐ読み終わる worker が出る
-- いつまでも遅れる worker が出る
+- すぐ読み終わる ワーカー が出る
+- いつまでも遅れる ワーカー が出る
 
 結果として、次のように見えます。
 
@@ -303,7 +303,7 @@ step=06 shard=shard_02 batch=['doc_8']
 たとえば次の通りです。
 
 - データ順序が十分にシャッフルされているか
-- 複数 worker で重複読み込みしていないか
+- 複数 ワーカー で重複読み込みしていないか
 - 中断後の再開が一貫しているか
 
 だからこそ、データパイプライン自体を丁寧に設計する必要があります。
@@ -320,7 +320,7 @@ step=06 shard=shard_02 batch=['doc_8']
 - dataloader が遅い
 - shard 切り替えのコストが高い
 - I/O が揺れる
-- worker の負荷が偏っている
+- ワーカー の負荷が偏っている
 
 これは総学習時間を直接伸ばします。
 
@@ -360,7 +360,7 @@ step=2 tokens/s=21005
 step=3 tokens/s=10503
 ```
 
-![事前学習 throughput 変動の実行結果図](/img/course/ch07-pretraining-throughput-jitter-result-map-ja.webp)
+![事前学習 スループット 変動の実行結果図](/img/course/ch07-pretraining-throughput-jitter-result-map-ja.webp)
 
 第3ステップだけ明らかに落ちているなら、  
 エンジニアリング上は次をさらに調べる必要があります。
@@ -419,7 +419,7 @@ step=3 tokens/s=10503
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 shards: data split and resume point

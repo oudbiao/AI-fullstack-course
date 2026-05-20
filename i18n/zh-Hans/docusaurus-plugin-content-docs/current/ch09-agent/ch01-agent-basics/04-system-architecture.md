@@ -50,7 +50,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 常见核心组件
 
-### Planner / 决策器
+### 决策器
 
 负责决定：
 
@@ -61,7 +61,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 在简单系统里，这部分可能直接由 LLM 负责。
 在更强控制场景里，也可能由规则 + LLM 混合完成。
 
-### Tool Layer / 工具层
+### 工具层
 
 这是 Agent 能行动的关键。
 
@@ -79,7 +79,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 状态、记忆和上下文
 
-### 状态（State）：当前任务进行到哪
+### 状态：当前任务进行到哪
 
 状态通常记录：
 
@@ -91,7 +91,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 这和“长期记忆”不是一回事。
 它更像当前任务的工作区。
 
-### 记忆（Memory）：跨回合保留什么
+### 记忆：跨回合保留什么
 
 记忆更偏向：
 
@@ -133,7 +133,7 @@ flowchart LR
 ![Agent 系统架构数据流图](/img/course/ch09-agent-system-architecture-dataflow-map.webp)
 
 :::tip 读图提示
-把这张图当成“生产 Agent 的解剖图”来看：Planner 决定下一步，Tool Layer 负责行动，Memory 和 State 记录上下文，Guardrails 决定什么能做，Observability 让每一步能被追踪。
+把这张图当成“生产 Agent 的解剖图”来看：决策器决定下一步，工具层负责行动，记忆和状态记录上下文，护栏决定什么能做，观测性让每一步能被追踪。
 :::
 
 ---

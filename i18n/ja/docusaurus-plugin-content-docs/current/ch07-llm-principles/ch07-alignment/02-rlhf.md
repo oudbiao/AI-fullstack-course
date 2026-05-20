@@ -205,7 +205,7 @@ RLHF でよく使う工程上の直感は、まず次のように覚えるとよ
 | Preference pair | 同じ prompt に対する 2 つの回答、`chosen` と `rejected` | 絶対点を付けるより、人間が比較しやすい |
 | Reward model | prompt-answer ペアにスコアを付けるモデル | policy 最適化中の「学習済みの採点者」になる |
 | Policy model | 実際に回答を生成するモデル | 好ましい振る舞いへ向けて更新される対象 |
-| Reference model | 凍結された参照モデル、または baseline モデル | 報酬を追いすぎて policy が大きくずれるのを防ぐ |
+| Reference model | 凍結された参照モデル、または ベースライン モデル | 報酬を追いすぎて policy が大きくずれるのを防ぐ |
 | PPO | Proximal Policy Optimization。古典的な RLHF でよく使われる強化学習手法 | policy model を高報酬方向へ更新するために使われる |
 | KL penalty | 参照モデルから離れすぎることへの罰則 | reward hacking や文体崩壊を防ぐ |
 
@@ -538,7 +538,7 @@ RLHF は最優先ではないかもしれません。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 stages: SFT -> reward model -> policy optimization

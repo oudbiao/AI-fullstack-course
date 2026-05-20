@@ -204,7 +204,7 @@ RLHF 则更像在继续教它：
 | Preference pair | 同一个 prompt 的两个回答：`chosen` 和 `rejected` | 通常比让人类打绝对分更容易标注 |
 | Reward model | 给 prompt-answer 对打分的模型 | 在策略优化时像一个学出来的裁判 |
 | Policy model | 真正生成答案的模型 | 它会朝人类更偏好的行为方向更新 |
-| Reference model | 冻结的参考模型或 baseline 模型 | 防止策略模型为了追奖励跑得太远 |
+| Reference model | 冻结的参考模型或 基线 模型 | 防止策略模型为了追奖励跑得太远 |
 | PPO | Proximal Policy Optimization，经典 RLHF 中常见的强化学习算法 | 用来让策略模型朝更高奖励更新 |
 | KL penalty | 惩罚当前策略和参考模型差太远 | 防止 reward hacking 或风格崩塌 |
 

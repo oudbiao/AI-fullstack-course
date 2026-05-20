@@ -40,7 +40,7 @@ keywords: [OpenAI Agents SDK, agent runtime, tools, runner, sdk, agent abstracti
 - 参数校验
 - 运行循环
 - 结果包装
-- trace
+- 追踪
 - 状态推进
 
 如果每个项目都手写一遍，很快就会出现：

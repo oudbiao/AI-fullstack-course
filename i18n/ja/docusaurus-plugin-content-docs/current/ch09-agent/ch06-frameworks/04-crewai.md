@@ -228,15 +228,15 @@ review  : {'approved': True, 'comment': '重要情報はかなり揃っていま
 見た目は次のようにわかりやすくても：
 
 - researcher
-- writer
-- reviewer
+- 執筆担当
+- レビュー担当
 
 実際に本番運用するには、やはり次のようなものを扱う必要があります。
 
 - タイムアウト
 - リトライ
 - ログ
-- trace
+- トレース
 - 権限
 
 そのため、これは「表現方法」や「組織化の方法」に近く、万能な解決策ではありません。
@@ -286,7 +286,7 @@ CrewAI はとても自然に使えます。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 problem_shape: workflow graph, retrieval app, role team, or experiment

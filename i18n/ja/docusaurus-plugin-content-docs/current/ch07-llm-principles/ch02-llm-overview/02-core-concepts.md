@@ -22,13 +22,13 @@ context -> logits -> probabilities -> choose next token -> append token -> repea
 | 概念 | 実務での意味 |
 |---|---|
 | token | モデルが読む・書く基本単位 |
-| context window | system prompt、履歴、証拠、質問、出力が共有する token 予算 |
-| embedding | token の vector 表現 |
-| attention | 関連度に基づいて token 情報を混ぜる仕組み |
-| logits | probability になる前の raw scores |
-| temperature | probability distribution を鋭く、または平らにするノブ |
-| pretraining | 大規模テキストから得た広い capability |
-| instruction tuning / alignment | capability を assistant-like behavior に近づける |
+| コンテキストウィンドウ（コンテキストウィンドウ） | system prompt、履歴、証拠、質問、出力が共有する token 予算 |
+| 埋め込み（embedding） | token のベクトル表現 |
+| 注意機構（attention） | 関連度に基づいて token 情報を混ぜる仕組み |
+| ロジット（logits） | 確率になる前の生のスコア |
+| 温度（temperature） | 確率分布を鋭く、または平らにするノブ |
+| 事前学習（pretraining） | 大規模テキストから得た広い能力 |
+| 指示チューニング / アラインメント | 能力をアシスタントらしい振る舞いに近づける |
 
 ## 実験 1：次の token を予測する
 
@@ -68,11 +68,11 @@ Most likely next token: capital
 
 実際のモデルは非常に大きな vocabulary 上でこれを行います。原理は同じです。scores を出し、probabilities に変換し、次の token を選びます。
 
-## Context Window は予算
+## コンテキストウィンドウは予算
 
-![Context window 情報予算図](/img/course/ch07-context-window-budget-map-ja.webp)
+![コンテキストウィンドウ情報予算図](/img/course/ch07-context-window-budget-map-ja.webp)
 
-Context window は無限の記憶ではなく、固定された token budget です。
+コンテキストウィンドウは無限の記憶ではなく、固定された token 予算です。
 
 ```text
 system prompt + chat history + retrieved evidence + user question + answer space <= context window
@@ -81,24 +81,24 @@ system prompt + chat history + retrieved evidence + user question + answer space
 実務上の意味：
 
 - 長い文書は選択、圧縮、または chunking が必要。
-- RAG は evidence と final answer の両方にスペースを残す。
-- chat history は役に立たなくなったら要約または削る。
-- 大きな context は、正しい情報を入れたときだけ役に立つ。
+- RAG は証拠と最終回答の両方にスペースを残す。
+- チャット履歴は役に立たなくなったら要約または削る。
+- 大きなコンテキストは、正しい情報を入れたときだけ役に立つ。
 
-### Context は知識ベースではなく作業机
+### コンテキストは知識ベースではなく作業机
 
 作業机の比喩が役に立ちます。大きな机なら多くの資料をモデルの前に置けますが、正しい資料が置かれていること、資料自体が正しいこと、モデルが適切な瞬間に使うことまでは保証しません。
 
 この違いはアプリケーションで重要です。
 
-| 誤解 | よりよい engineering view |
+| 誤解 | よりよいエンジニアリング視点 |
 |---|---|
-| 「context window が大きいから、モデルは全部覚えている」 | Context にあるのは、その request に入れた内容だけです。 |
-| 「文書全体を prompt に入れればよい」 | 関連部分を選び、reasoning と output の余白を残します。 |
-| 「答えが間違ったら大きな context にすればよい」 | まず retrieval quality、evidence placement、output validation を確認します。 |
-| 「chat history は memory である」 | history は過去の text であり、意図的に要約・削除・保存して初めて管理された memory になります。 |
+| 「コンテキストウィンドウが大きいから、モデルは全部覚えている」 | コンテキストにあるのは、そのリクエストに入れた内容だけです。 |
+| 「文書全体を prompt に入れればよい」 | 関連部分を選び、推論と出力の余白を残します。 |
+| 「答えが間違ったら大きなコンテキストにすればよい」 | まず検索品質、証拠の位置、出力検証を確認します。 |
+| 「チャット履歴は記憶である」 | 履歴は過去のテキストであり、意図的に要約・削除・保存して初めて管理された記憶になります。 |
 
-これが第 8 章 RAG への橋です。RAG は「prompt にもっと文字を入れる」ことではなく、モデルが答える前に正しい evidence を選ぶ practice です。
+これが第 8 章 RAG への橋です。RAG は「prompt にもっと文字を入れる」ことではなく、モデルが答える前に正しい証拠を選ぶ実践です。
 
 ## 実験 2：Temperature が sampling を変える
 
@@ -206,29 +206,29 @@ Output representations:
 compare relevance -> normalize weights -> mix value vectors
 ```
 
-## Capability はどの層から来るか
+## 能力はどの層から来るか
 
-| 層 | 何を足すか | model weights を変えるか |
+| 層 | 何を足すか | モデル重みを変えるか |
 |---|---|---|
-| pretraining | 広い言語・世界パターン capability | yes |
-| instruction tuning | task following と応答スタイル | yes |
-| preference learning / RLHF | より helpful で safer な behavior | yes |
-| prompt | runtime の指示と例 | no |
-| RAG | runtime の外部 evidence | no |
-| tool calling / Agent | テキスト以外の actions | no または一部 |
-| fine-tuning / LoRA | repeated domain behavior adaptation | yes |
+| 事前学習 | 広い言語・世界パターンの能力 | はい |
+| 指示チューニング | タスク追従と応答スタイル | はい |
+| 嗜好学習 / RLHF | より有用で安全な振る舞い | はい |
+| prompt | 実行時の指示と例 | いいえ |
+| RAG | 実行時の外部証拠 | いいえ |
+| tool calling / Agent | テキスト以外のアクション | いいえ、または一部 |
+| fine-tuning / LoRA | 反復する領域行動への適応 | はい |
 
 ## 避けたい誤解
 
 - token は常に 1 単語または 1 文字ではない。
-- 大きい context window は、良い記憶と同じではない。
-- temperature は diversity を調整するが、truth を保証しない。
-- attention weights は直感に役立つが、reasoning の完全な説明ではない。
-- pretraining は capability を与える。product reliability には data、evaluation、controls が必要。
+- 大きいコンテキストウィンドウは、良い記憶と同じではない。
+- temperature は多様性を調整するが、真実性を保証しない。
+- attention weights は直感に役立つが、推論の完全な説明ではない。
+- pretraining は能力を与える。製品の信頼性には data、evaluation、controls が必要。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 next_token: one probability or sampling example

@@ -206,7 +206,7 @@ bank in river  : [0.3, 0.75, 0.4]
 - 如果库没有自动处理，先把向量 normalize 再算 cosine。
 - 打印 top-k 分数，不只看 top-1；分差小代表检索不确定。
 - 检查 false positive：相关词不一定就是正确答案。
-- 对同一批数据比较 static、sentence、contextual embedding。
+- 对同一批数据比较 static、sentence、上下文相关 embedding。
 - 多语言项目要先测跨语言样本，不要默认 embedding model 已经对齐语言。
 
 ## 留下的证据
@@ -225,7 +225,7 @@ next_use: this becomes retrieval evidence in Chapter 8
 
 1. 把 `banana` 移到更接近 `password` 的位置，观察检索如何出错。
 2. 添加文档 `D recover account`，并给 `recover`、`account` 设计向量。
-3. 创建 query `refund order`，你认为哪条文档应该排第一？
+3. 创建 查询 `refund order`，你认为哪条文档应该排第一？
 4. 用自己的话解释：为什么 `doctor` 和 `hospital` 可能接近，但不是同义词？
 5. 在 RAG 项目中，你会收集什么证据证明 embedding model 足够好？
 

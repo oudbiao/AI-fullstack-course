@@ -246,8 +246,8 @@ torch.Size([2, 10])
 | BPE | 把高频字符对合并成可复用子词 |
 | WordPiece | 类似的子词思想，常见于 BERT 类 tokenizer |
 | SentencePiece | 把文本当成原始字符流处理，适合多语言和无空格语言 |
-| `padding_side` | padding 加在左边还是右边；某些 decoder 模型很敏感 |
-| context length | 输入和生成输出共享的最大 token 预算 |
+| `padding_side` | padding 加在左边还是右边；某些解码器模型很敏感 |
+| 上下文长度 | 输入和生成输出共享的最大 token 预算 |
 | chat template | tokenizer 层面的对话格式，会加入角色和边界 token |
 
 ## 排查清单
@@ -257,7 +257,7 @@ Prompt 表现异常时，先检查 tokenizer，再怀疑模型：
 - 打印完整 prompt 的 tokens 和 token IDs；
 - 统计 chat template 之后的 token 数，不只看原始用户文本；
 - 检查 truncation 是否删掉了指令、检索证据或最新问题；
-- 批处理 decoder 模型时确认 padding 方向和 `attention_mask`；
+- 批处理解码器模型时确认 padding 方向和 `attention_mask`；
 - 对比中文、英文、代码、emoji 输入，它们的 token 数可能差很多。
 
 ## 留下的证据

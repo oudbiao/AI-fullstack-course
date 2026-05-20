@@ -33,7 +33,7 @@ rules -> statistics -> neural representations -> attention -> scale -> alignment
 | 8. ImageNet / AlexNet | deep learning が scale で勝った | data、compute、architecture が重要になった |
 | 9. ResNet | 非常に深い networks が訓練しやすくなった | scale がより安定した |
 | 10. RNN / LSTM | sequences が neural に扱われた | language modeling が n-gram を超えた |
-| 11. Attention | 関連位置に focus できるようになった | long context bottleneck を緩和 |
+| 11. Attention | 関連位置に focus できるようになった | long コンテキスト bottleneck を緩和 |
 | 12. Transformer | attention が主アーキテクチャになった | parallel training と scaling が進んだ |
 | 13. BERT / GPT | pretraining が shared foundation になった | 1 つの model を多タスクへ転用 |
 | 14. RLHF / ChatGPT | behavior が instruction に合わせられた | capability が product behavior になった |
@@ -46,7 +46,7 @@ rules -> statistics -> neural representations -> attention -> scale -> alignment
 | 時代 | 中心アイデア | 主な限界 |
 |---|---|---|
 | Rule-based systems | 人間が language rules を書く | 壊れやすく、保守が高コスト |
-| Statistical language models | 頻度から次の単語を予測 | sparse data、short context |
+| Statistical language models | 頻度から次の単語を予測 | sparse data、short コンテキスト |
 | Neural sequence models | vector と recurrent state を学ぶ | 長距離依存が難しく、訓練が遅い |
 | Transformers | token 同士が直接 attention する | compute と data cost が高い |
 | LLM + alignment | 大規模 pretraining 後に behavior を調整 | hallucination、安全、コスト、評価 |
@@ -154,14 +154,14 @@ model capability != model behavior
 実務的な要点は次の通りです。
 
 - rules は control を与えたが coverage が弱い。
-- statistics は data evidence を与えたが context が短い。
+- statistics は data evidence を与えたが コンテキスト が短い。
 - neural representations は semantic space を作った。
 - Transformer は scale を実用化した。
 - alignment、RAG、tool calling が model を system に変えた。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 timeline: n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment

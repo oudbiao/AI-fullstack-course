@@ -116,7 +116,7 @@ flowchart LR
 - リクエスト構造の統一
 - レスポンス構造の統一
 - エラー処理の統一
-- ログと trace の統一
+- ログと トレース の統一
 
 ### 最小限の統一リクエスト構造
 
@@ -166,9 +166,9 @@ print(response)
 
 | 層 | この層でまず統一したいもの |
 |---|---|
-| リクエスト | query / model / provider / パラメータ形式 |
+| リクエスト | クエリ / model / provider / パラメータ形式 |
 | レスポンス | answer / usage / error |
-| ログ | trace_id / provider / latency / token |
+| ログ | トレース_id / provider / レイテンシ / token |
 | エラー | error_code / message / retryable |
 
 この表は初心者に向いています。  
@@ -278,7 +278,7 @@ print(client.chat("provider_b", "返金ポリシーは何ですか？", "demo-2"
 そのため、次のような機能を置くのにとても向いています。
 
 - token / コストの集計
-- trace とログ
+- トレース とログ
 - provider fallback
 - モデルルーティング
 
@@ -392,7 +392,7 @@ for q in ["この文章を要約して", "返金ポリシーは何ですか？"]
 | システムで起きること | 統一 API 層でまず整えるとよいもの |
 |---|---|
 | provider が増えていく | リクエスト / レスポンスの統一 |
-| ログが読みにくくなる | trace と統一ログ |
+| ログが読みにくくなる | トレース と統一ログ |
 | コストの把握が難しい | usage の統一 |
 | モデル切り替えがつらい | routing と fallback |
 
@@ -430,7 +430,7 @@ for q in ["この文章を要約して", "返金ポリシーは何ですか？"]
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 runtime_choice: local model, inference server, or unified API

@@ -40,7 +40,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 - 工具调用
 - 消息流转
 - 失败重试
-- trace
+- 追踪
 - 多 Agent 协作
 
 你当然可以手写，但很快会遇到：
@@ -103,7 +103,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 | 图/工作流型 | 复杂状态流、明确控制 | 灵活但更工程化 |
 | 检索/知识型 | 文档、索引、RAG | 数据导向更强 |
 | 角色/团队型 | 多 Agent 角色协作 | 上手快但抽象更高 |
-| 通用实验型 | 快速搭 demo | 灵活但需要自己补工程层 |
+| 通用实验型 | 快速搭演示 | 灵活但需要自己补工程层 |
 
 这张图最重要的作用是：
 
@@ -133,8 +133,8 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 例如：
 
-- trace
-- step 记录
+- 追踪
+- 步骤 记录
 - 中间状态可视化
 
 所以框架最常见的价值并不是“模型更聪明”，而是：
@@ -212,7 +212,7 @@ answer -> {'query': '退款政策是什么', 'docs': ['退款政策'], 'answer':
 
 因为它已经在抽象：
 
-- step
+- 步骤
 - state
 - 流程组织
 

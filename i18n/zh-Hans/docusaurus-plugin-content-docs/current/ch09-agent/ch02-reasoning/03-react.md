@@ -99,7 +99,7 @@ ReAct 更像做调查：
 
 所以 ReAct 更像：
 
-- CoT + Tool Loop
+- CoT + 工具循环
 
 ### 为什么这对 Agent 特别关键？
 
@@ -245,7 +245,7 @@ final answer:
 未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。 本单预计退款金额为 314 元。
 ```
 
-![ReAct 退款工具 trace 结果图](/img/course/ch09-react-refund-tool-trace-result-map.webp)
+![ReAct 退款工具 追踪 结果图](/img/course/ch09-react-refund-tool-trace-result-map.webp)
 
 :::tip 读图提示
 把图当成一份 trace 账本来读：第一次 observation 给出退款政策，第二次 observation 给出计算金额，最终回答要整合两者，而不是只复读最后一个工具结果。
@@ -373,7 +373,7 @@ agent 也可能：
 
 ## 工程上怎么让 ReAct 更稳？
 
-### 让动作 schema 足够清楚
+### 让动作 结构约束 足够清楚
 
 工具描述越清楚，
 agent 越不容易乱调。
@@ -408,7 +408,7 @@ ReAct 的关键是：
 
 - 推理和行动交替推进
 
-### 误区二：只要有 trace，就一定可靠
+### 误区二：只要有 追踪，就一定可靠
 
 trace 可追踪，但不自动保证正确。
 
@@ -449,4 +449,4 @@ eval_action: compare against expected result and revise the plan
 1. 给示例再加一个工具，例如 `check_order_status`，让 agent 多一步判断。
 2. 为什么说 ReAct 更适合“下一步动作依赖上一轮 observation”的任务？
 3. 如果工具输出很乱，ReAct 为什么更容易出错？
-4. 想一个更适合固定 workflow、而不太适合 ReAct 的任务。
+4. 想一个更适合固定 工作流、而不太适合 ReAct 的任务。

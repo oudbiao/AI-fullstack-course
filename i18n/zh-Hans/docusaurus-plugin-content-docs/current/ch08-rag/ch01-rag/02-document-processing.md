@@ -258,7 +258,7 @@ for item in chunks_with_meta:
 
 > **切块不是固定的文本操作，它其实在服务后面的生成目标。**
 
-![课件知识块元数据 schema 图](/img/course/ch08-courseware-chunk-metadata-schema-map.webp)
+![课件知识块元数据 结构约束 图](/img/course/ch08-courseware-chunk-metadata-schema-map.webp)
 
 :::tip 读图提示
 课件生成最怕“找到了文字却不知道该放哪”。看图时重点关注 `topic`、`content_type`、`source_origin`、`page_or_slide` 这几个字段，它们会决定后面能不能按知识点、例题和练习稳定组装。
@@ -483,7 +483,7 @@ for chunk in chunks_with_meta:
 | 策略 | 参数 | 优点 | 暴露的问题 | 是否保留 |
 |---|---|---|---|---|
 | 按句子切 | 1 句 1 块 | 简单，召回精准 | 很多证据不完整 | 只适合短 FAQ |
-| 滑动窗口 | 2～4 句，overlap 1 | 不容易切断上下文 | chunk 数量增加 | 适合作为 baseline |
+| 滑动窗口 | 2～4 句，overlap 1 | 不容易切断上下文 | chunk 数量增加 | 适合作为 基线 |
 | 按标题层级切 | H2/H3 下内容成块 | 保留结构 | 长章节可能过大 | 适合教程和文档 |
 | 按内容类型切 | 概念/例题/练习分开 | 适合生成课件 | 需要解析或标注 | 适合结构化项目 |
 

@@ -49,7 +49,7 @@ print("recommended_route:", route)
 recommended_route: RAG
 ```
 
-![LLM route 判断の実行結果図](/img/course/ch07-llm-route-decision-result-map-ja.webp)
+![LLM ルート 判断の実行結果図](/img/course/ch07-llm-route-decision-result-map-ja.webp)
 
 これは完全な設計判断ではありません。実際のプロダクト要件を満たす最小ルートを選ぶ練習です。
 
@@ -58,13 +58,13 @@ recommended_route: RAG
 | 順番 | 読む | 残すもの |
 |---|---|---|
 | 1 | [7.2.2 発展史](./01-development-history.md) | scaling と instruction tuning がなぜ重要か |
-| 2 | [7.2.3 コア概念](./02-core-concepts.md) | context、token、temperature、遅延、コスト |
+| 2 | [7.2.3 コア概念](./02-core-concepts.md) | コンテキスト、token、temperature、遅延、コスト |
 | 3 | [7.2.4 業界地図](./03-industry-landscape.md) | モデル/プロバイダ選択メモ |
 | 4 | [7.2.5 LLM 呼び出しワークベンチ](./04-llm-call-workbench.md) | 1つの request/response 記録 |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 capability_stack: tokens, context, pretraining, instruction, alignment

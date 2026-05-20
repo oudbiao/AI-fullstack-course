@@ -70,7 +70,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 特徴:
 
-- 入力は通常 query
+- 入力は通常 クエリ
 - 出力は通常、候補の一覧
 
 ### 計算系
@@ -196,7 +196,7 @@ dict_keys(['search_docs', 'calculator', 'get_user_status'])
 
 後で次のようなことが必要になるからです。
 
-- schema を統一して説明する
+- スキーマ を統一して説明する
 - 権限管理をまとめて行う
 - ログを統一して取る
 - ディスパッチと集計を一元化する
@@ -257,7 +257,7 @@ for call in calls:
 
 重点ポイント:
 
-- query を書き換える必要があるか
+- クエリ を書き換える必要があるか
 - 何件返すか
 - 結果を rerank する必要があるか
 
@@ -400,7 +400,7 @@ print(refund_eligibility_agent(2))
 
 ## ツール統合でよくある失敗点
 
-### schema が一致しない
+### スキーマ が一致しない
 
 たとえば:
 
@@ -488,7 +488,7 @@ print(wrapped_search("返金"))
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 tool_contract: name, description, input schema, output schema

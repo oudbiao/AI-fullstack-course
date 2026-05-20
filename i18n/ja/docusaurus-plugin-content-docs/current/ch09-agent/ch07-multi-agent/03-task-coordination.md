@@ -64,8 +64,8 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 たとえば：
 
-- 検索は必ず retriever に渡す
-- 執筆は必ず writer に渡す
+- 検索は必ず検索担当に渡す
+- 執筆は必ず執筆担当に渡す
 
 利点：
 
@@ -245,8 +245,8 @@ print(resolve_conflict(results))
 
 - 置信度
 - 投票
-- reviewer の裁定
-- supervisor の最終判断
+- レビュー担当の裁定
+- 監督者の最終判断
 
 でも、まずは少なくとも次を理解する必要があります。
 
@@ -317,7 +317,7 @@ Agent 同士が提案し合い、協議します。
 
 タスクが途中まで進んでも、最後を誰も担当しないのは、とてもよくある問題です。
 
-### happy path だけを設計する
+### 成功パスだけを設計する
 
 一度でも Agent がタイムアウト、失敗、競合すると、システムが壊れます。
 
@@ -339,7 +339,7 @@ Agent 同士が提案し合い、協議します。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 roles: owner, worker, reviewer, or specialist responsibilities
@@ -352,6 +352,6 @@ eval_action: compare multi-agent result against single-agent baseline
 ## 練習
 
 1. タスク分配の例に `planner` Agent を追加し、実行順序を決める役割を持たせてみましょう。
-2. 「retrieve -> write -> review -> revise」という協調フローを設計してみましょう。
-3. 2つの Agent の結論が衝突したら、投票、置信度による裁定、reviewer の判断のどれを選びますか？ なぜですか？
+2. 「検索 -> 執筆 -> レビュー -> 修正」という協調フローを設計してみましょう。
+3. 2つの Agent の結論が衝突したら、投票、信頼度による裁定、レビュー担当の判断のどれを選びますか？ なぜですか？
 4. 自分の言葉で説明してみましょう。なぜ多 Agent の協調は、本質的に小さなタスクスケジューリングシステムに似ているのでしょうか？

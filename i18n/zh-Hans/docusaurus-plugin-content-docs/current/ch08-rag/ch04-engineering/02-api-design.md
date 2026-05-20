@@ -20,7 +20,7 @@ keywords: [API design, service design, idempotency, request schema, response sch
 
 - 理解一个 LLM 服务 API 最基本应该定义哪些内容
 - 学会设计清晰的请求和响应结构
-- 理解幂等性、错误返回、trace_id、版本管理这些服务化关键概念
+- 理解幂等性、错误返回、追踪_id、版本管理这些服务化关键概念
 - 看懂一个最小 API 处理闭环
 
 ## 新人术语桥
@@ -57,7 +57,7 @@ bad_response = {
 问题在哪？
 
 - `msg` 是什么？用户消息？系统消息？
-- 没有 trace_id
+- 没有 追踪_id
 - 没有错误结构
 - 没有版本信息
 - 没有上下文字段
@@ -250,7 +250,7 @@ print(handle_chat({"query": ""}))
 它在教你：
 
 1. 请求先校验
-2. 每次请求都有 trace_id
+2. 每次请求都有 追踪_id
 3. 成功和失败都要有统一结构
 
 这已经是服务化设计最核心的一层了。
@@ -462,7 +462,7 @@ print(handle_generate({"topic": "折扣应用题", "doc_format": "pdf"}))
 顺着两条路径穿过同一个校验门看：完整 payload 会变成 `status=accepted` 的 courseware，不完整 payload 会在业务逻辑前停在统一的 `INVALID_ARGUMENT` 错误。
 :::
 
-这个练习有用，是因为它逼你同时设计成功和失败。服务不是只会返回 happy path 就算准备好了。
+这个练习有用，是因为它逼你同时设计成功和失败。服务不是只会返回成功路径就算准备好了。
 
 ## 初学者最常踩的坑
 
@@ -474,7 +474,7 @@ print(handle_generate({"topic": "折扣应用题", "doc_format": "pdf"}))
 
 这会让前端和其他服务越来越难接。
 
-### 没有 trace_id
+### 没有 追踪_id
 
 出了问题很难追链路。
 

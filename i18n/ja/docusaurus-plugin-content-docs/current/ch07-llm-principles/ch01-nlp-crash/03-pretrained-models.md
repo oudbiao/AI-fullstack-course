@@ -128,9 +128,9 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 
 | ファミリー | 典型的な情報の流れ | 得意 | 例 |
 |---|---|---|---|
-| Encoder-only | 入力を双方向に読む | classification、extraction、matching、embeddings | BERT 系 |
-| Decoder-only | causal に next token を予測 | chat、completion、code、tool use | GPT/LLaMA/Qwen 系 |
-| Encoder-decoder | 入力を読んでから出力を生成 | translation、summarization、structured generation | T5/BART 系 |
+| エンコーダーのみ | 入力を双方向に読む | 分類、抽出、照合、embedding | BERT 系 |
+| デコーダーのみ | 因果順序で次の token を予測 | チャット、補完、コード、ツール利用 | GPT/LLaMA/Qwen 系 |
+| エンコーダー-デコーダー | 入力を読んでから出力を生成 | 翻訳、要約、構造化生成 | T5/BART 系 |
 
 これは最初のフィルタであって、絶対ルールではありません。現代のシステムは retrieval、tools、serving constraints と組み合わせて設計されます。
 
@@ -148,15 +148,15 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 
 ## よくある失敗モード
 
-- **Pretraining data mismatch:** 一般言語は学んでいても、あなたの業務ポリシーを知っているとは限らない。
-- **Stale knowledge:** 最近の事実を知らないことがある。
-- **Contamination:** 評価データやテストデータに似たものが訓練コーパスに入っていることがある。
-- **Over-adaptation:** fine-tuning で一部は良くなり、別の能力が落ちることがある。
-- **Evaluation gaps:** デモ prompt は良くても、境界ケースで失敗することがある。
+- **事前学習データのずれ：** 一般言語は学んでいても、あなたの業務ポリシーを知っているとは限らない。
+- **知識の古さ：** 最近の事実を知らないことがある。
+- **データ汚染：** 評価データやテストデータに似たものが訓練コーパスに入っていることがある。
+- **過適応：** fine-tuning で一部は良くなり、別の能力が落ちることがある。
+- **評価の抜け：** デモ prompt は良くても、境界ケースで失敗することがある。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 foundation: what the pretrained model already knows

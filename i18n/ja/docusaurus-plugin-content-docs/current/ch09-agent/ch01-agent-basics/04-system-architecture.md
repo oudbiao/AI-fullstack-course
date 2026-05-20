@@ -51,7 +51,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## よくある主要コンポーネント
 
-### Planner / 意思決定器
+### 意思決定器
 
 役割は次のとおりです。
 
@@ -62,7 +62,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 シンプルなシステムでは、この部分を LLM が直接担当することがあります。  
 より強い制御が必要な場面では、ルール + LLM の組み合わせになることもあります。
 
-### Tool Layer / ツール層
+### ツール層
 
 ここが Agent が行動できるようにする重要な部分です。
 
@@ -80,7 +80,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ## 状態、記憶、コンテキスト
 
-### 状態（State）：今のタスクがどこまで進んだか
+### 状態：今のタスクがどこまで進んだか
 
 状態には通常、次のような情報を記録します。
 
@@ -92,7 +92,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 これは「長期記憶」とは別物です。  
 どちらかというと、今のタスクの作業スペースのようなものです。
 
-### 記憶（Memory）：回をまたいで何を保持するか
+### 記憶：回をまたいで何を保持するか
 
 記憶は、より次のような内容に関係します。
 
@@ -138,7 +138,7 @@ Agent の本質は、「1回だけ回答する」ことではありません。
 ![Agent システムアーキテクチャ データフロー図](/img/course/ch09-agent-system-architecture-dataflow-map-ja.webp)
 
 :::tip 読み方のヒント
-この図は「Agent を作るときの解剖図」だと思って見てください。Planner が次の一手を決め、Tool Layer が行動を担当し、Memory と State が文脈を記録し、Guardrails が何をしてよいかを決め、Observability が各ステップを追跡できるようにします。
+この図は「Agent を作るときの解剖図」だと思って見てください。意思決定器が次の一手を決め、ツール層が行動を担当し、記憶と状態が文脈を記録し、ガードレールが何をしてよいかを決め、観測性が各ステップを追跡できるようにします。
 :::
 
 ---
@@ -384,7 +384,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 agent_boundary: how this differs from chatbot or fixed workflow

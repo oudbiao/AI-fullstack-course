@@ -57,14 +57,14 @@ dispatch: search_docs
 |---|---|---|
 | 1 | LLM API 実践 | timeout と error handling 付きの安定した call wrapper を書く |
 | 2 | Framework 基礎 | prompt、model、tool、memory、retrieval、parser の責務を分ける |
-| 3 | Function Calling | dispatch 前に構造化 tool arguments を検証する |
+| 3 | 関数呼び出し | dispatch 前に構造化 tool arguments を検証する |
 | 4 | Hugging Face エコシステム | hosted、local、browser-side モデルの適性を判断する |
 | 5 | 対話システム | session state、slots、memory、user feedback を保存する |
 | 6 | 文書とテンプレートアプリ | parsing、extraction、generation を module に分ける |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 request: input, state, tools/context, and expected output contract

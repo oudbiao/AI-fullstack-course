@@ -31,14 +31,14 @@ keywords: [LLM API, Responses API, Token 预算, JSON 校验, 结构化输出, A
 |---|---|---|
 | API | Application Programming Interface，软件调用另一个服务的标准接口 | 程序把请求发给模型服务，并接收响应 |
 | SDK | Software Development Kit，把 API 调用封装成更好用的代码库 | 可选真实 API 示例会使用官方 Python SDK |
-| 端点（Endpoint） | 接收请求的 URL 路径 | 现代 OpenAI 文本 API 端点是 `/v1/responses` |
-| 载荷（Payload） | 发送给 API 的 JSON 请求体 | 包含模型名、指令、输入、输出设置和约束 |
+| 端点 | 接收请求的 URL 路径 | 现代 OpenAI 文本 API 端点是 `/v1/responses` |
+| 请求载荷 | 发送给 API 的 JSON 请求体 | 包含模型名、指令、输入、输出设置和约束 |
 | Token 预算 | 上下文窗口里可用的空间 | 系统规则、历史消息、用户输入、检索材料和输出空间都会竞争它 |
 | JSON | 程序容易解析的结构化数据格式 | 我们要求模型返回时间线对象，而不是自由段落 |
 | 结构约束 | JSON 应该长什么样的约定 | 告诉程序哪些字段必须存在、字段类型是什么 |
 | 校验 | 程序对输出做校验 | 捕捉缺字段、类型错误和无效 JSON |
-| 重试（Retry） | 在可控失败后重试 | 有价值的重试会修复原因，例如加强 schema 约束 |
-| 延迟（Latency） | 请求耗时 | 上下文越长、输出越长，通常延迟越高 |
+| 重试 | 在可控失败后重试 | 有价值的重试会修复原因，例如加强 结构约束 约束 |
+| 延迟 | 请求耗时 | 上下文越长、输出越长，通常延迟越高 |
 
 ## 先跑离线工作台
 
@@ -179,20 +179,20 @@ first era: {'period': '1936-1950', ...}
 
 | 行 | 它证明什么 | 如果不对先看哪里 |
 |---|---|---|
-| `used input tokens estimate` | 请求有可度量的输入预算 | 检查 system 指令、历史和 retrieved context |
-| `remaining output room` | 仍然给回答留了生成空间 | 缩短 context 或降低预期输出长度 |
+| `used input tokens estimate` | 请求有可度量的输入预算 | 检查 system 指令、历史和 检索到的上下文 |
+| `remaining output room` | 仍然给回答留了生成空间 | 缩短 上下文 或降低预期输出长度 |
 | `request model` | 本次运行记录了使用的模型/配置 | 每次 eval 都保存模型名和关键参数 |
-| `validation: era_0_missing_['summary']` | validator 抓到了具体 schema 失败 | 修 schema 指令或加 repair step |
+| `validation: era_0_missing_['summary']` | validator 抓到了具体 结构约束 失败 | 修 结构约束 指令或加 repair 步骤 |
 | `retry fix` | retry 是针对失败原因修改请求，而不是盲目重试 | 记录改了什么，保证流程可复现 |
 | `validation: valid` | 输出通过了程序契约 | 仍然要复查事实质量和来源要求 |
 
-真实应用里，要把这段 trace 连同 prompt version、model name、temperature、max output tokens、schema version、failure reason 一起保存。没有记录，“更好的回答”很难复现。
+真实应用里，要把这段追踪连同提示词版本、模型名称、temperature、最大输出 token 数、schema 版本、失败原因一起保存。没有记录，“更好的回答”很难复现。
 
 ## 这段代码真正想说明什么
 
-### 请求不只是提示词（Prompt）
+### 请求不只是提示词
 
-载荷（Payload）里包含 `model`、`instructions`、`input`、`text.format`、`max_output_tokens` 和 `temperature`。很多新人只会改提示词文本，但真实 LLM 工程还会控制输出长度、格式、随机性和校验方式。
+请求载荷里包含 `model`、`instructions`、`input`、`text.format`、`max_output_tokens` 和 `temperature`。很多新人只会改提示词文本，但真实 LLM 工程还会控制输出长度、格式、随机性和校验方式。
 
 ### Token 预算是产品约束
 
@@ -283,16 +283,16 @@ real_api_note: replace toy_model only after offline loop is stable
 
 ## 练习方式
 
-1. 把离线任务从“AI 历史时间线”改成“课程学习计划”，并更新必填 Schema 字段。
+1. 把离线任务从“AI 历史时间线”改成“课程学习计划”，并更新必填 结构约束 字段。
 2. 把第一次假模型输出改成无效 JSON，观察校验器是否能发现。
 3. 给每个阶段增加 `source_refs` 字段，并在校验器里要求它存在。
 4. 降低 `max_output_tokens`，解释这模拟了什么产品问题。
-5. 写一页笔记：哪些部分属于 Prompt 设计，哪些属于 API Payload 设计，哪些属于应用可靠性设计。
+5. 写一页笔记：哪些部分属于 Prompt 设计，哪些属于 API 载荷 设计，哪些属于应用可靠性设计。
 
 ## 总结
 
 一次真实 LLM 调用不是“发一个问题，拿一个回答”这么简单。它是一个小型工程闭环：
 
-> **定义任务、管理 Token 预算、发送清晰 Payload、解析输出、校验 Schema，并且只在知道失败原因时重试。**
+> **定义任务、管理 Token 预算、发送清晰 载荷、解析输出、校验 结构约束，并且只在知道失败原因时重试。**
 
 熟悉这个闭环以后，Prompt、结构化输出、RAG、工具调用和 Agent 工作流都会更像同一个基础能力的延伸，而不是互不相关的名词。

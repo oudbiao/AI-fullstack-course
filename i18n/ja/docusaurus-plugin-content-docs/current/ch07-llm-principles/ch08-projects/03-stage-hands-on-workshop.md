@@ -60,7 +60,7 @@ Prompt の変更は、感覚ではなく固定ケースで評価します。
 
 これがファイルの中でたどる道筋です。tokens、payload、Prompt 版、検証、手法判断、証拠へ進みます。
 
-![Prompt payload と検証ループ図](/img/course/ch07-hands-on-payload-validation-loop-ja.webp)
+![Prompt ペイロード と検証ループ図](/img/course/ch07-hands-on-payload-validation-loop-ja.webp)
 
 モデル風の回答は、プログラムが信頼する前に parser、field check、type check を通ります。
 
@@ -386,7 +386,7 @@ ch07_workshop_evidence/README.md
 | `vector` | 小さな教材用ベクトルで、テキストが数値特徴に変わることを見る | Embedding の直感 |
 | `v1_goal_only` | 回答は親切そうでも、プログラムは解析できない | 曖昧な Prompt と不安定なインターフェース |
 | `v2_json_contract` | JSON は役立つが、フィールド漏れや enum ミスで流れが壊れる | 構造化出力の検証 |
-| `v3_json_with_boundary` | 許可値、型、レビュー規則まで書くとテスト可能になる | Prompt 反復と schema 設計 |
+| `v3_json_with_boundary` | 許可値、型、レビュー規則まで書くとテスト可能になる | Prompt 反復と スキーマ 設計 |
 | `solution_route` | 問題ごとに最初の一手が違う | Prompt、RAG、構造化出力、ファインチューニングの境界 |
 | `ch07_workshop_evidence` | 実行結果が確認、比較、共有できるファイルとして残る | 再現可能なプロジェクト証拠 |
 
@@ -487,7 +487,7 @@ ls ch07_workshop_evidence
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 workshop_output: terminal result saved

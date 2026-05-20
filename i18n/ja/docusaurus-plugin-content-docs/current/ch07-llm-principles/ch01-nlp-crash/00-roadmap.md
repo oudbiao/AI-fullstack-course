@@ -56,7 +56,7 @@ unique_tokens: 5
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 text_path: raw text -> tokens -> ids -> embeddings

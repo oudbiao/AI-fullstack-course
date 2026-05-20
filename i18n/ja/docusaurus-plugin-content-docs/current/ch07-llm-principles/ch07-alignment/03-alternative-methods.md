@@ -444,7 +444,7 @@ AI feedback は安いですが、完全に無料ではありません。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 method: DPO, constitutional revision, RLAIF, or rejection sampling

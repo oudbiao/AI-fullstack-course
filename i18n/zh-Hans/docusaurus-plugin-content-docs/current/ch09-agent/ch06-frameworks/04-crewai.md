@@ -228,15 +228,15 @@ review  : {'approved': True, 'comment': '关键信息较完整'}
 看起来像：
 
 - researcher
-- writer
-- reviewer
+- 撰写者
+- 审核者
 
 很清楚，但真正上线时你仍然要处理：
 
 - 超时
 - 重试
 - 日志
-- trace
+- 追踪
 - 权限
 
 所以它更像一种“表达方式”和“组织方式”，而不是万能解法。

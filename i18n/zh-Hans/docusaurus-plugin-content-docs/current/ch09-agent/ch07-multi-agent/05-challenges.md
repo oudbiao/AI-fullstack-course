@@ -58,9 +58,9 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 
 只要任务边界不够清楚，就容易出现：
 
-- planner 派了一次
-- worker 又自己再检索一次
-- reviewer 还重复做了同样的检查
+- 规划者派了一次
+- 执行者又自己再检索一次
+- 审核者还重复做了同样的检查
 
 ### 一个最小示例
 
@@ -195,8 +195,8 @@ print(results)
 最简单也最常见的规则有：
 
 - 置信度优先
-- reviewer 最终裁决
-- supervisor 最终裁决
+- 审核者最终裁决
+- 监督者最终裁决
 - 保守优先（高风险任务常用）
 
 例如一个保守优先版本：
@@ -272,7 +272,7 @@ total_latency_ms = 2500
 
 - 这一步真的值得保留吗？
 - 能不能合并两个角色？
-- 能不能只在高风险任务上触发 reviewer？
+- 能不能只在高风险任务上触发审核者？
 
 ---
 
@@ -293,7 +293,7 @@ total_latency_ms = 2500
 - action
 - input summary
 - output summary
-- latency
+- 延迟
 
 一个最小 trace 示例：
 
@@ -326,13 +326,13 @@ for item in trace:
 
 本来：
 
-- planner 负责拆任务
-- writer 负责写答案
+- 规划者负责拆任务
+- 撰写者负责写答案
 
 但系统慢慢变成：
 
-- planner 也开始检索
-- writer 也开始判断任务优先级
+- 规划者也开始检索
+- 撰写者也开始判断任务优先级
 
 最后每个角色都越来越像“全能 Agent”。
 
@@ -416,7 +416,7 @@ eval_action: compare multi-agent result against single-agent baseline
 
 ## 练习
 
-1. 给本节的冲突解决逻辑再设计一个“reviewer 拍板”的版本。
+1. 给本节的冲突解决逻辑再设计一个“审核者拍板”的版本。
 2. 想一想：如果一个多 Agent 系统总是重复检索，你会优先改任务分配、通信协议还是共享状态？
-3. 设计一份你自己的多 Agent trace 结构，至少包含 `task_id`、`agent`、`action`、`latency_ms`。
+3. 设计一份你自己的多 Agent 追踪 结构，至少包含 `task_id`、`agent`、`action`、`latency_ms`。
 4. 用自己的话解释：为什么多 Agent 系统出问题时，很多时候不是“模型太弱”，而是“系统边界不清”？

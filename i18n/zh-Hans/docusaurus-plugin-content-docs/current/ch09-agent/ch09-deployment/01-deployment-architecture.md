@@ -32,7 +32,7 @@ keywords: [deployment architecture, agent architecture, api gateway, orchestrato
 - 理解 Agent 部署架构的核心模块分层
 - 理解为什么“模型服务”只是其中一层
 - 通过可运行示例掌握请求在架构中的流转
-- 建立从 demo 到生产系统的整体视角
+- 建立从演示到生产系统的整体视角
 
 ---
 
@@ -98,7 +98,7 @@ flowchart LR
 负责：
 
 - 指标
-- trace
+- 追踪
 - 错误告警
 
 ### 一个更适合新人的总类比
@@ -159,7 +159,7 @@ flowchart LR
 2. 编排层选择工具
 3. 执行层调用工具
 4. 存储层记录状态
-5. 观测层打 trace
+5. 观测层打 追踪
 
 ```python
 def gateway(request):
@@ -284,14 +284,14 @@ for item in trace:
 
 ```mermaid
 flowchart LR
-    A["Client / Frontend"] --> B["API Gateway"]
-    B --> C["Agent Orchestrator"]
-    C --> D["Model Service"]
-    C --> E["Tool Executor"]
-    C --> F["Queue / Worker"]
-    C --> G["State Store"]
-    C --> H["Trace / Metrics"]
-    E --> I["External APIs / DB / Search"]
+    A["客户端 / 前端"] --> B["API 网关"]
+    B --> C["Agent 编排器"]
+    C --> D["模型服务"]
+    C --> E["工具执行器"]
+    C --> F["队列 / Worker"]
+    C --> G["状态存储"]
+    C --> H["追踪 / 指标"]
+    E --> I["外部 API / 数据库 / 搜索"]
 ```
 
 这张图里的关键点是：
@@ -302,7 +302,7 @@ flowchart LR
 
 ---
 
-## 什么时候需要队列和异步 worker？
+## 什么时候需要队列和异步 工作进程？
 
 ### 长任务
 
@@ -339,8 +339,8 @@ flowchart LR
 
 1. 先分清接入、编排、执行三层
 2. 先把状态写入点想清楚
-3. 先把 trace 和 metrics 补上
-4. 最后再决定是否真的要引入队列和异步 worker
+3. 先把 追踪 和 指标 补上
+4. 最后再决定是否真的要引入队列和异步 工作进程
 
 这样会比一开始就上很多中间件更容易把系统主线立住。
 
@@ -365,7 +365,7 @@ flowchart LR
 - 什么时候写
 - 谁来恢复
 
-### 误区三：上线后再补 trace 和 metrics
+### 误区三：上线后再补 追踪 和 指标
 
 没有观测，出了问题几乎只能靠猜。
 
@@ -380,7 +380,7 @@ flowchart LR
 1. 请求是怎么穿过各层的
 2. 哪一层负责决策，哪一层负责执行
 3. 状态在哪写、为什么写
-4. 出错时 trace 怎样帮助你定位问题
+4. 出错时 追踪 怎样帮助你定位问题
 
 这样别人会更容易看出：
 

@@ -1,27 +1,27 @@
 ---
-title: "9.5.1 MCP ロードマップ：Server、Client、Capability"
+title: "9.5.1 MCP ロードマップ：サーバー、クライアント、機能"
 sidebar_position: 0
-description: "MCP の短い実践ロードマップ：protocol layer、Server/Client の責務、tools、resources、prompts、安全な ecosystem integration を理解する。"
-keywords: [MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server]
+description: "MCP の短い実践ロードマップ：プロトコル層、サーバー／クライアントの責務、ツール、リソース、プロンプト、安全なエコシステム統合を理解する。"
+keywords: [MCP ガイド, Model Context Protocol, Agent ツールエコシステム, MCP Server]
 ---
 
-# 9.5.1 MCP ロードマップ：Server、Client、Capability
+# 9.5.1 MCP ロードマップ：サーバー、クライアント、機能
 
-MCP は、tools、resources、prompt templates をより標準的に model applications へ接続する protocol layer です。Agent や tools を置き換えるものではなく、capabilities を一貫して expose/use しやすくします。
+MCP は、ツール、リソース、プロンプトテンプレートをより標準的にモデルアプリケーションへ接続するプロトコル層です。Agent やツールを置き換えるものではなく、機能を一貫して公開・利用しやすくします。
 
-## まず MCP boundary を見る
+## まず MCP の境界を見る
 
-![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-ja.webp)
+![MCP Host Client Server アーキテクチャ図](/img/course/mcp-host-client-server-ja.webp)
 
 ![MCP 章の学習順序図](/img/course/ch09-mcp-chapter-flow-ja.webp)
 
-![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-ja.webp)
+![MCP 機能アクセス橋渡し図](/img/course/ch09-mcp-capability-bridge-ja.webp)
 
-Function Calling は structured calls に注目します。MCP は external capabilities が protocol を通じて discovered、described、called、governed される方法に注目します。
+Function Calling は構造化された呼び出しに注目します。MCP は外部機能がプロトコルを通じて発見、記述、呼び出し、管理される方法に注目します。
 
-## Capability registry check を動かす
+## 機能登録チェックを動かす
 
-本物の MCP Server を実装する前に、何を expose し、Client が何を call できるか列挙します。
+本物の MCP サーバーを実装する前に、何を公開し、クライアントが何を呼び出せるか列挙します。
 
 ```python
 server = {
@@ -45,21 +45,21 @@ can_call: True
 boundary: server exposes, client calls
 ```
 
-boundary が曖昧だと、permissions と debugging も曖昧になります。
+境界が曖昧だと、権限とデバッグも曖昧になります。
 
 ## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| 1 | MCP concept | protocol layer が integration の混乱を減らす理由を説明する |
-| 2 | MCP architecture | Host、Client、Server、tools、resources、prompts を区別する |
-| 3 | Server development | 1 つの capability を明確な input、output、errors で包む |
-| 4 | Client integration | Server capabilities を安全に discover/call する |
-| 5 | Ecosystem | MCP を IDE、database、browser、knowledge base、Agent につなげる |
+| 1 | MCP の概念 | プロトコル層が統合の混乱を減らす理由を説明する |
+| 2 | MCP アーキテクチャ | Host、Client、Server、tools、resources、prompts を区別する |
+| 3 | サーバー開発 | 1 つの機能を明確な入力、出力、エラーで包む |
+| 4 | クライアント統合 | サーバー機能を安全に発見し、呼び出す |
+| 5 | エコシステム | MCP を IDE、データベース、ブラウザ、知識ベース、Agent につなげる |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 capability: resource, prompt, or tool exposed by server
@@ -71,6 +71,6 @@ integration_action: validate server contract before adding autonomy
 
 ## 合格ライン
 
-Host-Client-Server 関係を描き、Server が何を expose し、Client が何を call し、permissions がどこで checked されるか説明できれば、この章は合格です。
+Host-Client-Server 関係を描き、サーバーが何を公開し、クライアントが何を呼び出し、権限がどこで確認されるか説明できれば、この章は合格です。
 
-出口ミニプロジェクトは course-materials MCP Server design です：1 つの search tool、1 つの resource URI pattern、1 つの prompt template、1 つの failure-handling rule を含めます。
+出口ミニプロジェクトは「course-materials MCP サーバー設計」です：1 つの検索ツール、1 つのリソース URI パターン、1 つのプロンプトテンプレート、1 つの失敗処理ルールを含めます。

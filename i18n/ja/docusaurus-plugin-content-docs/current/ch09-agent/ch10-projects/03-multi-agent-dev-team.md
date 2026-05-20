@@ -34,10 +34,10 @@ keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 
 とても安定した最小ループには、普通は次の4つだけあれば十分です。
 
-- プランナー（planner）
-- 実装担当（coder）
-- レビュー担当（reviewer）
-- テスト担当（tester）
+- プランナー
+- 実装担当（コーダー）
+- レビュー担当
+- テスト担当
 
 この4種類の役割があれば、次の流れを十分に示せます。
 
@@ -194,7 +194,7 @@ ReviewNote(approved=True, issues=[])
 TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ```
 
-![マルチ Agent 開発チームの artifact trace 結果図](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map-ja.webp)
+![マルチ Agent 開発チームの artifact トレース 結果図](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map-ja.webp)
 
 :::tip 結果の読み方
 出力を artifact chain として読みます。`TaskPlan` が目標と受け入れ条件を定義し、`Patch` が実装とテストファイルを変え、`ReviewNote` がゲートになり、`TestReport` が最後の証拠になります。
@@ -208,7 +208,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 2. 明確なアーティファクトの引き継ぎ
 3. レビューとテストにもとづくフィードバックループ
 
-### reviewer が通らないのに tester が続けないほうがいいのはなぜ？
+### レビュー担当が承認しないのにテスト担当が続けないほうがいいのはなぜ？
 
 これは、マルチ Agent システムが「みんなが並行で好きにやる」ものではなく、  
 次のことをきちんと守る必要があるからです。
@@ -226,7 +226,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 
 ## 作品レベルのプロジェクトで本当に見せるべきものは？
 
-### 1本の完全なタスク trace
+### 1本の完全なタスク トレース
 
 たとえば次のような流れです。
 
@@ -241,9 +241,9 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 これは非常に説得力があります。  
 たとえば：
 
-- reviewer が差し戻す
-- coder が再修正する
-- tester が再度検証する
+- レビュー担当が差し戻す
+- コーダー が再修正する
+- テスト担当が再度検証する
 
 ### はっきりした役割の境界
 
@@ -278,7 +278,7 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 project_goal: what the agent should accomplish and what it must not do
@@ -314,5 +314,5 @@ failure_log: one failed or unsafe run with root cause
 
 1. ワークフローに `ops_agent` を追加して、どの段階に接続すべきか考えてみましょう。
 2. 考えてみましょう：なぜマルチ Agent プロジェクトでは「統一されたアーティファクト形式」が「役割が会話できること」より大事なのか？
-3. reviewer が patch をよく差し戻す場合、どの層を優先して改善すべきでしょうか？
-4. このプロジェクトをデモページにするなら、いちばん見せたい完全な trace はどれですか？
+3. レビュー担当が patch をよく差し戻す場合、どの層を優先して改善すべきでしょうか？
+4. このプロジェクトをデモページにするなら、いちばん見せたい完全な トレース はどれですか？

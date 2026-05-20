@@ -51,9 +51,9 @@ keywords: [finetuning, sft, dataset formatting, training plan, validation, llmop
 
 如果这一步含糊，后面所有数据和指标都会跟着飘。
 
-### 先做 baseline，再谈微调
+### 先做基线，再谈微调
 
-在训练前，你最好先用下面几种方式跑出 baseline：
+在训练前，你最好先用下面几种方式跑出基线：
 
 - 纯 Prompt
 - Prompt + 结构化输出
@@ -63,8 +63,8 @@ keywords: [finetuning, sft, dataset formatting, training plan, validation, llmop
 原因很现实：
 
 - 如果不用微调就能解决，别把系统复杂度白白抬高
-- 如果 baseline 已经很强，微调收益可能不大
-- 如果 baseline 很差，你反而更容易看出微调到底改善了什么
+- 如果基线已经很强，微调收益可能不大
+- 如果基线很差，你反而更容易看出微调到底改善了什么
 
 ### 先决定“训练样本的基本单位”
 
@@ -266,7 +266,7 @@ first train example:
 ![微调工程闭环漫画](/img/course/ch07-finetuning-engineering-loop.webp)
 
 :::tip 读图提示
-把这张图当成一条工程流水线，而不是一个“训练魔法按钮”：健康的微调项目先定义任务和 baseline，再准备无泄漏数据，训练时监控指标，上线时做灰度和回滚，最后把失败样本变成下一轮数据。
+把这张图当成一条工程流水线，而不是一个“训练魔法按钮”：健康的微调项目先定义任务和基线，再准备无泄漏数据，训练时监控指标，上线时做灰度和回滚，最后把失败样本变成下一轮数据。
 :::
 
 ---
@@ -346,7 +346,7 @@ print(build_loss_mask(messages))
 很多人开训时才发现：
 
 - batch 太小
-- steps 太少
+- 步数太少
 - warmup 太怪
 - checkpoint 存太密或太稀
 
@@ -440,12 +440,12 @@ best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 
 | 术语 | 含义 | 为什么影响项目 |
 |---|---|---|
-| Micro batch size | 单个设备一次小型前向/反向计算处理的样本数 | 主要受 GPU 显存限制 |
-| Gradient accumulation | 多个 micro batch 的梯度先累积，再做一次优化器更新 | 显存有限时，可以模拟更大的 batch |
-| Effective batch size | `micro_batch_size * gradient_accumulation * GPU 数量` | 会影响学习率选择和梯度稳定性 |
-| Warmup steps | 训练初期学习率逐步升高的步数 | 降低训练刚开始时的不稳定 |
-| Checkpoint | 某个训练步保存下来的模型状态 | 方便比较版本、继续训练或回滚 |
-| Canary traffic | 先把少量真实流量打到新模型上 | 全量发布前降低上线风险 |
+| 微批大小（Micro batch size） | 单个设备一次小型前向/反向计算处理的样本数 | 主要受 GPU 显存限制 |
+| 梯度累积（Gradient accumulation） | 多个 micro batch 的梯度先累积，再做一次优化器更新 | 显存有限时，可以模拟更大的 batch |
+| 有效批大小（Effective batch size） | `micro_batch_size * gradient_accumulation * GPU 数量` | 会影响学习率选择和梯度稳定性 |
+| 预热步数 | 训练初期学习率逐步升高的步数 | 降低训练刚开始时的不稳定 |
+| 检查点（Checkpoint） | 某个训练步保存下来的模型状态 | 方便比较版本、继续训练或回滚 |
+| 灰度流量（Canary traffic） | 先把少量真实流量打到新模型上 | 全量发布前降低上线风险 |
 
 ---
 
@@ -520,7 +520,7 @@ best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 
 1. 明确任务
 2. 准备数据
-3. 跑 baseline
+3. 跑 基线
 4. 开训与验证
 5. 灰度上线
 6. 收集失败样本

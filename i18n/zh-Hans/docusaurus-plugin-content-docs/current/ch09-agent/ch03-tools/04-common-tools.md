@@ -68,7 +68,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 特点：
 
-- 输入通常是 query
+- 输入通常是 查询
 - 输出通常是一组候选结果
 
 ### 计算类
@@ -194,7 +194,7 @@ dict_keys(['search_docs', 'calculator', 'get_user_status'])
 
 因为后面你会需要：
 
-- 统一描述 schema
+- 统一描述 结构约束
 - 统一做权限控制
 - 统一打日志
 - 统一调度和统计
@@ -255,7 +255,7 @@ for call in calls:
 
 重点关注：
 
-- query 是否改写
+- 查询 是否改写
 - 返回多少条结果
 - 结果是否要 rerank
 
@@ -396,7 +396,7 @@ print(refund_eligibility_agent(2))
 
 ## 工具集成最常见的失败点
 
-### schema 对不上
+### 结构约束 对不上
 
 例如：
 

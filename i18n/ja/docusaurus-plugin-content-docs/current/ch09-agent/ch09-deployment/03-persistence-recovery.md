@@ -330,7 +330,7 @@ summary だけを保存して、次の情報を保存していないとします
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 runtime: queues, workers, state store, tool services, and model endpoint

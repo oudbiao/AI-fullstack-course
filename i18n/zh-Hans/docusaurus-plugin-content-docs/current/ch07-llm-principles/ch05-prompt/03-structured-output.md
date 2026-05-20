@@ -22,7 +22,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 - 学会设计一个简单但清晰的 JSON 输出格式
 - 理解字段设计、约束说明和校验逻辑
 - 看懂一个从 Prompt 到 JSON 解析的最小闭环
-- 分清“结构化输出”和“Function Calling”的区别与联系
+- 分清“结构化输出”和“函数调用”的区别与联系
 
 ---
 
@@ -92,7 +92,7 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 所以在 LLM 应用里，JSON 通常是结构化输出的第一选择。
 
-### 写 schema 前先理解几个术语
+### 写结构约束前先理解几个术语
 
 | 术语 | 直白解释 | 实际作用 |
 |---|---|---|
@@ -338,7 +338,7 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 
 ---
 
-## 八、结构化输出和 Function Calling 有什么关系？
+## 八、结构化输出和 函数调用 有什么关系？
 
 ### 相同点
 
@@ -351,20 +351,20 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 粗略地说：
 
 - **结构化输出**：更广泛，重点是“结果格式稳定”
-- **函数调用（Function Calling）**：更进一步，重点是“输出的是工具调用意图”
+- **函数调用（函数调用）**：更进一步，重点是“输出的是工具调用意图”
 
 例如：
 
 - 结构化输出：输出分类结果 JSON
-- 函数调用（Function Calling）：输出 `{name, arguments}` 去调工具
+- 函数调用（函数调用）：输出 `{name, arguments}` 去调工具
 
 所以可以理解成：
 
-> Function Calling 是结构化输出的一种更偏执行型形态。
+> 函数调用 是结构化输出的一种更偏执行型形态。
 
 ---
 
-## 九、如果你的目标是生成固定格式 Word / PPT，schema 应该怎么设计？
+## 九、如果你的目标是生成固定格式 Word / PPT，结构约束 应该怎么设计？
 
 如果你的目标是：
 

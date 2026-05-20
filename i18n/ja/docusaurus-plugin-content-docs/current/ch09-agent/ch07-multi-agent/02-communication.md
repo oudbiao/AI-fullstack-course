@@ -243,10 +243,10 @@ bus.publish("task_assignment", {
 
 複数の Agent が同じタスクを中心に動くとします。たとえば：
 
-- planner が計画を書く
-- retriever が資料を集める
-- writer が下書きを作る
-- reviewer がレビューを書く
+- プランナーが計画を書く
+- 検索担当が資料を集める
+- 執筆担当が下書きを作る
+- レビュー担当がレビューを書く
 
 このような場合、多くの情報を共有ワークスペースに置けます。
 
@@ -388,7 +388,7 @@ print(shared_state)
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 roles: owner, worker, reviewer, or specialist responsibilities

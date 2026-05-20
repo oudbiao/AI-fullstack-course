@@ -48,14 +48,14 @@ for row in mask:
 | 順番 | 読む | まず見ること |
 |---|---|---|
 | 1 | [7.3.2 アーキテクチャ復習](./01-architecture-review.md) | attention、残差、正規化 |
-| 2 | [7.3.3 現代 Decoder Block](./02-modern-decoder-block.md) | decoder-only LLM block |
-| 3 | [7.3.4 モデル変種](./02-model-variants.md) | encoder、decoder、encoder-decoder |
-| 4 | [7.3.5 効率的 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、長い context |
+| 2 | [7.3.3 現代デコーダーブロック](./02-modern-decoder-block.md) | デコーダーのみの LLM ブロック |
+| 3 | [7.3.4 モデル変種](./02-model-variants.md) | エンコーダー、デコーダー、エンコーダー-デコーダー |
+| 4 | [7.3.5 効率的 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、長い コンテキスト |
 | 5 | [7.3.6 スケールと計算](./04-scale-computation.md) | コスト、遅延、メモリ |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 block_contract: [batch, seq, d_model] in and out

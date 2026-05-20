@@ -1,27 +1,27 @@
 ---
-title: "9.7.1 Multi-Agent ロードマップ：Roles、Messages、Owner"
+title: "9.7.1 マルチ Agent ロードマップ：役割、メッセージ、責任者"
 sidebar_position: 0
-description: "Multi-Agent systems の短い実践ロードマップ：必要なときだけ roles を分け、message contract を定義し、coordination cost を抑え、final owner を残す。"
-keywords: [Multi-Agent guide, collaborative systems, Agent communication, Agent coordination, multi-agent]
+description: "マルチ Agent システムの短い実践ロードマップ：必要なときだけ役割を分け、メッセージ契約を定義し、調整コストを抑え、最終責任者を残す。"
+keywords: [Multi-Agent ガイド, 協調システム, Agent 通信, Agent 調整, multi-agent]
 ---
 
-# 9.7.1 Multi-Agent ロードマップ：Roles、Messages、Owner
+# 9.7.1 マルチ Agent ロードマップ：役割、メッセージ、責任者
 
-Multi-Agent は役割分担の仕組みであり、複数の chatbot を並べることではありません。role separation、parallel work、cross-checking、specialist collaboration の利益が coordination cost を上回るときだけ使います。
+マルチ Agent は役割分担の仕組みであり、複数のチャットボットを並べることではありません。役割分離、並列作業、相互チェック、専門家協調の利益が調整コストを上回るときだけ使います。
 
-## まず collaboration cost を見る
+## まず協調コストを見る
 
-![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-ja.webp)
+![マルチ Agent 協調メッセージフロー図](/img/course/multi-agent-message-flow-ja.webp)
 
-![Multi-Agent 章の学習順序図](/img/course/ch09-multi-agent-chapter-flow-ja.webp)
+![マルチ Agent 章の学習順序図](/img/course/ch09-multi-agent-chapter-flow-ja.webp)
 
-![Multi-Agent collaboration and coordination map](/img/course/ch09-multi-agent-coordination-map-ja.webp)
+![マルチ Agent 協調と調整の図](/img/course/ch09-multi-agent-coordination-map-ja.webp)
 
-重要な問いは、分業の利益が messages、repeated context、conflicts、final merge のコストを上回るかです。
+重要な問いは、分業の利益がメッセージ、重複コンテキスト、衝突、最終統合のコストを上回るかです。
 
-## Role boundary check を動かす
+## 役割境界チェックを動かす
 
-各 role には 1 つの責務と 1 つの output が必要です。final decision の owner を 1 人残します。
+各役割には 1 つの責務と 1 つの出力が必要です。最終判断の責任者を 1 人残します。
 
 ```python
 agents = {
@@ -48,21 +48,21 @@ reviewer: check beginner clarity
 final_owner: reviewer
 ```
 
-2 つの roles が同じ output を出すなら merge します。final owner がいないと system は drift します。
+2 つの役割が同じ出力を出すなら統合します。最終責任者がいないとシステムは迷走します。
 
 ## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| 1 | Multi-Agent を使う時 | single Agent のほうがよい時を書く |
-| 2 | Common patterns | supervisor-executor、pipeline、debate、expert committee を比較する |
-| 3 | Communication | message format、shared state、handoff rule を定義する |
-| 4 | Coordination | owner、queue、conflict rule、aggregation を追跡する |
-| 5 | Practice and risks | cost、loops、duplicated work、role overreach を測る |
+| 1 | マルチ Agent を使う時 | 単一 Agent のほうがよい時を書く |
+| 2 | よくあるパターン | supervisor-executor、pipeline、debate、expert committee を比較する |
+| 3 | コミュニケーション | メッセージ形式、共有状態、交接ルールを定義する |
+| 4 | 調整 | 責任者、キュー、衝突ルール、集約を追跡する |
+| 5 | 実践とリスク | コスト、ループ、重複作業、役割越権を測る |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 roles: owner, worker, reviewer, or specialist responsibilities
@@ -74,4 +74,4 @@ eval_action: compare multi-agent result against single-agent baseline
 
 ## 合格ライン
 
-2〜3 Agents の demo が traceable inputs、outputs、handoffs、final ownership を持ち、single Agent より良い理由を説明できれば、この章は合格です。
+2〜3 体の Agent のデモが追跡可能な入力、出力、交接、最終責任を持ち、単一 Agent より良い理由を説明できれば、この章は合格です。

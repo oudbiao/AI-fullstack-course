@@ -261,7 +261,7 @@ flowchart TD
 - [8.3.6 対話システムとマルチターン管理](../ch03-app-dev/05-dialog-system.md)
 - [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
 
-## 定型フォーマットの課件に必要な最小 schema は何か？
+## 定型フォーマットの課件に必要な最小 スキーマ は何か？
 
 このプロジェクトで最初にしっかり決めるべきなのは、モデル名ではなく、  
 「課件がどんな形をしているか」です。
@@ -328,7 +328,7 @@ def generate_courseware(topic):
 1. 内部知識を読む
 2. 外部補足を調べる
 3. 統合して並べ替える
-4. 固定 schema を作る
+4. 固定 スキーマ を作る
 5. 文書を出力する
 
 ![課件生成アシスタントの生産ライン図](/img/course/ch08-courseware-assistant-production-line-map-ja.webp)
@@ -374,7 +374,7 @@ def generate_courseware(topic):
 1. いきなりモデルに自由に全文を書かせる
 2. 内部資料と外部資料の優先順位を分けない
 3. 出典を保存せず、後から追跡できない
-4. 固定 schema がなく、テンプレート描画層が壊れやすい
+4. 固定 スキーマ がなく、テンプレート描画層が壊れやすい
 5. 生成結果が悪いときに、検索が悪いのかテンプレートが悪いのか分からない
 
 そのため、より安定した開発の考え方は次の通りです。
@@ -413,20 +413,20 @@ def generate_courseware(topic):
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 project_goal: user task and business boundary
 baseline: simplest prompt/RAG/app version first
 evaluation: fixed cases, retrieval evidence, answer quality, and citation check
 failure_log: at least one failed case with likely cause
-deliverable: README, run command, screenshots/logs, next step
+成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```
 
 ## まとめ
 
 - このプロジェクトの核心は、「文書知識 -> 構造化された課件 -> テンプレート出力」という完全な流れです
-- schema と出典戦略は、最初にどのモデルを選ぶかより大事なことが多いです
+- スキーマ と出典戦略は、最初にどのモデルを選ぶかより大事なことが多いです
 - 最初は内部資料版のワークフローを安定させてから、外部資料や Agent 化を足すほうが現実的です
 
 ## この節で持ち帰るべきこと

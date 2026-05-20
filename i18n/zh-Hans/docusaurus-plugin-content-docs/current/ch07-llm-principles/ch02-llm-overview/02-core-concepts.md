@@ -22,7 +22,7 @@ context -> logits -> probabilities -> choose next token -> append token -> repea
 | 概念 | 实操含义 |
 |---|---|
 | token | 模型读写的基本单位 |
-| context window | system prompt、历史、证据、问题和输出共享的 token 预算 |
+| 上下文窗口（上下文窗口） | system prompt、历史、证据、问题和输出共享的 token 预算 |
 | embedding | token 的向量表示 |
 | attention | 按相关性加权混合 token 信息 |
 | logits | 变成概率之前的原始分数 |
@@ -68,9 +68,9 @@ Most likely next token: capital
 
 真实模型会在很大的词表上做这件事。原则一样：输出分数，转成概率，再选择下一个 token。
 
-## Context Window 是预算
+## 上下文窗口是预算
 
-![Context window 信息预算图](/img/course/ch07-context-window-budget-map.webp)
+![上下文窗口信息预算图](/img/course/ch07-context-window-budget-map.webp)
 
 上下文窗口不是无限记忆，而是一段固定 token 预算：
 
@@ -85,7 +85,7 @@ system prompt + chat history + retrieved evidence + user question + answer space
 - 聊天历史不再有帮助时要总结或裁剪；
 - 更大上下文只有在放进正确信息时才有用。
 
-### Context 是工作桌，不是知识库
+### 上下文是工作桌，不是知识库
 
 一个有用的类比是工作桌。更大的桌子能让你在模型面前摊开更多资料，但它不能保证正确资料一定在桌上，也不能保证资料本身正确，或模型一定会在合适时刻使用它。
 
@@ -93,7 +93,7 @@ system prompt + chat history + retrieved evidence + user question + answer space
 
 | 误解 | 更好的工程视角 |
 |---|---|
-| “上下文窗口很大，所以模型记得所有东西。” | Context 只包含你这次请求里放进去的内容。 |
+| “上下文窗口很大，所以模型记得所有东西。” | 上下文只包含你这次请求里放进去的内容。 |
 | “把整篇文档都塞进 prompt。” | 先选相关部分，并给推理和输出留空间。 |
 | “答案错了，就换更大上下文。” | 先检查 retrieval 质量、证据位置和输出校验。 |
 | “聊天历史就是记忆。” | 历史只是之前的文本，除非你有意总结、裁剪或存储。 |
@@ -221,7 +221,7 @@ compare relevance -> normalize weights -> mix value vectors
 ## 避免误解
 
 - token 不总是一个词或一个字。
-- 更大 context window 不等于更好记忆。
+- 更大上下文窗口不等于更好记忆。
 - temperature 控制多样性，不控制真实性。
 - attention 权重能帮助理解，但不是推理过程的完整解释。
 - 预训练给能力，产品可靠性仍然需要数据、评估和控制。

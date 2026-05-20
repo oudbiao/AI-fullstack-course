@@ -362,7 +362,7 @@ Agent の推論層は、単独で働くことが多いわけではなく、
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 task_goal: what the agent is trying to solve

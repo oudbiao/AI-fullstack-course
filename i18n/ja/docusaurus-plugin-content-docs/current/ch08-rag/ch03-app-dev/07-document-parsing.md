@@ -194,7 +194,7 @@ for chunk in chunks:
 
 と分かるからです。
 
-## 実際のプロジェクトに近い解析結果の schema
+## 実際のプロジェクトに近い解析結果の スキーマ
 
 初めてこの種のシステムを作るときに抜けやすいのは、次の3つです。
 
@@ -431,7 +431,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 この順番の利点は、
 
-- 先に構造と schema を安定させられる
+- 先に構造と スキーマ を安定させられる
 - 最初から OCR の認識問題に足を取られない
 
 ことです。
@@ -470,7 +470,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 request: input, state, tools/context, and expected output contract
@@ -483,7 +483,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 ## まとめ
 
 - 文書解析の本当の目的は、「ファイルを構造化された知識オブジェクトに変えること」
-- schema 設計によって、後の検索・引用・教材生成が安定するかどうかが決まる
+- スキーマ 設計によって、後の検索・引用・教材生成が安定するかどうかが決まる
 - 最初は `DOCX / テキスト PDF / 例題抽出のルール版` を先に動かし、その後で拡張するほうが現実的
 
 ## この節で一番持ち帰ってほしいこと

@@ -258,7 +258,7 @@ for item in chunks_with_meta:
 
 > **分割は固定のテキスト操作ではなく、その先の生成目的のためにある。**
 
-![教材知識ブロックのメタデータ schema 図](/img/course/ch08-courseware-chunk-metadata-schema-map-ja.webp)
+![教材知識ブロックのメタデータ スキーマ 図](/img/course/ch08-courseware-chunk-metadata-schema-map-ja.webp)
 
 :::tip 読み方のヒント
 教材生成で一番困るのは、「文字は見つかったのに、どこに入れればいいかわからない」ことです。図を見るときは、`topic`、`content_type`、`source_origin`、`page_or_slide` の 4 つに注目してください。これらが、後で知識点、例題、練習問題として安定して組み立てられるかを左右します。
@@ -488,7 +488,7 @@ for chunk in chunks_with_meta:
 | 戦略 | パラメータ | 長所 | 表面化した問題 | 残すか |
 |---|---|---|---|---|
 | 文ごとに分ける | 1 文 1 chunk | シンプルで、検索精度が高い | 証拠が不完全になりやすい | 短い FAQ のみ向く |
-| スライディングウィンドウ | 2～4 文、overlap 1 | 文脈が切れにくい | chunk 数が増える | baseline に向く |
+| スライディングウィンドウ | 2～4 文、overlap 1 | 文脈が切れにくい | chunk 数が増える | ベースライン に向く |
 | 見出し階層で分ける | H2/H3 配下を 1 ブロック | 構造を残せる | 長い章は大きくなりがち | 教材や文書に向く |
 | 内容タイプで分ける | 概念 / 例題 / 練習を分ける | 教材生成に向く | 解析やラベル付けが必要 | 構造化プロジェクトに向く |
 
@@ -496,7 +496,7 @@ for chunk in chunks_with_meta:
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 query: one user question or test case

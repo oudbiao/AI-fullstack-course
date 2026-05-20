@@ -112,7 +112,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 下面这段代码会做一件很有代表性的事：
 
 - 给定任务依赖和持续时间
-- 在 2 个 worker 限制下做调度
+- 在 2 个 工作进程 限制下做调度
 - 输出每个时间点在跑什么
 
 这会帮助你建立高级规划最重要的直觉：
@@ -200,7 +200,7 @@ for item in timeline:
 
 1. 任务不是线性列表，而是 `deps` 图
 2. 只有依赖满足的任务才能进入 `available`
-3. worker 数量会限制并发度
+3. 工作进程 数量会限制并发度
 
 这三件事合在一起，
 就是高级规划最核心的现实约束。
@@ -218,7 +218,7 @@ for item in timeline:
 这说明高级规划不是“任务越多越能并行”，
 而要看依赖图本身。
 
-### 如果 worker 从 2 改成 1，会发生什么？
+### 如果 工作进程 从 2 改成 1，会发生什么？
 
 你会看到计划明显更长。
 这能帮助你理解：
@@ -363,7 +363,7 @@ eval_action: compare against expected result and revise the plan
 
 ## 练习
 
-1. 把示例中的 worker 数改成 `1` 和 `3`，比较时间线差异。
+1. 把示例中的 工作进程 数改成 `1` 和 `3`，比较时间线差异。
 2. 给任务图再加一个 `review_report` 节点，挂在 `draft_report` 后面，观察调度变化。
 3. 为什么说“能并行”不等于“应该并行到极致”？
 4. 想一个你熟悉的复杂任务，把它尝试画成一个依赖图。

@@ -33,7 +33,7 @@ keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framewor
 很多 LLM 应用一开始都长这样：
 
 1. 接收输入
-2. 改写 query
+2. 改写 查询
 3. 检索文档
 4. 调模型回答
 
@@ -295,7 +295,7 @@ if ...
 
 - LangChain 风格负责封装：
   - prompt
-  - retriever
+  - 检索器
   - parser
 
 - LangGraph 风格负责控制：
@@ -384,6 +384,6 @@ decision: choose framework only after the single-agent loop is clear
 ## 练习
 
 1. 画一下你自己的一个 Agent 系统，判断它更像链还是图。
-2. 把链式示例加一个“如果没找到文档就改写 query 再查一次”的逻辑，看看它会不会开始变乱。
+2. 把链式示例加一个“如果没找到文档就改写 查询 再查一次”的逻辑，看看它会不会开始变乱。
 3. 用自己的话解释：为什么图式抽象比链式抽象更适合有状态回路的系统？
 4. 想一想：在什么情况下，链式方式其实比图式方式更合适？

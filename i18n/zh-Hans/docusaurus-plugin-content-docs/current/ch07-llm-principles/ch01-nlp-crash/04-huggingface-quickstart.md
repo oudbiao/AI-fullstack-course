@@ -159,7 +159,7 @@ torch.Size([2, 6, 768])
 | `AutoTokenizer` | 根据模型仓库加载匹配的 tokenizer 类 |
 | `AutoModel` | 加载不带任务头的基础模型 |
 | `AutoModelForSequenceClassification` | 基础模型加分类头 |
-| `AutoModelForCausalLM` | 用于 next-token generation 的 decoder 类模型 |
+| `AutoModelForCausalLM` | 用于下一个 token 生成的解码器类模型 |
 | `DataCollator` | 把样本 pad 并堆成 batch |
 | `Trainer` | 封装训练循环、评估、checkpoint 和日志 |
 | `logits` | softmax 或 token 选择之前的原始分数 |

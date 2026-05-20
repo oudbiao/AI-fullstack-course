@@ -199,19 +199,19 @@ bank in river  : [0.3, 0.75, 0.4]
 | FAQ clustering | 似た質問をまとめる | 近いことは重複と同じではない |
 | Deduplication | 近似重複を探す | テンプレ文や言い換えでスコアが乱れる |
 | Classification | テキストを特徴量にする | ラベル品質と calibration は別途必要 |
-| Recommendation | user、item、query を比較する | 人気バイアスが similarity を支配することがある |
+| Recommendation | user、item、クエリ を比較する | 人気バイアスが similarity を支配することがある |
 
 ## デバッグチェックリスト
 
 - ライブラリが自動でしない場合、cosine 前に vector を normalize する。
 - top-1 だけでなく top-k スコアを出す。差が小さいなら retrieval は不確実。
 - false positive を見る。関連語が必ず正解とは限らない。
-- 同じデータで static、sentence、contextual embedding を比較する。
+- 同じデータで static、sentence、文脈依存 embedding を比較する。
 - 多言語プロジェクトでは、言語間ペアを実測してからモデルを信頼する。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 vectors: at least three text embeddings or toy vectors
@@ -225,7 +225,7 @@ next_use: this becomes retrieval evidence in Chapter 8
 
 1. `banana` を `password` に近づけると、検索はどう壊れるか。
 2. 文書 `D recover account` を追加し、`recover` と `account` の vector を設計する。
-3. query `refund order` を作る。どの文書が 1 位になるべきか。
+3. クエリ `refund order` を作る。どの文書が 1 位になるべきか。
 4. `doctor` と `hospital` が近くても同義語ではない理由を説明する。
 5. RAG プロジェクトで embedding model が十分よいと示すには、どんな証拠を集めるか。
 

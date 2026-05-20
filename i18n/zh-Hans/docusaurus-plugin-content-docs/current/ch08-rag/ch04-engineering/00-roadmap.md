@@ -13,13 +13,13 @@ keywords: [大模型工程指南, 异步编程, API 设计, 日志监控, Docker
 
 ![大模型工程章节学习顺序图](/img/course/ch08-engineering-chapter-flow.webp)
 
-![LLMOps trace 复盘闭环图](/img/course/ch08-llmops-trace-loop.webp)
+![LLMOps 追踪 复盘闭环图](/img/course/ch08-llmops-trace-loop.webp)
 
 ![可观测性日志指标追踪图](/img/course/ch08-observability-logs-metrics-trace-map.webp)
 
 第一个工程目标很简单：当答案错了，你能解释是哪一层导致的。
 
-## 跑一个 Trace 完整性检查
+## 跑一个 追踪 完整性检查
 
 每个接近生产的大模型功能，都需要足够的 trace 字段来排查一个错误答案。
 
@@ -53,7 +53,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
 | 1 | 异步编程 | 加入超时、重试、并发限制和取消思维 |
-| 2 | API 设计 | 定义请求/响应 schema 和错误码 |
+| 2 | API 设计 | 定义请求/响应 结构约束 和错误码 |
 | 3 | 日志与监控 | 记录 Prompt 版本、检索命中、延迟、成本和失败 |
 | 4 | Docker 部署 | 用可复现运行说明打包应用 |
 

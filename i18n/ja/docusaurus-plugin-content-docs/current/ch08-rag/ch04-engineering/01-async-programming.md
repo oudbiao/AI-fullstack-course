@@ -504,7 +504,7 @@ LLM 応答: 次の情報をもとに回答してください: ナレッジベー
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 service_contract: endpoint, input schema, output schema, error schema

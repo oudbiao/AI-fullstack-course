@@ -15,7 +15,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 - 理解检索策略为什么直接决定 RAG 质量
 - 分清关键词检索、向量检索和混合检索
-- 理解 rerank、query rewrite 这些常见增强手段
+- 理解 rerank、查询改写 这些常见增强手段
 - 用一个可运行例子体验混合检索的思路
 
 ---
@@ -192,7 +192,7 @@ RAG 也是一样。
 
 ---
 
-## 五、Query Rewrite：用户问题往往不够“适合检索”
+## 五、查询改写：用户问题往往不够“适合检索”
 
 ### 用户提问不一定是好检索词
 
@@ -240,7 +240,7 @@ for q in queries:
 
 真实系统里，query rewrite 可能由 LLM 来完成。
 
-![Query Rewrite 与 Rerank 双阶段漏斗图](/img/course/ch08-rerank-query-rewrite-funnel-map.webp)
+![查询改写 与 Rerank 双阶段漏斗图](/img/course/ch08-rerank-query-rewrite-funnel-map.webp)
 
 :::tip 读图提示
 Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rerank 发生在粗召回后，负责把候选重新排准。它们一个改入口，一个改排序，不要混成同一件事。
@@ -250,7 +250,7 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 
 ## 六、还有哪些常见检索增强策略？
 
-### 多查询检索（Multi-query）
+### 多查询检索（Multi-查询）
 
 把一个问题改写成多个等价问法，再分别检索，合并结果。
 
@@ -262,7 +262,7 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 
 先检索小 chunk，再回到更大块或原文段落。
 
-### 自查询检索（Self-query retrieval）
+### 自查询检索（Self-查询 retrieval）
 
 让模型自动判断需要哪些过滤条件和检索字段。
 
@@ -283,7 +283,7 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 更要重视：
 
 - 向量检索
-- query rewrite
+- 查询改写
 - rerank
 
 ### 如果知识库结构化程度高
@@ -358,7 +358,7 @@ for hit in hits:
 
 建议先从：
 
-1. 一个 baseline
+1. 一个 基线
 2. 一个明确评估集
 3. 一次只改一个策略
 
@@ -378,7 +378,7 @@ for hit in hits:
 | 现象 | 优先调整 | 为什么 |
 |---|---|---|
 | 明确术语、报错码搜不到 | 增加关键词检索或混合检索 | 向量检索可能弱化精确词 |
-| 用户口语化问题搜不到 | query rewrite、multi-query、向量检索 | 用户表达和文档表达不一致 |
+| 用户口语化问题搜不到 | 查询改写、multi-查询、向量检索 | 用户表达和文档表达不一致 |
 | top-k 里相关内容排得靠后 | rerank | 粗召回能找到，但排序不够准 |
 | 检索结果主题对但版本错 | metadata filter | 需要按版本、日期、来源缩小范围 |
 | 答案需要跨多个片段 | parent-child retrieval 或更合理的 chunk | 小 chunk 命中但上下文不足 |
@@ -389,7 +389,7 @@ for hit in hits:
 
 | 实验 | 策略 | top-k | 是否 rerank | 结果 | 结论 |
 |---|---|---:|---|---|---|
-| baseline | 关键词 | 3 | 否 | 能命中精确词，漏掉同义问法 | 适合报错和术语 |
+| 基线 | 关键词 | 3 | 否 | 能命中精确词，漏掉同义问法 | 适合报错和术语 |
 | exp-1 | 向量 | 3 | 否 | 同义问法更好，专有词有时不准 | 需要保留关键词通道 |
 | exp-2 | 混合 | 5 | 是 | 整体最好，但延迟增加 | 可作为标准版本 |
 

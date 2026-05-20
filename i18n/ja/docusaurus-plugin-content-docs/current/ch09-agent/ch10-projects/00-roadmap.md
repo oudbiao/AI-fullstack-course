@@ -60,7 +60,7 @@ evidence: goal, trace, tools, failure, eval
 | 1 | リサーチアシスタント | 検索、引用、要約、信頼できる出力 |
 | 2 | データ分析 Agent | Python ツール呼び出し、表分析、チャート、解釈 |
 | 3 | Multi-Agent 開発チーム | 役割分担、handoff、レビューループ、merge 所有権 |
-| 4 | ハンズオンワークショップ | 最小の追跡可能な単一 Agent baseline |
+| 4 | ハンズオンワークショップ | 最小の追跡可能な単一 Agent ベースライン |
 
 プロジェクトを広げる前に、[9.10.5 実践：追跡可能な単一 Agent アシスタントを作る](./04-stage-hands-on-workshop.md) を実行します。
 
@@ -82,10 +82,10 @@ failure_log: one failed or unsafe run with root cause
 |---|---|---|
 | README | 目標、実行コマンド、依存関係、例 | アーキテクチャ、トレードオフ、コスト、安全性、ふりかえりを追加 |
 | アーキテクチャ | モデル、ツール、記憶、状態、評価、安全性 | 配置境界と人への引き継ぎを追加 |
-| ツール一覧 | 呼び出せるツール、input/output schema、失敗 | 権限ルールと sandbox メモを追加 |
+| ツール一覧 | 呼び出せるツール、input/output スキーマ、失敗 | 権限ルールと sandbox メモを追加 |
 | 実行追跡 | 計画、行動、観察、再計画、停止 | 再生可能な JSONL ログを追加 |
 | 失敗ケース | 1 件以上の実際の失敗 | 3 件の原因、修正、回帰チェックを追加 |
-| 評価セット | 固定タスクと pass/fail rules | baseline、metrics、comparison experiments を追加 |
+| 評価セット | 固定タスクと pass/fail rules | ベースライン、メトリクス、comparison experiments を追加 |
 | デプロイメモ | ローカル実行方法 | API entry、environment variables、monitoring、rollback を追加 |
 
 ## 合格ライン

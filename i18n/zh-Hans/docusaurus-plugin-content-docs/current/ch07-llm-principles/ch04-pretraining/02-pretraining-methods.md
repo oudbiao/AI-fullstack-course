@@ -342,23 +342,23 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 
 ## 五、预训练目标不是独立存在的，它和架构绑在一起
 
-### 为什么 Decoder-only 常配 Causal LM？
+### 为什么仅解码器常配 Causal LM？
 
 因为两者完全一致：
 
-- decoder 只能看过去
+- 解码器只能看过去
 - causal LM 也要求只能看过去
 
 训练和生成闭环非常自然。
 
-### 为什么 Encoder-only 常配 Masked LM？
+### 为什么仅编码器常配 Masked LM？
 
 因为 encoder 擅长双向建模。
 既然它能看全句，就很适合做：
 
 - 被 mask 位置的恢复
 
-### 为什么 Encoder-Decoder 常配去噪目标？
+### 为什么编码器-解码器常配去噪目标？
 
 因为这类结构天然适合：
 

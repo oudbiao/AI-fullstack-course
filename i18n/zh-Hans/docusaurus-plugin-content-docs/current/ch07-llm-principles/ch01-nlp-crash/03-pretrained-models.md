@@ -128,9 +128,9 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 
 | 家族 | 典型信息流 | 擅长 | 例子 |
 |---|---|---|---|
-| Encoder-only | 双向读取输入 | 分类、抽取、匹配、embedding | BERT 类模型 |
-| Decoder-only | 按因果顺序预测下一个 token | 对话、补全、代码、工具调用 | GPT/LLaMA/Qwen 类模型 |
-| Encoder-decoder | 先读输入，再生成输出 | 翻译、摘要、结构化生成 | T5/BART 类模型 |
+| 仅编码器 | 双向读取输入 | 分类、抽取、匹配、embedding | BERT 类模型 |
+| 仅解码器 | 按因果顺序预测下一个 token | 对话、补全、代码、工具调用 | GPT/LLaMA/Qwen 类模型 |
+| 编码器-解码器 | 先读输入，再生成输出 | 翻译、摘要、结构化生成 | T5/BART 类模型 |
 
 这只是第一层筛选，不是最终规则。现代系统常常会结合检索、工具和服务成本一起设计。
 

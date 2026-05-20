@@ -19,7 +19,7 @@ keywords: [scaling, parameters, flops, kv cache, context length, throughput, sca
 
 - hidden size
 - 层数
-- context length
+- 上下文长度
 - batch size
 - KV cache
 - 吞吐和延迟
@@ -55,7 +55,7 @@ keywords: [scaling, parameters, flops, kv cache, context length, throughput, sca
 - 层数不同
 - hidden size 不同
 - head 数不同
-- context length 不同
+- 上下文长度 不同
 - 是否用 GQA / MoE
 
 所以参数量不是没用，
@@ -76,7 +76,7 @@ keywords: [scaling, parameters, flops, kv cache, context length, throughput, sca
 
 ## 二、参数量大概是怎么来的？
 
-### 一个 decoder block 里，主要大头是注意力和 FFN
+### 一个解码器块里，主要大头是注意力和 FFN
 
 粗略估算时，可以先记住两块主要成本：
 
@@ -116,7 +116,7 @@ FFN 的参数量甚至会比注意力更大。
 
 下面这个脚本会估算两件现实中非常常用的东西：
 
-1. 一个 decoder-only 模型的大致参数量
+1. 一个仅解码器模型的大致参数量
 2. 推理时 KV cache 的大致占用
 
 ```python

@@ -363,7 +363,7 @@ print(audit_log("u_001", "search_docs", {"keyword": "返金"}, result))
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 tool_contract: name, description, input schema, output schema

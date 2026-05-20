@@ -60,9 +60,9 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ### 典型分工
 
-- 规划者（Planner）：拆问题
-- 研究者（Researcher）：检索资料
-- 整合者（Synthesizer）：整合结果
+- 规划者：拆问题
+- 研究者：检索资料
+- 整合者：整合结果
 
 ### 适合什么任务？
 
@@ -115,9 +115,9 @@ print(answer)
 
 分工通常是：
 
-- 撰写者（Writer）：先写初稿
-- 审核者（Reviewer）：检查问题
-- 修订者（Reviser）：按意见修订
+- 撰写者：先写初稿
+- 审核者：检查问题
+- 修订者：按意见修订
 
 ### 为什么这个模式特别常见？
 
@@ -176,10 +176,10 @@ print(final)
 
 例如：
 
-- 产品经理 / 规划者（PM / Planner）：定义需求
-- 开发者（Coder）：写实现
-- 审核者（Reviewer）：做代码检查
-- 测试者（Tester）：验证结果
+- 产品经理 / 规划者：定义需求
+- 开发者：写实现
+- 审核者：做代码检查
+- 测试者：验证结果
 
 ### 为什么这个模式在 AI coding 场景里很常见？
 
@@ -276,7 +276,7 @@ review : {'approved': True, 'comment': '信息较完整'}
 ![多 Agent 实战工作流结果图](/img/course/ch09-multi-agent-practice-trace-result-map.webp)
 
 :::tip 看职责接力，不只是看角色名
-这段 trace 的价值在于每一行回答一个问题：planner 选了什么步骤，retriever 找到了什么材料，reviewer 为什么批准这个草稿。
+这段 trace 的价值在于每一行回答一个问题：规划者选了什么步骤，检索者找到了什么材料，审核者为什么批准这个草稿。
 :::
 
 这段代码虽然很小，但已经体现了实战模式最核心的味道：

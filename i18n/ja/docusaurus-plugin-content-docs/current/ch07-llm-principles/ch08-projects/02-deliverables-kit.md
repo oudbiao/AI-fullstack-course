@@ -150,7 +150,7 @@ project/
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 folder: prompts, evals, outputs, data notes, README

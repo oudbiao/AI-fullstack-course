@@ -7,12 +7,12 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 # 9.3.9 実践：マルチツール協調 Agent
 
-![Agent 工具调用 Trace 図](/img/course/agent-tool-trace-ja.webp)
+![Agent 工具调用 トレース 図](/img/course/agent-tool-trace-ja.webp)
 
 :::tip この節の位置づけ
 前の節までで、すでに次の内容をそれぞれ学びました。
 
-- ツール schema
+- ツール スキーマ
 - 呼び出し戦略
 - よく使うツール
 - 安全性と上級パターン
@@ -225,7 +225,7 @@ answer:
 注文 ORD-1001 の現在の状態は未発送です。未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻され、通常 3〜7 営業日で着金します。 予想返金額は 314 円です。
 ```
 
-![マルチツール Agent 注文返金 trace 結果図](/img/course/ch09-multi-tool-order-refund-trace-result-map-ja.webp)
+![マルチツール Agent 注文返金 トレース 結果図](/img/course/ch09-multi-tool-order-refund-trace-result-map-ja.webp)
 
 ### このコードと前の分散サンプルとの最大の違いは何か？
 
@@ -327,7 +327,7 @@ answer:
 こうすると、システムはただ「動く」だけでなく、  
 「テストできる」ものになります。
 
-### 第4段階：trace を可視化する
+### 第4段階：トレース を可視化する
 
 ツール呼び出しの軌跡を見えるようにすると、  
 このプロジェクトは作品集のデモとしてとても使いやすくなります。
@@ -336,7 +336,7 @@ answer:
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 tool_contract: name, description, input schema, output schema
@@ -368,7 +368,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 
 マルチツールシステムでは、むしろ次を見たほうが大切です。
 
-- trace は妥当か
+- トレース は妥当か
 - ツールは本当に必要だったか
 - observation は正しく統合されたか
 

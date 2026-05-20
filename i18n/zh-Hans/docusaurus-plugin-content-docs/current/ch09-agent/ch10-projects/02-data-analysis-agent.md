@@ -124,7 +124,7 @@ print(result)
 {'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service 的客单价最高。'}
 ```
 
-![数据分析 Agent 销售 trace 结果图](/img/course/ch09-data-analysis-sales-trace-result-map.webp)
+![数据分析 Agent 销售 追踪 结果图](/img/course/ch09-data-analysis-sales-trace-result-map.webp)
 
 :::tip 读图提示
 把 print 出来的字典当成证据链来读：原始行进入分组均值，最高均值生成 insight，同一组字段再决定图表建议。
@@ -237,7 +237,7 @@ line_chart
 
 推进。
 
-### 再看一个最小“分析 trace”示例
+### 再看一个最小“分析 追踪”示例
 
 继续在同一个文件或 Python 会话里运行，因为下面这段会复用 `sales` 和 `result`。
 
@@ -276,7 +276,7 @@ print(trace)
 
 这样项目会很像黑盒，难以建立信任。
 
-### 只做 happy path
+### 只做成功路径
 
 没有展示：
 
@@ -331,7 +331,7 @@ project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
 ## 小结

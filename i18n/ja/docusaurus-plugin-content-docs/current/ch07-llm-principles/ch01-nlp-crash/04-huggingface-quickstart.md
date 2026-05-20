@@ -159,7 +159,7 @@ torch.Size([2, 6, 768])
 | `AutoTokenizer` | model repo に合う tokenizer class を読み込む |
 | `AutoModel` | task head なしの base model を読み込む |
 | `AutoModelForSequenceClassification` | base model + classification head |
-| `AutoModelForCausalLM` | next-token generation 用の decoder 系 model |
+| `AutoModelForCausalLM` | 次の token 生成用のデコーダー系モデル |
 | `DataCollator` | sample を padding し、batch に積む |
 | `Trainer` | training loop、evaluation、checkpoint、logging を包む |
 | `logits` | softmax や token 選択前の生スコア |
@@ -175,7 +175,7 @@ torch.Size([2, 6, 768])
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 objects: tokenizer, model, config, pipeline or manual forward pass

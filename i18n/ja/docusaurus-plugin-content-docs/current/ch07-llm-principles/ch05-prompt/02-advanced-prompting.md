@@ -364,7 +364,7 @@ Prompt の改善は、本質的には実験のプロセスでもあります。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 technique: few-shot, role, step constraint, self-check, or decomposition

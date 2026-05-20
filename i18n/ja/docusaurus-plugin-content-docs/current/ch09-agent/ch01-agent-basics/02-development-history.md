@@ -350,7 +350,7 @@ ChatGPT や LLM は、Agent を新しい段階へ進めたにすぎません。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 agent_boundary: how this differs from chatbot or fixed workflow

@@ -127,7 +127,7 @@ print(courseware)
 つまり、モデルは最終的な `.docx` を直接出力するのではなく、  
 まず構造化された内容オブジェクトを出力すべきです。
 
-## 実際のプロジェクトにより近い課件 schema
+## 実際のプロジェクトにより近い課件 スキーマ
 
 目標が「決まった形式の Word 課件を生成する」ことであれば、  
 最小のオブジェクトにさらに2層ほど足すのがおすすめです。
@@ -368,7 +368,7 @@ print(render_markdown_handout(payload))
 
 ```
 
-![Template payload 検証後の描画結果図](/img/course/ch08-template-payload-render-result-map-ja.webp)
+![Template ペイロード 検証後の描画結果図](/img/course/ch08-template-payload-render-result-map-ja.webp)
 
 この検証は小さいですが、デモと実装パイプラインの差を表します。描画処理は、必須の構造化項目が足りないときに早い段階で失敗するべきです。
 
@@ -447,7 +447,7 @@ print(render_markdown_handout(payload))
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 request: input, state, tools/context, and expected output contract
@@ -459,7 +459,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 
 ## まとめ
 
-- テンプレート化文書生成で最も重要なのは、まず安定した schema を定義し、その次にテンプレート項目を定義すること
+- テンプレート化文書生成で最も重要なのは、まず安定した スキーマ を定義し、その次にテンプレート項目を定義すること
 - 「構造オブジェクト -> 項目整理 -> テンプレート描画」の3層を分けると、システムはかなり安定する
 - 初めて作るときは、Word の単一テンプレート出力をまず通すほうが、Word と PPT を同時に作るより安定しやすい
 

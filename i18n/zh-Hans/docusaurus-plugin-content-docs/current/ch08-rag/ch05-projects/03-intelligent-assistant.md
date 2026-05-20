@@ -78,7 +78,7 @@ flowchart LR
 - 助手不是只回答一次
 - 而是在一轮轮对话里不断更新状态和行动
 
-![智能助手 session、检索与工具 Trace 图](/img/course/ch08-assistant-session-tool-trace-map.webp)
+![智能助手 session、检索与工具 追踪 图](/img/course/ch08-assistant-session-tool-trace-map.webp)
 
 :::tip 读图提示
 一条多轮助手 trace 至少要看四件事：session 里记住了什么、检索命中了什么、工具有没有被调用、回答后状态怎样更新。这样才能证明它不是普通 FAQ。
@@ -208,7 +208,7 @@ last_tool_call: {'name': 'get_user_progress', 'user_id': 2}
 topic: 退款
 ```
 
-![助手工具调用与状态 trace 结果图](/img/course/ch08-assistant-tool-state-trace-result-map.webp)
+![助手工具调用与状态 追踪 结果图](/img/course/ch08-assistant-tool-state-trace-result-map.webp)
 
 ### 这个例子最关键的价值是什么？
 
@@ -318,7 +318,7 @@ for case in eval_cases:
 
 ## 怎么把这个项目做成作品级页面？
 
-### 展示一条完整对话 trace
+### 展示一条完整对话 追踪
 
 例如：
 
@@ -367,7 +367,7 @@ for case in eval_cases:
 
 而是：
 
-1. 一条完整多轮对话 trace
+1. 一条完整多轮对话 追踪
 2. 其中哪一轮触发了检索
 3. 哪一轮触发了工具调用
 4. session 状态是怎么变化的
@@ -383,7 +383,7 @@ for case in eval_cases:
 ## 项目交付时最好补上的内容
 
 - 一张系统流程图
-- 一段完整多轮对话 trace
+- 一段完整多轮对话 追踪
 - 一组工具调用成功 / 失败案例
 - 一组“系统知道该追问 / 该停住”的例子
 - 一段你对后续扩展路径的说明

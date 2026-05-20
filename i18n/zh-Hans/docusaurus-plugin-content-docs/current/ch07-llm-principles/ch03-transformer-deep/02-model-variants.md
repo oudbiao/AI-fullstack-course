@@ -24,7 +24,7 @@ keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 
 ## 学习目标
 
-- 理解 Encoder-only、Decoder-only、Encoder-Decoder 的核心差异
+- 理解仅编码器、仅解码器、编码器-解码器的核心差异
 - 理解架构选择和训练目标、任务类型之间的关系
 - 通过一个可运行示例看清不同 mask 背后的信息流
 - 建立“这个任务更适合哪类结构”的第一层判断
@@ -48,9 +48,9 @@ keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 
 你可以把三种经典架构理解成三种阅读方式：
 
-- Encoder-only：整篇文章先通读一遍，再做判断
-- Decoder-only：只能一边写一边往前看，不能偷看后文
-- Encoder-Decoder：先认真读原文，再根据原文写摘要或翻译
+- 仅编码器：整篇文章先通读一遍，再做判断
+- 仅解码器：只能一边写一边往前看，不能偷看后文
+- 编码器-解码器：先认真读原文，再根据原文写摘要或翻译
 
 只要这个类比成立，
 后面的差异就会自然很多。
@@ -59,7 +59,7 @@ keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 
 ## 二、三种经典结构分别在做什么？
 
-### Encoder-only：适合理解，不擅长开放式续写
+### 仅编码器：适合理解，不擅长开放式续写
 
 Encoder-only 的典型代表是：
 
@@ -74,7 +74,7 @@ Encoder-only 的典型代表是：
 但它不天然适合做自由生成，
 因为训练时并没有严格遵守“只能看过去”的约束。
 
-### Decoder-only：生成路线最直接
+### 仅解码器：生成路线最直接
 
 Decoder-only 的典型代表是：
 
@@ -94,7 +94,7 @@ Decoder-only 的典型代表是：
 - 生成流程自然
 - 很适合大规模自回归建模
 
-### Encoder-Decoder：输入输出职责分开
+### 编码器-解码器：输入输出职责分开
 
 Encoder-Decoder 的典型代表是：
 
@@ -103,8 +103,8 @@ Encoder-Decoder 的典型代表是：
 
 它的思路是：
 
-1. Encoder 先把输入理解好
-2. Decoder 再在输入表示基础上生成输出
+1. 编码器先把输入理解好
+2. 解码器再在输入表示基础上生成输出
 
 这类结构特别适合：
 
@@ -146,7 +146,7 @@ Encoder-Decoder 的典型代表是：
 
 | 术语 | 通俗含义 | 为什么重要 |
 |---|---|---|
-| Router | 决定一个 token 该走哪些专家的模块 | 它决定每个 token 的计算路径 |
+| 路由器 | 决定一个 token 该走哪些专家的模块 | 它决定每个 token 的计算路径 |
 | Top-k | 只选择得分最高的 k 个专家 | 它控制每个 token 激活多少专家 |
 | 负载均衡 | 避免太多 token 都挤到同一个专家 | 否则有的专家过载，有的专家几乎不工作 |
 | Expert FFN | 专家池里的前馈子网络 | MoE 通常替换或扩展 dense FFN 部分 |
@@ -216,9 +216,9 @@ encoder-decoder cross-attention
 
 它在教三件最根本的事：
 
-1. Encoder-only 是双向看的
-2. Decoder-only 是因果看的
-3. Encoder-Decoder 的 decoder 还能额外看输入序列
+1. 仅编码器是双向看的
+2. 仅解码器是因果看的
+3. 编码器-解码器里的解码器还能额外看输入序列
 
 也就是说，
 大部分架构差异最后都能追溯到：
@@ -253,7 +253,7 @@ encoder-decoder cross-attention
 
 ## 四、把三条路线和典型任务连起来
 
-### 文本理解任务为什么常用 Encoder-only？
+### 文本理解任务为什么常用仅编码器？
 
 因为这类任务更关注：
 
@@ -269,7 +269,7 @@ encoder-decoder cross-attention
 
 这些任务更像“读完整段再判断”。
 
-### 为什么现在大模型主流几乎都走 Decoder-only？
+### 为什么现在大模型主流几乎都走仅解码器？
 
 因为当目标变成：
 
@@ -288,7 +288,7 @@ decoder-only 结构最顺手。
 
 于是它成了大语言模型时代的主流路线。
 
-### Encoder-Decoder 为什么没有消失？
+### 编码器-解码器为什么没有消失？
 
 因为很多任务仍然非常适合它：
 
@@ -349,9 +349,9 @@ encoder-decoder 依然很有优势。
 
 通常你会看到这样的耦合：
 
-- Encoder-only + masked language modeling
-- Decoder-only + causal language modeling
-- Encoder-Decoder + seq2seq / denoising
+- 仅编码器 + masked language modeling
+- 仅解码器 + causal language modeling
+- 编码器-解码器 + seq2seq / denoising
 
 也就是说，
 架构和训练目标通常是一整套设计，而不是随便拼。
@@ -365,7 +365,7 @@ encoder-decoder 依然很有优势。
 不对。
 它仍然是理解任务和表示学习的重要基线。
 
-### 误区二：Decoder-only 什么都能做，所以一定是最优解
+### 误区二：仅解码器什么都能做，所以一定是最优解
 
 它确实很通用，
 但对某些输入输出明确分离的任务，
@@ -399,7 +399,7 @@ misread_to_avoid: variant names are not simple quality rankings
 这一节最重要的不是记名字，
 而是建立一张结构地图：
 
-> **Encoder-only 更像“通读后理解”，Decoder-only 更像“按时间顺序生成”，Encoder-Decoder 更像“先读再写”，MoE 则是在规模化时改变计算路径。**
+> **仅编码器更像“通读后理解”，仅解码器更像“按时间顺序生成”，编码器-解码器更像“先读再写”，MoE 则是在规模化时改变计算路径。**
 
 只要你能把架构、任务和信息流这三件事连起来，
 以后再看到新的模型名字时，就不会只剩“它很火”这种印象了。
@@ -408,7 +408,7 @@ misread_to_avoid: variant names are not simple quality rankings
 
 ## 练习
 
-1. 用自己的话解释：为什么 causal mask 是 decoder-only 的核心约束？
-2. 想一个翻译或摘要任务，说明它为什么天然适合 encoder-decoder。
-3. 如果要做文本分类，你会更优先考虑 encoder-only 还是 decoder-only？为什么？
+1. 用自己的话解释：为什么 causal mask 是仅解码器的核心约束？
+2. 想一个翻译或摘要任务，说明它为什么天然适合编码器-解码器。
+3. 如果要做文本分类，你会更优先考虑仅编码器还是仅解码器？为什么？
 4. 假设你要继续做超大模型扩展，但每步计算预算有限，为什么 MoE 会变得有吸引力？

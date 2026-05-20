@@ -108,8 +108,8 @@ keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, 
 
 于是出现了：
 
-- MQA：多个 query head 共享一组 K/V
-- GQA：把 query head 分组共享 K/V
+- MQA：多个 查询 head 共享一组 K/V
+- GQA：把 查询 head 分组共享 K/V
 
 它们的核心收益更偏向：
 
@@ -282,8 +282,8 @@ local outputs: [0.101, 0.285, 0.4, 0.604, 0.615, 0.592, 0.44, 0.267]
 简单理解：
 
 - 普通 MHA：每个 head 都有自己的 K/V
-- MQA：很多 query head 共用一组 K/V
-- GQA：一组 query head 共用一组 K/V
+- MQA：很多 查询 head 共用一组 K/V
+- GQA：一组 查询 head 共用一组 K/V
 
 所以它们尤其适合：
 

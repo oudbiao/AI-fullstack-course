@@ -115,7 +115,7 @@ token が元々何番目にあるのかは知りません。
 
 self-attention では、各 token が 3 種類の表現を作ります。
 
-- Query: 何を探したいか
+- クエリ: 何を探したいか
 - Key: 何を提供できるか
 - Value: 注目されたときに最終的に渡す内容
 
@@ -354,14 +354,14 @@ FFN の役割は次の通りです。
 だから Transformer は「1 層の attention」ではなく、  
 たくさんの block を積み重ねた構造なのです。
 
-### Encoder と Decoder の違いは、主に mask と相互作用の仕方
+### エンコーダーとデコーダーの違いは、主に mask と相互作用の仕方
 
 block だけを見ると、両者はかなり似ています。  
 主な違いは次の通りです。
 
-- encoder: 通常は双方向 self-attention
-- decoder: 通常は causal mask
-- encoder-decoder: decoder に cross-attention が追加される
+- エンコーダー: 通常は双方向 self-attention
+- デコーダー: 通常は causal mask
+- エンコーダー-デコーダー: デコーダーに cross-attention が追加される
 
 つまり、多くの構造上の違いは最終的に、
 
@@ -369,7 +369,7 @@ block だけを見ると、両者はかなり似ています。
 
 に帰着します。
 
-### GPT が decoder だけを残した理由
+### GPT がデコーダーだけを残した理由
 
 生成タスクで最も重要な制約は、
 
@@ -445,7 +445,7 @@ FFN は非常に重要な非線形特徴変換を担当しています。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 input_contract: token embeddings plus position information

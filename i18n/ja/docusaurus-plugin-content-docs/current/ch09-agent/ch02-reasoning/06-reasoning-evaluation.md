@@ -38,7 +38,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 ある推論 Agent は、次のようなものも出します。
 
-- 複数ステップの trace
+- 複数ステップの トレース
 - ツール呼び出しの記録
 - 中間状態
 - 最終回答
@@ -75,9 +75,9 @@ accuracy だけを見ると、
 
 もっともよく使うのは次のようなものです。
 
-- answer accuracy
-- exact match
-- pass rate
+- 回答精度（answer accuracy）
+- 完全一致率（exact match）
+- 合格率（pass rate）
 
 これは次の問いに答えます。
 
@@ -298,7 +298,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 
 まず確認するのは次の点です。
 
-- schema が分かりやすく書かれているか
+- スキーマ が分かりやすく書かれているか
 - パラメータ生成が安定しているか
 - observation が十分に構造化されているか
 
@@ -343,7 +343,7 @@ before / after の比較をきちんと行えます。
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 task_goal: what the agent is trying to solve
@@ -372,7 +372,7 @@ eval_action: compare against expected result and revise the plan
 - 指標で問題を説明できるか
 - 指標が最適化の指針になるか
 
-### 誤解3: 固定 benchmark がなくても、感覚で改善できる
+### 誤解3: 固定ベンチマークがなくても、感覚で改善できる
 
 主観だけに頼ると、  
 システムをどんどん扱いにくくしてしまう危険があります。

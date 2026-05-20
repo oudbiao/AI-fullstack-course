@@ -63,7 +63,7 @@ test_case_count: 3
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 prompt_contract: task, context, constraints, output format

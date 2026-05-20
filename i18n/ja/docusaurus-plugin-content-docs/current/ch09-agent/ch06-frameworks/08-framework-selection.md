@@ -153,7 +153,7 @@ crewai -> 6.4
 
 より優先して考えるのは：
 
-- グラフ型 / workflow 型フレームワーク
+- グラフ型 / ワークフロー 型フレームワーク
 
 なぜなら、次のようなものが必要になるからです。
 
@@ -271,7 +271,7 @@ crewai -> 6.4
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 problem_shape: workflow graph, retrieval app, role team, or experiment

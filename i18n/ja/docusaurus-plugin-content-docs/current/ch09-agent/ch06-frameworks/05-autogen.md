@@ -35,9 +35,9 @@ keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code executio
 
 AutoGen スタイルは、もっとこう問いかけます。
 
-- planner は coder にどう依頼すべきか？
-- coder が書き終えたら、どうやって reviewer に渡すのか？
-- reviewer のフィードバックは、どう次のラウンドを前に進めるのか？
+- プランナーはコーダーにどう依頼すべきか？
+- コーダーが書き終えたら、どうやってレビュー担当に渡すのか？
+- レビュー担当のフィードバックは、どう次のラウンドを前に進めるのか？
 
 つまり、システムを次のように抽象化します。
 
@@ -200,8 +200,8 @@ for turn in conversation:
 
 各役割の境界をはっきり決めないと、こうなりがちです。
 
-- planner がコードを書き始める
-- reviewer が検索までやり始める
+- プランナーがコードを書き始める
+- レビュー担当が検索までやり始める
 
 その結果、役割分担がどんどん崩れていきます。
 
@@ -276,7 +276,7 @@ AutoGen は、次の点をより強く意識します。
 
 AutoGen スタイルのシステムを本格的に作るなら、できるだけ早く次を入れておくのがよいです。
 
-- trace
+- トレース記録
 - 最大ターン数
 - 役割の権限境界
 - フェイルバック
@@ -306,7 +306,7 @@ AutoGen スタイルのシステムを本格的に作るなら、できるだけ
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 problem_shape: workflow graph, retrieval app, role team, or experiment
@@ -318,7 +318,7 @@ decision: choose framework only after the single-agent loop is clear
 
 ## 練習
 
-1. `planner -> coder -> reviewer` の 3 役割メッセージフローを設計してみましょう。
+1. `プランナー -> コーダー -> レビュー担当` の 3 役割メッセージフローを設計してみましょう。
 2. 考えてみましょう。なぜ AutoGen スタイルのタスクでは「話しすぎる」問題が起きやすいのでしょうか？
 3. 自分の言葉で説明してみましょう。AutoGen と CrewAI の核心的な違いは何ですか？
 4. あなたのタスクに強い状態機械の制御が必要なら、このような対話型抽象化を最優先で選びますか？ なぜですか？

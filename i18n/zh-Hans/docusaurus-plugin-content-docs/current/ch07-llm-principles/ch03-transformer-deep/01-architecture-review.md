@@ -116,7 +116,7 @@ Transformer 的思路则是：
 
 自注意力里每个 token 都会生成三份表示：
 
-- Query：我想找什么
+- 查询：我想找什么
 - Key：我能提供什么
 - Value：如果你关注我，你最终拿到什么
 
@@ -351,20 +351,20 @@ FFN 的作用就是：
 这也是为什么 Transformer 不只是“一层 attention”，
 而是很多层 block 叠起来。
 
-### Encoder 和 Decoder 的差别主要在 mask 和交互方式
+### 编码器和解码器的差别主要在 mask 和交互方式
 
 如果只看 block，本质上它们很像。
 差别主要在：
 
-- encoder：通常是双向自注意力
-- decoder：通常是因果 mask
-- encoder-decoder：decoder 里还会多一层 cross-attention
+- 编码器：通常是双向自注意力
+- 解码器：通常是因果 mask
+- 编码器-解码器：解码器里还会多一层 cross-attention
 
 所以很多架构差异，最后都能追溯到：
 
 - 谁能看谁
 
-### GPT 为什么只保留 decoder？
+### GPT 为什么只保留解码器？
 
 因为生成任务最核心的结构约束是：
 

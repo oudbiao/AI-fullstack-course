@@ -126,7 +126,7 @@ print(result)
 {'total_amount': 1135, 'per_category_avg': {'course': 249.0, 'book': 69.0, 'service': 499.0}, 'insight': 'service の客単価が最も高い。'}
 ```
 
-![データ分析 Agent sales trace 結果図](/img/course/ch09-data-analysis-sales-trace-result-map-ja.webp)
+![データ分析 Agent sales トレース 結果図](/img/course/ch09-data-analysis-sales-trace-result-map-ja.webp)
 
 :::tip 図の読み方
 print された辞書を証拠の流れとして読む。元データからカテゴリ平均を作り、最大平均が insight になり、同じフィールドからグラフ提案を決める。
@@ -238,7 +238,7 @@ line_chart
 - 説明
 - 可視化の提案
 
-### もう1つの最小「分析 trace」の例
+### もう1つの最小「分析 トレース」の例
 
 同じファイルまたは同じ Python セッションで続けて実行してください。このブロックは `sales` と `result` を再利用します。
 
@@ -278,7 +278,7 @@ print(trace)
 
 これだと、プロジェクトがブラックボックスのように見えてしまい、信頼を得にくくなります。
 
-### happy path だけを作る
+### 成功パスだけを作る
 
 次のようなケースを見せないと、プロジェクトがあまり現実的に見えません。
 
@@ -327,14 +327,14 @@ print(trace)
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 project_goal: what the agent should accomplish and what it must not do
 baseline: single-agent loop before adding advanced features
 trace_pack: goal, plan, tool calls, observations, memory, evaluation
 failure_log: one failed or unsafe run with root cause
-deliverable: README, run command, trace screenshot/log, next step
+成果物：README、実行コマンド、trace スクリーンショット/ログ、次の一手
 ```
 
 ## まとめ

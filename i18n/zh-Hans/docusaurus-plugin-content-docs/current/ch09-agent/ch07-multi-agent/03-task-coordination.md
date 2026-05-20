@@ -64,8 +64,8 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 例如：
 
-- 检索一定给 retriever
-- 写作一定给 writer
+- 检索一定交给检索者
+- 写作一定交给撰写者
 
 优点：
 
@@ -247,8 +247,8 @@ print(resolve_conflict(results))
 
 - 置信度
 - 投票
-- reviewer 裁决
-- supervisor 最终拍板
+- 审核者裁决
+- 监督者最终拍板
 
 但你至少要先意识到：
 
@@ -319,7 +319,7 @@ Agent 之间互相提议、协商。
 
 任务做了一半没人负责收尾，是非常常见的问题。
 
-### 只设计 happy path
+### 只设计成功路径
 
 一旦有 Agent 超时、失败、冲突，系统就乱了。
 
@@ -354,6 +354,6 @@ eval_action: compare multi-agent result against single-agent baseline
 ## 练习
 
 1. 给任务分配示例再加一个 `planner` Agent，并让它决定执行顺序。
-2. 设计一个“retrieve -> write -> review -> revise” 的协调流程。
-3. 想一想：如果两个 Agent 结论冲突，你更倾向于投票、置信度裁决，还是 reviewer 拍板？为什么？
+2. 设计一个“检索 -> 写作 -> 审核 -> 修订”的协调流程。
+3. 想一想：如果两个 Agent 结论冲突，你更倾向于投票、置信度裁决，还是审核者拍板？为什么？
 4. 用自己的话解释：为什么说多 Agent 协调本质上很像一个小型任务调度系统？

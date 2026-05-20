@@ -25,7 +25,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 - 理解 LlamaIndex 的核心抽象对象
 - 理解它为什么特别适合知识和文档场景
-- 看懂 Document -> Node -> Index -> Retriever -> Query Engine 这条链
+- 看懂 Document -> Node -> Index -> 检索器 -> 查询 Engine 这条链
 - 建立什么时候该优先考虑 LlamaIndex 的判断
 
 ---
@@ -80,11 +80,11 @@ Document 被切分后的更小单位。
 
 把这些 node 组织成可查询结构的方式。
 
-### 检索器（Retriever）
+### 检索器（检索器）
 
 负责根据用户查询，把相关 node 找回来。
 
-### 查询引擎（Query Engine）
+### 查询引擎（查询 Engine）
 
 把“查询 -> 检索 -> 组织结果”整成更完整的一层。
 
@@ -197,13 +197,13 @@ print(retrieve("退款政策是什么"))
 
 - node
 - index
-- retriever
+- 检索器
 
 也就是说，LlamaIndex 的很多价值，本质上都是在把这条知识链组织得更系统。
 
 ---
 
-## Query Engine 为什么值得单独抽出来？
+## 查询 Engine 为什么值得单独抽出来？
 
 ### 因为问答不只等于“返回一个最像的段落”
 
@@ -216,7 +216,7 @@ print(retrieve("退款政策是什么"))
 
 这时“查询引擎”就比“单个 retriever”更像一个系统层抽象。
 
-### 一个极简 Query Engine 示例
+### 一个极简 查询 Engine 示例
 
 ```python
 def query_engine(query):
@@ -318,7 +318,7 @@ decision: choose framework only after the single-agent loop is clear
 
 ## 练习
 
-1. 用自己的话解释 Document、Node、Index、Retriever、Query Engine 各自像什么。
+1. 用自己的话解释 Document、Node、Index、检索器、查询 Engine 各自像什么。
 2. 想一想：为什么说文档摄取质量会直接影响后面的检索效果？
 3. 用自己的知识库数据再造 3 条节点，重新跑一遍检索示例。
 4. 说明：如果系统主线是多 Agent 协作而不是知识检索，为什么 LlamaIndex 不一定应该做“总框架”？

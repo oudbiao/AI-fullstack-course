@@ -311,7 +311,7 @@ Agent 的工作不应该永远停留在低级操作。
 - 查内部资料
 - 查外部资料
 - 去重和重排
-- 生成课件 schema
+- 生成课件 结构约束
 - 导出 Word
 
 如果每一步都让 Agent 临场决定，
@@ -326,8 +326,8 @@ Agent 的工作不应该永远停留在低级操作。
 | 复合工具 | 它在替你固定什么 |
 |---|---|
 | `retrieve_teaching_materials` | 先查内部，再补外部，再合并去重 |
-| `build_courseware_outline` | 先抽概念、例题、练习，再整理 schema |
-| `export_courseware_doc` | 先校验 schema，再套模板导出 Word |
+| `build_courseware_outline` | 先抽概念、例题、练习，再整理 结构约束 |
+| `export_courseware_doc` | 先校验 结构约束，再套模板导出 Word |
 
 你可以先把它理解成：
 

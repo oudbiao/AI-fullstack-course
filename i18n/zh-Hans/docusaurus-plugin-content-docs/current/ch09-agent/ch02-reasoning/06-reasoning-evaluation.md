@@ -38,7 +38,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 一个推理 Agent 往往还会产生：
 
-- 多步 trace
+- 多步 追踪
 - 工具调用记录
 - 中间状态
 - 最终答案
@@ -75,9 +75,9 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 最常见的是：
 
-- answer accuracy
-- exact match
-- pass rate
+- 答案准确率（answer accuracy）
+- 精确匹配（exact match）
+- 通过率（pass rate）
 
 这回答的是：
 
@@ -299,7 +299,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 
 优先看：
 
-- schema 是否写清楚
+- 结构约束 是否写清楚
 - 参数生成是否稳定
 - observation 是否足够结构化
 
@@ -361,7 +361,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 - 指标能不能解释问题
 - 指标能不能指导优化
 
-### 误区三：没有固定 benchmark 也能靠感觉迭代
+### 误区三：没有固定基准测试也能靠感觉迭代
 
 只靠主观感觉，
 很容易把系统改得越来越不可控。

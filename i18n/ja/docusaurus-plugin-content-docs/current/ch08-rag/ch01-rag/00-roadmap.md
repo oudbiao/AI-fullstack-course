@@ -58,12 +58,12 @@ eval.md 1
 | 2 | 文書処理 | source と metadata を持つ chunks を作る |
 | 3 | ベクトルデータベース | embedding、ベクトルレコード、類似検索を説明する |
 | 4 | 検索戦略 | キーワード、ベクトル、ハイブリッド、filter、rerank を比較する |
-| 5 | 最適化と高度な RAG | recall 不足、ranking 不良、弱い context を調べる |
+| 5 | 最適化と高度な RAG | recall 不足、ranking 不良、弱い コンテキスト を調べる |
 | 6 | RAG 評価 | 回答正しさ、引用根拠、no-answer 動作をテストする |
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 query: one user question or test case

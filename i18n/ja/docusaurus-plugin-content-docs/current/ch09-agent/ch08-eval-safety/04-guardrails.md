@@ -286,7 +286,7 @@ print(knowledge_guard(sample_2))
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 eval_cases: fixed tasks and expected safe behavior

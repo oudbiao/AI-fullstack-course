@@ -31,14 +31,14 @@ keywords: [LLM API, Responses API, Token 予算, JSON 検証, 構造化出力, A
 |---|---|---|
 | API | Application Programming Interface。ソフトウェアが別のサービスを呼び出すための標準的な窓口 | プログラムがモデルサービスへリクエストを送り、レスポンスを受け取る |
 | SDK | Software Development Kit。API 呼び出しを扱いやすくするライブラリ | 任意の実 API 例では公式 Python SDK を使う |
-| エンドポイント（Endpoint） | リクエストを受け取る URL パス | 現代的な OpenAI テキスト API の endpoint は `/v1/responses` |
-| ペイロード（Payload） | API に送る JSON 本文 | model、instructions、input、出力設定、制約を含む |
+| エンドポイント | リクエストを受け取る URL パス | 現代的な OpenAI テキスト API のエンドポイントは `/v1/responses` |
+| リクエスト本文 | API に送る JSON 本文 | model、instructions、input、出力設定、制約を含む |
 | Token 予算 | コンテキストウィンドウ内で使える容量 | system ルール、履歴、ユーザー入力、検索コンテキスト、出力枠が共有する |
 | JSON | プログラムが解析しやすい構造化データ形式 | 自由な段落ではなく、timeline オブジェクトを返す |
 | スキーマ | JSON の期待される形 | 必須フィールドと型をプログラムに伝える |
 | 検証 | 出力をプログラムで検査すること | 欠けたフィールド、型の誤り、不正な JSON を検出する |
-| 再試行（Retry） | 制御された失敗の後で再試行すること | 価値のある retry は、schema 指示を強めるなど原因を直す |
-| レイテンシ（Latency） | リクエストにかかる時間 | 長いコンテキストや長い出力は、通常 latency を増やす |
+| 再試行 | 制御された失敗の後で再試行すること | 価値のある再試行は、スキーマ 指示を強めるなど原因を直す |
+| レイテンシ | リクエストにかかる時間 | 長いコンテキストや長い出力は、通常レイテンシを増やす |
 
 ## まずオフラインのワークベンチを動かす
 
@@ -179,20 +179,20 @@ first era: {'period': '1936-1950', ...}
 
 | 行 | 何を証明するか | おかしいときに見る場所 |
 |---|---|---|
-| `used input tokens estimate` | request の input budget が測れている | system instructions、history、retrieved context を確認する |
-| `remaining output room` | answer を生成する余白が残っている | context を短くするか、期待する output size を下げる |
+| `used input tokens estimate` | request の input budget が測れている | system instructions、history、取得したコンテキスト を確認する |
+| `remaining output room` | answer を生成する余白が残っている | コンテキスト を短くするか、期待する output size を下げる |
 | `request model` | 実行で使った model/config が記録されている | eval run ごとに model name と主要 parameters を保存する |
-| `validation: era_0_missing_['summary']` | validator が具体的な schema failure を捕まえた | schema instruction を直すか repair step を入れる |
-| `retry fix` | retry が失敗原因を変えており、同じ request を繰り返していない | 何を変えたか記録し、workflow を再現可能にする |
+| `validation: era_0_missing_['summary']` | validator が具体的な スキーマ failure を捕まえた | スキーマ instruction を直すか repair ステップ を入れる |
+| `retry fix` | retry が失敗原因を変えており、同じ request を繰り返していない | 何を変えたか記録し、ワークフロー を再現可能にする |
 | `validation: valid` | output が program contract を通過した | factual quality と source requirements は別途確認する |
 
-実アプリでは、この trace を prompt version、model name、temperature、max output tokens、schema version、failure reason と一緒に保存します。その記録がないと、「良くなった answer」は再現しにくくなります。
+実アプリでは、このトレースをプロンプト版、モデル名、temperature、最大出力 token 数、schema 版、失敗理由と一緒に保存します。その記録がないと、「良くなった回答」は再現しにくくなります。
 
 ## このコードが本当に示していること
 
-### リクエストはプロンプト（Prompt）だけではない
+### リクエストはプロンプトだけではない
 
-ペイロード（Payload）には `model`、`instructions`、`input`、`text.format`、`max_output_tokens`、`temperature` が含まれます。初心者はプロンプトの文だけを直しがちですが、実際の LLM エンジニアリングでは出力長、形式、ランダム性、検証方法も制御します。
+リクエスト本文には `model`、`instructions`、`input`、`text.format`、`max_output_tokens`、`temperature` が含まれます。初心者はプロンプトの文だけを直しがちですが、実際の LLM エンジニアリングでは出力長、形式、ランダム性、検証方法も制御します。
 
 ### Token 予算はプロダクト上の制約
 
@@ -271,7 +271,7 @@ print(response.output_parsed.model_dump())
 
 ## 残す証拠
 
-このページを終えたら、この evidence card を残します。
+このページを終えたら、この証拠カードを残します。
 
 ```text
 request: prompt, parameters, and expected output contract
@@ -283,16 +283,16 @@ real_api_note: replace toy_model only after offline loop is stable
 
 ## 練習方法
 
-1. オフライン課題を「AI history timeline」から「course study plan」に変え、必須 Schema フィールドを更新する。
+1. オフライン課題を「AI history timeline」から「course study plan」に変え、必須 スキーマ フィールドを更新する。
 2. 最初の fake response を不正 JSON にして、validator が検出できるか確認する。
 3. 各 era に `source_refs` フィールドを追加し、validation でも必須にする。
 4. `max_output_tokens` を下げ、それがどんなプロダクト上の問題を模擬しているか説明する。
-5. 1 ページのメモを書く。どこが Prompt 設計で、どこが API payload 設計で、どこがアプリケーション信頼性なのかを分ける。
+5. 1 ページのメモを書く。どこが Prompt 設計で、どこが API ペイロード 設計で、どこがアプリケーション信頼性なのかを分ける。
 
 ## まとめ
 
 実際の LLM 呼び出しは、「質問を送って回答を受け取る」だけではありません。小さなエンジニアリングループです。
 
-> **課題を定義し、Token 予算を管理し、明確な Payload を送り、出力を parse し、Schema を検証し、失敗理由がわかるときだけ retry する。**
+> **課題を定義し、Token 予算を管理し、明確な ペイロード を送り、出力を parse し、スキーマ を検証し、失敗理由がわかるときだけ retry する。**
 
 このループに慣れると、Prompt、構造化出力、RAG、tool calling、Agent ワークフローは、ばらばらの流行語ではなく、同じ基礎能力の拡張として見えるようになります。

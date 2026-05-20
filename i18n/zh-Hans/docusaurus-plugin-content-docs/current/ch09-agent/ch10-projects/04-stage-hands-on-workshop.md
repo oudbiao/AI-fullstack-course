@@ -20,10 +20,10 @@ keywords: [Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agen
 | 能力 | 你要实现什么 | 为什么重要 |
 |---|---|---|
 | 目标输入 | 接受 “prepare an AgentOps review plan” 这类用户目标 | Agent 面向目标行动，不只是回答一次问题 |
-| 规划器（Planner） | 根据当前状态决定下一步动作 | 规划是从目标走向工具调用的桥 |
-| 工具 schema（Tool schema） | 校验必填字段、类型和未知参数 | 糟糕 schema 会导致错误工具调用 |
+| 规划器 | 根据当前状态决定下一步动作 | 规划是从目标走向工具调用的桥 |
+| 工具结构约束 | 校验必填字段、类型和未知参数 | 糟糕结构约束会导致错误工具调用 |
 | 权限门 | 没有批准时拦截模拟的 `publish_report` 动作 | 真实 Agent 不能静默执行高风险动作 |
-| Trace 日志 | 保存 `thought`、`action`、`arguments`、`observation`、`next_decision` | 排障需要过程证据 |
+| 追踪日志 | 保存 `thought`、`action`、`arguments`、`observation`、`next_decision` | 排障需要过程证据 |
 | 评估 | 固定测试成功、审批拦截、无证据三类情况 | 只有一次成功演示不够 |
 
 :::tip 学习节奏
@@ -32,18 +32,18 @@ keywords: [Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agen
 
 ## 步骤 0：写代码前先看懂 Agent 循环
 
-![Agent 行动闭环与 Trace 图](/img/course/ch09-agent-action-loop-trace-map.webp)
+![Agent 行动闭环与 追踪 图](/img/course/ch09-agent-action-loop-trace-map.webp)
 
 Agent 不是“加了工具的聊天机器人”。在这个工作坊里，Agent 指的是：
 
-1. 它有一个 **goal**。
-2. 它维护已经找到什么的 **state**。
-3. 它选择 **next action**。
-4. 它用经过校验的参数调用 **tool**。
-5. 它读取工具返回的 **observation**。
-6. 它更新 state，写入 trace，并判断是否继续。
+1. 它有一个 **目标**。
+2. 它维护已经找到什么的 **状态**。
+3. 它选择 **下一步行动**。
+4. 它用经过校验的参数调用 **工具**。
+5. 它读取工具返回的 **观察结果**。
+6. 它更新状态，写入追踪记录，并判断是否继续。
 
-新人最重要的观念是：Agent 出错时，不要只看最终回答。先看 trace。trace 会告诉你问题来自规划、工具 schema、权限、观察结果处理，还是停止条件。
+新人最重要的观念是：Agent 出错时，不要只看最终回答。先看追踪记录。追踪记录会告诉你问题来自规划、工具结构约束、权限、观察结果处理，还是停止条件。
 
 ## 步骤 1：创建一个小项目目录
 
@@ -59,13 +59,13 @@ touch agent_workshop.py
 
 ## 步骤 2：复制完整离线 Agent 脚本
 
-![Agent 工作坊工具 Schema 与权限门](/img/course/ch09-workshop-tool-schema-permission-map.webp)
+![Agent 工作坊工具 结构约束 与权限门](/img/course/ch09-workshop-tool-schema-permission-map.webp)
 
 复制代码前，先把这张图当成安全检查表。工具调用不能从模型决策直接跳到执行，它要经过：
 
-- schema 校验：必填字段、类型检查、未知参数检查；
+- 结构约束 校验：必填字段、类型检查、未知参数检查；
 - 权限校验：`read_only`、`write_limited` 或禁用；
-- trace 记录：成功和被拦截的动作都要记录。
+- 追踪 记录：成功和被拦截的动作都要记录。
 
 把下面代码复制到 `agent_workshop.py`：
 
@@ -429,13 +429,13 @@ unknown_topic: PASS (no_evidence)
 passed: 3/3
 ```
 
-![Agent 工作坊运行 trace 与评测结果图](/img/course/ch09-agent-workshop-run-trace-eval-result-map.webp)
+![Agent 工作坊运行 追踪 与评测结果图](/img/course/ch09-agent-workshop-run-trace-eval-result-map.webp)
 
 如果你的输出一致，说明你已经完成第 9 章最小闭环：Agent 接收目标、检索证据、生成计划、拦截不安全发布动作、写入 trace 日志，并用固定用例评估。
 
-## 步骤 4：检查 Trace 文件
+## 步骤 4：检查 追踪 文件
 
-![Agent 工作坊 Trace JSONL 复盘图](/img/course/ch09-workshop-trace-jsonl-replay-map.webp)
+![Agent 工作坊 追踪 JSONL 复盘图](/img/course/ch09-workshop-trace-jsonl-replay-map.webp)
 
 运行：
 
@@ -480,11 +480,11 @@ head -n 1 logs/agent_traces.jsonl | python3 -m json.tool
 | 代码位置 | 要看什么 | 新手解释 |
 |---|---|---|
 | `COURSE_MATERIALS` | `id`、`source`、`text` | Agent 可以检索的小知识库 |
-| `TOOL_SPECS` | `required`、`optional`、`risk` | planner 和工具之间的契约 |
+| `TOOL_SPECS` | `required`、`optional`、`risk` | 规划者 和工具之间的契约 |
 | `validate_args()` | 缺字段、类型错误、未知字段 | 避免工具调用变成模糊猜测 |
-| `call_tool()` | 执行前先做 schema 和权限检查 | 副作用之前先做安全 |
-| `choose_next_step()` | search、plan、publish、finish 分支 | 这是一个极小 planner |
-| `run_agent()` | 状态、trace 行、停止行为 | Agent 循环在这里 |
+| `call_tool()` | 执行前先做 结构约束 和权限检查 | 副作用之前先做安全 |
+| `choose_next_step()` | search、plan、publish、finish 分支 | 这是一个极小 规划者 |
+| `run_agent()` | 状态、追踪 行、停止行为 | Agent 循环在这里 |
 | `EVAL_CASES` | 固定任务的预期状态 | 评估把演示变成可重复检查 |
 
 这个脚本故意做成确定性流程。它暂时不追求“聪明”，而是训练控制骨架：以后换成更强模型或框架，也不应该丢掉这个骨架。
@@ -539,9 +539,9 @@ risky = run_agent(
 | 难度 | 任务 | 通过标准 |
 |---|---|---|
 | 入门 | 新增一条 MCP 相关课程资料 | 包含 `MCP` 的目标能检索到它并引用来源 |
-| 标准 | 给 `run_agent()` 新增 `max_steps` 参数 | 循环 planner 会以 `stopped_max_steps` 停止 |
+| 标准 | 给 `run_agent()` 新增 `max_steps` 参数 | 循环 规划者 会以 `stopped_max_steps` 停止 |
 | 标准 | 在 `EVAL_CASES` 里加入 `validation_error` | 错误参数类型会在执行前被抓住 |
-| 挑战 | 按 `run_id` 分文件保存 trace | 不用读完整日志也能复盘单次运行 |
+| 挑战 | 按 `run_id` 分文件保存 追踪 | 不用读完整日志也能复盘单次运行 |
 | 挑战 | 用模型调用替换 `choose_next_step()` | 现有评估用例仍然通过 |
 
 ## 步骤 9：可选 OpenAI Agents SDK 升级
@@ -595,8 +595,8 @@ python3 agent_sdk_upgrade.py
 
 真实项目里，请保留离线脚本训练出的习惯：
 
-- 清楚定义 tool schema；
-- 记录工具调用和 observation；
+- 清楚定义工具结构约束；
+- 记录工具调用和观察结果；
 - 没有人类批准时拦截高风险工具；
 - 保留能检查成功和安全边界的评估用例。
 
@@ -607,7 +607,7 @@ python3 agent_sdk_upgrade.py
 当你能做到下面这些，就算完成本工作坊：
 
 - 运行 `python3 agent_workshop.py` 并得到预期输出。
-- 能解释 `goal`、`state`、`tool schema`、`observation`、`trace`、`approval` 和 `evaluation set`。
+- 能解释目标、状态、工具结构约束、观察结果、追踪记录、审批和评估集。
 - 能说明为什么 `publish_report` 没有批准会被拦截。
 - 能检查 `logs/agent_traces.jsonl`，并解释其中一步。
 - 能新增一个工具或评估用例，并且不破坏现有用例。

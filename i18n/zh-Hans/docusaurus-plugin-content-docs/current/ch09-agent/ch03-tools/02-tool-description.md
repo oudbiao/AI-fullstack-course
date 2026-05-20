@@ -161,7 +161,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 下面这段代码会做三件事：
 
 1. 注册工具元数据
-2. 根据 query 和 tags 做最小发现
+2. 根据 查询 和 tags 做最小发现
 3. 返回候选工具列表
 
 它比只打印一个工具数组更有教学意义，因为它已经体现出：

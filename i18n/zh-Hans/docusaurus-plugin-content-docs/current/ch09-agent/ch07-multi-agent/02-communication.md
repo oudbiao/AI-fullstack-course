@@ -243,10 +243,10 @@ bus.publish("task_assignment", {
 
 如果多个 Agent 都围绕同一个任务工作，比如：
 
-- planner 写计划
-- retriever 写资料
-- writer 生成草稿
-- reviewer 写评审意见
+- 规划者写计划
+- 检索者写资料
+- 撰写者生成草稿
+- 审核者写评审意见
 
 这时很多信息都可以放在共享工作区里。
 
