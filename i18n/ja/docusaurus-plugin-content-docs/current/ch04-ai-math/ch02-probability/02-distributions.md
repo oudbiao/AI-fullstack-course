@@ -42,7 +42,7 @@ python3 -m pip install numpy matplotlib scipy
 
 ## まず、とても大事な学習イメージを確認しよう
 
-この節の目的は、すべての分布を「試験対策用の完全版」として覚えることではありません。  
+この節の目的は、すべての分布を「試験対策用の完全版」として覚えることではありません。
 まずは、次のとても大事な感覚をつかむことです。
 
 - 確率の基礎は、1つ1つの事象を見る
@@ -70,7 +70,7 @@ python3 -m pip install numpy matplotlib scipy
 
 ### 初心者向けのたとえ
 
-確率が「ある1回が起こるかどうか」だとすると、  
+確率が「ある1回が起こるかどうか」だとすると、
 分布はもっと次のようなものです。
 
 - 長い期間で集計した「可能性の地図」
@@ -117,7 +117,7 @@ print(f"表の割合: {samples.mean():.3f}")  # ≈ 0.6
 
 fig, ax = plt.subplots(figsize=(6, 4))
 values, counts = np.unique(samples, return_counts=True)
-ax.bar(['裏 (0)', '表 (1)'], counts / len(samples), 
+ax.bar(['裏 (0)', '表 (1)'], counts / len(samples),
        color=['coral', 'steelblue'], edgecolor='white')
 ax.set_ylabel('確率')
 ax.set_title(f'ベルヌーイ分布 (p={p})')
@@ -352,7 +352,7 @@ plt.show()
 
 **元のデータがどんな分布でも、多数の独立サンプルの平均は正規分布に近づく。**
 
-だからこそ、正規分布は自然界やデータサイエンスにあちこち現れます。  
+だからこそ、正規分布は自然界やデータサイエンスにあちこち現れます。
 多くの現象は、実はたくさんの独立した要因が重なった結果だからです。
 
 ### コードで確かめよう
@@ -371,28 +371,28 @@ distributions = [
 for col, (name, dist_func) in enumerate(distributions):
     # 上：元の分布
     samples = dist_func(10000)
-    axes[0, col].hist(samples, bins=50, density=True, color='coral', 
+    axes[0, col].hist(samples, bins=50, density=True, color='coral',
                        edgecolor='white', alpha=0.7)
     axes[0, col].set_title(f'元の分布：{name}')
     axes[0, col].set_ylabel('確率密度')
-    
+
     # 下：30個のサンプルの平均を取り、10000回繰り返す
     n_samples = 30
     means = np.array([dist_func(n_samples).mean() for _ in range(10000)])
-    
-    axes[1, col].hist(means, bins=50, density=True, color='steelblue', 
+
+    axes[1, col].hist(means, bins=50, density=True, color='steelblue',
                        edgecolor='white', alpha=0.7)
-    
+
     # 正規分布曲線を重ねる
     x = np.linspace(means.min(), means.max(), 100)
-    axes[1, col].plot(x, stats.norm.pdf(x, means.mean(), means.std()), 
+    axes[1, col].plot(x, stats.norm.pdf(x, means.mean(), means.std()),
                        'r-', linewidth=2, label='正規分布フィット')
     axes[1, col].set_title(f'標本平均の分布（n={n_samples}）')
     axes[1, col].set_ylabel('確率密度')
     axes[1, col].legend()
     print(f"{name}: 標本平均の平均={means.mean():.3f}, 標準偏差={means.std():.3f}")
 
-plt.suptitle('中心極限定理：元の分布が何でも、標本平均は正規分布に近づく', 
+plt.suptitle('中心極限定理：元の分布が何でも、標本平均は正規分布に近づく',
              fontsize=14, y=1.01)
 plt.tight_layout()
 plt.show()
@@ -418,7 +418,7 @@ rng = np.random.default_rng(seed=42)
 for ax, n in zip(axes, [1, 5, 30, 100]):
     means = [rng.exponential(1, n).mean() for _ in range(10000)]
     ax.hist(means, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
-    
+
     x = np.linspace(min(means), max(means), 100)
     ax.plot(x, stats.norm.pdf(x, np.mean(means), np.std(means)), 'r-', linewidth=2)
     ax.set_title(f'n = {n}')
@@ -430,7 +430,7 @@ plt.show()
 ```
 
 :::tip 経験則
-通常、n ≥ 30 なら中心極限定理の効果はかなりよく働きます。  
+通常、n ≥ 30 なら中心極限定理の効果はかなりよく働きます。
 多くの統計手法で「サンプル数は少なくとも 30」と言われるのはこのためです。
 :::
 
@@ -469,6 +469,18 @@ plt.show()
 :::
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
 
 ## まとめ
 
@@ -550,7 +562,7 @@ print(f"身長が 160-180cm に入る割合: {within:.1%}")
 
 ### 練習 3：中心極限定理の実験
 
-サイコロ（1〜6 の均一分布）で中心極限定理を実験してみましょう。  
+サイコロ（1〜6 の均一分布）で中心極限定理を実験してみましょう。
 1回、10回、50回、200回サイコロを振って平均値を取り、それぞれ 10000 組繰り返し、平均値の分布を描きます。
 
 参考実装：
@@ -572,3 +584,13 @@ for n_rolls in [1, 10, 50, 200]:
 ```
 
 平均は 3.5 に近いままですが、平均値の標準偏差はどんどん小さくなります。これが中心極限定理がコード上で見えている状態です。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 6 分割の分布図では、離散的なカウントと連続的な測定値の違いが見えるようにします。Bernoulli、binomial、Poisson には棒グラフ、連続分布には曲線やヒストグラムが自然です。
+- `N(170,5)` から身長を生成する場合、160 から 180 cm は平均の前後 2 標準偏差なので、シミュレーション比率は `95%` 近くになります。
+- 標本平均の実験では、サンプルサイズが大きいほど分布は狭くなり、正規分布らしくなります。これが中心極限定理の実用的な姿です。
+
+</details>

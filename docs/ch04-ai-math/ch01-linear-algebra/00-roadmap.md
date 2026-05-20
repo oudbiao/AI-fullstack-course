@@ -71,6 +71,28 @@ If you accidentally use `*` instead of `@`, you get element-by-element multiplic
 | 3 | [4.1.4 Eigenvalues and Eigenvectors](./03-eigenvalues.md) | special directions, PCA intuition |
 | 4 | [4.1.5 Vector Spaces](./04-vector-spaces.md) | basis, dimension, linear transformation |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain why one sample is a vector, why a batch is a matrix, what `@` does, and why these ideas reappear in RAG similarity, PCA, and neural network layers.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The linear-algebra route is passed when you can read `X @ W` as both a shape operation and a batch of dot products.
+- Keep one vector similarity example, one matrix transformation example, one PCA or eigenvector plot, and one SVD or rank check as evidence.
+- The key explanation is not symbolic elegance; it is knowing what changed in direction, length, dimension, or redundancy.
+
+</details>

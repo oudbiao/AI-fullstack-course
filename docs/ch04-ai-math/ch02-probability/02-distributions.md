@@ -468,6 +468,18 @@ These questions will naturally lead you to:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## Summary
 
 | Concept | Intuition |
@@ -569,3 +581,13 @@ Dice n=200: mean=3.500, std=0.120
 ```
 
 The mean stays close to 3.5, while the standard deviation of the averages becomes smaller. That is the Central Limit Theorem becoming visible in code.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The six-panel distribution plot should make the difference between discrete counts and continuous measurements visible. Bars are natural for Bernoulli, binomial, and Poisson; curves or histograms fit continuous distributions.
+- For heights from `N(170,5)`, the interval 160 to 180 cm is within two standard deviations, so the simulated proportion should be close to `95%`.
+- When the sample mean experiment uses larger sample sizes, its distribution should become narrower and more normal-looking. That is the practical face of the Central Limit Theorem.
+
+</details>

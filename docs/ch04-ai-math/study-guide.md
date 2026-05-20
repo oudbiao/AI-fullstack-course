@@ -30,6 +30,17 @@ If a formula feels difficult, first ask what model action it supports.
 | I can trace gradient descent step by step | update table |
 | I can finish the final workshop after theory | `ch04_math_workshop_evidence/` |
 
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Use the checklist as a translation test: every formula should become a small code operation, and every code output should become a plain-language model interpretation.
+- The minimum evidence pack is one vector/matrix output, one probability simulation or Bayes update, one entropy or loss calculation, and one gradient-descent trace.
+- If a formula cannot be connected to model training, retrieval, uncertainty, or evaluation, add a one-sentence bridge before moving to Chapter 5.
+
+</details>
+
+
 ## Formula-To-Code Checks
 
 | Idea | Concrete check |
@@ -43,3 +54,15 @@ If a formula feels difficult, first ask what model action it supports.
 ## Ready To Continue
 
 Continue to Chapter 5 when each math idea maps to a model action: represent data, compare examples, measure uncertainty, measure loss, or update parameters.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+concept_bridge: which math idea supports model training or AI applications
+calculation: small hand/NumPy example that can be checked
+output: number, curve, vector, matrix, probability, or gradient trace
+failure_check: memorizing formula without knowing the model behavior it explains
+Expected_output: math note that explains one real AI operation
+```

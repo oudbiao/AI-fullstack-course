@@ -62,6 +62,18 @@ all_scores: [89.8 75.6 91.8]
 
 `@` ではなく `*` を使うと、重み付きスコアではなく要素ごとの掛け算になります。最初にここを区別できるとかなり楽になります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | まず見ること |
@@ -74,3 +86,13 @@ all_scores: [89.8 75.6 91.8]
 ## 合格ライン
 
 1つのサンプルがベクトル、バッチが行列である理由、`@` が何をするか、そして RAG 類似度、PCA、ニューラルネットワーク層に再登場する理由を説明できれば合格です。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 線形代数ルートを通過できる目安は、`X @ W` を shape の操作としても、内積のバッチとしても読めることです。
+- 証拠として、ベクトル類似度の例、行列変換の例、PCA または固有ベクトルの図、SVD または rank チェックを 1 つずつ残します。
+- 大事なのは記号の美しさではなく、方向、長さ、次元、冗長性がどう変わったかを説明できることです。
+
+</details>

@@ -594,6 +594,18 @@ print(f"邮件包含 '免费'+'中奖'+'点击' 是垃圾邮件的概率: {p_spa
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## 小结
 
 | 概念 | 直觉 | 公式/代码 |
@@ -703,3 +715,13 @@ print(f"发病率为 1% 时，P(有病|阳性): {p_disease_if_positive:.1%}")
 ```
 
 这比 1.9% 高很多，因为先验概率不再那么小。贝叶斯定理对先验很敏感，这也是为什么现实诊断和风险评分中特别重视基础发生率。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 纸牌问题中，`P(hearts)=13/52=0.25`，`P(hearts | red)=13/26=0.5`，`P(A | hearts)=1/13≈0.0769`。模拟结果应接近但不必完全相等。
+- 工厂 Bayes 问题中，`P(defective)=0.6*0.02+0.4*0.05=0.032`，所以 `P(B | defective)=0.02/0.032=62.5%`。
+- 如果疾病发生率从 `0.1%` 改成 `1%`，阳性后的后验概率会明显升高。核心 lesson 是：同样的检测结果，会被 base rate 改写含义。
+
+</details>

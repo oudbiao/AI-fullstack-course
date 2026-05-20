@@ -142,7 +142,7 @@ plt.grid(True, alpha=0.3)
 # いくつかの重要な点を注釈
 for p, label in [(1.0, '必然的な事象'), (0.5, 'コイン投げ'), (0.01, 'まれな事象')]:
     i = -np.log2(p)
-    plt.annotate(f'{label}\np={p}, info={i:.1f}bit', 
+    plt.annotate(f'{label}\np={p}, info={i:.1f}bit',
                  xy=(p, i), fontsize=10,
                  xytext=(p+0.15, i+0.5),
                  arrowprops=dict(arrowstyle='->', color='gray'))
@@ -290,7 +290,7 @@ plt.show()
 
 - 予測分布と真の分布がどれくらいずれているか
 
-初心者にとっては、これで十分役に立ちます。  
+初心者にとっては、これで十分役に立ちます。
 というのも、その後の分類モデルで本当に気にするのも、
 
 - モデルが正しいクラスにより高い確率を与えているか
@@ -412,9 +412,9 @@ plt.show()
 
 - 正解にどれだけ信頼を置いたか
 
-たとえば正しいクラスが `猫` なのに、大部分の確率を `犬` に割り当てていたら、  
-交差エントロピーは大きくなります。  
-逆に、正しいクラスに確率をしっかり割り当てていれば、  
+たとえば正しいクラスが `猫` なのに、大部分の確率を `犬` に割り当てていたら、
+交差エントロピーは大きくなります。
+逆に、正しいクラスに確率をしっかり割り当てていれば、
 交差エントロピーは小さくなります。
 
 つまり、交差エントロピーでまず覚えるべきなのは数式ではなく、次の一文です。
@@ -460,7 +460,7 @@ print("交差エントロピー損失:", round(loss, 4))
 
 ### なぜ KLダイバージェンス は少し分かりにくいのか？
 
-見た目は「分布間の距離」に見えるのに、  
+見た目は「分布間の距離」に見えるのに、
 実は対称ではありません。
 
 初心者には、まず次の理解が安定です。
@@ -649,6 +649,18 @@ H(P) + KL =     1.2796
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## まとめ
 
 | 概念 | 直感 | 値域 |
@@ -762,3 +774,13 @@ q1=0.1, Q=[0.1   0.675 0.225], KL=1.0830
 q1=0.6, Q=[0.6 0.3 0.1], KL=-0.0000
 q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 3 つのエントロピーは `2.0000`、約 `0.2419`、約 `1.8464` bits です。4 つの結果が一様な分布が最も不確実です。どの結果も優先されないからです。
+- 3 クラスのクロスエントロピー例では、loss は約 `0.3567` と `0.1054` nats です。正解クラスにより高い確率を与えると loss は下がります。
+- よい説明は訓練につなげます。クロスエントロピーは、正解クラスへの適切な自信を評価し、誤ったクラスへ高い確率を置くことを罰します。
+
+</details>

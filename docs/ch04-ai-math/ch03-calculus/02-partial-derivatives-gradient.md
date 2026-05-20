@@ -412,6 +412,18 @@ The next section to read is usually:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## Summary
 
 | Concept | Intuition | Python |
@@ -453,3 +465,13 @@ Draw the contour plot and gradient arrows for f(x, y) = sin(x) + cos(y) (use `pl
 ### Exercise 3: Gradient of Three Variables
 
 For f(x, y, z) = x² + 2y² + 3z², compute the gradient at (1, 1, 1), and determine which direction changes fastest.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For `f(x,y)=x^2y+xy^2`, the gradient is `[2xy+y^2, x^2+2xy]`; at `(2,3)` it is `[21,16]`.
+- For `sin(x)+cos(y)`, gradient arrows should follow `[cos(x), -sin(y)]`. The contour plot and arrows should agree visually: arrows point toward faster increase.
+- For `x^2+2y^2+3z^2`, the gradient at `(1,1,1)` is `[2,4,6]`, so the fastest increase is in that vector direction. Fastest decrease is the opposite direction.
+
+</details>

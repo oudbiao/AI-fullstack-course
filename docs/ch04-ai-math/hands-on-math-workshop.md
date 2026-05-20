@@ -452,6 +452,17 @@ Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradie
 4. Add one new section to `math_cards.md` explaining matrix multiplication in your own words.
 5. Write one sentence connecting each file to a later chapter: machine learning, deep learning, RAG, or LLM.
 
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- With `QUERY=[0.1,1.0,0.7]`, the most similar topic should shift toward the topic whose vector emphasizes probability and entropy more than raw vector direction. Explain the answer by comparing cosine similarity, not by guessing from names.
+- Changing `true_probability` from `0.65` to `0.5` should make the running rate settle closer to `0.5`; early samples may wobble, but the long-run trend should stabilize.
+- Reducing `learning_rate` from `0.2` to `0.05` should usually keep loss decreasing but make it slower. The right answer includes the loss curve, not just a sentence.
+
+</details>
+
+
 ## Exit Checklist
 
 - [ ] I can run the workshop locally.
@@ -462,3 +473,15 @@ Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradie
 - [ ] I saved the evidence folder and can explain what each file proves.
 
 If you can check all six items, Chapter 4 is no longer just a formula chapter. It has become a runnable model-intuition toolkit.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+concept_bridge: which math idea supports model training or AI applications
+calculation: small hand/NumPy example that can be checked
+output: number, curve, vector, matrix, probability, or gradient trace
+failure_check: memorizing formula without knowing the model behavior it explains
+Expected_output: math note that explains one real AI operation
+```

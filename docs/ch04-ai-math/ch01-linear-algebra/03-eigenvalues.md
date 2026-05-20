@@ -505,6 +505,18 @@ flowchart LR
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## Summary
 
 | Concept | Intuitive understanding | NumPy implementation |
@@ -552,3 +564,13 @@ y = digits.target     # 0~9
 
 # Your code: PCA dimensionality reduction + visualization
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For `A=[[3,1],[0,2]]`, eigenvalues are `3` and `2`. One valid eigenvector for `3` is `[1,0]`; one valid eigenvector for `2` is proportional to `[-1,1]`.
+- Verification means checking `A @ v` and `lambda * v` are numerically the same, allowing for floating-point rounding and arbitrary eigenvector scale.
+- In PCA on digits, a 2D plot should show partial clustering by digit but not perfect separation. The explanation should say PCA keeps high-variance directions, not class labels.
+
+</details>

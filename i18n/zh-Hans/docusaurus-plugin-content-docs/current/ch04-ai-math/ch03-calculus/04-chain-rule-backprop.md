@@ -516,6 +516,18 @@ plt.show()
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## 小结
 
 | 概念 | 直觉 |
@@ -602,3 +614,13 @@ print("b1.grad =", b1.grad.item())
 print("w2.grad =", w2.grad.item())
 print("b2.grad =", b2.grad.item())
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 对 `y=(2x+1)^3`，导数是 `6(2x+1)^2`；在 `x=1` 时值为 `54`。
+- 把网络扩展成 3 个隐藏神经元时，把隐藏层写成向量，并分别保留每个权重的梯度。主要检查点是：每个 forward 值都应有对应的 backward 梯度。
+- autograd 和手算梯度应在四舍五入范围内一致。如果不同，检查 ReLU 的激活/未激活分支、漏掉的链式因子，以及 loss 定义是否相同。
+
+</details>

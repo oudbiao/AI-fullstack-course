@@ -647,6 +647,18 @@ These concepts appear again and again in machine learning, deep learning, and la
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## Summary
 
 | Concept | Intuition | Range |
@@ -760,3 +772,13 @@ q1=0.1, Q=[0.1   0.675 0.225], KL=1.0830
 q1=0.6, Q=[0.6 0.3 0.1], KL=-0.0000
 q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The entropies should be `2.0000`, about `0.2419`, and about `1.8464` bits. The uniform four-outcome distribution is most uncertain because no outcome is preferred.
+- For the three-class cross-entropy example, the losses are about `0.3567` and `0.1054` nats. Giving more probability to the true class lowers the loss.
+- A good explanation links this to training: cross-entropy rewards calibrated confidence on the correct class and penalizes confident probability placed on wrong classes.
+
+</details>

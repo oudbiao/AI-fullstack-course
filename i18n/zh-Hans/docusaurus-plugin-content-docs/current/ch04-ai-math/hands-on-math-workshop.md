@@ -264,17 +264,17 @@ def write_gradient_svg(path, rows):
 def write_math_cards(path, info_examples):
     content = f"""# Math Cards
 
-## Vector
+## 向量（Vector）
 
 Model language: a vector is a small numeric description of an object.
 Workshop evidence: `vector_similarity.csv` shows which topic vector is closest to the query.
 
-## Probability
+## 概率（Probability）
 
 Model language: probability is a controlled way to talk about uncertainty.
 Workshop evidence: `probability_simulation.csv` shows observed rates moving around the expected rate.
 
-## Entropy and Loss
+## 熵与损失（Entropy and Loss）
 
 Model language: entropy measures uncertainty; loss measures how painful a prediction mistake is.
 Confident entropy: {info_examples['entropy_confident_bits']} bits.
@@ -282,7 +282,7 @@ Uncertain entropy: {info_examples['entropy_uncertain_bits']} bits.
 Good prediction loss: {info_examples['loss_good_prediction']}.
 Bad prediction loss: {info_examples['loss_bad_prediction']}.
 
-## Gradient
+## 梯度（Gradient）
 
 Model language: a gradient tells a parameter which direction changes the loss fastest.
 Workshop evidence: `gradient_descent.csv` shows x moving toward the low-loss point.
@@ -452,6 +452,17 @@ ch04_math_workshop_evidence/gradient_descent.svg
 4. 在 `math_cards.md` 里新增一节，用自己的话解释矩阵乘法。
 5. 给每个文件写一句话，说明它怎样连接到后续章节：机器学习、深度学习、RAG 或 LLM。
 
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 把 `QUERY` 改成 `[0.1,1.0,0.7]` 后，最相似主题应转向更强调概率和熵、而不是原始向量方向的主题。解释要比较余弦相似度，不要靠名字猜。
+- 把 `true_probability` 从 `0.65` 改成 `0.5` 后，累计比例应逐渐稳定到更接近 `0.5`；早期样本会抖动，但长期趋势会稳定。
+- 把 `learning_rate` 从 `0.2` 降到 `0.05` 后，loss 通常仍会下降，但速度更慢。合格答案要包含 loss 曲线，而不是只写一句话。
+
+</details>
+
+
 ## 退出检查清单
 
 - [ ] 我能在本地跑通这个工作坊。
@@ -462,3 +473,15 @@ ch04_math_workshop_evidence/gradient_descent.svg
 - [ ] 我保存了证据文件夹，并能解释每个文件证明了什么。
 
 如果六项都能勾上，第 4 章就不再只是公式章节，而是一套可运行的模型直觉工具箱。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept_bridge: which math idea supports model training or AI applications
+calculation: small hand/NumPy example that can be checked
+output: number, curve, vector, matrix, probability, or gradient trace
+failure_check: memorizing formula without knowing the model behavior it explains
+Expected_output: math note that explains one real AI operation
+```

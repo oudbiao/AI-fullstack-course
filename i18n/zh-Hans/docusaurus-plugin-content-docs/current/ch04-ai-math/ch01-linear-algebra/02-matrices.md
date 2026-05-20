@@ -721,6 +721,18 @@ print("方程解:", x)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## 小结
 
 | 概念 | 直觉理解 | NumPy 实现 |
@@ -764,3 +776,13 @@ B = np.array([[2, 1],
 ### 练习 3：模拟两层神经网络
 
 创建一个两层网络，输入 100 个样本（每个 5 个特征），第一层输出 3 个值，第二层输出 1 个值。打印每层的输入输出形状。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 给定矩阵手算结果应为 `A @ B = [[8, 5], [3, 14]]`；NumPy 验证应完全一致。
+- 90 度旋转矩阵 `[[0,-1],[1,0]]` 会把 `(x,y)` 映射成 `(-y,x)`。三角形应保持大小和形状，只是逆时针旋转。
+- 两层网络的 shape 应类似 `(100,5) @ (5,3) -> (100,3)`，再 `(100,3) @ (3,1) -> (100,1)`。shape 证据是这题最好的安全检查。
+
+</details>

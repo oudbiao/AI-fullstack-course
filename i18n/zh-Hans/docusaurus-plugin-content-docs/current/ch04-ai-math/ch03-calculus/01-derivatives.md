@@ -284,6 +284,18 @@ plt.show()
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## 小结
 
 | 概念 | 直觉 | Python 实现 |
@@ -315,3 +327,13 @@ plt.show()
 ### 练习 3：Sigmoid 梯度消失
 
 画出 sigmoid 的导数图，找出导数最大值是多少，在什么位置。解释为什么这会导致"梯度消失"问题。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 在 `x=2`，`3x^2+2x-1` 的导数是 `14`，`1/x` 的导数是 `-0.25`，`x sin(x)` 的导数是 `sin(2)+2cos(2)≈0.0770`。
+- 对 `f(x)=x^3-3x`，导数在 `x=-1` 和 `x=1` 为 0，分别对应曲线上的局部最大值和局部最小值。
+- Sigmoid 导数在 `x=0` 最大，值为 `0.25`。离 0 很远时导数接近 0，导致基于梯度的更新非常小。
+
+</details>

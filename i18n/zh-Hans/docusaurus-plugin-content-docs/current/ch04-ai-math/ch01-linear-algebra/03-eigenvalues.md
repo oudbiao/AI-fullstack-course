@@ -505,6 +505,18 @@ flowchart LR
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## 小结
 
 | 概念 | 直觉理解 | NumPy 实现 |
@@ -552,3 +564,13 @@ y = digits.target     # 0~9
 
 # 你的代码：PCA 降维 + 可视化
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 对 `A=[[3,1],[0,2]]`，特征值是 `3` 和 `2`。特征值 `3` 的一个有效特征向量是 `[1,0]`；特征值 `2` 的一个有效特征向量与 `[-1,1]` 成比例。
+- 验证方式是检查 `A @ v` 和 `lambda * v` 在数值上相同，允许浮点误差，也允许特征向量整体缩放。
+- digits 数据集 PCA 到 2D 后，不同数字应有部分聚类，但不会完美分开。解释时要说明 PCA 保留的是高方差方向，不是类别标签。
+
+</details>

@@ -153,3 +153,15 @@ loss = cross_entropy(prediction, label)
 它们背后都在回答同一个问题：
 
 > **在不确定的世界里，模型怎样做出可计算、可更新、可优化的判断？**
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```

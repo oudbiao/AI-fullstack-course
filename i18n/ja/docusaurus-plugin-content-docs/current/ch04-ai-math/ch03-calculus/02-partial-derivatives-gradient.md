@@ -24,7 +24,7 @@ keywords: [偏導数, 勾配, 多変数微積分, 勾配方向, Python, AI数学
 
 ## まず、とても大事な学習の見通しを話します
 
-この節は、多くの初学者が「数学って本当に少し難しくなってきた」と感じる最初の場所です。  
+この節は、多くの初学者が「数学って本当に少し難しくなってきた」と感じる最初の場所です。
 でもここで大切なのは、いきなり多変数微積分を完全に理解することではなく、まず次のことを理解することです。
 
 - 1変数の導関数が、なぜ自然に偏導数へ広がるのか
@@ -183,7 +183,7 @@ flowchart LR
 
 - 山の斜面に立っている自分の足元から、いちばん急な上り坂を指す矢印
 
-高いところへ行きたいなら、勾配の向きに進みます。  
+高いところへ行きたいなら、勾配の向きに進みます。
 低いところへ行きたいなら、負の勾配の向きに進みます。
 
 この例えはぜひ先に覚えておくとよいです。抽象的な「偏導数をまとめたベクトル」が、ぐっと具体的な動作の問題になります。
@@ -258,7 +258,7 @@ for px, py in [(-1, 1), (0, 0), (1, 1), (1.5, 2)]:
     norm = np.linalg.norm(grad)
     if norm > 0:
         grad_scaled = grad / norm * 0.3
-        ax.quiver(px, py, -grad_scaled[0], -grad_scaled[1], 
+        ax.quiver(px, py, -grad_scaled[0], -grad_scaled[1],
                   color='red', scale=3, width=0.008)
 
 ax.plot(1, 1, 'r*', markersize=20, label='最小値 (1, 1)')
@@ -338,7 +338,7 @@ for step in range(3):
 
 に変わるからです。
 
-つまり、勾配は数学の対象であるだけでなく、  
+つまり、勾配は数学の対象であるだけでなく、
 学習の更新そのものになるのです。
 
 ### 初学者が先に覚えたい比較表
@@ -413,6 +413,18 @@ for direction in ["wrong", "right"]:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## まとめ
 
 | 概念 | 直感 | Python |
@@ -454,3 +466,13 @@ f(x, y) = sin(x) + cos(y) の等高線図と勾配の矢印を描いてみまし
 ### 練習 3：3変数の勾配
 
 f(x, y, z) = x² + 2y² + 3z² に対して、(1, 1, 1) における勾配を計算し、どの方向に最も速く変化するかを判断してください。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- `f(x,y)=x^2y+xy^2` の勾配は `[2xy+y^2, x^2+2xy]` で、`(2,3)` では `[21,16]` です。
+- `sin(x)+cos(y)` では、勾配矢印は `[cos(x), -sin(y)]` に従います。等高線図と矢印は視覚的に一致し、矢印はより速く増える方向を向きます。
+- `x^2+2y^2+3z^2` の `(1,1,1)` における勾配は `[2,4,6]` です。したがって最速増加方向はこのベクトル方向で、最速減少方向は反対向きです。
+
+</details>

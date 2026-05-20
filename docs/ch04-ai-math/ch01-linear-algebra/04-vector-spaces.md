@@ -615,6 +615,18 @@ These concepts will appear again and again when you continue learning machine le
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## Summary
 
 | Concept | Intuition | NumPy |
@@ -734,3 +746,13 @@ Transformed vertices:
  [0.366 1.366]
  [0.    0.   ]]
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The rank checks are `g1` rank 1 so not independent, `g2` rank 2 so independent, and `g3` rank 2 so not independent.
+- For SVD compression, reconstruction error should decrease as `k` grows and reach near zero when all singular values are kept. If the curve increases, the reconstruction formula or slicing is wrong.
+- A good explanation links rank to redundancy: independent vectors add new directions, while dependent vectors repeat information already present.
+
+</details>

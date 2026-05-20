@@ -34,6 +34,18 @@ keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## 这节和前面三节是什么关系？
 
 如果你前面三节学的是“向量怎么表示、矩阵怎么变换、特征值怎么找特殊方向”，那这一节就是把这些内容抬高一个视角来重新看。
@@ -736,3 +748,13 @@ plt.show()
  [0.366 1.366]
  [0.    0.   ]]
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- rank 检查结果是：`g1` 的 rank 为 1，因此不线性无关；`g2` 的 rank 为 2，因此线性无关；`g3` 的 rank 为 2，因此不线性无关。
+- SVD 压缩中，重建误差应随着 `k` 增大而下降，并在保留全部奇异值时接近 0。如果曲线上升，通常是重建公式或切片错了。
+- 好的解释会把 rank 和冗余连起来：线性无关向量带来新方向，线性相关向量重复已有信息。
+
+</details>

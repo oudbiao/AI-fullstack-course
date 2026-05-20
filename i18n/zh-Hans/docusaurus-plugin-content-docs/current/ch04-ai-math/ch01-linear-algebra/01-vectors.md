@@ -661,6 +661,18 @@ print("余弦相似度:", cos_sim)   # 0.9746
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## 小结
 
 | 概念 | 直觉理解 | NumPy 实现 |
@@ -712,3 +724,13 @@ movies = {
 - a = [2, 3]，b = [-1, 2]，画出 a、b 和 a+b
 
 提示：参考 2.1 节的代码。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 对 `a=[2,3,-1]` 和 `b=[1,-2,4]`，`a+b=[3,1,3]`，`3a-2b=[4,13,-11]`，`||a||=sqrt(14)≈3.742`，`a·b=-8`，余弦相似度约为 `-0.8018`。
+- 电影向量中，通常最相似的是 Interstellar 和 Wolf Warrior 2，余弦相似度约 `0.9297`；最不相似的是 Ex-Files 3 和 Alien，约 `0.4495`。
+- 向量加法图应先画 `a`，再从 `a` 的终点画 `b`，并把 `a+b=[1,5]` 作为从原点出发的最终箭头。图形必须和数值一致。
+
+</details>

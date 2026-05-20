@@ -55,6 +55,18 @@ for step in range(1, 7):
 
 数値は `3` に近づき、loss は小さくなります。ニューラルネットワークが大きくなる前の学習イメージはこれです。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | まず見ること |
@@ -67,3 +79,13 @@ for step in range(1, 7):
 ## 合格ライン
 
 勾配降下がなぜ「loss を計算 -> 勾配を計算 -> パラメータを更新」を繰り返すのか、そして学習率が大きすぎるとなぜ不安定になるのかを説明できれば合格です。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 微積分ルートを通過できる目安は、derivative を局所的な変化、gradient を多パラメータの方向、gradient descent を loss を下げる反復更新として説明できることです。
+- 証拠として、導関数の図、勾配ベクトル、loss 曲線、手計算と autograd の比較を 1 つずつ残します。
+- 最も安全な習慣は、パラメータをこの方向に少し動かすと loss は上がるのか下がるのか、と常に問うことです。
+
+</details>

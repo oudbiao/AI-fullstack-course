@@ -22,14 +22,14 @@ keywords: [固有値, 固有ベクトル, PCA, 次元削減, NumPy, 線形代数
 
 ## まず、とても大事な学習イメージを持とう
 
-この節は、初めて読む人がタイトルを見ただけで少し緊張しやすいところです。  
+この節は、初めて読む人がタイトルを見ただけで少し緊張しやすいところです。
 でも、ここで最初に身につけるべきなのは、線形代数のすべての導出ではなく、次の感覚です。
 
 - なぜ「方向は変わらないのに長さだけ変わる」特別なベクトルがあるのか
 - なぜその特別な方向が PCA、次元削減、情報保持に直接関係するのか
 - なぜ AI ではこれらが何度も登場するのか
 
-なので、この節の最初の目標は、記号を暗記することではなく、  
+なので、この節の最初の目標は、記号を暗記することではなく、
 まず「特別な方向」という直感をしっかり作ることです。
 
 ---
@@ -44,6 +44,18 @@ keywords: [固有値, 固有ベクトル, PCA, 次元削減, NumPy, 線形代数
 
 - たくさんの変化の中から、いちばん重要な方向をどう見つけるか
 - PCA がなぜ情報をあまり失わずにデータを圧縮できるのか
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
 
 ## この節を怖くしないための用語集
 
@@ -93,7 +105,7 @@ flowchart LR
 - 方向がずれない
 - 長くなったり短くなったりするだけ
 
-この「どう吹いても向きが変わらない」特別な矢印が、  
+この「どう吹いても向きが変わらない」特別な矢印が、
 固有ベクトルです。
 
 ### 可視化：どのベクトルの方向が変わらない？
@@ -125,12 +137,12 @@ unit_vectors = np.array([np.cos(angles), np.sin(angles)])  # 2×50
 transformed = A @ unit_vectors  # 2×50
 
 # 変換前後を描く
-for ax, vectors, title in [(axes[0], unit_vectors, '変換前（単位円）'), 
+for ax, vectors, title in [(axes[0], unit_vectors, '変換前（単位円）'),
                              (axes[1], transformed, '変換後（楕円）')]:
     # すべてのベクトルを描画（グレー）
     for i in range(vectors.shape[1]):
         ax.plot([0, vectors[0, i]], [0, vectors[1, i]], 'gray', alpha=0.3)
-    
+
     # 固有ベクトルの方向を強調表示
     for j in range(2):
         ev = eigenvectors[:, j]
@@ -139,10 +151,10 @@ for ax, vectors, title in [(axes[0], unit_vectors, '変換前（単位円）'),
         else:
             scale = eigenvalues[j]
         color = ['red', 'blue'][j]
-        ax.quiver(0, 0, ev[0]*scale, ev[1]*scale, angles='xy', scale_units='xy', 
+        ax.quiver(0, 0, ev[0]*scale, ev[1]*scale, angles='xy', scale_units='xy',
                   scale=1, color=color, width=0.01,
                   label=f'固有ベクトル {j+1} (λ={eigenvalues[j]:.0f})')
-    
+
     ax.set_xlim(-4, 4)
     ax.set_ylim(-4, 4)
     ax.set_aspect('equal')
@@ -171,7 +183,7 @@ plt.show()
 - でも、少数の方向だけは特別
 - その方向こそが、データで本当に大事な方向であることが多い
 
-つまり、この節で一番大切なのは、まず計算ではなく、  
+つまり、この節で一番大切なのは、まず計算ではなく、
 「特別な方向」の感覚をつかむことです。
 
 ---
@@ -211,10 +223,10 @@ print("固有ベクトル:\n", eigenvectors)
 for i in range(len(eigenvalues)):
     v = eigenvectors[:, i]      # i 番目の固有ベクトル
     lam = eigenvalues[i]        # i 番目の固有値
-    
+
     left = A @ v                # 行列 × ベクトル
     right = lam * v             # 固有値 × ベクトル
-    
+
     print(f"\n固有値 λ={lam:.1f}, 固有ベクトル v={v.round(3)}")
     print(f"  A @ v  = {left.round(6)}")
     print(f"  λ * v  = {right.round(6)}")
@@ -555,3 +567,13 @@ y = digits.target     # 0~9
 
 # あなたのコード：PCA 次元削減 + 可視化
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- `A=[[3,1],[0,2]]` の固有値は `3` と `2` です。固有値 `3` の有効な固有ベクトルは `[1,0]`、固有値 `2` の有効な固有ベクトルは `[-1,1]` に比例します。
+- 検証では、`A @ v` と `lambda * v` が数値的に同じかを確認します。浮動小数点誤差と、固有ベクトル全体のスケール違いは許容します。
+- digits データを PCA で 2D にすると、数字ごとにある程度まとまりますが完全には分離しません。PCA はラベルではなく高分散方向を保つ、と説明します。
+
+</details>

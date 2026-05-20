@@ -65,6 +65,28 @@ Lower cross-entropy means the probabilities are closer to the labels. This is wh
 | 4 | [4.2.5 Information Theory](./04-information-theory.md) | entropy, cross-entropy, KL divergence |
 | 5 | [4.2.6 Historical Foundations](./05-history-foundations.md) | Bayes, Fisher, Shannon, EM in context |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## Pass Check
 
 You pass this roadmap when you can say what uncertainty a probability term is measuring, and explain why a classifier output such as `0.93` is useful but not an absolute truth.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The probability route is passed when you can move from a single event to a repeated-sample estimate, then to a conditional update.
+- Keep evidence for a simulation, a distribution plot, one MLE/MAP estimate, and one entropy or cross-entropy calculation.
+- The key habit is to name the assumption: prior rate, independence, sample size, null hypothesis, or predicted probability.
+
+</details>

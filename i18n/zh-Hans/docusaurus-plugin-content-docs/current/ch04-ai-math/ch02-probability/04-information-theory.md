@@ -649,6 +649,18 @@ H(P) + KL =     1.2796
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## 小结
 
 | 概念 | 直觉 | 值域 |
@@ -762,3 +774,13 @@ q1=0.1, Q=[0.1   0.675 0.225], KL=1.0830
 q1=0.6, Q=[0.6 0.3 0.1], KL=-0.0000
 q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 三个熵值应为 `2.0000`、约 `0.2419`、约 `1.8464` bits。四个结果均匀分布时最不确定，因为没有哪个结果更被偏好。
+- 三分类交叉熵例子中，loss 约为 `0.3567` 和 `0.1054` nats。给真实类别更高概率，loss 就会下降。
+- 好的解释会连接到训练：交叉熵奖励对正确类别的校准置信度，并惩罚把高概率放到错误类别上。
+
+</details>

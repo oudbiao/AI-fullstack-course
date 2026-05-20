@@ -68,3 +68,26 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 ## 通过标准
 
 能说清一个概率术语在衡量哪种不确定性，并能解释分类器输出 `0.93` 为什么有用但不是绝对真相，就算通过。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 概率路线通过的标志是：你能从单次事件，走到重复采样估计，再走到条件更新。
+- 证据至少保留一次模拟、一个分布图、一个 MLE/MAP 估计，以及一个熵或交叉熵计算。
+- 关键习惯是说清假设：先验比例、独立性、样本量、零假设或预测概率。
+
+</details>
+
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```

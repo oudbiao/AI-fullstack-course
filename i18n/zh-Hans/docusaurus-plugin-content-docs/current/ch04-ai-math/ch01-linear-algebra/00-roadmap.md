@@ -74,3 +74,26 @@ all_scores: [89.8 75.6 91.8]
 ## 通过标准
 
 能解释为什么一个样本是向量、一批样本是矩阵、`@` 在做什么，以及这些概念为什么会出现在 RAG 相似度、PCA 和神经网络层里，就算通过。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 线性代数路线通过的标志是：你能把 `X @ W` 同时读成 shape 运算和一批点积。
+- 证据至少保留一个向量相似度例子、一个矩阵变换例子、一个 PCA 或特征向量图、一个 SVD 或 rank 检查。
+- 重点不是公式写得漂亮，而是说清方向、长度、维度或冗余信息发生了什么变化。
+
+</details>
+
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```

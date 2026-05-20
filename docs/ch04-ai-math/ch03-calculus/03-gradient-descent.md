@@ -479,6 +479,18 @@ These questions will naturally lead you to:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## Summary
 
 | Concept | Intuition |
@@ -513,3 +525,13 @@ y = 0.5 * X**2 - 2 * X + 1 + rng.normal(size=100) * 0.5
 ### Exercise 3: Visualize 2D gradient descent
 
 For f(x, y) = x² + 2y², start from (4, 3) and run gradient descent, then draw the descent path on a contour plot.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- With learning rates `0.001`, `0.01`, `0.1`, and `0.5`, expect very slow improvement at `0.001`, steadier improvement around `0.01` or `0.1`, and possible oscillation or divergence at `0.5` depending on scaling.
+- For the quadratic fit, the learned parameters should move close to the data-generating values `a≈0.5`, `b≈-2`, and `c≈1`, with noise preventing perfect equality.
+- For `f(x,y)=x^2+2y^2`, the update moves faster along the y direction because its gradient component is `4y`. The path should curve toward the origin.
+
+</details>

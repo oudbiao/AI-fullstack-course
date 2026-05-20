@@ -479,6 +479,18 @@ flowchart LR
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## 小结
 
 | 概念 | 直觉 |
@@ -513,3 +525,13 @@ y = 0.5 * X**2 - 2 * X + 1 + rng.normal(size=100) * 0.5
 ### 练习 3：二维梯度下降可视化
 
 对 f(x, y) = x² + 2y²，从 (4, 3) 出发做梯度下降，在等高线图上画出下降轨迹。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 学习率 `0.001`、`0.01`、`0.1`、`0.5` 对比时，`0.001` 通常下降很慢，`0.01` 或 `0.1` 更稳定，`0.5` 可能因为尺度问题出现震荡或发散。
+- 二次函数拟合中，学到的参数应接近数据生成值 `a≈0.5`、`b≈-2`、`c≈1`，但噪声会让它们不完全相等。
+- 对 `f(x,y)=x^2+2y^2`，因为 y 方向梯度分量是 `4y`，更新在 y 方向会更快，路径应弯向原点。
+
+</details>

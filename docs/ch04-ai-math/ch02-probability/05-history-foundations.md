@@ -153,3 +153,15 @@ When you later see `probability`, `likelihood`, `entropy`, `cross entropy`, or `
 They are all answering the same question underneath:
 
 > **In an uncertain world, how does a model make judgments that are computable, updatable, and optimizable?**
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```

@@ -578,6 +578,18 @@ flowchart LR
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## 小结
 
 | 概念 | 直觉 | 公式/代码 |
@@ -681,3 +693,13 @@ print(f"估计标准差: {sigma_hat:.3f}（真实标准差: 2）")
 估计均值: 4.939（真实均值: 5）
 估计标准差: 1.759（真实标准差: 2）
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 100 次投硬币出现 62 次正面时，MLE 是 `0.62`。加入对称的 `Beta(10,10)` 先验后，MAP 会向 `0.5` 靠近，使用文中网格代码约为 `0.602`。
+- A/B 假阳性模拟里，两组真实转化率都是 8%，`p < 0.05` 的比例应大约 5%，会有随机波动。一次运行看起来更高，并不能证明有真实效果。
+- 讲解要区分 effect size 和统计显著性。p-value 回答的是“在零假设下有多意外”，不是“对业务有多重要”。
+
+</details>

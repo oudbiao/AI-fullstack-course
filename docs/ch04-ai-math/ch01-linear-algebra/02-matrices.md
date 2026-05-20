@@ -721,6 +721,18 @@ These questions will naturally lead you to:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## Summary
 
 | Concept | Intuitive understanding | NumPy implementation |
@@ -764,3 +776,13 @@ Hint: the 90° rotation matrix is `[[0, -1], [1, 0]]`
 ### Exercise 3: Simulate a two-layer neural network
 
 Create a two-layer network with 100 input samples (each with 5 features), where the first layer outputs 3 values and the second layer outputs 1 value. Print the input and output shapes of each layer.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the given matrices, manual multiplication gives `A @ B = [[8, 5], [3, 14]]`; NumPy should match exactly.
+- A 90-degree rotation matrix `[[0,-1],[1,0]]` maps `(x,y)` to `(-y,x)`. The triangle should keep its size and shape while rotating counterclockwise.
+- For the two-layer network, shapes should flow like `(100,5) @ (5,3) -> (100,3)` and then `(100,3) @ (3,1) -> (100,1)`. Shape evidence is the answer’s best safety check.
+
+</details>

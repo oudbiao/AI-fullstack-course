@@ -593,6 +593,18 @@ These three questions will naturally lead you to:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## Summary
 
 | Concept | Intuition | Formula / Code |
@@ -702,3 +714,13 @@ P(Have disease|Positive) when incidence is 1%: 16.7%
 ```
 
 This is much higher than 1.9%, because the prior probability is no longer as tiny. Bayes' theorem is sensitive to the prior, which is exactly why base rates matter so much in real-world diagnosis and risk scoring.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the card problem, `P(hearts)=13/52=0.25`, `P(hearts | red)=13/26=0.5`, and `P(A | hearts)=1/13≈0.0769`. Simulation should be close, not exact.
+- For the factory Bayes problem, `P(defective)=0.6*0.02+0.4*0.05=0.032`, so `P(B | defective)=0.02/0.032=62.5%`.
+- If disease incidence changes from `0.1%` to `1%`, the posterior after a positive test rises sharply. That is the main lesson: base rate changes the meaning of the same test result.
+
+</details>

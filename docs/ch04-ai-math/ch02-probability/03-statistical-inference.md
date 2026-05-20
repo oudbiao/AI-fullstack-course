@@ -578,6 +578,18 @@ flowchart LR
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## Summary
 
 | Concept | Intuition | Formula/Code |
@@ -681,3 +693,13 @@ Expected output:
 Estimated mean: 4.939 (true mean: 5)
 Estimated std: 1.759 (true std: 2)
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For 62 heads in 100 tosses, the MLE is `0.62`. With a symmetric `Beta(10,10)` prior, the MAP estimate moves toward `0.5`, about `0.602` in the supplied grid code.
+- In the A/B false-positive simulation where both true rates are 8%, the share of `p < 0.05` should be around 5%, with random variation. A higher-looking single run is not proof of a real effect.
+- The explanation should separate effect size from statistical significance. A p-value answers “how surprising under the null,” not “how important for the business.”
+
+</details>

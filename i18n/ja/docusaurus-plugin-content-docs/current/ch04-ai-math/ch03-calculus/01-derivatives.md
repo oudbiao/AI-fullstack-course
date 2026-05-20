@@ -22,13 +22,13 @@ keywords: [導関数, 微積分, 変化率, 接線の傾き, Python, AI数学]
 
 ## まず、とても大事な学習イメージを共有します
 
-この節の目的は、最初から「全部の導関数を導出できる人」になることではありません。  
+この節の目的は、最初から「全部の導関数を導出できる人」になることではありません。
 そうではなく、まず本当に次のことを理解するためのものです。
 
 - 導関数は何を表しているのか
 - なぜそれがモデルのパラメータ更新に直接関係するのか
 
-もし今この節を一通り読んでも、たくさんの微分問題をすぐに解けないとしても、それはまったく普通です。  
+もし今この節を一通り読んでも、たくさんの微分問題をすぐに解けないとしても、それはまったく普通です。
 むしろ、より大事なのは次の点です。
 
 - 導関数を「変化率」として説明できるか
@@ -68,7 +68,7 @@ keywords: [導関数, 微積分, 変化率, 接線の傾き, Python, AI数学]
 - 総距離は累積した値
 - 速度は、今この瞬間にどれだけ速く変化しているか
 
-だから導関数は、「これまでに全部でどれだけ変わったか」を聞いているのではなく、  
+だから導関数は、「これまでに全部でどれだけ変わったか」を聞いているのではなく、
 次のことを聞いています。
 
 > **今この瞬間、変化はどれくらい速いのか。**
@@ -97,7 +97,7 @@ plt.figure(figsize=(8, 6))
 plt.plot(x, f(x), 'steelblue', linewidth=2, label='f(x) = x²')
 plt.plot(x, tangent, 'r--', linewidth=2, label=f'接線（傾き = {slope}）')
 plt.plot(x0, f(x0), 'ro', markersize=10, zorder=5)
-plt.annotate(f'x={x0}, 傾き={slope}', xy=(x0, f(x0)), 
+plt.annotate(f'x={x0}, 傾き={slope}', xy=(x0, f(x0)),
              xytext=(x0+0.5, f(x0)+1.5), fontsize=12,
              arrowprops=dict(arrowstyle='->', color='gray'))
 plt.xlim(-1, 3)
@@ -284,6 +284,18 @@ plt.show()
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## まとめ
 
 | 概念 | 直感 | Python 実装 |
@@ -310,10 +322,20 @@ plt.show()
 
 ### 練習 2：導関数のグラフを描く
 
-f(x) = x³ - 3x と、その導関数 f'(x) = 3x² - 3 を、[-3, 3] の範囲で描いてください。  
+f(x) = x³ - 3x と、その導関数 f'(x) = 3x² - 3 を、[-3, 3] の範囲で描いてください。
 観察してみましょう：f'(x) = 0 となる場所（x = ±1）は、f(x) のどんな特徴に対応しているでしょうか？
 
 ### 練習 3：Sigmoid の勾配消失
 
-Sigmoid の導関数のグラフを描き、導関数の最大値がいくつか、またそれがどこで起こるかを調べてください。  
+Sigmoid の導関数のグラフを描き、導関数の最大値がいくつか、またそれがどこで起こるかを調べてください。
 そして、それがなぜ「勾配消失」問題につながるのかを説明してみましょう。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- `x=2` では、`3x^2+2x-1` の導関数値は `14`、`1/x` は `-0.25`、`x sin(x)` は `sin(2)+2cos(2)≈0.0770` です。
+- `f(x)=x^3-3x` では、導関数は `x=-1` と `x=1` で 0 になり、グラフ上の局所最大と局所最小に対応します。
+- Sigmoid の導関数は `x=0` で最大になり、値は `0.25` です。0 から遠い場所では導関数が 0 に近づき、勾配による更新が非常に小さくなります。
+
+</details>

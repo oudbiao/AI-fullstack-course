@@ -411,6 +411,18 @@ for direction in ["wrong", "right"]:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## 小结
 
 | 概念 | 直觉 | Python |
@@ -452,3 +464,13 @@ for direction in ["wrong", "right"]:
 ### 练习 3：三变量梯度
 
 对 f(x, y, z) = x² + 2y² + 3z²，在 (1, 1, 1) 处计算梯度，判断哪个方向变化最快。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 对 `f(x,y)=x^2y+xy^2`，梯度是 `[2xy+y^2, x^2+2xy]`；在 `(2,3)` 处是 `[21,16]`。
+- 对 `sin(x)+cos(y)`，梯度箭头应遵循 `[cos(x), -sin(y)]`。等高线图和箭头在视觉上应一致：箭头指向增长更快的方向。
+- 对 `x^2+2y^2+3z^2`，在 `(1,1,1)` 处梯度是 `[2,4,6]`，所以最快增加方向就是这个向量方向；最快下降方向是它的相反方向。
+
+</details>

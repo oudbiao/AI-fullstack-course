@@ -64,6 +64,28 @@ The number moves toward `3`, and the loss gets smaller. That is the training ide
 | 3 | [4.3.4 Gradient Descent](./03-gradient-descent.md) | update loop, learning rate, loss curve |
 | 4 | [4.3.5 Backpropagation](./04-chain-rule-backprop.md) | chain rule, `loss.backward()` intuition |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## Pass Check
 
 You pass this roadmap when you can explain why gradient descent repeats “compute loss -> compute gradient -> update parameter,” and why a learning rate that is too large can make training unstable.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The calculus route is passed when you can explain derivative as local change, gradient as multi-parameter direction, and gradient descent as repeated loss-reducing updates.
+- Keep a derivative plot, one gradient vector, one loss curve, and one manual-versus-autograd comparison as evidence.
+- The safest habit is to always ask: if the parameter moves a little in this direction, does the loss go up or down?
+
+</details>

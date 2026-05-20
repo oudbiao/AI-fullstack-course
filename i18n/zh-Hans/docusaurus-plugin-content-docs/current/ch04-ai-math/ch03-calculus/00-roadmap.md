@@ -67,3 +67,26 @@ for step in range(1, 7):
 ## 通过标准
 
 能解释梯度下降为什么反复执行“计算 loss -> 计算梯度 -> 更新参数”，并知道学习率太大会让训练不稳定，就算通过。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 微积分路线通过的标志是：你能把 derivative 解释为局部变化，把 gradient 解释为多参数方向，把 gradient descent 解释为不断降低 loss 的更新。
+- 证据至少保留一张导数图、一个梯度向量、一条 loss 曲线，以及一次手算和 autograd 的对比。
+- 最安全的习惯是始终追问：参数往这个方向动一点，loss 会升高还是降低？
+
+</details>
+
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```

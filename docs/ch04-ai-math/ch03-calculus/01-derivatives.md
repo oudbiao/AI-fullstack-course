@@ -140,6 +140,18 @@ for x0 in [0, 1, 2, 3]:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## Common Differentiation Rules
 
 You don’t need to memorize all the rules. Just get familiar with the most common ones:
@@ -315,3 +327,13 @@ Plot f(x) = x³ - 3x and its derivative f'(x) = 3x² - 3 over the range [-3, 3].
 ### Exercise 3: Sigmoid gradient vanishing
 
 Plot the derivative of Sigmoid, find the maximum value of the derivative and where it occurs. Explain why this leads to the "vanishing gradient" problem.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- At `x=2`, the derivatives are `14` for `3x^2+2x-1`, `-0.25` for `1/x`, and `sin(2)+2cos(2)≈0.0770` for `x sin(x)`.
+- For `f(x)=x^3-3x`, the derivative is zero at `x=-1` and `x=1`, corresponding to a local maximum and local minimum on the plotted curve.
+- The sigmoid derivative is largest at `x=0`, with value `0.25`. Far from zero, the derivative gets close to zero, which makes gradient-based updates very small.
+
+</details>

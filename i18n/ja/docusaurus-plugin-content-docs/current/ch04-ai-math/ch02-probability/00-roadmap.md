@@ -55,6 +55,18 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 
 交差エントロピーが低いほど、予測確率がラベルに近いということです。ここで確率とモデル学習が直接つながります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+random_process: event, distribution, sample, likelihood, entropy, or Bayes update
+simulation_or_formula: code or formula used to make uncertainty visible
+output: probability, sample statistic, interval, entropy, or updated belief
+failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
+Expected_output: numeric result plus interpretation in plain language
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | まず見ること |
@@ -68,3 +80,13 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 ## 合格ライン
 
 確率用語がどんな不確実性を測っているかを説明でき、分類器の `0.93` が有用でも絶対的な真実ではないと説明できれば合格です。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 確率ルートを通過できる目安は、単一の事象から繰り返しサンプルによる推定へ進み、さらに条件つき更新まで説明できることです。
+- 証拠として、シミュレーション、分布図、MLE/MAP 推定、エントロピーまたはクロスエントロピー計算を 1 つずつ残します。
+- 大事な習慣は、事前確率、独立性、サンプルサイズ、帰無仮説、予測確率などの仮定を明記することです。
+
+</details>

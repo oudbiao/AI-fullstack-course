@@ -515,6 +515,18 @@ This network has only 1 hidden neuron (essentially a piecewise linear function),
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+function: objective, loss, derivative, gradient, or chain-rule expression
+calculation: numeric derivative, gradient step, or backprop trace
+output: slope, gradient vector, updated parameter, or loss change
+failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
+Expected_output: calculation trace showing how a parameter changes
+```
+
 ## Summary
 
 | Concept | Intuition |
@@ -601,3 +613,13 @@ print("b1.grad =", b1.grad.item())
 print("w2.grad =", w2.grad.item())
 print("b2.grad =", b2.grad.item())
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For `y=(2x+1)^3`, the derivative is `6(2x+1)^2`; at `x=1`, the value is `54`.
+- When extending the network to 3 hidden neurons, write the hidden layer as a vector and keep gradients for each weight separate. The main check is that every forward value has a corresponding backward gradient.
+- Autograd and manual gradients should match up to rounding. If they differ, check ReLU’s active/inactive branch, missing chain-rule factors, and whether the same loss definition was used.
+
+</details>

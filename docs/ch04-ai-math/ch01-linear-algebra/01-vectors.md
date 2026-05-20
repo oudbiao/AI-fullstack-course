@@ -661,6 +661,18 @@ These three questions will naturally lead you to:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+math_object: vector, matrix, eigenvalue, basis, or vector space concept
+numeric_example: small numbers or NumPy snippet used to compute it
+visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
+ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
+Expected_output: calculation plus one sentence connecting it to an AI operation
+```
+
 ## Summary
 
 | Concept | Intuitive understanding | NumPy implementation |
@@ -712,3 +724,13 @@ Use Matplotlib to draw the process of the following vector addition (with arrows
 - a = [2, 3], b = [-1, 2], and draw a, b, and a+b
 
 Hint: refer to the code in Section 2.1.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For `a=[2,3,-1]` and `b=[1,-2,4]`, `a+b=[3,1,3]`, `3a-2b=[4,13,-11]`, `||a||=sqrt(14)≈3.742`, `a·b=-8`, and cosine similarity is about `-0.8018`.
+- For the movie vectors, the most similar pair is usually Interstellar and Wolf Warrior 2, with cosine similarity about `0.9297`; the least similar pair is Ex-Files 3 and Alien, about `0.4495`.
+- The vector-addition plot should place `a`, then `b` from the tip of `a`, and show `a+b=[1,5]` as the final arrow from the origin. The geometry should match the numbers.
+
+</details>
