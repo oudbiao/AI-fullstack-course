@@ -475,3 +475,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. 给迷你向量库再加两条记录，手动构造一个新的 `query_vector` 测试排序。
 2. 再加一个 `source` 元数据字段，尝试做双条件过滤。
 3. 想一想：如果 embedding 模型很差，向量数据库再强能不能救回来？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 排序应优先返回与 `query_vector` 距离最近的记录。如果 top result 在语义上明显不对，弱点通常在向量表示，而不一定在数据库。
+2. 双条件过滤应把语义相似度和业务约束结合起来，例如 `role=internal` 与 `source=policy`。Metadata 能阻止看似相关但无权限或无关的 chunk 进入回答。
+3. 向量数据库能高效索引、过滤和搜索，但无法凭空补回 embedding 模型没有编码好的语义。Embedding 很差时，再强的基础设施也很难得到好检索。
+
+</details>

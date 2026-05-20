@@ -666,3 +666,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. 给 `documents` 再加两条文档，试着查询新的问题。
 2. 修改 `retrieve()` 的 `top_k`，观察回答上下文会怎么变化。
 3. 思考：如果文档里写的是“14 天可退款”，而模型回答成“7 天”，可能是哪一步出了问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 好的新增文档应该能测试检索是否区分相似主题，例如退款政策、转课规则和证书规则。好的查询应返回真正包含答案的文档，而不只是有重叠词的文档。
+2. 更大的 `top_k` 会给生成器更多上下文，但也可能带入干扰材料。更小的 `top_k` 更干净，但可能漏掉必要的支持 chunk。
+3. 错误可能来自检索没命中正确文档、context packing 丢掉了正确句子、prompt 允许模型无依据猜测，或模型忽略了检索证据。RAG 调试应分层检查。
+
+</details>

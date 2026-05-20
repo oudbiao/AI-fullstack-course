@@ -420,3 +420,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. ハイブリッド検索の例で重みを変え、キーワード重視とベクトル重視で並び順がどう変わるか比べてみましょう。
 2. 文書に「講座をやめる」という語を含む文を 1 つ追加し、キーワード検索の強みを観察してみましょう。
 3. もっと豊富な `rewrite_query()` のルール表を自分で作ってみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. Keyword weight を高くすると exact term match が優先され、vector weight を高くすると semantic similarity が優先されます。どちらがよいかは、ユーザーが正確な製品用語で聞くのか、曖昧な自然言語で聞くのかによります。
+2. キーワード検索は、正確な phrase、identifier、講座名、policy term、error code が重要なときに強いです。Embedding がなめらかにしすぎる細かい語を拾えます。
+3. よい rewrite table は、同義語を正規化し、省略語を展開し、ユーザーの言い方を domain term に対応させます。ただし意図を変えてはいけません。悪い rewrite は retrieval を静かに壊すので、ログに残す必要があります。
+
+</details>

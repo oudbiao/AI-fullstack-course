@@ -497,3 +497,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. 評価セットにさらに 3 問追加して、自分で `gold_doc` と `gold_answer` を書いてみましょう。
 2. `predictions` を変更して、わざと 1 つの回答を間違えさせ、Hit@k と Exact Match をもう一度計算してみましょう。
 3. 考えてみましょう。Hit@k は高いのに、最終回答がよく間違うなら、問題はどの層にある可能性が高いでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. よい評価質問には、簡単な直接検索、同義表現、permission-sensitive case、紛らわしい near match を少なくとも 1 つ含めます。`gold_doc` と `gold_answer` は、model output を見る前に書きます。
+2. Hit@k は正しい evidence が取れたかを測り、Exact Match は最終回答が期待回答と一致したかを測ります。わざと誤答を入れると、retrieval が正しくても answer metric は下がるはずです。
+3. Hit@k が高いのに回答が間違う場合、問題は first-stage retriever よりも、generation、context packing、citation、answer verification の層にある可能性が高いです。
+
+</details>

@@ -318,3 +318,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. ルーティング例に「コース内容庫」を追加して、`route_query()` のルールを拡張してみましょう。
 2. 自分のプロジェクトでは、実はどのデータがプレーンテキスト検索より SQL / API クエリに向いているか考えてみましょう。
 3. 多段検索が必須になる質問の例を 1 つ考えてみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. よい route は、シラバス、レッスン、練習問題に関する質問をコース内容の knowledge base に送り、account、payment、policy の質問はそれぞれ別 route に残します。Route decision は確認しやすい形にします。
+2. Order status、enrollment record、inventory、permission、grade、live price などの構造化事実は、SQL や API のほうが向いていることが多いです。Text retrieval は、説明、policy、manual、長文知識に向いています。
+3. Multi-hop question は複数箇所の証拠を必要とします。たとえば「vector database を教える lesson はどれで、その概念を後で使う project はどれか？」です。片方の retrieval で lesson、もう片方で project connection を探します。
+
+</details>

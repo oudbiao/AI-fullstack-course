@@ -663,3 +663,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. Add two more documents to `documents` and try querying new questions.
 2. Modify `top_k` in `retrieve()` and observe how the answer context changes.
 3. Think about this: if the document says "refund within 14 days" but the model answers "7 days," which step might have gone wrong?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Good added documents should test whether retrieval can separate similar topics, such as refund policy, course transfer, and certificate rules. A good query should return the document that actually contains the answer, not merely a document with overlapping words.
+2. A larger `top_k` gives the generator more context, but it can also add distractors. A smaller `top_k` is cleaner, but may miss a necessary supporting chunk.
+3. The error could come from retrieval missing the right document, context packing dropping the correct sentence, prompt wording allowing unsupported guesses, or the model ignoring retrieved evidence. RAG debugging should inspect each layer separately.
+
+</details>

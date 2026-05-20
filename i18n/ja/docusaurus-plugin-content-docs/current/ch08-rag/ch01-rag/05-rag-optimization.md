@@ -373,3 +373,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. `pack_context()` の `max_chars` を変えて、選ばれる chunk がどう変わるか観察してください。
 2. 自分でいくつかの `chunk_size / top_k` の組み合わせを作り、小さな比較実験をしてみてください。
 3. 考えてみましょう。もしシステムがいつも「正しい資料は検索できるのに、答えがまだずれている」なら、次に最も最適化すべき場所はどこでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `max_chars` を下げると、より多くの chunk が落ちるか、文脈が短くなります。上げると証拠は増えますが、ノイズとコストも増えます。よい設定は、必要な証拠を保てる最小の文脈です。
+2. よい比較実験では、一度に変える変数を 1 つにし、retrieval hit、answer correctness、citation quality、latency、token cost を記録します。固定した test questions がなければ、最適化は勘になります。
+3. 検索が正しいのに回答がずれるなら、vector database をすぐ変えるより、prompt grounding、引用要件、answer schema、reranking、context order、生成後 verification を先に見ます。
+
+</details>

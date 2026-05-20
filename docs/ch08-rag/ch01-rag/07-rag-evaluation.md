@@ -495,3 +495,12 @@ With evaluation, you can know where the problem is and whether a change truly br
 1. Add 3 more questions to the evaluation set, and manually write `gold_doc` and `gold_answer` for them.
 2. Modify `predictions` so that one answer is wrong on purpose, then recompute Hit@k and Exact Match.
 3. Think about this: if Hit@k is very high but the final answer is still often wrong, which layer is the problem more likely to be in?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Good evaluation questions should include easy direct lookup, synonym wording, permission-sensitive cases, and at least one confusing near match. `gold_doc` and `gold_answer` should be written before looking at model output.
+2. Hit@k measures whether the right evidence was retrieved; Exact Match measures whether the final answer matches the expected answer. A deliberately wrong answer should lower answer metrics even if retrieval remains correct.
+3. High Hit@k with wrong answers usually points to the generation, context-packing, citation, or answer-verification layer rather than the first-stage retriever.
+
+</details>

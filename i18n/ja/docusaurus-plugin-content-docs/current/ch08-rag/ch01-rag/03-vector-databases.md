@@ -476,3 +476,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. ミニベクトルデータベースにさらに 2 件のレコードを追加し、新しい `query_vector` を手動で作って並び順を試してみましょう。
 2. `source` というメタデータフィールドを追加して、2 条件のフィルタを試してみましょう。
 3. 考えてみましょう。もし embedding モデルがよくなかったら、ベクトルデータベースがどれだけ強くても挽回できるでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 並び順は、`query_vector` に最も近い record を優先するはずです。Top result が意味的におかしいなら、弱点は database ではなく vector representation にある可能性があります。
+2. 2 条件フィルタでは、semantic similarity と business constraint を組み合わせます。たとえば `role=internal` と `source=policy` です。Metadata は、もっともらしいが権限外または無関係な chunk が回答に入るのを防ぎます。
+3. Vector database は効率よく index、filter、search できますが、embedding model が表現できなかった意味を後から作ることはできません。悪い embedding では、強い基盤でも retrieval は悪くなりがちです。
+
+</details>

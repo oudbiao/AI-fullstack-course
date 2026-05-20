@@ -425,3 +425,12 @@ In many cases, upgrading the retrieval strategy brings more direct gains than sw
 1. Modify the weights in the hybrid retrieval example and compare how the ranking changes when keyword weight is higher versus when vector weight is higher.
 2. Add another sentence containing the phrase “drop a course” to the documents, and observe the advantage of keyword retrieval.
 3. Design a richer `rewrite_query()` rule table on your own.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Higher keyword weight should favor exact term matches; higher vector weight should favor semantic similarity. The better setting depends on whether your users ask with exact product terms or with vague natural language.
+2. Keyword retrieval is strong when exact phrases, identifiers, course names, policy terms, or error codes matter. It can catch terms that embeddings may smooth over.
+3. A useful rewrite table should normalize synonyms, expand abbreviations, map user wording to domain terms, and avoid changing the user’s intent. Rewrites should be logged because a bad rewrite can silently ruin retrieval.
+
+</details>

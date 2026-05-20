@@ -495,3 +495,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. 给评估集再加 3 条问题，自己手工写出 `gold_doc` 和 `gold_answer`。
 2. 修改 `predictions`，故意让一条回答错误，重新计算 Hit@k 和 Exact Match。
 3. 想一想：如果 Hit@k 很高，但最终答案依然经常错，说明问题更可能出在哪一层？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 好的评估问题应包含直接查找、同义改写、权限敏感场景，以及至少一个容易混淆的近似匹配。`gold_doc` 和 `gold_answer` 应在看模型输出前先写好。
+2. Hit@k 衡量是否检索到正确证据；Exact Match 衡量最终答案是否符合预期。故意写错答案时，即使检索仍正确，回答指标也应下降。
+3. Hit@k 高但答案错，通常说明问题更可能在生成、context packing、引用或 answer verification 层，而不是第一阶段 retriever。
+
+</details>

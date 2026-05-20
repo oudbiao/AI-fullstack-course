@@ -475,3 +475,12 @@ What you really need to care about is:
 1. Add two more records to the mini vector database, then manually create a new `query_vector` to test the ranking.
 2. Add a `source` metadata field and try double-condition filtering.
 3. Think about this: if the embedding model is poor, can a powerful vector database still save the result?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The ranking should favor records whose vectors are closest to the query vector. If the top result feels semantically wrong, inspect whether the vector representation, not the database, is the weak point.
+2. Double-condition filtering should combine semantic similarity with business constraints, such as `role=internal` and `source=policy`. This is how metadata prevents plausible but unauthorized or irrelevant chunks from entering the answer.
+3. A vector database can index, filter, and search efficiently, but it cannot create semantic meaning that the embedding model failed to encode. Bad embeddings usually produce bad retrieval even on strong infrastructure.
+
+</details>

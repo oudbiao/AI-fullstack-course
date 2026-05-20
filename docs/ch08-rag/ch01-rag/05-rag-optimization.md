@@ -373,3 +373,12 @@ Truly effective optimization usually starts by locating the bottleneck, not by b
 1. Change `max_chars` in `pack_context()` and observe how the selected chunks change.
 2. Create your own set of different `chunk_size / top_k` configurations and practice running small comparison experiments.
 3. Think about this: if the system always “retrieves the right material, but the answer is still off,” what should you optimize next?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Lower `max_chars` forces the system to drop more chunks or shorten context; higher `max_chars` includes more evidence but can add noise and cost. The useful setting is the smallest context that still preserves the needed evidence.
+2. A good comparison changes one variable at a time and records retrieval hit, answer correctness, citation quality, latency, and token cost. Without fixed test questions, optimization becomes guesswork.
+3. If retrieval is correct but the answer is off, optimize prompt grounding, citation requirements, answer schema, reranking, context ordering, or post-generation verification before changing the vector database.
+
+</details>

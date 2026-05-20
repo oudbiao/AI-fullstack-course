@@ -374,3 +374,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 1. 修改 `pack_context()` 里的 `max_chars`，观察被选中的 chunk 会如何变化。
 2. 自己构造一组不同的 `chunk_size / top_k` 配置，练习做小型对比实验。
 3. 想一想：如果系统总是“检索到了正确资料，但回答还是偏”，下一步你最该优化哪里？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 较低的 `max_chars` 会迫使系统丢掉更多 chunk 或缩短上下文；较高的 `max_chars` 能包含更多证据，但会增加噪声和成本。好的设置是能保留必要证据的最小上下文。
+2. 好的对比实验应一次只改一个变量，并记录 retrieval hit、answer correctness、citation quality、latency 和 token cost。没有固定测试问题，优化就会变成猜测。
+3. 如果检索正确但回答仍偏，应先优化 prompt grounding、引用要求、answer schema、reranking、上下文排序或生成后校验，而不是立刻换向量数据库。
+
+</details>

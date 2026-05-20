@@ -318,3 +318,12 @@ Polishing a simple architecture first, and then deciding whether to upgrade, is 
 1. Add a “course content knowledge base” to the routing example and extend the `route_query()` rules.
 2. Think about your own project: is there any data that would actually be better suited to SQL / API queries rather than pure text retrieval?
 3. Try to come up with a question that can only be answered with multi-hop retrieval.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A good route should send syllabus, lesson, and exercise questions to the course content knowledge base while keeping account, payment, or policy questions on their own routes. Route decisions should be easy to inspect.
+2. Structured facts such as order status, enrollment records, inventory, permissions, grades, and live prices are often better served by SQL or APIs. Text retrieval is better for explanations, policies, manuals, and long-form knowledge.
+3. A multi-hop question needs evidence from more than one place, such as “Which lesson teaches vector databases, and what project later uses that concept?” One retrieval finds the lesson, another finds the project connection.
+
+</details>
