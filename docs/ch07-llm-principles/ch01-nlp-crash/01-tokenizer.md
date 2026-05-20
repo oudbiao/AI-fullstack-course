@@ -280,6 +280,17 @@ debug_action: inspect tokenization before blaming the model
 4. Run Lab 3 with another model tokenizer and compare token counts for Chinese, English, and code.
 5. For a RAG prompt, decide how many tokens you reserve for system instructions, retrieved evidence, user question, and answer space.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Removing `transform` should make `Transformers` harder to represent. Depending on the toy rules, it may fall back to `[UNK]` or a less useful split, which shows why vocabulary coverage matters.
+2. With `max_length=5`, later tokens are truncated first. In a real prompt, this can remove constraints, retrieved evidence, or the user question tail.
+3. `"##ing"` only helps if the tokenizer can also find a useful stem. Subword tokens solve many surface-form issues, but they do not magically understand words.
+4. Different tokenizers can produce very different token counts for the same text. Chinese, code, and emoji-heavy strings are especially worth checking before estimating cost or context length.
+5. A reasonable first budget could reserve about 10-15% for system instructions, 60-70% for retrieved evidence, 5-10% for the user question, and the rest for the answer. The exact split should follow product risk.
+
+</details>
+
 ## Summary
 
 A tokenizer is not just a text splitter. It defines the model’s visible world:

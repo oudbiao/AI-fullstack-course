@@ -246,6 +246,17 @@ failure_probe: fluent answer can still be wrong
 4. Design a 1,000-token RAG budget: system prompt, evidence, user question, answer space.
 5. Explain why a model can be capable but still need RAG or alignment.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Lowering the winning logit should reduce its softmax confidence because the score gap becomes smaller. The winner may stay the same, but certainty drops.
+2. `temperature=0.1` makes output more deterministic and peaked. `temperature=5.0` flattens the distribution and makes lower-ranked tokens more likely.
+3. Changing the vector changes attention similarity. The token may attend more to a different neighbor because relevance is computed from vector relationships.
+4. One workable budget is 120 tokens for system instructions, 650 for evidence, 80 for the user question, and 150 for the answer. The important habit is reserving answer space explicitly.
+5. Capability is not the same as groundedness or safety. RAG supplies current/private evidence; alignment shapes acceptable behavior and refusal boundaries.
+
+</details>
+
 ## Summary
 
 The core concepts are connected:

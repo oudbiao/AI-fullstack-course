@@ -499,3 +499,13 @@ When you start connecting models into real systems, this is often more important
 2. Intentionally construct a JSON object with a missing field and see whether the validator can catch it.
 3. Think about it: when should you use structured output, and when is plain natural language enough?
 4. Explain in your own words: why is structured output a key step in the engineering transformation of Prompt engineering?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A reasonable JSON shape is `{"intent": "billing|course_help|technical_issue|other", "confidence": 0.0, "needs_human": false, "reason": "short explanation"}`.
+2. If `intent`, `confidence`, or `needs_human` is required, a missing field should fail validation. That failure is the point: bad output should be caught before it reaches product logic.
+3. Use structured output when another program must route, store, score, or trigger actions from the answer. Natural language is enough when the answer is only for human reading.
+4. Structured output turns a prompt response into an interface contract. That is what lets prompt work become testable, automatable, and maintainable.
+
+</details>

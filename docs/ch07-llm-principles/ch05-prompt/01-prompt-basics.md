@@ -474,3 +474,13 @@ This is the first layer of foundation for all later Prompt engineering capabilit
 2. Think of a task of your own, and separately write the task goal, output format, and constraints.
 3. Explain in your own words: why is a Prompt more like a “task brief”?
 4. Why does a Prompt that only states the goal, but not the output format, usually make the system less stable?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A clearer version might be: "Summarize the following customer message in three bullet points, identify the user intent, and list one suggested reply. Do not invent facts."
+2. A complete answer should separate goal, output format, and constraints. For example: goal is classify feedback, output is JSON, constraints are fixed labels and no extra text.
+3. A prompt is like a task brief because it tells the model what job to do, what result to produce, and what boundaries to respect.
+4. Without an output format, the model may answer in prose, bullets, JSON-like text, or mixed structure. That makes downstream use and evaluation unstable.
+
+</details>

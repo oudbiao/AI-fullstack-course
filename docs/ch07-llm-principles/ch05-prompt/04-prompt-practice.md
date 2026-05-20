@@ -357,3 +357,13 @@ When you start iterating around the task goal, format, constraints, and examples
 2. Add a few-shot version for the “sentiment classification” task.
 3. Rewrite the “text summarization” task into a structured output format, such as JSON.
 4. Explain in your own words: Why is Prompt Engineering not “writing one nice sentence,” but “designing a task interface”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A bad prompt is vague, such as "analyze this." A better version names the task, input, expected output, labels, constraints, and at least one failure boundary.
+2. The few-shot version should include representative positive, negative, and neutral examples, then require the same label format for the new case.
+3. A structured summary could return `{"summary": "...", "key_points": ["..."], "risks": ["..."], "missing_info": ["..."]}`.
+4. Prompt engineering is interface design because it defines inputs, outputs, constraints, validation expectations, and failure handling between the model and the surrounding system.
+
+</details>

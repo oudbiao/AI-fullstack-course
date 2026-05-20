@@ -478,3 +478,13 @@ comparison: vague prompt vs improved prompt output saved
 2. 自分のタスクを 1 つ考え、タスク目標、出力形式、制約条件をそれぞれ書いてください。
 3. 自分の言葉で説明してください。なぜ Prompt は「タスク説明書」に近いと言えるのですか？
 4. なぜ、Prompt に目標だけを書いて出力形式を書かないと、システムは不安定になりやすいのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 例：「次の customer message を 3 つの bullet に要約し、user intent を判定し、返信案を 1 つ出してください。原文にない事実は作らないでください。」
+2. 完全な答えでは、goal、output format、constraint を分けます。例：goal は feedback classification、output は JSON、constraint は固定 label のみで余分な text を出さないことです。
+3. Prompt は task brief に近いです。model に何をするか、どんな結果を出すか、どんな boundary を守るかを伝えるからです。
+4. output format がないと、model は prose、bullet、JSON-like text、混合形式で答える可能性があります。downstream use と evaluation が不安定になります。
+
+</details>

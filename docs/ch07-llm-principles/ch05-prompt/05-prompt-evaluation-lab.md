@@ -247,6 +247,17 @@ next_step: add harder cases or connect a real model
 4. Replace `fake_model()` with your own LLM call only after the offline loop is clear.
 5. Save the report output into your project notes as prompt evaluation evidence.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The short case should test whether the prompt handles sparse input. The long mixed-review case should test whether it can separate multiple sentiments or topics.
+2. After adding `confidence`, both the schema and scoring function should require it. Otherwise the model can omit an important uncertainty signal.
+3. A useful failure note records the input, prompt version, wrong output, likely cause, and next change. The goal is learning from failure, not hiding it.
+4. Keeping `fake_model()` first makes the evaluation loop deterministic. Add a real LLM call only after cases, scoring, and reporting are already stable.
+5. The saved report should include test cases, prompt versions, scores, failed examples, and the next experiment. That is prompt-evaluation evidence.
+
+</details>
+
 ## Summary
 
 Prompt engineering is not only writing a better instruction. A more mature workflow is:

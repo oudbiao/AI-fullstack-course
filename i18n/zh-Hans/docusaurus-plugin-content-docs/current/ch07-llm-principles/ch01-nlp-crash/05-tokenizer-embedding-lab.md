@@ -236,6 +236,17 @@ next_probe: change text length, language, or wording and compare
 4. 把 `max_length` 从 `6` 改成 `4`，观察 truncation 截掉了什么。
 5. 加一个未知词，观察 `[UNK]` 怎样影响向量。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `invoice` 必须同时加入 `vocab` 和 `embedding_table`。如果只改其中一个，编码或向量查询会出错。
+2. 加入 `refund invoice` 后，这句话应该能得到已知 token ID，而不是依赖 `[UNK]`。
+3. `refund invoice` 应该和 `refund order` 保持接近，因为都有 refund 意图；但第二个词会把语义推向账单，而不是订单状态。
+4. 在这个玩具设置里，缩短 `max_length` 会先删除尾部 token。真实 prompt 中，这可能抹掉两个相似请求之间的关键差异。
+5. 未知词会落到共享的 `[UNK]` 向量上，所以不同未知词会变得不可区分。这有利于鲁棒性，但不利于精确语义。
+
+</details>
+
 ## 总结
 
 Tokenizer 和 embedding 是人类语言走向模型计算的前两座桥。

@@ -371,3 +371,13 @@ It is recommended to finish the basic version first. Do not try to make it large
 2. Think about this: if the Retrieval baseline is already very strong, when is fine-tuning still worth doing?
 3. Why is “policy-point coverage rate” more suitable for project evaluation than “it feels more human-like”?
 4. If you turn this into a portfolio project, which 4 before/after examples are most worth showing?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add samples where each intent has enough variety, including short, long, ambiguous, and noisy wording. Balance is about coverage, not just equal counts.
+2. Fine-tuning is still worth considering when you need stable style, domain-specific phrasing, compact behavior, repeated classification patterns, or lower per-request prompt complexity.
+3. Policy-point coverage rate measures whether required content is present. "Feels human-like" is subjective and can reward fluent but incomplete answers.
+4. Show examples where the improved system fixes clear failures: wrong intent, missing policy point, bad refusal, and unstable formatting. Each before/after should include the evaluation reason.
+
+</details>

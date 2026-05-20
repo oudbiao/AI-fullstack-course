@@ -178,3 +178,14 @@ memory_hook: history is a sequence of solved bottlenecks
 3. Transformer が RNN より並列訓練しやすい理由を説明する。
 4. model に capability はあるが、alignment または RAG が必要な例を 1 つ挙げる。
 5. 15 段階のどれか 1 つを選び、それが今日の LLM application にどう残っているか説明する。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 文を追加すると、bigram model の局所的な transition count だけが変わります。追加 phrase の周辺ではよくなりますが、局所 pattern の外ではまだ失敗します。
+2. bigram model は短い局所 context しか見ません。長い instruction には、goal、constraint、関係を多くの token にわたって保持する力が必要です。
+3. Transformer の self-attention は training 中に各位置を並列に処理できます。一方 RNN は前の time step に依存するため、自然に逐次的です。
+4. model は fluent answer を書けても、private document には RAG が必要です。safety、refusal、instruction following には alignment が必要な場合があります。
+5. 例として Transformer 段階は今も重要です。attention による context mixing が、多くの LLM architecture の基礎だからです。
+
+</details>

@@ -501,3 +501,13 @@ repair_rule: retry, fallback, or ask for clarification
 2. わざとフィールドが欠けた JSON を作り、検証器が止められるか確認してください。
 3. いつ構造化出力を使うべきで、いつは自然言語だけで十分なのかを考えてみてください。
 4. 自分の言葉で説明してください。なぜ構造化出力は、Prompt 工学がエンジニアリングとして成熟するための重要な一歩なのか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 例：`{"intent": "billing|course_help|technical_issue|other", "confidence": 0.0, "needs_human": false, "reason": "short explanation"}`。
+2. `intent`、`confidence`、`needs_human` が required なら、missing field は validation failure になるべきです。bad output は product logic に入る前に止めます。
+3. routing、storage、scoring、action trigger に別 program が使う場合は structured output が向いています。人が読むだけなら natural language で十分なこともあります。
+4. structured output は prompt response を interface contract に変えます。これにより prompt work は testable、automatable、maintainable になります。
+
+</details>

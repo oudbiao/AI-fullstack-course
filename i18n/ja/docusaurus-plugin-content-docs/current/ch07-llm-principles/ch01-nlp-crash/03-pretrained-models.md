@@ -174,6 +174,17 @@ risk: pretrained behavior is broad, not automatically aligned to your task
 4. 本番で pretrained model を信頼する前に、どの 2 つのチェックを行うか。
 5. 「大きいモデル」と「今のタスクに合うモデル」が同じではない理由を説明する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `topic_head` は pretrained representation を再利用し、`account_topic` や `commerce_topic` などの task label に写像します。head は task 固有で、foundation は再利用されます。
+2. `bad` の vector を変えると、sentiment head が見る negative evidence の強さが変わります。移動先によって confidence は下がる、反転する、不安定になる可能性があります。
+3. private policy では、多くの場合 RAG から始めます。知識が private で変化し、source citation も必要だからです。fine-tuning は後で安定した振る舞いや形式に使います。
+4. 最低限、代表データでの task evaluation と sensitive case の failure review を行います。privacy、latency、cost、bias も本番では確認対象です。
+5. 大きい model は広い capability を持つかもしれませんが、task fit は data、instruction、retrieval、evaluation、運用制約に左右されます。size は要素の 1 つです。
+
+</details>
+
 ## まとめ
 
 Pretraining はワークフローを変えます。

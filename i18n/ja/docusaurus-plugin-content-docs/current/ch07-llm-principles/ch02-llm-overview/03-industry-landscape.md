@@ -318,3 +318,12 @@ evidence: one model-selection table for a real use case
 1. スコアリングスクリプトの重みを変更して、「スタートアップチーム」と「金融企業」の選定傾向をそれぞれ再現してみましょう。
 2. 考えてみましょう：もしあなたのプロジェクトがプライベートデプロイを必要とするなら、オープンソース路線とクローズドソース路線の優先順位はどう変わるでしょうか？
 3. 自分の言葉で説明してみましょう：なぜ多くの場合、真の競争優位はモデル本体だけではないのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. startup team は speed、cost、API simplicity、iteration velocity を高く重みづけしがちです。financial enterprise は privacy、compliance、auditability、reliability、vendor control を高く見るべきです。
+2. private deployment が必要なら、open-weight model、self-hosting、private cloud、data governance の優先度が上がります。closed-source API も、隔離と compliance を満たすなら選択肢です。
+3. 優位性は proprietary data、workflow integration、evaluation loop、user trust、distribution、operations から生まれることが多いです。model は重要ですが、product system の 1 層です。
+
+</details>

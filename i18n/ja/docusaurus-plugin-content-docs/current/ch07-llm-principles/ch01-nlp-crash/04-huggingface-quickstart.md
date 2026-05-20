@@ -193,6 +193,17 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 4. 実験 2 で `AutoModel` を `AutoModelForSequenceClassification` に替える。どの新しい field が出るか。
 5. `pipeline()` がデモに便利でも、バッチ形状のデバッグに不十分な理由を説明する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 多くの場合、末尾 token が先に切られます。どの token が消えるかは tokenizer output 次第なので、元テキストから推測せず token を print します。
+2. `hidden_size=64` は hidden-state tensor の最後の次元を変えます。その config で model を作れば、parameter shape も変わります。
+3. 3 文目を追加すると、batch tensor の先頭次元が `2` から `3` になります。sequence length と hidden size は tokenization と config によって決まります。
+4. `AutoModelForSequenceClassification` は task-specific output、特に `logits` を返します。base model の上に classification head が追加されるからです。
+5. `pipeline()` は demo には便利ですが、tokenization、tensor shape、padding、device、model output を隠します。debug にはそれらの詳細が必要です。
+
+</details>
+
 ## まとめ
 
 Hugging Face は tensor を追うと学びやすいです。

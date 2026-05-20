@@ -289,6 +289,17 @@ real_api_note: replace toy_model only after offline loop is stable
 4. 降低 `max_output_tokens`，解释这模拟了什么产品问题。
 5. 写一页笔记：哪些部分属于 Prompt 设计，哪些属于 API 载荷 设计，哪些属于应用可靠性设计。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 任务改变后，prompt 和预期 schema 都要一起改。学习计划输出可以要求 `week`、`goal`、`tasks`、`evidence` 等字段。
+2. 校验器应该在业务逻辑读取结果前，于 JSON 解析阶段发现无效输出。这是结构化输出的第一层安全网。
+3. 要求 `source_refs` 等于把引用能力写进契约。每个阶段没有可追溯来源，就不是完整输出。
+4. 降低 `max_output_tokens` 会模拟答案被截断、字段缺失、推理不完整等产品问题。系统要能检测并恢复。
+5. Prompt 设计负责定义任务和格式；API 载荷设计负责模型、temperature、token 限制和 schema；可靠性设计负责解析、校验、重试、日志和 fallback。
+
+</details>
+
 ## 总结
 
 一次真实 LLM 调用不是“发一个问题，拿一个回答”这么简单。它是一个小型工程闭环：

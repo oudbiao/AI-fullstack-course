@@ -388,3 +388,13 @@ Not to make the Prompt “look more advanced.”
 2. Think about it: which is more fundamental, role setting or task goals? Why?
 3. Explain in your own words: why are “step-by-step constraints” often more stable than one vague big instruction?
 4. Why do we say the real importance of advanced Prompt techniques is not complexity, but fit?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A good few-shot prompt should define the label set, show at least two labeled examples, and then ask the model to classify a new input in the same format.
+2. Task goals are more fundamental. Role setting can change tone or perspective, but it cannot replace a clear objective, output contract, and constraints.
+3. Step-by-step constraints reduce ambiguity by turning one large vague request into checkable sub-decisions. This makes failures easier to locate.
+4. Advanced techniques matter when they match the failure mode. Extra roles, examples, or reasoning instructions are useful only if they make the task more reliable.
+
+</details>

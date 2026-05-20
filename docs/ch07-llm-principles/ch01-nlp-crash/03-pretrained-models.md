@@ -174,6 +174,17 @@ risk: pretrained behavior is broad, not automatically aligned to your task
 4. List two checks you would run before trusting a pretrained model in production.
 5. Explain why “bigger model” and “better task fit” are not the same thing.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A `topic_head` would reuse the pretrained representation and map it to task labels such as `account_topic` and `commerce_topic`. The head is task-specific; the foundation remains reusable.
+2. Changing the `bad` vector changes how strongly the sentiment head sees negative evidence. Confidence may drop, flip, or become less stable depending on where the vector moves.
+3. For private policies, start with RAG in most cases because the knowledge is private, changing, and needs citations. Fine-tuning is worth considering later for stable behavior patterns or repeated formatting needs.
+4. Two minimum checks are task evaluation on representative data and failure review on sensitive cases. Privacy, latency, cost, and bias checks are also production requirements.
+5. A bigger model may have broader capability, but task fit depends on data, instructions, retrieval, evaluation, and operational constraints. Size is only one input to the decision.
+
+</details>
+
 ## Summary
 
 Pretraining changes the workflow:

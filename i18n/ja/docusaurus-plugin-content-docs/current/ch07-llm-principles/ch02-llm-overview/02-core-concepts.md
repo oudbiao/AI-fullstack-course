@@ -246,6 +246,17 @@ failure_probe: fluent answer can still be wrong
 4. 1,000 token の RAG budget を設計する。system prompt、evidence、user question、answer space にどう割り振るか。
 5. model に capability があっても RAG や alignment が必要になる理由を説明する。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 勝っている logit を下げると score gap が小さくなるため、softmax confidence は下がります。winner は同じでも確信度は弱まります。
+2. `temperature=0.1` は出力をより deterministic で尖った分布にします。`temperature=5.0` は分布を平らにし、下位 token も選ばれやすくします。
+3. vector を変えると attention similarity が変わります。その token は別の neighbor を強く見るようになる可能性があります。
+4. 例として system prompt 120 token、evidence 650 token、user question 80 token、answer 150 token にします。重要なのは answer space を明示的に残すことです。
+5. capability は groundedness や safety とは別です。RAG は最新/私有 evidence を与え、alignment は許容される振る舞いと refusal boundary を整えます。
+
+</details>
+
 ## まとめ
 
 核心概念はつながっています。

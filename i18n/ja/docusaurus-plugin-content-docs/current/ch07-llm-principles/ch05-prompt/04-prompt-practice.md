@@ -359,3 +359,13 @@ next_iteration: one concrete edit to try
 2. 「感情分類」タスクに few-shot 版を追加してみましょう。
 3. 「テキスト要約」タスクを、JSON などの構造化出力形式に変えてみましょう。
 4. 自分の言葉で説明してみましょう。なぜ Prompt 工学は「良い言い回しを書くこと」ではなく、「タスクのインターフェースを設計すること」なのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 悪い prompt は「分析して」のように曖昧です。よい版では task、input、expected output、label、constraint、少なくとも 1 つの failure boundary を書きます。
+2. few-shot 版には positive、negative、neutral の代表例を含め、新しい case も同じ label format で答えさせます。
+3. structured summary は `{"summary": "...", "key_points": ["..."], "risks": ["..."], "missing_info": ["..."]}` のようにできます。
+4. Prompt 工学は interface design です。model と surrounding system の間で、input、output、constraint、validation expectation、failure handling を定義するからです。
+
+</details>

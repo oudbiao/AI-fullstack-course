@@ -499,3 +499,13 @@ repair_rule: retry, fallback, or ask for clarification
 2. 故意构造一个缺字段的 JSON，看看校验器是否能拦住。
 3. 想一想：什么时候应该用结构化输出，什么时候直接自然语言就够了？
 4. 用自己的话解释：为什么说结构化输出是 Prompt 工程走向工程化的关键一步？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 一个合理 JSON 形状可以是 `{"intent": "billing|course_help|technical_issue|other", "confidence": 0.0, "needs_human": false, "reason": "short explanation"}`。
+2. 如果 `intent`、`confidence` 或 `needs_human` 是必填字段，缺字段就应该校验失败。关键是让坏输出在进入产品逻辑前被拦住。
+3. 当另一个程序需要路由、存储、打分或触发动作时，应使用结构化输出。只给人阅读时，自然语言通常就够了。
+4. 结构化输出把 prompt 响应变成接口契约，因此 prompt 工作才可以被测试、自动化和维护。
+
+</details>

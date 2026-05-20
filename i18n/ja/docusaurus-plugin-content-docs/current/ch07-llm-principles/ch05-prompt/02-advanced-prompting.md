@@ -390,3 +390,13 @@ Prompt を「より高度に見せる」ためではありません。
 2. 考えてみましょう：役割設定とタスク目標のどちらがより基礎的ですか？ なぜですか？
 3. 自分の言葉で説明してください：「段階的な制約」が、あいまいな大きな指示よりも安定しやすいのはなぜですか？
 4. なぜ、高度な Prompt 技巧で本当に大事なのは複雑さではなく、適合性だと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. よい few-shot prompt は label set を定義し、少なくとも 2 つの labeled example を示し、新しい input も同じ format で分類させます。
+2. task goal の方が基礎的です。role setting は tone や perspective を変えられますが、明確な objective、output contract、constraint の代わりにはなりません。
+3. step-by-step constraint は、大きく曖昧な要求を確認可能な小さな decision に分けます。曖昧さが減り、failure の場所も見つけやすくなります。
+4. advanced technique は failure mode に合ったときだけ有効です。role、example、reasoning instruction は多ければよいのではなく、task reliability を上げるために使います。
+
+</details>

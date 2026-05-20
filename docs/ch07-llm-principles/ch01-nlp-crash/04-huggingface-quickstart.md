@@ -193,6 +193,17 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 4. In Lab 2, replace `AutoModel` with `AutoModelForSequenceClassification`. What new field appears?
 5. Explain why `pipeline()` is useful for demos but not enough for debugging batch-shape problems.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The tail token is usually truncated first, so the exact missing token depends on the tokenizer output. This is why you should print tokens instead of guessing from raw text.
+2. `hidden_size=64` changes the last dimension of hidden-state tensors. If the model is actually instantiated with that config, parameter shapes also change.
+3. Adding a third sentence should change the first dimension of the batch tensors from `2` to `3`. Sequence length and hidden size should remain controlled by tokenization and config.
+4. `AutoModelForSequenceClassification` exposes task-specific outputs, especially `logits`, because it adds a classification head on top of the base model.
+5. `pipeline()` is great for quick demos, but it hides tokenization, tensor shapes, padding, device placement, and model outputs. Debugging needs those details.
+
+</details>
+
 ## Summary
 
 Hugging Face is easiest to learn by following tensors:

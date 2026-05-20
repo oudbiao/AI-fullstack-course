@@ -318,3 +318,12 @@ For application builders, understanding the industry landscape is not about foll
 1. Change the weights in the scoring script to simulate the model-selection preferences of a "startup team" and a "financial enterprise."
 2. Think about this: if your project requires private deployment, how would the priority between open-source and closed-source approaches change?
 3. Explain in your own words: why is the real competitive advantage often not just the model itself?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A startup team may weight speed, cost, API simplicity, and iteration velocity higher. A financial enterprise should weight privacy, compliance, auditability, reliability, and vendor controls higher.
+2. Private deployment usually raises the priority of open-weight models, self-hosting, private cloud options, and data-governance controls. Closed-source APIs may still be useful if they satisfy isolation and compliance needs.
+3. Advantage often comes from proprietary data, workflow integration, evaluation loops, user trust, distribution, and operations. The model is important, but it is only one layer of the product system.
+
+</details>

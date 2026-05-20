@@ -280,6 +280,17 @@ debug_action: inspect tokenization before blaming the model
 4. 用实验 3 换一个模型 tokenizer，对比中文、英文、代码的 token 数。
 5. 为一个 RAG prompt 分配 token 预算：system 指令、检索证据、用户问题、回答空间各留多少？
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 删除 `transform` 后，`Transformers` 会更难表示。根据玩具规则，它可能退化成 `[UNK]`，或者被切成更不稳定的片段，这说明词表覆盖很重要。
+2. `max_length=5` 时，通常后面的 token 会先被截断。真实 prompt 中，被截掉的可能是约束、检索证据，或者用户问题的尾部。
+3. `"##ing"` 只有在 tokenizer 还能找到合适词干时才有帮助。子词能缓解很多词形变化，但不会自动理解词义。
+4. 不同 tokenizer 对同一段文本的 token 数可能差很多。中文、代码和 emoji 多的输入尤其应该先实际检查，再估算成本和上下文长度。
+5. 一个起步分配可以是：system 指令 10-15%，检索证据 60-70%，用户问题 5-10%，剩余留给回答。最终比例要看产品风险。
+
+</details>
+
 ## 小结
 
 Tokenizer 不只是切文字。它定义了模型能看见的世界：

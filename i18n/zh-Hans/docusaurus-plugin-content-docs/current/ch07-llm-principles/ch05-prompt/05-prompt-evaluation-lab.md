@@ -247,6 +247,17 @@ next_step: add harder cases or connect a real model
 4. 只有在离线闭环跑清楚后，再把 `fake_model()` 替换成你自己的 LLM 调用。
 5. 把 report 输出保存进项目笔记，作为 Prompt 评测证据。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 很短输入用于测试 prompt 面对稀疏信息时是否稳定；长的混合评价用于测试它能否拆分多个情绪或主题。
+2. 加入 `confidence` 后，schema 和评分函数都应该要求它存在，否则模型仍可以省略重要的不确定性信号。
+3. 有用的失败记录应包含输入、prompt 版本、错误输出、可能原因和下一步改动。目标是从失败中学习，不是掩盖失败。
+4. 先保留 `fake_model()` 可以让评测循环保持确定性。测试集、评分和报告稳定后，再接真实 LLM。
+5. 保存的报告应包含测试样例、prompt 版本、分数、失败样例和下一轮实验计划，这才是 prompt 评测证据。
+
+</details>
+
 ## 总结
 
 Prompt 工程不只是写一条更好的指令。更成熟的流程是：

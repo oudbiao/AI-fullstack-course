@@ -280,6 +280,17 @@ debug_action: inspect tokenization before blaming the model
 4. 実験 3 で別のモデル tokenizer に変え、中国語、英語、コードの token 数を比べる。
 5. RAG prompt 用に、system 指示、検索証拠、ユーザー質問、回答スペースへ token 予算を割り振る。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `transform` を削除すると、`Transformers` は表しにくくなります。toy ルールによっては `[UNK]` になったり、不安定な分割になったりします。語彙の coverage が重要だと分かります。
+2. `max_length=5` では、通常は後ろの token から切られます。実際の prompt では、制約、検索証拠、ユーザー質問の末尾が消えることがあります。
+3. `"##ing"` は、tokenizer が有用な語幹も見つけられるときにだけ効きます。subword は語形変化を助けますが、単語を自動的に理解するわけではありません。
+4. tokenizer が違うと、同じ文章でも token 数が大きく変わります。中国語、コード、emoji が多い入力は、cost や context 長を見積もる前に確認すべきです。
+5. 最初の案として、system 指示に 10-15%、検索証拠に 60-70%、ユーザー質問に 5-10%、残りを回答に割り当てます。最終比率は product risk に合わせます。
+
+</details>
+
 ## まとめ
 
 Tokenizer はただの文字分割ではありません。モデルが見える世界を決めています。

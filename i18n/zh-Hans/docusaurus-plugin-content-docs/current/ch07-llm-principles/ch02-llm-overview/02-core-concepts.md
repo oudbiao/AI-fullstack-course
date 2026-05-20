@@ -246,6 +246,17 @@ failure_probe: fluent answer can still be wrong
 4. 设计一个 1,000 token 的 RAG 预算：system prompt、证据、用户问题、回答空间各多少？
 5. 解释为什么模型有能力，但仍可能需要 RAG 或 alignment。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 降低胜出 logit 会缩小分数差距，因此 softmax 置信度会下降。胜出 token 可能不变，但确定性会变弱。
+2. `temperature=0.1` 会让输出更确定、分布更尖；`temperature=5.0` 会把分布拉平，让低排名 token 更容易被采样。
+3. 修改向量会改变 attention similarity。这个 token 可能转而关注另一个邻居，因为相关性来自向量关系。
+4. 一个可行分配是 system 指令 120 token、证据 650 token、用户问题 80 token、回答 150 token。关键习惯是明确预留回答空间。
+5. 能力不等于有依据，也不等于安全。RAG 提供当前或私有证据，alignment 约束可接受行为和拒答边界。
+
+</details>
+
 ## 小结
 
 核心概念是连在一起的：

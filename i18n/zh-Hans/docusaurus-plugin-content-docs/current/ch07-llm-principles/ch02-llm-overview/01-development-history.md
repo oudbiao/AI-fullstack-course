@@ -178,3 +178,14 @@ memory_hook: history is a sequence of solved bottlenecks
 3. 解释为什么 Transformer 比 RNN 更容易并行训练。
 4. 举一个例子：模型有能力，但仍然需要对齐或 RAG。
 5. 从 15 个阶段里选一个，说明它今天还如何影响 LLM 应用。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加句子只会改变 bigram 模型中的局部转移计数。新增短语附近的推荐可能变好，但离开这些局部模式仍会失败。
+2. bigram 模型只能看很短的局部上下文。长指令需要跨很多 token 跟踪目标、约束和关系。
+3. Transformer 的 self-attention 在训练时可以并行处理不同位置，而 RNN 的状态依赖前一个时间步，更天然地串行。
+4. 模型可能会写流畅答案，但遇到私有文档仍需要 RAG；遇到安全边界、拒答和服从指令问题时仍需要 alignment。
+5. 例如 Transformer 阶段今天仍然重要，因为基于 attention 的上下文混合是大多数 LLM 架构的基础。
+
+</details>

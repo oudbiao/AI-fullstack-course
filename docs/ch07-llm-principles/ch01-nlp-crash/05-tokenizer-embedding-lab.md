@@ -236,6 +236,17 @@ next_probe: change text length, language, or wording and compare
 4. Change `max_length` from `6` to `4` and observe what truncation removes.
 5. Add one unknown word and observe how `[UNK]` changes the vector.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `invoice` must be added to both `vocab` and `embedding_table`. If only one side is updated, encoding or vector lookup will break.
+2. After adding `refund invoice`, the sentence should produce known token IDs instead of relying on `[UNK]`.
+3. `refund invoice` should stay close to `refund order` because both share refund intent, but the second word should shift the vector toward billing rather than purchase status.
+4. Reducing `max_length` removes tail tokens first in this toy setup. In real prompts, that can erase the difference between two similar requests.
+5. An unknown word collapses into the shared `[UNK]` vector, so different unknown words become indistinguishable. That is useful for robustness but bad for precise meaning.
+
+</details>
+
 ## Summary
 
 Tokenizer and embedding are the first two bridges from human language to model computation.

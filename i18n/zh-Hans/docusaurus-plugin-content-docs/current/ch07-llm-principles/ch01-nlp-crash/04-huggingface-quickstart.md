@@ -193,6 +193,17 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 4. 在实验 2 中把 `AutoModel` 换成 `AutoModelForSequenceClassification`，会多出什么字段？
 5. 解释为什么 `pipeline()` 适合演示，但不足以排查 batch shape 问题。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 通常尾部 token 会先被截断，具体哪个 token 消失取决于 tokenizer 输出。所以要打印 token，而不是靠原文猜。
+2. `hidden_size=64` 会改变 hidden-state tensor 的最后一维。如果模型确实按这个 config 创建，参数形状也会随之变化。
+3. 加入第三句话后，batch tensor 的第一维应该从 `2` 变成 `3`。序列长度和 hidden size 仍由 tokenization 与 config 控制。
+4. `AutoModelForSequenceClassification` 会暴露任务相关输出，尤其是 `logits`，因为它在基础模型上加了分类 head。
+5. `pipeline()` 很适合快速演示，但它隐藏了 tokenization、tensor shape、padding、device 和模型输出细节。调试时必须看这些底层信息。
+
+</details>
+
 ## 小结
 
 学习 Hugging Face 最稳的方法是跟着张量走：

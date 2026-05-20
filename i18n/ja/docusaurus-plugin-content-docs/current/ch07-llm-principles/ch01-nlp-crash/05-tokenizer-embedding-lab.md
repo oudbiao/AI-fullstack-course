@@ -236,6 +236,17 @@ next_probe: change text length, language, or wording and compare
 4. `max_length` を `6` から `4` に変え、truncation が何を削るか観察する。
 5. 未知語を 1 つ追加し、`[UNK]` がベクトルにどう影響するか見る。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `invoice` は `vocab` と `embedding_table` の両方に追加します。片方だけだと encoding または vector lookup が壊れます。
+2. `refund invoice` を追加すると、文は `[UNK]` に頼らず既知 token ID を得られるはずです。
+3. `refund invoice` は refund intent を共有するため `refund order` に近いはずです。ただし 2 語目により、order status より billing 側へ少し動きます。
+4. この toy setup では、`max_length` を短くすると末尾 token が先に削られます。実 prompt では、似た request の違いが消えることがあります。
+5. 未知語は共通の `[UNK]` vector に落ちるため、異なる未知語が区別できなくなります。robustness には役立ちますが、意味の精度は落ちます。
+
+</details>
+
 ## まとめ
 
 Tokenizer と embedding は、人間の言語がモデル計算に入る最初の 2 つの橋です。

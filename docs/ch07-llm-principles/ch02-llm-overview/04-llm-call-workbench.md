@@ -277,6 +277,17 @@ Set `OPENAI_MODEL` if your account or deployment uses a different approved model
 4. Lower `max_output_tokens` and explain what product problem this simulates.
 5. Write a one-page note: which part is prompt design, which part is API payload design, and which part is application reliability?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The task change should update both the prompt and the expected schema. A study-plan output might require fields such as `week`, `goal`, `tasks`, and `evidence`.
+2. The validator should catch invalid JSON during parsing before business logic reads the result. This is the first safety net for structured output.
+3. Requiring `source_refs` turns citation support into part of the contract. The model output is not complete unless each era carries traceable references.
+4. Lowering `max_output_tokens` simulates truncated answers, missing fields, and incomplete reasoning. Product systems need to detect and recover from that.
+5. Prompt design defines the task and format. API payload design controls model, temperature, token limits, and schema. Reliability design covers parsing, validation, retries, logging, and fallback behavior.
+
+</details>
+
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:

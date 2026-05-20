@@ -289,6 +289,17 @@ real_api_note: replace toy_model only after offline loop is stable
 4. `max_output_tokens` を下げ、それがどんなプロダクト上の問題を模擬しているか説明する。
 5. 1 ページのメモを書く。どこが Prompt 設計で、どこが API ペイロード 設計で、どこがアプリケーション信頼性なのかを分ける。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. task を変えるなら、prompt と期待 schema の両方を変えます。study plan なら `week`、`goal`、`tasks`、`evidence` などが必要です。
+2. validator は business logic が読む前に、JSON parse 段階で invalid output を検出すべきです。これは structured output の最初の safety net です。
+3. `source_refs` を必須にすると、citation support が contract の一部になります。各 era に traceable reference がなければ、complete output ではありません。
+4. `max_output_tokens` を下げると、truncated answer、missing field、不完全な reasoning を模擬できます。product system はそれを検出し回復する必要があります。
+5. Prompt 設計は task と format を定義します。API payload 設計は model、temperature、token limit、schema を制御します。信頼性設計は parse、validation、retry、logging、fallback を扱います。
+
+</details>
+
 ## まとめ
 
 実際の LLM 呼び出しは、「質問を送って回答を受け取る」だけではありません。小さなエンジニアリングループです。

@@ -229,6 +229,17 @@ next_use: this becomes retrieval evidence in Chapter 8
 4. Explain why `doctor` and `hospital` may be close even though they are not synonyms.
 5. In a RAG project, what evidence would you collect to prove your embedding model is good enough?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. If `banana` moves close to `password`, similarity search may retrieve fruit-related text for account-recovery queries. The failure is not random; it comes from bad geometry.
+2. `recover` and `account` should be placed near password/account-support concepts, not near unrelated commerce or fruit concepts. The added document should become a plausible match for account-recovery queries.
+3. `refund order` should rank the refund/order document first if the embedding space captures both commerce and refund intent.
+4. `doctor` and `hospital` are close because they often appear in the same domain. Similarity can mean topical relation, not strict synonymy.
+5. Useful evidence includes a fixed query set, expected top-k documents, retrieval scores, known failure cases, latency, cost, and examples where wording changes but intent stays the same.
+
+</details>
+
 ## Summary
 
 Embedding turns discrete token IDs into geometry:

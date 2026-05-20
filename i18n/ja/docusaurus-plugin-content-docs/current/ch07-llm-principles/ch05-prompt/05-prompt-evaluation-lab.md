@@ -247,6 +247,17 @@ next_step: add harder cases or connect a real model
 4. オフラインループが理解できてから、`fake_model()` を自分の LLM 呼び出しに置き換える。
 5. report 出力をプロジェクトメモに保存し、Prompt 評価の証拠にする。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. very short input は sparse information で prompt が安定するかを見ます。long mixed-review input は複数 sentiment/topic を分けられるかを見ます。
+2. `confidence` を追加したら、schema と scoring function の両方で必須にします。そうしないと model は重要な uncertainty signal を省略できます。
+3. よい failure note は input、prompt version、wrong output、likely cause、next change を含みます。目的は failure を隠すことではなく、学習することです。
+4. 先に `fake_model()` を使うと evaluation loop が deterministic になります。case、scoring、report が安定してから real LLM call を接続します。
+5. 保存する report には test cases、prompt versions、scores、failed examples、next experiment を含めます。それが prompt evaluation evidence です。
+
+</details>
+
 ## まとめ
 
 Prompt エンジニアリングは、より良い指示文を書くことだけではありません。より成熟した流れは次の通りです。

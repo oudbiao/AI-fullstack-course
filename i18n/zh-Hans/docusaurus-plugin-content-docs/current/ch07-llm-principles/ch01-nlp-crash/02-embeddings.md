@@ -229,6 +229,17 @@ next_use: this becomes retrieval evidence in Chapter 8
 4. 用自己的话解释：为什么 `doctor` 和 `hospital` 可能接近，但不是同义词？
 5. 在 RAG 项目中，你会收集什么证据证明 embedding model 足够好？
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 如果把 `banana` 放得很接近 `password`，相似度检索可能把水果相关文本错误召回给账号恢复问题。问题不是随机的，而是向量空间位置错了。
+2. `recover` 和 `account` 应该靠近密码、账号支持等概念，而不是靠近无关的商品或水果概念。新增文档应该能匹配账号恢复类查询。
+3. 如果 embedding 空间同时捕捉到 refund 意图和 order 语义，`refund order` 应该让退款/订单文档排第一。
+4. `doctor` 和 `hospital` 接近，是因为它们常出现在同一领域。相似度可以表示主题相关，不一定表示严格同义。
+5. 有用证据包括固定查询集、期望 top-k 文档、召回分数、已知失败样例、延迟、成本，以及“换说法但意图不变”的测试。
+
+</details>
+
 ## 小结
 
 Embedding 把离散 token ID 变成几何关系：

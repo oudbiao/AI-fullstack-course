@@ -229,6 +229,17 @@ next_use: this becomes retrieval evidence in Chapter 8
 4. `doctor` と `hospital` が近くても同義語ではない理由を説明する。
 5. RAG プロジェクトで embedding model が十分よいと示すには、どんな証拠を集めるか。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `banana` を `password` に近づけると、account recovery の query に果物関連文書が返るかもしれません。失敗は偶然ではなく、vector 空間の配置ミスです。
+2. `recover` と `account` は、password や account support に近づけるべきです。commerce や fruit とは離します。追加文書は account recovery query に合うはずです。
+3. embedding 空間が refund intent と order の意味を捉えていれば、`refund order` は返金/注文関連文書を 1 位にすべきです。
+4. `doctor` と `hospital` は同じ domain によく現れるため近くなります。similarity は厳密な同義ではなく、topic 関連を表すことがあります。
+5. 固定 query set、期待 top-k、retrieval score、既知の失敗例、latency、cost、言い換えに対する安定性を evidence として集めます。
+
+</details>
+
 ## まとめ
 
 Embedding は離散 token ID を幾何に変えます。

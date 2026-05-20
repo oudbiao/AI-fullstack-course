@@ -178,3 +178,14 @@ memory_hook: history is a sequence of solved bottlenecks
 3. Explain why Transformer training is easier to parallelize than RNN training.
 4. Give one example where a model has capability but still needs alignment or RAG.
 5. Pick one of the 15 stages and explain how it still affects today’s LLM applications.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding sentences changes only the local transition counts in a bigram model. Suggestions may improve for the added phrases but will still fail outside those local patterns.
+2. A bigram model sees only a tiny local context. Long instructions require tracking goals, constraints, and relationships across many tokens.
+3. Transformer self-attention can process positions in parallel during training, while RNN states depend on previous time steps and are naturally sequential.
+4. A model may be able to write fluent answers but still need RAG for private documents, or alignment for safety, refusal behavior, and instruction following.
+5. For example, the Transformer stage still shapes modern systems because attention-based context mixing is the basis of most LLM architectures.
+
+</details>
