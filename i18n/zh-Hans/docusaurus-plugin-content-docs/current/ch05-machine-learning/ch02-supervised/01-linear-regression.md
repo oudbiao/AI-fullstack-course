@@ -159,6 +159,18 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 | 高值处误差更散 | 目标越大误差越大 | 变换目标或用稳健指标 |
 | 少数巨大误差 | 异常值或缺关键特征 | 回看样本和数据质量 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## 常见错误
 
 | 现象 | 先检查 | 常见修复 |
@@ -175,6 +187,16 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 2. 从 `X` 里删除 `age`，看误差是否变大。
 3. 把 `Ridge(alpha=10.0)` 改成 `alpha=0.1` 和 `alpha=100.0`。
 4. 保存一段简短记录：baseline RMSE、linear RMSE、最佳模型、一个残差样本。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 噪声变大后，RMSE 通常会上升，R² 通常会下降，因为同样的特征已经无法解释更多随机波动。
+2. 删除 `age` 后如果误差变大，说明它提供了有效信息；如果变化很小，可能是它作用弱，或信息已经被其他相关特征替代。
+3. `alpha=0.1` 正则化较弱，模型更接近普通线性回归；`alpha=100.0` 正则化较强，系数会被压小，可能更稳，也可能欠拟合。
+4. 记录时要写清楚比较基准：baseline 代表“不看特征也能做到什么程度”，linear/Ridge 代表“加入特征后多解释了多少误差”，残差样本用来提醒平均指标会隐藏个别失败案例。
+
+</details>
 
 ## 通关检查
 

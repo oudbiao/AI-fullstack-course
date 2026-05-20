@@ -9,6 +9,18 @@ keywords: [機械学習, 教師あり学習, 教師なし学習, 強化学習, A
 
 ![機械学習モデリングの閉ループ図](/img/course/ml-modeling-loop-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## この節の位置づけ
 
 この節は、あなたが機械学習に正式に入る最初の一歩です。大事なのは定義を暗記することではなく、機械学習と従来のプログラミングの違いを理解し、「問題の種類 → データの形 → 学習方法」を見分ける考え方を身につけることです。これが、この後の教師あり学習、教師なし学習、モデル評価の土台になります。
@@ -177,7 +189,7 @@ flowchart TD
 
 - 「入力 → 正しい出力」の組みになったデータを持っているか？
 
-もしあるなら、たいてい教師あり学習です。  
+もしあるなら、たいてい教師あり学習です。
 次にこう考えます。
 
 - 出力はカテゴリか、それとも連続値か？
@@ -209,7 +221,7 @@ flowchart TD
 
 ### 教師なし学習で誤解しやすい点
 
-初心者は、教師なし学習を「機械が勝手に本当の答えを見つけるもの」と考えがちです。  
+初心者は、教師なし学習を「機械が勝手に本当の答えを見つけるもの」と考えがちです。
 でも、より正確にいうと次の通りです。
 
 - モデルは、ひとつのあり得る構造を見つける手助けをする
@@ -548,3 +560,12 @@ sklearn のバージョンや分割設定が変わると、結果が少し変わ
 ### 演習3：過学習を観察する
 
 4.3節の過学習の例を修正し、異なる次数の多項式（1, 3, 5, 10, 18）でデータを当てはめて、5枚のサブプロットを描き、複雑さが当てはまり方に与える影響を観察してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 明日の気温と株価の終値は、予測対象が数値なので回帰です。顔の有無、ニュースカテゴリ、ユーザー離脱は、予測対象が離散ラベルなので分類です。
+2. `load_wine()` の演習では、教師あり学習の基本手順を守ります。特徴量とラベルを読み込み、学習前に train/test に分け、`X_train, y_train` だけで fit し、`X_test, y_test` で score します。この分割で `0.944` 前後の精度は自然ですが、数値そのものよりテストデータを学習に漏らさないことが重要です。
+3. 1 次はたいてい単純すぎて underfitting し、3 次や 5 次は主な傾向を捉えやすく、10 次や 18 次はノイズまで追いかけることがあります。訓練データへの当てはまりだけでなく、検証/テスト誤差も見て複雑さを判断します。
+
+</details>

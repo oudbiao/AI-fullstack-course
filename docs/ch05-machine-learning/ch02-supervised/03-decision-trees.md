@@ -265,6 +265,29 @@ Avoid relying on a single tree when:
 4. Replace the Iris features with all four features. Does feature importance change?
 5. In the regression section, compare `DecisionTreeRegressor` with the linear regression lesson's baseline.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `min_samples_leaf=1` usually creates more leaves and can overfit. `10` creates a simpler tree; test accuracy may improve if the old tree was too specific, or drop if it becomes too coarse.
+2. Entropy and Gini often choose similar splits, but they are not guaranteed to match. Compare the first rule and the resulting test score.
+3. A depth-2 tree is much easier to explain because it has only a few rules, but it may miss detail that a deeper tree captures.
+4. Using all four Iris features can change importances and splits. Treat importance as a model diagnostic, not proof of causality.
+5. Regression trees produce step-like predictions based on leaf averages. Compare RMSE/MAE against the linear baseline and inspect residual examples before deciding which is better.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## Pass Check
 
 You are done when you can explain:

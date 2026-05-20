@@ -474,6 +474,18 @@ plt.show()
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## 小结
 
 | 要点 | 说明 |
@@ -548,3 +560,12 @@ Test accuracy: 0.944
 ### 练习 3：观察过拟合
 
 修改 4.3 节的过拟合示例，用不同次数的多项式（1, 3, 5, 10, 18）拟合数据，画出 5 张子图，观察复杂度对拟合效果的影响。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 明天气温和股票收盘价属于回归，因为目标是连续数值；人脸检测、新闻类别和用户是否流失属于分类，因为目标是离散标签。
+2. `load_wine()` 练习要保持监督学习的基本流程：先加载特征和标签，再切分训练集/测试集，只用 `X_train, y_train` 训练，最后在 `X_test, y_test` 上评分。这个切分下约 `0.944` 的准确率是合理的，但比具体数值更重要的是避免把测试集泄漏进训练过程。
+3. 1 次多项式通常欠拟合，3 次或 5 次往往能抓住主要趋势，10 次或 18 次可能开始追逐噪声。判断复杂度时不要只看训练曲线是否贴合，还要看验证集或测试集误差。
+
+</details>

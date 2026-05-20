@@ -159,6 +159,18 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 | 高い値ほどばらつく | 目標値が大きいほど誤差も大きい | 目標変換やロバスト指標を使う |
 | 少数の大外れ | 外れ値または重要特徴量の欠落 | 行とデータ品質を見直す |
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## よくある失敗
 
 | 症状 | 最初に確認 | よくある修正 |
@@ -175,6 +187,16 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 2. `X` から `age` を外し、誤差が増えるか確認する。
 3. `Ridge(alpha=10.0)` を `alpha=0.1` と `alpha=100.0` に変える。
 4. baseline RMSE、linear RMSE、最良モデル、残差例を短く記録する。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. noise を大きくすると、RMSE は上がり、R² は下がることが多いです。同じ特徴量では、ランダムな揺らぎを説明しきれないためです。
+2. `age` を外して誤差が増えるなら、その特徴量は有用です。ほとんど変わらないなら、効果が弱いか、他の相関特徴量が同じ情報を持っている可能性があります。
+3. `alpha=0.1` は正則化が弱く、通常の線形回帰に近づきます。`alpha=100.0` は正則化が強く、係数が小さくなり、安定することもあれば underfitting することもあります。
+4. 記録では、baseline が「特徴量を使わなくても到達できる水準」、linear/Ridge が「特徴量でどれだけ誤差を減らせたか」、残差例が「平均指標では隠れる失敗例」を示すようにまとめます。
+
+</details>
 
 ## 通過チェック
 

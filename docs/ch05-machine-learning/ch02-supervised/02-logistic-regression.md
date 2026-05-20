@@ -250,6 +250,28 @@ That means the model prefers `versicolor`, but it is not completely sure. This u
 3. Print the three smallest coefficients as well as the three largest absolute coefficients. What changes after feature scaling?
 4. Replace the breast cancer dataset with your own CSV. Keep the same structure: split first, fit the pipeline, print metrics, tune the threshold.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Lower thresholds usually produce fewer false negatives because more examples are labeled positive. The tradeoff is more false positives, so compare precision and recall together.
+2. Accuracy often plateaus after a middle `C` value. Once validation accuracy stops improving, prefer the simpler or more stable setting.
+3. After scaling, coefficients are more comparable because features are on similar units. Coefficients near zero usually have less influence in the fitted linear decision rule.
+4. For your own CSV, define the target, split before preprocessing, keep preprocessing inside a `Pipeline`, then report confusion matrix, precision/recall/F1, and threshold behavior.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## Pass Check
 
 You have finished this lesson when you can explain these four sentences without looking:

@@ -247,6 +247,18 @@ max_depth=None mae=48.7 leaves=25
 - テストスコアが訓練スコアより大きく下がる；
 - 集成モデルの精度と安定性が必要。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -264,6 +276,17 @@ max_depth=None mae=48.7 leaves=25
 3. `max_depth=2` の `export_text()` を表示してください。説明しやすくなりますか？
 4. Iris の 4 つすべての特徴量を使ってください。特徴量重要度は変わりますか？
 5. 回帰木の結果を、線形回帰レッスンのベースラインと比較してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `min_samples_leaf=1` は葉を増やしやすく、訓練スコアは上がりがちですが過学習しやすくなります。`10` は木を粗くし、葉を減らすため、安定することもあれば underfitting することもあります。
+2. `"entropy"` と既定の `"gini"` はどちらもノードを純粋にする分割を探します。最初の分割が同じかどうかはデータ次第なので、出力された木構造で確認します。
+3. `max_depth=2` の木はルールが短くなり、説明しやすくなります。その代わり、精度の一部を失う可能性があります。
+4. Iris の 4 特徴量を使うと重要度の配分が変わることがあります。相関の強い特徴量があると、木は一方だけを選ぶ場合があるため、重要度は慎重に読みます。
+5. 回帰木は線形回帰の baseline と RMSE/R² で比較します。訓練データだけ良く、テストデータで改善しないなら、より良いモデルとは言えません。
+
+</details>
 
 ## 合格チェック
 

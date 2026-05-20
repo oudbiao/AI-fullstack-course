@@ -177,6 +177,18 @@ reloaded_prediction= setosa
 
 用 `Pipeline([("scale", StandardScaler()), ("model", ...)])` 可以让训练和预测都走同一条安全路径。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## 常见错误
 
 | 现象 | 先检查 | 常见修复 |
@@ -193,6 +205,16 @@ reloaded_prediction= setosa
 2. 把 `KNeighborsClassifier(n_neighbors=5)` 改成 `n_neighbors=3`。
 3. 按同样 Pipeline 模式再加入一个模型，比如 `SVC`。
 4. 保存终端输出和 `iris_pipeline.joblib` 作为证据。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `test_size=0.2` 会让训练集更大、测试集更小；在固定 `random_state` 时分数可能略有变化，但不能只凭一次分数判断新设置更好。
+2. `n_neighbors=3` 会让 KNN 更关注局部邻居，边界可能更灵活。它可能提升测试分数，也可能因为对噪声更敏感而下降。
+3. 新增 `SVC` 时应放进同样的 `Pipeline`，例如 `StandardScaler()` 加 `SVC()`，并使用同一组 train/test split，这样模型比较才公平。
+4. 合格证据至少应包含：终端中的模型分数、保存出的 `iris_pipeline.joblib`、以及重新加载模型后能正常 `predict` 的简短验证。
+
+</details>
 
 ## 通关检查
 

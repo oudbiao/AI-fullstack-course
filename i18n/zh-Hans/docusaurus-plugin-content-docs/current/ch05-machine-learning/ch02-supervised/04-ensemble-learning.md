@@ -178,6 +178,18 @@ Stacking 只有在元模型看到 out-of-fold 预测时才可靠：
 | 不同模型家族表现互补 | 带交叉验证的 Stacking |
 | 需要最容易解释 | 浅树或随机森林特征重要性 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## 常见错误
 
 | 现象 | 先检查 | 常见修复 |
@@ -194,6 +206,16 @@ Stacking 只有在元模型看到 out-of-fold 预测时才可靠：
 2. 把 Gradient Boosting 的 `learning_rate` 从 `0.05` 改成 `0.2`。
 3. 解释如果 Stacking 不用交叉验证，为什么会泄漏。
 4. 保存模型对比表，并写一段话说明你会先上线哪个模型。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `max_depth=3` 会限制单棵树复杂度，可能更稳但会欠拟合；`None` 允许树长得很深，训练分数可能更高，但测试分数和稳定性要重点检查。
+2. `learning_rate=0.2` 会让每轮 Boosting 修正更大，可能更快提升，也可能更快过拟合。需要结合验证集或交叉验证判断。
+3. Stacking 如果让二层模型看到“基模型在训练自己时给出的预测”，二层模型就会学到过于乐观的信号。用 out-of-fold 预测或 `StackingClassifier(cv=...)` 才能降低泄漏。
+4. 上线选择不只看最高分，还要看测试集稳定性、训练/预测成本、可解释性和失败代价。写结论时要说明为什么选择某个模型，而不是只贴一张分数表。
+
+</details>
 
 ## 通关检查
 

@@ -177,6 +177,18 @@ split -> fit scaler on training data -> transform test data -> evaluate
 
 Using `Pipeline([("scale", StandardScaler()), ("model", ...)])` keeps that order for both training and prediction.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## Common Failures
 
 | Symptom | First check | Usual fix |
@@ -193,6 +205,16 @@ Using `Pipeline([("scale", StandardScaler()), ("model", ...)])` keeps that order
 2. Change `KNeighborsClassifier(n_neighbors=5)` to `n_neighbors=3`.
 3. Add one more model, such as `SVC`, using the same Pipeline pattern.
 4. Save the terminal output and `iris_pipeline.joblib` as your evidence.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A smaller test split leaves more training examples but fewer evaluation examples, so the score may move slightly and become a little less stable.
+2. `n_neighbors=3` makes KNN more local and flexible. It can improve if the boundary is sharp, or worsen if it reacts to noise.
+3. The extra model should use the same split and preprocessing path, for example `Pipeline([("scaler", StandardScaler()), ("model", SVC())])`, so the comparison is fair.
+4. Good evidence includes the command output, model settings, score, and saved `.joblib` file. The point is to prove that the full fit/evaluate/save loop ran.
+
+</details>
 
 ## Pass Check
 

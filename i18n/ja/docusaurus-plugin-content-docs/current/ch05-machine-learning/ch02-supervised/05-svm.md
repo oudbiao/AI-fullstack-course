@@ -210,6 +210,18 @@ SVM を試す価値がある場面：
 - プロダクトが信頼できる確率に強く依存する；
 - 木の集成モデルのほうが、少ない調整で高精度かつ安定。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -227,6 +239,17 @@ SVM を試す価値がある場面：
 3. 線形の場合に `SVC` を `LinearSVC` に置き換えてください。利用できる属性はどう変わりますか？
 4. 同じデータセットでロジスティック回帰を実行し、RBF SVM と比較してください。
 5. 1 回の分割ではなく、交差検証で `C` と `gamma` を選んでください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `noise=0.1` はクラス境界がはっきりし、SVM にとって簡単です。`noise=0.4` はクラスが混ざり、過学習と underfitting のバランスが難しくなります。
+2. `gamma=5.0` は RBF kernel の影響範囲を狭くし、境界を曲げやすくします。accuracy は上がることも下がることもあり、サポートベクトル数が多い場合は多くの境界サンプルに依存している可能性があります。
+3. `LinearSVC` は大きめの線形問題に向きますが、`support_vectors_` は通常なく、`predict_proba()` も直接は使えません。比較するときは `decision_function`、accuracy、学習時間を見ます。
+4. ロジスティック回帰は強い baseline です。RBF SVM が少ししか改善せず、遅くて説明しにくいなら選ぶ価値は限定的です。非線形性が強いデータでは RBF SVM の優位が出やすくなります。
+5. スケーリングと SVM を同じ `Pipeline` に入れ、`GridSearchCV` で `C` と `gamma` を選びます。こうすると各 fold でスケーリングも訓練 fold だけから学びます。
+
+</details>
 
 ## 合格チェック
 

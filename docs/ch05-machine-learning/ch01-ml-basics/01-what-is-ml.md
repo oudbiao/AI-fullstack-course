@@ -474,6 +474,18 @@ plt.show()
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## Summary
 
 | Key point | Explanation |
@@ -548,3 +560,12 @@ Your exact result may change slightly if the sklearn version or split settings c
 ### Exercise 3: Observe Overfitting
 
 Modify the overfitting example in section 4.3, use polynomials of different degrees (1, 3, 5, 10, 18) to fit the data, plot 5 subplots, and observe how complexity affects the fitting result.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Temperature and stock closing price are regression tasks because the target is numeric. Face detection, news category, and churn are classification tasks because the target is a discrete class.
+2. The wine example should follow the core supervised workflow: load features and labels, split before training, fit only on `X_train, y_train`, then score on `X_test, y_test`. A result near `0.944` is plausible for this split, but the exact value is less important than avoiding test-set leakage.
+3. Degree 1 usually underfits, degrees 3 or 5 often capture the main pattern, and degrees 10 or 18 can chase noise. Judge complexity with held-out error as well as the plot, because a curve that hugs training points may generalize poorly.
+
+</details>

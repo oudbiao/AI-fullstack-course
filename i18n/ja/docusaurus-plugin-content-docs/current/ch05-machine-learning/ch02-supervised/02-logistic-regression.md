@@ -233,6 +233,18 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 
 これは、モデルが `versicolor` を選びたいが、完全には確信していないことを意味します。この不確実性は、レビューキュー、能動学習、人間参加型のワークフローで役に立ちます。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -249,6 +261,16 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 2. `C` を `[0.01, 0.1, 1, 10, 100]` に変えてください。accuracy はどこから伸びにくくなりますか？
 3. 絶対値が大きい 3 つだけでなく、小さい係数も 3 つ表示してください。標準化後に何が見えますか？
 4. breast cancer データセットを自分の CSV に置き換えてください。構造は同じです。先に分割し、pipeline を fit し、指標を出し、最後にしきい値を調整します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 一般にしきい値を下げるほど positive と判定しやすくなり、偽陰性は減ります。この候補では `0.2` が最も少なくなりやすいですが、偽陽性は増えるため、recall と false positives を一緒に報告します。
+2. `C` が大きいほど正則化は弱くなります。accuracy はある範囲で頭打ちになることが多く、それ以上 `C` を大きくしても汎化性能が上がるとは限りません。
+3. 標準化後は係数の大きさを比較しやすくなります。絶対値が小さい係数は、このモデルと分割では寄与が小さいことを示しますが、業務上不要と即断するのは危険です。
+4. CSV を差し替えるときも、先に分割し、`Pipeline` を学習データだけで fit し、テストデータで評価します。分割前に前処理を fit するとデータリークになります。
+
+</details>
 
 ## 合格チェック
 

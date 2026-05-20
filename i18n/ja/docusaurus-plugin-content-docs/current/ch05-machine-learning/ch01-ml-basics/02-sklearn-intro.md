@@ -177,6 +177,18 @@ sklearn のバージョンによって、同点のときに選ばれる best mod
 
 `Pipeline([("scale", StandardScaler()), ("model", ...)])` を使うと、学習時も予測時も同じ安全な流れになります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## よくある失敗
 
 | 症状 | 最初に確認 | よくある修正 |
@@ -193,6 +205,16 @@ sklearn のバージョンによって、同点のときに選ばれる best mod
 2. `KNeighborsClassifier(n_neighbors=5)` を `n_neighbors=3` に変える。
 3. 同じ Pipeline パターンで `SVC` などのモデルを一つ追加する。
 4. 端末出力と `iris_pipeline.joblib` を証拠として保存する。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `test_size=0.2` にすると学習データは増え、テストデータは減ります。`random_state` を固定していてもスコアは少し変わりますが、1 回の結果だけで良し悪しを決めないことが大切です。
+2. `n_neighbors=3` はより近い近傍に敏感になるため、決定境界が柔軟になります。テストスコアが上がることもありますが、ノイズに弱くなって下がることもあります。
+3. `SVC` を追加するなら、同じ `Pipeline` に入れます。たとえば `StandardScaler()` と `SVC()` を組み合わせ、同じ train/test split で比較すると公平です。
+4. 合格ラインの証拠は、端末のモデルスコア、保存された `iris_pipeline.joblib`、再読み込み後に `predict` が動く短い確認です。
+
+</details>
 
 ## 通過チェック
 

@@ -247,6 +247,18 @@ max_depth=None mae=48.7 leaves=25
 - 测试分数远低于训练分数；
 - 问题需要集成模型的准确性和稳定性。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -264,6 +276,17 @@ max_depth=None mae=48.7 leaves=25
 3. 打印 `max_depth=2` 的 `export_text()`。是不是更容易解释？
 4. Iris 改成使用四个特征。特征重要性会变化吗？
 5. 在回归树部分，把结果和线性回归课程里的基线对比。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `min_samples_leaf=1` 通常会产生更多叶子，训练分数更高，但更容易过拟合；`10` 会让树更粗糙，叶子更少，测试分数可能更稳也可能欠拟合。
+2. `"entropy"` 和默认的 `"gini"` 都在寻找更纯的划分，第一层可能相同，也可能不同。应以打印出的树结构为准，而不是预设某个指标一定更好。
+3. `max_depth=2` 的树通常更容易解释，因为规则路径短；代价是它可能牺牲部分准确率。
+4. 使用四个 Iris 特征后，特征重要性可能重新分配。若两个特征高度相关，树可能只选择其中一个，这也是树重要性需要谨慎解读的原因。
+5. 回归树要和线性回归 baseline 比 RMSE/R²。若树只是在训练集上更好、测试集没有提升，就不应认为它更适合上线。
+
+</details>
 
 ## 过关检查
 

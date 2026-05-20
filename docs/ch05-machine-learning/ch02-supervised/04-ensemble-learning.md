@@ -178,6 +178,18 @@ Use sklearn's `StackingClassifier(cv=5)` instead of manually reusing predictions
 | several model families perform differently | Stacking with cross-validation |
 | need easiest explanation | shallow tree or Random Forest feature importance |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## Common Failures
 
 | Symptom | First check | Usual fix |
@@ -194,6 +206,16 @@ Use sklearn's `StackingClassifier(cv=5)` instead of manually reusing predictions
 2. Change Gradient Boosting `learning_rate` from `0.05` to `0.2`.
 3. Remove `cv=5` from your mental model and explain why stacking would leak without cross-validation.
 4. Save a model comparison table and one paragraph explaining which model you would ship first.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `max_depth=3` limits each tree and can reduce overfitting. `None` allows deeper trees, often improving training score while risking worse validation behavior.
+2. A higher boosting learning rate learns faster but can overshoot or overfit. Check validation score, not just training score.
+3. Stacking leaks when the meta-model learns from base-model predictions on rows those base models already trained on. Cross-validation creates out-of-fold predictions that are closer to real deployment.
+4. A shipping decision should name the model, validation metric, complexity, failure risk, and monitoring plan. The best first model is often the simplest one that meets the target metric reliably.
+
+</details>
 
 ## Pass Check
 

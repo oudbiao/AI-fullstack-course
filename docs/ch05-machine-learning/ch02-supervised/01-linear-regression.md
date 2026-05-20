@@ -159,6 +159,18 @@ When a regression model looks good, still inspect residuals:
 | bigger spread at high values | error grows with target size | transform target or use robust metrics |
 | a few huge misses | outliers or missing features | review rows and data quality |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## Common Failures
 
 | Symptom | First check | Usual fix |
@@ -175,6 +187,16 @@ When a regression model looks good, still inspect residuals:
 2. Remove `age` from `X`. Does the error grow?
 3. Change `Ridge(alpha=10.0)` to `alpha=0.1` and `alpha=100.0`.
 4. Save a short note with baseline RMSE, linear RMSE, best model, and one residual example.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. More noise should increase RMSE and usually reduce R², because the target contains less predictable signal.
+2. If `age` carries useful information, removing it should increase error. If error barely changes, the feature may be weak or redundant with other columns.
+3. Smaller `alpha` means weaker regularization and coefficients can grow; larger `alpha` shrinks coefficients and can underfit.
+4. A useful note includes the naive baseline, each model's metric, the chosen model, and one row with `actual`, `predicted`, and `residual` so the metric has a concrete meaning.
+
+</details>
 
 ## Pass Check
 

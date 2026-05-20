@@ -210,6 +210,18 @@ C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 - 产品核心依赖可靠概率；
 - 树集成模型已经更准、更稳、调参更少。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -227,6 +239,17 @@ C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 3. 在线性核场景里把 `SVC` 换成 `LinearSVC`。可用属性有什么变化？
 4. 在同一数据集上运行逻辑回归，和 RBF SVM 对比。
 5. 用交叉验证选择 `C` 和 `gamma`，不要只相信一次切分。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `noise=0.1` 边界更清晰，SVM 更容易；`noise=0.4` 类别混杂更多，模型更难，同时更容易出现过拟合或欠拟合取舍。
+2. `gamma=5.0` 会让 RBF 核的影响范围更小，边界更弯。accuracy 可能短期提升，也可能下降；支持向量数量常会变化，若数量很多，说明模型依赖大量边界样本。
+3. `LinearSVC` 更适合大一些的线性问题，但接口不同：通常没有 `support_vectors_`，也没有直接的 `predict_proba()`。比较时要看 `decision_function`、accuracy 和训练速度。
+4. 逻辑回归是强基线。如果 RBF SVM 只提升一点却更慢、更难解释，就不一定值得选择；如果数据明显非线性，RBF SVM 的优势会更明显。
+5. 应把缩放和 SVM 放入同一个 `Pipeline`，再用 `GridSearchCV` 搜索 `C` 和 `gamma`。这样每折验证都只从训练折学习缩放参数。
+
+</details>
 
 ## 过关检查
 

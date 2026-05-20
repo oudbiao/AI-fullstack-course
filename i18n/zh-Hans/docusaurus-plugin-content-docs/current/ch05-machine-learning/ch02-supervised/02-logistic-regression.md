@@ -233,6 +233,18 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 
 这表示模型更倾向于 `versicolor`，但并不是完全确定。这个“不确定性”在人工复核队列、主动学习、人机协作流程里很有用。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -249,6 +261,16 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 2. 把 `C` 改成 `[0.01, 0.1, 1, 10, 100]`。accuracy 从什么时候开始不再提升？
 3. 除了绝对值最大的三个系数，也打印最小的三个系数。标准化以后你观察到什么？
 4. 用自己的 CSV 替换 breast cancer 数据集。保持同样结构：先切分，再 fit pipeline，再打印指标，最后调阈值。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 通常阈值越低，模型越容易预测为正类，漏报会更少；在这组阈值里 `0.2` 往往漏报最少，但误报会增加。答案要同时报告 recall 和 false positives。
+2. `C` 越大正则化越弱。accuracy 往往会在某个区间后进入平台期，继续增大 `C` 只会让模型更复杂，不一定带来泛化收益。
+3. 标准化后，系数大小更适合横向比较；绝对值很小的系数说明该特征在当前模型和数据切分下贡献有限，但不能直接等同于“业务上无关”。
+4. 替换 CSV 时，关键不是换文件本身，而是保持先切分、再让 `Pipeline` 在训练集上 `fit`，最后在测试集上评估并调阈值。任何在切分前 fit 的预处理都可能造成泄漏。
+
+</details>
 
 ## 过关检查
 

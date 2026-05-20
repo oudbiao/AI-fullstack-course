@@ -228,6 +228,29 @@ Prefer other models when:
 4. Run logistic regression on the same dataset and compare it with RBF SVM.
 5. Use cross-validation to pick `C` and `gamma` instead of trusting one split.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `noise=0.1` makes the two moons easier to separate; `noise=0.4` makes the boundary uncertain and usually increases errors or support-vector reliance.
+2. `gamma=5.0` makes the RBF boundary more local and wiggly. Training accuracy may rise, but test accuracy can fall and the support-vector count may increase.
+3. `LinearSVC` is optimized for linear margins and exposes attributes such as `coef_`, but it does not provide `support_vectors_` like `SVC`.
+4. Logistic regression is a strong linear baseline. RBF SVM should win on curved boundaries after scaling, but it has more tuning risk.
+5. Use `GridSearchCV` or similar cross-validation for `C` and `gamma`, then report mean score, spread, and the final test score on data not used for selection.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: regression or classification problem with target definition
+model: linear/logistic/tree/ensemble/SVM configuration and train/test split
+metric: regression error, accuracy/F1, threshold curve, or confusion matrix
+failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
+Expected_output: model result plus error samples or residual review
+```
+
 ## Pass Check
 
 You are done when you can explain:
