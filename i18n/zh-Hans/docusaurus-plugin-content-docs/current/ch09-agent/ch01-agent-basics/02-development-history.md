@@ -374,3 +374,12 @@ next_action: build the smallest traceable single-agent loop
 1. 给 `simple_agent()` 再增加一个工具，比如“计算器”。
 2. 用自己的话总结规则机器人、工作流和 Agent 的区别。
 3. 想一想：为什么很多团队在 Agent 项目里，最后还是会保留大量固定流程节点？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 计算器工具只应该路由给数值计算任务，并且要校验输入，返回结构化结果或明确错误。
+2. 规则机器人匹配固定条件；工作流执行预先定义好的步骤；Agent 会根据目标、上下文和 observation 选择工具与动作。
+3. 固定流程节点仍然有价值，因为它们更容易测试、审计、加权限和恢复。真实 Agent 系统通常会把确定性的 workflow 和灵活的 Agent 步骤混合起来。
+
+</details>

@@ -450,3 +450,13 @@ eval_action: compare against expected result and revise the plan
 2. 为什么说 ReAct 更适合“下一步动作依赖上一轮 observation”的任务？
 3. 如果工具输出很乱，ReAct 为什么更容易出错？
 4. 想一个更适合固定 工作流、而不太适合 ReAct 的任务。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `check_order_status` 应该增加一个新的 action 选择，并返回会影响下一步判断的 observation。
+2. ReAct 适合每次 observation 都可能改变计划的任务，例如搜索结果、工具错误、缺失字段、权限结果或计算输出都会影响下一步。
+3. 工具输出混乱时，observation 很难被准确解释，下一步 action 就可能基于错误信号做出。
+4. 密码重置、发票创建、审批流这类步骤严格固定的任务，通常比开放式 ReAct 循环更适合 workflow。
+
+</details>

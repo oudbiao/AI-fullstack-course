@@ -399,3 +399,13 @@ it will be much easier to understand that they are continuing to organize reason
 2. Why do we say the core value of CoT lies in “explicit intermediate structure” rather than “longer output”?
 3. Think of a simple question that is not suitable for CoT, and explain why.
 4. If you were using CoT in a product, would you prefer free-form text or structured slots? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The chain answer should expose sub-results, while the bad direct answer often hides assumptions or arithmetic mistakes.
+2. CoT is valuable when the task has dependencies that need to be tracked; long text without structure is just verbosity.
+3. Simple lookup questions such as "What is the capital of Japan?" do not need CoT because intermediate reasoning adds noise and cost.
+4. For products, structured slots are usually better because they are easier to validate, log, evaluate, and hide from users when needed.
+
+</details>

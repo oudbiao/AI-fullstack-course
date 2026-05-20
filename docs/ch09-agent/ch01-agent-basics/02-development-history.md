@@ -374,3 +374,12 @@ when you should use an Agent, and when a workflow is actually enough.
 1. Add another tool to `simple_agent()`, such as a “calculator.”
 2. Summarize the differences between rule-based bots, workflows, and Agents in your own words.
 3. Think about this: why do many teams still keep a large number of fixed workflow nodes in Agent projects?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A calculator tool should be routed only for numeric tasks, validate inputs, and return a structured result or error.
+2. Rule bots match fixed conditions; workflows execute predefined steps; Agents choose tools and actions based on goal, context, and observations.
+3. Fixed nodes remain useful because they are easier to test, audit, secure, and recover. Many real Agent systems mix deterministic workflow with flexible Agent steps.
+
+</details>

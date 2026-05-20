@@ -365,3 +365,13 @@ the following topics will feel much more natural:
 2. Add a `review_report` node to the task graph, place it after `draft_report`, and observe how the schedule changes.
 3. Why does “can run in parallel” not mean “should be parallelized to the extreme”?
 4. Think of a complex task you are familiar with and try to draw it as a dependency graph.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With 1 worker, tasks run mostly serially and the critical path is clearer but slower. With 3 workers, independent tasks finish sooner but coordination and review risk increases.
+2. Adding `review_report` after `draft_report` extends the dependency chain and may delay downstream tasks that need an approved report.
+3. Extreme parallelism adds context switching, merge conflicts, duplicated work, and quality-control burden. Parallelize only independent work with clear ownership.
+4. A good dependency graph separates independent tasks, blocking tasks, review gates, and final integration.
+
+</details>

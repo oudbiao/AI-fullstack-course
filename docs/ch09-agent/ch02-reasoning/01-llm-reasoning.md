@@ -429,3 +429,13 @@ you will see that they are all helping the model complete this task more stably.
 2. Explain in your own words: why is the key to a reasoning problem in the “intermediate state” and not only the “final answer”?
 3. Think of an Agent task you have done, and identify at least two places where one step clearly depends on the result of the previous step.
 4. Why does “having tools” not mean “being able to reason”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `12 / (3 + 1) + 7` should evaluate as `12 / 4 + 7`, then `3 + 7`, then `10`. The useful check is whether each step is consistent, not only the final number.
+2. Intermediate state shows whether the model is preserving facts, choosing valid operations, and not jumping over dependencies.
+3. Examples: retrieve policy before judging eligibility; inspect data columns before selecting an analysis; call a tool before summarizing its result.
+4. Tools provide actions, but reasoning decides when to use them, how to interpret observations, and how to connect steps toward the goal.
+
+</details>

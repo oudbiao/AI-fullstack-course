@@ -403,3 +403,12 @@ next_action: build the smallest traceable single-agent loop
 1. 给迷你 Agent 再增加一个 `docs_search` 工具。
 2. 给 `run_agent()` 增加“最大步数”限制。
 3. 想一想：如果工具经常超时，架构层面应该补哪些机制？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `docs_search` 应该定义查询输入、权限与过滤规则、返回格式，以及没有证据时的行为。
+2. 最大步数限制的作用是阻止无限循环，并返回一条 trace，说明执行停在了哪里。
+3. 架构层面可以增加超时控制、带退避的重试、circuit breaker、fallback 路径、队列限制，以及对工具延迟和错误率的可观测性。
+
+</details>

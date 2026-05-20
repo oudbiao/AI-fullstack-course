@@ -503,3 +503,13 @@ eval_action: compare against expected result and revise the plan
 2. 为什么说长任务比短任务更需要 规划者？
 3. 如果执行到一半发现目标变了，你会如何设计 replan 机制？
 4. 想一想：哪些任务更适合 ReAct，哪些更适合 Plan-and-Execute？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 好的 plan 应该有有序子任务、每一步期望留下的证据，以及最后的综合整理步骤。
+2. 任务越长，依赖关系、进度跟踪和失败恢复点越重要，所以更需要 planner。
+3. replanning 应该能检测目标变化，暂停执行，对比已完成步骤和剩余步骤，更新 plan，并保留为什么改变的 trace。
+4. ReAct 适合较短、探索性强、下一步由 observation 决定的任务；Plan-and-Execute 更适合较长、有明确子目标和依赖关系的任务。
+
+</details>

@@ -409,3 +409,12 @@ next_action: build the smallest traceable single-agent loop
 1. ミニ Agent に `docs_search` ツールを追加してみましょう。
 2. `run_agent()` に「最大ステップ数」の制限を追加してみましょう。
 3. 考えてみましょう。ツールがよくタイムアウトする場合、アーキテクチャ面ではどのような仕組みを追加すべきでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `docs_search` には、query 入力、権限とフィルタールール、結果形式、証拠が見つからない場合の振る舞いを定義します。
+2. 最大ステップ数の制限は無限ループを止め、どこで実行が止まったのかを説明する trace を返すために使います。
+3. タイムアウト、バックオフ付き retry、circuit breaker、fallback 経路、キュー制限、ツールの遅延やエラー率を観測する仕組みを追加します。
+
+</details>

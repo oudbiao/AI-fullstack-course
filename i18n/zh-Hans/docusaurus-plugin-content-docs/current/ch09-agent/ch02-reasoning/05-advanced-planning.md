@@ -367,3 +367,13 @@ eval_action: compare against expected result and revise the plan
 2. 给任务图再加一个 `review_report` 节点，挂在 `draft_report` 后面，观察调度变化。
 3. 为什么说“能并行”不等于“应该并行到极致”？
 4. 想一个你熟悉的复杂任务，把它尝试画成一个依赖图。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 只有 1 个 worker 时，任务基本串行，critical path 更清晰但更慢；有 3 个 worker 时，独立任务会更快完成，但协调和 review 风险也会上升。
+2. 在 `draft_report` 后加入 `review_report` 会拉长依赖链，并可能推迟所有需要审核后报告的下游任务。
+3. 极限并行会增加上下文切换、合并冲突、重复劳动和质量控制负担。只应该并行那些真正独立且责任边界清楚的工作。
+4. 好的依赖图应该区分独立任务、阻塞任务、review gate 和最终集成。
+
+</details>

@@ -627,3 +627,12 @@ In the next chapters, we will continue to expand on reasoning, tools, memory, mu
 1. Add another tool to `simple_agent()`, such as “check course schedule.”
 2. Make the Agent support a two-step task like “first check the docs, then calculate.”
 3. Think about this: if a tool returns an error message, how should the Agent handle it more safely?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A new tool should have a clear name, input shape, return shape, and failure mode. For `check_course_schedule`, return a small structured result instead of a long paragraph.
+2. A two-step task needs state between steps: the result of document lookup should be stored and passed into the calculation step, with a maximum-step guard.
+3. The Agent should not hide tool errors or continue as if they were facts. It should classify the error, retry only when safe, ask for missing information if needed, or return a controlled failure message.
+
+</details>

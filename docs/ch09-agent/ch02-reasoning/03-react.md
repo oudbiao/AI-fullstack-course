@@ -450,3 +450,13 @@ you will find it much easier to follow more complex Agent traces, tool strategie
 2. Why is ReAct more suitable for tasks where the “next action depends on the previous observation”?
 3. Why is ReAct more likely to make mistakes if the tool output is messy?
 4. Think of a task that is better suited to a fixed workflow and not very suitable for ReAct.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `check_order_status` should add a new action choice and an observation that can change the next step.
+2. ReAct fits when each observation can change the plan: search result, tool error, missing field, permission result, or calculation output.
+3. Messy tool output makes the observation hard to interpret, so the next action may be based on the wrong signal.
+4. Password reset, invoice creation, or approval flows with strict required steps often fit fixed workflows better than open ReAct loops.
+
+</details>

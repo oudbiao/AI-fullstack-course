@@ -398,3 +398,13 @@ the Agent system can grow from a demo that “sometimes works” into a system t
 2. Why is “final answer accuracy” not enough to fully evaluate a reasoning Agent?
 3. Think about this: if your system often calls the same tool repeatedly, which layer would you inspect first?
 4. Design at least 3 core metrics for one of your Agent tasks, and explain why they are valuable.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding a case can change accuracy, tool-use rate, loop count, or failure distribution; inspect which metric moved and why.
+2. Final accuracy misses bad traces: repeated tool calls, unsafe actions, missing citations, excessive cost, and lucky correct answers.
+3. First inspect routing and stopping logic: tool descriptions, observation parsing, loop termination, and retry policy.
+4. Useful metrics include task success, step count, invalid tool-call rate, recovery rate, latency and cost, groundedness, and user-visible error rate.
+
+</details>
