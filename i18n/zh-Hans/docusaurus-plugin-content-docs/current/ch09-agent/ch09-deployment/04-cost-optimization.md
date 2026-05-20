@@ -330,3 +330,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. 想一想：哪些请求适合直接走缓存，哪些请求必须实时算？
 3. 为什么说模型分级路由通常比“统一用大模型”更适合生产系统？
 4. 如果某条链路正确率很高但成本异常高，你会先从哪一段查？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以把 retry 带来的模型调用写成 `retry_count * cost_per_call`，或按模型层级单独列一行。这样常会发现不稳定工具和弱 prompt 在悄悄制造额外模型成本。
+2. 适合 cache 的包括直接事实查询、重复检索结果、稳定政策片段、确定性转换。不应在没有清晰失效规则时缓存用户私有、快速变化或需要审批的结果。
+3. multi-tier routing 比“永远用大模型”更适合生产，因为很多请求简单、重复或主要受 tool 约束。昂贵模型应留给含糊、高风险或重综合的场景。
+4. 如果准确率很高但成本异常，先查重复 tool 调用、过长 context、不必要的大模型路由、retry，以及本可缓存或缩短的生成步骤。
+
+</details>

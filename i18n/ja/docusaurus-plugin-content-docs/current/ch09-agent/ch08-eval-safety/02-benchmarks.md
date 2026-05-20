@@ -163,3 +163,13 @@ next_action: add case, guardrail, log, rollback, or refusal path
 ## 合格基準
 
 この節を学び終えたら、汎用ベンチマークと自作の評価セットの違いを説明できること、自分の Agent プロジェクト向けに小さなベンチマークを設計できること、そして固定された評価セットで異なるモデル、Prompt、ツール設計の効果を比較できることが必要です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. しっかりした 20 件の benchmark には、易しい/中程度/難しい course question、citation 必須 case、範囲外 question、retrieval が部分的または矛盾した evidence だけを返す case を混ぜます。
+2. `must_include` には必須 concept や evidence、`must_not_do` には hallucinated citation や unsafe action の禁止、scoring rules には部分点の付け方を書きます。
+3. tool failure scenario では empty retrieval、timeout、permission denial、malformed tool output、stale data を試します。期待される動作は、穏やかな recovery または明確な stop であり、自信満々の推測ではありません。
+4. benchmark は production monitoring を置き換えられません。実ユーザーは新しい言い回し、新しい goal、latency pressure、cost spike、data drift、tool failure を生むため、固定 benchmark だけでは足りません。
+
+</details>

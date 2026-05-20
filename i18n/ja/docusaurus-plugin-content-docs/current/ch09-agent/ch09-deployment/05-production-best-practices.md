@@ -363,3 +363,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. なぜ、段階的リリースは静的ページよりも Agent に対して重要だと言えるのでしょうか？
 3. ある高リスクのツール呼び出しが急に増えて異常になったら、あなたはまずアラート、サーキットブレーカー、手動引き継ぎのどれを優先しますか？ その理由も考えてみましょう。
 4. 考えてみましょう。ロールバックはなぜ「コードを1つ前のバージョンに戻す」だけではないのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. readiness table には tools、permissions、tracing、evaluation cases、rollback、budget limits、human approval、incident response について owner、status、evidence、next action を書きます。
+2. canary rollout が Agent で重要なのは、behavior が prompt、tools、external data、model version、user goal に依存するからです。小さな traffic exposure が static page check では見えない failure を見つけます。
+3. high-risk call が急増したら、まず alerting で人が知れる状態にします。危険または説明不能なら circuit breaking を使い、安全に継続すべき case は human takeover に回します。
+4. rollback は code を戻すだけではありません。prompt、model version、tool schema、memory、queue、cached results、external side effects も戻すか整合させる必要があります。
+
+</details>

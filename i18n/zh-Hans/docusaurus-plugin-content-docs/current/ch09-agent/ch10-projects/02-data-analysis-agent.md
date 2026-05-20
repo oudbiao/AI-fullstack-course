@@ -380,3 +380,13 @@ failure_log: one failed or unsafe run with root cause
 2. 想一想：为什么“可复核性”对数据分析 Agent 特别重要？
 3. 如果结论和数字对不上，这个项目最可能出问题的层在哪？
 4. 如果做作品集展示，你会把哪一块设计成最显眼的部分？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 给每行加入 `date`，按周或月 group，让 Agent 计算 total sales、average order value、churn rate 等时间趋势。输出应同时包含 code 和 chart/table。
+2. reproducibility 很重要，因为分析结论必须可重跑。要把 data version、cleaning steps、code、parameters、generated chart 和 final narrative 关联起来。
+3. 如果结论和数字不一致，先查 analysis layer：aggregation logic、filters、date handling、chart interpretation。再看 generation layer 是否夸大了结果。
+4. portfolio 最吸引人的部分应是 evidence loop：user question -> generated code -> computed table/chart -> checked conclusion -> trace。它能证明 Agent 是在基于数据推理，而不只是聊天。
+
+</details>

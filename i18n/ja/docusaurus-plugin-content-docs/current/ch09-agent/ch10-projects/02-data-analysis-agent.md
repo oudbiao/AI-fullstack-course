@@ -384,3 +384,13 @@ failure_log: one failed or unsafe run with root cause
 2. 「検証可能性」がデータ分析 Agent にとって特に重要なのはなぜか、考えてみましょう。
 3. 結論と数字が一致しないとき、このプロジェクトで最も問題が起きやすい層はどこでしょうか？
 4. ポートフォリオとして見せるなら、どの部分をいちばん目立つように設計しますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 各 row に `date` を追加し、週または月で group し、total sales、average order value、churn rate などの trend を Agent に計算させます。output には code と chart/table の両方を含めます。
+2. reproducibility が重要なのは、analysis conclusion を再実行できる必要があるからです。data version、cleaning steps、code、parameters、generated chart、final narrative を結びます。
+3. conclusion と numbers が合わない場合は、まず analysis layer を見ます。aggregation logic、filters、date handling、chart interpretation です。その後、generation layer が結果を誇張していないか確認します。
+4. portfolio で最も目立たせるべきなのは evidence loop です。user question -> generated code -> computed table/chart -> checked conclusion -> trace を見せると、Agent が data に基づいて reasoning していることを示せます。
+
+</details>

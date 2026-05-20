@@ -320,3 +320,13 @@ Once this layer is in place, the system truly has a foundation for production de
 2. Increase `timeout_sec` and observe how the timeout rate changes.
 3. Why can’t “number of retries” be designed independently of “error type”?
 4. Think about it: if a certain tool is especially expensive, what protection would you add at the runtime layer?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With `max_concurrency=1`, runs are easier to reason about but slower. With `max_concurrency=3`, throughput improves, but shared resources, rate limits, and trace ordering become more important.
+2. Increasing `timeout_sec` should reduce timeout errors for slow but healthy calls, but it can also make stuck tasks occupy runtime capacity longer. Watch both success rate and waiting time.
+3. Retries depend on error type: timeout and temporary rate limit may be retried, validation errors should be fixed before retry, and permission errors should stop or ask for approval.
+4. For an expensive tool, add budget limits, concurrency limits, caching, pre-checks, cheaper fallback models or tools, and alerts when spending or call volume exceeds the expected range.
+
+</details>

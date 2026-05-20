@@ -322,3 +322,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. `timeout_sec` を大きくして、タイムアウト率がどう変わるか観察しましょう。
 3. 「リトライ回数」は、なぜ「エラーの種類」と切り離して設計できないのでしょうか？
 4. あるツールがとても高コストだとしたら、ランタイム層でどんな保護を入れますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `max_concurrency=1` では実行を理解しやすい反面遅くなります。`max_concurrency=3` では throughput は上がりますが、shared resource、rate limit、trace ordering が重要になります。
+2. `timeout_sec` を増やすと、遅いが正常な call の timeout は減ります。ただし stuck task が runtime capacity を長く占有することもあります。success rate と waiting time の両方を見ます。
+3. retry は error type に依存します。timeout や一時的 rate limit は retry 可能、validation error は retry 前に修正、permission error は停止または approval 要求です。
+4. 高価な tool には budget limit、concurrency limit、cache、pre-check、安い fallback model/tool、cost や call volume が想定範囲を超えたときの alert を追加します。
+
+</details>

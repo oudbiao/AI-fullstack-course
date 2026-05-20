@@ -329,3 +329,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. どのようなリクエストならキャッシュに向いていて、どのようなリクエストは毎回リアルタイムで計算すべきか考えてみましょう。
 3. なぜモデルを段階的にルーティングする方が、「常に大モデルを使う」より本番システムに向いているのでしょうか？
 4. ある処理経路の正解率は高いのに、コストだけが異常に高い場合、まずどの段階を確認しますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. retry による model call を `retry_count * cost_per_call` として追加するか、model tier ごとに別 row にします。不安定な tool や弱い prompt が余分な model cost を生むことが見えやすくなります。
+2. cache に向くのは直接的な factual lookup、繰り返し retrieval results、安定した policy snippet、deterministic transformation です。user-private、急変する、approval-sensitive な結果は明確な invalidation rule なしに cache しません。
+3. multi-tier routing は always large model より production に向きます。多くの request は単純、反復的、または tool-bound だからです。高価な model は曖昧、高リスク、重い synthesis が必要な case に使います。
+4. accuracy が高いのに cost が異常なら、まず repeated tool calls、長すぎる context、不必要な large-model routing、retry、cache や短縮が可能な generation step を見ます。
+
+</details>

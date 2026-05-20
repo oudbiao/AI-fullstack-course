@@ -539,10 +539,21 @@ risky = run_agent(
 | 难度 | 任务 | 通过标准 |
 |---|---|---|
 | 入门 | 新增一条 MCP 相关课程资料 | 包含 `MCP` 的目标能检索到它并引用来源 |
-| 标准 | 给 `run_agent()` 新增 `max_steps` 参数 | 循环 规划者 会以 `stopped_max_steps` 停止 |
+| 标准 | 给 `run_agent()` 新增 `max_steps` 参数 | 循环规划器会以 `stopped_max_steps` 停止 |
 | 标准 | 在 `EVAL_CASES` 里加入 `validation_error` | 错误参数类型会在执行前被抓住 |
 | 挑战 | 按 `run_id` 分文件保存 追踪 | 不用读完整日志也能复盘单次运行 |
 | 挑战 | 用模型调用替换 `choose_next_step()` | 现有评估用例仍然通过 |
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. MCP 材料任务可以新增一条包含 title、body、source id 的小型资料，然后验证包含 `MCP` 的 goal 能检索到它，并在最终答案中引用来源。
+2. `max_steps` 应在下一次规划会超过限制前停止，返回 `stopped_max_steps`，并把停止原因写进 trace。
+3. `validation_error` 用例应传入错误参数类型，并期待 dispatcher 在 tool execution 前拒绝它。
+4. 按 `run_id` 保存 trace 时，可以把每次运行写入单独文件或分区路径，然后只读取该文件就能 replay 单次运行。
+5. 如果用模型调用替换 `choose_next_step()`，现有安全和评估用例必须继续通过。只有在行为变好且 guardrails 不丢失时，升级才算成功。
+
+</details>
 
 ## 步骤 9：可选 OpenAI Agents SDK 升级
 

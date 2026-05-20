@@ -194,3 +194,13 @@ next_action: add case, guardrail, log, rollback, or refusal path
 ## 过关标准
 
 学完本节后，你应该能设计一个最小 Agent 评估集，能区分结果层、过程层、工具层和安全层指标，并能把评估发现转化为 Prompt、工具、流程或权限设计的改进。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 有用的 10 个评估任务应覆盖正常规划、目标含糊、缺少前置知识、日程不可行、需要使用工具、包含不安全请求，以及至少一个 Agent 应主动追问澄清的问题。
+2. 每个任务的 `allowed_tools` 要写清 Agent 可用什么，`forbidden_actions` 要写清绝不能做什么，`success_criteria` 要足够可观察，让另一个人也能稳定评分。
+3. 使用 1-5 分 rubric 时，要把最终答案和执行 trace 分开看。答案写得漂亮但工具用错，不应该拿高分。
+4. 改进建议要对应真实失败：目标不清就改 prompt，工具选错就改 tool 描述或路由，出现不安全动作就加权限或确认机制。
+
+</details>

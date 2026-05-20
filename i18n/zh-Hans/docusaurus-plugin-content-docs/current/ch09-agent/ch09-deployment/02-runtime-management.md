@@ -320,3 +320,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. 把 `timeout_sec` 调大，观察超时率会怎么变。
 3. 为什么说“重试次数”不能脱离“错误类型”单独设计？
 4. 想一想：如果某个工具特别贵，你会在运行时层加什么保护？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `max_concurrency=1` 时运行更容易理解但更慢；`max_concurrency=3` 会提升吞吐，但共享资源、rate limit 和 trace 顺序会变得更重要。
+2. 增大 `timeout_sec` 可以减少慢但健康调用的超时错误，但也可能让卡住的任务占用 runtime 更久。要同时看成功率和等待时间。
+3. retry 必须看错误类型：timeout 和临时 rate limit 可以重试；validation error 应先修参数；permission error 应停止或请求批准。
+4. 对昂贵 tool，应加 budget limit、concurrency limit、cache、pre-check、更便宜 fallback model/tool，以及花费或调用量异常时的告警。
+
+</details>

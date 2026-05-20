@@ -194,3 +194,13 @@ The first mistake is testing only successful cases. The second is looking only a
 ## Passing Criteria
 
 After finishing this section, you should be able to design a minimal Agent evaluation set, distinguish between result-layer, process-layer, tool-layer, and safety-layer metrics, and turn evaluation findings into improvements in Prompt design, tools, workflows, or permissions.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A useful 10-task set should include normal planning, ambiguous goals, missing prerequisites, impossible schedules, tool-use requirements, unsafe requests, and at least one case where the Agent should ask a clarification question.
+2. For each task, `allowed_tools` should name what the Agent may use, `forbidden_actions` should state what it must not do, and `success_criteria` should be observable enough that another person can score it consistently.
+3. When applying the 1-5 rubric, score the final answer and the trace separately. A pretty plan with wrong tool use should not receive a high score.
+4. Improvement suggestions should map to observed failures: unclear goals lead to better prompts, wrong tool use leads to tool descriptions or routing fixes, and unsafe actions lead to permission or confirmation changes.
+
+</details>

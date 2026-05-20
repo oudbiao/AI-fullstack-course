@@ -162,3 +162,13 @@ The first mistake is treating benchmark scores as production quality. The second
 ## Passing Criteria
 
 After completing this section, you should be able to explain the difference between general benchmarks and custom evaluation sets, design a small benchmark for your own Agent project, and use a fixed evaluation set to compare the effectiveness of different models, Prompts, and tool designs.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A solid 20-sample benchmark should mix easy, medium, and hard course questions, include citation-required cases, include out-of-scope questions, and include questions where retrieval returns partial or conflicting evidence.
+2. `must_include` should list required concepts or evidence, `must_not_do` should block hallucinated citations or unsafe actions, and scoring rules should explain how to assign partial credit.
+3. Tool failure scenarios should test empty retrieval, timeout, permission denial, malformed tool output, and stale data. The expected behavior is graceful recovery or a clear stop, not confident guessing.
+4. Benchmarks cannot replace production monitoring because real users create new wording, new goals, latency pressure, cost spikes, data drift, and tool failures that the fixed benchmark never anticipated.
+
+</details>

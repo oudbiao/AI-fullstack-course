@@ -252,3 +252,13 @@ next_action: add case, guardrail, log, rollback, or refusal path
 ## 过关标准
 
 学完这一节后，你应该能解释日志、指标、trace、replay 的区别，能写出一个最小 Agent trace schema，能根据 trace 判断错误发生在规划、检索、工具还是生成阶段，并能把可观测性写进自己的 Agent 项目 README。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 某一步失败时加入 `error_message`，同一逻辑步骤每重试一次就递增 `retry_count`。这两个字段应写在 trace row 里，而不只放在 console log。
+2. RAG Agent trace 应包含 request_id、retrieval_query、filters、matched_doc_ids、scores、selected_context、citation_check、generation_status、latency_ms，以及任何 refusal 或 fallback reason。
+3. LLM 调用要在开始时挂上 `request_id`，并围绕真实模型请求记录 `latency_ms`。日志、指标、trace 和评估记录应使用同一个 id。
+4. 如果 Agent 能删除文件，必须记录目标路径、权限范围、dry-run 结果、人工批准、backup/checkpoint id、删除结果、rollback status，以及允许或阻止该动作的 policy。
+
+</details>

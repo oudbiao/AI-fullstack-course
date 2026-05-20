@@ -196,3 +196,13 @@ next_action: add case, guardrail, log, rollback, or refusal path
 ## 合格基準
 
 この節を学び終えたら、最小限の Agent 評価セットを設計でき、結果層・プロセス層・ツール層・安全層の指標を区別でき、さらに評価で見つけた課題を Prompt、ツール、フロー、権限設計の改善につなげられるようになっているはずです。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 有用な 10 件の評価 task には、通常の計画、曖昧な goal、不足した前提、実現不能な schedule、tool 使用が必要な case、unsafe request、少なくとも 1 つの「Agent が確認質問すべき」case を入れます。
+2. 各 task の `allowed_tools` には使ってよい tool、`forbidden_actions` にはしてはいけない行動、`success_criteria` には別の人でも一貫して採点できる観測可能な条件を書きます。
+3. 1-5 の rubric を使うときは、final answer と trace を分けて採点します。見た目がよい plan でも tool use が間違っていれば高得点にしません。
+4. 改善案は観測された failure に対応させます。goal が曖昧なら prompt、tool 選択ミスなら tool description や routing、不安全な行動なら permission や confirmation を直します。
+
+</details>

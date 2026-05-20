@@ -338,3 +338,13 @@ next_action: add case, guardrail, log, rollback, or refusal path
 2. なぜ入力ガードと出力ガードの両方が必要なのですか？
 3. あなたの現在のシステムで、いちばん足りていないガード層はどれですか？
 4. 考えてみましょう：ガードが厳しすぎると、どんな新しい問題が起きますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. human confirmation layer は、高リスク、不可逆、外部向け、高コストの action に追加します。system は一時停止し、action summary を示し、明示的な approval 後だけ続行します。
+2. input guardrail は unsafe または irrelevant な request が plan を形作る前に止めます。output guardrail は unsafe、unsupported、policy-violating な content が user や external system に届く前に止めます。
+3. 足りない layer は project によりますが、初心者が最も欠きがちなのは tool-level permission check と guardrail 変更後の regression test です。
+4. 厳しすぎる guardrail は通常ユーザーを誤って止め、有用な説明を隠し、support cost を増やし、脆い keyword rule を作り、Agent を「安全な部分を解く」より拒否に寄せます。
+
+</details>

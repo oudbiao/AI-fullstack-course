@@ -419,3 +419,13 @@ you will have a much smoother time later when dealing with runtime, recovery, co
 2. If you want to support asynchronous execution for long-running tasks, where would you place the queue? Why?
 3. Why can’t “model service” be treated as the same thing as “Agent architecture”?
 4. Think about it: which part is your current project missing most, the access layer, execution layer, or observability layer?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A two-tool workflow might retrieve policy first, then check eligibility or summarize the answer. State aggregation usually belongs in the execution/orchestration layer because it sees both tool results and the current task state.
+2. Put the queue between the access layer and execution layer, or inside the execution layer boundary. It protects the user-facing API from long-running work and gives you retry, status, and cancellation control.
+3. Model service is only one dependency. Agent architecture also includes tools, state, memory, permissions, queues, traces, retries, and safety gates.
+4. Diagnose your project by asking what would break first under real users: request intake, task execution, or observability. The missing layer is the one that would make failures invisible or unrecoverable.
+
+</details>

@@ -376,3 +376,13 @@ It is recommended to finish the basic version first; do not chase a large, all-i
 2. Think about why “reproducibility” is especially important for a Data Analysis Agent.
 3. If the conclusions do not match the numbers, which layer is most likely to be the problem?
 4. If you were presenting this as a portfolio project, which part would you design to be the most eye-catching?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add `date` to each row, group by week or month, and ask the Agent to compute a trend such as total sales, average order value, or churn rate over time. The output should include both code and a chart/table.
+2. Reproducibility matters because analysis conclusions must be rerunnable. Keep the data version, cleaning steps, code, parameters, generated chart, and final narrative linked together.
+3. If conclusions do not match numbers, inspect the analysis layer first: aggregation logic, filters, date handling, and chart interpretation. Then check whether the generation layer overstated the result.
+4. For a portfolio, make the most eye-catching part the evidence loop: user question -> generated code -> computed table/chart -> checked conclusion -> trace. That proves the Agent can reason over data, not just talk about it.
+
+</details>

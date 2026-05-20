@@ -398,3 +398,13 @@ failure_log: one failed or unsafe run with root cause
 2. 考えてみよう：研究アシスタントでは、なぜ「引用の正確性」が普通の Q&A より重要なのか？
 3. ある要約が見た目は良くても、出典が一致していなければ成功といえるでしょうか？ なぜ？
 4. このプロジェクトを作品集にするなら、トップページで最も見せるべき4つのブロックは何でしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 1 つ目と一部重なるが、ある detail が異なる、または別 subtopic を扱う 2 つ目の document を追加します。期待結果は retrieval が両方を ranking し、各 claim に正しい source を cite することです。
+2. citation accuracy が research assistant で重要なのは、価値が流暢な summary だけでなく traceable evidence にあるからです。誤った citation は、正しそうな answer を使えないものにします。
+3. summary がよく見えても source が合わなければ成功にしません。mismatch を flag し、summary を修正するか、evidence insufficient と言うべきです。
+4. portfolio homepage では problem、evidence/citation flow、demo trace、evaluation results を先に見せます。この 4 つで generic chatbot ではないことを示せます。
+
+</details>

@@ -330,3 +330,13 @@ When you start breaking costs down by task chain instead of only looking at a si
 2. Think about which requests are suitable for direct cache hits, and which requests must be computed in real time.
 3. Why is multi-tier model routing usually more suitable for production systems than “always use a large model”?
 4. If a pipeline has very high accuracy but unusually high cost, which part would you inspect first?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add retry-driven model calls as `retry_count * cost_per_call` or as a separate row by model tier. This often reveals that unstable tools and weak prompts quietly create extra model cost.
+2. Cache direct factual lookups, repeated retrieval results, stable policy snippets, and deterministic transformations. Do not cache user-private, rapidly changing, or approval-sensitive results without a clear invalidation rule.
+3. Multi-tier routing is better than always using a large model because many requests are simple, repetitive, or tool-bound. Save the expensive model for ambiguous, high-risk, or synthesis-heavy cases.
+4. If accuracy is high but cost is unusually high, first inspect repeated tool calls, overly long context, unnecessary large-model routing, retries, and generation steps that could be cached or shortened.
+
+</details>

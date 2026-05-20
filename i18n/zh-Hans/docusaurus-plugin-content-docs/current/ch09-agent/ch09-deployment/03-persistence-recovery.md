@@ -376,3 +376,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. 把 `write_report` 改成带外部副作用的动作，再思考幂等该怎么做。
 3. 为什么说 checkpoint 和 event log 在恢复里缺一不可？
 4. 如果任务特别长，你会选择每步 checkpoint，还是每几步 checkpoint？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `retry_count` 应按 step 记录，而不只按整次 run 记录。这样才能看出哪一步不稳定，也能避免 retry storm 被一个最终状态掩盖。
+2. 如果 `write_report` 有外部副作用，就要用稳定 operation id、存在性检查、去重记录，以及“外部写入是否已成功”的状态来实现幂等。
+3. checkpoint 给你最近可恢复状态；event log 解释系统如何走到这个状态。恢复既需要快照，也需要决策和副作用历史。
+4. 长任务适合在重要、不可逆或昂贵步骤后 checkpoint，低风险步骤可以每隔几步一次。每步都 checkpoint 最安全，但会增加存储和延迟开销。
+
+</details>

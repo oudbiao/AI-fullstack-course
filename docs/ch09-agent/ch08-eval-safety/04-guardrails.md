@@ -337,3 +337,13 @@ The most important thing in this lesson is to build one judgment:
 2. Why do both input guardrails and output guardrails need to exist?
 3. Which layer of guardrails is most missing in your current system?
 4. Think about it: what new problems can overly strict guardrails cause?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A human confirmation layer can be added when the action is high-risk, irreversible, external-facing, or expensive. The system should pause, show the action summary, and proceed only after explicit approval.
+2. Input guardrails stop unsafe or irrelevant requests before they shape the plan. Output guardrails catch unsafe, unsupported, or policy-violating content before it reaches the user or an external system.
+3. The missing layer depends on your project, but beginners most often lack tool-level permission checks and regression tests for guardrail changes.
+4. Overly strict guardrails can block normal users, hide useful explanations, increase support cost, cause brittle keyword rules, and push the Agent into refusing instead of solving the safe part of the task.
+
+</details>

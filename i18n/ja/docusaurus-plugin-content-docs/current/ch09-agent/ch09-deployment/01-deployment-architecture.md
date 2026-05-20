@@ -421,3 +421,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. 長いタスクを非同期で実行したい場合、キューをどの層に置きますか？ その理由も考えてみましょう。
 3. なぜ「モデルサービス」は「Agent アーキテクチャ」と同じではないのでしょうか？
 4. 考えてみましょう：あなたの現在のプロジェクトで、いちばん不足しているのは接入層、実行層、それとも観測層ですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 2-tool workflow なら、まず policy を retrieve し、次に eligibility check や summary を行います。state aggregation は通常 execution / orchestration layer に置きます。tool results と current task state の両方を見られるからです。
+2. queue は access layer と execution layer の間、または execution layer の境界内に置きます。user-facing API を長時間処理から守り、retry、status、cancellation の control point を作れます。
+3. model service は依存先の 1 つにすぎません。Agent architecture には tools、state、memory、permissions、queues、traces、retries、safety gates も含まれます。
+4. 自分の project に足りない layer は、実ユーザーが来たとき最初に壊れる場所で考えます。request intake、task execution、observability のうち、failure を見えなくしたり回復不能にしたりする layer が不足しています。
+
+</details>

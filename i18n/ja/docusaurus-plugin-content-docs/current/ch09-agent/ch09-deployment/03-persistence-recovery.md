@@ -377,4 +377,14 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 1. 例に `retry_count` フィールドを追加して、各ステップの再試行回数を記録してみましょう。
 2. `write_report` を外部副作用を伴う動作に変更し、冪等性をどう作るか考えてみましょう。
 3. なぜ checkpoint と event log は復元でどちらも欠かせないと言えるのでしょうか？
-4. タスクがとても長い場合、毎ステップ checkpoint を取るべきでしょうか、それとも数ステップごとに checkpoint を取るべきでしょうか？ რატომ
+4. タスクがとても長い場合、毎ステップ checkpoint を取るべきでしょうか、それとも数ステップごとに checkpoint を取るべきでしょうか？その理由も考えてみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `retry_count` は run 全体ではなく step ごとに保存します。どの step が不安定かを見られ、retry storm が final status の中に隠れるのを防げます。
+2. `write_report` が external side effect を持つなら、stable operation id、existence check、deduplication、外部書き込みがすでに成功したかの記録で idempotency を実装します。
+3. checkpoint は最新の再開可能 state を与え、event log は system がそこへどう到達したかを説明します。recovery には snapshot と decisions / side effects の履歴の両方が必要です。
+4. 長い task では、重要・不可逆・高コストな step の後に checkpoint し、低リスク step は数 step ごとにします。毎 step checkpoint が最も安全ですが、storage と latency overhead が増えます。
+
+</details>

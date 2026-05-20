@@ -419,3 +419,13 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 2. 如果你要支持长任务异步执行，你会把队列放在哪一层？为什么？
 3. 为什么说“模型服务”不能等同于“Agent 架构”？
 4. 想一想：你的当前项目最缺的是接入层、执行层，还是观测层？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 两工具 workflow 可以先检索 policy，再检查 eligibility 或生成摘要。state aggregation 通常放在 execution/orchestration 层，因为它同时看得到工具结果和当前任务状态。
+2. queue 可以放在 access layer 与 execution layer 之间，或放在 execution layer 边界内。它能保护用户侧 API 不被长任务拖住，也提供 retry、status、cancel 控制点。
+3. model service 只是一个依赖。Agent architecture 还包括 tools、state、memory、permissions、queues、traces、retries 和 safety gates。
+4. 判断当前项目缺哪层，可以问真实用户进来时哪里会先坏：请求接入、任务执行，还是可观测性。会让失败不可见或不可恢复的，就是最缺的层。
+
+</details>

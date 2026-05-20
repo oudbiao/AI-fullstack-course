@@ -544,6 +544,17 @@ Complete these in order:
 | Challenge | Save trace rows per `run_id` into separate files | You can replay one run without reading the whole log |
 | Challenge | Replace `choose_next_step()` with a model call | Existing evaluation cases still pass |
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For the MCP material task, add a small source entry with a title, body, and source id, then verify that an `MCP` goal retrieves that entry and cites the source in the final answer.
+2. For `max_steps`, stop the loop before another planning step would exceed the limit, return `stopped_max_steps`, and write the stop reason into the trace.
+3. For `validation_error`, add an evaluation case with an invalid argument type and expect the dispatcher to reject it before tool execution.
+4. For per-`run_id` traces, write each run to a separate file or partitioned path, then replay one run by loading only that file.
+5. If `choose_next_step()` is replaced with a model call, the existing safety and evaluation cases must still pass. The upgrade succeeds only if behavior improves without losing guardrails.
+
+</details>
+
 ## Step 9: Optional OpenAI Agents SDK Upgrade
 
 ![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.webp)

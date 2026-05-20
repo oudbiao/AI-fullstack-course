@@ -252,3 +252,13 @@ next_action: add case, guardrail, log, rollback, or refusal path
 ## Passing criteria
 
 After finishing this section, you should be able to explain the differences between logs, metrics, traces, and replay; write a minimal Agent trace schema; determine from a trace whether an error happened during planning, retrieval, tool use, or generation; and include observability in your own Agent project README.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add `error_message` when a step fails and increment `retry_count` every time the same logical step is attempted again. Keep both fields in the trace row, not only in console logs.
+2. A RAG Agent trace should include request_id, retrieval_query, filters, matched_doc_ids, scores, selected_context, citation_check, generation_status, latency_ms, and any refusal or fallback reason.
+3. For an LLM call, attach `request_id` at the start and record `latency_ms` around the actual model request. Use the same id in logs, metrics, traces, and evaluation notes.
+4. For file deletion, record target path, permission scope, dry-run result, human approval, backup/checkpoint id, deletion result, rollback status, and the policy that allowed or blocked the action.
+
+</details>

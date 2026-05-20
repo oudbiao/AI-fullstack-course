@@ -314,3 +314,13 @@ failure_log: one failed or unsafe run with root cause
 2. 想一想：为什么多 Agent 项目里“统一工件格式”比“角色会聊天”更重要？
 3. 如果审核者经常打回 patch，应该优先优化哪一层？
 4. 如果把这个项目做成演示页面，你最想展示哪一条完整 追踪？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以把 `ops_agent` 放在 implementation 之后、final release review 之前。它负责检查运行命令、环境变量、日志、rollback notes 和部署风险。
+2. unified artifact format 重要，是因为 Agent 协作需要稳定输入输出。只靠聊天很难测试、复盘、diff，也难交接给另一个 Agent。
+3. 如果 reviewer 经常拒绝 patch，先优化 task specification 和 acceptance criteria，再检查 coder context、test feedback，以及 review comments 是否可执行。
+4. 好的 demo trace 应展示 requirement -> plan -> patch -> test result -> review rejection or approval -> revision -> final artifact。这个 trace 会让协作结构变得可见。
+
+</details>

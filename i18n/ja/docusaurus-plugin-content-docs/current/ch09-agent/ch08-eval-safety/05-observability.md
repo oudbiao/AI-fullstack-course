@@ -254,3 +254,13 @@ logs/
 ## 合格基準
 
 この節を学び終えたら、ログ、指標、trace、replay の違いを説明でき、最小限の Agent trace schema を書けて、trace を見てエラーが計画、検索、ツール、生成のどこで起きたか判断でき、可観測性を自分の Agent プロジェクトの README に書き込めるようになっているはずです。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. step が失敗したら `error_message` を追加し、同じ logical step を再試行するたびに `retry_count` を増やします。この 2 つは console log だけでなく trace row に残します。
+2. RAG Agent trace には request_id、retrieval_query、filters、matched_doc_ids、scores、selected_context、citation_check、generation_status、latency_ms、refusal / fallback reason を入れます。
+3. LLM call では開始時に `request_id` を付け、実際の model request の前後で `latency_ms` を記録します。logs、metrics、traces、evaluation notes で同じ id を使います。
+4. Agent が file deletion できるなら、target path、permission scope、dry-run result、human approval、backup/checkpoint id、deletion result、rollback status、許可/拒否した policy を記録します。
+
+</details>

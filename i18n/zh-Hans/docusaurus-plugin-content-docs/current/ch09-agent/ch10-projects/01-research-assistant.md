@@ -391,3 +391,13 @@ failure_log: one failed or unsafe run with root cause
 2. 想一想：为什么研究助手里“引用准确性”比普通问答更关键？
 3. 如果某条总结很好看但来源对不上，你会算它成功吗？为什么？
 4. 如果你把这个项目做成作品集，首页最该展示哪 4 块？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以新增第二篇与第一篇部分重叠、但某个细节不同或覆盖另一个子主题的文档。期望结果是 retrieval 能排序两篇文档，并让答案为每个 claim 引用正确来源。
+2. citation accuracy 对 research assistant 很关键，因为它的价值来自可追溯证据，而不只是流畅摘要。错误引用会让看似正确的答案失去使用价值。
+3. 如果摘要很好但来源不匹配，不应算成功。正确做法是标记 mismatch、修改摘要，或说明 evidence insufficient。
+4. portfolio 首页最先展示 problem、evidence/citation flow、demo trace、evaluation results。这四块能证明它不只是普通 chatbot。
+
+</details>

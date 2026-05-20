@@ -376,3 +376,13 @@ the system moves from a demo that “sometimes works” to a production system t
 2. Change `write_report` into an action with external side effects, then think about how idempotency should be implemented.
 3. Why do we say checkpoint and event log are both indispensable in recovery?
 4. If a task is especially long, would you choose a checkpoint after every step, or every few steps? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `retry_count` should be stored per step, not only per whole run. That lets you see which step is unstable and prevents a retry storm from being hidden inside one final status.
+2. If `write_report` has external side effects, make it idempotent with a stable operation id, existence checks, deduplication, and a record of whether the external write already succeeded.
+3. Checkpoints give you the latest resumable state; event logs explain how the system reached that state. Recovery needs both the snapshot and the history of decisions and side effects.
+4. For long tasks, checkpoint after important irreversible or expensive steps, and every few low-risk steps. Checkpointing every step is safest but may add storage and latency overhead.
+
+</details>

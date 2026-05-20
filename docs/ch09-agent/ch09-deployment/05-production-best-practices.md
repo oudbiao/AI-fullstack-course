@@ -362,3 +362,13 @@ Only when these mechanisms are in place does the system deserve to be called “
 2. Why is canary rollout more important for Agents than for static pages?
 3. If a high-risk tool call starts happening abnormally often, would you first add alerting, circuit breaking, or human takeover? Why?
 4. Think about it: why is rollback not just “switching the code back to the previous version”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A readiness table should include owner, status, evidence, and next action for tools, permissions, tracing, evaluation cases, rollback, budget limits, human approval, and incident response.
+2. Canary rollout matters for Agents because behavior depends on prompts, tools, external data, model versions, and user goals. Small traffic exposure catches failures that static page checks cannot.
+3. If high-risk calls spike, add alerting immediately so humans know, then use circuit breaking if the behavior is dangerous or unexplained, and human takeover for cases that must continue safely.
+4. Rollback is more than switching code because prompts, model versions, tool schemas, memory, queues, cached results, and external side effects may also need to be reverted or reconciled.
+
+</details>

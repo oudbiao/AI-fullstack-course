@@ -314,3 +314,13 @@ It is recommended to finish the basic version first; do not pursue something hug
 2. Think about why “a unified artifact format” is more important than “roles that can chat” in a multi-Agent project.
 3. If reviewer frequently rejects patches, which layer should you optimize first?
 4. If you turn this project into a demo page, which complete trace would you most want to show?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add `ops_agent` after implementation and before final release review. It should check run commands, environment variables, logging, rollback notes, and deployment risks.
+2. A unified artifact format matters because agents need stable inputs and outputs to coordinate. Chat alone is hard to test, replay, diff, or hand off to another agent.
+3. If the reviewer often rejects patches, first optimize task specification and acceptance criteria. Then inspect coder context, test feedback, and whether review comments are actionable.
+4. A strong demo trace shows requirement -> plan -> patch -> test result -> review rejection or approval -> revision -> final artifact. That trace makes the collaboration structure visible.
+
+</details>

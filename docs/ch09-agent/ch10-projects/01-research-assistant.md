@@ -391,3 +391,13 @@ It is recommended to finish the basic version first. Do not try to make it large
 2. Think about why “citation accuracy” is more critical in a research assistant than in ordinary Q&A.
 3. If a summary looks great but the source does not match, would you count it as success? Why?
 4. If you turn this project into a portfolio piece, which 4 sections should the homepage show first?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add a second document that partially overlaps with the first but disagrees on one detail or covers a different subtopic. The expected result is that retrieval ranks both and the answer cites the right source for each claim.
+2. Citation accuracy is critical because research assistants are judged by traceable evidence, not only fluent summaries. A wrong citation can make a true-sounding answer unusable.
+3. Do not count it as success if the source does not match. The correct result is to flag the mismatch, revise the summary, or say the evidence is insufficient.
+4. A portfolio homepage should first show the problem, the evidence/citation flow, the demo trace, and evaluation results. Those four sections prove it is more than a generic chatbot.
+
+</details>

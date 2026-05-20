@@ -316,3 +316,13 @@ failure_log: one failed or unsafe run with root cause
 2. 考えてみましょう：なぜマルチ Agent プロジェクトでは「統一されたアーティファクト形式」が「役割が会話できること」より大事なのか？
 3. レビュー担当が patch をよく差し戻す場合、どの層を優先して改善すべきでしょうか？
 4. このプロジェクトをデモページにするなら、いちばん見せたい完全な トレース はどれですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `ops_agent` は implementation の後、final release review の前に入れます。run commands、environment variables、logging、rollback notes、deployment risks を確認します。
+2. unified artifact format が重要なのは、Agent coordination には安定した input/output が必要だからです。chat だけでは test、replay、diff、別 Agent への handoff が難しくなります。
+3. reviewer が patch を頻繁に reject するなら、まず task specification と acceptance criteria を改善します。その後 coder context、test feedback、review comments が actionable かを見ます。
+4. 強い demo trace は requirement -> plan -> patch -> test result -> review rejection or approval -> revision -> final artifact を示します。これにより collaboration structure が見えます。
+
+</details>
