@@ -550,7 +550,30 @@ a1b2c3d Initialize project: add model definition and project structure
 
 Each one is an archive point you can roll back to.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The final `git log --oneline` should show the three exercise commits plus the earlier setup commits.
+2. Each commit should save one small idea: training script, utility function, or README update.
+3. `git status` after the final commit should be clean, or it should show only intentional untracked files that you can explain.
+4. If `src/train.py` fails because `torch` or `model` is missing, that is separate from the Git exercise. Record the run failure, but keep the commit workflow evidence.
+5. Good commit messages use action words and explain the change, such as `Add basic training script`, not vague messages like `update stuff`.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```
 
 ## Summary
 

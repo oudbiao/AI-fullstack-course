@@ -365,6 +365,18 @@ git push
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```
+
 ## 常见问题
 
 ### push 被拒绝（rejected）

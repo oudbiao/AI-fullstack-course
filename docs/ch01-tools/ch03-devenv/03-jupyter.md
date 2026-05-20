@@ -463,6 +463,18 @@ plt.show()
 
 **Cell 6 (Markdown):**
 ```markdown
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```
+
 ## Summary
 - Learned how to create and run Cells
 - Learned how to plot inside a Notebook
@@ -480,6 +492,18 @@ Congratulations on completing the entire Developer Tools Basics section! Let’s
 - [ ] **Python environment:** Can use Miniconda to create and manage virtual environments
 - [ ] **VS Code:** Can write code, debug, and use shortcuts in VS Code
 - [ ] **Jupyter:** Can create Notebooks, run code, plot charts, and write documentation
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The Notebook kernel should match the course Python environment, not a random system Python.
+2. Cell 2 should print values for pi, Euler's number, and `10!`.
+3. Cell 4 should render two plots, one for `sin(x)` and one for `cos(x)`.
+4. The `%timeit` result does not need a fixed ratio. The point is to observe that performance can be measured inside the Notebook.
+5. Use "Restart Kernel and Run All" as the final check. If the Notebook fails, it depends on hidden state and needs to be reordered or fixed.
+6. The final self-check is complete only when terminal, Git, environment, editor, and Notebook each have one visible evidence item.
+
+</details>
 
 :::tip Checked everything?
 You now have a professional AI development environment. These tools will stay with you throughout your learning journey. Next, let’s officially start learning Python programming!

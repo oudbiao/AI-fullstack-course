@@ -95,3 +95,15 @@ py hello_terminal.py
 | 命令太长不想重打 | 按上箭头调出历史命令 |
 
 当你能说清 `pwd`、`cd`、`ls` 和 `python hello_terminal.py` 在自己的文件夹里做了什么，就可以进入下一节。下一节会更慢地练文件操作。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

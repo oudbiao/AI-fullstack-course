@@ -8,6 +8,18 @@ description: "Miniconda で Python のバージョンと仮想環境を管理し
 
 ![Python 環境と依存関係の図](/img/course/ch01-python-env-stack-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```
+
 ## この節の位置づけ
 
 この節では、AI 学習で最もよくある「環境の混乱」と「依存関係の衝突」問題を解決します。なぜ各プロジェクトに独立した環境が必要なのかを理解し、Miniconda を使って Python 環境を作成・切り替え・書き出し・復元できるようになりましょう。
@@ -475,6 +487,17 @@ conda env list
 ```
 
 最後に `✅ 環境の構築に成功しました！` と表示されれば、Python 環境の準備は完了です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `conda env list` で `ai-course` が見え、`conda activate` 後は現在の環境として表示されるはずです。
+2. 確認コマンドは少なくとも NumPy と Pandas のバージョンを出し、環境成功メッセージが出る必要があります。
+3. `requirements.txt` は環境を再現する証拠です。完全一致までは不要ですが、このページで入れた主要パッケージは含めます。
+4. import エラーが出たら、`python -m pip --version` と `which python` が同じ環境を指しているかを先に確認します。
+5. 依存関係が増えていくので、システム Python ではなく独立した環境を使う方が回復しやすく、次の章にもつなげやすいです。
+
+</details>
 
 ---
 

@@ -8,6 +8,18 @@ description: "VS Code を使いやすい AI 開発ツールに設定する"
 
 ![VS Code プロジェクト作業フロー図](/img/course/ch01-vscode-workspace-flow-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```
+
 ## この節の位置づけ
 
 この節では、VS Code を Python と AI 学習に向いた開発ツールに設定します。エディタのインストール、拡張機能の設定、内蔵ターミナル、よく使うショートカットの設定まで進め、これからのコード演習に安定して使いやすい作業環境を作ります。
@@ -338,7 +350,18 @@ print(f"\n平均の名前の長さ: {avg_len:.1f} 文字")
 
 4. **コードを実行** する（右上の ▶ ボタンをクリック）
 5. **ショートカットを試す**：
-   - `Ctrl/Cmd + /` で最後の 2 行をコメントアウトする
-   - `Alt + ↑/↓` で 1 行を移動する
-   - `Ctrl/Cmd + D` で単語を複数選択する
-   - `Ctrl/Cmd + Shift + F` で "fruit" を全体検索する
+- `Ctrl/Cmd + /` で最後の 2 行をコメントアウトする
+- `Alt + ↑/↓` で 1 行を移動する
+- `Ctrl/Cmd + D` で単語を複数選択する
+- `Ctrl/Cmd + Shift + F` で "fruit" を全体検索する
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `code .` は現在のプロジェクトフォルダ全体を開くコマンドです。単一ファイルだけを開くのではありません。
+2. 右下やコマンドパレットで選んだ Python インタプリタは、このコース用の環境であるべきです。
+3. `practice.py` は 5 個の果物に番号を振って出力し、平均文字数も表示します。
+4. 右上の実行ボタンが期待通り動かないときは、VS Code 内の `python --version` と外部ターミナルの環境を比較します。
+5. ショートカット練習の目的は、素早く編集・検索・整理できることを確認することです。
+
+</details>

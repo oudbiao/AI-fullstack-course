@@ -454,4 +454,27 @@ main
 - [ ] 我能创建小分支、提交并合并回主线。
 - [ ] 我有一份报告文件，能证明我的工作台可以运行代码。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `docs/commands.md` 不需要写成教程，但至少要有命令、用途和你在什么目录执行。
+2. `reports/terminal-transcript.txt` 应该同时包含一次成功输出和一次修复记录，证明你能恢复失败。
+3. `src/path_check.py` 的两个路径通常不同：`Path.cwd()` 是运行命令的位置，`__file__` 是脚本文件的位置。
+4. 分支练习完成后，`git status --short` 应该干净，`git log --oneline --graph` 能看到合并痕迹。
+5. 最强的提交物是一份别人克隆后也能复现的工作台，而不是只在你当前终端里“刚好能跑”。
+
+</details>
+
 完成这些后，第 1 章就不再只是工具清单，而是变成了后续每一章都能复用的工作基础。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+workspace: terminal, Git repo, editor, Python environment, and notebook all verified
+artifact: small command log, commit history, script output, or notebook cell result
+debug_note: one setup problem and how you diagnosed it
+failure_check: path confusion, environment mismatch, Git state, or missing dependency
+Expected_output: a ready-to-learn workstation evidence pack
+```

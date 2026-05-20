@@ -357,6 +357,18 @@ conda env create -f environment.yml
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```
+
 ## Common troubleshooting
 
 ### Problem 1: `conda activate` does not work
@@ -475,6 +487,17 @@ conda env list
 ```
 
 If you see `✅ Environment setup successful!` at the end, your Python environment is ready.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `conda env list` should show `ai-course`, and it should have the active marker when the environment is activated.
+2. The verification command should print NumPy and Pandas versions plus the setup success message.
+3. `pip freeze > requirements.txt` should create a dependency record. It may contain more packages than the ones you installed directly because dependencies are included too.
+4. If imports fail, compare `which python`, `python -m pip --version`, and the Python interpreter selected in VS Code.
+5. Avoid installing course packages globally when this lesson expects a dedicated conda environment.
+
+</details>
 
 ---
 

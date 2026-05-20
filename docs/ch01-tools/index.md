@@ -68,6 +68,13 @@ If the command fails, do not erase the error. Save the command, full output, ope
 
 On Windows PowerShell, use `.venv\Scripts\Activate.ps1` instead of `. .venv/bin/activate`. If your system uses `python3`, replace `python` with `python3` consistently in the commands and README.
 
+### How to read this output
+
+- `AI learning lab is ready` proves the script ran inside the project folder.
+- `python -c "import sys; print(sys.executable)"` proves which interpreter is actually running.
+- The Git commit proves the project can be saved and reviewed later.
+- If any command fails, the command plus the full error output is evidence, not noise.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -75,6 +82,18 @@ On Windows PowerShell, use `.venv\Scripts\Activate.ps1` instead of `. .venv/bin/
 | Minimum pass | You can create a folder, run a script, and identify the current directory and Python interpreter. |
 | Project-ready | A fresh terminal can follow your README, `.venv/` is ignored, and `git status` only shows intentional changes. |
 | Deeper check | You can explain why PATH, working directory, shell, and interpreter choice change results across machines. |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+workspace: terminal, Git repo, editor, Python environment, and notebook all verified
+artifact: small command log, commit history, script output, or notebook cell result
+debug_note: one setup problem and how you diagnosed it
+failure_check: path confusion, environment mismatch, Git state, or missing dependency
+Expected_output: a ready-to-learn workstation evidence pack
+```
 
 ## Common Failures
 
@@ -95,5 +114,16 @@ Move to Chapter 2 when you can answer these five questions:
 - What changed since the last Git commit?
 - What command reruns the project from a fresh terminal?
 - Where did you record your first error and fix?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The terminal directory is the folder shown by `pwd`; it should be the project root or the folder named in your command.
+2. The Python interpreter is the path returned by `which python` or `python -c "import sys; print(sys.executable)"`; it should match your course environment.
+3. Git changes are checked with `git status --short` and explained with `git diff` before commit.
+4. A fresh rerun command should include environment activation, an install/check step if needed, and the exact script command.
+5. The error record is acceptable when it includes symptom, command, likely cause, and fix. A screenshot alone is not enough.
+
+</details>
 
 The goal is not tool perfection. The goal is a workstation stable enough for the rest of the course.

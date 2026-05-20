@@ -357,6 +357,18 @@ conda env create -f environment.yml
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```
+
 ## 常见问题排查
 
 ### 问题1：`conda activate` 不生效
@@ -475,6 +487,17 @@ conda env list
 ```
 
 如果最后看到 `✅ 环境搭建成功！`，你的 Python 环境就准备好了。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `conda env list` 应该能看到 `ai-course`，激活后它旁边应该有当前环境标记。
+2. 验证命令至少要打印 NumPy 和 Pandas 版本，并出现环境搭建成功的提示。
+3. `requirements.txt` 是复现环境的证据，不要求版本完全一样，但必须包含本页安装的核心包。
+4. 如果 import 失败，先检查 `python -m pip --version` 和 `which python` 是否指向同一个环境。
+5. 不建议把所有包都装到系统 Python，因为后续章节会频繁更换依赖，独立环境更容易回滚和复现。
+
+</details>
 
 ---
 

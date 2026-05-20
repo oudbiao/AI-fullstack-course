@@ -342,3 +342,26 @@ print(f"\n平均名字长度: {avg_len:.1f} 个字符")
    - 用 `Alt + ↑/↓` 移动一行代码
    - 用 `Ctrl/Cmd + D` 多选一个单词
    - 用 `Ctrl/Cmd + Shift + F` 全局搜索 "fruit"
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `code .` 应该打开当前项目文件夹，而不是只打开单个文件。
+2. 右下角或命令面板里选中的 Python 解释器应该是本课程环境，不是系统默认 Python。
+3. `practice.py` 正常运行时会打印 5 个水果序号，并输出平均名字长度。
+4. 如果点击运行按钮失败，先比较 VS Code 终端里的 `python --version` 和外部终端是否一致。
+5. 快捷键练习不是为了背按键，而是确认你能快速编辑、搜索和整理代码。
+
+</details>
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```

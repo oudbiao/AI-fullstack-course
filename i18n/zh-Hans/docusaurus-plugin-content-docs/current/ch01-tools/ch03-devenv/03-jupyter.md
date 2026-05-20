@@ -463,6 +463,18 @@ plt.show()
 
 **Cell 6（Markdown）：**
 ```markdown
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```
+
 ## 小结
 - 学会了创建和运行 Cell
 - 学会了在 Notebook 里画图
@@ -480,6 +492,18 @@ plt.show()
 - [ ] **Python 环境：** 能用 Miniconda 创建和管理虚拟环境
 - [ ] **VS Code：** 能用 VS Code 写代码、调试、使用快捷键
 - [ ] **Jupyter：** 能创建 Notebook、运行代码、画图、写文档
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Notebook 的 kernel 应该选择本课程环境，否则 import 结果可能和终端不一致。
+2. 运行所有 Cell 后，应该能看到数值输出、DataFrame 预览、折线图和 `%timeit` 对比。
+3. 图像不必完全一样，但标题、坐标趋势和代码逻辑要对应。
+4. `%timeit` 的具体时间会因电脑不同而变化，重点是观察 NumPy 向量化通常更快。
+5. 修改环境或安装新包后，如果 Notebook 没反应，先 Restart Kernel，再 Run All。
+6. 最终自检的合格证据是一份能从头运行的 notebook，而不是只截一张成功截图。
+
+</details>
 
 :::tip 全部打勾了？
 你已经拥有了一个专业的 AI 开发环境。这些工具会陪伴你走过整个学习旅程。接下来，正式开始学习 Python 编程！

@@ -374,6 +374,17 @@ pwd
 
 如果所有步骤都成功了，恭喜你——你已经掌握了命令行最核心的操作。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 完成第 4 步后，`pwd` 末尾应该是 `ai-study/ch01-tools/terminal-practice`。
+2. `ls -la` 应该能看到 `hello.py`、`notes.txt`、`data.csv`；备份后还应该看到 `notes_backup.txt`。
+3. `cat hello.py` 会显示代码文本，不会运行程序。真正运行需要执行 `python hello.py`。
+4. `>>` 应该保留原来的笔记并追加第二行。如果原内容消失，多半是不小心用了 `>`。
+5. `grep -r "AI" ./` 应该能找到 `hello.py`，因为代码里包含这个字符串。如果找不到，先检查当前目录和大小写。
+
+</details>
+
 ---
 
 ## 常用命令速查表
@@ -399,3 +410,15 @@ pwd
 :::tip 记不住怎么办？
 这张表不需要背。用多了自然就记住了。初期可以打印出来贴在屏幕旁边，或者保存到手机里随时查。大部分命令输入 `命令 --help` 就能看到用法说明。
 :::
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

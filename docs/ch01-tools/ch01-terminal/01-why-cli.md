@@ -95,3 +95,15 @@ You do not need all of these today. Just recognize that many later AI workflows 
 | Command is too long to retype | Press the Up Arrow to bring back command history |
 
 Pass this page when you can explain what `pwd`, `cd`, `ls`, and `python hello_terminal.py` did in your own folder. The next page teaches the basic file operations more slowly.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

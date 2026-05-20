@@ -418,6 +418,29 @@ Complete the following checks to confirm you understand Git basics:
 - [ ] Understand branches, and can create and merge them
 - [ ] Stay calm when merge conflicts happen, and know how to solve them
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. You pass this check when you can create a repo, make a commit, inspect a diff, write `.gitignore`, push or clone, and create/merge a branch.
+2. A clean Git trace includes `git status --short` before and after risky operations.
+3. When a conflict happens, keep both versions only if both are needed, then remove all conflict markers before committing.
+4. Use `git restore` for uncommitted mistakes and new commits for shared history. Use hard reset only in disposable practice repos.
+5. Good evidence can be a branch graph, a short PR, or a terminal transcript showing branch creation, merge, and clean status.
+
+</details>
+
 :::tip Checked everything off?
 Congratulations, you’ve finished learning Git! These skills will stay with you throughout your entire AI learning journey. Next, we’ll set up a Python development environment.
 :::
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```

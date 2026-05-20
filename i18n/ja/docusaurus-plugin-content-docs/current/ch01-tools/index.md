@@ -68,6 +68,13 @@ AI learning lab is ready
 
 Windows PowerShell では `. .venv/bin/activate` の代わりに `.venv\Scripts\Activate.ps1` を使います。手元の環境で `python3` を使う場合は、コマンドと README の `python` をすべて `python3` にそろえてください。
 
+### この出力の読み方
+
+- `AI learning lab is ready` は、スクリプトがプロジェクトフォルダ内で動いたことを示します。
+- `python -c "import sys; print(sys.executable)"` は、実際にどのインタプリタが動いているかを示します。
+- Git commit は、プロジェクトをあとで保存・確認・再現できることを示します。
+- どこかのコマンドが失敗した場合も、コマンドと完全なエラー出力は証拠であり、ノイズではありません。
+
 ## 深度ラダー
 
 | レベル | 証明できること |
@@ -75,6 +82,18 @@ Windows PowerShell では `. .venv/bin/activate` の代わりに `.venv\Scripts\
 | 最低合格 | フォルダを作り、スクリプトを実行し、現在のディレクトリと Python インタプリタを説明できる。 |
 | プロジェクト利用可 | 新しいターミナルから README どおりに再実行でき、`.venv/` が無視され、`git status` には意図した変更だけが出る。 |
 | 深い確認 | PATH、作業ディレクトリ、shell、インタプリタ選択が、別のマシンで結果を変える理由を説明できる。 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+workspace: terminal, Git repo, editor, Python environment, and notebook all verified
+artifact: small command log, commit history, script output, or notebook cell result
+debug_note: one setup problem and how you diagnosed it
+failure_check: path confusion, environment mismatch, Git state, or missing dependency
+Expected_output: a ready-to-learn workstation evidence pack
+```
 
 ## よくある失敗
 
@@ -95,5 +114,16 @@ Windows PowerShell では `. .venv/bin/activate` の代わりに `.venv\Scripts\
 - 前回の Git commit から何が変わりましたか？
 - 新しいターミナルからプロジェクトを再実行するコマンドは何ですか？
 - 最初のエラーと修正方法をどこに記録しましたか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 今いる場所は `pwd` で確認できます。答えにはプロジェクトルートか、その中の作業フォルダかを含めます。
+2. 実行中の Python は `which python`、`python --version`、または VS Code の選択中インタプリタで確認します。
+3. 前回の commit からの差分は `git status --short` と `git diff` で説明します。
+4. 再実行コマンドは例として `python3 src/workstation_check.py` のように、プロジェクトルートから動く形で書きます。
+5. エラー記録は README、`reports/`、または学習ノートに残し、「症状 -> 原因 -> 修正」が読める状態にします。
+
+</details>
 
 目的はツールを完璧にすることではなく、この先の学習に使える安定した作業台を作ることです。

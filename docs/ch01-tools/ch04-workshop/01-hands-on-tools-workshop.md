@@ -454,4 +454,27 @@ Before leaving Chapter 1, your evidence pack should show both result and process
 - [ ] I can make a small branch, commit, and merge it back.
 - [ ] I have a report file that proves my workstation can run code.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `docs/commands.md` should contain commands you actually ran plus a short note on what each command did.
+2. `reports/terminal-transcript.txt` should include one successful run and one mistake you fixed, not only perfect output.
+3. `src/path_check.py` should help you see the difference between the launch folder and the script file location.
+4. The branch exercise passes when `main` contains the README improvement and `git status --short` is clean.
+5. The final evidence pack should rerun from a fresh terminal. If it works only in an old session, update the README or environment notes.
+
+</details>
+
 Once these are checked, Chapter 1 is no longer just a list of tools. It has become a working foundation you can reuse in every later chapter.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+workspace: terminal, Git repo, editor, Python environment, and notebook all verified
+artifact: small command log, commit history, script output, or notebook cell result
+debug_note: one setup problem and how you diagnosed it
+failure_check: path confusion, environment mismatch, Git state, or missing dependency
+Expected_output: a ready-to-learn workstation evidence pack
+```

@@ -374,6 +374,17 @@ pwd
 
 If everything worked, congratulations — you’ve already mastered the most essential command-line operations.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. After step 4, `pwd` should end with `ai-study/ch01-tools/terminal-practice`.
+2. `ls -la` should show `hello.py`, `notes.txt`, and `data.csv`; after the backup step, it should also show `notes_backup.txt`.
+3. `cat hello.py` should print the code text. It does not run the program; running it requires `python hello.py`.
+4. `>>` should keep the first note and append a second line. If the original text disappeared, you probably used `>` by mistake.
+5. `grep -r "AI" ./` should find `hello.py` because the string appears in the code. If it finds nothing, check your current directory and capitalization.
+
+</details>
+
 ---
 
 ## Quick reference for common commands
@@ -399,3 +410,15 @@ If everything worked, congratulations — you’ve already mastered the most ess
 :::tip Can’t remember them?
 You do not need to memorize this table. The more you use these commands, the more you’ll remember naturally. In the beginning, you can print it out and keep it next to your screen, or save it on your phone for quick reference. For most commands, typing `command --help` will show usage instructions.
 :::
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

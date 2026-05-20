@@ -8,6 +8,18 @@ description: "コアコマンド、パスの考え方、パイプ、環境変数
 
 ![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```
+
 ## この節の位置づけ
 
 この節から、いよいよ本格的にターミナルを使っていきます。まずは「今どのディレクトリにいるのか」を判断できるようになり、そのうえでよく使うファイル・ディレクトリ・パス・パイプ・環境変数の操作を身につけます。これは、後で Python を実行したり、依存関係を管理したり、Git を使ったりするための土台になります。
@@ -373,6 +385,17 @@ pwd
 ```
 
 すべての手順がうまくいけば、おめでとうございます。これでコマンドラインの最も重要な操作を身につけました。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 最後の `pwd` は、`ai-course-practice` の 1 つ上のフォルダを指しているはずです。
+2. `ls` では `hello.py`、`notes.txt`、`notes_backup.txt` が確認できます。
+3. `cat notes.txt` には最初のメモと、`>>` で追記したコマンド一覧の両方が表示されます。`>` を使うと上書きされます。
+4. `grep -r "AI" ./` は `hello.py` の `Hello, AI!` を見つけるはずです。
+5. うまくいかない場合は、まず `pwd` と `ls` で今いる場所とファイル名を確認します。多くの失敗はコマンドではなく場所のずれです。
+
+</details>
 
 ---
 

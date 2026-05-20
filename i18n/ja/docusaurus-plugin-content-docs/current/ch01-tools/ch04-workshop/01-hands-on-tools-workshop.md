@@ -30,7 +30,7 @@ keywords: [開発者ツールワークショップ, ターミナル, Git, Python
 
 このワークショップでは Python 標準ライブラリだけを使います。外部 SDK、クラウドアカウント、有料サービスは不要です。
 
-## Step 0：きれいな練習フォルダを作る
+## ステップ 0：きれいな練習フォルダを作る
 
 ターミナルを開いて実行します。
 
@@ -54,13 +54,13 @@ Python 3.12.3
 PowerShell で `python3 --version` が認識されない場合は、`python --version` を使ってください。以降も同じ Python コマンドを使い続けると混乱しにくくなります。
 :::
 
-## Step 1：まず全体の流れを見る
+## ステップ 1：まず全体の流れを見る
 
 ![ターミナル、Python、Git の実行ループ](/img/course/ch01-hands-on-terminal-git-loop-ja.webp)
 
 これらのツールを別々の話題として扱わないでください。実際の開発では、1 つのループになります。
 
-| Step | ツール | すること |
+| ステップ | ツール | すること |
 |---|---|---|
 | 1 | ターミナル | プロジェクトフォルダに移動し、コマンドを実行する |
 | 2 | Python | チェックスクリプトを実行し、証拠を生成する |
@@ -70,7 +70,7 @@ PowerShell で `python3 --version` が認識されない場合は、`python --ve
 
 後で何かが失敗したら、多くの場合はこのどれかが切れています。現在のフォルダ、Python インタプリタ、依存関係の場所、ファイルパス、Git 状態を順番に確認しましょう。
 
-## Step 2：プロジェクト骨格を作る
+## ステップ 2：プロジェクト骨格を作る
 
 `ai-learning-lab` の中で実行します。
 
@@ -140,7 +140,7 @@ ai-learning-lab/
 
 `tree` を入れている場合は `tree -a -L 2` で確認できます。入れていない場合は `find . -maxdepth 2 -type f` で十分です。
 
-## Step 3：実行できる環境チェックスクリプトを追加する
+## ステップ 3：実行できる環境チェックスクリプトを追加する
 
 `src/workstation_check.py` を作り、次のコードを貼り付けます。
 
@@ -280,7 +280,7 @@ if __name__ == "__main__":
 
 初心者が特に理解しておきたい点は、`Path(__file__).resolve().parents[1]` でプロジェクトルートを見つけていることです。つまり、プロジェクトフォルダから `python3 src/workstation_check.py` を実行すれば、レポートを書き込む場所を自分で判断できます。
 
-## Step 4：Git を初期化してスクリプトを実行する
+## ステップ 4：Git を初期化してスクリプトを実行する
 
 次のコマンドを実行します。
 
@@ -325,7 +325,7 @@ git status --short
 
 `??` は、Git がそのファイルを見つけているが、まだ追跡していないことを意味します。
 
-## Step 5：最初のきれいな commit を作る
+## ステップ 5：最初のきれいな commit を作る
 
 ```bash
 git add .gitignore README.md requirements.txt src notes reports
@@ -342,7 +342,7 @@ abc1234 Initialize AI learning lab workstation
 
 これで、自分の作業台に最初の安定したチェックポイントを保存できました。
 
-## Step 6：main を壊さずにブランチを練習する
+## ステップ 6：main を壊さずにブランチを練習する
 
 小さなブランチを作り、学習メモを 1 つ追加し、スクリプトを再実行してから main に戻します。
 
@@ -366,7 +366,7 @@ Add-Content notes/learning-log.md "- Practiced terminal, Python, and Git togethe
 
 この練習はわざと小さくしています。目的は複雑なブランチ運用を覚えることではなく、`main` は安定線、練習ブランチは安全な試行場所だと体感することです。
 
-## Step 7：VS Code と Jupyter を 2 つの作業パネルとして使う
+## ステップ 7：VS Code と Jupyter を 2 つの作業パネルとして使う
 
 ![環境、エディタ、Notebook の連携フロー](/img/course/ch01-hands-on-env-editor-notebook-flow-ja.webp)
 
@@ -407,7 +407,7 @@ main
 
 ファイル数は違っていて構いません。大事なのは、Notebook がスクリプトで生成した同じレポートを読めることです。これで、探索用の `notebooks/` と、証拠用の `reports/` がつながります。
 
-## Step 8：壊れたリンクを見つけて直す
+## ステップ 8：壊れたリンクを見つけて直す
 
 ![第 1 章作業台トラブルシュートマップ](/img/course/ch01-hands-on-debug-map-ja.webp)
 
@@ -424,7 +424,7 @@ main
 
 最後の 1 行のエラーだけをコピーしないでください。完全なコマンド、完全な出力、次に試したことを `notes/learning-log.md` に残します。
 
-## Step 9：作品集の証拠パックを整理する
+## ステップ 9：作品集の証拠パックを整理する
 
 ![第 1 章作品集証拠パック](/img/course/ch01-hands-on-portfolio-pack-ja.webp)
 
@@ -454,4 +454,27 @@ main
 - [ ] 小さなブランチを作り、commit して main に merge できる。
 - [ ] 作業台でコードを実行できることを示すレポートファイルがある。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `docs/commands.md` は、コマンド名、用途、どこで実行したかが分かれば十分です。
+2. `reports/terminal-transcript.txt` には成功出力と失敗修正の両方を残し、回復できることを示します。
+3. `Path.cwd()` は今いる場所、`Path(__file__).resolve()` はスクリプトの場所です。違う値になるのが普通です。
+4. 練習後に `git status --short` が clean で、`git log --oneline --graph` に branch と merge が見えれば合格です。
+5. 最強の成果物は、他の人が clone しても再現できる作業環境です。
+
+</details>
+
 ここまで確認できれば、第 1 章は単なるツール一覧ではなく、以降のすべての章で再利用できる作業基盤になります。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+workspace: terminal, Git repo, editor, Python environment, and notebook all verified
+artifact: small command log, commit history, script output, or notebook cell result
+debug_note: one setup problem and how you diagnosed it
+failure_check: path confusion, environment mismatch, Git state, or missing dependency
+Expected_output: a ready-to-learn workstation evidence pack
+```

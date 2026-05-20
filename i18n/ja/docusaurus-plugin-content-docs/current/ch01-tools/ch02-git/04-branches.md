@@ -8,6 +8,18 @@ description: "ブランチを使って新機能を安全に開発し、Pull Requ
 
 ![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```
+
 ## この節の位置づけ
 
 この節では、Git がどうして安全な共同作業を支えられるのかを説明します。ブランチを使うと、メインのコードを壊さずに新機能を試せることを理解し、Pull Request とマージコンフリクトの基本も学びます。これからチーム開発やオープンソースへの貢献を始めるための準備になります。
@@ -417,6 +429,17 @@ git push -u origin feature/add-evaluation
 - [ ] `git clone` で他人のプロジェクトを取得できる
 - [ ] ブランチの概念を理解し、作成とマージができる
 - [ ] マージコンフリクトが起きても慌てず、解決方法が分かる
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. ゼロから repo を作り、commit、diff、`.gitignore`、push または clone、ブランチ作成と merge までできれば通過です。
+2. 安全な Git 証拠には、重要な操作の前後の `git status --short` が含まれます。
+3. コンフリクトでは、両方の内容が必要なときだけ両方を残します。commit 前に conflict marker は必ず消します。
+4. 未 commit のミスは `git restore`、共有済み履歴の修正は新しい commit が基本です。`reset --hard` は一回限りの練習 repo だけに使います。
+5. よい証拠は、ブランチ図、短い PR、またはブランチ作成・merge・clean 状態を示す端末記録です。
+
+</details>
 
 :::tip すべてチェックできましたか？
 おめでとうございます。これで Git の学習は完了です。これらのスキルは、これからの AI 学習全体を通してずっと役立ちます。次は Python の開発環境を設定しましょう。

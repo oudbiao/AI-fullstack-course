@@ -68,6 +68,13 @@ AI learning lab is ready
 
 如果使用 Windows PowerShell，把 `. .venv/bin/activate` 换成 `.venv\Scripts\Activate.ps1`。如果你的系统使用 `python3`，就把命令和 README 里的 `python` 统一换成 `python3`。
 
+### 如何读这个输出
+
+- `AI learning lab is ready` 证明脚本确实在项目文件夹里跑起来了。
+- `python -c "import sys; print(sys.executable)"` 证明当前到底是哪一个解释器在运行。
+- Git commit 证明项目可以被保存、回看和复现。
+- 如果某条命令失败，命令和完整错误输出也是证据，不是噪音。
+
 ## 深度阶梯
 
 | 层级 | 你能证明什么 |
@@ -75,6 +82,18 @@ AI learning lab is ready
 | 最低通过 | 能创建文件夹、运行脚本，并说清当前目录和 Python 解释器。 |
 | 项目可用 | 从新终端能按 README 重跑，`.venv/` 已被忽略，`git status` 只显示有意修改。 |
 | 深度检查 | 能解释 PATH、工作目录、shell 和解释器选择为什么会让同一命令在不同机器上表现不同。 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+workspace: terminal, Git repo, editor, Python environment, and notebook all verified
+artifact: small command log, commit history, script output, or notebook cell result
+debug_note: one setup problem and how you diagnosed it
+failure_check: path confusion, environment mismatch, Git state, or missing dependency
+Expected_output: a ready-to-learn workstation evidence pack
+```
 
 ## 常见失败
 
@@ -95,5 +114,16 @@ AI learning lab is ready
 - 上一次 Git 提交后，项目发生了什么变化？
 - 从新终端重新运行项目的命令是什么？
 - 第一次错误和修复过程记录在哪里？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 当前目录用 `pwd` 确认，应该是项目根目录，或命令里明确提到的目标文件夹。
+2. Python 解释器用 `which python` 或 `python -c "import sys; print(sys.executable)"` 确认，应该指向课程环境。
+3. Git 变化先用 `git status --short` 看概要，再用 `git diff` 解释具体改了什么。
+4. 从新终端重跑项目的命令，应该包含激活环境、必要的安装或检查步骤，以及精确脚本命令。
+5. 错误记录至少要有现象、命令、可能原因和修复方式。只有截图还不够。
+
+</details>
 
 目标不是把工具学到完美，而是为后面的课程准备一个稳定工作台。

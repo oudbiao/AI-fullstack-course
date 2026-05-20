@@ -8,6 +8,18 @@ description: "日常開発で最もよく使う Git 操作を身につける"
 
 ![Git の日常最小ループ図](/img/course/ch01-git-daily-loop-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```
+
 ## この節の位置づけ
 
 この節から、Git を実際に使い始めます。重点は、毎日くり返し使う add、commit、status、log、diff、そして取り消し操作を身につけて、「少しコードを書く → 状態を確認する → 1 回記録を残す」という基本的な開発習慣を作ることです。
@@ -179,7 +191,7 @@ git commit -m "いろいろ変更"       # 何も伝わらない
 ```
 
 :::tip 実用的な考え方
-コミットメッセージはこの質問に答えるものです：**「このコミットで何をしたか？」**  
+コミットメッセージはこの質問に答えるものです：**「このコミットで何をしたか？」**
 動詞で始めて（追加、修正、更新、削除、リファクタリングなど）、対象をはっきり書きましょう。
 :::
 
@@ -385,7 +397,7 @@ git status
 `.env` と `__pycache__/` は無視され、Git に送られません。API キーは安全です。
 
 :::warning すでに追跡されているファイル
-`.gitignore` は、**まだ Git に追跡されていない**ファイルにのみ有効です。  
+`.gitignore` は、**まだ Git に追跡されていない**ファイルにのみ有効です。
 先にファイルをコミットしてから `.gitignore` に追加しても、自動では無視されません。先に手動で追跡解除する必要があります。
 
 ```bash
@@ -551,6 +563,17 @@ a1b2c3d プロジェクトを初期化：モデル定義とプロジェクト構
 ```
 
 それぞれが、あとから戻れる保存ポイントです。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 最後の `git log --oneline` には、この練習で作った 3 つの commit と、前に初期化した commit が表示されます。
+2. 1 つの commit には 1 つの小さな考えだけを保存します。学習スクリプト、ユーティリティ関数、README 更新を混ぜすぎないようにします。
+3. 最後の `git status` は clean か、説明できる未追跡ファイルだけが残っている状態にします。
+4. `src/train.py` が `torch` や `model` 不足で失敗する場合、それは Git ではなく実行環境の問題です。失敗は記録し、Git 操作の証拠は残します。
+5. よい commit message は `Add basic training script` のように動作と意味が分かります。`update stuff` のような曖昧な表現は避けます。
+
+</details>
 
 ---
 

@@ -8,6 +8,18 @@ description: "パッケージマネージャーでシステムソフトウェア
 
 ![パッケージマネージャーの依存関係インストールフロー図](/img/course/ch01-package-manager-flow-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```
+
 ## この節の位置づけ
 
 この節で解決するのは、「開発ツールをどうやってインストールして更新するか」です。パッケージマネージャーを開発者向けのアプリストアだと理解し、自分のOSに合わせて Homebrew、winget、apt などのツールを使えるようになり、今後の Git、Python、データベース、デプロイツールのインストールの土台を作ります。
@@ -311,6 +323,17 @@ git --version
 - [ ] `>` または `>>` で出力をファイルに保存できる
 - [ ] 自分のパッケージマネージャーでソフトウェアを1つインストールできる
 - [ ] `echo $PATH` の意味が分かる
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. macOS なら Homebrew、Windows なら winget、Linux なら apt など、自分の OS に合うツールを使えていれば十分です。
+2. `tree --version` や `tree .` が動けば、インストール確認として合格です。
+3. `wget` で `iris.csv` を取得できたら、`head -5 iris.csv` で中身の先頭を確認します。
+4. Windows で Git を入れた場合、`git --version` が表示されれば PATH も通っています。
+5. `PATH` はシェルが実行ファイルを探す場所の一覧です。インストールしたのに command not found になるときは PATH とターミナル再起動を疑います。
+
+</details>
 
 :::tip すべてチェックできましたか？
 あなたはもう、ターミナルとコマンドラインの核心となるスキルを身につけました。次は Git を学びましょう。開発者にとってもう1つの必須ツールです。

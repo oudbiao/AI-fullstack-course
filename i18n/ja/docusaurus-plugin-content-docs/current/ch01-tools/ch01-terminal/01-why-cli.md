@@ -95,3 +95,15 @@ py hello_terminal.py
 | 長いコマンドを打ち直したくない | 上矢印キーで履歴を呼び出す |
 
 自分のフォルダで `pwd`、`cd`、`ls`、`python hello_terminal.py` が何をしたのか説明できれば、このページは合格です。次のページでは、ファイル操作をもう少しゆっくり練習します。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

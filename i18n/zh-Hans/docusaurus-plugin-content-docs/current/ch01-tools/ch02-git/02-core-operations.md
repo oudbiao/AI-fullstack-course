@@ -550,7 +550,30 @@ a1b2c3d 初始化项目：添加模型定义和项目结构
 
 每一条都是一个可以回退到的存档点。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 最后的 `git log --oneline` 应该显示本练习的 3 个提交，以及前面初始化项目时留下的提交。
+2. 每个提交应该保存一个小想法：训练脚本、工具函数或 README 更新。
+3. 最后执行 `git status` 应该是干净状态，或者只剩下你能解释清楚的未跟踪文件。
+4. 如果 `src/train.py` 因为缺少 `torch` 或 `model` 运行失败，那是运行环境问题，不是 Git 流程问题。记录失败，但保留 Git 操作证据。
+5. 好的提交信息应该有动作和含义，例如 `Add basic training script`，而不是 `update stuff` 这类模糊信息。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```
 
 ## 小结
 

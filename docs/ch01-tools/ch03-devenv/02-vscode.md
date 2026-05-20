@@ -342,3 +342,26 @@ print(f"\nAverage name length: {avg_len:.1f} characters")
    - Use `Alt + ↑/↓` to move one line of code
    - Use `Ctrl/Cmd + D` to multi-select one word
    - Use `Ctrl/Cmd + Shift + F` to search globally for "fruit"
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `code .` should open the current project folder, not a single detached file.
+2. The selected Python interpreter should match your course environment. Check the VS Code status bar or the command palette.
+3. Running `practice.py` should print five fruit lines and an average name length.
+4. If the Run button uses the wrong Python, run the file from the integrated terminal and then fix the selected interpreter.
+5. The shortcut practice passes when you can undo your edits and still run the script successfully.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+environment: Python/Node/editor/notebook version and selected interpreter/kernel
+verification: one command or notebook cell proving the setup works
+project_folder: where dependencies, scripts, and notebooks live
+failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
+Expected_output: setup screenshot or terminal output plus one fallback note
+```

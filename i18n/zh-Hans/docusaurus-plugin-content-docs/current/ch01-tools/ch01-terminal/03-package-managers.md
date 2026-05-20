@@ -312,6 +312,29 @@ git --version
 - [ ] 能用你的包管理器安装一个软件
 - [ ] 知道 `echo $PATH` 是什么意思
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 只需要执行自己操作系统对应的一段。`brew`、`apt`、`winget` 分别服务于不同平台。
+2. `tree ~/ai-study` 成功，说明工具安装成功，而且 shell 可以通过 `PATH` 找到它。
+3. `wget ... iris.csv` 应该生成一个本地 CSV 文件，前几行应该有表头和数据行。如果网络受限，记录错误，并确认 `wget --version` 能运行。
+4. Windows 这节只需要 `git --version` 能显示版本。如果安装后找不到命令，先重新打开终端。
+5. `echo $PATH` 的意义是解释：为什么工具已经安装了，但 shell 仍然可能找不到命令。
+
+</details>
+
 :::tip 全部打勾了？
 你已经掌握了终端和命令行的核心技能。接下来我们学 Git——开发者的另一个必备工具。
 :::
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

@@ -312,6 +312,29 @@ Complete the following checks to confirm you understand terminal basics:
 - [ ] Can use your package manager to install a piece of software
 - [ ] Know what `echo $PATH` means
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Run only the section for your operating system. `brew`, `apt`, and `winget` manage different platforms.
+2. A successful `tree ~/ai-study` proves both that the tool was installed and that your shell can find it through `PATH`.
+3. `wget ... iris.csv` should create a local CSV file, and the first few lines should show a header plus data rows. If the network is blocked, record the error and verify that `wget --version` works.
+4. On Windows, `git --version` is enough for this exercise. If `winget` installs Git but the command is not found, reopen the terminal.
+5. `echo $PATH` explains why a command can be installed but still not discoverable by the shell.
+
+</details>
+
 :::tip All checked off?
 You’ve now mastered the core skills of the terminal and command line. Next, we’ll learn Git — another essential tool for developers.
 :::
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+command: exact terminal command you ran
+working_dir: pwd/current folder and important files listed
+output: copied command output or screenshot of the result
+failure_check: wrong path, missing command, permission issue, or shell mismatch
+Expected_output: reproducible terminal action with the command and result side by side
+```

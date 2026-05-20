@@ -418,6 +418,29 @@ git push -u origin feature/add-evaluation
 - [ ] 理解分支的概念，能创建和合并分支
 - [ ] 遇到合并冲突不慌，知道怎么解决
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 能从零创建仓库、提交、查看 diff、写 `.gitignore`、push 或 clone，并完成一次分支创建与合并，就算通过。
+2. 干净的 Git 证据应该包含风险操作前后的 `git status --short`。
+3. 发生冲突时，只有两边内容都需要时才保留两边；提交前必须删除所有冲突标记。
+4. 未提交的错误优先用 `git restore`，已经共享的历史优先用新提交修复。`reset --hard` 只适合一次性练习仓库。
+5. 好证据可以是一张分支图、一条短 PR，或展示创建分支、合并、状态干净的终端记录。
+
+</details>
+
 :::tip 全部打勾了？
 恭喜你完成了 Git 的学习！这些技能会贯穿你整个 AI 学习之旅。接下来我们来配置 Python 开发环境。
 :::
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+repo_state: git status before and after the operation
+operation: init, add, commit, branch, merge, remote, pull, or push command used
+history: git log or branch graph showing what changed
+failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
+Expected_output: a clean Git trace that another learner can replay safely
+```
