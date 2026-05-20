@@ -1,5 +1,5 @@
 ---
-title: "9.3.2 Function Calling の詳説"
+title: "9.3.2 関数呼び出し（Function Calling）の詳説"
 sidebar_position: 11
 description: "schema 設計、パラメータ検証、エラー復旧から多段呼び出しまで、Agent のツール層における Function Calling の本当の実務価値を深く理解する。"
 keywords: [Function Calling, Tool Calling, パラメータ検証, Agent, schema, ツールスケジューリング]

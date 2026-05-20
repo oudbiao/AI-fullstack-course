@@ -112,7 +112,7 @@ flowchart LR
 
 ## 二、三条最重要的预训练路线
 
-### Causal Language Modeling：根据过去预测未来
+### 因果语言建模（Causal Language Modeling）：根据过去预测未来
 
 这是 GPT 一系最经典的目标。
 
@@ -129,7 +129,7 @@ flowchart LR
 推理时模型也不能看未来，
 两者没有错位。
 
-### Masked Language Modeling：根据上下文补空
+### 掩码语言建模（Masked Language Modeling）：根据上下文补空
 
 这是 BERT 一系的经典目标。
 
@@ -147,7 +147,7 @@ flowchart LR
 
 但它天然不如 Causal LM 那么适合自由生成。
 
-### Span Corruption / Denoising：不是遮一个词，而是遮一段
+### 片段破坏与去噪（Span Corruption / Denoising）：不是遮一个词，而是遮一段
 
 T5 / BART 一类模型常用更一般化的去噪目标：
 
@@ -246,7 +246,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 读这张图时对比同一句话被改造成三种训练题：Causal LM 练“续写下一个 token”，Masked LM 练“根据左右文补空”，Span Corruption 练“恢复缺失片段”。模型每天刷什么题，长期就会长出什么能力倾向。
 :::
 
-### Causal LM 的标签为什么是右移一位？
+### 因果语言模型（Causal LM）的标签为什么是右移一位？
 
 因为它在做的就是：
 
@@ -257,7 +257,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 - 输入：`x_1 ... x_{t-1}`
 - 标签：`x_2 ... x_t`
 
-### Span Corruption 为什么常被看得更“通用”？
+### 为什么片段破坏（Span Corruption）常被看得更“通用”？
 
 因为它比单点 mask 更接近真实文本变换。
 模型不仅要恢复一个词，
@@ -290,7 +290,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 
 ## 四、这些目标分别更擅长什么？
 
-### Causal LM：生成、续写、对话
+### 因果语言模型（Causal LM）：生成、续写、对话
 
 这类目标和后续生成任务高度一致，
 所以特别适合：
@@ -300,7 +300,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 - 代码补全
 - 长文本续写
 
-### Masked LM：表示学习和理解
+### 掩码语言模型（Masked LM）：表示学习和理解
 
 因为模型能同时看到左右上下文，
 所以很适合：
@@ -310,7 +310,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 - 语义匹配
 - 抽取任务
 
-### Span Corruption：输入到输出映射
+### 片段破坏（Span Corruption）：输入到输出映射
 
 如果你想要模型自然地做：
 
@@ -342,7 +342,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 
 ## 五、预训练目标不是独立存在的，它和架构绑在一起
 
-### 为什么仅解码器常配 Causal LM？
+### 为什么仅解码器常配因果语言模型（Causal LM）？
 
 因为两者完全一致：
 
@@ -351,7 +351,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 
 训练和生成闭环非常自然。
 
-### 为什么仅编码器常配 Masked LM？
+### 为什么仅编码器常配掩码语言模型（Masked LM）？
 
 因为 encoder 擅长双向建模。
 既然它能看全句，就很适合做：
@@ -371,7 +371,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 
 ## 六、除了经典目标，还会有什么变化？
 
-### Prefix LM：部分双向、部分因果
+### 前缀语言模型（Prefix LM）：部分双向、部分因果
 
 有些方法会让输入前半段可以双向看，
 但生成段仍然保持因果约束。
@@ -421,7 +421,7 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 不对。
 预训练目标会给模型打下长期能力偏向。
 
-### 误区二：Masked LM 比 Causal LM 更高级，或者反过来
+### 误区二：掩码语言模型（Masked LM）比因果语言模型（Causal LM）更高级，或者反过来
 
 两者不是等级关系，
 而是针对不同路线的设计。

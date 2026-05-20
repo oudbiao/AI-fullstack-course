@@ -122,7 +122,7 @@ RLAIF 的关键变化不是训练公式，
 - 裁判模型本身是否可靠
 - 会不会把它自己的偏差继续传下去
 
-### Constitutional AI：先写规则，再让模型自我批改
+### 宪法式 AI（Constitutional AI）：先写规则，再让模型自我批改
 
 Constitutional AI 的思路很适合新人建立直觉：
 
@@ -307,7 +307,7 @@ loss 下降，说明策略更符合偏好数据。
 
 ---
 
-## 五、再看一个 Constitutional AI 风格的最小批改示意
+## 五、再看一个宪法式 AI（Constitutional AI）风格的最小批改示意
 
 这类方法的重点不在数值优化，
 而在“规则如何进入修订流程”。
@@ -412,7 +412,7 @@ AI feedback 便宜，不代表完全免费。
 - 裁判模型质量问题
 - 审计和偏差控制问题
 
-### 误区三：Constitutional AI 只要写几条规则就行
+### 误区三：宪法式 AI（Constitutional AI）只要写几条规则就行
 
 规则写出来只是开始。
 更难的是：

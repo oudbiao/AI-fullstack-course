@@ -372,7 +372,7 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 
 ---
 
-## LLM API 最小工程规范
+## 大模型 API（LLM API）最小工程规范
 
 当你开始把 API 调用接进真实项目时，可以先用下面这张表检查自己的封装是否够稳。
 

@@ -75,7 +75,7 @@ PEFT 的根问题很朴素：
 
 ## 二、先把 PEFT 家族地图理清楚
 
-### Prompt Tuning：把可训练部分放在输入前面
+### 提示词调优（Prompt Tuning）：把可训练部分放在输入前面
 
 Prompt Tuning 的直觉是：
 
@@ -94,7 +94,7 @@ Prompt Tuning 的直觉是：
 - 对复杂任务的改造力度有限
 - 主要影响输入端，不像层内改造那样深入
 
-### Prefix Tuning：给每一层加“前缀上下文”
+### 前缀调优（Prefix Tuning）：给每一层加“前缀上下文”
 
 Prefix Tuning 比 Prompt Tuning 更进一步。
 
@@ -344,7 +344,7 @@ adapted = hidden + self.adapter_up(torch.tanh(self.adapter_down(hidden)))
 
 ## 四、再看三个更短的结构示意
 
-### Prompt Tuning：输入前面拼接软提示
+### 提示词调优（Prompt Tuning）：输入前面拼接软提示
 
 ```python
 import torch
@@ -370,7 +370,7 @@ print("拼接后长度:", combined.shape[1])
 - 它是一组训练出来的向量
 - 模型看到的是“额外输入 token 的 embedding”
 
-### Prefix Tuning：不是改输入长度，而是改每层注意力上下文
+### 前缀调优（Prefix Tuning）：不是改输入长度，而是改每层注意力上下文
 
 ```python
 import torch

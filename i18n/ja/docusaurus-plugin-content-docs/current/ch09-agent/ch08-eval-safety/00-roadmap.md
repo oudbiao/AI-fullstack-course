@@ -1,5 +1,5 @@
 ---
-title: "9.8.1 評価と安全ロードマップ：採点、防御、Trace"
+title: "9.8.1 評価と安全ロードマップ：採点、防御、トレース"
 sidebar_position: 0
 description: "Agent 評価と安全の短い実践ロードマップ：結果と過程を評価し、ガードレールを追加し、trace を記録し、リスクをレビューする。"
 keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk]

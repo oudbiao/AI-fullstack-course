@@ -296,7 +296,7 @@ for case in eval_cases:
 研究助手项目的 README 可以按下面顺序写：
 
 ```text
-# Research Assistant Agent
+# 研究助手 Agent（Research Assistant Agent）
 
 ## 1. 项目目标
 说明它解决什么研究场景，以及不解决什么。

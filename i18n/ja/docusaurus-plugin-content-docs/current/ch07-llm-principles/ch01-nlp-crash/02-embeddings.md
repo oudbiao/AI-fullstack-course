@@ -28,7 +28,7 @@ token id -> embedding table lookup -> dense vector
 - 文 vector は、token vector を pooling して作ることが多い。
 - 文脈モデルでは、同じ token でも周囲の単語によって位置が変わる。
 
-## One-Hot から Dense Vector へ
+## ワンホット表現（One-Hot）から密ベクトル（Dense Vector）へ
 
 ![one-hot から dense embedding への意味空間図](/img/course/ch07-embedding-onehot-dense-map-ja.webp)
 

@@ -1,5 +1,5 @@
 ---
-title: "7.3.3 元の Transformer vs 現代 LLM Decoder"
+title: "7.3.3 元の Transformer vs 現代 LLM デコーダー"
 sidebar_position: 9
 description: "元の Transformer block と現代 LLM decoder block を比較し、pre-norm、RMSNorm、RoPE、GQA/MQA、SwiGLU を理解します。"
 keywords: [現代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
@@ -146,7 +146,7 @@ RMSNorm がよく使われるのは、より単純で効率的でありながら
 
 > **GQA/MQA は主にモデルを賢くするためではなく、長文脈推論を安くするための工夫です。**
 
-## SwiGLU FFN：より強い feed-forward block
+## SwiGLU 前向きネットワーク（FFN）：より強い feed-forward block
 
 元の Transformer FFN は、よく次のように説明されます。
 

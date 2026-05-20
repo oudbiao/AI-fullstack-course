@@ -1,5 +1,5 @@
 ---
-title: "7.3.3 原始 Transformer vs 现代 LLM Decoder"
+title: "7.3.3 原始 Transformer vs 现代 LLM 解码器"
 sidebar_position: 9
 description: "对比原始 Transformer block 和现代 LLM decoder block，理解 pre-norm、RMSNorm、RoPE、GQA/MQA 和 SwiGLU。"
 keywords: [现代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU]
@@ -148,7 +148,7 @@ RMSNorm 流行，是因为它更简单、更高效，同时仍然能很好稳定
 
 > **GQA/MQA 主要不是让模型“更聪明”，而是让长上下文推理更便宜。**
 
-## SwiGLU FFN：更强的前馈层
+## SwiGLU 前馈网络（FFN）：更强的前馈层
 
 原始 Transformer FFN 常被讲成：
 

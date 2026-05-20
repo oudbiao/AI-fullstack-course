@@ -75,7 +75,7 @@ PEFT の問題は、とてもシンプルです。
 
 ## 二、まず PEFT ファミリーの全体図を整理しよう
 
-### Prompt Tuning：学習可能な部分を入力の前に置く
+### プロンプトチューニング（Prompt Tuning）：学習可能な部分を入力の前に置く
 
 Prompt Tuning の直感は次の通りです。
 
@@ -95,7 +95,7 @@ Prompt Tuning の直感は次の通りです。
 - 複雑なタスクへの変化量は大きくない
 - 主に入力側に作用するため、層内の改造ほど深くはない
 
-### Prefix Tuning：各層に「プレフィックス文脈」を加える
+### プレフィックスチューニング（Prefix Tuning）：各層に「プレフィックス文脈」を加える
 
 Prefix Tuning は、Prompt Tuning をさらに一歩進めたものです。
 
@@ -351,7 +351,7 @@ adapted = hidden + self.adapter_up(torch.tanh(self.adapter_down(hidden)))
 
 ## 四、さらに 3 つの短い構造例を見る
 
-### Prompt Tuning：入力の前にソフトプロンプトを連結する
+### プロンプトチューニング（Prompt Tuning）：入力の前にソフトプロンプトを連結する
 
 ```python
 import torch
@@ -377,7 +377,7 @@ print("連結後の長さ:", combined.shape[1])
 - それは学習されたベクトルの集合
 - モデルには「追加の入力 token の embedding」として見える
 
-### Prefix Tuning：入力長ではなく、各層の注意文脈を変える
+### プレフィックスチューニング（Prefix Tuning）：入力長ではなく、各層の注意文脈を変える
 
 ```python
 import torch

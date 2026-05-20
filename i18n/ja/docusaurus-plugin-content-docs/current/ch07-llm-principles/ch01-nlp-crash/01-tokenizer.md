@@ -197,7 +197,7 @@ attention_mask: [1, 1, 1, 1, 1, 1]
 
 `refund policy evidence` が消えました。実際のサポート bot では、ここにユーザーの本当の意図が含まれているかもしれません。Tokenizer は小さな前処理ではなく、コスト、検索チャンク長、prompt 設計、失敗モードに直接影響します。
 
-## 実験 3：本物の Hugging Face Tokenizer を確認する
+## 実験 3：本物の Hugging Face トークナイザー（Tokenizer）を確認する
 
 初回の tokenizer ダウンロードにはネットワークが必要です。
 

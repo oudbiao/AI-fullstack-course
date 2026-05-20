@@ -197,7 +197,7 @@ attention_mask: [1, 1, 1, 1, 1, 1]
 
 `refund policy evidence` 不见了。在真实客服助手里，这可能正好删掉用户真正想问的内容。所以 tokenizer 不是小小的预处理细节，它会影响成本、检索片段长度、prompt 设计和失败模式。
 
-## 实验 3：检查真实 Hugging Face Tokenizer
+## 实验 3：检查真实 Hugging Face 分词器（Tokenizer）
 
 第一次下载模型 tokenizer 时需要网络。
 

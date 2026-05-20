@@ -298,7 +298,7 @@ for case in eval_cases:
 研究アシスタントの README は、次の順番で書くとわかりやすいです。
 
 ```text
-# Research Assistant Agent
+# 研究アシスタント Agent（Research Assistant Agent）
 
 ## 1. プロジェクト目標
 どんな研究シーンを解決するのか、何を解決しないのかを説明する。

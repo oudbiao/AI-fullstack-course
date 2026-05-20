@@ -153,7 +153,7 @@ for q in queries:
 
 ---
 
-## 四、Agentic RAG：让检索不再是固定流水线
+## 四、智能体式 RAG（Agentic RAG）：让检索不再是固定流水线
 
 ### 它和普通 RAG 的区别是什么？
 
@@ -218,7 +218,7 @@ Agentic RAG 则可能会：
 
 ---
 
-## 六、Graph RAG 和知识图谱类思路
+## 六、图 RAG（Graph RAG）和知识图谱类思路
 
 ### 它解决什么问题？
 
@@ -277,7 +277,7 @@ Agentic RAG 则可能会：
 
 ## 八、初学者常见误区
 
-### 一看到复杂任务就想上 Agentic RAG
+### 一看到复杂任务就想上智能体式 RAG（Agentic RAG）
 
 很多时候，先把路由和检索策略做好，已经能解决大半问题。
 

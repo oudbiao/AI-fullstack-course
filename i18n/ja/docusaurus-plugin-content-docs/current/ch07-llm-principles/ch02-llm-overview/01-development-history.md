@@ -101,7 +101,7 @@ Common words after learning: [('AI', 1), ('Python', 1), ('NLP', 1)]
 - rare な組み合わせは統計が弱い。
 - 文の意味表現を持たない。
 
-## なぜ Neural Models が重要だったのか
+## なぜニューラルモデル（Neural Models）が重要だったのか
 
 Neural language models は、単なるカウントを learned representations に置き換えました。
 

@@ -28,7 +28,7 @@ token id -> embedding table lookup -> dense vector
 - 句向量通常由 token 向量 pooling 得到；
 - 上下文模型能让同一个 token 根据周围词改变位置。
 
-## 从 One-Hot 到稠密向量
+## 从独热编码（One-Hot）到稠密向量
 
 ![从 one-hot 到稠密 embedding 的语义空间图](/img/course/ch07-embedding-onehot-dense-map.webp)
 
