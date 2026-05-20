@@ -356,3 +356,13 @@ integration_action: validate server contract before adding autonomy
 2. 想一想：为什么有些系统适合每次都重新发现工具，而有些适合做缓存？
 3. 给 `safe_call()` 再加一个“出错后重试一次”的逻辑。
 4. 用自己的话解释：为什么说 MCP 客户端通常还要有“策略层”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 一个合格的 `read_file` 接入，要先在 server 侧增加 tool schema，让 client 能发现它，然后只有在路径权限或安全 allowlist 检查通过后，才把读文件请求路由到这个 tool。
+2. 工具动态变化、server 经常变化时，每次重新发现更合适；契约稳定、启动成本敏感、重复发现只会增加延迟时，缓存更合适。
+3. 安全的重试只应该用于临时失败，要在 trace 里记录两次尝试，并且只重试一次。权限错误、参数校验错误或高风险操作不应该盲目重试。
+4. client 需要策略层，是因为发现只说明“能调用什么”。client 仍然要决定何时调用、选择哪个 tool、失败后如何恢复，以及如何把结果接回 Agent 循环。
+
+</details>

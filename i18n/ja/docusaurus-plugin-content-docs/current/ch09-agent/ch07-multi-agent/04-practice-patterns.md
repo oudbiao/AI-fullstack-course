@@ -376,3 +376,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. この節の小さなワークフローに `reviser` Agent を追加し、review をもとに draft を修正させてみましょう。
 3. 高リスクなタスクでは、なぜ「生成 + 検証 + リスクレビュー」の組み合わせがより必要になるのか考えてみましょう。
 4. 自分の言葉で説明してみましょう。なぜマルチ Agent では、役割の数より協力構造のほうが重要だと言えるのでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. task は主要な risk で分類します。evidence coverage が重要なら research collaboration、表現と正確さが重要なら writing + review、実装と test が重要なら development team です。
+2. `reviser` Agent は draft と review comments を読み、reject された部分や弱い部分だけを変更し、revised output と短い change note を返します。
+3. high-risk task に generation + verification + risk review が必要なのは、流暢な output でも誤り、不完全、安全でない内容、根拠不足がありえるからです。
+4. 重点は collaboration structure です。role は有用な boundary、handoff、check、decision を作るときだけ役立ちます。構造のない長い role list は会話を増やすだけです。
+
+</details>

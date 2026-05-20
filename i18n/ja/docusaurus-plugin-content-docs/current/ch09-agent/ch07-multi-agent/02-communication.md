@@ -414,3 +414,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 自分用の統一メッセージプロトコルを設計し、少なくとも `type`、`task_id`、`payload` を含めてください。
 3. どんなときに、1対1のメッセージより共有状態を使いたくなりますか？
 4. 自分の言葉で説明してみましょう。なぜ多 Agent システムでは、通信設計がタスク分担と同じくらい重要なのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `reviewer_handler` は `task_done` を subscribe し、payload を読み、結果が基準を満たすか確認し、review event を publish するか shared state に review status を書き戻します。
+2. 有用な protocol には `type`、`task_id`、`from`、`to`、`payload`、`evidence`、`status`、`timestamp` などを入れられます。field は変えてよいですが、message の意味は安定させます。
+3. 多くの Agent が同じ変化中の artifact を必要とする場合、また point-to-point message では大きな context を重複させる場合は shared state が向きます。単純な handoff や狭い依頼は直接 message が向きます。
+4. communication design が重要なのは、role がよくても、入力が曖昧、evidence が失われる、作業が重複する、完了判定ができない、という状態では system が失敗するからです。
+
+</details>

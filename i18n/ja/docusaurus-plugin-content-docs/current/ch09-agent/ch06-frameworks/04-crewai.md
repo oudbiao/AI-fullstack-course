@@ -312,3 +312,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 「役割の数が増える」ことが、なぜシステム品質の向上を意味しないのか考えてみましょう。
 3. 自分の言葉で、CrewAI と LangGraph の抽象の入口の違いを説明してみましょう。
 4. タスクに多くのループや条件分岐がある場合、それでも CrewAI を優先して選びますか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 有用な 3-role crew の例は researcher、writer、reviewer です。各 role には狭い責務、明確な成果物、次の role への handoff point が必要です。
+2. role が多いほど良いとは限りません。責務が重なり、message が騒がしくなり、最終判断の責任者が曖昧になると品質は下がります。実際のボトルネックを取り除くときだけ role を増やします。
+3. CrewAI は role collaboration から入ります。誰が作業し、task が role 間をどう動くかが中心です。LangGraph は明示的な state と transition から入り、次にどの node がどの条件で動くかが中心です。
+4. loop と条件分岐が多いなら、CrewAI を最優先にしないことがあります。graph / workflow 指向のほうが control flow、retry 上限、failure handling を確認しやすいからです。
+
+</details>

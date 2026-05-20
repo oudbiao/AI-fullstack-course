@@ -312,3 +312,13 @@ This is especially attractive for content-oriented tasks with clear roles, but i
 2. Think about why “more roles” does not mean better system quality.
 3. Explain in your own words: What is the difference between CrewAI and LangGraph in terms of abstraction entry point?
 4. If your task has many loops and conditional branches, would you still choose CrewAI first? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A useful three-role crew might be researcher, writer, and reviewer. Each role should have a narrow responsibility, a clear output, and a handoff point to the next role.
+2. More roles can reduce quality when responsibilities overlap, messages become noisy, or nobody owns the final decision. Add a role only when it removes a real bottleneck.
+3. CrewAI starts from role collaboration: who does the work and how tasks move between roles. LangGraph starts from explicit state and transitions: what node runs next and under what condition.
+4. For many loops and conditional branches, CrewAI may be less ideal as the first choice. A graph or workflow-oriented design usually makes control flow, retry limits, and failure handling easier to inspect.
+
+</details>

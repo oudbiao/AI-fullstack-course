@@ -381,3 +381,13 @@ choose the wrong one, and complexity will grow faster than the benefits.
 2. Think about this: if you want to build an “automatic research report” system, which pattern is most suitable to implement first? Why?
 3. Design a three-Agent pipeline: “retrieval -> writing -> review.”
 4. Reflect: why do we say multi-Agent architecture is first an organizational problem, not a model-count problem?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Supervisor pattern centralizes assignment and decisions. Pipeline pattern passes work through ordered stages. Reviewer pattern adds an explicit quality gate that can accept, reject, or request revision.
+2. For an automatic research report, start with retrieval -> writing -> review. This pipeline is easy to inspect, and the reviewer gives you a clear place to catch unsupported claims.
+3. A good three-Agent pipeline records the query and evidence from retrieval, passes only relevant notes to writing, then asks review to check citation coverage, missing assumptions, and final answer quality.
+4. Multi-Agent design is organizational first because the key question is how responsibility, information, and decisions move. Adding more models without clearer boundaries usually adds noise, not capability.
+
+</details>

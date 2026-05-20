@@ -355,3 +355,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 「検索 -> 執筆 -> レビュー -> 修正」という協調フローを設計してみましょう。
 3. 2つの Agent の結論が衝突したら、投票、信頼度による裁定、レビュー担当の判断のどれを選びますか？ なぜですか？
 4. 自分の言葉で説明してみましょう。なぜ多 Agent の協調は、本質的に小さなタスクスケジューリングシステムに似ているのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. planner Agent は依存関係つきの ordered task list を作ります。たとえば retrieve を先に行い、evidence がある後に write、draft がある後に review、review が変更を求めた場合だけ revise します。
+2. coordination flow は、retrieve evidence -> write draft with citations -> review correctness and gaps -> revise rejected parts -> final check のようにできます。
+3. 結論が衝突した場合は risk に応じて arbitration を選びます。低リスクの意見なら voting、測定可能な evidence があるなら confidence、基準と責任が重要なら reviewer judgment が向きます。
+4. Multi-Agent coordination が task scheduling に似ているのは、dependencies、resource use、order、retry、stopping conditions、final acceptance を管理するからです。
+
+</details>

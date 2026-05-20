@@ -381,3 +381,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 「自動研究レポート」を作るなら、どのパターンから始めるのがよいか考えてみましょう。なぜですか？
 3. 「検索 -> 執筆 -> レビュー」の3 Agent のパイプラインを設計してみましょう。
 4. なぜ、マルチ Agent アーキテクチャはまず「モデル数」の問題ではなく「組織の問題」だと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. supervisor pattern は割り当てと判断を集中させます。pipeline pattern は作業を順序つきの段階に流します。reviewer pattern は、accept、reject、revision request ができる明示的な品質 gate を追加します。
+2. 自動リサーチレポートなら、まず retrieval -> writing -> review から始めるのがよいです。この pipeline は確認しやすく、reviewer が根拠のない主張を捕まえる場所になります。
+3. よい 3-Agent pipeline では、retrieval が query と evidence を記録し、writing には関連 notes だけを渡し、review が citation coverage、missing assumptions、final answer quality を確認します。
+4. Multi-Agent design はまず組織設計です。責任、情報、判断がどう流れるかが核心だからです。境界を明確にせず model 数だけ増やすと、能力ではなくノイズが増えます。
+
+</details>

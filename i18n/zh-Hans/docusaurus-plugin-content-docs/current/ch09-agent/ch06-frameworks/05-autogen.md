@@ -319,3 +319,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 想一想：为什么 AutoGen 风格任务特别容易出现“聊太多轮”的问题？
 3. 用自己的话解释：AutoGen 和 CrewAI 的核心区别是什么？
 4. 如果你的任务需要强状态机控制，你还会优先选这种对话式抽象吗？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 一个基本流程是：planner 定义任务和验收标准，coder 提出或修改实现，reviewer 检查正确性与风险，然后 planner 判断是否需要下一轮。
+2. AutoGen 风格系统容易“聊太多”，因为对话本身就是控制机制。如果没有停止条件、角色边界和审核标准，Agent 可能一直协商而不收敛。
+3. AutoGen 更强调 Agent 之间的对话交互；CrewAI 更强调角色和任务组织。二者实践上会重叠，但心智模型会引导你做出不同设计。
+4. 如果需要强状态机控制，对话抽象不一定是首选。只有当你仍能清楚约束 state、轮次上限、transition 和 trace 时，才适合使用。
+
+</details>

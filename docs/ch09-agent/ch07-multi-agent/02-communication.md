@@ -414,3 +414,13 @@ Only when the communication layer is solid can a multi-Agent system avoid wastin
 2. Design your own unified message protocol. It should include at least `type`, `task_id`, and `payload`.
 3. Think about it: when would you prefer shared state over point-to-point messaging?
 4. Explain in your own words: why is communication design often just as important as task division in a multi-Agent system?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `reviewer_handler` should subscribe to `task_done`, read the payload, check whether the result satisfies the criteria, and publish a review event or attach review status to shared state.
+2. A useful protocol might include `type`, `task_id`, `from`, `to`, `payload`, `evidence`, `status`, and `timestamp`. The exact fields can vary, but message meaning should be stable.
+3. Prefer shared state when many agents need the same evolving artifact or when point-to-point messages would duplicate large context. Prefer direct messages for simple handoffs and narrow requests.
+4. Communication design matters because even good roles fail if they receive ambiguous inputs, lose evidence, duplicate work, or cannot tell whether a task is done.
+
+</details>

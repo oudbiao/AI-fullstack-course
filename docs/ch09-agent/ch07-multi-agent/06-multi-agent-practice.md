@@ -348,3 +348,13 @@ That is where multi-Agent truly becomes more valuable than a single Agent.
 2. Make `planner_agent` produce different plans for "certificate policy" as well.
 3. Think about this: if the reviewer keeps rejecting the output, how should the system limit the number of revision rounds?
 4. Explain in your own words: why is the real importance of a multi-Agent project "state transition" rather than "number of roles"?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `fact_checker_agent` should receive the draft plus extracted numeric claims, compare each claim against source evidence, and return pass/fail status with the exact claim that needs revision.
+2. For “certificate policy,” the planner should choose a plan that includes policy retrieval, eligibility extraction, conflict checking, draft answer, and reviewer verification rather than reusing a generic plan blindly.
+3. Revision rounds should be capped, for example two review-revise cycles. If it still fails, the system should stop, report unresolved issues, and ask for human input instead of looping indefinitely.
+4. State transition matters because the project succeeds only when each stage changes the system state in a controlled way: plan created, evidence collected, draft written, facts checked, review passed, final delivered.
+
+</details>

@@ -347,3 +347,13 @@ Once you build this intuition, later when you learn architecture, servers, clien
 2. Think about why “tool discovery” itself is worth being standardized by a protocol.
 3. If your system only has 2 fixed tools, why might you not need MCP yet?
 4. Explain in your own words the difference between MCP and Function Calling.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A reasonable answer is: the client is the caller that owns the user goal and chooses when to use capabilities; the server exposes capabilities with a contract; a tool is one executable capability; transport is the channel that carries discovery, calls, and responses.
+2. Tool discovery is worth standardizing because the client needs to know what exists, what parameters are valid, what errors look like, and what permission boundaries apply before it can safely plan a call.
+3. With only two fixed tools, hand-written integration may be simpler, easier to debug, and cheaper to maintain. MCP starts to pay off when tools change, multiply, come from different teams, or need reusable discovery and contracts.
+4. Function Calling is usually the model-facing mechanism for selecting a structured function call. MCP is a broader client-server protocol for discovering and invoking external capabilities. In practice they can work together, but they sit at different layers.
+
+</details>

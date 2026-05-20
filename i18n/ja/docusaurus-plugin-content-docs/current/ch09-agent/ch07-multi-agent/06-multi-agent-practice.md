@@ -350,3 +350,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. `planner_agent` が「証明書ポリシー」に対しても異なる計画を出せるようにしてください。
 3. 考えてみましょう：レビュー担当がずっと承認しない場合、システムは修正の回数をどう制限すべきでしょうか？
 4. 自分の言葉で説明してください。なぜ「マルチ Agent プロジェクトで本当に重要なのは役割数ではなく、状態の流れだ」と言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `fact_checker_agent` は draft と抽出された numeric claims を受け取り、各 claim を source evidence と照合し、pass/fail status と修正が必要な正確な claim を返します。
+2. “certificate policy” では、planner は汎用 plan をそのまま使わず、policy retrieval、eligibility extraction、conflict checking、draft answer、reviewer verification を含む plan を作るべきです。
+3. revision round には上限を置きます。たとえば review-revise を 2 回までにします。それでも失敗する場合は止め、未解決 issue を報告し、人間の input を求めます。無限 loop にしてはいけません。
+4. state transition が重要なのは、project が各 stage で system state を制御された形で変えることで成功するからです。plan created、evidence collected、draft written、facts checked、review passed、final delivered という流れです。
+
+</details>

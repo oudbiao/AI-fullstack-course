@@ -277,3 +277,13 @@ They are a very valuable kind of tool, but they should not be treated as the fin
 2. Explain in your own words: why are low-code platforms especially suitable for the requirement validation stage?
 3. Think about it: why do we say “low-code lowers the implementation barrier, but not the understanding barrier”?
 4. If your system has many state loops, would you still choose a low-code platform first? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Node-based expression works well when the workflow has visible stages, simple branches, and stakeholders need to review the shape of the process. It is weaker when state loops and custom logic dominate.
+2. Low-code is useful for requirement validation because non-engineers can see the workflow, comment on missing steps, and test the idea before the team invests in production engineering.
+3. Low-code lowers implementation friction, but it does not remove the need to understand retrieval quality, tool permissions, error handling, evaluation, and deployment risk.
+4. If the system has many state loops, I would be cautious about choosing low-code first. It may still be useful for a prototype, but production logic often needs clearer code-level control and testing.
+
+</details>

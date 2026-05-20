@@ -326,3 +326,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 想一想：这种高层 SDK 和 CrewAI 的“团队协作抽象”有什么不同？
 3. 如果你的系统已经有一套复杂状态机，你还会优先选这种高层 SDK 吗？为什么？
 4. 用自己的话说明：SDK 真正帮你省掉的是哪类高频样板工作？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Runner / Runtime 的价值在于，生产级 Agent 不只是一个 prompt：它需要 tool 执行、状态流动、handoff、错误处理、trace，以及稳定运行循环的方式。
+2. 高层 SDK 通常更关注让 Agent runtime 容易构建和观察；CrewAI 更关注把系统建模成角色与任务团队。选哪一个取决于你想显式表达什么。
+3. 如果已经有复杂状态机，不要自动替换。先判断 SDK 是否能接入现有 transition、trace 和失败策略，同时不隐藏关键控制。
+4. SDK 能节省 tool 注册、调用执行、handoff 连接、结构化输出、trace 和常见 runtime 逻辑的样板代码。但它不会替你完成任务设计和评估。
+
+</details>

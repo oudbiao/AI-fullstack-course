@@ -385,3 +385,13 @@ Once this flow logic is clear, you’ll feel much more grounded when later learn
 2. Think about this: if transport changes, why is it best for the upper-layer calling logic to stay as unchanged as possible?
 3. Add a `get_weather` tool to `MockMCPServer`.
 4. Explain in your own words: why is MCP called a “decoupling layer,” rather than the “tool itself”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Client and server responsibilities should be separated because the client owns orchestration, user context, and policy, while the server owns capability implementation and the contract. Mixing them makes every new tool or transport change ripple through the whole system.
+2. Transport should be replaceable because the meaning of a tool call should not depend on whether it travels through stdio, HTTP, or another channel. Good architecture keeps the call contract stable while swapping the delivery mechanism.
+3. A good `get_weather` addition includes a clear name, description, required `city` parameter, validation for empty or non-string cities, and a predictable error shape when the input is invalid.
+4. MCP is a decoupling layer because it defines how capabilities are described and invoked across boundaries. It is not the tool itself; the weather lookup, file read, or database query still lives behind the server implementation.
+
+</details>

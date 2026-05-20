@@ -297,3 +297,13 @@ When you start thinking in terms of state flow, knowledge organization, role col
 2. Think about this: why can forcing a complex framework onto a simple project actually make long-term progress slower?
 3. Explain in your own words why framework selection is an architecture decision, not a library choice.
 4. If your team values controllability and observability especially highly, what style of framework would you prioritize?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A practical weighting should start from the project’s main uncertainty. For a RAG-heavy app, knowledge organization may dominate; for a long-running Agent, state flow may dominate; for a team simulation, role collaboration may dominate.
+2. A complex framework can slow a simple project because learners must debug both the business logic and the framework abstraction. The extra machinery can hide the real failure point.
+3. Framework selection is an architecture decision because it shapes state, observability, testability, team workflow, deployment, and future migration cost. It is not just an import statement.
+4. For high controllability and observability, prioritize explicit graph/workflow designs, strong tracing, and clear state objects. Avoid abstractions that make the run loop hard to inspect.
+
+</details>

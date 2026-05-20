@@ -387,3 +387,13 @@ Once you start judging them by “task structure” rather than “framework pop
 2. Add logic to the chain example: “If no documents are found, rewrite the query and search again,” and see whether it starts to get messy.
 3. Explain in your own words: why is graph abstraction more suitable than chain abstraction for systems with stateful loops?
 4. Think about this: in what situations is a chain-based approach actually more appropriate than a graph-based one?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. If every step runs once in a fixed order, it is chain-like. If the system can branch, loop, retry, pause, or revisit a previous state, it is graph-like.
+2. Adding “no documents -> rewrite query -> search again” often makes a chain messy because the code now needs conditional routing, loop limits, and state history. That is the point where a graph abstraction starts to help.
+3. Graph abstraction fits stateful loops because nodes and edges make transitions explicit: what state enters, what decision is made, where the flow goes next, and when it stops.
+4. A chain is better when the task is linear, short, stable, and easy to inspect, such as formatting input, calling one retriever, then generating a short answer.
+
+</details>

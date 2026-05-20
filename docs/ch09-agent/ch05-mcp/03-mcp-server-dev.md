@@ -415,3 +415,13 @@ The clearer the server is, the easier it is for the client side to expand, and t
 2. Add parameter validation logic for this new tool.
 3. Think about it: what problems do too coarse and too fine tool granularity each cause?
 4. Explain in your own words: why is the core of MCP Server development not just “executing tools,” but “exposing clear boundaries”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add `get_weather(city)` as a registered tool with a description and schema, then return a small structured result such as `{city, condition, source}`. Use placeholder data unless the page already connects to a real API.
+2. Validate that `city` exists, is a non-empty string, and is not an unexpectedly large payload. Invalid input should return a clear error instead of silently guessing.
+3. Too coarse a tool hides important choices and makes errors hard to localize. Too fine a tool forces the Agent to plan too many tiny calls and increases latency, routing mistakes, and context clutter.
+4. MCP Server development is about exposing a boundary: what the tool does, what input it accepts, what output and errors it returns, and what permissions it needs. Execution is only one part of that contract.
+
+</details>

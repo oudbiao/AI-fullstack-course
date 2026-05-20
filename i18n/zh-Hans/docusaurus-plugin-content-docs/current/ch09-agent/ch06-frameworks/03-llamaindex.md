@@ -322,3 +322,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 想一想：为什么说文档摄取质量会直接影响后面的检索效果？
 3. 用自己的知识库数据再造 3 条节点，重新跑一遍检索示例。
 4. 说明：如果系统主线是多 Agent 协作而不是知识检索，为什么 LlamaIndex 不一定应该做“总框架”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Document 是原始材料，Node 是可检索的片段，Index 是组织好的搜索结构，Retriever 负责选出相关节点，Query Engine 把检索和回答生成组合起来。
+2. 文档摄入质量重要，是因为糟糕切分、缺失 metadata、解析噪声都会在后面变成检索失败。如果正确证据没有进入上下文，模型就很难答好。
+3. 用自己的数据重跑时，应该能看到哪些节点被选中以及原因。如果结果弱，优先检查 chunk size、overlap、metadata，以及 query 用词是否和文档一致。
+4. 如果主问题是多 Agent 协作，LlamaIndex 仍可用于知识检索，但不一定适合作为主编排框架，因为它最强的抽象入口是文档和索引。
+
+</details>

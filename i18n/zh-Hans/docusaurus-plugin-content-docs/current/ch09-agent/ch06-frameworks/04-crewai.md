@@ -312,3 +312,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 想一想：为什么“角色数量变多”不代表系统质量就会更高？
 3. 用自己的话解释：CrewAI 和 LangGraph 的抽象入口有什么不同？
 4. 如果你的任务里有很多回路和条件分支，你还会优先选 CrewAI 吗？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 一个有用的三角色 crew 可以是 researcher、writer、reviewer。每个角色都应该有窄职责、清晰产物，以及交给下一个角色的交接点。
+2. 角色越多不一定越好。职责重叠、消息噪声变大、没人负责最终判断时，质量反而会下降。只有当新角色能消除真实瓶颈时才添加。
+3. CrewAI 的入口是角色协作：谁做事、任务如何在角色之间流动。LangGraph 的入口是显式状态和转移：哪个节点下一步运行、在什么条件下运行。
+4. 如果任务有很多循环和条件分支，不一定优先选 CrewAI。graph 或 workflow 取向通常更容易检查控制流、重试上限和失败处理。
+
+</details>

@@ -357,3 +357,13 @@ That is the key to helping multi-Agent systems move from "looking busy" to "trul
 2. Design a coordination flow for `"retrieve -> write -> review -> revise"`.
 3. Think about it: if two Agents have conflicting conclusions, would you prefer voting, confidence-based arbitration, or reviewer judgment? Why?
 4. Explain in your own words: why is multi-Agent coordination essentially like a small task scheduling system?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A planner Agent should create an ordered task list with dependencies, such as retrieve first, write after evidence exists, review after draft exists, and revise only when review requests changes.
+2. The coordination flow can be: retrieve evidence -> write draft with citations -> review for correctness and gaps -> revise only the rejected parts -> final check.
+3. For conflicting conclusions, choose the arbitration method based on risk. Voting may work for low-stakes opinions, confidence can help with measurable evidence, and reviewer judgment is better when criteria and accountability matter.
+4. Multi-Agent coordination resembles task scheduling because it manages dependencies, resource use, order, retries, stopping conditions, and final acceptance.
+
+</details>

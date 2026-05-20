@@ -368,3 +368,13 @@ When you can match task shape with collaboration pattern, Multi-Agent will truly
 2. Add a `reviser` Agent to the small workflow in this section so that it modifies the draft based on the review.
 3. Think about this: why do high-risk tasks need a combination of “generation + verification + risk review”?
 4. Explain in your own words: why is the focus of Multi-Agent not the number of roles, but the collaboration structure?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Classify the task by its dominant risk: research collaboration if evidence coverage matters, writing + review if expression and accuracy matter, and development team if implementation and tests matter.
+2. A `reviser` Agent should read the draft plus review comments, change only the rejected or weak parts, and return both the revised output and a short change note.
+3. High-risk tasks need generation + verification + risk review because fluent output can still be wrong, incomplete, unsafe, or unsupported by evidence.
+4. The focus is collaboration structure because roles only help when they create useful boundaries, handoffs, checks, and decisions. A long role list without structure is just extra conversation.
+
+</details>

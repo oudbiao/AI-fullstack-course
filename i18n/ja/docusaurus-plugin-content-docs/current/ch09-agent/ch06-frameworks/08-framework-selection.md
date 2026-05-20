@@ -297,3 +297,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 考えてみましょう：なぜ小さいプロジェクトに複雑なフレームワークを無理に入れると、長期的には逆に遅くなることがあるのでしょうか？
 3. 自分の言葉で説明してみましょう：なぜフレームワーク選定は、ライブラリ選択ではなくアーキテクチャ判断なのか？
 4. チームが特に制御性と可観測性を重視しているなら、どんなスタイルのフレームワークを優先しますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 実用的な重みづけは、project の最大の不確実性から始めます。RAG 中心なら knowledge organization、長く動く Agent なら state flow、team simulation なら role collaboration が重くなります。
+2. 単純な project に複雑な framework を押し込むと遅くなります。学習者が business logic と framework abstraction の両方を debug する必要があり、余分な仕組みが本当の failure point を隠すからです。
+3. framework selection は architecture decision です。state、observability、testability、team workflow、deployment、将来の migration cost に影響するため、単なる import ではありません。
+4. controllability と observability を重視するなら、明示的な graph/workflow design、強い tracing、明確な state object を優先します。run loop を見えにくくする抽象は避けます。
+
+</details>

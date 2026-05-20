@@ -322,3 +322,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 考えてみましょう。なぜ AutoGen スタイルのタスクでは「話しすぎる」問題が起きやすいのでしょうか？
 3. 自分の言葉で説明してみましょう。AutoGen と CrewAI の核心的な違いは何ですか？
 4. あなたのタスクに強い状態機械の制御が必要なら、このような対話型抽象化を最優先で選びますか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 基本 flow は、planner が task と acceptance criteria を定義し、coder が実装案や修正を出し、reviewer が correctness と risk を確認し、planner が次の round の必要性を判断する形です。
+2. AutoGen 型は会話が増えすぎやすいです。conversation 自体が control mechanism だからです。停止条件、role 境界、review criteria がなければ、Agent は完了せず交渉を続けがちです。
+3. AutoGen は Agent 間の conversational interaction を重視します。CrewAI は role / task organization を重視します。実務では重なりますが、mental model が設計を変えます。
+4. 強い state-machine control が必要なら、conversational abstraction は第一候補でない場合があります。state、上限、transition、traceability を明確に強制できる場合だけ使います。
+
+</details>

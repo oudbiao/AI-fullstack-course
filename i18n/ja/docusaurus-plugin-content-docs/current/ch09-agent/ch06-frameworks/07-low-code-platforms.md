@@ -278,3 +278,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 自分の言葉で説明してみましょう：なぜローコードは要件検証の段階に特に向いているのですか？
 3. 考えてみましょう：「ローコードは実装のハードルは下げられるが、理解のハードルは置き換えられない」と言えるのはなぜですか？
 4. もしあなたのシステムに状態のループが多いなら、それでもローコードプラットフォームを最優先で選びますか？なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. node-based 表現が向くのは、workflow に見える段階と単純な分岐があり、関係者が process の形を確認したい場合です。state loop と custom logic が中心になると弱くなります。
+2. low-code が requirement validation に向くのは、非エンジニアも workflow を見て、足りない step を指摘し、本番実装に入る前に案を試せるからです。
+3. low-code が下げるのは実装の摩擦です。retrieval quality、tool permission、error handling、evaluation、deployment risk の理解は不要になりません。
+4. state loop が多い system なら、low-code を第一候補にするのは慎重に考えます。prototype には有用でも、本番 logic では code-level control と testing が必要になりやすいです。
+
+</details>

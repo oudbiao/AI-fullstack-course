@@ -386,3 +386,13 @@ integration_action: validate server contract before adding autonomy
 2. 考えてみましょう。transport が変わっても、上位の呼び出しロジックはできるだけ変えない方がよいのはなぜか？
 3. `MockMCPServer` に `get_weather` ツールを追加してみましょう。
 4. 自分の言葉で説明してみましょう。なぜ MCP は「ツールそのもの」ではなく、「デカップリング層」だと言えるのか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. client と server を分けるべきなのは、client が orchestration、ユーザー文脈、ポリシーを持ち、server が能力実装と契約を持つからです。混ぜると、新しい tool や transport の変更が全体に波及します。
+2. transport は差し替え可能であるべきです。tool 呼び出しの意味は、stdio、HTTP、その他の経路のどれで運ばれるかに依存しないほうがよいからです。よい設計では、呼び出し契約を保ったまま配送方式だけを替えます。
+3. よい `get_weather` 追加には、明確な名前、説明、必須の `city` 引数、空文字や文字列でない都市名の検証、入力不正時の安定したエラー形式が含まれます。
+4. MCP が decoupling layer と呼ばれるのは、境界を越えて能力を説明し呼び出す方法を定めるからです。MCP 自体が tool なのではなく、天気取得、ファイル読み取り、DB クエリなどの実能力は server 実装の背後にあります。
+
+</details>

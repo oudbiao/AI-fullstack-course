@@ -381,3 +381,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 想一想：如果你要做“自动研究报告”，哪种模式最适合先落地？为什么？
 3. 设计一个“检索 -> 写作 -> 审核”的三 Agent 流水线。
 4. 思考：为什么说多 Agent 架构首先是组织问题，而不是模型数量问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. supervisor 模式把任务分配和决策集中起来；pipeline 模式让工作按阶段顺序传递；reviewer 模式增加显式质量关卡，可以接受、拒绝或要求修改。
+2. 自动研究报告可以先做 retrieval -> writing -> review。这条 pipeline 容易检查，reviewer 也给了你抓 unsupported claims 的明确位置。
+3. 一个好的三 Agent pipeline 会记录 retrieval 的 query 和 evidence，只把相关笔记交给 writing，再让 review 检查引用覆盖、缺失假设和最终答案质量。
+4. 多 Agent 首先是组织问题，因为关键在于责任、信息和决策如何流动。只增加模型数量而不明确边界，通常增加的是噪声而不是能力。
+
+</details>

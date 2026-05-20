@@ -385,3 +385,13 @@ integration_action: validate server contract before adding autonomy
 2. 想一想：如果 transport 换掉，为什么上层调用逻辑最好尽量不变？
 3. 给 `MockMCPServer` 再加一个 `get_weather` 工具。
 4. 用自己的话解释：为什么说 MCP 是“解耦层”，而不是“工具本身”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. client 和 server 要分工，是因为 client 负责编排、用户上下文和策略，server 负责能力实现与契约。如果混在一起，每新增工具或更换 transport，都会牵动整个系统。
+2. transport 应该可替换，因为一次工具调用的语义不应该依赖它走 stdio、HTTP 还是别的通道。好的架构会保持调用契约稳定，只替换传输方式。
+3. 一个合格的 `get_weather` 扩展，应该包含清晰的名称、描述、必需的 `city` 参数、对空字符串或非字符串城市名的校验，以及输入无效时稳定的错误结构。
+4. MCP 被称为解耦层，是因为它定义跨边界描述和调用能力的方式。它不是工具本身；天气查询、文件读取、数据库查询这些真正能力仍然在 server 实现后面。
+
+</details>

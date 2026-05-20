@@ -302,3 +302,13 @@ decision: choose framework only after the single-agent loop is clear
 2. なぜ、複雑度が高くないプロジェクトでは、手書きのほうがよい場合があるのか考えてみましょう。
 3. 自分の言葉で説明してみましょう。フレームワークが本当に省いてくれている仕事は何でしょうか？
 4. チームが特にコントロール性を重視するなら、どんなスタイルのフレームワークを選びたくなりますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 難所が状態、分岐、retry、observability なら graph/workflow 指向が向いています。専門 role への分担とレビューが難所なら、role-collaboration 指向が向いています。
+2. 複雑度が低いプロジェクトでは、手書きコードのほうがよいことがあります。抽象が少なく、隠れたデフォルトも少なく、デバッグ経路が短いからです。
+3. framework が省くのは、message passing、state container、tool binding、trace、retry、memory hook、よくある workflow pattern といった反復的な配管です。システム設計の理解までは代替しません。
+4. controllability を重視するなら、明示的な workflow / graph 型 framework、または小さな手書き orchestration layer を優先します。状態遷移と失敗経路を確認しやすいからです。
+
+</details>

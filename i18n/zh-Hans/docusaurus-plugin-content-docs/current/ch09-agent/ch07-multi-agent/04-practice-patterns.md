@@ -368,3 +368,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 给本节的小型工作流再加一个 `reviser` Agent，让它根据 review 修改 draft。
 3. 想一想：高风险任务为什么更需要“生成 + 核查 + 风险审查”的组合？
 4. 用自己的话解释：为什么说多 Agent 的重点不是角色数量，而是协作结构？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以按主要风险分类：如果证据覆盖最重要，就是 research collaboration；如果表达和准确性最重要，就是 writing + review；如果实现和测试最重要，就是 development team。
+2. `reviser` Agent 应读取 draft 和 review comments，只修改被拒绝或薄弱的部分，并返回 revised output 和简短 change note。
+3. 高风险任务需要 generation + verification + risk review，因为流畅输出仍可能错误、不完整、不安全，或没有证据支撑。
+4. 重点是协作结构，因为角色只有在形成有用边界、交接、检查和决策时才有价值。没有结构的长角色列表，只会增加对话量。
+
+</details>

@@ -319,3 +319,13 @@ But if you need strong state control, you need to be especially careful about tu
 2. Think about why AutoGen-style tasks are especially prone to “too many rounds of talking.”
 3. Explain in your own words: what is the core difference between AutoGen and CrewAI?
 4. If your task requires strong state-machine control, would you still prioritize this conversational abstraction? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A basic flow is: planner defines the task and acceptance criteria, coder proposes or edits the implementation, reviewer checks correctness and risk, then the planner decides whether another round is needed.
+2. AutoGen-style systems can talk too much because conversation itself is the control mechanism. Without stop conditions, role boundaries, and review criteria, agents may keep negotiating instead of finishing.
+3. AutoGen emphasizes conversational interaction among agents. CrewAI emphasizes role/task organization. They overlap in practice, but their mental models lead you to design the system differently.
+4. If strong state-machine control is required, conversational abstraction may not be the first choice. Use it only if you can still enforce state, limits, transitions, and traceability clearly.
+
+</details>

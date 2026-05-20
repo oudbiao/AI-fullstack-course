@@ -322,3 +322,13 @@ Once you view it as a “knowledge organization framework” rather than a “un
 2. Think about why the quality of document ingestion directly affects retrieval results later.
 3. Recreate 3 nodes using your own knowledge base data and run the retrieval example again.
 4. Explain: if the main pipeline of the system is multi-Agent collaboration rather than knowledge retrieval, why might LlamaIndex not be the best choice as the “main framework”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Document is the source material, Node is the retrievable chunk, Index is the organized search structure, Retriever selects relevant nodes, and Query Engine combines retrieval with response generation.
+2. Ingestion quality matters because bad chunking, missing metadata, or noisy parsing becomes retrieval failure later. The model cannot answer well if the right evidence never reaches the context.
+3. A good rerun with your own data should show which nodes were selected and why. If results are weak, inspect chunk size, overlap, metadata, and whether the query uses the same vocabulary as the documents.
+4. If the main problem is multi-Agent collaboration, LlamaIndex may still be useful for knowledge retrieval, but it may not be the main orchestration framework because its strongest abstraction starts from documents and indexes.
+
+</details>

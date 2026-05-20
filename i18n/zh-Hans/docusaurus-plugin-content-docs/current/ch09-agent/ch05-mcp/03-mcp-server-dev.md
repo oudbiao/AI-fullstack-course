@@ -415,3 +415,13 @@ integration_action: validate server contract before adding autonomy
 2. 为这个新工具补上参数校验逻辑。
 3. 想一想：工具粒度太粗和太细，各自会带来什么问题？
 4. 用自己的话解释：为什么说 MCP 服务器开发的核心不只是“执行工具”，更是“暴露清晰边界”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以把 `get_weather(city)` 注册成一个带描述和 schema 的 tool，并返回类似 `{city, condition, source}` 的小型结构化结果。除非正文已经接入真实 API，否则用占位数据即可。
+2. 校验 `city` 是否存在、是否为非空字符串、是否不是异常大的输入。输入无效时要返回清晰错误，而不是静默猜测。
+3. 工具粒度太粗会隐藏关键选择，错误也难定位；粒度太细会迫使 Agent 规划大量小调用，增加延迟、路由错误和上下文噪声。
+4. MCP Server 开发的核心是暴露边界：工具做什么、接受什么输入、返回什么输出和错误、需要什么权限。执行工具只是契约的一部分。
+
+</details>

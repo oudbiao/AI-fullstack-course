@@ -322,3 +322,13 @@ LlamaIndex を「万能フレームワーク」ではなく「知識整理フレ
 2. なぜ文書の取り込み品質が、その後の検索結果に直接影響すると言えるのか考えてみましょう。
 3. 自分の知識ベースデータから 3 つノードを作り直して、検索例をもう一度実行してみましょう。
 4. システムの主軸が知識検索ではなくマルチ Agent 協調の場合、なぜ LlamaIndex を「総合フレームワーク」にすべきとは限らないのか説明してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. Document は元資料、Node は検索可能な chunk、Index は整理された検索構造、Retriever は関連 node を選ぶ部品、Query Engine は retrieval と回答生成を組み合わせる部品です。
+2. ingestion 品質が重要なのは、悪い chunking、metadata 欠落、parse ノイズが後で retrieval 失敗になるからです。正しい根拠が context に届かなければ、モデルはうまく答えられません。
+3. 自分のデータで再実行したら、どの node が選ばれたか、なぜ選ばれたかを確認します。結果が弱い場合は chunk size、overlap、metadata、query の語彙が文書と合っているかを見ます。
+4. 主問題が multi-Agent collaboration なら、LlamaIndex は knowledge retrieval には有用でも、主 orchestration framework ではないかもしれません。最も強い抽象が documents と indexes から始まるためです。
+
+</details>

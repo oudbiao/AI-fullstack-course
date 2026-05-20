@@ -357,3 +357,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 设计一个“检索 -> 写作 -> 审核 -> 修订”的协调流程。
 3. 想一想：如果两个 Agent 结论冲突，你更倾向于投票、置信度裁决，还是审核者拍板？为什么？
 4. 用自己的话解释：为什么说多 Agent 协调本质上很像一个小型任务调度系统？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. planner Agent 应生成带依赖关系的有序任务列表，例如先 retrieve，有证据后 write，有 draft 后 review，只有 review 要求修改时才 revise。
+2. 协调流程可以是：retrieve evidence -> write draft with citations -> review correctness and gaps -> revise rejected parts -> final check。
+3. 冲突结论要按风险选择仲裁方式。低风险意见可投票；有可度量证据时可参考 confidence；需要标准和责任时，更适合让 reviewer 判断。
+4. 多 Agent 协调像任务调度系统，因为它要管理依赖、资源使用、顺序、重试、停止条件和最终验收。
+
+</details>

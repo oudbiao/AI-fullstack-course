@@ -420,3 +420,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 想一想：如果一个多 Agent 系统总是重复检索，你会优先改任务分配、通信协议还是共享状态？
 3. 设计一份你自己的多 Agent 追踪 结构，至少包含 `task_id`、`agent`、`action`、`latency_ms`。
 4. 用自己的话解释：为什么多 Agent 系统出问题时，很多时候不是“模型太弱”，而是“系统边界不清”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. “reviewer 最终裁决”设计中，每个 Agent 提交结论、证据和不确定性。reviewer 按标准比较它们，选择或合并答案，并记录裁决理由。
+2. 如果系统反复检索同一信息，优先检查 shared state 和 communication protocol。Agent 可能不知道哪些内容已经检索过，也不知道证据存在哪里。
+3. 有用的 trace 可以包含 `task_id`、`agent`、`action`、`input_ref`、`output_ref`、`latency_ms`、`status`、`error`。涉及判断时还应加 evidence references。
+4. 很多失败来自边界不清：谁负责这个任务、什么证据算数、什么时候停止、谁做决定。更强模型无法完全弥补糟糕的组织循环。
+
+</details>

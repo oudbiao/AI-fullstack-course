@@ -425,3 +425,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 考えてみましょう。あるマルチ Agent システムがいつも同じ情報を再検索してしまうとき、まず直すべきなのはタスク割り当て、通信プロトコル、それとも共有状態でしょうか？
 3. 自分なりのマルチ Agent トレース 構造を設計してみましょう。少なくとも `task_id`、`agent`、`action`、`latency_ms` を含めてください。
 4. 自分の言葉で説明してみましょう。なぜマルチ Agent システムで問題が起きたとき、原因は「モデルが弱い」ことではなく、「システムの境界が不明確」なことだと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. reviewer が最終判断する設計では、各 Agent が conclusion、evidence、uncertainty を提出します。reviewer は criteria に照らして比較し、選択または統合し、その decision reason を記録します。
+2. 同じ情報を何度も retrieval しているなら、まず shared state と communication protocol を見ます。Agent が何を取得済みか、evidence がどこに保存されているかを知らない可能性があります。
+3. 有用な trace には `task_id`、`agent`、`action`、`input_ref`、`output_ref`、`latency_ms`、`status`、`error` を含められます。判断には evidence references も加えます。
+4. 多くの失敗は境界の曖昧さから起きます。誰が task を持つのか、どの evidence が有効か、いつ止めるか、誰が決めるかです。強い model だけでは、悪い organization loop は補えません。
+
+</details>

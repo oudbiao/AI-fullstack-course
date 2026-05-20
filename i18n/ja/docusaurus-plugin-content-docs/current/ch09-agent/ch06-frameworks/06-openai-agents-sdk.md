@@ -326,3 +326,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 考えてみましょう：この高レベル SDK と CrewAI の「チーム協調の抽象化」にはどんな違いがありますか？
 3. もし自分のシステムにすでに複雑な状態機械があるなら、このような高レベル SDK を最初に選びますか？ なぜですか？
 4. 自分の言葉で説明してみましょう：SDK が本当に省いてくれるのは、どの種類の頻出する定型作業でしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. Runner / Runtime が重要なのは、本番 Agent には prompt 以上のものが必要だからです。tool execution、state movement、handoff、error handling、tracing、loop を安定して回す方法が必要です。
+2. 高レベル SDK は、Agent runtime を構築し観測しやすくすることに重心があります。CrewAI は role と task の team としてモデル化することに重心があります。何を明示したいかで選択が変わります。
+3. すでに複雑な state machine があるなら、自動的に置き換えないほうがよいです。既存の transition、trace、failure policy と統合でき、重要な control を隠さないかを先に確認します。
+4. SDK は tool registration、call execution、handoff wiring、structured outputs、tracing、共通 runtime 処理の boilerplate を減らせます。ただし task design と evaluation は残ります。
+
+</details>

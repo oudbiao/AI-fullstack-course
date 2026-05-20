@@ -298,3 +298,13 @@ decision: choose framework only after the single-agent loop is clear
 2. 想一想：为什么说复杂度不高的项目，手写反而可能更好？
 3. 用自己的话解释：框架真正替你省掉的工作是什么？
 4. 如果你团队特别看重可控性，你会更倾向选择什么风格的框架？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 如果难点是状态、分支、重试和可观测性，更适合 graph/workflow 取向；如果难点是把工作拆给不同专业角色并审核结果，更适合 role-collaboration 取向。
+2. 低复杂度项目手写代码可能更好，因为抽象更少、隐藏默认行为更少、调试路径更短。
+3. 框架真正节省的是重复工程：消息传递、状态容器、tool 绑定、trace、重试、memory hook 和常见工作流模式。它不会替你理解系统设计。
+4. 如果团队最重视可控性，应优先选择显式 workflow / graph 风格框架，甚至小型手写编排层，因为状态转移和失败路径更容易检查。
+
+</details>

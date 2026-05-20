@@ -356,3 +356,13 @@ The more mature the client is, the easier it becomes for the capabilities on the
 2. Think about this: why are some systems suitable for rediscovering tools on every request, while others are better with caching?
 3. Add a “retry once after failure” behavior to `safe_call()`.
 4. Explain in your own words: why does an MCP Client usually also need a “strategy layer”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A good `read_file` integration adds the tool schema on the server, lets the client discover it, then routes file-reading requests to that tool only after checking path permissions or a safe allowlist.
+2. Rediscovery works well when tools are dynamic or servers change often. Caching works better when startup cost matters, contracts are stable, and repeated discovery would add unnecessary latency.
+3. A safe retry should happen only for transient failures, record both attempts in the trace, and stop after one retry. It should not retry permission errors, validation errors, or unsafe operations blindly.
+4. The client needs a strategy layer because discovery only says what can be called. The client still decides when to call, which tool to choose, how to recover from failure, and how to combine results into the Agent loop.
+
+</details>

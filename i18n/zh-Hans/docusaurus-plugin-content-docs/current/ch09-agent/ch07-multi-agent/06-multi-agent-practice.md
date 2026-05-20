@@ -348,3 +348,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 让 `planner_agent` 针对“证书政策”也能产出不同计划。
 3. 想一想：如果审核者一直不通过，系统应该怎样限制修订轮数？
 4. 用自己的话解释：为什么说多 Agent 项目真正重要的是“状态流转”，而不是“角色数量”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `fact_checker_agent` 应接收 draft 和抽取出的数字条件，把每条 claim 与 source evidence 对照，并返回 pass/fail 状态和需要修改的具体 claim。
+2. 对 “certificate policy”，planner 应生成包含 policy retrieval、eligibility extraction、conflict checking、draft answer、reviewer verification 的计划，而不是盲目复用通用计划。
+3. 修改轮次应该有上限，例如最多两轮 review-revise。如果仍失败，系统应停止，报告未解决问题，并请求人工输入，而不是无限循环。
+4. state transition 重要，是因为项目成功依赖每个阶段受控地改变系统状态：plan created、evidence collected、draft written、facts checked、review passed、final delivered。
+
+</details>

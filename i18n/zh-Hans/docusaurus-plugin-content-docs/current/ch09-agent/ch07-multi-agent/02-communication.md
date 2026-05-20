@@ -414,3 +414,13 @@ eval_action: compare multi-agent result against single-agent baseline
 2. 设计一份你自己的统一消息协议，至少包含 `type`、`task_id` 和 `payload`。
 3. 想一想：什么时候你会更倾向于共享状态，而不是点对点消息？
 4. 用自己的话解释：为什么多 Agent 系统里，通信设计往往和任务分工同样重要？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `reviewer_handler` 应订阅 `task_done`，读取 payload，检查结果是否满足标准，然后发布 review 事件，或把 review 状态写回 shared state。
+2. 一个有用的协议可以包含 `type`、`task_id`、`from`、`to`、`payload`、`evidence`、`status`、`timestamp`。字段可以调整，但消息语义要稳定。
+3. 当多个 Agent 需要同一份不断变化的 artifact，或点对点消息会重复大量上下文时，shared state 更合适；简单交接和窄请求更适合直接消息。
+4. 通信设计重要，是因为即使角色本身不错，如果输入含糊、证据丢失、重复劳动、无法判断任务是否完成，系统仍然会失败。
+
+</details>
