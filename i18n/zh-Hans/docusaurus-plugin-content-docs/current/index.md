@@ -34,3 +34,14 @@ keywords: [AI 全栈课程, AI 学习, AI 新手课程, LLM, RAG, AI Agent]
 ## 一个规则
 
 短读，跑起来，留证据。每个阶段结束时，都应该留下别人能检查的东西：README 命令、保存的输出、指标表、trace、失败笔记，或者一个小演示。
+
+## 第一张证据卡
+
+进入第 1 章前，先写下这张小卡片：
+
+```text
+current_goal: 选择一条路线并开始学习
+first_route: 快速体验 -> 最小环境 -> 能力地图 -> 第 1 章
+first_evidence: 截图、保存的输出、README 命令，或者一条简短笔记
+Expected_output: 选定一条学习路线，并写下一个具体下一步
+```

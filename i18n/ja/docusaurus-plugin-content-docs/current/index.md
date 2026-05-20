@@ -11,7 +11,7 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 まず小さく始めます。AI例を1つ体験し、最小環境を準備し、能力マップを見て、第1章へ進みます。
 
-この講座には main line と expansion tracks があります。第1-9章は、ツール、Python、データ、モデル、LLM、RAG、Agent まで進む core path です。第10-12章は、vision、NLP、multimodal/AIGC の specialization tracks です。elective modules は deployment、advanced Python、classic ML などを深掘りする side roads です。
+この講座には主線と拡張ルートがあります。第1-9章は、ツール、Python、データ、モデル、LLM、RAG、Agent まで進む中核ルートです。第10-12章は、vision、NLP、multimodal/AIGC の specialization tracks です。elective modules は deployment、advanced Python、classic ML などを深掘りする脇道です。
 
 ## 画像に沿って進む
 
@@ -33,4 +33,15 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 ## 1つのルール
 
-短く読み、動かし、証拠を残す。各ステージの終わりには、他の人が確認できるものを残します。README コマンド、保存した出力、指標表、trace、失敗メモ、小さなデモなどです。
+短く読み、動かし、証拠を残す。各ステージの終わりには、他の人が確認できるものを残します。README コマンド、保存した出力、指標表、トレース、失敗メモ、小さなデモなどです。
+
+## 最初の証拠カード
+
+第1章に入る前に、次の小さなカードを1枚書きます。
+
+```text
+current_goal: 1つのルートを選んで始める
+first_route: クイック体験 -> 最小環境 -> 能力マップ -> 第1章
+first_evidence: スクリーンショット、保存した出力、README コマンド、または短いメモ
+Expected_output: 学習ルートを1つ選び、次の具体的な行動を1つ書く
+```

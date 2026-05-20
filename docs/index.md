@@ -34,3 +34,14 @@ The course has a main line and expansion tracks. Chapters 1-9 build the core pat
 ## One Rule
 
 Read briefly, run something, keep evidence. At the end of each stage, you should have something another person can inspect: a README command, a saved output, a metric table, a trace, a failure note, or a small demo.
+
+## First Evidence Card
+
+Before Chapter 1, write one small card:
+
+```text
+current_goal: choose one route and start it
+first_route: quick experience -> minimum setup -> capability map -> Chapter 1
+first_evidence: screenshot, saved output, README command, or a short note
+Expected_output: one chosen learning route and one concrete next action
+```

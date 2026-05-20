@@ -552,6 +552,19 @@ Try these changes one by one:
 4. Save side-by-side images showing original, mask, and prediction.
 5. Replace the centroid classifier with a small CNN or a pretrained classifier after you finish this baseline.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. When you add `star`, update the label list, sample generation, and any metric or report text that assumes three classes. Re-run the script and compare the new failures, not just the final accuracy.
+2. For `challenge_plan`, keep the same model and split, then increase blur and occlusion in a controlled way. The goal is to see which failure mode grows first.
+3. When you lower the `box_iou` threshold, read `failure_cases.md` as a debugging aid, not as a score target. Watch for false positives and false negatives shifting in opposite directions.
+4. The side-by-side image should keep the same scale and ordering for every sample so it can be inspected quickly. Original, mask, and prediction are the minimum useful trio.
+5. Only replace the centroid baseline after you can describe what it gets wrong. A small CNN or pretrained classifier is the next step, not the first step.
+
+Expected_output: a short comparison note that names one change, one metric shift, and one failure example.
+
+</details>
+
 ## Completion Standard
 
 You can consider this workshop complete when you have:

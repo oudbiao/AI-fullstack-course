@@ -552,6 +552,19 @@ cv_workshop_run/reports/failure_cases.md
 4. original、mask、prediction を横に並べた画像を保存する。
 5. baseline が動いたあと、centroid classifier を小さな CNN や事前学習済み分類器に置き換える。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `star` を追加するときは、ラベル一覧、サンプル生成、そして 3 クラス前提の説明や指標をそろえて更新します。再実行したあと、最終 accuracy だけでなく失敗例の変化も確認します。
+2. `challenge_plan` はモデルと分割を変えず、ぼかしと遮蔽を少しずつ増やします。どの失敗モードが最初に増えるかを見るのが目的です。
+3. `box_iou` のしきい値を下げたら、`failure_cases.md` はスコア表ではなくデバッグ材料として読みます。偽陽性と偽陰性の動きを一緒に見ます。
+4. 横並びの画像は、毎回同じ尺度と順番にそろえると見やすくなります。original、mask、prediction の 3 枚が最小の実用セットです。
+5. centroid classifier の置き換えは、まず baseline の弱点を説明できるようになってから行います。小さな CNN や事前学習済み分類器は次の一手です。
+
+Expected_output: 1 つの変更、1 つの指標変化、1 つの失敗例を含む短い比較メモ。
+
+</details>
+
 ## 完了基準
 
 このワークショップは、次ができたら完了です。

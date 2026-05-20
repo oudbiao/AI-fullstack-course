@@ -552,6 +552,19 @@ cv_workshop_run/reports/failure_cases.md
 4. 保存原图、mask、预测图的三联图。
 5. 跑通 baseline 后，再把 centroid classifier 换成小 CNN 或预训练分类模型。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加 `star` 时，要同步更新标签列表、样本生成逻辑，以及假设只有 3 类的指标或说明文字。重新运行脚本后，要看失败样本怎么变，而不只是看最终准确率。
+2. 修改 `challenge_plan` 时，保持模型和数据切分不变，只是有控制地增加模糊和遮挡。重点是观察哪一种失败模式最先变多。
+3. 降低 `box_iou` 阈值后，把 `failure_cases.md` 当成调试材料，而不是分数目标。重点看假阳性和假阴性是否朝相反方向变化。
+4. 三联图要保持统一尺度和顺序，方便快速检查。原图、mask、预测图这三张就是最小有用组合。
+5. 只有在你能说清楚 baseline 错在哪里之后，才替换 centroid classifier。小 CNN 或预训练分类器是下一步，不是第一步。
+
+Expected_output: 一段简短对比说明，包含一个改动、一个指标变化和一个失败样本。
+
+</details>
+
 ## 完成标准
 
 完成本工作坊的标准是：
