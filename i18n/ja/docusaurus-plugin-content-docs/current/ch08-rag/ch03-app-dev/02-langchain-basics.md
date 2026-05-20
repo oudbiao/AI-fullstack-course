@@ -342,3 +342,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. 自分の言葉で説明してください。なぜ Prompt もチェーンの中の 1 つのコンポーネントとして見られるのでしょうか？
 3. 考えてみてください。フローに複雑な分岐が入り始めると、なぜチェーン型の抽象化はつらくなるのでしょうか？
 4. 自分の言葉で説明してください。LangChain はどのような形の問題に最も向いていますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. クエリ書き換えステップでは、同義語をそろえ、元の意図を保ったまま検索向きの表現に変えます。
+2. Prompt は入力を指示に変換し、出力の形を制約するので、チェーン内の1つの component と見なせます。
+3. 分岐、retry、状態に基づく判断、tool loop が増えると、線形の chain は扱いづらくなります。
+4. LangChain は、Prompt、retriever、tool、parser などを組み合わせた、比較的予測しやすい LLM workflow に向いています。
+
+</details>

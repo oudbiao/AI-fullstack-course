@@ -522,3 +522,13 @@ This is almost unavoidable foundational knowledge in LLM engineering.
 2. Add one more concurrent tool call in `handle_request()`.
 3. Think about why asynchronous programming is especially suitable for LLM applications with “many external dependencies.”
 4. Explain in your own words: why is asynchronous programming not “making a single task faster,” but “making overall waiting smarter”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Increasing tasks to 30 should reveal queueing. `Semaphore` controls max in-flight work and prevents overwhelming external dependencies.
+2. The additional concurrent call should be awaited with error and timeout handling so one slow dependency does not block everything silently.
+3. LLM apps wait on model APIs, retrievers, databases, tools, storage, and monitoring. Async improves resource use during that waiting time.
+4. It does not make one remote call faster; it lets other useful work proceed while that call waits.
+
+</details>

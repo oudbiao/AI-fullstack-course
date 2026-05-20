@@ -562,3 +562,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. 天気検索タスクのために、都市や日付を含む `slot state` を設計してみましょう。
 3. 考えてみましょう：「確認質問」が「適当に推測する」よりよい対話戦略であるのはなぜでしょうか？
 4. 自分の言葉で説明してみましょう。なぜマルチターン対話の核心は、履歴をつなげることではなく状態管理だと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 証明書トピックでは intent、必須 slot、不足情報を聞く質問、tool/action、終了時の返答を定義します。
+2. 天気の slot には、city、date、unit、現在の天気か予報か、といった項目が入ります。
+3. 必須 slot が足りないとき、確認質問は hallucination と誤った tool call を減らします。
+4. 状態管理は intent、slot、ユーザープロフィール、tool 結果、未解決 action を追跡します。生の履歴だけではノイズが多く、コストも高すぎます。
+
+</details>

@@ -330,3 +330,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. 考えてみてください：なぜ pipeline はすぐに検証するのに向いているのに、複雑な本番システムには必ずしも向いていないのですか？
 3. 実際のプロジェクトを作るなら、なぜ tokenizer とデータ層も視野に入れる必要があるのでしょうか？
 4. 自分の言葉でまとめてください：Hub、pipeline、model、tokenizer は、それぞれ何を解決しているものに近いですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. HuggingFace には Hub、datasets、tokenizers、Transformers、pipelines、Spaces、コミュニティ評価/共有の流れがあります。
+2. `pipeline` は素早い end-to-end の動作確認に向いていますが、本番では batching、独自前処理、モデルロード制御、監視、エラー処理が必要になることが多いです。
+3. tokenizer とデータ層は、モデルが何を入力として受け取れるか、学習/推論サンプルがどう作られるかを決めます。
+4. Hub は artifact を共有し、`pipeline` は素早い task wrapper を提供し、model は推論/学習を行い、tokenizer は text と ID を相互変換します。
+
+</details>

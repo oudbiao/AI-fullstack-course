@@ -401,3 +401,13 @@ rollback_plan: fallback model, retry policy, or traffic switch
 2. 想一想：如果你的产品要求很低延迟，你会倾向大 batch 还是小 batch？
 3. 设计一份最小推理服务监控指标清单。
 4. 为什么说推理服务真正难的是“平衡”，而不是单项做到极致？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. concurrency 指同时在处理多少请求；batching 指把若干工作合并，让加速器更高效地执行。高并发不一定等于大 batch，大 batch 也可能增加单个请求延迟。
+2. 低延迟产品通常更倾向小 batch 或动态 batch，并设置很短的等待窗口。
+3. 最小监控清单应包括 p50/p95/p99 延迟、吞吐量、排队时间、batch 大小、GPU/CPU/内存、KV cache 压力、错误/超时率、token 速率，以及质量/成本信号。
+4. 单项极致会牺牲其他目标：大 batch 提高吞吐但增加延迟；长上下文提高召回但吃内存；过高并发可能引发超时。
+
+</details>

@@ -332,3 +332,13 @@ Once you understand this, when you later look at model applications and fine-tun
 2. Think about it: why is pipeline suitable for quick validation, but not always suitable for complex production systems?
 3. If you are building a real project, why must the tokenizer and data layers also be included in your view?
 4. Summarize in your own words: what problems do the Hub, pipeline, model, and tokenizer each mainly solve?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. HuggingFace includes the Hub, datasets, tokenizers, Transformers, pipelines, Spaces, and community evaluation/sharing workflows.
+2. `pipeline` is great for a quick end-to-end smoke test, but production often needs batching, custom preprocessing, model loading control, monitoring, and error handling.
+3. Tokenizer and data layers define what the model can ingest and how training/inference inputs are formed.
+4. Hub shares artifacts, `pipeline` offers a quick task wrapper, model performs inference/training, and tokenizer maps text to IDs and back.
+
+</details>

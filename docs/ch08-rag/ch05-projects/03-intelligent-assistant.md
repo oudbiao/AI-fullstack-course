@@ -427,3 +427,13 @@ It is recommended to finish the basic version first. Do not try to make it large
 2. Think about why an intelligent assistant needs state management more than an FAQ does.
 3. If the tool cannot find the user’s status, what is the safest response?
 4. If you turn this project into a portfolio piece, which conversation is most worth showing?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The `learning path` topic should add intent detection, required slots, a tool/context source, and a response template.
+2. An assistant must track user goal, missing information, previous answers, tool results, and next action. FAQ is mostly stateless lookup.
+3. The safest response is to say the status cannot be found, ask for the needed information or suggest a secure next step, and avoid inventing status.
+4. The best portfolio conversation shows multi-turn clarification, state updates, tool/RAG evidence, and graceful failure or permission boundaries.
+
+</details>

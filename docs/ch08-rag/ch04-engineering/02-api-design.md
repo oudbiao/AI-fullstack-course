@@ -512,3 +512,13 @@ Once the contract is clear, the service can truly be relied on by others for the
 2. Design a unified error code enum, such as `INVALID_ARGUMENT`, `TIMEOUT`, and `NOT_FOUND`.
 3. Think about it: if this were a “ticket creation” API, how would you consider idempotency?
 4. Explain in your own words: why is API design essentially about defining a system contract?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `session_id` should flow through request parsing, state lookup, logs, and response trace. Validate empty or malformed IDs.
+2. An error enum gives clients stable handling and separates user errors from service errors.
+3. An idempotency key prevents duplicate tickets when the client retries after a timeout.
+4. An API contract defines inputs, outputs, errors, permissions, timing expectations, and compatibility.
+
+</details>

@@ -491,3 +491,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. `CourseAssistant` に統一されたエラー返却構造を追加してください。
 3. 考えてみましょう: なぜ本番プロジェクトでは、業務コードのあちこちで `messages` を直接組み立てるべきではないのでしょうか？
 4. 自分の言葉で説明してみましょう: なぜ「API を呼べること」と「LLM アプリを作れること」の間には、まだ 1 層のシステム設計が必要なのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 「学習順序」用の分岐または fixture を追加し、一般論ではなく順序付きのコース手順を返すことを確認します。
+2. `{status: "error", code: "MODEL_ERROR", message: "...", trace_id: "..."}` のような構造にすると、UI とログが失敗を一貫して扱えます。
+3. `messages` の組み立てを集中させると、system prompt、安全ルール、履歴の切り詰め、schema をそろえられます。
+4. LLM アプリには契約、状態、検索/tool、検証、可観測性、失敗処理が必要です。API 呼び出しは通信層にすぎません。
+
+</details>

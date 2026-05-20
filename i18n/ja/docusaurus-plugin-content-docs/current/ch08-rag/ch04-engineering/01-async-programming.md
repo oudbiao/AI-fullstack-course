@@ -530,3 +530,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. `handle_request()` に、さらに1つ並行ツール呼び出しを追加してみましょう。
 3. 考えてみましょう。なぜ非同期プログラミングは「複数の外部依存」がある LLM アプリに特に向いているのでしょうか？
 4. 自分の言葉で説明してみましょう。なぜ非同期プログラミングは「1つのタスクを速くする」のではなく、「全体の待ちを賢くする」のでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. タスク数を 30 に増やすと queueing が見えやすくなります。`Semaphore` は同時実行中の仕事量を制御し、外部依存を圧迫しないために使います。
+2. 追加した並行 tool call も、error と timeout の処理付きで await します。1つの遅い依存が全体を黙って止めないようにするためです。
+3. LLM アプリは model API、retriever、DB、tool、storage、monitoring を待つことが多いです。async はその待ち時間を有効に使います。
+4. 1回の remote call を速くするのではなく、その call を待っている間に他の有用な仕事を進める技術です。
+
+</details>

@@ -338,3 +338,13 @@ Once this chain mindset is in place, reading real framework APIs later will feel
 2. Explain in your own words: why can Prompt also be seen as a component in the chain?
 3. Think about it: when a workflow starts to have complex branches, why does chain abstraction become strained?
 4. Explain in your own words: what kind of problem shape is LangChain best suited to solve?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The rewrite step can normalize synonyms and produce a retrieval-focused query while preserving the original intent.
+2. Prompt is a component because it transforms inputs into instructions and constrains the output shape.
+3. Chains become strained when branching, retries, stateful decisions, and tool loops dominate the workflow.
+4. LangChain fits composed LLM workflows with reusable prompts, retrievers, tools, and parsers, especially when the flow is mostly predictable.
+
+</details>

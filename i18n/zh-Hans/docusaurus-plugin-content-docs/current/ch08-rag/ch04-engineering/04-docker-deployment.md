@@ -447,3 +447,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. 给服务再加一个环境变量，比如 `APP_MODE=dev`。
 3. 想一想：为什么说 `/health` 接口对部署系统很重要？
 4. 用自己的话解释：为什么容器化是部署的起点，而不是终点？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 构建结果应是一个能稳定启动、暴露预期端口和 health endpoint 的镜像。
+2. `APP_MODE` 应从环境变量读取，并体现在配置或日志里，不需要改代码。
+3. `/health` 让部署系统知道是否要转发流量、重启容器或回滚。
+4. 容器封装运行时，但部署还需要密钥、扩缩容、日志、监控、存储、网络、安全和发布流程。
+
+</details>

@@ -523,3 +523,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. 设计一个你自己的日志结构，专门记录检索阶段。
 3. 想一想：如果服务错误率没变，但用户追问率突然上升，这通常意味着什么？
 4. 用自己的话解释：为什么 LLM 系统的告警不能只看 500 和超时？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `error_code` 能把失败按类型归类，而不是只能依赖原始错误文本。
+2. 检索日志应包括 `trace_id`、query、rewritten query、filters、`top_k`、候选 ID、score、最终引用、延迟，以及用户 role/权限过滤结果。
+3. 追问率上升可能说明回答不清楚、缺引用、置信度低，或没有完成用户任务，即使系统没有报错。
+4. LLM 失败还包括检索差、幻觉、策略错误、工具误用、成本过高和用户不满意；500 和超时看不到这些。
+
+</details>

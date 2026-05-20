@@ -531,6 +531,17 @@ Complete these in order:
 | Challenge | Replace `keyword_score()` with embeddings | Evaluation still runs with the same cases |
 | Challenge | Add a small FastAPI endpoint | `/ask` returns `status`, `answer`, `citations`, and trace ID |
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Easy pass: the new document is retrievable, cited, and covered by a new evaluation case.
+2. Logging pass: every request has enough trace data to debug retrieval and permissions.
+3. `top_k` pass: the comparison explains the recall/noise trade-off, not just that the output changed.
+4. Embedding/FastAPI challenge pass: evaluation still works and the API returns a stable schema with a trace ID.
+5. The completion standard is met only if README, run command, and evidence make the project reproducible.
+
+</details>
+
 ## Workshop Completion Standard
 
 ![LLM application project delivery loop](/img/course/ch08-project-delivery-loop-en.webp)

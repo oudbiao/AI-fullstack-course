@@ -512,3 +512,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. `INVALID_ARGUMENT`、`TIMEOUT`、`NOT_FOUND` のような統一エラーコード列挙を設計してみましょう。
 3. 考えてみましょう：もしこれが「チケット作成」インターフェースなら、冪等性をどう考えますか？
 4. 自分の言葉で説明してみましょう。なぜ API 設計は本質的にシステム契約を定義することだと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `session_id` は request parsing、state lookup、logs、response trace を通って流れるべきです。空値や不正形式も検証します。
+2. error enum があると client は安定してエラー処理でき、ユーザー起因のエラーとサービス起因のエラーも分けられます。
+3. idempotency key を使うと、client が timeout 後に retry してもチケットが重複作成されません。
+4. API contract は入力、出力、エラー、権限、時間的期待、互換性を定義します。
+
+</details>

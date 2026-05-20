@@ -338,3 +338,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. 用自己的话解释：为什么 Prompt 也可以被看作链里的一个组件？
 3. 想一想：当流程开始有复杂分支时，为什么链式抽象会吃力？
 4. 用自己的话说明：LangChain 最适合解决什么形状的问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 查询改写步骤可以统一同义词，把原始问题变成更适合检索的表达，同时保留原意。
+2. Prompt 也是组件，因为它把输入转换成指令，并约束输出形状。
+3. 当分支、重试、状态决策和工具循环变多时，线性 chain 会变得别扭。
+4. LangChain 更适合由 Prompt、retriever、tool、parser 等组件组成、流程相对可预测的 LLM 工作流。
+
+</details>

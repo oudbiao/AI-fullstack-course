@@ -401,3 +401,13 @@ That way, other people can more easily see that:
 2. Think about this: if your product requires very low latency, would you prefer a large batch or a small batch?
 3. Design a minimal monitoring checklist for an inference service.
 4. Why do we say the real challenge of inference serving is “balance,” not pushing one metric to the extreme?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Concurrency is how many requests are in flight; batching is grouping work so the accelerator processes it efficiently. High concurrency can exist without large batches, and large batches can increase latency.
+2. Low-latency products usually prefer small or dynamic batches with tight timeout windows.
+3. Monitor latency p50/p95/p99, throughput, queue time, batch size, GPU/CPU/memory, KV cache pressure, error/timeout rate, token rate, and quality/cost signals.
+4. Maximizing one metric can hurt another: big batches improve throughput but increase latency; long contexts improve recall but raise memory; aggressive concurrency can cause timeouts.
+
+</details>

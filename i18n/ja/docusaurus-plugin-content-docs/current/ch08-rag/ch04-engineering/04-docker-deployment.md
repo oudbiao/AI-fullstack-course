@@ -447,3 +447,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. サービスに `APP_MODE=dev` のような環境変数を追加してみましょう。
 3. 考えてみましょう：なぜ `/health` エンドポイントがデプロイシステムにとって重要なのでしょうか？
 4. 自分の言葉で説明してみましょう：なぜコンテナ化はデプロイの終点ではなく、出発点なのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. build 結果は、安定して起動し、期待する port と health endpoint を公開する image であるべきです。
+2. `APP_MODE` は環境変数から読み、コード変更なしで config や log に反映します。
+3. `/health` は、デプロイシステムが traffic を流すか、container を再起動するか、rollback するかを判断する材料になります。
+4. container は runtime をまとめますが、deployment には secrets、scaling、logs、monitoring、storage、networking、security、release process がまだ必要です。
+
+</details>

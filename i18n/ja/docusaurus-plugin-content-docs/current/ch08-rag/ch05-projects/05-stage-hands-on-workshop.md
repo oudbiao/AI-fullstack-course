@@ -531,6 +531,17 @@ python3 ask_with_openai.py
 | 発展 | `keyword_score()` を embedding に置き換える | 同じ評価ケースでまだ動く |
 | 発展 | 小さな FastAPI エンドポイントを追加する | `/ask` が `status`、`answer`、`citations`、トレース ID を返す |
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 入門タスクの合格条件は、新しい文書が検索され、引用され、新しい評価ケースで確認されることです。
+2. ログ出力の合格条件は、各リクエストに検索と権限を debug できる trace data が残ることです。
+3. `top_k` の合格条件は、出力が変わったことだけでなく、recall と noise の trade-off を説明できることです。
+4. embedding/FastAPI challenge の合格条件は、評価が引き続き動き、API が安定した schema と trace ID を返すことです。
+5. README、実行コマンド、証拠によってプロジェクトを再現できる状態になって初めて、完了基準を満たします。
+
+</details>
+
 ## ワークショップの完了基準
 
 ![LLM アプリプロジェクト納品ループ図](/img/course/ch08-project-delivery-loop-ja.webp)

@@ -523,3 +523,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. 検索フェーズ専用の、自分のログ構造を設計してみましょう。
 3. 考えてみましょう。サービスのエラー率は変わっていないのに、ユーザーの追加質問率が急に上がったら、普通は何を意味するでしょうか？
 4. 自分の言葉で説明しましょう。なぜ LLM システムのアラートは、500 とタイムアウトだけを見ていてはいけないのでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `error_code` があると、生のメッセージ文字列ではなく失敗タイプごとに集計できます。
+2. 検索ログには `trace_id`、query、rewritten query、filters、`top_k`、候補 ID、score、選ばれた citations、latency、user role/permission 結果を含めます。
+3. 追加質問率の上昇は、回答が不明確、引用不足、信頼度不足、またはタスク未完了を示すことがあります。システムエラーでなくても品質問題です。
+4. LLM の失敗には、検索不良、hallucination、policy ミス、tool 誤用、高コスト、満足度低下もあります。500 と timeout だけでは見逃します。
+
+</details>

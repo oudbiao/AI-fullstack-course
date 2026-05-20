@@ -521,3 +521,13 @@ That way, other people can more easily see:
 2. Design your own log structure specifically for the retrieval stage.
 3. Think about this: if the service error rate does not change, but the user follow-up rate suddenly increases, what does that usually mean?
 4. Explain in your own words: why can’t LLM system alerts rely only on 500 errors and timeouts?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `error_code` helps group failures beyond raw message strings.
+2. A retrieval log should include `trace_id`, query, rewritten query, filters, `top_k`, candidate IDs, scores, selected citations, latency, and user role/permission outcome.
+3. More follow-up questions can mean the answer is unclear, missing citations, low confidence, or did not complete the user task even though the system did not error.
+4. LLM failures include bad retrieval, hallucination, policy mistakes, tool misuse, high cost, and poor satisfaction. 500 errors and timeouts miss many of these.
+
+</details>

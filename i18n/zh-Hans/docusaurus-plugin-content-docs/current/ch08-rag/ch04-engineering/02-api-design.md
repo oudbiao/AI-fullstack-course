@@ -512,3 +512,13 @@ ops_action: backoff, queue, alert, rollout, or rollback
 2. 设计一个统一的错误码枚举，比如 `INVALID_ARGUMENT`、`TIMEOUT`、`NOT_FOUND`。
 3. 想一想：如果这是一个“创建工单”接口，你会怎样考虑幂等性？
 4. 用自己的话解释：为什么说 API 设计本质上是在定义系统契约？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `session_id` 应贯穿请求解析、状态查询、日志和响应 trace，并校验空值或格式错误。
+2. 错误码枚举让客户端能稳定处理错误，也能区分用户错误和服务错误。
+3. 幂等键可以避免客户端超时重试时重复创建工单。
+4. API 契约定义输入、输出、错误、权限、时间预期和兼容性。
+
+</details>

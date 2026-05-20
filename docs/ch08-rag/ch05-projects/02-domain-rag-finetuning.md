@@ -498,3 +498,13 @@ It is recommended to complete the basic version first. Do not try to make it too
 2. Design your own “domain answer style rules” to simulate the behavior of the fine-tuning layer.
 3. Think about this: if the system always retrieves the right documents but the answer format is always messy, should you prioritize improving RAG or fine-tuning?
 4. Explain in your own words: why do we say “RAG adds knowledge, fine-tuning adds behavior”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. New documents should test whether retrieval changes only when the query intent matches, not randomly.
+2. Style rules might specify tone, section order, citation format, refusal boundaries, and domain terminology.
+3. If the documents are correct but the format is messy, prioritize the behavior layer: prompt/schema first, then fine-tuning if the pattern is stable enough.
+4. RAG supplies changing or domain-specific knowledge at query time; fine-tuning teaches stable response behavior, style, and format.
+
+</details>

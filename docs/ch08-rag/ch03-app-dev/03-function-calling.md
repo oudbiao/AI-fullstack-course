@@ -587,3 +587,13 @@ Once you understand this, the next topics—Agent, tool strategies, and multi-to
 2. Write a parameter validation function for `calculate` to prevent dangerous expressions.
 3. Think about this: if the model keeps incorrectly routing “Beijing weather” to `calculate`, what would you fix first—prompt, schema, or executor?
 4. Explain in your own words: why is Function Calling more stable than “making the model directly return a command string”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `search_docs(keyword)` should define an input schema, validation rules, executor result shape, and failure behavior.
+2. The `calculate` validator should allow only numbers, safe operators, and parentheses, or use an AST whitelist. Never run arbitrary strings with `eval()`.
+3. Fix the schema and tool descriptions first, then add prompt examples if needed. The executor should reject invalid arguments, but it cannot teach routing by itself.
+4. Function Calling gives structured arguments, typed schemas, validation points, and auditable tool calls instead of fragile free-form command text.
+
+</details>

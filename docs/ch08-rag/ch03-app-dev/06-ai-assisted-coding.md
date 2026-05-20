@@ -182,6 +182,16 @@ The first mistake is treating AI output as an authoritative answer. The second m
 3. Compare the code quality difference between a “vague Prompt” and a “Prompt with acceptance criteria.”
 4. Write a README section explaining how you used AI to help complete the project while still performing verification.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Good tests include a normal case, boundary case, and failure/invalid-input case. Check the assertions, not just whether the tests run.
+2. The smallest fix should target the failing line or contract and avoid broad refactors.
+3. Acceptance criteria usually improve naming, edge-case handling, testability, and reduce invented behavior.
+4. The README should state what AI generated, what you changed, what tests you ran, known limitations, and review decisions.
+
+</details>
+
 ## Passing Criteria
 
 After studying this section, you should be able to treat AI as a development assistant rather than a replacement for developers, write programming Prompts with constraints and acceptance criteria, verify outputs through testing and code review, and turn the AI collaboration process into engineering notes that can be reviewed later.

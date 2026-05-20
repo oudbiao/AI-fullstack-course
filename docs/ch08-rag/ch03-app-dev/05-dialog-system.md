@@ -558,3 +558,13 @@ Once you truly understand this difference, it will be much smoother when you lat
 2. Design a `slot state` for a weather query task, such as city and date.
 3. Think about why “asking a follow-up question” is often a better dialog strategy than “guessing blindly.”
 4. Explain in your own words why the core of multi-turn conversation is state management, not history concatenation.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The certificate topic should define intent, required slots, a missing-slot question, tool/action, and terminal response.
+2. Weather slots might include city, date, unit, and whether the user asks for current weather or a forecast.
+3. A follow-up question reduces hallucination and wrong tool calls when required slots are missing.
+4. State management tracks intent, slots, user profile, tool results, and unresolved actions. Raw history is too noisy and expensive to be the whole design.
+
+</details>

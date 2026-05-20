@@ -332,3 +332,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. 想一想：pipeline 为什么适合快速验证，但不总适合复杂生产系统？
 3. 如果你要做一个真实项目，为什么 tokenizer 和数据层也必须纳入视野？
 4. 用自己的话总结：Hub、pipeline、model、tokenizer 各自更像在解决什么问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. HuggingFace 包含 Hub、datasets、tokenizers、Transformers、pipelines、Spaces，以及社区评测/共享流程。
+2. `pipeline` 适合快速端到端试跑，但生产系统常常还需要 batching、自定义预处理、模型加载控制、监控和错误处理。
+3. tokenizer 和数据层决定模型能吃什么输入，以及训练/推理样本如何形成。
+4. Hub 负责共享工件，`pipeline` 提供快速任务封装，model 执行推理/训练，tokenizer 负责文本和 ID 之间的转换。
+
+</details>

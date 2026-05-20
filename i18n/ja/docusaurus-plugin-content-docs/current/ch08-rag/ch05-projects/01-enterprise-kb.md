@@ -417,3 +417,13 @@ failure_log: at least one failed case with likely cause
 2. 企業ナレッジベースプロジェクトでは、なぜ「権限が正しいこと」が「答えがきれいなこと」より重要な場合があるのでしょうか？
 3. 文書の chunk が粗すぎると、回答と引用にどのような影響が出るか考えてみましょう。
 4. このプロジェクトをポートフォリオとしてまとめるなら、トップページで最も見せる価値がある情報は何でしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 追加文書には、似た public/internal トピックを含めると、ranking と permission filtering の両方を試せます。
+2. 内部情報の漏えいは、答えがきれいでも security failure です。権限の正しさは必須条件です。
+3. chunk が粗すぎると無関係な事実が混ざり、citation が曖昧になり、permission/citation の境界も不明確になります。
+4. 見せる価値が高いのは、課題範囲、architecture/retrieval flow、permission model、evaluation results、failure analysis です。4つに絞るなら、プロジェクト判断が一番伝わるものを選びます。
+
+</details>

@@ -475,3 +475,13 @@ rollback_plan: fallback model, retry policy, or traffic switch
 2. 想一想：为什么说统一 API 是“统一入口”，而不是“统一能力”？
 3. 如果你的系统暂时只接一个模型，为什么不一定要过早做很重的统一抽象？
 4. 用自己的话解释：为什么统一 API 层很适合承接模型路由和 fallback？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以返回类似 `{ok: false, error: {code, message, retryable, provider, request_id}}` 的结构，而不是把不同供应商的异常直接暴露给业务代码。
+2. 统一 API 统一的是调用入口和结果处理方式，但不同供应商在能力、上下文长度、工具、成本和延迟上仍然不同。
+3. 过早的重抽象可能遮住供应商特性，也会在还没有真实差异时增加维护成本。
+4. 路由和 fallback 适合放在这里，因为这一层能看到供应商健康状态、模型成本/延迟、请求形状和统一错误语义。
+
+</details>

@@ -479,3 +479,13 @@ It is not a simple replacement for a cloud API, but a completely different deplo
 2. In your own words, explain: why does quantization appear so frequently in local model runtime?
 3. Why does “the model file can be loaded” not mean “the model service is ready for production”?
 4. If your system is highly privacy-sensitive but your team has weak operations capability, how would you make the trade-off?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A reasonable plan should name the model size, quantization level, runtime, memory budget, expected latency, and fallback. For a laptop, a small quantized model for testing plus cloud/API fallback is often more realistic than pretending to serve a frontier model locally.
+2. Quantization reduces memory and bandwidth needs by storing weights in fewer bits. That matters locally because VRAM/RAM and memory bandwidth are usually the bottlenecks.
+3. Production readiness also needs latency targets, concurrency limits, monitoring, error handling, model warmup, security, rollback, and cost planning.
+4. A privacy-heavy but ops-weak team might keep sensitive retrieval/data local, use a managed model endpoint for nonsensitive generation, and add strict redaction/audit boundaries. Fully self-hosting everything is not automatically safer if the team cannot operate it.
+
+</details>

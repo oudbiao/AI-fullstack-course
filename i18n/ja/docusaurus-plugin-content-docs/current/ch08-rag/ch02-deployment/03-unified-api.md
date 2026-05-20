@@ -476,3 +476,13 @@ rollback_plan: fallback model, retry policy, or traffic switch
 2. どうして統一 API は「能力の統一」ではなく「入口の統一」だと言えるのでしょうか？
 3. システムがまだ1つのモデルしか使っていないなら、なぜ重い統一抽象化を早く作りすぎないほうがよいのでしょうか？
 4. 自分の言葉で説明してみましょう。なぜ統一 API 層は、モデルルーティングと fallback を受け持つのに向いているのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 例として `{ok: false, error: {code, message, retryable, provider, request_id}}` のような構造を返し、provider 固有の例外を業務コードへ直接漏らさないようにします。
+2. 統一 API がそろえるのは呼び出し入口と結果処理です。provider ごとの能力、コンテキスト長、tool、コスト、レイテンシはまだ違います。
+3. 早すぎる重い抽象化は provider 固有の便利な機能を隠し、実際の差分が少ない段階で保守コストを増やします。
+4. この層は provider の状態、モデルのコスト/レイテンシ、リクエスト形状、共通エラー意味論を見られるため、routing と fallback を置きやすいです。
+
+</details>

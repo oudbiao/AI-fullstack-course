@@ -447,3 +447,13 @@ Once you make this step solid, service orchestration and production operations w
 2. Add another environment variable to the service, such as `APP_MODE=dev`.
 3. Think about this: why is the `/health` endpoint important for deployment systems?
 4. Explain in your own words: why is containerization the starting point of deployment, not the end?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The build should produce an image that starts reliably and exposes the expected port and health endpoint.
+2. `APP_MODE` should be read from the environment and reflected in config or logs without code changes.
+3. `/health` lets deployment systems know whether to route traffic, restart the container, or roll back.
+4. Containers package runtime, but deployment still needs secrets, scaling, logs, monitoring, storage, networking, security, and release processes.
+
+</details>

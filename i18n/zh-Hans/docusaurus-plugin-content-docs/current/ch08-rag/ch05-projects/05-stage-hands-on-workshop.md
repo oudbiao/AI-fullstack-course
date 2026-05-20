@@ -531,6 +531,17 @@ python3 ask_with_openai.py
 | 挑战 | 用 embedding 替换 `keyword_score()` | 仍然能用同一组评估用例跑通 |
 | 挑战 | 增加一个小型 FastAPI 接口 | `/ask` 返回 `status`、`answer`、`citations` 和 追踪 ID |
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 入门任务通过标准：新文档能被检索到、被引用，并被新的评估用例覆盖。
+2. 日志任务通过标准：每个请求都有足够的 trace 数据，能排查检索和权限问题。
+3. `top_k` 任务通过标准：比较里能解释召回和噪声的取舍，而不只是说输出变了。
+4. embedding/FastAPI 挑战通过标准：评估仍能运行，API 返回稳定 schema 和 trace ID。
+5. 只有 README、运行命令和证据能让项目可复现，才算真正达到完成标准。
+
+</details>
+
 ## 工作坊通关标准
 
 ![LLM 应用项目交付闭环图](/img/course/ch08-project-delivery-loop.webp)

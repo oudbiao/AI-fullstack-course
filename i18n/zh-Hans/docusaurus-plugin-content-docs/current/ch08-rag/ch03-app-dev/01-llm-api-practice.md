@@ -491,3 +491,13 @@ next_action: prompt, schema, state, API, or parsing improvement
 2. 给 `CourseAssistant` 增加一个统一错误返回结构。
 3. 想一想：为什么真实项目里不应该让业务代码到处直接拼 `messages`？
 4. 用自己的话解释：为什么说“会调 API”和“会做 LLM 应用”之间还差了一层系统设计？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以为“学习顺序”增加一个分支或 fixture，并验证助手返回的是有顺序的课程步骤，而不是泛泛建议。
+2. 使用类似 `{status: "error", code: "MODEL_ERROR", message: "...", trace_id: "..."}` 的结构，让 UI 和日志都能稳定处理失败。
+3. 集中构造 `messages` 能统一 system prompt、安全规则、历史裁剪和输出 schema。
+4. LLM 应用还需要契约、状态、检索/工具、校验、可观测性和失败处理。调用 API 只是传输层。
+
+</details>

@@ -423,3 +423,13 @@ failure_log: at least one failed case with likely cause
 2. 考えてみましょう。なぜスマートアシスタントは FAQ よりも状態管理が必要なのでしょうか？
 3. ツールでユーザー状態が見つからないとき、システムとしていちばん安全な返答は何でしょうか？
 4. このプロジェクトを作品集にするなら、いちばん見せる価値がある対話はどの部分でしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `学習順序` トピックには、intent detection、必須 slot、tool/context source、response template を追加します。
+2. アシスタントはユーザーの goal、不足情報、過去の回答、tool 結果、next action を追跡します。FAQ は多くの場合 stateless lookup です。
+3. いちばん安全なのは、status が見つからないことを伝え、必要な情報や安全な次の手順を案内し、status を作り話しないことです。
+4. 作品集では、multi-turn clarification、state update、tool/RAG evidence、graceful failure または permission boundary が見える対話が最も強いです。
+
+</details>

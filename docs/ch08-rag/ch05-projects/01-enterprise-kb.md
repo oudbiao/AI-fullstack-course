@@ -418,3 +418,13 @@ It is recommended to finish the basic version first, and do not pursue an all-in
 2. Why is “correct permissions” sometimes more important than “a beautiful answer” in an enterprise knowledge base project?
 3. Think about it: if document chunks are cut too coarsely, how will that affect the answer and the citation?
 4. If you turn this project into a portfolio piece, which 4 blocks of information would be most worth showing on the homepage?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The added documents should include similar public/internal topics so you can test both ranking quality and permission filtering.
+2. Leaking internal information is a security failure even if the answer sounds elegant. Permission correctness is a hard requirement.
+3. Coarse chunks can mix unrelated facts, produce vague citations, and make permission/citation boundaries unclear.
+4. Strong homepage blocks are problem scope, architecture/retrieval flow, permission model, evaluation results, and failure analysis. Choose the four that best show your project judgment.
+
+</details>
