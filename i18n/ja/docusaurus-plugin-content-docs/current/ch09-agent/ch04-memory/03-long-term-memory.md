@@ -507,3 +507,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. `今回は少し簡潔に` が、なぜそのまま長期的な好みとして保存するのに向かないのか考えてみましょう。
 3. ユーザーの好みが頻繁に変わる場合、上書き、バージョン保持、信頼度の減衰のどれを使いますか？ その理由は何ですか？
 4. 長期記憶と短期記憶をどう組み合わせれば、現在の回答に役立つでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `source` field があると、「ユーザーの明示発言」と「システム推論」を分けられます。明示発言はより信頼し、推論された preference は確認してから長期保存します。
+2. `Keep it concise for this one` は現在タスクだけの指示です。ユーザーが長期的な好みとして明示しない限り、短期記憶に置きます。
+3. 好みがよく変わる場合、単純な overwrite より version retention と confidence decay が安全です。履歴を残し、古い memory の影響を下げられるからです。
+4. 長期記憶は安定した好みや事実に使い、短期記憶は現在の goal、constraints、recent corrections、retrieved evidence に使います。回答時は両方を組み合わせます。
+
+</details>

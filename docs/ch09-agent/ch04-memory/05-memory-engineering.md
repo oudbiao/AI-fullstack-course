@@ -401,3 +401,13 @@ the memory system can truly move from concept to stable capability.
 2. Set `ttl_steps` shorter or longer and observe how the retrieval results change.
 3. Design a memory item that "never expires but has low importance" and see whether it pollutes the results.
 4. How would you set different write policies for "user preferences" and "temporary debug information"?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Source credibility can become a score multiplier or tie-breaker, so explicit, recent, and trusted memories outrank weak inferred memories.
+2. A shorter `ttl_steps` removes temporary memories sooner; a longer value keeps them available but increases the risk of stale retrieval.
+3. A never-expiring low-importance memory should not dominate results. If it keeps appearing, the retrieval score is overweighting permanence.
+4. User preferences should require stronger evidence and longer TTL; temporary debug information should have low write priority, short TTL, and narrow retrieval scope.
+
+</details>

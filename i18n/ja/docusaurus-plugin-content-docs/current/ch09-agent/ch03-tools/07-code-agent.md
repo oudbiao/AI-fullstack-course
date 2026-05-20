@@ -394,3 +394,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. なぜコード Agent は普通のコード生成より「フィードバック閉ループ」に強く依存すると言えるのでしょうか？
 3. 考えてみましょう: テストがなければ、コード Agent はほかにどんな検証方法に頼れるでしょうか？
 4. なぜ patch は小さいほど、通常はコード Agent に向いているのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 置き換える bug は、小さくテストしやすいものが適しています。たとえば off-by-one、割引条件の境界漏れ、sort key の誤りです。patch は失敗しているロジックだけを変えます。
+2. Code Agent は feedback loop に強く依存します。コード品質は説明の流暢さではなく、実行、テスト、diff、lint 出力、review で判断されるからです。
+3. テストがなくても、linter、type check、static analysis、sandbox 実行、サンプル入力、code review checklist、手動再現手順を使えます。
+4. 小さな patch は影響範囲を減らし、review を楽にし、ユーザー変更を守り、どの変更が失敗を直したのかを見えやすくします。
+
+</details>

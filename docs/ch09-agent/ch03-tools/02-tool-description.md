@@ -456,3 +456,13 @@ you will understand why “first describe the tools clearly” is the first step
 2. Why are tags often more suitable than tool names for the first retrieval layer?
 3. Think about it: what else would you add to the description of a high-risk tool besides purpose and parameters?
 4. If there are more and more tools, would you first strengthen “tool descriptions” or the “tool executor”? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `search_faq` should have tags and examples that separate general help questions from refund-policy lookup, otherwise it will compete with `search_refund_policy`.
+2. Tags are useful in the first retrieval layer because they group intent, domain, risk, and data source more flexibly than a single tool name.
+3. For high-risk tools, include permissions, side effects, confirmation rules, rollback limits, audit logs, and examples of when not to call the tool.
+4. When tools grow, strengthen descriptions and retrieval first so the Agent chooses the right tool. The executor still needs safety checks, but it cannot rescue consistently bad routing.
+
+</details>

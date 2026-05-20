@@ -316,3 +316,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. 让 `episodic_memory` 支持按 `topic` 检索最近一条记录。
 3. 把 `procedural_memory` 改成多流程版本，例如 `refund_workflow` 和 `invoice_workflow`。
 4. 想一想：哪些信息最适合只放短期、不放长期？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `user_blacklist_topic` 应作为明确的长期偏好保存，并带清楚 scope；它应该抑制无关建议，但不应阻断必要的安全信息或任务信息。
+2. 按 `topic` 取最新 episode，通常做法是先按 topic 过滤，再按 timestamp 或递增 id 排序。
+3. 多 workflow 的 procedural memory 可以是以 workflow name 为 key 的字典，例如 `refund_workflow` 和 `invoice_workflow`，每个 workflow 有步骤和风险 gate。
+4. 一次性约束、临时目标、当前工具结果、草稿选择和只应存在于本会话的敏感信息，都更适合留在短期记忆，不写入长期记忆。
+
+</details>

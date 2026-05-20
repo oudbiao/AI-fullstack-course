@@ -507,3 +507,13 @@ Only in this way can the tool layer become an amplifier of Agent capabilities, r
 2. Standardize the return values of all tools to the format `{"ok": ..., "data": ..., "error": ...}`.
 3. Think about it: why should a database write tool and a search tool not be placed at the same permission level?
 4. Explain in your own words: why are a tool registry and a unified dispatcher two very important structures in Agent engineering?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `get_weather(city)` belongs in the registry with a schema, risk level, timeout, and normalized response shape.
+2. Using `{ok, data, error}` makes downstream logic simpler: success reads `data`, failure branches on `error` without parsing natural language.
+3. A database write tool can change records and needs stronger permission, confirmation, and rollback rules than a search tool.
+4. The registry gives one source of truth for tool metadata; the dispatcher centralizes validation, permission checks, retries, logging, and error handling.
+
+</details>

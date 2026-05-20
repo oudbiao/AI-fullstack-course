@@ -413,3 +413,13 @@ the more stable your code Agents, multi-tool workflows, and real production syst
 2. Why should “whether retries are allowed” be part of the error structure?
 3. Think about it: why might a tool that reads from a database still need permission control?
 4. If you wanted to add human confirmation for a high-risk tool, would you place the confirmation before or after the call? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `send_email` is usually high risk because it creates an external side effect. It should require recipient validation, preview, confirmation, and audit logging.
+2. `retry_allowed` matters because retrying a read is different from retrying a payment, email, or database write that may duplicate side effects.
+3. Database reads may expose private or regulated data, so read tools still need permission checks, scopes, filtering, and logging.
+4. For high-risk tools, confirmation should happen before the call, after showing the exact planned action and inputs. After-call confirmation is too late to prevent the side effect.
+
+</details>

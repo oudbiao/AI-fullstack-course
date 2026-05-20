@@ -360,3 +360,13 @@ A truly useful memory system is usually not the one that “stores the most,” 
 2. Think about this: if a user changes requirements several times in a short period, which information should stay in short-term memory instead of long-term memory?
 3. Try designing a simple “procedural memory” workflow, such as a step-by-step checklist for “handling an order refund.”
 4. Explain in your own words: why is the hard part of a memory system not just storage, but selection and organization?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Short-term memory might hold the current ticket goal, latest user correction, and tools already called. Long-term memory might store a durable user preference explicitly confirmed by the user.
+2. Rapidly changing requirements should stay short-term until they become stable; otherwise temporary instructions pollute the long-term profile.
+3. A procedural memory for refunds could be: verify order, check policy, inspect payment status, ask for missing evidence, propose action, confirm high-risk steps, then log the result.
+4. The hard part is selection and organization: the Agent must decide what to write, what to retrieve, what to ignore, and how memory should affect the current answer.
+
+</details>

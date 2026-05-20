@@ -422,3 +422,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. なぜキャッシュは読み取り専用ツールに向いていて、更新が多い書き込み操作には向いていないのでしょうか？
 3. 自分が作った Agent のタスクを1つ思い出し、その中で複合ツールにまとめやすい固定フローを見つけてみましょう。
 4. もしあるツールの組み合わせが安定しておらず、順番もよく変わるなら、それでも高度なツールとしてまとめますか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `timeout_tool` wrapper は通常 executor または tool middleware 層に置きます。そうすれば全ツールで同じ timeout 動作を共有できます。
+2. cache は read-only ツールに向いています。同じ入力が同じ安全な答えを返しやすいからです。書き込みは状態を変えるため、cached result が危険になることがあります。
+3. 返金チェック、レポート生成、ドキュメント取り込みのような workflow は、順序が安定して再現できるなら composite tool にできます。
+4. 順序が不安定なら、まだ advanced tool に隠さない方がよいです。パターンが信頼でき、テストできるまでステップを見える状態に保ちます。
+
+</details>

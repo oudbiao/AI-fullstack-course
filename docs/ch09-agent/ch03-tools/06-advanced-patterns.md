@@ -422,3 +422,13 @@ you won’t just keep thinking, “Let’s add one more function.”
 2. Why is caching more suitable for read-only tools than for write operations that change frequently?
 3. Think of an Agent task you have done before, and identify one fixed workflow that would be suitable to package as a composite tool.
 4. If a tool combination is unstable and often changes order, would you still package it as an advanced tool? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A `timeout_tool` wrapper usually belongs in the executor or tool middleware layer, so every tool can share the same timeout behavior.
+2. Caching fits read-only tools because the same input should produce the same safe answer. Writes often change state, so cached results can become dangerous.
+3. A refund-check workflow, report-generation workflow, or document-ingestion workflow can become a composite tool when its order is stable and repeatable.
+4. If the order is unstable, do not hide it inside one advanced tool yet. Keep the steps visible until the pattern is reliable and testable.
+
+</details>

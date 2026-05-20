@@ -395,3 +395,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 为什么说代码 Agent 比普通代码生成更依赖“反馈闭环”？
 3. 想一想：如果没有测试，代码 Agent 还能依赖什么验证方式？
 4. 为什么 patch 越小，通常越适合代码 Agent？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 适合替换的 bug 应该小而可测，例如 off-by-one 循环、折扣边界缺失、排序 key 写错。patch 应只改失败逻辑。
+2. Code Agent 更依赖 feedback loop，因为代码质量要靠运行、测试、diff、lint 输出和 review 判断，而不是靠解释是否流畅。
+3. 没有测试时，也可以依赖 linter、type check、static analysis、sandbox run、示例输入、code review checklist 和手动复现步骤。
+4. 小 patch 能降低影响范围，让 review 更容易，避免覆盖用户改动，也更容易看出是哪一处修复了失败。
+
+</details>

@@ -413,3 +413,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 为什么说“是否允许重试”应该是错误结构的一部分？
 3. 想一想：一个读数据库的工具为什么也可能需要权限控制？
 4. 如果你要为高风险工具增加人工确认，你会把确认放在调用前还是调用后？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `send_email` 通常属于高风险工具，因为它会产生外部 side effect。它应要求收件人校验、预览、确认和审计日志。
+2. `retry_allowed` 很重要，因为重试读取和重试付款、发邮件、写数据库完全不同，后者可能造成重复 side effect。
+3. 数据库读取也可能暴露隐私或受监管数据，所以 read tool 仍然需要权限检查、scope、过滤和日志。
+4. 高风险工具应在调用前确认，并展示将要执行的动作和输入。调用后再确认已经太晚，无法阻止 side effect。
+
+</details>

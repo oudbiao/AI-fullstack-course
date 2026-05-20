@@ -407,3 +407,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. 最大メッセージウィンドウを 3 から 5 に変えて、`snapshot()` の出力がどう変わるか観察しましょう。
 3. 考えてみましょう：ある Agent が「今どのツールをすでに呼んだか」をよく忘れるなら、まずメッセージウィンドウを強化しますか、それとも構造化状態を補いますか？
 4. 自分の言葉で説明してみましょう。なぜ短期記憶は「現在のタスクの一貫性」を解決するのであって、「長期的なユーザープロフィール」を解決するのではないのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `summary` field は古い turn を現在タスク用の短いメモに圧縮できます。raw message window は直近の詳細を保持します。
+2. window を 3 から 5 にすると、`snapshot()` により多くの直近 message が残ります。coherence は上がる可能性がありますが、ノイズと token コストも増えます。
+3. Agent がすでに呼んだツールを忘れるなら、まず structured state を追加します。message window を広げるだけでは弱く、コストも高い対策です。
+4. 短期記憶は現在タスクの一貫性を支えます。目標、制約、直近の修正、tool result、next action を保つもので、永続的な user profile ではありません。
+
+</details>

@@ -400,3 +400,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 为什么说多工具 Agent 的核心不是“工具多”，而是“状态管理稳”？
 3. 如果 `search_refund_policy` 返回空结果，你会怎么改这套流程？
 4. 想一想：这个演示里哪些部分最适合拿去做作品集展示？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `notify_user` 应该只在已有政策证据、已有资格判断，并且最终 state 表示满足退款条件后执行。
+2. 核心是 state management，因为 Agent 必须记住政策证据、用户输入、工具输出、决策，以及某个 side effect 是否已经发生。
+3. 如果 `search_refund_policy` 返回空，应进入 no-evidence state，请用户澄清，尝试批准过的 fallback 来源，或转人工，而不是猜。
+4. 作品集中最值得展示 trace、state transition、tool contract、失败处理，以及加 guardrails 前后的行为对比。
+
+</details>

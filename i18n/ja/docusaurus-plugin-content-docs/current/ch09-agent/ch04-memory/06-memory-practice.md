@@ -316,3 +316,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. `episodic_memory` が `topic` ごとに最近 1 件を検索できるようにしてください。
 3. `procedural_memory` を複数フロー版に変えてください。たとえば `refund_workflow` と `invoice_workflow` です。
 4. 考えてみましょう。どんな情報は短期だけに置くのが最適で、長期には置かないほうがよいでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `user_blacklist_topic` は明示的な長期 preference として保存し、scope を明確にします。無関係な提案を抑えるために使い、安全上必要な情報やタスク情報まで遮断してはいけません。
+2. `topic` で最新 episode を取るには、topic で filter し、timestamp または単調増加 id で sort します。
+3. multi-workflow の procedural memory は、`refund_workflow` や `invoice_workflow` など workflow name を key にした辞書にできます。それぞれ steps と risk gates を持ちます。
+4. 一回限りの制約、一時的な goal、現在の tool result、draft choice、セッション内だけに置くべき sensitive information は、長期記憶ではなく短期記憶に置きます。
+
+</details>

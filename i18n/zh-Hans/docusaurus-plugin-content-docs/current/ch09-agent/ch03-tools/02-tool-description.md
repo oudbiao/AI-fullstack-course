@@ -458,3 +458,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 为什么说 tags 往往比工具名更适合做第一层召回？
 3. 想一想：一个高风险工具的描述里，除了用途和参数，你还会额外写什么？
 4. 如果工具越来越多，你会优先加强“工具描述”还是“工具执行器”？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `search_faq` 应该用 tags 和示例把“一般帮助问题”和“退款政策检索”分开，否则它会和 `search_refund_policy` 混淆。
+2. 第一层检索更适合用 tags，因为 tags 可以同时表达意图、领域、风险和数据来源，比单个工具名更灵活。
+3. 高风险工具除了 purpose 和 parameters，还要写清权限、side effects、确认规则、回滚限制、审计日志，以及哪些情况不应该调用。
+4. 工具越来越多时，应该先加强描述与检索，让 Agent 选对工具。executor 仍然要有安全检查，但它无法长期补救错误 routing。
+
+</details>

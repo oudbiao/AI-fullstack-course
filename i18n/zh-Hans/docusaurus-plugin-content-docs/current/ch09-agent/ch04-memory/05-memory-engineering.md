@@ -408,3 +408,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. 把 `ttl_steps` 设得更短或更长，观察召回结果如何变化。
 3. 设计一条“永不过期但低重要度”的记忆，看看它会不会污染结果。
 4. 你会如何给“用户偏好”与“临时调试信息”设置不同写入策略？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. source credibility 可以作为分数乘子或 tie-breaker，让明确、近期、可信的 memory 排在弱推断 memory 前面。
+2. `ttl_steps` 更短会更快清除临时 memory；更长会让它们更久可用，但也增加 stale retrieval 风险。
+3. “永不过期但低重要性”的 memory 不应该主导结果。如果它总被召回，说明 retrieval score 过度偏向 permanence。
+4. 用户偏好应要求更强证据和更长 TTL；临时 debug 信息应低写入优先级、短 TTL、窄 retrieval scope。
+
+</details>

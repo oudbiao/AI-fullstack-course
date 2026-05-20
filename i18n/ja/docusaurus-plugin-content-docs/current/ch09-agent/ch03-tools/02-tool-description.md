@@ -459,3 +459,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. なぜ `tags` は、ツール名よりも第一段階の recall に向いていることが多いのでしょうか？
 3. 考えてみましょう：高リスクなツールの説明には、用途とパラメータのほかに、何を書き足しますか？
 4. ツールがどんどん増えるとき、まず強化したいのは「ツール説明」と「ツール実行器」のどちらですか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `search_faq` には、一般的なヘルプ質問と返金ポリシー検索を分ける tags と例を入れます。そうしないと `search_refund_policy` と競合します。
+2. 最初の検索層では tool name より tags が有効です。意図、領域、リスク、データソースをより柔軟に表せるからです。
+3. 高リスクツールには、目的と parameters だけでなく、権限、副作用、確認ルール、rollback の限界、監査ログ、呼び出してはいけない例も書きます。
+4. ツールが増えたら、まず description と retrieval を強化して正しいツールを選ばせます。executor の安全チェックも必要ですが、悪い routing を毎回救うことはできません。
+
+</details>

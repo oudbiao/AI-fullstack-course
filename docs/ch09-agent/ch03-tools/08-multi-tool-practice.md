@@ -399,3 +399,13 @@ you will know where the real difficulty lies.
 2. Why do we say the core of a multi-tool Agent is not "having more tools," but "having stable state management"?
 3. If `search_refund_policy` returns an empty result, how would you change this workflow?
 4. Think about it: which parts of this demo are most suitable for portfolio presentation?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `notify_user` should run only after the policy evidence and eligibility decision are both present and the final state says the refund condition is met.
+2. The core is state management because the Agent must remember policy evidence, user inputs, tool outputs, decisions, and whether a side effect has already happened.
+3. If `search_refund_policy` is empty, return a no-evidence state, ask for clarification, try an approved fallback source, or hand off to a human instead of guessing.
+4. For a portfolio, show the trace, state transitions, tool contracts, failure handling, and the before/after behavior after adding guardrails.
+
+</details>

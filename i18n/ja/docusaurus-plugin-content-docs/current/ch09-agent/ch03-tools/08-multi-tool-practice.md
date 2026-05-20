@@ -396,3 +396,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. なぜマルチツール Agent の核心は「ツールが多いこと」ではなく、「状態管理が安定していること」なのですか？
 3. `search_refund_policy` が空の結果を返したら、この流れをどう変えますか？
 4. 考えてみましょう。このデモの中で、作品集に載せるのに最も向いている部分はどこですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `notify_user` は、ポリシー証拠と eligibility decision がそろい、最終 state が返金条件を満たす場合にだけ実行します。
+2. 核心は state management です。Agent は policy evidence、user input、tool output、decision、そして副作用がすでに起きたかどうかを覚える必要があります。
+3. `search_refund_policy` が空なら、no-evidence state にし、確認質問をし、承認済み fallback source を試すか、人間へ渡します。推測してはいけません。
+4. ポートフォリオでは、trace、state transition、tool contract、失敗処理、guardrails 追加前後の動作比較を見せるとよいです。
+
+</details>

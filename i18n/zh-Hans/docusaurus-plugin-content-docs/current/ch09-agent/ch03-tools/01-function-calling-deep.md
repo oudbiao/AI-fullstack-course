@@ -567,3 +567,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 故意构造一个参数错误的 tool call，看看校验器是否能拦住。
 3. 把 `multi_step_agent()` 扩展成“最多执行 3 步”，避免无限循环。
 4. 想一想：为什么 函数调用 在 Agent 系统里比在普通聊天机器人里更关键？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 可以把 `get_weather(city)` 定义为必填字符串参数，并统一返回 `{ok, data, error}` 这样的结构；真正执行前先做参数校验。
+2. validator 应该拦住缺少 `city`、类型不是字符串、出现未知参数、JSON 格式错误等调用，不让它们进入 tool runner。
+3. 3 步限制应该在达到上限时停止循环，并返回清楚的 trace，例如 `stopped: max_steps_reached`，而不是悄悄继续。
+4. Function Calling 在 Agent 里更关键，因为工具调用可能改变外部状态、花钱、泄露数据或造成循环。schema 和 validation 是从“文本”进入“行动”之前的安全边界。
+
+</details>

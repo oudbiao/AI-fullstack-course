@@ -407,3 +407,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. 把最大消息窗口从 3 改成 5，观察 `snapshot()` 输出怎样变化。
 3. 想一想：如果一个 Agent 经常忘掉“当前已经调过哪个工具”，你会优先补消息窗口，还是补结构化状态？
 4. 用自己的话解释：为什么说短期记忆解决的是“当前任务连贯性”，而不是“长期用户画像”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `summary` 字段可以把较早轮次压缩成当前任务摘要，而原始 message window 继续保留最近细节。
+2. 把窗口从 3 改成 5 后，`snapshot()` 会保留更多最近消息，可能提升连贯性，但也会增加噪声和 token 成本。
+3. 如果 Agent 忘记已经调用过哪些工具，应优先加 structured state。单纯扩大 message window 更弱，也更贵。
+4. 短期记忆解决的是当前任务连贯性：目标、约束、最近修正、工具结果和下一步动作。它不应该变成永久用户画像。
+
+</details>

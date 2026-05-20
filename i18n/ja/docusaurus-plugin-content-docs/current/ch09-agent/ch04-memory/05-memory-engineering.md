@@ -407,3 +407,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. `ttl_steps` をもっと短く、または長くして、召回結果がどう変わるか観察しましょう。
 3. 「永遠に期限切れにならないが、重要度が低い」メモリを1つ設計して、結果を汚すかどうか確認しましょう。
 4. 「ユーザーの好み」と「一時的なデバッグ情報」に、どのように別々の書き込み方針を設定しますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. source credibility は score multiplier や tie-breaker にできます。明示的で新しく信頼できる memory が、弱い推論 memory より上に来るようにします。
+2. `ttl_steps` を短くすると一時 memory は早く消えます。長くすると長く使えますが、stale retrieval のリスクも上がります。
+3. 「期限切れしないが重要度が低い」memory が結果を支配してはいけません。何度も出るなら、retrieval score が permanence を重く見すぎています。
+4. ユーザー preference は強い evidence と長めの TTL を求めます。一時的な debug 情報は低い write priority、短い TTL、狭い retrieval scope にします。
+
+</details>

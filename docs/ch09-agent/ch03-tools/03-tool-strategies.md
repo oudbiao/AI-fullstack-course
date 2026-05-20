@@ -442,3 +442,13 @@ This often affects system quality more than "adding a few more tools."
 2. Add a branch for "if a tool execution error occurs, fall back to human confirmation."
 3. Think about this: if the user asks, "Help me check the weather and calculate a clothing index," how should the strategy layer split this task?
 4. Explain in your own words: why is tool calling strategy one of the dividing lines for Agent quality?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `search_docs(keyword)` should add a routing branch for knowledge lookup and return evidence snippets, not just a free-form paragraph.
+2. Tool execution errors should be classified first. Retry only safe transient errors; otherwise fall back to human confirmation or a controlled failure.
+3. The weather-and-clothing task should split into weather lookup, interpretation of conditions, and a small calculation or rule-based recommendation.
+4. Tool strategy is a quality boundary because it decides tool order, state passing, error recovery, and when to stop.
+
+</details>

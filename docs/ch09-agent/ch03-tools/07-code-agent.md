@@ -393,3 +393,13 @@ you will also understand what is truly difficult about more complex systems such
 2. Why is a code Agent more dependent on a “feedback loop” than ordinary code generation?
 3. Think about this: if there are no tests, what other verification methods can a code Agent rely on?
 4. Why are smaller patches usually more suitable for a code Agent?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A good replacement bug is small and testable, such as an off-by-one loop, a missing discount boundary, or a wrong sort key. The patch should change only the failing logic.
+2. A code Agent needs a feedback loop because code quality is judged by execution, tests, diffs, lint output, and review, not by fluent explanation alone.
+3. Without tests, it can still use linters, type checks, static analysis, sandbox runs, sample inputs, code review checklists, and manual reproduction steps.
+4. Smaller patches reduce blast radius, make review easier, preserve user changes, and make it clearer which change fixed the failure.
+
+</details>

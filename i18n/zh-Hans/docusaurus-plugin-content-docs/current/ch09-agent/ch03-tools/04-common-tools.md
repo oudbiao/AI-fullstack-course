@@ -507,3 +507,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 把所有工具的返回值统一成 `{"ok": ..., "data": ..., "error": ...}` 格式。
 3. 想一想：为什么数据库写入工具和搜索工具不应该放在同一个权限等级？
 4. 用自己的话解释：为什么说工具注册表和统一调度器是 Agent 工程里非常重要的两个结构？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `get_weather(city)` 应放进 registry，并带上 schema、risk level、timeout 和统一返回格式。
+2. 统一 `{ok, data, error}` 会让下游逻辑更简单：成功时读 `data`，失败时根据 `error` 分支，不需要解析自然语言。
+3. 数据库写入工具会改变记录，所以比搜索工具需要更强的权限、确认和回滚规则。
+4. registry 提供工具元数据的唯一来源；dispatcher 集中处理 validation、permission check、retry、logging 和 error handling。
+
+</details>

@@ -306,3 +306,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. どのタスクは episode を参照するのに向いていて、どのタスクはそのまま ワークフロー を使うのに向いているか考えてみましょう。
 3. なぜ手続き記憶は「履歴」ではなく「スキル庫」に近いと言えるのでしょうか？
 4. ある ワークフロー が古くなったら、どのように更新機構を設計しますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 成功した `weekly_report` cases を追加すると、繰り返し現れる手順が見えるはずです。手順が安定したら procedural memory に昇格できます。
+2. context や過去の結果が重要なら episodes を確認します。タスクが繰り返し可能で最善の action sequence が分かっているなら procedural memory が向いています。
+3. procedural memory は単なる履歴ログではなく skill library に近いものです。再利用できる方法、判断点、チェック項目を保存するからです。
+4. workflow version、owner review、test cases、deprecation notes を使い、古い手順を安全に更新または廃止できるようにします。
+
+</details>

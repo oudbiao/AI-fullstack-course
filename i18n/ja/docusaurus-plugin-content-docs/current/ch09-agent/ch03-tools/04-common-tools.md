@@ -514,3 +514,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. すべてのツールの戻り値を `{"ok": ..., "data": ..., "error": ...}` の形式に統一してください。
 3. 考えてみましょう。なぜデータベース書き込みツールと検索ツールを同じ権限レベルにしてはいけないのでしょうか？
 4. 自分の言葉で説明してください。なぜツール登録表と統一ディスパッチャが Agent 実装でとても重要な 2 つの構造だと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `get_weather(city)` は registry に入れ、schema、risk level、timeout、正規化された戻り値形式を持たせます。
+2. `{ok, data, error}` に統一すると下流ロジックが単純になります。成功時は `data` を読み、失敗時は自然言語を解析せず `error` で分岐できます。
+3. データベース書き込みツールは記録を変更するため、検索ツールより強い権限、確認、rollback ルールが必要です。
+4. registry はツールメタデータの単一の参照元です。dispatcher は validation、permission check、retry、logging、error handling を集中管理します。
+
+</details>

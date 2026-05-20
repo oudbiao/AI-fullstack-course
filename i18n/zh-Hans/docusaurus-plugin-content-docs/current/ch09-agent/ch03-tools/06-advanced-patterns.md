@@ -422,3 +422,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. 为什么缓存更适合只读工具，而不适合高频变化的写操作？
 3. 想一个你做过的 Agent 任务，找出其中一个适合封成复合工具的固定流程。
 4. 如果一个工具组合不稳定、经常改顺序，你还会把它封成高级工具吗？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `timeout_tool` wrapper 通常属于 executor 或 tool middleware 层，这样所有工具都能复用同一套超时行为。
+2. cache 更适合只读工具，因为相同输入应得到相同且安全的答案。写操作会改变状态，缓存结果可能变危险。
+3. 退款检查流程、报告生成流程、文档入库流程，如果顺序稳定且可复现，就适合包装成 composite tool。
+4. 如果组合顺序经常变化，不应急着封装成 advanced tool。先保持步骤可见，等模式稳定、可测试后再封装。
+
+</details>

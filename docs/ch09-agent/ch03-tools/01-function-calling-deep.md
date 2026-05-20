@@ -567,3 +567,13 @@ Once you start paying attention to schema design, parameter validation, failure 
 2. Deliberately construct a tool call with incorrect parameters and see whether the validator can block it.
 3. Extend `multi_step_agent()` so that it executes at most 3 steps to avoid infinite loops.
 4. Think about this: why is Function Calling more critical in an Agent system than in a normal chatbot?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Define `get_weather(city)` with a required string `city`, a predictable return shape such as `{ok, data, error}`, and validation before execution.
+2. The validator should block missing `city`, non-string values, unknown parameters, and malformed JSON before the tool runner sees the call.
+3. A 3-step limit should stop the loop with a clear trace such as `stopped: max_steps_reached`, not silently continue.
+4. Function Calling matters more in Agents because tool calls can change external state, spend money, leak data, or start loops. Schema and validation are the safety boundary between text and action.
+
+</details>

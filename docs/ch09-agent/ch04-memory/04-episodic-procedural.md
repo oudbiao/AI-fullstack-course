@@ -304,3 +304,13 @@ a memory system is no longer just an “archive,” but something that truly hel
 2. Think about which tasks are better handled by checking episodes, and which tasks are better handled by directly applying a workflow.
 3. Why is procedural memory more like a “skill library” rather than just a “history log”?
 4. If a workflow has become outdated, how would you design an update mechanism?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding successful `weekly_report` cases should reveal repeated steps; once repeated steps stabilize, they can be promoted into procedural memory.
+2. Episodes help when context and past outcomes matter. Procedural memory helps when the task is repeatable and the best action sequence is already known.
+3. Procedural memory is a skill library because it stores reusable methods, decision points, and checks, not just a record of what happened.
+4. Use workflow versions, owner review, test cases, and deprecation notes so outdated procedures can be updated or retired safely.
+
+</details>

@@ -413,3 +413,13 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 2. なぜ「リトライ可能かどうか」はエラー構造の一部であるべきなのでしょうか？
 3. データベースを読むだけのツールでも、なぜ権限制御が必要になることがあるのでしょうか？
 4. 高リスクツールに手動確認を追加するなら、確認は呼び出し前と呼び出し後のどちらに置きますか？ その理由も考えてみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `send_email` は外部への副作用を生むため、通常は高リスクツールです。宛先検証、preview、confirmation、audit log が必要です。
+2. `retry_allowed` は重要です。読み取りの再試行と、支払い、メール送信、DB 書き込みの再試行では、副作用の重複リスクがまったく違うからです。
+3. データベース読み取りでも、個人情報や規制対象データを露出する可能性があります。そのため read tool にも permission check、scope、filtering、logging が必要です。
+4. 高リスクツールでは、呼び出し前に具体的な action と input を見せて確認します。呼び出し後の確認では副作用を防げません。
+
+</details>

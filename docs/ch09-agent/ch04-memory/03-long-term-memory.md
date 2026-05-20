@@ -509,3 +509,13 @@ you will not go off track when designing a long-term profile system later.
 2. Think about why `Keep it concise for this one` should not necessarily be written directly as a long-term preference.
 3. If user preferences change frequently, would you use overwrite, version retention, or confidence decay? Why?
 4. How would you combine long-term memory and short-term memory to support the current response?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A `source` field lets the write policy trust explicit user statements more than system inferences, and require confirmation before storing inferred preferences.
+2. `Keep it concise for this one` is scoped to the current task, so it should remain short-term unless the user states it as a durable preference.
+3. For changing preferences, version retention plus confidence decay is often safer than blind overwrite because it preserves history and reduces stale memory impact.
+4. Use long-term memory for stable preferences and facts, then combine it with short-term memory for the current goal, constraints, recent corrections, and retrieved evidence.
+
+</details>

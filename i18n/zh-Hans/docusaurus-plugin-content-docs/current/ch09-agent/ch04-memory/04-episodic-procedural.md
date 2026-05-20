@@ -306,3 +306,13 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 2. 想一想：哪些任务更适合查 episode，哪些任务更适合直接套 工作流？
 3. 为什么说程序记忆很像“技能库”，而不只是“历史记录”？
 4. 如果某条 工作流 已经过时，你会怎么设计更新机制？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加成功的 `weekly_report` cases 后，应能看出重复步骤；当这些步骤稳定后，就可以提升为 procedural memory。
+2. 需要参考上下文和历史结果时，更适合查 episodes；任务可重复且最佳动作序列已知时，更适合直接用 procedural memory。
+3. procedural memory 更像 skill library，因为它保存可复用方法、决策点和检查项，而不只是发生过什么。
+4. 可以用 workflow version、owner review、test cases 和 deprecation notes，让过时流程能安全更新或下线。
+
+</details>

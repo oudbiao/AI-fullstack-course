@@ -316,3 +316,13 @@ When these four layers work together, the Agent can evolve from a “one-shot Q&
 2. Make `episodic_memory` support retrieving the latest record by `topic`.
 3. Change `procedural_memory` into a multi-workflow version, such as `refund_workflow` and `invoice_workflow`.
 4. Think about it: Which information is best kept only in short-term memory, and not written into long-term memory?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `user_blacklist_topic` should be stored as an explicit long-term preference with a clear scope and should suppress unrelated suggestions, not block necessary safety or task information.
+2. Retrieving the latest episode by `topic` usually means filtering by topic and sorting by timestamp or monotonically increasing id.
+3. A multi-workflow procedural memory can be a dictionary keyed by workflow name, such as `refund_workflow` and `invoice_workflow`, each with steps and risk gates.
+4. Keep one-off constraints, temporary goals, current tool results, draft choices, and sensitive session-only information in short-term memory instead of long-term memory.
+
+</details>
