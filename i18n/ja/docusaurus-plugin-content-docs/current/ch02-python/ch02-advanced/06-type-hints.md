@@ -545,6 +545,15 @@ def g(d):
 
 ---
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 既存関数には、たとえば `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` や `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None` のように、入力構造と空リスト時の戻り値がわかる型を付けます。
+2. `ruff` はまず `ruff check` で問題を確認し、そのあと `ruff format` で整形し、最後に差分を見る流れが扱いやすいです。lint と整形を分けると、何が直ったかを説明しやすくなります。
+3. 書き直し後のコードは、意味のある関数名、型注釈、docstring、PEP 8 の空白を満たす必要があります。平均値を返す関数では、空入力でゼロ除算しないようにすることも大切です。
+
+</details>
+
 ## まとめ
 
 | ツール/概念 | 役割 | おすすめ度 |

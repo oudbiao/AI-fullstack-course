@@ -440,6 +440,15 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
     print(window)
 ```
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `fibonacci(n)` は `yield` で値を 1 つずつ返し、`n` が指定されているときはその個数で停止します。サンプルループでは最初の 10 個のフィボナッチ数が順番に表示されます。
+2. `search_files` は `Path(directory).rglob(pattern)` と `yield from` を使い、ファイル一覧を一度に集めず遅延的に返します。大きなディレクトリでもメモリを無駄に使いにくい形です。
+3. `sliding_window` は指定サイズの連続した切片を順番に返します。ウィンドウサイズが入力より大きい場合は何も返らず、それが自然な空結果です。
+
+</details>
+
 ---
 
 ## まとめ

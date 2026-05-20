@@ -511,6 +511,15 @@ print(values)
 print(errors)
 ```
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `safe_calculator` は入力を数値に変換し、演算子ごとに分岐し、`ZeroDivisionError`、`ValueError`、`StopIteration` を分けて扱えれば合格です。サンプル入力では一度ゼロ除算の経路に入り、親切なエラーを表示してから最後の `n` で終了します。
+2. `read_file_safely` は `with` 文でファイルを開き、`FileNotFoundError`、`PermissionError`、その他の `OSError` を捕捉します。失敗時に `None` を返すと、呼び出し側が次の処理を決めやすくなります。
+3. `convert_to_numbers` は変換できた数値と失敗理由を別々に返します。数値リストに `None` を入れることで、元のデータ位置を保ったまま不正な値も追跡できます。
+
+</details>
+
 ---
 
 ## まとめ
