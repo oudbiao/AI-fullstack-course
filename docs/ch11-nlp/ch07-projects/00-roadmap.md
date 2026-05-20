@@ -68,6 +68,18 @@ Run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-
 | Failure case | At least 1 real failure | Add cause, fix action, regression check |
 | Presentation | Screenshot or short GIF proving it runs | Build a clear text-understanding project page |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
+
 ## Pass Check
 
 You pass this chapter when your NLP project has a task definition, data examples, evaluation metric, baseline, failure case, and next-step improvement plan.

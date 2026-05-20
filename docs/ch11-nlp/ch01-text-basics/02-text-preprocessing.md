@@ -392,6 +392,18 @@ This is usually clearer than piling on a lot of regexes and rules from the start
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## Common beginner mistakes
 
 ### Thinking more preprocessing means more advanced
@@ -452,3 +464,13 @@ In the next section, we will keep moving forward and solve another key problem:
 2. Add `not` to the stopwords list, then observe what problem appears in sentiment sentences.
 3. Find 5 short reviews yourself, run preprocessing on them, and see what information is kept and what is removed.
 4. Think about this: in an NER scenario, why might lowercasing be harmful?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A number rule can replace digit spans with `<num>`, but keep a before/after example because dates, prices, and IDs may need different handling.
+2. Adding `not` to stopwords often damages sentiment because `not good` and `good` become too similar after cleaning.
+3. For your five reviews, compare raw text, cleaned text, and tokens. The best observation is not “shorter is better,” but whether useful evidence survived.
+4. Lowercasing can harm NER because names, product codes, acronyms, and places often use capitalization as evidence.
+
+</details>

@@ -52,6 +52,18 @@ This is a toy score, but it shows the core idea: close meanings should be easier
 | 2 | Contextual representations | Explain why the same word can mean different things |
 | 3 | Language models | Connect representation learning to next-token or masked prediction |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## Pass Check
 
 You pass this chapter when you can compare sparse features, word embeddings, and contextual embeddings, and explain why representation quality affects classification, retrieval, and RAG.

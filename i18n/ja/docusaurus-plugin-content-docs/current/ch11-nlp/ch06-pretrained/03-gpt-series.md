@@ -117,7 +117,7 @@ GPT は次のように考えると理解しやすいです。
 
 ### なぜ GPT は右側を見てはいけないのか？
 
-生成するときは、未来の内容はまだ存在しません。  
+生成するときは、未来の内容はまだ存在しません。
 そのため、学習時にも未来の token をこっそり見てはいけません。
 
 これが **causal / autoregressive** の制約です。
@@ -175,7 +175,7 @@ print(mask)
 | 生成時に未来の token を見てもよい？ | いいえ |
 | なぜそうする？ | 学習と生成を一致させるため |
 
-この表は初心者にとても有効です。  
+この表は初心者にとても有効です。
 「causal mask」という言葉を、ただの専門用語ではなく、
 
 - 後ろの答えを見てはいけない
@@ -342,7 +342,7 @@ logits shape   : torch.Size([2, 5, 100])
 
 意味は次の通りです。
 
-> 各位置ごとに、モデルは「次の token の分布」を予測している。 
+> 各位置ごとに、モデルは「次の token の分布」を予測している。
 
 ---
 
@@ -413,7 +413,7 @@ positive
 
 つまり、
 
-> GPT の会話能力は、事前学習だけでなく、その後の整列によっても生まれています。 
+> GPT の会話能力は、事前学習だけでなく、その後の整列によっても生まれています。
 
 ---
 
@@ -467,12 +467,12 @@ positive
 
 ### GPT は「会話できるモデル」だと思ってしまう
 
-会話は表面の姿です。  
+会話は表面の姿です。
 根っこは自己回帰言語モデリングです。
 
 ### 学習時にも GPT は双方向に文脈を見られると思ってしまう
 
-違います。  
+違います。
 GPT の重要な制約は、未来を見てはいけないことです。
 
 ### 「モデルが大きい」ことだけ知っていて、出力テンソルが何を表すか分からない
@@ -483,6 +483,18 @@ GPT の重要な制約は、未来を見てはいけないことです。
 - 生成は一歩ずつ積み重ねて作られる
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
 
 ## まとめ
 
@@ -500,3 +512,13 @@ GPT の重要な制約は、未来を見てはいけないことです。
 2. 自分の言葉で説明してみましょう。なぜ causal mask は GPT に必須なのでしょうか？
 3. ランダム初期化した GPT の例に出てきた `logits` の shape を理解してください。それがなぜ `[batch, seq_len, vocab_size]` になるのでしょうか？
 4. なぜ GPT の「会話ができる」能力は、単純に「次の単語を予測できる」だけと同じではないのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. corpus を変えると bigram transition table が変わるため、generated text は新しい corpus の局所 pattern に近づきます。
+2. causal masking が必要なのは、GPT が next token を予測するとき future tokens を見てはいけないからです。
+3. `[batch, seq_len, vocab_size]` は、各 batch の各位置が vocabulary 全体に対する score distribution を持つという意味です。
+4. chat ability は孤立した next-token prediction だけでは説明できません。scale、training data、instruction tuning、feedback、tools、memory、context management が組み合わさって現れます。
+
+</details>

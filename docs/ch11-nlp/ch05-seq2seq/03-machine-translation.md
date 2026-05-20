@@ -429,6 +429,18 @@ In a real project, systematic error analysis matters much more.
 
 A safer approach is usually to first make the data and baseline structure clear.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
+
 ## Summary
 
 The most important thing in this lesson is to view a translation project as:
@@ -453,3 +465,13 @@ First make this loop run smoothly, and later when you upgrade the model, you wil
 2. Why is the minimal translation baseline especially prone to word order problems?
 3. Think about it: what kind of error is very hard for a dictionary baseline to solve no matter what?
 4. If you want to upgrade this project, would you first add data or first change the model? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding word pairs improves coverage, but a dictionary baseline still cannot reliably solve grammar, agreement, or context-dependent translation.
+2. The baseline has word-order problems because it translates tokens independently instead of modeling the target sentence structure.
+3. Idioms, ambiguity, morphology, and long-distance context are hard for a dictionary baseline no matter how many isolated entries you add.
+4. Add data and evaluation examples first so you can see failure types clearly; then choose whether model changes are necessary.
+
+</details>

@@ -62,3 +62,15 @@ cat_car: 0.26
 | ID との違い | ID は区別、embedding は近さを扱えると説明できる |
 | 文脈依存表現 | 同じ単語でも文によって表現が変わる理由を言える |
 | 次章とのつながり | embedding を分類器の入力にできると説明できる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```

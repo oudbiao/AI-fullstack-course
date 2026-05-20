@@ -39,7 +39,7 @@ nlp_workshop_run/
 
 学習目標は満点を取ることではありません。各 NLP 結果を、タスク定義、元テキスト、ラベル、根拠、指標、失敗例までたどれるようにすることです。
 
-## Step 0：データの流れを先に見る
+## ステップ 0：データの流れを先に見る
 
 コードを実行する前に、上から下へ流れを確認してください。
 
@@ -52,7 +52,7 @@ nlp_workshop_run/
 7. 正規表現の抽出器が学習ログを構造化フィールドに変える。
 8. 指標と失敗例をプロジェクト証拠として保存する。
 
-## Step 1：フォルダとスクリプトを作る
+## ステップ 1：フォルダとスクリプトを作る
 
 コースリポジトリの外、または任意の一時フォルダで作業できます。
 
@@ -67,7 +67,7 @@ source .venv/bin/activate
 
 ![TF-IDF テキスト分類 baseline 図](/img/course/ch11-workshop-tfidf-classification-map-ja.webp)
 
-## Step 2：完全なスクリプトを実行する
+## ステップ 2：完全なスクリプトを実行する
 
 ```python
 from __future__ import annotations
@@ -530,13 +530,13 @@ failure_report: nlp_workshop_run/reports/failure_cases.md
 端末出力は、この実行の目次にすぎません。予測ファイル、指標ファイル、失敗レポートを開いてから、この NLP pipeline が本当に使えるか判断します。
 :::
 
-## Step 3：データファイルを読む
+## ステップ 3：データファイルを読む
 
 `nlp_workshop_run/data/train_texts.csv` を開きます。各行には `label` と `text` があります。これが教師ありテキスト分類データセットの最小形です。
 
 次に `nlp_workshop_run/data/notes.jsonl` を開きます。各行は 1 つの知識ノートです。検索 QA は記憶だけで答えるのではなく、まずノートを選び、その中の最も関連する文を答えとして使います。これは後で RAG を作るときにも必要になる証拠を残す習慣です。
 
-## Step 4：Tokenization と TF-IDF を理解する
+## ステップ 4：Tokenization と TF-IDF を理解する
 
 スクリプト内の `tokenize()` は、テキストを小文字化し、句読点を除き、簡単な stop words を除き、意味のある token を残します。初心者の失敗はここでよく起きます。
 
@@ -544,7 +544,7 @@ failure_report: nlp_workshop_run/reports/failure_cases.md
 
 実務では、この部分を `TfidfVectorizer`、embedding、Transformers の tokenizer に置き換えられます。ただし考え方は同じです。モデルが比較できるように、テキストはまず表現に変える必要があります。
 
-## Step 5：分類結果を確認する
+## ステップ 5：分類結果を確認する
 
 `nlp_workshop_run/outputs/classification_predictions.csv` を開きます。
 
@@ -560,7 +560,7 @@ failure_report: nlp_workshop_run/reports/failure_cases.md
 
 `margin` が低いときは、ラベルが正しくてもモデルはあまり確信していません。実際の NLP プロジェクトでは、このような低信頼サンプルがラベル定義を改善する材料になります。
 
-## Step 6：検索 QA、要約、情報抽出を確認する
+## ステップ 6：検索 QA、要約、情報抽出を確認する
 
 ![検索 QA、要約、情報抽出ワークフロー](/img/course/ch11-workshop-retrieval-summary-extraction-map-ja.webp)
 
@@ -576,7 +576,7 @@ Which note explains optimizer momentum?
 
 最後に `nlp_workshop_run/outputs/extraction_predictions.jsonl` を開き、`expected`、`predicted`、`field_scores` を比較します。情報抽出は単語を見つけるだけではなく、出力を schema に合わせる作業です。
 
-## Step 7：指標を読む
+## ステップ 7：指標を読む
 
 3 つの指標ファイルを開きます。
 
@@ -595,7 +595,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 | 要約 | 短くしたテキスト | 元文に支えられているかの手動確認 |
 | 情報抽出 | 構造化フィールド | Field accuracy |
 
-## Step 8：失敗レポートを読む
+## ステップ 8：失敗レポートを読む
 
 ![NLP 失敗例デバッグマップ](/img/course/ch11-workshop-failure-debug-map-ja.webp)
 
@@ -611,7 +611,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 
 これらを具体的な証拠で説明できるなら、単に「モデルを動かす」のではなく、NLP エンジニアリングをしている状態です。
 
-## Step 9：よくあるエラー
+## ステップ 9：よくあるエラー
 
 | 症状 | よくある原因 | 修正方向 |
 |---|---|---|
@@ -621,7 +621,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 | 抽出でフィールドが抜ける | 正規表現や schema ルールが実テキストに合っていない | フィールド例と境界例を増やす |
 | 要約が流暢だが事実と違う | 原文と照合していない | 元文を残し、主張を fact-check する |
 
-## Step 10：練習タスク
+## ステップ 10：練習タスク
 
 最初の実行が終わったら、次のアップグレードを試してください。
 
@@ -630,6 +630,17 @@ nlp_workshop_run/reports/extraction_metrics.json
 3. `EXTRACTION_EVAL` に `risk` フィールドを追加し、`extract_fields()` を更新する。
 4. 重心分類器を scikit-learn の `TfidfVectorizer` と `LogisticRegression` に置き換える。
 5. ノート検索を embedding や LLM ベースの RAG に置き換える。ただし出力ファイルと指標は同じ形で残す。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 新しい labels を追加するなら、label definitions、positive examples、negative examples、新しい confusion-matrix check を一緒に用意します。
+2. より難しい out-of-scope QA は、answer を支える note がないため system が refuse できたときに合格です。
+3. `risk` を追加するなら、regex 1 つだけでなく schema、extractor、evaluation examples、metrics、failure report を更新します。
+4. module を scikit-learn、embeddings、RAG に置き換えても、同じ output files を残します。比較を公平にするためです。
+5. upgrade 成功の基準は、README が何を変えたか、どの metric が動いたか、どの failure が残るかを説明できることです。
+
+</details>
 
 ## 完了基準
 
@@ -642,3 +653,15 @@ nlp_workshop_run/reports/extraction_metrics.json
 - 失敗レポートが次の改善にどうつながるのか。
 
 これらの成果物を README に残せれば、第 11 章の実践 baseline ができています。後の RAG、LLM アプリ、Agent memory にもつながる土台になります。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

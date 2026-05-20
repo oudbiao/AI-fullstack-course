@@ -331,6 +331,18 @@ for word, context_words, sense in sentences:
 - 你理解的是“为什么会变强”
 - 不只是记住模型名字
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -355,3 +367,13 @@ for word, context_words, sense in sentences:
 2. 用自己的话解释：为什么固定词向量处理多义词会吃力？
 3. 为什么说上下文化表示让很多下游任务更容易做？
 4. 想一想：如果表示已经依赖上下文，那“词本身”还重要吗？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 对 `apple` 来说，水果语境应让表示更接近 food 类词，公司语境应让表示更接近 technology 或 product 类词。
+2. 固定词向量难处理多义词，是因为无论词出现在哪个句子里，它都只有一个存储表示。
+3. 上下文化表示会让下游任务更容易，因为模型在分类、抽取或检索前已经能根据周围词区分含义。
+4. “词本身”仍然重要，它是 anchor token；但最终表示应该结合 token 身份和上下文。
+
+</details>

@@ -74,7 +74,7 @@ flowchart LR
 
 - 出かける前にカバンを整理する
 
-登山に行くのと、会社に行くのでは、持っていく物が違います。  
+登山に行くのと、会社に行くのでは、持っていく物が違います。
 同じように、
 
 - 感情分析では、否定語がとても重要
@@ -126,7 +126,7 @@ flowchart LR
 
 ## まずは最小の前処理関数を動かしてみよう
 
-ここでは、英語の例で説明します。英語のほうが標準ライブラリだけで簡単に示しやすいからです。  
+ここでは、英語の例で説明します。英語のほうが標準ライブラリだけで簡単に示しやすいからです。
 考え方は日本語にも同じように当てはまりますが、日本語では通常、より専門的な分かち書きツールが必要です。
 
 ```python
@@ -160,7 +160,7 @@ print(preprocess(sample))
 
 ### この例でいちばん見てほしいことは？
 
-テキスト前処理は、ふしぎなブラックボックスではなく、  
+テキスト前処理は、ふしぎなブラックボックスではなく、
 とても素朴な小さな処理の連なりです。
 
 本当に大事なのは、
@@ -251,10 +251,10 @@ drop_not : ['this', 'movie', 'good']
 
 ### 英語と日本語では事情が違う
 
-英語はスペースがあるので、  
+英語はスペースがあるので、
 簡単な場面では `split()` で分けられます。
 
-日本語には自然なスペースがないので、  
+日本語には自然なスペースがないので、
 分かち書きの問題はもっと難しくなります。
 
 たとえば、
@@ -375,12 +375,12 @@ for text in texts:
 
 ### 伝統的な機械学習
 
-モデルが浅めなので、  
+モデルが浅めなので、
 ノイズの影響を受けやすく、手作業の前処理に強く依存しがちです。
 
 ### 事前学習済みモデル / 大規模モデル
 
-多くの場合、モデル自身の tokenizer にかなり頼ります。  
+多くの場合、モデル自身の tokenizer にかなり頼ります。
 そのため、外側で過度にクリーニングすると、逆に次のようなことが起こりえます。
 
 - 元の構造が壊れる
@@ -407,7 +407,7 @@ for text in texts:
 
 ### 前処理は多いほど高度だと思う
 
-違います。  
+違います。
 情報を消しすぎると、かえって性能が悪くなることがあります。
 
 ### タスクを区別せず、同じルールを使う
@@ -439,6 +439,18 @@ for text in texts:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## まとめ
 
 テキスト前処理でいちばん大事なのは、「きれいに洗う」ことではなく、
@@ -463,3 +475,13 @@ for text in texts:
 2. `not` をストップワードに追加して、感情文でどんな問題が起こるか観察してみましょう。
 3. 自分で短いコメントを 5 件集めて前処理をかけ、どの情報が残って、どれが消えたか確認してみましょう。
 4. 考えてみましょう: NER の場面で、小文字化が逆に有害になるのはなぜでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 数字置換ルールでは連続した数字を `<num>` にできます。ただし日付、価格、ID は扱いが違うことがあるため、before/after 例を必ず残します。
+2. `not` を stopwords に入れると、sentiment ではよく失敗します。`not good` が cleaning 後に `good` と似すぎるからです。
+3. 5 件のレビューでは、原文、cleaned text、tokens を比較します。「短いほど良い」ではなく、有用な証拠が残っているかを見ます。
+4. lowercasing は NER を傷つけることがあります。人名、製品コード、略語、地名では大文字小文字が証拠になるからです。
+
+</details>

@@ -10,7 +10,7 @@ keywords: [BERT, MLM, 双方向エンコーダー, 事前学習, Transformer Enc
 ![BERT Masked Language Model 図](/img/course/bert-masked-language-model-ja.webp)
 
 :::tip この節の位置づけ
-BERT は、現代 NLP が「事前学習が主流の時代」へ入るうえでの重要な節目の一つです。  
+BERT は、現代 NLP が「事前学習が主流の時代」へ入るうえでの重要な節目の一つです。
 今あなたが目にする多くの大規模モデルの概念も、形は進化していても、その理解の土台のかなり多くを BERT から見つけることができます。
 :::
 
@@ -75,7 +75,7 @@ BERT は次のように考えるとわかりやすいです：
 
 - 文を読むときに前後を両方見る「精読タイプ」
 
-昔の静的な単語ベクトルのように、単語へ固定の名刺を一枚渡すのではなく、  
+昔の静的な単語ベクトルのように、単語へ固定の名刺を一枚渡すのではなく、
 むしろ：
 
 - 同じ単語でも、異なる文に入ると、その文の中で今どんな役割をしているかを考え直す
@@ -390,7 +390,7 @@ batch に 4 件のサンプルがあり、分類ヘッドが各サンプルに 2
 
 ### あまり自然ではないもの
 
-BERT は、もともと長文の自由生成のために設計されたモデルではありません。  
+BERT は、もともと長文の自由生成のために設計されたモデルではありません。
 もしタスクの中心が次のようなものなら：
 
 - 長い対話生成
@@ -446,6 +446,18 @@ BERT は、もともと長文の自由生成のために設計されたモデル
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## まとめ
 
 この節で最も大事なのは、BERT の正式名称を暗記することではなく、次の3点をつかむことです：
@@ -464,3 +476,13 @@ BERT は、もともと長文の自由生成のために設計されたモデル
 2. オフライン BERT の例で `hidden_size` を 64 に変更し、出力 shape がどう変わるか見てみましょう。
 3. 「私は [MASK] 言語処理が好きだ」のような学習目標が、なぜモデルに双方向理解を学ばせるのか考えてみましょう。
 4. 自分の言葉で、BERT と GPT の「文脈の見方」の核心的な違いを説明してみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 良い `[MASK]` 例は、左右の文脈から複数の候補を考えられる形です。例: “I love [MASK] language processing.”
+2. `hidden_size` を 64 にすると、last hidden state の最後の次元が 64 になります。
+3. masked language modeling は、missing token を推定するために left context と right context の両方を使わせるので、bidirectional understanding を学ばせます。
+4. BERT は understanding tasks のために context を bidirectional に読みます。GPT は next-token generation のために left-to-right の causal context を読みます。
+
+</details>

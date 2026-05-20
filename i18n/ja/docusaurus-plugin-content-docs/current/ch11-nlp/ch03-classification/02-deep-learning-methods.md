@@ -14,7 +14,7 @@ keywords: [deep text classification, embedding, pooling, neural classifier, NLP]
 :::
 
 :::tip この節の位置づけ
-従来のテキスト分類でも多くの問題は解決できます。  
+従来のテキスト分類でも多くの問題は解決できます。
 しかし、タスクが次のような要素に依存し始めると：
 
 - 意味的に近い表現
@@ -80,7 +80,7 @@ flowchart LR
 
 ### たとえで理解する
 
-従来手法は、文をまずキーワードの表に分解してから判断するイメージです。  
+従来手法は、文をまずキーワードの表に分解してから判断するイメージです。
 深層学習は、文をまず連続した意味表現に変換してから判断するイメージです。
 
 ### 初学者向けの、よりわかりやすい比喩
@@ -108,7 +108,7 @@ token id をベクトルに変えます。
 
 ### Pooling
 
-一連の token 表現を1つの文表現にまとめます。  
+一連の token 表現を1つの文表現にまとめます。
 いちばん簡単なのは：
 
 - 平均プーリング
@@ -117,14 +117,14 @@ token id をベクトルに変えます。
 
 線形層を使って、文表現をクラススコアに変換します。
 
-この構造はとてもシンプルですが、  
+この構造はとてもシンプルですが、
 それでも純粋な bag-of-words より、連続表現を活かしやすいです。
 
 ---
 
 ## 三、まずは純 Python のニューラルテキスト分類器の前向き計算を動かしてみよう
 
-このコードはパラメータを学習しません。  
+このコードはパラメータを学習しません。
 ただし、次の流れを一通り示します。
 
 - token id -> embedding
@@ -213,7 +213,7 @@ prediction: refund
 
 ### なぜ pooling がそれほど重要なのか？
 
-分類では、最終的にたいてい文レベルの表現が必要になります。  
+分類では、最終的にたいてい文レベルの表現が必要になります。
 pooling がなければ、token ベクトルが並んでいるだけなので、そのまま分類ヘッドにつなぐのは難しいです。
 
 ### もう1つ、最小の「同じ意味の表現は近づきやすい」例
@@ -254,7 +254,7 @@ print("返金申請 vs パスワード再設定:", l1_distance(sentences["返金
 
 ### 連続した意味関係を使える
 
-「返金申請」と「返品処理」のように、見た目の単語は違っても意味が近い場合、  
+「返金申請」と「返品処理」のように、見た目の単語は違っても意味が近い場合、
 embedding はそれらを近づけやすいです。
 
 ### 文脈をより自然に扱える
@@ -277,12 +277,12 @@ embedding はそれらを近づけやすいです。
 
 ### 表現のバリエーションが多いとき
 
-同じ意図に対して、いろいろな言い回しがある場合、  
+同じ意図に対して、いろいろな言い回しがある場合、
 深層学習のほうが有利になりやすいです。
 
 ### 明示的なキーワードより意味が重要なとき
 
-キーワードだけでは判定しにくいなら、  
+キーワードだけでは判定しにくいなら、
 深い表現を使う価値があります。
 
 ### より高い学習コストを受け入れられるとき
@@ -301,7 +301,7 @@ embedding はそれらを近づけやすいです。
 3. まずは誤分類例が減るか、より安定するかを見る
 4. 最後に、より強い構造や事前学習モデルを検討する
 
-こうすると、最初から複雑なネットワークを追うより、  
+こうすると、最初から複雑なネットワークを追うより、
 どこに効果があるのかが見えやすくなります。
 
 ---
@@ -310,12 +310,12 @@ embedding はそれらを近づけやすいです。
 
 ### 誤解1：深層学習は必ず従来手法より全面的に優れている
 
-そうとは限りません。  
+そうとは限りません。
 データが少ない、文が短い、ルールがはっきりしているタスクでは、従来手法のほうが十分に良いことがあります。
 
 ### 誤解2：embedding があれば自動的に文脈を理解できる
 
-最小の embedding + pooling 構造は、bag-of-words より強いです。  
+最小の embedding + pooling 構造は、bag-of-words より強いです。
 しかし、それがそのまま最強の文脈理解になるわけではありません。
 
 ### 誤解3：モデル構造だけを見て、データを見ない
@@ -342,6 +342,18 @@ embedding はそれらを近づけやすいです。
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、深層学習によるテキスト分類を次のように理解することです。
@@ -358,3 +370,13 @@ embedding はそれらを近づけやすいです。
 2. なぜ pooling が、token 表現から文分類へ進むための重要な一歩なのかを説明してください。
 3. 自分の言葉で説明してみましょう。深層分類手法が従来の bag-of-words 手法より持っている、中心的な能力は何でしょうか。
 4. どんなタスクなら、いきなり深層モデルではなく、まず従来の baseline を試したほうがよいでしょうか。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. tokens を `invoice` と `issue` に変えると、vector 設計が妥当なら billing または support intent に近づくはずです。
+2. pooling が重要なのは、token-level vectors を 1 つの sentence/document vector にまとめないと分類できないからです。
+3. deep method が加える核心能力は、単語数だけでなく composition、order、context-sensitive representation を学べることです。
+4. データが少ない、label が不安定、latency が重要、解釈しやすい error analysis が必要なときは traditional baseline から始めます。
+
+</details>

@@ -61,3 +61,15 @@ reason: match model objective to task output
 ## 通过标准
 
 如果你能解释不同训练目标为什么带来不同优势，并运行或设计一个小型预训练模型对比实验，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```

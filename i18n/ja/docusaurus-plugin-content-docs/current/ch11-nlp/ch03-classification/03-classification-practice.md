@@ -15,7 +15,7 @@ keywords: [text classification practice, intent classification, baseline, error 
 - 伝統的なテキスト分類
 - 深層学習によるテキスト分類
 
-この節では、それらを実際のプロジェクトに戻して考えます。  
+この節では、それらを実際のプロジェクトに戻して考えます。
 本当のテキスト分類プロジェクトでは、難しさはモデルだけではなく、次の点にもあります。
 
 - ラベルをどう決めるか
@@ -67,7 +67,7 @@ keywords: [text classification practice, intent classification, baseline, error 
 
 ## 二、まずは説明しやすいベースラインを作る
 
-ここでは外部依存を使わず、  
+ここでは外部依存を使わず、
 最小構成のキーワード統計ベースラインをそのまま書いて、まず全体の流れを見えるようにします。
 
 ```python
@@ -294,6 +294,18 @@ errors: [{'text': '返金の請求書はどう発行しますか', 'gold': 'invo
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## まとめ
 
 この節で最も大切なのは、プロジェクトの習慣を身につけることです。
@@ -310,3 +322,13 @@ errors: [{'text': '返金の請求書はどう発行しますか', 'gold': 'invo
 2. エラーの詳細を見て、どの予測が混同しやすいか確認し、その理由を考えてみてください。
 3. このキーワードベースラインから深層学習モデルへ切り替えるのは、どんな場合だと思いますか？
 4. ラベル定義そのものがあいまいな場合、まずモデルを直しますか、それともデータを直しますか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 新しい `shipping` category を入れるなら、まず label definition を書き、正例と紛らわしい反例を追加してから metrics を信頼します。
+2. error details では、共通語が多い label pair、境界が曖昧な label、学習例が足りない label を探します。
+3. keyword baseline が言い換え、語順、文脈、意味理解を必要とする例で崩れるなら、deep model への upgrade を検討します。
+4. label definition が曖昧なら、先に data と label guide を直します。強い model でも不明確な target は安定して学べません。
+
+</details>

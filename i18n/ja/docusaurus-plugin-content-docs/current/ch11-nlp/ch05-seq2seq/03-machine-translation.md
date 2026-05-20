@@ -14,10 +14,10 @@ keywords: [machine translation, seq2seq, translation project, alignment, error a
 :::
 
 :::tip この節の位置づけ
-翻訳は Seq2Seq のいちばん代表的なタスクです。  
+翻訳は Seq2Seq のいちばん代表的なタスクです。
 「入力テキスト -> 出力テキスト」という一連のプロジェクトの流れを練習するのにとても向いています。
 
-この授業では、いきなり大規模モデルの学習をするのではなく、  
+この授業では、いきなり大規模モデルの学習をするのではなく、
 まずは最重要のプロジェクト構造をはっきりさせます。
 
 - データペアはどんな形か
@@ -56,7 +56,7 @@ flowchart LR
 
 - 2人でバイリンガルの対訳ノートを作っている
 
-片方に原文、もう片方に訳文を書きます。  
+片方に原文、もう片方に訳文を書きます。
 本当に難しいのは、単に「対応する単語を探す」ことではなく、次のような点です。
 
 - どう並べ替えるか
@@ -140,7 +140,7 @@ study hard -> 一生懸命 勉強する
 3. テーマが雑多すぎないか
 4. 同じ単語やフレーズに、矛盾する訳し方が多すぎないか
 
-これらを最初に見ておかないと、  
+これらを最初に見ておかないと、
 後でデータの問題をモデルの問題だと勘違いしやすくなります。
 
 ---
@@ -199,7 +199,7 @@ love ai -> 愛する <unk>
 - 多義語を扱えない
 - 未知語に出会うと `<unk>` になる
 
-こうした限界がはっきりしているからこそ、  
+こうした限界がはっきりしているからこそ、
 なぜ後でより強いモデルが必要になるのかを理解しやすくなります。
 
 ### なぜ最小ベースラインはかえって教育的価値が高いのか？
@@ -371,7 +371,7 @@ for src, expected in gold.items():
 
 ### さらに進めて Transformer に移る
 
-つまり、この小さなプロジェクトの意味は、それ自体が強いことではなく、  
+つまり、この小さなプロジェクトの意味は、それ自体が強いことではなく、
 次のように翻訳の基本構造を見えるようにしてくれる点にあります。
 
 - 翻訳プロジェクトの基本骨格
@@ -413,7 +413,7 @@ for src, expected in gold.items():
 こうすると、見る人には次のことが伝わりやすくなります。
 
 - きちんとした翻訳プロジェクトを作っている
-- ただ翻訳 demo を動かしただけではない
+- ただ翻訳デモを動かしただけではない
 
 ---
 
@@ -430,6 +430,18 @@ for src, expected in gold.items():
 ### 誤解3：最初から大きなモデルをそのまま学習すればよい
 
 より安定した方法は、まずデータと baseline の構造を整理することです。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
 
 ## まとめ
 
@@ -455,3 +467,13 @@ for src, expected in gold.items():
 2. なぜ最小の翻訳ベースラインは、語順の問題が特に起こりやすいのでしょうか？
 3. 考えてみましょう。どんなエラーは、辞書ベースラインではどうしても解決しにくいでしょうか？
 4. このプロジェクトをアップグレードするなら、最初にデータを補いますか、それともモデルを変えますか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. word pair を増やすと coverage は上がりますが、dictionary baseline だけでは grammar、agreement、context-dependent translation は安定して解けません。
+2. word-order 問題が起きるのは、target sentence structure を model 化せず token を独立に訳すからです。
+3. idiom、ambiguity、morphology、long-distance context は、孤立した辞書項目を増やしても dictionary baseline では難しいです。
+4. まず data と evaluation examples を増やし、failure type を明確にします。その後で model change が必要か判断します。
+
+</details>

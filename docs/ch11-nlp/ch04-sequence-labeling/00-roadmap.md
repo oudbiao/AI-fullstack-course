@@ -49,6 +49,18 @@ If tokenization changes, labels must stay aligned. Many sequence-labeling bugs a
 | 3 | BiLSTM-CRF | Connect contextual features with valid label paths |
 | 4 | Project practice | Evaluate precision, recall, F1, boundary errors |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## Pass Check
 
 You pass this chapter when you can inspect token/tag alignment and explain one boundary error or invalid tag transition.

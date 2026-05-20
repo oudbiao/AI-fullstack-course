@@ -149,6 +149,18 @@ Information extraction can be used to build metadata for RAG documents. For exam
 
 The README should include: project goals, input examples, output JSON schema, extraction method, field explanations, evaluation method, failed samples, and next steps. When presenting your portfolio, it is best to include a comparison table showing “original text -> JSON -> human correction.”
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
+
 ## Common Mistakes
 
 The first mistake is showing only successful examples without field-level evaluation. The second mistake is an unstable JSON schema, which makes downstream programs unusable. The third mistake is ignoring boundary issues—for example, in “Teacher Zhang will share at Peking University,” Peking University may be a location or an organization. The fourth mistake is sending LLM output directly into the database without validation.
@@ -171,6 +183,16 @@ It is recommended to finish the basic version first; do not try to make everythi
 2. Test rule-based extraction on 5 sample announcements and record whether each field is correct.
 3. Find 3 failed extraction cases and analyze whether the issue is entity boundary errors, missing fields, or unclear schema design.
 4. Think about how these structured fields help subsequent RAG retrieval.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A course-announcement schema might include `course`, `date`, `deadline`, `task`, `location_or_url`, `target_audience`, and `required_action`.
+2. Evaluate each sample at field level: correct, missing, wrong boundary, wrong type, or unsupported by the source text.
+3. For three failures, separate entity boundary errors, missing fields, and unclear schema design; each category needs a different fix.
+4. Structured fields help RAG by enabling filtering, routing, metadata search, citation grouping, and safer downstream Agent actions.
+
+</details>
 
 ## Passing Criteria
 

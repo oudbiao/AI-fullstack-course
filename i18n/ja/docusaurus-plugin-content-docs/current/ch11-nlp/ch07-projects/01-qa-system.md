@@ -89,7 +89,7 @@ flowchart LR
 3. それから拒答メカニズムを足す
 4. 最後に評価と表示を整える
 
-こうすると、プロジェクトが「説明可能なシステム」に見えやすくなります。  
+こうすると、プロジェクトが「説明可能なシステム」に見えやすくなります。
 「たまたま何問か当たったデモ」にはなりにくいです。
 
 ### なぜQAシステムは「システムの境界感」を鍛えるのに向いているのか？
@@ -108,14 +108,14 @@ QAシステムは次のように考えるとよいです。
 
 - 図書館の受付での案内
 
-受付は何でも知っているわけではありません。  
+受付は何でも知っているわけではありません。
 その代わりに、
 
 - まず館内資料を探す
 - 見つかれば答える
 - 見つからなければ、ないと明確に伝える
 
-このたとえはとても大切です。  
+このたとえはとても大切です。
 初心者が早い段階で、正しい感覚を持つ助けになるからです。
 
 - QAシステムはまず知識の境界を扱うシステム
@@ -194,14 +194,14 @@ print(answer_question("修了証はどうやって取りますか"))
 
 ### 「どの知識にヒットしたか」を、「答えが自然かどうか」より先に見るべきなのはなぜ？
 
-QAシステムの誤りは、生成部分のミスとは限りません。  
+QAシステムの誤りは、生成部分のミスとは限りません。
 むしろ最初から、
 
 - 間違った知識にヒットしている
 
 ことが多いからです。
 
-ここを見逃すと、  
+ここを見逃すと、
 どこに問題があるのか判断しにくくなります。
 
 ### 最小の「ヒットログ」の例をもう一つ見る
@@ -400,6 +400,18 @@ accuracy = 1.0
 - ちゃんとシステムを作っている
 - ただ FAQ を数行つないだだけではない
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、作品レベルの判断を持つことです。
@@ -434,3 +446,13 @@ accuracy = 1.0
 2. なぜ拒答メカニズムはプロジェクトの信頼性を大きく上げるのでしょうか？
 3. 考えてみましょう。2つの質問がとても似ているのに答えが違う場合、システムは最もどんなミスをしやすいでしょうか？
 4. ポートフォリオとして見せるなら、面接官にどの3つを見せたいですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. FAQ を 5 件追加しても、質問表現と expected answer が明確でなければ coverage は安定しません。near-duplicate questions も追加して混同を試します。
+2. refusal mechanism は credibility を高めます。ユーザーが supported answer と guess を区別できるからです。
+3. 似た質問で答えが違う場合、system は wrong entry を retrieve したり blended response を返したりしやすいです。
+4. portfolio では knowledge base、retrieval evidence、refusal tests、failure cases、小さな improvement log を見せます。
+
+</details>

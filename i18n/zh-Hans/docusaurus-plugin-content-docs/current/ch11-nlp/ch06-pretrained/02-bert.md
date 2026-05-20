@@ -451,6 +451,18 @@ BERT 本身不是为了长文本自由生成设计的。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## 小结
 
 这一节最重要的不是记住 BERT 的全称，而是抓住三件事：
@@ -469,3 +481,13 @@ BERT 本身不是为了长文本自由生成设计的。
 2. 把离线 BERT 示例里的 `hidden_size` 改成 64，再看输出 shape 怎样变化。
 3. 想一想：为什么“我爱 [MASK] 语言处理”这种训练目标，能让模型学会双向理解？
 4. 用自己的话解释：BERT 和 GPT 在“看上下文”的方式上有什么核心差别？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格的 `[MASK]` 例子应有足够左右文，让候选词有根据，比如 “I love [MASK] language processing.”。
+2. 如果 `hidden_size` 改成 64，last hidden state 的最后一维应变成 64。
+3. masked language modeling 能训练双向理解，因为模型必须同时利用左侧和右侧上下文来推断缺失 token。
+4. BERT 为理解任务双向读取上下文；GPT 为 next-token generation 按因果顺序从左到右读取。
+
+</details>

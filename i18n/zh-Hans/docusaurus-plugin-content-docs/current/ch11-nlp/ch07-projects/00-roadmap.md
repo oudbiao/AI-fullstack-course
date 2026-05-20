@@ -63,11 +63,23 @@ portfolio_ready: True
 |---|---|---|
 | README | 目标、运行命令、依赖、示例 | 增加任务边界、数据来源、方案取舍、复盘总结 |
 | 标签/schema | 标签、实体边界或输出字段 | 增加正例、反例、边界例、一致性说明 |
-| Baseline | 关键词、TF-IDF、规则或简单模型 | 增加模型对比和错误归因 |
+| 基线 | 关键词、TF-IDF、规则或简单模型 | 增加模型对比和错误归因 |
 | 评估 | Accuracy、recall、F1、人工评分或事实性检查 | 按标签、长度、领域、噪声类型分析 |
 | 失败案例 | 至少 1 个真实失败 | 增加原因、修复动作、回归检查 |
 | 展示 | 截图或短 GIF 证明能运行 | 构建清晰的文本理解项目页面 |
 
 ## 通过标准
 
-如果你的 NLP 项目有任务定义、数据示例、评估指标、baseline、失败案例和下一步改进计划，就通过了本章。
+如果你的 NLP 项目有任务定义、数据示例、评估指标、基线、失败案例和下一步改进计划，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

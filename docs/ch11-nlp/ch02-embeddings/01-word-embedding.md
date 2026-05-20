@@ -354,6 +354,18 @@ This is easier to build intuition with than starting directly with a complex mod
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## Common Pitfalls with Word Embeddings
 
 ### Mistake 1: Word Embeddings Are the Same as Dictionary Definitions
@@ -399,3 +411,13 @@ If this is compressed into one sentence, it is:
 2. Why can one-hot distinguish words but cannot express relationships between words?
 3. Explain in your own words why cosine similarity is suitable for comparing word vectors.
 4. Think about this: if a word often appears in multiple different contexts, what problems will fixed word vectors run into?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A plausible `delivery` vector should be closer to shipping, order, or logistics words than to unrelated words. The exact numbers are less important than the relative neighborhood.
+2. One-hot vectors distinguish words by ID, but every different word is equally far apart, so they cannot express similarity.
+3. Cosine similarity is useful because it compares vector direction, which often captures semantic neighborhood better than raw magnitude.
+4. Fixed vectors struggle with polysemy because one vector must represent all meanings of a word such as `bank`, `apple`, or `python`.
+
+</details>

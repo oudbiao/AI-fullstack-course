@@ -387,6 +387,18 @@ That is why later we will continue learning:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## Common misconceptions
 
 ### Misconception 1: one-hot is too simple, so there is no need to learn it
@@ -429,3 +441,13 @@ This is also why the path from one-hot, BoW, and TF-IDF all the way to embedding
 2. Why does the bag-of-words model ignore word order?
 3. Explain in your own words: why does TF-IDF lower the weight of overly common words?
 4. Think about it: if a task depends heavily on word order, what problems would you encounter using only BoW or TF-IDF?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding two sentences should change the vocabulary and may change TF-IDF weights because document frequency has changed.
+2. BoW ignores word order because it represents a document as token counts, not as a sequence.
+3. TF-IDF lowers common words because words appearing everywhere usually do not distinguish one document from another.
+4. If word order matters, BoW or TF-IDF may confuse “dog bites man” with “man bites dog”; use n-grams, sequence models, or contextual embeddings.
+
+</details>

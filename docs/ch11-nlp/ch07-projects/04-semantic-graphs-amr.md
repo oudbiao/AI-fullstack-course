@@ -243,3 +243,15 @@ If you are building educational course materials, knowledge-base QA, or automati
 - Large models help you generate content according to templates
 
 This is also why modern knowledge-base applications increasingly value “retrieval + structure + generation.”
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

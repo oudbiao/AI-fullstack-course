@@ -305,6 +305,18 @@ For example:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## Common Mistakes
 
 ### Mistake 1: Using the most complex model from the start
@@ -337,3 +349,13 @@ Once this habit is established, you will be much more stable when working on mor
 2. Use the error details to see which predictions are most easily confused, and guess why.
 3. In what situations would you decide to upgrade from this keyword baseline to a deep model?
 4. If the label definitions themselves are vague, would you change the model first or the data first? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For a new `shipping` category, add label definitions first, then add positives and confusing negatives before trusting the metrics.
+2. Use error details to find label pairs with shared words, vague boundaries, or missing training examples.
+3. Upgrade to a deep model when keyword rules fail on paraphrases, word order, context, or examples that need semantic understanding.
+4. If labels are vague, fix the data and label guide first. A stronger model cannot reliably learn an unclear target.
+
+</details>

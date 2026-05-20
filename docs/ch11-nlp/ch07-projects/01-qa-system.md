@@ -388,6 +388,18 @@ That way, others will more easily feel that:
 - you built a system
 - not just a bundle of FAQ entries
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
+
 ## Summary
 
 The most important idea in this section is to build a portfolio-level judgment:
@@ -422,3 +434,13 @@ It is recommended to finish the basic version first; do not try to build somethi
 2. Why does a refusal mechanism significantly improve the credibility of the project?
 3. Think about this: if two questions are very similar but have different answers, what is the system most likely to get wrong?
 4. If you were presenting a portfolio project, which 3 parts would you most want to show the interviewer?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding five FAQ entries should improve coverage only if their wording and expected answers are clear; also add near-duplicate questions to test confusion.
+2. A refusal mechanism improves credibility because users can distinguish supported answers from guesses.
+3. When two questions are similar but answers differ, the system is likely to retrieve the wrong entry or answer with a blended response.
+4. For a portfolio, show the knowledge base, retrieval evidence, refusal tests, failure cases, and a small improvement log.
+
+</details>

@@ -235,6 +235,18 @@ What is really hard in Seq2Seq tasks is:
 - Generating reasonable content
 - Preserving structure
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
+
 ## Summary
 
 The most important thing in this section is to understand Seq2Seq as:
@@ -259,3 +271,13 @@ As long as this main structure is clear, learning Attention and T5 later will fe
 2. Why is the output of Seq2Seq not fixed-length, and not from a fixed label set?
 3. Think about this: if the input is very long, why is “compressing it into only one vector” difficult?
 4. Explain in your own words: what does the encoder do, and what does the decoder do?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Expanding the dictionary should make the toy generator cover more input words, but it will still fail on unseen words and word order.
+2. Seq2Seq output is variable-length because the decoder emits tokens step by step until a stop condition, not from a fixed label set.
+3. Compressing a long input into one vector is difficult because details, order, and long-range dependencies compete for limited representation space.
+4. The encoder reads the input into a representation; the decoder uses that representation and previous outputs to generate the target sequence.
+
+</details>

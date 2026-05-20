@@ -94,6 +94,13 @@ accuracy=3/3
 
 操作メモ: "the document source field is missing" のような紛らわしいサンプルを追加してください。ルールが失敗したら、原因がラベル重複、キーワード不足、タスク定義の曖昧さのどれかを記録します。BERT、GPT、LLM を使うときも同じ考え方です。
 
+### この出力の読み方
+
+- 各行は `pred` と `expected` を比較しているので、サンプルごとに誤りを確認できます。
+- `ok=True` は、そのサンプルでは現在のルールが合っていたという意味で、タスク全体が解けた証拠ではありません。
+- `accuracy=3/3` は 3 例だけの baseline です。信頼する前に境界例を追加します。
+- 最も価値がある証拠は点数そのものではなく、なぜ紛らわしいテキストが間違ったラベルになったかの失敗メモです。
+
 ## 深さの段階
 
 | 段階 | 証明できること |
@@ -115,6 +122,18 @@ accuracy=3/3
 | 出典に基づく新しいテキスト | 要約 / 生成 | 事実一貫性、網羅性、引用 |
 | 文書から質問に答える | QA / 検索 | hit rate、回答品質、出典支援 |
 | モデル挙動を比較する | 事前学習モデル実験 | 品質、コスト、遅延、データ要件 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
 
 ## よくある失敗
 

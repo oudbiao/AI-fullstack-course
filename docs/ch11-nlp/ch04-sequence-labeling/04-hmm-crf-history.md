@@ -157,3 +157,15 @@ HMM / Viterbi -> CRF -> BiLSTM-CRF -> BERT token classification
 Each generation was answering the same question:
 
 > **How can we make each position’s label fit the context while also making the entire label sequence reasonable?**
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```

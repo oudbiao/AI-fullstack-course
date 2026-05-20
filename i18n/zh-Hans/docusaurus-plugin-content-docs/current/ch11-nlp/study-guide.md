@@ -37,7 +37,7 @@ keywords: [NLP 检查表, 文本分类, 信息抽取, BERT, GPT, 文本评估]
 | 闸门 | 通过条件 |
 |---|---|
 | 标签/schema 边界 | 标签或字段包含正例、反例和边界例。 |
-| Baseline | 规则、TF-IDF、简单模型或 LLM baseline 使用同一批固定评估样本运行。 |
+| 基线 | 规则、TF-IDF、简单模型或 LLM 基线使用同一批固定评估样本运行。 |
 | 事实性 | 生成摘要或答案按来源证据检查，不只看流畅度。 |
 | 错误复盘 | 混淆、缺字段、不支持事实、坏摘要都有原因和下一次测试。 |
 
@@ -50,3 +50,26 @@ keywords: [NLP 检查表, 文本分类, 信息抽取, BERT, GPT, 文本评估]
 - 你能说明什么时候传统 NLP 方法够用，什么时候 LLM 更合适吗？
 
 如果答案都是可以，就能更稳地把 NLP 思维用到 Prompt、RAG、Agent 记忆和多模态任务中。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案应能讲清原始文本到 token、表示、模型输入、预测、指标和失败案例的路径。
+2. 标签边界只有在有正例、反例、边界例和冲突处理规则时才算准备好。
+3. 固定标签用分类，字段输出用抽取，查证据用检索，生成新文本用生成；输出需要多步时用混合方案。
+4. 事实一致性意味着每个生成摘要或答案都能追溯到来源证据；流畅本身不够。
+5. 任务小、透明、稳定时，传统 NLP 往往够用；语言变化大、需要生成或依赖上下文推理时，LLM 更有帮助。
+
+</details>
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

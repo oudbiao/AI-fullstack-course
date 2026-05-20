@@ -39,7 +39,7 @@ nlp_workshop_run/
 
 学习目标不是追求满分，而是让每个 NLP 结果都能追溯到任务定义、源文本、标签、证据、指标和失败样本。
 
-## Step 0：先看懂数据流
+## 步骤 0：先看懂数据流
 
 运行代码前，先按顺序看这条线：
 
@@ -52,7 +52,7 @@ nlp_workshop_run/
 7. 正则抽取器把学习日志变成结构化字段。
 8. 指标和失败案例保存成项目证据。
 
-## Step 1：创建文件夹和脚本
+## 步骤 1：创建文件夹和脚本
 
 可以在课程仓库外面，或任意临时目录里创建工作文件夹：
 
@@ -67,7 +67,7 @@ source .venv/bin/activate
 
 ![TF-IDF 文本分类 baseline 图](/img/course/ch11-workshop-tfidf-classification-map.webp)
 
-## Step 2：运行完整脚本
+## 步骤 2：运行完整脚本
 
 ```python
 from __future__ import annotations
@@ -530,13 +530,13 @@ failure_report: nlp_workshop_run/reports/failure_cases.md
 终端输出只是这次运行的目录。先打开预测文件、指标文件和失败报告，再判断这个 NLP pipeline 是否真的可用。
 :::
 
-## Step 3：阅读数据文件
+## 步骤 3：阅读数据文件
 
 打开 `nlp_workshop_run/data/train_texts.csv`。每一行都有 `label` 和 `text`，这就是监督式文本分类数据集的最小形态。
 
 再打开 `nlp_workshop_run/data/notes.jsonl`。每一行是一条知识笔记。检索问答任务不是凭空回答，而是先选中一条笔记，再复制最相关的句子作为答案。这就是后面做 RAG 时必须保留的证据习惯。
 
-## Step 4：理解 Tokenization 和 TF-IDF
+## 步骤 4：理解 Tokenization 和 TF-IDF
 
 脚本里的 `tokenize()` 会把文本转小写、去掉标点、去掉简单 stop words，并保留有意义的 token。很多新人问题都出在这里。
 
@@ -544,7 +544,7 @@ failure_report: nlp_workshop_run/reports/failure_cases.md
 
 真实项目中，你可以把这里替换成 `TfidfVectorizer`、embedding，或 Transformers 里的 tokenizer。但底层思路不变：文本必须先变成表示，模型才能比较。
 
-## Step 5：检查分类结果
+## 步骤 5：检查分类结果
 
 打开 `nlp_workshop_run/outputs/classification_predictions.csv`。
 
@@ -560,7 +560,7 @@ failure_report: nlp_workshop_run/reports/failure_cases.md
 
 `margin` 很低时，即使预测正确，模型也不太确定。真实 NLP 项目里，这类低置信样本通常最适合拿来改进标签定义。
 
-## Step 6：检查检索问答、摘要和信息抽取
+## 步骤 6：检查检索问答、摘要和信息抽取
 
 ![检索问答、摘要与信息抽取流程图](/img/course/ch11-workshop-retrieval-summary-extraction-map.webp)
 
@@ -576,7 +576,7 @@ Which note explains optimizer momentum?
 
 最后打开 `nlp_workshop_run/outputs/extraction_predictions.jsonl`。比较 `expected`、`predicted` 和 `field_scores`。信息抽取不只是找几个词，而是让输出匹配 schema。
 
-## Step 7：阅读指标
+## 步骤 7：阅读指标
 
 打开三个指标文件：
 
@@ -595,7 +595,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 | 文本摘要 | 更短文本 | 人工检查是否有来源支持 |
 | 信息抽取 | 结构化字段 | Field accuracy |
 
-## Step 8：阅读失败报告
+## 步骤 8：阅读失败报告
 
 ![NLP 失败样本排查图](/img/course/ch11-workshop-failure-debug-map.webp)
 
@@ -611,7 +611,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 
 如果你能用具体证据回答这些问题，你做的就不是“调模型”，而是在做 NLP 工程。
 
-## Step 9：常见错误
+## 步骤 9：常见错误
 
 | 现象 | 可能原因 | 修复方向 |
 |---|---|---|
@@ -621,7 +621,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 | 抽取漏字段 | 正则或 schema 规则不匹配真实文本 | 增加字段样例和边界样本 |
 | 摘要流畅但不真实 | 没有和原文核对 | 保留来源句子并检查事实 |
 
-## Step 10：练习任务
+## 步骤 10：练习任务
 
 第一次跑通后，可以继续做这些升级：
 
@@ -630,6 +630,17 @@ nlp_workshop_run/reports/extraction_metrics.json
 3. 给 `EXTRACTION_EVAL` 增加 `risk` 字段，并更新 `extract_fields()`。
 4. 把质心分类器替换成 scikit-learn 的 `TfidfVectorizer` 和 `LogisticRegression`。
 5. 把笔记检索替换成 embedding 或 LLM 支持的 RAG，但继续保留同样的输出文件和指标。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 新增标签时，应同时补标签定义、正例、反例和新的 confusion matrix 检查。
+2. 更难的越界 QA 只有在系统因为没有证据而拒答时才算通过。
+3. 增加 `risk` 不只是改一个 regex，还要同步更新 schema、抽取器、评估样本、指标和失败报告。
+4. 如果把模块替换成 scikit-learn、embedding 或 RAG，仍要保留同样的输出文件，这样比较才公平。
+5. 升级成功的标准是 README 能说明改了什么、哪个指标变化、还有哪个失败未解决。
+
+</details>
 
 ## 完成标准
 
@@ -642,3 +653,15 @@ nlp_workshop_run/reports/extraction_metrics.json
 - 失败报告如何指导下一步改进。
 
 如果你能把这些产物写进 README，就已经有了第 11 章的实操 baseline，也为后面的 RAG、LLM 应用和 Agent 记忆打好了桥。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

@@ -74,3 +74,15 @@ portfolio_ready: True
 | baseline | 最小コードで入出力を確認できる |
 | 評価 | 成功例だけでなく失敗例も記録できる |
 | 納品 | README とサンプルで再現できる形にできる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

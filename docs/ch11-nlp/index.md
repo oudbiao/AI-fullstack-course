@@ -94,6 +94,13 @@ accuracy=3/3
 
 Operation tip: add a confusing sample such as "the document source field is missing." If the rule system fails, write down whether the problem is label overlap, keyword coverage, or unclear task definition. The same thinking applies when you later use BERT, GPT, or an LLM.
 
+### How to read this output
+
+- Each line compares `pred` with `expected`, so you can inspect errors one sample at a time.
+- `ok=True` means the current rule worked for that sample; it does not prove the task is solved.
+- `accuracy=3/3` is only a baseline on three examples. Add boundary cases before trusting it.
+- The most valuable artifact is the failure note: why a confusing text was classified into the wrong label.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -115,6 +122,18 @@ Do not choose a model before you know the output.
 | new text based on source | summarization / generation | factual consistency, coverage, citations |
 | answer from documents | QA / retrieval | hit rate, answer quality, source support |
 | model behavior comparison | pretrained model experiment | quality, cost, latency, data requirement |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
 
 ## Common Failures
 

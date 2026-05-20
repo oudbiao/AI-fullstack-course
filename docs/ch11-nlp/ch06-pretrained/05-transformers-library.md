@@ -150,6 +150,18 @@ It is teaching you that:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## Next, build a minimal BERT model offline
 
 ### Why use a randomly initialized model?
@@ -408,3 +420,13 @@ Once this chain is clear, your thinking will become much more stable when you la
 2. Change `hidden_size` in `BertConfig` to 64 and see how the output shape changes.
 3. Explain in your own words: why can’t you just learn `pipeline` when studying the `transformers` library?
 4. Think about this: if you want to do text classification, should you start with `AutoModel` or `AutoModelForSequenceClassification`?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing the mini vocab should change token IDs and may introduce unknown tokens if a word is missing from the vocabulary.
+2. Changing `hidden_size` to 64 should change the hidden representation dimension, not the sequence length or batch size.
+3. `pipeline` is useful, but you also need to understand tokenizers, configs, model classes, tensors, labels, and evaluation to debug real projects.
+4. For text classification, start with `AutoModelForSequenceClassification` when you need a ready classification head; use `AutoModel` when you plan to build the head yourself.
+
+</details>

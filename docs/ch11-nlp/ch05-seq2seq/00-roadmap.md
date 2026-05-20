@@ -52,6 +52,18 @@ Generation projects should record decoding strategy, failure cases, and whether 
 | 3 | Machine translation | Connect teacher forcing, decoding, BLEU/error analysis |
 | 4 | CTC and speech | See what changes when input/output are not frame-aligned |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
+
 ## Pass Check
 
 You pass this chapter when you can explain encoder-decoder, attention, greedy/beam decoding, and one generation failure.

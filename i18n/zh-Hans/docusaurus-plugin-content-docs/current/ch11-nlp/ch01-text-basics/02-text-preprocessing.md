@@ -428,6 +428,18 @@ for text in texts:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## 小结
 
 文本预处理最重要的不是“洗干净”，而是：
@@ -452,3 +464,13 @@ for text in texts:
 2. 把 `not` 加进停用词，再观察情感句子会发生什么问题。
 3. 自己找 5 条短评论，跑一遍预处理，看看哪些信息被保留、哪些被删掉。
 4. 想一想：在 NER 场景里，小写化为什么可能反而有害？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 数字替换规则可以把连续数字替换成 `<num>`，但要保留前后对比，因为日期、价格和 ID 可能需要不同处理。
+2. 把 `not` 加进 stopwords 往往会伤害情感任务，因为 `not good` 清洗后会变得太像 `good`。
+3. 跑 5 条评论时，对比原文、清洗后文本和 token。最好的观察不是“越短越好”，而是有用证据是否还在。
+4. 小写化可能伤害 NER，因为人名、产品代码、缩写和地点常常依赖大小写作为证据。
+
+</details>

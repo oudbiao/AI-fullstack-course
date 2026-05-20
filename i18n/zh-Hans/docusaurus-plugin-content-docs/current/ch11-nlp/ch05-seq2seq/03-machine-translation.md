@@ -411,7 +411,7 @@ for src, expected in gold.items():
 这样别人会更容易看出：
 
 - 你在做一个完整翻译项目
-- 不只是跑一个翻译 demo
+- 不只是跑一个翻译演示
 
 ---
 
@@ -428,6 +428,18 @@ for src, expected in gold.items():
 ### 误区三：一开始就想直接训很大模型
 
 更稳的做法通常是先把数据和基线结构理清。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
 
 ## 小结
 
@@ -453,3 +465,13 @@ for src, expected in gold.items():
 2. 为什么最小翻译基线特别容易出词序问题？
 3. 想一想：什么错误是词典基线无论如何都很难解决的？
 4. 如果你要升级这个项目，第一步会先补数据还是先换模型？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加词对能提升覆盖率，但字典 baseline 仍难稳定解决语法、一致性和上下文翻译。
+2. 它容易有词序问题，因为它独立翻译 token，没有建模目标句结构。
+3. 习语、歧义、形态变化和长距离上下文，是字典 baseline 很难靠单词条目解决的问题。
+4. 先补数据和评估样例，让失败类型变清楚；再判断是否需要换模型。
+
+</details>

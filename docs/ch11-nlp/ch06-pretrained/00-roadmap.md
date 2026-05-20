@@ -58,6 +58,18 @@ Do not choose by model name alone. Match tokenizer, objective, output format, co
 | 4 | T5 | Rewrite tasks into text-to-text form |
 | 5 | Transformers practice | Connect tokenizer, model, pipeline, input, output |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## Pass Check
 
 You pass this chapter when you can explain why different objectives create different strengths, and run or design one small pretrained-model comparison experiment.

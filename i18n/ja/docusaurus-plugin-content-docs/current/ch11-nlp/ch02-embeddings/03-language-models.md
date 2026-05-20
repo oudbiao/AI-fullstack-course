@@ -14,7 +14,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 :::
 
 :::tip この節の位置づけ
-「言語モデル」という言葉は、この先何度も出てきます。  
+「言語モデル」という言葉は、この先何度も出てきます。
 ここで最も基本的な感覚をつかんでおかないと、後で大規模モデルを学ぶときに、流行語だけが残ってしまいがちです。
 
 このレッスンの目標は、まず次の1点をはっきりさせることです。
@@ -54,13 +54,13 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 - よくある意味の関係
 - ある程度の世界知識
 
-つまり、  
-「次の token を予測する」という目標はシンプルに見えて、  
+つまり、
+「次の token を予測する」という目標はシンプルに見えて、
 実はモデルにたくさんの言語の規則を学ばせます。
 
 ### たとえ話
 
-言語モデルは「しりとり」をしているようなものです。  
+言語モデルは「しりとり」をしているようなものです。
 ただし、適当に続けるのではなく、次のように自然に続ける必要があります。
 
 - 人間の言語らしく
@@ -158,14 +158,14 @@ print(dict(stats))
 
 ### 核心のタスクは変わらない
 
-後になってモデルの構造はどんどん複雑になりますが、  
+後になってモデルの構造はどんどん複雑になりますが、
 重要な事実の1つは次のとおりです。
 
 - 目的関数はしばしば「次の token を予測する」ままです
 
 ### 変わるのは表現方法と汎化の仕方
 
-ニューラル言語モデルは、もはや頻度表を引くだけではありません。  
+ニューラル言語モデルは、もはや頻度表を引くだけではありません。
 代わりに、次のようなことをします。
 
 - token をベクトルで表す
@@ -206,7 +206,7 @@ print(softmax(scores))
 
 モデルはすぐに1語だけを選ぶ必要はありません。まず候補 token 全体の確率分布を出し、その後のデコード規則が選択、サンプリング、順位付けを行います。
 
-これは完全なニューラルネットワークではありませんが、  
+これは完全なニューラルネットワークではありませんが、
 すでに大事なことを表しています。
 
 - モデルは1つの単語だけを出すのではない
@@ -229,7 +229,7 @@ print(softmax(scores))
 
 ### 大規模な自己教師あり学習と相性が良いから
 
-「次の単語が何か」を人手でラベル付けする必要はありません。  
+「次の単語が何か」を人手でラベル付けする必要はありません。
 テキストそのものが、自然にそのラベルを持っています。
 
 そのため、
@@ -255,20 +255,32 @@ print(softmax(scores))
 
 ### 誤解1：言語モデルは「次の単語を当てるだけ」
 
-表面的にはその通りですが、  
+表面的にはその通りですが、
 このタスクがモデルに学ばせるものを低く見積もってはいけません。
 
 ### 誤解2：n-gram は役に立たないから、学ぶ必要はない
 
-n-gram はとても役に立ちます。  
+n-gram はとても役に立ちます。
 なぜなら、言語モデルが何をしているのかを最初に本当に見せてくれるからです。
 
 ### 誤解3：生成できれば、言語を理解していることになる
 
-生成が上手でも、完全に理解しているとは限りません。  
+生成が上手でも、完全に理解しているとは限りません。
 そのため後で、推論、アラインメント、ツール呼び出しも学ぶ必要があります。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
 
 ## まとめ
 
@@ -276,7 +288,7 @@ n-gram はとても役に立ちます。
 
 > **言語モデルの最も基本的なタスクは、前文が与えられたときに次の token を予測することです。そして、この一見シンプルな目標こそが、後の大規模モデルの多くの能力の土台になります。**
 
-この主線さえはっきりしていれば、  
+この主線さえはっきりしていれば、
 後で GPT、事前学習、生成モデルを見ても、ずっと自然に理解できます。
 
 ---
@@ -287,3 +299,13 @@ n-gram はとても役に立ちます。
 2. bigram はシンプルなのに、なぜ言語モデルの核心を捉えていると言えるのでしょうか？
 3. 自分の言葉で説明してみましょう。言語モデルはなぜ大規模な自己教師あり学習に向いているのでしょうか？
 4. 考えてみましょう。「次の単語を続ける」ことが、どうして対話や文章作成の能力につながるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. corpus に文を追加すると `stats` の遷移回数が変わります。よく出る continuation は強くなり、まれな continuation は相対的に弱くなります。
+2. bigram は単純ですが、前の文脈から次の token を推定するという language modeling の核心をすでに持っています。
+3. language modeling は self-supervised learning と相性が良いです。普通のテキスト自体が入力文脈と next-token target を提供するからです。
+4. next-word prediction が文章作成や会話能力に発展するのは、scale、representation learning、instruction tuning、feedback、long context が加わるからです。
+
+</details>

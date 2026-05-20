@@ -72,3 +72,15 @@ reason: match model objective to task output
 | BERT / GPT / T5 | 理解、生成、text-to-text の違いを言える |
 | タスク選定 | 出力形式からモデルの型を選べる |
 | 次章とのつながり | RAG、Prompt、Agent で tokenizer、embedding、生成が再登場すると説明できる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```

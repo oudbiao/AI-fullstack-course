@@ -467,6 +467,18 @@ If the label boundaries are unclear, both the data and the evaluation will drift
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## Summary
 
 The most important thing in this section is to build a practical habit:
@@ -483,3 +495,13 @@ In that way, what you leave behind is a truly explainable and improvable informa
 2. Think about why NER projects are more suitable for entity-level metrics than token accuracy.
 3. If the system often extracts only half of a long school name, would you prioritize changing the data, changing the model, or adding post-processing? Why?
 4. How would you further expand this resume extraction project into a portfolio presentation?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. When adding `ORG` or `TITLE`, define boundary rules first: what counts as the organization name, job title, or surrounding modifier.
+2. NER should use entity-level metrics because the user receives extracted entities, not isolated token labels.
+3. For half-extracted long school names, first inspect annotation consistency, then add examples or post-processing; change the model only after the target is clear.
+4. A strong portfolio presentation should show label schema, examples, entity-level metrics, error buckets, fixes, and a small before/after improvement log.
+
+</details>

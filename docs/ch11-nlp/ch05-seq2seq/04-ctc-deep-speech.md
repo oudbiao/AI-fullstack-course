@@ -219,3 +219,15 @@ The hardest part of speech recognition is not just â€œturning sound into text,â€
 
 The beauty of CTC is:
 It does not force humans to label every frame. Instead, it lets the model learn from all possible alignment paths on its own.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```

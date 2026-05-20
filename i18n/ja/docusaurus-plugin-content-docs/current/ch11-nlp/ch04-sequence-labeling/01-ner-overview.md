@@ -55,7 +55,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ### なぜこれが重要なのか？
 
-なぜなら、実際の多くの業務では、文全体の理解だけでは足りないからです。  
+なぜなら、実際の多くの業務では、文全体の理解だけでは足りないからです。
 より知りたいのは、たとえば次のような情報です。
 
 - 人名
@@ -68,7 +68,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ### たとえで考えると
 
-テキスト分類は、記事全体にラベルを貼るようなものです。  
+テキスト分類は、記事全体にラベルを貼るようなものです。
 シーケンスラベリングは、蛍光ペンで文の重要部分を囲むようなものです。
 
 ---
@@ -77,7 +77,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 ### 実体は連続した断片だから
 
-抽出したい情報の多くは、単語1つではなく、連続した span です。  
+抽出したい情報の多くは、単語1つではなく、連続した span です。
 たとえば次のようなものです。
 
 - `上海交通大学`
@@ -214,7 +214,7 @@ print(decode_entities(tokens, tags))
 
 ### このコードが重要なのはなぜ？
 
-これは「ラベリングタスク」と「抽出結果」をつないでいるからです。  
+これは「ラベリングタスク」と「抽出結果」をつないでいるからです。
 実際のシステムで本当に大事なのは、タグそのものよりも、次のような結果です。
 
 - 実体 span
@@ -240,7 +240,7 @@ print(decode_entities(tokens, tags))
 
 ### つまり「情報抽出の土台となるスキル」
 
-多くの抽出システムは、さらに複雑になります。  
+多くの抽出システムは、さらに複雑になります。
 それでも、いちばん基礎となる一歩は、しばしば次のことです。
 
 - まず重要な span を見つける
@@ -267,6 +267,18 @@ print(decode_entities(tokens, tags))
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## まとめ
 
 この節でいちばん大切なのは、次の考え方を身につけることです。
@@ -283,3 +295,13 @@ print(decode_entities(tokens, tags))
 2. なぜ BIO ラベル体系の重要な役割は、実体の境界を表すことだと言えるのでしょうか？
 3. 自分の言葉で説明してみましょう。シーケンスラベリングとテキスト分類の最大の違いは何ですか？
 4. 考えてみましょう。ラベル列の中に不正な `I-XXX` が出てきたら、システムはどう処理するとより安定でしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `2025` が 1 token の時間エンティティなら `B-TIME` です。複数 token にまたがる場合だけ `B-TIME I-TIME ...` を使います。
+2. BIO の役割は boundary を表すことです。どの token で entity が始まり、どの token が同じ entity を続けるかを示します。
+3. sequence labeling は token ごとに label を出します。text classification はテキスト全体に 1 つの label を出します。
+4. 不正な `I-XXX` は post-processing で修復または拒否し、error として記録し、training label や decoding rule に戻って確認します。
+
+</details>

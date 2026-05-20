@@ -363,6 +363,18 @@ for case in eval_cases:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
+
 ## 小结
 
 这节最重要的是建立一个作品级判断：
@@ -389,3 +401,13 @@ for case in eval_cases:
 2. 为什么摘要项目特别值得展示“中间打分结果”？
 3. 想一想：抽取式摘要最容易出现哪类失败？
 4. 如果你要把这个项目放进作品集，你会优先展示哪 4 部分？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `top_k=1` 时摘要更短但可能缺上下文；`top_k=3` 时证据更多，但可能冗余。
+2. 展示中间打分很有价值，因为它解释每句话为什么被选中，也方便做失败分析。
+3. 抽取式摘要常见失败是漏掉跨句上下文、选出重复句，或遗漏关键条件。
+4. 作品集版本应展示原文、打分表、选出的摘要、事实检查和失败/改进记录。
+
+</details>

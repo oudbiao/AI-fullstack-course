@@ -52,3 +52,15 @@ notes O
 ## 通过标准
 
 如果你能检查 token/tag 对齐，并解释一个边界错误或非法标签转移，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```

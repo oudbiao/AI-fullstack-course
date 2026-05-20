@@ -50,6 +50,18 @@ If tokenization is unstable, every downstream task becomes unstable too.
 | 2 | Preprocessing | Normalize text, split tokens, handle noise and boundaries |
 | 3 | Text representation | Build tokens, ids, vocabulary, sparse features, or vectors |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## Pass Check
 
 You pass this chapter when you can take raw text, tokenize it, explain the task output shape, and save one preprocessing example in your project notes.

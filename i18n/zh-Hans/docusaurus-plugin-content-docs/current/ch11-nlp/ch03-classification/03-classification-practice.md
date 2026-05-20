@@ -294,6 +294,18 @@ errors: [{'text': '退款申请发票怎么开', 'gold': 'invoice', 'pred': 'ref
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## 小结
 
 这节最重要的是建立一个项目习惯：
@@ -310,3 +322,13 @@ errors: [{'text': '退款申请发票怎么开', 'gold': 'invoice', 'pred': 'ref
 2. 用错误明细看看哪些预测最容易混淆，猜一猜原因。
 3. 你会在什么情况下决定从这个关键词基线升级到深度模型？
 4. 如果标签定义本身模糊，你会先改模型还是先改数据？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 新增 `shipping` 类别时，先写标签定义，再补正例和混淆反例，最后才看指标。
+2. 看错误明细时，重点找共享词太多、边界模糊或训练样本不足的标签对。
+3. 当关键词 baseline 无法处理改写、词序、上下文或语义理解样本时，再升级深度模型。
+4. 如果标签定义本身模糊，优先改数据和标签指南。更强模型无法稳定学习不清楚的目标。
+
+</details>

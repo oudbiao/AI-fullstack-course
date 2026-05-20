@@ -315,6 +315,18 @@ At that point, you usually need more:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## Common misconceptions
 
 ### Misconception 1: Traditional text classification is no longer worth learning
@@ -371,3 +383,13 @@ Once you have that judgment, you will no longer be limited to “just use a larg
 2. Add a new class yourself, such as `shipping`, expand the training set, and try again.
 3. Why can traditional text classification be “the better first step” in some tasks?
 4. If a task heavily depends on word order and context, would you still prioritize bag-of-words methods? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `TfidfVectorizer` may reduce the influence of common words and highlight label-specific words, but the result depends on the dataset size and label wording.
+2. When adding `shipping`, include clear positives, confusing negatives, and at least a few examples that mention orders but are not shipping problems.
+3. Traditional classification can be the better first step when data is small, the task is simple, transparency matters, or you need a fast baseline.
+4. If the task depends heavily on order and context, BoW should not be the final model; use it as a baseline and compare against sequence or pretrained models.
+
+</details>

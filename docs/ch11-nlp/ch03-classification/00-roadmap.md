@@ -48,6 +48,18 @@ Simple baselines are not the final model, but they expose label rules and failur
 | 2 | Deep learning methods | Compare embeddings, pooling, CNN/RNN/Transformer features |
 | 3 | Project practice | Track split, metrics, label ambiguity, and error samples |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## Pass Check
 
 You pass this chapter when you can train or simulate a classifier, report accuracy/F1, and explain at least one ambiguous label case.

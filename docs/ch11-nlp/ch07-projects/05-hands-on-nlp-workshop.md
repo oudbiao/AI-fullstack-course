@@ -631,6 +631,17 @@ Try these upgrades after the first run:
 4. Replace the centroid classifier with scikit-learn `TfidfVectorizer` and `LogisticRegression`.
 5. Replace note retrieval with embeddings or an LLM-backed RAG system, but keep the same output files and metrics.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. New labels should come with label definitions, positive examples, negative examples, and a new confusion-matrix check.
+2. A harder out-of-scope QA case passes only if the system refuses because no note supports the answer.
+3. Adding `risk` requires updating the schema, extractor, evaluation examples, metrics, and failure report, not only one regex.
+4. If you replace modules with scikit-learn, embeddings, or RAG, keep the same output files so the comparison remains fair.
+5. The upgrade is successful when the README can explain what changed, which metric moved, and which failure remains.
+
+</details>
+
 ## Completion Standard
 
 You have finished this workshop when you can explain:
@@ -642,3 +653,15 @@ You have finished this workshop when you can explain:
 - what the failure report says about the next improvement.
 
 If you can keep these artifacts in a README, you have a practical baseline for Chapter 11 and a useful bridge into RAG, LLM applications, and Agent memory later.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

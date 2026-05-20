@@ -103,9 +103,21 @@ for a, b in zip(path, path[1:]):
 
 現代の NER では、BERT に線形分類層をつなげる方法がよく使われますし、BERT の後ろに CRF を追加することもできます。BERT は BiLSTM より強いコンテキスト表現能力を持つことが多いですが、CRF によるラベル制約にも価値があります。特に、データ量が少ない場合、ラベル形式が厳密な場合、エンティティ境界のミスが起きやすい場合に有効です。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## よくある誤解
 
-1 つ目の誤解は、CRF を古いモデルだと思い込むことです。最強の手法とは限りませんが、ラベル制約の考え方はいまでも重要です。2 つ目の誤解は、token 単位の正解率だけを見て、实体単位の F1 を見ないことです。NER で本当に大事なのは、エンティティの境界と種類が完全に正しいかどうかです。3 つ目の誤解は、BIO アノテーションの一貫性を無視して、学習データ自体に不正なラベル列が含まれてしまうことです。
+1 つ目の誤解は、CRF を古いモデルだと思い込むことです。最強の手法とは限りませんが、ラベル制約の考え方はいまでも重要です。2 つ目の誤解は、token 単位の正解率だけを見て、エンティティ単位の F1 を見ないことです。NER で本当に大事なのは、エンティティの境界と種類が完全に正しいかどうかです。3 つ目の誤解は、BIO アノテーションの一貫性を無視して、学習データ自体に不正なラベル列が含まれてしまうことです。
 
 ## 演習
 
@@ -113,6 +125,16 @@ for a, b in zip(path, path[1:]):
 2. 「token ごとの分類」と「列全体のデコード」の違いを比較してください。
 3. 考えてみましょう: なぜ entity 単位の F1 のほうが NER に適しているのでしょうか？
 4. BERT で NER を行う場合、CRF はまだ必要でしょうか？賛成と反対の理由をそれぞれ挙げてください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 中国語の BIO 例では、まず token 単位を決め、entity が `I-*` から始まっていないか、各 `I-*` の前に対応する `B-*` または `I-*` があるか確認します。
+2. token-by-token classification は各位置を独立に採点します。global sequence decoding は文全体で最も妥当で合法な label path を選びます。
+3. entity-level F1 が token accuracy より適しているのは、boundary が 1 つずれるだけで抽出 entity が使えなくなることがあるからです。
+4. BERT は CRF なしでも動きますが、CRF は legal transition と entity boundary の一貫性を助けます。一方で複雑さが増え、簡単な dataset では不要な場合もあります。
+
+</details>
 
 ## 合格基準
 

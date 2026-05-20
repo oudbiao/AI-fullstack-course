@@ -468,6 +468,18 @@ NER 更该看实体级效果。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## 小结
 
 这节最重要的是建立一个实战习惯：
@@ -484,3 +496,13 @@ NER 更该看实体级效果。
 2. 想一想：为什么 NER 项目更适合看实体级指标，而不是 token accuracy？
 3. 如果系统经常把长学校名只抽一半，你会优先改数据、改模型，还是加后处理？为什么？
 4. 你会如何把这个简历抽取项目进一步扩成作品集展示？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加 `ORG` 或 `TITLE` 时，先定义边界规则：组织名、职位名和周围修饰词到底算不算实体。
+2. NER 更适合用实体级指标，因为用户拿到的是抽出的实体，不是孤立 token 标签。
+3. 长学校名只抽出一半时，先检查标注一致性，再补样本或后处理；只有目标清楚后才考虑换模型。
+4. 作品集展示应包含标签 schema、样例、实体级指标、错误分桶、修复方案和小型前后对比日志。
+
+</details>

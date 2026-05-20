@@ -325,6 +325,18 @@ for text in texts:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## 小结
 
 这节课最该记住的一句话是：
@@ -347,3 +359,13 @@ for text in texts:
 2. 把示例里的规则再扩成一个 `hotel_booking` 意图分类。
 3. 想一想：聊天机器人为什么只是 NLP 的一个应用，不是全部？
 4. 你能否把一个你熟悉的 AI 产品，拆解成它背后用到的 NLP 任务？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 文本比表格数据更难，是因为含义依赖顺序、上下文、歧义、标点、拼写变化和领域说法；表格列通常已经把特征边界定义好了。
+2. `hotel_booking` 规则可以先匹配 `hotel`、`room`、`check-in`、`reservation`、`stay` 等词；关键是同时测试正例和容易混淆的反例，比如餐厅预订。
+3. 聊天机器人只是 NLP 的一种应用。NLP 还包括分类、搜索、抽取、摘要、翻译、审核和文档分析。
+4. 拆解熟悉的 AI 产品时，写出输入、NLP 任务、输出和指标。例如客服助手可能包含意图分类、检索问答、摘要和拒答检查。
+
+</details>

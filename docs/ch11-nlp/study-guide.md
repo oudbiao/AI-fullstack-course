@@ -50,3 +50,26 @@ Use this page as a printable checklist. If you need the full explanation, return
 - Can you explain when a traditional NLP method is enough and when an LLM is helpful?
 
 If the answer is yes, you can use NLP ideas more confidently in Prompt, RAG, Agent memory, and multimodal work.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A strong answer explains the path from raw text to tokens, representation, model input, prediction, metric, and failure case.
+2. Label boundaries are ready only when you have positive examples, negative examples, edge cases, and a written rule for disagreements.
+3. Choose classification for fixed labels, extraction for fields, retrieval for evidence lookup, generation for new text, and hybrids when outputs require multiple steps.
+4. Factual consistency means each generated summary or answer can be traced to source evidence; fluency alone is not enough.
+5. Traditional NLP is enough when the task is small, transparent, and stable; LLMs help when language variation, generation, or reasoning over context dominates.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

@@ -430,6 +430,18 @@ These are all important foundations for learning large models later.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## Common beginner mistakes
 
 ### Mixing up BERT and GPT as if they were the same thing
@@ -468,3 +480,13 @@ Once you understand these three points, many differences will become naturally c
 2. Change `hidden_size` in the offline BERT example to 64, then see how the output shape changes.
 3. Think about this: why can a training objective like “I love [MASK] language processing” help the model learn bidirectional understanding?
 4. Explain in your own words: what is the core difference between BERT and GPT in the way they “look at context”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A valid `[MASK]` example should have enough left and right context for multiple plausible candidates, such as “I love [MASK] language processing.”
+2. If `hidden_size` becomes 64, the last hidden state should end with dimension 64 instead of the previous hidden dimension.
+3. Masked language modeling helps bidirectional understanding because the model must use both left and right context to infer the missing token.
+4. BERT reads context bidirectionally for understanding tasks; GPT reads causally from left to right for next-token generation.
+
+</details>

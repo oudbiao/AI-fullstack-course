@@ -274,6 +274,18 @@ n-gram 很有用，
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## 小结
 
 这节最重要的是建立一个很稳定的判断：
@@ -291,3 +303,13 @@ n-gram 很有用，
 2. 为什么说 bigram 虽然简单，但已经抓到了语言模型的核心？
 3. 用自己的话解释：语言模型为什么天然适合大规模自监督训练？
 4. 想一想：为什么“会接下一个词”这件事，最后能长出对话和写作能力？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加语料句子会改变 `stats` 里的转移计数；常见后续词概率变高，稀有后续词相对变弱。
+2. bigram 很简单，但已经包含语言模型核心：根据前文估计下一个 token 更可能是什么。
+3. 语言模型天然适合自监督训练，因为普通文本本身就提供了输入上下文和 next-token 目标。
+4. “续写下一个词”之所以能发展出写作和对话能力，是因为叠加了规模、表示学习、指令微调、反馈和长上下文。
+
+</details>

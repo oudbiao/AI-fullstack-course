@@ -477,6 +477,18 @@ GPT 的关键约束就是不能偷看未来。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## 小结
 
 这一节最重要的不是记住某一代 GPT 的名字，而是抓住这条主线：
@@ -493,3 +505,13 @@ GPT 的关键约束就是不能偷看未来。
 2. 用自己的话解释：为什么 causal mask 对 GPT 是必须的？
 3. 看懂随机初始化 GPT 示例里的 `logits` shape，它为什么会是 `[batch, seq_len, vocab_size]`？
 4. 想一想：为什么说 GPT 的“会聊天”能力，不能简单等同于“只是会预测下一个词”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 修改语料会改变 bigram 转移表，所以生成文本会更像新语料里的局部模式。
+2. causal masking 必要，是因为 GPT 学 next-token prediction 时不能偷看未来 token。
+3. `[batch, seq_len, vocab_size]` 表示每个 batch 中每个位置都会对整个词表输出一组分数。
+4. 聊天能力不能简单等同于孤立的 next-token prediction；它来自规模、训练数据、指令微调、反馈、工具、记忆和上下文管理的组合。
+
+</details>

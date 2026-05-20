@@ -58,3 +58,15 @@ needs_review - confusing setup error
 | baseline | 比較用の最小基準だと説明できる |
 | TF-IDF | 単語の出現と重要度から特徴量を作る考え方を言える |
 | neural 分類 | embedding、pooling、分類ヘッドの流れを説明できる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```

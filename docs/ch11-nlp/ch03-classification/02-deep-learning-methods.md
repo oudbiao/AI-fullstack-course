@@ -305,6 +305,18 @@ This makes it much easier to see where the gains are coming from than starting w
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## Common misconceptions
 
 ### Misconception 1: Deep methods are always better than traditional methods
@@ -357,3 +369,13 @@ Once this intuition is established, learning BERT classification and larger pret
 2. Why is pooling a key step in moving from token representations to sentence classification?
 3. Explain in your own words: what is the core capability that deep classification methods add beyond traditional bag-of-words methods?
 4. Think about it: in what kinds of tasks would you still prefer trying a traditional baseline first instead of jumping straight to a deep model?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing tokens to `invoice` and `issue` should move the representation toward billing or support intent if those vectors are encoded that way.
+2. Pooling is key because token-level vectors must be summarized into one sentence or document vector before classification.
+3. Deep methods add the ability to learn composition, order, and context-sensitive representations instead of only counting words.
+4. Try a traditional baseline first when the dataset is small, labels are unstable, latency matters, or you need interpretable error analysis.
+
+</details>

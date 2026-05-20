@@ -36,10 +36,10 @@ keywords: [NLP チェックリスト, テキスト分類, 情報抽出, BERT, GP
 
 | ゲート | 合格条件 |
 |---|---|
-| Label/schema boundary | labels または fields に positive、negative、edge examples がある。 |
-| Baseline | rule、TF-IDF、simple model、LLM baseline が同じ fixed eval cases で動く。 |
-| Factuality | 生成 summary/answer が fluency だけでなく source evidence で確認される。 |
-| Error review | confusion、missing fields、unsupported facts、bad summaries に cause と next test がある。 |
+| ラベル/schema 境界 | ラベルまたはフィールドに positive、negative、境界例がある。 |
+| ベースライン | ルール、TF-IDF、シンプルモデル、LLM ベースラインが同じ固定評価ケースで動く。 |
+| 事実性 | 生成された summary/answer が fluency だけでなく出典証拠で確認される。 |
+| エラーレビュー | 混同、欠落フィールド、根拠のない事実、悪い要約に原因と次のテストがある。 |
 
 ## 章を出る前の質問
 
@@ -50,3 +50,26 @@ keywords: [NLP チェックリスト, テキスト分類, 情報抽出, BERT, GP
 - 伝統的 NLP 手法で足りる場合と、LLM が役立つ場合を説明できますか？
 
 答えがすべて「はい」なら、NLP の考え方を Prompt、RAG、Agent memory、マルチモーダル作業により安定して使えます。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 良い答えは、raw text から tokens、representation、model input、prediction、metric、failure case までの流れを説明できます。
+2. label boundary は、positive examples、negative examples、edge cases、意見が分かれたときの rule があるときに準備できたと言えます。
+3. fixed labels なら classification、fields なら extraction、evidence lookup なら retrieval、新しい text なら generation を選びます。複数 step が必要なら hybrid にします。
+4. factual consistency とは、generated summary/answer の各主張を source evidence に戻せることです。fluency だけでは不十分です。
+5. task が小さく透明で安定しているなら traditional NLP で十分なことがあります。言語の揺れ、generation、context reasoning が大きい場合は LLM が役立ちます。
+
+</details>
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```

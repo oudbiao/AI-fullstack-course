@@ -332,6 +332,18 @@ That way, others can immediately see:
 - You understand “why it becomes stronger”
 - Not just the model names
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## Summary
 
 The most important thing in this section is to build a judgment:
@@ -356,3 +368,13 @@ This step is an important threshold for modern NLP to truly enter the pretrainin
 2. Explain in your own words: why do fixed word vectors struggle with polysemous words?
 3. Why do contextualized representations make many downstream tasks easier?
 4. Think about this: if the representation already depends on context, is the “word itself” still important? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For `apple`, a fruit context should move it toward food words, while a company context should move it toward technology or product words.
+2. Fixed vectors struggle with polysemy because the word has one stored representation no matter which sentence it appears in.
+3. Contextualized representations help downstream tasks because the model can distinguish meaning from surrounding words before classification, extraction, or retrieval.
+4. The word itself still matters as the anchor token, but the final representation should combine token identity with context.
+
+</details>

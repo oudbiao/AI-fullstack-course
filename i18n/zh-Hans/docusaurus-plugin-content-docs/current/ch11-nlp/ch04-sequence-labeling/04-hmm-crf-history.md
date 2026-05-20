@@ -158,3 +158,15 @@ HMM / Viterbi -> CRF -> BiLSTM-CRF -> BERT token classification
 每一代都在回答同一个问题：
 
 > **怎样让每个位置的标签既符合上下文，又让整条标签序列合理？**
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```

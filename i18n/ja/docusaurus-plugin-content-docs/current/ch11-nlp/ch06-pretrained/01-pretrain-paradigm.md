@@ -20,7 +20,7 @@ keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-fin
 
 これが現代 NLP の事前学習パラダイムです。
 
-もし前の段階で、これをただの「先に少し学習してから微調整すること」だとだけ捉えると、あとで用語だけが残りやすくなります。  
+もし前の段階で、これをただの「先に少し学習してから微調整すること」だとだけ捉えると、あとで用語だけが残りやすくなります。
 だからこの節では、なぜ重要なのか、なぜ NLP 全体を変えたのかをしっかり説明します。
 :::
 
@@ -137,8 +137,8 @@ flowchart LR
 
 ### アナロジー
 
-事前学習は、まず教養科目の教材を読むようなものです。  
-転移は、その基礎を新しい科目に持ち込むことです。  
+事前学習は、まず教養科目の教材を読むようなものです。
+転移は、その基礎を新しい科目に持ち込むことです。
 微調整は、試験問題の傾向に合わせて特訓することです。
 
 ### なぜこのアナロジーを先に覚える価値があるのか？
@@ -193,11 +193,11 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 ['パスワード'] -> ('password', {'refund': 0.1, 'invoice': 0.2, 'password': 1.0})
 ```
 
-左から右に読むと、各入力語が同じ共有表現テーブルを再利用し、その上で小さなタスク用分類器が 3 つのスコア軸を読み取っています。これが「共有された土台を先に作り、その後でタスクに適応する」流れの小さな模型です。
+左から右に読むと、各入力語が同じ共有表現テーブルを再利用し、その上で小さなタスク用分類器が 3 つのスコア軸を読み取っています。これが「共有された土台を先に作り、その後でタスクに適応する」流れの小さなモデルです。
 
 ### この例は何を示しているのか？
 
-これは、本当の強力なモデルを表しているわけではありません。  
+これは、本当の強力なモデルを表しているわけではありません。
 伝えたいのは、いちばん本質的な感覚です。
 
 - まず共有された表現の土台がある
@@ -242,7 +242,7 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 
 ### スケールしやすいから
 
-事前学習が成立すると、  
+事前学習が成立すると、
 より大きなデータやより多くの計算資源が、土台の能力向上につながりやすくなります。
 
 ### 汎用性が高いから
@@ -251,7 +251,7 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 
 ### 下流タスクのハードルを下げるから
 
-多くのタスクで、大きなモデルをゼロから学習し直す必要がなくなります。  
+多くのタスクで、大きなモデルをゼロから学習し直す必要がなくなります。
 その代わりに、
 
 - 事前学習済みモデルをそのまま適応する
@@ -264,12 +264,12 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 
 ### 誤解 1：事前学習パラダイムは「先に少し訓練する」だけ
 
-違います。  
+違います。
 変わるのは、タスクの組み立て方そのものです。
 
 ### 誤解 2：すべてのタスクで必ず微調整が必要
 
-そうではありません。  
+そうではありません。
 タスクによっては、
 
 - 特徴抽出
@@ -285,6 +285,18 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 - なぜ共通の能力を先に学んでから転移すると効果的なのか
 
 です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
 
 ## まとめ
 
@@ -314,3 +326,13 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 2. どのようなタスクなら、事前学習済みの特徴だけで十分で、必ずしも全面的な微調整が必要ではないでしょうか？
 3. この「共有された土台」の例は、実際のシステムではそれぞれ何に対応するでしょうか？
 4. なぜ、事前学習パラダイムはモデルだけでなく、タスクの組み立て方全体を変えたと言えるのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. pretraining がハードルを下げるのは、小さな task-specific dataset を見る前に、model が広い language pattern をすでに学んでいるからです。
+2. pretrained features だけで足りる可能性があるタスクには、similarity search、clustering、simple classification、retrieval reranking baseline があります。
+3. shared foundation の例は、1 つの pretrained encoder や model family を複数の downstream head、prompt、adapter で使う実システムに対応します。
+4. この paradigm は model だけでなく task organization も変えます。data、evaluation、adaptation、deployment が reusable foundation model を中心に組まれるからです。
+
+</details>

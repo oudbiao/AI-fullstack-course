@@ -103,6 +103,18 @@ In a real CRF, these are not hand-written rules. Instead, it learns from trainin
 
 Modern NER often uses BERT with a linear classification layer, and CRF can also be added after BERT. BERT’s contextual representation ability is usually stronger than BiLSTM’s, but CRF is still valuable for label constraints, especially in tasks with small amounts of data, strict label formats, and entity boundary errors.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## Common misconceptions
 
 The first misconception is that CRF is an outdated model. It is not necessarily the strongest solution, but the idea of label constraints is still important. The second misconception is looking only at token-level accuracy and ignoring entity-level F1. What NER ultimately cares about is whether the entity boundaries and types are both completely correct. The third misconception is ignoring BIO labeling consistency, which makes the training data itself contain invalid label sequences.
@@ -113,6 +125,16 @@ The first misconception is that CRF is an outdated model. It is not necessarily 
 2. Compare the difference between “token-by-token classification” and “global sequence decoding.”
 3. Think about why entity-level F1 is more suitable than token accuracy for NER.
 4. If you use BERT for NER, do you still need CRF? List reasons for and against it.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For a Chinese BIO example, segment the sentence first, then ensure no `I-*` starts an entity and every `I-*` follows a matching `B-*` or `I-*`.
+2. Token-by-token classification scores each position independently; global sequence decoding chooses the best valid label path for the whole sentence.
+3. Entity-level F1 is better than token accuracy because one wrong boundary can make the extracted entity unusable even if most tokens look correct.
+4. BERT may work without CRF, but CRF can still help enforce legal transitions and consistent entity boundaries; it also adds complexity and may be unnecessary on easy datasets.
+
+</details>
 
 ## Passing criteria
 

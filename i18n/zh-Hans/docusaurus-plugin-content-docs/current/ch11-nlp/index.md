@@ -94,6 +94,13 @@ accuracy=3/3
 
 操作提示：新增一个容易混淆的样本，比如 "the document source field is missing"。如果规则系统失败，就记录问题是标签重叠、关键词覆盖不够，还是任务定义不清。后面换成 BERT、GPT 或 LLM 时，思路仍然一样。
 
+### 如何读这个输出
+
+- 每一行都在比较 `pred` 和 `expected`，所以你能逐条检查错误。
+- `ok=True` 只说明当前规则在这个样本上对了，不代表任务已经解决。
+- `accuracy=3/3` 只是 3 个样本上的 baseline。真正相信它之前，要继续加边界样本。
+- 最有价值的证据不是分数本身，而是失败笔记：为什么某个容易混淆的文本被分错了。
+
 ## 深度阶梯
 
 | 层级 | 你能证明什么 |
@@ -115,6 +122,18 @@ accuracy=3/3
 | 基于来源生成新文本 | 摘要 / 生成 | 事实一致性、覆盖率、引用 |
 | 从文档回答问题 | QA / 检索 | 命中率、答案质量、来源支撑 |
 | 比较模型行为 | 预训练模型实验 | 质量、成本、延迟、数据需求 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
 
 ## 常见错误
 

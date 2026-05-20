@@ -252,6 +252,18 @@ That way, others can immediately see:
 - You understand how attention aligns to the input
 - Not just that it is a buzzword
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
+
 ## Summary
 
 The most important thing in this section is to build a bridging intuition:
@@ -276,3 +288,13 @@ Once you understand this clearly, learning self-attention in Transformer later w
 2. Explain in your own words: why does Seq2Seq need to “dynamically look at the input” instead of relying only on a fixed vector?
 3. Why do `weights` need to go through softmax?
 4. Think about it: what is the core similarity between the attention in this section and the self-attention in Transformer later?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing `query` changes which source vectors receive high attention; inspect the weights rather than only the final context vector.
+2. Seq2Seq needs dynamic input lookup because different output steps often depend on different source words.
+3. Softmax makes weights positive and normalized, so the context vector becomes a weighted mixture that is easier to interpret and train.
+4. The shared core with Transformer self-attention is query-key-value matching: choose relevant information by comparing representations.
+
+</details>

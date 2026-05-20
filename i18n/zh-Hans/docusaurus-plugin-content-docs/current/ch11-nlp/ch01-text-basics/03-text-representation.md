@@ -407,6 +407,18 @@ embedding 的核心目标是：
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## 小结
 
 文本表示这一节最重要的是建立一个非常基础但非常关键的判断：
@@ -429,3 +441,13 @@ embedding 的核心目标是：
 2. 为什么词袋模型会忽略语序？
 3. 用自己的话解释：TF-IDF 为什么会压低过于常见的词？
 4. 想一想：如果任务特别依赖词序，仅靠 BoW 或 TF-IDF 会遇到什么问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加两句文本后，词表会变化，TF-IDF 权重也可能变化，因为 document frequency 改了。
+2. BoW 忽略词序，是因为它把文档表示成 token 计数，而不是序列。
+3. TF-IDF 会降低常见词权重，因为到处都出现的词通常不能区分文档。
+4. 如果任务高度依赖词序，BoW 或 TF-IDF 可能分不清“狗咬人”和“人咬狗”；这时应考虑 n-gram、序列模型或上下文化 embedding。
+
+</details>

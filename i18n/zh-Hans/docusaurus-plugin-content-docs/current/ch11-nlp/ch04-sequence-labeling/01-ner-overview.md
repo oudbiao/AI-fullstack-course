@@ -259,6 +259,18 @@ print(decode_entities(tokens, tags))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -275,3 +287,13 @@ print(decode_entities(tokens, tags))
 2. 为什么说 BIO 标签体系的关键作用是表达实体边界？
 3. 用自己的话解释：序列标注和文本分类最大的区别是什么？
 4. 想一想：如果标签序列里出现不合法的 `I-XXX`，系统该怎么处理更稳？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 如果 `2025` 是单 token 时间实体，标成 `B-TIME`；只有跨多个 token 时才用 `B-TIME I-TIME ...`。
+2. BIO 的核心作用是表达边界：哪个 token 开始实体，后面哪些 token 继续同一个实体。
+3. 序列标注是每个 token 输出一个标签，文本分类是整段文本输出一个标签。
+4. 非法 `I-XXX` 应通过后处理修复或拒绝，记录为错误，并回溯训练标签或解码规则。
+
+</details>

@@ -305,6 +305,18 @@ So Chapter 11 Natural Language Processing (elective track) is not a detour; it i
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```
+
 ## Common beginner misconceptions
 
 ### Thinking NLP is the same as chatbots
@@ -347,3 +359,13 @@ As long as this map is clear in your mind, the later content in Chapter 11 Natur
 2. Extend the rule in the example to add a `hotel_booking` intent classification.
 3. Think about it: why is a chatbot only one application of NLP, not the whole field?
 4. Can you break down one AI product you are familiar with into the NLP tasks it uses behind the scenes?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Text is harder than tabular data because meaning depends on order, context, ambiguity, missing punctuation, spelling variation, and domain wording, while tabular columns usually already define the feature boundary.
+2. A reasonable `hotel_booking` rule might look for words such as `hotel`, `room`, `check-in`, `reservation`, or `stay`; the important part is to test both positive examples and near misses such as restaurant booking.
+3. A chatbot is only one NLP application because NLP also includes classification, search, extraction, summarization, translation, moderation, and document analysis.
+4. For a familiar AI product, decompose it into inputs, NLP tasks, outputs, and metrics. For example, a support assistant may use intent classification, retrieval QA, summarization, and refusal checks.
+
+</details>

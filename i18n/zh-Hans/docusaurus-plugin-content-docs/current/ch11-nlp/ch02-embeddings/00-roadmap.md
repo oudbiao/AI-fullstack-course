@@ -55,3 +55,15 @@ cat_car: 0.26
 ## 通过标准
 
 如果你能比较稀疏特征、词向量和上下文向量，并解释表示质量为什么影响分类、检索和 RAG，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```

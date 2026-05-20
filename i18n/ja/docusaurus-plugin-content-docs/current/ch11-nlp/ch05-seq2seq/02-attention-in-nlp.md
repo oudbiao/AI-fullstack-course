@@ -51,8 +51,8 @@ flowchart LR
 
 - 読解問題を解くとき、問題文を見ながら原文に戻って関連する文を探す
 
-注意機構がないと、  
-全文を読み終えた最後の一瞬で、文章全体をあいまいな印象に圧縮してから答えるようなものです。  
+注意機構がないと、
+全文を読み終えた最後の一瞬で、文章全体をあいまいな印象に圧縮してから答えるようなものです。
 これではだんだん苦しくなります。
 
 注意機構があると、モデルはより次のように動けます。
@@ -68,7 +68,7 @@ flowchart LR
 - とても長い文
 - 複雑な段落
 
-これを 1 つの固定ベクトルに押し込むと、  
+これを 1 つの固定ベクトルに押し込むと、
 後ろ側のデコーダはかなり苦しくなります。
 
 ### デコーダは時間ステップごとに注目点が違うべき
@@ -82,7 +82,7 @@ flowchart LR
 
 ### 注意機構の核となる直感
 
-出力を 1 つ生成するたびに、  
+出力を 1 つ生成するたびに、
 現在のデコード状態に基づいて次のように問いかけます。
 
 - 入力系列の中で、今いちばん関係があるのは誰？
@@ -181,7 +181,7 @@ for token, weight in zip(source_tokens, attention_weights):
 
 この出力ステップでは、モデルが主に `nlp` の位置を見ていると読めます。
 
-この例は実際のモデルよりずっと単純ですが、  
+この例は実際のモデルよりずっと単純ですが、
 初心者がまずイメージをつかむのにとても役立ちます。
 
 - 今の出力語を生成するとき
@@ -198,12 +198,12 @@ for token, weight in zip(source_tokens, attention_weights):
 
 ### 入力と出力のアライメントが自然になるから
 
-翻訳ではもともと、「ある出力語が入力のどの語に対応するか」という構造があります。  
+翻訳ではもともと、「ある出力語が入力のどの語に対応するか」という構造があります。
 注意機構は、この対応関係を学びやすくします。
 
 ### これが古典的な Seq2Seq から Transformer への橋渡しになる
 
-後で学ぶ Transformer では、注意機構がさらに広く使われます。  
+後で学ぶ Transformer では、注意機構がさらに広く使われます。
 ただし、この節で学ぶ直感の土台は同じです。
 
 ### 初めて学ぶときは、数式よりもまず流れを見るのが大事
@@ -223,12 +223,12 @@ for token, weight in zip(source_tokens, attention_weights):
 
 ### 誤解 1：注意機構はただの重み付き平均の小技
 
-それだけではありません。  
+それだけではありません。
 モデルが入力情報へアクセスする方法そのものを変えています。
 
 ### 誤解 2：注意機構があればもう情報は失われない
 
-そうではありません。  
+そうではありません。
 長い系列には依然として難しさがありますが、ボトルネックはかなり和らぎます。
 
 ### 誤解 3：注意機構 = Transformer
@@ -252,6 +252,18 @@ for token, weight in zip(source_tokens, attention_weights):
 
 - あなたが理解しているのは、注意機構が「入力をどうアライメントするか」
 - 単に流行の用語を知っているだけではない
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
 
 ## まとめ
 
@@ -277,3 +289,13 @@ for token, weight in zip(source_tokens, attention_weights):
 2. 自分の言葉で説明してみましょう。なぜ Seq2Seq では、固定ベクトルだけを見るのではなく「動的に入力を見る」必要があるのでしょうか？
 3. `weights` はなぜ softmax を通す必要があるのでしょうか？
 4. この節の注意機構と、後で学ぶ Transformer の self-attention の共通点は何か、考えてみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `query` を変えると、高い attention を受ける source vectors が変わります。最終 context vector だけでなく weights を見ます。
+2. Seq2Seq で動的に入力を見る必要があるのは、出力の各 step が異なる source word に依存することが多いからです。
+3. softmax は weights を正で正規化された値にし、context vector を解釈しやすく training しやすい weighted mixture にします。
+4. Transformer self-attention との共通核心は query-key-value matching です。representation を比較して関連情報を選びます。
+
+</details>

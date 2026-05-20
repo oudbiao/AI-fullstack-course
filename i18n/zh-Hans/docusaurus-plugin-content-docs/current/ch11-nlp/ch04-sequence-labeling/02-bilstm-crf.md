@@ -103,6 +103,18 @@ for a, b in zip(path, path[1:]):
 
 现代 NER 经常直接用 BERT 加线性分类层，也可以在 BERT 后面接 CRF。BERT 的上下文表示能力通常强于 BiLSTM，但 CRF 对标签约束仍然有价值，尤其在数据量较小、标签格式严格、实体边界容易错的任务里。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## 常见误区
 
 第一个误区是把 CRF 当成过时模型。它不一定是最强方案，但标签约束思想仍然重要。第二个误区是只看 token 级准确率，不看实体级 F1。NER 最终关心的是实体边界和类型是否完整正确。第三个误区是忽略 BIO 标注一致性，导致训练数据本身就有非法标签序列。
@@ -113,6 +125,16 @@ for a, b in zip(path, path[1:]):
 2. 比较“逐 token 分类”和“整体序列解码”的差异。
 3. 思考：为什么实体级 F1 比 token accuracy 更适合 NER？
 4. 如果用 BERT 做 NER，还需不需要 CRF？列出支持和反对理由。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 写中文 BIO 示例时，先确定分词/切字单位，再检查没有实体以 `I-*` 开头，并且每个 `I-*` 前面都有匹配的 `B-*` 或 `I-*`。
+2. 逐 token 分类是每个位置独立打分；全局序列解码是在整句范围内选择最合理、合法的标签路径。
+3. 实体级 F1 比 token accuracy 更适合 NER，因为一个边界错误就可能让抽出的实体不可用，即使大多数 token 看起来正确。
+4. BERT 可以不接 CRF，但 CRF 仍可帮助约束合法转移和实体边界一致性；代价是复杂度更高，简单数据上未必需要。
+
+</details>
 
 ## 过关标准
 

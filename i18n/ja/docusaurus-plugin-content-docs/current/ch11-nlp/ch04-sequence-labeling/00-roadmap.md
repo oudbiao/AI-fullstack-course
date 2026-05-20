@@ -54,3 +54,15 @@ notes O
 ## 通過条件
 
 token/tag の対応を確認でき、境界ミスまたは不正なタグ遷移を1つ説明できれば、この章は通過です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```

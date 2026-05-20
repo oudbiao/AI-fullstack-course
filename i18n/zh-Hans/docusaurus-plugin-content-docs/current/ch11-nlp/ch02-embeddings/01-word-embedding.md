@@ -372,6 +372,18 @@ print(neighbors)
 
 词嵌入的价值最终还是要放回具体任务里判断。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## 小结
 
 这节最重要的，是把词嵌入理解成：
@@ -401,3 +413,13 @@ print(neighbors)
 2. 为什么说 one-hot 能区分词，但不能表达词和词之间的关系？
 3. 用自己的话解释：余弦相似度为什么适合比较词向量？
 4. 想一想：如果一个词经常出现在多个不同语境里，仅靠固定词向量会遇到什么问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `delivery` 的向量应该更接近 shipping、order、logistics 这类词，而不是无关词。具体数值不重要，重要的是相对邻近关系。
+2. one-hot 可以用 ID 区分词，但不同词之间距离几乎一样，无法表达相似关系。
+3. cosine similarity 适合比较词向量，因为它看的是方向，通常比原始长度更能反映语义邻近。
+4. 固定词向量难处理多义词，因为 `bank`、`apple`、`python` 这类词的多个含义被压进同一个向量。
+
+</details>

@@ -53,3 +53,15 @@ vocab_size: 4
 ## 通过标准
 
 如果你能接收原始文本、完成分词、解释任务输出形态，并在项目笔记里保存一个预处理例子，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```

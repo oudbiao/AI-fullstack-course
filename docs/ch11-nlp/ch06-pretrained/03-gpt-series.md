@@ -456,6 +456,18 @@ That way, others can more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## Common Pitfalls for Beginners
 
 ### Thinking GPT is just a “chatting model”
@@ -493,3 +505,13 @@ Once you understand this line, when you later learn Prompt, Agent, tool calling,
 2. Explain in your own words: why is causal masking necessary for GPT?
 3. Understand the `logits` shape in the randomly initialized GPT example — why is it `[batch, seq_len, vocab_size]`?
 4. Think about this: why can’t GPT’s “ability to chat” be simply reduced to “it only predicts the next word”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing the corpus changes the bigram transition table, so generated text should follow the local patterns of your new corpus.
+2. Causal masking is necessary because GPT must not see future tokens when learning to predict the next token.
+3. `[batch, seq_len, vocab_size]` means every position in every sequence gets a score distribution over the vocabulary.
+4. Chat ability is not only next-token prediction in isolation; it emerges from scale, training data, instruction tuning, feedback, tools, memory, and context management.
+
+</details>

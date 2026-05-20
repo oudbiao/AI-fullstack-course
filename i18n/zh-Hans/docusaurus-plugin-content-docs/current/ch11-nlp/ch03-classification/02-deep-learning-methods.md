@@ -342,6 +342,18 @@ embedding 更可能把它们拉近。
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```
+
 ## 小结
 
 这节最重要的是把深度学习文本分类理解成：
@@ -358,3 +370,13 @@ embedding 更可能把它们拉近。
 2. 为什么说 pooling 是从 token 表示走向句子分类的关键一步？
 3. 用自己的话解释：深度分类方法相比传统词袋方法，多出来的核心能力是什么？
 4. 想一想：在什么任务里你仍然会优先试传统基线，而不是直接上深度模型？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 把 tokens 改成 `invoice` 和 `issue` 后，如果向量设计合理，结果应更接近 billing 或 support 意图。
+2. pooling 很关键，因为 token 级向量必须汇总成句子或文档向量，才能做分类。
+3. 深度方法新增的核心能力是学习组合、顺序和上下文相关表示，而不只是数词。
+4. 当数据少、标签还不稳定、延迟敏感或需要可解释错误分析时，先试传统 baseline 更稳。
+
+</details>

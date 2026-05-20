@@ -326,7 +326,7 @@ print(type(model))
 `pipeline` 的优点：
 
 - 上手快
-- Demo 快
+- 更快做出原型
 - 少写样板代码
 
 它更适合：
@@ -392,6 +392,18 @@ print(type(model))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## 小结
 
 这一节最重要的不是会不会背 API，而是搞清楚：
@@ -408,3 +420,13 @@ print(type(model))
 2. 把 `BertConfig` 的 `hidden_size` 改成 64，看看输出 shape 怎么变。
 3. 用自己的话解释：为什么学 `transformers` 库时，不能只会 `pipeline`？
 4. 想一想：如果你要做文本分类，应该优先找 `AutoModel` 还是 `AutoModelForSequenceClassification`？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 修改 mini vocab 后，token IDs 会变化；如果词表缺词，还可能出现 unknown token。
+2. 把 `hidden_size` 改成 64 应改变 hidden representation 的维度，而不是 sequence length 或 batch size。
+3. `pipeline` 很方便，但真实项目调试还需要理解 tokenizer、config、model class、tensor、label 和 evaluation。
+4. 做文本分类时，如果需要现成分类头，先用 `AutoModelForSequenceClassification`；如果要自己搭 head，再用 `AutoModel`。
+
+</details>

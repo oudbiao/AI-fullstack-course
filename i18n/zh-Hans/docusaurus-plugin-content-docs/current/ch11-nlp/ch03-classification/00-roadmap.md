@@ -1,7 +1,7 @@
 ---
 title: "11.3.1 文本分类路线图：文本输入、标签输出"
 sidebar_position: 0
-description: "文本分类的简短实操路线：构建 baseline，比较特征，训练分类器，并分析标签错误。"
+description: "文本分类的简短实操路线：构建基线，比较特征，训练分类器，并分析标签错误。"
 keywords: [文本分类指南, 情感分析, TF-IDF, 文本分类项目]
 ---
 
@@ -17,9 +17,9 @@ keywords: [文本分类指南, 情感分析, TF-IDF, 文本分类项目]
 
 ![神经分类 embedding pooling 图](/img/course/ch11-neural-classification-embedding-pooling-map.webp)
 
-复杂模型之前先做 baseline。大多数分类问题不是模型不够强，而是标签模糊或样本分布偏。
+复杂模型之前先做基线。大多数分类问题不是模型不够强，而是标签模糊或样本分布偏。
 
-## 跑一个关键词 Baseline
+## 跑一个关键词基线
 
 ```python
 texts = ["great course and clear examples", "confusing setup error"]
@@ -38,16 +38,28 @@ positive - great course and clear examples
 needs_review - confusing setup error
 ```
 
-简单 baseline 不是最终模型，但能快速暴露标签规则和失败案例。
+简单基线不是最终模型，但能快速暴露标签规则和失败案例。
 
 ## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
-| 1 | 传统方法 | 构建 TF-IDF 或关键词 baseline |
+| 1 | 传统方法 | 构建 TF-IDF 或关键词基线 |
 | 2 | 深度学习方法 | 比较 embeddings、pooling、CNN/RNN/Transformer 特征 |
 | 3 | 项目实战 | 追踪划分、指标、标签歧义和错误样例 |
 
 ## 通过标准
 
 如果你能训练或模拟一个分类器，报告 accuracy/F1，并解释至少一个标签模糊案例，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+label_schema: label definitions and boundary examples
+dataset_split: fixed train/test examples or evaluation set
+prediction: predicted label, expected label, and confidence or score
+failure_check: class imbalance, label overlap, leakage, or confusing wording
+Expected_output: metrics plus error samples grouped by failure reason
+```

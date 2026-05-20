@@ -253,6 +253,18 @@ for token, weight in zip(source_tokens, attention_weights):
 - 你理解的是注意力在“怎么对齐输入”
 - 不只是知道它是个热门词
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
+
 ## 小结
 
 这节最重要的是建立一个桥接直觉：
@@ -277,3 +289,13 @@ for token, weight in zip(source_tokens, attention_weights):
 2. 用自己的话解释：为什么 Seq2Seq 会需要“动态看输入”而不是只看固定向量？
 3. `weights` 为什么要经过 softmax？
 4. 想一想：这节的注意力和后面 Transformer 的自注意力，核心相同点是什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 改变 `query` 会改变哪些 source vectors 得到高 attention；要看 weights，而不只看最终 context vector。
+2. Seq2Seq 需要动态查看输入，因为不同输出步骤通常依赖不同源词。
+3. softmax 让权重为正且归一化，使 context vector 成为更容易解释和训练的加权混合。
+4. 它和 Transformer self-attention 的共同核心是 query-key-value 匹配：通过比较表示来选择相关信息。
+
+</details>

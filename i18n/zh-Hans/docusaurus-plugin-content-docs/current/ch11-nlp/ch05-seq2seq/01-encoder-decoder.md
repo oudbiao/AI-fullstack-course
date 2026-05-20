@@ -235,6 +235,18 @@ Seq2Seq 任务真正难的是：
 - 生成合理
 - 保持结构
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```
+
 ## 小结
 
 这节最重要的是把 Seq2Seq 理解成：
@@ -259,3 +271,13 @@ Seq2Seq 任务真正难的是：
 2. 为什么说 Seq2Seq 的输出不是固定长度、也不是固定标签集？
 3. 想一想：如果输入非常长，为什么“只压成一个向量”会吃力？
 4. 用自己的话解释：encoder 和 decoder 各自负责什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 扩展字典后，玩具生成器能覆盖更多输入词，但仍会在未见词和词序上失败。
+2. Seq2Seq 输出不是固定长度，因为 decoder 会一步步生成 token，直到停止条件，而不是从固定标签集合里选一个。
+3. 把长输入压成一个向量很难，因为细节、顺序和长距离依赖都在争夺有限表示空间。
+4. encoder 负责读取输入并形成表示；decoder 使用这个表示和已经生成的输出继续生成目标序列。
+
+</details>

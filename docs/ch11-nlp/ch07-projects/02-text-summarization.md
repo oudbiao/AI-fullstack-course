@@ -363,6 +363,18 @@ Then your project can grow from “it runs” into “it can compare, explain, a
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
+artifacts: raw text, processed text, predictions, metrics, and failure cases
+metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
+failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
+Expected_output: reproducible text pipeline folder with metrics and examples
+```
+
 ## Summary
 
 The most important takeaway from this section is to build a portfolio-level judgment:
@@ -389,3 +401,13 @@ It is recommended to finish the basic version first. Do not chase a large, all-i
 2. Why is it especially worthwhile for a summarization project to show the “intermediate scoring results”?
 3. Think about it: what type of failure is extractive summarization most likely to have?
 4. If you were to put this project into a portfolio, which 4 parts would you prioritize showing?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With `top_k=1`, the summary becomes shorter and may miss context; with `top_k=3`, it includes more evidence but may become redundant.
+2. Intermediate scoring is worth showing because it explains why each sentence was selected and makes failure analysis possible.
+3. Extractive summarization often fails by missing cross-sentence context, selecting redundant sentences, or omitting a necessary condition.
+4. A portfolio version should show source text, scoring table, selected summary, factuality check, and failure/improvement notes.
+
+</details>

@@ -73,3 +73,15 @@ vocab_size: 4
 | 前処理の目的 | 掃除ではなく、入力を安定させる工程だと説明できる |
 | 表現の目的 | テキストを計算できる形に変えることだと説明できる |
 | 次章とのつながり | ID や特徴量から embedding へ進む流れを説明できる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+raw_text: original examples before cleaning or tokenization
+processed_text: cleaned text, tokens, normalization notes, and removed items
+task_boundary: classification, extraction, retrieval, generation, or QA output
+failure_check: lost meaning, bad token split, language issue, or ambiguous label
+Expected_output: before/after text samples plus token or representation output
+```

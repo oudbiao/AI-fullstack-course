@@ -252,6 +252,18 @@ but instead:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## Common Pitfalls
 
 ### Mistake 1: Thinking the pretraining paradigm is just “train first for a while”
@@ -303,3 +315,13 @@ If we compress it into one sentence, it would be:
 2. Think about it: Which tasks might only need pretrained features and not full fine-tuning?
 3. What does this “shared foundation” example correspond to in a real system?
 4. Why do we say that the pretraining paradigm changes not just the model, but the entire way tasks are organized?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Pretraining lowers the barrier because the model has already learned broad language patterns before your small task-specific dataset appears.
+2. Tasks that may only need pretrained features include similarity search, clustering, simple classification, and retrieval reranking baselines.
+3. The shared foundation example corresponds to using one pretrained encoder or model family across many downstream heads, prompts, or adapters.
+4. The paradigm changes task organization because teams now define data, evaluation, adaptation, and deployment around a reusable foundation model.
+
+</details>

@@ -240,6 +240,18 @@ but the most basic first step is often still:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: entity types, BIO tags, or sequence-label rules
+prediction: token-level labels and extracted spans
+metric: entity precision/recall/F1 and boundary cases
+failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
+Expected_output: gold-vs-predicted span table with at least one miss
+```
+
 ## Common Pitfalls
 
 ### Mistake 1: Treating sequence labeling like ordinary classification
@@ -275,3 +287,13 @@ Once this intuition is solid, it will be much smoother to learn NER, BiLSTM+CRF,
 2. Why is the key role of the BIO label scheme to express entity boundaries?
 3. Explain in your own words: what is the biggest difference between sequence labeling and text classification?
 4. Think about this: if an invalid `I-XXX` appears in the label sequence, how should the system handle it more robustly?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For `2025`, use `B-TIME` if it is a one-token time entity; use `B-TIME I-TIME ...` only when the entity spans multiple tokens.
+2. BIO expresses boundaries by marking where an entity begins and which following tokens continue the same entity.
+3. Sequence labeling outputs one label per token, while text classification outputs one label for the whole text.
+4. An invalid `I-XXX` should be repaired or rejected by post-processing, logged as an error, and traced back to training labels or decoding rules.
+
+</details>

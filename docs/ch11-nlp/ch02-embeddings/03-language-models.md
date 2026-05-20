@@ -274,6 +274,18 @@ That is also why later we still need to look at reasoning, alignment, and tool u
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
+comparison: nearest text, similarity score, or next-token/log-prob style output
+interpretation: what the representation captures and what it misses
+failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
+Expected_output: small comparison table with at least one surprising result
+```
+
 ## Summary
 
 The most important thing in this lesson is to form a stable judgment:
@@ -291,3 +303,13 @@ you will naturally find it much easier to understand GPT, pretraining, and gener
 2. Why can we say bigram is simple, yet it already captures the core of a language model?
 3. Explain in your own words: why is a language model naturally suited to large-scale self-supervised training?
 4. Think about it: why can the ability to “continue the next word” eventually grow into conversation and writing abilities?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Adding corpus sentences changes transition counts in `stats`; common continuations become more likely and rare continuations may disappear in comparison.
+2. Bigram is simple, but it already contains the core language-modeling idea: estimate what token is likely next from previous context.
+3. Language modeling is naturally self-supervised because ordinary text already provides input context and the next-token target.
+4. Next-word prediction grows into writing and conversation when scale, representation learning, instruction tuning, feedback, and long context are added.
+
+</details>

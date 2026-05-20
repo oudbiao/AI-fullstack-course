@@ -55,3 +55,15 @@ target_length: 3
 ## 通过标准
 
 如果你能解释 Encoder-Decoder、Attention、greedy/beam decoding 和一个生成失败，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+source_target: source text, target text, and task type
+decoded_output: generated summary, translation, transcript, or sequence result
+alignment_note: attention, CTC path, coverage, or copied source evidence
+failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
+Expected_output: generated text with factual or alignment review notes
+```

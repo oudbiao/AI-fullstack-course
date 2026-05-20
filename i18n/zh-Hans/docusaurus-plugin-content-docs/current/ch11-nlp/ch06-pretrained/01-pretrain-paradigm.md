@@ -275,6 +275,18 @@ for tokens in [["退款"], ["发票"], ["密码"]]:
 
 - 为什么先学通用能力再迁移有效
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
+tokenizer_output: ids, masks, decoded text, or batch shape
+task_result: classification, generation, extraction, or text-to-text output
+failure_check: wrong model family, token limit, domain mismatch, cost, or latency
+Expected_output: model call result plus a short choice rationale
+```
+
 ## 小结
 
 这节最重要的是建立一个时代判断：
@@ -303,3 +315,13 @@ for tokens in [["退款"], ["发票"], ["密码"]]:
 2. 想一想：哪些任务可能只需要预训练特征，不一定要全量微调？
 3. 这个“共享底座”例子在真实系统里分别对应什么？
 4. 为什么说预训练范式改变的不只是模型，而是整个任务组织方式？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 预训练降低门槛，是因为模型在看到你的小型任务数据前，已经学过大量通用语言模式。
+2. 可能只需要预训练特征、不必完整微调的任务包括相似度搜索、聚类、简单分类和检索重排 baseline。
+3. “共享底座”对应真实系统中用同一个预训练 encoder 或模型家族服务多个下游 head、prompt 或 adapter。
+4. 预训练范式改变的不只是模型，也改变了任务组织方式：数据、评估、适配和部署都围绕可复用 foundation model 展开。
+
+</details>
