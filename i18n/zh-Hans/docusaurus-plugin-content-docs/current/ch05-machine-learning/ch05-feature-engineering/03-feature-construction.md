@@ -284,6 +284,18 @@ print(house.head())
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## 小结
 
 | 方法 | 说明 | 要点 |
@@ -302,3 +314,13 @@ print(house.head())
 ### 练习 2：时间序列特征
 
 生成一年的日期数据，提取所有时间特征（月、周、季度、是否工作日），用柱状图展示不同特征的分布。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Titanic 新特征要和同一切分、同一模型下的 baseline 比较。有效特征通常带来适度验证集提升，并且有业务解释，例如家庭大小反映同行情境。
+2. 票价分段和称谓映射如果会学习切点或映射关系，应放在训练流程内部。不要用全量数据来决定分箱，避免间接使用测试分布。
+3. 时间特征应体现季节性或日历效应。月份、周、季度、工作日、周末和节假日特征只有在目标确实随时间变化时才有价值。
+4. 合格答案应包含前后指标、每个特征的理由，以及至少一个被拒绝的特征，说明它为什么噪声大、冗余或生产不可用。
+
+</details>

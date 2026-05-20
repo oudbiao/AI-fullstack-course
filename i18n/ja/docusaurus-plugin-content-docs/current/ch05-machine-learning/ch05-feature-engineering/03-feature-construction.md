@@ -160,7 +160,7 @@ print(df_time.head(10))
 - リズム
 - あるイベントからの距離
 
-そのため、時間特徴でよくやるのは、年/月/日を取り出すだけではありません。  
+そのため、時間特徴でよくやるのは、年/月/日を取り出すだけではありません。
 「いつか」を、**周期**と**位置**に分けて考えることが大事です。
 
 ---
@@ -246,7 +246,7 @@ print(house.head())
 
 ### なぜドメイン知識の特徴は価値が高いのか？
 
-それは、ビジネスが本当に見たい指標に最も近いからです。  
+それは、ビジネスが本当に見たい指標に最も近いからです。
 たとえば：
 
 - 不動産なら「1部屋あたり面積」
@@ -272,7 +272,7 @@ print(house.head())
 3. 追加したあと、交差検証は本当に改善したか？
 4. 改善したなら、なぜ良くなったのか説明できるか？
 
-この 4 つに答えられないなら、  
+この 4 つに答えられないなら、
 その特徴はまだ急いで残す段階ではありません。
 
 ## 六、この節をプロジェクトに入れるなら、何を見せるべきか
@@ -283,6 +283,18 @@ print(house.head())
 - 「この新しい特徴が役立った」と言える具体例を 1〜2 個
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
 
 ## まとめ
 
@@ -302,3 +314,13 @@ Titanic データセットで、次の特徴を作ってみましょう。家族
 ### 練習 2：時系列特徴
 
 1 年分の日付データを生成し、すべての時間特徴（月、週、四半期、平日かどうか）を抽出して、棒グラフでそれぞれの分布を表示しましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. Titanic の新特徴は、同じ split と同じモデルで baseline と比較します。家族人数のように文脈を表す特徴は、検証スコアを少し改善し、意味も説明しやすいはずです。
+2. 運賃区分や称号の mapping が cut point や辞書を学ぶなら、訓練 workflow の内部で作ります。全量データで bin を決めると、テスト分布を間接的に使うことになります。
+3. 時系列特徴は季節性やカレンダー効果を表すためのものです。月、週、四半期、平日、週末、祝日 flag は、目的変数が時間と関係する場合に価値があります。
+4. 良い提出物には、before/after の指標、各特徴を作った理由、そしてノイズが大きい・冗長・本番で取得できないため採用しなかった特徴も含めます。
+
+</details>

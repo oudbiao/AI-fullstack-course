@@ -229,6 +229,18 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 
 给有经验的读者：Optuna 这类贝叶斯优化工具适合单次试验很贵或搜索空间很大时使用，但它不能替代干净的验证设计。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -246,6 +258,17 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 3. 把 `n_iter` 从 `8` 改成 `16`。提升是否值得额外成本？
 4. 从 `cv_results_` 打印 `mean_fit_time`，分数接近时选择更便宜模型。
 5. 给前面某一节只使用 CV 的实验增加最终 untouched test set。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 优化 recall 可能选择更激进的参数来抓更多正类，即使 precision 或 F1 下降。最佳参数取决于评分函数代表的业务成本。
+2. `max_depth=10` 只有在原网格欠拟合时才有帮助。如果 CV 分数不提升或波动变大，就不应选择更深模型。
+3. 把 `n_iter` 翻倍只有在分数提升明显且超过噪声时才值得。很小的提升不一定值得更慢的搜索。
+4. `mean_fit_time` 可以帮助打破平局。分数接近时，优先选择更快或更简单的模型，除非慢模型有明确业务收益。
+5. untouched test set 应在调参完成后只用一次，用来估计最终流程在没有参与选择的数据上的表现。
+
+</details>
 
 ## 过关检查
 

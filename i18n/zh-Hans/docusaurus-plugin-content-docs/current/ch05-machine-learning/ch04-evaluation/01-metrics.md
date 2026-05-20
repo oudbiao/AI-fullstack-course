@@ -254,6 +254,18 @@ linear        mae=41.5 rmse=53.4 r2=0.485
 
 给有经验的读者：要按分群评估。全局指标可能掩盖某个地区、客户群、语言、设备类型或稀有类别的失败。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -271,6 +283,17 @@ linear        mae=41.5 rmse=53.4 r2=0.485
 3. 为每个阈值打印 `tp`、`fp`、`fn`、`tn`。
 4. 加入一个树模型，比较 ROC AUC 和 average precision。
 5. 回归部分打印绝对误差最大的五个样本，并检查输入。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 正类只有 2% 时，accuracy 可能很好看，即使模型漏掉很多正类。此时 recall、precision 比单纯 accuracy 更有解释力。
+2. 初筛任务通常更偏向低阈值，例如 `0.1` 或 `0.3`，因为要减少漏报。代价是误报增加，所以最终选择要看人工复核能力。
+3. 混淆矩阵计数应呈现清晰趋势：阈值降低时 `tp` 和 `fp` 增加；阈值升高时 `fp` 减少，但 `fn` 增加。
+4. 稀有正类任务里 ROC AUC 可能仍然好看，average precision 通常更能反映模型是否把少数正类排在前面。
+5. 最大回归误差经常暴露数据质量、少数群体或缺失特征问题。它比单个平均指标更能指导下一步特征修复。
+
+</details>
 
 ## 过关检查
 

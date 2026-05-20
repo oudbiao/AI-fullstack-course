@@ -283,6 +283,18 @@ the feature usually is not worth keeping right away.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## Summary
 
 | Method | Description | Key Point |
@@ -301,3 +313,13 @@ On the Titanic dataset, construct: family size (`sibsp + parch + 1`), whether th
 ### Exercise 2: Time Series Features
 
 Generate one year of date data, extract all time features (month, week, quarter, whether it is a working day), and use bar charts to show the distribution of different features.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Titanic features should be compared against a baseline with the same split and model. Useful new features often improve validation score modestly and make business sense, such as family size capturing travel context.
+2. Fare bands and titles must be created inside the training workflow if they learn cut points or mappings. Avoid using the full dataset to choose bins that indirectly depend on test distribution.
+3. Time features should reveal seasonality or calendar effects. Month, week, quarter, weekday, weekend, and holiday flags are useful only if the target plausibly changes with time.
+4. A good answer includes before/after metrics, a short reason for each feature, and at least one feature that was rejected because it was noisy, redundant, or unavailable in production.
+
+</details>

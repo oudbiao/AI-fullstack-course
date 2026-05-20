@@ -208,6 +208,29 @@ For experienced readers: anomaly detection should be evaluated with delayed labe
 4. Sort all samples by `score_samples()` and inspect the top 20 instead of using a fixed threshold.
 5. Design an alert queue with three levels: review now, review later, ignore.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `contamination` should roughly match the expected anomaly rate, such as `12 / total_samples` or `48 / total_samples`. In real projects, treat it as an operating assumption and validate it with review results.
+2. Moving outliers closer makes every method harder to use. Methods that rely heavily on local density or boundary separation may produce more false negatives; compare ranked examples, not only one metric.
+3. A large-scale feature can dominate distance-based behavior before scaling. After scaling, anomaly scores should reflect pattern differences rather than raw units.
+4. Ranking by `score_samples()` is often better for operations because analysts can review the most suspicious cases first even when the final threshold is not settled.
+5. A practical queue might send the top 1% to "review now," the next 4% to "review later," and the rest to "ignore," but the exact cutoffs should come from review capacity and false-alarm cost.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## Pass Check
 
 You are done when you can explain:

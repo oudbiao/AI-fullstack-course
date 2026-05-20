@@ -282,6 +282,18 @@ flowchart LR
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## 小结
 
 | 组件 | 说明 |
@@ -300,3 +312,13 @@ flowchart LR
 ### 练习 2：Pipeline 调参
 
 在练习 1 的 Pipeline 上用 GridSearchCV 同时调优预处理参数（如 PCA n_components）和模型参数。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 完整 Titanic Pipeline 应包含缺失值处理、必要的数值缩放、类别编码、自定义特征和最终模型。同一个对象应同时负责训练和预测。
+2. RandomForest 通常不太需要缩放，并能捕捉非线性分裂；LogisticRegression 更依赖缩放和干净编码。二者要用同一验证协议比较。
+3. GridSearchCV 应同时调预处理和模型参数，因为两者会相互影响。例如降维或特征选择会改变最合适的模型参数。
+4. 最终交付物应包含 fitted pipeline、CV 分数、选中的参数，以及一个说明预处理确实发生在 pipeline 内部的泄漏检查。
+
+</details>

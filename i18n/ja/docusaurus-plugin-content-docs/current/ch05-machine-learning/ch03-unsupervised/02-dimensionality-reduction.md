@@ -206,6 +206,18 @@ Pipeline([
 2. t-SNE や UMAP は可視化に使い、最初から本番特徴量パイプラインにしない。
 3. 次元削減でモデル結果が変わるなら、交差検証で確認する。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -223,6 +235,17 @@ Pipeline([
 3. `StandardScaler` を外してください。説明分散はどう変わりますか？
 4. `PCA(n_components=0.95)` を使い、自動で選ばれた成分数を表示してください。
 5. 2D PCA の出力を使って、数字ラベルで色分けした散布図を描いてください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. accuracy は最初に伸び、その後は頭打ちになることが多いです。実用上は、最高値に近いスコアを出す最小の成分数を選びます。
+2. PCA は accuracy が同じでも速度や保存容量に効くことがあります。accuracy が下がるなら有用な信号を捨てていますし、少し上がるならノイズを減らしている可能性があります。
+3. スケーリングしないと、数値範囲の大きい特徴量が主成分を支配します。説明分散が高く見えても、意味のある構造とは限りません。
+4. `PCA(n_components=0.95)` は約 95% の分散を保つ最小成分数を選びます。成分数だけでなく、下流モデルのスコアが許容範囲かも報告します。
+5. 2D PCA 図は診断であり、モデル品質の証明ではありません。色が大きく重なるなら、分類にはより多い次元や非線形表現が必要かもしれません。
+
+</details>
 
 ## 合格チェック
 

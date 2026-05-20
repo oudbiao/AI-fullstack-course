@@ -188,6 +188,18 @@ summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 
 経験者向け：モデル選択が終わった後、調整に使っていない最終 holdout または本番に近い backtest を残してください。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -205,6 +217,17 @@ summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 3. scoring リストに `roc_auc` を追加してください。
 4. わざと `StandardScaler()` を pipeline の外に出し、なぜ危険か説明してください。
 5. 1 ユーザーに複数行のイベントがあるデータに対して、検証分割を設計してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. fold 数が少ないと各回の訓練データが少なく、推定は粗くなりがちです。fold 数が多いと訓練データは増えますが計算コストも上がります。平均だけでなく標準偏差も見ます。
+2. stratify を外すと、特に不均衡データでは train/test のクラス比がずれやすくなります。その結果、スコアは不安定で比較しにくくなります。
+3. `roc_auc` はしきい値を固定しないランキング指標です。ただし不均衡タスクでは precision/recall 系の指標と一緒に見ます。
+4. scaler を pipeline の外で fit すると、検証 fold の分布情報が scaler に入ります。これは検証データを本当に未見にしていないため leakage です。
+5. ユーザーイベントでは、同じユーザーの行が train と validation の両方に入らないようにします。ユーザー単位の group split を使い、未来予測なら時間順の検証も検討します。
+
+</details>
 
 ## 合格チェック
 

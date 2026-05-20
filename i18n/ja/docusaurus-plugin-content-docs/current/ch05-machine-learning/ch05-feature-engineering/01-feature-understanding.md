@@ -134,12 +134,34 @@ plt.show()
 
 本格的にモデルを作る前に、少なくとも次の点を確認しましょう。どの列が数値・カテゴリ・時間・テキストか。どの列に欠損が多いか。どの数値特徴が強く偏っているか。どのカテゴリ特徴の値の種類が多すぎるか。どの特徴同士が強く相関しているか。どの特徴がターゲットを漏洩している可能性があるか。学習データとテストデータの分布が大きく違っていないか。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## 練習
 
 1. Titanic データセットを使って、すべての数値特徴とカテゴリ特徴を識別し、自動判定で不自然な列は手動で修正しましょう。
 2. `age`、`fare` の分布を描き、偏りがあるか判断しましょう。
 3. `survived` と関係が特に強そうな 3 つの特徴を見つけ、それらに漏洩の可能性があるか説明しましょう。
 4. 自分の表形式データを 1 つ選び、「特徴探索記録」を書いてみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 自動型判定は出発点にすぎません。客室クラス、チケット番号、客室番号のような列は、見た目の型より意味で処理方針を決めます。
+2. `fare` は右に偏りやすく、`age` は欠損と偏った分布を持ちやすいです。偏りがある場合は log 変換、binning、robust scaling などを後で検討します。
+3. 目的変数と強く関係していても安全とは限りません。結果後に作られる列、ラベルを直接含む列、予測時に取得できない列は leakage の候補です。
+4. 良い特徴探索記録には、列の意味、型、欠損率、分布、目的変数との関係、leakage リスク、次の preprocessing/feature construction アクションを入れます。
+
+</details>
 
 ## 合格基準
 

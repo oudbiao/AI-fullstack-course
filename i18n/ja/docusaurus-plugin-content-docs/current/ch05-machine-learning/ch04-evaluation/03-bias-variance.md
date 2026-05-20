@@ -160,6 +160,18 @@ high variance のとき：
 - クロスバリデーションと final holdout を使う；
 - バリアンスを下げる集成モデルを検討する。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -177,6 +189,17 @@ high variance のとき：
 3. 木をロジスティック回帰に置き換えてください。問題は bias と variance のどちらに近いですか？
 4. 複雑度実験を 1 回の test split ではなく 5-fold CV に変えてください。
 5. 最良の木の誤分類を確認してください。特定クラスに集中していますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `min_samples_leaf=5` は小さな葉を作りにくくするため、train/test gap は縮まりやすいです。両方のスコアが下がるなら単純にしすぎています。
+2. test accuracy は中間の深さで最大になることが多いです。浅すぎると underfitting、深すぎると訓練 accuracy だけ上がって overfitting します。
+3. ロジスティック回帰は bias の確認に使えます。木だけ訓練で高くテストで悪いなら variance、両方低いなら特徴量やモデル族が弱い可能性があります。
+4. 5-fold CV は 1 回の分割より安定して複雑度を比較できます。平均スコアが高く、ばらつきも許容できる深さを選びます。
+5. 誤分類が特定クラスに集中するなら、そのクラスの特徴不足、ラベル曖昧さ、クラス不均衡を疑います。散らばっているなら残るノイズの影響かもしれません。
+
+</details>
 
 ## 合格チェック
 

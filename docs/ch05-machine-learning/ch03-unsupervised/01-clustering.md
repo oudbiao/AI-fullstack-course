@@ -241,6 +241,29 @@ For experienced readers: clustering should be evaluated as a workflow, not just 
 4. Replace the synthetic data with customer data. Scale numeric features first, then explain each cluster in plain language.
 5. Run the same clustering twice with different seeds. Are the groups stable enough to trust?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Increasing `cluster_std` makes clusters overlap more, so silhouette should usually decrease because points are less clearly closer to their own cluster than to neighboring clusters.
+2. Inertia almost always improves when `K` increases because each point can be closer to some centroid. Silhouette may not improve; if `K=6` splits natural groups into fragments, silhouette can drop even while inertia looks better.
+3. Larger `min_samples` makes DBSCAN demand denser neighborhoods. Noise count often increases, and small loose groups may disappear.
+4. Customer clusters should be explained with scaled feature averages or medians, not cluster numbers. A useful label might be "high spend, low frequency" rather than "cluster 2."
+5. If different seeds produce very different groups, treat the result as exploration, not a stable segmentation. Compare centroid patterns, silhouette, or adjusted Rand index before trusting the labels.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## Pass Check
 
 You are done when you can explain:

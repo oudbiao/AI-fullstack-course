@@ -286,6 +286,18 @@ print(results)
 4. 用交叉验证比较，不要只看一次切分
 5. 只有在分数相近或更好，并且特征有意义时，才保留更小的特征集
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## 常见错误
 
 第一个错误是在全量数据上做特征选择，然后再切分训练集和测试集，这会造成泄漏。第二个错误是盲目信任特征重要性排序。第三个错误是追求特征越少越好，导致欠拟合。第四个错误是忽略生产可获得性：训练时能用的字段，线上实时预测时不一定能用。
@@ -297,6 +309,17 @@ print(results)
 3. 使用 L1 逻辑回归，分别设置 `C=0.01`、`C=0.1`、`C=1.0`，观察保留特征数量如何变化。
 4. 手动列出 3 个训练时可能存在、但生产预测时不一定稳定可获得的字段。
 5. 解释为什么特征选择必须放在交叉验证流程内部。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `SelectKBest` 只有在验证集上接近或优于 baseline 时才值得保留。特征更少但泛化更差，并不等于更好。
+2. RFE 要同时比较分数和特征稳定性。如果 8、10、15 个特征下被选中的名称大幅变化，说明排序可能不稳。
+3. `C` 越小，L1 正则化越强，非零系数通常越少；`C` 越大，保留的特征一般更多。
+4. 高风险生产字段包括结果之后才产生的字段、人工审核标签、未来消费总额、预测时还没到达的日志等。
+5. 特征选择放在交叉验证外部会泄漏验证集信息。每个 fold 都必须只用该 fold 的训练数据选择特征。
+
+</details>
 
 ## 掌握标准
 

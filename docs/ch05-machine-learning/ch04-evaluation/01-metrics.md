@@ -272,6 +272,29 @@ For experienced readers: evaluate by segment. A global metric can hide failures 
 4. Add a tree model and compare ROC AUC and average precision.
 5. For regression, print the five largest absolute errors and inspect the inputs.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With only 2% positives, accuracy can look excellent even if the model misses many positives. Recall and precision become more informative than raw accuracy.
+2. For screening, a lower threshold such as `0.1` or `0.3` is often preferable because it reduces missed positives. The tradeoff is more false alarms, so the shipping choice depends on review capacity.
+3. The confusion counts should move predictably: lower thresholds increase `tp` and `fp`, while higher thresholds reduce `fp` but increase `fn`.
+4. ROC AUC can still look strong on rare-positive data. Average precision is usually more sensitive to whether the model ranks the rare positive class well.
+5. The largest regression errors often reveal data quality issues, rare subgroups, or missing features. They are more useful than a single aggregate score when planning the next feature fix.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## Pass Check
 
 You are done when you can explain:

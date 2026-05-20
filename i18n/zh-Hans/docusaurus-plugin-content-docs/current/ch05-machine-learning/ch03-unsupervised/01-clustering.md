@@ -223,6 +223,18 @@ agglomerative_ari= 1.0
 
 给有经验的读者：聚类应当按工作流评估，而不是只看一个算法分数。需要检查重采样、特征变化、缩放方式和随机种子下的稳定性。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -240,6 +252,17 @@ agglomerative_ari= 1.0
 3. 把 DBSCAN 的 `min_samples` 改成 `10`。noise 数量怎么变？
 4. 换成客户数据。先缩放数值特征，再用自然语言解释每个簇。
 5. 用不同随机种子重复聚类。分群是否稳定到可以相信？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `cluster_std` 变大后，簇会更重叠，silhouette 通常会下降，因为样本不再明显更靠近自己的簇。
+2. `K` 增大时 inertia 几乎一定会变好，因为每个点都能离某个中心更近；但 silhouette 不一定提升。如果 `K=6` 只是把自然簇切碎，silhouette 可能反而下降。
+3. `min_samples` 越大，DBSCAN 对密度要求越高，noise 数量通常会增加，小而松散的簇也可能消失。
+4. 客户聚类要用缩放后的特征均值/中位数来解释，而不是只说“第 2 类”。更好的标签是“高消费、低频次”这类可行动描述。
+5. 如果不同随机种子得到很不一样的簇，就只能把结果当作探索假设。要比较中心模式、silhouette 或 adjusted Rand index，再决定是否可信。
+
+</details>
 
 ## 过关检查
 

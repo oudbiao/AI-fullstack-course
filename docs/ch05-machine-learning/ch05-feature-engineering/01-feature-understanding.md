@@ -134,12 +134,34 @@ This diagram is worth reviewing before every modeling task: fields that occur af
 
 Before you really start modeling, at a minimum, answer these questions: Which columns are numerical, categorical, time-based, or text? Which columns have many missing values? Which numerical features are clearly skewed? Which categorical features have too many unique values? Which features are highly correlated with each other? Which features may leak the target? Are the train and test distributions obviously different?
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## Exercises
 
 1. Use the Titanic dataset to identify all numerical and categorical features, and manually correct any columns that automatic identification gets wrong.
 2. Plot the distributions of `age` and `fare`, and determine whether they are skewed.
 3. Find the 3 features most strongly related to `survived`, and explain whether any leakage may exist.
 4. Choose one of your own tabular datasets and write a “feature exploration record.”
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Automatic type detection is only a first pass. Columns such as passenger class, ticket code, or cabin may be numeric-looking or text-looking but still need semantic judgment.
+2. `fare` is commonly right-skewed, and `age` often has missing values and uneven distribution. Skew suggests trying log transforms, bins, or robust scaling later.
+3. Strong relationship is not automatically safe. A feature is suspicious if it is created after the outcome, directly encodes the label, or would not be available at prediction time.
+4. A good exploration record should include column meaning, type, missing rate, distribution shape, target relationship, leakage risk, and one next action for preprocessing or construction.
+
+</details>
 
 ## Pass Criteria
 

@@ -134,12 +134,34 @@ plt.show()
 
 在真正建模前，至少先回答：哪些列是数值、类别、时间、文本；哪些列缺失很多；哪些数值特征明显偏斜；哪些类别特征取值特别多；哪些特征彼此高度相关；哪些特征可能泄漏目标；训练集和测试集分布是否明显不同。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## 练习
 
 1. 用 Titanic 数据集识别所有数值和类别特征，并手动纠正自动识别不合理的列。
 2. 画出 `age`、`fare` 的分布，判断是否偏斜。
 3. 找出与 `survived` 关系最明显的 3 个特征，并说明它们是否可能存在泄漏。
 4. 选一个你自己的表格数据，写一份“特征探索记录”。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 自动类型识别只是第一步。像舱位等级、票号、客舱号这类字段，可能看起来像数字或文本，但真正处理方式要由语义决定。
+2. `fare` 常见右偏，`age` 往往有缺失且分布不均。偏斜提示后续可以尝试 log 变换、分箱或鲁棒缩放。
+3. 与目标强相关不代表安全。如果字段在结果之后产生、直接编码标签，或预测时无法获得，就存在泄漏风险。
+4. 好的特征探索记录应包含字段含义、类型、缺失率、分布形状、与目标关系、泄漏风险，以及一个后续预处理或构造动作。
+
+</details>
 
 ## 过关标准
 

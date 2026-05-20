@@ -169,6 +169,18 @@ print(model.score(X_test, y_test))
 大事なのは前処理 step の数ではなく、欠損処理、スケーリング、エンコードが training split だけから学び、その後で test split を変換することです。
 :::
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## よくある間違い
 
 1つ目の間違いは、すべてのモデルに標準化をかけることです。木系モデルでは通常不要で、かけても効果がないことがあります。2つ目の間違いは、訓練データとテストデータに分ける前に前処理をしてしまうことです。これはデータリークになります。3つ目の間違いは、カテゴリを適当に数字へ置き換えてしまい、存在しない大小関係をモデルに学習させることです。4つ目の間違いは、外れ値を消しすぎて、本当に価値のある極端なサンプルまで失うことです。
@@ -179,6 +191,16 @@ print(model.score(X_test, y_test))
 2. 同じデータで LogisticRegression と RandomForest をそれぞれ学習し、標準化が両者に与える影響を比較しましょう。
 3. なぜ scaler は全量データではなく訓練集で `fit` するべきなのか説明しましょう。
 4. 高カーディナリティのカテゴリ特徴量を1つ選び、One-Hot と Target Encoding のそれぞれにどんなリスクがあるか考えましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 欠損率が低い列は中央値や最頻値で補完できることが多いです。欠損率が高い列は、欠損 indicator、ドメイン確認、削除を検討し、列ごとに理由を残します。
+2. LogisticRegression は係数と最適化が数値スケールに影響されるため、標準化の効果が出やすいです。RandomForest は分割順序を見るため、スケールの影響は小さいです。
+3. scaler は訓練データだけで平均と分散を学ぶ必要があります。全量で fit すると、テストデータの分布情報が訓練に漏れます。
+4. One-Hot は高カーディナリティで疎な列を大量に作ります。Target Encoding は交差検証内で行わないとラベル情報が漏れやすくなります。
+
+</details>
 
 ## クリア基準
 

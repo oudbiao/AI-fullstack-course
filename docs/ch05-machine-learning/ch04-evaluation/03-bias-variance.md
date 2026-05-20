@@ -178,6 +178,29 @@ For high variance:
 4. Use 5-fold cross-validation instead of one test split for the complexity lab.
 5. Inspect mistakes for the best tree. Are errors concentrated in one class?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `min_samples_leaf=5` usually narrows the train/test gap because the tree cannot memorize tiny leaves as easily. If both scores fall, the model may now be too simple.
+2. Test accuracy often peaks at a middle depth. Very shallow trees underfit; very deep trees overfit even when training accuracy keeps rising.
+3. Logistic regression is a useful bias check. If it performs similarly and both models score low, features or model class may be too weak; if the tree trains much better but tests worse, variance is the main issue.
+4. Five-fold CV gives a more stable complexity comparison than one lucky split. Choose the depth with the best mean score and acceptable variance.
+5. Concentrated errors suggest a class-specific feature gap, label ambiguity, or imbalance problem. Randomly scattered errors suggest the remaining noise may be harder to remove.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## Pass Check
 
 You are done when you can explain:

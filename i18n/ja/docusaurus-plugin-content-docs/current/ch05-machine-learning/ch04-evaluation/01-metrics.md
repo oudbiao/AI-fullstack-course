@@ -254,6 +254,18 @@ linear        mae=41.5 rmse=53.4 r2=0.485
 
 経験者向け：セグメント別に評価してください。全体指標は、地域、顧客群、言語、デバイス種別、希少クラスでの失敗を隠すことがあります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -271,6 +283,17 @@ linear        mae=41.5 rmse=53.4 r2=0.485
 3. 各しきい値で `tp`、`fp`、`fn`、`tn` を表示してください。
 4. 木モデルを追加し、ROC AUC と average precision を比較してください。
 5. 回帰で絶対誤差が最大の 5 件を表示し、入力を確認してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. positive が 2% しかないと、accuracy は高く見えても多くの positive を見逃している可能性があります。raw accuracy より recall と precision が重要になります。
+2. スクリーニングでは、`0.1` や `0.3` のような低めのしきい値を選ぶことが多いです。見逃しは減りますが誤報が増えるため、レビュー可能件数と一緒に決めます。
+3. 混同行列の数は予測可能に動きます。しきい値を下げると `tp` と `fp` が増え、上げると `fp` は減りますが `fn` が増えます。
+4. rare positive では ROC AUC が良く見えることがあります。average precision は、少数の positive を上位に並べられているかをより敏感に見ます。
+5. 最大誤差のサンプルは、データ品質、特殊なセグメント、足りない特徴量を見つける手がかりになります。平均スコアだけより次の改善に使いやすいです。
+
+</details>
 
 ## 合格チェック
 

@@ -229,6 +229,18 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 
 経験者向け：Optuna などのベイズ最適化ツールは、1 回の trial が高価なときや探索空間が大きいときに便利です。ただし、きれいな検証設計の代わりにはなりません。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -246,6 +258,17 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 3. `n_iter` を `8` から `16` に増やしてください。追加コストに見合う改善がありますか？
 4. `cv_results_` から `mean_fit_time` を表示し、スコアが近いときは安いモデルを選んでください。
 5. 以前の CV だけの実験に、最後まで触らない test set を追加してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. recall を最適化すると、より多くの positive を拾う攻めたパラメータが選ばれることがあります。その代わり precision や F1 が下がる場合があります。
+2. `max_depth=10` は前の grid が underfitting していた場合だけ役立ちます。CV スコアが伸びない、またはばらつくなら深いモデルは選びません。
+3. `n_iter` を倍にする価値は、スコア改善が実行時間増に見合うときだけです。ノイズ範囲の小さな改善なら、軽い探索を選びます。
+4. `mean_fit_time` は同点に近い候補を選ぶときに役立ちます。スコア差が小さいなら、通常は速くて単純なモデルを優先します。
+5. untouched test set はチューニング後に一度だけ使います。モデルやハイパーパラメータ選択に関わっていないデータで最終性能を見積もるためです。
+
+</details>
 
 ## 合格チェック
 

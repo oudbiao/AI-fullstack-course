@@ -54,6 +54,18 @@ flowchart LR
 | `transform` | 学んだルールをデータに適用すること | 検証・テストの処理を訓練時とそろえる |
 | `Pipeline` | 前処理、特徴量選択、モデル学習をつなげた流れ | 交差検証でリークを防ぎやすい |
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## この節で使う共通セットアップ
 
 以下の例は同じデータセットを使うので、上から順番に実行できます。乳がんデータセットは数値特徴量が多く、二値分類の目的変数を持つため、特徴量選択の練習に適しています。
@@ -297,6 +309,17 @@ print(results)
 3. L1 ロジスティック回帰で `C=0.01`、`C=0.1`、`C=1.0` を試し、残る特徴量数の変化を見る。
 4. 訓練時には存在するが、本番予測時には安定して取得できない可能性がある特徴量を 3 つ挙げる。
 5. 特徴量選択を交差検証の外ではなく内部に入れるべき理由を説明する。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `SelectKBest` は、選択後のモデルが validation で baseline と同等以上のときに価値があります。特徴量が少ないだけで汎化性能が悪いなら改善ではありません。
+2. RFE はスコアだけでなく、選ばれる特徴量の安定性も見ます。8、10、15 個で選択名が大きく変わるなら、ランキングは不安定です。
+3. `C` が小さいほど L1 正則化は強く、非ゼロ係数は少なくなりがちです。`C` が大きいほど残る特徴量は増えます。
+4. 本番で危ない特徴には、結果後に埋まる列、手動レビューラベル、未来の購入総額、予測時点では届かないログなどがあります。
+5. 交差検証の外で特徴選択すると validation 情報が漏れます。各 fold では、その fold の訓練データだけで特徴を選ぶ必要があります。
+
+</details>
 
 ## 到達基準
 

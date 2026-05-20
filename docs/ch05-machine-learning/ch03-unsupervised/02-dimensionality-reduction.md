@@ -224,6 +224,29 @@ For beginners, the safest order is:
 4. Use `PCA(n_components=0.95)` and print the number of components selected.
 5. Use the 2D PCA output to draw a scatter plot colored by digit label.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Accuracy often improves quickly at first and then plateaus. The practical answer is the smallest component count whose score is near the best score.
+2. PCA may help speed and storage even if accuracy is similar. If accuracy drops, the compressed representation is losing useful signal; if accuracy rises slightly, PCA may be removing noise.
+3. Without scaling, features with larger numeric ranges dominate the principal components. Explained variance may look high for the wrong reason.
+4. `PCA(n_components=0.95)` selects the minimum number of components that preserve about 95% of variance. Report both the count and whether the downstream score remains acceptable.
+5. A 2D PCA plot is a diagnostic, not proof of model quality. Overlapping colors suggest the classifier needs more dimensions or a nonlinear representation.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## Pass Check
 
 You are done when you can explain:

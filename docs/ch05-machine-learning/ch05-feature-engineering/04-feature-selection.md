@@ -286,6 +286,18 @@ For your first project, use this conservative rule:
 4. Compare with cross-validation, not just one split
 5. Keep the smaller feature set only if performance is similar or better and the features make sense
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## Common Mistakes
 
 The first mistake is performing feature selection on the full dataset and then splitting into training and test sets, which causes leakage. The second is blindly trusting feature importance rankings. The third is pursuing the smallest possible feature set and causing underfitting. The fourth is ignoring production availability: fields usable during training are not necessarily available in real time in production.
@@ -297,6 +309,17 @@ The first mistake is performing feature selection on the full dataset and then s
 3. Use L1 logistic regression with `C=0.01`, `C=0.1`, and `C=1.0`. Observe how the selected feature count changes.
 4. Manually list 3 features that may exist during training but may not always be available in production.
 5. Explain why feature selection must be placed inside the cross-validation workflow.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `SelectKBest` is useful only if the selected-feature model matches or improves the baseline on validation data. A smaller feature set with worse generalization is not automatically better.
+2. RFE results should be compared by score and by feature stability. If selected names swing wildly between 8, 10, and 15 features, the ranking may be fragile.
+3. Smaller `C` means stronger L1 regularization, so fewer coefficients should remain nonzero. Larger `C` usually keeps more features.
+4. Risky production features include fields filled after the outcome, manual review labels, future purchase totals, or logs that arrive after prediction time.
+5. Feature selection outside cross-validation leaks validation information. Each fold must select features using only that fold's training data.
+
+</details>
 
 ## Mastery Criteria
 

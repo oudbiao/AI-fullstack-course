@@ -206,6 +206,29 @@ For experienced readers: after model selection, keep one final holdout set or pr
 4. Move `StandardScaler()` outside the pipeline intentionally, then explain why that is unsafe.
 5. Design a validation split for user events where each user has many rows.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Fewer folds train on less data per run and may give a rougher estimate. More folds train on more data but cost more; watch both the mean score and the standard deviation.
+2. Removing stratification can make class proportions drift between train and test, especially with imbalance. That usually makes scores less stable and harder to compare.
+3. `roc_auc` adds a ranking-oriented view. It is useful when threshold choice is still open, but it should be paired with precision/recall metrics for imbalanced tasks.
+4. Scaling outside the pipeline lets validation data influence the scaler. That is leakage, because the validation fold is no longer truly unseen.
+5. User-event data should avoid putting rows from the same user in both train and validation. Use a group split by user, and consider time-based validation if deployment predicts future behavior.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## Pass Check
 
 You are done when you can explain:

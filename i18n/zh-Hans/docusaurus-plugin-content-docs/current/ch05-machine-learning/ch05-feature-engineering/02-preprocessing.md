@@ -169,6 +169,18 @@ print(model.score(X_test, y_test))
 重点不是预处理步骤越多越好，而是缺失值处理、缩放和编码都只能先从训练集学习，再去转换测试集。
 :::
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## 常见误区
 
 第一个误区是所有模型都标准化。树模型通常不需要，做了也未必有收益。第二个误区是在切分训练集和测试集之前做预处理，这会造成数据泄漏。第三个误区是把类别随便映射成数字，导致模型学到不存在的大小关系。第四个误区是过度清理异常值，把真正有价值的极端样本删掉。
@@ -179,6 +191,16 @@ print(model.score(X_test, y_test))
 2. 对同一份数据分别训练 LogisticRegression 和 RandomForest，比较标准化对两者的影响。
 3. 解释为什么 scaler 应该 `fit` 在训练集，而不是全量数据。
 4. 找一个高基数类别特征，思考 One-Hot 和 Target Encoding 各有什么风险。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 缺失率低的列通常可以用中位数/众数填补；缺失率高的列可能需要缺失指示器、领域复核或删除。处理方案应逐列说明理由。
+2. LogisticRegression 通常对尺度敏感，因为系数和优化过程受数值大小影响；RandomForest 对尺度不太敏感，因为树分裂主要依赖排序。
+3. scaler 只能从训练集学习均值和方差。若在全量数据上 fit，就把测试集分布信息泄漏进训练流程。
+4. One-Hot 面对高基数类别会产生大量稀疏列；Target Encoding 如果不放进交叉验证内部并做平滑，容易泄漏标签信息。
+
+</details>
 
 ## 过关标准
 

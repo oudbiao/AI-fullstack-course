@@ -223,6 +223,18 @@ agglomerative_ari= 1.0
 
 経験者向け：クラスタリングはアルゴリズム単体の点数ではなく、ワークフローとして評価します。再サンプリング、特徴量変更、スケーリング、乱数シードに対する安定性も確認してください。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## よくあるトラブル
 
 | 症状 | よくある原因 | 修正 |
@@ -240,6 +252,17 @@ agglomerative_ari= 1.0
 3. DBSCAN の `min_samples` を `10` に変えてください。noise の数はどう変わりますか？
 4. 顧客データに置き換えてください。数値特徴量をスケーリングし、各クラスタを自然な言葉で説明してください。
 5. 異なる乱数 seed で同じクラスタリングを繰り返してください。信頼できるほど安定していますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `cluster_std` を大きくするとクラスタが重なりやすくなり、silhouette は通常下がります。各点が自分のクラスタに明確に近いとは言いにくくなるためです。
+2. `K` を増やすと inertia はほぼ必ず良く見えます。各点がどこかの中心に近づけるからです。ただし、自然なグループを細切れにしているだけなら silhouette は下がることがあります。
+3. `min_samples` を大きくすると、DBSCAN はより密な近傍を要求します。noise の数は増えやすく、小さくゆるいクラスタは消えることがあります。
+4. 顧客クラスタは番号ではなく、スケーリング後の平均や中央値で説明します。「クラスタ2」より「高支出・低頻度」のような行動につながる名前が有用です。
+5. seed によって結果が大きく変わるなら、安定したセグメントではなく探索仮説として扱います。中心の傾向、silhouette、adjusted Rand index などで安定性を確認します。
+
+</details>
 
 ## 合格チェック
 

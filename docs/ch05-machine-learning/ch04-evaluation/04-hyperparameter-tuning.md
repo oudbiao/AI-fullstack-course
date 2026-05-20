@@ -247,6 +247,29 @@ For experienced readers: Bayesian tools such as Optuna are useful when each tria
 4. Print `mean_fit_time` from `cv_results_` and choose a cheaper model when scores tie.
 5. Add a final untouched test set to one earlier lesson that currently uses only CV.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Optimizing recall may choose more aggressive parameters that catch more positives, even if precision or F1 falls. The "best" parameters depend on the business cost encoded in the scoring metric.
+2. `max_depth=10` helps only if the previous grid was underfitting. If CV score does not improve or variance grows, the deeper option should not be selected.
+3. Doubling `n_iter` is worthwhile only when the score gain is meaningful relative to runtime. Small gains within noise are not worth a much slower workflow.
+4. `mean_fit_time` helps break ties. If two candidates score nearly the same, prefer the faster or simpler model unless the slower one has a clear operational benefit.
+5. The final untouched test set should be used once after tuning. It estimates how the selected workflow performs on data that did not shape model or hyperparameter choices.
+
+</details>
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## Pass Check
 
 You are done when you can explain:

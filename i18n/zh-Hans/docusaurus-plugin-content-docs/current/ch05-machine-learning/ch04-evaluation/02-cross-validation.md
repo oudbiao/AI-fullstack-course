@@ -188,6 +188,18 @@ summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 
 给有经验的读者：模型选择结束后，保留一个没有参与调参的最终 holdout 或接近生产的 backtest。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+evaluation_setup: split, cross-validation, metric, baseline, and comparison target
+result: score table, curve, confusion matrix, validation result, or search outcome
+decision: whether to change data, features, model, threshold, or hyperparameters
+failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
+Expected_output: evaluation record that supports a next modeling decision
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -205,6 +217,17 @@ summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 3. 在 scoring 列表里加入 `roc_auc`。
 4. 故意把 `StandardScaler()` 移到 pipeline 外面，然后解释为什么不安全。
 5. 为“每个用户有多行事件”的数据设计验证切分。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 折数少时，每次训练数据更少，估计可能更粗；折数多时训练数据更多但成本更高。要同时看平均分和标准差。
+2. 去掉 stratify 后，训练/测试里的类别比例可能漂移，尤其在类别不均衡时更明显，分数通常更不稳定。
+3. `roc_auc` 增加了排序视角，适合阈值还没定时使用；但在不均衡任务中仍应配合 precision/recall 一起看。
+4. 把缩放放在 pipeline 外面，会让验证折的信息影响 scaler，验证数据就不再真正未见，这是数据泄漏。
+5. 用户事件数据应避免同一用户的多行同时出现在训练和验证中。可用按用户分组的 split；如果预测未来行为，还应考虑按时间验证。
+
+</details>
 
 ## 过关检查
 

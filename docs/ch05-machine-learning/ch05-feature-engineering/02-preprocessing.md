@@ -169,6 +169,18 @@ print(model.score(X_test, y_test))
 The important part is not the number of preprocessing steps. It is that missing-value handling, scaling, and encoding all learn from the training split before touching the test split.
 :::
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## Common Mistakes
 
 The first mistake is standardizing all models. Tree models usually do not need it, and doing it may not bring any benefit. The second mistake is preprocessing before splitting the training and test sets, which causes data leakage. The third mistake is randomly mapping categories to numbers, causing the model to learn a nonexistent order relationship. The fourth mistake is over-cleaning outliers and deleting truly valuable extreme samples.
@@ -179,6 +191,16 @@ The first mistake is standardizing all models. Tree models usually do not need i
 2. Train LogisticRegression and RandomForest on the same dataset separately, and compare the impact of standardization on each.
 3. Explain why the scaler should `fit` on the training set rather than on the full dataset.
 4. Find a high-cardinality categorical feature and think about the risks of One-Hot and Target Encoding respectively.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Low missing rates can often use median/mode imputation; high missing rates may need a missing indicator, domain review, or removal. The plan should justify each column separately.
+2. LogisticRegression is usually sensitive to scale because coefficients and optimization depend on numeric magnitude. RandomForest is much less sensitive because splits depend on ordering.
+3. The scaler must learn mean and variance from training data only. Fitting on the full dataset leaks test-set distribution information into training.
+4. One-Hot can create too many sparse columns for high-cardinality features. Target Encoding can leak label information unless it is done inside cross-validation or with careful smoothing.
+
+</details>
 
 ## Passing Criteria
 

@@ -206,6 +206,18 @@ Pipeline([
 2. 用 t-SNE 或 UMAP 做可视化，不要一开始就当生产特征管道。
 3. 如果降维改变模型结果，必须用交叉验证确认。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task: clustering, dimensionality reduction, or anomaly detection goal
+data_view: scaled features, projection, clusters, or anomaly scores
+interpretation: what the groups, axes, or alerts mean in the scenario
+failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
+Expected_output: unsupervised result with interpretation and uncertainty note
+```
+
 ## 常见排查清单
 
 | 现象 | 可能原因 | 修复方式 |
@@ -223,6 +235,17 @@ Pipeline([
 3. 去掉 `StandardScaler`。解释方差有什么变化？
 4. 使用 `PCA(n_components=0.95)`，打印自动选择了多少个成分。
 5. 用 2D PCA 输出画散点图，并按数字标签上色。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. accuracy 往往先快速提升，然后进入平台期。实际选择时，应优先选接近最佳分数的最小成分数。
+2. PCA 可能主要帮助速度和存储，即使 accuracy 差不多也有价值；如果 accuracy 明显下降，说明压缩丢掉了有用信号；如果略升，可能是去掉了一些噪声。
+3. 不缩放时，数值范围大的特征会主导主成分，解释方差可能看起来很好，但原因并不一定合理。
+4. `PCA(n_components=0.95)` 会自动选择能保留约 95% 方差的最少成分数。需要同时报告成分数和下游模型分数是否可接受。
+5. 2D PCA 图只是诊断工具，不是模型质量证明。如果不同颜色大量重叠，说明分类器可能需要更多维度或非线性表示。
+
+</details>
 
 ## 过关检查
 

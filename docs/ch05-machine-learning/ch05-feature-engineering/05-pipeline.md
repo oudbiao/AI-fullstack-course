@@ -282,6 +282,18 @@ your project is already much more stable than many versions that “run, but can
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+feature_state: raw columns, types, missing values, scale, and target relationship
+transformation: preprocessing, construction, selection, or pipeline step
+output: transformed feature table, pipeline object, score change, or selected features
+failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
+Expected_output: feature pipeline evidence with before/after and metric impact
+```
+
 ## Summary
 
 | Component | Description |
@@ -300,3 +312,13 @@ Build a complete Pipeline (including numeric processing, categorical encoding, a
 ### Exercise 2: Pipeline hyperparameter tuning
 
 Use GridSearchCV on the Pipeline from Exercise 1 to tune both preprocessing parameters (such as PCA n_components) and model parameters at the same time.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A complete Titanic Pipeline should include imputation, numeric scaling where needed, categorical encoding, custom features, and the estimator. The same object should handle both training and prediction.
+2. RandomForest may need less scaling and can capture nonlinear splits; LogisticRegression usually benefits more from scaling and cleaner encoding. Compare them with the same validation protocol.
+3. GridSearchCV should tune preprocessing and model parameters together because choices interact. For example, dimensionality reduction or feature selection can change which model settings work best.
+4. The final deliverable should include the fitted pipeline, CV scores, chosen parameters, and one leakage check showing that preprocessing happens inside the pipeline.
+
+</details>
