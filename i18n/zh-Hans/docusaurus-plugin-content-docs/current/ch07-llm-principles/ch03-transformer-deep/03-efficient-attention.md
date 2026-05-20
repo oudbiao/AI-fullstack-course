@@ -456,3 +456,13 @@ decision: measure latency/memory before changing architecture
 2. 用自己的话解释：为什么说滑动窗口是在改“看谁”，FlashAttention 是在改“怎么算”？
 3. 如果你做的是长对话推理服务，为什么 GQA / MQA 往往比滑动窗口更先进入视野？
 4. 想一想：支持很长上下文，和真正能有效利用长上下文，为什么不是一回事？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 窗口越小，可见 pair 越少；窗口越大，可见 pair 越多。具体数量会随着每个 token 被允许看到的局部上下文范围而增长。
+2. 滑动窗口改变的是 attention pattern，也就是限制每个 token 能看哪些邻居。FlashAttention 不改变数学上的 attention 结果，而是用更省显存的 kernel 来计算。
+3. 长对话推理服务往往先撞到 KV cache 显存瓶颈。GQA / MQA 能减少 key-value cache 占用，所以即使保持 full attention，也能先改善服务容量。
+4. 模型能接收很多 token，不代表它一定能检索、连接并优先使用正确证据。上下文长度是容量上限，长上下文利用质量是需要单独评估的行为能力。
+
+</details>

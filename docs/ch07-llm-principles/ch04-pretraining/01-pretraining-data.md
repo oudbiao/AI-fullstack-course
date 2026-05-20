@@ -567,3 +567,13 @@ then when you later look at pretraining objectives, training engineering, and fi
 2. Why do we say “exact dedup” is only the first step, and real projects also need near-duplicate detection?
 3. Think about it: if your model is mainly for code scenarios, how should the data mixture ratio be adjusted?
 4. Explain in your own words: why does evaluation leakage make us overestimate model capability?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Good added samples should test specific rules: boilerplate pages, repeated ads, malformed text, clean technical prose, and high-value rare examples. If a useful sample is removed or a low-value sample is kept, the rule needs adjustment.
+2. Exact dedup only catches identical strings or fingerprints. Near-duplicate detection is needed for copied pages with small edits, template variants, translated mirrors, and lightly rewritten benchmark material.
+3. A code-oriented model should increase code, documentation, issue discussions, API references, tests, and debugging traces while still keeping enough natural language for instructions and explanations. The mixture should follow the intended product behavior, not a generic ratio.
+4. If evaluation examples appear in training, the model may memorize them or learn their surface patterns. The score then measures exposure, not true generalization to unseen tasks.
+
+</details>

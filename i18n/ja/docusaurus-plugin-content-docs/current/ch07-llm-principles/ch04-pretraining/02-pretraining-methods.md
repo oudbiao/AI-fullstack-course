@@ -495,3 +495,13 @@ limitation: pretraining objective is not the same as instruction following
 2. 自分の言葉で説明してみましょう: なぜ Causal LM は自由生成に向いているのですか？
 3. なぜ Masked LM は「続き書き」ではなく「穴埋め問題」に近いと言えるのでしょうか？
 4. 強い要約モデルを作りたいとしたら、どの種類の事前学習目標に寄せると思いますか？その理由も考えてみてください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. よい答えでは、同じ文章が異なる学習信号になることを示せます。Causal LM は next-token prediction、Masked LM は隠された token の復元、sequence-to-sequence 目的は入力から出力への再構成です。
+2. Causal LM は、prefix から左から右へ token を続けるように学習します。これは自由生成、チャット、コード補完など、出力を順番に作るタスクとよく合います。
+3. Masked LM は、隠された位置の左右の文脈を見て、その中の欠けた部分を予測します。そのため、未知の続きを書くよりも、穴埋め問題に近いです。
+4. 要約では、sequence-to-sequence denoising や encoder-decoder 型の目的が自然に合いやすいです。入力を読み、圧縮された出力を作る訓練だからです。Causal LM も instruction tuning 後は要約できますが、事前学習目的としては前者ほど直接対応していません。
+
+</details>

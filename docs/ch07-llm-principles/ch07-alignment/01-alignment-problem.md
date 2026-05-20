@@ -567,3 +567,13 @@ These three questions are the starting point for why methods such as RLHF, DPO, 
 2. Think of a business scenario you know well, and write one helpful, one honest, and one harmless judgment rule.
 3. Refer to the code in this section, add two more samples yourself, and see which dimension they lose points on.
 4. Think about this: if your system connects to a database and tool calls, what additional alignment risks would you have compared with pure chat?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Fluent language only means the output is well formed. Alignment asks whether the output is useful, truthful, safe, and appropriate for the user’s intent and context.
+2. For example, in customer support: helpful means answer the user’s actual issue with next steps; honest means state uncertainty and policy limits; harmless means avoid exposing private data or encouraging unsafe actions.
+3. A strong answer should identify the failing dimension, not just say “bad answer.” For instance, a confident but false refund rule fails honesty, while a correct answer that leaks another customer’s data fails harmlessness.
+4. Tool-connected systems add risks such as unauthorized reads/writes, unsafe tool execution, hidden prompt injection from retrieved data, over-broad permissions, and irreversible actions.
+
+</details>

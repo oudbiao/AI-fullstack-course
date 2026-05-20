@@ -484,3 +484,13 @@ the architectural choices, fine-tuning methods, and task transfer in the followi
 2. Explain in your own words: why is Causal LM more suitable for open-ended generation?
 3. Why is Masked LM more like a “fill-in-the-blank” task than a “continuation” task?
 4. Think about this: if your goal is to build a strong summarization model, which type of pretraining objective would you prefer? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A good answer should show that the same text can become different training signals: next-token prediction for Causal LM, masked-token recovery for Masked LM, and input-to-output reconstruction for sequence-to-sequence objectives.
+2. Causal LM trains the model to continue a prefix token by token. That matches open-ended generation, chat, code completion, and other tasks where the output is produced left to right.
+3. Masked LM sees surrounding context and predicts hidden pieces inside the sequence. It is therefore closer to solving blanks than to generating an unknown continuation.
+4. For summarization, sequence-to-sequence denoising or encoder-decoder-style objectives are often a natural fit because they train a model to read an input and produce a compressed output. Causal LM can still summarize, especially after instruction tuning, but the objective is less directly matched.
+
+</details>

@@ -465,3 +465,13 @@ many seemingly “very complex” large-model structures are actually just varia
 2. Try removing the residual connection and see whether the relationship between `block_output` and the original input is still stable.
 3. Explain in your own words: why do we say attention exchanges information while FFN digests information?
 4. Think about this: if you stack this block 48 layers deep, what engineering problem would worry you the most?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Allowing all attention makes each position see later tokens. The attention matrix becomes less triangular, which is useful for inspection but breaks the autoregressive rule used by decoder-only generation.
+2. Without the residual connection, the block has a harder time preserving the original signal. Deep stacks become more fragile because every layer must relearn both transformation and identity flow.
+3. Attention mixes information across token positions. The FFN then applies position-wise nonlinear processing, so it is closer to digesting the mixed representation at each position.
+4. The biggest worries are usually training stability, memory pressure, gradient flow, and throughput. LayerNorm placement, residual paths, activation memory, and checkpointing become practical engineering issues, not cosmetic details.
+
+</details>

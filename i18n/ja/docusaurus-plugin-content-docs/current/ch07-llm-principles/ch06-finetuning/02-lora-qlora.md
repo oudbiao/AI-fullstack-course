@@ -379,3 +379,13 @@ risk: adapter quality depends heavily on data quality
 2. QLoRA の重要な追加点がベースモデルの量子化であると言えるのはなぜですか？
 3. GPU メモリが限られているのに、より大きなモデルを試したい場合、なぜ QLoRA が優先候補になりやすいのですか？
 4. 自分の言葉でまとめてください：LoRA と全量ファインチューニングの最も本質的な違いは何ですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. LoRA は元の重み行列を凍結し、小さな low-rank update 行列だけを学習します。ベース行列は変えず、学習した差分を適応時に足すか、後で merge します。
+2. QLoRA はベースモデルを量子化した形で保持し、メモリを下げながら LoRA adapter を学習します。重要なのは adapter が魔法のように強いことではなく、凍結されたベースが使う VRAM を大きく減らせることです。
+3. VRAM が限られていると、ベースの量子化によって、full precision では入らない大きなモデルを試せる可能性があります。ただし sequence length、batch size、optimizer memory、評価品質は引き続き確認が必要です。
+4. 全量ファインチューニングは、すべてまたは大部分の重みを変えます。LoRA は小さな学習可能な適応経路だけを変え、ベースモデルはほぼ凍結したままにします。
+
+</details>

@@ -413,3 +413,13 @@ you will no longer be left with only the impression that â€œit is very popular.â
 2. Think of a translation or summarization task, and explain why it is naturally suitable for Encoder-Decoder.
 3. If you were doing text classification, would you prioritize Encoder-only or Decoder-only? Why?
 4. Suppose you want to continue scaling up to a very large model, but your computation budget per step is limited. Why does MoE become attractive?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The causal mask forces each token to predict from the past rather than looking ahead. That constraint is what turns a Transformer block into an autoregressive generator.
+2. Translation and summarization naturally have an input sequence and an output sequence. The encoder can read the whole source, while the decoder generates the target step by step while attending back to the encoded source.
+3. For classic classification, Encoder-only is often the simpler first choice because it can read the whole input bidirectionally and produce a compact representation. Decoder-only can also classify, but it is usually chosen when generation or a unified LLM interface matters.
+4. MoE activates only part of the model for each token. It can increase total parameter capacity without making every training or inference step pay for every expert.
+
+</details>

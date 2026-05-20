@@ -444,7 +444,7 @@ best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 | 梯度累积（Gradient accumulation） | 多个 micro batch 的梯度先累积，再做一次优化器更新 | 显存有限时，可以模拟更大的 batch |
 | 有效批大小（Effective batch size） | `micro_batch_size * gradient_accumulation * GPU 数量` | 会影响学习率选择和梯度稳定性 |
 | 预热步数 | 训练初期学习率逐步升高的步数 | 降低训练刚开始时的不稳定 |
-| 检查点（Checkpoint） | 某个训练步保存下来的模型状态 | 方便比较版本、继续训练或回滚 |
+| 检查点 | 某个训练步保存下来的模型状态 | 方便比较版本、继续训练或回滚 |
 | 灰度流量（Canary traffic） | 先把少量真实流量打到新模型上 | 全量发布前降低上线风险 |
 
 ---
@@ -579,3 +579,13 @@ release_check: quality, safety, rollback, and README notes
 2. 参考本节代码，把一份原始问答数据整理成 `messages` 格式。
 3. 想一想：你的数据更应该按用户、按会话，还是按文档切分？为什么？
 4. 如果验证集 `val_loss` 更低，但 JSON 格式正确率更差，你会选哪个 checkpoint？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 好的任务描述要写清输入字段、期望输出形状、风格或语气、禁止行为和通过/失败约束。像“回答更好”这种目标太含糊，不足以支撑可靠微调。
+2. 好的 `messages` 数据集会区分 `system`、`user`、`assistant` 角色，移除重复或互相矛盾的样本，并把敏感或低质量内容排除在训练外。
+3. 切分方式要优先防止泄漏。用户个性强就按用户切；有连续对话依赖就按会话切；文档问答则按文档切，避免同一来源同时进入训练集和验证集。
+4. 应选择最符合部署要求的 checkpoint。如果 JSON 正确率是硬约束，那么 `val_loss` 稍高但格式合规明显更好的 checkpoint 通常更安全。
+
+</details>

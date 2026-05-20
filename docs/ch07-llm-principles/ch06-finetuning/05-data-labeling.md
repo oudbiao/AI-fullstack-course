@@ -468,3 +468,13 @@ your model quality can improve continuously and in an explainable way.
 2. Refer to the code in this section and manually construct a set of two-annotator labeled data. Calculate the agreement rate and kappa.
 3. Think about which failed online samples in your project are most worth feeding back into the training set first.
 4. If two annotators keep disagreeing on the same type of sample, would you first revise the guidelines, revise the label system, or directly decide by vote? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Good labels should be mutually distinguishable, useful for action, and illustrated with boundary cases. Positive and negative examples should make the decision rule visible, not just repeat the label name.
+2. Agreement rate shows raw consistency, while kappa adjusts for chance agreement. If agreement is low, the problem is often unclear instructions, overlapping labels, or ambiguous samples.
+3. Prioritize high-frequency failures, high-risk failures, and failures that represent a stable pattern. Rare one-off mistakes are usually less valuable than repeated failure modes that affect real users.
+4. First inspect whether the guideline or label system is ambiguous. Voting can resolve a single sample, but repeated disagreement means the task definition itself needs repair.
+
+</details>

@@ -544,3 +544,13 @@ Once these three things are clear, method names will no longer feel mysterious.
 2. If you want to adapt one base model to 20 different business tasks at the same time, why is Adapter often attractive?
 3. Change `bottleneck_dim` in the Adapter code in this section to a larger or smaller value, and observe how the number of trainable parameters changes.
 4. Think about it: if your hardware is very limited but the task is fairly complex, which PEFT method would you try first? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Prompt Tuning learns soft prompt vectors near the input. Prefix Tuning learns prefix states that influence attention. Adapter inserts small trainable modules inside layers. IA3 learns scaling vectors that modulate activations.
+2. Adapters let each task keep a small task-specific module while sharing the same base model. That makes storage, switching, and multi-task management easier than maintaining many full model copies.
+3. A larger `bottleneck_dim` increases adapter capacity and trainable parameters. A smaller value saves memory and reduces overfitting risk, but may be too weak for complex behavior changes.
+4. For very limited hardware and a complex task, LoRA or a compact Adapter is often a practical first try. Pure Prompt Tuning may be cheaper, but it can be too weak when the task needs deeper behavior adaptation.
+
+</details>

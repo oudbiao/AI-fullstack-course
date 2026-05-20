@@ -477,3 +477,13 @@ you are no longer just memorizing terms.
 2. Based on the code in this section, change `policy_chosen_logp` and `policy_rejected_logp` yourself and observe how the DPO loss changes.
 3. If your team can barely get any human preference data, but can call a stronger judge model, which route would you prioritize? Why?
 4. Think about your own business: are there any principles that are especially suitable to be written as Constitutional AI-style “constitutional rules”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. DPO uses preference pairs to push the policy toward higher probability for preferred answers and lower probability for rejected ones. It avoids training a separate reward model and then running an RL loop.
+2. The loss should decrease when the chosen answer becomes more likely than the rejected answer by a larger margin. If the rejected answer has higher log probability, the loss increases and gives a stronger correction signal.
+3. A practical route is often RLAIF-style preference generation or Constitutional AI-style revision/evaluation, with careful audits. The key risk is judge-model bias, so sample review and human spot checks are still needed.
+4. Good constitutional rules are stable, explainable, and tied to product risk: protect private data, ask before irreversible actions, separate facts from speculation, refuse unsafe instructions, and cite evidence for high-stakes claims.
+
+</details>

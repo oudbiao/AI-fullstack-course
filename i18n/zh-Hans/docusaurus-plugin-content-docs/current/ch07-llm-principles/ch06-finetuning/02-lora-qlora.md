@@ -379,3 +379,13 @@ risk: adapter quality depends heavily on data quality
 2. 为什么说 QLoRA 的关键新增点在于基础模型量化？
 3. 如果你显存有限但又想试更大模型，为什么 QLoRA 往往更值得优先考虑？
 4. 用自己的话总结：LoRA 和全量微调最本质的差别是什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. LoRA 会冻结原始权重矩阵，只学习小型 low-rank update 矩阵。基础矩阵不变，训练出来的增量会在适配时叠加，或之后合并。
+2. QLoRA 把基础模型保持在量化形式，从而降低显存占用，同时训练 LoRA adapter。关键不在于 adapter 神奇，而在于冻结底座占用的 VRAM 大幅下降。
+3. 显存有限时，量化底座能让更大的模型放进设备里，而 full precision 可能根本放不下。但仍要关注 sequence length、batch size、optimizer memory 和评测质量。
+4. 全量微调会改变全部或大部分模型权重；LoRA 只训练一条小型适配路径，底座模型基本保持冻结。
+
+</details>

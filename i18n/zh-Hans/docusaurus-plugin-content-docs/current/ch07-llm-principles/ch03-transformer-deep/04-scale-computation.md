@@ -419,3 +419,13 @@ decision: choose smaller model, quantization, batching, or retrieval by evidence
 2. 为什么说 hidden size 往往比很多人想象的更“贵”？
 3. 用自己的话解释：为什么训练能跑通，不代表部署一定轻松？
 4. 如果你要做一个长对话服务，除了参数量，你最先还会关心哪些指标？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. KV cache 大致随序列长度、层数、batch size 和 key-value 头维度线性增长。把 `4096` 改到 `16384`，序列长度这一项约增加 4 倍。
+2. Hidden size 会影响投影矩阵、FFN 宽度、激活显存和 attention 维度。增大它往往会同时抬高参数量和每个 token 的计算量。
+3. 训练可以离线进行，有计划好的 batch 和恢复窗口；部署则要面对延迟、并发、显存限制、上下文增长和用户流量波动。
+4. 首先应看延迟、吞吐量、每个请求的 KV cache 显存、最大并发会话、prefill/decode 速度、上下文保留质量，以及每个有效回答的成本。
+
+</details>

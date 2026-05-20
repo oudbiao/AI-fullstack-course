@@ -477,3 +477,13 @@ decision: choose method based on available feedback and risk
 2. 参考本节代码，自己改一改 `policy_chosen_logp` 和 `policy_rejected_logp`，观察 DPO loss 如何变化。
 3. 如果你的团队几乎拿不到人工偏好数据，但可以调用一个更强的评审模型，你会优先考虑哪条路线？为什么？
 4. 想一想：在你的业务里，有没有一些原则非常适合写成 Constitutional AI 风格的“宪法规则”？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. DPO 直接利用偏好对，让策略提高 preferred answer 的概率、降低 rejected answer 的概率。它绕开了“先训练奖励模型，再跑 RL loop”的流程。
+2. 当 `chosen` 比 `rejected` 有更大的 log probability 边距时，loss 应该下降；如果 `rejected` 的 log probability 更高，loss 会变大，并给出更强的修正信号。
+3. 可以优先考虑 RLAIF 风格的偏好生成，或 Constitutional AI 风格的修订/评审流程，但要保留抽样审计。关键风险是 judge model bias，所以仍需要人工 spot check。
+4. 适合写成“宪法规则”的原则通常稳定、可解释、与产品风险直接相关，例如保护隐私、不可逆操作前先确认、区分事实与猜测、拒绝危险指令、高风险结论必须给证据。
+
+</details>

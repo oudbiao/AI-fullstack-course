@@ -484,3 +484,13 @@ limitation: pretraining objective is not the same as instruction following
 2. 用自己的话解释：为什么 Causal LM 更适合开放式生成？
 3. 为什么说 Masked LM 更像“补空题”，而不是“续写题”？
 4. 想一想：如果你的目标是做一个强摘要模型，你会更偏向哪类预训练目标？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 好的答案应体现同一段文本可以变成不同训练信号：Causal LM 做 next-token prediction，Masked LM 做被遮盖 token 的恢复，sequence-to-sequence 目标做输入到输出的重构。
+2. Causal LM 训练模型根据前缀逐 token 续写。这正好匹配开放式生成、聊天、代码补全等从左到右产生输出的任务。
+3. Masked LM 能看到被遮盖位置左右两侧的上下文，再预测中间缺失片段，所以它更像补空题，而不是生成未知的后续文本。
+4. 做摘要时，sequence-to-sequence denoising 或 encoder-decoder 类目标通常更自然，因为它训练模型读取输入并生成压缩输出。Causal LM 经过指令微调后也能摘要，但预训练目标本身不如前者直接匹配。
+
+</details>

@@ -427,3 +427,13 @@ decision: choose smaller model, quantization, batching, or retrieval by evidence
 2. なぜ hidden size は、多くの人が思うよりずっと「高い」のでしょうか？
 3. 自分の言葉で説明してください。学習が通っても、デプロイが楽とは限らないのはなぜですか？
 4. 長い会話サービスを作るなら、パラメータ数以外に、最初にどんな指標を気にしますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. KV cache はおおむね sequence length、層数、batch size、key-value head の次元に比例して増えます。`4096` から `16384` にすると、sequence length の部分だけで約 4 倍になります。
+2. Hidden size は projection 行列、FFN 幅、activation memory、attention 次元に影響します。大きくすると、パラメータ数と token あたりの計算量が複数箇所で同時に増えます。
+3. 学習はオフラインで計画した batch と復旧手順の中で進められます。デプロイでは、レイテンシ、同時接続、メモリ制限、context の伸び、ユーザートラフィックの変動に対応する必要があります。
+4. まず見るべきなのは、レイテンシ、スループット、リクエストごとの KV cache メモリ、同時セッション数、prefill/decode 速度、context 保持品質、有用な回答 1 件あたりのコストです。
+
+</details>

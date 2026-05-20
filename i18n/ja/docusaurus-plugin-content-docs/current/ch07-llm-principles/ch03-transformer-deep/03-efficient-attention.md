@@ -459,3 +459,13 @@ decision: measure latency/memory before changing architecture
 2. 自分の言葉で説明してみましょう。なぜスライディングウィンドウは「誰を見るか」を変えるのであり、FlashAttention は「どう計算するか」を変えるのでしょうか？
 3. 長い対話の推論サービスを作るなら、なぜ GQA / MQA はスライディングウィンドウより先に検討されることが多いのでしょうか？
 4. とても長いコンテキストをサポートすることと、その長いコンテキストを本当に有効に使えることは、なぜ同じではないのでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. window が小さいほど見える pair は減り、大きいほど増えます。具体的な数は、各 token が見られる局所文脈の範囲に応じて増減します。
+2. スライディングウィンドウは attention pattern、つまり各 token が見られる相手を変えます。FlashAttention は数学的な attention の結果を変えず、よりメモリ効率のよい kernel で計算します。
+3. 長い対話の推論サービスでは、まず KV cache のメモリが問題になりやすいです。GQA / MQA は key-value cache を減らせるため、full attention のままでも提供可能な同時セッション数を改善できます。
+4. 多くの token を受け取れることと、正しい根拠を見つけて結び付け、優先して使えることは別です。context length は容量の上限であり、長文脈を使う力は別途評価すべき挙動です。
+
+</details>

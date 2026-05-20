@@ -571,3 +571,13 @@ you will not just remember method names when you later learn DPO, RLAIF, or othe
 2. Based on the code in this section, add another set of `chosen/rejected` preference samples and observe how the learned weights change.
 3. Why do RLHF pipelines usually keep a reference model and add a KL penalty during optimization?
 4. Think about your own project: is it currently more like “needs SFT” or “has already reached the stage where preference optimization is needed”? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. People often find it easier to choose the better of two answers than to assign a calibrated numeric score. Pairwise preference also reduces differences between annotators’ scoring scales.
+2. The learned weights should move toward features that distinguish `chosen` from `rejected`. If a new preference contradicts earlier examples, the model may shift less clearly or expose ambiguity in the labeling rule.
+3. The reference model and KL penalty keep the optimized policy from drifting too far from the supervised model. They reduce reward hacking, style collapse, and sudden loss of general language ability.
+4. If the model still cannot follow basic task format or domain behavior, it is closer to SFT. If it already performs the task but users prefer one style, refusal boundary, or tradeoff over another, preference optimization becomes more relevant.
+
+</details>

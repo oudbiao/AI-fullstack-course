@@ -458,3 +458,13 @@ you will no longer treat them as “peripheral chores.”
 2. Why does saving only the model parameters, without saving the data reading position, make training recovery unreliable?
 3. Think about it: if some shards are much larger and some are much smaller, what impact will that have on throughput?
 4. Explain in your own words: why does pretraining engineering eventually become “building a system” rather than just “writing a model”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing `batch_size` changes how many samples are consumed per step, so the saved recovery state should point to a different next sample or shard offset. The important observation is whether resume continues from the right place without skipping or repeating data.
+2. Model weights alone tell you what the model learned, but not which data has already been consumed. After a crash, the run may silently repeat samples, skip samples, or change the training distribution.
+3. Uneven shards create stragglers. Some workers finish early and wait, throughput becomes unstable, and the effective data mixture can drift if scheduling is not controlled.
+4. Pretraining requires coordinated data pipelines, distributed compute, checkpointing, monitoring, failure recovery, quality control, and cost management. The model code is only one component inside that system.
+
+</details>

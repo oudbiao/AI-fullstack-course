@@ -452,3 +452,13 @@ Only after identifying the bottleneck do you know which kind of solution to look
 2. Explain in your own words: why is sliding window changing “who can see whom,” while FlashAttention is changing “how it is computed”?
 3. If you are building a long-conversation inference service, why do GQA / MQA often come into view before sliding window?
 4. Think about it: why are supporting very long contexts and truly being able to use them effectively not the same thing?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A smaller window reduces the number of visible pairs; a larger window increases it. The exact count should grow with the amount of local context each token is allowed to see.
+2. Sliding window changes the attention pattern by limiting visible neighbors. FlashAttention keeps the mathematical attention result but computes it with a more memory-efficient kernel.
+3. Long-conversation services often hit KV cache memory first. GQA / MQA reduce the key-value cache footprint, so they can improve serving capacity even when the attention pattern stays full.
+4. A model may accept many tokens but still fail to retrieve, connect, or prioritize the right evidence. Context length is a capacity limit; long-context reasoning quality is a behavior that must be evaluated.
+
+</details>

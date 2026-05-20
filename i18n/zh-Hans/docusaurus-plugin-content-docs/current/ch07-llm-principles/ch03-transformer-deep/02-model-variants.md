@@ -412,3 +412,13 @@ misread_to_avoid: variant names are not simple quality rankings
 2. 想一个翻译或摘要任务，说明它为什么天然适合编码器-解码器。
 3. 如果要做文本分类，你会更优先考虑仅编码器还是仅解码器？为什么？
 4. 假设你要继续做超大模型扩展，但每步计算预算有限，为什么 MoE 会变得有吸引力？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Causal mask 让每个 token 只能根据过去预测，不能偷看未来。正是这个约束把 Transformer block 变成了自回归生成器。
+2. 翻译和摘要天然有“输入序列”和“输出序列”。Encoder 可以完整阅读源文本，Decoder 再一边看源文本表示，一边逐步生成目标文本。
+3. 经典文本分类通常优先考虑 Encoder-only，因为它能双向读取完整输入，并形成紧凑表示。Decoder-only 也能分类，但更常在需要生成能力或统一 LLM 接口时使用。
+4. MoE 每个 token 只激活部分专家。它能增加总参数容量，同时不让每一步训练或推理都为所有专家付费。
+
+</details>

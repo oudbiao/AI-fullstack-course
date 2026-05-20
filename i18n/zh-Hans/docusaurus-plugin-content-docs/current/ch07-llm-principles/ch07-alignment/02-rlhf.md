@@ -193,7 +193,7 @@ RLHF 则更像在继续教它：
 ![RLHF 奖励模型与 KL 约束闭环图](/img/course/ch07-rlhf-reward-kl-loop-map.webp)
 
 :::tip 读图提示
-这张图建议按角色读：SFT 先让模型会答，偏好对训练 Reward Model，策略模型朝高奖励方向更新，Reference Model 和 KL penalty 防止它为了刷分跑偏。RLHF 重，不是因为名字复杂，而是因为这条链里同时维护多个模型角色。
+这张图建议按角色读：SFT 先让模型会答，偏好对训练奖励模型，策略模型朝高奖励方向更新，参考模型和 KL 惩罚防止它为了刷分跑偏。RLHF 重，不是因为名字复杂，而是因为这条链里同时维护多个模型角色。
 :::
 
 ### 让 RLHF 不再神秘的术语
@@ -201,10 +201,10 @@ RLHF 则更像在继续教它：
 | 术语 | 直白解释 | 为什么重要 |
 |---|---|---|
 | RLHF | Reinforcement Learning from Human Feedback，基于人类反馈的强化学习 | 把人类偏好比较变成训练信号 |
-| Preference pair | 同一个 prompt 的两个回答：`chosen` 和 `rejected` | 通常比让人类打绝对分更容易标注 |
-| Reward model | 给 prompt-answer 对打分的模型 | 在策略优化时像一个学出来的裁判 |
-| Policy model | 真正生成答案的模型 | 它会朝人类更偏好的行为方向更新 |
-| Reference model | 冻结的参考模型或 基线 模型 | 防止策略模型为了追奖励跑得太远 |
+| 偏好样本对（Preference pair） | 同一个 prompt 的两个回答：`chosen` 和 `rejected` | 通常比让人类打绝对分更容易标注 |
+| 奖励模型（Reward model） | 给 prompt-answer 对打分的模型 | 在策略优化时像一个学出来的裁判 |
+| 策略模型（Policy model） | 真正生成答案的模型 | 它会朝人类更偏好的行为方向更新 |
+| 参考模型 | 冻结的参考模型或基线模型 | 防止策略模型为了追奖励跑得太远 |
 | PPO | Proximal Policy Optimization，经典 RLHF 中常见的强化学习算法 | 用来让策略模型朝更高奖励更新 |
 | KL penalty | 惩罚当前策略和参考模型差太远 | 防止 reward hacking 或风格崩塌 |
 
@@ -573,3 +573,13 @@ risk: reward hacking or preference data bias
 2. 参考本节代码，再添加一组 `chosen/rejected` 偏好样本，观察 learned weights 会怎么变。
 3. 为什么 RLHF 里通常要保留一个参考模型，并在优化时加 KL 惩罚？
 4. 想一想：你的项目目前更像“需要 SFT”还是“已经进入需要偏好优化”的阶段？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 人通常更容易在两个回答里选出更好的一个，而不是给出校准过的绝对分数。成对偏好也能减少不同标注员评分尺度不一致的问题。
+2. Learned weights 应该朝着能区分 `chosen` 和 `rejected` 的特征移动。如果新增偏好和旧样本矛盾，权重变化可能不明显，也会暴露标注规则不清。
+3. 参考模型和 KL 惩罚用于限制优化后的策略不要偏离 SFT 模型太远。它们能降低 reward hacking、风格坍塌和通用语言能力突然下降的风险。
+4. 如果模型还不能稳定遵守基本任务格式或领域行为，更像需要 SFT；如果它已经会做任务，但用户更偏好某种风格、拒答边界或取舍方式，偏好优化才更相关。
+
+</details>

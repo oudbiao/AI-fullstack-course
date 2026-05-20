@@ -467,3 +467,13 @@ output_bridge: hidden state becomes vocabulary logits
 2. 试着去掉残差连接，看看 `block_output` 和原始输入的关系还稳不稳。
 3. 用自己的话解释：为什么说注意力负责交流信息，FFN 负责消化信息？
 4. 想一想：如果要把这个 block 叠 48 层，你最担心的工程问题会是什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 始终允许 attention 后，每个位置都能看到后面的 token。注意力矩阵会不再保持明显的三角形结构，这有助于观察机制，但会破坏 decoder-only 生成时必须遵守的自回归规则。
+2. 去掉残差连接后，block 更难保留原始信号。层数很深时，每一层都要同时学习变换和身份传递，训练会更脆弱。
+3. Attention 在不同 token 位置之间混合信息；FFN 则对每个位置的混合表示做非线性处理，所以更像是在“消化”当前位置已经汇集到的信息。
+4. 最需要担心的通常是训练稳定性、显存压力、梯度流和吞吐量。LayerNorm 位置、残差路径、激活保存和 checkpointing 都会变成真实工程问题，而不只是结构细节。
+
+</details>

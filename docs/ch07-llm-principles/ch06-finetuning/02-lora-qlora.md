@@ -379,3 +379,13 @@ They matter not just because they are “new methods,” but because they truly 
 2. Why is the key new addition in QLoRA the quantization of the base model?
 3. If you have limited VRAM but still want to try a larger model, why is QLoRA often worth prioritizing?
 4. Summarize in your own words: what is the most fundamental difference between LoRA and full fine-tuning?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. LoRA freezes the original weight matrix and learns small low-rank update matrices. The base matrix remains unchanged, and the learned update is added during adaptation or merged later.
+2. QLoRA keeps the base model in a quantized form to reduce memory while training LoRA adapters. The key idea is not that the adapter is magical; it is that the frozen base takes much less VRAM.
+3. With limited VRAM, quantizing the base can make a larger model fit where full precision would not. You still need to watch sequence length, batch size, optimizer memory, and evaluation quality.
+4. Full finetuning changes all or most model weights. LoRA changes a small trainable adaptation path while leaving the base model mostly frozen.
+
+</details>

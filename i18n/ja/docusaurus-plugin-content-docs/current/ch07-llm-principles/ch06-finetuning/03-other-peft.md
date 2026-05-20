@@ -554,3 +554,13 @@ decision: compare against LoRA and prompt baseline
 2. 1 つの土台モデルに 20 個の異なる業務タスクを適応させたいとき、なぜ Adapter が魅力的なのかを考えてみましょう。
 3. この節の Adapter コードで `bottleneck_dim` を大きくしたり小さくしたりして、学習可能パラメータ数がどう変わるか観察してみましょう。
 4. もしハードウェアがかなり厳しい一方で、タスクは複雑だとしたら、どの PEFT 手法を最初に試しますか？その理由も考えてみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. Prompt Tuning は入力付近の soft prompt ベクトルを学習します。Prefix Tuning は attention に影響する prefix state を学習します。Adapter は層の中に小さな学習可能モジュールを挿入します。IA3 は activation を調整する scaling vector を学習します。
+2. Adapter なら、同じベースモデルを共有しつつ、各タスクに小さな task-specific module を持たせられます。多数の完全なモデルコピーを管理するより、保存、切り替え、複数タスク管理が簡単です。
+3. `bottleneck_dim` を大きくすると adapter の容量と学習可能パラメータが増えます。小さくするとメモリを節約し、過学習リスクも下がりますが、複雑な振る舞い変更には弱すぎることがあります。
+4. ハードウェアが厳しくタスクが複雑なら、LoRA または小さめの Adapter が現実的な第一候補です。純粋な Prompt Tuning は安いですが、深い振る舞い適応が必要な場合は弱すぎることがあります。
+
+</details>

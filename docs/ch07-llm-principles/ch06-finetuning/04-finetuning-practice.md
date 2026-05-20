@@ -579,3 +579,13 @@ you can change the model, framework, or fine-tuning method later without losing 
 2. Refer to the code in this section and organize a raw question-answer dataset into `messages` format.
 3. Think about this: should your data be split by user, by session, or by document? Why?
 4. If the validation set has a lower `val_loss` but worse JSON format correctness, which checkpoint would you choose? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A strong task description names the input fields, expected output shape, style or tone, forbidden behavior, and pass/fail constraints. Vague goals like “answer better” are not enough for reliable finetuning.
+2. A good `messages` dataset separates `system`, `user`, and `assistant` roles, removes duplicated or contradictory examples, and keeps sensitive or low-quality content out of training.
+3. Split by the unit that prevents leakage. For user-specific behavior, split by user; for conversation continuity, split by session; for document QA, split by document so the same source does not appear in both train and validation.
+4. Choose the checkpoint that best matches deployment requirements. If JSON correctness is a hard contract, a slightly higher `val_loss` checkpoint with much better format compliance is usually safer.
+
+</details>

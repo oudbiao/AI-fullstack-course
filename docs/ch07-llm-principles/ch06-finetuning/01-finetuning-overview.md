@@ -362,3 +362,13 @@ Once this judgment is established, when you later learn LoRA, QLoRA, and enginee
 2. Explain in your own words: why should not all tasks prioritize finetuning?
 3. If requirements change frequently, why is finetuning not necessarily the first choice?
 4. Why do people say that “data quality” often affects finetuning results more than the “method name”?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A knowledge problem usually means the model lacks fresh or private facts, so RAG or tools may fit better. A behavior problem means the model knows enough but does not follow the desired format, tone, workflow, or decision pattern reliably.
+2. Finetuning costs data, training time, evaluation effort, deployment work, and maintenance. If prompting, retrieval, or workflow control solves the problem, finetuning may add risk without enough benefit.
+3. Frequent requirement changes make finetuned behavior go stale quickly. Updating prompts, retrieval rules, or workflow logic is usually faster and easier to audit than retraining.
+4. Finetuning mostly amplifies patterns in the training data. Clear, consistent, representative examples matter more than whether the method is called full finetuning, LoRA, or another PEFT variant.
+
+</details>

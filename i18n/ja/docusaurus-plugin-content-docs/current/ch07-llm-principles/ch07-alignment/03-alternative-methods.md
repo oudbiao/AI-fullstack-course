@@ -477,3 +477,13 @@ decision: choose method based on available feedback and risk
 2. この節のコードを参考に、`policy_chosen_logp` と `policy_rejected_logp` を自分で変えて、DPO loss がどう変化するか観察してください。
 3. あなたのチームが人手の嗜好データをほとんど集められないが、より強い評価モデルは使えるとしたら、どのルートを優先しますか？ なぜですか？
 4. あなたの業務の中で、Constitutional AI 風の「憲法ルール」として書くのに特に向いている原則はありますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. DPO は preference pair を使って、好ましい回答の確率を上げ、reject された回答の確率を下げるように policy を直接押します。別の reward model を学習してから RL loop を回す手順を避けられます。
+2. Chosen answer が rejected answer より大きな log probability margin を持つほど、loss は下がるはずです。Rejected answer の確率が高い場合、loss は大きくなり、より強い修正信号になります。
+3. 現実的には、RLAIF 風の preference generation や Constitutional AI 風の revision/evaluation を優先できます。ただし judge model bias が主なリスクなので、サンプル監査と人手の spot check は必要です。
+4. よい constitutional rule は、安定しており、説明可能で、製品リスクに結びついています。例として、個人情報を守る、不可逆操作の前に確認する、事実と推測を分ける、危険な指示を拒否する、高リスク主張には根拠を示す、などがあります。
+
+</details>
