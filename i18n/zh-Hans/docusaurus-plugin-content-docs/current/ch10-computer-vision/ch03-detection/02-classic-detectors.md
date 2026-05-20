@@ -285,6 +285,18 @@ YOLO 一类单阶段方法更常见。
 - 你理解的是演进逻辑
 - 不只是会背名词
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## 小结
 
 这节最重要的是建立一个演进判断：
@@ -309,3 +321,13 @@ YOLO 一类单阶段方法更常见。
 2. 用自己的话解释：Faster R-CNN 比 Fast R-CNN 多解决了哪一步问题？
 3. 什么时候你会更偏向两阶段检测器？
 4. 为什么经典架构对理解检测任务仍然有价值？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 共享 feature map 可以避免对每个候选框都单独跑一遍完整 CNN，从而复用最昂贵的特征计算。
+2. Faster R-CNN 用 RPN 替代慢速的外部候选区域生成，解决了 Fast R-CNN 的 proposal 瓶颈。
+3. 当定位质量、小目标表现或细致误差分析比实时延迟更重要时，两阶段检测器更适合优先考虑。
+4. 经典检测器仍然重要，因为它们讲清了 proposal、anchor、ROI feature、分类/回归头和 NMS，这些概念在现代检测器里依然有用。
+
+</details>

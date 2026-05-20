@@ -53,3 +53,15 @@ confidence: 0.74
 ## 合格ライン
 
 minimal classifier を動かし、train/validation metrics を示し、少なくとも 1 枚の failure image を説明できれば、この章は合格です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```

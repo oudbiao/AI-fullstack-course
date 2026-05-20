@@ -321,6 +321,18 @@ print(class_counts(mask))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -343,3 +355,13 @@ print(class_counts(mask))
 2. 为什么像素准确率高，不一定说明分割模型真的好？
 3. 语义分割和目标检测最大的差别是什么？
 4. 如果类别非常不平衡，你最担心什么问题？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 修改 `pred_mask` 会改变 intersection 和 union。即使只是边界小错，也可能明显降低 IoU，尤其是小区域。
+2. 高 pixel accuracy 可能误导，因为背景像素常常占绝大多数。模型看起来准确，却可能完全做不好稀有类或小目标。
+3. 语义分割给每个像素一个类别标签，目标检测给的是框。语义分割通常不区分同一类别的两个实例。
+4. 类别极不平衡时，最需要担心模型只预测背景或大类。应查看 class-wise IoU/Dice，并考虑加权 loss 或采样策略。
+
+</details>

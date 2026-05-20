@@ -360,6 +360,18 @@ But the truly valuable parts are usually:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
+
 ## Summary
 
 The most important thing in this section is to build a portfolio-level judgment:
@@ -392,3 +404,13 @@ It is recommended to finish the basic version first; do not pursue something hug
 2. Why is `false_negative_rate` in medical imaging projects often more worth showing separately than overall accuracy?
 3. Think about it: when annotation consistency is not high, how should model results be interpreted?
 4. If you put this project into a portfolio, which risk explanation is most worth emphasizing separately?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A safer binary screening version could be “high-risk finding present vs absent.” `clinical_constraints` should state that the output is only a screening aid, sensitivity is prioritized, and a human review boundary is required.
+2. `false_negative_rate` matters because a missed positive case can be more dangerous than many ordinary mistakes. Overall accuracy can hide this risk when positives are rare.
+3. When annotation consistency is low, model results should be interpreted cautiously. Report label disagreement, review rules, and uncertainty instead of claiming diagnostic reliability.
+4. For a portfolio, emphasize risk boundaries: not a diagnosis, human-in-the-loop review, false-negative handling, dataset limits, and which cases require escalation.
+
+</details>

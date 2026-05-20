@@ -173,12 +173,12 @@ texts: [{'box': (0, 0, 50, 20), 'text': 'INV-001'}, {'box': (0, 30, 80, 50), 'te
 
 のようなものがあります。
 
-この場合、「文字を認識する」だけではまだ第一歩にすぎません。  
+この場合、「文字を認識する」だけではまだ第一歩にすぎません。
 本当に難しいのは、構造を理解することです。
 
 ### 文字レベルのミスは下流の業務に影響する
 
-番号、金額、日付のような項目では、  
+番号、金額、日付のような項目では、
 1文字でも誤ると業務に直接影響することがあります。
 
 ### もう一度、最小の「読み順復元」例を見よう
@@ -329,6 +329,18 @@ reading_order: 3
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## まとめ
 
 この節で最も大事なのは、パイプラインとして見ることです。
@@ -349,3 +361,13 @@ reading_order: 3
 2. なぜ検出段階のエラーは、OCR の最終結果を大きく悪くするのでしょうか？
 3. 票票や表と、街中の看板文字認識では、どの段階の難しさが最も違うでしょうか？
 4. 金額欄がいつも1文字間違うなら、まず検出、認識、それとも後処理のどこを確認しますか？ なぜですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. テキストブロックを追加したら、通常は上から下、同じ行では左から右に region を並べます。ただし multi-column や table layout は別途扱う必要があります。
+2. 検出段階の誤りは OCR 全体に直接影響します。見逃した文字や不完全に crop された文字は、recognizer に正しく渡らないからです。
+3. receipt や table では、layout と reading order の復元が最も難しい層になりがちです。street-view text では、角度、ぼけ、複雑背景に対する detection robustness の方が難しいことがあります。
+4. 金額欄がいつも 1 文字ずれる場合、crop が完全なら recognition と post-processing を先に確認します。文字が切れているなら detection を確認します。
+
+</details>

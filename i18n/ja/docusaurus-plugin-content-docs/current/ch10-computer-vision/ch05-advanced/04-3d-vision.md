@@ -8,7 +8,7 @@ keywords: [3D vision, depth, point cloud, stereo, camera geometry]
 # 10.5.5 3Dビジョン入門【選択】
 
 :::tip この節の位置づけ
-2Dビジョンは主に平面画像の中で内容を理解します。  
+2Dビジョンは主に平面画像の中で内容を理解します。
 3Dビジョンは、そこからもう一歩進みます。
 
 > **画像の中に何があるかを知るだけでなく、それが空間の中でどれくらい離れているのか、向きはどうか、構造はどうなっているかも知りたい。**
@@ -68,7 +68,7 @@ flowchart LR
 
 ### たとえで理解する
 
-2Dは地図のスクリーンショットを見る感じに近いです。  
+2Dは地図のスクリーンショットを見る感じに近いです。
 3Dは本当にその場に立っていて、次のことを知りたい感じです。
 
 - この物体はどれくらい離れているか
@@ -131,13 +131,13 @@ for disparity in [40, 20, 10]:
 
 ### 初心者が3Dビジョンを学ぶとき、まず覚えるべき3つは？
 
-1. 深度  
+1. 深度
    まずは「カメラからどれくらい離れているか」を理解する。
 
-2. 点群  
+2. 点群
    3Dの世界は、たくさんの空間点で表せると理解する。
 
-3. 視差  
+3. 視差
    複数視点でなぜ空間距離が復元できるのかを理解する。
 
 ### さらに最小限の「深度から点を復元する」例
@@ -165,7 +165,7 @@ print(points)
 
 これは簡略化した point cloud の直感です。各画像点が depth を持つと、その点を 3D 空間上の点として想像できます。
 
-この例は厳密なカメラモデルではありません。  
+この例は厳密なカメラモデルではありません。
 ただし、初心者がまず直感をつかむには役立ちます。
 
 - すでに深度がわかっていれば
@@ -176,7 +176,7 @@ print(points)
 ![3D ビジョンの深度、視差、点群の直感図](/img/course/ch10-3d-depth-disparity-pointcloud-map-ja.webp)
 
 :::tip 図の見方
-3Dビジョンで本当に新しくなるのは空間関係です。  
+3Dビジョンで本当に新しくなるのは空間関係です。
 この図を見るときは、まず disparity が depth にどう影響するかを見て、その次に、ピクセルが深度を持つことでどう point cloud になるかを見てください。最後に、カメラパラメータと多視点幾何がなぜ重要なのかを考えるとよいです。
 :::
 
@@ -186,12 +186,12 @@ print(points)
 
 ### データを集めるのが難しい
 
-2D画像は集めやすいですが、  
+2D画像は集めやすいですが、
 3Dのラベルや深度データは、ふつうもっと高価です。
 
 ### 幾何関係が複雑
 
-見た目だけを処理するのではなく、  
+見た目だけを処理するのではなく、
 次のようなものも扱う必要があります。
 
 - カメラパラメータ
@@ -200,7 +200,7 @@ print(points)
 
 ### 可視化とデバッグも難しい
 
-2次元画像の誤りはすぐ見つけやすいですが、  
+2次元画像の誤りはすぐ見つけやすいですが、
 3次元構造の誤りは目で見てもわかりにくいことが多いです。
 
 ---
@@ -209,7 +209,7 @@ print(points)
 
 ### 勘違い1：3Dビジョンは「1次元増える」だけ
 
-それだけではありません。  
+それだけではありません。
 新しい幾何学的な問題が増えます。
 
 ### 勘違い2：2Dがうまくできれば自然に3Dもできる
@@ -236,9 +236,21 @@ print(points)
 
 こうすると、最初から複雑な3Dネットワークを読むより、ずっと安定します。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## この節で持つべき正しい学習期待
 
-この節の目的は、すぐに複雑な3次元再構成まで行くことではありません。  
+この節の目的は、すぐに複雑な3次元再構成まで行くことではありません。
 まず本当に気づいてほしいのは、次のことです。
 
 - 3Dビジョンは2Dビジョンより空間幾何の問題が増える
@@ -275,3 +287,13 @@ print(points)
 2. 3Dビジョンが2Dビジョンより幾何の直感に強く依存するのはなぜですか？
 3. 点群が3D表現として自然だと言えるのはなぜですか？
 4. どんな応用が、2D検出だけでは足りず、3Dビジョンに強く依存するでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. stereo vision の直感では、depth は disparity とおおよそ反比例します。disparity が大きいほど近く、小さいほど遠く、ほぼ 0 では不安定です。
+2. 3D vision が幾何に強く依存するのは、appearance だけでなく、camera model、depth、coordinate、scale、calibration、pose を考える必要があるからです。
+3. point cloud は、見えている 3D 表面を `(x, y, z)` の点として直接保存できるため、とても自然な表現です。色や intensity を持つこともあります。
+4. robotics、自動運転、AR、mapping、measurement、grasping、collision avoidance などは、2D box だけでなく 3D 構造に依存します。
+
+</details>

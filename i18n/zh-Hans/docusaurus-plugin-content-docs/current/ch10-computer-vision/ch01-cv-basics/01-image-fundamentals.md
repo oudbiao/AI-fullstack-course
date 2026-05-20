@@ -468,6 +468,18 @@ print("平均亮度:", gray.mean())
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## 小结
 
 学完这节，你要建立一个关键直觉：
@@ -483,3 +495,12 @@ print("平均亮度:", gray.mean())
 1. 自己创建一个 `3x3` 的灰度图矩阵，统计它的最大值、最小值和平均值。
 2. 自己创建一个 `2x2x3` 的 RGB 图像，打印每个通道。
 3. 把一组 RGB 像素手工转成 `0~1` 浮点数，理解归一化的作用。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格的 `3x3` 灰度图答案应先打印 `(3, 3)` 数组，再用 `min()`、`max()`、`mean()` 统计像素。若矩阵是 `uint8`，像素值应保持在 `0-255`，平均值通常会以浮点数显示。
+2. RGB 图像的预期形状是 `(2, 2, 3)`。`rgb[:, :, 0]`、`rgb[:, :, 1]`、`rgb[:, :, 2]` 应分别得到一个 `2x2` 通道矩阵。
+3. 归一化就是把每个通道值除以 `255.0`。颜色相对关系不变，但数值范围变成 `0-1`，后续模型和图像处理会更稳定。
+
+</details>

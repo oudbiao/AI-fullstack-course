@@ -62,6 +62,18 @@ Segmentation reports should show masks, metrics, and boundary errors, not only a
 | 2 | Instance segmentation | Separate different objects of the same class |
 | 3 | Segmentation practice | Compare masks, IoU/Dice, boundary errors, and failed samples |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## Pass Check
 
 You pass this chapter when you can create or inspect a mask, compute a simple overlap metric, and explain one boundary or class-confusion failure.

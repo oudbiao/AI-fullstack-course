@@ -256,6 +256,18 @@ This will feel more like a real project than only posting a “successful recogn
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## Summary
 
 The most important thing in this section is to build a system-level judgment:
@@ -274,3 +286,13 @@ The most important thing in this section is to build a system-level judgment:
 2. Why is it said that face systems depend especially on threshold settings?
 3. Why does alignment affect recognition quality?
 4. Think about it: why do face systems need to pay special attention to privacy?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A higher similarity threshold reduces false accepts but increases false rejects. A lower threshold accepts more matches but raises impersonation or mistaken-match risk.
+2. Face systems depend on thresholds because the final decision is often not a class label from the model, but a similarity score crossing a chosen boundary.
+3. Alignment improves recognition because it reduces pose and crop variation, making embeddings compare identity rather than face position.
+4. Face systems require special privacy care because biometric data is sensitive. Consent, storage, retention, access control, and fairness must be explicit.
+
+</details>

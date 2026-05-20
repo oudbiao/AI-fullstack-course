@@ -376,3 +376,13 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 2. 想一想：为什么安防项目比普通检测项目更需要跟踪和去重？
 3. 如果误报很多，你会先查数据、模型还是告警逻辑？为什么？
 4. 如果把这个项目做成作品集，你最想突出哪一条完整视频 trace？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 简单的 `helmet` 规则可以先检测 `person` 和 `helmet`，再判断某个人头部附近连续多帧没有重叠 helmet 区域时触发 `no_helmet` 报警。
+2. 安防项目需要 tracking 和去重，因为同一个事件会出现在很多帧里。没有这些逻辑，一个人可能触发几十条重复报警。
+3. 误报很多时，先按错误类型拆开看。框本身错就查数据和模型；框基本合理但报警很吵，就查阈值和报警逻辑。
+4. 最有说服力的作品集证据是一段完整视频轨迹：原始帧、检测框、tracking ID、报警决策、误报、漏报，以及 README 里说明如何降低噪声。
+
+</details>

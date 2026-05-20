@@ -364,6 +364,18 @@ That way, others can more easily see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## Summary
 
 The most important thing in this section is to build an architecture evolution perspective:
@@ -388,3 +400,13 @@ If we compress it into one sentence, it would be:
 2. Why is EfficientNet more like a “budget optimization” idea?
 3. If you were building a resource-constrained mobile classifier, which type of architecture would you prioritize?
 4. Think about it: why should architecture selection not rely only on leaderboards?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Residual connections make it easier for a block to learn an identity mapping and give gradients a shorter path backward, so very deep networks become easier to optimize.
+2. EfficientNet is a budget optimization idea because it scales depth, width, and input resolution together instead of increasing only one dimension blindly.
+3. For a mobile classifier, prioritize lightweight pretrained models such as MobileNet-style or EfficientNet-style architectures, then verify latency and memory on the target device.
+4. Leaderboards do not capture your dataset size, latency target, hardware, preprocessing cost, maintainability, or failure modes. Architecture choice should be tested against the actual project constraints.
+
+</details>

@@ -61,3 +61,15 @@ iou: 0.391
 ## 通过标准
 
 如果你能用框、confidence、IoU 和至少一个误报或漏检案例解释检测结果，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```

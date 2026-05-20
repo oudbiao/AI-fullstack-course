@@ -244,6 +244,18 @@ print(points)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -273,3 +285,13 @@ print(points)
 2. 为什么说 3D 视觉比 2D 视觉更依赖几何直觉？
 3. 点云为什么是一种很自然的 3D 表示？
 4. 想一想：哪些应用特别依赖 3D 视觉，而不是只要 2D 检测就够了？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 在双目视觉直觉里，depth 与 disparity 近似成反比：disparity 越大通常越近，越小通常越远，接近 0 时会很不稳定。
+2. 3D 视觉更依赖几何，因为你必须理解相机模型、深度、坐标、尺度、标定和姿态，而不只是外观。
+3. 点云很自然，因为它直接用 `(x, y, z)` 点保存可见的 3D 表面，常常还带有颜色或强度信息。
+4. 机器人、自动驾驶、AR、建图、测量、抓取和避障都依赖 3D 结构，而不是只需要 2D 框。
+
+</details>

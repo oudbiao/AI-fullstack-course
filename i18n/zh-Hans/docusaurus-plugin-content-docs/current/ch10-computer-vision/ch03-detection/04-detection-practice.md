@@ -264,6 +264,18 @@ print(matches)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## 小结
 
 这节最重要的是建立一个项目意识：
@@ -288,3 +300,13 @@ print(matches)
 2. 想一想：为什么检测项目比分类项目更依赖清晰标注规范？
 3. 如果项目里总漏小目标，你会优先检查数据、输入分辨率还是模型结构？
 4. 你会如何把这个检测项目包装成作品集？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 把 IoU 阈值改成 `0.7` 会让匹配更严格。原来在 `0.5` 下算 true positive 的框，可能变成 false positive 或 false negative。
+2. 检测非常依赖标注标准，因为框本身就是标签的一部分。框规则的小差异就会改变 IoU 和 mAP。
+3. 如果项目反复漏检小目标，先查数据、标注质量和输入分辨率。目标缺失、标错或被缩放到太小，换模型也解决不了根因。
+4. 作品集版本应包含类别定义、标注样例、baseline 指标、典型误检/漏检案例，以及清晰的下一步改进计划。
+
+</details>

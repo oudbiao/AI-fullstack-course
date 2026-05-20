@@ -49,3 +49,15 @@ Use this page as a printable checklist. If you need the full explanation, return
 - Can you explain why a demo may fail on real images?
 
 If the answer is yes, you can connect vision to multimodal work in Chapter 12.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```

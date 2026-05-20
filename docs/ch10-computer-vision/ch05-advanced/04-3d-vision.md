@@ -242,6 +242,18 @@ but to help you truly realize first that:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## Summary
 
 The most important thing in this section is to build one judgment:
@@ -271,3 +283,13 @@ This will be more convincing than simply saying “I did 3D vision.”
 2. Why is 3D vision said to rely more on geometric intuition than 2D vision?
 3. Why is a point cloud a very natural 3D representation?
 4. Think about which applications depend especially on 3D vision, rather than only needing 2D detection.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. In stereo vision intuition, depth is inversely related to disparity: larger disparity usually means closer, smaller disparity means farther, and near-zero disparity is unstable.
+2. 3D vision relies on geometry because you must reason about camera models, depth, coordinates, scale, calibration, and pose, not only appearance.
+3. A point cloud is natural because it stores visible 3D surfaces directly as `(x, y, z)` points, often with color or intensity.
+4. Robotics, autonomous driving, AR, mapping, measurement, grasping, and collision avoidance depend on 3D structure rather than only 2D boxes.
+
+</details>

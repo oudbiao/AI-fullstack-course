@@ -53,3 +53,15 @@ confidence: 0.74
 ## 通过标准
 
 如果你能运行一个最小分类器，展示训练/验证指标，并解释至少一张失败图片，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```

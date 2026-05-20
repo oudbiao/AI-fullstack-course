@@ -61,3 +61,15 @@ Detection debug は boxes と metrics の表示から始めます。きれいな
 ## 合格ライン
 
 boxes、confidence、IoU、少なくとも 1 つの false-positive または false-negative case で detection result を説明できれば、この章は合格です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```

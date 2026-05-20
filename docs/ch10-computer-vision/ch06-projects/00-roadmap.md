@@ -70,6 +70,18 @@ Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./03-hands-on-v
 | Failure analysis | At least 1 real failure | Add suspected cause, fix action, regression check |
 | Presentation | Screenshot or short GIF proving it runs | Build a clear visual project page |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
+
 ## Pass Check
 
 You pass this chapter when your vision project can be reproduced, has clear data and annotation rules, reports proper metrics, and shows where the model fails.

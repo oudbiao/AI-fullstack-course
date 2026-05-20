@@ -325,6 +325,18 @@ for idx, window in enumerate(windows):
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -347,3 +359,15 @@ for idx, window in enumerate(windows):
 4. 想一想：哪些视频任务必须显式建模时间，而不能只看单帧？
 5. 把 `window_size` 从 `3` 改成 `5`，误报和告警延迟会分别发生什么变化？
 6. 增加一条规则：只有事件至少持续两个窗口才触发。它能减少哪类噪声？又可能漏掉哪类短事件？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 当两个目标同时移动时，简单的最近邻跟踪在交叉或重叠时可能交换身份。这说明真实跟踪需要更强的外观和运动逻辑。
+2. 许多视频系统先在单帧上跑模型，再加入时间逻辑，用于平滑、跟踪、持续时间判断和事件决策。
+3. 采样太稀会漏掉短事件、打断轨迹、延迟报警，并让运动看起来不连续。
+4. 动作识别、跌倒检测、手势识别、停留时间报警、交通行为分析等任务必须显式建模时间。
+5. 把 `window_size` 从 `3` 改成 `5` 通常会通过平滑噪声减少误报，但也会让报警更慢，并可能漏掉短事件。
+6. 要求事件持续两个窗口可以减少闪烁噪声和单帧误报，但可能漏掉短暂但真实的事件，例如快速跌倒、突然闯入或短手势。
+
+</details>

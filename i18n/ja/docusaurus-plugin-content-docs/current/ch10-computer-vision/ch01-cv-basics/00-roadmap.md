@@ -58,3 +58,15 @@ top_left_pixel: [255, 0, 0]
 ## 合格ライン
 
 image shape を inspect し、coordinates で region を crop し、channel order を説明し、processed result を README 用に保存できれば、この章は合格です。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```

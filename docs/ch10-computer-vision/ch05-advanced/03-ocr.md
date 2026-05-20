@@ -323,6 +323,18 @@ This will feel much more like a real document AI project than simply showing “
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## Summary
 
 The most important thing in this section is to build a pipeline-based understanding:
@@ -343,3 +355,13 @@ Once this pipeline is clear, you will not only focus on the recognition model it
 2. Why do detection-stage errors directly hurt the final OCR result?
 3. Think about this: for table receipts and ordinary street-view text recognition, which layer has the biggest difference in difficulty?
 4. If an amount field is always off by one character, would you first check detection, recognition, or post-processing? Why?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. After adding a text block, restore reading order by sorting regions top-to-bottom and then left-to-right, while handling multi-column or table layouts separately.
+2. Detection-stage errors hurt OCR because missed or badly cropped text never reaches the recognizer in a recoverable form.
+3. For receipts and tables, layout and reading-order reconstruction are often the hardest layer. For street-view text, detection robustness against angle, blur, and background may be harder.
+4. If an amount is always off by one character and the crop is complete, check recognition and post-processing first. If the crop cuts off the character, check detection.
+
+</details>

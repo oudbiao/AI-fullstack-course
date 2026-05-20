@@ -65,3 +65,15 @@ mask_iou: 0.5
 ## 通过标准
 
 如果你能创建或检查一个 mask，计算简单重叠指标，并解释一个边界或类别混淆失败，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```

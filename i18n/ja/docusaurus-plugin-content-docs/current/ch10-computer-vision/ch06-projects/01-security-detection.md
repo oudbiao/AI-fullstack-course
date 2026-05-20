@@ -376,3 +376,13 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 2. 考えてみましょう。なぜ防犯プロジェクトは普通の検出プロジェクトよりも、トラッキングと重複排除が必要なのですか？
 3. 誤報が多いとき、まず確認するのはデータ、モデル、それともアラートロジックですか？ その理由も考えてください。
 4. このプロジェクトを作品集として見せるなら、どの連続動画 trace を一番強調したいですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 単純な `helmet` ルールでは、まず `person` と `helmet` を検出し、人物の頭部付近に helmet 領域が数 frame 続けて重ならない場合に `no_helmet` alert を出します。
+2. security project では tracking と deduplication が必要です。同じ event が多くの frame に現れるため、それがないと 1 人が何十件もの重複 alert を発生させます。
+3. false positive が多い場合は、まず error bucket を分けます。box が間違っているなら data と model、box は妥当だが alert が noisy なら threshold と alert logic を確認します。
+4. 最も強いポートフォリオ evidence は、raw frame、detection、tracking ID、alert decision、false alarm、missed case、そしてノイズ削減の README 説明を含む一連の video trace です。
+
+</details>

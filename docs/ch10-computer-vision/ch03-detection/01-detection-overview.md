@@ -261,6 +261,18 @@ Because if the box definition is not consistent, both the model and evaluation w
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## Summary
 
 The key idea in this section is to build a detection-level judgment:
@@ -285,3 +297,13 @@ If we compress it into one sentence, it would be:
 2. Why is detection said to be closer to real-world vision tasks than classification?
 3. If a detection box gets the class right but is far off in location, can this prediction be considered good? Why?
 4. Think about it: why is a multi-object scene much harder than a single-object scene?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. IoU increases when the two boxes overlap more and drops when one box shifts away. If there is no overlap, IoU is `0`.
+2. Detection is closer to real-world vision because it asks both “what is it?” and “where is it?”, often for many objects in one image.
+3. A prediction with the correct class but a badly located box is not good. It may fail the IoU threshold and can mislead downstream actions.
+4. Multi-object scenes add scale differences, occlusion, overlapping boxes, duplicate predictions, and class confusion, so they are much harder than single-object scenes.
+
+</details>

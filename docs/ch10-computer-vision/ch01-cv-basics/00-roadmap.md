@@ -55,6 +55,18 @@ If your code reads a real image with the wrong shape or channel order, every lat
 | 2 | OpenCV basics | Load, view, crop, resize, and save an image |
 | 3 | Basic processing | Try grayscale, threshold, blur, edge, and simple filters |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## Pass Check
 
 You pass this chapter when you can inspect an image shape, crop a region by coordinates, explain channel order, and save one processed result for your README.

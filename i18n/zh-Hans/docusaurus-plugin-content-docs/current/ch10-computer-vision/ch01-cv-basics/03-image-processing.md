@@ -358,6 +358,18 @@ print("完整处理流程结果已保存")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## 小结
 
 这节课你要抓住的核心是：
@@ -373,3 +385,12 @@ print("完整处理流程结果已保存")
 1. 修改 `threshold()` 的阈值为 `60`、`120`、`180`，观察二值图变化。
 2. 修改腐蚀和膨胀的核大小，从 `(3, 3)` 改到 `(7, 7)`，观察形状变化。
 3. 在原始图像里再加一个小白点，试试开运算能不能把它去掉。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 阈值越低，二值图中变白的像素通常越多；阈值越高，变白的像素越少。重点不是记住某张图，而是看懂变化方向。
+2. `(7, 7)` 核比 `(3, 3)` 核腐蚀更强、膨胀也更强。细线结构可能消失，或者变得明显更粗。
+3. 开运算可以去掉孤立的小白点，前提是核尺寸大于噪点。如果白点连在大结构上，或本身太大，就可能保留下来。
+
+</details>

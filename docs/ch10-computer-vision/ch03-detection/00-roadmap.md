@@ -58,6 +58,18 @@ Detection debugging starts by printing boxes and metrics. Do not judge detection
 | 3 | YOLO | Understand grid prediction, threshold, NMS, and speed trade-offs |
 | 4 | Detection practice | Record false positives, missed detections, and threshold changes |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## Pass Check
 
 You pass this chapter when you can explain a detection result with boxes, confidence, IoU, and at least one false-positive or false-negative case.

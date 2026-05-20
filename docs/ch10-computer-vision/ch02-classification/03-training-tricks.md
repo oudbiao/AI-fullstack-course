@@ -150,6 +150,18 @@ After each training run, manually inspect at least 20 error samples. Group them 
 
 In your README or experiment notes, it is recommended to keep: dataset version, training/validation split method, model architecture, input size, augmentation strategy, learning rate, batch size, number of epochs, best metric, confusion matrix, screenshots of error samples, and the next action plan.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## Common Mistakes
 
 The first mistake is looking only at accuracy and not class-level metrics. The second mistake is using random augmentation on the validation set. The third mistake is having the same object or the same video frames appear in both training and validation, causing leakage. The fourth mistake is switching models as soon as performance looks poor, without first checking the data and training curves.
@@ -160,6 +172,16 @@ The first mistake is looking only at accuracy and not class-level metrics. The s
 2. Use weak augmentation and strong augmentation on the same model, and compare validation results.
 3. Output the confusion matrix and identify the two most easily confused classes.
 4. Organize 10 error samples and write one possible reason for each.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For loss curves, train loss falling while validation loss rises usually means overfitting. Both staying high suggests underfitting, and violent oscillation often points to learning rate or data issues.
+2. Weak augmentation may leave overfitting; strong augmentation may make training too hard or change labels. Compare validation metrics and inspect augmented images before deciding.
+3. A confusion matrix should reveal which two classes are most often confused. If classes are imbalanced, normalized rates are easier to interpret than raw counts alone.
+4. A good set of 10 error samples groups failures by cause: label issue, blur, occlusion, class ambiguity, background shortcut, or preprocessing mismatch.
+
+</details>
 
 ## Passing Standard
 

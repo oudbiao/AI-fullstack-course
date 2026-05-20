@@ -318,6 +318,18 @@ If you can do these four things, the project already feels much more like a real
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## Summary
 
 The most important thing in this section is to build a project mindset:
@@ -342,3 +354,13 @@ If we compress it into one sentence, it is:
 2. Why is the mask annotation standard especially important in segmentation projects?
 3. If a certain class covers a very small region, why is IoU especially sensitive?
 4. How would you turn a segmentation project into a portfolio page?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. When you change `pred_masks`, `mean_iou` should drop for missing masks, wrong classes, or poor boundaries. Also inspect class-wise IoU so one easy class does not hide another failure.
+2. Mask annotation standards matter because boundary thickness, ignored regions, and ambiguous edges directly define the target and the evaluation.
+3. For very small regions, a few wrong pixels can change the intersection and union by a large percentage, so IoU becomes sensitive.
+4. A portfolio page should show the problem definition, mask rules, IoU/Dice metrics, overlay examples, failure cases, limitations, and next steps.
+
+</details>

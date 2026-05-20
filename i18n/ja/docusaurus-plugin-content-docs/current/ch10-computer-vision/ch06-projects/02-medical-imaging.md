@@ -23,7 +23,7 @@ keywords: [medical imaging, segmentation, sensitivity, risk, annotation, project
 - 医用画像プロジェクトの範囲を十分に明確に定められるようになる
 - アノテーション、指標、臨床リスクをまとめてプロジェクト定義に書けるようになる
 - 臨床補助システムらしい評価の見せ方を設計できるようになる
-- この種のプロジェクトを、見栄えのする demo ではなく、作品レベルのページに仕上げられるようになる
+- この種のプロジェクトを、見栄えのするデモではなく、作品レベルのページに仕上げられるようになる
 
 ---
 
@@ -161,7 +161,7 @@ MedicalProject(task='肺の病変領域セグメンテーション', input_type=
 
 ## 四、なぜこの種のプロジェクトでは false negative が特に怖いのか？
 
-モデルが病変を見逃した場合、  
+モデルが病変を見逃した場合、
 通常は、疑わしい領域を多めに出すよりもリスクが高くなります。
 
 そのため、作品レベルのプロジェクトでは、次の指標を個別に見せる価値があります。
@@ -177,7 +177,7 @@ MedicalProject(task='肺の病変領域セグメンテーション', input_type=
 
 - 空港の手荷物検査機
 
-怪しい荷物を少し多めに見つけて、検査員に再確認してもらうのは問題ありません。  
+怪しい荷物を少し多めに見つけて、検査員に再確認してもらうのは問題ありません。
 でも、本当に危険な荷物を完全に見逃すと、もっと深刻な問題になります。
 
 だからこそ、医用画像の多くの場面では、
@@ -275,7 +275,7 @@ print(risk_summary(metrics))
 | False Negative Rate | 高リスクサンプルを見逃す割合がどれくらいか |
 | 人手再確認の通過率 | 実際の補助フローに入れそうか |
 
-この表は初心者にとても向いています。  
+この表は初心者にとても向いています。
 医用画像の評価を「指標名が増えるだけの話」ではなく、「その指標は誰のためのものか」という視点に戻してくれるからです。
 
 ![医用画像のリスク指標と人手再確認の閉ループ図](/img/course/ch10-medical-imaging-risk-review-map-ja.webp)
@@ -360,8 +360,8 @@ print(risk_summary(metrics))
 
 ### きれいな成功例だけを見せて、高リスクの失敗例を見せない
 
-医用画像プロジェクトは、「見た目は強そう」に見えやすいです。  
-成功例は直感的にわかりやすいからです。  
+医用画像プロジェクトは、「見た目は強そう」に見えやすいです。
+成功例は直感的にわかりやすいからです。
 でも、本当に価値が高いのは、次のような点です。
 
 - どの症例が見逃されやすいか
@@ -369,6 +369,18 @@ print(risk_summary(metrics))
 - これらの誤りが人手の補助判断に影響するか
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
 
 ## まとめ
 
@@ -404,3 +416,13 @@ print(risk_summary(metrics))
 2. 医用画像プロジェクトで `false_negative_rate` が、全体 accuracy よりも個別に見せる価値が高いのはなぜでしょうか？
 3. アノテーションの一貫性が低いとき、モデル結果はどう解釈すべきか考えてみましょう。
 4. このプロジェクトを作品集に入れるなら、どのリスク説明を特に強調したいですか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. より安全な binary screening 版なら、「高リスク所見あり / なし」と定義できます。`clinical_constraints` には、出力は screening aid にすぎないこと、sensitivity を優先すること、人間の review 境界が必要なことを書きます。
+2. `false_negative_rate` が重要なのは、陽性例の見逃しが通常の誤りより危険になりうるからです。陽性が少ない場合、overall accuracy はこのリスクを隠します。
+3. annotation consistency が低い場合、model result は慎重に解釈します。診断的信頼性を主張するのではなく、label disagreement、review rule、不確実性を報告します。
+4. ポートフォリオでは、risk boundary を強調します。診断ではないこと、human-in-the-loop review、false negative の扱い、dataset limit、どのケースを escalation するかを明確にします。
+
+</details>

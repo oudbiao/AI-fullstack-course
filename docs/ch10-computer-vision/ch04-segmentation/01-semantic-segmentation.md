@@ -321,6 +321,18 @@ This will look much more like a real project than just pasting a single “color
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## Summary
 
 The most important thing in this section is to build this judgment:
@@ -343,3 +355,13 @@ If we compress it into one sentence, it is:
 2. Why does high pixel accuracy not necessarily mean the segmentation model is truly good?
 3. What is the biggest difference between semantic segmentation and object detection?
 4. If the classes are very imbalanced, what problem would you worry about most?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing `pred_mask` changes the intersection and union. Even small boundary errors can noticeably lower IoU, especially for small regions.
+2. High pixel accuracy can be misleading because background pixels may dominate the image. A model can look accurate while failing rare or small classes.
+3. Semantic segmentation gives a class label to every pixel, while object detection gives boxes. Semantic segmentation usually does not separate two instances of the same class.
+4. With severe class imbalance, worry most about the model predicting only background or large classes. Use class-wise IoU/Dice and consider weighted loss or sampling.
+
+</details>

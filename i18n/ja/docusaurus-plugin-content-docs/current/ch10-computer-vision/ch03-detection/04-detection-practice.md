@@ -8,7 +8,7 @@ keywords: [detection practice, computer vision project, bounding box, evaluation
 # 10.3.5 検出実践
 
 :::tip 本節の位置づけ
-実際に検出プロジェクトを進めると、難しさはモデルそのものだけではありません。  
+実際に検出プロジェクトを進めると、難しさはモデルそのものだけではありません。
 よりよくある問題は次のとおりです。
 
 - アノテーションはどう作るか
@@ -91,8 +91,8 @@ flowchart LR
 - 対象の定義がはっきりしている
 - 誤検出と見逃しを目で理解しやすい
 
-そのため、初めてプロジェクトを作るなら、  
-「少ないクラス、明確な定義、説明しやすさ」が、  
+そのため、初めてプロジェクトを作るなら、
+「少ないクラス、明確な定義、説明しやすさ」が、
 「派手さ」より大切なことが多いです。
 
 ### なぜこの段階が「先にモデルを選ぶ」より重要なの？
@@ -188,7 +188,7 @@ print(matches)
 
 ### なぜこれが多くの検出プロジェクトの核心なの？
 
-実際の検出結果の良し悪しは、  
+実際の検出結果の良し悪しは、
 最終的にはしばしば次の点に表れます。
 
 - マッチング閾値
@@ -196,7 +196,7 @@ print(matches)
 
 ### なぜ検出プロジェクトでは「誤検出 / 見逃し」の視点が特に大事なの？
 
-検出システムは、「正しい / 間違い」の2種類だけではありません。  
+検出システムは、「正しい / 間違い」の2種類だけではありません。
 もっとよくあるのは次のようなケースです。
 
 - 枠がずれている
@@ -209,13 +209,13 @@ print(matches)
 
 とても実用的な分類は、次の3つです。
 
-1. 見逃し  
+1. 見逃し
    目の前に対象があるのに、システムが出力しない。
 
-2. 誤検出  
+2. 誤検出
    対象がないのに、出力してしまう。
 
-3. 位置ずれ  
+3. 位置ずれ
    クラスは合っているが、枠のずれが大きい。
 
 この3つを分けると、その後の改善方向がかなり見えやすくなります。
@@ -267,6 +267,18 @@ print(matches)
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## まとめ
 
 この節でいちばん大事なのは、プロジェクトの視点を持つことです。
@@ -291,3 +303,13 @@ print(matches)
 2. 考えてみましょう。なぜ検出プロジェクトは分類プロジェクトより、明確なアノテーション規約に強く依存するのでしょうか？
 3. もしプロジェクトで小さな対象をよく見逃すなら、データ、入力解像度、モデル構造のどれを先に確認しますか？
 4. この検出プロジェクトを作品集としてどうまとめますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. IoU しきい値を `0.7` にすると、matching はより厳しくなります。`0.5` では true positive だった box が、false positive や false negative になることがあります。
+2. 検出が annotation standard に強く依存するのは、box 自体がラベルの一部だからです。box のルールが少し違うだけで IoU や mAP が変わります。
+3. 小物体の見逃しが多い場合は、まずデータ、アノテーション品質、入力 resolution を確認します。物体が欠けている、誤ラベル、または縮小で消えているなら、モデル変更だけでは根本解決になりません。
+4. ポートフォリオ化するなら、クラス定義、annotation 例、baseline 指標、典型的な false positive / missed detection、次の改善計画を含めます。
+
+</details>

@@ -85,6 +85,13 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 操作提示：修改 `width`、`height` 或 RGB 公式。保存的图像改变了，就说明你已经在做图像预处理。后续章节会把这个小实验替换成 OpenCV、Pillow、PyTorch，以及检测或分割模型。
 
+### 如何读这个输出
+
+- `size` 和 `channels` 说明模型看到图像之前，数据本身是什么形状。
+- `top_left_rgb` 是真实像素值，不是对图片的文字描述。
+- `center_gray` 证明预处理已经把 RGB 数据变成了一个灰度数值。
+- 保存下来的文件就是证据。如果不能展示处理前后文件，后面很难调试预处理是否正确。
+
 ## 深度阶梯
 
 | 层级 | 你能证明什么 |
@@ -104,7 +111,19 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 | 分类不稳定 | 误判图片和类别数量 | 清洗数据、平衡类别、调整增强 |
 | 小目标漏检 | 图片分辨率、框、置信度阈值 | 改进标注、提高分辨率、调阈值 |
 | 分割边界粗糙 | mask 叠加到原图的效果 | 改进标注，使用合适的 IoU/Dice 指标 |
-| Demo 图好，真实图差 | 光照、角度、背景、相机来源 | 补真实样本和场景说明 |
+| 演示图好，真实图差 | 光照、角度、背景、相机来源 | 补真实样本和场景说明 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
 
 ## 常见错误
 

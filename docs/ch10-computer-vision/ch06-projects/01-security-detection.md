@@ -328,6 +328,18 @@ This makes the project feel like a real business system, not just a vision demo.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
+
 ## Summary
 
 The most important thing in this lesson is to build a portfolio-level judgment:
@@ -362,3 +374,13 @@ It is recommended to finish the Basic version first; don’t chase an all-in-one
 2. Think about it: Why do security projects need tracking and deduplication more than ordinary detection projects?
 3. If there are many false positives, would you check the data, the model, or the alert logic first? Why?
 4. If you turn this project into a portfolio piece, which complete video trace would you most want to highlight?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A simple `helmet` rule first detects `person` and `helmet`, then fires a `no_helmet` alert when a person has no overlapping helmet region near the head for several consecutive frames.
+2. Security projects need tracking and deduplication because the same event appears across many frames. Without them, one person can trigger dozens of duplicate alerts.
+3. For many false positives, inspect error buckets first. If boxes are wrong, check data and model; if boxes are reasonable but alerts are noisy, check thresholds and alert logic.
+4. The strongest portfolio trace is a full clip showing raw frames, detections, tracking IDs, alert decisions, false alarms, missed cases, and the README explanation of how you reduced noise.
+
+</details>

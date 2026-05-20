@@ -323,6 +323,18 @@ This makes it easier for others to see:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## Summary
 
 The most important thing in this section is to build one judgment:
@@ -345,3 +357,15 @@ The most important thing in this section is to build one judgment:
 4. Think about this: which video tasks must explicitly model time rather than only looking at single frames?
 5. Change `window_size` from `3` to `5`. What happens to false alarms and alert delay?
 6. Add a rule that only fires when the event lasts at least two windows. What kind of noisy case does this rule reduce, and what kind of short event might it miss?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. With two moving targets, simple nearest-neighbor tracking may swap identities when targets cross or overlap. This shows why real tracking needs stronger appearance and motion logic.
+2. Many video systems run a single-frame model first, then add temporal logic for smoothing, tracking, duration checks, and event decisions.
+3. Sparse sampling can miss short events, break tracks, delay alerts, and make motion look discontinuous.
+4. Tasks such as action recognition, fall detection, gesture recognition, dwell-time alerts, and traffic behavior analysis must model time explicitly.
+5. Increasing `window_size` from `3` to `5` usually reduces false alarms by smoothing noise, but it also delays alerts and may miss short events.
+6. Requiring an event to last two windows reduces flicker noise and one-frame false positives, but it may miss brief valid events such as a quick fall, sudden intrusion, or short hand signal.
+
+</details>

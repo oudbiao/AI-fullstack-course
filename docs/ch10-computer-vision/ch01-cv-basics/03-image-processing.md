@@ -337,6 +337,18 @@ Many beginners only want to learn CNNs at first, but if you do not even understa
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## Common beginner mistakes
 
 ### Thinking filtering is just about "making the image look better"
@@ -373,3 +385,12 @@ It is not the same as deep learning, but it is an important stepping stone for u
 1. Change the threshold in `threshold()` to `60`, `120`, and `180`, and observe how the binary image changes.
 2. Change the kernel size for erosion and dilation from `(3, 3)` to `(7, 7)`, and observe the shape changes.
 3. Add a small white dot to the original image and see whether opening can remove it.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A lower threshold usually turns more pixels white in the binary image; a higher threshold turns fewer pixels white. The important observation is not the exact picture, but the direction of change.
+2. A `(7, 7)` kernel erodes objects more aggressively and dilates them more aggressively than `(3, 3)`. Thin structures may disappear or become much thicker.
+3. Opening can remove a small isolated white dot if the kernel is larger than the dot. If the dot is connected to a larger object or is too large, it may remain.
+
+</details>

@@ -264,6 +264,18 @@ Compared with only showing one “prediction result” image, what is more valua
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## Summary
 
 The most important thing in this section is to build a project mindset:
@@ -288,3 +300,13 @@ If we compress it into one sentence, it is:
 2. Think about why detection projects depend more on clear annotation standards than classification projects do.
 3. If a project keeps missing small objects, would you check the data, input resolution, or model structure first?
 4. How would you package this detection project into a portfolio piece?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Changing the IoU threshold to `0.7` makes matching stricter. Boxes that counted as true positives at `0.5` may become false positives or false negatives.
+2. Detection depends heavily on annotation standards because the box itself is part of the label. Small differences in box rules can change IoU and mAP.
+3. For repeated small-object misses, check data and annotation quality plus input resolution first. If the object is absent, mislabeled, or downsampled away, changing the model will not fix the root cause.
+4. A portfolio version should include class definitions, annotation examples, baseline metrics, typical false positives/misses, and a clear next-improvement plan.
+
+</details>

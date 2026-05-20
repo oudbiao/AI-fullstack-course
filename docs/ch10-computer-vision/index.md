@@ -85,6 +85,13 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 Operation tip: change `width`, `height`, or the RGB formula. If the saved image changes, you are already doing image preprocessing. Later sections replace this tiny lab with OpenCV, Pillow, PyTorch, and detection or segmentation models.
 
+### How to read this output
+
+- `size` and `channels` tell you the shape of the image data before any model sees it.
+- `top_left_rgb` is a real pixel value, not a description of the picture.
+- `center_gray` proves that preprocessing changed RGB data into a single grayscale number.
+- The saved files are evidence artifacts. If you cannot show the before/after files, the preprocessing step is hard to debug.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -105,6 +112,18 @@ When a vision model is wrong, inspect the input and labels before blaming the ar
 | Small objects are missed | image resolution, boxes, confidence threshold | improve labels, increase resolution, tune threshold |
 | Segmentation boundary is rough | mask overlaid on the original image | improve annotation, use suitable IoU/Dice metrics |
 | Demo images work but real images fail | lighting, angle, background, camera source | add real samples and scenario notes |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
 
 ## Common Failures
 

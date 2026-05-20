@@ -12,7 +12,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 - たくさんの画像を1フレームずつ順番に処理するだけ
 
-これはもちろん出発点ですが、すべてではありません。  
+これはもちろん出発点ですが、すべてではありません。
 動画が本当に生み出す新しい問題は、次の点にあります。
 
 > **同じ対象が時間とともに連続的に変化し、しかも時間そのものにも情報がある。**
@@ -33,7 +33,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 ### 同じ対象が複数フレームにまたがって現れるから
 
-1枚の画像では、今の画面にだけ答えれば十分です。  
+1枚の画像では、今の画面にだけ答えれば十分です。
 しかし動画では、さらに次を考える必要があります。
 
 - 直前にどこにいたか
@@ -41,7 +41,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 ### 「変化」そのものが情報だから
 
-多くの動画タスクでは、本当に重要なのはある1フレームがどう見えるかではなく、  
+多くの動画タスクでは、本当に重要なのはある1フレームがどう見えるかではなく、
 むしろ次の点です。
 
 - 動作がどう起こるか
@@ -49,7 +49,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 ### たとえで考える
 
-単一画像分析は写真を見るようなものです。  
+単一画像分析は写真を見るようなものです。
 動画分析は監視映像の再生を見るようなもので、自然と次の点が気になります。
 
 - 前後関係
@@ -99,8 +99,8 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 ### 初めて動画分析をするなら、いちばん安全な進め方
 
-初めて動画タスクに取り組む人は、  
-つい「最初から時系列ネットワークを使うべきか」と考えがちです。  
+初めて動画タスクに取り組む人は、
+つい「最初から時系列ネットワークを使うべきか」と考えがちです。
 でも、より安全な順番はたいてい次のとおりです。
 
 1. まず単一フレームだけで十分かを確認する
@@ -108,8 +108,8 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 3. それでも足りなければ、検出 + トラッキングを行う
 4. 最後に、本格的な時系列モデリングを使う
 
-この順番はとても価値があります。  
-なぜなら、実際の動画システムの多くは、最初から大きなモデルを使うのではなく、  
+この順番はとても価値があります。
+なぜなら、実際の動画システムの多くは、最初から大きなモデルを使うのではなく、
 まず次の点を整理するからです。
 
 - フレーム抽出の方針
@@ -175,14 +175,14 @@ for frame in tracked:
 
 ### この例でいちばん伝えたいことは？
 
-動画分析で多くのシステムが最初にやるのは、複雑な時系列ネットワークではなく、  
+動画分析で多くのシステムが最初にやるのは、複雑な時系列ネットワークではなく、
 次のことです。
 
 - フレームをまたいで同じ対象をつなぐ
 
 ### なぜこれが業務上大事なのか？
 
-同じ対象を別フレームで関連付けられないと、  
+同じ対象を別フレームで関連付けられないと、
 多くのタスクはそもそも進められません。
 
 - カウント
@@ -191,7 +191,7 @@ for frame in tracked:
 
 ### さらに「スライディングウィンドウで動作を見る」最小例を追加しよう
 
-トラッキングは「同じ対象が本当に同じか」を解決します。  
+トラッキングは「同じ対象が本当に同じか」を解決します。
 しかし多くの動画タスクでは、次のことも気になります。
 
 - 短い時間の中で、実際に何の動作が起きたのか
@@ -305,8 +305,8 @@ for idx, window in enumerate(windows):
 
 ## 七、動画分析をプロジェクトにするなら、何を見せるべきか
 
-この種のテーマを作品集ページにするなら、  
-いちばん見せる価値が高いのはモデル名の羅列ではなく、  
+この種のテーマを作品集ページにするなら、
+いちばん見せる価値が高いのはモデル名の羅列ではなく、
 次の6つです。
 
 1. フレーム抽出または時系列モデリングの全体フロー図
@@ -322,6 +322,18 @@ for idx, window in enumerate(windows):
 - ということです
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
 
 ## まとめ
 
@@ -345,3 +357,15 @@ for idx, window in enumerate(windows):
 4. どのような動画タスクでは、時間を明示的にモデル化する必要があり、単一フレームだけでは不十分かを考えてみましょう。
 5. `window_size` を `3` から `5` に変えると、誤報と通知遅延はそれぞれどう変わるでしょうか？
 6. イベントが少なくとも2つのウィンドウにまたがるときだけ発火するルールを追加してみましょう。このルールはどんなノイズを減らし、どんな短いイベントを見逃す可能性がありますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 2 つの target が同時に動くと、単純な nearest-neighbor tracking は交差や重なりで identity を入れ替えることがあります。実際の tracking には、より強い appearance と motion logic が必要です。
+2. 多くの video system は、まず single-frame model を走らせ、その後に smoothing、tracking、duration check、event decision のための temporal logic を足します。
+3. frame sampling が粗すぎると、短い event を見逃し、track が切れ、alert が遅れ、motion が不連続に見えます。
+4. action recognition、fall detection、gesture recognition、dwell-time alert、traffic behavior analysis などは、時間を明示的にモデル化する必要があります。
+5. `window_size` を `3` から `5` にすると、通常はノイズが平滑化され false alarm は減りますが、alert は遅くなり、短い event を見逃すことがあります。
+6. event が 2 window 続いたときだけ発火するルールは、ちらつきノイズや 1 frame の false positive を減らします。ただし、短い転倒、突然の侵入、短い手信号など、本物の短時間 event を見逃す可能性があります。
+
+</details>

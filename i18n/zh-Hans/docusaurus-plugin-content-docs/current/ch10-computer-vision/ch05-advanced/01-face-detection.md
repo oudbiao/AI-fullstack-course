@@ -256,6 +256,18 @@ print(match_results(similarities, threshold))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## 小结
 
 这节最重要的是建立一个系统判断：
@@ -274,3 +286,13 @@ print(match_results(similarities, threshold))
 2. 为什么说人脸系统特别依赖阈值设置？
 3. 对齐为什么会影响识别质量？
 4. 想一想：人脸系统为什么要特别重视隐私？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 相似度阈值越高，false accept 会减少，但 false reject 会增加；阈值越低，匹配更容易通过，但误匹配和冒用风险会上升。
+2. 人脸系统特别依赖阈值，因为最终决策常常不是模型直接给出的类别，而是相似度分数是否越过某条边界。
+3. 对齐会提升识别质量，因为它减少姿态和裁剪差异，让 embedding 更像是在比较身份，而不是比较脸的位置。
+4. 人脸系统必须格外重视隐私，因为生物特征数据非常敏感。授权、存储、保留周期、访问控制和公平性都要写清楚。
+
+</details>

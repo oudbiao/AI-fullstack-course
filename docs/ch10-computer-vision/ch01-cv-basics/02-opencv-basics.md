@@ -128,6 +128,18 @@ RGB pixel: [0, 0, 255]
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## Common basic operations: resizing, cropping, flipping
 
 ```python
@@ -327,3 +339,12 @@ With these basics, the next lesson on filtering, edge detection, and morphologic
 1. Change the canvas color to another color and generate a new card image.
 2. Draw multiple rectangles and circles on the same image to practice the coordinate system.
 3. Try resizing the image to different resolutions and then save the results.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. If you use OpenCV drawing functions, remember that color tuples are usually BGR, not RGB. A correct new card should save successfully and show the intended color after you open it.
+2. For rectangles and circles, check that all coordinates stay inside the image. Drawing order matters: later shapes can cover earlier ones.
+3. Resizing changes the number of pixels. If the width-height ratio changes, the image is distorted, so keep both an intentionally distorted version and an aspect-ratio-preserving version when comparing.
+
+</details>

@@ -65,6 +65,18 @@ For face, surveillance, medical, or identity projects, write privacy and usage b
 | 3 | Video | Track events across frames and record temporal failures |
 | 4 | 3D vision | Explain depth, point cloud, geometry, and sensor assumptions |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## Pass Check
 
 You pass this chapter when you choose one direction, define input/output, run a minimum project, and document failure cases plus usage boundaries.

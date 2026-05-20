@@ -261,6 +261,18 @@ IoU = 0.4849
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## 小结
 
 这节最重要的是建立一个检测判断：
@@ -285,3 +297,13 @@ IoU = 0.4849
 2. 为什么说检测比分类更贴近真实视觉任务？
 3. 如果一个检测框分类对了但位置偏很多，这次预测能算好吗？为什么？
 4. 想一想：多目标场景为什么会比单目标场景难很多？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 两个框重叠越多，IoU 越高；其中一个框偏移越远，IoU 越低。如果完全不重叠，IoU 就是 `0`。
+2. 检测更接近真实视觉任务，因为它同时回答“是什么”和“在哪里”，而且一张图里往往有多个目标。
+3. 类别对但位置偏得很远，不能算好预测。它可能过不了 IoU 阈值，也会误导后续动作。
+4. 多目标场景会带来尺度差异、遮挡、框重叠、重复预测和类别混淆，所以明显比单目标场景难。
+
+</details>

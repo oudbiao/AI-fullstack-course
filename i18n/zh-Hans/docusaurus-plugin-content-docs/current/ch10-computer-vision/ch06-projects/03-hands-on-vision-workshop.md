@@ -46,7 +46,7 @@ cv_workshop_run/
 - `outputs/` 证明模型预测了什么。
 - `reports/` 证明你如何评估和排查问题。
 
-## Step 0：先理解将要生成的数据
+## 步骤 0：先理解将要生成的数据
 
 先看数据流。视觉项目不是从训练开始，而是从图像、标签、mask、框、划分方式和难例是否可见开始。
 
@@ -62,7 +62,7 @@ cv_workshop_run/
 
 重点不在于数据是合成的，而在于整个项目可复现。你可以重新运行脚本，得到同样的结构、指标和失败报告。
 
-## Step 1：创建一个干净文件夹
+## 步骤 1：创建一个干净文件夹
 
 ```bash
 mkdir cv-workshop
@@ -80,7 +80,7 @@ pip install opencv-python numpy
 
 如果你已经在全局环境装好了依赖，也可以不建虚拟环境。但如果你想把项目放进作品集，虚拟环境能让别人更容易复现。
 
-## Step 2：保存完整脚本
+## 步骤 2：保存完整脚本
 
 创建 `vision_workshop.py`，把下面代码粘进去：
 
@@ -410,7 +410,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## Step 3：运行脚本
+## 步骤 3：运行脚本
 
 ```bash
 python vision_workshop.py
@@ -439,7 +439,7 @@ prediction_images: cv_workshop_run/outputs
 
 不同 OpenCV 构建下小数可能略有差异，但文件夹结构和报告文件应该一致。
 
-## Step 4：检查数据集
+## 步骤 4：检查数据集
 
 打开 `cv_workshop_run/data/labels.csv`。每一行是一张样本。重点列如下：
 
@@ -458,7 +458,7 @@ prediction_images: cv_workshop_run/outputs
 - 检测用 `x1, y1, x2, y2`；
 - 分割用 `mask_path`。
 
-## Step 5：用白话读懂流水线
+## 步骤 5：用白话读懂流水线
 
 脚本不大，但已经包含真实项目的骨架：
 
@@ -476,7 +476,7 @@ prediction_images: cv_workshop_run/outputs
 - 把 `largest_box()` 换成 YOLO 风格检测器；
 - 把 `segment_foreground()` 换成分割模型。
 
-## Step 6：理解指标
+## 步骤 6：理解指标
 
 信任一个视觉项目之前，不要只看一个指标：
 
@@ -492,7 +492,7 @@ prediction_images: cv_workshop_run/outputs
 
 为什么 `classification_accuracy` 可以是 `1.000`，但 `failure_cases` 仍然大于 0？因为视觉项目可能类别判断对了，但框不够准、mask 不够稳、置信度不够高。真实项目里，这个差异很重要。
 
-## Step 7：检查预测图片
+## 步骤 7：检查预测图片
 
 打开 `cv_workshop_run/outputs/` 里的图片。
 
@@ -504,7 +504,7 @@ prediction_images: cv_workshop_run/outputs
 
 如果红框和绿框重叠不好，即使分类对了，检测质量也还不够。
 
-## Step 8：阅读失败报告
+## 步骤 8：阅读失败报告
 
 ![视觉工作坊失败样本排查图](/img/course/ch10-workshop-failure-debug-map.webp)
 
@@ -532,7 +532,7 @@ cv_workshop_run/reports/failure_cases.md
 - 预处理是否破坏了信号？
 - 指标阈值是否过严？
 
-## Step 9：常见错误与修复
+## 步骤 9：常见错误与修复
 
 | 问题 | 可能原因 | 修复 |
 |---|---|---|
@@ -542,7 +542,7 @@ cv_workshop_run/reports/failure_cases.md
 | 准确率很高但失败报告不为空 | 类别对了，但框、mask 或置信度仍有问题 | 这是正常现象，要继续查看失败样本 |
 | 修改脚本后指标变了 | 随机生成、阈值或图像操作变了 | 保留随机种子，并在 README 记录修改 |
 
-## Step 10：练习任务
+## 步骤 10：练习任务
 
 按顺序尝试这些改动：
 
@@ -563,3 +563,15 @@ cv_workshop_run/reports/failure_cases.md
 - 写出一个失败样本的简短解释。
 
 如果你能解释为什么一个视觉项目需要同时保存图像文件、标注、预测可视化、指标和失败样本分析，就说明你跨过了第 10 章最重要的一关：你不只是“跑模型”，而是在构建一个可复现的视觉项目。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```

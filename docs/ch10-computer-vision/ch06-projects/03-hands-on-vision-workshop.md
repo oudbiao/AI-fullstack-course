@@ -563,3 +563,15 @@ You can consider this workshop complete when you have:
 - written one short explanation of a failure sample.
 
 If you can explain why one project needs image files, annotations, prediction visualizations, metrics, and failure analysis together, you have crossed the most important line in Chapter 10: you are no longer only "running a model"; you are building a reproducible vision project.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```

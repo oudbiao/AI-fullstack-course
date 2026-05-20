@@ -8,7 +8,7 @@ keywords: [face detection, face recognition, alignment, embeddings, computer vis
 # 10.5.2 顔検出と認識【選択】
 
 :::tip 本節の位置づけ
-顔タスクは一見すると「特別な対象を検出するだけ」に見えますが、  
+顔タスクは一見すると「特別な対象を検出するだけ」に見えますが、
 実際のシステムには通常、少なくとも次の要素が含まれます。
 
 - 顔を見つける
@@ -62,9 +62,9 @@ flowchart LR
 
 ## 顔認識システムには、通常どんな手順があるのか？
 
-1. 検出: まず顔がどこにあるかを見つける  
-2. アライメント: 角度や姿勢をできるだけ正規化する  
-3. 表現: 顔ベクトルを抽出する  
+1. 検出: まず顔がどこにあるかを見つける
+2. アライメント: 角度や姿勢をできるだけ正規化する
+3. 表現: 顔ベクトルを抽出する
 4. マッチング: ベクトルの類似度を比較する
 
 ### なぜ「アライメント」は見落とされやすいのか？
@@ -73,7 +73,7 @@ flowchart LR
 
 - 顔を枠で囲めば十分
 
-しかし実際のシステムでは、顔の角度、姿勢、切り出し範囲が大きくずれると、  
+しかし実際のシステムでは、顔の角度、姿勢、切り出し範囲が大きくずれると、
 その後の embedding がかなり不安定になります。
 
 そのため、アライメントの役割は次のようなものです。
@@ -114,7 +114,7 @@ a vs c: 0.3034
 
 ### この例でいちばん大事な直感
 
-顔認識は、多くの場合、名前を直接分類するのではなく、  
+顔認識は、多くの場合、名前を直接分類するのではなく、
 次のように考えます。
 
 - 2つの顔の表現が十分近いかどうかを見る
@@ -178,6 +178,18 @@ print(match_results(similarities, threshold))
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## よくある誤解
 
 ### 検出だけ見て、アライメントを見ない
@@ -186,7 +198,7 @@ print(match_results(similarities, threshold))
 
 ### 類似度だけ見て、閾値リスクを見ない
 
-閾値が広すぎると誤認識しやすく、  
+閾値が広すぎると誤認識しやすく、
 厳しすぎると見逃しやすくなります。
 
 ### プライバシーと法令順守を無視する
@@ -199,7 +211,7 @@ print(match_results(similarities, threshold))
 
 - 誰を正しく認識できたか
 
-それはデモに近く、システムとは言いにくいです。  
+それはデモに近く、システムとは言いにくいです。
 本当のプロジェクトに近い見せ方では、次のものも含めるべきです。
 
 - 正しく認識できた例
@@ -274,3 +286,13 @@ print(match_results(similarities, threshold))
 2. なぜ顔認識システムは閾値設定に特に依存するのでしょうか？
 3. アライメントはなぜ認識精度に影響するのでしょうか？
 4. 考えてみましょう: 顔認識システムがプライバシーを特に重視しなければならないのはなぜでしょうか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 類似度しきい値を高くすると false accept は減りますが、false reject は増えます。低くすると一致しやすくなりますが、誤一致やなりすましのリスクが上がります。
+2. 顔システムがしきい値に強く依存するのは、最終判断がモデルの class label ではなく、類似度スコアが境界を越えるかどうかで決まることが多いからです。
+3. alignment は姿勢や crop のばらつきを減らし、embedding が顔の位置ではなく identity を比較しやすくするため、認識品質を上げます。
+4. 顔システムでは biometric data を扱うため、特に privacy に注意が必要です。同意、保存、保持期間、アクセス制御、公平性を明確にします。
+
+</details>

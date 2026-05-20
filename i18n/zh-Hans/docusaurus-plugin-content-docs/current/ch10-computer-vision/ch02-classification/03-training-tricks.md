@@ -150,6 +150,18 @@ stain 0.5
 
 README 或实验记录里建议保留：数据集版本、训练/验证划分方式、模型结构、输入尺寸、增强策略、学习率、batch size、epoch、最佳指标、混淆矩阵、错误样本截图和下一步计划。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## 常见误区
 
 第一个误区是只看 accuracy，不看类别级指标。第二个误区是验证集也用了随机增强。第三个误区是同一对象或同一视频帧同时出现在训练和验证，造成泄漏。第四个误区是一遇到效果差就换模型，而不先检查数据和训练曲线。
@@ -160,6 +172,16 @@ README 或实验记录里建议保留：数据集版本、训练/验证划分方
 2. 对同一模型分别使用弱增强和强增强，比较验证集效果。
 3. 输出混淆矩阵，找出最容易混淆的两个类别。
 4. 整理 10 张错误样本，给每张写一句可能原因。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 看 loss 曲线时，train loss 下降但 val loss 上升通常说明过拟合；两者都很高多半是欠拟合；剧烈震荡常见于学习率或数据问题。
+2. 弱增强可能压不住过拟合；强增强可能让训练过难，甚至改变标签语义。决定前要同时看验证指标和增强样本可视化。
+3. 混淆矩阵应能看出哪两类最容易混淆。如果类别不平衡，归一化比例通常比原始数量更容易解释。
+4. 10 个错误样本最好按原因归类：标签问题、模糊、遮挡、类别本身相似、背景捷径、预处理不一致等。
+
+</details>
 
 ## 过关标准
 

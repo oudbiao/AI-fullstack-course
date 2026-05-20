@@ -323,6 +323,18 @@ reading_order: 3
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
+input_sample: source image/frame/document and the expected output type
+result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
+failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
+Expected_output: scenario-specific artifact with metric or human-review note
+```
+
 ## 小结
 
 这节最重要的是建立一个流水线判断：
@@ -343,3 +355,13 @@ reading_order: 3
 2. 为什么检测阶段的错误会直接拖垮 OCR 最终效果？
 3. 想一想：表格票据和普通街景文字识别，哪一层难点差别最大？
 4. 如果金额字段总识错一位，你会先查检测、识别还是后处理？为什么？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 新增文本块后，阅读顺序通常按从上到下、再从左到右排序；如果是多栏或表格布局，要单独处理。
+2. 检测阶段错误会直接伤害 OCR，因为漏检或裁剪错误的文本无法以完整形式交给识别器。
+3. 对于票据和表格，layout 与阅读顺序还原常常最难；对于街景文字，角度、模糊和复杂背景下的检测鲁棒性可能更难。
+4. 如果金额字段总是差一个字符，且裁剪框完整，先查识别和后处理；如果字符被裁掉，则先查检测。
+
+</details>

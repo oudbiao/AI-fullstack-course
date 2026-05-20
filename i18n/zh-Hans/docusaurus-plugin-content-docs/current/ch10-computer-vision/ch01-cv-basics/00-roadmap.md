@@ -58,3 +58,15 @@ top_left_pixel: [255, 0, 0]
 ## 通过标准
 
 如果你能检查图像 shape，按坐标裁剪区域，解释通道顺序，并为 README 保存一张处理结果，就通过了本章。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```

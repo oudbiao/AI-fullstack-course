@@ -320,6 +320,18 @@ print(next_step(checklist))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## 小结
 
 这节最重要的是建立一个项目意识：
@@ -344,3 +356,13 @@ print(next_step(checklist))
 2. 为什么分割项目里 mask 标注标准尤其重要？
 3. 如果某类目标区域很小，为什么 IoU 会特别敏感？
 4. 你会怎样把一个分割项目做成作品集页面？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 修改 `pred_masks` 后，漏掉 mask、类别错误或边界差都会让 `mean_iou` 下降。还要看 class-wise IoU，避免一个简单类别掩盖另一个类别的失败。
+2. mask 标注标准很重要，因为边界厚度、忽略区域和模糊边缘都会直接定义训练目标和评估方式。
+3. 对于很小的区域，几个像素错误就会让 intersection 和 union 的比例大幅变化，所以 IoU 特别敏感。
+4. 作品集页面应展示问题定义、mask 规则、IoU/Dice 指标、叠加图示例、失败案例、限制和下一步计划。
+
+</details>

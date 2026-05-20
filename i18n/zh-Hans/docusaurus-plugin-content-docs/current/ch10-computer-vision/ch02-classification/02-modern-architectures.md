@@ -364,6 +364,18 @@ with residual   : 1.8
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## 小结
 
 这节最重要的是建立一个架构演进视角：
@@ -388,3 +400,13 @@ with residual   : 1.8
 2. 为什么说 EfficientNet 更像“预算优化”思路？
 3. 如果你要做一个资源有限的移动端分类器，你会优先考虑哪类架构？
 4. 想一想：为什么架构选择不该只看排行榜？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 残差连接让模块更容易学习 identity mapping，也给梯度提供更短的反向传播路径，所以很深的网络更容易优化。
+2. EfficientNet 更像预算优化思想，因为它同时平衡 depth、width 和输入 resolution，而不是盲目只加深或只加宽。
+3. 移动端分类器应优先考虑 MobileNet 风格或 EfficientNet 风格的轻量预训练模型，然后在目标设备上实际测 latency 和 memory。
+4. 排行榜无法体现你的数据规模、延迟目标、硬件、预处理成本、维护难度和失败模式。架构选择必须回到真实项目约束里验证。
+
+</details>

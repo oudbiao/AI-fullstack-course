@@ -85,6 +85,13 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 操作メモ: `width`、`height`、RGB の式を変えてください。保存画像が変われば、すでに画像前処理をしています。後の章では、この小さなラボを OpenCV、Pillow、PyTorch、検出・セグメンテーションモデルへ置き換えます。
 
+### この出力の読み方
+
+- `size` と `channels` は、モデルが見る前の画像データの形を示します。
+- `top_left_rgb` は画像説明ではなく、実際のピクセル値です。
+- `center_gray` は、前処理によって RGB データが 1 つのグレー値に変換されたことを示します。
+- 保存されたファイルは証拠です。処理前後のファイルを示せないと、前処理が正しいかを後で調べにくくなります。
+
 ## 深さの段階
 
 | 段階 | 証明できること |
@@ -104,7 +111,19 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 | 分類が不安定 | 誤分類画像とクラス数 | データ清掃、クラス再バランス、augmentation 調整 |
 | 小物体を見逃す | 画像解像度、box、confidence 閾値 | ラベル改善、解像度向上、閾値調整 |
 | セグメンテーション境界が粗い | mask を元画像に重ねた図 | アノテーション改善、適切な IoU/Dice 指標 |
-| Demo 画像は良いが実画像で悪い | 照明、角度、背景、カメラ | 実サンプルとシナリオ説明を追加 |
+| デモ画像は良いが実画像で悪い | 照明、角度、背景、カメラ | 実サンプルとシナリオ説明を追加 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
 
 ## よくある失敗
 

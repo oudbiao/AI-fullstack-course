@@ -81,7 +81,7 @@ OpenCV のデフォルトは、
 
 > **BGR**
 
-です。  
+です。
 私たちがよく知っている RGB ではありません。
 
 ```python
@@ -297,7 +297,7 @@ opencv_info_card.png を保存しました
 
 ### `cv2.imshow()` の結果ウィンドウが開かない
 
-多くのリモート環境、Notebook、サーバー環境では、`imshow()` は使いにくいです。  
+多くのリモート環境、Notebook、サーバー環境では、`imshow()` は使いにくいです。
 教材やスクリプトでは、まず `cv2.imwrite()` で結果を保存する方法をおすすめします。
 
 ### BGR を RGB だと思い込む
@@ -309,6 +309,18 @@ opencv_info_card.png を保存しました
 画像配列のインデックスは `[y, x]` であって、`[x, y]` ではありません。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
 
 ## まとめ
 
@@ -328,3 +340,12 @@ opencv_info_card.png を保存しました
 1. キャンバスの色を別の色に変えて、もう一度カード画像を作ってみましょう。
 2. 同じ画像に複数の四角形や円を描いて、座標系に慣れましょう。
 3. 画像をいくつかの解像度にリサイズしてから、結果を保存してみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. OpenCV の描画関数を使う場合、色のタプルは多くの場合 RGB ではなく BGR です。正しいカード画像は保存でき、開いたときに意図した色になっているはずです。
+2. 矩形や円を描くときは、座標が画像の範囲内にあるか確認します。描画順も重要で、後から描いた図形が前の図形を覆うことがあります。
+3. リサイズは画素数を変えます。幅と高さの比率を変えると画像が歪むので、比較するときは歪ませた版とアスペクト比を保った版を分けて残すとよいです。
+
+</details>

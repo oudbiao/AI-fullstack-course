@@ -309,6 +309,18 @@ print("已保存 opencv_info_card.png")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## 小结
 
 这节课的重点不是背完所有 OpenCV API，而是建立“我已经能操作图像了”的感觉：
@@ -327,3 +339,12 @@ print("已保存 opencv_info_card.png")
 1. 把画布颜色改成其他颜色，并重新生成一张卡片图。
 2. 在同一张图上多画几个矩形和圆，练习坐标系。
 3. 试着把图像缩放为不同分辨率，再保存结果。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 如果使用 OpenCV 绘图函数，要记住颜色元组通常是 BGR，不是 RGB。正确的新卡片应能成功保存，打开后颜色也符合预期。
+2. 画矩形和圆时，要检查坐标是否都在图像范围内。绘制顺序也会影响结果：后画的形状可能盖住先画的形状。
+3. 缩放会改变像素数量。如果宽高比例改变，图像会被拉伸变形；比较时最好同时保留一个有意变形版本和一个保持比例的版本。
+
+</details>

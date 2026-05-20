@@ -334,6 +334,18 @@ mixed_label: [0.7, 0.3]
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -360,3 +372,13 @@ mixed_label: [0.7, 0.3]
 2. 想一想：为什么某些任务里旋转增强可能是有害的？
 3. 用自己的话解释：Mixup 和普通增强最大的不同是什么？
 4. 如果验证集效果下降，你会先怀疑增强太弱还是太强？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 简单的 `vertical_flip` 可以用 `image[::-1]` 或 `np.flipud(image)`。如果标签里有 mask 或 box，也必须跟着图像一起翻转。
+2. 当方向本身有语义时，旋转增强可能有害，例如数字、交通标志、医学图像，或任何倒置样本不真实的任务。
+3. Mixup 会同时混合图像和标签；普通增强通常只改变单张图像，同时保持原标签不变。
+4. 如果验证集表现下降，先可视化增强后的样本。常见原因是增强太强或语义错误；当然，增强太弱也可能让模型继续过拟合。
+
+</details>

@@ -241,6 +241,18 @@ but to clearly understand:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## Summary
 
 The most important idea in this section is to build one judgment:
@@ -261,3 +273,13 @@ The most important idea in this section is to build one judgment:
 2. Why is instance segmentation harder than semantic segmentation?
 3. If two adjacent objects are always merged into one instance, what would you suspect first?
 4. Think about it: why is instance segmentation especially valuable in autonomous driving or security scenarios?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A correct `instance_map` usually uses `0` for background and a different integer id for each object instance. Three objects should have three distinct ids.
+2. Instance segmentation is harder because the model must classify pixels and separate different objects of the same class.
+3. If adjacent objects are always merged, first suspect boundary annotation, image resolution, post-processing, or whether the model has enough separation cues.
+4. Instance segmentation is valuable when the system must count, track, or act on individual objects, such as pedestrians, vehicles, packages, or people in security scenes.
+
+</details>

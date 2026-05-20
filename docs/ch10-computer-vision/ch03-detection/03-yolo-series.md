@@ -344,6 +344,18 @@ This is usually more effective than directly changing the version number.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## Summary
 
 The most important thing in this section is to build an engineering judgment:
@@ -364,3 +376,13 @@ The most important thing in this section is to build an engineering judgment:
 2. Explain in your own words: why is one-stage detection easier to make real-time?
 3. Why is NMS important for detection tasks?
 4. Think about it: when might you not choose YOLO first?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For NMS, a higher `iou_threshold` usually suppresses fewer overlapping boxes, so more boxes may remain. A lower threshold suppresses more aggressively.
+2. One-stage detection is easier to make real-time because boxes and classes are predicted in one forward pass instead of through a separate proposal stage.
+3. NMS is important because detectors often output many overlapping boxes for the same object. NMS keeps the most credible one and removes duplicates.
+4. You might not choose YOLO first when strict small-object accuracy, detailed localization, heavy occlusion, or non-real-time high-precision review matters more than speed.
+
+</details>

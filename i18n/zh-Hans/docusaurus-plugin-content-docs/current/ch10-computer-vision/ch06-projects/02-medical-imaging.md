@@ -23,7 +23,7 @@ keywords: [medical imaging, segmentation, sensitivity, risk, annotation, project
 - 学会把医学影像项目范围定得足够清楚
 - 学会把标注、指标和临床风险一起写进项目定义
 - 学会设计更像临床辅助系统的评估展示方式
-- 学会把这类项目做成作品级页面而不是炫图 demo
+- 学会把这类项目做成作品级页面而不是炫图演示
 
 ---
 
@@ -362,6 +362,18 @@ print(risk_summary(metrics))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+task_output: classification label, detection box, segmentation mask, OCR text, or video event
+artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
+metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
+failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
+Expected_output: a reproducible run folder with visual outputs and a short failure report
+```
+
 ## 小结
 
 这节最重要的是建立一个作品级判断：
@@ -396,3 +408,13 @@ print(risk_summary(metrics))
 2. 为什么说医学影像项目里 `false_negative_rate` 往往比总体准确率更值得被单独展示？
 3. 想一想：标注一致性不高时，模型结果该怎么被解读？
 4. 如果把这个项目放进作品集，哪一段风险说明最值得你单独强调？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 更安全的二分类筛查版本可以定义为“是否存在高风险发现”。`clinical_constraints` 应写清楚：输出只作为筛查辅助，优先 sensitivity，并且必须有人类复核边界。
+2. `false_negative_rate` 值得单独展示，因为漏掉阳性高风险案例可能比很多普通错误更危险。当阳性很少时，整体 accuracy 会掩盖这个风险。
+3. 当标注一致性不高时，模型结果必须谨慎解释。应报告标签分歧、复核规则和不确定性，而不是宣称具有诊断可靠性。
+4. 放进作品集时，最应强调风险边界：不是诊断工具、需要 human-in-the-loop 复核、如何处理 false negative、数据集限制，以及哪些情况必须升级处理。
+
+</details>

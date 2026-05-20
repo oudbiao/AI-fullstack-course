@@ -283,6 +283,18 @@ This lets others see at a glance that:
 - You understand the evolution logic
 - You are not just memorizing terminology
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+input_image: detection sample with ground-truth or expected objects
+prediction: boxes, labels, confidence scores, IoU, and threshold settings
+metric: precision/recall, mAP, false positives, and false negatives
+failure_check: small object, overlap, NMS, poor labels, or confidence threshold
+Expected_output: annotated image plus detection metrics or error buckets
+```
+
 ## Summary
 
 The most important thing in this section is to build an evolutionary judgment:
@@ -307,3 +319,13 @@ Once you see this clearly, it will be easier to compare the trade-offs between t
 2. Explain in your own words: what extra problem does Faster R-CNN solve compared with Fast R-CNN?
 3. In what situations would you prefer a two-stage detector?
 4. Why do classic architectures still matter for understanding detection tasks?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Sharing a feature map avoids running a full CNN separately for every proposal, so the expensive computation is reused.
+2. Faster R-CNN replaces slow external proposal generation with an RPN, solving the proposal bottleneck in Fast R-CNN.
+3. A two-stage detector is preferable when localization quality, small objects, or careful error analysis matter more than real-time latency.
+4. Classic detectors still matter because they teach proposals, anchors, ROI features, classification/regression heads, and NMS, which remain useful concepts in modern detectors.
+
+</details>

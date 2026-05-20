@@ -295,6 +295,18 @@ and to form a smoother decision surface.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## Common Pitfalls in Augmentation
 
 ### Mistake 1: More Augmentation Is Always Better
@@ -360,3 +372,13 @@ If we compress it into one sentence, it is:
 2. Think about this: why can rotation augmentation be harmful in some tasks?
 3. Explain in your own words: what is the biggest difference between Mixup and ordinary augmentation?
 4. If the validation performance drops, would you first suspect that the augmentation is too weak or too strong?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A simple `vertical_flip` can use `image[::-1]` or `np.flipud(image)`. If labels include masks or boxes, those labels must be flipped with the image too.
+2. Rotation is harmful when orientation carries meaning, such as digits, traffic signs, medical images, or any task where upside-down examples are unrealistic.
+3. Mixup blends both images and labels. Ordinary augmentation usually changes one image while keeping the same label.
+4. If validation performance drops, first visualize augmented samples. The common cause is augmentation that is too strong or semantically wrong, though weak augmentation can still leave overfitting.
+
+</details>

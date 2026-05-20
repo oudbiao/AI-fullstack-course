@@ -238,6 +238,18 @@ for target_id in [1, 2]:
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+input_image: original image and target mask or class map
+prediction: predicted mask, overlay visualization, and boundary examples
+metric: IoU, Dice, per-class score, and boundary failure notes
+failure_check: annotation quality, thin boundary, small region, or class confusion
+Expected_output: mask overlay plus segmentation metric summary
+```
+
 ## 小结
 
 这节最重要的是建立一个判断：
@@ -258,3 +270,13 @@ for target_id in [1, 2]:
 2. 为什么实例分割比语义分割更难？
 3. 如果两个相邻目标总被粘成一个实例，你会首先怀疑什么？
 4. 想一想：实例分割在自动驾驶或安防里为什么特别有价值？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 正确的 `instance_map` 通常用 `0` 表示背景，并给每个目标实例一个不同整数 id。3 个目标应有 3 个不同 id。
+2. 实例分割更难，因为模型不仅要给像素分类，还要把同一类别的不同目标分开。
+3. 如果相邻目标总被合并，先怀疑边界标注、图像分辨率、后处理，或模型是否有足够的分离线索。
+4. 当系统需要计数、跟踪或对单个目标采取动作时，实例分割特别有价值，例如行人、车辆、包裹或安防场景中的人员。
+
+</details>

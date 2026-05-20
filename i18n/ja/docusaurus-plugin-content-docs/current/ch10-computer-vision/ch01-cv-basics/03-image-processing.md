@@ -341,7 +341,7 @@ print("処理フロー全体の結果を保存しました")
 
 ### フィルタリングは「画像をきれいに見せるため」だけだと思う
 
-それだけではありません。  
+それだけではありません。
 多くの場合、後続のアルゴリズムを安定させるために使います。
 
 ### 閾値は固定で変わらないと思う
@@ -358,6 +358,18 @@ print("処理フロー全体の結果を保存しました")
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+input_image: source image or synthetic image used in the run
+array_shape: width, height, channels, dtype, and coordinate convention
+processed_output: grayscale, crop, edge, threshold, or saved intermediate image
+failure_check: channel order, resize distortion, coordinate mistake, or over-processing
+Expected_output: before/after image plus the printed shape or pixel values
+```
+
 ## まとめ
 
 この節で押さえるべき核心は次のとおりです。
@@ -373,3 +385,12 @@ print("処理フロー全体の結果を保存しました")
 1. `threshold()` の閾値を `60`、`120`、`180` に変えて、二値画像の変化を観察しましょう。
 2. 収縮と膨張のカーネルサイズを `(3, 3)` から `(7, 7)` に変えて、形の変化を観察しましょう。
 3. 元の画像に小さな白い点を1つ追加して、オープニングでそれを消せるか試してみましょう。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. しきい値を低くすると、二値画像で白になる画素は通常増えます。しきい値を高くすると、白になる画素は減ります。大切なのは画像そのものを暗記することではなく、変化の方向を読むことです。
+2. `(7, 7)` のカーネルは `(3, 3)` より強く収縮し、強く膨張します。細い構造は消えたり、かなり太くなったりします。
+3. オープニングは、カーネルより小さい孤立した白点なら取り除けます。白点が大きい、または大きな領域につながっている場合は残ることがあります。
+
+</details>

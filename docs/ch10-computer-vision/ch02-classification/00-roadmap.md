@@ -50,6 +50,18 @@ In real projects, never show only the top class. Keep confidence, wrong examples
 | 2 | Modern architectures | Compare feature extractor, classifier head, and pretrained backbone |
 | 3 | Training techniques | Track split, loss, accuracy, overfitting, and error samples |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataset_split: train/test images, class names, and class balance
+prediction: label, confidence, and at least one misclassified image
+metric: accuracy, F1, confusion matrix, and class-level errors
+failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
+Expected_output: model result table and saved error examples
+```
+
 ## Pass Check
 
 You pass this chapter when you can run a minimal classifier, show train/validation metrics, and explain at least one failure image.
