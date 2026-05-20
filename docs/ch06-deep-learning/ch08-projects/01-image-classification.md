@@ -226,6 +226,17 @@ next_action: data, augmentation, model, or split change
 4. Replace the prototype baseline with a small CNN outline in your README.
 5. Create a project checklist with dataset, command, metric, and failure cases.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The `dog` row in the confusion matrix gets more evidence. If the new samples are difficult, dog recall may drop; if they are clear, the estimate becomes more stable.
+2. `labels` must include `hamster`, and the confusion matrix expands to include a new row and column. Any metric table that averages by class should also include the new class.
+3. A possible issue is that dog images are cropped, blurry, too similar to cat poses, or underrepresented. The point is to connect the error to data evidence, not just blame the model.
+4. A useful README outline includes input size, convolution/ReLU/pooling blocks, classifier head, loss, metric, command, and expected output.
+5. The checklist should prove the project is reproducible: dataset split, training command, metric, confusion matrix, known failure cases, and next improvement.
+
+</details>
+
 ## Key Takeaways
 
 - Image classification projects are judged by the full loop, not only the model name.

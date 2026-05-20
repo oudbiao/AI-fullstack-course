@@ -403,6 +403,16 @@ Ask:
 3. Set `shuffle=True`, print the first training batch in two epochs, and check whether the order changes.
 4. Add a third feature to each sample. Which model layer must change?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The training loader should see 9 samples, and the validation loader should see 3. Keep the split fixed while comparing models so the validation result stays meaningful.
+2. With 9 training samples and the default `drop_last=False`, the batch counts are `9`, `5`, and `3`. The last batch is smaller when the sample count is not divisible by `batch_size`.
+3. With `shuffle=True`, the first training batch will usually change between epochs. Validation data is usually not shuffled because evaluation should be easy to compare.
+4. The first layer that consumes input features must change its `in_features` from `2` to `3`; the dataset tensor shape and any normalization code must also agree.
+
+</details>
+
 ## Key Takeaways
 
 - `Dataset` defines what one sample looks like.

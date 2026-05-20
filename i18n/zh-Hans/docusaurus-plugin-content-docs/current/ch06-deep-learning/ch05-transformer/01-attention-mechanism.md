@@ -384,6 +384,18 @@ Attention 权重很有用，但不要过度解读。
 5. 解释为什么 attention 比普通 RNN 更容易建模远距离 token 交互。
 6. 描述一个 attention 权重有帮助但不是完整解释的场景。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 第三个 token 会更接近第一维方向的 query，因此这些 query 对它的 attention weight 通常会升高。精确数值取决于完整的 dot-product 表。
+2. 只改 `W_v` 会改变 value vectors 和最终 attention output；attention scores 和 weights 不变，因为它们由 queries 和 keys 决定。
+3. `4 x 4` causal mask 应允许每个位置看见自己和之前的位置，同时挡住未来位置。
+4. 最终输出 shape 仍应是 `[batch, seq, embed_dim]`。变化的是模型如何把 embedding dimension 分给不同 heads。
+5. Attention 让每个 token 都能直接访问所有可见 token；普通 RNN 需要把信息沿着很多顺序步骤传递，长距离信息更容易衰减。
+6. Attention weights 可以提示某一层更关注哪些 token，但它不是完整解释，因为 value projection、residual path、后续层和 output head 都会继续影响最终答案。
+
+</details>
+
 ## 小结
 
 - Attention 让 token 直接选择相关上下文。

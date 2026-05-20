@@ -226,6 +226,17 @@ next_action: data labeling, features, or model upgrade
 4. Write a label rule for `neutral`, but do not add it to the model yet.
 5. Create a README outline for this project.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `"not clear"` is likely neutral or uncertain, while `"never useful"` should probably be negative. These examples test whether the rule system handles negation and weak sentiment.
+2. Good `other` examples include sarcasm, mixed languages, or text that is about shipping or price rather than sentiment. The goal is to keep unclear inputs from being forced into a wrong label.
+3. TF-IDF should become the feature extraction step before the classifier. The plan should mention vocabulary, vectorization, train/validation split, and metrics.
+4. A simple `neutral` rule might catch texts with no strong positive or negative keyword, or texts where positive and negative cues cancel out. Keep it separate until you can evaluate it.
+5. The README should include task definition, labels, dataset examples, baseline, metric, error examples, and next model upgrade.
+
+</details>
+
 ## Key Takeaways
 
 - Sentiment projects live or die by label boundaries and error analysis.

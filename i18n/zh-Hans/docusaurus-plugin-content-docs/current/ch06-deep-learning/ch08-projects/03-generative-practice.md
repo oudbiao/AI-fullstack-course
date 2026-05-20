@@ -26,7 +26,7 @@ keywords: [generative project, GAN, VAE, generation quality, diversity, evaluati
 ![生成模型项目评估闭环图](/img/course/ch06-project-generative-eval-loop.webp)
 
 ```text
-train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step
+训练 -> 抽样检查点 -> 评审质量与多样性 -> 保留失败样本 -> 选择下一步
 ```
 
 练习项目建议选择：
@@ -37,7 +37,7 @@ train -> sample checkpoints -> review quality + diversity -> keep failures -> ch
 
 数字、图标、简单形状、小灰度图案，都比开放式照片级生成更适合第一轮项目。
 
-## 实验：Checkpoint Review Dashboard
+## 实验：检查点评审面板
 
 创建 `generative_review_dashboard.py`：
 
@@ -91,21 +91,21 @@ selected_epoch: 30
 
 | 证据 | 为什么 |
 |---|---|
-| samples by checkpoint | 展示训练进展 |
-| failure samples | 诚实展示边界 |
-| diversity notes | 捕捉重复输出 |
-| quality notes | 解释视觉改善 |
-| training logs | 展示稳定或 collapse |
-| final selection rule | 让选择可复现 |
+| 按检查点保存的样本 | 展示训练进展 |
+| 失败样本 | 诚实展示边界 |
+| 多样性记录 | 捕捉重复输出 |
+| 质量记录 | 解释视觉改善 |
+| 训练日志 | 展示稳定或塌缩 |
+| 最终选择规则 | 让选择可复现 |
 
 ## 质量、多样性、稳定性
 
 | 维度 | 好信号 | 警告信号 |
 |---|---|---|
-| Quality | 样本像目标数据 | 噪声、模糊、结构破碎 |
-| Diversity | 样本有 meaningful variation | 重复输出或单一风格 |
-| Stability | checkpoint 逐步改善 | 突然 collapse 或震荡 |
-| Interpretability | 记录失败原因 | 只展示最好样本 |
+| 质量 | 样本像目标数据 | 噪声、模糊、结构破碎 |
+| 多样性 | 样本有有意义的变化 | 重复输出或单一风格 |
+| 稳定性 | 检查点逐步改善 | 突然塌缩或震荡 |
+| 可解释性 | 记录失败原因 | 只展示最好样本 |
 
 常见取舍：
 
@@ -117,10 +117,10 @@ selected_epoch: 30
 
 | 版本 | 增加什么 |
 |---|---|
-| basic | 一个模型、固定 sampling seed、checkpoint samples |
-| standard | quality/diversity table 和 failure samples |
-| challenge | 比较 VAE、GAN 或 diffusion-style 输出 |
-| portfolio | 清楚故事：data、model、samples、failures、next step |
+| 基础版 | 一个模型、固定采样种子、检查点样本 |
+| 标准版 | 质量/多样性表和失败样本 |
+| 挑战版 | 比较 VAE、GAN 或 diffusion-style 输出 |
+| 作品集版 | 清楚讲出数据、模型、样本、失败和下一步 |
 
 ## 留下的证据
 
@@ -152,6 +152,17 @@ next_action: data, objective, architecture, or sampling change
 3. 为你自己的生成项目想法写一个 4 行表格。
 4. 用 checkpoint table 解释 mode collapse。
 5. 写一个作品集小节标题：“为什么我选择这个 checkpoint”。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 通常不该选，除非项目极度重视 quality 而几乎不在乎 diversity。`0.30` 的 diversity 是明显警讯，说明输出可能重复或范围很窄。
+2. `failure` 字段应记录可见问题，例如重复、伪影、prompt 不匹配、不安全输出或 diversity 不足。
+3. 有用的表格可以包含 idea、data/source、evaluation signal 和 main risk 四行。它要帮助别人判断这个生成项目是否能被评估。
+4. Mode collapse 指模型只生成少数相似输出。在 checkpoint table 里，它通常表现为 quality 尚可，但 diversity 很低。
+5. 作品集小节应以证据解释选择：quality、diversity、failure notes、sample outputs，以及为什么其他 checkpoint 更弱。
+
+</details>
 
 ## 小结
 

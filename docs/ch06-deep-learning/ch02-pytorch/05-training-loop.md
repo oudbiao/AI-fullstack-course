@@ -335,6 +335,17 @@ for epoch in range(num_epochs):
 4. Add a `best_epoch` variable and print which epoch produced the best validation loss.
 5. Convert the task to binary classification by creating labels from `y > 5`, then use `BCEWithLogitsLoss`.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. SGD is usually more sensitive to learning rate and may converge more slowly than Adam in this small example. If the curve is noisy, try a smaller learning rate before changing the model.
+2. A hidden size of `4` may underfit, while `32` can lower training loss more easily. Prefer the setting with better validation loss, not just lower training loss.
+3. More noise increases irreducible error, so the best validation loss usually becomes worse and the curve may fluctuate more.
+4. Update `best_epoch` only when validation loss improves. The printed epoch tells you which checkpoint should be kept.
+5. For binary classification, use one logit per sample or a `[batch, 1]` output, convert labels to float, and pass raw logits to `BCEWithLogitsLoss`.
+
+</details>
+
 ## Key Takeaways
 
 - A training loop is a closed cycle: predict, measure error, compute gradients, update, validate.

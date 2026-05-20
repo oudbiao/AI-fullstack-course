@@ -394,6 +394,16 @@ In real deep learning projects, custom modules are more common because architect
 3. Print `model.state_dict()` keys and shapes. Which tensors would be saved in a checkpoint?
 4. Add `nn.Dropout(p=0.2)` after ReLU, then compare predictions in `train()` and `eval()` modes.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `4` may underfit because the hidden representation is smaller. `32` may reduce training loss more easily, but validation loss is the real check because a larger model can also overfit.
+2. This tiny regression task may still learn if the target is close to linear. Without nonlinear activations, stacked linear layers collapse into one linear transformation, which is not enough for richer nonlinear patterns.
+3. `state_dict()` saves learnable tensors such as `Linear` weights and biases. Layers like `Dropout` have behavior but no learnable parameter tensor to save.
+4. In `train()` mode, dropout randomly masks activations and predictions can vary between calls. In `eval()` mode, dropout is disabled, so predictions should be stable.
+
+</details>
+
 ## Key Takeaways
 
 - `nn.Module` manages layers, parameters, forward logic, and mode state together.

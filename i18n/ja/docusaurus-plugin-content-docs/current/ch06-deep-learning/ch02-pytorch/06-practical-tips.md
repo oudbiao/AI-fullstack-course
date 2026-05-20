@@ -342,6 +342,16 @@ with torch.no_grad():
 3. best validation loss 用の checkpoint 保存を追加してください。
 4. loss が不安定になるまで一時的に学習率を上げ、その後、学習率を下げて gradient clipping を入れて回復させてください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. モデル、入力 tensor、ラベル、ループ内で新しく作る tensor を同じ `device` に移します。device を表示する、または簡単な assertion を入れると、多くの実行時エラーを早く防げます。
+2. clipping 後の勾配ノルムは、設定したしきい値付近に抑えられるはずです。clipping 前のノルムが非常に大きい場合は、learning rate、loss scale、データ値も確認します。
+3. 少なくとも `model.state_dict()`、best validation loss、epoch を保存します。訓練を再開したいなら optimizer state と設定も保存します。
+4. 高すぎる learning rate は、loss のスパイク、振動、または `nan` を起こしがちです。learning rate を下げ、gradient clipping を加えると安定化できますが、ラベル間違い、shape 間違い、data leakage は別途直す必要があります。
+
+</details>
+
 ## まとめ
 
 - `.cuda()` を直接決め打ちせず、device を選び、モデルとデータの両方を移動します。

@@ -394,6 +394,16 @@ mini_project_result: loss decreases and predicted score is near the expected ran
 3. `model.state_dict()` の key と shape を表示してください。checkpoint にはどのテンソルが保存されますか？
 4. ReLU の後に `nn.Dropout(p=0.2)` を追加し、`train()` と `eval()` モードで予測を比べてください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `4` では表現力が足りず underfit しやすくなります。`32` は training loss を下げやすいですが、より大きいモデルは overfit も起こせるので validation loss を確認します。
+2. この小さな回帰タスクがほぼ線形なら、`ReLU()` なしでも学習できることがあります。ただし非線形活性化がない多層線形層は 1 つの線形変換に畳み込めるため、複雑な非線形パターンには足りません。
+3. `state_dict()` は `Linear` の weight や bias など、学習可能な tensor を保存します。`Dropout` は挙動を持ちますが、保存すべき学習可能パラメータはありません。
+4. `train()` モードでは dropout が活性値をランダムに落とすので、同じ入力でも予測が変わることがあります。`eval()` モードでは dropout が無効になり、予測は安定するはずです。
+
+</details>
+
 ## まとめ
 
 - `nn.Module` は層、パラメータ、順伝播ロジック、モード状態をまとめて管理します。

@@ -345,6 +345,16 @@ device_check: model and data are on the same device
 3. 把 `X`、`W` 和 `b` 移到 `device`。如果只移动其中一个，会得到什么错误？
 4. 把 `X @ W` 改成 `X * W`。为什么它会失败，或者表达完全不同的含义？
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. batch 维度会从 `2` 变成 `3`。feature 数、class 数和参数 shape 不变，除非你也改了输入特征数或输出类别数。
+2. `CrossEntropyLoss` 需要形状类似 `[batch]` 的类别标签，并且通常是 `torch.long`。`squeeze(1)` 会去掉多余的单例维度，让 loss 看到每个样本一个类别 id。
+3. 会出现 device mismatch 一类错误，例如有些 tensor 在 CPU，有些在 GPU。PyTorch 中参与同一个运算的模型参数和输入 tensor 必须在同一个 device 上。
+4. `@` 是矩阵乘法，会得到 class logits；`*` 是逐元素乘法，shape 不匹配时会报错，shape 能广播时也表达了完全不同的运算。
+
+</details>
+
 ## 小结
 
 - PyTorch 基础不是背很多函数，而是匹配 shape、dtype、device 和运算含义。

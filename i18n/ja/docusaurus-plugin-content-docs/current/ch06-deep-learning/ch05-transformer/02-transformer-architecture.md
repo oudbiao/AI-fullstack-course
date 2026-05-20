@@ -394,6 +394,17 @@ generation_bridge: final hidden state -> vocabulary logits -> next token
 4. 実験 5 で `target` の長さを `3` から `4` に変えてください。`causal_mask` はどう変わる必要がありますか。
 5. GQA/MQA が推論メモリに効く理由を 1 段落で説明してください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. Embedding、positional encoding、attention layer、FFN の入出力次元を `d_model=32` にそろえる必要があります。また、`nhead` が `32` を割り切れることも確認します。
+2. `norm_first=False` は post-norm Transformer block を表します。residual addition の後に normalization を置く形です。
+3. FFN は内部で hidden dimension を広げ、非線形を通したあと、再び `d_model` に射影します。だから元の tensor と residual addition できます。
+4. target sequence length が `4` になるので、`causal_mask` も対応する `4 x 4` mask になり、未来位置を遮る必要があります。
+5. GQA/MQA は key/value heads を共有または削減し、autoregressive decoding 中の KV cache を小さくします。これによりメモリ帯域と使用量が下がり、長い context の推論が軽くなります。
+
+</details>
+
 ## まとめ
 
 - Transformer block は attention に加えて、安定化と変換の仕組みを持つ。

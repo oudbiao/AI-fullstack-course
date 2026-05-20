@@ -322,6 +322,17 @@ for epoch in range(num_epochs):
 4. 增加一个 `best_epoch` 变量，打印哪个 epoch 产生了最佳验证 loss。
 5. 把任务改成二分类：用 `y > 5` 生成标签，再使用 `BCEWithLogitsLoss`。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. SGD 通常比 Adam 更依赖 learning rate，在这个小例子里可能收敛更慢。如果曲线很抖，先尝试降低 learning rate。
+2. 隐藏层大小为 `4` 时可能 underfit；`32` 更容易降低训练 loss。最终优先看 validation loss，而不是只看训练 loss。
+3. 噪声更大时，不可约误差更高，最佳 validation loss 通常会变差，曲线也可能更波动。
+4. 只有当 validation loss 变好时才更新 `best_epoch`。打印出的 epoch 就是应该保留 checkpoint 的位置。
+5. 二分类通常让模型每个样本输出一个 logit 或 `[batch, 1]`，标签转成 float，并把 raw logits 交给 `BCEWithLogitsLoss`。
+
+</details>
+
 ## 小结
 
 - 训练循环是闭环：预测、衡量错误、计算梯度、更新、验证。

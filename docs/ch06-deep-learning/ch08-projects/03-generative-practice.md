@@ -153,6 +153,17 @@ next_action: data, objective, architecture, or sampling change
 4. Explain mode collapse using the checkpoint table.
 5. Draft a portfolio section titled “Why I selected this checkpoint.”
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Usually no, unless the project values quality far more than diversity. A diversity score of `0.30` is a warning sign for repeated or narrow outputs.
+2. The `failure` field should name visible problems such as repetition, artifacts, prompt mismatch, unsafe output, or poor diversity.
+3. A useful table has rows for idea, data/source, evaluation signal, and main risk. The table should help someone judge whether the project can be evaluated.
+4. Mode collapse means the model produces a small set of similar outputs. In the checkpoint table, it looks like acceptable quality with low diversity.
+5. The portfolio section should justify the selected checkpoint with evidence: quality, diversity, failure notes, sample outputs, and why rejected checkpoints were weaker.
+
+</details>
+
 ## Key Takeaways
 
 - Generative projects need evaluation stories, not just galleries.

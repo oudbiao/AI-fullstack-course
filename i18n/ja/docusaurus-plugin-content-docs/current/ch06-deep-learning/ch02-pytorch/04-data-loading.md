@@ -377,7 +377,7 @@ loss_expected_target_shape: ...
 | 学習前に 1 batch を表示しない | shape バグがモデル内で初めて見つかる | `next(iter(loader))` を確認する |
 | training set で `shuffle=False` | 順序付きデータが更新を偏らせることがある | training loader は `shuffle=True` にする |
 | 安定して検証サンプルを確認したいのに `shuffle=True` | 実行ごとにサンプル順が変わる | validation/test は決定的にする |
-| target scaling を忘れる | 小さな demo の回帰 loss が大きくなりすぎることがある | 必要なら target をスケールし、理由を書く |
+| target scaling を忘れる | 小さなデモの回帰 loss が大きくなりすぎることがある | 必要なら target をスケールし、理由を書く |
 
 ## クイックデバッグチェックリスト
 
@@ -402,6 +402,16 @@ print(batch_y.shape, batch_y.dtype)
 2. `batch_size` を `1`、`2`、`4` に変えてください。各 epoch の batch 数はいくつになりますか？
 3. `shuffle=True` にして、2 epoch 連続で最初の training batch を表示し、順序が変わるか確認してください。
 4. 各サンプルに 3 つ目の特徴量を追加してください。モデルのどの層を変える必要がありますか？
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. training loader は 9 サンプル、validation loader は 3 サンプルを見るはずです。モデル比較では分割を固定すると、validation 結果を解釈しやすくなります。
+2. 9 training samples で `drop_last=False` の場合、batch 数はそれぞれ `9`、`5`、`3` です。サンプル数が `batch_size` で割り切れないと、最後の batch は小さくなります。
+3. `shuffle=True` なら、2 つの epoch の最初の training batch は通常変わります。validation data は比較しやすいよう、普通は shuffle しません。
+4. 入力特徴量を受け取る最初の層の `in_features` を `2` から `3` に変える必要があります。dataset tensor shape と正規化コードも一致させます。
+
+</details>
 
 ## まとめ
 

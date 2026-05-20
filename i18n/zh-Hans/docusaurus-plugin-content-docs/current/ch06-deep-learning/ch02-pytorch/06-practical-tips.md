@@ -342,6 +342,16 @@ with torch.no_grad():
 3. 为最佳验证 loss 加入 checkpoint 保存。
 4. 临时提高学习率直到 loss 不稳定，再通过降低学习率和裁剪梯度恢复。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 模型、输入 tensor、标签，以及训练循环内部新建的 tensor 都要移动到同一个 `device`。打印 device 或加一个简单断言，能提前拦住很多运行时错误。
+2. 裁剪后，梯度范数应该被限制在你设置的阈值附近。如果裁剪前范数非常大，还要检查 learning rate、loss scale 和数据取值。
+3. 至少保存 `model.state_dict()`、最佳 validation loss 和 epoch。若要恢复训练，还应保存 optimizer state 和配置。
+4. 过高 learning rate 常见表现是 loss 尖峰、震荡或 `nan`。降低 learning rate 和 gradient clipping 能稳定训练，但不能修复错误标签、错误 shape 或数据泄漏。
+
+</details>
+
 ## 小结
 
 - 不要硬编码 `.cuda()`；选择 device，并同时移动模型和数据。

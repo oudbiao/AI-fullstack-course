@@ -21,12 +21,12 @@ keywords: [generative project, GAN, VAE, generation quality, diversity, evaluati
 
 ---
 
-## まず Evaluation Loop を見る
+## まず評価の流れを見る
 
 ![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-ja.webp)
 
 ```text
-train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step
+学習 -> checkpoint からサンプル生成 -> quality と diversity を確認 -> 失敗例を残す -> 次の一手を選ぶ
 ```
 
 練習 project では、次のような生成 target を選びます。
@@ -37,7 +37,7 @@ train -> sample checkpoints -> review quality + diversity -> keep failures -> ch
 
 digits、icons、simple shapes、小さな grayscale patterns は、open-ended photorealistic generation より最初の project に向いています。
 
-## 実験：Checkpoint Review Dashboard
+## 実験：チェックポイント評価表
 
 `generative_review_dashboard.py` を作成します。
 
@@ -89,18 +89,18 @@ selected_epoch: 30
 
 ## 保存するもの
 
-| Evidence | 理由 |
+| 証拠 | 理由 |
 |---|---|
-| samples by checkpoint | training progression を示す |
-| failure samples | limits を正直に示す |
-| diversity notes | repeated outputs を見つける |
-| quality notes | visual improvements を説明する |
-| training logs | stability や collapse を示す |
-| final selection rule | 選択を reproducible にする |
+| checkpoint ごとのサンプル | 学習の進み方を示す |
+| 失敗サンプル | 限界を正直に示す |
+| 多様性メモ | 繰り返し出力を見つける |
+| 品質メモ | 視覚的な改善を説明する |
+| 学習ログ | 安定性や collapse を示す |
+| 最終選択ルール | 選択を再現可能にする |
 
-## Quality、Diversity、Stability
+## 品質、多様性、安定性
 
-| Dimension | 良い sign | Warning sign |
+| 観点 | 良い sign | Warning sign |
 |---|---|---|
 | Quality | samples が target data らしい | noisy、blurry、broken structure |
 | Diversity | samples に意味のある variation がある | repeated outputs または 1 つの style だけ |
@@ -113,14 +113,14 @@ selected_epoch: 30
 best-looking single sample != best project checkpoint
 ```
 
-## Project Upgrade Path
+## プロジェクトの拡張ルート
 
-| Version | 追加するもの |
+| バージョン | 追加するもの |
 |---|---|
 | basic | one model、fixed sampling seed、checkpoint samples |
 | standard | quality/diversity table と failure samples |
 | challenge | VAE、GAN、diffusion-style outputs の比較 |
-| portfolio | data、model、samples、failures、next step の clear story |
+| portfolio | data、model、samples、failures、次の一手の明確なストーリー |
 
 ## 残す証拠
 
@@ -151,11 +151,22 @@ next_action: data, objective, architecture, or sampling change
 2. 各 checkpoint に `failure` field を追加してください。
 3. 自分の生成 project idea について 4 行の表を書いてください。
 4. checkpoint table を使って mode collapse を説明してください。
-5. “Why I selected this checkpoint” という portfolio section を下書きしてください。
+5. 「なぜこの checkpoint を選んだのか」というポートフォリオ小節を下書きしてください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 通常は選びません。ただし、project が quality を diversity より極端に重視するなら例外はあります。`0.30` の diversity は、出力が反復的または狭い範囲に偏る警告です。
+2. `failure` field には、反復、アーティファクト、prompt mismatch、安全でない出力、diversity 不足など、見える問題を書きます。
+3. 役立つ表には、idea、data/source、evaluation signal、main risk の 4 行を入れます。その表で、生成 project を評価できるか判断できるようにします。
+4. Mode collapse は、モデルが少数の似た出力ばかり出す状態です。checkpoint table では、quality は悪くないのに diversity が低い状態として見えます。
+5. ポートフォリオ小節では、quality、diversity、failure notes、sample outputs、採用しなかった checkpoint の弱点を根拠にして選定理由を書きます。
+
+</details>
 
 ## まとめ
 
-- Generative project には gallery ではなく evaluation story が必要です。
+- Generative project には gallery ではなく評価ストーリーが必要です。
 - Quality と diversity は一緒に読みます。
-- Failure samples は project をより信頼できるものにします。
-- 明確な checkpoint selection rule も deliverable の一部です。
+- Failure samples はプロジェクトをより信頼できるものにします。
+- 明確な checkpoint selection rule も成果物の一部です。

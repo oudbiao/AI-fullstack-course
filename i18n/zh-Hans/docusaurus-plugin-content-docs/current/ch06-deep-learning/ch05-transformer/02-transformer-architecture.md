@@ -394,6 +394,17 @@ generation_bridge: final hidden state -> vocabulary logits -> next token
 4. 在实验 5 中把 `target` 长度从 `3` 改成 `4`。`causal_mask` 必须怎样变化？
 5. 用一段话解释 GQA/MQA 为什么能帮助推理内存。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Embedding、positional encoding、attention layer 和 FFN 的输入/输出维度都要和 `d_model=32` 对齐。同时要确保 `nhead` 能整除 `32`。
+2. `norm_first=False` 表示 post-norm Transformer block，也就是 residual addition 之后再做 normalization。
+3. FFN 先把 hidden dimension 扩大，经过非线性，再投影回 `d_model`，这样输出才能和原 tensor 做 residual addition。
+4. target 序列长度变成 `4`，因此 `causal_mask` 必须变成兼容的 `4 x 4` mask，并继续遮住未来位置。
+5. GQA/MQA 通过共享或减少 key/value heads 来缩小 autoregressive decoding 时的 KV cache。这样可以减少内存占用和带宽压力，让长上下文推理更便宜。
+
+</details>
+
 ## 小结
 
 - Transformer block 是注意力加上一整套稳定与变换机制。

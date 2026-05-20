@@ -322,6 +322,17 @@ for epoch in range(num_epochs):
 4. `best_epoch` 変数を追加し、どの epoch が best validation loss を出したか表示してください。
 5. `y > 5` でラベルを作って二値分類タスクに変え、`BCEWithLogitsLoss` を使ってください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. SGD は Adam より learning rate に敏感で、この小さな例では収束が遅くなりやすいです。曲線が荒い場合は、モデルを変える前に learning rate を下げてみます。
+2. 隠れ層サイズ `4` は underfit しやすく、`32` は training loss を下げやすいです。最終判断では training loss だけでなく validation loss を優先します。
+3. noise が大きいほど避けられない誤差が増え、best validation loss は悪化しやすくなります。曲線もより揺れることがあります。
+4. validation loss が改善したときだけ `best_epoch` を更新します。表示された epoch が、保存すべき checkpoint の位置です。
+5. 二値分類では、各サンプルに 1 つの logit、または `[batch, 1]` 出力を使い、ラベルを float にして raw logits を `BCEWithLogitsLoss` に渡します。
+
+</details>
+
 ## まとめ
 
 - 学習ループは、予測、誤差計測、勾配計算、更新、検証の閉じたサイクルです。

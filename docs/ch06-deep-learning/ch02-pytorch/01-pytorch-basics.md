@@ -345,6 +345,16 @@ This is the fastest way to debug later PyTorch code. Most early errors are shape
 3. Move `X`, `W`, and `b` to `device`. What error do you get if you move only one of them?
 4. Replace `X @ W` with `X * W`. Why does it fail or produce a different meaning?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The batch dimension changes from `2` to `3`. Feature size, class count, and parameter shapes stay the same unless you also change the input feature count or number of output classes.
+2. `CrossEntropyLoss` expects class labels shaped like `[batch]` and usually stored as `torch.long`. `squeeze(1)` removes the extra singleton dimension so the loss sees one class id per sample.
+3. You get a device mismatch error, such as tensors being on both CPU and GPU. In PyTorch, the model parameters and the input tensors used in the same operation must live on the same device.
+4. `@` performs matrix multiplication and produces class logits. `*` performs element-wise multiplication, so it either fails because shapes do not align or computes a different operation through broadcasting.
+
+</details>
+
 ## Key Takeaways
 
 - PyTorch basics are not about memorizing many functions; they are about matching shape, dtype, device, and operation.

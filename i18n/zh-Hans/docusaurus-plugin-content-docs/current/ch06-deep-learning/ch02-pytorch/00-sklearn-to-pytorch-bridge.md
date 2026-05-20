@@ -276,3 +276,12 @@ new_responsibility: inspect shape, gradient, device, and checkpoint
 1. 把上面例子里的学习时长和分数改成你自己的数据，再分别用 `sklearn` 和 `PyTorch` 训练一次。
 2. 把 `PyTorch` 里的学习率从 `0.01` 改成 `0.1` 和 `0.001`，观察损失下降速度变化。
 3. 试着打印每 100 轮的 `weight` 和 `bias`，看看参数是怎么逐步逼近答案的。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 如果数据接近线性，两个模型应该学到相近的直线。它们不一定完全一样，因为 `sklearn` 通常直接优化回归目标，而 PyTorch 版本是通过梯度一步步移动参数。
+2. `0.1` 往往下降更快，但在小数据或尺度不好的数据上可能越过最优点。`0.001` 通常更稳，但训练结束时 loss 可能还在慢慢下降。
+3. `weight` 和 `bias` 应该逐步移动到让预测更接近分数的位置。如果参数几乎不动而 loss 仍然很高，要检查 learning rate、tensor shape，以及梯度是否真的被应用。
+
+</details>

@@ -345,6 +345,16 @@ device_check: model and data are on the same device
 3. `X`、`W`、`b` を `device` に移してください。1 つだけ移すとどんなエラーになりますか？
 4. `X @ W` を `X * W` に変えてください。なぜ失敗する、または意味がまったく変わるのでしょうか？
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. batch 次元が `2` から `3` に変わります。特徴量数、クラス数、パラメータ shape は、入力特徴量数や出力クラス数を変えない限り同じです。
+2. `CrossEntropyLoss` は `[batch]` 形状のクラスラベルを期待し、通常は `torch.long` を使います。`squeeze(1)` は余分な 1 次元を消し、各サンプルに 1 つの class id がある形にします。
+3. CPU と GPU が混ざっている、という device mismatch 系のエラーになります。同じ演算に入るモデルパラメータと入力 tensor は同じ device 上にある必要があります。
+4. `@` は行列積で class logits を作ります。`*` は要素ごとの積なので、shape が合わなければ失敗し、broadcast できても意味の違う計算になります。
+
+</details>
+
 ## まとめ
 
 - PyTorch の基礎は、多くの関数を暗記することではなく、shape、dtype、device、演算の意味を対応させることです。

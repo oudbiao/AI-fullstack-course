@@ -394,6 +394,17 @@ generation_bridge: final hidden state -> vocabulary logits -> next token
 4. In Lab 5, change `target` length from `3` to `4`. What must happen to `causal_mask`?
 5. Describe why GQA/MQA helps inference memory in one paragraph.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Embeddings, positional encodings, attention layers, and FFN input/output dimensions must agree with `d_model=32`. Also make sure `nhead` divides `32`.
+2. `norm_first=False` represents the post-norm Transformer block style, where normalization happens after the residual addition.
+3. The FFN expands the hidden dimension internally, applies a nonlinearity, then projects back to `d_model`, so the residual path can add it to the original tensor.
+4. The target sequence length becomes `4`, so the causal mask must become a compatible `4 x 4` mask that blocks future target positions.
+5. GQA/MQA shares or reduces key/value heads, which shrinks the KV cache during autoregressive decoding. That saves memory bandwidth and makes long-context inference cheaper.
+
+</details>
+
 ## Key Takeaways
 
 - A Transformer block is attention plus stability and transformation machinery.

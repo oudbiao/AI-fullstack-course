@@ -1,7 +1,7 @@
 ---
 title: "6.8.3 项目：文本情感分析"
 sidebar_position: 2
-description: "构建情感分析项目闭环：标签边界、关键词 baseline、否定词处理、错误分桶和交付包装。"
+description: "构建情感分析项目闭环：标签边界、关键词基线、否定词处理、错误分桶和交付包装。"
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
@@ -14,9 +14,9 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 ## 学习目标
 
 - 先定义情感标签，再选择模型。
-- 构建可解释的关键词 baseline。
+- 构建可解释的关键词基线。
 - 用简单否定词规则修复一个已知错误类型。
-- 把错误预测整理成 error buckets。
+- 把错误预测整理成错误分桶。
 - 把一个小 NLP 项目包装成可复现交付物。
 
 ---
@@ -36,7 +36,7 @@ label boundary -> baseline -> predictions -> error buckets -> targeted upgrade
 
 不要一开始就加太多标签，比如 `neutral`、`mixed`、`irony`、`unclear`。等基础闭环稳定后再扩展。
 
-## 实验：关键词 Baseline 与否定词修复
+## 实验：关键词基线与否定词修复
 
 创建 `sentiment_project_baseline.py`：
 
@@ -135,7 +135,7 @@ with_negation
 
 这段代码教你：
 
-- baseline 可解释，因为每个 token 都会改变分数；
+- 基线可解释，因为每个 token 都会改变分数；
 - `not recommended` 在否定词规则前会失败；
 - 针对性规则能修复一种错误，但不要假装它解决了全部语言理解问题。
 
@@ -178,10 +178,10 @@ for name, rows in error_buckets.items():
 
 | 版本 | 增加什么 | 为什么 |
 |---|---|---|
-| rule baseline | keyword counts 和 negation rule | 可解释起点 |
-| traditional ML | TF-IDF + LogisticRegression | 低成本强 baseline |
-| neural baseline | embedding + pooling 或小 Transformer | 学习表示特征 |
-| portfolio version | error buckets、comparison table、demo command | 展示工程判断 |
+| 规则基线 | 关键词计数和否定词规则 | 可解释起点 |
+| 传统机器学习 | TF-IDF + LogisticRegression | 低成本强基线 |
+| 神经网络基线 | embedding + pooling 或小型 Transformer | 学习表示特征 |
+| 作品集版本 | 错误分桶、对比表、演示命令 | 展示工程判断 |
 
 ## README 要展示什么
 
@@ -190,8 +190,8 @@ README 要具体：
 - 标签定义；
 - 数据来源和划分；
 - 运行命令；
-- baseline 对比表；
-- error buckets；
+- 基线对比表；
+- 错误分桶；
 - 模型做对和做错的例子；
 - 下一步计划。
 
@@ -213,9 +213,9 @@ next_action: data labeling, features, or model upgrade
 | 错误 | 修复 |
 |---|---|
 | 标签含糊 | 训练前写清标签规则 |
-| 只报告 accuracy | 加入 error buckets 和例子 |
+| 只报告 accuracy | 加入错误分桶和例子 |
 | 忽略否定词 | 测试 `not`、`never`、`no` |
-| 太早加深度模型 | 保留 rule 或 TF-IDF baseline |
+| 太早加深度模型 | 保留规则或 TF-IDF 基线 |
 | 隐藏讽刺/混合情绪错误 | 作为已知限制记录下来 |
 
 ## 练习
@@ -225,6 +225,17 @@ next_action: data labeling, features, or model upgrade
 3. 在项目计划中用 TF-IDF 替换关键词计数。
 4. 为 `neutral` 写一条标签规则，但暂时不要加入模型。
 5. 为这个项目写一个 README 大纲。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `"not clear"` 更像 neutral 或 uncertain，`"never useful"` 通常应判为 negative。这两个例子能检查规则是否处理了否定和弱情绪。
+2. 好的 `other` 示例包括讽刺、混合语言、或者讨论物流/价格而不是情绪的文本。目标是不要把不清楚的输入强行塞进错误标签。
+3. TF-IDF 应成为 classifier 前的 feature extraction 步骤。计划里应写清 vocabulary、vectorization、train/validation split 和 metrics。
+4. 一个简单 `neutral` 规则可以捕捉没有明显正负关键词的文本，或正负线索互相抵消的文本。先保持独立，等能评估后再加入模型。
+5. README 应包含 task definition、labels、dataset examples、baseline、metric、error examples 和下一步模型升级。
+
+</details>
 
 ## 小结
 

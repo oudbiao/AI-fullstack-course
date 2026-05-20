@@ -1,42 +1,42 @@
 ---
 title: "6.8.3 プロジェクト：テキスト感情分析"
 sidebar_position: 2
-description: "label boundaries、keyword baseline、negation handling、error buckets、deliverable packaging を含む sentiment analysis project loop を作ります。"
+description: "ラベル境界、キーワード基準モデル、否定語処理、エラー分類、成果物のまとめ方を含む感情分析プロジェクトの流れを作ります。"
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
 # 6.8.3 プロジェクト：テキスト感情分析
 
 :::tip この節の位置づけ
-Sentiment analysis は、最初の NLP project として向いています。難しい部分が見えやすいからです。label boundaries、tokenization、negation、sarcasm、mixed sentiment、error analysis がすべて表に出ます。
+感情分析は、最初の NLP プロジェクトとして向いています。難しい部分が見えやすいからです。ラベル境界、トークン化、否定語、皮肉、混合感情、エラー分析がすべて表に出ます。
 :::
 
 ## 学習目標
 
-- model を選ぶ前に sentiment labels を定義できる。
-- explainable な keyword baseline を作れる。
-- simple negation rule で 1 つの既知 error type を改善できる。
-- wrong predictions を error buckets に整理できる。
-- 小さな NLP project を reproducible deliverable としてまとめられる。
+- モデルを選ぶ前に感情ラベルを定義できる。
+- 説明しやすいキーワード基準モデルを作れる。
+- シンプルな否定語ルールで 1 つの既知エラータイプを改善できる。
+- 誤予測をエラー分類に整理できる。
+- 小さな NLP プロジェクトを再現可能な成果物としてまとめられる。
 
 ---
 
-## まず Project Loop を見る
+## まずプロジェクトの流れを見る
 
-![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-ja.webp)
+![感情分析プロジェクトの閉ループ](/img/course/ch06-project-sentiment-analysis-loop-ja.webp)
 
 ```text
 label boundary -> baseline -> predictions -> error buckets -> targeted upgrade
 ```
 
-まずは binary labels から始めます。
+まずは二値ラベルから始めます。
 
 - `positive`：明確に推薦、称賛、満足を表す。
 - `negative`：明確に不満、拒否、苦情を表す。
 
-basic loop が安定する前に、`neutral`、`mixed`、`irony`、`unclear` などを増やしすぎないでください。
+基本ループが安定する前に、`neutral`、`mixed`、`irony`、`unclear` などを増やしすぎないでください。
 
-## 実験：Keyword Baseline と Negation Fix
+## 実験：キーワード基準モデルと否定語ルール修正
 
 `sentiment_project_baseline.py` を作成します。
 
@@ -133,15 +133,15 @@ with_negation
 
 ![感情分析の否定語ルール結果図](/img/course/ch06-sentiment-negation-result-map-ja.webp)
 
-この code で学ぶこと：
+このコードで学ぶこと：
 
-- baseline は、各 token が score を変えるので説明しやすい。
-- `not recommended` は negation rule の前では失敗する。
-- targeted rule は 1 つの error type を直せるが、言語理解全体を解いたわけではない。
+- 基準モデルは、各 token が score を変えるので説明しやすい。
+- `not recommended` は否定語ルールの前では失敗する。
+- 狙いを絞ったルールは 1 つのエラータイプを直せるが、言語理解全体を解いたわけではない。
 
-## Error Buckets
+## エラー分類
 
-wrong cases は隠さず、type ごとにまとめます。
+誤分類例は隠さず、タイプごとにまとめます。
 
 ```python
 error_buckets = {
@@ -172,32 +172,32 @@ for name, rows in error_buckets.items():
     print(name, len(rows), rows)
 ```
 
-これは project evidence です。model がどこで失敗し、次に何を改善すべきかを示します。
+これはプロジェクトの証拠です。モデルがどこで失敗し、次に何を改善すべきかを示します。
 
-## Upgrade Path
+## 拡張ルート
 
-| Version | 追加するもの | 理由 |
+| バージョン | 追加するもの | 理由 |
 |---|---|---|
-| rule baseline | keyword counts と negation rule | explainable starting point |
-| traditional ML | TF-IDF + LogisticRegression | 低コストで強い baseline |
-| neural baseline | embedding + pooling または小さな Transformer | representation features を学ぶ |
-| portfolio version | error buckets、comparison table、demo command | engineering judgment を示す |
+| ルール基準モデル | キーワード数と否定語ルール | 説明しやすい出発点 |
+| 伝統的機械学習 | TF-IDF + LogisticRegression | 低コストで強い基準モデル |
+| ニューラル基準モデル | embedding + pooling または小さな Transformer | 表現特徴を学ぶ |
+| 成果物版 | エラー分類、比較表、デモコマンド | エンジニアリング判断を示す |
 
 ## README に見せるもの
 
 README は具体的にします。
 
-- label definitions。
-- dataset source と split。
-- run command。
-- baseline comparison table。
-- error buckets。
-- model が正解した例と間違えた例。
-- next-step plan。
+- ラベル定義。
+- データセットの出典と分割。
+- 実行コマンド。
+- 基準モデルの比較表。
+- エラー分類。
+- モデルが正解した例と間違えた例。
+- 次の改善計画。
 
 ## 残す証拠
 
-sentiment project では、最低限この evidence を残します。
+感情分析プロジェクトでは、最低限この証拠を残します。
 
 ```text
 label_rules: positive and negative boundaries
@@ -212,23 +212,34 @@ next_action: data labeling, features, or model upgrade
 
 | 間違い | 直し方 |
 |---|---|
-| labels が曖昧 | training 前に label rules を書く |
-| accuracy だけ報告する | error buckets と examples を含める |
-| negation を無視する | `not`、`never`、`no` cases を test する |
-| deep model を早く入れすぎる | rule または TF-IDF baseline を残す |
-| sarcasm/mixed sentiment errors を隠す | known limitations として記録する |
+| ラベルが曖昧 | 学習前にラベルルールを書く |
+| accuracy だけ報告する | エラー分類と例を含める |
+| 否定語を無視する | `not`、`never`、`no` のケースをテストする |
+| 深層モデルを早く入れすぎる | ルールまたは TF-IDF の基準モデルを残す |
+| 皮肉や混合感情のエラーを隠す | 既知の制約として記録する |
 
 ## 練習
 
-1. `"not clear"` と `"never useful"` を validation examples に追加してください。
-2. rule では分類できない `other` bucket example を追加してください。
-3. project plan で keyword counts を TF-IDF に置き換えてください。
-4. `neutral` の label rule を書いてください。ただし model にはまだ追加しないでください。
-5. この project の README outline を作ってください。
+1. `"not clear"` と `"never useful"` を検証例に追加してください。
+2. ルールでは分類できない `other` の分類例を追加してください。
+3. プロジェクト計画でキーワード数を TF-IDF に置き換えてください。
+4. `neutral` のラベルルールを書いてください。ただしモデルにはまだ追加しないでください。
+5. このプロジェクトの README アウトラインを作ってください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `"not clear"` は neutral または uncertain に近く、`"never useful"` は negative と考えるのが自然です。この 2 つは否定表現と弱い感情を扱えるかの確認になります。
+2. よい `other` 例は、皮肉、言語の混在、配送や価格の話で感情が明確でない文などです。曖昧な入力を無理に間違ったラベルへ入れないことが目的です。
+3. TF-IDF は classifier の前の feature extraction step になります。計画には vocabulary、vectorization、train/validation split、metrics を書きます。
+4. 単純な `neutral` ルールとして、強い positive/negative keyword がない文、または正負の手がかりが相殺される文を扱えます。評価できるまではモデルに混ぜず分けておきます。
+5. README には task definition、labels、dataset examples、baseline、metric、error examples、次の model upgrade を含めます。
+
+</details>
 
 ## まとめ
 
-- Sentiment project は label boundaries と error analysis で決まります。
-- Simple baseline は explainable なので有用です。
-- Negation は古典的な最初の failure type です。
-- Error buckets は単一の accuracy score より project value を見せられます。
+- 感情分析プロジェクトはラベル境界とエラー分析で決まります。
+- 単純な基準モデルは説明しやすいので有用です。
+- 否定表現は古典的な最初の失敗タイプです。
+- エラー分類は単一の正解率よりプロジェクトの価値を見せられます。

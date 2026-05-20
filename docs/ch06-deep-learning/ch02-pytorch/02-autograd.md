@@ -317,6 +317,16 @@ This prevents the most common misconception: `backward()` is not the update. It 
 3. Change `lr` to `0.5` and `0.005`. Which one is unstable, and which one is slow?
 4. Store `loss` itself in a list for 200 epochs, then store `loss.item()` instead. Why is the second safer?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `w` should move toward `3`, and `b` should move toward `-2`. Small differences are normal if the data has noise or training stops early.
+2. Gradients accumulate by default. Without `zero_()`, each update mixes the current gradient with previous gradients, so the step size effectively becomes wrong and training can become unstable.
+3. `lr=0.5` is more likely to overshoot or diverge. `lr=0.005` is usually slow because every update is tiny.
+4. Saving `loss` tensors can keep references to computation graphs and waste memory. `loss.item()` stores only the Python number, which is safer for logging.
+
+</details>
+
 ## Key Takeaways
 
 - Autograd records the computation graph from parameters to loss.

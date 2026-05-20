@@ -384,6 +384,18 @@ Use attention weights as a debugging and inspection tool, not as complete causal
 5. Explain why attention is easier than a plain RNN for long-distance token interactions.
 6. Describe one case where attention weights are useful but not a full explanation.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The changed token becomes more similar to queries that point in the first feature direction, so those queries should give it more attention weight. The exact numbers depend on the full dot-product table.
+2. Changing only `W_v` changes the value vectors and final attention outputs. The attention scores and weights stay the same because they come from queries and keys.
+3. A causal `4 x 4` mask should allow each position to see itself and earlier positions while blocking future positions.
+4. The final output shape should still be `[batch, seq, embed_dim]`. What changes is how the model splits the embedding dimension across heads.
+5. Attention gives each token a direct path to every other visible token, while a plain RNN must pass information through many sequential steps.
+6. Attention weights can suggest which tokens influenced a layer, but they are not a full explanation because value projections, residual paths, later layers, and output heads also shape the final answer.
+
+</details>
+
 ## Key Takeaways
 
 - Attention lets tokens directly select relevant context.

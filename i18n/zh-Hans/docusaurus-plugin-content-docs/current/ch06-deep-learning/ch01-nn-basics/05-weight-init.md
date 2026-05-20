@@ -328,6 +328,15 @@ with torch.no_grad():
 2. 把 `MoonMLP` 里的 ReLU 改成 Tanh。Xavier 会不会更有竞争力？
 3. 把 Adam 改成 `lr=0.1` 的 SGD。哪种初始化更脆？
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 更深的探针通常会先暴露不稳定初始化。过大或朴素随机初始化更容易让激活值或梯度爆炸/消失，往往比 He initialization 更早失败。
+2. 会更有竞争力。Xavier initialization 更适合 Tanh 这类近似对称激活；如果使用 ReLU 系列激活，He initialization 通常是更稳的默认选择。
+3. 使用 `SGD(lr=0.1)` 时，最脆的是激活和梯度尺度控制不好的初始化。常见现象是 loss 来回震荡、不明显下降，甚至突然发散。
+
+</details>
+
 ## 小结
 
 - 初始化是前向信号和反向梯度的起跑条件。

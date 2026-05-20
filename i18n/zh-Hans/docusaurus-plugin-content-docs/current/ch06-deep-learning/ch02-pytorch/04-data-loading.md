@@ -377,7 +377,7 @@ loss_expected_target_shape: ...
 | 训练前不打印一个 batch | shape bug 会拖到模型里才暴露 | 检查 `next(iter(loader))` |
 | 训练集 `shuffle=False` | 有序数据可能让更新偏向某些样本 | 训练 loader 使用 `shuffle=True` |
 | 需要稳定查看验证样本时还用 `shuffle=True` | 每次样本顺序都变 | 验证/测试保持确定性 |
-| 忘记缩放目标值 | 小 demo 的回归 loss 可能很大 | 必要时缩放目标并说明原因 |
+| 忘记缩放目标值 | 小示例的回归 loss 可能很大 | 必要时缩放目标并说明原因 |
 
 ## 快速排错清单
 
@@ -402,6 +402,16 @@ print(batch_y.shape, batch_y.dtype)
 2. 把 `batch_size` 改成 `1`、`2`、`4`。每个 epoch 有多少个 batch？
 3. 设置 `shuffle=True`，连续两个 epoch 打印第一个训练 batch，看顺序是否变化。
 4. 给每个样本加第三个特征。模型哪一层必须修改？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. training loader 应该看到 9 个样本，validation loader 应该看到 3 个样本。比较模型时要保持切分固定，否则 validation 结果不容易解释。
+2. 在 9 个训练样本且默认 `drop_last=False` 时，batch 数分别是 `9`、`5`、`3`。样本数不能整除 `batch_size` 时，最后一个 batch 会更小。
+3. `shuffle=True` 后，两个 epoch 的第一个训练 batch 通常会不同。validation 数据通常不 shuffle，因为评估结果要方便对比。
+4. 第一个读取输入特征的层必须把 `in_features` 从 `2` 改成 `3`；dataset tensor shape 和归一化代码也要一致。
+
+</details>
 
 ## 小结
 

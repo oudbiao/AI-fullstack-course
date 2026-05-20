@@ -328,6 +328,15 @@ If the output is not finite, or if every value is almost the same, inspect initi
 2. Replace ReLU with Tanh in `MoonMLP`. Does Xavier become more competitive?
 3. Change Adam to SGD with `lr=0.1`. Which initialization becomes more fragile?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A deeper probe usually exposes unstable initialization first. Too-large or naive random initialization tends to make activations or gradients explode or vanish before He initialization does.
+2. Yes, Xavier often becomes more competitive with Tanh because it was designed for roughly symmetric activations. He initialization is usually the better default for ReLU-style activations.
+3. With `SGD(lr=0.1)`, the fragile cases are the ones with poor activation and gradient scale. The usual symptom is oscillating loss, no clear improvement, or sudden divergence.
+
+</details>
+
 ## Key Takeaways
 
 - Initialization is the starting condition for forward signals and backward gradients.

@@ -1,43 +1,43 @@
 ---
 title: "6.8.2 プロジェクト：画像分類システム"
 sidebar_position: 1
-description: "label definition、dataset split、baseline、confusion matrix、error cases、portfolio packaging を含む画像分類 project loop を作ります。"
+description: "ラベル定義、データ分割、ベースライン、混同行列、エラー例、成果物化を含む画像分類プロジェクトの流れを作ります。"
 keywords: [image classification project, CNN, confusion matrix, error analysis, computer vision]
 ---
 
 # 6.8.2 プロジェクト：画像分類システム
 
 :::tip この節の位置づけ
-画像分類 project が portfolio として伝わるのは、モデル名が高度だからではありません。他の人が label を理解し、baseline を動かし、metrics を見て、failure を確認できるからです。
+画像分類プロジェクトが成果物として伝わるのは、モデル名が高度だからではありません。他の人がラベルを理解し、ベースラインを動かし、指標を見て、失敗例を確認できるからです。
 :::
 
 ## 学習目標
 
-- class boundary が明確な分類 task を定義できる。
-- train/validation/test の evidence を整理できる。
-- 予測を出す小さな baseline を動かせる。
-- confusion matrix を作り、error cases を取り出せる。
-- 実際の CNN や transfer-learning project で何を見せるべきか分かる。
+- クラス境界が明確な分類タスクを定義できる。
+- train/validation/test の証拠を整理できる。
+- 予測を出す小さなベースラインを動かせる。
+- 混同行列を作り、エラー例を取り出せる。
+- 実際の CNN や転移学習プロジェクトで何を見せるべきか分かる。
 
 ---
 
-## まず Project Loop を見る
+## まずプロジェクトの流れを見る
 
-![画像分類 project closed loop](/img/course/ch06-project-image-classification-loop-ja.webp)
+![画像分類プロジェクトの閉ループ](/img/course/ch06-project-image-classification-loop-ja.webp)
 
 ```text
 labels -> data split -> baseline -> metrics -> error cases -> next data/model action
 ```
 
-topic は次を満たすものにします。
+題材は次を満たすものにします。
 
-- class boundary が明確。
-- data を実際に集められる。
-- mistake を説明できる。
+- クラス境界が明確。
+- データを実際に集められる。
+- 間違いを説明できる。
 
-最初から数百の細かい class や、人間でも意見が割れる label にはしない方が安全です。
+最初から数百の細かいクラスや、人間でも意見が割れるラベルにはしない方が安全です。
 
-## Project Plan Template
+## プロジェクト計画テンプレート
 
 ```python
 from dataclasses import dataclass, field
@@ -65,11 +65,11 @@ plan = CVProjectPlan(
 print(plan)
 ```
 
-これは project の境界を決める object です。これを埋められないなら、model choice はまだ早いです。
+これはプロジェクトの境界を決めるオブジェクトです。これを埋められないなら、モデル選択はまだ早いです。
 
-## 実験：Prototype Baseline と Confusion Matrix
+## 実験：プロトタイプ基準モデルと混同行列
 
-この toy example は、実画像の代わりに 3 つの pseudo-features を使います。あとで CNN でも使う evaluation loop を学ぶためのものです。
+この小さな例では、実画像の代わりに 3 つの疑似特徴量を使います。あとで CNN でも使う評価ループを学ぶためのものです。
 
 `image_project_baseline.py` を作成します。
 
@@ -168,36 +168,36 @@ accuracy: 0.75
 errors: [{'gold': 'dog', 'pred': 'cat'}]
 ```
 
-![画像分類 prototype baseline 結果図](/img/course/ch06-image-classification-prototype-result-map-ja.webp)
+![画像分類プロトタイプ基準モデルの結果図](/img/course/ch06-image-classification-prototype-result-map-ja.webp)
 
-error の読み方：
+エラーの読み方：
 
-- 最後の `dog` sample は `cat` prototype に近いです。
-- confusion matrix は `dog -> cat` を示しています。
-- 次の action は、すぐ大きな model にすることではありません。dog images に cat-like な背景、pose、label 問題がないか確認します。
+- 最後の `dog` サンプルは `cat` プロトタイプに近いです。
+- 混同行列は `dog -> cat` を示しています。
+- 次のアクションは、すぐ大きなモデルにすることではありません。dog 画像に cat らしい背景、姿勢、ラベル問題がないか確認します。
 
-## 実 project の Upgrade Path
+## 実プロジェクトの拡張ルート
 
-| Version | 追加するもの | 見せる evidence |
+| バージョン | 追加するもの | 見せる証拠 |
 |---|---|---|
-| baseline | small CNN または transfer-learning baseline | train/val curves, accuracy |
-| evaluation | confusion matrix と error samples | class-level mistakes |
-| robustness | augmentation と leakage checks | before/after comparison |
-| portfolio | README と demo command | reproducible run |
+| ベースライン | small CNN または転移学習ベースライン | train/val 曲線、accuracy |
+| 評価 | 混同行列とエラーサンプル | クラス単位の間違い |
+| 頑健性 | augmentation と leakage checks | 前後比較 |
+| 成果物 | README とデモコマンド | 再現可能な実行 |
 
-実際の CNN project では、少なくとも次を残します。
+実際の CNN プロジェクトでは、少なくとも次を残します。
 
-- dataset directory screenshot または class count table。
-- train/validation/test split rule。
-- baseline model summary。
-- metric table。
-- confusion matrix。
-- 6 から 12 個の correct/wrong examples。
-- next-step plan。
+- データセットディレクトリのスクリーンショット、またはクラス数の表。
+- train/validation/test の分割ルール。
+- ベースラインモデルの概要。
+- 指標表。
+- 混同行列。
+- 6 から 12 個の正解例と誤答例。
+- 次の改善計画。
 
 ## 残す証拠
 
-画像分類 project では、最低限この evidence を残します。
+画像分類プロジェクトでは、最低限この証拠を残します。
 
 ```text
 label_rules: how classes are defined
@@ -212,23 +212,34 @@ next_action: data, augmentation, model, or split change
 
 | 間違い | 直し方 |
 |---|---|
-| accuracy だけ報告する | confusion matrix と error cases を見せる |
-| fuzzy class を選ぶ | data collection 前に label boundary を定義する |
-| 似た画像が train/test に leak する | 必要なら source や subject で split する |
-| 最初から巨大 model を使う | 小さな baseline を先に作る |
-| failure を隠す | failure を次の improvement の根拠にする |
+| accuracy だけ報告する | 混同行列とエラー例を見せる |
+| 曖昧なクラスを選ぶ | データ収集前にラベル境界を定義する |
+| 似た画像が train/test に漏れる | 必要なら出典や対象で分割する |
+| 最初から巨大モデルを使う | 小さなベースラインを先に作る |
+| 失敗例を隠す | 失敗例を次の改善の根拠にする |
 
 ## 練習
 
-1. `dog` の validation sample を 2 つ追加し、confusion matrix をもう一度作ってください。
-2. 新しい class `hamster` を追加してください。`labels` と matrix はどう変わりますか。
-3. `dog -> cat` error について、考えられる data issue を 1 つ書いてください。
-4. README で prototype baseline を small CNN outline に置き換えてください。
-5. dataset、command、metric、failure cases を含む project checklist を作ってください。
+1. `dog` の検証サンプルを 2 つ追加し、混同行列をもう一度作ってください。
+2. 新しいクラス `hamster` を追加してください。`labels` と行列はどう変わりますか。
+3. `dog -> cat` の誤分類について、考えられるデータ上の問題を 1 つ書いてください。
+4. README でプロトタイプ基準モデルを小さな CNN の概要に置き換えてください。
+5. データセット、実行コマンド、指標、失敗例を含むプロジェクトチェックリストを作ってください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 混同行列の `dog` 行に証拠が増えます。追加サンプルが難しければ dog recall は下がるかもしれません。分かりやすいサンプルなら評価がより安定します。
+2. `labels` に `hamster` を追加し、混同行列は新しい行と列を持つ形に広がります。クラス平均の指標表も新クラスを含める必要があります。
+3. 例として、dog 画像が切り抜かれすぎている、ぼやけている、cat と似た姿勢が多い、dog サンプルが少ない、などが考えられます。大事なのは、エラーをデータ証拠と結びつけることです。
+4. README には、入力サイズ、convolution/ReLU/pooling blocks、classifier head、loss、metric、実行コマンド、期待される出力を書くとよいです。
+5. checklist は再現性を示すものにします。dataset split、training command、metric、confusion matrix、known failure cases、次の改善案を含めます。
+
+</details>
 
 ## まとめ
 
-- 画像分類 project は model name ではなく full loop で評価されます。
-- Confusion matrix は class-level failure を見せます。
-- Error cases は恥ずかしいものではなく project evidence です。
-- 強い portfolio project は、何が改善し、何がまだ失敗するかを見せます。
+- 画像分類プロジェクトはモデル名ではなく、全体の流れで評価されます。
+- 混同行列はクラス単位の失敗を見せます。
+- エラー例は恥ずかしいものではなくプロジェクトの証拠です。
+- 強いポートフォリオプロジェクトは、何が改善し、何がまだ失敗するかを見せます。
