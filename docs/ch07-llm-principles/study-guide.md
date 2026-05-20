@@ -63,4 +63,27 @@ Expected result: your Chapter 7 folder contains prompt versions, fixed eval case
 - Can you explain when missing information calls for RAG instead of a longer Prompt?
 - Can you explain when repeated behavior adaptation might justify fine-tuning?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Treat each term as part of one flow: token and embedding are the representation layer, attention routes context, the context window limits what can be seen at once, pretraining builds the base model, Prompt steers the run, fine-tuning changes behavior with data, and alignment keeps outputs useful and safe.
+2. Keep the same cases, change only one prompt variable, and save both the outputs and the score so the comparison is reproducible instead of anecdotal.
+3. Use a schema or parser to validate structure, required fields, and types. If parsing fails, reject the output instead of reading it as if it were correct.
+4. Use RAG when the answer depends on fresh, private, or citable facts from documents rather than what the model may remember.
+5. Fine-tuning becomes worth considering when the same behavior keeps showing up across many high-quality examples and Prompt plus validation still is not enough.
+
+</details>
+
 If the answer is yes, move to Chapter 8. Chapter 8 will connect these ideas to real LLM applications and RAG systems.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+prompt_versions: at least three versions for one task
+eval_cases: fixed inputs with scores and failure notes
+schema_check: structured output is parsed and validated
+method_choice: Prompt/RAG/fine-tuning/tools decision is written down
+exit_proof: workshop output plus README notes
+```

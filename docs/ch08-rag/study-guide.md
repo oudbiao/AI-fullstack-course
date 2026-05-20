@@ -64,4 +64,27 @@ Expected result: your Chapter 8 project folder contains chunks, retrieval logs, 
 - Can you handle empty retrieval with a no-answer response instead of a guess?
 - Can you compare two RAG versions using the same evaluation questions?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. RAG is different because it retrieves evidence before answering. A longer Prompt still depends on what the model already knows or guesses, while RAG can pull fresh, private, or document-based facts into the answer.
+2. Show the query, top-k chunks, scores, source, and version so someone else can check the retrieval path.
+3. Metadata keeps the source, version, and location attached to each chunk, which makes citation, debugging, and regression analysis possible.
+4. When retrieval is empty, the safest response is a no-answer or needs-more-information reply, not a guess.
+5. Use the same evaluation questions before and after retrieval, chunking, or reranking changes so the comparison stays fair.
+
+</details>
+
 If the answer is yes, move to Chapter 9. Chapter 9 will upgrade the system from answer generation to Agents that can plan, call tools, and recover from failures.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+rag_eval_set: fixed questions with expected evidence
+retrieval_trace: query, chunks, scores, selected evidence
+answer_trace: cited answer and unsupported claim check
+app_trace: request, response, validation, logs
+project_readme: run command, metrics, failures, next action
+```

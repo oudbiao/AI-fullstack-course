@@ -51,6 +51,17 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 - 你能定义停止条件和最大步数吗？
 - 你能解释为什么多 Agent 应该在单 Agent 可靠之后再做吗？
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. Agent 会维持 goal-plan-tool-observation 的闭环，所以系统不只是生成一句回答，而是能执行、观察结果并决定下一步。
+2. 有用的 trace 应该包含 goal、plan step、tool call、input、observation，以及为什么下一步会由这个 observation 触发。
+3. 可以通过 tool allowlist、schema 检查、risk label、最大步数和必要时的人类审批，来拦截高风险或不在白名单里的工具。
+4. 好的停止条件包括成功、没有进展、达到最大步数，或者风险升级。
+5. 先把单 Agent 做稳定，是因为多 Agent 更难追踪、更难调试，也更难安全控制。
+
+</details>
+
 如果答案都是可以，就继续下一方向：部署、多模态 Agent，或课程最终项目。
 
 ## 留下的证据

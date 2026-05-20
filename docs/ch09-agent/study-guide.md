@@ -63,4 +63,27 @@ Expected result: your Chapter 9 project folder contains tool schemas, replayable
 - Can you define a stop condition and maximum step count?
 - Can you explain why multi-agent should come after single-Agent reliability?
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. An Agent keeps a goal-plan-tool-observation loop, so the system can act, inspect the result, and decide the next step instead of only generating one reply.
+2. A useful trace shows the goal, planned step, tool call, input, observation, and why the next step followed from that observation.
+3. Block risky or non-whitelisted tools with a tool allowlist, schema checks, risk labels, maximum step limits, and human approval when needed.
+4. Good stop conditions include success, no progress, max steps reached, or risk escalation.
+5. Single-Agent stability comes first because multi-agent systems are harder to trace, debug, and control safely.
+
+</details>
+
 If the answer is yes, continue to the next direction: deployment, multimodal Agents, or the final course project.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+single_agent_trace: one complete goal-plan-action-observation loop
+tool_contract: schema, permission, error behavior, and observation
+memory_note: what is written, retrieved, forgotten, or updated
+eval_note: success score, safety check, and failure reason
+project_readme: run command, trace, limitations, and next action
+```
