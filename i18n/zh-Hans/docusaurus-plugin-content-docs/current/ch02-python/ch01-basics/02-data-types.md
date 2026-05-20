@@ -514,7 +514,30 @@ print(type(1 + 2.0))    # 整数 + 浮点数 = ？
 print(type("1" + "2"))  # 字符串 + 字符串 = ？
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 个人信息卡应该用到 `str`、`int` 和 `bool`；f-string 里要展示变量值，也可以展示 `age + 1` 这样的表达式。
+2. `37.5` 摄氏度对应 `99.5` 华氏度。把公式保留在代码里，这样修改 `celsius` 时 `fahrenheit` 会自动变化。
+3. 规范化后的邮箱是 `zhangsan@example.com`；去空格并转小写后，`@` 的索引是 `8`，用户名是 `zhangsan`。
+4. 类型输出依次是 `int`、`float`、`str`、`bool`、`NoneType`、`int`、`float`、`str`。
+5. 常见错误是把 `"1" + "2"` 当作数学加法。它其实是字符串拼接，结果是 `"12"`。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

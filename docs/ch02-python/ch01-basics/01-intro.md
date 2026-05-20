@@ -394,7 +394,30 @@ print("World")
 print("Price:", 99.9, "yuan")
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `about_me.py` should run from the terminal and print a clear multi-line introduction. Changing the content should not require changing Python syntax.
+2. The calculator outputs should include `300`, `31.400000000000002` or a close floating-point value, `1024`, `3.4`, `3`, and `2`.
+3. `print("Hello", "World")` inserts a space. `sep="-"` changes the separator, and `end=" "` keeps the next `print()` on the same line.
+4. If the script does not run, check the filename, current folder, Python 3 interpreter, and matching quotes or parentheses.
+5. Keep the command and output as proof, not only the source code.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## Summary
 

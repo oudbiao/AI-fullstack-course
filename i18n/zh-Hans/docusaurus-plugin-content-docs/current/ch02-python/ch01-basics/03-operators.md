@@ -439,7 +439,30 @@ is_triangle = ___
 print(f"边长 {a}, {b}, {c} 能构成三角形吗？{is_triangle}")
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 当 `score = 85` 时，只有“良好”分支应该为真。再用 `95`、`75`、`40` 测试其他分支。
+2. 闰年表达式可以写成 `year % 4 == 0 and year % 100 != 0 or year % 400 == 0`。加括号会更容易读。
+3. 三角形条件是 `a + b > c and a + c > b and b + c > a`。
+4. 至少测试反例和正例：`1, 2, 3` 为假，`3, 4, 5` 为真，`2, 2, 3` 为真。
+5. 较长的逻辑表达式建议加括号，即使运算符优先级本身可以正确执行。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

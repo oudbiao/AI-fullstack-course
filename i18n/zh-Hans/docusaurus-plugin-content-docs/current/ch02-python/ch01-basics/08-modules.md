@@ -524,7 +524,30 @@ pip list
 pip freeze > requirements.txt
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `len(str(math.factorial(100)))` 的结果是 `158`。
+2. `random.sample(range(1, 101), 10)` 应生成 10 个不重复数字；顺序和具体数值每次可能不同。
+3. 倒计时可用 `date(2027, 1, 1) - date.today()`。具体天数会随当前日期变化，所以应保留代码计算，不要硬编码。
+4. `string_tools.py` 应该从同文件夹的另一个脚本中导入。可以测试 `reverse_words("hello world") == "world hello"`，以及回文判断返回 `True` 的例子。
+5. `requests` 测试在网络和 SSL 正常时应返回状态码 `200`。如果失败，记录环境或网络错误，同时仍保留 `pip list` 或 `requirements.txt`。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

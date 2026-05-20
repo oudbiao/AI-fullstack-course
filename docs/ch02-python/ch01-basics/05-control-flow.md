@@ -588,7 +588,30 @@ Print all prime numbers between 1 and 100.
 
 Hint: A prime number is a natural number greater than 1 that can only be divided by 1 and itself.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. In FizzBuzz, check divisibility by `15` first. Otherwise `15` may print `Fizz` or `Buzz` too early.
+2. For a fixed target such as `42`, test the too-small path, too-large path, correct path, non-integer input, and out-of-attempts path.
+3. Triangle patterns can be printed with `for n in range(1, 6): print("*" * n)` and a reversed range for the inverted triangle.
+4. Prime-number code should skip `1` and only print numbers with no divisor from `2` up to `n - 1` or `sqrt(n)`.
+5. Watch off-by-one errors: `range(1, 51)` includes `50`; `range(1, 50)` does not.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## Summary
 

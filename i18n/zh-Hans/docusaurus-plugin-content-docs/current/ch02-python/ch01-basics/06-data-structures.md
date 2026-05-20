@@ -537,7 +537,30 @@ numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
 # 提示：用集合记录已出现的元素
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 成绩统计结果是最高分 `97`、最低分 `73`、平均分 `85.6`。90 分以上可以是 `[92, 95, 97]`，降序排列应以 `[97, 95, 92, ...]` 开头。
+2. 通讯录应按 key 增删改查，例如 `contacts["Ada"] = "ada@example.com"`。
+3. 示例句子的词频中，`the` 应为 `3`，`fox` 应为 `2`，其他词各出现一次。
+4. 保持顺序去重的结果应为 `[3, 1, 4, 5, 9, 2, 6]`，做法是用 `seen` 集合配合结果列表。
+5. 需要顺序时选列表，需要查找时选字典，需要成员判断或去重时选集合，固定记录可选元组。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

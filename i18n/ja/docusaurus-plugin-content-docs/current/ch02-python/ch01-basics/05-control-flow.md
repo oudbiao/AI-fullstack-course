@@ -8,6 +8,18 @@ description: "条件分岐とループ構造を身につける"
 
 ![Python フロー制御の実行パス図](/img/course/ch02-control-flow-paths-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
+
 ## この節の位置づけ
 
 この節では、プログラムに「判断させる」ことと「繰り返し実行させる」ことを学びます。条件分岐とループは、あらゆる自動化スクリプト、データ処理フロー、モデル学習コードの土台です。これらを身につけると、コードはもう上から下へ順番に実行されるだけではなくなります。
@@ -587,6 +599,17 @@ else:
 1 から 100 までの素数をすべて表示してください。
 
 ヒント: 素数とは、1 より大きい自然数で、1 と自分自身でしか割り切れない数です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. FizzBuzz では、先に `15` で割り切れるかを判定します。そうしないと `15` が先に `Fizz` や `Buzz` として出力される可能性があります。
+2. 目標値を `42` に固定する場合は、小さすぎる入力、大きすぎる入力、正解、整数ではない入力、試行回数切れを確認します。
+3. 三角形は `for n in range(1, 6): print("*" * n)` で描けます。逆三角形は逆向きの `range` を使います。
+4. 素数判定では `1` を除外し、`2` から `n - 1` または `sqrt(n)` までに割り切れる数がないものだけを出力します。
+5. 境界ミスに注意します。`range(1, 51)` は `50` を含み、`range(1, 50)` は含みません。
+
+</details>
 
 ---
 

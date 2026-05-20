@@ -573,7 +573,30 @@ guess_number_game(1, 50, 5)  # 范围更小，次数更少
 
 如果你想稳定测试，可以先把 `target = random.randint(min_val, max_val)` 临时改成 `target = 42`。确认函数逻辑没问题后，再改回随机版本。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 温度转换测试应得到：`100` 摄氏度转成 `212.0` 华氏度，`32` 华氏度转成 `0.0` 摄氏度。再加一个如 `37` 摄氏度的往返测试会更稳。
+2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` 应返回最大值 `9`、最小值 `1`、平均值 `4.0`、中位数 `4`。
+3. 空列表返回 `None` 是可以的，前提是调用者会检查；另一种合理设计是抛出 `ValueError`。
+4. 游戏函数成功时应返回 `True`，次数用尽时返回 `False`，这样测试代码可以检查结果。
+5. 除非函数目的就是和用户交互，否则好函数应尽量避免隐藏的输入和输出；纯函数更容易测试。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

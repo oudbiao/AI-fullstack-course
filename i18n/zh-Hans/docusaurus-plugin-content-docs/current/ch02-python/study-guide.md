@@ -19,6 +19,18 @@ keywords: [Python学习指南, Python任务单, 编程基础, JSON, CLI]
 
 如果某个知识点暂时帮不上这个闭环，先浏览，项目需要时再回来。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+program_loop: input, processing, output, and saved state if any
+code_file: Python file or notebook cell that can be rerun
+output: printed result, file result, or user-facing behavior
+failure_check: syntax, path, type, dependency, or control-flow issue
+Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+```
+
 ## 练习清单
 
 | 检查项 | 证据 |
@@ -38,6 +50,17 @@ keywords: [Python学习指南, Python任务单, 编程基础, JSON, CLI]
 | 错误处理 | 故意破坏 `tasks.json`，再让程序恢复，同时不要把错误信息完全藏起来。 |
 | 重构 | 把重复代码移到函数里，并让这个函数的输入和返回值可以在不碰文件的情况下测试。 |
 | 表达交付 | 写一条 README 命令，让新终端不需要猜隐藏步骤也能运行。 |
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 最低通过标准是一个可以重复运行的练习文件夹，里面有小脚本和 workshop 输出，而不是只有截图。
+2. 数据结构说明要讲清取舍，例如用字典保存任务的 `id`、`status`、`due_date`，用列表保存任务的先后顺序。
+3. 重构后的函数应该有清楚的输入和返回值，并且不依赖 `input()` 或文件读取也能测试。
+4. JSON 损坏恢复时，要告诉用户文件被重置或备份，不能静默抹掉数据。
+5. README 合格的标准是：另一个学习者可以创建环境、运行脚本，并看到同样的预期输出。
+
+</details>
 
 ## 可以继续的信号
 

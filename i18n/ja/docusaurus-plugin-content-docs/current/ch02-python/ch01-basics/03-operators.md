@@ -8,6 +8,18 @@ description: "Python におけるさまざまな演算子と式を理解する"
 
 ![演算子と条件分岐のフローチャート](/img/course/ch02-operators-decision-flow-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
+
 ## この節の位置づけ
 
 この節では、データに対して計算や判定を行う方法を学びます。演算子は数学計算だけでなく、モデル指標の計算、条件による絞り込み、ループの判定、データクレンジングのロジックにもよく使われます。変数を組み合わせてプログラムのロジックを作るための、最初の一歩です。
@@ -438,6 +450,17 @@ is_triangle = ___
 
 print(f"辺の長さ {a}, {b}, {c} で三角形を作れますか？ {is_triangle}")
 ```
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `score = 85` のときは「良い」の分岐だけが真になります。`95`、`75`、`40` でも試して他の分岐を確認します。
+2. うるう年の式は `year % 4 == 0 and year % 100 != 0 or year % 400 == 0` のように書けます。括弧を加えるとさらに読みやすくなります。
+3. 三角形の条件は `a + b > c and a + c > b and b + c > a` です。
+4. 反例と正例を両方試します。`1, 2, 3` は false、`3, 4, 5` は true、`2, 2, 3` は true です。
+5. 長い論理式では、優先順位だけに頼らず括弧を使うと読み間違いを減らせます。
+
+</details>
 
 ---
 

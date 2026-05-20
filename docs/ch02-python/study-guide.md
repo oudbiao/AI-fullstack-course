@@ -39,6 +39,29 @@ If a topic does not help this loop yet, skim it first and return later.
 | Refactoring | Move repeated code into a function whose input and return value can be tested without touching files. |
 | Communication | Write a README command that a new terminal can run without guessing hidden setup steps. |
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The minimum pass is a rerunnable folder with small scripts and workshop output, not screenshots alone.
+2. A data-structure note should explain the tradeoff, such as using a dictionary for task `id`, `status`, and `due_date`, but a list for the ordered sequence of tasks.
+3. A refactored function should have clear inputs and a return value, and be testable without calling `input()` or reading a file.
+4. Broken JSON recovery should tell the user the file was reset or backed up. It should not silently erase data.
+5. A README passes when another learner can create the environment, run the script, and see the same expected output.
+
+</details>
+
 ## Ready To Continue
 
 Continue to Chapter 3 when your task manager can add a task, save it, reload it, and explain the run command in a README.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+program_loop: input, processing, output, and saved state if any
+code_file: Python file or notebook cell that can be rerun
+output: printed result, file result, or user-facing behavior
+failure_check: syntax, path, type, dependency, or control-flow issue
+Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+```

@@ -8,6 +8,18 @@ description: "関数の定義、引数、戻り値、スコープを理解する
 
 ![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
+
 ## この節の位置づけ
 
 この節では、くり返し使うロジックを関数にまとめる方法を学びます。関数は、「スクリプトを書く」から「保守しやすいプログラムを書く」へ進むための重要なステップです。さらに、これから学ぶデータ処理の流れ、モデル学習の流れ、Web API のロジックを組み立てる土台にもなります。
@@ -572,6 +584,17 @@ guess_number_game(1, 50, 5)  # 範囲を狭くして、回数を少なくする
 ```
 
 安定してテストしたい場合は、`target = random.randint(min_val, max_val)` を一時的に `target = 42` に変えてください。関数の動きが確認できたら、ランダム版に戻します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 温度変換テストでは、`100` C が `212.0` F、`32` F が `0.0` C になります。`37` C のような往復テストも追加すると安心です。
+2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` は、最大値 `9`、最小値 `1`、平均 `4.0`、中央値 `4` を返します。
+3. 空リストに `None` を返す設計は、呼び出し側が確認するなら妥当です。別案として `ValueError` を送出する方法もあります。
+4. ゲーム関数は、成功時に `True`、試行回数切れで `False` を返すと、テストコードで結果を確認できます。
+5. ユーザー操作そのものが目的でない限り、良い関数は隠れた入力や出力を減らします。純粋関数のほうがテストしやすいです。
+
+</details>
 
 ---
 

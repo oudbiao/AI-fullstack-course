@@ -394,7 +394,30 @@ print("World")
 print("价格:", 99.9, "元")
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `about_me.py` 应该能在终端运行，并打印清楚的多行自我介绍；修改介绍内容时，不应该需要改 Python 语法。
+2. 计算器输出应包含 `300`、`31.400000000000002` 或接近的浮点数、`1024`、`3.4`、`3`、`2`。
+3. `print("Hello", "World")` 会自动插入空格；`sep="-"` 会改变分隔符；`end=" "` 会让下一次 `print()` 接在同一行。
+4. 如果脚本不能运行，先检查文件名、当前目录、Python 3 解释器，以及引号和括号是否配对。
+5. 证据不要只保存代码，还要保留运行命令和输出结果。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

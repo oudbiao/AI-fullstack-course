@@ -82,6 +82,13 @@ saved 1 task(s)
 
 Run it twice. The second run should print `saved 2 task(s)`. That proves the program can save state and read it back.
 
+### How to read this output
+
+- The first run proves the program can create a data file.
+- The second run proves it can read previous state and append new data.
+- `tasks.json` is the real artifact; the printed line is only the quick confirmation.
+- If the count resets to `1`, inspect the working directory and file path first.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -89,6 +96,18 @@ Run it twice. The second run should print `saved 2 task(s)`. That proves the pro
 | Minimum pass | You can write expressions, conditions, loops, and functions that produce the expected output. |
 | Project-ready | The program can persist data, handle one failure path, and explain its inputs and outputs in a README. |
 | Deeper check | You can separate core logic from file/API boundaries, add type hints where they clarify intent, and test one edge case before changing the code. |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+program_loop: input, processing, output, and saved state if any
+code_file: Python file or notebook cell that can be rerun
+output: printed result, file result, or user-facing behavior
+failure_check: syntax, path, type, dependency, or control-flow issue
+Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+```
 
 ## Common Failures
 
@@ -109,5 +128,16 @@ Move to Chapter 3 when you can answer these five questions:
 - What folder is a file path relative to?
 - What is the difference between `print` and `return`?
 - Can another person run your project from the README?
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Program input can be command-line text, user input, a file, or an API response. Output can be printed text, a returned value, a saved file, or a response sent to another program.
+2. A dictionary is better when each item needs named fields or fast lookup by key. A list is better for an ordered collection of similar items.
+3. Relative file paths are resolved from the current working directory, which may not be the script folder. Use `Path.cwd()` and `Path(__file__).resolve()` to check both.
+4. `print()` displays information for humans and returns `None`. `return` sends a value back to the caller so it can be reused, tested, or stored.
+5. A README is ready when a fresh terminal can install dependencies, run the command, and reproduce the expected output without hidden steps.
+
+</details>
 
 For a printable checklist, use [2.0 Study Guide and Task Sheet](./study-guide.md). The next chapter will use Python to process CSV files, analyze data, and connect databases.

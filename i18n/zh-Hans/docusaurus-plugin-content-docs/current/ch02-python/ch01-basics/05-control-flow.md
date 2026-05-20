@@ -588,7 +588,30 @@ else:
 
 提示：质数是大于 1 的自然数，且只能被 1 和自身整除。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. FizzBuzz 要先判断能否被 `15` 整除，否则 `15` 可能会提前输出成 `Fizz` 或 `Buzz`。
+2. 如果把目标数固定为 `42`，至少测试过小、过大、猜中、输入非整数、次数用尽这几条路径。
+3. 三角形图案可以用 `for n in range(1, 6): print("*" * n)` 打印，倒三角则用反向 `range`。
+4. 判断质数时要跳过 `1`，并且只输出从 `2` 到 `n - 1` 或 `sqrt(n)` 都没有约数的数字。
+5. 注意边界错误：`range(1, 51)` 包含 `50`，`range(1, 50)` 不包含 `50`。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
 
 ## 小结
 

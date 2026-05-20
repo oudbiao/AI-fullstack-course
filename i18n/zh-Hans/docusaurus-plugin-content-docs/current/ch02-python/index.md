@@ -82,6 +82,13 @@ print(f"已保存 {len(tasks)} 个任务")
 
 连续运行两次。第二次应该输出 `已保存 2 个任务`，这说明程序已经能保存状态并重新读取。
 
+### 如何读这个输出
+
+- 第一次运行证明程序能创建数据文件。
+- 第二次运行证明程序能读取旧状态，并追加新数据。
+- `tasks.json` 才是真正的产物，打印文本只是快速确认。
+- 如果第二次仍然是 `1`，优先检查当前目录和文件路径。
+
 ## 深度阶梯
 
 | 层级 | 你能证明什么 |
@@ -89,6 +96,18 @@ print(f"已保存 {len(tasks)} 个任务")
 | 最低通过 | 能写出表达式、条件、循环和函数，并得到预期输出。 |
 | 项目可用 | 程序能持久化数据，能处理一条失败路径，并在 README 里说明输入和输出。 |
 | 深度检查 | 能把核心逻辑和文件/API 边界分开，在有助理解的地方加类型提示，并在改代码前验证一个边界情况。 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+program_loop: input, processing, output, and saved state if any
+code_file: Python file or notebook cell that can be rerun
+output: printed result, file result, or user-facing behavior
+failure_check: syntax, path, type, dependency, or control-flow issue
+Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+```
 
 ## 常见失败
 
@@ -109,5 +128,16 @@ print(f"已保存 {len(tasks)} 个任务")
 - 文件路径是相对于哪个文件夹？
 - `print` 和 `return` 有什么区别？
 - 其他人能不能按 README 运行你的项目？
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 程序输入可以来自命令行文本、用户输入、文件或 API 响应；输出可以是打印文本、函数返回值、保存的文件，或发送给另一个程序的响应。
+2. 当每个项目需要命名字段，或需要按键快速查找时，字典更合适；当你需要保存一组有顺序的相似项目时，列表更合适。
+3. 相对路径以当前工作目录为基准，不一定是脚本所在目录。可以用 `Path.cwd()` 和 `Path(__file__).resolve()` 分别确认。
+4. `print()` 是把信息显示给人看，返回值通常是 `None`；`return` 是把值交还给调用者，方便继续使用、测试或保存。
+5. README 合格的标准是：一个新终端可以安装依赖、运行命令，并复现预期输出，不需要猜隐藏步骤。
+
+</details>
 
 需要打印式清单时，打开 [2.0 学习指南与任务单](./study-guide.md)。下一章会继续用 Python 处理 CSV、分析数据并连接数据库。

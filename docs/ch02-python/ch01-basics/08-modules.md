@@ -94,6 +94,18 @@ Recommended approaches:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+concept: variable, type, operator, input/output, branch, loop, structure, function, or module
+code: smallest runnable Python snippet for the concept
+output: printed value, type, branch result, loop trace, or returned value
+failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
+Expected_output: code plus printed result that proves the concept works
+```
+
 ## Common Python Standard Libraries
 
 Python comes with many useful modules built in. After installing Python, you can use them right away without any extra installation.
@@ -523,6 +535,17 @@ pip list
 # 4. Export the dependency list
 pip freeze > requirements.txt
 ```
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `len(str(math.factorial(100)))` returns `158`.
+2. `random.sample(range(1, 101), 10)` should produce 10 unique numbers. The order and values vary each run.
+3. Use `date(2027, 1, 1) - date.today()` for a countdown. The exact day count changes with the current date, so keep the computation in code.
+4. `string_tools.py` should be imported from a separate script in the same folder. Test examples such as `reverse_words("hello world") == "world hello"` and a palindrome check returning `True`.
+5. The `requests` test should return status code `200` when network and SSL are working. If it fails, record the environment or network error and still keep `pip list` or `requirements.txt`.
+
+</details>
 
 ---
 
