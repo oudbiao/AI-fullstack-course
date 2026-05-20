@@ -424,6 +424,18 @@ Predictions are identical: True
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## よくあるエラーと直し方
 
 | エラー / 症状 | よくある原因 | 修正方法 |
@@ -446,6 +458,20 @@ Predictions are identical: True
 6. 混同行列を描く。
 7. 交差検証で `C` を調整する。
 8. `joblib` で保存し、再読み込みする。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `load_iris()` では 150 行、4 個の数値特徴量、3 個のクラス名が得られます。`X.shape[0]` と `y.shape[0]` が違うなら、特徴量とラベルの分離が間違っています。
+2. 散布図では、特徴量の組み合わせによってクラスの分かれやすさが違うことを確認します。これは構造確認であり、モデル性能の証明ではありません。
+3. `stratify=y` は train/test のクラス比を安定させます。Iris のように比較的均衡したデータでも、この習慣を残します。
+4. `Pipeline` には `StandardScaler()` と `LogisticRegression(...)` の両方を入れます。標準化のパラメータは訓練データからだけ学ばせます。
+5. 訓練 accuracy とテスト accuracy は近いのが望ましいです。訓練だけ高いなら、過学習や分割の不安定さを疑います。
+6. 混同行列は、どのクラス同士が混ざるかを示します。モデルを変える前に、まず混同のパターンを読みます。
+7. `C` は訓練側の交差検証で選び、テストセットは最後に一度だけ確認します。テストスコアを何度も見て `C` を選ばないようにします。
+8. `joblib` で再読み込みした後、予測は元のモデルと一致するはずです。信頼できるシリアライズ済みファイルだけを読み込みます。
+
+</details>
 
 ## この節で持ち帰ってほしいこと
 

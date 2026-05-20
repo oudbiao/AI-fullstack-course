@@ -357,6 +357,17 @@ This will turn the project from “a classification task” into “a work that 
 - [ ] Analyze feature importance and provide business recommendations
 - [ ] Compare multiple models with ROC curves
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Start by reporting the positive-class ratio. If churn is rare, accuracy can look good while the model misses most churn customers.
+2. Compare class weights and SMOTE under the same validation protocol. If oversampling is used, it must happen inside the training workflow to avoid leakage.
+3. F1 and AUC are useful, but the threshold decision should be tied to business cost: missed churn versus false alarm outreach.
+4. Feature importance is a starting point for business hypotheses, not causal proof. Explain what action each important feature suggests.
+5. A strong deliverable includes class distribution, baseline comparison, ROC or PR curve, threshold explanation, confusion matrix, and retention recommendations.
+
+</details>
+
 ## Version roadmap suggestion
 
 | Version | Goal | Delivery focus |
@@ -366,3 +377,15 @@ This will turn the project from “a classification task” into “a work that 
 | Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failed-case analysis, and next-step roadmap |
 
 It is recommended to finish the basic version first; do not chase a large and all-inclusive solution from the beginning. Each time you upgrade a version, make sure to write in the README what new capability was added, how it was validated, and what problems still remain.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```

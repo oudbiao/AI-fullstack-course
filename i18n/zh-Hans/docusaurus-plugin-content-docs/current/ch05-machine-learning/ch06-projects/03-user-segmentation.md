@@ -132,7 +132,7 @@ flowchart LR
 
 这条完整链，而不是先被图带着走。
 
-## Step 1：生成 RFM 数据
+## 步骤 1：生成 RFM 数据
 
 ```python
 import pandas as pd
@@ -160,7 +160,7 @@ print(df.describe())
 | **F**requency | 购买频次 | 越大越好（常客） |
 | **M**onetary | 总消费金额 | 越大越好（高消费） |
 
-### Step 1.1 为什么 RFM 特别适合当第一个聚类项目
+### 步骤 1.1 为什么 RFM 特别适合当第一个聚类项目
 
 因为它有两个很适合新人的优点：
 
@@ -177,7 +177,7 @@ print(df.describe())
 
 ---
 
-## Step 2：特征标准化与聚类
+## 步骤 2：特征标准化与聚类
 
 ```python
 from sklearn.preprocessing import StandardScaler
@@ -216,7 +216,7 @@ plt.show()
 
 ---
 
-## Step 3：聚类与可视化
+## 步骤 3：聚类与可视化
 
 ```python
 from sklearn.decomposition import PCA
@@ -241,7 +241,7 @@ plt.title('用户分群（PCA 投影）')
 plt.show()
 ```
 
-### Step 3.1 PCA 图最该怎么解释
+### 步骤 3.1 PCA 图最该怎么解释
 
 这张图的作用主要是帮助你：
 
@@ -258,7 +258,7 @@ plt.show()
 
 ---
 
-## Step 4：聚类结果解读
+## 步骤 4：聚类结果解读
 
 ```python
 # 各群体的 RFM 统计
@@ -296,7 +296,7 @@ plt.show()
 
 ---
 
-## Step 5：业务建议
+## 步骤 5：业务建议
 
 ```python
 # 根据聚类特征给出标签和建议
@@ -322,7 +322,7 @@ for i in range(best_k):
     print(f"    建议: {suggestion}")
 ```
 
-### Step 5.1 给群体命名时，一个很实用的模板
+### 步骤 5.1 给群体命名时，一个很实用的模板
 
 可以按下面这个模板来命名：
 
@@ -375,6 +375,17 @@ for i in range(best_k):
 - [ ] 分析各群体的 RFM 特征
 - [ ] 给出可执行的业务建议
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. RFM 特征必须有明确观察窗口。没有时间窗口，recency 和 frequency 就很难解释。
+2. K-Means 前要标准化 RFM，否则 monetary 的数值尺度可能主导距离。
+3. 选 K 要同时看证据和可用性：肘部法/轮廓系数是一部分，能否形成可命名、可行动的群体也很重要。
+4. PCA 只是可视化辅助，不是完整聚类证明。真正的解释证据应该是每个群体的画像表。
+5. 业务建议必须匹配群体画像。如果聚类不稳定或不可行动，诚实结论应该是先补特征，而不是强行给策略。
+
+</details>
+
 ## 版本路线建议
 
 | 版本 | 目标 | 交付重点 |
@@ -384,3 +395,15 @@ for i in range(best_k):
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```

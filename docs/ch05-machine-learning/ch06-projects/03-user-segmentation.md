@@ -373,6 +373,17 @@ The advantage of this naming style is that business stakeholders can immediately
 - [ ] Analyze the RFM characteristics of each group
 - [ ] Provide actionable business recommendations
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. RFM features need a clear observation window. Without a time window, recency and frequency are hard to interpret.
+2. Standardize RFM before K-Means because monetary scale can otherwise dominate distance.
+3. Choose K with both evidence and usefulness: elbow/silhouette scores plus cluster profiles that can be named and acted on.
+4. PCA is a visualization aid. Do not treat the 2D chart as the full clustering proof; keep the profile table as the main evidence.
+5. Business recommendations should match the group profile. If clusters are unstable or not actionable, the honest answer is to improve features before acting.
+
+</details>
+
 ## Suggested version roadmap
 
 | Version | Goal | Delivery focus |
@@ -382,3 +393,15 @@ The advantage of this naming style is that business stakeholders can immediately
 | Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure case analysis, and next-step roadmap |
 
 It is recommended to finish the basic version first; do not chase a large all-in-one solution at the beginning. Every time you improve a version, be sure to write in the README: “What new capability was added, how was it verified, and what problems still remain.”
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```

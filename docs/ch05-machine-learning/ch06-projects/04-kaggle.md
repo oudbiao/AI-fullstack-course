@@ -256,6 +256,18 @@ In this way, Kaggle will not lead you into “just chasing rankings,” but inst
 
 It is recommended to finish the basic version first. Do not try to make everything complete from the start. Each time you level up, write into the README what new capabilities were added, how they were verified, and what issues remain.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```
+
 ## Summary
 
 | Key Point | Description |
@@ -275,3 +287,14 @@ Register an account on Kaggle, join the Titanic competition, and use all the ski
 ### Challenge 2: House Prices Practice
 
 Join Kaggle’s House Prices competition, use a larger dataset to practice regression tasks, and focus on missing value handling and high-dimensional categorical feature encoding.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For Titanic, reaching 0.80+ is a stretch target. The real learning target is a reproducible baseline, feature iteration, validation record, and submission log.
+2. Use `Pipeline` or an equivalent reproducible workflow so preprocessing is applied consistently. Never use test labels or leaderboard feedback as if it were validation data.
+3. Change one major factor per submission and record what changed, local validation score, public score, and your interpretation.
+4. For House Prices, prioritize missing-value strategy, categorical encoding, and cross-validation before trying complex ensembles.
+5. Studying notebooks is useful only if you can explain why an idea works and adapt it to your own pipeline.
+
+</details>

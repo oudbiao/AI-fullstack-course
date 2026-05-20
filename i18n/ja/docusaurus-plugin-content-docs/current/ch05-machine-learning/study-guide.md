@@ -19,6 +19,18 @@ keywords: [機械学習学習ガイド, sklearn, 機械学習プロジェクト,
 
 どのモデルを使うか迷ったら、まず baseline から始めます。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+modeling_loop: data, features, model, metric, error review, and next experiment
+artifact: code, score, chart, pipeline, or project README
+failure_check: leakage, metric mismatch, unstable split, overfitting, or unclear business target
+next_action: one controlled experiment rather than many parameter changes
+Expected_output: reproducible ML evidence that prepares for deep learning
+```
+
 ## 練習チェックリスト
 
 | チェック | 証拠 |
@@ -29,6 +41,18 @@ keywords: [機械学習学習ガイド, sklearn, 機械学習プロジェクト,
 | タスクに合う指標を選べる | 指標メモ |
 | エラーサンプルを確認できる | エラー記録 |
 | 証拠パックワークショップを完了できる | `ml_workshop_run/` |
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 問題メモでは、回帰、分類、クラスタリング、評価、特徴量エンジニアリングのどれか、そして成功条件を書きます。
+2. 安全な分割メモでは、いつデータを分けたか、どの前処理を訓練データだけで fit したかを説明します。
+3. baseline 比較には、dummy または単純モデルと、より強いモデルを同じ評価方法で入れます。
+4. 指標メモでは、タスク目標からなぜその指標を選んだかを説明します。不均衡分類では accuracy だけでは不十分です。
+5. エラーサンプルは、単なるスクリーンショットではなく次の行動に変えます。良い次の行動は、特徴量、データ、しきい値、モデルの制御された変更です。
+6. 他の人が evidence pack を再実行し、モデリング判断を理解できるなら、第 6 章へ進めます。
+
+</details>
 
 ## 証拠基準
 

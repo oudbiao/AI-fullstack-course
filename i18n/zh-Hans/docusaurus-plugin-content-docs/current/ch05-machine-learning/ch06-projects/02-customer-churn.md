@@ -131,7 +131,7 @@ flowchart LR
 - 采样
 - 还是阈值策略
 
-## Step 1：模拟数据
+## 步骤 1：模拟数据
 
 ```python
 import pandas as pd
@@ -159,7 +159,7 @@ print(f"流失客户: {df['流失'].sum()}, 留存客户: {(1-df['流失']).sum(
 
 ---
 
-## Step 2：不平衡数据处理
+## 步骤 2：不平衡数据处理
 
 ![客户流失不平衡与阈值图](/img/course/ch05-churn-imbalance-threshold-map.webp)
 
@@ -205,7 +205,7 @@ AUC: 0.9681
 
 读这段输出时，要和上面的图一起看：`accuracy` 很高，但真正的业务问题在 `流失` 这一行。`recall=0.73` 说明模型仍然漏掉了一部分真实流失客户。如果漏掉流失客户代价更高，下一步不一定是“换更大的模型”，也可能是复查阈值、调整类别权重，或用 SMOTE Pipeline 做对比。
 
-### Step 2.1 为什么不要一开始就上 SMOTE
+### 步骤 2.1 为什么不要一开始就上 SMOTE
 
 更稳的顺序通常是：
 
@@ -242,7 +242,7 @@ except ImportError:
 
 ---
 
-## Step 3：特征重要性与业务洞察
+## 步骤 3：特征重要性与业务洞察
 
 ```python
 # 特征重要性
@@ -267,7 +267,7 @@ for i, feat in enumerate(reversed(top3), 1):
 
 ---
 
-## Step 4：ROC 对比
+## 步骤 4：ROC 对比
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -297,7 +297,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### Step 4.1 这一步最值得再补什么
+### 步骤 4.1 这一步最值得再补什么
 
 如果想把这题做得更像真实业务项目，最值得补的是：
 
@@ -357,6 +357,17 @@ plt.show()
 - [ ] 分析特征重要性，给出业务建议
 - [ ] ROC 曲线多模型对比
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 先报告正类比例。如果流失客户很少，accuracy 可能很好看，但模型其实漏掉了大多数流失客户。
+2. 类别权重和 SMOTE 要在同一个验证方案下比较。如果使用过采样，必须放在训练流程内部，避免泄漏。
+3. F1 和 AUC 都有价值，但阈值选择要回到业务成本：漏掉流失客户和误报触达哪个代价更高。
+4. 特征重要性只能作为业务假设起点，不等于因果证明。每个重要特征都要说明它可能对应什么行动。
+5. 好的交付物应包含类别分布、baseline 对比、ROC 或 PR 曲线、阈值解释、混淆矩阵和留存建议。
+
+</details>
+
 ## 版本路线建议
 
 | 版本 | 目标 | 交付重点 |
@@ -366,3 +377,15 @@ plt.show()
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```

@@ -402,6 +402,18 @@ The most valuable additions are usually:
 
 That makes the project feel more like a real modeling and review effort.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```
+
 ## What You Should Include When Delivering the Project
 
 - A chart of “actual values vs predicted values”
@@ -428,6 +440,17 @@ If you want to turn this into a portfolio page, what matters most is not a long 
 - [ ] Compare at least 3 models
 - [ ] Tune hyperparameters for the best model
 - [ ] Perform residual analysis and feature importance analysis
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. EDA is complete only when distributions, missing values, correlations, and suspicious outliers are recorded with a short modeling implication.
+2. Engineered features should have clear housing meaning, such as area ratios or quality aggregates. If a feature uses future or target-derived information, reject it as leakage.
+3. Compare models with the same split or cross-validation setup. Include a plain baseline so the improved model has something honest to beat.
+4. Hyperparameter tuning should happen after a working baseline. Use validation or cross-validation, and keep the test set for the final check.
+5. Residual analysis should say where the model misses most, such as high-price homes or a region bucket. The next experiment should come from that observation.
+
+</details>
 
 ## Recommended Version Roadmap
 

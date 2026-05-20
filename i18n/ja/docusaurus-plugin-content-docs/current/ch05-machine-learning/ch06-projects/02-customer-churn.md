@@ -71,6 +71,18 @@ flowchart LR
 
 つまり、この問題で本当に練習するのは「どう分類判断をするか」であって、単に「分類モデルを動かすこと」ではありません。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```
+
 ## この問題で本当に練習すること
 
 このプロジェクトの核心は、「分類器を動かすこと」ではなく、次の練習です。
@@ -133,7 +145,7 @@ flowchart LR
 - サンプリング
 - しきい値戦略
 
-## Step 1：ダミーデータを作る
+## ステップ 1：ダミーデータを作る
 
 ```python
 import pandas as pd
@@ -161,7 +173,7 @@ print(f"離脱顧客: {df['離脱'].sum()}, 継続顧客: {(1-df['離脱']).sum(
 
 ---
 
-## Step 2：不均衡データの処理
+## ステップ 2：不均衡データの処理
 
 ![顧客離脱の不均衡としきい値図](/img/course/ch05-churn-imbalance-threshold-map-ja.webp)
 
@@ -207,7 +219,7 @@ AUC: 0.9681
 
 この出力は、上の図と一緒に読みます。`accuracy` は高いですが、業務上の焦点は `離脱` の行です。`recall=0.73` は、実際に離脱する顧客をまだ一部見逃しているという意味です。離脱の見逃しが高コストなら、次の実験は単に「大きいモデルを試す」ではありません。しきい値の見直し、クラス重みの調整、または SMOTE Pipeline との比較が候補になります。
 
-### Step 2.1 なぜ最初から SMOTE を使わないのか
+### ステップ 2.1 なぜ最初から SMOTE を使わないのか
 
 より安定した順番は、たいてい次の通りです。
 
@@ -244,7 +256,7 @@ except ImportError:
 
 ---
 
-## Step 3：特徴量重要度とビジネス洞察
+## ステップ 3：特徴量重要度とビジネス洞察
 
 ```python
 # 特徴量重要度
@@ -269,7 +281,7 @@ for i, feat in enumerate(reversed(top3), 1):
 
 ---
 
-## Step 4：ROC の比較
+## ステップ 4：ROC の比較
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -299,7 +311,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### Step 4.1 この段階で、さらに足すとよいもの
+### ステップ 4.1 この段階で、さらに足すとよいもの
 
 この問題をより実務らしくするなら、次に足すとよいのは次の内容です。
 
@@ -360,6 +372,17 @@ plt.show()
 - [ ] F1 と AUC で評価する（正解率だけを見ない）
 - [ ] 特徴量重要度を分析し、ビジネス提案を出す
 - [ ] 複数モデルで ROC 曲線を比較する
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 最初に positive class の比率を報告します。離脱が少ない場合、accuracy は高く見えても、多くの離脱顧客を見逃しているかもしれません。
+2. クラス重みと SMOTE は同じ検証方法で比較します。オーバーサンプリングを使う場合は、leakage を避けるため訓練 workflow の内部で行います。
+3. F1 と AUC は有用ですが、しきい値の判断は業務コストに戻します。離脱の見逃しと誤検知のどちらが重いかを説明します。
+4. 特徴量重要度は業務仮説の出発点であり、因果証明ではありません。重要特徴量ごとに、どんな施策につながるかを書きます。
+5. 良い成果物には、クラス分布、baseline 比較、ROC または PR 曲線、しきい値の説明、混同行列、リテンション施策が含まれます。
+
+</details>
 
 ## バージョンの進め方
 

@@ -424,6 +424,18 @@ Only load `joblib` or `pickle` files you trust. Loading serialized Python object
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## Common errors and quick fixes
 
 | Error / symptom | Likely cause | Fix |
@@ -446,6 +458,20 @@ Repeat the whole workflow with `load_iris()`:
 6. Draw a confusion matrix.
 7. Tune `C` with cross-validation.
 8. Save and reload the model with `joblib`.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `load_iris()` should give 150 rows, 4 numeric features, and 3 class names. If `X.shape[0]` and `y.shape[0]` differ, the feature/label split is wrong.
+2. The scatter plot should show that some feature pairs separate the classes better than others. Treat the plot as a structure check, not as proof that the model is good.
+3. `stratify=y` keeps the class ratios stable in train and test, which matters even for a small balanced dataset.
+4. The `Pipeline` should include both `StandardScaler()` and `LogisticRegression(...)` so scaling is fitted only from the training data.
+5. Train and test accuracy should be close. If train is much higher than test, inspect overfitting or an unstable split.
+6. The confusion matrix tells you which class pairs are confused. Use it before changing the model blindly.
+7. Tune `C` with cross-validation on the training side, then check the test set once. Do not pick `C` by repeatedly looking at the test score.
+8. After `joblib` reload, predictions should match the original model. Only load serialized files you trust.
+
+</details>
 
 ## What should you take away from this workshop?
 

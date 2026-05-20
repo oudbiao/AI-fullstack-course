@@ -647,6 +647,18 @@ That is why this example uses `ColumnTransformer` inside `Pipeline`.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```
+
 ## Common Errors and Debugging Loop
 
 ![Machine learning workshop leakage and debugging loop](/img/course/ch05-hands-on-debug-loop-en.webp)
@@ -711,6 +723,18 @@ Before calling your Chapter 5 project done, make sure you have:
 - A threshold or metric explanation
 - Error samples
 - A README with next steps
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A clean run command means someone can create the output folder again without relying on hidden notebook state.
+2. The baseline metric and real model metric should sit in the same comparison table, using the same split and metric.
+3. The leakage check should explicitly confirm that target-derived fields are excluded and preprocessing is fitted inside the training workflow.
+4. The metric or threshold explanation should connect to the task goal, especially when false negatives and false positives have different costs.
+5. Error samples should lead to a next experiment, such as a feature change, label review, segment-specific analysis, or threshold adjustment.
+6. The README is portfolio-ready when it explains what was tried, what improved, what failed, and what you would do next.
+
+</details>
 
 ---
 

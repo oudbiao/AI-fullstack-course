@@ -69,6 +69,29 @@ The workshop comes last because it packages the project habits into one reproduc
 
 Keep these files for at least one project: `README.md`, run command, metric table, experiment log, one failure case, one chart, and a next-step plan.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```
+
 ## Pass Check
 
 You pass this roadmap when you can clearly say: how I defined the task, what baseline I used, which metric I trusted, what improved, where the model failed, and what I would do next.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A complete answer defines the task type, the target, and the success metric before discussing model names.
+2. The baseline should be the simplest repeatable version: fixed split, minimal preprocessing, one model, and one metric table.
+3. An improvement only counts if it is compared against the same split or validation protocol. Changing the split and the model at the same time makes the result hard to trust.
+4. Failure analysis should name at least one segment or sample type where the model is weak, then turn that observation into the next controlled experiment.
+5. A passing project folder should include a run command, README, experiment log, metric table, chart, failure case, and next-step note.
+
+</details>

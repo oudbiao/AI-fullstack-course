@@ -103,7 +103,7 @@ flowchart LR
 
 也就是说，第一版做得“简单但完整”，比一开始就做得“复杂但说不清楚”更有价值。
 
-## Step 1：数据加载与探索
+## 步骤 1：数据加载与探索
 
 ```python
 import pandas as pd
@@ -134,7 +134,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### Step 1.1 这一步最该问什么
+### 步骤 1.1 这一步最该问什么
 
 第一次看数据时，不要只急着画图。先问这几个问题：
 
@@ -149,7 +149,7 @@ plt.show()
 - 特征工程优先做哪几项
 - 误差分析该切哪些维度看
 
-### Step 1.2 一个新人很值得先记的判断
+### 步骤 1.2 一个新人很值得先记的判断
 
 第一次做回归题时，最容易犯的错是：
 
@@ -163,7 +163,7 @@ plt.show()
 
 ---
 
-## Step 2：特征工程
+## 步骤 2：特征工程
 
 ```python
 # 构造新特征
@@ -181,7 +181,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 print(f"训练集: {X_train.shape}, 测试集: {X_test.shape}")
 ```
 
-### Step 2.1 第一次做特征工程时，为什么要克制一点
+### 步骤 2.1 第一次做特征工程时，为什么要克制一点
 
 回归项目里最常见的错误之一，就是一口气构造太多特征，最后自己也说不清到底哪个有效。
 更稳的做法是：
@@ -190,7 +190,7 @@ print(f"训练集: {X_train.shape}, 测试集: {X_test.shape}")
 - 每次加完都和 baseline 对比
 - 如果没有明显收益，就不要因为“看起来高级”而硬留
 
-### Step 2.2 一个更像真实业务的特征思路
+### 步骤 2.2 一个更像真实业务的特征思路
 
 房价问题里很值得优先想到的特征，通常都和“单位成本”和“相对位置”有关，例如：
 
@@ -202,7 +202,7 @@ print(f"训练集: {X_train.shape}, 测试集: {X_test.shape}")
 
 ---
 
-## Step 3：多模型对比
+## 步骤 3：多模型对比
 
 ```python
 from sklearn.linear_model import LinearRegression, Ridge
@@ -241,7 +241,7 @@ ax.grid(axis='y', alpha=0.3)
 plt.show()
 ```
 
-### Step 3.1 模型对比时最该看什么
+### 步骤 3.1 模型对比时最该看什么
 
 不要只看哪个 `R²` 最高。更稳的对比方式是同时看：
 
@@ -254,7 +254,7 @@ plt.show()
 - 你知道为什么它比 baseline 好
 - 你知道好在什么地方
 
-### Step 3.2 一个新人可直接照抄的模型对比表
+### 步骤 3.2 一个新人可直接照抄的模型对比表
 
 | 模型 | 优点 | 第一次做项目时你最该看什么 |
 |---|---|---|
@@ -267,7 +267,7 @@ plt.show()
 
 ---
 
-## Step 4：模型调优
+## 步骤 4：模型调优
 
 ```python
 from sklearn.model_selection import RandomizedSearchCV
@@ -296,7 +296,7 @@ print(f"最佳参数: {rs.best_params_}")
 
 ---
 
-## Step 5：结果分析
+## 步骤 5：结果分析
 
 ![房价残差复盘图](/img/course/ch05-house-price-residual-review-map.webp)
 
@@ -322,7 +322,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### Step 5.1 残差分析比最终分数更能体现你会不会做项目
+### 步骤 5.1 残差分析比最终分数更能体现你会不会做项目
 
 很多人做到这里就停在 `RMSE` 和 `R²`。但真正能拉开项目质量的，往往是残差分析：
 
@@ -336,7 +336,7 @@ plt.show()
 - 换模型
 - 还是重新看数据切分方式
 
-### Step 5.2 再看一个最小“误差分桶”示例
+### 步骤 5.2 再看一个最小“误差分桶”示例
 
 ```python
 errors = pd.DataFrame({
@@ -429,6 +429,17 @@ Name: abs_error, dtype: float64
 - [ ] 对最佳模型做超参数调优
 - [ ] 残差分析和特征重要性分析
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. EDA 完成的标准不是“画过图”，而是记录分布、缺失值、相关性和可疑异常值，并写出它们对建模的影响。
+2. 新特征应该有清楚的房产业务含义，例如面积比例或质量汇总。如果特征来自未来信息或目标派生信息，要当作泄漏排除。
+3. 多模型比较必须使用同一个划分或交叉验证方案。保留一个简单 baseline，才能诚实判断改进是否有效。
+4. 超参数调优应该放在 baseline 跑通之后，用验证集或交叉验证完成，测试集只做最后检查。
+5. 残差分析要说清模型最容易错在哪里，例如高价房或某个区域桶。下一轮实验应该从这个发现出发。
+
+</details>
+
 ## 版本路线建议
 
 | 版本 | 目标 | 交付重点 |
@@ -438,3 +449,15 @@ Name: abs_error, dtype: float64
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
+pipeline: data split, preprocessing, model, evaluation, and report artifacts
+result: metric table, chart, predictions, failure samples, and README note
+failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
+Expected_output: ML project folder with pipeline, metrics, and failure review
+```

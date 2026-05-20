@@ -424,6 +424,18 @@ Predictions are identical: True
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
 ## 常见错误与快速修复
 
 | 错误 / 现象 | 可能原因 | 修复方式 |
@@ -446,6 +458,20 @@ Predictions are identical: True
 6. 画混淆矩阵。
 7. 用交叉验证调 `C`。
 8. 用 `joblib` 保存并重新加载模型。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `load_iris()` 应该得到 150 行、4 个数值特征和 3 个类别名。如果 `X.shape[0]` 和 `y.shape[0]` 不一致，说明特征/标签拆分错了。
+2. 散点图应该让你看到，有些特征组合更能分开类别。它是结构检查，不是模型已经足够好的证明。
+3. `stratify=y` 可以让训练集和测试集的类别比例更稳定，即使 Iris 比较均衡，也建议保留这个习惯。
+4. `Pipeline` 应该同时包含 `StandardScaler()` 和 `LogisticRegression(...)`，这样标准化只会从训练数据学习参数。
+5. 训练和测试准确率应该接近。如果训练明显高、测试低，就要检查过拟合或划分不稳定。
+6. 混淆矩阵告诉你哪些类别容易互相混淆。先看它，再决定是否换模型或改特征。
+7. `C` 应该在训练侧用交叉验证选择，最后只检查一次测试集。不要反复看测试分数来挑 `C`。
+8. `joblib` 重新加载后，预测结果应该和原模型一致。只加载你信任的序列化文件。
+
+</details>
 
 ## 这节最该带走什么
 
