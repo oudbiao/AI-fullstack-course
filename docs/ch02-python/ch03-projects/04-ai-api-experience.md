@@ -418,6 +418,16 @@ Create AI assistants with different roles (Python mentor, English teacher, inter
 
 Let the AI read a local file first (for example, your notes), then answer questions based on the file content.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For streaming, iterate over `response.output_text.delta` events and print each chunk immediately so the reply appears gradually.
+2. Wrap the chatbot in FastAPI only after the direct CLI version works, so you can compare CLI and HTTP behavior clearly.
+3. For role playing, build a role selector that swaps prompts or system instructions while keeping the same chat loop.
+4. For a local knowledge base, load notes or Markdown first, retrieve relevant passages, and then answer with those passages in mind. Showing the source snippet makes the answer easier to trust.
+5. Self-check: confirm that the API key is stored safely, multi-turn memory works, at least one practical tool works, and the key is not hard-coded.
+</details>
+
 ---
 
 ## Project Self-Check Checklist
@@ -459,3 +469,15 @@ Next, we will move into Data Analysis and Visualization 3 — using NumPy, Panda
 | Challenge version | Get close to portfolio quality | Add evaluation, comparison experiments, failed sample analysis, and a next-step roadmap |
 
 It is recommended to finish the basic version first; do not try to make it too large or complete at the beginning. Each time you upgrade a version, be sure to write in the README: "What capabilities were added, how to verify them, and what problems still remain."
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

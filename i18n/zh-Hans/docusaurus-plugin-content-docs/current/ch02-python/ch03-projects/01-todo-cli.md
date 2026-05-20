@@ -342,6 +342,16 @@ class TaskManager:
             self.tasks.append(task)
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 增加 `priority` 字段，例如 `high`、`medium`、`low`，然后在展示前按优先级排序。如果优先级相同，就让较早的 `created_at` 排在前面。
+2. 增加一个 `search(keyword)` 辅助函数，对标题、状态文本和优先级做不区分大小写的匹配。
+3. 输出总任务数、已完成任务数、待办任务数，以及各优先级的数量。这样每次改完都能快速检查输出是否正确。
+4. 重构成 `Task` 模型 + `TaskManager` 类。让类负责 `load`、`save`、`add`、`complete`、`delete` 和 `search`，CLI 只负责输入和打印。
+5. 自查时，重启程序，确认已保存的任务仍然存在，搜索能返回正确子集，完成或删除任务后，界面和 `tasks.json` 都同步更新。
+</details>
+
 ---
 
 ## 项目自查清单
@@ -369,3 +379,15 @@ class TaskManager:
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

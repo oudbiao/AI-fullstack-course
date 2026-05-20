@@ -342,6 +342,16 @@ class TaskManager:
             self.tasks.append(task)
 ```
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. `priority` フィールドを `high` / `medium` / `low` のように追加し、表示前に優先度で並べ替えます。同じ優先度なら、`created_at` が早い順にします。
+2. `search(keyword)` ヘルパーを追加し、タイトル・状態テキスト・優先度を大文字小文字を区別せずに照合します。
+3. 総タスク数、完了済み数、未完了数、優先度ごとの件数を出力します。変更のたびに結果をすぐ確認できます。
+4. `Task` モデル + `TaskManager` クラスにリファクタします。`load`、`save`、`add`、`complete`、`delete`、`search` はクラスが担当し、CLI は入力と表示だけを担当します。
+5. 自己チェックでは、再起動して保存済みタスクが残っていること、検索が正しい部分集合を返すこと、完了や削除の後に画面と `tasks.json` の両方が更新されることを確認します。
+</details>
+
 ---
 
 ## プロジェクト自己チェックリスト
@@ -369,3 +379,15 @@ class TaskManager:
 | チャレンジ版 | ポートフォリオ品質に近づける | 評価、比較実験、失敗例の分析、次のステップの計画を追加する |
 
 まずは基本版を完成させることをおすすめします。最初から何でも入れようとしなくて大丈夫です。バージョンを1つ上げるたびに、「何が新しくできるようになったか」「どうやって確認したか」「まだ何が課題か」を README に書き足していきましょう。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

@@ -36,7 +36,7 @@ python3 learning_assistant_cli.py export
 | `ch02_output/tasks.json` | 保存的学习任务 |
 | `ch02_output/learning_report.md` | 导出的作品集证据 |
 
-## Step 0：创建干净的练习文件夹
+## 步骤 0：创建干净的练习文件夹
 
 在终端运行：
 
@@ -54,7 +54,7 @@ Python 3.12.3
 
 本工作坊使用了 `dataclass`、`list[str]`、`str | None` 等现代 Python 标准库写法。请使用 Python 3.10 或更新版本。
 
-## Step 1：先看懂整段程序要怎么跑
+## 步骤 1：先看懂整段程序要怎么跑
 
 ![CLI 命令执行流程](/img/course/ch02-hands-on-cli-command-flow.webp)
 
@@ -70,7 +70,7 @@ Python 3.12.3
 
 读代码时先记住这张图。你正在做的是一个完整小程序，而不是单独练某个语法点。
 
-## Step 2：创建完整脚本
+## 步骤 2：创建完整脚本
 
 创建 `learning_assistant_cli.py` 文件，然后粘贴下面代码。
 
@@ -253,7 +253,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## Step 3：运行第一个命令
+## 步骤 3：运行第一个命令
 
 ```bash
 python3 learning_assistant_cli.py seed
@@ -281,7 +281,7 @@ ID  Status  Stage  Title
 3   todo    2.3    Build the first CLI command
 ```
 
-## Step 4：添加并完成任务
+## 步骤 4：添加并完成任务
 
 ![JSON 持久化流程](/img/course/ch02-hands-on-json-persistence-flow.webp)
 
@@ -311,7 +311,7 @@ Completed task #2: Practice JSON file saving
 
 这时打开 `ch02_output/tasks.json`，你应该能看到正常的 JSON 数据。时间戳会不同，但任务 `2` 的 `done` 字段应该是 `true`。
 
-## Step 5：查看统计并导出报告
+## 步骤 5：查看统计并导出报告
 
 ```bash
 python3 learning_assistant_cli.py stats
@@ -344,7 +344,7 @@ Exported report to ch02_output/learning_report.md
 
 现在你已经有一个可运行项目，以及一份可以当作作品集证据的小报告。
 
-## Step 6：理解关键代码
+## 步骤 6：理解关键代码
 
 | 代码片段 | 它在训练什么 | 后续为什么重要 |
 |---|---|---|
@@ -354,6 +354,18 @@ Exported report to ch02_output/learning_report.md
 | `save_tasks()` | 把 Python 对象转成 JSON | 这是持久化的最小版本 |
 | 命令函数 | 一个命令对应一个函数 | 大项目依赖清楚的函数边界 |
 | `export_report()` | 把内部数据变成用户能看的输出 | AI 和数据工具经常要生成报告、日志和证据 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```
 
 ## 常见错误与修复
 
@@ -374,6 +386,16 @@ Exported report to ch02_output/learning_report.md
 3. 给 `list` 增加 `--tag` 过滤。
 4. 修改 `export_report()`，让未完成任务排在前面。
 5. 故意弄坏 `tasks.json`，运行 `list`，记录错误信息和修复过程。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `delete` 应该接收 id，删除 `tasks.json` 中对应条目，并输出明确的确认信息。再运行一次 `list`，确认该行真的消失了。
+2. `search` 应该按关键词过滤 `title`，也可以连 `tags` 一起匹配，使用不区分大小写的方式，然后只打印匹配结果。
+3. `--tag` 最适合做成 `list` 的 `argparse` 过滤项，这样命令更通用，不用改保存的数据。
+4. 如果想让报告先突出当前工作，可以让 `export_report()` 把未完成任务排在已完成任务之前。保持格式稳定，diff 会更容易读。
+5. 故意破坏 `tasks.json`，运行 `list`，确认脚本输出清晰的 JSON 错误而不是崩溃。然后修复或删除文件，再重新运行 `seed`。
+</details>
 
 ## 作品集证据清单
 

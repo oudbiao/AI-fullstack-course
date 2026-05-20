@@ -355,6 +355,18 @@ You now have a runnable project and a small report that can be used as portfolio
 | command functions | Keep each command in one function | Larger projects rely on clear function boundaries |
 | `export_report()` | Turn internal data into user-facing output | AI and data tools often need reports, logs, and evidence |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```
+
 ## Common mistakes and fixes
 
 ![Error and debugging map](/img/course/ch02-hands-on-error-debug-map-en.webp)
@@ -374,6 +386,16 @@ You now have a runnable project and a small report that can be used as portfolio
 3. Add a `--tag` filter to `list`.
 4. Change `export_report()` to include unfinished tasks first.
 5. Deliberately break `tasks.json`, run `list`, then write down the error message and your fix.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `delete` should accept an id, remove the matching item from `tasks.json`, and print a clear confirmation. Run `list` again to verify that the row is gone.
+2. `search` should filter by keyword over `title` and optionally `tags`, using case-insensitive matching, then print only the matches.
+3. `--tag` works best as an `argparse` filter on `list`, because it keeps the command reusable without editing the saved data.
+4. `export_report()` can sort unfinished tasks before completed ones if you want the report to highlight current work first. Keep the format stable so diffs stay readable.
+5. Break `tasks.json` deliberately, run `list`, and confirm the script prints a clear JSON error instead of crashing. Then fix or delete the file and rerun `seed`.
+</details>
 
 ## Portfolio evidence checklist
 

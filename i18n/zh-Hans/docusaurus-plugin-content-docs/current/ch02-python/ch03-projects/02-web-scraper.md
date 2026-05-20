@@ -392,6 +392,16 @@ if __name__ == "__main__":
 python scraper.py --pages 10 --output data.json
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 在请求循环外加重试与退避，连续失败 3 次后停止。把重试次数打印出来，便于排查网络问题。
+2. 检测“下一页”链接并持续跟随，直到没有下一页。若担心循环，可记录已访问的 URL。
+3. 使用稳定键去重，例如 quote 文本 + author，或者目标站点提供的唯一 ID/URL。
+4. 为页数和输出路径增加 `argparse` 参数，这样爬虫可以从命令行复用，而不是写死。
+5. 自查：确认爬虫能获取 HTML，能处理临时网络错误，能导出 JSON/CSV，并且没有重复行。
+</details>
+
 ---
 
 ## 项目自查清单
@@ -417,3 +427,15 @@ python scraper.py --pages 10 --output data.json
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

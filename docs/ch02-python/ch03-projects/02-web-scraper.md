@@ -392,6 +392,16 @@ Use `sys.argv` or `argparse` to let users specify the number of pages to scrape 
 python scraper.py --pages 10 --output data.json
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add retry and backoff around the request loop, and stop after three failures. Keep the retry count visible so network problems are easy to debug.
+2. Detect the next-page link and keep following it until there is no next page left. Track visited URLs if you want to guard against loops.
+3. Deduplicate by using a stable key such as quote text plus author, or a unique ID/URL if the target site provides one.
+4. Add `argparse` arguments for page count and output path so the scraper is reusable from the command line instead of being hard-coded.
+5. Self-check: verify that the scraper gets HTML, handles a temporary network error, exports JSON/CSV, and produces no duplicate rows.
+</details>
+
 ---
 
 ## Project Self-Check Checklist
@@ -417,3 +427,15 @@ Web scraping is an important way to collect data. In the AI field, the quality a
 | Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
 It’s recommended to complete the basic version first. Don’t try to make it large and comprehensive from the start. With each version upgrade, write into the README: “What new capability was added, how was it verified, and what problems remain.”
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

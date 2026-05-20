@@ -418,6 +418,16 @@ for event in stream:
 
 让 AI 先读取一个本地文件（比如你的笔记），然后基于文件内容回答问题。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 对流式输出，遍历 `response.output_text.delta` 事件，并立即打印每个片段，让回复逐步显示。
+2. 只有在直接 CLI 版本跑通后，再用 FastAPI 包装聊天机器人，这样更容易对比 CLI 和 HTTP 行为。
+3. 角色扮演时，做一个角色选择器，切换 prompt 或 system instruction，但保留同一套对话循环。
+4. 本地知识库场景下，先加载笔记或 Markdown，再检索相关段落，然后结合这些段落作答。显示来源片段会让答案更可信。
+5. 自查：确认 API Key 已安全保存，多轮记忆有效，至少一个实用工具可用，并且密钥没有硬编码。
+</details>
+
 ---
 
 ## 项目自查清单
@@ -459,3 +469,15 @@ for event in stream:
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

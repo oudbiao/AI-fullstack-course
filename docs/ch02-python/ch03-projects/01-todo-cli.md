@@ -342,6 +342,16 @@ class TaskManager:
             self.tasks.append(task)
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add a `priority` field such as `high`, `medium`, or `low`, then sort tasks by priority before display. If two tasks share the same priority, keep the earlier `created_at` first.
+2. Add a `search(keyword)` helper that checks title, status text, and priority with case-insensitive matching.
+3. Print totals for total tasks, completed tasks, pending tasks, and counts by priority. That gives a quick output check after each change.
+4. Refactor into a `Task` model plus `TaskManager` class. Let the class own `load`, `save`, `add`, `complete`, `delete`, and `search`, while the CLI only handles input and printing.
+5. For self-check, restart the program and confirm that a saved task still exists, search returns the right subset, and completing or deleting a task updates both the screen and `tasks.json`.
+</details>
+
 ---
 
 ## Project Self-Check Checklist
@@ -369,3 +379,15 @@ Although this project is simple, it covers the core elements of software develop
 | Challenge version | Get close to portfolio quality | Add evaluation, comparison experiments, failure-case analysis, and next-step roadmap |
 
 It is recommended to finish the basic version first. Do not aim for something huge right from the start. With each version upgrade, make sure to write in the README what new capability was added, how it was verified, and what issues still remain.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

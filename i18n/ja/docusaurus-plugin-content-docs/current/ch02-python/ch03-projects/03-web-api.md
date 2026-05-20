@@ -378,6 +378,16 @@ GET /tasks?page=1&size=10
 
 先取り学習として、`/predict` エンドポイントを作り、テキスト入力を受け取って感情分析の結果を返してみましょう。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 起動時にタスクを読み込み、作成・更新・削除のたびに保存します。保存する JSON の形はレスポンスに近いほどデバッグしやすくなります。
+2. `/tasks/search` を追加し、タイトルに対して大文字小文字を区別しない部分一致検索を行います。
+3. `page` と `size` を受け取り、返却前にタスクリストをスライスしてページネーションを実装します。
+4. AI エンドポイントは、CRUD API が安定してからの拡張として扱います。同じバリデーションとエラー処理の流儀を再利用すると、新しいルートの挙動が予測しやすくなります。
+5. 自己チェック: `/docs` を開き、`curl` で各エンドポイントを試し、無効な payload で FastAPI の自動 422 バリデーションエラーが返ることを確認します。
+</details>
+
 ---
 
 ## プロジェクト自己チェックリスト
@@ -402,3 +412,15 @@ FastAPI は、AI エンジニアがよく使う Web フレームワークの1つ
 | 発展版 | 作品集レベルに近づける | 評価、比較実験、失敗例の分析、次の改善方針を追加する |
 
 まずは基本版を完成させましょう。最初から全部入りを目指す必要はありません。1つバージョンを上げるたびに、「何が新しくできるようになったか、どうやって確認したか、まだ何が課題か」を README に書き足していきましょう。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

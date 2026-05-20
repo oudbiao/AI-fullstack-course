@@ -378,6 +378,16 @@ GET /tasks?page=1&size=10
 
 Preview for later: create a `/predict` endpoint that accepts text input and returns sentiment analysis results.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. Add persistence by loading tasks at startup and saving after each create, update, or delete. Keeping the stored JSON shape close to the response shape makes debugging simpler.
+2. Add `/tasks/search` with case-insensitive substring matching on the title.
+3. Add pagination by accepting `page` and `size`, then slicing the task list before returning the response.
+4. Treat the AI endpoint as an extension only after the CRUD API is stable. Reuse the same validation and error-handling style so the new route behaves predictably.
+5. Self-check: open `/docs`, test each endpoint with `curl`, and confirm that invalid payloads produce FastAPI's automatic 422 validation errors.
+</details>
+
 ---
 
 ## Project self-checklist
@@ -402,3 +412,15 @@ FastAPI is one of the most commonly used Web frameworks for AI engineers. Many A
 | Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
 It is recommended to finish the basic version first. Do not chase a huge, all-in-one project at the beginning. Each time you upgrade to a new version, write down in the README what new capability was added, how it was verified, and what problems remain.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```

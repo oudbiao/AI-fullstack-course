@@ -36,7 +36,7 @@ python3 learning_assistant_cli.py export
 | `ch02_output/tasks.json` | 保存された学習タスク |
 | `ch02_output/learning_report.md` | ポートフォリオ証拠として使える出力レポート |
 
-## Step 0：きれいな練習フォルダを作る
+## ステップ 0：きれいな練習フォルダを作る
 
 ターミナルで実行します。
 
@@ -54,7 +54,7 @@ Python 3.12.3
 
 このワークショップでは `dataclass`、`list[str]`、`str | None` などの現代的な Python 標準ライブラリ構文を使います。Python 3.10 以降を使ってください。
 
-## Step 1：まずプログラム全体の流れを見る
+## ステップ 1：まずプログラム全体の流れを見る
 
 ![CLI コマンド実行フロー](/img/course/ch02-hands-on-cli-command-flow-ja.webp)
 
@@ -70,7 +70,7 @@ Python 3.12.3
 
 コードを読むときは、この図を頭に置いてください。作っているのは孤立した構文練習ではなく、小さいけれど完成したプログラムです。
 
-## Step 2：完全なスクリプトを作る
+## ステップ 2：完全なスクリプトを作る
 
 `learning_assistant_cli.py` というファイルを作り、次のコードを貼り付けます。
 
@@ -253,7 +253,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## Step 3：最初のコマンドを実行する
+## ステップ 3：最初のコマンドを実行する
 
 ```bash
 python3 learning_assistant_cli.py seed
@@ -281,7 +281,7 @@ ID  Status  Stage  Title
 3   todo    2.3    Build the first CLI command
 ```
 
-## Step 4：タスクを追加し、完了にする
+## ステップ 4：タスクを追加し、完了にする
 
 ![JSON 永続化フロー](/img/course/ch02-hands-on-json-persistence-flow-ja.webp)
 
@@ -311,7 +311,7 @@ Completed task #2: Practice JSON file saving
 
 この時点で `ch02_output/tasks.json` を開くと、通常の JSON データが見えるはずです。タイムスタンプは環境ごとに違いますが、タスク `2` の `done` フィールドは `true` になっているはずです。
 
-## Step 5：統計を表示し、レポートを書き出す
+## ステップ 5：統計を表示し、レポートを書き出す
 
 ```bash
 python3 learning_assistant_cli.py stats
@@ -344,7 +344,7 @@ Exported report to ch02_output/learning_report.md
 
 これで、実行できるプロジェクトと、ポートフォリオ証拠として使える小さなレポートができました。
 
-## Step 6：重要な部分を理解する
+## ステップ 6：重要な部分を理解する
 
 | コード部分 | 何を練習しているか | 後でなぜ重要か |
 |---|---|---|
@@ -354,6 +354,18 @@ Exported report to ch02_output/learning_report.md
 | `save_tasks()` | Python オブジェクトを JSON に変換する | 永続化の最小版 |
 | コマンド関数 | 1 つのコマンドを 1 つの関数に分ける | 大きなプロジェクトは明確な関数境界に依存する |
 | `export_report()` | 内部データをユーザー向けの出力にする | AI ツールやデータツールでは、レポート、ログ、証拠がよく必要になる |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
+run_command: exact command used to start the project
+artifact: output file, API response, JSON record, screenshot, or README note
+failure_check: dependency, network, parsing, route, input validation, or API-key issue
+Expected_output: reproducible mini project folder with run result and one failure case
+```
 
 ## よくあるエラーと直し方
 
@@ -374,6 +386,16 @@ Exported report to ch02_output/learning_report.md
 3. `list` に `--tag` フィルタを追加する。
 4. `export_report()` を変更し、未完了タスクを先に出す。
 5. わざと `tasks.json` を壊し、`list` を実行して、エラーメッセージと修正方法を記録する。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. `delete` は id を受け取り、`tasks.json` から該当アイテムを削除し、明確な確認メッセージを出します。もう一度 `list` を実行して、行が本当に消えたことを確認します。
+2. `search` は `title` をキーワードで絞り込み、必要なら `tags` も対象にし、大文字小文字を区別せずに一致したものだけを表示します。
+3. `--tag` は `list` の `argparse` フィルタにするのが最適です。保存データを変更せずにコマンドを再利用できます。
+4. レポートで今やる作業を先に目立たせたいなら、`export_report()` で未完了タスクを完了済みより前に並べます。形式を安定させておくと diff が読みやすくなります。
+5. わざと `tasks.json` を壊して `list` を実行し、スクリプトがクラッシュせずに分かりやすい JSON エラーを出すことを確認します。その後、ファイルを修復するか削除してから `seed` を再実行します。
+</details>
 
 ## ポートフォリオ用の証拠チェックリスト
 
