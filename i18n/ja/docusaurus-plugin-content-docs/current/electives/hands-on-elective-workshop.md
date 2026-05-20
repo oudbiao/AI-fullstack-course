@@ -256,3 +256,15 @@ inspect: elective_workshop_run/README.md
 - Module F: 自分のプロダクト案と RICE スコア。
 
 他の人が 1 コマンドで再実行し、ファイルを確認し、失敗ケースを理解し、次の行動を見られるなら、この選択プロジェクトは完成に近いです。
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+elective_goal: why this optional module matters for your target role or project
+artifact: runnable code, benchmark, product note, UI state, or safety test
+metric_or_review: what proves the elective skill improved the system
+failure_check: when this elective is unnecessary or too early for the current learner
+Expected_output: a small portfolio artifact connected back to the main route
+```

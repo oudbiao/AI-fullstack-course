@@ -73,3 +73,15 @@ AI Medical Diagnosis score= 5.4 decision= do_not_launch
 ## 通过标准
 
 能给一个 AI 功能想法打分，解释取舍，定义成功指标，并说出一个不应上线的条件，就算通过本选修。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
+control: validation, permission, sandbox, audit, red-team test, or incident response
+test_case: one attack or failure sample and expected safe behavior
+failure_check: trusting model text, missing logs, broad permissions, or no regression tests
+Expected_output: security checklist plus one reproducible red-team case
+```

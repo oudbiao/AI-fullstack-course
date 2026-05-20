@@ -121,6 +121,18 @@ def fetch_model_info(model_id):
 
 如果包装层隐藏了关键业务逻辑，或者一个函数已经叠了太多层，就不适合继续加装饰器。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## 常见错误
 
 - 忘记 `@wraps`，导致日志和框架看到的函数名都变成 `wrapper`。

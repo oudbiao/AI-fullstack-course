@@ -82,3 +82,15 @@ Initialized empty Git repository ...
 - commit すべきファイルと、local に残すべきファイルは何か。
 
 環境もコース成果物の一部です。自分の laptop でしか動かない project は、まだ完成ではありません。
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+machine_state: OS, Python/Node versions, editor, terminal, and package manager
+verification: commands run, versions printed, and first script output
+debug_note: install error, path issue, permission issue, or environment mismatch
+recovery_plan: exact command or doc page to retry before moving on
+Expected_output: setup checklist with successful command output and one known fallback
+```

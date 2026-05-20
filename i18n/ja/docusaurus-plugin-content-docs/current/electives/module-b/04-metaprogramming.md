@@ -114,6 +114,18 @@ error: name cannot be empty
 
 普通のクラスや辞書のほうが分かりやすいなら、無理に使いません。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## よくある間違い
 
 - 高度に見せるためだけに動的な技を使う。

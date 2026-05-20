@@ -112,6 +112,18 @@ limit: 1 semaphore: Semaphore
 2. 大图像变换
 3. 没有明显等待瓶颈、且必须保持简单的代码
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## 常见错误
 
 - 没判断任务是否 I/O 密集，就到处加 `async`。

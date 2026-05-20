@@ -91,6 +91,18 @@ evidence_files: ['README.md', 'metrics.csv', 'failure_cases.md']
 4. 証拠：最適化前後の指標と失敗ケース。
 5. トレードオフ：まだ最適化していない点と、その理由。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## よくある間違い
 
 - デモ画面だけを見せて、指標を見せない。

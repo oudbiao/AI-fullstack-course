@@ -56,9 +56,21 @@ score=2.1
 
 これはデプロイで最初に身につけたい最小習慣です。テンソルのような値を受け取り、判断を計算し、再現できる結果として出力します。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## この順番で学ぶ
 
-| Step | レッスン | 実践で残す成果 |
+| ステップ | レッスン | 実践で残す成果 |
 |---|---|---|
 | 1 | [E.A.1 C++ 基礎](./01-cpp-basics.md) | 小さな推論補助コードをコンパイルして実行する |
 | 2 | [E.A.2 C++ 応用](./02-cpp-advanced.md) | 所有権、RAII、安全なリソース解放を説明する |

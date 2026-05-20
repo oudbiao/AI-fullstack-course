@@ -122,3 +122,15 @@ epoch=2 w=1.192 loss=14.528
 ```
 
 按这个顺序读：数据 -> 预测 -> 损失 -> 梯度 -> 参数更新。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
+resource_choice: one primary resource and why it fits the current bottleneck
+time_box: how long to use it before returning to the project
+risk_check: collecting resources instead of producing evidence
+Expected_output: a short resource plan with one artifact to produce after reading
+```

@@ -16,7 +16,7 @@ sidebar_position: 4
 | 层 | 保护什么 | 典型产出 |
 |---|---|---|
 | 基础 | 不容易过期的能力 | Python、数据、数学、调试、ML 基础 |
-| 项目 | 把知识变成系统的能力 | 可运行 demo、报告、评估日志 |
+| 项目 | 把知识变成系统的能力 | 可运行演示、报告、评估日志 |
 | 前沿跟踪 | 知道行业往哪里走 | 短笔记、精选论文、小实验 |
 
 不要让前沿跟踪替代基础和项目。
@@ -67,3 +67,15 @@ sidebar_position: 4
 - 只记得术语，连不到任务。
 
 复盘时不要重读全部内容。重画流程、重跑最小示例、列出常见错误。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+learning_loop: read, build, test, write notes, review failures, and update route
+cadence: weekly project slot, reading slot, and review slot
+signal: metric, portfolio artifact, interview feedback, or project failure that changes the plan
+risk_check: endless reading, no output, or switching topics too often
+Expected_output: a sustainable learning loop with the next review date
+```

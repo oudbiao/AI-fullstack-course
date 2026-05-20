@@ -126,3 +126,15 @@ Then add real logic back one layer at a time. The layer that breaks is the layer
 | You cannot explain the command you are copying | Stop and inspect the environment |
 | You have 1-2 clear hypotheses | Keep testing |
 | You know the next observable result | Keep going |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+symptom: exact error message, command, input, and environment
+minimal_repro: smallest code or command that still fails
+hypothesis: dependency, path, data, API, model, or browser/runtime issue
+next_probe: one command or log to check before changing many things
+Expected_output: a reproducible bug note and a tested fix or fallback
+```

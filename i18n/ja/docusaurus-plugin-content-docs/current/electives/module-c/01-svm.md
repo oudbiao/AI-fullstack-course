@@ -113,6 +113,18 @@ SVM を試す場面：
 
 データが非常に大きい場合や、予測レイテンシが極端に厳しい場合は注意します。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
+dataset_view: feature scale, class balance, decision boundary, and train/test split
+metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
+failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
+Expected_output: classical-ML baseline result with one limitation note
+```
+
 ## よくある間違い
 
 - `StandardScaler()` を忘れる。

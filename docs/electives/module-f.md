@@ -70,6 +70,18 @@ The numbers are not final truth. They force you to say what you are optimizing f
 | What can go wrong? | Risk boundary and human fallback |
 | What proves progress? | A metric or user test result |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
+control: validation, permission, sandbox, audit, red-team test, or incident response
+test_case: one attack or failure sample and expected safe behavior
+failure_check: trusting model text, missing logs, broad permissions, or no regression tests
+Expected_output: security checklist plus one reproducible red-team case
+```
+
 ## Pass Check
 
 You pass this elective when you can score one AI feature idea, explain the trade-off, define a success metric, and name one condition where the feature should not launch.

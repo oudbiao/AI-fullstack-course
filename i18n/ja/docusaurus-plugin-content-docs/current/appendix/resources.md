@@ -35,12 +35,24 @@ sidebar_position: 1
 | ブログやチュートリアルを読む | 1 つの方法をコースプロジェクトに使う |
 | 論文やサーベイを読む | 「古い問題 -> 新しい方法 -> プロジェクトへの影響」を書く |
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
+resource_choice: one primary resource and why it fits the current bottleneck
+time_box: how long to use it before returning to the project
+risk_check: collecting resources instead of producing evidence
+Expected_output: a short resource plan with one artifact to produce after reading
+```
+
 ## よくある失敗
 
 - たくさんリンクを保存するが、コードを動かさない。
 - 1 段落わからないだけで別の資料へ移る。
 - 理論だけ読み、プロジェクトに戻らない。
-- 最小 demo を作る前に、フレームワーク全体を学ぼうとする。
+- 最小デモを作る前に、フレームワーク全体を学ぼうとする。
 
 ## すぐ判断する
 

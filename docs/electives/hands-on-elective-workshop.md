@@ -256,3 +256,15 @@ Replace one module with real evidence:
 - Module F: your product ideas and RICE scores.
 
 You are done when another person can run one command, inspect the files, understand one failure, and see the next action.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+elective_goal: why this optional module matters for your target role or project
+artifact: runnable code, benchmark, product note, UI state, or safety test
+metric_or_review: what proves the elective skill improved the system
+failure_check: when this elective is unnecessary or too early for the current learner
+Expected_output: a small portfolio artifact connected back to the main route
+```

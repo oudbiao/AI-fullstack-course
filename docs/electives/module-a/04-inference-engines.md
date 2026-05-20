@@ -142,6 +142,18 @@ Use this order before trying advanced tuning:
 4. Compare latency and throughput with the same input size.
 5. Choose the simplest engine that meets the target.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## Common Mistakes
 
 - Choosing TensorRT only because it is fast, even when the team cannot maintain the engine build pipeline.

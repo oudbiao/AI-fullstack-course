@@ -142,6 +142,18 @@ selected: OpenVINO
 4. 同じ入力サイズでレイテンシとスループットを比べる。
 5. 目標を満たす中で、最も保守しやすいエンジンを選ぶ。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## よくある間違い
 
 - TensorRT が速いという理由だけで、engine のビルド手順を保守できるかを考えない。

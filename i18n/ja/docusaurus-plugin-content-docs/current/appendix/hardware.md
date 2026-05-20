@@ -36,7 +36,7 @@ sidebar_position: 2
 
 | 選択肢 | 向いていること | 注意点 |
 |---|---|---|
-| 無料 notebook | 小さな demo とワークフロー理解 | 時間制限と可用性 |
+| 無料 notebook | 小さなデモとワークフロー理解 | 時間制限と可用性 |
 | 時間課金クラウド GPU | コードとデータが明確な訓練実験 | 先に準備し、終わったらすぐ停止 |
 | API 優先ルート | RAG、Agent、アシスタント、プロダクト | ログ、コスト、プライバシー、リトライ |
 | ローカル GPU | 長期的で頻繁な訓練と高速なローカル反復 | VRAM、冷却、電源、総コスト |
@@ -55,3 +55,15 @@ sidebar_position: 2
 ## 実用的な進め方
 
 第 1-5 章は今の PC で進めます。第 6、10、11 章で本当に訓練が必要になったときだけクラウド GPU を借ります。第 8-9 章は API 優先のエンジニアリングプロジェクトで進めます。ローカル GPU は、プロジェクト負荷が必要性を証明してから判断しましょう。
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+workload: learning, inference, fine-tuning, vision, video, or deployment target
+constraint: budget, latency, memory, privacy, portability, and maintenance cost
+decision: local CPU/GPU, cloud GPU, API, or hosted service with reason
+risk_check: buying hardware before measuring workload or ignoring cloud/API alternatives
+Expected_output: hardware/cloud decision note tied to one actual course project
+```

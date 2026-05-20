@@ -71,3 +71,15 @@ score=2.1
 ## 通过标准
 
 你能编译一个 C++ 示例，解释部署取舍，记录延迟或内存证据，并把结果接到 [选修实操工作坊](../hands-on-elective-workshop.md)，就算通过本模块。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```

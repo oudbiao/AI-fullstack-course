@@ -51,6 +51,18 @@ max_error=0.0018
 4. 失敗例を残す。
 5. トレードオフが見えるときだけ出す。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 合格チェック
 
 1 つの最適化の利点、起こり得るコスト、本番デプロイ前に見るべき指標を説明できれば合格です。

@@ -53,6 +53,18 @@ This is the smallest baseline habit: define features, compare distance, predict,
 | 3 | [E.C.3 Naive Bayes](./03-naive-bayes.md) | Convert evidence counts into class probabilities |
 | 4 | [E.C.4 LDA](./04-lda.md) | Project features to separate classes |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
+dataset_view: feature scale, class balance, decision boundary, and train/test split
+metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
+failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
+Expected_output: classical-ML baseline result with one limitation note
+```
+
 ## Pass Check
 
 You pass this module when you can build one classic baseline, explain why it is appropriate, and compare it with a heavier model or later project result.

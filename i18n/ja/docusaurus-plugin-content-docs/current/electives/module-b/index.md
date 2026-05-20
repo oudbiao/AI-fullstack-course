@@ -43,9 +43,21 @@ asyncio.run(main())
 
 これは非同期処理の最小習慣です。独立した処理を同時に開始し、すべての結果を待ち、あとから追える形で残します。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## この順番で学ぶ
 
-| Step | レッスン | 実践で残す成果 |
+| ステップ | レッスン | 実践で残す成果 |
 |---|---|---|
 | 1 | [E.B.1 デコレータ](./01-decorators-advanced.md) | 業務ロジックを変えずに時間計測やログを足す |
 | 2 | [E.B.2 イテレータとジェネレータ](./02-iterators-advanced.md) | 全件を読み込まずに行をストリーミングする |

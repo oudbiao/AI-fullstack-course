@@ -79,3 +79,15 @@ Someone opening the repo should understand the project in 3 minutes.
 | 2 | Improve README, screenshots, run instructions, resume wording |
 | 3 | Practice project explanation and fundamentals |
 | 4 | Apply, record questions, improve projects from feedback |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+target_role: AI full-stack, LLM app, data/ML, Agent engineer, or multimodal builder
+portfolio_story: problem, system, evidence, failure, improvement, and trade-off
+gap_list: missing project, weak explanation, missing deployment, or unclear metrics
+next_action: one resume/project/interview artifact to update this week
+Expected_output: a portfolio story card that can be used in an interview
+```

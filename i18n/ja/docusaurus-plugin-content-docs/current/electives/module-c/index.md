@@ -44,9 +44,21 @@ neighbor: [0.8, 0.9]
 
 これはベースライン作成の最小習慣です。特徴量を決め、距離を比べ、予測し、その結果を後で比較できるように残します。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
+dataset_view: feature scale, class balance, decision boundary, and train/test split
+metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
+failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
+Expected_output: classical-ML baseline result with one limitation note
+```
+
 ## この順番で学ぶ
 
-| Step | レッスン | 実践で残す成果 |
+| ステップ | レッスン | 実践で残す成果 |
 |---|---|---|
 | 1 | [E.C.1 SVM](./01-svm.md) | マージン、サポートベクトル、`C`、カーネル選択を説明する |
 | 2 | [E.C.2 KNN](./02-knn.md) | 距離と投票によるベースラインを作る |

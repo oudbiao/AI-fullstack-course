@@ -143,3 +143,15 @@ Course chapter to revisit: Chapters 6, 7, 8, and 9.
 ```
 
 The goal is not to recite history. The goal is to connect a historical node to a real capability you may build later.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+timeline_anchor: stage, key idea, representative paper/system, and why it mattered
+chapter_link: which course chapter this milestone helps explain
+memory_hook: diagram, comic panel, or one-sentence historical turn
+failure_check: memorizing names without understanding the problem each milestone solved
+Expected_output: a short timeline note connected to at least one project decision
+```

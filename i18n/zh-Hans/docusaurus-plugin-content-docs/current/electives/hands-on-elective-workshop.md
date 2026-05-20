@@ -256,3 +256,15 @@ inspect: elective_workshop_run/README.md
 - Module F：你的产品想法和 RICE 分数。
 
 别人能用一条命令复跑、检查文件、理解一个失败案例，并看见下一步动作时，这个选修项目就可以算完成。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+elective_goal: why this optional module matters for your target role or project
+artifact: runnable code, benchmark, product note, UI state, or safety test
+metric_or_review: what proves the elective skill improved the system
+failure_check: when this elective is unnecessary or too early for the current learner
+Expected_output: a small portfolio artifact connected back to the main route
+```

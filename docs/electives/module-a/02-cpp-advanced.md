@@ -92,3 +92,15 @@ Then replace `CpuEngine` with `FastEngine`. The rest of `Session` should not cha
 ## Pass check
 
 You pass this lesson when you can explain why `Session` owns the engine, why `unique_ptr` is safer than a raw pointer here, and how an interface lets one deployment path swap runtime backends.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```

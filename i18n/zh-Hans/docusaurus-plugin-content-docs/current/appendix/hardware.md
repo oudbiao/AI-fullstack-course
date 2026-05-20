@@ -36,7 +36,7 @@ sidebar_position: 2
 
 | 选项 | 最适合什么 | 注意什么 |
 |---|---|---|
-| 免费 notebook | 小 demo 和熟悉流程 | 时间限制、可用性不稳定 |
+| 免费 notebook | 小型演示和熟悉流程 | 时间限制、可用性不稳定 |
 | 按小时云 GPU | 已有明确代码和数据的训练实验 | 先准备好，跑完立刻关机 |
 | API 优先路线 | RAG、Agent、助手、产品项目 | 日志、成本、隐私、重试 |
 | 本地 GPU | 长期频繁训练和快速本地迭代 | 显存、散热、电源、总成本 |
@@ -55,3 +55,15 @@ sidebar_position: 2
 ## 实用方案
 
 用现有电脑完成第 1-5 章。第 6、10、11 章真正需要训练时再租云 GPU。第 8-9 章优先做 API 工程项目。等项目负载证明你真的需要，再决定是否买本地 GPU。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+workload: learning, inference, fine-tuning, vision, video, or deployment target
+constraint: budget, latency, memory, privacy, portability, and maintenance cost
+decision: local CPU/GPU, cloud GPU, API, or hosted service with reason
+risk_check: buying hardware before measuring workload or ignoring cloud/API alternatives
+Expected_output: hardware/cloud decision note tied to one actual course project
+```

@@ -86,6 +86,18 @@ Try KNN when:
 
 Avoid it as a default for huge datasets or real-time high-QPS services.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
+dataset_view: feature scale, class balance, decision boundary, and train/test split
+metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
+failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
+Expected_output: classical-ML baseline result with one limitation note
+```
+
 ## Common Mistakes
 
 - Forgetting to scale features.

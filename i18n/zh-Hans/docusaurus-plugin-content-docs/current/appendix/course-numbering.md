@@ -67,3 +67,15 @@ keywords: [课程编号, 章节目录, 章节编号, 课程维护]
 ```text
 第 5 章机器学习（目录 docs/ch05-machine-learning）
 ```
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+reference_question: what you came to this appendix page to decide or clarify
+selected_rule: the rule, checklist item, or explanation you will apply
+course_link: which chapter or project this reference supports
+risk_check: treating appendix material as passive reading instead of a decision aid
+Expected_output: a note that changes a route, setup, project, or review decision
+```

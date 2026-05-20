@@ -89,6 +89,18 @@ struct FastEngine : Engine {
 
 然后把 `CpuEngine` 换成 `FastEngine`。`Session` 的其他代码不应该改。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 通过检查
 
 你能解释为什么 `Session` 拥有 engine、为什么这里 `unique_ptr` 比裸指针更安全，以及接口如何让部署路径切换 runtime 后端，就算通过。

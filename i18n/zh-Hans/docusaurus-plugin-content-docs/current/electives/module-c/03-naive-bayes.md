@@ -97,6 +97,18 @@ predictions: ['refund', 'invoice']
 
 当语义、上下文或词序很重要时，再换更强模型。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
+dataset_view: feature scale, class balance, decision boundary, and train/test split
+metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
+failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
+Expected_output: classical-ML baseline result with one limitation note
+```
+
 ## 常见错误
 
 - 以为“朴素”就等于没用。

@@ -35,7 +35,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | LLM | 7 | prompt、token、embedding、Transformer 直觉 | 行为来自数据、解码还是上下文 |
 | RAG | 8 | 检索 trace 和回答评估 | 答案有没有用对证据 |
 | Agent | 9 | 工具 trace、权限、记忆边界、部署记录 | 当用户、文件和动作都是真的，会在哪里失败 |
-| 专项 / 交付 | 10-12 和选修 | 视觉/NLP/多模态 demo、导出资产、部署记录 | 哪些领域约束会改变产品决策 |
+| 专项 / 交付 | 10-12 和选修 | 视觉/NLP/多模态演示、导出资产、部署记录 | 哪些领域约束会改变产品决策 |
 
 这门课不是主题堆叠，而是一套调试栈。AI 应用表现不好时，原因可能藏在你正在看的功能下面好几层。
 
@@ -61,3 +61,15 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 可选背景：如果想知道这些能力是怎样发展出来的，可以快速看一眼 [AI 15 阶段发展史](/appendix/ai-milestones)。
 
 下一步，选择学习路线。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, and specialization links
+current_position: what you already know and what you will postpone
+next_step: one concrete chapter or workshop to start next
+risk_check: learning everything at once, skipping evidence, or losing the main route
+Expected_output: a marked personal course map with one immediate action
+```

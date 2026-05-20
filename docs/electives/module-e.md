@@ -89,6 +89,18 @@ const data = await response.json();
 resultEl.textContent = data.answer;
 ```
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+frontend_surface: chat, dashboard, editor, review panel, or workflow UI
+state_model: loading, streaming, success, empty, error, retry, and review states
+artifact: UI sketch, component behavior, event trace, or screenshot
+failure_check: hiding latency, missing error states, unclear citations, or weak review controls
+Expected_output: AI frontend interaction note with states and evidence display
+```
+
 ## Pass Check
 
 You pass this elective when one AI page handles input, loading, success, empty input, error, and retry states without confusing the user.

@@ -113,6 +113,18 @@ print([request["version"] for request in routed_requests])
 4. 平均 batch 大小
 5. 每个模型版本的流量占比
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 常见错误
 
 - 只汇报模型推理时间，忽略队列、预处理和网络时间。

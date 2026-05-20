@@ -113,6 +113,18 @@ Track these before launch:
 4. Average batch size
 5. Traffic split by model version
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## Common Mistakes
 
 - Reporting only model inference time and ignoring queue, preprocessing, and network time.

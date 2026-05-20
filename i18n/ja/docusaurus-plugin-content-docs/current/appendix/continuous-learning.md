@@ -16,7 +16,7 @@ sidebar_position: 4
 | 層 | 守るもの | 典型的な成果 |
 |---|---|---|
 | 基礎 | すぐ古くならない力 | Python、データ、数学、デバッグ、ML 基礎 |
-| プロジェクト | 知識をシステムにする力 | 動く demo、レポート、評価ログ |
+| プロジェクト | 知識をシステムにする力 | 動くデモ、レポート、評価ログ |
 | 前線追跡 | 分野がどこへ向かうかの感覚 | 短いメモ、選んだ論文、小実験 |
 
 前線追跡で、基礎とプロジェクトを置き換えないでください。
@@ -67,3 +67,15 @@ sidebar_position: 4
 - 用語だけ覚えていて、タスクとつながらない。
 
 復習では全体を読み直しません。流れを描き直し、最小例を再実行し、よくあるミスを書き出します。
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+learning_loop: read, build, test, write notes, review failures, and update route
+cadence: weekly project slot, reading slot, and review slot
+signal: metric, portfolio artifact, interview feedback, or project failure that changes the plan
+risk_check: endless reading, no output, or switching topics too often
+Expected_output: a sustainable learning loop with the next review date
+```

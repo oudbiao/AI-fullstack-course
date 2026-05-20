@@ -142,6 +142,18 @@ selected: OpenVINO
 4. 用相同输入尺寸比较延迟和吞吐。
 5. 选择能达标且最容易维护的引擎。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 常见错误
 
 - 因为 TensorRT 快，就不考虑团队是否能维护 engine 构建流程。

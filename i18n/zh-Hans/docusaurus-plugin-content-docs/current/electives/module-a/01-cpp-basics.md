@@ -69,6 +69,18 @@ std::vector<float> logits = {3.4f, 0.3f, 2.1f};
 
 再次运行，预期 `best_class` 变成 `0`。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 通过检查
 
 你能编译文件、修改输入值、解释为什么类别改变，并说清楚 `std::vector<float>` 在推理程序里代表什么，就算通过。

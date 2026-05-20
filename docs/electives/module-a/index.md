@@ -68,6 +68,18 @@ This is the smallest deployment habit: input tensor-like values, compute a decis
 | 6 | [E.A.6 Model Serving](./06-model-serving.md) | Design versioned serving with metrics |
 | 7 | [E.A.7 Project](./07-projects.md) | Deliver a small deployment evidence pack |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## Pass Check
 
 You pass this module when you can compile one C++ example, explain the deployment trade-off, record latency or memory evidence, and connect the result to the [Elective Hands-on Workshop](../hands-on-elective-workshop.md).

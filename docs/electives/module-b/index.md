@@ -52,6 +52,18 @@ This is the smallest async habit: launch independent work, wait for all results,
 | 3 | [E.B.3 Concurrency](./03-concurrency.md) | Run async tasks with timeout and cancellation thinking |
 | 4 | [E.B.4 Metaprogramming](./04-metaprogramming.md) | Register tools or handlers explicitly |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## Pass Check
 
 You pass this module when you can build one traceable pipeline that uses a decorator, generator, async call, or registry, and can explain why the code became easier to debug.

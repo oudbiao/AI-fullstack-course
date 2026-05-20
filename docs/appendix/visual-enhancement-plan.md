@@ -34,6 +34,22 @@ If a page is too short, add depth around the learner bottleneck instead of addin
 | Training curve, metric chart, distribution | Code-generated chart | Yes |
 | Reference checklist | Compact table or diagram | Yes |
 
+## Default image strategy
+
+Prefer vertical teaching images for core lessons. A 9:16 or near-vertical image works well for phone-first reading, step-by-step flows, and hard concepts that need stacked explanation. If the teaching goal becomes crowded, split it into two consecutive images instead of shrinking labels or forcing everything into one poster.
+
+Use image style by learning need:
+
+| Need | Preferred style |
+|---|---|
+| Abstract concept or hard intuition | Analogy image, hand-drawn classroom note, or vertical whiteboard flow |
+| Exact model structure, formula, metric, or matrix shape | Professional textbook-style diagram, SVG, or code-generated chart |
+| Execution sequence, API call, RAG chain, training loop, Agent trace | Vertical whiteboard process with inputs, actions, outputs, and debug checkpoints |
+| Important historical turning point or algorithm evolution | Multi-panel hand-drawn comic with one memorable change per panel |
+| Dense concept that has two separate learner bottlenecks | Split image pair: first intuition, then mechanism or debugging |
+
+For analogies, keep the formal concept attached to the visual. For example, show RAG as open-book lookup, gradient descent as walking downhill on loss, Attention as choosing which earlier tokens to listen to, and Agent as a tool-using assistant with a trace log. The analogy should make the next code or formula easier to read, not replace the technical explanation.
+
 ## Mobile and three-language image rules
 
 Choose the image direction from the teaching purpose. Use vertical 9:16 for step-by-step lessons, phone-first reading, and hard concepts that need stacked explanation. Use landscape for timelines, side-by-side comparisons, architecture maps, dashboards, or anything learners must scan horizontally. Use a compact square or near-square image only when the concept is a single object, pattern, or checklist. The goal is readable learning, not one fixed ratio.
@@ -99,3 +115,15 @@ Use this order inside teaching pages:
 7. Verify images resolve, mobile readability holds, and the site builds.
 
 Do not add a picture just because the page looks empty. Add it because the next step becomes easier to understand.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+page_target: which lesson or concept needs a teaching image
+visual_role: analogy, workflow, history comic, output explanation, or failure debug map
+language_set: English, Chinese, Japanese image references or text requirements
+risk_check: decorative image, crowded text, unrelated metaphor, or missing nearby explanation
+Expected_output: image brief or QA note tied to a specific course page
+```

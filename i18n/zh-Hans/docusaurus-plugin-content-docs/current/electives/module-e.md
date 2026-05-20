@@ -92,3 +92,15 @@ resultEl.textContent = data.answer;
 ## 通过标准
 
 一个 AI 页面能清楚处理输入、加载、成功、空输入、错误和重试状态，且不会让用户迷惑，就算通过本选修。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+frontend_surface: chat, dashboard, editor, review panel, or workflow UI
+state_model: loading, streaming, success, empty, error, retry, and review states
+artifact: UI sketch, component behavior, event trace, or screenshot
+failure_check: hiding latency, missing error states, unclear citations, or weak review controls
+Expected_output: AI frontend interaction note with states and evidence display
+```

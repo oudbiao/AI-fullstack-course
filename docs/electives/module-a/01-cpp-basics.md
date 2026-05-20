@@ -72,3 +72,15 @@ Run again. The expected `best_class` should become `0`.
 ## Pass check
 
 You pass this lesson when you can compile the file, change the input values, explain why the selected class changed, and say what `std::vector<float>` represents in an inference program.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```

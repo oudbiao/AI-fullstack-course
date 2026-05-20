@@ -87,6 +87,18 @@ edge-c FIT
 4. リモート調査に必要なログを残せる。
 5. 簡単なロールバックまたは交換手順がある。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## よくある間違い
 
 - 先にモデルを選び、小さなデバイスへ無理に載せる。

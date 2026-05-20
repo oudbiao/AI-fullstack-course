@@ -82,3 +82,15 @@ Initialized empty Git repository ...
 - 哪些文件应该提交，哪些应该留在本地。
 
 环境也是课程产出的一部分。一个项目如果只能在你电脑上运行，还不算完成。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+machine_state: OS, Python/Node versions, editor, terminal, and package manager
+verification: commands run, versions printed, and first script output
+debug_note: install error, path issue, permission issue, or environment mismatch
+recovery_plan: exact command or doc page to retry before moving on
+Expected_output: setup checklist with successful command output and one known fallback
+```

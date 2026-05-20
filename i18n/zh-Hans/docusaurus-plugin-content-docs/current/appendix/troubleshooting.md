@@ -126,3 +126,15 @@ print(preds)
 | 复制命令但说不清作用 | 停下来检查环境 |
 | 已经有 1-2 个清晰假设 | 继续测试 |
 | 知道下一个可观察结果 | 继续推进 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+symptom: exact error message, command, input, and environment
+minimal_repro: smallest code or command that still fails
+hypothesis: dependency, path, data, API, model, or browser/runtime issue
+next_probe: one command or log to check before changing many things
+Expected_output: a reproducible bug note and a tested fix or fallback
+```

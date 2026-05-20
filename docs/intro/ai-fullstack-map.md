@@ -61,3 +61,15 @@ During each chapter, keep one artifact that proves the layer works. Screenshots 
 Optional background: if you want the history behind these layers, skim the [15-stage AI development map](/appendix/ai-milestones).
 
 Next, choose a learning path.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, and specialization links
+current_position: what you already know and what you will postpone
+next_step: one concrete chapter or workshop to start next
+risk_check: learning everything at once, skipping evidence, or losing the main route
+Expected_output: a marked personal course map with one immediate action
+```

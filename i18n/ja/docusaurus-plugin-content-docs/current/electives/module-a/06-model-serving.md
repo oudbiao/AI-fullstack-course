@@ -113,6 +113,18 @@ print([request["version"] for request in routed_requests])
 4. 平均 batch サイズ
 5. モデルバージョンごとのトラフィック比率
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## よくある間違い
 
 - モデル推論時間だけを報告し、キュー、前処理、ネットワーク時間を無視する。

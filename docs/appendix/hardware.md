@@ -55,3 +55,15 @@ If the reason is only “I may need it later,” wait.
 ## Practical plan
 
 Use your current computer for Chapters 1-5. Rent cloud GPU when Chapter 6, 10, or 11 really needs it. Use API-first projects for Chapters 8-9. Decide on local GPU only after your project workload proves it.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+workload: learning, inference, fine-tuning, vision, video, or deployment target
+constraint: budget, latency, memory, privacy, portability, and maintenance cost
+decision: local CPU/GPU, cloud GPU, API, or hosted service with reason
+risk_check: buying hardware before measuring workload or ignoring cloud/API alternatives
+Expected_output: hardware/cloud decision note tied to one actual course project
+```

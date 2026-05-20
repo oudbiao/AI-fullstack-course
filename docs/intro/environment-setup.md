@@ -82,3 +82,15 @@ If you already have a setup, do not skip the page completely. Confirm that you c
 - Which files should be committed and which should stay local.
 
 The environment is part of the course output. A project that only works on your laptop is not finished yet.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+machine_state: OS, Python/Node versions, editor, terminal, and package manager
+verification: commands run, versions printed, and first script output
+debug_note: install error, path issue, permission issue, or environment mismatch
+recovery_plan: exact command or doc page to retry before moving on
+Expected_output: setup checklist with successful command output and one known fallback
+```

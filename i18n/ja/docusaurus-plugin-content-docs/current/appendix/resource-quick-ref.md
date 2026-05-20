@@ -122,3 +122,15 @@ epoch=2 w=1.192 loss=14.528
 ```
 
 データ -> 予測 -> 損失 -> 勾配 -> パラメータ更新、の順に読みます。
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
+resource_choice: one primary resource and why it fits the current bottleneck
+time_box: how long to use it before returning to the project
+risk_check: collecting resources instead of producing evidence
+Expected_output: a short resource plan with one artifact to produce after reading
+```

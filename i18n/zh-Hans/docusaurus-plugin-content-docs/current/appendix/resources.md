@@ -35,12 +35,24 @@ sidebar_position: 1
 | 读博客/教程 | 把 1 个做法用到课程项目里 |
 | 读论文/综述 | 写出“旧问题 -> 新方法 -> 项目影响” |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
+resource_choice: one primary resource and why it fits the current bottleneck
+time_box: how long to use it before returning to the project
+risk_check: collecting resources instead of producing evidence
+Expected_output: a short resource plan with one artifact to produce after reading
+```
+
 ## 常见错误
 
 - 收藏很多链接，但不运行代码。
 - 一段看不懂就立刻换资源。
 - 只看理论，不回到项目验证。
-- 还没做最小 demo，就先想学完整框架。
+- 还没做最小示例，就先想学完整框架。
 
 ## 快速判断
 

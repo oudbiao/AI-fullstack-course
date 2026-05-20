@@ -60,3 +60,15 @@ sidebar_position: 3
 3. 最小闭环项目思维。
 
 很多新人以为自己缺的是更高级模型，其实通常先缺清晰的输入、输出、检查和解释。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+reference_question: what you came to this appendix page to decide or clarify
+selected_rule: the rule, checklist item, or explanation you will apply
+course_link: which chapter or project this reference supports
+risk_check: treating appendix material as passive reading instead of a decision aid
+Expected_output: a note that changes a route, setup, project, or review decision
+```

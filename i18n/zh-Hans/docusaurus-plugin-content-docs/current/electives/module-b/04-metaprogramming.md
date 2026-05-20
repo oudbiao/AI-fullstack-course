@@ -114,6 +114,18 @@ error: name cannot be empty
 
 如果普通类或普通字典更清楚，就不要强行元编程。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## 常见错误
 
 - 为了显得高级而使用动态技巧。

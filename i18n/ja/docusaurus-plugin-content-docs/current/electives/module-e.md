@@ -89,6 +89,18 @@ const data = await response.json();
 resultEl.textContent = data.answer;
 ```
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+frontend_surface: chat, dashboard, editor, review panel, or workflow UI
+state_model: loading, streaming, success, empty, error, retry, and review states
+artifact: UI sketch, component behavior, event trace, or screenshot
+failure_check: hiding latency, missing error states, unclear citations, or weak review controls
+Expected_output: AI frontend interaction note with states and evidence display
+```
+
 ## 合格チェック
 
 1つの AI ページが、入力、読み込み、成功、空入力、エラー、再試行を迷わず扱えるなら合格です。

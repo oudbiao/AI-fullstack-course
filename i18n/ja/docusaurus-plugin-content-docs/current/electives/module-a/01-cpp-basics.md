@@ -69,6 +69,18 @@ std::vector<float> logits = {3.4f, 0.3f, 2.1f};
 
 もう一度実行すると、`best_class` は `0` になるはずです。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 合格チェック
 
 ファイルをコンパイルでき、入力値を変え、なぜ選ばれるクラスが変わったのか説明でき、推論プログラムで `std::vector<float>` が何を表すか言えれば合格です。

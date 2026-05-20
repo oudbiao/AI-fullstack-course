@@ -35,6 +35,18 @@ For each bottleneck, choose one resource and finish one small output:
 | Read a blog/tutorial | Apply one idea to your course project |
 | Read a paper or survey | Write “old problem -> new method -> project impact” |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
+resource_choice: one primary resource and why it fits the current bottleneck
+time_box: how long to use it before returning to the project
+risk_check: collecting resources instead of producing evidence
+Expected_output: a short resource plan with one artifact to produce after reading
+```
+
 ## Common mistakes
 
 - Saving many links but not running code.

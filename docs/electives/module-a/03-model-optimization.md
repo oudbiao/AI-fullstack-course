@@ -54,3 +54,15 @@ This is the smallest optimization habit: compress, measure the error, and decide
 ## Pass check
 
 You pass this lesson when you can explain one optimization’s benefit, its possible cost, and the metric you would inspect before using it in a real deployment.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```

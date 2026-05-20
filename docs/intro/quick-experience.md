@@ -83,3 +83,15 @@ What changed:
 ```
 
 AI is not magic here: you give input, a trained model processes it, and you inspect the output. Experienced learners should also notice the hidden engineering work: dependency install time, model download, input validation, model limits, and how evidence is recorded. Next, set up the minimum environment.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+mini_app: the smallest runnable AI or automation demo completed
+input_output: sample input, printed output, screenshot, or log
+concept_link: which later chapter explains the hidden mechanism
+failure_check: API key, dependency, network, prompt, or output-format issue
+Expected_output: a tiny demo result that makes the course feel real
+```

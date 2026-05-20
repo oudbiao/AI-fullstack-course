@@ -66,6 +66,18 @@ The failed tool case is not embarrassing; it is now a regression test that prote
 | 3 | Run cases | PASS / FAIL table |
 | 4 | Fix and rerun | Regression report |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+product_question: user problem, workflow, value metric, and risk boundary
+experiment: hypothesis, smallest test, metric, and decision rule
+artifact: feature spec, prototype note, user story, or evaluation result
+failure_check: building demos without measuring value or ignoring user workflow
+Expected_output: AI product decision note that can guide implementation
+```
+
 ## Pass Check
 
 You pass this elective when you can keep a red-team case file, explain one failed surface, propose one guardrail, and rerun the case after the fix.

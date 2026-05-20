@@ -57,7 +57,7 @@ Python と LangChain でナレッジベース Q&A システムを作りました
 - 実行方法
 - プロジェクト構成
 - 入力と出力の例
-- スクリーンショットまたは demo 図
+- スクリーンショットまたはデモ図
 - 指標または評価方法
 - 既知の問題と次の改善
 
@@ -79,3 +79,15 @@ Python と LangChain でナレッジベース Q&A システムを作りました
 | 2 週目 | README、画像、実行手順、履歴書表現を改善 |
 | 3 週目 | プロジェクト説明と基礎質問を練習 |
 | 4 週目 | 応募し、質問を記録し、フィードバックで改善 |
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+target_role: AI full-stack, LLM app, data/ML, Agent engineer, or multimodal builder
+portfolio_story: problem, system, evidence, failure, improvement, and trade-off
+gap_list: missing project, weak explanation, missing deployment, or unclear metrics
+next_action: one resume/project/interview artifact to update this week
+Expected_output: a portfolio story card that can be used in an interview
+```

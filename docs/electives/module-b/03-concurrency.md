@@ -112,6 +112,18 @@ Poor first choice:
 2. Large image transformations
 3. Code that must stay very simple and has no waiting bottleneck
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## Common Mistakes
 
 - Adding `async` everywhere without checking whether the task is I/O-bound.

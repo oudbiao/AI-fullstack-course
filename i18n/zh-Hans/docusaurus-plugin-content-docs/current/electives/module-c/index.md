@@ -56,3 +56,15 @@ neighbor: [0.8, 0.9]
 ## 通过标准
 
 你能构建一个经典 baseline，解释为什么适合，并和更重的模型或后续项目结果做比较，就算通过本模块。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
+dataset_view: feature scale, class balance, decision boundary, and train/test split
+metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
+failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
+Expected_output: classical-ML baseline result with one limitation note
+```

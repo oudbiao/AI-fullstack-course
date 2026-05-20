@@ -124,6 +124,18 @@ error model busy
 
 如果数据很小，而且反复访问列表会让代码更简单，就直接用列表。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
+code_artifact: minimal runnable example plus printed output
+use_case: where this pattern improves an AI app, pipeline, tool, or server
+failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
+Expected_output: small advanced-Python example with a practical AI-system use note
+```
+
 ## 常见错误
 
 - 以为生成器消费完后还能复用。

@@ -91,6 +91,18 @@ evidence_files: ['README.md', 'metrics.csv', 'failure_cases.md']
 4. 证据：优化前后指标和失败案例。
 5. 取舍：哪些还没优化，为什么暂时不做。
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 常见错误
 
 - 只展示界面，不展示指标。

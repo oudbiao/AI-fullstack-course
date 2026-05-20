@@ -70,6 +70,18 @@ AI Medical Diagnosis score= 5.4 decision= do_not_launch
 | 何が失敗しうるか？ | リスク境界と人間のフォールバック |
 | 進展をどう証明するか？ | 指標またはユーザーテスト結果 |
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
+control: validation, permission, sandbox, audit, red-team test, or incident response
+test_case: one attack or failure sample and expected safe behavior
+failure_check: trusting model text, missing logs, broad permissions, or no regression tests
+Expected_output: security checklist plus one reproducible red-team case
+```
+
 ## 合格チェック
 
 AI 機能案を1つスコア化し、トレードオフを説明し、成功指標を定義し、ローンチすべきでない条件を1つ言えれば合格です。

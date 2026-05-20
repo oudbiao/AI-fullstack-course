@@ -56,7 +56,7 @@ sidebar_position: 7
 - 运行方法
 - 项目结构
 - 示例输入输出
-- 截图或 demo 图
+- 截图或演示图
 - 指标或评估方法
 - 已知问题和下一步
 
@@ -78,3 +78,15 @@ sidebar_position: 7
 | 第 2 周 | 改 README、截图、运行说明、简历描述 |
 | 第 3 周 | 练项目讲解和基础问题 |
 | 第 4 周 | 投递，记录高频问题，根据反馈改项目 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+target_role: AI full-stack, LLM app, data/ML, Agent engineer, or multimodal builder
+portfolio_story: problem, system, evidence, failure, improvement, and trade-off
+gap_list: missing project, weak explanation, missing deployment, or unclear metrics
+next_action: one resume/project/interview artifact to update this week
+Expected_output: a portfolio story card that can be used in an interview
+```

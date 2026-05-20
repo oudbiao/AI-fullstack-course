@@ -67,3 +67,15 @@ Review when:
 - You remember terms but cannot connect them to tasks.
 
 When reviewing, do not reread everything. Redraw the workflow, rerun the smallest example, and list the common mistakes.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+learning_loop: read, build, test, write notes, review failures, and update route
+cadence: weekly project slot, reading slot, and review slot
+signal: metric, portfolio artifact, interview feedback, or project failure that changes the plan
+risk_check: endless reading, no output, or switching topics too often
+Expected_output: a sustainable learning loop with the next review date
+```

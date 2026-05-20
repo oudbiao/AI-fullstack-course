@@ -83,3 +83,15 @@ kuvasz                          0.5%
 ```
 
 这里的 AI 不神秘：你给输入，训练好的模型处理它，你检查输出。有经验的学习者还要注意隐藏的工程工作：依赖安装耗时、模型下载、输入验证、模型边界，以及证据怎样被记录。下一步去准备最小环境。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+mini_app: the smallest runnable AI or automation demo completed
+input_output: sample input, printed output, screenshot, or log
+concept_link: which later chapter explains the hidden mechanism
+failure_check: API key, dependency, network, prompt, or output-format issue
+Expected_output: a tiny demo result that makes the course feel real
+```

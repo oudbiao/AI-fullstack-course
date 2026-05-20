@@ -60,3 +60,15 @@ The reflection can be short. Good examples:
 Skip only when you can pass the chapter check without guessing. Slow down when you cannot explain the output, cannot rerun the code, or cannot tell whether the result is good. Experienced learners should slow down on evaluation, failure modes, and production constraints even when the demo feels easy.
 
 Do not switch routes every week. Read briefly, run something, keep evidence, then continue to [Chapter 1](/ch01-tools).
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+learner_profile: current skill level, weekly time, target role, and preferred project type
+route_choice: fastest path, foundation-first path, or project-first path with reason
+first_milestone: one runnable result to finish this week
+risk_check: skipping foundations, over-reading, setup friction, or unclear goal
+Expected_output: a written personal route plus the next concrete page to open
+```

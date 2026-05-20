@@ -143,3 +143,15 @@ AI の歴史は、論文名の一覧というよりリレーに近いです。
 ```
 
 目的は歴史を暗記することではありません。歴史上のノードを、これから作る実際の能力と結びつけることです。
+
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+timeline_anchor: stage, key idea, representative paper/system, and why it mattered
+chapter_link: which course chapter this milestone helps explain
+memory_hook: diagram, comic panel, or one-sentence historical turn
+failure_check: memorizing names without understanding the problem each milestone solved
+Expected_output: a short timeline note connected to at least one project decision
+```

@@ -69,3 +69,15 @@ after failure_count: 0
 ## 通过标准
 
 能保存一份红队用例文件，解释一个失败攻击面，提出一个防护方案，并在修复后重跑用例，就算通过本选修。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+product_question: user problem, workflow, value metric, and risk boundary
+experiment: hypothesis, smallest test, metric, and decision rule
+artifact: feature spec, prototype note, user story, or evaluation result
+failure_check: building demos without measuring value or ignoring user workflow
+Expected_output: AI product decision note that can guide implementation
+```

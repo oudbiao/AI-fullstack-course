@@ -57,6 +57,18 @@ print(Path("data").exists())
 False
 ```
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+symptom: exact error message, command, input, and environment
+minimal_repro: smallest code or command that still fails
+hypothesis: dependency, path, data, API, model, or browser/runtime issue
+next_probe: one command or log to check before changing many things
+Expected_output: a reproducible bug note and a tested fix or fallback
+```
+
 ## この順番でデバッグする
 
 1. 最初の 2 件の入力とラベルを出す。

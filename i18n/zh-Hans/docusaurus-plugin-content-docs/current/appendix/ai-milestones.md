@@ -143,3 +143,15 @@ AI 历史比论文清单更像接力赛：
 ```
 
 目标不是背历史，而是把历史节点和你以后会做的真实能力连接起来。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+timeline_anchor: stage, key idea, representative paper/system, and why it mattered
+chapter_link: which course chapter this milestone helps explain
+memory_hook: diagram, comic panel, or one-sentence historical turn
+failure_check: memorizing names without understanding the problem each milestone solved
+Expected_output: a short timeline note connected to at least one project decision
+```

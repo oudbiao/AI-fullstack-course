@@ -66,6 +66,18 @@ after failure_count: 0
 | 3 | ケースを実行 | PASS / FAIL 表 |
 | 4 | 修正して再実行 | 回帰レポート |
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+product_question: user problem, workflow, value metric, and risk boundary
+experiment: hypothesis, smallest test, metric, and decision rule
+artifact: feature spec, prototype note, user story, or evaluation result
+failure_check: building demos without measuring value or ignoring user workflow
+Expected_output: AI product decision note that can guide implementation
+```
+
 ## 合格チェック
 
 レッドチームケースファイルを残し、失敗した攻撃面を1つ説明し、防護策を1つ提案し、修正後に同じケースを再実行できれば合格です。

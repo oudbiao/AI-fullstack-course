@@ -89,6 +89,18 @@ struct FastEngine : Engine {
 
 それから `CpuEngine` を `FastEngine` に置き換えます。`Session` の他のコードは変えないでください。
 
+## 残す証拠
+
+このページを終えたら、この証拠カードを残します。
+
+```text
+deployment_target: local inference, edge device, model server, or optimization experiment
+artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
+metric: latency, memory, throughput, model size, accuracy drop, or reliability
+failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
+Expected_output: reproducible deployment or optimization evidence, not only theory notes
+```
+
 ## 合格チェック
 
 `Session` が engine を所有する理由、ここで `unique_ptr` が raw pointer より安全な理由、インターフェースで runtime backend を差し替えられる理由を説明できれば合格です。
