@@ -1,7 +1,7 @@
 ---
 title: "9.1.5 Agent 系统架构"
 sidebar_position: 4
-description: "从 Planner、Tool、Memory、State、Guardrails 等组件出发，理解一个可落地 Agent 系统的基本架构。"
+description: "从规划器、工具、记忆、状态、护栏等组件出发，理解一个可落地 Agent 系统的基本架构。"
 keywords: [agent architecture, planner, tools, memory, state, guardrails, observability]
 ---
 

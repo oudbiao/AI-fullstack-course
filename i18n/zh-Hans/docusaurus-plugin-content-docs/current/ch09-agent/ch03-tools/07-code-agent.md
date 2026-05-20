@@ -96,7 +96,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 这一步才是大家最容易想到的“写代码”。
 
-### Verify：执行验证
+### 验证：执行验证
 
 例如：
 
@@ -210,10 +210,10 @@ patch accepted
 
 这已经是一个最小的 agentic loop。
 
-![代码 Agent 沙箱、测试与 Review 闭环图](/img/course/ch09-code-agent-sandbox-review-map.webp)
+![代码 Agent 沙箱、测试与审核闭环图](/img/course/ch09-code-agent-sandbox-review-map.webp)
 
 :::tip 读图提示
-代码 Agent 的重点不是“会写代码”，而是能在沙箱里读上下文、生成 patch、跑测试、看失败、再修一轮。图中的 Verify 和 Review 是把想法拉回现实的关键。
+代码 Agent 的重点不是“会写代码”，而是能在沙箱里读上下文、生成 patch、跑测试、看失败、再修一轮。图中的验证和审核是把想法拉回现实的关键。
 :::
 
 ---

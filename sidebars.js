@@ -313,7 +313,7 @@ const sidebars = {
           items: [
             {
               type: "category",
-              label: "6.1 Neural Network Foundations",
+              label: "6.1 Neural Network Foundations (Core)",
               items: [
                 "ch06-deep-learning/ch01-nn-basics/roadmap",
                 "ch06-deep-learning/ch01-nn-basics/ml-to-dl-bridge",
@@ -327,7 +327,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.2 PyTorch Framework",
+              label: "6.2 PyTorch Framework (Core)",
               items: [
                 "ch06-deep-learning/ch02-pytorch/roadmap",
                 "ch06-deep-learning/ch02-pytorch/sklearn-to-pytorch-bridge",
@@ -342,7 +342,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.3 CNN for Images",
+              label: "6.3 CNN for Images (Extension)",
               items: [
                 "ch06-deep-learning/ch03-cnn/roadmap",
                 "ch06-deep-learning/ch03-cnn/convolution-basics",
@@ -354,7 +354,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.4 RNN and Sequence Models",
+              label: "6.4 RNN and Sequence Models (Extension)",
               items: [
                 "ch06-deep-learning/ch04-rnn/roadmap",
                 "ch06-deep-learning/ch04-rnn/rnn-basics",
@@ -364,7 +364,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.5 Attention and Transformer",
+              label: "6.5 Attention and Transformer (Core Bridge)",
               items: [
                 "ch06-deep-learning/ch05-transformer/roadmap",
                 "ch06-deep-learning/ch05-transformer/attention-mechanism",
@@ -373,7 +373,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.6 Generative Models",
+              label: "6.6 Generative Models (Extension)",
               items: [
                 "ch06-deep-learning/ch06-generative/roadmap",
                 "ch06-deep-learning/ch06-generative/gan",
@@ -392,7 +392,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.8 Stage Projects",
+              label: "6.8 Stage Projects (Core Evidence)",
               items: [
                 "ch06-deep-learning/ch08-projects/roadmap",
                 "ch06-deep-learning/ch08-projects/image-classification",
@@ -418,7 +418,7 @@ const sidebars = {
           items: [
             {
               type: "category",
-              label: "7.1 NLP Crash Course",
+              label: "7.1 NLP Crash Course (Core)",
               items: [
                 "ch07-llm-principles/ch01-nlp-crash/roadmap",
                 "ch07-llm-principles/ch01-nlp-crash/tokenizer",
@@ -430,7 +430,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.2 LLM Overview",
+              label: "7.2 LLM Overview (Core)",
               items: [
                 "ch07-llm-principles/ch02-llm-overview/roadmap",
                 "ch07-llm-principles/ch02-llm-overview/development-history",
@@ -441,7 +441,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.3 Transformer Internals",
+              label: "7.3 Transformer Internals (Deep Dive)",
               items: [
                 "ch07-llm-principles/ch03-transformer-deep/roadmap",
                 "ch07-llm-principles/ch03-transformer-deep/architecture-review",
@@ -453,7 +453,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.4 Pretraining",
+              label: "7.4 Pretraining (Deep Dive)",
               items: [
                 "ch07-llm-principles/ch04-pretraining/roadmap",
                 "ch07-llm-principles/ch04-pretraining/pretraining-data",
@@ -463,7 +463,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.5 Prompting",
+              label: "7.5 Prompting and Evaluation (Core)",
               items: [
                 "ch07-llm-principles/ch05-prompt/roadmap",
                 "ch07-llm-principles/ch05-prompt/prompt-basics",
@@ -475,7 +475,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.6 Fine-Tuning",
+              label: "7.6 Fine-Tuning (Deep Dive)",
               items: [
                 "ch07-llm-principles/ch06-finetuning/roadmap",
                 "ch07-llm-principles/ch06-finetuning/finetuning-overview",
@@ -487,7 +487,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.7 Alignment and Safety",
+              label: "7.7 Alignment and Safety (Deep Dive)",
               items: [
                 "ch07-llm-principles/ch07-alignment/roadmap",
                 "ch07-llm-principles/ch07-alignment/alignment-problem",
@@ -498,7 +498,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.8 Stage Project",
+              label: "7.8 Stage Project (Core Evidence)",
               items: [
                 "ch07-llm-principles/ch08-projects/roadmap",
                 "ch07-llm-principles/ch08-projects/domain-finetuning",
@@ -516,7 +516,7 @@ const sidebars = {
           items: [
             {
               type: "category",
-              label: "8.1 RAG: Retrieval-Augmented Generation",
+              label: "8.1 RAG: Retrieval-Augmented Generation (Core)",
               items: [
                 "ch08-rag/ch01-rag/roadmap",
                 "ch08-rag/ch01-rag/rag-basics",
@@ -530,7 +530,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.2 Model Deployment and Unified APIs",
+              label: "8.2 Model Deployment and Unified APIs (Extension)",
               items: [
                 "ch08-rag/ch02-deployment/roadmap",
                 "ch08-rag/ch02-deployment/local-models",
@@ -540,7 +540,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.3 LLM Application Development",
+              label: "8.3 LLM Application Development (Core App Shell)",
               items: [
                 "ch08-rag/ch03-app-dev/roadmap",
                 "ch08-rag/ch03-app-dev/llm-api-practice",
@@ -555,7 +555,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.4 Engineering Practices",
+              label: "8.4 Engineering Practices (Core / Extension)",
               items: [
                 "ch08-rag/ch04-engineering/roadmap",
                 "ch08-rag/ch04-engineering/async-programming",
@@ -566,7 +566,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.5 Stage Project",
+              label: "8.5 Stage Project (Core Evidence)",
               items: [
                 "ch08-rag/ch05-projects/roadmap",
                 "ch08-rag/ch05-projects/enterprise-kb",
@@ -586,7 +586,7 @@ const sidebars = {
           items: [
             {
               type: "category",
-              label: "9.1 Agent Basics",
+              label: "9.1 Agent Basics (Core)",
               items: [
                 "ch09-agent/ch01-agent-basics/roadmap",
                 "ch09-agent/ch01-agent-basics/what-is-agent",
@@ -598,7 +598,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.2 Reasoning and Planning",
+              label: "9.2 Reasoning and Planning (Core)",
               items: [
                 "ch09-agent/ch02-reasoning/roadmap",
                 "ch09-agent/ch02-reasoning/llm-reasoning",
@@ -611,7 +611,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.3 Tools",
+              label: "9.3 Tools (Core)",
               items: [
                 "ch09-agent/ch03-tools/roadmap",
                 "ch09-agent/ch03-tools/function-calling-deep",
@@ -626,7 +626,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.4 Memory",
+              label: "9.4 Memory (Core)",
               items: [
                 "ch09-agent/ch04-memory/roadmap",
                 "ch09-agent/ch04-memory/memory-overview",
@@ -639,7 +639,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.5 MCP",
+              label: "9.5 MCP (Advanced / Elective)",
               items: [
                 "ch09-agent/ch05-mcp/roadmap",
                 "ch09-agent/ch05-mcp/mcp-overview",
@@ -651,7 +651,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.6 Agent Frameworks",
+              label: "9.6 Agent Frameworks (Advanced / Elective)",
               items: [
                 "ch09-agent/ch06-frameworks/roadmap",
                 "ch09-agent/ch06-frameworks/framework-overview",
@@ -666,7 +666,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.7 Multi-Agent Systems",
+              label: "9.7 Multi-Agent Systems (Advanced / Elective)",
               items: [
                 "ch09-agent/ch07-multi-agent/roadmap",
                 "ch09-agent/ch07-multi-agent/architecture-patterns",
@@ -679,7 +679,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.8 Evaluation and Safety",
+              label: "9.8 Evaluation and Safety (Core)",
               items: [
                 "ch09-agent/ch08-eval-safety/roadmap",
                 "ch09-agent/ch08-eval-safety/evaluation-methods",
@@ -691,7 +691,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.9 Deployment and Operations",
+              label: "9.9 Deployment and Operations (Advanced)",
               items: [
                 "ch09-agent/ch09-deployment/roadmap",
                 "ch09-agent/ch09-deployment/deployment-architecture",
@@ -703,7 +703,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.10 Stage Project",
+              label: "9.10 Stage Project (Core Evidence)",
               items: [
                 "ch09-agent/ch10-projects/roadmap",
                 "ch09-agent/ch10-projects/research-assistant",

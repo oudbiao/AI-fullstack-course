@@ -1,7 +1,7 @@
 ---
 title: "9.1.5 Agent システムアーキテクチャ"
 sidebar_position: 4
-description: "Planner、Tool、Memory、State、Guardrails などのコンポーネントから、実用可能な Agent システムの基本アーキテクチャを理解する。"
+description: "プランナー、ツール、記憶、状態、ガードレールなどのコンポーネントから、実用可能な Agent システムの基本アーキテクチャを理解する。"
 keywords: [agent architecture, planner, tools, memory, state, guardrails, observability]
 ---
 

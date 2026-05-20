@@ -1,7 +1,7 @@
 ---
 title: "9.4.1 メモリロードマップ：書き込み、検索、忘却"
 sidebar_position: 0
-description: "Agent memory の短い実践ロードマップ：何を覚えるか決め、適切な context を取り出し、古い facts を更新し、memory pollution を避ける。"
+description: "Agent メモリの短い実践ロードマップ：何を覚えるか決め、適切な文脈を取り出し、古い事実を更新し、メモリ汚染を避ける。"
 keywords: [memory systems overview, Agent memory, short-term memory, long-term memory, episodic memory]
 ---
 
@@ -9,15 +9,15 @@ keywords: [memory systems overview, Agent memory, short-term memory, long-term m
 
 メモリは Agent を人間らしく見せるためではありません。タスクを助けるためにあります：同じ質問を減らし、有用な文脈を保ち、経験を再利用し、古い情報やプライバシー漏えいを避けます。
 
-## まず memory loop を見る
+## まずメモリループを見る
 
-![Agent memory system の階層図](/img/course/agent-memory-system-ja.webp)
+![Agent メモリシステムの階層図](/img/course/agent-memory-system-ja.webp)
 
-![Agent memory systems 章の学習順序図](/img/course/ch09-memory-chapter-flow-ja.webp)
+![Agent メモリシステム章の学習順序図](/img/course/ch09-memory-chapter-flow-ja.webp)
 
-![Agent memory writing and retrieval の閉ループ図](/img/course/ch09-memory-write-retrieve-loop-ja.webp)
+![Agent メモリ書き込みと検索の閉ループ図](/img/course/ch09-memory-write-retrieve-loop-ja.webp)
 
-重要なのは「全部保存」ではありません。何を保存し、いつ retrieve し、いつ update し、いつ forget するかです。
+重要なのは「全部保存」ではありません。何を保存し、いつ検索し、いつ更新し、いつ忘れるかです。
 
 ## メモリ書き込みフィルタを動かす
 

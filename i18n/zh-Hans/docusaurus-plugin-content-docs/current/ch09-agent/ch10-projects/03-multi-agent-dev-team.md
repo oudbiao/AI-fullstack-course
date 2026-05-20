@@ -219,22 +219,22 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 ![多 Agent 开发团队交付闭环图](/img/course/ch09-multi-agent-dev-team-delivery-map.webp)
 
 :::tip 读图提示
-这张图强调“角色数量不是重点，工件交接才是重点”：planner 产出 plan，coder 产出 patch，reviewer 产出 issue，tester 产出 test report，失败后回到对应角色修复。
+这张图强调“角色数量不是重点，工件交接才是重点”：规划者产出计划，编码者产出补丁，审核者产出问题清单，测试者产出测试报告，失败后回到对应角色修复。
 :::
 
 ---
 
 ## 作品级项目最该展示什么？
 
-### 一条完整任务 追踪
+### 一条完整任务追踪
 
 例如：
 
 - 任务目标
 - 计划（plan）
 - 补丁（patch）
-- 审核问题（review issues）
-- 测试报告（test report）
+- 审核问题
+- 测试报告
 
 ### 一次失败回退
 

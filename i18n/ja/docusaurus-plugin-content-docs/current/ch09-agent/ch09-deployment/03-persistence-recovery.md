@@ -190,7 +190,7 @@ event types:
 ['step_started', 'step_completed', 'step_started', 'step_failed', 'step_started', 'step_completed', 'step_started', 'step_completed']
 ```
 
-![Agent Checkpoint 復元実行結果図](/img/course/ch09-agent-checkpoint-recovery-result-map-ja.webp)
+![Agent チェックポイント復元実行結果図](/img/course/ch09-agent-checkpoint-recovery-result-map-ja.webp)
 
 ### この例で特に学ぶべきことは何か？
 
@@ -219,7 +219,7 @@ checkpoint だけでは「今どんな状態か」は分かりますが、
 
 ログがあると、振り返りやデバッグがしやすくなります。
 
-![Agent Checkpoint、Event Log と復元の図](/img/course/ch09-agent-persistence-checkpoint-eventlog-map-ja.webp)
+![Agent チェックポイント、イベントログと復元の図](/img/course/ch09-agent-persistence-checkpoint-eventlog-map-ja.webp)
 
 :::tip 図の見方
 この図では、復元を2つの流れに分けています。checkpoint は「どこまで戻るか」を担当し、event log は「以前に何が起きたか」を担当します。長いタスクを本番運用するなら、この2つをセットで使うのが基本で、最終結果だけを保存するのはおすすめできません。

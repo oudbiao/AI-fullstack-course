@@ -337,7 +337,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 ### 固定の評価セットは長期的に保存する
 
 そうすると、prompt や戦略、ツールを変えるたびに、  
-before / after の比較をきちんと行えます。
+前後比較をきちんと行えます。
 
 ---
 

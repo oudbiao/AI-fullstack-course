@@ -338,7 +338,7 @@ agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool
 ### 固定评估集要长期保留
 
 这样每次改 prompt、改策略、改工具后，
-你才能进行可比的 before / after 对比。
+你才能进行可比的前后对比。
 
 ---
 

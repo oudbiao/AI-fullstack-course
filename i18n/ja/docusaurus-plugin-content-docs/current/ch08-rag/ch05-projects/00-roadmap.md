@@ -60,10 +60,10 @@ evidence: docs, eval, citations, failures
 
 | 手順 | プロジェクト | 本当に鍛える力 |
 |---|---|---|
-| 1 | 企業またはコース知識ベース | 検索、権限、引用、トレースable answers |
-| 2 | 知的アシスタント | 検索、session state、tool calling を product feature にする |
+| 1 | 企業またはコース知識ベース | 検索、権限、引用、追跡可能な回答 |
+| 2 | 知的アシスタント | 検索、セッション状態、ツール呼び出しをプロダクト機能にする |
 | 3 | RAG + 微調整システム | 知識不足と振る舞い不安定を分ける |
-| 4 | 教材生成助手 | 文書解析、構造化出力、template rendering |
+| 4 | 教材生成助手 | 文書解析、構造化出力、テンプレート描画 |
 | 5 | フル実践ワークショップ | 実 API や DB を足す前の最小再現ループ |
 
 ガイド付き baseline が必要なら、[8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./05-stage-hands-on-workshop.md) から始めます。
@@ -84,13 +84,13 @@ failure_log: at least one failed case with likely cause
 
 | 成果物 | 最低要件 | 強いポートフォリオ版 |
 |---|---|---|
-| README | 目的、実行コマンド、依存関係、例 | アーキテクチャ図、設計 trade-off、コスト、振り返りを追加 |
-| 知識ベースサンプル | raw documents、chunks、metadata、source fields | 権限ルール、document version、更新メモを追加 |
-| 検索ログ | matched passages、scores、ranking | failure type statistics と before/after comparison を追加 |
-| 回答引用 | 最終回答が支援ソースを表示 | citation 忠実性 checks を追加 |
+| README | 目的、実行コマンド、依存関係、例 | アーキテクチャ図、設計上のトレードオフ、コスト、振り返りを追加 |
+| 知識ベースサンプル | 生文書、チャンク、メタデータ、出典フィールド | 権限ルール、文書バージョン、更新メモを追加 |
+| 検索ログ | 命中箇所、スコア、順位 | 失敗タイプ統計と前後比較を追加 |
+| 回答引用 | 最終回答が根拠ソースを表示 | 引用の忠実性チェックを追加 |
 | 失敗ケース | 少なくとも 1 件の失敗を記録 | 3 件以上の原因、修正、regression check を追加 |
-| 評価 | 固定質問と pass/fail rules | ベースライン、メトリクス、regression testing を追加 |
-| デプロイメモ | 実行方法と必要な環境変数 | Docker、monitoring、fallback notes を追加 |
+| 評価 | 固定質問と合否ルール | ベースライン、メトリクス、回帰テストを追加 |
+| デプロイメモ | 実行方法と必要な環境変数 | Docker、監視、フォールバックメモを追加 |
 
 ## 合格ライン
 

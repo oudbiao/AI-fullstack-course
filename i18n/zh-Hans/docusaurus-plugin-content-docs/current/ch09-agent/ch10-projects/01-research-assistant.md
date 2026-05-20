@@ -243,16 +243,16 @@ for case in eval_cases:
 
 ### 页面上分四栏展示
 
-- 查询（查询）
-- 检索来源（Retrieved sources）
-- 结构化总结（Structured summary）
-- 引用（Citations）
+- 查询
+- 检索来源
+- 结构化总结
+- 引用
 
 ### 准备 5~10 个固定评估问题
 
 这样你可以稳定展示：
 
-- 前后对比（before / after）
+- 前后对比
 - 检索策略变更
 - 总结策略改进
 

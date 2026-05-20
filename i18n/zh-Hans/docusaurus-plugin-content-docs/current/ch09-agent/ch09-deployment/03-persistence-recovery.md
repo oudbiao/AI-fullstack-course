@@ -190,7 +190,7 @@ event types:
 ['step_started', 'step_completed', 'step_started', 'step_failed', 'step_started', 'step_completed', 'step_started', 'step_completed']
 ```
 
-![Agent Checkpoint 恢复运行结果图](/img/course/ch09-agent-checkpoint-recovery-result-map.webp)
+![Agent 检查点恢复运行结果图](/img/course/ch09-agent-checkpoint-recovery-result-map.webp)
 
 ### 这个示例最值得学什么？
 
@@ -219,7 +219,7 @@ checkpoint 只能告诉你“现在是什么状态”，
 
 日志让你能做复盘和调试。
 
-![Agent Checkpoint、Event Log 与恢复图](/img/course/ch09-agent-persistence-checkpoint-eventlog-map.webp)
+![Agent 检查点、事件日志与恢复图](/img/course/ch09-agent-persistence-checkpoint-eventlog-map.webp)
 
 :::tip 读图提示
 这张图把恢复分成两条线：checkpoint 负责“现在恢复到哪”，event log 负责“之前发生了什么”。长任务上线时，两者最好配合，而不是只存最终结果。

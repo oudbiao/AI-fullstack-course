@@ -155,7 +155,7 @@ ReAct 的即兴决策通常够用。
 ![Plan-and-Execute 监控重规划图](/img/course/ch09-plan-execute-monitor-replan-map.webp)
 
 :::tip 读图提示
-读图时注意两层职责：Planner 负责全局路线，Executor 负责当前步骤；Monitor 一旦发现缺资料、工具失败或目标变化，就触发 replan，而不是让系统硬走原计划。
+读图时注意两层职责：规划器负责全局路线，执行器负责当前步骤；监控器一旦发现缺资料、工具失败或目标变化，就触发重新规划，而不是让系统硬走原计划。
 :::
 
 ---
