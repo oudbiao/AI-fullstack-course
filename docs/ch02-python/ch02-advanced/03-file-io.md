@@ -466,7 +466,28 @@ def update_config(key, value, filename="config.json"):
 print(update_config("theme", "dark"))
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `file_stats` should report line count, character count, word count, and the longest line. The `default=(0, "")` in `max()` is important because it keeps empty files from crashing the code.
+2. The diary app should append timestamped entries to a text file, list them back in order, and keep the storage format simple enough to inspect by hand.
+3. The config manager should load JSON, create a default file if none exists, update one key, and save the result back with pretty-printed JSON. Using `Path` keeps the file paths portable.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## Summary
 

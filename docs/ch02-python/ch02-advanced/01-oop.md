@@ -572,7 +572,28 @@ for animal in animals:
     print(f"{animal.name}: {animal.speak()}")
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `Book` should keep the current page as state, cap progress at the total page count, and report derived progress through `progress()`. The sample should print about `16.7%` after reading 50 of 300 pages, then show `50/300` in the object string.
+2. `ShoppingCart` should store the product object together with quantity so `total()` can multiply them correctly. `remove()` should be safe when the item is missing, and `__str__()` should return a clear empty-cart message when nothing has been added.
+3. `Animal` provides the shared fields and a placeholder `speak()`, while the subclasses override only their own sounds. The loop should print each animal name with its own sound, which confirms inheritance and polymorphism.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## Summary
 

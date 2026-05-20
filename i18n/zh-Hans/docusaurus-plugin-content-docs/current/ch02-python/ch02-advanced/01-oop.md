@@ -572,7 +572,28 @@ for animal in animals:
     print(f"{animal.name}: {animal.speak()}")
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `Book` 应该把当前页数作为内部状态保存，并且用 `progress()` 计算阅读进度。读完 50/300 页后，示例输出应当接近 `16.7%`，对象字符串里应显示 `50/300`。
+2. `ShoppingCart` 应该把商品对象和数量一起保存，这样 `total()` 才能正确相乘。`remove()` 在商品不存在时应保持安全，`__str__()` 在购物车为空时应返回清楚的提示。
+3. `Animal` 提供共享字段和占位版 `speak()`，子类只覆盖自己的叫声。循环输出每个动物的名字和叫声，就能证明继承与多态是正常工作的。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## 小结
 

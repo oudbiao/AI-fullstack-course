@@ -40,6 +40,18 @@ print("这行永远不会被执行")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
+
 ## 常见的异常类型
 
 | 异常类型 | 触发场景 | 示例 |
@@ -498,6 +510,15 @@ values, errors = convert_to_numbers(["10", "20.5", "abc", "30", "xyz"])
 print(values)
 print(errors)
 ```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `safe_calculator` 应先把输入转换成数字，再按运算符分支，并捕获 `ZeroDivisionError`、`ValueError` 和 `StopIteration`。使用默认输入时，它会先走到除零分支，打印友好错误，然后在最后的 `n` 处退出。
+2. `read_file_safely` 应使用 `with` 语句，捕获 `FileNotFoundError`、`PermissionError` 和其他 `OSError`，在读取失败时返回 `None`，让调用方决定下一步。
+3. `convert_to_numbers` 应返回两列平行列表：解析成功的数字和转换失败记录。把 `None` 放进数字列表可以保持批次对齐，同时保留坏记录。
+
+</details>
 
 ---
 

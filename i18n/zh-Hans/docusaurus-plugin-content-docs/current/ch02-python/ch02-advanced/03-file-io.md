@@ -466,7 +466,28 @@ def update_config(key, value, filename="config.json"):
 print(update_config("theme", "dark"))
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. `file_stats` 应统计行数、字符数、单词数和最长行信息。`max()` 里的 `default=(0, "")` 很重要，因为它能避免空文件直接报错。
+2. 日记本程序应把带时间戳的内容追加到文本文件中，再按顺序读回，并且保持一种人眼也能直接查看的简单格式。
+3. 配置管理器应加载 JSON，不存在时先创建默认配置，更新一个键后再以漂亮格式写回。使用 `Path` 可以让路径处理更统一。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## 小结
 

@@ -428,7 +428,28 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
     print(window)
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `fibonacci(n)` should `yield` values one by one and stop after `n` items when `n` is provided. The sample loop should print the first ten Fibonacci numbers in order.
+2. `search_files` should use `Path(directory).rglob(pattern)` and `yield from` so files are streamed lazily instead of collected all at once.
+3. `sliding_window` should yield contiguous slices of the requested size. If `window_size` is larger than the input, the loop body never runs, which is the correct empty result.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## Summary
 

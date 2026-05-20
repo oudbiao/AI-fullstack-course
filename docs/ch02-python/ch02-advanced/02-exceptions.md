@@ -40,6 +40,18 @@ In real programs, errors are **unavoidable** — users may enter invalid data, f
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
+
 ## Common exception types
 
 | Exception type | Trigger scenario | Example |
@@ -503,6 +515,15 @@ values, errors = convert_to_numbers(["10", "20.5", "abc", "30", "xyz"])
 print(values)
 print(errors)
 ```
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. `safe_calculator` should parse each input, branch on the operator, and catch `ZeroDivisionError`, `ValueError`, and `StopIteration`. With the default sample input, it will hit the divide-by-zero path once, print the friendly error, and then exit on the final `n`.
+2. `read_file_safely` should use a `with` block, catch `FileNotFoundError`, `PermissionError`, and other `OSError`s, and return `None` when reading fails so callers can decide the next step.
+3. `convert_to_numbers` should return two parallel lists: parsed numbers and conversion failures. Putting `None` in the numeric list keeps the batch aligned while still exposing bad records.
+
+</details>
 
 ---
 

@@ -8,6 +8,18 @@ description: "Python の型注釈とコード品質ツールを身につける"
 
 ![型注釈とコード品質のフローチャート](/img/course/ch02-type-hints-quality-flow-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
+
 ## この節の位置づけ
 
 この節では、「コードが動く」から一歩進んで、「コードを保守しやすくする」ことに注目します。型注釈、フォーマッタ、コードチェックツールを使うと、プロジェクトが大きくなったときや、複数人で協力するとき、複雑なライブラリを使うときにミスを減らせます。また、未来の自分もコードをすばやく理解しやすくなります。

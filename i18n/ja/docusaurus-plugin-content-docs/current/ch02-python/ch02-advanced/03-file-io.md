@@ -8,6 +8,18 @@ description: "ファイルの読み書きとデータのシリアライズを理
 
 ![ファイル読書きとシリアライズのフローチャート](/img/course/ch02-file-io-serialization-flow-ja.webp)
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
+
 ## この節の位置づけ
 
 この節では、プログラムのデータを保存して、あとで読み戻せるようにします。ファイルの読み書き、CSV、JSON、そしてシリアライズは、データセット処理、学習ログ、設定ファイル、モデル結果の保存の基礎です。メモリ上の一時的なコードから実際のプロジェクトへ進むための、大事な一歩でもあります。

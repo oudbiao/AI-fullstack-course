@@ -464,7 +464,28 @@ add(3, 5)
 # add returned: 8
 ```
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. The pipeline should strip whitespace, drop empty items, keep only strings that can become numbers, convert them, and then keep values `>= 50`. In the sample data, `78` and `90.1` survive.
+2. Sorting should use three separate `sorted(..., key=...)` calls: price ascending, rating descending, and a cost-effectiveness score such as `rating / price` descending.
+3. The decorator should wrap the function, print before/after messages, and return the original result unchanged. In a production answer, `functools.wraps` should preserve the original metadata.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## Summary
 

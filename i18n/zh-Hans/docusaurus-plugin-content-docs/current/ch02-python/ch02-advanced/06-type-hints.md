@@ -529,7 +529,28 @@ def g(d):
 3. 添加文档字符串
 4. 符合 PEP 8 规范
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 旧代码应补全显式参数和返回类型，例如 `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` 和 `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`。重点是让输入结构和空列表情况一眼可见。
+2. `ruff` 的流程应是先 `ruff check`，再 `ruff format`，最后比较 diff。这样可以把 lint 和格式化分开，审阅更清楚。
+3. 重写后的代码应使用清晰命名、类型注解、docstring 和 PEP 8 间距；求平均值的函数还要防止空输入导致除零。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## 小结
 

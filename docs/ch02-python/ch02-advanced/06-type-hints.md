@@ -529,7 +529,28 @@ Requirements:
 3. Add docstrings
 4. Follow PEP 8
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. For the legacy functions, add explicit parameter and return types, for example `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` and `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`. The main goal is to make the input shape and empty-list case obvious.
+2. The workflow with `ruff` is `ruff check` first, then `ruff format`, then compare the diff. That keeps linting and formatting separate and makes review easier.
+3. The rewritten code should use descriptive names, type annotations, docstrings, and PEP 8 spacing. Also guard the average function against empty input so it does not divide by zero.
+
+</details>
+
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## Summary
 

@@ -464,7 +464,28 @@ add(3, 5)
 # add 返回: 8
 ```
 
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 这个管道应该先去空白，再去掉空字符串和无法转成数字的内容，接着转换成浮点数，最后过滤掉小于 50 的值。样例里最终会留下 `78` 和 `90.1`。
+2. 排序可以分别用三次 `sorted(..., key=...)` 完成：价格升序、评分降序、性价比（例如 `rating / price`）降序。
+3. 装饰器应在函数执行前后打印消息，并原样返回函数结果。正式实现里最好加上 `functools.wraps`，保留原函数元数据。
+
+</details>
+
 ---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+pattern: class, exception, file IO, functional pipeline, generator, or type hint
+code_artifact: minimal runnable example and one realistic use case
+output: printed object state, caught error, saved file, yielded values, or type-check note
+failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
+Expected_output: small advanced-Python example with a debugging note
+```
 
 ## 小结
 
