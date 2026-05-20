@@ -370,6 +370,21 @@ Source: internal knowledge base + external supplemental materials
 
 This check is simple, but it is the difference between a demo and an engineering pipeline: every rendering step should fail early when required structured fields are missing.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+The correct first check is that `validate_payload(payload)` returns `(True, "ok")` for a complete payload, and raises a clear error before rendering when any required field is empty or missing. That means the renderer should not silently produce a half-empty handout.
+
+A solid implementation separates three responsibilities:
+
+1. The courseware schema decides what knowledge, examples, exercises, and sources exist.
+2. The template payload maps those fields into the exact placeholders a document template needs.
+3. The renderer only formats an already validated payload.
+
+If you remove `exercise_block`, the expected behavior is not a broken exported document. The validation layer should return a missing-field message, and the calling code should stop before the export step.
+
+</details>
+
 ## Why Is This Layer Closely Related to Prompt / Structured Output?
 
 Because you will usually ask the model to first produce:

@@ -389,6 +389,17 @@ Read the heading line as state, not as an output row: it updates `section_title`
 
 This is the smallest useful ingestion loop: every chunk carries content, structure, source, page, and type. Retrieval and courseware generation become much easier once this shape is stable.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+A good result has two chunks, not three. The heading line should update `section_title` to `Basic Discount Concepts`, while the formula line becomes a `concept` chunk and the example line becomes an `example` chunk.
+
+The important engineering lesson is that chunking is not just splitting text. Each chunk should keep enough metadata to be useful later: source type, document id, page or slide number, section title, original content, and a coarse content type. If one of those fields is missing, retrieval results may still look plausible, but the generated courseware will be harder to cite, debug, or filter.
+
+For a stronger version, add one more simulated page that contains an `Exercise:` line. The expected behavior is a third chunk with `content_type: "exercise"` and the same current section title unless a new heading appears first.
+
+</details>
+
 ## Why do scanned files bring OCR into the pipeline?
 
 Because scanned PDFs or image pages are not text files at their core, but rather:

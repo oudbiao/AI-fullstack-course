@@ -389,6 +389,17 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 这就是最小可用的入库闭环：每个 chunk 都带着内容、结构、来源、页码和类型。这个形状稳定之后，后面的检索和课件生成都会容易很多。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+一个好的结果应该生成 2 个 chunk，而不是 3 个。标题行只负责把 `section_title` 更新成 `折扣基础概念`，公式行会生成 `concept` chunk，例题行会生成 `example` chunk。
+
+这里最重要的工程点是：chunking 不只是切文本。每个 chunk 都应该带着后续可用的元数据，例如 source type、document id、页码或幻灯片号、章节标题、原始内容和粗粒度内容类型。缺少这些字段时，检索结果可能看起来还能用，但后续生成课件时会更难引用、调试和过滤。
+
+如果要加强这个练习，可以再加一页包含 `练习：` 的模拟页面。预期行为是生成第 3 个 chunk，`content_type` 为 `"exercise"`；如果前面没有新标题，它应该继续沿用当前 section title。
+
+</details>
+
 ## 扫描件为什么会把 OCR 拉进来？
 
 因为扫描版 PDF 或图片页本质上不是文字文件，而是：

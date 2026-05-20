@@ -370,6 +370,21 @@ print(render_markdown_handout(payload))
 
 这个检查很简单，但它体现了演示和工程管线的区别：每个渲染步骤都应该在缺少必填结构字段时尽早失败。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+正确的第一层检查是：完整 payload 应该让 `validate_payload(payload)` 返回 `(True, "ok")`；如果某个必填字段为空或缺失，渲染前就应该给出清晰错误，而不是生成一份半空的讲义。
+
+一个稳的实现会拆成三层职责：
+
+1. courseware schema 决定有哪些知识点、例题、练习和来源。
+2. template payload 把这些字段整理成模板真正需要的占位符。
+3. renderer 只负责格式化已经校验过的 payload。
+
+如果你删掉 `exercise_block`，预期结果不应该是一份损坏的导出文档。校验层应该返回缺失字段信息，调用方应该在导出前停止。
+
+</details>
+
 ## 为什么这一层和 Prompt / 结构化输出强相关？
 
 因为你通常会让模型先产出：
