@@ -453,6 +453,18 @@ df.to_sql("students_backup", engine, if_exists="replace", index=False)
 - 如果做 Web 开发 → 用 SQLAlchemy 的 ORM 功能
 :::
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## 这节最该带走什么
 
 - 这一节真正重要的不是“会写连接代码”，而是知道 Python、SQL 和 Pandas 怎么协作
@@ -598,3 +610,13 @@ db.close()
 # - 按状态查询
 # - 统计完成率
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- CRUD 练习要展示创建、读取、更新、删除，并提交事务，最后再读一次表，证明状态按预期改变。
+- 用户输入值必须用参数化 SQL。好的答案即使在小练习脚本里，也使用占位符，而不是字符串拼接。
+- Pandas 连接数据库时，用 `read_sql_query` 做分析，用 `to_sql` 写结果表。数据库连接、查询逻辑和报告输出要尽量分开，方便测试。
+
+</details>

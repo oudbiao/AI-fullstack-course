@@ -550,6 +550,17 @@ Hint: you need to group by two fields at the same time (`pclass` + `sex`). Try i
 
 ---
 
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the passenger exercise, group by `survived` first and compute counts, average fare, and class distribution before interpreting anything.
+- When adding age logic, treat missing ages as `Unknown` instead of pretending they are children or adults. The useful comparison is child survival rate versus adult survival rate, with the number of samples shown beside each rate.
+- For the class and gender crosstab, a good answer reports both raw counts and percentages. The explanation should say these are associations in the dataset, not proof that fare, class, or gender caused survival.
+
+</details>
+
+
 ## Complete code for this section
 
 Combine all the code above into one file:
@@ -650,6 +661,18 @@ if __name__ == "__main__":
 ```
 
 ---
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
 
 ## Summary
 

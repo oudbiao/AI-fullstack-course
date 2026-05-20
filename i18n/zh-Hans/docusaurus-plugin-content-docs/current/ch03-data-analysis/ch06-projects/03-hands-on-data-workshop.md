@@ -28,7 +28,7 @@ keywords: [数据分析实操, Python CSV, SQLite, 数据清洗, 可复现分析
 | `topic_minutes.svg` | 脚本生成的图表 |
 | `report.html` | 可以用浏览器打开的简易分析报告 |
 
-## Step 0：创建干净的练习文件夹
+## 步骤 0：创建干净的练习文件夹
 
 在终端运行下面的命令。如果你使用 Windows，可以在 PowerShell 里执行；如果 `python3` 不存在，就把它换成 `python`。
 
@@ -46,7 +46,7 @@ Python 3.12.3
 
 保持这个终端打开。后面的命令默认都在 `ch03-learning-log-workshop` 目录里执行。
 
-## Step 1：先看懂流水线，再写代码
+## 步骤 1：先看懂流水线，再写代码
 
 ![清洗与校验流水线](/img/course/ch03-hands-on-cleaning-pipeline.webp)
 
@@ -61,7 +61,7 @@ Python 3.12.3
 | 可视化 | 哪个结果需要一眼看懂？ | `topic_minutes.svg` |
 | 报告 | 别人应该相信什么，又能检查什么？ | `report.html` |
 
-## Step 2：创建可运行脚本
+## 步骤 2：创建可运行脚本
 
 创建一个名为 `learning_log_pipeline.py` 的文件，然后粘贴下面完整脚本。
 
@@ -369,7 +369,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## Step 3：运行并对照输出
+## 步骤 3：运行并对照输出
 
 ```bash
 python3 learning_log_pipeline.py
@@ -401,7 +401,7 @@ Generated files:
 
 如果行数和统计值一致，说明流水线已经跑通。
 
-## Step 4：阅读生成的证据
+## 步骤 4：阅读生成的证据
 
 ![分组统计与 SQLite 流程](/img/course/ch03-hands-on-groupby-sql-flow.webp)
 
@@ -450,7 +450,7 @@ PY
 ('RAG', 25)
 ```
 
-## Step 5：打开图表和报告
+## 步骤 5：打开图表和报告
 
 ![图表与报告输出流程](/img/course/ch03-hands-on-chart-report-flow.webp)
 
@@ -480,6 +480,18 @@ xdg-open ch03_output/report.html
 | `SVG` | 文本形式的图片格式。这里我们不安装绘图库，也能生成一张图。 |
 | 可复现性 | 其他人运行同一个脚本，也能得到同样的文件和数字。 |
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```
+
 ## 常见错误与修复
 
 | 问题 | 可能原因 | 修复 |
@@ -497,6 +509,17 @@ xdg-open ch03_output/report.html
 3. 修改 SQLite 查询，只显示 `status = 'stuck'` 的记录。
 4. 增加一个名为 `difficulty` 的字段，并把它写入 CSV、SQLite 表和报告。
 5. 学完 Pandas 后，用 Pandas 重写 `summarize_by_topic()`，再和这个标准库版本对照结果。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 表格编辑小练习的证据应包含修改后的 CSV 或 SQLite 表，以及能证明变化的准确查询或 Pandas 语句。
+- 如果 confidence 值可能超过有效范围，要裁剪或校验，并记录规则。隐藏的非法值比清楚的警告更糟。
+- 新增 difficulty 之类字段时，要同时更新 CSV、数据库 schema、加载代码和报告输出，保证数据路径端到端一致。
+
+</details>
+
 
 ## 作品集证据清单
 

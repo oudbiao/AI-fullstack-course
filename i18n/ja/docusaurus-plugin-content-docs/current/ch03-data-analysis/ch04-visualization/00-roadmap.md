@@ -58,6 +58,18 @@ saved: sales_trend.png
 
 画像を開いて、1つだけ確認します。読者は3秒以内に傾向を理解できますか。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |

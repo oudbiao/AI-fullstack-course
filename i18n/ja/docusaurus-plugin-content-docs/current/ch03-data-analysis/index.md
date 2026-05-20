@@ -104,6 +104,13 @@ Visualization    ...
 
 合格ラインは「グラフがきれい」ではありません。どの行を変えたか、なぜ変えたか、結論にどう影響するかを説明できることです。
 
+### この出力の読み方
+
+- `クリーニング前` は、重複、欠損値、外れ値を含む生の証拠です。
+- `クリーニング後` は、実際に分析に使う変換後の表です。
+- `topic_minutes.png` はレポート成果物なので、それを生成したスクリプトと一緒に残します。
+- 別のクリーニング規則で結論が変わるなら、その変化を隠さず記録します。
+
 ## 深度ラダー
 
 | レベル | 証明できること |
@@ -111,6 +118,18 @@ Visualization    ...
 | 最低合格 | 表を読み、shape・型・欠損値を確認し、明らかな問題を整え、グラフを 1 つ保存できる。 |
 | プロジェクト利用可 | レポートに、問い、クリーニング規則、集計表、グラフ、結論、限界、再実行コマンドがある。 |
 | 深い確認 | 別のクリーニング規則で結論が変わるかを試し、リークやサンプリング偏りを見つけ、グラフ種類が問いに合う理由を説明できる。 |
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
 
 ## よくある失敗
 
@@ -133,3 +152,13 @@ Visualization    ...
 - 他の人が README を見て分析を再実行できますか？
 
 印刷用のチェックリストが必要なときは、[3.0 学習ガイドとタスクリスト](./study-guide.md) を使ってください。次の章では、このデータ感覚を使って確率、ベクトル、勾配、モデル評価を理解します。
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- この 5 つの通過チェックは、ばらばらの標語ではなく小さなデータストーリーとして答えます。
+- 十分な答えには、列名と単位、行や値を変えたクリーニングルール、各グラフが答える明確な質問、データで支えられる結論と不確かな点、他人が再実行できる README が含まれます。
+- 表、グラフ、コマンド出力ではなく記憶に頼っている答えがあるなら、証拠パックはまだ完成していません。
+
+</details>

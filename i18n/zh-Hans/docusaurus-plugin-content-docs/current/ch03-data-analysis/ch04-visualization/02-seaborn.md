@@ -476,6 +476,18 @@ mindmap
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## 小结
 
 | 需求 | 函数 | 说明 |
@@ -532,3 +544,13 @@ mindmap
 # 用 FacetGrid 按 day 分面，画出 total_bill 和 tip 的散点图
 # 用颜色区分 sex
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 分布图可用 `histplot` 或 `kdeplot`，并说明偏态、异常值和大致中心。只有漂亮曲线、没有解释是不完整的。
+- 类别比较中，箱线图和计数图回答的问题不同：一个看分布范围，一个看频数。先选符合问题的图，再做样式调整。
+- 热力图和 pair plot 要解释一两个重要关系，并写一个限制。相关性或视觉聚类只是调查线索，本身不是证明。
+
+</details>

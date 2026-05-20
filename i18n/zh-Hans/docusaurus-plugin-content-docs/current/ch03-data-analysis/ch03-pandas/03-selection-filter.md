@@ -378,6 +378,29 @@ print(top10[["订单ID", "客户", "金额"]])
 # 3. 金额排名前 5% 的订单有哪些？（提示：用 quantile）
 ```
 
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 每个条件先写成布尔 mask，再用 `&`、`|` 和括号组合。例如金额区间、类别是否属于某集合、是否未退货，都可以先拆成命名 mask。
+- 客户分组问题如果写明“未退货订单”，就先筛选再按 `Customer` 分组，计算均值、最大值或次数。
+- Top 百分比问题先用 `quantile` 算阈值，再筛出超过阈值的记录，并同时报告阈值和结果行。这样截断标准可以被审计。
+
+</details>
+
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 这节最该带走什么
 
 - `loc` 按标签，`iloc` 按位置，布尔索引按条件

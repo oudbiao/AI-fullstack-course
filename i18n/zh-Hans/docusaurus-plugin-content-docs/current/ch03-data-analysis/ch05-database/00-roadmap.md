@@ -66,3 +66,15 @@ tool 80
 ## 通过标准
 
 能解释数据库和 CSV 的区别，写出一个 `SELECT ... GROUP BY` 查询，并用 Python 读取结果，就算通过这个选修小节。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```

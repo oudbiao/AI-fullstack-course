@@ -358,6 +358,18 @@ print(f"Second-half total: {second_half.sum()}")
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Summary
 
 | Operation | Function | Description |
@@ -412,3 +424,13 @@ daily_temps = rng.uniform(low=-5, high=38, size=360)  # Use 360 days for easier 
 # 3. Find the hottest and coldest months
 # 4. Calculate the average temperature difference between the first half and second half of the year
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The same 24 values can become `(4, 6)`, `(2, 3, 4)`, or `(6, -1)` as long as the total element count stays 24. Use `-1` only for one dimension so NumPy can infer it.
+- For class score data, `np.vstack` stacks classes vertically, `np.hstack` adds columns horizontally, and `np.split` can recover equal-sized blocks when the row counts line up.
+- For daily temperature data, reshape to `(12, 30)` if every month has 30 readings, then use `axis=1` for monthly means and `argmax` or `argmin` to find the warmest or coldest month.
+
+</details>

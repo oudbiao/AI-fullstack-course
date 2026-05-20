@@ -378,6 +378,18 @@ print(monthly_top.loc[idx])
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 | Operation | Method | Number of rows returned | Use case |
@@ -416,3 +428,13 @@ print(monthly_top.loc[idx])
 # 1. Create a pivot table: rows = region, columns = month, values = total amount, with totals
 # 2. In which month did each region have the highest sales amount?
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Average order value is total amount divided by order count, so compute both numerator and denominator instead of averaging already-averaged rows.
+- For best product by month or region, aggregate to the correct level first, then sort or use `idxmax`. Picking the maximum raw row can give the wrong answer when a product appears many times.
+- Use `transform` when each original row needs a group-level value, such as region average or share of monthly sales. Use `agg` when the output should be one row per group.
+
+</details>

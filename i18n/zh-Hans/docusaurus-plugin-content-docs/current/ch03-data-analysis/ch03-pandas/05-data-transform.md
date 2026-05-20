@@ -338,6 +338,18 @@ print(quartile_group)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 | 操作 | 方法 | 常见用途 |
@@ -386,3 +398,13 @@ print(quartile_group)
 # 2. 用 qcut 平均分成 5 组
 # 3. 统计每组的人数和平均消费
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 月份或类别重编码应使用显式字典，并用 `isna()` 或 `value_counts` 检查未映射值。静默漏映射是汇总错误的常见来源。
+- 销售衍生字段用向量化操作计算，例如乘法、`rank`、`sort_values` 和 `nlargest`，得到总额、排名和 top 项。
+- 分箱时，业务阈值固定用 `cut`，希望每组样本量接近用 `qcut`。解释标签前一定先打印每组数量。
+
+</details>

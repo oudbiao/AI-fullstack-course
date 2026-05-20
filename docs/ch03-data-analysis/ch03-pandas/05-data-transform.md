@@ -338,6 +338,18 @@ print(quartile_group)
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 | Operation | Method | Common use |
@@ -386,3 +398,13 @@ print(quartile_group)
 # 2. Use qcut to split them evenly into 5 groups
 # 3. Count the number of users and the average spending in each group
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Month or category recoding should use an explicit dictionary and then verify unmapped values with `isna()` or `value_counts`. Silent unmapped categories are a common source of wrong summaries.
+- For derived sales fields, compute totals, ranks, and top items with vectorized operations such as multiplication, `rank`, `sort_values`, and `nlargest`.
+- For bins, choose `cut` when the business thresholds are fixed and `qcut` when you want roughly equal-sized groups. Always print the group counts before interpreting the labels.
+
+</details>

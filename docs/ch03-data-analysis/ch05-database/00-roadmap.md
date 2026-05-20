@@ -63,6 +63,18 @@ This is the database loop: create a table, insert rows, ask a question with SQL,
 | 3 | [3.5.4 Python Database Operations](./03-python-db.md) | `sqlite3`, Pandas read/write, query results |
 | 4 | [3.5.5 Database Design](./04-db-design.md) | split tables, avoid duplication, keep relationships clear |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## Pass Check
 
 You pass this optional subchapter when you can explain why a database is different from a CSV, write one `SELECT ... GROUP BY` query, and read the result from Python.

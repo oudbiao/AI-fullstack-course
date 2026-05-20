@@ -387,6 +387,18 @@ print(dow_avg.sort_values(ascending=False))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 | 操作 | 方法 | 用途 |
@@ -463,3 +475,13 @@ flowchart TB
 # 3. 用 rolling 计算 ARPU（每用户平均收入）的 30 日平均
 # 4. 找出用户增长最快的月份
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 先用 `pd.to_datetime` 把日期字符串转成时间类型，再创建月份、星期、季度、是否工作日等日历特征。
+- 日历聚合用 `resample`，移动窗口用 `rolling`，增长率用 `pct_change`。这三个方法回答的是不同类型的问题。
+- 产品或用户指标按时间分析时，必须写清时间粒度。日、周、月汇总即使用同一批原始事件，也可能讲出不同故事。
+
+</details>

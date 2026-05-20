@@ -317,6 +317,18 @@ If these three steps go smoothly, you will be much more confident when reading C
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 | Operation | Read | Write |
@@ -365,3 +377,13 @@ Go to [Kaggle](https://www.kaggle.com/datasets) and download a small dataset you
 # Create a dataset containing Chinese text, save it separately using utf-8 and gbk encodings
 # Then try reading it with different encodings and observe the garbled text
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- When writing and reading a CSV, use `to_csv(index=False)` if the index is not meaningful, then read it back and compare shape, columns, dtypes, and a few rows.
+- For the first-look workflow, record `shape`, `head`, `info`, `describe`, missing-value counts, and duplicate counts before making cleaning decisions.
+- Encoding problems are solved by naming the real encoding, such as `encoding="utf-8"` or `encoding="gbk"`. Do not fix garbled text by manually retyping a few cells.
+
+</details>

@@ -156,6 +156,18 @@ Constraints are **rules** for data that help ensure data quality:
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## Common database management systems
 
 | Database | Features | Use cases |
@@ -299,3 +311,13 @@ Think about:
 # Insert 5 books and 3 borrowing records
 # Query all data and print it
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- A simple library database usually needs a `books` table with `book_id` as primary key and a borrowing table with its own `borrow_id` plus foreign keys to the book and borrower.
+- Use `NOT NULL` for required fields such as title, author, borrower, and borrow date. Optional fields, such as return date, can be nullable because they are not known at checkout time.
+- After creating tables, insert two or three rows and run a join query. Schema design is only convincing when a realistic question can be answered from it.
+
+</details>

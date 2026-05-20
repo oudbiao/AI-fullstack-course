@@ -323,6 +323,18 @@ print(f"Corresponding fares: {fares[top3_indices]}")
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Summary
 
 | Indexing Method | Syntax | Return Type | Use Case |
@@ -378,3 +390,13 @@ math_scores = np.array([
 # 4. Change all failing scores to 60
 # 5. Compute the updated average score
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Typical slice answers are `arr[:5]` for the first five values, `arr[1::2]` for even positions in one-based wording, `arr[-3:]` for the last three values, and `arr[::-1]` for reverse order.
+- For a 5 by 5 matrix, `matrix[1:4, 1:4]` selects the center 3 by 3 block, `matrix[:, 1]` selects the second column, and `matrix[np.arange(5), np.arange(5)]` selects the main diagonal.
+- For score filtering, keep the original data unchanged, then create a copied array before replacing failing scores with `60`. This avoids hiding the raw evidence.
+
+</details>

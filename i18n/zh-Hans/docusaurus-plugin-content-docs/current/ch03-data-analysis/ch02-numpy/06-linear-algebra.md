@@ -287,6 +287,18 @@ print(f"B 和 C 的相似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.502
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## 小结
 
 | 概念 | 说明 | NumPy 函数 |
@@ -355,3 +367,13 @@ movies = {
 # 用余弦相似度找出和"复仇者联盟"最相似的电影
 # 提示：计算"复仇者联盟"和其他每部电影的余弦相似度
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 购物示例里，`quantities @ prices` 是最清晰的向量化答案。若价格为 `[10, 25, 8]`，数量行是 `[3,1,2]`、`[0,2,5]`、`[5,0,3]`，总价分别是 `71`、`90`、`74`。
+- 线性方程组 `3x + 2y - z = 1`、`x - y + 2z = 5`、`2x + 3y - z = 0` 用 `np.linalg.solve` 应得到 `x=1`、`y=0`、`z=2`。
+- 电影余弦相似度练习中，要用向量长度归一化后的结果比较。最相似的是余弦值最大的电影，而不是原始点积最大的电影。
+
+</details>

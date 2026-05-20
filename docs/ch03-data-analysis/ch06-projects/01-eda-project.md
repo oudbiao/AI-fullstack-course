@@ -750,6 +750,17 @@ After you get the EDA conclusions, the next step is usually **modeling and predi
 This project guided you through a complete EDA workflow: load data → overview → clean → analyze → visualize → conclude. This workflow is the first step in almost all data science projects. Once you master it, you will find that you no longer “don’t know where to start” when facing any dataset.
 :::
 
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- There is no single numeric answer for an EDA project. A strong submission includes raw data location, data dictionary, cleaning log, summary statistics, at least three question-driven visuals, conclusions, and limitations.
+- Every visual should answer a named question and point back to the cleaned dataset. If a chart cannot be tied to a question, remove it or rewrite the question.
+- The final README should let another person reproduce the analysis and understand which decisions were judgment calls.
+
+</details>
+
+
 ## Version roadmap suggestions
 
 | Version | Goal | Delivery focus |
@@ -759,3 +770,15 @@ This project guided you through a complete EDA workflow: load data → overview 
 | Challenge version | Get close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
 It is recommended to complete the basic version first; don’t aim for everything at once at the beginning. Each time you improve a version, write into the README “what new capability was added, how it was validated, and what problems remain.”
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```

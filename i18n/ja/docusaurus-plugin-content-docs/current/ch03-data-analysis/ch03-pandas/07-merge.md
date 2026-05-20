@@ -336,6 +336,18 @@ print(total_scores.sort_values("順位"))
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## まとめ
 
 | 操作 | 関数 | 重要な引数 |
@@ -381,3 +393,13 @@ print(total_scores.sort_values("順位"))
 # 2. "四半期" 列を追加してデータの出所を示す
 # 3. 年間の各四半期の売上傾向を集計する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 一致したキーだけが必要なら `inner` join、左表を正とするなら `left` join、両側の不一致を調べたいなら `outer` join を使います。
+- 結合前に重複キーを確認し、関係が 1 対 1、1 対多、多対多のどれかを決めます。可能なら `validate=` を使い、想定外の重複を Pandas に検出させます。
+- 各 merge の後は、行数を比較し、結合列の null を確認し、未一致キーをサンプル表示します。これらを書き残して初めて結合完了です。
+
+</details>

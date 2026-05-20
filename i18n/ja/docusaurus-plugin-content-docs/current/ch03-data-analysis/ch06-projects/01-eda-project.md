@@ -52,7 +52,7 @@ EDA は、次のように考えるとわかりやすいです。
 
 - モデルを作る前の現地調査
 
-地形が見えていないのに、いきなり工事は始めません。  
+地形が見えていないのに、いきなり工事は始めません。
 データ分析も同じで、まだ次のような点を確認していないのに、
 
 - 分布
@@ -270,7 +270,7 @@ def detect_outliers_iqr(df, column):
     IQR = Q3 - Q1
     lower = Q1 - 1.5 * IQR
     upper = Q3 + 1.5 * IQR
-    
+
     outliers = df[(df[column] < lower) | (df[column] > upper)]
     return outliers, lower, upper
 
@@ -311,9 +311,9 @@ print(day_stats)
 ```python
 # 透視表：性別 × 喫煙有無 のチップ率
 pivot = tips.pivot_table(
-    values='tip_pct', 
-    index='sex', 
-    columns='smoker', 
+    values='tip_pct',
+    index='sex',
+    columns='smoker',
     aggfunc='mean'
 ).round(2)
 
@@ -393,7 +393,7 @@ plt.show()
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
 # 曜日ごとの件数
-sns.countplot(data=tips, x='day', order=['Thur', 'Fri', 'Sat', 'Sun'], 
+sns.countplot(data=tips, x='day', order=['Thur', 'Fri', 'Sat', 'Sun'],
               palette='Blues_d', ax=axes[0, 0])
 axes[0, 0].set_title('各曜日の顧客数')
 
@@ -422,14 +422,14 @@ plt.show()
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # 散布図：支払い vs チップ
-sns.scatterplot(data=tips, x='total_bill', y='tip', hue='time', 
+sns.scatterplot(data=tips, x='total_bill', y='tip', hue='time',
                 style='smoker', s=80, alpha=0.7, ax=axes[0])
 axes[0].set_title('合計金額 vs チップ')
 axes[0].set_xlabel('合計金額（ドル）')
 axes[0].set_ylabel('チップ（ドル）')
 
 # 回帰線
-sns.regplot(data=tips, x='total_bill', y='tip', 
+sns.regplot(data=tips, x='total_bill', y='tip',
             scatter_kws={'alpha': 0.5}, line_kws={'color': 'red'},
             ax=axes[1])
 axes[1].set_title('合計金額 vs チップ（トレンド線付き）')
@@ -449,18 +449,18 @@ plt.show()
 fig, axes = plt.subplots(1, 3, figsize=(16, 5))
 
 # 曜日ごとのチップ比較
-sns.boxplot(data=tips, x='day', y='tip', 
+sns.boxplot(data=tips, x='day', y='tip',
             order=['Thur', 'Fri', 'Sat', 'Sun'],
             palette='coolwarm', ax=axes[0])
 axes[0].set_title('各曜日のチップ分布')
 
 # 時間帯ごとの比較
-sns.violinplot(data=tips, x='time', y='tip', 
+sns.violinplot(data=tips, x='time', y='tip',
                palette='Set2', ax=axes[1])
 axes[1].set_title('昼食 vs 夕食のチップ分布')
 
 # 来店人数ごとの比較
-sns.boxplot(data=tips, x='size', y='tip', 
+sns.boxplot(data=tips, x='size', y='tip',
             palette='YlOrRd', ax=axes[2])
 axes[2].set_title('来店人数ごとのチップ')
 
@@ -481,7 +481,7 @@ plt.figure(figsize=(8, 6))
 
 # ヒートマップを描く
 sns.heatmap(
-    corr_matrix, 
+    corr_matrix,
     annot=True,           # 数値を表示
     fmt='.2f',            # 小数点以下 2 桁
     cmap='RdBu_r',        # 赤青配色
@@ -499,9 +499,9 @@ plt.show()
 
 ```python
 # FacetGrid：性別と喫煙状態ごとに、支払い-チップの関係を見る
-g = sns.FacetGrid(tips, col='sex', row='smoker', 
+g = sns.FacetGrid(tips, col='sex', row='smoker',
                   height=4, aspect=1.2, margin_titles=True)
-g.map_dataframe(sns.scatterplot, x='total_bill', y='tip', 
+g.map_dataframe(sns.scatterplot, x='total_bill', y='tip',
                 hue='time', alpha=0.7)
 g.add_legend()
 g.set_axis_labels('合計金額（ドル）', 'チップ（ドル）')
@@ -661,14 +661,14 @@ def quick_eda(df, title="EDA Report"):
     print(f"{'='*50}")
     print(f"  {title}")
     print(f"{'='*50}")
-    
+
     # 基本情報
     print(f"\n📊 データセットのサイズ：{df.shape[0]} 行 × {df.shape[1]} 列")
-    
+
     # データ型の集計
     print(f"\n📋 データ型：")
     print(df.dtypes.value_counts().to_string())
-    
+
     # 欠損値
     missing = df.isnull().sum()
     if missing.sum() > 0:
@@ -676,19 +676,19 @@ def quick_eda(df, title="EDA Report"):
         print(missing[missing > 0].to_string())
     else:
         print(f"\n✅ 欠損値なし")
-    
+
     # 数値列の統計
     num_cols = df.select_dtypes(include=[np.number]).columns
     if len(num_cols) > 0:
         print(f"\n📈 数値列の統計：")
         print(df[num_cols].describe().round(2).to_string())
-    
+
     # カテゴリ列の統計
     cat_cols = df.select_dtypes(include=['object', 'category']).columns
     for col in cat_cols:
         print(f"\n🏷️ {col} の分布：")
         print(df[col].value_counts().head(5).to_string())
-    
+
     return None
 
 # 使用例
@@ -704,7 +704,7 @@ import plotly.express as px
 
 # インタラクティブな散布図
 fig = px.scatter(
-    tips, x='total_bill', y='tip', 
+    tips, x='total_bill', y='tip',
     color='time', size='size',
     hover_data=['sex', 'smoker', 'day'],
     title='合計金額 vs チップ（インタラクティブ版）'
@@ -755,6 +755,17 @@ EDA の結論が出たら、次のステップは通常**予測モデリング**
 このプロジェクトでは、データの読み込み → 概要確認 → クリーニング → 統計分析 → 可視化 → 結論づけ、という一連の EDA の流れを体験しました。この流れは、ほとんどすべてのデータサイエンスプロジェクトの最初のステップです。ここをしっかり身につけると、どんなデータセットを見ても「何から始めればいいかわからない」と迷いにくくなります。
 :::
 
+
+<details>
+<summary>参考解答と解説</summary>
+
+- EDA プロジェクトに単一の数値答えはありません。よい提出物には、生データの場所、データ辞書、クリーニングログ、要約統計、質問に基づく少なくとも 3 つの可視化、結論、限界が含まれます。
+- 各グラフは名前つきの質問に答え、クリーン済みデータセットへ戻れる必要があります。質問に結びつかないグラフは削除するか、質問を書き直します。
+- 最終 README は、他の人が分析を再現でき、どの判断が裁量だったかを理解できる内容にします。
+
+</details>
+
+
 ## バージョン別の進め方
 
 | バージョン | 目標 | 仕上げの重点 |
@@ -764,3 +775,15 @@ EDA の結論が出たら、次のステップは通常**予測モデリング**
 | チャレンジ版 | ポートフォリオ品質に近づける | 評価、比較実験、失敗例分析、次のステップを追加する |
 
 まずは基礎版を完成させることをおすすめします。最初から全部を盛り込みすぎないでください。バージョンを 1 つ上げるたびに、「何を追加したか、どう確認したか、まだ何が課題か」を README に書き足しましょう。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```

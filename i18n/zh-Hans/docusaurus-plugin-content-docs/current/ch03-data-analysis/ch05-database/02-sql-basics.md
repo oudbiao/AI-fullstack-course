@@ -538,6 +538,18 @@ DELETE FROM users WHERE age < 20;
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## 小结
 
 SQL 就是和数据库"说话"的语言，核心就 4 类操作：
@@ -586,3 +598,13 @@ SQL 就是和数据库"说话"的语言，核心就 4 类操作：
 -- 查询消费总额超过 5000 的用户姓名、订单数量和总消费
 -- 按总消费降序排列
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 筛选题用 `WHERE`，排序和 top-k 用 `ORDER BY ... LIMIT`，城市平均值用 `GROUP BY city` 加 `AVG(...)`。
+- 订单报表中，如果只关心有订单的客户用 `JOIN`；如果没有订单的客户也要保留，用 `LEFT JOIN`。`COALESCE` 可把 null 总消费显示成 0。
+- 总消费超过阈值这类汇总筛选，要先聚合再用 `HAVING`，不要用 `WHERE`，因为条件依赖分组结果。
+
+</details>

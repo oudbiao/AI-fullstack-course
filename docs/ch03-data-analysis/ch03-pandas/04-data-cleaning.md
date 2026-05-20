@@ -436,6 +436,18 @@ If you can’t clearly explain why you deleted something or filled something in 
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 | Type | Detection | Handling Method |
@@ -466,3 +478,13 @@ If you can’t clearly explain why you deleted something or filled something in 
 # Create a dataset with various problems, then complete the full cleaning workflow:
 # string spaces → type conversion → outlier handling → missing value filling → deduplication
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Start with a missing-value report using `isna().sum()` and `isna().mean()`. Decide column by column whether to drop, fill with median or mode, or keep missingness as a meaningful signal.
+- Numeric columns usually use median when outliers are possible; categorical columns usually use mode or an explicit `Unknown` value. Columns with very high missingness need a written reason before being used.
+- Keep a cleaning log: original row count, rows removed, values filled, duplicate rule, and any outlier rule. Without that log, the cleaned data is hard to trust.
+
+</details>

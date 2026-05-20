@@ -451,6 +451,18 @@ df.to_sql("students_backup", engine, if_exists="replace", index=False)
 - If you are doing web development -> use SQLAlchemy's ORM features
 :::
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## What You Should Take Away from This Section
 
 - The truly important thing in this section is not “being able to write connection code,” but understanding how Python, SQL, and Pandas work together
@@ -596,3 +608,13 @@ db.close()
 # - Query by status
 # - Calculate completion rate
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The CRUD exercise should demonstrate create, read, update, and delete with committed transactions, then read the table again to prove the state changed as expected.
+- Parameterized SQL is required for user-provided values. A good answer uses placeholders instead of string formatting, even in a small practice script.
+- For the pandas bridge, use `read_sql_query` for analysis and `to_sql` for writing a result table. Keep database connection setup, query logic, and reporting separate enough to test.
+
+</details>

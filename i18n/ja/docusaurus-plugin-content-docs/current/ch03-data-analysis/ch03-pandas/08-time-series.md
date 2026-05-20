@@ -40,7 +40,7 @@ description: "日付時刻の処理、リサンプリング、ローリングウ
 
 ## なぜ時系列が必要なのか？
 
-株価、売上データ、Webサイトのアクセス数、気象記録……  
+株価、売上データ、Webサイトのアクセス数、気象記録……
 多くのデータは時間と関係しています。時間データを扱うことは、データ分析の必須スキルです。
 
 ### 初心者向けの、よりわかりやすい比喩
@@ -124,7 +124,7 @@ pd.date_range("2024-01-01", "2024-12-31", freq="W")  # 毎週
 
 > **日付列は、まず本物の datetime に変換してから、その後の時間分析を考える。**
 
-文字列のままだと、  
+文字列のままだと、
 次のようなことが自然にはやりにくくなります。
 
 - 月を取り出す
@@ -286,7 +286,7 @@ sales["過去最高"] = sales["売上"].expanding().max()
 
 ### なぜ `rolling` はこんなに使われるのか？
 
-実際の時間データは、たいてい大きく上下します。  
+実際の時間データは、たいてい大きく上下します。
 毎日の生データだけを見ていると、ブレに引っ張られやすいです。
 
 `rolling` のいちばん大きな役割は、次のことです。
@@ -372,7 +372,7 @@ print(dow_avg.sort_values(ascending=False))
 
 ### この小さな実践で、いちばん先に学ぶべきことは？
 
-先に覚えるべきなのは、特定の関数名ではありません。  
+先に覚えるべきなのは、特定の関数名ではありません。
 時系列分析は、ふつう次の順番で進める、ということです。
 
 1. まず集計する
@@ -383,6 +383,18 @@ print(dow_avg.sort_values(ascending=False))
 この流れは、最初から複雑な予測をするよりずっと安定しています。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
 
 ## まとめ
 
@@ -460,3 +472,13 @@ flowchart TB
 # 3. rolling を使って ARPU（1ユーザーあたりの平均収益）の30日平均を計算する
 # 4. ユーザー増加が最も速い月を見つける
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- まず `pd.to_datetime` で日付文字列を日時型に変換し、その後で月、曜日、四半期、営業日フラグなどのカレンダー特徴を作ります。
+- カレンダー集計には `resample`、移動窓には `rolling`、成長率には `pct_change` を使います。それぞれ答える質問が異なります。
+- プロダクトやユーザー指標を時系列で見るときは、必ず時間粒度を書きます。同じ生イベントでも、日次、週次、月次では違う話になることがあります。
+
+</details>

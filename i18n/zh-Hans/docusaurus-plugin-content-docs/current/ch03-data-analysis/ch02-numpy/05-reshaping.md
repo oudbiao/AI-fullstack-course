@@ -358,6 +358,18 @@ print(f"下半年总额: {second_half.sum()}")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## 小结
 
 | 操作 | 函数 | 说明 |
@@ -412,3 +424,13 @@ daily_temps = rng.uniform(low=-5, high=38, size=360)  # 取 360 天方便分割
 # 3. 找出最热和最冷的月份
 # 4. 计算上半年和下半年的平均温度差
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 同样 24 个值可以变成 `(4, 6)`、`(2, 3, 4)` 或 `(6, -1)`，前提是元素总数仍为 24。`-1` 只能用于一个维度，让 NumPy 自动推断。
+- 班级成绩数据中，`np.vstack` 纵向叠班级，`np.hstack` 横向加列，行数能对齐时 `np.split` 可以再拆回等大的数据块。
+- 每日温度数据如果每月 30 个读数，可 reshape 成 `(12, 30)`，再用 `axis=1` 算月均值，用 `argmax` 或 `argmin` 找最热或最冷月份。
+
+</details>

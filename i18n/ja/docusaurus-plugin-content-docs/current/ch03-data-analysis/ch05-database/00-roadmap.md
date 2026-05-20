@@ -54,6 +54,18 @@ tool 80
 
 これはデータベースの基本ループです。テーブルを作り、行を入れ、SQL で質問し、結果表を受け取ります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |

@@ -558,6 +558,18 @@ fig.savefig("my_chart.pdf", bbox_inches="tight")
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## Summary
 
 | Chart | Function | Use case |
@@ -615,3 +627,13 @@ plt.show()                                # 6. Display
 # 3. Scatter plot (relationship between adjacent data points)
 # 4. Bar chart (frequency by interval)
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The sine/cosine plot should have two labeled lines, a title, axis labels, legend, and light grid. If the lines are hard to compare, adjust color and line style before adding decoration.
+- For grouped bars, compute x positions explicitly and label bars or axes clearly enough that the reader does not need the code to understand the chart.
+- Use `fig, ax = plt.subplots()` for multi-chart work and save the figure with `fig.savefig(...)`. A saved image is part of the evidence, not an afterthought.
+
+</details>

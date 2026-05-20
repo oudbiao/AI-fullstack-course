@@ -498,6 +498,18 @@ print(result)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 ```mermaid
@@ -554,3 +566,13 @@ mindmap
 # 2. 通过姓名查找某个学生的所有成绩
 # 3. 重置索引
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 工作日销售额 Series 应把星期名设为 index，然后计算总和、均值、最高销售日 `idxmax`，并用布尔条件筛出高销售日。
+- 学生 DataFrame 先增加 `Total` 和 `Average`，再根据规则用函数、`map` 或 `pd.cut` 创建等级列。`describe()` 是有用证据，但不是完整分析。
+- 索引练习要同时展示 `set_index` 和 `reset_index`。好的答案会说明什么时候用 `.loc` 的标签查找比 `.iloc` 的位置查找更清楚。
+
+</details>

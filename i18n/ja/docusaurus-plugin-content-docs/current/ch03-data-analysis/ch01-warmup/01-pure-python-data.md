@@ -550,6 +550,29 @@ find_children(passengers)
 
 ---
 
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 乗客データの練習では、まず `survived` でグループ化し、件数、平均運賃、客室クラスの分布を計算してから解釈します。
+- 年齢ロジックを加えるときは、欠損年齢を子どもや大人に決めつけず `Unknown` として扱います。役に立つ比較は、子どもの生存率と大人の生存率をサンプル数つきで並べることです。
+- 客室クラスと性別のクロス集計では、件数と割合の両方を出します。説明では、これはデータ内の関連であり、運賃、クラス、性別が生存を因果的に決めた証明ではないと書きます。
+
+</details>
+
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
+
 ## この節の完全コード
 
 上のコードを 1 つのファイルにまとめると、次のようになります。

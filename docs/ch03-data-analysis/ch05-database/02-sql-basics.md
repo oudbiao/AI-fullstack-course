@@ -536,6 +536,18 @@ This is less confusing than memorizing all syntax blocks at once.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## Summary
 
 SQL is the language for “talking” to databases. Its core consists of four types of operations:
@@ -584,3 +596,13 @@ Among them, `SELECT` together with `WHERE`, `JOIN`, and `GROUP BY` can cover mos
 -- Query the user name, number of orders, and total spending for users whose total spending exceeds 5000
 -- Sort by total spending in descending order
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Filtering exercises should use `WHERE`, sorting and top-k should use `ORDER BY ... LIMIT`, and city averages should use `GROUP BY city` with `AVG(...)`.
+- For order reports, use `JOIN` when only customers with orders matter and `LEFT JOIN` when customers without orders must stay visible. `COALESCE` is useful for showing zero instead of null total spend.
+- For summary filters such as total spend greater than a threshold, aggregate first and use `HAVING`, not `WHERE`, because the condition depends on grouped results.
+
+</details>

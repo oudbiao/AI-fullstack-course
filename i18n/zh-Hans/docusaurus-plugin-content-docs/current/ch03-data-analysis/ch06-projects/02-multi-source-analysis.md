@@ -840,6 +840,17 @@ fig.show()
 下一步，你将进入 4 AI 数学最小必要基础 和 5 机器学习入门到实战，把数据分析的能力升级为预测和建模的能力。
 :::
 
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 完整项目要证明每个数据源都已加载，合并键已检查，每次 join 前后的行数已比较，并查看了未匹配记录。
+- 最终分析至少要有三个带业务或产品含义的洞察，而不只是三张图。每个洞察都需要对应的表或图作为支撑。
+- 好的建议要写清证据、行动和风险或假设。例如不要只说“提升销售”，而要说明哪个细分群体、为什么以及要监控什么。
+
+</details>
+
+
 ## 版本路线建议
 
 | 版本 | 目标 | 交付重点 |
@@ -849,3 +860,15 @@ fig.show()
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```

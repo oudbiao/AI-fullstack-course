@@ -498,6 +498,18 @@ print(result)
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 ```mermaid
@@ -554,3 +566,13 @@ mindmap
 # 2. Find a student's full scores by name
 # 3. Reset the index
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the weekday sales Series, use the weekday names as the index, then compute total, mean, max day with `idxmax`, and filtered high-sales days with a boolean condition.
+- For the student DataFrame, add `Total` and `Average`, then create a grade column with a function, `map`, or `pd.cut` depending on the rule. `describe()` is useful evidence, but it is not the full analysis.
+- Index practice should show both `set_index` and `reset_index`. A good answer explains when label lookup with `.loc` is clearer than positional lookup with `.iloc`.
+
+</details>

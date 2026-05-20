@@ -380,6 +380,18 @@ print(monthly_top.loc[idx])
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 | 操作 | 方法 | 返回行数 | 用途 |
@@ -418,3 +430,13 @@ print(monthly_top.loc[idx])
 # 1. 创建一个透视表：行=区域，列=月份，值=总金额，带合计
 # 2. 哪个区域在哪个月份的销售额最高？
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 客单价是总金额除以订单数，所以要同时计算分子和分母，不要对已经平均过的行再求平均。
+- 查每月或每地区最佳产品时，先聚合到正确粒度，再排序或用 `idxmax`。直接取原始行最大值，在同一产品出现多次时会出错。
+- 当每条原始记录都需要附上组级信息时用 `transform`，例如地区均值或月销售占比；当输出应为每组一行时用 `agg`。
+
+</details>

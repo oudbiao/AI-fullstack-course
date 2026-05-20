@@ -360,6 +360,18 @@ print(adjusted)  # [85 60 91 67 60 78]
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## 小结
 
 | 类别 | 内容 | 示例 |
@@ -419,3 +431,13 @@ scores = rng.integers(40, 101, size=50)
 # 3. 统计各分数段人数：不及格(<60)、及格(60-69)、中等(70-79)、良好(80-89)、优秀(90+)
 # 4. 计算及格率
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 华氏转摄氏使用 `(fahrenheit - 32) * 5 / 9`；常见示例大约得到 `[0, 20, 37.78, 100, 22.22, 37]`。
+- Broadcasting 的规则是从右侧维度开始对齐。常见的“行向量加列向量”练习会得到 3x3 矩阵，因为每个行值都会和每个列值组合。
+- 成绩统计要报告均值、中位数、标准差、最高和最低的索引或姓名、及格率和分箱计数。讲解重点是用数组运算完成，而不是手写循环。
+
+</details>

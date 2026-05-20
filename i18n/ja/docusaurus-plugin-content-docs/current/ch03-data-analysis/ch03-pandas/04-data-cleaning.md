@@ -65,7 +65,7 @@ flowchart LR
 
 - 料理の前に野菜を洗って、不要な部分を取り除いて、材料をそろえる作業
 
-これは「見た目を整えるため」だけではありません。  
+これは「見た目を整えるため」だけではありません。
 本当の目的は、
 
 - あとで分析を始めたとき、壊れたデータや重複データ、形式の乱れに引っ張られないようにすること
@@ -215,7 +215,7 @@ df.drop_duplicates(subset=["氏名"], keep="last")  # 最後の1件を残す
 
 ### 重複値は何と間違えやすい？
 
-初心者は「重複値 = 必ず削除」と考えがちです。  
+初心者は「重複値 = 必ず削除」と考えがちです。
 でも、より安全な考え方は次のとおりです。
 
 - それが本当に重複なのか確認する
@@ -387,23 +387,23 @@ print("=== 元データ ===")
 print(dirty_data)
 print(f"\n行数: {len(dirty_data)}")
 
-# Step 1: 文字列の空白を削除
+# ステップ 1: 文字列の空白を削除
 dirty_data["氏名"] = dirty_data["氏名"].str.strip()
 dirty_data["城市"] = dirty_data["城市"].str.strip()
 
-# Step 2: データ型を変換
+# ステップ 2: データ型を変換
 dirty_data["年龄"] = pd.to_numeric(dirty_data["年龄"], errors="coerce")
 
-# Step 3: 外れ値を処理
+# ステップ 3: 外れ値を処理
 dirty_data.loc[dirty_data["年龄"] > 120, "年龄"] = np.nan    # 年齢 > 120 は不自然
 dirty_data.loc[dirty_data["給与"] < 0, "給与"] = np.nan      # 給与 < 0 は不自然
 
-# Step 4: 欠損値を補完
+# ステップ 4: 欠損値を補完
 dirty_data["年龄"] = dirty_data["年龄"].fillna(dirty_data["年龄"].median())
 dirty_data["城市"] = dirty_data["城市"].fillna("未知")
 dirty_data["給与"] = dirty_data["給与"].fillna(dirty_data["給与"].median())
 
-# Step 5: 重複行を削除
+# ステップ 5: 重複行を削除
 dirty_data = dirty_data.drop_duplicates()
 
 print("\n=== クレンジング後 ===")
@@ -413,7 +413,7 @@ print(f"\n行数: {len(dirty_data)}")
 
 ### この小さな実践で、まず何を学ぶべき？
 
-いちばん大事なのは、特定の関数名を覚えることではありません。  
+いちばん大事なのは、特定の関数名を覚えることではありません。
 クレンジングには、だいたい次のような安定した順番がある、ということです。
 
 1. まず形式をそろえる
@@ -433,10 +433,22 @@ print(f"\n行数: {len(dirty_data)}")
 4. 重複記録はないか？
 5. クレンジングルールを他人に説明できるか？
 
-最後の項目はとても重要です。なぜなら、クレンジングも本質的には「判断」だからです。  
+最後の項目はとても重要です。なぜなら、クレンジングも本質的には「判断」だからです。
 自分で「なぜ削除したのか」「なぜこの値で補ったのか」を説明できないと、その後の分析は信頼されにくくなります。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
 
 ## まとめ
 
@@ -468,3 +480,13 @@ print(f"\n行数: {len(dirty_data)}")
 # さまざまな問題を含むデータを作り、完全なクレンジングを行う：
 # 文字列の空白 → 型変換 → 外れ値処理 → 欠損値補完 → 重複削除
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- まず `isna().sum()` と `isna().mean()` で欠損レポートを作ります。列ごとに、削除、中央値や最頻値での補完、欠損自体を意味あるシグナルとして残すかを決めます。
+- 外れ値がありそうな数値列は中央値を使うことが多く、カテゴリ列は最頻値または明示的な `Unknown` を使うことが多いです。欠損率が非常に高い列を使うなら理由を書きます。
+- クリーニングログには、元の行数、削除行数、補完した値、重複ルール、外れ値ルールを残します。このログがないと、クリーン後のデータを信頼しにくくなります。
+
+</details>

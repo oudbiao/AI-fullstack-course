@@ -752,6 +752,17 @@ fig.show()
 本项目带你完成了一次完整的 EDA 流程：加载数据 → 概览 → 清洗 → 统计 → 可视化 → 得出结论。这个流程在几乎所有数据科学项目中都是第一步，熟练掌握后你会发现面对任何数据集都不会"不知道从何下手"。
 :::
 
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- EDA 项目没有唯一数值答案。高质量提交应包含原始数据位置、数据字典、清洗日志、摘要统计、至少三张由问题驱动的图、结论和限制。
+- 每张图都应回答一个命名问题，并能追溯到清洗后的数据集。如果某张图无法对应问题，就删除它或重写问题。
+- 最终 README 要让别人能复现分析，并理解哪些处理是判断性决策。
+
+</details>
+
+
 ## 版本路线建议
 
 | 版本 | 目标 | 交付重点 |
@@ -761,3 +772,15 @@ fig.show()
 | 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
 
 建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```

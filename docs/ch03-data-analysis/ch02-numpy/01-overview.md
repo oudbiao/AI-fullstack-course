@@ -295,6 +295,18 @@ print(f"Total pixel values: {image.size}")   # 48 numbers
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Summary
 
 | Key point | Explanation |
@@ -346,3 +358,13 @@ print("max =", max_val)
 print("min =", min_val)
 print("square_sum =", square_sum)
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For `np.arange(1, 101)`, the expected summary is sum `5050`, mean `50.5`, minimum `1`, maximum `100`, and sum of squares `338350`.
+- The vectorized version should produce the same numbers as the loop version, but it becomes noticeably faster as the array grows to thousands or millions of values.
+- If your timing result looks random on tiny arrays, that is normal. Increase the data size and repeat the measurement before making a performance claim.
+
+</details>

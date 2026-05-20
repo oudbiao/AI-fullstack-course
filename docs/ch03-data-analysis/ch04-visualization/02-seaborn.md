@@ -474,6 +474,18 @@ mindmap
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## Summary
 
 | Need | Function | Description |
@@ -530,3 +542,13 @@ mindmap
 # Use FacetGrid to facet by day and draw a scatter plot of total_bill and tip
 # Use color to distinguish sex
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For distribution charts, use `histplot` or `kdeplot` and describe skew, outliers, and the approximate center. A beautiful curve without interpretation is incomplete.
+- For categorical comparisons, box plots and count plots answer different questions: spread versus frequency. Pick the one that matches the question before styling it.
+- For heatmaps and pair plots, explain one or two relationships that matter and one limitation. Correlation or visual clustering is a lead for investigation, not proof by itself.
+
+</details>

@@ -378,6 +378,29 @@ print(top10[["orderID", "customer", "amount"]])
 # 3. 金額上位 5% の注文はどれ？（ヒント：quantile を使う）
 ```
 
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 各条件をまずブールマスクにし、`&`、`|`、括弧で組み合わせます。金額範囲、カテゴリの所属、返品でない注文などは、先に名前つきマスクとして分けると読みやすくなります。
+- 顧客ごとの集計で「返品でない注文」と書かれている場合は、先にフィルタしてから `Customer` で groupby し、平均、最大、件数を集計します。
+- 上位パーセントの問題では `quantile` でしきい値を計算し、それを超える行を抽出し、しきい値と結果行の両方を報告します。これで基準を後から確認できます。
+
+</details>
+
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## この節でいちばん持ち帰ってほしいこと
 
 - `loc` はラベルで選び、`iloc` は位置で選び、ブールインデックスは条件で絞る

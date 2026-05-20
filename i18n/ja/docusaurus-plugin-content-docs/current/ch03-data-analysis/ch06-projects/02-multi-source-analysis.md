@@ -158,7 +158,7 @@ for i in range(1, 51):
     }
     low, high = price_ranges[cat]
     price = round(rng.uniform(low, high), 2)
-    
+
     products.append({
         'product_id': i,
         'name': f'{cat}_{i:03d}',
@@ -284,7 +284,7 @@ print(f"商品表の product_id 範囲：{products['product_id'].min()} ~ {produ
 2. キーの範囲や型が一致しているか
 3. 結合後に、マッチしないレコードが大量に出ないか
 
-ここはとても大事です。後で「分析がおかしい」と見える問題の多くは、  
+ここはとても大事です。後で「分析がおかしい」と見える問題の多くは、
 最初の結合が正しくできていないことが原因です。
 
 ---
@@ -641,7 +641,7 @@ rfm_city = rfm.reset_index().merge(user_city, on='user_id')
 city_value = pd.crosstab(rfm_city['city'], rfm_city['value_group'], normalize='index') * 100
 
 plt.figure(figsize=(12, 6))
-city_value[['高価値', '中高']].plot(kind='barh', stacked=True, 
+city_value[['高価値', '中高']].plot(kind='barh', stacked=True,
                                     color=['#2196f3', '#90caf9'],
                                     figsize=(10, 6))
 plt.title('各都市における中高/高価値ユーザー比率')
@@ -675,7 +675,7 @@ metrics = [
 
 for i, (value, label) in enumerate(metrics):
     x_pos = 0.12 + i * 0.22
-    ax_text.text(x_pos, 0.6, value, fontsize=22, fontweight='bold', 
+    ax_text.text(x_pos, 0.6, value, fontsize=22, fontweight='bold',
                  color='#1565c0', ha='center', transform=ax_text.transAxes)
     ax_text.text(x_pos, 0.2, label, fontsize=12, color='#666',
                  ha='center', transform=ax_text.transAxes)
@@ -694,7 +694,7 @@ ax2.set_xticks(range(1, 13))
 ax3 = fig.add_subplot(4, 3, 7)
 cat_amount = df.groupby('category')['amount'].sum().sort_values(ascending=False)
 colors = ['#2196f3', '#ff9800', '#4caf50', '#f44336', '#9c27b0']
-ax3.pie(cat_amount, labels=cat_amount.index, autopct='%1.0f%%', 
+ax3.pie(cat_amount, labels=cat_amount.index, autopct='%1.0f%%',
         colors=colors, startangle=90, textprops={'fontsize': 9})
 ax3.set_title('カテゴリ売上比率', fontsize=13)
 
@@ -803,7 +803,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 
 # インタラクティブな月次トレンド
-fig = px.line(monthly, x='month', y='売上', 
+fig = px.line(monthly, x='month', y='売上',
               title='月別売上トレンド', markers=True)
 fig.show()
 ```
@@ -840,6 +840,17 @@ fig.show()
 次のステップでは、4 AI 数学の最小限の基礎 と 5 機械学習入門から実戦へ に進み、データ分析の力を予測とモデリングの力へとアップグレードしていきます。
 :::
 
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 完成したプロジェクトでは、各データソースを読み込んだこと、結合キーを確認したこと、各 join の前後で行数を比較したこと、未一致レコードを調べたことを示します。
+- 最終分析には、単なる 3 つのグラフではなく、ビジネスやプロダクト上の意味を持つ洞察を少なくとも 3 つ含めます。各洞察には支える表またはグラフが必要です。
+- よい提案は、証拠、行動、リスクまたは前提を示します。単に「売上を伸ばす」ではなく、どのセグメントを、なぜ、何を監視するかまで書きます。
+
+</details>
+
+
 ## バージョンの進め方のおすすめ
 
 | バージョン | 目標 | 仕上げのポイント |
@@ -849,3 +860,15 @@ fig.show()
 | チャレンジ版 | ポートフォリオ品質に近づける | 評価、比較実験、失敗サンプル分析、次の改善方針を追加する |
 
 まずは基本版を完成させましょう。最初から大きく作り込みすぎないことが大切です。バージョンを 1 つ上げるたびに、「何が増えたか」「どう検証したか」「まだ何が課題か」を README に書き足していきましょう。
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```

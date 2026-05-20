@@ -104,6 +104,13 @@ Saved chart: topic_minutes.png
 
 The pass line is not “the chart looks nice.” The pass line is: you can explain which rows changed, why they changed, and how that affects the conclusion.
 
+### How to read this output
+
+- `Before cleaning` shows the raw evidence, including duplicates, missing values, and outliers.
+- `After cleaning` shows the transformed table you are actually using for analysis.
+- `topic_minutes.png` is the report artifact; keep it with the script that generated it.
+- If the conclusion changes after another cleaning rule, write that down instead of hiding it.
+
 ## Depth Ladder
 
 | Level | What you can prove |
@@ -111,6 +118,18 @@ The pass line is not “the chart looks nice.” The pass line is: you can expla
 | Minimum pass | You can read a table, inspect shape/types/missing values, clean obvious problems, and save one chart. |
 | Project-ready | Your report names the question, cleaning rules, summary table, chart, conclusion, limitation, and rerun command. |
 | Deeper check | You can test whether the conclusion changes under another cleaning rule, spot leakage or sampling bias, and explain why a chart type fits the question. |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
 
 ## Common Failures
 
@@ -133,3 +152,13 @@ Move to Chapter 4 when you can answer these five questions:
 - Can another person rerun the analysis from the README?
 
 For a printable checklist, use [3.0 Study Guide and Task Sheet](./study-guide.md). The next chapter uses this data intuition to understand probability, vectors, gradients, and model evaluation.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Use the five pass-check questions as a small data story, not as five separate slogans.
+- A complete answer names the columns and units, lists every cleaning rule that changed rows or values, ties each chart to one explicit question, separates supported conclusions from uncertainty, and includes a README that lets another person rerun the notebook or script.
+- If any answer depends on memory instead of a saved table, chart, or command output, the evidence pack is not ready yet.
+
+</details>

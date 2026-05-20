@@ -360,6 +360,18 @@ Detailed dashboard development is outside the scope of this stage. There will be
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## Summary
 
 | Plotly Express function | Chart type |
@@ -410,3 +422,13 @@ The core advantage of Plotly is **interactivity**—hover to inspect data, zoom 
 # Show changes in gdpPercap vs lifeExp across countries from 1952 to 2007
 # Use animation_frame="year"
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the Gapminder-style scatter plot, map x, y, size, color, and hover text deliberately. The hover fields should help answer the question, not just show every column.
+- For a country or product trend line, sort by time and check that the x-axis is a date or ordered year field. Unsorted time data can draw misleading zigzags.
+- Animated charts need a stable question. If the animation distracts from comparison, add a static summary or a final-frame note.
+
+</details>

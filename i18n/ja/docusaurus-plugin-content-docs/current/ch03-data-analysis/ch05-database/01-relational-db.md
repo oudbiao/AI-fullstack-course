@@ -223,12 +223,12 @@ for row in rows:
 conn.close()
 ```
 
-おめでとうございます！  
+おめでとうございます！
 これで、データベースを 1 つ作り、1 つのテーブルを作成し、3 件のデータを保存できました。
 
 ### この小さな例で、まず何を学ぶべき？
 
-まず学ぶべきなのは、SQL の各キーワードを全部覚えることではありません。  
+まず学ぶべきなのは、SQL の各キーワードを全部覚えることではありません。
 データベースの最小の流れは、実はとてもシンプルです。
 
 1. データベースに接続する
@@ -239,6 +239,18 @@ conn.close()
 この流れを先に理解できれば、その後の SQL や Python からの接続も、ずっと分かりやすくなります。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
 
 ## まとめ
 
@@ -300,3 +312,13 @@ mindmap
 # 5 冊の本と 3 件の貸出記録を挿入する
 # すべてのデータを検索して表示する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 簡単な図書館データベースでは、`book_id` を主キーにした `books` テーブルと、独自の `borrow_id` と本・借り手への外部キーを持つ貸出テーブルが必要です。
+- タイトル、著者、借り手、貸出日は必須なので `NOT NULL` にします。返却日は貸出時点では不明なため nullable にできます。
+- テーブル作成後、2、3 行を挿入して join クエリを実行します。現実的な質問に答えられて初めて、スキーマ設計に説得力が出ます。
+
+</details>

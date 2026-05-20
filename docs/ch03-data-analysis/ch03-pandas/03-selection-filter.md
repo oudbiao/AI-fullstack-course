@@ -295,6 +295,18 @@ print(result)
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary of methods for selecting specific data
 
 ```mermaid
@@ -377,6 +389,17 @@ print(top10[["OrderID", "Customer", "Amount"]])
 # 2. Which customers have return records?
 # 3. Which orders are in the top 5% by amount? (Hint: use quantile)
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Use boolean masks for each condition, then combine them with `&`, `|`, and parentheses. For example, amount range, category membership, and non-returned orders should be separate named masks before combining.
+- For grouped customer questions, filter first when the question says non-returned orders, then group by `Customer` and aggregate mean, max, or count.
+- For top-percent questions, compute a threshold with `quantile`, filter rows above it, and report both the threshold and the resulting records. This makes the cutoff auditable.
+
+</details>
+
 
 ## What you should take away from this section
 

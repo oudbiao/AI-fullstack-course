@@ -119,6 +119,18 @@ A random seed is like a "recipe for random numbers" — the same seed always pro
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Common Probability Distributions
 
 ### Uniform Distribution
@@ -449,6 +461,17 @@ english_scores = rng.normal(78, 10, 200).clip(0, 100)  # English
 ```
 
 ---
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For dice simulation, create a `(10000, 2)` array, sum along `axis=1`, and count sums with `np.bincount`. The most frequent sum should usually be `7` because it has the most combinations.
+- For stock simulation, generate daily returns, then compute prices with `100 * np.cumprod(1 + returns)`. Report the final return, maximum drawdown if asked, and a chart so the path is visible.
+- For student scores, use `mean`, `std`, `corrcoef`, boolean filters, histograms, and top-k sorting. Always describe the random seed so someone else can reproduce the same sample.
+
+</details>
+
 
 ## Chapter Summary: A Complete View of NumPy Knowledge
 

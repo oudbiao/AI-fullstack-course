@@ -331,6 +331,18 @@ e = np.empty_like(original)
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Summary
 
 ```mermaid
@@ -403,3 +415,13 @@ passed = scores >= 60
 # 3. Calculate the number of passing scores (hint: True counts as 1, False counts as 0)
 pass_count = passed.sum()
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- The shape checks should be `arr1.shape == (20,)`, `arr2.shape == (4, 5)`, `arr3.shape == (3, 3)`, `arr4.shape == (100,)`, and `arr5.shape == (5, 5)`.
+- A `np.ones((3, 4, 5))` array has 3 dimensions and 60 elements. Unless a dtype is specified, NumPy usually uses `float64`; an `int32` array has `itemsize == 4` bytes.
+- For the score array, rounding gives integer-looking scores while preserving the idea that raw scores may be decimal. Count passing students from the original rule, for example `scores >= 60`, so a value like `60.5` passes.
+
+</details>

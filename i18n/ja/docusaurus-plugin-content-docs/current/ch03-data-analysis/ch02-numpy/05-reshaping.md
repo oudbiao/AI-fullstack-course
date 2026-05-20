@@ -358,6 +358,18 @@ print(f"後半の合計: {second_half.sum()}")
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 | 操作 | 関数 | 説明 |
@@ -412,3 +424,13 @@ daily_temps = rng.uniform(low=-5, high=38, size=360)  # 分割しやすいよう
 # 3. 最も暑い月と最も寒い月を見つける
 # 4. 前半と後半の平均気温の差を計算する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 同じ 24 個の値は、要素数が 24 のままであれば `(4, 6)`、`(2, 3, 4)`、`(6, -1)` に変形できます。`-1` は NumPy に推定させるため、1 つの次元だけに使います。
+- クラス別スコアでは、`np.vstack` が縦方向の結合、`np.hstack` が列方向の追加、行数がそろう場合は `np.split` で同じ大きさのブロックに戻せます。
+- 日別気温データは、各月 30 件なら `(12, 30)` に reshape し、`axis=1` で月平均、`argmax` や `argmin` で最も暑い月や寒い月を探します。
+
+</details>

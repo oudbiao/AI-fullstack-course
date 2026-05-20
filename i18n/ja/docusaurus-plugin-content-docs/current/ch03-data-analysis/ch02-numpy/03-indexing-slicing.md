@@ -98,7 +98,7 @@ print(sub3)
 ### 2次元インデックスの図解
 
 ```
-matrix = 
+matrix =
      列0  列1  列2  列3
 行0 [  1    2    3    4 ]
 行1 [  5    6    7    8 ]
@@ -323,6 +323,18 @@ print(f"対応する運賃: {fares[top3_indices]}")
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 | インデックス方法 | 構文 | 戻り値の種類 | 適した場面 |
@@ -378,3 +390,13 @@ math_scores = np.array([
 # 4. すべての不合格点を60に変更する
 # 5. 変更後の平均点を計算する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 代表的なスライスは、先頭 5 個が `arr[:5]`、1 始まりで偶数番目の位置が `arr[1::2]`、末尾 3 個が `arr[-3:]`、逆順が `arr[::-1]` です。
+- 5x5 行列では、`matrix[1:4, 1:4]` が中央の 3x3 ブロック、`matrix[:, 1]` が 2 列目、`matrix[np.arange(5), np.arange(5)]` が主対角線を選びます。
+- スコアのフィルタリングでは元データを残し、コピーした配列で不合格点を `60` に置き換えます。これで生データという証拠を消さずに済みます。
+
+</details>

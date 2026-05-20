@@ -70,3 +70,15 @@ saved: sales_trend.png
 ## 通过标准
 
 能从一个数据集做出 4 张有用图表，并说清楚每张图为什么这样选，就算通过。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```

@@ -156,6 +156,18 @@ flowchart LR
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## 常见数据库管理系统
 
 | 数据库 | 特点 | 适用场景 |
@@ -299,3 +311,13 @@ mindmap
 # 插入 5 本书和 3 条借阅记录
 # 查询所有数据并打印
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 简单图书馆数据库通常需要 `books` 表，以 `book_id` 作为主键，还需要借阅表，包含自己的 `borrow_id` 以及指向图书和借阅人的外键。
+- 书名、作者、借阅人、借阅日期这类必填字段用 `NOT NULL`。归还日期等字段可以允许为空，因为借出时还不知道。
+- 建表后插入两三行数据并运行一次 join 查询。只有能回答真实问题，schema 设计才有说服力。
+
+</details>

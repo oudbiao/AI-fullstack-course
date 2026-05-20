@@ -331,6 +331,18 @@ e = np.empty_like(original)
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## 小结
 
 ```mermaid
@@ -403,3 +415,13 @@ passed = scores >= 60
 # 3. 计算及格人数（提示：True 算 1，False 算 0）
 pass_count = passed.sum()
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 形状检查应当是 `arr1.shape == (20,)`、`arr2.shape == (4, 5)`、`arr3.shape == (3, 3)`、`arr4.shape == (100,)`、`arr5.shape == (5, 5)`。
+- `np.ones((3, 4, 5))` 是 3 维数组，共 60 个元素。没有指定 dtype 时，NumPy 通常使用 `float64`；`int32` 数组的 `itemsize` 是 4 字节。
+- 成绩数组可以用四舍五入得到更像整数的展示结果，但及格人数要按原始规则计算，例如 `scores >= 60`，所以 `60.5` 应当算及格。
+
+</details>

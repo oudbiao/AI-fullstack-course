@@ -427,6 +427,18 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 ☐ 有 created_at 时间戳记录创建时间？
 ```
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## 这节最该带走什么
 
 - 数据库设计最重要的不是“表拆得多漂亮”，而是后面好不好维护、会不会冲突
@@ -512,3 +524,13 @@ mindmap
 # 3. 查询每个分类下的文章数量
 # 4. 查询有"Python"标签的所有文章
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 规范化练习中，应拆分学生、电话号码、课程、教师和选课记录。把课程或电话重复塞进一张宽表，违背 1NF 的精神，也容易造成更新错误。
+- 博客 schema 通常包含 users、posts、categories、comments、tags 和 `post_tags` 关联表。外键要清楚表达归属和关系。
+- 常被查找和 join 的字段可以加索引，例如 `user_id`、`post_id`、`category_id` 和标签名。不要盲目加索引；每个索引都应服务于预期查询。
+
+</details>

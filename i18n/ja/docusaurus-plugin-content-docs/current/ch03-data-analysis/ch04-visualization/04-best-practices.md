@@ -561,6 +561,18 @@ sns.set_theme(
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## まとめ
 
 ```mermaid
@@ -661,3 +673,13 @@ ax.plot(x, [i**1.1 for i in x], color="red", alpha=0.5, label="モデル C")  # 
 ax.legend()
 plt.show()
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 誤解を招くグラフを直すときは、棒の長さを比較する y 軸を 0 から始め、不要な 3D や重い背景を取り除き、質問または発見を示すタイトルを書きます。
+- グラフ選択はデータの形に従います。時系列は折れ線、カテゴリ比較は棒、2 つの数値変数は散布図、1 つの数値分布はヒストグラム、グループ別分布は箱ひげ図やバイオリン図です。
+- アクセシブルなグラフは十分なコントラストを持ち、赤と緑だけに頼らず、読者が推測しそうな場所にラベルや注釈を入れます。
+
+</details>

@@ -57,6 +57,18 @@ print(summary)
 
 これは Pandas の基本ループです。データを作る/読む、欠損を落とす、列を追加する、グループ化して集計する、という流れです。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |

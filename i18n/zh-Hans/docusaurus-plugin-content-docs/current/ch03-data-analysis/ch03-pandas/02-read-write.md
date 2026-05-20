@@ -317,6 +317,18 @@ print(df.describe())
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 | 操作 | 读取 | 写入 |
@@ -365,3 +377,13 @@ df.head()
 # 创建一份包含中文的数据，分别用 utf-8 和 gbk 编码保存
 # 然后尝试用不同编码读取，观察乱码情况
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 写入并读回 CSV 时，如果 index 没有业务含义，使用 `to_csv(index=False)`，再检查 shape、列名、dtype 和几行样本。
+- 第一次查看数据时，先记录 `shape`、`head`、`info`、`describe`、缺失值计数和重复行计数，再决定如何清洗。
+- 编码问题要通过指定真实编码解决，例如 `encoding="utf-8"` 或 `encoding="gbk"`。不要靠手工重输几格乱码来“修复”数据。
+
+</details>

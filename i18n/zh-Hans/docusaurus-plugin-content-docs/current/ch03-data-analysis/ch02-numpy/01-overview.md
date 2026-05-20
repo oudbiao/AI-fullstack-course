@@ -295,6 +295,18 @@ print(f"总像素值: {image.size}")   # 48 个数字
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## 小结
 
 | 要点 | 说明 |
@@ -346,3 +358,13 @@ print("max =", max_val)
 print("min =", min_val)
 print("square_sum =", square_sum)
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 对 `np.arange(1, 101)`，期望结果是总和 `5050`，均值 `50.5`，最小值 `1`，最大值 `100`，平方和 `338350`。
+- 向量化版本应当和循环版本得到完全相同的数值，但当数组扩大到几千、几百万个元素时，速度优势才会明显。
+- 如果小数组上的计时结果看起来忽快忽慢，这是正常的。先增大数据量并重复测量，再下性能结论。
+
+</details>

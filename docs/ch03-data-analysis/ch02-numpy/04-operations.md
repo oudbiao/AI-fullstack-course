@@ -360,6 +360,18 @@ print(adjusted)  # [85 60 91 67 60 78]
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Summary
 
 | Category | Content | Example |
@@ -419,3 +431,13 @@ scores = rng.integers(40, 101, size=50)
 # 3. Count how many students fall into each range: failing (<60), passing (60-69), average (70-79), good (80-89), excellent (90+)
 # 4. Calculate the passing rate
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Fahrenheit to Celsius should use `(fahrenheit - 32) * 5 / 9`; the given examples produce about `[0, 20, 37.78, 100, 22.22, 37]`.
+- Broadcasting works when NumPy can align dimensions from the right. In the common row-plus-column exercise, the result becomes a 3 by 3 matrix because each row value combines with each column value.
+- For score statistics, report mean, median, standard deviation, highest and lowest index or name, pass rate, and a bin count. The explanation should use array operations, not a manual loop.
+
+</details>

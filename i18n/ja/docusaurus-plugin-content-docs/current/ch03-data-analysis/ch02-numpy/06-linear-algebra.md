@@ -288,6 +288,18 @@ print(f"B と C の類似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.502
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 | 概念 | 説明 | NumPy 関数 |
@@ -357,3 +369,13 @@ movies = {
 # コサイン類似度を使って、「アベンジャーズ」といちばん似ている映画を見つける
 # ヒント：「アベンジャーズ」と他の各映画のコサイン類似度を計算する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 買い物の例では、`quantities @ prices` が最もすっきりしたベクトル化答えです。価格が `[10, 25, 8]`、数量行が `[3,1,2]`、`[0,2,5]`、`[5,0,3]` なら、合計は `71`、`90`、`74` です。
+- 連立方程式 `3x + 2y - z = 1`、`x - y + 2z = 5`、`2x + 3y - z = 0` は、`np.linalg.solve` で `x=1`、`y=0`、`z=2` になります。
+- 映画のコサイン類似度では、ベクトル長で正規化した値を比較します。最も似ている映画は、単なる内積ではなくコサイン値が最大の映画です。
+
+</details>

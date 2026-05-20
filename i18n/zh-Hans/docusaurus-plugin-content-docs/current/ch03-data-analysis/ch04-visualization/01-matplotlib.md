@@ -558,6 +558,18 @@ fig.savefig("my_chart.pdf", bbox_inches="tight")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## 小结
 
 | 图表 | 函数 | 适用场景 |
@@ -615,3 +627,13 @@ plt.show()                                # 6. 显示
 # 3. 散点图（相邻两个数据点的关系）
 # 4. 柱状图（按区间统计频次）
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 正弦/余弦图应有两条带标签的线、标题、坐标轴标签、图例和浅色网格。如果两条线不好比较，先调整颜色和线型，再考虑装饰。
+- 分组柱状图要显式计算 x 位置，并把柱子或坐标轴标到读者不看代码也能理解的程度。
+- 多图场景使用 `fig, ax = plt.subplots()`，并用 `fig.savefig(...)` 保存图像。保存下来的图是证据的一部分，不是事后补充。
+
+</details>

@@ -150,7 +150,7 @@ print(df)
 - M / F -> 男 / 女
 - 月の省略形 -> 中国語の月名
 
-このような「1つの値を別の1つの値へ変換する」関係なら、  
+このような「1つの値を別の1つの値へ変換する」関係なら、
 まず `map` を思い出すとよいです。
 
 ### map と apply の違い
@@ -193,7 +193,7 @@ print(df)
 
 - 一連のコードを名前に変換する
 
-なら `map` に近いです。  
+なら `map` に近いです。
 一方で、ただ
 
 - ある汚い値だけを別の値に直したい
@@ -282,7 +282,7 @@ print(df[["氏名", "成绩", "排名", "最小排名", "密集排名"]])
 | 順位をつけたい | `rank` |
 | 連続値を区間に分けたい | `cut` / `qcut` |
 
-この表は、新人の方にとってとても役立ちます。  
+この表は、新人の方にとってとても役立ちます。
 「変換方法はたくさんある」という状態を、よくある数個の問題に整理し直してくれるからです。
 
 ---
@@ -330,6 +330,18 @@ print(quartile_group)
 ```
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
 
 ## まとめ
 
@@ -379,3 +391,13 @@ print(quartile_group)
 # 2. qcut を使って5グループに均等分割する
 # 3. 各グループの人数と平均消費額を集計する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 月やカテゴリの再コード化は明示的な辞書を使い、`isna()` や `value_counts` で未変換の値を確認します。気づかない未変換カテゴリは、集計ミスのよくある原因です。
+- 売上の派生列は、乗算、`rank`、`sort_values`、`nlargest` などのベクトル化操作で、合計、順位、上位項目を計算します。
+- ビン分けでは、業務上のしきい値が固定なら `cut`、各グループの件数を近づけたいなら `qcut` を使います。ラベルを解釈する前に必ず各グループの件数を表示します。
+
+</details>

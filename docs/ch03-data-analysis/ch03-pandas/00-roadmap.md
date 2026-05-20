@@ -70,6 +70,18 @@ You just did the core Pandas loop: create/read data, clean missing values, add a
 | 7 | [3.3.8 Data Merging](./07-merge.md) | join multiple tables safely |
 | 8 | [3.3.9 Time Series](./08-time-series.md) | date index, resampling, time windows |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Pass Check
 
 You pass this subchapter when you can turn one raw table into one clean summary table, explain each column change, and save the result for visualization or machine learning.

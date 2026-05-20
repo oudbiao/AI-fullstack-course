@@ -67,6 +67,18 @@ Open the image and check one thing: can a reader see the trend within three seco
 | 3 | [3.4.5 Visualization Best Practices](./04-best-practices.md) | chart choice, labels, color, misleading charts |
 | 4 | [3.4.4 Plotly Interactive Visualization](./03-plotly.md) | interactive charts when the project needs them |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## Pass Check
 
 You pass this subchapter when you can create 4 useful charts from one dataset and explain why each chart type was chosen.

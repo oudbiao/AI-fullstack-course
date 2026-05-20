@@ -58,7 +58,7 @@ flowchart LR
 - 表で見せると：`平均給与: 技術部 18667, 営業部 19000, 管理部 32500`
 - グラフで見せると：管理部の給与が他の部署よりかなり高いことが、一目で分かる
 
-データ可視化の目的は、**データに語らせること**です。  
+データ可視化の目的は、**データに語らせること**です。
 数秒で、その背景にある規則やストーリーを理解できるようにします。
 
 ### 初心者向けの分かりやすい比喩
@@ -67,12 +67,12 @@ flowchart LR
 
 - いちばん基本的な描画ツールボックス
 
-`Seaborn` のように、あらかじめ多くのデフォルトスタイルが整っているわけではありません。  
+`Seaborn` のように、あらかじめ多くのデフォルトスタイルが整っているわけではありません。
 でも、その分メリットがあります。
 
 - グラフがどうやって少しずつ組み立てられるのかを、ちゃんと見られる
 
-なので `Matplotlib` を学ぶ価値は、ただグラフを描けるようになることだけではありません。  
+なので `Matplotlib` を学ぶ価値は、ただグラフを描けるようになることだけではありません。
 次の感覚を身につけることにもあります。
 
 - グラフは、データ・キャンバス・座標軸からどう作られているのか
@@ -184,7 +184,7 @@ plt.show()
 | ヒストグラム | 分布を見る |
 | 円グラフ | 割合を見る（ただしカテゴリは少なめ） |
 
-この表は初心者にとても大事です。  
+この表は初心者にとても大事です。
 「関数名」を、もう一度「何を表現したいか」に戻してくれます。
 
 ### 折れ線グラフ（Line Plot）
@@ -560,6 +560,18 @@ fig.savefig("my_chart.pdf", bbox_inches="tight")
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## まとめ
 
 | グラフ | 関数 | 適した場面 |
@@ -617,3 +629,13 @@ plt.show()                                # 6. 表示する
 # 3. 散布図（隣り合う 2 つのデータ点の関係）
 # 4. 棒グラフ（区間ごとの出現回数）
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 正弦と余弦のグラフには、ラベル付きの 2 本の線、タイトル、軸ラベル、凡例、薄いグリッドを入れます。比較しにくい場合は、装飾より先に色と線種を調整します。
+- グループ棒グラフでは x 位置を明示的に計算し、読者がコードを見なくても理解できるように棒や軸をラベル付けします。
+- 複数グラフでは `fig, ax = plt.subplots()` を使い、`fig.savefig(...)` で保存します。保存画像は証拠の一部であり、後回しのおまけではありません。
+
+</details>

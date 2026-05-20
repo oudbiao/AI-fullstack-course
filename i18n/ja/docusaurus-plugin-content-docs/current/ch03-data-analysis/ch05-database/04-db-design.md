@@ -428,6 +428,18 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 ☐ 作成時刻を記録する created_at があるか？
 ```
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## この節でいちばん持ち帰ってほしいこと
 
 - データベース設計で大事なのは、「見た目がきれいなテーブル」を作ることではなく、あとで保守しやすく、矛盾しにくい構造にすること
@@ -472,7 +484,7 @@ mindmap
 
 ---
 
-## अभ्यासしてみよう
+## 手を動かしてみよう
 
 ### 練習1：正規化の問題を見つける
 
@@ -513,3 +525,13 @@ mindmap
 # 3. 各カテゴリごとの記事数を検索する
 # 4. "Python" タグが付いたすべての記事を検索する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 正規化の練習では、学生、電話番号、科目、教師、履修を分けます。科目や電話を 1 つの横長テーブルに繰り返し入れると、1NF の考え方から外れ、更新ミスも起きやすくなります。
+- ブログ schema では、典型的に users、posts、categories、comments、tags、`post_tags` 結合テーブルを用意します。外部キーは所有関係と関連を明確に表します。
+- よく検索や join に使う `user_id`、`post_id`、`category_id`、タグ名などには index を検討します。ただし盲目的に追加せず、各 index が想定クエリを支えるようにします。
+
+</details>

@@ -436,6 +436,18 @@ print(f"\n行数: {len(dirty_data)}")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 | 类型 | 检测 | 处理方法 |
@@ -466,3 +478,13 @@ print(f"\n行数: {len(dirty_data)}")
 # 创建一份包含各种问题的数据，然后完成完整的清洗流程：
 # 字符串空格 → 类型转换 → 异常值处理 → 缺失值填充 → 去重
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 先用 `isna().sum()` 和 `isna().mean()` 做缺失值报告。逐列决定是删除、用中位数或众数填充，还是把缺失本身当成有意义的信号保留。
+- 数值列在可能有异常值时通常用中位数；类别列通常用众数或显式的 `Unknown`。缺失率很高的列如果要继续使用，必须写清理由。
+- 保留清洗日志：原始行数、删除行数、填充值、重复行规则和异常值规则。没有这份日志，清洗后的数据很难被信任。
+
+</details>

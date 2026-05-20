@@ -337,6 +337,18 @@ print(total_scores.sort_values("排名"))
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## 小结
 
 | 操作 | 函数 | 关键参数 |
@@ -382,3 +394,13 @@ print(total_scores.sort_values("排名"))
 # 2. 添加"季度"列标识数据来源
 # 3. 统计全年各季度的销售趋势
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 只需要匹配键时用 `inner` join；左表是事实来源时用 `left` join；要检查两边不匹配记录时用 `outer` join。
+- 合并前先检查重复键，并判断关系是一对一、一对多还是多对多。能用时加上 `validate=`，让 Pandas 帮你抓到意外重复。
+- 每次 merge 后都要比较行数，检查合并列里的 null，并抽样查看未匹配键。只有把这些检查写下来，合并才算完成。
+
+</details>

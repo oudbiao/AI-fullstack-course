@@ -331,6 +331,18 @@ e = np.empty_like(original)
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 ```mermaid
@@ -403,3 +415,13 @@ passed = scores >= 60
 # 3. 合格人数を求める（ヒント: True は 1、False は 0 として数えられる）
 pass_count = passed.sum()
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 形状チェックは、`arr1.shape == (20,)`、`arr2.shape == (4, 5)`、`arr3.shape == (3, 3)`、`arr4.shape == (100,)`、`arr5.shape == (5, 5)` になります。
+- `np.ones((3, 4, 5))` は 3 次元で、要素数は 60 です。dtype を指定しなければ通常は `float64` になり、`int32` 配列の `itemsize` は 4 バイトです。
+- スコア配列は丸めると整数のように見せられますが、合格者数は元のルール、例えば `scores >= 60` で数えます。そのため `60.5` は合格です。
+
+</details>

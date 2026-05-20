@@ -387,6 +387,18 @@ This is much more stable than jumping straight into complex forecasting.
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 | Operation | Method | Use |
@@ -463,3 +475,13 @@ flowchart TB
 # 3. Use rolling to calculate the 30-day average ARPU (average revenue per user)
 # 4. Find the month with the fastest user growth
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Convert date strings with `pd.to_datetime` first, then create calendar features such as month, weekday, quarter, and business-day flags.
+- Use `resample` for calendar aggregation, `rolling` for moving windows, and `pct_change` for growth rates. Each method answers a different kind of question.
+- For product or user metrics over time, always state the time grain. Daily, weekly, and monthly summaries can tell different stories even when they use the same raw events.
+
+</details>

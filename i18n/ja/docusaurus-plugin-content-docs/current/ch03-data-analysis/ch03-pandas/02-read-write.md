@@ -307,7 +307,7 @@ print(df.describe())
 
 ### この小さな実践で、まず何を学ぶべき？
 
-いちばん大事なのは、`read_*` 関数名を 1 つ覚えることではありません。  
+いちばん大事なのは、`read_*` 関数名を 1 つ覚えることではありません。
 新しいデータを受け取ったときの、いちばん安定した 3 ステップを覚えることです。
 
 1. `shape` を見る
@@ -317,6 +317,18 @@ print(df.describe())
 この 3 つがスムーズにできれば、CSV、Excel、JSON を読むときも、ずっと安定します。
 
 ---
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
 
 ## まとめ
 
@@ -366,3 +378,13 @@ df.head()
 # 日本語を含むデータを作り、utf-8 と gbk でそれぞれ保存する
 # そのあと、別々の文字コードで読み込んで、文字化けの違いを観察する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- CSV を書き出して読み戻すとき、index に意味がなければ `to_csv(index=False)` を使い、shape、列名、dtype、数行のサンプルを確認します。
+- 最初の確認では、クリーニング判断の前に `shape`、`head`、`info`、`describe`、欠損数、重複数を記録します。
+- 文字化けは、`encoding="utf-8"` や `encoding="gbk"` のように本当のエンコーディングを指定して解決します。数セルを手入力で直して済ませないでください。
+
+</details>

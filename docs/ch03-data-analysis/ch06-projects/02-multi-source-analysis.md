@@ -836,6 +836,17 @@ Completing these two projects means you have mastered the full data analysis wor
 Next, you will move on to 4 Minimum Essential Math for AI and 5 Introduction to Machine Learning to Practice, upgrading your data analysis skills into prediction and modeling skills.
 :::
 
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- A complete project proves that every source was loaded, merge keys were checked, row counts were compared before and after each join, and unmatched records were inspected.
+- The final analysis should contain at least three insights with business or product meaning, not just three charts. Each insight needs the table or chart that supports it.
+- Good recommendations name the evidence, the action, and the risk or assumption. For example, do not just say “improve sales”; say which segment, why, and what to monitor.
+
+</details>
+
+
 ## Suggested Version Roadmap
 
 | Version | Goal | Delivery Focus |
@@ -845,3 +856,15 @@ Next, you will move on to 4 Minimum Essential Math for AI and 5 Introduction to 
 | Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failed-sample analysis, and next-step roadmap |
 
 It is recommended to finish the basic version first. Don’t try to make everything big and complete at the beginning. With every version upgrade, write “what new capability was added, how it was verified, and what problems remain” into the README.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```

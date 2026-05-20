@@ -368,6 +368,18 @@ for n in [100, 1000, 10000, 100000, 1000000]:
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 ```mermaid
@@ -449,6 +461,17 @@ english_scores = rng.normal(78, 10, 200).clip(0, 100)  # 英語
 ```
 
 ---
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- サイコロシミュレーションでは `(10000, 2)` 配列を作り、`axis=1` で和を取り、`np.bincount` で合計値を数えます。組み合わせが最も多いため、最頻値は多くの場合 `7` になります。
+- 株価シミュレーションでは日次リターンを生成し、`100 * np.cumprod(1 + returns)` で価格系列を作ります。最終リターン、必要なら最大ドローダウン、そして経路が見えるグラフを報告します。
+- 学生スコアでは、`mean`、`std`、`corrcoef`、ブールフィルタ、ヒストグラム、top-k ソートを使います。同じサンプルを再現できるよう random seed も説明します。
+
+</details>
+
 
 ## 章のまとめ：NumPy の全体像
 

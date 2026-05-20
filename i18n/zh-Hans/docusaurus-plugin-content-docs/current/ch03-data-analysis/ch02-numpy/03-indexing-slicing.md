@@ -323,6 +323,18 @@ print(f"对应票价: {fares[top3_indices]}")
 
 ---
 
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## 小结
 
 | 索引方式 | 语法 | 返回类型 | 适用场景 |
@@ -378,3 +390,13 @@ math_scores = np.array([
 # 4. 把所有不及格的成绩改成 60
 # 5. 计算修改后的平均分
 ```
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 常见切片答案是：前五个值用 `arr[:5]`，按“一位计数”的偶数位置用 `arr[1::2]`，后三个值用 `arr[-3:]`，倒序用 `arr[::-1]`。
+- 对 5x5 矩阵，`matrix[1:4, 1:4]` 选中间 3x3 区域，`matrix[:, 1]` 选第二列，`matrix[np.arange(5), np.arange(5)]` 选主对角线。
+- 成绩筛选时保留原始数据不变，再复制一份数组去把不及格分数替换为 `60`。这样不会把原始证据覆盖掉。
+
+</details>

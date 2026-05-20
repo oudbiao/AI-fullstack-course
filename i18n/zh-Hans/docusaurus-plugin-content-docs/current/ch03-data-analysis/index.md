@@ -104,6 +104,13 @@ Visualization    ...
 
 真正的通过标准不是“图好看”，而是你能说明：哪些行被改了，为什么改，对结论有什么影响。
 
+### 如何读这个输出
+
+- `清洗前` 展示原始证据，包括重复值、缺失值和异常值。
+- `清洗后` 展示真正进入分析的转换结果。
+- `topic_minutes.png` 是报告产物，应该和生成它的脚本一起保留。
+- 如果换一种清洗规则后结论变了，要把变化记录下来，而不是藏起来。
+
 ## 深度阶梯
 
 | 层级 | 你能证明什么 |
@@ -111,6 +118,18 @@ Visualization    ...
 | 最低通过 | 能读取表格，检查形状、类型和缺失值，清理明显问题，并保存一张图。 |
 | 项目可用 | 报告里有问题、清洗规则、汇总表、图表、结论、局限和重跑命令。 |
 | 深度检查 | 能测试另一种清洗规则是否改变结论，识别泄漏或抽样偏差，并解释图表类型为什么适合这个问题。 |
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
 
 ## 常见失败
 
@@ -133,3 +152,13 @@ Visualization    ...
 - 其他人能不能按 README 重新运行分析？
 
 需要打印式清单时，打开 [3.0 学习指南与任务单](./study-guide.md)。下一章会用这些数据直觉理解概率、向量、梯度和模型评估。
+
+
+<details>
+<summary>参考答案与讲解</summary>
+
+- 把这五个通关问题当成一个小型数据故事，而不是五句口号。
+- 合格答案要说清列名和单位，列出所有会改变行或数值的清洗规则，把每张图对应到一个明确问题，区分“数据支持的结论”和“仍不确定的部分”，并提供能让别人重跑的 README。
+- 如果某个回答只能靠记忆，而没有表格、图或命令输出作为证据，这份分析包还没有完成。
+
+</details>

@@ -287,6 +287,18 @@ print(f"Similarity between B and C: {cosine_similarity(user_b, user_c):.4f}")  #
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## Summary
 
 | Concept | Description | NumPy function |
@@ -355,3 +367,13 @@ movies = {
 # Use cosine similarity to find the movie most similar to "Avengers"
 # Hint: calculate the cosine similarity between "Avengers" and each of the other movies
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the shopping example, `quantities @ prices` is the clean vectorized answer. With prices `[10, 25, 8]` and rows `[3,1,2]`, `[0,2,5]`, `[5,0,3]`, the totals are `71`, `90`, and `74`.
+- For the linear system `3x + 2y - z = 1`, `x - y + 2z = 5`, `2x + 3y - z = 0`, `np.linalg.solve` should return `x=1`, `y=0`, `z=2`.
+- In the movie cosine-similarity example, compare dot products after normalizing by vector length. The most similar movie should be the one with the largest cosine value, not simply the largest raw dot product.
+
+</details>

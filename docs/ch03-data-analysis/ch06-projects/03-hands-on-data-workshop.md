@@ -480,6 +480,18 @@ The report is intentionally simple. Its purpose is not visual polish; its purpos
 | `SVG` | A text-based image format. Here we generate a chart without installing a plotting library. |
 | reproducibility | Another person can run the same script and get the same files and numbers. |
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+analysis_goal: business/data question and success criterion
+data_evidence: source, cleaning notes, features, and chart/table outputs
+result: insight, metric, dashboard, or report section
+failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
+Expected_output: reproducible analysis folder with data, charts, and a short report
+```
+
 ## Common mistakes and fixes
 
 | Problem | Likely cause | Fix |
@@ -497,6 +509,17 @@ The report is intentionally simple. Its purpose is not visual polish; its purpos
 3. Change the SQLite query to show only rows where `status = 'stuck'`.
 4. Add a new field named `difficulty` and include it in the CSV, SQLite table, and report.
 5. Rewrite `summarize_by_topic()` with Pandas after you finish the Pandas section, then compare the result with this standard-library version.
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the table-editing mini exercises, expected evidence is the changed CSV or SQLite table plus the exact query or Pandas statement that proves the change.
+- If a confidence value can exceed the valid range, clip or validate it and record the rule. A hidden invalid value is worse than a visible warning.
+- When adding a new field such as difficulty, update the CSV, database schema, loading code, and report output together so the data path stays consistent end to end.
+
+</details>
+
 
 ## Portfolio evidence checklist
 

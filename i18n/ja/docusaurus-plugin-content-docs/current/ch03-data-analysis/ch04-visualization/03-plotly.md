@@ -87,7 +87,7 @@ flowchart LR
 
 - 読む人が自分でさらに調べていく場面
 
-です。  
+です。
 すべての場面で無理にインタラクションを入れる必要はありません。
 
 ---
@@ -228,7 +228,7 @@ fig = px.scatter_3d(df, x="sepal_length", y="sepal_width", z="petal_length",
 fig.show()
 ```
 
-この 3D 図は、マウスでドラッグして回転できます。  
+この 3D 図は、マウスでドラッグして回転できます。
 いろいろな角度からデータを見てみましょう。
 
 ### アニメーション付きグラフ
@@ -248,7 +248,7 @@ fig = px.scatter(df, x="gdpPercap", y="lifeExp",
 fig.show()
 ```
 
-再生ボタンをクリックすると、国ごとの年次変化を見ることができます。  
+再生ボタンをクリックすると、国ごとの年次変化を見ることができます。
 これは有名な **Hans Rosling のバブルチャート** です。
 
 ---
@@ -293,7 +293,7 @@ fig.show()
 | 誰かに Web で見せる | Plotly が向いている |
 | ただ「もっと派手にしたい」だけ | いったん止まって、本当に必要か考える |
 
-この表は初心者に特に役立ちます。  
+この表は初心者に特に役立ちます。
 「インタラクティブ図はかっこいい」という気持ちを、実際の利用シーンの判断に戻してくれるからです。
 
 ### グラフを保存する
@@ -364,6 +364,18 @@ app.layout = html.Div([
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+question: what comparison, distribution, trend, or relationship the chart answers
+chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
+artifact: saved chart image/html plus the data slice used
+failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
+Expected_output: chart artifact with one sentence explaining the insight
+```
+
 ## まとめ
 
 | Plotly Express の関数 | グラフの種類 |
@@ -377,7 +389,7 @@ app.layout = html.Div([
 | `px.imshow()` | ヒートマップ |
 | `px.scatter_3d()` | 3D 散布図 |
 
-Plotly のいちばんの強みは、**インタラクション**です。  
+Plotly のいちばんの強みは、**インタラクション**です。
 マウスオーバーでデータを見たり、ズームして一部を詳しく見たり、アニメーションで変化を示したりできます。データ探索や結果の見せ方でとても役立ちます。
 
 ## この節でいちばん持ち帰ってほしいこと
@@ -415,3 +427,13 @@ Plotly のいちばんの強みは、**インタラクション**です。
 # 1952-2007 年の各国の gdpPercap と lifeExp の変化を表示する
 # animation_frame="year" を使う
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- Gapminder 風の散布図では、x、y、size、color、hover text を意図して割り当てます。hover 項目は、全列を見せるためではなく質問に答えるために選びます。
+- 国や商品のトレンド線では、時間でソートし、x 軸が日付または順序つき年フィールドであることを確認します。未ソートの時系列は誤解を招くジグザグ線になります。
+- アニメーションには安定した質問が必要です。比較を邪魔するなら、静的な要約図や最終フレームの注記を追加します。
+
+</details>

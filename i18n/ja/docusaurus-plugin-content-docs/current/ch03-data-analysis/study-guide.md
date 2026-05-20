@@ -19,6 +19,18 @@ keywords: [データ分析学習ガイド, データ分析タスクリスト, Nu
 
 グラフを一文で説明できないなら、データの質問に戻ります。
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
+
 ## 練習チェックリスト
 
 | チェック | 証拠 |
@@ -29,6 +41,17 @@ keywords: [データ分析学習ガイド, データ分析タスクリスト, Nu
 | 具体的な質問に合うグラフを選べる | 3 つのグラフファイル |
 | 結論と限界を書ける | `report.md` |
 | 再現可能なワークショップを完了できる | `ch03_output/` |
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- このチェックリストは最終的な証拠監査として使います。各プロジェクトで、生ファイル、クリーン済みファイルまたはクリーニングスクリプト、要約表、グラフ、短い結論を指し示せる状態にします。
+- 各結論には、支える証拠を 1 文、限界を 1 文で書きます。この習慣により、小さく汚いデータから言いすぎることを防げます。
+- 別の学習者が新しいフォルダから notebook や script を再実行できないなら、次章へ進む前にパス、依存関係、README 手順を直します。
+
+</details>
+
 
 ## 証拠基準
 

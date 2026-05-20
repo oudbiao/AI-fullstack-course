@@ -427,6 +427,18 @@ Use this checklist every time you design a database:
 ☐ Is there a created_at timestamp to record creation time?
 ```
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+schema: table names, keys, relationships, and sample rows
+query: SQL or Python database code used
+output: result rows, row count, or saved extract
+failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
+Expected_output: query plus result table and one data-quality note
+```
+
 ## What You Should Take Away from This Section
 
 - The most important part of database design is not “how pretty the tables look,” but whether they are easy to maintain and free from conflicts later
@@ -512,3 +524,13 @@ Requirements:
 # 3. Query the number of articles under each category
 # 4. Query all articles with the "Python" tag
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- For the normalization exercise, separate students, phone numbers, courses, teachers, and enrollments. Repeating course or phone data in one wide table violates the spirit of 1NF and creates update errors.
+- For a blog schema, typical tables are users, posts, categories, comments, tags, and a `post_tags` join table. Foreign keys should describe ownership and relationships clearly.
+- Add indexes where lookups and joins happen often, such as `user_id`, `post_id`, `category_id`, and tag names. Do not add indexes blindly; each one should support a query you expect to run.
+
+</details>

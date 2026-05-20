@@ -337,6 +337,18 @@ print(total_scores.sort_values("Rank"))
 
 ---
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```
+
 ## Summary
 
 | Operation | Function | Key Parameters |
@@ -382,3 +394,13 @@ print(total_scores.sort_values("Rank"))
 # 2. Add a "quarter" column to indicate the data source
 # 3. Analyze the sales trend across the four quarters
 ```
+
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Use `inner` join when you only want matched keys, `left` join when the left table is the source of truth, and `outer` join when you need to inspect mismatches from both sides.
+- Before merging, check duplicate keys and decide the relationship: one-to-one, one-to-many, or many-to-many. Use `validate=` when possible so Pandas catches unexpected duplication.
+- After every merge, compare row counts, inspect nulls in joined columns, and sample unmatched keys. A merge is not finished until those checks are written down.
+
+</details>

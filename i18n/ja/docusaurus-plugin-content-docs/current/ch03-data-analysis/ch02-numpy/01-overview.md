@@ -295,6 +295,18 @@ print(f"総ピクセル値: {image.size}")   # 48 個の数字
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 | 要点 | 説明 |
@@ -346,3 +358,13 @@ print("max =", max_val)
 print("min =", min_val)
 print("square_sum =", square_sum)
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- `np.arange(1, 101)` の期待結果は、合計 `5050`、平均 `50.5`、最小値 `1`、最大値 `100`、二乗和 `338350` です。
+- ベクトル化版はループ版と同じ数値を返す必要があります。ただし速度差がはっきり見えるのは、配列を数千件から数百万件に増やしてからです。
+- 小さな配列で計測結果がぶれるのは普通です。性能を語る前に、データ量を増やして複数回測定します。
+
+</details>

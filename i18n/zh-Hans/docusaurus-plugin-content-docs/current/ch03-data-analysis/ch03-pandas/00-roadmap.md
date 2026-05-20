@@ -73,3 +73,15 @@ print(summary)
 ## 通过标准
 
 能把一张原始表变成一张干净的汇总表，能解释每个字段为什么这样处理，并能把结果交给可视化或机器学习继续使用，就算通过。
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+dataframe_state: columns, dtypes, row count, missing values, and sample rows
+operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
+output: resulting table, saved file, aggregation, join result, or time index view
+failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
+Expected_output: before/after table sample with the transformation reason
+```

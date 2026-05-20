@@ -360,6 +360,18 @@ print(adjusted)  # [85 60 91 67 60 78]
 
 ---
 
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+array_state: shape, dtype, axis, and sample values before the operation
+operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
+output: resulting array shape, values, or statistic
+failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
+Expected_output: printed shapes and values that make the array operation inspectable
+```
+
 ## まとめ
 
 | カテゴリ | 内容 | 例 |
@@ -419,3 +431,13 @@ scores = rng.integers(40, 101, size=50)
 # 3. 各点数帯の人数を集計する：不合格(<60)、合格(60-69)、普通(70-79)、良い(80-89)、優秀(90+)
 # 4. 合格率を計算する
 ```
+
+
+<details>
+<summary>参考解答と解説</summary>
+
+- 華氏から摂氏への変換は `(fahrenheit - 32) * 5 / 9` を使います。よくある例では、およそ `[0, 20, 37.78, 100, 22.22, 37]` になります。
+- Broadcasting は右側の次元からそろえて考えます。行ベクトルと列ベクトルを足す典型例では、各行の値と各列の値が組み合わさるため 3x3 行列になります。
+- スコア統計では、平均、中央値、標準偏差、最高と最低の位置または名前、合格率、ビンごとの件数を出します。手書きループではなく配列演算で説明できることがポイントです。
+
+</details>

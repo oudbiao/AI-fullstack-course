@@ -30,6 +30,17 @@ If you cannot explain a chart in one sentence, return to the data question.
 | I can state a conclusion and a limitation | `report.md` |
 | I can finish the reproducible workshop | `ch03_output/` |
 
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+- Use the checklist as a final evidence audit. You should be able to point to a raw file, a cleaned file or cleaning script, a summary table, a chart, and a short conclusion for each project.
+- For every conclusion, write one sentence of support and one sentence of limitation. This habit prevents overclaiming from small or messy data.
+- If another learner cannot rerun your notebook or script from a fresh folder, fix paths, dependencies, and README steps before moving on.
+
+</details>
+
+
 ## Evidence Rubric
 
 | Artifact | It should answer |
@@ -43,3 +54,15 @@ If you cannot explain a chart in one sentence, return to the data question.
 ## Ready To Continue
 
 Continue to Chapter 4 when one CSV can travel from raw data to cleaned data, summary table, chart, and short written conclusion.
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+data_source: raw records or small dataset used
+processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
+output: cleaned data, statistic, chart, query result, or report note
+failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
+Expected_output: data artifact plus the evidence needed to trust it
+```
