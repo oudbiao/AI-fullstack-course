@@ -26,7 +26,7 @@ In this section, you will learn how to organize a group of data. Lists, tuples, 
 
 So far, the variables you have learned can only store one value at a time. But in real-world scenarios, you often need to handle **a collection of data**:
 
-- Scores of 100 students
+- 100 API latency measurements
 - All the parameters of a model
 - A user's personal information (name, age, email, ...)
 
@@ -51,13 +51,13 @@ A list is like a **stretchable cabinet**: you can put anything in it, and you ca
 
 ```python
 # Create lists
-scores = [85, 92, 78, 95, 88]
-names = ["Zhang San", "Li Si", "Wang Wu"]
+latencies_ms = [120, 95, 240, 180, 310]
+features = ["Login API", "RAG demo", "Chart view"]
 mixed = [1, "hello", 3.14, True]   # Mixed types are allowed (but not recommended)
 empty = []                         # Empty list
 
-print(type(scores))  # <class 'list'>
-print(len(scores))   # 5
+print(type(latencies_ms))  # <class 'list'>
+print(len(latencies_ms))   # 5
 ```
 
 ### Accessing Elements (Indexing)
@@ -88,15 +88,15 @@ print(numbers[::-1])   # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] (reverse)
 ### Modifying Elements
 
 ```python
-scores = [85, 92, 78, 95, 88]
+latencies_ms = [120, 95, 240, 180, 310]
 
 # Modify a single element
-scores[2] = 80
-print(scores)  # [85, 92, 80, 95, 88]
+latencies_ms[2] = 210
+print(latencies_ms)  # [120, 95, 210, 180, 310]
 
 # Modify multiple elements (via slicing)
-scores[1:3] = [90, 85]
-print(scores)  # [85, 90, 85, 95, 88]
+latencies_ms[1:3] = [100, 180]
+print(latencies_ms)  # [120, 100, 180, 180, 310]
 ```
 
 ### Adding Elements
@@ -170,12 +170,12 @@ print(numbers.count(5))    # 1 (number of times element 5 appears)
 print(3 in numbers)        # True
 
 # Statistics
-scores = [85, 92, 78, 95, 88]
-print(len(scores))    # 5
-print(sum(scores))    # 438
-print(max(scores))    # 95
-print(min(scores))    # 78
-print(sum(scores) / len(scores))  # 87.6 (average score)
+latencies_ms = [120, 95, 240, 180, 310]
+print(len(latencies_ms))    # 5
+print(sum(latencies_ms))    # 945
+print(max(latencies_ms))    # 310
+print(min(latencies_ms))    # 95
+print(sum(latencies_ms) / len(latencies_ms))  # 189.0 (average latency)
 ```
 
 ### List Comprehensions (Very Pythonic!)
@@ -262,11 +262,11 @@ x, y = point
 print(f"x={x}, y={y}")  # x=10, y=20
 
 # When a function returns multiple values, it actually returns a tuple
-def get_name_and_age():
-    return "Xiao Ming", 25
+def get_task_and_hours():
+    return "Login API", 8
 
-name, age = get_name_and_age()
-print(f"{name}, {age} years old")  # Xiao Ming, 25 years old
+task, hours = get_task_and_hours()
+print(f"{task}, {hours} hours")  # Login API, 8 hours
 
 # Use * to collect extra values
 first, *rest = [1, 2, 3, 4, 5]
@@ -290,11 +290,11 @@ A dictionary is one of the **most important data structures in Python**. It uses
 
 ```python
 # Create with curly braces
-student = {
-    "name": "Xiao Ming",
-    "age": 20,
-    "city": "Beijing",
-    "scores": [85, 92, 78]
+task = {
+    "name": "Login API",
+    "owner": "Mina",
+    "status": "in_progress",
+    "hours": [2, 3, 3]
 }
 
 # Empty dictionary
@@ -304,22 +304,22 @@ empty = {}
 config = dict(learning_rate=0.001, epochs=100, batch_size=32)
 print(config)  # {'learning_rate': 0.001, 'epochs': 100, 'batch_size': 32}
 
-print(type(student))  # <class 'dict'>
+print(type(task))  # <class 'dict'>
 ```
 
 ### Accessing Values
 
 ```python
-student = {"name": "Xiao Ming", "age": 20, "city": "Beijing"}
+task = {"name": "Login API", "owner": "Mina", "status": "in_progress"}
 
 # Method 1: Access with []
-print(student["name"])   # Xiao Ming
-# print(student["phone"])  # Error! KeyError: 'phone'
+print(task["name"])   # Login API
+# print(task["deadline"])  # Error! KeyError: 'deadline'
 
 # Method 2: Access with .get() (safer)
-print(student.get("name"))    # Xiao Ming
-print(student.get("phone"))   # None (returns None if it does not exist, no error)
-print(student.get("phone", "not provided"))  # not provided (returns default value if it does not exist)
+print(task.get("owner"))    # Mina
+print(task.get("deadline"))   # None (returns None if it does not exist, no error)
+print(task.get("deadline", "not scheduled"))  # not scheduled (returns default value if it does not exist)
 ```
 
 :::tip Recommended: Use .get()
@@ -329,59 +329,59 @@ When you are not sure whether a key exists, `.get()` is safer than `[]` and will
 ### Adding and Modifying
 
 ```python
-student = {"name": "Xiao Ming", "age": 20}
+task = {"name": "Login API", "status": "todo"}
 
 # Add new key-value pairs
-student["city"] = "Beijing"
-student["email"] = "xiaoming@example.com"
+task["owner"] = "Mina"
+task["repo"] = "portfolio-api"
 
 # Modify an existing value
-student["age"] = 21
+task["status"] = "in_progress"
 
-print(student)
-# {'name': 'Xiao Ming', 'age': 21, 'city': 'Beijing', 'email': 'xiaoming@example.com'}
+print(task)
+# {'name': 'Login API', 'status': 'in_progress', 'owner': 'Mina', 'repo': 'portfolio-api'}
 
 # Update in bulk
-student.update({"age": 22, "phone": "13800000000"})
-print(student)
+task.update({"status": "done", "hours": 8})
+print(task)
 ```
 
 ### Deleting
 
 ```python
-student = {"name": "Xiao Ming", "age": 20, "city": "Beijing"}
+task = {"name": "Login API", "status": "done", "owner": "Mina"}
 
 # Delete a specific key
-del student["city"]
-print(student)  # {'name': 'Xiao Ming', 'age': 20}
+del task["owner"]
+print(task)  # {'name': 'Login API', 'status': 'done'}
 
 # pop: delete and return the value
-age = student.pop("age")
-print(age)      # 20
-print(student)  # {'name': 'Xiao Ming'}
+status = task.pop("status")
+print(status)  # done
+print(task)    # {'name': 'Login API'}
 ```
 
 ### Iterating Through a Dictionary
 
 ```python
-scores = {"Chinese": 85, "Math": 92, "English": 78}
+task_hours = {"Login API": 8, "RAG demo": 12, "Chart view": 5}
 
 # Iterate over keys
-for subject in scores:
-    print(subject)
+for task in task_hours:
+    print(task)
 
 # Iterate over values
-for score in scores.values():
-    print(score)
+for hours in task_hours.values():
+    print(hours)
 
 # Iterate over key-value pairs (most common)
-for subject, score in scores.items():
-    print(f"{subject}: {score} points")
+for task, hours in task_hours.items():
+    print(f"{task}: {hours} hours")
 
 # Output:
-# Chinese: 85 points
-# Math: 92 points
-# English: 78 points
+# Login API: 8 hours
+# RAG demo: 12 hours
+# Chart view: 5 hours
 ```
 
 ### Dictionary Comprehensions
@@ -392,9 +392,9 @@ squares = {x: x**2 for x in range(1, 6)}
 print(squares)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
 
 # Filter a dictionary
-scores = {"Zhang San": 85, "Li Si": 45, "Wang Wu": 92, "Zhao Liu": 58}
-passed = {name: score for name, score in scores.items() if score >= 60}
-print(passed)  # {'Zhang San': 85, 'Wang Wu': 92}
+task_hours = {"Login API": 8, "Bug fix": 3, "RAG demo": 12, "Docs": 2}
+large_tasks = {name: hours for name, hours in task_hours.items() if hours >= 8}
+print(large_tasks)  # {'Login API': 8, 'RAG demo': 12}
 ```
 
 ### Real Example: Counting Character Frequency
@@ -463,18 +463,18 @@ print(a ^ b)          # {1, 2, 3, 6, 7, 8}
 ### Real-World Use
 
 ```python
-# Scenario: find students who took both courses
-math_students = {"Zhang San", "Li Si", "Wang Wu", "Zhao Liu"}
-english_students = {"Li Si", "Wang Wu", "Qian Qi", "Sun Ba"}
+# Scenario: find tasks that touch both frontend and backend work
+frontend_tasks = {"Login UI", "Chart view", "Settings page", "Theme switcher"}
+backend_tasks = {"Login API", "Chart view", "Audit log", "Settings page"}
 
-both = math_students & english_students
-print(f"Students who took both courses: {both}")  # {'Li Si', 'Wang Wu'}
+both = frontend_tasks & backend_tasks
+print(f"Tasks touching both sides: {sorted(both)}")  # ['Chart view', 'Settings page']
 
-only_math = math_students - english_students
-print(f"Only took math: {only_math}")  # {'Zhang San', 'Zhao Liu'}
+only_frontend = frontend_tasks - backend_tasks
+print(f"Frontend-only tasks: {sorted(only_frontend)}")  # ['Login UI', 'Theme switcher']
 
-all_students = math_students | english_students
-print(f"All enrolled students: {all_students}")
+all_tasks = frontend_tasks | backend_tasks
+print(f"All related tasks: {sorted(all_tasks)}")
 ```
 
 ---
@@ -494,14 +494,14 @@ print(f"All enrolled students: {all_students}")
 
 ## Hands-On Practice
 
-### Exercise 1: Score Statistics
+### Exercise 1: API Latency Statistics
 
 ```python
-scores = [85, 92, 78, 95, 88, 76, 90, 82, 97, 73]
+latencies_ms = [120, 95, 240, 180, 310, 150, 88, 205, 260, 170]
 
-# 1. Calculate the highest score, lowest score, and average score
-# 2. Find all scores above 90 (use a list comprehension)
-# 3. Sort the scores from high to low
+# 1. Calculate the highest latency, lowest latency, and average latency
+# 2. Find all latencies above 200 (use a list comprehension)
+# 3. Sort the latencies from high to low
 ```
 
 ### Exercise 2: Address Book
@@ -540,7 +540,7 @@ numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-1. The score statistics are max `97`, min `73`, and average `85.6`. Scores above `90` can be `[92, 95, 97]`, and descending order starts with `[97, 95, 92, ...]`.
+1. The latency statistics are max `310`, min `88`, and average `181.8`. Latencies above `200` can be `[240, 310, 205, 260]`, and descending order starts with `[310, 260, 240, 205, ...]`.
 2. The address book should add, update, and delete by key, for example `contacts["Ada"] = "ada@example.com"`.
 3. Word frequency should count `the: 3`, `fox: 2`, and the other words once for the sample sentence.
 4. Ordered deduplication should produce `[3, 1, 4, 5, 9, 2, 6]`. Use a `seen` set plus a result list.
