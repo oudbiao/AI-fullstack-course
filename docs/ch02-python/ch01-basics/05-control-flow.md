@@ -84,40 +84,38 @@ else:
 `elif` is short for "else if" and is used to check multiple conditions:
 
 ```python
-score = 85
+latency_ms = 185
 
-if score >= 90:
-    grade = "A (Excellent)"
-elif score >= 80:
-    grade = "B (Good)"
-elif score >= 70:
-    grade = "C (Average)"
-elif score >= 60:
-    grade = "D (Pass)"
+if latency_ms < 100:
+    status = "Fast"
+elif latency_ms < 200:
+    status = "Healthy"
+elif latency_ms < 500:
+    status = "Slow"
 else:
-    grade = "F (Fail)"
+    status = "Critical"
 
-print(f"Your score: {score}, grade: {grade}")
-# Output: Your score: 85, grade: B (Good)
+print(f"API latency: {latency_ms} ms, status: {status}")
+# Output: API latency: 185 ms, status: Healthy
 ```
 
 :::caution Execution Order Matters
 Python checks each condition from top to bottom. **As soon as one condition is true, it runs that code block and skips all remaining `elif` and `else` blocks**. So the order of your conditions matters!
 
 ```python
-score = 95
+latency_ms = 95
 
 # Wrong order ❌
-if score >= 60:
-    print("Pass")      # 95 >= 60 is true, so this runs immediately
-elif score >= 90:
-    print("Excellent") # This will not run!
+if latency_ms < 500:
+    print("Needs review") # 95 < 500 is true, so this runs immediately
+elif latency_ms < 100:
+    print("Fast")         # This will not run!
 
 # Correct order ✅: from strict to broad
-if score >= 90:
-    print("Excellent") # 95 >= 90 is true, so this runs
-elif score >= 60:
-    print("Pass")
+if latency_ms < 100:
+    print("Fast")         # 95 < 100 is true, so this runs
+elif latency_ms < 500:
+    print("Needs review")
 ```
 :::
 
@@ -227,19 +225,19 @@ print(f"The sum from 1 to 100 is: {total}")  # 5050
 ### enumerate(): get both index and value
 
 ```python
-students = ["Zhang San", "Li Si", "Wang Wu"]
+tasks = ["Design login form", "Build API endpoint", "Write smoke test"]
 
 # Traditional way
-for i in range(len(students)):
-    print(f"Number {i+1}: {students[i]}")
+for i in range(len(tasks)):
+    print(f"Task {i+1}: {tasks[i]}")
 
 # More Pythonic way: use enumerate
-for i, name in enumerate(students):
-    print(f"Number {i+1}: {name}")
+for i, task in enumerate(tasks):
+    print(f"Task {i+1}: {task}")
 
 # Specify the starting number
-for i, name in enumerate(students, start=1):
-    print(f"Number {i}: {name}")
+for i, task in enumerate(tasks, start=1):
+    print(f"Task {i}: {task}")
 ```
 
 ---

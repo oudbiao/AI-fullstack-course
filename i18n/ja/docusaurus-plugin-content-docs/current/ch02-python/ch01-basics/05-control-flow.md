@@ -96,40 +96,38 @@ else:
 `elif` は "else if" の略で、複数の条件を順番に確認するときに使います。
 
 ```python
-score = 85
+latency_ms = 185
 
-if score >= 90:
-    grade = "A（優秀）"
-elif score >= 80:
-    grade = "B（良い）"
-elif score >= 70:
-    grade = "C（普通）"
-elif score >= 60:
-    grade = "D（合格）"
+if latency_ms < 100:
+    status = "高速"
+elif latency_ms < 200:
+    status = "正常"
+elif latency_ms < 500:
+    status = "遅め"
 else:
-    grade = "F（不合格）"
+    status = "重大"
 
-print(f"あなたの点数: {score} 点、評価: {grade}")
-# 出力: あなたの点数: 85 点、評価: B（良い）
+print(f"API レイテンシ: {latency_ms} ms、状態: {status}")
+# 出力: API レイテンシ: 185 ms、状態: 正常
 ```
 
 :::caution 実行順に注意
 Python は上から下へ順番に各条件をチェックします。**いずれかの条件が成り立ったら、対応するコードブロックを実行して、その後ろにあるすべての elif と else をスキップします**。そのため、条件の順番はとても重要です。
 
 ```python
-score = 95
+latency_ms = 95
 
 # 間違った順番 ❌
-if score >= 60:
-    print("合格")      # 95 >= 60 が成り立つので、ここがすぐ実行される
-elif score >= 90:
-    print("優秀")      # 実行されない！
+if latency_ms < 500:
+    print("要確認")     # 95 < 500 が成り立つので、ここがすぐ実行される
+elif latency_ms < 100:
+    print("高速")       # 実行されない！
 
 # 正しい順番 ✅：厳しい条件から順に
-if score >= 90:
-    print("優秀")      # 95 >= 90 が成り立つので、ここが実行される
-elif score >= 60:
-    print("合格")
+if latency_ms < 100:
+    print("高速")       # 95 < 100 が成り立つので、ここが実行される
+elif latency_ms < 500:
+    print("要確認")
 ```
 :::
 
@@ -239,19 +237,19 @@ print(f"1 から 100 までの合計は: {total}")  # 5050
 ### enumerate()：インデックスと値を同時に取得する
 
 ```python
-students = ["張三", "李四", "王五"]
+tasks = ["ログインフォーム設計", "API エンドポイント実装", "スモークテスト作成"]
 
 # 普通の書き方
-for i in range(len(students)):
-    print(f"{i+1}番目: {students[i]}")
+for i in range(len(tasks)):
+    print(f"タスク {i+1}: {tasks[i]}")
 
 # より Pythonic な書き方：enumerate を使う
-for i, name in enumerate(students):
-    print(f"{i+1}番目: {name}")
+for i, task in enumerate(tasks):
+    print(f"タスク {i+1}: {task}")
 
 # 開始番号を指定する
-for i, name in enumerate(students, start=1):
-    print(f"{i}番目: {name}")
+for i, task in enumerate(tasks, start=1):
+    print(f"タスク {i}: {task}")
 ```
 
 ---

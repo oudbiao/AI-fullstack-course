@@ -84,40 +84,38 @@ else:
 `elif` 是 "else if" 的缩写，用来检查多个条件：
 
 ```python
-score = 85
+latency_ms = 185
 
-if score >= 90:
-    grade = "A（优秀）"
-elif score >= 80:
-    grade = "B（良好）"
-elif score >= 70:
-    grade = "C（中等）"
-elif score >= 60:
-    grade = "D（及格）"
+if latency_ms < 100:
+    status = "很快"
+elif latency_ms < 200:
+    status = "健康"
+elif latency_ms < 500:
+    status = "偏慢"
 else:
-    grade = "F（不及格）"
+    status = "严重"
 
-print(f"你的成绩: {score} 分，等级: {grade}")
-# 输出: 你的成绩: 85 分，等级: B（良好）
+print(f"API 延迟: {latency_ms} ms，状态: {status}")
+# 输出: API 延迟: 185 ms，状态: 健康
 ```
 
 :::caution 注意执行顺序
 Python 从上到下依次检查每个条件，**一旦某个条件成立，就执行对应的代码块，然后跳过剩余所有的 elif 和 else**。所以条件的顺序很重要！
 
 ```python
-score = 95
+latency_ms = 95
 
 # 错误的顺序 ❌
-if score >= 60:
-    print("及格")      # 95 >= 60 成立，直接执行这个
-elif score >= 90:
-    print("优秀")      # 不会被执行！
+if latency_ms < 500:
+    print("需要关注")    # 95 < 500 成立，直接执行这个
+elif latency_ms < 100:
+    print("很快")        # 不会被执行！
 
 # 正确的顺序 ✅：从严到宽
-if score >= 90:
-    print("优秀")      # 95 >= 90 成立，执行这个
-elif score >= 60:
-    print("及格")
+if latency_ms < 100:
+    print("很快")        # 95 < 100 成立，执行这个
+elif latency_ms < 500:
+    print("需要关注")
 ```
 :::
 
@@ -227,19 +225,19 @@ print(f"1 到 100 的和是: {total}")  # 5050
 ### enumerate()：同时获取索引和值
 
 ```python
-students = ["张三", "李四", "王五"]
+tasks = ["设计登录表单", "构建 API 接口", "编写冒烟测试"]
 
 # 普通写法
-for i in range(len(students)):
-    print(f"第 {i+1} 名: {students[i]}")
+for i in range(len(tasks)):
+    print(f"任务 {i+1}: {tasks[i]}")
 
 # 更 Pythonic 的写法：用 enumerate
-for i, name in enumerate(students):
-    print(f"第 {i+1} 名: {name}")
+for i, task in enumerate(tasks):
+    print(f"任务 {i+1}: {task}")
 
 # 指定起始编号
-for i, name in enumerate(students, start=1):
-    print(f"第 {i} 名: {name}")
+for i, task in enumerate(tasks, start=1):
+    print(f"任务 {i}: {task}")
 ```
 
 ---
