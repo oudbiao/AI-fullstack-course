@@ -1,15 +1,17 @@
 ---
 sidebar_position: 0
-title: "0.1 30-Minute AI Quick Experience"
-description: "A short first-run AI experience for beginners: see input, model, output, then continue to setup."
-keywords: [AI quick experience, Google Colab, image recognition, text generation, image generation, AI introduction]
+title: "0.1 30-Minute AI Engineering Experience"
+description: "A short first-run AI engineering experience: compare input changes, observe model output, and keep evidence before setup."
+keywords: [AI engineering experience, AI quick experience, Google Colab, image recognition, text generation, AI introduction]
 ---
 
-# 0.1 30-Minute AI Quick Experience
+# 0.1 30-Minute AI Engineering Experience
 
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.webp)
 
 **Just feel the loop:** input -> model -> output -> inspect. Do not memorize terms yet.
+
+For career transition, the first habit is not "be impressed by AI." The first habit is to change one condition, compare the output, and record evidence that another person could inspect.
 
 ## Fastest No-Code Try
 
@@ -28,7 +30,7 @@ Then change one word, such as `beginner` to `developer`, and compare the result.
 | Format: add `give 3 bullets` | Does the output become easier to scan? |
 | Evidence: add `include one limitation` | Does it admit what the answer cannot guarantee? |
 
-This tiny comparison is the first habit in the whole course: never look at one output only. Change one condition, compare, and keep the better result.
+This tiny comparison is the first habit in the whole course: never look at one output only. Change one condition, compare, and keep the better result with a note about why it is better.
 
 ## Optional Colab Try
 
@@ -71,18 +73,19 @@ Your numbers may differ. The important shape is a ranked list of labels and conf
 
 If Colab fails, do not spend the whole day fixing it. Save the error message, continue with the no-code try, and return after Chapter 1 when terminal, Python, and environments are clearer.
 
-## Keep One Note
+## Keep One Engineering Note
 
-Create a short note with four lines:
+Create a short note with five lines:
 
 ```text
-Input tried:
-Output observed:
-One change I made:
-What changed:
+artifact_name:
+input_tried:
+output_observed:
+controlled_change:
+evidence_value:
 ```
 
-AI is not magic here: you give input, a trained model processes it, and you inspect the output. Experienced learners should also notice the hidden engineering work: dependency install time, model download, input validation, model limits, and how evidence is recorded. Next, set up the minimum environment.
+AI is not magic here: you give input, a trained model processes it, and you inspect the output. Experienced learners should also notice the hidden engineering work: dependency install time, model download, input validation, model limits, output formatting, and how evidence is recorded. Next, set up the minimum environment.
 
 ## Evidence to Keep
 
@@ -91,7 +94,8 @@ Keep this page's proof of learning as a small evidence card:
 ```text
 mini_app: the smallest runnable AI or automation demo completed
 input_output: sample input, printed output, screenshot, or log
+comparison: one input change and the output difference it caused
 concept_link: which later chapter explains the hidden mechanism
 failure_check: API key, dependency, network, prompt, or output-format issue
-Expected_output: a tiny demo result that makes the course feel real
+Expected_output: a tiny but inspectable AI behavior record
 ```

@@ -1,15 +1,15 @@
 ---
 sidebar_position: 2
 title: "0.3 AI 全栈能力地图"
-description: "用一张紧凑图理解 AI 全栈学习的七层能力。"
-keywords: [AI 全栈, 能力地图, AI 学习路线, LLM 应用, RAG, AI Agent]
+description: "用一张紧凑图理解可就业 AI 应用背后的 AI 全栈工程层级。"
+keywords: [AI 全栈, AI 应用工程, 能力地图, LLM 应用, RAG, AI Agent]
 ---
 
 # 0.3 AI 全栈能力地图
 
 ![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.webp)
 
-先看图。课程是一条路线：
+先看图。课程是一条工程路线：
 
 ```text
 tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
@@ -37,7 +37,22 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | Agent | 9 | 工具 trace、权限、记忆边界、部署记录 | 当用户、文件和动作都是真的，会在哪里失败 |
 | 专项 / 交付 | 10-12 和选修 | 视觉/NLP/多模态演示、导出资产、部署记录 | 哪些领域约束会改变产品决策 |
 
-这门课不是主题堆叠，而是一套调试栈。AI 应用表现不好时，原因可能藏在你正在看的功能下面好几层。
+这门课不是主题堆叠，而是一套调试栈，也是一套作品集栈。AI 应用表现不好时，原因可能藏在你正在看的功能下面好几层。当审阅者问你做了什么时，证据应该能说明你控制了哪些层。
+
+## 一条项目线，多层能力
+
+一个适合转型的强项目，可以先从很小的助手或自动化开始，再随着章节一点点变可信。
+
+| 层级 | 要加入的作品集证据 |
+|---|---|
+| 工具 | 仓库、README 命令、截图和清晰文件结构 |
+| Python | 有明确输入、输出、错误和测试的 CLI 或脚本 |
+| 数据 | 样本数据集、清洗笔记、图表和边界样例 |
+| 模型 | baseline、指标表、对比和失败样本 |
+| LLM | Prompt 变体、结构化输出、token/成本笔记和局限 |
+| RAG | 文档、chunk、检索 trace、引用检查和回答评估 |
+| Agent | 工具权限边界、动作 trace、记忆规则和回滚说明 |
+| 专项 / 交付 | 视觉、NLP、多模态、部署或产品专项审查证据 |
 
 ## 主线和扩展路线
 
@@ -60,7 +75,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 
 可选背景：如果想知道这些能力是怎样发展出来的，可以快速看一眼 [AI 15 阶段发展史](/appendix/ai-milestones)。
 
-下一步，选择学习路线。
+下一步，规划你推进主线的节奏。
 
 ## 留下的证据
 
@@ -68,8 +83,9 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 
 ```text
 能力映射：工具、Python、数据、数学、ML、DL、LLM、RAG、Agent 和专长链接
+项目线：一个助手、自动化、分析或多模态项目想法
 当前位置：你已经知道什么，以及你会暂时搁置什么
 下一步：本周开始一个具体的章节或工作坊
 风险检查：一次学太多、跳过证据，或丢失主路线
-期望产出：一份标注过的个人课程地图和一个即时行动
+期望产出：一份标注过的个人课程地图、一条项目线和一个即时行动
 ```

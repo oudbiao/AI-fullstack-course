@@ -1,15 +1,15 @@
 ---
 sidebar_position: 2
 title: "0.3 AI フルスタック能力マップ"
-description: "AIフルスタック学習の7つの能力層を1枚で見るための短いマップです。"
-keywords: [AIフルスタック, 能力マップ, AI学習ルート, LLMアプリ, RAG, AI Agent]
+description: "雇用につながるAIアプリケーションの背後にあるAIフルスタックエンジニアリング層を1枚で見るための短いマップです。"
+keywords: [AIフルスタック, AIアプリケーションエンジニアリング, 能力マップ, LLMアプリ, RAG, AI Agent]
 ---
 
 # 0.3 AI フルスタック能力マップ
 
 ![AI フルスタック能力マップ](/img/course/intro-ai-fullstack-capability-map-ja.webp)
 
-まず図を見ます。コースは1本の道です。
+まず図を見ます。コースは1本のエンジニアリングの道です。
 
 ```text
 tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
@@ -37,7 +37,22 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | Agent | 9 | ツールトレース、権限、記憶境界、デプロイメモ | ユーザー、ファイル、操作が本物になったらどこで失敗するか |
 | 専門分野 / 成果物 | 10-12 と選択モジュール | vision/NLP/マルチモーダルデモ、書き出した成果物、デプロイメモ | ドメイン制約がプロダクト判断をどう変えるか |
 
-この講座はトピックの山ではなく、デバッグの積み重ねです。AI アプリケーションの挙動が悪いとき、原因は見ている機能より何層も下にあることがあります。
+この講座はトピックの山ではなく、デバッグの積み重ねであり、ポートフォリオの積み重ねでもあります。AI アプリケーションの挙動が悪いとき、原因は見ている機能より何層も下にあることがあります。レビューする人に何を作ったか聞かれたとき、証拠はどの層を制御したかを示す必要があります。
+
+## 1つのプロジェクト軸で多層を積む
+
+キャリア転換に強い project は、小さな assistant や automation から始め、章ごとに信頼性を増やせます。
+
+| 層 | ポートフォリオに追加する証拠 |
+|---|---|
+| ツール | repository、README コマンド、スクリーンショット、整理されたファイル構成 |
+| Python | 入力、出力、エラー、テストが見える CLI または script |
+| データ | サンプル dataset、クリーニングメモ、グラフ、境界例 |
+| モデル | baseline、指標表、比較、失敗サンプル |
+| LLM | Prompt variants、structured output、token/cost メモ、限界 |
+| RAG | documents、chunks、retrieval trace、citation check、answer evaluation |
+| Agent | tool permission boundary、action trace、memory rule、rollback note |
+| 専門分野 / 成果物 | vision、NLP、multimodal、deployment、またはプロダクト固有のレビュー証拠 |
 
 ## メインラインと拡張トラック
 
@@ -60,7 +75,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 
 任意の背景：これらの能力がどのように発展してきたかを知りたい場合は、[AI 発展史 15 段階マップ](/appendix/ai-milestones)を軽く見てください。
 
-次に学習ルートを選びます。
+次に、メインルートをどう進めるか計画します。
 
 ## 残す証拠
 
@@ -68,8 +83,9 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 
 ```text
 機能マップ：tools、Python、data、math、ML、DL、LLM、RAG、Agent、および専門分野の関連付け
+プロジェクト軸: assistant、automation、analysis、または multimodal project の案を1つ
 現在位置: すでに分かっていることと、後回しにすること
 次の行動：次に始める具体的な章かワークショップを1つ
 リスク確認：何でも一度に学び、証拠を飛ばし、または中核ルートを見失うこと
-期待される成果：1つの即時行動が書かれた、印付きの個人コースマップ
+期待される成果：プロジェクト軸と1つの即時行動が書かれた、印付きの個人コースマップ
 ```

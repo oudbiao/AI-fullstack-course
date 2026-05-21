@@ -1,15 +1,15 @@
 ---
 sidebar_position: 2
 title: "0.3 AI Full-Stack Capability Map"
-description: "A compact visual map of the seven capability layers in AI full-stack learning."
-keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RAG, AI Agent]
+description: "A compact visual map of the AI full-stack engineering layers behind employable AI applications."
+keywords: [AI Full-Stack, AI application engineering, capability map, LLM applications, RAG, AI Agent]
 ---
 
 # 0.3 AI Full-Stack Capability Map
 
 ![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.webp)
 
-Read the picture first. The course is one path:
+Read the picture first. The course is one engineering path:
 
 ```text
 tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
@@ -37,7 +37,22 @@ You do not need every detail now. Just remember:
 | Agent | 9 | Tool traces, permissions, memory notes, deployment notes | What can fail when users, files, and actions are real? |
 | Specialization / delivery | 10-12 and electives | Vision/NLP/multimodal demos, exported assets, deployment notes | Which domain constraints change the product decision? |
 
-The course is not a pile of topics. It is a debugging stack. When an AI application behaves badly, the cause may live several layers below the feature you are looking at.
+The course is not a pile of topics. It is a debugging stack and a portfolio stack. When an AI application behaves badly, the cause may live several layers below the feature you are looking at. When a reviewer asks what you built, your evidence should show which layers you controlled.
+
+## One Project Thread, Many Layers
+
+A strong career-transition project can start as one small assistant or automation and become more credible chapter by chapter.
+
+| Layer | Portfolio evidence to add |
+|---|---|
+| Tools | Repository, README command, screenshots, and clean file layout |
+| Python | CLI or script with visible inputs, outputs, errors, and tests |
+| Data | Sample dataset, cleaning notes, charts, and edge cases |
+| Models | Baseline, metric table, comparison, and failure samples |
+| LLM | Prompt variants, structured output, token/cost notes, and limitations |
+| RAG | Documents, chunks, retrieval trace, citation check, and answer evaluation |
+| Agent | Tool permission boundary, action trace, memory rule, and rollback note |
+| Specialization / delivery | Vision, NLP, multimodal, deployment, or product-specific review evidence |
 
 ## Main Line And Expansion Tracks
 
@@ -60,7 +75,7 @@ During each chapter, keep one artifact that proves the layer works. Screenshots 
 
 Optional background: if you want the history behind these layers, skim the [15-stage AI development map](/appendix/ai-milestones).
 
-Next, choose a learning path.
+Next, plan how you will pace the main route.
 
 ## Evidence to Keep
 
@@ -68,8 +83,9 @@ Keep this page's proof of learning as a small evidence card:
 
 ```text
 capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, and specialization links
+project_thread: one assistant, automation, analysis, or multimodal project idea
 current_position: what you already know and what you will postpone
 next_step: one concrete chapter or workshop to start next
 risk_check: learning everything at once, skipping evidence, or losing the main route
-Expected_output: a marked personal course map with one immediate action
+Expected_output: a marked personal course map with one project thread and one immediate action
 ```

@@ -1,8 +1,8 @@
 ---
 sidebar_position: 1
 title: "0.2 环境准备"
-description: "只准备第一周需要的最小工具：浏览器、Python、Git 和一个项目文件夹。"
-keywords: [AI 环境准备, Python 环境, VS Code, Git, Miniconda, 快速开始]
+description: "准备第一周需要的最小可复现 AI 工程环境：浏览器、Python、Git 和一个项目文件夹。"
+keywords: [AI 工程环境, AI 环境准备, Python 环境, VS Code, Git, 快速开始]
 ---
 
 # 0.2 环境准备
@@ -10,6 +10,8 @@ keywords: [AI 环境准备, Python 环境, VS Code, Git, Miniconda, 快速开始
 ![AI 课程最小环境工具包](/img/course/intro-minimal-setup-kit.webp)
 
 先少装。目标只有一个：进入一个文件夹，能运行 Python，用 Git 保存代码，并留下足够证据，让别人也能复现你的工作。
+
+在面向工作的 AI 项目里，环境准备不是杂事。它是第一份证明：你的项目可以从自己的电脑，迁移到审阅者、队友或部署环境里。
 
 ## 现在只装这些
 
@@ -45,6 +47,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -c "print('AI course environment is ready')"
 git init
+git status
 ```
 
 Windows PowerShell 激活虚拟环境：
@@ -60,6 +63,8 @@ py -3.11 -m venv .venv
 AI course environment is ready
 Initialized empty Git repository ...
 ```
+
+`git status` 应该能说明你已经在一个仓库里。现在不需要提交代码，重点是确认这个文件夹已经可以追踪工作。
 
 ## 如果验证失败
 
@@ -81,7 +86,7 @@ Initialized empty Git repository ...
 - 怎样在另一台机器上重建环境。
 - 哪些文件应该提交，哪些应该留在本地。
 
-环境也是课程产出的一部分。一个项目如果只能在你电脑上运行，还不算完成。
+环境也是课程产出的一部分。一个项目如果只能在你电脑上运行，还不算完成。更强的项目会有简短环境说明、明确 Python 版本、依赖方案，以及一个证明基础运行时可用的命令。
 
 ## 留下的证据
 
@@ -92,5 +97,5 @@ Initialized empty Git repository ...
 验证记录：运行的命令、打印的版本和第一段脚本输出
 调试说明：安装错误、路径问题、权限问题或环境不匹配
 恢复计划：在继续前重试的精确命令或文档页面
-期望产出：包含成功命令输出和一个已知回退方案的设置清单
+期望产出：一个可复现项目文件夹、成功命令输出和一个已知回退方案
 ```

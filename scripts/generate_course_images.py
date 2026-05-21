@@ -9656,17 +9656,58 @@ Python 初心者向けの本物の講義マンガのように、6コマ構成、
 """.strip(),
     },
     {
-        "filename": "intro-learning-path-selection.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "推荐学习路线选择图",
+        "filename": "intro-learning-path-selection-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Main Route and Project Thread Planning Map",
         "suggested_page": "docs/intro/learning-path.md",
-        "alt": "推荐学习路线选择图：根据应用开发、模型理解、作品集或时间投入选择不同学习深度。",
+        "alt": "Main route and project thread planning map: one core course route, pace controls, one growing project thread, and an evidence trail.",
         "prompt": """
-一张适合 AI 课程推荐学习路线页面的选择图，主题是“先选主线，再逐步补分支”。
-画面表现一个学习者站在路线选择牌前，三条主路线分别通向 AI 应用工程、模型原理理解、项目作品集交付；旁边有 4 周、8 周、12 周节奏选项。
-重点表达不需要第一次推平所有内容，而是先跑通闭环，再按目标补深度。
-风格温暖、清晰、像学习路线导航图；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+Create a vertical 9:16 scientific-educational course illustration for an AI full-stack engineering course page titled “Plan The Main Route”.
+Show one main route ribbon from Chapter 1 to Chapter 9, with checkpoints for tools, Python, data, models, LLM apps, RAG, and Agent systems.
+Show Chapters 10-12 as a smaller specialization shelf that is chosen only when the project needs vision, NLP, or multimodal work.
+In the center, show one project thread notebook growing through setup evidence, data notes, model comparison, prompt/RAG trace, Agent tool trace, and final portfolio artifact.
+Add four simple pace controls labeled New learner, Already code, Portfolio focus, and Model depth; all controls point back to the same route.
+Footer text should be large and readable: “Read briefly -> run -> change -> record evidence”.
+Avoid route-choice signposts, multiple competing paths, fake dashboards, fake metrics, dense tiny text, random symbols, decorative poster layout, brand logos, and distorted text.
+Use clean natural English labels only, large typography, strong vertical composition, and a professional teaching-blueprint style.
+""".strip(),
+    },
+    {
+        "filename": "intro-learning-path-selection.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "主线节奏与项目线规划图",
+        "suggested_page": "docs/intro/learning-path.md",
+        "alt": "主线节奏与项目线规划图：一条课程主线、四种节奏调节、一个持续成长的项目线，以及可检查证据。",
+        "prompt": """
+为 AI 全栈工程课程的“规划主线节奏”页面生成一张竖版 9:16 教学信息图。
+画面不是多路线选择牌，而是一条清晰主线：第 1 章到第 9 章，节点包括工具、Python、数据、模型、LLM 应用、RAG、Agent 系统。
+第 10-12 章画成右侧或底部较小的专项架子，只在项目需要视觉、NLP 或多模态时进入。
+中心画一个“项目线笔记本”，随着课程增长：环境证据、数据笔记、模型对比、Prompt/RAG trace、Agent 工具 trace、作品集产物。
+加入四个简洁节奏调节器，中文大字标签：新手、会写代码、作品集优先、模型理解；四个调节器都指向同一条主线。
+底部放大字规则：“短读 -> 跑起来 -> 改条件 -> 留证据”。
+不要画路线岔路口、不要画多条竞争路线、不要虚构指标数值、不要假仪表盘、不要密集小字、不要乱码、不要品牌 logo、不要装饰海报感、文字不能压窄变形。
+整体风格专业清晰，像课程蓝图和项目交付地图，中文标签自然可读。
+""".strip(),
+    },
+    {
+        "filename": "intro-learning-path-selection-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "メインルートとプロジェクト軸の計画図",
+        "suggested_page": "docs/intro/learning-path.md",
+        "alt": "メインルートとプロジェクト軸の計画図：1本の中核ルート、進め方の調整、成長するプロジェクト軸、確認できる証拠を示す図。",
+        "prompt": """
+AIフルスタックエンジニアリング講座の「メインルートを計画する」ページ向けに、縦長9:16の教育用インフォグラフィックを作成してください。
+複数ルートの選択看板ではなく、1本のメインルートを描く。章番号を入れる場合は必ずこの正確な対応にする：第1章 ツール、第2章 Python、第3章 データ分析、第4章 AI数学、第5章 機械学習、第6章 深層学習、第7章 LLM原理、第8章 RAG、第9章 Agent。誤った章番号は絶対に入れない。
+もし文字量が多い場合は、章番号を使わずに「ツール、Python、データ、数学/ML、深層学習、LLM、RAG、Agent」の能力ノードとして描く。
+第10-12章は、プロジェクトが画像、NLP、マルチモーダルを必要とするときに選ぶ小さな専門棚として描く。
+中央には「プロジェクト軸ノート」を置き、セットアップ証拠、データメモ、モデル比較、Prompt/RAGトレース、Agentツールトレース、ポートフォリオ成果物へ育つ流れを示す。
+4つの進め方コントロールを大きな日本語ラベルで入れる：初心者、コード経験あり、ポートフォリオ重視、モデル理解。すべて同じメインルートへ戻る構図にする。
+下部に大きく読みやすいルールを置く：「短く読む -> 動かす -> 条件を変える -> 証拠を残す」。
+分岐ルートの選択看板、競合する複数パス、誤った章番号、架空の数値指標、偽ダッシュボード、密集した小文字、文字化け、ブランドロゴ、装飾ポスター風、横長画像の引き伸ばし、細く歪んだ文字を避ける。
+日本語ラベルは自然で読みやすく、プロフェッショナルな授業用ブループリントの雰囲気にする。
 """.strip(),
     },
 ]

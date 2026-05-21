@@ -1,8 +1,8 @@
 ---
 sidebar_position: 1
 title: "0.2 Environment Setup"
-description: "Prepare only the minimum tools needed for the first week: browser, Python, Git, and one project folder."
-keywords: [AI environment setup, Python environment, VS Code, Git, Miniconda, quick start]
+description: "Prepare the minimum reproducible AI engineering setup for the first week: browser, Python, Git, and one project folder."
+keywords: [AI engineering setup, AI environment setup, Python environment, VS Code, Git, quick start]
 ---
 
 # 0.2 Environment Setup
@@ -10,6 +10,8 @@ keywords: [AI environment setup, Python environment, VS Code, Git, Miniconda, qu
 ![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.webp)
 
 Install less first. The goal is only: enter one folder, run Python, save code with Git, and keep enough evidence that another person can rerun your work.
+
+In job-facing AI work, environment setup is not a side chore. It is the first proof that your project can move from your laptop to another reviewer, teammate, or deployment target.
 
 ## Install Now
 
@@ -45,6 +47,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -c "print('AI course environment is ready')"
 git init
+git status
 ```
 
 Windows PowerShell activation:
@@ -60,6 +63,8 @@ Expected signal:
 AI course environment is ready
 Initialized empty Git repository ...
 ```
+
+`git status` should show that you are inside a repository. You do not need to commit yet; the point is to confirm that the folder is ready to track work.
 
 ## If The Check Fails
 
@@ -81,7 +86,7 @@ If you already have a setup, do not skip the page completely. Confirm that you c
 - How you will recreate the environment on another machine.
 - Which files should be committed and which should stay local.
 
-The environment is part of the course output. A project that only works on your laptop is not finished yet.
+The environment is part of the course output. A project that only works on your laptop is not finished yet. A stronger project has a short setup section, a known Python version, a dependency plan, and one command that proves the basic runtime works.
 
 ## Evidence to Keep
 
@@ -92,5 +97,5 @@ machine_state: OS, Python/Node versions, editor, terminal, and package manager
 verification: commands run, versions printed, and first script output
 debug_note: install error, path issue, permission issue, or environment mismatch
 recovery_plan: exact command or doc page to retry before moving on
-Expected_output: setup checklist with successful command output and one known fallback
+Expected_output: reproducible project folder with successful command output and one known fallback
 ```
