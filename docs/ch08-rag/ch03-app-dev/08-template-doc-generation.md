@@ -15,8 +15,8 @@ and then hope it naturally fits:
 
 - chapter order
 - formatting requirements
-- exercise placement
-- slide style
+- review checklist placement
+- handoff-document style
 
 This is usually not stable.
 
@@ -41,7 +41,7 @@ Template-based document generation is easier to understand as “topic -> outlin
 ```mermaid
 flowchart LR
     A["User gives a topic"] --> B["Generate structured outline"]
-    B --> C["Fill in knowledge points, examples, and summary"]
+    B --> C["Fill in policy notes, cases, and checklists"]
     C --> D["Apply Word / PPT template"]
     D --> E["Export document"]
 ```
@@ -56,7 +56,7 @@ So what this section really wants to solve is:
 Because your goal is not ordinary Q&A,
 but to deliver:
 
-- a document that looks like a course slide deck
+- a document that looks like an operational SOP or handoff pack
 
 That means the system not only needs to answer correctly,
 but also needs to satisfy:
@@ -64,7 +64,7 @@ but also needs to satisfy:
 - stable structure
 - fixed sections
 - fixed heading levels
-- reasonable placement of examples and summaries
+- reasonable placement of cases and review steps
 
 ## A Better Beginner-Friendly Analogy
 
@@ -77,45 +77,45 @@ it is very easy for things to go wrong:
 
 - the structure becomes messy
 - content gets repeated
-- examples end up in the wrong place
+- review steps end up in the wrong place
 
 So a more reliable approach is usually:
 
 - define the skeleton first
 - then add the flesh and blood
 
-## A Minimal Structured Courseware Object Example
+## A Minimal Structured Document Object Example
 
 ```python
-courseware = {
-    "title": "Discount Word Problem Explanation",
-    "target_audience": "Upper elementary school",
+doc_spec = {
+    "title": "Refund Escalation SOP",
+    "target_audience": "Support operations team",
     "sections": [
         {
-            "heading": "1. Knowledge Review",
-            "content_type": "concept",
-            "items": ["Discount = original price × discount rate"],
+            "heading": "1. Policy Summary",
+            "content_type": "policy",
+            "items": ["Escalate refund requests when eligibility or payment status is unclear"],
         },
         {
-            "heading": "2. Example Explanation",
-            "content_type": "example",
-            "items": ["If an item originally costs 100 yuan and is 20% off, what is the price?"],
+            "heading": "2. Worked Case",
+            "content_type": "case",
+            "items": ["A card-paid order is older than 7 days, so send it to billing review before promising a refund"],
         },
         {
-            "heading": "3. Classroom Practice",
-            "content_type": "exercise",
-            "items": ["If a shirt originally costs 80 yuan and is 30% off, how much is it?"],
+            "heading": "3. Review Checklist",
+            "content_type": "checklist",
+            "items": ["Check order age, payment status, usage evidence, and previous support notes"],
         },
     ],
 }
 
-print(courseware)
+print(doc_spec)
 ```
 
 Expected output:
 
 ```text
-{'title': 'Discount Word Problem Explanation', 'target_audience': 'Upper elementary school', 'sections': [{'heading': '1. Knowledge Review', 'content_type': 'concept', 'items': ['Discount = original price × discount rate']}, {'heading': '2. Example Explanation', 'content_type': 'example', 'items': ['If an item originally costs 100 yuan and is 20% off, what is the price?']}, {'heading': '3. Classroom Practice', 'content_type': 'exercise', 'items': ['If a shirt originally costs 80 yuan and is 30% off, how much is it?']}]}
+{'title': 'Refund Escalation SOP', 'target_audience': 'Support operations team', 'sections': [{'heading': '1. Policy Summary', 'content_type': 'policy', 'items': ['Escalate refund requests when eligibility or payment status is unclear']}, {'heading': '2. Worked Case', 'content_type': 'case', 'items': ['A card-paid order is older than 7 days, so send it to billing review before promising a refund']}, {'heading': '3. Review Checklist', 'content_type': 'checklist', 'items': ['Check order age, payment status, usage evidence, and previous support notes']}]}
 ```
 
 The most important value of this example is:
@@ -125,21 +125,21 @@ The most important value of this example is:
 In other words, the model should not directly output the final `.docx`,
 but should first output a structured content object.
 
-## A Courseware Schema Better Suited for Real Projects
+## A Document Schema Better Suited for Real Projects
 
-If your goal is to “generate a Word course handout in a fixed format,”
+If your goal is to “generate a fixed-format Word SOP or handoff document,”
 it is recommended to add two more layers on top of the minimal object:
 
 - page-level or chapter-level ordering
 - template field mapping
 
-A more robust courseware schema usually includes at least:
+A more robust document schema usually includes at least:
 
 | Field | Purpose |
 |---|---|
 | `title` | Document title |
 | `audience` | Intended audience |
-| `teaching_goal` | Teaching objective |
+| `document_goal` | Document objective |
 | `sections` | Main body structure |
 | `source_refs` | Reference sources |
 | `template_version` | Which template is being used |
@@ -174,9 +174,9 @@ def render_body(sections):
 
 
 result = template.format(
-    title=courseware["title"],
-    target_audience=courseware["target_audience"],
-    body=render_body(courseware["sections"]),
+    title=doc_spec["title"],
+    target_audience=doc_spec["target_audience"],
+    body=render_body(doc_spec["sections"]),
 )
 
 print(result)
@@ -185,18 +185,18 @@ print(result)
 Expected output:
 
 ```text
-# Discount Word Problem Explanation
+# Refund Escalation SOP
 
-Target audience: Upper elementary school
+Target audience: Support operations team
 
-1. Knowledge Review
-- Discount = original price × discount rate
+1. Policy Summary
+- Escalate refund requests when eligibility or payment status is unclear
 
-2. Example Explanation
-- If an item originally costs 100 yuan and is 20% off, what is the price?
+2. Worked Case
+- A card-paid order is older than 7 days, so send it to billing review before promising a refund
 
-3. Classroom Practice
-- If a shirt originally costs 80 yuan and is 30% off, how much is it?
+3. Review Checklist
+- Check order age, payment status, usage evidence, and previous support notes
 
 ```
 
@@ -211,12 +211,12 @@ When building this kind of system for the first time, it is strongly recommended
 
 | Template field | Corresponding content |
 |---|---|
-| `{title}` | Courseware title |
+| `{title}` | Document title |
 | `{target_audience}` | Intended audience |
-| `{teaching_goal}` | Teaching objective |
-| `{concept_block}` | Knowledge review |
-| `{example_block}` | Example explanation |
-| `{exercise_block}` | Classroom practice |
+| `{document_goal}` | Document objective |
+| `{policy_block}` | Policy summary |
+| `{case_block}` | Worked case |
+| `{checklist_block}` | Review checklist |
 | `{source_block}` | Source notes |
 
 The benefits are:
@@ -245,30 +245,30 @@ So template-based document generation is really a two-layer problem:
 ## A Minimal “Structured Object -> Template Fields” Example
 
 ```python
-def to_template_payload(courseware):
-    blocks = {"concept": [], "example": [], "exercise": []}
-    for section in courseware["sections"]:
+def to_template_payload(doc_spec):
+    blocks = {"policy": [], "case": [], "checklist": []}
+    for section in doc_spec["sections"]:
         blocks[section["content_type"]].extend(section["items"])
 
     return {
-        "title": courseware["title"],
-        "target_audience": courseware["target_audience"],
-        "teaching_goal": "Understand the basic calculation method for discounts",
-        "concept_block": "\n".join(f"- {x}" for x in blocks["concept"]),
-        "example_block": "\n".join(f"- {x}" for x in blocks["example"]),
-        "exercise_block": "\n".join(f"- {x}" for x in blocks["exercise"]),
-        "source_block": "Source: internal knowledge base + external supplemental materials",
+        "title": doc_spec["title"],
+        "target_audience": doc_spec["target_audience"],
+        "document_goal": "Standardize refund escalation decisions before export",
+        "policy_block": "\n".join(f"- {x}" for x in blocks["policy"]),
+        "case_block": "\n".join(f"- {x}" for x in blocks["case"]),
+        "checklist_block": "\n".join(f"- {x}" for x in blocks["checklist"]),
+        "source_block": "Source: refund policy KB + billing escalation SOP",
     }
 
 
-payload = to_template_payload(courseware)
+payload = to_template_payload(doc_spec)
 print(payload)
 ```
 
 Expected output:
 
 ```text
-{'title': 'Discount Word Problem Explanation', 'target_audience': 'Upper elementary school', 'teaching_goal': 'Understand the basic calculation method for discounts', 'concept_block': '- Discount = original price × discount rate', 'example_block': '- If an item originally costs 100 yuan and is 20% off, what is the price?', 'exercise_block': '- If a shirt originally costs 80 yuan and is 30% off, how much is it?', 'source_block': 'Source: internal knowledge base + external supplemental materials'}
+{'title': 'Refund Escalation SOP', 'target_audience': 'Support operations team', 'document_goal': 'Standardize refund escalation decisions before export', 'policy_block': '- Escalate refund requests when eligibility or payment status is unclear', 'case_block': '- A card-paid order is older than 7 days, so send it to billing review before promising a refund', 'checklist_block': '- Check order age, payment status, usage evidence, and previous support notes', 'source_block': 'Source: refund policy KB + billing escalation SOP'}
 ```
 
 The key takeaway for beginners in this example is:
@@ -276,10 +276,10 @@ The key takeaway for beginners in this example is:
 - a structured object is not necessarily the same as a template object
 - there is often an extra layer for “field organization” in between
 
-![Structured courseware to template rendering diagram](/img/course/ch08-template-schema-to-render-map-en.webp)
+![Structured document to template rendering diagram](/img/course/ch08-template-schema-to-render-map-en.webp)
 
 :::tip Reading guide
-Do not let the model directly “write Word.” First produce the courseware schema, then organize it into a template payload, and finally hand it to the docx/pptx rendering layer. This makes it much easier to separate formatting errors from content errors.
+Do not let the model directly “write Word.” First produce the document schema, then organize it into a template payload, and finally hand it to the docx/pptx rendering layer. This makes it much easier to separate formatting errors from content errors.
 :::
 
 ## Hands-on: Validate Template Fields Before Rendering
@@ -290,10 +290,10 @@ Before sending data to `python-docx`, `docxtpl`, or `python-pptx`, validate that
 REQUIRED_FIELDS = [
     "title",
     "target_audience",
-    "teaching_goal",
-    "concept_block",
-    "example_block",
-    "exercise_block",
+    "document_goal",
+    "policy_block",
+    "case_block",
+    "checklist_block",
     "source_block",
 ]
 
@@ -313,16 +313,16 @@ def render_markdown_handout(payload):
     return f"""# {payload['title']}
 
 Audience: {payload['target_audience']}
-Goal: {payload['teaching_goal']}
+Goal: {payload['document_goal']}
 
-## Knowledge Review
-{payload['concept_block']}
+## Policy Summary
+{payload['policy_block']}
 
-## Example Explanation
-{payload['example_block']}
+## Worked Case
+{payload['case_block']}
 
-## Classroom Practice
-{payload['exercise_block']}
+## Review Checklist
+{payload['checklist_block']}
 
 ## Sources
 {payload['source_block']}
@@ -330,13 +330,13 @@ Goal: {payload['teaching_goal']}
 
 
 payload = {
-    "title": "Discount Word Problem Explanation",
-    "target_audience": "Upper elementary school",
-    "teaching_goal": "Understand the basic calculation method for discounts",
-    "concept_block": "- Discount = original price × discount rate",
-    "example_block": "- If an item originally costs 100 yuan and is 20% off, what is the price?",
-    "exercise_block": "- If a shirt originally costs 80 yuan and is 30% off, how much is it?",
-    "source_block": "Source: internal knowledge base + external supplemental materials",
+    "title": "Refund Escalation SOP",
+    "target_audience": "Support operations team",
+    "document_goal": "Standardize refund escalation decisions before export",
+    "policy_block": "- Escalate refund requests when eligibility or payment status is unclear",
+    "case_block": "- A card-paid order is older than 7 days, so send it to billing review before promising a refund",
+    "checklist_block": "- Check order age, payment status, usage evidence, and previous support notes",
+    "source_block": "Source: refund policy KB + billing escalation SOP",
 }
 
 print(validate_payload(payload))
@@ -347,22 +347,22 @@ Expected output:
 
 ```text
 (True, 'ok')
-# Discount Word Problem Explanation
+# Refund Escalation SOP
 
-Audience: Upper elementary school
-Goal: Understand the basic calculation method for discounts
+Audience: Support operations team
+Goal: Standardize refund escalation decisions before export
 
-## Knowledge Review
-- Discount = original price × discount rate
+## Policy Summary
+- Escalate refund requests when eligibility or payment status is unclear
 
-## Example Explanation
-- If an item originally costs 100 yuan and is 20% off, what is the price?
+## Worked Case
+- A card-paid order is older than 7 days, so send it to billing review before promising a refund
 
-## Classroom Practice
-- If a shirt originally costs 80 yuan and is 30% off, how much is it?
+## Review Checklist
+- Check order age, payment status, usage evidence, and previous support notes
 
 ## Sources
-Source: internal knowledge base + external supplemental materials
+Source: refund policy KB + billing escalation SOP
 
 ```
 
@@ -377,11 +377,11 @@ The correct first check is that `validate_payload(payload)` returns `(True, "ok"
 
 A solid implementation separates three responsibilities:
 
-1. The courseware schema decides what knowledge, examples, exercises, and sources exist.
+1. The document schema decides what policy notes, cases, checklist items, and sources exist.
 2. The template payload maps those fields into the exact placeholders a document template needs.
 3. The renderer only formats an already validated payload.
 
-If you remove `exercise_block`, the expected behavior is not a broken exported document. The validation layer should return a missing-field message, and the calling code should stop before the export step.
+If you remove `checklist_block`, the expected behavior is not a broken exported document. The validation layer should return a missing-field message, and the calling code should stop before the export step.
 
 </details>
 
@@ -392,7 +392,7 @@ Because you will usually ask the model to first produce:
 - JSON
 - an outline
 - a title list
-- the knowledge points / examples / exercises for each section
+- the policy notes / cases / checklists for each section
 
 rather than directly producing a long, free-form prose document.
 
@@ -419,9 +419,9 @@ This makes it easier to first prove that:
 
 When building this kind of system for the first time, a more reliable sequence is usually:
 
-1. Define the courseware structure first
+1. Define the document structure first
 2. Generate structured JSON / an outline first
-3. Then fill in knowledge points and examples
+3. Then fill in policy notes and cases
 4. Finally export to Word / PPT
 
 This is much more stable than directly generating `.docx` content from the start.
@@ -479,5 +479,5 @@ next_action: prompt, schema, state, API, or parsing improvement
 ## What You Should Take Away from This Section
 
 - The most reliable path for document generation is usually “structured output -> template rendering -> document export”
-- Defining the structure first and then filling content is much more stable than letting the model freely write the entire course handout
+- Defining the structure first and then filling content is much more stable than letting the model freely write the entire handout
 - If your goal is to generate Word / slides, this layer is a critical part of project success

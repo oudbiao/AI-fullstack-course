@@ -10,13 +10,13 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 ![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.webp)
 
 :::tip 本节定位
-很多新人做“生成 Word / 课件”时，最容易直接让模型输出一大段正文，
+很多新人做“生成 Word / 运营 SOP”时，最容易直接让模型输出一大段正文，
 然后希望它天然就符合：
 
 - 章节顺序
 - 格式要求
-- 例题位置
-- 课件风格
+- 复核清单位置
+- 交接文档风格
 
 这通常不稳。
 
@@ -41,7 +41,7 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 ```mermaid
 flowchart LR
     A["用户给主题"] --> B["生成结构化大纲"]
-    B --> C["填入知识点、例题、总结"]
+    B --> C["填入政策要点、案例、清单"]
     C --> D["套 Word / PPT 模板"]
     D --> E["导出文档"]
 ```
@@ -56,7 +56,7 @@ flowchart LR
 因为你的目标不是普通问答，
 而是要交付：
 
-- 像课件的文档
+- 像运营 SOP 或交接包的文档
 
 这意味着系统不只要回答对，
 还要满足：
@@ -64,7 +64,7 @@ flowchart LR
 - 结构稳定
 - 栏目固定
 - 标题级别固定
-- 例题和总结位置合理
+- 案例和复核步骤位置合理
 
 ## 一个更适合新人的总类比
 
@@ -77,45 +77,45 @@ flowchart LR
 
 - 结构乱
 - 内容重复
-- 例题跑到不该去的位置
+- 复核步骤跑到不该去的位置
 
 所以更稳的方式通常是：
 
 - 先定骨架
 - 再填血肉
 
-## 一个最小结构化课件对象示例
+## 一个最小结构化文档对象示例
 
 ```python
-courseware = {
-    "title": "折扣应用题讲解",
-    "target_audience": "小学高年级",
+doc_spec = {
+    "title": "退款升级 SOP",
+    "target_audience": "支持运营团队",
     "sections": [
         {
-            "heading": "一、知识点回顾",
-            "content_type": "concept",
-            "items": ["折扣 = 原价 × 折扣率"],
+            "heading": "一、政策摘要",
+            "content_type": "policy",
+            "items": ["当退款资格或支付状态不明确时，升级给专人复核"],
         },
         {
-            "heading": "二、例题讲解",
-            "content_type": "example",
-            "items": ["商品原价 100 元，打 8 折后价格是多少？"],
+            "heading": "二、案例处理",
+            "content_type": "case",
+            "items": ["客户使用银行卡支付且订单超过 7 天，承诺退款前先转交计费复核"],
         },
         {
-            "heading": "三、课堂练习",
-            "content_type": "exercise",
-            "items": ["一件衣服原价 80 元，打 7 折后是多少元？"],
+            "heading": "三、复核清单",
+            "content_type": "checklist",
+            "items": ["检查订单时间、支付状态、使用证据和历史工单记录"],
         },
     ],
 }
 
-print(courseware)
+print(doc_spec)
 ```
 
 预期输出：
 
 ```text
-{'title': '折扣应用题讲解', 'target_audience': '小学高年级', 'sections': [{'heading': '一、知识点回顾', 'content_type': 'concept', 'items': ['折扣 = 原价 × 折扣率']}, {'heading': '二、例题讲解', 'content_type': 'example', 'items': ['商品原价 100 元，打 8 折后价格是多少？']}, {'heading': '三、课堂练习', 'content_type': 'exercise', 'items': ['一件衣服原价 80 元，打 7 折后是多少元？']}]}
+{'title': '退款升级 SOP', 'target_audience': '支持运营团队', 'sections': [{'heading': '一、政策摘要', 'content_type': 'policy', 'items': ['当退款资格或支付状态不明确时，升级给专人复核']}, {'heading': '二、案例处理', 'content_type': 'case', 'items': ['客户使用银行卡支付且订单超过 7 天，承诺退款前先转交计费复核']}, {'heading': '三、复核清单', 'content_type': 'checklist', 'items': ['检查订单时间、支付状态、使用证据和历史工单记录']}]}
 ```
 
 这个例子最重要的价值是：
@@ -125,21 +125,21 @@ print(courseware)
 也就是说，模型不应该直接输出最终 `.docx`，
 而应该先输出一份结构化内容对象。
 
-## 一个更适合真实项目的课件 结构约束
+## 一个更适合真实项目的文档结构约束
 
-如果你的目标是“生成符合固定格式的 Word 课件”，
+如果你的目标是“生成符合固定格式的 Word SOP 或交接文档”，
 建议在最小对象上再多补两层：
 
 - 页面级或章节级顺序
 - 模板字段级映射
 
-一个更稳的课件 schema 往往至少包含：
+一个更稳的文档 schema 往往至少包含：
 
 | 字段 | 用途 |
 |---|---|
 | `title` | 文档标题 |
 | `audience` | 适用对象 |
-| `teaching_goal` | 教学目标 |
+| `document_goal` | 文档目标 |
 | `sections` | 正文结构 |
 | `source_refs` | 引用来源 |
 | `template_version` | 用的是哪个模板 |
@@ -174,9 +174,9 @@ def render_body(sections):
 
 
 result = template.format(
-    title=courseware["title"],
-    target_audience=courseware["target_audience"],
-    body=render_body(courseware["sections"]),
+    title=doc_spec["title"],
+    target_audience=doc_spec["target_audience"],
+    body=render_body(doc_spec["sections"]),
 )
 
 print(result)
@@ -185,18 +185,18 @@ print(result)
 预期输出：
 
 ```text
-# 折扣应用题讲解
+# 退款升级 SOP
 
-适用对象：小学高年级
+适用对象：支持运营团队
 
-一、知识点回顾
-- 折扣 = 原价 × 折扣率
+一、政策摘要
+- 当退款资格或支付状态不明确时，升级给专人复核
 
-二、例题讲解
-- 商品原价 100 元，打 8 折后价格是多少？
+二、案例处理
+- 客户使用银行卡支付且订单超过 7 天，承诺退款前先转交计费复核
 
-三、课堂练习
-- 一件衣服原价 80 元，打 7 折后是多少元？
+三、复核清单
+- 检查订单时间、支付状态、使用证据和历史工单记录
 
 ```
 
@@ -211,12 +211,12 @@ print(result)
 
 | 模板字段 | 对应内容 |
 |---|---|
-| `{title}` | 课件标题 |
+| `{title}` | 文档标题 |
 | `{target_audience}` | 适用对象 |
-| `{teaching_goal}` | 教学目标 |
-| `{concept_block}` | 知识点回顾 |
-| `{example_block}` | 例题讲解 |
-| `{exercise_block}` | 课堂练习 |
+| `{document_goal}` | 文档目标 |
+| `{policy_block}` | 政策摘要 |
+| `{case_block}` | 案例处理 |
+| `{checklist_block}` | 复核清单 |
 | `{source_block}` | 来源说明 |
 
 它的好处是：
@@ -245,30 +245,30 @@ print(result)
 ## 一个最小“结构对象 -> 模板字段”示例
 
 ```python
-def to_template_payload(courseware):
-    blocks = {"concept": [], "example": [], "exercise": []}
-    for section in courseware["sections"]:
+def to_template_payload(doc_spec):
+    blocks = {"policy": [], "case": [], "checklist": []}
+    for section in doc_spec["sections"]:
         blocks[section["content_type"]].extend(section["items"])
 
     return {
-        "title": courseware["title"],
-        "target_audience": courseware["target_audience"],
-        "teaching_goal": "理解折扣的基本计算方法",
-        "concept_block": "\n".join(f"- {x}" for x in blocks["concept"]),
-        "example_block": "\n".join(f"- {x}" for x in blocks["example"]),
-        "exercise_block": "\n".join(f"- {x}" for x in blocks["exercise"]),
-        "source_block": "来源：内部知识库 + 外部资料补充",
+        "title": doc_spec["title"],
+        "target_audience": doc_spec["target_audience"],
+        "document_goal": "在导出前统一退款升级判断",
+        "policy_block": "\n".join(f"- {x}" for x in blocks["policy"]),
+        "case_block": "\n".join(f"- {x}" for x in blocks["case"]),
+        "checklist_block": "\n".join(f"- {x}" for x in blocks["checklist"]),
+        "source_block": "来源：退款政策知识库 + 计费升级 SOP",
     }
 
 
-payload = to_template_payload(courseware)
+payload = to_template_payload(doc_spec)
 print(payload)
 ```
 
 预期输出：
 
 ```text
-{'title': '折扣应用题讲解', 'target_audience': '小学高年级', 'teaching_goal': '理解折扣的基本计算方法', 'concept_block': '- 折扣 = 原价 × 折扣率', 'example_block': '- 商品原价 100 元，打 8 折后价格是多少？', 'exercise_block': '- 一件衣服原价 80 元，打 7 折后是多少元？', 'source_block': '来源：内部知识库 + 外部资料补充'}
+{'title': '退款升级 SOP', 'target_audience': '支持运营团队', 'document_goal': '在导出前统一退款升级判断', 'policy_block': '- 当退款资格或支付状态不明确时，升级给专人复核', 'case_block': '- 客户使用银行卡支付且订单超过 7 天，承诺退款前先转交计费复核', 'checklist_block': '- 检查订单时间、支付状态、使用证据和历史工单记录', 'source_block': '来源：退款政策知识库 + 计费升级 SOP'}
 ```
 
 这个小例子最值得新人注意的是：
@@ -276,10 +276,10 @@ print(payload)
 - 结构对象不一定等于模板对象
 - 中间往往还会有一层“字段整理”
 
-![结构化课件到模板渲染图](/img/course/ch08-template-schema-to-render-map.webp)
+![结构化文档到模板渲染图](/img/course/ch08-template-schema-to-render-map.webp)
 
 :::tip 读图提示
-不要让模型直接“写 Word”。先产出 courseware schema，再整理成 template payload，最后交给 docx/pptx 渲染层。这样格式错误和内容错误才容易分开排查。
+不要让模型直接“写 Word”。先产出 document schema，再整理成 template payload，最后交给 docx/pptx 渲染层。这样格式错误和内容错误才容易分开排查。
 :::
 
 ## 动手做：渲染前先校验模板字段
@@ -290,10 +290,10 @@ print(payload)
 REQUIRED_FIELDS = [
     "title",
     "target_audience",
-    "teaching_goal",
-    "concept_block",
-    "example_block",
-    "exercise_block",
+    "document_goal",
+    "policy_block",
+    "case_block",
+    "checklist_block",
     "source_block",
 ]
 
@@ -313,16 +313,16 @@ def render_markdown_handout(payload):
     return f"""# {payload['title']}
 
 适用对象：{payload['target_audience']}
-教学目标：{payload['teaching_goal']}
+文档目标：{payload['document_goal']}
 
-## 知识点回顾
-{payload['concept_block']}
+## 政策摘要
+{payload['policy_block']}
 
-## 例题讲解
-{payload['example_block']}
+## 案例处理
+{payload['case_block']}
 
-## 课堂练习
-{payload['exercise_block']}
+## 复核清单
+{payload['checklist_block']}
 
 ## 来源说明
 {payload['source_block']}
@@ -330,13 +330,13 @@ def render_markdown_handout(payload):
 
 
 payload = {
-    "title": "折扣应用题讲解",
-    "target_audience": "小学高年级",
-    "teaching_goal": "理解折扣的基本计算方法",
-    "concept_block": "- 折扣 = 原价 × 折扣率",
-    "example_block": "- 商品原价 100 元，打 8 折后价格是多少？",
-    "exercise_block": "- 一件衣服原价 80 元，打 7 折后是多少元？",
-    "source_block": "来源：内部知识库 + 外部资料补充",
+    "title": "退款升级 SOP",
+    "target_audience": "支持运营团队",
+    "document_goal": "在导出前统一退款升级判断",
+    "policy_block": "- 当退款资格或支付状态不明确时，升级给专人复核",
+    "case_block": "- 客户使用银行卡支付且订单超过 7 天，承诺退款前先转交计费复核",
+    "checklist_block": "- 检查订单时间、支付状态、使用证据和历史工单记录",
+    "source_block": "来源：退款政策知识库 + 计费升级 SOP",
 }
 
 print(validate_payload(payload))
@@ -347,22 +347,22 @@ print(render_markdown_handout(payload))
 
 ```text
 (True, 'ok')
-# 折扣应用题讲解
+# 退款升级 SOP
 
-适用对象：小学高年级
-教学目标：理解折扣的基本计算方法
+适用对象：支持运营团队
+文档目标：在导出前统一退款升级判断
 
-## 知识点回顾
-- 折扣 = 原价 × 折扣率
+## 政策摘要
+- 当退款资格或支付状态不明确时，升级给专人复核
 
-## 例题讲解
-- 商品原价 100 元，打 8 折后价格是多少？
+## 案例处理
+- 客户使用银行卡支付且订单超过 7 天，承诺退款前先转交计费复核
 
-## 课堂练习
-- 一件衣服原价 80 元，打 7 折后是多少元？
+## 复核清单
+- 检查订单时间、支付状态、使用证据和历史工单记录
 
 ## 来源说明
-来源：内部知识库 + 外部资料补充
+来源：退款政策知识库 + 计费升级 SOP
 
 ```
 
@@ -377,11 +377,11 @@ print(render_markdown_handout(payload))
 
 一个稳的实现会拆成三层职责：
 
-1. courseware schema 决定有哪些知识点、例题、练习和来源。
+1. document schema 决定有哪些政策要点、案例、清单和来源。
 2. template payload 把这些字段整理成模板真正需要的占位符。
 3. renderer 只负责格式化已经校验过的 payload。
 
-如果你删掉 `exercise_block`，预期结果不应该是一份损坏的导出文档。校验层应该返回缺失字段信息，调用方应该在导出前停止。
+如果你删掉 `checklist_block`，预期结果不应该是一份损坏的导出文档。校验层应该返回缺失字段信息，调用方应该在导出前停止。
 
 </details>
 
@@ -392,7 +392,7 @@ print(render_markdown_handout(payload))
 - JSON
 - 大纲
 - 标题列表
-- 每节的知识点 / 例题 / 练习
+- 每节的政策要点 / 案例 / 清单
 
 而不是直接产出一份“自由散文式”长文档。
 
@@ -419,9 +419,9 @@ print(render_markdown_handout(payload))
 
 第一次做这种系统时，更稳的顺序通常是：
 
-1. 先定义课件结构
+1. 先定义文档结构
 2. 先生成结构化 JSON / 大纲
-3. 再填知识点和例题
+3. 再填政策要点和案例
 4. 最后再导出 Word / PPT
 
 这样会比一上来直接生成 `.docx` 内容稳定很多。
@@ -479,5 +479,5 @@ print(render_markdown_handout(payload))
 ## 这节最该带走什么
 
 - 文档生成最稳的路线通常是“结构化输出 -> 模板渲染 -> 文档导出”
-- 先定结构，再填内容，比直接让模型自由写整份课件稳得多
-- 如果你的目标是生成 Word / 课件，这一层是项目成败的关键环节
+- 先定结构，再填内容，比直接让模型自由写整份交接文档稳得多
+- 如果你的目标是生成 Word / 运营文档，这一层是项目成败的关键环节

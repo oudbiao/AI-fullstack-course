@@ -10,13 +10,13 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 ![Word PPT テンプレート生成パイプライン図](/img/course/template-doc-generation-pipeline-ja.webp)
 
 :::tip この節の位置づけ
-多くの初心者が「Word / 予習資料を生成する」とき、最もやりがちなのは、モデルにそのまま長い本文を出力させて、  
+多くの初心者が「Word / 運用 SOP を生成する」とき、最もやりがちなのは、モデルにそのまま長い本文を出力させて、
 その結果が自然に次のようになっていることを期待することです。
 
 - 章の順番
 - 形式の要件
-- 例題の位置
-- 予習資料らしい見た目
+- 確認チェックリストの位置
+- 引き継ぎ文書らしい見た目
 
 これはたいてい安定しません。
 
@@ -41,7 +41,7 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 ```mermaid
 flowchart LR
     A["ユーザーがテーマを渡す"] --> B["構造化されたアウトラインを生成"]
-    B --> C["知識ポイント、例題、まとめを入れる"]
+    B --> C["ポリシー、ケース、チェックリストを入れる"]
     C --> D["Word / PPT テンプレートを適用"]
     D --> E["文書を出力"]
 ```
@@ -56,7 +56,7 @@ flowchart LR
 あなたの目標は、単なる Q&A ではなく、  
 次のような成果物を納品することです。
 
-- 予習資料のような文書
+- 運用 SOP や引き継ぎ資料のような文書
 
 つまりシステムは、答えが合っているだけでは足りず、  
 さらに次の条件も満たす必要があります。
@@ -64,7 +64,7 @@ flowchart LR
 - 構造が安定している
 - 章立てが固定されている
 - 見出しの階層が固定されている
-- 例題とまとめの位置が適切である
+- ケースと確認手順の位置が適切である
 
 ## 初心者向けのわかりやすい例え
 
@@ -79,45 +79,45 @@ flowchart LR
 
 - 構造が崩れる
 - 内容が重複する
-- 例題が不自然な位置に入る
+- 確認手順が不自然な位置に入る
 
 そのため、より安定するのは次のやり方です。
 
 - 先に骨組みを決める
 - その後で中身を埋める
 
-## 最小の構造化された課件オブジェクトの例
+## 最小の構造化された文書オブジェクトの例
 
 ```python
-courseware = {
-    "title": "割引の文章題の解説",
-    "target_audience": "小学校高学年",
+doc_spec = {
+    "title": "返金エスカレーション SOP",
+    "target_audience": "サポート運用チーム",
     "sections": [
         {
-            "heading": "一、知識ポイントの確認",
-            "content_type": "concept",
-            "items": ["割引 = 定価 × 割引率"],
+            "heading": "一、ポリシー概要",
+            "content_type": "policy",
+            "items": ["返金可否や支払い状態が不明な場合は、担当者レビューへエスカレーションする"],
         },
         {
-            "heading": "二、例題の解説",
-            "content_type": "example",
-            "items": ["商品の定価が 100 円で、2割引にしたときの価格はいくらですか？"],
+            "heading": "二、対応ケース",
+            "content_type": "case",
+            "items": ["カード決済の注文が 7 日を超えている場合、返金を約束する前に請求レビューへ送る"],
         },
         {
-            "heading": "三、授業内演習",
-            "content_type": "exercise",
-            "items": ["1着 80 円の服を 3割引にしたら、いくらですか？"],
+            "heading": "三、確認チェックリスト",
+            "content_type": "checklist",
+            "items": ["注文日、支払い状態、利用状況の証拠、過去のサポート記録を確認する"],
         },
     ],
 }
 
-print(courseware)
+print(doc_spec)
 ```
 
 想定出力：
 
 ```text
-{'title': '割引の文章題の解説', 'target_audience': '小学校高学年', 'sections': [{'heading': '一、知識ポイントの確認', 'content_type': 'concept', 'items': ['割引 = 定価 × 割引率']}, {'heading': '二、例題の解説', 'content_type': 'example', 'items': ['商品の定価が 100 円で、2割引にしたときの価格はいくらですか？']}, {'heading': '三、授業内演習', 'content_type': 'exercise', 'items': ['1着 80 円の服を 3割引にしたら、いくらですか？']}]}
+{'title': '返金エスカレーション SOP', 'target_audience': 'サポート運用チーム', 'sections': [{'heading': '一、ポリシー概要', 'content_type': 'policy', 'items': ['返金可否や支払い状態が不明な場合は、担当者レビューへエスカレーションする']}, {'heading': '二、対応ケース', 'content_type': 'case', 'items': ['カード決済の注文が 7 日を超えている場合、返金を約束する前に請求レビューへ送る']}, {'heading': '三、確認チェックリスト', 'content_type': 'checklist', 'items': ['注文日、支払い状態、利用状況の証拠、過去のサポート記録を確認する']}]}
 ```
 
 この例でいちばん大事なのは、次の点です。
@@ -127,21 +127,21 @@ print(courseware)
 つまり、モデルは最終的な `.docx` を直接出力するのではなく、  
 まず構造化された内容オブジェクトを出力すべきです。
 
-## 実際のプロジェクトにより近い課件 スキーマ
+## 実際のプロジェクトにより近い文書スキーマ
 
-目標が「決まった形式の Word 課件を生成する」ことであれば、  
+目標が「決まった形式の Word SOP や引き継ぎ文書を生成する」ことであれば、
 最小のオブジェクトにさらに2層ほど足すのがおすすめです。
 
 - ページ単位または章単位の順番
 - テンプレート項目へのマッピング
 
-より安定した課件 schema には、少なくとも次の項目があるとよいです。
+より安定した文書 schema には、少なくとも次の項目があるとよいです。
 
 | フィールド | 用途 |
 |---|---|
 | `title` | 文書タイトル |
 | `audience` | 対象者 |
-| `teaching_goal` | 学習目標 |
+| `document_goal` | 文書の目的 |
 | `sections` | 本文構造 |
 | `source_refs` | 参照元 |
 | `template_version` | どのテンプレートを使うか |
@@ -176,9 +176,9 @@ def render_body(sections):
 
 
 result = template.format(
-    title=courseware["title"],
-    target_audience=courseware["target_audience"],
-    body=render_body(courseware["sections"]),
+    title=doc_spec["title"],
+    target_audience=doc_spec["target_audience"],
+    body=render_body(doc_spec["sections"]),
 )
 
 print(result)
@@ -187,18 +187,18 @@ print(result)
 想定出力：
 
 ```text
-# 割引の文章題の解説
+# 返金エスカレーション SOP
 
-対象者：小学校高学年
+対象者：サポート運用チーム
 
-一、知識ポイントの確認
-- 割引 = 定価 × 割引率
+一、ポリシー概要
+- 返金可否や支払い状態が不明な場合は、担当者レビューへエスカレーションする
 
-二、例題の解説
-- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？
+二、対応ケース
+- カード決済の注文が 7 日を超えている場合、返金を約束する前に請求レビューへ送る
 
-三、授業内演習
-- 1着 80 円の服を 3割引にしたら、いくらですか？
+三、確認チェックリスト
+- 注文日、支払い状態、利用状況の証拠、過去のサポート記録を確認する
 
 ```
 
@@ -213,12 +213,12 @@ print(result)
 
 | テンプレート項目 | 対応する内容 |
 |---|---|
-| `{title}` | 課件タイトル |
+| `{title}` | 文書タイトル |
 | `{target_audience}` | 対象者 |
-| `{teaching_goal}` | 学習目標 |
-| `{concept_block}` | 知識ポイントの確認 |
-| `{example_block}` | 例題の解説 |
-| `{exercise_block}` | 授業内演習 |
+| `{document_goal}` | 文書の目的 |
+| `{policy_block}` | ポリシー概要 |
+| `{case_block}` | 対応ケース |
+| `{checklist_block}` | 確認チェックリスト |
 | `{source_block}` | 参照元の説明 |
 
 このやり方のよい点は次のとおりです。
@@ -247,30 +247,30 @@ print(result)
 ## 最小の「構造オブジェクト -> テンプレート項目」変換例
 
 ```python
-def to_template_payload(courseware):
-    blocks = {"concept": [], "example": [], "exercise": []}
-    for section in courseware["sections"]:
+def to_template_payload(doc_spec):
+    blocks = {"policy": [], "case": [], "checklist": []}
+    for section in doc_spec["sections"]:
         blocks[section["content_type"]].extend(section["items"])
 
     return {
-        "title": courseware["title"],
-        "target_audience": courseware["target_audience"],
-        "teaching_goal": "割引の基本計算方法を理解する",
-        "concept_block": "\n".join(f"- {x}" for x in blocks["concept"]),
-        "example_block": "\n".join(f"- {x}" for x in blocks["example"]),
-        "exercise_block": "\n".join(f"- {x}" for x in blocks["exercise"]),
-        "source_block": "参照元：内部ナレッジベース + 外部資料の補足",
+        "title": doc_spec["title"],
+        "target_audience": doc_spec["target_audience"],
+        "document_goal": "出力前に返金エスカレーション判断をそろえる",
+        "policy_block": "\n".join(f"- {x}" for x in blocks["policy"]),
+        "case_block": "\n".join(f"- {x}" for x in blocks["case"]),
+        "checklist_block": "\n".join(f"- {x}" for x in blocks["checklist"]),
+        "source_block": "参照元：返金ポリシー KB + 請求エスカレーション SOP",
     }
 
 
-payload = to_template_payload(courseware)
+payload = to_template_payload(doc_spec)
 print(payload)
 ```
 
 想定出力：
 
 ```text
-{'title': '割引の文章題の解説', 'target_audience': '小学校高学年', 'teaching_goal': '割引の基本計算方法を理解する', 'concept_block': '- 割引 = 定価 × 割引率', 'example_block': '- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？', 'exercise_block': '- 1着 80 円の服を 3割引にしたら、いくらですか？', 'source_block': '参照元：内部ナレッジベース + 外部資料の補足'}
+{'title': '返金エスカレーション SOP', 'target_audience': 'サポート運用チーム', 'document_goal': '出力前に返金エスカレーション判断をそろえる', 'policy_block': '- 返金可否や支払い状態が不明な場合は、担当者レビューへエスカレーションする', 'case_block': '- カード決済の注文が 7 日を超えている場合、返金を約束する前に請求レビューへ送る', 'checklist_block': '- 注文日、支払い状態、利用状況の証拠、過去のサポート記録を確認する', 'source_block': '参照元：返金ポリシー KB + 請求エスカレーション SOP'}
 ```
 
 この小さな例で、初心者が特に気をつけたいのは次の点です。
@@ -278,10 +278,10 @@ print(payload)
 - 構造オブジェクトとテンプレートオブジェクトは同じとは限らない
 - その間に「項目整理」の層があることが多い
 
-![構造化課件からテンプレート描画への図](/img/course/ch08-template-schema-to-render-map-ja.webp)
+![構造化文書からテンプレート描画への図](/img/course/ch08-template-schema-to-render-map-ja.webp)
 
 :::tip 図の読み方
-モデルに直接「Word を書かせる」のではありません。まず courseware schema を出力し、次に template payload に整理し、最後に docx/pptx の描画層へ渡します。こうすると、形式エラーと内容エラーを切り分けて調べやすくなります。
+モデルに直接「Word を書かせる」のではありません。まず document schema を出力し、次に template payload に整理し、最後に docx/pptx の描画層へ渡します。こうすると、形式エラーと内容エラーを切り分けて調べやすくなります。
 :::
 
 ## 実践：描画前にテンプレート項目を検証する
@@ -292,10 +292,10 @@ print(payload)
 REQUIRED_FIELDS = [
     "title",
     "target_audience",
-    "teaching_goal",
-    "concept_block",
-    "example_block",
-    "exercise_block",
+    "document_goal",
+    "policy_block",
+    "case_block",
+    "checklist_block",
     "source_block",
 ]
 
@@ -315,16 +315,16 @@ def render_markdown_handout(payload):
     return f"""# {payload['title']}
 
 対象者：{payload['target_audience']}
-学習目標：{payload['teaching_goal']}
+文書の目的：{payload['document_goal']}
 
-## 知識ポイントの確認
-{payload['concept_block']}
+## ポリシー概要
+{payload['policy_block']}
 
-## 例題の解説
-{payload['example_block']}
+## 対応ケース
+{payload['case_block']}
 
-## 授業内演習
-{payload['exercise_block']}
+## 確認チェックリスト
+{payload['checklist_block']}
 
 ## 参照元
 {payload['source_block']}
@@ -332,13 +332,13 @@ def render_markdown_handout(payload):
 
 
 payload = {
-    "title": "割引の文章題の解説",
-    "target_audience": "小学校高学年",
-    "teaching_goal": "割引の基本計算方法を理解する",
-    "concept_block": "- 割引 = 定価 × 割引率",
-    "example_block": "- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？",
-    "exercise_block": "- 1着 80 円の服を 3割引にしたら、いくらですか？",
-    "source_block": "参照元：内部ナレッジベース + 外部資料の補足",
+    "title": "返金エスカレーション SOP",
+    "target_audience": "サポート運用チーム",
+    "document_goal": "出力前に返金エスカレーション判断をそろえる",
+    "policy_block": "- 返金可否や支払い状態が不明な場合は、担当者レビューへエスカレーションする",
+    "case_block": "- カード決済の注文が 7 日を超えている場合、返金を約束する前に請求レビューへ送る",
+    "checklist_block": "- 注文日、支払い状態、利用状況の証拠、過去のサポート記録を確認する",
+    "source_block": "参照元：返金ポリシー KB + 請求エスカレーション SOP",
 }
 
 print(validate_payload(payload))
@@ -349,22 +349,22 @@ print(render_markdown_handout(payload))
 
 ```text
 (True, 'ok')
-# 割引の文章題の解説
+# 返金エスカレーション SOP
 
-対象者：小学校高学年
-学習目標：割引の基本計算方法を理解する
+対象者：サポート運用チーム
+文書の目的：出力前に返金エスカレーション判断をそろえる
 
-## 知識ポイントの確認
-- 割引 = 定価 × 割引率
+## ポリシー概要
+- 返金可否や支払い状態が不明な場合は、担当者レビューへエスカレーションする
 
-## 例題の解説
-- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？
+## 対応ケース
+- カード決済の注文が 7 日を超えている場合、返金を約束する前に請求レビューへ送る
 
-## 授業内演習
-- 1着 80 円の服を 3割引にしたら、いくらですか？
+## 確認チェックリスト
+- 注文日、支払い状態、利用状況の証拠、過去のサポート記録を確認する
 
 ## 参照元
-参照元：内部ナレッジベース + 外部資料の補足
+参照元：返金ポリシー KB + 請求エスカレーション SOP
 
 ```
 
@@ -379,11 +379,11 @@ print(render_markdown_handout(payload))
 
 安定した実装では、責務を 3 層に分けます。
 
-1. courseware schema が、知識ポイント、例題、練習、参照元に何が含まれるかを決める。
+1. document schema が、ポリシー、ケース、チェックリスト、参照元に何が含まれるかを決める。
 2. template payload が、それらを文書テンプレートのプレースホルダーに合わせて整理する。
 3. renderer は、検証済み payload の書式化だけを担当する。
 
-`exercise_block` を削除した場合、期待される結果は壊れた出力文書ではありません。検証層が不足項目を返し、呼び出し側が出力前に止めるべきです。
+`checklist_block` を削除した場合、期待される結果は壊れた出力文書ではありません。検証層が不足項目を返し、呼び出し側が出力前に止めるべきです。
 
 </details>
 
@@ -394,7 +394,7 @@ print(render_markdown_handout(payload))
 - JSON
 - アウトライン
 - 見出しの一覧
-- 各節の知識ポイント / 例題 / 練習問題
+- 各節のポリシー / ケース / チェックリスト
 
 つまり、自由作文のような長文をそのまま出させるわけではありません。
 
@@ -421,9 +421,9 @@ print(render_markdown_handout(payload))
 
 この種のシステムを初めて作るときは、次の順序がより安定です。
 
-1. まず課件の構造を定義する
+1. まず文書の構造を定義する
 2. 次に構造化された JSON / アウトラインを生成する
-3. それから知識ポイントと例題を埋める
+3. それからポリシーとケースを埋める
 4. 最後に Word / PPT を出力する
 
 こうすると、最初から `.docx` を直接生成するよりも、ずっと安定します。
@@ -481,5 +481,5 @@ print(render_markdown_handout(payload))
 ## この節でいちばん持ち帰ってほしいこと
 
 - 文書生成で最も安定しやすい流れは、通常「構造化出力 -> テンプレート描画 -> 文書出力」である
-- 先に構造を決めてから内容を埋めるほうが、モデルに自由に1本の課件を書かせるよりずっと安定する
-- Word / 課件を生成するのが目的なら、この層はプロジェクト成否を左右する重要なポイントである
+- 先に構造を決めてから内容を埋めるほうが、モデルに自由に1本の引き継ぎ文書を書かせるよりずっと安定する
+- Word / 運用文書を生成するのが目的なら、この層はプロジェクト成否を左右する重要なポイントである

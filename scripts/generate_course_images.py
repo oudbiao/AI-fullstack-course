@@ -4961,14 +4961,44 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
         "filename": "ch08-template-schema-to-render-map.png",
         "size": "1536x1024",
         "quality": "medium",
-        "title": "结构化课件到模板渲染图",
+        "title": "结构化文档到模板渲染图",
         "suggested_page": "docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
-        "alt": "结构化课件到模板渲染图：courseware schema 先整理成 template payload，再填入 Word/PPT 模板并导出文档。",
+        "alt": "结构化文档到模板渲染图：document schema 先整理成 template payload，再填入 Word/PPT 模板并导出文档。",
         "prompt": """
 一张适合模板化文档生成章节的工程图，主题是“先结构化，再模板渲染，不直接自由写 Word”。
-画面展示 courseware schema 进入 template payload mapper，分成 title、concept_block、example_block、exercise_block、source_block，再填入 Word/PPT template，导出 docx/pptx。
-风格像文档生产线和字段映射图结合。
-文字不是主体；标准术语保留英文，例如 courseware schema、template payload、concept_block、example_block、source_block、Word template、docx、pptx。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+画面展示 document schema 进入 template payload mapper，分成 title、document_goal、policy_block、case_block、checklist_block、source_block，再填入 Word/PPT template，导出 docx/pptx。
+风格像运营文档生产线和字段映射图结合。
+文字不是主体；标准术语保留英文，例如 document schema、template payload、document_goal、policy_block、case_block、checklist_block、source_block、Word template、docx、pptx。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-template-schema-to-render-map-en.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Structured Document to Template Rendering",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+        "alt": "Structured document to template rendering map: a document schema becomes a template payload, fills Word and PPT templates, and exports finished documents.",
+        "prompt": """
+A vertical engineering diagram for the template-based document generation section, about structuring first and rendering into templates second.
+Show a document schema entering a template payload mapper, split into title, document_goal, policy_block, case_block, checklist_block, and source_block, then filling Word/PPT templates and exporting docx/pptx files.
+Use a polished operations-document production line mixed with a field-mapping diagram.
+Text is not the main subject; keep standard terms visible in English, including document schema, template payload, document_goal, policy_block, case_block, checklist_block, source_block, Word template, docx, and pptx. Avoid tiny unreadable text, real brand logos, classroom scenes, discount math, or courseware labels.
+""".strip(),
+    },
+    {
+        "filename": "ch08-template-schema-to-render-map-ja.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "構造化文書からテンプレート描画へ",
+        "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+        "alt": "構造化文書からテンプレート描画への図：document schema を template payload に整え、Word/PPT テンプレートへ流し込み、文書として出力する。",
+        "prompt": """
+テンプレート化文書生成の章に合う縦長の工程図。テーマは「先に構造化し、次にテンプレートへ描画する」。
+document schema が template payload mapper に入り、title、document_goal、policy_block、case_block、checklist_block、source_block に分かれ、Word/PPT template に流し込まれて docx/pptx として出力される様子を描く。
+運用文書の生産ラインとフィールド対応表を組み合わせた、落ち着いたプロフェッショナルな雰囲気。
+画像内の説明文と見出しは日本語にする。英語で残してよいのはコード/フィールド名だけ：document schema、template payload、document_goal、policy_block、case_block、checklist_block、source_block、Word template、docx、pptx。
+左側の手順ラベルも日本語にする：入力、構造化、項目対応、テンプレート反映、出力。最上部の大見出しは「先に構造化し、次にテンプレートへ描画」。英語の長文説明、INPUT、TRANSFORMATION、FIELD MAPPING、TEMPLATE FILL、OUTPUT は使わない。
+文字は主役にしない。小さすぎる文字、実在ブランドロゴ、授業風景、割引計算、courseware 表現は避ける。
 """.strip(),
     },
     {
@@ -21997,51 +22027,51 @@ EXPERIMENT_RESULT_GROUPS: list[dict[str, Any]] = [
             "zh": "i18n/zh-Hans/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
             "ja": "i18n/ja/docusaurus-plugin-content-docs/current/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
         },
-        "scene": "A template-document-generation worked-result image based only on the validate_payload and render_markdown_handout expected output in section 8.3.9. The image must teach how a structured template payload becomes a rendered Markdown handout only after required fields pass validation. Do not draw a generic template pipeline, Word UI screenshot, terminal screenshot, full code block, docx icon collage, invented fields, extra sections, AI model, vector database, or decorative documents. Show exactly seven required fields: title, target_audience, teaching_goal, concept_block, example_block, exercise_block, source_block. Show the validator returning exactly (True, 'ok'), then the renderer filling a handout with title, audience, goal, Knowledge Review, Example Explanation, Classroom Practice, and Sources. Teaching point: field validation catches empty documents before export, and rendering is a deterministic step after structure is ready.",
+        "scene": "A template-document-generation worked-result image based only on the validate_payload and render_markdown_handout expected output in section 8.3.9. The image must teach how a structured template payload becomes a rendered Markdown handout only after required fields pass validation. Do not draw a generic template pipeline, Word UI screenshot, terminal screenshot, full code block, docx icon collage, invented fields, extra sections, AI model, vector database, or decorative documents. Show exactly seven required fields: title, target_audience, document_goal, policy_block, case_block, checklist_block, source_block. Show the validator returning exactly (True, 'ok'), then the renderer filling a handout with title, audience, goal, Policy Summary, Worked Case, Review Checklist, and Sources. Teaching point: field validation catches empty documents before export, and rendering is a deterministic step after structure is ready.",
         "chapter_context": "The image is inserted immediately after the expected output of the Validate Template Fields Before Rendering hands-on example. Nearby code defines REQUIRED_FIELDS, validate_payload, render_markdown_handout, a payload dict, and prints validate_payload(payload) followed by the rendered Markdown handout. The surrounding prose says this simple check is the difference between a demo and an engineering pipeline.",
-        "shared_layout": "Vertical 9:16. Use a warm practical workbook style consistent with ch08 result images: cream notebook paper, blue dividers, a template-payload tray, seven field checkboxes, a validator gate stamp, a renderer press, and a final handout page. Top title and subtitle. Upper section shows payload field cards with the exact seven field names. Middle section shows validate_payload gate stamping True, 'ok' because every required field is present. Lower section shows render_markdown_handout producing a formatted handout page with four visible sections: title/audience/goal header, knowledge review, example explanation, classroom practice, and sources. Bottom rule strip: validate fields before rendering/export. Keep field order, object positions, colors, and reading path identical across zh/en/ja. Use large localized labels. Code/template tokens may stay in English: template payload, validate_payload, render_markdown_handout, REQUIRED_FIELDS, title, target_audience, teaching_goal, concept_block, example_block, exercise_block, source_block, True, ok. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense terminal logs, tiny fake text, and extra English explanatory sentences in zh/ja variants.",
+        "shared_layout": "Vertical 9:16. Use a warm practical workbook style consistent with ch08 result images: cream notebook paper, blue dividers, a template-payload tray, seven field checkboxes, a validator gate stamp, a renderer press, and a final handout page. Top title and subtitle. Upper section shows payload field cards with the exact seven field names. Middle section shows validate_payload gate stamping True, 'ok' because every required field is present. Lower section shows render_markdown_handout producing a formatted handout page with four visible sections: title/audience/goal header, policy summary, worked case, review checklist, and sources. Bottom rule strip: validate fields before rendering/export. Keep field order, object positions, colors, and reading path identical across zh/en/ja. Use large localized labels. Code/template tokens may stay in English: template payload, validate_payload, render_markdown_handout, REQUIRED_FIELDS, title, target_audience, document_goal, policy_block, case_block, checklist_block, source_block, True, ok. Avoid old SVG-style white rounded-box diagrams, pure text posters, dense terminal logs, tiny fake text, and extra English explanatory sentences in zh/ja variants.",
         "variants": {
             "zh": {
                 "title": "模板字段校验后的渲染结果",
-                "subtitle": "先确认 7 个必填字段都有值，再生成讲义正文。",
+                "subtitle": "先确认 7 个必填字段都有值，再生成交接文档正文。",
                 "items": [
-                    ("必填字段", "title、target_audience、teaching_goal、concept_block、example_block、exercise_block、source_block。"),
+                    ("必填字段", "title、target_audience、document_goal、policy_block、case_block、checklist_block、source_block。"),
                     ("校验结果", "validate_payload(payload) -> (True, 'ok')。"),
-                    ("标题区", "折扣应用题讲解；适用对象：小学高年级。"),
-                    ("知识点", "折扣 = 原价 × 折扣率。"),
-                    ("例题和练习", "100 元打 8 折；80 元打 7 折。"),
+                    ("标题区", "退款升级 SOP；适用对象：支持运营团队。"),
+                    ("政策摘要", "资格或支付状态不明确时，升级复核。"),
+                    ("案例和清单", "超过 7 天的银行卡订单先交计费复核；检查订单、支付、使用证据和历史工单。"),
                     ("工程含义", "字段缺失时要在渲染前失败。"),
                 ],
                 "footer": "结构字段先合格，模板渲染才可靠。",
-                "alt": "模板字段校验渲染结果图：七个必填字段进入 validate_payload 并返回 True ok，再由 render_markdown_handout 渲染出标题、适用对象、教学目标、知识点、例题、练习和来源。",
+                "alt": "模板字段校验渲染结果图：七个必填字段进入 validate_payload 并返回 True ok，再由 render_markdown_handout 渲染出标题、适用对象、文档目标、政策摘要、案例处理、复核清单和来源。",
             },
             "en": {
                 "title": "Rendered Result After Payload Validation",
-                "subtitle": "Confirm seven required fields before generating the handout body.",
+                "subtitle": "Confirm seven required fields before generating the handoff body.",
                 "items": [
-                    ("required fields", "title, target_audience, teaching_goal, concept_block, example_block, exercise_block, source_block."),
+                    ("required fields", "title, target_audience, document_goal, policy_block, case_block, checklist_block, source_block."),
                     ("validation result", "validate_payload(payload) -> (True, 'ok')."),
-                    ("header", "Discount Word Problem Explanation; audience: Upper elementary school."),
-                    ("knowledge", "Discount = original price x discount rate."),
-                    ("example and practice", "100 yuan with 20% off; 80 yuan with 30% off."),
+                    ("header", "Refund Escalation SOP; audience: Support operations team."),
+                    ("policy summary", "Escalate unclear refund eligibility or payment status."),
+                    ("case and checklist", "Older card-paid orders go to billing review; check order age, payment status, usage evidence, and notes."),
                     ("engineering meaning", "Missing fields should fail before rendering."),
                 ],
                 "footer": "Structure passes first; template rendering becomes reliable.",
-                "alt": "Template payload validation render result map: seven required fields enter validate_payload and return True ok, then render_markdown_handout renders the title, audience, goal, knowledge review, example, practice, and sources.",
+                "alt": "Template payload validation render result map: seven required fields enter validate_payload and return True ok, then render_markdown_handout renders the title, audience, document goal, policy summary, worked case, review checklist, and sources.",
             },
             "ja": {
                 "title": "Payload 検証後の描画結果",
-                "subtitle": "7 つの必須項目を確認してから、教材本文を作る。",
+                "subtitle": "7 つの必須項目を確認してから、引き継ぎ本文を作る。",
                 "items": [
-                    ("必須項目", "title、target_audience、teaching_goal、concept_block、example_block、exercise_block、source_block。"),
+                    ("必須項目", "title、target_audience、document_goal、policy_block、case_block、checklist_block、source_block。"),
                     ("検証結果", "validate_payload(payload) -> (True, 'ok')。"),
-                    ("見出し", "割引の文章題の解説；対象者：小学校高学年。"),
-                    ("知識", "割引 = 定価 × 割引率。"),
-                    ("例題と演習", "100 円の 2割引；80 円の 3割引。"),
+                    ("見出し", "返金エスカレーション SOP；対象者：サポート運用チーム。"),
+                    ("ポリシー概要", "返金可否や支払い状態が不明な場合は、上位確認へ回す。"),
+                    ("ケースと確認", "7 日超のカード決済注文は請求確認へ。注文日、支払い状態、利用証跡、履歴メモを確認する。"),
                     ("実装上の意味", "項目不足は描画前に失敗させる。"),
                 ],
                 "footer": "構造項目が先に合格してこそ、テンプレート描画は安定する。",
-                "alt": "Template payload 検証後の描画結果図：7 つの必須項目が validate_payload に入り True ok を返し、render_markdown_handout がタイトル、対象者、学習目標、知識確認、例題、演習、参照元を描画する。",
+                "alt": "Template payload 検証後の描画結果図：7 つの必須項目が validate_payload に入り True ok を返し、render_markdown_handout がタイトル、対象者、文書目標、ポリシー概要、対応ケース、確認チェックリスト、参照元を描画する。",
             },
         },
     },
