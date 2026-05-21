@@ -64,12 +64,12 @@ def rough_token_count(text):
 
 def build_payload(user_task, max_output_tokens=600, temperature=0.3):
     instructions = (
-        "You are a teaching assistant. Return valid JSON only. "
-        "Each timeline era must include period, key_event, and summary."
+        "あなたは教育アシスタントです。有効な JSON だけを返してください。"
+        "各 timeline era には period、key_event、summary を必ず含めてください。"
     )
     input_text = (
-        "Create a beginner-friendly timeline of AI development with four eras. "
-        f"User task: {user_task}"
+        "AI 発展の流れを、初学者にもわかりやすい四つの時代の timeline として日本語で作成してください。"
+        f"ユーザー課題: {user_task}"
     )
     used_tokens = rough_token_count(instructions) + rough_token_count(input_text)
     remaining = CONTEXT_LIMIT - used_tokens - max_output_tokens
@@ -248,13 +248,12 @@ response = client.responses.parse(
         {
             "role": "system",
             "content": (
-                "You are a teaching assistant. Return a concise beginner-friendly "
-                "AI history timeline."
+                "あなたは教育アシスタントです。初学者にもわかりやすい簡潔な日本語の AI 史 timeline を返してください。"
             ),
         },
         {
             "role": "user",
-            "content": "Create a four-era AI development timeline for beginners.",
+            "content": "初学者向けに、AI 発展史を四つの時代に分けた timeline を作成してください。",
         },
     ],
     text_format=Timeline,
@@ -283,7 +282,7 @@ print(response.output_parsed.model_dump())
 
 ## 練習方法
 
-1. オフライン課題を「AI history timeline」から「course study plan」に変え、必須 スキーマ フィールドを更新する。
+1. オフライン課題を「AI 発展史 timeline」から「コース学習計画」に変え、必須 スキーマ フィールドを更新する。
 2. 最初の fake response を不正 JSON にして、validator が検出できるか確認する。
 3. 各 era に `source_refs` フィールドを追加し、validation でも必須にする。
 4. `max_output_tokens` を下げ、それがどんなプロダクト上の問題を模擬しているか説明する。

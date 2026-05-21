@@ -64,12 +64,12 @@ def rough_token_count(text):
 
 def build_payload(user_task, max_output_tokens=600, temperature=0.3):
     instructions = (
-        "You are a teaching assistant. Return valid JSON only. "
-        "Each timeline era must include period, key_event, and summary."
+        "你是一名教学助理。只返回合法 JSON。"
+        "每个时间线阶段都必须包含 period、key_event 和 summary。"
     )
     input_text = (
-        "Create a beginner-friendly timeline of AI development with four eras. "
-        f"User task: {user_task}"
+        "请用中文创建一条适合初学者理解的 AI 发展时间线，共四个阶段。"
+        f"用户任务：{user_task}"
     )
     used_tokens = rough_token_count(instructions) + rough_token_count(input_text)
     remaining = CONTEXT_LIMIT - used_tokens - max_output_tokens
@@ -248,13 +248,12 @@ response = client.responses.parse(
         {
             "role": "system",
             "content": (
-                "You are a teaching assistant. Return a concise beginner-friendly "
-                "AI history timeline."
+                "你是一名教学助理。请返回简洁、适合初学者理解的中文 AI 发展时间线。"
             ),
         },
         {
             "role": "user",
-            "content": "Create a four-era AI development timeline for beginners.",
+            "content": "请为初学者创建一条分成四个阶段的 AI 发展时间线。",
         },
     ],
     text_format=Timeline,
