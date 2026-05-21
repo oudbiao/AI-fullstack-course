@@ -133,32 +133,32 @@ CSV (Comma-Separated Values) is one of the most common data file formats:
 import csv
 
 # Write CSV
-students = [
-    ["Name", "Age", "Score"],
-    ["Zhang San", 20, 85],
-    ["Li Si", 21, 92],
-    ["Wang Wu", 19, 78],
+tasks = [
+    ["Feature", "Owner", "Hours"],
+    ["Login API", "Mina", 8],
+    ["RAG demo", "Kai", 12],
+    ["Chart view", "Noah", 5],
 ]
 
-with open("students.csv", "w", newline="", encoding="utf-8") as file:
+with open("tasks.csv", "w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
-    writer.writerows(students)
+    writer.writerows(tasks)
 
 # Read CSV
-with open("students.csv", "r", encoding="utf-8") as file:
+with open("tasks.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
     header = next(reader)  # Read the header row
     print(f"Column names: {header}")
 
     for row in reader:
-        name, age, score = row
-        print(f"{name}, {age} years old, score: {score}")
+        feature, owner, hours = row
+        print(f"{feature}, owner: {owner}, estimate: {hours} hours")
 
 # Read as dictionaries (more convenient)
-with open("students.csv", "r", encoding="utf-8") as file:
+with open("tasks.csv", "r", encoding="utf-8") as file:
     reader = csv.DictReader(file)
     for row in reader:
-        print(f"{row['Name']}'s score is {row['Score']}")
+        print(f"{row['Feature']} is owned by {row['Owner']}")
 ```
 
 ### JSON files
@@ -298,9 +298,9 @@ import pickle
 
 # Save Python object
 data = {
-    "scores": [85, 92, 78, 95],
-    "names": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu"],
-    "metadata": {"class": "Class A", "year": 2026}
+    "hours": [2, 5, 1, 3],
+    "features": ["Login API", "RAG demo", "Chart view", "Deploy script"],
+    "metadata": {"module": "portfolio backend", "year": 2026}
 }
 
 with open("data.pkl", "wb") as file:  # Note: "wb" (binary write)
@@ -310,7 +310,7 @@ with open("data.pkl", "wb") as file:  # Note: "wb" (binary write)
 with open("data.pkl", "rb") as file:  # Note: "rb" (binary read)
     loaded_data = pickle.load(file)
 
-print(loaded_data["names"])  # ['Zhang San', 'Li Si', 'Wang Wu', 'Zhao Liu']
+print(loaded_data["features"])  # ['Login API', 'RAG demo', 'Chart view', 'Deploy script']
 ```
 
 :::caution pickle safety warning
@@ -319,85 +319,84 @@ print(loaded_data["names"])  # ['Zhang San', 'Li Si', 'Wang Wu', 'Zhao Liu']
 
 ---
 
-## Comprehensive example: student grade management system
+## Comprehensive example: task log persistence system
 
 ```python
 import json
 from pathlib import Path
-from datetime import datetime
 
-class GradeBook:
-    """Grade management system with file persistence"""
+class TaskLog:
+    """Task work log with file persistence"""
 
-    def __init__(self, filename="gradebook.json"):
+    def __init__(self, filename="task_log.json"):
         self.filename = Path(filename)
-        self.students = {}
+        self.tasks = {}
         self.load()  # Load data at startup
 
     def load(self):
         """Load data from a file"""
         if self.filename.exists():
             with open(self.filename, "r", encoding="utf-8") as f:
-                self.students = json.load(f)
-            print(f"✅ Loaded data for {len(self.students)} students")
+                self.tasks = json.load(f)
+            print(f"✅ Loaded data for {len(self.tasks)} tasks")
         else:
-            print("📝 Creating a new gradebook")
+            print("📝 Creating a new task log")
 
     def save(self):
         """Save data to a file"""
         with open(self.filename, "w", encoding="utf-8") as f:
-            json.dump(self.students, f, ensure_ascii=False, indent=2)
+            json.dump(self.tasks, f, ensure_ascii=False, indent=2)
 
-    def add_score(self, name, subject, score):
-        """Add a score"""
-        if name not in self.students:
-            self.students[name] = {}
-        self.students[name][subject] = score
+    def add_work(self, task_name, stage, hours):
+        """Add a work-hour entry"""
+        if task_name not in self.tasks:
+            self.tasks[task_name] = {}
+        self.tasks[task_name][stage] = hours
         self.save()
-        print(f"✅ Saved {name}'s {subject} score ({score})")
+        print(f"✅ Saved {task_name}'s {stage} hours ({hours})")
 
-    def get_report(self, name):
-        """Get a student report"""
-        if name not in self.students:
-            print(f"❌ Student not found: {name}")
+    def get_report(self, task_name):
+        """Get a task report"""
+        if task_name not in self.tasks:
+            print(f"❌ Task not found: {task_name}")
             return
 
-        scores = self.students[name]
+        stages = self.tasks[task_name]
         print(f"\n{'='*30}")
-        print(f"  {name}'s Grade Report")
+        print(f"  {task_name} Work Report")
         print(f"{'='*30}")
-        for subject, score in scores.items():
-            print(f"  {subject}: {score}")
-        avg = sum(scores.values()) / len(scores)
+        for stage, hours in stages.items():
+            print(f"  {stage}: {hours} hours")
+        total = sum(stages.values())
         print(f"{'─'*30}")
-        print(f"  Average score: {avg:.1f}")
+        print(f"  Total hours: {total:.1f}")
         print(f"{'='*30}")
 
-    def export_csv(self, filename="grades.csv"):
+    def export_csv(self, filename="task_hours.csv"):
         """Export as CSV"""
         import csv
-        subjects = set()
-        for scores in self.students.values():
-            subjects.update(scores.keys())
-        subjects = sorted(subjects)
+        stages = set()
+        for task_stages in self.tasks.values():
+            stages.update(task_stages.keys())
+        stages = sorted(stages)
 
         with open(filename, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["Name"] + subjects)
-            for name, scores in self.students.items():
-                row = [name] + [scores.get(s, "") for s in subjects]
+            writer.writerow(["Task"] + stages)
+            for task_name, task_stages in self.tasks.items():
+                row = [task_name] + [task_stages.get(s, "") for s in stages]
                 writer.writerow(row)
         print(f"✅ Exported to {filename}")
 
 # Use it
-gb = GradeBook()
-gb.add_score("Zhang San", "Math", 85)
-gb.add_score("Zhang San", "English", 92)
-gb.add_score("Zhang San", "Python", 95)
-gb.add_score("Li Si", "Math", 78)
-gb.add_score("Li Si", "English", 88)
-gb.get_report("Zhang San")
-gb.export_csv()
+log = TaskLog()
+log.add_work("Login API", "design", 2)
+log.add_work("Login API", "implementation", 5)
+log.add_work("Login API", "tests", 1)
+log.add_work("RAG demo", "implementation", 7)
+log.add_work("RAG demo", "docs", 2)
+log.get_report("Login API")
+log.export_csv()
 ```
 
 ---

@@ -133,32 +133,32 @@ CSV（Comma-Separated Values）是最常见的数据文件格式：
 import csv
 
 # 写入 CSV
-students = [
-    ["姓名", "年龄", "成绩"],
-    ["张三", 20, 85],
-    ["李四", 21, 92],
-    ["王五", 19, 78],
+tasks = [
+    ["功能", "负责人", "工时"],
+    ["登录 API", "Mina", 8],
+    ["RAG 演示", "Kai", 12],
+    ["图表视图", "Noah", 5],
 ]
 
-with open("students.csv", "w", newline="", encoding="utf-8") as file:
+with open("tasks.csv", "w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
-    writer.writerows(students)
+    writer.writerows(tasks)
 
 # 读取 CSV
-with open("students.csv", "r", encoding="utf-8") as file:
+with open("tasks.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
     header = next(reader)  # 读取表头
     print(f"列名: {header}")
 
     for row in reader:
-        name, age, score = row
-        print(f"{name}, {age}岁, 成绩: {score}")
+        feature, owner, hours = row
+        print(f"{feature}, 负责人: {owner}, 估算: {hours} 小时")
 
 # 用字典方式读取（更方便）
-with open("students.csv", "r", encoding="utf-8") as file:
+with open("tasks.csv", "r", encoding="utf-8") as file:
     reader = csv.DictReader(file)
     for row in reader:
-        print(f"{row['姓名']} 的成绩是 {row['成绩']}")
+        print(f"{row['功能']} 由 {row['负责人']} 负责")
 ```
 
 ### JSON 文件
@@ -298,9 +298,9 @@ import pickle
 
 # 保存 Python 对象
 data = {
-    "scores": [85, 92, 78, 95],
-    "names": ["张三", "李四", "王五", "赵六"],
-    "metadata": {"class": "A班", "year": 2026}
+    "hours": [2, 5, 1, 3],
+    "features": ["登录 API", "RAG 演示", "图表视图", "部署脚本"],
+    "metadata": {"module": "portfolio backend", "year": 2026}
 }
 
 with open("data.pkl", "wb") as file:  # 注意是 "wb"（二进制写入）
@@ -310,7 +310,7 @@ with open("data.pkl", "wb") as file:  # 注意是 "wb"（二进制写入）
 with open("data.pkl", "rb") as file:  # 注意是 "rb"（二进制读取）
     loaded_data = pickle.load(file)
 
-print(loaded_data["names"])  # ['张三', '李四', '王五', '赵六']
+print(loaded_data["features"])  # ['登录 API', 'RAG 演示', '图表视图', '部署脚本']
 ```
 
 :::caution pickle 的安全警告
@@ -319,85 +319,84 @@ print(loaded_data["names"])  # ['张三', '李四', '王五', '赵六']
 
 ---
 
-## 综合案例：学生成绩管理系统
+## 综合案例：任务日志持久化系统
 
 ```python
 import json
 from pathlib import Path
-from datetime import datetime
 
-class GradeBook:
-    """成绩管理系统，支持文件持久化"""
+class TaskLog:
+    """任务工作日志，支持文件持久化"""
 
-    def __init__(self, filename="gradebook.json"):
+    def __init__(self, filename="task_log.json"):
         self.filename = Path(filename)
-        self.students = {}
+        self.tasks = {}
         self.load()  # 启动时加载数据
 
     def load(self):
         """从文件加载数据"""
         if self.filename.exists():
             with open(self.filename, "r", encoding="utf-8") as f:
-                self.students = json.load(f)
-            print(f"✅ 已加载 {len(self.students)} 名学生的数据")
+                self.tasks = json.load(f)
+            print(f"✅ 已加载 {len(self.tasks)} 个任务的数据")
         else:
-            print("📝 创建新的成绩簿")
+            print("📝 创建新的任务日志")
 
     def save(self):
         """保存数据到文件"""
         with open(self.filename, "w", encoding="utf-8") as f:
-            json.dump(self.students, f, ensure_ascii=False, indent=2)
+            json.dump(self.tasks, f, ensure_ascii=False, indent=2)
 
-    def add_score(self, name, subject, score):
-        """添加成绩"""
-        if name not in self.students:
-            self.students[name] = {}
-        self.students[name][subject] = score
+    def add_work(self, task_name, stage, hours):
+        """添加工作时长"""
+        if task_name not in self.tasks:
+            self.tasks[task_name] = {}
+        self.tasks[task_name][stage] = hours
         self.save()
-        print(f"✅ {name} 的 {subject} 成绩（{score}分）已保存")
+        print(f"✅ {task_name} 的 {stage} 工时（{hours} 小时）已保存")
 
-    def get_report(self, name):
-        """获取学生报告"""
-        if name not in self.students:
-            print(f"❌ 找不到学生: {name}")
+    def get_report(self, task_name):
+        """获取任务报告"""
+        if task_name not in self.tasks:
+            print(f"❌ 找不到任务: {task_name}")
             return
 
-        scores = self.students[name]
+        stages = self.tasks[task_name]
         print(f"\n{'='*30}")
-        print(f"  {name} 的成绩报告")
+        print(f"  {task_name} 的工作报告")
         print(f"{'='*30}")
-        for subject, score in scores.items():
-            print(f"  {subject}: {score} 分")
-        avg = sum(scores.values()) / len(scores)
+        for stage, hours in stages.items():
+            print(f"  {stage}: {hours} 小时")
+        total = sum(stages.values())
         print(f"{'─'*30}")
-        print(f"  平均分: {avg:.1f}")
+        print(f"  总工时: {total:.1f}")
         print(f"{'='*30}")
 
-    def export_csv(self, filename="grades.csv"):
+    def export_csv(self, filename="task_hours.csv"):
         """导出为 CSV"""
         import csv
-        subjects = set()
-        for scores in self.students.values():
-            subjects.update(scores.keys())
-        subjects = sorted(subjects)
+        stages = set()
+        for task_stages in self.tasks.values():
+            stages.update(task_stages.keys())
+        stages = sorted(stages)
 
         with open(filename, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["姓名"] + subjects)
-            for name, scores in self.students.items():
-                row = [name] + [scores.get(s, "") for s in subjects]
+            writer.writerow(["任务"] + stages)
+            for task_name, task_stages in self.tasks.items():
+                row = [task_name] + [task_stages.get(s, "") for s in stages]
                 writer.writerow(row)
         print(f"✅ 已导出到 {filename}")
 
 # 使用
-gb = GradeBook()
-gb.add_score("张三", "数学", 85)
-gb.add_score("张三", "英语", 92)
-gb.add_score("张三", "Python", 95)
-gb.add_score("李四", "数学", 78)
-gb.add_score("李四", "英语", 88)
-gb.get_report("张三")
-gb.export_csv()
+log = TaskLog()
+log.add_work("登录 API", "设计", 2)
+log.add_work("登录 API", "实现", 5)
+log.add_work("登录 API", "测试", 1)
+log.add_work("RAG 演示", "实现", 7)
+log.add_work("RAG 演示", "文档", 2)
+log.get_report("登录 API")
+log.export_csv()
 ```
 
 ---

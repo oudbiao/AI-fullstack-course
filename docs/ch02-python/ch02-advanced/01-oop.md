@@ -24,51 +24,51 @@ This section introduces an important way to organize complex code in Python. You
 
 ## Why do we need object-oriented programming?
 
-Suppose you are developing a student management system and need to record information about each student:
+Suppose you are building a small project tracker for your AI portfolio app and need to record each feature's owner and work sessions:
 
 ```python
 # Using variables and dictionaries
-student1_name = "Zhang San"
-student1_age = 20
-student1_scores = [85, 92, 78]
+feature1_name = "Login API"
+feature1_owner = "Mina"
+feature1_hours = [2, 5, 1]
 
-student2_name = "Li Si"
-student2_age = 21
-student2_scores = [90, 88, 95]
+feature2_name = "RAG demo"
+feature2_owner = "Kai"
+feature2_hours = [3, 4, 2]
 
 # Or using dictionaries
-student1 = {"name": "Zhang San", "age": 20, "scores": [85, 92, 78]}
-student2 = {"name": "Li Si", "age": 21, "scores": [90, 88, 95]}
+feature1 = {"name": "Login API", "owner": "Mina", "hours": [2, 5, 1]}
+feature2 = {"name": "RAG demo", "owner": "Kai", "hours": [3, 4, 2]}
 
-# Function to calculate average score
-def get_average(student):
-    return sum(student["scores"]) / len(student["scores"])
+# Function to calculate total work time
+def total_hours(feature):
+    return sum(feature["hours"])
 ```
 
 This approach has several problems:
-- Data and operations are **separated** (student data is in dictionaries, while the calculation function is outside)
+- Data and operations are **separated** (feature data is in dictionaries, while the calculation function is outside)
 - There is no **constraint** (anyone can add strange keys to the dictionary or remove required keys)
-- As students have more and more attributes, the code becomes **messier and messier**
+- As features have more and more attributes, the code becomes **messier and messier**
 
 The idea behind object-oriented programming is: **bundle data and operations together to form an "object".**
 
 ```python
-class Student:
-    def __init__(self, name, age, scores):
+class FeatureTask:
+    def __init__(self, name, owner, hours):
         self.name = name
-        self.age = age
-        self.scores = scores
+        self.owner = owner
+        self.hours = hours
 
-    def get_average(self):
-        return sum(self.scores) / len(self.scores)
+    def total_hours(self):
+        return sum(self.hours)
 
-# Create student objects
-student1 = Student("Zhang San", 20, [85, 92, 78])
-student2 = Student("Li Si", 21, [90, 88, 95])
+# Create feature task objects
+task1 = FeatureTask("Login API", "Mina", [2, 5, 1])
+task2 = FeatureTask("RAG demo", "Kai", [3, 4, 2])
 
 # Data and operations are tied together, which feels more natural to use
-print(f"{student1.name}'s average score: {student1.get_average():.1f}")
-print(f"{student2.name}'s average score: {student2.get_average():.1f}")
+print(f"{task1.name} total hours: {task1.total_hours():.1f}")
+print(f"{task2.name} total hours: {task2.total_hours():.1f}")
 ```
 
 ---
@@ -81,13 +81,13 @@ A simple real-world analogy:
 - **Object/Instance** = the real thing built from the blueprint. For example, "the iPhone 15 in your hand"
 
 ```
-Class: Student (a template for students)
-    └── Attributes: name, age, scores
-    └── Methods: get_average(), is_passed()
+Class: FeatureTask (a template for feature tasks)
+    └── Attributes: name, owner, hours
+    └── Methods: total_hours(), is_over_budget()
 
 Objects (instances):
-    └── student1 = Student("Zhang San", 20, [85, 92, 78])
-    └── student2 = Student("Li Si", 21, [90, 88, 95])
+    └── task1 = FeatureTask("Login API", "Mina", [2, 5, 1])
+    └── task2 = FeatureTask("RAG demo", "Kai", [3, 4, 2])
 ```
 
 ---
@@ -165,28 +165,28 @@ So `self.name` means "the name of this object."
 ### Instance attributes vs class attributes
 
 ```python
-class Student:
+class FeatureTask:
     # Class attributes: shared by all instances
-    school = "Python University"
-    student_count = 0
+    project = "AI Portfolio"
+    task_count = 0
 
-    def __init__(self, name, age):
+    def __init__(self, name, owner):
         # Instance attributes: unique to each instance
         self.name = name
-        self.age = age
-        Student.student_count += 1  # Add 1 for each student created
+        self.owner = owner
+        FeatureTask.task_count += 1  # Add 1 for each task created
 
-s1 = Student("Zhang San", 20)
-s2 = Student("Li Si", 21)
+t1 = FeatureTask("Login API", "Mina")
+t2 = FeatureTask("RAG demo", "Kai")
 
 # Class attributes can be accessed through the class name or an instance
-print(Student.school)       # Python University
-print(s1.school)            # Python University
-print(Student.student_count)  # 2
+print(FeatureTask.project)     # AI Portfolio
+print(t1.project)              # AI Portfolio
+print(FeatureTask.task_count)  # 2
 
 # Instance attributes belong only to their own instances
-print(s1.name)  # Zhang San
-print(s2.name)  # Li Si
+print(t1.name)   # Login API
+print(t2.owner)  # Kai
 ```
 
 ### Methods
@@ -225,33 +225,33 @@ In Python, methods that start and end with `__` are called magic methods. They a
 ### `__str__`: define the output of `print`
 
 ```python
-class Student:
-    def __init__(self, name, age):
+class FeatureTask:
+    def __init__(self, name, owner):
         self.name = name
-        self.age = age
+        self.owner = owner
 
     def __str__(self):
-        return f"Student({self.name}, {self.age} years old)"
+        return f"FeatureTask({self.name}, owner={self.owner})"
 
-s = Student("Zhang San", 20)
-print(s)  # Student(Zhang San, 20 years old)
-# If there is no `__str__`, print will output <__main__.Student object at 0x...>
+task = FeatureTask("Login API", "Mina")
+print(task)  # FeatureTask(Login API, owner=Mina)
+# If there is no `__str__`, print will output <__main__.FeatureTask object at 0x...>
 ```
 
 ### `__repr__`: define the representation developers see
 
 ```python
-class Student:
-    def __init__(self, name, age):
+class FeatureTask:
+    def __init__(self, name, owner):
         self.name = name
-        self.age = age
+        self.owner = owner
 
     def __repr__(self):
-        return f"Student('{self.name}', {self.age})"
+        return f"FeatureTask('{self.name}', '{self.owner}')"
 
-s = Student("Zhang San", 20)
-print(repr(s))   # Student('Zhang San', 20)
-# In interactive mode, typing s directly will also show this
+task = FeatureTask("Login API", "Mina")
+print(repr(task))   # FeatureTask('Login API', 'Mina')
+# In interactive mode, typing task directly will also show this
 ```
 
 ### `__len__`: define the behavior of `len()`
@@ -393,7 +393,7 @@ class BankAccount:
     def get_balance(self):
         return self._balance
 
-account = BankAccount("Zhang San", 1000)
+account = BankAccount("Portfolio Owner", 1000)
 account.deposit(500)     # Deposited 500 yuan, balance: 1500
 account.withdraw(200)    # Withdrew 200 yuan, balance: 1300
 print(account.get_balance())  # 1300
@@ -503,7 +503,7 @@ class Book:
         return f"{self.title} by {self.author}: {self.current_page}/{self.pages} pages"
 
 # Test
-book = Book("Python Basics", "Zhang San", 300)
+book = Book("Python Basics", "Course Team", 300)
 book.read(50)
 print(f"{book.progress():.1f}%")  # 16.7%
 print(book)

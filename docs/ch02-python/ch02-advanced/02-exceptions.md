@@ -373,61 +373,61 @@ print(f"Your age is: {age}")
 
 ---
 
-## Comprehensive example: a safe grade management system
+## Comprehensive example: a safe task estimate manager
 
 ```python
-class GradeManager:
+class TaskEstimateManager:
     def __init__(self):
-        self.students = {}
+        self.tasks = {}
 
-    def add_student(self, name, score):
-        """Add a student's score"""
+    def add_task(self, name, hours):
+        """Add a task estimate"""
         if not isinstance(name, str) or not name.strip():
-            raise ValueError("Student name cannot be empty")
-        if not isinstance(score, (int, float)):
-            raise TypeError(f"Score must be a number, got: {type(score).__name__}")
-        if not 0 <= score <= 100:
-            raise ValueError(f"Score {score} is out of range (0-100)")
+            raise ValueError("Task name cannot be empty")
+        if not isinstance(hours, (int, float)):
+            raise TypeError(f"Hours must be a number, got: {type(hours).__name__}")
+        if not 0 <= hours <= 80:
+            raise ValueError(f"Hours {hours} is out of range (0-80)")
 
-        self.students[name] = score
-        print(f"✅ Added successfully: {name} - {score} points")
+        self.tasks[name] = hours
+        print(f"✅ Added successfully: {name} - {hours} hours")
 
-    def get_average(self):
-        """Get the average score"""
-        if not self.students:
-            raise RuntimeError("No student data available, cannot calculate average")
-        return sum(self.students.values()) / len(self.students)
+    def get_average_hours(self):
+        """Get the average estimate"""
+        if not self.tasks:
+            raise RuntimeError("No task data available, cannot calculate average")
+        return sum(self.tasks.values()) / len(self.tasks)
 
-    def get_student(self, name):
-        """Look up a student's score"""
-        if name not in self.students:
-            raise KeyError(f"Cannot find student: {name}")
-        return self.students[name]
+    def get_task(self, name):
+        """Look up a task estimate"""
+        if name not in self.tasks:
+            raise KeyError(f"Cannot find task: {name}")
+        return self.tasks[name]
 
 # Use it
-gm = GradeManager()
+manager = TaskEstimateManager()
 
-# Safely add students
+# Safely add task estimates
 test_data = [
-    ("Zhang San", 85),
-    ("Li Si", 92),
-    ("Wang Wu", "excellent"),  # Type error
-    ("Zhao Liu", 150),         # Range error
-    ("", 80),                  # Empty name
-    ("Qian Qi", 78),
+    ("Login API", 8),
+    ("RAG demo", 12),
+    ("Chart view", "soon"),    # Type error
+    ("Data import", 120),      # Range error
+    ("", 6),                   # Empty name
+    ("Deploy script", 5),
 ]
 
-for name, score in test_data:
+for name, hours in test_data:
     try:
-        gm.add_student(name, score)
+        manager.add_task(name, hours)
     except (ValueError, TypeError) as e:
         print(f"❌ Add failed: {e}")
 
 # Query
-print(f"\nAverage score: {gm.get_average():.1f}")
+print(f"\nAverage estimate: {manager.get_average_hours():.1f} hours")
 
 try:
-    print(gm.get_student("Sun Ba"))
+    print(manager.get_task("Payment flow"))
 except KeyError as e:
     print(f"Lookup failed: {e}")
 ```

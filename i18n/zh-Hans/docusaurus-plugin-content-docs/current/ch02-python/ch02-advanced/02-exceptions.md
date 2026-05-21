@@ -368,61 +368,61 @@ print(f"你的年龄是: {age}")
 
 ---
 
-## 综合案例：安全的成绩管理系统
+## 综合案例：安全的任务估算管理器
 
 ```python
-class GradeManager:
+class TaskEstimateManager:
     def __init__(self):
-        self.students = {}
+        self.tasks = {}
 
-    def add_student(self, name, score):
-        """添加学生成绩"""
+    def add_task(self, name, hours):
+        """添加任务估算"""
         if not isinstance(name, str) or not name.strip():
-            raise ValueError("学生姓名不能为空")
-        if not isinstance(score, (int, float)):
-            raise TypeError(f"成绩必须是数字，收到: {type(score).__name__}")
-        if not 0 <= score <= 100:
-            raise ValueError(f"成绩 {score} 超出范围（0-100）")
+            raise ValueError("任务名称不能为空")
+        if not isinstance(hours, (int, float)):
+            raise TypeError(f"工时必须是数字，收到: {type(hours).__name__}")
+        if not 0 <= hours <= 80:
+            raise ValueError(f"工时 {hours} 超出范围（0-80）")
 
-        self.students[name] = score
-        print(f"✅ 添加成功: {name} - {score}分")
+        self.tasks[name] = hours
+        print(f"✅ 添加成功: {name} - {hours} 小时")
 
-    def get_average(self):
-        """获取平均分"""
-        if not self.students:
-            raise RuntimeError("没有学生数据，无法计算平均分")
-        return sum(self.students.values()) / len(self.students)
+    def get_average_hours(self):
+        """获取平均估算"""
+        if not self.tasks:
+            raise RuntimeError("没有任务数据，无法计算平均值")
+        return sum(self.tasks.values()) / len(self.tasks)
 
-    def get_student(self, name):
-        """查询学生成绩"""
-        if name not in self.students:
-            raise KeyError(f"找不到学生: {name}")
-        return self.students[name]
+    def get_task(self, name):
+        """查询任务估算"""
+        if name not in self.tasks:
+            raise KeyError(f"找不到任务: {name}")
+        return self.tasks[name]
 
 # 使用
-gm = GradeManager()
+manager = TaskEstimateManager()
 
-# 安全地添加学生
+# 安全地添加任务估算
 test_data = [
-    ("张三", 85),
-    ("李四", 92),
-    ("王五", "优秀"),  # 类型错误
-    ("赵六", 150),     # 范围错误
-    ("", 80),          # 姓名为空
-    ("钱七", 78),
+    ("登录 API", 8),
+    ("RAG 演示", 12),
+    ("图表视图", "尽快"),  # 类型错误
+    ("数据导入", 120),     # 范围错误
+    ("", 6),               # 名称为空
+    ("部署脚本", 5),
 ]
 
-for name, score in test_data:
+for name, hours in test_data:
     try:
-        gm.add_student(name, score)
+        manager.add_task(name, hours)
     except (ValueError, TypeError) as e:
         print(f"❌ 添加失败: {e}")
 
 # 查询
-print(f"\n平均分: {gm.get_average():.1f}")
+print(f"\n平均估算: {manager.get_average_hours():.1f} 小时")
 
 try:
-    print(gm.get_student("孙八"))
+    print(manager.get_task("支付流程"))
 except KeyError as e:
     print(f"查询失败: {e}")
 ```

@@ -24,51 +24,51 @@ description: "掌握 Python 面向对象编程的核心概念"
 
 ## 为什么需要面向对象？
 
-假设你在开发一个学生管理系统，需要记录每个学生的信息：
+假设你在为 AI 作品集应用开发一个小型项目追踪器，需要记录每个功能的负责人和工作记录：
 
 ```python
 # 用变量和字典的方式
-student1_name = "张三"
-student1_age = 20
-student1_scores = [85, 92, 78]
+feature1_name = "登录 API"
+feature1_owner = "Mina"
+feature1_hours = [2, 5, 1]
 
-student2_name = "李四"
-student2_age = 21
-student2_scores = [90, 88, 95]
+feature2_name = "RAG 演示"
+feature2_owner = "Kai"
+feature2_hours = [3, 4, 2]
 
 # 或者用字典
-student1 = {"name": "张三", "age": 20, "scores": [85, 92, 78]}
-student2 = {"name": "李四", "age": 21, "scores": [90, 88, 95]}
+feature1 = {"name": "登录 API", "owner": "Mina", "hours": [2, 5, 1]}
+feature2 = {"name": "RAG 演示", "owner": "Kai", "hours": [3, 4, 2]}
 
-# 计算平均分的函数
-def get_average(student):
-    return sum(student["scores"]) / len(student["scores"])
+# 计算总工时的函数
+def total_hours(feature):
+    return sum(feature["hours"])
 ```
 
 这样写有几个问题：
-- 数据和操作是**分离的**（学生数据在字典里，计算函数在外面）
+- 数据和操作是**分离的**（功能数据在字典里，计算函数在外面）
 - 没有**约束**（谁都可以往字典里加奇怪的键，或者删掉必要的键）
-- 当学生的属性越来越多时，代码会**越来越乱**
+- 当功能的属性越来越多时，代码会**越来越乱**
 
 面向对象编程的思路是：**把数据和操作打包在一起，形成一个"对象"。**
 
 ```python
-class Student:
-    def __init__(self, name, age, scores):
+class FeatureTask:
+    def __init__(self, name, owner, hours):
         self.name = name
-        self.age = age
-        self.scores = scores
+        self.owner = owner
+        self.hours = hours
 
-    def get_average(self):
-        return sum(self.scores) / len(self.scores)
+    def total_hours(self):
+        return sum(self.hours)
 
-# 创建学生对象
-student1 = Student("张三", 20, [85, 92, 78])
-student2 = Student("李四", 21, [90, 88, 95])
+# 创建功能任务对象
+task1 = FeatureTask("登录 API", "Mina", [2, 5, 1])
+task2 = FeatureTask("RAG 演示", "Kai", [3, 4, 2])
 
 # 数据和操作绑在一起，使用起来更自然
-print(f"{student1.name} 的平均分: {student1.get_average():.1f}")
-print(f"{student2.name} 的平均分: {student2.get_average():.1f}")
+print(f"{task1.name} 总工时: {task1.total_hours():.1f}")
+print(f"{task2.name} 总工时: {task2.total_hours():.1f}")
 ```
 
 ---
@@ -81,13 +81,13 @@ print(f"{student2.name} 的平均分: {student2.get_average():.1f}")
 - **对象（Object/Instance）** = 用蓝图造出来的实体。比如"你手里的那台 iPhone 15"
 
 ```
-类：Student（学生的模板）
-    └── 属性：name, age, scores
-    └── 方法：get_average(), is_passed()
+类：FeatureTask（功能任务的模板）
+    └── 属性：name, owner, hours
+    └── 方法：total_hours(), is_over_budget()
 
 对象（实例）：
-    └── student1 = Student("张三", 20, [85, 92, 78])
-    └── student2 = Student("李四", 21, [90, 88, 95])
+    └── task1 = FeatureTask("登录 API", "Mina", [2, 5, 1])
+    └── task2 = FeatureTask("RAG 演示", "Kai", [3, 4, 2])
 ```
 
 ---
@@ -165,28 +165,28 @@ Dog.bark(my_dog)
 ### 实例属性 vs 类属性
 
 ```python
-class Student:
+class FeatureTask:
     # 类属性：所有实例共享
-    school = "Python 大学"
-    student_count = 0
+    project = "AI 作品集"
+    task_count = 0
 
-    def __init__(self, name, age):
+    def __init__(self, name, owner):
         # 实例属性：每个实例独有
         self.name = name
-        self.age = age
-        Student.student_count += 1  # 每创建一个学生，计数加 1
+        self.owner = owner
+        FeatureTask.task_count += 1  # 每创建一个任务，计数加 1
 
-s1 = Student("张三", 20)
-s2 = Student("李四", 21)
+t1 = FeatureTask("登录 API", "Mina")
+t2 = FeatureTask("RAG 演示", "Kai")
 
 # 类属性通过类名或实例都能访问
-print(Student.school)       # Python 大学
-print(s1.school)            # Python 大学
-print(Student.student_count)  # 2
+print(FeatureTask.project)     # AI 作品集
+print(t1.project)              # AI 作品集
+print(FeatureTask.task_count)  # 2
 
 # 实例属性只属于各自的实例
-print(s1.name)  # 张三
-print(s2.name)  # 李四
+print(t1.name)   # 登录 API
+print(t2.owner)  # Kai
 ```
 
 ### 方法
@@ -225,33 +225,33 @@ Python 中以 `__` 开头和结尾的方法叫魔术方法（Magic Methods），
 ### `__str__`：定义 print 的输出
 
 ```python
-class Student:
-    def __init__(self, name, age):
+class FeatureTask:
+    def __init__(self, name, owner):
         self.name = name
-        self.age = age
+        self.owner = owner
 
     def __str__(self):
-        return f"Student({self.name}, {self.age}岁)"
+        return f"FeatureTask({self.name}, owner={self.owner})"
 
-s = Student("张三", 20)
-print(s)  # Student(张三, 20岁)
-# 如果没有 __str__，print 会输出 <__main__.Student object at 0x...>
+task = FeatureTask("登录 API", "Mina")
+print(task)  # FeatureTask(登录 API, owner=Mina)
+# 如果没有 __str__，print 会输出 <__main__.FeatureTask object at 0x...>
 ```
 
 ### `__repr__`：定义开发者看到的表示
 
 ```python
-class Student:
-    def __init__(self, name, age):
+class FeatureTask:
+    def __init__(self, name, owner):
         self.name = name
-        self.age = age
+        self.owner = owner
 
     def __repr__(self):
-        return f"Student('{self.name}', {self.age})"
+        return f"FeatureTask('{self.name}', '{self.owner}')"
 
-s = Student("张三", 20)
-print(repr(s))   # Student('张三', 20)
-# 在交互模式中直接输入 s 也会显示这个
+task = FeatureTask("登录 API", "Mina")
+print(repr(task))   # FeatureTask('登录 API', 'Mina')
+# 在交互模式中直接输入 task 也会显示这个
 ```
 
 ### `__len__`：定义 len() 的行为
@@ -393,7 +393,7 @@ class BankAccount:
     def get_balance(self):
         return self._balance
 
-account = BankAccount("张三", 1000)
+account = BankAccount("作品集账户", 1000)
 account.deposit(500)     # 存入 500 元，余额: 1500
 account.withdraw(200)    # 取出 200 元，余额: 1300
 print(account.get_balance())  # 1300
@@ -503,7 +503,7 @@ class Book:
         return f"{self.title}，作者：{self.author}，进度：{self.current_page}/{self.pages} 页"
 
 # 测试
-book = Book("Python 入门", "张三", 300)
+book = Book("Python 入门", "课程团队", 300)
 book.read(50)
 print(f"{book.progress():.1f}%")  # 16.7%
 print(book)

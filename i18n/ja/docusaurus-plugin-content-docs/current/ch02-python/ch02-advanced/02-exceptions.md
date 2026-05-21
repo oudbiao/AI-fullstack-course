@@ -368,61 +368,61 @@ print(f"あなたの年齢は: {age}")
 
 ---
 
-## 総合例：安全な成績管理システム
+## 総合例：安全なタスク見積もり管理
 
 ```python
-class GradeManager:
+class TaskEstimateManager:
     def __init__(self):
-        self.students = {}
+        self.tasks = {}
 
-    def add_student(self, name, score):
-        """学生の成績を追加する"""
+    def add_task(self, name, hours):
+        """タスク見積もりを追加する"""
         if not isinstance(name, str) or not name.strip():
-            raise ValueError("学生名は空にできません")
-        if not isinstance(score, (int, float)):
-            raise TypeError(f"成績は数値である必要があります。受け取った型: {type(score).__name__}")
-        if not 0 <= score <= 100:
-            raise ValueError(f"成績 {score} は範囲外です（0〜100）")
+            raise ValueError("タスク名は空にできません")
+        if not isinstance(hours, (int, float)):
+            raise TypeError(f"時間は数値である必要があります。受け取った型: {type(hours).__name__}")
+        if not 0 <= hours <= 80:
+            raise ValueError(f"時間 {hours} は範囲外です（0〜80）")
 
-        self.students[name] = score
-        print(f"✅ 追加成功: {name} - {score} 点")
+        self.tasks[name] = hours
+        print(f"✅ 追加成功: {name} - {hours} 時間")
 
-    def get_average(self):
-        """平均点を取得する"""
-        if not self.students:
-            raise RuntimeError("学生データがないため、平均点を計算できません")
-        return sum(self.students.values()) / len(self.students)
+    def get_average_hours(self):
+        """平均見積もりを取得する"""
+        if not self.tasks:
+            raise RuntimeError("タスクデータがないため、平均を計算できません")
+        return sum(self.tasks.values()) / len(self.tasks)
 
-    def get_student(self, name):
-        """学生の成績を検索する"""
-        if name not in self.students:
-            raise KeyError(f"学生が見つかりません: {name}")
-        return self.students[name]
+    def get_task(self, name):
+        """タスク見積もりを検索する"""
+        if name not in self.tasks:
+            raise KeyError(f"タスクが見つかりません: {name}")
+        return self.tasks[name]
 
 # 使用
-gm = GradeManager()
+manager = TaskEstimateManager()
 
-# 学生を安全に追加する
+# タスク見積もりを安全に追加する
 test_data = [
-    ("張三", 85),
-    ("李四", 92),
-    ("王五", "優秀"),  # 型エラー
-    ("趙六", 150),     # 範囲エラー
-    ("", 80),          # 名前が空
-    ("銭七", 78),
+    ("ログイン API", 8),
+    ("RAG デモ", 12),
+    ("グラフビュー", "すぐ"),  # 型エラー
+    ("データ取り込み", 120),    # 範囲エラー
+    ("", 6),                    # 名前が空
+    ("デプロイスクリプト", 5),
 ]
 
-for name, score in test_data:
+for name, hours in test_data:
     try:
-        gm.add_student(name, score)
+        manager.add_task(name, hours)
     except (ValueError, TypeError) as e:
         print(f"❌ 追加失敗: {e}")
 
 # 検索
-print(f"\n平均点: {gm.get_average():.1f}")
+print(f"\n平均見積もり: {manager.get_average_hours():.1f} 時間")
 
 try:
-    print(gm.get_student("孫八"))
+    print(manager.get_task("決済フロー"))
 except KeyError as e:
     print(f"検索失敗: {e}")
 ```
