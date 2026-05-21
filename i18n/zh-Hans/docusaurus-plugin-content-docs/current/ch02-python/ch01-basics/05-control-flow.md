@@ -55,10 +55,10 @@ description: "掌握条件判断和循环结构"
 ### 基本的 if
 
 ```python
-temperature = 35
+failed_tests = 3
 
-if temperature > 30:
-    print("今天很热，注意防暑！")
+if failed_tests > 0:
+    print("暂停发布，先检查失败的测试。")
 ```
 
 **语法规则：**
@@ -69,14 +69,14 @@ if temperature > 30:
 ### if...else
 
 ```python
-age = 15
+all_checks_passed = False
 
-if age >= 18:
-    print("你已经成年了")
-    print("可以看这部电影")
+if all_checks_passed:
+    print("构建可以部署")
+    print("编写发布说明")
 else:
-    print("你还未成年")
-    print("需要家长陪同")
+    print("构建继续保持评审状态")
+    print("先修复失败的检查")
 ```
 
 ### if...elif...else
@@ -123,15 +123,15 @@ elif latency_ms < 500:
 
 ```python
 # 三元表达式（一行搞定简单的 if-else）
-age = 20
-status = "成年" if age >= 18 else "未成年"
-print(status)  # 成年
+latency_ms = 185
+status = "在预算内" if latency_ms <= 200 else "需要关注"
+print(status)  # 在预算内
 
 # 等价于
-if age >= 18:
-    status = "成年"
+if latency_ms <= 200:
+    status = "在预算内"
 else:
-    status = "未成年"
+    status = "需要关注"
 ```
 
 ### 嵌套的 if
@@ -139,16 +139,16 @@ else:
 条件里面可以再套条件：
 
 ```python
-has_ticket = True
-age = 15
+has_approval = True
+all_tests_passed = False
 
-if has_ticket:
-    if age >= 18:
-        print("请入场")
+if has_approval:
+    if all_tests_passed:
+        print("部署这个构建")
     else:
-        print("未成年人需要家长陪同")
+        print("等待测试套件通过")
 else:
-    print("请先购票")
+    print("先申请发布审批")
 ```
 
 不过嵌套太多层会让代码难以阅读，通常不建议超过 3 层。
@@ -162,19 +162,19 @@ else:
 ### 遍历列表
 
 ```python
-fruits = ["苹果", "香蕉", "橙子", "葡萄"]
+services = ["登录 API", "搜索 API", "Worker", "仪表盘"]
 
-for fruit in fruits:
-    print(f"我喜欢吃{fruit}")
+for service in services:
+    print(f"检查 {service}")
 
 # 输出:
-# 我喜欢吃苹果
-# 我喜欢吃香蕉
-# 我喜欢吃橙子
-# 我喜欢吃葡萄
+# 检查 登录 API
+# 检查 搜索 API
+# 检查 Worker
+# 检查 仪表盘
 ```
 
-理解方式：`for fruit in fruits` 的意思是"对于 fruits 中的每一个 fruit，执行下面的代码"。
+理解方式：`for service in services` 的意思是"对于 services 中的每一个 service，执行下面的代码"。
 
 ### 遍历字符串
 
@@ -213,13 +213,13 @@ for i in range(5, 0, -1):
 # 输出: 5 4 3 2 1
 ```
 
-### 实际案例：计算 1 到 100 的和
+### 实际案例：统计评审时间
 
 ```python
-total = 0
-for i in range(1, 101):
-    total += i
-print(f"1 到 100 的和是: {total}")  # 5050
+total_minutes = 0
+for day in range(1, 6):
+    total_minutes += 30
+print(f"5 天评审总分钟数: {total_minutes}")  # 150
 ```
 
 ### enumerate()：同时获取索引和值
@@ -285,25 +285,20 @@ while count < 5:
 `while` 适合**不确定循环次数**的情况：
 
 ```python
-# 场景：猜数字游戏
-import random
+# 场景：等待后台任务完成
+job_status = "queued"
+poll_count = 0
 
-target = random.randint(1, 100)
-guess = 0
-attempts = 0
+while job_status != "finished":
+    poll_count += 1
+    print(f"第 {poll_count} 次轮询: {job_status}")
 
-print("我想了一个 1 到 100 的数字，猜猜看！")
+    if poll_count == 1:
+        job_status = "running"
+    elif poll_count == 2:
+        job_status = "finished"
 
-while guess != target:
-    guess = int(input("你的猜测: "))
-    attempts += 1
-
-    if guess < target:
-        print("太小了！")
-    elif guess > target:
-        print("太大了！")
-    else:
-        print(f"恭喜你猜对了！用了 {attempts} 次")
+print(f"任务在 {poll_count} 次轮询后完成")
 ```
 
 ### for vs while 怎么选？
@@ -324,32 +319,33 @@ while guess != target:
 ### break：立即终止循环
 
 ```python
-# 找到第一个偶数就停下
-numbers = [1, 3, 7, 4, 9, 2]
+# 找到第一个慢请求就停下
+latencies_ms = [120, 145, 310, 180, 260]
 
-for num in numbers:
-    if num % 2 == 0:
-        print(f"找到第一个偶数: {num}")
+for latency_ms in latencies_ms:
+    if latency_ms > 250:
+        print(f"第一个慢请求: {latency_ms} ms")
         break
-    print(f"{num} 不是偶数，继续找...")
+    print(f"{latency_ms} ms 仍在范围内，继续检查...")
 
 # 输出:
-# 1 不是偶数，继续找...
-# 3 不是偶数，继续找...
-# 7 不是偶数，继续找...
-# 找到第一个偶数: 4
+# 120 ms 仍在范围内，继续检查...
+# 145 ms 仍在范围内，继续检查...
+# 第一个慢请求: 310 ms
 ```
 
 ### continue：跳过本次循环，继续下一次
 
 ```python
-# 打印所有奇数，跳过偶数
-for i in range(1, 11):
-    if i % 2 == 0:
-        continue   # 跳过偶数
-    print(i, end=" ")
+# 只打印慢请求，跳过健康请求
+latencies_ms = [95, 210, 180, 260, 130]
 
-# 输出: 1 3 5 7 9
+for latency_ms in latencies_ms:
+    if latency_ms <= 200:
+        continue   # 跳过健康请求
+    print(latency_ms, end=" ")
+
+# 输出: 210 260
 ```
 
 ### break 和 continue 的区别
@@ -377,18 +373,19 @@ for i in range(10):
 Python 的循环有一个独特的 `else` 子句——当循环**正常结束**（不是被 `break` 终止）时执行：
 
 ```python
-# 检查一个数是否是质数
-num = 17
+# 检查是否缺少必要评审
+completed_checks = ["unit-test", "lint", "api-test"]
+required_check = "security-review"
 
-for i in range(2, num):
-    if num % i == 0:
-        print(f"{num} 不是质数，可以被 {i} 整除")
+for check in completed_checks:
+    if check == required_check:
+        print(f"{required_check} 已完成")
         break
 else:
-    # 循环没有被 break 终止，说明没有找到因子
-    print(f"{num} 是质数")
+    # 循环没有被 break 终止，说明没有找到必要检查
+    print(f"{required_check} 缺失")
 
-# 输出: 17 是质数
+# 输出: security-review 缺失
 ```
 
 ---
@@ -398,21 +395,22 @@ else:
 循环里面可以再套循环：
 
 ```python
-# 打印九九乘法表
-for i in range(1, 10):
-    for j in range(1, i + 1):
-        print(f"{j}×{i}={i*j}", end="\t")
-    print()   # 每行结束后换行
+# 打印模块/检查矩阵
+modules = ["API", "UI", "DB"]
+checks = ["lint", "test"]
+
+for module in modules:
+    for check in checks:
+        print(f"{module}:{check}", end="\t")
+    print()   # 每个模块结束后换行
 ```
 
 输出：
 
 ```
-1×1=1
-1×2=2	2×2=4
-1×3=3	2×3=6	3×3=9
-...
-1×9=9	2×9=18	3×9=27	...	9×9=81
+API:lint	API:test
+UI:lint	UI:test
+DB:lint	DB:test
 ```
 
 ---
@@ -502,97 +500,103 @@ else:
 
 ## 动手练习
 
-### 练习 1：FizzBuzz
+### 练习 1：发布检查标签
 
-这是经典的编程面试题：
+用一个小的发布检查标签器练习分支顺序：
 
-打印 1 到 50 的数字，但是：
-- 如果数字能被 3 整除，打印 "Fizz"
-- 如果数字能被 5 整除，打印 "Buzz"
-- 如果数字同时能被 3 和 5 整除，打印 "FizzBuzz"
+打印 1 到 50 的样本编号，但是：
+- 如果数字能被 15 整除，打印 "FullCheck"
+- 如果数字能被 3 整除，打印 "Lint"
+- 如果数字能被 5 整除，打印 "Test"
 - 其他情况打印数字本身
 
 ```python
 for i in range(1, 51):
     if i % 15 == 0:
-        print("FizzBuzz")
+        print("FullCheck")
     elif i % 3 == 0:
-        print("Fizz")
+        print("Lint")
     elif i % 5 == 0:
-        print("Buzz")
+        print("Test")
     else:
         print(i)
 ```
 
-提示：先判断能否被 15 整除（3 和 5 的公倍数），再判断 3 和 5。
+提示：先判断能否被 15 整除，再判断 3 和 5。
 
-### 练习 2：猜数字游戏（限制次数）
+### 练习 2：延迟告警循环（限制样本数）
 
-改进猜数字游戏：最多允许猜 7 次，超过就失败。
+最多检查 7 个延迟样本，一旦超过阈值就停止。
 
 ```python
-import random
-target = random.randint(1, 100)
-max_attempts = 7
+latencies_ms = [120, 180, 260, 140, 310, 190, 170]
+threshold_ms = 250
+max_samples = 7
 
-for attempt in range(1, max_attempts + 1):
-    raw = input(f"第 {attempt}/{max_attempts} 次，请输入你的猜测：")
+for sample_no, latency_ms in enumerate(latencies_ms[:max_samples], start=1):
+    print(f"样本 {sample_no}: {latency_ms} ms")
 
-    if not raw.isdigit():
-        print("请输入整数。")
+    if latency_ms <= threshold_ms:
+        print("健康")
         continue
 
-    guess = int(raw)
-    if guess == target:
-        print("猜对了！")
-        break
-    elif guess < target:
-        print("太小了")
-    else:
-        print("太大了")
+    print("告警：延迟超过阈值")
+    break
 else:
-    print(f"失败，答案是 {target}。")
+    print("已检查的样本都在阈值内。")
 ```
 
 :::tip 如何减少调试挫败感
-学习流程控制时，交互和随机数会让调试变难。你可以先把 `target = random.randint(1, 100)` 临时改成 `target = 42`，分别测试“太小、太大、猜对”三个分支，确认逻辑没问题后再改回随机版本。
+先使用固定的小列表，再把慢请求移动到不同位置，分别测试健康路径、告警路径和全部通过路径。
 :::
 
-### 练习 3：画三角形
+### 练习 3：打印部署进度条
 
-用循环打印以下图案：
-
-```
-*
-**
-***
-****
-*****
-```
-
-然后试着打印倒三角形：
+用循环打印以下进度形状：
 
 ```
-*****
-****
-***
-**
-*
+#
+##
+###
+####
+#####
 ```
 
-### 练习 4：求质数
+然后试着打印倒计时进度条：
 
-打印 1 到 100 之间的所有质数。
+```
+#####
+####
+###
+##
+#
+```
 
-提示：质数是大于 1 的自然数，且只能被 1 和自身整除。
+### 练习 4：找出失败检查
+
+打印所有状态不是 `"passed"` 的检查名称。
+
+```python
+checks = [
+    ("lint", "passed"),
+    ("unit-test", "failed"),
+    ("api-test", "passed"),
+    ("security-review", "failed"),
+]
+
+for check_name, status in checks:
+    if status == "passed":
+        continue
+    print(f"{check_name}: {status}")
+```
 
 <details>
 <summary>参考实现与讲解</summary>
 
-1. FizzBuzz 要先判断能否被 `15` 整除，否则 `15` 可能会提前输出成 `Fizz` 或 `Buzz`。
-2. 如果把目标数固定为 `42`，至少测试过小、过大、猜中、输入非整数、次数用尽这几条路径。
-3. 三角形图案可以用 `for n in range(1, 6): print("*" * n)` 打印，倒三角则用反向 `range`。
-4. 判断质数时要跳过 `1`，并且只输出从 `2` 到 `n - 1` 或 `sqrt(n)` 都没有约数的数字。
+1. 发布检查标签要先判断能否被 `15` 整除，否则 `15` 可能会提前输出成 `Lint` 或 `Test`。
+2. 延迟列表先用固定数据测试：健康路径、告警路径，以及把慢请求移走后的全部通过路径。
+3. 进度条可以用 `for n in range(1, 6): print("#" * n)` 打印，倒计时则用反向 `range`。
+4. 失败检查筛选应对 `"passed"` 使用 `continue`，只打印 `failed` 或其他非通过状态。
 5. 注意边界错误：`range(1, 51)` 包含 `50`，`range(1, 50)` 不包含 `50`。
 
 </details>

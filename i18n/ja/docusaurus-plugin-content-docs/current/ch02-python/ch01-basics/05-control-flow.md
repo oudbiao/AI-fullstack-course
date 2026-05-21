@@ -67,10 +67,10 @@ description: "条件分岐とループ構造を身につける"
 ### 基本の if
 
 ```python
-temperature = 35
+failed_tests = 3
 
-if temperature > 30:
-    print("今日はとても暑いです。熱中症に注意！")
+if failed_tests > 0:
+    print("リリースを止めて、失敗したテストを確認します。")
 ```
 
 **文法ルール：**
@@ -81,14 +81,14 @@ if temperature > 30:
 ### if...else
 
 ```python
-age = 15
+all_checks_passed = False
 
-if age >= 18:
-    print("あなたは成人です")
-    print("この映画を見られます")
+if all_checks_passed:
+    print("ビルドはデプロイできます")
+    print("リリースノートを書きます")
 else:
-    print("あなたは未成年です")
-    print("保護者の同伴が必要です")
+    print("ビルドはレビュー状態のままにします")
+    print("失敗したチェックを先に直します")
 ```
 
 ### if...elif...else
@@ -135,15 +135,15 @@ elif latency_ms < 500:
 
 ```python
 # 三項演算子（1行で簡単な if-else を書く）
-age = 20
-status = "成人" if age >= 18 else "未成年"
-print(status)  # 成人
+latency_ms = 185
+status = "予算内" if latency_ms <= 200 else "要確認"
+print(status)  # 予算内
 
 # 同じ意味
-if age >= 18:
-    status = "成人"
+if latency_ms <= 200:
+    status = "予算内"
 else:
-    status = "未成年"
+    status = "要確認"
 ```
 
 ### 入れ子の if
@@ -151,16 +151,16 @@ else:
 条件の中にさらに条件を書けます。
 
 ```python
-has_ticket = True
-age = 15
+has_approval = True
+all_tests_passed = False
 
-if has_ticket:
-    if age >= 18:
-        print("入場してください")
+if has_approval:
+    if all_tests_passed:
+        print("このビルドをデプロイします")
     else:
-        print("未成年は保護者の同伴が必要です")
+        print("テストスイートの通過を待ちます")
 else:
-    print("まずチケットを購入してください")
+    print("先にリリース承認を依頼します")
 ```
 
 ただし、入れ子が深すぎると読みづらくなるので、通常は3階層を超えないようにするのがおすすめです。
@@ -174,19 +174,19 @@ else:
 ### リストをたどる
 
 ```python
-fruits = ["りんご", "バナナ", "オレンジ", "ぶどう"]
+services = ["ログイン API", "検索 API", "Worker", "ダッシュボード"]
 
-for fruit in fruits:
-    print(f"私は{fruit}が好きです")
+for service in services:
+    print(f"{service} をチェックします")
 
 # 出力:
-# 私はりんごが好きです
-# 私はバナナが好きです
-# 私はオレンジが好きです
-# 私はぶどうが好きです
+# ログイン API をチェックします
+# 検索 API をチェックします
+# Worker をチェックします
+# ダッシュボード をチェックします
 ```
 
-理解のしかたとしては、`for fruit in fruits` は「fruits の中の1つ1つの fruit について、下のコードを実行する」という意味です。
+理解のしかたとしては、`for service in services` は「services の中の1つ1つの service について、下のコードを実行する」という意味です。
 
 ### 文字列をたどる
 
@@ -225,13 +225,13 @@ for i in range(5, 0, -1):
 # 出力: 5 4 3 2 1
 ```
 
-### 実践例: 1 から 100 までの合計を求める
+### 実践例: レビュー時間を合計する
 
 ```python
-total = 0
-for i in range(1, 101):
-    total += i
-print(f"1 から 100 までの合計は: {total}")  # 5050
+total_minutes = 0
+for day in range(1, 6):
+    total_minutes += 30
+print(f"5日分のレビュー時間: {total_minutes} 分")  # 150
 ```
 
 ### enumerate()：インデックスと値を同時に取得する
@@ -297,25 +297,20 @@ while count < 5:
 `while` は、**ループ回数が決まっていない**場合に向いています。
 
 ```python
-# 場面: 数当てゲーム
-import random
+# 場面: バックグラウンドジョブの完了を待つ
+job_status = "queued"
+poll_count = 0
 
-target = random.randint(1, 100)
-guess = 0
-attempts = 0
+while job_status != "finished":
+    poll_count += 1
+    print(f"{poll_count} 回目のポーリング: {job_status}")
 
-print("1 から 100 までの数字を1つ考えました。当ててみてください！")
+    if poll_count == 1:
+        job_status = "running"
+    elif poll_count == 2:
+        job_status = "finished"
 
-while guess != target:
-    guess = int(input("あなたの予想: "))
-    attempts += 1
-
-    if guess < target:
-        print("小さすぎます！")
-    elif guess > target:
-        print("大きすぎます！")
-    else:
-        print(f"おめでとう！{attempts}回で正解しました")
+print(f"ジョブは {poll_count} 回のポーリング後に完了しました")
 ```
 
 ### for と while はどう選ぶ？
@@ -336,32 +331,33 @@ while guess != target:
 ### break: ループをすぐ終了する
 
 ```python
-# 最初の偶数を見つけたら止める
-numbers = [1, 3, 7, 4, 9, 2]
+# 最初の遅いリクエストを見つけたら止める
+latencies_ms = [120, 145, 310, 180, 260]
 
-for num in numbers:
-    if num % 2 == 0:
-        print(f"最初の偶数を見つけました: {num}")
+for latency_ms in latencies_ms:
+    if latency_ms > 250:
+        print(f"最初の遅いリクエスト: {latency_ms} ms")
         break
-    print(f"{num} は偶数ではありません。続けて探します...")
+    print(f"{latency_ms} ms は範囲内です。続けて確認します...")
 
 # 出力:
-# 1 は偶数ではありません。続けて探します...
-# 3 は偶数ではありません。続けて探します...
-# 7 は偶数ではありません。続けて探します...
-# 最初の偶数を見つけました: 4
+# 120 ms は範囲内です。続けて確認します...
+# 145 ms は範囲内です。続けて確認します...
+# 最初の遅いリクエスト: 310 ms
 ```
 
 ### continue: 今回のループだけ飛ばして、次へ進む
 
 ```python
-# 奇数だけを表示して、偶数は飛ばす
-for i in range(1, 11):
-    if i % 2 == 0:
-        continue   # 偶数をスキップ
-    print(i, end=" ")
+# 遅いリクエストだけを表示し、正常なものは飛ばす
+latencies_ms = [95, 210, 180, 260, 130]
 
-# 出力: 1 3 5 7 9
+for latency_ms in latencies_ms:
+    if latency_ms <= 200:
+        continue   # 正常なリクエストをスキップ
+    print(latency_ms, end=" ")
+
+# 出力: 210 260
 ```
 
 ### break と continue の違い
@@ -389,18 +385,19 @@ for i in range(10):
 Python のループには、少し特別な `else` があります。ループが**正常に終了したとき**、つまり `break` で止められなかったときに実行されます。
 
 ```python
-# ある数が素数かどうかを調べる
-num = 17
+# 必須レビューが不足していないか調べる
+completed_checks = ["unit-test", "lint", "api-test"]
+required_check = "security-review"
 
-for i in range(2, num):
-    if num % i == 0:
-        print(f"{num} は素数ではありません。{i} で割り切れます")
+for check in completed_checks:
+    if check == required_check:
+        print(f"{required_check} は完了しています")
         break
 else:
-    # ループが break で終わらなかったので、因数が見つからなかった
-    print(f"{num} は素数です")
+    # ループが break で終わらなかったので、必須チェックは見つからなかった
+    print(f"{required_check} が不足しています")
 
-# 出力: 17 は素数です
+# 出力: security-review が不足しています
 ```
 
 ---
@@ -410,21 +407,22 @@ else:
 ループの中に、さらにループを書けます。
 
 ```python
-# 九九表を表示する
-for i in range(1, 10):
-    for j in range(1, i + 1):
-        print(f"{j}×{i}={i*j}", end="\t")
-    print()   # 各行の終わりで改行
+# モジュール/チェックの表を表示する
+modules = ["API", "UI", "DB"]
+checks = ["lint", "test"]
+
+for module in modules:
+    for check in checks:
+        print(f"{module}:{check}", end="\t")
+    print()   # 各モジュールの終わりで改行
 ```
 
 出力：
 
 ```
-1×1=1
-1×2=2	2×2=4
-1×3=3	2×3=6	3×3=9
-...
-1×9=9	2×9=18	3×9=27	...	9×9=81
+API:lint	API:test
+UI:lint	UI:test
+DB:lint	DB:test
 ```
 
 ---
@@ -514,97 +512,103 @@ else:
 
 ## やってみよう
 
-### 練習1: FizzBuzz
+### 練習1: リリースチェックラベル
 
-これは定番のプログラミング面接問題です。
+分岐の順番を、小さなリリースチェックのラベル付けで練習します。
 
-1 から 50 までの数字を表示してください。ただし、
-- 3 で割り切れるなら "Fizz" を表示する
-- 5 で割り切れるなら "Buzz" を表示する
-- 3 と 5 の両方で割り切れるなら "FizzBuzz" を表示する
+1 から 50 までのサンプル番号を表示してください。ただし、
+- 15 で割り切れるなら "FullCheck" を表示する
+- 3 で割り切れるなら "Lint" を表示する
+- 5 で割り切れるなら "Test" を表示する
 - それ以外は数字そのものを表示する
 
 ```python
 for i in range(1, 51):
     if i % 15 == 0:
-        print("FizzBuzz")
+        print("FullCheck")
     elif i % 3 == 0:
-        print("Fizz")
+        print("Lint")
     elif i % 5 == 0:
-        print("Buzz")
+        print("Test")
     else:
         print(i)
 ```
 
-ヒント: まず 15 で割り切れるか（3 と 5 の公倍数）を判定し、その後で 3 と 5 を判定します。
+ヒント: まず 15 で割り切れるかを判定し、その後で 3 と 5 を判定します。
 
-### 練習2: 数当てゲーム（回数制限あり）
+### 練習2: レイテンシ告警ループ（サンプル数制限あり）
 
-数当てゲームを改良して、最大 7 回までしか予想できないようにしましょう。7 回を超えたら失敗です。
+最大 7 個のレイテンシサンプルを確認し、しきい値を超えたらすぐ停止しましょう。
 
 ```python
-import random
-target = random.randint(1, 100)
-max_attempts = 7
+latencies_ms = [120, 180, 260, 140, 310, 190, 170]
+threshold_ms = 250
+max_samples = 7
 
-for attempt in range(1, max_attempts + 1):
-    raw = input(f"{attempt}/{max_attempts} 回目、予想を入力してください: ")
+for sample_no, latency_ms in enumerate(latencies_ms[:max_samples], start=1):
+    print(f"サンプル {sample_no}: {latency_ms} ms")
 
-    if not raw.isdigit():
-        print("整数を入力してください。")
+    if latency_ms <= threshold_ms:
+        print("正常")
         continue
 
-    guess = int(raw)
-    if guess == target:
-        print("正解です！")
-        break
-    elif guess < target:
-        print("小さすぎます")
-    else:
-        print("大きすぎます")
+    print("告警: レイテンシがしきい値を超えました")
+    break
 else:
-    print(f"失敗です。答えは {target} でした。")
+    print("確認したサンプルはすべてしきい値内でした。")
 ```
 
 :::tip デバッグで疲れないために
-制御フローを学んでいる段階では、対話入力とランダム値があるとデバッグが少し難しくなります。まず `target = random.randint(1, 100)` を一時的に `target = 42` に変え、「小さすぎる、大きすぎる、正解」の 3 つの分岐を確認してから、ランダム版に戻しましょう。
+まず小さな固定リストを使い、遅い値の位置を変えながら、正常パス、告警パス、すべて正常のパスを確認しましょう。
 :::
 
-### 練習3: 三角形を描く
+### 練習3: デプロイ進捗バーを表示する
 
-ループを使って次の図形を表示してください。
-
-```
-*
-**
-***
-****
-*****
-```
-
-次に、逆三角形も表示してみましょう。
+ループを使って次の進捗表示を出してください。
 
 ```
-*****
-****
-***
-**
-*
+#
+##
+###
+####
+#####
 ```
 
-### 練習4: 素数を求める
+次に、カウントダウンの進捗バーも表示してみましょう。
 
-1 から 100 までの素数をすべて表示してください。
+```
+#####
+####
+###
+##
+#
+```
 
-ヒント: 素数とは、1 より大きい自然数で、1 と自分自身でしか割り切れない数です。
+### 練習4: 失敗したチェックを見つける
+
+ステータスが `"passed"` ではないチェック名をすべて表示してください。
+
+```python
+checks = [
+    ("lint", "passed"),
+    ("unit-test", "failed"),
+    ("api-test", "passed"),
+    ("security-review", "failed"),
+]
+
+for check_name, status in checks:
+    if status == "passed":
+        continue
+    print(f"{check_name}: {status}")
+```
 
 <details>
 <summary>参考実装と解説</summary>
 
-1. FizzBuzz では、先に `15` で割り切れるかを判定します。そうしないと `15` が先に `Fizz` や `Buzz` として出力される可能性があります。
-2. 目標値を `42` に固定する場合は、小さすぎる入力、大きすぎる入力、正解、整数ではない入力、試行回数切れを確認します。
-3. 三角形は `for n in range(1, 6): print("*" * n)` で描けます。逆三角形は逆向きの `range` を使います。
-4. 素数判定では `1` を除外し、`2` から `n - 1` または `sqrt(n)` までに割り切れる数がないものだけを出力します。
+1. リリースチェックラベルでは、先に `15` で割り切れるかを判定します。そうしないと `15` が先に `Lint` や `Test` として出力される可能性があります。
+2. レイテンシリストでは、固定データを使って、正常パス、告警パス、遅い値を取り除いたすべて正常のパスを確認します。
+3. 進捗バーは `for n in range(1, 6): print("#" * n)` で表示できます。カウントダウンには逆向きの `range` を使います。
+4. 失敗チェックの抽出では `"passed"` に対して `continue` を使い、失敗または未通過のステータスだけを表示します。
 5. 境界ミスに注意します。`range(1, 51)` は `50` を含み、`range(1, 50)` は含みません。
 
 </details>

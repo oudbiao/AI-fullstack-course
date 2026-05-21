@@ -55,10 +55,10 @@ This is **a loop**.
 ### Basic if
 
 ```python
-temperature = 35
+failed_tests = 3
 
-if temperature > 30:
-    print("It's very hot today. Be careful of heatstroke!")
+if failed_tests > 0:
+    print("Stop the release and inspect the failing tests.")
 ```
 
 **Syntax rules:**
@@ -69,14 +69,14 @@ if temperature > 30:
 ### if...else
 
 ```python
-age = 15
+all_checks_passed = False
 
-if age >= 18:
-    print("You are an adult")
-    print("You can watch this movie")
+if all_checks_passed:
+    print("Build is ready to deploy")
+    print("Write the release note")
 else:
-    print("You are not yet an adult")
-    print("A parent or guardian is required")
+    print("Keep the build in review")
+    print("Fix the failing checks first")
 ```
 
 ### if...elif...else
@@ -123,15 +123,15 @@ elif latency_ms < 500:
 
 ```python
 # Ternary expression (one line for a simple if-else)
-age = 20
-status = "Adult" if age >= 18 else "Minor"
-print(status)  # Adult
+latency_ms = 185
+status = "Within budget" if latency_ms <= 200 else "Needs review"
+print(status)  # Within budget
 
 # Equivalent to:
-if age >= 18:
-    status = "Adult"
+if latency_ms <= 200:
+    status = "Within budget"
 else:
-    status = "Minor"
+    status = "Needs review"
 ```
 
 ### Nested if
@@ -139,16 +139,16 @@ else:
 You can put conditions inside other conditions:
 
 ```python
-has_ticket = True
-age = 15
+has_approval = True
+all_tests_passed = False
 
-if has_ticket:
-    if age >= 18:
-        print("Please enter")
+if has_approval:
+    if all_tests_passed:
+        print("Deploy the build")
     else:
-        print("Minors need to be accompanied by a parent or guardian")
+        print("Wait for the test suite to pass")
 else:
-    print("Please buy a ticket first")
+    print("Ask for release approval first")
 ```
 
 However, too many levels of nesting make code hard to read, so it is usually not recommended to go beyond 3 levels.
@@ -162,19 +162,19 @@ A `for` loop is used to **iterate over** each element in a sequence (lists, stri
 ### Iterate over a list
 
 ```python
-fruits = ["apple", "banana", "orange", "grape"]
+services = ["Login API", "Search API", "Worker", "Dashboard"]
 
-for fruit in fruits:
-    print(f"I like eating {fruit}")
+for service in services:
+    print(f"Checking {service}")
 
 # Output:
-# I like eating apple
-# I like eating banana
-# I like eating orange
-# I like eating grape
+# Checking Login API
+# Checking Search API
+# Checking Worker
+# Checking Dashboard
 ```
 
-The idea is: `for fruit in fruits` means "for each fruit in fruits, execute the code below."
+The idea is: `for service in services` means "for each service in services, execute the code below."
 
 ### Iterate over a string
 
@@ -213,13 +213,13 @@ for i in range(5, 0, -1):
 # Output: 5 4 3 2 1
 ```
 
-### Real example: sum from 1 to 100
+### Real example: total review time
 
 ```python
-total = 0
-for i in range(1, 101):
-    total += i
-print(f"The sum from 1 to 100 is: {total}")  # 5050
+total_minutes = 0
+for day in range(1, 6):
+    total_minutes += 30
+print(f"Review minutes for 5 days: {total_minutes}")  # 150
 ```
 
 ### enumerate(): get both index and value
@@ -285,25 +285,20 @@ If you accidentally get stuck in an infinite loop, press `Ctrl+C` to force-stop 
 `while` is suitable when the number of iterations is **unknown**:
 
 ```python
-# Scenario: number guessing game
-import random
+# Scenario: wait for a background job to finish
+job_status = "queued"
+poll_count = 0
 
-target = random.randint(1, 100)
-guess = 0
-attempts = 0
+while job_status != "finished":
+    poll_count += 1
+    print(f"Poll {poll_count}: {job_status}")
 
-print("I have thought of a number from 1 to 100. Try to guess it!")
+    if poll_count == 1:
+        job_status = "running"
+    elif poll_count == 2:
+        job_status = "finished"
 
-while guess != target:
-    guess = int(input("Your guess: "))
-    attempts += 1
-
-    if guess < target:
-        print("Too small!")
-    elif guess > target:
-        print("Too big!")
-    else:
-        print(f"Congratulations, you guessed it! It took {attempts} tries")
+print(f"Job finished after {poll_count} polls")
 ```
 
 ### Which should you choose: for or while?
@@ -324,32 +319,33 @@ while guess != target:
 ### break: stop the loop immediately
 
 ```python
-# Stop as soon as the first even number is found
-numbers = [1, 3, 7, 4, 9, 2]
+# Stop as soon as the first slow request is found
+latencies_ms = [120, 145, 310, 180, 260]
 
-for num in numbers:
-    if num % 2 == 0:
-        print(f"Found the first even number: {num}")
+for latency_ms in latencies_ms:
+    if latency_ms > 250:
+        print(f"First slow request: {latency_ms} ms")
         break
-    print(f"{num} is not even, keep looking...")
+    print(f"{latency_ms} ms is within range, keep checking...")
 
 # Output:
-# 1 is not even, keep looking...
-# 3 is not even, keep looking...
-# 7 is not even, keep looking...
-# Found the first even number: 4
+# 120 ms is within range, keep checking...
+# 145 ms is within range, keep checking...
+# First slow request: 310 ms
 ```
 
 ### continue: skip the current iteration and move to the next one
 
 ```python
-# Print all odd numbers, skip even numbers
-for i in range(1, 11):
-    if i % 2 == 0:
-        continue   # Skip even numbers
-    print(i, end=" ")
+# Print only slow requests, skip healthy ones
+latencies_ms = [95, 210, 180, 260, 130]
 
-# Output: 1 3 5 7 9
+for latency_ms in latencies_ms:
+    if latency_ms <= 200:
+        continue   # Skip healthy requests
+    print(latency_ms, end=" ")
+
+# Output: 210 260
 ```
 
 ### The difference between break and continue
@@ -377,18 +373,19 @@ for i in range(10):
 Python loops have a unique `else` clause — it runs when the loop ends **normally** (that is, not stopped by `break`):
 
 ```python
-# Check whether a number is prime
-num = 17
+# Check whether a required review is missing
+completed_checks = ["unit-test", "lint", "api-test"]
+required_check = "security-review"
 
-for i in range(2, num):
-    if num % i == 0:
-        print(f"{num} is not a prime number; it can be divided by {i}")
+for check in completed_checks:
+    if check == required_check:
+        print(f"{required_check} is complete")
         break
 else:
-    # The loop was not terminated by break, so no factor was found
-    print(f"{num} is a prime number")
+    # The loop was not terminated by break, so the required check was not found
+    print(f"{required_check} is missing")
 
-# Output: 17 is a prime number
+# Output: security-review is missing
 ```
 
 ---
@@ -398,21 +395,22 @@ else:
 You can put a loop inside another loop:
 
 ```python
-# Print the 9x9 multiplication table
-for i in range(1, 10):
-    for j in range(1, i + 1):
-        print(f"{j}×{i}={i*j}", end="\t")
-    print()   # New line after each row
+# Print a module/check matrix
+modules = ["API", "UI", "DB"]
+checks = ["lint", "test"]
+
+for module in modules:
+    for check in checks:
+        print(f"{module}:{check}", end="\t")
+    print()   # New line after each module
 ```
 
 Output:
 
 ```
-1×1=1
-1×2=2	2×2=4
-1×3=3	2×3=6	3×3=9
-...
-1×9=9	2×9=18	3×9=27	...	9×9=81
+API:lint	API:test
+UI:lint	UI:test
+DB:lint	DB:test
 ```
 
 ---
@@ -502,97 +500,103 @@ else:
 
 ## Hands-on Practice
 
-### Exercise 1: FizzBuzz
+### Exercise 1: Release Check Labels
 
-This is a classic programming interview question:
+Practice branch order with a small release-check labeler:
 
-Print the numbers from 1 to 50, but:
-- If a number is divisible by 3, print "Fizz"
-- If a number is divisible by 5, print "Buzz"
-- If a number is divisible by both 3 and 5, print "FizzBuzz"
+Print sample numbers from 1 to 50, but:
+- If a number is divisible by 15, print "FullCheck"
+- If a number is divisible by 3, print "Lint"
+- If a number is divisible by 5, print "Test"
 - Otherwise, print the number itself
 
 ```python
 for i in range(1, 51):
     if i % 15 == 0:
-        print("FizzBuzz")
+        print("FullCheck")
     elif i % 3 == 0:
-        print("Fizz")
+        print("Lint")
     elif i % 5 == 0:
-        print("Buzz")
+        print("Test")
     else:
         print(i)
 ```
 
-Hint: First check whether the number is divisible by 15 (the common multiple of 3 and 5), then check 3 and 5 separately.
+Hint: First check whether the number is divisible by 15, then check 3 and 5 separately.
 
-### Exercise 2: Guess the Number Game (Limited Attempts)
+### Exercise 2: Latency Alert Loop (Limited Samples)
 
-Improve the guessing game: allow at most 7 guesses, and fail if the user goes over.
+Check at most 7 latency samples and stop as soon as one exceeds the threshold.
 
 ```python
-import random
-target = random.randint(1, 100)
-max_attempts = 7
+latencies_ms = [120, 180, 260, 140, 310, 190, 170]
+threshold_ms = 250
+max_samples = 7
 
-for attempt in range(1, max_attempts + 1):
-    raw = input(f"Attempt {attempt}/{max_attempts}, enter your guess: ")
+for sample_no, latency_ms in enumerate(latencies_ms[:max_samples], start=1):
+    print(f"Sample {sample_no}: {latency_ms} ms")
 
-    if not raw.isdigit():
-        print("Please enter an integer.")
+    if latency_ms <= threshold_ms:
+        print("Healthy")
         continue
 
-    guess = int(raw)
-    if guess == target:
-        print("Correct!")
-        break
-    elif guess < target:
-        print("Too small")
-    else:
-        print("Too large")
+    print("Alert: latency exceeded the threshold")
+    break
 else:
-    print(f"Failed. The answer was {target}.")
+    print("All checked samples stayed within the threshold.")
 ```
 
 :::tip How to test this without frustration
-When you are learning flow control, interaction can make debugging harder. First change `target = random.randint(1, 100)` to `target = 42`, test the three branches "too small / too large / correct," and then switch back to the random version.
+Use a small fixed list first, then move the slow value to different positions to test the healthy path, alert path, and all-clear path.
 :::
 
-### Exercise 3: Draw a Triangle
+### Exercise 3: Print a Deployment Progress Bar
 
-Use loops to print the following pattern:
-
-```
-*
-**
-***
-****
-*****
-```
-
-Then try printing an inverted triangle:
+Use loops to print the following progress shape:
 
 ```
-*****
-****
-***
-**
-*
+#
+##
+###
+####
+#####
 ```
 
-### Exercise 4: Find Prime Numbers
+Then try printing a countdown progress bar:
 
-Print all prime numbers between 1 and 100.
+```
+#####
+####
+###
+##
+#
+```
 
-Hint: A prime number is a natural number greater than 1 that can only be divided by 1 and itself.
+### Exercise 4: Find Failed Checks
+
+Print every check name whose status is not `"passed"`.
+
+```python
+checks = [
+    ("lint", "passed"),
+    ("unit-test", "failed"),
+    ("api-test", "passed"),
+    ("security-review", "failed"),
+]
+
+for check_name, status in checks:
+    if status == "passed":
+        continue
+    print(f"{check_name}: {status}")
+```
 
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-1. In FizzBuzz, check divisibility by `15` first. Otherwise `15` may print `Fizz` or `Buzz` too early.
-2. For a fixed target such as `42`, test the too-small path, too-large path, correct path, non-integer input, and out-of-attempts path.
-3. Triangle patterns can be printed with `for n in range(1, 6): print("*" * n)` and a reversed range for the inverted triangle.
-4. Prime-number code should skip `1` and only print numbers with no divisor from `2` up to `n - 1` or `sqrt(n)`.
+1. Release check labels should test divisibility by `15` first. Otherwise `15` may print `Lint` or `Test` too early.
+2. For the latency list, test the healthy path, alert path, and all-clear path by moving or removing the slow value.
+3. Progress bars can be printed with `for n in range(1, 6): print("#" * n)` and a reversed range for the countdown.
+4. Failed-check filtering should use `continue` for `"passed"` and only print failed or otherwise non-passing statuses.
 5. Watch off-by-one errors: `range(1, 51)` includes `50`; `range(1, 50)` does not.
 
 </details>
