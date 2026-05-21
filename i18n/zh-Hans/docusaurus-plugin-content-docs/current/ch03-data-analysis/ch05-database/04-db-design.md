@@ -99,17 +99,18 @@ flowchart LR
 **规则：** 在满足 1NF 的基础上，非主键字段必须完全依赖于整个主键，不能只依赖主键的一部分。
 
 ```
-❌ 违反 2NF（复合主键 = 学生ID + 课程ID）：
-| student_id | course_id | student_name | course_name | score |
-|------------|-----------|--------------|-------------|-------|
-| 1          | C01       | 张三         | 数学        | 89    |
+❌ 违反 2NF（复合主键 = order_id + product_id）：
+| order_id | product_id | customer_name | product_name   | quantity |
+|----------|------------|---------------|----------------|----------|
+| O1001    | P01        | Alex Chen     | Wireless Mouse | 2        |
 
-student_name 只依赖 student_id，不依赖 course_id → 部分依赖
+customer_name 只依赖 order_id，product_name 只依赖 product_id → 部分依赖
 
-✅ 符合 2NF（拆成三张表）：
-students: student_id, student_name
-courses:  course_id, course_name
-scores:   student_id, course_id, score
+✅ 符合 2NF（拆成职责清晰的表）：
+customers:   customer_id, customer_name
+orders:      order_id, customer_id
+products:    product_id, product_name
+order_items: order_id, product_id, quantity
 ```
 
 ### 第三范式（3NF）：消除传递依赖
@@ -490,22 +491,22 @@ mindmap
 ```
 以下表设计有什么问题？属于违反哪个范式？如何修正？
 
-表：student_courses
-| student_id | student_name | student_phone       | course_id | course_name | teacher   | score |
-|------------|-------------|---------------------|-----------|-------------|-----------|-------|
-| 1          | 张三        | 138xxxx, 139xxxx    | C01       | 数学        | 李老师    | 89    |
-| 1          | 张三        | 138xxxx, 139xxxx    | C02       | 英语        | 王老师    | 75    |
-| 2          | 李四        | 186xxxx             | C01       | 数学        | 李老师    | 92    |
+表：order_line_snapshot
+| order_id | customer_name | customer_phone       | product_id | product_name   | supplier | quantity |
+|----------|---------------|----------------------|------------|----------------|----------|----------|
+| O1001    | Alex Chen     | 555-0101, 555-0199   | P01        | Wireless Mouse | GearCo   | 2        |
+| O1001    | Alex Chen     | 555-0101, 555-0199   | P02        | Keyboard       | KeyLabs  | 1        |
+| O1002    | Mia Wong      | 555-0188             | P01        | Wireless Mouse | GearCo   | 1        |
 ```
 
-### 练习 2：设计博客系统
+### 练习 2：设计客户支持工单系统
 
 ```
-设计一个简单博客系统的数据库，需要支持：
-- 用户注册和登录
-- 发表文章（有标题、内容、分类）
-- 文章评论
-- 文章标签（一篇文章可以有多个标签）
+设计一个简单客户支持系统的数据库，需要支持：
+- 客户和客服账号
+- 创建支持工单（标题、描述、状态、优先级）
+- 客户和客服在工单下发送消息
+- 工单分类和标签（一个工单可以有多个标签）
 
 要求：
 1. 画出 ER 图（可以用纸笔或 Mermaid）
@@ -519,18 +520,18 @@ mindmap
 # 用 SQLite 实现练习 2 的设计
 # 插入示例数据
 # 完成以下查询：
-# 1. 查询某个用户发表的所有文章
-# 2. 查询某篇文章的所有评论（包含评论者姓名）
-# 3. 查询每个分类下的文章数量
-# 4. 查询有"Python"标签的所有文章
+# 1. 查询分配给某个客服、状态仍为 open 的所有工单
+# 2. 查询某个工单的所有消息（包含发送者姓名）
+# 3. 查询每种状态或分类下的工单数量
+# 4. 查询带有 "refund" 标签的所有工单
 ```
 
 
 <details>
 <summary>参考实现与讲解</summary>
 
-- 规范化练习中，应拆分学生、电话号码、课程、教师和选课记录。把课程或电话重复塞进一张宽表，违背 1NF 的精神，也容易造成更新错误。
-- 博客 schema 通常包含 users、posts、categories、comments、tags 和 `post_tags` 关联表。外键要清楚表达归属和关系。
-- 常被查找和 join 的字段可以加索引，例如 `user_id`、`post_id`、`category_id` 和标签名。不要盲目加索引；每个索引都应服务于预期查询。
+- 规范化练习中，应拆分客户、客户电话、订单、商品、供应商和订单明细。逗号分隔的电话字段违反 1NF；把客户和商品事实重复塞进订单明细，会产生部分依赖和更新错误。
+- 工单系统 schema 通常包含 users、tickets、ticket_messages、categories、tags 和 `ticket_tags` 关联表。外键要清楚表达客户归属、客服分配和工单消息关系。
+- 常被查找和 join 的字段可以加索引，例如 `assignee_id`、`customer_id`、`ticket_id`、`status`、`category_id` 和标签名。不要盲目加索引；每个索引都应服务于预期查询。
 
 </details>

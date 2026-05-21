@@ -99,18 +99,19 @@ flowchart LR
 **ルール：** 1NFを満たしたうえで、非主キー項目は主キー全体に完全に依存しなければなりません。主キーの一部だけに依存してはいけません。
 
 ```
-❌ 2NF違反（複合主キー = 学生ID + コースID）：
-| student_id | course_id | student_name | course_name | score |
-|------------|-----------|--------------|-------------|-------|
-| 1          | C01       | 三郎         | 数学        | 89    |
+❌ 2NF違反（複合主キー = order_id + product_id）：
+| order_id | product_id | customer_name | product_name   | quantity |
+|----------|------------|---------------|----------------|----------|
+| O1001    | P01        | Alex Chen     | Wireless Mouse | 2        |
 
-student_name は student_id にだけ依存していて、course_id には依存していない
+customer_name は order_id だけに依存し、product_name は product_id だけに依存している
 → 部分依存
 
-✅ 2NFに適合（3つのテーブルに分割）：
-students: student_id, student_name
-courses:  course_id, course_name
-scores:   student_id, course_id, score
+✅ 2NFに適合（責務ごとに分割）：
+customers:   customer_id, customer_name
+orders:      order_id, customer_id
+products:    product_id, product_name
+order_items: order_id, product_id, quantity
 ```
 
 ### 第3正規形（3NF）：推移的従属をなくす
@@ -491,22 +492,22 @@ mindmap
 ```
 次のテーブル設計にはどんな問題がありますか？どの正規形に違反していますか？どう直しますか？
 
-テーブル：student_courses
-| student_id | student_name | student_phone       | course_id | course_name | teacher   | score |
-|------------|-------------|---------------------|-----------|-------------|-----------|-------|
-| 1          | 張三        | 138xxxx, 139xxxx    | C01       | 数学        | 李先生    | 89    |
-| 1          | 張三        | 138xxxx, 139xxxx    | C02       | 英語        | 王先生    | 75    |
-| 2          | 李四        | 186xxxx             | C01       | 数学        | 李先生    | 92    |
+テーブル：order_line_snapshot
+| order_id | customer_name | customer_phone       | product_id | product_name   | supplier | quantity |
+|----------|---------------|----------------------|------------|----------------|----------|----------|
+| O1001    | Alex Chen     | 555-0101, 555-0199   | P01        | Wireless Mouse | GearCo   | 2        |
+| O1001    | Alex Chen     | 555-0101, 555-0199   | P02        | Keyboard       | KeyLabs  | 1        |
+| O1002    | Mia Wong      | 555-0188             | P01        | Wireless Mouse | GearCo   | 1        |
 ```
 
-### 練習2：ブログシステムを設計する
+### 練習2：カスタマーサポートのチケットシステムを設計する
 
 ```
-次の要件を満たす、シンプルなブログシステムのデータベースを設計してください。
-- ユーザー登録とログイン
-- 記事の投稿（タイトル、本文、カテゴリあり）
-- 記事へのコメント
-- 記事タグ（1つの記事に複数のタグを付けられる）
+次の要件を満たす、シンプルなカスタマーサポートシステムのデータベースを設計してください。
+- 顧客アカウントとサポート担当者アカウント
+- サポートチケットの作成（タイトル、説明、状態、優先度）
+- 顧客と担当者によるチケット内メッセージ
+- チケットのカテゴリとタグ（1つのチケットに複数のタグを付けられる）
 
 要件：
 1. ER図を描く（紙とペンでも Mermaid でもよい）
@@ -520,18 +521,18 @@ mindmap
 # SQLite で練習2の設計を実装する
 # サンプルデータを挿入する
 # 次の検索を完成させる：
-# 1. あるユーザーが投稿したすべての記事を検索する
-# 2. ある記事のすべてのコメントを検索する（コメントした人の名前を含む）
-# 3. 各カテゴリごとの記事数を検索する
-# 4. "Python" タグが付いたすべての記事を検索する
+# 1. 特定の担当者に割り当てられた open 状態のチケットをすべて検索する
+# 2. 特定チケットのすべてのメッセージを検索する（送信者名を含む）
+# 3. 状態またはカテゴリごとのチケット数を検索する
+# 4. "refund" タグが付いたすべてのチケットを検索する
 ```
 
 
 <details>
 <summary>参考実装と解説</summary>
 
-- 正規化の練習では、学生、電話番号、科目、教師、履修を分けます。科目や電話を 1 つの横長テーブルに繰り返し入れると、1NF の考え方から外れ、更新ミスも起きやすくなります。
-- ブログ schema では、典型的に users、posts、categories、comments、tags、`post_tags` 結合テーブルを用意します。外部キーは所有関係と関連を明確に表します。
-- よく検索や join に使う `user_id`、`post_id`、`category_id`、タグ名などには index を検討します。ただし盲目的に追加せず、各 index が想定クエリを支えるようにします。
+- 正規化の練習では、顧客、顧客電話番号、注文、商品、仕入先、注文明細を分けます。カンマ区切りの電話番号は 1NF に反し、顧客情報や商品情報を注文明細に繰り返すと部分依存と更新ミスが起きます。
+- チケットシステムの schema では、典型的に users、tickets、ticket_messages、categories、tags、`ticket_tags` 結合テーブルを用意します。外部キーは顧客の所有、担当者の割り当て、チケットとメッセージの関係を明確に表します。
+- よく検索や join に使う `assignee_id`、`customer_id`、`ticket_id`、`status`、`category_id`、タグ名などには index を検討します。ただし盲目的に追加せず、各 index が想定クエリを支えるようにします。
 
 </details>

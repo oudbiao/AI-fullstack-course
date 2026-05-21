@@ -99,17 +99,18 @@ Normalization is a set of database design rules that helps you avoid the problem
 **Rule:** On the basis of 1NF, non-key fields must depend on the whole primary key, not just part of it.
 
 ```
-❌ Violates 2NF (composite primary key = student_id + course_id):
-| student_id | course_id | student_name | course_name | score |
-|------------|-----------|--------------|-------------|-------|
-| 1          | C01       | Zhang San    | Math        | 89    |
+❌ Violates 2NF (composite primary key = order_id + product_id):
+| order_id | product_id | customer_name | product_name   | quantity |
+|----------|------------|---------------|----------------|----------|
+| O1001    | P01        | Alex Chen     | Wireless Mouse | 2        |
 
-student_name depends only on student_id, not on course_id → partial dependency
+customer_name depends only on order_id, and product_name depends only on product_id → partial dependency
 
-✅ Follows 2NF (split into three tables):
-students: student_id, student_name
-courses:  course_id, course_name
-scores:   student_id, course_id, score
+✅ Follows 2NF (split into focused tables):
+customers:   customer_id, customer_name
+orders:      order_id, customer_id
+products:    product_id, product_name
+order_items: order_id, product_id, quantity
 ```
 
 ### Third Normal Form (3NF): Remove Transitive Dependency
@@ -490,22 +491,22 @@ mindmap
 ```
 What is wrong with the following table design? Which normal form is violated? How would you fix it?
 
-Table: student_courses
-| student_id | student_name | student_phone       | course_id | course_name | teacher   | score |
-|------------|-------------|---------------------|-----------|-------------|-----------|-------|
-| 1          | Zhang San   | 138xxxx, 139xxxx    | C01       | Math        | Teacher Li    | 89    |
-| 1          | Zhang San   | 138xxxx, 139xxxx    | C02       | English     | Teacher Wang    | 75    |
-| 2          | Li Si       | 186xxxx             | C01       | Math        | Teacher Li    | 92    |
+Table: order_line_snapshot
+| order_id | customer_name | customer_phone       | product_id | product_name   | supplier | quantity |
+|----------|---------------|----------------------|------------|----------------|----------|----------|
+| O1001    | Alex Chen     | 555-0101, 555-0199   | P01        | Wireless Mouse | GearCo   | 2        |
+| O1001    | Alex Chen     | 555-0101, 555-0199   | P02        | Keyboard       | KeyLabs  | 1        |
+| O1002    | Mia Wong      | 555-0188             | P01        | Wireless Mouse | GearCo   | 1        |
 ```
 
-### Exercise 2: Design a Blog System
+### Exercise 2: Design a Customer Support Ticket System
 
 ```
-Design a database for a simple blog system that needs to support:
-- user registration and login
-- publishing articles (with title, content, category)
-- article comments
-- article tags (one article can have multiple tags)
+Design a database for a simple customer support system that needs to support:
+- customer and support agent accounts
+- creating support tickets (title, description, status, priority)
+- ticket messages from customers and agents
+- ticket categories and tags (one ticket can have multiple tags)
 
 Requirements:
 1. Draw an ER diagram (you can use paper or Mermaid)
@@ -519,18 +520,18 @@ Requirements:
 # Implement the design from Exercise 2 using SQLite
 # Insert sample data
 # Complete the following queries:
-# 1. Query all articles published by a specific user
-# 2. Query all comments for a specific article (including commenter names)
-# 3. Query the number of articles under each category
-# 4. Query all articles with the "Python" tag
+# 1. Query all open tickets assigned to a specific agent
+# 2. Query all messages for a specific ticket (including sender names)
+# 3. Query the number of tickets under each status or category
+# 4. Query all tickets with the "refund" tag
 ```
 
 
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-- For the normalization exercise, separate students, phone numbers, courses, teachers, and enrollments. Repeating course or phone data in one wide table violates the spirit of 1NF and creates update errors.
-- For a blog schema, typical tables are users, posts, categories, comments, tags, and a `post_tags` join table. Foreign keys should describe ownership and relationships clearly.
-- Add indexes where lookups and joins happen often, such as `user_id`, `post_id`, `category_id`, and tag names. Do not add indexes blindly; each one should support a query you expect to run.
+- For the normalization exercise, separate customers, customer phone numbers, orders, products, suppliers, and order items. A comma-separated phone field violates 1NF, while customer and product facts repeated inside order lines create partial dependencies and update errors.
+- For a support-ticket schema, typical tables are users, tickets, ticket_messages, categories, tags, and a `ticket_tags` join table. Foreign keys should describe customer ownership, agent assignment, and ticket-message relationships clearly.
+- Add indexes where lookups and joins happen often, such as `assignee_id`, `customer_id`, `ticket_id`, `status`, `category_id`, and tag names. Do not add indexes blindly; each one should support a query you expect to run.
 
 </details>

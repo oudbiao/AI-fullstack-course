@@ -118,7 +118,7 @@ AI says: Python is a concise, elegant, and powerful high-level programming langu
 ```python
 response = client.responses.create(
     model="gpt-4o-mini",
-    instructions="You are a Python programming assistant. Use beginner-friendly language.",
+    instructions="You are a Python engineering assistant. Explain clearly and include one runnable next step.",
     input=[
         {"role": "user", "content": "What is a list comprehension?"},
         {"role": "assistant", "content": "A list comprehension is a compact way to build a list."},
@@ -412,7 +412,7 @@ Wrap the AI chatbot functionality as an API so others can use your AI bot throug
 
 ### Challenge 3: Role Playing
 
-Create AI assistants with different roles (Python mentor, English teacher, interviewer) and let the user choose one.
+Create AI assistants with different engineering roles (Python mentor, code reviewer, API debugging assistant, interview coach) and let the user choose one.
 
 ### Challenge 4: Local Knowledge Base
 
@@ -423,7 +423,7 @@ Let the AI read a local file first (for example, your notes), then answer questi
 
 1. For streaming, iterate over `response.output_text.delta` events and print each chunk immediately so the reply appears gradually.
 2. Wrap the chatbot in FastAPI only after the direct CLI version works, so you can compare CLI and HTTP behavior clearly.
-3. For role playing, build a role selector that swaps prompts or system instructions while keeping the same chat loop.
+3. For role playing, build a role selector that swaps prompts or system instructions while keeping the same chat loop. Each role should produce a different engineering artifact: a clearer explanation, review comments, a debugging checklist, or interview feedback.
 4. For a local knowledge base, load notes or Markdown first, retrieve relevant passages, and then answer with those passages in mind. Showing the source snippet makes the answer easier to trust.
 5. Self-check: confirm that the API key is stored safely, multi-turn memory works, at least one practical tool works, and the key is not hard-coded.
 </details>
