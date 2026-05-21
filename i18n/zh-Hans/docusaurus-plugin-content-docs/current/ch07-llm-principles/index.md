@@ -75,7 +75,7 @@ cases = [
 
 prompts = {
     "plain": "Explain the topic.",
-    "teacher": "You are a patient AI teacher. Explain the topic in 3 short bullets.",
+    "mentor": "You are a patient AI mentor. Explain the topic in 3 short bullets.",
     "json": "Return JSON with keys: topic, level, summary, next_step.",
 }
 
@@ -93,7 +93,7 @@ def toy_model(prompt: str, case: dict) -> str:
             },
             ensure_ascii=False,
         )
-    if "patient AI teacher" in prompt:
+    if "patient AI mentor" in prompt:
         return f"- Define {topic}\n- Show one example\n- Ask the learner to retry"
     return f"{topic} is an AI concept."
 
@@ -119,7 +119,7 @@ for prompt_name, prompt in prompts.items():
 
 ```text
 plain: 2/2 cases passed
-teacher: 2/2 cases passed
+mentor: 2/2 cases passed
 json: 2/2 cases passed
 ```
 

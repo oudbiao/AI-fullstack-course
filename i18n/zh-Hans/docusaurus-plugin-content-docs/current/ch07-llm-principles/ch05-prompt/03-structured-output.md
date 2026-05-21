@@ -368,26 +368,26 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 
 如果你的目标是：
 
-- 生成课件
-- 生成报告
+- 生成支持工单复盘
+- 生成发布评审报告
 - 生成固定栏目文档
 
 那结构化输出最重要的一步往往不是“叫模型输出 JSON”，
 而是先把 schema 设计清楚。
 
-一个更适合课件生成的最小 schema 往往会长这样：
+一个适合事故复盘报告的最小 schema 往往会长这样：
 
 ```json
 {
-  "title": "折扣应用题讲解",
-  "audience": "小学高年级",
-  "teaching_goal": ["理解折扣的基本计算方法"],
+  "title": "密码重置事故复盘",
+  "audience": "支持运营团队",
+  "objective": ["定位根因", "定义后续行动"],
   "sections": [
-    {"type": "concept", "heading": "知识点回顾", "items": ["折扣 = 原价 × 折扣率"]},
-    {"type": "example", "heading": "例题讲解", "items": ["商品原价 100 元，打 8 折后是多少元？"]},
-    {"type": "exercise", "heading": "课堂练习", "items": ["一件衣服原价 80 元，打 7 折后是多少元？"]}
+    {"type": "summary", "heading": "事故摘要", "items": ["09:10 到 09:40 之间用户无法收到重置邮件"]},
+    {"type": "evidence", "heading": "证据", "items": ["邮件队列延迟峰值达到 14 分钟"]},
+    {"type": "action", "heading": "后续行动", "items": ["增加队列延迟告警，并发布状态页更新模板"]}
   ],
-  "source_refs": [{"doc_id": "word_001", "page_or_slide": 3}]
+  "source_refs": [{"doc_id": "incident_042", "page_or_slide": 3}]
 }
 ```
 

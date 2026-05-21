@@ -38,7 +38,7 @@ With one-hot vectors, every different word is equally different:
 refund   -> [1, 0, 0, 0]
 return   -> [0, 1, 0, 0]
 password -> [0, 0, 1, 0]
-banana   -> [0, 0, 0, 1]
+coupon   -> [0, 0, 0, 1]
 ```
 
 Dense vectors can encode useful geometry:
@@ -64,7 +64,7 @@ embeddings = {
     "password": [0.10, 0.20, 0.95],
     "reset": [0.12, 0.18, 0.92],
     "order": [0.75, 0.70, 0.15],
-    "banana": [0.05, 0.95, 0.10],
+    "coupon": [0.05, 0.95, 0.10],
     "policy": [0.82, 0.74, 0.18],
 }
 
@@ -111,7 +111,7 @@ query = mean_embedding(["reset", "password"])
 documents = {
     "A refund policy": ["refund", "policy"],
     "B password reset": ["password", "reset"],
-    "C banana return": ["banana", "return"],
+    "C coupon return": ["coupon", "return"],
 }
 
 ranked = sorted(
@@ -131,7 +131,7 @@ Expected output:
 
 ```text
 B password reset: 1.000
-C banana return: 0.335
+C coupon return: 0.335
 A refund policy: 0.333
 ```
 
@@ -223,7 +223,7 @@ next_use: this becomes retrieval evidence in Chapter 8
 
 ## Exercises
 
-1. Move `banana` closer to `password` in the toy table. How does retrieval break?
+1. Move `coupon` closer to `password` in the toy table. How does retrieval break?
 2. Add a document `D recover account` and create vectors for `recover` and `account`.
 3. Make a query `refund order`. Which document should rank first?
 4. Explain why `doctor` and `hospital` may be close even though they are not synonyms.
@@ -232,8 +232,8 @@ next_use: this becomes retrieval evidence in Chapter 8
 <details>
 <summary>Project reference and review notes</summary>
 
-1. If `banana` moves close to `password`, similarity search may retrieve fruit-related text for account-recovery queries. The failure is not random; it comes from bad geometry.
-2. `recover` and `account` should be placed near password/account-support concepts, not near unrelated commerce or fruit concepts. The added document should become a plausible match for account-recovery queries.
+1. If `coupon` moves close to `password`, similarity search may retrieve unrelated promotion or return-policy text for account-recovery queries. The failure is not random; it comes from bad geometry.
+2. `recover` and `account` should be placed near password/account-support concepts, not near unrelated promotion or return-policy concepts. The added document should become a plausible match for account-recovery queries.
 3. `refund order` should rank the refund/order document first if the embedding space captures both commerce and refund intent.
 4. `doctor` and `hospital` are close because they often appear in the same domain. Similarity can mean topical relation, not strict synonymy.
 5. Useful evidence includes a fixed query set, expected top-k documents, retrieval scores, known failure cases, latency, cost, and examples where wording changes but intent stays the same.

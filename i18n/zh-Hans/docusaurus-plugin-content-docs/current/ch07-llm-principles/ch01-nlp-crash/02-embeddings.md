@@ -38,7 +38,7 @@ One-hot 向量里，任何不同词都一样“不同”：
 refund   -> [1, 0, 0, 0]
 return   -> [0, 1, 0, 0]
 password -> [0, 0, 1, 0]
-banana   -> [0, 0, 0, 1]
+coupon   -> [0, 0, 0, 1]
 ```
 
 稠密向量可以表达更有用的几何关系：
@@ -64,7 +64,7 @@ embeddings = {
     "password": [0.10, 0.20, 0.95],
     "reset": [0.12, 0.18, 0.92],
     "order": [0.75, 0.70, 0.15],
-    "banana": [0.05, 0.95, 0.10],
+    "coupon": [0.05, 0.95, 0.10],
     "policy": [0.82, 0.74, 0.18],
 }
 
@@ -111,7 +111,7 @@ query = mean_embedding(["reset", "password"])
 documents = {
     "A refund policy": ["refund", "policy"],
     "B password reset": ["password", "reset"],
-    "C banana return": ["banana", "return"],
+    "C coupon return": ["coupon", "return"],
 }
 
 ranked = sorted(
@@ -131,7 +131,7 @@ for name, score in ranked:
 
 ```text
 B password reset: 1.000
-C banana return: 0.335
+C coupon return: 0.335
 A refund policy: 0.333
 ```
 
@@ -223,7 +223,7 @@ bank in river  : [0.3, 0.75, 0.4]
 
 ## 练习
 
-1. 把 `banana` 移到更接近 `password` 的位置，观察检索如何出错。
+1. 把 `coupon` 移到更接近 `password` 的位置，观察检索如何出错。
 2. 添加文档 `D recover account`，并给 `recover`、`account` 设计向量。
 3. 创建 查询 `refund order`，你认为哪条文档应该排第一？
 4. 用自己的话解释：为什么 `doctor` 和 `hospital` 可能接近，但不是同义词？
@@ -232,8 +232,8 @@ bank in river  : [0.3, 0.75, 0.4]
 <details>
 <summary>项目交付参考与讲解</summary>
 
-1. 如果把 `banana` 放得很接近 `password`，相似度检索可能把水果相关文本错误召回给账号恢复问题。问题不是随机的，而是向量空间位置错了。
-2. `recover` 和 `account` 应该靠近密码、账号支持等概念，而不是靠近无关的商品或水果概念。新增文档应该能匹配账号恢复类查询。
+1. 如果把 `coupon` 放得很接近 `password`，相似度检索可能把无关的促销或退货政策文本错误召回给账号恢复问题。问题不是随机的，而是向量空间位置错了。
+2. `recover` 和 `account` 应该靠近密码、账号支持等概念，而不是靠近无关的促销或退货政策概念。新增文档应该能匹配账号恢复类查询。
 3. 如果 embedding 空间同时捕捉到 refund 意图和 order 语义，`refund order` 应该让退款/订单文档排第一。
 4. `doctor` 和 `hospital` 接近，是因为它们常出现在同一领域。相似度可以表示主题相关，不一定表示严格同义。
 5. 有用证据包括固定查询集、期望 top-k 文档、召回分数、已知失败样例、延迟、成本，以及“换说法但意图不变”的测试。

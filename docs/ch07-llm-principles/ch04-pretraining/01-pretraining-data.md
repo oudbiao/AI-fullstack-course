@@ -55,13 +55,13 @@ So the real goal here is not the empty phrase “data matters,” but to answer:
 
 ## Why does pretraining data determine the model foundation?
 
-### First, a story: two students read different books
+### First, a story: two model pipelines read different data
 
-Imagine two students who are both smart and use the same learning method.
+Imagine two model pipelines that use the same architecture and training setup.
 
-The first student reads high-quality textbooks, papers, technical docs, and well-edited long-form articles every day. The second student reads repeated ads, clickbait, copied webpages, and messy comments. After half a year, their expression ability, factual reliability, and problem-analysis habits will likely look very different.
+The first pipeline trains on high-quality technical docs, papers, verified product guides, and well-edited long-form articles. The second trains on repeated ads, clickbait, copied webpages, and messy comments. After enough training steps, their expression quality, factual reliability, and problem-analysis habits will likely look very different.
 
-Pretraining data affects a model in a similar way. The model architecture is like the learning method, compute is like learning time, and data is the material it reads every day. Different material leads to different capabilities in the end.
+Pretraining data affects a model in exactly this way. Architecture is the processing machinery, compute is the training budget, and data is the material flowing through the pipeline. Different material leads to different capabilities in the end.
 
 ### What the model learns is not only knowledge, but also language habits and the world distribution
 

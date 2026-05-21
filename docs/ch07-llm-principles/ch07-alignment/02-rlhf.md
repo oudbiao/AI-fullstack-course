@@ -114,17 +114,17 @@ RLHF is more like continuing to teach it:
 
 - Among two answers that both work, which one is more aligned with human preference
 
-### A simpler analogy for beginners
+### A simpler engineering analogy for beginners
 
 You can think of RLHF like this:
 
-- First teach a student how to solve the problem, then let the teacher choose which of two answers is more like what a human wants
+- First make the model produce usable answer drafts, then let a human preference reviewer choose which draft is closer to what people want
 
 In other words:
 
 - Pretraining is like first learning language ability
 - SFT is like first learning the basic answer format
-- RLHF is like the teacher then telling you: both answers are basically right, but this one is more suitable
+- RLHF is like preference review then saying: both answers are basically right, but this one is more suitable
 
 ---
 
@@ -175,7 +175,7 @@ A common approach is PPO or similar algorithms. The core intuition is:
 
 So one very common engineering intuition in RLHF is:
 
-> **First train a “scoring teacher” from human preferences, then fine-tune the generation model toward higher scores.**
+> **First train a reward model from human preferences, then fine-tune the generation model toward higher scores.**
 
 ### A role table that is useful for beginners
 
@@ -444,8 +444,8 @@ It is easy to misunderstand RLHF as:
 
 But a more accurate understanding is:
 
-- First train a scoring teacher
-- Then let the generation model update under that teacher’s guidance
+- First train a scoring model
+- Then let the generation model update under that reward signal
 - And also prevent the model from drifting while chasing high scores
 
 That is why it is much heavier than ordinary SFT.
@@ -558,7 +558,7 @@ risk: reward hacking or preference data bias
 The most important thing in this section is not memorizing the acronym PPO,
 but understanding the main RLHF pipeline:
 
-> **First train a “teacher that can score” using preference pairs, then use that teacher to guide the generation model toward updates that better match human preferences.**
+> **First train a reward model using preference pairs, then use that signal to guide the generation model toward updates that better match human preferences.**
 
 Once you truly understand this chain,
 you will not just remember method names when you later learn DPO, RLAIF, or other alignment methods.

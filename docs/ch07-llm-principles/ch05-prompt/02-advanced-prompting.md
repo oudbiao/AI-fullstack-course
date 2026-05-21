@@ -156,7 +156,7 @@ When you read this diagram, do not stack techniques blindly. First identify the 
 
 Many Prompts say things like:
 
-- You are a senior teacher
+- You are a senior technical mentor
 - You are a legal assistant
 - You are a code reviewer
 

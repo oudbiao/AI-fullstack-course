@@ -370,26 +370,26 @@ bad JSON は解析できますが、`needs_human` が欠けているため `conf
 
 目標が次のような場合は：
 
-- 受講資料を生成する
-- レポートを生成する
+- サポート triage レポートを生成する
+- リリースレビュー報告書を生成する
 - 固定項目の文書を生成する
 
 構造化出力で最も大事なのは、「JSON を出して」と言うことよりも、
 まず schema をしっかり設計することです。
 
-授業資料生成に向いた最小の schema は、次のような形になります。
+インシデントレビュー報告書に向いた最小の schema は、次のような形になります。
 
 ```json
 {
-  "title": "割引の文章題の解説",
-  "audience": "小学高学年",
-  "teaching_goal": ["割引の基本的な計算方法を理解する"],
+  "title": "パスワードリセット障害レビュー",
+  "audience": "サポート運用チーム",
+  "objective": ["根本原因を特定する", "次の対応を決める"],
   "sections": [
-    {"type": "concept", "heading": "知識の確認", "items": ["割引 = 元の価格 × 割引率"]},
-    {"type": "example", "heading": "例題の解説", "items": ["商品価格が 100 円で、2 割引のときはいくら？"]},
-    {"type": "exercise", "heading": "授業中の練習", "items": ["服の元値が 80 円で、3 割引のときはいくら？"]}
+    {"type": "summary", "heading": "インシデント概要", "items": ["09:10 から 09:40 まで、ユーザーが reset email を受信できなかった"]},
+    {"type": "evidence", "heading": "根拠", "items": ["email queue latency の最大値が 14 分に達した"]},
+    {"type": "action", "heading": "次の対応", "items": ["queue latency alert を追加し、status page 更新テンプレートを公開する"]}
   ],
-  "source_refs": [{"doc_id": "word_001", "page_or_slide": 3}]
+  "source_refs": [{"doc_id": "incident_042", "page_or_slide": 3}]
 }
 ```
 

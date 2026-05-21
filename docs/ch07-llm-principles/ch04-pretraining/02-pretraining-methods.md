@@ -76,13 +76,13 @@ then it will more easily learn:
 So the pretraining objective is not just a surface-level task;
 it is the steering wheel for the model’s abilities.
 
-### An analogy: Exam question types shape how you study
+### An analogy: Training tasks shape system behavior
 
-Think of the model as a student.
+Think of the objective as the test harness that keeps exercising the model.
 
-- If the exam is always fill-in-the-blank, it practices fill-in-the-blank
-- If the exam is always essay writing, it practices continuation
-- If the exam is always paraphrasing and summarization, it practices input-to-output mapping
+- If the harness always hides tokens, the model practices reconstruction
+- If the harness always asks for continuation, the model practices next-token prediction
+- If the harness always gives an input and expected output, the model practices input-to-output mapping
 
 Models are the same.
 

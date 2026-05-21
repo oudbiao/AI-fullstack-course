@@ -158,7 +158,7 @@ for ex in few_shot_examples:
 
 多くの Prompt には、次のような文があります。
 
-- あなたは経験豊富な先生です
+- あなたは経験豊富な technical mentor です
 - あなたは法律アシスタントです
 - あなたはコードレビュー担当です
 

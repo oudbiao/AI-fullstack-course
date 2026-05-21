@@ -368,26 +368,26 @@ So you can understand it like this:
 
 If your goal is to:
 
-- generate courseware
-- generate reports
+- generate support triage reports
+- generate release review reports
 - generate documents with fixed sections
 
 then the most important step in structured output is often not “telling the model to output JSON,”
 but first designing the schema clearly.
 
-A minimal schema more suitable for courseware generation often looks like this:
+A minimal schema suitable for an incident-review report often looks like this:
 
 ```json
 {
-  "title": "Explanation of Discount Word Problems",
-  "audience": "Upper elementary students",
-  "teaching_goal": ["Understand the basic calculation method for discounts"],
+  "title": "Password Reset Incident Review",
+  "audience": "Support operations team",
+  "objective": ["Identify root cause", "Define follow-up actions"],
   "sections": [
-    {"type": "concept", "heading": "Knowledge Review", "items": ["Discount = original price × discount rate"]},
-    {"type": "example", "heading": "Worked Example", "items": ["If a product costs 100 yuan and is 20% off, how much is it?"]},
-    {"type": "exercise", "heading": "Class Practice", "items": ["If a coat costs 80 yuan and is 30% off, how much is it?"]}
+    {"type": "summary", "heading": "Incident Summary", "items": ["Users could not receive reset emails between 09:10 and 09:40"]},
+    {"type": "evidence", "heading": "Evidence", "items": ["Email queue latency peaked at 14 minutes"]},
+    {"type": "action", "heading": "Follow-up Actions", "items": ["Add queue-latency alert and publish status-page update template"]}
   ],
-  "source_refs": [{"doc_id": "word_001", "page_or_slide": 3}]
+  "source_refs": [{"doc_id": "incident_042", "page_or_slide": 3}]
 }
 ```
 
