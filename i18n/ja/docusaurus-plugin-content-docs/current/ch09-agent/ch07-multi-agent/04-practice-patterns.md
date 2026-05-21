@@ -383,6 +383,6 @@ eval_action: compare multi-agent result against single-agent baseline
 1. task は主要な risk で分類します。evidence coverage が重要なら research collaboration、表現と正確さが重要なら writing + review、実装と test が重要なら development team です。
 2. `reviser` Agent は draft と review comments を読み、reject された部分や弱い部分だけを変更し、revised output と短い change note を返します。
 3. high-risk task に generation + verification + risk review が必要なのは、流暢な output でも誤り、不完全、安全でない内容、根拠不足がありえるからです。
-4. 重点は collaboration structure です。role は有用な boundary、handoff、check、decision を作るときだけ役立ちます。構造のない長い role list は会話を増やすだけです。
+4. 重点は協働構造です。role は有用な boundary、handoff、check、decision を作るときだけ役立ちます。構造のない長い role list は会話を増やすだけです。
 
 </details>

@@ -405,6 +405,6 @@ failure_log: one failed or unsafe run with root cause
 1. 1 つ目と一部重なるが、ある detail が異なる、または別 subtopic を扱う 2 つ目の document を追加します。期待結果は retrieval が両方を ranking し、各 claim に正しい source を cite することです。
 2. citation accuracy が research assistant で重要なのは、価値が流暢な summary だけでなく traceable evidence にあるからです。誤った citation は、正しそうな answer を使えないものにします。
 3. summary がよく見えても source が合わなければ成功にしません。mismatch を flag し、summary を修正するか、evidence insufficient と言うべきです。
-4. portfolio homepage では problem、evidence/citation flow、demo trace、evaluation results を先に見せます。この 4 つで generic chatbot ではないことを示せます。
+4. ポートフォリオのトップページでは、問題、証拠/引用の流れ、デモの追跡記録、評価結果を先に見せます。この 4 つで一般的なチャットボットではないことを示せます。
 
 </details>

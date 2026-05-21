@@ -366,7 +366,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 <details>
 <summary>参考答案与讲解</summary>
 
-1. readiness table 应为 tools、permissions、tracing、evaluation cases、rollback、budget limits、human approval、incident response 写清 owner、status、evidence 和 next action。
+1. 就绪检查表应为 tools、permissions、tracing、evaluation cases、rollback、budget limits、human approval、incident response 写清 owner、status、evidence 和 next action。
 2. canary rollout 对 Agent 更重要，因为行为受 prompt、tools、外部数据、模型版本和用户目标共同影响。小流量暴露能发现静态页面检查发现不了的问题。
 3. 如果高风险调用异常增加，先加 alerting 让人知道；如果行为危险或无法解释，再启用 circuit breaking；必须继续安全处理的场景交给 human takeover。
 4. rollback 不只是切回旧代码，因为 prompt、model version、tool schema、memory、queue、cached results 和外部副作用也可能需要回退或对账。

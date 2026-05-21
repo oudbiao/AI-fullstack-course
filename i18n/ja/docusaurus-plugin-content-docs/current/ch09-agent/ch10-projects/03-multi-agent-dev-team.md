@@ -323,6 +323,6 @@ failure_log: one failed or unsafe run with root cause
 1. `ops_agent` は implementation の後、final release review の前に入れます。run commands、environment variables、logging、rollback notes、deployment risks を確認します。
 2. unified artifact format が重要なのは、Agent coordination には安定した input/output が必要だからです。chat だけでは test、replay、diff、別 Agent への handoff が難しくなります。
 3. reviewer が patch を頻繁に reject するなら、まず task specification と acceptance criteria を改善します。その後 coder context、test feedback、review comments が actionable かを見ます。
-4. 強い demo trace は requirement -> plan -> patch -> test result -> review rejection or approval -> revision -> final artifact を示します。これにより collaboration structure が見えます。
+4. 良いデモの追跡記録は、要件 -> 計画 -> パッチ -> テスト結果 -> レビューの却下または承認 -> 修正 -> 最終成果物 を示します。これにより協働の構造が見えます。
 
 </details>

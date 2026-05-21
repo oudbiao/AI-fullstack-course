@@ -321,6 +321,6 @@ failure_log: one failed or unsafe run with root cause
 1. 可以把 `ops_agent` 放在 implementation 之后、final release review 之前。它负责检查运行命令、环境变量、日志、rollback notes 和部署风险。
 2. unified artifact format 重要，是因为 Agent 协作需要稳定输入输出。只靠聊天很难测试、复盘、diff，也难交接给另一个 Agent。
 3. 如果 reviewer 经常拒绝 patch，先优化 task specification 和 acceptance criteria，再检查 coder context、test feedback，以及 review comments 是否可执行。
-4. 好的 demo trace 应展示 requirement -> plan -> patch -> test result -> review rejection or approval -> revision -> final artifact。这个 trace 会让协作结构变得可见。
+4. 好的演示轨迹应展示 需求 -> 计划 -> 补丁 -> 测试结果 -> 审核拒绝或通过 -> 修订 -> 最终产物。这个轨迹会让协作结构变得可见。
 
 </details>

@@ -398,6 +398,6 @@ failure_log: one failed or unsafe run with root cause
 1. 可以新增第二篇与第一篇部分重叠、但某个细节不同或覆盖另一个子主题的文档。期望结果是 retrieval 能排序两篇文档，并让答案为每个 claim 引用正确来源。
 2. citation accuracy 对 research assistant 很关键，因为它的价值来自可追溯证据，而不只是流畅摘要。错误引用会让看似正确的答案失去使用价值。
 3. 如果摘要很好但来源不匹配，不应算成功。正确做法是标记 mismatch、修改摘要，或说明 evidence insufficient。
-4. portfolio 首页最先展示 problem、evidence/citation flow、demo trace、evaluation results。这四块能证明它不只是普通 chatbot。
+4. 作品集首页最先展示 问题、证据/引用流程、演示轨迹、评估结果。这四块能证明它不只是普通聊天机器人。
 
 </details>
