@@ -208,10 +208,10 @@ import json
 
 # Python object → JSON string
 data = {
-    "name": "Xiao Ming",
-    "age": 20,
-    "scores": [85, 92, 78],
-    "is_student": True
+    "service": "Login API",
+    "owner": "Mina",
+    "latencies_ms": [120, 95, 180],
+    "needs_review": False
 }
 
 json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -219,7 +219,7 @@ print(json_str)
 
 # JSON string → Python object
 parsed = json.loads(json_str)
-print(parsed["name"])  # Xiao Ming
+print(parsed["service"])  # Login API
 
 # Read and write JSON files
 with open("data.json", "w", encoding="utf-8") as f:

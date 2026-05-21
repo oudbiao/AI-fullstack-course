@@ -196,10 +196,10 @@ import json
 
 # Python 对象 → JSON 字符串
 data = {
-    "name": "小明",
-    "age": 20,
-    "scores": [85, 92, 78],
-    "is_student": True
+    "service": "登录 API",
+    "owner": "Mina",
+    "latencies_ms": [120, 95, 180],
+    "needs_review": False
 }
 
 json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -207,7 +207,7 @@ print(json_str)
 
 # JSON 字符串 → Python 对象
 parsed = json.loads(json_str)
-print(parsed["name"])  # 小明
+print(parsed["service"])  # 登录 API
 
 # 读写 JSON 文件
 with open("data.json", "w", encoding="utf-8") as f:

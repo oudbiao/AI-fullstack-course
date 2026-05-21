@@ -208,10 +208,10 @@ import json
 
 # Python オブジェクト → JSON 文字列
 data = {
-    "name": "小明",
-    "age": 20,
-    "scores": [85, 92, 78],
-    "is_student": True
+    "service": "ログイン API",
+    "owner": "Mina",
+    "latencies_ms": [120, 95, 180],
+    "needs_review": False
 }
 
 json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -219,7 +219,7 @@ print(json_str)
 
 # JSON 文字列 → Python オブジェクト
 parsed = json.loads(json_str)
-print(parsed["name"])  # 小明
+print(parsed["service"])  # ログイン API
 
 # JSON ファイルの読み書き
 with open("data.json", "w", encoding="utf-8") as f:
