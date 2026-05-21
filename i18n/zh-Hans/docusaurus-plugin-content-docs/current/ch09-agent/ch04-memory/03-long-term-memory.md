@@ -391,11 +391,11 @@ print(select_relevant_profile(profile, "之后回答风格保持一致"))
 
 ---
 
-## 如果你的目标是“知识库驱动的课件生成助手”，哪些信息值得长期记？
+## 如果你的目标是“知识库驱动的 SOP 文档助手”，哪些信息值得长期记？
 
 这类项目最容易犯的错是：
 
-- 把每次课件主题都写进长期记忆
+- 把每次 SOP 主题都写进长期记忆
 
 但实际上，很多主题只是一次任务，
 并不适合长期保留。
@@ -405,10 +405,10 @@ print(select_relevant_profile(profile, "之后回答风格保持一致"))
 | 信息 | 更偏长期还是短期 |
 |---|---|
 | 用户长期偏好输出成 Word | 长期 |
-| 用户长期喜欢课堂讲解风格 | 长期 |
-| 用户本次要做“折扣应用题”课件 | 短期 |
-| 这次只需要 3 道练习题 | 更偏短期 |
-| 用户长期面向“小学高年级”备课 | 长期或半长期 |
+| 用户长期喜欢简洁检查清单风格 | 长期 |
+| 用户本次要起草“退款升级 SOP” | 短期 |
+| 这次只需要 2 个已处理案例 | 更偏短期 |
+| 用户长期面向一线客服团队写文档 | 长期或半长期 |
 
 你可以先把它压成一句话：
 
@@ -419,9 +419,9 @@ print(select_relevant_profile(profile, "之后回答风格保持一致"))
 ```python
 profile = {
     "preferred_doc_format": "word",
-    "preferred_style": "课堂讲解",
-    "preferred_language": "zh",
-    "default_audience": "小学高年级",
+    "preferred_style": "简洁检查清单",
+    "preferred_language": "zh/en/ja",
+    "default_audience": "一线客服",
     "prefer_source_refs": True,
 }
 
@@ -431,7 +431,7 @@ print(profile)
 预期输出：
 
 ```text
-{'preferred_doc_format': 'word', 'preferred_style': '课堂讲解', 'preferred_language': 'zh', 'default_audience': '小学高年级', 'prefer_source_refs': True}
+{'preferred_doc_format': 'word', 'preferred_style': '简洁检查清单', 'preferred_language': 'zh/en/ja', 'default_audience': '一线客服', 'prefer_source_refs': True}
 ```
 
 这个例子最值得新人注意的是：

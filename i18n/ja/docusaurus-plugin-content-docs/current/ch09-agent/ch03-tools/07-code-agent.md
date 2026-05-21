@@ -123,22 +123,22 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 4. テストに通れば変更を受け入れる
 
 ```python
-def buggy_discount(price, discount_rate):
-    # エラー: 8割引を 8 円引きとして扱っている
-    return price - discount_rate
+def buggy_normalize_status(status):
+    # エラー: 生のステータスをそのまま返すため、空白と大文字小文字がそろわない
+    return status
 
 
 def generate_patch():
-    def fixed_discount(price, discount_rate):
-        return price * discount_rate
+    def fixed_normalize_status(status):
+        return status.strip().lower()
 
-    return fixed_discount
+    return fixed_normalize_status
 
 
 def run_tests(fn):
     cases = [
-        ((100, 0.8), 80.0),
-        ((50, 0.5), 25.0),
+        (("  OPEN ",), "open"),
+        (("Pending ",), "pending"),
     ]
 
     failures = []
@@ -155,7 +155,7 @@ def run_tests(fn):
     return failures
 
 
-current_impl = buggy_discount
+current_impl = buggy_normalize_status
 failures = run_tests(current_impl)
 print("修正前の失敗:", failures)
 
@@ -172,7 +172,7 @@ if failures:
 期待される出力：
 
 ```text
-修正前の失敗: [{'args': (100, 0.8), 'expected': 80.0, 'actual': 99.2}, {'args': (50, 0.5), 'expected': 25.0, 'actual': 49.5}]
+修正前の失敗: [{'args': ('  OPEN ',), 'expected': 'open', 'actual': '  OPEN '}, {'args': ('Pending ',), 'expected': 'pending', 'actual': 'Pending '}]
 修正後の失敗: []
 パッチを受け入れました
 ```
@@ -390,7 +390,7 @@ patch が小さいほど、次のことがしやすくなります。
 
 ## 練習
 
-1. 例にある `buggy_discount` を自分の bug 関数に置き換えて、patch を一つ設計してみましょう。
+1. 例にある `buggy_normalize_status` を自分の bug 関数に置き換えて、patch を一つ設計してみましょう。
 2. なぜコード Agent は普通のコード生成より「フィードバック閉ループ」に強く依存すると言えるのでしょうか？
 3. 考えてみましょう: テストがなければ、コード Agent はほかにどんな検証方法に頼れるでしょうか？
 4. なぜ patch は小さいほど、通常はコード Agent に向いているのでしょうか？
@@ -398,7 +398,7 @@ patch が小さいほど、次のことがしやすくなります。
 <details>
 <summary>参考実装と解説</summary>
 
-1. 置き換える bug は、小さくテストしやすいものが適しています。たとえば off-by-one、割引条件の境界漏れ、sort key の誤りです。patch は失敗しているロジックだけを変えます。
+1. 置き換える bug は、小さくテストしやすいものが適しています。たとえば off-by-one、空入力処理の漏れ、sort key の誤りです。patch は失敗しているロジックだけを変えます。
 2. Code Agent は feedback loop に強く依存します。コード品質は説明の流暢さではなく、実行、テスト、diff、lint 出力、review で判断されるからです。
 3. テストがなくても、linter、type check、static analysis、sandbox 実行、サンプル入力、code review checklist、手動再現手順を使えます。
 4. 小さな patch は影響範囲を減らし、review を楽にし、ユーザー変更を守り、どの変更が失敗を直したのかを見えやすくします。

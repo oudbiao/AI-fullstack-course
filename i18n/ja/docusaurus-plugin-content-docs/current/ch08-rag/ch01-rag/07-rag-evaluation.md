@@ -454,7 +454,7 @@ question,gold_doc,gold_answer,retrieved_docs,answer,citation_ok,failure_type,not
 
 このテンプレートのポイントは、項目が多いことではありません。各サンプルについて、次の 3 つが分かることです。何を命中すべきか、実際に何を命中したか、最終回答は証拠に支えられているか。
 
-## 教材生成 RAG の受け入れ Rubric
+## SOP 文書 RAG の受け入れ Rubric
 
 プロジェクトの目的が SOP 文書や社内運用文書の生成なら、評価は QA の段階だけで終わらせるべきではありません。次の rubric は、ポートフォリオ用プロジェクトの受け入れ基準として使えます。
 

@@ -345,12 +345,12 @@ for q in queries:
 
 比如用户问：
 
-> “先查退款政策，再帮我算一下 3000 元打七折是多少钱。”
+> “先查退款政策，再查证书领取规则。”
 
 这时系统可能需要：
 
 1. 调 `search_course_policy`
-2. 再调 `calculate`
+2. 再用另一个关键词调一次 `search_course_policy`
 3. 最后合并回答
 
 问题在于：
@@ -371,15 +371,15 @@ def multi_step_agent(query):
         result_1 = dispatch(call_1)
         steps.append(("tool_result", result_1))
 
-    if "打七折" in query:
-        call_2 = {"name": "calculate", "arguments": {"expression": "3000 * 0.7"}}
+    if "证书" in query:
+        call_2 = {"name": "search_course_policy", "arguments": {"keyword": "证书"}}
         steps.append(("tool_call", call_2))
         result_2 = dispatch(call_2)
         steps.append(("tool_result", result_2))
 
     return steps
 
-for step in multi_step_agent("先查退款，再算 3000 元打七折"):
+for step in multi_step_agent("先查退款政策，再查证书领取规则"):
     print(step)
 ```
 
@@ -388,8 +388,8 @@ for step in multi_step_agent("先查退款，再算 3000 元打七折"):
 ```text
 ('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': '退款'}})
 ('tool_result', '课程购买后 7 天内且学习进度低于 20% 可申请退款。')
-('tool_call', {'name': 'calculate', 'arguments': {'expression': '3000 * 0.7'}})
-('tool_result', '2100.0')
+('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': '证书'}})
+('tool_result', '完成所有必修项目并通过结课测试后可获得证书。')
 ```
 
 这就是为什么 Function Calling 讲到后面，迟早会和 Agent 结合起来。

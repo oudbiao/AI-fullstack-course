@@ -37,19 +37,19 @@ keywords: [chain of thought, CoT, reasoning trace, scratchpad, decomposition]
 
 例如这道题：
 
-- 商品原价 80 元，打 8 折后再减 5 元，最后多少钱？
+- 支持队列里有 18 张未处理工单，其中 4 张是需要合并的重复工单，然后又来了 7 张紧急工单，最后需要分诊多少张？
 
 如果模型直接生成答案，
 它可能会犯很典型的错误：
 
-- 把“8 折”当成减 8 元
-- 漏掉最后的减 5 元
+- 把重复工单当成新增工单，而不是先去掉
+- 漏掉后面新来的紧急工单
 - 步骤顺序搞错
 
 而如果它先把过程拆开：
 
-1. `80 * 0.8 = 64`
-2. `64 - 5 = 59`
+1. `18 - 4 = 14`
+2. `14 + 7 = 21`
 
 最终答案通常会更稳定。
 
@@ -68,9 +68,9 @@ keywords: [chain of thought, CoT, reasoning trace, scratchpad, decomposition]
 
 显式写出来。
 
-### 一个类比：草稿纸不是为了显得认真
+### 一个类比：草稿便签不是为了显得认真
 
-学生做题时写草稿纸，不是为了让答案更长，
+运营团队复核复杂工单时写草稿便签，不是为了让答案更长，
 而是为了：
 
 - 防止脑中状态丢失
@@ -92,27 +92,27 @@ CoT 对模型的作用很像这一层。
 ```python
 import re
 
-problem = "商品原价80元，先优惠20%，再减5元，最后多少钱？"
+problem = "支持队列有18张未处理工单，4张是重复工单需要合并，然后又来了7张紧急工单，最后需要分诊多少张？"
 
 
 def bad_direct_answer(text):
     numbers = list(map(int, re.findall(r"\d+", text)))
-    original, discount, minus = numbers
-    # 常见错误：把“优惠 20%”误当成“减 20 元”
-    return original - discount - minus
+    open_tickets, duplicates, urgent = numbers
+    # 常见错误：把重复工单当成新增工单，而不是先去掉
+    return open_tickets + duplicates + urgent
 
 
 def chain_reason_answer(text):
-    original, discount, minus = map(int, re.findall(r"\d+", text))
+    open_tickets, duplicates, urgent = map(int, re.findall(r"\d+", text))
 
     steps = []
-    discounted_price = original * (1 - discount / 100)
-    steps.append(f"先算折扣价：{original} * (1 - {discount}/100) = {discounted_price}")
+    unique_tickets = open_tickets - duplicates
+    steps.append(f"先去掉重复工单：{open_tickets} - {duplicates} = {unique_tickets}")
 
-    final_price = discounted_price - minus
-    steps.append(f"再减额外的 {minus} 元：{discounted_price} - {minus} = {final_price}")
+    final_count = unique_tickets + urgent
+    steps.append(f"再加上紧急工单：{unique_tickets} + {urgent} = {final_count}")
 
-    return final_price, steps
+    return final_count, steps
 
 
 print("problem:", problem)
@@ -128,13 +128,13 @@ print("final answer:", answer)
 预期输出：
 
 ```text
-problem: 商品原价80元，先优惠20%，再减5元，最后多少钱？
-bad direct answer: 55
+problem: 支持队列有18张未处理工单，4张是重复工单需要合并，然后又来了7张紧急工单，最后需要分诊多少张？
+bad direct answer: 29
 
 chain reasoning steps:
-- 先算折扣价：80 * (1 - 20/100) = 64.0
-- 再减额外的 5 元：64.0 - 5 = 59.0
-final answer: 59.0
+- 先去掉重复工单：18 - 4 = 14
+- 再加上紧急工单：14 + 7 = 21
+final answer: 21
 ```
 
 ### 这段代码最能说明什么？
@@ -146,7 +146,7 @@ final answer: 59.0
 
 例如这里：
 
-- “8 折”到底是 `-8` 还是 `*0.8`
+- “4 张重复工单”到底是 `+4` 还是 `-4`
 
 只要你把这一步写出来，
 错误就不容易藏起来。
@@ -304,18 +304,18 @@ final answer: 59.0
 
 ```python
 ticket = {
-    "question": "订单未发货，原价80元先优惠20%后又减5元，退款金额是多少？",
-    "policy": "未发货订单可原路退款。",
+    "question": "退款队列有18张未处理工单，4张是重复工单需要合并，然后又来了7张紧急工单，最后需要分诊多少张？",
+    "policy": "重复支持工单应先合并，再进入分诊。",
 }
 
 
 def structured_reasoning(ticket):
     facts = [
-        "订单未发货，可走原路退款",
-        "商品原价 80 元，先优惠 20% 后再减 5 元",
+        "重复支持工单应先合并，再进入分诊",
+        "队列先有 18 张未处理工单，去掉 4 张重复工单，再加入 7 张紧急工单",
     ]
-    calculation = ["80 * 0.8 = 64", "64 - 5 = 59"]
-    decision = "退款金额应为 59 元，且原路退回。"
+    calculation = ["18 - 4 = 14", "14 + 7 = 21"]
+    decision = "团队最后需要分诊 21 张工单。"
 
     return {
         "facts": facts,
@@ -331,7 +331,7 @@ print(result)
 预期输出：
 
 ```text
-{'facts': ['订单未发货，可走原路退款', '商品原价 80 元，先优惠 20% 后再减 5 元'], 'calculation': ['80 * 0.8 = 64', '64 - 5 = 59'], 'decision': '退款金额应为 59 元，且原路退回。'}
+{'facts': ['重复支持工单应先合并，再进入分诊', '队列先有 18 张未处理工单，去掉 4 张重复工单，再加入 7 张紧急工单'], 'calculation': ['18 - 4 = 14', '14 + 7 = 21'], 'decision': '团队最后需要分诊 21 张工单。'}
 ```
 
 这种格式的优点是：
@@ -396,7 +396,7 @@ print(result)
 
 ## 练习
 
-1. 把示例中的折扣题换成你自己的多步题，比较 `bad_direct_answer` 和 `chain_reason_answer`。
+1. 把示例中的工单队列题换成你自己的多步运营问题，比较 `bad_direct_answer` 和 `chain_reason_answer`。
 2. 为什么说 CoT 的核心价值在“显式中间结构”而不是“输出更长”？
 3. 想一个不适合 CoT 的简单问题，解释原因。
 4. 如果你要把 CoT 用在产品里，你会更倾向自由文本还是结构化槽位？为什么？

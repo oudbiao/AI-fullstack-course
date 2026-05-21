@@ -136,9 +136,9 @@ for msg in messages:
 
 ```python
 conversation = [
-    {"from": "planner", "to": "coder", "content": "割引計算関数を書いてください"},
-    {"from": "coder", "to": "executor", "content": "def discount(price): return price * 0.7"},
-    {"from": "executor", "to": "reviewer", "content": "実行結果：discount(100)=70"},
+    {"from": "planner", "to": "coder", "content": "ステータス正規化関数を書いてください"},
+    {"from": "coder", "to": "executor", "content": "def normalize_status(status): return status.strip().lower()"},
+    {"from": "executor", "to": "reviewer", "content": "実行結果：normalize_status('  OPEN ')=open"},
     {"from": "reviewer", "to": "coder", "content": "不正な入力の処理を追加してください"}
 ]
 
@@ -149,15 +149,15 @@ for turn in conversation:
 想定出力：
 
 ```text
-{'from': 'planner', 'to': 'coder', 'content': '割引計算関数を書いてください'}
-{'from': 'coder', 'to': 'executor', 'content': 'def discount(price): return price * 0.7'}
-{'from': 'executor', 'to': 'reviewer', 'content': '実行結果：discount(100)=70'}
+{'from': 'planner', 'to': 'coder', 'content': 'ステータス正規化関数を書いてください'}
+{'from': 'coder', 'to': 'executor', 'content': 'def normalize_status(status): return status.strip().lower()'}
+{'from': 'executor', 'to': 'reviewer', 'content': "実行結果：normalize_status('  OPEN ')=open"}
 {'from': 'reviewer', 'to': 'coder', 'content': '不正な入力の処理を追加してください'}
 ```
 
 ![AutoGen のメッセージフィードバックループ](/img/course/ch09-autogen-message-feedback-loop-ja.webp)
 
-この例は、多くの AutoGen 教材で見かけるワークフローの骨組みにかなり近いです。
+この例は、多くの AutoGen チュートリアルで見かけるワークフローの骨組みにかなり近いです。
 
 ---
 

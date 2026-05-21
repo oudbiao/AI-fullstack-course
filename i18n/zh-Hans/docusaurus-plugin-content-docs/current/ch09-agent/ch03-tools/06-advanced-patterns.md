@@ -304,14 +304,14 @@ Agent 的工作不应该永远停留在低级操作。
 
 ---
 
-## 如果你的目标是“知识库驱动的课件生成助手”，哪些组合最值得先封装？
+## 如果你的目标是“知识库驱动的 SOP 文档助手”，哪些组合最值得先封装？
 
 这类项目里，工具很容易自然长成下面这几类：
 
 - 查内部资料
 - 查外部资料
 - 去重和重排
-- 生成课件 结构约束
+- 生成 SOP 结构约束
 - 导出 Word
 
 如果每一步都让 Agent 临场决定，
@@ -325,9 +325,9 @@ Agent 的工作不应该永远停留在低级操作。
 
 | 复合工具 | 它在替你固定什么 |
 |---|---|
-| `retrieve_teaching_materials` | 先查内部，再补外部，再合并去重 |
-| `build_courseware_outline` | 先抽概念、例题、练习，再整理 结构约束 |
-| `export_courseware_doc` | 先校验 结构约束，再套模板导出 Word |
+| `retrieve_sop_materials` | 先查内部 SOP，再补外部参考，再合并去重 |
+| `build_sop_schema` | 先抽政策规则、已处理案例和检查清单，再整理结构约束 |
+| `export_sop_doc` | 先校验 SOP 结构约束，再套模板导出 Word |
 
 你可以先把它理解成：
 
@@ -337,30 +337,30 @@ Agent 的工作不应该永远停留在低级操作。
 
 ```python
 def retrieve_internal_docs(topic):
-    return [{"source": "internal", "text": f"内部资料：{topic} 的知识点和例题"}]
+    return [{"source": "internal", "text": f"内部 SOP 证据：{topic} 的政策规则和已处理案例"}]
 
 
 def retrieve_external_docs(topic):
-    return [{"source": "external", "text": f"外部资料：{topic} 的补充说明"}]
+    return [{"source": "external", "text": f"外部参考：{topic} 的补充最佳实践"}]
 
 
 def merge_materials(internal_docs, external_docs):
     return internal_docs + external_docs
 
 
-def retrieve_teaching_materials(topic):
+def retrieve_sop_materials(topic):
     internal_docs = retrieve_internal_docs(topic)
     external_docs = retrieve_external_docs(topic)
     return merge_materials(internal_docs, external_docs)
 
 
-print(retrieve_teaching_materials("折扣应用题"))
+print(retrieve_sop_materials("退款升级 SOP"))
 ```
 
 预期输出：
 
 ```text
-[{'source': 'internal', 'text': '内部资料：折扣应用题 的知识点和例题'}, {'source': 'external', 'text': '外部资料：折扣应用题 的补充说明'}]
+[{'source': 'internal', 'text': '内部 SOP 证据：退款升级 SOP 的政策规则和已处理案例'}, {'source': 'external', 'text': '外部参考：退款升级 SOP 的补充最佳实践'}]
 ```
 
 这个示例最重要的价值不是代码多复杂，

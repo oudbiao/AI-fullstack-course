@@ -345,12 +345,12 @@ This example is already much closer to a real system than simply printing `tool_
 
 For example, a user asks:
 
-> “First check the refund policy, then help me calculate how much 3000 yuan is after a 30% discount.”
+> “First check the refund policy, then check the certificate policy.”
 
 At this point, the system may need to:
 
 1. Call `search_course_policy`
-2. Then call `calculate`
+2. Then call `search_course_policy` again with another keyword
 3. Finally merge the answer
 
 The problem is:
@@ -371,15 +371,15 @@ def multi_step_agent(query):
         result_1 = dispatch(call_1)
         steps.append(("tool_result", result_1))
 
-    if "30% discount" in query:
-        call_2 = {"name": "calculate", "arguments": {"expression": "3000 * 0.7"}}
+    if "certificate" in query:
+        call_2 = {"name": "search_course_policy", "arguments": {"keyword": "certificate"}}
         steps.append(("tool_call", call_2))
         result_2 = dispatch(call_2)
         steps.append(("tool_result", result_2))
 
     return steps
 
-for step in multi_step_agent("First check the refund policy, then calculate a 30% discount on 3000 yuan"):
+for step in multi_step_agent("First check the refund policy, then check the certificate policy"):
     print(step)
 ```
 
@@ -388,8 +388,8 @@ Expected output:
 ```text
 ('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': 'refund'}})
 ('tool_result', 'You can apply for a refund within 7 days after purchase and if your learning progress is below 20%.')
-('tool_call', {'name': 'calculate', 'arguments': {'expression': '3000 * 0.7'}})
-('tool_result', '2100.0')
+('tool_call', {'name': 'search_course_policy', 'arguments': {'keyword': 'certificate'}})
+('tool_result', 'You can obtain a certificate after completing all required items and passing the final assessment.')
 ```
 
 This is why, once Function Calling goes deeper, it will eventually be combined with Agents.

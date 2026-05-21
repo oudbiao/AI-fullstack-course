@@ -199,15 +199,15 @@ It is better to do it this way:
 
 Catching the riskiest parts first is more stable than writing lots of detailed rules all at once.
 
-## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Guardrails Are Worth Building First?
+## If Your Goal Is a “Knowledge-Base-Driven SOP Document Assistant,” Which Guardrails Are Worth Building First?
 
 In this kind of project, the truly dangerous part is often not “the model swears,”
 but:
 
-- content without a source gets written into formal courseware
+- content without a source gets written into a formal SOP
 - external materials distort internal standard content
-- exercises are not from the knowledge base but are treated as “internal exercises”
-- a user’s vague request directly exports a formal Word file
+- handled cases and checklist items are not from the knowledge base but are treated as internal evidence
+- a user’s vague request directly exports a formal Word SOP
 
 So for this kind of system, these layers of guardrails are especially worth building first:
 
@@ -222,7 +222,7 @@ You can remember this line first:
 
 > **The guardrail focus in this kind of project is not just safety-word filtering, but stable control of “source, priority, and export workflow.”**
 
-### A Minimal Guardrail Example That Feels More Like a Courseware Generation System
+### A Minimal Guardrail Example That Feels More Like an SOP Document System
 
 ```python
 def knowledge_guard(item):
@@ -236,7 +236,7 @@ def knowledge_guard(item):
 sample_1 = {
     "source_origin": "internal",
     "used_as_core_content": True,
-    "source_ref": {"doc_id": "word_001", "page": 3},
+    "source_ref": {"doc_id": "sop_policy_001", "page": 3},
 }
 
 sample_2 = {

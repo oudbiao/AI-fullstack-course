@@ -190,8 +190,8 @@ TOOL_REGISTRY = [
     },
     {
         "name": "calculator",
-        "description": "加減乗除や割引額の計算など、決定的な数値計算を行う",
-        "tags": ["math", "price", "discount", "calculation", "計算", "価格", "割引", "いくつ"],
+        "description": "加減乗除、手数料の合計、差額計算など、決定的な数値計算を行う",
+        "tags": ["math", "fee", "total", "calculation", "計算", "手数料", "合計", "差額"],
         "required_args": ["expression"],
         "returns": ["result"],
         "risk_level": "low",
@@ -218,7 +218,7 @@ def discover_tools(query, registry, top_k=2):
 queries = [
     "返金ポリシーは何ですか",
     "注文はもう発送されましたか",
-    "299 が 8 割引で、さらに 5 引くといくつですか",
+    "手数料の合計として 299 に 80 を足して 5 を引く",
 ]
 
 for query in queries:
@@ -230,7 +230,7 @@ for query in queries:
 ```text
 返金ポリシーは何ですか -> [('search_refund_policy', 1), ('get_order_status', 0)]
 注文はもう発送されましたか -> [('get_order_status', 2), ('search_refund_policy', 0)]
-299 が 8 割引で、さらに 5 引くといくつですか -> [('calculator', 3), ('search_refund_policy', 0)]
+手数料の合計として 299 に 80 を足して 5 を引く -> [('calculator', 3), ('search_refund_policy', 0)]
 ```
 
 ### このコードは何を教えているのか？

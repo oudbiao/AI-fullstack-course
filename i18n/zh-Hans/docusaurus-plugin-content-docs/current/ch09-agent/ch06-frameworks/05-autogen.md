@@ -136,9 +136,9 @@ for msg in messages:
 
 ```python
 conversation = [
-    {"from": "planner", "to": "coder", "content": "请写一个折扣计算函数"},
-    {"from": "coder", "to": "executor", "content": "def discount(price): return price * 0.7"},
-    {"from": "executor", "to": "reviewer", "content": "运行结果：discount(100)=70"},
+    {"from": "planner", "to": "coder", "content": "请写一个状态标准化函数"},
+    {"from": "coder", "to": "executor", "content": "def normalize_status(status): return status.strip().lower()"},
+    {"from": "executor", "to": "reviewer", "content": "运行结果：normalize_status('  OPEN ')=open"},
     {"from": "reviewer", "to": "coder", "content": "请补充非法输入处理"}
 ]
 
@@ -149,9 +149,9 @@ for turn in conversation:
 预期输出：
 
 ```text
-{'from': 'planner', 'to': 'coder', 'content': '请写一个折扣计算函数'}
-{'from': 'coder', 'to': 'executor', 'content': 'def discount(price): return price * 0.7'}
-{'from': 'executor', 'to': 'reviewer', 'content': '运行结果：discount(100)=70'}
+{'from': 'planner', 'to': 'coder', 'content': '请写一个状态标准化函数'}
+{'from': 'coder', 'to': 'executor', 'content': 'def normalize_status(status): return status.strip().lower()'}
+{'from': 'executor', 'to': 'reviewer', 'content': "运行结果：normalize_status('  OPEN ')=open"}
 {'from': 'reviewer', 'to': 'coder', 'content': '请补充非法输入处理'}
 ```
 

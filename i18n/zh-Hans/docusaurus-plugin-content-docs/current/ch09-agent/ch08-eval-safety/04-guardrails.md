@@ -201,15 +201,15 @@ print(process_guard("search_policy", "low"))
 
 先把风险最大的环节兜住，比一下子写很多细规则更稳。
 
-## 如果你的目标是“知识库驱动的课件生成助手”，哪些护栏特别值得先做？
+## 如果你的目标是“知识库驱动的 SOP 文档助手”，哪些护栏特别值得先做？
 
 这类项目里，真正危险的地方往往不是“模型说脏话”，
 而是：
 
-- 没有来源的内容被写进正式课件
+- 没有来源的内容被写进正式 SOP
 - 外部资料把内部标准内容带偏
-- 例题并不来自知识库却被当成“内部例题”
-- 用户一句模糊要求就直接导出正式 Word
+- 已处理案例和检查清单并不来自知识库却被当成内部证据
+- 用户一句模糊要求就直接导出正式 Word SOP
 
 所以这类系统特别值得先做这几层护栏：
 
@@ -224,7 +224,7 @@ print(process_guard("search_policy", "low"))
 
 > **这类项目的护栏重点，不只是安全词过滤，而是“来源、优先级、导出流程”的稳定控制。**
 
-### 一个更像课件生成系统的最小护栏示例
+### 一个更像 SOP 文档系统的最小护栏示例
 
 ```python
 def knowledge_guard(item):
@@ -238,7 +238,7 @@ def knowledge_guard(item):
 sample_1 = {
     "source_origin": "internal",
     "used_as_core_content": True,
-    "source_ref": {"doc_id": "word_001", "page": 3},
+    "source_ref": {"doc_id": "sop_policy_001", "page": 3},
 }
 
 sample_2 = {

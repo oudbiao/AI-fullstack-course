@@ -132,7 +132,7 @@ flowchart LR
 
 > **文本理解不只是词向量相似，还包括结构关系。**
 
-今天很多大模型已经能隐式处理大量结构，但在严肃知识库、法律、医学、教育课件生成里，显式结构仍然很有价值。
+今天很多大模型已经能隐式处理大量结构，但在严肃知识库、法律、医学和 SOP 文档生成里，显式结构仍然很有价值。
 
 ## 六、一个最小结构化抽取示例
 
@@ -167,40 +167,40 @@ topic => 机器学习课程
 - 角色可以连接成图
 - 图结构可以服务后续生成和检索
 
-## 七、从一句话到课件结构
+## 七、从一句话到 SOP 文档结构
 
-如果目标是从知识库生成教学材料，语义图可以成为“检索段落”和“最终 Word 文档”之间的一层中间结构。
+如果目标是从知识库生成 SOP 文档，语义图可以成为“检索段落”和“最终 Word 文档”之间的一层中间结构。
 
 看一个很小的例子：
 
 ```python
-sentence = "链式法则帮助神经网络逐层计算梯度。"
+sentence = "返金エスカレーション規則は、一線対応が標準期間のあとでどう処理するかを助ける。"
 
 semantic_graph = {
-    "concept": "链式法则",
-    "function": "计算梯度",
-    "scenario": "神经网络",
-    "method": "逐层",
+    "policy": "退款升级",
+    "function": "判断怎么处理",
+    "scenario": "一线客服",
+    "condition": "标准窗口之后",
 }
 
-courseware_block = {
-    "title": semantic_graph["concept"],
-    "definition": "用于拆解复合函数导数的规则。",
+sop_block = {
+    "title": semantic_graph["policy"],
+    "summary": "用于说明标准窗口之后的退款处理规则。",
     "why_it_matters": f"它帮助{semantic_graph['scenario']}{semantic_graph['function']}。",
-    "teaching_hint": f"可以把它讲成梯度信号{semantic_graph['method']}向前一层传递。",
+    "draft_hint": f"可以把它讲成{semantic_graph['condition']}的明确处理规则。",
 }
 
-for key, value in courseware_block.items():
+for key, value in sop_block.items():
     print(f"{key}: {value}")
 ```
 
 预期输出：
 
 ```text
-title: 链式法则
-definition: 用于拆解复合函数导数的规则。
-why_it_matters: 它帮助神经网络计算梯度。
-teaching_hint: 可以把它讲成梯度信号逐层向前一层传递。
+title: 退款升级
+summary: 用于说明标准窗口之后的退款处理规则。
+why_it_matters: 它帮助一线客服判断怎么处理。
+draft_hint: 可以把它讲成标准窗口之后的明确处理规则。
 ```
 
 这就是语义结构的实用价值：角色一旦明确，后面的模板就能稳定复用这些字段。

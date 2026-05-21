@@ -123,22 +123,22 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 4. 如果测试通过，就接受改动
 
 ```python
-def buggy_discount(price, discount_rate):
-    # 错误：把 8 折当成减 8
-    return price - discount_rate
+def buggy_normalize_status(status):
+    # 错误：直接返回原始状态，空格和大小写都没有标准化
+    return status
 
 
 def generate_patch():
-    def fixed_discount(price, discount_rate):
-        return price * discount_rate
+    def fixed_normalize_status(status):
+        return status.strip().lower()
 
-    return fixed_discount
+    return fixed_normalize_status
 
 
 def run_tests(fn):
     cases = [
-        ((100, 0.8), 80.0),
-        ((50, 0.5), 25.0),
+        (("  OPEN ",), "open"),
+        (("Pending ",), "pending"),
     ]
 
     failures = []
@@ -155,7 +155,7 @@ def run_tests(fn):
     return failures
 
 
-current_impl = buggy_discount
+current_impl = buggy_normalize_status
 failures = run_tests(current_impl)
 print("before patch failures:", failures)
 
@@ -172,7 +172,7 @@ if failures:
 预期输出：
 
 ```text
-before patch failures: [{'args': (100, 0.8), 'expected': 80.0, 'actual': 99.2}, {'args': (50, 0.5), 'expected': 25.0, 'actual': 49.5}]
+before patch failures: [{'args': ('  OPEN ',), 'expected': 'open', 'actual': '  OPEN '}, {'args': ('Pending ',), 'expected': 'pending', 'actual': 'Pending '}]
 after patch failures: []
 patch accepted
 ```
@@ -391,7 +391,7 @@ patch accepted
 
 ## 练习
 
-1. 把示例里的 `buggy_discount` 换成你自己的 bug 函数，再设计一版 patch。
+1. 把示例里的 `buggy_normalize_status` 换成你自己的 bug 函数，再设计一版 patch。
 2. 为什么说代码 Agent 比普通代码生成更依赖“反馈闭环”？
 3. 想一想：如果没有测试，代码 Agent 还能依赖什么验证方式？
 4. 为什么 patch 越小，通常越适合代码 Agent？
@@ -399,7 +399,7 @@ patch accepted
 <details>
 <summary>参考实现与讲解</summary>
 
-1. 适合替换的 bug 应该小而可测，例如 off-by-one 循环、折扣边界缺失、排序 key 写错。patch 应只改失败逻辑。
+1. 适合替换的 bug 应该小而可测，例如 off-by-one 循环、空输入处理缺失、排序 key 写错。patch 应只改失败逻辑。
 2. Code Agent 更依赖 feedback loop，因为代码质量要靠运行、测试、diff、lint 输出和 review 判断，而不是靠解释是否流畅。
 3. 没有测试时，也可以依赖 linter、type check、static analysis、sandbox run、示例输入、code review checklist 和手动复现步骤。
 4. 小 patch 能降低影响范围，让 review 更容易，避免覆盖用户改动，也更容易看出是哪一处修复了失败。

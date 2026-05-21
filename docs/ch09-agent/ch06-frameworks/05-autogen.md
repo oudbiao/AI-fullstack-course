@@ -136,9 +136,9 @@ This matches AutoGen’s message back-and-forth pattern very well.
 
 ```python
 conversation = [
-    {"from": "planner", "to": "coder", "content": "Please write a discount calculation function"},
-    {"from": "coder", "to": "executor", "content": "def discount(price): return price * 0.7"},
-    {"from": "executor", "to": "reviewer", "content": "Execution result: discount(100)=70"},
+    {"from": "planner", "to": "coder", "content": "Please write a status normalization function"},
+    {"from": "coder", "to": "executor", "content": "def normalize_status(status): return status.strip().lower()"},
+    {"from": "executor", "to": "reviewer", "content": "Execution result: normalize_status('  OPEN ')=open"},
     {"from": "reviewer", "to": "coder", "content": "Please add invalid input handling"}
 ]
 
@@ -149,9 +149,9 @@ for turn in conversation:
 Expected output:
 
 ```text
-{'from': 'planner', 'to': 'coder', 'content': 'Please write a discount calculation function'}
-{'from': 'coder', 'to': 'executor', 'content': 'def discount(price): return price * 0.7'}
-{'from': 'executor', 'to': 'reviewer', 'content': 'Execution result: discount(100)=70'}
+{'from': 'planner', 'to': 'coder', 'content': 'Please write a status normalization function'}
+{'from': 'coder', 'to': 'executor', 'content': 'def normalize_status(status): return status.strip().lower()'}
+{'from': 'executor', 'to': 'reviewer', 'content': "Execution result: normalize_status('  OPEN ')=open"}
 {'from': 'reviewer', 'to': 'coder', 'content': 'Please add invalid input handling'}
 ```
 

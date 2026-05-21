@@ -132,7 +132,7 @@ Together, these works show one thing:
 
 > **Text understanding is not only about word-vector similarity, but also about structural relationships.**
 
-Today, many large models can implicitly handle a lot of structure, but in serious knowledge bases, law, medicine, and educational content generation, explicit structure is still very valuable.
+Today, many large models can implicitly handle a lot of structure, but in serious knowledge bases, law, medicine, and SOP document generation, explicit structure is still very valuable.
 
 ## A minimal example of structured extraction
 
@@ -167,40 +167,40 @@ The main point is for you to first understand:
 - Roles can be connected into a graph
 - Graph structures can support later generation and retrieval
 
-## From a sentence to courseware structure
+## From a sentence to SOP document structure
 
-If your goal is to generate teaching materials from a knowledge base, a semantic graph can become an intermediate layer between “retrieved paragraph” and “final Word document.”
+If your goal is to generate SOP documents from a knowledge base, a semantic graph can become an intermediate layer between “retrieved paragraph” and “final Word document.”
 
 Here is a very small example:
 
 ```python
-sentence = "The chain rule helps neural networks compute gradients layer by layer."
+sentence = "The refund escalation policy helps frontline support decide what to do after the standard window."
 
 semantic_graph = {
-    "concept": "chain rule",
-    "function": "compute gradients",
-    "scenario": "neural networks",
-    "method": "layer by layer",
+    "policy": "refund escalation",
+    "function": "decide what to do",
+    "scenario": "frontline support",
+    "condition": "after the standard window",
 }
 
-courseware_block = {
-    "title": semantic_graph["concept"],
-    "definition": "A rule for decomposing the derivative of a composite function.",
+sop_block = {
+    "title": semantic_graph["policy"],
+    "summary": "A rule for handling refund requests after the standard window.",
     "why_it_matters": f"It helps {semantic_graph['scenario']} {semantic_graph['function']}.",
-    "teaching_hint": f"Explain it as passing gradient signals {semantic_graph['method']}.",
+    "draft_hint": f"Explain it as a clear rule for {semantic_graph['condition']}.",
 }
 
-for key, value in courseware_block.items():
+for key, value in sop_block.items():
     print(f"{key}: {value}")
 ```
 
 Expected output:
 
 ```text
-title: chain rule
-definition: A rule for decomposing the derivative of a composite function.
-why_it_matters: It helps neural networks compute gradients.
-teaching_hint: Explain it as passing gradient signals layer by layer.
+title: refund escalation
+summary: A rule for handling refund requests after the standard window.
+why_it_matters: It helps frontline support decide what to do.
+draft_hint: Explain it as a clear rule for after the standard window.
 ```
 
 This is the practical value of semantic structure: once the roles are explicit, the next template can use them consistently.

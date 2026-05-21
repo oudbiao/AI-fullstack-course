@@ -37,19 +37,19 @@ The Chain-of-Thought strategy, or CoT, is built around one core idea:
 
 For example, consider this problem:
 
-- A product originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the final price?
+- A support queue has 18 open tickets, 4 are duplicates that should be merged, and then 7 urgent tickets arrive. How many tickets need triage?
 
 If the model generates the answer directly,
 it may make very typical mistakes:
 
-- Treat “20% off” as subtracting 20 yuan
-- Forget the final 5 yuan discount
+- Treat duplicate tickets as new tickets instead of removing them
+- Forget the urgent tickets that arrive later
 - Get the step order wrong
 
 But if it first breaks the process into steps:
 
-1. `80 * 0.8 = 64`
-2. `64 - 5 = 59`
+1. `18 - 4 = 14`
+2. `14 + 7 = 21`
 
 the final answer is usually more stable.
 
@@ -68,9 +68,9 @@ But rather:
 
 explicit.
 
-### An analogy: scratch paper is not for looking serious
+### An analogy: scratch notes are not for looking serious
 
-When students solve problems, they use scratch paper not to make the answer longer,
+When operations teams review a complex case, they use scratch notes not to make the answer longer,
 but to:
 
 - prevent the mental state from being lost
@@ -92,27 +92,27 @@ but it clearly demonstrates:
 ```python
 import re
 
-problem = "A product originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the final price?"
+problem = "A support queue has 18 open tickets, 4 are duplicates to merge, and then 7 urgent tickets arrive. How many tickets need triage?"
 
 
 def bad_direct_answer(text):
     numbers = list(map(int, re.findall(r"\d+", text)))
-    original, discount, minus = numbers
-    # Common mistake: misreading “20% off” as “subtract 20”
-    return original - discount - minus
+    open_tickets, duplicates, urgent = numbers
+    # Common mistake: treating duplicates as new tickets instead of removing them
+    return open_tickets + duplicates + urgent
 
 
 def chain_reason_answer(text):
-    original, discount, minus = map(int, re.findall(r"\d+", text))
+    open_tickets, duplicates, urgent = map(int, re.findall(r"\d+", text))
 
     steps = []
-    discounted_price = original * (1 - discount / 100)
-    steps.append(f"First calculate the discounted price: {original} * (1 - {discount}/100) = {discounted_price}")
+    unique_tickets = open_tickets - duplicates
+    steps.append(f"First remove duplicate tickets: {open_tickets} - {duplicates} = {unique_tickets}")
 
-    final_price = discounted_price - minus
-    steps.append(f"Then subtract the extra {minus} yuan: {discounted_price} - {minus} = {final_price}")
+    final_count = unique_tickets + urgent
+    steps.append(f"Then add urgent tickets: {unique_tickets} + {urgent} = {final_count}")
 
-    return final_price, steps
+    return final_count, steps
 
 
 print("problem:", problem)
@@ -128,13 +128,13 @@ print("final answer:", answer)
 Expected output:
 
 ```text
-problem: A product originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the final price?
-bad direct answer: 55
+problem: A support queue has 18 open tickets, 4 are duplicates to merge, and then 7 urgent tickets arrive. How many tickets need triage?
+bad direct answer: 29
 
 chain reasoning steps:
-- First calculate the discounted price: 80 * (1 - 20/100) = 64.0
-- Then subtract the extra 5 yuan: 64.0 - 5 = 59.0
-final answer: 59.0
+- First remove duplicate tickets: 18 - 4 = 14
+- Then add urgent tickets: 14 + 7 = 21
+final answer: 21
 ```
 
 ### What does this code show most clearly?
@@ -146,7 +146,7 @@ It shows that:
 
 For example:
 
-- Does “20% off” mean `-20` or `*0.8`?
+- Does “4 duplicates” mean `+4` or `-4`?
 
 As soon as you write that step out,
 the mistake is much harder to hide.
@@ -303,18 +303,18 @@ The following example shows a style that is more suitable for Agents:
 
 ```python
 ticket = {
-    "question": "The order has not shipped yet. The item originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the refund amount?",
-    "policy": "Unshipped orders can be refunded through the original payment method.",
+    "question": "The refund queue has 18 open tickets, 4 are duplicates to merge, and then 7 urgent tickets arrive. How many tickets need triage?",
+    "policy": "Duplicate support tickets should be merged before triage.",
 }
 
 
 def structured_reasoning(ticket):
     facts = [
-        "The order has not shipped yet, so it can be refunded through the original payment method",
-        "The item originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted",
+        "Duplicate support tickets should be merged before triage",
+        "The queue starts with 18 open tickets, removes 4 duplicates, then receives 7 urgent tickets",
     ]
-    calculation = ["80 * 0.8 = 64", "64 - 5 = 59"]
-    decision = "The refund amount should be 59 yuan, returned through the original payment method."
+    calculation = ["18 - 4 = 14", "14 + 7 = 21"]
+    decision = "The team should triage 21 tickets."
 
     return {
         "facts": facts,
@@ -330,7 +330,7 @@ print(result)
 Expected output:
 
 ```text
-{'facts': ['The order has not shipped yet, so it can be refunded through the original payment method', 'The item originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted'], 'calculation': ['80 * 0.8 = 64', '64 - 5 = 59'], 'decision': 'The refund amount should be 59 yuan, returned through the original payment method.'}
+{'facts': ['Duplicate support tickets should be merged before triage', 'The queue starts with 18 open tickets, removes 4 duplicates, then receives 7 urgent tickets'], 'calculation': ['18 - 4 = 14', '14 + 7 = 21'], 'decision': 'The team should triage 21 tickets.'}
 ```
 
 The advantages of this format are:
@@ -395,7 +395,7 @@ it will be much easier to understand that they are continuing to organize reason
 
 ## Exercises
 
-1. Replace the discount problem in the example with your own multi-step problem, and compare `bad_direct_answer` and `chain_reason_answer`.
+1. Replace the ticket-queue problem in the example with your own multi-step operations problem, and compare `bad_direct_answer` and `chain_reason_answer`.
 2. Why do we say the core value of CoT lies in “explicit intermediate structure” rather than “longer output”?
 3. Think of a simple question that is not suitable for CoT, and explain why.
 4. If you were using CoT in a product, would you prefer free-form text or structured slots? Why?

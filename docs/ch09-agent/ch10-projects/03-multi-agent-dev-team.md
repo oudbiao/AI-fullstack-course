@@ -86,14 +86,14 @@ class TestReport:
 
 
 plan = TaskPlan(
-    goal="Fix the incorrect amount display on the refund page",
-    files_to_change=["refund.py", "test_refund.py"],
-    acceptance_test="Given 100 yuan and 20% off, the result should be 80 yuan",
+    goal="Fix inconsistent status labels on the refund page",
+    files_to_change=["status.py", "test_status.py"],
+    acceptance_test="Given '  OPEN ', the normalized result should be 'open'",
 )
 
 patch = Patch(
-    summary="Fix the discount calculation logic and add tests",
-    changed_files=["refund.py", "test_refund.py"],
+    summary="Fix status normalization logic and add tests",
+    changed_files=["status.py", "test_status.py"],
 )
 
 review = ReviewNote(
@@ -103,7 +103,7 @@ review = ReviewNote(
 
 test_report = TestReport(
     passed=False,
-    cases=["test_discount_basic", "test_discount_zero"],
+    cases=["test_status_normalize_basic", "test_status_normalize_empty"],
 )
 
 print(plan)
@@ -115,10 +115,10 @@ print(test_report)
 Expected output:
 
 ```text
-TaskPlan(goal='Fix the incorrect amount display on the refund page', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='Given 100 yuan and 20% off, the result should be 80 yuan')
-Patch(summary='Fix the discount calculation logic and add tests', changed_files=['refund.py', 'test_refund.py'])
+TaskPlan(goal='Fix inconsistent status labels on the refund page', files_to_change=['status.py', 'test_status.py'], acceptance_test="Given '  OPEN ', the normalized result should be 'open'")
+Patch(summary='Fix status normalization logic and add tests', changed_files=['status.py', 'test_status.py'])
 ReviewNote(approved=False, issues=['Unclear variable naming', 'Incomplete edge case tests'])
-TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
+TestReport(passed=False, cases=['test_status_normalize_basic', 'test_status_normalize_empty'])
 ```
 
 ![Multi-Agent artifact handoff result map](/img/course/ch09-multi-agent-artifact-handoff-anatomy-result-map-en.webp)
@@ -149,8 +149,8 @@ Now connect the four roles into a minimal flow:
 def planner(goal):
     return TaskPlan(
         goal=goal,
-        files_to_change=["refund.py", "test_refund.py"],
-        acceptance_test="Given 100 yuan and 20% off, the result should be 80 yuan",
+        files_to_change=["status.py", "test_status.py"],
+        acceptance_test="Given '  OPEN ', the normalized result should be 'open'",
     )
 
 
@@ -162,7 +162,7 @@ def coder(plan):
 
 
 def reviewer(patch):
-    if "test_refund.py" not in patch.changed_files:
+    if "test_status.py" not in patch.changed_files:
         return ReviewNote(approved=False, issues=["Missing test file changes"])
     return ReviewNote(approved=True, issues=[])
 
@@ -170,10 +170,10 @@ def reviewer(patch):
 def tester(review_note):
     if not review_note.approved:
         return TestReport(passed=False, cases=["review_failed"])
-    return TestReport(passed=True, cases=["test_discount_basic", "test_discount_zero"])
+    return TestReport(passed=True, cases=["test_status_normalize_basic", "test_status_normalize_empty"])
 
 
-goal = "Fix the incorrect amount display on the refund page"
+goal = "Fix inconsistent status labels on the refund page"
 plan = planner(goal)
 patch = coder(plan)
 review = reviewer(patch)
@@ -188,10 +188,10 @@ print(test_report)
 Expected output:
 
 ```text
-TaskPlan(goal='Fix the incorrect amount display on the refund page', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='Given 100 yuan and 20% off, the result should be 80 yuan')
-Patch(summary='Implement according to the task goal: Fix the incorrect amount display on the refund page', changed_files=['refund.py', 'test_refund.py'])
+TaskPlan(goal='Fix inconsistent status labels on the refund page', files_to_change=['status.py', 'test_status.py'], acceptance_test="Given '  OPEN ', the normalized result should be 'open'")
+Patch(summary='Implement according to the task goal: Fix inconsistent status labels on the refund page', changed_files=['status.py', 'test_status.py'])
 ReviewNote(approved=True, issues=[])
-TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
+TestReport(passed=True, cases=['test_status_normalize_basic', 'test_status_normalize_empty'])
 ```
 
 ![Multi-Agent development team artifact trace result map](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map-en.webp)

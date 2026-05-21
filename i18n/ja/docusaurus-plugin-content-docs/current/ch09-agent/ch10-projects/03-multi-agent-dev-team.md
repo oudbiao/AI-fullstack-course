@@ -86,14 +86,14 @@ class TestReport:
 
 
 plan = TaskPlan(
-    goal="返金ページの金額表示エラーを修正する",
-    files_to_change=["refund.py", "test_refund.py"],
-    acceptance_test="100円と8割引を入力したら、結果は80円になること",
+    goal="返金ページのステータス表示の不一致を修正する",
+    files_to_change=["status.py", "test_status.py"],
+    acceptance_test="'  OPEN ' を入力したら、正規化結果は 'open' になること",
 )
 
 patch = Patch(
-    summary="割引計算ロジックを修正し、テストを追加する",
-    changed_files=["refund.py", "test_refund.py"],
+    summary="ステータス正規化ロジックを修正し、テストを追加する",
+    changed_files=["status.py", "test_status.py"],
 )
 
 review = ReviewNote(
@@ -103,7 +103,7 @@ review = ReviewNote(
 
 test_report = TestReport(
     passed=False,
-    cases=["test_discount_basic", "test_discount_zero"],
+    cases=["test_status_normalize_basic", "test_status_normalize_empty"],
 )
 
 print(plan)
@@ -115,10 +115,10 @@ print(test_report)
 実行結果の例：
 
 ```text
-TaskPlan(goal='返金ページの金額表示エラーを修正する', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='100円と8割引を入力したら、結果は80円になること')
-Patch(summary='割引計算ロジックを修正し、テストを追加する', changed_files=['refund.py', 'test_refund.py'])
+TaskPlan(goal='返金ページのステータス表示の不一致を修正する', files_to_change=['status.py', 'test_status.py'], acceptance_test="'  OPEN ' を入力したら、正規化結果は 'open' になること")
+Patch(summary='ステータス正規化ロジックを修正し、テストを追加する', changed_files=['status.py', 'test_status.py'])
 ReviewNote(approved=False, issues=['変数名がわかりにくい', '境界条件のテストが不十分'])
-TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
+TestReport(passed=False, cases=['test_status_normalize_basic', 'test_status_normalize_empty'])
 ```
 
 ![マルチ Agent artifact 引き継ぎ結果図](/img/course/ch09-multi-agent-artifact-handoff-anatomy-result-map-ja.webp)
@@ -149,8 +149,8 @@ TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
 def planner(goal):
     return TaskPlan(
         goal=goal,
-        files_to_change=["refund.py", "test_refund.py"],
-        acceptance_test="100円と8割引を入力したら、結果は80円になること",
+        files_to_change=["status.py", "test_status.py"],
+        acceptance_test="'  OPEN ' を入力したら、正規化結果は 'open' になること",
     )
 
 
@@ -162,7 +162,7 @@ def coder(plan):
 
 
 def reviewer(patch):
-    if "test_refund.py" not in patch.changed_files:
+    if "test_status.py" not in patch.changed_files:
         return ReviewNote(approved=False, issues=["テストファイルの変更がありません"])
     return ReviewNote(approved=True, issues=[])
 
@@ -170,10 +170,10 @@ def reviewer(patch):
 def tester(review_note):
     if not review_note.approved:
         return TestReport(passed=False, cases=["review_failed"])
-    return TestReport(passed=True, cases=["test_discount_basic", "test_discount_zero"])
+    return TestReport(passed=True, cases=["test_status_normalize_basic", "test_status_normalize_empty"])
 
 
-goal = "返金ページの金額表示エラーを修正する"
+goal = "返金ページのステータス表示の不一致を修正する"
 plan = planner(goal)
 patch = coder(plan)
 review = reviewer(patch)
@@ -188,10 +188,10 @@ print(test_report)
 実行結果の例：
 
 ```text
-TaskPlan(goal='返金ページの金額表示エラーを修正する', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='100円と8割引を入力したら、結果は80円になること')
-Patch(summary='タスク目標に基づいて実装: 返金ページの金額表示エラーを修正する', changed_files=['refund.py', 'test_refund.py'])
+TaskPlan(goal='返金ページのステータス表示の不一致を修正する', files_to_change=['status.py', 'test_status.py'], acceptance_test="'  OPEN ' を入力したら、正規化結果は 'open' になること")
+Patch(summary='タスク目標に基づいて実装: 返金ページのステータス表示の不一致を修正する', changed_files=['status.py', 'test_status.py'])
 ReviewNote(approved=True, issues=[])
-TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
+TestReport(passed=True, cases=['test_status_normalize_basic', 'test_status_normalize_empty'])
 ```
 
 ![マルチ Agent 開発チームの artifact トレース 結果図](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map-ja.webp)

@@ -86,14 +86,14 @@ class TestReport:
 
 
 plan = TaskPlan(
-    goal="修复退款页面金额显示错误",
-    files_to_change=["refund.py", "test_refund.py"],
-    acceptance_test="输入 100 元和 8 折，结果应为 80 元",
+    goal="修复退款页面状态标签不一致问题",
+    files_to_change=["status.py", "test_status.py"],
+    acceptance_test="输入 '  OPEN ' 时，标准化结果应为 'open'",
 )
 
 patch = Patch(
-    summary="修复折扣计算逻辑，并补充测试",
-    changed_files=["refund.py", "test_refund.py"],
+    summary="修复状态标准化逻辑，并补充测试",
+    changed_files=["status.py", "test_status.py"],
 )
 
 review = ReviewNote(
@@ -103,7 +103,7 @@ review = ReviewNote(
 
 test_report = TestReport(
     passed=False,
-    cases=["test_discount_basic", "test_discount_zero"],
+    cases=["test_status_normalize_basic", "test_status_normalize_empty"],
 )
 
 print(plan)
@@ -115,10 +115,10 @@ print(test_report)
 预期输出：
 
 ```text
-TaskPlan(goal='修复退款页面金额显示错误', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='输入 100 元和 8 折，结果应为 80 元')
-Patch(summary='修复折扣计算逻辑，并补充测试', changed_files=['refund.py', 'test_refund.py'])
+TaskPlan(goal='修复退款页面状态标签不一致问题', files_to_change=['status.py', 'test_status.py'], acceptance_test="输入 '  OPEN ' 时，标准化结果应为 'open'")
+Patch(summary='修复状态标准化逻辑，并补充测试', changed_files=['status.py', 'test_status.py'])
 ReviewNote(approved=False, issues=['变量命名不清晰', '边界条件测试不完整'])
-TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
+TestReport(passed=False, cases=['test_status_normalize_basic', 'test_status_normalize_empty'])
 ```
 
 ![多 Agent 工件交接结果图](/img/course/ch09-multi-agent-artifact-handoff-anatomy-result-map.webp)
@@ -149,8 +149,8 @@ TestReport(passed=False, cases=['test_discount_basic', 'test_discount_zero'])
 def planner(goal):
     return TaskPlan(
         goal=goal,
-        files_to_change=["refund.py", "test_refund.py"],
-        acceptance_test="输入 100 元和 8 折，结果应为 80 元",
+        files_to_change=["status.py", "test_status.py"],
+        acceptance_test="输入 '  OPEN ' 时，标准化结果应为 'open'",
     )
 
 
@@ -162,7 +162,7 @@ def coder(plan):
 
 
 def reviewer(patch):
-    if "test_refund.py" not in patch.changed_files:
+    if "test_status.py" not in patch.changed_files:
         return ReviewNote(approved=False, issues=["缺少测试文件改动"])
     return ReviewNote(approved=True, issues=[])
 
@@ -170,10 +170,10 @@ def reviewer(patch):
 def tester(review_note):
     if not review_note.approved:
         return TestReport(passed=False, cases=["review_failed"])
-    return TestReport(passed=True, cases=["test_discount_basic", "test_discount_zero"])
+    return TestReport(passed=True, cases=["test_status_normalize_basic", "test_status_normalize_empty"])
 
 
-goal = "修复退款页面金额显示错误"
+goal = "修复退款页面状态标签不一致问题"
 plan = planner(goal)
 patch = coder(plan)
 review = reviewer(patch)
@@ -188,10 +188,10 @@ print(test_report)
 预期输出：
 
 ```text
-TaskPlan(goal='修复退款页面金额显示错误', files_to_change=['refund.py', 'test_refund.py'], acceptance_test='输入 100 元和 8 折，结果应为 80 元')
-Patch(summary='根据任务目标实现: 修复退款页面金额显示错误', changed_files=['refund.py', 'test_refund.py'])
+TaskPlan(goal='修复退款页面状态标签不一致问题', files_to_change=['status.py', 'test_status.py'], acceptance_test="输入 '  OPEN ' 时，标准化结果应为 'open'")
+Patch(summary='根据任务目标实现: 修复退款页面状态标签不一致问题', changed_files=['status.py', 'test_status.py'])
 ReviewNote(approved=True, issues=[])
-TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
+TestReport(passed=True, cases=['test_status_normalize_basic', 'test_status_normalize_empty'])
 ```
 
 ![多 Agent 开发团队工件 追踪 结果图](/img/course/ch09-multi-agent-dev-team-artifact-trace-result-map.webp)

@@ -188,8 +188,8 @@ TOOL_REGISTRY = [
     },
     {
         "name": "calculator",
-        "description": "做确定性数值计算，例如加减乘除和折扣金额计算",
-        "tags": ["math", "price", "discount", "calculation", "计算", "价格", "折扣", "多少"],
+        "description": "做确定性数值计算，例如加减乘除、费用合计和差额计算",
+        "tags": ["math", "fee", "total", "calculation", "计算", "费用", "合计", "差额"],
         "required_args": ["expression"],
         "returns": ["result"],
         "risk_level": "low",
@@ -216,7 +216,7 @@ def discover_tools(query, registry, top_k=2):
 queries = [
     "退款政策是什么",
     "订单现在发货了吗",
-    "299 打 8 折再减 5 等于多少",
+    "费用合计 299 加 80 再减 5",
 ]
 
 for query in queries:
@@ -228,7 +228,7 @@ for query in queries:
 ```text
 退款政策是什么 -> [('search_refund_policy', 2), ('get_order_status', 0)]
 订单现在发货了吗 -> [('get_order_status', 2), ('search_refund_policy', 0)]
-299 打 8 折再减 5 等于多少 -> [('calculator', 1), ('search_refund_policy', 0)]
+费用合计 299 加 80 再减 5 -> [('calculator', 2), ('search_refund_policy', 0)]
 ```
 
 ### 这段代码到底在教什么？

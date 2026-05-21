@@ -391,11 +391,11 @@ This is usually much easier to make stable than building a “big and complete m
 
 ---
 
-## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” What Information Is Worth Storing Long Term?
+## If Your Goal Is a “Knowledge-Base-Driven SOP Document Assistant,” What Information Is Worth Storing Long Term?
 
 The easiest mistake in this kind of project is:
 
-- Storing every courseware topic into long-term memory
+- Storing every SOP topic into long-term memory
 
 In reality, many topics are just one-off tasks
 and are not suitable for long-term retention.
@@ -405,10 +405,10 @@ What is more suitable for long-term memory is often stable preference data like 
 | Information | More Long-Term or Short-Term |
 |---|---|
 | User prefers output in Word in the long run | Long-term |
-| User likes a lecture-style explanation in the long run | Long-term |
-| The current task is to create courseware for “discount word problems” | Short-term |
-| Only 3 practice questions are needed this time | More short-term |
-| User usually prepares lessons for “upper elementary school” | Long-term or semi-long-term |
+| User likes concise checklist style in the long run | Long-term |
+| The current task is to draft a “refund escalation SOP” | Short-term |
+| Only 2 handled cases are needed this time | More short-term |
+| User usually writes for frontline support teams | Long-term or semi-long-term |
 
 You can compress this into one sentence:
 
@@ -419,9 +419,9 @@ You can compress this into one sentence:
 ```python
 profile = {
     "preferred_doc_format": "word",
-    "preferred_style": "lecture-style explanation",
-    "preferred_language": "zh",
-    "default_audience": "upper elementary school",
+    "preferred_style": "concise checklist",
+    "preferred_language": "zh/en/ja",
+    "default_audience": "frontline support",
     "prefer_source_refs": True,
 }
 
@@ -431,7 +431,7 @@ print(profile)
 Expected output:
 
 ```text
-{'preferred_doc_format': 'word', 'preferred_style': 'lecture-style explanation', 'preferred_language': 'zh', 'default_audience': 'upper elementary school', 'prefer_source_refs': True}
+{'preferred_doc_format': 'word', 'preferred_style': 'concise checklist', 'preferred_language': 'zh/en/ja', 'default_audience': 'frontline support', 'prefer_source_refs': True}
 ```
 
 What beginners should notice most here is:

@@ -189,8 +189,8 @@ TOOL_REGISTRY = [
     },
     {
         "name": "calculator",
-        "description": "Perform deterministic numerical calculations, such as addition, subtraction, multiplication, division, and discount calculations",
-        "tags": ["math", "price", "discount", "calculation"],
+        "description": "Perform deterministic numerical calculations, such as addition, subtraction, multiplication, division, and fee totals",
+        "tags": ["math", "fee", "total", "calculation"],
         "required_args": ["expression"],
         "returns": ["result"],
         "risk_level": "low",
@@ -214,7 +214,7 @@ def discover_tools(query, registry, top_k=2):
 queries = [
     "What is the refund policy",
     "Has the order been shipped now",
-    "What is 299 times 80% minus 5",
+    "fee calculation 299 plus 80 minus 5",
 ]
 
 for query in queries:
@@ -226,7 +226,7 @@ Expected output:
 ```text
 What is the refund policy -> [('search_refund_policy', 2), ('get_order_status', 1)]
 Has the order been shipped now -> [('get_order_status', 3), ('search_refund_policy', 0)]
-What is 299 times 80% minus 5 -> [('calculator', 1), ('search_refund_policy', 0)]
+fee calculation 299 plus 80 minus 5 -> [('calculator', 2), ('search_refund_policy', 0)]
 ```
 
 ### What is this code really teaching?

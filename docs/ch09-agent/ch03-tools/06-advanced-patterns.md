@@ -304,14 +304,14 @@ because the boundaries are clearer.
 
 ---
 
-## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Combinations Are Worth Packaging First?
+## If Your Goal Is a “Knowledge-Base-Driven SOP Document Assistant,” Which Combinations Are Worth Packaging First?
 
 In this kind of project, tools often naturally grow into these categories:
 
 - Search internal materials
 - Search external materials
 - Deduplicate and reorder
-- Generate courseware schema
+- Generate SOP schema
 - Export Word
 
 If you let the Agent decide every step on the fly,
@@ -325,9 +325,9 @@ So when building it for the first time, the workflows that are more worth packag
 
 | Composite Tool | What It Fixes for You |
 |---|---|
-| `retrieve_teaching_materials` | Search internal sources first, then supplement with external sources, then merge and deduplicate |
-| `build_courseware_outline` | Extract concepts, examples, and exercises first, then organize the schema |
-| `export_courseware_doc` | Validate the schema first, then export Word using a template |
+| `retrieve_sop_materials` | Search internal SOP sources first, then supplement with external references, then merge and deduplicate |
+| `build_sop_schema` | Extract policy rules, handled cases, and checklist items first, then organize the schema |
+| `export_sop_doc` | Validate the SOP schema first, then export Word using a template |
 
 You can think of this first as:
 
@@ -337,30 +337,30 @@ You can think of this first as:
 
 ```python
 def retrieve_internal_docs(topic):
-    return [{"source": "internal", "text": f"Internal materials: key points and examples for {topic}"}]
+    return [{"source": "internal", "text": f"Internal SOP evidence: policy rules and handled cases for {topic}"}]
 
 
 def retrieve_external_docs(topic):
-    return [{"source": "external", "text": f"External materials: supplementary notes for {topic}"}]
+    return [{"source": "external", "text": f"External reference: supplementary best practices for {topic}"}]
 
 
 def merge_materials(internal_docs, external_docs):
     return internal_docs + external_docs
 
 
-def retrieve_teaching_materials(topic):
+def retrieve_sop_materials(topic):
     internal_docs = retrieve_internal_docs(topic)
     external_docs = retrieve_external_docs(topic)
     return merge_materials(internal_docs, external_docs)
 
 
-print(retrieve_teaching_materials("discount word problems"))
+print(retrieve_sop_materials("refund escalation SOP"))
 ```
 
 Expected output:
 
 ```text
-[{'source': 'internal', 'text': 'Internal materials: key points and examples for discount word problems'}, {'source': 'external', 'text': 'External materials: supplementary notes for discount word problems'}]
+[{'source': 'internal', 'text': 'Internal SOP evidence: policy rules and handled cases for refund escalation SOP'}, {'source': 'external', 'text': 'External reference: supplementary best practices for refund escalation SOP'}]
 ```
 
 The most important value of this example is not that the code is complicated,
