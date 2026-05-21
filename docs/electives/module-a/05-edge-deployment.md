@@ -109,3 +109,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## Practice
 
 Add `price_usd` to each device and choose the cheapest device that passes all checks. Then add a second model and compare which device works for both.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+The answer should first filter devices by constraints, then compare price only among devices that pass. A cheap device that fails memory, power, or offline requirements is not a valid deployment target.
+
+For the second model, build a shared check such as `device["memory_mb"] >= model_a["memory_mb"] + model_b["memory_mb"]` if both models must run together, or compare each model separately if only one runs at a time. The final note should explain the trade-off: the best device is the cheapest one that still satisfies the real operating constraints.
+
+</details>

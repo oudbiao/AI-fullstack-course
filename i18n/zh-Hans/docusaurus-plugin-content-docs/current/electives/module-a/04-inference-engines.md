@@ -163,3 +163,17 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 练习
 
 给每个引擎加一个 `memory` 字段；如果超过设备内存，就扣 1 分。然后分别用 CPU-only、NVIDIA GPU、Intel 设备三种场景重新选择。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+好的答案会把内存当成真实约束，而不是装饰性字段。比如目标设备只允许 `memory_limit=1024`，某个引擎的 `memory=1800`，即使延迟分数很好，也应该扣分或标记为高风险。
+
+预期推理方式：
+
+- CPU-only 场景通常选择 CPU 支持好且内存不过线的引擎。
+- NVIDIA GPU 场景在格式和算子都支持时可能偏向 TensorRT。
+- Intel 硬件通常会把选择推向 OpenVINO。
+- 最终选择要同时说明分数和部署风险，而不是只说谁最快。
+
+</details>

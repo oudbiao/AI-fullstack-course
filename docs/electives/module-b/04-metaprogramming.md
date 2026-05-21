@@ -135,3 +135,12 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## Practice
 
 Add a `yaml` loader and confirm `sorted(REGISTRY)` includes it. Then create an `IntegerRange(min_value, max_value)` descriptor for a `retry_count` field.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+The `yaml` loader should register itself through the same mechanism as the existing loaders, so `sorted(REGISTRY)` includes `yaml` without manually editing a separate mapping table.
+
+For `IntegerRange`, the descriptor should reject non-integers and values outside the allowed range. A useful self-check sets `retry_count = 3`, then tries `retry_count = -1` or `"3"` and confirms a clear exception appears. The point is not cleverness; it is keeping repeated validation rules close to the field definition.
+
+</details>

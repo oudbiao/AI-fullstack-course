@@ -107,3 +107,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## Practice
 
 Add a third feature with values around `10000`, remove `StandardScaler()`, and observe how distance voting becomes distorted.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+Without scaling, the feature near `10000` dominates Euclidean distance. That means KNN may vote based mostly on the large-scale feature, even if the original two features describe the class pattern better.
+
+A good answer compares predictions with and without `StandardScaler()` and explains which feature controlled the distance. The lesson is that KNN depends heavily on feature scale because it has no learned weights to correct bad distance geometry.
+
+</details>

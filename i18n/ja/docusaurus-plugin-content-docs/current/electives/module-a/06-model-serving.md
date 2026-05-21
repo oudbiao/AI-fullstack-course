@@ -135,3 +135,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 練習
 
 各リクエストに `latency_ms` を追加し、バージョンごとの平均レイテンシを計算してください。`v2` が `v1` より 20 ms 以上遅い場合、以後のリクエストをすべて `v1` に戻します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+堅実な解答では、リクエストを `version` ごとに分け、各グループの `latency_ms` の平均を計算します。`avg_v2 - avg_v1 > 20` なら、`v2` を不健康とみなすか、次の batch のトラフィック重みを 0 にします。
+
+ポイントは、ロールバックを勘ではなく実測したサービス指標で判断することです。実サービスでは平均だけでなく P95 レイテンシとエラー率も見ます。平均値だけでは遅い tail case が隠れることがあるためです。
+
+</details>

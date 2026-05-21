@@ -104,3 +104,12 @@ artifact: UI sketch, component behavior, event trace, or screenshot
 failure_check: hiding latency, missing error states, unclear citations, or weak review controls
 Expected_output: AI frontend interaction note with states and evidence display
 ```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一个合格答案应覆盖至少三条路径：空输入、普通输入、模拟失败。证据最好是一个小表格或截图，能看出状态、提示和重试行为。
+
+重点是让用户清楚知道发生了什么，而不是只把一个结果框摆出来。
+
+</details>

@@ -134,3 +134,17 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 练习
 
 再加 5 个工具调用，并设置 `Semaphore(3)`。然后把超时降到 `0.15`，统计有多少返回 `:timeout`。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+具体超时数量取决于你给每个工具设置的延迟，所以答案应该汇报实际观察到的数量，而不是编一个固定数字。一个可靠做法是打印完整结果列表，并统计：
+
+```python
+timeouts = sum(result.endswith(":timeout") for result in results)
+print("timeouts:", timeouts)
+```
+
+解释里要说明：`Semaphore(3)` 限制了上游工具压力，而更低的 timeout 会暴露慢调用。真实生产环境还应该记录哪个工具超时，而不只是记录总数。
+
+</details>

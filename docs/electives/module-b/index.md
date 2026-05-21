@@ -67,3 +67,12 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## Pass Check
 
 You pass this module when you can build one traceable pipeline that uses a decorator, generator, async call, or registry, and can explain why the code became easier to debug.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A passing answer can use any one advanced Python pattern, but it must show why the pattern helps. For example, a decorator may add logging without touching business logic, a generator may stream rows without loading all data, and an async call may make multiple I/O waits visible in one trace.
+
+The explanation should include one failure mode too: hidden decorator order, exhausted generators, missing timeouts, or over-clever metaprogramming.
+
+</details>

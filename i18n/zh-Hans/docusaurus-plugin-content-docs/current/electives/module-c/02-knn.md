@@ -107,3 +107,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## 练习
 
 添加第三个特征，数值范围在 `10000` 左右。移除 `StandardScaler()`，观察距离投票如何被扭曲。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+没有缩放时，`10000` 左右的大尺度特征会主导欧氏距离。这样 KNN 可能几乎只按这个大尺度特征投票，即使原来的两个特征更能描述类别模式。
+
+好的答案会比较有无 `StandardScaler()` 时的预测结果，并解释哪个特征控制了距离。核心结论是：KNN 很依赖特征尺度，因为它没有学到权重来自动修正糟糕的距离几何。
+
+</details>

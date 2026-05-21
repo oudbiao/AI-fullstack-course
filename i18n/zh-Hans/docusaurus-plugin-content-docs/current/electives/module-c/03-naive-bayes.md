@@ -118,3 +118,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## 练习
 
 添加一个 `certificate` 类别和两个样本。再测试一个证书问题是否能被分到新标签。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+合理更新是加入两个 `certificate` 标签样本，文本里可以包含 `certificate`、`proof`、`completion` 等词，然后预测一个新的证书相关问题。如果模型返回 `certificate`，说明新类别至少已经能被模型识别。
+
+如果没有返回，不要立刻认为模型坏了，而要检查词表和平滑参数。只有两个样本时，朴素贝叶斯会很受用词影响，所以讲解里要提到数据覆盖，而不只是报告预测标签。
+
+</details>

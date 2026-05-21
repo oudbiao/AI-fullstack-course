@@ -113,3 +113,18 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 练习
 
 增加第二个目标设备，重新运行就绪检查。然后写三行 README，说明为什么选择这个设备和推理引擎。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+第二个设备应该进入同一套就绪检查逻辑，而不是单独凭描述判断。一个合格的 README 可以很短：
+
+```text
+Chosen device: edge-c, because it passes memory, power, and offline checks.
+Chosen engine: ONNX Runtime, because it supports the model format and is easier for this project to maintain.
+Known trade-off: TensorRT may be faster later, but the current project optimizes repeatable evidence first.
+```
+
+如果你新增约束后另一个设备胜出也可以。只要 README 的三行能被检查结果支撑，并且没有隐藏准确率、内存或延迟取舍，这个答案就是成立的。
+
+</details>

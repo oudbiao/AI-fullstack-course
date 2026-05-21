@@ -134,3 +134,17 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 練習
 
 ツール呼び出しをさらに5つ追加し、`Semaphore(3)` にします。その後、タイムアウトを `0.15` に下げ、いくつが `:timeout` になるか数えてください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+具体的なタイムアウト数は、各ツールに設定した遅延によって変わります。そのため固定の数を作るのではなく、観測した数を報告します。堅実な解答では、結果一覧と数を両方出します。
+
+```python
+timeouts = sum(result.endswith(":timeout") for result in results)
+print("timeouts:", timeouts)
+```
+
+説明では、`Semaphore(3)` が上流ツールへの圧力を制限し、短い timeout が遅い呼び出しを露出させることを書きます。本番では合計数だけでなく、どのツールがタイムアウトしたかもログに残します。
+
+</details>

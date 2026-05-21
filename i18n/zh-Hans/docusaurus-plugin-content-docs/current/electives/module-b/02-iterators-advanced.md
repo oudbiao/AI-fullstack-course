@@ -145,3 +145,17 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 练习
 
 修改 `batch`，让它同时打印 `batch_id`。然后改变输入事件，确认后续步骤不改也能继续工作。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一种可接受做法是在输出端给 batch 编号：
+
+```python
+for batch_id, group in enumerate(batch(normalized, size=2), start=1):
+    print(batch_id, group)
+```
+
+这样前面的读取、过滤、标准化步骤都不需要改。如果改变输入事件后，只是打印出的分组变化，而流水线结构保持不变，就说明练习完成了。核心是：生成器流水线应该允许你替换数据，而不用重写每个后续步骤。
+
+</details>

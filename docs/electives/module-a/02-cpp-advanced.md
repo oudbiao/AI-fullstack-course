@@ -89,6 +89,19 @@ struct FastEngine : Engine {
 
 Then replace `CpuEngine` with `FastEngine`. The rest of `Session` should not change.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+`FastEngine` should implement the same `Engine` interface, so `Session` only receives a different object at construction time:
+
+```cpp
+Session session(std::make_unique<FastEngine>());
+```
+
+The important learning point is that `Session` depends on the interface, not on `CpuEngine` directly. `std::unique_ptr` makes ownership explicit: the session owns exactly one engine instance, and the resource is released automatically when the session ends.
+
+</details>
+
 ## Pass check
 
 You pass this lesson when you can explain why `Session` owns the engine, why `unique_ptr` is safer than a raw pointer here, and how an interface lets one deployment path swap runtime backends.

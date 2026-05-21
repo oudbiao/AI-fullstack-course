@@ -118,3 +118,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## 練習
 
 `certificate` クラスと例文を2つ追加します。その後、新しい証明書関連の質問が新ラベルに分類されるか確認してください。
+
+<details>
+<summary>参考解答と解説</summary>
+
+妥当な更新では、`certificate` ラベルの例文を2つ追加し、`certificate`、`proof`、`completion` などの語を含めます。そのうえで、新しい証明書関連の質問を予測します。`certificate` が返れば、新しいクラスが少なくとも到達可能になっています。
+
+返らない場合も、すぐにモデルが壊れていると考えず、語彙と平滑化を確認します。例が2つだけだと、ナイーブベイズは使った単語に強く影響されます。解説では、予測ラベルだけでなくデータのカバー範囲にも触れます。
+
+</details>

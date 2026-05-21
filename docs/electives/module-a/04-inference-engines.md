@@ -163,3 +163,17 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## Practice
 
 Add a `memory` field to each engine and subtract one point if it uses more memory than your device allows. Then rerun the selector for CPU-only, NVIDIA GPU, and Intel device scenarios.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A good answer adds memory as another hard constraint, not as a decorative column. For example, if a target device allows `memory_limit=1024`, an engine with `memory=1800` should lose a point or be marked risky even if its latency score is strong.
+
+Expected reasoning:
+
+- CPU-only usually favors the engine that supports CPU well and stays within memory.
+- NVIDIA GPU may favor TensorRT if format and operators fit.
+- Intel hardware should usually push the selector toward OpenVINO.
+- The final choice should mention both score and deployment risk, not just the fastest engine.
+
+</details>

@@ -67,3 +67,12 @@ use_case: where this pattern improves an AI app, pipeline, tool, or server
 failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
 Expected_output: small advanced-Python example with a practical AI-system use note
 ```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一个合格答案会展示一个可追踪流水线：比如装饰器加日志、生成器做流式处理、async 并发跑多个 I/O，或者用注册表显式管理工具。证据应包含最小可运行输出，以及为什么调试会更容易。
+
+如果只是“写得更巧”，还不够。要说明可观察性、可复用性或控制力为什么真的变好了。
+
+</details>

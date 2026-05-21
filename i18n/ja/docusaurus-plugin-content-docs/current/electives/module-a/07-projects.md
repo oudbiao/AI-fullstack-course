@@ -113,3 +113,18 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 練習
 
 2つ目の対象デバイスを追加し、準備チェックをもう一度実行してください。その後、README に3行だけ、なぜそのデバイスと推論エンジンを選んだのかを書きます。
+
+<details>
+<summary>参考解答と解説</summary>
+
+2つ目のデバイスは、同じ準備チェックのロジックに入れて評価します。別の説明だけで判断してはいけません。README の例は短くてかまいません。
+
+```text
+Chosen device: edge-c, because it passes memory, power, and offline checks.
+Chosen engine: ONNX Runtime, because it supports the model format and is easier for this project to maintain.
+Known trade-off: TensorRT may be faster later, but the current project optimizes repeatable evidence first.
+```
+
+追加した制約によって別のデバイスが勝つなら、それも正解です。README の3行がチェック結果に支えられており、精度、メモリ、レイテンシのトレードオフを隠していなければ合格です。
+
+</details>

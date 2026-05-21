@@ -135,3 +135,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 练习
 
 给每个请求加 `latency_ms` 字段，计算每个版本的平均延迟。如果 `v2` 比 `v1` 慢超过 20 ms，就把后续请求全部切回 `v1`。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+可靠做法是按 `version` 分组请求，计算每组 `latency_ms` 的平均值，再比较两个版本。如果 `avg_v2 - avg_v1 > 20`，就把 `v2` 标成不健康，或把下一批流量权重设为 0。
+
+关键解释是：回滚应由真实服务指标驱动，而不是凭感觉。真实服务还应比较 P95 延迟和错误率，因为平均值可能掩盖长尾慢请求。
+
+</details>

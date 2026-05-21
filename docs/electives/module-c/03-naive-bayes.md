@@ -118,3 +118,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## Practice
 
 Add a `certificate` class with two examples. Then test whether a new certificate question is routed to the new label.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A reasonable update adds two `certificate` labels and texts with words such as `certificate`, `proof`, or `completion`, then predicts a new certificate-related question. If the model returns `certificate`, the new class is at least reachable.
+
+If it does not, inspect the vocabulary and smoothing rather than assuming the model is broken. With only two examples, Naive Bayes can be strongly affected by word choice, so the explanation should mention data coverage and not only the predicted label.
+
+</details>

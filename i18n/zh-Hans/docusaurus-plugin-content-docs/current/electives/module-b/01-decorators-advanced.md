@@ -142,3 +142,16 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 练习
 
 在 `fetch_model_info` 前加一个 `require_role("admin")` 装饰器。非 admin 用户抛出 `PermissionError`，并且不要重试权限错误。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+好的实现会先处理权限，再让 retry 只处理临时失败。可以把 `require_role("admin")` 放在重试路径外层，或者修改 `retry`，让它遇到 `PermissionError` 时立即重新抛出。
+
+预期行为是：
+
+- admin 用户可以正常调用函数。
+- 非 admin 用户会得到 `PermissionError`。
+- 权限失败不会反复打印 retry 日志，因为权限错误不是临时网络错误。
+
+</details>

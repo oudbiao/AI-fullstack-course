@@ -163,3 +163,17 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 練習
 
 各エンジンに `memory` フィールドを追加し、デバイスのメモリを超えたら 1 点減点してください。その後、CPU-only、NVIDIA GPU、Intel デバイスの3つの場面で選び直します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+よい解答では、メモリを飾りの列ではなく実際の制約として扱います。たとえば対象デバイスの `memory_limit=1024` に対して、あるエンジンの `memory=1800` なら、遅延スコアが高くても減点またはリスク扱いにします。
+
+期待される考え方は次の通りです。
+
+- CPU-only では、CPU 対応がよくメモリに収まるエンジンが有利です。
+- NVIDIA GPU では、形式と演算子が合うなら TensorRT が有利になることがあります。
+- Intel ハードウェアでは OpenVINO が選ばれやすくなります。
+- 最終判断では、速さだけでなくスコアと運用リスクの両方を説明します。
+
+</details>

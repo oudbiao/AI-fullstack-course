@@ -68,3 +68,12 @@ metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection 
 failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
 Expected_output: classical-ML baseline result with one limitation note
 ```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一个合格答案会先说明为什么这个 baseline 适合：数据小、特征清楚、距离或边界有意义。然后给出一个比较对象，例如更重模型或后续项目结果，并解释限制在哪里。
+
+如果只报一个准确率，信息还不够。经典 ML 的价值是快速、可解释、可对照。
+
+</details>

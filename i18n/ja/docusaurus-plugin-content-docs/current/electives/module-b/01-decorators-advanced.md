@@ -142,3 +142,16 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 練習
 
 `fetch_model_info` の前に `require_role("admin")` デコレータを追加してください。admin 以外なら `PermissionError` を出し、権限エラーはリトライしないようにします。
+
+<details>
+<summary>参考解答と解説</summary>
+
+よい実装では、権限チェックを先に扱い、`retry` は一時的な失敗だけを扱うようにします。`require_role("admin")` をリトライ経路の外側に置くか、`retry` が `PermissionError` を受け取ったらすぐ再送出するようにします。
+
+期待される挙動は次の通りです。
+
+- admin ユーザーは通常どおり関数を呼び出せる。
+- admin 以外は `PermissionError` になる。
+- 権限エラーは一時的なネットワーク障害ではないので、retry ログが繰り返されない。
+
+</details>

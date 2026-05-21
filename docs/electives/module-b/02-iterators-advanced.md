@@ -145,3 +145,17 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## Practice
 
 Modify `batch` so it also prints `batch_id`. Then change the input events and confirm the pipeline still works without changing the later steps.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+One acceptable answer is to enumerate batches at the output edge:
+
+```python
+for batch_id, group in enumerate(batch(normalized, size=2), start=1):
+    print(batch_id, group)
+```
+
+This keeps the earlier reader, filter, and normalizer unchanged. If changing input events only changes the printed groups, while the pipeline structure stays intact, the exercise worked. The core lesson is that generator pipelines should let you swap data without rewriting every downstream step.
+
+</details>

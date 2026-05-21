@@ -107,3 +107,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## 练习
 
 添加第三个类别，并设置 `n_components=2`。打印新的投影形状，并解释为什么最大分量数变了。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+有三个类别时，LDA 最多可以投影到 `类别数 - 1 = 2` 个判别分量，前提是特征维度也允许。如果你给类别 `2` 增加三个样本，并设置 `n_components=2`，变换后的数据应该有两列；如果现在共有九行，形状会类似 `(9, 2)`。
+
+关键解释是：LDA 的方向用于分开类别。两个类别最多只需要一个分离方向；三个类别可能需要两个方向。
+
+</details>

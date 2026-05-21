@@ -75,9 +75,18 @@ after failure_count: 0
 学完这一页，至少保留这张证据卡：
 
 ```text
-product_question: user problem, workflow, value metric, and risk boundary
-experiment: hypothesis, smallest test, metric, and decision rule
-artifact: feature spec, prototype note, user story, or evaluation result
-failure_check: building demos without measuring value or ignoring user workflow
-Expected_output: AI product decision note that can guide implementation
+threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
+control: validation, permission, sandbox, audit, red-team test, or incident response
+test_case: one attack or failure sample and expected safe behavior
+failure_check: trusting model text, missing logs, broad permissions, or no regression tests
+Expected_output: security checklist plus one reproducible red-team case
 ```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一个合格答案会说明一个攻击面、一个失败用例、一个防护措施，以及修复后同样用例的回归结果。最好的证据不是“看起来安全”，而是能重复运行、重复失败、再重复通过。
+
+如果只写策略名而没有回归案例，这一页还没有闭环。
+
+</details>

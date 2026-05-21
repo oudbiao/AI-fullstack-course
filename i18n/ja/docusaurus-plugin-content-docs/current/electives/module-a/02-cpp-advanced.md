@@ -89,6 +89,19 @@ struct FastEngine : Engine {
 
 それから `CpuEngine` を `FastEngine` に置き換えます。`Session` の他のコードは変えないでください。
 
+<details>
+<summary>参考解答と解説</summary>
+
+`FastEngine` は同じ `Engine` インターフェースを実装します。そのため `Session` 側では、構築時に別のオブジェクトを渡すだけで済みます。
+
+```cpp
+Session session(std::make_unique<FastEngine>());
+```
+
+重要なのは、`Session` が `CpuEngine` そのものではなくインターフェースに依存していることです。`std::unique_ptr` により所有権が明確になり、session が 1 つの engine インスタンスを所有し、終了時に自動的に解放されます。
+
+</details>
+
 ## 残す証拠
 
 このページを終えたら、この証拠カードを残します。

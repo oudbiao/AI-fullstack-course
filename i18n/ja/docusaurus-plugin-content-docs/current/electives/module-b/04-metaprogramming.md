@@ -135,3 +135,12 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 練習
 
 `yaml` loader を追加し、`sorted(REGISTRY)` に含まれることを確認してください。次に `retry_count` フィールド用の `IntegerRange(min_value, max_value)` ディスクリプタを作ります。
+
+<details>
+<summary>参考解答と解説</summary>
+
+`yaml` loader は既存 loader と同じ仕組みで登録します。別の対応表を手で編集しなくても、`sorted(REGISTRY)` に `yaml` が含まれる状態にします。
+
+`IntegerRange` ディスクリプタは、整数以外と範囲外の値を拒否する必要があります。実用的な確認として、`retry_count = 3` を設定してから、`retry_count = -1` や `"3"` を試し、分かりやすい例外が出ることを確認します。目的は高度に見せることではなく、繰り返しの検証ルールをフィールド定義の近くに置くことです。
+
+</details>

@@ -71,13 +71,22 @@ The failed tool case is not embarrassing; it is now a regression test that prote
 Keep this page's proof of learning as a small evidence card:
 
 ```text
-product_question: user problem, workflow, value metric, and risk boundary
-experiment: hypothesis, smallest test, metric, and decision rule
-artifact: feature spec, prototype note, user story, or evaluation result
-failure_check: building demos without measuring value or ignoring user workflow
-Expected_output: AI product decision note that can guide implementation
+threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
+control: validation, permission, sandbox, audit, red-team test, or incident response
+test_case: one attack or failure sample and expected safe behavior
+failure_check: trusting model text, missing logs, broad permissions, or no regression tests
+Expected_output: security checklist plus one reproducible red-team case
 ```
 
 ## Pass Check
 
 You pass this elective when you can keep a red-team case file, explain one failed surface, propose one guardrail, and rerun the case after the fix.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A passing answer should name one surface, one failure, one guardrail, and the rerun result. For example: “The tool surface failed because the model executed without confirmation. The guardrail requires explicit user approval before external actions. After the fix, the same case returns `ask_confirmation`.”
+
+The key is repeatability. A red-team note is useful only when the failed case becomes a regression case that future changes must pass.
+
+</details>

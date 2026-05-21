@@ -75,13 +75,22 @@ The numbers are not final truth. They force you to say what you are optimizing f
 Keep this page's proof of learning as a small evidence card:
 
 ```text
-threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
-control: validation, permission, sandbox, audit, red-team test, or incident response
-test_case: one attack or failure sample and expected safe behavior
-failure_check: trusting model text, missing logs, broad permissions, or no regression tests
-Expected_output: security checklist plus one reproducible red-team case
+product_question: user problem, workflow, value metric, and risk boundary
+experiment: hypothesis, smallest test, metric, and decision rule
+artifact: feature spec, prototype note, user story, or evaluation result
+failure_check: building demos without measuring value or ignoring user workflow
+Expected_output: AI product decision note that can guide implementation
 ```
 
 ## Pass Check
 
 You pass this elective when you can score one AI feature idea, explain the trade-off, define a success metric, and name one condition where the feature should not launch.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A strong answer does not treat the score as magic. It explains the user problem, the value metric, the major cost or risk, and the launch blocker. For example, a tutor feature may be worth piloting if it improves exercise completion, but it should not launch if it gives unsafe or unreviewed advice in high-stakes contexts.
+
+The useful output is a decision note: pilot, wait, or do not launch, plus the evidence that would change that decision.
+
+</details>

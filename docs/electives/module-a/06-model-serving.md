@@ -135,3 +135,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## Practice
 
 Add a `latency_ms` field to each request, then compute average latency per version. If `v2` is slower than `v1` by more than 20 ms, route all future requests back to `v1`.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A solid solution groups requests by `version`, averages `latency_ms`, and compares the two version averages. If `avg_v2 - avg_v1 > 20`, mark `v2` unhealthy or set its traffic weight to zero for the next batch.
+
+The key explanation is that rollback should be driven by measured serving behavior, not by guesswork. Also mention that a real service would compare P95 latency and error rate too, because averages can hide slow tail cases.
+
+</details>

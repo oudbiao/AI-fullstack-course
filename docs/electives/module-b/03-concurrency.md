@@ -134,3 +134,17 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## Practice
 
 Add five more tool calls and set `Semaphore(3)`. Then count how many return `:timeout` when you lower the timeout to `0.15`.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+The exact timeout count depends on the delays you assign, so the answer should report the observed count instead of inventing a fixed number. A solid solution prints both the full result list and a count such as:
+
+```python
+timeouts = sum(result.endswith(":timeout") for result in results)
+print("timeouts:", timeouts)
+```
+
+The explanation should mention that `Semaphore(3)` limits pressure on upstream tools, while the lower timeout exposes slow calls. In production, you would log which tool timed out, not only the total number.
+
+</details>

@@ -134,3 +134,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## Practice
 
 Add two noisy points near the boundary and compare `C=0.1`, `C=1.0`, and `C=10.0`. Record how many support vectors each version uses.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+A good answer records a small table with `C`, predictions or score, and support-vector count. Lower `C` usually allows a wider, softer margin and may tolerate noisy points. Higher `C` tries harder to classify training points correctly, which can make the boundary more sensitive to the new noisy examples.
+
+The exact support-vector counts depend on your added points, so do not fake a universal number. The correct explanation is about the trend and the trade-off between margin softness and fitting noisy training cases.
+
+</details>

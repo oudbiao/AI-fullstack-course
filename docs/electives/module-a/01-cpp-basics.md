@@ -69,6 +69,19 @@ std::vector<float> logits = {3.4f, 0.3f, 2.1f};
 
 Run again. The expected `best_class` should become `0`.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+After the change, the loop should compare `3.4`, `0.3`, and `2.1`, so index `0` becomes the largest score. The useful explanation is not only “the number is bigger”; it is that the inference helper scans the logit vector and returns the position of the maximum value.
+
+Keep this evidence:
+
+- The compile command succeeds.
+- The output changes to `best_class=0`.
+- You can say `std::vector<float>` is standing in for a small tensor or model-output array.
+
+</details>
+
 ## Pass check
 
 You pass this lesson when you can compile the file, change the input values, explain why the selected class changed, and say what `std::vector<float>` represents in an inference program.

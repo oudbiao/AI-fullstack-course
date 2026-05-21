@@ -109,3 +109,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 练习
 
 给每个设备加 `price_usd`，选出通过全部检查且最便宜的设备。再加第二个模型，对比哪个设备能同时支持两个模型。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+答案应该先按约束过滤设备，再只在通过的设备里比较价格。一个便宜但内存、功耗或离线要求不达标的设备，不是有效部署目标。
+
+第二个模型可以用共享检查，例如如果两个模型要同时运行，就检查 `device["memory_mb"] >= model_a["memory_mb"] + model_b["memory_mb"]`；如果一次只运行一个模型，就分别比较。最后要写清取舍：最佳设备是满足真实运行约束后最便宜的那个。
+
+</details>

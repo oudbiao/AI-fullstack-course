@@ -109,3 +109,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 練習
 
 各デバイスに `price_usd` を追加し、すべてのチェックを通る最安デバイスを選んでください。さらに2つ目のモデルを追加し、両方を動かせるデバイスを比べます。
+
+<details>
+<summary>参考解答と解説</summary>
+
+まず制約でデバイスを絞り込み、通過したデバイスだけで価格を比べます。安くても、メモリ、消費電力、オフライン要件を満たさないデバイスは有効なデプロイ先ではありません。
+
+2つ目のモデルについては、同時に動かすなら `device["memory_mb"] >= model_a["memory_mb"] + model_b["memory_mb"]` のような共通チェックを作ります。どちらか一方だけを動かすなら、モデルごとに比較します。最後に、実際の運用制約を満たしたうえで最も安いデバイスを選んだ理由を説明します。
+
+</details>

@@ -79,9 +79,18 @@ AI Medical Diagnosis score= 5.4 decision= do_not_launch
 学完这一页，至少保留这张证据卡：
 
 ```text
-threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
-control: validation, permission, sandbox, audit, red-team test, or incident response
-test_case: one attack or failure sample and expected safe behavior
-failure_check: trusting model text, missing logs, broad permissions, or no regression tests
-Expected_output: security checklist plus one reproducible red-team case
+product_question: user problem, workflow, value metric, and risk boundary
+experiment: hypothesis, smallest test, metric, and decision rule
+artifact: feature spec, prototype note, user story, or evaluation result
+failure_check: building demos without measuring value or ignoring user workflow
+Expected_output: AI product decision note that can guide implementation
 ```
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一个合格答案会给出一个具体功能想法、取舍、成功指标和上线阻断条件。证据应当把决策写成可执行的 note，而不是泛泛的愿景描述。
+
+如果风险边界没有写清楚，产品分数再漂亮也不能直接上线。
+
+</details>

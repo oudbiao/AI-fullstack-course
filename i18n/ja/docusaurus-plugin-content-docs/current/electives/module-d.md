@@ -71,12 +71,21 @@ after failure_count: 0
 このページを終えたら、この証拠カードを残します。
 
 ```text
-product_question: user problem, workflow, value metric, and risk boundary
-experiment: hypothesis, smallest test, metric, and decision rule
-artifact: feature spec, prototype note, user story, or evaluation result
-failure_check: building demos without measuring value or ignoring user workflow
-Expected_output: AI product decision note that can guide implementation
+threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
+control: validation, permission, sandbox, audit, red-team test, or incident response
+test_case: one attack or failure sample and expected safe behavior
+failure_check: trusting model text, missing logs, broad permissions, or no regression tests
+Expected_output: security checklist plus one reproducible red-team case
 ```
+
+<details>
+<summary>参考解答と解説</summary>
+
+合格する答えは、1 つの攻撃面、1 つの失敗ケース、1 つの防護策、そして修正後の再実行結果を示します。最良の証拠は「安全そうに見える」ことではなく、同じケースを繰り返し実行し、失敗し、再び通ることです。
+
+対策名だけで回帰ケースがないなら、このページはまだ閉じていません。
+
+</details>
 
 ## 合格チェック
 

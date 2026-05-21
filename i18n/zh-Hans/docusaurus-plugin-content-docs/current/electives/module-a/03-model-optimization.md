@@ -66,3 +66,12 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## 通过检查
 
 你能说明一种优化的收益、可能代价，以及真实部署前要看哪个指标，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+一个合格答案会点名一种优化方法、它带来的收益、潜在代价，以及上线前要看的指标。例如量化可以降内存，但要检查验证集精度和失败样本；剪枝可能让模型更小，但还要确认 runtime 真的变快。
+
+不要只说“越小越好”。要说明压缩后保留了什么、丢掉了什么，以及为什么这个取舍在真实部署里可接受。
+
+</details>

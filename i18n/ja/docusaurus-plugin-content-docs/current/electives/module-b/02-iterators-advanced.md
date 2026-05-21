@@ -145,3 +145,17 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 練習
 
 `batch` を変更し、`batch_id` も出力してください。その後、入力イベントを変えても、後続ステップを変えずに動くことを確認します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+一つの解答は、出力側で batch に番号を付けることです。
+
+```python
+for batch_id, group in enumerate(batch(normalized, size=2), start=1):
+    print(batch_id, group)
+```
+
+これなら前段の読み込み、フィルタ、正規化は変えません。入力イベントを変えたときに出力されるグループだけが変わり、パイプライン構造が保たれていれば成功です。ジェネレータパイプラインの要点は、データを差し替えても後続ステップ全体を書き直さずに済むことです。
+
+</details>

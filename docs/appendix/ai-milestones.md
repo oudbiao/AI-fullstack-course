@@ -144,6 +144,35 @@ Course chapter to revisit: Chapters 6, 7, 8, and 9.
 
 The goal is not to recite history. The goal is to connect a historical node to a real capability you may build later.
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+One acceptable answer could use these three nodes:
+
+```text
+Node: Backpropagation
+Old bottleneck: multilayer neural networks were hard to train effectively.
+New method: gradients could be propagated layer by layer.
+Projects affected: image classifiers, language models, and nearly all deep learning systems.
+Course chapter to revisit: Chapter 6.
+
+Node: RAG
+Old bottleneck: language models could answer fluently without grounded external evidence.
+New method: retrieval adds relevant documents before generation.
+Projects affected: knowledge assistants, policy Q&A, citation-aware research tools.
+Course chapter to revisit: Chapter 8.
+
+Node: CLIP
+Old bottleneck: image and text models were often trained in separate spaces.
+New method: contrastive training aligned images and text.
+Projects affected: image search, multimodal retrieval, image generation guidance.
+Course chapter to revisit: Chapter 12.
+```
+
+The answer is strong when each node names a real bottleneck, a method shift, an affected project type, and a chapter to revisit. It is weak if it only lists famous names without explaining what became easier.
+
+</details>
+
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:

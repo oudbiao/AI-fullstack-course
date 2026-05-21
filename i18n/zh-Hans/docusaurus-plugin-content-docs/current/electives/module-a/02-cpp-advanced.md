@@ -89,6 +89,19 @@ struct FastEngine : Engine {
 
 然后把 `CpuEngine` 换成 `FastEngine`。`Session` 的其他代码不应该改。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+`FastEngine` 应该实现同一个 `Engine` 接口，所以 `Session` 只需要在构造时接收另一个对象：
+
+```cpp
+Session session(std::make_unique<FastEngine>());
+```
+
+关键点是：`Session` 依赖接口，而不是直接依赖 `CpuEngine`。`std::unique_ptr` 把所有权说清楚：session 拥有唯一的 engine 实例，session 结束时资源会自动释放。
+
+</details>
+
 ## 留下的证据
 
 学完这一页，至少保留这张证据卡：

@@ -113,3 +113,18 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 ## Practice
 
 Add a second target device and rerun the readiness checks. Then write three README lines that explain why the chosen device and engine are reasonable.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+The second device should be added to the same readiness logic, not judged by a separate story. A good README answer can be as short as:
+
+```text
+Chosen device: edge-c, because it passes memory, power, and offline checks.
+Chosen engine: ONNX Runtime, because it supports the model format and is easier for this project to maintain.
+Known trade-off: TensorRT may be faster later, but the current project optimizes repeatable evidence first.
+```
+
+If another device wins after your added constraints, that is fine. The answer is correct when the README lines are backed by the checks and do not hide accuracy, memory, or latency trade-offs.
+
+</details>

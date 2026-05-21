@@ -107,3 +107,12 @@ Expected_output: classical-ML baseline result with one limitation note
 ## Practice
 
 Add a third class and set `n_components=2`. Then print the new projection shape and explain why the maximum number of components changed.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+With three classes, LDA can project to at most `classes - 1 = 2` discriminative components, assuming the feature dimension also allows it. If you add three points for class `2` and set `n_components=2`, the transformed data should have two columns, such as `(9, 2)` when you now have nine rows.
+
+The important explanation is that LDA directions separate classes. Two classes need at most one separating direction; three classes can need two.
+
+</details>

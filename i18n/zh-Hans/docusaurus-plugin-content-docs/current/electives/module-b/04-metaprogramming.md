@@ -135,3 +135,12 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ## 练习
 
 加一个 `yaml` loader，确认 `sorted(REGISTRY)` 里包含它。然后为 `retry_count` 字段创建一个 `IntegerRange(min_value, max_value)` 描述符。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+`yaml` loader 应该通过同一套注册机制加入，所以不用手动维护另一张映射表，`sorted(REGISTRY)` 里也能看到 `yaml`。
+
+`IntegerRange` 描述符应该拒绝非整数，以及超出范围的整数。一个实用自检是先设置 `retry_count = 3`，再尝试 `retry_count = -1` 或 `"3"`，确认会抛出清楚的异常。重点不是炫技，而是把重复字段校验规则放回字段定义附近。
+
+</details>
