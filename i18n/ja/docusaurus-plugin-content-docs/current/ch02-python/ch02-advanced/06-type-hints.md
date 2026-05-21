@@ -66,14 +66,14 @@ def calculate_total(items, tax):
 
 ```python
 # 基本型
-name: str = "小明"
-age: int = 25
-height: float = 1.75
-is_student: bool = True
+feature_name: str = "ログイン API"
+retry_count: int = 3
+latency_ms: float = 125.5
+is_enabled: bool = True
 
 # Python は型注釈を強制しない
 # 次のコードはエラーにならないが、静的チェックツールは警告する
-age: int = "二十五"  # 型注釈では int だが、実際には str を代入している
+retry_count: int = "三回"  # 型注釈では int だが、実際には str を代入している
 ```
 
 :::info 型注釈は「提案」
@@ -109,16 +109,16 @@ def train_model(epochs: int = 10, lr: float = 0.001) -> None:
 
 ```python
 # Python 3.9+：組み込み型をそのまま使える
-scores: list[int] = [85, 92, 78]
-student: dict[str, int] = {"张三": 85, "李四": 92}
+estimated_hours: list[int] = [8, 12, 5]
+task_hours: dict[str, int] = {"ログイン API": 8, "RAG デモ": 12}
 coordinates: tuple[float, float] = (3.14, 2.71)
 unique_ids: set[int] = {1, 2, 3}
 
 # Python 3.8 以前：typing から import する必要がある
 from typing import List, Dict, Tuple, Set
 
-scores: List[int] = [85, 92, 78]
-student: Dict[str, int] = {"张三": 85, "李四": 92}
+estimated_hours: List[int] = [8, 12, 5]
+task_hours: Dict[str, int] = {"ログイン API": 8, "RAG デモ": 12}
 ```
 
 ### Optional: None になる可能性がある値
@@ -126,15 +126,15 @@ student: Dict[str, int] = {"张三": 85, "李四": 92}
 ```python
 from typing import Optional
 
-def find_student(name: str) -> Optional[dict]:
-    """学生を探す。見つからなければ None を返す"""
-    students = {"张三": {"age": 20}, "李四": {"age": 21}}
-    return students.get(name)
+def find_task(name: str) -> Optional[dict]:
+    """タスクを探す。見つからなければ None を返す"""
+    tasks = {"ログイン API": {"hours": 8}, "RAG デモ": {"hours": 12}}
+    return tasks.get(name)
 
 # Python 3.10+ では、より簡潔に書ける
-def find_student(name: str) -> dict | None:
-    students = {"张三": {"age": 20}, "李四": {"age": 21}}
-    return students.get(name)
+def find_task(name: str) -> dict | None:
+    tasks = {"ログイン API": {"hours": 8}, "RAG デモ": {"hours": 12}}
+    return tasks.get(name)
 ```
 
 ### Union: 複数の型を受け付ける
@@ -191,22 +191,22 @@ set_mode("play")    # 静的チェックで警告される
 ### 関数に型注釈を追加する
 
 ```python
-def analyze_scores(
-    scores: list[float],
-    subject: str = "不明",
-    pass_line: float = 60.0
+def analyze_latencies(
+    latencies: list[float],
+    endpoint: str = "不明",
+    slow_line: float = 800.0
 ) -> dict[str, float | int | str]:
-    """成績を分析し、統計情報を返す"""
-    if not scores:
-        return {"error": "成績リストが空です"}
+    """API レイテンシを分析し、統計情報を返す"""
+    if not latencies:
+        return {"error": "レイテンシリストが空です"}
 
     return {
-        "subject": subject,
-        "count": len(scores),
-        "average": sum(scores) / len(scores),
-        "max": max(scores),
-        "min": min(scores),
-        "pass_count": sum(1 for s in scores if s >= pass_line)
+        "endpoint": endpoint,
+        "count": len(latencies),
+        "average": sum(latencies) / len(latencies),
+        "max": max(latencies),
+        "min": min(latencies),
+        "slow_count": sum(1 for ms in latencies if ms >= slow_line)
     }
 ```
 
@@ -346,9 +346,9 @@ PEP 8 は Python の公式コーディング規約です。特に大切なポイ
 
 ```python
 # 変数と関数: 小文字 + アンダースコア（snake_case）
-student_name = "张三"
-def calculate_average(scores):
-    return sum(scores) / len(scores)
+feature_name = "ログイン API"
+def calculate_average_latency(latencies):
+    return sum(latencies) / len(latencies)
 
 # クラス: 先頭を大文字（PascalCase）
 class DataProcessor:
@@ -482,14 +482,14 @@ def train_model(
 次のコードに、完全な型注釈を追加してください。
 
 ```python
-def process_students(students, min_score):
+def process_tasks(tasks, max_hours):
     results = []
-    for student in students:
-        if student["score"] >= min_score:
+    for task in tasks:
+        if task["hours"] <= max_hours:
             results.append({
-                "name": student["name"],
-                "score": student["score"],
-                "passed": True
+                "name": task["name"],
+                "hours": task["hours"],
+                "ready": True
             })
     return results
 
@@ -548,7 +548,7 @@ def g(d):
 <details>
 <summary>参考実装と解説</summary>
 
-1. 既存関数には、たとえば `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` や `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None` のように、入力構造と空リスト時の戻り値がわかる型を付けます。
+1. 既存関数には、たとえば `process_tasks(tasks: list[dict[str, int | str]], max_hours: int) -> list[dict[str, object]]` や `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None` のように、入力構造と空リスト時の戻り値がわかる型を付けます。
 2. `ruff` はまず `ruff check` で問題を確認し、そのあと `ruff format` で整形し、最後に差分を見る流れが扱いやすいです。lint と整形を分けると、何が直ったかを説明しやすくなります。
 3. 書き直し後のコードは、意味のある関数名、型注釈、docstring、PEP 8 の空白を満たす必要があります。平均値を返す関数では、空入力でゼロ除算しないようにすることも大切です。
 

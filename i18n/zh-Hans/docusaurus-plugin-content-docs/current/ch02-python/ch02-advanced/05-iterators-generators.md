@@ -232,7 +232,9 @@ print(type(squares_gen))   # <class 'generator'>
 total = sum(x ** 2 for x in range(1000))  # 不需要额外的括号
 print(total)
 
-max_score = max(s["score"] for s in students)
+tasks = [{"name": "登录 API", "hours": 8}, {"name": "RAG 演示", "hours": 12}]
+max_hours = max(task["hours"] for task in tasks)
+print(max_hours)
 ```
 
 ---
@@ -333,11 +335,11 @@ first_five = list(itertools.islice(gen, 5))
 print(first_five)  # [0, 1, 4, 9, 16]
 
 # zip_longest：长度不等时填充
-names = ["张三", "李四", "王五"]
-scores = [85, 92]
-for name, score in itertools.zip_longest(names, scores, fillvalue="缺考"):
-    print(f"{name}: {score}")
-# 张三: 85, 李四: 92, 王五: 缺考
+tasks = ["登录 API", "RAG 演示", "图表视图"]
+owners = ["Mina", "Kai"]
+for task, owner in itertools.zip_longest(tasks, owners, fillvalue="未分配"):
+    print(f"{task}: {owner}")
+# 登录 API: Mina, RAG 演示: Kai, 图表视图: 未分配
 
 # product：笛卡尔积
 for combo in itertools.product(["红", "蓝"], ["大", "小"]):

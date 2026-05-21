@@ -54,14 +54,14 @@ def calculate_total(items, tax):
 
 ```python
 # 基本类型
-name: str = "小明"
-age: int = 25
-height: float = 1.75
-is_student: bool = True
+feature_name: str = "登录 API"
+retry_count: int = 3
+latency_ms: float = 125.5
+is_enabled: bool = True
 
 # Python 不会强制检查类型注解
 # 以下代码不会报错，但静态检查工具会警告
-age: int = "二十五"  # 类型注解说是 int，实际赋了 str
+retry_count: int = "三次"  # 类型注解说是 int，实际赋了 str
 ```
 
 :::info 类型注解只是"建议"
@@ -97,16 +97,16 @@ def train_model(epochs: int = 10, lr: float = 0.001) -> None:
 
 ```python
 # Python 3.9+：直接用内置类型
-scores: list[int] = [85, 92, 78]
-student: dict[str, int] = {"张三": 85, "李四": 92}
+estimated_hours: list[int] = [8, 12, 5]
+task_hours: dict[str, int] = {"登录 API": 8, "RAG 演示": 12}
 coordinates: tuple[float, float] = (3.14, 2.71)
 unique_ids: set[int] = {1, 2, 3}
 
 # Python 3.8 及更早：需要从 typing 导入
 from typing import List, Dict, Tuple, Set
 
-scores: List[int] = [85, 92, 78]
-student: Dict[str, int] = {"张三": 85, "李四": 92}
+estimated_hours: List[int] = [8, 12, 5]
+task_hours: Dict[str, int] = {"登录 API": 8, "RAG 演示": 12}
 ```
 
 ### Optional：可能为 None 的值
@@ -114,15 +114,15 @@ student: Dict[str, int] = {"张三": 85, "李四": 92}
 ```python
 from typing import Optional
 
-def find_student(name: str) -> Optional[dict]:
-    """查找学生，找不到返回 None"""
-    students = {"张三": {"age": 20}, "李四": {"age": 21}}
-    return students.get(name)
+def find_task(name: str) -> Optional[dict]:
+    """查找任务，找不到返回 None"""
+    tasks = {"登录 API": {"hours": 8}, "RAG 演示": {"hours": 12}}
+    return tasks.get(name)
 
 # Python 3.10+ 可以用更简洁的写法
-def find_student(name: str) -> dict | None:
-    students = {"张三": {"age": 20}, "李四": {"age": 21}}
-    return students.get(name)
+def find_task(name: str) -> dict | None:
+    tasks = {"登录 API": {"hours": 8}, "RAG 演示": {"hours": 12}}
+    return tasks.get(name)
 ```
 
 ### Union：多种可能的类型
@@ -179,22 +179,22 @@ set_mode("play")    # 静态检查会警告
 ### 为函数添加类型注解
 
 ```python
-def analyze_scores(
-    scores: list[float],
-    subject: str = "未知",
-    pass_line: float = 60.0
+def analyze_latencies(
+    latencies: list[float],
+    endpoint: str = "未知",
+    slow_line: float = 800.0
 ) -> dict[str, float | int | str]:
-    """分析成绩，返回统计信息"""
-    if not scores:
-        return {"error": "成绩列表为空"}
+    """分析 API 延迟，返回统计信息"""
+    if not latencies:
+        return {"error": "延迟列表为空"}
 
     return {
-        "subject": subject,
-        "count": len(scores),
-        "average": sum(scores) / len(scores),
-        "max": max(scores),
-        "min": min(scores),
-        "pass_count": sum(1 for s in scores if s >= pass_line)
+        "endpoint": endpoint,
+        "count": len(latencies),
+        "average": sum(latencies) / len(latencies),
+        "max": max(latencies),
+        "min": min(latencies),
+        "slow_count": sum(1 for ms in latencies if ms >= slow_line)
     }
 ```
 
@@ -334,9 +334,9 @@ PEP 8 是 Python 官方的代码风格指南，以下是最重要的几条：
 
 ```python
 # 变量和函数：小写加下划线（snake_case）
-student_name = "张三"
-def calculate_average(scores):
-    return sum(scores) / len(scores)
+feature_name = "登录 API"
+def calculate_average_latency(latencies):
+    return sum(latencies) / len(latencies)
 
 # 类：首字母大写（PascalCase）
 class DataProcessor:
@@ -455,8 +455,9 @@ def train_model(
     """
     if not data:
         raise ValueError("训练数据不能为空")
-    total = sum(sample.get("score", 0.0) for sample in data)
-    return {"accuracy": min(0.99, 0.5 + total / (len(data) * 100)), "loss": 0.05}
+    total = sum(len(str(sample)) for sample in data)
+    accuracy = min(0.99, 0.5 + total / 1000)
+    return {"accuracy": accuracy, "loss": 1 - accuracy}
 ```
 
 ---
@@ -468,14 +469,14 @@ def train_model(
 给以下代码添加完整的类型注解：
 
 ```python
-def process_students(students, min_score):
+def process_tasks(tasks, max_hours):
     results = []
-    for student in students:
-        if student["score"] >= min_score:
+    for task in tasks:
+        if task["hours"] <= max_hours:
             results.append({
-                "name": student["name"],
-                "score": student["score"],
-                "passed": True
+                "name": task["name"],
+                "hours": task["hours"],
+                "ready": True
             })
     return results
 
@@ -532,7 +533,7 @@ def g(d):
 <details>
 <summary>参考实现与讲解</summary>
 
-1. 旧代码应补全显式参数和返回类型，例如 `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` 和 `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`。重点是让输入结构和空列表情况一眼可见。
+1. 旧代码应补全显式参数和返回类型，例如 `process_tasks(tasks: list[dict[str, int | str]], max_hours: int) -> list[dict[str, object]]` 和 `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`。重点是让输入结构和空列表情况一眼可见。
 2. `ruff` 的流程应是先 `ruff check`，再 `ruff format`，最后比较 diff。这样可以把 lint 和格式化分开，审阅更清楚。
 3. 重写后的代码应使用清晰命名、类型注解、docstring 和 PEP 8 间距；求平均值的函数还要防止空输入导致除零。
 

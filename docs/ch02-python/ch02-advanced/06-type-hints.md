@@ -54,14 +54,14 @@ The benefits of type hints:
 
 ```python
 # Basic types
-name: str = "Xiao Ming"
-age: int = 25
-height: float = 1.75
-is_student: bool = True
+feature_name: str = "Login API"
+retry_count: int = 3
+latency_ms: float = 125.5
+is_enabled: bool = True
 
 # Python does not enforce type hints
 # The following code will not raise an error, but static analysis tools will warn
-age: int = "twenty-five"  # The type hint says int, but a str is assigned
+retry_count: int = "three"  # The type hint says int, but a str is assigned
 ```
 
 :::info Type hints are only a "suggestion"
@@ -97,16 +97,16 @@ With type hints, VS Code’s IntelliSense becomes much more accurate — when yo
 
 ```python
 # Python 3.9+: use built-in types directly
-scores: list[int] = [85, 92, 78]
-student: dict[str, int] = {"Zhang San": 85, "Li Si": 92}
+estimated_hours: list[int] = [8, 12, 5]
+task_hours: dict[str, int] = {"Login API": 8, "RAG demo": 12}
 coordinates: tuple[float, float] = (3.14, 2.71)
 unique_ids: set[int] = {1, 2, 3}
 
 # Python 3.8 and earlier: import from typing
 from typing import List, Dict, Tuple, Set
 
-scores: List[int] = [85, 92, 78]
-student: Dict[str, int] = {"Zhang San": 85, "Li Si": 92}
+estimated_hours: List[int] = [8, 12, 5]
+task_hours: Dict[str, int] = {"Login API": 8, "RAG demo": 12}
 ```
 
 ### Optional: Values That May Be None
@@ -114,15 +114,15 @@ student: Dict[str, int] = {"Zhang San": 85, "Li Si": 92}
 ```python
 from typing import Optional
 
-def find_student(name: str) -> Optional[dict]:
-    """Look up a student; return None if not found"""
-    students = {"Zhang San": {"age": 20}, "Li Si": {"age": 21}}
-    return students.get(name)
+def find_task(name: str) -> Optional[dict]:
+    """Look up a task; return None if not found"""
+    tasks = {"Login API": {"hours": 8}, "RAG demo": {"hours": 12}}
+    return tasks.get(name)
 
 # Python 3.10+ can use a shorter syntax
-def find_student(name: str) -> dict | None:
-    students = {"Zhang San": {"age": 20}, "Li Si": {"age": 21}}
-    return students.get(name)
+def find_task(name: str) -> dict | None:
+    tasks = {"Login API": {"hours": 8}, "RAG demo": {"hours": 12}}
+    return tasks.get(name)
 ```
 
 ### Union: Multiple Possible Types
@@ -179,22 +179,22 @@ set_mode("play")    # Static analysis will warn
 ### Add Type Hints to a Function
 
 ```python
-def analyze_scores(
-    scores: list[float],
-    subject: str = "Unknown",
-    pass_line: float = 60.0
+def analyze_latencies(
+    latencies: list[float],
+    endpoint: str = "unknown",
+    slow_line: float = 800.0
 ) -> dict[str, float | int | str]:
-    """Analyze scores and return summary statistics"""
-    if not scores:
-        return {"error": "The score list is empty"}
+    """Analyze API latencies and return summary statistics"""
+    if not latencies:
+        return {"error": "The latency list is empty"}
 
     return {
-        "subject": subject,
-        "count": len(scores),
-        "average": sum(scores) / len(scores),
-        "max": max(scores),
-        "min": min(scores),
-        "pass_count": sum(1 for s in scores if s >= pass_line)
+        "endpoint": endpoint,
+        "count": len(latencies),
+        "average": sum(latencies) / len(latencies),
+        "max": max(latencies),
+        "min": min(latencies),
+        "slow_count": sum(1 for ms in latencies if ms >= slow_line)
     }
 ```
 
@@ -334,9 +334,9 @@ PEP 8 is the official Python style guide. Here are the most important rules:
 
 ```python
 # Variables and functions: lowercase with underscores (snake_case)
-student_name = "Zhang San"
-def calculate_average(scores):
-    return sum(scores) / len(scores)
+feature_name = "Login API"
+def calculate_average_latency(latencies):
+    return sum(latencies) / len(latencies)
 
 # Classes: CapitalizedWords (PascalCase)
 class DataProcessor:
@@ -455,8 +455,9 @@ def train_model(
     """
     if not data:
         raise ValueError("Training data cannot be empty")
-    total = sum(sample.get("score", 0.0) for sample in data)
-    return {"accuracy": min(0.99, 0.5 + total / (len(data) * 100)), "loss": 0.05}
+    total = sum(len(str(sample)) for sample in data)
+    accuracy = min(0.99, 0.5 + total / 1000)
+    return {"accuracy": accuracy, "loss": 1 - accuracy}
 ```
 
 ---
@@ -468,14 +469,14 @@ def train_model(
 Add complete type hints to the following code:
 
 ```python
-def process_students(students, min_score):
+def process_tasks(tasks, max_hours):
     results = []
-    for student in students:
-        if student["score"] >= min_score:
+    for task in tasks:
+        if task["hours"] <= max_hours:
             results.append({
-                "name": student["name"],
-                "score": student["score"],
-                "passed": True
+                "name": task["name"],
+                "hours": task["hours"],
+                "ready": True
             })
     return results
 
@@ -532,7 +533,7 @@ Requirements:
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-1. For the legacy functions, add explicit parameter and return types, for example `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` and `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`. The main goal is to make the input shape and empty-list case obvious.
+1. For the legacy functions, add explicit parameter and return types, for example `process_tasks(tasks: list[dict[str, int | str]], max_hours: int) -> list[dict[str, object]]` and `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`. The main goal is to make the input shape and empty-list case obvious.
 2. The workflow with `ruff` is `ruff check` first, then `ruff format`, then compare the diff. That keeps linting and formatting separate and makes review easier.
 3. The rewritten code should use descriptive names, type annotations, docstrings, and PEP 8 spacing. Also guard the average function against empty input so it does not divide by zero.
 

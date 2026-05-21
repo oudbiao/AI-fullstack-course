@@ -232,7 +232,9 @@ print(type(squares_gen))   # <class 'generator'>
 total = sum(x ** 2 for x in range(1000))  # No extra parentheses needed
 print(total)
 
-max_score = max(s["score"] for s in students)
+tasks = [{"name": "Login API", "hours": 8}, {"name": "RAG demo", "hours": 12}]
+max_hours = max(task["hours"] for task in tasks)
+print(max_hours)
 ```
 
 ---
@@ -333,11 +335,11 @@ first_five = list(itertools.islice(gen, 5))
 print(first_five)  # [0, 1, 4, 9, 16]
 
 # zip_longest: fill when lengths differ
-names = ["Zhang San", "Li Si", "Wang Wu"]
-scores = [85, 92]
-for name, score in itertools.zip_longest(names, scores, fillvalue="Absent"):
-    print(f"{name}: {score}")
-# Zhang San: 85, Li Si: 92, Wang Wu: Absent
+tasks = ["Login API", "RAG demo", "Chart view"]
+owners = ["Mina", "Kai"]
+for task, owner in itertools.zip_longest(tasks, owners, fillvalue="Unassigned"):
+    print(f"{task}: {owner}")
+# Login API: Mina, RAG demo: Kai, Chart view: Unassigned
 
 # product: Cartesian product
 for combo in itertools.product(["red", "blue"], ["large", "small"]):

@@ -244,7 +244,9 @@ print(type(squares_gen))   # <class 'generator'>
 total = sum(x ** 2 for x in range(1000))  # 追加の括弧は不要
 print(total)
 
-max_score = max(s["score"] for s in students)
+tasks = [{"name": "ログイン API", "hours": 8}, {"name": "RAG デモ", "hours": 12}]
+max_hours = max(task["hours"] for task in tasks)
+print(max_hours)
 ```
 
 ---
@@ -345,11 +347,11 @@ first_five = list(itertools.islice(gen, 5))
 print(first_five)  # [0, 1, 4, 9, 16]
 
 # zip_longest: 長さが違うときに埋める
-names = ["山田", "佐藤", "鈴木"]
-scores = [85, 92]
-for name, score in itertools.zip_longest(names, scores, fillvalue="欠席"):
-    print(f"{name}: {score}")
-# 山田: 85, 佐藤: 92, 鈴木: 欠席
+tasks = ["ログイン API", "RAG デモ", "グラフビュー"]
+owners = ["Mina", "Kai"]
+for task, owner in itertools.zip_longest(tasks, owners, fillvalue="未割り当て"):
+    print(f"{task}: {owner}")
+# ログイン API: Mina, RAG デモ: Kai, グラフビュー: 未割り当て
 
 # product: デカルト積
 for combo in itertools.product(["赤", "青"], ["大", "小"]):

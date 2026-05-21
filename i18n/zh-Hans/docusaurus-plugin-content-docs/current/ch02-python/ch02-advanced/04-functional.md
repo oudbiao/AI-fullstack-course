@@ -81,9 +81,9 @@ add = lambda a, b: a + b
 print(add(3, 5))  # 8
 
 # 带条件的
-grade = lambda score: "及格" if score >= 60 else "不及格"
-print(grade(75))  # 及格
-print(grade(45))  # 不及格
+size_label = lambda hours: "大型任务" if hours >= 8 else "小型任务"
+print(size_label(12))  # 大型任务
+print(size_label(3))   # 小型任务
 ```
 
 ### lambda 的主要用途
@@ -92,19 +92,19 @@ lambda 最常见的用法是**作为参数传给其他函数**：
 
 ```python
 # 场景：按特定规则排序
-students = [
-    {"name": "张三", "score": 85},
-    {"name": "李四", "score": 92},
-    {"name": "王五", "score": 78},
+tasks = [
+    {"name": "登录 API", "hours": 8},
+    {"name": "RAG 演示", "hours": 12},
+    {"name": "图表视图", "hours": 5},
 ]
 
-# 按成绩排序
-students.sort(key=lambda s: s["score"])
-print([s["name"] for s in students])  # ['王五', '张三', '李四']
+# 按预估小时排序
+tasks.sort(key=lambda task: task["hours"])
+print([task["name"] for task in tasks])  # ['图表视图', '登录 API', 'RAG 演示']
 
-# 按成绩降序
-students.sort(key=lambda s: s["score"], reverse=True)
-print([s["name"] for s in students])  # ['李四', '张三', '王五']
+# 按预估小时降序
+tasks.sort(key=lambda task: task["hours"], reverse=True)
+print([task["name"] for task in tasks])  # ['RAG 演示', '登录 API', '图表视图']
 ```
 
 :::tip lambda 使用原则
@@ -180,10 +180,10 @@ print(evens)  # [2, 4, 6, 8, 10]
 ### filter() 实际应用
 
 ```python
-# 筛选及格的成绩
-scores = [45, 78, 55, 92, 88, 30, 67, 100]
-passed = list(filter(lambda s: s >= 60, scores))
-print(f"及格的: {passed}")  # [78, 92, 88, 67, 100]
+# 筛选较慢的响应
+latencies_ms = [45, 78, 55, 920, 880, 30, 67, 1000]
+slow = list(filter(lambda ms: ms >= 800, latencies_ms))
+print(f"较慢响应: {slow}")  # [920, 880, 1000]
 
 # 筛选非空字符串
 data = ["hello", "", "world", "", "python", ""]
@@ -214,32 +214,32 @@ result = sorted(words, key=len)
 print(result)  # ['AI', 'deep', 'python', 'learning']
 
 # 按字典的某个键排序
-students = [
-    {"name": "张三", "age": 20, "score": 85},
-    {"name": "李四", "age": 22, "score": 92},
-    {"name": "王五", "age": 19, "score": 78},
+tasks = [
+    {"name": "登录 API", "owner_count": 2, "hours": 8},
+    {"name": "RAG 演示", "owner_count": 1, "hours": 12},
+    {"name": "图表视图", "owner_count": 1, "hours": 5},
 ]
 
-# 按成绩排序
-by_score = sorted(students, key=lambda s: s["score"], reverse=True)
-for s in by_score:
-    print(f"{s['name']}: {s['score']}分")
-# 李四: 92分
-# 张三: 85分
-# 王五: 78分
+# 按预估小时排序
+by_hours = sorted(tasks, key=lambda task: task["hours"], reverse=True)
+for task in by_hours:
+    print(f"{task['name']}: {task['hours']} 小时")
+# RAG 演示: 12 小时
+# 登录 API: 8 小时
+# 图表视图: 5 小时
 
-# 按多个条件排序（先按成绩降序，成绩相同按年龄升序）
-students2 = [
-    {"name": "A", "age": 20, "score": 85},
-    {"name": "B", "age": 22, "score": 85},
-    {"name": "C", "age": 19, "score": 92},
+# 按多个条件排序（先按优先级降序，优先级相同按预估小时升序）
+tasks2 = [
+    {"name": "A", "priority": 2, "hours": 8},
+    {"name": "B", "priority": 2, "hours": 5},
+    {"name": "C", "priority": 3, "hours": 12},
 ]
-result = sorted(students2, key=lambda s: (-s["score"], s["age"]))
-for s in result:
-    print(f"{s['name']}: score={s['score']}, age={s['age']}")
-# C: score=92, age=19
-# A: score=85, age=20
-# B: score=85, age=22
+result = sorted(tasks2, key=lambda task: (-task["priority"], task["hours"]))
+for task in result:
+    print(f"{task['name']}: priority={task['priority']}, hours={task['hours']}")
+# C: priority=3, hours=12
+# B: priority=2, hours=5
+# A: priority=2, hours=8
 ```
 
 ---
@@ -494,7 +494,7 @@ add(3, 5)
 | **lambda** | 匿名函数 | `lambda x: x * 2` |
 | **map()** | 对每个元素应用函数 | `map(int, ["1", "2"])` |
 | **filter()** | 筛选满足条件的元素 | `filter(lambda x: x>0, nums)` |
-| **sorted(key=)** | 自定义排序 | `sorted(data, key=lambda x: x["score"])` |
+| **sorted(key=)** | 自定义排序 | `sorted(data, key=lambda x: x["hours"])` |
 | **闭包** | 函数记住外层变量 | 工厂函数模式 |
 | **装饰器** | 给函数添加额外功能 | `@timer` |
 

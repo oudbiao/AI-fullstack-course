@@ -81,9 +81,9 @@ add = lambda a, b: a + b
 print(add(3, 5))  # 8
 
 # With a condition
-grade = lambda score: "Pass" if score >= 60 else "Fail"
-print(grade(75))  # Pass
-print(grade(45))  # Fail
+size_label = lambda hours: "Large" if hours >= 8 else "Small"
+print(size_label(12))  # Large
+print(size_label(3))   # Small
 ```
 
 ### Main Uses of `lambda`
@@ -92,19 +92,19 @@ The most common use of `lambda` is **passing it as an argument to another functi
 
 ```python
 # Scenario: sort by a specific rule
-students = [
-    {"name": "Zhang San", "score": 85},
-    {"name": "Li Si", "score": 92},
-    {"name": "Wang Wu", "score": 78},
+tasks = [
+    {"name": "Login API", "hours": 8},
+    {"name": "RAG demo", "hours": 12},
+    {"name": "Chart view", "hours": 5},
 ]
 
-# Sort by score
-students.sort(key=lambda s: s["score"])
-print([s["name"] for s in students])  # ['Wang Wu', 'Zhang San', 'Li Si']
+# Sort by estimated hours
+tasks.sort(key=lambda task: task["hours"])
+print([task["name"] for task in tasks])  # ['Chart view', 'Login API', 'RAG demo']
 
-# Sort by score in descending order
-students.sort(key=lambda s: s["score"], reverse=True)
-print([s["name"] for s in students])  # ['Li Si', 'Zhang San', 'Wang Wu']
+# Sort by estimated hours in descending order
+tasks.sort(key=lambda task: task["hours"], reverse=True)
+print([task["name"] for task in tasks])  # ['RAG demo', 'Login API', 'Chart view']
 ```
 
 :::tip `lambda` usage guidelines
@@ -180,10 +180,10 @@ print(evens)  # [2, 4, 6, 8, 10]
 ### Practical Uses of `filter()`
 
 ```python
-# Filter passing scores
-scores = [45, 78, 55, 92, 88, 30, 67, 100]
-passed = list(filter(lambda s: s >= 60, scores))
-print(f"Passing scores: {passed}")  # [78, 92, 88, 67, 100]
+# Filter slow responses
+latencies_ms = [45, 78, 55, 920, 880, 30, 67, 1000]
+slow = list(filter(lambda ms: ms >= 800, latencies_ms))
+print(f"Slow responses: {slow}")  # [920, 880, 1000]
 
 # Filter non-empty strings
 data = ["hello", "", "world", "", "python", ""]
@@ -214,32 +214,32 @@ result = sorted(words, key=len)
 print(result)  # ['AI', 'deep', 'python', 'learning']
 
 # Sort by a dictionary key
-students = [
-    {"name": "Zhang San", "age": 20, "score": 85},
-    {"name": "Li Si", "age": 22, "score": 92},
-    {"name": "Wang Wu", "age": 19, "score": 78},
+tasks = [
+    {"name": "Login API", "owner_count": 2, "hours": 8},
+    {"name": "RAG demo", "owner_count": 1, "hours": 12},
+    {"name": "Chart view", "owner_count": 1, "hours": 5},
 ]
 
-# Sort by score
-by_score = sorted(students, key=lambda s: s["score"], reverse=True)
-for s in by_score:
-    print(f"{s['name']}: {s['score']} points")
-# Li Si: 92 points
-# Zhang San: 85 points
-# Wang Wu: 78 points
+# Sort by estimated hours
+by_hours = sorted(tasks, key=lambda task: task["hours"], reverse=True)
+for task in by_hours:
+    print(f"{task['name']}: {task['hours']} hours")
+# RAG demo: 12 hours
+# Login API: 8 hours
+# Chart view: 5 hours
 
-# Sort by multiple conditions (first by score descending, then by age ascending if scores are the same)
-students2 = [
-    {"name": "A", "age": 20, "score": 85},
-    {"name": "B", "age": 22, "score": 85},
-    {"name": "C", "age": 19, "score": 92},
+# Sort by multiple conditions (first by priority descending, then by estimated hours ascending if priorities match)
+tasks2 = [
+    {"name": "A", "priority": 2, "hours": 8},
+    {"name": "B", "priority": 2, "hours": 5},
+    {"name": "C", "priority": 3, "hours": 12},
 ]
-result = sorted(students2, key=lambda s: (-s["score"], s["age"]))
-for s in result:
-    print(f"{s['name']}: score={s['score']}, age={s['age']}")
-# C: score=92, age=19
-# A: score=85, age=20
-# B: score=85, age=22
+result = sorted(tasks2, key=lambda task: (-task["priority"], task["hours"]))
+for task in result:
+    print(f"{task['name']}: priority={task['priority']}, hours={task['hours']}")
+# C: priority=3, hours=12
+# B: priority=2, hours=5
+# A: priority=2, hours=8
 ```
 
 ---
@@ -494,7 +494,7 @@ Expected_output: small advanced-Python example with a debugging note
 | **lambda** | Anonymous function | `lambda x: x * 2` |
 | **map()** | Apply a function to each element | `map(int, ["1", "2"])` |
 | **filter()** | Select elements that meet a condition | `filter(lambda x: x>0, nums)` |
-| **sorted(key=)** | Custom sorting | `sorted(data, key=lambda x: x["score"])` |
+| **sorted(key=)** | Custom sorting | `sorted(data, key=lambda x: x["hours"])` |
 | **Closure** | Function remembers outer variables | Factory function pattern |
 | **Decorator** | Add extra functionality to a function | `@timer` |
 
