@@ -285,9 +285,9 @@ print("Java" in "I love Python")       # False
 print("Java" not in "I love Python")   # True
 
 # 在列表中查找
-fruits = ["苹果", "香蕉", "橙子"]
-print("苹果" in fruits)      # True
-print("西瓜" in fruits)      # False
+services = ["login-api", "search-api", "worker"]
+print("login-api" in services)      # True
+print("billing-api" in services)    # False
 
 # 实际应用：检查文件扩展名
 filename = "model.py"

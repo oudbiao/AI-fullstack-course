@@ -318,13 +318,13 @@ Comments are for humans to read and help you (and others) understand the code. G
 ### Python Is Case-Sensitive
 
 ```python
-name = "Alice"
-Name = "Bob"
-NAME = "Charlie"
+service_name = "Login API"
+Service_Name = "Search API"
+SERVICE_NAME = "Worker"
 # These are three different variables!
 
-print(name)   # Alice
-Print(name)   # Error! Python has no Print, only print
+print(service_name)   # Login API
+Print(service_name)   # Error! Python has no Print, only print
 ```
 
 ### Files End with `.py`

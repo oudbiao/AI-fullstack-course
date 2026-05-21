@@ -297,9 +297,9 @@ print("Java" in "I love Python")       # False
 print("Java" not in "I love Python")   # True
 
 # リストの中から探す
-fruits = ["りんご", "バナナ", "オレンジ"]
-print("りんご" in fruits)      # True
-print("スイカ" in fruits)      # False
+services = ["login-api", "search-api", "worker"]
+print("login-api" in services)      # True
+print("billing-api" in services)    # False
 
 # 実用例: ファイル拡張子を確認する
 filename = "model.py"

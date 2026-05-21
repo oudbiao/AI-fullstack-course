@@ -285,9 +285,9 @@ print("Java" in "I love Python")       # False
 print("Java" not in "I love Python")   # True
 
 # Search in a list
-fruits = ["apple", "banana", "orange"]
-print("apple" in fruits)      # True
-print("watermelon" in fruits)      # False
+services = ["login-api", "search-api", "worker"]
+print("login-api" in services)      # True
+print("billing-api" in services)    # False
 
 # Real-world application: check file extension
 filename = "model.py"

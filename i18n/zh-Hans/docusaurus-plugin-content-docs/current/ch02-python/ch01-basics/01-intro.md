@@ -318,13 +318,13 @@ print("这行代码会执行")  # 行尾也可以写注释
 ### 大小写敏感
 
 ```python
-name = "Alice"
-Name = "Bob"
-NAME = "Charlie"
+service_name = "登录 API"
+Service_Name = "搜索 API"
+SERVICE_NAME = "Worker"
 # 这是三个不同的变量！
 
-print(name)   # Alice
-Print(name)   # 报错！Python 没有 Print，只有 print
+print(service_name)   # 登录 API
+Print(service_name)   # 报错！Python 没有 Print，只有 print
 ```
 
 ### 文件以 `.py` 结尾
