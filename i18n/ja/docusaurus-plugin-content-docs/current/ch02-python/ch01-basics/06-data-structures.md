@@ -75,14 +75,14 @@ print(len(latencies_ms))   # 5
 ### 要素にアクセスする（インデックス）
 
 ```python
-fruits = ["りんご", "バナナ", "オレンジ", "ぶどう", "スイカ"]
-#          0       1       2        3       4
-#         -5      -4      -3       -2      -1
+service_queue = ["ログイン API", "検索 API", "Worker", "ダッシュボード", "ドキュメントサイト"]
+#                 0             1          2         3                4
+#                -5            -4         -3        -2               -1
 
-print(fruits[0])     # りんご（最初）
-print(fruits[2])     # オレンジ（3番目）
-print(fruits[-1])    # スイカ（最後）
-print(fruits[-2])    # ぶどう（後ろから2番目）
+print(service_queue[0])     # ログイン API（最初のサービス）
+print(service_queue[2])     # Worker（3番目のサービス）
+print(service_queue[-1])    # ドキュメントサイト（最後のサービス）
+print(service_queue[-2])    # ダッシュボード（後ろから2番目のサービス）
 ```
 
 ### スライス
@@ -114,42 +114,42 @@ print(latencies_ms)  # [120, 100, 180, 180, 310]
 ### 要素を追加する
 
 ```python
-fruits = ["りんご", "バナナ"]
+tasks = ["ログインフォームを作る", "API テストを書く"]
 
 # 末尾に追加
-fruits.append("オレンジ")
-print(fruits)  # ['りんご', 'バナナ', 'オレンジ']
+tasks.append("エラー状態を追加する")
+print(tasks)  # ['ログインフォームを作る', 'API テストを書く', 'エラー状態を追加する']
 
 # 指定した位置に挿入
-fruits.insert(1, "ぶどう")
-print(fruits)  # ['りんご', 'ぶどう', 'バナナ', 'オレンジ']
+tasks.insert(1, "認証フローをレビューする")
+print(tasks)  # ['ログインフォームを作る', '認証フローをレビューする', 'API テストを書く', 'エラー状態を追加する']
 
 # 複数の要素を追加
-fruits.extend(["スイカ", "いちご"])
-print(fruits)  # ['りんご', 'ぶどう', 'バナナ', 'オレンジ', 'スイカ', 'いちご']
+tasks.extend(["README を更新する", "デモを録画する"])
+print(tasks)  # ['ログインフォームを作る', '認証フローをレビューする', 'API テストを書く', 'エラー状態を追加する', 'README を更新する', 'デモを録画する']
 ```
 
 ### 要素を削除する
 
 ```python
-fruits = ["りんご", "バナナ", "オレンジ", "ぶどう", "スイカ"]
+tasks = ["ログインフォームを作る", "API テストを書く", "エラー状態を追加する", "認証フローをレビューする", "デモを録画する"]
 
 # 値で削除（最初に一致したものを削除）
-fruits.remove("オレンジ")
-print(fruits)  # ['りんご', 'バナナ', 'ぶどう', 'スイカ']
+tasks.remove("エラー状態を追加する")
+print(tasks)  # ['ログインフォームを作る', 'API テストを書く', '認証フローをレビューする', 'デモを録画する']
 
 # インデックスで削除
-deleted = fruits.pop(1)    # インデックス 1 の要素を削除して返す
-print(deleted)             # バナナ
-print(fruits)              # ['りんご', 'ぶどう', 'スイカ']
+deleted = tasks.pop(1)     # インデックス 1 の要素を削除して返す
+print(deleted)             # API テストを書く
+print(tasks)               # ['ログインフォームを作る', '認証フローをレビューする', 'デモを録画する']
 
 # 最後の要素を削除
-last = fruits.pop()
-print(last)    # スイカ
+last = tasks.pop()
+print(last)    # デモを録画する
 
 # インデックスで削除（返り値は不要）
-del fruits[0]
-print(fruits)  # ['ぶどう']
+del tasks[0]
+print(tasks)  # ['認証フローをレビューする']
 ```
 
 ### リストでよく使う操作
@@ -209,10 +209,10 @@ print(squares)  # [1, 4, 9, 16, 25]
 even_squares = [i ** 2 for i in range(1, 11) if i % 2 == 0]
 print(even_squares)  # [4, 16, 36, 64, 100]
 
-# 実践例：データをまとめて処理する
-names = ["  Alice  ", "BOB", "  charlie "]
-clean_names = [name.strip().lower() for name in names]
-print(clean_names)  # ['alice', 'bob', 'charlie']
+# 実践例：機能 slug を正規化する
+raw_slugs = ["  Login API  ", "RAG DEMO", "  Chart View "]
+clean_slugs = [slug.strip().lower().replace(" ", "-") for slug in raw_slugs]
+print(clean_slugs)  # ['login-api', 'rag-demo', 'chart-view']
 ```
 
 :::tip リスト内包表記の形
@@ -435,19 +435,19 @@ print(char_count)
 
 ```python
 # 波括弧で作成
-fruits = {"りんご", "バナナ", "オレンジ", "りんご"}  # 重複は自動で削除される
-print(fruits)  # {'バナナ', 'オレンジ', 'りんご'}（順序は変わることがある）
+task_tags = {"api", "ui", "testing", "api"}  # 重複は自動で削除される
+print(task_tags)  # {'testing', 'ui', 'api'}（順序は変わることがある）
 
 # リストから作成（重複を削除！）
-numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
-unique = set(numbers)
-print(unique)  # {1, 2, 3, 4}
+modules = ["api", "api", "ui", "worker", "ui", "db"]
+unique_modules = set(modules)
+print(unique_modules)  # {'api', 'db', 'ui', 'worker'}（順序は変わることがある）
 
 # 注意：空の集合は set() を使う。{} ではない
 empty_set = set()     # 空集合
 empty_dict = {}       # これは空の辞書！
 
-print(type(fruits))   # <class 'set'>
+print(type(task_tags))   # <class 'set'>
 ```
 
 ### 集合の操作
@@ -516,26 +516,26 @@ latencies_ms = [120, 95, 240, 180, 310, 150, 88, 205, 260, 170]
 # 3. レイテンシを高い順に並べる
 ```
 
-### 練習 2：連絡先帳
+### 練習 2：サービス担当者ディレクトリ
 
-辞書を使って、簡単な連絡先帳を作ってみましょう。
+辞書を使って、簡単なサービス担当者ディレクトリを作ってみましょう。
 
 ```python
-contacts = {}
+owners = {}
 
-# 1. 3人分の連絡先を追加する（名前 → 電話番号）
-# 2. ある人の電話番号を調べる
-# 3. ある人の電話番号を変更する
-# 4. 1人分の連絡先を削除する
-# 5. すべての連絡先を表示する
+# 1. 3つのサービスを追加する（サービス名 → 担当者メール）
+# 2. あるサービス担当者のメールを調べる
+# 3. あるサービス担当者のメールを変更する
+# 4. 1つのサービスを削除する
+# 5. すべてのサービス担当者を表示する
 ```
 
-### 練習 3：単語の出現回数を数える
+### 練習 3：イベント語の出現回数を数える
 
 ```python
-text = "the quick brown fox jumps over the lazy dog the fox"
+text = "api error api timeout worker error api"
 
-# それぞれの単語が何回出てくるかを数える
+# それぞれのイベント語が何回出てくるかを数える
 # ヒント：まず split() でリストに分けてから、辞書で数える
 ```
 
@@ -553,8 +553,8 @@ numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
 <summary>参考実装と解説</summary>
 
 1. レイテンシの統計は、最大値 `310`、最小値 `88`、平均 `181.8` です。`200` ms 超は `[240, 310, 205, 260]`、降順では `[310, 260, 240, 205, ...]` から始まります。
-2. 連絡先帳はキーで追加、更新、削除します。例: `contacts["Ada"] = "ada@example.com"`。
-3. サンプル文の単語頻度では、`the` が `3`、`fox` が `2`、その他の単語は 1 回です。
+2. サービス担当者ディレクトリはキーで追加、更新、削除します。例: `owners["ログイン API"] = "api-owner@example.com"`。
+3. サンプルのイベント語頻度では、`api` が `3`、`error` が `2`、`timeout` と `worker` が 1 回です。
 4. 順序を保った重複削除の結果は `[3, 1, 4, 5, 9, 2, 6]` です。`seen` セットと結果リストを組み合わせます。
 5. 順序が必要ならリスト、検索なら辞書、所属判定や重複削除なら集合、固定レコードならタプルを選びます。
 

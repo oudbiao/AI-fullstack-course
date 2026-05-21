@@ -63,14 +63,14 @@ print(len(latencies_ms))   # 5
 ### Accessing Elements (Indexing)
 
 ```python
-fruits = ["apple", "banana", "orange", "grape", "watermelon"]
-#          0        1         2         3         4
-#         -5       -4        -3        -2        -1
+service_queue = ["Login API", "Search API", "Worker", "Dashboard", "Docs site"]
+#                 0            1             2         3            4
+#                -5           -4            -3        -2           -1
 
-print(fruits[0])     # apple (the first one)
-print(fruits[2])     # orange (the third one)
-print(fruits[-1])    # watermelon (the last one)
-print(fruits[-2])    # grape (the second to last one)
+print(service_queue[0])     # Login API (the first service)
+print(service_queue[2])     # Worker (the third service)
+print(service_queue[-1])    # Docs site (the last service)
+print(service_queue[-2])    # Dashboard (the second to last service)
 ```
 
 ### Slicing
@@ -102,42 +102,42 @@ print(latencies_ms)  # [120, 100, 180, 180, 310]
 ### Adding Elements
 
 ```python
-fruits = ["apple", "banana"]
+tasks = ["Build login form", "Write API tests"]
 
 # Add to the end
-fruits.append("orange")
-print(fruits)  # ['apple', 'banana', 'orange']
+tasks.append("Add error states")
+print(tasks)  # ['Build login form', 'Write API tests', 'Add error states']
 
 # Insert at a specific position
-fruits.insert(1, "grape")
-print(fruits)  # ['apple', 'grape', 'banana', 'orange']
+tasks.insert(1, "Review auth flow")
+print(tasks)  # ['Build login form', 'Review auth flow', 'Write API tests', 'Add error states']
 
 # Add multiple elements
-fruits.extend(["watermelon", "strawberry"])
-print(fruits)  # ['apple', 'grape', 'banana', 'orange', 'watermelon', 'strawberry']
+tasks.extend(["Update README", "Record demo"])
+print(tasks)  # ['Build login form', 'Review auth flow', 'Write API tests', 'Add error states', 'Update README', 'Record demo']
 ```
 
 ### Removing Elements
 
 ```python
-fruits = ["apple", "banana", "orange", "grape", "watermelon"]
+tasks = ["Build login form", "Write API tests", "Add error states", "Review auth flow", "Record demo"]
 
 # Remove by value (removes the first matching item)
-fruits.remove("orange")
-print(fruits)  # ['apple', 'banana', 'grape', 'watermelon']
+tasks.remove("Add error states")
+print(tasks)  # ['Build login form', 'Write API tests', 'Review auth flow', 'Record demo']
 
 # Remove by index
-deleted = fruits.pop(1)    # Remove the element at index 1 and return it
-print(deleted)             # banana
-print(fruits)              # ['apple', 'grape', 'watermelon']
+deleted = tasks.pop(1)     # Remove the element at index 1 and return it
+print(deleted)             # Write API tests
+print(tasks)               # ['Build login form', 'Review auth flow', 'Record demo']
 
 # Remove the last one
-last = fruits.pop()
-print(last)    # watermelon
+last = tasks.pop()
+print(last)    # Record demo
 
 # Remove by index (no return value needed)
-del fruits[0]
-print(fruits)  # ['grape']
+del tasks[0]
+print(tasks)  # ['Review auth flow']
 ```
 
 ### Common List Operations
@@ -197,10 +197,10 @@ print(squares)  # [1, 4, 9, 16, 25]
 even_squares = [i ** 2 for i in range(1, 11) if i % 2 == 0]
 print(even_squares)  # [4, 16, 36, 64, 100]
 
-# Real-world use: batch data processing
-names = ["  Alice  ", "BOB", "  charlie "]
-clean_names = [name.strip().lower() for name in names]
-print(clean_names)  # ['alice', 'bob', 'charlie']
+# Real-world use: normalize feature slugs
+raw_slugs = ["  Login API  ", "RAG DEMO", "  Chart View "]
+clean_slugs = [slug.strip().lower().replace(" ", "-") for slug in raw_slugs]
+print(clean_slugs)  # ['login-api', 'rag-demo', 'chart-view']
 ```
 
 :::tip List Comprehension Formula
@@ -423,19 +423,19 @@ A set is an **unordered collection of unique elements**.
 
 ```python
 # Create with curly braces
-fruits = {"apple", "banana", "orange", "apple"}  # duplicates are removed automatically
-print(fruits)  # {'banana', 'orange', 'apple'} (order may differ)
+task_tags = {"api", "ui", "testing", "api"}  # duplicates are removed automatically
+print(task_tags)  # {'testing', 'ui', 'api'} (order may differ)
 
 # Create from a list (deduplicates!)
-numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
-unique = set(numbers)
-print(unique)  # {1, 2, 3, 4}
+modules = ["api", "api", "ui", "worker", "ui", "db"]
+unique_modules = set(modules)
+print(unique_modules)  # {'api', 'db', 'ui', 'worker'} (order may differ)
 
 # Note: an empty set must be created with set(), not {}
 empty_set = set()     # empty set
 empty_dict = {}       # this is an empty dictionary!
 
-print(type(fruits))   # <class 'set'>
+print(type(task_tags))   # <class 'set'>
 ```
 
 ### Set Operations
@@ -504,26 +504,26 @@ latencies_ms = [120, 95, 240, 180, 310, 150, 88, 205, 260, 170]
 # 3. Sort the latencies from high to low
 ```
 
-### Exercise 2: Address Book
+### Exercise 2: Service Owner Directory
 
-Use a dictionary to implement a simple address book:
+Use a dictionary to implement a simple service owner directory:
 
 ```python
-contacts = {}
+owners = {}
 
-# 1. Add 3 contacts (name -> phone number)
-# 2. Look up a contact's phone number
-# 3. Modify a contact's phone number
-# 4. Delete a contact
-# 5. Print all contacts
+# 1. Add 3 services (service name -> owner email)
+# 2. Look up a service owner's email
+# 3. Modify a service owner's email
+# 4. Delete one service
+# 5. Print all service owners
 ```
 
-### Exercise 3: Word Frequency Count
+### Exercise 3: Event Word Frequency Count
 
 ```python
-text = "the quick brown fox jumps over the lazy dog the fox"
+text = "api error api timeout worker error api"
 
-# Count how many times each word appears
+# Count how many times each event word appears
 # Hint: first use split() to turn it into a list, then count with a dictionary
 ```
 
@@ -541,8 +541,8 @@ numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
 <summary>Reference implementation and walkthrough</summary>
 
 1. The latency statistics are max `310`, min `88`, and average `181.8`. Latencies above `200` can be `[240, 310, 205, 260]`, and descending order starts with `[310, 260, 240, 205, ...]`.
-2. The address book should add, update, and delete by key, for example `contacts["Ada"] = "ada@example.com"`.
-3. Word frequency should count `the: 3`, `fox: 2`, and the other words once for the sample sentence.
+2. The owner directory should add, update, and delete by key, for example `owners["Login API"] = "api-owner@example.com"`.
+3. Event word frequency should count `api: 3`, `error: 2`, `timeout: 1`, and `worker: 1` for the sample text.
 4. Ordered deduplication should produce `[3, 1, 4, 5, 9, 2, 6]`. Use a `seen` set plus a result list.
 5. Choose a list for order, dictionary for lookup, set for membership or deduplication, and tuple for fixed records.
 

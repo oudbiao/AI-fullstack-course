@@ -63,14 +63,14 @@ print(len(latencies_ms))   # 5
 ### 访问元素（索引）
 
 ```python
-fruits = ["苹果", "香蕉", "橙子", "葡萄", "西瓜"]
-#          0       1       2       3       4
-#         -5      -4      -3      -2      -1
+service_queue = ["登录 API", "搜索 API", "Worker", "仪表盘", "文档站点"]
+#                 0          1           2         3          4
+#                -5         -4          -3        -2         -1
 
-print(fruits[0])     # 苹果（第一个）
-print(fruits[2])     # 橙子（第三个）
-print(fruits[-1])    # 西瓜（最后一个）
-print(fruits[-2])    # 葡萄（倒数第二个）
+print(service_queue[0])     # 登录 API（第一个服务）
+print(service_queue[2])     # Worker（第三个服务）
+print(service_queue[-1])    # 文档站点（最后一个服务）
+print(service_queue[-2])    # 仪表盘（倒数第二个服务）
 ```
 
 ### 切片
@@ -102,42 +102,42 @@ print(latencies_ms)  # [120, 100, 180, 180, 310]
 ### 添加元素
 
 ```python
-fruits = ["苹果", "香蕉"]
+tasks = ["构建登录表单", "编写 API 测试"]
 
 # 在末尾添加
-fruits.append("橙子")
-print(fruits)  # ['苹果', '香蕉', '橙子']
+tasks.append("补充错误状态")
+print(tasks)  # ['构建登录表单', '编写 API 测试', '补充错误状态']
 
 # 在指定位置插入
-fruits.insert(1, "葡萄")
-print(fruits)  # ['苹果', '葡萄', '香蕉', '橙子']
+tasks.insert(1, "评审认证流程")
+print(tasks)  # ['构建登录表单', '评审认证流程', '编写 API 测试', '补充错误状态']
 
 # 添加多个元素
-fruits.extend(["西瓜", "草莓"])
-print(fruits)  # ['苹果', '葡萄', '香蕉', '橙子', '西瓜', '草莓']
+tasks.extend(["更新 README", "录制演示"])
+print(tasks)  # ['构建登录表单', '评审认证流程', '编写 API 测试', '补充错误状态', '更新 README', '录制演示']
 ```
 
 ### 删除元素
 
 ```python
-fruits = ["苹果", "香蕉", "橙子", "葡萄", "西瓜"]
+tasks = ["构建登录表单", "编写 API 测试", "补充错误状态", "评审认证流程", "录制演示"]
 
 # 按值删除（删除第一个匹配项）
-fruits.remove("橙子")
-print(fruits)  # ['苹果', '香蕉', '葡萄', '西瓜']
+tasks.remove("补充错误状态")
+print(tasks)  # ['构建登录表单', '编写 API 测试', '评审认证流程', '录制演示']
 
 # 按索引删除
-deleted = fruits.pop(1)    # 删除索引 1 的元素，并返回它
-print(deleted)             # 香蕉
-print(fruits)              # ['苹果', '葡萄', '西瓜']
+deleted = tasks.pop(1)     # 删除索引 1 的元素，并返回它
+print(deleted)             # 编写 API 测试
+print(tasks)               # ['构建登录表单', '评审认证流程', '录制演示']
 
 # 删除最后一个
-last = fruits.pop()
-print(last)    # 西瓜
+last = tasks.pop()
+print(last)    # 录制演示
 
 # 按索引删除（不需要返回值）
-del fruits[0]
-print(fruits)  # ['葡萄']
+del tasks[0]
+print(tasks)  # ['评审认证流程']
 ```
 
 ### 列表常用操作
@@ -197,10 +197,10 @@ print(squares)  # [1, 4, 9, 16, 25]
 even_squares = [i ** 2 for i in range(1, 11) if i % 2 == 0]
 print(even_squares)  # [4, 16, 36, 64, 100]
 
-# 实际应用：批量处理数据
-names = ["  Alice  ", "BOB", "  charlie "]
-clean_names = [name.strip().lower() for name in names]
-print(clean_names)  # ['alice', 'bob', 'charlie']
+# 实际应用：规范化功能 slug
+raw_slugs = ["  Login API  ", "RAG DEMO", "  Chart View "]
+clean_slugs = [slug.strip().lower().replace(" ", "-") for slug in raw_slugs]
+print(clean_slugs)  # ['login-api', 'rag-demo', 'chart-view']
 ```
 
 :::tip 列表推导式的公式
@@ -423,19 +423,19 @@ print(char_count)
 
 ```python
 # 用花括号创建
-fruits = {"苹果", "香蕉", "橙子", "苹果"}  # 重复的会自动去掉
-print(fruits)  # {'香蕉', '橙子', '苹果'}（顺序可能不同）
+task_tags = {"api", "ui", "testing", "api"}  # 重复的会自动去掉
+print(task_tags)  # {'testing', 'ui', 'api'}（顺序可能不同）
 
 # 从列表创建（去重！）
-numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
-unique = set(numbers)
-print(unique)  # {1, 2, 3, 4}
+modules = ["api", "api", "ui", "worker", "ui", "db"]
+unique_modules = set(modules)
+print(unique_modules)  # {'api', 'db', 'ui', 'worker'}（顺序可能不同）
 
 # 注意：空集合要用 set()，不能用 {}
 empty_set = set()     # 空集合
 empty_dict = {}       # 这是空字典！
 
-print(type(fruits))   # <class 'set'>
+print(type(task_tags))   # <class 'set'>
 ```
 
 ### 集合操作
@@ -504,26 +504,26 @@ latencies_ms = [120, 95, 240, 180, 310, 150, 88, 205, 260, 170]
 # 3. 把延迟从高到低排序
 ```
 
-### 练习 2：通讯录
+### 练习 2：服务负责人目录
 
-用字典实现一个简单的通讯录：
+用字典实现一个简单的服务负责人目录：
 
 ```python
-contacts = {}
+owners = {}
 
-# 1. 添加 3 个联系人（姓名 → 电话）
-# 2. 查找某个联系人的电话
-# 3. 修改某个联系人的电话
-# 4. 删除一个联系人
-# 5. 打印所有联系人
+# 1. 添加 3 个服务（服务名 → 负责人邮箱）
+# 2. 查找某个服务负责人的邮箱
+# 3. 修改某个服务负责人的邮箱
+# 4. 删除一个服务
+# 5. 打印所有服务负责人
 ```
 
-### 练习 3：单词频率统计
+### 练习 3：事件词频统计
 
 ```python
-text = "the quick brown fox jumps over the lazy dog the fox"
+text = "api error api timeout worker error api"
 
-# 统计每个单词出现的次数
+# 统计每个事件词出现的次数
 # 提示：先 split() 分割成列表，再用字典统计
 ```
 
@@ -541,8 +541,8 @@ numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
 <summary>参考实现与讲解</summary>
 
 1. 延迟统计结果是最高 `310`、最低 `88`、平均 `181.8`。超过 `200` ms 的延迟可以是 `[240, 310, 205, 260]`，降序排列应以 `[310, 260, 240, 205, ...]` 开头。
-2. 通讯录应按 key 增删改查，例如 `contacts["Ada"] = "ada@example.com"`。
-3. 示例句子的词频中，`the` 应为 `3`，`fox` 应为 `2`，其他词各出现一次。
+2. 服务负责人目录应按 key 增删改查，例如 `owners["登录 API"] = "api-owner@example.com"`。
+3. 示例事件词频中，`api` 应为 `3`，`error` 应为 `2`，`timeout` 和 `worker` 各出现一次。
 4. 保持顺序去重的结果应为 `[3, 1, 4, 5, 9, 2, 6]`，做法是用 `seen` 集合配合结果列表。
 5. 需要顺序时选列表，需要查找时选字典，需要成员判断或去重时选集合，固定记录可选元组。
 
