@@ -373,7 +373,7 @@ print(session)
 
 这在 Agent 化对话里特别重要。
 
-## 如果你的目标是“知识库驱动的课件生成助手”，最该维护哪些槽位？
+## 如果你的目标是“知识库驱动的 SOP 文档助手”，最该维护哪些槽位？
 
 这类项目和普通聊天最大的不同是：
 
@@ -381,33 +381,33 @@ print(session)
 
 比如用户可能先说：
 
-- “帮我做一个折扣应用题的 Word 课件”
+- “帮我起草一份退款升级 SOP Word 文档”
 
 后面才补：
 
-- “面向小学高年级”
-- “要有 3 道练习题”
-- “风格偏课堂讲解”
+- “用最新内部退款政策”
+- “放两个已处理案例”
+- “最后加一份一线客服检查清单”
 
 所以第一次做时，很适合把槽位先定成：
 
 | 槽位 | 它在记录什么 |
 |---|---|
-| `topic` | 课件主题 |
-| `audience` | 面向对象 / 年级 |
+| `topic` | SOP 主题 |
+| `audience` | 目标支持角色 |
 | `doc_format` | Word / PPT |
-| `style` | 课堂讲解 / 提纲式 / 讲义式 |
-| `exercise_count` | 练习题数量 |
+| `case_count` | 要放入的已处理案例数量 |
+| `checklist_required` | 是否需要结尾检查清单 |
 
 一个最小状态对象可以先写成：
 
 ```python
 state = {
-    "topic": "折扣应用题",
+    "topic": "退款升级 SOP",
     "audience": None,
     "doc_format": "word",
-    "style": None,
-    "exercise_count": None,
+    "case_count": None,
+    "checklist_required": None,
 }
 
 print(state)
@@ -416,7 +416,7 @@ print(state)
 预期输出：
 
 ```text
-{'topic': '折扣应用题', 'audience': None, 'doc_format': 'word', 'style': None, 'exercise_count': None}
+{'topic': '退款升级 SOP', 'audience': None, 'doc_format': 'word', 'case_count': None, 'checklist_required': None}
 ```
 
 这个例子最重要的价值是：
@@ -428,32 +428,32 @@ print(state)
 ```python
 def next_question(state):
     if not state["audience"]:
-        return "这份课件主要面向哪个年级或人群？"
-    if not state["style"]:
-        return "你希望它更像课堂讲解，还是提纲式讲义？"
-    if not state["exercise_count"]:
-        return "你希望最后附几道练习题？"
-    return "信息已经比较完整，可以开始生成课件结构。"
+        return "这份 SOP 主要面向哪个支持角色？"
+    if not state["case_count"]:
+        return "需要放入几个已处理案例？"
+    if state["checklist_required"] is None:
+        return "是否需要附一份一线客服检查清单？"
+    return "信息已经比较完整，可以开始生成 SOP 草稿。"
 
 
 state = {
-    "topic": "折扣应用题",
+    "topic": "退款升级 SOP",
     "audience": None,
     "doc_format": "word",
-    "style": None,
-    "exercise_count": None,
+    "case_count": None,
+    "checklist_required": None,
 }
 
 print(next_question(state))
-state["audience"] = "小学高年级"
+state["audience"] = "一线客服"
 print(next_question(state))
 ```
 
 预期输出：
 
 ```text
-这份课件主要面向哪个年级或人群？
-你希望它更像课堂讲解，还是提纲式讲义？
+这份 SOP 主要面向哪个支持角色？
+需要放入几个已处理案例？
 ```
 
 这会帮助新人先建立一个非常重要的直觉：

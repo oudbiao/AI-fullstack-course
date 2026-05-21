@@ -373,7 +373,7 @@ Which tools have been called and which results have been obtained.
 
 This is especially important in Agent-style dialog.
 
-## If Your Goal Is a “Knowledge-base-driven Lesson Material Generation Assistant,” Which Slots Should You Maintain Most Carefully?
+## If Your Goal Is a “Knowledge-base-driven SOP Document Assistant,” Which Slots Should You Maintain Most Carefully?
 
 The biggest difference between this kind of project and ordinary chat is:
 
@@ -381,33 +381,33 @@ The biggest difference between this kind of project and ordinary chat is:
 
 For example, the user may first say:
 
-- “Help me make a Word course handout for discount word problems”
+- “Help me draft a refund escalation SOP in Word”
 
 Later they add:
 
-- “For upper elementary school”
-- “Need 3 practice questions”
-- “Style should be more like classroom explanation”
+- “Use the latest internal refund policy”
+- “Include two handled case examples”
+- “Add a checklist for frontline support”
 
 So for a first version, it is very suitable to define the slots like this:
 
 | Slot | What it records |
 |---|---|
-| `topic` | Course material topic |
-| `audience` | Target audience / grade |
+| `topic` | SOP topic |
+| `audience` | Target support role |
 | `doc_format` | Word / PPT |
-| `style` | Classroom explanation / outline-style / handout-style |
-| `exercise_count` | Number of practice questions |
+| `case_count` | Number of handled cases to include |
+| `checklist_required` | Whether the SOP needs a final checklist |
 
 A minimal state object can be written like this:
 
 ```python
 state = {
-    "topic": "discount word problems",
+    "topic": "refund escalation SOP",
     "audience": None,
     "doc_format": "word",
-    "style": None,
-    "exercise_count": None,
+    "case_count": None,
+    "checklist_required": None,
 }
 
 print(state)
@@ -416,7 +416,7 @@ print(state)
 Expected output:
 
 ```text
-{'topic': 'discount word problems', 'audience': None, 'doc_format': 'word', 'style': None, 'exercise_count': None}
+{'topic': 'refund escalation SOP', 'audience': None, 'doc_format': 'word', 'case_count': None, 'checklist_required': None}
 ```
 
 The most important value of this example is:
@@ -428,32 +428,32 @@ The most important value of this example is:
 ```python
 def next_question(state):
     if not state["audience"]:
-        return "Which grade level or audience is this course material for?"
-    if not state["style"]:
-        return "Would you like it to be more like classroom explanation or outline-style notes?"
-    if not state["exercise_count"]:
-        return "How many practice questions would you like at the end?"
-    return "The information is fairly complete, and we can start generating the course outline."
+        return "Which support role should this SOP be written for?"
+    if not state["case_count"]:
+        return "How many handled case examples should be included?"
+    if state["checklist_required"] is None:
+        return "Should the SOP include a frontline support checklist?"
+    return "The information is fairly complete, and we can start generating the SOP draft."
 
 
 state = {
-    "topic": "discount word problems",
+    "topic": "refund escalation SOP",
     "audience": None,
     "doc_format": "word",
-    "style": None,
-    "exercise_count": None,
+    "case_count": None,
+    "checklist_required": None,
 }
 
 print(next_question(state))
-state["audience"] = "upper elementary school"
+state["audience"] = "frontline support"
 print(next_question(state))
 ```
 
 Expected output:
 
 ```text
-Which grade level or audience is this course material for?
-Would you like it to be more like classroom explanation or outline-style notes?
+Which support role should this SOP be written for?
+How many handled case examples should be included?
 ```
 
 This helps beginners build a very important intuition:

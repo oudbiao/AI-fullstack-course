@@ -354,15 +354,15 @@ def chat(payload: ChatRequest):
 
 ---
 
-## 目標が「ナレッジベース駆動の教材生成アシスタント」なら、API の最小構成はどうなるか？
+## 目標が「ナレッジベース駆動の SOP 文書アシスタント」なら、API の最小構成はどうなるか？
 
 この種のシステムは、`/chat` だけでは足りないことが多いです。  
 少なくとも次のようなインターフェースがあるとよいです。
 
 | インターフェース | 役割 |
 |---|---|
-| `/courseware/generate` | テーマに基づいて教材の構成や文書を生成する |
-| `/courseware/preview` | 構造化された結果を先に確認する |
+| `/sop-drafts/generate` | ポリシー、ケース、チェックリスト根拠から構造化 SOP ドラフトを生成する |
+| `/sop-drafts/preview` | エクスポート前に構造化された SOP セクションを確認する |
 | `/documents/ingest` | PDF / Word / PPT をアップロードして解析する |
 | `/retrieval/search` | 検索結果をデバッグする |
 
@@ -376,11 +376,11 @@ def chat(payload: ChatRequest):
 
 ```python
 generate_request = {
-    "topic": "割引の応用問題",
-    "audience": "小学校高学年",
+    "topic": "返金エスカレーション SOP",
+    "audience": "一次サポート",
     "doc_format": "word",
-    "style": "授業解説",
-    "exercise_count": 3,
+    "case_count": 2,
+    "checklist_required": True,
 }
 
 print(generate_request)
@@ -389,23 +389,23 @@ print(generate_request)
 想定出力：
 
 ```text
-{'topic': '割引の応用問題', 'audience': '小学校高学年', 'doc_format': 'word', 'style': '授業解説', 'exercise_count': 3}
+{'topic': '返金エスカレーション SOP', 'audience': '一次サポート', 'doc_format': 'word', 'case_count': 2, 'checklist_required': True}
 ```
 
 このオブジェクトの価値は、次の点にあります。
 
 - 複数ターン対話で集めた項目を、実際のサービス API のパラメータとして落とし込める
 
-## 実践：教材生成 API の契約を模擬する
+## 実践：SOP ドラフト API の契約を模擬する
 
 本物の FastAPI endpoint を作る前に、まず純粋な Python でリクエスト検証とレスポンス契約を書いてみます。これにより、サービス境界がはっきりします。
 
 ```python
-REQUIRED_FIELDS = ["topic", "audience", "doc_format", "style", "exercise_count"]
+REQUIRED_FIELDS = ["topic", "audience", "doc_format", "case_count", "checklist_required"]
 
 
 def validate_generate_request(payload):
-    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    missing = [field for field in REQUIRED_FIELDS if field not in payload or payload.get(field) is None]
     if missing:
         return False, {
             "code": "INVALID_ARGUMENT",
@@ -420,7 +420,7 @@ def validate_generate_request(payload):
 
 
 def handle_generate(payload):
-    trace_id = "trace_courseware_001"
+    trace_id = "trace_sop_001"
     ok, error = validate_generate_request(payload)
     if not ok:
         return {"trace_id": trace_id, "error": error}
@@ -428,38 +428,38 @@ def handle_generate(payload):
     return {
         "trace_id": trace_id,
         "status": "accepted",
-        "courseware": {
+        "sop_draft": {
             "title": payload["topic"],
             "audience": payload["audience"],
             "format": payload["doc_format"],
-            "sections": ["知識ポイント確認", "例題解説", "授業内演習"],
+            "sections": ["ポリシー要約", "処理済みケース", "一次サポートチェックリスト"],
         }
     }
 
 
 generate_request = {
-    "topic": "割引の応用問題",
-    "audience": "小学校高学年",
+    "topic": "返金エスカレーション SOP",
+    "audience": "一次サポート",
     "doc_format": "word",
-    "style": "授業解説",
-    "exercise_count": 3,
+    "case_count": 2,
+    "checklist_required": True,
 }
 
 print(handle_generate(generate_request))
-print(handle_generate({"topic": "割引の応用問題", "doc_format": "pdf"}))
+print(handle_generate({"topic": "返金エスカレーション SOP", "doc_format": "pdf"}))
 ```
 
 想定出力：
 
 ```text
-{'trace_id': 'trace_courseware_001', 'status': 'accepted', 'courseware': {'title': '割引の応用問題', 'audience': '小学校高学年', 'format': 'word', 'sections': ['知識ポイント確認', '例題解説', '授業内演習']}}
-{'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "不足フィールド：['audience', 'style', 'exercise_count']"}}
+{'trace_id': 'trace_sop_001', 'status': 'accepted', 'sop_draft': {'title': '返金エスカレーション SOP', 'audience': '一次サポート', 'format': 'word', 'sections': ['ポリシー要約', '処理済みケース', '一次サポートチェックリスト']}}
+{'trace_id': 'trace_sop_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "不足フィールド：['audience', 'case_count', 'checklist_required']"}}
 ```
 
-![教材生成 API 契約結果図](/img/course/ch08-courseware-api-contract-result-map-ja.webp)
+![SOP ドラフト API 契約結果図](/img/course/ch08-courseware-api-contract-result-map-ja.webp)
 
 :::tip 図の見方
-2つの経路を同じ検証ゲートに通して読みます。完全な payload は `status=accepted` の courseware になり、不完全な payload はビジネスロジックの前で統一された `INVALID_ARGUMENT` エラーに止まります。
+2つの経路を同じ検証ゲートに通して読みます。完全な payload は `status=accepted` の SOP ドラフトになり、不完全な payload はビジネスロジックの前で統一された `INVALID_ARGUMENT` エラーに止まります。
 :::
 
 この練習が役立つのは、成功と失敗を同時に設計する必要があるからです。成功パスの返却だけでは、サービスが準備できたとは言えません。

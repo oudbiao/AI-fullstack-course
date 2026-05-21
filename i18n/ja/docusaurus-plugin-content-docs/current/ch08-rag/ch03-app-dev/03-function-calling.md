@@ -430,22 +430,22 @@ for q in queries:
 
 ---
 
-## 八、知識ベース駆動の教材生成アシスタントを作るなら、最小ツールセットはどうあるべきか？
+## 八、知識ベース駆動の SOP 文書アシスタントを作るなら、最小ツールセットはどうあるべきか？
 
 この種のプロジェクトを初めて作るとき、最初から何十個ものツールを用意する必要はありません。  
 より安定した最小ツールセットは、通常たった 4 つで十分です。
 
 1. `retrieve_internal_docs(topic)`  
-   社内ナレッジベースを検索する
+   社内 SOP、ポリシー、ケース文書を検索する
 
-2. `retrieve_external_docs(topic)`  
-   外部資料を補う
+2. `check_policy_case_coverage(materials)`
+   ドラフトに必要なポリシー根拠とケース根拠が足りているか確認する
 
-3. `build_courseware_schema(materials)`  
-   資料を固定構造に整理する
+3. `build_sop_draft_schema(materials)`
+   資料を policy、case、checklist、citations の欄に整理する
 
 4. `export_word(schema)`  
-   テンプレートを当てて Word に出力する
+   SOP テンプレートを当てて Word に出力する
 
 まずはこう考えるとよいです。
 
@@ -458,12 +458,12 @@ for q in queries:
 tools = [
     {
         "name": "retrieve_internal_docs",
-        "description": "テーマに基づいて社内ナレッジベース資料を検索する",
+        "description": "テーマに基づいて社内 SOP とポリシー文書を検索する",
         "parameters": {"topic": {"type": "string"}},
     },
     {
         "name": "export_word",
-        "description": "構造化された教材内容を Word 文書として出力する",
+        "description": "構造化された SOP ドラフトを Word 文書として出力する",
         "parameters": {"title": {"type": "string"}, "sections": {"type": "array"}},
     },
 ]
@@ -474,7 +474,7 @@ print(tools)
 想定出力：
 
 ```text
-[{'name': 'retrieve_internal_docs', 'description': 'テーマに基づいて社内ナレッジベース資料を検索する', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': '構造化された教材内容を Word 文書として出力する', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
+[{'name': 'retrieve_internal_docs', 'description': 'テーマに基づいて社内 SOP とポリシー文書を検索する', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': '構造化された SOP ドラフトを Word 文書として出力する', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
 ```
 
 ## 九、最もよくある実装上の問題

@@ -379,7 +379,7 @@ print(session)
 
 これは Agent 型の対話で特に重要です。
 
-## もし目標が「知識ベース駆動の教材生成アシスタント」なら、どのスロットを管理すべきか？
+## もし目標が「知識ベース駆動の SOP 文書アシスタント」なら、どのスロットを管理すべきか？
 
 このタイプのプロジェクトは、普通のチャットと大きく違います。
 
@@ -387,33 +387,33 @@ print(session)
 
 たとえば、最初に次のように言うかもしれません。
 
-- 「割引の文章題の Word 教材を作って」
+- 「返金エスカレーション SOP の Word 文書を作って」
 
 そのあとで、さらに次を補足します。
 
-- 「小学高学年向け」
-- 「練習問題を3問入れて」
-- 「授業での説明っぽい雰囲気で」
+- 「最新の社内返金ポリシーを使って」
+- 「処理済みケースを2件入れて」
+- 「最後に一次サポート向けチェックリストを付けて」
 
 だから、最初の段階では、スロットを次のように決めるとよいです。
 
 | スロット | 何を記録するか |
 |---|---|
-| `topic` | 教材のテーマ |
-| `audience` | 対象者 / 学年 |
+| `topic` | SOP のテーマ |
+| `audience` | 対象となるサポート担当 |
 | `doc_format` | Word / PPT |
-| `style` | 授業説明 / 箇条書き / 配布資料風 |
-| `exercise_count` | 練習問題の数 |
+| `case_count` | 入れる処理済みケースの数 |
+| `checklist_required` | 最後のチェックリストが必要か |
 
 最小の状態オブジェクトは、まず次のように書けます。
 
 ```python
 state = {
-    "topic": "割引の文章題",
+    "topic": "返金エスカレーション SOP",
     "audience": None,
     "doc_format": "word",
-    "style": None,
-    "exercise_count": None,
+    "case_count": None,
+    "checklist_required": None,
 }
 
 print(state)
@@ -422,7 +422,7 @@ print(state)
 想定出力：
 
 ```text
-{'topic': '割引の文章題', 'audience': None, 'doc_format': 'word', 'style': None, 'exercise_count': None}
+{'topic': '返金エスカレーション SOP', 'audience': None, 'doc_format': 'word', 'case_count': None, 'checklist_required': None}
 ```
 
 この例の一番大きな価値は、
@@ -436,32 +436,32 @@ print(state)
 ```python
 def next_question(state):
     if not state["audience"]:
-        return "この教材は、主にどの学年や人向けですか？"
-    if not state["style"]:
-        return "授業説明のような形がよいですか、それとも箇条書きの資料がよいですか？"
-    if not state["exercise_count"]:
-        return "最後に、練習問題は何問付けたいですか？"
-    return "情報はかなりそろいました。教材の構成を作り始められます。"
+        return "この SOP は、主にどのサポート担当向けですか？"
+    if not state["case_count"]:
+        return "処理済みケースは何件入れますか？"
+    if state["checklist_required"] is None:
+        return "一次サポート向けチェックリストを付けますか？"
+    return "情報はかなりそろいました。SOP ドラフトを作り始められます。"
 
 
 state = {
-    "topic": "割引の文章題",
+    "topic": "返金エスカレーション SOP",
     "audience": None,
     "doc_format": "word",
-    "style": None,
-    "exercise_count": None,
+    "case_count": None,
+    "checklist_required": None,
 }
 
 print(next_question(state))
-state["audience"] = "小学高学年"
+state["audience"] = "一次サポート"
 print(next_question(state))
 ```
 
 想定出力：
 
 ```text
-この教材は、主にどの学年や人向けですか？
-授業説明のような形がよいですか、それとも箇条書きの資料がよいですか？
+この SOP は、主にどのサポート担当向けですか？
+処理済みケースは何件入れますか？
 ```
 
 これによって、初学者はとても大事な感覚をつかめます。

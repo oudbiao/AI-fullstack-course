@@ -24,7 +24,7 @@ keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge 
 
 - 理解为什么 PDF / Word / PPT 不能只抽纯文本
 - 理解扫描版 PDF 和图片页为什么会把 OCR 拉进链路
-- 学会把文档解析成“正文 + 层级 + 元数据 + 例题”这类结构
+- 学会把文档解析成“正文 + 层级 + 元数据 + 证据角色”这类结构
 - 看懂一个最小的文档解析与知识抽取流程
 
 ---
@@ -44,7 +44,7 @@ flowchart LR
 所以这节真正想解决的是：
 
 - 为什么知识库项目不是“把文件内容抠出来就结束”
-- 为什么标题层级、页码、章节和例题都会影响后面检索质量
+- 为什么标题层级、页码、小节和证据角色都会影响后面检索质量
 
 ## 为什么文档解析经常比想象中更难？
 
@@ -60,7 +60,7 @@ flowchart LR
 1. 文本抽出来了吗？
 2. 顺序对了吗？
 3. 标题、页码、章节还在吗？
-4. 哪些内容是例题、定义、正文、备注？
+4. 哪些内容是政策、案例、检查清单、定义、正文、备注？
 
 ## 一个更适合新人的总类比
 
@@ -75,10 +75,10 @@ flowchart LR
 - 主题
 - 章节
 - 标题
-- 例题
+- 证据角色
 - 来源
 
-这样后面系统问“我要找哪个主题的例题”时，才有可能真的找得准。
+这样后面系统问“我要找哪个主题的政策和案例证据”时，才有可能真的找得准。
 
 ## 不同文件类型最常见的问题
 
@@ -120,9 +120,9 @@ def route_parser(filename):
 
 
 files = [
-    "lesson_1.pdf",
-    "chapter_2.docx",
-    "course_outline.pptx",
+    "refund_policy.pdf",
+    "handled_cases.docx",
+    "escalation_checklist.pptx",
 ]
 
 for file in files:
@@ -132,9 +132,9 @@ for file in files:
 预期输出：
 
 ```text
-lesson_1.pdf -> pdf_text_or_ocr
-chapter_2.docx -> word_parser
-course_outline.pptx -> ppt_parser
+refund_policy.pdf -> pdf_text_or_ocr
+handled_cases.docx -> word_parser
+escalation_checklist.pptx -> ppt_parser
 ```
 
 这个示例最重要的价值是：
@@ -160,18 +160,18 @@ chunks = [
     {
         "doc_id": "word_001",
         "source_type": "docx",
-        "section_title": "应用题：折扣计算",
+        "section_title": "退款升级案例复盘",
         "page_or_slide": 3,
-        "content": "商店对 100 元商品打 8 折，问现价是多少？",
-        "content_type": "example",
+        "content": "用户因配送失败和账户复核结果申请升级退款。",
+        "content_type": "case",
     },
     {
         "doc_id": "ppt_002",
         "source_type": "pptx",
-        "section_title": "知识点总结",
+        "section_title": "一线客服检查清单",
         "page_or_slide": 8,
-        "content": "折扣 = 原价 × 折扣率。",
-        "content_type": "concept",
+        "content": "核对订单状态、退款窗口、历史沟通和审批负责人。",
+        "content_type": "checklist",
     },
 ]
 
@@ -182,8 +182,8 @@ for chunk in chunks:
 预期输出：
 
 ```text
-{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': '应用题：折扣计算', 'page_or_slide': 3, 'content': '商店对 100 元商品打 8 折，问现价是多少？', 'content_type': 'example'}
-{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': '知识点总结', 'page_or_slide': 8, 'content': '折扣 = 原价 × 折扣率。', 'content_type': 'concept'}
+{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': '退款升级案例复盘', 'page_or_slide': 3, 'content': '用户因配送失败和账户复核结果申请升级退款。', 'content_type': 'case'}
+{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': '一线客服检查清单', 'page_or_slide': 8, 'content': '核对订单状态、退款窗口、历史沟通和审批负责人。', 'content_type': 'checklist'}
 ```
 
 这个例子特别适合初学者，因为它会帮助你先看到：
@@ -203,41 +203,41 @@ for chunk in chunks:
 
 | 层次 | 你最少要保留什么 |
 |---|---|
-| 文档层 | `doc_id / 文件名 / 来源类型 / 创建时间 / 学科` |
-| 章节层 | `section_id / 标题 / 章节路径 / 页码范围` |
-| 知识块层 | `chunk_id / 文本 / 内容类型 / 来源页 / 是否例题` |
+| 文档层 | `doc_id / 文件名 / 来源类型 / 创建时间 / 业务域` |
+| 小节层 | `section_id / 标题 / 小节路径 / 页码范围` |
+| 知识块层 | `chunk_id / 文本 / 内容类型 / 来源页 / 证据角色` |
 
 你可以先把它想成：
 
-- 文档层像一本书的封面卡
-- 章节层像目录
+- 文档层像文档的封面卡
+- 小节层像目录
 - 知识块层像真正拿去检索和生成的卡片
 
 下面这个最小结构很适合新人先抄着做：
 
 ```python
 parsed_doc = {
-    "doc_id": "math_pdf_001",
+    "doc_id": "sop_pdf_001",
     "source_type": "pdf",
-    "title": "折扣应用题专项训练",
-    "subject": "数学",
+    "title": "退款升级 SOP",
+    "domain": "support operations",
     "sections": [
         {
             "section_id": "s1",
-            "section_title": "折扣基础概念",
+            "section_title": "退款升级规则",
             "page_range": [1, 2],
             "chunks": [
                 {
                     "chunk_id": "c1",
-                    "content_type": "concept",
+                    "content_type": "policy",
                     "page_or_slide": 1,
-                    "text": "折扣 = 原价 × 折扣率",
+                    "text": "超过标准窗口的退款需要主管审批。",
                 },
                 {
                     "chunk_id": "c2",
-                    "content_type": "example",
+                    "content_type": "case",
                     "page_or_slide": 2,
-                    "text": "商品原价 100 元，打 8 折后是多少元？",
+                    "text": "用户因配送失败和账户复核结果申请升级退款。",
                 },
             ],
         }
@@ -250,13 +250,13 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 预期输出：
 
 ```text
-商品原价 100 元，打 8 折后是多少元？
+用户因配送失败和账户复核结果申请升级退款。
 ```
 
 这个 schema 的意义不是“设计得特别漂亮”，而是：
 
 - 后面检索时有东西可筛
-- 后面生成课件时知道哪里是概念、哪里是例题
+- 后面生成 SOP 草稿时知道哪里是政策、哪里是案例
 - 后面做引用回溯时知道内容从哪一页来
 
 ## 为什么“内容类型”特别重要？
@@ -264,46 +264,48 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 因为你的项目不是普通问答，
 而是要做：
 
-- 按主题找资料
-- 找相关例题
-- 再按固定格式生成 Word 课件
+- 按主题找政策条款
+- 找相关已处理案例
+- 再按固定格式生成 Word SOP 草稿
 
 这时系统如果能分清：
 
-- `concept`
-- `example`
-- `exercise`
+- `policy`
+- `case`
+- `checklist`
 - `definition`
 
-后面生成课件时就会稳很多。
+后面生成 SOP 草稿时就会稳很多。
 
-## 一个最小“例题抽取”示例
+## 一个最小“证据类型分类”示例
 
 对你的项目来说，只知道一段话属于哪一页还不够，
 还要尽量分清：
 
-- 这是不是例题
-- 这是不是练习题
-- 这是不是定义或公式
+- 这是不是政策规则
+- 这是不是已处理案例
+- 这是不是检查清单或定义
 
 第一次做时不用一上来就上复杂模型，
 可以先用最小规则版建立闭环。
 
 ```python
 def guess_content_type(text):
-    if "例" in text or "解：" in text:
-        return "example"
-    if "练习" in text or "思考题" in text:
-        return "exercise"
-    if "定义" in text or "公式" in text:
-        return "concept"
+    if "政策" in text or "审批" in text:
+        return "policy"
+    if "案例" in text or "复盘" in text:
+        return "case"
+    if "检查清单" in text or "核对" in text:
+        return "checklist"
+    if "定义" in text:
+        return "definition"
     return "paragraph"
 
 
 samples = [
-    "例1：商品原价 100 元，打 8 折后是多少元？",
-    "练习：一件衣服原价 80 元，打 7 折后是多少元？",
-    "公式：折扣 = 原价 × 折扣率",
+    "政策：超过标准窗口的退款需要主管审批。",
+    "案例复盘：用户因配送失败和账户复核结果申请升级退款。",
+    "检查清单：核对订单状态、退款窗口、历史沟通和审批负责人。",
 ]
 
 for sample in samples:
@@ -313,15 +315,15 @@ for sample in samples:
 预期输出：
 
 ```text
-example -> 例1：商品原价 100 元，打 8 折后是多少元？
-exercise -> 练习：一件衣服原价 80 元，打 7 折后是多少元？
-concept -> 公式：折扣 = 原价 × 折扣率
+policy -> 政策：超过标准窗口的退款需要主管审批。
+case -> 案例复盘：用户因配送失败和账户复核结果申请升级退款。
+checklist -> 检查清单：核对订单状态、退款窗口、历史沟通和审批负责人。
 ```
 
 这个最小规则版虽然不完美，
 但特别适合新人理解：
 
-- “例题抽取”不是魔法
+- 证据分类不是魔法
 - 它本质上是在做文档内容分类
 
 ## 动手做：把模拟页面转换成知识块
@@ -330,12 +332,14 @@ concept -> 公式：折扣 = 原价 × 折扣率
 
 ```python
 def guess_content_type(text):
-    if "例" in text or "解：" in text:
-        return "example"
-    if "练习" in text or "思考题" in text:
-        return "exercise"
-    if "定义" in text or "公式" in text:
-        return "concept"
+    if "政策" in text or "审批" in text:
+        return "policy"
+    if "案例" in text or "复盘" in text:
+        return "case"
+    if "检查清单" in text or "核对" in text:
+        return "checklist"
+    if "定义" in text:
+        return "definition"
     return "paragraph"
 
 
@@ -366,37 +370,37 @@ def build_chunks(doc_id, source_type, pages):
 
 
 pages = [
-    (1, ["# 折扣基础概念", "公式：折扣 = 原价 × 折扣率"]),
-    (2, ["例1：商品原价 100 元，打 8 折后是多少元？"]),
+    (1, ["# 退款升级规则", "政策：超过标准窗口的退款需要主管审批。"]),
+    (2, ["案例复盘：用户因配送失败和账户复核结果申请升级退款。"]),
 ]
 
-for chunk in build_chunks("math_doc_001", "docx", pages):
+for chunk in build_chunks("sop_doc_001", "docx", pages):
     print(chunk)
 ```
 
 预期输出：
 
 ```text
-{'chunk_id': 'math_doc_001_c1', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '折扣基础概念', 'page_or_slide': 1, 'content': '公式：折扣 = 原价 × 折扣率', 'content_type': 'concept'}
-{'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '折扣基础概念', 'page_or_slide': 2, 'content': '例1：商品原价 100 元，打 8 折后是多少元？', 'content_type': 'example'}
+{'chunk_id': 'sop_doc_001_c1', 'doc_id': 'sop_doc_001', 'source_type': 'docx', 'section_title': '退款升级规则', 'page_or_slide': 1, 'content': '政策：超过标准窗口的退款需要主管审批。', 'content_type': 'policy'}
+{'chunk_id': 'sop_doc_001_c2', 'doc_id': 'sop_doc_001', 'source_type': 'docx', 'section_title': '退款升级规则', 'page_or_slide': 2, 'content': '案例复盘：用户因配送失败和账户复核结果申请升级退款。', 'content_type': 'case'}
 ```
 
 ![文档 chunk 元数据结果图](/img/course/ch08-doc-chunk-metadata-result-map.webp)
 
 :::tip 读图提示
-把标题行当成状态更新，而不是输出行：它只更新 `section_title`。真正生成 chunk 的是公式行和例题行，并且每个 chunk 都带着同一份文档元数据，方便后续检索。
+把标题行当成状态更新，而不是输出行：它只更新 `section_title`。真正生成 chunk 的是政策行和案例行，并且每个 chunk 都带着同一份文档元数据，方便后续检索。
 :::
 
-这就是最小可用的入库闭环：每个 chunk 都带着内容、结构、来源、页码和类型。这个形状稳定之后，后面的检索和课件生成都会容易很多。
+这就是最小可用的入库闭环：每个 chunk 都带着内容、结构、来源、页码和类型。这个形状稳定之后，后面的检索和 SOP 草稿生成都会容易很多。
 
 <details>
 <summary>操作参考与检查点</summary>
 
-一个好的结果应该生成 2 个 chunk，而不是 3 个。标题行只负责把 `section_title` 更新成 `折扣基础概念`，公式行会生成 `concept` chunk，例题行会生成 `example` chunk。
+一个好的结果应该生成 2 个 chunk，而不是 3 个。标题行只负责把 `section_title` 更新成 `退款升级规则`，政策行会生成 `policy` chunk，案例行会生成 `case` chunk。
 
-这里最重要的工程点是：chunking 不只是切文本。每个 chunk 都应该带着后续可用的元数据，例如 source type、document id、页码或幻灯片号、章节标题、原始内容和粗粒度内容类型。缺少这些字段时，检索结果可能看起来还能用，但后续生成课件时会更难引用、调试和过滤。
+这里最重要的工程点是：chunking 不只是切文本。每个 chunk 都应该带着后续可用的元数据，例如 source type、document id、页码或幻灯片号、小节标题、原始内容和粗粒度内容类型。缺少这些字段时，检索结果可能看起来还能用，但后续生成 SOP 草稿时会更难引用、调试和过滤。
 
-如果要加强这个练习，可以再加一页包含 `练习：` 的模拟页面。预期行为是生成第 3 个 chunk，`content_type` 为 `"exercise"`；如果前面没有新标题，它应该继续沿用当前 section title。
+如果要加强这个练习，可以再加一页包含 `检查清单：` 的模拟页面。预期行为是生成第 3 个 chunk，`content_type` 为 `"checklist"`；如果前面没有新标题，它应该继续沿用当前 section title。
 
 </details>
 
@@ -414,9 +418,9 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 - 结构恢复
 - 标题层级识别
-- 例题抽取
+- 证据类型分类
 
-如果你后面要处理很多扫描教案、截图或拍照资料，这一步会非常关键。
+如果你后面要处理很多扫描 SOP、检查清单、截图或拍照资料，这一步会非常关键。
 
 对应课程可以回看：
 - [10.5.4 OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
@@ -446,7 +450,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 2. 标题和正文顺序对不对？
 3. 章节层级有没有保住？
 4. 页码 / 幻灯片页号有没有保留？
-5. 能不能区分正文和例题？
+5. 能不能区分正文、政策、案例和检查清单？
 6. 扫描件有没有 OCR 错字？
 
 这 6 项比“先上向量库”更优先。
@@ -461,7 +465,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 1. 原始文档长什么样
 2. 解析后的结构化知识块长什么样
-3. 例题是怎么被识别出来的
+3. 政策、案例和检查清单是怎么被识别出来的
 4. OCR 或结构恢复在哪些地方容易出错
 
 这样别人会更容易看出：
@@ -484,8 +488,8 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 ## 小结
 
 - 文档解析真正要解决的是“把文件变成结构化知识对象”
-- 结构约束 设计决定了后面的检索、引用和课件生成能不能稳
-- 第一次做时，先把 `DOCX / 文本 PDF / 例题抽取规则版` 跑顺，比一上来全支持更现实
+- 结构约束 设计决定了后面的检索、引用和 SOP 草稿生成能不能稳
+- 第一次做时，先把 `DOCX / 文本 PDF / 证据类型分类规则版` 跑顺，比一上来全支持更现实
 
 ## 这节最该带走什么
 

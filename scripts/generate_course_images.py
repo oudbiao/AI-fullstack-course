@@ -27612,6 +27612,261 @@ for job in IMAGE_JOBS:
         job["alt"] = chunk_schema_meta["alt"]
         job.pop("allow_landscape", None)
 
+
+CH08_SOP_APP_ENG_REMAKE_PROMPTS = {
+    "ch08-courseware-api-contract-result-map.png": """
+生成一张完整的竖版 9:16 简体中文教学位图，用于第 8 章 API 设计小节的 SOP 草稿 API 契约运行结果。
+这是最终图片，不要留空给后期叠字，不要仿 SVG，不要白底圆角流程框，不要纯文字海报。
+
+可见标题必须是："SOP 草稿 API 契约结果"
+可见副标题必须是："先校验必填字段，再返回成功结构或统一错误结构。"
+
+风格：温暖的运营笔记纸信息图，像支持运营团队在横线纸上复核接口契约。深蓝线条、绿色成功标记、红色错误标记、紫色结构箭头。中英日三版必须同构：同一纵向布局、同一字段位置、同一成功路径、同一错误路径。
+
+固定布局从上到下：
+1. 顶部 REQUIRED_FIELDS 清单：topic、audience、doc_format、case_count、checklist_required。
+2. 左侧成功输入卡：topic = 退款升级 SOP、audience = 一线客服、doc_format = word、case_count = 2、checklist_required = True。
+3. 中央 validation gate，标签写：validate_generate_request -> handle_generate。
+4. 右上成功输出 envelope：trace_id = trace_sop_001、status = accepted、sop_draft。
+5. sop_draft 内部三段必须写：政策摘要、已处理案例、一线客服检查清单。
+6. 下方失败输入卡：topic = 退款升级 SOP、doc_format = pdf。
+7. 右下错误 envelope：trace_id = trace_sop_001、error.code = INVALID_ARGUMENT、missing fields = audience、case_count、checklist_required。
+8. 底部规则条必须写："服务接口要同时设计 happy path 和 error path。"
+
+语言规则：
+- 解释性文字必须是自然简体中文。
+- 允许保留的英文/code token 仅限：SOP、API、REQUIRED_FIELDS、topic、audience、doc_format、case_count、checklist_required、True、word、pdf、validate_generate_request、handle_generate、trace_id、trace_sop_001、status、accepted、sop_draft、error.code、INVALID_ARGUMENT、missing fields、happy path、error path。
+- 文字要少而大，适合手机阅读。
+
+准确性规则：
+- 只表现支持运营 SOP 草稿接口和退款升级案例，不要画学校、数学、课堂、学生、黑板、试卷、练习题或课件。
+- 不要出现折扣、价格计算、概念块、例题块、exercise block、courseware、lesson、grade。
+- 教学重点必须可见：API 契约要同时说明成功输入、成功输出、缺字段输入、统一错误输出。
+""".strip(),
+    "ch08-courseware-api-contract-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 8, the API design section, showing the runtime result of an SOP draft API contract.
+This is the finished image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a pure text poster.
+
+Visible title exactly: "SOP Draft API Contract Result"
+Visible subtitle exactly: "Validate required fields, then return a success shape or a unified error shape."
+
+Style: a warm operations-notebook infographic on lined paper, as if a support ops team is reviewing an API contract. Use dark navy lines, green success marks, red error marks, and purple structure arrows. The Simplified Chinese, English, and Japanese variants must share the same vertical layout, field positions, success path, and error path.
+
+Required layout, top to bottom:
+1. Top REQUIRED_FIELDS list: topic, audience, doc_format, case_count, checklist_required.
+2. Left success input card: topic = Refund escalation SOP, audience = frontline support, doc_format = word, case_count = 2, checklist_required = True.
+3. Center validation gate labeled exactly: validate_generate_request -> handle_generate.
+4. Upper-right success envelope: trace_id = trace_sop_001, status = accepted, sop_draft.
+5. Inside sop_draft, show three sections: Policy Summary, Handled Cases, Frontline Checklist.
+6. Lower failure input card: topic = Refund escalation SOP, doc_format = pdf.
+7. Lower-right error envelope: trace_id = trace_sop_001, error.code = INVALID_ARGUMENT, missing fields = audience, case_count, checklist_required.
+8. Bottom rule strip exactly: "Design both the happy path and the error path."
+
+Language rules:
+- All explanatory text must be natural English.
+- Text must be sparse, large, and readable on a phone.
+
+Critical accuracy rules:
+- Show only a support operations SOP draft API and refund escalation case. Do not draw school, math, classroom, students, blackboards, worksheets, exercises, or courseware.
+- Do not show discounts, price calculations, concept blocks, example blocks, exercise blocks, courseware, lessons, or grade levels.
+- The teaching point must be visual: an API contract describes successful input, successful output, missing-field input, and unified error output.
+""".strip(),
+    "ch08-courseware-api-contract-result-map-ja.png": """
+AI フルスタック講座 第 8 章 API 設計セクション用の、SOP ドラフト API 契約の実行結果を示す縦長 9:16 の日本語教材ビットマップを 1 枚作成する。
+これは完成画像です。後から文字を重ねる空白を残さない。SVG 風、白い角丸フローチャート、文字だけのポスターにはしない。
+
+可視タイトルは正確に："SOP ドラフト API 契約結果"
+可視サブタイトルは正確に："必須項目を先に検証し、成功構造か統一エラーを返す。"
+
+スタイル：横線紙の上に描いた、温かい運用ノート型インフォグラフィック。サポート運用チームが API 契約を確認している雰囲気。濃紺の線、緑の成功マーク、赤のエラーマーク、紫の構造矢印。中国語版・英語版・日本語版は、同じ縦型レイアウト、同じフィールド位置、同じ成功パス、同じエラーパスにする。
+
+固定レイアウト、上から下へ：
+1. 上部に REQUIRED_FIELDS リスト：topic、audience、doc_format、case_count、checklist_required。
+2. 左側の成功入力カード：topic = 返金エスカレーション SOP、audience = 一次サポート、doc_format = word、case_count = 2、checklist_required = True。
+3. 中央の validation gate。ラベルは validate_generate_request -> handle_generate。
+4. 右上の成功 envelope：trace_id = trace_sop_001、status = accepted、sop_draft。
+5. sop_draft の中に 3 つのセクションを書く：ポリシー要約、処理済みケース、一次サポートチェックリスト。
+6. 下部の失敗入力カード：topic = 返金エスカレーション SOP、doc_format = pdf。
+7. 右下のエラー envelope：trace_id = trace_sop_001、error.code = INVALID_ARGUMENT、不足フィールド = audience、case_count、checklist_required。
+8. 最下部のルール帯は正確に："happy path と error path の両方を設計する。"
+
+言語ルール：
+- 説明文は自然な日本語にする。
+- 許可する英語/code token は SOP、API、REQUIRED_FIELDS、topic、audience、doc_format、case_count、checklist_required、True、word、pdf、validate_generate_request、handle_generate、trace_id、trace_sop_001、status、accepted、sop_draft、error.code、INVALID_ARGUMENT、happy path、error path のみ。
+- 文字は少なく大きく、スマートフォンでも読めること。
+
+正確性ルール：
+- サポート運用の SOP ドラフト API と返金エスカレーションケースだけを表現する。学校、数学、教室、学生、黒板、問題プリント、練習問題、教材は描かない。
+- 割引、価格計算、concept block、example block、exercise block、courseware、lesson、grade level を出さない。
+- 教学ポイントを視覚化する：API 契約は成功入力、成功出力、必須項目不足の入力、統一エラー出力を同時に示す。
+""".strip(),
+    "ch08-doc-chunk-metadata-result-map.png": """
+生成一张完整的竖版 9:16 简体中文教学位图，用于第 8 章文档解析小节的 SOP 文档 chunk 元数据运行结果。
+这是最终图片，不要留空给后期叠字，不要仿 SVG，不要白底圆角流程框，不要纯文字海报。
+
+可见标题必须是："SOP 文档 chunk 元数据结果"
+可见副标题必须是："页面文本先带上结构和类型，再进入检索系统。"
+
+风格：温暖的运营笔记纸信息图，像支持运营团队把 PDF/Word/PPT 页面拆成可检索证据卡。深蓝线条、绿色结构标记、橙色内容类型标记、紫色入库箭头。中英日三版必须同构：同一纵向布局、同一两页输入、同一 builder 门、同一两张 chunk 卡。
+
+固定布局从上到下：
+1. 左上 Page 1 输入卡，文字必须包含：
+   # 退款升级规则
+   政策：超过标准窗口的退款需要主管审批。
+2. 左下 Page 2 输入卡，文字必须包含：
+   案例复盘：用户因配送失败和账户复核结果申请升级退款。
+3. 中央 builder gate 写：build_chunks(doc_id="sop_doc_001", source_type="docx")。
+4. builder 旁边状态便签写：标题行只更新 section_title = 退款升级规则，不生成 chunk。
+5. 内容类型规则条写：政策 -> policy、案例复盘 -> case、检查清单 -> checklist。
+6. 右侧第一张 chunk 卡写：sop_doc_001_c1、doc_id = sop_doc_001、source_type = docx、section_title = 退款升级规则、page_or_slide = 1、content_type = policy。
+7. 右侧第二张 chunk 卡写：sop_doc_001_c2、doc_id = sop_doc_001、source_type = docx、section_title = 退款升级规则、page_or_slide = 2、content_type = case。
+8. 底部规则条必须写："入库前先保存结构，后面的检索和 SOP 草稿生成才好用。"
+
+语言规则：
+- 解释性文字必须是自然简体中文。
+- 允许保留的英文/code token 仅限：SOP、chunk、builder、build_chunks、doc_id、sop_doc_001、source_type、docx、section_title、page_or_slide、content_type、policy、case、checklist、PDF、Word、PPT。
+- 文字要少而大，适合手机阅读。
+
+准确性规则：
+- 只表现支持运营 SOP 文档解析和退款升级规则，不要画学校、数学、课堂、学生、黑板、试卷、练习题或课件。
+- 不要出现折扣、价格计算、概念块、例题块、exercise block、courseware、lesson、grade。
+- 教学重点必须可见：标题行更新 section_title，正文行生成带 doc_id、source_type、page_or_slide、content_type 的 chunk。
+""".strip(),
+    "ch08-doc-chunk-metadata-result-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for Chapter 8, the document parsing section, showing the runtime result of SOP document chunk metadata.
+This is the finished image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a pure text poster.
+
+Visible title exactly: "SOP Document Chunk Metadata Result"
+Visible subtitle exactly: "Page text gains structure and type before retrieval."
+
+Style: a warm operations-notebook infographic on lined paper, as if a support ops team is splitting PDF/Word/PPT pages into retrievable evidence cards. Use dark navy lines, green structure marks, amber content-type marks, and purple indexing arrows. The Simplified Chinese, English, and Japanese variants must share the same vertical layout, two-page input, builder gate, and two chunk cards.
+
+Required layout, top to bottom:
+1. Upper-left Page 1 input card containing:
+   # Refund Escalation Rules
+   Policy: refunds after the standard window require supervisor approval.
+2. Lower-left Page 2 input card containing:
+   Case: delivery failure request escalated after account review.
+3. Center builder gate labeled exactly: build_chunks(doc_id="sop_doc_001", source_type="docx").
+4. Beside the builder, a state note: Heading line only updates section_title = Refund Escalation Rules; it does not create a chunk.
+5. Content-type rule strip: Policy -> policy, Case -> case, Checklist -> checklist.
+6. Right first chunk card: sop_doc_001_c1, doc_id = sop_doc_001, source_type = docx, section_title = Refund Escalation Rules, page_or_slide = 1, content_type = policy.
+7. Right second chunk card: sop_doc_001_c2, doc_id = sop_doc_001, source_type = docx, section_title = Refund Escalation Rules, page_or_slide = 2, content_type = case.
+8. Bottom rule strip exactly: "Store structure before embedding so retrieval and SOP draft generation can use it."
+
+Language rules:
+- All explanatory text must be natural English.
+- Text must be sparse, large, and readable on a phone.
+
+Critical accuracy rules:
+- Show only support operations SOP document parsing and refund escalation rules. Do not draw school, math, classroom, students, blackboards, worksheets, exercises, or courseware.
+- Do not show discounts, price calculations, concept blocks, example blocks, exercise blocks, courseware, lessons, or grade levels.
+- The teaching point must be visual: a heading line updates section_title; body lines create chunks with doc_id, source_type, page_or_slide, and content_type.
+""".strip(),
+    "ch08-doc-chunk-metadata-result-map-ja.png": """
+AI フルスタック講座 第 8 章 文書解析セクション用の、SOP 文書 chunk メタデータの実行結果を示す縦長 9:16 の日本語教材ビットマップを 1 枚作成する。
+これは完成画像です。後から文字を重ねる空白を残さない。SVG 風、白い角丸フローチャート、文字だけのポスターにはしない。
+
+可視タイトルは正確に："SOP 文書 chunk メタデータ結果"
+可視サブタイトルは正確に："ページ本文に構造と種類を付けてから検索へ渡す。"
+
+スタイル：横線紙の上に描いた、温かい運用ノート型インフォグラフィック。サポート運用チームが PDF/Word/PPT ページを検索できる根拠カードに分解している雰囲気。濃紺の線、緑の構造マーク、橙色の content type マーク、紫の投入矢印。中国語版・英語版・日本語版は、同じ縦型レイアウト、同じ 2 ページ入力、同じ builder gate、同じ 2 枚の chunk カードにする。
+
+固定レイアウト、上から下へ：
+1. 左上の Page 1 入力カードに必ず入れる：
+   # 返金エスカレーションルール
+   ポリシー：標準期間を過ぎた返金には主管承認が必要。
+2. 左下の Page 2 入力カードに必ず入れる：
+   ケース振り返り：配送失敗とアカウント確認の結果、返金エスカレーションにした。
+3. 中央の builder gate に書く：build_chunks(doc_id="sop_doc_001", source_type="docx")。
+4. builder 横の状態メモに書く：見出し行は section_title = 返金エスカレーションルール だけを更新し、chunk は生成しない。
+5. 内容タイプのルール帯を書く：ポリシー -> policy、ケース振り返り -> case、チェックリスト -> checklist。
+6. 右側 1 枚目の chunk カード：sop_doc_001_c1、doc_id = sop_doc_001、source_type = docx、section_title = 返金エスカレーションルール、page_or_slide = 1、content_type = policy。
+7. 右側 2 枚目の chunk カード：sop_doc_001_c2、doc_id = sop_doc_001、source_type = docx、section_title = 返金エスカレーションルール、page_or_slide = 2、content_type = case。
+8. 最下部のルール帯は正確に："投入前に構造を保存すると、検索と SOP ドラフト生成で使いやすい。"
+
+言語ルール：
+- 説明文は自然な日本語にする。
+- 許可する英語/code token は SOP、chunk、builder、build_chunks、doc_id、sop_doc_001、source_type、docx、section_title、page_or_slide、content_type、policy、case、checklist、PDF、Word、PPT のみ。
+- 文字は少なく大きく、スマートフォンでも読めること。
+
+正確性ルール：
+- サポート運用の SOP 文書解析と返金エスカレーションルールだけを表現する。学校、数学、教室、学生、黒板、問題プリント、練習問題、教材は描かない。
+- 割引、価格計算、concept block、example block、exercise block、courseware、lesson、grade level を出さない。
+- 教学ポイントを視覚化する：見出し行は section_title を更新し、本文行は doc_id、source_type、page_or_slide、content_type 付きの chunk を生成する。
+""".strip(),
+}
+
+CH08_SOP_APP_ENG_REMAKE_META = [
+    (
+        "ch08-courseware-api-contract-result-map.png",
+        "SOP 草稿 API 契约结果图",
+        "SOP 草稿 API 契约结果图：完整请求返回 trace_sop_001、accepted 和 SOP 草稿段落，缺字段请求返回统一 INVALID_ARGUMENT 错误。",
+        "docs/ch08-rag/ch04-engineering/02-api-design.md",
+    ),
+    (
+        "ch08-courseware-api-contract-result-map-en.png",
+        "SOP draft API contract result map",
+        "SOP draft API contract result map: a complete request returns trace_sop_001, accepted status, and SOP draft sections; a missing-field request returns a unified INVALID_ARGUMENT error.",
+        "docs/ch08-rag/ch04-engineering/02-api-design.md",
+    ),
+    (
+        "ch08-courseware-api-contract-result-map-ja.png",
+        "SOP ドラフト API 契約結果図",
+        "SOP ドラフト API 契約結果図：完全なリクエストは trace_sop_001、accepted、SOP ドラフトのセクションを返し、必須項目不足は統一 INVALID_ARGUMENT エラーを返す。",
+        "docs/ch08-rag/ch04-engineering/02-api-design.md",
+    ),
+    (
+        "ch08-doc-chunk-metadata-result-map.png",
+        "SOP 文档 chunk 元数据结果图",
+        "SOP 文档 chunk 元数据结果图：退款升级规则页面被解析成带 doc_id、source_type、section_title、page_or_slide 和 content_type 的 policy/case chunk。",
+        "docs/ch08-rag/ch03-app-dev/07-document-parsing.md",
+    ),
+    (
+        "ch08-doc-chunk-metadata-result-map-en.png",
+        "SOP document chunk metadata result map",
+        "SOP document chunk metadata result map: refund escalation pages become policy and case chunks with doc_id, source_type, section_title, page_or_slide, and content_type.",
+        "docs/ch08-rag/ch03-app-dev/07-document-parsing.md",
+    ),
+    (
+        "ch08-doc-chunk-metadata-result-map-ja.png",
+        "SOP 文書 chunk メタデータ結果図",
+        "SOP 文書 chunk メタデータ結果図：返金エスカレーションページを doc_id、source_type、section_title、page_or_slide、content_type 付きの policy/case chunk に変換する。",
+        "docs/ch08-rag/ch03-app-dev/07-document-parsing.md",
+    ),
+]
+
+ch08_sop_app_eng_meta_by_filename = {
+    filename: {"title": title, "alt": alt, "suggested_page": suggested_page}
+    for filename, title, alt, suggested_page in CH08_SOP_APP_ENG_REMAKE_META
+}
+existing_filenames_for_ch08_sop_app_eng = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt, suggested_page in CH08_SOP_APP_ENG_REMAKE_META:
+    if filename not in existing_filenames_for_ch08_sop_app_eng:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": suggested_page,
+                "alt": alt,
+                "prompt": CH08_SOP_APP_ENG_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch08_sop_app_eng.add(filename)
+
+for job in IMAGE_JOBS:
+    filename = str(job.get("filename"))
+    app_eng_meta = ch08_sop_app_eng_meta_by_filename.get(filename)
+    if app_eng_meta:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+        job["suggested_page"] = app_eng_meta["suggested_page"]
+        job["title"] = app_eng_meta["title"]
+        job["alt"] = app_eng_meta["alt"]
+        job.pop("allow_landscape", None)
+
 for job in IMAGE_JOBS:
     course_qa_prompt = COURSE_QA_PROMPTS.get(str(job.get("filename")))
     if course_qa_prompt and not job.get("overlay"):
@@ -35698,6 +35953,7 @@ CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS = {
 
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH08_SOP_ASSISTANT_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH08_SOP_APP_ENG_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)

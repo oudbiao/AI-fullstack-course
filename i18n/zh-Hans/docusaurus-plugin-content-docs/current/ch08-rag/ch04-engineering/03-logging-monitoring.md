@@ -394,7 +394,7 @@ print(answer)
 
 ---
 
-## 如果你的目标是“知识库驱动的课件生成助手”，最值得先监控什么？
+## 如果你的目标是“知识库驱动的 SOP 文档助手”，最值得先监控什么？
 
 这类系统比普通问答更容易出现“看起来还行，但其实已经歪了”的问题。
 
@@ -402,20 +402,21 @@ print(answer)
 
 | 监控点 | 更像在看什么 |
 |---|---|
-| `retrieved_count` | 内部资料有没有召回到内容 |
-| `example_count` | 有没有真的抽到例题 |
-| `source_origin_mix` | 内部资料和外部资料谁占主导 |
+| `retrieved_count` | 有没有召回政策、案例和检查清单证据 |
+| `case_count` | 有没有挂上已处理案例 |
+| `policy_coverage` | 必要政策章节是否齐全 |
 | `export_success` | Word 导出是否成功 |
-| `schema_valid` | 结构化结果是否符合模板要求 |
+| `schema_valid` | 结构化结果是否符合 SOP 模板要求 |
 
 一个最小日志对象可以先写成：
 
 ```python
 log = {
     "trace_id": "trace_001",
-    "topic": "折扣应用题",
+    "topic": "退款升级 SOP",
     "retrieved_count": 5,
-    "example_count": 2,
+    "case_count": 2,
+    "policy_coverage": "complete",
     "schema_valid": True,
     "export_success": True,
 }
@@ -426,13 +427,13 @@ print(log)
 预期输出：
 
 ```text
-{'trace_id': 'trace_001', 'topic': '折扣应用题', 'retrieved_count': 5, 'example_count': 2, 'schema_valid': True, 'export_success': True}
+{'trace_id': 'trace_001', 'topic': '退款升级 SOP', 'retrieved_count': 5, 'case_count': 2, 'policy_coverage': 'complete', 'schema_valid': True, 'export_success': True}
 ```
 
 这个例子特别适合新人，因为它会帮助你先明白：
 
 - 这类项目的监控重点，不只是模型快不快
-- 还包括资料有没有找对、结构有没有成型、文档有没有导出成功
+- 还包括证据有没有找对、SOP 章节有没有成型、文档有没有导出成功
 
 ---
 

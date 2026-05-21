@@ -428,22 +428,22 @@ for q in queries:
 
 ---
 
-## 八、如果你的目标是做“知识库驱动的课件生成助手”，最小工具集应该长什么样？
+## 八、如果你的目标是做“知识库驱动的 SOP 文档助手”，最小工具集应该长什么样？
 
 这类项目第一次做时，不需要一上来就几十个工具。
 更稳的最小工具集通常只要 4 个：
 
 1. `retrieve_internal_docs(topic)`
-   查内部知识库
+   查内部 SOP、政策和案例文档
 
-2. `retrieve_external_docs(topic)`
-   补外部资料
+2. `check_policy_case_coverage(materials)`
+   检查草稿是否有足够的政策和案例证据
 
-3. `build_courseware_schema(materials)`
-   把资料整理成固定结构
+3. `build_sop_draft_schema(materials)`
+   把资料整理成政策、案例、清单和引用栏目
 
 4. `export_word(schema)`
-   套模板并导出 Word
+   套 SOP 模板并导出 Word
 
 你可以先把它想成：
 
@@ -456,12 +456,12 @@ for q in queries:
 tools = [
     {
         "name": "retrieve_internal_docs",
-        "description": "按主题检索内部知识库资料",
+        "description": "按主题检索内部 SOP 和政策文档",
         "parameters": {"topic": {"type": "string"}},
     },
     {
         "name": "export_word",
-        "description": "把结构化课件内容导出为 Word 文档",
+        "description": "把结构化 SOP 草稿导出为 Word 文档",
         "parameters": {"title": {"type": "string"}, "sections": {"type": "array"}},
     },
 ]
@@ -472,7 +472,7 @@ print(tools)
 预期输出：
 
 ```text
-[{'name': 'retrieve_internal_docs', 'description': '按主题检索内部知识库资料', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': '把结构化课件内容导出为 Word 文档', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
+[{'name': 'retrieve_internal_docs', 'description': '按主题检索内部 SOP 和政策文档', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': '把结构化 SOP 草稿导出为 Word 文档', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
 ```
 
 ## 九、最常见的工程问题

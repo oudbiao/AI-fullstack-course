@@ -428,22 +428,22 @@ Then Function Calling may not be necessary.
 
 ---
 
-## If your goal is to build a “knowledge-base-driven courseware generation assistant,” what should the minimal tool set look like?
+## If your goal is to build a “knowledge-base-driven SOP document assistant,” what should the minimal tool set look like?
 
 When building this kind of project for the first time, you do not need dozens of tools right away.
 A more stable minimal tool set usually needs only four:
 
 1. `retrieve_internal_docs(topic)`
-   Search the internal knowledge base
+   Search internal SOP, policy, and case documents
 
-2. `retrieve_external_docs(topic)`
-   Supplement with external materials
+2. `check_policy_case_coverage(materials)`
+   Check whether the draft has enough policy and case evidence
 
-3. `build_courseware_schema(materials)`
-   Organize materials into a fixed structure
+3. `build_sop_draft_schema(materials)`
+   Organize materials into policy, case, checklist, and citation sections
 
 4. `export_word(schema)`
-   Fill a template and export Word
+   Fill the SOP template and export Word
 
 You can think of it like this:
 
@@ -456,12 +456,12 @@ A very small tool definition example can be written like this:
 tools = [
     {
         "name": "retrieve_internal_docs",
-        "description": "Search internal knowledge base materials by topic",
+        "description": "Search internal SOP and policy documents by topic",
         "parameters": {"topic": {"type": "string"}},
     },
     {
         "name": "export_word",
-        "description": "Export structured courseware content to a Word document",
+        "description": "Export a structured SOP draft to a Word document",
         "parameters": {"title": {"type": "string"}, "sections": {"type": "array"}},
     },
 ]
@@ -472,7 +472,7 @@ print(tools)
 Expected output:
 
 ```text
-[{'name': 'retrieve_internal_docs', 'description': 'Search internal knowledge base materials by topic', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': 'Export structured courseware content to a Word document', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
+[{'name': 'retrieve_internal_docs', 'description': 'Search internal SOP and policy documents by topic', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': 'Export a structured SOP draft to a Word document', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
 ```
 
 ## The most common engineering problems

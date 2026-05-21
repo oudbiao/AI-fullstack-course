@@ -24,7 +24,7 @@ keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge 
 
 - PDF / Word / PPT をなぜ単なるプレーンテキストだけでは扱えないのかを理解する
 - スキャン版 PDF や画像ページでなぜ OCR が必要になるのかを理解する
-- 文書を「本文 + 階層 + メタデータ + 例題」のような構造に分ける方法を学ぶ
+- 文書を「本文 + 階層 + メタデータ + 根拠ロール」のような構造に分ける方法を学ぶ
 - 最小構成の文書解析と知識抽出の流れを理解する
 
 ---
@@ -44,7 +44,7 @@ flowchart LR
 この節で本当に解決したいのは次のことです。
 
 - なぜナレッジベースプロジェクトは「ファイル内容を抜き出して終わり」ではないのか
-- なぜ見出しの階層、ページ番号、章、例題が後の検索品質に影響するのか
+- なぜ見出しの階層、ページ番号、セクション、根拠ロールが後の検索品質に影響するのか
 
 ## なぜ文書解析は思ったより難しいのか？
 
@@ -60,7 +60,7 @@ flowchart LR
 1. テキストは抽出できたか？
 2. 順番は正しいか？
 3. 見出し、ページ番号、章は残っているか？
-4. どれが例題、定義、本文、注釈なのか？
+4. どれがポリシー、ケース、チェックリスト、定義、本文、注釈なのか？
 
 ## 初心者向けの分かりやすい比喩
 
@@ -75,10 +75,10 @@ flowchart LR
 - テーマ
 - 章
 - 見出し
-- 例題
+- 根拠ロール
 - 出典
 
-こうしておけば、後でシステムが「このテーマの例題を探して」と聞かれたときに、ちゃんと探しやすくなります。
+こうしておけば、後でシステムが「このテーマのポリシーとケース根拠を探して」と聞かれたときに、ちゃんと探しやすくなります。
 
 ## ファイルタイプごとのよくある問題
 
@@ -121,9 +121,9 @@ def route_parser(filename):
 
 
 files = [
-    "lesson_1.pdf",
-    "chapter_2.docx",
-    "course_outline.pptx",
+    "refund_policy.pdf",
+    "handled_cases.docx",
+    "escalation_checklist.pptx",
 ]
 
 for file in files:
@@ -133,9 +133,9 @@ for file in files:
 想定出力：
 
 ```text
-lesson_1.pdf -> pdf_text_or_ocr
-chapter_2.docx -> word_parser
-course_outline.pptx -> ppt_parser
+refund_policy.pdf -> pdf_text_or_ocr
+handled_cases.docx -> word_parser
+escalation_checklist.pptx -> ppt_parser
 ```
 
 この例でいちばん大事なのは、
@@ -161,18 +161,18 @@ chunks = [
     {
         "doc_id": "word_001",
         "source_type": "docx",
-        "section_title": "応用問題：割引計算",
+        "section_title": "返金エスカレーションケースの振り返り",
         "page_or_slide": 3,
-        "content": "お店が 100 元の商品を 8 折にしたら、いくらになりますか？",
-        "content_type": "example",
+        "content": "配送失敗とアカウント確認の結果、顧客リクエストを返金エスカレーションにした。",
+        "content_type": "case",
     },
     {
         "doc_id": "ppt_002",
         "source_type": "pptx",
-        "section_title": "知識ポイントのまとめ",
+        "section_title": "一次サポートチェックリスト",
         "page_or_slide": 8,
-        "content": "割引 = 元の価格 × 割引率。",
-        "content_type": "concept",
+        "content": "注文状態、返金期間、過去の連絡、承認担当者を確認する。",
+        "content_type": "checklist",
     },
 ]
 
@@ -183,8 +183,8 @@ for chunk in chunks:
 想定出力：
 
 ```text
-{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': '応用問題：割引計算', 'page_or_slide': 3, 'content': 'お店が 100 元の商品を 8 折にしたら、いくらになりますか？', 'content_type': 'example'}
-{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': '知識ポイントのまとめ', 'page_or_slide': 8, 'content': '割引 = 元の価格 × 割引率。', 'content_type': 'concept'}
+{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': '返金エスカレーションケースの振り返り', 'page_or_slide': 3, 'content': '配送失敗とアカウント確認の結果、顧客リクエストを返金エスカレーションにした。', 'content_type': 'case'}
+{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': '一次サポートチェックリスト', 'page_or_slide': 8, 'content': '注文状態、返金期間、過去の連絡、承認担当者を確認する。', 'content_type': 'checklist'}
 ```
 
 この例は初心者に特に向いています。なぜなら、
@@ -206,41 +206,41 @@ for chunk in chunks:
 
 | 層 | 最低限残すもの |
 |---|---|
-| 文書層 | `doc_id / ファイル名 / ソースタイプ / 作成日時 / 教科` |
-| 章層 | `section_id / タイトル / 章パス / ページ範囲` |
-| 知識ブロック層 | `chunk_id / テキスト / 内容タイプ / 元ページ / 例題かどうか` |
+| 文書層 | `doc_id / ファイル名 / ソースタイプ / 作成日時 / 業務ドメイン` |
+| セクション層 | `section_id / タイトル / セクションパス / ページ範囲` |
+| 知識ブロック層 | `chunk_id / テキスト / 内容タイプ / 元ページ / 根拠ロール` |
 
 こう考えると分かりやすいです。
 
-- 文書層は本の表紙カードのようなもの
-- 章層は目次
+- 文書層は文書の表紙カードのようなもの
+- セクション層は目次
 - 知識ブロック層は、実際に検索や生成に使うカード
 
 以下の最小構造は、初心者がまず写して作るのに向いています。
 
 ```python
 parsed_doc = {
-    "doc_id": "math_pdf_001",
+    "doc_id": "sop_pdf_001",
     "source_type": "pdf",
-    "title": "割引応用問題の集中練習",
-    "subject": "数学",
+    "title": "返金エスカレーション SOP",
+    "domain": "support operations",
     "sections": [
         {
             "section_id": "s1",
-            "section_title": "割引の基本概念",
+            "section_title": "返金エスカレーションルール",
             "page_range": [1, 2],
             "chunks": [
                 {
                     "chunk_id": "c1",
-                    "content_type": "concept",
+                    "content_type": "policy",
                     "page_or_slide": 1,
-                    "text": "割引 = 元の価格 × 割引率",
+                    "text": "標準期間を過ぎた返金には主管承認が必要。",
                 },
                 {
                     "chunk_id": "c2",
-                    "content_type": "example",
+                    "content_type": "case",
                     "page_or_slide": 2,
-                    "text": "商品の元の価格が 100 元で、8 折にしたらいくらになりますか？",
+                    "text": "配送失敗とアカウント確認の結果、顧客リクエストを返金エスカレーションにした。",
                 },
             ],
         }
@@ -253,14 +253,14 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 想定出力：
 
 ```text
-商品の元の価格が 100 元で、8 折にしたらいくらになりますか？
+配送失敗とアカウント確認の結果、顧客リクエストを返金エスカレーションにした。
 ```
 
 この schema の意味は、「見た目をきれいにすること」ではありません。  
 大事なのは次の点です。
 
 - 後で検索するときに絞り込みできる
-- 後で教材を生成するときに、どこが概念でどこが例題か分かる
+- 後で SOP ドラフトを生成するときに、どこがポリシーでどこがケース根拠か分かる
 - 後で引用元をたどるときに、どのページから来たか分かる
 
 ## なぜ「内容タイプ」がとても重要なのか？
@@ -268,46 +268,48 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 あなたのプロジェクトは普通の Q&A ではなく、  
 次のことをしたいからです。
 
-- テーマ別に資料を探す
-- 関連する例題を探す
-- それを決まった形式で Word 教材にする
+- テーマ別にポリシー文を探す
+- 関連する処理済みケースを探す
+- それを決まった形式で Word SOP ドラフトにする
 
 このとき、システムが次の違いを分けられると、かなり安定します。
 
-- `concept`
-- `example`
-- `exercise`
+- `policy`
+- `case`
+- `checklist`
 - `definition`
 
-後で教材生成をするときに、とても扱いやすくなります。
+後で SOP ドラフトを生成するときに、とても扱いやすくなります。
 
-## 最小の「例題抽出」例
+## 最小の「根拠タイプ分類」例
 
 あなたのプロジェクトでは、1つの文がどのページにあるか分かるだけでは足りません。  
 できるだけ次の区別も必要です。
 
-- これは例題か
-- これは練習問題か
-- これは定義や公式か
+- これはポリシールールか
+- これは処理済みケースか
+- これはチェックリストや定義か
 
 最初から複雑なモデルを使わなくても大丈夫です。  
 まずは最小のルール版で、全体の流れを作るのがよいです。
 
 ```python
 def guess_content_type(text):
-    if "例" in text or "解：" in text:
-        return "example"
-    if "練習" in text or "思考題" in text:
-        return "exercise"
-    if "定義" in text or "公式" in text:
-        return "concept"
+    if "ポリシー" in text or "承認" in text:
+        return "policy"
+    if "ケース" in text or "振り返り" in text:
+        return "case"
+    if "チェックリスト" in text or "確認" in text:
+        return "checklist"
+    if "定義" in text:
+        return "definition"
     return "paragraph"
 
 
 samples = [
-    "例1：商品原価が 100 元で、8 折にしたらいくらになりますか？",
-    "練習：服の元の価格が 80 元で、7 折にしたらいくらになりますか？",
-    "公式：割引 = 元の価格 × 割引率",
+    "ポリシー：標準期間を過ぎた返金には主管承認が必要。",
+    "ケース振り返り：配送失敗とアカウント確認の結果、返金エスカレーションにした。",
+    "チェックリスト：注文状態、返金期間、過去の連絡、承認担当者を確認する。",
 ]
 
 for sample in samples:
@@ -317,15 +319,15 @@ for sample in samples:
 想定出力：
 
 ```text
-example -> 例1：商品原価が 100 元で、8 折にしたらいくらになりますか？
-exercise -> 練習：服の元の価格が 80 元で、7 折にしたらいくらになりますか？
-concept -> 公式：割引 = 元の価格 × 割引率
+policy -> ポリシー：標準期間を過ぎた返金には主管承認が必要。
+case -> ケース振り返り：配送失敗とアカウント確認の結果、返金エスカレーションにした。
+checklist -> チェックリスト：注文状態、返金期間、過去の連絡、承認担当者を確認する。
 ```
 
 この最小ルール版は完璧ではありませんが、  
 初心者にとってはとても大事です。
 
-- 「例題抽出」は魔法ではない
+- 「根拠タイプ分類」は魔法ではない
 - 本質的には、文書内容の分類をしているだけ
 
 ## 実践：模擬ページを知識ブロックに変換する
@@ -334,12 +336,14 @@ concept -> 公式：割引 = 元の価格 × 割引率
 
 ```python
 def guess_content_type(text):
-    if "例" in text or "解：" in text:
-        return "example"
-    if "練習" in text or "思考題" in text:
-        return "exercise"
-    if "定義" in text or "公式" in text:
-        return "concept"
+    if "ポリシー" in text or "承認" in text:
+        return "policy"
+    if "ケース" in text or "振り返り" in text:
+        return "case"
+    if "チェックリスト" in text or "確認" in text:
+        return "checklist"
+    if "定義" in text:
+        return "definition"
     return "paragraph"
 
 
@@ -370,37 +374,37 @@ def build_chunks(doc_id, source_type, pages):
 
 
 pages = [
-    (1, ["# 割引の基本概念", "公式：割引 = 元の価格 × 割引率"]),
-    (2, ["例1：商品の元の価格が 100 元で、8 折にしたらいくらになりますか？"]),
+    (1, ["# 返金エスカレーションルール", "ポリシー：標準期間を過ぎた返金には主管承認が必要。"]),
+    (2, ["ケース振り返り：配送失敗とアカウント確認の結果、返金エスカレーションにした。"]),
 ]
 
-for chunk in build_chunks("math_doc_001", "docx", pages):
+for chunk in build_chunks("sop_doc_001", "docx", pages):
     print(chunk)
 ```
 
 想定出力：
 
 ```text
-{'chunk_id': 'math_doc_001_c1', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '割引の基本概念', 'page_or_slide': 1, 'content': '公式：割引 = 元の価格 × 割引率', 'content_type': 'concept'}
-{'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '割引の基本概念', 'page_or_slide': 2, 'content': '例1：商品の元の価格が 100 元で、8 折にしたらいくらになりますか？', 'content_type': 'example'}
+{'chunk_id': 'sop_doc_001_c1', 'doc_id': 'sop_doc_001', 'source_type': 'docx', 'section_title': '返金エスカレーションルール', 'page_or_slide': 1, 'content': 'ポリシー：標準期間を過ぎた返金には主管承認が必要。', 'content_type': 'policy'}
+{'chunk_id': 'sop_doc_001_c2', 'doc_id': 'sop_doc_001', 'source_type': 'docx', 'section_title': '返金エスカレーションルール', 'page_or_slide': 2, 'content': 'ケース振り返り：配送失敗とアカウント確認の結果、返金エスカレーションにした。', 'content_type': 'case'}
 ```
 
-![文書 chunk メタデータ結果図](/img/course/ch08-doc-chunk-metadata-result-map-ja.webp)
+![SOP 文書 chunk メタデータ結果図](/img/course/ch08-doc-chunk-metadata-result-map-ja.webp)
 
 :::tip 図の見方
-見出し行は出力行ではなく、状態更新として読みます。つまり `section_title` だけを更新します。chunk になるのは公式行と例題行で、それぞれが同じ文書メタデータを持って後続の検索に渡されます。
+見出し行は出力行ではなく、状態更新として読みます。つまり `section_title` だけを更新します。chunk になるのはポリシー行とケース行で、それぞれが同じ文書メタデータを持って後続の検索に渡されます。
 :::
 
-これが最小限に役立つ投入ループです。各 chunk が内容、構造、出典、ページ、タイプを持つようになると、検索と教材生成はかなり作りやすくなります。
+これが最小限に役立つ投入ループです。各 chunk が内容、構造、出典、ページ、タイプを持つようになると、検索と SOP ドラフト生成はかなり作りやすくなります。
 
 <details>
 <summary>操作例と確認ポイント</summary>
 
-よい結果では、chunk は 3 個ではなく 2 個になります。見出し行は `section_title` を `割引の基本概念` に更新するだけで、公式行が `concept` chunk、例題行が `example` chunk になります。
+よい結果では、chunk は 3 個ではなく 2 個になります。見出し行は `section_title` を `返金エスカレーションルール` に更新するだけで、ポリシー行が `policy` chunk、ケース行が `case` chunk になります。
 
-ここで大事なのは、chunking は単なる文字列分割ではないという点です。各 chunk には、後で使えるだけのメタデータが必要です。たとえば source type、document id、ページまたはスライド番号、章タイトル、元の内容、粗い内容タイプです。どれかが欠けると検索結果は一見動いても、教材生成時の引用、デバッグ、フィルタリングが難しくなります。
+ここで大事なのは、chunking は単なる文字列分割ではないという点です。各 chunk には、後で使えるだけのメタデータが必要です。たとえば source type、document id、ページまたはスライド番号、章タイトル、元の内容、粗い内容タイプです。どれかが欠けると検索結果は一見動いても、SOP ドラフト生成時の引用、デバッグ、フィルタリングが難しくなります。
 
-発展として、`練習：` 行を含む模擬ページを 1 つ追加してみてください。期待される動きは、`content_type: "exercise"` を持つ 3 個目の chunk ができ、直前に新しい見出しがなければ同じ section title を引き継ぐことです。
+発展として、`チェックリスト：` 行を含む模擬ページを 1 つ追加してみてください。期待される動きは、`content_type: "checklist"` を持つ 3 個目の chunk ができ、直前に新しい見出しがなければ同じ section title を引き継ぐことです。
 
 </details>
 
@@ -421,9 +425,9 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 - 構造の復元
 - 見出し階層の識別
-- 例題の抽出
+- 根拠タイプの分類
 
-スキャンされた教材、スクリーンショット、写真資料をたくさん扱うなら、このステップは非常に重要です。
+スキャンされた SOP、チェックリスト、写真資料をたくさん扱うなら、このステップは非常に重要です。
 
 関連する内容は以下も参照してください。
 - [10.5.4 OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
@@ -456,7 +460,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 2. 見出しと本文の順番は正しいか？
 3. 章の階層は保たれているか？
 4. ページ番号 / スライド番号は残っているか？
-5. 本文と例題を区別できるか？
+5. 本文、ポリシー、ケース、チェックリストを区別できるか？
 6. スキャン文書に OCR の誤字はないか？
 
 この6項目は、「先にベクトルデータベースを入れる」ことより優先度が高いです。
@@ -471,7 +475,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 
 1. 元の文書がどんな見た目だったか
 2. 解析後の構造化知識ブロックがどうなったか
-3. 例題がどのように識別されたか
+3. ポリシー、ケース、チェックリストがどのように識別されたか
 4. OCR や構造復元でどこが失敗しやすいか
 
 こうすると、見る人に次のことが伝わりやすくなります。
@@ -494,8 +498,8 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 ## まとめ
 
 - 文書解析の本当の目的は、「ファイルを構造化された知識オブジェクトに変えること」
-- スキーマ 設計によって、後の検索・引用・教材生成が安定するかどうかが決まる
-- 最初は `DOCX / テキスト PDF / 例題抽出のルール版` を先に動かし、その後で拡張するほうが現実的
+- スキーマ 設計によって、後の検索・引用・SOP ドラフト生成が安定するかどうかが決まる
+- 最初は `DOCX / テキスト PDF / 根拠タイプ分類のルール版` を先に動かし、その後で拡張するほうが現実的
 
 ## この節で一番持ち帰ってほしいこと
 

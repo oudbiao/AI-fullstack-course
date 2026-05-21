@@ -395,17 +395,17 @@ This is more stable than converting the entire project to async all at once.
 
 ---
 
-## If your goal is a “courseware generation assistant driven by a knowledge base,” which steps are most worth running concurrently?
+## If your goal is a “SOP document assistant driven by a knowledge base,” which steps are most worth running concurrently?
 
-In this kind of project, the easiest steps to parallelize are usually not the “final courseware generation” step,
+In this kind of project, the easiest steps to parallelize are usually not the “final SOP draft generation” step,
 but the external waiting actions before generation.
 
 The steps that are more worth prioritizing for concurrency are usually:
 
-- Querying the internal knowledge base
-- Fetching external materials
-- Reading user profiles or configuration
-- Prefetching template information
+- Querying internal SOP and policy documents
+- Fetching handled case examples
+- Reading support role or approval configuration
+- Prefetching Word template sections
 
 You can first understand it as:
 

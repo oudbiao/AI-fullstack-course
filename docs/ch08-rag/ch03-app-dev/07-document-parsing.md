@@ -24,7 +24,7 @@ So the most important thing in this section is not to start with vector database
 
 - Understand why PDF / Word / PPT cannot be treated as plain text only
 - Understand why scanned PDFs and image pages bring OCR into the pipeline
-- Learn how to parse documents into structures such as “body text + hierarchy + metadata + examples”
+- Learn how to parse documents into structures such as “body text + hierarchy + metadata + evidence roles”
 - Understand a minimal document parsing and knowledge extraction workflow
 
 ---
@@ -44,7 +44,7 @@ flowchart LR
 So what this section really wants to solve is:
 
 - Why knowledge-base projects are not just “extract file content and you’re done”
-- Why heading levels, page numbers, chapters, and examples all affect retrieval quality later
+- Why heading levels, page numbers, sections, and evidence roles all affect retrieval quality later
 
 ## Why is document parsing often harder than expected?
 
@@ -60,7 +60,7 @@ This means a truly usable knowledge base usually has to answer first:
 1. Was the text extracted?
 2. Is the order correct?
 3. Are headings, page numbers, and chapters preserved?
-4. Which parts are examples, definitions, body text, or notes?
+4. Which parts are policies, cases, checklists, definitions, body text, or notes?
 
 ## A beginner-friendly analogy
 
@@ -75,10 +75,10 @@ The safer approach is to organize them into:
 - topics
 - chapters
 - headings
-- examples
+- evidence roles
 - sources
 
-Then when the system asks, “Find examples for this topic,” it has a real chance of finding the right ones.
+Then when the system asks, “Find policy and case evidence for this topic,” it has a real chance of finding the right chunks.
 
 ## The most common problems by file type
 
@@ -120,9 +120,9 @@ def route_parser(filename):
 
 
 files = [
-    "lesson_1.pdf",
-    "chapter_2.docx",
-    "course_outline.pptx",
+    "refund_policy.pdf",
+    "handled_cases.docx",
+    "escalation_checklist.pptx",
 ]
 
 for file in files:
@@ -132,9 +132,9 @@ for file in files:
 Expected output:
 
 ```text
-lesson_1.pdf -> pdf_text_or_ocr
-chapter_2.docx -> word_parser
-course_outline.pptx -> ppt_parser
+refund_policy.pdf -> pdf_text_or_ocr
+handled_cases.docx -> word_parser
+escalation_checklist.pptx -> ppt_parser
 ```
 
 The most important value of this example is:
@@ -160,18 +160,18 @@ chunks = [
     {
         "doc_id": "word_001",
         "source_type": "docx",
-        "section_title": "Word Problem: Discount Calculation",
+        "section_title": "Refund Escalation Case Review",
         "page_or_slide": 3,
-        "content": "A store gives a 20% discount on a 100 yuan item. What is the new price?",
-        "content_type": "example",
+        "content": "Customer request was escalated after delivery failure and prior account review.",
+        "content_type": "case",
     },
     {
         "doc_id": "ppt_002",
         "source_type": "pptx",
-        "section_title": "Key Takeaways",
+        "section_title": "Frontline Checklist",
         "page_or_slide": 8,
-        "content": "Discount = Original price × discount rate.",
-        "content_type": "concept",
+        "content": "Verify order state, refund window, prior contact, and approval owner.",
+        "content_type": "checklist",
     },
 ]
 
@@ -182,8 +182,8 @@ for chunk in chunks:
 Expected output:
 
 ```text
-{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': 'Word Problem: Discount Calculation', 'page_or_slide': 3, 'content': 'A store gives a 20% discount on a 100 yuan item. What is the new price?', 'content_type': 'example'}
-{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': 'Key Takeaways', 'page_or_slide': 8, 'content': 'Discount = Original price × discount rate.', 'content_type': 'concept'}
+{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': 'Refund Escalation Case Review', 'page_or_slide': 3, 'content': 'Customer request was escalated after delivery failure and prior account review.', 'content_type': 'case'}
+{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': 'Frontline Checklist', 'page_or_slide': 8, 'content': 'Verify order state, refund window, prior contact, and approval owner.', 'content_type': 'checklist'}
 ```
 
 This example is especially helpful for beginners because it shows:
@@ -203,41 +203,41 @@ A safer approach is usually to divide the parsing result into three layers:
 
 | Layer | Minimum information to keep |
 |---|---|
-| Document layer | `doc_id / filename / source type / creation time / subject` |
-| Chapter layer | `section_id / title / chapter path / page range` |
-| Knowledge chunk layer | `chunk_id / text / content type / source page / is example` |
+| Document layer | `doc_id / filename / source type / creation time / domain` |
+| Section layer | `section_id / title / section path / page range` |
+| Knowledge chunk layer | `chunk_id / text / content type / source page / evidence role` |
 
 You can think of it like this:
 
-- document layer is like a book cover card
-- chapter layer is like a table of contents
+- document layer is like a document cover card
+- section layer is like a table of contents
 - knowledge chunk layer is the actual card used for retrieval and generation
 
 The following minimal structure is a good starting point for beginners:
 
 ```python
 parsed_doc = {
-    "doc_id": "math_pdf_001",
+    "doc_id": "sop_pdf_001",
     "source_type": "pdf",
-    "title": "Discount Word Problems Practice",
-    "subject": "Math",
+    "title": "Refund Escalation SOP",
+    "domain": "support operations",
     "sections": [
         {
             "section_id": "s1",
-            "section_title": "Basic Discount Concepts",
+            "section_title": "Refund Escalation Rules",
             "page_range": [1, 2],
             "chunks": [
                 {
                     "chunk_id": "c1",
-                    "content_type": "concept",
+                    "content_type": "policy",
                     "page_or_slide": 1,
-                    "text": "Discount = Original price × discount rate",
+                    "text": "Refunds after the standard window require supervisor approval.",
                 },
                 {
                     "chunk_id": "c2",
-                    "content_type": "example",
+                    "content_type": "case",
                     "page_or_slide": 2,
-                    "text": "An item costs 100 yuan. What is the price after a 20% discount?",
+                    "text": "Customer request was escalated after delivery failure and account review.",
                 },
             ],
         }
@@ -250,13 +250,13 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 Expected output:
 
 ```text
-An item costs 100 yuan. What is the price after a 20% discount?
+Customer request was escalated after delivery failure and account review.
 ```
 
 The point of this schema is not that it is “beautifully designed,” but that:
 
 - retrieval can filter on something later
-- courseware generation can tell concepts from examples
+- SOP draft generation can tell policy rules from handled cases
 - citation traceability knows where the content came from
 
 ## Why is “content type” so important?
@@ -264,46 +264,48 @@ The point of this schema is not that it is “beautifully designed,” but that:
 Because your project is not ordinary Q&A,
 but something that needs to:
 
-- find materials by topic
-- find related examples
-- then generate Word courseware in a fixed format
+- find policy statements by topic
+- find related handled cases
+- then generate a Word SOP draft in a fixed format
 
 At that point, if the system can distinguish:
 
-- `concept`
-- `example`
-- `exercise`
+- `policy`
+- `case`
+- `checklist`
 - `definition`
 
-then courseware generation will be much more stable.
+then SOP draft generation will be much more stable.
 
-## A minimal “example extraction” demo
+## A minimal “evidence type classification” demo
 
 For your project, just knowing which page a passage comes from is not enough.
 You also want to distinguish, as much as possible:
 
-- whether it is an example
-- whether it is an exercise
-- whether it is a definition or formula
+- whether it is a policy rule
+- whether it is a handled case
+- whether it is a checklist or definition
 
 When you first build this, you do not need to start with a complex model.
 You can begin with a minimal rule-based version to close the loop.
 
 ```python
 def guess_content_type(text):
-    if "Example" in text or "Solution:" in text:
-        return "example"
-    if "Exercise" in text or "Think about it" in text:
-        return "exercise"
-    if "Definition" in text or "Formula" in text:
-        return "concept"
+    if "Policy:" in text or "Approval:" in text:
+        return "policy"
+    if "Case:" in text or "Handled:" in text:
+        return "case"
+    if "Checklist:" in text or "Verify" in text:
+        return "checklist"
+    if "Definition:" in text:
+        return "definition"
     return "paragraph"
 
 
 samples = [
-    "Example 1: An item costs 100 yuan. What is the price after a 20% discount?",
-    "Exercise: A shirt costs 80 yuan. What is the price after a 30% discount?",
-    "Formula: Discount = Original price × discount rate",
+    "Policy: refunds after the standard window require supervisor approval.",
+    "Case: delivery failure request escalated after account review.",
+    "Checklist: Verify order state, refund window, prior contact, and owner.",
 ]
 
 for sample in samples:
@@ -313,15 +315,15 @@ for sample in samples:
 Expected output:
 
 ```text
-example -> Example 1: An item costs 100 yuan. What is the price after a 20% discount?
-exercise -> Exercise: A shirt costs 80 yuan. What is the price after a 30% discount?
-concept -> Formula: Discount = Original price × discount rate
+policy -> Policy: refunds after the standard window require supervisor approval.
+case -> Case: delivery failure request escalated after account review.
+checklist -> Checklist: Verify order state, refund window, prior contact, and owner.
 ```
 
 This minimal rule-based version is not perfect,
 but it is very helpful for beginners to understand:
 
-- “example extraction” is not magic
+- evidence classification is not magic
 - it is essentially document content classification
 
 ## Hands-on: Turn Simulated Pages into Knowledge Chunks
@@ -330,12 +332,14 @@ Now connect routing, section detection, metadata, and content typing into one ru
 
 ```python
 def guess_content_type(text):
-    if "Example" in text or "Solution:" in text:
-        return "example"
-    if "Exercise" in text or "Think about it" in text:
-        return "exercise"
-    if "Definition" in text or "Formula" in text:
-        return "concept"
+    if "Policy:" in text or "Approval:" in text:
+        return "policy"
+    if "Case:" in text or "Handled:" in text:
+        return "case"
+    if "Checklist:" in text or "Verify" in text:
+        return "checklist"
+    if "Definition:" in text:
+        return "definition"
     return "paragraph"
 
 
@@ -366,37 +370,37 @@ def build_chunks(doc_id, source_type, pages):
 
 
 pages = [
-    (1, ["# Basic Discount Concepts", "Formula: Discount = Original price × discount rate"]),
-    (2, ["Example 1: A 100 yuan item has a 20% discount. What is the new price?"]),
+    (1, ["# Refund Escalation Rules", "Policy: refunds after the standard window require supervisor approval."]),
+    (2, ["Case: delivery failure request escalated after account review."]),
 ]
 
-for chunk in build_chunks("math_doc_001", "docx", pages):
+for chunk in build_chunks("sop_doc_001", "docx", pages):
     print(chunk)
 ```
 
 Expected output:
 
 ```text
-{'chunk_id': 'math_doc_001_c1', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': 'Basic Discount Concepts', 'page_or_slide': 1, 'content': 'Formula: Discount = Original price × discount rate', 'content_type': 'concept'}
-{'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': 'Basic Discount Concepts', 'page_or_slide': 2, 'content': 'Example 1: A 100 yuan item has a 20% discount. What is the new price?', 'content_type': 'example'}
+{'chunk_id': 'sop_doc_001_c1', 'doc_id': 'sop_doc_001', 'source_type': 'docx', 'section_title': 'Refund Escalation Rules', 'page_or_slide': 1, 'content': 'Policy: refunds after the standard window require supervisor approval.', 'content_type': 'policy'}
+{'chunk_id': 'sop_doc_001_c2', 'doc_id': 'sop_doc_001', 'source_type': 'docx', 'section_title': 'Refund Escalation Rules', 'page_or_slide': 2, 'content': 'Case: delivery failure request escalated after account review.', 'content_type': 'case'}
 ```
 
 ![Document chunk metadata result map](/img/course/ch08-doc-chunk-metadata-result-map-en.webp)
 
 :::tip Reading guide
-Read the heading line as state, not as an output row: it updates `section_title`. Only the formula and example lines become chunks, and each chunk keeps the same document metadata for later retrieval.
+Read the heading line as state, not as an output row: it updates `section_title`. Only the policy and case lines become chunks, and each chunk keeps the same document metadata for later retrieval.
 :::
 
-This is the smallest useful ingestion loop: every chunk carries content, structure, source, page, and type. Retrieval and courseware generation become much easier once this shape is stable.
+This is the smallest useful ingestion loop: every chunk carries content, structure, source, page, and type. Retrieval and SOP draft generation become much easier once this shape is stable.
 
 <details>
 <summary>Operation guide and checkpoints</summary>
 
-A good result has two chunks, not three. The heading line should update `section_title` to `Basic Discount Concepts`, while the formula line becomes a `concept` chunk and the example line becomes an `example` chunk.
+A good result has two chunks, not three. The heading line should update `section_title` to `Refund Escalation Rules`, while the policy line becomes a `policy` chunk and the case line becomes a `case` chunk.
 
-The important engineering lesson is that chunking is not just splitting text. Each chunk should keep enough metadata to be useful later: source type, document id, page or slide number, section title, original content, and a coarse content type. If one of those fields is missing, retrieval results may still look plausible, but the generated courseware will be harder to cite, debug, or filter.
+The important engineering lesson is that chunking is not just splitting text. Each chunk should keep enough metadata to be useful later: source type, document id, page or slide number, section title, original content, and a coarse content type. If one of those fields is missing, retrieval results may still look plausible, but the generated SOP draft will be harder to cite, debug, or filter.
 
-For a stronger version, add one more simulated page that contains an `Exercise:` line. The expected behavior is a third chunk with `content_type: "exercise"` and the same current section title unless a new heading appears first.
+For a stronger version, add one more simulated page that contains a `Checklist:` line. The expected behavior is a third chunk with `content_type: "checklist"` and the same current section title unless a new heading appears first.
 
 </details>
 
@@ -414,9 +418,9 @@ and then continue with:
 
 - structure recovery
 - heading hierarchy recognition
-- example extraction
+- evidence type classification
 
-If you later need to process many scanned lesson plans, screenshots, or photographed materials, this step becomes critical.
+If you later need to process many scanned SOPs, checklists, screenshots, or photographed materials, this step becomes critical.
 
 For a related course section, see:
 - [10.5.4 OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
@@ -446,7 +450,7 @@ When you parse documents for a knowledge base for the first time, the safest che
 2. Is the order of headings and body text correct?
 3. Was the chapter hierarchy preserved?
 4. Were page numbers / slide numbers kept?
-5. Can body text and examples be distinguished?
+5. Can body text, policies, cases, and checklists be distinguished?
 6. Are there OCR recognition errors in scanned files?
 
 These 6 items are higher priority than “just use a vector database first.”
@@ -461,7 +465,7 @@ but rather:
 
 1. What the original document looks like
 2. What the parsed structured knowledge chunks look like
-3. How examples were identified
+3. How policies, cases, and checklists were identified
 4. Where OCR or structure recovery tends to fail
 
 That way, others can more easily see that:
@@ -484,8 +488,8 @@ next_action: prompt, schema, state, API, or parsing improvement
 ## Summary
 
 - Document parsing is really about turning files into structured knowledge objects
-- Schema design determines whether retrieval, citation, and courseware generation will be stable later
-- When you start, it is more realistic to get `DOCX / text PDF / rule-based example extraction` working smoothly first than to support everything at once
+- Schema design determines whether retrieval, citation, and SOP draft generation will be stable later
+- When you start, it is more realistic to get `DOCX / text PDF / rule-based evidence type classification` working smoothly first than to support everything at once
 
 ## What you should take away from this section
 

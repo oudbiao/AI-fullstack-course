@@ -147,13 +147,13 @@ class MockPipeline:
         return [{"label": "positive", "score": 0.91, "text": text}]
 
 pipe = MockPipeline()
-print(pipe("This lesson is very clear"))
+print(pipe("This support reply is very clear"))
 ```
 
 Expected output:
 
 ```text
-[{'label': 'positive', 'score': 0.91, 'text': 'This lesson is very clear'}]
+[{'label': 'positive', 'score': 0.91, 'text': 'This support reply is very clear'}]
 ```
 
 The most important thing in this example is not the result itself, but the idea that:
@@ -263,7 +263,7 @@ goals = [
     "quick sentiment classification demo",
     "custom preprocessing for long support tickets",
     "fine-tune a domain classifier",
-    "share a courseware generation model",
+    "share an SOP draft helper model",
 ]
 
 for item in goals:
@@ -277,7 +277,7 @@ Expected output:
 quick sentiment classification demo -> pipeline | use a task shortcut to validate the idea quickly
 custom preprocessing for long support tickets -> tokenizer + model | control truncation, padding, batches, and postprocessing
 fine-tune a domain classifier -> datasets + trainer | control examples, splits, metrics, and training
-share a courseware generation model -> hub | publish artifacts with model cards and configuration
+share an SOP draft helper model -> hub | publish artifacts with model cards and configuration
 ```
 
 This small exercise is useful in real projects: if you cannot explain why you are moving from `pipeline` down to `tokenizer + model`, you are probably adding complexity too early.

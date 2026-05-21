@@ -147,13 +147,13 @@ class MockPipeline:
         return [{"label": "positive", "score": 0.91, "text": text}]
 
 pipe = MockPipeline()
-print(pipe("这节课讲得很清楚"))
+print(pipe("这条客服回复很清楚"))
 ```
 
 预期输出：
 
 ```text
-[{'label': 'positive', 'score': 0.91, 'text': '这节课讲得很清楚'}]
+[{'label': 'positive', 'score': 0.91, 'text': '这条客服回复很清楚'}]
 ```
 
 这个例子最重要的不是结果本身，而是让你意识到：
@@ -263,7 +263,7 @@ goals = [
     "快速情感分类演示",
     "自定义预处理长客服工单",
     "微调一个领域分类器",
-    "分享一个课件生成模型",
+    "分享一个 SOP 草稿辅助模型",
 ]
 
 for item in goals:
@@ -277,7 +277,7 @@ for item in goals:
 快速情感分类演示 -> pipeline | 用任务级快捷入口快速验证想法
 自定义预处理长客服工单 -> tokenizer + model | 控制截断、补齐、批处理和后处理
 微调一个领域分类器 -> datasets + trainer | 控制样本、切分、指标和训练
-分享一个课件生成模型 -> hub | 用 model card 和配置发布产物
+分享一个 SOP 草稿辅助模型 -> hub | 用 model card 和配置发布产物
 ```
 
 这个小练习在真实项目里很有用：如果你说不清为什么要从 `pipeline` 下沉到 `tokenizer + model`，大概率是过早增加了复杂度。

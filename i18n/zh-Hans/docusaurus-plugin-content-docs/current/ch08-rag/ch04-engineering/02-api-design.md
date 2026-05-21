@@ -354,15 +354,15 @@ def chat(payload: ChatRequest):
 
 ---
 
-## 如果你的目标是“知识库驱动的课件生成助手”，API 最小接口应该长什么样？
+## 如果你的目标是“知识库驱动的 SOP 文档助手”，API 最小接口应该长什么样？
 
 这类系统通常不只需要一个 `/chat`，
 而更像至少有下面几类接口：
 
 | 接口 | 它在负责什么 |
 |---|---|
-| `/courseware/generate` | 按主题生成课件结构或文档 |
-| `/courseware/preview` | 先预览结构化结果 |
+| `/sop-drafts/generate` | 根据政策、案例和检查清单证据生成结构化 SOP 草稿 |
+| `/sop-drafts/preview` | 导出前预览结构化 SOP 章节 |
 | `/documents/ingest` | 上传并解析 PDF / Word / PPT |
 | `/retrieval/search` | 调试检索结果 |
 
@@ -376,11 +376,11 @@ def chat(payload: ChatRequest):
 
 ```python
 generate_request = {
-    "topic": "折扣应用题",
-    "audience": "小学高年级",
+    "topic": "退款升级 SOP",
+    "audience": "一线客服",
     "doc_format": "word",
-    "style": "课堂讲解",
-    "exercise_count": 3,
+    "case_count": 2,
+    "checklist_required": True,
 }
 
 print(generate_request)
@@ -389,23 +389,23 @@ print(generate_request)
 预期输出：
 
 ```text
-{'topic': '折扣应用题', 'audience': '小学高年级', 'doc_format': 'word', 'style': '课堂讲解', 'exercise_count': 3}
+{'topic': '退款升级 SOP', 'audience': '一线客服', 'doc_format': 'word', 'case_count': 2, 'checklist_required': True}
 ```
 
 这个对象的价值在于：
 
 - 它把多轮对话里收集到的槽位，真正落成了服务接口参数
 
-## 动手做：模拟课件生成 API 契约
+## 动手做：模拟 SOP 草稿 API 契约
 
 在真正写 FastAPI endpoint 之前，先用纯 Python 把请求校验和响应契约写出来。这样服务边界会更清楚。
 
 ```python
-REQUIRED_FIELDS = ["topic", "audience", "doc_format", "style", "exercise_count"]
+REQUIRED_FIELDS = ["topic", "audience", "doc_format", "case_count", "checklist_required"]
 
 
 def validate_generate_request(payload):
-    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    missing = [field for field in REQUIRED_FIELDS if field not in payload or payload.get(field) is None]
     if missing:
         return False, {
             "code": "INVALID_ARGUMENT",
@@ -420,7 +420,7 @@ def validate_generate_request(payload):
 
 
 def handle_generate(payload):
-    trace_id = "trace_courseware_001"
+    trace_id = "trace_sop_001"
     ok, error = validate_generate_request(payload)
     if not ok:
         return {"trace_id": trace_id, "error": error}
@@ -428,38 +428,38 @@ def handle_generate(payload):
     return {
         "trace_id": trace_id,
         "status": "accepted",
-        "courseware": {
+        "sop_draft": {
             "title": payload["topic"],
             "audience": payload["audience"],
             "format": payload["doc_format"],
-            "sections": ["知识点回顾", "例题讲解", "课堂练习"],
+            "sections": ["政策摘要", "已处理案例", "一线客服检查清单"],
         }
     }
 
 
 generate_request = {
-    "topic": "折扣应用题",
-    "audience": "小学高年级",
+    "topic": "退款升级 SOP",
+    "audience": "一线客服",
     "doc_format": "word",
-    "style": "课堂讲解",
-    "exercise_count": 3,
+    "case_count": 2,
+    "checklist_required": True,
 }
 
 print(handle_generate(generate_request))
-print(handle_generate({"topic": "折扣应用题", "doc_format": "pdf"}))
+print(handle_generate({"topic": "退款升级 SOP", "doc_format": "pdf"}))
 ```
 
 预期输出：
 
 ```text
-{'trace_id': 'trace_courseware_001', 'status': 'accepted', 'courseware': {'title': '折扣应用题', 'audience': '小学高年级', 'format': 'word', 'sections': ['知识点回顾', '例题讲解', '课堂练习']}}
-{'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "缺少字段：['audience', 'style', 'exercise_count']"}}
+{'trace_id': 'trace_sop_001', 'status': 'accepted', 'sop_draft': {'title': '退款升级 SOP', 'audience': '一线客服', 'format': 'word', 'sections': ['政策摘要', '已处理案例', '一线客服检查清单']}}
+{'trace_id': 'trace_sop_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "缺少字段：['audience', 'case_count', 'checklist_required']"}}
 ```
 
-![课件生成 API 契约结果图](/img/course/ch08-courseware-api-contract-result-map.webp)
+![SOP 草稿 API 契约结果图](/img/course/ch08-courseware-api-contract-result-map.webp)
 
 :::tip 读图提示
-顺着两条路径穿过同一个校验门看：完整 payload 会变成 `status=accepted` 的 courseware，不完整 payload 会在业务逻辑前停在统一的 `INVALID_ARGUMENT` 错误。
+顺着两条路径穿过同一个校验门看：完整 payload 会变成 `status=accepted` 的 SOP 草稿，不完整 payload 会在业务逻辑前停在统一的 `INVALID_ARGUMENT` 错误。
 :::
 
 这个练习有用，是因为它逼你同时设计成功和失败。服务不是只会返回成功路径就算准备好了。

@@ -147,13 +147,13 @@ class MockPipeline:
         return [{"label": "positive", "score": 0.91, "text": text}]
 
 pipe = MockPipeline()
-print(pipe("この授業はとても分かりやすかったです"))
+print(pipe("このサポート回答はとても分かりやすかったです"))
 ```
 
 想定出力：
 
 ```text
-[{'label': 'positive', 'score': 0.91, 'text': 'この授業はとても分かりやすかったです'}]
+[{'label': 'positive', 'score': 0.91, 'text': 'このサポート回答はとても分かりやすかったです'}]
 ```
 
 この例で大事なのは結果そのものではなく、次の点を意識することです。
@@ -261,7 +261,7 @@ goals = [
     "簡単な感情分類デモ",
     "独自前処理つきの長いサポートチケット",
     "領域分類器を微調整する",
-    "教材生成モデルを共有する",
+    "SOP ドラフト支援モデルを共有する",
 ]
 
 for item in goals:
@@ -275,7 +275,7 @@ for item in goals:
 簡単な感情分類デモ -> pipeline | タスク単位の入口で素早く検証する
 独自前処理つきの長いサポートチケット -> tokenizer + model | 切り詰め、padding、batch、後処理を制御する
 領域分類器を微調整する -> datasets + trainer | サンプル、分割、指標、学習を制御する
-教材生成モデルを共有する -> hub | model card と設定つきで成果物を公開する
+SOP ドラフト支援モデルを共有する -> hub | model card と設定つきで成果物を公開する
 ```
 
 この小さな練習は、実際のプロジェクトでも役立ちます。`pipeline` から `tokenizer + model` へ下りる理由を説明できないなら、複雑さを早く入れすぎている可能性があります。

@@ -392,7 +392,7 @@ This table is useful for beginners because it reminds you:
 
 ---
 
-## If your goal is a “courseware generation assistant driven by a knowledge base,” what should you monitor first?
+## If your goal is a “SOP document assistant driven by a knowledge base,” what should you monitor first?
 
 This kind of system is more likely than ordinary Q&A to look “fine” while actually drifting off course.
 
@@ -400,20 +400,21 @@ When you build it for the first time, it is especially worth watching these fiel
 
 | Monitoring point | What it is really checking |
 |---|---|
-| `retrieved_count` | Whether internal materials were actually retrieved |
-| `example_count` | Whether example questions were really extracted |
-| `source_origin_mix` | Whether internal or external materials are dominant |
+| `retrieved_count` | Whether policy, case, and checklist evidence was retrieved |
+| `case_count` | Whether handled case examples were attached |
+| `policy_coverage` | Whether required policy sections are present |
 | `export_success` | Whether Word export succeeded |
-| `schema_valid` | Whether the structured result matches the template requirements |
+| `schema_valid` | Whether the structured result matches the SOP template requirements |
 
 A minimal log object can look like this:
 
 ```python
 log = {
     "trace_id": "trace_001",
-    "topic": "discount word problems",
+    "topic": "refund escalation SOP",
     "retrieved_count": 5,
-    "example_count": 2,
+    "case_count": 2,
+    "policy_coverage": "complete",
     "schema_valid": True,
     "export_success": True,
 }
@@ -424,13 +425,13 @@ print(log)
 Expected output:
 
 ```text
-{'trace_id': 'trace_001', 'topic': 'discount word problems', 'retrieved_count': 5, 'example_count': 2, 'schema_valid': True, 'export_success': True}
+{'trace_id': 'trace_001', 'topic': 'refund escalation SOP', 'retrieved_count': 5, 'case_count': 2, 'policy_coverage': 'complete', 'schema_valid': True, 'export_success': True}
 ```
 
 This example is especially good for beginners because it helps you understand:
 
 - The monitoring focus of this kind of project is not just whether the model is fast
-- It also includes whether the right materials were found, whether the structure took shape, and whether the document was exported successfully
+- It also includes whether the right evidence was found, whether the SOP sections took shape, and whether the document was exported successfully
 
 ---
 

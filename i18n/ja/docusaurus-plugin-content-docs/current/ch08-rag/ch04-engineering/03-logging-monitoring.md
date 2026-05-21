@@ -390,7 +390,7 @@ print(answer)
 
 ---
 
-## 「知識ベース駆動の教材生成アシスタント」なら、最初に何を監視すべき？
+## 「ナレッジベース駆動の SOP 文書アシスタント」なら、最初に何を監視すべき？
 
 この種のシステムは、普通の質問応答よりも「見た目は大丈夫そうなのに、実はずれている」問題が起きやすいです。
 
@@ -398,20 +398,21 @@ print(answer)
 
 | 監視ポイント | 何を見ているか |
 |---|---|
-| `retrieved_count` | 内部資料をちゃんと回収できたか |
-| `example_count` | 本当に例題を抽出できたか |
-| `source_origin_mix` | 内部資料と外部資料、どちらが主になっているか |
+| `retrieved_count` | ポリシー、ケース、チェックリスト根拠を取得できたか |
+| `case_count` | 処理済みケースを添付できたか |
+| `policy_coverage` | 必要なポリシーセクションが揃っているか |
 | `export_success` | Word の出力に成功したか |
-| `schema_valid` | 構造化結果がテンプレート要件を満たしているか |
+| `schema_valid` | 構造化結果が SOP テンプレート要件を満たしているか |
 
 最小のログオブジェクトは、たとえばこう書けます。
 
 ```python
 log = {
     "trace_id": "trace_001",
-    "topic": "割引の文章題",
+    "topic": "返金エスカレーション SOP",
     "retrieved_count": 5,
-    "example_count": 2,
+    "case_count": 2,
+    "policy_coverage": "complete",
     "schema_valid": True,
     "export_success": True,
 }
@@ -422,7 +423,7 @@ print(log)
 想定出力：
 
 ```text
-{'trace_id': 'trace_001', 'topic': '割引の文章題', 'retrieved_count': 5, 'example_count': 2, 'schema_valid': True, 'export_success': True}
+{'trace_id': 'trace_001', 'topic': '返金エスカレーション SOP', 'retrieved_count': 5, 'case_count': 2, 'policy_coverage': 'complete', 'schema_valid': True, 'export_success': True}
 ```
 
 この例は初心者にとても向いています。  
@@ -430,8 +431,8 @@ print(log)
 
 - モデルが速いかどうか
 - だけではなく、
-- ちゃんと資料を取れているか
-- 構造が形になっているか
+- ちゃんと根拠を取れているか
+- SOP セクションが形になっているか
 - 文書を書き出せているか
 
 まで含むと分かるからです。

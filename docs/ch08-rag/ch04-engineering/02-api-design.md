@@ -354,15 +354,15 @@ Although this code is simple, it is already closer to a real service because `Ch
 
 ---
 
-## If your goal is a “knowledge-base-driven courseware generation assistant,” what should the minimal API look like?
+## If your goal is a “knowledge-base-driven SOP document assistant,” what should the minimal API look like?
 
 These systems usually need more than just a `/chat` endpoint.
 At minimum, they often have interfaces like these:
 
 | Endpoint | What it is responsible for |
 |---|---|
-| `/courseware/generate` | Generate courseware structure or document based on a topic |
-| `/courseware/preview` | Preview structured results first |
+| `/sop-drafts/generate` | Generate a structured SOP draft from policy, case, and checklist evidence |
+| `/sop-drafts/preview` | Preview structured SOP sections before export |
 | `/documents/ingest` | Upload and parse PDF / Word / PPT |
 | `/retrieval/search` | Debug retrieval results |
 
@@ -376,11 +376,11 @@ A very small request structure can be defined like this first:
 
 ```python
 generate_request = {
-    "topic": "Discount word problems",
-    "audience": "Upper elementary school",
+    "topic": "Refund escalation SOP",
+    "audience": "frontline support",
     "doc_format": "word",
-    "style": "classroom explanation",
-    "exercise_count": 3,
+    "case_count": 2,
+    "checklist_required": True,
 }
 
 print(generate_request)
@@ -389,23 +389,23 @@ print(generate_request)
 Expected output:
 
 ```text
-{'topic': 'Discount word problems', 'audience': 'Upper elementary school', 'doc_format': 'word', 'style': 'classroom explanation', 'exercise_count': 3}
+{'topic': 'Refund escalation SOP', 'audience': 'frontline support', 'doc_format': 'word', 'case_count': 2, 'checklist_required': True}
 ```
 
 The value of this object is:
 
 - It turns the slots collected during multi-turn conversation into actual service API parameters
 
-## Hands-on: Simulate a Courseware Generation API Contract
+## Hands-on: Simulate an SOP Draft API Contract
 
 Before building a real FastAPI endpoint, first write the request validation and response contract in pure Python. This makes the service boundary clear.
 
 ```python
-REQUIRED_FIELDS = ["topic", "audience", "doc_format", "style", "exercise_count"]
+REQUIRED_FIELDS = ["topic", "audience", "doc_format", "case_count", "checklist_required"]
 
 
 def validate_generate_request(payload):
-    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    missing = [field for field in REQUIRED_FIELDS if field not in payload or payload.get(field) is None]
     if missing:
         return False, {
             "code": "INVALID_ARGUMENT",
@@ -420,7 +420,7 @@ def validate_generate_request(payload):
 
 
 def handle_generate(payload):
-    trace_id = "trace_courseware_001"
+    trace_id = "trace_sop_001"
     ok, error = validate_generate_request(payload)
     if not ok:
         return {"trace_id": trace_id, "error": error}
@@ -428,38 +428,38 @@ def handle_generate(payload):
     return {
         "trace_id": trace_id,
         "status": "accepted",
-        "courseware": {
+        "sop_draft": {
             "title": payload["topic"],
             "audience": payload["audience"],
             "format": payload["doc_format"],
-            "sections": ["Knowledge Review", "Example Explanation", "Classroom Practice"],
+            "sections": ["Policy Summary", "Handled Cases", "Frontline Checklist"],
         }
     }
 
 
 generate_request = {
-    "topic": "Discount word problems",
-    "audience": "Upper elementary school",
+    "topic": "Refund escalation SOP",
+    "audience": "frontline support",
     "doc_format": "word",
-    "style": "classroom explanation",
-    "exercise_count": 3,
+    "case_count": 2,
+    "checklist_required": True,
 }
 
 print(handle_generate(generate_request))
-print(handle_generate({"topic": "Discount word problems", "doc_format": "pdf"}))
+print(handle_generate({"topic": "Refund escalation SOP", "doc_format": "pdf"}))
 ```
 
 Expected output:
 
 ```text
-{'trace_id': 'trace_courseware_001', 'status': 'accepted', 'courseware': {'title': 'Discount word problems', 'audience': 'Upper elementary school', 'format': 'word', 'sections': ['Knowledge Review', 'Example Explanation', 'Classroom Practice']}}
-{'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "missing fields: ['audience', 'style', 'exercise_count']"}}
+{'trace_id': 'trace_sop_001', 'status': 'accepted', 'sop_draft': {'title': 'Refund escalation SOP', 'audience': 'frontline support', 'format': 'word', 'sections': ['Policy Summary', 'Handled Cases', 'Frontline Checklist']}}
+{'trace_id': 'trace_sop_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "missing fields: ['audience', 'case_count', 'checklist_required']"}}
 ```
 
-![Courseware API contract result map](/img/course/ch08-courseware-api-contract-result-map-en.webp)
+![SOP draft API contract result map](/img/course/ch08-courseware-api-contract-result-map-en.webp)
 
 :::tip Reading guide
-Follow the two lanes through the same validation gate. The complete payload becomes `status=accepted` courseware, while the incomplete payload stops at a unified `INVALID_ARGUMENT` error before business logic runs.
+Follow the two lanes through the same validation gate. The complete payload becomes a `status=accepted` SOP draft, while the incomplete payload stops at a unified `INVALID_ARGUMENT` error before business logic runs.
 :::
 
 This exercise is useful because it forces you to design success and failure together. A service is not ready just because it can return a happy-path answer.
