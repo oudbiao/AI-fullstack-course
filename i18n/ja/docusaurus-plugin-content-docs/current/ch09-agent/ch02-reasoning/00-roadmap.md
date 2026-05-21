@@ -74,3 +74,12 @@ eval_action: compare against expected result and revise the plan
 計画の失敗理由を、分解不足、ツール選択ミス、古い観察、チェックポイント不足、弱い最終検証として説明できれば、この章は合格です。
 
 出口ミニプロジェクトは、1 つのタスクに対する見える推論 trace です：計画手順、観察、再計画、最終回答を残します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

@@ -74,3 +74,12 @@ integration_action: validate server contract before adding autonomy
 You pass this chapter when you can draw the Host-Client-Server relationship and explain what the Server exposes, what the Client calls, and where permissions are checked.
 
 The exit mini project is a course-materials MCP Server design: one search tool, one resource URI pattern, one prompt template, and one failure-handling rule.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

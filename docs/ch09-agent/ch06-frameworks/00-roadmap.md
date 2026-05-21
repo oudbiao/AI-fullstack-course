@@ -78,3 +78,12 @@ decision: choose framework only after the single-agent loop is clear
 ## Pass Check
 
 You pass this chapter when you can implement the same small task with plain functions and with one framework, then explain which version is easier to debug and why.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

@@ -152,3 +152,12 @@ Move to Chapter 7 when you can answer these five questions:
 - How does Transformer connect to later large models?
 
 For a printable checklist, use [6.0 Study Guide and Task Sheet](./study-guide.md). Later LLMs, RAG, and multimodal models all build on these representation-learning ideas.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer connects tensors, model layers, loss, `backward()`, and optimizer updates into one training loop.
+2. The evidence should include a runnable mini experiment, tensor-shape checks, and a loss or validation curve you can explain.
+3. A good self-check names one failure mode such as shape mismatch, no loss decrease, overfitting, data leakage, or using Attention/Transformer words without explaining the data flow.
+
+</details>

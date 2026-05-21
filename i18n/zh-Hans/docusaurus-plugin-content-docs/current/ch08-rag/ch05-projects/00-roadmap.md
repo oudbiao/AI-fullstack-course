@@ -97,3 +97,12 @@ failure_log: at least one failed case with likely cause
 如果项目能带引用回答、展示检索日志、处理空检索、保留评估案例，并解释至少一个失败，就通过了本章。
 
 最强作品集版本不一定最大。更重要的是，另一个开发者能复现运行、查看证据，并理解你下一轮会怎样改进。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
+2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。
+3. 自检时要能判断失败来自 chunking、检索、排序、prompt 拼装、资料缺失，还是无依据生成。
+
+</details>

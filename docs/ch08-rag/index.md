@@ -176,3 +176,12 @@ Before entering Chapter 9, you should be able to:
 - run the full Chapter 8 workshop, add one document, add one evaluation case, and record the result in a README.
 
 For a printable checklist, use [8.0 Learning Checklist](./study-guide.md). For the guided project, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md).
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
+2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.
+3. A good self-check explains whether a failure came from chunking, retrieval, ranking, prompt assembly, missing sources, or unsupported generation.
+
+</details>

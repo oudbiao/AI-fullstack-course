@@ -80,3 +80,12 @@ next_action: add case, guardrail, log, rollback, or refusal path
 すべての Agent 実行を、目標、計画、ツール呼び出し、観察、最終回答、安全ルール、コスト、失敗理由からレビューできれば、この章は合格です。
 
 出口ミニプロジェクトは、10〜20 件のタスクを含む評価セットと、少なくとも 3 つの安全ルールです。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

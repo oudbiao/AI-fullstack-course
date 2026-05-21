@@ -81,3 +81,12 @@ Expected_output: reproducible asset package with README, review checklist, and f
 ## Pass Check
 
 You pass this chapter when your project can accept a brief, produce a structured creative package, keep versions, run review, and export Markdown or JSON that another person can inspect.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer names the modalities involved, the input-output contract, and how text, image, audio, or video evidence is aligned.
+2. The evidence should include a real media artifact or trace, plus a note on quality, safety, and failure cases.
+3. A good self-check explains whether the task needs generation, understanding, retrieval, tool orchestration, or human review rather than treating every multimodal problem as the same kind of demo.
+
+</details>

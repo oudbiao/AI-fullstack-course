@@ -80,3 +80,12 @@ Expected_output: scenario-specific artifact with metric or human-review note
 ## Pass Check
 
 You pass this chapter when you choose one direction, define input/output, run a minimum project, and document failure cases plus usage boundaries.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
+2. The evidence should include a rendered visual artifact and one metric or qualitative error note.
+3. A good self-check names one visual failure mode such as class confusion, missed objects, bad masks, lighting shift, domain shift, or weak annotation quality.
+
+</details>

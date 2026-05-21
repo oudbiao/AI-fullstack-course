@@ -75,3 +75,12 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 You pass this chapter when you can explain why “remember more” is not the same as “perform better.”
 
 The exit mini project is a learning-planning assistant memory rule set: what to save, what to confirm, what to keep temporary, and what to delete.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

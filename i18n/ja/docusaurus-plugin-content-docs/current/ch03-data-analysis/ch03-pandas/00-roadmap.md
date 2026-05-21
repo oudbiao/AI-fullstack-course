@@ -85,3 +85,12 @@ Expected_output: before/after table sample with the transformation reason
 ## 合格ライン
 
 生の表をきれいな集計表に変え、各列をなぜ処理したか説明でき、可視化や機械学習へ渡せるなら、この小節は合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、問いを先に定義し、必要な table、DataFrame、または SQL query と、再現できるクリーニング手順を示します。
+2. 証拠には、小さな出力例、必要に応じた図表や query 結果、そして結果を解釈する一文を残します。
+3. 欠損値、重複行、誤った join、集計の誤解、読みにくい可視化など、少なくとも1つのデータ品質リスクを説明できれば十分です。
+
+</details>

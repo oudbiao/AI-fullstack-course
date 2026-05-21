@@ -97,3 +97,12 @@ deliverable: README, run command, screenshots/logs, next step
 You pass this chapter when the project can answer with citations, show retrieval logs, handle empty retrieval, keep evaluation cases, and explain at least one failure.
 
 The strongest portfolio version is not the largest one. It is the version where another developer can reproduce the run, inspect the evidence, and understand how you would improve the next iteration.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
+2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.
+3. A good self-check explains whether a failure came from chunking, retrieval, ranking, prompt assembly, missing sources, or unsupported generation.
+
+</details>

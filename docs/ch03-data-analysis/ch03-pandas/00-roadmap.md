@@ -85,3 +85,12 @@ Expected_output: before/after table sample with the transformation reason
 ## Pass Check
 
 You pass this subchapter when you can turn one raw table into one clean summary table, explain each column change, and save the result for visualization or machine learning.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer starts from the question, identifies the table/DataFrame or query needed, and keeps the cleaning step reproducible.
+2. The evidence should include a small output sample, a plot or SQL result when relevant, and one sentence interpreting what changed.
+3. A good self-check names one data-quality risk such as missing values, duplicate rows, wrong joins, misleading aggregation, or an unreadable chart.
+
+</details>

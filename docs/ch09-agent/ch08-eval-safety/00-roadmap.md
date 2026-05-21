@@ -80,3 +80,12 @@ next_action: add case, guardrail, log, rollback, or refusal path
 You pass this chapter when every Agent run can be reviewed through goal, plan, tool calls, observations, final answer, safety rule, cost, and failure reason.
 
 The exit mini project is a 10 to 20 task evaluation set plus at least 3 safety rules.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

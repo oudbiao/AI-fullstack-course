@@ -74,3 +74,12 @@ ops_action: backoff, queue, alert, rollout, or rollback
 You pass this chapter when your minimal app has a run command, API contract, error handling, logs, and one documented failure investigation.
 
 The exit mini project is an engineering evidence pack: one trace log, one common error, one fix, one regression check, and one deployment note.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
+2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.
+3. A good self-check explains whether a failure came from chunking, retrieval, ranking, prompt assembly, missing sources, or unsupported generation.
+
+</details>

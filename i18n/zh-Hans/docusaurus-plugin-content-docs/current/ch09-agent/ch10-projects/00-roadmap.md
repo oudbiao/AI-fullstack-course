@@ -93,3 +93,12 @@ failure_log: one failed or unsafe run with root cause
 如果另一个开发者能重放你的 Agent 运行，检查每次工具调用和观察，理解它为什么停止，并看到至少一个失败分析，就通过了本章。
 
 基础版可以是单 Agent 项目。只有当 trace 和评估闭环稳定后，再加入记忆、MCP、多 Agent 协作或部署。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
+2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。
+3. 自检时要能说出一个安全或可靠性控制，例如工具 schema、权限边界、重试、评估用例或人工复核点。
+
+</details>

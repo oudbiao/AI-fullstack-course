@@ -77,3 +77,12 @@ bridge: app reliability includes safety boundaries, not only capability
 能力と行動の違いを説明でき、1 つの回答の印象ではなく、小さな行動比較ログで判断できれば、この章は合格です。
 
 出口ミニプロジェクトは、10 ケースの alignment テスト表です。曖昧な依頼、根拠不足の質問、ツール操作依頼、安全境界の依頼を含め、各回答に点数と失敗理由を記録します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
+2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。
+3. prompt 設計、RAG、fine-tuning、alignment を切り分け、観察した問題を直す最も軽い方法を選べれば十分です。
+
+</details>

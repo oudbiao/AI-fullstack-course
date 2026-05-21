@@ -74,6 +74,16 @@ project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeli
 
 vision project が再現可能で、明確な data and annotation rules、適切な metrics、model failure の例を持っていれば、この章は合格です。
 
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、task を class label、bounding box、mask、OCR text、embedding、video event など正しい視覚出力に対応づけます。
+2. 証拠には、rendered visual artifact と、metric または定性的な error note を含めます。
+3. class confusion、missed object、bad mask、lighting shift、domain shift、annotation quality など、失敗モードを1つ説明できればよいです。
+
+</details>
+
+
 ## 残す証拠
 
 このページを終えたら、この evidence card を残します。

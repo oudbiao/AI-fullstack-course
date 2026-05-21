@@ -79,3 +79,12 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 如果你能阅读工具 trace，并判断失败发生在规划、参数、执行、观察还是权限控制，就通过了本章。
 
 本章出口小项目是一个学习助手：包含 3 个工具 schema、5 个测试调用、1 条失败调用记录和一份可打印 trace。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
+2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。
+3. 自检时要能说出一个安全或可靠性控制，例如工具 schema、权限边界、重试、评估用例或人工复核点。
+
+</details>

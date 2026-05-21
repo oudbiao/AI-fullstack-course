@@ -75,3 +75,12 @@ eval_action: compare multi-agent result against single-agent baseline
 ## 通过标准
 
 如果一个 2 到 3 个 Agent 的演示有可追踪输入、输出、交接、最终负责人，并能说明为什么它优于单 Agent，就通过了本章。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
+2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。
+3. 自检时要能说出一个安全或可靠性控制，例如工具 schema、权限边界、重试、评估用例或人工复核点。
+
+</details>

@@ -104,3 +104,12 @@ bridge: Chapter 8 turns this into retrieval-backed applications
 如果你能用固定评估集清楚解释“这里为什么不微调”“这里为什么需要 RAG”或“这个 Prompt 修改为什么有效”，而不是只展示一个好回答，就通过了本章。
 
 最终项目可以很基础：在一个领域任务上比较两个 Prompt 版本。更强版本可以加入 RAG 或小型微调实验，但必须在基线和失败记录证明需要之后再做。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
+2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。
+3. 自检时要区分 prompt、RAG、微调和对齐：优先使用能解决已观察问题的最轻方案。
+
+</details>

@@ -63,3 +63,12 @@ Expected_output: metrics plus error samples grouped by failure reason
 ## Pass Check
 
 You pass this chapter when you can train or simulate a classifier, report accuracy/F1, and explain at least one ambiguous label case.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer starts from the text unit and output type: token, span, sentence label, sequence, embedding, or generated text.
+2. The evidence should include a small dataset example, model or pipeline choice, metric, and at least one inspected error case.
+3. A good self-check distinguishes preprocessing issues from model issues, such as tokenization mistakes, label ambiguity, data imbalance, or hallucinated generation.
+
+</details>

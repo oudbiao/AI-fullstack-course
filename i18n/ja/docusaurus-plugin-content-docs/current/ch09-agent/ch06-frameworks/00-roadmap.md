@@ -78,3 +78,12 @@ decision: choose framework only after the single-agent loop is clear
 ## 合格ライン
 
 同じ小さなタスクを普通の関数と 1 つのフレームワークで実装し、どちらがデバッグしやすいか、なぜかを説明できれば、この章は合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

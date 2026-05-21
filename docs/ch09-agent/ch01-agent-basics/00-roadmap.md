@@ -74,3 +74,12 @@ next_action: build the smallest traceable single-agent loop
 You pass this chapter when you can draw one single-Agent loop and explain why single-Agent stability comes before multi-Agent collaboration.
 
 The exit mini project is a research assistant Agent trace: one goal, one plan, at least one tool decision, one observation, one stop condition, and one final answer.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

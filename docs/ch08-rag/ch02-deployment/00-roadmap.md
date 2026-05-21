@@ -78,3 +78,12 @@ rollback_plan: fallback model, retry policy, or traffic switch
 You pass this chapter when you can explain where the model runs, how the app calls it, what can fail, and what metrics you watch: latency, cost, errors, rate limits, and fallback behavior.
 
 The exit mini project is a small model gateway note or script that routes one request to a chosen model endpoint and records the decision reason.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
+2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.
+3. A good self-check explains whether a failure came from chunking, retrieval, ranking, prompt assembly, missing sources, or unsupported generation.
+
+</details>

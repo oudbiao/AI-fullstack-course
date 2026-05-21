@@ -94,3 +94,12 @@ debug_next: what would you change first, and why?
 ## 合格ライン
 
 別の学習者がプロジェクトを実行し、学習証拠を確認し、成功例と失敗例を見て、次に何を改善するか理解できれば合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
+2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。
+3. shape mismatch、loss が下がらない、過学習、data leakage、Attention/Transformer の data flow を説明できない、といった失敗例を1つ言えればよいです。
+
+</details>

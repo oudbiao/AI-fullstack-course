@@ -78,3 +78,12 @@ rollback_plan: fallback model, retry policy, or traffic switch
 如果你能解释模型在哪里运行、应用如何调用、哪些地方会失败，以及要观察哪些指标：延迟、成本、错误、限流和降级行为，就通过了本章。
 
 本章出口小项目是一份模型网关注释或脚本：把一个请求路由到选定模型端点，并记录选择理由。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
+2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。
+3. 自检时要能判断失败来自 chunking、检索、排序、prompt 拼装、资料缺失，还是无依据生成。
+
+</details>

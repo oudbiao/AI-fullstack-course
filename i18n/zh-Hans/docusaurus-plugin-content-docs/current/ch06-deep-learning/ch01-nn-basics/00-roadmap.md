@@ -82,3 +82,12 @@ debug_first: check shape, loss, gradient, update
 ## 通过标准
 
 能把一层解释成 `input @ weights + bias`，说清激活函数做什么，并把 loss、梯度、优化器连成一个训练闭环，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
+2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。
+3. 自检时要能指出一个失败模式，例如 shape 不匹配、loss 不下降、过拟合、数据泄漏，或只会说 Attention/Transformer 名词却讲不出数据流。
+
+</details>

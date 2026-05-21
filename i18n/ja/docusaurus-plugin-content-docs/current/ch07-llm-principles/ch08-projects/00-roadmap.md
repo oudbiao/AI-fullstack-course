@@ -104,3 +104,12 @@ bridge: Chapter 8 turns this into retrieval-backed applications
 固定した評価セットを使って、「ここで微調整しない理由」「ここで RAG が必要な理由」「この Prompt 変更が効いた理由」を説明できれば、この章は合格です。
 
 最終プロジェクトは基本版で十分です。1 つのドメインタスクで 2 つの Prompt バージョンを比較します。強い版では RAG や小さな微調整実験を追加できますが、必ずベースラインと失敗ログで必要性を示してから行います。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
+2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。
+3. prompt 設計、RAG、fine-tuning、alignment を切り分け、観察した問題を直す最も軽い方法を選べれば十分です。
+
+</details>

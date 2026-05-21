@@ -78,3 +78,12 @@ rollback_plan: fallback model, retry policy, or traffic switch
 モデルがどこで動くか、アプリがどう呼ぶか、どこで失敗するか、遅延・コスト・エラー・rate limit・fallback をどう見るか説明できれば、この章は合格です。
 
 出口ミニプロジェクトは、小さなモデル gateway メモまたはスクリプトです。1 つのリクエストを選んだモデル endpoint に routing し、判断理由を記録します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
+2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。
+3. 失敗原因が chunking、retrieval、ranking、prompt assembly、source 不足、根拠のない生成のどれかを説明できればよいです。
+
+</details>

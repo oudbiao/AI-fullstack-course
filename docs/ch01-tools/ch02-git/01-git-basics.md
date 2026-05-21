@@ -313,6 +313,16 @@ Two commits, two save points. You can return to either one at any time.
 
 ---
 
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A correct run leaves two commits in `git log --oneline`: the initial project commit and the later greeting update.
+2. `git status` should be clean after each commit. If files are still untracked or modified, the missing step is usually `git add` or a second commit.
+3. The learning goal is to explain the three states in your own words: working tree, staging area, and committed history.
+
+</details>
+
+
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:

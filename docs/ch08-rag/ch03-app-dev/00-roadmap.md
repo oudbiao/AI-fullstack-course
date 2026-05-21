@@ -79,3 +79,12 @@ next_action: prompt, schema, state, API, or parsing improvement
 You pass this chapter when you can build a small assistant loop that handles one API call, one optional tool call, one structured output, and one error path.
 
 The exit mini project is a course Q&A and study-planning assistant that classifies the user request, optionally retrieves knowledge, returns structured suggestions, and logs feedback.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
+2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.
+3. A good self-check explains whether a failure came from chunking, retrieval, ranking, prompt assembly, missing sources, or unsupported generation.
+
+</details>

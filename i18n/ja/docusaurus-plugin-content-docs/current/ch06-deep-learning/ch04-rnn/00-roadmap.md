@@ -72,3 +72,12 @@ long_context_limit: use LSTM/GRU or attention when plain RNN forgets
 ## 合格ライン
 
 `[batch, seq_len, features]` を読め、hidden state を流れていく記憶として説明でき、LSTM/GRU が長期依存のために導入されたことを説明できれば合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
+2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。
+3. shape mismatch、loss が下がらない、過学習、data leakage、Attention/Transformer の data flow を説明できない、といった失敗例を1つ言えればよいです。
+
+</details>

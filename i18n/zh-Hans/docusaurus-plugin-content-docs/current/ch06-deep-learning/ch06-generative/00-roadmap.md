@@ -74,3 +74,12 @@ trust_rule: generated output always needs review
 ## 通过标准
 
 能解释预测标签和生成样本的区别，并说明为什么生成结果需要审查而不能盲信，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
+2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。
+3. 自检时要能指出一个失败模式，例如 shape 不匹配、loss 不下降、过拟合、数据泄漏，或只会说 Attention/Transformer 名词却讲不出数据流。
+
+</details>

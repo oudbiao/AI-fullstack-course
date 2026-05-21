@@ -79,3 +79,12 @@ next_action: prompt, schema, state, API, or parsing improvement
 1 回の API call、1 つの optional tool call、1 つの structured output、1 つの error path を持つ小さな assistant loop を作れれば、この章は合格です。
 
 出口ミニプロジェクトは、コース Q&A と学習計画助手です。ユーザー依頼を分類し、必要なら知識を検索し、構造化された提案を返し、feedback を記録します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
+2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。
+3. 失敗原因が chunking、retrieval、ranking、prompt assembly、source 不足、根拠のない生成のどれかを説明できればよいです。
+
+</details>

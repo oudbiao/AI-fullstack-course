@@ -78,3 +78,12 @@ bridge: Chapter 8 adds retrieved context to this loop
 固定した入力セットを使い、毎回 1 つの Prompt 層だけを変更し、感覚ではなく証拠で改善を説明できれば、この章は合格です。
 
 出口ミニプロジェクトは、コース内容抽出 Prompt です。1 つのコース文書を入力し、章のテーマ、学習目標、前提知識、重要語、練習案、リスクメモを JSON または Markdown 表で出力します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
+2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。
+3. prompt 設計、RAG、fine-tuning、alignment を切り分け、観察した問題を直す最も軽い方法を選べれば十分です。
+
+</details>

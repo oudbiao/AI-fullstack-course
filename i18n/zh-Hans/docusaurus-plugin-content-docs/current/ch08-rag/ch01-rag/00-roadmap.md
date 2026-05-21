@@ -78,3 +78,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 如果你能为至少 10 个固定问题构建一个最小知识库问答闭环，并打印检索分块、回答文本和来源引用，就通过了本章。
 
 本章出口小项目是课程知识库助手：准备 3 到 5 篇 Markdown 文档、top-k 检索输出、来源显示和一张简单评估表。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
+2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。
+3. 自检时要能判断失败来自 chunking、检索、排序、prompt 拼装、资料缺失，还是无依据生成。
+
+</details>

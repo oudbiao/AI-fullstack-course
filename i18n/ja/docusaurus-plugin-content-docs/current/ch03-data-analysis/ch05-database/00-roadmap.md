@@ -78,3 +78,12 @@ Expected_output: query plus result table and one data-quality note
 ## 合格ライン
 
 データベースと CSV の違いを説明し、`SELECT ... GROUP BY` クエリを1つ書き、Python から結果を読めれば、この選択小節は合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、問いを先に定義し、必要な table、DataFrame、または SQL query と、再現できるクリーニング手順を示します。
+2. 証拠には、小さな出力例、必要に応じた図表や query 結果、そして結果を解釈する一文を残します。
+3. 欠損値、重複行、誤った join、集計の誤解、読みにくい可視化など、少なくとも1つのデータ品質リスクを説明できれば十分です。
+
+</details>

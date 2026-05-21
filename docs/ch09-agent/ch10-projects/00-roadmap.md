@@ -93,3 +93,12 @@ deliverable: README, run command, trace screenshot/log, next step
 You pass this chapter when another developer can replay your Agent run, inspect each tool call and observation, understand why it stopped, and see at least one failure analysis.
 
 The basic version can be a single-Agent project. Add memory, MCP, multi-Agent collaboration, or deployment only after the trace and evaluation loop are solid.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

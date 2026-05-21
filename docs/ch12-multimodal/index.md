@@ -138,3 +138,12 @@ Before finishing the course, you should be able to:
 - run the multimodal workshop and keep a README, review checklist, export preview, and failure cases.
 
 For a printable checklist, use [12.0 Learning Checklist](./study-guide.md). For the guided final project, start with [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md).
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer names the modalities involved, the input-output contract, and how text, image, audio, or video evidence is aligned.
+2. The evidence should include a real media artifact or trace, plus a note on quality, safety, and failure cases.
+3. A good self-check explains whether the task needs generation, understanding, retrieval, tool orchestration, or human review rather than treating every multimodal problem as the same kind of demo.
+
+</details>

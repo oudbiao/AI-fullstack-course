@@ -78,3 +78,12 @@ risk: overfitting, style drift, safety regression, or cost
 如果你能说明为什么微调值得尝试，展示它击败的基线，并保留没有参与训练的验证集，就通过了本章。
 
 本章出口小项目是一份小型指令微调计划：选择一个固定任务，准备几十到几百条样本，定义 Prompt 基线，并在 LoRA/QLoRA 运行后比较格式稳定性或准确率。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
+2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。
+3. 自检时要区分 prompt、RAG、微调和对齐：优先使用能解决已观察问题的最轻方案。
+
+</details>

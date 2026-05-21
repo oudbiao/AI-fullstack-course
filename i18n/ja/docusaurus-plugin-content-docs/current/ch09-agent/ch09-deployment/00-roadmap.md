@@ -72,3 +72,12 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 ## 合格ライン
 
 ローカル Agent デモを、API 入口、状態永続化、trace ログ、エラー応答、コスト記録、デプロイ手順を持つ小さなサービスにできれば、この章は合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

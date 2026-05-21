@@ -144,3 +144,12 @@ Before leaving this elective, you should be able to:
 - run the reproducible vision mini pipeline and write a short failure analysis.
 
 For a printable checklist, use [10.0 Learning Checklist](./study-guide.md). For the guided project, start with [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md).
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
+2. The evidence should include a rendered visual artifact and one metric or qualitative error note.
+3. A good self-check names one visual failure mode such as class confusion, missed objects, bad masks, lighting shift, domain shift, or weak annotation quality.
+
+</details>

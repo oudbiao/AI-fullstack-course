@@ -78,3 +78,12 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 10 個以上の固定質問に対して、検索チャンク、回答本文、出典引用を表示する最小知識ベース Q&A ループを作れれば、この章は合格です。
 
 出口ミニプロジェクトは、コース知識ベース助手です。3〜5 件の Markdown 文書、top-k 検索出力、出典表示、簡単な評価表を用意します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
+2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。
+3. 失敗原因が chunking、retrieval、ranking、prompt assembly、source 不足、根拠のない生成のどれかを説明できればよいです。
+
+</details>

@@ -77,3 +77,12 @@ bridge: app reliability includes safety boundaries, not only capability
 如果你能解释“能力”和“行为”的区别，并能建立一个小型行为对比日志，而不是只凭一个回答的观感判断，就通过了本章。
 
 本章出口小项目是一张 10 个案例的对齐测试表：包含模糊请求、缺少来源的问题、工具动作请求和安全边界请求；为每个回答评分并记录失败原因。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
+2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。
+3. 自检时要区分 prompt、RAG、微调和对齐：优先使用能解决已观察问题的最轻方案。
+
+</details>

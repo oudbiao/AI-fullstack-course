@@ -78,3 +78,12 @@ bridge: Chapter 8 adds retrieved context to this loop
 You pass this chapter when you can keep the input set fixed, change one prompt layer at a time, and explain why the new version is better with evidence instead of a feeling.
 
 The exit mini project is a course-content extraction prompt: input one course document, output chapter topic, learning goals, prerequisites, key terms, practice suggestions, and risk notes as JSON or a Markdown table.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer explains how tokens, context, attention, prompts, and generation behavior connect in one request-response path.
+2. The evidence should include at least one reproducible prompt or structured-output test, plus notes on why the output passed or failed.
+3. A good self-check separates prompt design, RAG, fine-tuning, and alignment: use the lightest method that fixes the observed problem.
+
+</details>

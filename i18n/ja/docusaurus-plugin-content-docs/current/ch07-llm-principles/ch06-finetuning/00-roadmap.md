@@ -78,3 +78,12 @@ risk: overfitting, style drift, safety regression, or cost
 微調整を試す理由、比較対象のベースライン、訓練に使っていない検証セットを示せれば、この章は合格です。
 
 出口ミニプロジェクトは、小さな instruction tuning 計画です。固定タスクを 1 つ選び、数十から数百件のサンプルを準備し、Prompt ベースラインを定義し、LoRA/QLoRA 実行後に形式安定性または精度を比較します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
+2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。
+3. prompt 設計、RAG、fine-tuning、alignment を切り分け、観察した問題を直す最も軽い方法を選べれば十分です。
+
+</details>

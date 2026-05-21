@@ -71,3 +71,12 @@ llm_bridge: decoder blocks turn token context into next-token logits
 ## 通过标准
 
 能读懂 attention 权重形状，解释为什么 attention 带来全局上下文，并把 mask 和文本生成联系起来，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
+2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。
+3. 自检时要能指出一个失败模式，例如 shape 不匹配、loss 不下降、过拟合、数据泄漏，或只会说 Attention/Transformer 名词却讲不出数据流。
+
+</details>

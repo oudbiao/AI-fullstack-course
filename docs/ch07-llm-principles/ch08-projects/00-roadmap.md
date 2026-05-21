@@ -104,3 +104,12 @@ bridge: Chapter 8 turns this into retrieval-backed applications
 You pass this chapter when you can clearly explain “why not finetune here,” “why RAG is needed here,” or “why this prompt change works,” with a fixed evaluation set rather than a single good answer.
 
 The final project can be basic: compare two prompt versions on one domain task. The stronger version adds RAG or a small finetuning experiment, but only after the baseline and failure log prove the need.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer explains how tokens, context, attention, prompts, and generation behavior connect in one request-response path.
+2. The evidence should include at least one reproducible prompt or structured-output test, plus notes on why the output passed or failed.
+3. A good self-check separates prompt design, RAG, fine-tuning, and alignment: use the lightest method that fixes the observed problem.
+
+</details>

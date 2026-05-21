@@ -186,3 +186,12 @@ Before leaving this chapter, you should be able to:
 - run the full Chapter 9 workshop and add one evaluation task plus one safety-block example.
 
 For a printable checklist, use [9.0 Learning Checklist](./study-guide.md). For the guided project, start with [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md).
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

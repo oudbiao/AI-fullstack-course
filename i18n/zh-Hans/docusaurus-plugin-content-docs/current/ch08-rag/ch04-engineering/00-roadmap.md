@@ -74,3 +74,12 @@ ops_action: backoff, queue, alert, rollout, or rollback
 如果你的最小应用有运行命令、API 合约、错误处理、日志和一次记录下来的失败排查，就通过了本章。
 
 本章出口小项目是一份工程证据包：一条 trace 日志、一个常见错误、一次修复、一次回归检查和一条部署说明。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
+2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。
+3. 自检时要能判断失败来自 chunking、检索、排序、prompt 拼装、资料缺失，还是无依据生成。
+
+</details>

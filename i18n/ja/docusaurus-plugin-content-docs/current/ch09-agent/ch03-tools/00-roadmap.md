@@ -79,3 +79,12 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 ツール trace を読み、失敗が計画、パラメータ化、実行、観察、権限制御のどこで起きたか判断できれば、この章は合格です。
 
 出口ミニプロジェクトは学習アシスタントです：3 つのツールスキーマ、5 つのテスト呼び出し、1 つの失敗呼び出し記録、出力可能な trace を含めます。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

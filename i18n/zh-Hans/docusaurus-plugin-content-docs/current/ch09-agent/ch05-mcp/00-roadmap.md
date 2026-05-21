@@ -74,3 +74,12 @@ integration_action: validate server contract before adding autonomy
 如果你能画出 Host-Client-Server 关系，并解释服务器暴露什么、客户端调用什么、权限在哪里检查，就通过了本章。
 
 本章出口小项目是一个课程资料 MCP 服务器设计：一个搜索工具、一个资源 URI 模式、一个 Prompt 模板和一条失败处理规则。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
+2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。
+3. 自检时要能说出一个安全或可靠性控制，例如工具 schema、权限边界、重试、评估用例或人工复核点。
+
+</details>

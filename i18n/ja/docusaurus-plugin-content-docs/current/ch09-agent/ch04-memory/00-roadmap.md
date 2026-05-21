@@ -75,3 +75,12 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 「たくさん覚える」ことが「良い性能」と同じではない理由を説明できれば、この章は合格です。
 
 出口ミニプロジェクトは learning-planning assistant memory rules です：何を保存し、何を確認し、何を temporary にし、何を delete するかを決めます。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

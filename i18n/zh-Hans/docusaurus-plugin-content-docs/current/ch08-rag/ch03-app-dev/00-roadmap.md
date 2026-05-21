@@ -79,3 +79,12 @@ next_action: prompt, schema, state, API, or parsing improvement
 如果你能构建一个小助手闭环，包含一次 API 调用、一个可选工具调用、一个结构化输出和一条错误路径，就通过了本章。
 
 本章出口小项目是课程问答与学习规划助手：分类用户请求，必要时检索知识，返回结构化建议，并记录反馈。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
+2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。
+3. 自检时要能判断失败来自 chunking、检索、排序、prompt 拼装、资料缺失，还是无依据生成。
+
+</details>

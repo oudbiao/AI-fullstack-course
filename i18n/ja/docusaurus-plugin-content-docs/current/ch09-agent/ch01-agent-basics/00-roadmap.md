@@ -74,3 +74,12 @@ next_action: build the smallest traceable single-agent loop
 単一 Agent ループを描き、マルチ Agent 協調の前に単一 Agent の安定性が必要な理由を説明できれば、この章は合格です。
 
 出口ミニプロジェクトは研究アシスタント Agent の追跡記録です：1 つの目標、1 つの計画、少なくとも 1 つのツール判断、1 つの観察、1 つの停止条件、1 つの最終回答を残します。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

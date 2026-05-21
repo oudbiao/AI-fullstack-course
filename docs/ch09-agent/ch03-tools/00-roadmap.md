@@ -79,3 +79,12 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 You pass this chapter when you can read a tool trace and tell whether the failure happened in planning, parameterization, execution, observation, or permission control.
 
 The exit mini project is a learning assistant with 3 tool schemas, 5 test calls, 1 failed-call record, and a printable trace.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
+2. The evidence should include a trace that another developer can inspect, not only the final answer.
+3. A good self-check names one safety or reliability control such as tool schemas, permission boundaries, retries, evaluation cases, or a human-review point.
+
+</details>

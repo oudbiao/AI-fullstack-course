@@ -78,3 +78,12 @@ bridge: Chapter 8 adds retrieved context to this loop
 如果你能固定输入集，每次只改一个 Prompt 层，并用证据说明新版本为什么更好，而不是凭感觉判断，就通过了本章。
 
 本章出口小项目是课程内容抽取 Prompt：输入一篇课程文档，输出章节主题、学习目标、前置知识、关键术语、练习建议和风险提醒，格式为 JSON 或 Markdown 表格。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
+2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。
+3. 自检时要区分 prompt、RAG、微调和对齐：优先使用能解决已观察问题的最轻方案。
+
+</details>

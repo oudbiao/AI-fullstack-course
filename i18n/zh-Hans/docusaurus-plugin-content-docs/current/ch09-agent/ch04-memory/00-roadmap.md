@@ -75,3 +75,12 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 如果你能解释为什么“记更多”不等于“表现更好”，就通过了本章。
 
 本章出口小项目是一套学习规划助手记忆规则：什么保存、什么确认、什么临时保留、什么删除。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
+2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。
+3. 自检时要能说出一个安全或可靠性控制，例如工具 schema、权限边界、重试、评估用例或人工复核点。
+
+</details>

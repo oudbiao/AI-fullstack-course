@@ -74,3 +74,12 @@ integration_action: validate server contract before adding autonomy
 Host-Client-Server 関係を描き、サーバーが何を公開し、クライアントが何を呼び出し、権限がどこで確認されるか説明できれば、この章は合格です。
 
 出口ミニプロジェクトは「course-materials MCP サーバー設計」です：1 つの検索ツール、1 つのリソース URI パターン、1 つのプロンプトテンプレート、1 つの失敗処理ルールを含めます。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
+2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。
+3. tool schema、permission boundary、retry、evaluation case、人間レビューなど、安全性または信頼性の制御を1つ説明できれば十分です。
+
+</details>

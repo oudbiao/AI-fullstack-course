@@ -68,3 +68,12 @@ bridge: these details explain latency and context limits in apps
 ## Pass Check
 
 You pass this roadmap when you can explain why decoder-only models need a causal mask, why attention gets expensive as context grows, and why KV cache helps generation.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer explains how tokens, context, attention, prompts, and generation behavior connect in one request-response path.
+2. The evidence should include at least one reproducible prompt or structured-output test, plus notes on why the output passed or failed.
+3. A good self-check separates prompt design, RAG, fine-tuning, and alignment: use the lightest method that fixes the observed problem.
+
+</details>

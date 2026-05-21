@@ -82,3 +82,12 @@ debug_first: check shape, loss, gradient, update
 ## 合格ライン
 
 1つの層を `input @ weights + bias` として説明し、活性化が何をするかを言え、loss、勾配、オプティマイザを1つの学習ループとしてつなげられれば合格です。
+
+<details>
+<summary>参考解答と解説</summary>
+
+1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
+2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。
+3. shape mismatch、loss が下がらない、過学習、data leakage、Attention/Transformer の data flow を説明できない、といった失敗例を1つ言えればよいです。
+
+</details>

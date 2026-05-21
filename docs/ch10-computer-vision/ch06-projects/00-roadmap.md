@@ -85,3 +85,12 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 ## Pass Check
 
 You pass this chapter when your vision project can be reproduced, has clear data and annotation rules, reports proper metrics, and shows where the model fails.
+
+<details>
+<summary>Reference answers and explanation</summary>
+
+1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
+2. The evidence should include a rendered visual artifact and one metric or qualitative error note.
+3. A good self-check names one visual failure mode such as class confusion, missed objects, bad masks, lighting shift, domain shift, or weak annotation quality.
+
+</details>

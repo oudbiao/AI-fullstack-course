@@ -72,3 +72,12 @@ baseline: compare sequence model against a simple naive rule
 ## 通过标准
 
 能读懂 `[batch, seq_len, features]`，把 hidden state 解释成滚动记忆，并知道 LSTM/GRU 是为长依赖而引入，就算通过。
+
+<details>
+<summary>参考答案与讲解</summary>
+
+1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
+2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。
+3. 自检时要能指出一个失败模式，例如 shape 不匹配、loss 不下降、过拟合、数据泄漏，或只会说 Attention/Transformer 名词却讲不出数据流。
+
+</details>
