@@ -297,42 +297,42 @@ As long as you think through these 4 questions first, many `merge / concat` prob
 import pandas as pd
 
 # Create three tables
-# Student table
-students = pd.DataFrame({
-    "Student ID": [1, 2, 3, 4, 5],
-    "Name": ["John", "Mary", "Alice", "Bob", "Charlie"],
-    "Class": ["Class A", "Class B", "Class A", "Class B", "Class A"]
+# Task table
+tasks = pd.DataFrame({
+    "Task ID": [1, 2, 3, 4, 5],
+    "Feature": ["Login API", "RAG demo", "Chart view", "Deploy script", "Eval report"],
+    "Module": ["Backend", "AI", "Frontend", "Ops", "AI"]
 })
 
-# Score table (some students may have multiple subject scores)
-scores = pd.DataFrame({
-    "Student ID": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
-    "Subject": ["Math", "English", "Math", "English", "Math", "English", "Math", "English", "Math", "English"],
-    "Score": [90, 85, 78, 92, 88, 75, 95, 88, 72, 80]
+# Work-log table (some tasks may have multiple work records)
+work_logs = pd.DataFrame({
+    "Task ID": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+    "Stage": ["Design", "Build", "Design", "Build", "Design", "Build", "Build", "Verify", "Design", "Verify"],
+    "Hours": [2.0, 5.0, 3.0, 6.5, 1.5, 4.0, 3.5, 1.0, 2.5, 2.0]
 })
 
-# Class info table
-classes = pd.DataFrame({
-    "Class": ["Class A", "Class B"],
-    "Homeroom Teacher": ["Mr. Wang", "Ms. Li"],
-    "Classroom": ["101", "102"]
+# Module owner table
+modules = pd.DataFrame({
+    "Module": ["Backend", "AI", "Frontend", "Ops"],
+    "Owner": ["Mina", "Kai", "Riley", "Noah"],
+    "Sprint Goal": ["Stable API", "Grounded answer", "Readable UI", "Repeatable release"]
 })
 
-# Merge 1: students + scores
-student_scores = pd.merge(students, scores, on="Student ID")
-print(student_scores.head())
+# Merge 1: tasks + work logs
+task_logs = pd.merge(tasks, work_logs, on="Task ID")
+print(task_logs.head())
 
-# Merge 2: add class info
-full = pd.merge(student_scores, classes, on="Class")
+# Merge 2: add module ownership
+full = pd.merge(task_logs, modules, on="Module")
 print(full.head())
 
-# Analysis: average score by class
-print(full.groupby(["Class", "Homeroom Teacher"])["Score"].mean())
+# Analysis: average work hours by module
+print(full.groupby(["Module", "Owner"])["Hours"].mean())
 
-# Analysis: total score ranking for each student
-total_scores = full.groupby(["Student ID", "Name"])["Score"].sum().reset_index()
-total_scores["Rank"] = total_scores["Score"].rank(ascending=False, method="dense")
-print(total_scores.sort_values("Rank"))
+# Analysis: total work hours by task
+total_hours = full.groupby(["Task ID", "Feature"])["Hours"].sum().reset_index()
+total_hours["Rank"] = total_hours["Hours"].rank(ascending=False, method="dense")
+print(total_hours.sort_values("Rank"))
 ```
 
 ---

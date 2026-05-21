@@ -550,11 +550,11 @@ mindmap
 ### Exercise 2: Create a DataFrame
 
 ```python
-# Create a student score DataFrame containing:
-# Name, Chinese, Math, English columns, at least 5 students
-# 1. Add a "Total" column
-# 2. Add an "Average" column
-# 3. Add a "Grade" column (Average>=90 Excellent, >=80 Good, >=70 Medium, otherwise Pass)
+# Create a feature progress DataFrame containing:
+# Feature, Owner, Planned Hours, Actual Hours, Status columns, at least 5 items
+# 1. Add a "Delta Hours" column
+# 2. Add an "Over Budget" column
+# 3. Add a "Risk" column (Blocked -> High, Review -> Medium, Done -> Low, otherwise Watch)
 # 4. Use describe() to view statistics for the numeric columns
 ```
 
@@ -562,8 +562,8 @@ mindmap
 
 ```python
 # Use the DataFrame from Exercise 2
-# 1. Set "Name" as the index
-# 2. Find a student's full scores by name
+# 1. Set "Feature" as the index
+# 2. Find one feature's full progress record by name
 # 3. Reset the index
 ```
 
@@ -571,8 +571,8 @@ mindmap
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-- For the weekday sales Series, use the weekday names as the index, then compute total, mean, max day with `idxmax`, and filtered high-sales days with a boolean condition.
-- For the student DataFrame, add `Total` and `Average`, then create a grade column with a function, `map`, or `pd.cut` depending on the rule. `describe()` is useful evidence, but it is not the full analysis.
+- For the weekly step-count Series, use weekday names as the index, then compute the mean, max day with `idxmax`, and filtered high-step days with a boolean condition.
+- For the feature progress DataFrame, add `Delta Hours` and `Over Budget`, then create `Risk` with a function, `map`, or `pd.cut` depending on your rule. `describe()` is useful evidence, but it is not the full analysis.
 - Index practice should show both `set_index` and `reset_index`. A good answer explains when label lookup with `.loc` is clearer than positional lookup with `.iloc`.
 
 </details>

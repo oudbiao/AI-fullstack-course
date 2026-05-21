@@ -297,42 +297,42 @@ flowchart TD
 import pandas as pd
 
 # 创建三张表
-# 学生表
-students = pd.DataFrame({
-    "学号": [1, 2, 3, 4, 5],
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "班级": ["A班", "B班", "A班", "B班", "A班"]
+# 任务表
+tasks = pd.DataFrame({
+    "任务 ID": [1, 2, 3, 4, 5],
+    "功能": ["登录 API", "RAG 演示", "图表视图", "部署脚本", "评估报告"],
+    "模块": ["后端", "AI", "前端", "运维", "AI"]
 })
 
-# 成绩表（某些学生可能有多科成绩）
-scores = pd.DataFrame({
-    "学号": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
-    "科目": ["数学", "英语", "数学", "英语", "数学", "英语", "数学", "英语", "数学", "英语"],
-    "分数": [90, 85, 78, 92, 88, 75, 95, 88, 72, 80]
+# 工时记录表（某些任务可能有多条工作记录）
+work_logs = pd.DataFrame({
+    "任务 ID": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+    "阶段": ["设计", "构建", "设计", "构建", "设计", "构建", "构建", "验证", "设计", "验证"],
+    "小时": [2.0, 5.0, 3.0, 6.5, 1.5, 4.0, 3.5, 1.0, 2.5, 2.0]
 })
 
-# 班级信息表
-classes = pd.DataFrame({
-    "班级": ["A班", "B班"],
-    "班主任": ["王老师", "李老师"],
-    "教室": ["101", "102"]
+# 模块负责人表
+modules = pd.DataFrame({
+    "模块": ["后端", "AI", "前端", "运维"],
+    "负责人": ["Mina", "Kai", "Riley", "Noah"],
+    "冲刺目标": ["稳定 API", "可溯源回答", "清晰界面", "可复现发布"]
 })
 
-# 合并 1：学生 + 成绩
-student_scores = pd.merge(students, scores, on="学号")
-print(student_scores.head())
+# 合并 1：任务 + 工时记录
+task_logs = pd.merge(tasks, work_logs, on="任务 ID")
+print(task_logs.head())
 
-# 合并 2：再加上班级信息
-full = pd.merge(student_scores, classes, on="班级")
+# 合并 2：再加上模块负责人
+full = pd.merge(task_logs, modules, on="模块")
 print(full.head())
 
-# 分析：每个班级的平均分
-print(full.groupby(["班级", "班主任"])["分数"].mean())
+# 分析：每个模块的平均工时
+print(full.groupby(["模块", "负责人"])["小时"].mean())
 
-# 分析：每个学生的总分排名
-total_scores = full.groupby(["学号", "姓名"])["分数"].sum().reset_index()
-total_scores["排名"] = total_scores["分数"].rank(ascending=False, method="dense")
-print(total_scores.sort_values("排名"))
+# 分析：每个任务的总工时排名
+total_hours = full.groupby(["任务 ID", "功能"])["小时"].sum().reset_index()
+total_hours["排名"] = total_hours["小时"].rank(ascending=False, method="dense")
+print(total_hours.sort_values("排名"))
 ```
 
 ---

@@ -296,42 +296,42 @@ flowchart TD
 import pandas as pd
 
 # 3つの表を作成
-# 学生表
-students = pd.DataFrame({
-    "学籍番号": [1, 2, 3, 4, 5],
-    "名前": ["張三", "李四", "王五", "趙六", "銭七"],
-    "クラス": ["A組", "B組", "A組", "B組", "A組"]
+# タスク表
+tasks = pd.DataFrame({
+    "タスク ID": [1, 2, 3, 4, 5],
+    "機能": ["ログイン API", "RAG デモ", "グラフ画面", "デプロイスクリプト", "評価レポート"],
+    "モジュール": ["バックエンド", "AI", "フロントエンド", "運用", "AI"]
 })
 
-# 成績表（学生によっては複数科目の成績がある）
-scores = pd.DataFrame({
-    "学籍番号": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
-    "科目": ["数学", "英語", "数学", "英語", "数学", "英語", "数学", "英語", "数学", "英語"],
-    "点数": [90, 85, 78, 92, 88, 75, 95, 88, 72, 80]
+# 作業ログ表（タスクによっては複数の作業記録がある）
+work_logs = pd.DataFrame({
+    "タスク ID": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+    "段階": ["設計", "実装", "設計", "実装", "設計", "実装", "実装", "検証", "設計", "検証"],
+    "時間": [2.0, 5.0, 3.0, 6.5, 1.5, 4.0, 3.5, 1.0, 2.5, 2.0]
 })
 
-# クラス情報表
-classes = pd.DataFrame({
-    "クラス": ["A組", "B組"],
-    "担任": ["王先生", "李先生"],
-    "教室": ["101", "102"]
+# モジュール担当表
+modules = pd.DataFrame({
+    "モジュール": ["バックエンド", "AI", "フロントエンド", "運用"],
+    "担当者": ["Mina", "Kai", "Riley", "Noah"],
+    "スプリント目標": ["安定した API", "根拠のある回答", "読みやすい UI", "再現できるリリース"]
 })
 
-# 結合1：学生 + 成績
-student_scores = pd.merge(students, scores, on="学籍番号")
-print(student_scores.head())
+# 結合1：タスク + 作業ログ
+task_logs = pd.merge(tasks, work_logs, on="タスク ID")
+print(task_logs.head())
 
-# 結合2：さらにクラス情報を追加
-full = pd.merge(student_scores, classes, on="クラス")
+# 結合2：さらにモジュール担当を追加
+full = pd.merge(task_logs, modules, on="モジュール")
 print(full.head())
 
-# 分析：各クラスの平均点
-print(full.groupby(["クラス", "担任"])["点数"].mean())
+# 分析：各モジュールの平均作業時間
+print(full.groupby(["モジュール", "担当者"])["時間"].mean())
 
-# 分析：各学生の合計点ランキング
-total_scores = full.groupby(["学籍番号", "名前"])["点数"].sum().reset_index()
-total_scores["順位"] = total_scores["点数"].rank(ascending=False, method="dense")
-print(total_scores.sort_values("順位"))
+# 分析：各タスクの合計作業時間ランキング
+total_hours = full.groupby(["タスク ID", "機能"])["時間"].sum().reset_index()
+total_hours["順位"] = total_hours["時間"].rank(ascending=False, method="dense")
+print(total_hours.sort_values("順位"))
 ```
 
 ---
