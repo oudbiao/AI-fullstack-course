@@ -26,9 +26,9 @@ This section helps you understand how Python represents and stores data. Variabl
 Think of a variable as a **labeled box**. You can put something inside it and use the label to find it later.
 
 ```python
-name = "Xiao Ming"       # The box has a "name" label, and inside is "Xiao Ming"
-age = 20                 # The box has an "age" label, and inside is 20
-height = 1.75            # The box has a "height" label, and inside is 1.75
+service_name = "Login API"  # The box has a "service_name" label
+latency_ms = 185            # The box has a "latency_ms" label
+timeout_seconds = 2.5       # The box has a "timeout_seconds" label
 ```
 
 In Python, `=` does not mean “equal to” — it means **assignment**. It puts the value on the right into the box on the left.
@@ -51,27 +51,27 @@ Python has a few rules for variable names:
 
 | Rule | Correct Examples | Incorrect Examples |
 |------|------------------|-------------------|
-| Can only contain letters, numbers, and underscores | `user_name`, `age2` | `user-name`, `age!` |
-| Cannot start with a number | `name1` | `1name` |
+| Can only contain letters, numbers, and underscores | `service_name`, `task2` | `service-name`, `task!` |
+| Cannot start with a number | `task1` | `1task` |
 | Cannot use Python keywords | `my_class` | `class`, `if`, `for` |
-| Case-sensitive | `Name` and `name` are different variables | — |
+| Case-sensitive | `Service` and `service` are different variables | — |
 
 ### Naming Conventions (Not Required, but Widely Used)
 
 ```python
 # Good names ✅ — use lowercase letters with underscores (snake_case)
-student_name = "Xiao Ming"
+service_name = "Login API"
 learning_rate = 0.001
 max_epochs = 100
 
 # Poor names ❌ — not invalid, just unclear
-a = "Xiao Ming"        # You can't tell what a means
+a = "Login API"        # You can't tell what a means
 x1 = 0.001             # What does x1 represent?
-SN = "Xiao Ming"       # Too abbreviated to understand easily
+SN = "Login API"       # Too abbreviated to understand easily
 ```
 
 :::tip Golden Rule for Naming
-A variable name should let people **know what it is at a glance**. It is better to use a slightly longer name (`student_count`) than a confusing abbreviation (`sc`).
+A variable name should let people **know what it is at a glance**. It is better to use a slightly longer name (`task_count`) than a confusing abbreviation (`tc`).
 :::
 
 ---
@@ -83,12 +83,12 @@ A variable name should let people **know what it is at a glance**. It is better 
 Integers are numbers without decimal points. They can be positive, negative, or zero.
 
 ```python
-age = 25
-temperature = -10
+retry_count = 3
+queue_delta = -10
 count = 0
 big_number = 1_000_000  # Underscores improve readability; same as 1000000
 
-print(type(age))  # <class 'int'>
+print(type(retry_count))  # <class 'int'>
 ```
 
 :::info `type()` Function
@@ -108,7 +108,7 @@ Floating-point numbers are numbers with decimal points.
 
 ```python
 pi = 3.14159
-weight = 65.5
+timeout_seconds = 2.5
 negative = -0.001
 
 print(type(pi))  # <class 'float'>
@@ -160,42 +160,42 @@ A string is **text** — a sequence of characters. It is wrapped in quotes.
 
 ```python
 # Single and double quotes both work; they are equivalent
-name = 'Xiao Ming'
-greeting = "Hello"
+service = 'Login API'
+status = "ready"
 
 # If the string contains quotes, wrap it with the other kind
-sentence = "He said: 'Hello'"
-sentence2 = 'The English name is "Tom"'
+sentence = "The reviewer said: 'Looks good'"
+command = 'The CLI flag is "--dry-run"'
 
 # Triple quotes: can write multi-line text
-poem = """
-Quiet Night Thought
-Before my bed, the bright moonlight,
-I suspect it is frost on the ground.
+release_notes = """
+Login API
+- timeout adjusted
+- retry logging enabled
 """
-print(poem)
+print(release_notes)
 
-print(type(name))  # <class 'str'>
+print(type(service))  # <class 'str'>
 ```
 
 ### String Concatenation
 
 ```python
-first_name = "Zhang"
-last_name = "San"
+module_name = "ticket"
+endpoint_name = "-api"
 
 # Method 1: use + to concatenate
-full_name = first_name + last_name
-print(full_name)  # Zhang San
+full_endpoint = module_name + endpoint_name
+print(full_endpoint)  # ticket-api
 
 # Method 2: use f-string (recommended! Python 3.6+)
-age = 20
-intro = f"My name is {full_name}, and I am {age} years old"
-print(intro)  # My name is Zhang San, and I am 20 years old
+version = "v1"
+intro = f"{full_endpoint} runs on {version}"
+print(intro)  # ticket-api runs on v1
 
 # Method 3: use format()
-intro2 = "My name is {}, and I am {} years old".format(full_name, age)
-print(intro2)  # My name is Zhang San, and I am 20 years old
+intro2 = "{} runs on {}".format(full_endpoint, version)
+print(intro2)  # ticket-api runs on v1
 ```
 
 :::tip f-strings Are Best Practice
@@ -226,9 +226,9 @@ messy = "  hello  "
 print(messy.strip())    # "hello"
 
 # Split
-csv_line = "Zhang San,20,Beijing"
+csv_line = "Login API,185,ready"
 parts = csv_line.split(",")
-print(parts)  # ['Zhang San', '20', 'Beijing']
+print(parts)  # ['Login API', '185', 'ready']
 ```
 
 ### String Indexing and Slicing
@@ -284,10 +284,10 @@ text = "h" + text[1:]  # "hello"
 A boolean has only two values: `True` and `False`. Note the capital first letter.
 
 ```python
-is_student = True
-is_raining = False
+is_deployed = True
+has_errors = False
 
-print(type(is_student))  # <class 'bool'>
+print(type(is_deployed))  # <class 'bool'>
 ```
 
 Booleans often come from **comparison operations**:
@@ -352,18 +352,18 @@ Sometimes you need to convert one type into another.
 
 ```python
 # String → number
-age_str = "25"
-age = int(age_str)      # Convert string to integer
-print(age + 1)          # 26
+latency_str = "185"
+latency_ms = int(latency_str)      # Convert string to integer
+print(latency_ms + 10)             # 195
 
-price_str = "99.9"
-price = float(price_str)  # Convert string to float
-print(price)             # 99.9
+timeout_str = "2.5"
+timeout_seconds = float(timeout_str)  # Convert string to float
+print(timeout_seconds)                # 2.5
 
 # Number → string
-score = 95
-score_str = str(score)   # Convert integer to string
-print("Score: " + score_str)  # Score: 95
+task_count = 12
+task_count_str = str(task_count)   # Convert integer to string
+print("Tasks: " + task_count_str)  # Tasks: 12
 
 # Integer ↔ float
 x = int(3.7)    # 3 (directly truncates the decimal part, not rounding)
@@ -373,17 +373,17 @@ y = float(5)    # 5.0
 **Common mistake**: strings and numbers cannot be concatenated directly with `+`
 
 ```python
-age = 20
-# print("Age: " + age)  # Error! TypeError
+latency_ms = 185
+# print("Latency: " + latency_ms)  # Error! TypeError
 
 # Correct method 1: convert to string
-print("Age: " + str(age))
+print("Latency: " + str(latency_ms))
 
 # Correct method 2: use an f-string (recommended)
-print(f"Age: {age}")
+print(f"Latency: {latency_ms}")
 
 # Correct method 3: separate with commas (print will add spaces automatically)
-print("Age:", age)
+print("Latency:", latency_ms)
 ```
 
 ### Quick Reference for Type Conversion
@@ -457,39 +457,39 @@ a, b = b, a  # Done in one line!
 
 ## Hands-On Exercises
 
-### Exercise 1: Personal Information Card
+### Exercise 1: Service Status Card
 
-Create variables to store your information, then print them with f-strings:
-
-```python
-name = "Your Name"
-age = 25
-city = "Your City"
-is_student = True
-
-print(f"Name: {name}")
-print(f"Age: {age}")
-print(f"City: {city}")
-print(f"Are you a student: {is_student}")
-print(f"Next year I will be {age + 1} years old")
-```
-
-### Exercise 2: Temperature Converter
-
-Formula for converting Celsius to Fahrenheit: `F = C × 9/5 + 32`
+Create variables to store a service’s status, then print them with f-strings:
 
 ```python
-celsius = 37.5
-fahrenheit = celsius * 9 / 5 + 32
-print(f"{celsius}°C = {fahrenheit}°F")
+service = "Login API"
+latency_ms = 185
+timeout_seconds = 2.5
+is_ready = True
+
+print(f"Service: {service}")
+print(f"Latency: {latency_ms} ms")
+print(f"Timeout: {timeout_seconds} seconds")
+print(f"Ready to demo: {is_ready}")
+print(f"Alert threshold: {latency_ms + 15} ms")
 ```
 
-Try changing the value of `celsius` and calculate a few different temperatures.
+### Exercise 2: Latency Unit Converter
+
+Formula for converting milliseconds to seconds: `seconds = milliseconds / 1000`
+
+```python
+latency_ms = 375.0
+latency_seconds = latency_ms / 1000
+print(f"{latency_ms} ms = {latency_seconds} seconds")
+```
+
+Try changing the value of `latency_ms` and calculate a few different latency values.
 
 ### Exercise 3: String Operations
 
 ```python
-email = "  ZhangSan@Example.COM  "
+email = "  Support.API@Example.COM  "
 
 # 1. Remove leading and trailing spaces
 # 2. Convert to lowercase
@@ -517,9 +517,9 @@ print(type("1" + "2"))  # String + string = ?
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-1. The personal info card should use `str`, `int`, and `bool`. f-strings should show variable values and an expression such as `age + 1`.
-2. `37.5` C gives `99.5` F. Keep the formula in code so changing `celsius` changes `fahrenheit`.
-3. The normalized email is `zhangsan@example.com`. The `@` index after stripping and lowercasing is `8`, and the username is `zhangsan`.
+1. The service status card should use `str`, `int`, `float`, and `bool`. f-strings should show variable values and an expression such as `latency_ms + 15`.
+2. `375.0` ms gives `0.375` seconds. Keep the formula in code so changing `latency_ms` changes `latency_seconds`.
+3. The normalized email is `support.api@example.com`. The `@` index after stripping and lowercasing is `11`, and the username is `support.api`.
 4. The type outputs are `int`, `float`, `str`, `bool`, `NoneType`, `int`, `float`, and `str`.
 5. A common mistake is treating `"1" + "2"` as arithmetic. It is string concatenation, so the result is `"12"`.
 

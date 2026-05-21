@@ -26,9 +26,9 @@ description: "掌握 Python 中的基本数据类型和变量使用"
 想象变量是一个**贴了标签的盒子**。你可以把东西放进去，用标签来找到它。
 
 ```python
-name = "小明"       # 盒子上贴了"name"标签，里面放了"小明"
-age = 20           # 盒子上贴了"age"标签，里面放了 20
-height = 1.75      # 盒子上贴了"height"标签，里面放了 1.75
+service_name = "登录 API"  # 盒子上贴了"service_name"标签
+latency_ms = 185          # 盒子上贴了"latency_ms"标签
+timeout_seconds = 2.5     # 盒子上贴了"timeout_seconds"标签
 ```
 
 `=` 在 Python 里不是"等于"，而是**赋值**——把右边的值放进左边的盒子里。
@@ -51,27 +51,27 @@ Python 对变量名有一些规定：
 
 | 规则 | 正确示例 | 错误示例 |
 |------|---------|---------|
-| 只能包含字母、数字、下划线 | `user_name`, `age2` | `user-name`, `age!` |
-| 不能以数字开头 | `name1` | `1name` |
+| 只能包含字母、数字、下划线 | `service_name`, `task2` | `service-name`, `task!` |
+| 不能以数字开头 | `task1` | `1task` |
 | 不能用 Python 关键字 | `my_class` | `class`, `if`, `for` |
-| 大小写敏感 | `Name` 和 `name` 是不同变量 | — |
+| 大小写敏感 | `Service` 和 `service` 是不同变量 | — |
 
 ### 命名惯例（不是强制的，但大家都这么做）
 
 ```python
 # 好的命名 ✅ —— 用小写字母加下划线（snake_case）
-student_name = "小明"
+service_name = "登录 API"
 learning_rate = 0.001
 max_epochs = 100
 
 # 不好的命名 ❌ —— 不是不能用，而是不够清晰
-a = "小明"        # 看不出来 a 是什么
+a = "登录 API"    # 看不出来 a 是什么
 x1 = 0.001       # x1 代表什么？
-SN = "小明"       # 缩写太短，别人看不懂
+SN = "登录 API"   # 缩写太短，别人看不懂
 ```
 
 :::tip 命名的黄金法则
-变量名应该让人**一眼就知道它是什么**。宁可名字长一点（`student_count`），也不要用看不懂的缩写（`sc`）。
+变量名应该让人**一眼就知道它是什么**。宁可名字长一点（`task_count`），也不要用看不懂的缩写（`tc`）。
 :::
 
 ---
@@ -83,12 +83,12 @@ SN = "小明"       # 缩写太短，别人看不懂
 整数就是没有小数点的数字，可以是正数、负数或零。
 
 ```python
-age = 25
-temperature = -10
+retry_count = 3
+queue_delta = -10
 count = 0
 big_number = 1_000_000  # 下划线分隔，方便阅读，等同于 1000000
 
-print(type(age))  # <class 'int'>
+print(type(retry_count))  # <class 'int'>
 ```
 
 :::info type() 函数
@@ -108,7 +108,7 @@ print(huge + 1)  # 完全没问题
 
 ```python
 pi = 3.14159
-weight = 65.5
+timeout_seconds = 2.5
 negative = -0.001
 
 print(type(pi))  # <class 'float'>
@@ -160,42 +160,42 @@ print(a ** b)   # 1000  幂运算（10 的 3 次方）
 
 ```python
 # 单引号和双引号都可以，效果一样
-name = '小明'
-greeting = "你好"
+service = '登录 API'
+status = "ready"
 
 # 如果字符串里有引号，用另一种引号包裹
-sentence = "他说：'你好'"
-sentence2 = '英文名叫 "Tom"'
+sentence = "评审说：'可以发布'"
+command = 'CLI 参数是 "--dry-run"'
 
 # 三引号：可以写多行文本
-poem = """
-静夜思
-床前明月光，
-疑是地上霜。
+release_notes = """
+登录 API
+- 调整超时时间
+- 开启重试日志
 """
-print(poem)
+print(release_notes)
 
-print(type(name))  # <class 'str'>
+print(type(service))  # <class 'str'>
 ```
 
 ### 字符串拼接
 
 ```python
-first_name = "张"
-last_name = "三"
+module_name = "工单"
+endpoint_name = " API"
 
 # 方法 1：用 + 拼接
-full_name = first_name + last_name
-print(full_name)  # 张三
+full_endpoint = module_name + endpoint_name
+print(full_endpoint)  # 工单 API
 
 # 方法 2：用 f-string（推荐！Python 3.6+）
-age = 20
-intro = f"我叫{full_name}，今年{age}岁"
-print(intro)  # 我叫张三，今年20岁
+version = "v1"
+intro = f"{full_endpoint} 运行在 {version}"
+print(intro)  # 工单 API 运行在 v1
 
 # 方法 3：用 format()
-intro2 = "我叫{}，今年{}岁".format(full_name, age)
-print(intro2)  # 我叫张三，今年20岁
+intro2 = "{} 运行在 {}".format(full_endpoint, version)
+print(intro2)  # 工单 API 运行在 v1
 ```
 
 :::tip f-string 是最佳实践
@@ -226,9 +226,9 @@ messy = "  hello  "
 print(messy.strip())    # "hello"
 
 # 分割
-csv_line = "张三,20,北京"
+csv_line = "登录 API,185,ready"
 parts = csv_line.split(",")
-print(parts)  # ['张三', '20', '北京']
+print(parts)  # ['登录 API', '185', 'ready']
 ```
 
 ### 字符串索引和切片
@@ -284,10 +284,10 @@ text = "h" + text[1:]  # "hello"
 布尔值只有两个：`True`（真）和 `False`（假）。注意首字母大写。
 
 ```python
-is_student = True
-is_raining = False
+is_deployed = True
+has_errors = False
 
-print(type(is_student))  # <class 'bool'>
+print(type(is_deployed))  # <class 'bool'>
 ```
 
 布尔值通常来自**比较运算**：
@@ -352,18 +352,18 @@ print(result)          # None
 
 ```python
 # 字符串 → 数字
-age_str = "25"
-age = int(age_str)      # 字符串转整数
-print(age + 1)          # 26
+latency_str = "185"
+latency_ms = int(latency_str)      # 字符串转整数
+print(latency_ms + 10)             # 195
 
-price_str = "99.9"
-price = float(price_str)  # 字符串转浮点数
-print(price)             # 99.9
+timeout_str = "2.5"
+timeout_seconds = float(timeout_str)  # 字符串转浮点数
+print(timeout_seconds)                # 2.5
 
 # 数字 → 字符串
-score = 95
-score_str = str(score)   # 整数转字符串
-print("分数: " + score_str)  # 分数: 95
+task_count = 12
+task_count_str = str(task_count)   # 整数转字符串
+print("任务数: " + task_count_str)  # 任务数: 12
 
 # 整数 ↔ 浮点数
 x = int(3.7)    # 3（直接截断小数部分，不是四舍五入）
@@ -373,17 +373,17 @@ y = float(5)    # 5.0
 **常见错误**：字符串和数字不能直接用 `+` 拼接
 
 ```python
-age = 20
-# print("年龄: " + age)  # 报错！TypeError
+latency_ms = 185
+# print("延迟: " + latency_ms)  # 报错！TypeError
 
 # 正确做法 1：转成字符串
-print("年龄: " + str(age))
+print("延迟: " + str(latency_ms))
 
 # 正确做法 2：用 f-string（推荐）
-print(f"年龄: {age}")
+print(f"延迟: {latency_ms}")
 
 # 正确做法 3：用逗号分隔（print 会自动加空格）
-print("年龄:", age)
+print("延迟:", latency_ms)
 ```
 
 ### 类型转换速查表
@@ -457,39 +457,39 @@ a, b = b, a  # 一行搞定！
 
 ## 动手练习
 
-### 练习 1：个人信息卡
+### 练习 1：服务状态卡
 
-创建变量存储你的信息，然后用 f-string 打印出来：
-
-```python
-name = "你的名字"
-age = 25
-city = "你的城市"
-is_student = True
-
-print(f"姓名: {name}")
-print(f"年龄: {age}")
-print(f"城市: {city}")
-print(f"是否学生: {is_student}")
-print(f"明年我就 {age + 1} 岁了")
-```
-
-### 练习 2：温度转换器
-
-摄氏度转华氏度的公式：`F = C × 9/5 + 32`
+创建变量存储服务状态，然后用 f-string 打印出来：
 
 ```python
-celsius = 37.5
-fahrenheit = celsius * 9 / 5 + 32
-print(f"{celsius}°C = {fahrenheit}°F")
+service = "登录 API"
+latency_ms = 185
+timeout_seconds = 2.5
+is_ready = True
+
+print(f"服务: {service}")
+print(f"延迟: {latency_ms} ms")
+print(f"超时: {timeout_seconds} 秒")
+print(f"能否演示: {is_ready}")
+print(f"告警阈值: {latency_ms + 15} ms")
 ```
 
-试着修改 `celsius` 的值，算几个不同温度的结果。
+### 练习 2：延迟单位转换器
+
+毫秒转秒的公式：`seconds = milliseconds / 1000`
+
+```python
+latency_ms = 375.0
+latency_seconds = latency_ms / 1000
+print(f"{latency_ms} ms = {latency_seconds} 秒")
+```
+
+试着修改 `latency_ms` 的值，算几个不同延迟的结果。
 
 ### 练习 3：字符串操作
 
 ```python
-email = "  ZhangSan@Example.COM  "
+email = "  Support.API@Example.COM  "
 
 # 1. 去掉首尾空格
 # 2. 转成小写
@@ -517,9 +517,9 @@ print(type("1" + "2"))  # 字符串 + 字符串 = ？
 <details>
 <summary>参考实现与讲解</summary>
 
-1. 个人信息卡应该用到 `str`、`int` 和 `bool`；f-string 里要展示变量值，也可以展示 `age + 1` 这样的表达式。
-2. `37.5` 摄氏度对应 `99.5` 华氏度。把公式保留在代码里，这样修改 `celsius` 时 `fahrenheit` 会自动变化。
-3. 规范化后的邮箱是 `zhangsan@example.com`；去空格并转小写后，`@` 的索引是 `8`，用户名是 `zhangsan`。
+1. 服务状态卡应该用到 `str`、`int`、`float` 和 `bool`；f-string 里要展示变量值，也可以展示 `latency_ms + 15` 这样的表达式。
+2. `375.0` ms 对应 `0.375` 秒。把公式保留在代码里，这样修改 `latency_ms` 时 `latency_seconds` 会自动变化。
+3. 规范化后的邮箱是 `support.api@example.com`；去空格并转小写后，`@` 的索引是 `11`，用户名是 `support.api`。
 4. 类型输出依次是 `int`、`float`、`str`、`bool`、`NoneType`、`int`、`float`、`str`。
 5. 常见错误是把 `"1" + "2"` 当作数学加法。它其实是字符串拼接，结果是 `"12"`。
 
