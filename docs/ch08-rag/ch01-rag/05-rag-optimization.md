@@ -248,7 +248,7 @@ There is no universal best solution, only the best solution for a given scenario
 
 ---
 
-## If your goal is a “courseware generation assistant driven by a knowledge base,” what optimization order is best?
+## If your goal is an “SOP document assistant driven by a knowledge base,” what optimization order is best?
 
 A very common mistake in this kind of project is:
 
@@ -258,21 +258,21 @@ A very common mistake in this kind of project is:
 But a more stable default order is usually:
 
 1. First check whether document parsing is correct
-2. Then check whether knowledge chunks are properly separated into concepts / examples / exercises
+2. Then check whether knowledge chunks are properly separated into policies / handled cases / checklists
 3. Then check whether retrieval actually brings back the right content
-4. Then check whether structured output and templates place the content in the right positions
+4. Then check whether structured output and templates place policies, cases, and checklists in the right positions
 5. Only at the end, tune the model and prompt
 
 You can compress this into one sentence:
 
 > **For this kind of project, prioritize optimizing “finding the right content” and “placing it correctly,” and only then optimize “writing it more beautifully.”**
 
-## A minimal optimization checklist more like a courseware generation project
+## A minimal optimization checklist more like an SOP document project
 
 | Symptom | What should you check first |
 |---|---|
-| The topic is right, but there are no examples | Document parsing / content type labeling |
-| The example was found, but it was placed in the knowledge-point section | Schema / template mapping |
+| The topic is right, but there are no handled cases | Document parsing / content type labeling |
+| The case was found, but it was placed in the policy section | Schema / template mapping |
 | There is a lot of material, but the output is still empty | Retrieval filtering / top-k / context packing |
 | The internal docs clearly have the standard answer, but external content misleads the model | Source priority strategy |
 

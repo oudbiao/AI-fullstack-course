@@ -423,14 +423,14 @@ This is the smallest prototype of many AI Q&A products.
 
 ---
 
-## If Your Goal Is a "Knowledge-Base-Driven Courseware Generation Assistant," What Should You Focus on First in This Section?
+## If Your Goal Is a "Knowledge-Base-Driven SOP Document Assistant," What Should You Focus on First in This Section?
 
 For this kind of project, the key to RAG is not just "finding some relevant text,"
 but finding:
 
-- Relevant knowledge points
-- Relevant example problems
-- Relevant exercises
+- Relevant policy rules
+- Relevant handled cases
+- Relevant checklist items
 - And which material and which page each one comes from
 
 In other words, your knowledge chunks should not just be:
@@ -440,27 +440,27 @@ In other words, your knowledge chunks should not just be:
 They should ideally include at least these fields:
 
 ```python
-courseware_chunk = {
-    "topic": "discount word problem",
-    "content_type": "example",
+sop_chunk = {
+    "topic": "refund escalation",
+    "content_type": "case",
     "source_type": "docx",
     "page_or_slide": 3,
-    "text": "A product costs 100 yuan originally. What is the price after a 20% discount?",
+    "text": "If the refund window has passed but duplicate billing is confirmed, escalate to billing support with evidence.",
 }
 
-print(courseware_chunk)
+print(sop_chunk)
 ```
 
 Expected output:
 
 ```text
-{'topic': 'discount word problem', 'content_type': 'example', 'source_type': 'docx', 'page_or_slide': 3, 'text': 'A product costs 100 yuan originally. What is the price after a 20% discount?'}
+{'topic': 'refund escalation', 'content_type': 'case', 'source_type': 'docx', 'page_or_slide': 3, 'text': 'If the refund window has passed but duplicate billing is confirmed, escalate to billing support with evidence.'}
 ```
 
 This directly affects whether later you can:
 
-- Retrieve example problems by topic
-- Organize concepts, examples, and exercises separately
+- Retrieve handled cases by topic
+- Organize policies, cases, and checklists separately
 - Preserve source information in the final Word document
 
 ## How Should Internal and External Materials Be Divided in RAG?
@@ -470,8 +470,8 @@ the safest default principle is usually:
 
 | Material type | Better for |
 |---|---|
-| Internal materials | Main knowledge points, example problems, internal company or course rules |
-| External materials | New problem types, background information, latest public information |
+| Internal materials | Official policy wording, escalation rules, approved handled cases |
+| External materials | Public background information, market notes, or examples used only as supplements |
 
 In other words, an important RAG judgment in this kind of project is:
 

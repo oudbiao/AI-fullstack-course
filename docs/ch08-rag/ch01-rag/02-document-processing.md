@@ -233,12 +233,12 @@ The value of metadata is that it:
 
 ---
 
-## If your goal is a “knowledge-base-driven courseware generation assistant,” you need to think one step further about chunking
+## If your goal is a “knowledge-base-driven SOP document assistant,” you need to think one step further about chunking
 
 This kind of project is very different from a normal FAQ Q&A system:
 
 - You do not just want to “find relevant passages”
-- You also want to reorganize the materials into “knowledge points / examples / exercises”
+- You also want to reorganize the materials into “policies / handled cases / checklists”
 
 So when you first design the chunks, do not think only about length.
 Also think about “content type.”
@@ -247,56 +247,56 @@ A more stable default approach is usually:
 
 | Content type | Better chunking strategy |
 |---|---|
-| Concept definition | Keep the full definition and formula intact; do not split it |
-| Example explanation | Keep the problem statement and solution process in the same chunk as much as possible |
-| Exercise | One question per chunk, so it is easy to extract later |
-| Chapter summary | Keep the heading and key bullet points |
+| Policy rule | Keep the condition, action, and exception together |
+| Handled case | Keep the incident, decision, evidence, and outcome in the same chunk |
+| Checklist item | Keep one operational check per chunk, so it is easy to place later |
+| Procedure summary | Keep the heading and key steps |
 
 This table is important because it helps beginners realize:
 
 > **Chunking is not just a fixed text operation; it actually serves the downstream generation goal.**
 
-![Courseware knowledge chunk metadata schema diagram](/img/course/ch08-courseware-chunk-metadata-schema-map-en.webp)
+![SOP document chunk metadata schema diagram](/img/course/ch08-courseware-chunk-metadata-schema-map-en.webp)
 
 :::tip Reading hint
-Courseware generation is most likely to fail when it “finds the text but does not know where to place it.” When looking at the diagram, focus on the `topic`, `content_type`, `source_origin`, and `page_or_slide` fields. They determine whether the system can reliably assemble knowledge points, examples, and exercises later.
+SOP document generation is most likely to fail when it “finds the text but does not know which section or evidence role it belongs to.” When looking at the diagram, focus on the `topic`, `content_type`, `source_origin`, and `page_or_slide` fields. They determine whether the system can reliably assemble policies, cases, checklists, and citations later.
 :::
 
-## A knowledge chunk example that looks more like a courseware project
+## A knowledge chunk example that looks more like an SOP document project
 
 ```python
-courseware_chunks = [
+sop_chunks = [
     {
-        "topic": "Discount word problems",
-        "content_type": "concept",
-        "section": "Knowledge Review",
+        "topic": "Refund escalation",
+        "content_type": "policy",
+        "section": "Policy rules",
         "page": 1,
-        "text": "Discount = original price × discount rate",
+        "text": "Duplicate billing refunds must be escalated with transaction evidence.",
     },
     {
-        "topic": "Discount word problems",
-        "content_type": "example",
-        "section": "Example Explanation",
+        "topic": "Refund escalation",
+        "content_type": "case",
+        "section": "Handled cases",
         "page": 2,
-        "text": "A product has an original price of 100 yuan. What is the price after a 20% discount?",
+        "text": "A customer was charged twice after a failed checkout. Support verified both charges and escalated to billing.",
     },
     {
-        "topic": "Discount word problems",
-        "content_type": "exercise",
-        "section": "Class Exercise",
+        "topic": "Refund escalation",
+        "content_type": "checklist",
+        "section": "Review checklist",
         "page": 3,
-        "text": "A piece of clothing costs 80 yuan originally. How much is it after a 30% discount?",
+        "text": "Confirm transaction id, payment provider status, refund window, and escalation owner.",
     },
 ]
 
-for item in courseware_chunks:
+for item in sop_chunks:
     print(item["content_type"], "->", item["text"])
 ```
 
 The most important thing beginners should notice here is:
 
-- Under the same topic, knowledge chunks should also be split into concepts, examples, and exercises
-- Then, when generating Word courseware later, the system will know what belongs in which section
+- Under the same topic, knowledge chunks should still be split into policies, handled cases, and checklists
+- Then, when generating a Word SOP later, the system will know what belongs in which section
 
 ---
 
@@ -404,10 +404,10 @@ Later it becomes hard to explain “where the answer came from.”
 
 ### Chunking only by length, not by task
 
-For courseware generation projects, this can cause:
+For SOP document generation projects, this can cause:
 
-- Example problems and solution steps to be split apart
-- Concepts and exercises to be mixed together
+- Cases and decision evidence to be split apart
+- Policies and checklists to be mixed together
 - Later assembly into a fixed document format to become unstable
 
 ---
@@ -483,7 +483,7 @@ It is a good idea to record the results in a fixed format every time you try a c
 | Sentence-based chunking | 1 sentence per chunk | Simple, precise retrieval | Many pieces of evidence are incomplete | Only suitable for short FAQ |
 | Sliding window | 2–4 sentences, overlap 1 | Less likely to cut context apart | More chunks overall | Good as a baseline |
 | Heading-based chunking | Group content under H2/H3 headings | Preserves structure | Long sections may become too large | Suitable for tutorials and documents |
-| Content-type-based chunking | Separate concepts / examples / exercises | Good for courseware generation | Requires parsing or labeling | Suitable for structured projects |
+| Content-type-based chunking | Separate policies / cases / checklists | Good for SOP document generation | Requires parsing or labeling | Suitable for structured projects |
 
 If you do not know where to start, it is recommended to use “heading hierarchy + sliding window” as your baseline, and then adjust based on an evaluation set.
 
@@ -515,7 +515,7 @@ So document cleaning, chunking, metadata, and vectorization are all steps that m
 1. Adjust `chunk_size` and `overlap`, and observe how the chunking results change.
 2. Add a text item completely unrelated to refunds into `chunks`, then look at the retrieval score ranking again.
 3. Think about this: if a policy clause spans two paragraphs, how should you design the chunks so that important information is not cut apart?
-4. If your goal is courseware generation, think about why concepts, examples, and exercises should not all use exactly the same chunking strategy.
+4. If your goal is SOP document generation, think about why policies, handled cases, and checklist items should not all use exactly the same chunking strategy.
 
 <details>
 <summary>Reference implementation and walkthrough</summary>
@@ -523,6 +523,6 @@ So document cleaning, chunking, metadata, and vectorization are all steps that m
 1. Smaller chunks are easier to retrieve precisely but may lose context. Larger chunks preserve more context but can dilute the signal. Overlap helps keep boundary information from being lost.
 2. The unrelated text should rank low for refund questions. If it ranks high, the embedding or scoring method is not distinguishing intent well enough.
 3. Use semantic boundaries first, then overlap or parent-child chunks for clauses that span paragraphs. The goal is for each retrievable unit to contain enough information to support an answer.
-4. Concepts usually need compact definitions, examples need complete problem context, and exercises need instructions plus constraints. Using one chunking rule for all of them can either cut examples apart or make concept retrieval too noisy.
+4. Policies need complete conditions and exceptions, cases need evidence and outcomes, and checklists need clear operational checks. Using one chunking rule for all of them can cut decision evidence apart or make policy retrieval too noisy.
 
 </details>

@@ -221,13 +221,13 @@ This is the minimal form of “similarity search + business filtering”.
 
 ---
 
-## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant”, What Metadata Should You Include at Minimum?
+## If Your Goal Is a “Knowledge-Base-Driven SOP Document Assistant”, What Metadata Should You Include at Minimum?
 
 In this kind of project, the vector database is not only used for “finding semantically similar content”;
 it also has to support:
 
 - Filtering by topic
-- Filtering by concept / example / practice
+- Filtering by policy / case / checklist
 - Filtering by internal / external sources
 - Source traceability later on
 
@@ -236,23 +236,23 @@ So for beginners, a minimal metadata set often looks like this:
 | Field | What it helps you do |
 |---|---|
 | `topic` | Route by current topic |
-| `content_type` | Distinguish concepts / examples / exercises |
+| `content_type` | Distinguish policies / handled cases / checklists |
 | `source_origin` | Distinguish internal / external materials |
 | `page_or_slide` | Cite the source during generation |
-| `grade` | Filter by suitable grade level or audience |
+| `team` | Filter by support team or audience |
 
 A very small record object can be written like this first:
 
 ```python
 record = {
     "id": "doc_001_chunk_03",
-    "text": "If a product originally costs 100 yuan and is discounted by 20%, what is the price?",
+    "text": "If duplicate billing is confirmed after the refund window, escalate to billing support with transaction evidence.",
     "metadata": {
-        "topic": "discount word problems",
-        "content_type": "example",
+        "topic": "refund escalation",
+        "content_type": "case",
         "source_origin": "internal",
         "page_or_slide": 3,
-        "grade": "upper primary",
+        "team": "support ops",
     },
 }
 
@@ -261,7 +261,7 @@ print(record)
 
 The most important thing for beginners to notice here is:
 
-- The vector database layer is already quietly deciding whether the later courseware can be assembled reliably
+- The vector database layer is already quietly deciding whether the later SOP document can be assembled reliably
 
 ## What Is the Difference Between Exact Search and Approximate Search?
 

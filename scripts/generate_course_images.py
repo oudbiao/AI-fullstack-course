@@ -27476,6 +27476,142 @@ for job in IMAGE_JOBS:
         job["alt"] = sop_assistant_meta["alt"]
         job.pop("allow_landscape", None)
 
+
+CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_PROMPTS = {
+    "ch08-courseware-chunk-metadata-schema-map.png": """
+生成一张完整的竖版 9:16 简体中文教学位图，用于 AI 全栈课程第 8 章 RAG 文档处理小节。
+这是最终图片，不要留空给后期叠字，不要仿 SVG，不要白底圆角流程框，不要纯文字海报。
+
+可见标题必须是："SOP 文档知识块 schema"
+可见副标题必须是："元数据决定证据能否被放对位置。"
+
+风格：温暖的运营笔记纸信息图，像支持运营团队在横线纸上整理文档证据。深蓝线条、绿色通过标记、橙色复核标记、紫色结构箭头。中英日三版必须同构：同一纵向布局、同一阅读顺序、同一字段位置、同一颜色节奏。
+
+固定布局从上到下：
+1. 顶部是一个大卡片，标题 "SOP chunk card"。
+2. 大卡片内部必须清楚列出字段：text、topic、content_type、source_origin、page_or_slide、source_refs、audience。
+3. 字段旁边给一组短值：topic = 退款升级、content_type = case、source_origin = internal、page_or_slide = 3、source_refs = refund_policy.pdf、audience = support ops。
+4. 中部画一条映射箭头，标签 "content_type 决定栏目"。
+5. 右侧四个输出槽依次写：policy、case、checklist、note。其中 case 槽用绿色高亮，表示当前 chunk 应放入案例栏目。
+6. 底部画 Word template 托盘，输出文件写 "SOP draft.docx"，下面四个小 section chip：policy、case、checklist、citations。
+7. 最底部规则条必须写："不要只存裸文本；要保存来源和证据角色。"
+
+语言规则：
+- 解释性文字必须是自然简体中文。
+- 允许保留的英文/代码 token 仅限：SOP、chunk、schema、text、topic、content_type、source_origin、page_or_slide、source_refs、audience、case、policy、checklist、note、Word template、SOP draft.docx、refund_policy.pdf、support ops、internal、citations。
+- 文字要少而大，能在手机上看清。
+
+准确性规则：
+- 只表现支持运营 SOP 文档系统和退款升级案例，不要画学校、数学、课堂、学生、黑板、试卷、练习题或课件。
+- 不要出现折扣、价格计算、概念块、例题块、exercise block、courseware、lesson、grade。
+- 教学重点必须可见：chunk 不是裸文本，metadata 让系统知道来源、主题、证据类型，以及该放进 SOP 的哪个栏目。
+""".strip(),
+    "ch08-courseware-chunk-metadata-schema-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course Chapter 8 RAG document-processing lesson.
+This is the finished image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a pure text poster.
+
+Visible title exactly: "SOP Chunk Metadata Schema"
+Visible subtitle exactly: "Metadata tells the system where evidence belongs."
+
+Style: a warm operations-notebook infographic on lined paper, as if a support ops team is organizing document evidence. Use dark navy lines, green pass marks, amber review marks, and purple structure arrows. The Simplified Chinese, English, and Japanese variants must share the same vertical layout, reading order, field positions, and color rhythm.
+
+Required layout, top to bottom:
+1. Top large card titled exactly "SOP chunk card".
+2. Inside the large card, clearly list these fields: text, topic, content_type, source_origin, page_or_slide, source_refs, audience.
+3. Next to the fields, show short values: topic = Refund escalation, content_type = case, source_origin = internal, page_or_slide = 3, source_refs = refund_policy.pdf, audience = support ops.
+4. Middle mapping arrow labeled exactly "content_type chooses section".
+5. Right side has four output slots, in this order: policy, case, checklist, note. Highlight the case slot in green to show that the current chunk belongs in the case section.
+6. Bottom Word template tray with output file exactly "SOP draft.docx", plus four section chips: policy, case, checklist, citations.
+7. Bottom rule strip exactly: "Do not store bare text; keep source and evidence role."
+
+Language rules:
+- All explanatory text must be natural English.
+- Text must be sparse, large, and readable on a phone.
+
+Critical accuracy rules:
+- Show only a support operations SOP document system and refund escalation case. Do not draw school, math, classroom, students, blackboards, worksheets, exercises, or courseware.
+- Do not show discounts, price calculations, concept blocks, example blocks, exercise blocks, courseware, lessons, or grade levels.
+- The teaching point must be visual: a chunk is not bare text; metadata tells the system the source, topic, evidence type, and which SOP section should receive it.
+""".strip(),
+    "ch08-courseware-chunk-metadata-schema-map-ja.png": """
+AI フルスタック講座 第 8 章 RAG 文書処理セクション用の、縦長 9:16 の日本語教材ビットマップを 1 枚作成する。
+これは完成画像です。後から文字を重ねる空白を残さない。SVG 風、白い角丸フローチャート、文字だけのポスターにはしない。
+
+可視タイトルは正確に："SOP 文書チャンク schema"
+可視サブタイトルは正確に："metadata が根拠の配置を決める。"
+
+スタイル：横線紙の上に描いた、温かい運用ノート型インフォグラフィック。サポート運用チームが文書根拠を整理している雰囲気。濃紺の線、緑の合格マーク、橙色の確認マーク、紫の構造矢印。中国語版・英語版・日本語版は、同じ縦型レイアウト、同じ読順、同じフィールド位置、同じ色のリズムにする。
+
+固定レイアウト、上から下へ：
+1. 上部に大きなカード。タイトルは "SOP chunk card"。
+2. 大カード内に必ずフィールドを並べる：text、topic、content_type、source_origin、page_or_slide、source_refs、audience。
+3. フィールド横に短い値を置く：topic = 返金エスカレーション、content_type = case、source_origin = internal、page_or_slide = 3、source_refs = refund_policy.pdf、audience = support ops。
+4. 中央にマッピング矢印。ラベルは "content_type がセクションを決める"。
+5. 右側に 4 つの出力スロットを順番に置く：policy、case、checklist、note。case スロットを緑で強調し、現在の chunk はケース欄に入ると示す。
+6. 下部に Word template トレイ。出力ファイルは "SOP draft.docx"。その下に 4 つの section chip：policy、case、checklist、citations。
+7. 最下部のルール帯は正確に："裸の text だけでなく、出典と根拠ロールを保存する。"
+
+言語ルール：
+- 説明文は自然な日本語にする。
+- 許可する英語/code token は SOP、chunk、schema、metadata、text、topic、content_type、source_origin、page_or_slide、source_refs、audience、case、policy、checklist、note、Word template、SOP draft.docx、refund_policy.pdf、support ops、internal、citations のみ。
+- 文字は少なく大きく、スマートフォンでも読めること。
+
+正確性ルール：
+- サポート運用の SOP 文書システムと返金エスカレーションケースだけを表現する。学校、数学、教室、学生、黒板、問題プリント、練習問題、教材は描かない。
+- 割引、価格計算、concept block、example block、exercise block、courseware、lesson、grade level を出さない。
+- 教学ポイントを視覚化する：chunk は裸の text ではなく、metadata によって出典、テーマ、根拠タイプ、入れるべき SOP セクションが決まる。
+""".strip(),
+}
+
+CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_META = [
+    (
+        "ch08-courseware-chunk-metadata-schema-map.png",
+        "SOP 文档知识块元数据 schema 图",
+        "SOP 文档知识块元数据 schema 图：topic、content_type、source_origin、page_or_slide、source_refs 和 audience 字段支撑政策、案例、清单与引用的稳定组装。",
+    ),
+    (
+        "ch08-courseware-chunk-metadata-schema-map-en.png",
+        "SOP document chunk metadata schema diagram",
+        "SOP document chunk metadata schema: topic, content_type, source_origin, page_or_slide, source_refs, and audience fields help assemble policies, cases, checklists, and citations reliably.",
+    ),
+    (
+        "ch08-courseware-chunk-metadata-schema-map-ja.png",
+        "SOP 文書チャンクのメタデータ schema 図",
+        "SOP 文書チャンクのメタデータ schema 図：topic、content_type、source_origin、page_or_slide、source_refs、audience が、ポリシー、ケース、チェックリスト、引用の安定した組み立てを支える。",
+    ),
+]
+
+ch08_sop_chunk_metadata_schema_meta_by_filename = {
+    filename: {"title": title, "alt": alt}
+    for filename, title, alt in CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_META
+}
+existing_filenames_for_ch08_sop_chunk_metadata_schema = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_META:
+    if filename not in existing_filenames_for_ch08_sop_chunk_metadata_schema:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch08-rag/ch01-rag/02-document-processing.md",
+                "alt": alt,
+                "prompt": CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch08_sop_chunk_metadata_schema.add(filename)
+
+for job in IMAGE_JOBS:
+    filename = str(job.get("filename"))
+    chunk_schema_meta = ch08_sop_chunk_metadata_schema_meta_by_filename.get(filename)
+    if chunk_schema_meta:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+        job["suggested_page"] = "docs/ch08-rag/ch01-rag/02-document-processing.md"
+        job["title"] = chunk_schema_meta["title"]
+        job["alt"] = chunk_schema_meta["alt"]
+        job.pop("allow_landscape", None)
+
 for job in IMAGE_JOBS:
     course_qa_prompt = COURSE_QA_PROMPTS.get(str(job.get("filename")))
     if course_qa_prompt and not job.get("overlay"):
@@ -35561,6 +35697,7 @@ CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS = {
 }
 
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH08_SOP_ASSISTANT_REMAKE_PROMPTS)
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH08_SOP_CHUNK_METADATA_SCHEMA_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)

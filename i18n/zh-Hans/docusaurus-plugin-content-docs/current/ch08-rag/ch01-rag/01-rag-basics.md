@@ -424,14 +424,14 @@ for q in questions:
 
 ---
 
-## 九、如果你的目标是“知识库驱动的课件生成助手”，这节最该先抓什么？
+## 九、如果你的目标是“知识库驱动的 SOP 文档助手”，这节最该先抓什么？
 
 对这类项目来说，RAG 最关键的不是“查到一些相关文本”，
 而是查到：
 
-- 相关知识点
-- 相关例题
-- 相关练习
+- 相关政策条款
+- 相关处理案例
+- 相关复核清单
 - 以及它们分别来自哪份资料、哪一页
 
 也就是说，你的知识块最好不要只是：
@@ -441,27 +441,27 @@ for q in questions:
 而更应该至少带这些字段：
 
 ```python
-courseware_chunk = {
-    "topic": "折扣应用题",
-    "content_type": "example",
+sop_chunk = {
+    "topic": "退款升级",
+    "content_type": "case",
     "source_type": "docx",
     "page_or_slide": 3,
-    "text": "商品原价 100 元，打 8 折后价格是多少？",
+    "text": "如果退款窗口已过，但已确认重复扣费，应带着证据升级给 billing support。",
 }
 
-print(courseware_chunk)
+print(sop_chunk)
 ```
 
 预期输出：
 
 ```text
-{'topic': '折扣应用题', 'content_type': 'example', 'source_type': 'docx', 'page_or_slide': 3, 'text': '商品原价 100 元，打 8 折后价格是多少？'}
+{'topic': '退款升级', 'content_type': 'case', 'source_type': 'docx', 'page_or_slide': 3, 'text': '如果退款窗口已过，但已确认重复扣费，应带着证据升级给 billing support。'}
 ```
 
 这会直接影响后面能不能：
 
-- 按主题召回例题
-- 把概念、例题、练习分开组织
+- 按主题召回处理案例
+- 把政策、案例、清单分开组织
 - 在最终 Word 里保留来源说明
 
 ## 十、内部资料和外部资料在 RAG 里应该怎么分工？
@@ -471,8 +471,8 @@ print(courseware_chunk)
 
 | 资料类型 | 更适合负责什么 |
 |---|---|
-| 内部资料 | 主知识点、例题、企业或课程内部规范 |
-| 外部资料 | 新题型、背景补充、最新公开信息 |
+| 内部资料 | 官方政策表述、升级规则、已确认的处理案例 |
+| 外部资料 | 公开背景、市场说明，或只作为补充的参考案例 |
 
 也就是说，RAG 在这种项目里很重要的一层判断是：
 

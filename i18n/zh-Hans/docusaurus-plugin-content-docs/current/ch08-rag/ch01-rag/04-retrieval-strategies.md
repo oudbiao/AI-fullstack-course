@@ -296,39 +296,39 @@ Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rer
 
 ---
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，检索策略该怎么想？
+## 八、如果你的目标是“知识库驱动的 SOP 文档助手”，检索策略该怎么想？
 
 这类项目里，检索不只是“找到相关内容”，
 而是更像在做两层选择：
 
 1. 先决定从内部资料找，还是从外部资料补
-2. 再决定要找知识点、例题，还是练习题
+2. 再决定要找政策、处理案例，还是复核清单
 
 所以很适合先把检索条件写成这种样子：
 
 | 条件 | 它在帮你控制什么 |
 |---|---|
 | `topic` | 当前主题 |
-| `content_type` | 概念 / 例题 / 练习 |
+| `content_type` | 政策 / 案例 / 清单 |
 | `source_origin` | 内部资料 / 外部资料 |
-| `grade` | 年级或适用对象 |
+| `team` | 支持团队或适用对象 |
 
 你可以先把这条线记成一句话：
 
-> **课件生成项目里的检索，不只是“找相关”，而是“按栏目找对资料”。**
+> **SOP 文档项目里的检索，不只是“找相关”，而是“按栏目找对证据”。**
 
 一个最小过滤示例可以先写成：
 
 ```python
 items = [
-    {"topic": "折扣应用题", "content_type": "concept", "source_origin": "internal", "text": "折扣 = 原价 × 折扣率"},
-    {"topic": "折扣应用题", "content_type": "example", "source_origin": "internal", "text": "商品原价 100 元，打 8 折后是多少元？"},
-    {"topic": "折扣应用题", "content_type": "note", "source_origin": "external", "text": "外部资料补充：折扣常见误区。"},
+    {"topic": "退款升级", "content_type": "policy", "source_origin": "internal", "text": "重复扣费退款必须带交易证据升级处理。"},
+    {"topic": "退款升级", "content_type": "case", "source_origin": "internal", "text": "客服核对失败结账后的两笔成功扣款，并将案例升级给 billing。"},
+    {"topic": "退款升级", "content_type": "note", "source_origin": "external", "text": "外部资料补充：支付渠道可能显示临时授权占用。"},
 ]
 
 hits = [
     x for x in items
-    if x["topic"] == "折扣应用题" and x["content_type"] in {"concept", "example"}
+    if x["topic"] == "退款升级" and x["content_type"] in {"policy", "case"}
 ]
 
 for hit in hits:
@@ -338,8 +338,8 @@ for hit in hits:
 预期输出：
 
 ```text
-{'topic': '折扣应用题', 'content_type': 'concept', 'source_origin': 'internal', 'text': '折扣 = 原价 × 折扣率'}
-{'topic': '折扣应用题', 'content_type': 'example', 'source_origin': 'internal', 'text': '商品原价 100 元，打 8 折后是多少元？'}
+{'topic': '退款升级', 'content_type': 'policy', 'source_origin': 'internal', 'text': '重复扣费退款必须带交易证据升级处理。'}
+{'topic': '退款升级', 'content_type': 'case', 'source_origin': 'internal', 'text': '客服核对失败结账后的两笔成功扣款，并将案例升级给 billing。'}
 ```
 
 这个例子特别适合新人，因为它会让你先看到：

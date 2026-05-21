@@ -221,13 +221,13 @@ for score, text in sorted(filtered_results, reverse=True):
 
 ---
 
-## 五、如果你的目标是“知识库驱动的课件生成助手”，元数据至少要带哪些？
+## 五、如果你的目标是“知识库驱动的 SOP 文档助手”，元数据至少要带哪些？
 
 这类项目里，向量数据库不只是拿来“语义找相似”，
 还要支撑后面：
 
 - 按主题筛
-- 按概念 / 例题 / 练习筛
+- 按政策 / 案例 / 清单筛
 - 按内部资料 / 外部资料筛
 - 最后做来源回溯
 
@@ -236,23 +236,23 @@ for score, text in sorted(filtered_results, reverse=True):
 | 字段 | 它在帮你做什么 |
 |---|---|
 | `topic` | 当前主题路由 |
-| `content_type` | 区分概念 / 例题 / 练习 |
+| `content_type` | 区分政策 / 处理案例 / 复核清单 |
 | `source_origin` | 区分内部资料 / 外部资料 |
 | `page_or_slide` | 生成时引用来源 |
-| `grade` | 过滤适用年级或对象 |
+| `team` | 过滤支持团队或适用对象 |
 
 一个很小的记录对象可以先写成：
 
 ```python
 record = {
     "id": "doc_001_chunk_03",
-    "text": "商品原价 100 元，打 8 折后价格是多少？",
+    "text": "如果确认重复扣费且退款窗口已过，应带交易证据升级给 billing support。",
     "metadata": {
-        "topic": "折扣应用题",
-        "content_type": "example",
+        "topic": "退款升级",
+        "content_type": "case",
         "source_origin": "internal",
         "page_or_slide": 3,
-        "grade": "小学高年级",
+        "team": "support ops",
     },
 }
 
@@ -261,7 +261,7 @@ print(record)
 
 这个例子最值得新人注意的是：
 
-- 向量库这一层其实已经在悄悄决定后面课件能不能稳定组装
+- 向量库这一层其实已经在悄悄决定后面的 SOP 文档能不能稳定组装
 
 ## 六、精确搜索和近似搜索有什么区别？
 

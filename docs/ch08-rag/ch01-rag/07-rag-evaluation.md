@@ -326,44 +326,44 @@ A mature RAG system is usually evaluated with both offline evaluation and online
 
 ---
 
-## If your goal is a “knowledge-base-driven courseware generation assistant,” what should the evaluation set focus on?
+## If your goal is a “knowledge-base-driven SOP document assistant,” what should the evaluation set focus on?
 
 This kind of project is not quite the same as a normal Q&A system.
 You are not only concerned with whether the answer sounds right. You also need to care about:
 
-- Whether the topic materials were retrieved correctly
-- Whether the practice questions were selected correctly
-- Whether the final section was placed in the right position
+- Whether the policy materials were retrieved correctly
+- Whether the handled cases were selected correctly
+- Whether the checklist and final section were placed in the right position
 - Whether the source can be traced back
 
 So the evaluation table that fits this kind of project usually needs at least one more layer:
 
 | Dimension | What it is closer to checking |
 |---|---|
-| Topic hit | Whether the core materials for this topic were found |
-| Example retrieval | Whether materials suitable as teaching examples were found |
-| Structural correctness | Whether concepts, examples, and exercises were placed in the right sections |
+| Policy hit | Whether the official policy materials for this topic were found |
+| Case retrieval | Whether suitable handled cases were found |
+| Structural correctness | Whether policies, cases, and checklists were placed in the right sections |
 | Source completeness | Whether the final output can be traced back to the original materials |
 
 You can think of it like this:
 
-> **Evaluation for a courseware generation project is not just “answering correctly,” but “finding correctly, placing correctly, and citing correctly.”**
+> **Evaluation for an SOP document project is not just “answering correctly,” but “finding correctly, placing correctly, and citing correctly.”**
 
-## A minimal evaluation example that looks more like a courseware generation project
+## A minimal evaluation example that looks more like an SOP document project
 
 ```python
 dataset = [
     {
-        "topic": "Discount word problems",
-        "gold_concepts": ["Discount = original price × discount rate"],
-        "gold_examples": ["If a product costs 100 yuan and is discounted to 80%, what is the final price?"],
+        "topic": "Refund escalation",
+        "gold_policies": ["Duplicate billing refunds must be escalated with transaction evidence."],
+        "gold_cases": ["A duplicate charge after failed checkout was escalated to billing with payment evidence."],
     }
 ]
 
 prediction = {
-    "concepts": ["Discount = original price × discount rate"],
-    "examples": ["If a product costs 100 yuan and is discounted to 80%, what is the final price?"],
-    "source_refs": [{"doc_id": "word_001", "page_or_slide": 3}],
+    "policies": ["Duplicate billing refunds must be escalated with transaction evidence."],
+    "cases": ["A duplicate charge after failed checkout was escalated to billing with payment evidence."],
+    "source_refs": [{"doc_id": "refund_policy_001", "page_or_slide": 3}],
 }
 
 print(dataset[0])
@@ -373,8 +373,8 @@ print(prediction)
 Expected output:
 
 ```text
-{'topic': 'Discount word problems', 'gold_concepts': ['Discount = original price × discount rate'], 'gold_examples': ['If a product costs 100 yuan and is discounted to 80%, what is the final price?']}
-{'concepts': ['Discount = original price × discount rate'], 'examples': ['If a product costs 100 yuan and is discounted to 80%, what is the final price?'], 'source_refs': [{'doc_id': 'word_001', 'page_or_slide': 3}]}
+{'topic': 'Refund escalation', 'gold_policies': ['Duplicate billing refunds must be escalated with transaction evidence.'], 'gold_cases': ['A duplicate charge after failed checkout was escalated to billing with payment evidence.']}
+{'policies': ['Duplicate billing refunds must be escalated with transaction evidence.'], 'cases': ['A duplicate charge after failed checkout was escalated to billing with payment evidence.'], 'source_refs': [{'doc_id': 'refund_policy_001', 'page_or_slide': 3}]}
 ```
 
 This example is very small, but it helps beginners build the right evaluation intuition:
@@ -464,14 +464,14 @@ How do I get a certificate?,Certificate Guide,You can get a certificate after co
 
 The key point of this template is not the number of fields, but that each sample can answer three questions: what should have been hit, what was actually hit, and whether the final answer was supported by evidence.
 
-## Acceptance rubric for courseware-generation RAG
+## Acceptance rubric for SOP-document RAG
 
-If the project goal is to generate courseware or learning materials, evaluation should not stop at the Q&A level. The rubric below can be used as an acceptance checklist for a portfolio project.
+If the project goal is to generate SOP documents or internal operating docs, evaluation should not stop at the Q&A level. The rubric below can be used as an acceptance checklist for a portfolio project.
 
 | Level | Retrieval requirement | Generation requirement | Citation requirement |
 |---|---|---|---|
 | Practice level | Can hit topic-related materials | Can generate basic answers or snippets | Can display the source filename |
-| Project level | Can retrieve concepts, examples, and exercises by topic and content type | Can organize output into fixed sections | Each key section has a source |
+| Project level | Can retrieve policies, cases, and checklists by topic and content type | Can organize output into fixed SOP sections | Each key section has a source |
 | Portfolio level | Has a fixed evaluation set and failure samples | Can explain which failures came from retrieval, generation, or templates | Key conclusions can be traced line by line to the source text |
 | Interview level | Can compare baseline, hybrid retrieval, reranking, and other strategies | Can explain the trade-offs among quality, cost, and latency | Can perform citation authenticity spot checks and record improvements |
 

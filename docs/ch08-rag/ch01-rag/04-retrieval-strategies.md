@@ -301,39 +301,39 @@ You can consider:
 
 ---
 
-## If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” How Should You Think About Retrieval Strategy?
+## If Your Goal Is a “Knowledge-Base-Driven SOP Document Assistant,” How Should You Think About Retrieval Strategy?
 
 In this kind of project, retrieval is not just about “finding relevant content,”
 but more like making two layers of choices:
 
 1. First decide whether to search internal materials or supplement with external materials
-2. Then decide whether to search for concepts, example problems, or practice questions
+2. Then decide whether to search for policies, handled cases, or checklist items
 
 So it is a good idea to express retrieval conditions like this first:
 
 | Condition | What It Helps You Control |
 |---|---|
 | `topic` | Current topic |
-| `content_type` | Concept / Example / Practice |
+| `content_type` | Policy / Case / Checklist |
 | `source_origin` | Internal materials / External materials |
-| `grade` | Grade level or target audience |
+| `team` | Support team or target audience |
 
 You can remember this line first:
 
-> **Retrieval in a courseware generation project is not just “find related content,” but “find the right materials by category.”**
+> **Retrieval in an SOP document project is not just “find related content,” but “find the right evidence for the right section.”**
 
 A minimal filtering example can be written like this first:
 
 ```python
 items = [
-    {"topic": "discount word problems", "content_type": "concept", "source_origin": "internal", "text": "Discount = original price × discount rate"},
-    {"topic": "discount word problems", "content_type": "example", "source_origin": "internal", "text": "If a product costs 100 yuan and is discounted by 20%, how much is it?"},
-    {"topic": "discount word problems", "content_type": "note", "source_origin": "external", "text": "External material supplement: common misconceptions about discounts."},
+    {"topic": "refund escalation", "content_type": "policy", "source_origin": "internal", "text": "Duplicate billing refunds must be escalated with transaction evidence."},
+    {"topic": "refund escalation", "content_type": "case", "source_origin": "internal", "text": "Support verified two successful charges after a failed checkout and escalated the case to billing."},
+    {"topic": "refund escalation", "content_type": "note", "source_origin": "external", "text": "External note: payment providers may show temporary authorization holds."},
 ]
 
 hits = [
     x for x in items
-    if x["topic"] == "discount word problems" and x["content_type"] in {"concept", "example"}
+    if x["topic"] == "refund escalation" and x["content_type"] in {"policy", "case"}
 ]
 
 for hit in hits:
@@ -343,8 +343,8 @@ for hit in hits:
 Expected output:
 
 ```text
-{'topic': 'discount word problems', 'content_type': 'concept', 'source_origin': 'internal', 'text': 'Discount = original price × discount rate'}
-{'topic': 'discount word problems', 'content_type': 'example', 'source_origin': 'internal', 'text': 'If a product costs 100 yuan and is discounted by 20%, how much is it?'}
+{'topic': 'refund escalation', 'content_type': 'policy', 'source_origin': 'internal', 'text': 'Duplicate billing refunds must be escalated with transaction evidence.'}
+{'topic': 'refund escalation', 'content_type': 'case', 'source_origin': 'internal', 'text': 'Support verified two successful charges after a failed checkout and escalated the case to billing.'}
 ```
 
 This example is especially suitable for beginners, because it lets you see first that:

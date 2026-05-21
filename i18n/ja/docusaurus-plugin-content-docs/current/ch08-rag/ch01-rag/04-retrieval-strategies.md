@@ -296,39 +296,39 @@ Query Rewrite は検索の前に行い、ユーザーの質問を探しやすく
 
 ---
 
-## 八、目標が「ナレッジベース駆動の教材生成アシスタント」なら、検索戦略はどう考えるべきか？
+## 八、目標が「知識ベース駆動の SOP 文書アシスタント」なら、検索戦略はどう考えるべきか？
 
 この種のプロジェクトでは、検索は単に「関連する内容を見つける」ことではありません。  
 むしろ、2 段階の選択のようなものです。
 
 1. まず、内部資料を見るか、外部資料で補うかを決める
-2. 次に、知識ポイントを探すのか、例題を探すのか、練習問題を探すのかを決める
+2. 次に、ポリシーを探すのか、対応ケースを探すのか、チェックリストを探すのかを決める
 
 そのため、検索条件は次のように整理するとよいです。
 
 | 条件 | 何を制御するか |
 |---|---|
 | `topic` | 現在のテーマ |
-| `content_type` | 概念 / 例題 / 練習 |
+| `content_type` | ポリシー / ケース / チェックリスト |
 | `source_origin` | 内部資料 / 外部資料 |
-| `grade` | 学年や対象者 |
+| `team` | サポートチームや対象者 |
 
 この線は、まず次の一文として覚えるとよいです。
 
-> **教材生成プロジェクトの検索は、単に「関連を探す」のではなく、「欄ごとに合う資料を探す」ことです。**
+> **SOP 文書プロジェクトの検索は、単に「関連を探す」のではなく、「セクションごとに合う証拠を探す」ことです。**
 
 最小のフィルター例は、まず次のように書けます。
 
 ```python
 items = [
-    {"topic": "割引の応用問題", "content_type": "concept", "source_origin": "internal", "text": "割引 = 定価 × 割引率"},
-    {"topic": "割引の応用問題", "content_type": "example", "source_origin": "internal", "text": "商品が 100 円で、2 割引の後はいくらになりますか？"},
-    {"topic": "割引の応用問題", "content_type": "note", "source_origin": "external", "text": "外部資料の補足：割引のよくある誤解。"},
+    {"topic": "返金エスカレーション", "content_type": "policy", "source_origin": "internal", "text": "重複請求の返金は、取引証拠を添えてエスカレーションする必要がある。"},
+    {"topic": "返金エスカレーション", "content_type": "case", "source_origin": "internal", "text": "サポートは決済失敗後の 2 件の成功請求を確認し、billing にエスカレーションした。"},
+    {"topic": "返金エスカレーション", "content_type": "note", "source_origin": "external", "text": "外部メモ：決済プロバイダでは一時的なオーソリ保留が表示される場合がある。"},
 ]
 
 hits = [
     x for x in items
-    if x["topic"] == "割引の応用問題" and x["content_type"] in {"concept", "example"}
+    if x["topic"] == "返金エスカレーション" and x["content_type"] in {"policy", "case"}
 ]
 
 for hit in hits:
@@ -338,8 +338,8 @@ for hit in hits:
 期待される出力：
 
 ```text
-{'topic': '割引の応用問題', 'content_type': 'concept', 'source_origin': 'internal', 'text': '割引 = 定価 × 割引率'}
-{'topic': '割引の応用問題', 'content_type': 'example', 'source_origin': 'internal', 'text': '商品が 100 円で、2 割引の後はいくらになりますか？'}
+{'topic': '返金エスカレーション', 'content_type': 'policy', 'source_origin': 'internal', 'text': '重複請求の返金は、取引証拠を添えてエスカレーションする必要がある。'}
+{'topic': '返金エスカレーション', 'content_type': 'case', 'source_origin': 'internal', 'text': 'サポートは決済失敗後の 2 件の成功請求を確認し、billing にエスカレーションした。'}
 ```
 
 この例は特に初心者に向いています。なぜなら、次のことが分かるからです。
