@@ -2,7 +2,7 @@
 title: "8.5.1 プロジェクトロードマップ：引用付き知識助手を作る"
 sidebar_position: 0
 description: "第 8 章キャップストーンの短い実践ロードマップ：引用付き RAG または LLM アプリを作り、検索ログ、失敗処理、評価、デプロイメモを残す。"
-keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, courseware generation assistant]
+keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, SOP document assistant]
 ---
 
 # 8.5.1 プロジェクトロードマップ：引用付き知識助手を作る
@@ -63,7 +63,7 @@ evidence: docs, eval, citations, failures
 | 1 | 企業またはコース知識ベース | 検索、権限、引用、追跡可能な回答 |
 | 2 | 知的アシスタント | 検索、セッション状態、ツール呼び出しをプロダクト機能にする |
 | 3 | RAG + 微調整システム | 知識不足と振る舞い不安定を分ける |
-| 4 | 教材生成助手 | 文書解析、構造化出力、テンプレート描画 |
+| 4 | SOP 文書アシスタント | 文書解析、構造化出力、テンプレート描画 |
 | 5 | フル実践ワークショップ | 実 API や DB を足す前の最小再現ループ |
 
 ガイド付き baseline が必要なら、[8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./05-stage-hands-on-workshop.md) から始めます。

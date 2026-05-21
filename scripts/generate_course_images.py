@@ -27243,6 +27243,239 @@ for filename, title, suggested_page, alt in COURSE_QA_IMAGE_JOB_META:
         )
         existing_course_qa_filenames.add(filename)
 
+CH08_SOP_ASSISTANT_REMAKE_PROMPTS = {
+    "courseware-assistant-workflow.png": """
+生成一张完整的竖版 9:16 简体中文教学位图，用于 AI 全栈课程的第 8 章项目页。
+这是最终图片，不要留空给后期叠字，不要仿 SVG，不要白底圆角流程框，不要纯文字海报。
+
+可见标题必须是："SOP 文档助手工作流"
+可见副标题必须是："从事件主题到带来源的 Word SOP 草稿。"
+
+风格：温暖的纸质运营工作台，浅色横线笔记纸、蓝色分隔线、绿色通过章、橙色待复核标记。中英日三版必须保持同构：同一镜头、同一阅读顺序、同一物体位置、同一颜色节奏。
+
+固定布局从上到下：
+1. 输入区：标签 "事件主题"，值 "退款升级"。
+2. 资料区：一组内部政策资料卡，文件名只写 refund_policy.pdf、billing_runbook.docx、support_cases.pptx。
+3. 检索门：大标签 "retrieval"，三枚检索条件 chip：topic、content_type、source_refs；旁边写 "内部政策优先"。
+4. 抽取区：三张结果卡，标题分别是 "政策摘要"、"处理案例"、"复核清单"。
+5. 结构托盘：标签 "SOP schema"，字段只写 title、audience、document_goal、sections、source_refs。
+6. 导出区：标签 "Word 模板导出"，输出文件卡写 "SOP 草稿"。
+7. 底部规则条必须写："先生成结构化证据，再渲染文档。"
+
+语言规则：
+- 解释性文字必须是自然简体中文。
+- 允许保留的英文/代码 token 仅限：SOP、PDF、Word、PPT、retrieval、topic、content_type、source_refs、SOP schema、title、audience、document_goal、sections、refund_policy.pdf、billing_runbook.docx、support_cases.pptx。
+- 文字要少而大，能在手机上看清。
+
+准确性规则：
+- 只表现支持运营和退款升级 SOP，不要画学校、数学、课堂、学生、黑板、试卷或教学题。
+- 不要虚构指标、价格、延迟、模型名、品牌 logo、数据库名或服务器截图。
+- 教学重点必须可见：主题进入系统，政策资料被检索和抽取，结构化 SOP schema 进入 Word 模板。
+""".strip(),
+    "courseware-assistant-workflow-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course Chapter 8 project page.
+This is the finished image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a pure text poster.
+
+Visible title exactly: "SOP Document Assistant Workflow"
+Visible subtitle exactly: "From incident topic to a sourced Word SOP draft."
+
+Style: a warm paper operations workbench on light lined notebook paper, blue dividers, green pass stamps, and amber review marks. The Simplified Chinese, English, and Japanese variants must share the same camera angle, reading order, object positions, and color rhythm.
+
+Required layout, top to bottom:
+1. Input area: label exactly "incident topic", value exactly "Refund escalation".
+2. Document area: internal policy file cards with only these filenames: refund_policy.pdf, billing_runbook.docx, support_cases.pptx.
+3. Retrieval gate: large label "retrieval"; three condition chips: topic, content_type, source_refs; nearby note exactly "internal policy first".
+4. Extraction area: three result cards titled exactly "policy summary", "worked case", "review checklist".
+5. Structure tray: label exactly "SOP schema"; fields only: title, audience, document_goal, sections, source_refs.
+6. Export area: label exactly "Word template export"; output file card exactly "SOP draft".
+7. Bottom rule strip exactly: "Generate structured evidence first, then render the document."
+
+Language rules:
+- All explanatory text must be English.
+- Text must be sparse, large, and readable on a phone.
+
+Critical accuracy rules:
+- Show only support operations and refund escalation SOP. Do not draw school, math, classroom, students, blackboards, worksheets, or lesson material.
+- Do not invent metrics, prices, latency, model names, brand logos, database names, or server screenshots.
+- The teaching point must be visual: topic enters the system, policy documents are retrieved and extracted, structured SOP schema enters the Word template.
+""".strip(),
+    "courseware-assistant-workflow-ja.png": """
+AI フルスタック講座 第 8 章プロジェクトページ用の、縦長 9:16 の日本語教材ビットマップを 1 枚作成する。
+これは完成画像です。後から文字を重ねる空白を残さない。SVG 風、白い角丸フローチャート、文字だけのポスターにはしない。
+
+可視タイトルは正確に："SOP 文書アシスタントのワークフロー"
+可視サブタイトルは正確に："インシデントのテーマから、出典付き Word SOP 下書きへ。"
+
+スタイル：明るい横線ノート紙の上にある、温かい紙の運用ワークベンチ。青い区切り線、緑の合格スタンプ、橙色の要確認マーク。中国語版・英語版・日本語版は、同じカメラ角度、同じ読順、同じ物体位置、同じ色のリズムにする。
+
+固定レイアウト、上から下へ：
+1. 入力エリア：ラベル "インシデントのテーマ"、値 "返金エスカレーション"。
+2. 資料エリア：内部ポリシーファイルカード。ファイル名は refund_policy.pdf、billing_runbook.docx、support_cases.pptx だけ。
+3. 検索ゲート：大ラベル "retrieval"、条件 chip は topic、content_type、source_refs の 3 つ。近くに "内部ポリシー優先"。
+4. 抽出エリア：3 枚の結果カード。タイトルは "ポリシー要約"、"対応ケース"、"確認チェックリスト"。
+5. 構造トレイ：ラベル "SOP schema"、フィールドは title、audience、document_goal、sections、source_refs のみ。
+6. 出力エリア：ラベル "Word テンプレート出力"、出力ファイルカードは "SOP 下書き"。
+7. 下部ルール帯は正確に："先に構造化された根拠を作り、それから文書を描画する。"
+
+言語ルール：
+- 説明文は自然な日本語にする。
+- 許可する英語/code token は SOP、PDF、Word、PPT、retrieval、topic、content_type、source_refs、SOP schema、title、audience、document_goal、sections、refund_policy.pdf、billing_runbook.docx、support_cases.pptx のみ。
+- 文字は少なく大きく、スマートフォンでも読めること。
+
+正確性ルール：
+- サポート運用と返金エスカレーション SOP だけを表現する。学校、数学、教室、学生、黒板、問題プリント、授業資料は描かない。
+- 指標、価格、遅延、モデル名、ブランドロゴ、DB 名、サーバー画面を作り足さない。
+- 教学ポイントを視覚化する：テーマが入り、ポリシー資料が検索・抽出され、構造化 SOP schema が Word テンプレートへ入る。
+""".strip(),
+    "ch08-courseware-assistant-production-line-map.png": """
+生成一张完整的竖版 9:16 简体中文教学位图，用于 AI 全栈课程第 8 章项目页。
+这是最终图片，不要留空给后期叠字，不要仿 SVG，不要白底圆角流程框，不要纯文字海报。
+
+可见标题必须是："SOP 文档助手生产线"
+可见副标题必须是："从政策资料库到可调试的 Word 输出链路。"
+
+风格：同一张温暖纸质工程笔记页，像把运营文档系统画成可复盘生产线。中英日三版必须同构：同一镜头、同一纵向生产线、同一站点顺序、同一颜色节奏。
+
+固定生产线从上到下：
+1. 资料入口：PDF、Word、PPT 三个文件托盘，标签 "政策资料库"。
+2. 解析站：标签 "document parsing"，输出卡写 "structured chunks"。
+3. 检索站：标签 "retrieval"，筛选 chip 写 topic、content_type、source_refs。
+4. 证据合并站：左侧写 "内部政策"，右侧写 "外部说明"，中间规则写 "内部优先，外部补充"。
+5. 结构站：标签 "SOP schema"，三张 section 卡分别写 "policy"、"case"、"checklist"。
+6. 模板站：标签 "Word template"，输出文件写 "SOP draft.docx"。
+7. 底部 QA 票据：写 "trace + evaluation"，旁边写 "每个关键条目可追溯"。
+
+语言规则：
+- 解释性文字必须是自然简体中文。
+- 允许保留的英文/代码 token 仅限：SOP、PDF、Word、PPT、document parsing、structured chunks、retrieval、topic、content_type、source_refs、SOP schema、policy、case、checklist、Word template、SOP draft.docx、trace、evaluation。
+- 文字要少而大，能在手机上看清。
+
+准确性规则：
+- 只表现支持运营 SOP 文档系统，不要画学校、数学、课堂、学生、黑板、试卷或教学题。
+- 不要虚构指标、价格、延迟、模型名、品牌 logo、数据库名或服务器截图。
+- 教学重点必须可见：每一站都留下中间产物，方便排查资料解析、检索、结构化生成和模板导出的问题。
+""".strip(),
+    "ch08-courseware-assistant-production-line-map-en.png": """
+Create one complete vertical 9:16 English teaching bitmap for an AI full-stack course Chapter 8 project page.
+This is the finished image. Do not leave blank areas for later text overlay. Do not imitate SVG, do not make a white rounded-box flowchart, and do not create a pure text poster.
+
+Visible title exactly: "SOP Document Assistant Production Line"
+Visible subtitle exactly: "From policy library to a debuggable Word output chain."
+
+Style: one warm paper engineering notebook page that draws the operations-document system as a reviewable production line. The Simplified Chinese, English, and Japanese variants must share the same camera angle, vertical production line, station order, and color rhythm.
+
+Required production line, top to bottom:
+1. Material intake: PDF, Word, PPT trays labeled exactly "policy library".
+2. Parsing station: label exactly "document parsing"; output card exactly "structured chunks".
+3. Retrieval station: label exactly "retrieval"; filter chips exactly topic, content_type, source_refs.
+4. Evidence merge station: left label exactly "internal policy", right label exactly "external notes", middle rule exactly "internal first, external supplement".
+5. Structure station: label exactly "SOP schema"; three section cards exactly "policy", "case", "checklist".
+6. Template station: label exactly "Word template"; output file exactly "SOP draft.docx".
+7. Bottom QA receipt: text exactly "trace + evaluation"; nearby note exactly "Every key item is traceable."
+
+Language rules:
+- All explanatory text must be English.
+- Text must be sparse, large, and readable on a phone.
+
+Critical accuracy rules:
+- Show only a support operations SOP document system. Do not draw school, math, classroom, students, blackboards, worksheets, or lesson material.
+- Do not invent metrics, prices, latency, model names, brand logos, database names, or server screenshots.
+- The teaching point must be visual: each station leaves an intermediate artifact so parsing, retrieval, structured generation, and template export can be debugged.
+""".strip(),
+    "ch08-courseware-assistant-production-line-map-ja.png": """
+AI フルスタック講座 第 8 章プロジェクトページ用の、縦長 9:16 の日本語教材ビットマップを 1 枚作成する。
+これは完成画像です。後から文字を重ねる空白を残さない。SVG 風、白い角丸フローチャート、文字だけのポスターにはしない。
+
+可視タイトルは正確に："SOP 文書アシスタントの生産ライン"
+可視サブタイトルは正確に："ポリシー資料庫から、デバッグできる Word 出力チェーンへ。"
+
+スタイル：温かい紙のエンジニアリングノート 1 枚に、運用文書システムをレビュー可能な生産ラインとして描く。中国語版・英語版・日本語版は、同じカメラ角度、同じ縦型生産ライン、同じステーション順、同じ色のリズムにする。
+
+固定生産ライン、上から下へ：
+1. 資料入口：PDF、Word、PPT の 3 つのトレイ。ラベルは "ポリシー資料庫"。
+2. 解析ステーション：ラベル "document parsing"、出力カード "structured chunks"。
+3. 検索ステーション：ラベル "retrieval"、filter chip は topic、content_type、source_refs。
+4. 根拠マージステーション：左に "内部ポリシー"、右に "外部ノート"、中央ルールに "内部優先、外部は補足"。
+5. 構造ステーション：ラベル "SOP schema"、3 枚の section カードは "policy"、"case"、"checklist"。
+6. テンプレートステーション：ラベル "Word template"、出力ファイル "SOP draft.docx"。
+7. 下部 QA 伝票：文字 "trace + evaluation"、近くに "重要項目はすべて追跡可能"。
+
+言語ルール：
+- 説明文は自然な日本語にする。
+- 許可する英語/code token は SOP、PDF、Word、PPT、document parsing、structured chunks、retrieval、topic、content_type、source_refs、SOP schema、policy、case、checklist、Word template、SOP draft.docx、trace、evaluation のみ。
+- 文字は少なく大きく、スマートフォンでも読めること。
+
+正確性ルール：
+- サポート運用の SOP 文書システムだけを表現する。学校、数学、教室、学生、黒板、問題プリント、授業資料は描かない。
+- 指標、価格、遅延、モデル名、ブランドロゴ、DB 名、サーバー画面を作り足さない。
+- 教学ポイントを視覚化する：各ステーションに中間成果物を残し、解析、検索、構造化生成、テンプレート出力をデバッグできるようにする。
+""".strip(),
+}
+
+CH08_SOP_ASSISTANT_REMAKE_META = [
+    (
+        "courseware-assistant-workflow.png",
+        "SOP 文档助手工作流图",
+        "SOP 文档助手工作流图：事件主题输入、政策资料检索、案例和清单抽取、结构化生成和 Word 模板导出。",
+    ),
+    (
+        "courseware-assistant-workflow-en.png",
+        "SOP document assistant workflow diagram",
+        "SOP document assistant workflow: incident topic input, policy retrieval, case and checklist extraction, structured generation, and Word template export.",
+    ),
+    (
+        "courseware-assistant-workflow-ja.png",
+        "SOP 文書アシスタントのワークフロー図",
+        "SOP 文書アシスタントのワークフロー図：インシデントテーマ入力、ポリシー資料検索、ケースとチェックリスト抽出、構造化生成、Word テンプレート出力。",
+    ),
+    (
+        "ch08-courseware-assistant-production-line-map.png",
+        "SOP 文档助手生产线图",
+        "SOP 文档助手生产线图：PDF/Word/PPT 政策资料入库，解析成知识块，检索主题、政策和案例，生成 SOP schema，再导出 Word。",
+    ),
+    (
+        "ch08-courseware-assistant-production-line-map-en.png",
+        "SOP document assistant production line diagram",
+        "SOP document assistant production line: PDF/Word/PPT policy materials are ingested, parsed into chunks, retrieved by topic and content type, converted into an SOP schema, and exported to Word.",
+    ),
+    (
+        "ch08-courseware-assistant-production-line-map-ja.png",
+        "SOP 文書アシスタントの生産ライン図",
+        "SOP 文書アシスタントの生産ライン図：PDF/Word/PPT のポリシー資料を取り込み、チャンクへ解析し、テーマと内容タイプで検索し、SOP schema に変換して Word へ出力する。",
+    ),
+]
+
+ch08_sop_assistant_meta_by_filename = {
+    filename: {"title": title, "alt": alt}
+    for filename, title, alt in CH08_SOP_ASSISTANT_REMAKE_META
+}
+existing_filenames_for_ch08_sop_assistant = {str(job.get("filename")) for job in IMAGE_JOBS}
+for filename, title, alt in CH08_SOP_ASSISTANT_REMAKE_META:
+    if filename not in existing_filenames_for_ch08_sop_assistant:
+        IMAGE_JOBS.append(
+            {
+                "filename": filename,
+                "size": DEFAULT_COURSE_IMAGE_SIZE,
+                "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+                "title": title,
+                "suggested_page": "docs/ch08-rag/ch05-projects/04-courseware-assistant.md",
+                "alt": alt,
+                "prompt": CH08_SOP_ASSISTANT_REMAKE_PROMPTS[filename],
+            }
+        )
+        existing_filenames_for_ch08_sop_assistant.add(filename)
+
+for job in IMAGE_JOBS:
+    filename = str(job.get("filename"))
+    sop_assistant_meta = ch08_sop_assistant_meta_by_filename.get(filename)
+    if sop_assistant_meta:
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
+        job["suggested_page"] = "docs/ch08-rag/ch05-projects/04-courseware-assistant.md"
+        job["title"] = sop_assistant_meta["title"]
+        job["alt"] = sop_assistant_meta["alt"]
+        job.pop("allow_landscape", None)
+
 for job in IMAGE_JOBS:
     course_qa_prompt = COURSE_QA_PROMPTS.get(str(job.get("filename")))
     if course_qa_prompt and not job.get("overlay"):
@@ -35327,6 +35560,7 @@ CH07_DOMAIN_FINETUNE_RESULT_REMAKE_PROMPTS = {
     ),
 }
 
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH08_SOP_ASSISTANT_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH06_HANDS_ON_WORKSHOP_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_LLM_CALL_WORKBENCH_TRACE_REMAKE_PROMPTS)
 IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINING_OBJECTIVE_REMAKE_PROMPTS)

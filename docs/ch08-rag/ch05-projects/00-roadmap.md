@@ -2,7 +2,7 @@
 title: "8.5.1 Project Roadmap: Build a Cited Knowledge Assistant"
 sidebar_position: 0
 description: "A concise hands-on roadmap for the Chapter 8 capstone: build a cited RAG or LLM application with retrieval logs, failure handling, evaluation, and deployment notes."
-keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, courseware generation assistant]
+keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, SOP document assistant]
 ---
 
 # 8.5.1 Project Roadmap: Build a Cited Knowledge Assistant
@@ -63,7 +63,7 @@ If `ready` is `False`, do not add another feature yet. Complete the evidence loo
 | 1 | Enterprise or course knowledge base | Retrieval, permissions, citations, traceable answers |
 | 2 | Intelligent assistant | Retrieval, session state, and tool calling as product features |
 | 3 | RAG + finetuning system | Separate missing knowledge from unstable behavior |
-| 4 | Courseware generation assistant | Document parsing, structured output, and template rendering |
+| 4 | SOP document assistant | Document parsing, structured output, and template rendering |
 | 5 | Full hands-on workshop | A minimum reproducible loop before adding real APIs or databases |
 
 If you need a guided baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md).
