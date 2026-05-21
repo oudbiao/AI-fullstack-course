@@ -468,11 +468,11 @@ plt.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-environment: Python/Node/editor/notebook version and selected interpreter/kernel
-verification: one command or notebook cell proving the setup works
-project_folder: where dependencies, scripts, and notebooks live
-failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
-Expected_output: setup screenshot or terminal output plus one fallback note
+环境：Python/Node/编辑器/Notebook 版本以及选定的解释器/内核
+验证记录：证明设置可用的一条命令或一个 Notebook 单元
+项目文件夹：依赖、脚本和 notebooks 所在位置
+失败检查：错误的解释器、缺少包、过时的 kernel，或编辑器路径不匹配
+期望产出：设置截图或终端输出加一条回退说明
 ```
 
 ## 小结
@@ -494,7 +494,7 @@ Expected_output: setup screenshot or terminal output plus one fallback note
 - [ ] **Jupyter：** 能创建 Notebook、运行代码、画图、写文档
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. Notebook 的 kernel 应该选择本课程环境，否则 import 结果可能和终端不一致。
 2. 运行所有 Cell 后，应该能看到数值输出、DataFrame 预览、折线图和 `%timeit` 对比。

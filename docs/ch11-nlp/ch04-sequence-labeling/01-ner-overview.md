@@ -289,7 +289,7 @@ Once this intuition is solid, it will be much smoother to learn NER, BiLSTM+CRF,
 4. Think about this: if an invalid `I-XXX` appears in the label sequence, how should the system handle it more robustly?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. For `2025`, use `B-TIME` if it is a one-token time entity; use `B-TIME I-TIME ...` only when the entity spans multiple tokens.
 2. BIO expresses boundaries by marking where an entity begins and which following tokens continue the same entity.

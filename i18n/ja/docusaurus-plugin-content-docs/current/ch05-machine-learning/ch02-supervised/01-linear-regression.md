@@ -164,11 +164,11 @@ PolynomialFeatures(degree=2) -> StandardScaler -> Ridge(alpha=10)
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+タスク：target 定義のある regression または classification 問題
+モデル：線形/ロジスティック/木/アンサンブル/SVM の構成と train/test 分割
+指標：回帰誤差、accuracy/F1、閾値曲線、または confusion matrix
+失敗確認: 過学習、学習不足、特徴量スケーリング、閾値選択、またはクラス不均衡
+期待される成果: モデル結果とエラーサンプル、または残差レビュー
 ```
 
 ## よくある失敗
@@ -189,7 +189,7 @@ Expected_output: model result plus error samples or residual review
 4. baseline RMSE、linear RMSE、最良モデル、残差例を短く記録する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. noise を大きくすると、RMSE は上がり、R² は下がることが多いです。同じ特徴量では、ランダムな揺らぎを説明しきれないためです。
 2. `age` を外して誤差が増えるなら、その特徴量は有用です。ほとんど変わらないなら、効果が弱いか、他の相関特徴量が同じ情報を持っている可能性があります。

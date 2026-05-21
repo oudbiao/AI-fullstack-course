@@ -72,7 +72,7 @@ Expected_output: before/after image plus the printed shape or pixel values
 You pass this chapter when you can inspect an image shape, crop a region by coordinates, explain channel order, and save one processed result for your README.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

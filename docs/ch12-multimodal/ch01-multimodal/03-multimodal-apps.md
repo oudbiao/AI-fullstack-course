@@ -336,7 +336,7 @@ Truly useful multimodal products often win through system design, not just the m
 3. Think about this: if the user uploads a blurry screenshot, how should the system prompt the user to provide more information?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. A useful `404 Not Found` branch should identify the missing route or resource, then suggest checks such as URL path, server route registration, deployment rewrite rules, and whether the backend is running.
 2. Add `material` as an attribute only if the visual signal can support it. For example, `cotton`, `leather`, or `metal` can be useful for product matching, but the assistant should mark it as uncertain when the image is low resolution or stylized.

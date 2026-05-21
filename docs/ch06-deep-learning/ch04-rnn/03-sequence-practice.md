@@ -238,7 +238,7 @@ But the workflow stays the same: define windows, protect time order, compare bas
 5. Implement a rolling forecast that feeds predictions back into the next window.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A very small window can miss useful context; a very large window may add optimization cost. The best choice is the one with lower validation MSE and stable plots.
 2. GRU may train slightly faster because it has a lighter state design. Whether it is better must be judged by validation MSE and forecast shape.

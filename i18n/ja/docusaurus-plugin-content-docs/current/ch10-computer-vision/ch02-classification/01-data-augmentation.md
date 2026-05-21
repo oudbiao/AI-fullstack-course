@@ -342,11 +342,11 @@ mixed_label: [0.7, 0.3]
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataset_split: train/test images, class names, and class balance
-prediction: label, confidence, and at least one misclassified image
-metric: accuracy, F1, confusion matrix, and class-level errors
-failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
-Expected_output: model result table and saved error examples
+データセット分割: train/test 画像、クラス名、クラスの偏り
+予測：ラベル、信頼度、そして少なくとも 1 枚の誤分類画像
+指標：accuracy、F1、confusion matrix、およびクラスごとのエラー
+失敗確認：拡張がラベルの意味を変える、クラス不均衡、リーク、または過学習
+期待される成果: モデル結果の表と保存済みのエラー例
 ```
 
 ## まとめ
@@ -377,7 +377,7 @@ Expected_output: model result table and saved error examples
 4. 検証データの結果が下がったら、まず拡張が弱すぎると疑いますか、それとも強すぎると疑いますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 単純な `vertical_flip` は `image[::-1]` や `np.flipud(image)` で実装できます。ラベルに mask や box が含まれる場合、それらも画像と同じように反転する必要があります。
 2. 向きそのものに意味があるタスクでは、回転拡張が有害になることがあります。数字、交通標識、医用画像、上下逆の例が現実的でないタスクが典型です。

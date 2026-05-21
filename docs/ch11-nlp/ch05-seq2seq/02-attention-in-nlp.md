@@ -290,7 +290,7 @@ Once you understand this clearly, learning self-attention in Transformer later w
 4. Think about it: what is the core similarity between the attention in this section and the self-attention in Transformer later?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing `query` changes which source vectors receive high attention; inspect the weights rather than only the final context vector.
 2. Seq2Seq needs dynamic input lookup because different output steps often depend on different source words.

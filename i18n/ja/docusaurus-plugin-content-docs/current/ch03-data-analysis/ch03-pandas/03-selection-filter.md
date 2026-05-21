@@ -380,7 +380,7 @@ print(top10[["orderID", "customer", "amount"]])
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 各条件をまずブールマスクにし、`&`、`|`、括弧で組み合わせます。金額範囲、カテゴリの所属、返品でない注文などは、先に名前つきマスクとして分けると読みやすくなります。
 - 顧客ごとの集計で「返品でない注文」と書かれている場合は、先にフィルタしてから `Customer` で groupby し、平均、最大、件数を集計します。
@@ -394,11 +394,11 @@ print(top10[["orderID", "customer", "amount"]])
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+データフレーム状態: 列、dtype、行数、欠損値、サンプル行
+操作：read/write、select/filter、clean、transform、groupby、merge、または時系列処理
+出力：resulting table、保存ファイル、aggregation、join結果、または時系列インデックスビュー
+失敗確認：dtype 不一致、欠損データ、重複キー、チェーン代入、または誤った時間頻度
+期待される成果：前後の表サンプルと、変換理由
 ```
 
 ## この節でいちばん持ち帰ってほしいこと

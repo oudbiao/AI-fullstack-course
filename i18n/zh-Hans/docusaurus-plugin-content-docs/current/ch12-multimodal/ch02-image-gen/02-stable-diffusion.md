@@ -379,11 +379,11 @@ Stable Diffusion 天然很适合做：
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+提示词记录：提示词、负面要求、参考、seed/model，以及版本号
+候选输出：生成或模拟的结果及选择原因
+技术备注：扩散步、潜变量、cross-attention、LoRA 或应用模式
+失败检查：提示漂移、风格不匹配、产物、版权、肖像或复核失败
+期望产出：选定图片/版本记录加被拒候选说明
 ```
 
 ## 小结
@@ -404,7 +404,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 用自己的话总结：VAE、U-Net、文本编码器各自负责什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. Stable Diffusion 在 latent space 中工作，是因为像素空间太大、计算成本太高。VAE 会把图像压缩成更小的表示，让去噪更便宜，同时尽量保留主要视觉结构。
 2. 文本编码器把文字变成引导向量；cross-attention 让去噪网络在决定如何修改图像时读取这些向量。没有文本编码器就没有语义条件，没有 cross-attention 就很难在合适的空间位置注入条件。

@@ -228,11 +228,11 @@ agglomerative_ari= 1.0
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: clustering, dimensionality reduction, or anomaly detection goal
-data_view: scaled features, projection, clusters, or anomaly scores
-interpretation: what the groups, axes, or alerts mean in the scenario
-failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
-Expected_output: unsupervised result with interpretation and uncertainty note
+任务：聚类、降维或异常检测目标
+数据视图：缩放后的特征、投影、聚类或异常分数
+解释: 该场景中各组、坐标轴或告警的含义
+失败检查：任意簇数、缩放问题、噪声维度或误报
+期望产出：带解释和不确定性说明的无监督结果
 ```
 
 ## 常见排查清单
@@ -254,7 +254,7 @@ Expected_output: unsupervised result with interpretation and uncertainty note
 5. 用不同随机种子重复聚类。分群是否稳定到可以相信？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `cluster_std` 变大后，簇会更重叠，silhouette 通常会下降，因为样本不再明显更靠近自己的簇。
 2. `K` 增大时 inertia 几乎一定会变好，因为每个点都能离某个中心更近；但 silhouette 不一定提升。如果 `K=6` 只是把自然簇切碎，silhouette 可能反而下降。

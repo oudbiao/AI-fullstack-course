@@ -80,7 +80,7 @@ decision: choose framework only after the single-agent loop is clear
 You pass this chapter when you can implement the same small task with plain functions and with one framework, then explain which version is easier to debug and why.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

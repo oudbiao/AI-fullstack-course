@@ -71,10 +71,10 @@ relu_output: 3.35
 6.1 の終わりに、次の 4 行メモを残します。
 
 ```text
-one_layer: input @ weights + bias
-nonlinearity: activation lets stacked layers model curved patterns
-training: forward -> loss -> backward -> optimizer step
-debug_first: check shape, loss, gradient, update
+一層：入力 @ 重み + バイアス
+非線形性：activation により、重ねた層が曲線的なパターンをモデル化できる
+学習フロー：forward -> loss -> backward -> optimizer step（前向き計算、損失、逆伝播、最適化ステップ）
+デバッグ最初: 形状、損失、勾配、更新を確認する
 ```
 
 このメモは、後で PyTorch、CNN、RNN、Transformer を読むときの小さな地図になります。
@@ -84,7 +84,7 @@ debug_first: check shape, loss, gradient, update
 1つの層を `input @ weights + bias` として説明し、活性化が何をするかを言え、loss、勾配、オプティマイザを1つの学習ループとしてつなげられれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

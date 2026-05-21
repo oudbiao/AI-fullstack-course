@@ -397,7 +397,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Use `inner` join when you only want matched keys, `left` join when the left table is the source of truth, and `outer` join when you need to inspect mismatches from both sides.
 - Before merging, check duplicate keys and decide the relationship: one-to-one, one-to-many, or many-to-many. Use `validate=` when possible so Pandas catches unexpected duplication.

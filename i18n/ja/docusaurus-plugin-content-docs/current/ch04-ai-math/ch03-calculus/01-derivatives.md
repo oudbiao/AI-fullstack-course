@@ -289,11 +289,11 @@ plt.show()
 このページを終えたら、この evidence card を残します。
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+関数：目的関数、損失、導関数、勾配、または連鎖律の式
+計算：数値微分、勾配更新、または backprop の trace
+出力：slope、gradient vector、更新されたパラメータ、またはlossの変化
+失敗確認: 符号ミス、学習率が大きすぎる、局所的な傾きの誤解、または chain の破損
+期待される成果：パラメータがどう変わるかを示す計算 trace
 ```
 
 ## まとめ
@@ -332,7 +332,7 @@ Sigmoid の導関数のグラフを描き、導関数の最大値がいくつか
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - `x=2` では、`3x^2+2x-1` の導関数値は `14`、`1/x` は `-0.25`、`x sin(x)` は `sin(2)+2cos(2)≈0.0770` です。
 - `f(x)=x^3-3x` では、導関数は `x=-1` と `x=1` で 0 になり、グラフ上の局所最大と局所最小に対応します。

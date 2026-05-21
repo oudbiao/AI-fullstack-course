@@ -288,7 +288,7 @@ The most important thing in this section is to build a system-level judgment:
 4. Think about it: why do face systems need to pay special attention to privacy?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A higher similarity threshold reduces false accepts but increases false rejects. A lower threshold accepts more matches but raises impersonation or mistaken-match risk.
 2. Face systems depend on thresholds because the final decision is often not a class label from the model, but a similarity score crossing a chosen boundary.

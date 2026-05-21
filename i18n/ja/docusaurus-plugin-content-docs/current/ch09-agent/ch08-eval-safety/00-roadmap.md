@@ -68,11 +68,11 @@ scorecard: task, tools, safety, trace, cost
 このページを終えたら、この証拠カードを残します。
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+評価ケース：固定タスクと期待される安全な挙動
+スコアカード: タスク成功、ツールの正確さ、trace の品質、安全性
+ガードレール：ポリシー、権限、検証、または人の確認
+失敗確認: 危険なツール使用、プロンプトインジェクション、隠れた状態、または観測されていない操作
+次の行動：ケース、ガードレール、ログ、ロールバック、または拒否パスを追加する
 ```
 
 ## 合格ライン
@@ -82,7 +82,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 出口ミニプロジェクトは、10〜20 件のタスクを含む評価セットと、少なくとも 3 つの安全ルールです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

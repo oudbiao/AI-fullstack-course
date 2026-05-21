@@ -329,11 +329,11 @@ for item in ranked:
 このページを終えたら、この evidence card を残します。
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+プロンプト記録：プロンプト、否定条件、参照、seed/model、バージョン番号
+候補出力：生成結果またはシミュレーション結果と選択理由
+技術メモ：diffusion step、latent、cross-attention、LoRA、またはアプリケーションモード
+失敗確認: プロンプトのずれ、文体不一致、成果物、著作権、肖像、またはレビュー失敗
+期待される成果: 選定した画像/版の記録と却下候補のメモ
 ```
 
 ## まとめ
@@ -356,7 +356,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 次に画像生成の新しい論文を読むとき、まずどの2つの質問をしますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. よい順位付けは製品目的によって変わります。消費者向けの創作ツールなら controllable editing が最上位になりやすく、基盤技術ならコストと速度、プロ向けメディアなら一貫性とレビューしやすさが重要になりがちです。
 2. EC では、制御された編集と同一性保持が特に重要です。商品画像では商品本体を保ちながら背景、スタイル、サイズ、場面を変える必要があるため、制御不能な品質向上より信頼できる編集の方が価値があります。

@@ -436,7 +436,7 @@ Once you look at it from a workflow perspective, it becomes much easier to under
 4. If you were building an e-commerce product image tool, which type of SD application would you need more? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Text-to-image: generate campaign concept images from a brief. Image-to-image: turn a rough sketch into a polished visual. Inpainting: replace only a damaged product background while keeping the product unchanged.
 2. Real products generate multiple candidates because prompts are underspecified and image quality is partly stochastic. Candidate sets give users choice and make review, ranking, and iteration possible.

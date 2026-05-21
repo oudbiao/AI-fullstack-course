@@ -279,7 +279,7 @@ They are a very valuable kind of tool, but they should not be treated as the fin
 4. If your system has many state loops, would you still choose a low-code platform first? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Node-based expression works well when the workflow has visible stages, simple branches, and stakeholders need to review the shape of the process. It is weaker when state loops and custom logic dominate.
 2. Low-code is useful for requirement validation because non-engineers can see the workflow, comment on missing steps, and test the idea before the team invests in production engineering.

@@ -274,11 +274,11 @@ print(response.output_parsed.model_dump())
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: prompt, parameters, and expected output contract
-response: raw output and parsed/validated result
-controls: temperature, max output, schema, or stop rule
-failure_case: invalid, vague, unsafe, or off-task output
-real_api_note: replace toy_model only after offline loop is stable
+请求：Prompt、参数，以及期望输出契约
+响应：原始输出和解析/校验后的结果
+控制：temperature、最大输出、schema 或停止规则
+失败案例：无效、模糊、不安全或偏题输出
+真实 API 说明：只有在离线循环稳定后，才替换 toy_model
 ```
 
 ## 练习方式
@@ -290,7 +290,7 @@ real_api_note: replace toy_model only after offline loop is stable
 5. 写一页笔记：哪些部分属于 Prompt 设计，哪些属于 API 载荷 设计，哪些属于应用可靠性设计。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 任务改变后，prompt 和预期 schema 都要一起改。学习计划输出可以要求 `week`、`goal`、`tasks`、`evidence` 等字段。
 2. 校验器应该在业务逻辑读取结果前，于 JSON 解析阶段发现无效输出。这是结构化输出的第一层安全网。

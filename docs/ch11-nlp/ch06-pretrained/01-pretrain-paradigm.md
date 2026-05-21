@@ -317,7 +317,7 @@ If we compress it into one sentence, it would be:
 4. Why do we say that the pretraining paradigm changes not just the model, but the entire way tasks are organized?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Pretraining lowers the barrier because the model has already learned broad language patterns before your small task-specific dataset appears.
 2. Tasks that may only need pretrained features include similarity search, clustering, simple classification, and retrieval reranking baselines.

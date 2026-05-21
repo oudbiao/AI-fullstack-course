@@ -322,10 +322,10 @@ plt.show()
 ワークショップから 4 つの成果物を保存します。
 
 ```text
-data_plot: shows the original class pattern
-loss_curve: shows whether training and validation improve together
-decision_boundary: shows what the model learned geometrically
-failure_note: one case where the boundary or validation curve looks wrong
+データプロット: 元のクラスパターンを示す
+損失曲線：学習と検証が一緒に改善しているかを示す
+決定境界: モデルが幾何学的に学習した内容を示す
+失敗ノート: 境界または検証曲線が不自然に見える1件
 ```
 
 この 4 つを説明できれば、ワークショップは copied notebook ではなく、訓練の証拠パックになります。
@@ -347,7 +347,7 @@ failure_note: one case where the boundary or validation curve looks wrong
 4. 3 つ目の hidden layer を追加し、validation loss が改善するか過学習するか確認する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. hidden size が小さいと境界は単純になり、大きいと複雑な境界を作れます。検証 loss と境界の滑らかさを一緒に見ます。
 2. noise を増やすとクラスが重なり、訓練 loss も検証 loss も下がりにくくなります。境界はより不確かになります。

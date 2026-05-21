@@ -629,7 +629,7 @@ In the next chapters, we will continue to expand on reasoning, tools, memory, mu
 3. Think about this: if a tool returns an error message, how should the Agent handle it more safely?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A new tool should have a clear name, input shape, return shape, and failure mode. For `check_course_schedule`, return a small structured result instead of a long paragraph.
 2. A two-step task needs state between steps: the result of document lookup should be stored and passed into the calculation step, with a maximum-step guard.

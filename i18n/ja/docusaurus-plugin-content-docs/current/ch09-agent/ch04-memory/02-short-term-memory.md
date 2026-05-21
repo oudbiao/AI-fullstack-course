@@ -384,11 +384,11 @@ print(memory_package)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+メモリ種別：短期、長期、エピソード記憶、または手続き記憶
+書き込みルール：メモリが作成または更新されるとき
+取得ルール：クエリ、関連性、鮮度、権限チェック
+失敗確認: 古い記憶、プライバシー漏えい、矛盾、または過剰検索
+クリーンアップ操作：要約、統合、期限切れ、削除、または確認を求める
 ```
 
 ## まとめ
@@ -409,7 +409,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 自分の言葉で説明してみましょう。なぜ短期記憶は「現在のタスクの一貫性」を解決するのであって、「長期的なユーザープロフィール」を解決するのではないのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `summary` field は古い turn を現在タスク用の短いメモに圧縮できます。raw message window は直近の詳細を保持します。
 2. window を 3 から 5 にすると、`snapshot()` により多くの直近 message が残ります。coherence は上がる可能性がありますが、ノイズと token コストも増えます。

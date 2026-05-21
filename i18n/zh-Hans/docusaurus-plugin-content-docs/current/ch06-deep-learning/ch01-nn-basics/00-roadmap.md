@@ -71,10 +71,10 @@ relu_output: 3.35
 学完 6.1 后，保留一条四行短笔记：
 
 ```text
-one_layer: input @ weights + bias
-nonlinearity: activation lets stacked layers model curved patterns
-training: forward -> loss -> backward -> optimizer step
-debug_first: check shape, loss, gradient, update
+单层：输入 @ 权重 + 偏置
+非线性：激活函数让堆叠层可以建模曲线模式
+训练流程：前向 -> 损失 -> 反向 -> 优化器步骤
+调试优先：检查形状、损失、梯度、更新
 ```
 
 这条笔记会成为本章后续学习 PyTorch、CNN、RNN 和 Transformer 的随身地图。
@@ -84,7 +84,7 @@ debug_first: check shape, loss, gradient, update
 能把一层解释成 `input @ weights + bias`，说清激活函数做什么，并把 loss、梯度、优化器连成一个训练闭环，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

@@ -251,7 +251,7 @@ That means the model prefers `versicolor`, but it is not completely sure. This u
 4. Replace the breast cancer dataset with your own CSV. Keep the same structure: split first, fit the pipeline, print metrics, tune the threshold.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Lower thresholds usually produce fewer false negatives because more examples are labeled positive. The tradeoff is more false positives, so compare precision and recall together.
 2. Accuracy often plateaus after a middle `C` value. Once validation accuracy stops improving, prefer the simpler or more stable setting.

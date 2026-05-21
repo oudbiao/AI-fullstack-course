@@ -117,11 +117,11 @@ limit: 1 semaphore: Semaphore
 学完这一页，至少保留这张证据卡：
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Python 模式：装饰器、迭代器、生成器、并发原语，或元编程钩子
+代码产物：最小可运行示例加上打印输出
+使用场景：这种模式在哪种 AI 应用、流水线、工具或服务器中更有用
+失败检查：隐藏副作用、难读的抽象、竞态条件或过度设计
+期望产出：带实际 AI 系统用途说明的小型高级 Python 示例
 ```
 
 ## 常见错误
@@ -136,7 +136,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 再加 5 个工具调用，并设置 `Semaphore(3)`。然后把超时降到 `0.15`，统计有多少返回 `:timeout`。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 具体超时数量取决于你给每个工具设置的延迟，所以答案应该汇报实际观察到的数量，而不是编一个固定数字。一个可靠做法是打印完整结果列表，并统计：
 

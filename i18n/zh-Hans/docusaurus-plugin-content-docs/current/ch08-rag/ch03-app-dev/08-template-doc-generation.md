@@ -371,7 +371,7 @@ print(render_markdown_handout(payload))
 这个检查很简单，但它体现了演示和工程管线的区别：每个渲染步骤都应该在缺少必填结构字段时尽早失败。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 正确的第一层检查是：完整 payload 应该让 `validate_payload(payload)` 返回 `(True, "ok")`；如果某个必填字段为空或缺失，渲染前就应该给出清晰错误，而不是生成一份半空的讲义。
 
@@ -463,11 +463,11 @@ print(render_markdown_handout(payload))
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+请求：输入、状态、工具/上下文，以及期望输出契约
+已验证输出：parser / schema 或业务规则检查的结果
+追踪记录：模型调用、tool/function 调用、文档解析或对话状态
+失败检查：格式无效、字段缺失、状态过时或工具错误
+下一步动作：Prompt、schema、状态、API 或解析改进
 ```
 
 ## 小结

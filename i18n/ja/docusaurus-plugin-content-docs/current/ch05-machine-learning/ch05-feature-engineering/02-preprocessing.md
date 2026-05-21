@@ -174,11 +174,11 @@ print(model.score(X_test, y_test))
 このページを終えたら、この evidence card を残します。
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特徴状態: 生の列、型、欠損値、スケール、およびターゲットとの関係
+変換：前処理、構築、選択、またはパイプライン手順
+出力：transformされたfeature table、pipeline object、scoreの変化、または選択された特徴量
+失敗確認: リーク、不一致な train/test 変換、高カーディナリティの落とし穴、または無意味な特徴
+期待される成果：前後比較とメトリクスへの影響を含む特徴量パイプラインの証拠
 ```
 
 ## よくある間違い
@@ -193,7 +193,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 4. 高カーディナリティのカテゴリ特徴量を1つ選び、One-Hot と Target Encoding のそれぞれにどんなリスクがあるか考えましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 欠損率が低い列は中央値や最頻値で補完できることが多いです。欠損率が高い列は、欠損 indicator、ドメイン確認、削除を検討し、列ごとに理由を残します。
 2. LogisticRegression は係数と最適化が数値スケールに影響されるため、標準化の効果が出やすいです。RandomForest は分割順序を見るため、スケールの影響は小さいです。

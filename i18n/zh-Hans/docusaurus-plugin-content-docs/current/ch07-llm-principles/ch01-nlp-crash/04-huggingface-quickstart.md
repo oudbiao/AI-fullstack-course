@@ -178,11 +178,11 @@ torch.Size([2, 6, 768])
 学完这一页，至少保留这张证据卡：
 
 ```text
-objects: tokenizer, model, config, pipeline or manual forward pass
-offline_run: toy workflow output is saved
-real_model_optional: model id and task are recorded if downloaded
-shape_or_score: one output tensor shape or prediction score
-debug_note: model path, device, and tokenizer/model mismatch checked
+对象：tokenizer、模型、配置、pipeline 或手动前向传播
+离线运行：玩具工作流输出已保存
+真实模型可选：如果已下载，则记录模型 ID 和任务
+形状或分数：一个输出张量形状或预测分数
+调试说明：已检查模型路径、设备以及分词器/模型不匹配
 ```
 
 ## 练习
@@ -194,7 +194,7 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 5. 解释为什么 `pipeline()` 适合演示，但不足以排查 batch shape 问题。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 通常尾部 token 会先被截断，具体哪个 token 消失取决于 tokenizer 输出。所以要打印 token，而不是靠原文猜。
 2. `hidden_size=64` 会改变 hidden-state tensor 的最后一维。如果模型确实按这个 config 创建，参数形状也会随之变化。

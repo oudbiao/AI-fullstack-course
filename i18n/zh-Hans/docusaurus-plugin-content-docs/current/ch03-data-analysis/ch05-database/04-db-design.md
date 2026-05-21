@@ -432,11 +432,11 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+架构：表名、键、关系和示例行
+查询：所使用的 SQL 或 Python 数据库代码
+输出：结果行、行数，或保存的抽取结果
+失败检查：错误的连接键、不安全查询、缺少事务，或 schema 不匹配
+期望产出：查询、结果表和一条数据质量说明
 ```
 
 ## 这节最该带走什么
@@ -527,7 +527,7 @@ mindmap
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 规范化练习中，应拆分学生、电话号码、课程、教师和选课记录。把课程或电话重复塞进一张宽表，违背 1NF 的精神，也容易造成更新错误。
 - 博客 schema 通常包含 users、posts、categories、comments、tags 和 `post_tags` 关联表。外键要清楚表达归属和关系。

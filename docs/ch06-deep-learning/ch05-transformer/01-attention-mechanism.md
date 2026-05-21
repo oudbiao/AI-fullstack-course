@@ -385,7 +385,7 @@ Use attention weights as a debugging and inspection tool, not as complete causal
 6. Describe one case where attention weights are useful but not a full explanation.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The changed token becomes more similar to queries that point in the first feature direction, so those queries should give it more attention weight. The exact numbers depend on the full dot-product table.
 2. Changing only `W_v` changes the value vectors and final attention outputs. The attention scores and weights stay the same because they come from queries and keys.

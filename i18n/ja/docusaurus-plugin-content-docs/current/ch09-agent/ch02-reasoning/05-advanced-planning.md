@@ -337,11 +337,11 @@ for item in timeline:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+タスク目標：Agent が解決しようとしていること
+計画またはトレース：推論手順、計画、ReAct trace、または実行グラフ
+観察：各アクションの後に何が変わったか
+失敗確認：幻覚のステップ、古い観測、ループ、または未検証の結論
+評価アクション：期待結果と比較して計画を修正する
 ```
 
 ## まとめ
@@ -368,7 +368,7 @@ eval_action: compare against expected result and revise the plan
 4. 自分がよく知っている複雑なタスクを1つ思い浮かべ、それを依存グラフとして描いてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. worker が 1 つならタスクはほぼ直列になり、critical path は見えやすい一方で遅くなります。3 つなら独立タスクは早く終わりますが、調整と review のリスクも増えます。
 2. `draft_report` の後に `review_report` を追加すると依存チェーンが長くなり、承認済みレポートを必要とする下流タスクが遅れる可能性があります。

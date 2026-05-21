@@ -299,7 +299,7 @@ If we compress it into one sentence, it would be:
 4. Think about it: why is a multi-object scene much harder than a single-object scene?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. IoU increases when the two boxes overlap more and drops when one box shifts away. If there is no overlap, IoU is `0`.
 2. Detection is closer to real-world vision because it asks both “what is it?” and “where is it?”, often for many objects in one image.

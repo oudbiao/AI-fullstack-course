@@ -395,7 +395,7 @@ print("Price:", 99.9, "yuan")
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `about_me.py` should run from the terminal and print a clear multi-line introduction. Changing the content should not require changing Python syntax.
 2. The calculator outputs should include `300`, `31.400000000000002` or a close floating-point value, `1024`, `3.4`, `3`, and `2`.

@@ -327,10 +327,10 @@ print(trace)
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: what the agent should accomplish and what it must not do
-baseline: single-agent loop before adding advanced features
-trace_pack: goal, plan, tool calls, observations, memory, evaluation
-failure_log: one failed or unsafe run with root cause
+项目目标：智能体应完成什么，以及必须不做什么
+基线：在加入高级功能前的单智能体循环
+追踪包：目标、计划、tool 调用、观察、记忆、评估
+失败日志：一次失败或不安全的运行及其根因
 交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
@@ -382,7 +382,7 @@ failure_log: one failed or unsafe run with root cause
 4. 如果做作品集展示，你会把哪一块设计成最显眼的部分？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 给每行加入 `date`，按周或月 group，让 Agent 计算 total sales、average order value、churn rate 等时间趋势。输出应同时包含 code 和 chart/table。
 2. reproducibility 很重要，因为分析结论必须可重跑。要把 data version、cleaning steps、code、parameters、generated chart 和 final narrative 关联起来。

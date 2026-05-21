@@ -503,11 +503,11 @@ print(result)
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+数据框状态：列、数据类型、行数、缺失值和样本行
+操作：读/写、select/filter、清洗、转换、groupby、merge，或时间序列步骤
+输出：结果表、保存的文件、聚合、连接结果，或时间索引视图
+失败检查：dtype 不匹配、缺失数据、重复键、链式赋值或时间频率错误
+期望产出：前后对比表格样本，以及转换原因
 ```
 
 ## 小结
@@ -569,7 +569,7 @@ mindmap
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 工作日销售额 Series 应把星期名设为 index，然后计算总和、均值、最高销售日 `idxmax`，并用布尔条件筛出高销售日。
 - 学生 DataFrame 先增加 `Total` 和 `Average`，再根据规则用函数、`map` 或 `pd.cut` 创建等级列。`describe()` 是有用证据，但不是完整分析。

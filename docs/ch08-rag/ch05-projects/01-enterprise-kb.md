@@ -420,7 +420,7 @@ It is recommended to finish the basic version first, and do not pursue an all-in
 4. If you turn this project into a portfolio piece, which 4 blocks of information would be most worth showing on the homepage?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. The added documents should include similar public/internal topics so you can test both ranking quality and permission filtering.
 2. Leaking internal information is a security failure even if the answer sounds elegant. Permission correctness is a hard requirement.

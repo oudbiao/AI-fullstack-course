@@ -450,11 +450,11 @@ doc_001_chunk_02 ok
 このページを終えたら、この証拠カードを残します。
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+クエリ：1つのユーザー質問またはテストケース
+検索チャンク：chunk id、スコア、ソースタイトル
+回答: 引用または出典メモ付きの最終回答
+失敗確認: 証拠不足、誤ったチャンク、古い文書、または裏付けのない主張
+次の行動：chunking、embedding、reranking、prompt、または eval の変更
 ```
 
 ## まとめ
@@ -478,7 +478,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 考えてみましょう。もし embedding モデルがよくなかったら、ベクトルデータベースがどれだけ強くても挽回できるでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 並び順は、`query_vector` に最も近い record を優先するはずです。Top result が意味的におかしいなら、弱点は database ではなく vector representation にある可能性があります。
 2. 2 条件フィルタでは、semantic similarity と business constraint を組み合わせます。たとえば `role=internal` と `source=policy` です。Metadata は、もっともらしいが権限外または無関係な chunk が回答に入るのを防ぎます。

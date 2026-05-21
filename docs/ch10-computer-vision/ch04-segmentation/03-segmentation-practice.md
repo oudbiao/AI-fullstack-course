@@ -356,7 +356,7 @@ If we compress it into one sentence, it is:
 4. How would you turn a segmentation project into a portfolio page?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. When you change `pred_masks`, `mean_iou` should drop for missing masks, wrong classes, or poor boundaries. Also inspect class-wise IoU so one easy class does not hide another failure.
 2. Mask annotation standards matter because boundary thickness, ignored regions, and ambiguous edges directly define the target and the evaluation.

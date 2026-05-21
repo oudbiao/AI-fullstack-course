@@ -328,11 +328,11 @@ print(f"对应票价: {fares[top3_indices]}")
 学完这一页，至少保留这张证据卡：
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+数组状态：操作前的形状、dtype、轴和样本值
+操作：索引、切片、广播、reshape、线性代数，或随机/统计函数
+输出：结果数组形状、值，或统计量
+失败检查：轴混淆、视图/副本陷阱、广播不匹配或形状错误
+期望产出：打印的形状和值，便于检查数组运算
 ```
 
 ## 小结
@@ -393,7 +393,7 @@ math_scores = np.array([
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 常见切片答案是：前五个值用 `arr[:5]`，按“一位计数”的偶数位置用 `arr[1::2]`，后三个值用 `arr[-3:]`，倒序用 `arr[::-1]`。
 - 对 5x5 矩阵，`matrix[1:4, 1:4]` 选中间 3x3 区域，`matrix[:, 1]` 选第二列，`matrix[np.arange(5), np.arange(5)]` 选主对角线。

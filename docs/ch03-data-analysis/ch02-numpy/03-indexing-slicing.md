@@ -393,7 +393,7 @@ math_scores = np.array([
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Typical slice answers are `arr[:5]` for the first five values, `arr[1::2]` for even positions in one-based wording, `arr[-3:]` for the last three values, and `arr[::-1]` for reverse order.
 - For a 5 by 5 matrix, `matrix[1:4, 1:4]` selects the center 3 by 3 block, `matrix[:, 1]` selects the second column, and `matrix[np.arange(5), np.arange(5)]` selects the main diagonal.

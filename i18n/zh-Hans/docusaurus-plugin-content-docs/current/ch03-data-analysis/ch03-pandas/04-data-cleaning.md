@@ -441,11 +441,11 @@ print(f"\n行数: {len(dirty_data)}")
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+数据框状态：列、数据类型、行数、缺失值和样本行
+操作：读/写、select/filter、清洗、转换、groupby、merge，或时间序列步骤
+输出：结果表、保存的文件、聚合、连接结果，或时间索引视图
+失败检查：dtype 不匹配、缺失数据、重复键、链式赋值或时间频率错误
+期望产出：前后对比表格样本，以及转换原因
 ```
 
 ## 小结
@@ -481,7 +481,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 先用 `isna().sum()` 和 `isna().mean()` 做缺失值报告。逐列决定是删除、用中位数或众数填充，还是把缺失本身当成有意义的信号保留。
 - 数值列在可能有异常值时通常用中位数；类别列通常用众数或显式的 `Unknown`。缺失率很高的列如果要继续使用，必须写清理由。

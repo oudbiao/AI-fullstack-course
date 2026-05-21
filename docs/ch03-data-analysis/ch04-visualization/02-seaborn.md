@@ -545,7 +545,7 @@ Expected_output: chart artifact with one sentence explaining the insight
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For distribution charts, use `histplot` or `kdeplot` and describe skew, outliers, and the approximate center. A beautiful curve without interpretation is incomplete.
 - For categorical comparisons, box plots and count plots answer different questions: spread versus frequency. Pick the one that matches the question before styling it.

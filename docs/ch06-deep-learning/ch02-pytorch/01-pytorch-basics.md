@@ -346,7 +346,7 @@ This is the fastest way to debug later PyTorch code. Most early errors are shape
 4. Replace `X @ W` with `X * W`. Why does it fail or produce a different meaning?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The batch dimension changes from `2` to `3`. Feature size, class count, and parameter shapes stay the same unless you also change the input feature count or number of output classes.
 2. `CrossEntropyLoss` expects class labels shaped like `[batch]` and usually stored as `torch.long`. `squeeze(1)` removes the extra singleton dimension so the loss sees one class id per sample.

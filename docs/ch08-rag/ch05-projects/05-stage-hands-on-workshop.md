@@ -532,7 +532,7 @@ Complete these in order:
 | Challenge | Add a small FastAPI endpoint | `/ask` returns `status`, `answer`, `citations`, and trace ID |
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. Easy pass: the new document is retrievable, cited, and covered by a new evaluation case.
 2. Logging pass: every request has enough trace data to debug retrieval and permissions.

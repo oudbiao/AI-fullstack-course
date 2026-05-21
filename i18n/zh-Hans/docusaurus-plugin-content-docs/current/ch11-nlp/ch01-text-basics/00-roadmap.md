@@ -55,7 +55,7 @@ vocab_size: 4
 如果你能接收原始文本、完成分词、解释任务输出形态，并在项目笔记里保存一个预处理例子，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -69,9 +69,9 @@ vocab_size: 4
 学完这一页，至少保留这张证据卡：
 
 ```text
-raw_text: original examples before cleaning or tokenization
-processed_text: cleaned text, tokens, normalization notes, and removed items
-task_boundary: classification, extraction, retrieval, generation, or QA output
-failure_check: lost meaning, bad token split, language issue, or ambiguous label
-Expected_output: before/after text samples plus token or representation output
+原始文本：清洗或分词前的原始示例
+处理后文本：清理后的文本、tokens、归一化说明和已移除项
+任务边界：分类、抽取、检索、生成或 QA 输出
+失败检查：含义丢失、分词不佳、语言问题或标签歧义
+期望产出：前后对比文本样本，以及 token 或表示输出
 ```

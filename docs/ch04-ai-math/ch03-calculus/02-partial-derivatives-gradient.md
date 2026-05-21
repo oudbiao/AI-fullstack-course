@@ -468,7 +468,7 @@ For f(x, y, z) = x² + 2y² + 3z², compute the gradient at (1, 1, 1), and deter
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 - For `f(x,y)=x^2y+xy^2`, the gradient is `[2xy+y^2, x^2+2xy]`; at `(2,3)` it is `[21,16]`.
 - For `sin(x)+cos(y)`, gradient arrows should follow `[cos(x), -sin(y)]`. The contour plot and arrows should agree visually: arrows point toward faster increase.

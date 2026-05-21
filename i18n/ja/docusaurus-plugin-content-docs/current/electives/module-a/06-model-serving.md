@@ -118,11 +118,11 @@ print([request["version"] for request in routed_requests])
 このページを終えたら、この証拠カードを残します。
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+デプロイ先：ローカル推論、エッジデバイス、モデルサーバー、または最適化実験
+成果物: C++ スニペット、ベンチマーク、model artifact、serving 設定、または deployment メモ
+指標：レイテンシ、メモリ、スループット、モデルサイズ、accuracy 低下、または信頼性
+失敗確認：ABI/ビルドの問題、ハードウェア不一致、量子化損失、または配信ボトルネック
+期待される成果: 理論メモだけでなく、再現可能なデプロイまたは最適化の証拠
 ```
 
 ## よくある間違い
@@ -137,7 +137,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 各リクエストに `latency_ms` を追加し、バージョンごとの平均レイテンシを計算してください。`v2` が `v1` より 20 ms 以上遅い場合、以後のリクエストをすべて `v1` に戻します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 堅実な解答では、リクエストを `version` ごとに分け、各グループの `latency_ms` の平均を計算します。`avg_v2 - avg_v1 > 20` なら、`v2` を不健康とみなすか、次の batch のトラフィック重みを 0 にします。
 

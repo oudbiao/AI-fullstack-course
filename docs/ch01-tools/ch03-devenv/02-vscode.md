@@ -344,7 +344,7 @@ print(f"\nAverage name length: {avg_len:.1f} characters")
    - Use `Ctrl/Cmd + Shift + F` to search globally for "fruit"
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. `code .` should open the current project folder, not a single detached file.
 2. The selected Python interpreter should match your course environment. Check the VS Code status bar or the command palette.

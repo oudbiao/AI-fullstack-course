@@ -378,7 +378,7 @@ It is recommended to finish the basic version first; do not chase a large, all-i
 4. If you were presenting this as a portfolio project, which part would you design to be the most eye-catching?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add `date` to each row, group by week or month, and ask the Agent to compute a trend such as total sales, average order value, or churn rate over time. The output should include both code and a chart/table.
 2. Reproducibility matters because analysis conclusions must be rerunnable. Keep the data version, cleaning steps, code, parameters, generated chart, and final narrative linked together.

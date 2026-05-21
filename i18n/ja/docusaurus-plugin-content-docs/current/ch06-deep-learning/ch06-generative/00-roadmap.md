@@ -64,11 +64,11 @@ value_range: -0.863 0.695
 生成レビュー メモを 1 つ残します。
 
 ```text
-latent_input: random or encoded compact vector
-decoder_output: generated sample or reconstruction
-review_needed: generation quality is not proven by loss alone
-gan_focus: realism and diversity can fight each other
-vae_focus: reconstruction and latent smoothness trade off
+潜在入力：ランダムまたはエンコードされた圧縮ベクトル
+デコーダ出力：生成サンプルまたは再構成
+レビュー要否：loss だけでは生成品質は証明できない
+GAN の焦点：リアリズムと多様性は互いに競合しうる
+VAE の焦点：再構成と潜在空間の滑らかさ のトレードオフ
 ```
 
 ## 合格ライン
@@ -76,7 +76,7 @@ vae_focus: reconstruction and latent smoothness trade off
 ラベル予測とサンプル生成の違いを説明し、生成結果を盲信せずレビューが必要な理由を言えれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

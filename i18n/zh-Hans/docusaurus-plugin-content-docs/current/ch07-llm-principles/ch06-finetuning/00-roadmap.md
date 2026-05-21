@@ -66,11 +66,11 @@ minimum_before_training: ['prompt baseline', 'validation set', 'failure log']
 学完这一页，至少保留这张证据卡：
 
 ```text
-decision: why prompt/RAG/tooling is not enough
-data_shape: instruction, input, output, metadata
-method: full finetune, LoRA, QLoRA, or other PEFT
-eval_set: fixed cases before training starts
-risk: overfitting, style drift, safety regression, or cost
+决策：说明为什么 Prompt/RAG/工具化还不够
+数据形状：指令、输入、输出、元数据
+方法：全量微调、LoRA、QLoRA 或其他 PEFT
+评估集：训练开始前的固定案例
+风险：过拟合、风格漂移、安全回归，或成本过高
 ```
 
 ## 通过标准
@@ -80,7 +80,7 @@ risk: overfitting, style drift, safety regression, or cost
 本章出口小项目是一份小型指令微调计划：选择一个固定任务，准备几十到几百条样本，定义 Prompt 基线，并在 LoRA/QLoRA 运行后比较格式稳定性或准确率。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

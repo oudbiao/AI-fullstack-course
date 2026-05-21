@@ -85,7 +85,7 @@ training_accuracy: 1.0
 能列出特征类型，构建一个预处理 Pipeline，并解释为什么在训练/测试流程外做预处理可能导致泄漏，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 先列出特征类型、缺失值、尺度差异、类别基数，以及可能的目标泄漏。
 2. 预处理应放进 `Pipeline` 或 `ColumnTransformer`，这样训练集和测试集会使用同一套学到的转换，同时减少泄漏。
@@ -98,9 +98,9 @@ training_accuracy: 1.0
 学完这一页，至少保留这张证据卡：
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特征状态：原始列、类型、缺失值、尺度，以及与目标的关系
+特征变换：预处理、构造、选择或流水线步骤
+输出：转换后的特征表、pipeline 对象、分数变化，或选出的特征
+失败检查：泄漏、训练/测试转换不一致、高基数陷阱或无意义特征
+期望产出：带有前后对比和指标影响的特征流水线证据
 ```

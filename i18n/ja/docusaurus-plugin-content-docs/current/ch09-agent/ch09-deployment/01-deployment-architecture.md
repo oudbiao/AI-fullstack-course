@@ -396,11 +396,11 @@ flowchart LR
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+ランタイム: キュー、ワーカー、状態ストア、ツールサービス、モデルエンドポイント
+永続化：チェックポイント、イベントログ、メモリストア、復旧パス
+運用シグナル：レイテンシ、コスト、エラー率、追跡カバレッジ、飽和度
+失敗確認: 停止した実行、重複アクション、部分失敗、またはコスト暴走
+復旧アクション：再開、ロールバック、中止、人間への引き継ぎ、または安全に劣化
 ```
 
 ## まとめ
@@ -423,7 +423,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. 考えてみましょう：あなたの現在のプロジェクトで、いちばん不足しているのは接入層、実行層、それとも観測層ですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 2-tool workflow なら、まず policy を retrieve し、次に eligibility check や summary を行います。state aggregation は通常 execution / orchestration layer に置きます。tool results と current task state の両方を見られるからです。
 2. queue は access layer と execution layer の間、または execution layer の境界内に置きます。user-facing API を長時間処理から守り、retry、status、cancellation の control point を作れます。

@@ -76,7 +76,7 @@ You pass this chapter when your minimal app has a run command, API contract, err
 The exit mini project is an engineering evidence pack: one trace log, one common error, one fix, one regression check, and one deployment note.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
 2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.

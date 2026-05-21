@@ -225,9 +225,9 @@ CTC 的漂亮之处在于：
 学完这一页，至少保留这张证据卡：
 
 ```text
-source_target: source text, target text, and task type
-decoded_output: generated summary, translation, transcript, or sequence result
-alignment_note: attention, CTC path, coverage, or copied source evidence
-failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
-Expected_output: generated text with factual or alignment review notes
+源目标：源文本、目标文本和任务类型
+解码输出：生成的摘要、翻译、转写或序列结果
+对齐说明：注意力、CTC 路径、coverage，或复制的源证据
+失败检查：遗漏、重复、幻觉、对齐错误或评估薄弱
+期望产出：生成文本，以及事实性或对齐性复核说明
 ```

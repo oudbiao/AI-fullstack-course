@@ -291,11 +291,11 @@ for tokens in [["返金"], ["請求書"], ["パスワード"]]:
 このページを終えたら、この evidence card を残します。
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+モデル選択：BERT、GPT、T5、Transformers のパイプライン、または他の事前学習ベースライン
+tokenizer 出力：ids、masks、デコード済みテキスト、またはバッチ形状
+タスク結果：classification、generation、extraction、または text-to-text 出力
+失敗確認: 間違ったモデルファミリー、トークン上限、ドメイン不一致、コスト、またはレイテンシ
+期待される成果: モデル呼び出し結果と短い選択理由
 ```
 
 ## まとめ
@@ -328,7 +328,7 @@ Expected_output: model call result plus a short choice rationale
 4. なぜ、事前学習パラダイムはモデルだけでなく、タスクの組み立て方全体を変えたと言えるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. pretraining がハードルを下げるのは、小さな task-specific dataset を見る前に、model が広い language pattern をすでに学んでいるからです。
 2. pretrained features だけで足りる可能性があるタスクには、similarity search、clustering、simple classification、retrieval reranking baseline があります。

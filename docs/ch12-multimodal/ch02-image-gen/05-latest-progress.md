@@ -357,7 +357,7 @@ you won’t be left with only fragmented impressions like “who released anothe
 4. When you read a new image generation paper next time, which two questions will you ask first?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A strong ranking should depend on the product goal. For consumer creative tools, controllable editing may rank first; for infrastructure, cost and speed may rank first; for professional media, consistency and reviewability often matter most.
 2. In e-commerce, controlled editing and identity consistency usually matter most. Product images must preserve the item while changing background, style, size, or scene, so uncontrolled quality improvement is less useful than reliable edits.

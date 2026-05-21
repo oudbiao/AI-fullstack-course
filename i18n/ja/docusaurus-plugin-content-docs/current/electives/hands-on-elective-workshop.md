@@ -262,9 +262,9 @@ inspect: elective_workshop_run/README.md
 このページを終えたら、この証拠カードを残します。
 
 ```text
-elective_goal: why this optional module matters for your target role or project
-artifact: runnable code, benchmark, product note, UI state, or safety test
-metric_or_review: what proves the elective skill improved the system
-failure_check: when this elective is unnecessary or too early for the current learner
-Expected_output: a small portfolio artifact connected back to the main route
+選択目標：この任意モジュールが目標の役割やプロジェクトにとって重要な理由
+成果物: 実行可能コード、ベンチマーク、プロダクトメモ、UI 状態、または safety test
+指標またはレビュー：選択科目のスキルがシステム改善にどう効いたかを示すもの
+失敗確認: この選択科目が不要な場合、または現在の学習者には時期尚早な場合
+期待される成果：メインルートに結びついた小さなポートフォリオ成果物
 ```

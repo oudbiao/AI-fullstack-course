@@ -358,7 +358,7 @@ The more mature the client is, the easier it becomes for the capabilities on the
 4. Explain in your own words: why does an MCP Client usually also need a “strategy layer”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A good `read_file` integration adds the tool schema on the server, lets the client discover it, then routes file-reading requests to that tool only after checking path permissions or a safe allowlist.
 2. Rediscovery works well when tools are dynamic or servers change often. Caching works better when startup cost matters, contracts are stable, and repeated discovery would add unnecessary latency.

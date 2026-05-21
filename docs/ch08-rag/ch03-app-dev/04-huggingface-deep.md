@@ -334,7 +334,7 @@ Once you understand this, when you later look at model applications and fine-tun
 4. Summarize in your own words: what problems do the Hub, pipeline, model, and tokenizer each mainly solve?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. HuggingFace includes the Hub, datasets, tokenizers, Transformers, pipelines, Spaces, and community evaluation/sharing workflows.
 2. `pipeline` is great for a quick end-to-end smoke test, but production often needs batching, custom preprocessing, model loading control, monitoring, and error handling.

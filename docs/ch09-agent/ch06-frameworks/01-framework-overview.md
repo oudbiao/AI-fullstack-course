@@ -300,7 +300,7 @@ Once you understand this, when you look at specific frameworks later, it will fe
 4. If your team especially values controllability, what style of framework would you be more inclined to choose?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Choose graph/workflow orientation when the hard part is state, branching, retry, and observability. Choose role-collaboration orientation when the hard part is dividing work among specialized roles and reviewing their outputs.
 2. Hand-written code can be better for low-complexity projects because it has fewer abstractions, fewer hidden defaults, and a shorter debugging path.

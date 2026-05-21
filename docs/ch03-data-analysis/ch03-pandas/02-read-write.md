@@ -380,7 +380,7 @@ Go to [Kaggle](https://www.kaggle.com/datasets) and download a small dataset you
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - When writing and reading a CSV, use `to_csv(index=False)` if the index is not meaningful, then read it back and compare shape, columns, dtypes, and a few rows.
 - For the first-look workflow, record `shape`, `head`, `info`, `describe`, missing-value counts, and duplicate counts before making cleaning decisions.

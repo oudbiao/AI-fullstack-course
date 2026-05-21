@@ -234,11 +234,11 @@ score=0.968 params={'max_depth': 5, 'min_samples_leaf': 3, 'n_estimators': 160}
 このページを終えたら、この evidence card を残します。
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+評価設定：分割、交差検証、指標、ベースライン、比較対象
+結果: スコア表、曲線、confusion matrix、検証結果、または検索結果
+判断: データ、特徴量、モデル、閾値、またはハイパーパラメータを変えるかどうか
+失敗確認: リーク、不安定な検証、誤った指標、またはテストセットでのチューニング
+期待される成果：次のモデリング判断を支える評価記録
 ```
 
 ## よくあるトラブル
@@ -260,7 +260,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 以前の CV だけの実験に、最後まで触らない test set を追加してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. recall を最適化すると、より多くの positive を拾う攻めたパラメータが選ばれることがあります。その代わり precision や F1 が下がる場合があります。
 2. `max_depth=10` は前の grid が underfitting していた場合だけ役立ちます。CV スコアが伸びない、またはばらつくなら深いモデルは選びません。

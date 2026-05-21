@@ -512,7 +512,7 @@ Expected_output: reproducible analysis folder with data, charts, and a short rep
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - For the table-editing mini exercises, expected evidence is the changed CSV or SQLite table plus the exact query or Pandas statement that proves the change.
 - If a confidence value can exceed the valid range, clip or validate it and record the rule. A hidden invalid value is worse than a visible warning.

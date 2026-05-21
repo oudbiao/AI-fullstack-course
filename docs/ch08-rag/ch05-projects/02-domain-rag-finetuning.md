@@ -500,7 +500,7 @@ It is recommended to complete the basic version first. Do not try to make it too
 4. Explain in your own words: why do we say “RAG adds knowledge, fine-tuning adds behavior”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. New documents should test whether retrieval changes only when the query intent matches, not randomly.
 2. Style rules might specify tone, section order, citation format, refusal boundaries, and domain terminology.

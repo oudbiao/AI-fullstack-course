@@ -532,7 +532,7 @@ python3 ask_with_openai.py
 | 発展 | 小さな FastAPI エンドポイントを追加する | `/ask` が `status`、`answer`、`citations`、トレース ID を返す |
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. 入門タスクの合格条件は、新しい文書が検索され、引用され、新しい評価ケースで確認されることです。
 2. ログ出力の合格条件は、各リクエストに検索と権限を debug できる trace data が残ることです。
@@ -561,9 +561,9 @@ python3 ask_with_openai.py
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+プロジェクト目標：ユーザーのタスクとビジネス境界
+ベースライン: まずは最も簡単なプロンプト/RAG/app版
+評価：固定ケース、検索証拠、回答品質、引用チェック
+失敗ログ: 少なくとも1件の失敗ケースと原因の可能性
 成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```

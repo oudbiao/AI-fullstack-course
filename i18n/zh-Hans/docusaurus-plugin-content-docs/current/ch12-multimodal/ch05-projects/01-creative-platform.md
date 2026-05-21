@@ -362,11 +362,11 @@ for asset in assets:
 学完这一页，至少保留这张证据卡：
 
 ```text
-brief: user goal, audience, assets, constraints, and export format
-artifacts: source files, prompts, generated candidates, selected output, and rejected versions
-review: factual check, copyright/portrait/sensitive-content check, and human decision
-integration: RAG record, Agent trace, creative package, storyboard, or export preview
-Expected_output: reproducible asset package with README, review checklist, and failure notes
+简介：用户目标、受众、素材、约束和导出格式
+工件：源文件、提示词、生成候选、选定输出和被拒绝版本
+审查：事实检查、版权/肖像/敏感内容检查，以及人工决定
+集成: RAG 记录、Agent trace、创意包、故事板或导出预览
+期望产出：可复现的资产包，包含 README、复查清单和失败说明
 ```
 
 ## 小结
@@ -397,7 +397,7 @@ Expected_output: reproducible asset package with README, review checklist, and f
 4. 如果你把这个项目放进作品集，首页最值得展示哪 5 个模块？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. `video_scripts` 应在 brief 和资产计划稳定后生成。它可以包含 scene id、旁白、视觉方向、时长、所需资产和评审状态，这样视频工作流仍然连接到同一份 manifest。
 2. 创意平台依赖资产管理，是因为生成会产生很多版本、被拒候选、prompt、版权说明和评审决策。没有资产记录，团队就无法复现，也无法安全复用。

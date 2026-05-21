@@ -274,11 +274,11 @@ print(response.output_parsed.model_dump())
 このページを終えたら、この証拠カードを残します。
 
 ```text
-request: prompt, parameters, and expected output contract
-response: raw output and parsed/validated result
-controls: temperature, max output, schema, or stop rule
-failure_case: invalid, vague, unsafe, or off-task output
-real_api_note: replace toy_model only after offline loop is stable
+要求: prompt、parameters、期待される出力の契約
+応答: 生の出力と、解析・検証済み結果
+制御項目: temperature、max output、schema、または停止ルール
+失敗ケース：無効、あいまい、安全でない、または課題外の出力
+実APIメモ：toy_model はオフラインループが安定してから置き換える
 ```
 
 ## 練習方法
@@ -290,7 +290,7 @@ real_api_note: replace toy_model only after offline loop is stable
 5. 1 ページのメモを書く。どこが Prompt 設計で、どこが API ペイロード 設計で、どこがアプリケーション信頼性なのかを分ける。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. task を変えるなら、prompt と期待 schema の両方を変えます。study plan なら `week`、`goal`、`tasks`、`evidence` などが必要です。
 2. validator は business logic が読む前に、JSON parse 段階で invalid output を検出すべきです。これは structured output の最初の safety net です。

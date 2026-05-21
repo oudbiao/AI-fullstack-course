@@ -398,7 +398,7 @@ It is recommended to finish the basic version first. Do not chase a big, everyth
 4. If you put this project in your portfolio, which 5 modules are most worth showing on the homepage?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. `video_scripts` should be generated after the brief and asset plan are stable. It can contain scene id, narration, visual direction, duration, required assets, and review status so the video workflow stays connected to the same manifest.
 2. A creative platform depends on asset management because generation creates many versions, rejected candidates, prompts, rights notes, and review decisions. Without asset records, the team cannot reproduce or safely reuse the work.

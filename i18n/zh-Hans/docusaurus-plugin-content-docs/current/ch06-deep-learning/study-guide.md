@@ -47,7 +47,7 @@ deep_learning_evidence/
 | 能完成证据包工作坊 | `deep_learning_workshop_run/` |
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 这张清单的目标不是让你背概念，而是确认你能留下可检查的学习证据：
 
@@ -75,12 +75,12 @@ deep_learning_evidence/
 离开第 6 章前，保留一个紧凑证据包：
 
 ```text
-shape_trace: one model with printed tensor shapes
-training_log: train and validation loss over time
-best_checkpoint: how the best model was selected
-attention_note: Q/K/V, mask, and next-token bridge
-failure_sample: one wrong or weak prediction with next action
-project_folder: runnable evidence pack or README
+形状 trace：一个模型及打印出的张量形状
+训练日志：随时间变化的训练和验证损失
+最佳检查点：如何选择最佳模型
+注意力说明：Q/K/V、mask 和下一 token 桥接
+失败样本：一个错误或较弱的预测及下一步动作
+项目文件夹：可运行的证据包或 README
 ```
 
 ## 可以继续的信号

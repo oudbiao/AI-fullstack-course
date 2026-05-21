@@ -330,7 +330,7 @@ Plot the derivative of Sigmoid, find the maximum value of the derivative and whe
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - At `x=2`, the derivatives are `14` for `3x^2+2x-1`, `-0.25` for `1/x`, and `sin(2)+2cos(2)≈0.0770` for `x sin(x)`.
 - For `f(x)=x^3-3x`, the derivative is zero at `x=-1` and `x=1`, corresponding to a local maximum and local minimum on the plotted curve.

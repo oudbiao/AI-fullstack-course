@@ -73,9 +73,9 @@ keywords: [コース番号, 章ディレクトリ, 章番号, コース保守]
 このページを終えたら、この証拠カードを残します。
 
 ```text
-reference_question: what you came to this appendix page to decide or clarify
-selected_rule: the rule, checklist item, or explanation you will apply
-course_link: which chapter or project this reference supports
-risk_check: treating appendix material as passive reading instead of a decision aid
-Expected_output: a note that changes a route, setup, project, or review decision
+参照質問：この付録ページで何を判断または明確化するために来たか
+選択ルール: 適用するルール、チェック項目、または説明
+コースリンク: この参照が支える章またはプロジェクトはどれか
+リスク確認: 付録資料を意思決定の補助ではなく受動的な読み物として扱う
+期待される成果：ルート、セットアップ、プロジェクト、またはレビューの判断を変えるメモ
 ```

@@ -242,7 +242,7 @@ For experienced readers: clustering should be evaluated as a workflow, not just 
 5. Run the same clustering twice with different seeds. Are the groups stable enough to trust?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Increasing `cluster_std` makes clusters overlap more, so silhouette should usually decrease because points are less clearly closer to their own cluster than to neighboring clusters.
 2. Inertia almost always improves when `K` increases because each point can be closer to some centroid. Silhouette may not improve; if `K=6` splits natural groups into fragments, silhouette can drop even while inertia looks better.

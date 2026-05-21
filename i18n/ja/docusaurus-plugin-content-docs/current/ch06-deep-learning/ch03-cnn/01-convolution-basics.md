@@ -318,10 +318,10 @@ bias: (4,)
 畳み込み実験ごとに shape equation を 1 つ保存します。
 
 ```text
-input_shape: [N, C_in, H, W]
-kernel: [C_out, C_in, kH, kW]
-output_shape: [N, C_out, H_out, W_out]
-meaning: C_out feature maps scan local regions
+入力形状：[N, C_in, H, W]
+カーネル：[C_out, C_in, kH, kW]
+出力形状：[N, C_out, H_out, W_out]
+意味：C_out の特徴マップが局所領域を走査する
 ```
 
 この記録が分かれば、畳み込みは謎の画像 layer ではなく、shape と局所パターンの操作として読めます。
@@ -345,7 +345,7 @@ meaning: C_out feature maps scan local regions
 5. `permute` を使って、画像風 tensor を `[N, H, W, C]` から `[N, C, H, W]` に変換する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. kernel を変えることは、注目する局所パターンを変えることです。edge、smoothing、sharpening などで出力は大きく変わります。
 2. `out[1, 0]` は入力 window `[1, 2; 4, 5]` と kernel の要素積を足した値です。手計算と出力が一致するはずです。

@@ -362,11 +362,11 @@ transport 直接影响部署和稳定性。
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+能力：服务器暴露的资源、Prompt 或工具
+契约：schema、传输、权限和错误形式
+调用轨迹：发现、调用、响应和失败处理
+失败检查：架构不兼容、缺少认证、不安全工具或服务器错误
+集成动作: 在加入自主能力前先验证服务端契约
 ```
 
 ## 小结
@@ -387,7 +387,7 @@ integration_action: validate server contract before adding autonomy
 4. 用自己的话解释：为什么说 MCP 是“解耦层”，而不是“工具本身”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. client 和 server 要分工，是因为 client 负责编排、用户上下文和策略，server 负责能力实现与契约。如果混在一起，每新增工具或更换 transport，都会牵动整个系统。
 2. transport 应该可替换，因为一次工具调用的语义不应该依赖它走 stdio、HTTP 还是别的通道。好的架构会保持调用契约稳定，只替换传输方式。

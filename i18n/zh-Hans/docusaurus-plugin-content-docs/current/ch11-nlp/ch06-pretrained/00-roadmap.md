@@ -63,7 +63,7 @@ reason: match model objective to task output
 如果你能解释不同训练目标为什么带来不同优势，并运行或设计一个小型预训练模型对比实验，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -77,9 +77,9 @@ reason: match model objective to task output
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+模型选择：BERT、GPT、T5、Transformer 流水线或其他预训练基线
+tokenizer 输出：id、mask、解码文本或批次形状
+任务结果：分类、生成、抽取或文本到文本输出
+失败检查：错误的模型家族、token 限制、领域不匹配、成本或延迟
+期望产出：模型调用结果加一段简短的选择理由
 ```

@@ -172,9 +172,9 @@ LLM の結果が弱いとき、すぐ微調整へ進まないでください。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-token_path: text -> tokens -> embeddings -> Transformer context -> next token
-core_route: 7.1 -> 7.2 -> 7.5 -> 7.8 first
-fixed_cases: prompt tests use the same inputs before comparing changes
-method_choice: Prompt, RAG, fine-tuning, tools, or Agent chosen by evidence
-chapter_bridge: Chapter 8 adds retrieval and application architecture
+トークン経路：テキスト -> トークン -> 埋め込み -> Transformer の文脈 -> 次トークン
+中核ルート: 7.1 -> 7.2 -> 7.5 -> 7.8 を先に
+固定済みケース: プロンプトテストは変更を比較する前に同じ入力を使う
+手法選択：証拠に基づいて Prompt、RAG、微調整、ツール、または Agent を選ぶ
+章の橋渡し：第 8 章では検索とアプリケーションアーキテクチャを追加します
 ```

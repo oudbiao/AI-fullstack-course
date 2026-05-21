@@ -507,11 +507,11 @@ print(result)
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+データフレーム状態: 列、dtype、行数、欠損値、サンプル行
+操作：read/write、select/filter、clean、transform、groupby、merge、または時系列処理
+出力：resulting table、保存ファイル、aggregation、join結果、または時系列インデックスビュー
+失敗確認：dtype 不一致、欠損データ、重複キー、チェーン代入、または誤った時間頻度
+期待される成果：前後の表サンプルと、変換理由
 ```
 
 ## まとめ
@@ -574,7 +574,7 @@ mindmap
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 曜日別売上の Series では、曜日名を index にし、合計、平均、最高売上日の `idxmax`、ブール条件による高売上日の抽出を行います。
 - 学生 DataFrame では `Total` と `Average` を追加し、ルールに応じて関数、`map`、または `pd.cut` で成績ランク列を作ります。`describe()` は有用な証拠ですが、それだけで分析完了ではありません。

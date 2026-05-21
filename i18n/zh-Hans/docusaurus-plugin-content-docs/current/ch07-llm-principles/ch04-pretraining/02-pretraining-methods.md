@@ -459,11 +459,11 @@ span target   : ['<extra_id_0>', 'learn', 'patterns', 'from', '<extra_id_1>']
 学完这一页，至少保留这张证据卡：
 
 ```text
-objective: causal LM, masked LM, or seq2seq objective
-training_sample: input and target constructed from same text
-architecture_fit: objective matched to encoder/decoder pattern
-behavior_effect: what the objective teaches the model to do
-limitation: pretraining objective is not the same as instruction following
+目标：因果语言模型、掩码语言模型或 seq2seq 目标
+训练样本：从同一段文本构造的输入和目标
+架构匹配：目标与 encoder/decoder 模式相符
+行为效果：目标教模型学会做什么
+局限：预训练目标并不等同于指令遵循
 ```
 
 ## 小结
@@ -486,7 +486,7 @@ limitation: pretraining objective is not the same as instruction following
 4. 想一想：如果你的目标是做一个强摘要模型，你会更偏向哪类预训练目标？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 好的答案应体现同一段文本可以变成不同训练信号：Causal LM 做 next-token prediction，Masked LM 做被遮盖 token 的恢复，sequence-to-sequence 目标做输入到输出的重构。
 2. Causal LM 训练模型根据前缀逐 token 续写。这正好匹配开放式生成、聊天、代码补全等从左到右产生输出的任务。

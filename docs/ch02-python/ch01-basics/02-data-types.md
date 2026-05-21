@@ -515,7 +515,7 @@ print(type("1" + "2"))  # String + string = ?
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The personal info card should use `str`, `int`, and `bool`. f-strings should show variable values and an expression such as `age + 1`.
 2. `37.5` C gives `99.5` F. Keep the formula in code so changing `celsius` changes `fahrenheit`.

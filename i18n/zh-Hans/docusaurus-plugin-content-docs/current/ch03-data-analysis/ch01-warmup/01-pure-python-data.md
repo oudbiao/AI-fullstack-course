@@ -552,7 +552,7 @@ find_children(passengers)
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 乘客练习先按 `survived` 分组，计算人数、平均票价和舱位分布，再开始解释。
 - 加入年龄逻辑时，把缺失年龄标成 `Unknown`，不要假装它们是儿童或成人。更有用的比较是儿童生还率与成人生还率，并在每个比例旁写出样本数。
@@ -667,11 +667,11 @@ if __name__ == "__main__":
 学完这一页，至少保留这张证据卡：
 
 ```text
-data_source: raw records or small dataset used
-processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
-output: cleaned data, statistic, chart, query result, or report note
-failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
-Expected_output: data artifact plus the evidence needed to trust it
+数据来源：使用的原始记录或小型数据集
+处理步骤：纯 Python、NumPy、Pandas、绘图或 SQL 操作
+输出：清洗后的数据、统计量、图表、查询结果，或报告备注
+失败检查：数据缺失、形状不匹配、聚合错误或问题不清晰
+期望产出：数据成果，以及值得信任它所需的证据
 ```
 
 ## 小结

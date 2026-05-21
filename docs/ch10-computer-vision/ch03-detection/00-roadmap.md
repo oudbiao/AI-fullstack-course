@@ -75,7 +75,7 @@ Expected_output: annotated image plus detection metrics or error buckets
 You pass this chapter when you can explain a detection result with boxes, confidence, IoU, and at least one false-positive or false-negative case.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

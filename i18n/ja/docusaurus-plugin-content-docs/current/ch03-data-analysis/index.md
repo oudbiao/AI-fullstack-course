@@ -124,11 +124,11 @@ Visualization    ...
 このページを終えたら、この evidence card を残します。
 
 ```text
-data_source: raw records or small dataset used
-processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
-output: cleaned data, statistic, chart, query result, or report note
-failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
-Expected_output: data artifact plus the evidence needed to trust it
+データソース: 生レコードまたは使用した小規模データセット
+処理ステップ：純 Python、NumPy、Pandas、可視化、または SQL の操作
+出力：cleaned data、statistic、chart、query result、またはreport note
+失敗確認: データ不足、形状不一致、誤った集計、または不明確な質問
+期待される成果：信頼性を支える証拠があるデータアーティファクト
 ```
 
 ## よくある失敗
@@ -155,7 +155,7 @@ Expected_output: data artifact plus the evidence needed to trust it
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 - この 5 つの通過チェックは、ばらばらの標語ではなく小さなデータストーリーとして答えます。
 - 十分な答えには、列名と単位、行や値を変えたクリーニングルール、各グラフが答える明確な質問、データで支えられる結論と不確かな点、他人が再実行できる README が含まれます。

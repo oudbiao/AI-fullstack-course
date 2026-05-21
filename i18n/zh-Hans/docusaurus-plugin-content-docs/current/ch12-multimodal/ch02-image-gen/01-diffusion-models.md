@@ -392,11 +392,11 @@ GAN 更像：
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+提示词记录：提示词、负面要求、参考、seed/model，以及版本号
+候选输出：生成或模拟的结果及选择原因
+技术备注：扩散步、潜变量、cross-attention、LoRA 或应用模式
+失败检查：提示漂移、风格不匹配、产物、版权、肖像或复核失败
+期望产出：选定图片/版本记录加被拒候选说明
 ```
 
 ## 小结
@@ -423,7 +423,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 如果你要向别人解释扩散模型，怎么用“先弄脏再洗干净”的类比去讲？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 衰减系数越大，结构保留越久；系数越小，结构消失越快。这个实验能帮助你看到：去噪模型必须理解每个噪声级别还剩多少信号。
 2. 训练时，模型通常看到“带噪样本 + 噪声/时间条件”，学习预测噪声或还原方向。因此它学的是一连串修复步骤，而不是一次性从零画出完整图片。

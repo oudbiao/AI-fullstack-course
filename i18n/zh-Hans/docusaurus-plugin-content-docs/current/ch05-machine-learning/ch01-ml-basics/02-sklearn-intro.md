@@ -182,11 +182,11 @@ reloaded_prediction= setosa
 学完这一页，至少保留这张证据卡：
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+机器学习问题：监督学习、无监督学习、评估或特征工程任务
+基线：最简单的 sklearn/建模循环和固定的训练/测试划分
+输出：预测、指标、图表，或模型决策备注
+失败检查：数据泄漏、目标不清、基线薄弱或指标不匹配
+期望产出：带指标和一个失败观察的最小 ML 循环
 ```
 
 ## 常见错误
@@ -207,7 +207,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 4. 保存终端输出和 `iris_pipeline.joblib` 作为证据。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. `test_size=0.2` 会让训练集更大、测试集更小；在固定 `random_state` 时分数可能略有变化，但不能只凭一次分数判断新设置更好。
 2. `n_neighbors=3` 会让 KNN 更关注局部邻居，边界可能更灵活。它可能提升测试分数，也可能因为对噪声更敏感而下降。

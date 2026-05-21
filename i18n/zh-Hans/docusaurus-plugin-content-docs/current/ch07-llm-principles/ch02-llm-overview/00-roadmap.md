@@ -67,11 +67,11 @@ recommended_route: RAG
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability_stack: tokens, context, pretraining, instruction, alignment
-cost_check: context length and output length affect cost/latency
-product_fit: choose model behavior by task need, not hype
-evaluation_loop: fixed cases, score, failure note
-next_action: connect overview to prompt testing in 7.5
+能力栈：tokens、上下文、预训练、指令、对齐
+成本检查：上下文长度和输出长度会影响成本/延迟
+产品契合：按任务需求选择模型行为，而不是看噱头
+评估循环：固定案例、分数、失败说明
+下一步动作：把概览与 7.5 中的 Prompt 测试连接起来
 ```
 
 ## 通过标准
@@ -79,7 +79,7 @@ next_action: connect overview to prompt testing in 7.5
 能从能力、上下文、成本、延迟、数据隐私和路线适配解释一次模型选择，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

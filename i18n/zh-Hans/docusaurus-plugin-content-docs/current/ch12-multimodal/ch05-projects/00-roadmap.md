@@ -71,7 +71,7 @@ assets: title, cover_prompt, video_script, review_checklist
 项目能接收 brief，生成结构化创意内容包，保存版本，执行审核，并导出别人可以检查的 Markdown 或 JSON，就算通过本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说清涉及哪些模态、输入输出契约是什么，以及文字、图像、音频或视频证据如何对齐。
 2. 证据应包含真实媒体产物或 trace，并附上质量、安全和失败案例说明。
@@ -85,9 +85,9 @@ assets: title, cover_prompt, video_script, review_checklist
 学完这一页，至少保留这张证据卡：
 
 ```text
-brief: user goal, audience, assets, constraints, and export format
-artifacts: source files, prompts, generated candidates, selected output, and rejected versions
-review: factual check, copyright/portrait/sensitive-content check, and human decision
-integration: RAG record, Agent trace, creative package, storyboard, or export preview
-Expected_output: reproducible asset package with README, review checklist, and failure notes
+简介：用户目标、受众、素材、约束和导出格式
+工件：源文件、提示词、生成候选、选定输出和被拒绝版本
+审查：事实检查、版权/肖像/敏感内容检查，以及人工决定
+集成: RAG 记录、Agent trace、创意包、故事板或导出预览
+期望产出：可复现的资产包，包含 README、复查清单和失败说明
 ```

@@ -376,7 +376,7 @@ when you should use an Agent, and when a workflow is actually enough.
 3. Think about this: why do many teams still keep a large number of fixed workflow nodes in Agent projects?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A calculator tool should be routed only for numeric tasks, validate inputs, and return a structured result or error.
 2. Rule bots match fixed conditions; workflows execute predefined steps; Agents choose tools and actions based on goal, context, and observations.

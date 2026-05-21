@@ -442,11 +442,11 @@ Transformer 是一套 block 设计，不是一个孤立公式。
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_contract: token embeddings plus position information
-attention_role: mix information across positions
-ffn_role: transform each position independently
-stability_parts: residual plus norm
-output_bridge: hidden state becomes vocabulary logits
+输入约束: token embeddings plus position information
+注意力作用：在不同位置之间混合信息
+FFN 作用：对每个位置独立进行变换
+稳定性部分：残差加归一化
+输出桥接：隐藏状态变成词表 logits
 ```
 
 ## 小结
@@ -469,7 +469,7 @@ output_bridge: hidden state becomes vocabulary logits
 4. 想一想：如果要把这个 block 叠 48 层，你最担心的工程问题会是什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 始终允许 attention 后，每个位置都能看到后面的 token。注意力矩阵会不再保持明显的三角形结构，这有助于观察机制，但会破坏 decoder-only 生成时必须遵守的自回归规则。
 2. 去掉残差连接后，block 更难保留原始信号。层数很深时，每一层都要同时学习变换和身份传递，训练会更脆弱。

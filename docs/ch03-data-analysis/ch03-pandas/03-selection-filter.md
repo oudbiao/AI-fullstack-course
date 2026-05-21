@@ -392,7 +392,7 @@ print(top10[["OrderID", "Customer", "Amount"]])
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Use boolean masks for each condition, then combine them with `&`, `|`, and parentheses. For example, amount range, category membership, and non-returned orders should be separate named masks before combining.
 - For grouped customer questions, filter first when the question says non-returned orders, then group by `Customer` and aggregate mean, max, or count.

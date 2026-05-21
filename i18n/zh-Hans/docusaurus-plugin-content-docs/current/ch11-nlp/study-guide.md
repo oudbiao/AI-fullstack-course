@@ -52,7 +52,7 @@ keywords: [NLP 检查表, 文本分类, 信息抽取, BERT, GPT, 文本评估]
 如果答案都是可以，就能更稳地把 NLP 思维用到 Prompt、RAG、Agent 记忆和多模态任务中。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案应能讲清原始文本到 token、表示、模型输入、预测、指标和失败案例的路径。
 2. 标签边界只有在有正例、反例、边界例和冲突处理规则时才算准备好。
@@ -67,9 +67,9 @@ keywords: [NLP 检查表, 文本分类, 信息抽取, BERT, GPT, 文本评估]
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
-artifacts: raw text, processed text, predictions, metrics, and failure cases
-metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
-failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
-Expected_output: reproducible text pipeline folder with metrics and examples
+任务输出：标签、实体字段、摘要、答案、检索结果或语义图
+工件：原始文本、处理后文本、预测、指标和失败案例
+指标：准确率/F1、精确率/召回率、检索命中率、忠实度或 schema 有效性
+失败检查：标签不清、过度清洗、边界错误、幻觉或答案无依据
+期望产出：可复现的文本流程文件夹，包含指标和示例
 ```

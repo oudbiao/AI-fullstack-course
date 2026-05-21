@@ -66,9 +66,9 @@ keywords: [AI学習ルート, AIフルスタックルート, LLM学習, Agent学
 このページを終えたら、この証拠カードを残します。
 
 ```text
-learner_profile: current skill level, weekly time, target role, and preferred project type
-route_choice: fastest path, foundation-first path, or project-first path with reason
-first_milestone: one runnable result to finish this week
-risk_check: skipping foundations, over-reading, setup friction, or unclear goal
-Expected_output: a written personal route plus the next concrete page to open
+学習者プロフィール：現在のスキルレベル、週あたりの時間、目標職種、好みのプロジェクト種別
+ルート選択: 最速ルート、基盤先行ルート、またはプロジェクト先行ルートと理由
+最初のマイルストーン: 今週中に終えるための1つの実行可能な結果
+リスク確認：基礎を飛ばす、読みすぎる、セットアップの摩擦、または目標が不明確なこと
+期待される成果：書かれた個人ルートと、次に開く具体的なページ
 ```

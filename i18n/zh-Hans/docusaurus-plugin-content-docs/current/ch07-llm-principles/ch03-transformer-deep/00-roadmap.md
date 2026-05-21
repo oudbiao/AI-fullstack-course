@@ -58,11 +58,11 @@ for row in mask:
 学完这一页，至少保留这张证据卡：
 
 ```text
-block_contract: [batch, seq, d_model] in and out
-mask_check: causal mask blocks future positions
-kv_cache_reason: inference reuses past keys and values
-compute_note: attention cost grows with sequence length
-bridge: these details explain latency and context limits in apps
+块契约：输入和输出都是 [batch, seq, d_model]
+mask 检查：因果掩码阻止未来位置
+KV 缓存原因: 推理会复用之前的 keys 和 values
+计算说明：注意力成本随序列长度增加
+桥接：这些细节解释了应用中的延迟和上下文限制
 ```
 
 ## 通过标准
@@ -70,7 +70,7 @@ bridge: these details explain latency and context limits in apps
 能解释 decoder-only 模型为什么需要 causal mask、为什么上下文变长会让 attention 变贵，以及 KV cache 为什么能帮助生成，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

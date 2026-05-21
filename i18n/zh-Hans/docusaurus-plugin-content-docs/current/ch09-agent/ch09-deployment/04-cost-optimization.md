@@ -307,11 +307,11 @@ total_cost = 0.004
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+运行时：队列、worker、状态存储、工具服务，以及模型端点
+持久化：检查点、事件日志、记忆存储和恢复路径
+运维信号：延迟、成本、错误率、trace 覆盖率和饱和度
+失败检查：运行卡住、重复动作、部分失败或成本失控
+恢复动作：继续、回滚、取消、人工接管，或优雅降级
 ```
 
 ## 小结
@@ -332,7 +332,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. 如果某条链路正确率很高但成本异常高，你会先从哪一段查？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 可以把 retry 带来的模型调用写成 `retry_count * cost_per_call`，或按模型层级单独列一行。这样常会发现不稳定工具和弱 prompt 在悄悄制造额外模型成本。
 2. 适合 cache 的包括直接事实查询、重复检索结果、稳定政策片段、确定性转换。不应在没有清晰失效规则时缓存用户私有、快速变化或需要审批的结果。

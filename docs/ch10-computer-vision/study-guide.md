@@ -51,7 +51,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 If the answer is yes, you can connect vision to multimodal work in Chapter 12.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

@@ -13,11 +13,11 @@ description: "Python の型注釈とコード品質ツールを身につける"
 このページを終えたら、この evidence card を残します。
 
 ```text
-pattern: class, exception, file IO, functional pipeline, generator, or type hint
-code_artifact: minimal runnable example and one realistic use case
-output: printed object state, caught error, saved file, yielded values, or type-check note
-failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
-Expected_output: small advanced-Python example with a debugging note
+パターン：class、exception、file IO、functional pipeline、generator、またはtype hint
+コード成果物：最小限の実行可能な例と、現実的なユースケース 1 つ
+出力：印字されたオブジェクト状態、捕捉したエラー、保存したファイル、yieldされた値、または型チェックのメモ
+失敗確認：隠れた変更、副作用を飲み込む例外、ファイルパスの問題、lazy iterator の混同、または誤解を招く注釈
+期待される成果: デバッグメモを含む小さな高度Python例
 ```
 
 ## この節の位置づけ
@@ -546,7 +546,7 @@ def g(d):
 ---
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 既存関数には、たとえば `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` や `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None` のように、入力構造と空リスト時の戻り値がわかる型を付けます。
 2. `ruff` はまず `ruff check` で問題を確認し、そのあと `ruff format` で整形し、最後に差分を見る流れが扱いやすいです。lint と整形を分けると、何が直ったかを説明しやすくなります。

@@ -106,10 +106,10 @@ for epoch in range(20):
 先へ進む前に、小さな開始記録を残します。
 
 ```text
-first_loop_ran: the tiny PyTorch loop printed four loss lines
-loss_direction: loss generally moved down
-core_path: 6.1 -> 6.2 -> 6.5 -> 6.8
-next_debug_step: if loss does not move, check shape, loss, gradients, and optimizer step
+最初のループ実行: 小さな PyTorch ループが4行の loss を出力した
+損失の方向：損失は全体として低下した
+主要経路: 6.1 -> 6.2 -> 6.5 -> 6.8
+次のデバッグ手順：loss が動かない場合は、shape、loss、gradients、optimizer step を確認する
 ```
 
 これは最初の例を checkpoint にします。ここで全 architecture を一気に覚える必要はありません。まず学習ループが見えるようになったことを証明します。

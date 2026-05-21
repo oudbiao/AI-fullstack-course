@@ -160,12 +160,12 @@ avg_confidence: 0.69
 每次诊断都留下一条“症状到动作”笔记：
 
 ```text
-curve_pattern: underfit, overfit, unstable, collapse, or unclear
-prediction_signal: class counts and confidence
-gradient_signal: norm plus NaN/Inf check
-data_check: labels, split, leakage, preprocessing
+曲线模式：欠拟合、过拟合、不稳定、崩溃或不清楚
+预测信号：类别计数和置信度
+梯度信号：范数加上 NaN/Inf 检查
+数据检查：标签、划分、泄漏、预处理
 选择动作：一个有针对性的下一轮实验
-success_rule: what metric or artifact will prove the fix worked
+成功规则：什么指标或工件能证明修复有效
 ```
 
 ## 从诊断到动作
@@ -197,7 +197,7 @@ success_rule: what metric or artifact will prove the fix worked
 5. 保存一个 CSV 风格日志：`epoch,train_loss,val_loss,val_acc`。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `good_case` 应该表现为 train loss 下降、val loss 下降或持平、val acc 上升，说明训练和泛化同步改善。
 2. 三分类时可使用 `torch.bincount(labels, minlength=3)`，确保没有出现的类别也有计数位置。

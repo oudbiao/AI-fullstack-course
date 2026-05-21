@@ -24,11 +24,11 @@ keywords: [Python学习指南, Python任务单, 编程基础, JSON, CLI]
 学完这一页，至少保留这张证据卡：
 
 ```text
-program_loop: input, processing, output, and saved state if any
-code_file: Python file or notebook cell that can be rerun
-output: printed result, file result, or user-facing behavior
-failure_check: syntax, path, type, dependency, or control-flow issue
-Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+程序循环：输入、处理、输出，以及如有则保存的状态
+代码文件：可重新运行的 Python 文件或 Notebook 单元
+输出：打印结果、文件结果，或面向用户的行为
+失败检查：语法、路径、类型、依赖或控制流问题
+期望产出：一个可重复运行的 Python 产物，为数据和 AI 应用做准备
 ```
 
 ## 练习清单
@@ -52,7 +52,7 @@ Expected_output: a rerunnable Python artifact that prepares for data and AI apps
 | 表达交付 | 写一条 README 命令，让新终端不需要猜隐藏步骤也能运行。 |
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 最低通过标准是一个可以重复运行的练习文件夹，里面有小脚本和 workshop 输出，而不是只有截图。
 2. 数据结构说明要讲清取舍，例如用字典保存任务的 `id`、`status`、`due_date`，用列表保存任务的先后顺序。

@@ -286,7 +286,7 @@ The workflow is the same. The tooling becomes more serious.
 5. Print the first five wrong validation examples if any exist.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Higher noise usually lowers validation accuracy and creates more borderline mistakes. The error examples are more informative than the metric alone.
 2. With only `10` samples per class, the model may still fit training data but validation becomes less reliable. Expect higher variance across seeds.

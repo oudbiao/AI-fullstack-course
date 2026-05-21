@@ -62,11 +62,11 @@ feature_shape: (1, 8, 32, 32)
 CNN shape メモを 1 つ残します。
 
 ```text
-input: [batch, channels, height, width]
-conv_output: out_channels becomes new feature maps
-spatial_change: stride/padding/pooling change height and width
-classifier_bridge: conv features eventually become class logits
-transfer_choice: freeze first, fine-tune only if validation improves
+入力形状：[batch, channels, height, width]
+畳み込み出力: out_channels が新しい特徴マップになる
+空間変化: stride/padding/pooling により高さと幅が変わる
+分類器の橋渡し：conv の特徴は最終的に class logits になる
+転移学習の選択：まず freeze し、validation が改善する場合のみ微調整 する
 ```
 
 ## 合格ライン
@@ -74,7 +74,7 @@ transfer_choice: freeze first, fine-tune only if validation improves
 入力画像形状と特徴マップ形状の間で何が変わったか、そして小規模データセットで学習済み CNN backbone が役立つ理由を説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

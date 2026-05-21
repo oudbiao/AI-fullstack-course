@@ -83,7 +83,7 @@ Expected_output: security checklist plus one reproducible red-team case
 You pass this elective when you can keep a red-team case file, explain one failed surface, propose one guardrail, and rerun the case after the fix.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 A passing answer should name one surface, one failure, one guardrail, and the rerun result. For example: “The tool surface failed because the model executed without confirmation. The guardrail requires explicit user approval before external actions. After the fix, the same case returns `ask_confirmation`.”
 

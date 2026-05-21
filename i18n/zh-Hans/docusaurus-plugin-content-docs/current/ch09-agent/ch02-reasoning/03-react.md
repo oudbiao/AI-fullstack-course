@@ -425,11 +425,11 @@ trace 可追踪，但不自动保证正确。
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+任务目标：Agent 想要解决什么
+计划或轨迹：推理步骤、计划、ReAct 轨迹或执行图
+观察：每次操作后发生了什么变化
+失败检查：虚构步骤、过时观察、循环或未经验证的结论
+评估动作：与期望结果对比并修正计划
 ```
 
 ## 小结
@@ -452,7 +452,7 @@ eval_action: compare against expected result and revise the plan
 4. 想一个更适合固定 工作流、而不太适合 ReAct 的任务。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `check_order_status` 应该增加一个新的 action 选择，并返回会影响下一步判断的 observation。
 2. ReAct 适合每次 observation 都可能改变计划的任务，例如搜索结果、工具错误、缺失字段、权限结果或计算输出都会影响下一步。

@@ -369,11 +369,11 @@ answer:
 学完这一页，至少保留这张证据卡：
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+工具契约：名称、描述、输入 schema、输出 schema
+权限：工具允许读取或修改的内容
+调用轨迹：参数、结果、错误、重试或回退
+失败检查：错误的工具、参数不当、不安全操作，或缺少观察结果
+安全动作：验证、确认、沙箱、限流，或回滚
 ```
 
 ## 小结
@@ -402,7 +402,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 想一想：这个演示里哪些部分最适合拿去做作品集展示？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. `notify_user` 应该只在已有政策证据、已有资格判断，并且最终 state 表示满足退款条件后执行。
 2. 核心是 state management，因为 Agent 必须记住政策证据、用户输入、工具输出、决策，以及某个 side effect 是否已经发生。

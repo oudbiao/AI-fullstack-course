@@ -842,7 +842,7 @@ fig.show()
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 - 完成したプロジェクトでは、各データソースを読み込んだこと、結合キーを確認したこと、各 join の前後で行数を比較したこと、未一致レコードを調べたことを示します。
 - 最終分析には、単なる 3 つのグラフではなく、ビジネスやプロダクト上の意味を持つ洞察を少なくとも 3 つ含めます。各洞察には支える表またはグラフが必要です。
@@ -866,9 +866,9 @@ fig.show()
 このページを終えたら、この evidence card を残します。
 
 ```text
-analysis_goal: business/data question and success criterion
-data_evidence: source, cleaning notes, features, and chart/table outputs
-result: insight, metric, dashboard, or report section
-failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
-Expected_output: reproducible analysis folder with data, charts, and a short report
+分析目標: ビジネス/データの質問と成功基準
+データの証拠: 取得元、クレンジングメモ、特徴量、図表の出力
+結果: 洞察、metric、dashboard、または report のセクション
+失敗確認：汚れたデータ、偏ったサンプル、誤った集計、または再現不能な Notebook
+期待される成果: データ、図表、短いレポートを含む再現可能な分析フォルダ
 ```

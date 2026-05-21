@@ -546,7 +546,7 @@ Once these three things are clear, method names will no longer feel mysterious.
 4. Think about it: if your hardware is very limited but the task is fairly complex, which PEFT method would you try first? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Prompt Tuning learns soft prompt vectors near the input. Prefix Tuning learns prefix states that influence attention. Adapter inserts small trainable modules inside layers. IA3 learns scaling vectors that modulate activations.
 2. Adapters let each task keep a small task-specific module while sharing the same base model. That makes storage, switching, and multi-task management easier than maintaining many full model copies.

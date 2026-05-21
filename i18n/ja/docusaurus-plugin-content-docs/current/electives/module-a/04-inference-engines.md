@@ -147,11 +147,11 @@ selected: OpenVINO
 このページを終えたら、この証拠カードを残します。
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+デプロイ先：ローカル推論、エッジデバイス、モデルサーバー、または最適化実験
+成果物: C++ スニペット、ベンチマーク、model artifact、serving 設定、または deployment メモ
+指標：レイテンシ、メモリ、スループット、モデルサイズ、accuracy 低下、または信頼性
+失敗確認：ABI/ビルドの問題、ハードウェア不一致、量子化損失、または配信ボトルネック
+期待される成果: 理論メモだけでなく、再現可能なデプロイまたは最適化の証拠
 ```
 
 ## よくある間違い
@@ -165,7 +165,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 各エンジンに `memory` フィールドを追加し、デバイスのメモリを超えたら 1 点減点してください。その後、CPU-only、NVIDIA GPU、Intel デバイスの3つの場面で選び直します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 よい解答では、メモリを飾りの列ではなく実際の制約として扱います。たとえば対象デバイスの `memory_limit=1024` に対して、あるエンジンの `memory=1800` なら、遅延スコアが高くても減点またはリスク扱いにします。
 

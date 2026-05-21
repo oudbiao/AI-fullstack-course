@@ -370,7 +370,7 @@ That is the fundamental reason it is harder than image generation and also more 
 4. If you were building a short-video generation product, would you prioritize single-frame quality or temporal consistency first? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Video adds time. The system must keep identity, motion, camera, lighting, and scene state consistent across frames, not merely make one good image.
 2. If each frame looks good but playback feels jumpy, the temporal consistency layer is failing. Motion, object persistence, or camera trajectory is not coherent across the sequence.

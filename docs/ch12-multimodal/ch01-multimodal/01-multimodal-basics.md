@@ -428,7 +428,7 @@ If we compress it into one sentence, it is:
 3. Think about why a “screenshot of an error + a question in text” is more suitable for a multimodal system than error text alone.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. A good check is whether the top match changes for the right reason. If the image vector moves closer to the text vector on the same meaning dimensions, its ranking should rise; if it only changes on an unrelated dimension, the ranking should stay similar.
 2. One simple toy space is `sweet/salty`, `moving/static`, and `living/non-living`. Fruit can sit near sweet and living, vehicles near moving and non-living, and animals near moving and living. The important part is not the exact numbers, but whether nearby points share useful meaning.

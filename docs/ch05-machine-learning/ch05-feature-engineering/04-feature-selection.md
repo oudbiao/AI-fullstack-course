@@ -311,7 +311,7 @@ The first mistake is performing feature selection on the full dataset and then s
 5. Explain why feature selection must be placed inside the cross-validation workflow.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. `SelectKBest` is useful only if the selected-feature model matches or improves the baseline on validation data. A smaller feature set with worse generalization is not automatically better.
 2. RFE results should be compared by score and by feature stability. If selected names swing wildly between 8, 10, and 15 features, the ranking may be fragile.

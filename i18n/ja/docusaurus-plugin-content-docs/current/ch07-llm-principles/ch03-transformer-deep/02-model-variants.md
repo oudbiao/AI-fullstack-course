@@ -391,11 +391,11 @@ MoE の本質的な変化は次の点です。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-encoder_only: bidirectional understanding tasks
-decoder_only: causal generation and chat models
-encoder_decoder: read one sequence and generate another
-choice_rule: architecture follows task and serving pattern
-misread_to_avoid: variant names are not simple quality rankings
+エンコーダ専用：双方向の理解タスク
+デコーダ専用：因果生成とチャットモデル
+エンコーダ・デコーダ：1 つの系列を読み、別の系列を生成する
+選択ルール：アーキテクチャはタスクと提供パターンに従う
+誤読防止：派生名は単純な品質順位ではない
 ```
 
 ## まとめ
@@ -418,7 +418,7 @@ misread_to_avoid: variant names are not simple quality rankings
 4. もし超大規模モデルの拡張を続けたいが、1 回ごとの計算予算が限られているなら、なぜ MoE が魅力的になるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. Causal mask は、各 token が未来を見ずに過去だけから予測するよう制限します。この制約があるからこそ、Transformer block は自己回帰生成器として使えます。
 2. 翻訳や要約には「入力列」と「出力列」が自然にあります。Encoder が入力全体を読み、Decoder がその表現を参照しながら出力を一歩ずつ生成します。

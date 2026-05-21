@@ -291,11 +291,11 @@ YOLO のような 1段階手法のほうがよく使われます。
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: detection sample with ground-truth or expected objects
-prediction: boxes, labels, confidence scores, IoU, and threshold settings
-metric: precision/recall, mAP, false positives, and false negatives
-failure_check: small object, overlap, NMS, poor labels, or confidence threshold
-Expected_output: annotated image plus detection metrics or error buckets
+入力画像：正解または期待される対象を含む検出サンプル
+予測：バウンディングボックス、ラベル、信頼度スコア、IoU、しきい値設定
+指標：precision/recall、mAP、false positives、false negatives
+失敗確認: 小さな物体、重なり、NMS、ラベル品質の低さ、または信頼度閾値
+期待される成果：注釈付き画像と、検出メトリクスまたはエラーバケット
 ```
 
 ## まとめ
@@ -324,7 +324,7 @@ Expected_output: annotated image plus detection metrics or error buckets
 4. なぜクラシックアーキテクチャは、検出タスクを理解するうえで今でも価値があるのでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. feature map を共有すると、各 proposal ごとに重い CNN を最初から実行する必要がなくなり、高価な特徴計算を再利用できます。
 2. Faster R-CNN は、遅い外部 proposal 生成を RPN に置き換え、Fast R-CNN の proposal ボトルネックを解決します。

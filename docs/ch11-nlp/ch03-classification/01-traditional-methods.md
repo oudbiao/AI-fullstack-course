@@ -385,7 +385,7 @@ Once you have that judgment, you will no longer be limited to “just use a larg
 4. If a task heavily depends on word order and context, would you still prioritize bag-of-words methods? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `TfidfVectorizer` may reduce the influence of common words and highlight label-specific words, but the result depends on the dataset size and label wording.
 2. When adding `shipping`, include clear positives, confusing negatives, and at least a few examples that mention orders but are not shipping problems.

@@ -474,11 +474,11 @@ question,gold_doc,gold_answer,retrieved_docs,answer,citation_ok,failure_type,not
 このページを終えたら、この証拠カードを残します。
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+クエリ：1つのユーザー質問またはテストケース
+検索チャンク：chunk id、スコア、ソースタイトル
+回答: 引用または出典メモ付きの最終回答
+失敗確認: 証拠不足、誤ったチャンク、古い文書、または裏付けのない主張
+次の行動：chunking、embedding、reranking、prompt、または eval の変更
 ```
 
 ## まとめ
@@ -499,7 +499,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 考えてみましょう。Hit@k は高いのに、最終回答がよく間違うなら、問題はどの層にある可能性が高いでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. よい評価質問には、簡単な直接検索、同義表現、permission-sensitive case、紛らわしい near match を少なくとも 1 つ含めます。`gold_doc` と `gold_answer` は、model output を見る前に書きます。
 2. Hit@k は正しい evidence が取れたかを測り、Exact Match は最終回答が期待回答と一致したかを測ります。わざと誤答を入れると、retrieval が正しくても answer metric は下がるはずです。

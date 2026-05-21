@@ -67,7 +67,7 @@ mask_iou: 0.5
 如果你能创建或检查一个 mask，计算简单重叠指标，并解释一个边界或类别混淆失败，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把任务映射到正确的视觉输出：类别标签、检测框、mask、OCR 文本、embedding 或视频事件。
 2. 证据应包含渲染后的视觉产物，以及一个指标或定性错误说明。
@@ -81,9 +81,9 @@ mask_iou: 0.5
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+输入图像: 原始图像和目标掩膜或类别图
+预测：预测掩膜、叠加可视化和边界示例
+指标：IoU、Dice、每类得分和边界失败备注
+失败检查：标注质量、边界过窄、小区域或类别混淆
+期望产出：掩膜叠加图，以及分割指标汇总
 ```

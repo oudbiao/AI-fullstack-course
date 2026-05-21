@@ -293,11 +293,11 @@ print(f"B と C の類似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.502
 このページを終えたら、この evidence card を残します。
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+配列状態: 操作前の shape、dtype、axis、サンプル値
+操作：indexing、slicing、broadcasting、reshape、線形代数、またはランダム/stat関数
+出力：結果の配列形状、値、または統計量
+失敗確認：軸の混同、view/copy の落とし穴、ブロードキャスト不一致、または誤った形状
+期待される成果: 配列操作を確認できる出力形状と値
 ```
 
 ## まとめ
@@ -372,7 +372,7 @@ movies = {
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 買い物の例では、`quantities @ prices` が最もすっきりしたベクトル化答えです。価格が `[10, 25, 8]`、数量行が `[3,1,2]`、`[0,2,5]`、`[5,0,3]` なら、合計は `71`、`90`、`74` です。
 - 連立方程式 `3x + 2y - z = 1`、`x - y + 2z = 5`、`2x + 3y - z = 0` は、`np.linalg.solve` で `x=1`、`y=0`、`z=2` になります。

@@ -351,7 +351,7 @@ Once this habit is established, you will be much more stable when working on mor
 4. If the label definitions themselves are vague, would you change the model first or the data first? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. For a new `shipping` category, add label definitions first, then add positives and confusing negatives before trusting the metrics.
 2. Use error details to find label pairs with shared words, vague boundaries, or missing training examples.

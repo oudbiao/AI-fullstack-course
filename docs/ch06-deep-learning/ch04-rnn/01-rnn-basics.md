@@ -261,7 +261,7 @@ This is why LSTM and GRU add gates: they give the model a better way to keep, up
 5. Explain why a very long sentence is hard for a plain RNN.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A larger `W_h` makes the previous hidden state carry more strongly into the next step. It may preserve memory better, but it can also amplify instability.
 2. Increasing `hidden_size` changes the last dimension of RNN outputs and hidden states. The classifier input dimension must match the new hidden size.

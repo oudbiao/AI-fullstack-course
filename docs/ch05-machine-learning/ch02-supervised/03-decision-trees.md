@@ -266,7 +266,7 @@ Avoid relying on a single tree when:
 5. In the regression section, compare `DecisionTreeRegressor` with the linear regression lesson's baseline.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `min_samples_leaf=1` usually creates more leaves and can overfit. `10` creates a simpler tree; test accuracy may improve if the old tree was too specific, or drop if it becomes too coarse.
 2. Entropy and Gini often choose similar splits, but they are not guaranteed to match. Compare the first rule and the resulting test score.

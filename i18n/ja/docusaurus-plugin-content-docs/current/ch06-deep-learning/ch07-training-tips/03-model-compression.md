@@ -158,14 +158,14 @@ task metric と latency なしに「int8 が動いた」とだけ報告しない
 圧縮結果は before/after report として保存します。
 
 ```text
-baseline_size:
-compressed_size:
-baseline_latency:
-compressed_latency:
-baseline_metric:
-compressed_metric:
-runtime_hardware:
-decision: keep, tune, or reject compression
+ベースラインサイズ:
+圧縮後サイズ：
+ベースライン遅延:
+圧縮後レイテンシ：
+ベースライン指標:
+圧縮後指標：
+ランタイムハードウェア:
+判断: 圧縮を維持、調整、却下する
 ```
 
 ## よくある間違い
@@ -187,7 +187,7 @@ decision: keep, tune, or reject compression
 5. structured pruning が unstructured pruning より deploy しやすい理由を説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `scale=32` はより細かく量子化できるため MAE が下がる可能性があります。ただし weight distribution と scaling の設計に依存します。
 2. Linear layer の parameter 数は `in_features x out_features + bias` で計算し、層ごとに足します。model size は dtype の byte 数も掛けます。

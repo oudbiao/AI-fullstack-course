@@ -300,11 +300,11 @@ print(f"総ピクセル値: {image.size}")   # 48 個の数字
 このページを終えたら、この evidence card を残します。
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+配列状態: 操作前の shape、dtype、axis、サンプル値
+操作：indexing、slicing、broadcasting、reshape、線形代数、またはランダム/stat関数
+出力：結果の配列形状、値、または統計量
+失敗確認：軸の混同、view/copy の落とし穴、ブロードキャスト不一致、または誤った形状
+期待される成果: 配列操作を確認できる出力形状と値
 ```
 
 ## まとめ
@@ -361,7 +361,7 @@ print("square_sum =", square_sum)
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - `np.arange(1, 101)` の期待結果は、合計 `5050`、平均 `50.5`、最小値 `1`、最大値 `100`、二乗和 `338350` です。
 - ベクトル化版はループ版と同じ数値を返す必要があります。ただし速度差がはっきり見えるのは、配列を数千件から数百万件に増やしてからです。

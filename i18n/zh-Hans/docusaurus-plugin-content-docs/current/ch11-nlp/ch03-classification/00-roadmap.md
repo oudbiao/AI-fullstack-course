@@ -53,7 +53,7 @@ needs_review - confusing setup error
 如果你能训练或模拟一个分类器，报告 accuracy/F1，并解释至少一个标签模糊案例，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -67,9 +67,9 @@ needs_review - confusing setup error
 学完这一页，至少保留这张证据卡：
 
 ```text
-label_schema: label definitions and boundary examples
-dataset_split: fixed train/test examples or evaluation set
-prediction: predicted label, expected label, and confidence or score
-failure_check: class imbalance, label overlap, leakage, or confusing wording
-Expected_output: metrics plus error samples grouped by failure reason
+标签模式: 标签定义和边界示例
+数据集划分：固定的训练/测试示例或评估集
+预测：预测标签、期望标签以及置信度或分数
+失败检查：类别不平衡、标签重叠、数据泄漏或措辞混淆
+期望产出：按失败原因分组的指标和错误样本
 ```

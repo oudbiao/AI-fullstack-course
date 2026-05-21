@@ -76,7 +76,7 @@ Expected_output: unsupervised result with interpretation and uncertainty note
 You pass this roadmap when you can explain what structure you are looking for, run one unsupervised model, and write one cautious interpretation instead of treating the output as absolute truth.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. In unsupervised learning, the model output is a hypothesis about structure, not a verified answer.
 2. A good interpretation includes a plot or feature summary, a cautious label for the discovered structure, and one uncertainty note.

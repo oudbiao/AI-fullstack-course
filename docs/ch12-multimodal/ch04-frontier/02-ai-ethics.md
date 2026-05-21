@@ -375,7 +375,7 @@ Only when you see risk as a combined issue of “model + data + system + users�
 4. Try rewriting an ethical risk into a concrete engineering problem, such as “log anonymization,” “access control,” or “manual approval.”
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A useful answer should turn each risk into evidence and control. For example, a face-editing app may need bias tests across skin tones and privacy controls for uploads, retention, and deletion.
 2. Human-like output increases trust because users apply social expectations to the system. They may assume the model understands, remembers, or verifies more than it actually does.

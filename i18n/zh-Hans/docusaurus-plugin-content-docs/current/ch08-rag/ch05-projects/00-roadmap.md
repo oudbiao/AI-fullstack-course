@@ -85,10 +85,10 @@ evidence: docs, eval, citations, failures
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+项目目标：用户任务和业务边界
+基线：最简单的提示/RAG/应用版本优先
+评估：固定案例、检索证据、答案质量和引用检查
+失败日志：至少一个失败案例及其可能原因
 交付物：README、运行命令、截图/日志、下一步
 ```
 
@@ -99,7 +99,7 @@ failure_log: at least one failed case with likely cause
 最强作品集版本不一定最大。更重要的是，另一个开发者能复现运行、查看证据，并理解你下一轮会怎样改进。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
 2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。

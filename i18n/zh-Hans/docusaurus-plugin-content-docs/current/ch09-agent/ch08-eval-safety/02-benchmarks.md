@@ -144,11 +144,11 @@ print(score_answer(sample, answer))
 学完这一页，至少保留这张证据卡：
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+评估用例：固定任务和期望的安全行为
+评分卡：任务成功、工具正确性、trace 质量和安全性
+护栏：策略、权限、验证或人工确认
+失败检查：工具使用不安全、提示注入、隐藏状态或未被观测的动作
+下一步动作：添加案例、护栏、日志、回滚或拒绝路径
 ```
 
 ## 练习
@@ -163,7 +163,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 学完本节后，你应该能解释通用基准测试和自建评估集的区别，能为自己的 Agent 项目设计小型基准测试，并能用固定评估集比较不同模型、Prompt 和工具设计的效果。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 扎实的 20 条 benchmark 应混合简单、中等和困难课程问题，包含必须引用证据的题、越界问题，以及检索只返回部分证据或冲突证据的题。
 2. `must_include` 要列出必须出现的概念或证据，`must_not_do` 要拦住虚构引用或不安全动作，评分规则要说明如何给部分分。

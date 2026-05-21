@@ -193,7 +193,7 @@ The first mistake is standardizing all models. Tree models usually do not need i
 4. Find a high-cardinality categorical feature and think about the risks of One-Hot and Target Encoding respectively.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Low missing rates can often use median/mode imputation; high missing rates may need a missing indicator, domain review, or removal. The plan should justify each column separately.
 2. LogisticRegression is usually sensitive to scale because coefficients and optimization depend on numeric magnitude. RandomForest is much less sensitive because splits depend on ordering.

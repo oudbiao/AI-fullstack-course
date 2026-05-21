@@ -180,7 +180,7 @@ Before entering Chapter 8, you should be able to:
 For a printable checklist, use [7.0 Learning Checklist](./study-guide.md). For the guided project, start with [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md).
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer explains how tokens, context, attention, prompts, and generation behavior connect in one request-response path.
 2. The evidence should include at least one reproducible prompt or structured-output test, plus notes on why the output passed or failed.

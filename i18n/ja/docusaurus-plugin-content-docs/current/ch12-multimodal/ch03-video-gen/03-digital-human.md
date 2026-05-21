@@ -332,11 +332,11 @@ print(workflow)
 このページを終えたら、この evidence card を残します。
 
 ```text
-storyboard: scene list, duration, camera/voice/subtitle/timing notes
-asset_list: images, audio, voice, captions, clips, and source/license fields
-sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
-failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
-Expected_output: storyboard or timeline artifact with review notes
+ストーリーボード：シーン一覧、duration、camera/voice/subtitle/timing のメモ
+資産一覧: images、audio、voice、captions、clips、source/license フィールド
+同期チェック：音声テキストのタイミング、口パク、ショットの連続性、またはフレームの一貫性
+失敗確認：ちらつき、アイデンティティのずれ、音声不一致、安全でない類似、または書き出しの問題
+期待される成果: レビュー用メモを含むストーリーボードまたはタイムラインのアーティファクト
 ```
 
 ## まとめ
@@ -358,7 +358,7 @@ Expected_output: storyboard or timeline artifact with review notes
 4. 自分の言葉で説明してみましょう：なぜ多くのデジタルヒューマン製品は「最高のリアルさ」よりも「安定性とコスト」を重視するのか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. デジタルヒューマンは、生成、同一性制御、音声、表情や顔の動き、lip sync、対話状態、安全制御を組み合わせます。通常の動画生成は、安定した persona として応答し続ける必要があるとは限りません。
 2. lip sync が重要なのは、人間が口の動きと音声のずれにすぐ気づくからです。小さなずれでも不自然に見え、信頼感が下がります。

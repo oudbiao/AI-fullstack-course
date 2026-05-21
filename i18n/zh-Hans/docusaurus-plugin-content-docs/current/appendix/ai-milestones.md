@@ -145,7 +145,7 @@ AI 历史比论文清单更像接力赛：
 目标不是背历史，而是把历史节点和你以后会做的真实能力连接起来。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 一种合格答案可以选这三个节点：
 
@@ -178,9 +178,9 @@ AI 历史比论文清单更像接力赛：
 学完这一页，至少保留这张证据卡：
 
 ```text
-timeline_anchor: stage, key idea, representative paper/system, and why it mattered
-chapter_link: which course chapter this milestone helps explain
-memory_hook: diagram, comic panel, or one-sentence historical turn
-failure_check: memorizing names without understanding the problem each milestone solved
-Expected_output: a short timeline note connected to at least one project decision
+时间线锚点：阶段、关键想法、代表性论文/系统，以及它为何重要
+章节链接：这个里程碑帮助解释课程中的哪一章
+记忆钩子：图示、漫画格，或一句话的历史转折
+失败检查：只记住名称，却不理解每个里程碑解决了什么问题
+期望产出：一份与至少一个项目决策相关的简短时间线说明
 ```

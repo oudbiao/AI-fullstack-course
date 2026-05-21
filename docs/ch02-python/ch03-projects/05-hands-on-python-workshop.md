@@ -388,7 +388,7 @@ Expected_output: reproducible mini project folder with run result and one failur
 5. Deliberately break `tasks.json`, run `list`, then write down the error message and your fix.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. `delete` should accept an id, remove the matching item from `tasks.json`, and print a clear confirmation. Run `list` again to verify that the row is gone.
 2. `search` should filter by keyword over `title` and optionally `tags`, using case-insensitive matching, then print only the matches.

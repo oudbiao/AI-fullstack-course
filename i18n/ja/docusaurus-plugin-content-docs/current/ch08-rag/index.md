@@ -170,9 +170,9 @@ answer: Use a fixed evaluation set so every RAG change can be compared against t
 このページを終えたら、この証拠カードを残します。
 
 ```text
-core_route: 8.1 -> 8.3 -> 8.4 -> 8.5 first
-rag_loop: ingest -> chunk -> embed -> retrieve -> generate -> cite -> evaluate
-app_loop: API call, state, tool/function, document parsing, output validation
-ops_loop: async, API contract, logging, monitoring, deployment
-bridge: Chapter 9 turns reliable app actions into traceable Agent workflows
+中核ルート: 8.1 -> 8.3 -> 8.4 -> 8.5 を先に
+RAGループ：取り込み -> 分割 -> 埋め込み -> 検索 -> 生成 -> 引用 -> 評価
+アプリループ: API 呼び出し、state、ツール/関数、文書解析、出力検証
+運用ループ：非同期、API 契約、ログ、監視、デプロイ
+橋渡し：第9章では信頼できる app のアクションを trace 可能な Agent ワークフローに変える
 ```

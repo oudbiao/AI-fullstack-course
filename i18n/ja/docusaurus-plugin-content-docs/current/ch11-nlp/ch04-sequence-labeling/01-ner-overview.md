@@ -272,11 +272,11 @@ print(decode_entities(tokens, tags))
 このページを終えたら、この evidence card を残します。
 
 ```text
-schema: entity types, BIO tags, or sequence-label rules
-prediction: token-level labels and extracted spans
-metric: entity precision/recall/F1 and boundary cases
-failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
-Expected_output: gold-vs-predicted span table with at least one miss
+スキーマ: エンティティ型、BIO タグ、またはシーケンスラベル規則
+予測：トークン単位のラベルと抽出スパン
+指標：エンティティの precision/recall/F1 と境界ケース
+失敗確認: span 境界、入れ子のエンティティ、未知語、または不一致なアノテーション
+期待される成果：少なくとも1つの miss がある、gold と predicted の span 表
 ```
 
 ## まとめ
@@ -297,7 +297,7 @@ Expected_output: gold-vs-predicted span table with at least one miss
 4. 考えてみましょう。ラベル列の中に不正な `I-XXX` が出てきたら、システムはどう処理するとより安定でしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `2025` が 1 token の時間エンティティなら `B-TIME` です。複数 token にまたがる場合だけ `B-TIME I-TIME ...` を使います。
 2. BIO の役割は boundary を表すことです。どの token で entity が始まり、どの token が同じ entity を続けるかを示します。

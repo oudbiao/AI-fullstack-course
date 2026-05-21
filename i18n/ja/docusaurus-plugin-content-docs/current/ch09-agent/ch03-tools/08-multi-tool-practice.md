@@ -339,11 +339,11 @@ answer:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+ツール契約：名前、説明、入力スキーマ、出力スキーマ
+権限：ツールが読み取りまたは変更を許可されている範囲
+呼び出しトレース：引数、結果、エラー、再試行、またはフォールバック
+失敗確認: 間違ったツール、不適切な引数、危険な操作、または観測不足
+安全対策: 検証、確認、サンドボックス化、レート制限、またはロールバック
 ```
 
 ## よくある誤解
@@ -398,7 +398,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 考えてみましょう。このデモの中で、作品集に載せるのに最も向いている部分はどこですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `notify_user` は、ポリシー証拠と eligibility decision がそろい、最終 state が返金条件を満たす場合にだけ実行します。
 2. 核心は state management です。Agent は policy evidence、user input、tool output、decision、そして副作用がすでに起きたかどうかを覚える必要があります。

@@ -88,9 +88,9 @@ Initialized empty Git repository ...
 学完这一页，至少保留这张证据卡：
 
 ```text
-machine_state: OS, Python/Node versions, editor, terminal, and package manager
-verification: commands run, versions printed, and first script output
-debug_note: install error, path issue, permission issue, or environment mismatch
-recovery_plan: exact command or doc page to retry before moving on
-Expected_output: setup checklist with successful command output and one known fallback
+机器状态：OS、Python/Node 版本、编辑器、终端和包管理器
+验证记录：运行的命令、打印的版本和第一段脚本输出
+调试说明：安装错误、路径问题、权限问题或环境不匹配
+恢复计划：在继续前重试的精确命令或文档页面
+期望产出：包含成功命令输出和一个已知回退方案的设置清单
 ```

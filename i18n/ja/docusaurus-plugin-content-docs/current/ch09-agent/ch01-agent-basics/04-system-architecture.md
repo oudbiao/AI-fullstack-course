@@ -387,11 +387,11 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+エージェント境界: これが chatbot や固定ワークフローとどう違うか
+目標/状態/行動：目標、現在の状態、次の行動、観測
+アーキテクチャ要素: planner、tools、memory、guardrails、evaluator
+失敗確認: 自律性が高すぎる、あいまいな目標、状態不足、または trace がない
+次の行動：追跡可能な最小の single-agent ループを構築する
 ```
 
 ## まとめ
@@ -411,7 +411,7 @@ next_action: build the smallest traceable single-agent loop
 3. 考えてみましょう。ツールがよくタイムアウトする場合、アーキテクチャ面ではどのような仕組みを追加すべきでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `docs_search` には、query 入力、権限とフィルタールール、結果形式、証拠が見つからない場合の振る舞いを定義します。
 2. 最大ステップ数の制限は無限ループを止め、どこで実行が止まったのかを説明する trace を返すために使います。

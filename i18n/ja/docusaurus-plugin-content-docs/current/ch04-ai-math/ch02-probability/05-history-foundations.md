@@ -159,9 +159,9 @@ loss = cross_entropy(prediction, label)
 このページを終えたら、この evidence card を残します。
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+確率過程：事象、分布、サンプル、尤度、エントロピー、またはベイズ更新
+シミュレーションまたは式: 不確実性を可視化するために使ったコードまたは式
+出力：probability、sample statistic、interval、entropy、または更新された信念
+失敗確認：ベースレートの混同、p値の誤用、サンプルバイアス、または確率と確実性の混同
+期待される成果: 数値結果と平易な言葉での解釈
 ```

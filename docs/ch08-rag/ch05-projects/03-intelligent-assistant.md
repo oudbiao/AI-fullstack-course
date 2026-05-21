@@ -429,7 +429,7 @@ It is recommended to finish the basic version first. Do not try to make it large
 4. If you turn this project into a portfolio piece, which conversation is most worth showing?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. The `learning path` topic should add intent detection, required slots, a tool/context source, and a response template.
 2. An assistant must track user goal, missing information, previous answers, tool results, and next action. FAQ is mostly stateless lookup.

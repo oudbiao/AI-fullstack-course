@@ -324,7 +324,7 @@ Once you view it as a “knowledge organization framework” rather than a “un
 4. Explain: if the main pipeline of the system is multi-Agent collaboration rather than knowledge retrieval, why might LlamaIndex not be the best choice as the “main framework”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Document is the source material, Node is the retrievable chunk, Index is the organized search structure, Retriever selects relevant nodes, and Query Engine combines retrieval with response generation.
 2. Ingestion quality matters because bad chunking, missing metadata, or noisy parsing becomes retrieval failure later. The model cannot answer well if the right evidence never reaches the context.

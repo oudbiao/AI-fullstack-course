@@ -401,7 +401,7 @@ you will know where the real difficulty lies.
 4. Think about it: which parts of this demo are most suitable for portfolio presentation?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. `notify_user` should run only after the policy evidence and eligibility decision are both present and the final state says the refund condition is met.
 2. The core is state management because the Agent must remember policy evidence, user inputs, tool outputs, decisions, and whether a side effect has already happened.

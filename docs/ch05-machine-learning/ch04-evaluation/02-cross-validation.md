@@ -207,7 +207,7 @@ For experienced readers: after model selection, keep one final holdout set or pr
 5. Design a validation split for user events where each user has many rows.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Fewer folds train on less data per run and may give a rougher estimate. More folds train on more data but cost more; watch both the mean score and the standard deviation.
 2. Removing stratification can make class proportions drift between train and test, especially with imbalance. That usually makes scores less stable and harder to compare.

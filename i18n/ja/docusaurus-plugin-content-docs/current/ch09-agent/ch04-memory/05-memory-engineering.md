@@ -365,11 +365,11 @@ retrieval:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+メモリ種別：短期、長期、エピソード記憶、または手続き記憶
+書き込みルール：メモリが作成または更新されるとき
+取得ルール：クエリ、関連性、鮮度、権限チェック
+失敗確認: 古い記憶、プライバシー漏えい、矛盾、または過剰検索
+クリーンアップ操作：要約、統合、期限切れ、削除、または確認を求める
 ```
 
 ## よくある誤解
@@ -409,7 +409,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 「ユーザーの好み」と「一時的なデバッグ情報」に、どのように別々の書き込み方針を設定しますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. source credibility は score multiplier や tie-breaker にできます。明示的で新しく信頼できる memory が、弱い推論 memory より上に来るようにします。
 2. `ttl_steps` を短くすると一時 memory は早く消えます。長くすると長く使えますが、stale retrieval のリスクも上がります。

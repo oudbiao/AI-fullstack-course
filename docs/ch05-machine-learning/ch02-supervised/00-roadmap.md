@@ -81,7 +81,7 @@ Expected_output: model result plus error samples or residual review
 You pass this roadmap when you can decide whether a labeled task is regression or classification, run one baseline, and explain one reason the model may fail.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. If the label is a continuous value, start with regression. If it is a class, start with classification.
 2. The baseline can be a simple linear/logistic model or a dummy rule. Its purpose is to define the score a more complex model must beat.

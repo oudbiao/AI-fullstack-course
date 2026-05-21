@@ -464,11 +464,11 @@ df.to_sql("students_backup", engine, if_exists="replace", index=False)
 このページを終えたら、この evidence card を残します。
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+スキーマ: テーブル名、キー、関係、サンプル行
+クエリ：使われた SQL または Python のデータベースコード
+出力：result rows、row count、または保存された抽出結果
+失敗確認: 間違った結合キー、危険なクエリ、トランザクション不足、またはスキーマ不一致
+期待される成果: クエリと結果表、および1件のデータ品質メモ
 ```
 
 ## この節で特に持ち帰ってほしいこと
@@ -619,7 +619,7 @@ db.close()
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - CRUD 練習では、create、read、update、delete をコミットつきで示し、最後にもう一度テーブルを読んで状態変化を確認します。
 - ユーザー入力値にはパラメータ化 SQL が必須です。小さな練習スクリプトでも、文字列結合ではなくプレースホルダを使う答えが適切です。

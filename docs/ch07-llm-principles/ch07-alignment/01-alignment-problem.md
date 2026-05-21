@@ -569,7 +569,7 @@ These three questions are the starting point for why methods such as RLHF, DPO, 
 4. Think about this: if your system connects to a database and tool calls, what additional alignment risks would you have compared with pure chat?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Fluent language only means the output is well formed. Alignment asks whether the output is useful, truthful, safe, and appropriate for the user’s intent and context.
 2. For example, in customer support: helpful means answer the user’s actual issue with next steps; honest means state uncertainty and policy limits; harmless means avoid exposing private data or encouraging unsafe actions.

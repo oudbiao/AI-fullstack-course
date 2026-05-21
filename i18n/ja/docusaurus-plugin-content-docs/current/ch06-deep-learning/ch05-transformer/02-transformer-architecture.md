@@ -369,11 +369,11 @@ tokens
 Transformer block card を 1 つ残します。
 
 ```text
-block_shape: [batch, seq_len, d_model] stays the same
-content_change: token representations become context-aware
-stability_parts: residual + norm
-token_parts: attention mixes positions, FFN transforms each position
-generation_bridge: final hidden state -> vocabulary logits -> next token
+ブロック形状：[batch, seq_len, d_model] が同じまま
+内容変化: トークン表現が文脈を考慮するようになる
+安定性要素: residual + norm
+トークン構成：attention は位置を混合し、FFN は各位置を変換する
+生成への橋渡し：最終隠れ状態 -> 語彙ロジット -> 次のトークン
 ```
 
 ## よくある間違い
@@ -395,7 +395,7 @@ generation_bridge: final hidden state -> vocabulary logits -> next token
 5. GQA/MQA が推論メモリに効く理由を 1 段落で説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. Embedding、positional encoding、attention layer、FFN の入出力次元を `d_model=32` にそろえる必要があります。また、`nhead` が `32` を割り切れることも確認します。
 2. `norm_first=False` は post-norm Transformer block を表します。residual addition の後に normalization を置く形です。

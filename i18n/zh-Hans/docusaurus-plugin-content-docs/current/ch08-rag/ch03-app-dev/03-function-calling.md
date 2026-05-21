@@ -527,11 +527,11 @@ print(tools)
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+请求：输入、状态、工具/上下文，以及期望输出契约
+已验证输出：parser / schema 或业务规则检查的结果
+追踪记录：模型调用、tool/function 调用、文档解析或对话状态
+失败检查：格式无效、字段缺失、状态过时或工具错误
+下一步动作：Prompt、schema、状态、API 或解析改进
 ```
 
 ## 小结前先看一眼：函数调用 的工程闭环
@@ -589,7 +589,7 @@ flowchart LR
 4. 用自己的话解释：函数调用 为什么比“让模型直接返回一段命令文本”更稳？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. `search_docs(keyword)` 应定义输入 schema、校验规则、执行器返回形状和失败行为。
 2. `calculate` 校验器应只允许数字、安全运算符和括号，或使用 AST 白名单。不要对任意字符串直接 `eval()`。

@@ -490,9 +490,9 @@ ls ch07_workshop_evidence
 このページを終えたら、この証拠カードを残します。
 
 ```text
-workshop_output: terminal result saved
-prompt_eval: pass rate across fixed cases
-structured_output: schema validation result
-failure_log: failed case and likely cause
-readme: what passed, what failed, and what to try next
+ワークショップ出力：端末結果を保存
+プロンプト評価：固定ケース全体の合格率
+構造化出力：スキーマ検証結果
+失敗ログ: 失敗ケースと原因の可能性
+README 記録：何が成功し、何が失敗し、次に何を試すか
 ```

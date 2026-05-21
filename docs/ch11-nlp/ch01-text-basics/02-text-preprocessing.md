@@ -466,7 +466,7 @@ In the next section, we will keep moving forward and solve another key problem:
 4. Think about this: in an NER scenario, why might lowercasing be harmful?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A number rule can replace digit spans with `<num>`, but keep a before/after example because dates, prices, and IDs may need different handling.
 2. Adding `not` to stopwords often damages sentiment because `not good` and `good` become too similar after cleaning.

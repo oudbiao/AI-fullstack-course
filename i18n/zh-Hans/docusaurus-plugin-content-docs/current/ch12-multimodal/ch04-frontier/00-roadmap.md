@@ -64,7 +64,7 @@ checks: voice authorization, synthetic content label
 你能给一个 AIGC 工作流加上风险检查表，并解释哪些情况拒绝、限制、审核或允许导出，就算通过本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说清涉及哪些模态、输入输出契约是什么，以及文字、图像、音频或视频证据如何对齐。
 2. 证据应包含真实媒体产物或 trace，并附上质量、安全和失败案例说明。
@@ -78,9 +78,9 @@ checks: voice authorization, synthetic content label
 学完这一页，至少保留这张证据卡：
 
 ```text
-risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
-engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
-test_case: one realistic input/output case that exercises the rule
-failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
-Expected_output: review checklist or product requirement translated into engineering action
+风险范围：前沿能力、伦理问题、监管，或产品政策边界
+工程规则：必须记录、阻止、审核、披露或上报什么
+测试用例：一个符合规则的真实输入/输出案例
+失败检查：隐私、版权、肖像、偏见、安全、来源或合规缺口
+期望产出：将复查清单或产品需求翻译成工程动作
 ```

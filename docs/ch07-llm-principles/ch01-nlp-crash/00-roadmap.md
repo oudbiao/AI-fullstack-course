@@ -71,7 +71,7 @@ next_action: run tokenizer and embedding labs before Prompt work
 You pass this roadmap when you can explain why raw text needs tokenization, why embeddings are vectors, and why pretrained models are reused instead of trained from zero.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer explains how tokens, context, attention, prompts, and generation behavior connect in one request-response path.
 2. The evidence should include at least one reproducible prompt or structured-output test, plus notes on why the output passed or failed.

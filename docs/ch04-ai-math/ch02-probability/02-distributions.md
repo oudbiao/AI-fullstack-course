@@ -584,7 +584,7 @@ The mean stays close to 3.5, while the standard deviation of the averages become
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - The six-panel distribution plot should make the difference between discrete counts and continuous measurements visible. Bars are natural for Bernoulli, binomial, and Poisson; curves or histograms fit continuous distributions.
 - For heights from `N(170,5)`, the interval 160 to 180 cm is within two standard deviations, so the simulated proportion should be close to `95%`.

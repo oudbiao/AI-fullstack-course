@@ -518,7 +518,7 @@ So document cleaning, chunking, metadata, and vectorization are all steps that m
 4. If your goal is courseware generation, think about why concepts, examples, and exercises should not all use exactly the same chunking strategy.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Smaller chunks are easier to retrieve precisely but may lose context. Larger chunks preserve more context but can dilute the signal. Overlap helps keep boundary information from being lost.
 2. The unrelated text should rank low for refund questions. If it ranks high, the embedding or scoring method is not distinguishing intent well enough.

@@ -449,11 +449,11 @@ doc_001_chunk_02 ok
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 小结
@@ -477,7 +477,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 想一想：如果 embedding 模型很差，向量数据库再强能不能救回来？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 排序应优先返回与 `query_vector` 距离最近的记录。如果 top result 在语义上明显不对，弱点通常在向量表示，而不一定在数据库。
 2. 双条件过滤应把语义相似度和业务约束结合起来，例如 `role=internal` 与 `source=policy`。Metadata 能阻止看似相关但无权限或无关的 chunk 进入回答。

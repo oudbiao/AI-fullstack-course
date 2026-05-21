@@ -62,11 +62,11 @@ feature_shape: (1, 8, 32, 32)
 保留一条 CNN shape 笔记：
 
 ```text
-input: [batch, channels, height, width]
-conv_output: out_channels becomes new feature maps
-spatial_change: stride/padding/pooling change height and width
-classifier_bridge: conv features eventually become class logits
-transfer_choice: freeze first, fine-tune only if validation improves
+输入: [batch, channels, height, width]
+卷积输出：out_channels 变成新的特征图
+空间变化：stride/padding/pooling 改变高和宽
+分类器桥接：卷积特征最终变成类别 logits
+迁移学习选择：先冻结，只有验证集提升时才微调
 ```
 
 ## 通过标准
@@ -74,7 +74,7 @@ transfer_choice: freeze first, fine-tune only if validation improves
 能解释输入图像形状和特征图形状之间发生了什么变化，并知道为什么小数据集常复用预训练 CNN 骨干，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

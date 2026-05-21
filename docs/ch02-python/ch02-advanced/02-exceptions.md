@@ -517,7 +517,7 @@ print(errors)
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `safe_calculator` should parse each input, branch on the operator, and catch `ZeroDivisionError`, `ValueError`, and `StopIteration`. With the default sample input, it will hit the divide-by-zero path once, print the friendly error, and then exit on the final `n`.
 2. `read_file_safely` should use a `with` block, catch `FileNotFoundError`, `PermissionError`, and other `OSError`s, and return `None` when reading fails so callers can decide the next step.

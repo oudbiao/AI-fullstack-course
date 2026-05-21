@@ -200,12 +200,12 @@ errors: [{'gold': 'dog', 'pred': 'cat'}]
 画像分類プロジェクトでは、最低限この証拠を残します。
 
 ```text
-label_rules: how classes are defined
-split_rule: train/val/test and leakage prevention
-baseline: simple CNN or transfer-learning baseline
-metric: accuracy plus confusion matrix
-error_case: one wrong prediction with likely cause
-next_action: data, augmentation, model, or split change
+ラベル規則：クラスの定義方法
+分割ルール: train/val/test とリーク防止
+ベースライン: 単純な CNN または転移学習のベースライン
+指標：accuracy と confusion matrix
+エラーケース：原因の見込みがある 1 つの誤予測
+次の行動：データ、augmentation、モデル、または split の変更
 ```
 
 ## よくある間違い
@@ -227,7 +227,7 @@ next_action: data, augmentation, model, or split change
 5. データセット、実行コマンド、指標、失敗例を含むプロジェクトチェックリストを作ってください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 混同行列の `dog` 行に証拠が増えます。追加サンプルが難しければ dog recall は下がるかもしれません。分かりやすいサンプルなら評価がより安定します。
 2. `labels` に `hamster` を追加し、混同行列は新しい行と列を持つ形に広がります。クラス平均の指標表も新クラスを含める必要があります。

@@ -451,11 +451,11 @@ print(next_fix(prompt_checklist))
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: one clear instruction
-context: relevant facts supplied to the model
-constraints: audience, length, style, forbidden behavior
-output_format: bullets, JSON, table, or answer schema
-comparison: vague prompt vs improved prompt output saved
+任务：一个明确的指令
+上下文：提供给模型的相关事实
+约束：受众、长度、风格、禁止行为
+输出格式：要点、JSON、表格，或答案模式
+比较：模糊提示词 vs 改进后的提示词输出已保存
 ```
 
 ## 小结
@@ -476,7 +476,7 @@ comparison: vague prompt vs improved prompt output saved
 4. 为什么一个 Prompt 只写目标、不写输出格式，通常会让系统更不稳？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 更清楚的版本可以是：“请把下面的客户留言总结为 3 个要点，判断用户意图，并给出 1 条建议回复。不要编造原文没有的信息。”
 2. 完整答案要分清目标、输出格式和约束。例如：目标是分类反馈，输出是 JSON，约束是只能使用固定标签且不要输出额外文本。

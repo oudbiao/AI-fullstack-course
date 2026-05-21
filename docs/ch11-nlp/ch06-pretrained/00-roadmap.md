@@ -75,7 +75,7 @@ Expected_output: model call result plus a short choice rationale
 You pass this chapter when you can explain why different objectives create different strengths, and run or design one small pretrained-model comparison experiment.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer starts from the text unit and output type: token, span, sentence label, sequence, embedding, or generated text.
 2. The evidence should include a small dataset example, model or pipeline choice, metric, and at least one inspected error case.

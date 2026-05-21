@@ -140,7 +140,7 @@ Before finishing the course, you should be able to:
 For a printable checklist, use [12.0 Learning Checklist](./study-guide.md). For the guided final project, start with [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md).
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer names the modalities involved, the input-output contract, and how text, image, audio, or video evidence is aligned.
 2. The evidence should include a real media artifact or trace, plus a note on quality, safety, and failure cases.

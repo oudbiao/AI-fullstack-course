@@ -484,11 +484,11 @@ print(wrapped_search("退款"))
 学完这一页，至少保留这张证据卡：
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+工具契约：名称、描述、输入 schema、输出 schema
+权限：工具允许读取或修改的内容
+调用轨迹：参数、结果、错误、重试或回退
+失败检查：错误的工具、参数不当、不安全操作，或缺少观察结果
+安全动作：验证、确认、沙箱、限流，或回滚
 ```
 
 ## 小结
@@ -509,7 +509,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 用自己的话解释：为什么说工具注册表和统一调度器是 Agent 工程里非常重要的两个结构？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `get_weather(city)` 应放进 registry，并带上 schema、risk level、timeout 和统一返回格式。
 2. 统一 `{ok, data, error}` 会让下游逻辑更简单：成功时读 `data`，失败时根据 `error` 分支，不需要解析自然语言。

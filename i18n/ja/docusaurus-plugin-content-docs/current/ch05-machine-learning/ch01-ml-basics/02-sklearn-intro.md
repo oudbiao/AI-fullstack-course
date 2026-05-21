@@ -182,11 +182,11 @@ sklearn のバージョンによって、同点のときに選ばれる best mod
 このページを終えたら、この evidence card を残します。
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+ML 問題：教師あり、教師なし、評価、または特徴量エンジニアリングのタスク
+ベースライン: まずは最も簡単な sklearn/モデリングループと固定の train/test 分割
+出力：prediction、metric、chart、またはmodel decision note
+失敗確認：データリーク、不明確なターゲット、弱いベースライン、または指標不一致
+期待される成果: 指標と1件の失敗観察を含む最小限のMLループ
 ```
 
 ## よくある失敗
@@ -207,7 +207,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 4. 端末出力と `iris_pipeline.joblib` を証拠として保存する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. `test_size=0.2` にすると学習データは増え、テストデータは減ります。`random_state` を固定していてもスコアは少し変わりますが、1 回の結果だけで良し悪しを決めないことが大切です。
 2. `n_neighbors=3` はより近い近傍に敏感になるため、決定境界が柔軟になります。テストスコアが上がることもありますが、ノイズに弱くなって下がることもあります。

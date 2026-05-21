@@ -388,11 +388,11 @@ print(audit_log("u_001", "search_docs", {"keyword": "退款"}, result))
 学完这一页，至少保留这张证据卡：
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+工具契约：名称、描述、输入 schema、输出 schema
+权限：工具允许读取或修改的内容
+调用轨迹：参数、结果、错误、重试或回退
+失败检查：错误的工具、参数不当、不安全操作，或缺少观察结果
+安全动作：验证、确认、沙箱、限流，或回滚
 ```
 
 ## 小结
@@ -415,7 +415,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 如果你要为高风险工具增加人工确认，你会把确认放在调用前还是调用后？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `send_email` 通常属于高风险工具，因为它会产生外部 side effect。它应要求收件人校验、预览、确认和审计日志。
 2. `retry_allowed` 很重要，因为重试读取和重试付款、发邮件、写数据库完全不同，后者可能造成重复 side effect。

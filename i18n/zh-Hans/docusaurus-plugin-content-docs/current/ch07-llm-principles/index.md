@@ -152,11 +152,11 @@ json: 2/2 cases passed
 学完这一页，至少保留这张证据卡：
 
 ```text
-token_path: text -> tokens -> embeddings -> Transformer context -> next token
-core_route: 7.1 -> 7.2 -> 7.5 -> 7.8 first
-fixed_cases: prompt tests use the same inputs before comparing changes
-method_choice: Prompt, RAG, fine-tuning, tools, or Agent chosen by evidence
-chapter_bridge: Chapter 8 adds retrieval and application architecture
+token 路径：文本 -> token -> embedding -> Transformer 上下文 -> 下一个 token
+核心路线：先走 7.1 -> 7.2 -> 7.5 -> 7.8
+固定案例：在比较改动前，提示测试使用相同输入
+方法选择：根据证据选择 Prompt、RAG、微调、工具或 Agent
+章节桥接：第 8 章增加了检索和应用架构
 ```
 
 ## 常见错误

@@ -68,11 +68,11 @@ reason: choose the smallest abstraction that exposes state
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 通过标准
@@ -80,7 +80,7 @@ decision: choose framework only after the single-agent loop is clear
 如果你能用普通函数和一个框架实现同一个小任务，并解释哪一版更容易调试、为什么，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

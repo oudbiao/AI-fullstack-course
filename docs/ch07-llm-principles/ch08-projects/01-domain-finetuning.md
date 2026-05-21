@@ -373,7 +373,7 @@ It is recommended to finish the basic version first. Do not try to make it large
 4. If you turn this into a portfolio project, which 4 before/after examples are most worth showing?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add samples where each intent has enough variety, including short, long, ambiguous, and noisy wording. Balance is about coverage, not just equal counts.
 2. Fine-tuning is still worth considering when you need stable style, domain-specific phrasing, compact behavior, repeated classification patterns, or lower per-request prompt complexity.

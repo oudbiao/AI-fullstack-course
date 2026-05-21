@@ -361,7 +361,7 @@ As long as this map is clear in your mind, the later content in Chapter 11 Natur
 4. Can you break down one AI product you are familiar with into the NLP tasks it uses behind the scenes?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Text is harder than tabular data because meaning depends on order, context, ambiguity, missing punctuation, spelling variation, and domain wording, while tabular columns usually already define the feature boundary.
 2. A reasonable `hotel_booking` rule might look for words such as `hotel`, `room`, `check-in`, `reservation`, or `stay`; the important part is to test both positive examples and near misses such as restaurant booking.

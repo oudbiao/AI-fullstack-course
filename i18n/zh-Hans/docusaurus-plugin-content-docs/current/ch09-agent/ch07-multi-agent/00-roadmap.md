@@ -65,11 +65,11 @@ final_owner: reviewer
 学完这一页，至少保留这张证据卡：
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+角色：负责人、执行者、评审者，或专家职责
+消息契约：artifact、request、response 和交接状态
+协同：路由、任务拆分、冲突解决和最终负责人
+失败检查：重复工作、上下文丢失、没有明确负责人或消息循环
+评估动作：将多 Agent 结果与单 Agent 基线对比
 ```
 
 ## 通过标准
@@ -77,7 +77,7 @@ eval_action: compare multi-agent result against single-agent baseline
 如果一个 2 到 3 个 Agent 的演示有可追踪输入、输出、交接、最终负责人，并能说明为什么它优于单 Agent，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

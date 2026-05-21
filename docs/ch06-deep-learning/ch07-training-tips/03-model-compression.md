@@ -189,7 +189,7 @@ This protects you from a common mistake: reducing file size while making the act
 5. Explain why structured pruning is usually easier to deploy than unstructured pruning.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Increasing `scale` to `32` usually reduces quantization error because values are represented with finer steps. Verify with MAE instead of guessing.
 2. A third `Linear` layer adds both weight and bias parameters. Recompute each layer as `in_features * out_features + out_features`.

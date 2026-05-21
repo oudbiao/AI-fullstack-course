@@ -418,7 +418,7 @@ pass_count = passed.sum()
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - The shape checks should be `arr1.shape == (20,)`, `arr2.shape == (4, 5)`, `arr3.shape == (3, 3)`, `arr4.shape == (100,)`, and `arr5.shape == (5, 5)`.
 - A `np.ones((3, 4, 5))` array has 3 dimensions and 60 elements. Unless a dtype is specified, NumPy usually uses `float64`; an `int32` array has `itemsize == 4` bytes.

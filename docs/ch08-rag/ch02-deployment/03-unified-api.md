@@ -477,7 +477,7 @@ That way, others can more easily see:
 4. Explain in your own words: why is the unified API layer a good place for model routing and fallback?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Return something like `{ok: false, error: {code, message, retryable, provider, request_id}}` instead of leaking provider-specific exceptions to business code.
 2. A unified API standardizes how callers invoke models and handle results, but providers still differ in capability, context length, tools, cost, and latency.

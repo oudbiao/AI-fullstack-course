@@ -321,7 +321,7 @@ Once you see this clearly, it will be easier to compare the trade-offs between t
 4. Why do classic architectures still matter for understanding detection tasks?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Sharing a feature map avoids running a full CNN separately for every proposal, so the expensive computation is reused.
 2. Faster R-CNN replaces slow external proposal generation with an RPN, solving the proposal bottleneck in Fast R-CNN.

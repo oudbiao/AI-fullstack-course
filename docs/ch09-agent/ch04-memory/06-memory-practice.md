@@ -318,7 +318,7 @@ When these four layers work together, the Agent can evolve from a “one-shot Q&
 4. Think about it: Which information is best kept only in short-term memory, and not written into long-term memory?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `user_blacklist_topic` should be stored as an explicit long-term preference with a clear scope and should suppress unrelated suggestions, not block necessary safety or task information.
 2. Retrieving the latest episode by `topic` usually means filtering by topic and sorting by timestamp or monotonically increasing id.

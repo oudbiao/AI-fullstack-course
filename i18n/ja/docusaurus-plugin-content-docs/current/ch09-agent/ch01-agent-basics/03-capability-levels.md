@@ -259,11 +259,11 @@ for task in tasks:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+エージェント境界: これが chatbot や固定ワークフローとどう違うか
+目標/状態/行動：目標、現在の状態、次の行動、観測
+アーキテクチャ要素: planner、tools、memory、guardrails、evaluator
+失敗確認: 自律性が高すぎる、あいまいな目標、状態不足、または trace がない
+次の行動：追跡可能な最小の single-agent ループを構築する
 ```
 
 ## まとめ
@@ -283,7 +283,7 @@ next_action: build the smallest traceable single-agent loop
 3. あるシステムがよく間違ったツールを呼び出すとしたら、それはどの能力レベルの問題に近いでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 例：FAQ の一致判定は L0、天気検索は L1、ポリシー検索を含む返金可否判断は L2、週報を作ってメール送信する処理は L3、長時間の自律運用はリスクと監督の強さによって L3 または L4 です。
 2. 多くのプロジェクトは L3 / L4 まで必要ありません。自律性が上がるほど、コスト、リスク、評価負荷、復旧の複雑さも増えるからです。より単純な L1 / L2 の方が信頼できる場合もあります。

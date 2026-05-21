@@ -160,12 +160,12 @@ architecture を変える前に、この順番で確認します。
 診断ごとに、symptom-to-action note を残します。
 
 ```text
-curve_pattern: underfit, overfit, unstable, collapse, or unclear
-prediction_signal: class counts and confidence
-gradient_signal: norm plus NaN/Inf check
-data_check: labels, split, leakage, preprocessing
+曲線パターン: underfit、overfit、unstable、collapse、または不明瞭
+予測シグナル：クラス数と信頼度
+勾配シグナル：ノルムに NaN/Inf チェックを加える
+データ確認: ラベル、分割、リーク、前処理
 選ぶ行動：次に行う 1 つの狙いを絞った実験
-success_rule: what metric or artifact will prove the fix worked
+成功条件：修正がうまくいったことを示す metric または artifact
 ```
 
 ## 診断から次の行動へ
@@ -197,7 +197,7 @@ success_rule: what metric or artifact will prove the fix worked
 5. `epoch,train_loss,val_loss,val_acc` 形式の CSV 風 log を保存してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `good_case` は train loss が下がり、val loss も下がるか安定し、val acc が上がる履歴です。訓練と汎化が同時に改善しています。
 2. 3 class では `torch.bincount(labels, minlength=3)` のように、出現しない class も数えられる形にします。

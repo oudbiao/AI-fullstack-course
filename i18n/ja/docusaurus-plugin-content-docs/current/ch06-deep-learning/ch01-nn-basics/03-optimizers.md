@@ -147,11 +147,11 @@ lr=1.1  final_w=20.575 final_loss=345.0386
 ノートには optimizer 比較を 1 つ残します。
 
 ```text
-same_loss: (w - 2)^2
-same_start: w = 5
-sgd_result: approaches w = 2 with lr=0.1
-momentum_result: moves faster but overshoots
-bad_lr_result: lr=1.1 diverges
+同じ損失: (w - 2)^2
+同じ開始: w = 5
+sgd結果: lr=0.1 で w = 2 に近づく
+momentum の結果：より速く動くが行き過ぎる
+悪い lr の結果: lr=1.1 で発散する
 ```
 
 これは optimizer 名を暗記するより役立ちます。勾配は方向を与え、optimizer の設定は動く大きさと動き方を決める、という本質を示すからです。
@@ -193,7 +193,7 @@ bad_lr_result: lr=1.1 diverges
 5. 各オプティマイザの `w` の変化をグラフにしてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 学習率が小さいほど安全ですが遅く、大きいほど速い一方で振動しやすくなります。`0.8` は overshoot の観察に向いています。
 2. momentum を下げると慣性が弱くなり、行き過ぎは減ることがありますが、収束速度も落ちる場合があります。

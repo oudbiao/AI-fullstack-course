@@ -490,9 +490,9 @@ ls ch07_workshop_evidence
 学完这一页，至少保留这张证据卡：
 
 ```text
-workshop_output: terminal result saved
-prompt_eval: pass rate across fixed cases
-structured_output: schema validation result
-failure_log: failed case and likely cause
-readme: what passed, what failed, and what to try next
+工作坊输出：保存的终端结果
+提示词评估：固定案例中的通过率
+结构化输出：schema 验证结果
+失败日志：失败案例及其可能原因
+README 记录：什么通过了、什么失败了，以及下一步尝试什么
 ```

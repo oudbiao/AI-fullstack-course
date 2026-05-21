@@ -139,11 +139,11 @@ plt.show()
 このページを終えたら、この evidence card を残します。
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特徴状態: 生の列、型、欠損値、スケール、およびターゲットとの関係
+変換：前処理、構築、選択、またはパイプライン手順
+出力：transformされたfeature table、pipeline object、scoreの変化、または選択された特徴量
+失敗確認: リーク、不一致な train/test 変換、高カーディナリティの落とし穴、または無意味な特徴
+期待される成果：前後比較とメトリクスへの影響を含む特徴量パイプラインの証拠
 ```
 
 ## 練習
@@ -154,7 +154,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 4. 自分の表形式データを 1 つ選び、「特徴探索記録」を書いてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 自動型判定は出発点にすぎません。客室クラス、チケット番号、客室番号のような列は、見た目の型より意味で処理方針を決めます。
 2. `fare` は右に偏りやすく、`age` は欠損と偏った分布を持ちやすいです。偏りがある場合は log 変換、binning、robust scaling などを後で検討します。

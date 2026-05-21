@@ -358,7 +358,7 @@ This will turn the project from “a classification task” into “a work that 
 - [ ] Compare multiple models with ROC curves
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Start by reporting the positive-class ratio. If churn is rare, accuracy can look good while the model misses most churn customers.
 2. Compare class weights and SMOTE under the same validation protocol. If oversampling is used, it must happen inside the training workflow to avoid leakage.

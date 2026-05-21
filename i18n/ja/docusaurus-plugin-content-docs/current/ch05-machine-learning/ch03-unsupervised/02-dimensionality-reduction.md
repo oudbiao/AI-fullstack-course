@@ -211,11 +211,11 @@ Pipeline([
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: clustering, dimensionality reduction, or anomaly detection goal
-data_view: scaled features, projection, clusters, or anomaly scores
-interpretation: what the groups, axes, or alerts mean in the scenario
-failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
-Expected_output: unsupervised result with interpretation and uncertainty note
+タスク：clustering、dimensionality reduction、または anomaly detection の目標
+データ表示: スケーリング済み特徴量、射影、クラスタ、または異常スコア
+解釈：このシナリオでグループ、軸、またはアラートが何を意味するか
+失敗確認：任意のクラスタ数、スケーリングの問題、ノイズの多い次元、または誤検知
+期待される成果: 解釈と不確実性メモを含む教師なし結果
 ```
 
 ## よくあるトラブル
@@ -237,7 +237,7 @@ Expected_output: unsupervised result with interpretation and uncertainty note
 5. 2D PCA の出力を使って、数字ラベルで色分けした散布図を描いてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. accuracy は最初に伸び、その後は頭打ちになることが多いです。実用上は、最高値に近いスコアを出す最小の成分数を選びます。
 2. PCA は accuracy が同じでも速度や保存容量に効くことがあります。accuracy が下がるなら有用な信号を捨てていますし、少し上がるならノイズを減らしている可能性があります。

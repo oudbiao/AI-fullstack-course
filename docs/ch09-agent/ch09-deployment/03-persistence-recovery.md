@@ -378,7 +378,7 @@ the system moves from a demo that “sometimes works” to a production system t
 4. If a task is especially long, would you choose a checkpoint after every step, or every few steps? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `retry_count` should be stored per step, not only per whole run. That lets you see which step is unstable and prevents a retry storm from being hidden inside one final status.
 2. If `write_report` has external side effects, make it idempotent with a stable operation id, existence checks, deduplication, and a record of whether the external write already succeeded.

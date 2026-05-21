@@ -541,11 +541,11 @@ RLHF は最優先ではないかもしれません。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-stages: SFT -> reward model -> policy optimization
-preference_pair: chosen vs rejected answer
-reward_signal: what the reward model learns to score
-ppo_reason: optimize behavior against learned preference signal
-risk: reward hacking or preference data bias
+段階: SFT -> reward model -> policy optimization
+選好ペア：選択された回答 vs 拒否された回答
+報酬シグナル：報酬モデルが何を高く評価するか
+PPO の理由：学習済みの好み信号に対して振る舞いを最適化するため
+リスク：reward hacking または preference data のバイアス
 ```
 
 ## まとめ
@@ -568,7 +568,7 @@ RLHF の主線を理解することです。
 4. あなたのプロジェクトは今、「SFT が必要な段階」に近いでしょうか、それとも「嗜好最適化が必要な段階」に入っているでしょうか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 多くの人にとって、 calibrated な数値スコアを付けるより、2 つの回答から良いほうを選ぶほうが簡単です。ペア比較は、annotator ごとの採点尺度の違いも小さくできます。
 2. Learned weights は、`chosen` と `rejected` を区別する特徴の方向へ動くはずです。新しい preference が既存例と矛盾している場合、変化ははっきりしにくく、ラベル規則の曖昧さが見えます。

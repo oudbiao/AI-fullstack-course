@@ -252,11 +252,11 @@ max_depth=None mae=48.7 leaves=25
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+任务：带目标定义的回归或分类问题
+模型：线性/逻辑回归/树/集成/SVM 配置和训练/测试划分
+指标：回归误差、准确率/F1、阈值曲线或混淆矩阵
+失败检查：过拟合、欠拟合、特征缩放、阈值选择或类别不平衡
+期望产出：模型结果加错误样本或残差复查
 ```
 
 ## 常见排查清单
@@ -278,7 +278,7 @@ Expected_output: model result plus error samples or residual review
 5. 在回归树部分，把结果和线性回归课程里的基线对比。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `min_samples_leaf=1` 通常会产生更多叶子，训练分数更高，但更容易过拟合；`10` 会让树更粗糙，叶子更少，测试分数可能更稳也可能欠拟合。
 2. `"entropy"` 和默认的 `"gini"` 都在寻找更纯的划分，第一层可能相同，也可能不同。应以打印出的树结构为准，而不是预设某个指标一定更好。

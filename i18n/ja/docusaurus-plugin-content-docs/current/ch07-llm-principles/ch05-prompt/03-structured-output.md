@@ -478,11 +478,11 @@ JSON がきれいでも、その後の処理を直接動かせなければ、構
 このページを終えたら、この証拠カードを残します。
 
 ```text
-schema: required fields and allowed types
-parser: output is parsed, not trusted visually
-valid_case: one output accepted by validation
-invalid_case: missing field or wrong type rejected
-repair_rule: retry, fallback, or ask for clarification
+スキーマ: 必須フィールドと許可された型
+パーサー：出力は解析されるもので、見た目をそのまま信頼しない
+有効ケース：検証で受け入れられる 1 つの出力
+無効ケース：欠落フィールドまたは誤った型が拒否される
+修復ルール：再試行、フォールバック、または明確化を求める
 ```
 
 ## まとめ
@@ -503,7 +503,7 @@ repair_rule: retry, fallback, or ask for clarification
 4. 自分の言葉で説明してください。なぜ構造化出力は、Prompt 工学がエンジニアリングとして成熟するための重要な一歩なのか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 例：`{"intent": "billing|course_help|technical_issue|other", "confidence": 0.0, "needs_human": false, "reason": "short explanation"}`。
 2. `intent`、`confidence`、`needs_human` が required なら、missing field は validation failure になるべきです。bad output は product logic に入る前に止めます。

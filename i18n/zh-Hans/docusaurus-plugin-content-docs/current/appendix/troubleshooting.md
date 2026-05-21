@@ -132,9 +132,9 @@ print(preds)
 学完这一页，至少保留这张证据卡：
 
 ```text
-symptom: exact error message, command, input, and environment
-minimal_repro: smallest code or command that still fails
-hypothesis: dependency, path, data, API, model, or browser/runtime issue
-next_probe: one command or log to check before changing many things
-Expected_output: a reproducible bug note and a tested fix or fallback
+症状：准确的错误信息、命令、输入和环境
+最小复现：仍然会失败的最小代码或命令
+假设：依赖、路径、数据、API、模型或浏览器/运行时问题
+下一次探测：先检查一个命令或日志，再改很多东西
+期望产出：一份可复现的 bug 说明和经过测试的修复或回退方案
 ```

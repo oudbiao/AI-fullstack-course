@@ -369,11 +369,11 @@ tokens
 保留一张 Transformer block 卡片：
 
 ```text
-block_shape: [batch, seq_len, d_model] stays the same
-content_change: token representations become context-aware
-stability_parts: residual + norm
-token_parts: attention mixes positions, FFN transforms each position
-generation_bridge: final hidden state -> vocabulary logits -> next token
+块形状：[batch, seq_len, d_model] 保持不变
+内容变化：token 表示变得具备上下文感知
+稳定性部分：残差 + 归一化
+token 组成：attention 混合位置，FFN 对每个位置做变换
+生成桥接：最终隐藏状态 -> 词表 logits -> 下一个 token
 ```
 
 ## 常见错误
@@ -395,7 +395,7 @@ generation_bridge: final hidden state -> vocabulary logits -> next token
 5. 用一段话解释 GQA/MQA 为什么能帮助推理内存。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. Embedding、positional encoding、attention layer 和 FFN 的输入/输出维度都要和 `d_model=32` 对齐。同时要确保 `nhead` 能整除 `32`。
 2. `norm_first=False` 表示 post-norm Transformer block，也就是 residual addition 之后再做 normalization。

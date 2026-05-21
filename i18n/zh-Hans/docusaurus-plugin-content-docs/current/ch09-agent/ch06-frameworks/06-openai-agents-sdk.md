@@ -302,11 +302,11 @@ Agents SDK 更偏：
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 小结
@@ -328,7 +328,7 @@ decision: choose framework only after the single-agent loop is clear
 4. 用自己的话说明：SDK 真正帮你省掉的是哪类高频样板工作？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. Runner / Runtime 的价值在于，生产级 Agent 不只是一个 prompt：它需要 tool 执行、状态流动、handoff、错误处理、trace，以及稳定运行循环的方式。
 2. 高层 SDK 通常更关注让 Agent runtime 容易构建和观察；CrewAI 更关注把系统建模成角色与任务团队。选哪一个取决于你想显式表达什么。

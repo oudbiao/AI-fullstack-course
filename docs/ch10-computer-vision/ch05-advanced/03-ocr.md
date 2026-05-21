@@ -357,7 +357,7 @@ Once this pipeline is clear, you will not only focus on the recognition model it
 4. If an amount field is always off by one character, would you first check detection, recognition, or post-processing? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. After adding a text block, restore reading order by sorting regions top-to-bottom and then left-to-right, while handling multi-column or table layouts separately.
 2. Detection-stage errors hurt OCR because missed or badly cropped text never reaches the recognizer in a recoverable form.

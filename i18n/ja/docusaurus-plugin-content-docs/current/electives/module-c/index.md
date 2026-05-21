@@ -49,11 +49,11 @@ neighbor: [0.8, 0.9]
 このページを終えたら、この証拠カードを残します。
 
 ```text
-model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
-dataset_view: feature scale, class balance, decision boundary, and train/test split
-metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
-failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
-Expected_output: classical-ML baseline result with one limitation note
+モデルファミリー：SVM、KNN、Naive Bayes、LDA、または別の古典的ベースライン
+データセット表示: 特徴量スケール、クラスの偏り、決定境界、train/test 分割
+指標：accuracy/F1、confusion matrix、margin、近傍の挙動、または投影の品質
+失敗確認: スケーリング、高次元性、弱い仮定、リーク、またはベースライン適合性の低さ
+期待される成果：1つの制約メモ付きの古典的 ML ベースライン結果
 ```
 
 ## この順番で学ぶ
@@ -70,7 +70,7 @@ Expected_output: classical-ML baseline result with one limitation note
 古典的なベースラインを 1 つ作り、それがなぜ適切か説明し、より重いモデルまたは後続プロジェクトの結果と比較できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 合格する答えは、なぜこのベースラインが適切なのかを先に説明します。たとえば、データが小さい、特徴量が明確、距離や境界に意味がある、といった理由です。そのうえで、より重いモデルや後続プロジェクトの結果と比較し、どこに限界があるかを述べます。
 

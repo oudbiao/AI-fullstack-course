@@ -302,7 +302,7 @@ If we compress it into one sentence, it is:
 4. How would you package this detection project into a portfolio piece?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Changing the IoU threshold to `0.7` makes matching stricter. Boxes that counted as true positives at `0.5` may become false positives or false negatives.
 2. Detection depends heavily on annotation standards because the box itself is part of the label. Small differences in box rules can change IoU and mAP.

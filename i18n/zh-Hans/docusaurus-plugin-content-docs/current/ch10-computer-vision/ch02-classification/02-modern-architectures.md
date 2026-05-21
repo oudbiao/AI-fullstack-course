@@ -369,11 +369,11 @@ with residual   : 1.8
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataset_split: train/test images, class names, and class balance
-prediction: label, confidence, and at least one misclassified image
-metric: accuracy, F1, confusion matrix, and class-level errors
-failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
-Expected_output: model result table and saved error examples
+数据集划分：训练/测试图像、类别名和类别平衡
+预测：标签、置信度和至少一张分类错误的图像
+指标：准确率、F1、混淆矩阵和类别级错误
+失败检查：增强改变标签含义、类别不平衡、数据泄漏或过拟合
+期望产出：模型结果表和保存的错误示例
 ```
 
 ## 小结
@@ -402,7 +402,7 @@ Expected_output: model result table and saved error examples
 4. 想一想：为什么架构选择不该只看排行榜？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 残差连接让模块更容易学习 identity mapping，也给梯度提供更短的反向传播路径，所以很深的网络更容易优化。
 2. EfficientNet 更像预算优化思想，因为它同时平衡 depth、width 和输入 resolution，而不是盲目只加深或只加宽。

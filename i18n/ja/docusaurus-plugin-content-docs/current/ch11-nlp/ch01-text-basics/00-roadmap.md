@@ -79,9 +79,9 @@ vocab_size: 4
 このページを終えたら、この evidence card を残します。
 
 ```text
-raw_text: original examples before cleaning or tokenization
-processed_text: cleaned text, tokens, normalization notes, and removed items
-task_boundary: classification, extraction, retrieval, generation, or QA output
-failure_check: lost meaning, bad token split, language issue, or ambiguous label
-Expected_output: before/after text samples plus token or representation output
+生テキスト：クリーニングやトークナイズ前の元の例
+処理済みテキスト：整形済みテキスト、トークン、正規化メモ、削除項目
+タスク境界：classification、extraction、retrieval、generation、または QA の出力
+失敗確認: 意味の喪失、誤ったトークン分割、言語の問題、またはあいまいなラベル
+期待される成果：前後のテキストサンプルと、token または表現の出力
 ```

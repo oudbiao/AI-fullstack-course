@@ -108,7 +108,7 @@ This repository is my reproducible learning workspace for the AI full-stack cour
 python3 src/workstation_check.py
 ```
 
-## Expected output
+## 期待される出力
 
 The script prints the current project root, Python executable, Git branch, and report file paths.
 EOF
@@ -455,7 +455,7 @@ main
 - [ ] 作業台でコードを実行できることを示すレポートファイルがある。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. `docs/commands.md` は、コマンド名、用途、どこで実行したかが分かれば十分です。
 2. `reports/terminal-transcript.txt` には成功出力と失敗修正の両方を残し、回復できることを示します。
@@ -472,9 +472,9 @@ main
 このページを終えたら、この evidence card を残します。
 
 ```text
-workspace: terminal, Git repo, editor, Python environment, and notebook all verified
-artifact: small command log, commit history, script output, or notebook cell result
-debug_note: one setup problem and how you diagnosed it
-failure_check: path confusion, environment mismatch, Git state, or missing dependency
-Expected_output: a ready-to-learn workstation evidence pack
+ワークスペース：端末、Git リポジトリ、エディタ、Python 環境、Notebook のすべてを確認済み
+成果物: 短いコマンドログ、コミット履歴、スクリプト出力、または notebook セル結果
+デバッグメモ: 1つのセットアップ問題と、その診断方法
+失敗確認: パスの混乱、環境不一致、Git の状態、または依存関係不足
+期待される成果：学習準備が整ったワークステーションの証拠パック
 ```

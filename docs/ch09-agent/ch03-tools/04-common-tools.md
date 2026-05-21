@@ -509,7 +509,7 @@ Only in this way can the tool layer become an amplifier of Agent capabilities, r
 4. Explain in your own words: why are a tool registry and a unified dispatcher two very important structures in Agent engineering?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `get_weather(city)` belongs in the registry with a schema, risk level, timeout, and normalized response shape.
 2. Using `{ok, data, error}` makes downstream logic simpler: success reads `data`, failure branches on `error` without parsing natural language.

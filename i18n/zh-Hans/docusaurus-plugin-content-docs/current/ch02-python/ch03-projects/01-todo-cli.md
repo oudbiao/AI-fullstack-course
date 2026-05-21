@@ -343,7 +343,7 @@ class TaskManager:
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 增加 `priority` 字段，例如 `high`、`medium`、`low`，然后在展示前按优先级排序。如果优先级相同，就让较早的 `created_at` 排在前面。
 2. 增加一个 `search(keyword)` 辅助函数，对标题、状态文本和优先级做不区分大小写的匹配。
@@ -385,9 +385,9 @@ class TaskManager:
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
-run_command: exact command used to start the project
-artifact: output file, API response, JSON record, screenshot, or README note
-failure_check: dependency, network, parsing, route, input validation, or API-key issue
-Expected_output: reproducible mini project folder with run result and one failure case
+项目目标：CLI、爬虫、API、AI API 调用，或集成式 Python 工作坊目标
+运行命令：启动项目时使用的准确命令
+工件：输出文件、API 响应、JSON 记录、截图或 README 说明
+失败检查：依赖、网络、解析、路由、输入验证或 API key 问题
+期望产出：可复现的迷你项目文件夹，包含运行结果和一个失败案例
 ```

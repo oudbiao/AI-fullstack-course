@@ -422,7 +422,7 @@ Once you start looking at multi-Agent systems through the four categories of “
 4. Explain in your own words: why, when a multi-Agent system has problems, is it often not because “the model is too weak,” but because “the system boundaries are unclear”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. In a reviewer-final-call design, each Agent submits its conclusion with evidence and uncertainty. The reviewer compares them against criteria, chooses or merges an answer, and records the reason for the decision.
 2. If the system repeatedly retrieves the same information, first inspect shared state and communication protocol. The agents may not know what has already been retrieved or where evidence is stored.

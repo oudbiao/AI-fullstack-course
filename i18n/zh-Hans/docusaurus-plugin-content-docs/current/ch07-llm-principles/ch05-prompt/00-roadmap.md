@@ -66,11 +66,11 @@ test_case_count: 3
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_contract: task, context, constraints, output format
-fixed_cases: same inputs used across prompt versions
-schema_check: structured output validated by parser
-failure_note: prompt failure grouped by cause
-bridge: Chapter 8 adds retrieved context to this loop
+提示词契约：任务、上下文、约束、输出格式
+固定案例：不同提示版本使用相同输入
+架构检查：结构化输出已通过解析器验证
+失败备注：按原因分组的提示词失败
+桥接：第 8 章把检索到的上下文加入这个循环
 ```
 
 ## 通过标准
@@ -80,7 +80,7 @@ bridge: Chapter 8 adds retrieved context to this loop
 本章出口小项目是课程内容抽取 Prompt：输入一篇课程文档，输出章节主题、学习目标、前置知识、关键术语、练习建议和风险提醒，格式为 JSON 或 Markdown 表格。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

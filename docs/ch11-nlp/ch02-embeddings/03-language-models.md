@@ -305,7 +305,7 @@ you will naturally find it much easier to understand GPT, pretraining, and gener
 4. Think about it: why can the ability to “continue the next word” eventually grow into conversation and writing abilities?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Adding corpus sentences changes transition counts in `stats`; common continuations become more likely and rare continuations may disappear in comparison.
 2. Bigram is simple, but it already contains the core language-modeling idea: estimate what token is likely next from previous context.

@@ -144,7 +144,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 Add a `require_role("admin")` decorator before `fetch_model_info`. Make it raise `PermissionError` for non-admin users, and do not retry permission errors.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 A good implementation checks authorization before the retry wrapper handles transient failures. One clean route is to place `require_role("admin")` outside the retrying call path, or update `retry` so it immediately re-raises `PermissionError`.
 

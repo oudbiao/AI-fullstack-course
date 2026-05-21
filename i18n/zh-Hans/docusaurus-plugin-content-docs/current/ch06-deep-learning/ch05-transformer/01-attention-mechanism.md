@@ -218,12 +218,12 @@ output
 保留一条 attention trace：
 
 ```text
-score_rule: Q @ K.T / sqrt(d_k)
-weights_rule: softmax turns scores into rows that sum to 1
-output_rule: weights @ V mixes value vectors
-qkv_rule: Q/K decide matching, V carries content
-mask_rule: blocked positions receive near-zero attention
-llm_bridge: causal attention lets generation use past tokens only
+评分规则：Q @ K.T / sqrt(d_k)
+权重规则：softmax 将分数转成每行和为 1 的行
+输出规则：权重 @ V 混合 value 向量
+QKV 规则：Q/K 决定匹配，V 携带内容
+mask 规则：被屏蔽的位置获得接近 0 的注意力
+LLM 桥接：因果注意力只允许生成使用过去的 token
 ```
 
 ## 为什么要除以 `sqrt(d_k)`？
@@ -385,7 +385,7 @@ Attention 权重很有用，但不要过度解读。
 6. 描述一个 attention 权重有帮助但不是完整解释的场景。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 第三个 token 会更接近第一维方向的 query，因此这些 query 对它的 attention weight 通常会升高。精确数值取决于完整的 dot-product 表。
 2. 只改 `W_v` 会改变 value vectors 和最终 attention output；attention scores 和 weights 不变，因为它们由 queries 和 keys 决定。

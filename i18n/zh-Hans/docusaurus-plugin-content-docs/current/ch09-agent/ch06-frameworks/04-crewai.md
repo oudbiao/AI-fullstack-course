@@ -289,11 +289,11 @@ review  : {'approved': True, 'comment': '关键信息较完整'}
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 小结
@@ -314,7 +314,7 @@ decision: choose framework only after the single-agent loop is clear
 4. 如果你的任务里有很多回路和条件分支，你还会优先选 CrewAI 吗？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 一个有用的三角色 crew 可以是 researcher、writer、reviewer。每个角色都应该有窄职责、清晰产物，以及交给下一个角色的交接点。
 2. 角色越多不一定越好。职责重叠、消息噪声变大、没人负责最终判断时，质量反而会下降。只有当新角色能消除真实瓶颈时才添加。

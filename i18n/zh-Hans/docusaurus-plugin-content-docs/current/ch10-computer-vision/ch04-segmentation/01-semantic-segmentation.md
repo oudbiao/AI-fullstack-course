@@ -326,11 +326,11 @@ print(class_counts(mask))
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+输入图像: 原始图像和目标掩膜或类别图
+预测：预测掩膜、叠加可视化和边界示例
+指标：IoU、Dice、每类得分和边界失败备注
+失败检查：标注质量、边界过窄、小区域或类别混淆
+期望产出：掩膜叠加图，以及分割指标汇总
 ```
 
 ## 小结
@@ -357,7 +357,7 @@ Expected_output: mask overlay plus segmentation metric summary
 4. 如果类别非常不平衡，你最担心什么问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 修改 `pred_mask` 会改变 intersection 和 union。即使只是边界小错，也可能明显降低 IoU，尤其是小区域。
 2. 高 pixel accuracy 可能误导，因为背景像素常常占绝大多数。模型看起来准确，却可能完全做不好稀有类或小目标。

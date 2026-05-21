@@ -525,11 +525,11 @@ IA3 の本質は「複雑にすること」ではなく、
 このページを終えたら、この証拠カードを残します。
 
 ```text
-method_family: adapters, prefix/prompt tuning, IA3, or LoRA-like route
-changed_part: which parameters or prompts are trained
-fit: when this method is appropriate
-tradeoff: quality, memory, latency, and engineering complexity
-decision: compare against LoRA and prompt baseline
+手法ファミリー：adapters、prefix/prompt tuning、IA3、または LoRA 系の手法
+変更箇所：どのパラメータや Prompt を学習するか
+適合: この手法が適切なとき
+トレードオフ：品質、メモリ、レイテンシ、実装複雑度
+判断: LoRA と prompt ベースラインと比較する
 ```
 
 ## まとめ
@@ -556,7 +556,7 @@ decision: compare against LoRA and prompt baseline
 4. もしハードウェアがかなり厳しい一方で、タスクは複雑だとしたら、どの PEFT 手法を最初に試しますか？その理由も考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. Prompt Tuning は入力付近の soft prompt ベクトルを学習します。Prefix Tuning は attention に影響する prefix state を学習します。Adapter は層の中に小さな学習可能モジュールを挿入します。IA3 は activation を調整する scaling vector を学習します。
 2. Adapter なら、同じベースモデルを共有しつつ、各タスクに小さな task-specific module を持たせられます。多数の完全なモデルコピーを管理するより、保存、切り替え、複数タスク管理が簡単です。

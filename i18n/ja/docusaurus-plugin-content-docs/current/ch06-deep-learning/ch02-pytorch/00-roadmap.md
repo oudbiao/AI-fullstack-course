@@ -67,11 +67,11 @@ for step in range(1, 5):
 PyTorch ループのメモを 1 つ残します。
 
 ```text
-tensor_check: shape, dtype, device
-autograd_check: loss.backward() fills gradients
-module_check: named_parameters() shows trainable tensors
-loader_check: one batch matches model and loss
-loop_check: train/eval losses are logged separately
+tensor チェック：shape、dtype、device
+autograd 確認: loss.backward() が勾配を埋める
+モジュール確認：named_parameters() が学習可能なテンソルを示す
+ローダー確認：1バッチがモデルと損失に一致する
+ループ確認：train/eval の損失が別々に記録されている
 ```
 
 ## 合格ライン
@@ -79,7 +79,7 @@ loop_check: train/eval losses are logged separately
 PyTorch ループを読み、データ batch、モデル出力、loss、`backward()`、optimizer 更新の5つを見つけられれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

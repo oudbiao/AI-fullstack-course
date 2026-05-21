@@ -322,7 +322,7 @@ For real images, also match the preprocessing expected by the pretrained weights
 5. Explain when GAP plus a small head is preferable to a large `Flatten` head.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A fourth synthetic class needs a pattern that is visually distinct, a new label index, and a classifier head with one more output unit.
 2. More target samples should make head-only training stronger because the new head sees more examples. Still compare validation accuracy, not only train accuracy.

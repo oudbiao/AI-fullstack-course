@@ -494,7 +494,7 @@ Congratulations on completing the entire Developer Tools Basics section! Let’s
 - [ ] **Jupyter:** Can create Notebooks, run code, plot charts, and write documentation
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. The Notebook kernel should match the course Python environment, not a random system Python.
 2. Cell 2 should print values for pi, Euler's number, and `10!`.

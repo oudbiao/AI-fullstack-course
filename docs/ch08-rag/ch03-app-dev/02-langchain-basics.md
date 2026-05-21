@@ -340,7 +340,7 @@ Once this chain mindset is in place, reading real framework APIs later will feel
 4. Explain in your own words: what kind of problem shape is LangChain best suited to solve?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The rewrite step can normalize synonyms and produce a retrieval-focused query while preserving the original intent.
 2. Prompt is a component because it transforms inputs into instructions and constrains the output shape.

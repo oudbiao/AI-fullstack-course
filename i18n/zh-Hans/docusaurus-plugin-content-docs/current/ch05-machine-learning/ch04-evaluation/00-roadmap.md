@@ -62,7 +62,7 @@ mean_accuracy: 0.933
 能为任务选择指标，解释一次分数稳定性检查，并避免在评估方法不可信时急着调参，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 先根据任务目标和错误代价选择指标，再开始调参。
 2. 交叉验证回答的是分数在不同划分下是否稳定；一次幸运划分不能当作充分证据。
@@ -75,9 +75,9 @@ mean_accuracy: 0.933
 学完这一页，至少保留这张证据卡：
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+评估设置：划分、交叉验证、指标、基线和对比目标
+结果：分数表、曲线、混淆矩阵、验证结果，或搜索结果
+决策：是否更改数据、特征、模型、阈值或超参数
+失败检查：泄漏、验证不稳定、指标错误或在测试集上调参
+期望产出：支持下一步建模决策的评估记录
 ```

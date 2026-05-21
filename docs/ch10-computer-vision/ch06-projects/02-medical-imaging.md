@@ -406,7 +406,7 @@ It is recommended to finish the basic version first; do not pursue something hug
 4. If you put this project into a portfolio, which risk explanation is most worth emphasizing separately?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A safer binary screening version could be “high-risk finding present vs absent.” `clinical_constraints` should state that the output is only a screening aid, sensitivity is prioritized, and a human review boundary is required.
 2. `false_negative_rate` matters because a missed positive case can be more dangerous than many ordinary mistakes. Overall accuracy can hide this risk when positives are rare.

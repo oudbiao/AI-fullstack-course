@@ -343,7 +343,7 @@ class TaskManager:
 ```
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `priority` フィールドを `high` / `medium` / `low` のように追加し、表示前に優先度で並べ替えます。同じ優先度なら、`created_at` が早い順にします。
 2. `search(keyword)` ヘルパーを追加し、タイトル・状態テキスト・優先度を大文字小文字を区別せずに照合します。
@@ -385,9 +385,9 @@ class TaskManager:
 このページを終えたら、この evidence card を残します。
 
 ```text
-project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
-run_command: exact command used to start the project
-artifact: output file, API response, JSON record, screenshot, or README note
-failure_check: dependency, network, parsing, route, input validation, or API-key issue
-Expected_output: reproducible mini project folder with run result and one failure case
+プロジェクト目標：CLI、スクレイパー、API、AI API 呼び出し、または統合 Python ワークショップの対象
+実行コマンド: プロジェクトの起動に使った正確なコマンド
+成果物: 出力ファイル、API 応答、JSON レコード、スクリーンショット、または README メモ
+失敗確認：依存関係、ネットワーク、パース、ルート、入力検証、または API キーの問題
+期待される成果: 実行結果と1件の失敗例を含む再現可能なミニプロジェクトフォルダ
 ```

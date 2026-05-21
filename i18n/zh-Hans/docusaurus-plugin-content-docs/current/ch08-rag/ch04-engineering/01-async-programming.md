@@ -499,11 +499,11 @@ LLM 回复: 请根据以下信息回答：知识库结果: 退款政策是什么
 学完这一页，至少保留这张证据卡：
 
 ```text
-service_contract: endpoint, input schema, output schema, error schema
-run_signal: latency, throughput, logs, health check, or container status
-observability: request id, trace id, structured log, or metric
-failure_check: timeout, retry storm, missing log, deployment mismatch
-ops_action: backoff, queue, alert, rollout, or rollback
+服务契约：端点、输入模式、输出模式、错误模式
+运行信号：延迟、吞吐量、日志、健康检查，或容器状态
+可观测性：请求 ID、trace ID、结构化日志或指标
+失败检查：超时、重试风暴、缺少日志或部署不匹配
+运维动作：backoff、queue、alert、rollout 或 rollback
 ```
 
 ## 小结
@@ -524,7 +524,7 @@ ops_action: backoff, queue, alert, rollout, or rollback
 4. 用自己的话解释：异步编程为什么不是“让单个任务更快”，而是“让整体等待更聪明”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 任务数增加到 30 后更容易看到排队现象。`Semaphore` 控制最大 in-flight 工作量，防止压垮外部依赖。
 2. 新增的并发调用也要带错误和超时处理，避免一个慢依赖悄悄拖住整体流程。

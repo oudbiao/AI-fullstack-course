@@ -401,7 +401,7 @@ it will be much easier to understand that they are continuing to organize reason
 4. If you were using CoT in a product, would you prefer free-form text or structured slots? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The chain answer should expose sub-results, while the bad direct answer often hides assumptions or arithmetic mistakes.
 2. CoT is valuable when the task has dependencies that need to be tracked; long text without structure is just verbosity.

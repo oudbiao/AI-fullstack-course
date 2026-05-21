@@ -68,11 +68,11 @@ reason: choose the smallest abstraction that exposes state
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+問題の形：ワークフローグラフ、検索アプリ、役割チーム、または実験
+フレームワーク選択：どの抽象化を追加し、何を隠すか
+追跡記録：state、node、tool call、message、または run id
+失敗確認：フレームワークの魔法が状態、再試行、または権限を隠す
+判断: シングルエージェントのループが明確になってからフレームワークを選ぶ
 ```
 
 ## 合格ライン
@@ -80,7 +80,7 @@ decision: choose framework only after the single-agent loop is clear
 同じ小さなタスクを普通の関数と 1 つのフレームワークで実装し、どちらがデバッグしやすいか、なぜかを説明できれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

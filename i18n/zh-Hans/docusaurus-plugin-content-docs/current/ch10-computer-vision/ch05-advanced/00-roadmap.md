@@ -70,7 +70,7 @@ first_output: text with layout
 如果你能选择一个方向，定义输入/输出，运行最小项目，并记录失败案例和使用边界，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把任务映射到正确的视觉输出：类别标签、检测框、mask、OCR 文本、embedding 或视频事件。
 2. 证据应包含渲染后的视觉产物，以及一个指标或定性错误说明。
@@ -84,9 +84,9 @@ first_output: text with layout
 学完这一页，至少保留这张证据卡：
 
 ```text
-scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
-input_sample: source image/frame/document and the expected output type
-result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
-failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
-Expected_output: scenario-specific artifact with metric or human-review note
+场景边界：人脸、视频、OCR、3D、医疗，或其他视觉场景
+输入样本: 源图像/帧/文档以及期望的输出类型
+结果工件：提取文本、跟踪事件、深度线索、诊断标记，或审查备注
+失败检查：隐私、光照、时间漂移、布局、标定或领域风险
+期望产出：带指标或人工复查说明的场景特定产物
 ```

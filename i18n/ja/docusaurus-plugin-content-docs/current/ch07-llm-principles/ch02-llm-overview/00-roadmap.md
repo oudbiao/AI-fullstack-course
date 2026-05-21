@@ -67,11 +67,11 @@ recommended_route: RAG
 このページを終えたら、この証拠カードを残します。
 
 ```text
-capability_stack: tokens, context, pretraining, instruction, alignment
-cost_check: context length and output length affect cost/latency
-product_fit: choose model behavior by task need, not hype
-evaluation_loop: fixed cases, score, failure note
-next_action: connect overview to prompt testing in 7.5
+機能スタック：tokens、context、pretraining、instruction、alignment
+コスト確認: 文脈長と出力長がコスト/レイテンシに影響する
+製品適合：話題性ではなく、タスク要件でモデルの振る舞いを選ぶ
+評価ループ：固定ケース、スコア、失敗メモ
+次の行動：概要を 7.5 の Prompt テストにつなげる
 ```
 
 ## 合格ライン
@@ -79,7 +79,7 @@ next_action: connect overview to prompt testing in 7.5
 能力、context、コスト、遅延、データプライバシー、ルート適性からモデル選択を1つ説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

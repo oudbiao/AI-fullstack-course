@@ -397,11 +397,11 @@ print(type(model))
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+模型选择：BERT、GPT、T5、Transformer 流水线或其他预训练基线
+tokenizer 输出：id、mask、解码文本或批次形状
+任务结果：分类、生成、抽取或文本到文本输出
+失败检查：错误的模型家族、token 限制、领域不匹配、成本或延迟
+期望产出：模型调用结果加一段简短的选择理由
 ```
 
 ## 小结
@@ -422,7 +422,7 @@ Expected_output: model call result plus a short choice rationale
 4. 想一想：如果你要做文本分类，应该优先找 `AutoModel` 还是 `AutoModelForSequenceClassification`？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 修改 mini vocab 后，token IDs 会变化；如果词表缺词，还可能出现 unknown token。
 2. 把 `hidden_size` 改成 64 应改变 hidden representation 的维度，而不是 sequence length 或 batch size。

@@ -221,11 +221,11 @@ embedding table 会把每个 ID 变成向量。
 学完这一页，至少保留这张证据卡：
 
 ```text
-token_trace: text, tokens, ids, and length
-embedding_trace: vector or similarity output
-retrieval_demo: query, top match, and score
-failure_note: one case where similarity is misleading
-next_probe: change text length, language, or wording and compare
+token 追踪：文本、token、id 和长度
+嵌入轨迹：向量或相似度输出
+检索演示：查询、最佳匹配和分数
+失败备注：一个相似度会误导的案例
+下一次探测：改变文本长度、语言或措辞并比较
 ```
 
 ## 练习任务
@@ -237,7 +237,7 @@ next_probe: change text length, language, or wording and compare
 5. 加一个未知词，观察 `[UNK]` 怎样影响向量。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `invoice` 必须同时加入 `vocab` 和 `embedding_table`。如果只改其中一个，编码或向量查询会出错。
 2. 加入 `refund invoice` 后，这句话应该能得到已知 token ID，而不是依赖 `[UNK]`。

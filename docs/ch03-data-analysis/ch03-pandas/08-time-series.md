@@ -478,7 +478,7 @@ flowchart TB
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Convert date strings with `pd.to_datetime` first, then create calendar features such as month, weekday, quarter, and business-day flags.
 - Use `resample` for calendar aggregation, `rolling` for moving windows, and `pct_change` for growth rates. Each method answers a different kind of question.

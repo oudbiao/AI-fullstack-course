@@ -247,7 +247,7 @@ failure_probe: fluent answer can still be wrong
 5. Explain why a model can be capable but still need RAG or alignment.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. Lowering the winning logit should reduce its softmax confidence because the score gap becomes smaller. The winner may stay the same, but certainty drops.
 2. `temperature=0.1` makes output more deterministic and peaked. `temperature=5.0` flattens the distribution and makes lower-ranked tokens more likely.

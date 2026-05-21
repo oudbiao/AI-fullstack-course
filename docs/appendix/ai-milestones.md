@@ -145,7 +145,7 @@ Course chapter to revisit: Chapters 6, 7, 8, and 9.
 The goal is not to recite history. The goal is to connect a historical node to a real capability you may build later.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 One acceptable answer could use these three nodes:
 

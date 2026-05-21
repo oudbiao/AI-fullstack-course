@@ -553,7 +553,7 @@ cv_workshop_run/reports/failure_cases.md
 5. baseline が動いたあと、centroid classifier を小さな CNN や事前学習済み分類器に置き換える。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. `star` を追加するときは、ラベル一覧、サンプル生成、そして 3 クラス前提の説明や指標をそろえて更新します。再実行したあと、最終 accuracy だけでなく失敗例の変化も確認します。
 2. `challenge_plan` はモデルと分割を変えず、ぼかしと遮蔽を少しずつ増やします。どの失敗モードが最初に増えるかを見るのが目的です。
@@ -561,7 +561,7 @@ cv_workshop_run/reports/failure_cases.md
 4. 横並びの画像は、毎回同じ尺度と順番にそろえると見やすくなります。original、mask、prediction の 3 枚が最小の実用セットです。
 5. centroid classifier の置き換えは、まず baseline の弱点を説明できるようになってから行います。小さな CNN や事前学習済み分類器は次の一手です。
 
-Expected_output: 1 つの変更、1 つの指標変化、1 つの失敗例を含む短い比較メモ。
+期待される成果： 1 つの変更、1 つの指標変化、1 つの失敗例を含む短い比較メモ。
 
 </details>
 
@@ -582,9 +582,9 @@ Expected_output: 1 つの変更、1 つの指標変化、1 つの失敗例を含
 このページを終えたら、この evidence card を残します。
 
 ```text
-task_output: classification label, detection box, segmentation mask, OCR text, or video event
-artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
-metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
-failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
-Expected_output: a reproducible run folder with visual outputs and a short failure report
+タスク出力：分類ラベル、検出ボックス、セグメンテーションマスク、OCR テキスト、または動画イベント
+成果物: 元画像、処理後画像、予測オーバーレイ、metrics ファイル、失敗サンプル
+指標：accuracy/F1、mAP、IoU、Dice、レイテンシ、またはシナリオ別レビュー評価
+失敗確認：データ品質、ラベル誤り、前処理不一致、閾値、または本番制約
+期待される成果：ビジュアル出力と短い失敗レポートを含む再現可能な実行フォルダ
 ```

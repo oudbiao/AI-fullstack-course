@@ -394,11 +394,11 @@ kv cache    : 1.50 GB
 学完这一页，至少保留这张证据卡：
 
 ```text
-params: rough parameter estimate and major contributors
-training_cost: forward + backward + optimizer state
-inference_cost: prefill, decode, KV cache, output length
-bottleneck: memory, latency, throughput, or quality
-decision: choose smaller model, quantization, batching, or retrieval by evidence
+参数：粗略参数量估计和主要贡献项
+训练成本：前向 + 反向 + 优化器状态
+推理成本：prefill、decode、KV cache、输出长度
+瓶颈：内存、延迟、吞吐量或质量
+决策：根据证据选择更小模型、量化、批处理或检索
 ```
 
 ## 小结
@@ -421,7 +421,7 @@ decision: choose smaller model, quantization, batching, or retrieval by evidence
 4. 如果你要做一个长对话服务，除了参数量，你最先还会关心哪些指标？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. KV cache 大致随序列长度、层数、batch size 和 key-value 头维度线性增长。把 `4096` 改到 `16384`，序列长度这一项约增加 4 倍。
 2. Hidden size 会影响投影矩阵、FFN 宽度、激活显存和 attention 维度。增大它往往会同时抬高参数量和每个 token 的计算量。

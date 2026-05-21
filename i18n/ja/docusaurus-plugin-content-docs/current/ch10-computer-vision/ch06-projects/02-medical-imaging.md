@@ -375,11 +375,11 @@ print(risk_summary(metrics))
 このページを終えたら、この evidence card を残します。
 
 ```text
-task_output: classification label, detection box, segmentation mask, OCR text, or video event
-artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
-metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
-failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
-Expected_output: a reproducible run folder with visual outputs and a short failure report
+タスク出力：分類ラベル、検出ボックス、セグメンテーションマスク、OCR テキスト、または動画イベント
+成果物: 元画像、処理後画像、予測オーバーレイ、metrics ファイル、失敗サンプル
+指標：accuracy/F1、mAP、IoU、Dice、レイテンシ、またはシナリオ別レビュー評価
+失敗確認：データ品質、ラベル誤り、前処理不一致、閾値、または本番制約
+期待される成果：ビジュアル出力と短い失敗レポートを含む再現可能な実行フォルダ
 ```
 
 ## まとめ
@@ -418,7 +418,7 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 4. このプロジェクトを作品集に入れるなら、どのリスク説明を特に強調したいですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. より安全な binary screening 版なら、「高リスク所見あり / なし」と定義できます。`clinical_constraints` には、出力は screening aid にすぎないこと、sensitivity を優先すること、人間の review 境界が必要なことを書きます。
 2. `false_negative_rate` が重要なのは、陽性例の見逃しが通常の誤りより危険になりうるからです。陽性が少ない場合、overall accuracy はこのリスクを隠します。

@@ -77,7 +77,7 @@ all_scores: [89.8 75.6 91.8]
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 - 线性代数路线通过的标志是：你能把 `X @ W` 同时读成 shape 运算和一批点积。
 - 证据至少保留一个向量相似度例子、一个矩阵变换例子、一个 PCA 或特征向量图、一个 SVD 或 rank 检查。
@@ -91,9 +91,9 @@ all_scores: [89.8 75.6 91.8]
 学完这一页，至少保留这张证据卡：
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学对象：向量、矩阵、特征值、基或向量空间概念
+数值示例：用于计算它的简单数字或 NumPy 片段
+可视化或输出：形状、变换后的点、相似度分数、特征方向或投影
+AI 关联：这里出现在 embeddings、批次、PCA、神经层或注意力中
+期望产出：计算过程，以及一句把它和 AI 操作联系起来的话
 ```

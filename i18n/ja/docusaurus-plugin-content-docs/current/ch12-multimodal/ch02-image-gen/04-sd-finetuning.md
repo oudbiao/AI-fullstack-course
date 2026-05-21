@@ -365,11 +365,11 @@ DreamBooth がよく使われる目的は、たとえば次のようなもので
 このページを終えたら、この evidence card を残します。
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+プロンプト記録：プロンプト、否定条件、参照、seed/model、バージョン番号
+候補出力：生成結果またはシミュレーション結果と選択理由
+技術メモ：diffusion step、latent、cross-attention、LoRA、またはアプリケーションモード
+失敗確認: プロンプトのずれ、文体不一致、成果物、著作権、肖像、またはレビュー失敗
+期待される成果: 選定した画像/版の記録と却下候補のメモ
 ```
 
 ## まとめ
@@ -390,7 +390,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 画像生成の微調整の評価が、テキスト分類よりも人の感覚に頼りやすいのはなぜでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. Textual Inversion は新しい token embedding を追加するものに近く、LoRA はモデル層に小さく取り外し可能なスキルパッチを足すものに近く、DreamBooth は特定の対象やアイデンティティを直接的な例で教えるものに近いです。
 2. style trigger word を追加したいだけなら、Textual Inversion や LoRA で足りる場合があります。特定の対象知識を深く書き換える必要がないからです。

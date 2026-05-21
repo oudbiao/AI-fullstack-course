@@ -494,11 +494,11 @@ for chunk in chunks_with_meta:
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 小结
@@ -520,7 +520,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 4. 如果你的目标是生成课件，想一想：概念、例题、练习为什么不适合完全用同一种切块方式？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 小 chunk 更容易精确检索，但可能丢上下文；大 chunk 保留更多上下文，但信号容易被稀释。Overlap 可以降低边界信息被切掉的风险。
 2. 与退款无关的文本在退款问题下应排得很低。如果它排得很高，说明 embedding 或 scoring 方法没有很好地区分意图。

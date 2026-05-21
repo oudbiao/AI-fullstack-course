@@ -417,7 +417,7 @@ The clearer the server is, the easier it is for the client side to expand, and t
 4. Explain in your own words: why is the core of MCP Server development not just “executing tools,” but “exposing clear boundaries”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Add `get_weather(city)` as a registered tool with a description and schema, then return a small structured result such as `{city, condition, source}`. Use placeholder data unless the page already connects to a real API.
 2. Validate that `city` exists, is a non-empty string, and is not an unexpectedly large payload. Invalid input should return a clear error instead of silently guessing.

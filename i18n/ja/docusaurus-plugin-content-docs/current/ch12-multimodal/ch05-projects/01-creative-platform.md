@@ -356,11 +356,11 @@ for asset in assets:
 このページを終えたら、この evidence card を残します。
 
 ```text
-brief: user goal, audience, assets, constraints, and export format
-artifacts: source files, prompts, generated candidates, selected output, and rejected versions
-review: factual check, copyright/portrait/sensitive-content check, and human decision
-integration: RAG record, Agent trace, creative package, storyboard, or export preview
-Expected_output: reproducible asset package with README, review checklist, and failure notes
+要約：ユーザーの目的、対象読者、素材、制約、出力形式
+成果物: ソースファイル、プロンプト、生成候補、選択出力、却下版
+レビュー: 事実確認、著作権・肖像権・機微情報チェック、人の判断
+統合：RAG レコード、Agent トレース、クリエイティブパッケージ、ストーリーボード、またはエクスポートプレビュー
+期待される成果: README、レビュー用チェックリスト、失敗メモを含む再現可能なアセットパッケージ
 ```
 
 ## まとめ
@@ -391,7 +391,7 @@ Expected_output: reproducible asset package with README, review checklist, and f
 4. このプロジェクトを作品集に入れるなら、トップページで最も見せる価値がある 5 つのモジュールはどれですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `video_scripts` は brief と asset plan が安定した後に生成します。scene id、ナレーション、visual direction、duration、必要 assets、review status を含めると、動画 workflow が同じ manifest とつながったままになります。
 2. creative platform が asset management に依存するのは、生成によって多くの版、却下候補、prompt、権利メモ、レビュー判断が生まれるからです。asset record がなければ、再現も安全な再利用もできません。

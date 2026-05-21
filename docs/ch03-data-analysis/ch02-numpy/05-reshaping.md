@@ -427,7 +427,7 @@ daily_temps = rng.uniform(low=-5, high=38, size=360)  # Use 360 days for easier 
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - The same 24 values can become `(4, 6)`, `(2, 3, 4)`, or `(6, -1)` as long as the total element count stays 24. Use `-1` only for one dimension so NumPy can infer it.
 - For class score data, `np.vstack` stacks classes vertically, `np.hstack` adds columns horizontally, and `np.split` can recover equal-sized blocks when the row counts line up.

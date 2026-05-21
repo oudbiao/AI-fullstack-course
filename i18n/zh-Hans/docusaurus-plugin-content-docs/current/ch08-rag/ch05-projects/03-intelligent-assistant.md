@@ -395,10 +395,10 @@ for case in eval_cases:
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+项目目标：用户任务和业务边界
+基线：最简单的提示/RAG/应用版本优先
+评估：固定案例、检索证据、答案质量和引用检查
+失败日志：至少一个失败案例及其可能原因
 交付物：README、运行命令、截图/日志、下一步
 ```
 
@@ -430,7 +430,7 @@ failure_log: at least one failed case with likely cause
 4. 如果你把这个项目做成作品集，最值得展示哪一段对话？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. `学习顺序` 主题应增加 intent 识别、必填 slot、工具/上下文来源和回答模板。
 2. 智能助手要跟踪用户目标、缺失信息、前面回答、工具结果和下一步动作；FAQ 多数只是无状态查询。

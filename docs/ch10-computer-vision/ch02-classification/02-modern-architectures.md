@@ -402,7 +402,7 @@ If we compress it into one sentence, it would be:
 4. Think about it: why should architecture selection not rely only on leaderboards?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Residual connections make it easier for a block to learn an identity mapping and give gradients a shorter path backward, so very deep networks become easier to optimize.
 2. EfficientNet is a budget optimization idea because it scales depth, width, and input resolution together instead of increasing only one dimension blindly.

@@ -341,11 +341,11 @@ print(total_scores.sort_values("順位"))
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+データフレーム状態: 列、dtype、行数、欠損値、サンプル行
+操作：read/write、select/filter、clean、transform、groupby、merge、または時系列処理
+出力：resulting table、保存ファイル、aggregation、join結果、または時系列インデックスビュー
+失敗確認：dtype 不一致、欠損データ、重複キー、チェーン代入、または誤った時間頻度
+期待される成果：前後の表サンプルと、変換理由
 ```
 
 ## まとめ
@@ -396,7 +396,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 一致したキーだけが必要なら `inner` join、左表を正とするなら `left` join、両側の不一致を調べたいなら `outer` join を使います。
 - 結合前に重複キーを確認し、関係が 1 対 1、1 対多、多対多のどれかを決めます。可能なら `validate=` を使い、想定外の重複を Pandas に検出させます。

@@ -543,11 +543,11 @@ DELETE FROM users WHERE age < 20;
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+架构：表名、键、关系和示例行
+查询：所使用的 SQL 或 Python 数据库代码
+输出：结果行、行数，或保存的抽取结果
+失败检查：错误的连接键、不安全查询、缺少事务，或 schema 不匹配
+期望产出：查询、结果表和一条数据质量说明
 ```
 
 ## 小结
@@ -601,7 +601,7 @@ SQL 就是和数据库"说话"的语言，核心就 4 类操作：
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 筛选题用 `WHERE`，排序和 top-k 用 `ORDER BY ... LIMIT`，城市平均值用 `GROUP BY city` 加 `AVG(...)`。
 - 订单报表中，如果只关心有订单的客户用 `JOIN`；如果没有订单的客户也要保留，用 `LEFT JOIN`。`COALESCE` 可把 null 总消费显示成 0。

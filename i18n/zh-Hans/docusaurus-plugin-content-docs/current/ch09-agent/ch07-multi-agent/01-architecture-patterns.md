@@ -357,11 +357,11 @@ review: {'approved': True, 'comment': '关键信息已覆盖'}
 学完这一页，至少保留这张证据卡：
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+角色：负责人、执行者、评审者，或专家职责
+消息契约：artifact、request、response 和交接状态
+协同：路由、任务拆分、冲突解决和最终负责人
+失败检查：重复工作、上下文丢失、没有明确负责人或消息循环
+评估动作：将多 Agent 结果与单 Agent 基线对比
 ```
 
 ## 小结
@@ -383,7 +383,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 思考：为什么说多 Agent 架构首先是组织问题，而不是模型数量问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. supervisor 模式把任务分配和决策集中起来；pipeline 模式让工作按阶段顺序传递；reviewer 模式增加显式质量关卡，可以接受、拒绝或要求修改。
 2. 自动研究报告可以先做 retrieval -> writing -> review。这条 pipeline 容易检查，reviewer 也给了你抓 unsupported claims 的明确位置。

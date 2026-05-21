@@ -335,7 +335,7 @@ In practice, compare validation results. Architecture names are less important t
 5. Explain why GRU has fewer states than LSTM but can still work well.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `sigmoid(-1.0)` is smaller than `sigmoid(1.0)`, so less previous cell memory is kept. `c_t` should rely more on the new candidate.
 2. If the label depends on the last value, the task is usually easier because the model does not need to preserve early information for many steps.

@@ -562,7 +562,7 @@ Your exact result may change slightly if the sklearn version or split settings c
 Modify the overfitting example in section 4.3, use polynomials of different degrees (1, 3, 5, 10, 18) to fit the data, plot 5 subplots, and observe how complexity affects the fitting result.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Temperature and stock closing price are regression tasks because the target is numeric. Face detection, news category, and churn are classification tasks because the target is a discrete class.
 2. The wine example should follow the core supervised workflow: load features and labels, split before training, fit only on `X_train, y_train`, then score on `X_test, y_test`. A result near `0.944` is plausible for this split, but the exact value is less important than avoiding test-set leakage.

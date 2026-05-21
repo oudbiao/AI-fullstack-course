@@ -127,7 +127,7 @@ The first misconception is that CRF is an outdated model. It is not necessarily 
 4. If you use BERT for NER, do you still need CRF? List reasons for and against it.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. For a Chinese BIO example, segment the sentence first, then ensure no `I-*` starts an entity and every `I-*` follows a matching `B-*` or `I-*`.
 2. Token-by-token classification scores each position independently; global sequence decoding chooses the best valid label path for the whole sentence.

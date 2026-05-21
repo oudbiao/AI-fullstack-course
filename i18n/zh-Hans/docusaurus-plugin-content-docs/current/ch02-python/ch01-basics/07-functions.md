@@ -574,7 +574,7 @@ guess_number_game(1, 50, 5)  # 范围更小，次数更少
 如果你想稳定测试，可以先把 `target = random.randint(min_val, max_val)` 临时改成 `target = 42`。确认函数逻辑没问题后，再改回随机版本。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 温度转换测试应得到：`100` 摄氏度转成 `212.0` 华氏度，`32` 华氏度转成 `0.0` 摄氏度。再加一个如 `37` 摄氏度的往返测试会更稳。
 2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` 应返回最大值 `9`、最小值 `1`、平均值 `4.0`、中位数 `4`。
@@ -591,11 +591,11 @@ guess_number_game(1, 50, 5)  # 范围更小，次数更少
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept: variable, type, operator, input/output, branch, loop, structure, function, or module
-code: smallest runnable Python snippet for the concept
-output: printed value, type, branch result, loop trace, or returned value
-failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
-Expected_output: code plus printed result that proves the concept works
+概念：变量、类型、运算符、输入/输出、分支、循环、结构、函数或模块
+代码：用于说明该概念的最小可运行 Python 代码片段
+输出：打印值、类型、分支结果、循环 trace，或返回值
+失败检查：类型不匹配、缩进错误、越界、可变数据或导入路径问题
+期望产出：代码和打印结果，证明概念可行
 ```
 
 ## 小结

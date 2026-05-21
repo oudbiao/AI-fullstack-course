@@ -573,7 +573,7 @@ for animal in animals:
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `Book` should keep the current page as state, cap progress at the total page count, and report derived progress through `progress()`. The sample should print about `16.7%` after reading 50 of 300 pages, then show `50/300` in the object string.
 2. `ShoppingCart` should store the product object together with quantity so `total()` can multiply them correctly. `remove()` should be safe when the item is missing, and `__str__()` should return a clear empty-cart message when nothing has been added.

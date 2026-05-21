@@ -128,9 +128,9 @@ epoch=2 w=1.192 loss=14.528
 このページを終えたら、この証拠カードを残します。
 
 ```text
-learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
-resource_choice: one primary resource and why it fits the current bottleneck
-time_box: how long to use it before returning to the project
-risk_check: collecting resources instead of producing evidence
-Expected_output: a short resource plan with one artifact to produce after reading
+学習ギャップ：強化すべき概念、コードスキル、プロジェクトスキル、論文、またはデプロイスキル
+資源選択: 1つの主要なリソースと、それが現在のボトルネックに合う理由
+時間枠：プロジェクトに戻る前にどれだけ使うか
+リスク確認：証拠を作らずにリソースを集めること
+期待される成果：読書後に作成する 1つのアーティファクトがある短いリソース計画
 ```

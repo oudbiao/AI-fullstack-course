@@ -289,11 +289,11 @@ plt.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+函数：目标函数、损失、导数、梯度或链式法则表达式
+计算：数值导数、梯度步长或反向传播轨迹
+输出：斜率、梯度向量、更新后的参数，或损失变化
+失败检查：符号错误、学习率过大、局部斜率理解错误或链式法则出错
+期望产出：展示参数如何变化的计算轨迹
 ```
 
 ## 小结
@@ -330,7 +330,7 @@ Expected_output: calculation trace showing how a parameter changes
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 在 `x=2`，`3x^2+2x-1` 的导数是 `14`，`1/x` 的导数是 `-0.25`，`x sin(x)` 的导数是 `sin(2)+2cos(2)≈0.0770`。
 - 对 `f(x)=x^3-3x`，导数在 `x=-1` 和 `x=1` 为 0，分别对应曲线上的局部最大值和局部最小值。

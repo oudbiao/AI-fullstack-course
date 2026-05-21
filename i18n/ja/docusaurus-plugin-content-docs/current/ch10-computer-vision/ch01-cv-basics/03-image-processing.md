@@ -363,11 +363,11 @@ print("処理フロー全体の結果を保存しました")
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: source image or synthetic image used in the run
-array_shape: width, height, channels, dtype, and coordinate convention
-processed_output: grayscale, crop, edge, threshold, or saved intermediate image
-failure_check: channel order, resize distortion, coordinate mistake, or over-processing
-Expected_output: before/after image plus the printed shape or pixel values
+入力画像：実行で使うソース画像または生成画像
+配列形状: 幅、高さ、channels、dtype、座標規約
+処理済み出力：グレースケール、切り抜き、エッジ、しきい値処理、または保存済み中間画像
+失敗確認：チャネル順、リサイズの歪み、座標ミス、または過剰処理
+期待される成果：前後の画像と、出力された shape またはピクセル値
 ```
 
 ## まとめ
@@ -387,7 +387,7 @@ Expected_output: before/after image plus the printed shape or pixel values
 3. 元の画像に小さな白い点を1つ追加して、オープニングでそれを消せるか試してみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. しきい値を低くすると、二値画像で白になる画素は通常増えます。しきい値を高くすると、白になる画素は減ります。大切なのは画像そのものを暗記することではなく、変化の方向を読むことです。
 2. `(7, 7)` のカーネルは `(3, 3)` より強く収縮し、強く膨張します。細い構造は消えたり、かなり太くなったりします。

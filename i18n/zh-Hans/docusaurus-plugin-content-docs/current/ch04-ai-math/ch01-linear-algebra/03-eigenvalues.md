@@ -510,11 +510,11 @@ flowchart LR
 学完这一页，至少保留这张证据卡：
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学对象：向量、矩阵、特征值、基或向量空间概念
+数值示例：用于计算它的简单数字或 NumPy 片段
+可视化或输出：形状、变换后的点、相似度分数、特征方向或投影
+AI 关联：这里出现在 embeddings、批次、PCA、神经层或注意力中
+期望产出：计算过程，以及一句把它和 AI 操作联系起来的话
 ```
 
 ## 小结
@@ -567,7 +567,7 @@ y = digits.target     # 0~9
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 - 对 `A=[[3,1],[0,2]]`，特征值是 `3` 和 `2`。特征值 `3` 的一个有效特征向量是 `[1,0]`；特征值 `2` 的一个有效特征向量与 `[-1,1]` 成比例。
 - 验证方式是检查 `A @ v` 和 `lambda * v` 在数值上相同，允许浮点误差，也允许特征向量整体缩放。

@@ -13,11 +13,11 @@ description: "条件分岐とループ構造を身につける"
 このページを終えたら、この evidence card を残します。
 
 ```text
-concept: variable, type, operator, input/output, branch, loop, structure, function, or module
-code: smallest runnable Python snippet for the concept
-output: printed value, type, branch result, loop trace, or returned value
-failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
-Expected_output: code plus printed result that proves the concept works
+概念: 変数、型、演算子、入力/出力、分岐、ループ、構造、関数、またはモジュール
+コード：この概念のための最小限の実行可能な Python スニペット
+出力：印字値、型、branch結果、loop trace、または返り値
+失敗確認: 型不一致、インデント、オフバイワン、可変データ、または import パスの問題
+期待される成果：概念が機能することを証明するコードと出力結果
 ```
 
 ## この節の位置づけ
@@ -601,7 +601,7 @@ else:
 ヒント: 素数とは、1 より大きい自然数で、1 と自分自身でしか割り切れない数です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. FizzBuzz では、先に `15` で割り切れるかを判定します。そうしないと `15` が先に `Fizz` や `Buzz` として出力される可能性があります。
 2. 目標値を `42` に固定する場合は、小さすぎる入力、大きすぎる入力、正解、整数ではない入力、試行回数切れを確認します。

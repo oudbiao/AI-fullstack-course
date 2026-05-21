@@ -245,11 +245,11 @@ for target_id in [1, 2]:
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+入力画像：元画像とターゲットマスクまたはクラスマップ
+予測：予測マスク、重ね合わせ可視化、境界の例
+指標：IoU、Dice、クラス別スコア、境界の失敗メモ
+失敗確認：アノテーション品質、境界が薄い、領域が小さい、またはクラス混同
+期待される成果：マスク重ね合わせとセグメンテーションメトリクス要約
 ```
 
 ## まとめ
@@ -274,7 +274,7 @@ Expected_output: mask overlay plus segmentation metric summary
 4. インスタンスセグメンテーションが自動運転や防犯でなぜ特に価値があるのか、考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 正しい `instance_map` では、通常 `0` を背景にし、各物体インスタンスに異なる整数 id を割り当てます。3 つの物体なら 3 つの異なる id が必要です。
 2. instance segmentation が難しいのは、画素を分類するだけでなく、同じクラスの別々の物体も分離しなければならないからです。

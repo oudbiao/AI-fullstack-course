@@ -289,11 +289,11 @@ print(house.head())
 このページを終えたら、この evidence card を残します。
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特徴状態: 生の列、型、欠損値、スケール、およびターゲットとの関係
+変換：前処理、構築、選択、またはパイプライン手順
+出力：transformされたfeature table、pipeline object、scoreの変化、または選択された特徴量
+失敗確認: リーク、不一致な train/test 変換、高カーディナリティの落とし穴、または無意味な特徴
+期待される成果：前後比較とメトリクスへの影響を含む特徴量パイプラインの証拠
 ```
 
 ## まとめ
@@ -316,7 +316,7 @@ Titanic データセットで、次の特徴を作ってみましょう。家族
 1 年分の日付データを生成し、すべての時間特徴（月、週、四半期、平日かどうか）を抽出して、棒グラフでそれぞれの分布を表示しましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. Titanic の新特徴は、同じ split と同じモデルで baseline と比較します。家族人数のように文脈を表す特徴は、検証スコアを少し改善し、意味も説明しやすいはずです。
 2. 運賃区分や称号の mapping が cut point や辞書を学ぶなら、訓練 workflow の内部で作ります。全量データで bin を決めると、テスト分布を間接的に使うことになります。

@@ -62,11 +62,11 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 このページを終えたら、この証拠カードを残します。
 
 ```text
-service_contract: endpoint, input schema, output schema, error schema
-run_signal: latency, throughput, logs, health check, or container status
-observability: request id, trace id, structured log, or metric
-failure_check: timeout, retry storm, missing log, deployment mismatch
-ops_action: backoff, queue, alert, rollout, or rollback
+サービス契約: エンドポイント、入力スキーマ、出力スキーマ、エラースキーマ
+実行シグナル: レイテンシ、スループット、ログ、ヘルスチェック、またはコンテナ状態
+可観測性：request id、trace id、構造化ログ、または metric
+失敗確認: タイムアウト、リトライの連鎖、ログ不足、デプロイ不一致
+運用アクション：バックオフ、キュー、アラート、段階展開、またはロールバック
 ```
 
 ## 合格ライン
@@ -76,7 +76,7 @@ ops_action: backoff, queue, alert, rollout, or rollback
 出口ミニプロジェクトは engineering evidence pack です：1 件の trace log、1 つのよくある error、1 回の fix、1 回の regression check、1 つの deployment note を残します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
 2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。

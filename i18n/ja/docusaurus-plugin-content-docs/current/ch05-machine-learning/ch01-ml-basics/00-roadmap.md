@@ -67,11 +67,11 @@ prediction_count: 30
 このページを終えたら、この evidence card を残します。
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+ML 問題：教師あり、教師なし、評価、または特徴量エンジニアリングのタスク
+ベースライン: まずは最も簡単な sklearn/モデリングループと固定の train/test 分割
+出力：prediction、metric、chart、またはmodel decision note
+失敗確認：データリーク、不明確なターゲット、弱いベースライン、または指標不一致
+期待される成果: 指標と1件の失敗観察を含む最小限のMLループ
 ```
 
 ## この順番で学ぶ
@@ -89,7 +89,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 タスク種別を言える、`X` と `y` を識別できる、train/test 分割の理由を説明できる、baseline スコアを証拠として残せるなら合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. `X` は特徴量行列です。行はサンプル、列はモデルが使える入力です。`y` はラベルまたは target で、モデルが予測する答えです。
 2. train/test 分割が重要なのは、test set が新しいデータの代わりになるからです。学習中に test 情報が入ると、そのスコアは汎化の証拠ではなくなります。

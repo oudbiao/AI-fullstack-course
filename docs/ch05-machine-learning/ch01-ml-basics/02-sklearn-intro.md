@@ -207,7 +207,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 4. Save the terminal output and `iris_pipeline.joblib` as your evidence.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. A smaller test split leaves more training examples but fewer evaluation examples, so the score may move slightly and become a little less stable.
 2. `n_neighbors=3` makes KNN more local and flexible. It can improve if the boundary is sharp, or worsen if it reacts to noise.

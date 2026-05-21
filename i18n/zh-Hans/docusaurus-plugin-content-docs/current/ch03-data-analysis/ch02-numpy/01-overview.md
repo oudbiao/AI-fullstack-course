@@ -300,11 +300,11 @@ print(f"总像素值: {image.size}")   # 48 个数字
 学完这一页，至少保留这张证据卡：
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+数组状态：操作前的形状、dtype、轴和样本值
+操作：索引、切片、广播、reshape、线性代数，或随机/统计函数
+输出：结果数组形状、值，或统计量
+失败检查：轴混淆、视图/副本陷阱、广播不匹配或形状错误
+期望产出：打印的形状和值，便于检查数组运算
 ```
 
 ## 小结
@@ -361,7 +361,7 @@ print("square_sum =", square_sum)
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 对 `np.arange(1, 101)`，期望结果是总和 `5050`，均值 `50.5`，最小值 `1`，最大值 `100`，平方和 `338350`。
 - 向量化版本应当和循环版本得到完全相同的数值，但当数组扩大到几千、几百万个元素时，速度优势才会明显。

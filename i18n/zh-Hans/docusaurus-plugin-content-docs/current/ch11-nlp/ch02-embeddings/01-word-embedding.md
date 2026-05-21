@@ -377,11 +377,11 @@ print(neighbors)
 学完这一页，至少保留这张证据卡：
 
 ```text
-representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
-comparison: nearest text, similarity score, or next-token/log-prob style output
-interpretation: what the representation captures and what it misses
-failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
-Expected_output: small comparison table with at least one surprising result
+表示：BoW、TF-IDF、静态 embedding、上下文 embedding，或语言模型分数
+比较：最近文本、相似度分数或下一 token/log-prob 风格输出
+解释: 该表示捕捉了什么，以及遗漏了什么
+失败检查：一词多义、领域不匹配、文本过短、分词问题或语义漂移
+期望产出：至少有一个意外结果的小型对比表
 ```
 
 ## 小结
@@ -415,7 +415,7 @@ Expected_output: small comparison table with at least one surprising result
 4. 想一想：如果一个词经常出现在多个不同语境里，仅靠固定词向量会遇到什么问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `delivery` 的向量应该更接近 shipping、order、logistics 这类词，而不是无关词。具体数值不重要，重要的是相对邻近关系。
 2. one-hot 可以用 ID 区分词，但不同词之间距离几乎一样，无法表达相似关系。

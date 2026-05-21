@@ -384,11 +384,11 @@ print(memory_package)
 学完这一页，至少保留这张证据卡：
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+记忆类型：短期、长期、情景或程序性
+写入规则：在内存创建或更新时
+检索规则：查询、相关性、时效性和权限检查
+失败检查：过时记忆、隐私泄漏、矛盾或过度检索
+清理动作：总结、合并、过期、删除或请求确认
 ```
 
 ## 小结
@@ -409,7 +409,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 用自己的话解释：为什么说短期记忆解决的是“当前任务连贯性”，而不是“长期用户画像”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `summary` 字段可以把较早轮次压缩成当前任务摘要，而原始 message window 继续保留最近细节。
 2. 把窗口从 3 改成 5 后，`snapshot()` 会保留更多最近消息，可能提升连贯性，但也会增加噪声和 token 成本。

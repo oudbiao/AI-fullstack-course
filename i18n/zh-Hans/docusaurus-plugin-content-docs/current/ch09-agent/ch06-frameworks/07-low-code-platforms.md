@@ -254,11 +254,11 @@ print(workflow)
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 小结
@@ -279,7 +279,7 @@ decision: choose framework only after the single-agent loop is clear
 4. 如果你的系统状态回路很多，你还会优先选低代码平台吗？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 当 workflow 有清晰阶段、简单分支，并且需要让业务方看懂流程形状时，节点式表达很好用；当状态循环和自定义逻辑占主导时，它会变弱。
 2. low-code 适合需求验证，是因为非工程角色也能看见 workflow、指出缺失步骤，并在团队投入生产级工程前先验证想法。

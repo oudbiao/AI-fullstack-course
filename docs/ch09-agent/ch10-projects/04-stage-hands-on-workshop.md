@@ -545,7 +545,7 @@ Complete these in order:
 | Challenge | Replace `choose_next_step()` with a model call | Existing evaluation cases still pass |
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. For the MCP material task, add a small source entry with a title, body, and source id, then verify that an `MCP` goal retrieves that entry and cites the source in the final answer.
 2. For `max_steps`, stop the loop before another planning step would exceed the limit, return `stopped_max_steps`, and write the stop reason into the trace.

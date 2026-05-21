@@ -272,11 +272,11 @@ print(matches)
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: detection sample with ground-truth or expected objects
-prediction: boxes, labels, confidence scores, IoU, and threshold settings
-metric: precision/recall, mAP, false positives, and false negatives
-failure_check: small object, overlap, NMS, poor labels, or confidence threshold
-Expected_output: annotated image plus detection metrics or error buckets
+入力画像：正解または期待される対象を含む検出サンプル
+予測：バウンディングボックス、ラベル、信頼度スコア、IoU、しきい値設定
+指標：precision/recall、mAP、false positives、false negatives
+失敗確認: 小さな物体、重なり、NMS、ラベル品質の低さ、または信頼度閾値
+期待される成果：注釈付き画像と、検出メトリクスまたはエラーバケット
 ```
 
 ## まとめ
@@ -305,7 +305,7 @@ Expected_output: annotated image plus detection metrics or error buckets
 4. この検出プロジェクトを作品集としてどうまとめますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. IoU しきい値を `0.7` にすると、matching はより厳しくなります。`0.5` では true positive だった box が、false positive や false negative になることがあります。
 2. 検出が annotation standard に強く依存するのは、box 自体がラベルの一部だからです。box のルールが少し違うだけで IoU や mAP が変わります。

@@ -166,9 +166,9 @@ HMM / Viterbi -> CRF -> BiLSTM-CRF -> BERT token classification
 このページを終えたら、この evidence card を残します。
 
 ```text
-schema: entity types, BIO tags, or sequence-label rules
-prediction: token-level labels and extracted spans
-metric: entity precision/recall/F1 and boundary cases
-failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
-Expected_output: gold-vs-predicted span table with at least one miss
+スキーマ: エンティティ型、BIO タグ、またはシーケンスラベル規則
+予測：トークン単位のラベルと抽出スパン
+指標：エンティティの precision/recall/F1 と境界ケース
+失敗確認: span 境界、入れ子のエンティティ、未知語、または不一致なアノテーション
+期待される成果：少なくとも1つの miss がある、gold と predicted の span 表
 ```

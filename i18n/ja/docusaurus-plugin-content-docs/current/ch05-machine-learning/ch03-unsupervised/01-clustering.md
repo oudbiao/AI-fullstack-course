@@ -228,11 +228,11 @@ agglomerative_ari= 1.0
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: clustering, dimensionality reduction, or anomaly detection goal
-data_view: scaled features, projection, clusters, or anomaly scores
-interpretation: what the groups, axes, or alerts mean in the scenario
-failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
-Expected_output: unsupervised result with interpretation and uncertainty note
+タスク：clustering、dimensionality reduction、または anomaly detection の目標
+データ表示: スケーリング済み特徴量、射影、クラスタ、または異常スコア
+解釈：このシナリオでグループ、軸、またはアラートが何を意味するか
+失敗確認：任意のクラスタ数、スケーリングの問題、ノイズの多い次元、または誤検知
+期待される成果: 解釈と不確実性メモを含む教師なし結果
 ```
 
 ## よくあるトラブル
@@ -254,7 +254,7 @@ Expected_output: unsupervised result with interpretation and uncertainty note
 5. 異なる乱数 seed で同じクラスタリングを繰り返してください。信頼できるほど安定していますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `cluster_std` を大きくするとクラスタが重なりやすくなり、silhouette は通常下がります。各点が自分のクラスタに明確に近いとは言いにくくなるためです。
 2. `K` を増やすと inertia はほぼ必ず良く見えます。各点がどこかの中心に近づけるからです。ただし、自然なグループを細切れにしているだけなら silhouette は下がることがあります。

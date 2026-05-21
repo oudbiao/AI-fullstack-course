@@ -221,11 +221,11 @@ embedding table が各 ID をベクトルに変えます。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-token_trace: text, tokens, ids, and length
-embedding_trace: vector or similarity output
-retrieval_demo: query, top match, and score
-failure_note: one case where similarity is misleading
-next_probe: change text length, language, or wording and compare
+トークン追跡：テキスト、トークン、ID、長さ
+埋め込みトレース：ベクトルまたは類似度の出力
+検索デモ：クエリ、上位一致、スコア
+失敗ノート: 類似度が誤解を招く1件
+次の確認：テキスト長、言語、または表現を変えて比較する
 ```
 
 ## 練習課題
@@ -237,7 +237,7 @@ next_probe: change text length, language, or wording and compare
 5. 未知語を 1 つ追加し、`[UNK]` がベクトルにどう影響するか見る。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `invoice` は `vocab` と `embedding_table` の両方に追加します。片方だけだと encoding または vector lookup が壊れます。
 2. `refund invoice` を追加すると、文は `[UNK]` に頼らず既知 token ID を得られるはずです。

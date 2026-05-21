@@ -436,7 +436,7 @@ It is recommended to finish the basic version first; do not try to build somethi
 4. If you were presenting a portfolio project, which 3 parts would you most want to show the interviewer?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Adding five FAQ entries should improve coverage only if their wording and expected answers are clear; also add near-duplicate questions to test confusion.
 2. A refusal mechanism improves credibility because users can distinguish supported answers from guesses.

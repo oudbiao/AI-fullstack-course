@@ -356,11 +356,11 @@ BoW 系の方法は語順にあまり敏感ではないからです。
 このページを終えたら、この evidence card を残します。
 
 ```text
-label_schema: label definitions and boundary examples
-dataset_split: fixed train/test examples or evaluation set
-prediction: predicted label, expected label, and confidence or score
-failure_check: class imbalance, label overlap, leakage, or confusing wording
-Expected_output: metrics plus error samples grouped by failure reason
+ラベルスキーマ：ラベル定義と境界例
+データセット分割: 固定の train/test 例または評価セット
+予測：予測ラベル、期待ラベル、そして信頼度またはスコア
+失敗確認：クラス不均衡、ラベル重複、リーク、または紛らわしい表現
+期待される成果: 失敗理由ごとにまとめた指標とエラーサンプル
 ```
 
 ## まとめ
@@ -381,7 +381,7 @@ Expected_output: metrics plus error samples grouped by failure reason
 4. もしタスクが語順や文脈に強く依存するなら、BoW を優先して使いますか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `TfidfVectorizer` は一般語の影響を下げ、label 固有の語を目立たせることがあります。ただし結果はデータ量と label の書き方に依存します。
 2. `shipping` を追加するなら、明確な正例、紛らわしい反例、order に触れているが shipping 問題ではない例を入れます。

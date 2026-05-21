@@ -279,10 +279,10 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: what the agent should accomplish and what it must not do
-baseline: single-agent loop before adding advanced features
-trace_pack: goal, plan, tool calls, observations, memory, evaluation
-failure_log: one failed or unsafe run with root cause
+项目目标：智能体应完成什么，以及必须不做什么
+基线：在加入高级功能前的单智能体循环
+追踪包：目标、计划、tool 调用、观察、记忆、评估
+失败日志：一次失败或不安全的运行及其根因
 交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
@@ -316,7 +316,7 @@ failure_log: one failed or unsafe run with root cause
 4. 如果把这个项目做成演示页面，你最想展示哪一条完整 追踪？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 可以把 `ops_agent` 放在 implementation 之后、final release review 之前。它负责检查运行命令、环境变量、日志、rollback notes 和部署风险。
 2. unified artifact format 重要，是因为 Agent 协作需要稳定输入输出。只靠聊天很难测试、复盘、diff，也难交接给另一个 Agent。

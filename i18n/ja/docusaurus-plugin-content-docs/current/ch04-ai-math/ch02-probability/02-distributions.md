@@ -475,11 +475,11 @@ plt.show()
 このページを終えたら、この evidence card を残します。
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+確率過程：事象、分布、サンプル、尤度、エントロピー、またはベイズ更新
+シミュレーションまたは式: 不確実性を可視化するために使ったコードまたは式
+出力：probability、sample statistic、interval、entropy、または更新された信念
+失敗確認：ベースレートの混同、p値の誤用、サンプルバイアス、または確率と確実性の混同
+期待される成果: 数値結果と平易な言葉での解釈
 ```
 
 ## まとめ
@@ -587,7 +587,7 @@ for n_rolls in [1, 10, 50, 200]:
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 - 6 分割の分布図では、離散的なカウントと連続的な測定値の違いが見えるようにします。Bernoulli、binomial、Poisson には棒グラフ、連続分布には曲線やヒストグラムが自然です。
 - `N(170,5)` から身長を生成する場合、160 から 180 cm は平均の前後 2 標準偏差なので、シミュレーション比率は `95%` 近くになります。

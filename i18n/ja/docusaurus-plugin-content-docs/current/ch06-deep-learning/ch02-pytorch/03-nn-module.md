@@ -356,11 +356,11 @@ data -> model -> loss -> zero_grad -> backward -> optimizer.step -> eval predict
 このページでは、モデルが動くだけでなく、理解して点検できる証拠を残します。
 
 ```text
-structure_check: print(model) or write the layer order
-parameter_check: named_parameters() with shape for each trainable tensor
-state_dict_keys: checkpoint keys that would be saved
-mode_probe: train outputs differ, eval outputs match for DropoutProbe
-mini_project_result: loss decreases and predicted score is near the expected range
+構造チェック：print(model) またはレイヤー順を記述する
+パラメータ確認：各学習可能tensorの形状つき named_parameters()
+state_dictのキー: 保存されるチェックポイントのキー
+モード確認：DropoutProbe で train の出力は異なり、eval の出力は一致する
+ミニプロジェクト結果：loss が減少し、予測スコアが期待範囲に近い
 ```
 
 これにより、学習実行を信じる前に PyTorch モデルを点検できます。後の project が失敗したときも、同じ確認で model structure、parameter registration、mode switching、training logic のどこを見るべきか分かります。
@@ -395,7 +395,7 @@ mini_project_result: loss decreases and predicted score is near the expected ran
 4. ReLU の後に `nn.Dropout(p=0.2)` を追加し、`train()` と `eval()` モードで予測を比べてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `4` では表現力が足りず underfit しやすくなります。`32` は training loss を下げやすいですが、より大きいモデルは overfit も起こせるので validation loss を確認します。
 2. この小さな回帰タスクがほぼ線形なら、`ReLU()` なしでも学習できることがあります。ただし非線形活性化がない多層線形層は 1 つの線形変換に畳み込めるため、複雑な非線形パターンには足りません。

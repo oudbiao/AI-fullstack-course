@@ -373,7 +373,7 @@ print(render_markdown_handout(payload))
 この検証は小さいですが、デモと実装パイプラインの差を表します。描画処理は、必須の構造化項目が足りないときに早い段階で失敗するべきです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 最初に確認すべきことは、完全な payload では `validate_payload(payload)` が `(True, "ok")` を返し、必須項目が空または欠けている場合は描画前に分かりやすいエラーを返すことです。半分空の配布資料を黙って出力してはいけません。
 
@@ -465,11 +465,11 @@ print(render_markdown_handout(payload))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+要求: 入力、状態、tools/context、期待される出力の契約
+検証済み出力：パーサー/スキーマ、または業務ルール確認の結果
+追跡記録：モデル呼び出し、ツール/関数呼び出し、文書解析、または対話状態
+失敗確認: フォーマット不正、必須フィールド不足、古い状態、または誤ったツール
+次の行動：prompt、schema、state、API、または parsing の改善
 ```
 
 ## まとめ

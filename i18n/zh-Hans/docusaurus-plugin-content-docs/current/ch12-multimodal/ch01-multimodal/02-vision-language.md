@@ -420,11 +420,11 @@ for question in ["这张图有没有文字？", "主题是什么？", "这像不
 学完这一页，至少保留这张证据卡：
 
 ```text
-source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
-structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
-fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
-failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
-Expected_output: structured record that can be cited or reviewed later
+源资产：带版本/来源说明的图像、截图、PDF、音频、视频或文本输入
+结构化记录：可见文本、对象、区域、时间戳、转写文本或不确定性
+融合结果：答案、检索记录、路由决策或多模态特征比较
+失败检查：缺少来源、OCR 错误、对齐错误、不确定性或论断无依据
+期望产出：可供后续引用或复查的结构化记录
 ```
 
 ## 小结
@@ -444,7 +444,7 @@ Expected_output: structured record that can be cited or reviewed later
 3. 思考：如果用户上传的是一张模糊截图，VLM 可能会在哪些环节出错？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. 预期现象是：当你增加与甜点相关的共享维度，或降低无关维度后，`cake_photo` 对 `a sweet dessert` 的排名会上升。如果无关图片也一起上升，说明这个玩具向量空间没有把概念分开。
 2. `ask_vlm()` 可以新增一个宽泛的场景类型分支：当画面有自然物体、光照、相机视角时返回 `real-life photo`；当画面有窗口、菜单、图标、密集文字布局时返回 `software interface`。

@@ -79,15 +79,15 @@ AI Medical Diagnosis score= 5.4 decision= do_not_launch
 学完这一页，至少保留这张证据卡：
 
 ```text
-product_question: user problem, workflow, value metric, and risk boundary
-experiment: hypothesis, smallest test, metric, and decision rule
-artifact: feature spec, prototype note, user story, or evaluation result
-failure_check: building demos without measuring value or ignoring user workflow
-Expected_output: AI product decision note that can guide implementation
+产品问题：用户问题、工作流、价值指标和风险边界
+实验：假设、最小测试、指标和决策规则
+工件：功能规格、原型说明、用户故事或评估结果
+失败检查：只做演示却不衡量价值，或忽视用户工作流
+期望产出：可指导实现的 AI 产品决策说明
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 一个合格答案会给出一个具体功能想法、取舍、成功指标和上线阻断条件。证据应当把决策写成可执行的 note，而不是泛泛的愿景描述。
 

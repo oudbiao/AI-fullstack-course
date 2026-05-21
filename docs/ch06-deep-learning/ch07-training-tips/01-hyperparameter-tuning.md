@@ -214,7 +214,7 @@ next_experiment: one local refinement, not many knobs at once
 5. Explain why tuning is easier when each experiment answers one question.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `lr=0.3` may be near a useful high region; `lr=3.0` is likely too aggressive. The exact answer depends on validation loss and stability.
 2. With only `10` steps, a learning rate that starts fast may look best even if it later becomes unstable. Short budgets can bias the sweep.

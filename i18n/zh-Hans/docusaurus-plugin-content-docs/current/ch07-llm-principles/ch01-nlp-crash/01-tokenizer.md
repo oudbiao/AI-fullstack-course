@@ -265,11 +265,11 @@ Prompt 表现异常时，先检查 tokenizer，再怀疑模型：
 学完这一页，至少保留这张证据卡：
 
 ```text
-sample_text: one English/CJK/code-like example
-tokens: printed token list and token count
-truncation_case: what was cut and why it matters
-product_risk: cost, context limit, or lost instruction
-debug_action: inspect tokenization before blaming the model
+样本文本：一个英文/CJK/代码风格示例
+token 列表：打印的 token 列表和 token 数量
+截断案例：哪些内容被截断以及为什么重要
+产品风险：成本、上下文限制或丢失指令
+调试动作：先检查分词，再怪模型
 ```
 
 ## 练习
@@ -281,7 +281,7 @@ debug_action: inspect tokenization before blaming the model
 5. 为一个 RAG prompt 分配 token 预算：system 指令、检索证据、用户问题、回答空间各留多少？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 删除 `transform` 后，`Transformers` 会更难表示。根据玩具规则，它可能退化成 `[UNK]`，或者被切成更不稳定的片段，这说明词表覆盖很重要。
 2. `max_length=5` 时，通常后面的 token 会先被截断。真实 prompt 中，被截掉的可能是约束、检索证据，或者用户问题的尾部。

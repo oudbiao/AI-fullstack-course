@@ -68,9 +68,9 @@ checks: voice authorization, synthetic content label
 このページを終えたら、この evidence card を残します。
 
 ```text
-risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
-engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
-test_case: one realistic input/output case that exercises the rule
-failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
-Expected_output: review checklist or product requirement translated into engineering action
+リスク範囲: フロンティア能力、倫理問題、規制、または製品ポリシーの境界
+エンジニアリング規則：何を記録し、遮断し、レビューし、開示し、またはエスカレーションするか
+テストケース：ルールを試す 1 つの現実的な入出力例
+失敗確認: プライバシー、著作権、肖像、バイアス、安全性、出典、またはコンプライアンスの欠落
+期待される成果: レビュー用チェックリストまたは製品要件をエンジニアリング上の行動に翻訳したもの
 ```

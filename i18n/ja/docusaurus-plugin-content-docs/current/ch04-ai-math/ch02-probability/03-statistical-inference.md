@@ -587,11 +587,11 @@ flowchart LR
 このページを終えたら、この evidence card を残します。
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+確率過程：事象、分布、サンプル、尤度、エントロピー、またはベイズ更新
+シミュレーションまたは式: 不確実性を可視化するために使ったコードまたは式
+出力：probability、sample statistic、interval、entropy、または更新された信念
+失敗確認：ベースレートの混同、p値の誤用、サンプルバイアス、または確率と確実性の混同
+期待される成果: 数値結果と平易な言葉での解釈
 ```
 
 ## まとめ
@@ -700,7 +700,7 @@ print(f"推定標準偏差: {sigma_hat:.3f}（真の標準偏差: 2）")
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 - 100 回投げて 62 回表なら、MLE は `0.62` です。対称な `Beta(10,10)` 事前分布を入れると MAP は `0.5` に近づき、本文の grid コードでは約 `0.602` になります。
 - A/B の偽陽性シミュレーションでは、両群の真の転換率が 8% なので、`p < 0.05` の割合はおよそ 5% になります。ただしランダムな揺れがあります。1 回の結果が高く見えても、真の効果の証明ではありません。

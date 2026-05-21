@@ -421,7 +421,7 @@ you will truly gain an engineering intuition for why large models are expensive,
 4. If you want to build a long-context chat service, besides parameter count, what metrics would you care about first?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. KV cache grows roughly linearly with sequence length, layers, batch size, and key-value head dimensions. Moving from `4096` to `16384` multiplies the sequence-length part by about four.
 2. Hidden size affects projection matrices, FFN width, activation memory, and attention dimensions. Increasing it can raise both parameter count and per-token compute in several places at once.

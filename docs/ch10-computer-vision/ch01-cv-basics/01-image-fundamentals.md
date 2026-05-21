@@ -497,7 +497,7 @@ Whether it is OpenCV processing, convolutional neural networks, or object detect
 3. Manually convert a set of RGB pixels into `0~1` floating-point values to understand the role of normalization.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A good `3x3` grayscale answer prints a `(3, 3)` array, then uses `min()`, `max()`, and `mean()`. If the matrix is `uint8`, the pixel values should stay in the `0-255` range, while the mean may print as a floating-point number.
 2. For the RGB image, the expected shape is `(2, 2, 3)`. `rgb[:, :, 0]`, `rgb[:, :, 1]`, and `rgb[:, :, 2]` should each return a `2x2` channel matrix.

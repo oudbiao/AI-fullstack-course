@@ -230,7 +230,7 @@ next_use: this becomes retrieval evidence in Chapter 8
 5. In a RAG project, what evidence would you collect to prove your embedding model is good enough?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. If `banana` moves close to `password`, similarity search may retrieve fruit-related text for account-recovery queries. The failure is not random; it comes from bad geometry.
 2. `recover` and `account` should be placed near password/account-support concepts, not near unrelated commerce or fruit concepts. The added document should become a plausible match for account-recovery queries.

@@ -47,7 +47,7 @@ If this folder is missing, the chapter is not finished yet, even if every page h
 | I can finish the evidence-pack workshop | `deep_learning_workshop_run/` |
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 Use this checklist as a self-review rubric:
 

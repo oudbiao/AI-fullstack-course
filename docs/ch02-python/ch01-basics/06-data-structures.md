@@ -538,7 +538,7 @@ numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The score statistics are max `97`, min `73`, and average `85.6`. Scores above `90` can be `[92, 95, 97]`, and descending order starts with `[97, 95, 92, ...]`.
 2. The address book should add, update, and delete by key, for example `contacts["Ada"] = "ada@example.com"`.

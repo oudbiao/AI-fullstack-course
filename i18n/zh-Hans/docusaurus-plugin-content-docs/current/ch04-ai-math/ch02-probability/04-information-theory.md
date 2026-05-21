@@ -654,11 +654,11 @@ H(P) + KL =     1.2796
 学完这一页，至少保留这张证据卡：
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+随机过程：事件、分布、样本、似然、熵，或 Bayes 更新
+模拟或公式：用来让不确定性可见的代码或公式
+输出：概率、样本统计量、区间、熵，或更新后的信念
+失败检查：基率混淆、p 值误用、样本偏差或把概率和确定性混为一谈
+期望产出：数值结果加通俗解释
 ```
 
 ## 小结
@@ -777,7 +777,7 @@ q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 - 三个熵值应为 `2.0000`、约 `0.2419`、约 `1.8464` bits。四个结果均匀分布时最不确定，因为没有哪个结果更被偏好。
 - 三分类交叉熵例子中，loss 约为 `0.3567` 和 `0.1054` nats。给真实类别更高概率，loss 就会下降。

@@ -667,11 +667,11 @@ print("コサイン類似度:", cos_sim)   # 0.9746
 このページを終えたら、この evidence card を残します。
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学対象：ベクトル、行列、固有値、基底、またはベクトル空間の概念
+数値例：これを計算するために使う小さな数値または NumPy のスニペット
+可視化または出力：形状、変換後の点、類似度スコア、固有方向、または射影
+AI との関係: これが embeddings、バッチ、PCA、ニューラル層、または attention のどこに現れるか
+期待される成果：計算と、それを AI の操作に結びつける1文
 ```
 
 ## まとめ
@@ -728,7 +728,7 @@ Matplotlib を使って、次のベクトル加算の過程を矢印付きで描
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - `a=[2,3,-1]`、`b=[1,-2,4]` では、`a+b=[3,1,3]`、`3a-2b=[4,13,-11]`、`||a||=sqrt(14)≈3.742`、`a·b=-8`、コサイン類似度は約 `-0.8018` です。
 - 映画ベクトルでは、最も近い組は通常 Interstellar と Wolf Warrior 2 で、コサイン類似度は約 `0.9297` です。最も遠い組は Ex-Files 3 と Alien で、約 `0.4495` です。

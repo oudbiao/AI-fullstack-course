@@ -541,7 +541,7 @@ Expected_output: reproducible asset package with README, review checklist, and f
 5. Add one intentionally risky asset and confirm that it enters `failure_cases.md`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. `scene_02` passes when the foreground/background contrast meets the same review rule as the other scenes and the manifest records the change.
 2. `scene_04` should be added to the storyboard with an id, purpose, duration/order, required assets, prompt version, and review result so the timeline remains reproducible.

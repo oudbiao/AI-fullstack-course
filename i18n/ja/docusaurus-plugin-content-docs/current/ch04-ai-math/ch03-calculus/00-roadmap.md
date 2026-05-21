@@ -60,11 +60,11 @@ for step in range(1, 7):
 このページを終えたら、この evidence card を残します。
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+関数：目的関数、損失、導関数、勾配、または連鎖律の式
+計算：数値微分、勾配更新、または backprop の trace
+出力：slope、gradient vector、更新されたパラメータ、またはlossの変化
+失敗確認: 符号ミス、学習率が大きすぎる、局所的な傾きの誤解、または chain の破損
+期待される成果：パラメータがどう変わるかを示す計算 trace
 ```
 
 ## この順番で学ぶ
@@ -82,7 +82,7 @@ Expected_output: calculation trace showing how a parameter changes
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 - 微積分ルートを通過できる目安は、derivative を局所的な変化、gradient を多パラメータの方向、gradient descent を loss を下げる反復更新として説明できることです。
 - 証拠として、導関数の図、勾配ベクトル、loss 曲線、手計算と autograd の比較を 1 つずつ残します。

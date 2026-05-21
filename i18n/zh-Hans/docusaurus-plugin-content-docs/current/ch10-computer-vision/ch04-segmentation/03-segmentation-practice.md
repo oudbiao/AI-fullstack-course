@@ -325,11 +325,11 @@ print(next_step(checklist))
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+输入图像: 原始图像和目标掩膜或类别图
+预测：预测掩膜、叠加可视化和边界示例
+指标：IoU、Dice、每类得分和边界失败备注
+失败检查：标注质量、边界过窄、小区域或类别混淆
+期望产出：掩膜叠加图，以及分割指标汇总
 ```
 
 ## 小结
@@ -358,7 +358,7 @@ Expected_output: mask overlay plus segmentation metric summary
 4. 你会怎样把一个分割项目做成作品集页面？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 修改 `pred_masks` 后，漏掉 mask、类别错误或边界差都会让 `mean_iou` 下降。还要看 class-wise IoU，避免一个简单类别掩盖另一个类别的失败。
 2. mask 标注标准很重要，因为边界厚度、忽略区域和模糊边缘都会直接定义训练目标和评估方式。

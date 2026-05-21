@@ -395,7 +395,7 @@ generation_bridge: final hidden state -> vocabulary logits -> next token
 5. Describe why GQA/MQA helps inference memory in one paragraph.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Embeddings, positional encodings, attention layers, and FFN input/output dimensions must agree with `d_model=32`. Also make sure `nhead` divides `32`.
 2. `norm_first=False` represents the post-norm Transformer block style, where normalization happens after the residual addition.

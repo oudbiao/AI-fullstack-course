@@ -67,11 +67,11 @@ observation_needed: True
 このページを終えたら、この証拠カードを残します。
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+ツール契約：名前、説明、入力スキーマ、出力スキーマ
+権限：ツールが読み取りまたは変更を許可されている範囲
+呼び出しトレース：引数、結果、エラー、再試行、またはフォールバック
+失敗確認: 間違ったツール、不適切な引数、危険な操作、または観測不足
+安全対策: 検証、確認、サンドボックス化、レート制限、またはロールバック
 ```
 
 ## 合格ライン
@@ -81,7 +81,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 出口ミニプロジェクトは学習アシスタントです：3 つのツールスキーマ、5 つのテスト呼び出し、1 つの失敗呼び出し記録、出力可能な trace を含めます。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

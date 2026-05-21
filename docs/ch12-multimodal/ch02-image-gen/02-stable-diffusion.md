@@ -402,7 +402,7 @@ Once you understand this main line, text-to-image applications, image editing, a
 4. Summarize in your own words: what are the responsibilities of the VAE, U-Net, and text encoder?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Stable Diffusion works in latent space because pixel space is large and expensive. A VAE compresses the image into a smaller representation where denoising is cheaper while still preserving the main visual structure.
 2. The text encoder turns words into guidance vectors; cross-attention lets the denoising network look at those vectors while deciding what to change. Without the encoder there is no semantic condition, and without cross-attention the condition is hard to inject at the right spatial moments.

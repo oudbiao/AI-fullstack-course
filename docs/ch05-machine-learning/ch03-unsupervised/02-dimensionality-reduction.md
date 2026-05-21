@@ -225,7 +225,7 @@ For beginners, the safest order is:
 5. Use the 2D PCA output to draw a scatter plot colored by digit label.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. Accuracy often improves quickly at first and then plateaus. The practical answer is the smallest component count whose score is near the best score.
 2. PCA may help speed and storage even if accuracy is similar. If accuracy drops, the compressed representation is losing useful signal; if accuracy rises slightly, PCA may be removing noise.

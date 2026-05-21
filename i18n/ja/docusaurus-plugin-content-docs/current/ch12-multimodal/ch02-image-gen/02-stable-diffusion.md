@@ -377,11 +377,11 @@ Stable Diffusion は次の用途に自然に向いています。
 このページを終えたら、この evidence card を残します。
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+プロンプト記録：プロンプト、否定条件、参照、seed/model、バージョン番号
+候補出力：生成結果またはシミュレーション結果と選択理由
+技術メモ：diffusion step、latent、cross-attention、LoRA、またはアプリケーションモード
+失敗確認: プロンプトのずれ、文体不一致、成果物、著作権、肖像、またはレビュー失敗
+期待される成果: 選定した画像/版の記録と却下候補のメモ
 ```
 
 ## まとめ
@@ -402,7 +402,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 自分の言葉でまとめてください：VAE、U-Net、テキストエンコーダーはそれぞれ何を担当していますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. Stable Diffusion が latent space で動くのは、pixel space が大きく計算コストも高いからです。VAE が画像を小さな表現に圧縮し、主要な視覚構造を保ちながら denoising を安くします。
 2. text encoder は言葉をガイド用ベクトルに変換し、cross-attention は denoising network が何を変えるか決めるときにそのベクトルを参照できるようにします。encoder がなければ意味条件がなく、cross-attention がなければ適切な空間位置に条件を入れにくくなります。

@@ -108,10 +108,10 @@ keywords: [深度学习历史, 感知器, XOR, 反向传播, LSTM, AlexNet, ResN
 把时间线变成一张小记忆草图。画四格：
 
 ```text
-box_1: one neuron learns a linear rule
-box_2: XOR shows why hidden nonlinear layers matter
-box_3: backprop makes multi-layer learning practical
-box_4: attention lets tokens connect directly at scale
+框 1：一个神经元学会线性规则
+框 2：XOR 说明为什么需要隐藏非线性层
+框 3：反向传播让多层学习变得可行
+框 4：注意力让 token 在大规模下直接连接
 ```
 
 这页是可选背景，但这张草图很有用。它能说明为什么第 6 章会从神经元一路走到 Transformer，而不是随机罗列架构名词。

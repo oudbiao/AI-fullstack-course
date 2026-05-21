@@ -266,11 +266,11 @@ IoU = 0.4849
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: detection sample with ground-truth or expected objects
-prediction: boxes, labels, confidence scores, IoU, and threshold settings
-metric: precision/recall, mAP, false positives, and false negatives
-failure_check: small object, overlap, NMS, poor labels, or confidence threshold
-Expected_output: annotated image plus detection metrics or error buckets
+入力画像：正解または期待される対象を含む検出サンプル
+予測：バウンディングボックス、ラベル、信頼度スコア、IoU、しきい値設定
+指標：precision/recall、mAP、false positives、false negatives
+失敗確認: 小さな物体、重なり、NMS、ラベル品質の低さ、または信頼度閾値
+期待される成果：注釈付き画像と、検出メトリクスまたはエラーバケット
 ```
 
 ## まとめ
@@ -299,7 +299,7 @@ Expected_output: annotated image plus detection metrics or error buckets
 4. 考えてみましょう：なぜ複数対象の場面は単一対象の場面よりずっと難しいのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 2 つの box の重なりが大きいほど IoU は高くなり、片方がずれるほど低くなります。まったく重ならない場合、IoU は `0` です。
 2. 検出は「何か」だけでなく「どこにあるか」も答えるため、実世界の視覚タスクに近いです。しかも 1 枚の画像に複数の物体があることが多いです。

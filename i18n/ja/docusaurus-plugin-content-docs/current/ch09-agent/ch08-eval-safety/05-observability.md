@@ -145,11 +145,11 @@ Agent の出力品質が低いとき、すぐに Prompt を直さないでくだ
 このページを終えたら、この証拠カードを残します。
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+評価ケース：固定タスクと期待される安全な挙動
+スコアカード: タスク成功、ツールの正確さ、trace の品質、安全性
+ガードレール：ポリシー、権限、検証、または人の確認
+失敗確認: 危険なツール使用、プロンプトインジェクション、隠れた状態、または観測されていない操作
+次の行動：ケース、ガードレール、ログ、ロールバック、または拒否パスを追加する
 ```
 
 ## よくある誤解
@@ -256,7 +256,7 @@ logs/
 この節を学び終えたら、ログ、指標、trace、replay の違いを説明でき、最小限の Agent trace schema を書けて、trace を見てエラーが計画、検索、ツール、生成のどこで起きたか判断でき、可観測性を自分の Agent プロジェクトの README に書き込めるようになっているはずです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. step が失敗したら `error_message` を追加し、同じ logical step を再試行するたびに `retry_count` を増やします。この 2 つは console log だけでなく trace row に残します。
 2. RAG Agent trace には request_id、retrieval_query、filters、matched_doc_ids、scores、selected_context、citation_check、generation_status、latency_ms、refusal / fallback reason を入れます。

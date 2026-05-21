@@ -67,7 +67,7 @@ Expected_output: model result table and saved error examples
 You pass this chapter when you can run a minimal classifier, show train/validation metrics, and explain at least one failure image.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

@@ -425,15 +425,15 @@ flowchart LR
 このページを終えたら、この evidence card を残します。
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+ML 問題：教師あり、教師なし、評価、または特徴量エンジニアリングのタスク
+ベースライン: まずは最も簡単な sklearn/モデリングループと固定の train/test 分割
+出力：prediction、metric、chart、またはmodel decision note
+失敗確認：データリーク、不明確なターゲット、弱いベースライン、または指標不一致
+期待される成果: 指標と1件の失敗観察を含む最小限のMLループ
 ```
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 線形代数は問題の形をそろえます。`X` はサンプル、`w` は学習する重み、`X @ w + b` は特徴量を予測へ変換する処理です。
 2. 確率統計は不確実性と損失を定義します。確率の意味、予測の外れ具合、結果の比較方法を与えます。

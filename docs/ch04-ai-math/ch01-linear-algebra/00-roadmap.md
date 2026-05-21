@@ -89,7 +89,7 @@ You pass this roadmap when you can explain why one sample is a vector, why a bat
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - The linear-algebra route is passed when you can read `X @ W` as both a shape operation and a batch of dot products.
 - Keep one vector similarity example, one matrix transformation example, one PCA or eigenvector plot, and one SVD or rank check as evidence.

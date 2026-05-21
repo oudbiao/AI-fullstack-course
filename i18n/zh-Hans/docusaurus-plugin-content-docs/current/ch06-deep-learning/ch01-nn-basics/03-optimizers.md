@@ -147,11 +147,11 @@ lr=1.1  final_w=20.575 final_loss=345.0386
 在笔记里保留一张 optimizer 对比表：
 
 ```text
-same_loss: (w - 2)^2
-same_start: w = 5
-sgd_result: approaches w = 2 with lr=0.1
-momentum_result: moves faster but overshoots
-bad_lr_result: lr=1.1 diverges
+相同损失：(w - 2)^2
+相同起点：w = 5
+SGD 结果：以 lr=0.1 使 w 接近 2
+动量结果：移动更快但会过冲
+错误学习率结果：lr=1.1 会发散
 ```
 
 这比背 optimizer 名字更有用。它说明真正的规则：梯度给方向，optimizer 设置决定移动的幅度和方式。
@@ -193,7 +193,7 @@ bad_lr_result: lr=1.1 diverges
 5. 为每个优化器画出 `w` 随 step 的变化。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 较小学习率会移动更慢；合适的学习率会更快收敛；过大的学习率可能来回震荡甚至发散。
 2. 降低 momentum 通常会减少越过最优区域的现象，但也可能减少有用的加速。要同时看 `w` 的路径和最终 loss。

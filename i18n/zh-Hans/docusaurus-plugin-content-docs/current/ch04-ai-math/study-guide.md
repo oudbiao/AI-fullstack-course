@@ -24,11 +24,11 @@ keywords: [AI数学学习指南, AI数学任务单, 线性代数, 概率统计, 
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept_bridge: which math idea supports model training or AI applications
-calculation: small hand/NumPy example that can be checked
-output: number, curve, vector, matrix, probability, or gradient trace
-failure_check: memorizing formula without knowing the model behavior it explains
-Expected_output: math note that explains one real AI operation
+概念桥接：哪种数学思想支撑模型训练或 AI 应用
+计算：可手算或用 NumPy 检查的小例子
+输出：数值、曲线、向量、矩阵、概率，或梯度 trace
+失败检查：只会背公式，却不知道它解释的是模型行为
+期望产出：说明一个真实 AI 操作的数学笔记
 ```
 
 ## 练习清单
@@ -44,7 +44,7 @@ Expected_output: math note that explains one real AI operation
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 - 把清单当成翻译测试：每个公式都应变成一个小代码操作，每个代码输出都应变成一句白话模型解释。
 - 最低证据包包括一个向量/矩阵输出、一次概率模拟或 Bayes 更新、一个熵或 loss 计算，以及一条梯度下降轨迹。

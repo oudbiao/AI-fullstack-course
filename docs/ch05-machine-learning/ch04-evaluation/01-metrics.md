@@ -273,7 +273,7 @@ For experienced readers: evaluate by segment. A global metric can hide failures 
 5. For regression, print the five largest absolute errors and inspect the inputs.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. With only 2% positives, accuracy can look excellent even if the model misses many positives. Recall and precision become more informative than raw accuracy.
 2. For screening, a lower threshold such as `0.1` or `0.3` is often preferable because it reduces missed positives. The tradeoff is more false alarms, so the shipping choice depends on review capacity.

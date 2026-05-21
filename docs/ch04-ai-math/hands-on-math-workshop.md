@@ -454,7 +454,7 @@ Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradie
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - With `QUERY=[0.1,1.0,0.7]`, the most similar topic should shift toward the topic whose vector emphasizes probability and entropy more than raw vector direction. Explain the answer by comparing cosine similarity, not by guessing from names.
 - Changing `true_probability` from `0.65` to `0.5` should make the running rate settle closer to `0.5`; early samples may wobble, but the long-run trend should stabilize.

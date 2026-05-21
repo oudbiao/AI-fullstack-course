@@ -779,7 +779,7 @@ Create a two-layer network with 100 input samples (each with 5 features), where 
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the given matrices, manual multiplication gives `A @ B = [[8, 5], [3, 14]]`; NumPy should match exactly.
 - A 90-degree rotation matrix `[[0,-1],[1,0]]` maps `(x,y)` to `(-y,x)`. The triangle should keep its size and shape while rotating counterclockwise.

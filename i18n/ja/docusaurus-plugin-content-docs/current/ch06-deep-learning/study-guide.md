@@ -47,7 +47,7 @@ deep_learning_evidence/
 | 証拠パックワークショップを完了できる | `deep_learning_workshop_run/` |
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 このチェックリストの目的は、概念を暗記することではなく、確認できる学習証拠を残すことです。
 
@@ -75,12 +75,12 @@ deep_learning_evidence/
 第 6 章を終える前に、compact evidence pack を 1 つ残します。
 
 ```text
-shape_trace: one model with printed tensor shapes
-training_log: train and validation loss over time
-best_checkpoint: how the best model was selected
-attention_note: Q/K/V, mask, and next-token bridge
-failure_sample: one wrong or weak prediction with next action
-project_folder: runnable evidence pack or README
+形状trace: 1つのモデルと出力されたテンソル形状
+学習ログ：時間に対する train と validation loss
+最良チェックポイント：最良モデルがどのように選ばれたか
+attention メモ: Q/K/V、mask、next-token への橋渡し
+失敗サンプル: 誤った、または弱い予測1件と次の行動
+プロジェクトフォルダ：実行可能な証拠パックまたは README
 ```
 
 ## 次へ進めるサイン

@@ -428,11 +428,11 @@ print(normalize_tool_result(False, error="missing_order_id"))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+ツール契約：名前、説明、入力スキーマ、出力スキーマ
+権限：ツールが読み取りまたは変更を許可されている範囲
+呼び出しトレース：引数、結果、エラー、再試行、またはフォールバック
+失敗確認: 間違ったツール、不適切な引数、危険な操作、または観測不足
+安全対策: 検証、確認、サンドボックス化、レート制限、またはロールバック
 ```
 
 ## まとめ
@@ -461,7 +461,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. ツールがどんどん増えるとき、まず強化したいのは「ツール説明」と「ツール実行器」のどちらですか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `search_faq` には、一般的なヘルプ質問と返金ポリシー検索を分ける tags と例を入れます。そうしないと `search_refund_policy` と競合します。
 2. 最初の検索層では tool name より tags が有効です。意図、領域、リスク、データソースをより柔軟に表せるからです。

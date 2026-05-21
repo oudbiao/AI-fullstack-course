@@ -62,11 +62,11 @@ boundary: server exposes, client calls
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+能力：服务器暴露的资源、Prompt 或工具
+契约：schema、传输、权限和错误形式
+调用轨迹：发现、调用、响应和失败处理
+失败检查：架构不兼容、缺少认证、不安全工具或服务器错误
+集成动作: 在加入自主能力前先验证服务端契约
 ```
 
 ## 通过标准
@@ -76,7 +76,7 @@ integration_action: validate server contract before adding autonomy
 本章出口小项目是一个课程资料 MCP 服务器设计：一个搜索工具、一个资源 URI 模式、一个 Prompt 模板和一条失败处理规则。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

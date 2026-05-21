@@ -65,11 +65,11 @@ score_dimensions: helpful, honest, harmless
 学完这一页，至少保留这张证据卡：
 
 ```text
-boundary: helpful, honest, safe behavior definition
-risk_case: one output that is fluent but unsafe or misaligned
-evaluation: fixed safety cases and expected decisions
-method_map: SFT, RLHF, DPO, constitutional or eval guardrail
-bridge: app reliability includes safety boundaries, not only capability
+边界：有帮助、诚实、安全的行为定义
+风险案例：一个流畅但不安全或不对齐的输出
+评估：固定安全案例和预期决策
+方法映射：SFT、RLHF、DPO、宪法或评估护栏
+桥接：应用可靠性不仅包含能力，还包括安全边界
 ```
 
 ## 通过标准
@@ -79,7 +79,7 @@ bridge: app reliability includes safety boundaries, not only capability
 本章出口小项目是一张 10 个案例的对齐测试表：包含模糊请求、缺少来源的问题、工具动作请求和安全边界请求；为每个回答评分并记录失败原因。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

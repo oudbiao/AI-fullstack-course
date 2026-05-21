@@ -101,9 +101,9 @@ py hello_terminal.py
 このページを終えたら、この evidence card を残します。
 
 ```text
-command: exact terminal command you ran
-working_dir: pwd/current folder and important files listed
-output: copied command output or screenshot of the result
-failure_check: wrong path, missing command, permission issue, or shell mismatch
-Expected_output: reproducible terminal action with the command and result side by side
+コマンド：実行した正確なターミナルコマンド
+作業ディレクトリ：pwd/現在のフォルダと重要ファイルを列挙
+出力：コマンド出力または結果のスクリーンショットをコピーしたもの
+失敗確認: 間違ったパス、コマンド不足、権限の問題、またはシェル不一致
+期待される成果: コマンドと結果を並べて示す再現可能なターミナル操作
 ```

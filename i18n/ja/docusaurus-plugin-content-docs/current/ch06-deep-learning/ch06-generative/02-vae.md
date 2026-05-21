@@ -167,12 +167,12 @@ generated_points
 VAE 実行では、この再構成と latent の記録を残します。
 
 ```text
-encoder_outputs: mu and logvar
-sampling_rule: z = mu + eps * std
-reconstruction_signal: recon decreases from 0.5903 to 0.0244
-regularization_signal: KL stays nonzero and controlled
-generation_check: decoder can map random z to plausible 2D points
-tradeoff: reconstruction quality vs smooth latent space
+エンコーダ出力：mu と logvar
+サンプリング規則: z = mu + eps * std
+再構成シグナル：recon が 0.5903 から 0.0244 に低下する
+正則化シグナル：KL が非ゼロで制御されている
+生成確認：デコーダがランダムな z からもっともらしい 2D 点を生成できる
+トレードオフ：再構成品質と滑らかな潜在空間のトレードオフ
 ```
 
 ## VAE、Autoencoder、GAN
@@ -219,7 +219,7 @@ tradeoff: reconstruction quality vs smooth latent space
 5. GAN や diffusion の画像がより sharp に見えても、VAE が latent-space intuition に役立つ理由を説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. KL weight が 0 だと普通の autoencoder に近づき、再構成は良くなることがありますが、latent distribution は整いにくくなります。
 2. KL weight が大きいと latent は prior に近づきますが、decoder が使える情報が減り、reconstruction は悪くなりやすいです。

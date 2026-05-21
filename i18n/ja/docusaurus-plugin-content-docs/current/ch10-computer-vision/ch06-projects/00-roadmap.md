@@ -75,7 +75,7 @@ project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeli
 vision project が再現可能で、明確な data and annotation rules、適切な metrics、model failure の例を持っていれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、task を class label、bounding box、mask、OCR text、embedding、video event など正しい視覚出力に対応づけます。
 2. 証拠には、rendered visual artifact と、metric または定性的な error note を含めます。
@@ -89,9 +89,9 @@ vision project が再現可能で、明確な data and annotation rules、適切
 このページを終えたら、この evidence card を残します。
 
 ```text
-task_output: classification label, detection box, segmentation mask, OCR text, or video event
-artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
-metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
-failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
-Expected_output: a reproducible run folder with visual outputs and a short failure report
+タスク出力：分類ラベル、検出ボックス、セグメンテーションマスク、OCR テキスト、または動画イベント
+成果物: 元画像、処理後画像、予測オーバーレイ、metrics ファイル、失敗サンプル
+指標：accuracy/F1、mAP、IoU、Dice、レイテンシ、またはシナリオ別レビュー評価
+失敗確認：データ品質、ラベル誤り、前処理不一致、閾値、または本番制約
+期待される成果：ビジュアル出力と短い失敗レポートを含む再現可能な実行フォルダ
 ```

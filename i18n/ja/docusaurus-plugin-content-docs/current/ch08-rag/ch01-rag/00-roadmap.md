@@ -66,11 +66,11 @@ eval.md 1
 このページを終えたら、この証拠カードを残します。
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+クエリ：1つのユーザー質問またはテストケース
+検索チャンク：chunk id、スコア、ソースタイトル
+回答: 引用または出典メモ付きの最終回答
+失敗確認: 証拠不足、誤ったチャンク、古い文書、または裏付けのない主張
+次の行動：chunking、embedding、reranking、prompt、または eval の変更
 ```
 
 ## 合格ライン
@@ -80,7 +80,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 出口ミニプロジェクトは、コース知識ベース助手です。3〜5 件の Markdown 文書、top-k 検索出力、出典表示、簡単な評価表を用意します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
 2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。

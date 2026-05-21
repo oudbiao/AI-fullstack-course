@@ -339,11 +339,11 @@ peft trainable_params = 5000000
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_type: behavior adaptation, format, tone, or domain routine
-not_for: missing facts that RAG should supply
-cost_map: full fine-tune vs PEFT vs prompting
-eval_baseline: pre-finetune behavior recorded
-go_no_go: enough quality data and stable evaluation
+問題タイプ：振る舞いの適応、形式、トーン、またはドメイン定型処理
+対象外：RAG が補うべき不足情報
+コスト比較: 全体 fine-tune vs PEFT vs プロンプト
+評価ベースライン：微調整前の挙動を記録
+実施判断：十分な品質データと安定した評価
 ```
 
 ## まとめ
@@ -370,7 +370,7 @@ go_no_go: enough quality data and stable evaluation
 4. なぜ「方法名」よりも「データ品質」のほうが、微調整の結果に大きく影響しやすいのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 知識の問題は、モデルに新しい事実や非公開情報が足りない状態です。この場合は RAG や tool のほうが合うことが多いです。振る舞いの問題は、知識は足りていても、形式、文体、workflow、判断パターンを安定して守れない状態です。
 2. 微調整には、データ、学習時間、評価、デプロイ、保守のコストがかかります。prompt、検索、workflow 制御で解けるなら、微調整は十分な利益なしにリスクを増やすことがあります。

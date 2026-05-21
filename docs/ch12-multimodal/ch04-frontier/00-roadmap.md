@@ -76,7 +76,7 @@ Expected_output: review checklist or product requirement translated into enginee
 You pass this chapter when you can add a risk checklist to one AIGC workflow and explain which cases are blocked, restricted, reviewed, or ready to export.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer names the modalities involved, the input-output contract, and how text, image, audio, or video evidence is aligned.
 2. The evidence should include a real media artifact or trace, plus a note on quality, safety, and failure cases.

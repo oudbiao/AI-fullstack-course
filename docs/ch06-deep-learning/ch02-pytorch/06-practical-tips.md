@@ -343,7 +343,7 @@ This template is plain, but it prevents the most common PyTorch training mistake
 4. Temporarily raise the learning rate until loss becomes unstable, then recover by lowering the learning rate and clipping gradients.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Move the model, input tensors, labels, and any tensors created inside the loop to the same `device`. A quick assertion or printed device note prevents many hard-to-read runtime errors.
 2. After clipping, the norm should be capped near the threshold you set. If the norm is huge before clipping, also inspect learning rate, loss scale, and data values.

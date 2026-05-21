@@ -632,7 +632,7 @@ Try these upgrades after the first run:
 5. Replace note retrieval with embeddings or an LLM-backed RAG system, but keep the same output files and metrics.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. New labels should come with label definitions, positive examples, negative examples, and a new confusion-matrix check.
 2. A harder out-of-scope QA case passes only if the system refuses because no note supports the answer.

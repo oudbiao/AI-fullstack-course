@@ -447,11 +447,11 @@ AI feedback 便宜，不代表完全免费。
 学完这一页，至少保留这张证据卡：
 
 ```text
-method: DPO, constitutional revision, RLAIF, or rejection sampling
-training_signal: pairwise preference, critique, or filtered sample
-benefit: simpler pipeline, less RL complexity, or clearer policy
-limitation: still depends on data, policy, and evaluation quality
-decision: choose method based on available feedback and risk
+方法：DPO、宪法式修订、RLAIF 或拒绝采样
+训练信号：成对偏好、批注或筛选后的样本
+收益：更简单的流水线、更少的 RL 复杂度，或更清晰的策略
+局限：仍然依赖数据、策略和评估质量
+决策：根据可用反馈和风险选择方法
 ```
 
 ## 小结
@@ -479,7 +479,7 @@ decision: choose method based on available feedback and risk
 4. 想一想：在你的业务里，有没有一些原则非常适合写成 Constitutional AI 风格的“宪法规则”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. DPO 直接利用偏好对，让策略提高 preferred answer 的概率、降低 rejected answer 的概率。它绕开了“先训练奖励模型，再跑 RL loop”的流程。
 2. 当 `chosen` 比 `rejected` 有更大的 log probability 边距时，loss 应该下降；如果 `rejected` 的 log probability 更高，loss 会变大，并给出更强的修正信号。

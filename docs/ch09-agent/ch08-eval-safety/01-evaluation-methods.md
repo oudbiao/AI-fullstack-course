@@ -196,7 +196,7 @@ The first mistake is testing only successful cases. The second is looking only a
 After finishing this section, you should be able to design a minimal Agent evaluation set, distinguish between result-layer, process-layer, tool-layer, and safety-layer metrics, and turn evaluation findings into improvements in Prompt design, tools, workflows, or permissions.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A useful 10-task set should include normal planning, ambiguous goals, missing prerequisites, impossible schedules, tool-use requirements, unsafe requests, and at least one case where the Agent should ask a clarification question.
 2. For each task, `allowed_tools` should name what the Agent may use, `forbidden_actions` should state what it must not do, and `success_criteria` should be observable enough that another person can score it consistently.

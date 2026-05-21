@@ -405,11 +405,11 @@ print(type(model))
 このページを終えたら、この evidence card を残します。
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+モデル選択：BERT、GPT、T5、Transformers のパイプライン、または他の事前学習ベースライン
+tokenizer 出力：ids、masks、デコード済みテキスト、またはバッチ形状
+タスク結果：classification、generation、extraction、または text-to-text 出力
+失敗確認: 間違ったモデルファミリー、トークン上限、ドメイン不一致、コスト、またはレイテンシ
+期待される成果: モデル呼び出し結果と短い選択理由
 ```
 
 ## まとめ
@@ -430,7 +430,7 @@ Expected_output: model call result plus a short choice rationale
 4. 考えてみましょう：テキスト分類をしたい場合、まず探すべきなのは `AutoModel` でしょうか、それとも `AutoModelForSequenceClassification` でしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. mini vocab を変えると token IDs が変わります。vocabulary に語がない場合は unknown token が出ることもあります。
 2. `hidden_size` を 64 にすると hidden representation の次元が変わります。sequence length や batch size が変わるわけではありません。

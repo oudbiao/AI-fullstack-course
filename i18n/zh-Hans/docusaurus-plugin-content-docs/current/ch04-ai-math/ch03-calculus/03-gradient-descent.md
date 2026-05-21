@@ -484,11 +484,11 @@ flowchart LR
 学完这一页，至少保留这张证据卡：
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+函数：目标函数、损失、导数、梯度或链式法则表达式
+计算：数值导数、梯度步长或反向传播轨迹
+输出：斜率、梯度向量、更新后的参数，或损失变化
+失败检查：符号错误、学习率过大、局部斜率理解错误或链式法则出错
+期望产出：展示参数如何变化的计算轨迹
 ```
 
 ## 小结
@@ -528,7 +528,7 @@ y = 0.5 * X**2 - 2 * X + 1 + rng.normal(size=100) * 0.5
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 学习率 `0.001`、`0.01`、`0.1`、`0.5` 对比时，`0.001` 通常下降很慢，`0.01` 或 `0.1` 更稳定，`0.5` 可能因为尺度问题出现震荡或发散。
 - 二次函数拟合中，学到的参数应接近数据生成值 `a≈0.5`、`b≈-2`、`c≈1`，但噪声会让它们不完全相等。

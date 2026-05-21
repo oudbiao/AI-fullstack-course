@@ -45,11 +45,11 @@ print("这行永远不会被执行")
 学完这一页，至少保留这张证据卡：
 
 ```text
-pattern: class, exception, file IO, functional pipeline, generator, or type hint
-code_artifact: minimal runnable example and one realistic use case
-output: printed object state, caught error, saved file, yielded values, or type-check note
-failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
-Expected_output: small advanced-Python example with a debugging note
+模式：类、异常、文件 IO、函数式流水线、生成器或类型提示
+代码产物：最小可运行示例和一个真实使用场景
+输出：打印的对象状态、捕获的错误、保存的文件、yield 的值，或类型检查备注
+失败检查：隐藏变异、吞掉异常、文件路径问题、懒迭代器混淆或误导性标注
+期望产出：带调试说明的小型高级 Python 示例
 ```
 
 ## 常见的异常类型
@@ -512,7 +512,7 @@ print(errors)
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `safe_calculator` 应先把输入转换成数字，再按运算符分支，并捕获 `ZeroDivisionError`、`ValueError` 和 `StopIteration`。使用默认输入时，它会先走到除零分支，打印友好错误，然后在最后的 `n` 处退出。
 2. `read_file_safely` 应使用 `with` 语句，捕获 `FileNotFoundError`、`PermissionError` 和其他 `OSError`，在读取失败时返回 `None`，让调用方决定下一步。

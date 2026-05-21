@@ -514,7 +514,7 @@ Once the contract is clear, the service can truly be relied on by others for the
 4. Explain in your own words: why is API design essentially about defining a system contract?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `session_id` should flow through request parsing, state lookup, logs, and response trace. Validate empty or malformed IDs.
 2. An error enum gives clients stable handling and separates user errors from service errors.

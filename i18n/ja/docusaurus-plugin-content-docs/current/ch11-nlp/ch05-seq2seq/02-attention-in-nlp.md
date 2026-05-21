@@ -258,11 +258,11 @@ for token, weight in zip(source_tokens, attention_weights):
 このページを終えたら、この evidence card を残します。
 
 ```text
-source_target: source text, target text, and task type
-decoded_output: generated summary, translation, transcript, or sequence result
-alignment_note: attention, CTC path, coverage, or copied source evidence
-failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
-Expected_output: generated text with factual or alignment review notes
+ソースとターゲット: ソーステキスト、ターゲットテキスト、タスク種別
+復号出力：生成要約、翻訳、書き起こし、または系列結果
+整合メモ: attention、CTC パス、coverage、またはコピー元の証拠
+失敗確認: 抜け、繰り返し、ハルシネーション、誤った整合、または評価の弱さ
+期待される成果：事実性または整合性のレビュー नोट付き生成テキスト
 ```
 
 ## まとめ
@@ -291,7 +291,7 @@ Expected_output: generated text with factual or alignment review notes
 4. この節の注意機構と、後で学ぶ Transformer の self-attention の共通点は何か、考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `query` を変えると、高い attention を受ける source vectors が変わります。最終 context vector だけでなく weights を見ます。
 2. Seq2Seq で動的に入力を見る必要があるのは、出力の各 step が異なる source word に依存することが多いからです。

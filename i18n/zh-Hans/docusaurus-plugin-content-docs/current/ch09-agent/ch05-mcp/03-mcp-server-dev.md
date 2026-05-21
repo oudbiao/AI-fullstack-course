@@ -392,11 +392,11 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+能力：服务器暴露的资源、Prompt 或工具
+契约：schema、传输、权限和错误形式
+调用轨迹：发现、调用、响应和失败处理
+失败检查：架构不兼容、缺少认证、不安全工具或服务器错误
+集成动作: 在加入自主能力前先验证服务端契约
 ```
 
 ## 小结
@@ -417,7 +417,7 @@ integration_action: validate server contract before adding autonomy
 4. 用自己的话解释：为什么说 MCP 服务器开发的核心不只是“执行工具”，更是“暴露清晰边界”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 可以把 `get_weather(city)` 注册成一个带描述和 schema 的 tool，并返回类似 `{city, condition, source}` 的小型结构化结果。除非正文已经接入真实 API，否则用占位数据即可。
 2. 校验 `city` 是否存在、是否为非空字符串、是否不是异常大的输入。输入无效时要返回清晰错误，而不是静默猜测。

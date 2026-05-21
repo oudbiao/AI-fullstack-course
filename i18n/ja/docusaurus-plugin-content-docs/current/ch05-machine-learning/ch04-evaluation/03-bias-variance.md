@@ -165,11 +165,11 @@ high variance のとき：
 このページを終えたら、この evidence card を残します。
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+評価設定：分割、交差検証、指標、ベースライン、比較対象
+結果: スコア表、曲線、confusion matrix、検証結果、または検索結果
+判断: データ、特徴量、モデル、閾値、またはハイパーパラメータを変えるかどうか
+失敗確認: リーク、不安定な検証、誤った指標、またはテストセットでのチューニング
+期待される成果：次のモデリング判断を支える評価記録
 ```
 
 ## よくあるトラブル
@@ -191,7 +191,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 最良の木の誤分類を確認してください。特定クラスに集中していますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `min_samples_leaf=5` は小さな葉を作りにくくするため、train/test gap は縮まりやすいです。両方のスコアが下がるなら単純にしすぎています。
 2. test accuracy は中間の深さで最大になることが多いです。浅すぎると underfitting、深すぎると訓練 accuracy だけ上がって overfitting します。

@@ -58,11 +58,11 @@ for row in mask:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-block_contract: [batch, seq, d_model] in and out
-mask_check: causal mask blocks future positions
-kv_cache_reason: inference reuses past keys and values
-compute_note: attention cost grows with sequence length
-bridge: these details explain latency and context limits in apps
+ブロック契約：[batch, seq, d_model] が入力と出力
+マスク確認：因果マスクが未来の位置をブロックする
+KVキャッシュの理由：推論で過去の key と value を再利用する
+計算メモ: アテンションの計算コストは系列長とともに増える
+橋渡し：これらの詳細は、アプリ内のレイテンシーとコンテキスト制限を説明します
 ```
 
 ## 合格ライン
@@ -70,7 +70,7 @@ bridge: these details explain latency and context limits in apps
 decoder-only モデルになぜ causal mask が必要か、context が長くなるほど attention が高価になる理由、KV cache が生成を助ける理由を説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

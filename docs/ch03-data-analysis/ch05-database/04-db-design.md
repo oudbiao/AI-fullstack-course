@@ -527,7 +527,7 @@ Requirements:
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the normalization exercise, separate students, phone numbers, courses, teachers, and enrollments. Repeating course or phone data in one wide table violates the spirit of 1NF and creates update errors.
 - For a blog schema, typical tables are users, posts, categories, comments, tags, and a `post_tags` join table. Foreign keys should describe ownership and relationships clearly.

@@ -185,7 +185,7 @@ It is recommended to finish the basic version first; do not try to make everythi
 4. Think about how these structured fields help subsequent RAG retrieval.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A course-announcement schema might include `course`, `date`, `deadline`, `task`, `location_or_url`, `target_audience`, and `required_action`.
 2. Evaluate each sample at field level: correct, missing, wrong boundary, wrong type, or unsupported by the source text.

@@ -493,7 +493,7 @@ Once you build this perspective, later learning about LangChain, dialogue system
 4. Explain in your own words: why do we say there is still a layer of system design between “being able to call the API” and “being able to build an LLM application”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add a branch or fixture for “learning sequence” and verify that the assistant returns ordered course steps rather than generic advice.
 2. Use a structured error such as `{status: "error", code: "MODEL_ERROR", message: "...", trace_id: "..."}` so UI and logging code can handle failures consistently.

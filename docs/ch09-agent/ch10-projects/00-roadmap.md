@@ -95,7 +95,7 @@ You pass this chapter when another developer can replay your Agent run, inspect 
 The basic version can be a single-Agent project. Add memory, MCP, multi-Agent collaboration, or deployment only after the trace and evaluation loop are solid.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

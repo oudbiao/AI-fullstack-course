@@ -213,7 +213,7 @@ The important proof is not that the toy model memorized four rows. The important
 5. Add one more hidden layer and compare final loss.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. With only 2 hidden units, XOR may still learn, but it becomes less reliable because the network has very little room to build intermediate features.
 2. `ReLU` can work, but the result depends more on initialization and learning rate. `Tanh` often behaves smoothly on this tiny centered XOR example.

@@ -88,11 +88,11 @@ Windows PowerShell では `. .venv/bin/activate` の代わりに `.venv\Scripts\
 このページを終えたら、この evidence card を残します。
 
 ```text
-workspace: terminal, Git repo, editor, Python environment, and notebook all verified
-artifact: small command log, commit history, script output, or notebook cell result
-debug_note: one setup problem and how you diagnosed it
-failure_check: path confusion, environment mismatch, Git state, or missing dependency
-Expected_output: a ready-to-learn workstation evidence pack
+ワークスペース：端末、Git リポジトリ、エディタ、Python 環境、Notebook のすべてを確認済み
+成果物: 短いコマンドログ、コミット履歴、スクリプト出力、または notebook セル結果
+デバッグメモ: 1つのセットアップ問題と、その診断方法
+失敗確認: パスの混乱、環境不一致、Git の状態、または依存関係不足
+期待される成果：学習準備が整ったワークステーションの証拠パック
 ```
 
 ## よくある失敗
@@ -116,7 +116,7 @@ Expected_output: a ready-to-learn workstation evidence pack
 - 最初のエラーと修正方法をどこに記録しましたか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 今いる場所は `pwd` で確認できます。答えにはプロジェクトルートか、その中の作業フォルダかを含めます。
 2. 実行中の Python は `which python`、`python --version`、または VS Code の選択中インタプリタで確認します。

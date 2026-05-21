@@ -473,11 +473,11 @@ NER 更该看实体级效果。
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: entity types, BIO tags, or sequence-label rules
-prediction: token-level labels and extracted spans
-metric: entity precision/recall/F1 and boundary cases
-failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
-Expected_output: gold-vs-predicted span table with at least one miss
+模式：实体类型、BIO 标签，或序列标注规则
+预测：词级标签和提取的片段
+指标：实体精确率/召回率/F1 和边界情况
+失败检查：跨度边界、嵌套实体、未知词或标注不一致
+期望产出：金标与预测 span 对照表，至少包含一个漏判
 ```
 
 ## 小结
@@ -498,7 +498,7 @@ Expected_output: gold-vs-predicted span table with at least one miss
 4. 你会如何把这个简历抽取项目进一步扩成作品集展示？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 增加 `ORG` 或 `TITLE` 时，先定义边界规则：组织名、职位名和周围修饰词到底算不算实体。
 2. NER 更适合用实体级指标，因为用户拿到的是抽出的实体，不是孤立 token 标签。

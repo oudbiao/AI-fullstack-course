@@ -344,7 +344,7 @@ print(f"\n平均名字长度: {avg_len:.1f} 个字符")
    - 用 `Ctrl/Cmd + Shift + F` 全局搜索 "fruit"
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. `code .` 应该打开当前项目文件夹，而不是只打开单个文件。
 2. 右下角或命令面板里选中的 Python 解释器应该是本课程环境，不是系统默认 Python。
@@ -359,9 +359,9 @@ print(f"\n平均名字长度: {avg_len:.1f} 个字符")
 学完这一页，至少保留这张证据卡：
 
 ```text
-environment: Python/Node/editor/notebook version and selected interpreter/kernel
-verification: one command or notebook cell proving the setup works
-project_folder: where dependencies, scripts, and notebooks live
-failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
-Expected_output: setup screenshot or terminal output plus one fallback note
+环境：Python/Node/编辑器/Notebook 版本以及选定的解释器/内核
+验证记录：证明设置可用的一条命令或一个 Notebook 单元
+项目文件夹：依赖、脚本和 notebooks 所在位置
+失败检查：错误的解释器、缺少包、过时的 kernel，或编辑器路径不匹配
+期望产出：设置截图或终端输出加一条回退说明
 ```

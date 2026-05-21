@@ -497,7 +497,7 @@ In that way, what you leave behind is a truly explainable and improvable informa
 4. How would you further expand this resume extraction project into a portfolio presentation?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. When adding `ORG` or `TITLE`, define boundary rules first: what counts as the organization name, job title, or surrounding modifier.
 2. NER should use entity-level metrics because the user receives extracted entities, not isolated token labels.

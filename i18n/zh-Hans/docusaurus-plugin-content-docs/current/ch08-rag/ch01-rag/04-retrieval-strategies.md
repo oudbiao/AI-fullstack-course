@@ -400,11 +400,11 @@ for hit in hits:
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 小结
@@ -424,7 +424,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 自己设计一个更丰富的 `rewrite_query()` 规则表。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 关键词权重更高时会偏向精确词匹配；向量权重更高时会偏向语义相似。更好的设置取决于用户是使用精确产品术语，还是使用模糊自然语言提问。
 2. 当精确短语、ID、课程名、政策术语或错误码很重要时，关键词检索很强。它能抓住 embedding 可能“抹平”的细粒度词。

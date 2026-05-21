@@ -214,11 +214,11 @@ bank in river  : [0.3, 0.75, 0.4]
 このページを終えたら、この証拠カードを残します。
 
 ```text
-vectors: at least three text embeddings or toy vectors
-similarity_check: closest pair and score
-retrieval_result: top match for one query
-limitation: averaging or similarity misses context/negation/order
-next_use: this becomes retrieval evidence in Chapter 8
+ベクトル：少なくとも 3 つのテキスト埋め込み、または小さな玩具ベクトル
+類似性確認: 最も近い組とスコア
+検索結果：1つのクエリに対する上位一致
+限界：平均化や類似度では文脈／否定／順序を見落とす
+次の使い道：これは Chapter 8 での retrieval の証拠になる
 ```
 
 ## 練習
@@ -230,7 +230,7 @@ next_use: this becomes retrieval evidence in Chapter 8
 5. RAG プロジェクトで embedding model が十分よいと示すには、どんな証拠を集めるか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `banana` を `password` に近づけると、account recovery の query に果物関連文書が返るかもしれません。失敗は偶然ではなく、vector 空間の配置ミスです。
 2. `recover` と `account` は、password や account support に近づけるべきです。commerce や fruit とは離します。追加文書は account recovery query に合うはずです。

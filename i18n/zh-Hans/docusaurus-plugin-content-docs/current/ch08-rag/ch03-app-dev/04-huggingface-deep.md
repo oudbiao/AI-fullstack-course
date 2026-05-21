@@ -309,11 +309,11 @@ for item in goals:
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+请求：输入、状态、工具/上下文，以及期望输出契约
+已验证输出：parser / schema 或业务规则检查的结果
+追踪记录：模型调用、tool/function 调用、文档解析或对话状态
+失败检查：格式无效、字段缺失、状态过时或工具错误
+下一步动作：Prompt、schema、状态、API 或解析改进
 ```
 
 ## 小结
@@ -334,7 +334,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 4. 用自己的话总结：Hub、pipeline、model、tokenizer 各自更像在解决什么问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. HuggingFace 包含 Hub、datasets、tokenizers、Transformers、pipelines、Spaces，以及社区评测/共享流程。
 2. `pipeline` 适合快速端到端试跑，但生产系统常常还需要 batching、自定义预处理、模型加载控制、监控和错误处理。

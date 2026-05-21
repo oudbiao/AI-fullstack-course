@@ -130,7 +130,7 @@ Move to Chapter 3 when you can answer these five questions:
 - Can another person run your project from the README?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. Program input can be command-line text, user input, a file, or an API response. Output can be printed text, a returned value, a saved file, or a response sent to another program.
 2. A dictionary is better when each item needs named fields or fast lookup by key. A list is better for an ordered collection of similar items.

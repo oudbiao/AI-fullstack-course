@@ -74,7 +74,7 @@ print(json.dumps(record, indent=2))
 你能写出提示词记录，解释为什么选择某种生成模式，保存 3 个候选图备注，并在导出前标记至少 1 个审核风险，就算通过本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说清涉及哪些模态、输入输出契约是什么，以及文字、图像、音频或视频证据如何对齐。
 2. 证据应包含真实媒体产物或 trace，并附上质量、安全和失败案例说明。
@@ -88,9 +88,9 @@ print(json.dumps(record, indent=2))
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+提示词记录：提示词、负面要求、参考、seed/model，以及版本号
+候选输出：生成或模拟的结果及选择原因
+技术备注：扩散步、潜变量、cross-attention、LoRA 或应用模式
+失败检查：提示漂移、风格不匹配、产物、版权、肖像或复核失败
+期望产出：选定图片/版本记录加被拒候选说明
 ```

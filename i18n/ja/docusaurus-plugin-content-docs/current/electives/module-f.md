@@ -75,11 +75,11 @@ AI Medical Diagnosis score= 5.4 decision= do_not_launch
 このページを終えたら、この証拠カードを残します。
 
 ```text
-threat_model: prompt injection, data leak, tool misuse, unsafe output, or model abuse
-control: validation, permission, sandbox, audit, red-team test, or incident response
-test_case: one attack or failure sample and expected safe behavior
-failure_check: trusting model text, missing logs, broad permissions, or no regression tests
-Expected_output: security checklist plus one reproducible red-team case
+脅威モデル：prompt injection、data leak、tool misuse、unsafe output、または model abuse
+制御: 検証、権限、サンドボックス、監査、レッドチームテスト、またはインシデント対応
+テストケース：1 つの攻撃または失敗サンプルと、期待される安全な挙動
+失敗確認: モデルの文を信じる、ログ不足、広すぎる権限、または回帰テストなし
+期待される成果: セキュリティチェックリストと1件の再現可能なレッドチーム事例
 ```
 
 ## 合格チェック
@@ -87,7 +87,7 @@ Expected_output: security checklist plus one reproducible red-team case
 AI 機能案を1つスコア化し、トレードオフを説明し、成功指標を定義し、ローンチすべきでない条件を1つ言えれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 合格する答えは、具体的な機能案、トレードオフ、成功指標、そしてローンチ阻止条件を示します。証拠は、漠然としたビジョンではなく、実行可能な決定ノートとして残してください。
 

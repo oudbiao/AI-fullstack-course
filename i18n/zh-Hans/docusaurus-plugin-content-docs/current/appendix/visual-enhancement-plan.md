@@ -121,9 +121,9 @@ topic-name-ja.webp
 学完这一页，至少保留这张证据卡：
 
 ```text
-page_target: which lesson or concept needs a teaching image
-visual_role: analogy, workflow, history comic, output explanation, or failure debug map
-language_set: English, Chinese, Japanese image references or text requirements
-risk_check: decorative image, crowded text, unrelated metaphor, or missing nearby explanation
-Expected_output: image brief or QA note tied to a specific course page
+页面目标：哪一课或概念需要教学图片
+可视化角色：类比、工作流、历史漫画、输出说明或故障调试图
+语言集合: 英文、中文、日文图像参考或文本要求
+风险检查：装饰性图片、拥挤文字、无关隐喻，或缺少附近说明
+期望产出：与某个具体课程页面相关的图片简报或 QA 说明
 ```

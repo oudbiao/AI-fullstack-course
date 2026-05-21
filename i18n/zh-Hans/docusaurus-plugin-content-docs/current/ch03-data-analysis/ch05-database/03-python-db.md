@@ -458,11 +458,11 @@ df.to_sql("students_backup", engine, if_exists="replace", index=False)
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+架构：表名、键、关系和示例行
+查询：所使用的 SQL 或 Python 数据库代码
+输出：结果行、行数，或保存的抽取结果
+失败检查：错误的连接键、不安全查询、缺少事务，或 schema 不匹配
+期望产出：查询、结果表和一条数据质量说明
 ```
 
 ## 这节最该带走什么
@@ -613,7 +613,7 @@ db.close()
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - CRUD 练习要展示创建、读取、更新、删除，并提交事务，最后再读一次表，证明状态按预期改变。
 - 用户输入值必须用参数化 SQL。好的答案即使在小练习脚本里，也使用占位符，而不是字符串拼接。

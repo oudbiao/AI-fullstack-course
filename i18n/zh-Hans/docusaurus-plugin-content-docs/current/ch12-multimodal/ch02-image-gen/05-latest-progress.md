@@ -330,11 +330,11 @@ for item in ranked:
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+提示词记录：提示词、负面要求、参考、seed/model，以及版本号
+候选输出：生成或模拟的结果及选择原因
+技术备注：扩散步、潜变量、cross-attention、LoRA 或应用模式
+失败检查：提示漂移、风格不匹配、产物、版权、肖像或复核失败
+期望产出：选定图片/版本记录加被拒候选说明
 ```
 
 ## 小结
@@ -357,7 +357,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 下次读图像生成新论文时，你会先问哪两个问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 合理排序应取决于产品目标。面向消费者的创意工具里，可控编辑可能排第一；面向基础设施时，成本和速度可能排第一；面向专业媒体时，一致性和可审查性通常最关键。
 2. 电商里，可控编辑和身份一致性通常最重要。商品图必须保持商品本体不变，同时修改背景、风格、尺寸或场景，所以可靠编辑比泛泛提高画质更有价值。

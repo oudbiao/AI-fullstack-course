@@ -717,7 +717,7 @@ This is much higher than 1.9%, because the prior probability is no longer as tin
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - For the card problem, `P(hearts)=13/52=0.25`, `P(hearts | red)=13/26=0.5`, and `P(A | hearts)=1/13≈0.0769`. Simulation should be close, not exact.
 - For the factory Bayes problem, `P(defective)=0.6*0.02+0.4*0.05=0.032`, so `P(B | defective)=0.02/0.032=62.5%`.

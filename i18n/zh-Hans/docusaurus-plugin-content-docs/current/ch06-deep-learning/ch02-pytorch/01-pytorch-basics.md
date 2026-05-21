@@ -329,11 +329,11 @@ labels: [batch], int64 / long
 继续前，保存一条小的 tensor 检查笔记：
 
 ```text
-input_shape: [batch, features]
-logits_shape: [batch, classes]
-label_shape: [batch]
-label_dtype: torch.long for CrossEntropyLoss
-device_check: model and data are on the same device
+输入形状: [batch, features]
+logits 形状：[batch, classes]
+标签形状: [batch]
+标签数据类型: CrossEntropyLoss 使用 torch.long
+设备检查：模型和数据在同一设备上
 ```
 
 这是后面调试 PyTorch 代码最快的方法。大多数早期错误都是 shape、dtype、device 或 broadcasting 错误，只是被长长的报错堆栈藏起来了。
@@ -346,7 +346,7 @@ device_check: model and data are on the same device
 4. 把 `X @ W` 改成 `X * W`。为什么它会失败，或者表达完全不同的含义？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. batch 维度会从 `2` 变成 `3`。feature 数、class 数和参数 shape 不变，除非你也改了输入特征数或输出类别数。
 2. `CrossEntropyLoss` 需要形状类似 `[batch]` 的类别标签，并且通常是 `torch.long`。`squeeze(1)` 会去掉多余的单例维度，让 loss 看到每个样本一个类别 id。

@@ -343,11 +343,11 @@ print(quartile_group)
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+数据框状态：列、数据类型、行数、缺失值和样本行
+操作：读/写、select/filter、清洗、转换、groupby、merge，或时间序列步骤
+输出：结果表、保存的文件、聚合、连接结果，或时间索引视图
+失败检查：dtype 不匹配、缺失数据、重复键、链式赋值或时间频率错误
+期望产出：前后对比表格样本，以及转换原因
 ```
 
 ## 小结
@@ -401,7 +401,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 月份或类别重编码应使用显式字典，并用 `isna()` 或 `value_counts` 检查未映射值。静默漏映射是汇总错误的常见来源。
 - 销售衍生字段用向量化操作计算，例如乘法、`rank`、`sort_values` 和 `nlargest`，得到总额、排名和 top 项。

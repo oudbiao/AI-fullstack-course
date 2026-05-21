@@ -164,7 +164,7 @@ The first mistake is treating benchmark scores as production quality. The second
 After completing this section, you should be able to explain the difference between general benchmarks and custom evaluation sets, design a small benchmark for your own Agent project, and use a fixed evaluation set to compare the effectiveness of different models, Prompts, and tool designs.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A solid 20-sample benchmark should mix easy, medium, and hard course questions, include citation-required cases, include out-of-scope questions, and include questions where retrieval returns partial or conflicting evidence.
 2. `must_include` should list required concepts or evidence, `must_not_do` should block hallucinated citations or unsafe actions, and scoring rules should explain how to assign partial credit.

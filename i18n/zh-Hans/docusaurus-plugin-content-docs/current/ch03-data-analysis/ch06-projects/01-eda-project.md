@@ -754,7 +754,7 @@ fig.show()
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 - EDA 项目没有唯一数值答案。高质量提交应包含原始数据位置、数据字典、清洗日志、摘要统计、至少三张由问题驱动的图、结论和限制。
 - 每张图都应回答一个命名问题，并能追溯到清洗后的数据集。如果某张图无法对应问题，就删除它或重写问题。
@@ -778,9 +778,9 @@ fig.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-analysis_goal: business/data question and success criterion
-data_evidence: source, cleaning notes, features, and chart/table outputs
-result: insight, metric, dashboard, or report section
-failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
-Expected_output: reproducible analysis folder with data, charts, and a short report
+分析目标：业务/数据问题和成功标准
+数据证据：来源、清洗说明、特征和图表/表格输出
+结果：洞察、指标、仪表板，或报告部分
+失败检查：脏数据、偏置样本、错误聚合或 Notebook 无法复现
+期望产出：可复现的分析文件夹，包含数据、图表和简短报告
 ```

@@ -62,11 +62,11 @@ done: True
 学完这一页，至少保留这张证据卡：
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+智能体边界：这与聊天机器人或固定工作流有何不同
+目标状态动作：目标、当前状态、下一步动作、观察
+架构组成：规划器、工具、记忆、护栏、评估器
+失败检查：过度自主、目标模糊、状态缺失或没有 trace
+下一步动作：构建最小可追踪的单智能体循环
 ```
 
 ## 通过标准
@@ -76,7 +76,7 @@ next_action: build the smallest traceable single-agent loop
 本章出口小项目是一份研究助手 Agent trace：一个目标、一个计划、至少一个工具决策、一次观察、一个停止条件和一个最终回答。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

@@ -285,7 +285,7 @@ This will be more convincing than simply saying “I did 3D vision.”
 4. Think about which applications depend especially on 3D vision, rather than only needing 2D detection.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. In stereo vision intuition, depth is inversely related to disparity: larger disparity usually means closer, smaller disparity means farther, and near-zero disparity is unstable.
 2. 3D vision relies on geometry because you must reason about camera models, depth, coordinates, scale, calibration, and pose, not only appearance.

@@ -521,11 +521,11 @@ plt.show()
 このページを終えたら、この evidence card を残します。
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+関数：目的関数、損失、導関数、勾配、または連鎖律の式
+計算：数値微分、勾配更新、または backprop の trace
+出力：slope、gradient vector、更新されたパラメータ、またはlossの変化
+失敗確認: 符号ミス、学習率が大きすぎる、局所的な傾きの誤解、または chain の破損
+期待される成果：パラメータがどう変わるかを示す計算 trace
 ```
 
 ## まとめ
@@ -617,7 +617,7 @@ print("b2.grad =", b2.grad.item())
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 - `y=(2x+1)^3` の導関数は `6(2x+1)^2` で、`x=1` では `54` です。
 - ネットワークを 3 つの hidden neuron に拡張するときは、隠れ層をベクトルとして書き、各重みの勾配を分けて保持します。主な確認点は、すべての forward 値に対応する backward 勾配があることです。

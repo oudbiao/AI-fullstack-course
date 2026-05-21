@@ -263,10 +263,10 @@ PyTorch 权重: 7.37
 保存一条左右对照笔记：
 
 ```text
-sklearn: fit() hides parameter updates
-pytorch: I write model, loss, backward, optimizer step
-same_goal: minimize error and validate on held-out data
-new_responsibility: inspect shape, gradient, device, and checkpoint
+sklearn 对比：fit() 会隐藏参数更新
+PyTorch 对比：我编写模型、损失、反向传播、优化器步骤
+相同目标：最小化误差，并在留出数据上验证
+新责任：检查 shape、gradient、device 和 checkpoint
 ```
 
 重点不是 PyTorch “更高级”，而是 PyTorch 把训练机制显式展开，让你能构建自定义深度学习系统。
@@ -278,7 +278,7 @@ new_responsibility: inspect shape, gradient, device, and checkpoint
 3. 试着打印每 100 轮的 `weight` 和 `bias`，看看参数是怎么逐步逼近答案的。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 如果数据接近线性，两个模型应该学到相近的直线。它们不一定完全一样，因为 `sklearn` 通常直接优化回归目标，而 PyTorch 版本是通过梯度一步步移动参数。
 2. `0.1` 往往下降更快，但在小数据或尺度不好的数据上可能越过最优点。`0.001` 通常更稳，但训练结束时 loss 可能还在慢慢下降。

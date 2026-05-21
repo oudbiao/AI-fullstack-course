@@ -113,11 +113,11 @@ Python vs unrelated: 0.071
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept_bridge: which math idea supports model training or AI applications
-calculation: small hand/NumPy example that can be checked
-output: number, curve, vector, matrix, probability, or gradient trace
-failure_check: memorizing formula without knowing the model behavior it explains
-Expected_output: math note that explains one real AI operation
+概念桥接：哪种数学思想支撑模型训练或 AI 应用
+计算：可手算或用 NumPy 检查的小例子
+输出：数值、曲线、向量、矩阵、概率，或梯度 trace
+失败检查：只会背公式，却不知道它解释的是模型行为
+期望产出：说明一个真实 AI 操作的数学笔记
 ```
 
 ## 常见失败
@@ -144,7 +144,7 @@ Expected_output: math note that explains one real AI operation
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 - 完整通关检查要把公式、代码和模型行为连起来。不要停在“我知道公式”；要展示一个小计算，并说明它解释了哪个 AI 任务。
 - 向量和矩阵的证据应包含 shape 检查，以及一个相似度或变换结果；概率部分要有重复采样估计或 Bayes 更新；微积分部分要有梯度和一次更新步骤。

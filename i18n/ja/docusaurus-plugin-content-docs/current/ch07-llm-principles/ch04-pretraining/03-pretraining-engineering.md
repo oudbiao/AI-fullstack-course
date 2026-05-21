@@ -422,11 +422,11 @@ step=3 tokens/s=10503
 このページを終えたら、この証拠カードを残します。
 
 ```text
-shards: data split and resume point
-throughput: tokens/sec or batch progress estimate
-checkpoint: what is saved and when resume happens
-failure_mode: crash, duplicated shard, slow input, or metric drift
-ops_note: pretraining is a data/compute system, not only model code
+シャード: データ分割と再開位置
+スループット：tokens/sec または batch の進捗見積もり
+チェックポイント：何を保存し、いつ再開するか
+失敗モード: クラッシュ、シャードの重複、入力の遅延、または指標ドリフト
+運用メモ：pretrainingはモデルコードだけでなく、データ/computeシステムである
 ```
 
 ## まとめ
@@ -456,7 +456,7 @@ ops_note: pretraining is a data/compute system, not only model code
 4. 自分の言葉で説明してみましょう。なぜ事前学習エンジニアリングは最終的に「モデルを書く」だけではなく「システムを作る」ことになるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `batch_size` を変えると、1 step で消費するサンプル数が変わります。そのため、保存される復旧状態は別の次サンプルや shard offset を指すはずです。重要なのは、再開時にデータを飛ばしたり重複したりせず、正しい位置から続くかです。
 2. モデル重みだけでは、モデルが何を学んだかは分かっても、どのデータをすでに読んだかは分かりません。クラッシュ後に、サンプルを重複して読む、飛ばす、学習分布を変える、といった問題が静かに起きます。

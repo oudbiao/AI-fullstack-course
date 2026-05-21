@@ -347,7 +347,7 @@ If you can explain all four, this workshop has become a training evidence pack r
 4. Add a third hidden layer and check whether validation loss improves or overfits.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. Hidden size `16` may produce a simpler boundary; `64` can fit a more flexible boundary but may overfit. Use validation loss and the boundary plot together.
 2. Higher noise should make the classes overlap more. Expect lower validation accuracy, a less clean boundary, or more uncertain samples near the class border.

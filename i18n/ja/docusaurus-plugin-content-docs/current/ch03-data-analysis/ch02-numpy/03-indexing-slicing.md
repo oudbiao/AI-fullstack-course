@@ -328,11 +328,11 @@ print(f"対応する運賃: {fares[top3_indices]}")
 このページを終えたら、この evidence card を残します。
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+配列状態: 操作前の shape、dtype、axis、サンプル値
+操作：indexing、slicing、broadcasting、reshape、線形代数、またはランダム/stat関数
+出力：結果の配列形状、値、または統計量
+失敗確認：軸の混同、view/copy の落とし穴、ブロードキャスト不一致、または誤った形状
+期待される成果: 配列操作を確認できる出力形状と値
 ```
 
 ## まとめ
@@ -393,7 +393,7 @@ math_scores = np.array([
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 代表的なスライスは、先頭 5 個が `arr[:5]`、1 始まりで偶数番目の位置が `arr[1::2]`、末尾 3 個が `arr[-3:]`、逆順が `arr[::-1]` です。
 - 5x5 行列では、`matrix[1:4, 1:4]` が中央の 3x3 ブロック、`matrix[:, 1]` が 2 列目、`matrix[np.arange(5), np.arange(5)]` が主対角線を選びます。

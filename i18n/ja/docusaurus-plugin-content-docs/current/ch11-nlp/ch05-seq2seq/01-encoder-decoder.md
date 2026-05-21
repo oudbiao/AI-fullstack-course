@@ -248,11 +248,11 @@ Seq2Seq で本当に難しいのは、
 このページを終えたら、この evidence card を残します。
 
 ```text
-source_target: source text, target text, and task type
-decoded_output: generated summary, translation, transcript, or sequence result
-alignment_note: attention, CTC path, coverage, or copied source evidence
-failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
-Expected_output: generated text with factual or alignment review notes
+ソースとターゲット: ソーステキスト、ターゲットテキスト、タスク種別
+復号出力：生成要約、翻訳、書き起こし、または系列結果
+整合メモ: attention、CTC パス、coverage、またはコピー元の証拠
+失敗確認: 抜け、繰り返し、ハルシネーション、誤った整合、または評価の弱さ
+期待される成果：事実性または整合性のレビュー नोट付き生成テキスト
 ```
 
 ## まとめ
@@ -281,7 +281,7 @@ Expected_output: generated text with factual or alignment review notes
 4. 自分の言葉で、encoder と decoder がそれぞれ何を担当するか説明してみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. dictionary を広げると toy generator はより多くの入力語を扱えますが、unseen word と word order ではまだ失敗します。
 2. Seq2Seq の出力が固定長でないのは、decoder が stop condition まで token を 1 つずつ生成するからです。固定 label set から選ぶわけではありません。

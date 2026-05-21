@@ -73,9 +73,9 @@ sidebar_position: 4
 このページを終えたら、この証拠カードを残します。
 
 ```text
-learning_loop: read, build, test, write notes, review failures, and update route
-cadence: weekly project slot, reading slot, and review slot
-signal: metric, portfolio artifact, interview feedback, or project failure that changes the plan
-risk_check: endless reading, no output, or switching topics too often
-Expected_output: a sustainable learning loop with the next review date
+学習ループ：読む、作る、試す、メモを書く、失敗を見直す、そしてルートを更新する
+ペース配分：毎週のプロジェクト枠、読書枠、レビュー枠
+シグナル: プランを変更する指標、ポートフォリオ成果物、面接フィードバック、またはプロジェクト失敗
+リスク確認：終わりのない読書、出力なし、または話題の切り替えが多すぎること
+期待される成果：次のレビュー日がある持続可能な学習ループ
 ```

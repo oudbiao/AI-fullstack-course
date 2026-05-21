@@ -70,7 +70,7 @@ std::vector<float> logits = {3.4f, 0.3f, 2.1f};
 Run again. The expected `best_class` should become `0`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 After the change, the loop should compare `3.4`, `0.3`, and `2.1`, so index `0` becomes the largest score. The useful explanation is not only “the number is bigger”; it is that the inference helper scans the logit vector and returns the position of the maximum value.
 

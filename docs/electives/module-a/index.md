@@ -85,7 +85,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 You pass this module when you can compile one C++ example, explain the deployment trade-off, record latency or memory evidence, and connect the result to the [Elective Hands-on Workshop](../hands-on-elective-workshop.md).
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 A passing evidence pack should include one successful compile/run output, one latency or memory note, and one sentence that explains the deployment trade-off. For example: “The C++ helper returns the same class as the Python prototype, the optimized variant reduces memory, and the remaining risk is an accuracy check on real cases.”
 

@@ -403,7 +403,7 @@ It is recommended to finish the basic version first. Do not chase a large, all-i
 4. If you were to put this project into a portfolio, which 4 parts would you prioritize showing?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. With `top_k=1`, the summary becomes shorter and may miss context; with `top_k=3`, it includes more evidence but may become redundant.
 2. Intermediate scoring is worth showing because it explains why each sentence was selected and makes failure analysis possible.

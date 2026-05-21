@@ -449,7 +449,7 @@ Once you make this step solid, service orchestration and production operations w
 4. Explain in your own words: why is containerization the starting point of deployment, not the end?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The build should produce an image that starts reliably and exposes the expected port and health endpoint.
 2. `APP_MODE` should be read from the environment and reflected in config or logs without code changes.

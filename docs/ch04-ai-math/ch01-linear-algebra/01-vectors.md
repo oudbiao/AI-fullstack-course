@@ -727,7 +727,7 @@ Hint: refer to the code in Section 2.1.
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For `a=[2,3,-1]` and `b=[1,-2,4]`, `a+b=[3,1,3]`, `3a-2b=[4,13,-11]`, `||a||=sqrt(14)≈3.742`, `a·b=-8`, and cosine similarity is about `-0.8018`.
 - For the movie vectors, the most similar pair is usually Interstellar and Wolf Warrior 2, with cosine similarity about `0.9297`; the least similar pair is Ex-Files 3 and Alien, about `0.4495`.

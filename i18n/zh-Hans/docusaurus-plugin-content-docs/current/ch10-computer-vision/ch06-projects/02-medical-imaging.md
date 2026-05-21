@@ -367,11 +367,11 @@ print(risk_summary(metrics))
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_output: classification label, detection box, segmentation mask, OCR text, or video event
-artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
-metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
-failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
-Expected_output: a reproducible run folder with visual outputs and a short failure report
+任务输出：分类标签、检测框、分割掩膜、OCR 文本或视频事件
+工件：原始图像、处理后图像、预测叠加图、指标文件和失败样本
+指标：准确率/F1、mAP、IoU、Dice、延迟或场景特定审查分数
+失败检查：数据质量、标签错误、预处理不匹配、阈值或部署约束
+期望产出：一个可复现的运行文件夹，包含可视化输出和简短失败报告
 ```
 
 ## 小结
@@ -410,7 +410,7 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 4. 如果把这个项目放进作品集，哪一段风险说明最值得你单独强调？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 更安全的二分类筛查版本可以定义为“是否存在高风险发现”。`clinical_constraints` 应写清楚：输出只作为筛查辅助，优先 sensitivity，并且必须有人类复核边界。
 2. `false_negative_rate` 值得单独展示，因为漏掉阳性高风险案例可能比很多普通错误更危险。当阳性很少时，整体 accuracy 会掩盖这个风险。

@@ -67,11 +67,11 @@ for step in range(1, 5):
 保留一条 PyTorch 循环笔记：
 
 ```text
-tensor_check: shape, dtype, device
-autograd_check: loss.backward() fills gradients
-module_check: named_parameters() shows trainable tensors
-loader_check: one batch matches model and loss
-loop_check: train/eval losses are logged separately
+张量检查：形状、dtype、设备
+自动求导检查：loss.backward() 会填充梯度
+模块检查：named_parameters() 显示可训练张量
+加载检查：一个批次与模型和损失函数匹配
+循环检查：训练/验证损失分别记录
 ```
 
 ## 通过标准
@@ -79,7 +79,7 @@ loop_check: train/eval losses are logged separately
 能读懂一个 PyTorch 循环，并定位数据 batch、模型输出、loss、`backward()` 和 optimizer 更新这五件事，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

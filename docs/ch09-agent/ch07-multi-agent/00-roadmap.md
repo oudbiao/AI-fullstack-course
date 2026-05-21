@@ -77,7 +77,7 @@ eval_action: compare multi-agent result against single-agent baseline
 You pass this chapter when a 2 to 3 Agent demo has traceable inputs, outputs, handoffs, final ownership, and a clear reason why it beats a single Agent.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

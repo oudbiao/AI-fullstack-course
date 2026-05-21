@@ -467,7 +467,7 @@ print(update_config("theme", "dark"))
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `file_stats` should report line count, character count, word count, and the longest line. The `default=(0, "")` in `max()` is important because it keeps empty files from crashing the code.
 2. The diary app should append timestamped entries to a text file, list them back in order, and keep the storage format simple enough to inspect by hand.

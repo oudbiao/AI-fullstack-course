@@ -220,7 +220,7 @@ You tune that tradeoff with the KL weight, often called `beta` in beta-VAE.
 5. Explain why VAE is useful for learning latent-space intuition even when GAN or diffusion produces sharper images.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. With KL weight `0.0`, the model behaves more like a plain autoencoder. Reconstruction may improve, but the latent space can become less smooth and harder to sample.
 2. With KL weight `0.5`, the latent space is pushed harder toward the prior. Reconstruction may get blurrier or less accurate because the model gives up detail for regularity.

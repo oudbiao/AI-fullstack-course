@@ -13,11 +13,11 @@ description: "ブランチを使って新機能を安全に開発し、Pull Requ
 このページを終えたら、この evidence card を残します。
 
 ```text
-repo_state: git status before and after the operation
-operation: init, add, commit, branch, merge, remote, pull, or push command used
-history: git log or branch graph showing what changed
-failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
-Expected_output: a clean Git trace that another learner can replay safely
+リポジトリ状態: 操作前後の git status
+操作：init、add、commit、branch、merge、remote、pull、またはpushコマンドを使用
+履歴：何が変わったかを示す git log またはブランチグラフ
+失敗確認: 未追跡ファイル、誤ったブランチ、マージ衝突、またはリモート/認証の問題
+期待される成果：別の学習者が安全に再実行できる、きれいな Git の trace
 ```
 
 ## この節の位置づけ
@@ -431,7 +431,7 @@ git push -u origin feature/add-evaluation
 - [ ] マージコンフリクトが起きても慌てず、解決方法が分かる
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. ゼロから repo を作り、commit、diff、`.gitignore`、push または clone、ブランチ作成と merge までできれば通過です。
 2. 安全な Git 証拠には、重要な操作の前後の `git status --short` が含まれます。

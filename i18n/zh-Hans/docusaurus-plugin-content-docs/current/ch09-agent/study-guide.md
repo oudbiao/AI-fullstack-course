@@ -52,7 +52,7 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 - 你能解释为什么多 Agent 应该在单 Agent 可靠之后再做吗？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. Agent 会维持 goal-plan-tool-observation 的闭环，所以系统不只是生成一句回答，而是能执行、观察结果并决定下一步。
 2. 有用的 trace 应该包含 goal、plan step、tool call、input、observation，以及为什么下一步会由这个 observation 触发。
@@ -69,9 +69,9 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 学完这一页，至少保留这张证据卡：
 
 ```text
-single_agent_trace: one complete goal-plan-action-observation loop
-tool_contract: schema, permission, error behavior, and observation
-memory_note: what is written, retrieved, forgotten, or updated
-eval_note: success score, safety check, and failure reason
-project_readme: run command, trace, limitations, and next action
+单代理 trace：一个完整的目标-计划-行动-观察循环
+工具契约：schema、权限、错误行为和观察
+记忆笔记：写入、检索、遗忘或更新了什么
+评估备注：成功分数、安全检查和失败原因
+项目说明：运行命令、trace、限制，以及下一步动作
 ```

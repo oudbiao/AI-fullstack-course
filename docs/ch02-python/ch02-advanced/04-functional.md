@@ -465,7 +465,7 @@ add(3, 5)
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The pipeline should strip whitespace, drop empty items, keep only strings that can become numbers, convert them, and then keep values `>= 50`. In the sample data, `78` and `90.1` survive.
 2. Sorting should use three separate `sorted(..., key=...)` calls: price ascending, rating descending, and a cost-effectiveness score such as `rating / price` descending.

@@ -108,10 +108,10 @@ keywords: [深層学習の歴史, パーセプトロン, XOR, 逆伝播, LSTM, A
 タイムラインを小さな記憶スケッチに変えます。4 コマで描いてください。
 
 ```text
-box_1: one neuron learns a linear rule
-box_2: XOR shows why hidden nonlinear layers matter
-box_3: backprop makes multi-layer learning practical
-box_4: attention lets tokens connect directly at scale
+ボックス1：1 つのニューロンが線形ルールを学習する
+ボックス2：XOR は隠れた非線形層が重要な理由を示す
+ボックス3：バックプロパゲーションで多層学習が実用的になる
+ボックス4：attention により token 同士が大規模に直接つながる
 ```
 
 このページは任意ですが、このスケッチは役立ちます。第 6 章がなぜニューロンから Transformer へ進むのかを、ランダムなアーキテクチャ名の列ではなく、1 つの流れとして覚えられます。

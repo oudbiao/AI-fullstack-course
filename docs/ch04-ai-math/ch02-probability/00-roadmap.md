@@ -83,7 +83,7 @@ You pass this roadmap when you can say what uncertainty a probability term is me
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - The probability route is passed when you can move from a single event to a repeated-sample estimate, then to a conditional update.
 - Keep evidence for a simulation, a distribution plot, one MLE/MAP estimate, and one entropy or cross-entropy calculation.

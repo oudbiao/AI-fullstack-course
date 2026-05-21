@@ -418,11 +418,11 @@ for direction in ["wrong", "right"]:
 このページを終えたら、この evidence card を残します。
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+関数：目的関数、損失、導関数、勾配、または連鎖律の式
+計算：数値微分、勾配更新、または backprop の trace
+出力：slope、gradient vector、更新されたパラメータ、またはlossの変化
+失敗確認: 符号ミス、学習率が大きすぎる、局所的な傾きの誤解、または chain の破損
+期待される成果：パラメータがどう変わるかを示す計算 trace
 ```
 
 ## まとめ
@@ -469,7 +469,7 @@ f(x, y, z) = x² + 2y² + 3z² に対して、(1, 1, 1) における勾配を計
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 - `f(x,y)=x^2y+xy^2` の勾配は `[2xy+y^2, x^2+2xy]` で、`(2,3)` では `[21,16]` です。
 - `sin(x)+cos(y)` では、勾配矢印は `[cos(x), -sin(y)]` に従います。等高線図と矢印は視覚的に一致し、矢印はより速く増える方向を向きます。

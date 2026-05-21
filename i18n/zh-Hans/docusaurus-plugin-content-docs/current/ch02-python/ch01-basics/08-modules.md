@@ -525,7 +525,7 @@ pip freeze > requirements.txt
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. `len(str(math.factorial(100)))` 的结果是 `158`。
 2. `random.sample(range(1, 101), 10)` 应生成 10 个不重复数字；顺序和具体数值每次可能不同。
@@ -542,11 +542,11 @@ pip freeze > requirements.txt
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept: variable, type, operator, input/output, branch, loop, structure, function, or module
-code: smallest runnable Python snippet for the concept
-output: printed value, type, branch result, loop trace, or returned value
-failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
-Expected_output: code plus printed result that proves the concept works
+概念：变量、类型、运算符、输入/输出、分支、循环、结构、函数或模块
+代码：用于说明该概念的最小可运行 Python 代码片段
+输出：打印值、类型、分支结果、循环 trace，或返回值
+失败检查：类型不匹配、缩进错误、越界、可变数据或导入路径问题
+期望产出：代码和打印结果，证明概念可行
 ```
 
 ## 小结

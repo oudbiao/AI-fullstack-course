@@ -379,7 +379,7 @@ GET /tasks?page=1&size=10
 先取り学習として、`/predict` エンドポイントを作り、テキスト入力を受け取って感情分析の結果を返してみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 起動時にタスクを読み込み、作成・更新・削除のたびに保存します。保存する JSON の形はレスポンスに近いほどデバッグしやすくなります。
 2. `/tasks/search` を追加し、タイトルに対して大文字小文字を区別しない部分一致検索を行います。
@@ -418,9 +418,9 @@ FastAPI は、AI エンジニアがよく使う Web フレームワークの1つ
 このページを終えたら、この evidence card を残します。
 
 ```text
-project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
-run_command: exact command used to start the project
-artifact: output file, API response, JSON record, screenshot, or README note
-failure_check: dependency, network, parsing, route, input validation, or API-key issue
-Expected_output: reproducible mini project folder with run result and one failure case
+プロジェクト目標：CLI、スクレイパー、API、AI API 呼び出し、または統合 Python ワークショップの対象
+実行コマンド: プロジェクトの起動に使った正確なコマンド
+成果物: 出力ファイル、API 応答、JSON レコード、スクリーンショット、または README メモ
+失敗確認：依存関係、ネットワーク、パース、ルート、入力検証、または API キーの問題
+期待される成果: 実行結果と1件の失敗例を含む再現可能なミニプロジェクトフォルダ
 ```

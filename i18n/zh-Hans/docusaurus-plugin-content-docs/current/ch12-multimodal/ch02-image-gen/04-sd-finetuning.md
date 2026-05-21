@@ -360,11 +360,11 @@ DreamBooth 很常见的目标是：
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+提示词记录：提示词、负面要求、参考、seed/model，以及版本号
+候选输出：生成或模拟的结果及选择原因
+技术备注：扩散步、潜变量、cross-attention、LoRA 或应用模式
+失败检查：提示漂移、风格不匹配、产物、版权、肖像或复核失败
+期望产出：选定图片/版本记录加被拒候选说明
 ```
 
 ## 小结
@@ -385,7 +385,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 为什么说图像生成微调的评估，比文本分类更依赖人工感知判断？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. Textual Inversion 更像新增一个 token embedding；LoRA 更像给模型层外挂一个小型可拆卸技能补丁；DreamBooth 更像用更直接的样例教模型记住某个具体主体或身份。
 2. 如果只是想增加一个风格触发词，Textual Inversion 或 LoRA 可能已经足够，因为你并不需要深度改写模型对具体主体的认识。

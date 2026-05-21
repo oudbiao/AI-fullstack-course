@@ -342,11 +342,11 @@ Agent 同士が提案し合い、協議します。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+役割: 所有者、作業者、レビュー担当、または専門担当の責務
+メッセージ契約：artifact、request、response、handoff 状態
+調整: ルーティング、タスク分割、衝突解決、最終責任者
+失敗確認：重複作業、文脈喪失、責任者不在、またはメッセージループ
+評価アクション：マルチ Agent の結果を単一 Agent のベースラインと比較する
 ```
 
 ## 練習
@@ -357,7 +357,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 自分の言葉で説明してみましょう。なぜ多 Agent の協調は、本質的に小さなタスクスケジューリングシステムに似ているのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. planner Agent は依存関係つきの ordered task list を作ります。たとえば retrieve を先に行い、evidence がある後に write、draft がある後に review、review が変更を求めた場合だけ revise します。
 2. coordination flow は、retrieve evidence -> write draft with citations -> review correctness and gaps -> revise rejected parts -> final check のようにできます。

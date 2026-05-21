@@ -315,7 +315,7 @@ On the Titanic dataset, construct: family size (`sibsp + parch + 1`), whether th
 Generate one year of date data, extract all time features (month, week, quarter, whether it is a working day), and use bar charts to show the distribution of different features.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Titanic features should be compared against a baseline with the same split and model. Useful new features often improve validation score modestly and make business sense, such as family size capturing travel context.
 2. Fare bands and titles must be created inside the training workflow if they learn cut points or mappings. Avoid using the full dataset to choose bins that indirectly depend on test distribution.

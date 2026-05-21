@@ -48,11 +48,11 @@ asyncio.run(main())
 このページを終えたら、この証拠カードを残します。
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Pythonパターン：デコレータ、イテレータ、ジェネレータ、並行処理プリミティブ、またはメタプログラミングフック
+コード成果物：最小限の実行可能な例と表示された出力
+使用場面：この pattern が AI app、pipeline、tool、または server を改善する場面
+失敗確認：隠れた副作用、読みにくい抽象化、競合状態、または過度な設計
+期待される成果: 実践的なAIシステム用途のメモを含む小さな高度Python例
 ```
 
 ## この順番で学ぶ
@@ -69,7 +69,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 デコレータ、ジェネレータ、非同期呼び出し、レジストリのいずれかを使った追跡可能なパイプラインを 1 つ作り、なぜデバッグしやすくなったか説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 合格する答えは、追跡できるパイプラインを 1 つ示します。たとえば、デコレータでログを足す、ジェネレータでストリーミング処理する、async で複数の I/O を並行に回す、またはレジストリでツールを明示的に管理するやり方です。証拠には、最小実行例の出力と、なぜデバッグしやすくなったのかの説明を含めます。
 

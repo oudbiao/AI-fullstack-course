@@ -77,7 +77,7 @@ You pass this chapter when you can explain why “remember more” is not the sa
 The exit mini project is a learning-planning assistant memory rule set: what to save, what to confirm, what to keep temporary, and what to delete.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

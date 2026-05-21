@@ -654,11 +654,11 @@ H(P) + KL =     1.2796
 このページを終えたら、この evidence card を残します。
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+確率過程：事象、分布、サンプル、尤度、エントロピー、またはベイズ更新
+シミュレーションまたは式: 不確実性を可視化するために使ったコードまたは式
+出力：probability、sample statistic、interval、entropy、または更新された信念
+失敗確認：ベースレートの混同、p値の誤用、サンプルバイアス、または確率と確実性の混同
+期待される成果: 数値結果と平易な言葉での解釈
 ```
 
 ## まとめ
@@ -777,7 +777,7 @@ q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 - 3 つのエントロピーは `2.0000`、約 `0.2419`、約 `1.8464` bits です。4 つの結果が一様な分布が最も不確実です。どの結果も優先されないからです。
 - 3 クラスのクロスエントロピー例では、loss は約 `0.3567` と `0.1054` nats です。正解クラスにより高い確率を与えると loss は下がります。

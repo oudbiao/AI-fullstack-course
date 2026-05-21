@@ -528,7 +528,7 @@ For f(x, y) = x² + 2y², start from (4, 3) and run gradient descent, then draw 
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - With learning rates `0.001`, `0.01`, `0.1`, and `0.5`, expect very slow improvement at `0.001`, steadier improvement around `0.01` or `0.1`, and possible oscillation or divergence at `0.5` depending on scaling.
 - For the quadratic fit, the learned parameters should move close to the data-generating values `a≈0.5`, `b≈-2`, and `c≈1`, with noise preventing perfect equality.

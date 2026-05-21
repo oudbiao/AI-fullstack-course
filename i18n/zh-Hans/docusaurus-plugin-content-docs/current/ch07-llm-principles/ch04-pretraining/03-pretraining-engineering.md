@@ -428,11 +428,11 @@ step=3 tokens/s=10503
 学完这一页，至少保留这张证据卡：
 
 ```text
-shards: data split and resume point
-throughput: tokens/sec or batch progress estimate
-checkpoint: what is saved and when resume happens
-failure_mode: crash, duplicated shard, slow input, or metric drift
-ops_note: pretraining is a data/compute system, not only model code
+分片：数据切分和恢复点
+吞吐量：tokens/sec 或批处理进度估计
+检查点：保存了什么，以及何时恢复
+失败模式：崩溃、分片重复、输入过慢，或指标漂移
+运维说明：预训练是数据/计算系统，而不只是模型代码
 ```
 
 ## 小结
@@ -462,7 +462,7 @@ ops_note: pretraining is a data/compute system, not only model code
 4. 用自己的话解释：为什么预训练工程最终会变成“做系统”而不只是“写模型”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 改变 `batch_size` 会改变每一步消耗的样本数，因此保存的恢复状态应该指向不同的下一个样本或 shard offset。关键观察点是恢复后是否从正确位置继续，没有跳样本或重复样本。
 2. 模型参数只说明模型学到了什么，却不说明哪些数据已经被读过。崩溃恢复时，训练可能悄悄重复样本、跳过样本，或改变训练分布。

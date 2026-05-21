@@ -262,9 +262,9 @@ inspect: elective_workshop_run/README.md
 学完这一页，至少保留这张证据卡：
 
 ```text
-elective_goal: why this optional module matters for your target role or project
-artifact: runnable code, benchmark, product note, UI state, or safety test
-metric_or_review: what proves the elective skill improved the system
-failure_check: when this elective is unnecessary or too early for the current learner
-Expected_output: a small portfolio artifact connected back to the main route
+选修目标：为什么这个可选模块对你的目标岗位或项目重要
+工件：可运行代码、基准测试、产品说明、UI 状态或安全测试
+指标或审查：什么能证明选修技能提升了系统
+失败检查：当这门选修课对当前学习者来说不必要或太早时
+期望产出：一个与主路线关联的小型作品集成果
 ```

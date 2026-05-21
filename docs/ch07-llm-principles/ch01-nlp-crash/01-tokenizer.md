@@ -281,7 +281,7 @@ debug_action: inspect tokenization before blaming the model
 5. For a RAG prompt, decide how many tokens you reserve for system instructions, retrieved evidence, user question, and answer space.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Removing `transform` should make `Transformers` harder to represent. Depending on the toy rules, it may fall back to `[UNK]` or a less useful split, which shows why vocabulary coverage matters.
 2. With `max_length=5`, later tokens are truncated first. In a real prompt, this can remove constraints, retrieved evidence, or the user question tail.

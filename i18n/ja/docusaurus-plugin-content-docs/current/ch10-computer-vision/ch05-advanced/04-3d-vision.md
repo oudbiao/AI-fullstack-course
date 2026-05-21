@@ -241,11 +241,11 @@ print(points)
 このページを終えたら、この evidence card を残します。
 
 ```text
-scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
-input_sample: source image/frame/document and the expected output type
-result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
-failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
-Expected_output: scenario-specific artifact with metric or human-review note
+シナリオ境界: face、video、OCR、3D、medical、または別の vision シナリオ
+入力サンプル：ソース画像／フレーム／文書と期待される出力タイプ
+結果成果物：抽出テキスト、追跡イベント、深度の手がかり、診断フラグ、またはレビュー注記
+失敗確認: プライバシー、照明、時間的ドリフト、レイアウト、キャリブレーション、またはドメインリスク
+期待される成果: 指標または人手レビューのメモを含むシナリオ固有のアーティファクト
 ```
 
 ## この節で持つべき正しい学習期待
@@ -289,7 +289,7 @@ Expected_output: scenario-specific artifact with metric or human-review note
 4. どんな応用が、2D検出だけでは足りず、3Dビジョンに強く依存するでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. stereo vision の直感では、depth は disparity とおおよそ反比例します。disparity が大きいほど近く、小さいほど遠く、ほぼ 0 では不安定です。
 2. 3D vision が幾何に強く依存するのは、appearance だけでなく、camera model、depth、coordinate、scale、calibration、pose を考える必要があるからです。

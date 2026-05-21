@@ -231,11 +231,11 @@ compare relevance -> normalize weights -> mix value vectors
 学完这一页，至少保留这张证据卡：
 
 ```text
-next_token: one probability or sampling example
-context_budget: prompt + retrieved text + output all compete for space
-temperature_effect: deterministic vs more diverse output compared
-attention_note: relevance-weighted mixing is not factual proof
-failure_probe: fluent answer can still be wrong
+下一个 token：一个概率或采样示例
+上下文预算：提示词 + 检索文本 + 输出都在争夺空间
+temperature 影响：与更具多样性的输出相比的确定性
+注意力说明：按相关性加权混合并不等于事实证明
+失败探测：流畅的回答也可能是错的
 ```
 
 ## 练习
@@ -247,7 +247,7 @@ failure_probe: fluent answer can still be wrong
 5. 解释为什么模型有能力，但仍可能需要 RAG 或 alignment。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. 降低胜出 logit 会缩小分数差距，因此 softmax 置信度会下降。胜出 token 可能不变，但确定性会变弱。
 2. `temperature=0.1` 会让输出更确定、分布更尖；`temperature=5.0` 会把分布拉平，让低排名 token 更容易被采样。

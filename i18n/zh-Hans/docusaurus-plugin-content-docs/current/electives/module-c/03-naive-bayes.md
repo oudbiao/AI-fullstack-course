@@ -102,11 +102,11 @@ predictions: ['refund', 'invoice']
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
-dataset_view: feature scale, class balance, decision boundary, and train/test split
-metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
-failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
-Expected_output: classical-ML baseline result with one limitation note
+模型家族：SVM、KNN、朴素贝叶斯、LDA 或其他传统基线
+数据视图：特征缩放、类别平衡、决策边界和训练/测试划分
+指标：准确率/F1、混淆矩阵、边距、邻近行为或投影质量
+失败检查：缩放、高维度、假设薄弱、泄漏或基线拟合差
+期望产出：经典机器学习基线结果，以及一条局限性说明
 ```
 
 ## 常见错误
@@ -120,7 +120,7 @@ Expected_output: classical-ML baseline result with one limitation note
 添加一个 `certificate` 类别和两个样本。再测试一个证书问题是否能被分到新标签。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 合理更新是加入两个 `certificate` 标签样本，文本里可以包含 `certificate`、`proof`、`completion` 等词，然后预测一个新的证书相关问题。如果模型返回 `certificate`，说明新类别至少已经能被模型识别。
 

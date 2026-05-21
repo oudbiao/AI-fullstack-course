@@ -174,7 +174,7 @@ The first mistake is looking only at accuracy and not class-level metrics. The s
 4. Organize 10 error samples and write one possible reason for each.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. For loss curves, train loss falling while validation loss rises usually means overfitting. Both staying high suggests underfitting, and violent oscillation often points to learning rate or data issues.
 2. Weak augmentation may leave overfitting; strong augmentation may make training too hard or change labels. Compare validation metrics and inspect augmented images before deciding.

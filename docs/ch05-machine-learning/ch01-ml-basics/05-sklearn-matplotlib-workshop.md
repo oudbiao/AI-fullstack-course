@@ -460,7 +460,7 @@ Repeat the whole workflow with `load_iris()`:
 8. Save and reload the model with `joblib`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. `load_iris()` should give 150 rows, 4 numeric features, and 3 class names. If `X.shape[0]` and `y.shape[0]` differ, the feature/label split is wrong.
 2. The scatter plot should show that some feature pairs separate the classes better than others. Treat the plot as a structure check, not as proof that the model is good.

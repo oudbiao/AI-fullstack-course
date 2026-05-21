@@ -569,7 +569,7 @@ mindmap
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the weekday sales Series, use the weekday names as the index, then compute total, mean, max day with `idxmax`, and filtered high-sales days with a boolean condition.
 - For the student DataFrame, add `Total` and `Average`, then create a grade column with a function, `map`, or `pd.cut` depending on the rule. `describe()` is useful evidence, but it is not the full analysis.

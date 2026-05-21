@@ -341,7 +341,7 @@ With these basics, the next lesson on filtering, edge detection, and morphologic
 3. Try resizing the image to different resolutions and then save the results.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. If you use OpenCV drawing functions, remember that color tuples are usually BGR, not RGB. A correct new card should save successfully and show the intended color after you open it.
 2. For rectangles and circles, check that all coordinates stay inside the image. Drawing order matters: later shapes can cover earlier ones.

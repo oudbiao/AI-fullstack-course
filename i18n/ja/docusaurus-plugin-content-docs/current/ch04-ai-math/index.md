@@ -113,11 +113,11 @@ Python vs unrelated: 0.071
 このページを終えたら、この evidence card を残します。
 
 ```text
-concept_bridge: which math idea supports model training or AI applications
-calculation: small hand/NumPy example that can be checked
-output: number, curve, vector, matrix, probability, or gradient trace
-failure_check: memorizing formula without knowing the model behavior it explains
-Expected_output: math note that explains one real AI operation
+概念ブリッジ: 学習や AI アプリケーションを支える数学の考え方はどれか
+計算：手計算または NumPy で確認できる小さな例
+出力：number、curve、vector、matrix、probability、またはgradient trace
+失敗確認: モデルの振る舞いを理解せずに数式だけを暗記している
+期待される成果：1つの実際の AI 操作を説明する数学メモ
 ```
 
 ## よくある失敗
@@ -144,7 +144,7 @@ Expected_output: math note that explains one real AI operation
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 - 通過チェックでは、公式、コード、モデルの挙動をつなげます。「式を知っている」で止めず、小さな計算と、それが説明する AI タスクを示します。
 - ベクトルと行列では shape 確認と、類似度または変換結果を証拠にします。確率では繰り返しサンプルの推定や Bayes 更新、微積分では勾配と 1 回の更新ステップを示します。

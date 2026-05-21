@@ -757,7 +757,7 @@ EDA の結論が出たら、次のステップは通常**予測モデリング**
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 - EDA プロジェクトに単一の数値答えはありません。よい提出物には、生データの場所、データ辞書、クリーニングログ、要約統計、質問に基づく少なくとも 3 つの可視化、結論、限界が含まれます。
 - 各グラフは名前つきの質問に答え、クリーン済みデータセットへ戻れる必要があります。質問に結びつかないグラフは削除するか、質問を書き直します。
@@ -781,9 +781,9 @@ EDA の結論が出たら、次のステップは通常**予測モデリング**
 このページを終えたら、この evidence card を残します。
 
 ```text
-analysis_goal: business/data question and success criterion
-data_evidence: source, cleaning notes, features, and chart/table outputs
-result: insight, metric, dashboard, or report section
-failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
-Expected_output: reproducible analysis folder with data, charts, and a short report
+分析目標: ビジネス/データの質問と成功基準
+データの証拠: 取得元、クレンジングメモ、特徴量、図表の出力
+結果: 洞察、metric、dashboard、または report のセクション
+失敗確認：汚れたデータ、偏ったサンプル、誤った集計、または再現不能な Notebook
+期待される成果: データ、図表、短いレポートを含む再現可能な分析フォルダ
 ```

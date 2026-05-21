@@ -343,7 +343,7 @@ class TaskManager:
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add a `priority` field such as `high`, `medium`, or `low`, then sort tasks by priority before display. If two tasks share the same priority, keep the earlier `created_at` first.
 2. Add a `search(keyword)` helper that checks title, status text, and priority with case-insensitive matching.

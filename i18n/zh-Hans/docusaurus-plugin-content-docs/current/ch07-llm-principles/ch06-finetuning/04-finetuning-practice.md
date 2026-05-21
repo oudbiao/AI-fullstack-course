@@ -554,11 +554,11 @@ best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataset_sample: raw record and formatted training example
-split: train/validation/test or holdout rule
-baseline: prompt-only output before training
-monitor: loss, validation score, and failure examples
-release_check: quality, safety, rollback, and README notes
+数据集样本：原始记录和格式化训练示例
+拆分：训练/验证/测试或留出规则
+基线：训练前的仅提示输出
+监控：损失、验证分数和失败示例
+发布检查：质量、安全、回滚和 README 说明
 ```
 
 ## 小结
@@ -581,7 +581,7 @@ release_check: quality, safety, rollback, and README notes
 4. 如果验证集 `val_loss` 更低，但 JSON 格式正确率更差，你会选哪个 checkpoint？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 好的任务描述要写清输入字段、期望输出形状、风格或语气、禁止行为和通过/失败约束。像“回答更好”这种目标太含糊，不足以支撑可靠微调。
 2. 好的 `messages` 数据集会区分 `system`、`user`、`assistant` 角色，移除重复或互相矛盾的样本，并把敏感或低质量内容排除在训练外。

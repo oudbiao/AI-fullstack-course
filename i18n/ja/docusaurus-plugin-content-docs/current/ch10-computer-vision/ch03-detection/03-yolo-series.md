@@ -348,11 +348,11 @@ YOLO プロジェクトの結果が思わしくないとき、安定した確認
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: detection sample with ground-truth or expected objects
-prediction: boxes, labels, confidence scores, IoU, and threshold settings
-metric: precision/recall, mAP, false positives, and false negatives
-failure_check: small object, overlap, NMS, poor labels, or confidence threshold
-Expected_output: annotated image plus detection metrics or error buckets
+入力画像：正解または期待される対象を含む検出サンプル
+予測：バウンディングボックス、ラベル、信頼度スコア、IoU、しきい値設定
+指標：precision/recall、mAP、false positives、false negatives
+失敗確認: 小さな物体、重なり、NMS、ラベル品質の低さ、または信頼度閾値
+期待される成果：注釈付き画像と、検出メトリクスまたはエラーバケット
 ```
 
 ## まとめ
@@ -377,7 +377,7 @@ Expected_output: annotated image plus detection metrics or error buckets
 4. 考えてみましょう：どんなときに YOLO を優先して選ばないかもしれませんか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. NMS では、`iou_threshold` を高くすると通常は抑制が弱くなり、残る重複 box が増えることがあります。低くすると、より強く抑制されます。
 2. 一段階検出は、box と class を 1 回の forward pass で直接予測するため、別の proposal 段階を持つ方式よりリアルタイム化しやすいです。

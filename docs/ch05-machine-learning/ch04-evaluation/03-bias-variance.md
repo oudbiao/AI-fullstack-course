@@ -179,7 +179,7 @@ For high variance:
 5. Inspect mistakes for the best tree. Are errors concentrated in one class?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `min_samples_leaf=5` usually narrows the train/test gap because the tree cannot memorize tiny leaves as easily. If both scores fall, the model may now be too simple.
 2. Test accuracy often peaks at a middle depth. Very shallow trees underfit; very deep trees overfit even when training accuracy keeps rising.

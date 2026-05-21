@@ -369,11 +369,11 @@ app.layout = html.Div([
 このページを終えたら、この evidence card を残します。
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+質問：このグラフが答える比較、分布、傾向、または関係
+グラフ選択：折れ線、棒、散布図、ヒストグラム、箱ひげ図、ヒートマップ、またはインタラクティブダッシュボード
+成果物: 保存した chart 画像/html と、そのデータスライス
+失敗確認: 誤解を招くスケール、情報過多のグラフ、誤った集計、またはラベル不足
+期待される成果：1文で示唆を説明するチャートのアーティファクト
 ```
 
 ## まとめ
@@ -430,7 +430,7 @@ Plotly のいちばんの強みは、**インタラクション**です。
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - Gapminder 風の散布図では、x、y、size、color、hover text を意図して割り当てます。hover 項目は、全列を見せるためではなく質問に答えるために選びます。
 - 国や商品のトレンド線では、時間でソートし、x 軸が日付または順序つき年フィールドであることを確認します。未ソートの時系列は誤解を招くジグザグ線になります。

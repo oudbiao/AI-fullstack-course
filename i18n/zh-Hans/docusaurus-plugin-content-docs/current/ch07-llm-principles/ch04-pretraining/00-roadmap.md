@@ -57,11 +57,11 @@ from -> text
 学完这一页，至少保留这张证据卡：
 
 ```text
-triangle: data, objective, and engineering all matter
-sample_pairs: next-token training pairs from one sentence
-data_risk: contamination, duplication, or low-quality mixture
-objective_note: objective shapes behavior and architecture fit
-engineering_note: sharding, resume, throughput, and monitoring
+三角关系：数据、目标和工程都很重要
+样本对：来自同一句话的下一个 token 训练对
+数据风险：污染、重复或低质量混合
+目标说明：目标决定行为和架构匹配
+工程说明：分片、断点续训、吞吐量和监控
 ```
 
 ## 通过标准
@@ -69,7 +69,7 @@ engineering_note: sharding, resume, throughput, and monitoring
 能解释数据、目标和工程分别如何影响最终模型，并知道数据污染为什么会让评估误导人，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

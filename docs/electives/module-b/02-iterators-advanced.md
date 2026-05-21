@@ -147,7 +147,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 Modify `batch` so it also prints `batch_id`. Then change the input events and confirm the pipeline still works without changing the later steps.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 One acceptable answer is to enumerate batches at the output edge:
 

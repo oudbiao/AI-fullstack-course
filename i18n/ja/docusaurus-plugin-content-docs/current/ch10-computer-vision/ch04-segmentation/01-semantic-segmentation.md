@@ -327,11 +327,11 @@ print(class_counts(mask))
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+入力画像：元画像とターゲットマスクまたはクラスマップ
+予測：予測マスク、重ね合わせ可視化、境界の例
+指標：IoU、Dice、クラス別スコア、境界の失敗メモ
+失敗確認：アノテーション品質、境界が薄い、領域が小さい、またはクラス混同
+期待される成果：マスク重ね合わせとセグメンテーションメトリクス要約
 ```
 
 ## まとめ
@@ -358,7 +358,7 @@ Expected_output: mask overlay plus segmentation metric summary
 4. クラス不均衡が非常に強いとき、最も心配すべき問題は何でしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `pred_mask` を変えると intersection と union が変わります。小さな境界ミスでも、特に小領域では IoU が大きく下がることがあります。
 2. pixel accuracy が高くても安心できません。背景画素が大半を占める場合、モデルは rare class や小領域を失敗していても高精度に見えることがあります。

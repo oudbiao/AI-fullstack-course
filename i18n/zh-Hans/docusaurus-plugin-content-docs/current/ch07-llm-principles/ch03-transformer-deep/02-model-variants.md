@@ -387,11 +387,11 @@ MoE 的核心变化在于：
 学完这一页，至少保留这张证据卡：
 
 ```text
-encoder_only: bidirectional understanding tasks
-decoder_only: causal generation and chat models
-encoder_decoder: read one sequence and generate another
-choice_rule: architecture follows task and serving pattern
-misread_to_avoid: variant names are not simple quality rankings
+仅编码器：双向理解任务
+仅解码器：因果生成和聊天模型
+编码器-解码器：读取一个序列并生成另一个序列
+选择规则：架构要符合任务和服务模式
+避免误读：变体名称不是简单的质量排名
 ```
 
 ## 小结
@@ -414,7 +414,7 @@ misread_to_avoid: variant names are not simple quality rankings
 4. 假设你要继续做超大模型扩展，但每步计算预算有限，为什么 MoE 会变得有吸引力？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. Causal mask 让每个 token 只能根据过去预测，不能偷看未来。正是这个约束把 Transformer block 变成了自回归生成器。
 2. 翻译和摘要天然有“输入序列”和“输出序列”。Encoder 可以完整阅读源文本，Decoder 再一边看源文本表示，一边逐步生成目标文本。

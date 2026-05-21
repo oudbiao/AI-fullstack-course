@@ -61,11 +61,11 @@ attention_shape: (1, 4, 4)
 Attention bridge note を 1 つ作ります。
 
 ```text
-tokens: positions in a sequence
-attention_shape: [batch, query_position, key_position]
-qkv_meaning: query asks, key matches, value carries content
-mask_reason: generation must not look at future tokens
-llm_bridge: decoder blocks turn context into next-token scores
+トークン：シーケンス内の位置
+attention の形状: [batch, query_position, key_position]
+QKVの意味：query が問い、key が一致を見つけ、value が内容を運ぶ
+マスクの理由：生成は未来のトークンを見てはいけない
+LLM への橋渡し：デコーダーブロックはコンテキストを次トークンのスコアに変換する
 ```
 
 ## 合格ライン
@@ -73,7 +73,7 @@ llm_bridge: decoder blocks turn context into next-token scores
 attention 重みの形を読み、attention がなぜグローバル文脈を持てるかを説明し、mask をテキスト生成と結びつけられれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

@@ -419,7 +419,7 @@ Complete the following checks to confirm you understand Git basics:
 - [ ] Stay calm when merge conflicts happen, and know how to solve them
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. You pass this check when you can create a repo, make a commit, inspect a diff, write `.gitignore`, push or clone, and create/merge a branch.
 2. A clean Git trace includes `git status --short` before and after risky operations.

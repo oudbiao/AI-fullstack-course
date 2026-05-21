@@ -301,11 +301,11 @@ forward -> loss -> zero_grad -> backward -> step
 保留一条 autograd trace：
 
 ```text
-loss_requires_grad: True
-parameter_requires_grad: True
-grad_after_backward: not None
-update_rule: backward computes gradients, optimizer or manual code updates values
-safe_logging: store loss.item() or tensor.detach()
+损失是否需要梯度：True
+参数_requires_grad：True
+反向传播后梯度：不为 None
+更新规则：反向传播计算梯度，优化器或手动代码更新数值
+安全日志：记录 loss.item() 或 tensor.detach()
 ```
 
 这可以避免最常见的误解：`backward()` 不是更新参数。它只负责填充梯度。
@@ -318,7 +318,7 @@ safe_logging: store loss.item() or tensor.detach()
 4. 连续 200 个 epoch 把 `loss` 本身存进列表，再改成存 `loss.item()`。为什么第二种更安全？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `w` 应该接近 `3`，`b` 应该接近 `-2`。如果数据有噪声或训练提前停止，有小偏差是正常的。
 2. PyTorch 默认会累积梯度。不清零时，每次更新都会混入前面几轮的梯度，相当于步子越来越不受控，训练可能变得不稳定。

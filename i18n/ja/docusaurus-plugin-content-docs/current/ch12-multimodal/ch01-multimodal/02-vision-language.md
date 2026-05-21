@@ -422,11 +422,11 @@ VLM は、次の2つの難しさを同時に越える必要があるからです
 このページを終えたら、この evidence card を残します。
 
 ```text
-source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
-structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
-fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
-failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
-Expected_output: structured record that can be cited or reviewed later
+ソース資産: バージョン/出所注記付きの画像、スクリーンショット、PDF、音声、動画、またはテキスト入力
+構造化レコード：表示テキスト、objects、regions、timestamp、transcript、または不確実性
+融合結果：回答、検索記録、ルート決定、またはマルチモーダル特徴の比較
+失敗確認: 出典不足、OCR エラー、位置合わせミス、不確実性、または裏付けのない主張
+期待される成果: 後で引用またはレビューできる構造化レコード
 ```
 
 ## まとめ
@@ -446,7 +446,7 @@ Expected_output: structured record that can be cited or reviewed later
 3. 考えてみましょう。ユーザーがぼやけたスクリーンショットをアップロードした場合、VLM はどの段階で間違えやすいでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. 期待される結果は、デザートらしい共有次元を高めたり無関係な次元を下げたりすると、`cake_photo` が `a sweet dessert` に対して上位になることです。無関係な写真まで上位になるなら、その玩具ベクトル空間は概念をうまく分けられていません。
 2. `ask_vlm()` には、場面タイプを判定する分岐を追加できます。自然物、光、カメラらしい構図があれば `real-life photo`、ウィンドウ、メニュー、アイコン、密な文字配置があれば `software interface` を返す、という形です。

@@ -259,11 +259,11 @@ flowchart LR
 继续学习前，写一条五行桥接笔记：
 
 ```text
-old_skill: I can train and evaluate sklearn models.
-same_skeleton: data -> model -> loss/metric -> improvement -> error analysis.
-new_capability: neural networks learn representations, not only final prediction rules.
-new_control: PyTorch exposes forward, backward, optimizer, device, and checkpoint logic.
-next_action: run one tiny neural network and explain why loss changes.
+已有技能：我可以训练和评估 sklearn 模型。
+相同骨架：数据 -> 模型 -> 损失/指标 -> 改进 -> 错误分析。
+新能力：神经网络学习表征，而不只是最终预测规则。
+新控制：PyTorch 提供 forward、backward、optimizer、device 和 checkpoint 逻辑。
+下一步动作：运行一个很小的神经网络，并解释 loss 为什么变化。
 ```
 
 如果这条笔记说得清楚，第 6 章就会像原有建模流程的扩展，而不是重新开始。

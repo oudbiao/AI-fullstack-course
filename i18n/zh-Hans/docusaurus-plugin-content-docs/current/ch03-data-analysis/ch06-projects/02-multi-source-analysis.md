@@ -842,7 +842,7 @@ fig.show()
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 - 完整项目要证明每个数据源都已加载，合并键已检查，每次 join 前后的行数已比较，并查看了未匹配记录。
 - 最终分析至少要有三个带业务或产品含义的洞察，而不只是三张图。每个洞察都需要对应的表或图作为支撑。
@@ -866,9 +866,9 @@ fig.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-analysis_goal: business/data question and success criterion
-data_evidence: source, cleaning notes, features, and chart/table outputs
-result: insight, metric, dashboard, or report section
-failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
-Expected_output: reproducible analysis folder with data, charts, and a short report
+分析目标：业务/数据问题和成功标准
+数据证据：来源、清洗说明、特征和图表/表格输出
+结果：洞察、指标、仪表板，或报告部分
+失败检查：脏数据、偏置样本、错误聚合或 Notebook 无法复现
+期望产出：可复现的分析文件夹，包含数据、图表和简短报告
 ```

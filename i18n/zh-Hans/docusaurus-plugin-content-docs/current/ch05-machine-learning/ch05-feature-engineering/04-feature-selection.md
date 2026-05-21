@@ -291,11 +291,11 @@ print(results)
 学完这一页，至少保留这张证据卡：
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特征状态：原始列、类型、缺失值、尺度，以及与目标的关系
+特征变换：预处理、构造、选择或流水线步骤
+输出：转换后的特征表、pipeline 对象、分数变化，或选出的特征
+失败检查：泄漏、训练/测试转换不一致、高基数陷阱或无意义特征
+期望产出：带有前后对比和指标影响的特征流水线证据
 ```
 
 ## 常见错误
@@ -311,7 +311,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 5. 解释为什么特征选择必须放在交叉验证流程内部。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. `SelectKBest` 只有在验证集上接近或优于 baseline 时才值得保留。特征更少但泛化更差，并不等于更好。
 2. RFE 要同时比较分数和特征稳定性。如果 8、10、15 个特征下被选中的名称大幅变化，说明排序可能不稳。

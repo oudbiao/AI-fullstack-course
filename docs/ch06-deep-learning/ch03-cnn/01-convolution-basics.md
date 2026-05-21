@@ -345,7 +345,7 @@ If this record is clear, convolution becomes a shape-and-pattern operation rathe
 5. Convert an image-like tensor from `[N, H, W, C]` to `[N, C, H, W]` with `permute`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing the kernel changes which local pattern is emphasized. Edge-like kernels, averaging kernels, and sharpening kernels produce visibly different output maps.
 2. Manual computation should multiply the selected `2 x 2` patch element by element with the kernel and sum the results. If it differs, recheck row and column position.

@@ -64,7 +64,7 @@ Expected result: your Chapter 7 folder contains prompt versions, fixed eval case
 - Can you explain when repeated behavior adaptation might justify fine-tuning?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. Treat each term as part of one flow: token and embedding are the representation layer, attention routes context, the context window limits what can be seen at once, pretraining builds the base model, Prompt steers the run, fine-tuning changes behavior with data, and alignment keeps outputs useful and safe.
 2. Keep the same cases, change only one prompt variable, and save both the outputs and the score so the comparison is reproducible instead of anecdotal.

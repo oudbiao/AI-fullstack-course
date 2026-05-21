@@ -237,7 +237,7 @@ next_probe: change text length, language, or wording and compare
 5. Add one unknown word and observe how `[UNK]` changes the vector.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `invoice` must be added to both `vocab` and `embedding_table`. If only one side is updated, encoding or vector lookup will break.
 2. After adding `refund invoice`, the sentence should produce known token IDs instead of relying on `[UNK]`.

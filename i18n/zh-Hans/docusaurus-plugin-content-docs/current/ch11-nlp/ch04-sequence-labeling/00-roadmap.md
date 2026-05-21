@@ -54,7 +54,7 @@ notes O
 如果你能检查 token/tag 对齐，并解释一个边界错误或非法标签转移，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -68,9 +68,9 @@ notes O
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: entity types, BIO tags, or sequence-label rules
-prediction: token-level labels and extracted spans
-metric: entity precision/recall/F1 and boundary cases
-failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
-Expected_output: gold-vs-predicted span table with at least one miss
+模式：实体类型、BIO 标签，或序列标注规则
+预测：词级标签和提取的片段
+指标：实体精确率/召回率/F1 和边界情况
+失败检查：跨度边界、嵌套实体、未知词或标注不一致
+期望产出：金标与预测 span 对照表，至少包含一个漏判
 ```

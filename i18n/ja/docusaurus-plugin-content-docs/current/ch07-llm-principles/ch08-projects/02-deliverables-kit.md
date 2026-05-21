@@ -153,11 +153,11 @@ project/
 このページを終えたら、この証拠カードを残します。
 
 ```text
-folder: prompts, evals, outputs, data notes, README
-run_command: how someone reproduces the result
-metric_table: baseline and improved result
-failure_notes: known weak cases and next actions
-review_ready: another person can inspect evidence without asking you
+フォルダー：プロンプト、評価、出力、データメモ、README
+実行コマンド: 誰かが結果を再現する方法
+指標表：ベースラインと改善後の結果
+失敗ノート: 既知の弱いケースと次の行動
+レビュー準備：別の人が質問なしで証拠を確認できる
 ```
 
 ## まとめ

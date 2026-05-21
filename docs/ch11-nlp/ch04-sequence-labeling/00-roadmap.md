@@ -66,7 +66,7 @@ Expected_output: gold-vs-predicted span table with at least one miss
 You pass this chapter when you can inspect token/tag alignment and explain one boundary error or invalid tag transition.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer starts from the text unit and output type: token, span, sentence label, sequence, embedding, or generated text.
 2. The evidence should include a small dataset example, model or pipeline choice, metric, and at least one inspected error case.

@@ -548,11 +548,11 @@ RLHF 最容易让人误会成：
 学完这一页，至少保留这张证据卡：
 
 ```text
-stages: SFT -> reward model -> policy optimization
-preference_pair: chosen vs rejected answer
-reward_signal: what the reward model learns to score
-ppo_reason: optimize behavior against learned preference signal
-risk: reward hacking or preference data bias
+阶段：SFT -> 奖励模型 -> 策略优化
+偏好对：被选答案与被拒答案
+奖励信号：奖励模型要学习评分的内容
+PPO 原因：针对学习到的偏好信号优化行为
+风险：奖励黑客或偏好数据偏差
 ```
 
 ## 小结
@@ -575,7 +575,7 @@ risk: reward hacking or preference data bias
 4. 想一想：你的项目目前更像“需要 SFT”还是“已经进入需要偏好优化”的阶段？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 人通常更容易在两个回答里选出更好的一个，而不是给出校准过的绝对分数。成对偏好也能减少不同标注员评分尺度不一致的问题。
 2. Learned weights 应该朝着能区分 `chosen` 和 `rejected` 的特征移动。如果新增偏好和旧样本矛盾，权重变化可能不明显，也会暴露标注规则不清。

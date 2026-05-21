@@ -56,12 +56,12 @@ next_step: inspect confused classes and add augmentation
 別の学習者が再実行し、レビューできる形で project をまとめます。
 
 ```text
-run_command: exact command that reproduces the result
-dataset_note: where data came from and how it was split
-baseline: first simple score or behavior
-current_result: current metric plus success samples
-failure_cases: at least three wrong or weak examples
-next_step: one change justified by the failures
+実行コマンド: 結果を再現する正確なコマンド
+データセットメモ: データの出所と分割方法
+ベースライン: 最初の単純なスコアまたは挙動
+現在結果: 現在の指標と成功サンプル
+失敗ケース：少なくとも3つの誤答または弱い例
+次の行動：失敗に基づいて正当化できる変更を1つ
 ```
 
 これでプロジェクトは一度きりのデモではなくなります。よい第6章プロジェクトは、再現でき、点検でき、改善できます。
@@ -96,7 +96,7 @@ debug_next: what would you change first, and why?
 別の学習者がプロジェクトを実行し、学習証拠を確認し、成功例と失敗例を見て、次に何を改善するか理解できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

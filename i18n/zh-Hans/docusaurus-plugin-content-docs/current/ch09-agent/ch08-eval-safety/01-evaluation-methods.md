@@ -177,11 +177,11 @@ tool_failure_rate: 50%
 学完这一页，至少保留这张证据卡：
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+评估用例：固定任务和期望的安全行为
+评分卡：任务成功、工具正确性、trace 质量和安全性
+护栏：策略、权限、验证或人工确认
+失败检查：工具使用不安全、提示注入、隐藏状态或未被观测的动作
+下一步动作：添加案例、护栏、日志、回滚或拒绝路径
 ```
 
 ## 练习
@@ -196,7 +196,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 学完本节后，你应该能设计一个最小 Agent 评估集，能区分结果层、过程层、工具层和安全层指标，并能把评估发现转化为 Prompt、工具、流程或权限设计的改进。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 有用的 10 个评估任务应覆盖正常规划、目标含糊、缺少前置知识、日程不可行、需要使用工具、包含不安全请求，以及至少一个 Agent 应主动追问澄清的问题。
 2. 每个任务的 `allowed_tools` 要写清 Agent 可用什么，`forbidden_actions` 要写清绝不能做什么，`success_criteria` 要足够可观察，让另一个人也能稳定评分。

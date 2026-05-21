@@ -193,11 +193,11 @@ summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 学完这一页，至少保留这张证据卡：
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+评估设置：划分、交叉验证、指标、基线和对比目标
+结果：分数表、曲线、混淆矩阵、验证结果，或搜索结果
+决策：是否更改数据、特征、模型、阈值或超参数
+失败检查：泄漏、验证不稳定、指标错误或在测试集上调参
+期望产出：支持下一步建模决策的评估记录
 ```
 
 ## 常见排查清单
@@ -219,7 +219,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 为“每个用户有多行事件”的数据设计验证切分。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 折数少时，每次训练数据更少，估计可能更粗；折数多时训练数据更多但成本更高。要同时看平均分和标准差。
 2. 去掉 stratify 后，训练/测试里的类别比例可能漂移，尤其在类别不均衡时更明显，分数通常更不稳定。

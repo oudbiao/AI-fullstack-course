@@ -162,10 +162,10 @@ both train_loss=0.159 val_acc=0.949
 正則化では、最低の training loss だけを保存しないでください。トレードオフを残します。
 
 ```text
-plain: lower train_loss, lower validation accuracy
-regularized: slightly higher train_loss, better validation accuracy
-decision: choose the model with better validation behavior
-next_probe: change dropout or weight_decay one at a time
+単純：train_loss を下げる、validation accuracy を下げる
+正則化済み：train_loss はやや高いが、validation accuracy はより良い
+判断: validation の挙動が良いモデルを選ぶ
+次の確認：dropout か weight_decay を一度に1つずつ変更する
 ```
 
 ここで大切なのは、深層学習の最適化は「training loss を最小にすること」だけではなく、「将来の性能をより信頼できるものにすること」だと理解することです。
@@ -228,7 +228,7 @@ Early stopping は、validation が最も良い checkpoint を保持し、valida
 5. validation 時に `model.eval()` を外し、何が変わるか説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. dropout が小さいと効果は弱く、大きすぎると学習に必要な信号まで落ちます。`0.5` 前後は差を観察しやすい設定です。
 2. weight decay を大きくすると重みが抑えられますが、大きすぎると underfitting になります。

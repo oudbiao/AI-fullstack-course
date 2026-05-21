@@ -295,11 +295,11 @@ AutoGen 更强调：
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 小结
@@ -321,7 +321,7 @@ decision: choose framework only after the single-agent loop is clear
 4. 如果你的任务需要强状态机控制，你还会优先选这种对话式抽象吗？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 一个基本流程是：planner 定义任务和验收标准，coder 提出或修改实现，reviewer 检查正确性与风险，然后 planner 判断是否需要下一轮。
 2. AutoGen 风格系统容易“聊太多”，因为对话本身就是控制机制。如果没有停止条件、角色边界和审核标准，Agent 可能一直协商而不收敛。

@@ -560,7 +560,7 @@ Once you truly understand this difference, it will be much smoother when you lat
 4. Explain in your own words why the core of multi-turn conversation is state management, not history concatenation.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The certificate topic should define intent, required slots, a missing-slot question, tool/action, and terminal response.
 2. Weather slots might include city, date, unit, and whether the user asks for current weather or a forecast.

@@ -186,10 +186,10 @@ XOR 只有四行：
 保留这张极小结果卡：
 
 ```text
-single_neuron: z = x @ w + b, activation changes the signal
-xor_result: [0, 1, 1, 0] recovered by a tiny MLP
-core_reason: nonlinear hidden layers create intermediate features
-failure_probe: remove hidden activation and compare final_loss
+单神经元：z = x @ w + b，激活会改变信号
+异或结果：[0, 1, 1, 0] 由一个小型 MLP 恢复
+核心原因：非线性隐藏层创建中间特征
+失败探测：移除隐藏激活并比较最终损失
 ```
 
 重要证据不是这个玩具模型记住了四行数据，而是非线性会改变多层网络能表达的模式。
@@ -213,7 +213,7 @@ failure_probe: remove hidden activation and compare final_loss
 5. 再加一层隐藏层，对比 final loss。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 隐藏单元只有 `2` 个时，XOR 可能仍然能学会，但稳定性会下降，因为网络几乎没有空间构造中间特征。
 2. `ReLU` 可以工作，但结果会更依赖初始化和学习率。这个很小、较居中的 XOR 例子里，`Tanh` 往往更平滑。

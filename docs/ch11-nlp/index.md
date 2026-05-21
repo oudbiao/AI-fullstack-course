@@ -156,7 +156,7 @@ Before leaving this elective, you should be able to:
 For a printable checklist, use [11.0 Learning Checklist](./study-guide.md). For the guided project, start with [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md).
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer starts from the text unit and output type: token, span, sentence label, sequence, embedding, or generated text.
 2. The evidence should include a small dataset example, model or pipeline choice, metric, and at least one inspected error case.

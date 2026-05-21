@@ -296,11 +296,11 @@ cloud_api_model -> 6.8
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_choice: closed, open, hosted, or self-deployed option
-decision_factors: quality, latency, privacy, cost, ecosystem
-system_capability: model + data + product + eval + ops
-risk_note: vendor lock-in, compliance, or deployment constraint
-evidence: one model-selection table for a real use case
+模型选择：闭源、开源、托管或自部署方案
+决策因素：质量、延迟、隐私、成本、生态
+系统能力：模型 + 数据 + 产品 + 评估 + 运维
+风险说明：供应商锁定、合规，或部署约束
+证据：一个真实用例的模型选择表
 ```
 
 ## 小结
@@ -320,7 +320,7 @@ evidence: one model-selection table for a real use case
 3. 用自己的话解释：为什么很多时候真正的竞争优势不只是模型本身？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 创业团队可能更看重速度、成本、API 简洁性和迭代效率；金融企业应该更看重隐私、合规、可审计性、可靠性和供应商管控。
 2. 私有部署通常会提高开源权重模型、自托管、私有云和数据治理能力的优先级。闭源 API 仍可能有用，但前提是满足隔离和合规要求。

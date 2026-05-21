@@ -553,7 +553,7 @@ Try these changes one by one:
 5. Replace the centroid classifier with a small CNN or a pretrained classifier after you finish this baseline.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. When you add `star`, update the label list, sample generation, and any metric or report text that assumes three classes. Re-run the script and compare the new failures, not just the final accuracy.
 2. For `challenge_plan`, keep the same model and split, then increase blur and occlusion in a controlled way. The goal is to see which failure mode grows first.

@@ -154,7 +154,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 4. Choose one of your own tabular datasets and write a “feature exploration record.”
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Automatic type detection is only a first pass. Columns such as passenger class, ticket code, or cabin may be numeric-looking or text-looking but still need semantic judgment.
 2. `fare` is commonly right-skewed, and `age` often has missing values and uneven distribution. Skew suggests trying log transforms, bins, or robust scaling later.

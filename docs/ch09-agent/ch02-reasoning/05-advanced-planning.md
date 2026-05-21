@@ -367,7 +367,7 @@ the following topics will feel much more natural:
 4. Think of a complex task you are familiar with and try to draw it as a dependency graph.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. With 1 worker, tasks run mostly serially and the critical path is clearer but slower. With 3 workers, independent tasks finish sooner but coordination and review risk increases.
 2. Adding `review_report` after `draft_report` extends the dependency chain and may delay downstream tasks that need an approved report.

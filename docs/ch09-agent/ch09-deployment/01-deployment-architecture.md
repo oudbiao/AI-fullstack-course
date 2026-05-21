@@ -421,7 +421,7 @@ you will have a much smoother time later when dealing with runtime, recovery, co
 4. Think about it: which part is your current project missing most, the access layer, execution layer, or observability layer?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A two-tool workflow might retrieve policy first, then check eligibility or summarize the answer. State aggregation usually belongs in the execution/orchestration layer because it sees both tool results and the current task state.
 2. Put the queue between the access layer and execution layer, or inside the execution layer boundary. It protects the user-facing API from long-running work and gives you retry, status, and cancellation control.

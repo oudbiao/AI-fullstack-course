@@ -137,7 +137,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 Add a `yaml` loader and confirm `sorted(REGISTRY)` includes it. Then create an `IntegerRange(min_value, max_value)` descriptor for a `retry_count` field.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 The `yaml` loader should register itself through the same mechanism as the existing loaders, so `sorted(REGISTRY)` includes `yaml` without manually editing a separate mapping table.
 

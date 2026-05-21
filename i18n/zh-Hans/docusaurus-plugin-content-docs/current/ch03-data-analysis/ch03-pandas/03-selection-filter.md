@@ -380,7 +380,7 @@ print(top10[["订单ID", "客户", "金额"]])
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 每个条件先写成布尔 mask，再用 `&`、`|` 和括号组合。例如金额区间、类别是否属于某集合、是否未退货，都可以先拆成命名 mask。
 - 客户分组问题如果写明“未退货订单”，就先筛选再按 `Customer` 分组，计算均值、最大值或次数。
@@ -394,11 +394,11 @@ print(top10[["订单ID", "客户", "金额"]])
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+数据框状态：列、数据类型、行数、缺失值和样本行
+操作：读/写、select/filter、清洗、转换、groupby、merge，或时间序列步骤
+输出：结果表、保存的文件、聚合、连接结果，或时间索引视图
+失败检查：dtype 不匹配、缺失数据、重复键、链式赋值或时间频率错误
+期望产出：前后对比表格样本，以及转换原因
 ```
 
 ## 这节最该带走什么

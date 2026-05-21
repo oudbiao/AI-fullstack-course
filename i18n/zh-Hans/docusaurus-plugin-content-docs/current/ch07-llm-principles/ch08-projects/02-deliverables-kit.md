@@ -153,11 +153,11 @@ project/
 学完这一页，至少保留这张证据卡：
 
 ```text
-folder: prompts, evals, outputs, data notes, README
-run_command: how someone reproduces the result
-metric_table: baseline and improved result
-failure_notes: known weak cases and next actions
-review_ready: another person can inspect evidence without asking you
+文件夹：prompts、evals、outputs、数据说明、README
+运行命令：如何复现结果
+指标表：基线结果和改进结果
+失败备注：已知薄弱案例和下一步动作
+已准备审查：其他人无需再问你就能检查证据
 ```
 
 ## 总结

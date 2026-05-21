@@ -61,11 +61,11 @@ score=2.1
 このページを終えたら、この証拠カードを残します。
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+デプロイ先：ローカル推論、エッジデバイス、モデルサーバー、または最適化実験
+成果物: C++ スニペット、ベンチマーク、model artifact、serving 設定、または deployment メモ
+指標：レイテンシ、メモリ、スループット、モデルサイズ、accuracy 低下、または信頼性
+失敗確認：ABI/ビルドの問題、ハードウェア不一致、量子化損失、または配信ボトルネック
+期待される成果: 理論メモだけでなく、再現可能なデプロイまたは最適化の証拠
 ```
 
 ## この順番で学ぶ
@@ -85,7 +85,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 このモジュールは、C++ の例を 1 つコンパイルでき、デプロイ上のトレードオフを説明でき、遅延またはメモリの証拠を残し、その結果を[選択モジュール実践ワークショップ](../hands-on-elective-workshop.md)につなげられたら合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 合格する答えは、この場面でなぜ C++ が合うのかを説明します。たとえば、より安定したランタイム、より制御しやすいメモリ、そしてデプロイ目標に近い経路です。証拠は、コンパイル出力、遅延またはメモリの記録、それから後続ワークショップにつながる一文で十分です。
 

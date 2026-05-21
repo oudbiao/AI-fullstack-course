@@ -363,11 +363,11 @@ print(f"下半年总额: {second_half.sum()}")
 学完这一页，至少保留这张证据卡：
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+数组状态：操作前的形状、dtype、轴和样本值
+操作：索引、切片、广播、reshape、线性代数，或随机/统计函数
+输出：结果数组形状、值，或统计量
+失败检查：轴混淆、视图/副本陷阱、广播不匹配或形状错误
+期望产出：打印的形状和值，便于检查数组运算
 ```
 
 ## 小结
@@ -427,7 +427,7 @@ daily_temps = rng.uniform(low=-5, high=38, size=360)  # 取 360 天方便分割
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 同样 24 个值可以变成 `(4, 6)`、`(2, 3, 4)` 或 `(6, -1)`，前提是元素总数仍为 24。`-1` 只能用于一个维度，让 NumPy 自动推断。
 - 班级成绩数据中，`np.vstack` 纵向叠班级，`np.hstack` 横向加列，行数能对齐时 `np.split` 可以再拆回等大的数据块。

@@ -452,7 +452,7 @@ you will find it much easier to follow more complex Agent traces, tool strategie
 4. Think of a task that is better suited to a fixed workflow and not very suitable for ReAct.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `check_order_status` should add a new action choice and an observation that can change the next step.
 2. ReAct fits when each observation can change the plan: search result, tool error, missing field, permission result, or calculation output.

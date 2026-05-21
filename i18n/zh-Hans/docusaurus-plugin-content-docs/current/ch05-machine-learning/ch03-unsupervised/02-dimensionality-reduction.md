@@ -211,11 +211,11 @@ Pipeline([
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: clustering, dimensionality reduction, or anomaly detection goal
-data_view: scaled features, projection, clusters, or anomaly scores
-interpretation: what the groups, axes, or alerts mean in the scenario
-failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
-Expected_output: unsupervised result with interpretation and uncertainty note
+任务：聚类、降维或异常检测目标
+数据视图：缩放后的特征、投影、聚类或异常分数
+解释: 该场景中各组、坐标轴或告警的含义
+失败检查：任意簇数、缩放问题、噪声维度或误报
+期望产出：带解释和不确定性说明的无监督结果
 ```
 
 ## 常见排查清单
@@ -237,7 +237,7 @@ Expected_output: unsupervised result with interpretation and uncertainty note
 5. 用 2D PCA 输出画散点图，并按数字标签上色。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. accuracy 往往先快速提升，然后进入平台期。实际选择时，应优先选接近最佳分数的最小成分数。
 2. PCA 可能主要帮助速度和存储，即使 accuracy 差不多也有价值；如果 accuracy 明显下降，说明压缩丢掉了有用信号；如果略升，可能是去掉了一些噪声。

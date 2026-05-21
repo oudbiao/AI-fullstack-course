@@ -13,11 +13,11 @@ description: "Miniconda で Python のバージョンと仮想環境を管理し
 このページを終えたら、この evidence card を残します。
 
 ```text
-environment: Python/Node/editor/notebook version and selected interpreter/kernel
-verification: one command or notebook cell proving the setup works
-project_folder: where dependencies, scripts, and notebooks live
-failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
-Expected_output: setup screenshot or terminal output plus one fallback note
+環境：Python/Node/エディタ/Notebook のバージョンと選択したインタプリタ／カーネル
+検証記録：setup が動作することを示す 1 つの command または notebook cell
+プロジェクトフォルダ：依存関係、スクリプト、Notebook を置く場所
+失敗確認: 間違ったインタプリタ、パッケージ不足、古いカーネル、またはエディタのパス不一致
+期待される成果: セットアップのスクリーンショットまたはターミナル出力と1件のフォールバックメモ
 ```
 
 ## この節の位置づけ
@@ -489,7 +489,7 @@ conda env list
 最後に `✅ 環境の構築に成功しました！` と表示されれば、Python 環境の準備は完了です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. `conda env list` で `ai-course` が見え、`conda activate` 後は現在の環境として表示されるはずです。
 2. 確認コマンドは少なくとも NumPy と Pandas のバージョンを出し、環境成功メッセージが出る必要があります。

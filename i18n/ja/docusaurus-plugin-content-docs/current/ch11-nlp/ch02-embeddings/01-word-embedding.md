@@ -375,11 +375,11 @@ print(neighbors)
 このページを終えたら、この evidence card を残します。
 
 ```text
-representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
-comparison: nearest text, similarity score, or next-token/log-prob style output
-interpretation: what the representation captures and what it misses
-failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
-Expected_output: small comparison table with at least one surprising result
+表現: BoW、TF-IDF、静的 embedding、文脈的 embedding、または言語モデルのスコア
+比較：最も近いテキスト、類似度スコア、または次トークン/ログ確率形式の出力
+解釈：この表現が何を捉え、何を捉え損ねるか
+失敗確認: 多義性、ドメイン不一致、短文、トークン化、または意味のずれ
+期待される成果: 少なくとも1つの意外な結果を含む小さな比較表
 ```
 
 ## まとめ
@@ -413,7 +413,7 @@ Expected_output: small comparison table with at least one surprising result
 4. 考えてみましょう。1つの単語が複数の異なる文脈に頻繁に出る場合、固定された単語ベクトルだけではどんな問題が起きるでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `delivery` の vector は、無関係な語より shipping、order、logistics 系の語に近いのが自然です。重要なのは具体的な数値ではなく、近くに来る語の関係です。
 2. one-hot は ID として単語を区別できますが、異なる単語同士はほぼ同じ距離になり、類似性を表せません。

@@ -70,7 +70,7 @@ std::vector<float> logits = {3.4f, 0.3f, 2.1f};
 もう一度実行すると、`best_class` は `0` になるはずです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 変更後は `3.4`、`0.3`、`2.1` を比較するので、最大値はインデックス `0` にあります。そのため出力されるクラスは `0` になります。大事なのは「数値が大きい」だけでなく、この推論補助コードが logit ベクトルを走査し、最大値の位置を返していることです。
 
@@ -87,11 +87,11 @@ std::vector<float> logits = {3.4f, 0.3f, 2.1f};
 このページを終えたら、この証拠カードを残します。
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+デプロイ先：ローカル推論、エッジデバイス、モデルサーバー、または最適化実験
+成果物: C++ スニペット、ベンチマーク、model artifact、serving 設定、または deployment メモ
+指標：レイテンシ、メモリ、スループット、モデルサイズ、accuracy 低下、または信頼性
+失敗確認：ABI/ビルドの問題、ハードウェア不一致、量子化損失、または配信ボトルネック
+期待される成果: 理論メモだけでなく、再現可能なデプロイまたは最適化の証拠
 ```
 
 ## 合格チェック

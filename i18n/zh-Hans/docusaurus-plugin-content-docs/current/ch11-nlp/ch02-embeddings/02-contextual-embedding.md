@@ -336,11 +336,11 @@ for word, context_words, sense in sentences:
 学完这一页，至少保留这张证据卡：
 
 ```text
-representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
-comparison: nearest text, similarity score, or next-token/log-prob style output
-interpretation: what the representation captures and what it misses
-failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
-Expected_output: small comparison table with at least one surprising result
+表示：BoW、TF-IDF、静态 embedding、上下文 embedding，或语言模型分数
+比较：最近文本、相似度分数或下一 token/log-prob 风格输出
+解释: 该表示捕捉了什么，以及遗漏了什么
+失败检查：一词多义、领域不匹配、文本过短、分词问题或语义漂移
+期望产出：至少有一个意外结果的小型对比表
 ```
 
 ## 小结
@@ -369,7 +369,7 @@ Expected_output: small comparison table with at least one surprising result
 4. 想一想：如果表示已经依赖上下文，那“词本身”还重要吗？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 对 `apple` 来说，水果语境应让表示更接近 food 类词，公司语境应让表示更接近 technology 或 product 类词。
 2. 固定词向量难处理多义词，是因为无论词出现在哪个句子里，它都只有一个存储表示。

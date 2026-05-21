@@ -159,11 +159,11 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 このページを終えたら、この証拠カードを残します。
 
 ```text
-foundation: what the pretrained model already knows
-task_head: which part is task-specific
-adaptation_path: prompt, feature use, fine-tune, or PEFT
-eval_case: one example that proves transfer worked or failed
-risk: pretrained behavior is broad, not automatically aligned to your task
+基盤：事前学習済みモデルがすでに知っていること
+タスク見出し：タスク固有の部分がどこか
+適応パス: プロンプト、特徴利用、ファインチューニング、またはPEFT
+評価ケース：転移が成功した、または失敗したことを示す 1 例
+リスク：事前学習済みの振る舞いは広範だが、自動的にタスクに整合するわけではない
 ```
 
 ## 練習
@@ -175,7 +175,7 @@ risk: pretrained behavior is broad, not automatically aligned to your task
 5. 「大きいモデル」と「今のタスクに合うモデル」が同じではない理由を説明する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `topic_head` は pretrained representation を再利用し、`account_topic` や `commerce_topic` などの task label に写像します。head は task 固有で、foundation は再利用されます。
 2. `bad` の vector を変えると、sentiment head が見る negative evidence の強さが変わります。移動先によって confidence は下がる、反転する、不安定になる可能性があります。

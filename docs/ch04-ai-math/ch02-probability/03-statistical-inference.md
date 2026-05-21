@@ -696,7 +696,7 @@ Estimated std: 1.759 (true std: 2)
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - For 62 heads in 100 tosses, the MLE is `0.62`. With a symmetric `Beta(10,10)` prior, the MAP estimate moves toward `0.5`, about `0.602` in the supplied grid code.
 - In the A/B false-positive simulation where both true rates are 8%, the share of `p < 0.05` should be around 5%, with random variation. A higher-looking single run is not proof of a real effect.

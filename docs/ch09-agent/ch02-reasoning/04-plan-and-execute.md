@@ -505,7 +505,7 @@ you will find DAG planning, multi-Agent division of labor, and task graph schedu
 4. Think about it: which tasks are better suited to ReAct, and which are better suited to Plan-and-Execute?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A good plan has ordered subtasks, expected evidence for each step, and a final synthesis step.
 2. Long tasks need planners because dependencies, progress tracking, and recovery points matter more as task length grows.

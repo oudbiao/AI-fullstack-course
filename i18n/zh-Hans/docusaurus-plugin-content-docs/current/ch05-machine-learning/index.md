@@ -128,11 +128,11 @@ Logistic regression
 学完这一页，至少保留这张证据卡：
 
 ```text
-modeling_loop: data, features, model, metric, error review, and next experiment
-artifact: code, score, chart, pipeline, or project README
-failure_check: leakage, metric mismatch, unstable split, overfitting, or unclear business target
-next_action: one controlled experiment rather than many parameter changes
-Expected_output: reproducible ML evidence that prepares for deep learning
+建模循环：数据、特征、模型、指标、错误审查和下一次实验
+工件：代码、分数、图表、流水线或项目 README
+失败检查：泄漏、指标不匹配、划分不稳定、过拟合或业务目标不清晰
+下一步动作：做一个受控实验，而不是一次改很多参数
+期望产出：为进入深度学习做准备的可复现实验证据
 ```
 
 ## 常见失败
@@ -156,7 +156,7 @@ Expected_output: reproducible ML evidence that prepares for deep learning
 - 模型擅长什么、不擅长什么、下一步先改哪里？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 先看目标列：预测类别就是分类，预测连续数值就是回归，没有标签时通常是聚类或异常检测。
 2. baseline 是最简单且可复现的模型或规则。真实模型只有在同一划分和同一指标下超过 baseline，才算有意义。

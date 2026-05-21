@@ -369,11 +369,11 @@ Prompt 调优本质上也应该是实验过程。
 学完这一页，至少保留这张证据卡：
 
 ```text
-technique: few-shot, role, step constraint, self-check, or decomposition
-fixed_cases: same test inputs before/after change
-improvement: score or failure reduction
-risk: overlong, conflicting, or overfit prompt
-decision: keep only techniques that improve evidence
+技术：few-shot、角色、步骤约束、自检或分解
+固定案例：改动前后使用相同测试输入
+改进：分数提升或失败减少
+风险：提示过长、相互冲突，或过拟合
+决策：只保留能改善证据的技术
 ```
 
 ## 小结
@@ -394,7 +394,7 @@ decision: keep only techniques that improve evidence
 4. 为什么说高级 Prompt 技巧真正重要的不是复杂，而是适配？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 一个好的 few-shot prompt 应该定义标签集合，给出至少两个已标注示例，然后要求模型用同样格式分类新输入。
 2. 任务目标更基础。角色设定可以改变语气或视角，但不能替代清楚的目标、输出契约和约束。

@@ -155,11 +155,11 @@ README 或实验记录里建议保留：数据集版本、训练/验证划分方
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataset_split: train/test images, class names, and class balance
-prediction: label, confidence, and at least one misclassified image
-metric: accuracy, F1, confusion matrix, and class-level errors
-failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
-Expected_output: model result table and saved error examples
+数据集划分：训练/测试图像、类别名和类别平衡
+预测：标签、置信度和至少一张分类错误的图像
+指标：准确率、F1、混淆矩阵和类别级错误
+失败检查：增强改变标签含义、类别不平衡、数据泄漏或过拟合
+期望产出：模型结果表和保存的错误示例
 ```
 
 ## 常见误区
@@ -174,7 +174,7 @@ Expected_output: model result table and saved error examples
 4. 整理 10 张错误样本，给每张写一句可能原因。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 看 loss 曲线时，train loss 下降但 val loss 上升通常说明过拟合；两者都很高多半是欠拟合；剧烈震荡常见于学习率或数据问题。
 2. 弱增强可能压不住过拟合；强增强可能让训练过难，甚至改变标签语义。决定前要同时看验证指标和增强样本可视化。

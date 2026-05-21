@@ -40,11 +40,11 @@ sidebar_position: 1
 学完这一页，至少保留这张证据卡：
 
 ```text
-learning_gap: concept, code skill, project skill, paper, or deployment skill to strengthen
-resource_choice: one primary resource and why it fits the current bottleneck
-time_box: how long to use it before returning to the project
-risk_check: collecting resources instead of producing evidence
-Expected_output: a short resource plan with one artifact to produce after reading
+学习差距: 需要加强的概念、代码技能、项目技能、论文或部署技能
+资源选择：一个主要资源，以及它为何适合当前瓶颈
+时间盒：在回到项目之前使用它的时长
+风险检查：收集资源而不是产出证据
+期望产出：一份简短的资源计划，附带阅读后要产出的一个成果
 ```
 
 ## 常见错误

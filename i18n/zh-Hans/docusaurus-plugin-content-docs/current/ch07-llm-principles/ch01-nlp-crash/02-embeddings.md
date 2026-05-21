@@ -214,11 +214,11 @@ bank in river  : [0.3, 0.75, 0.4]
 学完这一页，至少保留这张证据卡：
 
 ```text
-vectors: at least three text embeddings or toy vectors
-similarity_check: closest pair and score
-retrieval_result: top match for one query
-limitation: averaging or similarity misses context/negation/order
-next_use: this becomes retrieval evidence in Chapter 8
+向量：至少三个文本 embedding 或玩具向量
+相似性检查：最近一对和分数
+检索结果：某个查询的最佳匹配
+局限: 平均或相似度会忽略上下文/否定/顺序
+下次使用：这将成为第 8 章中的检索证据
 ```
 
 ## 练习
@@ -230,7 +230,7 @@ next_use: this becomes retrieval evidence in Chapter 8
 5. 在 RAG 项目中，你会收集什么证据证明 embedding model 足够好？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 如果把 `banana` 放得很接近 `password`，相似度检索可能把水果相关文本错误召回给账号恢复问题。问题不是随机的，而是向量空间位置错了。
 2. `recover` 和 `account` 应该靠近密码、账号支持等概念，而不是靠近无关的商品或水果概念。新增文档应该能匹配账号恢复类查询。

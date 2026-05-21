@@ -88,11 +88,11 @@ AI learning lab is ready
 学完这一页，至少保留这张证据卡：
 
 ```text
-workspace: terminal, Git repo, editor, Python environment, and notebook all verified
-artifact: small command log, commit history, script output, or notebook cell result
-debug_note: one setup problem and how you diagnosed it
-failure_check: path confusion, environment mismatch, Git state, or missing dependency
-Expected_output: a ready-to-learn workstation evidence pack
+工作区：终端、Git 仓库、编辑器、Python 环境和 Notebook 都已验证
+工件：简短命令日志、提交历史、脚本输出或 notebook 单元结果
+调试说明：一个设置问题以及你的诊断方式
+失败检查：路径混淆、环境不匹配、Git 状态异常或缺少依赖
+期望产出：一套可直接开始学习的工作站证据包
 ```
 
 ## 常见失败
@@ -116,7 +116,7 @@ Expected_output: a ready-to-learn workstation evidence pack
 - 第一次错误和修复过程记录在哪里？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 当前目录用 `pwd` 确认，应该是项目根目录，或命令里明确提到的目标文件夹。
 2. Python 解释器用 `which python` 或 `python -c "import sys; print(sys.executable)"` 确认，应该指向课程环境。

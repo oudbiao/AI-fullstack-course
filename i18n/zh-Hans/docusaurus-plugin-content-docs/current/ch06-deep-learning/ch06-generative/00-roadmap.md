@@ -64,11 +64,11 @@ value_range: -0.863 0.695
 保留一条生成结果复盘笔记：
 
 ```text
-latent_shape: what compact code enters the generator/decoder
-output_shape: what sample-like object comes out
-quality_check: does it look plausible or reconstruct well?
-diversity_check: are outputs varied, or collapsing?
-trust_rule: generated output always needs review
+潜在形状: 进入生成器/解码器的紧凑代码是什么
+输出形状：输出的是哪种类似样本的对象
+质量检查：它看起来合理吗，或能重建得好吗？
+多样性检查：输出是否有变化，还是在塌缩？
+信任规则：生成的输出始终需要复查
 ```
 
 ## 通过标准
@@ -76,7 +76,7 @@ trust_rule: generated output always needs review
 能解释预测标签和生成样本的区别，并说明为什么生成结果需要审查而不能盲信，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

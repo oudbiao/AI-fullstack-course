@@ -544,11 +544,11 @@ print(tool_result(False, error="timeout", retryable=True))
 学完这一页，至少保留这张证据卡：
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+工具契约：名称、描述、输入 schema、输出 schema
+权限：工具允许读取或修改的内容
+调用轨迹：参数、结果、错误、重试或回退
+失败检查：错误的工具、参数不当、不安全操作，或缺少观察结果
+安全动作：验证、确认、沙箱、限流，或回滚
 ```
 
 ## 小结
@@ -569,7 +569,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 想一想：为什么 函数调用 在 Agent 系统里比在普通聊天机器人里更关键？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 可以把 `get_weather(city)` 定义为必填字符串参数，并统一返回 `{ok, data, error}` 这样的结构；真正执行前先做参数校验。
 2. validator 应该拦住缺少 `city`、类型不是字符串、出现未知参数、JSON 格式错误等调用，不让它们进入 tool runner。

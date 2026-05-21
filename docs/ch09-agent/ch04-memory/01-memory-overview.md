@@ -362,7 +362,7 @@ A truly useful memory system is usually not the one that “stores the most,” 
 4. Explain in your own words: why is the hard part of a memory system not just storage, but selection and organization?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Short-term memory might hold the current ticket goal, latest user correction, and tools already called. Long-term memory might store a durable user preference explicitly confirmed by the user.
 2. Rapidly changing requirements should stay short-term until they become stable; otherwise temporary instructions pollute the long-term profile.

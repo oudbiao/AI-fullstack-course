@@ -400,7 +400,7 @@ the Agent system can grow from a demo that “sometimes works” into a system t
 4. Design at least 3 core metrics for one of your Agent tasks, and explain why they are valuable.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Adding a case can change accuracy, tool-use rate, loop count, or failure distribution; inspect which metric moved and why.
 2. Final accuracy misses bad traces: repeated tool calls, unsafe actions, missing citations, excessive cost, and lucky correct answers.

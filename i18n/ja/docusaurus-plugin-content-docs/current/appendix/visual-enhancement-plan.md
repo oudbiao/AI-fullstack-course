@@ -121,9 +121,9 @@ image2 を優先する場面:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-page_target: which lesson or concept needs a teaching image
-visual_role: analogy, workflow, history comic, output explanation, or failure debug map
-language_set: English, Chinese, Japanese image references or text requirements
-risk_check: decorative image, crowded text, unrelated metaphor, or missing nearby explanation
-Expected_output: image brief or QA note tied to a specific course page
+ページ対象：どのレッスンや概念に教学画像が必要か
+可視化の役割：たとえ、ワークフロー、歴史マンガ、出力の説明、または失敗デバッグマップ
+言語セット：英語、中国語、日本語の画像参照またはテキスト要件
+リスク確認：装飾的な画像、密集したテキスト、無関係なたとえ、または近くの説明の欠落
+期待される成果：特定のコースページに結びついた画像ブリーフまたは QA メモ
 ```

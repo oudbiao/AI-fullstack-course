@@ -184,11 +184,11 @@ loss_after= 0.1183
 before/after の記録を 1 つ保存します。
 
 ```text
-prediction_before: 0.825
-loss_before: 0.1927
-gradient_seen: weight_grad and bias_grad are not None
-prediction_after: 0.888
-loss_after: 0.1183
+予測前：0.825
+更新前の損失：0.1927
+勾配確認：weight_grad と bias_grad が None ではない
+予測後：0.888
+更新後の損失：0.1183
 ```
 
 これは学習 step 全体が実際に起きた証拠です。どれかが欠けている場合は、forward output、loss、gradient、optimizer update の順で確認します。
@@ -212,7 +212,7 @@ loss_after: 0.1183
 5. `optimizer.step()` の前後でモデル重みを表示してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `lr=0.05` は更新が遅くなり、`lr=1.0` は速く下がることもありますが、振動や発散のリスクが上がります。
 2. `zero_grad()` を消すと、PyTorch の勾配は step ごとに累積します。意図しない大きな更新になり、loss が不安定になります。

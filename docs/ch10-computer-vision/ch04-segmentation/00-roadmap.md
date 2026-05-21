@@ -79,7 +79,7 @@ Expected_output: mask overlay plus segmentation metric summary
 You pass this chapter when you can create or inspect a mask, compute a simple overlap metric, and explain one boundary or class-confusion failure.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

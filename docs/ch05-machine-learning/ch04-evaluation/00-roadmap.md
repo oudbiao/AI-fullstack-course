@@ -74,7 +74,7 @@ Expected_output: evaluation record that supports a next modeling decision
 You pass this roadmap when you can choose a metric for the task, explain one score stability check, and avoid tuning before the evaluation method is trustworthy.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. Choose the metric from the task goal and mistake cost before tuning the model.
 2. Cross-validation answers whether the score is stable across splits; one lucky split is not enough evidence.

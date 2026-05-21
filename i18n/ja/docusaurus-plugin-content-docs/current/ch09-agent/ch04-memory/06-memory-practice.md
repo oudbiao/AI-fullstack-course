@@ -293,11 +293,11 @@ memory snapshot:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+メモリ種別：短期、長期、エピソード記憶、または手続き記憶
+書き込みルール：メモリが作成または更新されるとき
+取得ルール：クエリ、関連性、鮮度、権限チェック
+失敗確認: 古い記憶、プライバシー漏えい、矛盾、または過剰検索
+クリーンアップ操作：要約、統合、期限切れ、削除、または確認を求める
 ```
 
 ## まとめ
@@ -318,7 +318,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 考えてみましょう。どんな情報は短期だけに置くのが最適で、長期には置かないほうがよいでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `user_blacklist_topic` は明示的な長期 preference として保存し、scope を明確にします。無関係な提案を抑えるために使い、安全上必要な情報やタスク情報まで遮断してはいけません。
 2. `topic` で最新 episode を取るには、topic で filter し、timestamp または単調増加 id で sort します。

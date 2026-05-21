@@ -259,11 +259,11 @@ linear        mae=41.5 rmse=53.4 r2=0.485
 学完这一页，至少保留这张证据卡：
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+评估设置：划分、交叉验证、指标、基线和对比目标
+结果：分数表、曲线、混淆矩阵、验证结果，或搜索结果
+决策：是否更改数据、特征、模型、阈值或超参数
+失败检查：泄漏、验证不稳定、指标错误或在测试集上调参
+期望产出：支持下一步建模决策的评估记录
 ```
 
 ## 常见排查清单
@@ -285,7 +285,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 回归部分打印绝对误差最大的五个样本，并检查输入。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 正类只有 2% 时，accuracy 可能很好看，即使模型漏掉很多正类。此时 recall、precision 比单纯 accuracy 更有解释力。
 2. 初筛任务通常更偏向低阈值，例如 `0.1` 或 `0.3`，因为要减少漏报。代价是误报增加，所以最终选择要看人工复核能力。

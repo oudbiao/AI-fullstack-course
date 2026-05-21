@@ -387,7 +387,7 @@ It is not the same as deep learning, but it is an important stepping stone for u
 3. Add a small white dot to the original image and see whether opening can remove it.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A lower threshold usually turns more pixels white in the binary image; a higher threshold turns fewer pixels white. The important observation is not the exact picture, but the direction of change.
 2. A `(7, 7)` kernel erodes objects more aggressively and dilates them more aggressively than `(3, 3)`. Thin structures may disappear or become much thicker.

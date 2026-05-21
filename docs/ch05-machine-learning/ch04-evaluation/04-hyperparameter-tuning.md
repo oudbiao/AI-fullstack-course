@@ -248,7 +248,7 @@ For experienced readers: Bayesian tools such as Optuna are useful when each tria
 5. Add a final untouched test set to one earlier lesson that currently uses only CV.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Optimizing recall may choose more aggressive parameters that catch more positives, even if precision or F1 falls. The "best" parameters depend on the business cost encoded in the scoring metric.
 2. `max_depth=10` helps only if the previous grid was underfitting. If CV score does not improve or variance grows, the deeper option should not be selected.

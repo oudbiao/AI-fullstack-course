@@ -189,7 +189,7 @@ Expected_output: model result plus error samples or residual review
 4. Save a short note with baseline RMSE, linear RMSE, best model, and one residual example.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. More noise should increase RMSE and usually reduce R², because the target contains less predictable signal.
 2. If `age` carries useful information, removing it should increase error. If error barely changes, the feature may be weak or redundant with other columns.

@@ -369,11 +369,11 @@ print(tts_config)
 学完这一页，至少保留这张证据卡：
 
 ```text
-storyboard: scene list, duration, camera/voice/subtitle/timing notes
-asset_list: images, audio, voice, captions, clips, and source/license fields
-sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
-failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
-Expected_output: storyboard or timeline artifact with review notes
+分镜脚本：场景列表、时长、镜头/语音/字幕/时间备注
+资源列表：图像、音频、语音、字幕、片段和来源/许可证字段
+同步检查：语音-文本时序、口型同步、镜头连续性或帧一致性
+失败检查：闪烁、身份漂移、音频不匹配、不安全相似度或导出问题
+期望产出：带复查说明的分镜或时间线产物
 ```
 
 ## 小结
@@ -400,7 +400,7 @@ Expected_output: storyboard or timeline artifact with review notes
 4. 用自己的话说明：声学模型和 vocoder 分别更像在解决什么问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. TTS 需要预测发音、停顿、节奏、重音、情绪和声学形态。逐字朗读会忽略韵律，听起来很不自然。
 2. 说话人、语速和情绪也是输入，因为同一句文本可以有很多合理读法。这些控制项能让系统匹配产品角色、无障碍需求或对话状态。

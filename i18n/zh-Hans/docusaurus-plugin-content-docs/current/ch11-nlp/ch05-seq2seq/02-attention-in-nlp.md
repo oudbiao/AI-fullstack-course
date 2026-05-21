@@ -258,11 +258,11 @@ for token, weight in zip(source_tokens, attention_weights):
 学完这一页，至少保留这张证据卡：
 
 ```text
-source_target: source text, target text, and task type
-decoded_output: generated summary, translation, transcript, or sequence result
-alignment_note: attention, CTC path, coverage, or copied source evidence
-failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
-Expected_output: generated text with factual or alignment review notes
+源目标：源文本、目标文本和任务类型
+解码输出：生成的摘要、翻译、转写或序列结果
+对齐说明：注意力、CTC 路径、coverage，或复制的源证据
+失败检查：遗漏、重复、幻觉、对齐错误或评估薄弱
+期望产出：生成文本，以及事实性或对齐性复核说明
 ```
 
 ## 小结
@@ -291,7 +291,7 @@ Expected_output: generated text with factual or alignment review notes
 4. 想一想：这节的注意力和后面 Transformer 的自注意力，核心相同点是什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 改变 `query` 会改变哪些 source vectors 得到高 attention；要看 weights，而不只看最终 context vector。
 2. Seq2Seq 需要动态查看输入，因为不同输出步骤通常依赖不同源词。

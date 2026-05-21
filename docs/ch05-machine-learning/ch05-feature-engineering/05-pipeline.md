@@ -314,7 +314,7 @@ Build a complete Pipeline (including numeric processing, categorical encoding, a
 Use GridSearchCV on the Pipeline from Exercise 1 to tune both preprocessing parameters (such as PCA n_components) and model parameters at the same time.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A complete Titanic Pipeline should include imputation, numeric scaling where needed, categorical encoding, custom features, and the estimator. The same object should handle both training and prediction.
 2. RandomForest may need less scaling and can capture nonlinear splits; LogisticRegression usually benefits more from scaling and cleaner encoding. Compare them with the same validation protocol.

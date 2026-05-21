@@ -13,11 +13,11 @@ description: "ファイルの読み書きとデータのシリアライズを理
 このページを終えたら、この evidence card を残します。
 
 ```text
-pattern: class, exception, file IO, functional pipeline, generator, or type hint
-code_artifact: minimal runnable example and one realistic use case
-output: printed object state, caught error, saved file, yielded values, or type-check note
-failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
-Expected_output: small advanced-Python example with a debugging note
+パターン：class、exception、file IO、functional pipeline、generator、またはtype hint
+コード成果物：最小限の実行可能な例と、現実的なユースケース 1 つ
+出力：印字されたオブジェクト状態、捕捉したエラー、保存したファイル、yieldされた値、または型チェックのメモ
+失敗確認：隠れた変更、副作用を飲み込む例外、ファイルパスの問題、lazy iterator の混同、または誤解を招く注釈
+期待される成果: デバッグメモを含む小さな高度Python例
 ```
 
 ## この節の位置づけ
@@ -479,7 +479,7 @@ print(update_config("theme", "dark"))
 ```
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `file_stats` は行数、文字数、単語数、最長行の情報を返せれば合格です。`max()` に `default=(0, "")` を入れておくと、空ファイルでも例外で止まりません。
 2. 日記帳プログラムは、タイムスタンプ付きの本文をテキストファイルへ追記し、あとから順番に読み返せる形にします。人が直接開いて確認できる単純な保存形式にしておくと、デバッグもしやすくなります。

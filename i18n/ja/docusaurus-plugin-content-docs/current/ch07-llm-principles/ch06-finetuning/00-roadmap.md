@@ -66,11 +66,11 @@ minimum_before_training: ['prompt baseline', 'validation set', 'failure log']
 このページを終えたら、この証拠カードを残します。
 
 ```text
-decision: why prompt/RAG/tooling is not enough
-data_shape: instruction, input, output, metadata
-method: full finetune, LoRA, QLoRA, or other PEFT
-eval_set: fixed cases before training starts
-risk: overfitting, style drift, safety regression, or cost
+判断: なぜ prompt/RAG/ツールだけでは不十分か
+データ形状: 指示、入力、出力、メタデータ
+手法：フル微調整、LoRA、QLoRA、または他の PEFT
+評価セット：学習開始前の固定ケース
+リスク：過学習、スタイルのずれ、安全性低下、またはコスト
 ```
 
 ## 合格ライン
@@ -80,7 +80,7 @@ risk: overfitting, style drift, safety regression, or cost
 出口ミニプロジェクトは、小さな instruction tuning 計画です。固定タスクを 1 つ選び、数十から数百件のサンプルを準備し、Prompt ベースラインを定義し、LoRA/QLoRA 実行後に形式安定性または精度を比較します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

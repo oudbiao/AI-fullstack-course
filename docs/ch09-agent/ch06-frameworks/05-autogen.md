@@ -321,7 +321,7 @@ But if you need strong state control, you need to be especially careful about tu
 4. If your task requires strong state-machine control, would you still prioritize this conversational abstraction? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A basic flow is: planner defines the task and acceptance criteria, coder proposes or edits the implementation, reviewer checks correctness and risk, then the planner decides whether another round is needed.
 2. AutoGen-style systems can talk too much because conversation itself is the control mechanism. Without stop conditions, role boundaries, and review criteria, agents may keep negotiating instead of finishing.

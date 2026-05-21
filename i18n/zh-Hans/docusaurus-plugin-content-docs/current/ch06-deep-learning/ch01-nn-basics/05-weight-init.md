@@ -293,10 +293,10 @@ he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 保存一条初始化探针记录：
 
 ```text
-bad_start: zeros stays near random accuracy because symmetry is not broken
-warning_start: large begins with very high loss
-usable_start: default/xavier/he train normally on this task
-next_probe: make the network deeper and compare which strategy becomes fragile
+错误初始化：全零会因对称性未打破而保持接近随机准确率
+警告开始：大模型一开始损失非常高
+可用起点：这个任务上默认 / xavier / he 初始化都能正常训练
+下一次探测：把网络加深，比较哪种策略更脆弱
 ```
 
 这条证据会教会真正的重点：初始化不是装饰，它决定了信号和梯度一开始是否处在可用范围。
@@ -329,7 +329,7 @@ with torch.no_grad():
 3. 把 Adam 改成 `lr=0.1` 的 SGD。哪种初始化更脆？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 更深的探针通常会先暴露不稳定初始化。过大或朴素随机初始化更容易让激活值或梯度爆炸/消失，往往比 He initialization 更早失败。
 2. 会更有竞争力。Xavier initialization 更适合 Tanh 这类近似对称激活；如果使用 ReLU 系列激活，He initialization 通常是更稳的默认选择。

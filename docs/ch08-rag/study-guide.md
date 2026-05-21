@@ -65,7 +65,7 @@ Expected result: your Chapter 8 project folder contains chunks, retrieval logs, 
 - Can you compare two RAG versions using the same evaluation questions?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. RAG is different because it retrieves evidence before answering. A longer Prompt still depends on what the model already knows or guesses, while RAG can pull fresh, private, or document-based facts into the answer.
 2. Show the query, top-k chunks, scores, source, and version so someone else can check the retrieval path.

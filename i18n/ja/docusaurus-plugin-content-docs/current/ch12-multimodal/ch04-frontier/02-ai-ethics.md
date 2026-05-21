@@ -347,11 +347,11 @@ overtrust -> ユーザーがシステムの能力を誤って信じること
 このページを終えたら、この evidence card を残します。
 
 ```text
-risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
-engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
-test_case: one realistic input/output case that exercises the rule
-failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
-Expected_output: review checklist or product requirement translated into engineering action
+リスク範囲: フロンティア能力、倫理問題、規制、または製品ポリシーの境界
+エンジニアリング規則：何を記録し、遮断し、レビューし、開示し、またはエスカレーションするか
+テストケース：ルールを試す 1 つの現実的な入出力例
+失敗確認: プライバシー、著作権、肖像、バイアス、安全性、出典、またはコンプライアンスの欠落
+期待される成果: レビュー用チェックリストまたは製品要件をエンジニアリング上の行動に翻訳したもの
 ```
 
 ## まとめ
@@ -372,7 +372,7 @@ Expected_output: review checklist or product requirement translated into enginee
 4. 1 つの倫理リスクを、「ログのマスキング」「権限管理」「人手による承認」のような具体的なエンジニアリング問題に言い換えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 有用な答えでは、各リスクを証拠と制御に変換します。たとえば顔編集アプリなら、肌の色ごとの bias test、アップロード、保存、削除に関する privacy control が必要になります。
 2. 人間らしい出力は信頼を高めます。ユーザーが社会的な期待をシステムに当てはめるからです。モデルが実際以上に理解し、記憶し、検証していると思い込む可能性があります。

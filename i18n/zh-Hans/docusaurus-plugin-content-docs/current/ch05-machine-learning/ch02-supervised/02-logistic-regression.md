@@ -238,11 +238,11 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+任务：带目标定义的回归或分类问题
+模型：线性/逻辑回归/树/集成/SVM 配置和训练/测试划分
+指标：回归误差、准确率/F1、阈值曲线或混淆矩阵
+失败检查：过拟合、欠拟合、特征缩放、阈值选择或类别不平衡
+期望产出：模型结果加错误样本或残差复查
 ```
 
 ## 常见排查清单
@@ -263,7 +263,7 @@ Expected_output: model result plus error samples or residual review
 4. 用自己的 CSV 替换 breast cancer 数据集。保持同样结构：先切分，再 fit pipeline，再打印指标，最后调阈值。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 通常阈值越低，模型越容易预测为正类，漏报会更少；在这组阈值里 `0.2` 往往漏报最少，但误报会增加。答案要同时报告 recall 和 false positives。
 2. `C` 越大正则化越弱。accuracy 往往会在某个区间后进入平台期，继续增大 `C` 只会让模型更复杂，不一定带来泛化收益。

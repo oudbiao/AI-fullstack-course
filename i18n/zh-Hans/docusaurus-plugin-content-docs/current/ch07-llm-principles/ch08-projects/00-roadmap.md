@@ -92,11 +92,11 @@ fine_tune_now: False
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_choice: Prompt, RAG, fine-tuning, or hybrid route
-baseline: simplest working method first
-evaluation: fixed cases and scoring rule
-交付物：README、prompts、outputs、failures、decision log
-bridge: Chapter 8 turns this into retrieval-backed applications
+项目选择：Prompt、RAG、微调或混合路线
+基线：先做最简单可运行的方法
+评估：固定案例和评分规则
+交付物：README、提示词、输出、失败记录、决策日志
+桥接：第 8 章将其转为基于检索的应用
 ```
 
 ## 通过标准
@@ -106,7 +106,7 @@ bridge: Chapter 8 turns this into retrieval-backed applications
 最终项目可以很基础：在一个领域任务上比较两个 Prompt 版本。更强版本可以加入 RAG 或小型微调实验，但必须在基线和失败记录证明需要之后再做。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说明 token、上下文、attention、prompt 和生成行为如何组成一次请求到回答的路径。
 2. 证据至少包含一个可复现 prompt 或结构化输出测试，并说明输出为什么通过或失败。

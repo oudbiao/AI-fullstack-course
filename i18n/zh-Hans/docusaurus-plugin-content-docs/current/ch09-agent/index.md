@@ -159,11 +159,11 @@ Agent 很强，但不应该默认使用。
 学完这一页，至少保留这张证据卡：
 
 ```text
-core_route: 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10 first
-agent_loop: goal -> plan -> tool/action -> observation -> memory -> evaluation
-trace_rule: every action should leave input, output, decision, and error record
-safety_rule: permissions, tool boundaries, guardrails, and rollback are part of design
-depth_split: MCP/frameworks/multi-agent/deployment after single-Agent loop is stable
+核心路线：先走 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10
+智能体循环：目标 -> 计划 -> 工具/动作 -> 观察 -> 记忆 -> 评估
+追踪规则：每个动作都应留下输入、输出、决策和错误记录
+安全规则：权限、工具边界、护栏，以及回滚都是设计的一部分
+深度拆分：在单 Agent 循环稳定后，再处理 MCP/框架/多 Agent/部署
 ```
 
 ## 常见错误

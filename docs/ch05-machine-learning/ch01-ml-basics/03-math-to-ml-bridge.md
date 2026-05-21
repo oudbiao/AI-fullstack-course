@@ -426,7 +426,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Linear algebra gives the shared shape of the problem: `X` stores samples, `w` stores learnable weights, and `X @ w + b` turns features into predictions.
 2. Probability and statistics define uncertainty and loss: they tell you what a probability means, how wrong a prediction is, and how to compare outcomes.

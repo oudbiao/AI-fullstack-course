@@ -199,10 +199,10 @@ state keys: ['net.0.weight', 'net.0.bias', 'net.2.weight', 'net.2.bias']
 读完一个 `nn.Module`，保留这三条检查：
 
 ```text
-structure: print(model)
-parameters: named_parameters() with shapes
-behavior: one input batch -> output shape
-boundary: forward() only maps inputs to outputs
+结构：print(model)
+参数：named_parameters() 及其形状
+行为：一个输入批次 -> 输出形状
+边界：forward() 只把输入映射到输出
 ```
 
 ## `train()` 和 `eval()` 是模式开关
@@ -392,7 +392,7 @@ data -> model -> loss -> zero_grad -> backward -> optimizer.step -> eval predict
 4. 在 ReLU 后加入 `nn.Dropout(p=0.2)`，比较 `train()` 和 `eval()` 模式下的预测。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `4` 可能表达能力不足，出现 underfit；`32` 更容易降低训练 loss，但也要看 validation loss，因为更大的模型也可能过拟合。
 2. 这个小回归任务如果接近线性，删除 `ReLU()` 仍可能学会。但没有非线性激活时，多层线性层本质上会合并成一层线性变换，无法表达更复杂的非线性模式。

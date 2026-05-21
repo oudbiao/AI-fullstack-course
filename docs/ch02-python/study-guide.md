@@ -40,7 +40,7 @@ If a topic does not help this loop yet, skim it first and return later.
 | Communication | Write a README command that a new terminal can run without guessing hidden setup steps. |
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. The minimum pass is a rerunnable folder with small scripts and workshop output, not screenshots alone.
 2. A data-structure note should explain the tradeoff, such as using a dictionary for task `id`, `status`, and `due_date`, but a list for the ordered sequence of tasks.

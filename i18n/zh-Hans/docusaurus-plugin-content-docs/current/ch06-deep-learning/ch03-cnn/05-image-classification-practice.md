@@ -223,12 +223,12 @@ probs: [1.0, 0.0, 0.0, 0.0]
 保存一张分类运行卡：
 
 ```text
-data_shape: train and validation tensor shapes
-model_shape: input -> features -> logits
-metric: validation accuracy and loss
-confusion_matrix: rows=true, cols=pred
-sample_prediction: true label, predicted label, probabilities
-next_probe: more noise, fewer samples, new class, or real image split
+数据形状：训练和验证张量形状
+模型形状：输入 -> 特征 -> logits
+指标：验证准确率和损失
+混淆矩阵：行=真实，列=预测
+样本预测：真实标签、预测标签、概率
+下一次探测：增加噪声、更少样本、新类别，或真实图片划分
 ```
 
 ## 为什么这里用 GAP？
@@ -286,7 +286,7 @@ next_probe: more noise, fewer samples, new class, or real image split
 5. 如果有错例，打印前 5 个验证集错例。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 噪声增加会让类别边界更难学，验证准确率通常下降，错例也更有代表性。
 2. 每类样本减少到 10 张时，训练集可能仍能拟合，但验证集更容易波动或下降。

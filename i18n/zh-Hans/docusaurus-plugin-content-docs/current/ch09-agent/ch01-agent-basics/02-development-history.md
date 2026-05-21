@@ -351,11 +351,11 @@ ChatGPT 和 LLM 只是让 Agent 进入了新阶段。
 学完这一页，至少保留这张证据卡：
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+智能体边界：这与聊天机器人或固定工作流有何不同
+目标状态动作：目标、当前状态、下一步动作、观察
+架构组成：规划器、工具、记忆、护栏、评估器
+失败检查：过度自主、目标模糊、状态缺失或没有 trace
+下一步动作：构建最小可追踪的单智能体循环
 ```
 
 ## 小结
@@ -376,7 +376,7 @@ next_action: build the smallest traceable single-agent loop
 3. 想一想：为什么很多团队在 Agent 项目里，最后还是会保留大量固定流程节点？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 计算器工具只应该路由给数值计算任务，并且要校验输入，返回结构化结果或明确错误。
 2. 规则机器人匹配固定条件；工作流执行预先定义好的步骤；Agent 会根据目标、上下文和 observation 选择工具与动作。

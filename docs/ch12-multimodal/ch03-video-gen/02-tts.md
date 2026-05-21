@@ -400,7 +400,7 @@ Once you understand this main idea, video avatars, dubbing systems, and voice as
 4. In your own words, explain what problem the acoustic model and the vocoder are each more like solving.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. TTS must predict pronunciation, pauses, rhythm, emphasis, emotion, and acoustic shape. Reading characters one by one would ignore prosody and would sound unnatural.
 2. Speaker, speed, and emotion are inputs because the same text can be spoken in many valid ways. These controls let the system match a product role, accessibility need, or conversational state.

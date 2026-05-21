@@ -481,11 +481,11 @@ print(log)
 学完这一页，至少保留这张证据卡：
 
 ```text
-service_contract: endpoint, input schema, output schema, error schema
-run_signal: latency, throughput, logs, health check, or container status
-observability: request id, trace id, structured log, or metric
-failure_check: timeout, retry storm, missing log, deployment mismatch
-ops_action: backoff, queue, alert, rollout, or rollback
+服务契约：端点、输入模式、输出模式、错误模式
+运行信号：延迟、吞吐量、日志、健康检查，或容器状态
+可观测性：请求 ID、trace ID、结构化日志或指标
+失败检查：超时、重试风暴、缺少日志或部署不匹配
+运维动作：backoff、queue、alert、rollout 或 rollback
 ```
 
 ## 小结
@@ -525,7 +525,7 @@ ops_action: backoff, queue, alert, rollout, or rollback
 4. 用自己的话解释：为什么 LLM 系统的告警不能只看 500 和超时？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `error_code` 能把失败按类型归类，而不是只能依赖原始错误文本。
 2. 检索日志应包括 `trace_id`、query、rewritten query、filters、`top_k`、候选 ID、score、最终引用、延迟，以及用户 role/权限过滤结果。

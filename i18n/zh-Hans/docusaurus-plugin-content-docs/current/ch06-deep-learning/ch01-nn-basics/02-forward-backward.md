@@ -184,11 +184,11 @@ loss_after= 0.1183
 保存一条前后对比记录：
 
 ```text
-prediction_before: 0.825
-loss_before: 0.1927
-gradient_seen: weight_grad and bias_grad are not None
-prediction_after: 0.888
-loss_after: 0.1183
+预测前：0.825
+更新前损失：0.1927
+已见梯度：weight_grad 和 bias_grad 不为 None
+预测后：0.888
+更新后损失：0.1183
 ```
 
 这能证明完整训练步骤真的发生了。如果其中某一行缺失，就按这个顺序排查：forward 输出、loss、gradient、optimizer update。
@@ -212,7 +212,7 @@ loss_after: 0.1183
 5. 在 `optimizer.step()` 前后打印模型权重。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `lr=0.05` 通常更新更慢；`lr=1.0` 可能快速下降，也可能越过合适区域。证据应该来自 loss 曲线，而不是学习率数字本身。
 2. 如果移除 `optimizer.zero_grad()`，梯度会跨多次 backward 累积。打印出的梯度不再代表当前 batch，而是旧信号和新信号的和。

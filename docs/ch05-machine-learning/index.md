@@ -156,7 +156,7 @@ Move to Chapter 6 when you can answer these five questions:
 - What does the model do well, what does it do poorly, and what would you improve next?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. Decide the task from the target: categories mean classification, numbers mean regression, no labels usually means clustering or anomaly detection.
 2. The baseline is the simplest reproducible model or rule. A real model only matters if it beats that baseline under the same split and metric.

@@ -164,11 +164,11 @@ model capability != model behavior
 このページを終えたら、この証拠カードを残します。
 
 ```text
-timeline: n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment
-turning_point: what Transformer changed about context mixing
-scale_note: data and compute changed capability but not reliability alone
-bigram_lab: one output sample and its limitation
-memory_hook: history is a sequence of solved bottlenecks
+タイムライン：n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment
+転換点：Transformer が context mixing をどう変えたか
+スケール注記: データと計算量は能力を変えたが、信頼性だけを変えたわけではない
+bigram 実験：1 つの出力サンプルとその制約
+記憶フック：歴史は解決されたボトルネックの連なりである
 ```
 
 ## 練習
@@ -180,7 +180,7 @@ memory_hook: history is a sequence of solved bottlenecks
 5. 15 段階のどれか 1 つを選び、それが今日の LLM application にどう残っているか説明する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 文を追加すると、bigram model の局所的な transition count だけが変わります。追加 phrase の周辺ではよくなりますが、局所 pattern の外ではまだ失敗します。
 2. bigram model は短い局所 context しか見ません。長い instruction には、goal、constraint、関係を多くの token にわたって保持する力が必要です。

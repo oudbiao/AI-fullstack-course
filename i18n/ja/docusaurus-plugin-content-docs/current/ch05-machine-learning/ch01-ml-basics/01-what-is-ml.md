@@ -14,11 +14,11 @@ keywords: [機械学習, 教師あり学習, 教師なし学習, 強化学習, A
 このページを終えたら、この evidence card を残します。
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+ML 問題：教師あり、教師なし、評価、または特徴量エンジニアリングのタスク
+ベースライン: まずは最も簡単な sklearn/モデリングループと固定の train/test 分割
+出力：prediction、metric、chart、またはmodel decision note
+失敗確認：データリーク、不明確なターゲット、弱いベースライン、または指標不一致
+期待される成果: 指標と1件の失敗観察を含む最小限のMLループ
 ```
 
 ## この節の位置づけ
@@ -562,7 +562,7 @@ sklearn のバージョンや分割設定が変わると、結果が少し変わ
 4.3節の過学習の例を修正し、異なる次数の多項式（1, 3, 5, 10, 18）でデータを当てはめて、5枚のサブプロットを描き、複雑さが当てはまり方に与える影響を観察してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 明日の気温と株価の終値は、予測対象が数値なので回帰です。顔の有無、ニュースカテゴリ、ユーザー離脱は、予測対象が離散ラベルなので分類です。
 2. `load_wine()` の演習では、教師あり学習の基本手順を守ります。特徴量とラベルを読み込み、学習前に train/test に分け、`X_train, y_train` だけで fit し、`X_test, y_test` で score します。この分割で `0.944` 前後の精度は自然ですが、数値そのものよりテストデータを学習に漏らさないことが重要です。

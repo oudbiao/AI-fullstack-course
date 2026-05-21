@@ -259,11 +259,11 @@ for task in tasks:
 学完这一页，至少保留这张证据卡：
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+智能体边界：这与聊天机器人或固定工作流有何不同
+目标状态动作：目标、当前状态、下一步动作、观察
+架构组成：规划器、工具、记忆、护栏、评估器
+失败检查：过度自主、目标模糊、状态缺失或没有 trace
+下一步动作：构建最小可追踪的单智能体循环
 ```
 
 ## 小结
@@ -283,7 +283,7 @@ next_action: build the smallest traceable single-agent loop
 3. 如果一个系统经常调用错工具，它更像是哪个能力层级出了问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 示例：FAQ 匹配更像 L0；天气查询更像 L1；带政策检索的退款资格判断更像 L2；自动生成周报并发送邮件更像 L3；长期自主运维要根据风险和监督强度判断是 L3 还是 L4。
 2. 很多项目不需要 L3 / L4，因为自主性越高，成本、风险、评测难度和恢复复杂度都会增加。一个更简单的 L1 / L2 系统反而可能更可靠。

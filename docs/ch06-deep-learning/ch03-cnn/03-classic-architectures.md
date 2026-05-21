@@ -274,7 +274,7 @@ This is the level of history worth remembering for engineering. You do not need 
 5. Pick a modern CNN backbone and identify which classic ideas it still uses.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. LeNet established the early CNN skeleton; AlexNet proved CNNs could scale; VGG made repeated small kernels systematic; ResNet made very deep networks easier to optimize.
 2. If the block uses `16` channels, the input tensor must also have `16` channels or the block needs a projection layer to match dimensions.

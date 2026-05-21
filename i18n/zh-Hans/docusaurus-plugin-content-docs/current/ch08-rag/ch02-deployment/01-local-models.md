@@ -456,11 +456,11 @@ loaded small-local-model
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+运行时选择：本地模型、推理服务器，或统一 API
+请求契约：端点、负载、输出格式，以及错误形状
+延迟或成本: 一个测量值或估计值
+失败检查：超时、内存压力、模型不匹配或版本漂移
+回滚方案：备用模型、重试策略，或流量切换
 ```
 
 ## 小结
@@ -481,7 +481,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 4. 如果你的系统很重隐私但团队运维能力弱，你会怎么取舍？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 合理方案应写清模型规模、量化等级、运行框架、内存/显存预算、预期延迟和 fallback。对普通笔记本来说，用小型量化模型做验证，再保留云端/API fallback，通常比假装本地能承载前沿大模型更现实。
 2. 量化用更少 bit 存储权重，能降低内存占用和带宽压力。本地运行时，VRAM/RAM 和内存带宽经常是瓶颈。

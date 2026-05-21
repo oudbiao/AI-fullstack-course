@@ -427,7 +427,7 @@ In many cases, upgrading the retrieval strategy brings more direct gains than sw
 3. Design a richer `rewrite_query()` rule table on your own.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Higher keyword weight should favor exact term matches; higher vector weight should favor semantic similarity. The better setting depends on whether your users ask with exact product terms or with vague natural language.
 2. Keyword retrieval is strong when exact phrases, identifiers, course names, policy terms, or error codes matter. It can catch terms that embeddings may smooth over.

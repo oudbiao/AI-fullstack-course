@@ -530,7 +530,7 @@ Requirements:
 4. Follow PEP 8
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. For the legacy functions, add explicit parameter and return types, for example `process_students(students: list[dict[str, int]], min_score: int) -> list[dict[str, object]]` and `calculate_stats(numbers: Sequence[float]) -> dict[str, float] | None`. The main goal is to make the input shape and empty-list case obvious.
 2. The workflow with `ruff` is `ruff check` first, then `ruff format`, then compare the diff. That keeps linting and formatting separate and makes review easier.

@@ -137,7 +137,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 Add a `latency_ms` field to each request, then compute average latency per version. If `v2` is slower than `v1` by more than 20 ms, route all future requests back to `v1`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 A solid solution groups requests by `version`, averages `latency_ms`, and compares the two version averages. If `avg_v2 - avg_v1 > 20`, mark `v2` unhealthy or set its traffic weight to zero for the next batch.
 

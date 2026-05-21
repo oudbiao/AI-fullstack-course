@@ -390,7 +390,7 @@ Read the heading line as state, not as an output row: it updates `section_title`
 This is the smallest useful ingestion loop: every chunk carries content, structure, source, page, and type. Retrieval and courseware generation become much easier once this shape is stable.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 A good result has two chunks, not three. The heading line should update `section_title` to `Basic Discount Concepts`, while the formula line becomes a `concept` chunk and the example line becomes an `example` chunk.
 

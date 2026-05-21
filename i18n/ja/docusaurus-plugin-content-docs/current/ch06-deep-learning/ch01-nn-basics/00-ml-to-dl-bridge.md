@@ -259,11 +259,11 @@ flowchart LR
 次へ進む前に、5 行の橋渡しメモを書きます。
 
 ```text
-old_skill: I can train and evaluate sklearn models.
-same_skeleton: data -> model -> loss/metric -> improvement -> error analysis.
-new_capability: neural networks learn representations, not only final prediction rules.
-new_control: PyTorch exposes forward, backward, optimizer, device, and checkpoint logic.
-next_action: run one tiny neural network and explain why loss changes.
+旧スキル：sklearn モデルを学習・評価できる。
+同じ骨組み: data -> model -> loss/metric -> improvement -> error analysis.
+新しい能力：ニューラルネットワークは、最終予測ルールだけでなく表現も学習する。
+新しい制御：PyTorch は forward、backward、optimizer、device、checkpoint のロジックを公開する。
+次の行動：小さな neural network を1回実行し、loss が変わる理由を説明する。
 ```
 
 このメモが自分の言葉で説明できれば、第 6 章は最初からやり直しではなく、既存のモデリング手順の拡張として読めます。

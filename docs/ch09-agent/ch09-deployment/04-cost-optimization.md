@@ -332,7 +332,7 @@ When you start breaking costs down by task chain instead of only looking at a si
 4. If a pipeline has very high accuracy but unusually high cost, which part would you inspect first?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Add retry-driven model calls as `retry_count * cost_per_call` or as a separate row by model tier. This often reveals that unstable tools and weak prompts quietly create extra model cost.
 2. Cache direct factual lookups, repeated retrieval results, stable policy snippets, and deterministic transformations. Do not cache user-private, rapidly changing, or approval-sensitive results without a clear invalidation rule.

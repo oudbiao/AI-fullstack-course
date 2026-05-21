@@ -72,7 +72,7 @@ print(json.dumps(record, indent=2))
 你能把一张图片或截图转成结构化文本，标记不确定性，并解释结果如何进入 RAG、审核或 Agent 工作流，就算通过本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说清涉及哪些模态、输入输出契约是什么，以及文字、图像、音频或视频证据如何对齐。
 2. 证据应包含真实媒体产物或 trace，并附上质量、安全和失败案例说明。
@@ -86,9 +86,9 @@ print(json.dumps(record, indent=2))
 学完这一页，至少保留这张证据卡：
 
 ```text
-source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
-structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
-fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
-failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
-Expected_output: structured record that can be cited or reviewed later
+源资产：带版本/来源说明的图像、截图、PDF、音频、视频或文本输入
+结构化记录：可见文本、对象、区域、时间戳、转写文本或不确定性
+融合结果：答案、检索记录、路由决策或多模态特征比较
+失败检查：缺少来源、OCR 错误、对齐错误、不确定性或论断无依据
+期望产出：可供后续引用或复查的结构化记录
 ```

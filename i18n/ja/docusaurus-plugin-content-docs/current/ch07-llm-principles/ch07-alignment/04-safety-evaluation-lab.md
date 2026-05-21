@@ -226,11 +226,11 @@ failures : []
 このページを終えたら、この証拠カードを残します。
 
 ```text
-safety_cases: fixed prompts across risk categories
-expected_behavior: answer, refuse, redirect, or ask clarification
-score: pass/fail plus reason
-failure_note: one unsafe or over-refusing case
-next_action: policy edit, prompt guardrail, eval expansion, or model change
+安全ケース: リスクカテゴリごとの固定プロンプト
+期待される挙動：回答、拒否、再案内、または明確化の質問
+スコア: 合否と理由
+失敗ノート: 危険なケース、または拒否しすぎたケース1件
+次の行動：policy の修正、prompt ガードレール、eval 拡張、またはモデル変更
 ```
 
 ## まとめ

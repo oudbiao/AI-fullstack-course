@@ -62,11 +62,11 @@ False
 このページを終えたら、この証拠カードを残します。
 
 ```text
-symptom: exact error message, command, input, and environment
-minimal_repro: smallest code or command that still fails
-hypothesis: dependency, path, data, API, model, or browser/runtime issue
-next_probe: one command or log to check before changing many things
-Expected_output: a reproducible bug note and a tested fix or fallback
+症状：正確なエラーメッセージ、コマンド、入力、環境
+最小再現：まだ失敗する最小のコードまたはコマンド
+仮説：依存関係、パス、データ、API、モデル、またはブラウザ/runtime の問題
+次の確認：多くの変更をする前に、1つのコマンドかログを確認する
+期待される成果：再現可能なバグメモと、テスト済みの修正または代替策
 ```
 
 ## この順番でデバッグする

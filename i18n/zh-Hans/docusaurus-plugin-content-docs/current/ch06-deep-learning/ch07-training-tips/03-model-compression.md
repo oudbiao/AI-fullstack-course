@@ -158,14 +158,14 @@ teacher logits 或输出 -> student 学标签 + teacher 行为
 压缩结果要保存为 before/after 报告：
 
 ```text
-baseline_size:
-compressed_size:
-baseline_latency:
-compressed_latency:
-baseline_metric:
-compressed_metric:
-runtime_hardware:
-decision: keep, tune, or reject compression
+基线大小：
+压缩大小：
+基线延迟：
+压缩延迟：
+基线指标：
+压缩指标：
+运行时硬件：
+决策：保留、调整或放弃压缩
 ```
 
 这能避免一个常见错误：文件变小了，但真实产品反而更慢或更不准。
@@ -189,7 +189,7 @@ decision: keep, tune, or reject compression
 5. 解释为什么结构化剪枝通常比非结构化剪枝更容易部署。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `scale=32` 通常量化更细，MAE 可能下降，但具体取决于权重分布和缩放方式。
 2. 新增 Linear 层后，参数量按 `in_features x out_features + bias` 逐层相加，再乘以 dtype 字节数估算大小。

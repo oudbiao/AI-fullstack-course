@@ -64,7 +64,7 @@ Expected result: your Chapter 9 project folder contains tool schemas, replayable
 - Can you explain why multi-agent should come after single-Agent reliability?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. An Agent keeps a goal-plan-tool-observation loop, so the system can act, inspect the result, and decide the next step instead of only generating one reply.
 2. A useful trace shows the goal, planned step, tool call, input, observation, and why the next step followed from that observation.

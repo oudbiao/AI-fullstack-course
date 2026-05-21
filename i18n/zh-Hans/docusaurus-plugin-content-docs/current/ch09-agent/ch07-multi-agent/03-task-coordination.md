@@ -334,11 +334,11 @@ Agent 之间互相提议、协商。
 学完这一页，至少保留这张证据卡：
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+角色：负责人、执行者、评审者，或专家职责
+消息契约：artifact、request、response 和交接状态
+协同：路由、任务拆分、冲突解决和最终负责人
+失败检查：重复工作、上下文丢失、没有明确负责人或消息循环
+评估动作：将多 Agent 结果与单 Agent 基线对比
 ```
 
 ## 小结
@@ -359,7 +359,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 用自己的话解释：为什么说多 Agent 协调本质上很像一个小型任务调度系统？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. planner Agent 应生成带依赖关系的有序任务列表，例如先 retrieve，有证据后 write，有 draft 后 review，只有 review 要求修改时才 revise。
 2. 协调流程可以是：retrieve evidence -> write draft with citations -> review correctness and gaps -> revise rejected parts -> final check。

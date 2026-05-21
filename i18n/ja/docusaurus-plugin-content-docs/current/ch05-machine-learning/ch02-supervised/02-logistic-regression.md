@@ -238,11 +238,11 @@ setosa:0.03 | versicolor:0.62 | virginica:0.35
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+タスク：target 定義のある regression または classification 問題
+モデル：線形/ロジスティック/木/アンサンブル/SVM の構成と train/test 分割
+指標：回帰誤差、accuracy/F1、閾値曲線、または confusion matrix
+失敗確認: 過学習、学習不足、特徴量スケーリング、閾値選択、またはクラス不均衡
+期待される成果: モデル結果とエラーサンプル、または残差レビュー
 ```
 
 ## よくあるトラブル
@@ -263,7 +263,7 @@ Expected_output: model result plus error samples or residual review
 4. breast cancer データセットを自分の CSV に置き換えてください。構造は同じです。先に分割し、pipeline を fit し、指標を出し、最後にしきい値を調整します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 一般にしきい値を下げるほど positive と判定しやすくなり、偽陰性は減ります。この候補では `0.2` が最も少なくなりやすいですが、偽陽性は増えるため、recall と false positives を一緒に報告します。
 2. `C` が大きいほど正則化は弱くなります。accuracy はある範囲で頭打ちになることが多く、それ以上 `C` を大きくしても汎化性能が上がるとは限りません。

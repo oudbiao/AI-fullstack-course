@@ -529,11 +529,11 @@ flowchart LR
 このページを終えたら、この証拠カードを残します。
 
 ```text
-intent_gap: user wants one thing, model optimizes another signal
-failure_case: harmful, deceptive, overconfident, or non-compliant output
-policy_boundary: what should be allowed, refused, or redirected
-eval_case: one prompt and expected safe behavior
-engineering_view: alignment is measured behavior, not a slogan
+意図のズレ：ユーザーは一つを求めているが、モデルは別の信号を最適化している
+失敗ケース：有害、欺瞞的、自信過剰、または非準拠の出力
+ポリシー境界：何を許可し、拒否し、またはリダイレクトするか
+評価ケース：1 つのプロンプトと期待される安全な挙動
+エンジニアリングの見方：アラインメントはスローガンではなく、測定される行動
 ```
 
 ## まとめ
@@ -561,7 +561,7 @@ engineering_view: alignment is measured behavior, not a slogan
 4. あなたのシステムがデータベースやツール呼び出しに接続されたら、純粋なチャットよりも、どんなアライメントリスクが増えるでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 言葉が流暢であることは、出力の形が整っているという意味にすぎません。アライメントでは、出力が有用で、正直で、安全で、ユーザーの意図と文脈に合っているかを見ます。
 2. 例えばカスタマーサポートなら、有用性はユーザーの実際の問題に答えて次の行動を示すこと、誠実性は不確実性やポリシー上の制限を明示すること、無害性は個人情報を漏らさず危険な行動を促さないことです。

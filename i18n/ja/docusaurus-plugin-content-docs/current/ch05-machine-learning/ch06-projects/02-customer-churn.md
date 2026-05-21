@@ -76,11 +76,11 @@ flowchart LR
 このページを終えたら、この evidence card を残します。
 
 ```text
-project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
-pipeline: data split, preprocessing, model, evaluation, and report artifacts
-result: metric table, chart, predictions, failure samples, and README note
-failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
-Expected_output: ML project folder with pipeline, metrics, and failure review
+プロジェクト目標：予測、セグメンテーション、Kaggle、またはエンドツーエンドの ML ポートフォリオ対象
+パイプライン：データ分割、前処理、モデル、評価、レポート成果物
+結果: metric 表、chart、予測、失敗サンプル、README の注記
+失敗確認: 再現不可能な実行、リーク、過学習、弱いベースライン、またはデプロイ境界の不足
+期待される成果：パイプライン、メトリクス、失敗レビューを含む ML プロジェクトフォルダ
 ```
 
 ## この問題で本当に練習すること
@@ -374,7 +374,7 @@ plt.show()
 - [ ] 複数モデルで ROC 曲線を比較する
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 最初に positive class の比率を報告します。離脱が少ない場合、accuracy は高く見えても、多くの離脱顧客を見逃しているかもしれません。
 2. クラス重みと SMOTE は同じ検証方法で比較します。オーバーサンプリングを使う場合は、leakage を避けるため訓練 workflow の内部で行います。

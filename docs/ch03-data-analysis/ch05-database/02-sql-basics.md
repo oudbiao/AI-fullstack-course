@@ -599,7 +599,7 @@ Among them, `SELECT` together with `WHERE`, `JOIN`, and `GROUP BY` can cover mos
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Filtering exercises should use `WHERE`, sorting and top-k should use `ORDER BY ... LIMIT`, and city averages should use `GROUP BY city` with `AVG(...)`.
 - For order reports, use `JOIN` when only customers with orders matter and `LEFT JOIN` when customers without orders must stay visible. `COALESCE` is useful for showing zero instead of null total spend.

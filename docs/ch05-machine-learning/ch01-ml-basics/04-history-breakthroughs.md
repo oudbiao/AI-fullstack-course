@@ -223,7 +223,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. The goal is not to memorize dates. The useful answer connects each breakthrough to the problem it solved: uncertainty, numeric prediction, classification boundaries, nonlinear rules, unstable models, or messy workflows.
 2. A strong self-check can map one historical idea to a current course habit, such as train/test split, baseline comparison, Pipeline, or error analysis.

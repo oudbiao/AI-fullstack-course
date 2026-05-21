@@ -248,7 +248,7 @@ next_step: add harder cases or connect a real model
 5. Save the report output into your project notes as prompt evaluation evidence.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. The short case should test whether the prompt handles sparse input. The long mixed-review case should test whether it can separate multiple sentiments or topics.
 2. After adding `confidence`, both the schema and scoring function should require it. Otherwise the model can omit an important uncertainty signal.

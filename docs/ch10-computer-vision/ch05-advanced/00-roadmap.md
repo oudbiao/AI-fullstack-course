@@ -82,7 +82,7 @@ Expected_output: scenario-specific artifact with metric or human-review note
 You pass this chapter when you choose one direction, define input/output, run a minimum project, and document failure cases plus usage boundaries.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

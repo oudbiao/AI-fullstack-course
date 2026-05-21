@@ -62,11 +62,11 @@ done: True
 このページを終えたら、この証拠カードを残します。
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+エージェント境界: これが chatbot や固定ワークフローとどう違うか
+目標/状態/行動：目標、現在の状態、次の行動、観測
+アーキテクチャ要素: planner、tools、memory、guardrails、evaluator
+失敗確認: 自律性が高すぎる、あいまいな目標、状態不足、または trace がない
+次の行動：追跡可能な最小の single-agent ループを構築する
 ```
 
 ## 合格ライン
@@ -76,7 +76,7 @@ next_action: build the smallest traceable single-agent loop
 出口ミニプロジェクトは研究アシスタント Agent の追跡記録です：1 つの目標、1 つの計画、少なくとも 1 つのツール判断、1 つの観察、1 つの停止条件、1 つの最終回答を残します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

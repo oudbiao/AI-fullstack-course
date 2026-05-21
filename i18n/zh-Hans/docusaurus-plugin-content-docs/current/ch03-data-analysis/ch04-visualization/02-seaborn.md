@@ -481,11 +481,11 @@ mindmap
 学完这一页，至少保留这张证据卡：
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+问题：这张图表回答的是比较、分布、趋势，还是关系
+图表选择：折线图、柱状图、散点图、直方图、箱线图、热力图或交互式仪表板
+工件：保存的图表图片/html 以及所用的数据切片
+失败检查：尺度误导、图表过载、聚合错误或缺少标签
+期望产出：带有一句说明洞察的图表成果
 ```
 
 ## 小结
@@ -547,7 +547,7 @@ Expected_output: chart artifact with one sentence explaining the insight
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 分布图可用 `histplot` 或 `kdeplot`，并说明偏态、异常值和大致中心。只有漂亮曲线、没有解释是不完整的。
 - 类别比较中，箱线图和计数图回答的问题不同：一个看分布范围，一个看频数。先选符合问题的图，再做样式调整。

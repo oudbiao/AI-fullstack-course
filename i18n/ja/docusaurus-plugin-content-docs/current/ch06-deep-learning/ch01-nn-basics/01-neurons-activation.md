@@ -186,10 +186,10 @@ XOR は 4 行だけです。
 次の小さな結果カードを残します。
 
 ```text
-single_neuron: z = x @ w + b, activation changes the signal
-xor_result: [0, 1, 1, 0] recovered by a tiny MLP
-core_reason: nonlinear hidden layers create intermediate features
-failure_probe: remove hidden activation and compare final_loss
+単一ニューロン: z = x @ w + b、活性化がシグナルを変える
+xor結果：小さな MLP で [0, 1, 1, 0] を復元
+中核理由: 非線形な隠れ層が中間特徴を作る
+失敗プローブ: 隠れ活性を取り除いて final_loss を比較する
 ```
 
 重要なのは、toy model が 4 行を覚えたことではありません。非線形性によって、層を重ねたモデルが表現できる形が変わることです。
@@ -213,7 +213,7 @@ failure_probe: remove hidden activation and compare final_loss
 5. 隠れ層をもう 1 つ追加し、final loss を比較してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 隠れユニットを 2 にすると表現力が下がり、XOR の学習は不安定になりやすいです。複数回実行して seed による差も確認してください。
 2. ReLU でも学習できることがありますが、小さな XOR では初期値や学習率の影響を受けやすく、Tanh より曲線が荒れる場合があります。

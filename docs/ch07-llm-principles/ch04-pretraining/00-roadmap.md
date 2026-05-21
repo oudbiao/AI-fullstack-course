@@ -69,7 +69,7 @@ engineering_note: sharding, resume, throughput, and monitoring
 You pass this roadmap when you can explain how data, objective, and engineering each affect the final model, and why contamination can make evaluation misleading.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer explains how tokens, context, attention, prompts, and generation behavior connect in one request-response path.
 2. The evidence should include at least one reproducible prompt or structured-output test, plus notes on why the output passed or failed.

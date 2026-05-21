@@ -339,11 +339,11 @@ checklist 很重要，
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+运行时：队列、worker、状态存储、工具服务，以及模型端点
+持久化：检查点、事件日志、记忆存储和恢复路径
+运维信号：延迟、成本、错误率、trace 覆盖率和饱和度
+失败检查：运行卡住、重复动作、部分失败或成本失控
+恢复动作：继续、回滚、取消、人工接管，或优雅降级
 ```
 
 ## 小结
@@ -364,7 +364,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. 想一想：回滚为什么不只是“把代码切回上一个版本”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 就绪检查表应为 tools、permissions、tracing、evaluation cases、rollback、budget limits、human approval、incident response 写清 owner、status、evidence 和 next action。
 2. canary rollout 对 Agent 更重要，因为行为受 prompt、tools、外部数据、模型版本和用户目标共同影响。小流量暴露能发现静态页面检查发现不了的问题。

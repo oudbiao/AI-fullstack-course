@@ -63,11 +63,11 @@ count: 2
 学完这一页，至少保留这张证据卡：
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+记忆类型：短期、长期、情景或程序性
+写入规则：在内存创建或更新时
+检索规则：查询、相关性、时效性和权限检查
+失败检查：过时记忆、隐私泄漏、矛盾或过度检索
+清理动作：总结、合并、过期、删除或请求确认
 ```
 
 ## 通过标准
@@ -77,7 +77,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 本章出口小项目是一套学习规划助手记忆规则：什么保存、什么确认、什么临时保留、什么删除。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

@@ -396,11 +396,11 @@ print(retrieve_teaching_materials("折扣应用题"))
 学完这一页，至少保留这张证据卡：
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+工具契约：名称、描述、输入 schema、输出 schema
+权限：工具允许读取或修改的内容
+调用轨迹：参数、结果、错误、重试或回退
+失败检查：错误的工具、参数不当、不安全操作，或缺少观察结果
+安全动作：验证、确认、沙箱、限流，或回滚
 ```
 
 ## 小结
@@ -424,7 +424,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 如果一个工具组合不稳定、经常改顺序，你还会把它封成高级工具吗？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `timeout_tool` wrapper 通常属于 executor 或 tool middleware 层，这样所有工具都能复用同一套超时行为。
 2. cache 更适合只读工具，因为相同输入应得到相同且安全的答案。写操作会改变状态，缓存结果可能变危险。

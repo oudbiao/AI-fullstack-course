@@ -227,7 +227,7 @@ next_action: data labeling, features, or model upgrade
 5. Create a README outline for this project.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. `"not clear"` is likely neutral or uncertain, while `"never useful"` should probably be negative. These examples test whether the rule system handles negation and weak sentiment.
 2. Good `other` examples include sarcasm, mixed languages, or text that is about shipping or price rather than sentiment. The goal is to keep unclear inputs from being forced into a wrong label.

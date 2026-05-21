@@ -59,11 +59,11 @@ unique_tokens: 5
 このページを終えたら、この証拠カードを残します。
 
 ```text
-text_path: raw text -> tokens -> ids -> embeddings
-token_risk: long input can hit context or cost limits
-embedding_use: similarity can support retrieval but is not reasoning
-model_bridge: pretrained model = shared foundation plus task behavior
-next_action: run tokenizer and embedding labs before Prompt work
+テキストの流れ：raw text -> tokens -> ids -> embeddings
+トークンリスク：長い入力は context またはコスト上限に達する可能性がある
+埋め込みの用途：類似度は検索を支援できるが、推論ではない
+モデルの橋渡し：事前学習モデル = 共通の基盤 + タスクの振る舞い
+次の行動：Prompt 作業の前に tokenizer と embedding の演習を実行する
 ```
 
 ## 合格ライン
@@ -71,7 +71,7 @@ next_action: run tokenizer and embedding labs before Prompt work
 生テキストに tokenization が必要な理由、embedding がベクトルである理由、事前学習済みモデルをゼロからではなく再利用する理由を説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

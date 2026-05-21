@@ -434,7 +434,7 @@ scores = rng.integers(40, 101, size=50)
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Fahrenheit to Celsius should use `(fahrenheit - 32) * 5 / 9`; the given examples produce about `[0, 20, 37.78, 100, 22.22, 37]`.
 - Broadcasting works when NumPy can align dimensions from the right. In the common row-plus-column exercise, the result becomes a 3 by 3 matrix because each row value combines with each column value.

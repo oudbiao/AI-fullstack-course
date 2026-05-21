@@ -573,7 +573,7 @@ you will not just remember method names when you later learn DPO, RLAIF, or othe
 4. Think about your own project: is it currently more like “needs SFT” or “has already reached the stage where preference optimization is needed”? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. People often find it easier to choose the better of two answers than to assign a calibrated numeric score. Pairwise preference also reduces differences between annotators’ scoring scales.
 2. The learned weights should move toward features that distinguish `chosen` from `rejected`. If a new preference contradicts earlier examples, the model may shift less clearly or expose ambiguity in the labeling rule.

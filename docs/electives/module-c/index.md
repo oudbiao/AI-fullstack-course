@@ -70,7 +70,7 @@ Expected_output: classical-ML baseline result with one limitation note
 You pass this module when you can build one classic baseline, explain why it is appropriate, and compare it with a heavier model or later project result.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 A solid baseline answer names the dataset shape, model family, and comparison point. For example: “KNN is acceptable here because the dataset is small and distances are meaningful; I will compare it against a later neural model using the same split and F1 score.”
 

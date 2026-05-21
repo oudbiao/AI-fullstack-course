@@ -282,12 +282,12 @@ checkpoints/best_model.pt
 すべての PyTorch project で、短い実行安全メモを残します。
 
 ```text
-device: cpu/cuda/mps and model/data match
-seed: set before debugging
-grad_norm: measured before and after clipping when unstable
-precision: AMP used only when supported, fallback works
-checkpoint: model_state_dict, optimizer_state_dict, epoch, best_val
-debug_order: batch -> shape -> device -> loss -> gradients -> update -> validation
+デバイス：cpu/cuda/mps とモデル／データの一致
+シード：デバッグ前に設定する
+勾配ノルム：不安定なときにクリッピング前後で測定
+精度：AMP は対応時のみ使用し、フォールバックも動作する
+チェックポイント：model_state_dict、optimizer_state_dict、epoch、best_val
+デバッグ順序: batch -> shape -> device -> loss -> gradients -> update -> validation
 ```
 
 ## メモリと安定性の切り分け
@@ -343,7 +343,7 @@ with torch.no_grad():
 4. loss が不安定になるまで一時的に学習率を上げ、その後、学習率を下げて gradient clipping を入れて回復させてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. モデル、入力 tensor、ラベル、ループ内で新しく作る tensor を同じ `device` に移します。device を表示する、または簡単な assertion を入れると、多くの実行時エラーを早く防げます。
 2. clipping 後の勾配ノルムは、設定したしきい値付近に抑えられるはずです。clipping 前のノルムが非常に大きい場合は、learning rate、loss scale、データ値も確認します。

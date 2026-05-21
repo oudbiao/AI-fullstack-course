@@ -78,9 +78,9 @@ print(json.dumps(record, indent=2))
 このページを終えたら、この evidence card を残します。
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+プロンプト記録：プロンプト、否定条件、参照、seed/model、バージョン番号
+候補出力：生成結果またはシミュレーション結果と選択理由
+技術メモ：diffusion step、latent、cross-attention、LoRA、またはアプリケーションモード
+失敗確認: プロンプトのずれ、文体不一致、成果物、著作権、肖像、またはレビュー失敗
+期待される成果: 選定した画像/版の記録と却下候補のメモ
 ```

@@ -63,11 +63,11 @@ saved: sales_trend.png
 このページを終えたら、この evidence card を残します。
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+質問：このグラフが答える比較、分布、傾向、または関係
+グラフ選択：折れ線、棒、散布図、ヒストグラム、箱ひげ図、ヒートマップ、またはインタラクティブダッシュボード
+成果物: 保存した chart 画像/html と、そのデータスライス
+失敗確認: 誤解を招くスケール、情報過多のグラフ、誤った集計、またはラベル不足
+期待される成果：1文で示唆を説明するチャートのアーティファクト
 ```
 
 ## この順番で学ぶ
@@ -84,7 +84,7 @@ Expected_output: chart artifact with one sentence explaining the insight
 1つのデータセットから有用なグラフを4つ作り、それぞれのグラフを選んだ理由を説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、問いを先に定義し、必要な table、DataFrame、または SQL query と、再現できるクリーニング手順を示します。
 2. 証拠には、小さな出力例、必要に応じた図表や query 結果、そして結果を解釈する一文を残します。

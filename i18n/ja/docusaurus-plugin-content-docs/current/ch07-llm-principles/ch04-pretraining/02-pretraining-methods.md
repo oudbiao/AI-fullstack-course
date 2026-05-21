@@ -470,11 +470,11 @@ encoder は双方向モデリングが得意だからです。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-objective: causal LM, masked LM, or seq2seq objective
-training_sample: input and target constructed from same text
-architecture_fit: objective matched to encoder/decoder pattern
-behavior_effect: what the objective teaches the model to do
-limitation: pretraining objective is not the same as instruction following
+目的：causal LM、masked LM、または seq2seq の目的
+学習サンプル：同じ text から構成された input と target
+アーキテクチャ適合: 目的が encoder/decoder パターンに合っているか
+振る舞いへの影響：目的がモデルに何を学ばせるか
+限界：事前学習の目的は指示追従と同じではない
 ```
 
 ## まとめ
@@ -497,7 +497,7 @@ limitation: pretraining objective is not the same as instruction following
 4. 強い要約モデルを作りたいとしたら、どの種類の事前学習目標に寄せると思いますか？その理由も考えてみてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. よい答えでは、同じ文章が異なる学習信号になることを示せます。Causal LM は next-token prediction、Masked LM は隠された token の復元、sequence-to-sequence 目的は入力から出力への再構成です。
 2. Causal LM は、prefix から左から右へ token を続けるように学習します。これは自由生成、チャット、コード補完など、出力を順番に作るタスクとよく合います。

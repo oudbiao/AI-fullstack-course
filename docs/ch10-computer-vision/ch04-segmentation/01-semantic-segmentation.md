@@ -357,7 +357,7 @@ If we compress it into one sentence, it is:
 4. If the classes are very imbalanced, what problem would you worry about most?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing `pred_mask` changes the intersection and union. Even small boundary errors can noticeably lower IoU, especially for small regions.
 2. High pixel accuracy can be misleading because background pixels may dominate the image. A model can look accurate while failing rare or small classes.

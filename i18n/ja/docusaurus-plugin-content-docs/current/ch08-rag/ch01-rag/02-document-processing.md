@@ -499,11 +499,11 @@ for chunk in chunks_with_meta:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+クエリ：1つのユーザー質問またはテストケース
+検索チャンク：chunk id、スコア、ソースタイトル
+回答: 引用または出典メモ付きの最終回答
+失敗確認: 証拠不足、誤ったチャンク、古い文書、または裏付けのない主張
+次の行動：chunking、embedding、reranking、prompt、または eval の変更
 ```
 
 ## まとめ
@@ -525,7 +525,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 4. あなたの目標が教材生成なら、概念、例題、練習問題を同じ分割方法でまとめてしまうのがなぜ向かないのか、考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 小さい chunk は精密に検索しやすい一方で、文脈を失いやすいです。大きい chunk は文脈を保ちますが、信号が薄まりやすくなります。Overlap は境界情報の欠落を減らします。
 2. 返金と無関係な文は、返金質問では低く並ぶべきです。高く出るなら、embedding や scoring が意図を十分に区別できていません。

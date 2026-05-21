@@ -665,7 +665,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. Think about this: if the document says "refund within 14 days" but the model answers "7 days," which step might have gone wrong?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Good added documents should test whether retrieval can separate similar topics, such as refund policy, course transfer, and certificate rules. A good query should return the document that actually contains the answer, not merely a document with overlapping words.
 2. A larger `top_k` gives the generator more context, but it can also add distractors. A smaller `top_k` is cleaner, but may miss a necessary supporting chunk.

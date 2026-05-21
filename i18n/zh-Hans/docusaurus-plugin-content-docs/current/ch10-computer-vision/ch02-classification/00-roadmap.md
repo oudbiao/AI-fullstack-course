@@ -55,7 +55,7 @@ confidence: 0.74
 如果你能运行一个最小分类器，展示训练/验证指标，并解释至少一张失败图片，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把任务映射到正确的视觉输出：类别标签、检测框、mask、OCR 文本、embedding 或视频事件。
 2. 证据应包含渲染后的视觉产物，以及一个指标或定性错误说明。
@@ -69,9 +69,9 @@ confidence: 0.74
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataset_split: train/test images, class names, and class balance
-prediction: label, confidence, and at least one misclassified image
-metric: accuracy, F1, confusion matrix, and class-level errors
-failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
-Expected_output: model result table and saved error examples
+数据集划分：训练/测试图像、类别名和类别平衡
+预测：标签、置信度和至少一张分类错误的图像
+指标：准确率、F1、混淆矩阵和类别级错误
+失败检查：增强改变标签含义、类别不平衡、数据泄漏或过拟合
+期望产出：模型结果表和保存的错误示例
 ```

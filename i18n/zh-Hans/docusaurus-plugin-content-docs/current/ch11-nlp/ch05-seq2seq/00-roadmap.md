@@ -57,7 +57,7 @@ target_length: 3
 如果你能解释 Encoder-Decoder、Attention、greedy/beam decoding 和一个生成失败，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -71,9 +71,9 @@ target_length: 3
 学完这一页，至少保留这张证据卡：
 
 ```text
-source_target: source text, target text, and task type
-decoded_output: generated summary, translation, transcript, or sequence result
-alignment_note: attention, CTC path, coverage, or copied source evidence
-failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
-Expected_output: generated text with factual or alignment review notes
+源目标：源文本、目标文本和任务类型
+解码输出：生成的摘要、翻译、转写或序列结果
+对齐说明：注意力、CTC 路径、coverage，或复制的源证据
+失败检查：遗漏、重复、幻觉、对齐错误或评估薄弱
+期望产出：生成文本，以及事实性或对齐性复核说明
 ```

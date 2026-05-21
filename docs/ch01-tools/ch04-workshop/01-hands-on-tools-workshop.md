@@ -455,7 +455,7 @@ Before leaving Chapter 1, your evidence pack should show both result and process
 - [ ] I have a report file that proves my workstation can run code.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. `docs/commands.md` should contain commands you actually ran plus a short note on what each command did.
 2. `reports/terminal-transcript.txt` should include one successful run and one mistake you fixed, not only perfect output.

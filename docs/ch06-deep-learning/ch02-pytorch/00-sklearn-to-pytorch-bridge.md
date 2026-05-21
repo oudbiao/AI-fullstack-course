@@ -278,7 +278,7 @@ The point is not that PyTorch is "more advanced." The point is that PyTorch make
 3. Try printing `weight` and `bias` every 100 epochs to see how the parameters gradually move toward the answer.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The two models should learn a similar line if the data is close to linear. They may not match exactly because `sklearn` solves the closed-form or optimized regression objective directly, while the PyTorch version moves by gradient steps.
 2. `0.1` often learns faster but may overshoot on small or poorly scaled data. `0.001` is usually safer but visibly slower, so the loss curve may still be descending when training stops.

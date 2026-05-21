@@ -489,11 +489,11 @@ print(handle_generate({"topic": "割引の応用問題", "doc_format": "pdf"}))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-service_contract: endpoint, input schema, output schema, error schema
-run_signal: latency, throughput, logs, health check, or container status
-observability: request id, trace id, structured log, or metric
-failure_check: timeout, retry storm, missing log, deployment mismatch
-ops_action: backoff, queue, alert, rollout, or rollback
+サービス契約: エンドポイント、入力スキーマ、出力スキーマ、エラースキーマ
+実行シグナル: レイテンシ、スループット、ログ、ヘルスチェック、またはコンテナ状態
+可観測性：request id、trace id、構造化ログ、または metric
+失敗確認: タイムアウト、リトライの連鎖、ログ不足、デプロイ不一致
+運用アクション：バックオフ、キュー、アラート、段階展開、またはロールバック
 ```
 
 ## まとめ
@@ -514,7 +514,7 @@ ops_action: backoff, queue, alert, rollout, or rollback
 4. 自分の言葉で説明してみましょう。なぜ API 設計は本質的にシステム契約を定義することだと言えるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `session_id` は request parsing、state lookup、logs、response trace を通って流れるべきです。空値や不正形式も検証します。
 2. error enum があると client は安定してエラー処理でき、ユーザー起因のエラーとサービス起因のエラーも分けられます。

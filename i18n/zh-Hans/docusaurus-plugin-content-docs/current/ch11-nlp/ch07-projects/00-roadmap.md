@@ -73,7 +73,7 @@ portfolio_ready: True
 如果你的 NLP 项目有任务定义、数据示例、评估指标、基线、失败案例和下一步改进计划，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -87,9 +87,9 @@ portfolio_ready: True
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
-artifacts: raw text, processed text, predictions, metrics, and failure cases
-metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
-failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
-Expected_output: reproducible text pipeline folder with metrics and examples
+任务输出：标签、实体字段、摘要、答案、检索结果或语义图
+工件：原始文本、处理后文本、预测、指标和失败案例
+指标：准确率/F1、精确率/召回率、检索命中率、忠实度或 schema 有效性
+失败检查：标签不清、过度清洗、边界错误、幻觉或答案无依据
+期望产出：可复现的文本流程文件夹，包含指标和示例
 ```

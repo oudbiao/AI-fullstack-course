@@ -374,7 +374,7 @@ If we compress it into one sentence, it is:
 4. If the validation performance drops, would you first suspect that the augmentation is too weak or too strong?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A simple `vertical_flip` can use `image[::-1]` or `np.flipud(image)`. If labels include masks or boxes, those labels must be flipped with the image too.
 2. Rotation is harmful when orientation carries meaning, such as digits, traffic signs, medical images, or any task where upside-down examples are unrealistic.

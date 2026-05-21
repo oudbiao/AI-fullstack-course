@@ -300,7 +300,7 @@ head_choice: Flatten for location-specific detail, GAP for compact classifier
 5. Write down the shape after every line for an RGB `64 x 64` input.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. If `conv2` outputs `32` channels, later layers that expect `16` channels must change too, especially the classifier input size or any next convolution.
 2. With `AdaptiveAvgPool2d((1, 1))`, the classifier receives one value per channel. If the last feature map has `16` channels, `Linear(16, 10)` is the right head.

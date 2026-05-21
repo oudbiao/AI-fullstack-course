@@ -197,7 +197,7 @@ success_rule: what metric or artifact will prove the fix worked
 5. Save a CSV-style log with `epoch,train_loss,val_loss,val_acc`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A `good_case` should show train and validation loss both decreasing, with validation accuracy improving or staying stable. It is the reference pattern for healthy training.
 2. With 3 classes, `torch.bincount(preds, minlength=3)` should report three bins. The classifier output and labels must also use three classes.

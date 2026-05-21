@@ -194,7 +194,7 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 5. Explain why `pipeline()` is useful for demos but not enough for debugging batch-shape problems.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The tail token is usually truncated first, so the exact missing token depends on the tokenizer output. This is why you should print tokens instead of guessing from raw text.
 2. `hidden_size=64` changes the last dimension of hidden-state tensors. If the model is actually instantiated with that config, parameter shapes also change.

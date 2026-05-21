@@ -339,11 +339,11 @@ mixed_label: [0.7, 0.3]
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataset_split: train/test images, class names, and class balance
-prediction: label, confidence, and at least one misclassified image
-metric: accuracy, F1, confusion matrix, and class-level errors
-failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
-Expected_output: model result table and saved error examples
+数据集划分：训练/测试图像、类别名和类别平衡
+预测：标签、置信度和至少一张分类错误的图像
+指标：准确率、F1、混淆矩阵和类别级错误
+失败检查：增强改变标签含义、类别不平衡、数据泄漏或过拟合
+期望产出：模型结果表和保存的错误示例
 ```
 
 ## 小结
@@ -374,7 +374,7 @@ Expected_output: model result table and saved error examples
 4. 如果验证集效果下降，你会先怀疑增强太弱还是太强？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 简单的 `vertical_flip` 可以用 `image[::-1]` 或 `np.flipud(image)`。如果标签里有 mask 或 box，也必须跟着图像一起翻转。
 2. 当方向本身有语义时，旋转增强可能有害，例如数字、交通标志、医学图像，或任何倒置样本不真实的任务。

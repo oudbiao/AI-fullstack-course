@@ -349,11 +349,11 @@ print(memory)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+メモリ種別：短期、長期、エピソード記憶、または手続き記憶
+書き込みルール：メモリが作成または更新されるとき
+取得ルール：クエリ、関連性、鮮度、権限チェック
+失敗確認: 古い記憶、プライバシー漏えい、矛盾、または過剰検索
+クリーンアップ操作：要約、統合、期限切れ、削除、または確認を求める
 ```
 
 ## まとめ
@@ -374,7 +374,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 自分の言葉で説明してみてください。なぜメモリシステムの難しさは、保存だけではなく、選択と整理にあるのでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 短期記憶には、現在のチケット目標、直近のユーザー修正、すでに呼んだツールを入れられます。長期記憶には、ユーザーが明示的に確認した安定した好みを保存します。
 2. 短時間で何度も変わる要件は、安定するまで短期記憶に置きます。すぐ長期化すると、一時的な指示が長期プロファイルを汚します。

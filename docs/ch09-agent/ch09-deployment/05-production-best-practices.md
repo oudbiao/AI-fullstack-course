@@ -364,7 +364,7 @@ Only when these mechanisms are in place does the system deserve to be called “
 4. Think about it: why is rollback not just “switching the code back to the previous version”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A readiness table should include owner, status, evidence, and next action for tools, permissions, tracing, evaluation cases, rollback, budget limits, human approval, and incident response.
 2. Canary rollout matters for Agents because behavior depends on prompts, tools, external data, model versions, and user goals. Small traffic exposure catches failures that static page checks cannot.

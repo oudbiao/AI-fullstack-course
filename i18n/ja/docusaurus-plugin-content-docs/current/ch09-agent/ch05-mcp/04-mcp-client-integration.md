@@ -333,11 +333,11 @@ print(cached_client.discover_once())
 このページを終えたら、この証拠カードを残します。
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+機能：サーバーが公開するリソース、Prompt、またはツール
+契約: スキーマ、通信方式、権限、エラー形式
+呼び出しトレース：探索、呼び出し、応答、失敗時の処理
+失敗確認：互換性のないスキーマ、認証不足、安全でないツール、またはサーバーエラー
+統合アクション：自律化を追加する前にサーバー契約を確認する
 ```
 
 ## まとめ
@@ -358,7 +358,7 @@ integration_action: validate server contract before adding autonomy
 4. 自分の言葉で説明してみましょう：なぜ MCP クライアントには通常「戦略層」が必要なのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. よい `read_file` 統合では、server 側に tool schema を追加し、client が発見できるようにします。そのうえで、パス権限や安全な allowlist を確認してからだけ、その tool に読み取り要求を送ります。
 2. tool が動的だったり server が頻繁に変わるなら再発見が向いています。契約が安定しており、起動コストや遅延を抑えたい場合はキャッシュが向いています。

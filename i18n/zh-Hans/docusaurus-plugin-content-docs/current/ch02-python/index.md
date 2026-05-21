@@ -102,11 +102,11 @@ print(f"已保存 {len(tasks)} 个任务")
 学完这一页，至少保留这张证据卡：
 
 ```text
-program_loop: input, processing, output, and saved state if any
-code_file: Python file or notebook cell that can be rerun
-output: printed result, file result, or user-facing behavior
-failure_check: syntax, path, type, dependency, or control-flow issue
-Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+程序循环：输入、处理、输出，以及如有则保存的状态
+代码文件：可重新运行的 Python 文件或 Notebook 单元
+输出：打印结果、文件结果，或面向用户的行为
+失败检查：语法、路径、类型、依赖或控制流问题
+期望产出：一个可重复运行的 Python 产物，为数据和 AI 应用做准备
 ```
 
 ## 常见失败
@@ -130,7 +130,7 @@ Expected_output: a rerunnable Python artifact that prepares for data and AI apps
 - 其他人能不能按 README 运行你的项目？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 程序输入可以来自命令行文本、用户输入、文件或 API 响应；输出可以是打印文本、函数返回值、保存的文件，或发送给另一个程序的响应。
 2. 当每个项目需要命名字段，或需要按键快速查找时，字典更合适；当你需要保存一组有顺序的相似项目时，列表更合适。

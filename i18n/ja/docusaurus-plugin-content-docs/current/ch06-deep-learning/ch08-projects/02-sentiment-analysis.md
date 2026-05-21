@@ -200,12 +200,12 @@ README は具体的にします。
 感情分析プロジェクトでは、最低限この証拠を残します。
 
 ```text
-label_rules: positive and negative boundaries
-baseline: keyword or TF-IDF baseline
-known_failure: negation, sarcasm, or mixed sentiment
-fix_attempt: one targeted rule or model change
-error_buckets: grouped wrong predictions
-next_action: data labeling, features, or model upgrade
+ラベル規則：正例と負例の境界
+ベースライン: keyword または TF-IDF のベースライン
+既知の失敗：否定、皮肉、または混合感情
+修正試行: 1つの対象ルールまたはモデル変更
+エラーバケット：まとめられた誤予測
+次の行動：データラベル付け、特徴量、またはモデルアップグレード
 ```
 
 ## よくある間違い
@@ -227,7 +227,7 @@ next_action: data labeling, features, or model upgrade
 5. このプロジェクトの README アウトラインを作ってください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `"not clear"` は neutral または uncertain に近く、`"never useful"` は negative と考えるのが自然です。この 2 つは否定表現と弱い感情を扱えるかの確認になります。
 2. よい `other` 例は、皮肉、言語の混在、配送や価格の話で感情が明確でない文などです。曖昧な入力を無理に間違ったラベルへ入れないことが目的です。

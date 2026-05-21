@@ -385,7 +385,7 @@ Once you build that judgment, it will be much easier to understand specific trai
 4. Why is evaluation in image generation fine-tuning more dependent on human perceptual judgment than text classification?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Textual Inversion is more like adding a new token embedding, LoRA is more like adding a small detachable skill patch to model layers, and DreamBooth is more like teaching the model a specific subject or identity with more direct examples.
 2. If you only need a style trigger word, Textual Inversion or LoRA may be enough because you are not trying to deeply rewrite the model's subject knowledge.

@@ -273,12 +273,12 @@ gap head    : 170
 CNN shape trace を 1 つ残します。
 
 ```text
-input: [batch, channels, height, width]
-after_conv: channels change, spatial size follows padding/stride
-after_pool: height and width shrink
-before_head: flattened size or GAP output is known
-logits: [batch, num_classes]
-head_choice: Flatten for location-specific detail, GAP for compact classifier
+入力形状：[batch, channels, height, width]
+畳み込み後: チャネルが変わり、空間サイズはpadding/strideに従う
+プーリング後: 高さと幅が小さくなる
+ヘッド前の状態：フラット化後のサイズまたは GAP 出力が既知
+logits 形状：[batch, num_classes]
+ヘッド選択：位置固有の詳細には Flatten、コンパクトな分類器には GAP
 ```
 
 ## よくあるミス
@@ -300,7 +300,7 @@ head_choice: Flatten for location-specific detail, GAP for compact classifier
 5. RGB の `64 x 64` 入力について、各層の後の shape を手で書く。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `conv2` の出力が 32 channel になると、後続の分類 head の入力次元を合わせる必要があります。次に畳み込みがある場合は、その `in_channels` も変えます。
 2. GAP head は空間サイズを `1 x 1` に圧縮するため、`Linear` は channel 数だけに依存します。

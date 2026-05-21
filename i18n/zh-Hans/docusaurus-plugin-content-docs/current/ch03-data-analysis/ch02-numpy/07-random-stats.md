@@ -373,11 +373,11 @@ for n in [100, 1000, 10000, 100000, 1000000]:
 学完这一页，至少保留这张证据卡：
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+数组状态：操作前的形状、dtype、轴和样本值
+操作：索引、切片、广播、reshape、线性代数，或随机/统计函数
+输出：结果数组形状、值，或统计量
+失败检查：轴混淆、视图/副本陷阱、广播不匹配或形状错误
+期望产出：打印的形状和值，便于检查数组运算
 ```
 
 ## 小结
@@ -464,7 +464,7 @@ english_scores = rng.normal(78, 10, 200).clip(0, 100)  # 英语
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 骰子模拟可创建 `(10000, 2)` 数组，沿 `axis=1` 求和，再用 `np.bincount` 统计点数和。最常见的和通常应是 `7`，因为组合数量最多。
 - 股票模拟先生成每日收益率，再用 `100 * np.cumprod(1 + returns)` 得到价格路径。报告最终收益，如有要求再报告最大回撤，并配一张图让路径可见。

@@ -353,11 +353,11 @@ review : {'approved': True, 'comment': '情報はかなり揃っています'}
 このページを終えたら、この証拠カードを残します。
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+役割: 所有者、作業者、レビュー担当、または専門担当の責務
+メッセージ契約：artifact、request、response、handoff 状態
+調整: ルーティング、タスク分割、衝突解決、最終責任者
+失敗確認：重複作業、文脈喪失、責任者不在、またはメッセージループ
+評価アクション：マルチ Agent の結果を単一 Agent のベースラインと比較する
 ```
 
 ## まとめ
@@ -378,7 +378,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 自分の言葉で説明してみましょう。なぜマルチ Agent では、役割の数より協力構造のほうが重要だと言えるのでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. task は主要な risk で分類します。evidence coverage が重要なら research collaboration、表現と正確さが重要なら writing + review、実装と test が重要なら development team です。
 2. `reviser` Agent は draft と review comments を読み、reject された部分や弱い部分だけを変更し、revised output と短い change note を返します。

@@ -325,11 +325,11 @@ print(compliance_config)
 学完这一页，至少保留这张证据卡：
 
 ```text
-risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
-engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
-test_case: one realistic input/output case that exercises the rule
-failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
-Expected_output: review checklist or product requirement translated into engineering action
+风险范围：前沿能力、伦理问题、监管，或产品政策边界
+工程规则：必须记录、阻止、审核、披露或上报什么
+测试用例：一个符合规则的真实输入/输出案例
+失败检查：隐私、版权、肖像、偏见、安全、来源或合规缺口
+期望产出：将复查清单或产品需求翻译成工程动作
 ```
 
 ## 小结
@@ -350,7 +350,7 @@ Expected_output: review checklist or product requirement translated into enginee
 4. 试着把“合规”翻译成三个你能落到系统里的具体技术要求。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 实用需求清单可以包括：记录训练或输入数据来源、保留不可随意篡改的审计日志、按角色设置权限，以及高风险操作或外部发布前必须有人类确认。
 2. 可追溯性重要，是因为团队需要还原是哪份数据、哪个 prompt、哪个模型版本、哪个用户动作和哪次审批产生了输出。没有轨迹，调试和问责都会很弱。

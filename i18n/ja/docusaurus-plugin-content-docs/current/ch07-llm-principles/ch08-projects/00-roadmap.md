@@ -92,11 +92,11 @@ fine_tune_now: False
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_choice: Prompt, RAG, fine-tuning, or hybrid route
-baseline: simplest working method first
-evaluation: fixed cases and scoring rule
+プロジェクト選択：Prompt、RAG、fine-tuning、またはハイブリッド経路
+ベースライン: まずは最も簡単に動く方法
+評価：固定ケースと採点ルール
 成果物：README、prompts、outputs、failures、decision log
-bridge: Chapter 8 turns this into retrieval-backed applications
+橋渡し：第8章ではこれを検索バック付きアプリケーションに変える
 ```
 
 ## 合格ライン
@@ -106,7 +106,7 @@ bridge: Chapter 8 turns this into retrieval-backed applications
 最終プロジェクトは基本版で十分です。1 つのドメインタスクで 2 つの Prompt バージョンを比較します。強い版では RAG や小さな微調整実験を追加できますが、必ずベースラインと失敗ログで必要性を示してから行います。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

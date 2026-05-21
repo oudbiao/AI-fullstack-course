@@ -486,7 +486,7 @@ the architectural choices, fine-tuning methods, and task transfer in the followi
 4. Think about this: if your goal is to build a strong summarization model, which type of pretraining objective would you prefer? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A good answer should show that the same text can become different training signals: next-token prediction for Causal LM, masked-token recovery for Masked LM, and input-to-output reconstruction for sequence-to-sequence objectives.
 2. Causal LM trains the model to continue a prefix token by token. That matches open-ended generation, chat, code completion, and other tasks where the output is produced left to right.

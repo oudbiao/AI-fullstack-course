@@ -423,11 +423,11 @@ for q in ["北京の天気はどうですか", "天気を調べて", "計算 9 +
 このページを終えたら、この証拠カードを残します。
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+ツール契約：名前、説明、入力スキーマ、出力スキーマ
+権限：ツールが読み取りまたは変更を許可されている範囲
+呼び出しトレース：引数、結果、エラー、再試行、またはフォールバック
+失敗確認: 間違ったツール、不適切な引数、危険な操作、または観測不足
+安全対策: 検証、確認、サンドボックス化、レート制限、またはロールバック
 ```
 
 ## まとめ
@@ -448,7 +448,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. 自分の言葉で説明してみましょう。なぜツール呼び出し戦略は、Agent の品質を分ける分岐点のひとつだと言えるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `search_docs(keyword)` は知識検索用の routing 分岐を追加し、自由文だけでなく evidence snippet を返すようにします。
 2. ツール実行エラーはまず分類します。安全な一時的エラーだけ再試行し、それ以外は人間確認または制御された失敗にします。

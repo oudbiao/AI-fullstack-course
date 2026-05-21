@@ -273,12 +273,12 @@ gap head    : 170
 保留一条 CNN shape trace：
 
 ```text
-input: [batch, channels, height, width]
-after_conv: channels change, spatial size follows padding/stride
-after_pool: height and width shrink
-before_head: flattened size or GAP output is known
-logits: [batch, num_classes]
-head_choice: Flatten for location-specific detail, GAP for compact classifier
+输入: [batch, channels, height, width]
+卷积后状态：通道变化，空间尺寸随 padding/stride 变化
+池化后：高和宽缩小
+前一层头部：已知展平后的大小或 GAP 输出
+logits 形状：[batch, num_classes]
+头部选择：Flatten 适合位置相关细节，GAP 适合紧凑分类器
 ```
 
 ## 常见错误
@@ -300,7 +300,7 @@ head_choice: Flatten for location-specific detail, GAP for compact classifier
 5. 针对 RGB `64 x 64` 输入，手写每一层后的 shape。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `conv2` 输出变成 32 个通道后，后面的分类头输入维度必须同步修改；如果还有下一层卷积，它的 `in_channels` 也要改。
 2. GAP 分类头会把空间尺寸压成 `1 x 1`，所以 `Linear` 只依赖通道数，结构更不容易被输入尺寸卡住。

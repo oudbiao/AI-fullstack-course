@@ -223,12 +223,12 @@ probs: [1.0, 0.0, 0.0, 0.0]
 分類実行カードを 1 つ保存します。
 
 ```text
-data_shape: train and validation tensor shapes
-model_shape: input -> features -> logits
-metric: validation accuracy and loss
-confusion_matrix: rows=true, cols=pred
-sample_prediction: true label, predicted label, probabilities
-next_probe: more noise, fewer samples, new class, or real image split
+データ形状: train と validation のテンソル形状
+モデル形状：input -> features -> logits
+指標：検証 accuracy と loss
+混同行列: 行=true、列=pred
+サンプル予測: 真のラベル、予測ラベル、確率
+次の確認：ノイズを増やす、サンプルを減らす、新しいクラスを追加する、または実画像の split を使う
 ```
 
 ## なぜここで GAP を使うのか
@@ -286,7 +286,7 @@ next_probe: more noise, fewer samples, new class, or real image split
 5. 誤分類があれば、検証セットの最初の 5 件を表示する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. noise が増えるとクラス境界が曖昧になり、検証精度は下がりやすくなります。誤分類例もより重要な診断材料になります。
 2. クラスあたり 10 件では訓練データに合わせることはできても、検証結果は大きく揺れやすくなります。

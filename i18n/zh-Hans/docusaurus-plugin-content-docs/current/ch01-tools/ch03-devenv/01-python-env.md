@@ -362,11 +362,11 @@ conda env create -f environment.yml
 学完这一页，至少保留这张证据卡：
 
 ```text
-environment: Python/Node/editor/notebook version and selected interpreter/kernel
-verification: one command or notebook cell proving the setup works
-project_folder: where dependencies, scripts, and notebooks live
-failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
-Expected_output: setup screenshot or terminal output plus one fallback note
+环境：Python/Node/编辑器/Notebook 版本以及选定的解释器/内核
+验证记录：证明设置可用的一条命令或一个 Notebook 单元
+项目文件夹：依赖、脚本和 notebooks 所在位置
+失败检查：错误的解释器、缺少包、过时的 kernel，或编辑器路径不匹配
+期望产出：设置截图或终端输出加一条回退说明
 ```
 
 ## 常见问题排查
@@ -489,7 +489,7 @@ conda env list
 如果最后看到 `✅ 环境搭建成功！`，你的 Python 环境就准备好了。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. `conda env list` 应该能看到 `ai-course`，激活后它旁边应该有当前环境标记。
 2. 验证命令至少要打印 NumPy 和 Pandas 版本，并出现环境搭建成功的提示。

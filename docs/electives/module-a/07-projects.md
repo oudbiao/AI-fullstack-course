@@ -115,7 +115,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 Add a second target device and rerun the readiness checks. Then write three README lines that explain why the chosen device and engine are reasonable.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 The second device should be added to the same readiness logic, not judged by a separate story. A good README answer can be as short as:
 

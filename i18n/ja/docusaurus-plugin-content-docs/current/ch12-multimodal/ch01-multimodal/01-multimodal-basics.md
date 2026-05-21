@@ -391,11 +391,11 @@ for text_name, text_vec in texts.items():
 このページを終えたら、この evidence card を残します。
 
 ```text
-source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
-structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
-fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
-failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
-Expected_output: structured record that can be cited or reviewed later
+ソース資産: バージョン/出所注記付きの画像、スクリーンショット、PDF、音声、動画、またはテキスト入力
+構造化レコード：表示テキスト、objects、regions、timestamp、transcript、または不確実性
+融合結果：回答、検索記録、ルート決定、またはマルチモーダル特徴の比較
+失敗確認: 出典不足、OCR エラー、位置合わせミス、不確実性、または裏付けのない主張
+期待される成果: 後で引用またはレビューできる構造化レコード
 ```
 
 ## まとめ
@@ -427,7 +427,7 @@ Expected_output: structured record that can be cited or reviewed later
 3. 「スクリーンショットのエラー + 質問文」が、エラーテキストだけよりマルチモーダルシステムに向いているのはなぜか、考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. よい確認方法は、順位の変化が正しい理由で起きているかを見ることです。画像ベクトルが同じ意味次元でテキストベクトルに近づけば順位は上がり、無関係な次元だけが変わったなら大きくは変わらないはずです。
 2. たとえば `甘い/塩辛い`、`動く/静止`、`生物/非生物` という玩具的な空間を作れます。果物は甘い・生物寄り、乗り物は動く・非生物寄り、動物は動く・生物寄りに置けます。大事なのは数値そのものではなく、近い点が有用な意味を共有していることです。

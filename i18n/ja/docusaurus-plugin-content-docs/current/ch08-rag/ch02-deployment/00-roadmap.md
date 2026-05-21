@@ -66,11 +66,11 @@ watch: latency, cost, errors
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+ランタイム選択: ローカルモデル、推論サーバー、または統合 API
+リクエスト契約：エンドポイント、payload、出力形式、エラー形状
+レイテンシまたはコスト：1つの測定値または推定値
+失敗確認: タイムアウト、メモリ圧迫、モデル不一致、またはバージョンずれ
+ロールバック計画: フォールバックモデル、リトライ方針、またはトラフィック切り替え
 ```
 
 ## 合格ライン
@@ -80,7 +80,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 出口ミニプロジェクトは、小さなモデル gateway メモまたはスクリプトです。1 つのリクエストを選んだモデル endpoint に routing し、判断理由を記録します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
 2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。

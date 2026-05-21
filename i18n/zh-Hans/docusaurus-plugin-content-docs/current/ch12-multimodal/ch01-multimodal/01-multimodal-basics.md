@@ -393,11 +393,11 @@ for text_name, text_vec in texts.items():
 学完这一页，至少保留这张证据卡：
 
 ```text
-source_asset: image, screenshot, PDF, audio, video, or text input with version/source note
-structured_record: visible text, objects, regions, timestamp, transcript, or uncertainty
-fusion_result: answer, retrieval record, route decision, or multimodal feature comparison
-failure_check: missing source, OCR error, alignment mistake, uncertainty, or unsupported claim
-Expected_output: structured record that can be cited or reviewed later
+源资产：带版本/来源说明的图像、截图、PDF、音频、视频或文本输入
+结构化记录：可见文本、对象、区域、时间戳、转写文本或不确定性
+融合结果：答案、检索记录、路由决策或多模态特征比较
+失败检查：缺少来源、OCR 错误、对齐错误、不确定性或论断无依据
+期望产出：可供后续引用或复查的结构化记录
 ```
 
 ## 小结
@@ -429,7 +429,7 @@ Expected_output: structured record that can be cited or reviewed later
 3. 想一想：为什么“截图报错 + 提问文字”比只给报错文字，更适合用多模态系统？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. 一个好的检查标准是：排序变化是否来自正确原因。如果图像向量在相同语义维度上更接近文本向量，它的排名应该上升；如果只是在无关维度上变化，排名通常不该大幅改变。
 2. 一个简单的玩具空间可以用 `甜/咸`、`移动/静止`、`有生命/无生命` 三个维度。水果靠近甜和有生命，车辆靠近移动和无生命，动物靠近移动和有生命。重点不是数字本身，而是相近点是否共享有用语义。

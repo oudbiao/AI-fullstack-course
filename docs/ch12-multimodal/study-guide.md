@@ -52,7 +52,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 If the answer is yes, the course has a complete end-to-end path: foundations, data, models, LLM apps, Agents, and multimodal product workflows.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - Yes means every non-text input has a source, owner, version, and review status, not just a final file.
 - A good structured record contains extracted content, modality metadata, confidence or review notes, and a stable link back to the source artifact.

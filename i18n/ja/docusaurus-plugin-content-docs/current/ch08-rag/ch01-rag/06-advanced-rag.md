@@ -295,11 +295,11 @@ Router RAG は、それだけで検索が賢くなる魔法ではありません
 このページを終えたら、この証拠カードを残します。
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+クエリ：1つのユーザー質問またはテストケース
+検索チャンク：chunk id、スコア、ソースタイトル
+回答: 引用または出典メモ付きの最終回答
+失敗確認: 証拠不足、誤ったチャンク、古い文書、または裏付けのない主張
+次の行動：chunking、embedding、reranking、prompt、または eval の変更
 ```
 
 ## まとめ
@@ -320,7 +320,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 多段検索が必須になる質問の例を 1 つ考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. よい route は、シラバス、レッスン、練習問題に関する質問をコース内容の knowledge base に送り、account、payment、policy の質問はそれぞれ別 route に残します。Route decision は確認しやすい形にします。
 2. Order status、enrollment record、inventory、permission、grade、live price などの構造化事実は、SQL や API のほうが向いていることが多いです。Text retrieval は、説明、policy、manual、長文知識に向いています。

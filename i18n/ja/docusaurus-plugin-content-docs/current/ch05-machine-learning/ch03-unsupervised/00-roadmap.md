@@ -56,11 +56,11 @@ inertia: 43.44
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: clustering, dimensionality reduction, or anomaly detection goal
-data_view: scaled features, projection, clusters, or anomaly scores
-interpretation: what the groups, axes, or alerts mean in the scenario
-failure_check: arbitrary cluster count, scaling issue, noisy dimension, or false alert
-Expected_output: unsupervised result with interpretation and uncertainty note
+タスク：clustering、dimensionality reduction、または anomaly detection の目標
+データ表示: スケーリング済み特徴量、射影、クラスタ、または異常スコア
+解釈：このシナリオでグループ、軸、またはアラートが何を意味するか
+失敗確認：任意のクラスタ数、スケーリングの問題、ノイズの多い次元、または誤検知
+期待される成果: 解釈と不確実性メモを含む教師なし結果
 ```
 
 ## この順番で学ぶ
@@ -76,7 +76,7 @@ Expected_output: unsupervised result with interpretation and uncertainty note
 探している構造を説明し、教師なしモデルを1つ動かし、出力を絶対的な真実として扱わず慎重な解釈を書ければ合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 教師なし学習の出力は、構造についての仮説であり、検証済みの答えではありません。
 2. よい解釈には、図または特徴量要約、構造への慎重な名前付け、不確実性についての一言が含まれます。

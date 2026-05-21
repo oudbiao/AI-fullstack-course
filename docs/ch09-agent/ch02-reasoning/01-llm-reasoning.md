@@ -431,7 +431,7 @@ you will see that they are all helping the model complete this task more stably.
 4. Why does “having tools” not mean “being able to reason”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `12 / (3 + 1) + 7` should evaluate as `12 / 4 + 7`, then `3 + 7`, then `10`. The useful check is whether each step is consistent, not only the final number.
 2. Intermediate state shows whether the model is preserving facts, choosing valid operations, and not jumping over dependencies.

@@ -375,7 +375,7 @@ pwd
 如果所有步骤都成功了，恭喜你——你已经掌握了命令行最核心的操作。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. 完成第 4 步后，`pwd` 末尾应该是 `ai-study/ch01-tools/terminal-practice`。
 2. `ls -la` 应该能看到 `hello.py`、`notes.txt`、`data.csv`；备份后还应该看到 `notes_backup.txt`。
@@ -416,9 +416,9 @@ pwd
 学完这一页，至少保留这张证据卡：
 
 ```text
-command: exact terminal command you ran
-working_dir: pwd/current folder and important files listed
-output: copied command output or screenshot of the result
-failure_check: wrong path, missing command, permission issue, or shell mismatch
-Expected_output: reproducible terminal action with the command and result side by side
+命令：你运行过的精确终端命令
+工作目录：pwd/当前文件夹及重要文件列表
+输出：复制的命令输出或结果截图
+失败检查：错误的路径、缺少命令、权限问题，或 shell 不匹配
+期望产出：可复现的终端操作，命令和结果并排展示
 ```

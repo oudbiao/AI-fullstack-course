@@ -312,11 +312,11 @@ print(knowledge_guard(sample_2))
 学完这一页，至少保留这张证据卡：
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+评估用例：固定任务和期望的安全行为
+评分卡：任务成功、工具正确性、trace 质量和安全性
+护栏：策略、权限、验证或人工确认
+失败检查：工具使用不安全、提示注入、隐藏状态或未被观测的动作
+下一步动作：添加案例、护栏、日志、回滚或拒绝路径
 ```
 
 ## 小结
@@ -341,7 +341,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 4. 想一想：护栏过严会带来什么新问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 当动作高风险、不可逆、会对外发送或成本很高时，可以加入人工确认层。系统应暂停，展示动作摘要，只有明确批准后才继续。
 2. 输入护栏在请求影响计划前拦住不安全或无关请求；输出护栏在内容到达用户或外部系统前，拦住不安全、无证据或违反策略的内容。

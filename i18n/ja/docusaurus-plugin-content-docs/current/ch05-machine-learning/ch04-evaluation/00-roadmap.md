@@ -53,11 +53,11 @@ mean_accuracy: 0.933
 このページを終えたら、この evidence card を残します。
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+評価設定：分割、交差検証、指標、ベースライン、比較対象
+結果: スコア表、曲線、confusion matrix、検証結果、または検索結果
+判断: データ、特徴量、モデル、閾値、またはハイパーパラメータを変えるかどうか
+失敗確認: リーク、不安定な検証、誤った指標、またはテストセットでのチューニング
+期待される成果：次のモデリング判断を支える評価記録
 ```
 
 ## この順番で学ぶ
@@ -74,7 +74,7 @@ Expected_output: evaluation record that supports a next modeling decision
 タスクに合う指標を選び、スコア安定性チェックを1つ説明し、評価方法が信頼できない段階で急いでチューニングしなければ合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. モデル調整の前に、タスク目標とミスのコストから指標を選びます。
 2. 交差検証は、分割を変えてもスコアが安定するかを確認します。たまたま良かった 1 回の分割だけでは十分な証拠になりません。

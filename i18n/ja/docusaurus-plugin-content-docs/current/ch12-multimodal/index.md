@@ -112,11 +112,11 @@ rag_ready: True
 このページを終えたら、この evidence card を残します。
 
 ```text
-brief: user goal, audience, assets, constraints, and export format
-artifacts: source files, prompts, generated candidates, selected output, and rejected versions
-review: factual check, copyright/portrait/sensitive-content check, and human decision
-integration: RAG record, Agent trace, creative package, storyboard, or export preview
-Expected_output: reproducible asset package with README, review checklist, and failure notes
+要約：ユーザーの目的、対象読者、素材、制約、出力形式
+成果物: ソースファイル、プロンプト、生成候補、選択出力、却下版
+レビュー: 事実確認、著作権・肖像権・機微情報チェック、人の判断
+統合：RAG レコード、Agent トレース、クリエイティブパッケージ、ストーリーボード、またはエクスポートプレビュー
+期待される成果: README、レビュー用チェックリスト、失敗メモを含む再現可能なアセットパッケージ
 ```
 
 ## よくある失敗

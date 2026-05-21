@@ -299,11 +299,11 @@ LlamaIndex のような抽象化のほうが、たいてい扱いやすいです
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+問題の形：ワークフローグラフ、検索アプリ、役割チーム、または実験
+フレームワーク選択：どの抽象化を追加し、何を隠すか
+追跡記録：state、node、tool call、message、または run id
+失敗確認：フレームワークの魔法が状態、再試行、または権限を隠す
+判断: シングルエージェントのループが明確になってからフレームワークを選ぶ
 ```
 
 ## まとめ
@@ -324,7 +324,7 @@ LlamaIndex を「万能フレームワーク」ではなく「知識整理フレ
 4. システムの主軸が知識検索ではなくマルチ Agent 協調の場合、なぜ LlamaIndex を「総合フレームワーク」にすべきとは限らないのか説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. Document は元資料、Node は検索可能な chunk、Index は整理された検索構造、Retriever は関連 node を選ぶ部品、Query Engine は retrieval と回答生成を組み合わせる部品です。
 2. ingestion 品質が重要なのは、悪い chunking、metadata 欠落、parse ノイズが後で retrieval 失敗になるからです。正しい根拠が context に届かなければ、モデルはうまく答えられません。

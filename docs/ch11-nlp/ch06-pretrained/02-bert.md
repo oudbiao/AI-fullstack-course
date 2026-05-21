@@ -482,7 +482,7 @@ Once you understand these three points, many differences will become naturally c
 4. Explain in your own words: what is the core difference between BERT and GPT in the way they “look at context”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A valid `[MASK]` example should have enough left and right context for multiple plausible candidates, such as “I love [MASK] language processing.”
 2. If `hidden_size` becomes 64, the last hidden state should end with dimension 64 instead of the previous hidden dimension.

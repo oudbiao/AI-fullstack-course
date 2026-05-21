@@ -59,7 +59,7 @@ total_seconds: 30
 你能把一个主题拆成包含镜头、旁白、时长、字幕、风险备注和导出要求的时间线，就算通过本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要说清涉及哪些模态、输入输出契约是什么，以及文字、图像、音频或视频证据如何对齐。
 2. 证据应包含真实媒体产物或 trace，并附上质量、安全和失败案例说明。
@@ -73,9 +73,9 @@ total_seconds: 30
 学完这一页，至少保留这张证据卡：
 
 ```text
-storyboard: scene list, duration, camera/voice/subtitle/timing notes
-asset_list: images, audio, voice, captions, clips, and source/license fields
-sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
-failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
-Expected_output: storyboard or timeline artifact with review notes
+分镜脚本：场景列表、时长、镜头/语音/字幕/时间备注
+资源列表：图像、音频、语音、字幕、片段和来源/许可证字段
+同步检查：语音-文本时序、口型同步、镜头连续性或帧一致性
+失败检查：闪烁、身份漂移、音频不匹配、不安全相似度或导出问题
+期望产出：带复查说明的分镜或时间线产物
 ```

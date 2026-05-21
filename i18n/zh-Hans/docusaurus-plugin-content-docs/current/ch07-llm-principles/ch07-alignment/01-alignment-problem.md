@@ -536,11 +536,11 @@ flowchart LR
 学完这一页，至少保留这张证据卡：
 
 ```text
-intent_gap: user wants one thing, model optimizes another signal
-failure_case: harmful, deceptive, overconfident, or non-compliant output
-policy_boundary: what should be allowed, refused, or redirected
-eval_case: one prompt and expected safe behavior
-engineering_view: alignment is measured behavior, not a slogan
+意图差距: 用户想要一种结果，而模型优化的是另一种信号
+失败案例：有害、欺骗、过度自信或不合规输出
+策略边界：应允许、拒绝或重定向什么
+评估案例：一个提示和期望的安全行为
+工程视角：对齐是可衡量的行为，不是口号
 ```
 
 ## 小结
@@ -569,7 +569,7 @@ engineering_view: alignment is measured behavior, not a slogan
 4. 想一想：如果你的系统接入了数据库和工具调用，对齐风险会比纯聊天多出哪些部分？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 语言流畅只说明输出形式顺滑；对齐还要看输出是否有用、真实、安全，并且符合用户意图和场景边界。
 2. 例如客服场景：helpful 是回答用户真正的问题并给出下一步；honest 是说明不确定性和政策限制；harmless 是不泄露隐私数据，也不鼓励危险操作。

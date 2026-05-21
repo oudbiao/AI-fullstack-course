@@ -370,7 +370,7 @@ When you can match task shape with collaboration pattern, Multi-Agent will truly
 4. Explain in your own words: why is the focus of Multi-Agent not the number of roles, but the collaboration structure?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Classify the task by its dominant risk: research collaboration if evidence coverage matters, writing + review if expression and accuracy matter, and development team if implementation and tests matter.
 2. A `reviser` Agent should read the draft plus review comments, change only the rejected or weak parts, and return both the revised output and a short change note.

@@ -324,11 +324,11 @@ print(response)
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+能力：服务器暴露的资源、Prompt 或工具
+契约：schema、传输、权限和错误形式
+调用轨迹：发现、调用、响应和失败处理
+失败检查：架构不兼容、缺少认证、不安全工具或服务器错误
+集成动作: 在加入自主能力前先验证服务端契约
 ```
 
 ## 小结
@@ -349,7 +349,7 @@ integration_action: validate server contract before adding autonomy
 4. 用自己的话说明：MCP 和 函数调用 的区别是什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 一个合理回答是：client 负责承接用户目标并决定何时调用能力；server 负责以契约形式暴露能力；tool 是某个可执行能力；transport 是承载发现、调用、响应的通信通道。
 2. “工具发现”值得协议化，是因为 client 在安全调用前必须知道有哪些能力、参数是否合法、错误长什么样、权限边界在哪里。

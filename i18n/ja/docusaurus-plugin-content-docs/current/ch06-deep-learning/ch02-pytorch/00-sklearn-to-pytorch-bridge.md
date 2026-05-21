@@ -264,10 +264,10 @@ PyTorch の重み: 7.37
 左右比較のメモを保存します。
 
 ```text
-sklearn: fit() hides parameter updates
-pytorch: I write model, loss, backward, optimizer step
-same_goal: minimize error and validate on held-out data
-new_responsibility: inspect shape, gradient, device, and checkpoint
+sklearn 対比：fit() はパラメータ更新を隠す
+PyTorch 対比：モデル、損失、backward、optimizer step を書く
+同じ目標: 誤差を最小化し、ホールドアウトデータで検証する
+新しい責任：shape、gradient、device、checkpoint を確認する
 ```
 
 大事なのは、PyTorch が「より高度」だということではありません。PyTorch は訓練の仕組みを見えるようにし、カスタム深層学習システムを作れるようにする道具です。
@@ -279,7 +279,7 @@ new_responsibility: inspect shape, gradient, device, and checkpoint
 3. 100 回ごとの `weight` と `bias` を出力して、パラメータがどのように少しずつ答えへ近づくか見てみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. データがほぼ線形なら、2 つのモデルは似た直線を学ぶはずです。完全に一致しないことがあります。`sklearn` は回帰目的を直接最適化し、PyTorch 版は勾配ステップで少しずつ近づくためです。
 2. `0.1` は速く下がりやすい一方、小さいデータやスケールの悪いデータでは行き過ぎることがあります。`0.001` は安定しやすいですが、訓練終了時にも loss がまだゆっくり下がっているかもしれません。

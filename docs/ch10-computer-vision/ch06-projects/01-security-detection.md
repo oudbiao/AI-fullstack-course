@@ -376,7 +376,7 @@ It is recommended to finish the Basic version first; don’t chase an all-in-one
 4. If you turn this project into a portfolio piece, which complete video trace would you most want to highlight?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A simple `helmet` rule first detects `person` and `helmet`, then fires a `no_helmet` alert when a person has no overlapping helmet region near the head for several consecutive frames.
 2. Security projects need tracking and deduplication because the same event appears across many frames. Without them, one person can trigger dozens of duplicate alerts.

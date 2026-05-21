@@ -200,12 +200,12 @@ README 要具体：
 情感分析项目至少留下这些证据：
 
 ```text
-label_rules: positive and negative boundaries
-baseline: keyword or TF-IDF baseline
-known_failure: negation, sarcasm, or mixed sentiment
-fix_attempt: one targeted rule or model change
-error_buckets: grouped wrong predictions
-next_action: data labeling, features, or model upgrade
+标签规则: 正边界和负边界
+基线：关键词或 TF-IDF 基线
+已知失败: 否定、讽刺或混合情绪
+修复尝试：一个有针对性的规则或模型改动
+错误分桶：分组后的错误预测
+下一步动作：数据标注、特征或模型升级
 ```
 
 ## 常见错误
@@ -227,7 +227,7 @@ next_action: data labeling, features, or model upgrade
 5. 为这个项目写一个 README 大纲。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. `"not clear"` 更像 neutral 或 uncertain，`"never useful"` 通常应判为 negative。这两个例子能检查规则是否处理了否定和弱情绪。
 2. 好的 `other` 示例包括讽刺、混合语言、或者讨论物流/价格而不是情绪的文本。目标是不要把不清楚的输入强行塞进错误标签。

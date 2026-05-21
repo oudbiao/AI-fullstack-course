@@ -752,7 +752,7 @@ This project guided you through a complete EDA workflow: load data → overview 
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 - There is no single numeric answer for an EDA project. A strong submission includes raw data location, data dictionary, cleaning log, summary statistics, at least three question-driven visuals, conclusions, and limitations.
 - Every visual should answer a named question and point back to the cleaned dataset. If a chart cannot be tied to a question, remove it or rewrite the question.

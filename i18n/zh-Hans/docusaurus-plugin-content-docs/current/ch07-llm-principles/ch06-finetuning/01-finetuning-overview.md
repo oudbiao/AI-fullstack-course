@@ -333,11 +333,11 @@ peft trainable_params = 5000000
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_type: behavior adaptation, format, tone, or domain routine
-not_for: missing facts that RAG should supply
-cost_map: full fine-tune vs PEFT vs prompting
-eval_baseline: pre-finetune behavior recorded
-go_no_go: enough quality data and stable evaluation
+问题类型：行为适配、格式、语气或领域惯例
+不适用于：RAG 应该提供的缺失事实
+成本图：全量微调 vs PEFT vs 提示词
+评估基线：记录的微调前行为
+是否推进：有足够高质量数据且评估稳定
 ```
 
 ## 小结
@@ -364,7 +364,7 @@ go_no_go: enough quality data and stable evaluation
 4. 为什么说“数据质量”往往比“方法名”更影响微调结果？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 知识问题通常是模型缺少新鲜或私有事实，这时 RAG 或工具可能更合适。行为问题则是模型知道得够多，但不能稳定遵守目标格式、语气、流程或决策模式。
 2. 微调需要数据、训练时间、评测工作、部署和维护成本。如果 prompt、检索或 workflow 控制已经能解决问题，微调可能只会增加风险而收益不足。

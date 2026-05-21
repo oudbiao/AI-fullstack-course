@@ -391,11 +391,11 @@ print(shared_state)
 学完这一页，至少保留这张证据卡：
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+角色：负责人、执行者、评审者，或专家职责
+消息契约：artifact、request、response 和交接状态
+协同：路由、任务拆分、冲突解决和最终负责人
+失败检查：重复工作、上下文丢失、没有明确负责人或消息循环
+评估动作：将多 Agent 结果与单 Agent 基线对比
 ```
 
 ## 小结
@@ -416,7 +416,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 用自己的话解释：为什么多 Agent 系统里，通信设计往往和任务分工同样重要？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `reviewer_handler` 应订阅 `task_done`，读取 payload，检查结果是否满足标准，然后发布 review 事件，或把 review 状态写回 shared state。
 2. 一个有用的协议可以包含 `type`、`task_id`、`from`、`to`、`payload`、`evidence`、`status`、`timestamp`。字段可以调整，但消息语义要稳定。

@@ -726,11 +726,11 @@ print("方程解:", x)
 学完这一页，至少保留这张证据卡：
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学对象：向量、矩阵、特征值、基或向量空间概念
+数值示例：用于计算它的简单数字或 NumPy 片段
+可视化或输出：形状、变换后的点、相似度分数、特征方向或投影
+AI 关联：这里出现在 embeddings、批次、PCA、神经层或注意力中
+期望产出：计算过程，以及一句把它和 AI 操作联系起来的话
 ```
 
 ## 小结
@@ -779,7 +779,7 @@ B = np.array([[2, 1],
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 给定矩阵手算结果应为 `A @ B = [[8, 5], [3, 14]]`；NumPy 验证应完全一致。
 - 90 度旋转矩阵 `[[0,-1],[1,0]]` 会把 `(x,y)` 映射成 `(-y,x)`。三角形应保持大小和形状，只是逆时针旋转。

@@ -589,7 +589,7 @@ Print all prime numbers between 1 and 100.
 Hint: A prime number is a natural number greater than 1 that can only be divided by 1 and itself.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. In FizzBuzz, check divisibility by `15` first. Otherwise `15` may print `Fizz` or `Buzz` too early.
 2. For a fixed target such as `42`, test the too-small path, too-large path, correct path, non-integer input, and out-of-attempts path.

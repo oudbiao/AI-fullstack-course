@@ -232,11 +232,11 @@ failures : []
 このページを終えたら、この証拠カードを残します。
 
 ```text
-eval_cases: fixed input set
-prompt_versions: baseline and improved prompt
-score_table: pass rate or rubric score
-failure_note: one failed output with likely cause
-next_step: add harder cases or connect a real model
+評価ケース：固定入力セット
+プロンプト版数：ベースラインと改善版のプロンプト
+スコア表: 合格率またはルーブリックスコア
+失敗ノート: 失敗出力1件と原因の可能性
+次の行動：より難しいケースを追加するか、実際のモデルにつなげる
 ```
 
 ## 練習タスク
@@ -248,7 +248,7 @@ next_step: add harder cases or connect a real model
 5. report 出力をプロジェクトメモに保存し、Prompt 評価の証拠にする。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. very short input は sparse information で prompt が安定するかを見ます。long mixed-review input は複数 sentiment/topic を分けられるかを見ます。
 2. `confidence` を追加したら、schema と scoring function の両方で必須にします。そうしないと model は重要な uncertainty signal を省略できます。

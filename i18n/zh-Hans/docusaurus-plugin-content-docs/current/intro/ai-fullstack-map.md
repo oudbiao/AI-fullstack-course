@@ -67,9 +67,9 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, and specialization links
-current_position: what you already know and what you will postpone
-next_step: one concrete chapter or workshop to start next
-risk_check: learning everything at once, skipping evidence, or losing the main route
-Expected_output: a marked personal course map with one immediate action
+能力映射：工具、Python、数据、数学、ML、DL、LLM、RAG、Agent 和专长链接
+当前位置：你已经知道什么，以及你会暂时搁置什么
+下一步：本周开始一个具体的章节或工作坊
+风险检查：一次学太多、跳过证据，或丢失主路线
+期望产出：一份标注过的个人课程地图和一个即时行动
 ```

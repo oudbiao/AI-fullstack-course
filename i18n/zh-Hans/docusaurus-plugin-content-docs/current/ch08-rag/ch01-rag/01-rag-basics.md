@@ -654,11 +654,11 @@ debug_rag("课程多久内可以退款？")
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 练习
@@ -668,7 +668,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 思考：如果文档里写的是“14 天可退款”，而模型回答成“7 天”，可能是哪一步出了问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 好的新增文档应该能测试检索是否区分相似主题，例如退款政策、转课规则和证书规则。好的查询应返回真正包含答案的文档，而不只是有重叠词的文档。
 2. 更大的 `top_k` 会给生成器更多上下文，但也可能带入干扰材料。更小的 `top_k` 更干净，但可能漏掉必要的支持 chunk。

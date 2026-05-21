@@ -215,11 +215,11 @@ C=10.0 gamma=1.0 accuracy=0.920 support_vectors=57
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+任务：带目标定义的回归或分类问题
+模型：线性/逻辑回归/树/集成/SVM 配置和训练/测试划分
+指标：回归误差、准确率/F1、阈值曲线或混淆矩阵
+失败检查：过拟合、欠拟合、特征缩放、阈值选择或类别不平衡
+期望产出：模型结果加错误样本或残差复查
 ```
 
 ## 常见排查清单
@@ -241,7 +241,7 @@ Expected_output: model result plus error samples or residual review
 5. 用交叉验证选择 `C` 和 `gamma`，不要只相信一次切分。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `noise=0.1` 边界更清晰，SVM 更容易；`noise=0.4` 类别混杂更多，模型更难，同时更容易出现过拟合或欠拟合取舍。
 2. `gamma=5.0` 会让 RBF 核的影响范围更小，边界更弯。accuracy 可能短期提升，也可能下降；支持向量数量常会变化，若数量很多，说明模型依赖大量边界样本。

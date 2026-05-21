@@ -67,11 +67,11 @@ dispatch: search_docs
 このページを終えたら、この証拠カードを残します。
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+要求: 入力、状態、tools/context、期待される出力の契約
+検証済み出力：パーサー/スキーマ、または業務ルール確認の結果
+追跡記録：モデル呼び出し、ツール/関数呼び出し、文書解析、または対話状態
+失敗確認: フォーマット不正、必須フィールド不足、古い状態、または誤ったツール
+次の行動：prompt、schema、state、API、または parsing の改善
 ```
 
 ## 合格ライン
@@ -81,7 +81,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 出口ミニプロジェクトは、コース Q&A と学習計画助手です。ユーザー依頼を分類し、必要なら知識を検索し、構造化された提案を返し、feedback を記録します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
 2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。

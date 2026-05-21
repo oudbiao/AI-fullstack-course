@@ -456,11 +456,11 @@ BERT 本身不是为了长文本自由生成设计的。
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+模型选择：BERT、GPT、T5、Transformer 流水线或其他预训练基线
+tokenizer 输出：id、mask、解码文本或批次形状
+任务结果：分类、生成、抽取或文本到文本输出
+失败检查：错误的模型家族、token 限制、领域不匹配、成本或延迟
+期望产出：模型调用结果加一段简短的选择理由
 ```
 
 ## 小结
@@ -483,7 +483,7 @@ Expected_output: model call result plus a short choice rationale
 4. 用自己的话解释：BERT 和 GPT 在“看上下文”的方式上有什么核心差别？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 合格的 `[MASK]` 例子应有足够左右文，让候选词有根据，比如 “I love [MASK] language processing.”。
 2. 如果 `hidden_size` 改成 64，last hidden state 的最后一维应变成 64。

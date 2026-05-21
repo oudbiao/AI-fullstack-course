@@ -292,11 +292,11 @@ print(f"B 和 C 的相似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.502
 学完这一页，至少保留这张证据卡：
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+数组状态：操作前的形状、dtype、轴和样本值
+操作：索引、切片、广播、reshape、线性代数，或随机/统计函数
+输出：结果数组形状、值，或统计量
+失败检查：轴混淆、视图/副本陷阱、广播不匹配或形状错误
+期望产出：打印的形状和值，便于检查数组运算
 ```
 
 ## 小结
@@ -370,7 +370,7 @@ movies = {
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 购物示例里，`quantities @ prices` 是最清晰的向量化答案。若价格为 `[10, 25, 8]`，数量行是 `[3,1,2]`、`[0,2,5]`、`[5,0,3]`，总价分别是 `71`、`90`、`74`。
 - 线性方程组 `3x + 2y - z = 1`、`x - y + 2z = 5`、`2x + 3y - z = 0` 用 `np.linalg.solve` 应得到 `x=1`、`y=0`、`z=2`。

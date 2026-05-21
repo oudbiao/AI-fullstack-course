@@ -274,11 +274,11 @@ crewai -> 6.4
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+問題の形：ワークフローグラフ、検索アプリ、役割チーム、または実験
+フレームワーク選択：どの抽象化を追加し、何を隠すか
+追跡記録：state、node、tool call、message、または run id
+失敗確認：フレームワークの魔法が状態、再試行、または権限を隠す
+判断: シングルエージェントのループが明確になってからフレームワークを選ぶ
 ```
 
 ## まとめ
@@ -299,7 +299,7 @@ decision: choose framework only after the single-agent loop is clear
 4. チームが特に制御性と可観測性を重視しているなら、どんなスタイルのフレームワークを優先しますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 実用的な重みづけは、project の最大の不確実性から始めます。RAG 中心なら knowledge organization、長く動く Agent なら state flow、team simulation なら role collaboration が重くなります。
 2. 単純な project に複雑な framework を押し込むと遅くなります。学習者が business logic と framework abstraction の両方を debug する必要があり、余分な仕組みが本当の failure point を隠すからです。

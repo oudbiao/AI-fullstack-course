@@ -129,11 +129,11 @@ error model busy
 学完这一页，至少保留这张证据卡：
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Python 模式：装饰器、迭代器、生成器、并发原语，或元编程钩子
+代码产物：最小可运行示例加上打印输出
+使用场景：这种模式在哪种 AI 应用、流水线、工具或服务器中更有用
+失败检查：隐藏副作用、难读的抽象、竞态条件或过度设计
+期望产出：带实际 AI 系统用途说明的小型高级 Python 示例
 ```
 
 ## 常见错误
@@ -147,7 +147,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 修改 `batch`，让它同时打印 `batch_id`。然后改变输入事件，确认后续步骤不改也能继续工作。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 一种可接受做法是在输出端给 batch 编号：
 

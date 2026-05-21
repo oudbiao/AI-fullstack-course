@@ -82,7 +82,7 @@ You pass this roadmap when you can explain why gradient descent repeats “compu
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - The calculus route is passed when you can explain derivative as local change, gradient as multi-parameter direction, and gradient descent as repeated loss-reducing updates.
 - Keep a derivative plot, one gradient vector, one loss curve, and one manual-versus-autograd comparison as evidence.

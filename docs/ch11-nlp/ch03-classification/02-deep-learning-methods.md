@@ -371,7 +371,7 @@ Once this intuition is established, learning BERT classification and larger pret
 4. Think about it: in what kinds of tasks would you still prefer trying a traditional baseline first instead of jumping straight to a deep model?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing tokens to `invoice` and `issue` should move the representation toward billing or support intent if those vectors are encoded that way.
 2. Pooling is key because token-level vectors must be summarized into one sentence or document vector before classification.

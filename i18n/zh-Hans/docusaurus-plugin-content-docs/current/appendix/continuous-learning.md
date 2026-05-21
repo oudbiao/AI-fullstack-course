@@ -73,9 +73,9 @@ sidebar_position: 4
 学完这一页，至少保留这张证据卡：
 
 ```text
-learning_loop: read, build, test, write notes, review failures, and update route
-cadence: weekly project slot, reading slot, and review slot
-signal: metric, portfolio artifact, interview feedback, or project failure that changes the plan
-risk_check: endless reading, no output, or switching topics too often
-Expected_output: a sustainable learning loop with the next review date
+学习循环: 阅读、构建、测试、写笔记、复盘失败并更新路线
+节奏：每周项目时段、阅读时段和复盘时段
+信号：改变计划的指标、投资组合产物、面试反馈或项目失败
+风险检查：无休止阅读、没有输出，或过于频繁地切换主题
+期望产出：一个可持续学习循环和下次复盘日期
 ```

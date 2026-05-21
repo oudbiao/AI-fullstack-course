@@ -481,7 +481,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Start with a missing-value report using `isna().sum()` and `isna().mean()`. Decide column by column whether to drop, fill with median or mode, or keep missingness as a meaningful signal.
 - Numeric columns usually use median when outliers are possible; categorical columns usually use mode or an explicit `Unknown` value. Columns with very high missingness need a written reason before being used.

@@ -56,11 +56,11 @@ max_error=0.0018
 このページを終えたら、この証拠カードを残します。
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+デプロイ先：ローカル推論、エッジデバイス、モデルサーバー、または最適化実験
+成果物: C++ スニペット、ベンチマーク、model artifact、serving 設定、または deployment メモ
+指標：レイテンシ、メモリ、スループット、モデルサイズ、accuracy 低下、または信頼性
+失敗確認：ABI/ビルドの問題、ハードウェア不一致、量子化損失、または配信ボトルネック
+期待される成果: 理論メモだけでなく、再現可能なデプロイまたは最適化の証拠
 ```
 
 ## 合格チェック
@@ -68,7 +68,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 1 つの最適化の利点、起こり得るコスト、本番デプロイ前に見るべき指標を説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 合格する答えは、1 つの最適化手法、その利点、潜在的なコスト、そして本番前に確認すべき指標を具体的に述べます。たとえば量子化はメモリを減らせますが、検証データの精度や失敗ケースを確認する必要があります。枝刈りはモデルを小さくできますが、runtime が本当に速くなるかを確かめる必要があります。
 

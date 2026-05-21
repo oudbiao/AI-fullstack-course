@@ -347,11 +347,11 @@ embedding 更可能把它们拉近。
 学完这一页，至少保留这张证据卡：
 
 ```text
-label_schema: label definitions and boundary examples
-dataset_split: fixed train/test examples or evaluation set
-prediction: predicted label, expected label, and confidence or score
-failure_check: class imbalance, label overlap, leakage, or confusing wording
-Expected_output: metrics plus error samples grouped by failure reason
+标签模式: 标签定义和边界示例
+数据集划分：固定的训练/测试示例或评估集
+预测：预测标签、期望标签以及置信度或分数
+失败检查：类别不平衡、标签重叠、数据泄漏或措辞混淆
+期望产出：按失败原因分组的指标和错误样本
 ```
 
 ## 小结
@@ -372,7 +372,7 @@ Expected_output: metrics plus error samples grouped by failure reason
 4. 想一想：在什么任务里你仍然会优先试传统基线，而不是直接上深度模型？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 把 tokens 改成 `invoice` 和 `issue` 后，如果向量设计合理，结果应更接近 billing 或 support 意图。
 2. pooling 很关键，因为 token 级向量必须汇总成句子或文档向量，才能做分类。

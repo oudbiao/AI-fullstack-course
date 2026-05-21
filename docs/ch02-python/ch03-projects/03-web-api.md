@@ -379,7 +379,7 @@ GET /tasks?page=1&size=10
 Preview for later: create a `/predict` endpoint that accepts text input and returns sentiment analysis results.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add persistence by loading tasks at startup and saving after each create, update, or delete. Keeping the stored JSON shape close to the response shape makes debugging simpler.
 2. Add `/tasks/search` with case-insensitive substring matching on the title.

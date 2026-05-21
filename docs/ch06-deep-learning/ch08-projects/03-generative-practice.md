@@ -154,7 +154,7 @@ next_action: data, objective, architecture, or sampling change
 5. Draft a portfolio section titled “Why I selected this checkpoint.”
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Usually no, unless the project values quality far more than diversity. A diversity score of `0.30` is a warning sign for repeated or narrow outputs.
 2. The `failure` field should name visible problems such as repetition, artifacts, prompt mismatch, unsafe output, or poor diversity.

@@ -98,15 +98,15 @@ resultEl.textContent = data.answer;
 学完这一页，至少保留这张证据卡：
 
 ```text
-frontend_surface: chat, dashboard, editor, review panel, or workflow UI
-state_model: loading, streaming, success, empty, error, retry, and review states
-artifact: UI sketch, component behavior, event trace, or screenshot
-failure_check: hiding latency, missing error states, unclear citations, or weak review controls
-Expected_output: AI frontend interaction note with states and evidence display
+前端界面：聊天、仪表盘、编辑器、审阅面板或工作流 UI
+状态模型：加载、流式传输、成功、空、错误、重试和复审状态
+工件：UI 草图、组件行为、事件追踪或截图
+失败检查：隐藏延迟、遗漏错误状态、引用不清晰或复核控制薄弱
+期望产出：带状态和证据展示的 AI 前端交互说明
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 一个合格答案应覆盖至少三条路径：空输入、普通输入、模拟失败。证据最好是一个小表格或截图，能看出状态、提示和重试行为。
 

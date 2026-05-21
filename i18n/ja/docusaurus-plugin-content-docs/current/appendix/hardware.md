@@ -61,9 +61,9 @@ sidebar_position: 2
 このページを終えたら、この証拠カードを残します。
 
 ```text
-workload: learning, inference, fine-tuning, vision, video, or deployment target
-constraint: budget, latency, memory, privacy, portability, and maintenance cost
-decision: local CPU/GPU, cloud GPU, API, or hosted service with reason
-risk_check: buying hardware before measuring workload or ignoring cloud/API alternatives
-Expected_output: hardware/cloud decision note tied to one actual course project
+作業負荷：学習、推論、ファインチューニング、Vision、Video、またはデプロイ対象
+制約: 予算、レイテンシ、メモリ、プライバシー、可搬性、保守コスト
+判断: 理由付きで local CPU/GPU、cloud GPU、API、または hosted service を選ぶ
+リスク確認：ワークロードを測らずにハードウェアを買う、または cloud/API の代替を無視すること
+期待される成果：実際のコースプロジェクト1件に結びついたハードウェア／クラウドの判断メモ
 ```

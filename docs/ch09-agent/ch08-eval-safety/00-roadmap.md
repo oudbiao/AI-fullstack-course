@@ -82,7 +82,7 @@ You pass this chapter when every Agent run can be reviewed through goal, plan, t
 The exit mini project is a 10 to 20 task evaluation set plus at least 3 safety rules.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

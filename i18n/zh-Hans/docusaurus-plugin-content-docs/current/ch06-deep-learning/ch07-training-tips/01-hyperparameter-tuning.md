@@ -177,12 +177,12 @@ lr=1.0 在 quick sweep 中验证集 loss 最好。
 保留一张调参决策卡：
 
 ```text
-question: which single variable was tested?
-fixed: data split, seed, model, optimizer family, training budget
-changed: learning rate values
-selection_metric: validation loss or validation accuracy
-best_setting: lr=1.0 in the quick sweep
-next_experiment: one local refinement, not many knobs at once
+问题：测试的是哪个单一变量？
+已固定：数据划分、随机种子、模型、优化器家族、训练预算
+已更改：学习率数值
+选择指标：验证损失或验证准确率
+最佳设置：快速搜索中 lr=1.0
+下一次实验：只做一个本地改进，不要同时调很多参数
 ```
 
 ## 诊断模式
@@ -214,7 +214,7 @@ next_experiment: one local refinement, not many knobs at once
 5. 解释为什么每个实验只回答一个问题会让调参更简单。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 通常 `lr=0.3` 更可能接近可用区域，`lr=3.0` 更容易发散或震荡；最终以验证曲线为准。
 2. 预算变短时，较大学习率可能看起来更好，因为它下降更快；长预算下稳定性更重要。

@@ -177,12 +177,12 @@ quick sweep では lr=1.0 が最も良い validation loss。
 tuning decision card を 1 つ残します。
 
 ```text
-question: which single variable was tested?
-fixed: data split, seed, model, optimizer family, training budget
-changed: learning rate values
-selection_metric: validation loss or validation accuracy
-best_setting: lr=1.0 in the quick sweep
-next_experiment: one local refinement, not many knobs at once
+質問：どの単一変数がテストされたか？
+固定済み: データ分割、seed、モデル、optimizer の種類、学習予算
+変更点：学習率の値
+選択指標: 検証損失または検証精度
+最良設定：速い探索で lr=1.0
+次の実験：一度に多くの設定を変えず、ローカルな微調整を1つ行う
 ```
 
 ## 診断パターン
@@ -214,7 +214,7 @@ next_experiment: one local refinement, not many knobs at once
 5. 1 つの実験が 1 つの質問に答える形だと、なぜ調整が簡単になるのか説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 多くの場合 `lr=0.3` の方が使える領域に近く、`lr=3.0` は発散や振動を起こしやすいです。最終判断は検証曲線で行います。
 2. 予算が短いと、大きめの学習率が良く見えることがあります。長い予算では安定性も重要です。

@@ -532,7 +532,7 @@ python3 ask_with_openai.py
 | 挑战 | 增加一个小型 FastAPI 接口 | `/ask` 返回 `status`、`answer`、`citations` 和 追踪 ID |
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. 入门任务通过标准：新文档能被检索到、被引用，并被新的评估用例覆盖。
 2. 日志任务通过标准：每个请求都有足够的 trace 数据，能排查检索和权限问题。
@@ -561,9 +561,9 @@ python3 ask_with_openai.py
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+项目目标：用户任务和业务边界
+基线：最简单的提示/RAG/应用版本优先
+评估：固定案例、检索证据、答案质量和引用检查
+失败日志：至少一个失败案例及其可能原因
 交付物：README、运行命令、截图/日志、下一步
 ```

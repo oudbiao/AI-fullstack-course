@@ -368,11 +368,11 @@ print(tts_config)
 このページを終えたら、この evidence card を残します。
 
 ```text
-storyboard: scene list, duration, camera/voice/subtitle/timing notes
-asset_list: images, audio, voice, captions, clips, and source/license fields
-sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
-failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
-Expected_output: storyboard or timeline artifact with review notes
+ストーリーボード：シーン一覧、duration、camera/voice/subtitle/timing のメモ
+資産一覧: images、audio、voice、captions、clips、source/license フィールド
+同期チェック：音声テキストのタイミング、口パク、ショットの連続性、またはフレームの一貫性
+失敗確認：ちらつき、アイデンティティのずれ、音声不一致、安全でない類似、または書き出しの問題
+期待される成果: レビュー用メモを含むストーリーボードまたはタイムラインのアーティファクト
 ```
 
 ## まとめ
@@ -399,7 +399,7 @@ Expected_output: storyboard or timeline artifact with review notes
 4. 自分の言葉で説明してみましょう：音響モデルと vocoder は、それぞれ何を解決するものに近いですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. TTS は発音、間、リズム、強調、感情、音響的な形を予測する必要があります。文字を 1 つずつ読むだけでは prosody が失われ、不自然に聞こえます。
 2. 話者、速度、感情も入力になるのは、同じ文でも妥当な読み方が複数あるからです。これらの制御によって、製品の役割、アクセシビリティ要件、会話状態に合わせられます。

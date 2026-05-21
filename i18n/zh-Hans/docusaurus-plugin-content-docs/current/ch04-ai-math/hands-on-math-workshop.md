@@ -454,7 +454,7 @@ ch04_math_workshop_evidence/gradient_descent.svg
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 - 把 `QUERY` 改成 `[0.1,1.0,0.7]` 后，最相似主题应转向更强调概率和熵、而不是原始向量方向的主题。解释要比较余弦相似度，不要靠名字猜。
 - 把 `true_probability` 从 `0.65` 改成 `0.5` 后，累计比例应逐渐稳定到更接近 `0.5`；早期样本会抖动，但长期趋势会稳定。
@@ -479,9 +479,9 @@ ch04_math_workshop_evidence/gradient_descent.svg
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept_bridge: which math idea supports model training or AI applications
-calculation: small hand/NumPy example that can be checked
-output: number, curve, vector, matrix, probability, or gradient trace
-failure_check: memorizing formula without knowing the model behavior it explains
-Expected_output: math note that explains one real AI operation
+概念桥接：哪种数学思想支撑模型训练或 AI 应用
+计算：可手算或用 NumPy 检查的小例子
+输出：数值、曲线、向量、矩阵、概率，或梯度 trace
+失败检查：只会背公式，却不知道它解释的是模型行为
+期望产出：说明一个真实 AI 操作的数学笔记
 ```

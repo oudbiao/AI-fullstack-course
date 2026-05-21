@@ -293,10 +293,10 @@ he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 初期化プローブの記録を 1 つ保存します。
 
 ```text
-bad_start: zeros stays near random accuracy because symmetry is not broken
-warning_start: large begins with very high loss
-usable_start: default/xavier/he train normally on this task
-next_probe: make the network deeper and compare which strategy becomes fragile
+悪い初期化: zeros では対称性が壊れないため、精度はランダム付近のまま
+警告の開始：大きい値が非常に高い損失から始まる
+使用可能な開始点：この task では default/xavier/he で通常どおり学習する
+次の確認：ネットワークを深くして、どちらの戦略が脆くなるか比較する
 ```
 
 この証拠が教える本質は、初期化は飾りではないということです。信号と勾配が、最初から使える範囲にあるかどうかを左右します。
@@ -329,7 +329,7 @@ with torch.no_grad():
 3. Adam を `lr=0.1` の SGD に変えてください。どの初期化が壊れやすくなりますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 深いプローブほど、不安定な初期化が早く表面化します。大きすぎる初期値や素朴なランダム初期化は、He initialization より先に活性値や勾配の爆発/消失を起こしやすいです。
 2. Tanh では Xavier initialization がより有利になりやすいです。Xavier はおおむね対称な活性化に合うよう設計されており、ReLU 系では He initialization がより無難な初期値になります。

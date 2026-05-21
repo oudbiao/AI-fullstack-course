@@ -101,13 +101,13 @@ deep_learning_workshop_run/
 このワークショップが完了したとき、folder 自体が完全な training loop を証明できる必要があります。
 
 ```text
-shape_trace: one batch shape and logits shape
-training_log: train and validation curves
-model_comparison: baseline vs CNN
-confusion_matrix: class-level errors
-error_samples: concrete failures to inspect
-checkpoint: best model can be restored
-README：コマンド、指標、制限、次の一手
+形状trace: 1つのバッチ形状と logits 形状
+学習ログ：train と validation の曲線
+モデル比較：ベースライン対 CNN
+混同行列: クラスごとの誤り
+エラーサンプル：調べるべき具体的な失敗例
+チェックポイント：最良モデルを復元できる
+README 記録：コマンド、指標、制限、次の一手
 ```
 
 ### 実行前に用語を確認する
@@ -866,7 +866,7 @@ deep_learning_workshop_run/reports/experiment_notes.md
 大切なのは、毎回スコアを上げることではありません。1 つの変数だけを変え、クリーンに再実行し、証拠を使って結果を説明できることです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 良い再実行メモでは、変えた変数を1つだけ明記し、記憶ではなく artifact を比べます。
 

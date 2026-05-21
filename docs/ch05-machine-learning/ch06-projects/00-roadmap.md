@@ -86,7 +86,7 @@ Expected_output: ML project folder with pipeline, metrics, and failure review
 You pass this roadmap when you can clearly say: how I defined the task, what baseline I used, which metric I trusted, what improved, where the model failed, and what I would do next.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A complete answer defines the task type, the target, and the success metric before discussing model names.
 2. The baseline should be the simplest repeatable version: fixed split, minimal preprocessing, one model, and one metric table.

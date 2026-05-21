@@ -275,11 +275,11 @@ answer -> {'query': '退款政策是什么', 'docs': ['退款政策'], 'answer':
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 小结
@@ -300,7 +300,7 @@ decision: choose framework only after the single-agent loop is clear
 4. 如果你团队特别看重可控性，你会更倾向选择什么风格的框架？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 如果难点是状态、分支、重试和可观测性，更适合 graph/workflow 取向；如果难点是把工作拆给不同专业角色并审核结果，更适合 role-collaboration 取向。
 2. 低复杂度项目手写代码可能更好，因为抽象更少、隐藏默认行为更少、调试路径更短。

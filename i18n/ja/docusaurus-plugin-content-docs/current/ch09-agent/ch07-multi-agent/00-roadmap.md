@@ -65,11 +65,11 @@ final_owner: reviewer
 このページを終えたら、この証拠カードを残します。
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+役割: 所有者、作業者、レビュー担当、または専門担当の責務
+メッセージ契約：artifact、request、response、handoff 状態
+調整: ルーティング、タスク分割、衝突解決、最終責任者
+失敗確認：重複作業、文脈喪失、責任者不在、またはメッセージループ
+評価アクション：マルチ Agent の結果を単一 Agent のベースラインと比較する
 ```
 
 ## 合格ライン
@@ -77,7 +77,7 @@ eval_action: compare multi-agent result against single-agent baseline
 2〜3 体の Agent のデモが追跡可能な入力、出力、交接、最終責任を持ち、単一 Agent より良い理由を説明できれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

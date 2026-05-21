@@ -360,11 +360,11 @@ Exported report to ch02_output/learning_report.md
 このページを終えたら、この evidence card を残します。
 
 ```text
-project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
-run_command: exact command used to start the project
-artifact: output file, API response, JSON record, screenshot, or README note
-failure_check: dependency, network, parsing, route, input validation, or API-key issue
-Expected_output: reproducible mini project folder with run result and one failure case
+プロジェクト目標：CLI、スクレイパー、API、AI API 呼び出し、または統合 Python ワークショップの対象
+実行コマンド: プロジェクトの起動に使った正確なコマンド
+成果物: 出力ファイル、API 応答、JSON レコード、スクリーンショット、または README メモ
+失敗確認：依存関係、ネットワーク、パース、ルート、入力検証、または API キーの問題
+期待される成果: 実行結果と1件の失敗例を含む再現可能なミニプロジェクトフォルダ
 ```
 
 ## よくあるエラーと直し方
@@ -388,7 +388,7 @@ Expected_output: reproducible mini project folder with run result and one failur
 5. わざと `tasks.json` を壊し、`list` を実行して、エラーメッセージと修正方法を記録する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. `delete` は id を受け取り、`tasks.json` から該当アイテムを削除し、明確な確認メッセージを出します。もう一度 `list` を実行して、行が本当に消えたことを確認します。
 2. `search` は `title` をキーワードで絞り込み、必要なら `tags` も対象にし、大文字小文字を区別せずに一致したものだけを表示します。

@@ -193,7 +193,7 @@ For real neural networks, Adam or AdamW is often a practical starting point. For
 5. Plot `w` over steps for each optimizer.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A smaller learning rate should move more slowly; a moderate one should converge faster; a very large one may bounce around or diverge.
 2. Lower momentum usually reduces overshooting, but it can also remove useful acceleration. Compare both the path of `w` and the final loss.

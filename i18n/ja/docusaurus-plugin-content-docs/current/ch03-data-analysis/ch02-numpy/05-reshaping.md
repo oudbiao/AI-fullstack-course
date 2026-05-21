@@ -363,11 +363,11 @@ print(f"後半の合計: {second_half.sum()}")
 このページを終えたら、この evidence card を残します。
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+配列状態: 操作前の shape、dtype、axis、サンプル値
+操作：indexing、slicing、broadcasting、reshape、線形代数、またはランダム/stat関数
+出力：結果の配列形状、値、または統計量
+失敗確認：軸の混同、view/copy の落とし穴、ブロードキャスト不一致、または誤った形状
+期待される成果: 配列操作を確認できる出力形状と値
 ```
 
 ## まとめ
@@ -427,7 +427,7 @@ daily_temps = rng.uniform(low=-5, high=38, size=360)  # 分割しやすいよう
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 同じ 24 個の値は、要素数が 24 のままであれば `(4, 6)`、`(2, 3, 4)`、`(6, -1)` に変形できます。`-1` は NumPy に推定させるため、1 つの次元だけに使います。
 - クラス別スコアでは、`np.vstack` が縦方向の結合、`np.hstack` が列方向の追加、行数がそろう場合は `np.split` で同じ大きさのブロックに戻せます。

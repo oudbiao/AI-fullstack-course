@@ -569,7 +569,7 @@ then when you later look at pretraining objectives, training engineering, and fi
 4. Explain in your own words: why does evaluation leakage make us overestimate model capability?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Good added samples should test specific rules: boilerplate pages, repeated ads, malformed text, clean technical prose, and high-value rare examples. If a useful sample is removed or a low-value sample is kept, the rule needs adjustment.
 2. Exact dedup only catches identical strings or fingerprints. Near-duplicate detection is needed for copied pages with small edits, template variants, translated mirrors, and lightly rewritten benchmark material.

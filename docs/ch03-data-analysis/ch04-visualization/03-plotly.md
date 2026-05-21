@@ -425,7 +425,7 @@ The core advantage of Plotly is **interactivity**—hover to inspect data, zoom 
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the Gapminder-style scatter plot, map x, y, size, color, and hover text deliberately. The hover fields should help answer the question, not just show every column.
 - For a country or product trend line, sort by time and check that the x-axis is a date or ordered year field. Unsorted time data can draw misleading zigzags.

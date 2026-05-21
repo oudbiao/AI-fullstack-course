@@ -155,7 +155,7 @@ For a printable checklist, use [3.0 Study Guide and Task Sheet](./study-guide.md
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - Use the five pass-check questions as a small data story, not as five separate slogans.
 - A complete answer names the columns and units, lists every cleaning rule that changed rows or values, ties each chart to one explicit question, separates supported conclusions from uncertainty, and includes a README that lets another person rerun the notebook or script.

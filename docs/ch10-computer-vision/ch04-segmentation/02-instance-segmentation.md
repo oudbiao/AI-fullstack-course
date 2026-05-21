@@ -275,7 +275,7 @@ The most important idea in this section is to build one judgment:
 4. Think about it: why is instance segmentation especially valuable in autonomous driving or security scenarios?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A correct `instance_map` usually uses `0` for background and a different integer id for each object instance. Three objects should have three distinct ids.
 2. Instance segmentation is harder because the model must classify pixels and separate different objects of the same class.

@@ -164,11 +164,11 @@ model capability != model behavior
 学完这一页，至少保留这张证据卡：
 
 ```text
-timeline: n-gram -> neural LM -> Transformer -> scaling -> instruction/alignment
-turning_point: what Transformer changed about context mixing
-scale_note: data and compute changed capability but not reliability alone
-bigram_lab: one output sample and its limitation
-memory_hook: history is a sequence of solved bottlenecks
+时间线：n-gram -> 神经 LM -> Transformer -> 规模化 -> 指令/对齐
+转折点：Transformer 对上下文混合带来了什么变化
+规模说明：数据和算力提升了能力，但并不能单独提升可靠性
+bigram 标签：一个输出样本及其局限性
+记忆钩子：历史是一连串被解决的瓶颈
 ```
 
 ## 练习
@@ -180,7 +180,7 @@ memory_hook: history is a sequence of solved bottlenecks
 5. 从 15 个阶段里选一个，说明它今天还如何影响 LLM 应用。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 增加句子只会改变 bigram 模型中的局部转移计数。新增短语附近的推荐可能变好，但离开这些局部模式仍会失败。
 2. bigram 模型只能看很短的局部上下文。长指令需要跨很多 token 跟踪目标、约束和关系。

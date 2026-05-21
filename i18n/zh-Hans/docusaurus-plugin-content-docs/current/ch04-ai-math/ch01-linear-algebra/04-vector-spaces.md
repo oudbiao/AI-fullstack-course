@@ -39,11 +39,11 @@ keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性
 学完这一页，至少保留这张证据卡：
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学对象：向量、矩阵、特征值、基或向量空间概念
+数值示例：用于计算它的简单数字或 NumPy 片段
+可视化或输出：形状、变换后的点、相似度分数、特征方向或投影
+AI 关联：这里出现在 embeddings、批次、PCA、神经层或注意力中
+期望产出：计算过程，以及一句把它和 AI 操作联系起来的话
 ```
 
 ## 这节和前面三节是什么关系？
@@ -751,7 +751,7 @@ plt.show()
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - rank 检查结果是：`g1` 的 rank 为 1，因此不线性无关；`g2` 的 rank 为 2，因此线性无关；`g3` 的 rank 为 2，因此不线性无关。
 - SVD 压缩中，重建误差应随着 `k` 增大而下降，并在保留全部奇异值时接近 0。如果曲线上升，通常是重建公式或切片错了。

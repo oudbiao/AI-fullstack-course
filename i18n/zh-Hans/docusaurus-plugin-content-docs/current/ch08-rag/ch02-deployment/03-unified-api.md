@@ -428,11 +428,11 @@ for q in ["帮我总结这段话", "退款政策是什么？"]:
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+运行时选择：本地模型、推理服务器，或统一 API
+请求契约：端点、负载、输出格式，以及错误形状
+延迟或成本: 一个测量值或估计值
+失败检查：超时、内存压力、模型不匹配或版本漂移
+回滚方案：备用模型、重试策略，或流量切换
 ```
 
 ## 小结
@@ -477,7 +477,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 4. 用自己的话解释：为什么统一 API 层很适合承接模型路由和 fallback？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 可以返回类似 `{ok: false, error: {code, message, retryable, provider, request_id}}` 的结构，而不是把不同供应商的异常直接暴露给业务代码。
 2. 统一 API 统一的是调用入口和结果处理方式，但不同供应商在能力、上下文长度、工具、成本和延迟上仍然不同。

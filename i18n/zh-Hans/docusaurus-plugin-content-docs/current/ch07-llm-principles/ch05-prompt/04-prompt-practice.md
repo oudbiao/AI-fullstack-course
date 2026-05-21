@@ -334,11 +334,11 @@ for case in test_cases:
 学完这一页，至少保留这张证据卡：
 
 ```text
-baseline_prompt: first version and failure
-changed_variable: one prompt dimension changed at a time
-score: simple pass/fail or rubric result
-failure_bucket: instruction, context, format, or ambiguity
-next_iteration: one concrete edit to try
+基线提示：第一版和失败情况
+已更改变量：每次只改一个 Prompt 维度
+评分：简单通过/失败或评分量表结果
+失败类别：指令、上下文、格式或歧义
+下一次迭代：尝试一个具体的修改
 ```
 
 ## 小结
@@ -359,7 +359,7 @@ next_iteration: one concrete edit to try
 4. 用自己的话解释：为什么 Prompt 工程不是“写一句好话”，而是“设计任务接口”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 坏 prompt 往往很模糊，比如“分析一下”。更好的版本要写清任务、输入、期望输出、标签、约束和至少一个失败边界。
 2. few-shot 版本应包含有代表性的正向、负向、中性例子，然后要求新样例使用同样标签格式。

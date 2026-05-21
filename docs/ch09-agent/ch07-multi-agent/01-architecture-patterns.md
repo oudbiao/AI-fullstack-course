@@ -383,7 +383,7 @@ choose the wrong one, and complexity will grow faster than the benefits.
 4. Reflect: why do we say multi-Agent architecture is first an organizational problem, not a model-count problem?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Supervisor pattern centralizes assignment and decisions. Pipeline pattern passes work through ordered stages. Reviewer pattern adds an explicit quality gate that can accept, reject, or request revision.
 2. For an automatic research report, start with retrieval -> writing -> review. This pipeline is easy to inspect, and the reviewer gives you a clear place to catch unsupported claims.

@@ -485,11 +485,11 @@ xdg-open ch03_output/report.html
 学完这一页，至少保留这张证据卡：
 
 ```text
-analysis_goal: business/data question and success criterion
-data_evidence: source, cleaning notes, features, and chart/table outputs
-result: insight, metric, dashboard, or report section
-failure_check: dirty data, biased sample, wrong aggregation, or unreproducible notebook
-Expected_output: reproducible analysis folder with data, charts, and a short report
+分析目标：业务/数据问题和成功标准
+数据证据：来源、清洗说明、特征和图表/表格输出
+结果：洞察、指标、仪表板，或报告部分
+失败检查：脏数据、偏置样本、错误聚合或 Notebook 无法复现
+期望产出：可复现的分析文件夹，包含数据、图表和简短报告
 ```
 
 ## 常见错误与修复
@@ -512,7 +512,7 @@ Expected_output: reproducible analysis folder with data, charts, and a short rep
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 - 表格编辑小练习的证据应包含修改后的 CSV 或 SQLite 表，以及能证明变化的准确查询或 Pandas 语句。
 - 如果 confidence 值可能超过有效范围，要裁剪或校验，并记录规则。隐藏的非法值比清楚的警告更糟。

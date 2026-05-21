@@ -395,7 +395,7 @@ print("价格:", 99.9, "元")
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `about_me.py` 应该能在终端运行，并打印清楚的多行自我介绍；修改介绍内容时，不应该需要改 Python 语法。
 2. 计算器输出应包含 `300`、`31.400000000000002` 或接近的浮点数、`1024`、`3.4`、`3`、`2`。
@@ -412,11 +412,11 @@ print("价格:", 99.9, "元")
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept: variable, type, operator, input/output, branch, loop, structure, function, or module
-code: smallest runnable Python snippet for the concept
-output: printed value, type, branch result, loop trace, or returned value
-failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
-Expected_output: code plus printed result that proves the concept works
+概念：变量、类型、运算符、输入/输出、分支、循环、结构、函数或模块
+代码：用于说明该概念的最小可运行 Python 代码片段
+输出：打印值、类型、分支结果、循环 trace，或返回值
+失败检查：类型不匹配、缩进错误、越界、可变数据或导入路径问题
+期望产出：代码和打印结果，证明概念可行
 ```
 
 ## 小结

@@ -402,11 +402,11 @@ context length を伸ばすと、次の利点があります。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-params: rough parameter estimate and major contributors
-training_cost: forward + backward + optimizer state
-inference_cost: prefill, decode, KV cache, output length
-bottleneck: memory, latency, throughput, or quality
-decision: choose smaller model, quantization, batching, or retrieval by evidence
+パラメータ：おおまかなパラメータ数の見積もりと主要な要因
+学習コスト：forward + backward + optimizer state（前向き計算、逆伝播、最適化状態）
+推論コスト：prefill、decode、KV cache、出力長（入力処理、生成、キャッシュ、長さ）
+ボトルネック: メモリ、遅延、スループット、または品質
+判断: 証拠に基づいて、より小さいモデル、量子化、バッチ処理、または検索を選ぶ
 ```
 
 ## まとめ
@@ -429,7 +429,7 @@ decision: choose smaller model, quantization, batching, or retrieval by evidence
 4. 長い会話サービスを作るなら、パラメータ数以外に、最初にどんな指標を気にしますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. KV cache はおおむね sequence length、層数、batch size、key-value head の次元に比例して増えます。`4096` から `16384` にすると、sequence length の部分だけで約 4 倍になります。
 2. Hidden size は projection 行列、FFN 幅、activation memory、attention 次元に影響します。大きくすると、パラメータ数と token あたりの計算量が複数箇所で同時に増えます。

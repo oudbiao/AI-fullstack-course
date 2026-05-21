@@ -339,7 +339,7 @@ The most important thing in this lesson is to build one judgment:
 4. Think about it: what new problems can overly strict guardrails cause?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A human confirmation layer can be added when the action is high-risk, irreversible, external-facing, or expensive. The system should pause, show the action summary, and proceed only after explicit approval.
 2. Input guardrails stop unsafe or irrelevant requests before they shape the plan. Output guardrails catch unsafe, unsupported, or policy-violating content before it reaches the user or an external system.

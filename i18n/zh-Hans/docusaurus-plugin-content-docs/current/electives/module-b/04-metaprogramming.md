@@ -119,11 +119,11 @@ error: name cannot be empty
 学完这一页，至少保留这张证据卡：
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Python 模式：装饰器、迭代器、生成器、并发原语，或元编程钩子
+代码产物：最小可运行示例加上打印输出
+使用场景：这种模式在哪种 AI 应用、流水线、工具或服务器中更有用
+失败检查：隐藏副作用、难读的抽象、竞态条件或过度设计
+期望产出：带实际 AI 系统用途说明的小型高级 Python 示例
 ```
 
 ## 常见错误
@@ -137,7 +137,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 加一个 `yaml` loader，确认 `sorted(REGISTRY)` 里包含它。然后为 `retry_count` 字段创建一个 `IntegerRange(min_value, max_value)` 描述符。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 `yaml` loader 应该通过同一套注册机制加入，所以不用手动维护另一张映射表，`sorted(REGISTRY)` 里也能看到 `yaml`。
 

@@ -335,11 +335,11 @@ Prompt 工学にも評価が必要だからです。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-baseline_prompt: first version and failure
-changed_variable: one prompt dimension changed at a time
-score: simple pass/fail or rubric result
-failure_bucket: instruction, context, format, or ambiguity
-next_iteration: one concrete edit to try
+ベースラインのプロンプト: 1 つ目の版とその失敗
+変更変数：一度に 1 つの Prompt 次元だけを変更
+スコア: 簡単な合否またはルーブリック結果
+失敗バケット：指示、文脈、形式、または曖昧さ
+次の反復：試す具体的な修正を1つ
 ```
 
 ## まとめ
@@ -361,7 +361,7 @@ next_iteration: one concrete edit to try
 4. 自分の言葉で説明してみましょう。なぜ Prompt 工学は「良い言い回しを書くこと」ではなく、「タスクのインターフェースを設計すること」なのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 悪い prompt は「分析して」のように曖昧です。よい版では task、input、expected output、label、constraint、少なくとも 1 つの failure boundary を書きます。
 2. few-shot 版には positive、negative、neutral の代表例を含め、新しい case も同じ label format で答えさせます。

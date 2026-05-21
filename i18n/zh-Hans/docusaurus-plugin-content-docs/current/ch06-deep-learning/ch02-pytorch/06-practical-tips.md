@@ -282,12 +282,12 @@ checkpoints/best_model.pt
 每个 PyTorch 项目都保留一条运行安全笔记：
 
 ```text
-device: cpu/cuda/mps and model/data match
-seed: set before debugging
-grad_norm: measured before and after clipping when unstable
-precision: AMP used only when supported, fallback works
-checkpoint: model_state_dict, optimizer_state_dict, epoch, best_val
-debug_order: batch -> shape -> device -> loss -> gradients -> update -> validation
+设备：cpu/cuda/mps，且模型与数据匹配
+种子：在调试前设置
+梯度范数：在不稳定时，于裁剪前后测量
+精度：仅在支持时使用 AMP，回退也能工作
+检查点：model_state_dict、optimizer_state_dict、epoch、best_val
+调试顺序：批次 -> 形状 -> 设备 -> 损失 -> 梯度 -> 更新 -> 验证
 ```
 
 ## 内存和稳定性排查
@@ -343,7 +343,7 @@ with torch.no_grad():
 4. 临时提高学习率直到 loss 不稳定，再通过降低学习率和裁剪梯度恢复。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 模型、输入 tensor、标签，以及训练循环内部新建的 tensor 都要移动到同一个 `device`。打印 device 或加一个简单断言，能提前拦住很多运行时错误。
 2. 裁剪后，梯度范数应该被限制在你设置的阈值附近。如果裁剪前范数非常大，还要检查 learning rate、loss scale 和数据取值。

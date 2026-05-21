@@ -328,7 +328,7 @@ when you need extremely fine-grained low-level control, it may not be your first
 4. Explain in your own words: what kind of high-frequency boilerplate work does the SDK actually save you from?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Runner / Runtime is valuable because production Agents need more than a prompt: they need tool execution, state movement, handoffs, error handling, tracing, and a consistent way to run the loop.
 2. A high-level SDK usually focuses on making the Agent runtime easier to build and observe. CrewAI focuses more on modeling a team of roles and tasks. The right choice depends on what you want to make explicit.

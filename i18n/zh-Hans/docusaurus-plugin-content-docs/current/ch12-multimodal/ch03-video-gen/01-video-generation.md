@@ -347,11 +347,11 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 学完这一页，至少保留这张证据卡：
 
 ```text
-storyboard: scene list, duration, camera/voice/subtitle/timing notes
-asset_list: images, audio, voice, captions, clips, and source/license fields
-sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
-failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
-Expected_output: storyboard or timeline artifact with review notes
+分镜脚本：场景列表、时长、镜头/语音/字幕/时间备注
+资源列表：图像、音频、语音、字幕、片段和来源/许可证字段
+同步检查：语音-文本时序、口型同步、镜头连续性或帧一致性
+失败检查：闪烁、身份漂移、音频不匹配、不安全相似度或导出问题
+期望产出：带复查说明的分镜或时间线产物
 ```
 
 ## 小结
@@ -372,7 +372,7 @@ Expected_output: storyboard or timeline artifact with review notes
 4. 如果你要做一个短视频生成产品，你会更优先优化单帧质量还是时间一致性？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 视频比图像多了时间维度。系统不仅要生成一张好图，还要让身份、动作、镜头、光照和场景状态在多个帧之间保持一致。
 2. 如果单帧都好看，但播放时跳动，出问题的是时间一致性层。动作、对象持续性或镜头轨迹在序列中不连贯。

@@ -349,7 +349,7 @@ Once you build this intuition, later when you learn architecture, servers, clien
 4. Explain in your own words the difference between MCP and Function Calling.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A reasonable answer is: the client is the caller that owns the user goal and chooses when to use capabilities; the server exposes capabilities with a contract; a tool is one executable capability; transport is the channel that carries discovery, calls, and responses.
 2. Tool discovery is worth standardizing because the client needs to know what exists, what parameters are valid, what errors look like, and what permission boundaries apply before it can safely plan a call.

@@ -551,7 +551,7 @@ a1b2c3d 初始化项目：添加模型定义和项目结构
 每一条都是一个可以回退到的存档点。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 最后的 `git log --oneline` 应该显示本练习的 3 个提交，以及前面初始化项目时留下的提交。
 2. 每个提交应该保存一个小想法：训练脚本、工具函数或 README 更新。
@@ -568,11 +568,11 @@ a1b2c3d 初始化项目：添加模型定义和项目结构
 学完这一页，至少保留这张证据卡：
 
 ```text
-repo_state: git status before and after the operation
-operation: init, add, commit, branch, merge, remote, pull, or push command used
-history: git log or branch graph showing what changed
-failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
-Expected_output: a clean Git trace that another learner can replay safely
+仓库状态：操作前后的 git status
+操作：使用了 init、add、commit、branch、merge、remote、pull 或 push 命令
+历史：显示变更内容的 git log 或分支图
+失败检查：未跟踪文件、错误分支、合并冲突，或远程/认证问题
+期望产出：一份可供其他学习者安全复现的干净 Git 记录
 ```
 
 ## 小结

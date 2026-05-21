@@ -365,11 +365,11 @@ print(adjusted)  # [85 60 91 67 60 78]
 このページを終えたら、この evidence card を残します。
 
 ```text
-array_state: shape, dtype, axis, and sample values before the operation
-operation: indexing, slicing, broadcasting, reshape, linear algebra, or random/stat function
-output: resulting array shape, values, or statistic
-failure_check: axis confusion, view/copy trap, broadcast mismatch, or wrong shape
-Expected_output: printed shapes and values that make the array operation inspectable
+配列状態: 操作前の shape、dtype、axis、サンプル値
+操作：indexing、slicing、broadcasting、reshape、線形代数、またはランダム/stat関数
+出力：結果の配列形状、値、または統計量
+失敗確認：軸の混同、view/copy の落とし穴、ブロードキャスト不一致、または誤った形状
+期待される成果: 配列操作を確認できる出力形状と値
 ```
 
 ## まとめ
@@ -434,7 +434,7 @@ scores = rng.integers(40, 101, size=50)
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 華氏から摂氏への変換は `(fahrenheit - 32) * 5 / 9` を使います。よくある例では、およそ `[0, 20, 37.78, 100, 22.22, 37]` になります。
 - Broadcasting は右側の次元からそろえて考えます。行ベクトルと列ベクトルを足す典型例では、各行の値と各列の値が組み合わさるため 3x3 行列になります。

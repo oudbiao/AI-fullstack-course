@@ -297,11 +297,11 @@ breaker_open: True
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+运行时：队列、worker、状态存储、工具服务，以及模型端点
+持久化：检查点、事件日志、记忆存储和恢复路径
+运维信号：延迟、成本、错误率、trace 覆盖率和饱和度
+失败检查：运行卡住、重复动作、部分失败或成本失控
+恢复动作：继续、回滚、取消、人工接管，或优雅降级
 ```
 
 ## 小结
@@ -322,7 +322,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. 想一想：如果某个工具特别贵，你会在运行时层加什么保护？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `max_concurrency=1` 时运行更容易理解但更慢；`max_concurrency=3` 会提升吞吐，但共享资源、rate limit 和 trace 顺序会变得更重要。
 2. 增大 `timeout_sec` 可以减少慢但健康调用的超时错误，但也可能让卡住的任务占用 runtime 更久。要同时看成功率和等待时间。

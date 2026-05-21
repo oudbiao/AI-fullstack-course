@@ -562,11 +562,11 @@ sns.set_theme(
 学完这一页，至少保留这张证据卡：
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+问题：这张图表回答的是比较、分布、趋势，还是关系
+图表选择：折线图、柱状图、散点图、直方图、箱线图、热力图或交互式仪表板
+工件：保存的图表图片/html 以及所用的数据切片
+失败检查：尺度误导、图表过载、聚合错误或缺少标签
+期望产出：带有一句说明洞察的图表成果
 ```
 
 ## 小结
@@ -672,7 +672,7 @@ plt.show()
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 修复误导性图表时，柱状比较的 y 轴应从零开始，去掉不必要的 3D 或厚重背景，并写一个说明问题或发现的标题。
 - 图表类型跟着数据形状走：时间趋势用折线，类别比较用柱状，两列数值关系用散点，单列数值分布用直方图，分组分布用箱线图或小提琴图。

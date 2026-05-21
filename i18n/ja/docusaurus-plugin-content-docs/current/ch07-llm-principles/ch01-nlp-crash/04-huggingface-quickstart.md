@@ -178,11 +178,11 @@ torch.Size([2, 6, 768])
 このページを終えたら、この証拠カードを残します。
 
 ```text
-objects: tokenizer, model, config, pipeline or manual forward pass
-offline_run: toy workflow output is saved
-real_model_optional: model id and task are recorded if downloaded
-shape_or_score: one output tensor shape or prediction score
-debug_note: model path, device, and tokenizer/model mismatch checked
+対象：tokenizer、model、config、pipeline、または手動の forward pass
+オフライン実行：toy ワークフローの出力は保存される
+実モデル任意：ダウンロード済みならモデルIDとタスクを記録する
+形状またはスコア: 1つの出力テンソル形状または予測スコア
+デバッグメモ: モデルのパス、デバイス、トークナイザ/モデル不一致を確認した
 ```
 
 ## 練習
@@ -194,7 +194,7 @@ debug_note: model path, device, and tokenizer/model mismatch checked
 5. `pipeline()` がデモに便利でも、バッチ形状のデバッグに不十分な理由を説明する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 多くの場合、末尾 token が先に切られます。どの token が消えるかは tokenizer output 次第なので、元テキストから推測せず token を print します。
 2. `hidden_size=64` は hidden-state tensor の最後の次元を変えます。その config で model を作れば、parameter shape も変わります。

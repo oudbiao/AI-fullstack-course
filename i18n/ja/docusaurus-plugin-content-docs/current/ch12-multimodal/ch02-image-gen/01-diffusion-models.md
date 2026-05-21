@@ -394,11 +394,11 @@ GAN はどちらかというと、
 このページを終えたら、この evidence card を残します。
 
 ```text
-prompt_record: prompt, negative requirements, reference, seed/model, and version number
-candidate_outputs: generated or simulated results with selection reason
-technical_note: diffusion step, latent, cross-attention, LoRA, or application mode
-failure_check: prompt drift, style mismatch, artifact, copyright, portrait, or review failure
-Expected_output: selected image/version record plus rejected-candidate notes
+プロンプト記録：プロンプト、否定条件、参照、seed/model、バージョン番号
+候補出力：生成結果またはシミュレーション結果と選択理由
+技術メモ：diffusion step、latent、cross-attention、LoRA、またはアプリケーションモード
+失敗確認: プロンプトのずれ、文体不一致、成果物、著作権、肖像、またはレビュー失敗
+期待される成果: 選定した画像/版の記録と却下候補のメモ
 ```
 
 ## まとめ
@@ -425,7 +425,7 @@ Expected_output: selected image/version record plus rejected-candidate notes
 4. 誰かに拡散モデルを説明するとしたら、「まず汚してからきれいにする」という比喩をどう使いますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 減衰係数が大きいほど構造は長く残り、小さいほど早く消えます。この実験から、denoising モデルが各ノイズ段階でどれだけ信号が残っているかを学ぶ必要があることが分かります。
 2. 学習時のモデルは、多くの場合「ノイズ付きサンプル + ノイズ量または時刻条件」を受け取り、ノイズやきれいな方向を予測します。つまり、一度で絵を描くのではなく、修復の連続手順を学んでいます。

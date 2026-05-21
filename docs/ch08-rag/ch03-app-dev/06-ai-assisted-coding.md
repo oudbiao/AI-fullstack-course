@@ -183,7 +183,7 @@ The first mistake is treating AI output as an authoritative answer. The second m
 4. Write a README section explaining how you used AI to help complete the project while still performing verification.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Good tests include a normal case, boundary case, and failure/invalid-input case. Check the assertions, not just whether the tests run.
 2. The smallest fix should target the failing line or contract and avoid broad refactors.

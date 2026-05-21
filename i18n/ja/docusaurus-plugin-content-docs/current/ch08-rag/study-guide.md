@@ -53,7 +53,7 @@ keywords: [RAG チェックリスト, LLM アプリチェックリスト, ベク
 - 同じ評価質問で2つの RAG 版を比較できますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. RAG の違いは、まず証拠を検索してから答える点です。長い Prompt は主にモデルの既存知識や推測に頼りますが、RAG は新しい事実、私的な事実、文書由来の事実を答えに取り込めます。
 2. query、top-k chunks、score、source、version を見せると、他の人も検索経路を確認できます。
@@ -70,9 +70,9 @@ keywords: [RAG チェックリスト, LLM アプリチェックリスト, ベク
 このページを終えたら、この証拠カードを残します。
 
 ```text
-rag_eval_set: fixed questions with expected evidence
-retrieval_trace: query, chunks, scores, selected evidence
-answer_trace: cited answer and unsupported claim check
-app_trace: request, response, validation, logs
-project_readme: run command, metrics, failures, next action
+RAG評価セット：期待される根拠付きの固定質問
+検索トレース：クエリ、chunks、スコア、選択された証拠
+回答トレース: 引用した回答と未検証の主張の確認
+アプリトレース: リクエスト、レスポンス、検証、ログ
+プロジェクトREADME：実行コマンド、指標、失敗、次の行動
 ```

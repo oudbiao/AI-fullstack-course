@@ -371,7 +371,7 @@ Source: internal knowledge base + external supplemental materials
 This check is simple, but it is the difference between a demo and an engineering pipeline: every rendering step should fail early when required structured fields are missing.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 The correct first check is that `validate_payload(payload)` returns `(True, "ok")` for a complete payload, and raises a clear error before rendering when any required field is empty or missing. That means the renderer should not silently produce a half-empty handout.
 

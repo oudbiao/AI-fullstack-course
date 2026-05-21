@@ -77,7 +77,7 @@ prediction_count: 30
 能说出任务类型，识别 `X` 和 `y`，解释为什么要划分训练集/测试集，并保留一个 baseline 分数作为证据，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. `X` 是特征矩阵：行是样本，列是模型可使用的输入。`y` 是标签或目标，也就是模型要学习预测的答案。
 2. 训练集/测试集划分很重要，因为测试集模拟新数据。如果模型训练时看到了测试信息，分数就不能证明泛化能力。
@@ -90,9 +90,9 @@ prediction_count: 30
 学完这一页，至少保留这张证据卡：
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+机器学习问题：监督学习、无监督学习、评估或特征工程任务
+基线：最简单的 sklearn/建模循环和固定的训练/测试划分
+输出：预测、指标、图表，或模型决策备注
+失败检查：数据泄漏、目标不清、基线薄弱或指标不匹配
+期望产出：带指标和一个失败观察的最小 ML 循环
 ```

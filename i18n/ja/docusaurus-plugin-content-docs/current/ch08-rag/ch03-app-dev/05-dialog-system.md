@@ -533,11 +533,11 @@ print(next_question(state))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+要求: 入力、状態、tools/context、期待される出力の契約
+検証済み出力：パーサー/スキーマ、または業務ルール確認の結果
+追跡記録：モデル呼び出し、ツール/関数呼び出し、文書解析、または対話状態
+失敗確認: フォーマット不正、必須フィールド不足、古い状態、または誤ったツール
+次の行動：prompt、schema、state、API、または parsing の改善
 ```
 
 ## まとめ
@@ -564,7 +564,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 4. 自分の言葉で説明してみましょう。なぜマルチターン対話の核心は、履歴をつなげることではなく状態管理だと言えるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 証明書トピックでは intent、必須 slot、不足情報を聞く質問、tool/action、終了時の返答を定義します。
 2. 天気の slot には、city、date、unit、現在の天気か予報か、といった項目が入ります。

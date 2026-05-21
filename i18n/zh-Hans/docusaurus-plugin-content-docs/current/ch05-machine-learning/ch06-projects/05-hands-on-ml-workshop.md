@@ -652,11 +652,11 @@ false_positive  app      2
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
-pipeline: data split, preprocessing, model, evaluation, and report artifacts
-result: metric table, chart, predictions, failure samples, and README note
-failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
-Expected_output: ML project folder with pipeline, metrics, and failure review
+项目目标：预测、分割、Kaggle，或端到端 ML 作品集目标
+流水线：数据划分、预处理、模型、评估和报告工件
+结果：指标表、图表、预测、失败样本和 README 说明
+失败检查：运行不可复现、泄漏、过拟合、基线薄弱或缺少部署边界
+期望产出：包含流水线、指标和失败复盘的 ML 项目文件夹
 ```
 
 ## 常见错误与排查闭环
@@ -725,7 +725,7 @@ PY
 - 带下一步计划的 README
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 能从干净目录运行，表示别人不依赖隐藏的 Notebook 状态也能重新生成输出。
 2. baseline 指标和真实模型指标应该放在同一张对比表里，并使用同一个划分和指标。

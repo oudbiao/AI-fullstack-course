@@ -431,7 +431,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Average order value is total amount divided by order count, so compute both numerator and denominator instead of averaging already-averaged rows.
 - For best product by month or region, aggregate to the correct level first, then sort or use `idxmax`. Picking the maximum raw row can give the wrong answer when a product appears many times.

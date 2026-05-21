@@ -328,11 +328,11 @@ for idx, window in enumerate(windows):
 このページを終えたら、この evidence card を残します。
 
 ```text
-scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
-input_sample: source image/frame/document and the expected output type
-result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
-failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
-Expected_output: scenario-specific artifact with metric or human-review note
+シナリオ境界: face、video、OCR、3D、medical、または別の vision シナリオ
+入力サンプル：ソース画像／フレーム／文書と期待される出力タイプ
+結果成果物：抽出テキスト、追跡イベント、深度の手がかり、診断フラグ、またはレビュー注記
+失敗確認: プライバシー、照明、時間的ドリフト、レイアウト、キャリブレーション、またはドメインリスク
+期待される成果: 指標または人手レビューのメモを含むシナリオ固有のアーティファクト
 ```
 
 ## まとめ
@@ -359,7 +359,7 @@ Expected_output: scenario-specific artifact with metric or human-review note
 6. イベントが少なくとも2つのウィンドウにまたがるときだけ発火するルールを追加してみましょう。このルールはどんなノイズを減らし、どんな短いイベントを見逃す可能性がありますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 2 つの target が同時に動くと、単純な nearest-neighbor tracking は交差や重なりで identity を入れ替えることがあります。実際の tracking には、より強い appearance と motion logic が必要です。
 2. 多くの video system は、まず single-frame model を走らせ、その後に smoothing、tracking、duration check、event decision のための temporal logic を足します。

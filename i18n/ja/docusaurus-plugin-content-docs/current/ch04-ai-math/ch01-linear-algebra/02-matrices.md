@@ -742,11 +742,11 @@ print("方程式の解:", x)
 このページを終えたら、この evidence card を残します。
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学対象：ベクトル、行列、固有値、基底、またはベクトル空間の概念
+数値例：これを計算するために使う小さな数値または NumPy のスニペット
+可視化または出力：形状、変換後の点、類似度スコア、固有方向、または射影
+AI との関係: これが embeddings、バッチ、PCA、ニューラル層、または attention のどこに現れるか
+期待される成果：計算と、それを AI の操作に結びつける1文
 ```
 
 ## まとめ
@@ -796,7 +796,7 @@ B = np.array([[2, 1],
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 与えられた行列では、手計算の結果は `A @ B = [[8, 5], [3, 14]]` です。NumPy の結果も一致するはずです。
 - 90 度回転行列 `[[0,-1],[1,0]]` は `(x,y)` を `(-y,x)` に写します。三角形は大きさと形を保ったまま反時計回りに回転します。

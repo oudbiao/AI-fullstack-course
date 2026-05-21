@@ -329,11 +329,11 @@ labels: [batch], int64 / long
 次へ進む前に、小さな tensor 点検メモを保存します。
 
 ```text
-input_shape: [batch, features]
-logits_shape: [batch, classes]
-label_shape: [batch]
-label_dtype: torch.long for CrossEntropyLoss
-device_check: model and data are on the same device
+入力形状：[batch, features]
+logits 形状：[batch, classes]
+ラベル形状：[batch]
+ラベル型：CrossEntropyLoss に対して torch.long
+デバイス確認：モデルとデータが同じデバイス上にある
 ```
 
 これは後の PyTorch コードを最速でデバッグする方法です。初期の多くのエラーは、長い stack trace の中に隠れた shape、dtype、device、broadcasting の問題です。
@@ -346,7 +346,7 @@ device_check: model and data are on the same device
 4. `X @ W` を `X * W` に変えてください。なぜ失敗する、または意味がまったく変わるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. batch 次元が `2` から `3` に変わります。特徴量数、クラス数、パラメータ shape は、入力特徴量数や出力クラス数を変えない限り同じです。
 2. `CrossEntropyLoss` は `[batch]` 形状のクラスラベルを期待し、通常は `torch.long` を使います。`squeeze(1)` は余分な 1 次元を消し、各サンプルに 1 つの class id がある形にします。

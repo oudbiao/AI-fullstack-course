@@ -280,11 +280,11 @@ for tokens in [["退款"], ["发票"], ["密码"]]:
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+模型选择：BERT、GPT、T5、Transformer 流水线或其他预训练基线
+tokenizer 输出：id、mask、解码文本或批次形状
+任务结果：分类、生成、抽取或文本到文本输出
+失败检查：错误的模型家族、token 限制、领域不匹配、成本或延迟
+期望产出：模型调用结果加一段简短的选择理由
 ```
 
 ## 小结
@@ -317,7 +317,7 @@ Expected_output: model call result plus a short choice rationale
 4. 为什么说预训练范式改变的不只是模型，而是整个任务组织方式？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 预训练降低门槛，是因为模型在看到你的小型任务数据前，已经学过大量通用语言模式。
 2. 可能只需要预训练特征、不必完整微调的任务包括相似度搜索、聚类、简单分类和检索重排 baseline。

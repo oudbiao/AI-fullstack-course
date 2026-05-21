@@ -232,11 +232,11 @@ failures : []
 学完这一页，至少保留这张证据卡：
 
 ```text
-eval_cases: fixed input set
-prompt_versions: baseline and improved prompt
-score_table: pass rate or rubric score
-failure_note: one failed output with likely cause
-next_step: add harder cases or connect a real model
+评估用例：固定输入集
+提示词版本：基线提示词和改进提示词
+评分表：通过率或评分量表分数
+失败备注：一个失败输出及其可能原因
+下一步：加入更难的案例或连接一个真实模型
 ```
 
 ## 练习任务
@@ -248,7 +248,7 @@ next_step: add harder cases or connect a real model
 5. 把 report 输出保存进项目笔记，作为 Prompt 评测证据。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 很短输入用于测试 prompt 面对稀疏信息时是否稳定；长的混合评价用于测试它能否拆分多个情绪或主题。
 2. 加入 `confidence` 后，schema 和评分函数都应该要求它存在，否则模型仍可以省略重要的不确定性信号。

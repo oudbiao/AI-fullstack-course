@@ -67,7 +67,7 @@ Segmentation report では mask、metrics、boundary errors を示します。co
 mask を作成または inspect し、簡単な overlap metric を計算し、boundary または class-confusion failure を説明できれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、task を class label、bounding box、mask、OCR text、embedding、video event など正しい視覚出力に対応づけます。
 2. 証拠には、rendered visual artifact と、metric または定性的な error note を含めます。
@@ -81,9 +81,9 @@ mask を作成または inspect し、簡単な overlap metric を計算し、bo
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+入力画像：元画像とターゲットマスクまたはクラスマップ
+予測：予測マスク、重ね合わせ可視化、境界の例
+指標：IoU、Dice、クラス別スコア、境界の失敗メモ
+失敗確認：アノテーション品質、境界が薄い、領域が小さい、またはクラス混同
+期待される成果：マスク重ね合わせとセグメンテーションメトリクス要約
 ```

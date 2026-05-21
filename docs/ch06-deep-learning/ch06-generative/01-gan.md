@@ -194,7 +194,7 @@ For modern image generation projects, diffusion models are often more stable and
 5. Explain why GAN output quality cannot be judged from one loss number.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. If training works, `fake_mean` should move toward the new real data center. It may lag or oscillate because the discriminator is changing too.
 2. Lower learning rate often makes training smoother but slower. If both networks learn too slowly, the generated distribution may barely move.

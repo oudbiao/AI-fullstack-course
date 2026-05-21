@@ -475,11 +475,11 @@ print("平均の明るさ:", gray.mean())
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: source image or synthetic image used in the run
-array_shape: width, height, channels, dtype, and coordinate convention
-processed_output: grayscale, crop, edge, threshold, or saved intermediate image
-failure_check: channel order, resize distortion, coordinate mistake, or over-processing
-Expected_output: before/after image plus the printed shape or pixel values
+入力画像：実行で使うソース画像または生成画像
+配列形状: 幅、高さ、channels、dtype、座標規約
+処理済み出力：グレースケール、切り抜き、エッジ、しきい値処理、または保存済み中間画像
+失敗確認：チャネル順、リサイズの歪み、座標ミス、または過剰処理
+期待される成果：前後の画像と、出力された shape またはピクセル値
 ```
 
 ## まとめ
@@ -499,7 +499,7 @@ Expected_output: before/after image plus the printed shape or pixel values
 3. いくつかの RGB ピクセルを手で `0~1` の浮動小数に変換し、正規化の意味を理解しましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. よい `3x3` グレースケール画像の答えでは、まず `(3, 3)` の配列を作り、`min()`、`max()`、`mean()` で画素値を確認します。行列が `uint8` なら画素値は `0-255` の範囲に収まり、平均値は浮動小数として表示されることがあります。
 2. RGB 画像の期待される形状は `(2, 2, 3)` です。`rgb[:, :, 0]`、`rgb[:, :, 1]`、`rgb[:, :, 2]` はそれぞれ `2x2` のチャンネル行列になります。

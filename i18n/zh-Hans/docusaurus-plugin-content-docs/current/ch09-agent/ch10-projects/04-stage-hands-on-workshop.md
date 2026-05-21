@@ -545,7 +545,7 @@ risky = run_agent(
 | 挑战 | 用模型调用替换 `choose_next_step()` | 现有评估用例仍然通过 |
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. MCP 材料任务可以新增一条包含 title、body、source id 的小型资料，然后验证包含 `MCP` 的 goal 能检索到它，并在最终答案中引用来源。
 2. `max_steps` 应在下一次规划会超过限制前停止，返回 `stopped_max_steps`，并把停止原因写进 trace。
@@ -631,9 +631,9 @@ python3 agent_sdk_upgrade.py
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: what the agent should accomplish and what it must not do
-baseline: single-agent loop before adding advanced features
-trace_pack: goal, plan, tool calls, observations, memory, evaluation
-failure_log: one failed or unsafe run with root cause
+项目目标：智能体应完成什么，以及必须不做什么
+基线：在加入高级功能前的单智能体循环
+追踪包：目标、计划、tool 调用、观察、记忆、评估
+失败日志：一次失败或不安全的运行及其根因
 交付物：README、运行命令、trace 截图/日志、下一步
 ```

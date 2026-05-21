@@ -75,7 +75,7 @@ print(summary)
 能把一张原始表变成一张干净的汇总表，能解释每个字段为什么这样处理，并能把结果交给可视化或机器学习继续使用，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要先说清问题，再指出需要的表、DataFrame 或 SQL 查询，并让清洗步骤可以复现。
 2. 证据至少包含一小段输出、必要的图表或查询结果，以及一句对结果的解释。
@@ -89,9 +89,9 @@ print(summary)
 学完这一页，至少保留这张证据卡：
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+数据框状态：列、数据类型、行数、缺失值和样本行
+操作：读/写、select/filter、清洗、转换、groupby、merge，或时间序列步骤
+输出：结果表、保存的文件、聚合、连接结果，或时间索引视图
+失败检查：dtype 不匹配、缺失数据、重复键、链式赋值或时间频率错误
+期望产出：前后对比表格样本，以及转换原因
 ```

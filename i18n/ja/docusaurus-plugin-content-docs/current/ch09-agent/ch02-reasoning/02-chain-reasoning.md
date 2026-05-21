@@ -347,11 +347,11 @@ print(result)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+タスク目標：Agent が解決しようとしていること
+計画またはトレース：推論手順、計画、ReAct trace、または実行グラフ
+観察：各アクションの後に何が変わったか
+失敗確認：幻覚のステップ、古い観測、ループ、または未検証の結論
+評価アクション：期待結果と比較して計画を修正する
 ```
 
 ## よくある誤解
@@ -404,7 +404,7 @@ eval_action: compare against expected result and revise the plan
 4. CoT を製品に使うなら、自由文と構造化スロットのどちらを選びますか？ その理由は何ですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. chain 版は途中の小さな結果を見せるべきです。一方、bad direct 版は仮定や計算ミスを最終回答の中に隠してしまいがちです。
 2. CoT が価値を持つのは、追跡すべき依存関係があるタスクです。構造のない長文は、単に冗長な出力です。

@@ -458,7 +458,7 @@ you will understand why “first describe the tools clearly” is the first step
 4. If there are more and more tools, would you first strengthen “tool descriptions” or the “tool executor”? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `search_faq` should have tags and examples that separate general help questions from refund-policy lookup, otherwise it will compete with `search_refund_policy`.
 2. Tags are useful in the first retrieval layer because they group intent, domain, risk, and data source more flexibly than a single tool name.

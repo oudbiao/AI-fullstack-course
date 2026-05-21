@@ -433,11 +433,11 @@ for text in texts:
 学完这一页，至少保留这张证据卡：
 
 ```text
-raw_text: original examples before cleaning or tokenization
-processed_text: cleaned text, tokens, normalization notes, and removed items
-task_boundary: classification, extraction, retrieval, generation, or QA output
-failure_check: lost meaning, bad token split, language issue, or ambiguous label
-Expected_output: before/after text samples plus token or representation output
+原始文本：清洗或分词前的原始示例
+处理后文本：清理后的文本、tokens、归一化说明和已移除项
+任务边界：分类、抽取、检索、生成或 QA 输出
+失败检查：含义丢失、分词不佳、语言问题或标签歧义
+期望产出：前后对比文本样本，以及 token 或表示输出
 ```
 
 ## 小结
@@ -466,7 +466,7 @@ Expected_output: before/after text samples plus token or representation output
 4. 想一想：在 NER 场景里，小写化为什么可能反而有害？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 数字替换规则可以把连续数字替换成 `<num>`，但要保留前后对比，因为日期、价格和 ID 可能需要不同处理。
 2. 把 `not` 加进 stopwords 往往会伤害情感任务，因为 `not good` 清洗后会变得太像 `good`。

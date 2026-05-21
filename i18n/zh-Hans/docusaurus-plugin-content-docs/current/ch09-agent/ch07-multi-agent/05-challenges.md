@@ -397,11 +397,11 @@ for item in trace:
 学完这一页，至少保留这张证据卡：
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+角色：负责人、执行者、评审者，或专家职责
+消息契约：artifact、request、response 和交接状态
+协同：路由、任务拆分、冲突解决和最终负责人
+失败检查：重复工作、上下文丢失、没有明确负责人或消息循环
+评估动作：将多 Agent 结果与单 Agent 基线对比
 ```
 
 ## 小结
@@ -422,7 +422,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 用自己的话解释：为什么多 Agent 系统出问题时，很多时候不是“模型太弱”，而是“系统边界不清”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. “reviewer 最终裁决”设计中，每个 Agent 提交结论、证据和不确定性。reviewer 按标准比较它们，选择或合并答案，并记录裁决理由。
 2. 如果系统反复检索同一信息，优先检查 shared state 和 communication protocol。Agent 可能不知道哪些内容已经检索过，也不知道证据存在哪里。

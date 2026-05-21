@@ -334,11 +334,11 @@ reading_order: 3
 このページを終えたら、この evidence card を残します。
 
 ```text
-scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
-input_sample: source image/frame/document and the expected output type
-result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
-failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
-Expected_output: scenario-specific artifact with metric or human-review note
+シナリオ境界: face、video、OCR、3D、medical、または別の vision シナリオ
+入力サンプル：ソース画像／フレーム／文書と期待される出力タイプ
+結果成果物：抽出テキスト、追跡イベント、深度の手がかり、診断フラグ、またはレビュー注記
+失敗確認: プライバシー、照明、時間的ドリフト、レイアウト、キャリブレーション、またはドメインリスク
+期待される成果: 指標または人手レビューのメモを含むシナリオ固有のアーティファクト
 ```
 
 ## まとめ
@@ -363,7 +363,7 @@ Expected_output: scenario-specific artifact with metric or human-review note
 4. 金額欄がいつも1文字間違うなら、まず検出、認識、それとも後処理のどこを確認しますか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. テキストブロックを追加したら、通常は上から下、同じ行では左から右に region を並べます。ただし multi-column や table layout は別途扱う必要があります。
 2. 検出段階の誤りは OCR 全体に直接影響します。見逃した文字や不完全に crop された文字は、recognizer に正しく渡らないからです。

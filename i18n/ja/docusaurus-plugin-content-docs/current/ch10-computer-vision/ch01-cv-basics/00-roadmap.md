@@ -60,7 +60,7 @@ top_left_pixel: [255, 0, 0]
 image shape を inspect し、coordinates で region を crop し、channel order を説明し、processed result を README 用に保存できれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、task を class label、bounding box、mask、OCR text、embedding、video event など正しい視覚出力に対応づけます。
 2. 証拠には、rendered visual artifact と、metric または定性的な error note を含めます。
@@ -74,9 +74,9 @@ image shape を inspect し、coordinates で region を crop し、channel orde
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: source image or synthetic image used in the run
-array_shape: width, height, channels, dtype, and coordinate convention
-processed_output: grayscale, crop, edge, threshold, or saved intermediate image
-failure_check: channel order, resize distortion, coordinate mistake, or over-processing
-Expected_output: before/after image plus the printed shape or pixel values
+入力画像：実行で使うソース画像または生成画像
+配列形状: 幅、高さ、channels、dtype、座標規約
+処理済み出力：グレースケール、切り抜き、エッジ、しきい値処理、または保存済み中間画像
+失敗確認：チャネル順、リサイズの歪み、座標ミス、または過剰処理
+期待される成果：前後の画像と、出力された shape またはピクセル値
 ```

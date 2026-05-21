@@ -481,7 +481,7 @@ It is not a simple replacement for a cloud API, but a completely different deplo
 4. If your system is highly privacy-sensitive but your team has weak operations capability, how would you make the trade-off?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A reasonable plan should name the model size, quantization level, runtime, memory budget, expected latency, and fallback. For a laptop, a small quantized model for testing plus cloud/API fallback is often more realistic than pretending to serve a frontier model locally.
 2. Quantization reduces memory and bandwidth needs by storing weights in fewer bits. That matters locally because VRAM/RAM and memory bandwidth are usually the bottlenecks.

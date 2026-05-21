@@ -299,11 +299,11 @@ errors: [{'text': '返金の請求書はどう発行しますか', 'gold': 'invo
 このページを終えたら、この evidence card を残します。
 
 ```text
-label_schema: label definitions and boundary examples
-dataset_split: fixed train/test examples or evaluation set
-prediction: predicted label, expected label, and confidence or score
-failure_check: class imbalance, label overlap, leakage, or confusing wording
-Expected_output: metrics plus error samples grouped by failure reason
+ラベルスキーマ：ラベル定義と境界例
+データセット分割: 固定の train/test 例または評価セット
+予測：予測ラベル、期待ラベル、そして信頼度またはスコア
+失敗確認：クラス不均衡、ラベル重複、リーク、または紛らわしい表現
+期待される成果: 失敗理由ごとにまとめた指標とエラーサンプル
 ```
 
 ## まとめ
@@ -324,7 +324,7 @@ Expected_output: metrics plus error samples grouped by failure reason
 4. ラベル定義そのものがあいまいな場合、まずモデルを直しますか、それともデータを直しますか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 新しい `shipping` category を入れるなら、まず label definition を書き、正例と紛らわしい反例を追加してから metrics を信頼します。
 2. error details では、共通語が多い label pair、境界が曖昧な label、学習例が足りない label を探します。

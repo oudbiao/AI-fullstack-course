@@ -62,11 +62,11 @@ checkpoint: check citations
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+任务目标：Agent 想要解决什么
+计划或轨迹：推理步骤、计划、ReAct 轨迹或执行图
+观察：每次操作后发生了什么变化
+失败检查：虚构步骤、过时观察、循环或未经验证的结论
+评估动作：与期望结果对比并修正计划
 ```
 
 ## 通过标准
@@ -76,7 +76,7 @@ eval_action: compare against expected result and revise the plan
 本章出口小项目是一个可见推理 trace：包含计划步骤、观察、重规划和最终回答。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

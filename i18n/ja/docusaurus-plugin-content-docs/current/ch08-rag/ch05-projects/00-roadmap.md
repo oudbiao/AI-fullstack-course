@@ -73,10 +73,10 @@ evidence: docs, eval, citations, failures
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+プロジェクト目標：ユーザーのタスクとビジネス境界
+ベースライン: まずは最も簡単なプロンプト/RAG/app版
+評価：固定ケース、検索証拠、回答品質、引用チェック
+失敗ログ: 少なくとも1件の失敗ケースと原因の可能性
 成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```
 
@@ -99,7 +99,7 @@ failure_log: at least one failed case with likely cause
 最強のポートフォリオ版は、最大の版ではありません。別の開発者が実行を再現し、証拠を確認し、次の改善方針を理解できる版です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、query から chunks、retrieval scores、引用 evidence、answer、fallback behavior までの流れを追跡します。
 2. 証拠には、retrieved passages、source metadata、引用付き回答、空振りまたは誤検索の例を含めます。

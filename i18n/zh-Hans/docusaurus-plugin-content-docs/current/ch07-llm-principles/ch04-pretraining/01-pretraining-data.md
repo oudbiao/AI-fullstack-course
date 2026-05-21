@@ -541,11 +541,11 @@ pprint(draws)
 学完这一页，至少保留这张证据卡：
 
 ```text
-data_sources: source types and mixture rationale
-cleaning_result: one before/after cleaning example
-dedup_check: duplicate or near-duplicate risk noted
-contamination_check: eval leakage risk documented
-quality_rule: data quality is part of model capability
+数据来源：来源类型和混合原因
+清洗结果：一个清洗前/后的示例
+去重检查：记录重复或近重复风险
+污染检查：已记录评估泄漏风险
+质量规则：数据质量是模型能力的一部分
 ```
 
 ## 小结
@@ -568,7 +568,7 @@ quality_rule: data quality is part of model capability
 4. 用自己的话解释：为什么评测泄漏会让我们高估模型能力？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 好的补充样本应该测试具体规则：模板页、重复广告、乱码文本、干净技术说明、高价值但少见的样本。若有用样本被删，或低价值样本被留，规则就需要调整。
 2. Exact dedup 只能抓完全相同的字符串或指纹。真实项目还会遇到轻微改写的转载页、模板变体、翻译镜像和被改写过的 benchmark 材料，所以需要 near-duplicate detection。

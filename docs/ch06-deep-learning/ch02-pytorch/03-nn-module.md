@@ -395,7 +395,7 @@ In real deep learning projects, custom modules are more common because architect
 4. Add `nn.Dropout(p=0.2)` after ReLU, then compare predictions in `train()` and `eval()` modes.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `4` may underfit because the hidden representation is smaller. `32` may reduce training loss more easily, but validation loss is the real check because a larger model can also overfit.
 2. This tiny regression task may still learn if the target is close to linear. Without nonlinear activations, stacked linear layers collapse into one linear transformation, which is not enough for richer nonlinear patterns.

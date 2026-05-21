@@ -296,11 +296,11 @@ cloud_api_model -> 6.8
 このページを終えたら、この証拠カードを残します。
 
 ```text
-model_choice: closed, open, hosted, or self-deployed option
-decision_factors: quality, latency, privacy, cost, ecosystem
-system_capability: model + data + product + eval + ops
-risk_note: vendor lock-in, compliance, or deployment constraint
-evidence: one model-selection table for a real use case
+モデル選択：closed、open、hosted、または self-deployed の選択肢
+判断要素：品質、レイテンシー、プライバシー、コスト、エコシステム
+システム能力：model + data + product + eval + ops
+リスク注意: ベンダーロックイン、コンプライアンス、またはデプロイ制約
+証拠：実際のユースケース向けのモデル選定表1つ
 ```
 
 ## まとめ
@@ -320,7 +320,7 @@ evidence: one model-selection table for a real use case
 3. 自分の言葉で説明してみましょう：なぜ多くの場合、真の競争優位はモデル本体だけではないのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. startup team は speed、cost、API simplicity、iteration velocity を高く重みづけしがちです。financial enterprise は privacy、compliance、auditability、reliability、vendor control を高く見るべきです。
 2. private deployment が必要なら、open-weight model、self-hosting、private cloud、data governance の優先度が上がります。closed-source API も、隔離と compliance を満たすなら選択肢です。

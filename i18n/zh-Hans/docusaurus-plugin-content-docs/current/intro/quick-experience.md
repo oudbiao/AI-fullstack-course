@@ -89,9 +89,9 @@ kuvasz                          0.5%
 学完这一页，至少保留这张证据卡：
 
 ```text
-mini_app: the smallest runnable AI or automation demo completed
-input_output: sample input, printed output, screenshot, or log
-concept_link: which later chapter explains the hidden mechanism
-failure_check: API key, dependency, network, prompt, or output-format issue
-Expected_output: a tiny demo result that makes the course feel real
+迷你应用：完成的最小可运行 AI 或自动化演示
+输入输出: 样本输入、打印输出、截图或日志
+概念链接：后面哪一章解释隐藏机制
+失败检查：API key、依赖、网络、Prompt 或输出格式问题
+期望产出：一个让课程变得真实的微型演示结果
 ```

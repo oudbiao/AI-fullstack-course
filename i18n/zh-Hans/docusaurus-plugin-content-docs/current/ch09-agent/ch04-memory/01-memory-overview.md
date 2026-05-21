@@ -337,11 +337,11 @@ print(memory)
 学完这一页，至少保留这张证据卡：
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+记忆类型：短期、长期、情景或程序性
+写入规则：在内存创建或更新时
+检索规则：查询、相关性、时效性和权限检查
+失败检查：过时记忆、隐私泄漏、矛盾或过度检索
+清理动作：总结、合并、过期、删除或请求确认
 ```
 
 ## 小结
@@ -362,7 +362,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 用自己的话解释：为什么说记忆系统的难点不只是存储，而是选择和组织？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 短期记忆可以保存当前工单目标、用户刚刚修正的信息、已经调用过的工具。长期记忆可以保存用户明确确认过的稳定偏好。
 2. 短时间内反复变化的需求应先留在短期记忆，等稳定后再考虑长期写入，否则临时指令会污染长期画像。

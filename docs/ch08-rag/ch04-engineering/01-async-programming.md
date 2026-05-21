@@ -524,7 +524,7 @@ This is almost unavoidable foundational knowledge in LLM engineering.
 4. Explain in your own words: why is asynchronous programming not “making a single task faster,” but “making overall waiting smarter”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Increasing tasks to 30 should reveal queueing. `Semaphore` controls max in-flight work and prevents overwhelming external dependencies.
 2. The additional concurrent call should be awaited with error and timeout handling so one slow dependency does not block everything silently.

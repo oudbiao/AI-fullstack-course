@@ -87,7 +87,7 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 You pass this chapter when your vision project can be reproduced, has clear data and annotation rules, reports proper metrics, and shows where the model fails.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer maps the task to the right visual output: class label, bounding box, mask, OCR text, embedding, or video event.
 2. The evidence should include a rendered visual artifact and one metric or qualitative error note.

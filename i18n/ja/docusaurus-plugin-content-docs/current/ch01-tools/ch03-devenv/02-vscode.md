@@ -13,11 +13,11 @@ description: "VS Code を使いやすい AI 開発ツールに設定する"
 このページを終えたら、この evidence card を残します。
 
 ```text
-environment: Python/Node/editor/notebook version and selected interpreter/kernel
-verification: one command or notebook cell proving the setup works
-project_folder: where dependencies, scripts, and notebooks live
-failure_check: wrong interpreter, missing package, stale kernel, or editor path mismatch
-Expected_output: setup screenshot or terminal output plus one fallback note
+環境：Python/Node/エディタ/Notebook のバージョンと選択したインタプリタ／カーネル
+検証記録：setup が動作することを示す 1 つの command または notebook cell
+プロジェクトフォルダ：依存関係、スクリプト、Notebook を置く場所
+失敗確認: 間違ったインタプリタ、パッケージ不足、古いカーネル、またはエディタのパス不一致
+期待される成果: セットアップのスクリーンショットまたはターミナル出力と1件のフォールバックメモ
 ```
 
 ## この節の位置づけ
@@ -356,7 +356,7 @@ print(f"\n平均の名前の長さ: {avg_len:.1f} 文字")
 - `Ctrl/Cmd + Shift + F` で "fruit" を全体検索する
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `code .` は現在のプロジェクトフォルダ全体を開くコマンドです。単一ファイルだけを開くのではありません。
 2. 右下やコマンドパレットで選んだ Python インタプリタは、このコース用の環境であるべきです。

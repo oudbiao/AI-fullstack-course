@@ -282,11 +282,11 @@ episode に向いているのは、次のような記録です。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+メモリ種別：短期、長期、エピソード記憶、または手続き記憶
+書き込みルール：メモリが作成または更新されるとき
+取得ルール：クエリ、関連性、鮮度、権限チェック
+失敗確認: 古い記憶、プライバシー漏えい、矛盾、または過剰検索
+クリーンアップ操作：要約、統合、期限切れ、削除、または確認を求める
 ```
 
 ## まとめ
@@ -308,7 +308,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. ある ワークフロー が古くなったら、どのように更新機構を設計しますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 成功した `weekly_report` cases を追加すると、繰り返し現れる手順が見えるはずです。手順が安定したら procedural memory に昇格できます。
 2. context や過去の結果が重要なら episodes を確認します。タスクが繰り返し可能で最善の action sequence が分かっているなら procedural memory が向いています。

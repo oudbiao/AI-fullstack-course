@@ -69,10 +69,10 @@ evidence: goal, trace, tools, failure, eval
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_goal: what the agent should accomplish and what it must not do
-baseline: single-agent loop before adding advanced features
-trace_pack: goal, plan, tool calls, observations, memory, evaluation
-failure_log: one failed or unsafe run with root cause
+プロジェクト目標：エージェントが達成すべきことと、してはいけないこと
+ベースライン: 高度な機能を追加する前の単一エージェントループ
+追跡パック：目標、計画、ツール呼び出し、観察、メモリ、評価
+失敗ログ: 少なくとも1回の失敗または危険な実行と根本原因
 成果物：README、実行コマンド、trace スクリーンショット/ログ、次の一手
 ```
 
@@ -95,7 +95,7 @@ failure_log: one failed or unsafe run with root cause
 基本版は単一 Agent プロジェクトで十分です。memory、MCP、Multi-Agent 協調、デプロイは、trace と評価ループが固まってから追加します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

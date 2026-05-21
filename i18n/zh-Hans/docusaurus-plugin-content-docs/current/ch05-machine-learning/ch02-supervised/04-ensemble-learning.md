@@ -183,11 +183,11 @@ Stacking 只有在元模型看到 out-of-fold 预测时才可靠：
 学完这一页，至少保留这张证据卡：
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+任务：带目标定义的回归或分类问题
+模型：线性/逻辑回归/树/集成/SVM 配置和训练/测试划分
+指标：回归误差、准确率/F1、阈值曲线或混淆矩阵
+失败检查：过拟合、欠拟合、特征缩放、阈值选择或类别不平衡
+期望产出：模型结果加错误样本或残差复查
 ```
 
 ## 常见错误
@@ -208,7 +208,7 @@ Expected_output: model result plus error samples or residual review
 4. 保存模型对比表，并写一段话说明你会先上线哪个模型。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `max_depth=3` 会限制单棵树复杂度，可能更稳但会欠拟合；`None` 允许树长得很深，训练分数可能更高，但测试分数和稳定性要重点检查。
 2. `learning_rate=0.2` 会让每轮 Boosting 修正更大，可能更快提升，也可能更快过拟合。需要结合验证集或交叉验证判断。

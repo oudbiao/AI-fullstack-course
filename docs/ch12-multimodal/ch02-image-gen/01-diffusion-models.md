@@ -421,7 +421,7 @@ As long as this intuition is stable, the structure of Stable Diffusion will feel
 4. If you were explaining diffusion models to someone else, how would you use the analogy of “first dirty it, then clean it” to describe them?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A larger decay coefficient preserves structure for longer; a smaller one destroys it faster. This lets you see why the denoising model must learn how much signal remains at each noise level.
 2. During training, the model is usually shown a noisy sample plus a noise/time condition and learns to predict the noise or the clean direction. It is therefore learning a sequence of repair steps, not drawing a finished image from scratch in one move.

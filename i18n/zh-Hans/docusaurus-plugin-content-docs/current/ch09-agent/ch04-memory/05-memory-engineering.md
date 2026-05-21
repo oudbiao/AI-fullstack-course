@@ -383,11 +383,11 @@ retrieval:
 学完这一页，至少保留这张证据卡：
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+记忆类型：短期、长期、情景或程序性
+写入规则：在内存创建或更新时
+检索规则：查询、相关性、时效性和权限检查
+失败检查：过时记忆、隐私泄漏、矛盾或过度检索
+清理动作：总结、合并、过期、删除或请求确认
 ```
 
 ## 小结
@@ -410,7 +410,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 你会如何给“用户偏好”与“临时调试信息”设置不同写入策略？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. source credibility 可以作为分数乘子或 tie-breaker，让明确、近期、可信的 memory 排在弱推断 memory 前面。
 2. `ttl_steps` 更短会更快清除临时 memory；更长会让它们更久可用，但也增加 stale retrieval 风险。

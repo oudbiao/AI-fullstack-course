@@ -165,7 +165,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 Add a `memory` field to each engine and subtract one point if it uses more memory than your device allows. Then rerun the selector for CPU-only, NVIDIA GPU, and Intel device scenarios.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 A good answer adds memory as another hard constraint, not as a decorative column. For example, if a target device allows `memory_limit=1024`, an engine with `memory=1800` should lose a point or be marked risky even if its latency score is strong.
 

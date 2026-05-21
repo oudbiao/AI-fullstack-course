@@ -127,12 +127,12 @@ best-looking single sample != best project checkpoint
 generative project では、最低限この evidence を残します。
 
 ```text
-checkpoint_samples: fixed-seed samples across epochs
-quality_note: what improved visually
-diversity_note: whether outputs repeat
-failure_sample: blurry, broken, collapsed, or unrealistic output
-selection_rule: why this checkpoint was kept
-next_action: data, objective, architecture, or sampling change
+チェックポイントサンプル：各 epoch の固定 seed サンプル
+品質ノート：何が見た目として改善したか
+多様性メモ：出力が繰り返すかどうか
+失敗サンプル: ぼやけた、壊れた、崩壊した、または非現実的な出力
+選択ルール: このチェックポイントが保持された理由
+次の行動：データ、目的、アーキテクチャ、またはサンプリングの変更
 ```
 
 ## よくある間違い
@@ -154,7 +154,7 @@ next_action: data, objective, architecture, or sampling change
 5. 「なぜこの checkpoint を選んだのか」というポートフォリオ小節を下書きしてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 通常は選びません。ただし、project が quality を diversity より極端に重視するなら例外はあります。`0.30` の diversity は、出力が反復的または狭い範囲に偏る警告です。
 2. `failure` field には、反復、アーティファクト、prompt mismatch、安全でない出力、diversity 不足など、見える問題を書きます。

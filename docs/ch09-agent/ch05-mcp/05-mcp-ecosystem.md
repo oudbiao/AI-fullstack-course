@@ -277,7 +277,7 @@ Only at this stage does the protocol’s value truly become amplified.
 4. In your own words, describe the biggest difference between the MCP ecosystem and a “single tool invocation.”
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. For a team knowledge-work scenario, useful MCP servers might include document search, calendar/task management, and repository or database access. The exact answer can vary, but each server should expose a coherent capability boundary.
 2. Low onboarding cost matters because ecosystems grow when new servers and clients can join without bespoke integration work every time. It is a sign that the contract is understandable and reusable.

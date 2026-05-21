@@ -66,11 +66,11 @@ watch: latency, cost, errors
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+运行时选择：本地模型、推理服务器，或统一 API
+请求契约：端点、负载、输出格式，以及错误形状
+延迟或成本: 一个测量值或估计值
+失败检查：超时、内存压力、模型不匹配或版本漂移
+回滚方案：备用模型、重试策略，或流量切换
 ```
 
 ## 通过标准
@@ -80,7 +80,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 本章出口小项目是一份模型网关注释或脚本：把一个请求路由到选定模型端点，并记录选择理由。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
 2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。

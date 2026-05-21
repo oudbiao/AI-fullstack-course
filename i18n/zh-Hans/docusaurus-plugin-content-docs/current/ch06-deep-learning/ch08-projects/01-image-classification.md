@@ -200,12 +200,12 @@ errors: [{'gold': 'dog', 'pred': 'cat'}]
 图像分类项目至少留下这些证据：
 
 ```text
-label_rules: how classes are defined
-split_rule: train/val/test and leakage prevention
-baseline: simple CNN or transfer-learning baseline
-metric: accuracy plus confusion matrix
-error_case: one wrong prediction with likely cause
-next_action: data, augmentation, model, or split change
+标签规则: 类别如何定义
+拆分规则：训练/验证/测试和防止数据泄漏
+基线：简单的 CNN 或迁移学习基线
+指标：准确率加混淆矩阵
+错误案例：一个错误预测及其可能原因
+下一步动作：数据、增强、模型或划分改动
 ```
 
 ## 常见错误
@@ -227,7 +227,7 @@ next_action: data, augmentation, model, or split change
 5. 做一个项目 checklist，包含 dataset、command、metric 和 failure cases。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. confusion matrix 的 `dog` 行会有更多证据。如果新增样本更难，dog recall 可能下降；如果新增样本很清晰，评估会更稳定。
 2. `labels` 需要加入 `hamster`，confusion matrix 会多一行一列。所有按类别平均的指标表也要包含新类别。

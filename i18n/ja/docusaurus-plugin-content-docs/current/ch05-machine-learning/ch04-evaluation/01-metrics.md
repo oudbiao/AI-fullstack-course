@@ -259,11 +259,11 @@ linear        mae=41.5 rmse=53.4 r2=0.485
 このページを終えたら、この evidence card を残します。
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+評価設定：分割、交差検証、指標、ベースライン、比較対象
+結果: スコア表、曲線、confusion matrix、検証結果、または検索結果
+判断: データ、特徴量、モデル、閾値、またはハイパーパラメータを変えるかどうか
+失敗確認: リーク、不安定な検証、誤った指標、またはテストセットでのチューニング
+期待される成果：次のモデリング判断を支える評価記録
 ```
 
 ## よくあるトラブル
@@ -285,7 +285,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 回帰で絶対誤差が最大の 5 件を表示し、入力を確認してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. positive が 2% しかないと、accuracy は高く見えても多くの positive を見逃している可能性があります。raw accuracy より recall と precision が重要になります。
 2. スクリーニングでは、`0.1` や `0.3` のような低めのしきい値を選ぶことが多いです。見逃しは減りますが誤報が増えるため、レビュー可能件数と一緒に決めます。

@@ -117,11 +117,11 @@ limit: 1 semaphore: Semaphore
 このページを終えたら、この証拠カードを残します。
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Pythonパターン：デコレータ、イテレータ、ジェネレータ、並行処理プリミティブ、またはメタプログラミングフック
+コード成果物：最小限の実行可能な例と表示された出力
+使用場面：この pattern が AI app、pipeline、tool、または server を改善する場面
+失敗確認：隠れた副作用、読みにくい抽象化、競合状態、または過度な設計
+期待される成果: 実践的なAIシステム用途のメモを含む小さな高度Python例
 ```
 
 ## よくある間違い
@@ -136,7 +136,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 ツール呼び出しをさらに5つ追加し、`Semaphore(3)` にします。その後、タイムアウトを `0.15` に下げ、いくつが `:timeout` になるか数えてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 具体的なタイムアウト数は、各ツールに設定した遅延によって変わります。そのため固定の数を作るのではなく、観測した数を報告します。堅実な解答では、結果一覧と数を両方出します。
 

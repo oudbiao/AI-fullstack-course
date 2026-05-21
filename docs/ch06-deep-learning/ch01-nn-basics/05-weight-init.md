@@ -329,7 +329,7 @@ If the output is not finite, or if every value is almost the same, inspect initi
 3. Change Adam to SGD with `lr=0.1`. Which initialization becomes more fragile?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A deeper probe usually exposes unstable initialization first. Too-large or naive random initialization tends to make activations or gradients explode or vanish before He initialization does.
 2. Yes, Xavier often becomes more competitive with Tanh because it was designed for roughly symmetric activations. He initialization is usually the better default for ReLU-style activations.

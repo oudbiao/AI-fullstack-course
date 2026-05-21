@@ -476,11 +476,11 @@ bad JSON 能被解析，但它先缺少 `needs_human`，所以还没走到 `conf
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: required fields and allowed types
-parser: output is parsed, not trusted visually
-valid_case: one output accepted by validation
-invalid_case: missing field or wrong type rejected
-repair_rule: retry, fallback, or ask for clarification
+架构：必需字段和允许的类型
+解析器：输出是被解析的，不能按视觉直读
+有效样例：验证接受的一个输出
+无效案例: 缺少字段或类型错误被拒绝
+修复规则：重试、降级处理，或请求澄清
 ```
 
 ## 小结
@@ -501,7 +501,7 @@ repair_rule: retry, fallback, or ask for clarification
 4. 用自己的话解释：为什么说结构化输出是 Prompt 工程走向工程化的关键一步？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 一个合理 JSON 形状可以是 `{"intent": "billing|course_help|technical_issue|other", "confidence": 0.0, "needs_human": false, "reason": "short explanation"}`。
 2. 如果 `intent`、`confidence` 或 `needs_human` 是必填字段，缺字段就应该校验失败。关键是让坏输出在进入产品逻辑前被拦住。

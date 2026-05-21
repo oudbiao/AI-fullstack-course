@@ -412,11 +412,11 @@ embedding 的核心目标是：
 学完这一页，至少保留这张证据卡：
 
 ```text
-raw_text: original examples before cleaning or tokenization
-processed_text: cleaned text, tokens, normalization notes, and removed items
-task_boundary: classification, extraction, retrieval, generation, or QA output
-failure_check: lost meaning, bad token split, language issue, or ambiguous label
-Expected_output: before/after text samples plus token or representation output
+原始文本：清洗或分词前的原始示例
+处理后文本：清理后的文本、tokens、归一化说明和已移除项
+任务边界：分类、抽取、检索、生成或 QA 输出
+失败检查：含义丢失、分词不佳、语言问题或标签歧义
+期望产出：前后对比文本样本，以及 token 或表示输出
 ```
 
 ## 小结
@@ -443,7 +443,7 @@ Expected_output: before/after text samples plus token or representation output
 4. 想一想：如果任务特别依赖词序，仅靠 BoW 或 TF-IDF 会遇到什么问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 增加两句文本后，词表会变化，TF-IDF 权重也可能变化，因为 document frequency 改了。
 2. BoW 忽略词序，是因为它把文档表示成 token 计数，而不是序列。

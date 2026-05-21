@@ -255,11 +255,11 @@ ffn style: SwiGLU
 学完这一页，至少保留这张证据卡：
 
 ```text
-pre_norm: normalization before attention/FFN for stability
-rmsnorm: scale normalization used in many modern decoders
-rope: position enters attention through rotation
-gqa_mqa: fewer KV heads reduce cache pressure
-swiglu: gated FFN improves capacity at scale
+前置归一化：在 attention/FFN 之前做归一化以提升稳定性
+RMSNorm 要点：用于许多现代解码器的尺度归一化
+RoPE 要点：位置信息通过旋转进入 attention
+GQA/MQA 要点：更少的 KV 头会降低缓存压力
+SwiGLU 要点：门控 FFN 提升大规模容量
 ```
 
 ## 总结

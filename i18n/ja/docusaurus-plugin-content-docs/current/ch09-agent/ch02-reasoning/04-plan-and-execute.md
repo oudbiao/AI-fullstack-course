@@ -483,11 +483,11 @@ Plan-and-Execute で本当に安定しやすい形は、次のようなもので
 このページを終えたら、この証拠カードを残します。
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+タスク目標：Agent が解決しようとしていること
+計画またはトレース：推論手順、計画、ReAct trace、または実行グラフ
+観察：各アクションの後に何が変わったか
+失敗確認：幻覚のステップ、古い観測、ループ、または未検証の結論
+評価アクション：期待結果と比較して計画を修正する
 ```
 
 ## まとめ
@@ -510,7 +510,7 @@ eval_action: compare against expected result and revise the plan
 4. 考えてみましょう。どんなタスクが ReAct に向いていて、どんなタスクが Plan-and-Execute に向いているでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 良い plan には、順序づけられたサブタスク、各ステップで残すべき証拠、最後の統合ステップが含まれます。
 2. 長いタスクでは、依存関係、進捗管理、復旧ポイントが重要になるため、planner が必要になりやすくなります。

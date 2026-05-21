@@ -52,7 +52,7 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 - 你能说明什么时候“长期行为适配”才可能值得微调吗？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 可以把这些词放进同一条流程里理解：token 和 embedding 是表示层，attention 负责在上下文里分配关注，context window 限制一次能看到多少，pretraining 打好基础模型，Prompt 负责本次引导，微调通过数据改变行为，对齐则保证输出更有用、更安全。
 2. 保持同一组样本，只改一个 Prompt 变量，并同时保存输出和分数，这样比较才是可复现的，而不是凭印象。
@@ -69,9 +69,9 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 学完这一页，至少保留这张证据卡：
 
 ```text
-prompt_versions: at least three versions for one task
-eval_cases: fixed inputs with scores and failure notes
-schema_check: structured output is parsed and validated
-method_choice: Prompt/RAG/fine-tuning/tools decision is written down
-exit_proof: workshop output plus README notes
+提示词版本：同一任务至少三个版本
+评估用例：带分数和失败备注的固定输入
+架构检查：结构化输出已解析并验证
+方法选择：Prompt/RAG/微调/工具决策已写明
+结束证明：工作坊产出加 README 说明
 ```

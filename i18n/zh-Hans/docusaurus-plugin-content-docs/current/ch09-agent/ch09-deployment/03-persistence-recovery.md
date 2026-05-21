@@ -352,11 +352,11 @@ print(send_email_once("task-1", "a@example.com"))
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+运行时：队列、worker、状态存储、工具服务，以及模型端点
+持久化：检查点、事件日志、记忆存储和恢复路径
+运维信号：延迟、成本、错误率、trace 覆盖率和饱和度
+失败检查：运行卡住、重复动作、部分失败或成本失控
+恢复动作：继续、回滚、取消、人工接管，或优雅降级
 ```
 
 ## 小结
@@ -378,7 +378,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. 如果任务特别长，你会选择每步 checkpoint，还是每几步 checkpoint？为什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `retry_count` 应按 step 记录，而不只按整次 run 记录。这样才能看出哪一步不稳定，也能避免 retry storm 被一个最终状态掩盖。
 2. 如果 `write_report` 有外部副作用，就要用稳定 operation id、存在性检查、去重记录，以及“外部写入是否已成功”的状态来实现幂等。

@@ -88,9 +88,9 @@ Initialized empty Git repository ...
 このページを終えたら、この証拠カードを残します。
 
 ```text
-machine_state: OS, Python/Node versions, editor, terminal, and package manager
-verification: commands run, versions printed, and first script output
-debug_note: install error, path issue, permission issue, or environment mismatch
-recovery_plan: exact command or doc page to retry before moving on
-Expected_output: setup checklist with successful command output and one known fallback
+マシン状態：OS、Python/Node のバージョン、エディタ、ターミナル、パッケージマネージャ
+検証記録：実行したコマンド、表示されたバージョン、最初のスクリプト出力
+デバッグメモ: インストールエラー、パス問題、権限問題、または環境不一致
+復旧計画：次に進む前に再試行する正確なコマンドまたはドキュメントページ
+期待される成果: 成功したコマンド出力と1件の既知のフォールバックを含むセットアップチェックリスト
 ```

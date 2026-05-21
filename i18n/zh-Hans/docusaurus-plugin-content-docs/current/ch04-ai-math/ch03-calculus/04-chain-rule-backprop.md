@@ -521,11 +521,11 @@ plt.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-function: objective, loss, derivative, gradient, or chain-rule expression
-calculation: numeric derivative, gradient step, or backprop trace
-output: slope, gradient vector, updated parameter, or loss change
-failure_check: sign error, learning rate too large, local slope misunderstanding, or broken chain
-Expected_output: calculation trace showing how a parameter changes
+函数：目标函数、损失、导数、梯度或链式法则表达式
+计算：数值导数、梯度步长或反向传播轨迹
+输出：斜率、梯度向量、更新后的参数，或损失变化
+失败检查：符号错误、学习率过大、局部斜率理解错误或链式法则出错
+期望产出：展示参数如何变化的计算轨迹
 ```
 
 ## 小结
@@ -617,7 +617,7 @@ print("b2.grad =", b2.grad.item())
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 - 对 `y=(2x+1)^3`，导数是 `6(2x+1)^2`；在 `x=1` 时值为 `54`。
 - 把网络扩展成 3 个隐藏神经元时，把隐藏层写成向量，并分别保留每个权重的梯度。主要检查点是：每个 forward 值都应有对应的 backward 梯度。

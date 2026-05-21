@@ -175,7 +175,7 @@ risk: pretrained behavior is broad, not automatically aligned to your task
 5. Explain why “bigger model” and “better task fit” are not the same thing.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A `topic_head` would reuse the pretrained representation and map it to task labels such as `account_topic` and `commerce_topic`. The head is task-specific; the foundation remains reusable.
 2. Changing the `bad` vector changes how strongly the sentiment head sees negative evidence. Confidence may drop, flip, or become less stable depending on where the vector moves.

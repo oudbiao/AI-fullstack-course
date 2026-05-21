@@ -126,11 +126,11 @@ def fetch_model_info(model_id):
 学完这一页，至少保留这张证据卡：
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Python 模式：装饰器、迭代器、生成器、并发原语，或元编程钩子
+代码产物：最小可运行示例加上打印输出
+使用场景：这种模式在哪种 AI 应用、流水线、工具或服务器中更有用
+失败检查：隐藏副作用、难读的抽象、竞态条件或过度设计
+期望产出：带实际 AI 系统用途说明的小型高级 Python 示例
 ```
 
 ## 常见错误
@@ -144,7 +144,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 在 `fetch_model_info` 前加一个 `require_role("admin")` 装饰器。非 admin 用户抛出 `PermissionError`，并且不要重试权限错误。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 好的实现会先处理权限，再让 retry 只处理临时失败。可以把 `require_role("admin")` 放在重试路径外层，或者修改 `retry`，让它遇到 `PermissionError` 时立即重新抛出。
 

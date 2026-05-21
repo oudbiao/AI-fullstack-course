@@ -359,7 +359,7 @@ When you start iterating around the task goal, format, constraints, and examples
 4. Explain in your own words: Why is Prompt Engineering not “writing one nice sentence,” but “designing a task interface”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A bad prompt is vague, such as "analyze this." A better version names the task, input, expected output, labels, constraints, and at least one failure boundary.
 2. The few-shot version should include representative positive, negative, and neutral examples, then require the same label format for the new case.

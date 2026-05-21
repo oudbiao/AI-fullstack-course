@@ -419,7 +419,7 @@ Create AI assistants with different roles (Python mentor, English teacher, inter
 Let the AI read a local file first (for example, your notes), then answer questions based on the file content.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. For streaming, iterate over `response.output_text.delta` events and print each chunk immediately so the reply appears gradually.
 2. Wrap the chatbot in FastAPI only after the direct CLI version works, so you can compare CLI and HTTP behavior clearly.

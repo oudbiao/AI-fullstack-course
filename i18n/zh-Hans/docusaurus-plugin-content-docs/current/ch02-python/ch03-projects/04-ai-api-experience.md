@@ -419,7 +419,7 @@ for event in stream:
 让 AI 先读取一个本地文件（比如你的笔记），然后基于文件内容回答问题。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 对流式输出，遍历 `response.output_text.delta` 事件，并立即打印每个片段，让回复逐步显示。
 2. 只有在直接 CLI 版本跑通后，再用 FastAPI 包装聊天机器人，这样更容易对比 CLI 和 HTTP 行为。
@@ -475,9 +475,9 @@ for event in stream:
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
-run_command: exact command used to start the project
-artifact: output file, API response, JSON record, screenshot, or README note
-failure_check: dependency, network, parsing, route, input validation, or API-key issue
-Expected_output: reproducible mini project folder with run result and one failure case
+项目目标：CLI、爬虫、API、AI API 调用，或集成式 Python 工作坊目标
+运行命令：启动项目时使用的准确命令
+工件：输出文件、API 响应、JSON 记录、截图或 README 说明
+失败检查：依赖、网络、解析、路由、输入验证或 API key 问题
+期望产出：可复现的迷你项目文件夹，包含运行结果和一个失败案例
 ```

@@ -91,11 +91,11 @@ predictions: [0, 1]
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
-dataset_view: feature scale, class balance, decision boundary, and train/test split
-metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
-failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
-Expected_output: classical-ML baseline result with one limitation note
+模型家族：SVM、KNN、朴素贝叶斯、LDA 或其他传统基线
+数据视图：特征缩放、类别平衡、决策边界和训练/测试划分
+指标：准确率/F1、混淆矩阵、边距、邻近行为或投影质量
+失败检查：缩放、高维度、假设薄弱、泄漏或基线拟合差
+期望产出：经典机器学习基线结果，以及一条局限性说明
 ```
 
 ## 常见错误
@@ -109,7 +109,7 @@ Expected_output: classical-ML baseline result with one limitation note
 添加第三个特征，数值范围在 `10000` 左右。移除 `StandardScaler()`，观察距离投票如何被扭曲。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 没有缩放时，`10000` 左右的大尺度特征会主导欧氏距离。这样 KNN 可能几乎只按这个大尺度特征投票，即使原来的两个特征更能描述类别模式。
 

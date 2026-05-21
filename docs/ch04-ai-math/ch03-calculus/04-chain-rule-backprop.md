@@ -616,7 +616,7 @@ print("b2.grad =", b2.grad.item())
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - For `y=(2x+1)^3`, the derivative is `6(2x+1)^2`; at `x=1`, the value is `54`.
 - When extending the network to 3 hidden neurons, write the hidden layer as a vector and keep gradients for each weight separate. The main check is that every forward value has a corresponding backward gradient.

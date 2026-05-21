@@ -422,7 +422,7 @@ Once this chain is clear, your thinking will become much more stable when you la
 4. Think about this: if you want to do text classification, should you start with `AutoModel` or `AutoModelForSequenceClassification`?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing the mini vocab should change token IDs and may introduce unknown tokens if a word is missing from the vocabulary.
 2. Changing `hidden_size` to 64 should change the hidden representation dimension, not the sequence length or batch size.

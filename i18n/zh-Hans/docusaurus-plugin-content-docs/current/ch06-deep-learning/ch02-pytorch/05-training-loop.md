@@ -213,11 +213,11 @@ x=[0.0, 0.0] -> pred=4.98
 写课程笔记或作品集时，至少保留一个很小的证据包：
 
 ```text
-task: synthetic regression
-data: 240 samples, 2 features, target ~= 3*x1 + 2*x2 + 5
-best_val: 0.0734
-prediction_check: [12.05, 3.00, 4.98] close to [12, 3, 5]
-failure_to_try_next: increase noise to 1.0 and compare validation loss
+任务：合成回归
+数据：240 个样本、2 个特征，目标 ~= 3*x1 + 2*x2 + 5
+最佳验证：0.0734
+预测检查：[12.05, 3.00, 4.98] 接近 [12, 3, 5]
+后续尝试：将噪声提高到 1.0 并比较验证损失
 ```
 
 这个习惯后面会一直用到。微调、RAG 评估、Agent 评估都遵循同一模式：**运行、测量、保存证据、只改一件事、再次比较**。
@@ -323,7 +323,7 @@ for epoch in range(num_epochs):
 5. 把任务改成二分类：用 `y > 5` 生成标签，再使用 `BCEWithLogitsLoss`。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. SGD 通常比 Adam 更依赖 learning rate，在这个小例子里可能收敛更慢。如果曲线很抖，先尝试降低 learning rate。
 2. 隐藏层大小为 `4` 时可能 underfit；`32` 更容易降低训练 loss。最终优先看 validation loss，而不是只看训练 loss。

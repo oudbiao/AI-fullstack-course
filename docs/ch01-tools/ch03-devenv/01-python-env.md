@@ -489,7 +489,7 @@ conda env list
 If you see `✅ Environment setup successful!` at the end, your Python environment is ready.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. `conda env list` should show `ai-course`, and it should have the active marker when the environment is activated.
 2. The verification command should print NumPy and Pandas versions plus the setup success message.

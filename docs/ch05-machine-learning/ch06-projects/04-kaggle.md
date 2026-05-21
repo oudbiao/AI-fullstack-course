@@ -289,7 +289,7 @@ Register an account on Kaggle, join the Titanic competition, and use all the ski
 Join Kaggle’s House Prices competition, use a larger dataset to practice regression tasks, and focus on missing value handling and high-dimensional categorical feature encoding.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. For Titanic, reaching 0.80+ is a stretch target. The real learning target is a reproducible baseline, feature iteration, validation record, and submission log.
 2. Use `Pipeline` or an equivalent reproducible workflow so preprocessing is applied consistently. Never use test labels or leaderboard feedback as if it were validation data.

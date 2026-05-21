@@ -409,7 +409,7 @@ Well-designed short-term memory usually includes both recent messages and task s
 4. Explain in your own words: why do we say short-term memory solves “current task coherence” rather than “long-term user profiling”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A `summary` field can compress older turns into a short current-task note while the raw message window keeps the latest details.
 2. Changing the window from 3 to 5 should keep more recent messages in `snapshot()`, which may improve coherence but also adds noise and tokens.

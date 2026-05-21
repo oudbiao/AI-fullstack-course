@@ -376,7 +376,7 @@ for i in range(best_k):
 - [ ] 给出可执行的业务建议
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. RFM 特征必须有明确观察窗口。没有时间窗口，recency 和 frequency 就很难解释。
 2. K-Means 前要标准化 RFM，否则 monetary 的数值尺度可能主导距离。
@@ -401,9 +401,9 @@ for i in range(best_k):
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
-pipeline: data split, preprocessing, model, evaluation, and report artifacts
-result: metric table, chart, predictions, failure samples, and README note
-failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
-Expected_output: ML project folder with pipeline, metrics, and failure review
+项目目标：预测、分割、Kaggle，或端到端 ML 作品集目标
+流水线：数据划分、预处理、模型、评估和报告工件
+结果：指标表、图表、预测、失败样本和 README 说明
+失败检查：运行不可复现、泄漏、过拟合、基线薄弱或缺少部署边界
+期望产出：包含流水线、指标和失败复盘的 ML 项目文件夹
 ```

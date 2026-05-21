@@ -72,11 +72,11 @@ flowchart LR
 このページを終えたら、この evidence card を残します。
 
 ```text
-project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
-pipeline: data split, preprocessing, model, evaluation, and report artifacts
-result: metric table, chart, predictions, failure samples, and README note
-failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
-Expected_output: ML project folder with pipeline, metrics, and failure review
+プロジェクト目標：予測、セグメンテーション、Kaggle、またはエンドツーエンドの ML ポートフォリオ対象
+パイプライン：データ分割、前処理、モデル、評価、レポート成果物
+結果: metric 表、chart、予測、失敗サンプル、README の注記
+失敗確認: 再現不可能な実行、リーク、過学習、弱いベースライン、またはデプロイ境界の不足
+期待される成果：パイプライン、メトリクス、失敗レビューを含む ML プロジェクトフォルダ
 ```
 
 ## この問題で本当に練習すること
@@ -394,7 +394,7 @@ for i in range(best_k):
 - [ ] 実行可能なビジネス提案を出す
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. RFM 特徴量には明確な観察期間が必要です。期間がないと、recency や frequency の意味が曖昧になります。
 2. K-Means の前に RFM を標準化します。そうしないと monetary のスケールが距離を支配しやすくなります。

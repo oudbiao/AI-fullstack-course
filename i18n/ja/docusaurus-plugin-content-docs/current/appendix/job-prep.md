@@ -85,9 +85,9 @@ Python と LangChain でナレッジベース Q&A システムを作りました
 このページを終えたら、この証拠カードを残します。
 
 ```text
-target_role: AI full-stack, LLM app, data/ML, Agent engineer, or multimodal builder
-portfolio_story: problem, system, evidence, failure, improvement, and trade-off
-gap_list: missing project, weak explanation, missing deployment, or unclear metrics
-next_action: one resume/project/interview artifact to update this week
-Expected_output: a portfolio story card that can be used in an interview
+対象ロール：AI full-stack、LLM app、data/ML、Agent engineer、または multimodal builder
+ポートフォリオストーリー：問題、システム、証拠、失敗、改善、トレードオフ
+不足リスト：不足しているプロジェクト、弱い説明、未デプロイ、または不明確な指標
+次の行動：今週更新する resume／project／interview の成果物を1つ
+期待される成果：面接で使えるポートフォリオのストーリーカード
 ```

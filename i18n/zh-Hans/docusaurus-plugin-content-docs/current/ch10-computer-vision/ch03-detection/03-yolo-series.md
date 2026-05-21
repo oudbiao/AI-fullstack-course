@@ -349,11 +349,11 @@ NMS、阈值设置这些后处理会直接影响最终体验。
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: detection sample with ground-truth or expected objects
-prediction: boxes, labels, confidence scores, IoU, and threshold settings
-metric: precision/recall, mAP, false positives, and false negatives
-failure_check: small object, overlap, NMS, poor labels, or confidence threshold
-Expected_output: annotated image plus detection metrics or error buckets
+输入图像: 带有真实或期望目标的检测样本
+预测：框、标签、置信分数、IoU 和阈值设置
+指标：精确率/召回率、mAP、误报和漏报
+失败检查：小目标、重叠、NMS、标签差或置信度阈值问题
+期望产出：带标注的图片，以及检测指标或错误分组
 ```
 
 ## 小结
@@ -378,7 +378,7 @@ Expected_output: annotated image plus detection metrics or error buckets
 4. 想一想：什么时候你可能不会优先选 YOLO？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 在 NMS 里，`iou_threshold` 越高，通常抑制越不严格，留下的重叠框可能更多；阈值越低，抑制越激进。
 2. 一阶段检测更容易做到实时，因为框和类别在一次前向传播中直接预测，不需要单独的 proposal 阶段。

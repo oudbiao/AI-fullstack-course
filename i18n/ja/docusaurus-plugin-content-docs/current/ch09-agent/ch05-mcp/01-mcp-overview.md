@@ -327,11 +327,11 @@ MCP の重要な価値の 1 つは、次の考え方です：
 このページを終えたら、この証拠カードを残します。
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+機能：サーバーが公開するリソース、Prompt、またはツール
+契約: スキーマ、通信方式、権限、エラー形式
+呼び出しトレース：探索、呼び出し、応答、失敗時の処理
+失敗確認：互換性のないスキーマ、認証不足、安全でないツール、またはサーバーエラー
+統合アクション：自律化を追加する前にサーバー契約を確認する
 ```
 
 ## まとめ
@@ -352,7 +352,7 @@ integration_action: validate server contract before adding autonomy
 4. 自分の言葉で、MCP と 関数呼び出し の違いを説明してみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 妥当な答えはこうです。client はユーザー目標を受け取り、いつ能力を呼び出すかを決める側です。server は契約つきで能力を公開する側です。tool は実行可能な 1 つの能力です。transport は発見、呼び出し、応答を運ぶ通信経路です。
 2. ツール発見を標準化する価値があるのは、安全に呼び出す前に client が「何が使えるか」「有効な引数は何か」「エラーはどう返るか」「権限境界はどこか」を知る必要があるからです。

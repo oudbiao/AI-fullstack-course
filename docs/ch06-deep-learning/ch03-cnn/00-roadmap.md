@@ -74,7 +74,7 @@ transfer_choice: freeze first, fine-tune only if validation improves
 You pass this roadmap when you can explain what changed between input image shape and feature map shape, and why pretrained CNN backbones are useful for small datasets.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer connects tensors, model layers, loss, `backward()`, and optimizer updates into one training loop.
 2. The evidence should include a runnable mini experiment, tensor-shape checks, and a loss or validation curve you can explain.

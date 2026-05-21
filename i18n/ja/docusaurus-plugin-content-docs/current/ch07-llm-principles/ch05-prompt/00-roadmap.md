@@ -66,11 +66,11 @@ test_case_count: 3
 このページを終えたら、この証拠カードを残します。
 
 ```text
-prompt_contract: task, context, constraints, output format
-fixed_cases: same inputs used across prompt versions
-schema_check: structured output validated by parser
-failure_note: prompt failure grouped by cause
-bridge: Chapter 8 adds retrieved context to this loop
+プロンプト契約：タスク、文脈、制約、出力形式
+固定ケース：プロンプト版全体で同じ入力を使用
+スキーマ確認: 構造化出力がパーサーで検証される
+失敗ノート: 原因ごとにまとめたプロンプト失敗
+橋渡し：第8章ではこのループに検索で取得した文脈を追加する
 ```
 
 ## 合格ライン
@@ -80,7 +80,7 @@ bridge: Chapter 8 adds retrieved context to this loop
 出口ミニプロジェクトは、コース内容抽出 Prompt です。1 つのコース文書を入力し、章のテーマ、学習目標、前提知識、重要語、練習案、リスクメモを JSON または Markdown 表で出力します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

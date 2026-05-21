@@ -429,11 +429,11 @@ Predictions are identical: True
 学完这一页，至少保留这张证据卡：
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+机器学习问题：监督学习、无监督学习、评估或特征工程任务
+基线：最简单的 sklearn/建模循环和固定的训练/测试划分
+输出：预测、指标、图表，或模型决策备注
+失败检查：数据泄漏、目标不清、基线薄弱或指标不匹配
+期望产出：带指标和一个失败观察的最小 ML 循环
 ```
 
 ## 常见错误与快速修复
@@ -460,7 +460,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 8. 用 `joblib` 保存并重新加载模型。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. `load_iris()` 应该得到 150 行、4 个数值特征和 3 个类别名。如果 `X.shape[0]` 和 `y.shape[0]` 不一致，说明特征/标签拆分错了。
 2. 散点图应该让你看到，有些特征组合更能分开类别。它是结构检查，不是模型已经足够好的证明。

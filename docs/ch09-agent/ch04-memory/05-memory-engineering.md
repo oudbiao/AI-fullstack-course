@@ -403,7 +403,7 @@ the memory system can truly move from concept to stable capability.
 4. How would you set different write policies for "user preferences" and "temporary debug information"?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Source credibility can become a score multiplier or tie-breaker, so explicit, recent, and trusted memories outrank weak inferred memories.
 2. A shorter `ttl_steps` removes temporary memories sooner; a longer value keeps them available but increases the risk of stale retrieval.

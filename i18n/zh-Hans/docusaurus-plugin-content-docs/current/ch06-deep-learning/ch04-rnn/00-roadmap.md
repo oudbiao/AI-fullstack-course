@@ -62,11 +62,11 @@ hidden_shape: (1, 2, 4)
 保留一条序列 shape 笔记：
 
 ```text
-input: [batch, seq_len, features]
-outputs: one hidden representation per step
-hidden: compressed rolling memory
-gate_reason: LSTM/GRU help preserve or discard information
-baseline: compare sequence model against a simple naive rule
+输入: [batch, seq_len, features]
+输出：每一步一个隐藏表示
+隐藏状态：压缩的滚动记忆
+门控原因：LSTM/GRU 有助于保留或丢弃信息
+基线：将序列模型与一个简单的朴素规则比较
 ```
 
 ## 通过标准
@@ -74,7 +74,7 @@ baseline: compare sequence model against a simple naive rule
 能读懂 `[batch, seq_len, features]`，把 hidden state 解释成滚动记忆，并知道 LSTM/GRU 是为长依赖而引入，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

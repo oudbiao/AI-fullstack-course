@@ -175,11 +175,11 @@ tool_failure_rate: 50%
 このページを終えたら、この証拠カードを残します。
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+評価ケース：固定タスクと期待される安全な挙動
+スコアカード: タスク成功、ツールの正確さ、trace の品質、安全性
+ガードレール：ポリシー、権限、検証、または人の確認
+失敗確認: 危険なツール使用、プロンプトインジェクション、隠れた状態、または観測されていない操作
+次の行動：ケース、ガードレール、ログ、ロールバック、または拒否パスを追加する
 ```
 
 ## よくある誤解
@@ -198,7 +198,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 この節を学び終えたら、最小限の Agent 評価セットを設計でき、結果層・プロセス層・ツール層・安全層の指標を区別でき、さらに評価で見つけた課題を Prompt、ツール、フロー、権限設計の改善につなげられるようになっているはずです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 有用な 10 件の評価 task には、通常の計画、曖昧な goal、不足した前提、実現不能な schedule、tool 使用が必要な case、unsafe request、少なくとも 1 つの「Agent が確認質問すべき」case を入れます。
 2. 各 task の `allowed_tools` には使ってよい tool、`forbidden_actions` にはしてはいけない行動、`success_criteria` には別の人でも一貫して採点できる観測可能な条件を書きます。

@@ -226,11 +226,11 @@ failures : []
 学完这一页，至少保留这张证据卡：
 
 ```text
-safety_cases: fixed prompts across risk categories
-expected_behavior: answer, refuse, redirect, or ask clarification
-score: pass/fail plus reason
-failure_note: one unsafe or over-refusing case
-next_action: policy edit, prompt guardrail, eval expansion, or model change
+安全案例：覆盖风险类别的固定提示词
+预期行为：回答、拒绝、转介或请求澄清
+评分：通过/失败加原因
+失败备注：一个不安全或过度拒绝的案例
+下一步动作：策略编辑、Prompt 保护栏、评估扩展或模型改动
 ```
 
 ## 总结

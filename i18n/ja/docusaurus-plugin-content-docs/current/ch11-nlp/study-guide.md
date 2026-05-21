@@ -52,7 +52,7 @@ keywords: [NLP チェックリスト, テキスト分類, 情報抽出, BERT, GP
 答えがすべて「はい」なら、NLP の考え方を Prompt、RAG、Agent memory、マルチモーダル作業により安定して使えます。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 良い答えは、raw text から tokens、representation、model input、prediction、metric、failure case までの流れを説明できます。
 2. label boundary は、positive examples、negative examples、edge cases、意見が分かれたときの rule があるときに準備できたと言えます。
@@ -67,9 +67,9 @@ keywords: [NLP チェックリスト, テキスト分類, 情報抽出, BERT, GP
 このページを終えたら、この evidence card を残します。
 
 ```text
-task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
-artifacts: raw text, processed text, predictions, metrics, and failure cases
-metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
-failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
-Expected_output: reproducible text pipeline folder with metrics and examples
+タスク出力：ラベル、entity fields、要約、回答、retrieval 結果、または semantic graph
+成果物: 生テキスト、処理済みテキスト、予測、metrics、失敗ケース
+指標：accuracy/F1、precision/recall、検索ヒット率、忠実性、またはスキーマ妥当性
+失敗確認: 不明確なラベル、過度なクリーニング、境界エラー、ハルシネーション、または裏付けのない回答
+期待される成果: 指標と例を含む再現可能なテキストパイプラインフォルダ
 ```

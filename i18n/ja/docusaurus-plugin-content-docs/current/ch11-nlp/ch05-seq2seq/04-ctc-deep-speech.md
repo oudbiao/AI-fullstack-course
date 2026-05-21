@@ -225,9 +225,9 @@ CTC のすばらしい点は、
 このページを終えたら、この evidence card を残します。
 
 ```text
-source_target: source text, target text, and task type
-decoded_output: generated summary, translation, transcript, or sequence result
-alignment_note: attention, CTC path, coverage, or copied source evidence
-failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
-Expected_output: generated text with factual or alignment review notes
+ソースとターゲット: ソーステキスト、ターゲットテキスト、タスク種別
+復号出力：生成要約、翻訳、書き起こし、または系列結果
+整合メモ: attention、CTC パス、coverage、またはコピー元の証拠
+失敗確認: 抜け、繰り返し、ハルシネーション、誤った整合、または評価の弱さ
+期待される成果：事実性または整合性のレビュー नोट付き生成テキスト
 ```

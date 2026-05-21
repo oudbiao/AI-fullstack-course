@@ -74,7 +74,7 @@ next_step: inspect failure cases before adding more models
 能说清：我如何定义任务、用了什么 baseline、信任哪个指标、哪里变好了、模型在哪里失败、下一步做什么，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 完整回答要先定义任务类型、目标列和成功指标，再讨论模型名称。
 2. baseline 应该是最简单、可复现的一版：固定划分、最少预处理、一个模型和一张指标表。
@@ -89,9 +89,9 @@ next_step: inspect failure cases before adding more models
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: prediction, segmentation, Kaggle, or end-to-end ML portfolio target
-pipeline: data split, preprocessing, model, evaluation, and report artifacts
-result: metric table, chart, predictions, failure samples, and README note
-failure_check: non-reproducible run, leakage, overfitting, weak baseline, or missing deployment boundary
-Expected_output: ML project folder with pipeline, metrics, and failure review
+项目目标：预测、分割、Kaggle，或端到端 ML 作品集目标
+流水线：数据划分、预处理、模型、评估和报告工件
+结果：指标表、图表、预测、失败样本和 README 说明
+失败检查：运行不可复现、泄漏、过拟合、基线薄弱或缺少部署边界
+期望产出：包含流水线、指标和失败复盘的 ML 项目文件夹
 ```

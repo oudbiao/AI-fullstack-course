@@ -261,11 +261,11 @@ print(match_results(similarities, threshold))
 学完这一页，至少保留这张证据卡：
 
 ```text
-scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
-input_sample: source image/frame/document and the expected output type
-result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
-failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
-Expected_output: scenario-specific artifact with metric or human-review note
+场景边界：人脸、视频、OCR、3D、医疗，或其他视觉场景
+输入样本: 源图像/帧/文档以及期望的输出类型
+结果工件：提取文本、跟踪事件、深度线索、诊断标记，或审查备注
+失败检查：隐私、光照、时间漂移、布局、标定或领域风险
+期望产出：带指标或人工复查说明的场景特定产物
 ```
 
 ## 小结
@@ -288,7 +288,7 @@ Expected_output: scenario-specific artifact with metric or human-review note
 4. 想一想：人脸系统为什么要特别重视隐私？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 相似度阈值越高，false accept 会减少，但 false reject 会增加；阈值越低，匹配更容易通过，但误匹配和冒用风险会上升。
 2. 人脸系统特别依赖阈值，因为最终决策常常不是模型直接给出的类别，而是相似度分数是否越过某条边界。

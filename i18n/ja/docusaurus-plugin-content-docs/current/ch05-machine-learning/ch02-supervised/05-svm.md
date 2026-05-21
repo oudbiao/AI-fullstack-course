@@ -215,11 +215,11 @@ SVM を試す価値がある場面：
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+タスク：target 定義のある regression または classification 問題
+モデル：線形/ロジスティック/木/アンサンブル/SVM の構成と train/test 分割
+指標：回帰誤差、accuracy/F1、閾値曲線、または confusion matrix
+失敗確認: 過学習、学習不足、特徴量スケーリング、閾値選択、またはクラス不均衡
+期待される成果: モデル結果とエラーサンプル、または残差レビュー
 ```
 
 ## よくあるトラブル
@@ -241,7 +241,7 @@ Expected_output: model result plus error samples or residual review
 5. 1 回の分割ではなく、交差検証で `C` と `gamma` を選んでください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `noise=0.1` はクラス境界がはっきりし、SVM にとって簡単です。`noise=0.4` はクラスが混ざり、過学習と underfitting のバランスが難しくなります。
 2. `gamma=5.0` は RBF kernel の影響範囲を狭くし、境界を曲げやすくします。accuracy は上がることも下がることもあり、サポートベクトル数が多い場合は多くの境界サンプルに依存している可能性があります。

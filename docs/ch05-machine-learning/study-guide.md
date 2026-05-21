@@ -31,7 +31,7 @@ If you do not know which model to use, start with a baseline.
 | I can finish the evidence-pack workshop | `ml_workshop_run/` |
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A task note should say whether the problem is regression, classification, clustering, evaluation, or feature engineering, and what success means.
 2. A safe split note explains when the data is split and which preprocessing steps are fitted only on training data.

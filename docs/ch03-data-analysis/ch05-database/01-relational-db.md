@@ -314,7 +314,7 @@ Think about:
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - A simple library database usually needs a `books` table with `book_id` as primary key and a borrowing table with its own `borrow_id` plus foreign keys to the book and borrower.
 - Use `NOT NULL` for required fields such as title, author, borrower, and borrow date. Optional fields, such as return date, can be nullable because they are not known at checkout time.

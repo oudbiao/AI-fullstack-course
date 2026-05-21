@@ -284,7 +284,7 @@ Once you learn to grade capability, it becomes easier to make safe architectural
 3. If a system often calls the wrong tool, which capability layer is more likely to have the problem?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Example: FAQ matching is L0, weather lookup is L1, refund eligibility with policy lookup is L2, a weekly report with email delivery is L3, and autonomous long-running operations are L3 or L4 depending on risk and supervision.
 2. Many projects do not need L3 or L4 because autonomy increases cost, risk, evaluation burden, and recovery complexity. A simpler L1 or L2 system may be more reliable.

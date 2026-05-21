@@ -89,7 +89,7 @@ Expected_output: minimal ML loop with metric and one failure observation
 You pass this roadmap when you can name the task type, identify `X` and `y`, explain why train/test split matters, and keep one baseline score as evidence.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. `X` is the feature matrix: rows are samples and columns are inputs the model can use. `y` is the label or target the model learns to predict.
 2. Train/test split matters because the test set simulates new data. If the model sees test information during training, the score is no longer evidence of generalization.

@@ -611,7 +611,7 @@ db.close()
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - The CRUD exercise should demonstrate create, read, update, and delete with committed transactions, then read the table again to prove the state changed as expected.
 - Parameterized SQL is required for user-provided values. A good answer uses placeholders instead of string formatting, even in a small practice script.

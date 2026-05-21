@@ -429,7 +429,7 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `fibonacci(n)` should `yield` values one by one and stop after `n` items when `n` is provided. The sample loop should print the first ten Fibonacci numbers in order.
 2. `search_files` should use `Path(directory).rglob(pattern)` and `yield from` so files are streamed lazily instead of collected all at once.

@@ -65,11 +65,11 @@ score_dimensions: helpful, honest, harmless
 このページを終えたら、この証拠カードを残します。
 
 ```text
-boundary: helpful, honest, safe behavior definition
-risk_case: one output that is fluent but unsafe or misaligned
-evaluation: fixed safety cases and expected decisions
-method_map: SFT, RLHF, DPO, constitutional or eval guardrail
-bridge: app reliability includes safety boundaries, not only capability
+境界：役立ち、正直で、安全な振る舞いの定義
+リスクケース：流暢だが安全でない、または不整合な1つの出力
+評価：固定の安全性ケースと期待される判断
+手法マップ：SFT、RLHF、DPO、constitutional、または eval guardrail
+橋渡し：app の信頼性には、能力だけでなく安全境界も含まれる
 ```
 
 ## 合格ライン
@@ -79,7 +79,7 @@ bridge: app reliability includes safety boundaries, not only capability
 出口ミニプロジェクトは、10 ケースの alignment テスト表です。曖昧な依頼、根拠不足の質問、ツール操作依頼、安全境界の依頼を含め、各回答に点数と失敗理由を記録します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

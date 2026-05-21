@@ -180,9 +180,9 @@ Agent は強力ですが、常に最初の選択肢ではありません。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-core_route: 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10 first
-agent_loop: goal -> plan -> tool/action -> observation -> memory -> evaluation
-trace_rule: every action should leave input, output, decision, and error record
-safety_rule: permissions, tool boundaries, guardrails, and rollback are part of design
-depth_split: MCP/frameworks/multi-agent/deployment after single-Agent loop is stable
+中核ルート: 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10 を先に
+エージェントループ: 目標 -> 計画 -> ツール/アクション -> 観測 -> 記憶 -> 評価
+追跡規則：すべての操作は 入力、出力、判断、エラー記録 を残すべき
+安全ルール: 権限、ツール境界、ガードレール、ロールバックは設計の一部
+段階分割：単一 Agent のループが安定してから MCP／フレームワーク／マルチ Agent／デプロイへ進む
 ```

@@ -32,7 +32,7 @@ If you cannot explain a chart in one sentence, return to the data question.
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - Use the checklist as a final evidence audit. You should be able to point to a raw file, a cleaned file or cleaning script, a summary table, a chart, and a short conclusion for each project.
 - For every conclusion, write one sentence of support and one sentence of limitation. This habit prevents overclaiming from small or messy data.

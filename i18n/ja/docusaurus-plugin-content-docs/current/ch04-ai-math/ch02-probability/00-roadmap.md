@@ -60,11 +60,11 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 このページを終えたら、この evidence card を残します。
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+確率過程：事象、分布、サンプル、尤度、エントロピー、またはベイズ更新
+シミュレーションまたは式: 不確実性を可視化するために使ったコードまたは式
+出力：probability、sample statistic、interval、entropy、または更新された信念
+失敗確認：ベースレートの混同、p値の誤用、サンプルバイアス、または確率と確実性の混同
+期待される成果: 数値結果と平易な言葉での解釈
 ```
 
 ## この順番で学ぶ
@@ -83,7 +83,7 @@ Expected_output: numeric result plus interpretation in plain language
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 - 確率ルートを通過できる目安は、単一の事象から繰り返しサンプルによる推定へ進み、さらに条件つき更新まで説明できることです。
 - 証拠として、シミュレーション、分布図、MLE/MAP 推定、エントロピーまたはクロスエントロピー計算を 1 つずつ残します。

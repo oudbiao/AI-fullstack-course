@@ -145,7 +145,7 @@ AI の歴史は、論文名の一覧というよりリレーに近いです。
 目的は歴史を暗記することではありません。歴史上のノードを、これから作る実際の能力と結びつけることです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 合格例として、次の3つを選べます。
 
@@ -178,9 +178,9 @@ AI の歴史は、論文名の一覧というよりリレーに近いです。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-timeline_anchor: stage, key idea, representative paper/system, and why it mattered
-chapter_link: which course chapter this milestone helps explain
-memory_hook: diagram, comic panel, or one-sentence historical turn
-failure_check: memorizing names without understanding the problem each milestone solved
-Expected_output: a short timeline note connected to at least one project decision
+タイムラインの基点：stage、key idea、代表的な paper/system、そしてそれが重要だった理由
+章の関連：このマイルストーンがどのコース章の理解に役立つか
+記憶フック：図、漫画の1コマ、または1文の歴史的転換点
+失敗確認: 各マイルストーンが解決した課題を理解せずに名前だけを暗記している
+期待される成果：少なくとも1つのプロジェクト判断につながる短いタイムラインメモ
 ```

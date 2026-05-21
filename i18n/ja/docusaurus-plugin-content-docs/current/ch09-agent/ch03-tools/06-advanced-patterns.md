@@ -376,11 +376,11 @@ print(retrieve_teaching_materials("割引の応用問題"))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-tool_contract: name, description, input schema, output schema
-permission: what the tool is allowed to read or change
-call_trace: arguments, result, error, retry or fallback
-failure_check: wrong tool, bad arguments, unsafe action, or missing observation
-safety_action: validate, confirm, sandbox, rate-limit, or rollback
+ツール契約：名前、説明、入力スキーマ、出力スキーマ
+権限：ツールが読み取りまたは変更を許可されている範囲
+呼び出しトレース：引数、結果、エラー、再試行、またはフォールバック
+失敗確認: 間違ったツール、不適切な引数、危険な操作、または観測不足
+安全対策: 検証、確認、サンドボックス化、レート制限、またはロールバック
 ```
 
 ## よくある誤解
@@ -424,7 +424,7 @@ safety_action: validate, confirm, sandbox, rate-limit, or rollback
 4. もしあるツールの組み合わせが安定しておらず、順番もよく変わるなら、それでも高度なツールとしてまとめますか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `timeout_tool` wrapper は通常 executor または tool middleware 層に置きます。そうすれば全ツールで同じ timeout 動作を共有できます。
 2. cache は read-only ツールに向いています。同じ入力が同じ安全な答えを返しやすいからです。書き込みは状態を変えるため、cached result が危険になることがあります。

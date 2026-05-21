@@ -401,7 +401,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - Month or category recoding should use an explicit dictionary and then verify unmapped values with `isna()` or `value_counts`. Silent unmapped categories are a common source of wrong summaries.
 - For derived sales fields, compute totals, ranks, and top items with vectorized operations such as multiplication, `rank`, `sort_values`, and `nlargest`.

@@ -62,11 +62,11 @@ checkpoint: check citations
 このページを終えたら、この証拠カードを残します。
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+タスク目標：Agent が解決しようとしていること
+計画またはトレース：推論手順、計画、ReAct trace、または実行グラフ
+観察：各アクションの後に何が変わったか
+失敗確認：幻覚のステップ、古い観測、ループ、または未検証の結論
+評価アクション：期待結果と比較して計画を修正する
 ```
 
 ## 合格ライン
@@ -76,7 +76,7 @@ eval_action: compare against expected result and revise the plan
 出口ミニプロジェクトは、1 つのタスクに対する見える推論 trace です：計画手順、観察、再計画、最終回答を残します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

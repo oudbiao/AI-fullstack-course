@@ -228,7 +228,7 @@ Early stopping means: keep the best validation checkpoint and stop after validat
 5. Remove `model.eval()` during validation and explain what changes.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `dropout=0.1` is mild, `0.5` is strong but common, and `0.7` may underfit because too much signal is removed during training.
 2. Small weight decay can improve validation loss; too much weight decay can force weights toward zero and hurt both train and validation performance.

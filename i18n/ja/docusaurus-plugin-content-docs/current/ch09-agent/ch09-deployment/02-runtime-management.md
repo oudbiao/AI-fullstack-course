@@ -283,11 +283,11 @@ breaker_open: True
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+ランタイム: キュー、ワーカー、状態ストア、ツールサービス、モデルエンドポイント
+永続化：チェックポイント、イベントログ、メモリストア、復旧パス
+運用シグナル：レイテンシ、コスト、エラー率、追跡カバレッジ、飽和度
+失敗確認: 停止した実行、重複アクション、部分失敗、またはコスト暴走
+復旧アクション：再開、ロールバック、中止、人間への引き継ぎ、または安全に劣化
 ```
 
 ## よくある誤解
@@ -324,7 +324,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. あるツールがとても高コストだとしたら、ランタイム層でどんな保護を入れますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `max_concurrency=1` では実行を理解しやすい反面遅くなります。`max_concurrency=3` では throughput は上がりますが、shared resource、rate limit、trace ordering が重要になります。
 2. `timeout_sec` を増やすと、遅いが正常な call の timeout は減ります。ただし stuck task が runtime capacity を長く占有することもあります。success rate と waiting time の両方を見ます。

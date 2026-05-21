@@ -552,7 +552,7 @@ Hint: you need to group by two fields at the same time (`pclass` + `sex`). Try i
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the passenger exercise, group by `survived` first and compute counts, average fare, and class distribution before interpreting anything.
 - When adding age logic, treat missing ages as `Unknown` instead of pretending they are children or adults. The useful comparison is child survival rate versus adult survival rate, with the number of samples shown beside each rate.

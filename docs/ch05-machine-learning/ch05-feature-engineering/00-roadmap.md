@@ -97,7 +97,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 You pass this roadmap when you can list feature types, build one preprocessing Pipeline, and explain why preprocessing outside the train/test workflow can cause leakage.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. Start by listing feature types, missing values, scale differences, categorical cardinality, and possible target leakage.
 2. Preprocessing should live inside a `Pipeline` or `ColumnTransformer` so train and test data receive the same learned transformation without leaking information.

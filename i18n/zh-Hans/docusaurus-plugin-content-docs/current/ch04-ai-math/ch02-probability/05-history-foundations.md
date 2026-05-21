@@ -159,9 +159,9 @@ loss = cross_entropy(prediction, label)
 学完这一页，至少保留这张证据卡：
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+随机过程：事件、分布、样本、似然、熵，或 Bayes 更新
+模拟或公式：用来让不确定性可见的代码或公式
+输出：概率、样本统计量、区间、熵，或更新后的信念
+失败检查：基率混淆、p 值误用、样本偏差或把概率和确定性混为一谈
+期望产出：数值结果加通俗解释
 ```

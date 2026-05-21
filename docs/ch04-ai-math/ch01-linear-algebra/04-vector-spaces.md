@@ -749,7 +749,7 @@ Transformed vertices:
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - The rank checks are `g1` rank 1 so not independent, `g2` rank 2 so independent, and `g3` rank 2 so not independent.
 - For SVD compression, reconstruction error should decrease as `k` grows and reach near zero when all singular values are kept. If the curve increases, the reconstruction formula or slicing is wrong.

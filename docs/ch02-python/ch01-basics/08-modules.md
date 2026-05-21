@@ -537,7 +537,7 @@ pip freeze > requirements.txt
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. `len(str(math.factorial(100)))` returns `158`.
 2. `random.sample(range(1, 101), 10)` should produce 10 unique numbers. The order and values vary each run.

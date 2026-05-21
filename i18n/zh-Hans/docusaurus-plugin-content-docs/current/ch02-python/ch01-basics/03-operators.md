@@ -440,7 +440,7 @@ print(f"边长 {a}, {b}, {c} 能构成三角形吗？{is_triangle}")
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 当 `score = 85` 时，只有“良好”分支应该为真。再用 `95`、`75`、`40` 测试其他分支。
 2. 闰年表达式可以写成 `year % 4 == 0 and year % 100 != 0 or year % 400 == 0`。加括号会更容易读。
@@ -457,11 +457,11 @@ print(f"边长 {a}, {b}, {c} 能构成三角形吗？{is_triangle}")
 学完这一页，至少保留这张证据卡：
 
 ```text
-concept: variable, type, operator, input/output, branch, loop, structure, function, or module
-code: smallest runnable Python snippet for the concept
-output: printed value, type, branch result, loop trace, or returned value
-failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
-Expected_output: code plus printed result that proves the concept works
+概念：变量、类型、运算符、输入/输出、分支、循环、结构、函数或模块
+代码：用于说明该概念的最小可运行 Python 代码片段
+输出：打印值、类型、分支结果、循环 trace，或返回值
+失败检查：类型不匹配、缩进错误、越界、可变数据或导入路径问题
+期望产出：代码和打印结果，证明概念可行
 ```
 
 ## 小结

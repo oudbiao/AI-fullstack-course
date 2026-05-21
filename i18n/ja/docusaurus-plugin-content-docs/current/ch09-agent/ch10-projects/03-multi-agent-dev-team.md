@@ -281,10 +281,10 @@ TestReport(passed=True, cases=['test_discount_basic', 'test_discount_zero'])
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_goal: what the agent should accomplish and what it must not do
-baseline: single-agent loop before adding advanced features
-trace_pack: goal, plan, tool calls, observations, memory, evaluation
-failure_log: one failed or unsafe run with root cause
+プロジェクト目標：エージェントが達成すべきことと、してはいけないこと
+ベースライン: 高度な機能を追加する前の単一エージェントループ
+追跡パック：目標、計画、ツール呼び出し、観察、メモリ、評価
+失敗ログ: 少なくとも1回の失敗または危険な実行と根本原因
 成果物：README、実行コマンド、trace スクリーンショット/ログ、次の一手
 ```
 
@@ -318,7 +318,7 @@ failure_log: one failed or unsafe run with root cause
 4. このプロジェクトをデモページにするなら、いちばん見せたい完全な トレース はどれですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `ops_agent` は implementation の後、final release review の前に入れます。run commands、environment variables、logging、rollback notes、deployment risks を確認します。
 2. unified artifact format が重要なのは、Agent coordination には安定した input/output が必要だからです。chat だけでは test、replay、diff、別 Agent への handoff が難しくなります。

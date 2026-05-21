@@ -66,9 +66,9 @@ sidebar_position: 3
 学完这一页，至少保留这张证据卡：
 
 ```text
-reference_question: what you came to this appendix page to decide or clarify
-selected_rule: the rule, checklist item, or explanation you will apply
-course_link: which chapter or project this reference supports
-risk_check: treating appendix material as passive reading instead of a decision aid
-Expected_output: a note that changes a route, setup, project, or review decision
+参考问题：你来这个附录页要决定或澄清的内容
+所选规则：你将应用的规则、检查项或解释
+课程链接：该引用支持哪一章或哪个项目
+风险检查：把附录材料当成被动阅读，而不是决策辅助
+期望产出：一份会改变路线、设置、项目或复盘决策的说明
 ```

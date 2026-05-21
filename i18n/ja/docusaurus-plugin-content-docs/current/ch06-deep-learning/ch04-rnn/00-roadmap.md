@@ -62,11 +62,11 @@ hidden_shape: (1, 2, 4)
 この小章を学んだら、次の sequence shape メモを残します。
 
 ```text
-input_shape: [batch, seq_len, features]
-hidden_state: rolling memory, not exact storage
-rnn_output: one representation per time step
-final_hidden: compressed sequence summary
-long_context_limit: use LSTM/GRU or attention when plain RNN forgets
+入力形状：[batch, seq_len, features]
+隠れ状態：正確な保存ではなく、流れる記憶
+RNN 出力：各時刻ステップごとに1つの表現
+最終隠れ状態: 圧縮された系列要約
+長文脈の制約：通常のRNNが忘れる場合は、LSTM/GRU またはアテンションを使う
 ```
 
 ## 合格ライン
@@ -74,7 +74,7 @@ long_context_limit: use LSTM/GRU or attention when plain RNN forgets
 `[batch, seq_len, features]` を読め、hidden state を流れていく記憶として説明でき、LSTM/GRU が長期依存のために導入されたことを説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

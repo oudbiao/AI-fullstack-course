@@ -415,7 +415,7 @@ you will no longer be left with only the impression that â€œit is very popular.â
 4. Suppose you want to continue scaling up to a very large model, but your computation budget per step is limited. Why does MoE become attractive?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. The causal mask forces each token to predict from the past rather than looking ahead. That constraint is what turns a Transformer block into an autoregressive generator.
 2. Translation and summarization naturally have an input sequence and an output sequence. The encoder can read the whole source, while the decoder generates the target step by step while attending back to the encoded source.

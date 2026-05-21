@@ -366,11 +366,11 @@ if ...
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+問題の形：ワークフローグラフ、検索アプリ、役割チーム、または実験
+フレームワーク選択：どの抽象化を追加し、何を隠すか
+追跡記録：state、node、tool call、message、または run id
+失敗確認：フレームワークの魔法が状態、再試行、または権限を隠す
+判断: シングルエージェントのループが明確になってからフレームワークを選ぶ
 ```
 
 ## まとめ
@@ -391,7 +391,7 @@ decision: choose framework only after the single-agent loop is clear
 4. どんな場合に、チェーン型のほうがグラフ型より適しているかを考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 各ステップが固定順で 1 回ずつ進むなら chain 的です。分岐、loop、retry、一時停止、前の状態への戻りがあるなら graph 的です。
 2. 「文書なし -> query を書き換える -> 再検索」を加えると、chain は複雑になりがちです。条件 routing、loop 上限、状態履歴が必要になるからです。ここで graph abstraction が効き始めます。

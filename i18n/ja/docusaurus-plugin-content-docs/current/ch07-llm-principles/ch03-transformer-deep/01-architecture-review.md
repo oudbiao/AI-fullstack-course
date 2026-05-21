@@ -448,11 +448,11 @@ FFN は非常に重要な非線形特徴変換を担当しています。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-input_contract: token embeddings plus position information
-attention_role: mix information across positions
-ffn_role: transform each position independently
-stability_parts: residual plus norm
-output_bridge: hidden state becomes vocabulary logits
+入力契約：トークン埋め込みと位置情報
+attention の役割: 位置をまたいで情報を混ぜる
+FFNの役割: 各位置を独立に変換する
+安定性要素: residual plus norm
+出力ブリッジ：hidden stateがvocabulary logitsになる
 ```
 
 ## まとめ
@@ -475,7 +475,7 @@ output_bridge: hidden state becomes vocabulary logits
 4. この block を 48 層積むとしたら、いちばん心配な実務上の問題は何だと思いますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. attention を常に許可すると、各位置が後ろの token も見られるようになります。attention 行列は三角形らしさを失い、仕組みの観察には役立ちますが、decoder-only 生成で必要な自己回帰ルールは壊れます。
 2. 残差接続がないと、block は元の信号を保ちにくくなります。深く積むほど、各層が変換と恒等写像の流れを同時に学ぶ必要があり、学習が不安定になります。

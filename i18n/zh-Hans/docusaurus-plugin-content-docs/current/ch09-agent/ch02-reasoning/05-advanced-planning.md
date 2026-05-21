@@ -336,11 +336,11 @@ for item in timeline:
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+任务目标：Agent 想要解决什么
+计划或轨迹：推理步骤、计划、ReAct 轨迹或执行图
+观察：每次操作后发生了什么变化
+失败检查：虚构步骤、过时观察、循环或未经验证的结论
+评估动作：与期望结果对比并修正计划
 ```
 
 ## 小结
@@ -369,7 +369,7 @@ eval_action: compare against expected result and revise the plan
 4. 想一个你熟悉的复杂任务，把它尝试画成一个依赖图。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 只有 1 个 worker 时，任务基本串行，critical path 更清晰但更慢；有 3 个 worker 时，独立任务会更快完成，但协调和 review 风险也会上升。
 2. 在 `draft_report` 后加入 `review_report` 会拉长依赖链，并可能推迟所有需要审核后报告的下游任务。

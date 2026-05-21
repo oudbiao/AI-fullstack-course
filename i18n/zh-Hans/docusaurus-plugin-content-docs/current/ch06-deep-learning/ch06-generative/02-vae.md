@@ -167,11 +167,11 @@ generated_points
 VAE 运行时保留这条记录：
 
 ```text
-recon_trend: reconstruction loss decreases
-kl_trend: KL stays nonzero but controlled
-sample_check: generated_points come from random z
-tradeoff: better reconstruction <-> smoother latent space
-next_probe: change KL weight and compare samples
+重建趋势：重建损失下降
+KL 趋势: KL 保持非零但可控
+样本检查：generated_points 来自随机 z
+取舍：更好的重建 <-> 更平滑的潜在空间
+下一次探测：改变 KL 权重并比较采样结果
 ```
 
 这条证据说明 VAE 不只是普通 autoencoder：latent space 应该能用于采样，而不只是重建。
@@ -220,7 +220,7 @@ next_probe: change KL weight and compare samples
 5. 解释为什么即使 GAN 或 diffusion 图像更锐利，VAE 仍然适合学习 latent-space 直觉。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. KL 权重为 0 时，模型更像普通 autoencoder，重建可能更好，但 latent 分布更不规整，随机采样质量可能变差。
 2. KL 权重过大时，latent 会更贴近先验，但 decoder 可用信息变少，重建通常会变差。

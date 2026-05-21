@@ -57,7 +57,7 @@ cat_car: 0.26
 如果你能比较稀疏特征、词向量和上下文向量，并解释表示质量为什么影响分类、检索和 RAG，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
 2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
@@ -71,9 +71,9 @@ cat_car: 0.26
 学完这一页，至少保留这张证据卡：
 
 ```text
-representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
-comparison: nearest text, similarity score, or next-token/log-prob style output
-interpretation: what the representation captures and what it misses
-failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
-Expected_output: small comparison table with at least one surprising result
+表示：BoW、TF-IDF、静态 embedding、上下文 embedding，或语言模型分数
+比较：最近文本、相似度分数或下一 token/log-prob 风格输出
+解释: 该表示捕捉了什么，以及遗漏了什么
+失败检查：一词多义、领域不匹配、文本过短、分词问题或语义漂移
+期望产出：至少有一个意外结果的小型对比表
 ```

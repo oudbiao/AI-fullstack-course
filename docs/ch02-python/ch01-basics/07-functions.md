@@ -574,7 +574,7 @@ guess_number_game(1, 50, 5)  # Smaller range, fewer attempts
 If you want deterministic testing, temporarily replace `target = random.randint(min_val, max_val)` with `target = 42`. After confirming the function works, change it back to the random version.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Temperature conversion tests should produce `212.0` F for `100` C and `0.0` C for `32` F. Add a round-trip test such as `37` C.
 2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` should report max `9`, min `1`, average `4.0`, and median `4`.

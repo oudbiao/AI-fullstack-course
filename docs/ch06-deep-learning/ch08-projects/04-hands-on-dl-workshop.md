@@ -866,7 +866,7 @@ deep_learning_workshop_run/reports/experiment_notes.md
 The important habit is not getting a better score every time. It is changing one variable, rerunning cleanly, and explaining the result with evidence.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 A strong rerun note should identify exactly one changed variable, then compare artifacts rather than memory:
 

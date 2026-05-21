@@ -246,11 +246,11 @@ out = out + identity
 做一张架构记忆卡：
 
 ```text
-LeNet: conv feature extractor + classifier head
-AlexNet: scale, GPU, ReLU, regularization
-VGG: repeated small 3x3 blocks
-ResNet: shortcut path makes depth trainable
-code_clue: residual block uses out + identity
+LeNet 要点：卷积特征提取器 + 分类头
+AlexNet 要点：规模、GPU、ReLU、正则化
+VGG 要点：重复的小型 3x3 模块
+ResNet 要点：快捷路径让深层网络可训练
+代码线索：残差块使用 out + identity
 ```
 
 这是工程上真正值得记住的历史层级。你不需要先背下每个模型的层数，才开始读现代 backbone。
@@ -274,7 +274,7 @@ code_clue: residual block uses out + identity
 5. 选择一个现代 CNN backbone，指出它仍然使用了哪些经典思想。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. LeNet 证明卷积可用于视觉识别；AlexNet 推动深度 CNN 规模化；VGG 展示小卷积堆叠；ResNet 用残差连接训练更深网络。
 2. 改成 `ResidualBlock(16)` 后，输入 tensor 的通道维也要是 16，否则卷积和残差相加都会 shape 不匹配。

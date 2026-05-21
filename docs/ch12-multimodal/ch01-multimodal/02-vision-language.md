@@ -444,7 +444,7 @@ This is also the key step for multimodal systems to move from “can see” to �
 3. Think about this: if the user uploads a blurry screenshot, which parts of the VLM pipeline might fail?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. The expected result is that `cake_photo` should rank higher for `a sweet dessert` after you increase the shared dessert-like dimensions or reduce dimensions that make it look unrelated. If unrelated photos also rise, the toy space is not separating concepts well.
 2. A reasonable new branch for `ask_vlm()` is a broad scene-type question: return `real-life photo` when the visual record has natural objects, lighting, or camera-like framing, and `software interface` when it has windows, menus, icons, or dense text layout.

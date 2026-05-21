@@ -77,15 +77,15 @@ score=2.1
 学完这一页，至少保留这张证据卡：
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+部署目标：本地推理、边缘设备、模型服务器或优化实验
+工件：C++ 代码片段、基准测试、模型工件、服务配置或部署说明
+指标：延迟、内存、吞吐量、模型大小、准确率下降或可靠性
+失败检查：ABI/构建问题、硬件不匹配、量化损失或服务瓶颈
+期望产出：可复现的部署或优化证据，而不只是理论笔记
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 一个合格答案会说明为什么这里适合用 C++：更稳定的运行时、更可控的内存，以及更贴近部署目标的路径。证据可以是一次编译输出、一条延迟或内存记录，再加上一句说明它为什么能接到后续实操工作坊。
 

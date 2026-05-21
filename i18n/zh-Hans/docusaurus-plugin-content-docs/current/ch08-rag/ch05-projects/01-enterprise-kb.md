@@ -385,10 +385,10 @@ for case in eval_cases:
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+项目目标：用户任务和业务边界
+基线：最简单的提示/RAG/应用版本优先
+评估：固定案例、检索证据、答案质量和引用检查
+失败日志：至少一个失败案例及其可能原因
 交付物：README、运行命令、截图/日志、下一步
 ```
 
@@ -422,7 +422,7 @@ failure_log: at least one failed case with likely cause
 4. 如果你把这个项目做成作品集，首页最值得展示哪 4 块信息？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 新文档最好包含相似的 public/internal 主题，这样能同时测试排序质量和权限过滤。
 2. 泄露内部信息是安全失败，即使答案写得很漂亮也不合格。权限正确是硬要求。

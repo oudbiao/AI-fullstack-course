@@ -81,10 +81,10 @@ evidence: goal, trace, tools, failure, eval
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: what the agent should accomplish and what it must not do
-baseline: single-agent loop before adding advanced features
-trace_pack: goal, plan, tool calls, observations, memory, evaluation
-failure_log: one failed or unsafe run with root cause
+项目目标：智能体应完成什么，以及必须不做什么
+基线：在加入高级功能前的单智能体循环
+追踪包：目标、计划、tool 调用、观察、记忆、评估
+失败日志：一次失败或不安全的运行及其根因
 交付物：README、运行命令、trace 截图/日志、下一步
 ```
 
@@ -95,7 +95,7 @@ failure_log: one failed or unsafe run with root cause
 基础版可以是单 Agent 项目。只有当 trace 和评估闭环稳定后，再加入记忆、MCP、多 Agent 协作或部署。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

@@ -444,7 +444,7 @@ This often affects system quality more than "adding a few more tools."
 4. Explain in your own words: why is tool calling strategy one of the dividing lines for Agent quality?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `search_docs(keyword)` should add a routing branch for knowledge lookup and return evidence snippets, not just a free-form paragraph.
 2. Tool execution errors should be classified first. Retry only safe transient errors; otherwise fall back to human confirmation or a controlled failure.

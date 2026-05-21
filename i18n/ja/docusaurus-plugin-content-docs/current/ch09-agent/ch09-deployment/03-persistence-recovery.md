@@ -333,11 +333,11 @@ summary だけを保存して、次の情報を保存していないとします
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+ランタイム: キュー、ワーカー、状態ストア、ツールサービス、モデルエンドポイント
+永続化：チェックポイント、イベントログ、メモリストア、復旧パス
+運用シグナル：レイテンシ、コスト、エラー率、追跡カバレッジ、飽和度
+失敗確認: 停止した実行、重複アクション、部分失敗、またはコスト暴走
+復旧アクション：再開、ロールバック、中止、人間への引き継ぎ、または安全に劣化
 ```
 
 ## よくある誤解
@@ -380,7 +380,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. タスクがとても長い場合、毎ステップ checkpoint を取るべきでしょうか、それとも数ステップごとに checkpoint を取るべきでしょうか？その理由も考えてみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `retry_count` は run 全体ではなく step ごとに保存します。どの step が不安定かを見られ、retry storm が final status の中に隠れるのを防げます。
 2. `write_report` が external side effect を持つなら、stable operation id、existence check、deduplication、外部書き込みがすでに成功したかの記録で idempotency を実装します。

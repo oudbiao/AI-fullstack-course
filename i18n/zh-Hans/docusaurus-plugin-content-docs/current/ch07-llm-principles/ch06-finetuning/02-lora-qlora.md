@@ -356,11 +356,11 @@ print(choose_peft_route(constraints))
 学完这一页，至少保留这张证据卡：
 
 ```text
-base_model: frozen base stays mostly unchanged
-lora_params: rank, target modules, trainable parameter count
-qlora_reason: quantized base reduces memory pressure
-eval_delta: before/after score or failure change
-risk: adapter quality depends heavily on data quality
+基础模型：冻结的 base 基本保持不变
+LoRA 参数：秩、目标模块、可训练参数数量
+QLoRA 原因：量化后的基础模型可降低内存压力
+评估变化：前后分数或失败情况的变化
+风险：adapter 质量在很大程度上取决于数据质量
 ```
 
 ## 小结
@@ -381,7 +381,7 @@ risk: adapter quality depends heavily on data quality
 4. 用自己的话总结：LoRA 和全量微调最本质的差别是什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. LoRA 会冻结原始权重矩阵，只学习小型 low-rank update 矩阵。基础矩阵不变，训练出来的增量会在适配时叠加，或之后合并。
 2. QLoRA 把基础模型保持在量化形式，从而降低显存占用，同时训练 LoRA adapter。关键不在于 adapter 神奇，而在于冻结底座占用的 VRAM 大幅下降。

@@ -378,7 +378,7 @@ The most important thing in this section is to build an engineering judgment:
 4. Think about it: when might you not choose YOLO first?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. For NMS, a higher `iou_threshold` usually suppresses fewer overlapping boxes, so more boxes may remain. A lower threshold suppresses more aggressively.
 2. One-stage detection is easier to make real-time because boxes and classes are predicted in one forward pass instead of through a separate proposal stage.

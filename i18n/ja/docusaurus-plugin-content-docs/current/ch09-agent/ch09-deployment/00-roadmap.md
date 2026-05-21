@@ -62,11 +62,11 @@ missing: ['rollback']
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+ランタイム: キュー、ワーカー、状態ストア、ツールサービス、モデルエンドポイント
+永続化：チェックポイント、イベントログ、メモリストア、復旧パス
+運用シグナル：レイテンシ、コスト、エラー率、追跡カバレッジ、飽和度
+失敗確認: 停止した実行、重複アクション、部分失敗、またはコスト暴走
+復旧アクション：再開、ロールバック、中止、人間への引き継ぎ、または安全に劣化
 ```
 
 ## 合格ライン
@@ -74,7 +74,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 ローカル Agent デモを、API 入口、状態永続化、trace ログ、エラー応答、コスト記録、デプロイ手順を持つ小さなサービスにできれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、agent loop を goal、plan、tool call、observation、memory/state update、stop condition として説明します。
 2. 証拠には、最終回答だけでなく、別の開発者が確認できる trace を残します。

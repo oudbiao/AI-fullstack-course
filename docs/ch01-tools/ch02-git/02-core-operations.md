@@ -551,7 +551,7 @@ a1b2c3d Initialize project: add model definition and project structure
 Each one is an archive point you can roll back to.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. The final `git log --oneline` should show the three exercise commits plus the earlier setup commits.
 2. Each commit should save one small idea: training script, utility function, or README update.

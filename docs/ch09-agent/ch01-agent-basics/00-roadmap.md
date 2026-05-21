@@ -76,7 +76,7 @@ You pass this chapter when you can draw one single-Agent loop and explain why si
 The exit mini project is a research assistant Agent trace: one goal, one plan, at least one tool decision, one observation, one stop condition, and one final answer.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

@@ -529,11 +529,11 @@ print(tools)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+要求: 入力、状態、tools/context、期待される出力の契約
+検証済み出力：パーサー/スキーマ、または業務ルール確認の結果
+追跡記録：モデル呼び出し、ツール/関数呼び出し、文書解析、または対話状態
+失敗確認: フォーマット不正、必須フィールド不足、古い状態、または誤ったツール
+次の行動：prompt、schema、state、API、または parsing の改善
 ```
 
 ## まとめを見る前に：関数呼び出し の工程ループ
@@ -591,7 +591,7 @@ flowchart LR
 4. 自分の言葉で説明してみましょう。関数呼び出し は、なぜ「モデルにコマンド文を直接返させる」より安定しているのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. `search_docs(keyword)` には入力 schema、検証ルール、実行器の戻り値、失敗時の挙動を定義します。
 2. `calculate` の検証では、数字、安全な演算子、括弧だけを許可するか、AST whitelist を使います。任意文字列を `eval()` してはいけません。

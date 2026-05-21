@@ -322,10 +322,10 @@ plt.show()
 从工作坊保存四个产物：
 
 ```text
-data_plot: shows the original class pattern
-loss_curve: shows whether training and validation improve together
-decision_boundary: shows what the model learned geometrically
-failure_note: one case where the boundary or validation curve looks wrong
+数据图：显示原始类别模式
+loss 曲线：显示训练和验证是否一起改进
+决策边界：展示模型在几何上学到了什么
+失败备注：一个边界或验证曲线看起来不对的案例
 ```
 
 如果你能解释这四个产物，这个工作坊就不再只是复制 notebook，而是一个训练证据包。
@@ -347,7 +347,7 @@ failure_note: one case where the boundary or validation curve looks wrong
 4. 增加第三个隐藏层，观察验证 loss 是改善还是过拟合。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. hidden size 为 `16` 时边界可能更简单；`64` 能拟合更灵活的边界，但也更可能过拟合。要把 validation loss 和边界图一起看。
 2. 噪声变大后，两类样本重叠更多。常见现象是 validation accuracy 下降、边界不再干净，或者边界附近样本更不确定。

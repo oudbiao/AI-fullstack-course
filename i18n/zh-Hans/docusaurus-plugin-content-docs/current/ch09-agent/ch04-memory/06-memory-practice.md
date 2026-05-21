@@ -293,11 +293,11 @@ memory snapshot:
 学完这一页，至少保留这张证据卡：
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+记忆类型：短期、长期、情景或程序性
+写入规则：在内存创建或更新时
+检索规则：查询、相关性、时效性和权限检查
+失败检查：过时记忆、隐私泄漏、矛盾或过度检索
+清理动作：总结、合并、过期、删除或请求确认
 ```
 
 ## 小结
@@ -318,7 +318,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 想一想：哪些信息最适合只放短期、不放长期？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `user_blacklist_topic` 应作为明确的长期偏好保存，并带清楚 scope；它应该抑制无关建议，但不应阻断必要的安全信息或任务信息。
 2. 按 `topic` 取最新 episode，通常做法是先按 topic 过滤，再按 timestamp 或递增 id 排序。

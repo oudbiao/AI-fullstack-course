@@ -398,11 +398,11 @@ for hit in hits:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+クエリ：1つのユーザー質問またはテストケース
+検索チャンク：chunk id、スコア、ソースタイトル
+回答: 引用または出典メモ付きの最終回答
+失敗確認: 証拠不足、誤ったチャンク、古い文書、または裏付けのない主張
+次の行動：chunking、embedding、reranking、prompt、または eval の変更
 ```
 
 ## まとめ
@@ -422,7 +422,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. もっと豊富な `rewrite_query()` のルール表を自分で作ってみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. Keyword weight を高くすると exact term match が優先され、vector weight を高くすると semantic similarity が優先されます。どちらがよいかは、ユーザーが正確な製品用語で聞くのか、曖昧な自然言語で聞くのかによります。
 2. キーワード検索は、正確な phrase、identifier、講座名、policy term、error code が重要なときに強いです。Embedding がなめらかにしすぎる細かい語を拾えます。

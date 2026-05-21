@@ -66,11 +66,11 @@ eval.md 1
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 通过标准
@@ -80,7 +80,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 本章出口小项目是课程知识库助手：准备 3 到 5 篇 Markdown 文档、top-k 检索输出、来源显示和一张简单评估表。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
 2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。

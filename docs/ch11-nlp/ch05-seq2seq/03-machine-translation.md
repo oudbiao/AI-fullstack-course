@@ -467,7 +467,7 @@ First make this loop run smoothly, and later when you upgrade the model, you wil
 4. If you want to upgrade this project, would you first add data or first change the model? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Adding word pairs improves coverage, but a dictionary baseline still cannot reliably solve grammar, agreement, or context-dependent translation.
 2. The baseline has word-order problems because it translates tokens independently instead of modeling the target sentence structure.

@@ -403,7 +403,7 @@ That way, other people can more easily see that:
 4. Why do we say the real challenge of inference serving is “balance,” not pushing one metric to the extreme?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Concurrency is how many requests are in flight; batching is grouping work so the accelerator processes it efficiently. High concurrency can exist without large batches, and large batches can increase latency.
 2. Low-latency products usually prefer small or dynamic batches with tight timeout windows.

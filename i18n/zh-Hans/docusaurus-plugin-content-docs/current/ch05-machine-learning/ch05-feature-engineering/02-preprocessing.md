@@ -174,11 +174,11 @@ print(model.score(X_test, y_test))
 学完这一页，至少保留这张证据卡：
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特征状态：原始列、类型、缺失值、尺度，以及与目标的关系
+特征变换：预处理、构造、选择或流水线步骤
+输出：转换后的特征表、pipeline 对象、分数变化，或选出的特征
+失败检查：泄漏、训练/测试转换不一致、高基数陷阱或无意义特征
+期望产出：带有前后对比和指标影响的特征流水线证据
 ```
 
 ## 常见误区
@@ -193,7 +193,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 4. 找一个高基数类别特征，思考 One-Hot 和 Target Encoding 各有什么风险。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 缺失率低的列通常可以用中位数/众数填补；缺失率高的列可能需要缺失指示器、领域复核或删除。处理方案应逐列说明理由。
 2. LogisticRegression 通常对尺度敏感，因为系数和优化过程受数值大小影响；RandomForest 对尺度不太敏感，因为树分裂主要依赖排序。

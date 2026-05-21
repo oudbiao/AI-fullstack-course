@@ -482,11 +482,11 @@ GPT 的关键约束就是不能偷看未来。
 学完这一页，至少保留这张证据卡：
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+模型选择：BERT、GPT、T5、Transformer 流水线或其他预训练基线
+tokenizer 输出：id、mask、解码文本或批次形状
+任务结果：分类、生成、抽取或文本到文本输出
+失败检查：错误的模型家族、token 限制、领域不匹配、成本或延迟
+期望产出：模型调用结果加一段简短的选择理由
 ```
 
 ## 小结
@@ -507,7 +507,7 @@ Expected_output: model call result plus a short choice rationale
 4. 想一想：为什么说 GPT 的“会聊天”能力，不能简单等同于“只是会预测下一个词”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 修改语料会改变 bigram 转移表，所以生成文本会更像新语料里的局部模式。
 2. causal masking 必要，是因为 GPT 学 next-token prediction 时不能偷看未来 token。

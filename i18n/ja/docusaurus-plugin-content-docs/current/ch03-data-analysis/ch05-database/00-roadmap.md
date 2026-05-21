@@ -59,11 +59,11 @@ tool 80
 このページを終えたら、この evidence card を残します。
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+スキーマ: テーブル名、キー、関係、サンプル行
+クエリ：使われた SQL または Python のデータベースコード
+出力：result rows、row count、または保存された抽出結果
+失敗確認: 間違った結合キー、危険なクエリ、トランザクション不足、またはスキーマ不一致
+期待される成果: クエリと結果表、および1件のデータ品質メモ
 ```
 
 ## この順番で学ぶ
@@ -80,7 +80,7 @@ Expected_output: query plus result table and one data-quality note
 データベースと CSV の違いを説明し、`SELECT ... GROUP BY` クエリを1つ書き、Python から結果を読めれば、この選択小節は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、問いを先に定義し、必要な table、DataFrame、または SQL query と、再現できるクリーニング手順を示します。
 2. 証拠には、小さな出力例、必要に応じた図表や query 結果、そして結果を解釈する一文を残します。

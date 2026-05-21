@@ -84,7 +84,7 @@ This note becomes the pocket map for PyTorch, CNN, RNN, and Transformer later in
 You pass this roadmap when you can explain one layer as `input @ weights + bias`, describe what an activation does, and connect loss, gradient, and optimizer into one training loop.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer connects tensors, model layers, loss, `backward()`, and optimizer updates into one training loop.
 2. The evidence should include a runnable mini experiment, tensor-shape checks, and a loss or validation curve you can explain.

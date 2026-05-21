@@ -271,11 +271,11 @@ finetune_val_acc 1.0
 迁移学习实验要保留这条决策记录：
 
 ```text
-frozen_check: which layers have requires_grad=False
-head_result: validation score after training only the new head
-finetune_result: validation score after unfreezing later layers
-decision: keep frozen or fine-tune based on validation, not training loss
-risk_note: data size, domain mismatch, preprocessing mismatch
+冻结检查：哪些层的 requires_grad=False
+头部结果：只训练新头部后的验证分数
+微调结果：解冻后层后的验证分数
+决策：根据验证结果而非训练损失决定冻结还是微调
+风险说明：数据规模、领域不匹配、预处理不匹配
 ```
 
 这样迁移学习就不是“套一个大模型”，而是可控的工程流程。
@@ -322,7 +322,7 @@ risk_note: data size, domain mismatch, preprocessing mismatch
 5. 解释什么时候 GAP 加小 head 比大型 `Flatten` head 更合适。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 新类别需要同步修改标签生成、类别数、分类头输出维度和评估展示。图案应和原类别有可区分特征。
 2. 数据更多时，只训 head 通常更稳定，也可能带来更好泛化；是否明显提升取决于目标域和预训练特征是否接近。

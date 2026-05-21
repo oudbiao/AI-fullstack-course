@@ -94,11 +94,11 @@ resultEl.textContent = data.answer;
 このページを終えたら、この証拠カードを残します。
 
 ```text
-frontend_surface: chat, dashboard, editor, review panel, or workflow UI
-state_model: loading, streaming, success, empty, error, retry, and review states
-artifact: UI sketch, component behavior, event trace, or screenshot
-failure_check: hiding latency, missing error states, unclear citations, or weak review controls
-Expected_output: AI frontend interaction note with states and evidence display
+フロントエンド画面：チャット、ダッシュボード、エディタ、レビュー画面、またはワークフロー UI
+状態モデル：loading、streaming、success、empty、error、retry、review の状態
+成果物: UI スケッチ、コンポーネントの挙動、イベントトレース、またはスクリーンショット
+失敗確認：遅延の隠蔽、エラー状態の不足、不明確な引用、または弱いレビュー管理
+期待される成果：状態と証拠表示を含む AI フロントエンド対話メモ
 ```
 
 ## 合格チェック
@@ -106,7 +106,7 @@ Expected_output: AI frontend interaction note with states and evidence display
 1つの AI ページが、入力、読み込み、成功、空入力、エラー、再試行を迷わず扱えるなら合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 合格する答えは、少なくとも 3 つの経路をカバーします。空入力、通常入力、そして失敗のシミュレーションです。証拠としては、小さな表やスクリーンショットが良く、状態、メッセージ、再試行の様子が見える必要があります。
 

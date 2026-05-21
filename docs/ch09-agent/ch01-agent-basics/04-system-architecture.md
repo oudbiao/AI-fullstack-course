@@ -405,7 +405,7 @@ That is why real Agent engineering is both a model problem and a system design p
 3. Think about it: if tools often time out, what mechanisms should be added at the architecture level?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `docs_search` should define query input, permission and filter rules, result format, and no-evidence behavior.
 2. The maximum step limit should stop infinite loops and return a trace explaining where execution stopped.

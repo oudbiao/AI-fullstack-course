@@ -255,11 +255,11 @@ print(workflow)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+問題の形：ワークフローグラフ、検索アプリ、役割チーム、または実験
+フレームワーク選択：どの抽象化を追加し、何を隠すか
+追跡記録：state、node、tool call、message、または run id
+失敗確認：フレームワークの魔法が状態、再試行、または権限を隠す
+判断: シングルエージェントのループが明確になってからフレームワークを選ぶ
 ```
 
 ## まとめ
@@ -280,7 +280,7 @@ decision: choose framework only after the single-agent loop is clear
 4. もしあなたのシステムに状態のループが多いなら、それでもローコードプラットフォームを最優先で選びますか？なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. node-based 表現が向くのは、workflow に見える段階と単純な分岐があり、関係者が process の形を確認したい場合です。state loop と custom logic が中心になると弱くなります。
 2. low-code が requirement validation に向くのは、非エンジニアも workflow を見て、足りない step を指摘し、本番実装に入る前に案を試せるからです。

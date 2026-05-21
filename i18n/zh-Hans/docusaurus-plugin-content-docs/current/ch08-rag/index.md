@@ -150,11 +150,11 @@ answer: Use a fixed evaluation set so every RAG change can be compared against t
 学完这一页，至少保留这张证据卡：
 
 ```text
-core_route: 8.1 -> 8.3 -> 8.4 -> 8.5 first
-rag_loop: ingest -> chunk -> embed -> retrieve -> generate -> cite -> evaluate
-app_loop: API call, state, tool/function, document parsing, output validation
-ops_loop: async, API contract, logging, monitoring, deployment
-bridge: Chapter 9 turns reliable app actions into traceable Agent workflows
+核心路线：先走 8.1 -> 8.3 -> 8.4 -> 8.5
+RAG 循环：摄取 -> 分块 -> 向量化 -> 检索 -> 生成 -> 引用 -> 评估
+应用循环：API 调用、状态、工具/函数、文档解析、输出验证
+运维循环：异步、API 合同、日志、监控、部署
+桥接：第 9 章把可靠的应用动作转为可追踪的 Agent 工作流
 ```
 
 ## 常见错误

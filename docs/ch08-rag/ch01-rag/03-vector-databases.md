@@ -477,7 +477,7 @@ What you really need to care about is:
 3. Think about this: if the embedding model is poor, can a powerful vector database still save the result?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The ranking should favor records whose vectors are closest to the query vector. If the top result feels semantically wrong, inspect whether the vector representation, not the database, is the weak point.
 2. Double-condition filtering should combine semantic similarity with business constraints, such as `role=internal` and `source=policy`. This is how metadata prevents plausible but unauthorized or irrelevant chunks from entering the answer.

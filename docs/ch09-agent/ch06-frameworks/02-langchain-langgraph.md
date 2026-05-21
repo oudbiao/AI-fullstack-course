@@ -389,7 +389,7 @@ Once you start judging them by “task structure” rather than “framework pop
 4. Think about this: in what situations is a chain-based approach actually more appropriate than a graph-based one?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. If every step runs once in a fixed order, it is chain-like. If the system can branch, loop, retry, pause, or revisit a previous state, it is graph-like.
 2. Adding “no documents -> rewrite query -> search again” often makes a chain messy because the code now needs conditional routing, loop limits, and state history. That is the point where a graph abstraction starts to help.

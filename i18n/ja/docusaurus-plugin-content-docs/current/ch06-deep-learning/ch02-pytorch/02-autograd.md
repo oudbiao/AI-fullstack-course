@@ -301,11 +301,11 @@ forward -> loss -> zero_grad -> backward -> step
 autograd trace を 1 つ残します。
 
 ```text
-loss_requires_grad: True
-parameter_requires_grad: True
-grad_after_backward: not None
-update_rule: backward computes gradients, optimizer or manual code updates values
-safe_logging: store loss.item() or tensor.detach()
+損失の勾配要否：True
+パラメータの勾配要否：True
+backward 後の勾配：None ではない
+更新規則：backward が gradients を計算し、optimizer または manual code が値を更新する
+安全ログ: loss.item() または tensor.detach() を保存する
 ```
 
 これは最もよくある誤解を防ぎます。`backward()` は更新ではありません。勾配を埋めるだけです。
@@ -318,7 +318,7 @@ safe_logging: store loss.item() or tensor.detach()
 4. 200 epoch のあいだ `loss` 自体をリストに保存し、次に `loss.item()` を保存してください。なぜ後者のほうが安全ですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `w` は `3`、`b` は `-2` に近づくべきです。データにノイズがある、または早めに止めた場合は、小さなズレがあっても自然です。
 2. PyTorch では勾配が標準で累積します。`zero_()` しないと、今回の勾配に過去の勾配が混ざり、実質的な更新量が不安定になります。

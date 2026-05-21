@@ -76,7 +76,7 @@ You pass this chapter when you can explain why a plan failed: bad decomposition,
 The exit mini project is a visible reasoning trace for one task: plan steps, observations, replans, and the final answer.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer describes the agent loop: goal, plan, tool call, observation, memory or state update, and stop condition.
 2. The evidence should include a trace that another developer can inspect, not only the final answer.

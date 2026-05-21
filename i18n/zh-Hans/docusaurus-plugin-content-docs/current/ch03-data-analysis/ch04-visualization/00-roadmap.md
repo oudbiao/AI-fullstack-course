@@ -72,7 +72,7 @@ saved: sales_trend.png
 能从一个数据集做出 4 张有用图表，并说清楚每张图为什么这样选，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要先说清问题，再指出需要的表、DataFrame 或 SQL 查询，并让清洗步骤可以复现。
 2. 证据至少包含一小段输出、必要的图表或查询结果，以及一句对结果的解释。
@@ -86,9 +86,9 @@ saved: sales_trend.png
 学完这一页，至少保留这张证据卡：
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+问题：这张图表回答的是比较、分布、趋势，还是关系
+图表选择：折线图、柱状图、散点图、直方图、箱线图、热力图或交互式仪表板
+工件：保存的图表图片/html 以及所用的数据切片
+失败检查：尺度误导、图表过载、聚合错误或缺少标签
+期望产出：带有一句说明洞察的图表成果
 ```

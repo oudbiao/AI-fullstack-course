@@ -464,7 +464,7 @@ english_scores = rng.normal(78, 10, 200).clip(0, 100)  # English
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For dice simulation, create a `(10000, 2)` array, sum along `axis=1`, and count sums with `np.bincount`. The most frequent sum should usually be `7` because it has the most combinations.
 - For stock simulation, generate daily returns, then compute prices with `100 * np.cumprod(1 + returns)`. Report the final return, maximum drawdown if asked, and a chart so the path is visible.

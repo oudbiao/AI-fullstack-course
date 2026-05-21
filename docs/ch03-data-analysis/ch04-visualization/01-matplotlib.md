@@ -630,7 +630,7 @@ plt.show()                                # 6. Display
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - The sine/cosine plot should have two labeled lines, a title, axis labels, legend, and light grid. If the lines are hard to compare, adjust color and line style before adding decoration.
 - For grouped bars, compute x positions explicitly and label bars or axes clearly enough that the reader does not need the code to understand the chart.

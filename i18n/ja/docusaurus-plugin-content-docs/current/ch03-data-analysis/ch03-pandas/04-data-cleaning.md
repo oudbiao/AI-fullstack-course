@@ -443,11 +443,11 @@ print(f"\n行数: {len(dirty_data)}")
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+データフレーム状態: 列、dtype、行数、欠損値、サンプル行
+操作：read/write、select/filter、clean、transform、groupby、merge、または時系列処理
+出力：resulting table、保存ファイル、aggregation、join結果、または時系列インデックスビュー
+失敗確認：dtype 不一致、欠損データ、重複キー、チェーン代入、または誤った時間頻度
+期待される成果：前後の表サンプルと、変換理由
 ```
 
 ## まとめ
@@ -483,7 +483,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - まず `isna().sum()` と `isna().mean()` で欠損レポートを作ります。列ごとに、削除、中央値や最頻値での補完、欠損自体を意味あるシグナルとして残すかを決めます。
 - 外れ値がありそうな数値列は中央値を使うことが多く、カテゴリ列は最頻値または明示的な `Unknown` を使うことが多いです。欠損率が非常に高い列を使うなら理由を書きます。

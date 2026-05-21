@@ -473,11 +473,11 @@ print("平均亮度:", gray.mean())
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: source image or synthetic image used in the run
-array_shape: width, height, channels, dtype, and coordinate convention
-processed_output: grayscale, crop, edge, threshold, or saved intermediate image
-failure_check: channel order, resize distortion, coordinate mistake, or over-processing
-Expected_output: before/after image plus the printed shape or pixel values
+输入图像: 本次运行中使用的源图像或合成图像
+数组形状：宽、高、通道、dtype，以及坐标约定
+处理后输出：灰度、裁剪、边缘、阈值或已保存的中间图像
+失败检查：通道顺序、缩放失真、坐标错误或过度处理
+期望产出：前后对比图片，以及打印出的形状或像素值
 ```
 
 ## 小结
@@ -497,7 +497,7 @@ Expected_output: before/after image plus the printed shape or pixel values
 3. 把一组 RGB 像素手工转成 `0~1` 浮点数，理解归一化的作用。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 合格的 `3x3` 灰度图答案应先打印 `(3, 3)` 数组，再用 `min()`、`max()`、`mean()` 统计像素。若矩阵是 `uint8`，像素值应保持在 `0-255`，平均值通常会以浮点数显示。
 2. RGB 图像的预期形状是 `(2, 2, 3)`。`rgb[:, :, 0]`、`rgb[:, :, 1]`、`rgb[:, :, 2]` 应分别得到一个 `2x2` 通道矩阵。

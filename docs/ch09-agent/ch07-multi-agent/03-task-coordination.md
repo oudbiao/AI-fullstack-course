@@ -359,7 +359,7 @@ That is the key to helping multi-Agent systems move from "looking busy" to "trul
 4. Explain in your own words: why is multi-Agent coordination essentially like a small task scheduling system?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A planner Agent should create an ordered task list with dependencies, such as retrieve first, write after evidence exists, review after draft exists, and revise only when review requests changes.
 2. The coordination flow can be: retrieve evidence -> write draft with citations -> review for correctness and gaps -> revise only the rejected parts -> final check.

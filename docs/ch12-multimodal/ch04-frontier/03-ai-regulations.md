@@ -350,7 +350,7 @@ Once you start looking at the problem this way, compliance is no longer “a ter
 4. Try translating “compliance” into three specific technical requirements that you can implement in a system.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A practical requirement list might include documented training or input data sources, immutable audit logs, role-based permissions, and human confirmation before high-risk actions or external publication.
 2. Traceability matters because teams need to reconstruct what data, prompt, model version, user action, and approval produced an output. Without that trail, debugging and accountability are weak.

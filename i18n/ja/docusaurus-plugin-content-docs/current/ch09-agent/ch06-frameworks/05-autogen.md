@@ -309,11 +309,11 @@ AutoGen スタイルのシステムを本格的に作るなら、できるだけ
 このページを終えたら、この証拠カードを残します。
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+問題の形：ワークフローグラフ、検索アプリ、役割チーム、または実験
+フレームワーク選択：どの抽象化を追加し、何を隠すか
+追跡記録：state、node、tool call、message、または run id
+失敗確認：フレームワークの魔法が状態、再試行、または権限を隠す
+判断: シングルエージェントのループが明確になってからフレームワークを選ぶ
 ```
 
 ## 練習
@@ -324,7 +324,7 @@ decision: choose framework only after the single-agent loop is clear
 4. あなたのタスクに強い状態機械の制御が必要なら、このような対話型抽象化を最優先で選びますか？ なぜですか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 基本 flow は、planner が task と acceptance criteria を定義し、coder が実装案や修正を出し、reviewer が correctness と risk を確認し、planner が次の round の必要性を判断する形です。
 2. AutoGen 型は会話が増えすぎやすいです。conversation 自体が control mechanism だからです。停止条件、role 境界、review criteria がなければ、Agent は完了せず交渉を続けがちです。

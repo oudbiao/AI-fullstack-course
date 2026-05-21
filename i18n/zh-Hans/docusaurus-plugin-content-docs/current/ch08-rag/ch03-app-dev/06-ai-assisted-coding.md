@@ -168,11 +168,11 @@ OK
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+请求：输入、状态、工具/上下文，以及期望输出契约
+已验证输出：parser / schema 或业务规则检查的结果
+追踪记录：模型调用、tool/function 调用、文档解析或对话状态
+失败检查：格式无效、字段缺失、状态过时或工具错误
+下一步动作：Prompt、schema、状态、API 或解析改进
 ```
 
 ## 练习
@@ -183,7 +183,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 4. 写一段 README，说明你如何使用 AI 辅助完成项目但仍然做了验证。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 好测试至少包含正常情况、边界情况和失败/非法输入情况。要检查断言是否有效，而不只是测试能跑。
 2. 最小修复应对准失败行或契约，避免顺手大重构。

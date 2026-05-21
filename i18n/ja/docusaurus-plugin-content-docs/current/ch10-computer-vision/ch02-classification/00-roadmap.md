@@ -55,7 +55,7 @@ confidence: 0.74
 minimal classifier を動かし、train/validation metrics を示し、少なくとも 1 枚の failure image を説明できれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、task を class label、bounding box、mask、OCR text、embedding、video event など正しい視覚出力に対応づけます。
 2. 証拠には、rendered visual artifact と、metric または定性的な error note を含めます。
@@ -69,9 +69,9 @@ minimal classifier を動かし、train/validation metrics を示し、少なく
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataset_split: train/test images, class names, and class balance
-prediction: label, confidence, and at least one misclassified image
-metric: accuracy, F1, confusion matrix, and class-level errors
-failure_check: augmentation changes label meaning, class imbalance, leakage, or overfitting
-Expected_output: model result table and saved error examples
+データセット分割: train/test 画像、クラス名、クラスの偏り
+予測：ラベル、信頼度、そして少なくとも 1 枚の誤分類画像
+指標：accuracy、F1、confusion matrix、およびクラスごとのエラー
+失敗確認：拡張がラベルの意味を変える、クラス不均衡、リーク、または過学習
+期待される成果: モデル結果の表と保存済みのエラー例
 ```

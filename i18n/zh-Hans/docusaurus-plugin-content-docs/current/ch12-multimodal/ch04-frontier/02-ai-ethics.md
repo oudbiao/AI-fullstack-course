@@ -347,11 +347,11 @@ overtrust -> 用户对系统能力产生错误信任
 学完这一页，至少保留这张证据卡：
 
 ```text
-risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
-engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
-test_case: one realistic input/output case that exercises the rule
-failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
-Expected_output: review checklist or product requirement translated into engineering action
+风险范围：前沿能力、伦理问题、监管，或产品政策边界
+工程规则：必须记录、阻止、审核、披露或上报什么
+测试用例：一个符合规则的真实输入/输出案例
+失败检查：隐私、版权、肖像、偏见、安全、来源或合规缺口
+期望产出：将复查清单或产品需求翻译成工程动作
 ```
 
 ## 小结
@@ -372,7 +372,7 @@ Expected_output: review checklist or product requirement translated into enginee
 4. 试着把一个伦理风险转写成一个具体工程问题，例如“日志脱敏”“权限控制”或“人工审批”。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 有用回答应把每类风险转成证据和控制措施。例如人脸编辑应用可能需要按肤色做偏差测试，并为上传、保存和删除设置隐私控制。
 2. 类人输出会增加信任，因为用户会把社会互动预期套到系统上。他们可能误以为模型真正理解、记住或验证了更多内容。

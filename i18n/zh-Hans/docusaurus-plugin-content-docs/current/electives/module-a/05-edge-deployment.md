@@ -92,11 +92,11 @@ edge-c FIT
 学完这一页，至少保留这张证据卡：
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+部署目标：本地推理、边缘设备、模型服务器或优化实验
+工件：C++ 代码片段、基准测试、模型工件、服务配置或部署说明
+指标：延迟、内存、吞吐量、模型大小、准确率下降或可靠性
+失败检查：ABI/构建问题、硬件不匹配、量化损失或服务瓶颈
+期望产出：可复现的部署或优化证据，而不只是理论笔记
 ```
 
 ## 常见错误
@@ -111,7 +111,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 给每个设备加 `price_usd`，选出通过全部检查且最便宜的设备。再加第二个模型，对比哪个设备能同时支持两个模型。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 答案应该先按约束过滤设备，再只在通过的设备里比较价格。一个便宜但内存、功耗或离线要求不达标的设备，不是有效部署目标。
 

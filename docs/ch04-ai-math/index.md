@@ -144,7 +144,7 @@ For a printable checklist, use [4.0 Study Guide and Task Sheet](./study-guide.md
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - A complete pass check connects formula, code, and model behavior. Do not stop at “I know the equation”; show one small calculation and the AI task it explains.
 - For vectors and matrices, the evidence should include a shape check and a similarity or transformation result. For probability, show a repeated-sample estimate or Bayes update. For calculus, show a gradient and one update step.

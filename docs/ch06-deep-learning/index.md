@@ -154,7 +154,7 @@ Move to Chapter 7 when you can answer these five questions:
 For a printable checklist, use [6.0 Study Guide and Task Sheet](./study-guide.md). Later LLMs, RAG, and multimodal models all build on these representation-learning ideas.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer connects tensors, model layers, loss, `backward()`, and optimizer updates into one training loop.
 2. The evidence should include a runnable mini experiment, tensor-shape checks, and a loss or validation curve you can explain.

@@ -404,7 +404,7 @@ Ask:
 4. Add a third feature to each sample. Which model layer must change?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The training loader should see 9 samples, and the validation loader should see 3. Keep the split fixed while comparing models so the validation result stays meaningful.
 2. With 9 training samples and the default `drop_last=False`, the batch counts are `9`, `5`, and `3`. The last batch is smaller when the sample count is not divisible by `batch_size`.

@@ -313,7 +313,7 @@ Complete the following checks to confirm you understand terminal basics:
 - [ ] Know what `echo $PATH` means
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. Run only the section for your operating system. `brew`, `apt`, and `winget` manage different platforms.
 2. A successful `tree ~/ai-study` proves both that the tool was installed and that your shell can find it through `PATH`.

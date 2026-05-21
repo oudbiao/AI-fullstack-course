@@ -108,11 +108,11 @@ for a, b in zip(path, path[1:]):
 このページを終えたら、この evidence card を残します。
 
 ```text
-schema: entity types, BIO tags, or sequence-label rules
-prediction: token-level labels and extracted spans
-metric: entity precision/recall/F1 and boundary cases
-failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
-Expected_output: gold-vs-predicted span table with at least one miss
+スキーマ: エンティティ型、BIO タグ、またはシーケンスラベル規則
+予測：トークン単位のラベルと抽出スパン
+指標：エンティティの precision/recall/F1 と境界ケース
+失敗確認: span 境界、入れ子のエンティティ、未知語、または不一致なアノテーション
+期待される成果：少なくとも1つの miss がある、gold と predicted の span 表
 ```
 
 ## よくある誤解
@@ -127,7 +127,7 @@ Expected_output: gold-vs-predicted span table with at least one miss
 4. BERT で NER を行う場合、CRF はまだ必要でしょうか？賛成と反対の理由をそれぞれ挙げてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 中国語の BIO 例では、まず token 単位を決め、entity が `I-*` から始まっていないか、各 `I-*` の前に対応する `B-*` または `I-*` があるか確認します。
 2. token-by-token classification は各位置を独立に採点します。global sequence decoding は文全体で最も妥当で合法な label path を選びます。

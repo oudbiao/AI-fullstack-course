@@ -252,11 +252,11 @@ max_depth=None mae=48.7 leaves=25
 このページを終えたら、この evidence card を残します。
 
 ```text
-task: regression or classification problem with target definition
-model: linear/logistic/tree/ensemble/SVM configuration and train/test split
-metric: regression error, accuracy/F1, threshold curve, or confusion matrix
-failure_check: overfitting, underfitting, feature scaling, threshold choice, or class imbalance
-Expected_output: model result plus error samples or residual review
+タスク：target 定義のある regression または classification 問題
+モデル：線形/ロジスティック/木/アンサンブル/SVM の構成と train/test 分割
+指標：回帰誤差、accuracy/F1、閾値曲線、または confusion matrix
+失敗確認: 過学習、学習不足、特徴量スケーリング、閾値選択、またはクラス不均衡
+期待される成果: モデル結果とエラーサンプル、または残差レビュー
 ```
 
 ## よくあるトラブル
@@ -278,7 +278,7 @@ Expected_output: model result plus error samples or residual review
 5. 回帰木の結果を、線形回帰レッスンのベースラインと比較してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `min_samples_leaf=1` は葉を増やしやすく、訓練スコアは上がりがちですが過学習しやすくなります。`10` は木を粗くし、葉を減らすため、安定することもあれば underfitting することもあります。
 2. `"entropy"` と既定の `"gini"` はどちらもノードを純粋にする分割を探します。最初の分割が同じかどうかはデータ次第なので、出力された木構造で確認します。

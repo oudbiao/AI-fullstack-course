@@ -563,11 +563,11 @@ fig.savefig("my_chart.pdf", bbox_inches="tight")
 学完这一页，至少保留这张证据卡：
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+问题：这张图表回答的是比较、分布、趋势，还是关系
+图表选择：折线图、柱状图、散点图、直方图、箱线图、热力图或交互式仪表板
+工件：保存的图表图片/html 以及所用的数据切片
+失败检查：尺度误导、图表过载、聚合错误或缺少标签
+期望产出：带有一句说明洞察的图表成果
 ```
 
 ## 小结
@@ -630,7 +630,7 @@ plt.show()                                # 6. 显示
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 - 正弦/余弦图应有两条带标签的线、标题、坐标轴标签、图例和浅色网格。如果两条线不好比较，先调整颜色和线型，再考虑装饰。
 - 分组柱状图要显式计算 x 位置，并把柱子或坐标轴标到读者不看代码也能理解的程度。

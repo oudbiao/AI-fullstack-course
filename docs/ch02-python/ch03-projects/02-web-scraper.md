@@ -393,7 +393,7 @@ python scraper.py --pages 10 --output data.json
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add retry and backoff around the request loop, and stop after three failures. Keep the retry count visible so network problems are easy to debug.
 2. Detect the next-page link and keep following it until there is no next page left. Track visited URLs if you want to guard against loops.

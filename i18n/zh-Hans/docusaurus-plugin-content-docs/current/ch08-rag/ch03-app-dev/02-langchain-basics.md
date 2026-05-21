@@ -309,11 +309,11 @@ print(chain.run("退款政策是什么？"))
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+请求：输入、状态、工具/上下文，以及期望输出契约
+已验证输出：parser / schema 或业务规则检查的结果
+追踪记录：模型调用、tool/function 调用、文档解析或对话状态
+失败检查：格式无效、字段缺失、状态过时或工具错误
+下一步动作：Prompt、schema、状态、API 或解析改进
 ```
 
 ## 小结
@@ -340,7 +340,7 @@ next_action: prompt, schema, state, API, or parsing improvement
 4. 用自己的话说明：LangChain 最适合解决什么形状的问题？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 查询改写步骤可以统一同义词，把原始问题变成更适合检索的表达，同时保留原意。
 2. Prompt 也是组件，因为它把输入转换成指令，并约束输出形状。

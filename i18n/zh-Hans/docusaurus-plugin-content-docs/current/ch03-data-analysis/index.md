@@ -124,11 +124,11 @@ Visualization    ...
 学完这一页，至少保留这张证据卡：
 
 ```text
-data_source: raw records or small dataset used
-processing_step: pure Python, NumPy, Pandas, charting, or SQL operation
-output: cleaned data, statistic, chart, query result, or report note
-failure_check: missing data, shape mismatch, wrong aggregation, or unclear question
-Expected_output: data artifact plus the evidence needed to trust it
+数据来源：使用的原始记录或小型数据集
+处理步骤：纯 Python、NumPy、Pandas、绘图或 SQL 操作
+输出：清洗后的数据、统计量、图表、查询结果，或报告备注
+失败检查：数据缺失、形状不匹配、聚合错误或问题不清晰
+期望产出：数据成果，以及值得信任它所需的证据
 ```
 
 ## 常见失败
@@ -155,7 +155,7 @@ Expected_output: data artifact plus the evidence needed to trust it
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 - 把这五个通关问题当成一个小型数据故事，而不是五句口号。
 - 合格答案要说清列名和单位，列出所有会改变行或数值的清洗规则，把每张图对应到一个明确问题，区分“数据支持的结论”和“仍不确定的部分”，并提供能让别人重跑的 README。

@@ -116,7 +116,7 @@ Move to Chapter 2 when you can answer these five questions:
 - Where did you record your first error and fix?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. The terminal directory is the folder shown by `pwd`; it should be the project root or the folder named in your command.
 2. The Python interpreter is the path returned by `which python` or `python -c "import sys; print(sys.executable)"`; it should match your course environment.

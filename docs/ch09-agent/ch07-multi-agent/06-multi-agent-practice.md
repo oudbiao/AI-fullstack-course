@@ -350,7 +350,7 @@ That is where multi-Agent truly becomes more valuable than a single Agent.
 4. Explain in your own words: why is the real importance of a multi-Agent project "state transition" rather than "number of roles"?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. `fact_checker_agent` should receive the draft plus extracted numeric claims, compare each claim against source evidence, and return pass/fail status with the exact claim that needs revision.
 2. For “certificate policy,” the planner should choose a plan that includes policy retrieval, eligibility extraction, conflict checking, draft answer, and reviewer verification rather than reusing a generic plan blindly.

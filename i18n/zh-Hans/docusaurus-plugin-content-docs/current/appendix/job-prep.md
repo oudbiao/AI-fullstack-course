@@ -84,9 +84,9 @@ sidebar_position: 7
 学完这一页，至少保留这张证据卡：
 
 ```text
-target_role: AI full-stack, LLM app, data/ML, Agent engineer, or multimodal builder
-portfolio_story: problem, system, evidence, failure, improvement, and trade-off
-gap_list: missing project, weak explanation, missing deployment, or unclear metrics
-next_action: one resume/project/interview artifact to update this week
-Expected_output: a portfolio story card that can be used in an interview
+目标角色：AI 全栈、LLM 应用、数据/ML、Agent 工程师或多模态构建者
+作品集故事：问题、系统、证据、失败、改进和权衡
+缺口列表：缺少项目、解释薄弱、未部署或指标不清晰
+下一步动作：本周更新一个简历/项目/面试材料
+期望产出：可用于面试的作品集故事卡
 ```

@@ -90,7 +90,7 @@ struct FastEngine : Engine {
 Then replace `CpuEngine` with `FastEngine`. The rest of `Session` should not change.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 `FastEngine` should implement the same `Engine` interface, so `Session` only receives a different object at construction time:
 

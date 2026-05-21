@@ -62,11 +62,11 @@ print(summary)
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+データフレーム状態: 列、dtype、行数、欠損値、サンプル行
+操作：read/write、select/filter、clean、transform、groupby、merge、または時系列処理
+出力：resulting table、保存ファイル、aggregation、join結果、または時系列インデックスビュー
+失敗確認：dtype 不一致、欠損データ、重複キー、チェーン代入、または誤った時間頻度
+期待される成果：前後の表サンプルと、変換理由
 ```
 
 ## この順番で学ぶ
@@ -87,7 +87,7 @@ Expected_output: before/after table sample with the transformation reason
 生の表をきれいな集計表に変え、各列をなぜ処理したか説明でき、可視化や機械学習へ渡せるなら、この小節は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、問いを先に定義し、必要な table、DataFrame、または SQL query と、再現できるクリーニング手順を示します。
 2. 証拠には、小さな出力例、必要に応じた図表や query 結果、そして結果を解釈する一文を残します。

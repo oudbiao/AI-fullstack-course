@@ -314,11 +314,11 @@ print("已保存 opencv_info_card.png")
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: source image or synthetic image used in the run
-array_shape: width, height, channels, dtype, and coordinate convention
-processed_output: grayscale, crop, edge, threshold, or saved intermediate image
-failure_check: channel order, resize distortion, coordinate mistake, or over-processing
-Expected_output: before/after image plus the printed shape or pixel values
+输入图像: 本次运行中使用的源图像或合成图像
+数组形状：宽、高、通道、dtype，以及坐标约定
+处理后输出：灰度、裁剪、边缘、阈值或已保存的中间图像
+失败检查：通道顺序、缩放失真、坐标错误或过度处理
+期望产出：前后对比图片，以及打印出的形状或像素值
 ```
 
 ## 小结
@@ -341,7 +341,7 @@ Expected_output: before/after image plus the printed shape or pixel values
 3. 试着把图像缩放为不同分辨率，再保存结果。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 如果使用 OpenCV 绘图函数，要记住颜色元组通常是 BGR，不是 RGB。正确的新卡片应能成功保存，打开后颜色也符合预期。
 2. 画矩形和圆时，要检查坐标是否都在图像范围内。绘制顺序也会影响结果：后画的形状可能盖住先画的形状。

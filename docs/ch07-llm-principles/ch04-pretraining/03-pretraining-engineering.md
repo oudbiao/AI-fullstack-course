@@ -460,7 +460,7 @@ you will no longer treat them as “peripheral chores.”
 4. Explain in your own words: why does pretraining engineering eventually become “building a system” rather than just “writing a model”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing `batch_size` changes how many samples are consumed per step, so the saved recovery state should point to a different next sample or shard offset. The important observation is whether resume continues from the right place without skipping or repeating data.
 2. Model weights alone tell you what the model learned, but not which data has already been consumed. After a crash, the run may silently repeat samples, skip samples, or change the training distribution.

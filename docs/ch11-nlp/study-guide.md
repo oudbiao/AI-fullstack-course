@@ -52,7 +52,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 If the answer is yes, you can use NLP ideas more confidently in Prompt, RAG, Agent memory, and multimodal work.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A strong answer explains the path from raw text to tokens, representation, model input, prediction, metric, and failure case.
 2. Label boundaries are ready only when you have positive examples, negative examples, edge cases, and a written rule for disagreements.

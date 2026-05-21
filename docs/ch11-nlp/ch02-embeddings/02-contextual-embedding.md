@@ -370,7 +370,7 @@ This step is an important threshold for modern NLP to truly enter the pretrainin
 4. Think about this: if the representation already depends on context, is the “word itself” still important? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. For `apple`, a fruit context should move it toward food words, while a company context should move it toward technology or product words.
 2. Fixed vectors struggle with polysemy because the word has one stored representation no matter which sentence it appears in.

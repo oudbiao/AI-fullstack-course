@@ -599,11 +599,11 @@ print(f"邮件包含 '免费'+'中奖'+'点击' 是垃圾邮件的概率: {p_spa
 学完这一页，至少保留这张证据卡：
 
 ```text
-random_process: event, distribution, sample, likelihood, entropy, or Bayes update
-simulation_or_formula: code or formula used to make uncertainty visible
-output: probability, sample statistic, interval, entropy, or updated belief
-failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
-Expected_output: numeric result plus interpretation in plain language
+随机过程：事件、分布、样本、似然、熵，或 Bayes 更新
+模拟或公式：用来让不确定性可见的代码或公式
+输出：概率、样本统计量、区间、熵，或更新后的信念
+失败检查：基率混淆、p 值误用、样本偏差或把概率和确定性混为一谈
+期望产出：数值结果加通俗解释
 ```
 
 ## 小结
@@ -718,7 +718,7 @@ print(f"发病率为 1% 时，P(有病|阳性): {p_disease_if_positive:.1%}")
 
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 - 纸牌问题中，`P(hearts)=13/52=0.25`，`P(hearts | red)=13/26=0.5`，`P(A | hearts)=1/13≈0.0769`。模拟结果应接近但不必完全相等。
 - 工厂 Bayes 问题中，`P(defective)=0.6*0.02+0.4*0.05=0.032`，所以 `P(B | defective)=0.02/0.032=62.5%`。

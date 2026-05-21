@@ -164,11 +164,11 @@ first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 序列预测要保存 baseline 对比：
 
 ```text
-window_size: 16
-split_rule: train first 80%, validate later 20%
-naive_val_mse: 0.0115
-model_val_mse: 0.0030
-plot_check: predictions do not merely lag or flatten
+窗口大小：16
+拆分规则：先训练前 80%，再验证后 20%
+朴素验证均方误差：0.0115
+模型验证均方误差：0.0030
+图表检查：预测不能只是滞后或趋于平坦
 ```
 
 最重要的证据不是 LSTM loss 很低，而是它在不泄漏未来数据的前提下，打过了一个简单诚实的 baseline。
@@ -238,7 +238,7 @@ plt.show()
 5. 实现 rolling forecast，把预测值喂回下一个窗口。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 较大窗口能看到更长历史，但也更难训练；验证 MSE 要以实际运行结果为准，不能只看训练误差。
 2. GRU 参数更少，通常训练更快；如果任务不需要复杂长期记忆，曲线可能接近 LSTM。

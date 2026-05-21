@@ -227,7 +227,7 @@ next_action: data, augmentation, model, or split change
 5. Create a project checklist with dataset, command, metric, and failure cases.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. The `dog` row in the confusion matrix gets more evidence. If the new samples are difficult, dog recall may drop; if they are clear, the estimate becomes more stable.
 2. `labels` must include `hamster`, and the confusion matrix expands to include a new row and column. Any metric table that averages by class should also include the new class.

@@ -243,11 +243,11 @@ for target_id in [1, 2]:
 学完这一页，至少保留这张证据卡：
 
 ```text
-input_image: original image and target mask or class map
-prediction: predicted mask, overlay visualization, and boundary examples
-metric: IoU, Dice, per-class score, and boundary failure notes
-failure_check: annotation quality, thin boundary, small region, or class confusion
-Expected_output: mask overlay plus segmentation metric summary
+输入图像: 原始图像和目标掩膜或类别图
+预测：预测掩膜、叠加可视化和边界示例
+指标：IoU、Dice、每类得分和边界失败备注
+失败检查：标注质量、边界过窄、小区域或类别混淆
+期望产出：掩膜叠加图，以及分割指标汇总
 ```
 
 ## 小结
@@ -272,7 +272,7 @@ Expected_output: mask overlay plus segmentation metric summary
 4. 想一想：实例分割在自动驾驶或安防里为什么特别有价值？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 正确的 `instance_map` 通常用 `0` 表示背景，并给每个目标实例一个不同整数 id。3 个目标应有 3 个不同 id。
 2. 实例分割更难，因为模型不仅要给像素分类，还要把同一类别的不同目标分开。

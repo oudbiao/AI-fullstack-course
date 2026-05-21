@@ -364,11 +364,11 @@ if ...
 学完这一页，至少保留这张证据卡：
 
 ```text
-problem_shape: workflow graph, retrieval app, role team, or experiment
-framework_choice: what abstraction it adds and what control it hides
-trace: state, node, tool call, message, or run id
-failure_check: framework magic hides state, retries, or permissions
-decision: choose framework only after the single-agent loop is clear
+问题形态：工作流图、检索应用、角色团队或实验
+框架选择：它增加了什么抽象，以及隐藏了什么控制
+追踪记录：状态、节点、tool 调用、消息或运行 id
+失败检查：框架魔法隐藏状态、重试或权限问题
+决策：只有在单代理循环清晰后才选择框架
 ```
 
 ## 小结
@@ -389,7 +389,7 @@ decision: choose framework only after the single-agent loop is clear
 4. 想一想：在什么情况下，链式方式其实比图式方式更合适？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 如果每一步只按固定顺序执行一次，它更像 chain；如果系统会分支、循环、重试、暂停或回到之前状态，它更像 graph。
 2. 加上“没找到文档 -> 重写 query -> 再检索”后，chain 往往会变乱，因为代码开始需要条件路由、循环上限和状态历史。这正是 graph 抽象开始有价值的地方。

@@ -335,11 +335,11 @@ print(alert_fatigue(alerts_per_hour))
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_output: classification label, detection box, segmentation mask, OCR text, or video event
-artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
-metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
-failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
-Expected_output: a reproducible run folder with visual outputs and a short failure report
+任务输出：分类标签、检测框、分割掩膜、OCR 文本或视频事件
+工件：原始图像、处理后图像、预测叠加图、指标文件和失败样本
+指标：准确率/F1、mAP、IoU、Dice、延迟或场景特定审查分数
+失败检查：数据质量、标签错误、预处理不匹配、阈值或部署约束
+期望产出：一个可复现的运行文件夹，包含可视化输出和简短失败报告
 ```
 
 ## 小结
@@ -378,7 +378,7 @@ Expected_output: a reproducible run folder with visual outputs and a short failu
 4. 如果把这个项目做成作品集，你最想突出哪一条完整视频 trace？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 简单的 `helmet` 规则可以先检测 `person` 和 `helmet`，再判断某个人头部附近连续多帧没有重叠 helmet 区域时触发 `no_helmet` 报警。
 2. 安防项目需要 tracking 和去重，因为同一个事件会出现在很多帧里。没有这些逻辑，一个人可能触发几十条重复报警。

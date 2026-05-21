@@ -278,7 +278,7 @@ Set `OPENAI_MODEL` if your account or deployment uses a different approved model
 5. Write a one-page note: which part is prompt design, which part is API payload design, and which part is application reliability?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. The task change should update both the prompt and the expected schema. A study-plan output might require fields such as `week`, `goal`, `tasks`, and `evidence`.
 2. The validator should catch invalid JSON during parsing before business logic reads the result. This is the first safety net for structured output.

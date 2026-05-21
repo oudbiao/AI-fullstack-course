@@ -165,11 +165,11 @@ train_size=455 train=0.974 cv=0.919 gap=0.055
 学完这一页，至少保留这张证据卡：
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+评估设置：划分、交叉验证、指标、基线和对比目标
+结果：分数表、曲线、混淆矩阵、验证结果，或搜索结果
+决策：是否更改数据、特征、模型、阈值或超参数
+失败检查：泄漏、验证不稳定、指标错误或在测试集上调参
+期望产出：支持下一步建模决策的评估记录
 ```
 
 ## 常见排查清单
@@ -191,7 +191,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 查看最佳树的错误样本。错误是否集中在某个类别？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `min_samples_leaf=5` 通常会缩小训练/测试差距，因为树不能轻易记住很小的叶子。如果两个分数都下降，模型可能变得过于简单。
 2. 测试准确率往往在中等深度达到峰值。太浅会欠拟合，太深会过拟合，即使训练准确率继续上升。

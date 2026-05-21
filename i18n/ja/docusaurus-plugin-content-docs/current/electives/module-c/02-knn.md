@@ -91,11 +91,11 @@ KNN を試す場面：
 このページを終えたら、この証拠カードを残します。
 
 ```text
-model_family: SVM, KNN, Naive Bayes, LDA, or another classical baseline
-dataset_view: feature scale, class balance, decision boundary, and train/test split
-metric: accuracy/F1, confusion matrix, margin, neighbor behavior, or projection quality
-failure_check: scaling, high dimensionality, weak assumptions, leakage, or poor baseline fit
-Expected_output: classical-ML baseline result with one limitation note
+モデルファミリー：SVM、KNN、Naive Bayes、LDA、または別の古典的ベースライン
+データセット表示: 特徴量スケール、クラスの偏り、決定境界、train/test 分割
+指標：accuracy/F1、confusion matrix、margin、近傍の挙動、または投影の品質
+失敗確認: スケーリング、高次元性、弱い仮定、リーク、またはベースライン適合性の低さ
+期待される成果：1つの制約メモ付きの古典的 ML ベースライン結果
 ```
 
 ## よくある間違い
@@ -109,7 +109,7 @@ Expected_output: classical-ML baseline result with one limitation note
 値が `10000` 前後の3つ目の特徴量を追加します。`StandardScaler()` を外し、距離投票がどう歪むか観察してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 スケーリングしない場合、`10000` 前後の大きな特徴量がユークリッド距離を支配します。その結果、元の2特徴量のほうがクラスパターンを表していても、KNN は大きな尺度の特徴量だけで投票してしまうことがあります。
 

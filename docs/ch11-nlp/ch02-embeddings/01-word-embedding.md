@@ -413,7 +413,7 @@ If this is compressed into one sentence, it is:
 4. Think about this: if a word often appears in multiple different contexts, what problems will fixed word vectors run into?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A plausible `delivery` vector should be closer to shipping, order, or logistics words than to unrelated words. The exact numbers are less important than the relative neighborhood.
 2. One-hot vectors distinguish words by ID, but every different word is equally far apart, so they cannot express similarity.

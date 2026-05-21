@@ -374,7 +374,7 @@ The advantage of this naming style is that business stakeholders can immediately
 - [ ] Provide actionable business recommendations
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. RFM features need a clear observation window. Without a time window, recency and frequency are hard to interpret.
 2. Standardize RFM before K-Means because monetary scale can otherwise dominate distance.

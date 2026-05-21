@@ -215,15 +215,15 @@ score = metric(y_test, pred)
 このページを終えたら、この evidence card を残します。
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+ML 問題：教師あり、教師なし、評価、または特徴量エンジニアリングのタスク
+ベースライン: まずは最も簡単な sklearn/モデリングループと固定の train/test 分割
+出力：prediction、metric、chart、またはmodel decision note
+失敗確認：データリーク、不明確なターゲット、弱いベースライン、または指標不一致
+期待される成果: 指標と1件の失敗観察を含む最小限のMLループ
 ```
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. ここで大切なのは年号暗記ではありません。各ブレークスルーを、不確実性、数値予測、分類境界、非線形ルール、単一モデルの不安定さ、工程の乱れといった問題に結びつけることです。
 2. よい自己チェックは、歴史上の考え方を現在の学習習慣に結びつけます。たとえば train/test 分割、baseline 比較、Pipeline、エラー分析です。

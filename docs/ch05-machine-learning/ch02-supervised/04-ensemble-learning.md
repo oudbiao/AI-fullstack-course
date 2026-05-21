@@ -208,7 +208,7 @@ Expected_output: model result plus error samples or residual review
 4. Save a model comparison table and one paragraph explaining which model you would ship first.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `max_depth=3` limits each tree and can reduce overfitting. `None` allows deeper trees, often improving training score while risking worse validation behavior.
 2. A higher boosting learning rate learns faster but can overshoot or overfit. Check validation score, not just training score.

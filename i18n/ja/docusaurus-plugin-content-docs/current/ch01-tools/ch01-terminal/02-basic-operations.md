@@ -13,11 +13,11 @@ description: "コアコマンド、パスの考え方、パイプ、環境変数
 このページを終えたら、この evidence card を残します。
 
 ```text
-command: exact terminal command you ran
-working_dir: pwd/current folder and important files listed
-output: copied command output or screenshot of the result
-failure_check: wrong path, missing command, permission issue, or shell mismatch
-Expected_output: reproducible terminal action with the command and result side by side
+コマンド：実行した正確なターミナルコマンド
+作業ディレクトリ：pwd/現在のフォルダと重要ファイルを列挙
+出力：コマンド出力または結果のスクリーンショットをコピーしたもの
+失敗確認: 間違ったパス、コマンド不足、権限の問題、またはシェル不一致
+期待される成果: コマンドと結果を並べて示す再現可能なターミナル操作
 ```
 
 ## この節の位置づけ
@@ -387,7 +387,7 @@ pwd
 すべての手順がうまくいけば、おめでとうございます。これでコマンドラインの最も重要な操作を身につけました。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. 最後の `pwd` は、`ai-course-practice` の 1 つ上のフォルダを指しているはずです。
 2. `ls` では `hello.py`、`notes.txt`、`notes_backup.txt` が確認できます。

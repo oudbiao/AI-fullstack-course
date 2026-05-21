@@ -61,11 +61,11 @@ action: stop or reduce learning rate if validation keeps worsening
 训练技巧小章结束后，保留一条诊断决策记录：
 
 ```text
-visible_symptom: what did the curve or output show?
-first_check: data, shape, gradient, or validation split
-one_change: which single setting changed?
-before_after: metric or artifact comparison
-decision: keep, tune, rollback, or investigate
+可见症状：曲线或输出显示了什么？
+首次检查：数据、形状、梯度，或验证集划分
+单一变更：哪个单个设置发生了变化？
+前后对比：指标或工件的比较
+决策：保留、调整、回滚或调查
 ```
 
 ## 通过标准
@@ -73,7 +73,7 @@ decision: keep, tune, rollback, or investigate
 能看一条训练/验证曲线，并带理由选择一个下一步动作，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

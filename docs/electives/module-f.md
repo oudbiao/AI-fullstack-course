@@ -87,7 +87,7 @@ Expected_output: AI product decision note that can guide implementation
 You pass this elective when you can score one AI feature idea, explain the trade-off, define a success metric, and name one condition where the feature should not launch.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 A strong answer does not treat the score as magic. It explains the user problem, the value metric, the major cost or risk, and the launch blocker. For example, a tutor feature may be worth piloting if it improves exercise completion, but it should not launch if it gives unsafe or unreviewed advice in high-stakes contexts.
 

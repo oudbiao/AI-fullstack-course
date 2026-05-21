@@ -775,7 +775,7 @@ q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - The entropies should be `2.0000`, about `0.2419`, and about `1.8464` bits. The uniform four-outcome distribution is most uncertain because no outcome is preferred.
 - For the three-class cross-entropy example, the losses are about `0.3567` and `0.1054` nats. Giving more probability to the true class lowers the loss.

@@ -318,10 +318,10 @@ bias: (4,)
 每个卷积实验都保存一条 shape 方程：
 
 ```text
-input_shape: [N, C_in, H, W]
-kernel: [C_out, C_in, kH, kW]
-output_shape: [N, C_out, H_out, W_out]
-meaning: C_out feature maps scan local regions
+输入形状: [N, C_in, H, W]
+卷积核: [C_out, C_in, kH, kW]
+输出形状：[N, C_out, H_out, W_out]
+含义：C_out 特征图扫描局部区域
 ```
 
 如果这条记录清楚，卷积就会变成 shape 和局部模式操作，而不是神秘图像层。
@@ -345,7 +345,7 @@ meaning: C_out feature maps scan local regions
 5. 用 `permute` 把图像样式张量从 `[N, H, W, C]` 转成 `[N, C, H, W]`。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 改 kernel 就是在改变模型关注的局部模式。边缘、平滑、锐化等 kernel 会让输出图呈现完全不同的响应。
 2. `out[1, 0]` 来自输入窗口 `[1, 2; 4, 5]` 与 kernel 逐元素相乘再求和；手算结果应该和程序打印值一致。

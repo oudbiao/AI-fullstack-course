@@ -451,11 +451,11 @@ BERT は、もともと長文の自由生成のために設計されたモデル
 このページを終えたら、この evidence card を残します。
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+モデル選択：BERT、GPT、T5、Transformers のパイプライン、または他の事前学習ベースライン
+tokenizer 出力：ids、masks、デコード済みテキスト、またはバッチ形状
+タスク結果：classification、generation、extraction、または text-to-text 出力
+失敗確認: 間違ったモデルファミリー、トークン上限、ドメイン不一致、コスト、またはレイテンシ
+期待される成果: モデル呼び出し結果と短い選択理由
 ```
 
 ## まとめ
@@ -478,7 +478,7 @@ Expected_output: model call result plus a short choice rationale
 4. 自分の言葉で、BERT と GPT の「文脈の見方」の核心的な違いを説明してみましょう。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 良い `[MASK]` 例は、左右の文脈から複数の候補を考えられる形です。例: “I love [MASK] language processing.”
 2. `hidden_size` を 64 にすると、last hidden state の最後の次元が 64 になります。

@@ -316,7 +316,7 @@ It is recommended to finish the basic version first; do not pursue something hug
 4. If you turn this project into a demo page, which complete trace would you most want to show?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add `ops_agent` after implementation and before final release review. It should check run commands, environment variables, logging, rollback notes, and deployment risks.
 2. A unified artifact format matters because agents need stable inputs and outputs to coordinate. Chat alone is hard to test, replay, diff, or hand off to another agent.

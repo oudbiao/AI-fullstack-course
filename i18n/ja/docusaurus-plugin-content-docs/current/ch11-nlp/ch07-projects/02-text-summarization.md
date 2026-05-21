@@ -366,11 +366,11 @@ for case in eval_cases:
 このページを終えたら、この evidence card を残します。
 
 ```text
-task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
-artifacts: raw text, processed text, predictions, metrics, and failure cases
-metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
-failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
-Expected_output: reproducible text pipeline folder with metrics and examples
+タスク出力：ラベル、entity fields、要約、回答、retrieval 結果、または semantic graph
+成果物: 生テキスト、処理済みテキスト、予測、metrics、失敗ケース
+指標：accuracy/F1、precision/recall、検索ヒット率、忠実性、またはスキーマ妥当性
+失敗確認: 不明確なラベル、過度なクリーニング、境界エラー、ハルシネーション、または裏付けのない回答
+期待される成果: 指標と例を含む再現可能なテキストパイプラインフォルダ
 ```
 
 ## まとめ
@@ -401,7 +401,7 @@ Expected_output: reproducible text pipeline folder with metrics and examples
 4. このプロジェクトをポートフォリオに入れるなら、あなたはまずどの 4 つを見せますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `top_k=1` では summary は短くなりますが context を落としやすいです。`top_k=3` では evidence が増えますが冗長になりやすいです。
 2. intermediate scoring を見せる価値は、各文が選ばれた理由を説明し、failure analysis を可能にする点です。

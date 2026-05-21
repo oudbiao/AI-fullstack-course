@@ -454,7 +454,7 @@ Only after identifying the bottleneck do you know which kind of solution to look
 4. Think about it: why are supporting very long contexts and truly being able to use them effectively not the same thing?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A smaller window reduces the number of visible pairs; a larger window increases it. The exact count should grow with the amount of local context each token is allowed to see.
 2. Sliding window changes the attention pattern by limiting visible neighbors. FlashAttention keeps the mathematical attention result but computes it with a more memory-efficient kernel.

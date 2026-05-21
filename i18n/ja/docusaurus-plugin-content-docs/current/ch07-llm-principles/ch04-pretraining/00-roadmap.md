@@ -57,11 +57,11 @@ from -> text
 このページを終えたら、この証拠カードを残します。
 
 ```text
-triangle: data, objective, and engineering all matter
-sample_pairs: next-token training pairs from one sentence
-data_risk: contamination, duplication, or low-quality mixture
-objective_note: objective shapes behavior and architecture fit
-engineering_note: sharding, resume, throughput, and monitoring
+三角関係：データ、目的関数、エンジニアリングのすべてが重要
+サンプル対: 1文から作る次トークン学習ペア
+データのリスク: 汚染、重複、または低品質な混在
+目的メモ：目的が振る舞いとアーキテクチャの適合性を形作る
+エンジニアリングメモ：シャーディング、再開、スループット、監視
 ```
 
 ## 合格ライン
@@ -69,7 +69,7 @@ engineering_note: sharding, resume, throughput, and monitoring
 データ、目的、エンジニアリングが最終モデルへどう影響するか、そして contamination が評価を誤解させる理由を説明できれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、token、context、attention、prompt、生成挙動が1回の request-response path でどうつながるかを説明します。
 2. 証拠には、再現できる prompt または structured-output test を1つ残し、出力が通った理由または失敗した理由を書きます。

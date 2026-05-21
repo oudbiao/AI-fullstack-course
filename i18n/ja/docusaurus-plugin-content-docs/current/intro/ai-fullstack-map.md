@@ -67,9 +67,9 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 このページを終えたら、この証拠カードを残します。
 
 ```text
-capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, and specialization links
-current_position: what you already know and what you will postpone
-next_step: one concrete chapter or workshop to start next
-risk_check: learning everything at once, skipping evidence, or losing the main route
-Expected_output: a marked personal course map with one immediate action
+機能マップ：tools、Python、data、math、ML、DL、LLM、RAG、Agent、および専門分野の関連付け
+現在位置: すでに分かっていることと、後回しにすること
+次の行動：次に始める具体的な章かワークショップを1つ
+リスク確認：何でも一度に学び、証拠を飛ばし、または中核ルートを見失うこと
+期待される成果：1つの即時行動が書かれた、印付きの個人コースマップ
 ```

@@ -306,7 +306,7 @@ a memory system is no longer just an “archive,” but something that truly hel
 4. If a workflow has become outdated, how would you design an update mechanism?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Adding successful `weekly_report` cases should reveal repeated steps; once repeated steps stabilize, they can be promoted into procedural memory.
 2. Episodes help when context and past outcomes matter. Procedural memory helps when the task is repeatable and the best action sequence is already known.

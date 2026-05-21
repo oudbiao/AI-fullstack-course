@@ -106,7 +106,7 @@ Expected_output: AI frontend interaction note with states and evidence display
 You pass this elective when one AI page handles input, loading, success, empty input, error, and retry states without confusing the user.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 A passing UI test should exercise at least three paths: empty input, normal prompt, and simulated failure. The evidence can be a short table showing the prompt, expected state, actual state, and visible message.
 

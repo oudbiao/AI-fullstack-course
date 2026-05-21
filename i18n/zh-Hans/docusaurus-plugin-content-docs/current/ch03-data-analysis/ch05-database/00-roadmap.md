@@ -68,7 +68,7 @@ tool 80
 能解释数据库和 CSV 的区别，写出一个 `SELECT ... GROUP BY` 查询，并用 Python 读取结果，就算通过这个选修小节。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要先说清问题，再指出需要的表、DataFrame 或 SQL 查询，并让清洗步骤可以复现。
 2. 证据至少包含一小段输出、必要的图表或查询结果，以及一句对结果的解释。
@@ -82,9 +82,9 @@ tool 80
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+架构：表名、键、关系和示例行
+查询：所使用的 SQL 或 Python 数据库代码
+输出：结果行、行数，或保存的抽取结果
+失败检查：错误的连接键、不安全查询、缺少事务，或 schema 不匹配
+期望产出：查询、结果表和一条数据质量说明
 ```

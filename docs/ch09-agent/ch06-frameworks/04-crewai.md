@@ -314,7 +314,7 @@ This is especially attractive for content-oriented tasks with clear roles, but i
 4. If your task has many loops and conditional branches, would you still choose CrewAI first? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A useful three-role crew might be researcher, writer, and reviewer. Each role should have a narrow responsibility, a clear output, and a handoff point to the next role.
 2. More roles can reduce quality when responsibilities overlap, messages become noisy, or nobody owns the final decision. Add a role only when it removes a real bottleneck.

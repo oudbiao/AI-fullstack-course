@@ -129,11 +129,11 @@ error model busy
 このページを終えたら、この証拠カードを残します。
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Pythonパターン：デコレータ、イテレータ、ジェネレータ、並行処理プリミティブ、またはメタプログラミングフック
+コード成果物：最小限の実行可能な例と表示された出力
+使用場面：この pattern が AI app、pipeline、tool、または server を改善する場面
+失敗確認：隠れた副作用、読みにくい抽象化、競合状態、または過度な設計
+期待される成果: 実践的なAIシステム用途のメモを含む小さな高度Python例
 ```
 
 ## よくある間違い
@@ -147,7 +147,7 @@ Expected_output: small advanced-Python example with a practical AI-system use no
 `batch` を変更し、`batch_id` も出力してください。その後、入力イベントを変えても、後続ステップを変えずに動くことを確認します。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 一つの解答は、出力側で batch に番号を付けることです。
 

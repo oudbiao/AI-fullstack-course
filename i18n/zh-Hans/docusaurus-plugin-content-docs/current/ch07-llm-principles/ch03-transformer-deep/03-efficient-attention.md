@@ -426,11 +426,11 @@ FlashAttention 的关键思路是：
 学完这一页，至少保留这张证据卡：
 
 ```text
-cost_source: ordinary attention stores or computes seq_len x seq_len interactions
-approach: sparse, linear, FlashAttention, or KV cache depending on bottleneck
-kv_cache: speeds decoding but consumes memory
-hardware_note: algorithm benefit depends on runtime/kernel support
-decision: measure latency/memory before changing architecture
+成本来源：普通注意力会存储或计算 seq_len x seq_len 交互
+方法：根据瓶颈选择 sparse、linear、FlashAttention 或 KV cache
+KV 缓存: 加速解码但消耗内存
+硬件说明：算法收益取决于运行时/kernel 支持
+决策：在改变架构前先测量延迟/内存
 ```
 
 ## 小结
@@ -458,7 +458,7 @@ decision: measure latency/memory before changing architecture
 4. 想一想：支持很长上下文，和真正能有效利用长上下文，为什么不是一回事？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 窗口越小，可见 pair 越少；窗口越大，可见 pair 越多。具体数量会随着每个 token 被允许看到的局部上下文范围而增长。
 2. 滑动窗口改变的是 attention pattern，也就是限制每个 token 能看哪些邻居。FlashAttention 不改变数学上的 attention 结果，而是用更省显存的 kernel 来计算。

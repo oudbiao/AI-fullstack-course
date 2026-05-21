@@ -567,7 +567,7 @@ y = digits.target     # 0~9
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 - For `A=[[3,1],[0,2]]`, eigenvalues are `3` and `2`. One valid eigenvector for `3` is `[1,0]`; one valid eigenvector for `2` is proportional to `[-1,1]`.
 - Verification means checking `A @ v` and `lambda * v` are numerically the same, allowing for floating-point rounding and arbitrary eigenvector scale.

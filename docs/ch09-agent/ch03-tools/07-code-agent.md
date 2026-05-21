@@ -395,7 +395,7 @@ you will also understand what is truly difficult about more complex systems such
 4. Why are smaller patches usually more suitable for a code Agent?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A good replacement bug is small and testable, such as an off-by-one loop, a missing discount boundary, or a wrong sort key. The patch should change only the failing logic.
 2. A code Agent needs a feedback loop because code quality is judged by execution, tests, diffs, lint output, and review, not by fluent explanation alone.

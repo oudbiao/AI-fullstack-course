@@ -456,11 +456,11 @@ small-local-model を読み込みました
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+ランタイム選択: ローカルモデル、推論サーバー、または統合 API
+リクエスト契約：エンドポイント、payload、出力形式、エラー形状
+レイテンシまたはコスト：1つの測定値または推定値
+失敗確認: タイムアウト、メモリ圧迫、モデル不一致、またはバージョンずれ
+ロールバック計画: フォールバックモデル、リトライ方針、またはトラフィック切り替え
 ```
 
 ## まとめ
@@ -481,7 +481,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 4. もしシステムがかなりプライバシー重視で、でもチームの運用力が弱いなら、どう取捨選択しますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 妥当な案では、モデルサイズ、量子化レベル、runtime、メモリ/VRAM 予算、想定レイテンシ、fallback を書きます。普通のノートPCなら、小さな量子化モデルで検証し、必要に応じてクラウド/API fallback を持つほうが現実的です。
 2. 量子化は重みを少ない bit で保存し、メモリ使用量と帯域の負担を下げます。ローカル実行では VRAM/RAM とメモリ帯域がボトルネックになりやすいです。

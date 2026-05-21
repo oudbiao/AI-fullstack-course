@@ -61,11 +61,11 @@ attention_shape: (1, 4, 4)
 保留一条 attention 桥接笔记：
 
 ```text
-tokens_shape: [batch, seq_len, embed_dim]
-attention_shape: [batch, query_position, key_position]
-qkv_meaning: Q/K match, V carries content
-mask_reason: generation cannot see future tokens
-llm_bridge: decoder blocks turn token context into next-token logits
+token 张量形状：[batch, seq_len, embed_dim]
+注意力形状：[batch, query_position, key_position]
+QKV 含义：Q/K 负责匹配，V 携带内容
+mask 原因：生成不能看到未来 token
+LLM 桥接：解码器块把 token 上下文转换为下一个 token 的 logits
 ```
 
 ## 通过标准
@@ -73,7 +73,7 @@ llm_bridge: decoder blocks turn token context into next-token logits
 能读懂 attention 权重形状，解释为什么 attention 带来全局上下文，并把 mask 和文本生成联系起来，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

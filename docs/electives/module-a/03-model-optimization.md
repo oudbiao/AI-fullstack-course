@@ -56,7 +56,7 @@ This is the smallest optimization habit: compress, measure the error, and decide
 You pass this lesson when you can explain one optimization’s benefit, its possible cost, and the metric you would inspect before using it in a real deployment.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 A strong answer names a specific optimization and its trade-off. For example, quantization may reduce memory and latency, but it can hurt accuracy on edge cases, so you should inspect validation accuracy, failure examples, and latency before/after.
 

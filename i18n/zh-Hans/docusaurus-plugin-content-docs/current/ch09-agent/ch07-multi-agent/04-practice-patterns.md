@@ -345,11 +345,11 @@ review : {'approved': True, 'comment': '信息较完整'}
 学完这一页，至少保留这张证据卡：
 
 ```text
-roles: owner, worker, reviewer, or specialist responsibilities
-message_contract: artifact, request, response, and handoff state
-coordination: routing, task split, conflict resolution, and final owner
-failure_check: duplicated work, lost context, no accountable owner, or message loop
-eval_action: compare multi-agent result against single-agent baseline
+角色：负责人、执行者、评审者，或专家职责
+消息契约：artifact、request、response 和交接状态
+协同：路由、任务拆分、冲突解决和最终负责人
+失败检查：重复工作、上下文丢失、没有明确负责人或消息循环
+评估动作：将多 Agent 结果与单 Agent 基线对比
 ```
 
 ## 小结
@@ -370,7 +370,7 @@ eval_action: compare multi-agent result against single-agent baseline
 4. 用自己的话解释：为什么说多 Agent 的重点不是角色数量，而是协作结构？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 可以按主要风险分类：如果证据覆盖最重要，就是 research collaboration；如果表达和准确性最重要，就是 writing + review；如果实现和测试最重要，就是 development team。
 2. `reviser` Agent 应读取 draft 和 review comments，只修改被拒绝或薄弱的部分，并返回 revised output 和简短 change note。

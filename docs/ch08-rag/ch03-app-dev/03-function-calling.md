@@ -589,7 +589,7 @@ Once you understand this, the next topics—Agent, tool strategies, and multi-to
 4. Explain in your own words: why is Function Calling more stable than “making the model directly return a command string”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. `search_docs(keyword)` should define an input schema, validation rules, executor result shape, and failure behavior.
 2. The `calculate` validator should allow only numbers, safe operators, and parentheses, or use an AST whitelist. Never run arbitrary strings with `eval()`.

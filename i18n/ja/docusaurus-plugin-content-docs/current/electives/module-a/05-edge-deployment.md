@@ -92,11 +92,11 @@ edge-c FIT
 このページを終えたら、この証拠カードを残します。
 
 ```text
-deployment_target: local inference, edge device, model server, or optimization experiment
-artifact: C++ snippet, benchmark, model artifact, serving config, or deployment note
-metric: latency, memory, throughput, model size, accuracy drop, or reliability
-failure_check: ABI/build issue, hardware mismatch, quantization loss, or serving bottleneck
-Expected_output: reproducible deployment or optimization evidence, not only theory notes
+デプロイ先：ローカル推論、エッジデバイス、モデルサーバー、または最適化実験
+成果物: C++ スニペット、ベンチマーク、model artifact、serving 設定、または deployment メモ
+指標：レイテンシ、メモリ、スループット、モデルサイズ、accuracy 低下、または信頼性
+失敗確認：ABI/ビルドの問題、ハードウェア不一致、量子化損失、または配信ボトルネック
+期待される成果: 理論メモだけでなく、再現可能なデプロイまたは最適化の証拠
 ```
 
 ## よくある間違い
@@ -111,7 +111,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 各デバイスに `price_usd` を追加し、すべてのチェックを通る最安デバイスを選んでください。さらに2つ目のモデルを追加し、両方を動かせるデバイスを比べます。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 まず制約でデバイスを絞り込み、通過したデバイスだけで価格を比べます。安くても、メモリ、消費電力、オフライン要件を満たさないデバイスは有効なデプロイ先ではありません。
 

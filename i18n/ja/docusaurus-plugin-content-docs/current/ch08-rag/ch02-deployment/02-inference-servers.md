@@ -367,11 +367,11 @@ q4 -> q4_の回答
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+ランタイム選択: ローカルモデル、推論サーバー、または統合 API
+リクエスト契約：エンドポイント、payload、出力形式、エラー形状
+レイテンシまたはコスト：1つの測定値または推定値
+失敗確認: タイムアウト、メモリ圧迫、モデル不一致、またはバージョンずれ
+ロールバック計画: フォールバックモデル、リトライ方針、またはトラフィック切り替え
 ```
 
 ## まとめ
@@ -406,7 +406,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 4. なぜ推理サービスの本当の難しさは「どれか1つを極めること」ではなく、「バランスを取ること」だと言えるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. concurrency は同時に処理中のリクエスト数です。batching は複数の処理をまとめ、アクセラレータに効率よく流すことです。高い concurrency が大きな batch を意味するとは限らず、大きな batch はレイテンシを増やすことがあります。
 2. 低レイテンシのプロダクトでは、小さい batch または短い待ち時間の dynamic batching を選ぶことが多いです。

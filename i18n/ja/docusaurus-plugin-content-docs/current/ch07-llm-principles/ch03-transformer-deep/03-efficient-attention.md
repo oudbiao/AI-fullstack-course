@@ -429,11 +429,11 @@ FlashAttention の核心は次の通りです。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-cost_source: ordinary attention stores or computes seq_len x seq_len interactions
-approach: sparse, linear, FlashAttention, or KV cache depending on bottleneck
-kv_cache: speeds decoding but consumes memory
-hardware_note: algorithm benefit depends on runtime/kernel support
-decision: measure latency/memory before changing architecture
+コスト源: 通常の attention は seq_len x seq_len の相互作用を保存または計算する
+アプローチ: ボトルネックに応じて sparse、linear、FlashAttention、または KV cache
+KVキャッシュ：デコードを高速化するが、メモリを消費する
+ハードウェア注意：アルゴリズムの利点は実行時/kernel の対応に依存する
+判断: アーキテクチャを変える前に latency/メモリを測る
 ```
 
 ## まとめ
@@ -461,7 +461,7 @@ decision: measure latency/memory before changing architecture
 4. とても長いコンテキストをサポートすることと、その長いコンテキストを本当に有効に使えることは、なぜ同じではないのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. window が小さいほど見える pair は減り、大きいほど増えます。具体的な数は、各 token が見られる局所文脈の範囲に応じて増減します。
 2. スライディングウィンドウは attention pattern、つまり各 token が見られる相手を変えます。FlashAttention は数学的な attention の結果を変えず、よりメモリ効率のよい kernel で計算します。

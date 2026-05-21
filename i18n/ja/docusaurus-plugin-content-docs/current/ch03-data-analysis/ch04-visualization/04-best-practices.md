@@ -566,11 +566,11 @@ sns.set_theme(
 このページを終えたら、この evidence card を残します。
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+質問：このグラフが答える比較、分布、傾向、または関係
+グラフ選択：折れ線、棒、散布図、ヒストグラム、箱ひげ図、ヒートマップ、またはインタラクティブダッシュボード
+成果物: 保存した chart 画像/html と、そのデータスライス
+失敗確認: 誤解を招くスケール、情報過多のグラフ、誤った集計、またはラベル不足
+期待される成果：1文で示唆を説明するチャートのアーティファクト
 ```
 
 ## まとめ
@@ -676,7 +676,7 @@ plt.show()
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 誤解を招くグラフを直すときは、棒の長さを比較する y 軸を 0 から始め、不要な 3D や重い背景を取り除き、質問または発見を示すタイトルを書きます。
 - グラフ選択はデータの形に従います。時系列は折れ線、カテゴリ比較は棒、2 つの数値変数は散布図、1 つの数値分布はヒストグラム、グループ別分布は箱ひげ図やバイオリン図です。

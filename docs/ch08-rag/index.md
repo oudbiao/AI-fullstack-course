@@ -178,7 +178,7 @@ Before entering Chapter 9, you should be able to:
 For a printable checklist, use [8.0 Learning Checklist](./study-guide.md). For the guided project, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md).
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
 2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.

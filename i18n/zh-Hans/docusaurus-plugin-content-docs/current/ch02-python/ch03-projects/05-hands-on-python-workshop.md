@@ -360,11 +360,11 @@ Exported report to ch02_output/learning_report.md
 学完这一页，至少保留这张证据卡：
 
 ```text
-project_goal: CLI, scraper, API, AI API call, or integrated Python workshop target
-run_command: exact command used to start the project
-artifact: output file, API response, JSON record, screenshot, or README note
-failure_check: dependency, network, parsing, route, input validation, or API-key issue
-Expected_output: reproducible mini project folder with run result and one failure case
+项目目标：CLI、爬虫、API、AI API 调用，或集成式 Python 工作坊目标
+运行命令：启动项目时使用的准确命令
+工件：输出文件、API 响应、JSON 记录、截图或 README 说明
+失败检查：依赖、网络、解析、路由、输入验证或 API key 问题
+期望产出：可复现的迷你项目文件夹，包含运行结果和一个失败案例
 ```
 
 ## 常见错误与修复
@@ -388,7 +388,7 @@ Expected_output: reproducible mini project folder with run result and one failur
 5. 故意弄坏 `tasks.json`，运行 `list`，记录错误信息和修复过程。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. `delete` 应该接收 id，删除 `tasks.json` 中对应条目，并输出明确的确认信息。再运行一次 `list`，确认该行真的消失了。
 2. `search` 应该按关键词过滤 `title`，也可以连 `tags` 一起匹配，使用不区分大小写的方式，然后只打印匹配结果。

@@ -155,11 +155,11 @@ flowchart TD
 学完这一页，至少保留这张证据卡：
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+评估用例：固定任务和期望的安全行为
+评分卡：任务成功、工具正确性、trace 质量和安全性
+护栏：策略、权限、验证或人工确认
+失败检查：工具使用不安全、提示注入、隐藏状态或未被观测的动作
+下一步动作：添加案例、护栏、日志、回滚或拒绝路径
 ```
 
 ## 练习
@@ -174,7 +174,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 学完本节后，你应该能解释 Agent 安全和普通聊天安全的区别，能为工具做风险分级，能设计人工确认和审计日志，并能说明为什么系统级权限控制不能只依赖模型对齐。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 低风险工具通常只读公开数据；中风险工具读取有范围限制的私有数据；高风险工具会写入或发送信息；极高风险工具会删除、花钱、改权限或联系大量对象。
 2. “发送邮件”的确认文本应展示收件人、主题、正文摘要、附件、内容来源，以及即将批准的精确动作。必须在真正执行发送前让用户确认。

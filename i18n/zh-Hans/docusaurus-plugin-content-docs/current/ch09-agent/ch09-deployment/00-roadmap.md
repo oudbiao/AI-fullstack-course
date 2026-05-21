@@ -62,11 +62,11 @@ missing: ['rollback']
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+运行时：队列、worker、状态存储、工具服务，以及模型端点
+持久化：检查点、事件日志、记忆存储和恢复路径
+运维信号：延迟、成本、错误率、trace 覆盖率和饱和度
+失败检查：运行卡住、重复动作、部分失败或成本失控
+恢复动作：继续、回滚、取消、人工接管，或优雅降级
 ```
 
 ## 通过标准
@@ -74,7 +74,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 如果一个本地 Agent 演示能变成小服务，包含 API 入口、状态持久化、trace 日志、错误响应、成本记录和部署说明，就通过了本章。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要描述 agent 循环：目标、计划、工具调用、观察结果、记忆或状态更新，以及停止条件。
 2. 证据应包含另一个开发者可以检查的 trace，而不只是最终回答。

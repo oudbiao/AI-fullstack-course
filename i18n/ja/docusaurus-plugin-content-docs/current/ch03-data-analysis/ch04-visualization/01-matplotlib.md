@@ -565,11 +565,11 @@ fig.savefig("my_chart.pdf", bbox_inches="tight")
 このページを終えたら、この evidence card を残します。
 
 ```text
-question: what comparison, distribution, trend, or relationship the chart answers
-chart_choice: line, bar, scatter, histogram, box, heatmap, or interactive dashboard
-artifact: saved chart image/html plus the data slice used
-failure_check: misleading scale, overloaded chart, wrong aggregation, or missing labels
-Expected_output: chart artifact with one sentence explaining the insight
+質問：このグラフが答える比較、分布、傾向、または関係
+グラフ選択：折れ線、棒、散布図、ヒストグラム、箱ひげ図、ヒートマップ、またはインタラクティブダッシュボード
+成果物: 保存した chart 画像/html と、そのデータスライス
+失敗確認: 誤解を招くスケール、情報過多のグラフ、誤った集計、またはラベル不足
+期待される成果：1文で示唆を説明するチャートのアーティファクト
 ```
 
 ## まとめ
@@ -632,7 +632,7 @@ plt.show()                                # 6. 表示する
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 正弦と余弦のグラフには、ラベル付きの 2 本の線、タイトル、軸ラベル、凡例、薄いグリッドを入れます。比較しにくい場合は、装飾より先に色と線種を調整します。
 - グループ棒グラフでは x 位置を明示的に計算し、読者がコードを見なくても理解できるように棒や軸をラベル付けします。

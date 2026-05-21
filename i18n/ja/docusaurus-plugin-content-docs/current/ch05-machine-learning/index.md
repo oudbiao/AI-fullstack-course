@@ -128,11 +128,11 @@ Logistic regression
 このページを終えたら、この evidence card を残します。
 
 ```text
-modeling_loop: data, features, model, metric, error review, and next experiment
-artifact: code, score, chart, pipeline, or project README
-failure_check: leakage, metric mismatch, unstable split, overfitting, or unclear business target
-next_action: one controlled experiment rather than many parameter changes
-Expected_output: reproducible ML evidence that prepares for deep learning
+モデリングループ：data、features、model、metric、エラー समीक्षा、次の実験
+成果物: code、score、chart、pipeline、または project README
+失敗確認: リーク、指標不一致、不安定な分割、過学習、または不明確なビジネス目標
+次の行動：多数のパラメータ変更ではなく、1つの制御された実験を行う
+期待される成果: 深層学習に備えた再現可能なML証拠
 ```
 
 ## よくある失敗
@@ -156,7 +156,7 @@ Expected_output: reproducible ML evidence that prepares for deep learning
 - モデルは何が得意で、何が苦手で、次にどこを改善しますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. まず target を見ます。カテゴリを予測するなら分類、連続値を予測するなら回帰、ラベルがないならクラスタリングや異常検知を疑います。
 2. baseline は、最も単純で再現できるモデルまたはルールです。同じ分割と同じ指標でそれを超えたときだけ、より複雑なモデルに意味があります。

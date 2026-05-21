@@ -249,11 +249,11 @@ print(points)
 学完这一页，至少保留这张证据卡：
 
 ```text
-scenario_boundary: face, video, OCR, 3D, medical, or another vision scenario
-input_sample: source image/frame/document and the expected output type
-result_artifact: extracted text, tracked event, depth clue, diagnosis flag, or review note
-failure_check: privacy, lighting, temporal drift, layout, calibration, or domain risk
-Expected_output: scenario-specific artifact with metric or human-review note
+场景边界：人脸、视频、OCR、3D、医疗，或其他视觉场景
+输入样本: 源图像/帧/文档以及期望的输出类型
+结果工件：提取文本、跟踪事件、深度线索、诊断标记，或审查备注
+失败检查：隐私、光照、时间漂移、布局、标定或领域风险
+期望产出：带指标或人工复查说明的场景特定产物
 ```
 
 ## 小结
@@ -287,7 +287,7 @@ Expected_output: scenario-specific artifact with metric or human-review note
 4. 想一想：哪些应用特别依赖 3D 视觉，而不是只要 2D 检测就够了？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 在双目视觉直觉里，depth 与 disparity 近似成反比：disparity 越大通常越近，越小通常越远，接近 0 时会很不稳定。
 2. 3D 视觉更依赖几何，因为你必须理解相机模型、深度、坐标、尺度、标定和姿态，而不只是外观。

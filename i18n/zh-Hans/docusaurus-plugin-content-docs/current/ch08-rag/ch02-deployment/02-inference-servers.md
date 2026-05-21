@@ -360,11 +360,11 @@ q4 -> answer_for_q4
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+运行时选择：本地模型、推理服务器，或统一 API
+请求契约：端点、负载、输出格式，以及错误形状
+延迟或成本: 一个测量值或估计值
+失败检查：超时、内存压力、模型不匹配或版本漂移
+回滚方案：备用模型、重试策略，或流量切换
 ```
 
 ## 小结
@@ -403,7 +403,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 4. 为什么说推理服务真正难的是“平衡”，而不是单项做到极致？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. concurrency 指同时在处理多少请求；batching 指把若干工作合并，让加速器更高效地执行。高并发不一定等于大 batch，大 batch 也可能增加单个请求延迟。
 2. 低延迟产品通常更倾向小 batch 或动态 batch，并设置很短的等待窗口。

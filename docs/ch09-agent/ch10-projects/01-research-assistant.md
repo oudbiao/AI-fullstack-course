@@ -393,7 +393,7 @@ It is recommended to finish the basic version first. Do not try to make it large
 4. If you turn this project into a portfolio piece, which 4 sections should the homepage show first?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. Add a second document that partially overlaps with the first but disagrees on one detail or covers a different subtopic. The expected result is that retrieval ranks both and the answer cites the right source for each claim.
 2. Citation accuracy is critical because research assistants are judged by traceable evidence, not only fluent summaries. A wrong citation can make a true-sounding answer unusable.

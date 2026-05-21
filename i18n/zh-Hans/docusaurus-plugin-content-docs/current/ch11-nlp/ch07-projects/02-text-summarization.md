@@ -368,11 +368,11 @@ for case in eval_cases:
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
-artifacts: raw text, processed text, predictions, metrics, and failure cases
-metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
-failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
-Expected_output: reproducible text pipeline folder with metrics and examples
+任务输出：标签、实体字段、摘要、答案、检索结果或语义图
+工件：原始文本、处理后文本、预测、指标和失败案例
+指标：准确率/F1、精确率/召回率、检索命中率、忠实度或 schema 有效性
+失败检查：标签不清、过度清洗、边界错误、幻觉或答案无依据
+期望产出：可复现的文本流程文件夹，包含指标和示例
 ```
 
 ## 小结
@@ -403,7 +403,7 @@ Expected_output: reproducible text pipeline folder with metrics and examples
 4. 如果你要把这个项目放进作品集，你会优先展示哪 4 部分？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. `top_k=1` 时摘要更短但可能缺上下文；`top_k=3` 时证据更多，但可能冗余。
 2. 展示中间打分很有价值，因为它解释每句话为什么被选中，也方便做失败分析。

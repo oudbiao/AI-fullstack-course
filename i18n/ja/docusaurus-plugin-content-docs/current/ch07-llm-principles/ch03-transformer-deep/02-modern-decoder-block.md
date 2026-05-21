@@ -253,11 +253,11 @@ ffn style: SwiGLU
 このページを終えたら、この証拠カードを残します。
 
 ```text
-pre_norm: normalization before attention/FFN for stability
-rmsnorm: scale normalization used in many modern decoders
-rope: position enters attention through rotation
-gqa_mqa: fewer KV heads reduce cache pressure
-swiglu: gated FFN improves capacity at scale
+事前正規化：安定性のために attention/FFN の前で正規化する
+RMSNorm の要点：多くの現代的なデコーダで使われるスケール正規化
+RoPE の要点：回転を通じて位置が attention に入る
+GQA/MQA の要点：KV ヘッド数を減らすとキャッシュ負荷が下がる
+SwiGLU の要点：gated FFN により大規模時の容量が向上
 ```
 
 ## まとめ

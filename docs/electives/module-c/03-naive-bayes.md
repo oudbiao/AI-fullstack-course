@@ -120,7 +120,7 @@ Expected_output: classical-ML baseline result with one limitation note
 Add a `certificate` class with two examples. Then test whether a new certificate question is routed to the new label.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 A reasonable update adds two `certificate` labels and texts with words such as `certificate`, `proof`, or `completion`, then predicts a new certificate-related question. If the model returns `certificate`, the new class is at least reachable.
 

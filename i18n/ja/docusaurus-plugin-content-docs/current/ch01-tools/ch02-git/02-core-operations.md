@@ -13,11 +13,11 @@ description: "日常開発で最もよく使う Git 操作を身につける"
 このページを終えたら、この evidence card を残します。
 
 ```text
-repo_state: git status before and after the operation
-operation: init, add, commit, branch, merge, remote, pull, or push command used
-history: git log or branch graph showing what changed
-failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
-Expected_output: a clean Git trace that another learner can replay safely
+リポジトリ状態: 操作前後の git status
+操作：init、add、commit、branch、merge、remote、pull、またはpushコマンドを使用
+履歴：何が変わったかを示す git log またはブランチグラフ
+失敗確認: 未追跡ファイル、誤ったブランチ、マージ衝突、またはリモート/認証の問題
+期待される成果：別の学習者が安全に再実行できる、きれいな Git の trace
 ```
 
 ## この節の位置づけ
@@ -565,7 +565,7 @@ a1b2c3d プロジェクトを初期化：モデル定義とプロジェクト構
 それぞれが、あとから戻れる保存ポイントです。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 最後の `git log --oneline` には、この練習で作った 3 つの commit と、前に初期化した commit が表示されます。
 2. 1 つの commit には 1 つの小さな考えだけを保存します。学習スクリプト、ユーティリティ関数、README 更新を混ぜすぎないようにします。

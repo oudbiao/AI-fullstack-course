@@ -394,11 +394,11 @@ flowchart LR
 学完这一页，至少保留这张证据卡：
 
 ```text
-runtime: queues, workers, state store, tool services, and model endpoint
-persistence: checkpoints, event log, memory store, and recovery path
-ops_signal: latency, cost, error rate, trace coverage, and saturation
-failure_check: stuck run, duplicate action, partial failure, or runaway cost
-recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
+运行时：队列、worker、状态存储、工具服务，以及模型端点
+持久化：检查点、事件日志、记忆存储和恢复路径
+运维信号：延迟、成本、错误率、trace 覆盖率和饱和度
+失败检查：运行卡住、重复动作、部分失败或成本失控
+恢复动作：继续、回滚、取消、人工接管，或优雅降级
 ```
 
 ## 小结
@@ -421,7 +421,7 @@ recovery_action: resume, rollback, cancel, human handoff, or degrade gracefully
 4. 想一想：你的当前项目最缺的是接入层、执行层，还是观测层？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 两工具 workflow 可以先检索 policy，再检查 eligibility 或生成摘要。state aggregation 通常放在 execution/orchestration 层，因为它同时看得到工具结果和当前任务状态。
 2. queue 可以放在 access layer 与 execution layer 之间，或放在 execution layer 边界内。它能保护用户侧 API 不被长任务拖住，也提供 retry、status、cancel 控制点。

@@ -162,10 +162,10 @@ both train_loss=0.159 val_acc=0.949
 学习正则化时，不要只保存最低训练 loss。要保存取舍关系：
 
 ```text
-plain: lower train_loss, lower validation accuracy
-regularized: slightly higher train_loss, better validation accuracy
-decision: choose the model with better validation behavior
-next_probe: change dropout or weight_decay one at a time
+简单：训练损失更低，验证准确率更低
+正则化：训练损失略高，但验证准确率更好
+决策：选择验证表现更好的模型
+下一次探测：一次只改变 dropout 或 weight_decay
 ```
 
 这里最重要的观念转变是：深度学习优化不是“让训练 loss 最小”，而是“让未来表现更可靠”。
@@ -228,7 +228,7 @@ early stopping 的意思是：保存验证集表现最好的 checkpoint，如果
 5. 验证时移除 `model.eval()`，解释发生了什么。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `dropout=0.1` 比较温和，`0.5` 较强但常见，`0.7` 可能让模型欠拟合，因为训练时丢掉了太多信号。
 2. 小的 weight decay 可能改善验证 loss；过大的 weight decay 会把权重压得太小，训练和验证表现都可能变差。

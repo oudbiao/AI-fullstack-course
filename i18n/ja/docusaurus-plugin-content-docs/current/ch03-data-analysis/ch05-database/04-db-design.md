@@ -433,11 +433,11 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 このページを終えたら、この evidence card を残します。
 
 ```text
-schema: table names, keys, relationships, and sample rows
-query: SQL or Python database code used
-output: result rows, row count, or saved extract
-failure_check: wrong join key, unsafe query, missing transaction, or schema mismatch
-Expected_output: query plus result table and one data-quality note
+スキーマ: テーブル名、キー、関係、サンプル行
+クエリ：使われた SQL または Python のデータベースコード
+出力：result rows、row count、または保存された抽出結果
+失敗確認: 間違った結合キー、危険なクエリ、トランザクション不足、またはスキーマ不一致
+期待される成果: クエリと結果表、および1件のデータ品質メモ
 ```
 
 ## この節でいちばん持ち帰ってほしいこと
@@ -528,7 +528,7 @@ mindmap
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 正規化の練習では、学生、電話番号、科目、教師、履修を分けます。科目や電話を 1 つの横長テーブルに繰り返し入れると、1NF の考え方から外れ、更新ミスも起きやすくなります。
 - ブログ schema では、典型的に users、posts、categories、comments、tags、`post_tags` 結合テーブルを用意します。外部キーは所有関係と関連を明確に表します。

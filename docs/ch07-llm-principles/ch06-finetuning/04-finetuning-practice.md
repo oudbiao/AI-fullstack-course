@@ -581,7 +581,7 @@ you can change the model, framework, or fine-tuning method later without losing 
 4. If the validation set has a lower `val_loss` but worse JSON format correctness, which checkpoint would you choose? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A strong task description names the input fields, expected output shape, style or tone, forbidden behavior, and pass/fail constraints. Vague goals like “answer better” are not enough for reliable finetuning.
 2. A good `messages` dataset separates `system`, `user`, and `assistant` roles, removes duplicated or contradictory examples, and keeps sensitive or low-quality content out of training.

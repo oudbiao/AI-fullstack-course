@@ -725,7 +725,7 @@ Before calling your Chapter 5 project done, make sure you have:
 - A README with next steps
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A clean run command means someone can create the output folder again without relying on hidden notebook state.
 2. The baseline metric and real model metric should sit in the same comparison table, using the same split and metric.

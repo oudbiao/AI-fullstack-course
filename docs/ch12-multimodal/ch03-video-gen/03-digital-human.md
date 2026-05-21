@@ -357,7 +357,7 @@ The real difficulty is not just generating a video, but making these modules fin
 4. Explain in your own words: why do many digital human products care more about "stability and cost" than extreme realism?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A digital human combines generation, identity control, speech, facial motion, lip sync, interaction state, and safety. Ordinary video generation does not necessarily need to respond as a stable persona.
 2. Lip sync is critical because humans notice mouth-audio mismatch immediately. Even small mismatches make the character feel fake and reduce trust.

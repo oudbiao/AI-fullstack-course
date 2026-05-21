@@ -118,11 +118,11 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 このページを終えたら、この evidence card を残します。
 
 ```text
-task_output: classification label, detection box, segmentation mask, OCR text, or video event
-artifacts: original image, processed image, prediction overlay, metrics file, and failure samples
-metric: accuracy/F1, mAP, IoU, Dice, latency, or scenario-specific review score
-failure_check: data quality, label error, preprocessing mismatch, threshold, or deployment constraint
-Expected_output: a reproducible run folder with visual outputs and a short failure report
+タスク出力：分類ラベル、検出ボックス、セグメンテーションマスク、OCR テキスト、または動画イベント
+成果物: 元画像、処理後画像、予測オーバーレイ、metrics ファイル、失敗サンプル
+指標：accuracy/F1、mAP、IoU、Dice、レイテンシ、またはシナリオ別レビュー評価
+失敗確認：データ品質、ラベル誤り、前処理不一致、閾値、または本番制約
+期待される成果：ビジュアル出力と短い失敗レポートを含む再現可能な実行フォルダ
 ```
 
 ## よくある失敗

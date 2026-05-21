@@ -419,7 +419,7 @@ git push -u origin feature/add-evaluation
 - [ ] 遇到合并冲突不慌，知道怎么解决
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 能从零创建仓库、提交、查看 diff、写 `.gitignore`、push 或 clone，并完成一次分支创建与合并，就算通过。
 2. 干净的 Git 证据应该包含风险操作前后的 `git status --short`。
@@ -438,9 +438,9 @@ git push -u origin feature/add-evaluation
 学完这一页，至少保留这张证据卡：
 
 ```text
-repo_state: git status before and after the operation
-operation: init, add, commit, branch, merge, remote, pull, or push command used
-history: git log or branch graph showing what changed
-failure_check: untracked files, wrong branch, merge conflict, or remote/auth issue
-Expected_output: a clean Git trace that another learner can replay safely
+仓库状态：操作前后的 git status
+操作：使用了 init、add、commit、branch、merge、remote、pull 或 push 命令
+历史：显示变更内容的 git log 或分支图
+失败检查：未跟踪文件、错误分支、合并冲突，或远程/认证问题
+期望产出：一份可供其他学习者安全复现的干净 Git 记录
 ```

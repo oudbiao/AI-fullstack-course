@@ -209,7 +209,7 @@ For experienced readers: anomaly detection should be evaluated with delayed labe
 5. Design an alert queue with three levels: review now, review later, ignore.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `contamination` should roughly match the expected anomaly rate, such as `12 / total_samples` or `48 / total_samples`. In real projects, treat it as an operating assumption and validate it with review results.
 2. Moving outliers closer makes every method harder to use. Methods that rely heavily on local density or boundary separation may produce more false negatives; compare ranked examples, not only one metric.

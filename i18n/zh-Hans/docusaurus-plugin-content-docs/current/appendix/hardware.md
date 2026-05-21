@@ -61,9 +61,9 @@ sidebar_position: 2
 学完这一页，至少保留这张证据卡：
 
 ```text
-workload: learning, inference, fine-tuning, vision, video, or deployment target
-constraint: budget, latency, memory, privacy, portability, and maintenance cost
-decision: local CPU/GPU, cloud GPU, API, or hosted service with reason
-risk_check: buying hardware before measuring workload or ignoring cloud/API alternatives
-Expected_output: hardware/cloud decision note tied to one actual course project
+工作负载：学习、推理、微调、视觉、视频或部署目标
+约束：预算、延迟、内存、隐私、可移植性和维护成本
+决策：本地 CPU/GPU、云 GPU、API 或托管服务，并给出原因
+风险检查：在测量工作负载前购买硬件，或忽视云/API 替代方案
+期望产出：与一个实际课程项目相关的硬件/云决策说明
 ```

@@ -287,11 +287,11 @@ flowchart LR
 学完这一页，至少保留这张证据卡：
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特征状态：原始列、类型、缺失值、尺度，以及与目标的关系
+特征变换：预处理、构造、选择或流水线步骤
+输出：转换后的特征表、pipeline 对象、分数变化，或选出的特征
+失败检查：泄漏、训练/测试转换不一致、高基数陷阱或无意义特征
+期望产出：带有前后对比和指标影响的特征流水线证据
 ```
 
 ## 小结
@@ -314,7 +314,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 在练习 1 的 Pipeline 上用 GridSearchCV 同时调优预处理参数（如 PCA n_components）和模型参数。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 完整 Titanic Pipeline 应包含缺失值处理、必要的数值缩放、类别编码、自定义特征和最终模型。同一个对象应同时负责训练和预测。
 2. RandomForest 通常不太需要缩放，并能捕捉非线性分裂；LogisticRegression 更依赖缩放和干净编码。二者要用同一验证协议比较。

@@ -353,11 +353,11 @@ ChatGPT や LLM は、Agent を新しい段階へ進めたにすぎません。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-agent_boundary: how this differs from chatbot or fixed workflow
-goal_state_action: goal, current state, next action, observation
-architecture_parts: planner, tools, memory, guardrails, evaluator
-failure_check: over-autonomy, vague goal, missing state, or no trace
-next_action: build the smallest traceable single-agent loop
+エージェント境界: これが chatbot や固定ワークフローとどう違うか
+目標/状態/行動：目標、現在の状態、次の行動、観測
+アーキテクチャ要素: planner、tools、memory、guardrails、evaluator
+失敗確認: 自律性が高すぎる、あいまいな目標、状態不足、または trace がない
+次の行動：追跡可能な最小の single-agent ループを構築する
 ```
 
 ## まとめ
@@ -378,7 +378,7 @@ next_action: build the smallest traceable single-agent loop
 3. 考えてみましょう。なぜ多くのチームは Agent プロジェクトでも、最後までたくさんの固定フローノードを残すのでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. 計算機ツールは数値計算タスクだけにルーティングし、入力を検証し、構造化された結果または明確なエラーを返すべきです。
 2. ルールベースのボットは固定条件に一致させます。ワークフローは事前定義された手順を実行します。Agent は目標、文脈、observation に基づいてツールや行動を選びます。

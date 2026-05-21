@@ -838,7 +838,7 @@ Next, you will move on to 4 Minimum Essential Math for AI and 5 Introduction to 
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 - A complete project proves that every source was loaded, merge keys were checked, row counts were compared before and after each join, and unmatched records were inspected.
 - The final analysis should contain at least three insights with business or product meaning, not just three charts. Each insight needs the table or chart that supports it.

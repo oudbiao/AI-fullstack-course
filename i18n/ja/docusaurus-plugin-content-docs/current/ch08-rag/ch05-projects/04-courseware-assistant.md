@@ -416,10 +416,10 @@ def generate_courseware(topic):
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+プロジェクト目標：ユーザーのタスクとビジネス境界
+ベースライン: まずは最も簡単なプロンプト/RAG/app版
+評価：固定ケース、検索証拠、回答品質、引用チェック
+失敗ログ: 少なくとも1件の失敗ケースと原因の可能性
 成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```
 

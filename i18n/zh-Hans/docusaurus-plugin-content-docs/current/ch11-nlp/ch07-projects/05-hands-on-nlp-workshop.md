@@ -632,7 +632,7 @@ nlp_workshop_run/reports/extraction_metrics.json
 5. 把笔记检索替换成 embedding 或 LLM 支持的 RAG，但继续保留同样的输出文件和指标。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 1. 新增标签时，应同时补标签定义、正例、反例和新的 confusion matrix 检查。
 2. 更难的越界 QA 只有在系统因为没有证据而拒答时才算通过。
@@ -659,9 +659,9 @@ nlp_workshop_run/reports/extraction_metrics.json
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_output: label, entity fields, summary, answer, retrieval result, or semantic graph
-artifacts: raw text, processed text, predictions, metrics, and failure cases
-metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or schema validity
-failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
-Expected_output: reproducible text pipeline folder with metrics and examples
+任务输出：标签、实体字段、摘要、答案、检索结果或语义图
+工件：原始文本、处理后文本、预测、指标和失败案例
+指标：准确率/F1、精确率/召回率、检索命中率、忠实度或 schema 有效性
+失败检查：标签不清、过度清洗、边界错误、幻觉或答案无依据
+期望产出：可复现的文本流程文件夹，包含指标和示例
 ```

@@ -32,7 +32,7 @@ If a formula feels difficult, first ask what model action it supports.
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 - Use the checklist as a translation test: every formula should become a small code operation, and every code output should become a plain-language model interpretation.
 - The minimum evidence pack is one vector/matrix output, one probability simulation or Bayes update, one entropy or loss calculation, and one gradient-descent trace.

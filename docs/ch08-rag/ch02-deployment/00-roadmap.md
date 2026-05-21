@@ -80,7 +80,7 @@ You pass this chapter when you can explain where the model runs, how the app cal
 The exit mini project is a small model gateway note or script that routes one request to a chosen model endpoint and records the decision reason.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer traces the full path from query to chunks, retrieval scores, cited evidence, answer, and fallback behavior.
 2. The evidence should include retrieved passages, source metadata, a cited answer, and at least one empty-retrieval or wrong-retrieval case.

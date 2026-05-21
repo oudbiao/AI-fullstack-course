@@ -56,12 +56,12 @@ next_step: inspect confused classes and add augmentation
 把项目打包成另一个学习者可以复现和审查的样子：
 
 ```text
-run_command: exact command that reproduces the result
-dataset_note: where data came from and how it was split
-baseline: first simple score or behavior
-current_result: current metric plus success samples
-failure_cases: at least three wrong or weak examples
-next_step: one change justified by the failures
+运行命令：可复现结果的准确命令
+数据集说明：数据来源以及划分方式
+基线：第一个简单的分数或行为
+当前结果：当前指标加上成功样本
+失败案例：至少三个错误或较弱示例
+下一步：基于失败结果做一个改动
 ```
 
 这样项目就不会停留在一次性演示。好的第 6 章项目应该可复现、可检查、可继续改进。
@@ -98,7 +98,7 @@ debug_next: what would you change first, and why?
 另一个学习者能运行你的项目、查看训练证据、看到成功和失败样本，并理解你下一步会怎么改，就算通过。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要把 tensor、模型层、loss、`backward()` 和 optimizer 更新连成一个训练闭环。
 2. 证据应包含可运行的小实验、tensor shape 检查，以及能解释的 loss 或验证曲线。

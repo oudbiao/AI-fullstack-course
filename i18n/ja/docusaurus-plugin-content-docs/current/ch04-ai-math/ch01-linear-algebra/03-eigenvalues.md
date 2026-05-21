@@ -50,11 +50,11 @@ keywords: [固有値, 固有ベクトル, PCA, 次元削減, NumPy, 線形代数
 このページを終えたら、この evidence card を残します。
 
 ```text
-math_object: vector, matrix, eigenvalue, basis, or vector space concept
-numeric_example: small numbers or NumPy snippet used to compute it
-visual_or_output: shape, transformed point, similarity score, eigen direction, or projection
-ai_link: where this appears in embeddings, batches, PCA, neural layers, or attention
-Expected_output: calculation plus one sentence connecting it to an AI operation
+数学対象：ベクトル、行列、固有値、基底、またはベクトル空間の概念
+数値例：これを計算するために使う小さな数値または NumPy のスニペット
+可視化または出力：形状、変換後の点、類似度スコア、固有方向、または射影
+AI との関係: これが embeddings、バッチ、PCA、ニューラル層、または attention のどこに現れるか
+期待される成果：計算と、それを AI の操作に結びつける1文
 ```
 
 ## この節を怖くしないための用語集
@@ -570,7 +570,7 @@ y = digits.target     # 0~9
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 - `A=[[3,1],[0,2]]` の固有値は `3` と `2` です。固有値 `3` の有効な固有ベクトルは `[1,0]`、固有値 `2` の有効な固有ベクトルは `[-1,1]` に比例します。
 - 検証では、`A @ v` と `lambda * v` が数値的に同じかを確認します。浮動小数点誤差と、固有ベクトル全体のスケール違いは許容します。

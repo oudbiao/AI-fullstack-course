@@ -213,11 +213,11 @@ x=[0.0, 0.0] -> pred=4.98
 講義ノートやポートフォリオでは、小さな証拠パックを残します。
 
 ```text
-task: synthetic regression
-data: 240 samples, 2 features, target ~= 3*x1 + 2*x2 + 5
-best_val: 0.0734
-prediction_check: [12.05, 3.00, 4.98] close to [12, 3, 5]
-failure_to_try_next: increase noise to 1.0 and compare validation loss
+タスク：synthetic regression
+データ: 240 サンプル、2 特徴、target ~= 3*x1 + 2*x2 + 5
+最良検証値: 0.0734
+予測確認：[12.05, 3.00, 4.98] は [12, 3, 5] に近い
+次に試すこと: ノイズを1.0まで増やして validation loss を比較する
 ```
 
 この習慣は後でも効きます。fine-tuning、RAG 評価、Agent 評価はすべて同じ型です。**実行し、測り、証拠を保存し、1 つだけ変え、もう一度比較する**。
@@ -323,7 +323,7 @@ for epoch in range(num_epochs):
 5. `y > 5` でラベルを作って二値分類タスクに変え、`BCEWithLogitsLoss` を使ってください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. SGD は Adam より learning rate に敏感で、この小さな例では収束が遅くなりやすいです。曲線が荒い場合は、モデルを変える前に learning rate を下げてみます。
 2. 隠れ層サイズ `4` は underfit しやすく、`32` は training loss を下げやすいです。最終判断では training loss だけでなく validation loss を優先します。

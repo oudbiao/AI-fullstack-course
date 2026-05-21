@@ -501,7 +501,7 @@ When you start connecting models into real systems, this is often more important
 4. Explain in your own words: why is structured output a key step in the engineering transformation of Prompt engineering?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A reasonable JSON shape is `{"intent": "billing|course_help|technical_issue|other", "confidence": 0.0, "needs_human": false, "reason": "short explanation"}`.
 2. If `intent`, `confidence`, or `needs_human` is required, a missing field should fail validation. That failure is the point: bad output should be caught before it reaches product logic.

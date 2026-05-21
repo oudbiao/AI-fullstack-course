@@ -164,13 +164,13 @@ first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
 系列予測では baseline 比較を保存します。
 
 ```text
-window_size: 16
-split_rule: chronological, first 80% train and last 20% validation
-baseline: naive last-value predictor
-baseline_val_mse: 0.0115
-model_val_mse: 0.0030
-sample_check: first_5_pred follows first_5_true direction and scale
-failure_to_check: lag, flatline, missed peaks, noisy prediction
+ウィンドウサイズ：16
+分割ルール: 時系列順で最初の80%をtrain、最後の20%をvalidation
+ベースライン: 単純な直前値予測器
+ベースライン検証 MSE: 0.0115
+モデル検証 MSE：0.0030
+サンプル確認: first_5_pred が first_5_true の方向とスケールに従う
+失敗確認対象: 遅延、横ばい、ピークの見逃し、またはノイジーな予測
 ```
 
 ## なぜ Gradient Clipping を使うのか
@@ -238,7 +238,7 @@ plt.show()
 5. 予測値を次の window に戻して使う rolling forecast を実装する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 大きい window は長い履歴を見られますが、学習は難しくなります。検証 MSE は実行結果で比較し、訓練 MSE だけで判断しません。
 2. GRU は LSTM よりパラメータが少なく、速いことが多いです。タスクが単純なら曲線は近くなる場合があります。

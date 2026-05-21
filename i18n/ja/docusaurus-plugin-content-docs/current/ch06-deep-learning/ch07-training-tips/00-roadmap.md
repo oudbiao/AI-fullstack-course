@@ -53,11 +53,11 @@ action: stop or reduce learning rate if validation keeps worsening
 この小章の終わりには、診断にもとづく意思決定記録を 1 つ残します。
 
 ```text
-visible_symptom: what did the curve or output show?
-first_check: data, shape, gradient, or validation split
-one_change: which single setting changed?
-before_after: metric or artifact comparison
-decision: keep, tune, rollback, or investigate
+可視症状：曲線や出力は何を示したか？
+最初の確認: データ、形状、勾配、または validation split
+1つの変更：どの単一設定が変わったか？
+前後比較: 指標または成果物の比較
+判断: 維持、調整、ロールバック、または調査する
 ```
 
 目的は、学習の変更を戻せる形にすることです。5 つを同時に変えて良くなっても、どれが効いたのかは分かりません。
@@ -75,7 +75,7 @@ decision: keep, tune, rollback, or investigate
 training/validation 曲線を見て、理由付きで次のアクションを1つ選べれば合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、tensor、model layer、loss、`backward()`、optimizer update を1つの学習ループとしてつなげます。
 2. 証拠には、動く小さな実験、tensor shape の確認、説明できる loss または validation curve を含めます。

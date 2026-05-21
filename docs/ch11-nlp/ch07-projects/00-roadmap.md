@@ -85,7 +85,7 @@ Expected_output: reproducible text pipeline folder with metrics and examples
 You pass this chapter when your NLP project has a task definition, data examples, evaluation metric, baseline, failure case, and next-step improvement plan.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer starts from the text unit and output type: token, span, sentence label, sequence, embedding, or generated text.
 2. The evidence should include a small dataset example, model or pipeline choice, metric, and at least one inspected error case.

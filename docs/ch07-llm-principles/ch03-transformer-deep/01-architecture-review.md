@@ -467,7 +467,7 @@ many seemingly “very complex” large-model structures are actually just varia
 4. Think about this: if you stack this block 48 layers deep, what engineering problem would worry you the most?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Allowing all attention makes each position see later tokens. The attention matrix becomes less triangular, which is useful for inspection but breaks the autoregressive rule used by decoder-only generation.
 2. Without the residual connection, the block has a harder time preserving the original signal. Deep stacks become more fragile because every layer must relearn both transformation and identity flow.

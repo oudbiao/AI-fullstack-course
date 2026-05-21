@@ -672,7 +672,7 @@ plt.show()
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the misleading chart repair, start the y-axis at zero when comparing bar lengths, remove unnecessary 3D or heavy backgrounds, and write a title that states the question or finding.
 - Chart choice should follow the data shape: line for time trend, bar for category comparison, scatter for two numeric variables, histogram for one numeric distribution, and box or violin for grouped distributions.

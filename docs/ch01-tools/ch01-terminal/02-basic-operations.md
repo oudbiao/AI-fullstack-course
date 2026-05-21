@@ -375,7 +375,7 @@ pwd
 If everything worked, congratulations — you’ve already mastered the most essential command-line operations.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Operation guide and checkpoints</summary>
 
 1. After step 4, `pwd` should end with `ai-study/ch01-tools/terminal-practice`.
 2. `ls -la` should show `hello.py`, `notes.txt`, and `data.csv`; after the backup step, it should also show `notes_backup.txt`.

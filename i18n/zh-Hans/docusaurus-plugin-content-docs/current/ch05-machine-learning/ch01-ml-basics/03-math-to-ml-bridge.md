@@ -418,15 +418,15 @@ flowchart LR
 学完这一页，至少保留这张证据卡：
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+机器学习问题：监督学习、无监督学习、评估或特征工程任务
+基线：最简单的 sklearn/建模循环和固定的训练/测试划分
+输出：预测、指标、图表，或模型决策备注
+失败检查：数据泄漏、目标不清、基线薄弱或指标不匹配
+期望产出：带指标和一个失败观察的最小 ML 循环
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 线性代数给出问题的共同形状：`X` 保存样本，`w` 保存可学习权重，`X @ w + b` 把特征变成预测。
 2. 概率统计定义不确定性和损失：它告诉你概率代表什么、预测错多少、不同结果怎样比较。

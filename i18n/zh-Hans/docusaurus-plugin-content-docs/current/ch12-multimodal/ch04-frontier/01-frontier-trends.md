@@ -438,11 +438,11 @@ real_time_generation -> 优先看它是否改变用户入口
 学完这一页，至少保留这张证据卡：
 
 ```text
-risk_scope: frontier capability, ethics issue, regulation, or product policy boundary
-engineering_rule: what must be logged, blocked, reviewed, disclosed, or escalated
-test_case: one realistic input/output case that exercises the rule
-failure_check: privacy, copyright, portrait, bias, safety, provenance, or compliance gap
-Expected_output: review checklist or product requirement translated into engineering action
+风险范围：前沿能力、伦理问题、监管，或产品政策边界
+工程规则：必须记录、阻止、审核、披露或上报什么
+测试用例：一个符合规则的真实输入/输出案例
+失败检查：隐私、版权、肖像、偏见、安全、来源或合规缺口
+期望产出：将复查清单或产品需求翻译成工程动作
 ```
 
 ## 小结
@@ -470,7 +470,7 @@ Expected_output: review checklist or product requirement translated into enginee
 5. 找一个具体产品，判断它主要押注的是多模态、实时生成、端侧化，还是工作流化。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 扎实的分析应说明能力提升、成本曲线、交互变化和工作流影响。例如实时语音视频生成只有在延迟、控制和评审都适合产品流程时，才真正有价值。
 2. 多模态改变的是入口，因为用户可以从截图、照片、语音、文档或视频开始，而不必先把所有信息翻译成文本。

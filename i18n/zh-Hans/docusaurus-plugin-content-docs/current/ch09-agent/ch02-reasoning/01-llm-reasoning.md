@@ -392,11 +392,11 @@ Agent 里的推理层，常常不是独立工作，
 学完这一页，至少保留这张证据卡：
 
 ```text
-task_goal: what the agent is trying to solve
-plan_or_trace: reasoning steps, plan, ReAct trace, or execution graph
-observation: what changed after each action
-failure_check: hallucinated step, stale observation, loop, or unverified conclusion
-eval_action: compare against expected result and revise the plan
+任务目标：Agent 想要解决什么
+计划或轨迹：推理步骤、计划、ReAct 轨迹或执行图
+观察：每次操作后发生了什么变化
+失败检查：虚构步骤、过时观察、循环或未经验证的结论
+评估动作：与期望结果对比并修正计划
 ```
 
 ## 小结
@@ -431,7 +431,7 @@ eval_action: compare against expected result and revise the plan
 4. 为什么说“有工具”不等于“会推理”？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `12 / (3 + 1) + 7` 应该先变成 `12 / 4 + 7`，再变成 `3 + 7`，最后得到 `10`。真正要检查的是每一步是否一致，而不只是最终数字对不对。
 2. 中间状态能暴露模型是否保留了事实、选择了有效操作，并且没有跳过依赖关系。

@@ -320,7 +320,7 @@ Polishing a simple architecture first, and then deciding whether to upgrade, is 
 3. Try to come up with a question that can only be answered with multi-hop retrieval.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. A good route should send syllabus, lesson, and exercise questions to the course content knowledge base while keeping account, payment, or policy questions on their own routes. Route decisions should be easy to inspect.
 2. Structured facts such as order status, enrollment records, inventory, permissions, grades, and live prices are often better served by SQL or APIs. Text retrieval is better for explanations, policies, manuals, and long-form knowledge.

@@ -159,11 +159,11 @@ sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'n
 学完这一页，至少保留这张证据卡：
 
 ```text
-foundation: what the pretrained model already knows
-task_head: which part is task-specific
-adaptation_path: prompt, feature use, fine-tune, or PEFT
-eval_case: one example that proves transfer worked or failed
-risk: pretrained behavior is broad, not automatically aligned to your task
+基础：预训练模型已经掌握的内容
+任务头：哪一部分是任务特定的
+适配路径：提示、特征使用、微调或 PEFT
+评估案例：一个能证明迁移成功或失败的示例
+风险：预训练行为很广，但不会自动与你的任务对齐
 ```
 
 ## 练习
@@ -175,7 +175,7 @@ risk: pretrained behavior is broad, not automatically aligned to your task
 5. 解释为什么“模型更大”和“更适合当前任务”不是一回事。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `topic_head` 会复用预训练表示，再把它映射到 `account_topic`、`commerce_topic` 等任务标签。head 是任务专用的，底座模型仍然可复用。
 2. 修改 `bad` 的向量会改变 sentiment head 看到负面证据的强弱。置信度可能降低、翻转，或者变得不稳定，取决于向量移动到哪里。

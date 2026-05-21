@@ -470,7 +470,7 @@ Once you start looking at new trends through these dimensions, you will no longe
 5. Find a specific product and judge whether it is mainly betting on multimodality, real-time generation, on-device deployment, or workflow-ization.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A solid analysis names the capability improvement, the cost curve, the interaction change, and the workflow impact. For example, real-time voice-video generation matters only if latency, control, and review fit the product workflow.
 2. Multimodality changes the entry point because users can start from a screenshot, photo, voice note, document, or video rather than translating everything into text first.

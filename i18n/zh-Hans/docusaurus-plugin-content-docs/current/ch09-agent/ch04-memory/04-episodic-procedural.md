@@ -282,11 +282,11 @@ episode 更适合：
 学完这一页，至少保留这张证据卡：
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+记忆类型：短期、长期、情景或程序性
+写入规则：在内存创建或更新时
+检索规则：查询、相关性、时效性和权限检查
+失败检查：过时记忆、隐私泄漏、矛盾或过度检索
+清理动作：总结、合并、过期、删除或请求确认
 ```
 
 ## 小结
@@ -308,7 +308,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 如果某条 工作流 已经过时，你会怎么设计更新机制？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 增加成功的 `weekly_report` cases 后，应能看出重复步骤；当这些步骤稳定后，就可以提升为 procedural memory。
 2. 需要参考上下文和历史结果时，更适合查 episodes；任务可重复且最佳动作序列已知时，更适合直接用 procedural memory。

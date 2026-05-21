@@ -352,11 +352,11 @@ clips : [('f1', 'f2'), ('f2', 'f3'), ('f3', 'f4')]
 このページを終えたら、この evidence card を残します。
 
 ```text
-storyboard: scene list, duration, camera/voice/subtitle/timing notes
-asset_list: images, audio, voice, captions, clips, and source/license fields
-sync_check: speech-text timing, lip sync, shot continuity, or frame consistency
-failure_check: flicker, identity drift, audio mismatch, unsafe likeness, or export issue
-Expected_output: storyboard or timeline artifact with review notes
+ストーリーボード：シーン一覧、duration、camera/voice/subtitle/timing のメモ
+資産一覧: images、audio、voice、captions、clips、source/license フィールド
+同期チェック：音声テキストのタイミング、口パク、ショットの連続性、またはフレームの一貫性
+失敗確認：ちらつき、アイデンティティのずれ、音声不一致、安全でない類似、または書き出しの問題
+期待される成果: レビュー用メモを含むストーリーボードまたはタイムラインのアーティファクト
 ```
 
 ## まとめ
@@ -377,7 +377,7 @@ Expected_output: storyboard or timeline artifact with review notes
 4. 短いビデオ生成プロダクトを作るなら、まず単一フレームの品質と時間的一貫性のどちらを優先して改善しますか？その理由も考えてみてください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>解法と解説</summary>
 
 1. 動画には時間があります。1 枚のよい画像を作るだけでなく、人物や物体の同一性、動き、カメラ、光、場面状態をフレーム間で保つ必要があります。
 2. 各フレームはきれいなのに再生すると跳ねるなら、temporal consistency の層が失敗しています。動き、物体の持続性、カメラ軌道が連続していません。

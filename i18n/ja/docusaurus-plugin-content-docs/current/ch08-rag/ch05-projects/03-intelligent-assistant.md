@@ -345,10 +345,10 @@ for case in eval_cases:
 このページを終えたら、この証拠カードを残します。
 
 ```text
-project_goal: user task and business boundary
-baseline: simplest prompt/RAG/app version first
-evaluation: fixed cases, retrieval evidence, answer quality, and citation check
-failure_log: at least one failed case with likely cause
+プロジェクト目標：ユーザーのタスクとビジネス境界
+ベースライン: まずは最も簡単なプロンプト/RAG/app版
+評価：固定ケース、検索証拠、回答品質、引用チェック
+失敗ログ: 少なくとも1件の失敗ケースと原因の可能性
 成果物：README、実行コマンド、スクリーンショット/ログ、次の一手
 ```
 
@@ -425,7 +425,7 @@ failure_log: at least one failed case with likely cause
 4. このプロジェクトを作品集にするなら、いちばん見せる価値がある対話はどの部分でしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. `学習順序` トピックには、intent detection、必須 slot、tool/context source、response template を追加します。
 2. アシスタントはユーザーの goal、不足情報、過去の回答、tool 結果、next action を追跡します。FAQ は多くの場合 stateless lookup です。

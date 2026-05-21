@@ -246,11 +246,11 @@ out = out + identity
 アーキテクチャ記憶カードを 1 つ作ります。
 
 ```text
-LeNet: conv feature extractor + classifier head
-AlexNet: scale, GPU, ReLU, regularization
-VGG: repeated small 3x3 blocks
-ResNet: shortcut path makes depth trainable
-code_clue: residual block uses out + identity
+LeNet の要点：畳み込み特徴抽出器 + 分類ヘッド
+AlexNet の要点：スケール、GPU、ReLU、正則化
+VGG の要点：小さな3x3ブロックの繰り返し
+ResNet の要点：ショートカット経路で深い層を学習可能にする
+コードの手がかり：residual block は out + identity を使う
 ```
 
 これは、実務で本当に覚える価値のある歴史の粒度です。現代的な backbone を読む前に、すべての layer 数を暗記する必要はありません。
@@ -274,7 +274,7 @@ code_clue: residual block uses out + identity
 5. 現代的な CNN backbone を 1 つ選び、どの古典的アイデアをまだ使っているかを確認する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. LeNet は畳み込みによる視覚認識の原型、AlexNet は大規模深層 CNN、VGG は小さな畳み込みの積み重ね、ResNet は residual connection による深層化です。
 2. `ResidualBlock(16)` にするなら、入力 tensor の channel も 16 にする必要があります。畳み込みと残差加算の両方で shape が合う必要があります。

@@ -424,7 +424,7 @@ you won’t just keep thinking, “Let’s add one more function.”
 4. If a tool combination is unstable and often changes order, would you still package it as an advanced tool? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A `timeout_tool` wrapper usually belongs in the executor or tool middleware layer, so every tool can share the same timeout behavior.
 2. Caching fits read-only tools because the same input should produce the same safe answer. Writes often change state, so cached results can become dangerous.

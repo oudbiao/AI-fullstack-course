@@ -231,11 +231,11 @@ compare relevance -> normalize weights -> mix value vectors
 このページを終えたら、この証拠カードを残します。
 
 ```text
-next_token: one probability or sampling example
-context_budget: prompt + retrieved text + output all compete for space
-temperature_effect: deterministic vs more diverse output compared
-attention_note: relevance-weighted mixing is not factual proof
-failure_probe: fluent answer can still be wrong
+次のトークン：確率かサンプリングの例を1つ
+文脈予算: プロンプト + 取得したテキスト + 出力がすべて容量を奪い合う
+temperature の効果：決定的出力と、より多様な出力の比較
+attention メモ: relevance-weighted mixing は事実の証明ではない
+失敗プローブ: 流暢な応答でも誤っていることがある
 ```
 
 ## 練習
@@ -247,7 +247,7 @@ failure_probe: fluent answer can still be wrong
 5. model に capability があっても RAG や alignment が必要になる理由を説明する。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>操作例と確認ポイント</summary>
 
 1. 勝っている logit を下げると score gap が小さくなるため、softmax confidence は下がります。winner は同じでも確信度は弱まります。
 2. `temperature=0.1` は出力をより deterministic で尖った分布にします。`temperature=5.0` は分布を平らにし、下位 token も選ばれやすくします。

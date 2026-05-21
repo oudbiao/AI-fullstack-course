@@ -279,11 +279,11 @@ n-gram 很有用，
 学完这一页，至少保留这张证据卡：
 
 ```text
-representation: BoW, TF-IDF, static embedding, contextual embedding, or language-model score
-comparison: nearest text, similarity score, or next-token/log-prob style output
-interpretation: what the representation captures and what it misses
-failure_check: polysemy, domain mismatch, short text, tokenization, or semantic drift
-Expected_output: small comparison table with at least one surprising result
+表示：BoW、TF-IDF、静态 embedding、上下文 embedding，或语言模型分数
+比较：最近文本、相似度分数或下一 token/log-prob 风格输出
+解释: 该表示捕捉了什么，以及遗漏了什么
+失败检查：一词多义、领域不匹配、文本过短、分词问题或语义漂移
+期望产出：至少有一个意外结果的小型对比表
 ```
 
 ## 小结
@@ -305,7 +305,7 @@ Expected_output: small comparison table with at least one surprising result
 4. 想一想：为什么“会接下一个词”这件事，最后能长出对话和写作能力？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 增加语料句子会改变 `stats` 里的转移计数；常见后续词概率变高，稀有后续词相对变弱。
 2. bigram 很简单，但已经包含语言模型核心：根据前文估计下一个 token 更可能是什么。

@@ -63,7 +63,7 @@ Detection debug は boxes と metrics の表示から始めます。きれいな
 boxes、confidence、IoU、少なくとも 1 つの false-positive または false-negative case で detection result を説明できれば、この章は合格です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 合格レベルの答えでは、task を class label、bounding box、mask、OCR text、embedding、video event など正しい視覚出力に対応づけます。
 2. 証拠には、rendered visual artifact と、metric または定性的な error note を含めます。
@@ -77,9 +77,9 @@ boxes、confidence、IoU、少なくとも 1 つの false-positive または fal
 このページを終えたら、この evidence card を残します。
 
 ```text
-input_image: detection sample with ground-truth or expected objects
-prediction: boxes, labels, confidence scores, IoU, and threshold settings
-metric: precision/recall, mAP, false positives, and false negatives
-failure_check: small object, overlap, NMS, poor labels, or confidence threshold
-Expected_output: annotated image plus detection metrics or error buckets
+入力画像：正解または期待される対象を含む検出サンプル
+予測：バウンディングボックス、ラベル、信頼度スコア、IoU、しきい値設定
+指標：precision/recall、mAP、false positives、false negatives
+失敗確認: 小さな物体、重なり、NMS、ラベル品質の低さ、または信頼度閾値
+期待される成果：注釈付き画像と、検出メトリクスまたはエラーバケット
 ```

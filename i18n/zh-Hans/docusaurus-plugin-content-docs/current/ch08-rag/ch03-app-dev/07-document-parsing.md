@@ -390,7 +390,7 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 这就是最小可用的入库闭环：每个 chunk 都带着内容、结构、来源、页码和类型。这个形状稳定之后，后面的检索和课件生成都会容易很多。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 一个好的结果应该生成 2 个 chunk，而不是 3 个。标题行只负责把 `section_title` 更新成 `折扣基础概念`，公式行会生成 `concept` chunk，例题行会生成 `example` chunk。
 
@@ -474,11 +474,11 @@ for chunk in build_chunks("math_doc_001", "docx", pages):
 学完这一页，至少保留这张证据卡：
 
 ```text
-request: input, state, tools/context, and expected output contract
-validated_output: parser/schema or business-rule check result
-trace: model call, tool/function call, document parse, or dialogue state
-failure_check: invalid format, missing field, stale state, or wrong tool
-next_action: prompt, schema, state, API, or parsing improvement
+请求：输入、状态、工具/上下文，以及期望输出契约
+已验证输出：parser / schema 或业务规则检查的结果
+追踪记录：模型调用、tool/function 调用、文档解析或对话状态
+失败检查：格式无效、字段缺失、状态过时或工具错误
+下一步动作：Prompt、schema、状态、API 或解析改进
 ```
 
 ## 小结

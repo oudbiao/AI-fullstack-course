@@ -235,11 +235,11 @@ logs/
 学完这一页，至少保留这张证据卡：
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+评估用例：固定任务和期望的安全行为
+评分卡：任务成功、工具正确性、trace 质量和安全性
+护栏：策略、权限、验证或人工确认
+失败检查：工具使用不安全、提示注入、隐藏状态或未被观测的动作
+下一步动作：添加案例、护栏、日志、回滚或拒绝路径
 ```
 
 ## 练习
@@ -254,7 +254,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 学完这一节后，你应该能解释日志、指标、trace、replay 的区别，能写出一个最小 Agent trace schema，能根据 trace 判断错误发生在规划、检索、工具还是生成阶段，并能把可观测性写进自己的 Agent 项目 README。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 某一步失败时加入 `error_message`，同一逻辑步骤每重试一次就递增 `retry_count`。这两个字段应写在 trace row 里，而不只放在 console log。
 2. RAG Agent trace 应包含 request_id、retrieval_query、filters、matched_doc_ids、scores、selected_context、citation_check、generation_status、latency_ms，以及任何 refusal 或 fallback reason。

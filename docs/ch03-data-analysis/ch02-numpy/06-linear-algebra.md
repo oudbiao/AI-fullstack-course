@@ -370,7 +370,7 @@ movies = {
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For the shopping example, `quantities @ prices` is the clean vectorized answer. With prices `[10, 25, 8]` and rows `[3,1,2]`, `[0,2,5]`, `[5,0,3]`, the totals are `71`, `90`, and `74`.
 - For the linear system `3x + 2y - z = 1`, `x - y + 2z = 5`, `2x + 3y - z = 0`, `np.linalg.solve` should return `x=1`, `y=0`, `z=2`.

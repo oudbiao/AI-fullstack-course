@@ -252,11 +252,11 @@ MCP 不只适合大公司。
 学完这一页，至少保留这张证据卡：
 
 ```text
-capability: resource, prompt, or tool exposed by server
-contract: schema, transport, permissions, and error shape
-call_trace: discovery, invocation, response, and failure handling
-failure_check: incompatible schema, missing auth, unsafe tool, or server error
-integration_action: validate server contract before adding autonomy
+能力：服务器暴露的资源、Prompt 或工具
+契约：schema、传输、权限和错误形式
+调用轨迹：发现、调用、响应和失败处理
+失败检查：架构不兼容、缺少认证、不安全工具或服务器错误
+集成动作: 在加入自主能力前先验证服务端契约
 ```
 
 ## 小结
@@ -277,7 +277,7 @@ integration_action: validate server contract before adding autonomy
 4. 用自己的话说明：MCP 生态和“单次工具调用”最大的区别是什么？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 以团队知识工作为例，合适的 MCP server 可以包括文档检索、日历/任务管理、代码仓库或数据库访问。具体答案可以不同，但每个 server 都应该有清晰的能力边界。
 2. 低接入成本重要，是因为生态要增长，就不能每接入一个新 server 或 client 都重新做一套定制集成。它说明契约足够可理解、可复用。

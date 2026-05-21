@@ -479,7 +479,7 @@ you are no longer just memorizing terms.
 4. Think about your own business: are there any principles that are especially suitable to be written as Constitutional AI-style “constitutional rules”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. DPO uses preference pairs to push the policy toward higher probability for preferred answers and lower probability for rejected ones. It avoids training a separate reward model and then running an RL loop.
 2. The loss should decrease when the chosen answer becomes more likely than the rejected answer by a larger margin. If the rejected answer has higher log probability, the loss increases and gives a stronger correction signal.

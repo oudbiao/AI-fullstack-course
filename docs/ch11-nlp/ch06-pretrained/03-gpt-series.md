@@ -507,7 +507,7 @@ Once you understand this line, when you later learn Prompt, Agent, tool calling,
 4. Think about this: why can’t GPT’s “ability to chat” be simply reduced to “it only predicts the next word”?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Changing the corpus changes the bigram transition table, so generated text should follow the local patterns of your new corpus.
 2. Causal masking is necessary because GPT must not see future tokens when learning to predict the next token.

@@ -73,7 +73,7 @@ llm_bridge: decoder blocks turn token context into next-token logits
 You pass this roadmap when you can read the attention weight shape, explain why attention gives global context, and connect masks to text generation.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Check reasoning and explanation</summary>
 
 1. A passing answer connects tensors, model layers, loss, `backward()`, and optimizer updates into one training loop.
 2. The evidence should include a runnable mini experiment, tensor-shape checks, and a loss or validation curve you can explain.

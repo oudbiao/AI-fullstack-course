@@ -476,7 +476,7 @@ This is the first layer of foundation for all later Prompt engineering capabilit
 4. Why does a Prompt that only states the goal, but not the output format, usually make the system less stable?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. A clearer version might be: "Summarize the following customer message in three bullet points, identify the user intent, and list one suggested reply. Do not invent facts."
 2. A complete answer should separate goal, output format, and constraints. For example: goal is classify feedback, output is JSON, constraints are fixed labels and no extra text.

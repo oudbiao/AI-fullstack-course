@@ -106,10 +106,10 @@ for epoch in range(20):
 进入后续内容前，先保留一条小的起点记录：
 
 ```text
-first_loop_ran: the tiny PyTorch loop printed four loss lines
-loss_direction: loss generally moved down
-core_path: 6.1 -> 6.2 -> 6.5 -> 6.8
-next_debug_step: if loss does not move, check shape, loss, gradients, and optimizer step
+首次循环已运行：这个小型 PyTorch 循环打印了四行损失值
+loss 方向：loss 总体下降
+核心路径：6.1 -> 6.2 -> 6.5 -> 6.8
+下一步调试：如果 loss 不变化，检查形状、loss、梯度和优化器步进
 ```
 
 这会把第一个例子变成检查点。你现在不是要立刻掌握所有架构，而是先证明训练循环已经不再是黑盒。

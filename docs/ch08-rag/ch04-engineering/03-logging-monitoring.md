@@ -523,7 +523,7 @@ That way, other people can more easily see:
 4. Explain in your own words: why can’t LLM system alerts rely only on 500 errors and timeouts?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `error_code` helps group failures beyond raw message strings.
 2. A retrieval log should include `trace_id`, query, rewritten query, filters, `top_k`, candidate IDs, scores, selected citations, latency, and user role/permission outcome.

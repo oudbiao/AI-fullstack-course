@@ -415,7 +415,7 @@ the more stable your code Agents, multi-tool workflows, and real production syst
 4. If you wanted to add human confirmation for a high-risk tool, would you place the confirmation before or after the call? Why?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `send_email` is usually high risk because it creates an external side effect. It should require recipient validation, preview, confirmation, and audit logging.
 2. `retry_allowed` matters because retrying a read is different from retrying a payment, email, or database write that may duplicate side effects.

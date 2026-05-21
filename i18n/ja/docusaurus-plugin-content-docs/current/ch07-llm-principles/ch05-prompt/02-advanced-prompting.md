@@ -367,11 +367,11 @@ Prompt の改善は、本質的には実験のプロセスでもあります。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-technique: few-shot, role, step constraint, self-check, or decomposition
-fixed_cases: same test inputs before/after change
-improvement: score or failure reduction
-risk: overlong, conflicting, or overfit prompt
-decision: keep only techniques that improve evidence
+手法：few-shot、role、step 制約、self-check、または decomposition
+固定ケース：変更前後で同じテスト入力を使用
+改善：スコア向上または失敗削減
+リスク：長すぎる、矛盾する、または過学習した prompt
+判断: 証拠を改善する手法だけを残す
 ```
 
 ## まとめ
@@ -392,7 +392,7 @@ Prompt を「より高度に見せる」ためではありません。
 4. なぜ、高度な Prompt 技巧で本当に大事なのは複雑さではなく、適合性だと言えるのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. よい few-shot prompt は label set を定義し、少なくとも 2 つの labeled example を示し、新しい input も同じ format で分類させます。
 2. task goal の方が基礎的です。role setting は tone や perspective を変えられますが、明確な objective、output contract、constraint の代わりにはなりません。

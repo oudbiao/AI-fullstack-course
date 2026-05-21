@@ -447,11 +447,11 @@ AI feedback は安いですが、完全に無料ではありません。
 このページを終えたら、この証拠カードを残します。
 
 ```text
-method: DPO, constitutional revision, RLAIF, or rejection sampling
-training_signal: pairwise preference, critique, or filtered sample
-benefit: simpler pipeline, less RL complexity, or clearer policy
-limitation: still depends on data, policy, and evaluation quality
-decision: choose method based on available feedback and risk
+手法：DPO、constitutional revision、RLAIF、または rejection sampling
+学習シグナル：ペア比較の好み、批評、またはフィルタ済みサンプル
+利点：より単純なパイプライン、より少ない RL 複雑性、またはより明確なポリシー
+限界：なおデータ、方針、評価品質に依存する
+判断: 利用可能なフィードバックとリスクに基づいて手法を選ぶ
 ```
 
 ## まとめ
@@ -479,7 +479,7 @@ decision: choose method based on available feedback and risk
 4. あなたの業務の中で、Constitutional AI 風の「憲法ルール」として書くのに特に向いている原則はありますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. DPO は preference pair を使って、好ましい回答の確率を上げ、reject された回答の確率を下げるように policy を直接押します。別の reward model を学習してから RL loop を回す手順を避けられます。
 2. Chosen answer が rejected answer より大きな log probability margin を持つほど、loss は下がるはずです。Rejected answer の確率が高い場合、loss は大きくなり、より強い修正信号になります。

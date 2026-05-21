@@ -361,7 +361,7 @@ print("square_sum =", square_sum)
 
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 - For `np.arange(1, 101)`, the expected summary is sum `5050`, mean `50.5`, minimum `1`, maximum `100`, and sum of squares `338350`.
 - The vectorized version should produce the same numbers as the loop version, but it becomes noticeably faster as the array grows to thousands or millions of values.

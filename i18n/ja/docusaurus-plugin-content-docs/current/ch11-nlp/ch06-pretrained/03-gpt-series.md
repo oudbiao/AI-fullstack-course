@@ -489,11 +489,11 @@ GPT の重要な制約は、未来を見てはいけないことです。
 このページを終えたら、この evidence card を残します。
 
 ```text
-model_choice: BERT, GPT, T5, Transformers pipeline, or other pretrained baseline
-tokenizer_output: ids, masks, decoded text, or batch shape
-task_result: classification, generation, extraction, or text-to-text output
-failure_check: wrong model family, token limit, domain mismatch, cost, or latency
-Expected_output: model call result plus a short choice rationale
+モデル選択：BERT、GPT、T5、Transformers のパイプライン、または他の事前学習ベースライン
+tokenizer 出力：ids、masks、デコード済みテキスト、またはバッチ形状
+タスク結果：classification、generation、extraction、または text-to-text 出力
+失敗確認: 間違ったモデルファミリー、トークン上限、ドメイン不一致、コスト、またはレイテンシ
+期待される成果: モデル呼び出し結果と短い選択理由
 ```
 
 ## まとめ
@@ -514,7 +514,7 @@ Expected_output: model call result plus a short choice rationale
 4. なぜ GPT の「会話ができる」能力は、単純に「次の単語を予測できる」だけと同じではないのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. corpus を変えると bigram transition table が変わるため、generated text は新しい corpus の局所 pattern に近づきます。
 2. causal masking が必要なのは、GPT が next token を予測するとき future tokens を見てはいけないからです。

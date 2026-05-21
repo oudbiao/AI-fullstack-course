@@ -101,13 +101,13 @@ deep_learning_workshop_run/
 这个工作坊完成时，文件夹本身应该能证明完整训练闭环：
 
 ```text
-shape_trace: one batch shape and logits shape
-training_log: train and validation curves
-model_comparison: baseline vs CNN
-confusion_matrix: class-level errors
-error_samples: concrete failures to inspect
-checkpoint: best model can be restored
-README：命令、指标、限制和下一步
+形状 trace：一个批次形状和 logits 形状
+训练日志：训练和验证曲线
+模型比较：基线 vs CNN
+混淆矩阵：类别级错误
+错误样本：需要检查的具体失败案例
+检查点：可以恢复最佳模型
+README 记录：命令、指标、限制和下一步
 ```
 
 ### 运行前先解码几个术语
@@ -866,7 +866,7 @@ deep_learning_workshop_run/reports/experiment_notes.md
 重要习惯不是每次都拿到更高分，而是一次只改一个变量、干净复跑，并能用证据解释结果。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>操作参考与检查点</summary>
 
 一条合格的复跑记录要明确只改了哪个变量，然后用产物对比，而不是凭印象判断：
 

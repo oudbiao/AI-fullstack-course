@@ -102,11 +102,11 @@ print(f"{len(tasks)} 件のタスクを保存しました")
 このページを終えたら、この evidence card を残します。
 
 ```text
-program_loop: input, processing, output, and saved state if any
-code_file: Python file or notebook cell that can be rerun
-output: printed result, file result, or user-facing behavior
-failure_check: syntax, path, type, dependency, or control-flow issue
-Expected_output: a rerunnable Python artifact that prepares for data and AI apps
+プログラムループ：入力、処理、出力、そしてあれば保存状態
+コードファイル：再実行できる Python ファイルまたは notebook セル
+出力：印字結果、ファイル結果、またはユーザー向けの動作
+失敗確認: 構文、パス、型、依存関係、または制御フローの問題
+期待される成果：データと AI アプリの準備をする、再実行可能な Python アーティファクト
 ```
 
 ## よくある失敗
@@ -130,7 +130,7 @@ Expected_output: a rerunnable Python artifact that prepares for data and AI apps
 - 他の人が README を見てプロジェクトを実行できますか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. プログラムの入力は、コマンドラインの文字列、ユーザー入力、ファイル、API レスポンスなどです。出力は、表示テキスト、戻り値、保存されたファイル、別プログラムへのレスポンスなどです。
 2. 各項目に名前付きのフィールドが必要なとき、またはキーで素早く探したいときは辞書が向いています。順序のある同種の項目を並べるならリストが向いています。

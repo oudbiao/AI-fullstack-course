@@ -443,7 +443,7 @@ This is also why the path from one-hot, BoW, and TF-IDF all the way to embedding
 4. Think about it: if a task depends heavily on word order, what problems would you encounter using only BoW or TF-IDF?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Adding two sentences should change the vocabulary and may change TF-IDF weights because document frequency has changed.
 2. BoW ignores word order because it represents a document as token counts, not as a sequence.

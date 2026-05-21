@@ -482,11 +482,11 @@ print(profile)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-memory_type: short-term, long-term, episodic, or procedural
-write_rule: when memory is created or updated
-retrieve_rule: query, relevance, recency, and permission check
-failure_check: stale memory, privacy leak, contradiction, or over-retrieval
-cleanup_action: summarize, merge, expire, delete, or ask for confirmation
+メモリ種別：短期、長期、エピソード記憶、または手続き記憶
+書き込みルール：メモリが作成または更新されるとき
+取得ルール：クエリ、関連性、鮮度、権限チェック
+失敗確認: 古い記憶、プライバシー漏えい、矛盾、または過剰検索
+クリーンアップ操作：要約、統合、期限切れ、削除、または確認を求める
 ```
 
 ## まとめ
@@ -509,7 +509,7 @@ cleanup_action: summarize, merge, expire, delete, or ask for confirmation
 4. 長期記憶と短期記憶をどう組み合わせれば、現在の回答に役立つでしょうか。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `source` field があると、「ユーザーの明示発言」と「システム推論」を分けられます。明示発言はより信頼し、推論された preference は確認してから長期保存します。
 2. `Keep it concise for this one` は現在タスクだけの指示です。ユーザーが長期的な好みとして明示しない限り、短期記憶に置きます。

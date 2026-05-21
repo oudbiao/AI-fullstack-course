@@ -180,7 +180,7 @@ memory_hook: history is a sequence of solved bottlenecks
 5. Pick one of the 15 stages and explain how it still affects today’s LLM applications.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Adding sentences changes only the local transition counts in a bigram model. Suggestions may improve for the added phrases but will still fail outside those local patterns.
 2. A bigram model sees only a tiny local context. Long instructions require tracking goals, constraints, and relationships across many tokens.

@@ -142,11 +142,11 @@ print(score_answer(sample, answer))
 このページを終えたら、この証拠カードを残します。
 
 ```text
-eval_cases: fixed tasks and expected safe behavior
-scorecard: task success, tool correctness, trace quality, safety
-guardrail: policy, permission, validation, or human confirmation
-failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
-next_action: add case, guardrail, log, rollback, or refusal path
+評価ケース：固定タスクと期待される安全な挙動
+スコアカード: タスク成功、ツールの正確さ、trace の品質、安全性
+ガードレール：ポリシー、権限、検証、または人の確認
+失敗確認: 危険なツール使用、プロンプトインジェクション、隠れた状態、または観測されていない操作
+次の行動：ケース、ガードレール、ログ、ロールバック、または拒否パスを追加する
 ```
 
 ## よくある誤解
@@ -165,7 +165,7 @@ next_action: add case, guardrail, log, rollback, or refusal path
 この節を学び終えたら、汎用ベンチマークと自作の評価セットの違いを説明できること、自分の Agent プロジェクト向けに小さなベンチマークを設計できること、そして固定された評価セットで異なるモデル、Prompt、ツール設計の効果を比較できることが必要です。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. しっかりした 20 件の benchmark には、易しい/中程度/難しい course question、citation 必須 case、範囲外 question、retrieval が部分的または矛盾した evidence だけを返す case を混ぜます。
 2. `must_include` には必須 concept や evidence、`must_not_do` には hallucinated citation や unsafe action の禁止、scoring rules には部分点の付け方を書きます。

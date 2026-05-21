@@ -359,7 +359,7 @@ The most important thing in this section is to build one judgment:
 6. Add a rule that only fires when the event lasts at least two windows. What kind of noisy case does this rule reduce, and what kind of short event might it miss?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. With two moving targets, simple nearest-neighbor tracking may swap identities when targets cross or overlap. This shows why real tracking needs stronger appearance and motion logic.
 2. Many video systems run a single-frame model first, then add temporal logic for smoothing, tracking, duration checks, and event decisions.

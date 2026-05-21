@@ -61,15 +61,15 @@ asyncio.run(main())
 学完这一页，至少保留这张证据卡：
 
 ```text
-python_pattern: decorator, iterator, generator, concurrency primitive, or metaprogramming hook
-code_artifact: minimal runnable example plus printed output
-use_case: where this pattern improves an AI app, pipeline, tool, or server
-failure_check: hidden side effects, unreadable abstraction, race condition, or overengineering
-Expected_output: small advanced-Python example with a practical AI-system use note
+Python 模式：装饰器、迭代器、生成器、并发原语，或元编程钩子
+代码产物：最小可运行示例加上打印输出
+使用场景：这种模式在哪种 AI 应用、流水线、工具或服务器中更有用
+失败检查：隐藏副作用、难读的抽象、竞态条件或过度设计
+期望产出：带实际 AI 系统用途说明的小型高级 Python 示例
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 一个合格答案会展示一个可追踪流水线：比如装饰器加日志、生成器做流式处理、async 并发跑多个 I/O，或者用注册表显式管理工具。证据应包含最小可运行输出，以及为什么调试会更容易。
 

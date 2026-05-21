@@ -24,11 +24,11 @@ keywords: [機械学習学習ガイド, sklearn, 機械学習プロジェクト,
 このページを終えたら、この evidence card を残します。
 
 ```text
-modeling_loop: data, features, model, metric, error review, and next experiment
-artifact: code, score, chart, pipeline, or project README
-failure_check: leakage, metric mismatch, unstable split, overfitting, or unclear business target
-next_action: one controlled experiment rather than many parameter changes
-Expected_output: reproducible ML evidence that prepares for deep learning
+モデリングループ：data、features、model、metric、エラー समीक्षा、次の実験
+成果物: code、score、chart、pipeline、または project README
+失敗確認: リーク、指標不一致、不安定な分割、過学習、または不明確なビジネス目標
+次の行動：多数のパラメータ変更ではなく、1つの制御された実験を行う
+期待される成果: 深層学習に備えた再現可能なML証拠
 ```
 
 ## 練習チェックリスト
@@ -43,7 +43,7 @@ Expected_output: reproducible ML evidence that prepares for deep learning
 | 証拠パックワークショップを完了できる | `ml_workshop_run/` |
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>確認の考え方と解説</summary>
 
 1. 問題メモでは、回帰、分類、クラスタリング、評価、特徴量エンジニアリングのどれか、そして成功条件を書きます。
 2. 安全な分割メモでは、いつデータを分けたか、どの前処理を訓練データだけで fit したかを説明します。

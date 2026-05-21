@@ -229,7 +229,7 @@ Prefer other models when:
 5. Use cross-validation to pick `C` and `gamma` instead of trusting one split.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `noise=0.1` makes the two moons easier to separate; `noise=0.4` makes the boundary uncertain and usually increases errors or support-vector reliance.
 2. `gamma=5.0` makes the RBF boundary more local and wiggly. Training accuracy may rise, but test accuracy can fall and the support-vector count may increase.

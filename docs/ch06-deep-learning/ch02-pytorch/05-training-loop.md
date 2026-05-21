@@ -336,7 +336,7 @@ for epoch in range(num_epochs):
 5. Convert the task to binary classification by creating labels from `y > 5`, then use `BCEWithLogitsLoss`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. SGD is usually more sensitive to learning rate and may converge more slowly than Adam in this small example. If the curve is noisy, try a smaller learning rate before changing the model.
 2. A hidden size of `4` may underfit, while `32` can lower training loss more easily. Prefer the setting with better validation loss, not just lower training loss.

@@ -472,11 +472,11 @@ question,gold_doc,gold_answer,retrieved_docs,answer,citation_ok,failure_type,not
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 小结
@@ -497,7 +497,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 想一想：如果 Hit@k 很高，但最终答案依然经常错，说明问题更可能出在哪一层？
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 好的评估问题应包含直接查找、同义改写、权限敏感场景，以及至少一个容易混淆的近似匹配。`gold_doc` 和 `gold_answer` 应在看模型输出前先写好。
 2. Hit@k 衡量是否检索到正确证据；Exact Match 衡量最终答案是否符合预期。故意写错答案时，即使检索仍正确，回答指标也应下降。

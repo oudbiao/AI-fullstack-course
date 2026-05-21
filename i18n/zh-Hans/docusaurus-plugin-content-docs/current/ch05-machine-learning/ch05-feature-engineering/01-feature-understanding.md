@@ -139,11 +139,11 @@ plt.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-feature_state: raw columns, types, missing values, scale, and target relationship
-transformation: preprocessing, construction, selection, or pipeline step
-output: transformed feature table, pipeline object, score change, or selected features
-failure_check: leakage, inconsistent train/test transform, high-cardinality trap, or meaningless feature
-Expected_output: feature pipeline evidence with before/after and metric impact
+特征状态：原始列、类型、缺失值、尺度，以及与目标的关系
+特征变换：预处理、构造、选择或流水线步骤
+输出：转换后的特征表、pipeline 对象、分数变化，或选出的特征
+失败检查：泄漏、训练/测试转换不一致、高基数陷阱或无意义特征
+期望产出：带有前后对比和指标影响的特征流水线证据
 ```
 
 ## 练习
@@ -154,7 +154,7 @@ Expected_output: feature pipeline evidence with before/after and metric impact
 4. 选一个你自己的表格数据，写一份“特征探索记录”。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 自动类型识别只是第一步。像舱位等级、票号、客舱号这类字段，可能看起来像数字或文本，但真正处理方式要由语义决定。
 2. `fare` 常见右偏，`age` 往往有缺失且分布不均。偏斜提示后续可以尝试 log 变换、分箱或鲁棒缩放。

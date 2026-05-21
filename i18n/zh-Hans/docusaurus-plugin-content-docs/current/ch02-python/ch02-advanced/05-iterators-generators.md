@@ -429,7 +429,7 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
 ```
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. `fibonacci(n)` 应该逐个 `yield` 数值，并在传入 `n` 时只生成前 `n` 个结果。示例循环应按顺序打印前十个斐波那契数。
 2. `search_files` 应使用 `Path(directory).rglob(pattern)` 和 `yield from`，这样文件会以惰性方式流式返回，而不是一次性收集。
@@ -444,11 +444,11 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
 学完这一页，至少保留这张证据卡：
 
 ```text
-pattern: class, exception, file IO, functional pipeline, generator, or type hint
-code_artifact: minimal runnable example and one realistic use case
-output: printed object state, caught error, saved file, yielded values, or type-check note
-failure_check: hidden mutation, swallowed exception, file path issue, lazy iterator confusion, or misleading annotation
-Expected_output: small advanced-Python example with a debugging note
+模式：类、异常、文件 IO、函数式流水线、生成器或类型提示
+代码产物：最小可运行示例和一个真实使用场景
+输出：打印的对象状态、捕获的错误、保存的文件、yield 的值，或类型检查备注
+失败检查：隐藏变异、吞掉异常、文件路径问题、懒迭代器混淆或误导性标注
+期望产出：带调试说明的小型高级 Python 示例
 ```
 
 ## 小结

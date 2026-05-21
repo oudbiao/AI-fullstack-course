@@ -544,11 +544,11 @@ pprint(draws)
 このページを終えたら、この証拠カードを残します。
 
 ```text
-data_sources: source types and mixture rationale
-cleaning_result: one before/after cleaning example
-dedup_check: duplicate or near-duplicate risk noted
-contamination_check: eval leakage risk documented
-quality_rule: data quality is part of model capability
+データソース: ソースの種類と混在の理由
+クリーニング結果：クリーニング前後の例を 1 つ示す
+重複確認：重複またはほぼ重複のリスクを記録
+汚染確認: 評価リークのリスクが記録されている
+品質ルール：データ品質はモデル能力の一部
 ```
 
 ## まとめ
@@ -570,7 +570,7 @@ quality_rule: data quality is part of model capability
 4. なぜ評価リークがモデル能力を過大評価させるのか、自分の言葉で説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>プロジェクト参考とレビュー観点</summary>
 
 1. よい追加サンプルは、特定のルールを検査できるものです。テンプレートページ、繰り返し広告、文字化け、きれいな技術文章、価値は高いが珍しい例などを入れてみます。有用なサンプルが消えたり、低価値なサンプルが残ったりするなら、ルール調整が必要です。
 2. Exact dedup は完全に同じ文字列や fingerprint しか見つけられません。実務では、少し編集された転載ページ、テンプレート違い、翻訳ミラー、軽く書き換えられた benchmark 資料もあるため、near-duplicate detection が必要です。

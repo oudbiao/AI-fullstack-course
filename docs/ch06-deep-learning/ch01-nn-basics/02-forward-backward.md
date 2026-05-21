@@ -212,7 +212,7 @@ This proves the full training step happened. If any one line is missing, debug i
 5. Print model weights before and after `optimizer.step()`.
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `lr=0.05` usually updates more slowly, while `lr=1.0` may improve quickly or overshoot. The loss curve is the evidence, not the learning rate number alone.
 2. If `optimizer.zero_grad()` is removed, gradients accumulate across backward calls. The printed gradients become a sum of old and new signals instead of the current batch signal.

@@ -127,12 +127,12 @@ selected_epoch: 30
 生成项目至少留下这些证据：
 
 ```text
-checkpoint_samples: fixed-seed samples across epochs
-quality_note: what improved visually
-diversity_note: whether outputs repeat
-failure_sample: blurry, broken, collapsed, or unrealistic output
-selection_rule: why this checkpoint was kept
-next_action: data, objective, architecture, or sampling change
+检查点样本：跨多个 epoch 的固定随机种子样本
+质量说明：视觉上哪里改进了
+多样性说明：输出是否重复
+失败样本：模糊、破损、坍塌或不真实的输出
+选择规则：为何保留这个检查点
+下一步动作：数据、目标、架构或采样改动
 ```
 
 ## 常见错误
@@ -154,7 +154,7 @@ next_action: data, objective, architecture, or sampling change
 5. 写一个作品集小节标题：“为什么我选择这个 checkpoint”。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 通常不该选，除非项目极度重视 quality 而几乎不在乎 diversity。`0.30` 的 diversity 是明显警讯，说明输出可能重复或范围很窄。
 2. `failure` 字段应记录可见问题，例如重复、伪影、prompt 不匹配、不安全输出或 diversity 不足。

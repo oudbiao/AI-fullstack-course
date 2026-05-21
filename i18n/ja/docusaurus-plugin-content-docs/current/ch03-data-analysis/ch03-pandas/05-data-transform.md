@@ -336,11 +336,11 @@ print(quartile_group)
 このページを終えたら、この evidence card を残します。
 
 ```text
-dataframe_state: columns, dtypes, row count, missing values, and sample rows
-operation: read/write, select/filter, clean, transform, groupby, merge, or time-series step
-output: resulting table, saved file, aggregation, join result, or time index view
-failure_check: dtype mismatch, missing data, duplicated keys, chained assignment, or wrong time frequency
-Expected_output: before/after table sample with the transformation reason
+データフレーム状態: 列、dtype、行数、欠損値、サンプル行
+操作：read/write、select/filter、clean、transform、groupby、merge、または時系列処理
+出力：resulting table、保存ファイル、aggregation、join結果、または時系列インデックスビュー
+失敗確認：dtype 不一致、欠損データ、重複キー、チェーン代入、または誤った時間頻度
+期待される成果：前後の表サンプルと、変換理由
 ```
 
 ## まとめ
@@ -394,7 +394,7 @@ Expected_output: before/after table sample with the transformation reason
 
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 - 月やカテゴリの再コード化は明示的な辞書を使い、`isna()` や `value_counts` で未変換の値を確認します。気づかない未変換カテゴリは、集計ミスのよくある原因です。
 - 売上の派生列は、乗算、`rank`、`sort_values`、`nlargest` などのベクトル化操作で、合計、順位、上位項目を計算します。

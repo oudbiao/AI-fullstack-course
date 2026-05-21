@@ -108,11 +108,11 @@ for a, b in zip(path, path[1:]):
 学完这一页，至少保留这张证据卡：
 
 ```text
-schema: entity types, BIO tags, or sequence-label rules
-prediction: token-level labels and extracted spans
-metric: entity precision/recall/F1 and boundary cases
-failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
-Expected_output: gold-vs-predicted span table with at least one miss
+模式：实体类型、BIO 标签，或序列标注规则
+预测：词级标签和提取的片段
+指标：实体精确率/召回率/F1 和边界情况
+失败检查：跨度边界、嵌套实体、未知词或标注不一致
+期望产出：金标与预测 span 对照表，至少包含一个漏判
 ```
 
 ## 常见误区
@@ -127,7 +127,7 @@ Expected_output: gold-vs-predicted span table with at least one miss
 4. 如果用 BERT 做 NER，还需不需要 CRF？列出支持和反对理由。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>解题思路与讲解</summary>
 
 1. 写中文 BIO 示例时，先确定分词/切字单位，再检查没有实体以 `I-*` 开头，并且每个 `I-*` 前面都有匹配的 `B-*` 或 `I-*`。
 2. 逐 token 分类是每个位置独立打分；全局序列解码是在整句范围内选择最合理、合法的标签路径。

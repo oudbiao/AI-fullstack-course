@@ -479,11 +479,11 @@ plt.show()
 学完这一页，至少保留这张证据卡：
 
 ```text
-ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
-baseline: simplest sklearn/modeling loop and fixed train/test split
-output: prediction, metric, chart, or model decision note
-failure_check: data leakage, unclear target, weak baseline, or metric mismatch
-Expected_output: minimal ML loop with metric and one failure observation
+机器学习问题：监督学习、无监督学习、评估或特征工程任务
+基线：最简单的 sklearn/建模循环和固定的训练/测试划分
+输出：预测、指标、图表，或模型决策备注
+失败检查：数据泄漏、目标不清、基线薄弱或指标不匹配
+期望产出：带指标和一个失败观察的最小 ML 循环
 ```
 
 ## 小结
@@ -562,7 +562,7 @@ Test accuracy: 0.944
 修改 4.3 节的过拟合示例，用不同次数的多项式（1, 3, 5, 10, 18）拟合数据，画出 5 张子图，观察复杂度对拟合效果的影响。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>参考实现与讲解</summary>
 
 1. 明天气温和股票收盘价属于回归，因为目标是连续数值；人脸检测、新闻类别和用户是否流失属于分类，因为目标是离散标签。
 2. `load_wine()` 练习要保持监督学习的基本流程：先加载特征和标签，再切分训练集/测试集，只用 `X_train, y_train` 训练，最后在 `X_test, y_test` 上评分。这个切分下约 `0.944` 的准确率是合理的，但比具体数值更重要的是避免把测试集泄漏进训练过程。

@@ -390,7 +390,7 @@ Not to make the Prompt “look more advanced.”
 4. Why do we say the real importance of advanced Prompt techniques is not complexity, but fit?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. A good few-shot prompt should define the label set, show at least two labeled examples, and then ask the model to classify a new input in the same format.
 2. Task goals are more fundamental. Role setting can change tone or perspective, but it cannot replace a clear objective, output contract, and constraints.

@@ -273,7 +273,7 @@ As long as this main structure is clear, learning Attention and T5 later will fe
 4. Explain in your own words: what does the encoder do, and what does the decoder do?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Solution approach and explanation</summary>
 
 1. Expanding the dictionary should make the toy generator cover more input words, but it will still fail on unseen words and word order.
 2. Seq2Seq output is variable-length because the decoder emits tokens step by step until a stop condition, not from a fixed label set.

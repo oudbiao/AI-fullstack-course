@@ -193,11 +193,11 @@ summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 このページを終えたら、この evidence card を残します。
 
 ```text
-evaluation_setup: split, cross-validation, metric, baseline, and comparison target
-result: score table, curve, confusion matrix, validation result, or search outcome
-decision: whether to change data, features, model, threshold, or hyperparameters
-failure_check: leakage, unstable validation, wrong metric, or tuning on the test set
-Expected_output: evaluation record that supports a next modeling decision
+評価設定：分割、交差検証、指標、ベースライン、比較対象
+結果: スコア表、曲線、confusion matrix、検証結果、または検索結果
+判断: データ、特徴量、モデル、閾値、またはハイパーパラメータを変えるかどうか
+失敗確認: リーク、不安定な検証、誤った指標、またはテストセットでのチューニング
+期待される成果：次のモデリング判断を支える評価記録
 ```
 
 ## よくあるトラブル
@@ -219,7 +219,7 @@ Expected_output: evaluation record that supports a next modeling decision
 5. 1 ユーザーに複数行のイベントがあるデータに対して、検証分割を設計してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. fold 数が少ないと各回の訓練データが少なく、推定は粗くなりがちです。fold 数が多いと訓練データは増えますが計算コストも上がります。平均だけでなく標準偏差も見ます。
 2. stratify を外すと、特に不均衡データでは train/test のクラス比がずれやすくなります。その結果、スコアは不安定で比較しにくくなります。

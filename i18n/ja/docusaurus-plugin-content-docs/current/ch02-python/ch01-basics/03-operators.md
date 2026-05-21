@@ -13,11 +13,11 @@ description: "Python におけるさまざまな演算子と式を理解する"
 このページを終えたら、この evidence card を残します。
 
 ```text
-concept: variable, type, operator, input/output, branch, loop, structure, function, or module
-code: smallest runnable Python snippet for the concept
-output: printed value, type, branch result, loop trace, or returned value
-failure_check: type mismatch, indentation, off-by-one, mutable data, or import path issue
-Expected_output: code plus printed result that proves the concept works
+概念: 変数、型、演算子、入力/出力、分岐、ループ、構造、関数、またはモジュール
+コード：この概念のための最小限の実行可能な Python スニペット
+出力：印字値、型、branch結果、loop trace、または返り値
+失敗確認: 型不一致、インデント、オフバイワン、可変データ、または import パスの問題
+期待される成果：概念が機能することを証明するコードと出力結果
 ```
 
 ## この節の位置づけ
@@ -452,7 +452,7 @@ print(f"辺の長さ {a}, {b}, {c} で三角形を作れますか？ {is_triangl
 ```
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. `score = 85` のときは「良い」の分岐だけが真になります。`95`、`75`、`40` でも試して他の分岐を確認します。
 2. うるう年の式は `year % 4 == 0 and year % 100 != 0 or year % 400 == 0` のように書けます。括弧を加えるとさらに読みやすくなります。

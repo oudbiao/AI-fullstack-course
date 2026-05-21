@@ -440,7 +440,7 @@ print(f"Can sides {a}, {b}, {c} form a triangle? {is_triangle}")
 ```
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. With `score = 85`, only the “good” branch should be true. Test `95`, `75`, and `40` to confirm the other branches.
 2. A leap-year expression can be `year % 4 == 0 and year % 100 != 0 or year % 400 == 0`. Parentheses can make it clearer.

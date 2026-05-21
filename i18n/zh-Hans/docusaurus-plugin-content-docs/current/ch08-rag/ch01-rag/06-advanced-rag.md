@@ -296,11 +296,11 @@ Agentic RAG 则可能会：
 学完这一页，至少保留这张证据卡：
 
 ```text
-query: one user question or test case
-retrieved_chunks: chunk ids, scores, and source titles
-answer: final response with citation or source note
-failure_check: missing evidence, wrong chunk, stale doc, or unsupported claim
-next_action: chunking, embedding, reranking, prompt, or eval change
+查询：一个用户问题或测试用例
+已检索分块：分块 ID、分数和来源标题
+答案：带引用或来源说明的最终回答
+失败检查：缺少证据、切分错误、文档过时或论断无依据
+下一步动作：分块、embedding、重排、Prompt 或评估改动
 ```
 
 ## 小结
@@ -320,7 +320,7 @@ next_action: chunking, embedding, reranking, prompt, or eval change
 3. 试着举一个必须多跳检索才能回答的问题。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>项目交付参考与讲解</summary>
 
 1. 好的 route 应把大纲、课程内容、练习类问题送到课程内容库，同时把账号、支付或政策问题留在各自路线。路由决策应容易被检查。
 2. 订单状态、报名记录、库存、权限、成绩、实时价格等结构化事实通常更适合 SQL 或 API。文本检索更适合解释、政策、手册和长文本知识。

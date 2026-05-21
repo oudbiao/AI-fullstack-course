@@ -433,11 +433,11 @@ for q in ["この文章を要約して", "返金ポリシーは何ですか？"]
 このページを終えたら、この証拠カードを残します。
 
 ```text
-runtime_choice: local model, inference server, or unified API
-request_contract: endpoint, payload, output format, and error shape
-latency_or_cost: one measured or estimated number
-failure_check: timeout, memory pressure, model mismatch, or version drift
-rollback_plan: fallback model, retry policy, or traffic switch
+ランタイム選択: ローカルモデル、推論サーバー、または統合 API
+リクエスト契約：エンドポイント、payload、出力形式、エラー形状
+レイテンシまたはコスト：1つの測定値または推定値
+失敗確認: タイムアウト、メモリ圧迫、モデル不一致、またはバージョンずれ
+ロールバック計画: フォールバックモデル、リトライ方針、またはトラフィック切り替え
 ```
 
 ## まとめ
@@ -478,7 +478,7 @@ rollback_plan: fallback model, retry policy, or traffic switch
 4. 自分の言葉で説明してみましょう。なぜ統一 API 層は、モデルルーティングと fallback を受け持つのに向いているのでしょうか？
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 例として `{ok: false, error: {code, message, retryable, provider, request_id}}` のような構造を返し、provider 固有の例外を業務コードへ直接漏らさないようにします。
 2. 統一 API がそろえるのは呼び出し入口と結果処理です。provider ごとの能力、コンテキスト長、tool、コスト、レイテンシはまだ違います。

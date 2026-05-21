@@ -62,11 +62,11 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 学完这一页，至少保留这张证据卡：
 
 ```text
-service_contract: endpoint, input schema, output schema, error schema
-run_signal: latency, throughput, logs, health check, or container status
-observability: request id, trace id, structured log, or metric
-failure_check: timeout, retry storm, missing log, deployment mismatch
-ops_action: backoff, queue, alert, rollout, or rollback
+服务契约：端点、输入模式、输出模式、错误模式
+运行信号：延迟、吞吐量、日志、健康检查，或容器状态
+可观测性：请求 ID、trace ID、结构化日志或指标
+失败检查：超时、重试风暴、缺少日志或部署不匹配
+运维动作：backoff、queue、alert、rollout 或 rollback
 ```
 
 ## 通过标准
@@ -76,7 +76,7 @@ ops_action: backoff, queue, alert, rollout, or rollback
 本章出口小项目是一份工程证据包：一条 trace 日志、一个常见错误、一次修复、一次回归检查和一条部署说明。
 
 <details>
-<summary>参考答案与讲解</summary>
+<summary>检查思路与讲解</summary>
 
 1. 合格答案要能追踪 query、chunks、检索分数、引用证据、最终回答和兜底行为。
 2. 证据应包含检索片段、source metadata、带引用的回答，以及至少一个空检索或误检索案例。

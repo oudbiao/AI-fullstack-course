@@ -135,12 +135,12 @@ step=300 loss_d=1.307 loss_g=0.630 fake_mean=1.384 fake_std=0.056
 GAN 実行では loss だけでなく、生成分布のメモを残します。
 
 ```text
-real_center: about 2.0
-step_001: fake_mean=0.025, fake_std=0.117
-step_300: fake_mean=1.384, fake_std=0.056
-diagnosis: final line is not automatically best
-collapse_signal: fake_std becomes very small
-review_rule: compare samples/distribution, not loss alone
+実数中心：2.0 付近
+ステップ001：fake_mean=0.025, fake_std=0.117
+ステップ300：fake_mean=1.384, fake_std=0.056
+診断：最後の行が自動的に最善とは限らない
+収束シグナル：fake_std が非常に小さくなる
+レビュー規則：loss だけでなく、サンプルや分布を比較する
 ```
 
 ## Mode Collapse とは
@@ -193,7 +193,7 @@ GAN は今でも学ぶ価値があります。adversarial learning、distributio
 5. GAN の出力品質を 1 つの loss だけで判断できない理由を説明してください。
 
 <details>
-<summary>参考解答と解説</summary>
+<summary>参考実装と解説</summary>
 
 1. 学習がうまく進むなら、`fake_mean` は新しい real data の中心に近づきます。動かない場合は generator と discriminator のバランスを疑います。
 2. 小さい学習率は滑らかになりやすい一方で遅くなります。短い step 数ではまだ分布に届かないことがあります。

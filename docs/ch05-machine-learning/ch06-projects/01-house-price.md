@@ -442,7 +442,7 @@ If you want to turn this into a portfolio page, what matters most is not a long 
 - [ ] Perform residual analysis and feature importance analysis
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Project reference and review notes</summary>
 
 1. EDA is complete only when distributions, missing values, correlations, and suspicious outliers are recorded with a short modeling implication.
 2. Engineered features should have clear housing meaning, such as area ratios or quality aggregates. If a feature uses future or target-derived information, reject it as leakage.

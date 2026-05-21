@@ -569,7 +569,7 @@ Once you start paying attention to schema design, parameter validation, failure 
 4. Think about this: why is Function Calling more critical in an Agent system than in a normal chatbot?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. Define `get_weather(city)` with a required string `city`, a predictable return shape such as `{ok, data, error}`, and validation before execution.
 2. The validator should block missing `city`, non-string values, unknown parameters, and malformed JSON before the tool runner sees the call.

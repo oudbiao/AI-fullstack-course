@@ -416,7 +416,7 @@ Only when the communication layer is solid can a multi-Agent system avoid wastin
 4. Explain in your own words: why is communication design often just as important as task division in a multi-Agent system?
 
 <details>
-<summary>Reference answers and explanation</summary>
+<summary>Reference implementation and walkthrough</summary>
 
 1. `reviewer_handler` should subscribe to `task_done`, read the payload, check whether the result satisfies the criteria, and publish a review event or attach review status to shared state.
 2. A useful protocol might include `type`, `task_id`, `from`, `to`, `payload`, `evidence`, `status`, and `timestamp`. The exact fields can vary, but message meaning should be stable.
