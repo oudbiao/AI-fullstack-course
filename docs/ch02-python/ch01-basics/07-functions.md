@@ -24,41 +24,41 @@ This section teaches you how to package repeated logic into functions. Functions
 
 ## Why Do We Need Functions?
 
-Suppose you are writing a data processing script and need to calculate averages multiple times:
+Suppose you are writing a data processing script and need to calculate average API latency multiple times:
 
 ```python
 # First calculation
-scores1 = [85, 92, 78, 95, 88]
-total1 = sum(scores1)
-avg1 = total1 / len(scores1)
-print(f"Average score: {avg1:.1f}")
+api_latencies = [120, 95, 240, 180, 310]
+total1 = sum(api_latencies)
+avg1 = total1 / len(api_latencies)
+print(f"Average latency: {avg1:.1f} ms")
 
 # Second calculation (writing the exact same logic again)
-scores2 = [90, 85, 92, 88, 95, 87]
-total2 = sum(scores2)
-avg2 = total2 / len(scores2)
-print(f"Average score: {avg2:.1f}")
+worker_latencies = [80, 76, 95, 110, 140, 90]
+total2 = sum(worker_latencies)
+avg2 = total2 / len(worker_latencies)
+print(f"Average latency: {avg2:.1f} ms")
 
 # Third calculation (writing it again...)
-scores3 = [75, 80, 68, 72, 88]
-total3 = sum(scores3)
-avg3 = total3 / len(scores3)
-print(f"Average score: {avg3:.1f}")
+batch_latencies = [450, 510, 480, 530, 470]
+total3 = sum(batch_latencies)
+avg3 = total3 / len(batch_latencies)
+print(f"Average latency: {avg3:.1f} ms")
 ```
 
-The same logic is written 3 times. If you later need to change the calculation method (for example, remove the highest and lowest scores), you would have to change it in 3 places.
+The same logic is written 3 times. If you later need to change the calculation method (for example, remove the highest and lowest readings), you would have to change it in 3 places.
 
 Use a function instead:
 
 ```python
-def calculate_average(scores):
-    """Calculate the average score"""
-    return sum(scores) / len(scores)
+def calculate_average(values):
+    """Calculate the average value"""
+    return sum(values) / len(values)
 
 # Now it can be done in one line
-print(f"Average score: {calculate_average([85, 92, 78, 95, 88]):.1f}")
-print(f"Average score: {calculate_average([90, 85, 92, 88, 95, 87]):.1f}")
-print(f"Average score: {calculate_average([75, 80, 68, 72, 88]):.1f}")
+print(f"Average latency: {calculate_average([120, 95, 240, 180, 310]):.1f} ms")
+print(f"Average latency: {calculate_average([80, 76, 95, 110, 140, 90]):.1f} ms")
+print(f"Average latency: {calculate_average([450, 510, 480, 530, 470]):.1f} ms")
 ```
 
 **The core value of functions:**
@@ -68,7 +68,7 @@ print(f"Average score: {calculate_average([75, 80, 68, 72, 88]):.1f}")
 | **Reuse** | Write once, use many times |
 | **Abstraction** | Hide complex logic behind a function name; when calling it, you only need to know “what it does,” not “how it does it” |
 | **Maintainability** | Change the logic in one place only |
-| **Readability** | The function name acts like a comment; `calculate_average(scores)` is immediately clear |
+| **Readability** | The function name acts like a comment; `calculate_average(latencies_ms)` is immediately clear |
 
 ---
 
@@ -79,11 +79,11 @@ print(f"Average score: {calculate_average([75, 80, 68, 72, 88]):.1f}")
 ```python
 def greet(name):
     """Greet someone"""  # Docstring, describes what the function does
-    print(f"Hello, {name}! Welcome to learning Python!")
+    print(f"Hello, {name}! Welcome to the project workspace!")
 
 # Call the function
-greet("Xiao Ming")     # Hello, Xiao Ming! Welcome to learning Python!
-greet("Xiao Hong")     # Hello, Xiao Hong! Welcome to learning Python!
+greet("Mina")     # Hello, Mina! Welcome to the project workspace!
+greet("Kai")      # Hello, Kai! Welcome to the project workspace!
 ```
 
 Syntax breakdown:
@@ -158,7 +158,7 @@ def greet(name):
     print(f"Hello, {name}!")
     # No return
 
-result = greet("Xiao Ming")   # Prints: Hello, Xiao Ming!
+result = greet("Mina")        # Prints: Hello, Mina!
 print(result)                 # None
 ```
 
@@ -181,14 +181,14 @@ print(divide(10, 0))   # Error: The divisor cannot be 0! Then returns None
 
 ### Positional Parameters
 
-Parameters passed in order:
+Parameters are supplied in order:
 
 ```python
-def describe_pet(animal, name):
-    print(f"I have a {animal} named {name}")
+def describe_task(task, owner):
+    print(f"{task} is assigned to {owner}")
 
-describe_pet("cat", "Mimi")   # I have a cat named Mimi
-describe_pet("Mimi", "cat")   # I have a Mimi named cat — the order is wrong!
+describe_task("Login API", "Mina")   # Login API is assigned to Mina
+describe_task("Mina", "Login API")   # Mina is assigned to Login API — the order is wrong!
 ```
 
 ### Keyword Parameters
@@ -196,12 +196,12 @@ describe_pet("Mimi", "cat")   # I have a Mimi named cat — the order is wrong!
 Pass values using parameter names, so order does not matter:
 
 ```python
-def describe_pet(animal, name):
-    print(f"I have a {animal} named {name}")
+def describe_task(task, owner):
+    print(f"{task} is assigned to {owner}")
 
 # With keyword parameters, order does not matter
-describe_pet(name="Mimi", animal="cat")   # I have a cat named Mimi
-describe_pet(animal="dog", name="Wangcai")   # I have a dog named Wangcai
+describe_task(owner="Mina", task="Login API")   # Login API is assigned to Mina
+describe_task(task="Dashboard UI", owner="Kai") # Dashboard UI is assigned to Kai
 ```
 
 ### Default Parameters
@@ -270,10 +270,10 @@ def print_info(**info):
     for key, value in info.items():
         print(f"{key}: {value}")
 
-print_info(name="Xiao Ming", age=20, city="Beijing")
-# name: Xiao Ming
-# age: 20
-# city: Beijing
+print_info(name="Login API", owner="Mina", status="in_progress")
+# name: Login API
+# owner: Mina
+# status: in_progress
 ```
 
 ### Parameter Order Rules
@@ -383,60 +383,60 @@ help(calculate_bmi)
 
 ## Comprehensive Examples
 
-### Example 1: Score Analysis Tool
+### Example 1: API Latency Analysis Tool
 
 ```python
-def analyze_scores(scores, subject="Unknown Subject"):
+def analyze_latencies(latencies_ms, service="Unknown Service"):
     """
-    Analyze a list of scores and return statistics.
+    Analyze a list of API latencies and return statistics.
 
     Parameters:
-        scores: list of scores
-        subject: subject name
+        latencies_ms: list of latency measurements in milliseconds
+        service: service name
     Returns:
         A dictionary containing statistics
     """
-    if not scores:
-        return {"error": "The score list is empty"}
+    if not latencies_ms:
+        return {"error": "The latency list is empty"}
 
-    avg = sum(scores) / len(scores)
-    passed = [s for s in scores if s >= 60]
-    failed = [s for s in scores if s < 60]
+    avg = sum(latencies_ms) / len(latencies_ms)
+    slow = [ms for ms in latencies_ms if ms >= 200]
+    normal = [ms for ms in latencies_ms if ms < 200]
 
     return {
-        "subject": subject,
-        "count": len(scores),
-        "average": round(avg, 1),
-        "max": max(scores),
-        "min": min(scores),
-        "pass_rate": f"{len(passed) / len(scores):.1%}",
-        "passed": len(passed),
-        "failed": len(failed)
+        "service": service,
+        "count": len(latencies_ms),
+        "average_ms": round(avg, 1),
+        "max_ms": max(latencies_ms),
+        "min_ms": min(latencies_ms),
+        "slow_rate": f"{len(slow) / len(latencies_ms):.1%}",
+        "slow_requests": len(slow),
+        "normal_requests": len(normal)
     }
 
 def print_report(stats):
-    """Print a formatted score report"""
+    """Print a formatted latency report"""
     print(f"\n{'='*30}")
-    print(f"  {stats['subject']} Score Analysis Report")
+    print(f"  {stats['service']} Latency Report")
     print(f"{'='*30}")
-    print(f"  Number of students: {stats['count']}")
-    print(f"  Average score:      {stats['average']}")
-    print(f"  Highest score:      {stats['max']}")
-    print(f"  Lowest score:       {stats['min']}")
-    print(f"  Pass rate:          {stats['pass_rate']}")
-    print(f"  Passed:             {stats['passed']}")
-    print(f"  Failed:             {stats['failed']}")
+    print(f"  Samples:            {stats['count']}")
+    print(f"  Average latency:    {stats['average_ms']} ms")
+    print(f"  Highest latency:    {stats['max_ms']} ms")
+    print(f"  Lowest latency:     {stats['min_ms']} ms")
+    print(f"  Slow rate:          {stats['slow_rate']}")
+    print(f"  Slow requests:      {stats['slow_requests']}")
+    print(f"  Normal requests:    {stats['normal_requests']}")
     print(f"{'='*30}")
 
 # Use it
-math_scores = [85, 92, 45, 78, 95, 55, 88, 72, 60, 98]
-english_scores = [70, 55, 88, 45, 92, 78, 65, 82, 90, 58]
+login_latencies = [120, 95, 240, 180, 310, 150, 88, 205, 260, 170]
+worker_latencies = [80, 76, 95, 110, 140, 90, 105, 118, 130, 85]
 
-math_stats = analyze_scores(math_scores, "Mathematics")
-english_stats = analyze_scores(english_scores, "English")
+login_stats = analyze_latencies(login_latencies, "Login API")
+worker_stats = analyze_latencies(worker_latencies, "Background Worker")
 
-print_report(math_stats)
-print_report(english_stats)
+print_report(login_stats)
+print_report(worker_stats)
 ```
 
 ### Example 2: A Simple Password Generator
