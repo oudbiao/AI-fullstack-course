@@ -44,7 +44,7 @@ description: "Python におけるさまざまな演算子と式を理解する"
 
 AI のデータ処理スクリプトを開発しているとします。次のような処理が必要です。
 - モデルの正解率を計算する：`correct / total * 100`
-- 合格かどうかを判定する：`accuracy >= 60`
+- 目標を満たすかを判定する：`accuracy >= 60`
 - 2つの条件を確認する：`accuracy >= 60 and loss < 0.5`
 
 これらの操作はすべて**演算子**なしではできません。演算子とは、Python に「データに対して何をするか」を伝える記号です。
@@ -157,13 +157,13 @@ print(accuracy == 87.3)    # True  —— 正解率はちょうど 87.3
 Python では連鎖比較ができます。これは他の言語ではできないことがあります。
 
 ```python
-age = 25
+latency_ms = 185
 
-# age が 18 から 65 の間かを判定する
-print(18 <= age <= 65)   # True
+# レイテンシが API の許容範囲内かを判定する
+print(50 <= latency_ms <= 200)   # True
 
 # 同じ意味
-print(18 <= age and age <= 65)   # True。ただし上の書き方のほうが簡潔
+print(50 <= latency_ms and latency_ms <= 200)   # True。ただし上の書き方のほうが簡潔
 
 # さらに例
 x = 5
@@ -184,21 +184,21 @@ print(1 < x < 3)       # False
 | `not` | ではない | **反転**する。真は偽に、偽は真になる |
 
 ```python
-age = 25
-has_id = True
-has_ticket = False
+tests_passed = True
+has_review = True
+has_rollback_plan = False
 
 # and: 2つの条件を両方満たす
-can_enter = age >= 18 and has_id
-print(f"入場できるか: {can_enter}")   # True（年齢は足りていて、証明書もある）
+can_release = tests_passed and has_review
+print(f"リリースできるか: {can_release}")   # True（テストが通り、レビューも完了）
 
 # or: 少なくとも1つの条件を満たす
-has_pass = has_id or has_ticket
-print(f"通行証があるか: {has_pass}")  # True（証明書があればよい）
+has_safety_net = has_review or has_rollback_plan
+print(f"安全策があるか: {has_safety_net}")  # True（レビューが1つの確認になる）
 
 # not: 反転する
-is_minor = not (age >= 18)
-print(f"未成年か: {is_minor}")   # False
+needs_attention = not tests_passed
+print(f"注意が必要か: {needs_attention}")   # False
 ```
 
 ### 実際の例: AI モデル評価
@@ -264,14 +264,14 @@ if len(data) > 0 and data[0] > 10:
 | `**=` | `a = a ** b` | `a **= 3` |
 
 ```python
-score = 0
+completed_tasks = 0
 
-score += 10   # score = 0 + 10 = 10
-score += 20   # score = 10 + 20 = 30
-score -= 5    # score = 30 - 5 = 25
-score *= 2    # score = 25 * 2 = 50
+completed_tasks += 2   # completed_tasks = 0 + 2 = 2
+completed_tasks += 3   # completed_tasks = 2 + 3 = 5
+completed_tasks -= 1   # completed_tasks = 5 - 1 = 4
+completed_tasks *= 2   # completed_tasks = 4 * 2 = 8
 
-print(f"最終スコア: {score}")  # 50
+print(f"完了タスクポイント: {completed_tasks}")  # 8
 ```
 
 これらの短縮形は、ループで特によく使います。
@@ -369,61 +369,63 @@ result = (2 ** 3) ** 2   # 64
 
 ---
 
-## 総合例: BMI 計算機
+## 総合例: API レイテンシ確認
 
 今日学んだ演算子をまとめて使ってみましょう。
 
 ```python
-# BMI 計算機
-name = "小明"
-weight = 70      # kg
-height = 1.75    # m
+# API レイテンシ確認
+service = "ログイン API"
+db_latency = 70       # ms
+api_latency = 45      # ms
+ui_latency = 80       # ms
 
-# BMI を計算する: 体重 / 身長の2乗
-bmi = weight / height ** 2  # 先に height**2 を計算してから割り算する
-print(f"{name} の BMI: {bmi:.1f}")  # 22.9
+# 平均レイテンシを計算する
+total_latency = db_latency + api_latency + ui_latency
+average_latency = total_latency / 3
+print(f"{service} の平均レイテンシ: {average_latency:.1f} ms")  # 65.0
 
-# 体重の範囲を判定する
-is_underweight = bmi < 18.5
-is_normal = 18.5 <= bmi < 24
-is_overweight = 24 <= bmi < 28
-is_obese = bmi >= 28
+# サービス状態を判定する
+is_fast = average_latency < 100
+is_acceptable = 100 <= average_latency < 250
+is_slow = 250 <= average_latency < 500
+is_incident_risk = average_latency >= 500
 
-print(f"低体重: {is_underweight}")  # False
-print(f"普通体重: {is_normal}")        # True
-print(f"過体重: {is_overweight}")      # False
-print(f"肥満: {is_obese}")            # False
+print(f"高速: {is_fast}")                  # True
+print(f"許容範囲: {is_acceptable}")        # False
+print(f"遅い: {is_slow}")                  # False
+print(f"障害リスク: {is_incident_risk}")   # False
 
 # 総合判定
-is_healthy = is_normal and not is_underweight
-print(f"健康: {is_healthy}")           # True
+is_ready = is_fast and not is_incident_risk
+print(f"デモ可能か: {is_ready}")           # True
 ```
 
 ---
 
 ## 手を動かしてみよう
 
-### 練習 1: 成績ランクの判定
+### 練習 1: レイテンシ状態の判定
 
-比較演算子と論理演算子を使って成績ランクを判定しましょう。
+比較演算子と論理演算子を使ってレイテンシ状態を判定しましょう。
 
 ```python
-score = 85
+latency_ms = 185
 
-is_excellent = score >= 90               # 優秀
-is_good = score >= 80 and score < 90     # 良い
-is_pass = score >= 60 and score < 80     # 合格
-is_fail = score < 60                      # 不合格
+is_fast = latency_ms < 100                         # 高速
+is_acceptable = latency_ms >= 100 and latency_ms < 250
+is_slow = latency_ms >= 250 and latency_ms < 500
+is_incident_risk = latency_ms >= 500
 
 # 結果を表示する
-print(f"点数: {score}")
-print(f"優秀: {is_excellent}")
-print(f"良い: {is_good}")
-print(f"合格: {is_pass}")
-print(f"不合格: {is_fail}")
+print(f"レイテンシ: {latency_ms} ms")
+print(f"高速: {is_fast}")
+print(f"許容範囲: {is_acceptable}")
+print(f"遅い: {is_slow}")
+print(f"障害リスク: {is_incident_risk}")
 ```
 
-`score` の値を変えて、いろいろな点数の結果を試してみましょう。
+`latency_ms` の値を変えて、いろいろなレイテンシの結果を試してみましょう。
 
 ### 練習 2: うるう年の判定
 
@@ -454,7 +456,7 @@ print(f"辺の長さ {a}, {b}, {c} で三角形を作れますか？ {is_triangl
 <details>
 <summary>参考実装と解説</summary>
 
-1. `score = 85` のときは「良い」の分岐だけが真になります。`95`、`75`、`40` でも試して他の分岐を確認します。
+1. `latency_ms = 185` のときは「許容範囲」の分岐だけが真になります。`80`、`320`、`650` でも試して他の分岐を確認します。
 2. うるう年の式は `year % 4 == 0 and year % 100 != 0 or year % 400 == 0` のように書けます。括弧を加えるとさらに読みやすくなります。
 3. 三角形の条件は `a + b > c and a + c > b and b + c > a` です。
 4. 反例と正例を両方試します。`1, 2, 3` は false、`3, 4, 5` は true、`2, 2, 3` は true です。

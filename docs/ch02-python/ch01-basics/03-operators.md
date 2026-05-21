@@ -32,7 +32,7 @@ In this section, you’ll learn how to calculate and make decisions with data. O
 
 You are developing an AI data processing script and need to:
 - Calculate model accuracy: `correct / total * 100`
-- Check whether it passes: `accuracy >= 60`
+- Check whether it meets the target: `accuracy >= 60`
 - Check two conditions: `accuracy >= 60 and loss < 0.5`
 
 All of these operations depend on **operators**. Operators are the symbols that tell Python “what to do with the data.”
@@ -145,13 +145,13 @@ The most common mistake beginners make is writing `=` instead of `==` when makin
 Python allows chained comparisons, which is not possible in many other languages:
 
 ```python
-age = 25
+latency_ms = 185
 
-# Check whether age is between 18 and 65
-print(18 <= age <= 65)   # True
+# Check whether latency is inside the acceptable API range
+print(50 <= latency_ms <= 200)   # True
 
 # Equivalent to
-print(18 <= age and age <= 65)   # True, but the version above is more concise
+print(50 <= latency_ms and latency_ms <= 200)   # True, but the version above is more concise
 
 # More examples
 x = 5
@@ -172,21 +172,21 @@ Logical operators are used to combine multiple conditions:
 | `not` | Not | **Negates** the value: true becomes false, false becomes true |
 
 ```python
-age = 25
-has_id = True
-has_ticket = False
+tests_passed = True
+has_review = True
+has_rollback_plan = False
 
 # and: both conditions must be satisfied
-can_enter = age >= 18 and has_id
-print(f"Can enter: {can_enter}")   # True (old enough and has ID)
+can_release = tests_passed and has_review
+print(f"Can release: {can_release}")   # True (tests passed and review is done)
 
 # or: at least one condition is satisfied
-has_pass = has_id or has_ticket
-print(f"Has access pass: {has_pass}")  # True (having an ID is enough)
+has_safety_net = has_review or has_rollback_plan
+print(f"Has safety net: {has_safety_net}")  # True (review already provides one check)
 
 # not: negate
-is_minor = not (age >= 18)
-print(f"Is a minor: {is_minor}")   # False
+needs_attention = not tests_passed
+print(f"Needs attention: {needs_attention}")   # False
 ```
 
 ### Real-world example: AI model evaluation
@@ -252,14 +252,14 @@ In addition to the basic `=`, there are some shorthand forms:
 | `**=` | `a = a ** b` | `a **= 3` |
 
 ```python
-score = 0
+completed_tasks = 0
 
-score += 10   # score = 0 + 10 = 10
-score += 20   # score = 10 + 20 = 30
-score -= 5    # score = 30 - 5 = 25
-score *= 2    # score = 25 * 2 = 50
+completed_tasks += 2   # completed_tasks = 0 + 2 = 2
+completed_tasks += 3   # completed_tasks = 2 + 3 = 5
+completed_tasks -= 1   # completed_tasks = 5 - 1 = 4
+completed_tasks *= 2   # completed_tasks = 4 * 2 = 8
 
-print(f"Final score: {score}")  # 50
+print(f"Completed task points: {completed_tasks}")  # 8
 ```
 
 These shorthand forms are especially common in loops:
@@ -357,61 +357,63 @@ result = (2 ** 3) ** 2   # 64
 
 ---
 
-## Comprehensive example: BMI calculator
+## Comprehensive example: API latency check
 
 Let’s combine the operators we learned today:
 
 ```python
-# BMI calculator
-name = "Xiao Ming"
-weight = 70      # kilograms
-height = 1.75    # meters
+# API latency check
+service = "Login API"
+db_latency = 70       # ms
+api_latency = 45      # ms
+ui_latency = 80       # ms
 
-# Calculate BMI: weight / height squared
-bmi = weight / height ** 2  # First calculate height**2, then divide
-print(f"{name}'s BMI: {bmi:.1f}")  # 22.9
+# Calculate average latency
+total_latency = db_latency + api_latency + ui_latency
+average_latency = total_latency / 3
+print(f"{service} average latency: {average_latency:.1f} ms")  # 65.0
 
-# Determine weight range
-is_underweight = bmi < 18.5
-is_normal = 18.5 <= bmi < 24
-is_overweight = 24 <= bmi < 28
-is_obese = bmi >= 28
+# Determine service status
+is_fast = average_latency < 100
+is_acceptable = 100 <= average_latency < 250
+is_slow = 250 <= average_latency < 500
+is_incident_risk = average_latency >= 500
 
-print(f"Underweight: {is_underweight}")  # False
-print(f"Normal weight: {is_normal}")     # True
-print(f"Overweight: {is_overweight}")    # False
-print(f"Obese: {is_obese}")              # False
+print(f"Fast: {is_fast}")                    # True
+print(f"Acceptable: {is_acceptable}")        # False
+print(f"Slow: {is_slow}")                    # False
+print(f"Incident risk: {is_incident_risk}")  # False
 
 # Combined judgment
-is_healthy = is_normal and not is_underweight
-print(f"Healthy: {is_healthy}")          # True
+is_ready = is_fast and not is_incident_risk
+print(f"Ready to demo: {is_ready}")          # True
 ```
 
 ---
 
 ## Hands-on exercises
 
-### Exercise 1: Grade level check
+### Exercise 1: Latency status check
 
-Use comparison operators and logical operators to determine grade level:
+Use comparison operators and logical operators to determine latency status:
 
 ```python
-score = 85
+latency_ms = 185
 
-is_excellent = score >= 90               # Excellent
-is_good = score >= 80 and score < 90     # Good
-is_pass = score >= 60 and score < 80     # Pass
-is_fail = score < 60                     # Fail
+is_fast = latency_ms < 100                         # Fast
+is_acceptable = latency_ms >= 100 and latency_ms < 250
+is_slow = latency_ms >= 250 and latency_ms < 500
+is_incident_risk = latency_ms >= 500
 
 # Print results
-print(f"Score: {score}")
-print(f"Excellent: {is_excellent}")
-print(f"Good: {is_good}")
-print(f"Pass: {is_pass}")
-print(f"Fail: {is_fail}")
+print(f"Latency: {latency_ms} ms")
+print(f"Fast: {is_fast}")
+print(f"Acceptable: {is_acceptable}")
+print(f"Slow: {is_slow}")
+print(f"Incident risk: {is_incident_risk}")
 ```
 
-Change the value of `score` and try different results.
+Change the value of `latency_ms` and try different results.
 
 ### Exercise 2: Leap year check
 
@@ -442,7 +444,7 @@ print(f"Can sides {a}, {b}, {c} form a triangle? {is_triangle}")
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-1. With `score = 85`, only the “good” branch should be true. Test `95`, `75`, and `40` to confirm the other branches.
+1. With `latency_ms = 185`, only the “acceptable” branch should be true. Test `80`, `320`, and `650` to confirm the other branches.
 2. A leap-year expression can be `year % 4 == 0 and year % 100 != 0 or year % 400 == 0`. Parentheses can make it clearer.
 3. The triangle condition is `a + b > c and a + c > b and b + c > a`.
 4. Test non-examples and examples: `1, 2, 3` is false, `3, 4, 5` is true, and `2, 2, 3` is true.

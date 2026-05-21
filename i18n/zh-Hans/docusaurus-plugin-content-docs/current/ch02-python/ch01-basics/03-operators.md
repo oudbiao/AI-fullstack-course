@@ -32,7 +32,7 @@ description: "掌握 Python 中的各种运算符和表达式"
 
 你在开发一个 AI 数据处理脚本，需要：
 - 计算模型准确率：`correct / total * 100`
-- 判断是否及格：`accuracy >= 60`
+- 判断是否达标：`accuracy >= 60`
 - 检查两个条件：`accuracy >= 60 and loss < 0.5`
 
 这些操作都离不开**运算符**。运算符就是告诉 Python "对数据做什么操作"的符号。
@@ -145,13 +145,13 @@ print(accuracy == 87.3)    # True  —— 准确率恰好是 87.3
 Python 允许链式比较，这在其他语言中是做不到的：
 
 ```python
-age = 25
+latency_ms = 185
 
-# 判断 age 是否在 18 到 65 之间
-print(18 <= age <= 65)   # True
+# 判断延迟是否在 API 可接受范围内
+print(50 <= latency_ms <= 200)   # True
 
 # 等价于
-print(18 <= age and age <= 65)   # True，但上面的写法更简洁
+print(50 <= latency_ms and latency_ms <= 200)   # True，但上面的写法更简洁
 
 # 更多示例
 x = 5
@@ -172,21 +172,21 @@ print(1 < x < 3)       # False
 | `not` | 非 | **取反**，真变假，假变真 |
 
 ```python
-age = 25
-has_id = True
-has_ticket = False
+tests_passed = True
+has_review = True
+has_rollback_plan = False
 
 # and：两个条件都满足
-can_enter = age >= 18 and has_id
-print(f"能否入场: {can_enter}")   # True（年龄够了，也有证件）
+can_release = tests_passed and has_review
+print(f"能否发布: {can_release}")   # True（测试通过，并且完成评审）
 
 # or：至少满足一个条件
-has_pass = has_id or has_ticket
-print(f"有通行凭证: {has_pass}")  # True（有证件就行）
+has_safety_net = has_review or has_rollback_plan
+print(f"是否有安全保障: {has_safety_net}")  # True（评审已经提供了一层检查）
 
 # not：取反
-is_minor = not (age >= 18)
-print(f"是否未成年: {is_minor}")   # False
+needs_attention = not tests_passed
+print(f"是否需要关注: {needs_attention}")   # False
 ```
 
 ### 实际案例：AI 模型评估
@@ -252,14 +252,14 @@ if len(data) > 0 and data[0] > 10:
 | `**=` | `a = a ** b` | `a **= 3` |
 
 ```python
-score = 0
+completed_tasks = 0
 
-score += 10   # score = 0 + 10 = 10
-score += 20   # score = 10 + 20 = 30
-score -= 5    # score = 30 - 5 = 25
-score *= 2    # score = 25 * 2 = 50
+completed_tasks += 2   # completed_tasks = 0 + 2 = 2
+completed_tasks += 3   # completed_tasks = 2 + 3 = 5
+completed_tasks -= 1   # completed_tasks = 5 - 1 = 4
+completed_tasks *= 2   # completed_tasks = 4 * 2 = 8
 
-print(f"最终分数: {score}")  # 50
+print(f"已完成任务量: {completed_tasks}")  # 8
 ```
 
 这些简写在循环中特别常用：
@@ -357,61 +357,63 @@ result = (2 ** 3) ** 2   # 64
 
 ---
 
-## 综合案例：BMI 计算器
+## 综合案例：API 延迟检查
 
 把今天学的运算符综合运用一下：
 
 ```python
-# BMI 计算器
-name = "小明"
-weight = 70      # 公斤
-height = 1.75    # 米
+# API 延迟检查
+service = "登录 API"
+db_latency = 70       # ms
+api_latency = 45      # ms
+ui_latency = 80       # ms
 
-# 计算 BMI：体重 / 身高的平方
-bmi = weight / height ** 2  # 先算 height**2，再算除法
-print(f"{name} 的 BMI: {bmi:.1f}")  # 22.9
+# 计算平均延迟
+total_latency = db_latency + api_latency + ui_latency
+average_latency = total_latency / 3
+print(f"{service} 平均延迟: {average_latency:.1f} ms")  # 65.0
 
-# 判断体重范围
-is_underweight = bmi < 18.5
-is_normal = 18.5 <= bmi < 24
-is_overweight = 24 <= bmi < 28
-is_obese = bmi >= 28
+# 判断服务状态
+is_fast = average_latency < 100
+is_acceptable = 100 <= average_latency < 250
+is_slow = 250 <= average_latency < 500
+is_incident_risk = average_latency >= 500
 
-print(f"体重过轻: {is_underweight}")  # False
-print(f"体重正常: {is_normal}")        # True
-print(f"超重: {is_overweight}")        # False
-print(f"肥胖: {is_obese}")            # False
+print(f"快速: {is_fast}")              # True
+print(f"可接受: {is_acceptable}")      # False
+print(f"偏慢: {is_slow}")              # False
+print(f"事故风险: {is_incident_risk}") # False
 
 # 综合判断
-is_healthy = is_normal and not is_underweight
-print(f"健康: {is_healthy}")           # True
+is_ready = is_fast and not is_incident_risk
+print(f"能否演示: {is_ready}")         # True
 ```
 
 ---
 
 ## 动手练习
 
-### 练习 1：成绩等级判断
+### 练习 1：延迟状态判断
 
-用比较运算符和逻辑运算符判断成绩等级：
+用比较运算符和逻辑运算符判断延迟状态：
 
 ```python
-score = 85
+latency_ms = 185
 
-is_excellent = score >= 90               # 优秀
-is_good = score >= 80 and score < 90     # 良好
-is_pass = score >= 60 and score < 80     # 及格
-is_fail = score < 60                     # 不及格
+is_fast = latency_ms < 100                         # 快速
+is_acceptable = latency_ms >= 100 and latency_ms < 250
+is_slow = latency_ms >= 250 and latency_ms < 500
+is_incident_risk = latency_ms >= 500
 
 # 打印结果
-print(f"分数: {score}")
-print(f"优秀: {is_excellent}")
-print(f"良好: {is_good}")
-print(f"及格: {is_pass}")
-print(f"不及格: {is_fail}")
+print(f"延迟: {latency_ms} ms")
+print(f"快速: {is_fast}")
+print(f"可接受: {is_acceptable}")
+print(f"偏慢: {is_slow}")
+print(f"事故风险: {is_incident_risk}")
 ```
 
-修改 `score` 的值，试试不同分数的结果。
+修改 `latency_ms` 的值，试试不同延迟的结果。
 
 ### 练习 2：闰年判断
 
@@ -442,7 +444,7 @@ print(f"边长 {a}, {b}, {c} 能构成三角形吗？{is_triangle}")
 <details>
 <summary>参考实现与讲解</summary>
 
-1. 当 `score = 85` 时，只有“良好”分支应该为真。再用 `95`、`75`、`40` 测试其他分支。
+1. 当 `latency_ms = 185` 时，只有“可接受”分支应该为真。再用 `80`、`320`、`650` 测试其他分支。
 2. 闰年表达式可以写成 `year % 4 == 0 and year % 100 != 0 or year % 400 == 0`。加括号会更容易读。
 3. 三角形条件是 `a + b > c and a + c > b and b + c > a`。
 4. 至少测试反例和正例：`1, 2, 3` 为假，`3, 4, 5` 为真，`2, 2, 3` 为真。
