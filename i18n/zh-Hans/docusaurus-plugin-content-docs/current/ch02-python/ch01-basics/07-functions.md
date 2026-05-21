@@ -358,25 +358,27 @@ print(count)  # 3
 好的函数应该有清晰的文档说明：
 
 ```python
-def calculate_bmi(weight, height):
+def calculate_success_rate(success_count, total_count):
     """
-    计算身体质量指数（BMI）。
+    计算任务或 API 检查的成功率。
 
     参数:
-        weight (float): 体重，单位千克
-        height (float): 身高，单位米
+        success_count (int): 成功运行次数
+        total_count (int): 总运行次数
 
     返回:
-        float: BMI 值
+        float: 0 到 1 之间的成功率
 
     示例:
-        >>> calculate_bmi(70, 1.75)
-        22.857142857142858
+        >>> calculate_success_rate(18, 20)
+        0.9
     """
-    return weight / (height ** 2)
+    if total_count == 0:
+        return 0
+    return success_count / total_count
 
 # 查看函数的文档
-help(calculate_bmi)
+help(calculate_success_rate)
 ```
 
 ---
@@ -477,22 +479,22 @@ print(f"超强密码: {generate_password(length=20)}")
 
 ## 动手练习
 
-### 练习 1：温度转换函数
+### 练习 1：延迟单位转换函数
 
-写两个函数，实现摄氏度和华氏度的互相转换：
+写两个函数，实现毫秒和秒之间的互相转换：
 
 ```python
-def celsius_to_fahrenheit(celsius):
-    """摄氏度 → 华氏度: F = C × 9/5 + 32"""
-    return celsius * 9 / 5 + 32
+def ms_to_seconds(milliseconds):
+    """毫秒 → 秒"""
+    return milliseconds / 1000
 
-def fahrenheit_to_celsius(fahrenheit):
-    """华氏度 → 摄氏度: C = (F - 32) × 5/9"""
-    return (fahrenheit - 32) * 5 / 9
+def seconds_to_ms(seconds):
+    """秒 → 毫秒"""
+    return seconds * 1000
 
 # 测试
-print(celsius_to_fahrenheit(100))  # 应该输出 212.0
-print(fahrenheit_to_celsius(32))   # 应该输出 0.0
+print(ms_to_seconds(2500))  # 应该输出 2.5
+print(seconds_to_ms(1.2))   # 应该输出 1200.0
 ```
 
 ### 练习 2：列表统计函数
@@ -538,49 +540,38 @@ stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
 print(stats)
 ```
 
-### 练习 3：猜数字游戏（函数版）
+### 练习 3：延迟阈值检查器
 
-把之前的猜数字游戏改写成函数版本：
+把可复用的延迟检查封装成函数：
 
 ```python
-def guess_number_game(min_val=1, max_val=100, max_attempts=7):
-    """猜数字游戏"""
-    import random
+def check_latency(service, latency_ms, threshold_ms=200):
+    """返回某个服务是否在延迟阈值内。"""
+    is_ok = latency_ms <= threshold_ms
+    status = "ok" if is_ok else "slow"
+    return {
+        "service": service,
+        "latency_ms": latency_ms,
+        "threshold_ms": threshold_ms,
+        "status": status,
+        "within_threshold": is_ok,
+    }
 
-    target = random.randint(min_val, max_val)
-    print(f"请猜一个介于 {min_val} 和 {max_val} 之间的数字")
-    for attempt in range(1, max_attempts + 1):
-        raw = input(f"第 {attempt}/{max_attempts} 次：")
-        if not raw.isdigit():
-            print("请输入整数。")
-            continue
-
-        guess = int(raw)
-        if guess == target:
-            print("猜对了！")
-            return True
-        if guess < target:
-            print("太小了")
-        else:
-            print("太大了")
-    print(f"游戏结束，答案是 {target}。")
-    return False
-
-# 运行游戏
-guess_number_game()
-guess_number_game(1, 50, 5)  # 范围更小，次数更少
+# 测试多个服务
+print(check_latency("登录 API", 185))
+print(check_latency("搜索 API", 260, threshold_ms=250))
 ```
 
-如果你想稳定测试，可以先把 `target = random.randint(min_val, max_val)` 临时改成 `target = 42`。确认函数逻辑没问题后，再改回随机版本。
+试着修改阈值，观察返回状态如何变化。
 
 <details>
 <summary>参考实现与讲解</summary>
 
-1. 温度转换测试应得到：`100` 摄氏度转成 `212.0` 华氏度，`32` 华氏度转成 `0.0` 摄氏度。再加一个如 `37` 摄氏度的往返测试会更稳。
+1. 延迟单位转换测试应得到：`2500` 毫秒转成 `2.5` 秒，`1.2` 秒转成 `1200.0` 毫秒。再加一个如 `375` 毫秒的往返测试会更稳。
 2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` 应返回最大值 `9`、最小值 `1`、平均值 `4.0`、中位数 `4`。
 3. 空列表返回 `None` 是可以的，前提是调用者会检查；另一种合理设计是抛出 `ValueError`。
-4. 游戏函数成功时应返回 `True`，次数用尽时返回 `False`，这样测试代码可以检查结果。
-5. 除非函数目的就是和用户交互，否则好函数应尽量避免隐藏的输入和输出；纯函数更容易测试。
+4. 延迟检查器应返回字典，这样测试代码既能检查可读的 `status`，也能检查布尔值 `within_threshold`。
+5. 除非函数目的就是和用户交互，否则好函数应尽量避免隐藏的输入和输出；像 `check_latency()` 这样的纯函数更容易测试。
 
 </details>
 

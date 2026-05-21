@@ -358,25 +358,27 @@ Try **not** to use global variables. Functions should receive data through param
 Good functions should have clear documentation:
 
 ```python
-def calculate_bmi(weight, height):
+def calculate_success_rate(success_count, total_count):
     """
-    Calculate Body Mass Index (BMI).
+    Calculate the success rate for a task or API check.
 
     Parameters:
-        weight (float): weight in kilograms
-        height (float): height in meters
+        success_count (int): number of successful runs
+        total_count (int): total number of runs
 
     Returns:
-        float: BMI value
+        float: success rate between 0 and 1
 
     Example:
-        >>> calculate_bmi(70, 1.75)
-        22.857142857142858
+        >>> calculate_success_rate(18, 20)
+        0.9
     """
-    return weight / (height ** 2)
+    if total_count == 0:
+        return 0
+    return success_count / total_count
 
 # View the function's documentation
-help(calculate_bmi)
+help(calculate_success_rate)
 ```
 
 ---
@@ -477,22 +479,22 @@ print(f"Strong password: {generate_password(length=20)}")
 
 ## Hands-On Exercises
 
-### Exercise 1: Temperature Conversion Functions
+### Exercise 1: Latency Conversion Functions
 
-Write two functions to convert between Celsius and Fahrenheit:
+Write two functions to convert between milliseconds and seconds:
 
 ```python
-def celsius_to_fahrenheit(celsius):
-    """Celsius → Fahrenheit: F = C × 9/5 + 32"""
-    return celsius * 9 / 5 + 32
+def ms_to_seconds(milliseconds):
+    """Milliseconds → seconds"""
+    return milliseconds / 1000
 
-def fahrenheit_to_celsius(fahrenheit):
-    """Fahrenheit → Celsius: C = (F - 32) × 5/9"""
-    return (fahrenheit - 32) * 5 / 9
+def seconds_to_ms(seconds):
+    """Seconds → milliseconds"""
+    return seconds * 1000
 
 # Test
-print(celsius_to_fahrenheit(100))  # Should output 212.0
-print(fahrenheit_to_celsius(32))   # Should output 0.0
+print(ms_to_seconds(2500))  # Should output 2.5
+print(seconds_to_ms(1.2))   # Should output 1200.0
 ```
 
 ### Exercise 2: List Statistics Function
@@ -538,49 +540,38 @@ stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
 print(stats)
 ```
 
-### Exercise 3: Number Guessing Game (Function Version)
+### Exercise 3: Latency Threshold Checker
 
-Rewrite the previous number guessing game as a function-based version:
+Wrap a reusable latency check in a function:
 
 ```python
-def guess_number_game(min_val=1, max_val=100, max_attempts=7):
-    """Number guessing game"""
-    import random
+def check_latency(service, latency_ms, threshold_ms=200):
+    """Return whether a service is within the latency threshold."""
+    is_ok = latency_ms <= threshold_ms
+    status = "ok" if is_ok else "slow"
+    return {
+        "service": service,
+        "latency_ms": latency_ms,
+        "threshold_ms": threshold_ms,
+        "status": status,
+        "within_threshold": is_ok,
+    }
 
-    target = random.randint(min_val, max_val)
-    print(f"Guess a number between {min_val} and {max_val}")
-    for attempt in range(1, max_attempts + 1):
-        raw = input(f"Attempt {attempt}/{max_attempts}: ")
-        if not raw.isdigit():
-            print("Please enter an integer.")
-            continue
-
-        guess = int(raw)
-        if guess == target:
-            print("Correct!")
-            return True
-        if guess < target:
-            print("Too small")
-        else:
-            print("Too large")
-    print(f"Game over. The answer was {target}.")
-    return False
-
-# Run the game
-guess_number_game()
-guess_number_game(1, 50, 5)  # Smaller range, fewer attempts
+# Test several services
+print(check_latency("Login API", 185))
+print(check_latency("Search API", 260, threshold_ms=250))
 ```
 
-If you want deterministic testing, temporarily replace `target = random.randint(min_val, max_val)` with `target = 42`. After confirming the function works, change it back to the random version.
+Try changing the threshold to see how the returned status changes.
 
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-1. Temperature conversion tests should produce `212.0` F for `100` C and `0.0` C for `32` F. Add a round-trip test such as `37` C.
+1. Latency conversion tests should produce `2.5` seconds for `2500` ms and `1200.0` ms for `1.2` seconds. Add a round-trip test such as `375` ms.
 2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` should report max `9`, min `1`, average `4.0`, and median `4`.
 3. Returning `None` for an empty list is acceptable if the caller checks it. Raising `ValueError` is another reasonable design.
-4. The game function should return `True` on success and `False` after all attempts, so tests can inspect the result.
-5. Good functions avoid hidden input and output unless user interaction is the point. Pure functions are easier to test.
+4. The latency checker should return a dictionary so tests can inspect both the human-readable `status` and the boolean `within_threshold`.
+5. Good functions avoid hidden input and output unless user interaction is the point. Pure functions like `check_latency()` are easier to test.
 
 </details>
 

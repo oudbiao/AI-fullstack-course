@@ -370,25 +370,27 @@ print(count)  # 3
 よい関数には、分かりやすい説明文を付けましょう。
 
 ```python
-def calculate_bmi(weight, height):
+def calculate_success_rate(success_count, total_count):
     """
-    体格指数（BMI）を計算する。
+    タスクや API チェックの成功率を計算する。
 
     引数:
-        weight (float): 体重、単位は kg
-        height (float): 身長、単位は m
+        success_count (int): 成功した実行回数
+        total_count (int): 実行回数の合計
 
     戻り値:
-        float: BMI の値
+        float: 0 から 1 の成功率
 
     例:
-        >>> calculate_bmi(70, 1.75)
-        22.857142857142858
+        >>> calculate_success_rate(18, 20)
+        0.9
     """
-    return weight / (height ** 2)
+    if total_count == 0:
+        return 0
+    return success_count / total_count
 
 # 関数の説明を見る
-help(calculate_bmi)
+help(calculate_success_rate)
 ```
 
 ---
@@ -489,22 +491,22 @@ print(f"超強力パスワード: {generate_password(length=20)}")
 
 ## 実践演習
 
-### 練習 1: 温度変換関数
+### 練習 1: レイテンシ単位変換関数
 
-摂氏と華氏を相互に変換する 2 つの関数を書いてみましょう。
+ミリ秒と秒を相互に変換する 2 つの関数を書いてみましょう。
 
 ```python
-def celsius_to_fahrenheit(celsius):
-    """摂氏 → 華氏: F = C × 9/5 + 32"""
-    return celsius * 9 / 5 + 32
+def ms_to_seconds(milliseconds):
+    """ミリ秒 → 秒"""
+    return milliseconds / 1000
 
-def fahrenheit_to_celsius(fahrenheit):
-    """華氏 → 摂氏: C = (F - 32) × 5/9"""
-    return (fahrenheit - 32) * 5 / 9
+def seconds_to_ms(seconds):
+    """秒 → ミリ秒"""
+    return seconds * 1000
 
 # テスト
-print(celsius_to_fahrenheit(100))  # 212.0 が出力されるはず
-print(fahrenheit_to_celsius(32))   # 0.0 が出力されるはず
+print(ms_to_seconds(2500))  # 2.5 が出力されるはず
+print(seconds_to_ms(1.2))   # 1200.0 が出力されるはず
 ```
 
 ### 練習 2: リスト統計関数
@@ -550,49 +552,38 @@ stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
 print(stats)
 ```
 
-### 練習 3: 数当てゲーム（関数版）
+### 練習 3: レイテンシしきい値チェッカー
 
-前の数当てゲームを、関数を使う形に書き換えてみましょう。
+再利用できるレイテンシチェックを関数にまとめてみましょう。
 
 ```python
-def guess_number_game(min_val=1, max_val=100, max_attempts=7):
-    """数当てゲーム"""
-    import random
+def check_latency(service, latency_ms, threshold_ms=200):
+    """サービスがレイテンシしきい値内かどうかを返す。"""
+    is_ok = latency_ms <= threshold_ms
+    status = "ok" if is_ok else "slow"
+    return {
+        "service": service,
+        "latency_ms": latency_ms,
+        "threshold_ms": threshold_ms,
+        "status": status,
+        "within_threshold": is_ok,
+    }
 
-    target = random.randint(min_val, max_val)
-    print(f"{min_val} から {max_val} までの数字を予想してください")
-    for attempt in range(1, max_attempts + 1):
-        raw = input(f"{attempt}/{max_attempts} 回目: ")
-        if not raw.isdigit():
-            print("整数を入力してください。")
-            continue
-
-        guess = int(raw)
-        if guess == target:
-            print("正解です！")
-            return True
-        if guess < target:
-            print("小さすぎます")
-        else:
-            print("大きすぎます")
-    print(f"ゲーム終了。答えは {target} でした。")
-    return False
-
-# ゲームを実行
-guess_number_game()
-guess_number_game(1, 50, 5)  # 範囲を狭くして、回数を少なくする
+# 複数のサービスをテスト
+print(check_latency("ログイン API", 185))
+print(check_latency("検索 API", 260, threshold_ms=250))
 ```
 
-安定してテストしたい場合は、`target = random.randint(min_val, max_val)` を一時的に `target = 42` に変えてください。関数の動きが確認できたら、ランダム版に戻します。
+しきい値を変えて、返されるステータスがどう変わるか確認してみましょう。
 
 <details>
 <summary>参考実装と解説</summary>
 
-1. 温度変換テストでは、`100` C が `212.0` F、`32` F が `0.0` C になります。`37` C のような往復テストも追加すると安心です。
+1. レイテンシ単位変換テストでは、`2500` ミリ秒が `2.5` 秒、`1.2` 秒が `1200.0` ミリ秒になります。`375` ミリ秒のような往復テストも追加すると安心です。
 2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` は、最大値 `9`、最小値 `1`、平均 `4.0`、中央値 `4` を返します。
 3. 空リストに `None` を返す設計は、呼び出し側が確認するなら妥当です。別案として `ValueError` を送出する方法もあります。
-4. ゲーム関数は、成功時に `True`、試行回数切れで `False` を返すと、テストコードで結果を確認できます。
-5. ユーザー操作そのものが目的でない限り、良い関数は隠れた入力や出力を減らします。純粋関数のほうがテストしやすいです。
+4. レイテンシチェッカーは辞書を返すと、テストコードで読みやすい `status` とブール値 `within_threshold` の両方を確認できます。
+5. ユーザー操作そのものが目的でない限り、良い関数は隠れた入力や出力を減らします。`check_latency()` のような純粋関数のほうがテストしやすいです。
 
 </details>
 
