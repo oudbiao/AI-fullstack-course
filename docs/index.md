@@ -35,7 +35,7 @@ The course has a main line and expansion tracks. Chapters 1-9 build the core pat
 
 Read briefly, run something, keep evidence. At the end of each stage, you should have something another person can inspect: a README command, a saved output, a metric table, a trace, a failure note, or a small demo.
 
-## First Evidence Card
+## Evidence to Keep
 
 Before Chapter 1, write one small card:
 

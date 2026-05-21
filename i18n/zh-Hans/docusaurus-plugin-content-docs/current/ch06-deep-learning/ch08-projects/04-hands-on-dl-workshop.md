@@ -865,6 +865,18 @@ deep_learning_workshop_run/reports/experiment_notes.md
 
 重要习惯不是每次都拿到更高分，而是一次只改一个变量、干净复跑，并能用证据解释结果。
 
+<details>
+<summary>参考答案与讲解</summary>
+
+一条合格的复跑记录要明确只改了哪个变量，然后用产物对比，而不是凭印象判断：
+
+1. 如果改了 `BATCH_SIZE`，比较训练速度、曲线平滑程度和 validation accuracy。batch 变大可能更平滑，但不一定更好。
+2. 如果改了 CNN learning rate，比较 loss curve 是下降、震荡还是卡住。第一轮 loss 更低并不等于整体更好。
+3. 如果改了 epoch 数，检查 validation loss 是继续改善还是开始过拟合。只有验证证据支持时，更多 epoch 才有意义。
+4. 最后的实验笔记要写出下一步动作，例如保留默认值、测试附近的一个值，或因为验证变差而回退。
+
+</details>
+
 ### 作品集检查清单
 
 在说第 6 章项目完成前，确认你已经有：

@@ -865,6 +865,18 @@ deep_learning_workshop_run/reports/experiment_notes.md
 
 大切なのは、毎回スコアを上げることではありません。1 つの変数だけを変え、クリーンに再実行し、証拠を使って結果を説明できることです。
 
+<details>
+<summary>参考解答と解説</summary>
+
+良い再実行メモでは、変えた変数を1つだけ明記し、記憶ではなく artifact を比べます。
+
+1. `BATCH_SIZE` を変えた場合は、学習速度、curve の滑らかさ、validation accuracy を比べます。大きい batch は滑らかになることがありますが、常に良いとは限りません。
+2. CNN の learning rate を変えた場合は、loss curve が下がるのか、振動するのか、止まるのかを見ます。最初の epoch の loss だけでは十分な証拠になりません。
+3. epoch 数を変えた場合は、validation loss が改善したのか、過学習が始まったのかを確認します。validation の証拠があるときだけ、epoch を増やす意味があります。
+4. 最後のメモには、default を維持する、近い値をもう1つ試す、validation が悪化したので戻す、など次の action を書きます。
+
+</details>
+
 ### 作品集チェックリスト
 
 第 6 章のプロジェクトを完了したと言う前に、次が揃っているか確認してください。

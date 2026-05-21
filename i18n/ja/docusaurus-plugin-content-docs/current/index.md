@@ -11,7 +11,7 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 まず小さく始めます。AI例を1つ体験し、最小環境を準備し、能力マップを見て、第1章へ進みます。
 
-この講座には主線と拡張ルートがあります。第1-9章は、ツール、Python、データ、モデル、LLM、RAG、Agent まで進む中核ルートです。第10-12章は、vision、NLP、multimodal/AIGC の specialization tracks です。elective modules は deployment、advanced Python、classic ML などを深掘りする脇道です。
+この講座には主線と拡張ルートがあります。第1-9章は、ツール、Python、データ、モデル、LLM、RAG、Agent まで進む中核ルートです。第10-12章は、画像認識、NLP、multimodal/AIGC の専門ルートです。選択モジュールでは、デプロイ、Python 応用、classic ML などを深掘りします。
 
 ## 画像に沿って進む
 
@@ -35,7 +35,7 @@ keywords: [AIフルスタックコース, AI学習, 初心者AIコース, LLM, R
 
 短く読み、動かし、証拠を残す。各ステージの終わりには、他の人が確認できるものを残します。README コマンド、保存した出力、指標表、トレース、失敗メモ、小さなデモなどです。
 
-## 最初の証拠カード
+## 残す証拠
 
 第1章に入る前に、次の小さなカードを1枚書きます。
 
