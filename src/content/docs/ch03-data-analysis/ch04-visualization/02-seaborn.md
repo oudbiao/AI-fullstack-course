@@ -442,8 +442,7 @@ This is very important for beginners, because many data issues do not show up in
 
 ## Seaborn Plot Type Cheat Sheet
 
-```mermaid
-mindmap
+```course-map
   root(("Seaborn<br/>Plot Types"))
     Distribution plots
       histplot Histogram

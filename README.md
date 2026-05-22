@@ -35,6 +35,7 @@ The course combines:
 | Production domain | `https://airoads.org` |
 | Social preview image | `public/img/social-card.png` |
 | Favicon | `public/img/favicon.svg` and `public/img/favicon.png` |
+| Search discovery | `public/robots.txt`, Astro sitemap index, Google verification, Bing verification, IndexNow key |
 
 ## Course Path
 
@@ -133,6 +134,28 @@ node scripts/generate_brand_assets.mjs
 
 After regenerating, run `npm run build` and confirm the generated HTML still points at `https://airoads.org/img/social-card.png`.
 
+## SEO And Indexing
+
+The production site is optimized for Google and Bing discovery:
+
+- `robots.txt` allows public crawling and points search engines to `https://airoads.org/sitemap-index.xml`.
+- Astro/Starlight generates canonical URLs, locale alternates, meta descriptions, Open Graph metadata, Twitter card metadata, and sitemap files for English, Simplified Chinese, and Japanese pages.
+- Global JSON-LD describes AI Roads as an organization, website, and free online course.
+- Google Search Console and Bing Webmaster Tools verification files live in `public/`.
+- Bing IndexNow verification uses `public/a4e8d4b6c0f1424c910f2ad7360b8e5f.txt`.
+
+After deploying a fresh production build, submit the current sitemap URLs to IndexNow:
+
+```bash
+npm run seo:indexnow
+```
+
+Preview the IndexNow payload without submitting:
+
+```bash
+npm run seo:indexnow:dry-run
+```
+
 ## Repository Structure
 
 | Path | Purpose |
@@ -140,6 +163,8 @@ After regenerating, run `npm run build` and confirm the generated HTML still poi
 | `src/content/docs/` | Starlight course content, including English root docs and localized `zh-cn` / `ja` docs |
 | `public/img/course/` | Course diagrams, comics, and localized images |
 | `public/img/logo.svg`, `public/img/social-card.png`, `public/img/favicon.*` | AI Roads brand and sharing assets |
+| `public/robots.txt`, `public/*SiteAuth*`, `public/google*.html`, `public/a4e8d4b6c0f1424c910f2ad7360b8e5f.txt` | Search-engine discovery and verification assets |
+| `src/scripts/render-course-diagrams.js` | Client-side renderer for Mermaid relationship diagrams and stable course summary maps |
 | `src/styles/starlight.css` | Site-level style customizations |
 | `astro.config.mjs` | Astro Starlight configuration, locales, sidebar, sitemap, and metadata |
 | `scripts/` | Validation, sitemap, image-generation, and maintenance scripts |
@@ -188,6 +213,26 @@ Run the generated-site QA audit against `dist/`:
 npm run qa:dist
 ```
 
+Validate every diagram block in the Markdown course content:
+
+```bash
+npm run qa:diagrams
+```
+
+Use `mermaid` fences only for relationship diagrams where graph layout is useful, such as `flowchart`, `erDiagram`, or `xychart-beta`. Use `course-map` fences for lesson summaries and grouped knowledge cards; those render as responsive HTML/CSS cards instead of relying on Mermaid's mindmap layout. For important visual explainers that need stronger art direction than code-generated diagrams can provide, prefer a dedicated static SVG/PNG asset under `public/img/course/`.
+
+After starting a local preview server, run browser-level rendering QA for pages that contain diagrams:
+
+```bash
+npm run qa:rendered-diagrams -- http://localhost:4173/zh-cn/ch03-data-analysis/ch01-warmup/01-pure-python-data/
+```
+
+Dry-run the Bing IndexNow submission payload:
+
+```bash
+npm run seo:indexnow:dry-run
+```
+
 Serve the generated build:
 
 ```bash
@@ -204,7 +249,7 @@ npm run clean
 
 The deployment flow builds a new image while the old container keeps serving traffic. It then runs a preflight check against the new image and only replaces the production container after the new build is ready. This reduces downtime compared with stopping the old container before compilation.
 
-The production build also removes legacy `/zh-Hans/` redirect URLs from the sitemap, strips unexpected NUL bytes from generated HTML, and runs `scripts/qa_generated_site.mjs`. That generated-site QA checks page title / H1 shape, canonical URLs, locale alternates, local asset references, image alt text, sitemap hygiene, old-domain residue, Docusaurus residue, and homepage social preview metadata. English, Simplified Chinese, and Japanese pages are generated together from Astro Starlight.
+The production build also validates Mermaid diagrams, removes legacy `/zh-Hans/` redirect URLs from the sitemap, strips unexpected NUL bytes from generated HTML, and runs `scripts/qa_generated_site.mjs`. That generated-site QA checks page title / H1 shape, meta descriptions, robots directives, canonical URLs, Open Graph and Twitter metadata, JSON-LD, locale alternates, local asset references, image alt text, sitemap hygiene, Google/Bing verification assets, IndexNow verification, old-domain residue, Docusaurus residue, and homepage social preview metadata. English, Simplified Chinese, and Japanese pages are generated together from Astro Starlight.
 
 Before publishing a site change, run:
 

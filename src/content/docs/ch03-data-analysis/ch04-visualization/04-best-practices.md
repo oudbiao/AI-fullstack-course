@@ -565,8 +565,7 @@ sns.set_theme(
 
 ## Summary
 
-```mermaid
-mindmap
+```course-map
   root(("Visualization<br/>Best Practices"))
     Choose the right chart
       Trend→Line chart

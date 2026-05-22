@@ -99,8 +99,7 @@ That is all. In AI, vectors are everywhere:
 | The meaning of a word (word vector) | [0.2, -0.5, 0.8, ...] | Usually 100–300D |
 | An image (flattened) | [pixel1, pixel2, ..., pixeln] | Tens of thousands to millions of dimensions |
 
-```mermaid
-mindmap
+```course-map
   root((Vectors in AI))
     Data representation
       Each row of data is a vector

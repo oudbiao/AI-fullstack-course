@@ -736,8 +736,7 @@ plt.show()
 
 ### 主な発見
 
-```mermaid
-mindmap
+```course-map
   root((分析結果))
     売上の傾向
       総売上と注文数の分布

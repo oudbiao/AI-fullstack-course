@@ -457,7 +457,7 @@ plt.show()
 ```
 
 **Cell 6 (Markdown):**
-```markdown
+````markdown
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:
@@ -474,7 +474,7 @@ Expected_output: setup screenshot or terminal output plus one fallback note
 - Learned how to create and run Cells
 - Learned how to plot inside a Notebook
 - Found that NumPy is much faster than native Python (this is why you will learn NumPy in data analysis and visualization!)
-```
+````
 
 ---
 

@@ -457,7 +457,7 @@ plt.show()
 ```
 
 **Cell 6（Markdown）：**
-```markdown
+````markdown
 ## 留下的证据
 
 学完这一页，至少保留这张证据卡：
@@ -474,7 +474,7 @@ plt.show()
 - 学会了创建和运行 Cell
 - 学会了在 Notebook 里画图
 - 发现 NumPy 比原生 Python 快很多（这就是 3 数据分析与可视化会学 NumPy 的原因！）
-```
+````
 
 ---
 

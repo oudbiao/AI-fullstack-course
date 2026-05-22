@@ -736,8 +736,7 @@ plt.show()
 
 ### 核心发现
 
-```mermaid
-mindmap
+```course-map
   root((分析结论))
     销售表现
       总额和订单量分布

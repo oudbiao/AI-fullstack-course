@@ -338,8 +338,7 @@ e = np.empty_like(original)
 
 ## 小结
 
-```mermaid
-mindmap
+```course-map
   root((NumPy 数组基础))
     创建数组
       np.array 从列表创建

@@ -445,8 +445,7 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 
 ## 小结
 
-```mermaid
-mindmap
+```course-map
   root(("数据库设计"))
     范式
       1NF 列不可再分

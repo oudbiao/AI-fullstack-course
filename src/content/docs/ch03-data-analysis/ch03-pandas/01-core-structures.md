@@ -506,8 +506,7 @@ Expected_output: before/after table sample with the transformation reason
 
 ## Summary
 
-```mermaid
-mindmap
+```course-map
   root((Pandas Core Data Structures))
     Series
       Labeled one-dimensional array

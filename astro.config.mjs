@@ -3,6 +3,7 @@ import starlight from "@astrojs/starlight";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import remarkCourseTextBlocks from "./src/utils/remarkCourseTextBlocks.mjs";
 
 const siteDescription =
   "A complete free learning path from AI fundamentals to AI Agent development, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, and AI Agents.";
@@ -10,6 +11,87 @@ const siteDescription =
 const siteUrl = "https://airoads.org";
 const siteTitle = "AI Roads";
 const socialCardUrl = `${siteUrl}/img/social-card.png`;
+const repositoryUrl = "https://github.com/oudbiao/AI-fullstack-course";
+const courseKeywords = [
+  "AI full-stack course",
+  "learn AI",
+  "AI engineering",
+  "Python tutorial",
+  "machine learning for beginners",
+  "deep learning",
+  "data analysis",
+  "PyTorch",
+  "LLM",
+  "RAG",
+  "AI agents",
+];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: siteTitle,
+      url: siteUrl,
+      logo: `${siteUrl}/img/logo.svg`,
+      sameAs: [repositoryUrl],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: siteTitle,
+      alternateName: ["AI Full-Stack Course", "AI 全栈工程课程"],
+      description: siteDescription,
+      inLanguage: ["en-US", "zh-CN", "ja-JP"],
+      image: socialCardUrl,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "Course",
+      "@id": `${siteUrl}/#course`,
+      name: "AI Roads: AI Full-Stack Engineering Course",
+      alternateName: [
+        "AI Full-Stack Course",
+        "AI 全栈工程课程",
+        "AI フルスタックエンジニアリングコース",
+      ],
+      url: siteUrl,
+      description: siteDescription,
+      provider: {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: siteTitle,
+        url: siteUrl,
+        sameAs: repositoryUrl,
+      },
+      publisher: { "@id": `${siteUrl}/#organization` },
+      image: socialCardUrl,
+      educationalLevel: "Beginner",
+      isAccessibleForFree: true,
+      inLanguage: ["en-US", "zh-CN", "ja-JP"],
+      teaches: [
+        "Python",
+        "data analysis",
+        "machine learning",
+        "deep learning",
+        "large language models",
+        "retrieval-augmented generation",
+        "AI agents",
+        "multimodal AI applications",
+      ],
+      audience: {
+        "@type": "Audience",
+        audienceType: "Beginner AI learners and career switchers",
+      },
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: ["online", "self-paced"],
+        courseWorkload: "Self-paced 12-week learning path",
+      },
+    },
+  ],
+};
 
 const docsRoot = fileURLToPath(new URL("./src/content/docs/", import.meta.url));
 
@@ -451,10 +533,26 @@ const sidebarGroups = sectionDefinitions.map((section) => ({
   items: [...(section.prefixItems ?? []), ...buildDirectoryItems(section.directory)],
 }));
 
+function courseDiagramRenderer() {
+  return {
+    name: "ai-roads-course-diagram-renderer",
+    hooks: {
+      "astro:config:setup": ({ injectScript }) => {
+        injectScript("page", 'import "/src/scripts/render-course-diagrams.js";');
+        injectScript("page", 'import "/src/scripts/code-block-wrap-toggle.js";');
+      },
+    },
+  };
+}
+
 export default defineConfig({
   site: siteUrl,
   trailingSlash: "ignore",
+  markdown: {
+    remarkPlugins: [remarkCourseTextBlocks],
+  },
   integrations: [
+    courseDiagramRenderer(),
     starlight({
       title: siteTitle,
       description: siteDescription,
@@ -473,11 +571,20 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/oudbiao/AI-fullstack-course",
+          href: repositoryUrl,
         },
       ],
       editLink: {
-        baseUrl: "https://github.com/oudbiao/AI-fullstack-course/edit/main/",
+        baseUrl: `${repositoryUrl}/edit/main/`,
+      },
+      expressiveCode: {
+        themes: ["starlight-dark", "github-light-high-contrast"],
+        useStarlightUiThemeColors: true,
+        shiki: {
+          langAlias: {
+            "course-map": "plaintext",
+          },
+        },
       },
       credits: false,
       customCss: ["/src/styles/starlight.css"],
@@ -486,8 +593,7 @@ export default defineConfig({
           tag: "meta",
           attrs: {
             name: "keywords",
-            content:
-              "AI full-stack course, learn AI, Python tutorial, machine learning for beginners, deep learning, data analysis, PyTorch, LLM, RAG, AI agents",
+            content: courseKeywords.join(", "),
           },
         },
         {
@@ -495,6 +601,13 @@ export default defineConfig({
           attrs: {
             name: "author",
             content: "AI Roads",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "robots",
+            content: "index, follow, max-image-preview:large",
           },
         },
         {
@@ -563,21 +676,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: { type: "application/ld+json" },
-          content: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Course",
-            name: "AI Roads",
-            description: siteDescription,
-            provider: {
-              "@type": "Organization",
-              name: "AI Roads",
-              url: siteUrl,
-              sameAs: "https://github.com/oudbiao/AI-fullstack-course",
-            },
-            educationalLevel: "Beginner",
-            isAccessibleForFree: true,
-            inLanguage: ["en-US", "zh-CN", "ja-JP"],
-          }),
+          content: JSON.stringify(structuredData),
         },
       ],
       sidebar: sidebarGroups,

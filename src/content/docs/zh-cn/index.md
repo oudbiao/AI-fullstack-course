@@ -16,8 +16,8 @@ head:
       <h2>通过留下证据来学完整技术栈。</h2>
       <p>这门课训练你做出别人能检查的 AI 应用：可运行代码、可复现环境、数据说明、模型证据、Prompt/RAG/Agent trace，以及清楚的边界。</p>
       <div class="course-home-actions">
-        <a class="course-button course-button--primary" href="./intro/quick-experience">30 分钟开始</a>
-        <a class="course-button course-button--secondary" href="./intro/learning-path">查看学习路线</a>
+        <a class="course-button course-button--primary" href="/zh-cn/intro/quick-experience/">30 分钟开始</a>
+        <a class="course-button course-button--secondary" href="/zh-cn/intro/learning-path/">查看学习路线</a>
       </div>
     </div>
     <div class="course-home-hero__media">
@@ -27,20 +27,20 @@ head:
 
   <section class="course-signal-grid" aria-label="课程摘要">
     <div>
-      <strong>12</strong>
-      <span>章核心内容，从工具到多模态交付</span>
+      <p class="course-signal-stat"><strong>12</strong><span>章</span></p>
+      <p>核心内容，从工具到多模态交付</p>
     </div>
     <div>
-      <strong>9</strong>
-      <span>章主线，面向 AI 应用工程能力</span>
+      <p class="course-signal-stat"><strong>9</strong><span>章</span></p>
+      <p>主线内容，面向 AI 应用工程能力</p>
     </div>
     <div>
-      <strong>3</strong>
-      <span>种语言同步维护：中文、英文、日文</span>
+      <p class="course-signal-stat"><strong>3</strong><span>种语言</span></p>
+      <p>中文、英文、日文同步维护</p>
     </div>
     <div>
-      <strong>1</strong>
-      <span>条项目线，贯穿课程持续迭代</span>
+      <p class="course-signal-stat"><strong>1</strong><span>条项目线</span></p>
+      <p>贯穿课程，持续迭代</p>
     </div>
   </section>
 </div>
@@ -52,22 +52,22 @@ head:
 ## 选择你的第一步
 
 <div class="course-path-grid">
-  <a class="course-path-card" href="./intro/quick-experience">
+  <a class="course-path-card" href="/zh-cn/intro/quick-experience/">
     <span>0.1</span>
     <strong>先跑快速体验</strong>
     <p>在记术语前，先看见输入、模型和输出。</p>
   </a>
-  <a class="course-path-card" href="./intro/environment-setup">
+  <a class="course-path-card" href="/zh-cn/intro/environment-setup/">
     <span>0.2</span>
     <strong>准备最小环境</strong>
     <p>第一周只需要 Python、Git 和一个项目文件夹。</p>
   </a>
-  <a class="course-path-card" href="./intro/ai-fullstack-map">
+  <a class="course-path-card" href="/zh-cn/intro/ai-fullstack-map/">
     <span>0.3</span>
     <strong>看懂能力地图</strong>
     <p>把工具、数据、模型、LLM、RAG、Agent 和交付连成一条线。</p>
   </a>
-  <a class="course-path-card" href="./intro/learning-path">
+  <a class="course-path-card" href="/zh-cn/intro/learning-path/">
     <span>0.4</span>
     <strong>规划主线节奏</strong>
     <p>选择一条项目线，设定节奏，然后进入第 1 章。</p>
@@ -77,22 +77,22 @@ head:
 ## 主线路线
 
 <div class="course-track-grid">
-  <a class="course-track-card" href="./ch01-tools">
+  <a class="course-track-card" href="/zh-cn/ch01-tools/">
     <span>第 1-3 章</span>
     <strong>打基础</strong>
     <p>开发工具、Python、数据分析，以及让工作可复现的工程习惯。</p>
   </a>
-  <a class="course-track-card" href="./ch04-ai-math">
+  <a class="course-track-card" href="/zh-cn/ch04-ai-math/">
     <span>第 4-6 章</span>
     <strong>理解模型</strong>
     <p>实用数学、机器学习、深度学习、训练循环和调试信号。</p>
   </a>
-  <a class="course-track-card" href="./ch07-llm-principles">
+  <a class="course-track-card" href="/zh-cn/ch07-llm-principles/">
     <span>第 7-9 章</span>
     <strong>构建 AI 应用</strong>
     <p>LLM、RAG、API、工具调用、Agent、评估和面向生产的 trace。</p>
   </a>
-  <a class="course-track-card" href="./ch10-computer-vision">
+  <a class="course-track-card" href="/zh-cn/ch10-computer-vision/">
     <span>第 10-12 章</span>
     <strong>扩展技术栈</strong>
     <p>计算机视觉、NLP、多模态工作流、AIGC、伦理和交付策略。</p>

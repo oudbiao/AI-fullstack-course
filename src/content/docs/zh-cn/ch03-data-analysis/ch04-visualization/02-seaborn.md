@@ -444,8 +444,7 @@ plt.show()
 
 ## Seaborn 常用图表速查
 
-```mermaid
-mindmap
+```course-map
   root(("Seaborn<br/>图表类型"))
     分布图
       histplot 直方图

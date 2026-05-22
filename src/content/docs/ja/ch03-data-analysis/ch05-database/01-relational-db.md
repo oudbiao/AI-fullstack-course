@@ -249,8 +249,7 @@ conn.close()
 
 ## まとめ
 
-```mermaid
-mindmap
+```course-map
   root(("リレーショナルデータベース"))
     基本概念
       データベース Database

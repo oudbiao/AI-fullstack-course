@@ -104,8 +104,7 @@ So when you look at trends, the real question is:
 
 Before going into specific trends, you can first place them in the same framework:
 
-```mermaid
-mindmap
+```course-map
   root((AIGC Frontier Trends))
     Capability boundaries
       Multimodal

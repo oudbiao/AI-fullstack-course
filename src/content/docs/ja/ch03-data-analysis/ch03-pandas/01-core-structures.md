@@ -510,8 +510,7 @@ print(result)
 
 ## まとめ
 
-```mermaid
-mindmap
+```course-map
   root((Pandas のコアデータ構造))
     Series
       ラベル付きの1次元配列

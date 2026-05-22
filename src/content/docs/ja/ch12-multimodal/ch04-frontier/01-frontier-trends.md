@@ -104,8 +104,7 @@ flowchart LR
 
 具体的なトレンドに入る前に、まず同じフレームの中に置いてみましょう。
 
-```mermaid
-mindmap
+```course-map
   root((AIGC フロンティアのトレンド))
     能力の境界
       マルチモーダル

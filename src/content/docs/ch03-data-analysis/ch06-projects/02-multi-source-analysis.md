@@ -732,8 +732,7 @@ plt.show()
 
 ### Key Findings
 
-```mermaid
-mindmap
+```course-map
   root((Analysis Conclusions))
     Sales Performance
       Total sales and order volume distribution

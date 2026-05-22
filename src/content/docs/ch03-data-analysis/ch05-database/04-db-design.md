@@ -445,8 +445,7 @@ Expected_output: query plus result table and one data-quality note
 
 ## Summary
 
-```mermaid
-mindmap
+```course-map
   root(("Database Design"))
     Normalization
       1NF Columns must be atomic

@@ -27,20 +27,20 @@ head:
 
   <section class="course-signal-grid" aria-label="Course summary">
     <div>
-      <strong>12</strong>
-      <span>core chapters from tools to multimodal delivery</span>
+      <p class="course-signal-stat"><strong>12</strong><span>chapters</span></p>
+      <p>Core content from tools to multimodal delivery</p>
     </div>
     <div>
-      <strong>9</strong>
-      <span>main-line chapters for application engineers</span>
+      <p class="course-signal-stat"><strong>9</strong><span>main chapters</span></p>
+      <p>Built for AI application engineering skills</p>
     </div>
     <div>
-      <strong>3</strong>
-      <span>languages maintained together: English, Chinese, Japanese</span>
+      <p class="course-signal-stat"><strong>3</strong><span>languages</span></p>
+      <p>English, Chinese, and Japanese maintained together</p>
     </div>
     <div>
-      <strong>1</strong>
-      <span>project thread that keeps improving across the course</span>
+      <p class="course-signal-stat"><strong>1</strong><span>project thread</span></p>
+      <p>Improved continuously across the course</p>
     </div>
   </section>
 </div>

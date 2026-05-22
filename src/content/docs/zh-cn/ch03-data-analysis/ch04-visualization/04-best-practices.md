@@ -565,8 +565,7 @@ sns.set_theme(
 
 ## 小结
 
-```mermaid
-mindmap
+```course-map
   root(("可视化<br/>最佳实践"))
     选对图
       趋势→折线图

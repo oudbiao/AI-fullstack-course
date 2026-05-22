@@ -378,8 +378,7 @@ for n in [100, 1000, 10000, 100000, 1000000]:
 
 ## まとめ
 
-```mermaid
-mindmap
+```course-map
   root((ランダム数と統計))
     乱数生成
       random / rand 一様分布

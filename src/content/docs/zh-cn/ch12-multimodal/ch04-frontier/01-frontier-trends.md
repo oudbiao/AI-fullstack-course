@@ -104,8 +104,7 @@ flowchart LR
 
 在进入具体趋势之前，可以先把它们放进同一个框架：
 
-```mermaid
-mindmap
+```course-map
   root((AIGC 前沿趋势))
     能力边界
       多模态

@@ -569,8 +569,7 @@ sns.set_theme(
 
 ## まとめ
 
-```mermaid
-mindmap
+```course-map
   root(("可視化の<br/>ベストプラクティス"))
     適切な図を選ぶ
       推移→折れ線グラフ

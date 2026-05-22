@@ -248,8 +248,7 @@ conn.close()
 
 ## 小结
 
-```mermaid
-mindmap
+```course-map
   root(("关系型数据库"))
     核心概念
       数据库 Database

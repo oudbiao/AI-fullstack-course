@@ -157,6 +157,262 @@ body {
   background: var(--course-surface-strong);
 }
 
+.expressive-code figure .copy {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.expressive-code .copy button.course-code-wrap-toggle {
+  position: relative;
+  z-index: 2;
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  width: 2rem !important;
+  height: 2rem !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--sl-color-gray-4) 45%, transparent) !important;
+  border-radius: 0.42rem;
+  background: color-mix(in srgb, var(--sl-color-bg) 86%, var(--sl-color-gray-6)) !important;
+  color: var(--sl-color-gray-2);
+  opacity: 0 !important;
+  pointer-events: none;
+  box-shadow: none;
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease,
+    opacity 0.16s ease;
+}
+
+.expressive-code figure:hover .copy button.course-code-wrap-toggle,
+.expressive-code .copy button.course-code-wrap-toggle:focus-visible {
+  opacity: 0.82 !important;
+  pointer-events: auto;
+}
+
+@media (hover: hover) {
+  .expressive-code figure:not(:hover) .copy button.course-code-wrap-toggle:not(:focus-visible) {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+}
+
+.expressive-code .copy button.course-code-wrap-toggle::before,
+.expressive-code .copy button.course-code-wrap-toggle::after {
+  position: static !important;
+  inset: auto !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  content: none !important;
+  opacity: 0 !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+.expressive-code .copy button.course-code-wrap-toggle div {
+  display: none !important;
+}
+
+.expressive-code .copy button.course-code-wrap-toggle:hover,
+.expressive-code .copy button.course-code-wrap-toggle:focus-visible {
+  border-color: var(--sl-color-accent) !important;
+  color: var(--sl-color-accent-high);
+  opacity: 1 !important;
+  outline: none;
+}
+
+.expressive-code .copy button.course-code-wrap-toggle:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--sl-color-accent) 35%, transparent);
+}
+
+.expressive-code .copy button.course-code-wrap-toggle[aria-pressed="true"] {
+  border-color: var(--sl-color-accent) !important;
+  background: var(--sl-color-accent-low) !important;
+  color: var(--sl-color-accent-high);
+}
+
+.expressive-code .copy button.course-code-wrap-toggle svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 1.08rem;
+  height: 1.08rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.course-flow-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+  margin: 1rem 0 1.45rem;
+  padding: 0.85rem;
+  border: 1px solid var(--course-border);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--course-accent) 8%, transparent), transparent 60%),
+    var(--course-surface);
+  box-shadow: var(--course-shadow);
+}
+
+.course-flow-line__step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.2rem;
+  padding: 0.38rem 0.72rem;
+  border: 1px solid color-mix(in srgb, var(--course-border) 78%, transparent);
+  border-radius: 999px;
+  background: var(--course-surface-soft);
+  color: var(--course-ink);
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+.course-flow-line__arrow {
+  color: var(--course-accent);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.course-diagram-figure {
+  margin: 1.5rem 0;
+  padding: clamp(0.75rem, 2vw, 1.15rem);
+  overflow-x: auto;
+  border: 1px solid var(--course-border);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(180deg, rgba(96, 165, 250, 0.08), rgba(20, 184, 166, 0.045)),
+    var(--course-surface);
+  box-shadow: var(--course-shadow);
+}
+
+.course-diagram-figure__surface {
+  min-width: min(42rem, 100%);
+}
+
+.course-diagram-figure svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.course-diagram-figure svg text,
+.course-diagram-figure svg span {
+  font-family: var(--sl-font) !important;
+  letter-spacing: 0;
+}
+
+.course-map {
+  display: grid;
+  gap: 1rem;
+  min-width: min(48rem, 100%);
+}
+
+.course-map__root {
+  width: fit-content;
+  max-width: min(34rem, 100%);
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(37, 99, 235, 0.28);
+  border-radius: 0.5rem;
+  background: var(--course-surface-strong);
+  color: var(--course-ink);
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.course-map__branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.course-map__branch {
+  min-width: 0;
+  padding: 0.85rem;
+  border: 1px solid var(--course-border);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--course-surface-soft) 88%, var(--course-accent) 12%);
+}
+
+.course-map__branch-title {
+  margin: 0 0 0.65rem;
+  color: var(--course-ink);
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.38;
+}
+
+.course-map__children {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.course-map__item {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.course-map__item .course-map__children {
+  margin-inline-start: 0.85rem;
+  padding-inline-start: 0.85rem;
+  border-inline-start: 2px solid color-mix(in srgb, var(--course-accent) 38%, transparent);
+}
+
+.course-map__node {
+  display: block;
+  min-width: 0;
+  padding: 0.52rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--course-border) 70%, var(--course-accent));
+  border-radius: 0.42rem;
+  background: var(--course-surface);
+  color: var(--course-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.course-diagram-figure--error {
+  border-color: rgba(251, 191, 36, 0.65);
+  background: color-mix(in srgb, var(--course-warning) 10%, var(--course-surface));
+}
+
+.course-diagram-figure--error pre {
+  margin: 0;
+  padding: 0.9rem;
+  overflow-x: auto;
+  border-radius: 0.45rem;
+  background: var(--course-surface-soft);
+  color: var(--course-ink);
+  white-space: pre;
+}
+
 .course-home {
   margin: 0 0 2rem;
 }
@@ -268,11 +524,15 @@ body {
 
 .course-signal-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  margin-top: 1rem;
 }
 
 .course-path-card,
 .course-track-card,
 .course-signal-card,
+.course-signal-grid > div,
 .course-evidence {
   border: 1px solid var(--course-border);
   border-radius: 0.5rem;
@@ -282,8 +542,75 @@ body {
 
 .course-path-card,
 .course-track-card,
-.course-signal-card {
+.course-signal-card,
+.course-signal-grid > div {
   padding: 1rem;
+}
+
+.sl-markdown-content .course-path-card,
+.sl-markdown-content .course-track-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sl-markdown-content .course-path-card:hover,
+.sl-markdown-content .course-track-card:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--course-border));
+  color: inherit;
+  text-decoration: none;
+}
+
+.course-path-card *,
+.course-track-card * {
+  text-decoration: none;
+}
+
+.course-path-grid > *,
+.course-track-grid > *,
+.course-signal-grid > * {
+  min-width: 0;
+  margin: 0 !important;
+}
+
+.course-signal-grid > div {
+  display: flex;
+  min-height: 8rem;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.course-signal-stat {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 0 !important;
+}
+
+.course-signal-stat strong {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--course-ink);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.course-signal-stat span {
+  min-width: 0;
+  color: var(--course-ink);
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.course-signal-grid > div > p:not(.course-signal-stat) {
+  margin: 0 !important;
+  color: var(--course-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 
 .course-path-card h3,
@@ -314,6 +641,62 @@ body {
   font-weight: 800;
 }
 
+.course-evidence-card {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1.25rem 0;
+  padding: clamp(0.85rem, 2vw, 1.05rem);
+  border: 1px solid var(--course-border);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--course-accent) 10%, transparent), transparent 54%),
+    var(--course-surface);
+  box-shadow: var(--course-shadow);
+}
+
+.course-evidence-card__row {
+  display: grid;
+  grid-template-columns: minmax(6.75rem, 9.5rem) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--course-border) 76%, transparent);
+  border-radius: 0.42rem;
+  background: color-mix(in srgb, var(--course-surface-soft) 88%, var(--course-accent) 12%);
+}
+
+.course-evidence-card dt,
+.course-evidence-card dd {
+  margin: 0;
+}
+
+.course-evidence-card dt {
+  color: var(--course-accent);
+  font-size: 0.92rem;
+  font-weight: 850;
+  line-height: 1.48;
+}
+
+.course-evidence-card dd {
+  min-width: 0;
+  color: var(--course-ink);
+  line-height: 1.58;
+  overflow-wrap: anywhere;
+}
+
+.course-evidence-card__arrow {
+  display: inline-flex;
+  margin: 0 0.28rem;
+  color: var(--sl-color-accent);
+  font-weight: 850;
+}
+
+.course-evidence-card__placeholder {
+  color: var(--course-text-muted);
+  font-size: 0.92rem;
+}
+
 @media (max-width: 900px) {
   .course-home-hero,
   .course-evidence {
@@ -328,6 +711,14 @@ body {
 }
 
 @media (max-width: 560px) {
+  .course-diagram-figure__surface {
+    min-width: 36rem;
+  }
+
+  .course-diagram-figure[data-diagram-language="course-map"] .course-diagram-figure__surface {
+    min-width: 0;
+  }
+
   .course-path-grid,
   .course-track-grid,
   .course-signal-grid {
@@ -340,5 +731,10 @@ body {
 
   .course-button {
     width: 100%;
+  }
+
+  .course-evidence-card__row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
   }
 }

@@ -514,8 +514,7 @@ After a complete EDA, we can draw the following conclusions:
 
 ### Key findings
 
-```mermaid
-mindmap
+```course-map
   root((EDA Key Findings))
     Spending patterns
       Most spending is between 10-25 USD

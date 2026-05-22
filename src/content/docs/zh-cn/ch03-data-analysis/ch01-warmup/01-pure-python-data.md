@@ -381,8 +381,7 @@ avg_fare_by_embarked(passengers)
 
 让我们回顾一下，用纯 Python 做这些分析，我们遇到了哪些问题：
 
-```mermaid
-mindmap
+```course-map
   root((纯 Python<br/>处理数据的痛点))
     类型转换
       CSV 读出来全是字符串

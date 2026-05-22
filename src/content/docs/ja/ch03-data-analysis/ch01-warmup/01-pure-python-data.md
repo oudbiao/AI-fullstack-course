@@ -383,8 +383,7 @@ avg_fare_by_embarked(passengers)
 
 純 Python でこれらの分析をしてみて、どんな問題があったか振り返ってみましょう。
 
-```mermaid
-mindmap
+```course-map
   root((純 Python<br/>でデータを扱うときのつまずきポイント))
     型変換
       CSV を読むと全部文字列

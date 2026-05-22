@@ -516,8 +516,7 @@ plt.show()
 
 ### 核心发现
 
-```mermaid
-mindmap
+```course-map
   root((EDA 核心发现))
     消费模式
       大多数消费在 10-25 美元

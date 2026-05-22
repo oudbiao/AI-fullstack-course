@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distRoot = path.resolve(projectRoot, process.argv[2] ?? "dist");
 const siteUrl = "https://airoads.org";
+const indexNowKey = "a4e8d4b6c0f1424c910f2ad7360b8e5f";
 const oldDomainPattern = /learning\.airoads\.org/;
 const docusaurusPattern = /docusaurus|__docusaurus/i;
 
@@ -65,6 +66,37 @@ function getAttrs(html, attrName) {
   return [...html.matchAll(pattern)].map((match) => match[2]);
 }
 
+function getMetaTagsByAttr(html, attrName, value) {
+  return getTags(html, "meta").filter((tag) =>
+    getAttrs(tag, attrName).some((attrValue) => attrValue.toLowerCase() === value.toLowerCase()),
+  );
+}
+
+function getMetaContentByAttr(html, attrName, value) {
+  const tags = getMetaTagsByAttr(html, attrName, value);
+  return tags.map((tag) => getAttrs(tag, "content")[0] ?? "");
+}
+
+function getJsonLdPayloads(html) {
+  const pattern =
+    /<script\b[^>]*\btype=(["'])application\/ld\+json\1[^>]*>([\s\S]*?)<\/script>/gi;
+  return [...html.matchAll(pattern)].map((match) => match[2].trim());
+}
+
+function schemaTypesFromPayload(payload, route, issues) {
+  try {
+    const parsed = JSON.parse(payload);
+    const nodes = Array.isArray(parsed["@graph"]) ? parsed["@graph"] : [parsed];
+    return nodes.flatMap((node) => {
+      const type = node?.["@type"];
+      return Array.isArray(type) ? type : type ? [type] : [];
+    });
+  } catch (error) {
+    issues.push(`${route}: invalid JSON-LD payload: ${error.message}`);
+    return [];
+  }
+}
+
 function decodeBasicEntities(value) {
   return value
     .replace(/&amp;/g, "&")
@@ -117,7 +149,61 @@ function localReferenceExists(referencePath) {
   return candidates.some((candidate) => fs.existsSync(candidate));
 }
 
+function htmlRouteExists(route, knownHtmlFiles) {
+  let normalized = decodeURIComponent(route).replace(/^\/+/, "");
+  const candidates = [];
+
+  if (!normalized || normalized.endsWith("/")) {
+    candidates.push(`${normalized}index.html`);
+  } else if (path.posix.extname(normalized)) {
+    candidates.push(normalized);
+  } else {
+    candidates.push(`${normalized}/index.html`);
+    candidates.push(`${normalized}.html`);
+  }
+
+  return candidates.some((candidate) => knownHtmlFiles.has(candidate));
+}
+
+function explicitLocaleForRoute(route) {
+  if (route === "/zh-cn/" || route.startsWith("/zh-cn/")) return "zh-cn";
+  if (route === "/ja/" || route.startsWith("/ja/")) return "ja";
+  if (route === "/zh-Hans/" || route.startsWith("/zh-Hans/")) return "zh-Hans";
+  return "en";
+}
+
+function isPageRoute(route, knownHtmlFiles) {
+  return htmlRouteExists(route, knownHtmlFiles);
+}
+
+function assertLocalizedReferencesStayLocalized(route, sanitizedHtml, knownHtmlFiles, issues) {
+  const currentLocale = explicitLocaleForRoute(route);
+  if (!["zh-cn", "ja"].includes(currentLocale) || isLegacyZhHansRoute(route)) return;
+
+  for (const anchorTag of getTags(sanitizedHtml, "a")) {
+    const href = getAttrs(anchorTag, "href")[0];
+    if (!href) continue;
+
+    const localRef = normalizeReference(href, route);
+    if (!localRef || !isPageRoute(localRef, knownHtmlFiles)) continue;
+
+    const targetLocale = explicitLocaleForRoute(localRef);
+    if (targetLocale !== "en") continue;
+
+    const localizedRoute = localRef === "/" ? `/${currentLocale}/` : `/${currentLocale}${localRef}`;
+    if (htmlRouteExists(localizedRoute, knownHtmlFiles)) {
+      issues.push(
+        `${route}: localized page links to English route ${href}; use ${localizedRoute} instead`,
+      );
+    }
+  }
+}
+
 function assertNormalPage(route, sanitizedHtml, issues) {
+  if (!/<html\b[^>]*\blang=(["'])[^"']+\1/i.test(sanitizedHtml)) {
+    issues.push(`${route}: missing html lang attribute`);
+  }
+
   const titles = getElementBlocks(sanitizedHtml, "title");
   if (titles.length !== 1) {
     issues.push(`${route}: expected 1 title, found ${titles.length}`);
@@ -137,6 +223,63 @@ function assertNormalPage(route, sanitizedHtml, issues) {
     if (!href.startsWith(siteUrl)) {
       issues.push(`${route}: canonical is not on ${siteUrl}: ${href}`);
     }
+  }
+
+  if (route === "/404.html") {
+    const content = getMetaContentByAttr(sanitizedHtml, "name", "robots").join(",").toLowerCase();
+    if (!content.includes("noindex")) {
+      issues.push(`${route}: 404 page should include noindex`);
+    }
+    return;
+  }
+
+  const descriptions = getMetaTagsByAttr(sanitizedHtml, "name", "description");
+  if (descriptions.length !== 1) {
+    issues.push(`${route}: expected 1 meta description, found ${descriptions.length}`);
+  } else if (!(getAttrs(descriptions[0], "content")[0] ?? "").trim()) {
+    issues.push(`${route}: meta description is empty`);
+  }
+
+  const robots = getMetaTagsByAttr(sanitizedHtml, "name", "robots");
+  if (robots.length !== 1) {
+    issues.push(`${route}: expected 1 robots meta tag, found ${robots.length}`);
+  } else {
+    const content = (getAttrs(robots[0], "content")[0] ?? "").toLowerCase();
+    for (const directive of ["index", "follow", "max-image-preview:large"]) {
+      if (!content.includes(directive)) {
+        issues.push(`${route}: robots meta tag is missing ${directive}`);
+      }
+    }
+  }
+
+  const canonicalHref = canonicals.length === 1 ? getAttrs(canonicals[0], "href")[0] ?? "" : "";
+  const ogUrl = getMetaContentByAttr(sanitizedHtml, "property", "og:url")[0] ?? "";
+  if (ogUrl && ogUrl !== canonicalHref) {
+    issues.push(`${route}: og:url does not match canonical: ${ogUrl} !== ${canonicalHref}`);
+  }
+
+  const requiredOpenGraph = ["og:title", "og:description", "og:url", "og:image", "og:site_name", "og:type"];
+  for (const property of requiredOpenGraph) {
+    const values = getMetaContentByAttr(sanitizedHtml, "property", property).filter(Boolean);
+    if (values.length === 0) {
+      issues.push(`${route}: missing Open Graph metadata ${property}`);
+    }
+  }
+
+  const requiredTwitter = ["twitter:card", "twitter:image", "twitter:image:alt"];
+  for (const name of requiredTwitter) {
+    const values = getMetaContentByAttr(sanitizedHtml, "name", name).filter(Boolean);
+    if (values.length === 0) {
+      issues.push(`${route}: missing Twitter metadata ${name}`);
+    }
+  }
+
+  const jsonLdPayloads = getJsonLdPayloads(sanitizedHtml);
+  if (jsonLdPayloads.length === 0) {
+    issues.push(`${route}: missing JSON-LD structured data`);
+  }
+  for (const payload of jsonLdPayloads) {
+    schemaTypesFromPayload(payload, route, issues);
   }
 
   if (route !== "/404.html") {
@@ -193,6 +336,9 @@ function auditHtmlFile(filePath, knownHtmlFiles, issues, summary) {
   if (docusaurusPattern.test(rawHtml)) {
     issues.push(`${route}: contains Docusaurus residue`);
   }
+  if (rawHtml.includes("course-terminal-output")) {
+    issues.push(`${route}: contains deprecated custom terminal output block`);
+  }
 
   if (isVerificationHtml(route)) {
     summary.verificationFiles += 1;
@@ -204,6 +350,7 @@ function auditHtmlFile(filePath, knownHtmlFiles, issues, summary) {
     assertLegacyRedirect(route, sanitizedHtml, issues);
   } else {
     assertNormalPage(route, sanitizedHtml, issues);
+    assertLocalizedReferencesStayLocalized(route, sanitizedHtml, knownHtmlFiles, issues);
   }
 
   for (const imgTag of getTags(sanitizedHtml, "img")) {
@@ -229,6 +376,15 @@ function auditHtmlFile(filePath, knownHtmlFiles, issues, summary) {
 function auditSitemaps(issues, summary) {
   const sitemapFiles = walkFiles(distRoot, (file) => path.basename(file).startsWith("sitemap") && file.endsWith(".xml"));
   summary.sitemapFiles = sitemapFiles.length;
+  const sitemapIndex = path.join(distRoot, "sitemap-index.xml");
+  const sitemapZero = path.join(distRoot, "sitemap-0.xml");
+  if (!fs.existsSync(sitemapIndex)) {
+    issues.push("sitemap-index.xml: missing sitemap index");
+  }
+  if (!fs.existsSync(sitemapZero)) {
+    issues.push("sitemap-0.xml: missing primary sitemap");
+  }
+
   for (const file of sitemapFiles) {
     const rel = toPosix(path.relative(distRoot, file));
     const content = fs.readFileSync(file, "utf8");
@@ -240,6 +396,69 @@ function auditSitemaps(issues, summary) {
     }
     if (!content.includes(siteUrl)) {
       issues.push(`${rel}: sitemap does not include ${siteUrl}`);
+    }
+  }
+
+  if (fs.existsSync(sitemapIndex)) {
+    const content = fs.readFileSync(sitemapIndex, "utf8");
+    if (!/<sitemapindex\b/i.test(content)) {
+      issues.push("sitemap-index.xml: expected sitemapindex root");
+    }
+    if (!content.includes(`${siteUrl}/sitemap-0.xml`)) {
+      issues.push("sitemap-index.xml: missing sitemap-0.xml location");
+    }
+  }
+
+  if (fs.existsSync(sitemapZero)) {
+    const content = fs.readFileSync(sitemapZero, "utf8");
+    for (const expectedUrl of [`${siteUrl}/`, `${siteUrl}/zh-cn/`, `${siteUrl}/ja/`]) {
+      if (!content.includes(`<loc>${expectedUrl}</loc>`)) {
+        issues.push(`sitemap-0.xml: missing homepage URL ${expectedUrl}`);
+      }
+    }
+  }
+}
+
+function assertSeoAssets(issues, summary) {
+  const requiredFiles = [
+    "robots.txt",
+    "BingSiteAuth.xml",
+    "googlebe050d9d769c46f0.html",
+    `${indexNowKey}.txt`,
+  ];
+  summary.seoAssetFiles = 0;
+
+  for (const relativeFile of requiredFiles) {
+    const file = path.join(distRoot, relativeFile);
+    if (!fs.existsSync(file)) {
+      issues.push(`${relativeFile}: missing SEO asset`);
+    } else {
+      summary.seoAssetFiles += 1;
+    }
+  }
+
+  const robotsFile = path.join(distRoot, "robots.txt");
+  if (fs.existsSync(robotsFile)) {
+    const robots = fs.readFileSync(robotsFile, "utf8");
+    if (!/^User-agent:\s*\*/im.test(robots)) {
+      issues.push("robots.txt: missing wildcard user-agent");
+    }
+    if (!/^Allow:\s*\/\s*$/im.test(robots)) {
+      issues.push("robots.txt: missing Allow: /");
+    }
+    if (!/^Sitemap:\s*https:\/\/airoads\.org\/sitemap-index\.xml\s*$/im.test(robots)) {
+      issues.push("robots.txt: sitemap does not point to https://airoads.org/sitemap-index.xml");
+    }
+    if (/^Sitemap:\s*https:\/\/airoads\.org\/sitemap\.xml\s*$/im.test(robots)) {
+      issues.push("robots.txt: still points to missing sitemap.xml");
+    }
+  }
+
+  const indexNowFile = path.join(distRoot, `${indexNowKey}.txt`);
+  if (fs.existsSync(indexNowFile)) {
+    const content = fs.readFileSync(indexNowFile, "utf8").trim();
+    if (content !== indexNowKey) {
+      issues.push(`${indexNowKey}.txt: IndexNow key file content mismatch`);
     }
   }
 }
@@ -262,6 +481,127 @@ function assertCoreMetadata(issues) {
       issues.push(`/: missing expected metadata ${text}`);
     }
   }
+
+  const schemaTypes = new Set(
+    getJsonLdPayloads(html).flatMap((payload) => schemaTypesFromPayload(payload, "/", issues)),
+  );
+  for (const type of ["Organization", "WebSite", "Course"]) {
+    if (!schemaTypes.has(type)) {
+      issues.push(`/: missing ${type} in JSON-LD graph`);
+    }
+  }
+}
+
+function htmlFileForRoute(route) {
+  const normalized = route.replace(/^\/+/, "");
+  if (!normalized || route.endsWith("/")) {
+    return path.join(distRoot, normalized, "index.html");
+  }
+  return path.join(distRoot, normalized);
+}
+
+function snippetAround(html, text, radius = 1600) {
+  const index = html.indexOf(text);
+  if (index === -1) return null;
+  return html.slice(Math.max(0, index - radius), Math.min(html.length, index + text.length + radius));
+}
+
+function assertTextRenderedInside({ route, text, requiredClass, forbiddenClass }, issues) {
+  const file = htmlFileForRoute(route);
+  if (!fs.existsSync(file)) {
+    issues.push(`${route}: missing page for course presentation semantic check`);
+    return;
+  }
+
+  const html = fs.readFileSync(file, "utf8");
+  const snippet = snippetAround(html, text);
+  if (!snippet) {
+    issues.push(`${route}: missing text for course presentation semantic check: ${text}`);
+    return;
+  }
+
+  if (requiredClass && !snippet.includes(requiredClass)) {
+    issues.push(`${route}: "${text}" should render inside ${requiredClass}`);
+  }
+  if (forbiddenClass && snippet.includes(forbiddenClass)) {
+    issues.push(`${route}: "${text}" should not render inside ${forbiddenClass}`);
+  }
+}
+
+function assertCoursePresentationSemantics(issues) {
+  const checks = [
+    {
+      route: "/zh-cn/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/",
+      text: "机器学习问题",
+      requiredClass: "course-evidence-card",
+      forbiddenClass: "is-terminal",
+    },
+    {
+      route: "/zh-cn/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/",
+      text: "在全部数据上 fit scaler",
+      requiredClass: "course-flow-line",
+      forbiddenClass: "is-terminal",
+    },
+    {
+      route: "/zh-cn/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/",
+      text: "只在训练集 fit scaler",
+      requiredClass: "course-flow-line",
+      forbiddenClass: "is-terminal",
+    },
+    {
+      route: "/zh-cn/ch05-machine-learning/ch01-ml-basics/05-sklearn-matplotlib-workshop/",
+      text: "Sample 0: predicted=class_0",
+      requiredClass: "is-terminal",
+    },
+    {
+      route: "/zh-cn/ch05-machine-learning/ch01-ml-basics/05-sklearn-matplotlib-workshop/",
+      text: "X shape: (178, 13)",
+      requiredClass: "is-terminal",
+    },
+  ];
+
+  for (const check of checks) {
+    assertTextRenderedInside(check, issues);
+  }
+}
+
+function assertLocalizedHomepageNavigation(issues) {
+  const checks = [
+    {
+      route: "/zh-cn/",
+      links: [
+        'href="/zh-cn/intro/quick-experience/"',
+        'href="/zh-cn/intro/learning-path/"',
+        'href="/zh-cn/ch01-tools/"',
+      ],
+    },
+    {
+      route: "/ja/",
+      links: [
+        'href="/ja/intro/quick-experience/"',
+        'href="/ja/intro/learning-path/"',
+        'href="/ja/ch01-tools/"',
+      ],
+    },
+  ];
+
+  for (const check of checks) {
+    const file = htmlFileForRoute(check.route);
+    if (!fs.existsSync(file)) {
+      issues.push(`${check.route}: missing localized homepage`);
+      continue;
+    }
+
+    const html = fs.readFileSync(file, "utf8");
+    if (/<a\b[^>]*\bhref=(["'])\.\.?\//i.test(html)) {
+      issues.push(`${check.route}: localized homepage still has relative internal anchor links`);
+    }
+    for (const link of check.links) {
+      if (!html.includes(link)) {
+        issues.push(`${check.route}: homepage is missing localized navigation link ${link}`);
+      }
+    }
+  }
 }
 
 if (!fs.existsSync(distRoot)) {
@@ -276,13 +616,17 @@ const summary = {
   legacyRedirectPages: 0,
   verificationFiles: 0,
   sitemapFiles: 0,
+  seoAssetFiles: 0,
 };
 
 for (const file of htmlFiles) {
   auditHtmlFile(file, knownHtmlFiles, issues, summary);
 }
 auditSitemaps(issues, summary);
+assertSeoAssets(issues, summary);
 assertCoreMetadata(issues);
+assertCoursePresentationSemantics(issues);
+assertLocalizedHomepageNavigation(issues);
 
 if (issues.length > 0) {
   console.error(JSON.stringify({ ...summary, issues: issues.slice(0, 80), issueCount: issues.length }, null, 2));

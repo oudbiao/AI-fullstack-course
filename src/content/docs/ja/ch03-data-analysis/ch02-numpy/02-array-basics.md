@@ -338,8 +338,7 @@ e = np.empty_like(original)
 
 ## まとめ
 
-```mermaid
-mindmap
+```course-map
   root((NumPy 配列の基礎))
     配列を作成する
       np.array リストから作成

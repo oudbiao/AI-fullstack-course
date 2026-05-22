@@ -338,8 +338,7 @@ Expected_output: printed shapes and values that make the array operation inspect
 
 ## Summary
 
-```mermaid
-mindmap
+```course-map
   root((NumPy Array Basics))
     Creating Arrays
       np.array Create from a list

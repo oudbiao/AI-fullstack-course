@@ -248,8 +248,7 @@ Once this flow makes sense, learning SQL and Python database connections later w
 
 ## Summary
 
-```mermaid
-mindmap
+```course-map
   root(("Relational Database"))
     Core concepts
       Database

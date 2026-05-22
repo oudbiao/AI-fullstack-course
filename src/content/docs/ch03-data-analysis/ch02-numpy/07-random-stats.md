@@ -378,8 +378,7 @@ The more points you use, the more accurate the estimate becomes! That is the cha
 
 ## Summary
 
-```mermaid
-mindmap
+```course-map
   root((Random Numbers and Statistics))
     Random Number Generation
       random / rand Uniform distribution

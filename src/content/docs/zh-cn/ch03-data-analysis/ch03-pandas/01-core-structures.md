@@ -506,8 +506,7 @@ print(result)
 
 ## 小结
 
-```mermaid
-mindmap
+```course-map
   root((Pandas 核心数据结构))
     Series
       带标签的一维数组

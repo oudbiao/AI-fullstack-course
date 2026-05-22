@@ -381,8 +381,7 @@ avg_fare_by_embarked(passengers)
 
 Let’s review the problems we encountered when doing these analyses with pure Python:
 
-```mermaid
-mindmap
+```course-map
   root((Pain points of<br/>pure Python data processing))
     Type conversion
       Everything from CSV is a string

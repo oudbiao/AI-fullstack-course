@@ -378,8 +378,7 @@ for n in [100, 1000, 10000, 100000, 1000000]:
 
 ## 小结
 
-```mermaid
-mindmap
+```course-map
   root((随机数与统计))
     随机数生成
       random / rand 均匀分布

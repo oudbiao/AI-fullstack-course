@@ -517,8 +517,7 @@ plt.show()
 
 ### 主要な発見
 
-```mermaid
-mindmap
+```course-map
   root((EDA の主要な発見))
     支払いパターン
       多くの支払いは 10-25 ドル

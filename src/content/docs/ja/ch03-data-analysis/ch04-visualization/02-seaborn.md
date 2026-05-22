@@ -452,8 +452,7 @@ plt.show()
 
 ## Seaborn のよく使う図 早見表
 
-```mermaid
-mindmap
+```course-map
   root(("Seaborn<br/>図の種類"))
     分布図
       histplot ヒストグラム
